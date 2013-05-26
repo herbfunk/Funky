@@ -226,8 +226,7 @@ namespace FunkyTrinity
 
 						  if (Bot.Combat.UnitRAGUIDs.Count>=SettingsFunky.ClusterMinimumUnitCount)
 						  {
-								List<CacheObject> listObjectUnits=listObjectCache.Where(u => Bot.Combat.UnitRAGUIDs.Contains(u.RAGUID)
-																														   &&u.CentreDistance<=59f).ToList();
+								List<CacheObject> listObjectUnits=listObjectCache.Where(u => Bot.Combat.UnitRAGUIDs.Contains(u.RAGUID)).ToList();
 
 								if (listObjectUnits.Count>0)
 								{

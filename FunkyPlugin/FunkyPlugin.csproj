@@ -171,7 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Demonbuddy">
-      <HintPath>..\..\..\..\Users\aaron\Desktop\DB_Debug - Copy\Demonbuddy.exe</HintPath>
+      <HintPath>..\..\..\..\Desktop\DB_Debug - Copy\Demonbuddy.exe</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />

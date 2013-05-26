@@ -123,13 +123,11 @@ namespace FunkyTrinity
 					 {
 						  intersectingObstacles=intersectingObstacles.OrderBy(obstacle => obstacle.CentreDistance);
 
-						  CacheObstacle intersectingObstacle=intersectingObstacles.First();
-
-
-						  //Handle Destructable objects by making it a target!
-						  if ((ObstacleType.Monster|ObstacleType.Destructable).HasFlag(intersectingObstacle.Obstacletype.Value)
-								&&intersectingObstacle.ObjectIsValidForTargeting)
+						  foreach (var intersectingObstacle in intersectingObstacles.Where(obj => (ObstacleType.Monster|ObstacleType.Destructable).HasFlag(obj.Obstacletype.Value)&&obj.ObjectIsValidForTargeting))
 						  {
+								//Handle Destructable objects by making it a target!
+
+
 								Logging.WriteVerbose("Intersecting Object found and added to prioritized list {0}", intersectingObstacle.InternalName);
 
 								intersectingObstacle.PrioritizedDate=DateTime.Now;
@@ -142,29 +140,33 @@ namespace FunkyTrinity
 									 Bot.Combat.ResetTargetHandling();
 
 								return false;
+
+								//Logging.WriteVerbose("Intersecting Obstacle found, attempting to find a location to move. {0}", intersectingObstacle.InternalName);
 						  }
-						  Logging.WriteVerbose("Intersecting Obstacle found, attempting to find a location to move. {0}", intersectingObstacle.InternalName);
 
-						  bool foundSpot=intersectingObstacle.GPRect.TryFindSafeSpot(out TempMovementVector, Target.BotMeleeVector, false);
-
-						  if (foundSpot)
+						  CacheObject nearestObj=intersectingObstacles.First();
+						  if ((ObstacleType.ServerObject).HasFlag(nearestObj.Obstacletype.Value))
 						  {
-								Vector3 newIntersectionVector=TempMovementVector;
+								bool foundSpot=nearestObj.GPRect.TryFindSafeSpot(out TempMovementVector, Target.BotMeleeVector, false);
 
-								//Test if this spot will still intersect
-								bool intersectingSpot=ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obstacle => obstacle.TestIntersection(CurrentPosition, newIntersectionVector));
-
-								if (intersectingSpot)
+								if (foundSpot)
 								{
-									 foundSpot=intersectingObstacle.GPRect.TryFindSafeSpot(out TempMovementVector, newIntersectionVector, false);
+									 Vector3 newIntersectionVector=TempMovementVector;
+
+									 //Test if this spot will still intersect
+									 bool intersectingSpot=ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obstacle => obstacle.TestIntersection(CurrentPosition, newIntersectionVector));
+
+									 if (intersectingSpot)
+									 {
+										  foundSpot=nearestObj.GPRect.TryFindSafeSpot(out TempMovementVector, newIntersectionVector, false);
+									 }
+
+									 //Logging.WriteVerbose("Found location to move around object");
 								}
 
-								//Logging.WriteVerbose("Found location to move around object");
+								return foundSpot;
 						  }
-
-						  return foundSpot;
 					 }
-
 				}
 				return false;
 		  }

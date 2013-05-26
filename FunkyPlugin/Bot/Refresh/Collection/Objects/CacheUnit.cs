@@ -1143,6 +1143,8 @@ namespace FunkyTrinity
 								Bot.Combat.powerPrime.iMinimumRange=base.ActorSphereRadius.Value*1.5f;
 						  else if (this.IsBurrowed.HasValue&&this.IsBurrowed.Value&&this.IsEliteRareUnique)//Force close range on burrowed elites!
 								Bot.Combat.powerPrime.iMinimumRange=15f;
+						  else if (this.IsStealthableUnit&&this.IsAttackable.HasValue&&this.IsAttackable.Value==false&&this.IsEliteRareUnique)
+								Bot.Combat.powerPrime.iMinimumRange=15f;
 						  else if (this.IsTreasureGoblin&&!Bot.Class.IsMeleeClass&&SettingsFunky.Class.GoblinMinimumRange>0)
 								Bot.Combat.powerPrime.iMinimumRange=SettingsFunky.Class.GoblinMinimumRange;
 						  else
