@@ -1,0 +1,1 @@
+﻿First bot start will occasionally not properly set treehooks. (Found to only occur with YAR)

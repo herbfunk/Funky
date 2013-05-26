@@ -1,0 +1,8 @@
+//Rules: [QUALITY] [REQLEVEL] [REDUCEDLEVEL] [LEVEL]
+//				   Required   Reduced Affix  ILevel
+
+//Legendaries with no reduced level.
+[QUALITY] == "Legendary" && ([LEVEL] > 60) && ([REDUCEDLEVEL] <= 0)
+
+//Rares that are level 60 required only!
+[QUALITY] == "Rare" && ([LEVEL] > 60) && ([REDUCEDLEVEL] <= 0)
