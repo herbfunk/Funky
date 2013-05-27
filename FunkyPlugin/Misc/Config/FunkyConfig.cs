@@ -2986,8 +2986,8 @@ namespace FunkyTrinity
 					 configWriter.WriteLine("KiteDistance="+SettingsFunky.KiteDistance.ToString());
 					 configWriter.WriteLine("DestructibleRange="+SettingsFunky.DestructibleRange.ToString());
 
-					 configWriter.WriteLine("GlobeHealthPercent="+SettingsFunky.GlobeHealthPercent.ToString("F2", CultureInfo.InvariantCulture));
-					 configWriter.WriteLine("PotionHealthPercent="+SettingsFunky.PotionHealthPercent.ToString("F2", CultureInfo.InvariantCulture));
+					 configWriter.WriteLine("GlobeHealthPercent="+SettingsFunky.GlobeHealthPercent.ToString());
+					 configWriter.WriteLine("PotionHealthPercent="+SettingsFunky.PotionHealthPercent.ToString());
 
 					 configWriter.WriteLine("IgnoreCombatRange="+SettingsFunky.IgnoreCombatRange.ToString());
 					 configWriter.WriteLine("IgnoreLootRange="+SettingsFunky.IgnoreLootRange.ToString());
@@ -3031,7 +3031,7 @@ namespace FunkyTrinity
 					 configWriter.WriteLine("ClusterMinimumUnitCount="+SettingsFunky.ClusterMinimumUnitCount.ToString());
 					 configWriter.WriteLine("ClusterKillLowHPUnits="+SettingsFunky.ClusterKillLowHPUnits.ToString());
 					 configWriter.WriteLine("IgnoreClusteringWhenLowHP="+SettingsFunky.IgnoreClusteringWhenLowHP.ToString());
-					 configWriter.WriteLine("IgnoreClusterLowHPValue="+SettingsFunky.IgnoreClusterLowHPValue.ToString("F2", CultureInfo.InvariantCulture));
+					 configWriter.WriteLine("IgnoreClusterLowHPValue="+SettingsFunky.IgnoreClusterLowHPValue.ToString());
 					 configWriter.WriteLine("TreasureGoblinRange="+SettingsFunky.TreasureGoblinRange.ToString());
 
 
@@ -3069,7 +3069,7 @@ namespace FunkyTrinity
 					 foreach (AvoidanceType item in currentDictionaryAvoidance.Keys)
 					 {
 						  configWriter.WriteLine(item.ToString()+"_radius="+dictAvoidanceRadius[item].ToString());
-						  configWriter.WriteLine(item.ToString()+"_health="+currentDictionaryAvoidance[item].ToString("F2", CultureInfo.InvariantCulture));
+						  configWriter.WriteLine(item.ToString()+"_health="+currentDictionaryAvoidance[item].ToString());
 					 }
 
 				}
