@@ -167,17 +167,21 @@ namespace FunkyTrinity
 					 }
 
 					 private DateTime lastClusterComputed=DateTime.Today;
+
+
 					 private List<Cluster> LC_=new List<Cluster>();
-
-					 public List<Cluster> Clusters(double Distance=12d, float MaxDistanceFromBot=50f, int MinUnitCount=1)
+					 //Cache last filtered list generated
+					 private List<Cluster> LastClusterList=new List<Cluster>();
+					 public List<Cluster> Clusters(double Distance=12d, float MaxDistanceFromBot=50f, int MinUnitCount=1, bool ignoreFullyNonAttackable=true)
 					 {
-
-						  if (DateTime.Now.Subtract(lastClusterComputed).TotalMilliseconds>200)
+						  //only run Kmeans every 200ms or when cache is empty!
+						  if (DateTime.Now.Subtract(lastClusterComputed).TotalMilliseconds>200||LastClusterList.Count==0)
 						  {
 								RunKmeans(Distance, MaxDistanceFromBot);
+								LastClusterList=LC_.Where(c => c.ListPoints.Count>=MinUnitCount
+													 &&(!ignoreFullyNonAttackable||!c.ContainsNoTagetableUnits&&c.CurrentValidUnit!=null)).ToList();
 						  }
-						  return LC_.Where(c => c.ListPoints.Count>=MinUnitCount).ToList();
-
+						  return LastClusterList;
 					 }
 
 					 internal void RunKmeans(double distance, float maximumDistanceFromBot=50f)

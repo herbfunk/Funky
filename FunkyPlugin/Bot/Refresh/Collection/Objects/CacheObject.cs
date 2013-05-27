@@ -277,16 +277,16 @@ namespace FunkyTrinity
 					 }
 				}
 
-				public bool LOSTest(bool NavRayCast=true, bool ServerObjectIntersection=true, bool NavCellWalkable=false)
+				public bool LOSTest(Vector3 PositionToTestFrom,bool NavRayCast=true, bool ServerObjectIntersection=true, bool NavCellWalkable=false)
 				{
 
-					 if (NavRayCast&&Zeta.Navigation.Navigator.Raycast(Bot.Character.Position, this.BotMeleeVector))
+					 if (NavRayCast&&Zeta.Navigation.Navigator.Raycast(PositionToTestFrom, this.BotMeleeVector))
 						  return false;
 
-					 if (ServerObjectIntersection&&ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obstacle => obstacle.Obstacletype.HasValue&&obstacle.Obstacletype.Value!=ObstacleType.Monster&&obstacle.TestIntersection(Bot.Character.Position, this.Position)))
+					 if (ServerObjectIntersection&&ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obstacle => obstacle.Obstacletype.HasValue&&obstacle.Obstacletype.Value!=ObstacleType.Monster&&obstacle.TestIntersection(PositionToTestFrom, this.Position)))
 						  return false;
 
-					 if (NavCellWalkable&&!GilesCanRayCast(Bot.Character.Position, this.BotMeleeVector, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
+					 if (NavCellWalkable&&!GilesCanRayCast(PositionToTestFrom, this.BotMeleeVector, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
 						  return false;
 
 					 return true;
@@ -339,13 +339,16 @@ namespace FunkyTrinity
 					 IgnoringLOSMovementTest=Bot.Combat.RequiresLOSMovementRAGUIDs.Contains(this.RAGUID);
 				}
 				///<summary>
-				///Validates that both vectors used to test LOS remain unchanged.
+				///Validates the positon of the unit and the LOS Vector
 				///</summary>
 				public bool LastLOSCheckStillValid
 				{
 					 get
 					 {
-						  return (Bot.Character.Position==LastLOSCheck_BotPosition&&this.Position==LastLOSCheck_ThisPosition);
+						  //We validate the current position to the snapshot we took when we found a valid LOS location.
+						  //Checking the distance change as a opposed to using equal allows for little variations of movement to occur!
+						  //If the Vector Distance failed, then we do another raycast to validate the current position vector.
+						  return (this.Position.Distance(LastLOSCheck_ThisPosition)<2.5f||this.LOSTest(this.LOSV3, true, (!Bot.Class.IsMeleeClass),(Bot.Class.IsMeleeClass)));
 					 }
 				}
 				#endregion

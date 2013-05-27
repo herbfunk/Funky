@@ -45,6 +45,16 @@ namespace FunkyTrinity
 					 return currentValidUnit;
 				}
 		  }
+		  public bool ContainsNoTagetableUnits
+		  {
+				get
+				{
+					 if (ListUnits.Count>0)
+						  return ListUnits.Any(unit => unit.IsTargetableAndAttackable);
+					 
+					 return true;
+				}
+		  }
 		  internal int EliteCount { get; set; }
 		  internal int DotDPSCount { get; set; }
 		  internal double DotDPSRatio

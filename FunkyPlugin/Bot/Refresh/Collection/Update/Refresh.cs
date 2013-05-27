@@ -252,10 +252,6 @@ namespace FunkyTrinity
 					 if (Bot.Combat.RequiresAvoidance&&Bot.Combat.TriggeringAvoidances.Count==0)
 						  Bot.Combat.RequiresAvoidance=false;
 
-					 //Find any units that we should kite, sorted by distance.
-					 var nearbyUnits=ObjectCache.Objects.Values.OfType<CacheUnit>().Where(unit => unit.ShouldBeKited
-																					 &&unit.RadiusDistance<=Bot.Class.KiteDistance)
-																					 .OrderBy(unit => unit.Weight).ThenBy(unit => unit.CentreDistance); ;
 
 					 Vector3 LOS=vNullLocation;
 
@@ -327,6 +323,10 @@ namespace FunkyTrinity
 									 &&(Bot.Class.AC!=ActorClass.Wizard||(Bot.Class.AC==ActorClass.Wizard&&(!SettingsFunky.Class.bKiteOnlyArchon||HasBuff(SNOPower.Wizard_Archon)))))
 								{
 
+									 //Find any units that we should kite, sorted by distance.
+									 var nearbyUnits=ObjectCache.Objects.Values.OfType<CacheUnit>().Where(unit => unit.ShouldBeKited
+																									 &&unit.RadiusDistance<=Bot.Class.KiteDistance)
+																									 .OrderBy(unit => unit.Weight).ThenBy(unit => unit.CentreDistance); ;
 
 									 if (nearbyUnits.Any())
 									 {

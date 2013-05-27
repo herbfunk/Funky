@@ -108,7 +108,7 @@ namespace FunkyTrinity
 				{
 					 if (ObjectCache.Objects.Clusters(5d, 35f, 2).Count>0)
 					 {
-						  Vector3 Center=ObjectCache.Objects.Clusters(MinUnitCount:2)[0].CurrentValidUnit.Position;
+						  Vector3 Center=ObjectCache.Objects.Clusters()[0].ListUnits[0].Position;
 						  return new cacheSNOPower(SNOPower.Witchdoctor_GraspOfTheDead, 35f, Center, iCurrentWorldID, -1, 0, 3, USE_SLOWLY);
 					 }
 				}
@@ -214,7 +214,7 @@ namespace FunkyTrinity
 								if (ObjectCache.Objects.Clusters(6d, 30f, 2).Count>0)
 								{
 									 ConditionalTestResult=true;
-									 Location=ObjectCache.Objects.Clusters(MinUnitCount: 2)[0].CurrentValidUnit.Position;
+									 Location=ObjectCache.Objects.Clusters()[0].ListUnits[0].Position;
 								}
 						  }
 						  else
@@ -225,7 +225,7 @@ namespace FunkyTrinity
 								if (ObjectCache.Objects.Clusters(distance, 45f, 2).Count>0)
 								{
 									 ConditionalTestResult=true;
-									 ACDGuid=ObjectCache.Objects.Clusters(MinUnitCount: 2)[0].CurrentValidUnit.AcdGuid.Value;
+									 ACDGuid=ObjectCache.Objects.Clusters()[0].ListUnits[0].AcdGuid.Value;
 								}
 						  }
 					 }
@@ -267,7 +267,7 @@ namespace FunkyTrinity
 								if (ObjectCache.Objects.Clusters(5d, 35f, 2).Count>0)
 								{
 									 ConditionalTestResult=true;
-									 Location=ObjectCache.Objects.Clusters(MinUnitCount: 2)[0].CurrentValidUnit.Position;
+									 Location=ObjectCache.Objects.Clusters()[0].ListUnits[0].Position;
 								}
 
 						  }
@@ -288,7 +288,7 @@ namespace FunkyTrinity
 								if (ObjectCache.Objects.Clusters(7d, 20f, 2).Count>0)
 								{
 									 ConditionalTestResult=true;
-									 ACDGuid=ObjectCache.Objects.Clusters(MinUnitCount: 2)[0].CurrentValidUnit.AcdGuid.Value;
+									 ACDGuid=ObjectCache.Objects.Clusters()[0].ListUnits[0].AcdGuid.Value;
 								}
 						  }
 					 }

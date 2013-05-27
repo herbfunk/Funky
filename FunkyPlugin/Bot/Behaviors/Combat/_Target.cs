@@ -420,7 +420,7 @@ namespace FunkyTrinity
 								#region LOSUpdate
 								if (DateTime.Now.Subtract(ObjectData.LastLOSCheck).TotalSeconds>5&&!ObjectData.LastLOSCheckStillValid)
 								{
-									 if (!ObjectData.LOSTest(true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass)))
+									 if (!ObjectData.LOSTest(Bot.Character.Position,true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass)))
 									 {
 										  //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
 										  if (ObjectData.ObjectIsSpecial&&ObjectData.LastLOSCheckMS>3000)

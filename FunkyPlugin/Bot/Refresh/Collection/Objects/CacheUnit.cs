@@ -57,6 +57,14 @@ namespace FunkyTrinity
 				public bool? HasDOTdps { get; set; }
 				public bool? IsTargetable { get; set; }
 				public bool? IsAttackable { get; set; }
+				public bool IsTargetableAndAttackable
+				{
+					 get
+					 {
+						  return ((this.IsAttackable.HasValue&&this.IsAttackable.Value)
+									 &&(!this.IsBurrowed.HasValue||!this.IsBurrowed.Value));
+					 }
+				}
 				//public int? KillRadius { get; set; }
 				internal bool? burrowed_;
 				public bool? IsBurrowed
@@ -82,7 +90,7 @@ namespace FunkyTrinity
 						  return (!this.BeingIgnoredDueToClusterLogic //not ignored because of clusters
 										&&(!this.IsBurrowed.HasValue||!this.IsBurrowed.Value) //ignore burrowed!
 										&&!Bot.Class.hashActorSNOKitingIgnore.Contains(base.SNOID)
-									   &&(this.MonsterRare||this.MonsterMinion||this.MonsterElite||this.UnitMaxHitPointAverageWeight>-1));
+										&&(this.MonsterRare||this.MonsterMinion||this.MonsterElite||this.UnitMaxHitPointAverageWeight>-1));
 					 }
 				}
 
@@ -285,7 +293,7 @@ namespace FunkyTrinity
 						  else if (this.IsTreasureGoblin)
 						  {
 								//Check if this goblin is in combat and we are not to close..
-								
+
 								if (this.CurrentHealthPct.Value>=1d
 									 &&this.RadiusDistance>20f)
 								{
@@ -311,7 +319,7 @@ namespace FunkyTrinity
 										  //We will let calculations below preform instead!
 									 }
 								}
-								
+
 
 								//Use a shorter range if not yet noticed..
 								if (this.CurrentHealthPct<=0.10)
@@ -690,14 +698,18 @@ namespace FunkyTrinity
 						  }
 
 
-						  //Did we flag this in target handler?
+						  //Distance Check
+						  if (this.CentreDistance>this.KillRadius)
+								return false;
+
+
+						  //Line of sight pre-check
 						  if (this.RequiresLOSCheck)
 						  {
-
-								//Melee Check for navigation
-								if (!base.LOSTest(true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass)))
+								//preform LoS test
+								if (!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass)))
 								{
-
+									 //ignore non-special units.. or units who already attempted to find a location within the last 3s
 									 if (!this.ObjectIsSpecial||base.LastLOSCheckMS<3000)
 									 {
 										  this.BlacklistLoops=10;
@@ -750,12 +762,9 @@ namespace FunkyTrinity
 						  #endregion
 
 
-						  //Distance Check
-						  if (this.CentreDistance>this.KillRadius) 
-								return false;
-
 						  //Add this valid unit RAGUID to list
-						  Bot.Combat.UnitRAGUIDs.Add(this.RAGUID);
+						  if (!Bot.Combat.UnitRAGUIDs.Contains(this.RAGUID))
+								Bot.Combat.UnitRAGUIDs.Add(this.RAGUID);
 
 						  return true;
 					 }
@@ -876,6 +885,10 @@ namespace FunkyTrinity
 						  {
 								//this.IsBurrowed=this.ref_DiaUnit.IsBurrowed;
 								this.IsBurrowed=base.ref_DiaObject.CommonData.GetAttribute<float>(ActorAttributeType.Burrowed)>0;
+
+								//ignore units who are stealthed completly (exception when object is special!)
+								if (this.IsBurrowed.Value&&!this.ObjectIsSpecial)
+									 return false;
 						  } catch { }
 					 }
 					 #endregion
@@ -886,13 +899,20 @@ namespace FunkyTrinity
 						  try
 						  {
 								//this.IsAttackable=this.ref_DiaUnit.IsAttackable;
+								bool stealthed=false;
+								//Special units who can stealth
+								if (base.IsStealthableUnit)
+									 stealthed=(this.ref_DiaUnit.CommonData.GetAttribute<float>(ActorAttributeType.Stealthed)<=0);
 
-								//Special units who can stealth and are not elites check the Stealthed Value.
-								if (base.IsStealthableUnit&&!this.IsEliteRareUnique)
-									 this.IsTargetable=(this.ref_DiaUnit.CommonData.GetAttribute<float>(ActorAttributeType.Stealthed)<=0);
-								else
+								if (!stealthed)
 									 this.IsTargetable=(this.ref_DiaUnit.CommonData.GetAttribute<float>(ActorAttributeType.Untargetable)<=0);
-
+								else
+								{
+									 this.IsTargetable=stealthed;
+									 //since stealth is similar to being burrowed we skip non-special units
+									 if (!this.ObjectIsSpecial)
+										  return false;
+								}
 						  } catch (Exception ex)
 						  {
 								Logging.WriteVerbose("[Funky] Safely handled exception getting is-targetable attribute for unit "+this.InternalName+" ["+this.SNOID.ToString()+"]");
@@ -1163,10 +1183,10 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  if (this.IsEliteRareUnique&&!SettingsFunky.IgnoreAboveAverageMobs||
-									 this.IsBoss||
-									 this.IsTreasureGoblin&&SettingsFunky.GoblinPriority>1||
-									 this.CurrentHealthPct<0.25&&SettingsFunky.ClusterKillLowHPUnits)
+						  if ((this.IsEliteRareUnique&&!SettingsFunky.IgnoreAboveAverageMobs)||
+									 (this.IsBoss)||
+									 (this.IsTreasureGoblin&&SettingsFunky.GoblinPriority>1)||
+									 (this.CurrentHealthPct<0.25&&SettingsFunky.ClusterKillLowHPUnits))
 								return true;
 
 						  return base.ObjectIsSpecial;

@@ -123,9 +123,14 @@ namespace FunkyTrinity
 						  return new cacheSNOPower(SNOPower.DemonHunter_Multishot, 55f, vNullLocation, iCurrentWorldID, thisCacheUnitObj.AcdGuid.Value, 1, 1, USE_SLOWLY);
 
 					 //cluster target..
-					 if (ObjectCache.Objects.Clusters(8d, 45f, 2).Count>0)
-						  return new cacheSNOPower(SNOPower.DemonHunter_Multishot, 55f, ObjectCache.Objects.Clusters(MinUnitCount: 2)[0].CurrentValidUnit.Position, iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-					 
+					 System.Collections.Generic.List<Cluster> clusters=ObjectCache.Objects.Clusters(8d, 45f, 2);
+					 if (clusters.Count>0)
+					 {
+
+						  Vector3 pos=clusters[0].ListUnits[0].Position;
+						  return new cacheSNOPower(SNOPower.DemonHunter_Multishot, 55f, pos, iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
+
+					 }
 				}
 				// Fan of Knives
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_FanOfKnives)&&!Bot.Character.bIsIncapacitated&&
