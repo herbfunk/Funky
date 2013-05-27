@@ -13,17 +13,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-<<<<<<< HEAD
-		  // The distance last loop, so we can compare to current distance to work out if we moved
-		  private static float iLastDistance=0f;
-
-		  // **********************************************************************************************
-		  // *****         TownRunCheckOverlord - determine if we should do a town-run or not         *****
-		  // **********************************************************************************************
-		  private static bool GilesTownRunCheckOverlord(object ret)
-=======
 		  public partial class TownRunManager
->>>>>>> origin/Refractoring
 		  {
 				// The distance last loop, so we can compare to current distance to work out if we moved
 				private static float iLastDistance=0f;
@@ -63,9 +53,6 @@ namespace FunkyTrinity
 
 						  bWantToTownRun=true;
 					 }
-<<<<<<< HEAD
-				}
-=======
 					 else if (DateTime.Now.Subtract(TimeLastCheckedForTownRun).TotalSeconds>6)
 					 {
 						  TimeLastCheckedForTownRun=DateTime.Now;
@@ -73,7 +60,6 @@ namespace FunkyTrinity
 						  {
 								if (!bLastTownRunCheckResult)
 									 bPreStashPauseDone=false;
->>>>>>> origin/Refractoring
 
 								bWantToTownRun=true;
 						  }

@@ -186,22 +186,14 @@ namespace FunkyTrinity
 					PowerManager.CanCast(SNOPower.Witchdoctor_ZombieCharger))
 				{
 					 if (thisCacheUnitObj!=null&&thisCacheUnitObj.ObjectIsSpecial)
-<<<<<<< HEAD
-						  return new cacheSNOPower(SNOPower.Witchdoctor_ZombieCharger, 11f, new Vector3(Bot.Target.ObjectData.Position.X, Bot.Target.ObjectData.Position.Y, Bot.Target.ObjectData.Position.Z+iThisHeight), iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
-=======
 						  return new cacheSNOPower(SNOPower.Witchdoctor_ZombieCharger, 11f, new Vector3(Bot.Target.ObjectData.Position.X, Bot.Target.ObjectData.Position.Y, Bot.Target.ObjectData.Position.Z+iThisHeight), Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
->>>>>>> origin/Refractoring
 					 else
 					 {
 						  //Cluster tests
 						  if (ObjectCache.Objects.Clusters(6d, 25f, 2, true).Count>0)
 						  {
 								Vector3 Centeroid=ObjectCache.Objects.Clusters()[0].ListUnits[0].BotMeleeVector;
-<<<<<<< HEAD
-								return new cacheSNOPower(SNOPower.Witchdoctor_ZombieCharger, 0f, Centeroid, iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
-=======
 								return new cacheSNOPower(SNOPower.Witchdoctor_ZombieCharger, 0f, Centeroid, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
->>>>>>> origin/Refractoring
 						  }
 					 }
 				}

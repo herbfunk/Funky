@@ -222,11 +222,7 @@ namespace FunkyTrinity
 						  Vector3 Center=clusters[0].ListUnits[0].Position;
 						  float Distance=Center.Distance(Bot.Character.Position);
 						  Vector3 AdjustedV3=MathEx.GetPointAt(Center, Distance*0.75f, FindDirection(Center, Bot.Character.Position, true));
-<<<<<<< HEAD
-						  return new cacheSNOPower(SNOPower.Monk_WaveOfLight, 16f, AdjustedV3, iCurrentWorldID, -1, 2, 2, USE_SLOWLY);
-=======
 						  return new cacheSNOPower(SNOPower.Monk_WaveOfLight, 16f, AdjustedV3, Bot.Character.iCurrentWorldID, -1, 2, 2, USE_SLOWLY);
->>>>>>> origin/Refractoring
 					 }
 				}
 				// For tempest rush re-use

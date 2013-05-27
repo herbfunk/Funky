@@ -76,13 +76,8 @@ namespace FunkyTrinity
 
 								//Logging.WriteVerbose("Intersecting Obstacle found, attempting to find a location to move. {0}", intersectingObstacle.InternalName);
 
-<<<<<<< HEAD:FunkyPlugin/Bot/Behaviors/Movement/ObstacleFinder.cs
-								bool foundSpot=GridPointAreaCache.AttemptFindSafeSpot(out TempMovementVector, Bot.Character.Position);
-								return foundSpot;
-=======
 								
 								return true;
->>>>>>> origin/Refractoring:FunkyPlugin/Bot/Behaviors/Movement/Helper/ObstacleFinder.cs
 						  }
 					 }
 				}

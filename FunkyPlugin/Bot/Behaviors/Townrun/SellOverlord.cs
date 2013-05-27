@@ -100,18 +100,6 @@ namespace FunkyTrinity
 
 					 return bShouldVisitVendor;
 				}
-<<<<<<< HEAD
-				bLoggedJunkThisStash=false;
-				bCurrentlyMoving=false;
-				PotionCheck=false;
-				iCurrentItemLoops=0;
-				RandomizeTheTimer();
-
-				Bot.Character.iTotalPotions=Bot.Character.BackPack.ReturnCurrentPotions().Sum(potions => potions.ItemStackQuantity);
-				return RunStatus.Success;
-		  }
-=======
->>>>>>> origin/Refractoring
 
 				// **********************************************************************************************
 				// *****             Pre Sell sets everything up ready for running to vendor                *****

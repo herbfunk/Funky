@@ -900,11 +900,7 @@ namespace FunkyTrinity
 								//ignore units who are stealthed completly (exception when object is special!)
 								//if (this.IsBurrowed.Value&&!this.ObjectIsSpecial)
 								//return false;
-<<<<<<< HEAD:FunkyPlugin/Bot/Refresh/Collection/Objects/CacheUnit.cs
-						  } catch { }
-=======
 						  } catch (AccessViolationException) { }
->>>>>>> origin/Refractoring:FunkyPlugin/Bot/Cache/dbRefresh/Objects/CacheUnit.cs
 					 }
 					 #endregion
 

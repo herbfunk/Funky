@@ -67,12 +67,6 @@ namespace FunkyTrinity
 					 }
 
 					 // Bunch of variables used throughout
-<<<<<<< HEAD:FunkyPlugin/Bot/Refresh/Collection/Update/Refresh.cs
-					 #region VariableReset
-					 Bot.Combat.bCheckGround=false;
-					 // Reset the counters for player-owned things
-=======
->>>>>>> origin/Refractoring:FunkyPlugin/Bot/Cache/dbRefresh/Update/Refresh.cs
 					 Bot.Character.PetData.Reset();
 					 // Reset the counters for monsters at various ranges
 					 Bot.Combat.Reset();

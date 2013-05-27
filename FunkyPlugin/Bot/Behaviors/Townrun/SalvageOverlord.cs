@@ -53,11 +53,7 @@ namespace FunkyTrinity
 
 									 //Log("GilesTrinityScoring == "+SettingsFunky.ItemRuleGilesScoring.ToString());
 
-<<<<<<< HEAD
-								bShouldVisitSalvage=ItemManager.Current.ShouldStashItem(thisitem.ACDItem);
-=======
 									 bShouldVisitSalvage=ItemManager.Current.ShouldStashItem(thisitem.ACDItem);
->>>>>>> origin/Refractoring
 
 									 if (bShouldVisitSalvage)
 										  Bot.Character.BackPack.townRunCache.hashGilesCachedSalvageItems.Add(thisitem);
@@ -85,19 +81,6 @@ namespace FunkyTrinity
 
 				internal static RunStatus GilesOptimisedPreSalvage(object ret)
 				{
-<<<<<<< HEAD
-					 Log("GSError: Diablo 3 memory read error, or item became invalid [PreSalvage-1]", true);
-					 return RunStatus.Failure;
-				}
-
-
-				bLoggedJunkThisStash=false;
-				bCurrentlyMoving=false;
-				iCurrentItemLoops=0;
-				RandomizeTheTimer();
-				return RunStatus.Success;
-		  }
-=======
 					 if (SettingsFunky.DebugStatusBar)
 						  BotMain.StatusText="Town run: Salvage routine started";
 					 Log("GSDebug: Salvage routine started.", true);
@@ -108,7 +91,6 @@ namespace FunkyTrinity
 						  return RunStatus.Failure;
 					 }
 
->>>>>>> origin/Refractoring
 
 					 bLoggedJunkThisStash=false;
 					 bCurrentlyMoving=false;
@@ -253,9 +235,6 @@ namespace FunkyTrinity
 						  float iDistanceFromSafety=Vector3.Distance(vectorPlayerPosition, vectorSafeLocation);
 						  if (bCurrentlyMoving)
 						  {
-<<<<<<< HEAD
-								bCurrentlyMoving=false;
-=======
 								if (iDistanceFromSafety<=8f)
 								{
 									 bCurrentlyMoving=false;
@@ -265,7 +244,6 @@ namespace FunkyTrinity
 									 ZetaDia.Me.UsePower(SNOPower.Walk, vectorSafeLocation, ZetaDia.Me.WorldDynamicId);
 								}
 								return RunStatus.Running;
->>>>>>> origin/Refractoring
 						  }
 						  iLastDistance=iDistanceFromSafety;
 

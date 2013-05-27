@@ -168,10 +168,7 @@ namespace FunkyTrinity
 					 // Date time we were last told to stick to close range targets
 					 public DateTime lastForcedKeepCloseRange=DateTime.Today;
 
-<<<<<<< HEAD:FunkyPlugin/Bot/Refresh/Bot/CombatCache.cs
-=======
 
->>>>>>> origin/Refractoring:FunkyPlugin/Bot/Cache/BotCache/CombatCache.cs
 					 // Variables relating to quick-reference of monsters within sepcific ranges (if anyone has suggestion for similar functionality with reduced CPU use, lemme know, but this is fast atm!)
 					 public int[] iElitesWithinRange;
 
@@ -212,8 +209,6 @@ namespace FunkyTrinity
 					 /// Check LoS if waller avoidance detected
 					 /// </summary>
 					 public bool bCheckGround=false;
-<<<<<<< HEAD:FunkyPlugin/Bot/Refresh/Bot/CombatCache.cs
-=======
 
 
 					 public float iCurrentMaxKillRadius=0f;
@@ -251,7 +246,6 @@ namespace FunkyTrinity
 						  if (iKeepLootRadiusExtendedFor>0)
 								iKeepLootRadiusExtendedFor--;
 					 }
->>>>>>> origin/Refractoring:FunkyPlugin/Bot/Cache/BotCache/CombatCache.cs
 
 
 					 ///<summary>
