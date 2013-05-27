@@ -887,8 +887,8 @@ namespace FunkyTrinity
 								this.IsBurrowed=base.ref_DiaObject.CommonData.GetAttribute<float>(ActorAttributeType.Burrowed)>0;
 
 								//ignore units who are stealthed completly (exception when object is special!)
-								if (this.IsBurrowed.Value&&!this.ObjectIsSpecial)
-									 return false;
+								//if (this.IsBurrowed.Value&&!this.ObjectIsSpecial)
+									 //return false;
 						  } catch { }
 					 }
 					 #endregion
@@ -910,8 +910,8 @@ namespace FunkyTrinity
 								{
 									 this.IsTargetable=stealthed;
 									 //since stealth is similar to being burrowed we skip non-special units
-									 if (!this.ObjectIsSpecial)
-										  return false;
+									 //if (!this.ObjectIsSpecial)
+										  //return false;
 								}
 						  } catch (Exception ex)
 						  {
@@ -932,11 +932,6 @@ namespace FunkyTrinity
 
 						  }
 					 }
-
-
-					 //if (!this.IsAttackable.Value)
-					 //  return false;
-
 
 					 //Position update
 					 base.UpdatePosition();
@@ -1186,7 +1181,12 @@ namespace FunkyTrinity
 						  if ((this.IsEliteRareUnique&&!SettingsFunky.IgnoreAboveAverageMobs)||
 									 (this.IsBoss)||
 									 (this.IsTreasureGoblin&&SettingsFunky.GoblinPriority>1)||
-									 (this.CurrentHealthPct<0.25&&SettingsFunky.ClusterKillLowHPUnits))
+									 (this.CurrentHealthPct<0.25&&SettingsFunky.ClusterKillLowHPUnits 
+										  //lower the kill radius for melee!
+											&&(!Bot.Class.IsMeleeClass||(this.CentreDistance<this.KillRadius*0.25f)))) 
+										  
+
+
 								return true;
 
 						  return base.ObjectIsSpecial;
