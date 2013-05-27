@@ -36,7 +36,7 @@ namespace FunkyTrinity
 
     public partial class Funky
     {
-        public static BotStatistics Statistics = new BotStatistics();
+        internal static BotStatistics Statistics = new BotStatistics();
         public class BotStatistics
         {
             public BotStatistics()

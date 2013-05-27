@@ -8,47 +8,47 @@ namespace FunkyTrinity
 	 public partial class Funky
 	 {
 		  // Score weighting for armours and jewelry - feel free to change these values!
-		  public static int iWeightPrimary=50;
-		  public static int iWeightVitality=30;
-		  public static int iWeightArmor=3;
-		  public static int iWeightMovementSpeed=500;
-		  public static int iWeightResistAll=220;
-		  public static int iWeightCritPercent=800;
-		  public static int iWeightCritDamagePercent=30;
-		  public static int iWeightMinDamage=40;
-		  public static int iWeightMaxDamage=40;
-		  public static int iWeightSocket=100;
-		  public static int iWeightLifeOnHit=10;
+		  internal static int iWeightPrimary=50;
+		  internal static int iWeightVitality=30;
+		  internal static int iWeightArmor=3;
+		  internal static int iWeightMovementSpeed=500;
+		  internal static int iWeightResistAll=220;
+		  internal static int iWeightCritPercent=800;
+		  internal static int iWeightCritDamagePercent=30;
+		  internal static int iWeightMinDamage=40;
+		  internal static int iWeightMaxDamage=40;
+		  internal static int iWeightSocket=100;
+		  internal static int iWeightLifeOnHit=10;
 		  // Score weighting for weapons - feel free to change these values!
-		  public static int iWeightWeaponDPS=50;
-		  public static int iWeightWeaponVitality=10;
-		  public static int iWeightWeaponPrimary=20;
-		  public static int iWeightWeaponSocket=200;
-		  public static int iWeightWeaponLifeOnHit=20;
+		  internal static int iWeightWeaponDPS=50;
+		  internal static int iWeightWeaponVitality=10;
+		  internal static int iWeightWeaponPrimary=20;
+		  internal static int iWeightWeaponSocket=200;
+		  internal static int iWeightWeaponLifeOnHit=20;
 
 		  private static HashSet<int> _alreadyLookedAtBlacklist=new HashSet<int>();
 		  private static DateTime _lastLooked=DateTime.Now;
 		  private static DateTime _lastFullEvaluation=DateTime.Now;
-		  public static bool bIgnoreWeapons=false;
-		  public static bool bIgnoreJewelry=false;
-		  public static bool bIgnoreArmor=false;
-		  public static bool bIgnoreHelm=false;
-		  public static bool bDisable60=true;
-		  public static float iMyRightFingerPoints=0;
-		  public static float iMyLeftFingerPoints=0;
-		  public static float iMyBracersPoints=0;
-		  public static float iMyFeetPoints=0;
-		  public static float iMyHandsPoints=0;
-		  public static float iMyHeadPoints=0;
-		  public static float iMyLeftHandPoints=0;
-		  public static float iMyLegsPoints=0;
-		  public static float iMyNeckPoints=0;
-		  public static float iMyRightHandPoints=0;
-		  public static float iMyShouldersPoints=0;
-		  public static float iMyTorsoPoints=0;
-		  public static float iMyWaistPoints=0;
-		  public static Boolean bMyUsingTwoHandedMelee=false;
-		  public static Boolean bNeedFullItemUpdate=true;
+		  internal static bool bIgnoreWeapons=false;
+		  internal static bool bIgnoreJewelry=false;
+		  internal static bool bIgnoreArmor=false;
+		  internal static bool bIgnoreHelm=false;
+		  internal static bool bDisable60=true;
+		  internal static float iMyRightFingerPoints=0;
+		  internal static float iMyLeftFingerPoints=0;
+		  internal static float iMyBracersPoints=0;
+		  internal static float iMyFeetPoints=0;
+		  internal static float iMyHandsPoints=0;
+		  internal static float iMyHeadPoints=0;
+		  internal static float iMyLeftHandPoints=0;
+		  internal static float iMyLegsPoints=0;
+		  internal static float iMyNeckPoints=0;
+		  internal static float iMyRightHandPoints=0;
+		  internal static float iMyShouldersPoints=0;
+		  internal static float iMyTorsoPoints=0;
+		  internal static float iMyWaistPoints=0;
+		  internal static Boolean bMyUsingTwoHandedMelee=false;
+		  internal static Boolean bNeedFullItemUpdate=true;
 
 		  private static List<ItemType> RestrictedTypes
 		  {

@@ -16,19 +16,20 @@ namespace FunkyTrinity
 				// If we aren't in the game of a world is loading, don't do anything yet
 				if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld)
 				{
-					 lastChangedZigZag=DateTime.Today;
-					 vPositionLastZigZagCheck=Vector3.Zero;
+					 Bot.Combat.lastChangedZigZag=DateTime.Today;
+					 Bot.Combat.vPositionLastZigZagCheck=Vector3.Zero;
 					 return false;
 				}
 
 				// World ID safety caching incase it's ever unavailable
 				if (ZetaDia.CurrentWorldDynamicId!=-1)
-					 iCurrentWorldID=ZetaDia.CurrentWorldDynamicId;
+					 Bot.Character.iCurrentWorldID=ZetaDia.CurrentWorldDynamicId;
 
 				//Check if we need to resfresh class data!
-				if (DateTime.Now.Subtract(LastLevelUp).TotalSeconds<20)
+				if (SettingsFunky.UseLevelingLogic)
 				{
-					 if (DateTime.Now.Subtract(LastLevelUp).TotalSeconds>15)
+					 double lastlevelupMS=DateTime.Now.Subtract(LastLevelUp).TotalSeconds;
+					 if (lastlevelupMS<30&&lastlevelupMS>15)
 					 {
 						  Bot.Class=null;
 						  LastLevelUp=DateTime.MinValue;
@@ -44,22 +45,15 @@ namespace FunkyTrinity
 					 try
 					 {
 						  tempClass=ZetaDia.Actors.Me.ActorClass;
-					 } catch
+					 } catch (NullReferenceException)
 					 {
 						  Logging.WriteDiagnostic("[Funky] Safely handled exception trying to get character class.");
 					 }
-					 if (tempClass!=ActorClass.Invalid)
-						  iMyCachedActorClass=ZetaDia.Actors.Me.ActorClass;
-
-					 if (Bot.Class==null)
-						  Bot.Class=new Bot.CharacterInfo(iMyCachedActorClass);
+					 if (tempClass!=ActorClass.Invalid&&Bot.Class==null)
+						  Bot.Class=new Bot.CharacterInfo(tempClass);
 
 
 					 iCombatLoops=0;
-
-
-					 Random R=new Random(DateTime.Now.Millisecond);
-					 lootDelayTime=R.Next(123, 499);
 
 					 //Set Character Radius?
 					 if (Bot.Character.fCharacterRadius==0f)
@@ -67,7 +61,7 @@ namespace FunkyTrinity
 
 					 // Game difficulty, used really for vault on DH's
 					 if (ZetaDia.Service.CurrentHero.CurrentDifficulty!=GameDifficulty.Invalid)
-						  iCurrentGameDifficulty=ZetaDia.Service.CurrentHero.CurrentDifficulty;
+						  Bot.Character.iCurrentGameDifficulty=ZetaDia.Service.CurrentHero.CurrentDifficulty;
 				}
 
 				// Recording of all the XML's in use this run
@@ -82,7 +76,7 @@ namespace FunkyTrinity
 						  Statistics.ProfileStats.UpdateProfileChanged();
 
 						  // See if we appear to have started a new game
-						  if (Funky.sFirstProfileSeen!=""&&sThisProfile==Funky.sFirstProfileSeen)
+						  if (!String.IsNullOrEmpty(Funky.sFirstProfileSeen)&&sThisProfile==Funky.sFirstProfileSeen)
 						  {
 								Funky.iTotalProfileRecycles++;
 								if (Funky.iTotalProfileRecycles>Funky.iTotalJoinGames&&Funky.iTotalProfileRecycles>Funky.iTotalLeaveGames)
@@ -93,7 +87,7 @@ namespace FunkyTrinity
 						  }
 						  Funky.listProfilesLoaded.Add(sThisProfile);
 						  Funky.sLastProfileSeen=sThisProfile;
-						  if (Funky.sFirstProfileSeen=="")
+						  if (String.IsNullOrEmpty(Funky.sFirstProfileSeen))
 								Funky.sFirstProfileSeen=sThisProfile;
 					 }
 				}
@@ -138,18 +132,6 @@ namespace FunkyTrinity
 									 return true;
 								}
 						  }
-						  /*
-					 else
-					 {
-						  if (!Zeta.CommonBot.BotMain.IsPaused&&Zeta.CommonBot.BotMain.IsRunning)
-						  {
-
-								if (Zeta.CommonBot.ProfileManager.CurrentProfileBehavior==null||Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.QuestId!=87700||Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior==null||!Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior.IsRunning)
-									 ProfileManager.UpdateCurrentProfileBehavior();
-
-						  }
-					 }
-					 */
 					 }
 					 // Only do something when pulsing if it's been at least 5 seconds since last pulse, to prevent spam
 					 else if (SettingsFunky.UseLevelingLogic&&Bot.Character.iMyLevel<60&&DateTime.Now.Subtract(_lastLooked).TotalSeconds>5)
@@ -162,21 +144,9 @@ namespace FunkyTrinity
 						  // Now check the backpack
 						  CheckBackpack();
 					 }
-					 /*
-					 else if (GoblinRewind.ShouldGoblinRewind)
-					 {
-						  Bot.Combat.DontMove=true;
-						  return true;
-					 }
-					 */
-
 					 // Return false here means we only do all of the below OOC stuff at max once every 150ms
 					 return false;
 				}
-
-
-
-
 				// Pop a potion when necessary
 				if (Bot.Character.dCurrentHealthPct<=Bot.Class.EmergencyHealthPotionLimit)
 				{
@@ -185,23 +155,12 @@ namespace FunkyTrinity
 						  Bot.AttemptToUseHealthPotion();
 					 }
 				}
-
 				// Clear the temporary blacklist every 90 seconds
 				if (DateTime.Now.Subtract(dateSinceTemporaryBlacklistClear).TotalSeconds>90)
 				{
 					 dateSinceTemporaryBlacklistClear=DateTime.Now;
 					 hashRGUIDTemporaryIgnoreBlacklist=new HashSet<int>();
 				}
-
-				// Clear the full blacklist every 60 seconds
-				/*
-				if (DateTime.Now.Subtract(dateSinceBlacklistClear).TotalSeconds>60)
-				{
-					 dateSinceBlacklistClear=DateTime.Now;
-					 hashRGUIDIgnoreBlacklist=new HashSet<int>();
-				}
-				*/
-
 				if (SettingsFunky.DebugStatusBar&&bResetStatusText)
 				{
 					 bResetStatusText=false;
@@ -209,8 +168,8 @@ namespace FunkyTrinity
 				}
 
 				// Nothing to do... do we have some maintenance we can do instead, like out of combat buffing?
-				lastChangedZigZag=DateTime.Today;
-				vPositionLastZigZagCheck=Vector3.Zero;
+				Bot.Combat.lastChangedZigZag=DateTime.Today;
+				Bot.Combat.vPositionLastZigZagCheck=Vector3.Zero;
 
 				// Out of combat buffing etc. but only if we don't want to return to town etc.
 				AnimationState myAnimationState=Bot.Character.CurrentAnimationState;
@@ -241,7 +200,7 @@ namespace FunkyTrinity
 					 else
 						  IsRunningTownPortalBehavior=false;
 				}
-				
+
 
 				// Ok let DemonBuddy do stuff this loop, since we're done for the moment
 				return false;
@@ -252,12 +211,8 @@ namespace FunkyTrinity
 		  {
 				if (shouldPreformOOCItemIDing)
 					 return HandleIDBehavior(); //Check if we are doing OOC ID behavior..
-				//else if (GoblinRewind.ShouldGoblinRewind)
-				//return GoblinRewind.PreformGoblinRewindBehavior();
 				else if (Bot.Target.ObjectData!=null)
 					 return Bot.Target.HandleThis();  //Default Behavior: Current Target
-				else if (OverrideTownportalBehavior)
-					 return FunkyTPBehavior(null);
 				else if (MuleBehavior)
 				{
 					 if (!TransferedGear)

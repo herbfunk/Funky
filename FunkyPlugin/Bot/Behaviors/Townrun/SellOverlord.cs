@@ -114,11 +114,8 @@ namespace FunkyTrinity
 					 Log("GSError: Diablo 3 memory read error, or item became invalid [PreSell-1]", true);
 					 return RunStatus.Failure;
 				}
-				bGoToSafetyPointFirst=true;
-				bGoToSafetyPointSecond=false;
 				bLoggedJunkThisStash=false;
 				bCurrentlyMoving=false;
-				bReachedDestination=false;
 				PotionCheck=false;
 				iCurrentItemLoops=0;
 				RandomizeTheTimer();
@@ -291,7 +288,7 @@ namespace FunkyTrinity
 					 iCurrentItemLoops=0;
 					 RandomizeTheTimer();
 
-					 if (iLowestDurabilityFound<20&&iLowestDurabilityFound>-1&&ZetaDia.Me.Inventory.Coinage<40000)
+					 if (ZetaDia.Me.Inventory.Coinage<40000)
 					 {
 						  Log("Emergency Stop: You need repairs but don't have enough money. Stopping the bot to prevent infinite death loop.");
 						  BotMain.Stop(false, "Not enough gold to repair item(s)!");

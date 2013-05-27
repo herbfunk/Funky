@@ -564,6 +564,7 @@ namespace GilesTrinity.ItemRules.Core
             threadAutoHighlight.Join(1000);
             if (threadAutoHighlight.IsAlive)
                 threadAutoHighlight.Abort();
+				GC.SuppressFinalize(this);
         }
 
         #endregion

@@ -421,7 +421,7 @@ namespace FunkyTrinity
 
 		  protected override Composite CreateBehavior()
 		  {
-				Funky.bSkipAheadAGo=true;
+				Funky.CacheMovementTracking.bSkipAheadAGo=true;
 				//Funky.hashSkipAheadAreaCache=new HashSet<Funky.SkipAheadNavigation>();
 				Composite[] children=new Composite[2];
 				Composite[] compositeArray=new Composite[2];
@@ -441,7 +441,7 @@ namespace FunkyTrinity
 				// First check if we can skip ahead because we recently moved here
 				if (NoSkip==null||NoSkip.ToLower()!="true")
 				{
-					 if (Funky.hashSkipAheadAreaCache.Any(o => o.Position.Distance(Position)-PathPrecision<=o.Radius))
+					 if (Funky.CacheMovementTracking.CheckPositionForSkipping(Position))
 					 {
 						  Logging.WriteDiagnostic("Finished Path {0} earlier due to SkipAreaCache find!", Position.ToString());
 						  skippingAhead=true;
@@ -449,7 +449,7 @@ namespace FunkyTrinity
 
 					 if (skippingAhead)
 					 {
-						  Funky.bSkipAheadAGo=false;
+						  Funky.CacheMovementTracking.bSkipAheadAGo=false;
 						  return RunStatus.Success;
 					 }
 				}
@@ -1990,7 +1990,7 @@ namespace FunkyTrinity
 					 CheckIsObjectiveFinished(),
 					 new Decorator(ret => GetRouteUnvisitedNodeCount()==0&&timesForcedReset>timesForceResetMax,
 						  new Sequence(
-								new Action(ret => FunkyTrinity.Funky.bSkipAheadAGo=false),
+								new Action(ret => FunkyTrinity.Funky.CacheMovementTracking.bSkipAheadAGo=false),
 								new Action(ret => isDone=true)
 						  )
 					 ),
@@ -2182,7 +2182,7 @@ namespace FunkyTrinity
 					 .Where(s => PriorityScenes.Any(ps => ps.SceneId!=-1&&s.SceneInfo.SNOId==ps.SceneId)).ToList();
 
 				PScenes.AddRange(ZetaDia.Scenes.GetScenes()
-					  .Where(s => PriorityScenes.Any(ps => ps.SceneName.Trim()!=String.Empty&&ps.SceneId==-1&&s.Name.ToLower().Contains(ps.SceneName.ToLower()))).ToList());
+					  .Where(s => PriorityScenes.Any(ps => !String.IsNullOrEmpty(ps.SceneName.Trim())&&ps.SceneId==-1&&s.Name.ToLower().Contains(ps.SceneName.ToLower()))).ToList());
 
 				List<Scene> foundPriorityScenes=new List<Scene>();
 				Dictionary<int, Vector3> foundPrioritySceneIndex=new Dictionary<int, Vector3>();
@@ -2310,9 +2310,9 @@ namespace FunkyTrinity
 		  private bool PositionInsideIgnoredScene(Vector3 position)
 		  {
 				List<Scene> ignoredScenes=ZetaDia.Scenes.GetScenes()
-					 .Where(scn => IgnoreScenes.Any(igscn => igscn.SceneName!=String.Empty&&scn.Name.ToLower().Contains(igscn.SceneName.ToLower()))||
+					 .Where(scn => IgnoreScenes.Any(igscn => !String.IsNullOrEmpty(igscn.SceneName)&&scn.Name.ToLower().Contains(igscn.SceneName.ToLower()))||
 						  IgnoreScenes.Any(igscn => scn.SceneInfo.SNOId==igscn.SceneId)&&
-						  !PriorityScenes.Any(psc => psc.SceneName.Trim()!=String.Empty&&scn.Name.ToLower().Contains(psc.SceneName))&&
+						  !PriorityScenes.Any(psc => !String.IsNullOrEmpty(psc.SceneName.Trim())&&scn.Name.ToLower().Contains(psc.SceneName))&&
 						  !PriorityScenes.Any(psc => psc.SceneId!=-1&&scn.SceneInfo.SNOId!=psc.SceneId)).ToList();
 
 				foreach (Scene scene in ignoredScenes)
@@ -2375,7 +2375,7 @@ namespace FunkyTrinity
 								new Action(ret => UpdateRoute())
 						  )
 					 ),
-					 new Decorator(ret => FunkyTrinity.Funky.hashSkipAheadAreaCache.Any(p => p.Position.Distance2D(CurrentNavTarget)<=PathPrecision),
+					 new Decorator(ret => FunkyTrinity.Funky.CacheMovementTracking.CheckPositionForSkipping(CurrentNavTarget),
 						  new Sequence(
 								new Action(ret => SetNodeVisited("Found node to be in skip ahead cache, marking done")),
 								new Action(ret => UpdateRoute())
@@ -2587,7 +2587,7 @@ namespace FunkyTrinity
 					 TimeoutValue=900;
 
 				//FunkyTrinity.Funky.hashSkipAheadAreaCache.Clear();
-				FunkyTrinity.Funky.bSkipAheadAGo=true;
+				FunkyTrinity.Funky.CacheMovementTracking.bSkipAheadAGo=true;
 				PriorityScenesInvestigated.Clear();
 				FunkyTrinity.MiniMapMarker.KnownMarkers.Clear();
 
@@ -2624,7 +2624,7 @@ namespace FunkyTrinity
 					 bool done=(!IsActiveQuestStep||isDone);
 					 if (done)
 					 {
-						  FunkyTrinity.Funky.bSkipAheadAGo=false;
+						  FunkyTrinity.Funky.CacheMovementTracking.bSkipAheadAGo=false;
 					 }
 					 return done;
 				}

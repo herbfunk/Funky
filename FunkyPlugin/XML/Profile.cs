@@ -31,8 +31,8 @@ namespace FunkyTrinity
 		  public static int ScenceCheck;
 		  public static DateTime LastProfileReload=DateTime.MinValue;
 
-		  public static string StartProfile, LastProfile;
-		  public static List<ProfileSet> ProfilesSets=new List<ProfileSet>();
+		  internal static string StartProfile, LastProfile;
+		  internal static List<ProfileSet> ProfilesSets=new List<ProfileSet>();
 
 		  private static void ResetProfileVars()
 		  {

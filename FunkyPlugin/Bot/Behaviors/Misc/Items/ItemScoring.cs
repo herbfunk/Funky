@@ -950,10 +950,10 @@ namespace FunkyTrinity
                     // For item logs
                     if (i != DEXTERITY && i != STRENGTH && i != INTELLIGENCE)
                     {
-                        if (sValueItemStatString != "")
+								if (String.IsNullOrEmpty(sValueItemStatString))
                             sValueItemStatString += ". ";
                         sValueItemStatString += StatNames[i] + "=" + Math.Round(iTempStatistic).ToString();
-                        if (sJunkItemStatString != "")
+								if (!String.IsNullOrEmpty(sJunkItemStatString))
                             sJunkItemStatString += ". ";
                         sJunkItemStatString += StatNames[i] + "=" + Math.Round(iTempStatistic).ToString();
                     }

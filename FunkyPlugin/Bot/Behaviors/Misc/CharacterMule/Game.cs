@@ -27,9 +27,9 @@ namespace FunkyTrinity
 						  RandomWaitTimeMilliseconds=R.Next(3050, 5880);
 				}
 
-				public static int BotHeroIndex=-1;
-				public static string LastProfile=null;
-				public static string BotHeroName=null;
+				internal static int BotHeroIndex=-1;
+				internal static string LastProfile=null;
+				internal static string BotHeroName=null;
 
 				public static RunStatus BeginNewGameProfile()
 				{

@@ -18,7 +18,7 @@ namespace FunkyTrinity
 				Bot.Class.SecondaryHotbarBuffPresent();
 
             // Switch based on the cached character class
-            switch (iMyCachedActorClass)
+            switch (Bot.Class.AC)
             {
                 case ActorClass.Barbarian:
                     return BarbAbility(bCurrentlyAvoiding, bOOCBuff, bDestructiblePower);
@@ -55,8 +55,7 @@ namespace FunkyTrinity
                         bIsAnimating = true;
 						  if (bWaitForAttacking&&(Bot.Character.CurrentAnimationState==AnimationState.Attacking))
                         bIsAnimating = true;
-                }
-                catch
+                } catch (NullReferenceException)
                 {
                     bIsAnimating = true;
                 }

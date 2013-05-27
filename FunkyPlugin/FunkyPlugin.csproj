@@ -20,14 +20,14 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\..\Users\aaron\Desktop\DB_Debug - Copy\Plugins\FunkyTrinity\</OutputPath>
+    <OutputPath>..\..\..\..\Desktop\DB_Debug - Copy\Plugins\FunkyTrinity\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>none</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>
     </DocumentationFile>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>ExtendedCorrectnessRules.ruleset</CodeAnalysisRuleSet>
     <RegisterForComInterop>false</RegisterForComInterop>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <LangVersion>default</LangVersion>
@@ -37,7 +37,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\..\Users\aaron\Desktop\DB_Debug - Copy\Plugins\FunkyTrinity\</OutputPath>
+    <OutputPath>..\..\..\..\Desktop\DB_Debug - Copy\Plugins\FunkyTrinity\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>none</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -73,10 +73,13 @@
     <Compile Include="Bot\Behaviors\Misc\Items\LowLevelLogic.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Behaviors\Movement\GPCache\K-Means\GridPointComparer.cs">
+    <Compile Include="Bot\Cache\Area\Objects\GridPointComparer.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Behaviors\Movement\ObstacleFinder.cs">
+    <Compile Include="Bot\Behaviors\Movement\MGP.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Behaviors\Movement\Helper\ObstacleFinder.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Behaviors\Townrun\UnidOverlord.cs">
@@ -94,25 +97,43 @@
     <Compile Include="Bot\BotEvents\OnPlayerLevelUp.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Bot\CharacterInfo.cs">
+    <Compile Include="Bot\Cache\Area\Objects\SkipAhead.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Bot\CombatCache.cs">
+    <Compile Include="Bot\Cache\BotCache\CharacterInfo.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Collection\Objects\CacheACDItem.cs">
+    <Compile Include="Bot\Cache\BotCache\CombatCache.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Collection\Objects\CacheGizmo.cs">
+    <Compile Include="Bot\Cache\Collection\Objects.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Collection\Objects\CacheObject.cs">
+    <Compile Include="Bot\Cache\Collection\Obstacles.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Collection\Objects\CacheSNO.cs">
+    <Compile Include="Bot\Cache\Collection\SNO.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Collection\Objects\CacheUnit.cs">
+    <Compile Include="Bot\Cache\dbRefresh\Objects\CacheACDItem.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\dbRefresh\Objects\CacheGizmo.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\dbRefresh\Objects\CacheObject.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\dbRefresh\Objects\CacheSNO.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\dbRefresh\Objects\CacheUnit.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Gamebalance.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Area\MovementTrack.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="CombatRoutine\CombatRoutine.cs" />
@@ -212,9 +233,6 @@
     <Compile Include="Bot\Behaviors\Combat\Abilities\_Wizard.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Behaviors\Combat\GoblinBacktrack.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Bot\Behaviors\Combat\_Target.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -236,28 +254,28 @@
     <Compile Include="Bot\Behaviors\Movement\PlayerMover.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Behaviors\Movement\GPCache\DirectionPoint.cs">
+    <Compile Include="Bot\Cache\Area\Objects\DirectionPoint.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Behaviors\Movement\GPCache\GPCache.cs">
+    <Compile Include="Bot\Cache\Area\GridPoint\GPCache.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Behaviors\Movement\GPCache\GPRectangle.cs">
+    <Compile Include="Bot\Cache\Area\GridPoint\GPRectangle.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Behaviors\Movement\GPCache\GPCollection.cs">
+    <Compile Include="Bot\Cache\Area\GridPoint\GPCollection.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Behaviors\Movement\GPCache\GPQuadrant.cs">
+    <Compile Include="Bot\Cache\Area\GridPoint\GPQuadrant.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Behaviors\Movement\GPCache\GridPoint.cs">
+    <Compile Include="Bot\Cache\Area\Objects\GridPoint.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Behaviors\Movement\MovementFinding.cs">
+    <Compile Include="Bot\Behaviors\Movement\Helper\MovementFinding.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Behaviors\Movement\MovementHelper.cs">
+    <Compile Include="Bot\Behaviors\Movement\Helper\MovementHelper.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Behaviors\Townrun\SalvageOverlord.cs">
@@ -272,7 +290,7 @@
     <Compile Include="Bot\Behaviors\Townrun\TownRunCheckOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Bot\Bot.cs">
+    <Compile Include="Bot\Cache\BotCache\Bot.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\BotEvents\OnDeath.cs">
@@ -290,52 +308,49 @@
     <Compile Include="Bot\GlobalOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Bot\CharacterCache.cs">
+    <Compile Include="Bot\Cache\BotCache\CharacterCache.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Collection\Cache.cs">
+    <Compile Include="Bot\Cache\SnoLookup.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Collection\Misc\Avoidance.cs">
+    <Compile Include="Bot\Cache\Avoidance.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Collection\Misc\Blacklist.cs">
+    <Compile Include="Bot\Cache\Blacklist.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Collection\ObjectCollection.cs">
+    <Compile Include="Bot\Cache\Collection\ObjectCache.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Collection\Objects\CacheBalance.cs">
+    <Compile Include="Bot\Cache\dbRefresh\Objects\CacheBalance.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Collection\Objects\CacheItem.cs">
+    <Compile Include="Bot\Cache\dbRefresh\Objects\CacheItem.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Collection\Objects\CacheObstacle.cs">
+    <Compile Include="Bot\Cache\dbRefresh\Objects\CacheObstacle.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Collection\Update\Misc.cs">
+    <Compile Include="Bot\Cache\dbRefresh\Update\Refresh.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Collection\Update\Refresh.cs">
+    <Compile Include="Bot\Cache\dbRefresh\Update\RefreshCacheObjects.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Refresh\Collection\Update\RefreshCacheObjects.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Bot\Refresh\Collection\Update\RefreshUsableObjects.cs">
+    <Compile Include="Bot\Cache\dbRefresh\Update\RefreshUsableObjects.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Misc\CleanUp.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Config\FunkyConfig.cs">
+    <Compile Include="Misc\Config\FunkyConfig.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Config\GilesConfigWin.cs">
+    <Compile Include="Misc\Config\GilesConfigWin.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Misc\DBHelper.cs">
+    <Compile Include="Misc\Logging\DBHelper.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Misc\ErrorClicker.cs">
@@ -359,10 +374,10 @@
     <Compile Include="ItemRules\Interpreter.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Misc\FunkyItemLogStats.cs">
+    <Compile Include="Misc\Logging\FunkyItemLogStats.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Misc\ItemLogging.cs">
+    <Compile Include="Misc\Logging\ItemLogging.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Behaviors\Misc\Items\ItemScoring.cs">
@@ -371,10 +386,13 @@
     <Compile Include="Bot\Behaviors\Misc\Items\ItemValidation.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Behaviors\Movement\GPCache\K-Means\Cluster.cs">
+    <Compile Include="Bot\Cache\Area\Objects\Cluster.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Misc\Stats.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="PluginControl.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="XML\Minimapmarkers.cs">
@@ -392,13 +410,13 @@
     <Compile Include="XML\XMLTags.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Enums.cs">
+    <Compile Include="Misc\Enums.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Handlers.cs">
+    <Compile Include="Misc\Handlers.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Vars.cs">
+    <Compile Include="Misc\Vars.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
@@ -449,7 +467,8 @@ copy "$(ProjectDir)CombatRoutine\RoutineDebug.cs" "$(TargetDir)CombatRoutine\Rou
 </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetDir)\*.*" "C:\Users\aaron\Desktop\DB_Debug\Plugins\FunkyTrinity\\" /E /I /F /Y</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
