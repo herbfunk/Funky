@@ -6,11 +6,38 @@ using Zeta.Common;
 using Zeta.Internals.Actors;
 using System.IO;
 using Zeta;
+using System.Collections.Generic;
 
 namespace FunkyTrinity
 {
     public partial class Funky
     {
+		  private static readonly string[] sQualityString=new string[4] { "White", "Magic", "Rare", "Legendary" };
+		  private static readonly string[] sGemString=new string[4] { "Ruby", "Topaz", "Amethyst", "Emerald" };
+
+		  // Readable names of the above stats that get output into the trash/stash log files
+		  private static readonly string[] StatNames=new string[29] { 
+            "Dexterity", "Intelligence", "Strength", "Vitality", 
+            "Life %", "Life On Hit", "Life Steal %", "Life Regen", 
+            "Magic Find %", "Gold Find   %", "Movement Speed %", "Pickup Radius", "Sockets", 
+            "Crit Chance %", "Crit Damage %", "Attack Speed %", "+Min Damage", "+Max Damage",
+            "Total Block %", "Thorns", "+All Resist", "+Highest Single Resist", "DPS", "Armor", "Max Disc.", "Max Mana", "Arcane-On-Crit", "Mana Regen", "Globe Bonus"};
+
+		  // Store items already logged by item-stats, to make sure no stats get doubled up by accident
+		  private static HashSet<int> _hashsetItemStatsLookedAt=new HashSet<int>();
+		  private static HashSet<int> _hashsetItemPicksLookedAt=new HashSet<int>();
+		  private static HashSet<int> _hashsetItemFollowersIgnored=new HashSet<int>();
+
+		  private static DateTime ItemStatsLastPostedReport=DateTime.Now;
+		  private static DateTime ItemStatsWhenStartedBot=DateTime.Now;
+
+		  // These objects are instances of my stats class above, holding identical types of data for two different things - one holds item DROP stats, one holds item PICKUP stats
+		  private static GilesItemStats ItemsDroppedStats=new GilesItemStats(0, new double[4], new double[64], new double[4, 64], 0, new double[64], 0, new double[4], new double[64], new double[4, 64], 0);
+		  private static GilesItemStats ItemsPickedStats=new GilesItemStats(0, new double[4], new double[64], new double[4, 64], 0, new double[64], 0, new double[4], new double[64], new double[4, 64], 0);
+		  // How many follower items were ignored, purely for item stat tracking
+		  private static int iTotalFollowerItemsIgnored=0;
+
+
 		  // **********************************************************************************************
 		  // *****    Item Stats Class and Variables - for the detailed item drop/pickup etc. stats   *****
 		  // **********************************************************************************************
@@ -53,13 +80,13 @@ namespace FunkyTrinity
             FileStream LogStream = null;
             try
             {
-					 
-                LogStream = File.Open(sTrinityLogPath + ZetaDia.Service.CurrentHero.BattleTagName + " - StashLog - " + ZetaDia.Actors.Me.ActorClass.ToString() + ".log", FileMode.Append, FileAccess.Write, FileShare.Read);
+
+					 LogStream=File.Open(FolderPaths.sTrinityLogPath+CurrentAccountName+" - StashLog - "+ZetaDia.Actors.Me.ActorClass.ToString()+".log", FileMode.Append, FileAccess.Write, FileShare.Read);
                 using (StreamWriter LogWriter = new StreamWriter(LogStream))
                 {
-                    if (!bLoggedAnythingThisStash)
+                    if (!TownRunManager.bLoggedAnythingThisStash)
                     {
-                        bLoggedAnythingThisStash = true;
+								TownRunManager.bLoggedAnythingThisStash=true;
                         LogWriter.WriteLine(DateTime.Now.ToString() + ":");
                         LogWriter.WriteLine("====================");
                     }
@@ -68,13 +95,13 @@ namespace FunkyTrinity
                     {
                         if (!thisgooditem.IsUnidentified)
                         {
-                            AddNotificationToQueue(thisgooditem.ThisRealName + " [" + thisgilesitemtype.ToString() + "] (Score=" + ithisitemvalue.ToString() + ". " + sValueItemStatString + ")", ZetaDia.Service.CurrentHero.Name + " new legendary!", ProwlNotificationPriority.Emergency);
+									 AddNotificationToQueue(thisgooditem.ThisRealName+" ["+thisgilesitemtype.ToString()+"] (Score="+ithisitemvalue.ToString()+". "+TownRunManager.sValueItemStatString+")", ZetaDia.Service.CurrentHero.Name+" new legendary!", ProwlNotificationPriority.Emergency);
                             sLegendaryString = " {legendary item}";
                             // Change made by bombastic
                             Logging.Write("+=+=+=+=+=+=+=+=+ LEGENDARY FOUND +=+=+=+=+=+=+=+=+");
                             Logging.Write("+  Name:       " + thisgooditem.ThisRealName + " (" + thisgilesitemtype.ToString() + ")");
                             Logging.Write("+  Score:       " + Math.Round(ithisitemvalue).ToString());
-                            Logging.Write("+  Attributes: " + sValueItemStatString);
+									 Logging.Write("+  Attributes: "+TownRunManager.sValueItemStatString);
                             Logging.Write("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+");
                         }
                         else
@@ -110,12 +137,12 @@ namespace FunkyTrinity
                                 break;
                         }
                         if (bShouldNotify)
-                            AddNotificationToQueue(thisgooditem.ThisRealName + " [" + thisgilesitemtype.ToString() + "] (Score=" + ithisitemvalue.ToString() + ". " + sValueItemStatString + ")", ZetaDia.Service.CurrentHero.Name + " new item!", ProwlNotificationPriority.Emergency);
+									 AddNotificationToQueue(thisgooditem.ThisRealName+" ["+thisgilesitemtype.ToString()+"] (Score="+ithisitemvalue.ToString()+". "+TownRunManager.sValueItemStatString+")", ZetaDia.Service.CurrentHero.Name+" new item!", ProwlNotificationPriority.Emergency);
                     }
                     if (!thisgooditem.IsUnidentified)
                     {
                         LogWriter.WriteLine(thisgilesbaseitemtype.ToString() + " - " + thisgilesitemtype.ToString() + " '" + thisgooditem.ThisRealName + "'. Score = " + Math.Round(ithisitemvalue).ToString() + sLegendaryString);
-                        LogWriter.WriteLine("  " + sValueItemStatString);
+								LogWriter.WriteLine("  "+TownRunManager.sValueItemStatString);
                         LogWriter.WriteLine("");
                     }
                     else
@@ -141,12 +168,12 @@ namespace FunkyTrinity
             FileStream LogStream = null;
             try
             {
-                LogStream = File.Open(sTrinityLogPath + ZetaDia.Service.CurrentHero.BattleTagName + " - JunkLog - " + ZetaDia.Actors.Me.ActorClass.ToString() + ".log", FileMode.Append, FileAccess.Write, FileShare.Read);
+					 LogStream=File.Open(FolderPaths.sTrinityLogPath+CurrentAccountName+" - JunkLog - "+ZetaDia.Actors.Me.ActorClass.ToString()+".log", FileMode.Append, FileAccess.Write, FileShare.Read);
                 using (StreamWriter LogWriter = new StreamWriter(LogStream))
                 {
-                    if (!bLoggedJunkThisStash)
+						  if (!TownRunManager.bLoggedJunkThisStash)
                     {
-                        bLoggedJunkThisStash = true;
+								TownRunManager.bLoggedJunkThisStash=true;
                         LogWriter.WriteLine(DateTime.Now.ToString() + ":");
                         LogWriter.WriteLine("====================");
                     }
@@ -154,8 +181,8 @@ namespace FunkyTrinity
                     if (thisgooditem.ThisQuality >= ItemQuality.Legendary)
                         sLegendaryString = " {legendary item}";
                     LogWriter.WriteLine(thisgilesbaseitemtype.ToString() + " - " + thisgilesitemtype.ToString() + " '" + thisgooditem.ThisRealName + "'. Score = " + Math.Round(ithisitemvalue).ToString() + sLegendaryString);
-                    if (!String.IsNullOrEmpty(sJunkItemStatString))
-                        LogWriter.WriteLine("  " + sJunkItemStatString);
+						  if (!String.IsNullOrEmpty(TownRunManager.sJunkItemStatString))
+								LogWriter.WriteLine("  "+TownRunManager.sJunkItemStatString);
                     else
                         LogWriter.WriteLine("  (no scorable attributes)");
                     LogWriter.WriteLine("");
@@ -174,28 +201,28 @@ namespace FunkyTrinity
         private static void OutputReport()
         {
             TimeSpan TotalRunningTime = DateTime.Now.Subtract(ItemStatsWhenStartedBot);
-            string sLogFileName = ZetaDia.Service.CurrentHero.BattleTagName + " - Stats - " + ZetaDia.Actors.Me.ActorClass.ToString() + ".log";
+				string sLogFileName=CurrentAccountName+" - Stats - "+ZetaDia.Actors.Me.ActorClass.ToString()+".log";
 
             // Create whole new file
-            FileStream LogStream = File.Open(sTrinityLogPath + sLogFileName, FileMode.Create, FileAccess.Write, FileShare.Read);
+				FileStream LogStream=File.Open(FolderPaths.sTrinityLogPath+sLogFileName, FileMode.Create, FileAccess.Write, FileShare.Read);
             using (StreamWriter LogWriter = new StreamWriter(LogStream))
             {
                 LogWriter.WriteLine("===== Misc Statistics =====");
                 LogWriter.WriteLine("Total tracking time: " + TotalRunningTime.Hours.ToString() + "h " + TotalRunningTime.Minutes.ToString() +
                     "m " + TotalRunningTime.Seconds.ToString() + "s");
-                LogWriter.WriteLine("Total deaths: " + iTotalDeaths.ToString() + " [" + Math.Round(iTotalDeaths / TotalRunningTime.TotalHours, 2).ToString() + " per hour]");
-                LogWriter.WriteLine("Total games (approx): " + iTotalLeaveGames.ToString() + " [" + Math.Round(iTotalLeaveGames / TotalRunningTime.TotalHours, 2).ToString() + " per hour]");
-                if (iTotalLeaveGames == 0 && iTotalJoinGames > 0)
+					 LogWriter.WriteLine("Total deaths: "+Bot.iTotalDeaths.ToString()+" ["+Math.Round(Bot.iTotalDeaths/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+					 LogWriter.WriteLine("Total games (approx): "+Bot.iTotalLeaveGames.ToString()+" ["+Math.Round(Bot.iTotalLeaveGames/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+					 if (Bot.iTotalLeaveGames==0&&Bot.iTotalJoinGames>0)
                 {
-                    if (iTotalJoinGames == 1 && iTotalProfileRecycles > 1)
+						  if (Bot.iTotalJoinGames==1&&Bot.iTotalProfileRecycles>1)
                     {
                         LogWriter.WriteLine("(a profile manager/death handler is interfering with join/leave game events, attempting to guess total runs based on profile-loops)");
-                        LogWriter.WriteLine("Total full profile cycles: " + iTotalProfileRecycles.ToString() + " [" + Math.Round(iTotalProfileRecycles / TotalRunningTime.TotalHours, 2).ToString() + " per hour]");
+								LogWriter.WriteLine("Total full profile cycles: "+Bot.iTotalProfileRecycles.ToString()+" ["+Math.Round(Bot.iTotalProfileRecycles/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
                     }
                     else
                     {
                         LogWriter.WriteLine("(your games left value may be bugged @ 0 due to profile managers/routines etc., now showing games joined instead:)");
-                        LogWriter.WriteLine("Total games joined: " + iTotalJoinGames.ToString() + " [" + Math.Round(iTotalJoinGames / TotalRunningTime.TotalHours, 2).ToString() + " per hour]");
+								LogWriter.WriteLine("Total games joined: "+Bot.iTotalJoinGames.ToString()+" ["+Math.Round(Bot.iTotalJoinGames/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
                     }
                 }
                 LogWriter.WriteLine("");

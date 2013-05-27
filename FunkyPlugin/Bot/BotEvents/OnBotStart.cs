@@ -14,7 +14,7 @@ namespace FunkyTrinity
     {
 		  private void FunkyBotStart(IBot bot)
 		  {
-				string FunkySettingsPath=System.IO.Path.Combine(sDemonBuddyPath, "Settings", "FunkyTrinity");
+				string FunkySettingsPath=System.IO.Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyTrinity");
 				if (!System.IO.Directory.Exists(FunkySettingsPath))
 				{
 					 Logging.WriteDiagnostic("Creating Settings Folder at location {0}", FunkySettingsPath);

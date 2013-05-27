@@ -141,6 +141,12 @@ namespace FunkyTrinity
 					 5191, 5192, 5193, 5194,
 				};
 
+				public static readonly HashSet<int> hashActorSNOSucideBomberUnits=new HashSet<int>
+				{
+					 //Lunitics
+					 4093,4094,4095
+
+				};
 				public static readonly HashSet<int> hashActorSNOStealthUnits=new HashSet<int>
 				{
 					 //A2 Snakemen

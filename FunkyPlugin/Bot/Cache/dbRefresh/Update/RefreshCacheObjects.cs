@@ -92,7 +92,14 @@ namespace FunkyTrinity
 
 
 								//Validate
-								if (thisObj.CommonData==null||thisObj.CommonData.ACDGuid!=thisObj.ACDGuid) continue;
+								try
+								{
+									 if (thisObj.CommonData==null||thisObj.CommonData.ACDGuid!=thisObj.ACDGuid) continue;
+								} catch (NullReferenceException)
+								{
+									 continue;
+								}
+								
 
 
 								//Check if this object is a summoned unit by a player...

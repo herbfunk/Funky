@@ -15,7 +15,7 @@ namespace FunkyTrinity
         // Each time we join & leave a game, might as well clear the hashset of looked-at dropped items - just to keep it smaller
         private static void FunkyOnJoinGame(object src, EventArgs mea)
         {
-            iTotalJoinGames++;
+				Bot.iTotalJoinGames++;
             ResetGame();
             //Start new current game stats
             Statistics.ItemStats.CurrentGame.Reset();

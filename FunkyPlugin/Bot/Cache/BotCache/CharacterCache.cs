@@ -35,6 +35,8 @@ namespace FunkyTrinity
 					 public bool isMoving { get; set; }
 					 public int iCurrentWorldID=-1;
 					 public GameDifficulty iCurrentGameDifficulty=GameDifficulty.Invalid;
+					 public Zeta.CommonBot.Profile.ProfileBehavior CurrentProfileBehavior=null;
+					 public bool IsRunningTownPortalBehavior=false;
 
 					 //Returns Live Data
 					 private DateTime lastPositionUpdate=DateTime.Today;

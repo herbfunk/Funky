@@ -33,7 +33,7 @@ namespace FunkyTrinity
 				CurrentAccountName=Zeta.ZetaDia.Service.CurrentHero.BattleTagName;
 				CurrentHeroName=Zeta.ZetaDia.Service.CurrentHero.Name;
 
-				string settingsFolder=sDemonBuddyPath+@"\Settings\FunkyTrinity\"+CurrentAccountName;
+				string settingsFolder=FolderPaths.sDemonBuddyPath+@"\Settings\FunkyTrinity\"+CurrentAccountName;
 				if (!Directory.Exists(settingsFolder))
 					 Directory.CreateDirectory(settingsFolder);
 				try
@@ -2939,7 +2939,7 @@ namespace FunkyTrinity
 				}
 				private void OpenPluginFolder_Click(object sender, EventArgs e)
 				{
-					 Process.Start(sTrinityPluginPath);
+					 Process.Start(FolderPaths.sTrinityPluginPath);
 				}
 
 				protected override void OnClosed(EventArgs e)
@@ -2953,7 +2953,7 @@ namespace FunkyTrinity
 		  private static void SaveFunkyConfiguration()
 		  {
 
-				string sFunkyCharacterConfigFile=Path.Combine(sDemonBuddyPath, "Settings", "FunkyTrinity", CurrentAccountName, CurrentHeroName+".cfg");
+				string sFunkyCharacterConfigFile=Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyTrinity", CurrentAccountName, CurrentHeroName+".cfg");
 
 				FileStream configStream=File.Open(sFunkyCharacterConfigFile, FileMode.Create, FileAccess.Write, FileShare.Read);
 				using (StreamWriter configWriter=new StreamWriter(configStream))
@@ -3084,7 +3084,7 @@ namespace FunkyTrinity
 					 UpdateCurrentAccountDetails();
 				}
 
-				string sFunkyCharacterFolder=Path.Combine(sDemonBuddyPath, "Settings", "FunkyTrinity", CurrentAccountName);
+				string sFunkyCharacterFolder=Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyTrinity", CurrentAccountName);
 				if (!System.IO.Directory.Exists(sFunkyCharacterFolder))
 					 System.IO.Directory.CreateDirectory(sFunkyCharacterFolder);
 

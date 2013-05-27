@@ -70,6 +70,8 @@ namespace FunkyTrinity
 					 public List<int> PrioritizedRAGUIDs=new List<int>();
 					 public List<CacheAvoidance> TriggeringAvoidances=new List<CacheAvoidance>();
 					 public List<int> UnitRAGUIDs=new List<int>();
+					 public List<int> ValidClusterUnits=new List<int>();
+					 public DateTime LastClusterTargetLogicRefresh=DateTime.Today;
 
 					 #region Movement
 					 // Timestamp of when our position was last measured as changed
@@ -224,7 +226,7 @@ namespace FunkyTrinity
 						  if (iCurrentMaxKillRadius<10||SettingsFunky.IgnoreCombatRange)
 								iCurrentMaxKillRadius=10;
 
-						  if (shouldPreformOOCItemIDing||FunkyTPBehaviorFlag||bWantToTownRun)
+						  if (shouldPreformOOCItemIDing||FunkyTPBehaviorFlag||TownRunManager.bWantToTownRun)
 								iCurrentMaxKillRadius=50;
 
 						  // Not allowed to loots due to profile/routine/loot targeting settings - just set range to a quarter
@@ -254,7 +256,7 @@ namespace FunkyTrinity
 						  get
 						  {
 								//OOC IDing, Town Portal Casting, Town Run
-								return (IsRunningTownPortalBehavior||shouldPreformOOCItemIDing||FunkyTPBehaviorFlag||bWantToTownRun);
+								return (Bot.Character.IsRunningTownPortalBehavior||shouldPreformOOCItemIDing||FunkyTPBehaviorFlag||TownRunManager.bWantToTownRun);
 						  }
 					 }
 

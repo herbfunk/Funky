@@ -63,12 +63,12 @@ namespace FunkyTrinity
 				dictRandomID=new Dictionary<int, int>();
 				CacheMovementTracking.ClearCache();
 
-				iMaxDeathsAllowed=0;
-				iDeathsThisRun=0;
+				Bot.iMaxDeathsAllowed=0;
+				Bot.iDeathsThisRun=0;
 				_hashsetItemStatsLookedAt=new HashSet<int>();
 				_hashsetItemPicksLookedAt=new HashSet<int>();
 				_hashsetItemFollowersIgnored=new HashSet<int>();
-				_dictItemStashAttempted=new Dictionary<int, int>();
+				TownRunManager._dictItemStashAttempted=new Dictionary<int, int>();
 
 				listProfilesLoaded=new List<string>();
 				sLastProfileSeen="";
@@ -82,7 +82,7 @@ namespace FunkyTrinity
 
 				bool townportal=false, idenify=false, stash=false, vendor=false, salvage=false, looting=true, combat=true;
 
-				using (XmlReader reader=XmlReader.Create(sTrinityPluginPath+"Treehooks.xml"))
+				using (XmlReader reader=XmlReader.Create(FolderPaths.sTrinityPluginPath+"Treehooks.xml"))
 				{
 
 					 // Parse the XML document.  ReadString is used to 
@@ -160,8 +160,8 @@ namespace FunkyTrinity
 								Logging.WriteDiagnostic("Town Run - Town Portal - hooked...");
 						  }
 
-						  ActionDelegate actionDelegatePrePause=new ActionDelegate(GilesStashPrePause);
-						  ActionDelegate actionDelegatePause=new ActionDelegate(GilesStashPause);
+						  ActionDelegate actionDelegatePrePause=new ActionDelegate(TownRunManager.GilesStashPrePause);
+						  ActionDelegate actionDelegatePause=new ActionDelegate(TownRunManager.GilesStashPause);
 
 						  if (idenify)
 						  {
@@ -181,7 +181,7 @@ namespace FunkyTrinity
 
 
 						  // Replace the pause just after identify stuff to ensure we wait before trying to run to vendor etc.
-						  CanRunDecoratorDelegate canRunDelegateStashGilesPreStashPause=new CanRunDecoratorDelegate(GilesPreStashPauseOverlord);
+						  CanRunDecoratorDelegate canRunDelegateStashGilesPreStashPause=new CanRunDecoratorDelegate(TownRunManager.GilesPreStashPauseOverlord);
 						  Sequence sequencepause=new Sequence(
 								  new Zeta.TreeSharp.Action(actionDelegatePrePause),
 								  new Zeta.TreeSharp.Action(actionDelegatePause)
@@ -193,10 +193,10 @@ namespace FunkyTrinity
 						  if (stash)
 						  {
 								// Replace DB stashing behavior tree with my optimized version with loot rule replacement
-								CanRunDecoratorDelegate canRunDelegateStashGilesOverlord=new CanRunDecoratorDelegate(GilesStashOverlord);
-								ActionDelegate actionDelegatePreStash=new ActionDelegate(GilesOptimisedPreStash);
-								ActionDelegate actionDelegateStashing=new ActionDelegate(GilesOptimisedStash);
-								ActionDelegate actionDelegatePostStash=new ActionDelegate(GilesOptimisedPostStash);
+								CanRunDecoratorDelegate canRunDelegateStashGilesOverlord=new CanRunDecoratorDelegate(TownRunManager.GilesStashOverlord);
+								ActionDelegate actionDelegatePreStash=new ActionDelegate(TownRunManager.GilesOptimisedPreStash);
+								ActionDelegate actionDelegateStashing=new ActionDelegate(TownRunManager.GilesOptimisedStash);
+								ActionDelegate actionDelegatePostStash=new ActionDelegate(TownRunManager.GilesOptimisedPostStash);
 								Sequence sequencestash=new Sequence(
 										new Zeta.TreeSharp.Action(actionDelegatePreStash),
 										new Zeta.TreeSharp.Action(actionDelegateStashing),
@@ -213,10 +213,10 @@ namespace FunkyTrinity
 						  if (vendor)
 						  {
 								// Replace DB vendoring behavior tree with my optimized & "one-at-a-time" version
-								CanRunDecoratorDelegate canRunDelegateSellGilesOverlord=new CanRunDecoratorDelegate(GilesSellOverlord);
-								ActionDelegate actionDelegatePreSell=new ActionDelegate(GilesOptimisedPreSell);
-								ActionDelegate actionDelegateSell=new ActionDelegate(GilesOptimisedSell);
-								ActionDelegate actionDelegatePostSell=new ActionDelegate(GilesOptimisedPostSell);
+								CanRunDecoratorDelegate canRunDelegateSellGilesOverlord=new CanRunDecoratorDelegate(TownRunManager.GilesSellOverlord);
+								ActionDelegate actionDelegatePreSell=new ActionDelegate(TownRunManager.GilesOptimisedPreSell);
+								ActionDelegate actionDelegateSell=new ActionDelegate(TownRunManager.GilesOptimisedSell);
+								ActionDelegate actionDelegatePostSell=new ActionDelegate(TownRunManager.GilesOptimisedPostSell);
 								Sequence sequenceSell=new Sequence(
 										new Zeta.TreeSharp.Action(actionDelegatePreSell),
 										new Zeta.TreeSharp.Action(actionDelegateSell),
@@ -233,10 +233,10 @@ namespace FunkyTrinity
 						  if (salvage)
 						  {
 								// Replace DB salvaging behavior tree with my optimized & "one-at-a-time" version
-								CanRunDecoratorDelegate canRunDelegateSalvageGilesOverlord=new CanRunDecoratorDelegate(GilesSalvageOverlord);
-								ActionDelegate actionDelegatePreSalvage=new ActionDelegate(GilesOptimisedPreSalvage);
-								ActionDelegate actionDelegateSalvage=new ActionDelegate(GilesOptimisedSalvage);
-								ActionDelegate actionDelegatePostSalvage=new ActionDelegate(GilesOptimisedPostSalvage);
+								CanRunDecoratorDelegate canRunDelegateSalvageGilesOverlord=new CanRunDecoratorDelegate(TownRunManager.GilesSalvageOverlord);
+								ActionDelegate actionDelegatePreSalvage=new ActionDelegate(TownRunManager.GilesOptimisedPreSalvage);
+								ActionDelegate actionDelegateSalvage=new ActionDelegate(TownRunManager.GilesOptimisedSalvage);
+								ActionDelegate actionDelegatePostSalvage=new ActionDelegate(TownRunManager.GilesOptimisedPostSalvage);
 								Sequence sequenceSalvage=new Sequence(
 										new Zeta.TreeSharp.Action(actionDelegatePreSalvage),
 										new Zeta.TreeSharp.Action(actionDelegateSalvage),
@@ -253,10 +253,10 @@ namespace FunkyTrinity
 						  //[7] == Return to Townportal if there is one..
 						  //CanRunDecoratorDelegate canRunDelegateUseTownPortalReturn = new CanRunDecoratorDelegate(
 
-						  CanRunDecoratorDelegate canRunUnidBehavior=new CanRunDecoratorDelegate(UnidItemOverlord);
-						  ActionDelegate actionDelegatePreUnidStash=new ActionDelegate(GilesOptimisedPreStash);
-						  ActionDelegate actionDelegatePostUnidStash=new ActionDelegate(GilesOptimisedPostStash);
-						  ActionDelegate actionDelegateUnidBehavior=new ActionDelegate(UnidStashBehavior);
+						  CanRunDecoratorDelegate canRunUnidBehavior=new CanRunDecoratorDelegate(TownRunManager.UnidItemOverlord);
+						  ActionDelegate actionDelegatePreUnidStash=new ActionDelegate(TownRunManager.GilesOptimisedPreStash);
+						  ActionDelegate actionDelegatePostUnidStash=new ActionDelegate(TownRunManager.GilesOptimisedPostStash);
+						  ActionDelegate actionDelegateUnidBehavior=new ActionDelegate(TownRunManager.UnidStashBehavior);
 						  Sequence sequenceUnidStash=new Sequence(
 								  new Zeta.TreeSharp.Action(actionDelegatePreUnidStash),
 								  new Zeta.TreeSharp.Action(actionDelegateUnidBehavior),
@@ -269,7 +269,7 @@ namespace FunkyTrinity
 						  GilesReplacement.InsertChild(2, new Zeta.TreeSharp.Decorator(canRunUnidBehavior, sequenceUnidStash));
 
 
-						  CanRunDecoratorDelegate canRunDelegateGilesTownRunCheck=new CanRunDecoratorDelegate(GilesTownRunCheckOverlord);
+						  CanRunDecoratorDelegate canRunDelegateGilesTownRunCheck=new CanRunDecoratorDelegate(TownRunManager.GilesTownRunCheckOverlord);
 						  hook.Value[0]=new Zeta.TreeSharp.Decorator(canRunDelegateGilesTownRunCheck, new PrioritySelector(GilesReplacement));
 
 						  Logging.WriteDiagnostic("Vendor Run tree hooked...");

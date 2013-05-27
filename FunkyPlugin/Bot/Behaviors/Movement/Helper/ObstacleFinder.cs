@@ -48,34 +48,36 @@ namespace FunkyTrinity
 						  {
 								intersectingObstacles=intersectingObstacles.OrderBy(obstacle => obstacle.CentreDistance);
 
-								CacheObstacle intersectingObstacle=intersectingObstacles.First();
-
-
-								//Handle Destructable objects by making it a target!
-								if ((ObstacleType.Monster|ObstacleType.Destructable).HasFlag(intersectingObstacle.Obstacletype.Value)
-									 &&intersectingObstacle.ObjectIsValidForTargeting)
+								foreach (var intersectingObstacle in intersectingObstacles)
 								{
-									 Logging.WriteVerbose("Intersecting Object found and added to prioritized list {0}", intersectingObstacle.InternalName);
-
-									 intersectingObstacle.PrioritizedDate=DateTime.Now;
-									 Bot.Combat.PrioritizedRAGUIDs.Add(intersectingObstacle.RAGUID);
-									 intersectingObstacle.BlacklistLoops=0;
-
-									 //Force Update if we currently have a target..
-									 if (Bot.Target.ObjectData!=null)
-										  Bot.Combat.bForceTargetUpdate=true;
+									 //Handle Destructable objects by making it a target!
+									 if ((ObstacleType.Monster|ObstacleType.Destructable).HasFlag(intersectingObstacle.Obstacletype.Value))
+									 {
+										  //Logging.WriteVerbose("Intersecting Object found and added to prioritized list {0}", intersectingObstacle.InternalName);
+										  intersectingObstacle.PrioritizedDate=DateTime.Now;
+										  Bot.Combat.PrioritizedRAGUIDs.Add(intersectingObstacle.RAGUID);
+										  intersectingObstacle.BlacklistLoops=0;
+									 }
 									 else
-										  Bot.Combat.ResetTargetHandling();
-
-									 return false;
+									 {
+										  if (intersectingObstacle.CentreDistance<15f)
+										  {
+												bool foundSpot=GridPointAreaCache.AttemptFindSafeSpot(out TempMovementVector, Bot.Character.Position, false);
+												if (foundSpot)
+												{
+													 return true;
+												}
+										  }
+									 }
 								}
+
 
 								//return false;
 
 								//Logging.WriteVerbose("Intersecting Obstacle found, attempting to find a location to move. {0}", intersectingObstacle.InternalName);
 
-								bool foundSpot=GridPointAreaCache.AttemptFindSafeSpot(out TempMovementVector, Bot.Character.Position);
-								return foundSpot;
+								
+								return true;
 						  }
 					 }
 				}

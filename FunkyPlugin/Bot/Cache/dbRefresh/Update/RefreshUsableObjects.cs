@@ -72,9 +72,9 @@ namespace FunkyTrinity
 								//Lets see if we can find a location..
 								if (thisobj.Weight>iHighestWeightFound)
 								{
-									 if (GridPointAreaCache.AttemptFindTargetSafeLocation(out SafeLOSMovement, thisobj, true, Bot.Class.KiteDistance>0f))
+									 if (thisobj.GPRect.TryFindSafeSpot(out SafeLOSMovement, vNullLocation, Bot.Class.KiteDistance>0f, true))
 									 {
-										  Bot.Target.ObjectData=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 5f, -1);
+										  Bot.Target.ObjectData=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
 										  iHighestWeightFound=thisobj.Weight;
 										  continue;
 									 }

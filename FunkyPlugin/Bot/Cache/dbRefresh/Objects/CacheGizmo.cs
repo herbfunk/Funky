@@ -359,7 +359,7 @@ namespace FunkyTrinity
 									 }
 
 									 //Vendor Run and DB Settings check
-									 if (bWantToTownRun
+									 if (TownRunManager.bWantToTownRun
 										  ||!this.IsChestContainer&&!Zeta.CommonBot.Settings.CharacterSettings.Instance.OpenLootContainers
 										  ||this.IsChestContainer&&!Zeta.CommonBot.Settings.CharacterSettings.Instance.OpenChests)
 									 {
@@ -458,7 +458,7 @@ namespace FunkyTrinity
 									 GizmoLootContainer gizmoContainer=this.ref_Gizmo as GizmoLootContainer;
 									 this.GizmoHasBeenUsed=gizmoContainer.HasBeenOperated;
 								}
-						  } catch (NullReferenceException )
+						  } catch (AccessViolationException )
 						  {
 								Logging.WriteVerbose("Safely handled getting attribute GizmoHasBeenOperated gizmo {0}", this.InternalName);
 								return false;

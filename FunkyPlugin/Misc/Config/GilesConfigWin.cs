@@ -17,6 +17,8 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
+		  private static bool bSavingConfig=false;
+
 		  // **********************************************************************************************
 		  // *****              Arrange your stash by highest to lowest scoring items                 *****
 		  // **********************************************************************************************
@@ -269,7 +271,7 @@ namespace FunkyTrinity
 		  {
 				if (bSavingConfig) return;
 				bSavingConfig=true;
-				FileStream configStream=File.Open(sTrinityConfigFile, FileMode.Create, FileAccess.Write, FileShare.Read);
+				FileStream configStream=File.Open(FolderPaths.sTrinityConfigFile, FileMode.Create, FileAccess.Write, FileShare.Read);
 				using (StreamWriter configWriter=new StreamWriter(configStream))
 				{
 
@@ -304,14 +306,14 @@ namespace FunkyTrinity
 		  private void LoadConfiguration()
 		  {
 				//Check for Config file
-				if (!File.Exists(sTrinityConfigFile))
+				if (!File.Exists(FolderPaths.sTrinityConfigFile))
 				{
-					 Log("No config file found, now creating a new config from defaults at: "+sTrinityConfigFile);
+					 Log("No config file found, now creating a new config from defaults at: "+FolderPaths.sTrinityConfigFile);
 					 SaveConfiguration();
 					 return;
 				}
 				//Load File
-				using (StreamReader configReader=new StreamReader(sTrinityConfigFile))
+				using (StreamReader configReader=new StreamReader(FolderPaths.sTrinityConfigFile))
 				{
 					 while (!configReader.EndOfStream)
 					 {
@@ -395,15 +397,15 @@ namespace FunkyTrinity
 				{
 					 
 					 // Check we can actually find the .xaml file first - if not, report an error
-					 if (!File.Exists(sTrinityPluginPath+"Trinity.xaml"))
-						  Log("ERROR: Can't find \""+sTrinityPluginPath+"Trinity.xaml\"");
+					 if (!File.Exists(FolderPaths.sTrinityPluginPath+"Trinity.xaml"))
+						  Log("ERROR: Can't find \""+FolderPaths.sTrinityPluginPath+"Trinity.xaml\"");
 					 try
 					 {
 						  if (configWindow==null)
 						  {
 								configWindow=new Window();
 						  }
-						  StreamReader xamlStream=new StreamReader(sTrinityPluginPath+"Trinity.xaml");
+						  StreamReader xamlStream=new StreamReader(FolderPaths.sTrinityPluginPath+"Trinity.xaml");
 						  DependencyObject xamlContent=XamlReader.Load(xamlStream.BaseStream) as DependencyObject;
 						  configWindow.Content=xamlContent;
 

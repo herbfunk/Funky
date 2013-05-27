@@ -432,7 +432,7 @@ namespace FunkyTrinity
 				public bool IgnoresLOSCheck { get { return SnoCacheLookup.hashActorSNOIgnoreLOSCheck.Contains(SNOID); } }
 				public bool IsMissileReflecting { get { return SnoCacheLookup.hashActorSNOReflectiveMissleUnits.Contains(SNOID); } }
 				public bool IsStealthableUnit { get { return SnoCacheLookup.hashActorSNOStealthUnits.Contains(SNOID); } }
-				
+				public bool IsSucideBomber { get { return SnoCacheLookup.hashActorSNOSucideBomberUnits.Contains(SNOID); } }
 				#endregion
 
 				public bool ContainsNullValues()

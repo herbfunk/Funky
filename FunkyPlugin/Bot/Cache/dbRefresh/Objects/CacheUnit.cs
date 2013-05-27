@@ -104,7 +104,7 @@ namespace FunkyTrinity
 								&&!Bot.Combat.IsInNonCombatBehavior)
 						  {
 								//Check if this unit is valid based on if its contained in valid clusters
-								if (!ValidClusterUnits.Contains(this.RAGUID)&&!this.ObjectIsSpecial)
+								if (!Bot.Combat.ValidClusterUnits.Contains(this.RAGUID)&&!this.ObjectIsSpecial)
 								{
 									 return true;
 								}
@@ -198,9 +198,17 @@ namespace FunkyTrinity
 					 {
 						  try
 						  {
-								dThisCurrentHealth=this.ref_DiaUnit.HitpointsCurrent;
+								try
+								{
+									 dThisCurrentHealth=this.ref_DiaUnit.HitpointsCurrent;
+								} catch (NullReferenceException)
+								{
+									 throw new AccessViolationException();
+								}
+								
 								if (!this.MaximumHealth.HasValue)
 									 this.MaximumHealth=this.ref_DiaUnit.CommonData.GetAttribute<float>(ActorAttributeType.HitpointsMax);
+						  
 						  } catch (AccessViolationException)
 						  {
 								// This happens so frequently in DB/D3 that this fails, let's not even bother logging it anymore
@@ -1166,7 +1174,7 @@ namespace FunkyTrinity
 					 get
 					 {
 						  if ((this.IsEliteRareUnique&&!SettingsFunky.IgnoreAboveAverageMobs)||
-									 (this.IsBoss)||
+									 (this.IsBoss)||(this.IsSucideBomber&&this.CentreDistance<25f)||
 									 (this.IsTreasureGoblin&&SettingsFunky.GoblinPriority>1)||
 									 (this.CurrentHealthPct<0.25&&SettingsFunky.ClusterKillLowHPUnits
 								//lower the kill radius for melee!

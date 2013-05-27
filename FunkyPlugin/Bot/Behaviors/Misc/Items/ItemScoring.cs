@@ -10,6 +10,7 @@ namespace FunkyTrinity
 {
     public partial class Funky
     {
+		  private static bool bOutputItemScores=false;
 
         // **********************************************************************************************
         // *****             Return the score needed to keep something by the item type             *****
@@ -234,8 +235,8 @@ namespace FunkyTrinity
 
             double iGlobalMultiplier = 1;
 
-            sValueItemStatString = "";
-            sJunkItemStatString = "";
+				TownRunManager.sValueItemStatString="";
+            TownRunManager.sJunkItemStatString = "";
             // We loop through all of the stats, in a particular order. The order *IS* important, because it pulls up primary stats first, BEFORE other stats
             for (int i = 0; i <= (TOTALSTATS - 1); i++)
             {
@@ -950,12 +951,12 @@ namespace FunkyTrinity
                     // For item logs
                     if (i != DEXTERITY && i != STRENGTH && i != INTELLIGENCE)
                     {
-								if (String.IsNullOrEmpty(sValueItemStatString))
-                            sValueItemStatString += ". ";
-                        sValueItemStatString += StatNames[i] + "=" + Math.Round(iTempStatistic).ToString();
-								if (!String.IsNullOrEmpty(sJunkItemStatString))
-                            sJunkItemStatString += ". ";
-                        sJunkItemStatString += StatNames[i] + "=" + Math.Round(iTempStatistic).ToString();
+								if (String.IsNullOrEmpty(TownRunManager.sValueItemStatString))
+									 TownRunManager.sValueItemStatString+=". ";
+                        TownRunManager.sValueItemStatString += StatNames[i] + "=" + Math.Round(iTempStatistic).ToString();
+								if (!String.IsNullOrEmpty(TownRunManager.sJunkItemStatString))
+									 TownRunManager.sJunkItemStatString+=". ";
+								TownRunManager.sJunkItemStatString+=StatNames[i]+"="+Math.Round(iTempStatistic).ToString();
                     }
                 }
                 #endregion
@@ -975,8 +976,8 @@ namespace FunkyTrinity
                     iHighestScoringPrimary *= 0.8;
 
                 iTotalPoints += iHighestScoringPrimary;
-                sValueItemStatString = StatNames[iWhichPrimaryIsHighest] + "=" + Math.Round(iAmountHighestScoringPrimary).ToString() + ". " + sValueItemStatString;
-                sJunkItemStatString = StatNames[iWhichPrimaryIsHighest] + "=" + Math.Round(iAmountHighestScoringPrimary).ToString() + ". " + sJunkItemStatString;
+					 TownRunManager.sValueItemStatString=StatNames[iWhichPrimaryIsHighest]+"="+Math.Round(iAmountHighestScoringPrimary).ToString()+". "+TownRunManager.sValueItemStatString;
+					 TownRunManager.sJunkItemStatString=StatNames[iWhichPrimaryIsHighest]+"="+Math.Round(iAmountHighestScoringPrimary).ToString()+". "+TownRunManager.sJunkItemStatString;
             }
 
 
@@ -1225,50 +1226,6 @@ namespace FunkyTrinity
 
 
         // **********************************************************************************************
-        // *****                 Output test scores for everything in the backpack                  *****
-        // **********************************************************************************************
-        private static void TestScoring()
-        {
-            if (bTestingBackpack) return;
-            bTestingBackpack = true;
-            ZetaDia.Actors.Update();
-            if (ZetaDia.Actors.Me == null)
-            {
-                Logging.Write("Error testing scores - not in game world?");
-                return;
-            }
-            if (ZetaDia.IsInGame && !ZetaDia.IsLoadingWorld)
-            {
-                bOutputItemScores = true;
-                Logging.Write("===== Outputting Test Scores =====");
-                foreach (ACDItem item in ZetaDia.Actors.Me.Inventory.Backpack)
-                {
-                    if (item.BaseAddress == IntPtr.Zero)
-                    {
-                        Logging.Write("GSError: Diablo 3 memory read error, or item became invalid [TestScore-1]");
-                    }
-                    else
-                    {
-								CacheACDItem thiscacheditem=new CacheACDItem(item.InternalName, item.Name, item.Level, item.ItemQualityLevel, item.Gold, item.GameBalanceId, item.DynamicId,
-                            item.Stats.WeaponDamagePerSecond, item.IsOneHand, item.DyeType, item.ItemType, item.FollowerSpecialType, item.IsUnidentified, item.ItemStackQuantity,
-                            item.Stats, item, item.InventoryRow, item.InventoryColumn, item.IsPotion, item.ACDGuid);
-
-                        bool bShouldStashTest = ShouldWeStashThis(thiscacheditem);
-                        Logging.Write(bShouldStashTest ? "***** KEEP *****" : "-- TRASH --");
-                    }
-                }
-                Logging.Write("===== Finished Test Score Outputs =====");
-                Logging.Write("Note: See bad scores? Wrong item types? Known DB bug - restart DB before using the test button!");
-                bOutputItemScores = false;
-            }
-            else
-            {
-                Logging.Write("Error testing scores - not in game world?");
-            }
-            bTestingBackpack = false;
-        }
-
-        // **********************************************************************************************
         // *****      Determine if we should stash this item or not based on item type and score    *****
         // **********************************************************************************************
 		  private static bool ShouldWeStashThis(CacheACDItem thisitem)
@@ -1362,5 +1319,133 @@ namespace FunkyTrinity
             // If we reached this point, then we found no reason to keep the item!
             return false;
         }
+
+
+		  // Stores the apparent maximums of each stat for each item slot
+		  // Note that while these SHOULD be *actual* maximums for most stats - for things like DPS, these can just be more sort of "what a best-in-slot DPS would be"
+		  //												             Dex  Int  Str  Vit  Life%     LOH Steal%  LPS Magic% Gold% MSPD Rad. Sox Crit% CDam% ASPD Min+ Max+ Block% Thorn Allres Res   DPS ARMOR Disc.Mana Arc. Regen  Globes
+		  #region ItemAttributeWeights
+		  //Weapons/Offhand
+		  private static double[] iMaxWeaponOneHand=new double[29] { 
+            320, 320, 320, 320, 
+            0, 850, 3, 0,
+            0, 0, 0, 0, 1,
+            0, 100, 0, 0, 0,
+            0, 0, 0, 0, 1429, 0, 10, 150, 10, 14, 0 };
+		  private static double[] iMaxWeaponTwoHand=new double[29] { 
+            530, 530, 530, 530,
+            0, 1800, 6, 0,
+            0, 0, 0, 0, 1,
+            0, 200, 0, 0, 0,
+            0, 0, 0, 0, 1680, 0, 10, 119, 10, 14, 0 };
+		  private static double[] iMaxWeaponRanged=new double[29] {  
+            320, 320, 320, 320,
+            0, 850, 3, 0,
+            0, 0, 0, 0, 1,
+            0, 100, 0, 0, 0,
+            0, 0, 0, 0, 1618, 0, 0, 0, 0, 14, 0 };
+		  private static double[] iMaxOffHand=new double[29] {       
+            300, 300, 300, 300,
+            9, 0, 0, 234,
+            18, 20, 0, 0, 1,
+            8.5, 0, 15, 110, 402,
+            0, 979, 0, 0, 0, 0, 10, 119, 10, 11, 12794 };
+		  private static double[] iMaxShield=new double[29] {        
+            330, 330, 330, 330,
+            16, 0, 0, 342,
+            20, 25, 0, 0, 1,
+            10, 0, 0, 0, 0,
+            30, 2544, 80, 60, 0, 397, 0, 0, 0, 0, 12794 };
+
+		  //Ring/Ammy
+		  private static double[] iMaxRing=new double[29] {          
+            200, 200, 200, 200,
+            12, 479, 0, 340,
+            20, 25, 0, 0, 1,
+            6, 50, 9, 36, 100,
+            0, 979, 80, 60, 0, 265, 0, 0, 0, 0, 12794 };
+		  private static double[] iMaxAmulet=new double[29] {        
+            350, 350, 350, 350,
+            16, 959, 0, 599,
+            45, 50, 0, 0, 1,
+            10, 100, 9, 36, 100,
+            0, 1712, 80, 60, 0, 397, 0, 0, 0, 0, 12794 };
+
+		  //Armor
+		  private static double[] iMaxShoulders=new double[29] {     
+            200, 200, 300, 200,
+            12, 0, 0, 342,
+            20, 25, 0, 7, 0,
+            0, 0, 0, 0, 0,
+            0, 2544, 80, 60, 0, 265, 0, 0, 0, 0, 12794 };
+		  private static double[] iMaxHelm=new double[29] {          
+            200, 300, 200, 200,
+            12, 0, 0, 342,
+            20, 25, 0, 7, 1,
+            6, 0, 0, 0, 0,
+            0, 1454, 80, 60, 0, 397, 0, 0, 0, 0, 12794 };
+		  private static double[] iMaxPants=new double[29] {         
+            200, 200, 200, 300,
+            0, 0, 0, 342,
+            20, 25, 0, 7, 2,
+            0, 0, 0, 0, 0,
+            0, 1454, 80, 60, 0, 397, 0, 0, 0, 0, 12794 };
+		  private static double[] iMaxGloves=new double[29] {        
+            300, 300, 200, 200,
+            0, 0, 0, 342,
+            20, 25, 0, 7, 0,
+            10, 50, 9, 0, 0,
+            0, 1454, 80, 60, 0, 265, 0, 0, 0, 0, 12794 };
+		  private static double[] iMaxChest=new double[29] {        
+            200, 200, 200, 300,
+            12, 0, 0, 599,
+            20, 25, 0, 7, 3,
+            0, 0, 0, 0, 0,
+            0, 2544, 80, 60, 0, 397, 0, 0, 0, 0, 12794 };
+		  private static double[] iMaxBracer=new double[29] {        
+            200, 200, 200, 200,
+            0, 0, 0, 342,
+            20, 25, 0, 7, 0,
+            6, 0, 0, 0, 0,
+            0, 1454, 80, 60, 0, 265, 0, 0, 0, 0, 12794 };
+		  private static double[] iMaxBoots=new double[29] {         
+            300, 200, 200, 200,
+            0, 0, 0, 342,
+            20, 25, 12, 7, 0,
+            0, 0, 0, 0, 0,
+            0, 1454, 80, 60, 0, 265, 0, 0, 0, 0, 12794 };
+		  private static double[] iMaxBelt=new double[29] {          
+            200, 200, 300, 200,
+            12, 0, 0, 342,
+            20, 25, 0, 7, 0,
+            0, 0, 0, 0, 0,
+            0, 2544, 80, 60, 0, 265, 0, 0, 0, 0, 12794 };
+
+		  private static double[] iMaxCloak=new double[29] { 200, 200, 200, 300, 12, 0, 0, 410, 20, 25, 0, 7, 3, 0, 0, 0, 0, 0, 0, 2544, 70, 50, 0, 397, 10, 0, 0, 0, 12794 };
+		  private static double[] iMaxMightyBelt=new double[29] { 200, 200, 300, 200, 12, 0, 3, 342, 20, 25, 0, 7, 0, 0, 0, 0, 0, 0, 0, 2544, 70, 50, 0, 265, 0, 0, 0, 0, 12794 };
+		  private static double[] iMaxSpiritStone=new double[29] { 200, 300, 200, 200, 12, 0, 0, 342, 20, 25, 0, 7, 1, 6, 0, 0, 0, 0, 0, 1454, 70, 50, 0, 397, 0, 0, 0, 0, 12794 };
+		  private static double[] iMaxVoodooMask=new double[29] { 200, 300, 200, 200, 12, 0, 0, 342, 20, 25, 0, 7, 1, 6, 0, 0, 0, 0, 0, 1454, 70, 50, 0, 397, 0, 119, 0, 11, 12794 };
+		  private static double[] iMaxWizardHat=new double[29] { 200, 300, 200, 200, 12, 0, 0, 342, 20, 25, 0, 7, 1, 6, 0, 0, 0, 0, 0, 1454, 70, 50, 0, 397, 0, 0, 10, 0, 12794 };
+
+		  private static double[] iMaxFollower=new double[29] { 200, 200, 200, 200, 0, 300, 0, 234, 0, 0, 0, 0, 0, 0, 55, 0, 0, 0, 0, 0, 50, 40, 0, 0, 0, 0, 0, 0, 0 };
+
+		  // Stores the total points this stat is worth at the above % point of maximum
+		  // Note that these values get all sorts of bonuses, multipliers, and extra things applied in the actual scoring routine. These values are more of a "base" value.
+		  //                                                              Dex    Int    Str    Vit    Life%  LOH    Steal% LPS   Magic%  Gold%  MSPD   Rad  Sox    Crit%  CDam%  ASPD   Min+  Max+ Block% Thorn Allres Res   DPS    ARMOR  Disc.  Mana  Arc.  Regen  Globes
+		  private static double[] iWeaponPointsAtMax=new double[29] { 14000, 14000, 14000, 14000, 13000, 20000, 7000, 1000, 6000, 6000, 6000, 500, 16000, 15000, 15000, 0, 0, 0, 0, 1000, 11000, 0, 64000, 0, 10000, 8500, 8500, 10000, 8000 };
+		  //                                                              Dex    Int    Str    Vit    Life%  LOH    Steal% LPS   Magic%  Gold%  MSPD   Rad. Sox    Crit%  CDam%  ASPD   Min+  Max+ Block% Thorn Allres Res   DPS    ARMOR  Disc.  Mana  Arc.  Regen  Globes
+		  private static double[] iArmorPointsAtMax=new double[29] { 11000, 11000, 11000, 9500, 9000, 10000, 4000, 1200, 3000, 3000, 3500, 1000, 4300, 9000, 6100, 7000, 3000, 3000, 5000, 1200, 7500, 1500, 0, 5000, 4000, 3000, 3000, 6000, 5000 };
+		  private static double[] iJewelryPointsAtMax=new double[29] { 11500, 11000, 11000, 10000, 8000, 11000, 4000, 1200, 4500, 4500, 3500, 1000, 3500, 7500, 6300, 6800, 800, 800, 5000, 1200, 7500, 1500, 0, 4500, 4000, 3000, 3000, 6000, 5000 };
+
+		  // Some special values for score calculations
+		  // BonusThreshold is a percentage of the "max-stat possible", that the stat starts to get a multiplier on it's score. 1 means it has to be above 100% of the "max-stat" to get a multiplier (so only possible if the max-stat isn't ACTUALLY the max possible)
+		  // MinimumThreshold is a percentage of the "max-stat possible", that the stat will simply be ignored for being too low. eg if set to .5 - then anything less than 50% of the max-stat will be ignored.
+		  // MinimumPrimary is used for some stats only - and means that at least ONE primary stat has to be above that level, to get score. Eg magic-find has .5 - meaning any item without at least 50% of a max-stat primary, will ignore magic-find scoring.
+		  //                                                             Dex  Int  Str  Vit  Life%  LOH  Steal%   LPS Magic% Gold% MSPD Radi  Sox  Crit% CDam% ASPD  Min+  Max+  Block%  Thorn  Allres  Res   DPS  ARMOR   Disc. Mana  Arc. Regen  Globes
+		  private static double[] iBonusThreshold=new double[29] { .75, .75, .75, .75, .80, .80, .9, 1, 1, 1, .95, 1, 1, .70, .90, 1, .9, .9, .83, 1, .85, .95, .90, .90, 1, 1, 1, .9, 1 };
+		  private static double[] iMinimumThreshold=new double[29] { .40, .40, .40, .30, .60, .45, .7, .7, .64, .64, .75, .8, .4, .40, .60, .40, .2, .2, .65, .6, .40, .55, .40, .80, .7, .7, .7, .7, .8 };
+		  private static double[] iStatMinimumPrimary=new double[29] { 0, 0, 0, 0, 0, 0, 0, .2, .50, .50, .30, 0, 0, 0, 0, 0, .40, .40, .40, .40, .40, .40, 0, .40, .40, .40, .40, .4, .4 };
+
+		  #endregion
     }
 }

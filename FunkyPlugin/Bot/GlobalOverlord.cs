@@ -11,7 +11,9 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public static bool GlobalOverlord(object ret)
+		  // Total main loops so we can update things every XX loops
+		  private static int iCombatLoops=0;
+		  private static bool GlobalOverlord(object ret)
 		  {
 				// If we aren't in the game of a world is loading, don't do anything yet
 				if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld)
@@ -78,8 +80,8 @@ namespace FunkyTrinity
 						  // See if we appear to have started a new game
 						  if (!String.IsNullOrEmpty(Funky.sFirstProfileSeen)&&sThisProfile==Funky.sFirstProfileSeen)
 						  {
-								Funky.iTotalProfileRecycles++;
-								if (Funky.iTotalProfileRecycles>Funky.iTotalJoinGames&&Funky.iTotalProfileRecycles>Funky.iTotalLeaveGames)
+								Bot.iTotalProfileRecycles++;
+								if (Bot.iTotalProfileRecycles>Bot.iTotalJoinGames&&Bot.iTotalProfileRecycles>Bot.iTotalLeaveGames)
 								{
 									 Log("Reseting Game Data -- Total Profile Recycles exceedes join and leave count!");
 									 Funky.ResetGame();
@@ -173,7 +175,7 @@ namespace FunkyTrinity
 
 				// Out of combat buffing etc. but only if we don't want to return to town etc.
 				AnimationState myAnimationState=Bot.Character.CurrentAnimationState;
-				if (!Bot.Character.bIsInTown&&!bWantToTownRun&&myAnimationState!=AnimationState.Attacking&&myAnimationState!=AnimationState.Casting&&myAnimationState!=AnimationState.Channeling)
+				if (!Bot.Character.bIsInTown&&!TownRunManager.bWantToTownRun&&myAnimationState!=AnimationState.Attacking&&myAnimationState!=AnimationState.Casting&&myAnimationState!=AnimationState.Channeling)
 				{
 					 Bot.Combat.powerBuff=GilesAbilitySelector(false, true, false);
 					 if (Bot.Combat.powerBuff.Power!=SNOPower.None)
@@ -187,18 +189,18 @@ namespace FunkyTrinity
 				}
 
 				//Override Townportal Tag Behavior (After it starts..)
-				if (CurrentProfileBehavior==null||CurrentProfileBehavior.Behavior.Guid!=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior.Guid)
+				if (Bot.Character.CurrentProfileBehavior==null||Bot.Character.CurrentProfileBehavior.Behavior.Guid!=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior.Guid)
 				{
-					 CurrentProfileBehavior=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior;
+					 Bot.Character.CurrentProfileBehavior=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior;
 
-					 if (CurrentProfileBehavior.GetType()==typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag))
+					 if (Bot.Character.CurrentProfileBehavior.GetType()==typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag))
 					 {
 						  Logging.WriteVerbose("Current Profile Behavior is TownPortal Tag");
-						  IsRunningTownPortalBehavior=true;
+						  Bot.Character.IsRunningTownPortalBehavior=true;
 						  return true;
 					 }
 					 else
-						  IsRunningTownPortalBehavior=false;
+						  Bot.Character.IsRunningTownPortalBehavior=false;
 				}
 
 

@@ -53,7 +53,6 @@ namespace FunkyTrinity
 
 
 					 Bot.Target.ObjectData=null;
-					 thisFakeObject=null;
 
 					 //Kill Loot Radius Update
 					 Bot.Combat.UpdateKillLootRadiusValues();
@@ -159,32 +158,6 @@ namespace FunkyTrinity
 					 //Generate a vaild object list using our cached collection!
 					 List<CacheObject> listObjectCache=ReturnUsableList();
 
-					 //Cluster Target Logic
-					 if (SettingsFunky.EnableClusteringTargetLogic
-						  &&(!SettingsFunky.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>SettingsFunky.IgnoreClusterLowHPValue)
-						  &&(DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalMilliseconds>150&&DateTime.Now.Subtract(LastClusterTargetLogicRefresh).TotalMilliseconds>200))
-					 {
-						  ValidClusterUnits=new List<int>();
-
-						  if (Bot.Combat.UnitRAGUIDs.Count>=SettingsFunky.ClusterMinimumUnitCount)
-						  {
-								List<CacheObject> listObjectUnits=listObjectCache.Where(u => Bot.Combat.UnitRAGUIDs.Contains(u.RAGUID)).ToList();
-
-								if (listObjectUnits.Count>0)
-								{
-									 List<Cluster> surroundingClusters=RunKmeans(listObjectUnits, SettingsFunky.ClusterDistance);
-									 foreach (var item in surroundingClusters)
-									 {
-										  if (item.ListUnits.Count>=SettingsFunky.ClusterMinimumUnitCount)
-										  {
-												ValidClusterUnits.AddRange((from units in item.ListUnits
-																					 select units.RAGUID).ToArray());
-												//Logging.WriteVerbose("Cluster has total units {0} with accumulated weight {1}", item.ListUnits.Count.ToString(), item.AccumulatedWeight.ToString());
-										  }
-									 }
-								}
-						  }
-					 }
 
 					 // If we have an avoidance under our feet, then create a new object which contains a safety point to move to
 					 // But only if we aren't force-cancelling avoidance for XX time
@@ -250,9 +223,42 @@ namespace FunkyTrinity
 					 if (!bFoundSafeSpot)
 					 {
 						  Bot.Combat.bStayPutDuringAvoidance=false;
+
+
+						  #region Cluster Target Refresh
+						  //Cluster Target Logic
+						  if (SettingsFunky.EnableClusteringTargetLogic
+								&&(!SettingsFunky.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>SettingsFunky.IgnoreClusterLowHPValue)
+								&&(DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalMilliseconds>500||DateTime.Now.Subtract(Bot.Combat.LastClusterTargetLogicRefresh).TotalMilliseconds>200))
+						  {
+								Bot.Combat.ValidClusterUnits=new List<int>();
+
+								if (Bot.Combat.UnitRAGUIDs.Count>=SettingsFunky.ClusterMinimumUnitCount)
+								{
+									 List<CacheObject> listObjectUnits=listObjectCache.Where(u => Bot.Combat.UnitRAGUIDs.Contains(u.RAGUID)).ToList();
+
+									 if (listObjectUnits.Count>0)
+									 {
+										  List<Cluster> surroundingClusters=RunKmeans(listObjectUnits, SettingsFunky.ClusterDistance);
+										  Bot.Combat.LastClusterTargetLogicRefresh=DateTime.Now;
+
+										  foreach (var item in surroundingClusters)
+										  {
+												if (item.ListUnits.Count>=SettingsFunky.ClusterMinimumUnitCount)
+												{
+													 Bot.Combat.ValidClusterUnits.AddRange((from units in item.ListUnits
+																						  select units.RAGUID).ToArray());
+													 //Logging.WriteVerbose("Cluster has total units {0} with accumulated weight {1}", item.ListUnits.Count.ToString(), item.AccumulatedWeight.ToString());
+												}
+										  }
+									 }
+								}
+						  }
+						  #endregion
+
+						 
 						  //Weight the valid object list
 						  WeightEvaluationObjList(listObjectCache);
-
 
 
 						  #region Kiting
@@ -312,24 +318,6 @@ namespace FunkyTrinity
 						  }
 						  #endregion
 
-						  /*
-						  //We didn't find a target.. but lets check if its because of avoidance causing us to ignore it.
-						  if (Bot.Target.Equals(null)&&ObjectCache.Objects.objectsIgnoredDueToAvoidance.Count>0
-								&&!Bot.Character.bIsInTown&&!Bot.Combat.CriticalAvoidance)
-						  {
-								//Test each object for a potential spot that is safe to travel to
-								foreach (var item in ObjectCache.Objects.objectsIgnoredDueToAvoidance)
-								{
-									 if (GridPointAreaCache.AttemptFindTargetSafeLocation(out vlastSafeSpot, item, true))
-									 {	  //Found a point around this target which is considered safe!
-										  //This will only be objects that require close range.. (for melee classes that includes units).
-										  Bot.Target.ObjectData=new CacheObject(vlastSafeSpot, TargetType.Avoidance, 20000f, "SafePoint", 2.5f, -1);
-										  Logging.WriteVerbose("Found a safe point around target {0}, attempting to travel there!", item.InternalName);
-										  break;
-									 }
-								}
-						  }
-						  */
 
 					 } // Not heading straight for a safe-spot?
 

@@ -12,11 +12,11 @@ namespace FunkyTrinity
 	 {
 		  private void FunkyOnDeath(object src, EventArgs mea)
 		  {
-				if (DateTime.Now.Subtract(lastDied).TotalSeconds>10)
+				if (DateTime.Now.Subtract(Bot.lastDied).TotalSeconds>10)
 				{
-					 lastDied=DateTime.Now;
-					 iTotalDeaths++;
-					 iDeathsThisRun++;
+					 Bot.lastDied=DateTime.Now;
+					 Bot.iTotalDeaths++;
+					 Bot.iDeathsThisRun++;
 
 					 //Herbfunk Stats
 					 Statistics.GameStats.CurrentGame.Deaths++;
@@ -26,9 +26,9 @@ namespace FunkyTrinity
 
 	
 					 // Does Trinity need to handle deaths?
-					 if (iMaxDeathsAllowed>0)
+					 if (Bot.iMaxDeathsAllowed>0)
 					 {
-						  if (iDeathsThisRun>=iMaxDeathsAllowed)
+						  if (Bot.iDeathsThisRun>=Bot.iMaxDeathsAllowed)
 						  {
 								Logging.Write("[Funky] You have died too many times. Now restarting the game.");
 

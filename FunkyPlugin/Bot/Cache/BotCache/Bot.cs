@@ -9,12 +9,25 @@ namespace FunkyTrinity
 
 		public partial class Bot
 		{
-			public static CharacterInfo Class { get; set; }
-			public static CharacterCache Character { get; set; }
-			public static CombatCache Combat { get; set; }
-			public static TargetHandler Target { get; set; }
+			 internal static CharacterInfo Class { get; set; }
+			internal static CharacterCache Character { get; set; }
+			internal static CombatCache Combat { get; set; }
+			internal static TargetHandler Target { get; set; }
 
-			public static void AttemptToUseHealthPotion()
+
+			// Death counts
+			internal static int iMaxDeathsAllowed=0;
+			internal static int iDeathsThisRun=0;
+			// On death, clear the timers for all abilities
+			internal static DateTime lastDied=DateTime.Today;
+			internal static int iTotalDeaths=0;
+			// How many total leave games, for stat-tracking?
+			internal static int iTotalJoinGames=0;
+			// How many total leave games, for stat-tracking?
+			internal static int iTotalLeaveGames=0;
+			internal static int iTotalProfileRecycles=0;
+
+			internal static void AttemptToUseHealthPotion()
 			{
 				 //Update and find best potion to use.
 				 Character.BackPack.ReturnCurrentPotions();
@@ -29,7 +42,7 @@ namespace FunkyTrinity
 				 WaitWhileAnimating(3, true);
 			}
 
-			public static void Reset()
+			internal static void Reset()
 			{
 				 Class=null;
 				 Character=new CharacterCache();

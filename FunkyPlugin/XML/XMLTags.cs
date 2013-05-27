@@ -232,12 +232,12 @@ namespace FunkyTrinity
 		  {
 				return new Zeta.TreeSharp.Action(ret =>
 				{
-					 if (MaxDeaths!=Funky.iMaxDeathsAllowed)
+					 if (MaxDeaths!=Funky.Bot.iMaxDeathsAllowed)
 						  Logging.Write("[Funky] Max deaths set by profile. Trinity now handling deaths, and will restart the game after "+MaxDeaths.ToString());
 
-					 Funky.iMaxDeathsAllowed=MaxDeaths;
+					 Funky.Bot.iMaxDeathsAllowed=MaxDeaths;
 					 if (Reset!=null&&Reset.ToLower()=="true")
-						  Funky.iDeathsThisRun=0;
+						  Funky.Bot.iDeathsThisRun=0;
 					 m_IsDone=true;
 				});
 		  }
