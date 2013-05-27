@@ -36,12 +36,12 @@ namespace FunkyTrinity
 				#endregion
 
 				// Barbarians need 56 reserve for special spam like WW
-				iWaitingReservedAmount=56;
+				Bot.Class.iWaitingReservedAmount=56;
 				// Ignore Pain when low on health
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_IgnorePain)&&Bot.Character.dCurrentHealthPct<=0.45&&
 					AbilityUseTimer(SNOPower.Barbarian_IgnorePain, true)&&PowerManager.CanCast(SNOPower.Barbarian_IgnorePain))
 				{
-					 return new cacheSNOPower(SNOPower.Barbarian_IgnorePain, 0f, vNullLocation, iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Barbarian_IgnorePain, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
 				}
 
 				CacheUnit thisCacheUnitObj;
@@ -52,29 +52,29 @@ namespace FunkyTrinity
 					 thisCacheUnitObj=null;
 
 				// Flag up a variable to see if we should reserve 50 fury for special abilities
-				bWaitingForSpecial=false;
+				Bot.Class.bWaitingForSpecial=false;
 				//Only check if we are not already 100%
 				if (Bot.Character.dCurrentEnergyPct<1)
 				{
 					 if (thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique&&thisCacheUnitObj.MonsterShielding&&!thisCacheUnitObj.IsAttackable.Value)
-						  bWaitingForSpecial=true;
+						  Bot.Class.bWaitingForSpecial=true;
 
 					 if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_Earthquake)&&
 						 Bot.Combat.iElitesWithinRange[RANGE_25]>=1&&AbilityUseTimer(SNOPower.Barbarian_Earthquake))
 					 {
-						  bWaitingForSpecial=true;
+						  Bot.Class.bWaitingForSpecial=true;
 					 }
 					 if (!bOOCBuff&&!bCurrentlyAvoiding
 						  &&HotbarAbilitiesContainsPower(SNOPower.Barbarian_WrathOfTheBerserker)
 						  &&AbilityUseTimer(SNOPower.Barbarian_WrathOfTheBerserker)
 						  &&Bot.Combat.iElitesWithinRange[RANGE_50]>2)
 					 {
-						  bWaitingForSpecial=true;
+						  Bot.Class.bWaitingForSpecial=true;
 					 }
 					 if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_CallOfTheAncients)&&
 						 Bot.Combat.iElitesWithinRange[RANGE_15]>=3&&AbilityUseTimer(SNOPower.Barbarian_CallOfTheAncients))
 					 {
-						  bWaitingForSpecial=true;
+						  Bot.Class.bWaitingForSpecial=true;
 					 }
 				}
 				// Earthquake, elites close-range only
@@ -84,8 +84,8 @@ namespace FunkyTrinity
 					PowerManager.CanCast(SNOPower.Barbarian_Earthquake))
 				{
 					 if (Bot.Character.dCurrentEnergy>=50)
-						  return new cacheSNOPower(SNOPower.Barbarian_Earthquake, 13f, vNullLocation, iCurrentWorldID, -1, 4, 4, USE_SLOWLY);
-					 bWaitingForSpecial=true;
+						  return new cacheSNOPower(SNOPower.Barbarian_Earthquake, 13f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 4, 4, USE_SLOWLY);
+					 Bot.Class.bWaitingForSpecial=true;
 				}
 
 				// Wrath of the berserker, elites only (wrath of berserker)
@@ -108,8 +108,8 @@ namespace FunkyTrinity
 					PowerManager.CanCast(SNOPower.Barbarian_WrathOfTheBerserker))
 				{
 					 if (Bot.Character.dCurrentEnergy>=50)
-						  return new cacheSNOPower(SNOPower.Barbarian_WrathOfTheBerserker, 0f, vNullLocation, iCurrentWorldID, -1, 4, 4, USE_SLOWLY);
-					 bWaitingForSpecial=true;
+						  return new cacheSNOPower(SNOPower.Barbarian_WrathOfTheBerserker, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 4, 4, USE_SLOWLY);
+					 Bot.Class.bWaitingForSpecial=true;
 				}
 				// Call of the ancients, elites only
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_CallOfTheAncients)&&!Bot.Character.bIsIncapacitated&&
@@ -118,15 +118,15 @@ namespace FunkyTrinity
 					PowerManager.CanCast(SNOPower.Barbarian_CallOfTheAncients))
 				{
 					 if (Bot.Character.dCurrentEnergy>=50)
-						  return new cacheSNOPower(SNOPower.Barbarian_CallOfTheAncients, 0f, vNullLocation, iCurrentWorldID, -1, 4, 4, USE_SLOWLY);
-					 bWaitingForSpecial=true;
+						  return new cacheSNOPower(SNOPower.Barbarian_CallOfTheAncients, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 4, 4, USE_SLOWLY);
+					 Bot.Class.bWaitingForSpecial=true;
 				}
 				// Battle rage, for if being followed and before we do sprint
 				if (bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_BattleRage)&&
 					(AbilityUseTimer(SNOPower.Barbarian_BattleRage)||!HasBuff(SNOPower.Barbarian_BattleRage))&&
 					Bot.Character.dCurrentEnergy>=20&&PowerManager.CanCast(SNOPower.Barbarian_BattleRage))
 				{
-					 return new cacheSNOPower(SNOPower.Barbarian_BattleRage, 0f, vNullLocation, iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Barbarian_BattleRage, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
 				}
 				// Special segment for sprint as an out-of-combat only
 				if (bOOCBuff&&(SettingsFunky.OutOfCombatMovement||HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))&&
@@ -134,7 +134,7 @@ namespace FunkyTrinity
 					!HasBuff(SNOPower.Barbarian_Sprint)&&
 					Bot.Character.dCurrentEnergy>=20&&AbilityUseTimer(SNOPower.Barbarian_Sprint)&&PowerManager.CanCast(SNOPower.Barbarian_Sprint))
 				{
-					 return new cacheSNOPower(SNOPower.Barbarian_Sprint, 0f, vNullLocation, iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Barbarian_Sprint, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
 				}
 				// War cry, constantly maintain
 				if (!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_WarCry)&&
@@ -144,14 +144,14 @@ namespace FunkyTrinity
 						||Bot.Character.dCurrentEnergyPct<0.10)
 					)))
 				{
-					 return new cacheSNOPower(SNOPower.Barbarian_WarCry, 0f, vNullLocation, iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Barbarian_WarCry, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
 				}
 				// war cry OOC 
 				if (bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_WarCry)&&
 					(PowerManager.CanCast(SNOPower.Barbarian_WarCry)&&Bot.Combat.iAnythingWithinRange[RANGE_25]>1)
 					&&Bot.Character.dCurrentEnergyPct<0.9)
 				{
-					 return new cacheSNOPower(SNOPower.Barbarian_WarCry, 0f, vNullLocation, iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Barbarian_WarCry, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
 				}
 
 				// Threatening shout
@@ -163,7 +163,7 @@ namespace FunkyTrinity
 					)&&
 					AbilityUseTimer(SNOPower.Barbarian_ThreateningShout, true)&&PowerManager.CanCast(SNOPower.Barbarian_ThreateningShout))
 				{
-					 return new cacheSNOPower(SNOPower.Barbarian_ThreateningShout, 0f, vNullLocation, iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Barbarian_ThreateningShout, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
 				}
 				// Ground Stomp
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_GroundStomp)&&!Bot.Character.bIsIncapacitated&&
@@ -171,7 +171,7 @@ namespace FunkyTrinity
 					AbilityUseTimer(SNOPower.Barbarian_GroundStomp, true)&&
 					PowerManager.CanCast(SNOPower.Barbarian_GroundStomp))
 				{
-					 return new cacheSNOPower(SNOPower.Barbarian_GroundStomp, 16f, vNullLocation, iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Barbarian_GroundStomp, 16f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
 				}
 				// Revenge used off-cooldown
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_Revenge)&&!Bot.Character.bIsIncapacitated&&
@@ -193,7 +193,7 @@ namespace FunkyTrinity
 								iPostDelay=5;
 						  }
 					 }
-					 return new cacheSNOPower(SNOPower.Barbarian_Revenge, 0f, Bot.Character.Position, iCurrentWorldID, -1, iPreDelay, iPostDelay, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Barbarian_Revenge, 0f, Bot.Character.Position, Bot.Character.iCurrentWorldID, -1, iPreDelay, iPostDelay, USE_SLOWLY);
 				}
 				// Furious charge
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_FuriousCharge)&&!Bot.Character.bIsRooted&&!Bot.Character.bIsIncapacitated&&
@@ -209,7 +209,7 @@ namespace FunkyTrinity
 					 if (fExtraDistance<5f)
 						  fExtraDistance=5f;
 					 Vector3 vNewTarget=MathEx.CalculatePointFrom(Bot.Target.ObjectData.Position, Bot.Character.Position, Bot.Target.ObjectData.CentreDistance+fExtraDistance);
-					 return new cacheSNOPower(SNOPower.Barbarian_FuriousCharge, 32f, vNewTarget, iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Barbarian_FuriousCharge, 32f, vNewTarget, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
 				}
 				// Leap used when off-cooldown, or when out-of-range
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_Leap)&&!Bot.Character.bIsIncapacitated&&
@@ -225,10 +225,10 @@ namespace FunkyTrinity
 					 if (Bot.Target.ObjectData.CentreDistance+fExtraDistance>35f)
 						  fExtraDistance=35-Bot.Target.ObjectData.CentreDistance;
 					 Vector3 vNewTarget=MathEx.CalculatePointFrom(Bot.Target.ObjectData.Position, Bot.Character.Position, Bot.Target.ObjectData.CentreDistance+fExtraDistance);
-					 return new cacheSNOPower(SNOPower.Barbarian_Leap, 35f, vNewTarget, iCurrentWorldID, -1, 2, 2, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Barbarian_Leap, 35f, vNewTarget, Bot.Character.iCurrentWorldID, -1, 2, 2, USE_SLOWLY);
 				}
 				// Rend spam
-				if (!bOOCBuff&&!bWaitingForSpecial&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_Rend)&&!Bot.Combat.UsedAutoMovementCommand&&!Bot.Character.bIsIncapacitated&&
+				if (!bOOCBuff&&!Bot.Class.bWaitingForSpecial&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_Rend)&&!Bot.Combat.UsedAutoMovementCommand&&!Bot.Character.bIsIncapacitated&&
 					 //Only if 2 non-elite targets OR 1 elite target is within 6feet
 					(Bot.Combat.iAnythingWithinRange[RANGE_6]>1||Bot.Combat.iElitesWithinRange[RANGE_6]>0)&&
 
@@ -277,7 +277,7 @@ namespace FunkyTrinity
 								iPostDelay=5;
 						  }
 					 }
-					 return new cacheSNOPower(SNOPower.Barbarian_Rend, 0f, Bot.Character.Position, iCurrentWorldID, Bot.Target.ObjectData.AcdGuid.Value, iPreDelay, iPostDelay, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Barbarian_Rend, 0f, Bot.Character.Position, Bot.Character.iCurrentWorldID, Bot.Target.ObjectData.AcdGuid.Value, iPreDelay, iPostDelay, USE_SLOWLY);
 				}
 				// Overpower used off-cooldown
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_Overpower)&&!Bot.Character.bIsIncapacitated&&
@@ -307,10 +307,10 @@ namespace FunkyTrinity
 								iPostDelay=5;
 						  }
 					 }
-					 return new cacheSNOPower(SNOPower.Barbarian_Overpower, 0f, Bot.Character.Position, iCurrentWorldID, -1, iPreDelay, iPostDelay, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Barbarian_Overpower, 0f, Bot.Character.Position, Bot.Character.iCurrentWorldID, -1, iPreDelay, iPostDelay, USE_SLOWLY);
 				}
 				// Seismic slam enemies within close range
-				if ((!bOOCBuff&&!bWaitingForSpecial&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_SeismicSlam)
+				if ((!bOOCBuff&&!Bot.Class.bWaitingForSpecial&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_SeismicSlam)
 					 &&!Bot.Character.bIsIncapacitated&&PowerManager.CanCast(SNOPower.Barbarian_SeismicSlam))
 					 &&(Bot.Character.dCurrentEnergy>30||Bot.Class.RuneIndexCache[SNOPower.Barbarian_SeismicSlam]==3&&Bot.Character.dCurrentEnergy>15))
 				{
@@ -346,7 +346,7 @@ namespace FunkyTrinity
 					 if (fExtraDistance<5f)
 						  fExtraDistance=5f;
 					 Vector3 vNewTarget=MathEx.CalculatePointFrom(Bot.Target.ObjectData.Position, Bot.Character.Position, Bot.Target.ObjectData.CentreDistance+fExtraDistance);
-					 return new cacheSNOPower(SNOPower.Barbarian_AncientSpear, 35f, vNewTarget, iCurrentWorldID, -1, 2, 2, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Barbarian_AncientSpear, 35f, vNewTarget, Bot.Character.iCurrentWorldID, -1, 2, 2, USE_SLOWLY);
 				}
 				// Sprint buff, if same suitable targets as elites, keep maintained for WW users
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_Sprint)
@@ -365,47 +365,51 @@ namespace FunkyTrinity
 					 // If they have battle-rage, make sure it's up
 					(!HotbarAbilitiesContainsPower(SNOPower.Barbarian_BattleRage)||(HotbarAbilitiesContainsPower(SNOPower.Barbarian_BattleRage)&&HasBuff(SNOPower.Barbarian_BattleRage)))&&
 					 // Check for reserved-energy waiting or not
-					 //((BOT.DATA_Character.dCurrentEnergy >= 40 && !BOT.DATA_Character.bWaitingForReserveEnergy) || BOT.DATA_Character.dCurrentEnergy >= iWaitingReservedAmount) &&
+					 //((BOT.DATA_Character.dCurrentEnergy >= 40 && !BOT.DATA_Character.bWaitingForReserveEnergy) || BOT.DATA_Character.dCurrentEnergy >= Bot.Class.iWaitingReservedAmount) &&
 					Bot.Character.dCurrentEnergy>=20)
 				{
-					 return new cacheSNOPower(SNOPower.Barbarian_Sprint, 0f, vNullLocation, iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Barbarian_Sprint, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
 				}
 				// Whirlwind spam as long as necessary pre-buffs are up
-				if (!bOOCBuff&&!bCurrentlyAvoiding&&!bWaitingForSpecial&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_Whirlwind)&&!Bot.Character.bIsIncapacitated&&!Bot.Character.bIsRooted
+				if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Class.bWaitingForSpecial&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_Whirlwind)&&!Bot.Character.bIsIncapacitated&&!Bot.Character.bIsRooted
 					 // Don't WW against goblins, units in the special SNO list
 					&&(!SettingsFunky.Class.bSelectiveWhirlwind||Bot.Combat.bAnyNonWWIgnoreMobsInRange||!SnoCacheLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Target.ObjectData.SNOID))&&
 					 // Only if within 15 foot of main target
 					((Bot.Target.ObjectData.RadiusDistance<=20f||Bot.Combat.iAnythingWithinRange[RANGE_25]>=1)&&
 					(Bot.Combat.iAnythingWithinRange[RANGE_50]>=2||(thisCacheUnitObj!=null&&thisCacheUnitObj.CurrentHealthPct>=0.30)||Bot.Target.ObjectData.IsBoss||(thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique)||Bot.Character.dCurrentHealthPct<=0.60))&&
 					 // Check for energy reservation amounts
-					 //((BOT.DATA_Character.dCurrentEnergy >= 20 && !BOT.DATA_Character.bWaitingForReserveEnergy) || BOT.DATA_Character.dCurrentEnergy >= iWaitingReservedAmount) &&
+					 //((BOT.DATA_Character.dCurrentEnergy >= 20 && !BOT.DATA_Character.bWaitingForReserveEnergy) || BOT.DATA_Character.dCurrentEnergy >= Bot.Class.iWaitingReservedAmount) &&
 					Bot.Character.dCurrentEnergy>=10&&
 					 // If they have battle-rage, make sure it's up
 					(!HotbarAbilitiesContainsPower(SNOPower.Barbarian_BattleRage)||(HotbarAbilitiesContainsPower(SNOPower.Barbarian_BattleRage)&&HasBuff(SNOPower.Barbarian_BattleRage))))
 				// If they have sprint, make sure it's up
 				//(!hashPowerHotbarAbilities.Contains(SNOPower.Barbarian_Sprint) || (hashPowerHotbarAbilities.Contains(SNOPower.Barbarian_Sprint) && GilesHasBuff(SNOPower.Barbarian_Sprint))))
 				{
-					 bool bGenerateNewZigZag=(DateTime.Now.Subtract(lastChangedZigZag).TotalMilliseconds>=2000f||
-						  (vPositionLastZigZagCheck!=vNullLocation&&Bot.Character.Position==vPositionLastZigZagCheck&&DateTime.Now.Subtract(lastChangedZigZag).TotalMilliseconds>=1200)||
-						  Vector3.Distance(Bot.Character.Position, vSideToSideTarget)<=5f||
-						  Bot.Target.ObjectData.AcdGuid.Value!=iACDGUIDLastWhirlwind);
-					 vPositionLastZigZagCheck=Bot.Character.Position;
+					 bool bGenerateNewZigZag=(DateTime.Now.Subtract(Bot.Combat.lastChangedZigZag).TotalMilliseconds>=2000f||
+						  (Bot.Combat.vPositionLastZigZagCheck!=vNullLocation&&Bot.Character.Position==Bot.Combat.vPositionLastZigZagCheck&&DateTime.Now.Subtract(Bot.Combat.lastChangedZigZag).TotalMilliseconds>=1200)||
+						  Vector3.Distance(Bot.Character.Position, Bot.Combat.vSideToSideTarget)<=5f||
+						  Bot.Target.ObjectData.AcdGuid.Value!=Bot.Combat.iACDGUIDLastWhirlwind);
+					 Bot.Combat.vPositionLastZigZagCheck=Bot.Character.Position;
 					 if (bGenerateNewZigZag)
 					 {
 						  //float fExtraDistance = targetCurrent.fCentreDistance+(targetCurrent.fCentreDistance <= 16f ? 16f : 8f);
-						  //vSideToSideTarget = FindZigZagTargetLocation(Bot.CurrentTarget.Position, Bot.CurrentTarget.CentreDistance + 25f);
+						  //Bot.Combat.vSideToSideTarget = FindZigZagTargetLocation(Bot.CurrentTarget.Position, Bot.CurrentTarget.CentreDistance + 25f);
 						  // Resetting this to ensure the "no-spam" is reset since we changed our target location
 						  if (Bot.Combat.bCheckGround)
+<<<<<<< HEAD
 								vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.ObjectData.Position, 25f, false, true, true);
+=======
+								Bot.Combat.vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.ObjectData.Position, 25f, false, true, true);
+>>>>>>> origin/Refractoring
 						  else if (Bot.Combat.iAnythingWithinRange[RANGE_30]>=6||Bot.Combat.iElitesWithinRange[RANGE_30]>=3)
-								vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.ObjectData.Position, 25f, false, true);
+								Bot.Combat.vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.ObjectData.Position, 25f, false, true);
 						  else
-								vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.ObjectData.Position, 25f);
+								Bot.Combat.vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.ObjectData.Position, 25f);
 						  Bot.Combat.powerLastSnoPowerUsed=SNOPower.None;
-						  iACDGUIDLastWhirlwind=Bot.Target.ObjectData.AcdGuid.Value;
-						  lastChangedZigZag=DateTime.Now;
+						  Bot.Combat.iACDGUIDLastWhirlwind=Bot.Target.ObjectData.AcdGuid.Value;
+						  Bot.Combat.lastChangedZigZag=DateTime.Now;
 					 }
-					 return new cacheSNOPower(SNOPower.Barbarian_Whirlwind, 15f, vSideToSideTarget, iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Barbarian_Whirlwind, 15f, Bot.Combat.vSideToSideTarget, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
 				}
 				// Battle rage, constantly maintain
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_BattleRage)&&!Bot.Character.bIsIncapacitated&&
@@ -416,12 +420,12 @@ namespace FunkyTrinity
 					)&&
 					Bot.Character.dCurrentEnergy>=20&&PowerManager.CanCast(SNOPower.Barbarian_BattleRage))
 				{
-					 return new cacheSNOPower(SNOPower.Barbarian_BattleRage, 0f, vNullLocation, iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Barbarian_BattleRage, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
 				}
 				// Hammer of the ancients spam-attacks - never use if waiting for special
 				if (!bOOCBuff&&!bCurrentlyAvoiding
 					 &&HotbarAbilitiesContainsPower(SNOPower.Barbarian_HammerOfTheAncients)
-					 &&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=20&&PowerManager.CanCast(SNOPower.Barbarian_HammerOfTheAncients)&&!bWaitingForSpecial)
+					 &&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=20&&PowerManager.CanCast(SNOPower.Barbarian_HammerOfTheAncients)&&!Bot.Class.bWaitingForSpecial)
 				{
 					 int RuneIndex=Bot.Class.RuneIndexCache[SNOPower.Barbarian_HammerOfTheAncients];
 					 float Range=16f;
@@ -448,7 +452,7 @@ namespace FunkyTrinity
 						  {
 								ACDGuid=ObjectCache.Objects.Clusters(MinUnitCount: 2)[0].CurrentValidUnit.AcdGuid.Value;
 
-								return new cacheSNOPower(SNOPower.Barbarian_HammerOfTheAncients, 0f, vNullLocation, iCurrentWorldID, ACDGuid, 1, 2, USE_SLOWLY);
+								return new cacheSNOPower(SNOPower.Barbarian_HammerOfTheAncients, 0f, vNullLocation, Bot.Character.iCurrentWorldID, ACDGuid, 1, 2, USE_SLOWLY);
 						  }
 						  else if (thisCacheUnitObj!=null&&thisCacheUnitObj.ObjectIsSpecial)
 						  {

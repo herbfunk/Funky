@@ -47,7 +47,7 @@ namespace FunkyTrinity
 
         public static void SendNotification(ProwlNotification notification)
         {
-            if (settings.bEnableProwl && sProwlAPIKey != "")
+            if (settings.bEnableProwl && !String.IsNullOrEmpty(sProwlAPIKey))
             {
                 var newNotification =
                         new ProwlNotification
@@ -65,7 +65,7 @@ namespace FunkyTrinity
 
                 }
             }
-            if (settings.bEnableAndroid && sAndroidAPIKey != "")
+            if (settings.bEnableAndroid && !String.IsNullOrEmpty(sAndroidAPIKey))
             {
                 var newNotification =
                         new ProwlNotification

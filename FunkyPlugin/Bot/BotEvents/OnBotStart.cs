@@ -14,7 +14,7 @@ namespace FunkyTrinity
     {
 		  private void FunkyBotStart(IBot bot)
 		  {
-				string FunkySettingsPath=System.IO.Path.Combine(sDemonBuddyPath, "Settings", "FunkyTrinity");
+				string FunkySettingsPath=System.IO.Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyTrinity");
 				if (!System.IO.Directory.Exists(FunkySettingsPath))
 				{
 					 Logging.WriteDiagnostic("Creating Settings Folder at location {0}", FunkySettingsPath);
@@ -55,23 +55,19 @@ namespace FunkyTrinity
 				
 
 				// Recording of all the XML's in use this run
-				try
-				{
+
 					 string sThisProfile=Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
 					 if (sThisProfile!=sLastProfileSeen)
 					 {
 						  listProfilesLoaded.Add(sThisProfile);
 						  sLastProfileSeen=sThisProfile;
-						  if (sFirstProfileSeen=="")
+						  if (String.IsNullOrEmpty(sFirstProfileSeen))
 								sFirstProfileSeen=sThisProfile;
 					 }
 
 					 //herbfunk stats
 					 Statistics.ProfileStats.CurrentProfile=new ProfileStatisics.ProfileStats(sThisProfile);
-				} catch
-				{
 
-				}
 
 
 				if (!bMaintainStatTracking)

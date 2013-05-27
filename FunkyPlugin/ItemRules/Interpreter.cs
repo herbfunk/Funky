@@ -84,7 +84,7 @@ namespace FunkyTrinity
 		  //TextHighlighter highlighter;
 
 		  // dictonary for the item
-		  public static Dictionary<string, object> itemDic;
+		  private static Dictionary<string, object> itemDic;
 
 		  // dictonary for the translation
 		  private Dictionary<string, string> nameToBalanceId;
@@ -507,17 +507,6 @@ namespace FunkyTrinity
 					 return TrinityItemQuality.Common;
 		  }
 
-		  private List<string> getDistinctItemQualitiesList()
-		  {
-				List<string> result=new List<string>();
-				foreach (ItemQuality itemQuality in Enum.GetValues(typeof(ItemQuality)))
-				{
-					 string quality=Regex.Replace(itemQuality.ToString(), @"[\d]", string.Empty);
-					 if (!result.Contains(quality))
-						  result.Add(quality);
-				};
-				return result;
-		  }
 
 		  /// <summary>
 		  /// 
@@ -615,7 +604,7 @@ namespace FunkyTrinity
 					 {
 						  if (value is float&&(float)value>0)
 								result+=key.ToUpper()+":"+((float)value).ToString("0.00").Replace(".00", "")+SEP;
-						  else if (value is string&&(string)value!="")
+						  else if (value is string&&!String.IsNullOrEmpty((string)value))
 								result+=key.ToUpper()+":"+value.ToString()+SEP;
 						  else if (value is bool)
 								result+=key.ToUpper()+":"+value.ToString()+SEP;

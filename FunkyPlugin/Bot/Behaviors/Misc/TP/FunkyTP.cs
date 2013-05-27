@@ -58,7 +58,7 @@ namespace FunkyTrinity
 						  return false;
 					 else
 						  return true;
-				} catch
+				} catch (NullReferenceException)
 				{
 					 return false;
 				}
@@ -72,7 +72,7 @@ namespace FunkyTrinity
 				try
 				{
 					 cancast=ZetaDia.Me.CanUseTownPortal(out TPcastTest);
-				} catch
+				} catch (NullReferenceException)
 				{
 					 TPcastTest="Exception during CanUseTownPortal";
 					 cancast=false;
@@ -114,16 +114,6 @@ namespace FunkyTrinity
 		  //Events below are not used ATM.
 		  internal static bool worldtransferStarted=false;
 		  internal static bool worldChanged=false;
-		  private static void OnWorldChangeStart(object src, EventArgs mea)
-		  {
-				Logging.WriteVerbose("[FunkyTP] TP Behavior -- World Transfered!");
-				worldtransferStarted=true;
-		  }
-		  private static void OnWorldChanged(object src, EventArgs mea)
-		  {
-				Logging.WriteVerbose("[FunkyTP] TP Behavior -- World Changed!");
-				worldChanged=true;
-		  }
 
 		  internal static bool CastingRecall()
 		  {
@@ -237,7 +227,7 @@ namespace FunkyTrinity
 					 try
 					 {
 						  isMoving=ZetaDia.Me.Movement.IsMoving;
-					 } catch { }
+					 } catch (NullReferenceException) { }
 
 					 //Use simple checking of movement, with UsePower on our last location.
 					 if (!isMoving)

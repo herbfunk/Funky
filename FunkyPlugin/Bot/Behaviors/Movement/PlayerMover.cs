@@ -39,22 +39,22 @@ namespace FunkyTrinity
 
 				public void MoveStop()
 				{
-					 ZetaDia.Me.UsePower(SNOPower.Walk, ZetaDia.Me.Position, Funky.iCurrentWorldID, -1);
+					 ZetaDia.Me.UsePower(SNOPower.Walk, ZetaDia.Me.Position, Funky.Bot.Character.iCurrentWorldID, -1);
 				}
 				// Anti-stuck variables
 				private static Vector3 vOldMoveToTarget=Vector3.Zero;
-				public static int iTimesReachedStuckPoint=0;
-				public static int iTotalAntiStuckAttempts=1;
-				public static Vector3 vSafeMovementLocation=Vector3.Zero;
-				public static DateTime timeLastRecordedPosition=DateTime.Today;
-				public static Vector3 vOldPosition=Vector3.Zero;
-				public static DateTime timeStartedUnstuckMeasure=DateTime.Today;
-				public static int iTimesReachedMaxUnstucks=0;
-				public static DateTime timeCancelledUnstuckerFor=DateTime.Today;
-				public static DateTime timeLastReportedAnyStuck=DateTime.Today;
-				public static int iCancelUnstuckerForSeconds=60;
-				public static DateTime timeLastRestartedGame=DateTime.Today;
-				public static bool ShouldHandleObstacleObject=false;
+				internal static int iTimesReachedStuckPoint=0;
+				internal static int iTotalAntiStuckAttempts=1;
+				internal static Vector3 vSafeMovementLocation=Vector3.Zero;
+				internal static DateTime timeLastRecordedPosition=DateTime.Today;
+				internal static Vector3 vOldPosition=Vector3.Zero;
+				internal static DateTime timeStartedUnstuckMeasure=DateTime.Today;
+				internal static int iTimesReachedMaxUnstucks=0;
+				internal static DateTime timeCancelledUnstuckerFor=DateTime.Today;
+				internal static DateTime timeLastReportedAnyStuck=DateTime.Today;
+				internal static int iCancelUnstuckerForSeconds=60;
+				internal static DateTime timeLastRestartedGame=DateTime.Today;
+				internal static bool ShouldHandleObstacleObject=false;
 				// **********************************************************************************************
 				// *****                         Check if we are stuck or not                               *****
 				// **********************************************************************************************
@@ -120,7 +120,7 @@ namespace FunkyTrinity
 						  // Temporarily log stuff
 						  if (iTotalAntiStuckAttempts==1&&Funky.settings.bLogStucks)
 						  {
-								FileStream LogStream=File.Open(Funky.sTrinityLogPath+ZetaDia.Service.CurrentHero.BattleTagName+" - Stucks - "+ZetaDia.Actors.Me.ActorClass.ToString()+".log", FileMode.Append, FileAccess.Write, FileShare.Read);
+								FileStream LogStream=File.Open(Funky.FolderPaths.sTrinityLogPath+ZetaDia.Service.CurrentHero.BattleTagName+" - Stucks - "+ZetaDia.Actors.Me.ActorClass.ToString()+".log", FileMode.Append, FileAccess.Write, FileShare.Read);
 								using (StreamWriter LogWriter=new StreamWriter(LogStream))
 								{
 									 LogWriter.WriteLine(DateTime.Now.ToString()+": Original Destination="+vOldMoveToTarget.ToString()+". Current player position when stuck="+vMyCurrentPosition.ToString());
@@ -303,7 +303,7 @@ namespace FunkyTrinity
 									 if (!hashDoneThisVector.Contains(vMoveToTarget))
 									 {
 										  // Log it
-										  FileStream LogStream=File.Open(Funky.sTrinityLogPath+ZetaDia.Service.CurrentHero.BattleTagName+" - LongPaths - "+ZetaDia.Actors.Me.ActorClass.ToString()+".log", FileMode.Append, FileAccess.Write, FileShare.Read);
+										  FileStream LogStream=File.Open(Funky.FolderPaths.sTrinityLogPath+ZetaDia.Service.CurrentHero.BattleTagName+" - LongPaths - "+ZetaDia.Actors.Me.ActorClass.ToString()+".log", FileMode.Append, FileAccess.Write, FileShare.Read);
 										  using (StreamWriter LogWriter=new StreamWriter(LogStream))
 										  {
 												LogWriter.WriteLine(DateTime.Now.ToString()+":");
@@ -544,7 +544,7 @@ namespace FunkyTrinity
 									 if ((MovementPower==SNOPower.Monk_TempestRush&&lastUsedAbilityMS<250)||
 										  GilesCanRayCast(vMyCurrentPosition, vTargetAimPoint))
 									 {
-										  ZetaDia.Me.UsePower(MovementPower, vTargetAimPoint, Funky.iCurrentWorldID, -1);
+										  ZetaDia.Me.UsePower(MovementPower, vTargetAimPoint, Funky.Bot.Character.iCurrentWorldID, -1);
 										  Funky.dictAbilityLastUse[MovementPower]=DateTime.Now;
 										  return;
 									 }
@@ -561,7 +561,7 @@ namespace FunkyTrinity
 								Vector3 vThisTarget=vMoveToTarget;
 								if (fDistanceFromTarget>35f)
 									 vThisTarget=MathEx.CalculatePointFrom(vMoveToTarget, vMyCurrentPosition, 35f);
-								ZetaDia.Me.UsePower(SNOPower.Barbarian_Leap, vThisTarget, Funky.iCurrentWorldID, -1);
+								ZetaDia.Me.UsePower(SNOPower.Barbarian_Leap, vThisTarget, Funky.Bot.Character.iCurrentWorldID, -1);
 								Funky.dictAbilityLastUse[SNOPower.Barbarian_Leap]=DateTime.Now;
 								return;
 						  }
@@ -574,7 +574,7 @@ namespace FunkyTrinity
 								Vector3 vThisTarget=vMoveToTarget;
 								if (fDistanceFromTarget>35f)
 									 vThisTarget=MathEx.CalculatePointFrom(vMoveToTarget, vMyCurrentPosition, 35f);
-								ZetaDia.Me.UsePower(SNOPower.Barbarian_FuriousCharge, vThisTarget, Funky.iCurrentWorldID, -1);
+								ZetaDia.Me.UsePower(SNOPower.Barbarian_FuriousCharge, vThisTarget, Funky.Bot.Character.iCurrentWorldID, -1);
 								Funky.dictAbilityLastUse[SNOPower.Barbarian_FuriousCharge]=DateTime.Now;
 								return;
 						  }
@@ -587,7 +587,7 @@ namespace FunkyTrinity
 								Vector3 vThisTarget=vMoveToTarget;
 								if (fDistanceFromTarget>35f)
 									 vThisTarget=MathEx.CalculatePointFrom(vMoveToTarget, vMyCurrentPosition, 35f);
-								ZetaDia.Me.UsePower(SNOPower.DemonHunter_Vault, vThisTarget, Funky.iCurrentWorldID, -1);
+								ZetaDia.Me.UsePower(SNOPower.DemonHunter_Vault, vThisTarget, Funky.Bot.Character.iCurrentWorldID, -1);
 								Funky.dictAbilityLastUse[SNOPower.DemonHunter_Vault]=DateTime.Now;
 								return;
 						  }
@@ -595,7 +595,7 @@ namespace FunkyTrinity
 						  if (Funky.HotbarAbilitiesContainsPower(SNOPower.Monk_TempestRush)&&!bTooMuchZChange&&ZetaDia.Me.CurrentPrimaryResource>=20)
 						  {
 								Vector3 vTargetAimPoint=MathEx.CalculatePointFrom(vMoveToTarget, vMyCurrentPosition, 10f);
-								ZetaDia.Me.UsePower(SNOPower.Monk_TempestRush, vTargetAimPoint, Funky.iCurrentWorldID, -1);
+								ZetaDia.Me.UsePower(SNOPower.Monk_TempestRush, vTargetAimPoint, Funky.Bot.Character.iCurrentWorldID, -1);
 								return;
 						  }
 						  // Teleport for a wizard (need to be able to check skill rune in DB for a 3-4 teleport spam in a row)
@@ -607,7 +607,7 @@ namespace FunkyTrinity
 								Vector3 vThisTarget=vMoveToTarget;
 								if (fDistanceFromTarget>35f)
 									 vThisTarget=MathEx.CalculatePointFrom(vMoveToTarget, vMyCurrentPosition, 35f);
-								ZetaDia.Me.UsePower(SNOPower.Wizard_Teleport, vThisTarget, Funky.iCurrentWorldID, -1);
+								ZetaDia.Me.UsePower(SNOPower.Wizard_Teleport, vThisTarget, Funky.Bot.Character.iCurrentWorldID, -1);
 								Funky.dictAbilityLastUse[SNOPower.Wizard_Teleport]=DateTime.Now;
 								return;
 						  }
@@ -620,7 +620,7 @@ namespace FunkyTrinity
 								Vector3 vThisTarget=vMoveToTarget;
 								if (fDistanceFromTarget>35f)
 									 vThisTarget=MathEx.CalculatePointFrom(vMoveToTarget, vMyCurrentPosition, 35f);
-								ZetaDia.Me.UsePower(SNOPower.Wizard_Archon_Teleport, vThisTarget, Funky.iCurrentWorldID, -1);
+								ZetaDia.Me.UsePower(SNOPower.Wizard_Archon_Teleport, vThisTarget, Funky.Bot.Character.iCurrentWorldID, -1);
 								Funky.dictAbilityLastUse[SNOPower.Wizard_Archon_Teleport]=DateTime.Now;
 								return;
 						  }

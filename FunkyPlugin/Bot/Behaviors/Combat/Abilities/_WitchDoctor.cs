@@ -13,7 +13,7 @@ namespace FunkyTrinity
 		  internal static cacheSNOPower WitchDoctorAbility(bool bCurrentlyAvoiding=false, bool bOOCBuff=false, bool bDestructiblePower=false)
 		  {
 				// Extra height thingy, not REALLY used as it was originally going to be, will probably get phased out...
-				float iThisHeight=iExtraHeight;
+				float iThisHeight=2f;
 
 				#region WitchDoctor
 				//SNOPower.Witchdoctor_ZombieCharger)&&Bot.Character.dCurrentEnergy>=140)
@@ -41,7 +41,7 @@ namespace FunkyTrinity
 					 thisCacheUnitObj=null;
 
 				// Witch doctors have no reserve requirements?
-				iWaitingReservedAmount=0;
+				Bot.Class.iWaitingReservedAmount=0;
 
 				// Spirit Walk Cast on 65% health or while avoiding anything but molten core or incapacitated or Chasing Goblins
 				if (HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_SpiritWalk)&&Bot.Character.dCurrentEnergy>=49&&
@@ -49,7 +49,7 @@ namespace FunkyTrinity
 					 (!bOOCBuff&&Bot.Target.ObjectData.IsTreasureGoblin&&thisCacheUnitObj!=null&&thisCacheUnitObj.CurrentHealthPct<0.90&&Bot.Target.ObjectData.RadiusDistance<=40f))
 					 &&PowerManager.CanCast(SNOPower.Witchdoctor_SpiritWalk))
 				{
-					 return new cacheSNOPower(SNOPower.Witchdoctor_SpiritWalk, 0f, vNullLocation, iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Witchdoctor_SpiritWalk, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
 				}
 
 				// Soul Harvest Any Elites or 2+ Norms and baby it's harvest season
@@ -57,35 +57,35 @@ namespace FunkyTrinity
 					(Bot.Combat.iElitesWithinRange[RANGE_6]>=1||Bot.Combat.iAnythingWithinRange[RANGE_6]>=2||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.ObjectData.IsTreasureGoblin)&&Bot.Target.ObjectData.RadiusDistance<=7f))&&
 					PowerManager.CanCast(SNOPower.Witchdoctor_SoulHarvest))
 				{
-					 return new cacheSNOPower(SNOPower.Witchdoctor_SoulHarvest, 0f, vNullLocation, iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Witchdoctor_SoulHarvest, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
 				}
 				// Sacrifice AKA Zombie Dog Jihad, use on Elites Only or to try and Save yourself
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_Sacrifice)&&
 					(Bot.Combat.iElitesWithinRange[RANGE_15]>0||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.ObjectData.IsBoss||Bot.Target.ObjectData.IsTreasureGoblin)&&Bot.Target.ObjectData.RadiusDistance<=15f))&&
 					PowerManager.CanCast(SNOPower.Witchdoctor_Sacrifice))
 				{
-					 return new cacheSNOPower(SNOPower.Witchdoctor_Sacrifice, 0f, vNullLocation, iCurrentWorldID, -1, 1, 0, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Witchdoctor_Sacrifice, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 0, USE_SLOWLY);
 				}
 				// Gargantuan, Recast on 1+ Elites or Bosses to trigger Restless Giant
 				if (HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_Gargantuan)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=147&&PowerManager.CanCast(SNOPower.Witchdoctor_Gargantuan)&&
 					 (Bot.Class.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]==0&&(Bot.Combat.iElitesWithinRange[RANGE_15]>=1||(thisCacheUnitObj!=null&&((thisCacheUnitObj.IsEliteRareUnique||Bot.Target.ObjectData.IsBoss)&&Bot.Target.ObjectData.RadiusDistance<=15f)))
 					 ||Bot.Class.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]!=0&&Bot.Character.PetData.Gargantuan==0))
 				{
-					 return new cacheSNOPower(SNOPower.Witchdoctor_Gargantuan, 0f, vNullLocation, iCurrentWorldID, -1, 2, 1, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Witchdoctor_Gargantuan, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 2, 1, USE_SLOWLY);
 				}
 				// Zombie dogs Woof Woof, good for being blown up, cast when less than or equal to 1 Dog or Not Blowing them up and cast when less than 4
 				if (HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_SummonZombieDog)
 					 &&(Bot.Class.PassiveAbilities.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler)&&Bot.Character.PetData.ZombieDogs<4||Bot.Character.PetData.ZombieDogs<3)
 					 &&PowerManager.CanCast(SNOPower.Witchdoctor_SummonZombieDog))
 				{
-					 return new cacheSNOPower(SNOPower.Witchdoctor_SummonZombieDog, 0f, vNullLocation, iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Witchdoctor_SummonZombieDog, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
 				}
 				// Hex Spam Cast on ANYTHING in range, mmm pork and chicken
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_Hex)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=49&&
 					(Bot.Combat.iElitesWithinRange[RANGE_12]>=1||Bot.Combat.iAnythingWithinRange[RANGE_12]>=1||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.ObjectData.IsTreasureGoblin||Bot.Target.ObjectData.IsBoss)&&Bot.Target.ObjectData.RadiusDistance<=18f))&&
 					PowerManager.CanCast(SNOPower.Witchdoctor_Hex))
 				{
-					 return new cacheSNOPower(SNOPower.Witchdoctor_Hex, 0f, vNullLocation, iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Witchdoctor_Hex, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
 				}
 				// Mass Confuse, elites only or big mobs or to escape on low health
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_MassConfusion)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=74&&
@@ -100,7 +100,7 @@ namespace FunkyTrinity
 					(Bot.Combat.iElitesWithinRange[RANGE_6]>0||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.ObjectData.IsBoss)&&Bot.Target.ObjectData.RadiusDistance<=12f))&&
 					PowerManager.CanCast(SNOPower.Witchdoctor_BigBadVoodoo))
 				{
-					 return new cacheSNOPower(SNOPower.Witchdoctor_BigBadVoodoo, 0f, vNullLocation, iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Witchdoctor_BigBadVoodoo, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
 				}
 				// Grasp of the Dead, look below, droping globes and dogs when using it on elites and 3 norms
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_GraspOfTheDead)&&!Bot.Character.bIsIncapacitated&&
@@ -109,7 +109,7 @@ namespace FunkyTrinity
 					 if (ObjectCache.Objects.Clusters(5d, 35f, 2).Count>0)
 					 {
 						  Vector3 Center=ObjectCache.Objects.Clusters()[0].ListUnits[0].Position;
-						  return new cacheSNOPower(SNOPower.Witchdoctor_GraspOfTheDead, 35f, Center, iCurrentWorldID, -1, 0, 3, USE_SLOWLY);
+						  return new cacheSNOPower(SNOPower.Witchdoctor_GraspOfTheDead, 35f, Center, Bot.Character.iCurrentWorldID, -1, 0, 3, USE_SLOWLY);
 					 }
 				}
 				// Horrify Buff at 60% health
@@ -117,14 +117,14 @@ namespace FunkyTrinity
 					Bot.Character.dCurrentHealthPct<=0.60&&
 					PowerManager.CanCast(SNOPower.Witchdoctor_Horrify))
 				{
-					 return new cacheSNOPower(SNOPower.Witchdoctor_Horrify, 0f, vNullLocation, iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Witchdoctor_Horrify, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
 				}
 				// Fetish Army, elites only
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_FetishArmy)&&!Bot.Character.bIsIncapacitated&&
 					(Bot.Combat.iElitesWithinRange[RANGE_25]>0||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.ObjectData.IsTreasureGoblin||Bot.Target.ObjectData.IsBoss)&&Bot.Target.ObjectData.RadiusDistance<=16f))&&
 					PowerManager.CanCast(SNOPower.Witchdoctor_FetishArmy))
 				{
-					 return new cacheSNOPower(SNOPower.Witchdoctor_FetishArmy, 0f, vNullLocation, iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Witchdoctor_FetishArmy, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
 				}
 				// Spirit Barrage
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_SpiritBarrage)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=108&&
@@ -147,7 +147,7 @@ namespace FunkyTrinity
 								if (clust.ListUnits.Any(u => !u.HasDOTdps.HasValue||!u.HasDOTdps.Value))
 								{
 									 int acdguid=clust.ListUnits.First(u => !u.HasDOTdps.HasValue||!u.HasDOTdps.Value).AcdGuid.Value;
-									 return new cacheSNOPower(SNOPower.Witchdoctor_Haunt, 21f, vNullLocation, iCurrentWorldID, acdguid, 1, 1, USE_SLOWLY);
+									 return new cacheSNOPower(SNOPower.Witchdoctor_Haunt, 21f, vNullLocation, Bot.Character.iCurrentWorldID, acdguid, 1, 1, USE_SLOWLY);
 								}
 						  }
 					 }
@@ -167,7 +167,7 @@ namespace FunkyTrinity
 								if (clust.ListUnits.Any(u => !u.HasDOTdps.HasValue||!u.HasDOTdps.Value))
 								{
 									 int acdguid=clust.ListUnits.First(u => !u.HasDOTdps.HasValue||!u.HasDOTdps.Value).AcdGuid.Value;
-									 return new cacheSNOPower(SNOPower.Witchdoctor_Locust_Swarm, 21f, vNullLocation, iCurrentWorldID, acdguid, 1, 1, USE_SLOWLY);
+									 return new cacheSNOPower(SNOPower.Witchdoctor_Locust_Swarm, 21f, vNullLocation, Bot.Character.iCurrentWorldID, acdguid, 1, 1, USE_SLOWLY);
 								}
 						  }
 					 }
@@ -178,7 +178,7 @@ namespace FunkyTrinity
 					(Bot.Combat.iElitesWithinRange[RANGE_15]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>3||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.ObjectData.IsTreasureGoblin||Bot.Target.ObjectData.IsBoss)&&Bot.Target.ObjectData.RadiusDistance<=25f))&&
 					Bot.Character.dCurrentEnergy>=103&&PowerManager.CanCast(SNOPower.Witchdoctor_WallOfZombies))
 				{
-					 return new cacheSNOPower(SNOPower.Witchdoctor_WallOfZombies, 25f, Bot.Target.ObjectData.Position, iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Witchdoctor_WallOfZombies, 25f, Bot.Target.ObjectData.Position, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
 				}
 				// Zombie Charger aka Zombie bears Spams Bears @ Everything from 11feet away
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_ZombieCharger)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=134&&
@@ -186,14 +186,22 @@ namespace FunkyTrinity
 					PowerManager.CanCast(SNOPower.Witchdoctor_ZombieCharger))
 				{
 					 if (thisCacheUnitObj!=null&&thisCacheUnitObj.ObjectIsSpecial)
+<<<<<<< HEAD
 						  return new cacheSNOPower(SNOPower.Witchdoctor_ZombieCharger, 11f, new Vector3(Bot.Target.ObjectData.Position.X, Bot.Target.ObjectData.Position.Y, Bot.Target.ObjectData.Position.Z+iThisHeight), iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+=======
+						  return new cacheSNOPower(SNOPower.Witchdoctor_ZombieCharger, 11f, new Vector3(Bot.Target.ObjectData.Position.X, Bot.Target.ObjectData.Position.Y, Bot.Target.ObjectData.Position.Z+iThisHeight), Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+>>>>>>> origin/Refractoring
 					 else
 					 {
 						  //Cluster tests
 						  if (ObjectCache.Objects.Clusters(6d, 25f, 2, true).Count>0)
 						  {
 								Vector3 Centeroid=ObjectCache.Objects.Clusters()[0].ListUnits[0].BotMeleeVector;
+<<<<<<< HEAD
 								return new cacheSNOPower(SNOPower.Witchdoctor_ZombieCharger, 0f, Centeroid, iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+=======
+								return new cacheSNOPower(SNOPower.Witchdoctor_ZombieCharger, 0f, Centeroid, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+>>>>>>> origin/Refractoring
 						  }
 					 }
 				}
@@ -250,7 +258,7 @@ namespace FunkyTrinity
 					 }
 
 					 if (ConditionalTestResult)
-						  return new cacheSNOPower(SNOPower.Witchdoctor_AcidCloud, range, Location, iCurrentWorldID, ACDGuid, 1, 1, USE_SLOWLY);
+						  return new cacheSNOPower(SNOPower.Witchdoctor_AcidCloud, range, Location, Bot.Character.iCurrentWorldID, ACDGuid, 1, 1, USE_SLOWLY);
 
 				}
 				// Fire Bats fast-attack
@@ -315,7 +323,7 @@ namespace FunkyTrinity
 					 }
 
 					 if (ConditionalTestResult)
-						  return new cacheSNOPower(SNOPower.Witchdoctor_Firebats, range, Location, iCurrentWorldID, ACDGuid, 0, 1, USE_SLOWLY);
+						  return new cacheSNOPower(SNOPower.Witchdoctor_Firebats, range, Location, Bot.Character.iCurrentWorldID, ACDGuid, 0, 1, USE_SLOWLY);
 				}
 				// Poison Darts fast-attack Spams Darts when mana is too low (to cast bears) @12yds or @10yds if Bears avialable
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_PoisonDart)&&!Bot.Character.bIsIncapacitated&&(!Bot.Target.ObjectData.IsMissileReflecting||Bot.Character.dCurrentEnergy<30))

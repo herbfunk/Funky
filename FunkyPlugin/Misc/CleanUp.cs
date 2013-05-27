@@ -10,14 +10,14 @@ namespace FunkyTrinity
         private void CleanLogs()
         {
             List<string> deleteList = new List<string>();
-            if (string.IsNullOrEmpty(sDemonBuddyPath))
+            if (string.IsNullOrEmpty(Funky.FolderPaths.sDemonBuddyPath))
             {
                 Logging.Write("Failure to reconigze demon buddy path!");
 
             }
             else
             {
-                foreach (string file in System.IO.Directory.GetFiles(sDemonBuddyPath + @"\Logs\"))
+					 foreach (string file in System.IO.Directory.GetFiles(Funky.FolderPaths.sDemonBuddyPath+@"\Logs\"))
                 {
                     DateTime curFileCreated = System.IO.Directory.GetCreationTime(file);
                     if (DateTime.Now.Subtract(curFileCreated).TotalHours >= 24)
@@ -40,7 +40,7 @@ namespace FunkyTrinity
             deleteList = new List<string>();
             try
             {
-                foreach (string file in System.IO.Directory.GetFiles(sDemonBuddyPath + ItemRulesPath))
+					 foreach (string file in System.IO.Directory.GetFiles(Funky.FolderPaths.sDemonBuddyPath+ItemRulesPath))
                 {
                     DateTime curFileCreated = System.IO.Directory.GetCreationTime(file);
                     if (DateTime.Now.Subtract(curFileCreated).TotalHours >= 24)
@@ -65,7 +65,7 @@ namespace FunkyTrinity
 				deleteList=new List<string>();
 				try
 				{
-					 foreach (string file in System.IO.Directory.GetFiles(sDemonBuddyPath+ProfileLogs))
+					 foreach (string file in System.IO.Directory.GetFiles(Funky.FolderPaths.sDemonBuddyPath+ProfileLogs))
 					 {
 						  DateTime curFileCreated=System.IO.Directory.GetCreationTime(file);
 						  if (DateTime.Now.Subtract(curFileCreated).TotalDays>=2)

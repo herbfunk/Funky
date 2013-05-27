@@ -14,106 +14,93 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-
-		  private static bool PotionCheck=false;
-
-		  // **********************************************************************************************
-		  // *****  Sell Overlord - determines if we should visit the vendor for repairs or selling   *****
-		  // **********************************************************************************************
-		  private static bool GilesSellOverlord(object ret)
+		  public partial class TownRunManager
 		  {
-				Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Clear();
+				private static bool PotionCheck=false;
 
-
-
-
-				//Get new list of current backpack
-				Bot.Character.BackPack.Update();
-				//Setup any extra potions to sell.
-				List<ACDItem> Potions=Bot.Character.BackPack.ReturnCurrentPotions();
-
-				//Refresh item manager if we are not using item rules nor giles scoring.
-				if (!SettingsFunky.UseItemRules&&!SettingsFunky.ItemRuleGilesScoring)
-					 ItemManager.Current.Refresh();
-
-				foreach (var thisitem in Bot.Character.BackPack.CacheItemList.Values)
+				// **********************************************************************************************
+				// *****  Sell Overlord - determines if we should visit the vendor for repairs or selling   *****
+				// **********************************************************************************************
+				internal static bool GilesSellOverlord(object ret)
 				{
-					 if (thisitem.ACDItem.BaseAddress!=IntPtr.Zero)
+					 Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Clear();
+
+
+
+
+					 //Get new list of current backpack
+					 Bot.Character.BackPack.Update();
+					 //Setup any extra potions to sell.
+					 List<ACDItem> Potions=Bot.Character.BackPack.ReturnCurrentPotions();
+
+					 //Refresh item manager if we are not using item rules nor giles scoring.
+					 if (!SettingsFunky.UseItemRules&&!SettingsFunky.ItemRuleGilesScoring)
+						  ItemManager.Current.Refresh();
+
+					 foreach (var thisitem in Bot.Character.BackPack.CacheItemList.Values)
 					 {
-						  // Find out if this item's in a protected bag slot
-						  if (!ItemManager.Current.ItemIsProtected(thisitem.ACDItem))
+						  if (thisitem.ACDItem.BaseAddress!=IntPtr.Zero)
 						  {
-								if (thisitem.IsPotion&&thisitem.ACDGUID!=Bot.Character.BackPack.CurrentPotionACDGUID)
+								// Find out if this item's in a protected bag slot
+								if (!ItemManager.Current.ItemIsProtected(thisitem.ACDItem))
 								{
-									 Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Add(thisitem);
-									 continue;
-								}
-
-								if (SettingsFunky.ItemRulesSalvaging)
-									 if (ItemRulesEval.checkSalvageItem(thisitem.ACDItem)==Interpreter.InterpreterAction.SALVAGE)
-										  continue;
-
-
-								if (SettingsFunky.UseItemRules)
-								{
-									 Interpreter.InterpreterAction action=ItemRulesEval.checkItem(thisitem.ACDItem, Zeta.CommonBot.ItemEvaluationType.Keep);
-									 switch (action)
+									 if (thisitem.IsPotion&&thisitem.ACDGUID!=Bot.Character.BackPack.CurrentPotionACDGUID)
 									 {
-										  case Interpreter.InterpreterAction.TRASH:
-												Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Add(thisitem);
-												continue;
+										  Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Add(thisitem);
+										  continue;
 									 }
+
+									 if (SettingsFunky.ItemRulesSalvaging)
+										  if (ItemRulesEval.checkSalvageItem(thisitem.ACDItem)==Interpreter.InterpreterAction.SALVAGE)
+												continue;
+
+
+									 if (SettingsFunky.UseItemRules)
+									 {
+										  Interpreter.InterpreterAction action=ItemRulesEval.checkItem(thisitem.ACDItem, Zeta.CommonBot.ItemEvaluationType.Keep);
+										  switch (action)
+										  {
+												case Interpreter.InterpreterAction.TRASH:
+													 Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Add(thisitem);
+													 continue;
+										  }
+									 }
+
+
+
+									 //Log("GilesTrinityScoring == "+SettingsFunky.ItemRuleGilesScoring.ToString());
+
+									 bool bShouldSellThis=SettingsFunky.ItemRuleGilesScoring==true?GilesSellValidation(thisitem.ThisInternalName, thisitem.ThisLevel, thisitem.ThisQuality, thisitem.ThisDBItemType, thisitem.ThisFollowerType):ItemManager.Current.ShouldSellItem(thisitem.ACDItem);
+
+									 if (bShouldSellThis)
+									 {
+										  Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Add(thisitem);
+									 }
+
 								}
-
-
-
-								//Log("GilesTrinityScoring == "+SettingsFunky.ItemRuleGilesScoring.ToString());
-
-								bool bShouldSellThis=SettingsFunky.ItemRuleGilesScoring==true?GilesSellValidation(thisitem.ThisInternalName, thisitem.ThisLevel, thisitem.ThisQuality, thisitem.ThisDBItemType, thisitem.ThisFollowerType):ItemManager.Current.ShouldSellItem(thisitem.ACDItem);
-
-								if (bShouldSellThis)
-								{
-									 Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Add(thisitem);
-								}
-
+						  }
+						  else
+						  {
+								Log("GSError: Diablo 3 memory read error, or item became invalid [StashOver-1]", true);
 						  }
 					 }
-					 else
+
+					 bool bShouldVisitVendor=Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Count>0;
+
+					 // Check durability percentages
+					 bNeedsEquipmentRepairs=Bot.Character.BackPack.ShouldRepairItems();
+
+
+					 if (bShouldVisitVendor)
 					 {
-						  Log("GSError: Diablo 3 memory read error, or item became invalid [StashOver-1]", true);
+						  Bot.Character.BackPack.townRunCache.sortSellList();
 					 }
+
+					 if (!bShouldVisitVendor) bShouldVisitVendor=bNeedsEquipmentRepairs;
+
+					 return bShouldVisitVendor;
 				}
-
-				bool bShouldVisitVendor=Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Count>0;
-
-				// Check durability percentages
-				bNeedsEquipmentRepairs=Bot.Character.BackPack.ShouldRepairItems();
-
-
-				if (bShouldVisitVendor)
-				{
-					 Bot.Character.BackPack.townRunCache.sortSellList();
-				}
-
-				if (!bShouldVisitVendor) bShouldVisitVendor=bNeedsEquipmentRepairs;
-
-				return bShouldVisitVendor;
-		  }
-
-		  // **********************************************************************************************
-		  // *****             Pre Sell sets everything up ready for running to vendor                *****
-		  // **********************************************************************************************
-
-		  private static RunStatus GilesOptimisedPreSell(object ret)
-		  {
-				if (SettingsFunky.DebugStatusBar)
-					 BotMain.StatusText="Town run: Sell routine started";
-				Log("GSDebug: Sell routine started.", true);
-				if (ZetaDia.Actors.Me==null)
-				{
-					 Log("GSError: Diablo 3 memory read error, or item became invalid [PreSell-1]", true);
-					 return RunStatus.Failure;
-				}
+<<<<<<< HEAD
 				bLoggedJunkThisStash=false;
 				bCurrentlyMoving=false;
 				PotionCheck=false;
@@ -123,239 +110,266 @@ namespace FunkyTrinity
 				Bot.Character.iTotalPotions=Bot.Character.BackPack.ReturnCurrentPotions().Sum(potions => potions.ItemStackQuantity);
 				return RunStatus.Success;
 		  }
+=======
+>>>>>>> origin/Refractoring
 
-		  // **********************************************************************************************
-		  // *****    Sell Routine replacement for smooth one-at-a-time item selling and handling     *****
-		  // **********************************************************************************************
+				// **********************************************************************************************
+				// *****             Pre Sell sets everything up ready for running to vendor                *****
+				// **********************************************************************************************
 
-		  private static RunStatus GilesOptimisedSell(object ret)
-		  {
-				string sVendorName="";
-				switch (ZetaDia.CurrentAct)
+				internal static RunStatus GilesOptimisedPreSell(object ret)
 				{
-					 case Act.A1:
-						  sVendorName="a1_uniquevendor_miner"; break;
-					 case Act.A2:
-						  sVendorName="a2_uniquevendor_peddler"; break;
-					 case Act.A3:
-						  sVendorName="a3_uniquevendor_collector"; break;
-					 case Act.A4:
-						  sVendorName="a4_uniquevendor_collector"; break;
+					 if (SettingsFunky.DebugStatusBar)
+						  BotMain.StatusText="Town run: Sell routine started";
+					 Log("GSDebug: Sell routine started.", true);
+					 if (ZetaDia.Actors.Me==null)
+					 {
+						  Log("GSError: Diablo 3 memory read error, or item became invalid [PreSell-1]", true);
+						  return RunStatus.Failure;
+					 }
+					 bLoggedJunkThisStash=false;
+					 bCurrentlyMoving=false;
+					 PotionCheck=false;
+					 iCurrentItemLoops=0;
+					 RandomizeTheTimer();
+
+					 Bot.Character.iTotalPotions=Bot.Character.BackPack.ReturnCurrentPotions().Sum(potions => potions.ItemStackQuantity);
+					 return RunStatus.Success;
 				}
 
-				#region Navigation
-				DiaUnit objSellNavigation=ZetaDia.Actors.GetActorsOfType<DiaUnit>(true).FirstOrDefault<DiaUnit>(u => u.Name.ToLower().StartsWith(sVendorName));
-				Vector3 vectorPlayerPosition=ZetaDia.Me.Position;
-				Vector3 vectorSellLocation=new Vector3(0f, 0f, 0f);
+				// **********************************************************************************************
+				// *****    Sell Routine replacement for smooth one-at-a-time item selling and handling     *****
+				// **********************************************************************************************
 
-				if (objSellNavigation==null)
+				internal static RunStatus GilesOptimisedSell(object ret)
 				{
+					 string sVendorName="";
 					 switch (ZetaDia.CurrentAct)
 					 {
 						  case Act.A1:
-								vectorSellLocation=new Vector3(2941.904f, 2812.825f, 24.04533f); break;
+								sVendorName="a1_uniquevendor_miner"; break;
 						  case Act.A2:
-								vectorSellLocation=new Vector3(295.2101f, 265.1436f, 0.1000002f); break;
+								sVendorName="a2_uniquevendor_peddler"; break;
 						  case Act.A3:
+								sVendorName="a3_uniquevendor_collector"; break;
 						  case Act.A4:
-								vectorSellLocation=new Vector3(410.6073f, 355.8762f, 0.1000005f); break;
+								sVendorName="a4_uniquevendor_collector"; break;
 					 }
-				}
-				else
-					 vectorSellLocation=objSellNavigation.Position;
 
+					 #region Navigation
+					 DiaUnit objSellNavigation=ZetaDia.Actors.GetActorsOfType<DiaUnit>(true).FirstOrDefault<DiaUnit>(u => u.Name.ToLower().StartsWith(sVendorName));
+					 Vector3 vectorPlayerPosition=ZetaDia.Me.Position;
+					 Vector3 vectorSellLocation=new Vector3(0f, 0f, 0f);
 
-				float iDistanceFromSell=Vector3.Distance(vectorPlayerPosition, vectorSellLocation);
-				//Out-Of-Range...
-				if (objSellNavigation==null||
-					 !GilesCanRayCast(vectorPlayerPosition, vectorSellLocation, NavCellFlags.AllowWalk))
-				{
-					 Navigator.PlayerMover.MoveTowards(vectorSellLocation);
-					 return RunStatus.Running;
-				}
-				else
-				{
-					 if (iDistanceFromSell>40f)
+					 if (objSellNavigation==null)
 					 {
-						  ZetaDia.Me.UsePower(SNOPower.Walk, vectorSellLocation, ZetaDia.Me.WorldDynamicId);
-						  return RunStatus.Running;
-					 }
-					 else if (iDistanceFromSell>7.5f&&!Zeta.Internals.UIElements.VendorWindow.IsValid)
-					 {
-						  //Use our click movement
-						  Bot.Character.UpdateMovementData();
-
-						  //Wait until we are not moving to send click again..
-						  if (Bot.Character.isMoving&&Bot.Character.iCurrentMovementTargetGUID==objSellNavigation.ACDGuid) return RunStatus.Running;
-
-						  ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, vectorSellLocation, ZetaDia.Me.WorldDynamicId, objSellNavigation.ACDGuid);
-						  return RunStatus.Running;
-					 }
-				}
-
-				if (objSellNavigation==null)
-					 return RunStatus.Failure;
-
-				if (!Zeta.Internals.UIElements.VendorWindow.IsVisible)
-				{
-					 objSellNavigation.Interact();
-					 return RunStatus.Running;
-				}
-
-				if (!Zeta.Internals.UIElements.InventoryWindow.IsVisible)
-				{
-					 Bot.Character.BackPack.InventoryBackPackToggle(true);
-					 return RunStatus.Running;
-				}
-				#endregion
-
-				#region SellItem
-				if (Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Count>0)
-				{
-					 iCurrentItemLoops++;
-					 if (iCurrentItemLoops<iItemDelayLoopLimit)
-						  return RunStatus.Running;
-					 iCurrentItemLoops=0;
-					 RandomizeTheTimer();
-
-					 CacheACDItem thisitem=Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.FirstOrDefault();
-					 // Item log for cool stuff sold
-					 if (thisitem!=null)
-					 {
-						  GilesItemType OriginalGilesItemType=DetermineItemType(thisitem.ThisInternalName, thisitem.ThisDBItemType, thisitem.ThisFollowerType);
-						  GilesBaseItemType thisGilesBaseType=DetermineBaseType(OriginalGilesItemType);
-						  if (thisGilesBaseType==GilesBaseItemType.WeaponTwoHand||thisGilesBaseType==GilesBaseItemType.WeaponOneHand||thisGilesBaseType==GilesBaseItemType.WeaponRange||
-								thisGilesBaseType==GilesBaseItemType.Armor||thisGilesBaseType==GilesBaseItemType.Jewelry||thisGilesBaseType==GilesBaseItemType.Offhand||
-								thisGilesBaseType==GilesBaseItemType.FollowerItem)
+						  switch (ZetaDia.CurrentAct)
 						  {
-								double iThisItemValue=ValueThisItem(thisitem, OriginalGilesItemType);
-								double iNeededValue=ScoreNeeded(OriginalGilesItemType);
-								LogJunkItems(thisitem, thisGilesBaseType, OriginalGilesItemType, iThisItemValue);
-						  }
-						  ZetaDia.Me.Inventory.SellItem(thisitem.ACDItem);
-					 }
-					 if (thisitem!=null)
-						  Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Remove(thisitem);
-					 if (Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Count>0)
-						  return RunStatus.Running;
-				}
-				#endregion
-
-				#region BuyPotion
-				//Check if settings for potion buy is enabled, with less than 99 potions existing!
-				if (SettingsFunky.BuyPotionsDuringTownRun&&Bot.Character.iTotalPotions<SettingsFunky.MaximumHealthPotions&&
-					 !PotionCheck)
-				{
-					 //Obey the timer, so we don't buy 100 potions in 3 seconds.
-					 iCurrentItemLoops++;
-					 if (iCurrentItemLoops<iItemDelayLoopLimit)
-						  return RunStatus.Running;
-					 iCurrentItemLoops=0;
-					 RandomizeTheTimer();
-
-					 //Buy Potions
-					 int BestPotionID=0;
-					 int LastHPValue=0;
-					 foreach (ACDItem item in ZetaDia.Me.Inventory.MerchantItems)
-					 {
-						  if (item.IsPotion&&item.HitpointsGranted>LastHPValue
-								&&item.RequiredLevel<=Bot.Character.iMyLevel
-								&&item.Gold<ZetaDia.Me.Inventory.Coinage)
-						  {
-								LastHPValue=item.HitpointsGranted;
-								BestPotionID=item.DynamicId;
+								case Act.A1:
+									 vectorSellLocation=new Vector3(2941.904f, 2812.825f, 24.04533f); break;
+								case Act.A2:
+									 vectorSellLocation=new Vector3(295.2101f, 265.1436f, 0.1000002f); break;
+								case Act.A3:
+								case Act.A4:
+									 vectorSellLocation=new Vector3(410.6073f, 355.8762f, 0.1000005f); break;
 						  }
 					 }
-					 if (BestPotionID!=0)
+					 else
+						  vectorSellLocation=objSellNavigation.Position;
+
+
+					 float iDistanceFromSell=Vector3.Distance(vectorPlayerPosition, vectorSellLocation);
+					 //Out-Of-Range...
+					 if (objSellNavigation==null||
+						  !GilesCanRayCast(vectorPlayerPosition, vectorSellLocation, NavCellFlags.AllowWalk))
 					 {
-						  ZetaDia.Me.Inventory.BuyItem(BestPotionID);
-						  //Update counter
-						  Bot.Character.iTotalPotions++;
+						  Navigator.PlayerMover.MoveTowards(vectorSellLocation);
 						  return RunStatus.Running;
 					 }
 					 else
-						  PotionCheck=true;
-				}
-				else
-					 PotionCheck=true;
-				#endregion
+					 {
+						  if (iDistanceFromSell>40f)
+						  {
+								ZetaDia.Me.UsePower(SNOPower.Walk, vectorSellLocation, ZetaDia.Me.WorldDynamicId);
+								return RunStatus.Running;
+						  }
+						  else if (iDistanceFromSell>7.5f&&!Zeta.Internals.UIElements.VendorWindow.IsValid)
+						  {
+								//Use our click movement
+								Bot.Character.UpdateMovementData();
 
-				if (bNeedsEquipmentRepairs)
+								//Wait until we are not moving to send click again..
+								if (Bot.Character.isMoving&&Bot.Character.iCurrentMovementTargetGUID==objSellNavigation.ACDGuid) return RunStatus.Running;
+
+								ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, vectorSellLocation, ZetaDia.Me.WorldDynamicId, objSellNavigation.ACDGuid);
+								return RunStatus.Running;
+						  }
+					 }
+
+					 if (objSellNavigation==null)
+						  return RunStatus.Failure;
+
+					 if (!Zeta.Internals.UIElements.VendorWindow.IsVisible)
+					 {
+						  objSellNavigation.Interact();
+						  return RunStatus.Running;
+					 }
+
+					 if (!Zeta.Internals.UIElements.InventoryWindow.IsVisible)
+					 {
+						  Bot.Character.BackPack.InventoryBackPackToggle(true);
+						  return RunStatus.Running;
+					 }
+					 #endregion
+
+					 #region SellItem
+					 if (Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Count>0)
+					 {
+						  iCurrentItemLoops++;
+						  if (iCurrentItemLoops<iItemDelayLoopLimit)
+								return RunStatus.Running;
+						  iCurrentItemLoops=0;
+						  RandomizeTheTimer();
+
+						  CacheACDItem thisitem=Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.FirstOrDefault();
+						  // Item log for cool stuff sold
+						  if (thisitem!=null)
+						  {
+								GilesItemType OriginalGilesItemType=DetermineItemType(thisitem.ThisInternalName, thisitem.ThisDBItemType, thisitem.ThisFollowerType);
+								GilesBaseItemType thisGilesBaseType=DetermineBaseType(OriginalGilesItemType);
+								if (thisGilesBaseType==GilesBaseItemType.WeaponTwoHand||thisGilesBaseType==GilesBaseItemType.WeaponOneHand||thisGilesBaseType==GilesBaseItemType.WeaponRange||
+									 thisGilesBaseType==GilesBaseItemType.Armor||thisGilesBaseType==GilesBaseItemType.Jewelry||thisGilesBaseType==GilesBaseItemType.Offhand||
+									 thisGilesBaseType==GilesBaseItemType.FollowerItem)
+								{
+									 double iThisItemValue=ValueThisItem(thisitem, OriginalGilesItemType);
+									 double iNeededValue=ScoreNeeded(OriginalGilesItemType);
+									 LogJunkItems(thisitem, thisGilesBaseType, OriginalGilesItemType, iThisItemValue);
+								}
+								ZetaDia.Me.Inventory.SellItem(thisitem.ACDItem);
+						  }
+						  if (thisitem!=null)
+								Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Remove(thisitem);
+						  if (Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Count>0)
+								return RunStatus.Running;
+					 }
+					 #endregion
+
+					 #region BuyPotion
+					 //Check if settings for potion buy is enabled, with less than 99 potions existing!
+					 if (SettingsFunky.BuyPotionsDuringTownRun&&Bot.Character.iTotalPotions<SettingsFunky.MaximumHealthPotions&&
+						  !PotionCheck)
+					 {
+						  //Obey the timer, so we don't buy 100 potions in 3 seconds.
+						  iCurrentItemLoops++;
+						  if (iCurrentItemLoops<iItemDelayLoopLimit)
+								return RunStatus.Running;
+						  iCurrentItemLoops=0;
+						  RandomizeTheTimer();
+
+						  //Buy Potions
+						  int BestPotionID=0;
+						  int LastHPValue=0;
+						  foreach (ACDItem item in ZetaDia.Me.Inventory.MerchantItems)
+						  {
+								if (item.IsPotion&&item.HitpointsGranted>LastHPValue
+									 &&item.RequiredLevel<=Bot.Character.iMyLevel
+									 &&item.Gold<ZetaDia.Me.Inventory.Coinage)
+								{
+									 LastHPValue=item.HitpointsGranted;
+									 BestPotionID=item.DynamicId;
+								}
+						  }
+						  if (BestPotionID!=0)
+						  {
+								ZetaDia.Me.Inventory.BuyItem(BestPotionID);
+								//Update counter
+								Bot.Character.iTotalPotions++;
+								return RunStatus.Running;
+						  }
+						  else
+								PotionCheck=true;
+					 }
+					 else
+						  PotionCheck=true;
+					 #endregion
+
+					 if (bNeedsEquipmentRepairs)
+					 {
+						  iCurrentItemLoops++;
+						  if (iCurrentItemLoops<iItemDelayLoopLimit)
+								return RunStatus.Running;
+						  iCurrentItemLoops=0;
+						  RandomizeTheTimer();
+
+						  if (ZetaDia.Me.Inventory.Coinage<40000)
+						  {
+								Log("Emergency Stop: You need repairs but don't have enough money. Stopping the bot to prevent infinite death loop.");
+								BotMain.Stop(false, "Not enough gold to repair item(s)!");
+						  }
+
+						  ZetaDia.Me.Inventory.RepairEquippedItems();
+						  bNeedsEquipmentRepairs=false;
+					 }
+
+
+					 bCurrentlyMoving=false;
+					 bReachedSafety=false;
+					 return RunStatus.Success;
+				}
+
+				// **********************************************************************************************
+				// *****        Post Sell tidies everything up and signs off junk log after selling         *****
+				// **********************************************************************************************
+
+
+
+				internal static RunStatus GilesOptimisedPostSell(object ret)
 				{
 					 iCurrentItemLoops++;
 					 if (iCurrentItemLoops<iItemDelayLoopLimit)
 						  return RunStatus.Running;
+
+					 Log("GSDebug: Sell routine ending sequence...", true);
+
+
+					 if (bLoggedJunkThisStash)
+					 {
+						  FileStream LogStream=null;
+						  try
+						  {
+								LogStream=File.Open(FolderPaths.sTrinityLogPath+ZetaDia.Service.CurrentHero.BattleTagName+" - JunkLog - "+ZetaDia.Actors.Me.ActorClass.ToString()+".log", FileMode.Append, FileAccess.Write, FileShare.Read);
+								using (StreamWriter LogWriter=new StreamWriter(LogStream))
+									 LogWriter.WriteLine("");
+								//LogStream.Close();
+						  } catch (IOException)
+						  {
+								Log("Fatal Error: File access error for signing off the junk log file.");
+						  }
+						  bLoggedJunkThisStash=false;
+					 }
+
+					 // See if we can close the inventory window
+					 if (Zeta.Internals.UIElement.IsValidElement(0x368FF8C552241695))
+					 {
+						  try
+						  {
+								var el=Zeta.Internals.UIElement.FromHash(0x368FF8C552241695);
+								if (el!=null&&el.IsValid&&el.IsVisible&&el.IsEnabled)
+									 el.Click();
+						  } catch
+						  {
+								// Do nothing if it fails, just catching to prevent any big errors/plugin crashes from this
+						  }
+					 }
+
+					 iLastDistance=0f;
 					 iCurrentItemLoops=0;
 					 RandomizeTheTimer();
-
-					 if (iLowestDurabilityFound<20&&iLowestDurabilityFound>-1&&ZetaDia.Me.Inventory.Coinage<40000)
-					 {
-						  Log("Emergency Stop: You need repairs but don't have enough money. Stopping the bot to prevent infinite death loop.");
-						  BotMain.Stop(false, "Not enough gold to repair item(s)!");
-					 }
-
-					 ZetaDia.Me.Inventory.RepairEquippedItems();
-					 bNeedsEquipmentRepairs=false;
+					 Log("GSDebug: Sell routine finished.", true);
+					 Bot.Character.lastPreformedNonCombatAction=DateTime.Now;
+					 return RunStatus.Success;
 				}
 
-
-				bCurrentlyMoving=false;
-				bReachedSafety=false;
-				return RunStatus.Success;
 		  }
-
-		  // **********************************************************************************************
-		  // *****        Post Sell tidies everything up and signs off junk log after selling         *****
-		  // **********************************************************************************************
-
-
-
-		  private static RunStatus GilesOptimisedPostSell(object ret)
-		  {
-				iCurrentItemLoops++;
-				if (iCurrentItemLoops<iItemDelayLoopLimit)
-					 return RunStatus.Running;
-
-				Log("GSDebug: Sell routine ending sequence...", true);
-
-
-				if (bLoggedJunkThisStash)
-				{
-					 FileStream LogStream=null;
-					 try
-					 {
-						  LogStream=File.Open(sTrinityLogPath+ZetaDia.Service.CurrentHero.BattleTagName+" - JunkLog - "+ZetaDia.Actors.Me.ActorClass.ToString()+".log", FileMode.Append, FileAccess.Write, FileShare.Read);
-						  using (StreamWriter LogWriter=new StreamWriter(LogStream))
-								LogWriter.WriteLine("");
-						  //LogStream.Close();
-					 } catch (IOException)
-					 {
-						  Log("Fatal Error: File access error for signing off the junk log file.");
-					 }
-					 bLoggedJunkThisStash=false;
-				}
-
-				// See if we can close the inventory window
-				if (Zeta.Internals.UIElement.IsValidElement(0x368FF8C552241695))
-				{
-					 try
-					 {
-						  var el=Zeta.Internals.UIElement.FromHash(0x368FF8C552241695);
-						  if (el!=null&&el.IsValid&&el.IsVisible&&el.IsEnabled)
-								el.Click();
-					 } catch
-					 {
-						  // Do nothing if it fails, just catching to prevent any big errors/plugin crashes from this
-					 }
-				}
-
-				iLastDistance=0f;
-				iCurrentItemLoops=0;
-				RandomizeTheTimer();
-				Log("GSDebug: Sell routine finished.", true);
-				Bot.Character.lastPreformedNonCombatAction=DateTime.Now;
-				return RunStatus.Success;
-		  }
-
 	 }
 }

@@ -36,7 +36,7 @@ namespace FunkyTrinity
 
     public partial class Funky
     {
-        public static BotStatistics Statistics = new BotStatistics();
+        internal static BotStatistics Statistics = new BotStatistics();
         public class BotStatistics
         {
             public BotStatistics()
@@ -352,7 +352,7 @@ namespace FunkyTrinity
                 Statistics.ItemStats.Update();
 
 
-                string outputPath = sTrinityLogPath + @"ProfileStats\";
+					 string outputPath=FolderPaths.sTrinityLogPath+@"ProfileStats\";
                 if (!System.IO.Directory.Exists(outputPath))
                     System.IO.Directory.CreateDirectory(outputPath);
                 //ddMMyyyyHHmmss

@@ -27,15 +27,15 @@ namespace FunkyTrinity
 						  RandomWaitTimeMilliseconds=R.Next(3050, 5880);
 				}
 
-				public static int BotHeroIndex=-1;
-				public static string LastProfile=null;
-				public static string BotHeroName=null;
+				internal static int BotHeroIndex=-1;
+				internal static string LastProfile=null;
+				internal static string BotHeroName=null;
 
 				public static RunStatus BeginNewGameProfile()
 				{
 					 if (DateTime.Now.Subtract(LastActionTaken).TotalMilliseconds>RandomWaitTimeMilliseconds)
 					 {
-						  string NewGameProfile=sTrinityPluginPath+@"Bot\Behaviors\Misc\CharacterMule\NewGame.xml";
+						  string NewGameProfile=Funky.FolderPaths.sTrinityPluginPath+@"Bot\Behaviors\Misc\CharacterMule\NewGame.xml";
 						  if (ProfileManager.CurrentProfile.Path!=NewGameProfile)
 						  {
 								if (System.IO.File.Exists(NewGameProfile))
@@ -135,7 +135,7 @@ namespace FunkyTrinity
 									 TransferedGear=true;
 									 UpdateCurrentAccountDetails();
 									 //Delete settings
-									 string sFunkyCharacterFolder=System.IO.Path.Combine(sDemonBuddyPath, "Settings", "FunkyTrinity", CurrentAccountName);
+									 string sFunkyCharacterFolder=System.IO.Path.Combine(Funky.FolderPaths.sDemonBuddyPath, "Settings", "FunkyTrinity", CurrentAccountName);
 									 if (System.IO.Directory.Exists(sFunkyCharacterFolder))
 									 {
 										  string sFunkyCharacterConfigFile=System.IO.Path.Combine(sFunkyCharacterFolder, CurrentHeroName+".cfg");

@@ -399,23 +399,6 @@ namespace FunkyTrinity
 								// Pick a suitable ability								Shielded units: Find destructible power instead.
 								Bot.Combat.powerPrime=GilesAbilitySelector(false, false, !ObjectData.CanInteract());
 
-
-								if (Bot.Combat.powerPrime.Power==SNOPower.None&&!Bot.Character.bIsIncapacitated)
-								{
-									 iNoAbilitiesAvailableInARow++;
-									 if (DateTime.Now.Subtract(lastRemindedAboutAbilities).TotalSeconds>60&&iNoAbilitiesAvailableInARow>=4)
-									 {
-										  lastRemindedAboutAbilities=DateTime.Now;
-										  Logging.Write("Fatal Error: Couldn't find a valid attack ability. Not enough resource for any abilities or all on cooldown");
-										  Logging.Write("If you get this message frequently, you should consider changing your build");
-										  Logging.Write("Perhaps you don't have enough critical hit chance % for your current build, or just have a bad skill setup?");
-									 }
-								}
-								else
-								{
-									 iNoAbilitiesAvailableInARow=0;
-								}
-
 								//Check LOS still valid...
 								#region LOSUpdate
 								if (!ObjectData.LastLOSCheckStillValid&&!ObjectData.IgnoresLOSCheck)
@@ -638,8 +621,8 @@ namespace FunkyTrinity
 					 }
 
 					 // Now tell Trinity to get a new target!
-					 lastChangedZigZag=DateTime.Today;
-					 vPositionLastZigZagCheck=Vector3.Zero;
+					 Bot.Combat.lastChangedZigZag=DateTime.Today;
+					 Bot.Combat.vPositionLastZigZagCheck=Vector3.Zero;
 					 Bot.Combat.bForceTargetUpdate=true;
 
 					 return false;

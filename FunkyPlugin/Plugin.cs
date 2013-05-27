@@ -94,8 +94,8 @@ namespace FunkyTrinity
 					 #endregion
 				}
 
-				string sRoutinePath=sDemonBuddyPath+@"\Routines\Funky\";
-				string sPluginRoutineFolder=sDemonBuddyPath+@"\Plugins\FunkyTrinity\CombatRoutine\";
+				string sRoutinePath=FolderPaths.sDemonBuddyPath+@"\Routines\Funky\";
+				string sPluginRoutineFolder=FolderPaths.sDemonBuddyPath+@"\Plugins\FunkyTrinity\CombatRoutine\";
 
 				DateTime RoutineCombatDate=System.IO.File.GetLastWriteTime(sRoutinePath+"CombatRoutine.cs");
 				DateTime RoutineDebugDate=System.IO.File.GetLastWriteTime(sRoutinePath+"RoutineDebug.cs");
@@ -111,7 +111,7 @@ namespace FunkyTrinity
 					 }
 
 					 FunkyButton=null;
-					 sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+					 FolderPaths.sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 					 Logging.WriteDiagnostic("Reloading combat routine..");
 
 					 //Create Folder
@@ -229,9 +229,9 @@ namespace FunkyTrinity
 
 
 
-				if (!Directory.Exists(sTrinityPluginPath))
+				if (!Directory.Exists(FolderPaths.sTrinityPluginPath))
 				{
-					 Log("Fatal Error - cannot enable plugin. Invalid path: "+sTrinityPluginPath);
+					 Log("Fatal Error - cannot enable plugin. Invalid path: "+FolderPaths.sTrinityPluginPath);
 					 Log("Please check you have installed the plugin to the correct location, and then restart DemonBuddy and re-enable the plugin.");
 					 Log(@"Plugin should be installed to \<DemonBuddyFolder>\Plugins\FunkyTrinity\");
 				}
@@ -255,7 +255,7 @@ namespace FunkyTrinity
 					 ErrorClickerThread=new Thread(ErrorClickerWorker);
 					 ErrorClickerThread.IsBackground=true;
 					 ErrorClickerThread.Start();
-					 System.IO.FileInfo PluginInfo=new FileInfo(sDemonBuddyPath+@"\Plugins\FunkyTrinity\");
+					 System.IO.FileInfo PluginInfo=new FileInfo(FolderPaths.sDemonBuddyPath+@"\Plugins\FunkyTrinity\");
 					 //
 					 string CompileDateString=PluginInfo.LastWriteTime.ToString("MM/dd hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
 					 Log("************************************");
@@ -327,6 +327,7 @@ namespace FunkyTrinity
 
 		  }
 
+<<<<<<< HEAD
 
 		  private static void HookBehaviorTree()
 		  {
@@ -577,6 +578,8 @@ namespace FunkyTrinity
 				return RunStatus.Success;
 		  }
 
+=======
+>>>>>>> origin/Refractoring
 		  internal void RemoveHandlers()
 		  {
 				GameEvents.OnLevelUp-=OnPlayerLevelUp;
@@ -585,6 +588,7 @@ namespace FunkyTrinity
 				GameEvents.OnGameLeft-=FunkyOnLeaveGame;
 				GameEvents.OnGameChanged-=FunkyOnGameChanged;
 		  }
+
 		  internal void ResetTreehooks()
 		  {
 				Navigator.PlayerMover=new DefaultPlayerMover();
@@ -597,6 +601,7 @@ namespace FunkyTrinity
 				Zeta.CommonBot.Logic.BrainBehavior.CreateLootBehavior();
 				Zeta.CommonBot.Logic.BrainBehavior.CreateVendorBehavior();
 		  }
+<<<<<<< HEAD
 		  internal static void ResetBot()
 		  {
 				Log("Preforming reset of bot data...", true);
@@ -647,21 +652,12 @@ namespace FunkyTrinity
 				_hashsetItemPicksLookedAt=new HashSet<int>();
 				_hashsetItemFollowersIgnored=new HashSet<int>();
 				_dictItemStashAttempted=new Dictionary<int, int>();
+=======
+>>>>>>> origin/Refractoring
 
-				listProfilesLoaded=new List<string>();
-				sLastProfileSeen="";
-				sFirstProfileSeen="";
-				
-		  }
 
-		  private static void Log(string message, bool bIsDiagnostic=false)
-		  {
-				string totalMessage=String.Format("[Funky] {0}", message);
-				if (!bIsDiagnostic)
-					 Logging.Write(totalMessage);
-				else
-					 Logging.WriteDiagnostic(totalMessage);
-		  }
+
+
 
 
 	 }

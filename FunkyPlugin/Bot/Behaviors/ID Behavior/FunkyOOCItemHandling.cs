@@ -269,25 +269,6 @@ namespace FunkyTrinity
 					 Bot.Character.BackPack.InventoryBackPackToggle(false);
 		  }
 
-		  internal static bool UpdateCurrentItem()
-		  {
-				//Bot.Character.BackPack.Update();
-				try
-				{
-					 using (ZetaDia.Memory.AcquireFrame())
-					 {
-						  currentItem=(from items in ZetaDia.Me.Inventory.Backpack
-											where items.ACDGuid==currentItem.ACDGuid
-											select items).FirstOrDefault();
-						  return true;
-					 }
-
-				} catch
-				{
-					 DbHelper.Log(DbHelper.TrinityLogLevel.Verbose, DbHelper.LogCategory.ItemValuation, "Exception attempting to update item. {0}", currentItem.InternalName);
-					 return false;
-				}
-		  }
 
 		  internal static int RandomWaitTime(bool cast=false)
 		  {

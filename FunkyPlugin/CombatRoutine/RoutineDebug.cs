@@ -20,7 +20,6 @@ namespace GilesBlankCombatRoutine
 	 {
 		  private static Label lblDebug_DumpUnits, lblDebug_OpenLog, lblDebug_DumpUnitAttributes, lblDebug_DumpObjects;
 		  private static MenuItem menuItem_Debug, menuItem_Debug_Units;
-		  public static Demonbuddy.SplitButton btnSplit_FunkyDebug;
 
 		  public static void initDebugLabels(out Demonbuddy.SplitButton btn)
 		  {
@@ -324,7 +323,7 @@ namespace GilesBlankCombatRoutine
 				{
 					 if (!o.IsValid) continue;
 
-					 string attributesFound="";
+					 //string attributesFound="";
 
 					 /*
 					 foreach (ActorAttributeType aType in Enum.GetValues(typeof(ActorAttributeType)))

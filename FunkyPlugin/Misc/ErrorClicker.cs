@@ -23,7 +23,7 @@ namespace FunkyTrinity
 									 if (ErrorDialog.ErrorCode==-1)
 										  HadDisconnectError=true;
 
-									 Logging.Write("[ErrorClicker] Closing error "+ErrorDialog.ErrorCode);
+									 Logging.Write("[ErrorClicker] Closing error "+ErrorDialog.ErrorCode.ToString());
 									 ErrorDialog.Click();
 								}
 								else
