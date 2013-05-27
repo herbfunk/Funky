@@ -51,7 +51,7 @@ namespace FunkyTrinity
 						  for (int i=0; i<SkipAheadAreaCache.Count-1; i++)
 						  {
 								SkipAheadNavigation v=SkipAheadAreaCache[i];
-								if (Position.Distance(v.Position)<=v.Radius)
+								if (Position.Distance2D(v.Position)<=v.Radius)
 								{
 									 validIndex=i;
 									 valid=true;

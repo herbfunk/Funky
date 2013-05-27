@@ -2451,9 +2451,9 @@ namespace FunkyTrinity
 				private void ClusterLowHPValueSliderChanged(object sender, EventArgs e)
 				{
 					 Slider slider_sender=(Slider)sender;
-					 double Value=slider_sender.Value;
+					 double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
 					 SettingsFunky.IgnoreClusterLowHPValue=Value;
-					 TBClusterLowHPValue.Text=Value.ToString("F2", CultureInfo.InvariantCulture);
+					 TBClusterLowHPValue.Text=Value.ToString();
 				}
 				private void EnableClusteringTargetLogicChecked(object sender, EventArgs e)
 				{
@@ -2534,16 +2534,16 @@ namespace FunkyTrinity
 				private void GlobeHealthSliderChanged(object sender, EventArgs e)
 				{
 					 Slider slider_sender=(Slider)sender;
-					 double Value=slider_sender.Value;
+					 double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
 					 SettingsFunky.GlobeHealthPercent=Value;
-					 TBGlobeHealth.Text=Value.ToString("F2", CultureInfo.InvariantCulture);
+					 TBGlobeHealth.Text=Value.ToString();
 				}
 				private void PotionHealthSliderChanged(object sender, EventArgs e)
 				{
 					 Slider slider_sender=(Slider)sender;
-					 double Value=slider_sender.Value;
+					 double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
 					 SettingsFunky.PotionHealthPercent=Value;
-					 TBPotionHealth.Text=Value.ToString("F2", CultureInfo.InvariantCulture);
+					 TBPotionHealth.Text=Value.ToString();
 				}
 				private void ContainerRangeSliderChanged(object sender, EventArgs e)
 				{
@@ -2666,10 +2666,10 @@ namespace FunkyTrinity
 				{
 					 Slider slider_sender=(Slider)sender;
 					 string[] slider_info=slider_sender.Name.Split("_".ToCharArray());
+					 double currentValue=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
 					 int tb_index=Convert.ToInt16(slider_info[2]);
 
-					 double currentValue=slider_sender.Value;
-					 TBavoidanceHealth[tb_index].Text=currentValue.ToString("F2", CultureInfo.InvariantCulture);
+					 TBavoidanceHealth[tb_index].Text=currentValue.ToString();
 					 AvoidanceType avoidancetype=(AvoidanceType)Enum.Parse(typeof(AvoidanceType), slider_info[0]);
 					 
 
@@ -2913,9 +2913,9 @@ namespace FunkyTrinity
 				private void BreakTimeHourSliderChanged(object sender, EventArgs e)
 				{
 					 Slider slider_sender=(Slider)sender;
-					 double Value=slider_sender.Value;
+					 double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
 					 SettingsFunky.breakTimeHour=Value;
-					 TBBreakTimeHour.Text=Value.ToString("F2", CultureInfo.InvariantCulture);
+					 TBBreakTimeHour.Text=Value.ToString();
 				}
 
 				private bool isStringFullyNumerical(String S, bool isDouble=false)
