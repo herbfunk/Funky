@@ -101,20 +101,6 @@ namespace FunkyTrinity
 												&&!Zeta.CommonBot.Settings.CharacterSettings.Instance.CombatLooting
 												&&Bot.Target.ObjectData.targetType.Value==TargetType.Unit) continue;
 
-								if (thisobj.targetType.Value==TargetType.Unit&&Bot.Combat.RequiresLOSMovementRAGUIDs.Contains(thisobj.RAGUID))
-								{
-									 Vector3 LOSMovement;
-									 if (GridPointAreaCache.AttemptFindSafeSpot(out LOSMovement, thisobj.Position, false)
-										  ||(thisobj.GPRect.TryFindSafeSpot(out LOSMovement, Bot.Character.Position, false)))
-									 {
-										  //Set target as the vector we found..
-										  Bot.Target.ObjectData=new CacheObject(LOSMovement, TargetType.Avoidance, thisobj.Weight, "LOS "+thisobj.InternalName, 2f, -1, 0);
-										  iHighestWeightFound=thisobj.Weight;
-										  continue;
-									 }
-									 else//No valid location found.. ignore this unit.
-										  continue;
-								}
 
 								//Set our current target to this object!
 								Bot.Target.ObjectData=ObjectCache.Objects[thisobj.RAGUID];

@@ -51,8 +51,7 @@ namespace FunkyTrinity
 
 								//Log("GilesTrinityScoring == "+SettingsFunky.ItemRuleGilesScoring.ToString());
 
-								bShouldVisitSalvage=(SettingsFunky.ItemRuleGilesScoring==true?GilesSalvageValidation(thisitem.ThisInternalName, thisitem.ThisLevel, thisitem.ThisQuality, thisitem.ThisDBItemType, thisitem.ThisFollowerType)
-														  :ItemManager.Current.ShouldStashItem(thisitem.ACDItem));
+								bShouldVisitSalvage=ItemManager.Current.ShouldStashItem(thisitem.ACDItem);
 
 								if (bShouldVisitSalvage)
 									 Bot.Character.BackPack.townRunCache.hashGilesCachedSalvageItems.Add(thisitem);
@@ -91,13 +90,8 @@ namespace FunkyTrinity
 				}
 
 
-
-
-				bGoToSafetyPointFirst=true;
-				bGoToSafetyPointSecond=false;
 				bLoggedJunkThisStash=false;
 				bCurrentlyMoving=false;
-				bReachedDestination=false;
 				iCurrentItemLoops=0;
 				RandomizeTheTimer();
 				return RunStatus.Success;
@@ -241,7 +235,6 @@ namespace FunkyTrinity
 					 {
 						  if (iDistanceFromSafety<=8f)
 						  {
-								bGoToSafetyPointSecond=false;
 								bCurrentlyMoving=false;
 						  }
 						  else if (iLastDistance==iDistanceFromSafety)

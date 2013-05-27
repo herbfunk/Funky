@@ -20,8 +20,6 @@ namespace FunkyTrinity
 		  private static bool IsRunningTownPortalBehavior=false;
         private static bool initFunkyButton = false;
         private static bool initTreeHooks = false;
-		  private static bool LootBehaviorEnabled=false;
-		  private static bool OverrideTownportalBehavior=false;
 
         // **********************************************************************************************
         // *****   A few special variables, mainly for Giles use, just at the top for easy access   *****
@@ -98,12 +96,6 @@ namespace FunkyTrinity
         // Darkfriend's Looting Rule
         public static Interpreter ItemRulesEval;
 
-
-        // I create so many variables that it's a pain in the arse to categorize them
-        // So I just throw them all here for quick searching, reference etc.
-        // I've tried to make most variable names be pretty damned obvious what they are for!
-        // I've also commented a lot of variables/sections of variables to explain what they are for, incase you are trying to work them all out!
-
         // A null location, may shave off the tiniest fraction of CPU time, but probably not. Still, I like using this variable! :D
         private static readonly Vector3 vNullLocation = Vector3.Zero;
 
@@ -116,57 +108,13 @@ namespace FunkyTrinity
         // A "fake" object to send to target provider for stuck handlers etc.
         public static DiaObject thisFakeObject;
 
-
-        //QuestTools Implementation
-        public static bool ReloadProfileOnDeath = false;
-        public static bool EnableDebugLogging = false;
-        public static DateTime lastProfileReload = DateTime.Today;
-		  private static DateTime lastProfileCheck=DateTime.Today;
-
+		  
         // Related to the profile reloaded when restarting games, to pick the FIRST profile.
         // Also storing a list of all profiles, for experimental reasons/incase I want to use them down the line
         public static List<string> listProfilesLoaded = new List<string>();
         public static string sLastProfileSeen = "";
         public static string sFirstProfileSeen = "";
-
-		  #region Skip Ahead Cache
-
-		  // A list of small areas covering zones we move through while fighting to help our custom move-handler skip ahead waypoints
-		  public class SkipAheadNavigation
-		  {
-				public Vector3 Position { get; set; }
-				public float Radius { get; set; }
-
-				public SkipAheadNavigation(Vector3 pos, float radius)
-				{
-					 this.Position=pos;
-					 this.Radius=radius;
-				}
-		  }
-
-		  
-		  public static HashSet<SkipAheadNavigation> hashSkipAheadAreaCache=new HashSet<SkipAheadNavigation>();
-		  public static Vector3 vLastRecordedLocationCache=Vector3.Zero;
-		  public static bool bSkipAheadAGo=false;
-		  private static DateTime lastRecordedSkipAheadCache=DateTime.Today;
-		  internal static void RecordSkipAheadCachePoint()
-		  {
-				double millisecondsLastRecord=DateTime.Now.Subtract(lastRecordedSkipAheadCache).TotalMilliseconds;
-
-				if (millisecondsLastRecord<100)
-					 return;
-				else if (millisecondsLastRecord>10000) //10 seconds.. clear cache!
-					 hashSkipAheadAreaCache.Clear();
-
-				if (hashSkipAheadAreaCache.Any(p => p.Position.Distance2D(ZetaDia.Me.Position)<=20f))
-					 return;
-
-				hashSkipAheadAreaCache.Add(new SkipAheadNavigation(ZetaDia.Me.Position, 20f));
-
-				lastRecordedSkipAheadCache=DateTime.Now;
-		  }
-
-		  #endregion
+		  private static DateTime lastProfileCheck=DateTime.Today;
 
 
         // These are a bunch of safety counters for how many times in a row we register having *NO* ability to select when we need one (eg all off cooldown)
@@ -175,14 +123,12 @@ namespace FunkyTrinity
         private static DateTime lastRemindedAboutAbilities = DateTime.Today;
 
 
-
         // Do we need to reset the debug bar after combat handling?
         private static bool bResetStatusText = false;
 
         // A list of "useonceonly" tags that have been triggered this xml profile
         public static HashSet<int> hashUseOnceID = new HashSet<int>();
         public static Dictionary<int, int> dictUseOnceID = new Dictionary<int, int>();
-
         // For the random ID tag
         public static Dictionary<int, int> dictRandomID = new Dictionary<int, int>();
 
@@ -197,10 +143,6 @@ namespace FunkyTrinity
         private static int iMillisecondsForceCloseRange = 0;
         // Date time we were last told to stick to close range targets
         private static DateTime lastForcedKeepCloseRange = DateTime.Today;
-        // The distance last loop, so we can compare to current distance to work out if we moved
-        private static float iLastDistance = 0f;
-        // Caching of the current primary target's health, to detect if we AREN'T damaging it for a period of time
-        private static double iTargetLastHealth = 0f;
         // This is used so we don't use certain skills until we "top up" our primary resource by enough
         private static double iWaitingReservedAmount = 0d;
 
@@ -254,15 +196,15 @@ namespace FunkyTrinity
         private static int iTotalNumberGoblins = 0;
         private static DateTime lastGoblinTime = DateTime.Today;
 
-        // Unique ID of mob last targetting when using whirlwind
-        private static int iACDGUIDLastWhirlwind = 0;
+
 
         // Special check to force re-buffing before castign archon
         private static bool bCanCastArchon = false;
 
 
 
-
+		  // Unique ID of mob last targetting when using whirlwind
+		  private static int iACDGUIDLastWhirlwind=0;
         private static Vector3 vSideToSideTarget;
         private static DateTime lastChangedZigZag = DateTime.Today;
         private static Vector3 vPositionLastZigZagCheck = Vector3.Zero;
@@ -425,15 +367,11 @@ namespace FunkyTrinity
         // Whether to try forcing a vendor-run for custom reasons
         private static bool bWantToTownRun = false;
         private static bool bLastTownRunCheckResult = false;
-
-        // Whether salvage/sell run should go to a middle-waypoint first to help prevent stucks
-        private static bool bGoToSafetyPointFirst = false;
-        private static bool bGoToSafetyPointSecond = false;
         private static bool bReachedSafety = false;
         // DateTime check to prevent inventory-check spam when looking for repairs being needed
         private static DateTime TimeLastCheckedForTownRun = DateTime.Now;
         private static bool bCurrentlyMoving = false;
-        private static bool bReachedDestination = false;
+
         private static bool bNeedsEquipmentRepairs = false;
         private static float iLowestDurabilityFound = -1;
 
@@ -448,14 +386,6 @@ namespace FunkyTrinity
         public static int iTotalProfileRecycles = 0;
 
         private static bool bPluginEnabled = false;
-
-        /// <summary>
-        /// Check LoS if waller avoidance detected
-        /// </summary>
-        private static bool bCheckGround = false;
-
-        //Used to calculate how much time we should wait after combat
-        private static int lootDelayTime = 0;
 
 		  #region MainGridProvider
 		  // For path finding

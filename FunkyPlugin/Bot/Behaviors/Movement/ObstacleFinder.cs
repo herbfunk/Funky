@@ -76,23 +76,6 @@ namespace FunkyTrinity
 
 								bool foundSpot=GridPointAreaCache.AttemptFindSafeSpot(out TempMovementVector, Bot.Character.Position);
 								return foundSpot;
-
-								if (foundSpot)
-								{
-									 Vector3 newIntersectionVector=TempMovementVector;
-
-									 //Test if this spot will still intersect
-									 bool intersectingSpot=ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obstacle => obstacle.TestIntersection(newIntersectionVector, DestinationVector));
-
-									 if (intersectingSpot)
-									 {
-										  foundSpot=intersectingObstacle.GPRect.TryFindSafeSpot(out TempMovementVector, DestinationVector, false);
-									 }
-
-									 //Logging.WriteVerbose("Found location to move around object");
-								}
-
-								return foundSpot;
 						  }
 					 }
 				}

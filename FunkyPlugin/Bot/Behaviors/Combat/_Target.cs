@@ -418,16 +418,18 @@ namespace FunkyTrinity
 
 								//Check LOS still valid...
 								#region LOSUpdate
-								if (DateTime.Now.Subtract(ObjectData.LastLOSCheck).TotalSeconds>5&&!ObjectData.LastLOSCheckStillValid)
+								if (!ObjectData.LastLOSCheckStillValid&&!ObjectData.IgnoresLOSCheck)
 								{
-									 if (!ObjectData.LOSTest(Bot.Character.Position,true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass)))
+									 if (!ObjectData.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass)))
 									 {
 										  //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
-										  if (ObjectData.ObjectIsSpecial&&ObjectData.LastLOSCheckMS>3000)
+										  if (ObjectData.ObjectIsSpecial)
 										  {
 												if (ObjectData.FindLOSLocation)
 												{
+													 Logging.WriteVerbose("Using LOS Vector at {0} to move to", ObjectData.LOSV3.ToString());
 													 ObjectData.SetLOSCheckVectors();
+													 Bot.Combat.bWholeNewTarget=true;
 													 CurrentState=RunStatus.Running;
 													 return false;
 												}
@@ -495,18 +497,23 @@ namespace FunkyTrinity
 				{
 					 // Set current destination to our current target's destination
 					 Bot.Combat.vCurrentDestination=ObjectData.Position;
+					 bool LOSMoving=ObjectData.LOSV3!=vNullLocation;
 
-					 if (ObjectData.LOSV3!=vNullLocation)
+					 if (LOSMoving)
 					 {
-						  if (!ObjectData.LastLOSCheckStillValid)
-								ObjectData.LOSV3=vNullLocation;
+						  Bot.Combat.vCurrentDestination=ObjectData.LOSV3;
+						  if (Bot.Character.Position.Distance(ObjectData.LOSV3)>10f)
+						  {
+								CurrentState=ObjectData.MoveTowards();
+								return false;
+						  }
 						  else
-								Bot.Combat.vCurrentDestination=ObjectData.LOSV3;
+						  {
+								ObjectData.LOSV3=vNullLocation;
+								Bot.Combat.bPickNewAbilities=true;
+								return false;
+						  }
 					 }
-
-					 if (bSkipAheadAGo)
-						  RecordSkipAheadCachePoint();
-
 
 					 //Check if we used AutoMovement (Melee Targeting)
 					 #region AutoMovement
@@ -551,60 +558,7 @@ namespace FunkyTrinity
 
 					 //Check if we are in range for interaction..
 					 if (ObjectData.WithinInteractionRange())
-					 {
-
-						  //Obstacle check should periodically check if there is a object blocking our range abilities
-						  #region Obstacle Check For Range Classes
-						  /*
-						  if (!Bot.Class.IsMeleeClass)
-						  {
-								// See if there's an obstacle in our way, if so try to navigate around it
-								
-								if (vShiftedPosition==vNullLocation)
-								{
-									 Vector3 obstacleV3;
-									 // See if there's an obstacle in our way, if so try to navigate around it
-									 if (Bot.TargetHandling.vCurrentDestination!=vNullLocation
-										  &&ObstacleCheck(out obstacleV3, Bot.CurrentTarget.ObjectData))
-									 {
-
-										  lastShiftedPosition=DateTime.Now;
-										  iShiftPositionFor=1000;
-										  vShiftedPosition=obstacleV3;
-
-										  if (vShiftedPosition!=vNullLocation)
-										  {
-												Logging.WriteDiagnostic("Using altered navigation vector {0} for LOS", vShiftedPosition.ToString());
-												ResetTargetHandlingVars();
-												Bot.CurrentTarget.ObjectData=new CacheObject(vShiftedPosition, TargetType.Avoidance, 20000f, "Altered LOS Path", 2f);
-												return false;
-										  }
-									 }
-								}
-								else
-								{
-									 if (Bot.Character.Position.Distance2D(vShiftedPosition)<=2.5f||DateTime.Now.Subtract(lastShiftedPosition).TotalMilliseconds>iShiftPositionFor)
-										  vShiftedPosition=vNullLocation;
-									 else
-									 {
-										  ResetTargetHandlingVars();
-										  Bot.CurrentTarget.ObjectData=new CacheObject(vShiftedPosition, TargetType.Avoidance, 20000f, "Altered LOS Path", 2f);
-										  return false;
-									 }
-								}
-
-
-								
-						  }
-						  */
-						  #endregion
-
-						  //Reset LOSV3
-						  if (Bot.Target.ObjectData.LOSV3!=vNullLocation)
-								Bot.Target.ObjectData.LOSV3=vNullLocation;
-
 						  return true;
-					 }
 					 else
 					 {//Movement required..
 						  CurrentState=ObjectData.MoveTowards();

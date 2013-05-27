@@ -203,17 +203,6 @@ namespace FunkyTrinity
 		  // **********************************************************************************************
 		  private static bool GilesSellValidation(string thisinternalname, int thislevel, ItemQuality thisquality, ItemType thisdbitemtype, FollowerType thisfollowertype)
 		  {
-				// Check this isn't something we want to salvage
-				if (false)
-				{
-					 if (GilesSalvageValidation(thisinternalname, thislevel, thisquality, thisdbitemtype, thisfollowertype))
-						  return false;
-				}
-				// Make sure it's not legendary
-				// if (thisquality >= ItemQuality.Legendary)
-				//    return false;
-
-
 				GilesItemType thisGilesItemType=DetermineItemType(thisinternalname, thisdbitemtype, thisfollowertype);
 				GilesBaseItemType thisGilesBaseType=DetermineBaseType(thisGilesItemType);
 
@@ -233,52 +222,6 @@ namespace FunkyTrinity
 						  //Sell any plans not already stashed.
 						  if (thisdbitemtype==ItemType.CraftingPlan)
 								return true;
-						  return false;
-				} // Switch giles base item type
-				return false;
-		  }
-
-		  // **********************************************************************************************
-		  // *****       Salvage Validation - Determines what should or should not be salvaged        *****
-		  // **********************************************************************************************
-		  private static bool GilesSalvageValidation(string thisinternalname, int thislevel, ItemQuality thisquality, ItemType thisdbitemtype, FollowerType thisfollowertype)
-		  {
-				if (true)
-					 return false;
-
-				// Make sure it's not legendary
-				if (thisquality>=ItemQuality.Legendary)
-					 return false;
-				GilesItemType thisGilesItemType=DetermineItemType(thisinternalname, thisdbitemtype, thisfollowertype);
-				GilesBaseItemType thisGilesBaseType=DetermineBaseType(thisGilesItemType);
-
-				switch (thisGilesBaseType)
-				{
-					 case GilesBaseItemType.WeaponRange:
-					 case GilesBaseItemType.WeaponOneHand:
-					 case GilesBaseItemType.WeaponTwoHand:
-					 case GilesBaseItemType.Armor:
-					 case GilesBaseItemType.Offhand:
-						  if (thislevel>=61&&thisquality>=ItemQuality.Magic1)
-						  {
-								return true;
-						  }
-						  return false;
-					 case GilesBaseItemType.Jewelry:
-						  if (thislevel>=59&&thisquality>=ItemQuality.Magic1)
-						  {
-								return true;
-						  }
-						  return false;
-					 case GilesBaseItemType.FollowerItem:
-						  if (thislevel>=60&&thisquality>=ItemQuality.Magic1)
-						  {
-								return true;
-						  }
-						  return false;
-					 case GilesBaseItemType.Gem:
-					 case GilesBaseItemType.Misc:
-					 case GilesBaseItemType.Unknown:
 						  return false;
 				} // Switch giles base item type
 				return false;

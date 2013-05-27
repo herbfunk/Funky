@@ -420,7 +420,7 @@ namespace FunkyTrinity
 					 get
 					 {
 						  if (base.gprect_==null||base.GPRect.CreationVector!=this.Position)
-								return new GridPointAreaCache.GPRectangle(this.Position, (int)Math.Sqrt(this.ActorSphereRadius.Value));
+								return new GridPointAreaCache.GPRectangle(this.Position, (int)Math.Sqrt(this.ActorSphereRadius.Value)*2);
 						  else
 								return base.GPRect;
 					 }
@@ -706,11 +706,11 @@ namespace FunkyTrinity
 						  //Line of sight pre-check
 						  if (this.RequiresLOSCheck)
 						  {
-								//preform LoS test
-								if (!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass)))
+								if (this.LastLOSCheckMS>1500
+									 &&!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), Bot.Class.IsMeleeClass))
 								{
 									 //ignore non-special units.. or units who already attempted to find a location within the last 3s
-									 if (!this.ObjectIsSpecial||base.LastLOSCheckMS<3000)
+									 if (!this.ObjectIsSpecial||this.LastLOSSearchMS<2000)
 									 {
 										  this.BlacklistLoops=10;
 										  return false;
@@ -721,6 +721,9 @@ namespace FunkyTrinity
 										  return false;
 									 }
 								}
+									 
+
+
 
 								this.SetLOSCheckVectors();
 						  }
@@ -888,7 +891,7 @@ namespace FunkyTrinity
 
 								//ignore units who are stealthed completly (exception when object is special!)
 								//if (this.IsBurrowed.Value&&!this.ObjectIsSpecial)
-									 //return false;
+								//return false;
 						  } catch { }
 					 }
 					 #endregion
@@ -911,7 +914,7 @@ namespace FunkyTrinity
 									 this.IsTargetable=stealthed;
 									 //since stealth is similar to being burrowed we skip non-special units
 									 //if (!this.ObjectIsSpecial)
-										  //return false;
+									 //return false;
 								}
 						  } catch (Exception ex)
 						  {
@@ -1015,15 +1018,6 @@ namespace FunkyTrinity
 
 				public override RunStatus Interact()
 				{
-					 if (Bot.Combat.bLOSMovement)
-					 {
-						  Bot.Combat.bLOSMovement=false;
-						  Bot.Combat.bPickNewAbilities=true;
-						  return RunStatus.Running;
-					 }
-
-
-
 					 if (Bot.Combat.powerPrime.Power!=SNOPower.None)
 					 {
 
@@ -1139,37 +1133,30 @@ namespace FunkyTrinity
 					 float fRangeRequired=0f;
 					 float fDistanceReduction=0f;
 
-					 if (base.LOSV3!=vNullLocation&&base.LastLOSCheckStillValid)
-					 {
-						  Bot.Combat.vCurrentDestination=base.LOSV3;
-						  fRangeRequired=5f;
-					 }
+					 if (Bot.Combat.bForceCloseRangeTarget)
+						  fDistanceReduction-=3f;
+					 if (fDistanceReduction<=0f)
+						  fDistanceReduction=0f;
+
+					 //Check if we should mod our distance:: used for worm bosses
+					 if (base.IsWormBoss)
+						  Bot.Combat.powerPrime.iMinimumRange=Bot.Class.IsMeleeClass?14f:16f;
+					 else if (base.IgnoresLOSCheck)
+						  Bot.Combat.powerPrime.iMinimumRange=base.ActorSphereRadius.Value*1.5f;
+					 else if (this.IsBurrowed.HasValue&&this.IsBurrowed.Value&&this.IsEliteRareUnique)//Force close range on burrowed elites!
+						  Bot.Combat.powerPrime.iMinimumRange=15f;
+					 else if (this.IsStealthableUnit&&this.IsAttackable.HasValue&&this.IsAttackable.Value==false&&this.IsEliteRareUnique)
+						  Bot.Combat.powerPrime.iMinimumRange=15f;
+					 else if (this.IsTreasureGoblin&&!Bot.Class.IsMeleeClass&&SettingsFunky.Class.GoblinMinimumRange>0)
+						  Bot.Combat.powerPrime.iMinimumRange=SettingsFunky.Class.GoblinMinimumRange;
 					 else
-					 {
-						  if (Bot.Combat.bForceCloseRangeTarget)
-								fDistanceReduction-=3f;
-						  if (fDistanceReduction<=0f)
-								fDistanceReduction=0f;
+						  fDistanceReduction=base.Radius;
 
-						  //Check if we should mod our distance:: used for worm bosses
-						  if (base.IsWormBoss)
-								Bot.Combat.powerPrime.iMinimumRange=Bot.Class.IsMeleeClass?14f:16f;
-						  else if (base.IgnoresLOSCheck)
-								Bot.Combat.powerPrime.iMinimumRange=base.ActorSphereRadius.Value*1.5f;
-						  else if (this.IsBurrowed.HasValue&&this.IsBurrowed.Value&&this.IsEliteRareUnique)//Force close range on burrowed elites!
-								Bot.Combat.powerPrime.iMinimumRange=15f;
-						  else if (this.IsStealthableUnit&&this.IsAttackable.HasValue&&this.IsAttackable.Value==false&&this.IsEliteRareUnique)
-								Bot.Combat.powerPrime.iMinimumRange=15f;
-						  else if (this.IsTreasureGoblin&&!Bot.Class.IsMeleeClass&&SettingsFunky.Class.GoblinMinimumRange>0)
-								Bot.Combat.powerPrime.iMinimumRange=SettingsFunky.Class.GoblinMinimumRange;
-						  else
-								fDistanceReduction=base.Radius;
-
-						  // Pick a range to try to reach
-						  fRangeRequired=Bot.Combat.powerPrime.Power==SNOPower.None?9f:Bot.Combat.powerPrime.iMinimumRange;
-					 }
+					 // Pick a range to try to reach
+					 fRangeRequired=Bot.Combat.powerPrime.Power==SNOPower.None?9f:Bot.Combat.powerPrime.iMinimumRange;
 
 					 base.DistanceFromTarget=base.CentreDistance-fDistanceReduction;
+
 
 					 return (fRangeRequired<=0f||base.DistanceFromTarget<=fRangeRequired);
 				}
@@ -1181,10 +1168,10 @@ namespace FunkyTrinity
 						  if ((this.IsEliteRareUnique&&!SettingsFunky.IgnoreAboveAverageMobs)||
 									 (this.IsBoss)||
 									 (this.IsTreasureGoblin&&SettingsFunky.GoblinPriority>1)||
-									 (this.CurrentHealthPct<0.25&&SettingsFunky.ClusterKillLowHPUnits 
-										  //lower the kill radius for melee!
-											&&(!Bot.Class.IsMeleeClass||(this.CentreDistance<this.KillRadius*0.25f)))) 
-										  
+									 (this.CurrentHealthPct<0.25&&SettingsFunky.ClusterKillLowHPUnits
+								//lower the kill radius for melee!
+											&&(!Bot.Class.IsMeleeClass||(this.CentreDistance<this.KillRadius*0.25f))))
+
 
 
 								return true;

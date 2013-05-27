@@ -156,16 +156,6 @@ namespace FunkyTrinity
 								return null;
 						  else
 								return SortedPoints;
-
-						  GridPoint[] NonIgnoredPoints=SortedPoints.TakeWhile(p => !p.Ignored).ToArray();
-
-						  int IgnoredArrayIndex=NonIgnoredPoints.Length-1;
-
-						  string debugstring="Sector Point Count "+containedPoints.Count()+" "
-								+" Endpoint "+EndPoint.ToString();
-
-						  return NonIgnoredPoints;
-
 					 }
 
 					 public void Update(GridPoint point, QuadrantLocation SectorCode)

@@ -366,8 +366,8 @@ namespace FunkyTrinity
 					 }
 
 					 //Special cache for skipping locations visited.
-					 if (bSkipAheadAGo)
-						  RecordSkipAheadCachePoint();
+					 if (CacheMovementTracking.bSkipAheadAGo)
+						  CacheMovementTracking.RecordSkipAheadCachePoint();
 
 					 // Store distance to current moveto target
 					 float fDistanceFromTarget;

@@ -167,7 +167,6 @@ namespace FunkyTrinity
 					 internal List<GridPoint> searchablepoints_; //the "outer" points of the collection in which we use to search and expand.
 					 private DateTime lastRefreshedObjectContents=DateTime.Today;
 					 internal bool AllQuadrantsFailed=false;
-					 private GridPoint LastDirectionGPused=null;
 
 					 //info about this circle related to objects contained
 					 public int MonsterCount=0;

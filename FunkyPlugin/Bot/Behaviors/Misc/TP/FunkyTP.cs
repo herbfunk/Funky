@@ -96,7 +96,6 @@ namespace FunkyTrinity
 				//GameEvents.OnWorldChanged-=OnWorldChanged;
 				//GameEvents.OnWorldTransferStart-=OnWorldChangeStart;
 				StartingPosition=Vector3.Zero;
-				OverrideTownportalBehavior=false;
 		  }
 
 		  internal static bool initizedTPBehavior=false;

@@ -211,20 +211,19 @@ namespace FunkyTrinity
 					 return new cacheSNOPower(SNOPower.Monk_LashingTailKick, 10f, vNullLocation, -1, Bot.Target.ObjectData.AcdGuid.Value, 1, 1, USE_SLOWLY);
 				}
 				// Wave of light
-				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Monk_WaveOfLight)&&
-					 !Bot.Character.bIsIncapacitated&&
-					 Bot.Combat.iAnythingWithinRange[RANGE_12]>2&&ObjectCache.Objects.Clusters(10d, 30f, 3).Count>0&&
-					 AbilityUseTimer(SNOPower.Monk_WaveOfLight)&&
-					 (Bot.Character.dCurrentEnergy>=75||Bot.Class.RuneIndexCache[SNOPower.Monk_WaveOfLight]==3&&Bot.Character.dCurrentEnergy>=40))
-				{//Bot.Combat.iElitesWithinRange[RANGE_25]>0||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.ObjectData.IsBoss)&&Bot.Target.ObjectData.RadiusDistance<=14f)||
-					 //Logging.WriteVerbose("Using Wave of Light");
-
-					 Vector3 Center=(Vector3)ObjectCache.Objects.Clusters(MinUnitCount: 3)[0].CurrentValidUnit.Position;
-					 float Distance=Center.Distance(Bot.Character.Position);
-					 Vector3 AdjustedV3=MathEx.GetPointAt(Center, Distance*0.75f, FindDirection(Center, Bot.Character.Position, true));
-					 return new cacheSNOPower(SNOPower.Monk_WaveOfLight, 16f, AdjustedV3, iCurrentWorldID, -1, 2, 2, USE_SLOWLY);
-
-					 //return new cacheSNOPower(SNOPower.Monk_WaveOfLight, 16f, vNullLocation, -1, Bot.Target.ObjectData.AcdGuid.Value, 1, 1, USE_SLOWLY);
+				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Monk_WaveOfLight)
+					 &&!Bot.Character.bIsIncapacitated&&AbilityUseTimer(SNOPower.Monk_WaveOfLight)
+					 &&(Bot.Character.dCurrentEnergy>=75||Bot.Class.RuneIndexCache[SNOPower.Monk_WaveOfLight]==3&&Bot.Character.dCurrentEnergy>=40)
+					 &&Bot.Combat.iAnythingWithinRange[RANGE_12]>2)
+				{
+					 System.Collections.Generic.List<Cluster> clusters=ObjectCache.Objects.Clusters(7d, 35f, 3, true);
+					 if (clusters.Count>0)
+					 {
+						  Vector3 Center=clusters[0].ListUnits[0].Position;
+						  float Distance=Center.Distance(Bot.Character.Position);
+						  Vector3 AdjustedV3=MathEx.GetPointAt(Center, Distance*0.75f, FindDirection(Center, Bot.Character.Position, true));
+						  return new cacheSNOPower(SNOPower.Monk_WaveOfLight, 16f, AdjustedV3, iCurrentWorldID, -1, 2, 2, USE_SLOWLY);
+					 }
 				}
 				// For tempest rush re-use
 				if (!bOOCBuff&&Bot.Character.dCurrentEnergy>=15&&HotbarAbilitiesContainsPower(SNOPower.Monk_TempestRush)&&

@@ -665,7 +665,7 @@ namespace FunkyTrinity
 												AvoidanceType T=FindAvoidanceUsingName(TestString);
 												if (T==AvoidanceType.Wall)
 												{
-													 bCheckGround=true;
+													 Bot.Combat.bCheckGround=true;
 													 //Add this to the obstacle navigation cache
 													 if (!this.IsObstacle)
 														  hashSNONavigationObstacles.Add(this.SNOID);

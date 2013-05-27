@@ -114,7 +114,7 @@ namespace FunkyTrinity
 
 					 // Bunch of variables used throughout
 					 #region VariableReset
-					 bCheckGround=false;
+					 Bot.Combat.bCheckGround=false;
 					 // Reset the counters for player-owned things
 					 Bot.Character.PetData.Reset();
 					 // Reset the counters for monsters at various ranges
@@ -143,6 +143,9 @@ namespace FunkyTrinity
 
 						  //Reset Playermover Backtrack Positions
 						  GridPointAreaCache.cacheMovementGPRs.Clear();
+
+						  //Reset Skip Ahead Cache
+						  CacheMovementTracking.ClearCache();
 
 						  //This is the only time we should call this. MGP only needs updated every level change!
 						  UpdateSearchGridProvider(true);
@@ -410,14 +413,14 @@ namespace FunkyTrinity
 						  // See if we should wait for [playersetting] milliseconds for possible loot drops before continuing run
 						  if (DateTime.Now.Subtract(Bot.Combat.lastHadUnitInSights).TotalMilliseconds<=SettingsFunky.AfterCombatDelay&&DateTime.Now.Subtract(Bot.Combat.lastHadEliteUnitInSights).TotalMilliseconds<=10000||
 								//Cut the delay time in half for non-elite monsters!
-							  DateTime.Now.Subtract(Bot.Combat.lastHadUnitInSights).TotalMilliseconds<=lootDelayTime)
+							  DateTime.Now.Subtract(Bot.Combat.lastHadUnitInSights).TotalMilliseconds<=SettingsFunky.AfterCombatDelay)
 						  {
 								Bot.Target.ObjectData=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "WaitForLootDrops", 0f, -1);
 						  }
 
 						  //Herbfunks wait after loot containers are opened. 3s for rare chests, half the settings delay for everything else.
 						  if ((DateTime.Now.Subtract(Bot.Combat.lastHadRareChestAsTarget).TotalMilliseconds<=3750)||
-							  (DateTime.Now.Subtract(Bot.Combat.lastHadContainerAsTarget).TotalMilliseconds<=(lootDelayTime*1.25)))
+							  (DateTime.Now.Subtract(Bot.Combat.lastHadContainerAsTarget).TotalMilliseconds<=(SettingsFunky.AfterCombatDelay*1.25)))
 						  {
 								Bot.Target.ObjectData=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "ContainerLootDropsWait", 0f, -1);
 						  }
@@ -495,8 +498,6 @@ namespace FunkyTrinity
 					 {
 						  Bot.Combat.dateSincePickedTarget=DateTime.Now;
 						  Bot.Combat.LastHealthChange=DateTime.Now;
-						  iTargetLastHealth=0f;
-						  Bot.Combat.bLOSMovement=false;
 					 }
 					 else
 					 {
@@ -510,14 +511,6 @@ namespace FunkyTrinity
 								// And record when we last saw any form of elite
 								if (Bot.Target.ObjectData.IsBoss||thisUnitObj.IsEliteRareUnique||Bot.Target.ObjectData.IsTreasureGoblin)
 									 Bot.Combat.lastHadEliteUnitInSights=DateTime.Now;
-
-								// Check if the health has changed, if so update the target-pick time before we blacklist them again
-								if (thisUnitObj.CurrentHealthPct.HasValue&&thisUnitObj.CurrentHealthPct.Value!=iTargetLastHealth)
-								{
-									 Bot.Combat.dateSincePickedTarget=DateTime.Now;
-								}
-								// Now store the target's last-known health
-								iTargetLastHealth=thisUnitObj.CurrentHealthPct.Value;
 						  }
 					 }
 				}

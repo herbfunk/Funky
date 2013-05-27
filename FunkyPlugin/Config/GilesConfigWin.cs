@@ -374,8 +374,7 @@ namespace FunkyTrinity
 		  // First we create a variable that is of the "type" of the actual config window item - eg a "RadioButton" for each, well, radiobutton
 		  // Later on we will "Link" these variables to the ACTUAL items within the XAML file, so we can do things with the XAML stuff
 		  // I try to match the names of the variables here, with the "Name=" I give the item in the XAML - this isn't necessary, but makes things simpler
-		  private Button saveButton, defaultButton, testButton, sortButton, resetTown, resetAdvanced, resetMobile;
-		  private RadioButton  btnSalvage, btnSell;
+		  private Button saveButton, defaultButton, resetAdvanced, resetMobile;
 		  private CheckBox checkTPS, checkLogStucks, checkUnstucker,  checkProwl, checkAndroid,
 				checkProfileReload;
 		  private Slider  slideTPS,

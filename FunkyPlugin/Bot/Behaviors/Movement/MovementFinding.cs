@@ -139,12 +139,6 @@ namespace FunkyTrinity
 								if (ObjectCache.Obstacles.DoesPositionIntersectAny(vThisZigZag, ObstacleType.ServerObject))
 									 continue;
 
-								// Give extra weight to areas we've been inside before
-								bool bExtraSafetyWeight=hashSkipAheadAreaCache.Any(cp => cp.Position.Distance(vThisZigZag)<=cp.Radius);
-								if (bExtraSafetyWeight)
-									 fThisWeight+=100f;
-
-
 								float distanceToPoint=vThisZigZag.Distance2D(Bot.Character.Position);
 								float distanceToTarget=vTargetLocation.Distance2D(Bot.Character.Position);
 
@@ -309,24 +303,6 @@ namespace FunkyTrinity
 													 fThisWeight-=(300*(1-(fDistanceToNearby/25)));
 										  }
 									 }
-									 // Give extra weight to areas we've been inside before
-									 bool bExtraSafetyWeight=hashSkipAheadAreaCache.Any(cp => cp.Position.Distance(vTestPoint)<=cp.Radius);
-									 if (bExtraSafetyWeight)
-									 {
-										  if (bKitingSpot)
-										  {
-												fThisWeight+=350f;
-										  }
-										  else if (bFindAntiStuckSpot)
-										  {
-												fThisWeight+=300f;
-										  }
-										  else
-										  {
-												fThisWeight+=100f;
-										  }
-									 }
-
 									 if (fThisWeight<=1)
 										  fThisWeight=1;
 									 // Use this one if it's more weight, or we haven't even found one yet, or if same weight as another with a random chance

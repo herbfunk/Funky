@@ -28,9 +28,6 @@ namespace FunkyTrinity
 						  bWaitingForPotion=false;
 						  bForceTargetUpdate=false;
 						  bWasRootedLastTick=false;
-						  bIgnoringDestructibles=false;
-						  bLOSMovement=false;
-						  DestructibleIgnoreStart=DateTime.Today;
 						  lastMovementCommand=DateTime.Today;
 						  iTimesBlockedMoving=0;
 						  bAlreadyMoving=false;
@@ -71,7 +68,6 @@ namespace FunkyTrinity
 
 					 public CacheObject LastCachedTarget { get; set; }
 					 public List<int> PrioritizedRAGUIDs=new List<int>();
-					 public List<int> RequiresLOSMovementRAGUIDs=new List<int>();
 					 public List<CacheAvoidance> TriggeringAvoidances=new List<CacheAvoidance>();
 					 public List<int> UnitRAGUIDs=new List<int>();
 
@@ -87,7 +83,6 @@ namespace FunkyTrinity
 					 public int totalNonMovementCount { get; set; }
 					 public bool bAlreadyMoving { get; set; }
 					 public DateTime lastMovementCommand { get; set; }
-					 public bool bLOSMovement { get; set; }
 					 // How many times a movement fails because of being "blocked"
 					 public int iTimesBlockedMoving { get; set; }
 					 #endregion
@@ -157,25 +152,6 @@ namespace FunkyTrinity
 					 #endregion
 
 
-					 //Ignore any destructibles for a short time!
-					 internal bool ignoringdestructibles_;
-					 public bool bIgnoringDestructibles
-					 {
-						  get
-						  {
-								return ignoringdestructibles_;
-						  }
-
-						  set
-						  {
-								if (value==true)
-									 DestructibleIgnoreStart=DateTime.Now;
-
-								ignoringdestructibles_=value;
-						  }
-					 }
-					 public DateTime DestructibleIgnoreStart { get; set; }
-
 					 // Variables relating to quick-reference of monsters within sepcific ranges (if anyone has suggestion for similar functionality with reduced CPU use, lemme know, but this is fast atm!)
 					 public int[] iElitesWithinRange { get; set; }
 					 public int[] iAnythingWithinRange { get; set; }
@@ -203,7 +179,10 @@ namespace FunkyTrinity
 					 public bool bAnyBossesInRange { get; set; }
 					 // A flag to say whether any NONE-hashActorSNOWhirlwindIgnore things are around
 					 public bool bAnyNonWWIgnoreMobsInRange { get; set; }
-
+					 /// <summary>
+					 /// Check LoS if waller avoidance detected
+					 /// </summary>
+					 public bool bCheckGround=false;
 
 
 					 ///<summary>
@@ -230,7 +209,6 @@ namespace FunkyTrinity
 						  bAnyMobsInCloseRange=false;
 						  bAnyNonWWIgnoreMobsInRange=false;
 						  TravellingAvoidance=false;
-						  RequiresLOSMovementRAGUIDs=new List<int>();
 						  UnitRAGUIDs=new List<int>();
 						  SurroundingUnits=0;
 						  TriggeringAvoidances.Clear();
@@ -248,7 +226,6 @@ namespace FunkyTrinity
 						  bWaitingAfterPower=false;
 						  bWaitingForPotion=false;
 						  bWasRootedLastTick=false;
-						  bLOSMovement=false;
 						  recheckCount=0;
 						  reCheckedFinished=false;
 						  UsedAutoMovementCommand=false;

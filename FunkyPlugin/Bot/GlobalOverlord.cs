@@ -57,10 +57,6 @@ namespace FunkyTrinity
 
 					 iCombatLoops=0;
 
-
-					 Random R=new Random(DateTime.Now.Millisecond);
-					 lootDelayTime=R.Next(123, 499);
-
 					 //Set Character Radius?
 					 if (Bot.Character.fCharacterRadius==0f)
 						  Bot.Character.fCharacterRadius=ZetaDia.Me.ActorInfo.Sphere.Radius;
@@ -256,8 +252,6 @@ namespace FunkyTrinity
 				//return GoblinRewind.PreformGoblinRewindBehavior();
 				else if (Bot.Target.ObjectData!=null)
 					 return Bot.Target.HandleThis();  //Default Behavior: Current Target
-				else if (OverrideTownportalBehavior)
-					 return FunkyTPBehavior(null);
 				else if (MuleBehavior)
 				{
 					 if (!TransferedGear)

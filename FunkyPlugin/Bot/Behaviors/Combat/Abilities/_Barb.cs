@@ -395,7 +395,7 @@ namespace FunkyTrinity
 						  //float fExtraDistance = targetCurrent.fCentreDistance+(targetCurrent.fCentreDistance <= 16f ? 16f : 8f);
 						  //vSideToSideTarget = FindZigZagTargetLocation(Bot.CurrentTarget.Position, Bot.CurrentTarget.CentreDistance + 25f);
 						  // Resetting this to ensure the "no-spam" is reset since we changed our target location
-						  if (bCheckGround)
+						  if (Bot.Combat.bCheckGround)
 								vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.ObjectData.Position, 25f, false, true, true);
 						  else if (Bot.Combat.iAnythingWithinRange[RANGE_30]>=6||Bot.Combat.iElitesWithinRange[RANGE_30]>=3)
 								vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.ObjectData.Position, 25f, false, true);

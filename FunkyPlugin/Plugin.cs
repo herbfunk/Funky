@@ -536,14 +536,11 @@ namespace FunkyTrinity
 										new Zeta.TreeSharp.Action(actionDelegateBlank)
 										);
 								hook.Value[0]=new Zeta.TreeSharp.Decorator(canRunDelegateBlank, sequenceblank);
-								LootBehaviorEnabled=true;
 								Logging.WriteDiagnostic("Loot tree replaced...");
 						  }
 						  else
 						  {
-								LootBehaviorEnabled=false;
-								
-								CanRunDecoratorDelegate canRunDelegateBlank=new CanRunDecoratorDelegate(BlankDecorator);
+						      CanRunDecoratorDelegate canRunDelegateBlank=new CanRunDecoratorDelegate(BlankDecorator);
 								ActionDelegate actionDelegateBlank=new ActionDelegate(BlankAction);
 								Sequence sequenceblank=new Sequence(
 										new Zeta.TreeSharp.Action(actionDelegateBlank)
@@ -641,13 +638,15 @@ namespace FunkyTrinity
 
 				hashUseOnceID=new HashSet<int>();
 				dictUseOnceID=new Dictionary<int, int>();
+				dictRandomID=new Dictionary<int, int>();
+				CacheMovementTracking.ClearCache();
+
 				iMaxDeathsAllowed=0;
 				iDeathsThisRun=0;
 				_hashsetItemStatsLookedAt=new HashSet<int>();
 				_hashsetItemPicksLookedAt=new HashSet<int>();
 				_hashsetItemFollowersIgnored=new HashSet<int>();
 				_dictItemStashAttempted=new Dictionary<int, int>();
-				
 
 				listProfilesLoaded=new List<string>();
 				sLastProfileSeen="";

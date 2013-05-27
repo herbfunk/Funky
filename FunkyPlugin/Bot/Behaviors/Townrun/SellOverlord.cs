@@ -114,11 +114,8 @@ namespace FunkyTrinity
 					 Log("GSError: Diablo 3 memory read error, or item became invalid [PreSell-1]", true);
 					 return RunStatus.Failure;
 				}
-				bGoToSafetyPointFirst=true;
-				bGoToSafetyPointSecond=false;
 				bLoggedJunkThisStash=false;
 				bCurrentlyMoving=false;
-				bReachedDestination=false;
 				PotionCheck=false;
 				iCurrentItemLoops=0;
 				RandomizeTheTimer();

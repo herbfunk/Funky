@@ -40,7 +40,6 @@ namespace FunkyTrinity
 					 this.LastLOSCheck=DateTime.Today;
 					 this.PrioritizedDate=DateTime.Today;
 					 this.LOSV3=vNullLocation;
-					 this.IgnoringLOSMovementTest=false;
 
 					 //Keep track of each unique RaGuid that is created and uses this SNO during each level.
 					 //if (!UsedByRaGuids.Contains(RAGUID)) UsedByRaGuids.Add(RAGUID);
@@ -70,11 +69,8 @@ namespace FunkyTrinity
 					 this.BlacklistFlag=parent.BlacklistFlag;
 					 this.BlacklistLoops=parent.BlacklistLoops;
 					 this.gprect_=parent.gprect_;
-					 this.IgnoringLOSMovementTest=parent.IgnoringLOSMovementTest;
 					 this.InteractionAttempts=parent.InteractionAttempts;
 					 this.LastLOSCheck=parent.LastLOSCheck;
-					 this.LastLOSCheck_BotPosition=parent.LastLOSCheck_BotPosition;
-					 this.LastLOSCheck_ThisPosition=parent.LastLOSCheck_ThisPosition;
 					 this.LoopsUnseen=parent.LoopsUnseen;
 					 this.LOSV3=parent.LOSV3;
 					 this.NeedsRemoved=parent.NeedsRemoved;
@@ -265,9 +261,14 @@ namespace FunkyTrinity
 
 				#region Line Of Sight Properties & Methods
 				///<summary>
-				///Used to check if the object should validate Line-Of-Sight.
+				///Line Of Sight Checking Variable
 				///</summary>
 				public bool RequiresLOSCheck { get; set; }
+
+
+				///<summary>
+				///Last time we preformed LOS Raycasting Test
+				///</summary>
 				public DateTime LastLOSCheck { get; set; }
 				public double LastLOSCheckMS
 				{
@@ -276,9 +277,12 @@ namespace FunkyTrinity
 						  return (DateTime.Now.Subtract(LastLOSCheck).TotalMilliseconds);
 					 }
 				}
-
-				public bool LOSTest(Vector3 PositionToTestFrom,bool NavRayCast=true, bool ServerObjectIntersection=true, bool NavCellWalkable=false)
+				///<summary>
+				///Runs raycasting and intersection tests to validate LOS.
+				///</summary>
+				public bool LOSTest(Vector3 PositionToTestFrom, bool NavRayCast=true, bool ServerObjectIntersection=true, bool NavCellWalkable=false)
 				{
+					 this.LastLOSCheck=DateTime.Now;
 
 					 if (NavRayCast&&Zeta.Navigation.Navigator.Raycast(PositionToTestFrom, this.BotMeleeVector))
 						  return false;
@@ -289,23 +293,46 @@ namespace FunkyTrinity
 					 if (NavCellWalkable&&!GilesCanRayCast(PositionToTestFrom, this.BotMeleeVector, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
 						  return false;
 
+
+
 					 return true;
 				}
+				///<summary>
+				///Last time we preformed a LOS vector search
+				///</summary>
+				public DateTime LastLOSSearch { get; set; }
+				public double LastLOSSearchMS
+				{
+					 get
+					 {
+						  return (DateTime.Now.Subtract(LastLOSSearch).TotalMilliseconds);
+					 }
+				}
+				///<summary>
+				///Searches using the GridPointAreaCache and returns bool if LOSV3 has been set.
+				///</summary>
 				public bool FindLOSLocation
 				{
 					 get
 					 {
-						  this.LastLOSCheck=DateTime.Now;
+						  this.LastLOSSearch=DateTime.Now;
+
 						  Vector3 LOSV3;
 						  bool FoundLOSLocation=false;
 
-						  //Melee classes should use the objects GPC to find a spot
-						  //range should use surrounding GPCs.
-
 						  if (Bot.Class.IsMeleeClass)
+						  {
 								FoundLOSLocation=this.GPRect.TryFindSafeSpot(out LOSV3, this.Position, (Bot.Class.KiteDistance>0));
+
+								if (!FoundLOSLocation)
+									 FoundLOSLocation=GridPointAreaCache.AttemptFindTargetSafeLocation(out LOSV3, this, true, (Bot.Class.KiteDistance>0));
+						  }
 						  else
-								FoundLOSLocation=GridPointAreaCache.AttemptFindTargetSafeLocation(out LOSV3, this, true, (Bot.Class.KiteDistance>0));
+						  {
+								FoundLOSLocation=FoundLOSLocation=GridPointAreaCache.AttemptFindTargetSafeLocation(out LOSV3, this, true, (Bot.Class.KiteDistance>0));
+								if (!FoundLOSLocation)
+									 this.GPRect.TryFindSafeSpot(out LOSV3, this.Position, (Bot.Class.KiteDistance>0));
+						  }
 
 
 						  if (FoundLOSLocation)
@@ -323,32 +350,30 @@ namespace FunkyTrinity
 				///</summary>
 				public Vector3 LOSV3 { get; set; }
 				///<summary>
-				///Special check for above average units that will seek out a location that would be LOS
-				///</summary>
-				public bool IgnoringLOSMovementTest { get; set; }
-				private Vector3 LastLOSCheck_BotPosition, LastLOSCheck_ThisPosition;
-				///<summary>
 				///Set the LOS Vector variables.
 				///</summary>
 				public void SetLOSCheckVectors()
 				{
-					 LastLOSCheck_BotPosition=Bot.Character.Position;
-					 LastLOSCheck_ThisPosition=this.Position;
-					 LastLOSCheck=DateTime.Now;
 					 RequiresLOSCheck=false;
-					 IgnoringLOSMovementTest=Bot.Combat.RequiresLOSMovementRAGUIDs.Contains(this.RAGUID);
 				}
 				///<summary>
-				///Validates the positon of the unit and the LOS Vector
+				///Validates that the current LOS
 				///</summary>
 				public bool LastLOSCheckStillValid
 				{
 					 get
 					 {
-						  //We validate the current position to the snapshot we took when we found a valid LOS location.
-						  //Checking the distance change as a opposed to using equal allows for little variations of movement to occur!
-						  //If the Vector Distance failed, then we do another raycast to validate the current position vector.
-						  return (this.Position.Distance(LastLOSCheck_ThisPosition)<2.5f||this.LOSTest(this.LOSV3, true, (!Bot.Class.IsMeleeClass),(Bot.Class.IsMeleeClass)));
+						  double LastCheckMS=this.LastLOSCheckMS;
+						  if (LastCheckMS>3000)
+								return false;
+
+						  //Recheck the LOS against the target.
+						  bool valid=this.LOSTest(this.LOSV3!=vNullLocation?this.LOSV3:this.Position, true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass));
+						  
+						  if (!valid)
+								this.LOSV3=vNullLocation;
+
+						  return valid;
 					 }
 				}
 				#endregion
@@ -524,7 +549,7 @@ namespace FunkyTrinity
 									 Action+="Avoid] ";
 									 break;
 								case TargetType.Unit:
-									 if (Bot.Combat.bLOSMovement)
+									 if (this.LOSV3!=vNullLocation)
 										  Action+="LOS] ";
 									 else
 										  Action+="Combat] ";
@@ -557,6 +582,8 @@ namespace FunkyTrinity
 					 if (Bot.Character.bIsIncapacitated||Bot.Character.bIsRooted)
 						  return RunStatus.Running;
 
+					 if (CacheMovementTracking.bSkipAheadAGo)
+						  CacheMovementTracking.RecordSkipAheadCachePoint();
 
 					 // Some stuff to avoid spamming usepower EVERY loop, and also to detect stucks/staying in one place for too long
 					 bool bForceNewMovement=false;

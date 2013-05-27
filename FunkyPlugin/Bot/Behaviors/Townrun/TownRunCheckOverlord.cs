@@ -12,6 +12,9 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
+		  // The distance last loop, so we can compare to current distance to work out if we moved
+		  private static float iLastDistance=0f;
+
 		  // **********************************************************************************************
 		  // *****         TownRunCheckOverlord - determine if we should do a town-run or not         *****
 		  // **********************************************************************************************
@@ -38,8 +41,6 @@ namespace FunkyTrinity
 						  bWantToTownRun=true;
 					 }
 				}
-				else if (OverrideTownportalBehavior)
-					 bWantToTownRun=true;
 
 				bLastTownRunCheckResult=bWantToTownRun;
 

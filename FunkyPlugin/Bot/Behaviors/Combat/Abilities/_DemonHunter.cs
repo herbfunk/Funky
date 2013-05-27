@@ -154,7 +154,7 @@ namespace FunkyTrinity
 					 vPositionLastZigZagCheck=Bot.Character.Position;
 					 if (bGenerateNewZigZag)
 					 {
-						  if (bCheckGround)
+						  if (Bot.Combat.bCheckGround)
 								vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.ObjectData.Position, 25f, false, true, true);
 						  else if (Bot.Combat.iAnythingWithinRange[RANGE_30]>=6||Bot.Combat.iElitesWithinRange[RANGE_30]>=3)
 								vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.ObjectData.Position, 25f, false, true);

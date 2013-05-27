@@ -182,10 +182,20 @@ namespace FunkyTrinity
 				}
 				// Zombie Charger aka Zombie bears Spams Bears @ Everything from 11feet away
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_ZombieCharger)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=134&&
-					(Bot.Combat.iElitesWithinRange[RANGE_12]>0||Bot.Combat.iAnythingWithinRange[RANGE_12]>=1||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.ObjectData.IsTreasureGoblin||Bot.Target.ObjectData.IsBoss)&&Bot.Target.ObjectData.RadiusDistance<=11f))&&
+					(Bot.Combat.iAnythingWithinRange[RANGE_12]>1||(thisCacheUnitObj!=null&&thisCacheUnitObj.ObjectIsSpecial))&&
 					PowerManager.CanCast(SNOPower.Witchdoctor_ZombieCharger))
 				{
-					 return new cacheSNOPower(SNOPower.Witchdoctor_ZombieCharger, 11f, new Vector3(Bot.Target.ObjectData.Position.X, Bot.Target.ObjectData.Position.Y, Bot.Target.ObjectData.Position.Z+iThisHeight), iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+					 if (thisCacheUnitObj!=null&&thisCacheUnitObj.ObjectIsSpecial)
+						  return new cacheSNOPower(SNOPower.Witchdoctor_ZombieCharger, 11f, new Vector3(Bot.Target.ObjectData.Position.X, Bot.Target.ObjectData.Position.Y, Bot.Target.ObjectData.Position.Z+iThisHeight), iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+					 else
+					 {
+						  //Cluster tests
+						  if (ObjectCache.Objects.Clusters(6d, 25f, 2, true).Count>0)
+						  {
+								Vector3 Centeroid=ObjectCache.Objects.Clusters()[0].ListUnits[0].BotMeleeVector;
+								return new cacheSNOPower(SNOPower.Witchdoctor_ZombieCharger, 0f, Centeroid, iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+						  }
+					 }
 				}
 				// Acid Cloud
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_AcidCloud)&&!Bot.Character.bIsIncapacitated&&

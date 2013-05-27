@@ -73,8 +73,6 @@ namespace FunkyTrinity
 				private RadioButton ItemRuleGilesScoring, ItemRuleDBScoring;
 
 				private CheckBox CoffeeBreaks;
-				private Slider MinBreak;
-				private Slider MaxBreak;
 				private TextBox tbMinBreakTime, tbMaxBreakTime;
 
 				private Button OpenPluginFolder;
