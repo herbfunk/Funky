@@ -937,33 +937,12 @@ namespace FunkyTrinity
 					 if (DateTime.Now.Subtract(Bot.Combat.lastSentMovePower).TotalMilliseconds>=250||currentDistance>=2f||bForceNewMovement)
 					 {
 
-						  //Only allow left-click movement if: Melee Class, Target is a unit, in range (viewable) and can raycast.
-						  bool shouldLeftClickMove=false;
-						  /*
-					 (Bot.Character.IsMeleeClass&&
-				ObjectData.targetType.Value==TargetType.Unit&&currentDistance<40f&&
-				powerPrime.powerThis!=SNOPower.Barbarian_Whirlwind&& //Exclude WW
-				powerPrime.iTargetGUID!=-1&& //Exclude non-target abilities
-				PowerManager.CanCast(powerPrime.powerThis));
-						  */
-
-						  //&& //Exclude non-castable
-						  //CanRayCastMeleeCombatMovement(Bot.Character.vCurrentPosition, ObjectData)));
-
-						  //Non-Units & Units out of range or very close should use the walk command.
-						  if (!shouldLeftClickMove)
+						  if (this.LOSV3==vNullLocation)
 						  {
 								ZetaDia.Me.UsePower(SNOPower.Walk, Bot.Combat.vCurrentDestination, Bot.Character.iCurrentWorldID, -1);
 						  }
 						  else
-						  {//Melee Special Movement
-								//powerPrime=GilesAbilitySelector(false, false, true);
-								//ObjectData.ref_DiaObject.Interact();
-								Bot.Target.UpdateStatusText("Target-Movement");
-								Bot.Combat.UsedAutoMovementCommand=true;
-								Bot.Combat.bWaitingForPower=true;
-								ZetaDia.Me.UsePower(Bot.Combat.powerPrime.Power, vNullLocation, -1, Bot.Combat.powerPrime.TargetRaGuid);
-						  }
+								ZetaDia.Me.Movement.MoveActor(this.LOSV3);
 
 
 						  Bot.Combat.lastSentMovePower=DateTime.Now;

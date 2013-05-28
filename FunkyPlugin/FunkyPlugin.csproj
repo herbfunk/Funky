@@ -20,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\..\..\Desktop\DB_Debug - Copy\Plugins\FunkyTrinity\</OutputPath>
+    <OutputPath>..\..\..\..\Desktop\DB_Debug - Copy\Plugins\FunkyTrinity\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>none</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -192,7 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Demonbuddy">
-      <HintPath>..\..\..\..\..\Desktop\DB_Debug - Copy\Demonbuddy.exe</HintPath>
+      <HintPath>..\..\..\..\Desktop\DB_Debug - Copy\Demonbuddy.exe</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -424,6 +424,7 @@
     <Content Include="Bot\Behaviors\Misc\CharacterMule\NewGame.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ToDo.txt" />
     <Content Include="_Bugs.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -72,7 +72,7 @@ namespace FunkyTrinity
 								//Lets see if we can find a location..
 								if (thisobj.Weight>iHighestWeightFound)
 								{
-									 if (thisobj.GPRect.TryFindSafeSpot(out SafeLOSMovement, vNullLocation, Bot.Class.KiteDistance>0f, true))
+									 if (thisobj.GPRect.TryFindSafeSpot(out SafeLOSMovement, thisobj.Position, Bot.Class.KiteDistance>0f, true))
 									 {
 										  Bot.Target.ObjectData=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
 										  iHighestWeightFound=thisobj.Weight;
@@ -110,14 +110,6 @@ namespace FunkyTrinity
 
 					 } // Loop through all the objects and give them a weight
 
-
-					 //No Target? Not Staying Put? Recheck remaining units that may have been ignored.
-					 if (ObjectCache.Objects.objectsIgnoredDueToAvoidance.Count>0
-								&&Bot.Target.Equals(null)&&!Bot.Combat.bStayPutDuringAvoidance)
-					 {
-						  Bot.Combat.bStayPutDuringAvoidance=true;
-						  return;
-					 }
 
 					 #region RangeClassTargetUnit
 

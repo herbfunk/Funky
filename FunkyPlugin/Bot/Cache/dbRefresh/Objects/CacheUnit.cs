@@ -714,11 +714,11 @@ namespace FunkyTrinity
 						  //Line of sight pre-check
 						  if (this.RequiresLOSCheck)
 						  {
-								if (this.LastLOSCheckMS>1500
+								if (this.LastLOSCheckMS>3500
 									 &&!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), Bot.Class.IsMeleeClass))
 								{
 									 //ignore non-special units.. or units who already attempted to find a location within the last 3s
-									 if (!this.ObjectIsSpecial||this.LastLOSSearchMS<2000)
+									 if (!this.ObjectIsSpecial)
 									 {
 										  this.BlacklistLoops=10;
 										  return false;
