@@ -335,9 +335,9 @@ namespace FunkyTrinity
 						  }
 
 
-						  if (FoundLOSLocation)
+						  if (FoundLOSLocation&&GilesCanRayCast(Bot.Character.Position, LOSV3, NavCellFlags.AllowWalk))
 						  {
-								Logging.WriteVerbose("LOS Failed! Found new location for target {0}", this.InternalName);
+								Logging.WriteVerbose("LOS Found new location for target {0}", this.InternalName);
 								this.LOSV3=LOSV3;
 						  }
 

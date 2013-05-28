@@ -53,11 +53,14 @@ namespace FunkyTrinity
 				}
 
 				// Soul Harvest Any Elites or 2+ Norms and baby it's harvest season
-				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_SoulHarvest)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=59&&GetBuffStacks(SNOPower.Witchdoctor_SoulHarvest)<4&&
-					(Bot.Combat.iElitesWithinRange[RANGE_6]>=1||Bot.Combat.iAnythingWithinRange[RANGE_6]>=2||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.ObjectData.IsTreasureGoblin)&&Bot.Target.ObjectData.RadiusDistance<=7f))&&
-					PowerManager.CanCast(SNOPower.Witchdoctor_SoulHarvest))
+				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_SoulHarvest)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=59&&GetBuffStacks(SNOPower.Witchdoctor_SoulHarvest)<4&&PowerManager.CanCast(SNOPower.Witchdoctor_SoulHarvest))
 				{
-					 return new cacheSNOPower(SNOPower.Witchdoctor_SoulHarvest, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+					 System.Collections.Generic.List<Cluster> clusters=ObjectCache.Objects.Clusters(2d, 6f, 4, true);
+					 if (clusters.Count>0)
+					 {
+						  return new cacheSNOPower(SNOPower.Witchdoctor_SoulHarvest, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 1, USE_SLOWLY);
+					 }
+
 				}
 				// Sacrifice AKA Zombie Dog Jihad, use on Elites Only or to try and Save yourself
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_Sacrifice)&&
@@ -254,73 +257,80 @@ namespace FunkyTrinity
 
 				}
 				// Fire Bats fast-attack
-				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_Firebats)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=98)
+				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_Firebats)&&!Bot.Character.bIsIncapacitated)
 				{
-					 bool ConditionalTestResult=false;
-					 int ACDGuid=-1;
-					 Vector3 Location=vNullLocation;
-					 float range=0f;
-					 int RuneIndex=Bot.Class.RuneIndexCache[SNOPower.Witchdoctor_Firebats];
+					 //Check our mana first!
+					 if (Bot.Character.dCurrentEnergy>=221||(Bot.Character.dCurrentEnergy>66
+						  &&Bot.Character.CurrentAnimationState==AnimationState.Channeling&&Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.WitchDoctor_Female_1HT_spell_channel|SNOAnim.WitchDoctor_Female_2HT_spell_channel|SNOAnim.WitchDoctor_Female_HTH_spell_channel|SNOAnim.WitchDoctor_Male_1HT_Spell_Channel|SNOAnim.WitchDoctor_Male_HTH_Spell_Channel)))
+					 {
+						  bool ConditionalTestResult=false;
+						  int ACDGuid=-1;
+						  Vector3 Location=vNullLocation;
+						  float range=0f;
+						  int RuneIndex=Bot.Class.RuneIndexCache[SNOPower.Witchdoctor_Firebats];
 
-					 //Reflective units ignore normal tests.
-					 if (thisCacheUnitObj!=null&&thisCacheUnitObj.IsMissileReflecting)
-					 {
-						  ACDGuid=thisCacheUnitObj.AcdGuid.Value;
-						  ConditionalTestResult=true;
-					 }
-					 else
-					 {
-						  //Dire Bats
-						  if (RuneIndex==0)
+						  //Reflective units ignore normal tests.
+						  if (thisCacheUnitObj!=null&&thisCacheUnitObj.IsMissileReflecting)
 						  {
-								//We want a cluster that is tight with at least 2 units!
-								if (ObjectCache.Objects.Clusters(5d, 35f, 2).Count>0)
-								{
-									 ConditionalTestResult=true;
-									 Location=ObjectCache.Objects.Clusters()[0].ListUnits[0].Position;
-								}
-
-						  }
-						  else if (RuneIndex==4)
-						  {//Cloud -- only 12f range!
-
-
-								if (ObjectCache.Objects.Clusters(6d, 12f, 2).Count>0)
-								{
-									 ConditionalTestResult=true;
-									 Location=Bot.Character.Position;
-								}
+								ACDGuid=thisCacheUnitObj.AcdGuid.Value;
+								ConditionalTestResult=true;
 						  }
 						  else
-						  {//Posion/Vampire/HungryBats/NoRune (Small AOE Range)
-
-								//we want cluster that is semi-tight with at least 2 units!
-								if (ObjectCache.Objects.Clusters(7d, 20f, 2).Count>0)
+						  {
+								System.Collections.Generic.List<Cluster> clusters;
+								//Dire Bats
+								if (RuneIndex==0)
 								{
-									 ConditionalTestResult=true;
-									 ACDGuid=ObjectCache.Objects.Clusters()[0].ListUnits[0].AcdGuid.Value;
+									 clusters=ObjectCache.Objects.Clusters(5d, 25f, 2);
+									 //We want a cluster that is tight with at least 2 units!
+									 if (clusters.Count>0)
+									 {
+										  ConditionalTestResult=true;
+										  Location=clusters[0].ListUnits[0].Position;
+									 }
+
+								}
+								else if (RuneIndex==4)
+								{//Cloud -- only 12f range!
+
+									 clusters=ObjectCache.Objects.Clusters(6d, 12f, 2);
+									 if (clusters.Count>0)
+									 {
+										  ConditionalTestResult=true;
+										  Location=Bot.Character.Position;
+									 }
+								}
+								else
+								{//Posion/Vampire/HungryBats/NoRune (Small AOE Range)
+									 clusters=ObjectCache.Objects.Clusters(7d, 20f, 2);
+									 //we want cluster that is semi-tight with at least 2 units!
+									 if (clusters.Count>0)
+									 {
+										  ConditionalTestResult=true;
+										  ACDGuid=clusters[0].ListUnits[0].AcdGuid.Value;
+									 }
 								}
 						  }
-					 }
 
-					 //Setup range
-					 if (ConditionalTestResult)
-					 {
-						  if (RuneIndex==0)
-								range=40f;
-						  else if (RuneIndex==4)
-								range=14f;
-						  else
-								range=25f;
-					 }
+						  //Setup range
+						  if (ConditionalTestResult)
+						  {
+								if (RuneIndex==0)
+									 range=0f;
+								else if (RuneIndex==4)
+									 range=14f;
+								else
+									 range=25f;
+						  }
 
-					 if (ConditionalTestResult)
-						  return new cacheSNOPower(SNOPower.Witchdoctor_Firebats, range, Location, Bot.Character.iCurrentWorldID, ACDGuid, 0, 1, USE_SLOWLY);
+						  if (ConditionalTestResult)
+								return new cacheSNOPower(SNOPower.Witchdoctor_Firebats, range, Location, Bot.Character.iCurrentWorldID, ACDGuid, 1, 2, USE_SLOWLY);
+					 }
 				}
 				// Poison Darts fast-attack Spams Darts when mana is too low (to cast bears) @12yds or @10yds if Bears avialable
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_PoisonDart)&&!Bot.Character.bIsIncapacitated&&(!Bot.Target.ObjectData.IsMissileReflecting||Bot.Character.dCurrentEnergy<30))
 				{
-					 return new cacheSNOPower(SNOPower.Witchdoctor_PoisonDart, 44f, vNullLocation, -1, Bot.Target.ObjectData.AcdGuid.Value, 0, 2, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Witchdoctor_PoisonDart, 44f, vNullLocation, -1, Bot.Target.ObjectData.AcdGuid.Value, 0, 1, USE_SLOWLY);
 				}
 				// Corpse Spiders fast-attacks Spams Spiders when mana is too low (to cast bears) @12yds or @10yds if Bears avialable
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_CorpseSpider)&&!Bot.Character.bIsIncapacitated)

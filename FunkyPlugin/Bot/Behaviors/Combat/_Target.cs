@@ -408,13 +408,17 @@ namespace FunkyTrinity
 										  //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
 										  if (ObjectData.ObjectIsSpecial)
 										  {
-												if (ObjectData.FindLOSLocation)
+												if (ObjectData.FindLOSLocation&&ObjectData.LastLOSSearchMS>2500)
 												{
 													 Logging.WriteVerbose("Using LOS Vector at {0} to move to", ObjectData.LOSV3.ToString());
 													 ObjectData.SetLOSCheckVectors();
 													 Bot.Combat.bWholeNewTarget=true;
 													 CurrentState=RunStatus.Running;
 													 return false;
+												}
+												else
+												{
+													 ObjectData.BlacklistLoops=10;
 												}
 										  }
 

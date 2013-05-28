@@ -2524,6 +2524,8 @@ namespace FunkyTrinity
 								{
 									 Logging.Write("{0} with current rune index {1}", item.ToString(), Bot.Class.RuneIndexCache.ContainsKey(item)?Bot.Class.RuneIndexCache[item].ToString():"none");
 								}
+								Bot.Character.UpdateAnimationState();
+								Logging.Write("State: {0} -- SNOAnim {1}", Bot.Character.CurrentAnimationState.ToString(), Bot.Character.CurrentSNOAnim.ToString());
 
 						  } catch (Exception ex)
 						  {

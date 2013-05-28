@@ -476,7 +476,7 @@ namespace FunkyTrinity
 				// Cleave fast-attacks
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_Cleave))
 				{
-					 return new cacheSNOPower(SNOPower.Barbarian_Cleave, 10f, vNullLocation, -1, Bot.Target.ObjectData.AcdGuid.Value, 0, 2, USE_SLOWLY);
+					 return new cacheSNOPower(SNOPower.Barbarian_Cleave, 10f, vNullLocation, Bot.Character.iCurrentWorldID, Bot.Target.ObjectData.AcdGuid.Value, 0, 2, USE_SLOWLY);
 				}
 				// Default attacks
 				if (!bOOCBuff&&!bCurrentlyAvoiding)
