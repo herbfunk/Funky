@@ -500,7 +500,11 @@ namespace FunkyTrinity
          {
              public bool DebugStatusBar { get; set; }
              public bool LogSafeMovementOutput { get; set; }
-
+             
+             public bool LogStuckLocations { get; set; }
+             public bool EnableUnstucker { get; set; }
+             public bool RestartGameOnLongStucks { get; set; }
+             
              public bool OOCIdentifyItems { get; set; }
              public bool BuyPotionsDuringTownRun { get; set; }
              public bool EnableWaitAfterContainers { get; set; }
@@ -594,6 +598,10 @@ namespace FunkyTrinity
                   int eliterange, int extendedrange, int goldrange, int[] minweaponlevel, int[] minarmorlevel, int[] minjewelerylevel, int minlegendarylevel,
                   int maxhealthpots, int mingoldpile, bool[] gems, int minGemLevel, bool craftTomes, bool craftPlans, bool Followeritems, int miscitemlevel, bool itemlevelinglogic, int gilesWeaponScore, int gilesArmorScore, int gilesJeweleryScore, bool projectiletesting, bool ignoreelites)
              {
+                 LogStuckLocations = true;
+                 RestartGameOnLongStucks = true;
+                 EnableUnstucker = true;
+
                  AvoidanceRecheckMaximumRate = 1000;
                  AvoidanceRecheckMinimumRate = 250;
                  KitingRecheckMaximumRate = 2500;

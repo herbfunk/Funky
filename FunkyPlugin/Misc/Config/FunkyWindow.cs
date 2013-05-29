@@ -34,14 +34,14 @@ namespace FunkyTrinity
             CurrentHeroName = Zeta.ZetaDia.Service.CurrentHero.Name;
 
             string settingsFolder = FolderPaths.sDemonBuddyPath + @"\Settings\FunkyTrinity\" + CurrentAccountName;
-            if (!Directory.Exists(settingsFolder))
+            if(!Directory.Exists(settingsFolder))
                 Directory.CreateDirectory(settingsFolder);
             try
             {
                 funkyConfigWindow = new FunkyWindow();
                 funkyConfigWindow.Show();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 Logging.WriteVerbose("Failure to initilize Funky Setting Window! \r\n {0} \r\n {1} \r\n {2}", ex.Message, ex.Source, ex.StackTrace);
             }
@@ -139,7 +139,7 @@ namespace FunkyTrinity
                 OpenPluginFolder.Click += OpenPluginFolder_Click;
                 StackPanelTopWindow.Children.Add(OpenPluginFolder);
 
-                LBWindowContent.Items.Add(StackPanelTopWindow);
+                //LBWindowContent.Items.Add(StackPanelTopWindow);
 
                 TabControl tabControl1 = new TabControl
                 {
@@ -189,13 +189,14 @@ namespace FunkyTrinity
 
                 #region AvoidanceCheckboxes
 
-                StackPanel AvoidanceCheckBoxesPanel = new StackPanel();
+                StackPanel AvoidanceCheckBoxesPanel = new StackPanel
+                {
+                    Orientation = Orientation.Vertical,
+                };
 
                 CheckBox CBAttemptAvoidanceMovements = new CheckBox
                 {
                     Content = "Enable Avoidance",
-                    Width = 300,
-                    Height = 30,
                     IsChecked = SettingsFunky.AttemptAvoidanceMovements,
 
                 };
@@ -205,8 +206,6 @@ namespace FunkyTrinity
                 CheckBox CBAdvancedProjectileTesting = new CheckBox
                 {
                     Content = "Use Advanced Avoidance Projectile Test",
-                    Width = 300,
-                    Height = 30,
                     IsChecked = SettingsFunky.UseAdvancedProjectileTesting,
                 };
                 CBAdvancedProjectileTesting.Checked += UseAdvancedProjectileTestingChecked;
@@ -297,8 +296,7 @@ namespace FunkyTrinity
 
                 StackPanel AvoidRetryTimeStackPanel = new StackPanel
                 {
-                    Width = 600,
-                    Height = 30,
+                    Margin = new Thickness(Margin.Left, Margin.Top + 5, Margin.Right, Margin.Bottom + 5),
                     Orientation = Orientation.Horizontal,
                 };
                 AvoidRetryTimeStackPanel.Children.Add(Avoid_Retry_Min_Text);
@@ -317,7 +315,7 @@ namespace FunkyTrinity
                 AvoidanceOptionsStackPanel.Children.Add(AvoidDelayStackPanel);
                 AvoidanceOptionsStackPanel.Children.Add(AvoidRetryTimeStackPanel);
                 CombatGeneralContentListBox.Items.Add(AvoidanceOptionsStackPanel);
-                
+
                 #endregion
                 #region Kiting
 
@@ -488,7 +486,7 @@ namespace FunkyTrinity
                 KitingOptionsStackPanel.Children.Add(KiteDelayInfoStackPanel);
                 KitingOptionsStackPanel.Children.Add(KiteRetryTimeStackPanel);
                 CombatGeneralContentListBox.Items.Add(KitingOptionsStackPanel);
-                
+
                 #endregion
                 #region HealthOptions
                 StackPanel HealthOptionsStackPanel = new StackPanel
@@ -594,7 +592,7 @@ namespace FunkyTrinity
                 HealthOptionsStackPanel.Children.Add(HealthPotion_Info_Text);
                 HealthOptionsStackPanel.Children.Add(PotionHealthStackPanel);
                 CombatGeneralContentListBox.Items.Add(HealthOptionsStackPanel);
-                CombatGeneralTabItem.Content = CombatGeneralContentListBox; 
+                CombatGeneralTabItem.Content = CombatGeneralContentListBox;
                 #endregion
 
                 #endregion
@@ -663,7 +661,7 @@ namespace FunkyTrinity
                 AvoidanceType[] avoidanceTypes = currentDictionaryAvoidance.Keys.ToArray();
                 TBavoidanceHealth = new TextBox[avoidanceTypes.Length - 1];
                 TBavoidanceRadius = new TextBox[avoidanceTypes.Length - 1];
-                for (int i = 0; i < avoidanceTypes.Length - 1; i++)
+                for(int i = 0; i < avoidanceTypes.Length - 1; i++)
                 {
                     string avoidanceString = avoidanceTypes[i].ToString();
 
@@ -773,7 +771,7 @@ namespace FunkyTrinity
                 CombatTabControl.Items.Add(ClassTabItem);
                 ListBox LBClass = new ListBox();
 
-                switch (ActorClass)
+                switch(ActorClass)
                 {
                     case Zeta.Internals.Actors.ActorClass.Barbarian:
                         CheckBox cbbSelectiveWhirlwind = new CheckBox
@@ -888,7 +886,7 @@ namespace FunkyTrinity
                         cbbEnableCriticalMass.Unchecked += bEnableCriticalMassChecked;
                         LBClass.Items.Add(cbbEnableCriticalMass);
 
-                        if (ActorClass == Zeta.Internals.Actors.ActorClass.Wizard)
+                        if(ActorClass == Zeta.Internals.Actors.ActorClass.Wizard)
                         {
                             CheckBox cbbWaitForArchon = new CheckBox
                             {
@@ -916,7 +914,7 @@ namespace FunkyTrinity
 
                         break;
                 }
-                if (ActorClass == Zeta.Internals.Actors.ActorClass.DemonHunter || ActorClass == Zeta.Internals.Actors.ActorClass.WitchDoctor || ActorClass == Zeta.Internals.Actors.ActorClass.Wizard)
+                if(ActorClass == Zeta.Internals.Actors.ActorClass.DemonHunter || ActorClass == Zeta.Internals.Actors.ActorClass.WitchDoctor || ActorClass == Zeta.Internals.Actors.ActorClass.Wizard)
                 {
 
                     #region GoblinMinimumRange
@@ -1009,13 +1007,13 @@ namespace FunkyTrinity
                 };
                 cbIgnoreCorpses.Checked += IgnoreCorpsesChecked;
                 cbIgnoreCorpses.Unchecked += IgnoreCorpsesChecked;
-                 #endregion
+                #endregion
 
                 Targeting_General_Options_Stackpanel.Children.Add(cbClusterKillLowHPUnits);
                 Targeting_General_Options_Stackpanel.Children.Add(cbIgnoreElites);
                 Targeting_General_Options_Stackpanel.Children.Add(cbIgnoreCorpses);
                 Target_General_ContentListBox.Items.Add(Targeting_General_Options_Stackpanel);
-                
+
                 #region ExtendedRepChestRange
                 UseExtendedRangeRepChestCB = new CheckBox
                 {
@@ -1473,7 +1471,7 @@ namespace FunkyTrinity
 
 
                 TargetingClusterItem.Content = lbTargetCluster;
-                
+
                 #endregion
 
                 TargetTabItem.Content = tcTargeting;
@@ -1508,7 +1506,7 @@ namespace FunkyTrinity
                     Text = "Out-Of-Combat Item Idenification",
                     FontSize = 13,
                     Background = System.Windows.Media.Brushes.LightSeaGreen,
-                    TextAlignment = TextAlignment.Center,
+                    TextAlignment = TextAlignment.Left,
                 };
                 TextBlock OOCItemBehavior_Header_Info = new TextBlock
                 {
@@ -1523,9 +1521,8 @@ namespace FunkyTrinity
                 OOCIdentifyItems = new CheckBox
                 {
                     Content = "Enable Out Of Combat Idenification Behavior",
-                    Width = 300,
-                    Height = 30,
-                    IsChecked = (SettingsFunky.OOCIdentifyItems)
+                    IsChecked = (SettingsFunky.OOCIdentifyItems),
+                    HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
 
                 };
                 OOCIdentifyItems.Checked += OOCIDChecked;
@@ -1537,10 +1534,11 @@ namespace FunkyTrinity
                     FontSize = 13,
                     Foreground = System.Windows.Media.Brushes.GhostWhite,
                     TextAlignment = TextAlignment.Left,
+                    HorizontalAlignment= System.Windows.HorizontalAlignment.Left,
                 };
 
                 #region OOC_Min_Item_Count
-                
+
                 OOCIdentfyItemsMinCount = new TextBox
                 {
                     Text = SettingsFunky.OOCIdentifyItemsMinimumRequired.ToString(),
@@ -1554,8 +1552,8 @@ namespace FunkyTrinity
 
 
                 OOCItemBehaviorStackPanel.Children.Add(OOCItemBehavior_Header_Text);
-                OOCItemBehaviorStackPanel.Children.Add(OOCItemBehavior_Header_Info);
                 OOCItemBehaviorStackPanel.Children.Add(OOCIdentifyItems);
+                OOCItemBehaviorStackPanel.Children.Add(OOCItemBehavior_Header_Info);
                 OOCItemBehaviorStackPanel.Children.Add(OOCItemBehavior_MinItem_Text);
                 OOCItemBehaviorStackPanel.Children.Add(OOCIdentfyItemsMinCount);
                 lbGeneralContent.Items.Add(OOCItemBehaviorStackPanel);
@@ -1590,7 +1588,7 @@ namespace FunkyTrinity
                 #region AfterCombatDelayOptions
                 StackPanel AfterCombatDelayStackPanel = new StackPanel();
                 #region AfterCombatDelay
-                Target_General_ContentListBox.Items.Add("Delay after combat for loot drops");
+
                 Slider sliderAfterCombatDelay = new Slider
                 {
                     Width = 100,
@@ -1601,17 +1599,18 @@ namespace FunkyTrinity
                     SmallChange = 50,
                     Value = SettingsFunky.AfterCombatDelay,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
+                    Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right + 5, Margin.Bottom),
                 };
                 sliderAfterCombatDelay.ValueChanged += AfterCombatDelaySliderChanged;
                 TBAfterCombatDelay = new TextBox
                 {
+                    Margin = new Thickness(Margin.Left + 5, Margin.Top, Margin.Right, Margin.Bottom),
                     Text = SettingsFunky.AfterCombatDelay.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel AfterCombatStackPanel = new StackPanel
                 {
-                    Width = 600,
-                    Height = 20,
+                    Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom + 5),
                     Orientation = Orientation.Horizontal,
                 };
                 AfterCombatStackPanel.Children.Add(sliderAfterCombatDelay);
@@ -1630,10 +1629,19 @@ namespace FunkyTrinity
                 EnableWaitAfterContainersCB.Unchecked += EnableWaitAfterContainersChecked;
 
                 #endregion
+
+                TextBlock CombatLootDelay_Text_Info = new TextBlock
+                {
+                    Text = "End of Combat Delay Timer",
+                    FontSize = 11,
+                    Foreground = System.Windows.Media.Brushes.GhostWhite,
+                    TextAlignment = TextAlignment.Left,
+                };
+                AfterCombatDelayStackPanel.Children.Add(CombatLootDelay_Text_Info);
                 AfterCombatDelayStackPanel.Children.Add(AfterCombatStackPanel);
                 AfterCombatDelayStackPanel.Children.Add(EnableWaitAfterContainersCB);
                 lbGeneralContent.Items.Add(AfterCombatDelayStackPanel);
-                
+
                 #endregion
 
                 GeneralTab.Content = lbGeneralContent;
@@ -1650,7 +1658,7 @@ namespace FunkyTrinity
                 {
                     Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom + 5),
                     Orientation = Orientation.Vertical,
-                    
+
                 };
 
                 TextBlock CoffeeBreaks_Header_Text = new TextBlock
@@ -1670,7 +1678,7 @@ namespace FunkyTrinity
 
                 };
                 CoffeeBreaks.Checked += EnableCoffeeBreaksChecked;
-                CoffeeBreaks.Unchecked += EnableCoffeeBreaksChecked; 
+                CoffeeBreaks.Unchecked += EnableCoffeeBreaksChecked;
                 #endregion
 
                 TextBlock CoffeeBreak_Minutes_Text = new TextBlock
@@ -1679,6 +1687,7 @@ namespace FunkyTrinity
                     FontSize = 13,
                     Foreground = System.Windows.Media.Brushes.GhostWhite,
                     TextAlignment = TextAlignment.Left,
+                    Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom + 5),
                 };
 
                 #region BreakTimeMinMinutes
@@ -1710,12 +1719,12 @@ namespace FunkyTrinity
                 {
                     Height = 30,
                     Orientation = Orientation.Horizontal,
-                    Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
+                    Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right + 5, Margin.Bottom),
                 };
                 BreakTimeMinMinutestackPanel.Children.Add(CoffeeBreaks_Min_Text);
                 BreakTimeMinMinutestackPanel.Children.Add(sliderBreakMinMinutes);
                 BreakTimeMinMinutestackPanel.Children.Add(tbMinBreakTime);
-                
+
                 #endregion
 
                 #region BreakTimeMaxMinutes
@@ -1747,7 +1756,7 @@ namespace FunkyTrinity
                 {
                     Height = 20,
                     Orientation = Orientation.Horizontal,
-                    Margin = new Thickness(Margin.Left+5, Margin.Top, Margin.Right, Margin.Bottom),
+                    Margin = new Thickness(Margin.Left + 5, Margin.Top, Margin.Right, Margin.Bottom),
                 };
                 BreakTimeMaxMinutestackPanel.Children.Add(CoffeeBreaks_Max_Text);
                 BreakTimeMaxMinutestackPanel.Children.Add(sliderBreakMaxMinutes);
@@ -1757,7 +1766,7 @@ namespace FunkyTrinity
                 StackPanel CoffeeBreakTimeRangeStackPanel = new StackPanel
                 {
                     Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom + 5),
-                    Orientation= Orientation.Horizontal,  
+                    Orientation = Orientation.Horizontal,
                 };
 
                 CoffeeBreakTimeRangeStackPanel.Children.Add(BreakTimeMinMinutestackPanel);
@@ -1791,7 +1800,7 @@ namespace FunkyTrinity
                 };
                 BreakTimeHourStackPanel.Children.Add(sliderBreakTimeHour);
                 BreakTimeHourStackPanel.Children.Add(TBBreakTimeHour);
-                
+
                 #endregion
                 TextBlock CoffeeBreakInterval_Text = new TextBlock
                 {

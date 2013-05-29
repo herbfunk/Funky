@@ -118,7 +118,7 @@ namespace FunkyTrinity
 						  vSafeMovementLocation=Funky.FindSafeZone(true, iTotalAntiStuckAttempts, Vector3.Zero);
 
 						  // Temporarily log stuff
-						  if (iTotalAntiStuckAttempts==1&&Funky.settings.bLogStucks)
+						  if (iTotalAntiStuckAttempts==1&&Funky.SettingsFunky.LogStuckLocations)
 						  {
 								FileStream LogStream=File.Open(Funky.FolderPaths.sTrinityLogPath+ZetaDia.Service.CurrentHero.BattleTagName+" - Stucks - "+ZetaDia.Actors.Me.ActorClass.ToString()+".log", FileMode.Append, FileAccess.Write, FileShare.Read);
 								using (StreamWriter LogWriter=new StreamWriter(LogStream))
@@ -228,7 +228,7 @@ namespace FunkyTrinity
 						  iTimesReachedMaxUnstucks=3;
 					 }
 					 // Exit the game and reload the profile
-					 if (Funky.settings.bEnableProfileReloading&&DateTime.Now.Subtract(timeLastRestartedGame).TotalMinutes>=15)
+					 if (Funky.SettingsFunky.RestartGameOnLongStucks&&DateTime.Now.Subtract(timeLastRestartedGame).TotalMinutes>=15)
 					 {
 						  HadDisconnectError=true;
 						  timeLastRestartedGame=DateTime.Now;
@@ -291,7 +291,7 @@ namespace FunkyTrinity
 
 					 if (vMoveToTarget!=vLastMoveTo)
 					 {
-						  if (Funky.settings.bLogStucks)
+						  if (Funky.SettingsFunky.LogStuckLocations)
 						  {
 								vLastMoveTo=vMoveToTarget;
 								bLastWaypointWasTown=false;
@@ -374,7 +374,7 @@ namespace FunkyTrinity
 
 					 #region Unstucker
 					 // Do unstuckery things
-					 if (Funky.settings.bEnableUnstucker)
+					 if (Funky.SettingsFunky.EnableUnstucker)
 					 {
 						  // Store the "real" (not anti-stuck) destination
 						  vOldMoveToTarget=vMoveToTarget;

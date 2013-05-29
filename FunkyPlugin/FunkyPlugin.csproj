@@ -37,7 +37,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\..\Desktop\DB_Debug - Copy\Plugins\FunkyTrinity\</OutputPath>
+    <OutputPath>..\..\..\..\Desktop\DB\Plugins\FunkyTrinity\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>none</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -353,9 +353,6 @@
     <Compile Include="Misc\Config\FunkyWindowEvents.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Misc\Config\GilesConfigWin.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Misc\Logging\DBHelper.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -453,12 +450,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="__HerbFunk_RevisonLog.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Trinity.xaml">
-      <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

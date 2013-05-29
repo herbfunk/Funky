@@ -247,10 +247,9 @@ namespace FunkyTrinity
 
 
 					 // Carguy's ticks-per-second feature
-					 if (settings.bEnableTPS)
-					 {
-						  BotMain.TicksPerSecond=(int)settings.iTPSAmount;
-					 }
+                     //if (settings.bEnableTPS)
+						//  BotMain.TicksPerSecond=(int)settings.iTPSAmount;
+					 
 
 					 ErrorClickerThread=new Thread(ErrorClickerWorker);
 					 ErrorClickerThread.IsBackground=true;
@@ -268,7 +267,27 @@ namespace FunkyTrinity
 					 Logging.Write("Loaded Profile "+profile);
 				}
 		  }
+          public Window DisplayWindow
+          {
+              get
+              {
+                  UpdateCurrentAccountDetails();
+                  string settingsFolder = FolderPaths.sDemonBuddyPath + @"\Settings\FunkyTrinity\" + CurrentAccountName;
+                  if(!Directory.Exists(settingsFolder))
+                      Directory.CreateDirectory(settingsFolder);
+                  try
+                  {
+                      funkyConfigWindow = new FunkyWindow();
+                      
+                  }
+                  catch(Exception ex)
+                  {
+                      Logging.WriteVerbose("Failure to initilize Funky Setting Window! \r\n {0} \r\n {1} \r\n {2}", ex.Message, ex.Source, ex.StackTrace);
+                  }
 
+                  return funkyConfigWindow;
+              }
+          }
 		  public void OnDisabled()
 		  {
 				bPluginEnabled=false;
