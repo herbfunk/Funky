@@ -20,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\..\Desktop\DB_Debug - Copy\Plugins\FunkyTrinity\</OutputPath>
+    <OutputPath>..\..\..\..\Desktop\DB\Plugins\FunkyTrinity\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>none</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -192,7 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Demonbuddy">
-      <HintPath>..\..\..\..\Desktop\DB_Debug - Copy\Demonbuddy.exe</HintPath>
+      <HintPath>..\..\..\..\Desktop\DB\Demonbuddy.exe</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -344,7 +344,13 @@
     <Compile Include="Misc\CleanUp.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Misc\Config\FunkyConfig.cs">
+    <Compile Include="Misc\Config\FunkyWindow.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Misc\Config\FunkySettings.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Misc\Config\FunkyWindowEvents.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Misc\Config\GilesConfigWin.cs">
