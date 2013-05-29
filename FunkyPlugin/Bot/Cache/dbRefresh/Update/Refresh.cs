@@ -272,9 +272,9 @@ namespace FunkyTrinity
 								{
 
 									 //Find any units that we should kite, sorted by distance.
-									 var nearbyUnits=ObjectCache.Objects.Values.OfType<CacheUnit>().Where(unit => unit.ShouldBeKited
-																									 &&unit.RadiusDistance<=Bot.Class.KiteDistance)
-																									 .OrderBy(unit => unit.Weight).ThenBy(unit => unit.CentreDistance); ;
+                                    var nearbyUnits = listObjectCache.OfType<CacheUnit>().Where(unit => unit.ShouldBeKited
+																									 &&unit.RadiusDistance<Bot.Class.KiteDistance)
+																									 .OrderBy(unit => unit.Weight);
 
 									 if (nearbyUnits.Any())
 									 {
@@ -385,7 +385,7 @@ namespace FunkyTrinity
 						  //Check if our current path intersects avoidances. (When not in town, and not currently inside avoidance)
 						  if (!Bot.Character.bIsInTown&&(SettingsFunky.AttemptAvoidanceMovements||Bot.Combat.CriticalAvoidance)
 								&&navigation.CurrentPath.Count>0
-								&&!ObjectCache.Obstacles.Avoidances.Any(a => a.ShouldAvoid&&a.PointInside(Bot.Character.Position)))
+                                &&Bot.Combat.TriggeringAvoidances.Count==0)
 						  {
 								Vector3 curpos=Bot.Character.Position;
 								IndexedList<Vector3> curpath=navigation.CurrentPath;
@@ -396,13 +396,16 @@ namespace FunkyTrinity
 									 CurrentNearbyPath.OrderBy(v => curpath.IndexOf(v));
 
 									 Vector3 lastV3=vNullLocation;
-									 foreach (var item in CurrentNearbyPath)
-									 {
-										  if (lastV3==vNullLocation)
-												lastV3=item;
-										  else if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(item, lastV3))
-												Bot.Target.ObjectData=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "AvoidanceIntersection", 2.5f, -1);
-									 }
+                                     foreach(var item in CurrentNearbyPath)
+                                     {
+                                         if(lastV3 == vNullLocation)
+                                             lastV3 = item;
+                                         else if(ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(item, lastV3))
+                                         {
+                                             Bot.Target.ObjectData = new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "AvoidanceIntersection", 2.5f, -1);
+                                             break;
+                                         }
+                                     }
 								}
 						  }
 

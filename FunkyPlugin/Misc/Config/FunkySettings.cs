@@ -152,8 +152,16 @@ namespace FunkyTrinity
              if (!File.Exists(sFunkyCharacterConfigFile))
              {
                  Log("No config file found, now creating a new config from defaults at: " + sFunkyCharacterConfigFile);
-                 SettingsFunky = new Settings_Funky(false, false, false, false, false, false, false, 4, 8, 3, 1.5d, true, 20, false, false, "hard", "Rare", "Rare", true, false, 0, 5, 15, 20, 0.5d, 0.5d, false, 2, 500, false, 50, 30, 40, new int[1], new int[1], new int[1], 1, 100, 300, new bool[3], 60, true, true, true, 59, false, 70000, 16000, 15000, false, false);
-                 SaveFunkyConfiguration();
+                 if(ActorClass == Zeta.Internals.Actors.ActorClass.Barbarian || ActorClass == Zeta.Internals.Actors.ActorClass.Monk)
+                 {
+                     SettingsFunky = new Settings_Funky(false, false, true, true, true, true, false, 0, 0, 0, 0, false, 30, false, false, "hard", "Rare", "Rare", true, true, 0, 10, 25, 40, 0.6d, 0.4d, false, 2, 500, false, 60, 30, 40, new int[1], new int[1], new int[1], 55, 60, 250, new bool[3], 60, false, true, true, 59, false, 70000, 30000, 27000, false, false);
+                 }
+                 else
+                 {
+                     SettingsFunky = new Settings_Funky(false, false, true, true, true, true, false, 0, 0, 0, 0, false, 30, false, false, "hard", "Rare", "Rare", true, true, 5, 10, 25, 40, 0.4d, 0.6d, false, 2, 500, false, 60, 30, 40, new int[1], new int[1], new int[1], 55, 60, 250, new bool[3], 60, false, true, true, 59, false, 70000, 30000, 27000, false, false);
+                 }
+                 //SettingsFunky = new Settings_Funky(false, false, false, false, false, false, false, 4, 8, 3, 1.5d, true, 20, false, false, "hard", "Rare", "Rare", true, false, 0, 5, 15, 20, 0.5d, 0.5d, false, 2, 500, false, 50, 30, 40, new int[1], new int[1], new int[1], 1, 100, 300, new bool[3], 60, true, true, true, 59, false, 70000, 16000, 15000, false, false);
+             SaveFunkyConfiguration();
              }
 
              string[] splitValue;
@@ -588,10 +596,9 @@ namespace FunkyTrinity
 
              //Class Settings
              public ClassSettings Class { get; set; }
-
              public Settings_Funky(bool oocIDitems, bool buyPotions, bool WaitForContainers,
                   bool itemRulesPickup, bool itemRules, bool extendRangeRepChest,
-                  bool coffeebreak, int minbreak, int maxbreak, int minOOCitems, double breakTime, bool ignoreDestructibles, int ShrineRange
+                  bool coffeebreak, int minbreak, int maxbreak, int minOOCitems, double breakTime, bool ignoreDestructibles, int shrinerange
                   , bool itemruleIDs, bool itemruleDebug, string itemruletype, string itemrulekeeplog, string itemrulepickuplog, bool gilesscoring,
                   bool attemptavoidance, int Kite, int destructiblerange, int containerrange, int noneliterange,
                   double globehealth, double potionhealth, bool ignorecorpse, int goblinpriority, int aftercombatdelay, bool outofcombatmovement,
@@ -602,10 +609,10 @@ namespace FunkyTrinity
                  RestartGameOnLongStucks = true;
                  EnableUnstucker = true;
 
-                 AvoidanceRecheckMaximumRate = 1000;
-                 AvoidanceRecheckMinimumRate = 250;
-                 KitingRecheckMaximumRate = 2500;
-                 KitingRecheckMinimumRate = 750;
+                 AvoidanceRecheckMaximumRate = 3500;
+                 AvoidanceRecheckMinimumRate = 550;
+                 KitingRecheckMaximumRate = 4500;
+                 KitingRecheckMinimumRate = 1000;
                  ItemRulesSalvaging = true;
                  OOCIdentifyItems = oocIDitems;
                  BuyPotionsDuringTownRun = buyPotions;
@@ -642,9 +649,9 @@ namespace FunkyTrinity
                  GoldRange = goldrange;
                  ItemRange = 50;
                  TreasureGoblinRange = 40;
-                 ShrineRange = 30;
-                 MinimumWeaponItemLevel = new int[] { 0, 55 };
-                 MinimumArmorItemLevel = new int[] { 0, 55 };
+                 ShrineRange = shrinerange;
+                 MinimumWeaponItemLevel = new int[] { 0, 59 };
+                 MinimumArmorItemLevel = new int[] { 0, 59 };
                  MinimumJeweleryItemLevel = new int[] { 0, 55 };
                  GilesMinimumWeaponScore = gilesWeaponScore;
                  GilesMinimumArmorScore = gilesArmorScore;
@@ -654,7 +661,7 @@ namespace FunkyTrinity
                  MaximumHealthPotions = maxhealthpots;
                  MinimumGoldPile = mingoldpile;
 
-                 PickupGems = new bool[] { true, true, true, true };
+                 PickupGems = new bool[] { true, true, false, false };
 
                  MinimumGemItemLevel = minGemLevel;
                  PickupCraftTomes = craftTomes;
@@ -671,9 +678,9 @@ namespace FunkyTrinity
                  EnableClusteringTargetLogic = true;
                  IgnoreClusteringWhenLowHP = true;
                  ClusterKillLowHPUnits = true;
-                 ClusterDistance = 7d;
+                 ClusterDistance = 10d;
                  ClusterMinimumUnitCount = 3;
-                 IgnoreClusterLowHPValue = 0.65d;
+                 IgnoreClusterLowHPValue = 0.50d;
 
                  Class = new ClassSettings();
              }
@@ -716,7 +723,7 @@ namespace FunkyTrinity
                      bMonkInnaSet = false;
                      bWaitForArchon = false;
                      bKiteOnlyArchon = false;
-                     GoblinMinimumRange = 30;
+                     GoblinMinimumRange = 35;
                  }
              }
          }

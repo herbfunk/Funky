@@ -234,17 +234,7 @@ namespace FunkyTrinity
 								MinimumChangeofDistanceBeforeRefresh=15f;
 						  }
 
-						  if (!kiting)
-						  {
-								//Set timer here until next we try... since we've already attempted at least 9 GPCs!
-								Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=(int)(Bot.Character.dCurrentHealthPct*1500)+500;
-								Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
-						  }
-						  else
-						  {
-								Bot.Combat.iMillisecondsCancelledKiteMoveFor=(int)(Bot.Character.dCurrentHealthPct*2000)+250;
-								Bot.Combat.timeCancelledKiteMove=DateTime.Now;
-						  }
+                          Bot.Combat.UpdateAvoidKiteRates();
 
 						  vlastSafeSpot=vNullLocation;
 						  return false;
