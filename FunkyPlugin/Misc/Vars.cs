@@ -81,8 +81,6 @@ namespace FunkyTrinity
         private const int GEMEMERALD = 3;
         #endregion
 
-		  private static GilesSettings settings=new GilesSettings();
-
         // Darkfriend's Looting Rule
 		  private static Interpreter ItemRulesEval;
 

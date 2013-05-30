@@ -123,17 +123,17 @@ namespace FunkyTrinity
                             case GilesBaseItemType.WeaponOneHand:
                             case GilesBaseItemType.WeaponRange:
                             case GilesBaseItemType.WeaponTwoHand:
-                                if (ithisitemvalue >= settings.iNeedPointsToNotifyWeapon)
-                                    bShouldNotify = true;
+                                //if (ithisitemvalue >= settings.iNeedPointsToNotifyWeapon)
+                                  //  bShouldNotify = true;
                                 break;
                             case GilesBaseItemType.Armor:
                             case GilesBaseItemType.Offhand:
-                                if (ithisitemvalue >= settings.iNeedPointsToNotifyArmor)
-                                    bShouldNotify = true;
+                                //if (ithisitemvalue >= settings.iNeedPointsToNotifyArmor)
+                                    //bShouldNotify = true;
                                 break;
                             case GilesBaseItemType.Jewelry:
-                                if (ithisitemvalue >= settings.iNeedPointsToNotifyJewelry)
-                                    bShouldNotify = true;
+                                //if (ithisitemvalue >= settings.iNeedPointsToNotifyJewelry)
+                                    //bShouldNotify = true;
                                 break;
                         }
                         if (bShouldNotify)

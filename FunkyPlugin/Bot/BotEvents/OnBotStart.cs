@@ -23,7 +23,7 @@ namespace FunkyTrinity
 
 				Logging.WriteDiagnostic("[Funky] Plugin settings location="+FunkySettingsPath);
 
-				LoadConfiguration();
+				//LoadConfiguration();
 				LoadFunkyConfiguration();
 				ItemRulesEval=new Interpreter();
 

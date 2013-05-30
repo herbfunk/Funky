@@ -180,7 +180,7 @@ namespace FunkyTrinity
 
 
 								//Set the vectors we used to raycast.. so we can recheck if they changed during target handling.
-								this.SetLOSCheckVectors();
+                                this.RequiresLOSCheck = false;
 								this.RequiresLOSCheck=false;
 						  }
 
