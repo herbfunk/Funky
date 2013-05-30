@@ -401,17 +401,17 @@ namespace FunkyTrinity
 
 								//Check LOS still valid...
 								#region LOSUpdate
-								if (!ObjectData.LastLOSCheckStillValid&&!ObjectData.IgnoresLOSCheck)
+								if (!ObjectData.IgnoresLOSCheck&&ObjectData.RequiresLOSCheck&&ObjectData.LastLOSSearchMS>1800)
 								{
 									 if (!ObjectData.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass)))
 									 {
 										  //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
 										  if (ObjectData.ObjectIsSpecial)
 										  {
-												if (ObjectData.FindLOSLocation&&ObjectData.LastLOSSearchMS>2500)
+												if (ObjectData.FindLOSLocation)
 												{
 													 Logging.WriteVerbose("Using LOS Vector at {0} to move to", ObjectData.LOSV3.ToString());
-													 ObjectData.SetLOSCheckVectors();
+                                                     ObjectData.RequiresLOSCheck = false;
 													 Bot.Combat.bWholeNewTarget=true;
 													 CurrentState=RunStatus.Running;
 													 return false;
@@ -424,13 +424,12 @@ namespace FunkyTrinity
 
 										  //We could not find a LOS Locaiton or did not find a reason to try.. so we reset LOS check, temp ignore it, and force new target.
 										  Logging.WriteVerbose("LOS Request for object {0} due to raycast failure!", ObjectData.InternalName);
-										  ObjectData.RequiresLOSCheck=true;
 										  Bot.Combat.bForceTargetUpdate=true;
 										  CurrentState=RunStatus.Running;
 										  return false;
 									 }
 									 else
-										  ObjectData.SetLOSCheckVectors();
+                                         ObjectData.RequiresLOSCheck = false;
 								}
 								#endregion
 						  }

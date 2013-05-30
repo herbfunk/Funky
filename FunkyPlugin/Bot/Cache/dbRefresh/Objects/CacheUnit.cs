@@ -464,6 +464,12 @@ namespace FunkyTrinity
 				{
 					 base.UpdateWeight();
 
+                     if(this.BeingIgnoredDueToClusterLogic)
+                     {
+                         this.Weight = 0;
+                         return;
+                     }
+
 					 if (this.Weight!=1)
 					 {
 						  // Total up monsters at various ranges
@@ -477,15 +483,9 @@ namespace FunkyTrinity
 								this.TallyTarget();
 						  }
 
-						  if (this.BeingIgnoredDueToClusterLogic)
-						  {
-								this.Weight=0;
-								return;
-						  }
-
 
 						  // Force a close range target because we seem to be stuck *OR* if not ranged and currently rooted
-						  if (Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted)
+						  if (Bot.Combat.bForceCloseRangeTarget||(Bot.Class.IsMeleeClass&&Bot.Character.bIsRooted))
 						  {
 
 								this.Weight=20000-(Math.Floor(this.RadiusDistance)*200);
@@ -714,26 +714,23 @@ namespace FunkyTrinity
 						  //Line of sight pre-check
 						  if (this.RequiresLOSCheck)
 						  {
-								if (this.LastLOSCheckMS>3500
+								if (this.LastLOSCheckMS>3000
 									 &&!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), Bot.Class.IsMeleeClass))
 								{
 									 //ignore non-special units.. or units who already attempted to find a location within the last 3s
-									 if (!this.ObjectIsSpecial)
-									 {
-										  this.BlacklistLoops=10;
-										  return false;
-									 }
-									 else if (!base.FindLOSLocation)
-									 {
-										  this.BlacklistLoops=10;
-										  return false;
-									 }
+                                    if(!this.ObjectIsSpecial)
+                                    {
+                                        this.BlacklistLoops = 10;
+                                        return false;
+                                    }
+                                    else
+                                        return true;
 								}
-									 
 
 
 
-								this.SetLOSCheckVectors();
+
+                                this.RequiresLOSCheck = false;
 						  }
 
 
