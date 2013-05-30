@@ -161,7 +161,7 @@ namespace FunkyTrinity
                      SettingsFunky = new Settings_Funky(false, false, true, true, true, true, false, 0, 0, 0, 0, false, 30, false, false, "hard", "Rare", "Rare", true, true, 5, 10, 25, 40, 0.4d, 0.6d, false, 2, 500, false, 60, 30, 40, new int[1], new int[1], new int[1], 55, 60, 250, new bool[3], 60, false, true, true, 59, false, 70000, 30000, 27000, false, false);
                  }
                  //SettingsFunky = new Settings_Funky(false, false, false, false, false, false, false, 4, 8, 3, 1.5d, true, 20, false, false, "hard", "Rare", "Rare", true, false, 0, 5, 15, 20, 0.5d, 0.5d, false, 2, 500, false, 50, 30, 40, new int[1], new int[1], new int[1], 1, 100, 300, new bool[3], 60, true, true, true, 59, false, 70000, 16000, 15000, false, false);
-             SaveFunkyConfiguration();
+                SaveFunkyConfiguration();
              }
 
              string[] splitValue;

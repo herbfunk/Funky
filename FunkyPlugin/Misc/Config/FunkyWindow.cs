@@ -1923,12 +1923,14 @@ namespace FunkyTrinity
                 lbItemRulesContent.Items.Add(CBItemRulesSalvaging);
 
                 lbItemRulesContent.Items.Add("Rule Set");
+                
                 ItemRuleType = new ComboBox
                 {
                     Height = 30,
                     Width = 300,
                     ItemsSource = new ItemRuleTypes(),
-                    Text = SettingsFunky.ItemRuleType
+                    SelectedIndex=SettingsFunky.ItemRuleType.ToLower().Contains("soft")?1:SettingsFunky.ItemRuleType.ToLower().Contains("hard")?2:0,
+                    Text = SettingsFunky.ItemRuleType.ToString(),
                 };
                 ItemRuleType.SelectionChanged += ItemRulesTypeChanged;
                 lbItemRulesContent.Items.Add(ItemRuleType);
