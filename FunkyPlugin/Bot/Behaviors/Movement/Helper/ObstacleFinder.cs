@@ -53,10 +53,9 @@ namespace FunkyTrinity
 									 //Handle Destructable objects by making it a target!
 									 if ((ObstacleType.Monster|ObstacleType.Destructable).HasFlag(intersectingObstacle.Obstacletype.Value))
 									 {
-										  //Logging.WriteVerbose("Intersecting Object found and added to prioritized list {0}", intersectingObstacle.InternalName);
-										  intersectingObstacle.PrioritizedDate=DateTime.Now;
-										  Bot.Combat.PrioritizedRAGUIDs.Add(intersectingObstacle.RAGUID);
-										  intersectingObstacle.BlacklistLoops=0;
+										 //Increase priority counter.
+                                         intersectingObstacle.PriorityCounter++;
+										 Bot.Combat.PrioritizedRAGUIDs.Add(intersectingObstacle.RAGUID);
 									 }
 									 else
 									 {
@@ -108,14 +107,14 @@ namespace FunkyTrinity
 					 {
 						  intersectingObstacles=intersectingObstacles.OrderBy(obstacle => obstacle.CentreDistance);
 
-						  foreach (var intersectingObstacle in intersectingObstacles.Where(obj => (ObstacleType.Monster|ObstacleType.Destructable).HasFlag(obj.Obstacletype.Value)&&obj.ObjectIsValidForTargeting))
+						  foreach (var intersectingObstacle in intersectingObstacles.Where(obj => (ObstacleType.Monster|ObstacleType.Destructable).HasFlag(obj.Obstacletype.Value)))
 						  {
 								//Handle Destructable objects by making it a target!
 
 
 								Logging.WriteVerbose("Intersecting Object found and added to prioritized list {0}", intersectingObstacle.InternalName);
 
-								intersectingObstacle.PrioritizedDate=DateTime.Now;
+                                intersectingObstacle.PriorityCounter++;
 								Bot.Combat.PrioritizedRAGUIDs.Add(intersectingObstacle.RAGUID);
 
 								//Force Update if we currently have a target..

@@ -119,7 +119,11 @@ namespace FunkyTrinity
 								{
 									 CacheObject thisObj=ObjectCache.Objects[removalList[i]];
 
-									 //Blacklist..?
+                                    //remove prioritized raguid
+                                     if(Bot.Combat.PrioritizedRAGUIDs.Contains(removalList[i]))
+                                         Bot.Combat.PrioritizedRAGUIDs.Remove(removalList[i]);
+
+									 //Blacklist flag check
 									 if (thisObj.BlacklistFlag!=BlacklistType.None)
 										  AddObjectToBlacklist(thisObj.RAGUID, thisObj.BlacklistFlag);
 
@@ -259,6 +263,8 @@ namespace FunkyTrinity
 						 
 						  //Weight the valid object list
 						  WeightEvaluationObjList(listObjectCache);
+
+
 
 
 						  #region Kiting
@@ -409,7 +415,7 @@ namespace FunkyTrinity
 								}
 						  }
 
-						  //clear any prioritzed objects
+						  //clear all prioritzed objects.
 						  Bot.Combat.PrioritizedRAGUIDs.Clear();
 
 						  return;
