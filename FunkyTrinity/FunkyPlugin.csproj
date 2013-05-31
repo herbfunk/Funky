@@ -20,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\..\Desktop\DB\Plugins\FunkyTrinity\</OutputPath>
+    <OutputPath>..\..\..\..\Desktop\DB_Debug - Copy\Plugins\FunkyTrinity\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>none</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -37,7 +37,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\..\Desktop\DB\Plugins\FunkyTrinity\</OutputPath>
+    <OutputPath>..\..\..\..\Desktop\DB_Debug - Copy\Plugins\FunkyTrinity\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>none</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -71,9 +71,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Behaviors\Misc\Items\LowLevelLogic.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Bot\Cache\Area\Objects\ClusterCollection.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\Area\Objects\GridPointComparer.cs">
@@ -195,7 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Demonbuddy">
-      <HintPath>..\..\..\..\Desktop\DB\Demonbuddy.exe</HintPath>
+      <HintPath>..\..\..\..\Desktop\DB_Debug - Copy\Demonbuddy.exe</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -345,12 +342,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Misc\Config\FunkyWindow.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Misc\Config\FunkyWindow.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Misc\Config\FunkySettings.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Misc\Config\FunkySettings.cs">
