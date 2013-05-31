@@ -19,20 +19,18 @@ using System.Reflection;
 using System.Xml;
 using Zeta.Internals.Actors;
 
-[assembly: AssemblyVersionAttribute("1.0.20.*")]
+[assembly: AssemblyVersionAttribute("1.1.0.*")]
 namespace FunkyTrinity
 {
 	 public partial class Funky : IPlugin
 	 {
-		  public Version Version { get { return new Version(1, 6, 3, 4); } }
-		  public Version SubVersion { get { return new Version(0, 1, 0, 20); } }
-
+		  public Version Version { get { return new Version(1, 1, 0, 0); } }
 		  public string Author { get { return "Herbfunk"; } }
 		  public string Description
 		  {
 				get
 				{
-					 return "FunkyTrinity version "+SubVersion+"\t\r\n"+"Extension of GilesTrinity v1.6.3.4";
+					 return "FunkyTrinity version "+Version;
 				}
 		  }
 		  public string Name { get { return "FunkyTrinity"; } }
@@ -129,15 +127,13 @@ namespace FunkyTrinity
 					 FunkyRoutineCode.Compile();
 					 Logging.WriteDiagnostic(FunkyRoutineCode.CompiledToLocation);
 
-
-					 //remove
-					 //System.IO.File.Delete(sRoutinePath+"RoutineDebug.cs");
-					 //System.IO.File.Delete(sRoutinePath+"CombatRoutine.cs");
-					 //System.IO.Directory.Delete(sRoutinePath);
-
-
 					 //Reload Routines
 					 Zeta.CommonBot.RoutineManager.Reload();
+
+					 //remove
+					 System.IO.File.Delete(sRoutinePath+"RoutineDebug.cs");
+					 System.IO.File.Delete(sRoutinePath+"CombatRoutine.cs");
+					 System.IO.Directory.Delete(sRoutinePath);
 
 					 //Search again..
 					 bool funkyRoutine=Zeta.CommonBot.RoutineManager.Routines.Any(r => r.Name=="Funky");
@@ -259,7 +255,7 @@ namespace FunkyTrinity
 					 string CompileDateString=PluginInfo.LastWriteTime.ToString("MM/dd hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
 					 Log("************************************");
 					 Log("ENABLED: Funky Trinity Plugin");
-					 Log(" -- Version -- "+SubVersion);
+					 Log(" -- Version -- "+Version);
 					 Log("\tModified: "+CompileDateString);
 					 Log("************************************");
 

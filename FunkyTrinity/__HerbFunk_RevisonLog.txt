@@ -1,5 +1,21 @@
 ﻿// herbfunk revisions
 
+v1.1.0.0
+	¡This Update requires -- DELETING FunkyTrinity Folder -- prior to extraction!
+
+	Settings:
+		*GilesSettings has been totally removed!
+		*FunkyWindow has been updated to be easier on the eyes.
+		*Default values changed for a more optimized setup (Inferno Farming)
+	Targeting:
+		*Fixed Line of Sight related logic and actions.
+		*Weighting and Current Target updating has been moved into TargetHandler.
+		*Optimized refreshing with reduced iterations of object cache.
+
+
+
+
+*Legacy Update Log*
 v0.1.0.20
 	Abilities:
 		Modified the following abilites to use cluster computing.

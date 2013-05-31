@@ -183,7 +183,7 @@ namespace FunkyTrinity
 						  //Herbfunks delay for container loot.
 						  Bot.Combat.lastHadContainerAsTarget=DateTime.Now;
 
-						  if (SnoCacheLookup.hashSNOContainerResplendant.Contains(Bot.Target.CurrentTarget.SNOID))
+						  if (Bot.Target.CurrentTarget.IsResplendantChest)
 								Bot.Combat.lastHadRareChestAsTarget=DateTime.Now;
 					 }
 					 // Record the last time our target changed etc.

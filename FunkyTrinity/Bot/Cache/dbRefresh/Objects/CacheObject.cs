@@ -620,6 +620,10 @@ namespace FunkyTrinity
 						  bForceNewMovement=true;
 						  if (DateTime.Now.Subtract(Bot.Combat.lastMovedDuringCombat).TotalMilliseconds>=250)
 						  {
+								//If we are moving to a LOS location.. nullify it!
+								if (this.LOSV3!=vNullLocation)
+									 this.losv3_=vNullLocation;
+
 								Bot.Combat.lastMovedDuringCombat=DateTime.Now;
 								// We've been stuck at least 250 ms, let's go and pick new targets etc.
 								Bot.Combat.iTimesBlockedMoving++;
@@ -651,7 +655,7 @@ namespace FunkyTrinity
 
 												List<CacheUnit> monsterobstacles_;
 
-												monsterobstacles_=ObjectCache.Objects.Values.OfType<CacheUnit>().Where(unit => ((PlayerMover.iTimesReachedStuckPoint==0&&ZetaDia.Me.IsFacing(unit.Position))||PlayerMover.iTimesReachedStuckPoint>0)&&unit.RadiusDistance<=14f).ToList();
+												monsterobstacles_=ObjectCache.Objects.Values.OfType<CacheUnit>().Where(unit => ((PlayerMover.iTimesReachedStuckPoint==0&&ZetaDia.Me.IsFacing(unit.Position))||PlayerMover.iTimesReachedStuckPoint>0)&&unit.CentreDistance<=10f).ToList();
 												//ObjectCache.Obstacles.FindObstaclesSurroundingObject<CacheUnit>(ObjectData, 20f, out monsterobstacles_);
 												if (monsterobstacles_.Count>0&&monsterobstacles_.Any())
 												{
@@ -672,7 +676,7 @@ namespace FunkyTrinity
 
 													 //Destuctibles.. bot is facing that are less than 12f away.
 													 CacheObject[] Destructibles=GizmoObjects.Where(obj => ((PlayerMover.iTimesReachedStuckPoint==0&&ZetaDia.Me.IsFacing(obj.Position))||PlayerMover.iTimesReachedStuckPoint>0)
-																																&&obj.RadiusDistance<=12f).ToArray();
+																																&&obj.CentreDistance<=10f).ToArray();
 
 
 													 if (Destructibles!=null&&Destructibles.Length>0)
@@ -693,7 +697,7 @@ namespace FunkyTrinity
 														  IEnumerable<CacheInteractable> GizmoInteractables=ObjectCache.Objects.OfType<CacheInteractable>();
 
 														  CacheObject[] Interactables=GizmoInteractables.Where(obj => ((PlayerMover.iTimesReachedStuckPoint==0&&ZetaDia.Me.IsFacing(obj.Position))||PlayerMover.iTimesReachedStuckPoint>0)
-																																&&obj.RadiusDistance<=12f).ToArray();
+																																&&obj.CentreDistance<=10f).ToArray();
 														  if (Interactables!=null&&Interactables.Length>0)
 														  {
 																Bot.Combat.PrioritizedRAGUIDs.AddRange(from objs in Interactables
@@ -954,7 +958,7 @@ namespace FunkyTrinity
 								ZetaDia.Me.UsePower(SNOPower.Walk, Bot.Combat.vCurrentDestination, Bot.Character.iCurrentWorldID, -1);
 						  }
 						  else
-								ZetaDia.Me.Movement.MoveActor(this.LOSV3);
+								ZetaDia.Me.Movement.MoveActor(Bot.Combat.vCurrentDestination);
 
 
 						  Bot.Combat.lastSentMovePower=DateTime.Now;

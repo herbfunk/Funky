@@ -12,7 +12,6 @@ namespace FunkyTrinity
 	 {
 		  internal static Ability DemonHunterAbility(bool bCurrentlyAvoiding=false, bool bOOCBuff=false, bool bDestructiblePower=false)
 		  {
-				#region DemonHunter
 
 				// Pick the best destructible power available
 				if (bDestructiblePower)
@@ -33,6 +32,7 @@ namespace FunkyTrinity
 					 thisCacheUnitObj=null;
 
 				Bot.Class.iWaitingReservedAmount=70;
+				#region Shadow Power
 				// Shadow Power
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_ShadowPower)&&!Bot.Character.bIsIncapacitated&&
 					Bot.Character.dDiscipline>=14&&
@@ -40,7 +40,9 @@ namespace FunkyTrinity
 					AbilityUseTimer(SNOPower.DemonHunter_ShadowPower))
 				{
 					 return new Ability(SNOPower.DemonHunter_ShadowPower, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Smoke Screen
 				// Smoke Screen
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_SmokeScreen)
 					&&(!HasBuff(SNOPower.DemonHunter_ShadowPower)||Bot.Character.bIsIncapacitated)
@@ -49,14 +51,18 @@ namespace FunkyTrinity
 					&&AbilityUseTimer(SNOPower.DemonHunter_SmokeScreen))
 				{
 					 return new Ability(SNOPower.DemonHunter_SmokeScreen, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Preparation
 				// Preparation
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_Preparation)&&!Bot.Character.bIsIncapacitated&&
 					Bot.Character.dDiscipline<=9&&Bot.Combat.iAnythingWithinRange[RANGE_40]>=1&&
 					AbilityUseTimer(SNOPower.DemonHunter_Preparation)&&PowerManager.CanCast(SNOPower.DemonHunter_Preparation))
 				{
 					 return new Ability(SNOPower.DemonHunter_Preparation, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Evasive Fire
 				// Evasive Fire
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_EvasiveFire)&&!Bot.Character.bIsIncapacitated&&
 					(Bot.Combat.iAnythingWithinRange[RANGE_20]>=1||Bot.Target.CurrentTarget.RadiusDistance<=30f)&&
@@ -64,13 +70,17 @@ namespace FunkyTrinity
 					((Bot.Class.RuneIndexCache[SNOPower.DemonHunter_EvasiveFire]!=0||DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.DemonHunter_EvasiveFire]).TotalMilliseconds>2750)||Bot.Character.dCurrentEnergyPct<0.25))
 				{
 					 return new Ability(SNOPower.DemonHunter_EvasiveFire, 0f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 1, 1, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Companion
 				// Companion
 				if (!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_Companion)&&Bot.Character.PetData.DemonHunterPet==0&&
 					Bot.Character.dDiscipline>=10&&AbilityUseTimer(SNOPower.DemonHunter_Companion))
 				{
 					 return new Ability(SNOPower.DemonHunter_Companion, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 2, 1, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Sentry Turret
 				// Sentry Turret
 				if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_Sentry)&&
 					Bot.Combat.powerLastSnoPowerUsed!=SNOPower.DemonHunter_Sentry&&
@@ -79,14 +89,18 @@ namespace FunkyTrinity
 					Bot.Character.dCurrentEnergy>=30&&AbilityUseTimer(SNOPower.DemonHunter_Sentry))
 				{
 					 return new Ability(SNOPower.DemonHunter_Sentry, 0f, ZetaDia.Me.Position, Bot.Character.iCurrentWorldID, -1, 0, 0, false);
-				}
+				} 
+				#endregion
+				#region Marked for Death
 				// Marked for Death
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_MarkedForDeath)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dDiscipline>=3&&
 					(Bot.Combat.iElitesWithinRange[RANGE_40]>=1||Bot.Combat.iAnythingWithinRange[RANGE_40]>=3||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsTreasureGoblin||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=40f))&&
 					AbilityUseTimer(SNOPower.DemonHunter_MarkedForDeath))
 				{
 					 return new Ability(SNOPower.DemonHunter_MarkedForDeath, 40f, vNullLocation, Bot.Character.iCurrentWorldID, Bot.Target.CurrentTarget.AcdGuid.Value, 1, 1, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Vault
 				// Vault
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_Vault)&&!Bot.Character.bIsRooted&&!Bot.Character.bIsIncapacitated&&
 					 // Only use vault to retreat if < level 60, or if in inferno difficulty for level 60's
@@ -96,14 +110,18 @@ namespace FunkyTrinity
 				{
 					 Vector3 vNewTarget=MathEx.CalculatePointFrom(Bot.Target.CurrentTarget.Position, Bot.Character.Position, -15f);
 					 return new Ability(SNOPower.DemonHunter_Vault, 20f, vNewTarget, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Rain of Vengeance
 				// Rain of Vengeance
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_RainOfVengeance)&&!Bot.Character.bIsIncapacitated&&
 					(Bot.Combat.iAnythingWithinRange[RANGE_25]>=7||Bot.Combat.iElitesWithinRange[RANGE_25]>=1)&&
 					AbilityUseTimer(SNOPower.DemonHunter_RainOfVengeance)&&PowerManager.CanCast(SNOPower.DemonHunter_RainOfVengeance))
 				{
 					 return new Ability(SNOPower.DemonHunter_RainOfVengeance, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Cluster Arrow
 				// Cluster Arrow
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_ClusterArrow)&&!Bot.Character.bIsIncapacitated&&
 					Bot.Character.dCurrentEnergy>=50&&
@@ -111,7 +129,9 @@ namespace FunkyTrinity
 					AbilityUseTimer(SNOPower.DemonHunter_ClusterArrow))
 				{
 					 return new Ability(SNOPower.DemonHunter_ClusterArrow, 69f, vNullLocation, Bot.Character.iCurrentWorldID, Bot.Target.CurrentTarget.AcdGuid.Value, 1, 1, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Multi Shot
 				// Multi Shot
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_Multishot)
 					 &&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=30)
@@ -131,7 +151,9 @@ namespace FunkyTrinity
 						  return new Ability(SNOPower.DemonHunter_Multishot, 55f, pos, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
 
 					 }
-				}
+				} 
+				#endregion
+				#region Fan of Knives
 				// Fan of Knives
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_FanOfKnives)&&!Bot.Character.bIsIncapacitated&&
 					Bot.Character.dCurrentEnergy>=20&&
@@ -139,7 +161,9 @@ namespace FunkyTrinity
 					AbilityUseTimer(SNOPower.DemonHunter_FanOfKnives))
 				{
 					 return new Ability(SNOPower.DemonHunter_FanOfKnives, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Strafe
 				// Strafe spam - similar to barbarian whirlwind routine
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_Strafe)&&!Bot.Character.bIsIncapacitated&&!Bot.Character.bIsRooted&&
 					 // Only if within 25 foot of main target
@@ -165,7 +189,9 @@ namespace FunkyTrinity
 						  Bot.Combat.lastChangedZigZag=DateTime.Now;
 					 }
 					 return new Ability(SNOPower.DemonHunter_Strafe, 25f, Bot.Combat.vSideToSideTarget, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Spike Trap
 				// Spike Trap
 				if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_SpikeTrap)&&
 					Bot.Combat.powerLastSnoPowerUsed!=SNOPower.DemonHunter_SpikeTrap&&
@@ -184,14 +210,18 @@ namespace FunkyTrinity
 					 }
 					 Vector3 vNewTarget=MathEx.CalculatePointFrom(Bot.Target.CurrentTarget.Position, Bot.Character.Position, Bot.Target.CurrentTarget.CentreDistance-fExtraDistance);
 					 return new Ability(SNOPower.DemonHunter_SpikeTrap, 40f, vNewTarget, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Caltrops
 				// Caltrops
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_Caltrops)&&!Bot.Character.bIsIncapacitated&&
 					Bot.Character.dDiscipline>=6&&(Bot.Combat.iAnythingWithinRange[RANGE_30]>=2||Bot.Combat.iElitesWithinRange[RANGE_40]>=1)&&
 					AbilityUseTimer(SNOPower.DemonHunter_Caltrops))
 				{
 					 return new Ability(SNOPower.DemonHunter_Caltrops, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Elemental Arrow
 				// Elemental Arrow
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Target.CurrentTarget.IsTreasureGoblin&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_ElementalArrow)&&!Bot.Character.bIsIncapacitated&&
 					((Bot.Character.dCurrentEnergy>=10&&!Bot.Character.bWaitingForReserveEnergy&&(Bot.Target.CurrentTarget.SNOID!=5208&&Bot.Target.CurrentTarget.SNOID!=5209&&
@@ -203,7 +233,9 @@ namespace FunkyTrinity
 						  return new Ability(SNOPower.DemonHunter_Grenades, 18f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
 					 // Now return elemental arrow, if not sending grenades instead
 					 return new Ability(SNOPower.DemonHunter_ElementalArrow, 48f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Chakram
 				// Chakram
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_Chakram)&&!Bot.Character.bIsIncapacitated&&
 					 // If we have elemental arrow or rapid fire, then use chakram as a 110 second buff, instead
@@ -212,7 +244,9 @@ namespace FunkyTrinity
 					((Bot.Character.dCurrentEnergy>=10&&!Bot.Character.bWaitingForReserveEnergy)||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount))
 				{
 					 return new Ability(SNOPower.DemonHunter_Chakram, 69f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Rapid Fire
 				// Rapid Fire
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_RapidFire)&&!Bot.Character.bIsIncapacitated&&
 					((Bot.Character.dCurrentEnergy>=20&&!Bot.Character.bWaitingForReserveEnergy)||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount))
@@ -222,41 +256,54 @@ namespace FunkyTrinity
 						  return new Ability(SNOPower.DemonHunter_Grenades, 18f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, USE_SLOWLY);
 					 // Now return rapid fire, if not sending grenades instead
 					 return new Ability(SNOPower.DemonHunter_RapidFire, 69f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, SIGNATURE_SPAM);
-				}
+				} 
+				#endregion
+				#region Impale
 				// Impale
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_Impale)&&!Bot.Character.bIsIncapacitated&&
 					((Bot.Character.dCurrentEnergy>=25&&!Bot.Character.bWaitingForReserveEnergy)||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount)&&
 					Bot.Target.CurrentTarget.RadiusDistance<=12f)
 				{
 					 return new Ability(SNOPower.DemonHunter_Impale, 12f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Hungering Arrow
 				// Hungering Arrow
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_HungeringArrow)&&!Bot.Character.bIsIncapacitated)
 				{
 					 return new Ability(SNOPower.DemonHunter_HungeringArrow, 48f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Entangling shot
 				// Entangling shot
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_EntanglingShot)&&!Bot.Character.bIsIncapacitated&&(!Bot.Target.CurrentTarget.IsMissileReflecting||Bot.Character.dCurrentEnergy<30))
 				{
 					 return new Ability(SNOPower.DemonHunter_EntanglingShot, 50f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Bola Shot
 				// Bola Shot
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_BolaShot)&&!Bot.Character.bIsIncapacitated&&(!Bot.Target.CurrentTarget.IsMissileReflecting||Bot.Character.dCurrentEnergy<30))
 				{
 					 return new Ability(SNOPower.DemonHunter_BolaShot, 50f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Grenades
 				// Grenades
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_Grenades)&&!Bot.Character.bIsIncapacitated)
 				{
 					 return new Ability(SNOPower.DemonHunter_Grenades, 40f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
-				}
+				} 
+				#endregion
+				#region Default
 				// Default attacks
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated)
 				{
 					 return new Ability(SNOPower.Weapon_Ranged_Projectile, 40f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 1, 1, USE_SLOWLY);
-				}
-				return new Ability(SNOPower.None, 0, vNullLocation, -1, -1, 0, 0, false);
+				} 
 				#endregion
+				return new Ability(SNOPower.None, 0, vNullLocation, -1, -1, 0, 0, false);
+
 		  }
 	 }
 }

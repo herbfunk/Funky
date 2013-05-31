@@ -238,6 +238,7 @@ namespace FunkyTrinity
 
 								//Create Vector3
 								Vector3 pointVector=(Vector3)point;
+								pointVector.Z+=3.5f;
 
 								//Check if we already within this "point".
 								if (botcurpos.Distance(pointVector)<2.5f) continue;
