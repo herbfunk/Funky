@@ -73,9 +73,6 @@
     <Compile Include="Bot\Behaviors\Misc\Items\LowLevelLogic.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Area\Objects\ClusterCollection.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Bot\Cache\Area\Objects\GridPointComparer.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
