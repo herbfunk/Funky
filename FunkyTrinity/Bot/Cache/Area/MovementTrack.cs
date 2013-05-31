@@ -22,7 +22,7 @@ namespace FunkyTrinity
 					 // else if (millisecondsLastRecord>10000) //10 seconds.. clear cache!
 					 // SkipAheadAreaCache.Clear();
 
-					 if (SkipAheadAreaCache.Any(p => p.Position.Distance2D(ZetaDia.Me.Position)<=20f))
+					 if (SkipAheadAreaCache.Any(p => p.Position.Distance(ZetaDia.Me.Position)<=20f))
 						  return;
 
 					 SkipAheadAreaCache.Add(new SkipAheadNavigation(ZetaDia.Me.Position, 20f));
@@ -40,7 +40,7 @@ namespace FunkyTrinity
 				{
 					 foreach (var v in UsedSkipAheadAreaCache)
 					 {
-						  if (Position.Distance(v.Position)<=v.Radius)
+						  if (Position.Distance2D(v.Position)<=v.Radius)
 								return true;
 					 }
 
@@ -60,7 +60,7 @@ namespace FunkyTrinity
 						  }
 						  if (valid&&validIndex>0)
 						  {
-								UsedSkipAheadAreaCache.Add(SkipAheadAreaCache[validIndex]);
+								UsedSkipAheadAreaCache.Add(SkipAheadAreaCache[validIndex].Clone());
 								SkipAheadAreaCache.RemoveRange(0, validIndex-1);
 								SkipAheadAreaCache.TrimExcess();
 						  }

@@ -53,6 +53,14 @@ namespace FunkyTrinity
 				{
 					 return GilesIntersectsPath(base.Position, this.Radius, V1, V2);
 				}
+				///<summary>
+				///Tests if this intersects between two gridpoints
+				///</summary>
+				public virtual bool TestIntersection(GridPoint V1, GridPoint V2)
+				{
+					 return GridPoint.LineIntersectsRect(V1, V2, this.AvoidanceRect);
+					// return GilesIntersectsPath(base.Position, this.Radius, V1, V2);
+				}
 				//Special Method used inside cache collection
 				public virtual bool PointInside(GridPoint Pos)
 				{

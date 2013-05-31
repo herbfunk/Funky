@@ -18,6 +18,17 @@ namespace FunkyTrinity
 					 return (Navigator.SearchGridProvider as MainGridProvider);
 				}
 		  }
+		  /// <summary>
+		  /// Bot Dungeon Explorer -- Used to find current path.
+		  /// </summary>
+		  internal static Zeta.CommonBot.Dungeons.DungeonExplorer de
+		  {
+				get
+				{
+					 return (Zeta.CommonBot.Logic.BrainBehavior.DungeonExplorer);
+				}
+		  }
+
 		  ///<summary>
 		  ///Returns Navigator as DefaultNavigationProvider (Pathing)
 		  ///</summary>
@@ -28,14 +39,19 @@ namespace FunkyTrinity
 					 return Navigator.GetNavigationProviderAs<DefaultNavigationProvider>();
 				}
 		  }
+		  private static Vector3 currentpathvector_=vNullLocation;
 		  internal static Vector3 CurrentPathVector
 		  {
 				get
 				{
-					 if (navigation.CurrentPath.Count>0)
-						  return navigation.CurrentPath.Current;
+					 if (navigation.CurrentPath.Count>0&&currentpathvector_!=navigation.CurrentPath.Current)
+						  currentpathvector_=navigation.CurrentPath.Current;
+					 else if (de.CurrentRoute!=null&&de.CurrentRoute.Count>0&&currentpathvector_!=de.CurrentNode.NavigableCenter)
+						  currentpathvector_=de.CurrentNode.NavigableCenter;
 					 else
-						  return vNullLocation;
+						  currentpathvector_=vNullLocation;
+
+					 return currentpathvector_;
 				}
 		  }
 
@@ -63,6 +79,6 @@ namespace FunkyTrinity
 
 				LastMGPUpdate=DateTime.Now;
 				LastPositionUpdated=Bot.Character.Position;
-		  } 
-    }
+		  }
+	 }
 }

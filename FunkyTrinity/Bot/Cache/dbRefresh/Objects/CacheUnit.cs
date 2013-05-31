@@ -842,17 +842,17 @@ namespace FunkyTrinity
 						  } catch (NullReferenceException ) { Logging.WriteVerbose("Failure to convert obj to DiaUnit!"); return false; }
 					 }
 
+					 ACD CommonData=base.ref_DiaObject.CommonData;
+					 if (CommonData==null)
+					 {
+						  Logging.WriteVerbose("Common Data Null!");
+					 }
 
 					 //Affixes
 					 if (!this.CheckedMonsterAffixes)
 					 {
 						  try
 						  {
-                              ACD CommonData = base.ref_DiaObject.CommonData;
-                              if(CommonData == null)
-                              {
-                                  Logging.WriteVerbose("Monster Affix check -- Common Data Null!");
-                              }
 							  this.CheckMonsterAffixes(CommonData.MonsterAffixes);
 						  } catch (NullReferenceException )
 						  {
@@ -904,7 +904,7 @@ namespace FunkyTrinity
 								//ignore units who are stealthed completly (exception when object is special!)
 								//if (this.IsBurrowed.Value&&!this.ObjectIsSpecial)
 								//return false;
-						  } catch (AccessViolationException) { }
+						  } catch (NullReferenceException) { }
 					 }
 					 #endregion
 

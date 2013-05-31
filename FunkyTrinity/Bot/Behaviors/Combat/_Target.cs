@@ -344,7 +344,7 @@ namespace FunkyTrinity
 						  if (Bot.Combat.PrioritizedRAGUIDs.Contains(thisobj.RAGUID))
 						  {
 								//remove from list after time based on number of prioritized count
-								if (thisobj.LastPriortized>(thisobj.PriorityCounter*250))
+								if (thisobj.LastPriortized>(thisobj.PriorityCounter*500)+750)
 									 Bot.Combat.PrioritizedRAGUIDs.Remove(thisobj.RAGUID);
 
 								//weight variable based on number of timers prioritized.

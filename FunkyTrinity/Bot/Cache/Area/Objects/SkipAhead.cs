@@ -17,6 +17,11 @@ namespace FunkyTrinity
 					 this.Position=pos;
 					 this.Radius=radius;
 				}
+
+				public SkipAheadNavigation Clone()
+				{
+					 return (SkipAheadNavigation)this.MemberwiseClone();
+				}
 		  }
     }
 }

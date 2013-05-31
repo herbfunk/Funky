@@ -330,10 +330,8 @@ namespace FunkyTrinity
 
 					 // Store player current position
 					 Vector3 vMyCurrentPosition=ZetaDia.Me.Position;
-					 if (navigation.CurrentPath.Count>0&&CurrentMovementPosition!=navigation.CurrentPath.Current)
-					 {
-						  CurrentMovementPosition=navigation.CurrentPath.Current;
-					 }
+					 CurrentMovementPosition=CurrentPathVector;
+					 
 
 					 //Check GPC entry (backtracking cache) -- only when not in town!
 					 if (GridPointAreaCache.EnableBacktrackGPRcache&&!ZetaDia.Me.IsInTown)
@@ -472,7 +470,7 @@ namespace FunkyTrinity
 					 }
 					 else
 					 {
-						  if (Bot.Character.Position.Distance2D(vShiftedPosition)<=2.5f||DateTime.Now.Subtract(lastShiftedPosition).TotalMilliseconds>iShiftPositionFor)
+						  if (Bot.Character.Position.Distance(vShiftedPosition)<=10f||DateTime.Now.Subtract(lastShiftedPosition).TotalMilliseconds>iShiftPositionFor)
 								vShiftedPosition=vNullLocation;
 						  else
 								vMoveToTarget=vShiftedPosition;
