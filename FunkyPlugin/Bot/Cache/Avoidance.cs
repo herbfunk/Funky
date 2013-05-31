@@ -143,7 +143,7 @@ namespace FunkyTrinity
 
                 {AvoidanceType.ArcaneSentry, 10},{AvoidanceType.Dececrator, 13},{AvoidanceType.MoltenCore, 20},{AvoidanceType.MoltenTrail, 6},{AvoidanceType.Frozen, 17},{AvoidanceType.PlagueCloud, 17},    
                                                                                       
-                {AvoidanceType.BeeProjectile, 1},{AvoidanceType.LacuniBomb,10},{AvoidanceType.ShamanFireBall,1}, {AvoidanceType.SuccubusProjectile, 1},
+                {AvoidanceType.BeeProjectile, 3},{AvoidanceType.LacuniBomb,5},{AvoidanceType.ShamanFireBall,3}, {AvoidanceType.SuccubusProjectile, 3},
 
 					 {AvoidanceType.PoisonTree, 14},{AvoidanceType.PlagueHand, 12},{AvoidanceType.MageFirePool, 10},	
   
@@ -157,9 +157,9 @@ namespace FunkyTrinity
 		  private static readonly Dictionary<AvoidanceType, double> dictAvoidanceHealthBarbDefaultsType=new Dictionary<AvoidanceType, double>
             {
 
-                {AvoidanceType.ArcaneSentry, 1},{AvoidanceType.Dececrator, 1},{AvoidanceType.MoltenCore, 0.9},{AvoidanceType.MoltenTrail, 0.55},{AvoidanceType.Frozen, 0.85},{AvoidanceType.PlagueCloud, 0.25},    
+                {AvoidanceType.ArcaneSentry, 1},{AvoidanceType.Dececrator, 0.80},{AvoidanceType.MoltenCore, 0.75},{AvoidanceType.MoltenTrail, 0.35},{AvoidanceType.Frozen, 1},{AvoidanceType.PlagueCloud, 0.25},    
                                                                                       
-                {AvoidanceType.BeeProjectile, 0.75},{AvoidanceType.LacuniBomb,0.25},{AvoidanceType.ShamanFireBall,0.25},{AvoidanceType.SuccubusProjectile,0.25},
+                {AvoidanceType.BeeProjectile, 0.60},{AvoidanceType.LacuniBomb,0},{AvoidanceType.ShamanFireBall,0.25},{AvoidanceType.SuccubusProjectile,0.25},
 
 					 {AvoidanceType.PoisonTree, 0.75},{AvoidanceType.PlagueHand, 0.75},{AvoidanceType.MageFirePool, 0.95},	
   
@@ -172,13 +172,13 @@ namespace FunkyTrinity
 		  private static readonly Dictionary<AvoidanceType, double> dictAvoidanceHealthMonkDefaultsType=new Dictionary<AvoidanceType, double>
             {
 
-                {AvoidanceType.ArcaneSentry, 1},{AvoidanceType.Dececrator, 1},{AvoidanceType.MoltenCore, 1},{AvoidanceType.MoltenTrail, 0.65},{AvoidanceType.Frozen, 0.85},{AvoidanceType.PlagueCloud, 0.35},    
+                 {AvoidanceType.ArcaneSentry, 1},{AvoidanceType.Dececrator, 0.80},{AvoidanceType.MoltenCore, 0.75},{AvoidanceType.MoltenTrail, 0.35},{AvoidanceType.Frozen, 1},{AvoidanceType.PlagueCloud, 0.25},    
                                                                                       
-                {AvoidanceType.BeeProjectile, 0.75},{AvoidanceType.LacuniBomb,0.25},{AvoidanceType.ShamanFireBall,0},{AvoidanceType.SuccubusProjectile,0.25},
+                {AvoidanceType.BeeProjectile, 0.60},{AvoidanceType.LacuniBomb,0},{AvoidanceType.ShamanFireBall,0.25},{AvoidanceType.SuccubusProjectile,0.25},
 
-					 {AvoidanceType.PoisonTree, 0.65},{AvoidanceType.PlagueHand, 0.85},{AvoidanceType.MageFirePool, 0.3},	
+					 {AvoidanceType.PoisonTree, 0.75},{AvoidanceType.PlagueHand, 0.75},{AvoidanceType.MageFirePool, 0.95},	
   
-					 {AvoidanceType.AzmodanPool, 0.85},{AvoidanceType.AzmodanFireball, 0.75},{AvoidanceType.AzmodanBodies, 0.75},  
+					 {AvoidanceType.AzmodanPool, 0.75},{AvoidanceType.AzmodanFireball, 0.5},{AvoidanceType.AzmodanBodies, 0.75},  
 					 {AvoidanceType.BelialGround, 1},
                 {AvoidanceType.DiabloPrison, 1},{AvoidanceType.DiabloMetor, 0.5},
 
@@ -187,11 +187,11 @@ namespace FunkyTrinity
 		  private static readonly Dictionary<AvoidanceType, double> dictAvoidanceHealthWizardDefaultsType=new Dictionary<AvoidanceType, double>
             {
 
-                {AvoidanceType.ArcaneSentry, 1},{AvoidanceType.Dececrator, 1},{AvoidanceType.MoltenCore, 0.9},{AvoidanceType.MoltenTrail, 0.9},{AvoidanceType.Frozen, 1},{AvoidanceType.PlagueCloud, 0.9},    
+                {AvoidanceType.ArcaneSentry, 1},{AvoidanceType.Dececrator, 1},{AvoidanceType.MoltenCore, 1},{AvoidanceType.MoltenTrail, 0.5},{AvoidanceType.Frozen, 1},{AvoidanceType.PlagueCloud, 0.5},    
                                                                                       
-                {AvoidanceType.BeeProjectile,1},{AvoidanceType.LacuniBomb,0.25},{AvoidanceType.ShamanFireBall,0.10},{AvoidanceType.SuccubusProjectile,0.25},
+                {AvoidanceType.BeeProjectile,0.75},{AvoidanceType.LacuniBomb,0.25},{AvoidanceType.ShamanFireBall,0.10},{AvoidanceType.SuccubusProjectile,0.25},
 
-					 {AvoidanceType.PoisonTree, 0.75},{AvoidanceType.PlagueHand, 0.75},{AvoidanceType.MageFirePool, 0.95},	
+					 {AvoidanceType.PoisonTree, 0.75},{AvoidanceType.PlagueHand, 0.75},{AvoidanceType.MageFirePool, 0.25},	
   
 					 {AvoidanceType.AzmodanPool, 1},{AvoidanceType.AzmodanFireball, 1},{AvoidanceType.AzmodanBodies, 1},  
 					 {AvoidanceType.BelialGround, 1},
@@ -202,9 +202,9 @@ namespace FunkyTrinity
 		  private static readonly Dictionary<AvoidanceType, double> dictAvoidanceHealthWitchDefaultsType=new Dictionary<AvoidanceType, double>
             {
 
-                {AvoidanceType.ArcaneSentry, 1},{AvoidanceType.Dececrator, 1},{AvoidanceType.MoltenCore, 0.9},{AvoidanceType.MoltenTrail, 0.9},{AvoidanceType.Frozen, 1},{AvoidanceType.PlagueCloud, 0.9},    
+                {AvoidanceType.ArcaneSentry, 1},{AvoidanceType.Dececrator, 1},{AvoidanceType.MoltenCore, 0.9},{AvoidanceType.MoltenTrail, 0.5},{AvoidanceType.Frozen, 1},{AvoidanceType.PlagueCloud, 0.9},    
                                                                                       
-                {AvoidanceType.BeeProjectile,1},{AvoidanceType.LacuniBomb,0.25},{AvoidanceType.ShamanFireBall,0.10},{AvoidanceType.SuccubusProjectile,0.25},
+                {AvoidanceType.BeeProjectile,0.50},{AvoidanceType.LacuniBomb,0.25},{AvoidanceType.ShamanFireBall,0.10},{AvoidanceType.SuccubusProjectile,0.25},
 
 					 {AvoidanceType.PoisonTree, 0.9},{AvoidanceType.PlagueHand, 1},{AvoidanceType.MageFirePool, 0.95},	
   
@@ -217,9 +217,9 @@ namespace FunkyTrinity
 		  private static readonly Dictionary<AvoidanceType, double> dictAvoidanceHealthDemonDefaultsType=new Dictionary<AvoidanceType, double>
             {
 
-                {AvoidanceType.ArcaneSentry, 1},{AvoidanceType.Dececrator, 1},{AvoidanceType.MoltenCore, 0.9},{AvoidanceType.MoltenTrail, 0.9},{AvoidanceType.Frozen, 1},{AvoidanceType.PlagueCloud, 0.9},    
+                {AvoidanceType.ArcaneSentry, 1},{AvoidanceType.Dececrator, 1},{AvoidanceType.MoltenCore, 0.9},{AvoidanceType.MoltenTrail, 0.5},{AvoidanceType.Frozen, 1},{AvoidanceType.PlagueCloud, 0.9},    
                                                                                       
-                {AvoidanceType.BeeProjectile,1},{AvoidanceType.LacuniBomb,0.25},{AvoidanceType.ShamanFireBall,0.10},{AvoidanceType.SuccubusProjectile,0.25},
+                {AvoidanceType.BeeProjectile,0.50},{AvoidanceType.LacuniBomb,0.25},{AvoidanceType.ShamanFireBall,0.10},{AvoidanceType.SuccubusProjectile,0.25},
 
 					 {AvoidanceType.PoisonTree, 0.75},{AvoidanceType.PlagueHand, 0.75},{AvoidanceType.MageFirePool, 0.95},	
   

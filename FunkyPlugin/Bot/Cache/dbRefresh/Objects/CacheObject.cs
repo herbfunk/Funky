@@ -39,6 +39,7 @@ namespace FunkyTrinity
 					 this.RequiresLOSCheck=!(base.IgnoresLOSCheck); //require a LOS check initally on a new object!
 					 this.LastLOSCheck=DateTime.Today;
 					 this.PrioritizedDate=DateTime.Today;
+                     this.PriorityCounter = 0;
 					 this.LOSV3=vNullLocation;
 
 					 //Keep track of each unique RaGuid that is created and uses this SNO during each level.
@@ -76,6 +77,7 @@ namespace FunkyTrinity
 					 this.NeedsRemoved=parent.NeedsRemoved;
 					 this.NeedsUpdate=parent.NeedsUpdate;
 					 this.PrioritizedDate=parent.PrioritizedDate;
+                     this.PriorityCounter = parent.PriorityCounter;
 					 this.position_=parent.Position;
 					 this.radius_=parent.Radius;
 					 this.RAGUID=parent.RAGUID;
@@ -109,6 +111,7 @@ namespace FunkyTrinity
 				///</summary>
 				public DiaObject ref_DiaObject { get; set; }
 
+                public int PriorityCounter { get; set; }
 				public DateTime PrioritizedDate { get; set; }
 				public double LastPriortized
 				{
@@ -335,7 +338,7 @@ namespace FunkyTrinity
 						  }
 
 
-						  if (FoundLOSLocation&&GilesCanRayCast(Bot.Character.Position, LOSV3, NavCellFlags.AllowWalk))
+						  if (FoundLOSLocation&&GilesCanRayCast(this.Position, LOSV3, NavCellFlags.AllowWalk))
 						  {
 								Logging.WriteVerbose("LOS Found new location for target {0}", this.InternalName);
 								this.LOSV3=LOSV3;
@@ -345,17 +348,24 @@ namespace FunkyTrinity
 
 					 }
 				}
+                private Vector3 losv3_;
+                private DateTime losv3LastChanged = DateTime.Today;
 				///<summary>
 				///Used during targeting as destination vector
 				///</summary>
-				public Vector3 LOSV3 { get; set; }
-				///<summary>
-				///Set the LOS Vector variables.
-				///</summary>
-				public void SetLOSCheckVectors()
-				{
-					 RequiresLOSCheck=false;
-				}
+				public Vector3 LOSV3 
+                { 
+                    get
+                    {
+                        //invalidate los vector after 4 seconds
+                        if((this.LastLOSCheckMS>1500&&!this.RequiresLOSCheck)||DateTime.Now.Subtract(losv3LastChanged).TotalSeconds > 4)
+                            losv3_ = vNullLocation;
+
+                        return losv3_;
+                    }
+
+                    set { losv3_ = value; losv3LastChanged = DateTime.Now; }
+                }
 				///<summary>
 				///Validates that the current LOS
 				///</summary>
@@ -364,7 +374,8 @@ namespace FunkyTrinity
 					 get
 					 {
 						  double LastCheckMS=this.LastLOSCheckMS;
-						  if (LastCheckMS>3000)
+                         //priority counter
+                          if(this.PriorityCounter > 1 && LastCheckMS > 2500)
 								return false;
 
 						  //Recheck the LOS against the target.
@@ -649,7 +660,7 @@ namespace FunkyTrinity
 
 													 foreach (var item in monsterobstacles_)
 													 {
-														  item.PrioritizedDate=DateTime.Now;
+                                                         item.PriorityCounter++;
 													 }
 
 													 Logging.WriteVerbose("Nearby Monsters being prioritzed!");
@@ -671,7 +682,7 @@ namespace FunkyTrinity
 
 														  foreach (var item in Destructibles)
 														  {
-																item.PrioritizedDate=DateTime.Now;
+                                                              item.PriorityCounter++;
 														  }
 
 														  Logging.WriteVerbose("Nearby Destructibles being prioritzed!");
@@ -689,7 +700,7 @@ namespace FunkyTrinity
 																													select objs.RAGUID);
 																foreach (var item in Interactables)
 																{
-																	 item.PrioritizedDate=DateTime.Now;
+                                                                    item.PriorityCounter++;
 																}
 																Logging.WriteVerbose("Nearby Interactables being prioritzed!");
 														  }
