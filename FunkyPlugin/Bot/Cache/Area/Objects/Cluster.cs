@@ -55,6 +55,7 @@ namespace FunkyTrinity
 					 return true;
 				}
 		  }
+          internal List<int> RAGUIDS { get; set; }
 		  internal int EliteCount { get; set; }
 		  internal int DotDPSCount { get; set; }
 		  internal double DotDPSRatio
@@ -98,6 +99,7 @@ namespace FunkyTrinity
 				EliteCount=0;
 				DotDPSCount=0;
 				NearestMonsterDistance=-1f;
+                RAGUIDS = new List<int>();
 
 		  }  // of parameterless constructor
 
@@ -113,7 +115,8 @@ namespace FunkyTrinity
 		  {
 				ListUnits.Add(unit);
 				ListPoints.Add(unit.PointPosition);
-				NearestMonsterDistance=unit.CentreDistance;
+                RAGUIDS.Add(unit.RAGUID);
+				//NearestMonsterDistance=unit.CentreDistance;
 				if (unit.MonsterElite)
 					 EliteCount++;
 				if (Funky.Bot.Combat.UsesDOTDPSAbility&&unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
@@ -136,7 +139,7 @@ namespace FunkyTrinity
 		  {
 				bool u_Exists=false;
 
-				if (ListUnits.Contains(unit))
+				if (RAGUIDS.Contains(unit.RAGUID))
 					 u_Exists=true;
 
 				return u_Exists;
@@ -158,10 +161,11 @@ namespace FunkyTrinity
 					 {
 						  ListUnits.Add(unit);
 						  ListPoints.Add(unit.PointPosition);
+                          RAGUIDS.Add(unit.RAGUID);
 
-						  float distance=unit.CentreDistance;
-						  if (distance<this.NearestMonsterDistance)
-								this.NearestMonsterDistance=distance;
+						  //float distance=unit.CentreDistance;
+						 // if (distance<this.NearestMonsterDistance)
+							//	this.NearestMonsterDistance=distance;
 
 						  if (unit.MonsterElite)
 								EliteCount++;
@@ -201,10 +205,11 @@ namespace FunkyTrinity
 
 				ListUnits.AddRange(p_Cluster.ListUnits);
 				ListPoints.AddRange(p_Cluster.ListPoints);
+                RAGUIDS.AddRange(p_Cluster.RAGUIDS);
 				EliteCount+=p_Cluster.EliteCount;
 				DotDPSCount+=p_Cluster.DotDPSCount;
-				if (this.NearestMonsterDistance>p_Cluster.NearestMonsterDistance)
-					 this.NearestMonsterDistance=p_Cluster.NearestMonsterDistance;
+				//if (this.NearestMonsterDistance>p_Cluster.NearestMonsterDistance)
+					 //this.NearestMonsterDistance=p_Cluster.NearestMonsterDistance;
 
 				return l_bSuccess;
 

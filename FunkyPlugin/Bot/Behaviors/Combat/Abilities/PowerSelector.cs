@@ -11,11 +11,9 @@ namespace FunkyTrinity
     public partial class Funky
     {
 
-        public static cacheSNOPower GilesAbilitySelector(bool bCurrentlyAvoiding = false, bool bOOCBuff = false, bool bDestructiblePower = false)
+        public static Ability GilesAbilitySelector(bool bCurrentlyAvoiding = false, bool bOOCBuff = false, bool bDestructiblePower = false)
         {
-            // Refresh buffs once to save buff-check-spam
-				Bot.Class.RefreshCurrentBuffs();
-				Bot.Class.SecondaryHotbarBuffPresent();
+
 
             // Switch based on the cached character class
             switch (Bot.Class.AC)
@@ -32,7 +30,7 @@ namespace FunkyTrinity
                     return DemonHunterAbility(bCurrentlyAvoiding, bOOCBuff, bDestructiblePower);
             }
 
-            return new cacheSNOPower(SNOPower.None, 0, vNullLocation, -1, -1, 0, 0, false);
+            return new Ability(SNOPower.None, 0, vNullLocation, -1, -1, 0, 0, false);
         }
 
         // **********************************************************************************************

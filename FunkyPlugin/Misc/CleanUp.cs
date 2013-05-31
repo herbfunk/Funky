@@ -36,7 +36,7 @@ namespace FunkyTrinity
                 }
             }
 
-            string ItemRulesPath = @"\Plugins\FunkyTrinity\ItemRules\Log\";
+            string ItemRulesPath = @"\Plugins\FunkyTrinity\ItemRules\Log\Archive\";
             deleteList = new List<string>();
             try
             {
@@ -68,7 +68,7 @@ namespace FunkyTrinity
 					 foreach (string file in System.IO.Directory.GetFiles(Funky.FolderPaths.sDemonBuddyPath+ProfileLogs))
 					 {
 						  DateTime curFileCreated=System.IO.Directory.GetCreationTime(file);
-						  if (DateTime.Now.Subtract(curFileCreated).TotalDays>=2)
+						  if (DateTime.Now.Subtract(curFileCreated).TotalDays>=1)
 						  {
 								deleteList.Add(file);
 						  }

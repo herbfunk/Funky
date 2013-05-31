@@ -29,7 +29,7 @@ namespace FunkyTrinity
             }
 
             //Checks
-            if (Bot.Combat.iAnythingWithinRange[RANGE_40] > 0 || Bot.Target.ObjectData != null)
+            if (Bot.Combat.iAnythingWithinRange[RANGE_40] > 0 || Bot.Target.CurrentTarget != null)
             {
                 return false;
             }

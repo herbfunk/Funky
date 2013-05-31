@@ -41,7 +41,7 @@ namespace FunkyTrinity
 						  LastHealthDropPct=0d;
 						  LastHealthChange=DateTime.Today;
 						  lastSentMovePower=DateTime.Today;
-						  powerPrime=new cacheSNOPower(SNOPower.None, 0f, vNullLocation, -1, -1, 0, 0, false);
+						  powerPrime=new Ability(SNOPower.None, 0f, vNullLocation, -1, -1, 0, 0, false);
 						  iElitesWithinRange=new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 						  iAnythingWithinRange=new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 						  iNonRendedTargets_6=0;
@@ -71,7 +71,20 @@ namespace FunkyTrinity
 					 public List<CacheAvoidance> TriggeringAvoidances=new List<CacheAvoidance>();
 					 public List<int> UnitRAGUIDs=new List<int>();
 					 public List<int> ValidClusterUnits=new List<int>();
+					 public List<Cluster> CurrentTargetClusters=new List<Cluster>();
 					 public DateTime LastClusterTargetLogicRefresh=DateTime.Today;
+
+					 public List<Cluster> RunKMeans(int MinUnitCount=1, double Distance=5d)
+					 {
+						  List<CacheUnit> objects=new List<CacheUnit>();
+						  //populate with units
+						  (from clusters in CurrentTargetClusters		 //Only Clusters with a valid targetable unit 
+							where clusters.RAGUIDS.Count>=MinUnitCount&&(!clusters.ContainsNoTagetableUnits&&clusters.CurrentValidUnit!=null)
+							select clusters.ListUnits)
+								.ForEach(units => objects.AddRange(units));
+
+						  return RunKmeans<CacheUnit>(objects, Distance).Where(clusters=>clusters.RAGUIDS.Count>=MinUnitCount).ToList();
+					 }
 
 					 #region Movement
 					 // Timestamp of when our position was last measured as changed
@@ -133,8 +146,8 @@ namespace FunkyTrinity
 
 
 					 // Variables used to actually hold powers the power-selector has picked to use, for buffing and main power use
-					 public cacheSNOPower powerBuff { get; set; }
-					 public cacheSNOPower powerPrime;
+					 public Ability powerBuff { get; set; }
+					 public Ability powerPrime;
 					 public SNOPower powerLastSnoPowerUsed { get; set; }
 
 					 //Loot Check
@@ -281,7 +294,7 @@ namespace FunkyTrinity
 					 }
 					 public void ResetTargetHandling()
 					 {
-						  Bot.Target.ObjectData=null;
+						  Bot.Target.CurrentTarget=null;
 						  iTimesBlockedMoving=0;
 						  totalNonMovementCount=0;
 						  bAlreadyMoving=false;

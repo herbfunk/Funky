@@ -37,7 +37,7 @@ namespace FunkyTrinity
 				{
 					 IEnumerable<CacheUnit> zigZagTargets=
 						  from u in units
-						  where u.RadiusDistance>minDistance&&u.RadiusDistance<maxDistance&&u.RAGUID!=Bot.Target.ObjectData.RAGUID&&
+						  where u.RadiusDistance>minDistance&&u.RadiusDistance<maxDistance&&u.RAGUID!=Bot.Target.CurrentTarget.RAGUID&&
 						  !ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(u.Position)
 						  select u;
 

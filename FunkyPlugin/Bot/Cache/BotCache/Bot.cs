@@ -9,7 +9,7 @@ namespace FunkyTrinity
 
 		public partial class Bot
 		{
-			 internal static CharacterInfo Class { get; set; }
+			internal static CharacterInfo Class { get; set; }
 			internal static CharacterCache Character { get; set; }
 			internal static CombatCache Combat { get; set; }
 			internal static TargetHandler Target { get; set; }

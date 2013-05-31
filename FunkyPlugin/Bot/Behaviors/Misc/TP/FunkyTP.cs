@@ -203,7 +203,7 @@ namespace FunkyTrinity
 
 				//Check if we have any NEW targets to deal with.. 
 				//Note: Refresh will filter targets to units and avoidance ONLY.
-				if (Bot.Target.ObjectData!=null)
+				if (Bot.Target.CurrentTarget!=null)
 				{
 					 //Directly Handle Target..
 					 RunStatus targetHandler=Bot.Target.HandleThis();

@@ -106,7 +106,7 @@ namespace FunkyTrinity
 
 					 //Check if we have any NEW targets to deal with.. 
 					 //Note: Refresh will filter targets to units and avoidance ONLY.
-					 if (Bot.Target.ObjectData!=null)
+					 if (Bot.Target.CurrentTarget!=null)
 					 {
 						  //Check if we have not made a ID cast in awhile..
 						  if (DateTime.Now.Subtract(lastActionPreformed).TotalSeconds>20)

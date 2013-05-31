@@ -107,7 +107,7 @@ namespace FunkyTrinity
 					 dbRefresh.RefreshDiaObjects();
 
 					 // We have a target, start the target handler!
-					 if (Bot.Target.ObjectData!=null)
+					 if (Bot.Target.CurrentTarget!=null)
 					 {
 						  Bot.Combat.bWholeNewTarget=true;
 						  Bot.Combat.DontMove=true;
@@ -213,7 +213,7 @@ namespace FunkyTrinity
 		  {
 				if (shouldPreformOOCItemIDing)
 					 return HandleIDBehavior(); //Check if we are doing OOC ID behavior..
-				else if (Bot.Target.ObjectData!=null)
+				else if (Bot.Target.CurrentTarget!=null)
 					 return Bot.Target.HandleThis();  //Default Behavior: Current Target
 				else if (MuleBehavior)
 				{

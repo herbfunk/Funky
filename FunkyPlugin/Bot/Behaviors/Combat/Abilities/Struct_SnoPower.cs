@@ -18,10 +18,8 @@ namespace FunkyTrinity
 				}
 
 		  }
-        // **********************************************************************************************
-        // *****     Giles Power - used when picking a power to use to cache where/how to use it    *****
-        // **********************************************************************************************
-        public struct cacheSNOPower
+
+        public struct Ability
         {
 				public SNOPower Power;
 				public float iMinimumRange;
@@ -34,7 +32,7 @@ namespace FunkyTrinity
 				public bool? Successful;
 				public Zeta.CommonBot.PowerManager.CanCastFlags CanCastFlags;
 
-            public cacheSNOPower(SNOPower thispower, float thisrange, Vector3 thisloc, int thisworld, int thisguid, int waitloops, int afterloops, bool repeat)
+            public Ability(SNOPower thispower, float thisrange, Vector3 thisloc, int thisworld, int thisguid, int waitloops, int afterloops, bool repeat)
             {
                 Power = thispower;
                 iMinimumRange = thisrange;

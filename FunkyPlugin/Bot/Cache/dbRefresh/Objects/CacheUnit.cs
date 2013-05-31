@@ -158,7 +158,7 @@ namespace FunkyTrinity
 				public bool UpdateHitPoints()
 				{
 					 //Current Target skips the counter checks
-					 if (this==Bot.Target.ObjectData)
+					 if (this==Bot.Target.CurrentTarget)
 					 {
 						  this.UpdateCurrentHitPoints();
 						  if (this.LastCurrentHealth!=this.CurrentHealthPct)
@@ -464,6 +464,12 @@ namespace FunkyTrinity
 				{
 					 base.UpdateWeight();
 
+                     if(this.BeingIgnoredDueToClusterLogic)
+                     {
+                         this.Weight = 0;
+                         return;
+                     }
+
 					 if (this.Weight!=1)
 					 {
 						  // Total up monsters at various ranges
@@ -477,15 +483,9 @@ namespace FunkyTrinity
 								this.TallyTarget();
 						  }
 
-						  if (this.BeingIgnoredDueToClusterLogic)
-						  {
-								this.Weight=0;
-								return;
-						  }
-
 
 						  // Force a close range target because we seem to be stuck *OR* if not ranged and currently rooted
-						  if (Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted)
+						  if (Bot.Combat.bForceCloseRangeTarget||(Bot.Class.IsMeleeClass&&Bot.Character.bIsRooted))
 						  {
 
 								this.Weight=20000-(Math.Floor(this.RadiusDistance)*200);
@@ -683,7 +683,7 @@ namespace FunkyTrinity
 								}
 						  }
 						  //Health Change Timer
-						  if (this==Bot.Target.ObjectData&&
+						  if (this==Bot.Target.CurrentTarget&&
 								this.LastCurrentHealth==0d&&DateTime.Now.Subtract(Bot.Combat.LastHealthChange).TotalMilliseconds>3000)
 						  {
 								Logging.WriteVerbose("Health change has not occured within 3 seconds for unit {0}", this.InternalName);
@@ -714,26 +714,23 @@ namespace FunkyTrinity
 						  //Line of sight pre-check
 						  if (this.RequiresLOSCheck)
 						  {
-								if (this.LastLOSCheckMS>3500
+								if (this.LastLOSCheckMS>3000
 									 &&!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), Bot.Class.IsMeleeClass))
 								{
 									 //ignore non-special units.. or units who already attempted to find a location within the last 3s
-									 if (!this.ObjectIsSpecial)
-									 {
-										  this.BlacklistLoops=10;
-										  return false;
-									 }
-									 else if (!base.FindLOSLocation)
-									 {
-										  this.BlacklistLoops=10;
-										  return false;
-									 }
+                                    if(!this.ObjectIsSpecial)
+                                    {
+                                        this.BlacklistLoops = 10;
+                                        return false;
+                                    }
+                                    else
+                                        return true;
 								}
-									 
 
 
 
-								this.SetLOSCheckVectors();
+
+                                this.RequiresLOSCheck = false;
 						  }
 
 
@@ -770,6 +767,10 @@ namespace FunkyTrinity
 									 }
 								}
 						  }
+
+						  //Tally close units
+						  if (this.CentreDistance<=11f)
+								Bot.Combat.SurroundingUnits++;
 						  #endregion
 
 
@@ -845,11 +846,14 @@ namespace FunkyTrinity
 					 //Affixes
 					 if (!this.CheckedMonsterAffixes)
 					 {
-						  MonsterAffixes theseAffixes;
 						  try
 						  {
-								theseAffixes=this.ref_DiaUnit.CommonData.MonsterAffixes;
-								this.CheckMonsterAffixes(theseAffixes);
+                              ACD CommonData = base.ref_DiaObject.CommonData;
+                              if(CommonData == null)
+                              {
+                                  Logging.WriteVerbose("Monster Affix check -- Common Data Null!");
+                              }
+							  this.CheckMonsterAffixes(CommonData.MonsterAffixes);
 						  } catch (NullReferenceException )
 						  {
 								Logging.WriteVerbose("Failure to check monster affixes for unit {0}", base.InternalName);
@@ -1192,8 +1196,8 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  return String.Format("{0}\r\n Burrowed{1}/Attackable{2} HP{3}% / MaxHP{4}",
-								base.DebugString, this.IsBurrowed.HasValue?this.IsBurrowed.Value.ToString():"", this.IsTargetable.HasValue?this.IsTargetable.Value.ToString():"", this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value.ToString():"", this.MaximumHealth.HasValue?this.MaximumHealth.Value.ToString():"");
+						  return String.Format("{0}\r\n Burrowed{1}/Attackable{2} HP{3}% / MaxHP{4} \r\n LOSCheck {5} LOSV3 {6}",
+								base.DebugString, this.IsBurrowed.HasValue?this.IsBurrowed.Value.ToString():"", this.IsTargetable.HasValue?this.IsTargetable.Value.ToString():"", this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value.ToString():"", this.MaximumHealth.HasValue?this.MaximumHealth.Value.ToString():"", this.RequiresLOSCheck.ToString(), this.LOSV3.ToString());
 					 }
 				}
 

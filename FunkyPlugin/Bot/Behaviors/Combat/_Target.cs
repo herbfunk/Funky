@@ -16,13 +16,25 @@ namespace FunkyTrinity
 
 		  public class TargetHandler
 		  {
+				//Constructor
+				public TargetHandler()
+				{
+					 CurrentState=RunStatus.Running;
+					 CurrentTarget=null;
+					 ValidObjects=new List<CacheObject>();
+				}
+
+				public List<CacheObject> ValidObjects { get; set; }
+
 				///<summary>
 				///This method handles the current object target.
 				///</summary>
 				public RunStatus HandleThis()
 				{
+
 					 //Prechecks
 					 bool Continue=PreChecks();
+
 
 					 //Refresh
 					 if (!Continue)
@@ -30,11 +42,20 @@ namespace FunkyTrinity
 					 else
 						  Continue=Refresh();
 
+
+					 //Combat logic
+					 if (!Continue)
+						  return CurrentState;
+					 else
+						  Continue=CombatLogic();
+
+
 					 //Movement
 					 if (!Continue)
 						  return CurrentState;
 					 else
 						  Continue=Movement();
+
 
 					 //Interaction
 					 if (!Continue)
@@ -47,33 +68,6 @@ namespace FunkyTrinity
 					 return CurrentState;
 				}
 
-				public override bool Equals(object obj)
-				{
-					 //Check for null and compare run-time types. 
-					 if (obj==null)
-					 {
-						  if (this.ObjectData!=null)
-								return false;
-						  else
-								return true;
-					 }
-					 else
-					 {
-						  Type ta=obj.GetType();
-						  Type tb=this.ObjectData!=null?this.ObjectData.GetType():this.GetType();
-
-						  if (ta.Equals(tb))
-						  {
-								return ((CacheObject)obj)==(this.ObjectData);
-						  }
-						  else
-								return false;
-					 }
-				}
-				public override int GetHashCode()
-				{
-					 return this.ObjectData!=null?this.ObjectData.GetHashCode():base.GetHashCode();
-				}
 				//The current state which is used to return from the handler
 				public RunStatus CurrentState { get; set; }
 
@@ -84,14 +78,350 @@ namespace FunkyTrinity
 				///Used throughout the code as the Bot.CurrentTarget data.
 				///This must be set to a valid cacheobject in order to properly handle it.
 				///</summary>
-				public CacheObject ObjectData;
+				public CacheObject CurrentTarget;
+
+				///<summary>
+				///Update our current object data ("Current Target")
+				///</summary>
+				public bool UpdateTarget()
+				{
+					 Vector3 LOS=vNullLocation;
+
+					 //Check if we require avoidance movement.
+					 #region AvodianceMovementCheck
+					 // Note that if treasure goblin level is set to kamikaze, even avoidance moves are disabled to reach the goblin!
+					 if (Bot.Combat.RequiresAvoidance&&(!Bot.Combat.bAnyTreasureGoblinsPresent||SettingsFunky.GoblinPriority<2)&&
+						  DateTime.Now.Subtract(Bot.Combat.timeCancelledEmergencyMove).TotalMilliseconds>=Bot.Combat.iMillisecondsCancelledEmergencyMoveFor)
+					 {//Bot requires avoidance movement.. (Note: we have not done the weighting of our targeting list yet..)
+						  Vector3 vAnySafePoint;
+
+						  bool SafeMovementFound=false;
+
+						  if (CurrentTarget!=null&&CurrentTarget.targetType.HasValue&&TargetType.ServerObjects.HasFlag(CurrentTarget.targetType.Value))
+								LOS=CurrentTarget.Position;
+						  else
+								LOS=vNullLocation;
+
+
+						  SafeMovementFound=GridPointAreaCache.AttemptFindSafeSpot(out vAnySafePoint, LOS);
+						  if (SafeMovementFound)
+						  {
+								float distance=vAnySafePoint.Distance(Bot.Character.Position);
+
+								float losdistance=0f;
+								if (LOS!=vNullLocation)
+									 losdistance=LOS.Distance(Bot.Character.Position);
+
+								string los=LOS!=vNullLocation?("\r\n using LOS location "+LOS.ToString()+" distance "+losdistance.ToString()):" ";
+
+								Logging.WriteDiagnostic("Safespot found at {0} with {1} distance{2}", vAnySafePoint.ToString(), distance, los);
+								//bFoundSafeSpot = true;
+
+								//setup avoidance target
+								if (CurrentTarget!=null)
+									 Bot.Combat.LastCachedTarget=CurrentTarget.Clone();
+
+								CurrentTarget=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "SafeAvoid", 2.5f, -1);
+								Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
+								Bot.Combat.LastAvoidanceMovement=DateTime.Now;
+								return true;
+						  }
+
+						  Bot.Combat.UpdateAvoidKiteRates();
+					 }
+					 #endregion
+
+					 Bot.Combat.bStayPutDuringAvoidance=false;
+
+					 //update cluster targeting valid selection list
+					 //future: also compute any abilities that have clustering checks
+					 #region Cluster Target Refresh
+					 //Cluster Target Logic
+					 if (SettingsFunky.EnableClusteringTargetLogic
+							 &&(!SettingsFunky.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>SettingsFunky.IgnoreClusterLowHPValue)
+							 &&(DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalMilliseconds>500||DateTime.Now.Subtract(Bot.Combat.LastClusterTargetLogicRefresh).TotalMilliseconds>200))
+					 {
+						  Bot.Combat.CurrentTargetClusters=new List<Cluster>();
+						  Bot.Combat.ValidClusterUnits=new List<int>();
+
+						  if (Bot.Combat.UnitRAGUIDs.Count>=SettingsFunky.ClusterMinimumUnitCount)
+						  {
+								List<CacheObject> listObjectUnits=ValidObjects.Where(u => Bot.Combat.UnitRAGUIDs.Contains(u.RAGUID)).ToList();
+
+								if (listObjectUnits.Count>0)
+								{
+									 Bot.Combat.CurrentTargetClusters=RunKmeans(listObjectUnits, SettingsFunky.ClusterDistance);
+									 Bot.Combat.LastClusterTargetLogicRefresh=DateTime.Now;
+
+									 foreach (var item in Bot.Combat.CurrentTargetClusters)
+									 {
+										  if (item.ListUnits.Count>=SettingsFunky.ClusterMinimumUnitCount)
+										  {
+												Bot.Combat.ValidClusterUnits.AddRange(item.RAGUIDS);
+												//Logging.WriteVerbose("Cluster has total units {0} with accumulated weight {1}", item.ListUnits.Count.ToString(), item.AccumulatedWeight.ToString());
+										  }
+									 }
+								}
+						  }
+					 }
+					 #endregion
+
+					 //Standard weighting of valid objects -- updates current target.
+					 this.WeightEvaluationObjList();
+
+					 //check kiting
+					 #region Kiting
+					 if (Bot.Class.KiteDistance>0)
+					 {
+						  //Is our new target a unit and do we need to attempt kiting?
+						  if (CurrentTarget!=null
+								 &&CurrentTarget.targetType.HasValue&&CurrentTarget.targetType==TargetType.Unit
+								 &&Bot.Class.KiteDistance>0
+								 &&(Bot.Class.AC!=ActorClass.Wizard||(Bot.Class.AC==ActorClass.Wizard&&(!SettingsFunky.Class.bKiteOnlyArchon||HasBuff(SNOPower.Wizard_Archon)))))
+						  {
+								//Find any units that we should kite, sorted by distance.
+								var nearbyUnits=ValidObjects.OfType<CacheUnit>().Where(unit => unit.ShouldBeKited
+																													  &&unit.RadiusDistance<Bot.Class.KiteDistance)
+																													  .OrderBy(unit => unit.Weight);
+								if (nearbyUnits.Any())
+								{
+									 // Note that if treasure goblin level is set to kamikaze, even avoidance moves are disabled to reach the goblin!
+									 if ((!Bot.Combat.bAnyTreasureGoblinsPresent||SettingsFunky.GoblinPriority<2)&&
+										  DateTime.Now.Subtract(Bot.Combat.timeCancelledKiteMove).TotalMilliseconds>=Bot.Combat.iMillisecondsCancelledKiteMoveFor)
+									 {
+										  Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
+
+										  if (!Bot.Target.Equals(null)&&CurrentTarget.targetType.HasValue&&TargetType.ServerObjects.HasFlag(CurrentTarget.targetType.Value))
+												LOS=CurrentTarget.Position;
+										  else
+												LOS=vNullLocation;
+
+										  Vector3 vAnySafePoint;
+										  if (GridPointAreaCache.AttemptFindSafeSpot(out vAnySafePoint, LOS, true))
+										  {
+												Logging.WriteDiagnostic("Kitespot found at {0} with {1} distance from our current position!", vAnySafePoint.ToString(), vAnySafePoint.Distance(Bot.Character.Position));
+												Bot.Combat.IsKiting=true;
+
+												if (nearbyUnits.Any())
+													 //Cache the first unit that triggers the kiting so we can swap back to it.
+													 Bot.Character.LastCachedTarget=nearbyUnits.First();//unit => unit.IsStillValid());
+
+												//Extend kill range since we were kiting..
+												iKeepKillRadiusExtendedFor=20;
+												CurrentTarget=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "Kitespot", 2.5f, -1);
+												Bot.Combat.UpdateAvoidKiteRates();
+												return true;
+										  }
+										  Bot.Combat.UpdateAvoidKiteRates();
+									 }
+								}
+						  }
+						  //If we have a cached kite target.. and no current target, lets swap back!
+						  else if (Bot.Combat.KitedLastTarget&&CurrentTarget==null
+										&&Bot.Character.LastCachedTarget!=null
+										&&ObjectCache.Objects.ContainsKey(Bot.Character.LastCachedTarget.RAGUID))
+						  {
+								//Swap back to our orginal "kite" target
+								CurrentTarget=ObjectCache.Objects[Bot.Character.LastCachedTarget.RAGUID];
+								Logging.WriteVerbose("Swapping back to unit {0} after kiting!", CurrentTarget.InternalName);
+								return true;
+						  }
+					 }
+					 #endregion
+
+					 // No valid targets but we were told to stay put?
+					 if (CurrentTarget==null&&Bot.Combat.bStayPutDuringAvoidance)
+					 {
+						  if (!Bot.Combat.RequiresAvoidance)
+						  {
+								CurrentTarget=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "StayPutPoint", 2.5f, -1);
+								return true;
+						  }
+						  else
+								Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=0; //reset wait time
+					 }
+
+					 //Final Possible Target Check
+					 if (CurrentTarget==null)
+					 {
+						  // See if we should wait for milliseconds for possible loot drops before continuing run
+						  if (DateTime.Now.Subtract(Bot.Combat.lastHadUnitInSights).TotalMilliseconds<=SettingsFunky.AfterCombatDelay&&DateTime.Now.Subtract(Bot.Combat.lastHadEliteUnitInSights).TotalMilliseconds<=10000||
+								//Cut the delay time in half for non-elite monsters!
+								DateTime.Now.Subtract(Bot.Combat.lastHadUnitInSights).TotalMilliseconds<=SettingsFunky.AfterCombatDelay)
+						  {
+								CurrentTarget=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "WaitForLootDrops", 0f, -1);
+								return true;
+						  }
+						  //Herbfunks wait after loot containers are opened. 3s for rare chests, half the settings delay for everything else.
+						  if ((DateTime.Now.Subtract(Bot.Combat.lastHadRareChestAsTarget).TotalMilliseconds<=3750)||
+								(DateTime.Now.Subtract(Bot.Combat.lastHadContainerAsTarget).TotalMilliseconds<=(SettingsFunky.AfterCombatDelay*1.25)))
+						  {
+								CurrentTarget=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "ContainerLootDropsWait", 0f, -1);
+								return true;
+						  }
+
+						  // Finally, a special check for waiting for wrath of the berserker cooldown before engaging Azmodan
+						  if (HotbarAbilitiesContainsPower(SNOPower.Barbarian_WrathOfTheBerserker)&&SettingsFunky.Class.bWaitForWrath&&!AbilityUseTimer(SNOPower.Barbarian_WrathOfTheBerserker)&&
+								ZetaDia.CurrentWorldId==121214&&
+								(Vector3.Distance(Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
+						  {
+								Logging.Write("[Funky] Waiting for Wrath Of The Berserker cooldown before continuing to Azmodan.");
+								CurrentTarget=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "GilesWaitForWrath", 0f, -1);
+								return true;
+						  }
+						  // And a special check for wizard archon
+						  if (HotbarAbilitiesContainsPower(SNOPower.Wizard_Archon)&&!AbilityUseTimer(SNOPower.Wizard_Archon)&&SettingsFunky.Class.bWaitForArchon&&ZetaDia.CurrentWorldId==121214&&
+								(Vector3.Distance(Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
+						  {
+								Logging.Write("[Funky] Waiting for Wizard Archon cooldown before continuing to Azmodan.");
+								CurrentTarget=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "GilesWaitForArchon", 0f, -1);
+								return true;
+						  }
+						  // And a very sexy special check for WD BigBadVoodoo
+						  if (HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_BigBadVoodoo)&&!PowerManager.CanCast(SNOPower.Witchdoctor_BigBadVoodoo)&&ZetaDia.CurrentWorldId==121214&&
+								(Vector3.Distance(Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
+						  {
+								Logging.Write("[Funky] Waiting for WD BigBadVoodoo cooldown before continuing to Azmodan.");
+								CurrentTarget=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "GilesWaitForVoodooo", 0f, -1);
+								return true;
+						  }
+
+
+						  //Check if our current path intersects avoidances. (When not in town, and not currently inside avoidance)
+						  if (!Bot.Character.bIsInTown&&(SettingsFunky.AttemptAvoidanceMovements||Bot.Combat.CriticalAvoidance)
+								  &&navigation.CurrentPath.Count>0
+								  &&Bot.Combat.TriggeringAvoidances.Count==0)
+						  {
+								Vector3 curpos=Bot.Character.Position;
+								IndexedList<Vector3> curpath=navigation.CurrentPath;
+
+								var CurrentNearbyPath=curpath.Where(v => curpos.Distance(v)<=40f);
+								if (CurrentNearbyPath!=null&&CurrentNearbyPath.Any())
+								{
+									 CurrentNearbyPath.OrderBy(v => curpath.IndexOf(v));
+
+									 Vector3 lastV3=vNullLocation;
+									 foreach (var item in CurrentNearbyPath)
+									 {
+										  if (lastV3==vNullLocation)
+												lastV3=item;
+										  else if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(item, lastV3))
+										  {
+												CurrentTarget=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "AvoidanceIntersection", 2.5f, -1);
+												return true;
+										  }
+									 }
+								}
+						  }
+					 }
+					 else
+						  return true;
+
+					 return false;
+				}
+				///<summary>
+				///Iterates through Usable objects and sets the Bot.CurrentTarget to the highest weighted object found inside the given list.
+				///</summary>
+				private void WeightEvaluationObjList()
+				{
+					 // Store if we are ignoring all units this cycle or not
+					 bool bIgnoreAllUnits=!Bot.Combat.bAnyChampionsPresent&&!Bot.Combat.bAnyMobsInCloseRange&&((!Bot.Combat.bAnyTreasureGoblinsPresent&&SettingsFunky.GoblinPriority>=2)||SettingsFunky.GoblinPriority<2)&&
+										  Bot.Character.dCurrentHealthPct>=0.85d;
+
+					 //clear our last "avoid" list..
+					 ObjectCache.Objects.objectsIgnoredDueToAvoidance.Clear();
+					 bool bPrioritizeCloseRange=(Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted);
+					 bool bIsBerserked=HasBuff(SNOPower.Barbarian_WrathOfTheBerserker);
+					 double iHighestWeightFound=0;
+
+
+					 foreach (CacheObject thisobj in this.ValidObjects)
+					 {
+
+						  thisobj.UpdateWeight();
+
+						  //Prioritized Units (Blocked/Intersecting Objects)
+						  if (Bot.Combat.PrioritizedRAGUIDs.Contains(thisobj.RAGUID))
+						  {
+								//remove from list after time based on number of prioritized count
+								if (thisobj.LastPriortized>(thisobj.PriorityCounter*250))
+									 Bot.Combat.PrioritizedRAGUIDs.Remove(thisobj.RAGUID);
+
+								//weight variable based on number of timers prioritized.
+								thisobj.Weight+=(250*thisobj.PriorityCounter);
+						  }
+
+
+						  //Avoidance (Melee Only) Attempt to find a location where we can attack!
+						  if (ObjectCache.Objects.objectsIgnoredDueToAvoidance.Contains(thisobj))
+						  {
+								Vector3 SafeLOSMovement;
+								if (thisobj.Weight>iHighestWeightFound)
+								{//Only if we don't have a higher priority already..
+
+									 if (thisobj.GPRect.TryFindSafeSpot(out SafeLOSMovement, Bot.Character.Position, Bot.Class.KiteDistance>0f, true))
+									 {
+										  CurrentTarget=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
+										  iHighestWeightFound=thisobj.Weight;
+									 }
+								}
+
+								continue;
+						  }
+
+
+						  if (thisobj.Weight==1)
+						  {// Force the character to stay where it is if there is nothing available that is out of avoidance stuff and we aren't already in avoidance stuff
+								thisobj.Weight=0;
+								Bot.Combat.bStayPutDuringAvoidance=true;
+								continue;
+						  }
+
+						  // Is the weight of this one higher than the current-highest weight? Then make this the new primary target!
+						  if (thisobj.Weight>iHighestWeightFound&&thisobj.Weight>0)
+						  {
+								//Check combat looting
+								if (iHighestWeightFound>0
+													 &&thisobj.targetType.Value==TargetType.Item
+													 &&!Zeta.CommonBot.Settings.CharacterSettings.Instance.CombatLooting
+													 &&CurrentTarget.targetType.Value==TargetType.Unit) continue;
+
+
+								//Set our current target to this object!
+								CurrentTarget=ObjectCache.Objects[thisobj.RAGUID];
+								iHighestWeightFound=thisobj.Weight;
+						  }
+
+					 } // Loop through all the objects and give them a weight
+
+					
+					 #region RangeClassTargetUnit
+					 /*
+					 if (CurrentTarget!=null&&CurrentTarget.targetType.Value==TargetType.Unit&&!Bot.Class.IsMeleeClass)
+					 {
+						  Ability tmpSNOPowerAbility=GilesAbilitySelector(false, false, false);
+						  float range=Math.Min(CurrentTarget.RadiusDistance, tmpSNOPowerAbility.iMinimumRange);
+						  Vector3 abilityPosition=MathEx.GetPointAt(Bot.Character.Position, range, FindDirection(Bot.Character.Position, CurrentTarget.Position, true));
+
+						  if (range>0f)
+						  {
+								Bot.Combat.bForceCloseRangeTarget=true;
+
+								if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(Bot.Character.Position, abilityPosition))
+									 CurrentTarget.BlacklistLoops=1;
+
+								if (ObjectCache.Objects.IsPointNearbyMonsters(abilityPosition, Bot.Class.KiteDistance)&&ObjectCache.Objects.Values.OfType<CacheUnit>().Any(unit => unit.Position.Distance(abilityPosition)+unit.Radius<Bot.Class.KiteDistance))
+									 CurrentTarget=ObjectCache.Objects.Values.OfType<CacheUnit>().First(unit => unit.Position.Distance(abilityPosition)+unit.Radius<Bot.Class.KiteDistance);
+						  }
+					 }
+
+					 */
+					 #endregion
+
+				}
 
 				//We only actually call this the first time, during the class BOT initilizing
-				public TargetHandler()
-				{
-					 CurrentState=RunStatus.Running;
-					 ObjectData=null;
-				}
+
 
 				//Prechecks are things prior to target checks and actual target handling.. This is always called first.
 				public virtual bool PreChecks()
@@ -141,7 +471,7 @@ namespace FunkyTrinity
 					 if (Bot.Combat.ShouldCheckItemLooted)
 					 {
 						  //Reset?
-						  if (ObjectData==null||ObjectData.targetType.HasValue&&ObjectData.targetType.Value!=TargetType.Item)
+						  if (CurrentTarget==null||CurrentTarget.targetType.HasValue&&CurrentTarget.targetType.Value!=TargetType.Item)
 						  {
 								Bot.Combat.ShouldCheckItemLooted=false;
 								return false;
@@ -162,11 +492,11 @@ namespace FunkyTrinity
 						  //Count each attempt to confirm.
 						  Bot.Combat.recheckCount++;
 						  string statusText="[Item Confirmation] Current recheck count "+Bot.Combat.recheckCount;
-						  bool LootedSuccess=Bot.Character.BackPack.ContainsItem(ObjectData.AcdGuid.Value);
+						  bool LootedSuccess=Bot.Character.BackPack.ContainsItem(CurrentTarget.AcdGuid.Value);
 						  statusText+=" [ItemFound="+LootedSuccess+"]";
 						  if (LootedSuccess)
 						  {
-								Zeta.CommonBot.GameEvents.FireItemLooted(ObjectData.AcdGuid.Value);
+								Zeta.CommonBot.GameEvents.FireItemLooted(CurrentTarget.AcdGuid.Value);
 
 								if (SettingsFunky.DebugStatusBar) BotMain.StatusText=statusText;
 
@@ -181,7 +511,7 @@ namespace FunkyTrinity
 						  }
 						  else
 						  {
-								CacheItem thisObjItem=(CacheItem)ObjectData;
+								CacheItem thisObjItem=(CacheItem)CurrentTarget;
 
 								statusText+=" [Quality";
 								//Quality of the item determines the recheck attempts.
@@ -247,13 +577,13 @@ namespace FunkyTrinity
 									 {
 										  //Items above rare quality don't get blacklisted, just ignored for a few loops.
 										  //This will force a movement if stuck.. but 5 loops is only 750ms
-										  ObjectData.BlacklistLoops=5;
+										  CurrentTarget.BlacklistLoops=5;
 									 }
 									 else
 									 {
 										  //Blacklist items below rare quality!
-										  ObjectData.BlacklistFlag=BlacklistType.Temporary;
-										  ObjectData.NeedsRemoved=true;
+										  CurrentTarget.BlacklistFlag=BlacklistType.Temporary;
+										  CurrentTarget.NeedsRemoved=true;
 									 }
 
 									 // Now tell Trinity to get a new target!
@@ -296,16 +626,16 @@ namespace FunkyTrinity
 					 {
 						  // Update targets at least once every 80 milliseconds
 						  if (Bot.Combat.bForceTargetUpdate||Bot.Combat.TravellingAvoidance||
-							  ((DateTime.Now.Subtract(lastRefreshedObjects).TotalMilliseconds>=80&&ObjectData.targetType.Value!=TargetType.Avoidance)||
+							  ((DateTime.Now.Subtract(lastRefreshedObjects).TotalMilliseconds>=80&&CurrentTarget.targetType.Value!=TargetType.Avoidance)||
 								 DateTime.Now.Subtract(lastRefreshedObjects).TotalMilliseconds>=800))
 						  {
 								bShouldRefreshDiaObjects=true;
 						  }
 
 						  // If we AREN'T getting new targets - find out if we SHOULD because the current unit has died etc.
-						  if (!bShouldRefreshDiaObjects&&ObjectData.targetType.Value==TargetType.Unit)
+						  if (!bShouldRefreshDiaObjects&&CurrentTarget.targetType.Value==TargetType.Unit)
 						  {
-								if (!ObjectData.IsStillValid())
+								if (!CurrentTarget.IsStillValid())
 								{
 									 bShouldRefreshDiaObjects=true;
 								}
@@ -322,13 +652,13 @@ namespace FunkyTrinity
 								dbRefresh.RefreshDiaObjects();
 
 								// No target, return success
-								if (ObjectData==null)
+								if (CurrentTarget==null)
 								{
 									 CurrentState=RunStatus.Success;
 									 return false;
 								}
 								else if (Bot.Character.LastCachedTarget!=null&&
-									 Bot.Character.LastCachedTarget.RAGUID!=ObjectData.RAGUID&&ObjectData.targetType.Value==TargetType.Item)
+									 Bot.Character.LastCachedTarget.RAGUID!=CurrentTarget.RAGUID&&CurrentTarget.targetType.Value==TargetType.Item)
 								{
 									 //Reset Item Vars
 									 Bot.Combat.recheckCount=0;
@@ -337,9 +667,9 @@ namespace FunkyTrinity
 
 								// Been trying to handle the same target for more than 30 seconds without damaging/reaching it? Blacklist it!
 								// Note: The time since target picked updates every time the current target loses health, if it's a monster-target
-								if (ObjectData.targetType.Value!=TargetType.Avoidance&&
-									((ObjectData.targetType.Value!=TargetType.Unit&&DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds>12)||
-									 (ObjectData.targetType.Value==TargetType.Unit&&!ObjectData.IsBoss&&DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds>40))
+								if (CurrentTarget.targetType.Value!=TargetType.Avoidance&&
+									((CurrentTarget.targetType.Value!=TargetType.Unit&&DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds>12)||
+									 (CurrentTarget.targetType.Value==TargetType.Unit&&!CurrentTarget.IsBoss&&DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds>40))
 									)
 								{
 									 // NOTE: This only blacklists if it's remained the PRIMARY TARGET that we are trying to actually directly attack!
@@ -347,22 +677,22 @@ namespace FunkyTrinity
 									 // Don't blacklist monsters on <= 50% health though, as they can't be in a stuck location... can they!? Maybe give them some extra time!
 									 bool bBlacklistThis=true;
 									 // PREVENT blacklisting a monster on less than 90% health unless we haven't damaged it for more than 2 minutes
-									 if (ObjectData.targetType.Value==TargetType.Unit)
+									 if (CurrentTarget.targetType.Value==TargetType.Unit)
 									 {
-										  if (ObjectData.IsTreasureGoblin&&SettingsFunky.GoblinPriority>=3)
+										  if (CurrentTarget.IsTreasureGoblin&&SettingsFunky.GoblinPriority>=3)
 												bBlacklistThis=false;
 										  if (DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds<=120)
 												bBlacklistThis=false;
 									 }
 									 if (bBlacklistThis)
 									 {
-										  if (ObjectData.targetType.Value==TargetType.Unit)
+										  if (CurrentTarget.targetType.Value==TargetType.Unit)
 										  {
 												//Logging.WriteDiagnostic("[Funky] Blacklisting a monster because of possible stuck issues. Monster="+ObjectData.InternalName+" {"+
 												//ObjectData.SNOID.ToString()+"}. Range="+ObjectData.CentreDistance.ToString()+", health %="+ObjectData.CurrentHealthPct.ToString());
 										  }
-										  ObjectData.NeedsRemoved=true;
-										  ObjectData.BlacklistFlag=BlacklistType.Temporary;
+										  CurrentTarget.NeedsRemoved=true;
+										  CurrentTarget.BlacklistFlag=BlacklistType.Temporary;
 									 }
 								}
 								// Make sure we start trying to move again should we need to!
@@ -371,11 +701,11 @@ namespace FunkyTrinity
 								Bot.Combat.bPickNewAbilities=true;
 						  }
 						  // Ok we didn't want a new target list, should we at least update the position of the current target, if it's a monster?
-						  else if (ObjectData.targetType.Value==TargetType.Unit&&ObjectData.IsStillValid())
+						  else if (CurrentTarget.targetType.Value==TargetType.Unit&&CurrentTarget.IsStillValid())
 						  {
 								try
 								{
-									 ObjectData.UpdatePosition();
+									 CurrentTarget.UpdatePosition();
 								} catch
 								{
 									 // Keep going anyway if we failed to get a new position from DemonBuddy
@@ -388,55 +718,62 @@ namespace FunkyTrinity
 					 // This variable just prevents an instant 2-target update after coming here from the main decorator function above
 					 Bot.Combat.bWholeNewTarget=false;
 
+
+
+					 //We are ready for the specific object type interaction
+					 return true;
+				}
+
+				public virtual bool CombatLogic()
+				{
 					 // Find a valid ability if the target is a monster
 					 #region AbilityPick
 					 if (Bot.Combat.bPickNewAbilities&&!Bot.Combat.bWaitingForPower&&!Bot.Combat.bWaitingForPotion)
 					 {
 						  Bot.Combat.bPickNewAbilities=false;
-						  if (ObjectData.targetType.Value==TargetType.Unit&&ObjectData.AcdGuid.HasValue)
+						  if (CurrentTarget.targetType.Value==TargetType.Unit&&CurrentTarget.AcdGuid.HasValue)
 						  {
 								//ToDo: Check clustering..
 								// Pick a suitable ability								Shielded units: Find destructible power instead.
-								Bot.Combat.powerPrime=GilesAbilitySelector(false, false, !ObjectData.CanInteract());
+								Bot.Combat.powerPrime=GilesAbilitySelector(false, false, !CurrentTarget.CanInteract());
 
 								//Check LOS still valid...
 								#region LOSUpdate
-								if (!ObjectData.LastLOSCheckStillValid&&!ObjectData.IgnoresLOSCheck)
+								if (!CurrentTarget.IgnoresLOSCheck&&CurrentTarget.RequiresLOSCheck&&CurrentTarget.LastLOSSearchMS>1800)
 								{
-									 if (!ObjectData.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass)))
+									 if (!CurrentTarget.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass)))
 									 {
 										  //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
-										  if (ObjectData.ObjectIsSpecial)
+										  if (CurrentTarget.ObjectIsSpecial)
 										  {
-												if (ObjectData.FindLOSLocation&&ObjectData.LastLOSSearchMS>2500)
+												if (CurrentTarget.FindLOSLocation)
 												{
-													 Logging.WriteVerbose("Using LOS Vector at {0} to move to", ObjectData.LOSV3.ToString());
-													 ObjectData.SetLOSCheckVectors();
+													 Logging.WriteVerbose("Using LOS Vector at {0} to move to", CurrentTarget.LOSV3.ToString());
+													 CurrentTarget.RequiresLOSCheck=false;
 													 Bot.Combat.bWholeNewTarget=true;
 													 CurrentState=RunStatus.Running;
 													 return false;
 												}
 												else
 												{
-													 ObjectData.BlacklistLoops=10;
+													 CurrentTarget.BlacklistLoops=10;
 												}
 										  }
 
 										  //We could not find a LOS Locaiton or did not find a reason to try.. so we reset LOS check, temp ignore it, and force new target.
-										  Logging.WriteVerbose("LOS Request for object {0} due to raycast failure!", ObjectData.InternalName);
-										  ObjectData.RequiresLOSCheck=true;
+										  Logging.WriteVerbose("LOS Request for object {0} due to raycast failure!", CurrentTarget.InternalName);
 										  Bot.Combat.bForceTargetUpdate=true;
 										  CurrentState=RunStatus.Running;
 										  return false;
 									 }
 									 else
-										  ObjectData.SetLOSCheckVectors();
+										  CurrentTarget.RequiresLOSCheck=false;
 								}
 								#endregion
 						  }
 
 						  // Select an ability for destroying a destructible with in advance
-						  if (ObjectData.targetType.Value==TargetType.Destructible||ObjectData.targetType==TargetType.Barricade)
+						  if (CurrentTarget.targetType.Value==TargetType.Destructible||CurrentTarget.targetType==TargetType.Barricade)
 								Bot.Combat.powerPrime=GilesAbilitySelector(false, false, true);
 					 }
 					 #endregion
@@ -445,7 +782,7 @@ namespace FunkyTrinity
 					 // Note that we force a single-loop pause first, to help potion popping "go off"
 					 #region PotionCheck
 					 if (Bot.Character.dCurrentHealthPct<=Bot.Class.EmergencyHealthPotionLimit
-						  &&!Bot.Combat.bWaitingForPower&&!Bot.Combat.bWaitingForPotion&&!Bot.Character.bIsIncapacitated&&AbilityUseTimer(SNOPower.DrinkHealthPotion))
+							&&!Bot.Combat.bWaitingForPower&&!Bot.Combat.bWaitingForPotion&&!Bot.Character.bIsIncapacitated&&AbilityUseTimer(SNOPower.DrinkHealthPotion))
 					 {
 						  Bot.Combat.bWaitingForPotion=true;
 						  CurrentState=RunStatus.Running;
@@ -463,7 +800,7 @@ namespace FunkyTrinity
 
 					 // See if we can use any special buffs etc. while in avoidance
 					 #region AvoidanceSpecialAbilityCheck
-					 if (ObjectData.targetType.Value==TargetType.Avoidance)
+					 if (CurrentTarget.targetType.Value==TargetType.Avoidance)
 					 {
 						  Bot.Combat.powerBuff=GilesAbilitySelector(true, false, false);
 						  if (Bot.Combat.powerBuff.Power!=SNOPower.None)
@@ -475,7 +812,6 @@ namespace FunkyTrinity
 					 }
 					 #endregion
 
-					 //We are ready for the specific object type interaction
 					 return true;
 				}
 
@@ -483,20 +819,20 @@ namespace FunkyTrinity
 				public virtual bool Movement()
 				{
 					 // Set current destination to our current target's destination
-					 Bot.Combat.vCurrentDestination=ObjectData.Position;
-					 bool LOSMoving=ObjectData.LOSV3!=vNullLocation;
+					 Bot.Combat.vCurrentDestination=CurrentTarget.Position;
+					 bool LOSMoving=CurrentTarget.LOSV3!=vNullLocation;
 
 					 if (LOSMoving)
 					 {
-						  Bot.Combat.vCurrentDestination=ObjectData.LOSV3;
-						  if (Bot.Character.Position.Distance(ObjectData.LOSV3)>10f)
+						  Bot.Combat.vCurrentDestination=CurrentTarget.LOSV3;
+						  if (Bot.Character.Position.Distance(CurrentTarget.LOSV3)>10f)
 						  {
-								CurrentState=ObjectData.MoveTowards();
+								CurrentState=CurrentTarget.MoveTowards();
 								return false;
 						  }
 						  else
 						  {
-								ObjectData.LOSV3=vNullLocation;
+								CurrentTarget.LOSV3=vNullLocation;
 								Bot.Combat.bPickNewAbilities=true;
 								return false;
 						  }
@@ -517,7 +853,7 @@ namespace FunkyTrinity
 						  if (SettingsFunky.DebugStatusBar)
 						  {
 								BotMain.StatusText=("[Funky] Movement Command, Movement State "+Bot.Character.currentMovementState.ToString()+
-										 ", IsMoving: "+Bot.Character.isMoving.ToString()+", MovementTarget Match "+(ObjectData.AcdGuid.Value==Bot.Character.iCurrentMovementTargetGUID).ToString());
+										 ", IsMoving: "+Bot.Character.isMoving.ToString()+", MovementTarget Match "+(CurrentTarget.AcdGuid.Value==Bot.Character.iCurrentMovementTargetGUID).ToString());
 						  }
 
 						  if (Bot.Character.isMoving)
@@ -526,7 +862,7 @@ namespace FunkyTrinity
 								{//Check if we are stuck moving in place..
 									 Logging.WriteVerbose("Movement State returned {0} , Blacklist Bot.CurrentTarget!", Bot.Character.currentMovementState.ToString());
 									 Bot.Combat.bForceTargetUpdate=true;
-									 ObjectData.BlacklistLoops=5;
+									 CurrentTarget.BlacklistLoops=5;
 								}
 								return false;
 						  }
@@ -544,11 +880,11 @@ namespace FunkyTrinity
 					 //PlayerMover.RecordSkipAheadCachePoint();
 
 					 //Check if we are in range for interaction..
-					 if (ObjectData.WithinInteractionRange())
+					 if (CurrentTarget.WithinInteractionRange())
 						  return true;
 					 else
 					 {//Movement required..
-						  CurrentState=ObjectData.MoveTowards();
+						  CurrentState=CurrentTarget.MoveTowards();
 						  return false;
 					 }
 				}
@@ -561,7 +897,7 @@ namespace FunkyTrinity
 					 if (SettingsFunky.DebugStatusBar)
 					 {
 						  sStatusText="[Interact- ";
-						  switch (ObjectData.targetType.Value)
+						  switch (CurrentTarget.targetType.Value)
 						  {
 								case TargetType.Avoidance:
 									 sStatusText+="Avoid] ";
@@ -588,20 +924,20 @@ namespace FunkyTrinity
 									 sStatusText+="Click] ";
 									 break;
 						  }
-						  sStatusText+="Target="+ObjectData.InternalName+" C-Dist="+Math.Round(ObjectData.CentreDistance, 2).ToString()+". "+
-								  "R-Dist="+Math.Round(ObjectData.RadiusDistance, 2).ToString()+". ";
+						  sStatusText+="Target="+CurrentTarget.InternalName+" C-Dist="+Math.Round(CurrentTarget.CentreDistance, 2).ToString()+". "+
+								  "R-Dist="+Math.Round(CurrentTarget.RadiusDistance, 2).ToString()+". ";
 
-						  if (ObjectData.targetType.Value==TargetType.Unit&&Bot.Combat.powerPrime.Power!=SNOPower.None)
+						  if (CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Combat.powerPrime.Power!=SNOPower.None)
 								sStatusText+="Power="+Bot.Combat.powerPrime.Power.ToString()+" (range "+Bot.Combat.powerPrime.iMinimumRange.ToString()+") ";
 
 
-						  sStatusText+="Weight="+ObjectData.Weight.ToString();
+						  sStatusText+="Weight="+CurrentTarget.Weight.ToString();
 						  BotMain.StatusText=sStatusText;
 						  bResetStatusText=true;
 					 }
 					 #endregion
 
-					 switch (ObjectData.targetType.Value)
+					 switch (CurrentTarget.targetType.Value)
 					 {
 						  case TargetType.Unit:
 						  case TargetType.Item:
@@ -613,7 +949,7 @@ namespace FunkyTrinity
 						  case TargetType.Door:
 						  case TargetType.Destructible:
 						  case TargetType.Barricade:
-								CurrentState=ObjectData.Interact();
+								CurrentState=CurrentTarget.Interact();
 								break;
 						  case TargetType.Avoidance:
 								//No avoidances remain so we need to reset this here.. else it wont reset since no cache won't have any avoidances to check.
@@ -636,20 +972,44 @@ namespace FunkyTrinity
 				{
 					 sStatusText=Action+" ";
 
-					 sStatusText+="Target="+ObjectData.InternalName+" C-Dist="+Math.Round(ObjectData.CentreDistance, 2).ToString()+". "+
-						  "R-Dist="+Math.Round(ObjectData.RadiusDistance, 2).ToString()+". ";
+					 sStatusText+="Target="+CurrentTarget.InternalName+" C-Dist="+Math.Round(CurrentTarget.CentreDistance, 2).ToString()+". "+
+						  "R-Dist="+Math.Round(CurrentTarget.RadiusDistance, 2).ToString()+". ";
 
-					 if (ObjectData.targetType.Value==TargetType.Unit&&Bot.Combat.powerPrime.Power!=SNOPower.None)
+					 if (CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Combat.powerPrime.Power!=SNOPower.None)
 						  sStatusText+="Power="+Bot.Combat.powerPrime.Power.ToString()+" (range "+Bot.Combat.powerPrime.iMinimumRange.ToString()+") ";
 
-					 sStatusText+="Weight="+ObjectData.Weight.ToString();
+					 sStatusText+="Weight="+CurrentTarget.Weight.ToString();
 					 BotMain.StatusText=sStatusText;
 					 bResetStatusText=true;
 				}
 
+				public override bool Equals(object obj)
+				{
+					 //Check for null and compare run-time types. 
+					 if (obj==null)
+					 {
+						  if (this.CurrentTarget!=null)
+								return false;
+						  else
+								return true;
+					 }
+					 else
+					 {
+						  Type ta=obj.GetType();
+						  Type tb=this.CurrentTarget!=null?this.CurrentTarget.GetType():this.GetType();
 
-
-
+						  if (ta.Equals(tb))
+						  {
+								return ((CacheObject)obj)==(this.CurrentTarget);
+						  }
+						  else
+								return false;
+					 }
+				}
+				public override int GetHashCode()
+				{
+					 return this.CurrentTarget!=null?this.CurrentTarget.GetHashCode():base.GetHashCode();
+				}
 		  }
 	 }
 }

@@ -123,17 +123,17 @@ namespace FunkyTrinity
                             case GilesBaseItemType.WeaponOneHand:
                             case GilesBaseItemType.WeaponRange:
                             case GilesBaseItemType.WeaponTwoHand:
-                                if (ithisitemvalue >= settings.iNeedPointsToNotifyWeapon)
-                                    bShouldNotify = true;
+                                //if (ithisitemvalue >= settings.iNeedPointsToNotifyWeapon)
+                                  //  bShouldNotify = true;
                                 break;
                             case GilesBaseItemType.Armor:
                             case GilesBaseItemType.Offhand:
-                                if (ithisitemvalue >= settings.iNeedPointsToNotifyArmor)
-                                    bShouldNotify = true;
+                                //if (ithisitemvalue >= settings.iNeedPointsToNotifyArmor)
+                                    //bShouldNotify = true;
                                 break;
                             case GilesBaseItemType.Jewelry:
-                                if (ithisitemvalue >= settings.iNeedPointsToNotifyJewelry)
-                                    bShouldNotify = true;
+                                //if (ithisitemvalue >= settings.iNeedPointsToNotifyJewelry)
+                                    //bShouldNotify = true;
                                 break;
                         }
                         if (bShouldNotify)
@@ -365,9 +365,9 @@ namespace FunkyTrinity
         private static void LogItemInformation()
         {
                                     // Store item pickup stats
-            if (!_hashsetItemPicksLookedAt.Contains(Bot.Target.ObjectData.RAGUID))
+            if (!_hashsetItemPicksLookedAt.Contains(Bot.Target.CurrentTarget.RAGUID))
             {
-					 CacheItem thisCacheItem=(CacheItem)Bot.Target.ObjectData;
+					 CacheItem thisCacheItem=(CacheItem)Bot.Target.CurrentTarget;
 				GilesItemType thisgilesitemtype = DetermineItemType(thisCacheItem.InternalName, thisCacheItem.BalanceData.thisItemType, thisCacheItem.BalanceData.thisFollowerType);
                 GilesBaseItemType thisgilesbasetype = DetermineBaseType(thisgilesitemtype);
 

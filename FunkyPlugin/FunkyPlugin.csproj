@@ -73,6 +73,9 @@
     <Compile Include="Bot\Behaviors\Misc\Items\LowLevelLogic.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Bot\Cache\Area\Objects\ClusterCollection.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Bot\Cache\Area\Objects\GridPointComparer.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -338,16 +341,16 @@
     <Compile Include="Bot\Cache\dbRefresh\Update\RefreshCacheObjects.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\dbRefresh\Update\RefreshUsableObjects.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Misc\CleanUp.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Misc\Config\FunkyConfig.cs">
+    <Compile Include="Misc\Config\FunkyWindow.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Misc\Config\GilesConfigWin.cs">
+    <Compile Include="Misc\Config\FunkySettings.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Misc\Config\FunkyWindowEvents.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Misc\Logging\DBHelper.cs">
@@ -447,12 +450,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="__HerbFunk_RevisonLog.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Trinity.xaml">
-      <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
