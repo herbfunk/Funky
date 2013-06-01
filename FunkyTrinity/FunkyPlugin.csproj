@@ -192,8 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Demonbuddy">
-      <HintPath>..\..\..\..\Desktop\DB_Debug - Copy\Demonbuddy.exe</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\Desktop\DB_DebugCopy\Demonbuddy.exe</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

@@ -449,7 +449,7 @@ namespace FunkyTrinity
 
 					 #region ObstacleCheck
 
-					 if (vShiftedPosition==vNullLocation)
+					 if (vShiftedPosition==vNullLocation&&!Bot.Character.bIsInTown)
 					 {
 						  Vector3 obstacleV3;
 						  // See if there's an obstacle in our way, if so try to navigate around it
