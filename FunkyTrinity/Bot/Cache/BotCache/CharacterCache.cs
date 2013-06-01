@@ -151,7 +151,7 @@ namespace FunkyTrinity
 					 public int iMyLevel { get; set; }
 					 public int iMyParagonLevel { get; set; }
 					 public int iTotalPotions { get; set; }
-					 private int iSceneID { get; set; }
+					 public int iSceneID { get; set; }
 					 public Pets PetData { get; set; }
 					 public Backpack BackPack { get; set; }
 					 public float PickupRadius { get; set; }

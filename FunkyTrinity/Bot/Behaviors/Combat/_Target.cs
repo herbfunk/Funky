@@ -122,6 +122,9 @@ namespace FunkyTrinity
 									 Bot.Combat.LastCachedTarget=CurrentTarget.Clone();
 
 								CurrentTarget=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "SafeAvoid", 2.5f, -1);
+
+									 //Set timer here until next we try... since we've already attempted at least 9 GPCs!
+								Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=(int)(Bot.Character.dCurrentHealthPct*SettingsFunky.AvoidanceRecheckMaximumRate);
 								Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
 								Bot.Combat.LastAvoidanceMovement=DateTime.Now;
 								return true;
@@ -209,7 +212,8 @@ namespace FunkyTrinity
 												//Extend kill range since we were kiting..
 												iKeepKillRadiusExtendedFor=20;
 												CurrentTarget=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "Kitespot", 2.5f, -1);
-												Bot.Combat.UpdateAvoidKiteRates();
+												Bot.Combat.iMillisecondsCancelledKiteMoveFor=(int)(Bot.Character.dCurrentHealthPct*SettingsFunky.KitingRecheckMaximumRate);
+												Bot.Combat.timeCancelledKiteMove=DateTime.Now;
 												return true;
 										  }
 										  Bot.Combat.UpdateAvoidKiteRates();

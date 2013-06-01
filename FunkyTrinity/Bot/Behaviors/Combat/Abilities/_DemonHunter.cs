@@ -19,10 +19,10 @@ namespace FunkyTrinity
 					 SNOPower destructiblePower=Bot.Class.DestructiblePower();
 					 if (destructiblePower==SNOPower.DemonHunter_Grenades)
 					 {
-						  return new Ability(SNOPower.DemonHunter_Grenades, 12f, vNullLocation, -1, -1, 0, 0, USE_SLOWLY);
+						  return new Ability(SNOPower.DemonHunter_Grenades, 16f, vNullLocation, -1, -1, 0, 0, USE_SLOWLY);
 					 }
 
-					 return new Ability(destructiblePower, 20f, vNullLocation, -1, -1, 0, 0, USE_SLOWLY);
+					 return new Ability(destructiblePower, 22f, vNullLocation, -1, -1, 0, 0, USE_SLOWLY);
 				}
 				CacheUnit thisCacheUnitObj;
 
@@ -36,8 +36,8 @@ namespace FunkyTrinity
 				// Shadow Power
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_ShadowPower)&&!Bot.Character.bIsIncapacitated&&
 					Bot.Character.dDiscipline>=14&&
-					(Bot.Character.dCurrentHealthPct<=0.99||Bot.Character.bIsRooted||Bot.Combat.iElitesWithinRange[RANGE_25]>=1||Bot.Combat.iAnythingWithinRange[RANGE_15]>=3)&&
-					AbilityUseTimer(SNOPower.DemonHunter_ShadowPower))
+					(Bot.Character.dCurrentHealthPct<=0.99d||Bot.Character.bIsRooted||Bot.Combat.iElitesWithinRange[RANGE_25]>=1||Bot.Combat.iAnythingWithinRange[RANGE_15]>=3)&&
+					(AbilityUseTimer(SNOPower.DemonHunter_ShadowPower)||Bot.Character.dCurrentHealthPct<0.25d&&PowerManager.CanCast(SNOPower.DemonHunter_ShadowPower)))
 				{
 					 return new Ability(SNOPower.DemonHunter_ShadowPower, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
 				} 
@@ -46,7 +46,7 @@ namespace FunkyTrinity
 				// Smoke Screen
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_SmokeScreen)
 					&&(!HasBuff(SNOPower.DemonHunter_ShadowPower)||Bot.Character.bIsIncapacitated)
-					&&Bot.Character.dDiscipline>=14
+					&&(Bot.Character.dDiscipline>=28||(Bot.Character.dDiscipline>=14&&Bot.Combat.IsKiting))
 					&&(Bot.Character.dCurrentHealthPct<=0.90||Bot.Character.bIsRooted||Bot.Combat.iElitesWithinRange[RANGE_20]>=1||Bot.Combat.iAnythingWithinRange[RANGE_15]>=3||Bot.Character.bIsIncapacitated)
 					&&AbilityUseTimer(SNOPower.DemonHunter_SmokeScreen))
 				{
@@ -134,7 +134,7 @@ namespace FunkyTrinity
 				#region Multi Shot
 				// Multi Shot
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_Multishot)
-					 &&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=30)
+					 &&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=30&&(thisCacheUnitObj==null||!thisCacheUnitObj.IsMissileReflecting))
 				{
 					 //Bot.Target.ObjectData.CanReflectMissiles||Bot.Combat.iElitesWithinRange[RANGE_50]>=1||Bot.Combat.iAnythingWithinRange[RANGE_50]>=2||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.ObjectData.IsTreasureGoblin||Bot.Target.ObjectData.IsBoss)&&Bot.Target.ObjectData.RadiusDistance<=69f))
 
@@ -143,7 +143,7 @@ namespace FunkyTrinity
 						  return new Ability(SNOPower.DemonHunter_Multishot, 55f, vNullLocation, Bot.Character.iCurrentWorldID, thisCacheUnitObj.AcdGuid.Value, 1, 1, USE_SLOWLY);
 
 					 //cluster target..
-					 System.Collections.Generic.List<Cluster> clusters=ObjectCache.Objects.Clusters(8d, 45f, 2);
+					 System.Collections.Generic.List<Cluster> clusters=ObjectCache.Objects.Clusters(7d, 45f, 2);
 					 if (clusters.Count>0)
 					 {
 
@@ -269,21 +269,21 @@ namespace FunkyTrinity
 				#endregion
 				#region Hungering Arrow
 				// Hungering Arrow
-				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_HungeringArrow)&&!Bot.Character.bIsIncapacitated)
+				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_HungeringArrow)&&!Bot.Character.bIsIncapacitated&&(!Bot.Target.CurrentTarget.IsMissileReflecting||Bot.Character.dCurrentEnergy<10))
 				{
 					 return new Ability(SNOPower.DemonHunter_HungeringArrow, 48f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, USE_SLOWLY);
 				} 
 				#endregion
 				#region Entangling shot
 				// Entangling shot
-				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_EntanglingShot)&&!Bot.Character.bIsIncapacitated&&(!Bot.Target.CurrentTarget.IsMissileReflecting||Bot.Character.dCurrentEnergy<30))
+				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_EntanglingShot)&&!Bot.Character.bIsIncapacitated&&(!Bot.Target.CurrentTarget.IsMissileReflecting||Bot.Character.dCurrentEnergy<10))
 				{
 					 return new Ability(SNOPower.DemonHunter_EntanglingShot, 50f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, USE_SLOWLY);
 				} 
 				#endregion
 				#region Bola Shot
 				// Bola Shot
-				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_BolaShot)&&!Bot.Character.bIsIncapacitated&&(!Bot.Target.CurrentTarget.IsMissileReflecting||Bot.Character.dCurrentEnergy<30))
+				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_BolaShot)&&!Bot.Character.bIsIncapacitated&&(!Bot.Target.CurrentTarget.IsMissileReflecting||Bot.Character.dCurrentEnergy<10))
 				{
 					 return new Ability(SNOPower.DemonHunter_BolaShot, 50f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
 				} 
@@ -292,7 +292,12 @@ namespace FunkyTrinity
 				// Grenades
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_Grenades)&&!Bot.Character.bIsIncapacitated)
 				{
-					 return new Ability(SNOPower.DemonHunter_Grenades, 40f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
+					 int acdguid=Bot.Target.CurrentTarget.AcdGuid.Value;
+					 if (ObjectCache.Objects.Clusters(6d, 40f, 1, true).Count>0)
+					 {
+						  acdguid=ObjectCache.Objects.Clusters()[0].ListUnits[0].AcdGuid.Value;
+					 }
+					 return new Ability(SNOPower.DemonHunter_Grenades, 40f, vNullLocation, -1, acdguid, 0, 1, USE_SLOWLY);
 				} 
 				#endregion
 				#region Default

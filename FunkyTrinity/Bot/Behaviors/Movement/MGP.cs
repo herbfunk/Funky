@@ -56,21 +56,28 @@ namespace FunkyTrinity
 		  }
 
 		  internal static DateTime LastMGPUpdate=DateTime.MinValue;
-		  internal static Vector3 LastPositionUpdated=vNullLocation;
+		  internal static int LastScenceUpdateOccured=0;
 		  internal static void UpdateSearchGridProvider(bool force=false)
 		  {
 				if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld)
 					 return;
 
 				//Enforce a time update rule and a position check
-				if (!force) return;
+				if (!force&&LastScenceUpdateOccured==Bot.Character.iSceneID)
+					 return;
+				
+				if (LastScenceUpdateOccured!=Bot.Character.iSceneID)
+					 LastScenceUpdateOccured=Bot.Character.iSceneID;
+
+
+				if (!force&&DateTime.Now.Subtract(LastMGPUpdate).TotalMilliseconds<1000)
+					 return;
 
 
 				DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Verbose, FunkyTrinity.Funky.DbHelper.LogCategory.CacheManagement, "Updating Grid Provider", true);
 				try
 				{
 					 mgp.Update();
-					 // Log(mgp.BoundsMin.ToString()+", Max: "+mgp.BoundsMax.ToString()+", Width"+mgp.Width+", Height: "+mgp.Height+", Requires Pathing: "+mgp.WorldRequiresPathfinding.ToString());
 				} catch
 				{
 					 Log("MGP Update Exception Safely Handled!", true);
@@ -78,7 +85,6 @@ namespace FunkyTrinity
 				}
 
 				LastMGPUpdate=DateTime.Now;
-				LastPositionUpdated=Bot.Character.Position;
 		  }
 	 }
 }

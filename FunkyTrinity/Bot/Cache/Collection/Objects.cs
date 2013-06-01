@@ -163,8 +163,7 @@ namespace FunkyTrinity
 						  if (DateTime.Now.Subtract(lastClusterComputed).TotalMilliseconds>150)
 						  {
 								LastClusterList=Bot.Combat.RunKMeans(MinUnitCount, Distance);
-								//LastClusterList=LC_.Where(c => c.ListPoints.Count>=MinUnitCount
-													 //&&(!ignoreFullyNonAttackable||!c.ContainsNoTagetableUnits&&c.CurrentValidUnit!=null)).ToList();
+								LastClusterList=LastClusterList.OrderBy(o => o.NearestMonsterDistance).ToList();
 						  }
 						  return LastClusterList;
 					 }

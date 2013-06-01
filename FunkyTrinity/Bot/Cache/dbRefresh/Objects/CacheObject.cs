@@ -467,7 +467,7 @@ namespace FunkyTrinity
 					 //Unit && Melee Or Gizmo/Item AND Distance > xf.. than we check against avoidance zones!
 					 bool ShouldTestMeleeAvoidance=((this.targetType.Value==TargetType.Unit&&Bot.Class.IsMeleeClass)||
 															 (this.Actortype.Value==ActorType.Gizmo||this.targetType.Value==TargetType.Item)
-															 &&this.CentreDistance>=7f);
+															 &&this.CentreDistance>=6f);
 
 					 if (ShouldTestMeleeAvoidance)
 					 {
@@ -603,6 +603,10 @@ namespace FunkyTrinity
 					 //Herbfunk: Added this to prevent stucks attempting to move to a target blocked. (Case: 3 champs behind a wall, within range but could not engage due to being on the other side.)
 					 if (Bot.Combat.totalNonMovementCount>50)
 					 {
+						  switch (Bot.Combat.totalNonMovementCount/50)
+						  {
+
+						  }
 						  DbHelper.Log(DbHelper.TrinityLogLevel.Debug, DbHelper.LogCategory.Behavior, "{0}: Ignoring mob {1} due to no movement counter reaching {2}", "[Funky]", this.InternalName+" _ SNO:"+this.SNOID, Bot.Combat.totalNonMovementCount);
 						  Logging.WriteDiagnostic("totalNonMovementCount == "+Bot.Combat.totalNonMovementCount);
 						  this.BlacklistLoops=50;
@@ -742,8 +746,8 @@ namespace FunkyTrinity
 													 {
 														  if (hitTest!=Vector3.Zero)
 														  {
-																Bot.Combat.iTimesBlockedMoving=0;
 																this.RequiresLOSCheck=true;
+																this.BlacklistLoops=10;
 																Log("Ignoring object "+this.InternalName+" due to not moving and raycast failure!", true);
 																Bot.Combat.bForceTargetUpdate=true;
 																return RunStatus.Running;

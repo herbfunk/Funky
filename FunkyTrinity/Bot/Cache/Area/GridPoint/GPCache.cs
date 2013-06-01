@@ -231,10 +231,21 @@ namespace FunkyTrinity
 						  MinimumChangeofDistanceBeforeRefresh-=5f;
 						  if (MinimumChangeofDistanceBeforeRefresh<0f)
 						  {
-								MinimumChangeofDistanceBeforeRefresh=15f;
+								MinimumChangeofDistanceBeforeRefresh=25f;
 						  }
 
-                          Bot.Combat.UpdateAvoidKiteRates();
+
+						  if (!kiting)
+						  {
+								//Set timer here until next we try... since we've already attempted at least 9 GPCs!
+								Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=(int)(Bot.Character.dCurrentHealthPct*SettingsFunky.AvoidanceRecheckMinimumRate)+1000;
+								Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
+						  }
+						  else
+						  {
+								Bot.Combat.iMillisecondsCancelledKiteMoveFor=(int)(Bot.Character.dCurrentHealthPct*SettingsFunky.KitingRecheckMinimumRate)+1000;
+								Bot.Combat.timeCancelledKiteMove=DateTime.Now;
+						  }
 
 						  vlastSafeSpot=vNullLocation;
 						  return false;
@@ -382,7 +393,7 @@ namespace FunkyTrinity
 				private static void Refresh(bool kiting)
 				{
 					 //Recreation of our current position and directions(maximum range)
-					 MinimumChangeofDistanceBeforeRefresh=20f;
+					 MinimumChangeofDistanceBeforeRefresh=25f;
 					 LastSearchVector=Bot.Character.Position;
 					 LastUsedRect=null;
 					 AllGPRectsFailed=false;
@@ -393,14 +404,29 @@ namespace FunkyTrinity
 					 BlacklistedGridpoints.Clear();
 					 DirectionPoints.Clear();
 
+					 //Create a 4x4 rect to start our direction search
+					 //Create a new GPC under the bot!
+					 CurrentLocationGPRect=new GPRectangle(LastSearchVector, 3);
+					 
+
+					 //Update our base weight which we compare others with to see if its a better placement.
+					 CurrentLocationWeight=CurrentLocationGPRect.Weight;
+					 if (SettingsFunky.LogSafeMovementOutput)
+						  Logging.WriteVerbose("Current Location GPC Weight is {0}", CurrentLocationWeight);
+
+
+					 //Get upto 15 points for "Point of View" directions, we create rectangles with them.
+					 var SearchPoints=CurrentLocationGPRect.Points.Keys.Where(gp => !gp.Equals(CurrentLocationGPRect.centerpoint));
+
+
 					 //we should check our surrounding points to see if we can even move into any of them first!
-					 foreach (var item in mgp.GetSearchAreaNeighbors(mgp.WorldToGrid(LastSearchVector.ToVector2()), true))
+					 foreach (var item in SearchPoints)
 					 {
 						  //We only want points we can stand at.. since we will travel inside one of the 8 surrounding points!
-						  if (mgp.CanStandAt(item))
+						  if (!item.Ignored)
 						  {
-								Vector2 thisV2=mgp.GridToWorld(item);
-								Vector3 thisV3=new Vector3(thisV2.X, thisV2.Y, mgp.GetHeight(thisV2));
+								//Vector2 thisV2=mgp.GridToWorld(item);
+								Vector3 thisV3=(Vector3)item;
 
 								//Its a valid point for direction testing!
 								float DirectionDegrees=FindDirection(LastSearchVector, thisV3, false);
@@ -409,11 +435,8 @@ namespace FunkyTrinity
 						  }
 					 }
 
-					 //Create a new GPC under the bot!
-					 CurrentLocationGPRect=new GPRectangle(LastSearchVector, 4);
-					 CurrentLocationWeight=CurrentLocationGPRect.Weight;
 					 if (SettingsFunky.LogSafeMovementOutput)
-						  Logging.WriteVerbose("Current Location GPC Weight is {0}", CurrentLocationWeight);
+						  Logging.WriteVerbose("Total Direction Points Successfully Created {0}", DirectionPoints.Count);
 
 					 //Check if we swapped into our "Routine" cache GPCs..
 					 if (UpdatedLocalMovementTree)
@@ -435,18 +458,23 @@ namespace FunkyTrinity
 						  Logging.WriteDiagnostic("Finished Creating Direction Points and Local GPC");
 				}
 
-				private static void CreateNewSurroundingGPRs()
+				private static void CreateNewSurroundingGPRs(bool WeightSorted=true)
 				{
 					 List<GPRectangle> newMovementGPCs=new List<GPRectangle>();
 
 					 //Update to see if all directions will be ignored..
 					 AllDirectionsFailed=!DirectionPoints.Any(dp => dp.Range>5f);
 
+					 float maxrangeFound=0f;
 					 //Create GPCs based on DirectionPoints that have range > 5f
 					 foreach (var direction in DirectionPoints)
 					 {
 						  //Skip directions that have very low range possible.
-						  if (direction.Range<5f) continue;
+						  if (direction.Range<2.5f) continue;
+
+						  if (maxrangeFound<direction.Range)
+								maxrangeFound=direction.Range;
+
 						  GPRectangle newEntry=new GPRectangle(direction);
 						  newMovementGPCs.Add(newEntry);
 					 }
@@ -454,10 +482,23 @@ namespace FunkyTrinity
 					 CacheSafeGPR=new List<GPRectangle>();
 					 CacheSafeGPR.AddRange(cacheMovementGPRs.ToArray());
 
-					 cacheMovementGPRs=new List<GPRectangle>(newMovementGPCs.OrderBy(gpc => gpc.Weight).ToArray());
+
+					 GridPoint botPoint=Bot.Character.PointPosition;
+					 if (!WeightSorted)
+						  cacheMovementGPRs=new List<GPRectangle>(newMovementGPCs.OrderBy(gpc => gpc.Weight).ToArray());
+					 else
+						  cacheMovementGPRs=new List<GPRectangle>(newMovementGPCs.OrderByDescending(gpc => gpc.centerpoint.Distance(botPoint)).ToArray());
+
+
+					 //update refresh range
+					 MinimumChangeofDistanceBeforeRefresh=maxrangeFound;
+
+
+
 					 UpdatedLocalMovementTree=true;
 					 if (SettingsFunky.LogSafeMovementOutput)
 						  Logging.WriteDiagnostic("Updated Local GPCs");
+
 				}
 		  }
 	 }

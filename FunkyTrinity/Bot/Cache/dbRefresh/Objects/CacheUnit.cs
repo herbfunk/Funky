@@ -700,7 +700,14 @@ namespace FunkyTrinity
 								//We skip all but worm bosses in A2 and monsters who can shield.
 								if (!this.IsWormBoss&&!this.MonsterShielding&&!this.IsEliteRareUnique)
 								{
-									 this.BlacklistLoops=10;
+									 //Stealthable units -- low blacklist counter
+									 if (base.IsStealthableUnit)
+										  this.BlacklistLoops=2;
+									 else if (base.IsBurrowableUnit)
+										  this.BlacklistLoops=5;
+									 else
+										  this.BlacklistLoops=10;
+
 									 return false;
 								}
 						  }
@@ -846,6 +853,7 @@ namespace FunkyTrinity
 					 if (CommonData==null)
 					 {
 						  Logging.WriteVerbose("Common Data Null!");
+						  return false;
 					 }
 
 					 //Affixes
@@ -904,7 +912,7 @@ namespace FunkyTrinity
 								//ignore units who are stealthed completly (exception when object is special!)
 								//if (this.IsBurrowed.Value&&!this.ObjectIsSpecial)
 								//return false;
-						  } catch (NullReferenceException) { }
+						  } catch (AccessViolationException) { }
 					 }
 					 #endregion
 

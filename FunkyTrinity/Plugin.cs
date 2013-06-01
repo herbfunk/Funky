@@ -19,7 +19,6 @@ using System.Reflection;
 using System.Xml;
 using Zeta.Internals.Actors;
 
-[assembly: AssemblyVersionAttribute("1.1.0.*")]
 namespace FunkyTrinity
 {
 	 public partial class Funky : IPlugin
@@ -36,6 +35,7 @@ namespace FunkyTrinity
 		  public string Name { get { return "FunkyTrinity"; } }
 		  public bool Equals(IPlugin other) { return (other.Name==Name)&&(other.Version==Version); }
 
+		  [LoaderOptimizationAttribute(LoaderOptimization.MultiDomain)]
 		  public void OnInitialize()
 		  {
 				bool BotWasRunning=BotMain.IsRunning;

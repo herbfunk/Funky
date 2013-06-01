@@ -138,8 +138,7 @@ namespace FunkyTrinity
 						  if (extraWaitTime<SettingsFunky.AvoidanceRecheckMinimumRate) extraWaitTime=SettingsFunky.AvoidanceRecheckMinimumRate;
 						  Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=(int)extraWaitTime;
 
-						  extraWaitTime=SettingsFunky.KitingRecheckMaximumRate*Bot.Character.dCurrentHealthPct;
-						  if (extraWaitTime<SettingsFunky.KitingRecheckMinimumRate) extraWaitTime=SettingsFunky.KitingRecheckMinimumRate;
+						  extraWaitTime=MathEx.Random(SettingsFunky.KitingRecheckMinimumRate, SettingsFunky.KitingRecheckMaximumRate)*Bot.Character.dCurrentHealthPct;
 						  Bot.Combat.iMillisecondsCancelledKiteMoveFor=(int)extraWaitTime;
 					 }
 					 #endregion

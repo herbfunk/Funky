@@ -116,7 +116,7 @@ namespace FunkyTrinity
 				ListUnits.Add(unit);
 				ListPoints.Add(unit.PointPosition);
                 RAGUIDS.Add(unit.RAGUID);
-				//NearestMonsterDistance=unit.CentreDistance;
+				NearestMonsterDistance=unit.CentreDistance;
 				if (unit.MonsterElite)
 					 EliteCount++;
 				if (Funky.Bot.Combat.UsesDOTDPSAbility&&unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
@@ -163,9 +163,9 @@ namespace FunkyTrinity
 						  ListPoints.Add(unit.PointPosition);
                           RAGUIDS.Add(unit.RAGUID);
 
-						  //float distance=unit.CentreDistance;
-						 // if (distance<this.NearestMonsterDistance)
-							//	this.NearestMonsterDistance=distance;
+						  float distance=unit.CentreDistance;
+						  if (distance<this.NearestMonsterDistance)
+								this.NearestMonsterDistance=distance;
 
 						  if (unit.MonsterElite)
 								EliteCount++;
@@ -208,8 +208,8 @@ namespace FunkyTrinity
                 RAGUIDS.AddRange(p_Cluster.RAGUIDS);
 				EliteCount+=p_Cluster.EliteCount;
 				DotDPSCount+=p_Cluster.DotDPSCount;
-				//if (this.NearestMonsterDistance>p_Cluster.NearestMonsterDistance)
-					 //this.NearestMonsterDistance=p_Cluster.NearestMonsterDistance;
+				if (this.NearestMonsterDistance>p_Cluster.NearestMonsterDistance)
+					 this.NearestMonsterDistance=p_Cluster.NearestMonsterDistance;
 
 				return l_bSuccess;
 

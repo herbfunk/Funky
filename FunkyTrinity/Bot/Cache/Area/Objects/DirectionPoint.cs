@@ -29,29 +29,35 @@ namespace FunkyTrinity
 					 }
 					 Range=Vector3.Distance2D(ref startV3, ref MaxRangeTestVector3);
 
-					 //just because raycast set our max range, we need to see if we can use that cell as a walking point!
-					 if (!GilesCanRayCast(startV3, MaxRangeTestVector3, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
-					 {//loop to find a walkable range.
-						  float currentRange=Range-1f;
-						  float directionRadianFlipped=FindDirection(MaxRangeTestVector3, startV3, true);
-						  int maxTestAttempts=(int)currentRange/4;
+					 //lets see if we can stand here at all?
+					 if (!mgp.CanStandAt(MaxRangeTestVector3))
+					 {
 
-						  for (int i=0; i<maxTestAttempts; i++)
+						  //just because raycast set our max range, we need to see if we can use that cell as a walking point!
+						  if (!GilesCanRayCast(startV3, MaxRangeTestVector3, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
 						  {
-								Vector3 newtestPoint=MathEx.GetPointAt(MaxRangeTestVector3, currentRange, directionRadianFlipped);
-								newtestPoint.Z=mgp.GetHeight(newtestPoint.ToVector2());//update Z
-								if (GilesCanRayCast(startV3, newtestPoint, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
+								//loop to find a walkable range.
+								float currentRange=Range-1f;
+								float directionRadianFlipped=FindDirection(MaxRangeTestVector3, startV3, true);
+								int maxTestAttempts=(int)currentRange/4;
+
+								for (int i=0; i<maxTestAttempts; i++)
 								{
-									 MaxRangeTestVector3=newtestPoint;
-									 break;
+									 Vector3 newtestPoint=MathEx.GetPointAt(MaxRangeTestVector3, currentRange, directionRadianFlipped);
+									 newtestPoint.Z=mgp.GetHeight(newtestPoint.ToVector2());//update Z
+									 if (GilesCanRayCast(startV3, newtestPoint, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
+									 {
+										  MaxRangeTestVector3=newtestPoint;
+										  break;
+									 }
+
+									 if (currentRange-4f<=0f) break;
+									 currentRange=-4f;
 								}
-
-								if (currentRange-4f<=0f) break;
-								currentRange=-4f;
+								Range=currentRange;
 						  }
-						  Range=currentRange;
-					 }
 
+					 }
 					 
 					 EndingPoint=MaxRangeTestVector3;
 					 StartingPoint=startV3;

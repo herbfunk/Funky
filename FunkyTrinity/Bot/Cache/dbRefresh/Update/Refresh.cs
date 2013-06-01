@@ -80,7 +80,7 @@ namespace FunkyTrinity
 					 if (DateTime.Now.Subtract(ObjectCache.cacheSnoCollection.lastTrimming).TotalMinutes>3)
 						  ObjectCache.cacheSnoCollection.TrimOldUnusedEntries();
 
-
+					 bool mgpReqUpdate=false;
 					 //Check Level ID changes and clear cache objects.
 					 if (ZetaDia.CurrentLevelAreaId!=LastLevelID&&
 								(!ZetaDia.Me.IsInTown))
@@ -98,6 +98,7 @@ namespace FunkyTrinity
 						  CacheMovementTracking.ClearCache();
 
 						  //This is the only time we should call this. MGP only needs updated every level change!
+						  mgpReqUpdate=true;
 						  UpdateSearchGridProvider(true);
 					 }
 
@@ -150,11 +151,11 @@ namespace FunkyTrinity
 				///</summary>
 				public static void RefreshDiaObjects()
 				{
-					 //Reset key targeting vars always!
-					 InitObjectRefresh();
-
 					 //Update Character (just incase it wasnt called before..)
 					 Bot.Character.Update(false, true);
+
+					 //Reset key targeting vars always!
+					 InitObjectRefresh();
 
 					 //Update object cache collection
 					 UpdateCacheObjectCollection();

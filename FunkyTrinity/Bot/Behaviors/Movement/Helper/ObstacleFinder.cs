@@ -30,13 +30,14 @@ namespace FunkyTrinity
 						  Vector3 IntersectionDestinationVector=MathEx.GetPointAt(Bot.Character.Position, range, Bot.Character.currentRotation);
 
 						  //get collection of objects that pass the tests.
+						  GridPoint BotPoint=Bot.Character.PointPosition;
 						  var intersectingObstacles=ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
 																					 .Where(obstacle =>
 																						  !Bot.Combat.PrioritizedRAGUIDs.Contains(obstacle.RAGUID)//Only objects not already prioritized
 																						  &&obstacle.Obstacletype.HasValue
 																						  &&ObstacleType.Navigation.HasFlag(obstacle.Obstacletype.Value)//only navigation/intersection blocking objects!
 																						  &&obstacle.CentreDistance<30f //Only within range..
-																						  &&obstacle.TestIntersection(Bot.Character.PointPosition, (GridPoint)IntersectionDestinationVector));
+																						  &&obstacle.TestIntersection(BotPoint, (GridPoint)IntersectionDestinationVector));
 
 
 

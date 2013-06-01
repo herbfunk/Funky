@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FunkyPlugin</RootNamespace>
-    <AssemblyName>FunkyPlugin</AssemblyName>
+    <AssemblyName>FunkyTrinity</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -64,6 +64,7 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AssemblyInfo1.cs" />
     <Compile Include="Bot\Behaviors\Misc\CharacterMule\Character.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
