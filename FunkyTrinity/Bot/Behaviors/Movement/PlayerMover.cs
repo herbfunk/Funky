@@ -463,7 +463,7 @@ namespace FunkyTrinity
 
 								if (vShiftedPosition!=vNullLocation)
 								{
-									 Logging.WriteDiagnostic("Using altered navigation vector {0} to bypass obstacle", vShiftedPosition.ToString());
+									 Logging.WriteDiagnostic("[PlayerMover] altered navigation vector {0} to bypass obstacle", vShiftedPosition.ToString());
 									 vMoveToTarget=vShiftedPosition;
 								}
 						  }

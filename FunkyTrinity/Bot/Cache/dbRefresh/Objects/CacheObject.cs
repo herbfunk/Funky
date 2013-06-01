@@ -790,7 +790,7 @@ namespace FunkyTrinity
 
 					 // See if there's an obstacle in our way, if so try to navigate around it
 					 #region ObstacleCheck
-					 if (vShiftedPosition==vNullLocation)
+					 if (vShiftedPosition==vNullLocation&&!Bot.Character.bIsInTown)
 					 {
 						  Vector3 obstacleV3;
 						  // See if there's an obstacle in our way, if so try to navigate around it
@@ -804,7 +804,7 @@ namespace FunkyTrinity
 
 								if (vShiftedPosition!=vNullLocation)
 								{
-									 Logging.WriteDiagnostic("Using altered navigation vector {0} to bypass obstacle", vShiftedPosition.ToString());
+									 Logging.WriteDiagnostic("[Target MoveTowards] Using altered navigation vector {0} to bypass obstacle", vShiftedPosition.ToString());
 									 Bot.Combat.vCurrentDestination=vShiftedPosition;
 								}
 						  }
