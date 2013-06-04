@@ -64,7 +64,6 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo1.cs" />
     <Compile Include="Bot\Behaviors\Misc\CharacterMule\Character.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

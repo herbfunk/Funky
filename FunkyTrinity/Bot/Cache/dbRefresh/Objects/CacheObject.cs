@@ -188,7 +188,7 @@ namespace FunkyTrinity
 						  float distance=this.ActorSphereRadius.HasValue?this.ActorSphereRadius.Value
 												:this.CollisionRadius.HasValue?this.CollisionRadius.Value:this.Radius;
 
-                          Vector3 GroundedVector = new Vector3(this.position_.X,this.position_.Y,this.position_.Z-this.radius_/2);
+                          Vector3 GroundedVector = new Vector3(this.position_.X,this.position_.Y,this.position_.Z+this.radius_/2);
                           return MathEx.GetPointAt(GroundedVector, (distance * 1.15f), FindDirection(GroundedVector, Bot.Character.Position, true));
 					 }
 				}
