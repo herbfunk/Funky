@@ -964,22 +964,43 @@ namespace FunkyTrinity
                 {
                     Height = 600,
                     Width = 600,
+						  Focusable=false,
                 };
 
                 #region Targeting_General
-                TabItem TargetingMiscTabItem = new TabItem();
+					 TabItem TargetingMiscTabItem=new TabItem();
+
                 TargetingMiscTabItem.Header = "General";
                 tcTargeting.Items.Add(TargetingMiscTabItem);
-                ListBox Target_General_ContentListBox = new ListBox();
+					 ListBox Target_General_ContentListBox=new ListBox
+					 {
+						  Focusable=false,
+					 };
 
-                StackPanel Targeting_General_Options_Stackpanel = new StackPanel();
+					 StackPanel Targeting_General_Options_Stackpanel=new StackPanel
+					 {
+						  Orientation= Orientation.Vertical,
+						  Focusable=false,
+						  HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch
+					 };
+					 TextBlock Target_General_Text=new TextBlock
+					 {
+						  Text="General Targeting Options",
+						  FontSize=13,
+						  Background=System.Windows.Media.Brushes.OrangeRed,
+						  Foreground= System.Windows.Media.Brushes.GhostWhite,
+						  TextAlignment=TextAlignment.Center,
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+					 };
+
                 #region KillLOWHPUnits
                 CheckBox cbClusterKillLowHPUnits = new CheckBox
                 {
                     Content = "Finish Units with 25% or less HP",
                     Width = 300,
                     Height = 30,
-                    IsChecked = (SettingsFunky.ClusterKillLowHPUnits)
+                    IsChecked = (SettingsFunky.ClusterKillLowHPUnits),
+						  HorizontalAlignment= System.Windows.HorizontalAlignment.Left,
                 };
                 cbClusterKillLowHPUnits.Checked += ClusteringKillLowHPChecked;
                 cbClusterKillLowHPUnits.Unchecked += ClusteringKillLowHPChecked;
@@ -991,7 +1012,8 @@ namespace FunkyTrinity
                     Content = "Ignore Rare/Elite/Unique Monsters",
                     Width = 300,
                     Height = 30,
-                    IsChecked = (SettingsFunky.IgnoreAboveAverageMobs)
+                    IsChecked = (SettingsFunky.IgnoreAboveAverageMobs),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
                 };
                 cbIgnoreElites.Checked += IgnoreEliteMonstersChecked;
                 cbIgnoreElites.Unchecked += IgnoreEliteMonstersChecked;
@@ -1003,43 +1025,63 @@ namespace FunkyTrinity
                     Content = "Ignore Looting Corpses",
                     Width = 300,
                     Height = 30,
-                    IsChecked = (SettingsFunky.IgnoreCorpses)
+                    IsChecked = (SettingsFunky.IgnoreCorpses),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
                 };
                 cbIgnoreCorpses.Checked += IgnoreCorpsesChecked;
                 cbIgnoreCorpses.Unchecked += IgnoreCorpsesChecked;
                 #endregion
 
+					 #region ExtendedRepChestRange
+					 UseExtendedRangeRepChestCB=new CheckBox
+					 {
+						  Content="Allow high range on rare chests",
+						  Width=300,
+						  Height=20,
+						  IsChecked=(SettingsFunky.UseExtendedRangeRepChest),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+
+					 };
+					 UseExtendedRangeRepChestCB.Checked+=ExtendRangeRepChestChecked;
+					 UseExtendedRangeRepChestCB.Unchecked+=ExtendRangeRepChestChecked;
+					 #endregion
+
+					 #region GoblinPriority
+					 StackPanel GoblinPriority_StackPanel=new StackPanel
+					 {
+						  Orientation=Orientation.Horizontal,
+					 };
+					 TextBlock Target_GoblinPriority_Text=new TextBlock
+					 {
+						  Text="Goblin Priority",
+						  FontSize=12,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin= new Thickness(4),
+					 };
+					 GoblinPriority_StackPanel.Children.Add(Target_GoblinPriority_Text);
+					 ComboBox CBGoblinPriority=new ComboBox
+					 {
+						  Height=25,
+						  Width=300,
+						  ItemsSource=new GoblinPriority(),
+						  SelectedIndex=SettingsFunky.GoblinPriority,
+						  Margin= new Thickness(4),
+					 };
+					 CBGoblinPriority.SelectionChanged+=GoblinPriorityChanged;
+					 GoblinPriority_StackPanel.Children.Add(CBGoblinPriority);
+					 #endregion
+
+					 Targeting_General_Options_Stackpanel.Children.Add(Target_General_Text);
                 Targeting_General_Options_Stackpanel.Children.Add(cbClusterKillLowHPUnits);
                 Targeting_General_Options_Stackpanel.Children.Add(cbIgnoreElites);
                 Targeting_General_Options_Stackpanel.Children.Add(cbIgnoreCorpses);
+					 Targeting_General_Options_Stackpanel.Children.Add(UseExtendedRangeRepChestCB);
+					 Targeting_General_Options_Stackpanel.Children.Add(GoblinPriority_StackPanel);
                 Target_General_ContentListBox.Items.Add(Targeting_General_Options_Stackpanel);
 
-                #region ExtendedRepChestRange
-                UseExtendedRangeRepChestCB = new CheckBox
-                {
-                    Content = "Allow high range on rare chests",
-                    Width = 300,
-                    Height = 20,
-                    IsChecked = (SettingsFunky.UseExtendedRangeRepChest)
 
-                };
-                UseExtendedRangeRepChestCB.Checked += ExtendRangeRepChestChecked;
-                UseExtendedRangeRepChestCB.Unchecked += ExtendRangeRepChestChecked;
-                Target_General_ContentListBox.Items.Add(UseExtendedRangeRepChestCB);
-                #endregion
 
-                #region GoblinPriority
-                Target_General_ContentListBox.Items.Add("Goblin Priority");
-                ComboBox CBGoblinPriority = new ComboBox
-                {
-                    Height = 25,
-                    Width = 300,
-                    ItemsSource = new GoblinPriority(),
-                    SelectedIndex = SettingsFunky.GoblinPriority,
-                };
-                CBGoblinPriority.SelectionChanged += GoblinPriorityChanged;
-                Target_General_ContentListBox.Items.Add(CBGoblinPriority);
-                #endregion
+
 
                 TargetingMiscTabItem.Content = Target_General_ContentListBox;
                 #endregion
@@ -1071,6 +1113,16 @@ namespace FunkyTrinity
                 cbIgnoreLootRange.Checked += IgnoreLootRangeChecked;
                 cbIgnoreLootRange.Unchecked += IgnoreLootRangeChecked;
                 lbTargetRange.Items.Add(cbIgnoreLootRange);
+
+					 TextBlock Target_Range_Text=new TextBlock
+					 {
+						  Text="Targeting Extended Range Values",
+						  FontSize=13,
+						  Background=System.Windows.Media.Brushes.DarkSeaGreen,
+						  TextAlignment=TextAlignment.Center,
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+					 };
+					 lbTargetRange.Items.Add(Target_Range_Text);
 
                 #region EliteRange
                 lbTargetRange.Items.Add("Elite Combat Range");

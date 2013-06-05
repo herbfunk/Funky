@@ -307,6 +307,7 @@ namespace FunkyTrinity
 						  UsedAutoMovementCommand=false;
 						  LastHealthChange=DateTime.MinValue;
 						  LastHealthDropPct=0d;
+						  fLastDistanceFromTarget=-1f;
 					 }
 				}
 

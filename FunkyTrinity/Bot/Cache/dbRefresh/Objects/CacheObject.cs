@@ -467,7 +467,7 @@ namespace FunkyTrinity
 					 //Unit && Melee Or Gizmo/Item AND Distance > xf.. than we check against avoidance zones!
 					 bool ShouldTestMeleeAvoidance=((this.targetType.Value==TargetType.Unit&&Bot.Class.IsMeleeClass)||
 															 (this.Actortype.Value==ActorType.Gizmo||this.Actortype.Value==ActorType.Item)
-															 &&this.CentreDistance>=6f);
+															 &&this.CentreDistance>=2.5f);
 
 					 if (ShouldTestMeleeAvoidance)
 					 {

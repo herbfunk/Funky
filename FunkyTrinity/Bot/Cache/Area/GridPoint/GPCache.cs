@@ -45,7 +45,7 @@ namespace FunkyTrinity
 
 				private static DateTime LastNavigationBlockCheck=DateTime.Today;
 				private static bool BotIsNavigationallyBlocked=false;
-
+				private static List<GridPoint> NavigationBlockedPoints=new List<GridPoint>();
 				internal static bool IsPointNavigationallyBlocked(GridPoint GP)
 				{
 					 Vector3 GPV3=(Vector3)GP;
@@ -56,12 +56,14 @@ namespace FunkyTrinity
 						  .Where(obj => ObstacleType.Navigation.HasFlag(obj.Obstacletype.Value)&&GridPoint.GetDistanceBetweenPoints(GP, obj.PointPosition)*2.5f<=10f).ToList();
 
 					 Dictionary<int, int> ObjectblockCounter=new Dictionary<int, int>();
+					 NavigationBlockedPoints=new List<GridPoint>();
 
 					 foreach (GridPoint item in mgp.GetSearchAreaNeighbors(GP, true))
 					 {
 						  if (!mgp.CanStandAt(item))
 						  {
 								TotalBlockedCount++;
+								NavigationBlockedPoints.Add(item);
 						  }
 						  else if (NearbyObjects.Any())
 						  {
@@ -81,6 +83,7 @@ namespace FunkyTrinity
 										  ObjectblockCounter.Add(ThisObjBlocking.RAGUID, 1);
 
 									 TotalBlockedCount++;
+									 NavigationBlockedPoints.Add(item);
 								}
 								else
 								{
@@ -94,7 +97,10 @@ namespace FunkyTrinity
 								if (Difference(GPV3.Z, itemV3.Z)>1f)
 								{
 									 if (!GilesCanRayCast(GPV3, itemV3, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
+									 {
 										  TotalBlockedCount++;
+										  NavigationBlockedPoints.Add(item);
+									 }
 								}
 
 						  }
@@ -425,7 +431,7 @@ namespace FunkyTrinity
 					 foreach (var item in SearchPoints)
 					 {
 						  //We only want points we can stand at.. since we will travel inside one of the 8 surrounding points!
-						  if (!item.Ignored)
+						  if (!item.Ignored&&!NavigationBlockedPoints.Contains(item))
 						  {
 								//Vector2 thisV2=mgp.GridToWorld(item);
 								Vector3 thisV3=(Vector3)item;

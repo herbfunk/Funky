@@ -475,7 +475,7 @@ namespace FunkyTrinity
 						  }
 
 						  //Only procedee if health percent is necessary for avoidance!
-						  return dThisHealthAvoid<=Bot.Character.dCurrentHealthPct;
+						  return dThisHealthAvoid<Bot.Character.dCurrentHealthPct;
 					 }
 
 					 private readonly HashSet<int> PowerStackImportant=new HashSet<int>

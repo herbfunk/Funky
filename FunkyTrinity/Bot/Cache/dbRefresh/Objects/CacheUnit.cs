@@ -89,8 +89,7 @@ namespace FunkyTrinity
 					 {
 						  return ((!this.BeingIgnoredDueToClusterLogic||this.PriorityCounter>0) //not ignored because of clusters
 										&&(!this.IsBurrowed.HasValue||!this.IsBurrowed.Value) //ignore burrowed!
-										&&!Bot.Class.hashActorSNOKitingIgnore.Contains(base.SNOID)
-										&&(this.MonsterRare||this.MonsterMinion||this.MonsterElite||this.UnitMaxHitPointAverageWeight>-1));
+										&&(!Bot.Class.hashActorSNOKitingIgnore.Contains(base.SNOID)||this.MonsterRare||this.MonsterMinion||this.MonsterElite));
 					 }
 				}
 

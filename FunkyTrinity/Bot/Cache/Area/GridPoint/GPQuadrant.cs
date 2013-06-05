@@ -145,10 +145,10 @@ namespace FunkyTrinity
 														  double thismaxhp=thisUnitObj.MaximumHealth.Value;
 
 														  //Monsters who have high health will give more points.
-														  if (thismaxhp>maxaverage)
+														  if (thisUnitObj.UnitMaxHitPointAverageWeight>0)
 														  {
 																double multiplier=(thismaxhp/maxaverage);
-																this.ThisWeight+=(10*multiplier);
+																this.ThisWeight+=(5*multiplier);
 														  }
 
 														  if (thisUnitObj.IsEliteRareUnique)
@@ -188,7 +188,7 @@ namespace FunkyTrinity
 
 												AvoidanceType thisAvoidanceType=((CacheAvoidance)item).AvoidanceType;
 												if (thisAvoidanceType==AvoidanceType.ArcaneSentry||thisAvoidanceType==AvoidanceType.Dececrator||thisAvoidanceType==AvoidanceType.MoltenCore)
-													 this.ThisWeight+=15;
+													 this.ThisWeight+=25;
 												else
 													 this.ThisWeight+=10;
 

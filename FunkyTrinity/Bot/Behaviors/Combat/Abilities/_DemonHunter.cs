@@ -269,7 +269,7 @@ namespace FunkyTrinity
 				#endregion
 				#region Hungering Arrow
 				// Hungering Arrow
-				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_HungeringArrow)&&!Bot.Character.bIsIncapacitated&&(!Bot.Target.CurrentTarget.IsMissileReflecting||Bot.Character.dCurrentEnergy<10))
+				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_HungeringArrow)&&!Bot.Character.bIsIncapacitated)
 				{
 					 return new Ability(SNOPower.DemonHunter_HungeringArrow, 48f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, USE_SLOWLY);
 				} 
