@@ -60,6 +60,7 @@ namespace FunkyTrinity
 
 					 if (this.Weight!=1)
 					 {
+						  Vector3 BotPosition=Bot.Character.Position;
 						  switch (this.targetType.Value)
 						  {
 								case TargetType.Shrine:
@@ -87,7 +88,7 @@ namespace FunkyTrinity
 										  if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
 												this.Weight=18500d-(Math.Floor(this.CentreDistance)*200);
 										  // If there's a monster in the path-line to the item, reduce the weight by 25%
-										  if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this)))
+										  if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 												this.Weight*=0.75;
 									 }
 									 break;
@@ -100,7 +101,7 @@ namespace FunkyTrinity
 									 if (this==Bot.Character.LastCachedTarget&&this.CentreDistance<=25f)
 										  this.Weight+=400;
 									 // If there's a monster in the path-line to the item, reduce the weight by 50%
-									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this)))
+									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 										  this.Weight*=0.5;
 									 break;
 								case TargetType.Destructible:
@@ -113,7 +114,7 @@ namespace FunkyTrinity
 									 if (this.CentreDistance<=16f)
 										  this.Weight+=1500d;
 									 // If there's a monster in the path-line to the item, reduce the weight by 50%
-									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this)))
+									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 										  this.Weight*=0.5;
 									 // Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
 									 if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
@@ -132,12 +133,12 @@ namespace FunkyTrinity
 										  this.Weight+=400;
 									 }
 									 // If there's a monster in the path-line to the item, reduce the weight by 50%
-									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this)))
+									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 									 {
 										  this.Weight*=0.5;
 									 }
 									 // See if there's any AOE avoidance in that spot, if so reduce the weight to 1
-									 if (ObjectCache.Obstacles.Values.OfType<CacheAvoidance>().Any(cp => cp.TestIntersection(this)))
+									 if (ObjectCache.Obstacles.Values.OfType<CacheAvoidance>().Any(cp => cp.TestIntersection(this, BotPosition)))
 										  this.Weight=1;
 									 if (SnoCacheLookup.hashSNOContainerResplendant.Contains(this.SNOID))
 									 {

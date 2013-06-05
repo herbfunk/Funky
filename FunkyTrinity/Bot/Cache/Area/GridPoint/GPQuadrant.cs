@@ -219,7 +219,6 @@ namespace FunkyTrinity
 						  float averageZ=this.AverageAreaVectorZ;
 						  Vector3 botcurpos=(Bot.Character.Position);
 						  float botCurrentZ=botcurpos.Z;
-						  botcurpos.Z+=Bot.Character.PickupRadius/2f;
 						  bool ZHeightCheckPass=Difference(this.AverageAreaVectorZ, botCurrentZ)<1f;
 
 						  for (int curIndex=LastIndexUsed; curIndex<ContainedPoints.Count-1; curIndex++)
@@ -238,7 +237,7 @@ namespace FunkyTrinity
 
 								//Create Vector3
 								Vector3 pointVector=(Vector3)point;
-								pointVector.Z+=3.5f;
+								pointVector.Z+=1f;
 
 								//Check if we already within this "point".
 								if (botcurpos.Distance(pointVector)<2.5f) continue;
@@ -259,7 +258,18 @@ namespace FunkyTrinity
 								if (kite&&ObjectCache.Objects.IsPointNearbyMonsters(pointVector, Bot.Class.KiteDistance)) continue;
 
 								//LOS Check
-								if (checkLOS&&!GilesCanRayCast(pointVector, LoSCheckV3, Zeta.Internals.SNO.NavCellFlags.AllowWalk)) continue;
+								//Melee -- Walkable , Range -- Projectile
+								if (checkLOS)
+								{
+									 if (Bot.Class.IsMeleeClass)
+									 {
+										  if (!GilesCanRayCast(pointVector, LoSCheckV3, Zeta.Internals.SNO.NavCellFlags.AllowWalk)) continue;
+									 }
+									 else
+									 {
+										  if (!GilesCanRayCast(pointVector, LoSCheckV3, Zeta.Internals.SNO.NavCellFlags.AllowProjectile)) continue;
+									 }
+								}
 
 								//Avoidance Intersection Check
 								if (checkBotAvoidIntersection&&ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(botcurpos, pointVector)) continue;

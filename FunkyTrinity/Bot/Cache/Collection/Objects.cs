@@ -164,6 +164,13 @@ namespace FunkyTrinity
 						  {
 								LastClusterList=Bot.Combat.RunKMeans(MinUnitCount, Distance);
 								LastClusterList=LastClusterList.OrderBy(o => o.NearestMonsterDistance).ToList();
+
+								//Sort by distance -- reverse to get nearest unit First
+								if (LastClusterList.Count>0)
+								{
+									 LastClusterList.First().ListUnits.Sort();
+									 LastClusterList.First().ListUnits.Reverse();
+								}
 						  }
 						  return LastClusterList;
 					 }
@@ -175,7 +182,7 @@ namespace FunkyTrinity
 						  if (Units.Length==0)
 								return;
 
-                          List<CacheUnit> l_ListUnits = new List<CacheUnit>(Units);
+						  List<CacheUnit> l_ListUnits=new List<CacheUnit>(Units);
 
 						  if (l_ListUnits.Count==0)
 								return;
@@ -218,7 +225,7 @@ namespace FunkyTrinity
 
 					 public bool IsPointNearbyMonsters(Vector3 Vector, float Range=1f)
 					 {
-						  return this.Values.OfType<CacheUnit>().Any(monster => monster.ShouldBeKited&&monster.Position.Distance(Vector)-monster.Radius<=Range);
+						  return this.Values.OfType<CacheUnit>().Any(monster => monster.ShouldBeKited&&monster.Position.Distance(Vector)+monster.Radius<=Range);
 					 }
 
 					 #region IDictionary<int,CachedObject> Members
@@ -279,5 +286,5 @@ namespace FunkyTrinity
 					 #endregion
 				}
 		  }
-    }
+	 }
 }

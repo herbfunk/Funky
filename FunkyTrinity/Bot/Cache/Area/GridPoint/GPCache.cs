@@ -164,6 +164,8 @@ namespace FunkyTrinity
 					 if (BotIsNavigationallyBlocked)
 						  return false;
 
+					 Vector3 BotPosition=Bot.Character.Position;
+
 					 //Check if we need to recreate
 					 if (!UpdatedLocalMovementTree)
 						  CreateNewSurroundingGPRs();
@@ -196,7 +198,7 @@ namespace FunkyTrinity
 						  {
 								//if (BlacklistedSafespots.Contains(CachedMovementGPCs[i].CreationVector)) continue;
 
-								if (CacheSafeGPR[i].CreationVector.Distance(Bot.Character.Position)>75f) continue;
+								if (CacheSafeGPR[i].CreationVector.Distance(BotPosition)>75f) continue;
 
 								if (CacheSafeGPR[i].Weight>CurrentLocationWeight)
 								{
@@ -484,7 +486,7 @@ namespace FunkyTrinity
 
 
 					 GridPoint botPoint=Bot.Character.PointPosition;
-					 if (!WeightSorted)
+					 if (WeightSorted)
 						  cacheMovementGPRs=new List<GPRectangle>(newMovementGPCs.OrderBy(gpc => gpc.Weight).ToArray());
 					 else
 						  cacheMovementGPRs=new List<GPRectangle>(newMovementGPCs.OrderByDescending(gpc => gpc.centerpoint.Distance(botPoint)).ToArray());

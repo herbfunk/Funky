@@ -39,7 +39,7 @@ namespace FunkyTrinity
 					 this.RequiresLOSCheck=!(base.IgnoresLOSCheck); //require a LOS check initally on a new object!
 					 this.LastLOSCheck=DateTime.Today;
 					 this.PrioritizedDate=DateTime.Today;
-                     this.PriorityCounter = 0;
+					 this.PriorityCounter=0;
 					 this.LOSV3=vNullLocation;
 
 					 //Keep track of each unique RaGuid that is created and uses this SNO during each level.
@@ -77,7 +77,7 @@ namespace FunkyTrinity
 					 this.NeedsRemoved=parent.NeedsRemoved;
 					 this.NeedsUpdate=parent.NeedsUpdate;
 					 this.PrioritizedDate=parent.PrioritizedDate;
-                     this.PriorityCounter = parent.PriorityCounter;
+					 this.PriorityCounter=parent.PriorityCounter;
 					 this.position_=parent.Position;
 					 this.radius_=parent.Radius;
 					 this.RAGUID=parent.RAGUID;
@@ -111,7 +111,7 @@ namespace FunkyTrinity
 				///</summary>
 				public DiaObject ref_DiaObject { get; set; }
 
-                public int PriorityCounter { get; set; }
+				public int PriorityCounter { get; set; }
 				public DateTime PrioritizedDate { get; set; }
 				public double LastPriortized
 				{
@@ -172,7 +172,7 @@ namespace FunkyTrinity
 								this.Position=this.ref_DiaObject.Position;
 								this.lastUpdatedPosition=DateTime.Now;
 								this.positionUpdated=true;
-						  } catch (NullReferenceException )
+						  } catch (NullReferenceException)
 						  {
 								Logging.WriteVerbose("Safely Handled Updating Position for Object {0}", this.InternalName);
 						  }
@@ -188,8 +188,8 @@ namespace FunkyTrinity
 						  float distance=this.ActorSphereRadius.HasValue?this.ActorSphereRadius.Value
 												:this.CollisionRadius.HasValue?this.CollisionRadius.Value:this.Radius;
 
-                          Vector3 GroundedVector = new Vector3(this.position_.X,this.position_.Y,this.position_.Z+this.radius_/2);
-                          return MathEx.GetPointAt(GroundedVector, (distance * 1.15f), FindDirection(GroundedVector, Bot.Character.Position, true));
+						  Vector3 GroundedVector=new Vector3(this.position_.X, this.position_.Y, this.position_.Z+this.radius_/2);
+						  return MathEx.GetPointAt(GroundedVector, (distance*1.15f), FindDirection(GroundedVector, Bot.Character.Position, true));
 					 }
 				}
 
@@ -349,24 +349,24 @@ namespace FunkyTrinity
 
 					 }
 				}
-                private Vector3 losv3_;
-                private DateTime losv3LastChanged = DateTime.Today;
+				private Vector3 losv3_;
+				private DateTime losv3LastChanged=DateTime.Today;
 				///<summary>
 				///Used during targeting as destination vector
 				///</summary>
-				public Vector3 LOSV3 
-                { 
-                    get
-                    {
-                        //invalidate los vector after 4 seconds
-                        if((this.LastLOSCheckMS>1500&&!this.RequiresLOSCheck)||DateTime.Now.Subtract(losv3LastChanged).TotalSeconds > 4)
-                            losv3_ = vNullLocation;
+				public Vector3 LOSV3
+				{
+					 get
+					 {
+						  //invalidate los vector after 4 seconds
+						  if ((this.LastLOSCheckMS>1500&&!this.RequiresLOSCheck)||DateTime.Now.Subtract(losv3LastChanged).TotalSeconds>4)
+								losv3_=vNullLocation;
 
-                        return losv3_;
-                    }
+						  return losv3_;
+					 }
 
-                    set { losv3_ = value; losv3LastChanged = DateTime.Now; }
-                }
+					 set { losv3_=value; losv3LastChanged=DateTime.Now; }
+				}
 				///<summary>
 				///Validates that the current LOS
 				///</summary>
@@ -375,13 +375,13 @@ namespace FunkyTrinity
 					 get
 					 {
 						  double LastCheckMS=this.LastLOSCheckMS;
-                         //priority counter
-                          if(this.PriorityCounter > 1 && LastCheckMS > 2500)
+						  //priority counter
+						  if (this.PriorityCounter>1&&LastCheckMS>2500)
 								return false;
 
 						  //Recheck the LOS against the target.
 						  bool valid=this.LOSTest(this.LOSV3!=vNullLocation?this.LOSV3:this.Position, true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass));
-						  
+
 						  if (!valid)
 								this.LOSV3=vNullLocation;
 
@@ -466,21 +466,24 @@ namespace FunkyTrinity
 
 					 //Unit && Melee Or Gizmo/Item AND Distance > xf.. than we check against avoidance zones!
 					 bool ShouldTestMeleeAvoidance=((this.targetType.Value==TargetType.Unit&&Bot.Class.IsMeleeClass)||
-															 (this.Actortype.Value==ActorType.Gizmo||this.targetType.Value==TargetType.Item)
+															 (this.Actortype.Value==ActorType.Gizmo||this.Actortype.Value==ActorType.Item)
 															 &&this.CentreDistance>=6f);
 
 					 if (ShouldTestMeleeAvoidance)
 					 {
+						  Vector3 TestPosition=this.targetType.Value==TargetType.Unit?this.BotMeleeVector:this.Position;
+
+
 						  //Test if this object is within any avoidances.
-						  if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(this.Position)
-								&&(this.targetType.Value!=TargetType.Unit||
-									 this.targetType.Value==TargetType.Unit&&Bot.Combat.RequiresAvoidance))
+						  if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
+						  //&&(this.targetType.Value!=TargetType.Unit||
+						  //    this.targetType.Value==TargetType.Unit&&Bot.Combat.RequiresAvoidance))
 						  {
 								this.Weight=1;
 						  }
 
 						  //intersecting avoidances..
-						  if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(this.Position))
+						  if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition))
 						  {
 								if (this.Weight!=1&&(this.ObjectIsSpecial&&Bot.Class.IsMeleeClass))
 								{//Only add this to the avoided list when its not currently inside avoidance area
@@ -669,7 +672,7 @@ namespace FunkyTrinity
 
 													 foreach (var item in monsterobstacles_)
 													 {
-                                                         item.PriorityCounter++;
+														  item.PriorityCounter++;
 													 }
 
 													 Logging.WriteVerbose("Nearby Monsters being prioritzed!");
@@ -691,7 +694,7 @@ namespace FunkyTrinity
 
 														  foreach (var item in Destructibles)
 														  {
-                                                              item.PriorityCounter++;
+																item.PriorityCounter++;
 														  }
 
 														  Logging.WriteVerbose("Nearby Destructibles being prioritzed!");
@@ -709,7 +712,7 @@ namespace FunkyTrinity
 																													select objs.RAGUID);
 																foreach (var item in Interactables)
 																{
-                                                                    item.PriorityCounter++;
+																	 item.PriorityCounter++;
 																}
 																Logging.WriteVerbose("Nearby Interactables being prioritzed!");
 														  }

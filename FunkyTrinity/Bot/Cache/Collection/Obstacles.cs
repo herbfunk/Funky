@@ -239,7 +239,8 @@ namespace FunkyTrinity
 					 ///</summary>
 					 public bool DoesPositionIntersectAny(Vector3 Pos, ObstacleType par=ObstacleType.All)
 					 {
-						  return OfType(par).Any(O => O.TestIntersection(Pos));
+						  Vector3 BotPosition=Bot.Character.Position;
+						  return OfType(par).Any(O => O.TestIntersection(BotPosition,Pos));
 					 }
 					 ///<summary>
 					 ///Tests obstacles against vector to see if it is contained within any. return of false means no obstacles are under the vector.

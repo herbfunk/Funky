@@ -27,7 +27,7 @@ namespace FunkyTrinity
 						  MaxRangeTestVector3=RaycastTestV2.ToVector3();
 						  MaxRangeTestVector3.Z=mgp.GetHeight(MaxRangeTestVector3.ToVector2()); //adjust height acordingly!
 					 }
-					 Range=Vector3.Distance2D(ref startV3, ref MaxRangeTestVector3);
+					 Range=Vector3.Distance(ref startV3, ref MaxRangeTestVector3);
 
 					 //lets see if we can stand here at all?
 					 if (!mgp.CanStandAt(MaxRangeTestVector3))

@@ -17,6 +17,7 @@ namespace FunkyTrinity
 
 		  public List<Funky.CacheUnit> ListUnits { get; protected set; }
 		  public List<Funky.GridPoint> ListPoints { get; protected set; }
+		 
 		  private Funky.CacheUnit currentValidUnit=null;
 		  public Funky.CacheUnit CurrentValidUnit
 		  {
@@ -51,11 +52,11 @@ namespace FunkyTrinity
 				{
 					 if (ListUnits.Count>0)
 						  return ListUnits.Any(unit => unit.IsTargetableAndAttackable);
-					 
+
 					 return true;
 				}
 		  }
-          internal List<int> RAGUIDS { get; set; }
+		  internal List<int> RAGUIDS { get; set; }
 		  internal int EliteCount { get; set; }
 		  internal int DotDPSCount { get; set; }
 		  internal double DotDPSRatio
@@ -99,7 +100,7 @@ namespace FunkyTrinity
 				EliteCount=0;
 				DotDPSCount=0;
 				NearestMonsterDistance=-1f;
-                RAGUIDS = new List<int>();
+				RAGUIDS=new List<int>();
 
 		  }  // of parameterless constructor
 
@@ -115,7 +116,7 @@ namespace FunkyTrinity
 		  {
 				ListUnits.Add(unit);
 				ListPoints.Add(unit.PointPosition);
-                RAGUIDS.Add(unit.RAGUID);
+				RAGUIDS.Add(unit.RAGUID);
 				NearestMonsterDistance=unit.CentreDistance;
 				if (unit.MonsterElite)
 					 EliteCount++;
@@ -161,7 +162,7 @@ namespace FunkyTrinity
 					 {
 						  ListUnits.Add(unit);
 						  ListPoints.Add(unit.PointPosition);
-                          RAGUIDS.Add(unit.RAGUID);
+						  RAGUIDS.Add(unit.RAGUID);
 
 						  float distance=unit.CentreDistance;
 						  if (distance<this.NearestMonsterDistance)
@@ -205,7 +206,7 @@ namespace FunkyTrinity
 
 				ListUnits.AddRange(p_Cluster.ListUnits);
 				ListPoints.AddRange(p_Cluster.ListPoints);
-                RAGUIDS.AddRange(p_Cluster.RAGUIDS);
+				RAGUIDS.AddRange(p_Cluster.RAGUIDS);
 				EliteCount+=p_Cluster.EliteCount;
 				DotDPSCount+=p_Cluster.DotDPSCount;
 				if (this.NearestMonsterDistance>p_Cluster.NearestMonsterDistance)

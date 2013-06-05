@@ -87,7 +87,7 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  return (!this.BeingIgnoredDueToClusterLogic //not ignored because of clusters
+						  return ((!this.BeingIgnoredDueToClusterLogic||this.PriorityCounter>0) //not ignored because of clusters
 										&&(!this.IsBurrowed.HasValue||!this.IsBurrowed.Value) //ignore burrowed!
 										&&!Bot.Class.hashActorSNOKitingIgnore.Contains(base.SNOID)
 										&&(this.MonsterRare||this.MonsterMinion||this.MonsterElite||this.UnitMaxHitPointAverageWeight>-1));
@@ -205,10 +205,10 @@ namespace FunkyTrinity
 								{
 									 throw new AccessViolationException();
 								}
-								
+
 								if (!this.MaximumHealth.HasValue)
 									 this.MaximumHealth=this.ref_DiaUnit.CommonData.GetAttribute<float>(ActorAttributeType.HitpointsMax);
-						  
+
 						  } catch (AccessViolationException)
 						  {
 								// This happens so frequently in DB/D3 that this fails, let's not even bother logging it anymore
@@ -464,11 +464,13 @@ namespace FunkyTrinity
 				{
 					 base.UpdateWeight();
 
-                     if(this.BeingIgnoredDueToClusterLogic)
-                     {
-                         this.Weight = 0;
-                         return;
-                     }
+					 //Ignore non-clustered, *only when not prioritized!*
+					 if (this.BeingIgnoredDueToClusterLogic
+						  &&this.PriorityCounter==0)
+					 {
+						  this.Weight=0;
+						  return;
+					 }
 
 					 if (this.Weight!=1)
 					 {
@@ -590,8 +592,8 @@ namespace FunkyTrinity
 									 // Lower the priority for EACH AOE *BETWEEN* us and the target, NOT counting the one directly under-foot, up to a maximum of 1500 reduction
 									 Vector3 thisObjPosition=this.Position;
 									 float fWeightRemoval=0;
-
-									 foreach (CacheAvoidance tempobstacle in ObjectCache.Obstacles.Avoidances.Where(cp => cp.TestIntersection(this)))
+									 Vector3 BotPosition=Bot.Character.Position;
+									 foreach (CacheAvoidance tempobstacle in ObjectCache.Obstacles.Avoidances.Where(cp => cp.TestIntersection(this, BotPosition)))
 									 {
 										  fWeightRemoval+=(float)tempobstacle.Weight*8;
 									 }
@@ -725,19 +727,16 @@ namespace FunkyTrinity
 									 &&!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), Bot.Class.IsMeleeClass))
 								{
 									 //ignore non-special units.. or units who already attempted to find a location within the last 3s
-                                    if(!this.ObjectIsSpecial)
-                                    {
-                                        this.BlacklistLoops = 10;
-                                        return false;
-                                    }
-                                    else
-                                        return true;
+									 if (!this.ObjectIsSpecial)
+									 {
+										  this.BlacklistLoops=10;
+										  return false;
+									 }
+									 else
+										  return true;
 								}
 
-
-
-
-                                this.RequiresLOSCheck = false;
+								this.RequiresLOSCheck=false;
 						  }
 
 
@@ -846,7 +845,7 @@ namespace FunkyTrinity
 						  try
 						  {
 								this.ref_DiaUnit=base.ref_DiaObject as DiaUnit;
-						  } catch (NullReferenceException ) { Logging.WriteVerbose("Failure to convert obj to DiaUnit!"); return false; }
+						  } catch (NullReferenceException) { Logging.WriteVerbose("Failure to convert obj to DiaUnit!"); return false; }
 					 }
 
 					 ACD CommonData=base.ref_DiaObject.CommonData;
@@ -861,8 +860,8 @@ namespace FunkyTrinity
 					 {
 						  try
 						  {
-							  this.CheckMonsterAffixes(CommonData.MonsterAffixes);
-						  } catch (NullReferenceException )
+								this.CheckMonsterAffixes(CommonData.MonsterAffixes);
+						  } catch (NullReferenceException)
 						  {
 								Logging.WriteVerbose("Failure to check monster affixes for unit {0}", base.InternalName);
 								return false;

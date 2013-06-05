@@ -81,6 +81,7 @@ namespace FunkyTrinity
 
 					 if (this.Weight!=1)
 					 {
+						  Vector3 BotPosition=Bot.Character.Position;
 						  switch (this.targetType.Value)
 						  {
 
@@ -102,7 +103,7 @@ namespace FunkyTrinity
 									 if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
 										  this.Weight=18000-(Math.Floor(this.CentreDistance)*200);
 									 // If there's a monster in the path-line to the item, reduce the weight by 25%
-									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this)))
+									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 										  this.Weight*=0.75;
 									 //Finally check if we should reduce the weight when more then 2 monsters are nearby..
 									 if (Bot.Combat.iAnythingWithinRange[RANGE_25]>2&&
@@ -128,7 +129,7 @@ namespace FunkyTrinity
 									 if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
 										  this.Weight=18000-(Math.Floor(this.CentreDistance)*200);
 									 // If there's a monster in the path-line to the item, reduce the weight by 25%
-									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this)))
+									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 										  this.Weight*=0.75;
 									 //Did we have a target last time? and if so was it a goblin?
 									 if (Bot.Character.LastCachedTarget.RAGUID!=-1)
@@ -157,12 +158,12 @@ namespace FunkyTrinity
 												this.Weight+=400;
 										  // If there's a monster in the path-line to the item, reduce the weight by 15% for each
 										  Vector3 point=this.Position;
-										  foreach (CacheServerObject tempobstacle in ObjectCache.Obstacles.Monsters.Where(cp => cp.TestIntersection(this)))
+										  foreach (CacheServerObject tempobstacle in ObjectCache.Obstacles.Monsters.Where(cp => cp.TestIntersection(this, BotPosition)))
 										  {
 												this.Weight*=0.85;
 										  }
 										  // See if there's any AOE avoidance in that spot, if so reduce the weight by 10%
-										  if (ObjectCache.Obstacles.Avoidances.Any(cp => cp.TestIntersection(this)))
+										  if (ObjectCache.Obstacles.Avoidances.Any(cp => cp.TestIntersection(this, BotPosition)))
 												this.Weight*=0.9;
 										  // Calculate a spot reaching a little bit further out from the globe, to help globe-movements
 										  if (this.Weight>0)

@@ -34,17 +34,10 @@ namespace FunkyTrinity
 				///<summary>
 				///Tests if this intersects with current bot position using CacheObject
 				///</summary>
-				public virtual bool TestIntersection(CacheObject OBJ)
+				public virtual bool TestIntersection(CacheObject OBJ, Vector3 BotPosition)
 				{
-					 return GilesIntersectsPath(base.Position, this.Radius, Bot.Character.Position, base.BotMeleeVector);
+					 return GilesIntersectsPath(base.Position, this.Radius, BotPosition, base.BotMeleeVector);
 
-				}
-				///<summary>
-				///Tests if this intersects with current bot position using Vector3
-				///</summary>
-				public virtual bool TestIntersection(Vector3 Point)
-				{
-					 return GilesIntersectsPath(base.Position, this.Radius, Bot.Character.Position, Point);
 				}
 				///<summary>
 				///Tests if this intersects between two vectors
@@ -305,14 +298,14 @@ namespace FunkyTrinity
 				}
 
 
-				public override bool TestIntersection(CacheObject OBJ)
+				public override bool TestIntersection(CacheObject OBJ, Vector3 BotPosition)
 				{
 					 if (this.Obstacletype.Value==ObstacleType.MovingAvoidance)
 					 {
-						  return ProjectileIntersects(this, Bot.Character.Position, OBJ.Position, this.ProjectileMaxRange);
+						  return ProjectileIntersects(this, BotPosition, OBJ.Position, this.ProjectileMaxRange);
 					 }
 
-					 return GilesIntersectsPath(base.Position, this.Radius, Bot.Character.Position, OBJ.Position);
+					 return GilesIntersectsPath(base.Position, this.Radius, BotPosition, OBJ.Position);
 				}
 
 				public override bool PointInside(GridPoint Pos)
@@ -321,7 +314,7 @@ namespace FunkyTrinity
 				}
 				public override bool PointInside(Vector3 V3)
 				{
-					 return base.Position.Distance(V3)<=this.Radius;
+					 return base.Position.Distance2D(V3)<=this.Radius;
 				}
 				public override bool TestIntersection(Vector3 V1, Vector3 V2)
 				{

@@ -54,7 +54,7 @@ namespace FunkyTrinity
 					 l_c=null;
 				}  // of loop over candidate points
 
-				LC_=LC_.OrderByDescending(o => o.ListPoints.Count).ToList();
+				//LC_=LC_.OrderByDescending(o => o.ListPoints.Count).ToList();
 				#endregion
 
 				return LC_;

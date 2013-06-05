@@ -55,7 +55,7 @@ namespace FunkyTrinity
 				// Soul Harvest Any Elites or 2+ Norms and baby it's harvest season
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_SoulHarvest)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=59&&GetBuffStacks(SNOPower.Witchdoctor_SoulHarvest)<4&&PowerManager.CanCast(SNOPower.Witchdoctor_SoulHarvest))
 				{
-					 System.Collections.Generic.List<Cluster> clusters=ObjectCache.Objects.Clusters(2d, 6f, 4, true);
+					 System.Collections.Generic.List<Cluster> clusters=ObjectCache.Objects.Clusters(2d, 4f, 3, true);
 					 if (clusters.Count>0)
 					 {
 						  return new Ability(SNOPower.Witchdoctor_SoulHarvest, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 1, USE_SLOWLY);
@@ -166,9 +166,9 @@ namespace FunkyTrinity
 
 					 if (ObjectCache.Objects.Clusters(5d, 30f, 2).Count>0)
 					 {
-						  if (ObjectCache.Objects.Clusters(MinUnitCount: 2).Any(c => c.DotDPSRatio<0.25))
+						  if (ObjectCache.Objects.Clusters().Any(c => c.DotDPSRatio<0.25))
 						  {
-								Cluster clust=ObjectCache.Objects.Clusters(MinUnitCount: 2).First(c => c.DotDPSRatio<0.25);
+								Cluster clust=ObjectCache.Objects.Clusters().First(c => c.DotDPSRatio<0.25);
 								if (clust.ListUnits.Any(u => !u.HasDOTdps.HasValue||!u.HasDOTdps.Value))
 								{
 									 int acdguid=clust.ListUnits.First(u => !u.HasDOTdps.HasValue||!u.HasDOTdps.Value).AcdGuid.Value;
@@ -188,9 +188,9 @@ namespace FunkyTrinity
 				{
 					 if (ObjectCache.Objects.Clusters(5d, 30f, 2).Count>0)
 					 {
-						  if (ObjectCache.Objects.Clusters(MinUnitCount: 2).Any(c => c.DotDPSRatio<0.25))
+						  if (ObjectCache.Objects.Clusters().Any(c => c.DotDPSRatio<0.25))
 						  {
-								Cluster clust=ObjectCache.Objects.Clusters(MinUnitCount: 2).First(c => c.DotDPSRatio<0.25);
+								Cluster clust=ObjectCache.Objects.Clusters().First(c => c.DotDPSRatio<0.25);
 								if (clust.ListUnits.Any(u => !u.HasDOTdps.HasValue||!u.HasDOTdps.Value))
 								{
 									 int acdguid=clust.ListUnits.First(u => !u.HasDOTdps.HasValue||!u.HasDOTdps.Value).AcdGuid.Value;
@@ -231,9 +231,9 @@ namespace FunkyTrinity
 				#endregion
 				#region Acid Cloud
 				// Acid Cloud
-				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_AcidCloud)&&!Bot.Character.bIsIncapacitated&&
-					Bot.Character.dCurrentEnergy>=250&&PowerManager.CanCast(SNOPower.Witchdoctor_AcidCloud)
-					 &&!SnoCacheLookup.hashActorSNOFastMobs.Contains(Bot.Target.CurrentTarget.SNOID))
+				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_AcidCloud)&&AbilityUseTimer(SNOPower.Witchdoctor_AcidCloud)
+					 &&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=250
+					 &&PowerManager.CanCast(SNOPower.Witchdoctor_AcidCloud))
 				{
 					 bool ConditionalTestResult=false;
 					 int ACDGuid=-1;
@@ -263,12 +263,13 @@ namespace FunkyTrinity
 						  else
 						  {
 								//If we using the 24f rune then we allow larger distance for cluster
-								double distance=RuneIndex==1?8d:6d;
+								double distance=RuneIndex==1?6d:4d;
 
 								if (ObjectCache.Objects.Clusters(distance, 45f, 2).Count>0)
 								{
 									 ConditionalTestResult=true;
 									 ACDGuid=ObjectCache.Objects.Clusters()[0].ListUnits[0].AcdGuid.Value;
+									 
 								}
 						  }
 					 }
@@ -360,6 +361,8 @@ namespace FunkyTrinity
 					 }
 				} 
 				#endregion
+
+
 				#region Poison Darts
 				// Poison Darts fast-attack Spams Darts when mana is too low (to cast bears) @12yds or @10yds if Bears avialable
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_PoisonDart)&&!Bot.Character.bIsIncapacitated&&(!Bot.Target.CurrentTarget.IsMissileReflecting||Bot.Character.dCurrentEnergy<30))

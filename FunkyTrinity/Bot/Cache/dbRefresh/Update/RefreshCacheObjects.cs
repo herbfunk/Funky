@@ -218,8 +218,8 @@ namespace FunkyTrinity
 									 if (thisObstacle is CacheAvoidance)
 									 {
 										  //Check last time we attempted avoidance movement (Only if its been at least a second since last time we required it..)
-										  if (DateTime.Now.Subtract(Bot.Combat.LastAvoidanceMovement).TotalMilliseconds<1000)
-												continue;
+										  //if (DateTime.Now.Subtract(Bot.Combat.LastAvoidanceMovement).TotalMilliseconds<1000)
+												//continue;
 
 										  CacheAvoidance thisAvoidance=thisObstacle as CacheAvoidance;
 
@@ -245,7 +245,8 @@ namespace FunkyTrinity
 
 										  Bot.Combat.RequiresAvoidance=bRequireAvoidance;
 										  Bot.Combat.TravellingAvoidance=bTravellingAvoidance;
-										  Bot.Combat.TriggeringAvoidances.Add((CacheAvoidance)thisObstacle);
+										  if (bRequireAvoidance)
+												Bot.Combat.TriggeringAvoidances.Add((CacheAvoidance)thisObstacle);
 									 }
 
 

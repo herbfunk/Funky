@@ -123,10 +123,10 @@ namespace FunkyTrinity
 
 								CurrentTarget=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "SafeAvoid", 2.5f, -1);
 
-									 //Set timer here until next we try... since we've already attempted at least 9 GPCs!
+								//Set timer here until next we try... since we've already attempted at least 9 GPCs!
 								Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=(int)(Bot.Character.dCurrentHealthPct*SettingsFunky.AvoidanceRecheckMaximumRate);
 								Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
-								Bot.Combat.LastAvoidanceMovement=DateTime.Now;
+								//Bot.Combat.LastAvoidanceMovement=DateTime.Now;
 								return true;
 						  }
 
@@ -174,7 +174,8 @@ namespace FunkyTrinity
 
 					 //check kiting
 					 #region Kiting
-					 if (Bot.Class.KiteDistance>0)
+					 if (Bot.Class.KiteDistance>0
+						  &&(!Bot.Combat.bAnyTreasureGoblinsPresent||SettingsFunky.GoblinPriority<2)&&DateTime.Now.Subtract(Bot.Combat.timeCancelledKiteMove).TotalMilliseconds>=Bot.Combat.iMillisecondsCancelledKiteMoveFor)
 					 {
 						  //Is our new target a unit and do we need to attempt kiting?
 						  if (CurrentTarget!=null
@@ -189,35 +190,33 @@ namespace FunkyTrinity
 								if (nearbyUnits.Any())
 								{
 									 // Note that if treasure goblin level is set to kamikaze, even avoidance moves are disabled to reach the goblin!
-									 if ((!Bot.Combat.bAnyTreasureGoblinsPresent||SettingsFunky.GoblinPriority<2)&&
-										  DateTime.Now.Subtract(Bot.Combat.timeCancelledKiteMove).TotalMilliseconds>=Bot.Combat.iMillisecondsCancelledKiteMoveFor)
+
+									 //Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
+
+									 if (!Bot.Target.Equals(null)&&CurrentTarget.targetType.HasValue&&TargetType.ServerObjects.HasFlag(CurrentTarget.targetType.Value))
+										  LOS=CurrentTarget.Position;
+									 else
+										  LOS=vNullLocation;
+
+									 Vector3 vAnySafePoint;
+									 if (GridPointAreaCache.AttemptFindSafeSpot(out vAnySafePoint, LOS, true))
 									 {
-										  Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
+										  Logging.WriteDiagnostic("Kitespot found at {0} with {1} distance from our current position!", vAnySafePoint.ToString(), vAnySafePoint.Distance(Bot.Character.Position));
+										  Bot.Combat.IsKiting=true;
 
-										  if (!Bot.Target.Equals(null)&&CurrentTarget.targetType.HasValue&&TargetType.ServerObjects.HasFlag(CurrentTarget.targetType.Value))
-												LOS=CurrentTarget.Position;
-										  else
-												LOS=vNullLocation;
+										  if (nearbyUnits.Any())
+												//Cache the first unit that triggers the kiting so we can swap back to it.
+												Bot.Character.LastCachedTarget=nearbyUnits.First();//unit => unit.IsStillValid());
 
-										  Vector3 vAnySafePoint;
-										  if (GridPointAreaCache.AttemptFindSafeSpot(out vAnySafePoint, LOS, true))
-										  {
-												Logging.WriteDiagnostic("Kitespot found at {0} with {1} distance from our current position!", vAnySafePoint.ToString(), vAnySafePoint.Distance(Bot.Character.Position));
-												Bot.Combat.IsKiting=true;
-
-												if (nearbyUnits.Any())
-													 //Cache the first unit that triggers the kiting so we can swap back to it.
-													 Bot.Character.LastCachedTarget=nearbyUnits.First();//unit => unit.IsStillValid());
-
-												//Extend kill range since we were kiting..
-												iKeepKillRadiusExtendedFor=20;
-												CurrentTarget=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "Kitespot", 2.5f, -1);
-												Bot.Combat.iMillisecondsCancelledKiteMoveFor=(int)(Bot.Character.dCurrentHealthPct*SettingsFunky.KitingRecheckMaximumRate);
-												Bot.Combat.timeCancelledKiteMove=DateTime.Now;
-												return true;
-										  }
-										  Bot.Combat.UpdateAvoidKiteRates();
+										  //Extend kill range since we were kiting..
+										  iKeepKillRadiusExtendedFor=20;
+										  CurrentTarget=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "Kitespot", 2.5f, -1);
+										  Bot.Combat.iMillisecondsCancelledKiteMoveFor=(int)(Bot.Character.dCurrentHealthPct*SettingsFunky.KitingRecheckMaximumRate);
+										  Bot.Combat.timeCancelledKiteMove=DateTime.Now;
+										  return true;
 									 }
+									 Bot.Combat.UpdateAvoidKiteRates();
+
 								}
 						  }
 						  //If we have a cached kite target.. and no current target, lets swap back!
@@ -398,7 +397,7 @@ namespace FunkyTrinity
 
 					 } // Loop through all the objects and give them a weight
 
-					
+
 					 #region RangeClassTargetUnit
 					 /*
 					 if (CurrentTarget!=null&&CurrentTarget.targetType.Value==TargetType.Unit&&!Bot.Class.IsMeleeClass)
@@ -880,8 +879,6 @@ namespace FunkyTrinity
 					 }
 					 #endregion
 
-					 // Maintain an area list of all zones we pass through/near while moving, for our custom navigation handler
-					 //PlayerMover.RecordSkipAheadCachePoint();
 
 					 //Check if we are in range for interaction..
 					 if (CurrentTarget.WithinInteractionRange())
@@ -956,10 +953,6 @@ namespace FunkyTrinity
 								CurrentState=CurrentTarget.Interact();
 								break;
 						  case TargetType.Avoidance:
-								//No avoidances remain so we need to reset this here.. else it wont reset since no cache won't have any avoidances to check.
-								if (!ObjectCache.Obstacles.Avoidances.Any(avoid => avoid.Obstacletype.Value==ObstacleType.StaticAvoidance))
-									 Bot.Combat.RequiresAvoidance=false;
-
 								CurrentState=RunStatus.Running;
 								break;
 					 }
