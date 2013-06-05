@@ -23,11 +23,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky : IPlugin
 	 {
-<<<<<<< HEAD
 		  public Version Version { get { return new Version(1, 1, 0, 3); } }
-=======
-		  public Version Version { get { return new Version(1, 1, 0, 2); } }
->>>>>>> 2b35083cc103a996eb79ddebfc0118fdb666656c
 		  public string Author { get { return "Herbfunk"; } }
 		  public string Description
 		  {
@@ -45,7 +41,7 @@ namespace FunkyTrinity
 				bool BotWasRunning=BotMain.IsRunning;
 				Demonbuddy.SplitButton FunkyButton=null;
 
-				
+
 				BotMain.OnStop+=new BotEvent(FunkyBotStop);
 				BotMain.OnStart+=new BotEvent(FunkyBotStart);
 
@@ -247,9 +243,9 @@ namespace FunkyTrinity
 
 
 					 // Carguy's ticks-per-second feature
-                     //if (settings.bEnableTPS)
-						//  BotMain.TicksPerSecond=(int)settings.iTPSAmount;
-					 
+					 //if (settings.bEnableTPS)
+					 //  BotMain.TicksPerSecond=(int)settings.iTPSAmount;
+
 
 					 ErrorClickerThread=new Thread(ErrorClickerWorker);
 					 ErrorClickerThread.IsBackground=true;
@@ -267,27 +263,26 @@ namespace FunkyTrinity
 					 Logging.Write("Loaded Profile "+profile);
 				}
 		  }
-          public Window DisplayWindow
-          {
-              get
-              {
-                  UpdateCurrentAccountDetails();
-                  string settingsFolder = FolderPaths.sDemonBuddyPath + @"\Settings\FunkyTrinity\" + CurrentAccountName;
-                  if(!Directory.Exists(settingsFolder))
-                      Directory.CreateDirectory(settingsFolder);
-                  try
-                  {
-                      funkyConfigWindow = new FunkyWindow();
-                      
-                  }
-                  catch(Exception ex)
-                  {
-                      Logging.WriteVerbose("Failure to initilize Funky Setting Window! \r\n {0} \r\n {1} \r\n {2}", ex.Message, ex.Source, ex.StackTrace);
-                  }
+		  public Window DisplayWindow
+		  {
+				get
+				{
+					 UpdateCurrentAccountDetails();
+					 string settingsFolder=FolderPaths.sDemonBuddyPath+@"\Settings\FunkyTrinity\"+CurrentAccountName;
+					 if (!Directory.Exists(settingsFolder))
+						  Directory.CreateDirectory(settingsFolder);
+					 try
+					 {
+						  funkyConfigWindow=new FunkyWindow();
 
-                  return funkyConfigWindow;
-              }
-          }
+					 } catch (Exception ex)
+					 {
+						  Logging.WriteVerbose("Failure to initilize Funky Setting Window! \r\n {0} \r\n {1} \r\n {2}", ex.Message, ex.Source, ex.StackTrace);
+					 }
+
+					 return funkyConfigWindow;
+				}
+		  }
 		  public void OnDisabled()
 		  {
 				bPluginEnabled=false;
