@@ -335,7 +335,7 @@ namespace FunkyTrinity
 						  {
 								FoundLOSLocation=FoundLOSLocation=GridPointAreaCache.AttemptFindTargetSafeLocation(out LOSV3, this, true, (Bot.Class.KiteDistance>0));
 								if (!FoundLOSLocation)
-									 this.GPRect.TryFindSafeSpot(out LOSV3, this.Position, (Bot.Class.KiteDistance>0));
+									 FoundLOSLocation=this.GPRect.TryFindSafeSpot(out LOSV3, this.Position, (Bot.Class.KiteDistance>0));
 						  }
 
 
@@ -344,6 +344,9 @@ namespace FunkyTrinity
 								Logging.WriteVerbose("LOS Found new location for target {0}", this.InternalName);
 								this.LOSV3=LOSV3;
 						  }
+						  else
+								FoundLOSLocation=false;
+
 
 						  return FoundLOSLocation;
 
@@ -472,20 +475,26 @@ namespace FunkyTrinity
 					 if (ShouldTestMeleeAvoidance)
 					 {
 						  Vector3 TestPosition=this.targetType.Value==TargetType.Unit?this.BotMeleeVector:this.Position;
+						  bool GoldGlobeObj=this.targetType.Value==TargetType.Globe||this.targetType.Value==TargetType.Gold;
 
 
 						  //Test if this object is within any avoidances.
-						  if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
+						  if (!GoldGlobeObj&&ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
 						  //&&(this.targetType.Value!=TargetType.Unit||
 						  //    this.targetType.Value==TargetType.Unit&&Bot.Combat.RequiresAvoidance))
 						  {
 								this.Weight=1;
 						  }
 
+						  //Gold and Globe gain bots pickup radius.. so we should calculate a new position accordingly!
+						  if (GoldGlobeObj)
+								TestPosition=MathEx.GetPointAt(this.Position, Bot.Character.PickupRadius, FindDirection(this.Position, Bot.Character.Position, true));
+						  
+
 						  //intersecting avoidances..
 						  if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition))
 						  {
-								if (this.Weight!=1&&(this.ObjectIsSpecial&&Bot.Class.IsMeleeClass))
+								if (!GoldGlobeObj&&this.Weight!=1&&(this.ObjectIsSpecial&&Bot.Class.IsMeleeClass))
 								{//Only add this to the avoided list when its not currently inside avoidance area
 									 ObjectCache.Objects.objectsIgnoredDueToAvoidance.Add(this);
 								}

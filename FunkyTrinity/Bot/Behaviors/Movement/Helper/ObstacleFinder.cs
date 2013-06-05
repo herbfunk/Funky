@@ -59,17 +59,17 @@ namespace FunkyTrinity
 									 Logging.WriteVerbose("A total of {0} units were prioritized!", counter.ToString());
 								}
 
-								//find any non-monsters within 20f and find a location around it..
-								foreach (var intersectingObstacle in intersectingObstacles.Except(intersectingUnits).Where(obj => obj.CentreDistance<20f))
-								{
+								////find any non-monsters within 20f and find a location around it..
+								//foreach (var intersectingObstacle in intersectingObstacles.Except(intersectingUnits).Where(obj => obj.CentreDistance<20f))
+								//{
 
-									 if (intersectingObstacle.GPRect.TryFindSafeSpot(out TempMovementVector, DestinationVector, false, true))
-									 {
-										  Logging.WriteVerbose("Found intersecting obstacle object {0} -- using LOS Vector to move to destination", intersectingObstacle.InternalName);
-										  return true;
-									 }
-								}
-								return true;
+								//    if (intersectingObstacle.GPRect.TryFindSafeSpot(out TempMovementVector, DestinationVector, false, true))
+								//    {
+								//        Logging.WriteVerbose("Found intersecting obstacle object {0} -- using LOS Vector to move to destination", intersectingObstacle.InternalName);
+								//        return true;
+								//    }
+								//}
+								//return true;
 						  }
 					 }
 				}
