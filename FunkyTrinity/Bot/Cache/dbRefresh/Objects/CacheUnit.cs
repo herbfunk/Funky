@@ -860,6 +860,23 @@ namespace FunkyTrinity
 						  return false;
 					 }
 
+					 //Position update
+					 base.UpdatePosition();
+
+					 if (this.Radius==0f)
+					 {
+						  if (base.ActorSphereRadius.HasValue)
+						  {
+								this.Radius=base.ActorSphereRadius.Value;
+
+								if (this.Monstersize.Value==Zeta.Internals.SNO.MonsterSize.Big||this.Monstersize.Value==Zeta.Internals.SNO.MonsterSize.Boss)
+									 this.Radius*=0.25f;
+
+								if (this.Radius<0f)
+									 this.Radius=1f;
+						  }
+					 }
+
 					 //Affixes
 					 if (!this.CheckedMonsterAffixes)
 					 {
@@ -960,22 +977,7 @@ namespace FunkyTrinity
 						  }
 					 }
 
-					 //Position update
-					 base.UpdatePosition();
 
-					 if (this.Radius==0f)
-					 {
-						  if (base.ActorSphereRadius.HasValue)
-						  {
-								this.Radius=base.ActorSphereRadius.Value;
-
-								if (this.Monstersize.Value==Zeta.Internals.SNO.MonsterSize.Big||this.Monstersize.Value==Zeta.Internals.SNO.MonsterSize.Boss)
-									 this.Radius*=0.25f;
-
-								if (this.Radius<0f)
-									 this.Radius=0f;
-						  }
-					 }
 
 					 //Barb specific updates
 					 if (Bot.Class.AC==ActorClass.Barbarian)

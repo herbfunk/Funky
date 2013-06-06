@@ -15,10 +15,16 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  return base.Radius/2.5f;
+						  return this.Radius/2.5f;
 					 }
 				}
-
+				public override float Radius
+				{
+					 get
+					 {
+						  return base.CollisionRadius.HasValue?base.CollisionRadius.Value:base.Radius;
+					 }
+				}
 				public new string DebugString
 				{
 					 get
@@ -59,12 +65,11 @@ namespace FunkyTrinity
 				{
 					 //return (Math.Min(rect_.TopLeft.X, rect_.BottomRight.X)>=Pos.X&&Math.Max(rect_.TopLeft.X, rect_.BottomRight.X)<=Pos.X&&
 					 //Math.Min(rect_.TopLeft.Y, rect_.BottomRight.Y)>=Pos.Y&&Math.Max(rect_.TopLeft.Y, rect_.BottomRight.Y)<=Pos.Y);
-
 					 return (GridPoint.GetDistanceBetweenPoints(base.PointPosition, Pos))<=(this.PointRadius);
 				}
 				public virtual bool PointInside(Vector3 V3)
 				{
-					 return base.Position.Distance(V3)<=base.Radius;
+					 return base.Position.Distance(V3)<=this.Radius;
 				}
 
 				private System.Windows.Rect rect_;
@@ -90,9 +95,6 @@ namespace FunkyTrinity
 				{
 					 if (!base.Obstacletype.HasValue)
 						  base.Obstacletype=ObstacleType.None;
-
-					 if (base.Radius==0f&&base.CollisionRadius.HasValue)
-						  base.Radius=base.CollisionRadius.Value*0.75f;
 				}
 
 				public override int GetHashCode()
@@ -178,7 +180,7 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  return this.Radius/2.5;
+						  return this.Radius/2.5f;
 					 }
 				}
 
@@ -361,16 +363,6 @@ namespace FunkyTrinity
 					 : base(parent)
 				{
 				}
-
-				
-				public override float Radius
-				{
-					 get
-					 {
-						  return base.CollisionRadius.HasValue?base.CollisionRadius.Value:base.Radius;
-					 }
-				}
-				
 		  }
 	 }
 }

@@ -96,7 +96,8 @@ namespace FunkyTrinity
 
 
 						  //We use 2D Distance and subtract the obstacles radius
-						  IEnumerable<CacheObstacle> obstaclesContained=ObjectCache.Obstacles.Values.Where(obs => Math.Abs(sectorCenter.Distance2D(obs.Position)-obs.Radius)<=range);
+						  IEnumerable<CacheObstacle> obstaclesContained=ObjectCache.Obstacles.Values
+								.Where(obs => Math.Max(0f,sectorCenter.Distance2D(obs.Position)-obs.Radius)<=range);
 
 						  double maxaverage=ObjectCache.Objects.MaximumHitPointAverage;
 						  if (obstaclesContained.Any())
@@ -170,12 +171,16 @@ namespace FunkyTrinity
 										  if (!UsedRAGUIDs.Contains(item.RAGUID))
 										  {
 												avoidcount++;
+												float BaseWeight=0f;
 
 												AvoidanceType thisAvoidanceType=((CacheAvoidance)item).AvoidanceType;
 												if (thisAvoidanceType==AvoidanceType.ArcaneSentry||thisAvoidanceType==AvoidanceType.Dececrator||thisAvoidanceType==AvoidanceType.MoltenCore)
-													 this.ThisWeight+=25;
+													 BaseWeight=2.5f;
 												else
-													 this.ThisWeight+=10;
+													 BaseWeight=1f;
+
+												//Multiply the avoidance by health value (Max value possible 2500 -- 1% HP using 25)
+												this.ThisWeight+=(BaseWeight/Bot.Character.dCurrentHealthPct);
 
 												UsedRAGUIDs.Add(item.RAGUID);
 										  }

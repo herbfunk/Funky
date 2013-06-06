@@ -225,7 +225,8 @@ namespace FunkyTrinity
 
 					 public bool IsPointNearbyMonsters(Vector3 Vector, float Range=1f)
 					 {
-						  return this.Values.OfType<CacheUnit>().Any(monster => monster.ShouldBeKited&&monster.Position.Distance(Vector)+monster.Radius<=Range);
+						  return this.Values.OfType<CacheUnit>().Any(monster => monster.ShouldBeKited&&
+								Math.Max(0f, monster.Position.Distance(Vector)-monster.Radius)<=Range);
 					 }
 
 					 #region IDictionary<int,CachedObject> Members
