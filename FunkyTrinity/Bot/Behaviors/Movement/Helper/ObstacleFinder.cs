@@ -53,7 +53,6 @@ namespace FunkyTrinity
 									 foreach (var item in intersectingUnits)
 									 {
 										  Bot.Combat.PrioritizedRAGUIDs.Add(item.RAGUID);
-										  item.PriorityCounter++;
 										  counter++;
 									 }
 									 Logging.WriteVerbose("A total of {0} units were prioritized!", counter.ToString());

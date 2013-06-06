@@ -60,7 +60,7 @@ namespace FunkyTrinity
 					 //return (Math.Min(rect_.TopLeft.X, rect_.BottomRight.X)>=Pos.X&&Math.Max(rect_.TopLeft.X, rect_.BottomRight.X)<=Pos.X&&
 					 //Math.Min(rect_.TopLeft.Y, rect_.BottomRight.Y)>=Pos.Y&&Math.Max(rect_.TopLeft.Y, rect_.BottomRight.Y)<=Pos.Y);
 
-					 return (GridPoint.GetDistanceBetweenPoints(base.PointPosition, Pos)*2.5f)<=(base.Radius);
+					 return (GridPoint.GetDistanceBetweenPoints(base.PointPosition, Pos))<=(this.PointRadius);
 				}
 				public virtual bool PointInside(Vector3 V3)
 				{

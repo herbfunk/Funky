@@ -438,10 +438,10 @@ namespace FunkyTrinity
 					 get
 					 {
 						  float fThisHeightDifference=Difference(Bot.Character.Position.Z, this.Position.Z);
-						  if (fThisHeightDifference>20f)
+						  if (fThisHeightDifference>=10f)
 						  {
 								//raycast.. 
-								if (!GilesCanRayCast(Bot.Character.Position, this.BotMeleeVector, NavCellFlags.AllowWalk))
+								if (!GilesCanRayCast(Bot.Character.Position, this.Position))
 								{
 									 return false;
 								}
@@ -723,7 +723,7 @@ namespace FunkyTrinity
 						  if (this.RequiresLOSCheck)
 						  {
 								if (this.LastLOSCheckMS>3000
-									 &&!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), Bot.Class.IsMeleeClass))
+									 &&!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), Bot.Class.IsMeleeClass||!this.WithinInteractionRange()))
 								{
 									 //ignore non-special units.. or units who already attempted to find a location within the last 3s
 									 if (!this.ObjectIsSpecial)
@@ -1202,8 +1202,8 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  return String.Format("{0}\r\n Burrowed{1}/Attackable{2} HP{3}% / MaxHP{4} \r\n LOSCheck {5} LOSV3 {6}",
-								base.DebugString, this.IsBurrowed.HasValue?this.IsBurrowed.Value.ToString():"", this.IsTargetable.HasValue?this.IsTargetable.Value.ToString():"", this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value.ToString():"", this.MaximumHealth.HasValue?this.MaximumHealth.Value.ToString():"", this.RequiresLOSCheck.ToString(), this.LOSV3.ToString());
+						  return String.Format("{0}\r\n Burrowed{1}/Attackable{2} HP{3}% / MaxHP{4} \r\n PriorityCounter={5} LOSCheck {6} LOSV3 {7}",
+								base.DebugString, this.IsBurrowed.HasValue?this.IsBurrowed.Value.ToString():"", this.IsTargetable.HasValue?this.IsTargetable.Value.ToString():"", this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value.ToString():"", this.MaximumHealth.HasValue?this.MaximumHealth.Value.ToString():"", this.PriorityCounter.ToString(), this.RequiresLOSCheck.ToString(), this.LOSV3.ToString());
 					 }
 				}
 

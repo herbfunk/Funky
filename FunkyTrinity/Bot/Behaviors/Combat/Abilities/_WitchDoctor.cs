@@ -335,12 +335,12 @@ namespace FunkyTrinity
 								}
 								else
 								{//Posion/Vampire/HungryBats/NoRune (Small AOE Range)
-									 clusters=ObjectCache.Objects.Clusters(7d, 20f, 2);
+									 clusters=ObjectCache.Objects.Clusters(4d, 18f, 2);
 									 //we want cluster that is semi-tight with at least 2 units!
 									 if (clusters.Count>0)
 									 {
 										  ConditionalTestResult=true;
-										  ACDGuid=clusters[0].ListUnits[0].AcdGuid.Value;
+										  Location=clusters[0].ListUnits[0].Position;
 									 }
 								}
 						  }
@@ -365,7 +365,7 @@ namespace FunkyTrinity
 
 				#region Poison Darts
 				// Poison Darts fast-attack Spams Darts when mana is too low (to cast bears) @12yds or @10yds if Bears avialable
-				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_PoisonDart)&&!Bot.Character.bIsIncapacitated&&(!Bot.Target.CurrentTarget.IsMissileReflecting||Bot.Character.dCurrentEnergy<30))
+				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_PoisonDart)&&!Bot.Character.bIsIncapacitated)
 				{
 					 return new Ability(SNOPower.Witchdoctor_PoisonDart, 44f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
 				} 

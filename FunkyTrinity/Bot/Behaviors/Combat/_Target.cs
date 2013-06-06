@@ -329,20 +329,7 @@ namespace FunkyTrinity
 
 					 foreach (CacheObject thisobj in this.ValidObjects)
 					 {
-
 						  thisobj.UpdateWeight();
-
-						  //Prioritized Units (Blocked/Intersecting Objects)
-						  if (Bot.Combat.PrioritizedRAGUIDs.Contains(thisobj.RAGUID))
-						  {
-								//remove from list after time based on number of prioritized count
-								if (thisobj.LastPriortized>(thisobj.PriorityCounter*500)+750)
-									 Bot.Combat.PrioritizedRAGUIDs.Remove(thisobj.RAGUID);
-
-								//weight variable based on number of timers prioritized.
-								thisobj.Weight+=(250*thisobj.PriorityCounter);
-						  }
-
 
 						  //Avoidance (Melee Only) Attempt to find a location where we can attack!
 						  if (ObjectCache.Objects.objectsIgnoredDueToAvoidance.Contains(thisobj))
@@ -734,7 +721,7 @@ namespace FunkyTrinity
 								#region LOSUpdate
 								if (!CurrentTarget.IgnoresLOSCheck&&CurrentTarget.RequiresLOSCheck&&CurrentTarget.LastLOSSearchMS>1800)
 								{
-									 if (!CurrentTarget.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass)))
+									 if (!CurrentTarget.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass||!CurrentTarget.WithinInteractionRange())))
 									 {
 										  //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
 										  if (CurrentTarget.ObjectIsSpecial)

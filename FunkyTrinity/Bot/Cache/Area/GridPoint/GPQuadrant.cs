@@ -20,21 +20,15 @@ namespace FunkyTrinity
 					 private int LastIndexUsed=0;
 
 					 public float AverageAreaVectorZ { get; set; }
+					 ///<summary>
+					 ///Logic: The average Z difference between all points is very *minimal
+					 ///</summary>
 					 public readonly bool AreaIsFlat;
-					 //public DirectionPoint Direction { get; set; }
-					 public readonly int SectorCode;
+
 
 					 public Vector3 LastSafespotFound=vNullLocation;
 					 public GridPoint LastSafeGridPointFound { get; set; }
 
-					 public readonly Vector3 CenterVector;
-					 private GridPoint CenterPoint
-					 {
-						  get
-						  {
-								return CenterVector;
-						  }
-					 }
 
 					 public GridPoint CornerPoint { get; set; }
 					 public GridPoint StartPoint { get; set; }
@@ -62,26 +56,17 @@ namespace FunkyTrinity
 
 
 
-					 public GPQuadrant(int Sector)
+					 public GPQuadrant()
 						  : base()
 					 {
-						  SectorCode=Sector;
-
+						  
 					 }
-					 public GPQuadrant(int Sector, GridPoint[] points, Vector3 GPCenteringVector, GridPoint endpoint)
+					 public GPQuadrant(GridPoint[] points, Vector3 GPCenteringVector, GridPoint endpoint)
 					 {
-						  this.CenterVector=GPCenteringVector;
-						  this.SectorCode=Sector;
 						  this.ContainedPoints.AddRange(points);
-						  this.StartPoint=this.CenterPoint.Clone();
+						  this.StartPoint=GPCenteringVector;
 						  this.CornerPoint=endpoint.Clone();
 						  this.RectangleArea=new Rect(this.StartPoint, endpoint);
-
-						  //Check for a boundry?
-						  if (this.CornerPoint.Ignored)
-						  {
-
-						  }
 
 						  if (points.Length>0)
 						  {
@@ -212,6 +197,9 @@ namespace FunkyTrinity
 						  //(Total Points / Non-Navigable Points Ratio)
 					 }
 
+					 ///<summary>
+					 ///Searches through the contained GridPoints and preforms multiple tests to return a successful point for navigation.
+					 ///</summary>
 					 public bool FindSafeSpot(out Vector3 safespot, Vector3 LoSCheckV3, bool kite=false, bool checkBotAvoidIntersection=false)
 					 {
 						  bool checkLOS=LoSCheckV3!=vNullLocation;
@@ -236,8 +224,9 @@ namespace FunkyTrinity
 								}
 
 								//Create Vector3
-								Vector3 pointVector=(Vector3)point;
-								pointVector.Z+=1f;
+								Vector3 pointVectorReturn=(Vector3)point;
+								Vector3 pointVector=pointVectorReturn;
+								pointVector.Z+=Bot.Character.fCharacterRadius/2f;
 
 								//Check if we already within this "point".
 								if (botcurpos.Distance(pointVector)<2.5f) continue;
@@ -275,7 +264,7 @@ namespace FunkyTrinity
 								if (checkBotAvoidIntersection&&ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(botcurpos, pointVector)) continue;
 
 
-								LastSafespotFound=pointVector;
+								LastSafespotFound=pointVectorReturn;
 								safespot=LastSafespotFound;
 								LastSafeGridPointFound=point.Clone();
 								LastIndexUsed=curIndex;

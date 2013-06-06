@@ -31,7 +31,7 @@ namespace FunkyTrinity
                              LBDebug.Items.Add(item.DebugString);
                          }
                      }
-                     catch (InvalidOperationException)
+                     catch
                      {
                          LBDebug.Items.Add("End of Output due to Modification Exception");
                      }
@@ -49,7 +49,7 @@ namespace FunkyTrinity
                              LBDebug.Items.Add(item.Value.DebugString);
                          }
                      }
-                     catch (InvalidOperationException)
+                     catch
                      {
 
                          LBDebug.Items.Add("End of Output due to Modification Exception");
@@ -69,7 +69,7 @@ namespace FunkyTrinity
                              LBDebug.Items.Add(item.Value.DebugString);
                          }
                      }
-                     catch (InvalidOperationException)
+                     catch
                      {
 
                          LBDebug.Items.Add("End of Output due to Modification Exception");

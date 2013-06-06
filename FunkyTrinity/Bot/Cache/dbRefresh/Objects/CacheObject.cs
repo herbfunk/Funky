@@ -335,7 +335,7 @@ namespace FunkyTrinity
 						  {
 								FoundLOSLocation=FoundLOSLocation=GridPointAreaCache.AttemptFindTargetSafeLocation(out LOSV3, this, true, (Bot.Class.KiteDistance>0));
 								if (!FoundLOSLocation)
-									 FoundLOSLocation=this.GPRect.TryFindSafeSpot(out LOSV3, this.Position, (Bot.Class.KiteDistance>0));
+									 FoundLOSLocation=this.GPRect.TryFindSafeSpot(out LOSV3, this.BotMeleeVector, (Bot.Class.KiteDistance>0));
 						  }
 
 
@@ -383,7 +383,7 @@ namespace FunkyTrinity
 								return false;
 
 						  //Recheck the LOS against the target.
-						  bool valid=this.LOSTest(this.LOSV3!=vNullLocation?this.LOSV3:this.Position, true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass));
+						  bool valid=this.LOSTest(this.LOSV3!=vNullLocation?this.LOSV3:this.Position, true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass||!this.WithinInteractionRange()));
 
 						  if (!valid)
 								this.LOSV3=vNullLocation;
@@ -463,8 +463,26 @@ namespace FunkyTrinity
 				///</summary>
 				public virtual void UpdateWeight()
 				{
+					 //Prioritized (Blocked/Intersecting Objects)
+					 if (Bot.Combat.PrioritizedRAGUIDs.Contains(this.RAGUID))
+					 {
+						  this.PriorityCounter=this.PriorityCounter+1;
+						  this.PrioritizedDate=DateTime.Now;
+						  Bot.Combat.PrioritizedRAGUIDs.Remove(this.RAGUID);
+					 }
+
 					 // Just to make sure each one starts at 0 weight...
 					 this.Weight=0d;
+
+					 if (this.PriorityCounter>0)
+					 {
+						  //weight variable based on number of timers prioritized.
+						  this.Weight+=(250*this.PriorityCounter);
+
+						  //decrease priority
+						  if (this.LastPriortized>(this.PriorityCounter*500)+750)
+								this.PriorityCounter=this.PriorityCounter-1;
+					 }
 
 
 					 //Unit && Melee Or Gizmo/Item AND Distance > xf.. than we check against avoidance zones!
@@ -478,13 +496,10 @@ namespace FunkyTrinity
 						  bool GoldGlobeObj=this.targetType.Value==TargetType.Globe||this.targetType.Value==TargetType.Gold;
 
 
-						  //Test if this object is within any avoidances.
+						  //Test if this object is within any avoidances (Excluding Gold/Globe)
 						  if (!GoldGlobeObj&&ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
-						  //&&(this.targetType.Value!=TargetType.Unit||
-						  //    this.targetType.Value==TargetType.Unit&&Bot.Combat.RequiresAvoidance))
-						  {
 								this.Weight=1;
-						  }
+						  
 
 						  //Gold and Globe gain bots pickup radius.. so we should calculate a new position accordingly!
 						  if (GoldGlobeObj)
@@ -679,11 +694,6 @@ namespace FunkyTrinity
 																										 where !Bot.Combat.PrioritizedRAGUIDs.Contains(monsters.RAGUID)
 																										 select monsters.RAGUID);
 
-													 foreach (var item in monsterobstacles_)
-													 {
-														  item.PriorityCounter++;
-													 }
-
 													 Logging.WriteVerbose("Nearby Monsters being prioritzed!");
 												}
 												else
@@ -701,11 +711,6 @@ namespace FunkyTrinity
 																											  where !Bot.Combat.PrioritizedRAGUIDs.Contains(objs.RAGUID)
 																											  select objs.RAGUID);
 
-														  foreach (var item in Destructibles)
-														  {
-																item.PriorityCounter++;
-														  }
-
 														  Logging.WriteVerbose("Nearby Destructibles being prioritzed!");
 													 }
 													 else
@@ -719,10 +724,7 @@ namespace FunkyTrinity
 																Bot.Combat.PrioritizedRAGUIDs.AddRange(from objs in Interactables
 																													where !Bot.Combat.PrioritizedRAGUIDs.Contains(objs.RAGUID)
 																													select objs.RAGUID);
-																foreach (var item in Interactables)
-																{
-																	 item.PriorityCounter++;
-																}
+
 																Logging.WriteVerbose("Nearby Interactables being prioritzed!");
 														  }
 														  else

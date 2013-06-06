@@ -108,7 +108,7 @@ namespace FunkyTrinity
 									 continue;
 								}
 								//Logging.WriteVerbose("Sectorpoints Count {0}", sectorpoints.Length);
-								Quadrant[item]=new GPQuadrant((int)item, sectorpoints, CreationVector, cornerPoint);
+								Quadrant[item]=new GPQuadrant(sectorpoints, CreationVector, cornerPoint);
 
 								//item = new Sector(Points.SectorPoints(item.SectorCode, true));
 								debugstring+="SectorID: "+item.ToString()+" "+Quadrant[item].ContainedPoints.Count+",";
@@ -124,10 +124,10 @@ namespace FunkyTrinity
 					 //Represents Sectors that use 90 angle to divide into 4 parts.
 					 private Dictionary<QuadrantLocation, GPQuadrant> Quadrant=new Dictionary<QuadrantLocation, GPQuadrant> 
 					 {												 //"End Point" of the sector
-								{QuadrantLocation.BottomLeft,new GPQuadrant(5)},			 //BottomLeft
-								{QuadrantLocation.BottomRight,new GPQuadrant(6)},			 //BottomRight
-								{QuadrantLocation.TopLeft, new GPQuadrant(9)},			 //TopLeft
-								{QuadrantLocation.TopRight, new GPQuadrant(10)}			 //TopRight
+								{QuadrantLocation.BottomLeft,new GPQuadrant()},			 //BottomLeft
+								{QuadrantLocation.BottomRight,new GPQuadrant()},			 //BottomRight
+								{QuadrantLocation.TopLeft, new GPQuadrant()},			 //TopLeft
+								{QuadrantLocation.TopRight, new GPQuadrant()}			 //TopRight
 					 };
 
 					 public readonly Vector3 CreationVector;
@@ -175,7 +175,7 @@ namespace FunkyTrinity
 
 					 internal void UpdateObjectCount()
 					 {
-						  if (DateTime.Now.Subtract(lastRefreshedObjectContents).TotalMilliseconds>900)
+						  if (DateTime.Now.Subtract(lastRefreshedObjectContents).TotalMilliseconds>250)
 						  {
 								lastRefreshedObjectContents=DateTime.Now;
 								this.AllQuadrantsFailed=false;

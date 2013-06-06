@@ -67,9 +67,9 @@ namespace FunkyTrinity
 		  public static bool GilesCanRayCast(Vector3 vStartLocation, Vector3 vDestination, NavCellFlags NavType=NavCellFlags.None)
 		  {
 				if (NavType!=NavCellFlags.None)
-					 return ZetaDia.Physics.Raycast(new Vector3(vStartLocation.X, vStartLocation.Y, vStartLocation.Z+1f), new Vector3(vDestination.X, vDestination.Y, vDestination.Z+1f), NavType);
+					 return ZetaDia.Physics.Raycast(vStartLocation, vDestination, NavType);
 
-				return !Navigator.Raycast(new Vector3(vStartLocation.X, vStartLocation.Y, vStartLocation.Z+1f), new Vector3(vDestination.X, vDestination.Y, vDestination.Z+1f));
+				return !Navigator.Raycast(vStartLocation,vDestination);
 		  }
 
 		  public static bool ProjectileIntersects(CacheAvoidance Projectile, Vector3 start, Vector3 end, float ProjectileDistance=50f)
