@@ -170,11 +170,8 @@ namespace FunkyTrinity
 						  return RunStatus.Failure;
 
 					 //Out-Of-Range...
-					 if (objPlayStash==null||
-						  !GilesCanRayCast(vectorPlayerPosition, MathEx.GetPointAt(vectorStashLocation, 4f, FindDirection(vectorStashLocation, Bot.Character.Position, true)), NavCellFlags.AllowWalk))
+					 if (objPlayStash==null)
 					 {
-
-
 						  Navigator.PlayerMover.MoveTowards(vectorStashLocation);
 						  return RunStatus.Running;
 					 }
