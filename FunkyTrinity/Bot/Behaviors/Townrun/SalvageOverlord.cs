@@ -133,26 +133,28 @@ namespace FunkyTrinity
 
 					 float iDistanceFromSell=Vector3.Distance(vectorPlayerPosition, vectorSalvageLocation);
 					 //Out-Of-Range...
-					 if (objBlacksmith==null||iDistanceFromSell>25f)//|| !GilesCanRayCast(vectorPlayerPosition, vectorSalvageLocation, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
+					 if (objBlacksmith==null||iDistanceFromSell>12f)//|| !GilesCanRayCast(vectorPlayerPosition, vectorSalvageLocation, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
 					 {
+						  //Use our click movement
+						  Bot.Character.UpdateMovementData();
+
+						  //Wait until we are not moving to send click again..
+						  if (Bot.Character.isMoving)
+								return RunStatus.Running;
+
 						  Navigator.PlayerMover.MoveTowards(vectorSalvageLocation);
 						  return RunStatus.Running;
 					 }
-					 else
-					 {
-						  if (iDistanceFromSell>10f)
-						  {
-								ZetaDia.Me.UsePower(SNOPower.Walk, vectorSalvageLocation, ZetaDia.Me.WorldDynamicId);
-								return RunStatus.Running;
-						  }
-						  else if (!Zeta.Internals.UIElements.SalvageWindow.IsVisible)
-						  {
-								objBlacksmith.Interact();
-								//ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, objBlacksmith.Position, Bot.Character.iCurrentWorldID, objBlacksmith.ACDGuid);
-								return RunStatus.Running;
-						  }
-					 }
 
+
+					 if (objBlacksmith==null)
+						  return RunStatus.Failure;
+
+					 if (!Zeta.Internals.UIElements.SalvageWindow.IsVisible)
+					 {
+						  objBlacksmith.Interact();
+						  return RunStatus.Running;
+					 }
 
 					 if (!Zeta.Internals.UIElements.InventoryWindow.IsVisible)
 					 {
@@ -162,7 +164,7 @@ namespace FunkyTrinity
 
 
 					 iCurrentItemLoops++;
-					 if (iCurrentItemLoops<iItemDelayLoopLimit*2)
+					 if (iCurrentItemLoops<iItemDelayLoopLimit*1.5)
 						  return RunStatus.Running;
 
 					 iCurrentItemLoops=0;
