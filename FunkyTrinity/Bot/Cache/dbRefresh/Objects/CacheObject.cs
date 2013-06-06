@@ -287,14 +287,15 @@ namespace FunkyTrinity
 				public bool LOSTest(Vector3 PositionToTestFrom, bool NavRayCast=true, bool ServerObjectIntersection=true, bool NavCellWalkable=false)
 				{
 					 this.LastLOSCheck=DateTime.Now;
+					 Vector3 botmeleeVector=this.BotMeleeVector;
 
-					 if (NavRayCast&&Zeta.Navigation.Navigator.Raycast(PositionToTestFrom, this.BotMeleeVector))
+					 if (NavRayCast&&Zeta.Navigation.Navigator.Raycast(PositionToTestFrom, botmeleeVector))
 						  return false;
 
-					 if (ServerObjectIntersection&&ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obstacle => obstacle.Obstacletype.HasValue&&obstacle.Obstacletype.Value!=ObstacleType.Monster&&obstacle.TestIntersection(PositionToTestFrom, this.Position)))
+					 if (ServerObjectIntersection&&ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obstacle => obstacle.Obstacletype.HasValue&&obstacle.Obstacletype.Value!=ObstacleType.Monster&&obstacle.TestIntersection(PositionToTestFrom, botmeleeVector)))
 						  return false;
 
-					 if (NavCellWalkable&&!GilesCanRayCast(PositionToTestFrom, this.BotMeleeVector, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
+					 if (NavCellWalkable&&!GilesCanRayCast(PositionToTestFrom, botmeleeVector, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
 						  return false;
 
 
@@ -383,7 +384,7 @@ namespace FunkyTrinity
 								return false;
 
 						  //Recheck the LOS against the target.
-						  bool valid=this.LOSTest(this.LOSV3!=vNullLocation?this.LOSV3:this.Position, true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass||!this.WithinInteractionRange()));
+						  bool valid=this.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass||!this.WithinInteractionRange()));
 
 						  if (!valid)
 								this.LOSV3=vNullLocation;

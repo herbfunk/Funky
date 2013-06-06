@@ -722,8 +722,14 @@ namespace FunkyTrinity
 						  //Line of sight pre-check
 						  if (this.RequiresLOSCheck)
 						  {
-								if (this.LastLOSCheckMS>3000
-									 &&!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), Bot.Class.IsMeleeClass||!this.WithinInteractionRange()))
+								//Preform Test every 2500ms on normal objects, 1250ms on special objects.
+								double lastLOSCheckMS=this.LastLOSCheckMS;
+								if (lastLOSCheckMS<1250)
+									 return false;
+								else if (lastLOSCheckMS<2500&&!this.ObjectIsSpecial)
+									 return false;
+
+								if (!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), Bot.Class.IsMeleeClass||!this.WithinInteractionRange()))
 								{
 									 //ignore non-special units.. or units who already attempted to find a location within the last 3s
 									 if (!this.ObjectIsSpecial)
@@ -731,8 +737,8 @@ namespace FunkyTrinity
 										  this.BlacklistLoops=10;
 										  return false;
 									 }
-									 else
-										  return true;
+									 //else
+									 //    return true;
 								}
 
 								this.RequiresLOSCheck=false;
@@ -808,10 +814,10 @@ namespace FunkyTrinity
 					 if (!base.MonsterTypeIsHostile())
 					 {
 						  //Ally.. Skip
-						  if (base.Monstertype.Value==MonsterType.Ally)
-						  {
-								return false;
-						  }
+						  //if (base.Monstertype.Value==MonsterType.Ally)
+						  //{
+						  //    return false;
+						  //}
 
 						  bool isNPC=false;
 						  using (ZetaDia.Memory.AcquireFrame())
@@ -1184,10 +1190,11 @@ namespace FunkyTrinity
 					 get
 					 {
 						  if ((this.IsEliteRareUnique&&!SettingsFunky.IgnoreAboveAverageMobs)||
+									 (this.PriorityCounter>0)||
 									 (this.IsBoss)||(this.IsSucideBomber&&this.CentreDistance<25f)||
 									 (this.IsTreasureGoblin&&SettingsFunky.GoblinPriority>1)||
 									 (this.CurrentHealthPct<0.25&&SettingsFunky.ClusterKillLowHPUnits
-								//lower the kill radius for melee!
+										  //lower the kill radius for melee!
 											&&(!Bot.Class.IsMeleeClass||(this.CentreDistance<this.KillRadius*0.25f))))
 
 

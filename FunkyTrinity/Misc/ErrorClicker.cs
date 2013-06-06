@@ -14,7 +14,19 @@ namespace FunkyTrinity
 		  {
 				do
 				{
-					 if (ZetaDia.IsInGame)
+					 bool InGame=false;
+					 int SleepTime=2500;
+
+					 try
+					 {
+						  InGame=ZetaDia.IsInGame;
+					 } catch (Exception)
+					 {
+						  Logging.WriteDiagnostic("[ErrorClicker] Safely Handled IsInGame Exception!");
+						  SleepTime=5000;
+					 }
+
+					 if (InGame)
 					 {
 						  try
 						  {
@@ -55,7 +67,9 @@ namespace FunkyTrinity
 
 						  }
 					 }
-					 Thread.Sleep(2000);
+
+					 Thread.Sleep(SleepTime);
+
 				} while (true);
 		  }
 

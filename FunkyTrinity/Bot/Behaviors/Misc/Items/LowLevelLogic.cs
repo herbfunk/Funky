@@ -311,7 +311,7 @@ namespace FunkyTrinity
 						  return;
 					 }
 					 // Check this item is of the necessary item level (if not don't blacklist it until it is!)
-					 if (thisitem.RequiredLevel<=ZetaDia.Me.Level&&!thisitem.IsUnidentified)
+					 if (thisitem.Level<=ZetaDia.Me.Level&&!thisitem.IsUnidentified)
 					 {
 						  // Make sure we haven't already analysed this item previously
 						  if (!_alreadyLookedAtBlacklist.Contains(thisitem.DynamicId))

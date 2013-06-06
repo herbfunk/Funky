@@ -43,7 +43,7 @@ namespace FunkyTrinity
 								try
 								{
 									 return (base.ref_DiaObject.CommonData.AnimationState);
-								} catch (NullReferenceException) 
+								} catch (NullReferenceException)
 								{
 									 return AnimationState.Invalid;
 								}
@@ -173,15 +173,18 @@ namespace FunkyTrinity
 
 						  if (this.RequiresLOSCheck&&!this.IgnoresLOSCheck)
 						  {
-								//Melee Check for navigation
-								if (Zeta.Navigation.Navigator.Raycast(Bot.Character.Position, base.BotMeleeVector))
+								//Preform Test every 2500ms on normal objects, 1250ms on special objects.
+								double lastLOSCheckMS=this.LastLOSCheckMS;
+								if (lastLOSCheckMS<1250)
+									 return false;
+								else if (lastLOSCheckMS<2500&&!this.ObjectIsSpecial)
+									 return false;
+
+								if (!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), Bot.Class.IsMeleeClass||!this.WithinInteractionRange()))
 								{
 									 return false;
 								}
 
-
-								//Set the vectors we used to raycast.. so we can recheck if they changed during target handling.
-                                this.RequiresLOSCheck = false;
 								this.RequiresLOSCheck=false;
 						  }
 
@@ -420,7 +423,7 @@ namespace FunkyTrinity
 						  try
 						  {
 								this.ref_Gizmo=(DiaGizmo)base.ref_DiaObject;
-						  } catch (NullReferenceException ) { Logging.WriteVerbose("Failure to convert obj to DiaItem!"); return false; }
+						  } catch (NullReferenceException) { Logging.WriteVerbose("Failure to convert obj to DiaItem!"); return false; }
 					 }
 
 					 //Destructibles are not important unless they are close.. 40f is minimum range!
@@ -453,13 +456,13 @@ namespace FunkyTrinity
 								}
 								else if (base.Gizmotype.Value==Zeta.Internals.SNO.GizmoType.LootContainer)
 								{
-									 if (this.IsChestContainer) 
+									 if (this.IsChestContainer)
 										  this.HandleAsObstacle=true;
 
 									 GizmoLootContainer gizmoContainer=this.ref_Gizmo as GizmoLootContainer;
 									 this.GizmoHasBeenUsed=gizmoContainer.HasBeenOperated;
 								}
-						  } catch (AccessViolationException )
+						  } catch (AccessViolationException)
 						  {
 								Logging.WriteVerbose("Safely handled getting attribute GizmoHasBeenOperated gizmo {0}", this.InternalName);
 								return false;
@@ -475,9 +478,9 @@ namespace FunkyTrinity
 					 }
 
 					 //only shrines and "chests" would have set this value true.. so if no value than we set it false!
-					 if (!this.HandleAsObstacle.HasValue) 
+					 if (!this.HandleAsObstacle.HasValue)
 						  this.HandleAsObstacle=false;
-					 else if(this.HandleAsObstacle.Value)
+					 else if (this.HandleAsObstacle.Value)
 						  base.Obstacletype=ObstacleType.ServerObject;
 
 					 //PhysicsSNO -- (continiously updated) excluding shrines/interactables

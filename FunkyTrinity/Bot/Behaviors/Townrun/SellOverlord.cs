@@ -154,7 +154,7 @@ namespace FunkyTrinity
 						  switch (ZetaDia.CurrentAct)
 						  {
 								case Act.A1:
-									 vectorSellLocation=new Vector3(2941.904f, 2812.825f, 24.04533f); break;
+									 vectorSellLocation=new Vector3(2912.775f, 2803.896f, 24.04533f); break;
 								case Act.A2:
 									 vectorSellLocation=new Vector3(295.2101f, 265.1436f, 0.1000002f); break;
 								case Act.A3:
@@ -168,9 +168,10 @@ namespace FunkyTrinity
 
 					 float iDistanceFromSell=Vector3.Distance(vectorPlayerPosition, vectorSellLocation);
 					 //Out-Of-Range...
-					 if (objSellNavigation==null||
-						  !GilesCanRayCast(vectorPlayerPosition, vectorSellLocation, NavCellFlags.AllowWalk))
+					 if (objSellNavigation==null)
+						  //!GilesCanRayCast(vectorPlayerPosition, vectorSellLocation, NavCellFlags.AllowWalk))
 					 {
+						  Logging.WriteVerbose("Vendor Obj is Null or Raycast Failed.. using Navigator to move!");
 						  Navigator.PlayerMover.MoveTowards(vectorSellLocation);
 						  return RunStatus.Running;
 					 }
@@ -187,9 +188,11 @@ namespace FunkyTrinity
 								Bot.Character.UpdateMovementData();
 
 								//Wait until we are not moving to send click again..
-								if (Bot.Character.isMoving&&Bot.Character.iCurrentMovementTargetGUID==objSellNavigation.ACDGuid) return RunStatus.Running;
+								if (Bot.Character.isMoving) 
+									 return RunStatus.Running;
 
-								ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, vectorSellLocation, ZetaDia.Me.WorldDynamicId, objSellNavigation.ACDGuid);
+								objSellNavigation.Interact();
+								//ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, vectorSellLocation, ZetaDia.Me.WorldDynamicId, objSellNavigation.ACDGuid);
 								return RunStatus.Running;
 						  }
 					 }

@@ -43,20 +43,23 @@ namespace FunkyTrinity
 
 						  if (intersectingObstacles.Any())
 						  {
-								intersectingObstacles=intersectingObstacles.OrderBy(obstacle => obstacle.CentreDistance);
-
-								//get monsters and prioritize them
-								var intersectingUnits=intersectingObstacles.Where(obstacle => obstacle.Obstacletype.Value==ObstacleType.Monster).ToList();
-								if (intersectingUnits.Any())
+								//intersectingObstacles=intersectingObstacles.OrderBy(obstacle => obstacle.CentreDistance);
+								foreach (var item in intersectingObstacles)
 								{
-									 int counter=0;
-									 foreach (var item in intersectingUnits)
-									 {
-										  Bot.Combat.PrioritizedRAGUIDs.Add(item.RAGUID);
-										  counter++;
-									 }
-									 Logging.WriteVerbose("A total of {0} units were prioritized!", counter.ToString());
+									 Bot.Combat.PrioritizedRAGUIDs.Add(item.RAGUID);
 								}
+								////get monsters and prioritize them
+								//var intersectingUnits=intersectingObstacles.Where(obstacle => obstacle.Obstacletype.Value==ObstacleType.Monster).ToList();
+								//if (intersectingUnits.Any())
+								//{
+								//    int counter=0;
+								//    foreach (var item in intersectingUnits)
+								//    {
+								//        Bot.Combat.PrioritizedRAGUIDs.Add(item.RAGUID);
+								//        counter++;
+								//    }
+								//    Logging.WriteVerbose("A total of {0} units were prioritized!", counter.ToString());
+								//}
 
 								////find any non-monsters within 20f and find a location around it..
 								//foreach (var intersectingObstacle in intersectingObstacles.Except(intersectingUnits).Where(obj => obj.CentreDistance<20f))
