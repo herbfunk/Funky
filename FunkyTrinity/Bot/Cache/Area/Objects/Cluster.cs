@@ -7,13 +7,6 @@ namespace FunkyTrinity
 {
 	 internal partial class Cluster
 	 {
-		  public string DebugString
-		  {
-				get
-				{
-					 return "Total Points Contained "+ListPoints.Count.ToString()+" with Centeroid at "+Centeroid.ToString();
-				}
-		  }
 
 		  public List<Funky.CacheUnit> ListUnits { get; protected set; }
 		  public List<Funky.GridPoint> ListPoints { get; protected set; }
@@ -71,27 +64,6 @@ namespace FunkyTrinity
 
 		  public float NearestMonsterDistance { get; set; }
 
-		  public Funky.GridPoint Centeroid
-		  {
-				get
-				{
-					 int TotalCount=ListUnits.Count;
-					 Funky.GridPoint SumPoint=ListUnits[0].PointPosition.Clone();
-					 for (int i=1; i<ListUnits.Count-1; i++)
-					 {
-						  SumPoint+=ListUnits[i].PointPosition;
-					 }
-					 return SumPoint/TotalCount;
-				}
-		  }
-
-		  public double AccumulatedWeight
-		  {
-				get
-				{
-					 return ListUnits.Sum(u => u.Weight);
-				}
-		  }
 
 		  protected Cluster()
 		  {
@@ -125,18 +97,7 @@ namespace FunkyTrinity
 
 		  }  // of overloaded constructor
 
-		  public bool ContainsPoint(Funky.GridPoint p_Point)
-		  {
-				bool l_Exists=false;
-
-				if (ListPoints.Contains((p_Point), new PointComparer()))
-					 l_Exists=true;
-
-				return l_Exists;
-
-		  }  // of ContainsPoint()
-
-		  public bool ContainsUnit(Funky.CacheUnit unit)
+		  private bool ContainsUnit(Funky.CacheUnit unit)
 		  {
 				bool u_Exists=false;
 
@@ -153,7 +114,7 @@ namespace FunkyTrinity
 		  /// <param name="p_Point">The point to be added to this cluster</param>
 		  /// <returns>false if point can't be added (that is either already in cluster
 		  /// or it is unreachable from any of the cluster's points)</returns>
-		  public bool AddUnit(Funky.CacheUnit unit)
+		  private bool AddUnit(Funky.CacheUnit unit)
 		  {
 				bool l_bSuccess=true;
 

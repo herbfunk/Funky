@@ -112,21 +112,8 @@ namespace FunkyTrinity
 
 					 private DateTime lastMovementUpdate=DateTime.Today;
 
-					 private int curmovementTargetGUID=-1;
-					 internal int iCurrentMovementTargetGUID
-					 {
-						  get
-						  {
-								if (DateTime.Now.Subtract(lastMovementUpdate).TotalMilliseconds>500)
-									 UpdateMovementData();
+					// private int curmovementTargetGUID=-1;
 
-								return curmovementTargetGUID;
-						  }
-						  set
-						  {
-								curmovementTargetGUID=value;
-						  }
-					 }
 
 					 private MovementState curMoveState=MovementState.None;
 					 internal MovementState currentMovementState
@@ -137,10 +124,6 @@ namespace FunkyTrinity
 									 UpdateMovementData();
 
 								return curMoveState;
-						  }
-						  set
-						  {
-								curMoveState=value;
 						  }
 					 }
 
@@ -154,10 +137,6 @@ namespace FunkyTrinity
 
 								return curRotation;
 						  }
-						  set
-						  {
-								curRotation=value;
-						  }
 					 }
 
 					 private double curSpeedXY=0d;
@@ -169,10 +148,6 @@ namespace FunkyTrinity
 									 UpdateMovementData();
 
 								return curSpeedXY;
-						  }
-						  set
-						  {
-								curSpeedXY=value;
 						  }
 					 }
 
@@ -484,20 +459,6 @@ namespace FunkyTrinity
 								}
 						  }
 
-						  public int UnidItemCount(bool update=true)
-						  {
-								if (update) Update();
-
-								if (!ZetaDia.Me.Inventory.Backpack.Any()) return 0;
-
-								var filteredItems=ZetaDia.Me.Inventory.Backpack.Where<ACDItem>(i =>
-														  i.IsValid&&!i.IsMiscItem);
-
-
-
-								return filteredItems.Where<ACDItem>(i => i.IsUnidentified).Count();
-						  }
-
 						  public Queue<ACDItem> ReturnUnidenifiedItems()
 						  {
 								Queue<ACDItem> returnQueue=new Queue<ACDItem>();
@@ -647,11 +608,6 @@ namespace FunkyTrinity
 								public List<CacheItem> HerbfunkOOCKeepItems=new List<CacheItem>();
 								public HashSet<int> HerbfunkOOCcheckedItemDynamicIDs=new HashSet<int>();
 
-								public void Reset()
-								{
-									 HerbfunkOOCKeepItems=new List<CacheItem>();
-									 HerbfunkOOCcheckedItemDynamicIDs=new HashSet<int>();
-								}
 						  }
 
 						  //Used to hold Town Run Data

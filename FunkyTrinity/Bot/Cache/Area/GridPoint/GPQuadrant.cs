@@ -33,7 +33,6 @@ namespace FunkyTrinity
 					 public GridPoint CornerPoint { get; set; }
 					 public GridPoint StartPoint { get; set; }
 
-					 public Rect RectangleArea { get; set; }
 					 public Vector3 Center
 					 {
 						  get
@@ -59,7 +58,7 @@ namespace FunkyTrinity
 						  this.ContainedPoints.AddRange(points);
 						  this.StartPoint=GPCenteringVector;
 						  this.CornerPoint=endpoint.Clone();
-						  this.RectangleArea=new Rect(this.StartPoint, endpoint);
+						 
 
 						  if (points.Length>0)
 						  {

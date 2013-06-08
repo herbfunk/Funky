@@ -13,7 +13,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public class NewMuleGame
+		  public static class NewMuleGame
 		  {
 				private static DateTime LastActionTaken=DateTime.Today;
 				private static int RandomWaitTimeMilliseconds=1000;
@@ -88,9 +88,9 @@ namespace FunkyTrinity
 									 else
 									 {
 										  //Use our click movement
-
+										  Bot.Character.UpdateMovementData();
 										  //Wait until we are not moving to send click again..
-										  if (Bot.Character.iCurrentMovementTargetGUID==CurrentStashObject.ACDGuid)
+										  if (Bot.Character.isMoving)
 												return RunStatus.Running;
 
 										  ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, CurrentStashObject.Position, ZetaDia.Me.WorldDynamicId, CurrentStashObject.ACDGuid);

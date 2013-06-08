@@ -9,9 +9,9 @@ using Zeta.Internals;
 namespace GilesTrinity.ItemRules.Core
 {
 
-    public class MaxStats
+    public static class MaxStats
     {
-        public static Dictionary<string, double> maxItemStats = new Dictionary<string, double>();
+        internal static Dictionary<string, double> maxItemStats = new Dictionary<string, double>();
 
         static MaxStats()
         {

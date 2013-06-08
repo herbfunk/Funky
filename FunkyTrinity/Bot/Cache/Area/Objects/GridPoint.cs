@@ -19,10 +19,6 @@ namespace FunkyTrinity
 					 {
 						  return x_;
 					 }
-					 set
-					 {
-						  x_=value;
-					 }
 				}
 
 				private float y_;
@@ -31,10 +27,6 @@ namespace FunkyTrinity
 					 get
 					 {
 						  return y_;
-					 }
-					 set
-					 {
-						  y_=value;
 					 }
 				}
 				private float z_;
@@ -127,26 +119,22 @@ namespace FunkyTrinity
 				{
 					 return new GridPoint(a.X/Amount, a.Y/Amount);
 				}
-				public static bool InbetweenMinMax(GridPoint Min, GridPoint Max, GridPoint Test)
-				{
-					 return (Test>=Min&&Test<=Max);
-				}
 				public static GridPoint GetCenteroid(GridPoint A, GridPoint B)
 				{
 					 return new GridPoint((A.X+B.X)/2f, (A.Y+B.Y)/2f);
 				}
-				public static double AngleDegreeBetweenPoints(GridPoint A, GridPoint B)
-				{
-					 float DeltaY=B.Y-A.Y;
-					 float DeltaX=B.X-A.X;
-					 return Math.Atan2(DeltaY, DeltaX)*180/Math.PI;
-				}
-				public static bool LinesIntersect(GridPoint Astart, GridPoint Aend, GridPoint test, float testradiussqrt)
-				{
-					 System.Drawing.Size offsetSize=new System.Drawing.Size((int)testradiussqrt, (int)testradiussqrt);
-					 System.Drawing.Point testPoint=new System.Drawing.Point((int)test.X, (int)test.Y);
-					 return LineIntersectsLine(Astart, Aend, System.Drawing.Point.Add(testPoint, offsetSize), System.Drawing.Point.Subtract(testPoint, offsetSize));
-				}
+				//public static double AngleDegreeBetweenPoints(GridPoint A, GridPoint B)
+				//{
+				//	 float DeltaY=B.Y-A.Y;
+				//	 float DeltaX=B.X-A.X;
+				//	 return Math.Atan2(DeltaY, DeltaX)*180/Math.PI;
+				//}
+				//public static bool LinesIntersect(GridPoint Astart, GridPoint Aend, GridPoint test, float testradiussqrt)
+				//{
+				//	 System.Drawing.Size offsetSize=new System.Drawing.Size((int)testradiussqrt, (int)testradiussqrt);
+				//	 System.Drawing.Point testPoint=new System.Drawing.Point((int)test.X, (int)test.Y);
+				//	 return LineIntersectsLine(Astart, Aend, System.Drawing.Point.Add(testPoint, offsetSize), System.Drawing.Point.Subtract(testPoint, offsetSize));
+				//}
 				public static bool LineIntersectsRect(GridPoint p1, GridPoint p2, System.Windows.Rect r)
 				{
 					 return LineIntersectsLine(p1, p2, new GridPoint(r.X, r.Y), new GridPoint(r.X+r.Width, r.Y))||
@@ -191,13 +179,13 @@ namespace FunkyTrinity
 
 					 return true;
 				}
-				public bool IsConnectedWith(GridPoint Test)
-				{
-					 if (Difference(this.X, Test.X)>1||Difference(this.Y, Test.Y)>1) 
-						  return false;
+				//public bool IsConnectedWith(GridPoint Test)
+				//{
+				//	 if (Difference(this.X, Test.X)>1||Difference(this.Y, Test.Y)>1) 
+				//		  return false;
 
-					 return true;
-				}
+				//	 return true;
+				//}
 				public double Distance(GridPoint p)
 				{
 					 GridPoint q=this.Clone();

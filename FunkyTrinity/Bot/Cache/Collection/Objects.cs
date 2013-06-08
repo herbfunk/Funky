@@ -175,54 +175,6 @@ namespace FunkyTrinity
 						  return LastClusterList;
 					 }
 
-					 internal void RunKmeans(double distance, float maximumDistanceFromBot=50f)
-					 {
-						  CacheUnit[] Units=this.Values.OfType<CacheUnit>().Where(o => Bot.Combat.UnitRAGUIDs.Contains(o.RAGUID)&&o.RadiusDistance<=maximumDistanceFromBot).ToArray();
-
-						  if (Units.Length==0)
-								return;
-
-						  List<CacheUnit> l_ListUnits=new List<CacheUnit>(Units);
-
-						  if (l_ListUnits.Count==0)
-								return;
-
-						  LC_=new List<Cluster>();
-
-						  // for starters, take a point to create one cluster
-						  CacheUnit l_P1=l_ListUnits[0];
-
-						  l_ListUnits.Remove(l_P1);
-
-						  // so far, we have a one-point cluster
-						  LC_.Add(new Cluster(distance, l_P1));
-
-						  #region Main Loop
-						  // the algorithm is inside this loop
-						  List<Cluster> l_ListAttainableClusters;
-						  Cluster l_c;
-						  foreach (CacheUnit p in l_ListUnits)
-						  {
-								l_ListAttainableClusters=new List<Cluster>();
-								l_ListAttainableClusters=LC_.FindAll(x => x.IsPointReachable(p.PointPosition));
-								LC_.RemoveAll(x => x.IsPointReachable(p.PointPosition));
-								l_c=new Cluster(distance, p);
-								// merge point's "reachable" clusters
-								if (l_ListAttainableClusters.Count>0)
-									 l_c.AnnexCluster(l_ListAttainableClusters.Aggregate((c, x) =>
-										c=Cluster.MergeClusters(x, c)));
-								LC_.Add(l_c);
-								//Logging.WriteVerbose("Cluster Found: Total Points {0} with Centeroid {1}", l_c.ListPoints.Count, l_c.Centeroid.ToString());
-								l_ListAttainableClusters=null;
-								l_c=null;
-						  }  // of loop over candidate points
-
-						  LC_=LC_.OrderBy(o => o.NearestMonsterDistance).ToList();
-						  #endregion
-
-						  lastClusterComputed=DateTime.Now;
-					 }
-
 					 public bool IsPointNearbyMonsters(Vector3 Vector, float Range=1f)
 					 {
 						  return this.Values.OfType<CacheUnit>().Any(monster => monster.ShouldBeKited&&

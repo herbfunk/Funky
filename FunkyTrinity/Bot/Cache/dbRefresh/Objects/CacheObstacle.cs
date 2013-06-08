@@ -73,7 +73,7 @@ namespace FunkyTrinity
 				{
 					 //return (Math.Min(rect_.TopLeft.X, rect_.BottomRight.X)>=Pos.X&&Math.Max(rect_.TopLeft.X, rect_.BottomRight.X)<=Pos.X&&
 					 //Math.Min(rect_.TopLeft.Y, rect_.BottomRight.Y)>=Pos.Y&&Math.Max(rect_.TopLeft.Y, rect_.BottomRight.Y)<=Pos.Y);
-					 return (GridPoint.GetDistanceBetweenPoints(base.PointPosition, Pos))<=(this.PointRadius);
+					 return (GridPoint.GetDistanceBetweenPoints(base.PointPosition, Pos)-this.PointRadius<=2.5f);
 				}
 				public virtual bool PointInside(Vector3 V3)
 				{
@@ -263,20 +263,7 @@ namespace FunkyTrinity
 					 return projectileraytest_;
 				}
 
-				private Vector3 DirectionVector3;
-				private Vector2 directionV_;
-				public Vector2 DirectionVector
-				{
-					 get
-					 {
-						  return directionV_;
-					 }
-					 set
-					 {
-						  directionV_=value;
-						  DirectionVector3=value.ToVector3();
-					 }
-				}
+				//private Vector2 directionV_;
 				private Ray ray_;
 				public Ray Ray
 				{

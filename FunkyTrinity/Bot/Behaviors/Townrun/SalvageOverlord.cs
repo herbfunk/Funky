@@ -13,7 +13,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public partial class TownRunManager
+		  internal static partial class TownRunManager
 		  {
 				// **********************************************************************************************
 				// *****         Salvage Overlord determines if we should visit the blacksmith or not       *****

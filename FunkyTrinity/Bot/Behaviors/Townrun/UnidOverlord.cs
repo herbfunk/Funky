@@ -15,7 +15,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public partial class TownRunManager
+		  internal static partial class TownRunManager
 		  {
 				// **********************************************************************************************
 				// *****         TownRunCheckOverlord - determine if we should do a town-run or not         *****
@@ -105,7 +105,7 @@ namespace FunkyTrinity
 								Bot.Character.UpdateMovementData();
 
 								//Wait until we are not moving to send click again..
-								if (Bot.Character.isMoving&&Bot.Character.iCurrentMovementTargetGUID==objPlayStash.ACDGuid) return RunStatus.Running;
+								if (Bot.Character.isMoving) return RunStatus.Running;
 
 								ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, vectorStashLocation, ZetaDia.Me.WorldDynamicId, objPlayStash.ACDGuid);
 								return RunStatus.Running;

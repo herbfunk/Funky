@@ -839,11 +839,11 @@ namespace FunkyTrinity
 						  Bot.Character.UpdateMovementData();
 
 
-						  if (SettingsFunky.DebugStatusBar)
-						  {
-								BotMain.StatusText=("[Funky] Movement Command, Movement State "+Bot.Character.currentMovementState.ToString()+
-										 ", IsMoving: "+Bot.Character.isMoving.ToString()+", MovementTarget Match "+(CurrentTarget.AcdGuid.Value==Bot.Character.iCurrentMovementTargetGUID).ToString());
-						  }
+						  //if (SettingsFunky.DebugStatusBar)
+						  //{
+						  //	 BotMain.StatusText=("[Funky] Movement Command, Movement State "+Bot.Character.currentMovementState.ToString()+
+						  //			  ", IsMoving: "+Bot.Character.isMoving.ToString()+", MovementTarget Match "+(CurrentTarget.AcdGuid.Value==Bot.Character.iCurrentMovementTargetGUID).ToString());
+						  //}
 
 						  if (Bot.Character.isMoving)
 						  {//We are successfully moving..

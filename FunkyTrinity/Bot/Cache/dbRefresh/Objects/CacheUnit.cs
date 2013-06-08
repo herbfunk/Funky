@@ -24,13 +24,7 @@ namespace FunkyTrinity
 
 				#region Monster Affixes Related
 				private bool CheckedMonsterAffixes_=false;
-				public bool CheckedMonsterAffixes
-				{
-					 get { return CheckedMonsterAffixes_; }
-					 set { CheckedMonsterAffixes_=value; }
-				}
-
-				public void CheckMonsterAffixes(MonsterAffixes theseaffixes)
+				private void CheckMonsterAffixes(MonsterAffixes theseaffixes)
 				{
 					 MonsterRare=theseaffixes.HasFlag(MonsterAffixes.Rare);
 					 MonsterUnique=theseaffixes.HasFlag(MonsterAffixes.Unique);
@@ -208,7 +202,7 @@ namespace FunkyTrinity
 									 dThisCurrentHealth=this.ref_DiaUnit.HitpointsCurrent;
 								} catch (NullReferenceException)
 								{
-									 throw new AccessViolationException();
+									 return;
 								}
 
 								if (!this.MaximumHealth.HasValue)
@@ -235,27 +229,7 @@ namespace FunkyTrinity
 						  this.CurrentHealthPct=dCurrentHealthPct;
 					 }
 				}
-				///<summary>
-				///Simply returns DiaUnit property IsDead
-				///</summary>
-				public bool IsUnitDead()
-				{
-					 if (!base.IsStillValid())
-						  return false;
 
-					 using (ZetaDia.Memory.AcquireFrame())
-					 {
-						  try
-						  {
-								return this.ref_DiaUnit.IsDead;
-						  } catch (AccessViolationException ex)
-						  {
-								Logging.WriteDiagnostic("Safely Handled IsDead for Unit {0} \r\n {1}", this.InternalName, ex.Message);
-								return true;
-						  }
-
-					 }
-				}
 
 				private double KillRadius
 				{
@@ -282,7 +256,7 @@ namespace FunkyTrinity
 								if (dUseKillRadius<=30&&SnoCacheLookup.hashActorSNORanged.Contains(this.SNOID))
 									 dUseKillRadius=30;
 
-								if (this.CentreDistance<=SettingsFunky.NonEliteCombatRange)
+								if (this.CentreDistance<=Bot.Class.NonEliteRange)
 									 Bot.Combat.bAnyMobsInCloseRange=true;
 						  }
 
@@ -352,7 +326,7 @@ namespace FunkyTrinity
 						  }
 						  else
 								//Not Boss, Goblin, Elite/Rare/Unique..
-								dUseKillRadius+=SettingsFunky.NonEliteCombatRange;
+								dUseKillRadius+=Bot.Class.NonEliteRange;
 
 
 						  // Safety for Giles own portal-back-to-town for full-backpack
@@ -768,7 +742,7 @@ namespace FunkyTrinity
 
 
 						  // Units with very high priority (1900+) allow an extra 50% on the non-elite kill slider range
-						  if (!Bot.Combat.bAnyMobsInCloseRange&&!Bot.Combat.bAnyChampionsPresent&&!Bot.Combat.bAnyTreasureGoblinsPresent&&this.CentreDistance<=(SettingsFunky.NonEliteCombatRange*1.5))
+						  if (!Bot.Combat.bAnyMobsInCloseRange&&!Bot.Combat.bAnyChampionsPresent&&!Bot.Combat.bAnyTreasureGoblinsPresent&&this.CentreDistance<=(Bot.Class.NonEliteRange*1.5))
 						  {
 								int iExtraPriority;
 								// Enable extended kill radius for specific unit-types
@@ -1217,10 +1191,6 @@ namespace FunkyTrinity
 					 }
 				}
 
-				public new CacheUnit Clone()
-				{
-					 return (CacheUnit)this.MemberwiseClone();
-				}
 
 		  }
 

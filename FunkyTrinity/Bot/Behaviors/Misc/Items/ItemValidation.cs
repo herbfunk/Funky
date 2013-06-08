@@ -497,6 +497,6 @@ namespace FunkyTrinity
 		  // **********************************************************************************************
 		  // *****          Search backpack to see if we have room for a 2-slot item anywhere         *****
 		  // **********************************************************************************************
-		  private static bool[,] GilesBackpackSlotBlocked=new bool[10, 6];
+		  //private static bool[,] GilesBackpackSlotBlocked=new bool[10, 6];
 	 }
 }

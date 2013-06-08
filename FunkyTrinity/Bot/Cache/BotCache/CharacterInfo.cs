@@ -64,33 +64,6 @@ namespace FunkyTrinity
 
 					 private List<ItemType> CurrentEquippedItemTypes=new List<ItemType>();
 
-					 internal List<ItemType> EquippedItemTypes
-					 {
-						  get
-						  {
-								if (CurrentEquippedItemTypes.Count<0)
-								{
-									 try
-									 {
-										  using (ZetaDia.Memory.AcquireFrame())
-										  {
-												foreach (var item in ZetaDia.Me.Inventory.Equipped)
-												{
-													 ItemType t=item.ItemType;
-													 if (!CurrentEquippedItemTypes.Contains(t))
-														  CurrentEquippedItemTypes.Add(t);
-												}
-										  }
-									 } catch
-									 {
-
-									 }
-								}
-
-								return CurrentEquippedItemTypes;
-						  }
-					 }
-
 
 					 ///<summary>
 					 ///Returns a specific dictionary according to the bots character flags.

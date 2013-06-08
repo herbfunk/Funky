@@ -13,7 +13,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public partial class TownRunManager
+		  internal static partial class TownRunManager
 		  {
 				// The distance last loop, so we can compare to current distance to work out if we moved
 				private static float iLastDistance=0f;

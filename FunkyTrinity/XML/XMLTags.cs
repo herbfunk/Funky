@@ -2097,7 +2097,7 @@ namespace FunkyTrinity
 
 		  private Vector3 PrioritySceneTarget=Vector3.Zero;
 		  private int PrioritySceneSNOId=-1;
-		  private Scene CurrentPriorityScene=null;
+		  //private Scene CurrentPriorityScene=null;
 		  private float PriorityScenePathPrecision=-1f;
 		  /// <summary>
 		  /// A list of Scene SNOId's that have already been investigated
@@ -2226,7 +2226,7 @@ namespace FunkyTrinity
 
 					 PrioritySceneSNOId=nearestPriorityScene.Key;
 					 PrioritySceneTarget=nearestPriorityScene.Value;
-					 CurrentPriorityScene=foundPriorityScenes.FirstOrDefault(s => s.SceneInfo.SNOId==PrioritySceneSNOId);
+					 //CurrentPriorityScene=foundPriorityScenes.FirstOrDefault(s => s.SceneInfo.SNOId==PrioritySceneSNOId);
 					 PriorityScenePathPrecision=GetPriorityScenePathPrecision(PScenes.FirstOrDefault(s => s.SceneInfo.SNOId==nearestPriorityScene.Key));
 
 					 //DbHelper.Log(TrinityLogLevel.Normal, LogCategory.ProfileTag, "Found Priority Scene {0} - {1} Center {2} Distance {3:0}",
@@ -2479,17 +2479,17 @@ namespace FunkyTrinity
 					 return 0;
 		  }
 
-		  /// <summary>
-		  /// Gets the number of visisted nodes in the DungeonExplorer Route
-		  /// </summary>
-		  /// <returns></returns>
-		  private int GetRouteVisistedNodeCount()
-		  {
-				if (GetCurrentRouteNodeCount()>0)
-					 return BrainBehavior.DungeonExplorer.CurrentRoute.Count(n => n.Visited);
-				else
-					 return 0;
-		  }
+		  ///// <summary>
+		  ///// Gets the number of visisted nodes in the DungeonExplorer Route
+		  ///// </summary>
+		  ///// <returns></returns>
+		  //private int GetRouteVisistedNodeCount()
+		  //{
+		  //	 if (GetCurrentRouteNodeCount()>0)
+		  //		  return BrainBehavior.DungeonExplorer.CurrentRoute.Count(n => n.Visited);
+		  //	 else
+		  //		  return 0;
+		  //}
 
 		  /// <summary>
 		  /// Gets the number of nodes in the DungeonExplorer Route
@@ -2505,29 +2505,29 @@ namespace FunkyTrinity
 		  /*
 			*  Grid Segmentation Nodes
 			*/
-		  /// <summary>
-		  /// Gets the number of Unvisited nodes as reported by the Grid Segmentation provider
-		  /// </summary>
-		  /// <returns></returns>
-		  private int GetGridSegmentationUnvisitedNodeCount()
-		  {
-				if (GetGridSegmentationNodeCount()>0)
-					 return GridSegmentation.Nodes.Count(n => !n.Visited);
-				else
-					 return 0;
-		  }
+		  ///// <summary>
+		  ///// Gets the number of Unvisited nodes as reported by the Grid Segmentation provider
+		  ///// </summary>
+		  ///// <returns></returns>
+		  //private int GetGridSegmentationUnvisitedNodeCount()
+		  //{
+		  //	 if (GetGridSegmentationNodeCount()>0)
+		  //		  return GridSegmentation.Nodes.Count(n => !n.Visited);
+		  //	 else
+		  //		  return 0;
+		  //}
 
-		  /// <summary>
-		  /// Gets the number of Visited nodes as reported by the Grid Segmentation provider
-		  /// </summary>
-		  /// <returns></returns>
-		  private int GetGridSegmentationVisistedNodeCount()
-		  {
-				if (GetCurrentRouteNodeCount()>0)
-					 return GridSegmentation.Nodes.Count(n => n.Visited);
-				else
-					 return 0;
-		  }
+		  ///// <summary>
+		  ///// Gets the number of Visited nodes as reported by the Grid Segmentation provider
+		  ///// </summary>
+		  ///// <returns></returns>
+		  //private int GetGridSegmentationVisistedNodeCount()
+		  //{
+		  //	 if (GetCurrentRouteNodeCount()>0)
+		  //		  return GridSegmentation.Nodes.Count(n => n.Visited);
+		  //	 else
+		  //		  return 0;
+		  //}
 
 		  /// <summary>
 		  /// Gets the total number of nodes with the current BoxSize/Tolerance as reported by the Grid Segmentation Provider
@@ -2542,7 +2542,7 @@ namespace FunkyTrinity
 		  }
 
 		  private MoveResult LastMoveResult=MoveResult.Moved;
-		  private DateTime lastGeneratedPath=DateTime.MinValue;
+//		  private DateTime lastGeneratedPath=DateTime.MinValue;
 		  /// <summary>
 		  /// Moves the bot to the next DungeonExplorer node
 		  /// </summary>
@@ -3116,7 +3116,7 @@ namespace FunkyTrinity
 				);
 		  }
 
-		  private Vector3 CurrentPosition=Vector3.Zero;
+//		  private Vector3 CurrentPosition=Vector3.Zero;
 		  private int CurrentLevelID;
 		  private int CurrentWorldID;
 
@@ -3129,7 +3129,7 @@ namespace FunkyTrinity
 				{
 					 CurrentLevelID=ZetaDia.CurrentLevelAreaId;
 					 CurrentWorldID=ZetaDia.CurrentWorldId;
-					 CurrentPosition=ZetaDia.Me.Position;
+					 
 					 InitDone=true;
 				} catch (Exception)
 				{
@@ -3211,12 +3211,11 @@ namespace FunkyTrinity
 				}
 		  }
 
-		  private MoveResult LastMoveResult;
+//		  private MoveResult LastMoveResult;
 		  private void MoveToActor()
 		  {
 
-				LastMoveResult=Navigator.MoveTo(WaypointGizmo.Position);
-
+				Navigator.MoveTo(WaypointGizmo.Position);
 		  }
 
 		  private DateTime LastInteraction=DateTime.MinValue;

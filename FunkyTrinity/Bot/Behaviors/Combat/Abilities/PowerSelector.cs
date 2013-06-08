@@ -90,25 +90,25 @@ namespace FunkyTrinity
         // This function checks when the spell last failed (according to D3 memory, which isn't always reliable)
         // To prevent Trinity getting stuck re-trying the same spell over and over and doing nothing else
         // No longer used but keeping this here incase I re-use it
-        private static bool GilesCanRecastAfterFailure(SNOPower thispower, int iMaxRecheckTime = 250)
-        {
-            if (DateTime.Now.Subtract(dictAbilityLastFailed[thispower]).TotalMilliseconds <= iMaxRecheckTime)
-                return false;
-            return true;
-        }
+		  //private static bool GilesCanRecastAfterFailure(SNOPower thispower, int iMaxRecheckTime = 250)
+		  //{
+		  //	 if (DateTime.Now.Subtract(dictAbilityLastFailed[thispower]).TotalMilliseconds <= iMaxRecheckTime)
+		  //		  return false;
+		  //	 return true;
+		  //}
 
-        // When last hit the power-manager for this - not currently used, saved here incase I use it again in the future!
-        // This is a safety function to prevent spam of the CPU and time-intensive "PowerManager.CanCast" function in DB
-        // No longer used but keeping this here incase I re-use it
-        private static bool GilesPowerManager(SNOPower thispower, int iMaxRecheckTime)
-        {
-            if (DateTime.Now.Subtract(dictAbilityLastPowerChecked[thispower]).TotalMilliseconds <= iMaxRecheckTime)
-                return false;
-            dictAbilityLastPowerChecked[thispower] = DateTime.Now;
-            if (PowerManager.CanCast(thispower))
-                return true;
-            return false;
-        }
+		  //// When last hit the power-manager for this - not currently used, saved here incase I use it again in the future!
+		  //// This is a safety function to prevent spam of the CPU and time-intensive "PowerManager.CanCast" function in DB
+		  //// No longer used but keeping this here incase I re-use it
+		  //private static bool GilesPowerManager(SNOPower thispower, int iMaxRecheckTime)
+		  //{
+		  //	 if (DateTime.Now.Subtract(dictAbilityLastPowerChecked[thispower]).TotalMilliseconds <= iMaxRecheckTime)
+		  //		  return false;
+		  //	 dictAbilityLastPowerChecked[thispower] = DateTime.Now;
+		  //	 if (PowerManager.CanCast(thispower))
+		  //		  return true;
+		  //	 return false;
+		  //}
 
         // **********************************************************************************************
         // *****                    Checking for buffs and caching the buff list                    *****

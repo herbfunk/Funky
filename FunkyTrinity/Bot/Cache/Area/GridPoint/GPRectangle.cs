@@ -131,25 +131,7 @@ namespace FunkyTrinity
 
 					 public readonly Vector3 CreationVector;
 					 public GridPoint Center { get; set; }
-					 public double Radius
-					 {
-						  get
-						  {
-								return this.DiagonalLength/2;
-						  }
-					 }
 
-					 public readonly List<DirectionPoint> Directions;
-
-					 public double DirectionPointsTotalWeight
-					 {
-						  get
-						  {
-								double weight=(from points in Directions
-													select points.Range).Sum();
-								return weight;
-						  }
-					 }
 					 public GridPoint LastFoundSafeSpot
 					 {
 						  get
@@ -277,24 +259,24 @@ namespace FunkyTrinity
 						  }
 					 }
 
-					 public string DebugString
-					 {
-						  get
-						  {
-								string debugstring=String.Format("GPC - Creation Vector {0} with {1} Total Gridpoints \r\n"+
-																					 "Avoid {2} / Monster {3} Counts with total weight {4} \r\n"+
-																					 "Last Found Vector {5}",
-																					 this.CreationVector.ToString(), this.Count,
-																					 this.AvoidanceCount, this.MonsterCount, this.Weight, this.LastFoundSafeSpot.ToString()!=null?this.LastFoundSafeSpot.ToString():"");
-								return debugstring;
+					 //public string DebugString
+					 //{
+					 //	 get
+					 //	 {
+					 //		  string debugstring=String.Format("GPC - Creation Vector {0} with {1} Total Gridpoints \r\n"+
+					 //																"Avoid {2} / Monster {3} Counts with total weight {4} \r\n"+
+					 //																"Last Found Vector {5}",
+					 //																this.CreationVector.ToString(), this.Count,
+					 //																this.AvoidanceCount, this.MonsterCount, this.Weight, this.LastFoundSafeSpot.ToString()!=null?this.LastFoundSafeSpot.ToString():"");
+					 //		  return debugstring;
 
-						  }
-					 }
+					 //	 }
+					 //}
 
-					 public GPRectangle Clone()
-					 {
-						  return (GPRectangle)this.MemberwiseClone();
-					 }
+					 //public GPRectangle Clone()
+					 //{
+					 //	 return (GPRectangle)this.MemberwiseClone();
+					 //}
 					 public override bool Equals(object obj)
 					 {
 						  //Check for null and compare run-time types. 

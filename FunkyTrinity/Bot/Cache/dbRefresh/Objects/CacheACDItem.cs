@@ -145,27 +145,6 @@ namespace FunkyTrinity
 					 ThisFollowerType=dbfollowertype;
 					 IsUnidentified=true;
 				}
-
-				public static CacheACDItem FromACDItem(ACDItem thisitem)
-				{
-					 CacheACDItem returnItem=null;
-
-					 using (ZetaDia.Memory.AcquireFrame())
-					 {
-						  if (thisitem.IsUnidentified)
-						  {
-								returnItem=new CacheACDItem(thisitem.InternalName, thisitem.Name, thisitem.Level, thisitem.ItemQualityLevel, thisitem.GameBalanceId, thisitem.DynamicId, thisitem.IsOneHand, thisitem.ItemType, thisitem.FollowerSpecialType);
-						  }
-						  else
-						  {
-								returnItem=new CacheACDItem(
-													 thisitem.InternalName, thisitem.Name, thisitem.Level, thisitem.ItemQualityLevel, thisitem.Gold, thisitem.GameBalanceId,
-													 thisitem.DynamicId, thisitem.Stats.WeaponDamagePerSecond, thisitem.IsOneHand, thisitem.DyeType, thisitem.ItemType, thisitem.FollowerSpecialType,
-													 thisitem.IsUnidentified, thisitem.ItemStackQuantity, thisitem.Stats, thisitem, thisitem.InventoryRow, thisitem.InventoryColumn, thisitem.IsPotion,thisitem.ACDGuid);
-						  }
-					 }
-					 return returnItem;
-				}
 		  }
 
 		  //Cache Backpack Item

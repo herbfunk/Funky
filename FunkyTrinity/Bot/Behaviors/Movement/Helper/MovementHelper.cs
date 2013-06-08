@@ -129,10 +129,10 @@ namespace FunkyTrinity
 		  }
 
 
-		  internal static Vector3 GetCenteroid(Vector3 v1, Vector3 v2)
-		  {
-				return (v1+(v2+v1)/2);
-		  }
+		  //internal static Vector3 GetCenteroid(Vector3 v1, Vector3 v2)
+		  //{
+		  //	 return (v1+(v2+v1)/2);
+		  //}
 
 
 

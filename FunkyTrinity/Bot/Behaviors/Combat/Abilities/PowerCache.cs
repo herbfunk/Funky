@@ -12,18 +12,18 @@ namespace FunkyTrinity
 		  private static readonly Range Melee_NearbyOnly=new Range(0f, 7f);
 		  private static readonly Range Melee_AOE_Range =new Range(0f,16f);
 
-		  private static readonly HashSet<SNOPower> AbilitiesBuff=new HashSet<SNOPower>
-		  {
-				SNOPower.Barbarian_WarCry,SNOPower.Barbarian_BattleRage,SNOPower.Barbarian_Sprint,
-				SNOPower.Monk_BreathOfHeaven, SNOPower.Monk_MantraOfEvasion, SNOPower.Monk_MantraOfConviction, SNOPower.Monk_MantraOfHealing, SNOPower.Monk_MantraOfRetribution,
-				SNOPower.Wizard_SlowTime, SNOPower.Wizard_EnergyArmor, SNOPower.Wizard_IceArmor, SNOPower.Wizard_StormArmor,SNOPower.Wizard_MagicWeapon,
-		  };
-		  private static readonly HashSet<SNOPower> AbilitiesPetSummon=new HashSet<SNOPower>
-		  {
-				SNOPower.DemonHunter_Companion,
-				SNOPower.Monk_MysticAlly,
-				SNOPower.Witchdoctor_Gargantuan, SNOPower.Witchdoctor_SummonZombieDog, 
-		  };
+		  //private static readonly HashSet<SNOPower> AbilitiesBuff=new HashSet<SNOPower>
+		  //{
+		  //	 SNOPower.Barbarian_WarCry,SNOPower.Barbarian_BattleRage,SNOPower.Barbarian_Sprint,
+		  //	 SNOPower.Monk_BreathOfHeaven, SNOPower.Monk_MantraOfEvasion, SNOPower.Monk_MantraOfConviction, SNOPower.Monk_MantraOfHealing, SNOPower.Monk_MantraOfRetribution,
+		  //	 SNOPower.Wizard_SlowTime, SNOPower.Wizard_EnergyArmor, SNOPower.Wizard_IceArmor, SNOPower.Wizard_StormArmor,SNOPower.Wizard_MagicWeapon,
+		  //};
+		  //private static readonly HashSet<SNOPower> AbilitiesPetSummon=new HashSet<SNOPower>
+		  //{
+		  //	 SNOPower.DemonHunter_Companion,
+		  //	 SNOPower.Monk_MysticAlly,
+		  //	 SNOPower.Witchdoctor_Gargantuan, SNOPower.Witchdoctor_SummonZombieDog, 
+		  //};
 		  private static readonly HashSet<SNOPower> AbilitiesDestructiblePriority=new HashSet<SNOPower>
 		  {
 				SNOPower.Barbarian_Frenzy, SNOPower.Barbarian_Bash,SNOPower.Barbarian_Cleave,SNOPower.Barbarian_WeaponThrow, SNOPower.Barbarian_Rend,
@@ -40,28 +40,28 @@ namespace FunkyTrinity
 				SNOPower.Monk_TempestRush,
 		  };
 
-		  private static readonly Dictionary<SNOPower, Range> BarbarianAbilityRange=new Dictionary<SNOPower, Range> 
-		  {
-				{SNOPower.Barbarian_Cleave,Melee_Range},	  {SNOPower.Barbarian_HammerOfTheAncients,Melee_AOE_Range},
-				{SNOPower.Barbarian_Frenzy,Melee_Range},	  {SNOPower.Barbarian_Rend,Melee_NearbyOnly},
-				{SNOPower.Barbarian_Bash,Melee_Range},		  {SNOPower.Barbarian_SeismicSlam,Melee_AOE_Range},
-																		  {SNOPower.Barbarian_Whirlwind,Melee_Range},
+		  //private static readonly Dictionary<SNOPower, Range> BarbarianAbilityRange=new Dictionary<SNOPower, Range> 
+		  //{
+		  //	 {SNOPower.Barbarian_Cleave,Melee_Range},	  {SNOPower.Barbarian_HammerOfTheAncients,Melee_AOE_Range},
+		  //	 {SNOPower.Barbarian_Frenzy,Melee_Range},	  {SNOPower.Barbarian_Rend,Melee_NearbyOnly},
+		  //	 {SNOPower.Barbarian_Bash,Melee_Range},		  {SNOPower.Barbarian_SeismicSlam,Melee_AOE_Range},
+		  //																{SNOPower.Barbarian_Whirlwind,Melee_Range},
 
-				{SNOPower.Barbarian_GroundStomp,No_Range},
-				{SNOPower.Barbarian_Leap,Melee_Range},
-				{SNOPower.Barbarian_Sprint,No_Range},
-				{SNOPower.Barbarian_IgnorePain,No_Range},
+		  //	 {SNOPower.Barbarian_GroundStomp,No_Range},
+		  //	 {SNOPower.Barbarian_Leap,Melee_Range},
+		  //	 {SNOPower.Barbarian_Sprint,No_Range},
+		  //	 {SNOPower.Barbarian_IgnorePain,No_Range},
 
-				{SNOPower.Barbarian_AncientSpear,new Range(0,35)},
-				{SNOPower.Barbarian_Revenge,Melee_NearbyOnly},
-				{SNOPower.Barbarian_FuriousCharge,Melee_Range},
-				{SNOPower.Barbarian_Overpower,new Range(0,9)},
+		  //	 {SNOPower.Barbarian_AncientSpear,new Range(0,35)},
+		  //	 {SNOPower.Barbarian_Revenge,Melee_NearbyOnly},
+		  //	 {SNOPower.Barbarian_FuriousCharge,Melee_Range},
+		  //	 {SNOPower.Barbarian_Overpower,new Range(0,9)},
 
-				{SNOPower.Barbarian_WeaponThrow,new Range(10,45)},
-				{SNOPower.Barbarian_ThreateningShout,new Range(0,25)},
-				{SNOPower.Barbarian_Earthquake,Melee_AOE_Range},
+		  //	 {SNOPower.Barbarian_WeaponThrow,new Range(10,45)},
+		  //	 {SNOPower.Barbarian_ThreateningShout,new Range(0,25)},
+		  //	 {SNOPower.Barbarian_Earthquake,Melee_AOE_Range},
 
-		  };
+		  //};
 
 		  private static readonly HashSet<SNOPower> PassiveAbiltiesReduceRepeatTime=new HashSet<SNOPower>
 		  {

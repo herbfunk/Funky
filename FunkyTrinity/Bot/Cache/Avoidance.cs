@@ -141,11 +141,11 @@ namespace FunkyTrinity
 		  private static readonly Dictionary<AvoidanceType, float> dictAvoidanceRadiusDefaultsType=new Dictionary<AvoidanceType, float>
             {
 
-                {AvoidanceType.ArcaneSentry, 10},{AvoidanceType.Dececrator, 13},{AvoidanceType.MoltenCore, 20},{AvoidanceType.MoltenTrail, 6},{AvoidanceType.Frozen, 17},{AvoidanceType.PlagueCloud, 17},    
+                {AvoidanceType.ArcaneSentry, 14},{AvoidanceType.Dececrator, 11},{AvoidanceType.MoltenCore, 20},{AvoidanceType.MoltenTrail, 6},{AvoidanceType.Frozen, 19},{AvoidanceType.PlagueCloud, 19},    
                                                                                       
-                {AvoidanceType.BeeProjectile, 3},{AvoidanceType.LacuniBomb,5},{AvoidanceType.ShamanFireBall,3}, {AvoidanceType.SuccubusProjectile, 3},
+                {AvoidanceType.BeeProjectile, 2},{AvoidanceType.LacuniBomb,2},{AvoidanceType.ShamanFireBall,2}, {AvoidanceType.SuccubusProjectile, 2},
 
-					 {AvoidanceType.PoisonTree, 14},{AvoidanceType.PlagueHand, 12},{AvoidanceType.MageFirePool, 10},	
+					 {AvoidanceType.PoisonTree, 14},{AvoidanceType.PlagueHand, 15},{AvoidanceType.MageFirePool, 10},	
   
 					 {AvoidanceType.AzmodanPool, 54},{AvoidanceType.AzmodanFireball, 16},{AvoidanceType.AzmodanBodies, 47},  
 					 {AvoidanceType.BelialGround, 25},
@@ -202,7 +202,7 @@ namespace FunkyTrinity
 		  private static readonly Dictionary<AvoidanceType, double> dictAvoidanceHealthWitchDefaultsType=new Dictionary<AvoidanceType, double>
             {
 
-                {AvoidanceType.ArcaneSentry, 1},{AvoidanceType.Dececrator, 1},{AvoidanceType.MoltenCore, 0.9},{AvoidanceType.MoltenTrail, 0.5},{AvoidanceType.Frozen, 1},{AvoidanceType.PlagueCloud, 0.9},    
+                {AvoidanceType.ArcaneSentry, 1},{AvoidanceType.Dececrator, 1},{AvoidanceType.MoltenCore, 1},{AvoidanceType.MoltenTrail, 0.5},{AvoidanceType.Frozen, 1},{AvoidanceType.PlagueCloud, 0.9},    
                                                                                       
                 {AvoidanceType.BeeProjectile,0.50},{AvoidanceType.LacuniBomb,0.25},{AvoidanceType.ShamanFireBall,0.10},{AvoidanceType.SuccubusProjectile,0.25},
 

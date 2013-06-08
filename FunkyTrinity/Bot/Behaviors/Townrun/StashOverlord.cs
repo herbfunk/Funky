@@ -16,7 +16,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public partial class TownRunManager
+		  internal static partial class TownRunManager
 		  {
 				private static int[] LastStashPoint=new int[] { -1, -1 };
 				private static int LastStashPage=-1;
@@ -188,7 +188,7 @@ namespace FunkyTrinity
 								Bot.Character.UpdateMovementData();
 
 								//Wait until we are not moving to send click again..
-								if (Bot.Character.isMoving&&Bot.Character.iCurrentMovementTargetGUID==objPlayStash.ACDGuid) return RunStatus.Running;
+								if (Bot.Character.isMoving) return RunStatus.Running;
 
 								ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, vectorStashLocation, ZetaDia.Me.WorldDynamicId, objPlayStash.ACDGuid);
 								return RunStatus.Running;

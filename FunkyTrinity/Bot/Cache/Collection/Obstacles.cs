@@ -203,13 +203,13 @@ namespace FunkyTrinity
 
 					 #endregion
 
-					 public IEnumerable<CacheObstacle> returnFacingNavigationObstacles(float maxRange=30f)
-					 {
-						  return this.obstacles.Values.Where(obs =>
-								obs.Obstacletype.Value==ObstacleType.ServerObject //navigational only!
-								&&(obs.CentreDistance-Bot.Character.fCharacterRadius)<=maxRange //within maximum range!
-								&&ZetaDia.Me.IsFacing(obs.Position)); //and the bot is facing..
-					 }
+					 //public IEnumerable<CacheObstacle> returnFacingNavigationObstacles(float maxRange=30f)
+					 //{
+					 //	 return this.obstacles.Values.Where(obs =>
+					 //		  obs.Obstacletype.Value==ObstacleType.ServerObject //navigational only!
+					 //		  &&(obs.CentreDistance-Bot.Character.fCharacterRadius)<=maxRange //within maximum range!
+					 //		  &&ZetaDia.Me.IsFacing(obs.Position)); //and the bot is facing..
+					 //}
 
 
 					 #region Methods
@@ -257,13 +257,13 @@ namespace FunkyTrinity
 					 {
 						  return this.Avoidances.Any(O => O.ShouldAvoid&&O.PointInside(Pos));
 					 }
-					 ///<summary>
-					 ///Tests for avoidances that are active but not necessarly needing to be avoided.
-					 ///</summary>
-					 public bool IsPositionWithinActiveAvoidanceArea(Vector3 Pos)
-					 {
-						  return this.Avoidances.Any(O => O.IsActiveAvoidance&&O.PointInside(Pos));
-					 }
+					 /////<summary>
+					 /////Tests for avoidances that are active but not necessarly needing to be avoided.
+					 /////</summary>
+					 //public bool IsPositionWithinActiveAvoidanceArea(Vector3 Pos)
+					 //{
+					 //	 return this.Avoidances.Any(O => O.IsActiveAvoidance&&O.PointInside(Pos));
+					 //}
 					 ///<summary>
 					 ///Tests Two Vectors for intersecting avoidances.
 					 ///</summary>
@@ -273,12 +273,12 @@ namespace FunkyTrinity
 								&&MathEx.IntersectsPath(A.Position, A.Radius, startingPoint, destinationPoint));
 					 }
 
-					 public bool TestVectorAgainstActiveAvoidanceZones(Vector3 destinationPoint)
-					 {
-						  Vector3 currentPosition=Bot.Character.Position;
-						  return this.Avoidances.Any(A => A.IsActiveAvoidance&&!A.PointInside(currentPosition)
-								&&MathEx.IntersectsPath(A.Position, A.Radius, currentPosition, destinationPoint));
-					 }
+					 //public bool TestVectorAgainstActiveAvoidanceZones(Vector3 destinationPoint)
+					 //{
+					 //	 Vector3 currentPosition=Bot.Character.Position;
+					 //	 return this.Avoidances.Any(A => A.IsActiveAvoidance&&!A.PointInside(currentPosition)
+					 //		  &&MathEx.IntersectsPath(A.Position, A.Radius, currentPosition, destinationPoint));
+					 //}
 					 public bool TestVectorAgainstAvoidanceZones(Vector3 destinationPoint)
 					 {
 						  Vector3 currentPosition=Bot.Character.Position;
@@ -292,18 +292,18 @@ namespace FunkyTrinity
 					 {
 						  this.Avoidances.Sort();
 					 }
-					 ///<summary>
-					 ///Fills List with any obstacles found within given range surrounding the object.
-					 ///</summary>
-					 public void FindObstaclesSurroundingObject<T>(CacheObstacle obj, float Range, out List<T> obstacles) where T : CacheObstacle
-					 {
-						  Rect objRect=new Rect(obj.PointPosition, new Size(0, 0));
-						  float Radius=obj.Radius!=0f?obj.Radius:obj.ActorSphereRadius.HasValue?obj.ActorSphereRadius.Value:4f;
-						  Radius+=Range;
-						  Radius=(float)Math.Sqrt(Radius);
-						  objRect.Inflate(Radius, Radius);
-						  obstacles=this.Values.OfType<T>().Where(O => objRect.Contains(O.PointPosition)).ToList();
-					 }
+					 /////<summary>
+					 /////Fills List with any obstacles found within given range surrounding the object.
+					 /////</summary>
+					 //public void FindObstaclesSurroundingObject<T>(CacheObstacle obj, float Range, out List<T> obstacles) where T : CacheObstacle
+					 //{
+					 //	 Rect objRect=new Rect(obj.PointPosition, new Size(0, 0));
+					 //	 float Radius=obj.Radius!=0f?obj.Radius:obj.ActorSphereRadius.HasValue?obj.ActorSphereRadius.Value:4f;
+					 //	 Radius+=Range;
+					 //	 Radius=(float)Math.Sqrt(Radius);
+					 //	 objRect.Inflate(Radius, Radius);
+					 //	 obstacles=this.Values.OfType<T>().Where(O => objRect.Contains(O.PointPosition)).ToList();
+					 //}
 					 #endregion
 
 

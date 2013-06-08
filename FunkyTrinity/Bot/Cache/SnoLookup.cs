@@ -111,7 +111,7 @@ namespace FunkyTrinity
 
 
 
-		  public class SnoCacheLookup
+		  internal static class SnoCacheLookup
 		  {
 				// A special list of things *NOT* to use whirlwind on (eg because they move too quick/WW is ineffective on)
 				// 4304 = shielder fat dudes in act 3 hell zones

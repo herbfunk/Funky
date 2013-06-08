@@ -18,14 +18,6 @@ namespace FunkyTrinity
 		  {
 
 				#region Constructors
-				public CacheObject(int sno, int raguid, Vector3 pos)
-					 : base(sno)
-				{
-					 this.RAGUID=raguid;
-					 this.position_=pos;
-					 this.radius_=0f;
-				}
-
 				public CacheObject(int sno, int raguid, int acdguid, Vector3 position, string Name=null)
 					 : base(sno)
 				{
@@ -622,10 +614,6 @@ namespace FunkyTrinity
 					 //Herbfunk: Added this to prevent stucks attempting to move to a target blocked. (Case: 3 champs behind a wall, within range but could not engage due to being on the other side.)
 					 if (Bot.Combat.totalNonMovementCount>50)
 					 {
-						  switch (Bot.Combat.totalNonMovementCount/50)
-						  {
-
-						  }
 						  DbHelper.Log(DbHelper.TrinityLogLevel.Debug, DbHelper.LogCategory.Behavior, "{0}: Ignoring mob {1} due to no movement counter reaching {2}", "[Funky]", this.InternalName+" _ SNO:"+this.SNOID, Bot.Combat.totalNonMovementCount);
 						  Logging.WriteDiagnostic("totalNonMovementCount == "+Bot.Combat.totalNonMovementCount);
 						  this.BlacklistLoops_=50;

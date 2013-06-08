@@ -108,29 +108,29 @@ namespace FunkyTrinity
                 return tmp_StashedTotals;
             }
 
-            public int lootedTOTAL()
-            {
-                int[] totals = lootedTotals();
-                int count = 0;
-                for (int i = 0; i < 4; i++)
-                {
-                    count += totals[i];
-                }
+				//public int lootedTOTAL()
+				//{
+				//	 int[] totals = lootedTotals();
+				//	 int count = 0;
+				//	 for (int i = 0; i < 4; i++)
+				//	 {
+				//		  count += totals[i];
+				//	 }
 
-                return count;
-            }
+				//	 return count;
+				//}
 
-            public int stashedTOTAL()
-            {
-                int[] totals = stashedTotals();
-                int count = 0;
-                for (int i = 0; i < 4; i++)
-                {
-                    count += totals[i];
-                }
+				//public int stashedTOTAL()
+				//{
+				//	 int[] totals = stashedTotals();
+				//	 int count = 0;
+				//	 for (int i = 0; i < 4; i++)
+				//	 {
+				//		  count += totals[i];
+				//	 }
 
-                return count;
-            }
+				//	 return count;
+				//}
 
             private void UpdateTotals()
             {
@@ -156,11 +156,11 @@ namespace FunkyTrinity
 
             }
 
-            public void Reset()
-            {
-                //Reset current game stats
-                CurrentGame.Reset();
-            }
+				//public void Reset()
+				//{
+				//	 //Reset current game stats
+				//	 CurrentGame.Reset();
+				//}
 
             public void Update()
             {

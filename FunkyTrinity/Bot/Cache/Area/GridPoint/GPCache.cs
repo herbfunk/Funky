@@ -111,7 +111,7 @@ namespace FunkyTrinity
 						  ObjectOccupiedGridPoints.Clear();
 
 						  if (SettingsFunky.LogSafeMovementOutput)
-								Logging.WriteVerbose("Current Location Point has {0} usable points", SurroundingPoints.Count);
+								Logging.WriteVerbose("Current Location Point has {0} usable points (NoNewObjs)", SurroundingPoints.Count);
 
 						  return (SurroundingPoints.Count==0);
 					 }
@@ -150,7 +150,7 @@ namespace FunkyTrinity
 						  if (SurroundingPoints.Count==0)
 						  {
 								if (SettingsFunky.LogSafeMovementOutput)
-									 Logging.WriteVerbose("No available surrounding points -- NavBlocked!");
+									 Logging.WriteVerbose("NavBlocked -- No available surrounding points.");
 
 								return true;
 						  }
@@ -173,9 +173,12 @@ namespace FunkyTrinity
 					 {
 						  //Find any objects that contain this GP
 						  CacheServerObject[] ContainedObjs=NewObjects.Where(Obj => Obj.PointInside(item)			   //only objects that have hit there maximum block count.
-																						  &&(!ObjectblockCounter.ContainsKey(Obj.RAGUID)||Math.Abs(Obj.PointRadius)<ObjectblockCounter[Obj.RAGUID])).ToArray();
+																						  &&(!ObjectblockCounter.ContainsKey(Obj.RAGUID)||Math.Round(Obj.PointRadius)<ObjectblockCounter[Obj.RAGUID])).ToArray();
 						  if (ContainedObjs.Length>0)
 						  {
+								if (ContainedObjs.Length>1)
+									 Logging.WriteVerbose("Multiple Objects Found Occuping Grid Point!");
+
 								CacheServerObject ThisObjBlocking=ContainedObjs[0];
 								int ObjRAGUID=ThisObjBlocking.RAGUID;
 
@@ -186,7 +189,7 @@ namespace FunkyTrinity
 									 GridPoint[] newArrayGPs=new GridPoint[GPCount];
 									 ObjectOccupiedGridPoints[ObjRAGUID].CopyTo(newArrayGPs, 0);
 									 newArrayGPs[GPCount-1]=item.Clone();
-									 ObjectOccupiedGridPoints[ObjRAGUID]=newArrayGPs.ToArray();
+									 ObjectOccupiedGridPoints[ObjRAGUID]=newArrayGPs;
 								}
 								else
 								{
@@ -194,6 +197,7 @@ namespace FunkyTrinity
 									 GridPoint[] NewArrayGP=new GridPoint[1] { item.Clone() };
 									 ObjectOccupiedGridPoints.Add(ObjRAGUID, NewArrayGP);
 								}
+
 								NavigationBlockedPoints.Add(item);
 						  }
 					 }

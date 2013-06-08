@@ -11,7 +11,7 @@ namespace FunkyTrinity
 {
     public partial class Funky
     {
-		  public static DateTime LastJoinedGame=DateTime.MinValue;
+		  internal static DateTime LastJoinedGame=DateTime.MinValue;
         // Each time we join & leave a game, might as well clear the hashset of looked-at dropped items - just to keep it smaller
         private static void FunkyOnJoinGame(object src, EventArgs mea)
         {

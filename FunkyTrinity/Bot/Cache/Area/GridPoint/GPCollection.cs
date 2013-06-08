@@ -36,31 +36,8 @@ namespace FunkyTrinity
 					 };
 
 					 private GridPoint tl, br, tr, bl;
-					 public GridPoint TopLeft { get { return tl; } }
-					 public GridPoint TopRight { get { return tr; } }
-					 public GridPoint BottomRight { get { return br; } }
-					 public GridPoint BottomLeft { get { return bl; } }
 
-					 private GridPoint Centeroid
-					 {
-						  get
-						  {
-								GridPoint[] thesepoints=(from GridPoint points in this.Points.Keys
-																 select points).ToArray();
 
-								if (thesepoints!=null&&thesepoints.Length>0)
-								{
-									 GridPoint P=thesepoints[0];
-									 for (int i=1; i<thesepoints.Length-1; i++)
-									 {
-										  P=P+thesepoints[i];
-									 }
-									 P=P/thesepoints.Length;
-									 return P;
-								}
-								return centerpoint;
-						  }
-					 }
 					 private GridPoint centerpoint_;
 					 public GridPoint centerpoint
 					 {
@@ -98,13 +75,7 @@ namespace FunkyTrinity
 					 }
 					 #endregion
 
-					 public double DiagonalLength
-					 {
-						  get
-						  {
-								return (GridPoint.GetDistanceBetweenPoints(BottomRight, TopLeft));
-						  }
-					 }
+
 					 public List<GridPoint> NonIgnoredPoints
 					 {
 						  get
@@ -119,25 +90,14 @@ namespace FunkyTrinity
 						  }
 					 }
 
-					 private System.Windows.Rect rect_;
-					 public System.Windows.Rect Rect
-					 {
-						  get
-						  {
-								if (rect_==null)
-									 rect_=new System.Windows.Rect(this.CornerPoints[QuadrantLocation.TopLeft], this.CornerPoints[QuadrantLocation.BottomRight]);
+					 //private System.Windows.Rect rect_;
 
-								return rect_;
-						  }
-					 }
+					 //public void DebugInfo()
+					 //{
+					 //	 Logging.WriteVerbose("TL {0} BR {1} TOTAL POINTS {2} / Not Ignored {3}",
+					 //		  tl.ToString(), br.ToString(), Points.Keys.Count.ToString(), NonIgnoredPoints.Count.ToString());
 
-
-					 public void DebugInfo()
-					 {
-						  Logging.WriteVerbose("TL {0} BR {1} DiagonalLength {2} TOTAL POINTS {3} / Not Ignored {4} with centeroid {5}",
-								TopLeft.ToString(), BottomRight.ToString(), DiagonalLength.ToString(), Points.Keys.Count.ToString(), NonIgnoredPoints.Count.ToString(), Centeroid.ToString());
-
-					 }
+					 //}
 
 					 public GridPoint[] QuadrantPoints(QuadrantLocation SectorCode, out GridPoint EndPoint)
 					 {
@@ -185,10 +145,10 @@ namespace FunkyTrinity
 					 }
 					 public PointCollection(PointCollection clone)
 					 {
-						  this.bl=clone.BottomLeft.Clone();
-						  this.br=clone.BottomRight.Clone();
-						  this.tl=clone.TopLeft.Clone();
-						  this.tr=clone.TopRight.Clone();
+						  this.bl=clone.bl.Clone();
+						  this.br=clone.br.Clone();
+						  this.tl=clone.tl.Clone();
+						  this.tr=clone.tr.Clone();
 						  this.Points=new Dictionary<GridPoint, QuadrantLocation>(clone.Points);
 						  GridPoint[] NonNavPoints=new GridPoint[clone.NonNavigationalPoints.Count-1];
 						  clone.NonNavigationalPoints.CopyTo(NonNavPoints);

@@ -427,7 +427,7 @@ namespace FunkyTrinity
 				public bool IsSummonedPet { get { return SnoCacheLookup.hashSummonedPets.Contains(SNOID); } }
 				public bool IsRespawnable { get { return SnoCacheLookup.hashActorSNOSummonedUnit.Contains(SNOID); } }
 				public bool IsProjectileAvoidance { get { return hashAvoidanceSNOProjectiles.Contains(SNOID); } }
-				public bool IsCorpseContainer { get { return (this.internalNameLower.Contains("loottype")||this.internalNameLower.Contains("corpse")); } }
+				//public bool IsCorpseContainer { get { return (this.internalNameLower.Contains("loottype")||this.internalNameLower.Contains("corpse")); } }
 				public bool IsChestContainer { get { return (this.internalNameLower.Contains("chest")); } }
 				public bool IgnoresLOSCheck { get { return SnoCacheLookup.hashActorSNOIgnoreLOSCheck.Contains(SNOID); } }
 				public bool IsMissileReflecting { get { return SnoCacheLookup.hashActorSNOReflectiveMissleUnits.Contains(SNOID); } }

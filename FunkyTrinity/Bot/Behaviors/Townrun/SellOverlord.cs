@@ -14,7 +14,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public partial class TownRunManager
+		  internal static partial class TownRunManager
 		  {
 				private static bool PotionCheck=false;
 

@@ -351,7 +351,7 @@ namespace FunkyTrinity
 
 
 									 if (this.targetType.Value==TargetType.Destructible&&
-										 this.CentreDistance>(SettingsFunky.DestructibleRange+(this.Radius)))
+										 this.CentreDistance>(Bot.Class.DestructibleRange+(this.Radius)))
 									 {
 										  return false;
 									 }
@@ -387,7 +387,7 @@ namespace FunkyTrinity
 									 iMinDistance=0f;
 									 // Any physics mesh? Give a minimum distance of 5 feet
 									 if (this.PhysicsSNO.HasValue&&this.PhysicsSNO>0)
-										  iMinDistance=SettingsFunky.ContainerOpenRange;
+										  iMinDistance=Bot.Class.ContainerRange;
 
 									 // Superlist for rare chests etc.
 

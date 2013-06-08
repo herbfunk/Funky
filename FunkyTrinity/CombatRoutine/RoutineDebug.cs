@@ -118,9 +118,6 @@ namespace GilesBlankCombatRoutine
 				//btn.ButtonMenuItemsSource.Add(menuItem_DumpInfo);
 
 		  }
-
-		  //internal static List<System.Drawing.Point> CurrentTestPoints=new List<System.Drawing.Point>();
-		  private static Queue<Vector3> testingPoints=new Queue<Vector3>();
 		  //private static GridPointAreaCache.GPMap map=null;
 		  static void lblTest_Click(object sender, EventArgs e)
 		  {
@@ -365,26 +362,26 @@ namespace GilesBlankCombatRoutine
 				return iType;
 		  }
 
-		  private static int GetItemStat(int iType, ACDItem item, Zeta.Internals.ItemStats.Stat stat)
-		  {
-				try
-				{
-					 iType=(int)item.Stats.GetStat<Zeta.Internals.ItemStats.Stat>(stat);
-				} catch
-				{
-					 iType=-1;
-				}
+		  //private static int GetItemStat(int iType, ACDItem item, Zeta.Internals.ItemStats.Stat stat)
+		  //{
+		  //	 try
+		  //	 {
+		  //		  iType=(int)item.Stats.GetStat<Zeta.Internals.ItemStats.Stat>(stat);
+		  //	 } catch
+		  //	 {
+		  //		  iType=-1;
+		  //	 }
 
-				return iType;
-		  }
+		  //	 return iType;
+		  //}
 
 		  private static string getProfilePosition(Vector3 pos)
 		  {
 				return String.Format("x=\"{0:0}\" y=\"{1:0}\" z=\"{2:0}\" ", pos.X, pos.Y, pos.Z);
 		  }
-		  private static string getSimplePosition(Vector3 pos)
-		  {
-				return String.Format("{0:0}, {1:0}, {2:0},", pos.X, pos.Y, pos.Z);
-		  }
+		  //private static string getSimplePosition(Vector3 pos)
+		  //{
+		  //	 return String.Format("{0:0}, {1:0}, {2:0},", pos.X, pos.Y, pos.Z);
+		  //}
 	 }
 }
