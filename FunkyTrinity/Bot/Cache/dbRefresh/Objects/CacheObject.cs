@@ -461,10 +461,10 @@ namespace FunkyTrinity
 					 if (this.PriorityCounter>0)
 					 {
 						  //weight variable based on number of timers prioritized.
-						  this.Weight+=(250*this.PriorityCounter);
+						  this.Weight+=(10000*this.PriorityCounter);
 
 						  //decrease priority
-						  if (this.LastPriortized>(this.PriorityCounter*500)+750)
+						  if (this.LastPriortized>(this.PriorityCounter*500)+1500)
 								this.PriorityCounter=this.PriorityCounter-1;
 					 }
 

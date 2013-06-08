@@ -1,5 +1,22 @@
 ﻿// herbfunk revisions
 
+v1.1.1.0
+	-Redesigned Navigational block checking.
+	-LOS Checking for Ranged Classes during Target Handling will also use AllowProjectile NavCellFlag.
+	-Fixed unhandled exception when checking CurrentProfileBehavior.
+	-Fixed unhandled exception for ErrorClicker IsInGame Check.
+
+	-Obstacle Object Radius is now set to collision sphere and properties are overriden accordingly.
+	-IsNPC is checked regardless of if monstertype is hostile. (Fixes issue with NPC targeting when monster type should be "hostile")
+	-Clustering Ability Checks when Clustering Target Logic is disabled will properly update cluster cache.
+	-Fixed issue with A1 Town Run Movement to Vendor.
+	-GPCache weighting for avoidances will use bots health percent to multiply the weight added.
+	-Wizard abilities now properly check if current target is null!
+		*Added clustering check into metor, hydra!
+		*Hydra is now added to pet data and ability checks if hydra already is summoned.
+	-Removed a lot of unused code.
+	
+
 v1.1.0.0
 	¡This Update requires -- DELETING FunkyTrinity Folder -- prior to extraction!
 
