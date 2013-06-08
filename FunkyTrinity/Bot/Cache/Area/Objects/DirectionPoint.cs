@@ -7,7 +7,7 @@ namespace FunkyTrinity
 	 public partial class Funky
 	 {
 
-		  public struct DirectionPoint
+		  internal struct DirectionPoint
 		  {
 				public float DirectionDegrees;
 				public GridPoint StartingPoint;

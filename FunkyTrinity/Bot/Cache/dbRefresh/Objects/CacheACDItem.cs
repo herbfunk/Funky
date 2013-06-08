@@ -14,7 +14,7 @@ namespace FunkyTrinity
 		  // **********************************************************************************************
 		  // So we can make an object, read all item stats from a backpack item *ONCE*, then store it here while my behavior trees process everything
 		  // Preventing any need for calling D3 memory again after the initial read (every D3 memory read is a chance for a DB crash/item mis-read/stuck!)
-		  public class CacheACDItem
+		  internal class CacheACDItem
 		  {
 				public string ThisInternalName { get; set; }
 				public string ThisRealName { get; set; }
@@ -170,7 +170,7 @@ namespace FunkyTrinity
 
 		  //Cache Backpack Item
 		  //Used in caching item ACDGUID and ACDITEM as reference for Item Loot Confirmation.
-		  public class CacheBPItem
+		  internal class CacheBPItem
 		  {
 				public int ACDGUID { get; set; }
 				public ACDItem Ref_ACDItem { get; set; }

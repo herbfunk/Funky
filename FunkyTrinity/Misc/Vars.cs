@@ -124,11 +124,9 @@ namespace FunkyTrinity
 		  public static class FolderPaths
 		  {
 				internal static string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-				
 				internal static string sTrinityPluginPath=sDemonBuddyPath+@"\Plugins\FunkyTrinity\";
 				internal static string sTrinityLogPath=sDemonBuddyPath+@"\Plugins\FunkyTrinity\Log\";
-				internal static string sTrinityConfigFile=sDemonBuddyPath+@"\Settings\FunkyTrinity\FunkyTrinity_GilesSettings.cfg";
-				internal static string sFunkyConfigFile=sDemonBuddyPath+@"\Settings\FunkyTrinity\FunkyTrinity_FunkySettings.cfg";
+				
 		  }
     }
 }

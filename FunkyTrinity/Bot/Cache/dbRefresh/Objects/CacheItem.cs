@@ -11,7 +11,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public class CacheItem : CacheObject
+		  internal class CacheItem : CacheObject
 		  {
 				public CacheItem(CacheObject baseobj)
 					 : base(baseobj)
@@ -450,12 +450,12 @@ namespace FunkyTrinity
 					 }
 
 					 // Force waiting for global cooldown timer or long-animation abilities
-					 if (Bot.Combat.powerPrime.iForceWaitLoopsBefore>=1)
+					 if (Bot.Combat.powerPrime.WaitLoopsBefore>=1)
 					 {
 						  //Logging.WriteDiagnostic("Debug: Force waiting BEFORE ability " + powerPrime.powerThis.ToString() + "...");
 						  Bot.Combat.bWaitingForPower=true;
-						  if (Bot.Combat.powerPrime.iForceWaitLoopsBefore>=1)
-								Bot.Combat.powerPrime.iForceWaitLoopsBefore--;
+						  if (Bot.Combat.powerPrime.WaitLoopsBefore>=1)
+								Bot.Combat.powerPrime.WaitLoopsBefore--;
 						  return Zeta.TreeSharp.RunStatus.Running;
 					 }
 					 Bot.Combat.bWaitingForPower=false;

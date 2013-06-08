@@ -9,7 +9,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public static partial class GridPointAreaCache
+		  internal static partial class GridPointAreaCache
 		  {
 				///<summary>
 				///GridPoint Rectangle 
@@ -43,13 +43,6 @@ namespace FunkyTrinity
 					 }
 
 					 public double ThisWeight { get; set; }
-					 public bool CheckedAllPoints
-					 {
-						  get
-						  {
-								return (this.LastIndexUsed==ContainedPoints.Count-1);
-						  }
-					 }
 
 					 public List<int> OccupiedObjects=new List<int>();
 

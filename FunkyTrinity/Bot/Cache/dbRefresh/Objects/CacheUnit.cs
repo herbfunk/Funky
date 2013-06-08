@@ -11,7 +11,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public class CacheUnit : CacheObject
+		  internal class CacheUnit : CacheObject
 		  {
 				public CacheUnit(CacheObject baseobj)
 					 : base(baseobj)
@@ -23,7 +23,13 @@ namespace FunkyTrinity
 
 
 				#region Monster Affixes Related
-				public bool CheckedMonsterAffixes=false;
+				private bool CheckedMonsterAffixes_=false;
+				public bool CheckedMonsterAffixes
+				{
+					 get { return CheckedMonsterAffixes_; }
+					 set { CheckedMonsterAffixes_=value; }
+				}
+
 				public void CheckMonsterAffixes(MonsterAffixes theseaffixes)
 				{
 					 MonsterRare=theseaffixes.HasFlag(MonsterAffixes.Rare);
@@ -36,7 +42,7 @@ namespace FunkyTrinity
 					 else
 						  MonsterShielding=false;
 
-					 CheckedMonsterAffixes=true;
+					 CheckedMonsterAffixes_=true;
 				}
 				public bool MonsterRare { get; set; }
 				public bool MonsterUnique { get; set; }
@@ -117,9 +123,9 @@ namespace FunkyTrinity
 				#region Health Related
 				//Monter Hitpoints
 				public double? MaximumHealth { get; set; }
-				public double LastCurrentHealth=0d;
+				private double LastCurrentHealth_=0d;
 				public double? CurrentHealthPct { get; set; }
-				internal int HealthChecks=0;
+				private int HealthChecks=0;
 
 				public int UnitMaxHitPointAverageWeight
 				{
@@ -160,10 +166,10 @@ namespace FunkyTrinity
 					 if (this==Bot.Target.CurrentTarget)
 					 {
 						  this.UpdateCurrentHitPoints();
-						  if (this.LastCurrentHealth!=this.CurrentHealthPct)
+						  if (this.LastCurrentHealth_!=this.CurrentHealthPct)
 						  {
 								Bot.Combat.LastHealthChange=DateTime.Now;
-								Bot.Combat.LastHealthDropPct=(this.LastCurrentHealth-this.CurrentHealthPct.Value);
+								Bot.Combat.LastHealthDropPct=(this.LastCurrentHealth_-this.CurrentHealthPct.Value);
 						  }
 						  return true;
 					 }
@@ -225,7 +231,7 @@ namespace FunkyTrinity
 					 double dCurrentHealthPct=dThisCurrentHealth/this.MaximumHealth.Value;
 					 if (dCurrentHealthPct!=this.CurrentHealthPct)
 					 {
-						  this.LastCurrentHealth=this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value:0d;
+						  this.LastCurrentHealth_=this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value:0d;
 						  this.CurrentHealthPct=dCurrentHealthPct;
 					 }
 				}
@@ -364,36 +370,39 @@ namespace FunkyTrinity
 
 					 bIsRended=(this.HasDOTdps.HasValue&&this.HasDOTdps.Value);
 					 bCountAsElite=(this.IsEliteRareUnique||this.IsTreasureGoblin||this.IsBoss);
+					 float RadiusDistance=this.RadiusDistance;
 
-					 if (this.RadiusDistance<=6f)
+					 if (RadiusDistance<=6f)
 					 {
 						  Bot.Combat.iAnythingWithinRange[RANGE_6]++;
 						  if (bCountAsElite)
 								Bot.Combat.iElitesWithinRange[RANGE_6]++;
 					 }
-					 if (this.RadiusDistance<=12f)
+					 if (RadiusDistance<=12f)
 					 {
+						  //Tally close units
+						  Bot.Combat.SurroundingUnits++;
 						  //Herbfunk: non-rend count only if within 8f and is attackable..
-						  if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Barbarian&&!bIsRended&&this.RadiusDistance<=7f&&this.IsTargetable.Value)
+						  if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Barbarian&&!bIsRended&&RadiusDistance<=7f&&this.IsTargetable.Value)
 								Bot.Combat.iNonRendedTargets_6++;
 
 						  Bot.Combat.iAnythingWithinRange[RANGE_12]++;
 						  if (bCountAsElite)
 								Bot.Combat.iElitesWithinRange[RANGE_12]++;
 					 }
-					 if (this.RadiusDistance<=15f)
+					 if (RadiusDistance<=15f)
 					 {
 						  Bot.Combat.iAnythingWithinRange[RANGE_15]++;
 						  if (bCountAsElite)
 								Bot.Combat.iElitesWithinRange[RANGE_15]++;
 					 }
-					 if (this.RadiusDistance<=20f)
+					 if (RadiusDistance<=20f)
 					 {
 						  Bot.Combat.iAnythingWithinRange[RANGE_20]++;
 						  if (bCountAsElite)
 								Bot.Combat.iElitesWithinRange[RANGE_20]++;
 					 }
-					 if (this.RadiusDistance<=25f)
+					 if (RadiusDistance<=25f)
 					 {
 						  if (!Bot.Combat.bAnyNonWWIgnoreMobsInRange&&!SnoCacheLookup.hashActorSNOWhirlwindIgnore.Contains(this.SNOID))
 								Bot.Combat.bAnyNonWWIgnoreMobsInRange=true;
@@ -401,19 +410,19 @@ namespace FunkyTrinity
 						  if (bCountAsElite)
 								Bot.Combat.iElitesWithinRange[RANGE_25]++;
 					 }
-					 if (this.RadiusDistance<=30f)
+					 if (RadiusDistance<=30f)
 					 {
 						  Bot.Combat.iAnythingWithinRange[RANGE_30]++;
 						  if (bCountAsElite)
 								Bot.Combat.iElitesWithinRange[RANGE_30]++;
 					 }
-					 if (this.RadiusDistance<=40f)
+					 if (RadiusDistance<=40f)
 					 {
 						  Bot.Combat.iAnythingWithinRange[RANGE_40]++;
 						  if (bCountAsElite)
 								Bot.Combat.iElitesWithinRange[RANGE_40]++;
 					 }
-					 if (this.RadiusDistance<=50f)
+					 if (RadiusDistance<=50f)
 					 {
 						  Bot.Combat.iAnythingWithinRange[RANGE_50]++;
 						  if (bCountAsElite)
@@ -422,14 +431,14 @@ namespace FunkyTrinity
 				}
 				#endregion
 
-				public override GridPointAreaCache.GPRectangle GPRect
+				internal override GridPointAreaCache.GPRectangle GPRect
 				{
 					 get
 					 {
-						  if (base.gprect_==null||base.GPRect.CreationVector!=this.Position)
-								return new GridPointAreaCache.GPRectangle(this.Position, (int)Math.Sqrt(this.ActorSphereRadius.Value)*2);
-						  else
-								return base.GPRect;
+						  if (base.GPRect.CreationVector!=this.Position)
+								base.GPRect=new GridPointAreaCache.GPRectangle(this.Position, (int)Math.Sqrt(this.ActorSphereRadius.Value)*2);
+
+						  return base.GPRect;
 					 }
 				}
 
@@ -473,17 +482,9 @@ namespace FunkyTrinity
 
 					 if (this.Weight!=1)
 					 {
-						  // Total up monsters at various ranges
-						  if (this.RadiusDistance<=50f)
-						  {
-								// Flag up any bosses in range
-								if (this.IsBoss)
-									 this.Weight+=9999;
-
-
-								this.TallyTarget();
-						  }
-
+						  // Flag up any bosses in range
+						  if (this.IsBoss&&this.CentreDistance<=50f)
+								this.Weight+=9999;
 
 						  // Force a close range target because we seem to be stuck *OR* if not ranged and currently rooted
 						  if (Bot.Combat.bForceCloseRangeTarget||(Bot.Class.IsMeleeClass&&Bot.Character.bIsRooted))
@@ -685,7 +686,7 @@ namespace FunkyTrinity
 						  }
 						  //Health Change Timer
 						  if (this==Bot.Target.CurrentTarget&&
-								this.LastCurrentHealth==0d&&DateTime.Now.Subtract(Bot.Combat.LastHealthChange).TotalMilliseconds>3000)
+								this.LastCurrentHealth_==0d&&DateTime.Now.Subtract(Bot.Combat.LastHealthChange).TotalMilliseconds>3000)
 						  {
 								Logging.WriteVerbose("Health change has not occured within 3 seconds for unit {0}", this.InternalName);
 								this.NeedsRemoved=true;
@@ -729,7 +730,12 @@ namespace FunkyTrinity
 								else if (lastLOSCheckMS<2500&&!this.ObjectIsSpecial)
 									 return false;
 
-								if (!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), Bot.Class.IsMeleeClass||!this.WithinInteractionRange()))
+								NavCellFlags LOSNavFlags=NavCellFlags.None;
+								if (Bot.Class.IsMeleeClass||!this.WithinInteractionRange())
+									 LOSNavFlags=NavCellFlags.AllowWalk;
+
+
+								if (!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), LOSNavFlags))
 								{
 									 //ignore non-special units.. or units who already attempted to find a location within the last 3s
 									 if (!this.ObjectIsSpecial)
@@ -779,9 +785,12 @@ namespace FunkyTrinity
 								}
 						  }
 
-						  //Tally close units
-						  if (this.CentreDistance<=11f)
-								Bot.Combat.SurroundingUnits++;
+						  // Total up monsters at various ranges
+						  if (this.CentreDistance<=50f)
+						  {
+								this.TallyTarget();
+						  }
+
 						  #endregion
 
 
@@ -799,52 +808,6 @@ namespace FunkyTrinity
 					 if (!base.IsStillValid())
 						  return false;
 
-					 if (!base.Monstertype.HasValue)
-						  return false;
-
-
-					 //Update Monster Type?
-					 if (base.ShouldRefreshMonsterType)
-					 {
-						  if (!base.UpdateData(base.ref_DiaObject, base.RAGUID))
-								return false;
-					 }
-
-					 // Make sure it's a valid monster type
-					 if (!base.MonsterTypeIsHostile())
-					 {
-						  //Ally.. Skip
-						  //if (base.Monstertype.Value==MonsterType.Ally)
-						  //{
-						  //    return false;
-						  //}
-
-						  bool isNPC=false;
-						  using (ZetaDia.Memory.AcquireFrame())
-						  {
-								try
-								{
-									 isNPC=(base.ref_DiaObject.CommonData.GetAttribute<float>(ActorAttributeType.IsNPC)>0);
-								} catch (AccessViolationException)
-								{
-									 Logging.WriteVerbose("Safely Handled Getting Attribute IsNPC for object {0}", this.InternalName);
-								}
-
-						  }
-						  if (Bot.Character.bIsInTown)
-						  {
-								//Perma Ignore all NPCs we find in town..
-
-								if (isNPC)
-									 IgnoreThisObject(this, true, true);
-
-								return false;
-						  }
-
-						  if (isNPC||!this.IsBoss)
-								return false;
-					 }
-
 					 if (this.ref_DiaUnit==null)
 					 {
 						  try
@@ -859,6 +822,44 @@ namespace FunkyTrinity
 						  Logging.WriteVerbose("Common Data Null!");
 						  return false;
 					 }
+
+
+					 if (!base.Monstertype.HasValue)
+						  return false;
+					 //Update Monster Type?
+					 if (base.ShouldRefreshMonsterType)
+					 {
+						  if (!base.UpdateData(base.ref_DiaObject, base.RAGUID))
+								return false;
+					 }
+
+					 //NPC Check
+					 bool isNPC=false;
+					 try
+					 {
+						  isNPC=(base.ref_DiaObject.CommonData.GetAttribute<float>(ActorAttributeType.IsNPC)>0);
+					 } catch (AccessViolationException)
+					 {
+						  Logging.WriteVerbose("Safely Handled Getting Attribute IsNPC for object {0}", this.InternalName);
+					 }
+
+					 // Make sure it's a valid monster type
+					 if (!base.MonsterTypeIsHostile()||isNPC)
+					 {
+						  if (Bot.Character.bIsInTown)
+						  {
+								//Perma Ignore all NPCs we find in town..
+								if (isNPC)
+									 IgnoreThisObject(this, true, true);
+
+								return false;
+						  }
+
+						  if (isNPC||!this.IsBoss)
+								return false;
+					 }
+
+
 
 					 //Position update
 					 base.UpdatePosition();
@@ -878,7 +879,7 @@ namespace FunkyTrinity
 					 }
 
 					 //Affixes
-					 if (!this.CheckedMonsterAffixes)
+					 if (!this.CheckedMonsterAffixes_)
 					 {
 						  try
 						  {
@@ -906,7 +907,7 @@ namespace FunkyTrinity
 										  ObjectCache.Objects.UpdateMaximumHealthAverage();
 									 }
 								}
-						  } catch (AccessViolationException) { Logging.WriteVerbose("Failure to get maximum health for {0}", base.InternalName); return false; }
+						  } catch (NullReferenceException) { Logging.WriteVerbose("Failure to get maximum health for {0}", base.InternalName); return false; }
 					 }
 
 
@@ -1048,18 +1049,18 @@ namespace FunkyTrinity
 					 {
 
 						  // Force waiting for global cooldown timer or long-animation abilities
-						  if (Bot.Combat.powerPrime.iForceWaitLoopsBefore>=1||(Bot.Combat.powerPrime.bWaitWhileAnimating!=SIGNATURE_SPAM&&DateTime.Now.Subtract(lastGlobalCooldownUse).TotalMilliseconds<=50))
+						  if (Bot.Combat.powerPrime.WaitLoopsBefore>=1||(Bot.Combat.powerPrime.WaitWhileAnimating!=SIGNATURE_SPAM&&DateTime.Now.Subtract(lastGlobalCooldownUse).TotalMilliseconds<=50))
 						  {
 								//Logging.WriteDiagnostic("Debug: Force waiting BEFORE ability " + powerPrime.powerThis.ToString() + "...");
 								Bot.Combat.bWaitingForPower=true;
-								if (Bot.Combat.powerPrime.iForceWaitLoopsBefore>=1)
-									 Bot.Combat.powerPrime.iForceWaitLoopsBefore--;
+								if (Bot.Combat.powerPrime.WaitLoopsBefore>=1)
+									 Bot.Combat.powerPrime.WaitLoopsBefore--;
 								return RunStatus.Running;
 						  }
 						  Bot.Combat.bWaitingForPower=false;
 
 						  // Wait while animating before an attack
-						  if (Bot.Combat.powerPrime.bWaitWhileAnimating)
+						  if (Bot.Combat.powerPrime.WaitWhileAnimating)
 								WaitWhileAnimating(5, false);
 
 						  // Note that whirlwinds use an off-on-off-on to avoid spam
@@ -1085,7 +1086,7 @@ namespace FunkyTrinity
 								}
 						  }
 
-						  if (Bot.Combat.powerPrime.Successful.HasValue&&Bot.Combat.powerPrime.Successful.Value)
+						  if (Bot.Combat.powerPrime.SuccessUsed.HasValue&&Bot.Combat.powerPrime.SuccessUsed.Value)
 						  {
 								//Logging.Write(powerPrime.powerThis.ToString() + " used successfully");
 								Bot.Combat.powerLastSnoPowerUsed=Bot.Combat.powerPrime.Power;
@@ -1126,7 +1127,7 @@ namespace FunkyTrinity
 						  }
 
 						  // Wait for animating AFTER the attack
-						  if (Bot.Combat.powerPrime.bWaitWhileAnimating)
+						  if (Bot.Combat.powerPrime.WaitWhileAnimating)
 								WaitWhileAnimating(3, false);
 
 						  Bot.Combat.bPickNewAbilities=true;
@@ -1134,7 +1135,7 @@ namespace FunkyTrinity
 						  // See if we should force a long wait AFTERWARDS, too
 						  // Force waiting AFTER power use for certain abilities
 						  Bot.Combat.bWaitingAfterPower=false;
-						  if (Bot.Combat.powerPrime.iForceWaitLoopsAfter>=1)
+						  if (Bot.Combat.powerPrime.WaitLoopsAfter>=1)
 						  {
 								//Logging.WriteDiagnostic("Force waiting AFTER ability " + powerPrime.powerThis.ToString() + "...");
 								Bot.Combat.bWaitingAfterPower=true;
@@ -1166,20 +1167,20 @@ namespace FunkyTrinity
 
 					 //Check if we should mod our distance:: used for worm bosses
 					 if (base.IsWormBoss)
-						  Bot.Combat.powerPrime.iMinimumRange=Bot.Class.IsMeleeClass?14f:16f;
+						  Bot.Combat.powerPrime.MinimumRange=Bot.Class.IsMeleeClass?14f:16f;
 					 else if (base.IgnoresLOSCheck)
-						  Bot.Combat.powerPrime.iMinimumRange=base.ActorSphereRadius.Value*1.5f;
+						  Bot.Combat.powerPrime.MinimumRange=base.ActorSphereRadius.Value*1.5f;
 					 else if (this.IsBurrowed.HasValue&&this.IsBurrowed.Value&&this.IsEliteRareUnique)//Force close range on burrowed elites!
-						  Bot.Combat.powerPrime.iMinimumRange=15f;
+						  Bot.Combat.powerPrime.MinimumRange=15f;
 					 else if (this.IsStealthableUnit&&this.IsAttackable.HasValue&&this.IsAttackable.Value==false&&this.IsEliteRareUnique)
-						  Bot.Combat.powerPrime.iMinimumRange=15f;
+						  Bot.Combat.powerPrime.MinimumRange=15f;
 					 else if (this.IsTreasureGoblin&&!Bot.Class.IsMeleeClass&&SettingsFunky.Class.GoblinMinimumRange>0)
-						  Bot.Combat.powerPrime.iMinimumRange=SettingsFunky.Class.GoblinMinimumRange;
+						  Bot.Combat.powerPrime.MinimumRange=SettingsFunky.Class.GoblinMinimumRange;
 					 else
 						  fDistanceReduction=base.Radius;
 
 					 // Pick a range to try to reach
-					 fRangeRequired=Bot.Combat.powerPrime.Power==SNOPower.None?9f:Bot.Combat.powerPrime.iMinimumRange;
+					 fRangeRequired=Bot.Combat.powerPrime.Power==SNOPower.None?9f:Bot.Combat.powerPrime.MinimumRange;
 
 					 base.DistanceFromTarget=base.CentreDistance-fDistanceReduction;
 
@@ -1196,7 +1197,7 @@ namespace FunkyTrinity
 									 (this.IsBoss)||(this.IsSucideBomber&&this.CentreDistance<25f)||
 									 (this.IsTreasureGoblin&&SettingsFunky.GoblinPriority>1)||
 									 (this.CurrentHealthPct<0.25&&SettingsFunky.ClusterKillLowHPUnits
-										  //lower the kill radius for melee!
+								//lower the kill radius for melee!
 											&&(!Bot.Class.IsMeleeClass||(this.CentreDistance<this.KillRadius*0.25f))))
 
 

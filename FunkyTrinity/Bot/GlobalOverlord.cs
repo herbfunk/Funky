@@ -181,7 +181,7 @@ namespace FunkyTrinity
 					 if (Bot.Combat.powerBuff.Power!=SNOPower.None)
 					 {
 						  WaitWhileAnimating(4, true);
-						  ZetaDia.Me.UsePower(Bot.Combat.powerBuff.Power, Bot.Combat.powerBuff.TargetPosition, Bot.Combat.powerBuff.WorldID, Bot.Combat.powerBuff.TargetRaGuid);
+						  ZetaDia.Me.UsePower(Bot.Combat.powerBuff.Power, Bot.Combat.powerBuff.TargetPosition, Bot.Combat.powerBuff.WorldID, Bot.Combat.powerBuff.TargetRAGUID);
 						  Bot.Combat.powerLastSnoPowerUsed=Bot.Combat.powerBuff.Power;
 						  dictAbilityLastUse[Bot.Combat.powerBuff.Power]=DateTime.Now;
 						  WaitWhileAnimating(3, true);
@@ -189,7 +189,8 @@ namespace FunkyTrinity
 				}
 
 				//Override Townportal Tag Behavior (After it starts..)
-				if (Bot.Character.CurrentProfileBehavior==null||Bot.Character.CurrentProfileBehavior.Behavior.Guid!=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior.Guid)
+				if (Bot.Character.CurrentProfileBehavior==null
+					 ||Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior!=null&&Bot.Character.CurrentProfileBehavior.Behavior.Guid!=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior.Guid)
 				{
 					 Bot.Character.CurrentProfileBehavior=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior;
 

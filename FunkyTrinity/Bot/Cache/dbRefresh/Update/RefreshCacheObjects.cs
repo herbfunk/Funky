@@ -12,8 +12,8 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public static readonly CacheObject FakeCacheObject=new CacheObject(vNullLocation, TargetType.None, 0d, "Fake Target", 1f, -1);
-		  public partial class dbRefresh
+		  internal static readonly CacheObject FakeCacheObject=new CacheObject(vNullLocation, TargetType.None, 0d, "Fake Target", 1f, -1);
+		  public static partial class dbRefresh
 		  {
 				//Trimming/Update Vars
 				private static int UpdateLoopCounter=0;
@@ -134,6 +134,11 @@ namespace FunkyTrinity
 													 Bot.Character.PetData.ZombieDogs++;
 												else if (SnoCacheLookup.hashGargantuan.Contains(tmp_CachedObj.SNOID))
 													 Bot.Character.PetData.Gargantuan++;
+										  }
+										  else if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Wizard)
+										  {
+												if (SnoCacheLookup.hashWizHydras.Contains(tmp_CachedObj.SNOID))
+													 Bot.Character.PetData.WizardHydra++;
 										  }
 									 }
 
@@ -287,11 +292,14 @@ namespace FunkyTrinity
 									 {
 										  ObjectCache.Obstacles.Add(tmp_CachedObj.RAGUID, new CacheServerObject(tmp_CachedObj));
 									 }
-									 else if (thisObstacleObj.targetType.Value==TargetType.Unit)
+									 else
 									 {
-										  //Since units position requires updating, we update using the CacheObject
-										  thisObstacleObj.Position=tmp_CachedObj.Position;
-										  ObjectCache.Obstacles[tmp_CachedObj.RAGUID]=thisObstacleObj;
+										  if (thisObstacleObj.targetType.Value==TargetType.Unit)
+										  {
+												//Since units position requires updating, we update using the CacheObject
+												thisObstacleObj.Position=tmp_CachedObj.Position;
+												ObjectCache.Obstacles[tmp_CachedObj.RAGUID]=thisObstacleObj;
+										  }
 									 }
 								}
 

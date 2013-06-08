@@ -4,7 +4,7 @@ namespace FunkyTrinity
 {
     public partial class Funky
     {
-		  public enum GemQuality
+		  internal enum GemQuality
 		  {
 				Chipped=14,
 				Flawed=22,
@@ -16,7 +16,7 @@ namespace FunkyTrinity
 				FlawlessSquare=60,
 		  }
 		  // Primary "lowest level" item type (eg EXACTLY what kind of item it is)
-		  public enum GilesItemType
+		  internal enum GilesItemType
 		  {
 				Unknown,
 				Axe,
@@ -75,7 +75,7 @@ namespace FunkyTrinity
 				InfernalKey,
 		  }
 		  // Base types, eg "one handed weapons" "armors" etc.
-		  public enum GilesBaseItemType
+		  internal enum GilesBaseItemType
 		  {
 				Unknown,
 				WeaponOneHand,
@@ -95,7 +95,7 @@ namespace FunkyTrinity
 		  ///Used to describe the object type for target handling.
 		  ///</summary>
 		  [Flags]
-		  public enum TargetType
+		  internal enum TargetType
 		  {
 
 				Unit=1,
@@ -121,7 +121,7 @@ namespace FunkyTrinity
 		  ///Used to describe the objects obstacle type.
 		  ///</summary>
 		  [Flags]
-		  public enum ObstacleType
+		  internal enum ObstacleType
 		  {
 				Monster=1,
 				StaticAvoidance=2,

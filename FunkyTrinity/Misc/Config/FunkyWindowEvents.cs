@@ -10,7 +10,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-         public partial class FunkyWindow
+		  internal partial class FunkyWindow
          {
 
              private void DebugButtonClicked(object sender, EventArgs e)

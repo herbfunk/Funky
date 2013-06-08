@@ -51,7 +51,7 @@ namespace FunkyTrinity
 						 AbilityUseTimer(SNOPower.Wizard_SlowTime, true)&&PowerManager.CanCast(SNOPower.Wizard_SlowTime))
 					 {
 						  return new Ability(SNOPower.Wizard_SlowTime, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Slow time
 					 // Slow Time for in combat
@@ -60,7 +60,7 @@ namespace FunkyTrinity
 						 PowerManager.CanCast(SNOPower.Wizard_SlowTime))
 					 {
 						  return new Ability(SNOPower.Wizard_SlowTime, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Wave of force
 					 // Wave of force
@@ -76,7 +76,7 @@ namespace FunkyTrinity
 						 AbilityUseTimer(SNOPower.Wizard_WaveOfForce, true)&&PowerManager.CanCast(SNOPower.Wizard_WaveOfForce))
 					 {
 						  return new Ability(SNOPower.Wizard_WaveOfForce, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Blizzard
 					 // Blizzard
@@ -86,16 +86,21 @@ namespace FunkyTrinity
 						 Bot.Character.dCurrentEnergy>=40&&AbilityUseTimer(SNOPower.Wizard_Blizzard))
 					 {
 						  return new Ability(SNOPower.Wizard_Blizzard, 40f, new Vector3(Bot.Target.CurrentTarget.Position.X, Bot.Target.CurrentTarget.Position.Y, Bot.Target.CurrentTarget.Position.Z), Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Meteor
 					 // Meteor
 					 if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Meteor)&&
-						 (Bot.Combat.iElitesWithinRange[RANGE_25]>0||Bot.Combat.iAnythingWithinRange[RANGE_25]>2||thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss||Bot.Target.CurrentTarget.IsTreasureGoblin)&&
-						 Bot.Character.dCurrentEnergy>=50&&PowerManager.CanCast(SNOPower.Wizard_Meteor))
+						  !Bot.Target.CurrentTarget.IsTreasureGoblin&&
+						  Bot.Character.dCurrentEnergy>=50&&PowerManager.CanCast(SNOPower.Wizard_Meteor))
 					 {
-						  return new Ability(SNOPower.Wizard_Meteor, 21f, new Vector3(Bot.Target.CurrentTarget.Position.X, Bot.Target.CurrentTarget.Position.Y, Bot.Target.CurrentTarget.Position.Z), Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
-					 } 
+						  if (ObjectCache.Objects.Clusters(4d, 45f, 3, true).Count>0)
+						  {
+								Vector3 Location=ObjectCache.Objects.Clusters()[0].ListUnits[0].Position;
+								return new Ability(SNOPower.Wizard_Meteor, 45f, Location, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
+						  }
+						  
+					 }
 					 #endregion
 					 #region Teleport
 					 // Teleport in combat for critical-mass wizards
@@ -106,7 +111,7 @@ namespace FunkyTrinity
 					 {
 						  Bot.Combat.vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, Bot.Target.CurrentTarget.CentreDistance, true);
 						  return new Ability(SNOPower.Wizard_Teleport, 35f, Bot.Combat.vSideToSideTarget, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Diamond Skin
 					 // Diamond Skin SPAM
@@ -116,7 +121,7 @@ namespace FunkyTrinity
 						 PowerManager.CanCast(SNOPower.Wizard_DiamondSkin))
 					 {
 						  return new Ability(SNOPower.Wizard_DiamondSkin, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 1, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region wizard armors
 					 // The three wizard armors, done in an else-if loop so it doesn't keep replacing one with the other
@@ -146,7 +151,7 @@ namespace FunkyTrinity
 									 return new Ability(SNOPower.Wizard_StormArmor, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
 								}
 						  }
-					 } 
+					 }
 					 #endregion
 					 #region Magic Weapon
 					 // Magic Weapon
@@ -154,7 +159,7 @@ namespace FunkyTrinity
 						 Bot.Character.dCurrentEnergy>=25&&(AbilityUseTimer(SNOPower.Wizard_MagicWeapon)||!HasBuff(SNOPower.Wizard_MagicWeapon)))
 					 {
 						  return new Ability(SNOPower.Wizard_MagicWeapon, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Familiar
 					 // Familiar
@@ -162,29 +167,22 @@ namespace FunkyTrinity
 						 Bot.Character.dCurrentEnergy>=25&&AbilityUseTimer(SNOPower.Wizard_Familiar))
 					 {
 						  return new Ability(SNOPower.Wizard_Familiar, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Hydra
 					 // Hydra
 					 if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&
-						 Bot.Combat.powerLastSnoPowerUsed!=SNOPower.Wizard_Hydra&&
-						 (Bot.Combat.iElitesWithinRange[RANGE_15]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>4||Bot.Character.dCurrentHealthPct<=0.7||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss||Bot.Target.CurrentTarget.IsTreasureGoblin)&&Bot.Target.CurrentTarget.RadiusDistance<=15f))&&
-						 HotbarAbilitiesContainsPower(SNOPower.Wizard_Hydra)&&
-						 Bot.Character.dCurrentEnergy>=15&&AbilityUseTimer(SNOPower.Wizard_Hydra))
+						 HotbarAbilitiesContainsPower(SNOPower.Wizard_Hydra)&& //(Bot.Combat.iElitesWithinRange[RANGE_15]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>4||Bot.Character.dCurrentHealthPct<=0.7||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss||Bot.Target.CurrentTarget.IsTreasureGoblin)&&Bot.Target.CurrentTarget.RadiusDistance<=15f))&&
+						 Bot.Character.PetData.WizardHydra==0&&
+						 Bot.Character.dCurrentEnergy>=15&&AbilityUseTimer(SNOPower.Wizard_Hydra)
+						 &&!Bot.Target.CurrentTarget.IsTreasureGoblin)
 					 {
-						  // For distant monsters, try to target a little bit in-front of them (as they run towards us), if it's not a treasure goblin
-						  float fExtraDistance=0f;
-						  if (Bot.Target.CurrentTarget.CentreDistance>17f&&!Bot.Target.CurrentTarget.IsTreasureGoblin)
+						  if (ObjectCache.Objects.Clusters(10d, 45f, 3, true).Count>0)
 						  {
-								fExtraDistance=Bot.Target.CurrentTarget.CentreDistance-17f;
-								if (fExtraDistance>5f)
-									 fExtraDistance=5f;
-								if (Bot.Target.CurrentTarget.CentreDistance-fExtraDistance<15f)
-									 fExtraDistance-=2;
+								Vector3 Location=ObjectCache.Objects.Clusters()[0].ListUnits[0].Position;
+								return new Ability(SNOPower.Wizard_Hydra, 45f, Location, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
 						  }
-						  Vector3 vNewTarget=MathEx.CalculatePointFrom(Bot.Target.CurrentTarget.Position, Bot.Character.Position, Bot.Target.CurrentTarget.CentreDistance-fExtraDistance);
-						  return new Ability(SNOPower.Wizard_Hydra, 30f, vNewTarget, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Mirror Image
 					 // Mirror Image  @ half health or 5+ monsters or rooted/incapacitated or last elite left @25% health
@@ -193,7 +191,7 @@ namespace FunkyTrinity
 						 PowerManager.CanCast(SNOPower.Wizard_MirrorImage))
 					 {
 						  return new Ability(SNOPower.Wizard_MirrorImage, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Archon
 					 // Archon
@@ -227,7 +225,7 @@ namespace FunkyTrinity
 								Bot.Class.bWaitingForSpecial=false;
 								return new Ability(SNOPower.Wizard_Archon, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 4, 5, USE_SLOWLY);
 						  }
-					 } 
+					 }
 					 #endregion
 					 #region Frost Nova
 					 // Frost Nova SPAM
@@ -239,7 +237,7 @@ namespace FunkyTrinity
 						  if (SettingsFunky.Class.bEnableCriticalMass)
 								fThisRange=9f;
 						  return new Ability(SNOPower.Wizard_FrostNova, fThisRange, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Explosive Blast
 					 // Explosive Blast SPAM when enough AP, blow erry thing up, nah mean
@@ -251,7 +249,7 @@ namespace FunkyTrinity
 						  if (SettingsFunky.Class.bEnableCriticalMass)
 								fThisRange=9f;
 						  return new Ability(SNOPower.Wizard_ExplosiveBlast, fThisRange, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 // Check to see if we have a signature spell on our hotbar, for energy twister check
 					 bool bHasSignatureSpell=(HotbarAbilitiesContainsPower(SNOPower.Wizard_MagicMissile)||HotbarAbilitiesContainsPower(SNOPower.Wizard_ShockPulse)||
@@ -269,18 +267,18 @@ namespace FunkyTrinity
 						  if (SettingsFunky.Class.bEnableCriticalMass)
 								fThisRange=9f;
 						  return new Ability(SNOPower.Wizard_EnergyTwister, fThisRange, new Vector3(Bot.Target.CurrentTarget.Position.X, Bot.Target.CurrentTarget.Position.Y, Bot.Target.CurrentTarget.Position.Z), Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Disintegrate
 					 // Disintegrate
-					 if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Disintegrate)&&
+					 if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Disintegrate)&&thisCacheUnitObj!=null&&
 						 ((Bot.Character.dCurrentEnergy>=20&&!Bot.Character.bWaitingForReserveEnergy)||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount))
 					 {
 						  float fThisRange=35f;
 						  if (SettingsFunky.Class.bEnableCriticalMass)
 								fThisRange=20f;
 						  return new Ability(SNOPower.Wizard_Disintegrate, fThisRange, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, SIGNATURE_SPAM);
-					 } 
+					 }
 					 #endregion
 					 #region Arcane Orb
 					 // Arcane Orb
@@ -291,12 +289,17 @@ namespace FunkyTrinity
 						  float fThisRange=40f;
 						  if (SettingsFunky.Class.bEnableCriticalMass)
 								fThisRange=20f;
-						  return new Ability(SNOPower.Wizard_ArcaneOrb, fThisRange, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 1, 1, USE_SLOWLY);
-					 } 
+
+						  if (ObjectCache.Objects.Clusters(4d, fThisRange, 2, true).Count>0)
+						  {
+								int ACD=ObjectCache.Objects.Clusters()[0].ListUnits[0].AcdGuid.Value;
+								return new Ability(SNOPower.Wizard_ArcaneOrb, fThisRange, vNullLocation, -1, ACD, 1, 1, USE_SLOWLY);
+						  }
+					 }
 					 #endregion
 					 #region Arcane Torrent
 					 // Arcane Torrent
-					 if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_ArcaneTorrent)&&
+					 if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_ArcaneTorrent)&&thisCacheUnitObj!=null&&
 						 ((Bot.Character.dCurrentEnergy>=16&&!Bot.Character.bWaitingForReserveEnergy)||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount)&&
 						 AbilityUseTimer(SNOPower.Wizard_ArcaneTorrent))
 					 {
@@ -304,56 +307,56 @@ namespace FunkyTrinity
 						  /*if (settings.bEnableCriticalMass)
 							  fThisRange = 20f;*/
 						  return new Ability(SNOPower.Wizard_ArcaneTorrent, fThisRange, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Ray of Frost
 					 // Ray of Frost
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_RayOfFrost)&&
+					 if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_RayOfFrost)&&thisCacheUnitObj!=null&&
 						 Bot.Character.dCurrentEnergy>=12)
 					 {
 						  float fThisRange=35f;
 						  if (SettingsFunky.Class.bEnableCriticalMass)
 								fThisRange=20f;
 						  return new Ability(SNOPower.Wizard_RayOfFrost, fThisRange, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, SIGNATURE_SPAM);
-					 } 
+					 }
 					 #endregion
 					 #region Magic Missile
 					 // Magic Missile
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Wizard_MagicMissile)&&(!Bot.Target.CurrentTarget.IsMissileReflecting||Bot.Character.dCurrentEnergy<30))
+					 if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Wizard_MagicMissile)&&Bot.Target.CurrentTarget!=null&&(!Bot.Target.CurrentTarget.IsMissileReflecting||Bot.Character.dCurrentEnergy<30))
 					 {
 						  float fThisRange=35f;
 						  if (SettingsFunky.Class.bEnableCriticalMass)
 								fThisRange=20f;
 						  return new Ability(SNOPower.Wizard_MagicMissile, fThisRange, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Shock Pulse
 					 // Shock Pulse
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Wizard_ShockPulse))
+					 if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Wizard_ShockPulse)&&Bot.Target.CurrentTarget!=null)
 					 {
 						  return new Ability(SNOPower.Wizard_ShockPulse, 15f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Spectral Blade
 					 // Spectral Blade
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Wizard_SpectralBlade))
+					 if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Wizard_SpectralBlade)&&Bot.Target.CurrentTarget!=null)
 					 {
 						  return new Ability(SNOPower.Wizard_SpectralBlade, 14f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Electrocute
 					 // Electrocute
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Electrocute))
+					 if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Electrocute)&&Bot.Target.CurrentTarget!=null)
 					 {
 						  return new Ability(SNOPower.Wizard_Electrocute, 18f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Default attacks
 					 // Default attacks
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated)
+					 if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated&&Bot.Target.CurrentTarget!=null)
 					 {
 						  return new Ability(SNOPower.Weapon_Melee_Instant, 10f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 1, 1, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 				}
 				else
@@ -367,7 +370,7 @@ namespace FunkyTrinity
 						 AbilityUseTimer(SNOPower.Wizard_Archon_SlowTime, true)&&PowerManager.CanCast(SNOPower.Wizard_Archon_SlowTime))
 					 {
 						  return new Ability(SNOPower.Wizard_Archon_SlowTime, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Teleport
 					 // Archon Teleport in combat
@@ -378,7 +381,7 @@ namespace FunkyTrinity
 					 {
 						  Vector3 vNewTarget=MathEx.CalculatePointFrom(Bot.Target.CurrentTarget.Position, Bot.Character.Position, -20f);
 						  return new Ability(SNOPower.Wizard_Archon_Teleport, 35f, vNewTarget, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Arcane Blast
 					 // Arcane Blast
@@ -388,7 +391,7 @@ namespace FunkyTrinity
 						 AbilityUseTimer(SNOPower.Wizard_Archon_ArcaneBlast)&&PowerManager.CanCast(SNOPower.Wizard_Archon_ArcaneBlast))
 					 {
 						  return new Ability(SNOPower.Wizard_Archon_ArcaneBlast, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Arcane Strike
 					 // Arcane Strike (Arcane Strike) Rapid Spam at close-range only
@@ -396,14 +399,14 @@ namespace FunkyTrinity
 						 (thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss))
 					 {
 						  return new Ability(SNOPower.Wizard_Archon_ArcaneStrike, 11f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 1, 1, USE_SLOWLY);
-					 } 
+					 }
 					 #endregion
 					 #region Disintegrate
 					 // Disintegrate
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated)
+					 if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated&&thisCacheUnitObj!=null)
 					 {
 						  return new Ability(SNOPower.Wizard_Archon_DisintegrationWave, 49f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, SIGNATURE_SPAM);
-					 } 
+					 }
 					 #endregion
 
 				}

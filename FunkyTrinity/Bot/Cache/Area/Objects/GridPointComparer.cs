@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FunkyTrinity
 {
-	 public partial class PointComparer : IEqualityComparer<Funky.GridPoint>
+	 internal partial class PointComparer : IEqualityComparer<Funky.GridPoint>
 	 {
 
 		  public bool Equals(Funky.GridPoint x, Funky.GridPoint y)

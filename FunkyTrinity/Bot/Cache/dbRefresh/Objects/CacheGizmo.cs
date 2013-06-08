@@ -6,12 +6,13 @@ using Zeta.Common;
 using Zeta.Internals.Actors;
 using Zeta.TreeSharp;
 using Zeta.Internals.Actors.Gizmos;
+using Zeta.Internals.SNO;
 
 namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public class CacheGizmo : CacheObject
+		  internal class CacheGizmo : CacheObject
 		  {
 
 				public CacheGizmo(CacheObject baseobj)
@@ -180,7 +181,13 @@ namespace FunkyTrinity
 								else if (lastLOSCheckMS<2500&&!this.ObjectIsSpecial)
 									 return false;
 
-								if (!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), Bot.Class.IsMeleeClass||!this.WithinInteractionRange()))
+								NavCellFlags LOSNavFlags=NavCellFlags.None;
+								if (Bot.Class.IsMeleeClass||!this.WithinInteractionRange())
+								{
+									 LOSNavFlags=NavCellFlags.AllowWalk;
+								}
+
+								if (!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), LOSNavFlags))
 								{
 									 return false;
 								}
@@ -531,7 +538,7 @@ namespace FunkyTrinity
 				}
 		  }
 
-		  public class CacheDestructable : CacheGizmo
+		  internal class CacheDestructable : CacheGizmo
 		  {
 
 				public CacheDestructable(CacheObject baseobj)
@@ -569,15 +576,16 @@ namespace FunkyTrinity
 					 {
 						  if (this.targetType.Value==TargetType.Barricade)
 								Logging.WriteDiagnostic("[Funky] Barricade: Name="+this.InternalName+". SNO="+this.SNOID.ToString()+
-									", Range="+this.CentreDistance.ToString()+". Needed range="+Bot.Combat.powerPrime.iMinimumRange.ToString()+". Radius="+
+									", Range="+this.CentreDistance.ToString()+". Needed range="+Bot.Combat.powerPrime.MinimumRange.ToString()+". Radius="+
 									this.Radius.ToString()+". SphereRadius="+this.ActorSphereRadius.Value.ToString()+". Type="+this.targetType.ToString()+". Using power="+Bot.Combat.powerPrime.Power.ToString());
 						  else
 								Logging.WriteDiagnostic("[Funky] Destructible: Name="+this.InternalName+". SNO="+this.SNOID.ToString()+
-									", Range="+this.CentreDistance.ToString()+". Needed range="+Bot.Combat.powerPrime.iMinimumRange.ToString()+". Radius="+
+									", Range="+this.CentreDistance.ToString()+". Needed range="+Bot.Combat.powerPrime.MinimumRange.ToString()+". Radius="+
 									this.Radius.ToString()+". SphereRadius="+this.ActorSphereRadius.Value.ToString()+". Type="+this.targetType.ToString()+". Using power="+Bot.Combat.powerPrime.Power.ToString());
 
 						  //Actual interaction
 						  WaitWhileAnimating(12, true);
+
 						  if (hashDestructableLocationTarget.Contains(this.SNOID)
 								||(Bot.Character.LastCachedTarget==this
 								&&this.RadiusDistance<6f))//Bot.Class.IsMeleeClass
@@ -633,10 +641,16 @@ namespace FunkyTrinity
 					 float fRangeRequired=0f;
 					 float fDistanceReduction=0f;
 
-					 fRangeRequired=Bot.Combat.powerPrime.Power==SNOPower.None?6f:Bot.Combat.powerPrime.iMinimumRange;
+					 fRangeRequired=Bot.Combat.powerPrime.Power==SNOPower.None?6f:Bot.Combat.powerPrime.MinimumRange;
 
 					 if (dictSNOExtendedDestructRange.ContainsKey(this.SNOID))
+					 {
 						  fRangeRequired=this.CollisionRadius.Value;
+
+						  //Increase Range for Ranged Classes
+						  if (!Bot.Class.IsMeleeClass)
+								fRangeRequired*=1.5f;
+					 }
 
 					 fDistanceReduction=(this.Radius*0.33f);
 
@@ -656,7 +670,7 @@ namespace FunkyTrinity
 
 		  }
 
-		  public class CacheInteractable : CacheGizmo
+		  internal class CacheInteractable : CacheGizmo
 		  {
 				public CacheInteractable(CacheObject baseobj)
 					 : base(baseobj)
@@ -707,7 +721,7 @@ namespace FunkyTrinity
 					 {
 						  // Force waiting AFTER power use for certain abilities
 						  Bot.Combat.bWaitingAfterPower=true;
-						  Bot.Combat.powerPrime.iForceWaitLoopsAfter=5;
+						  Bot.Combat.powerPrime.WaitLoopsAfter=5;
 					 }
 
 					 // Interactables can have a long channeling time...

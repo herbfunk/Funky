@@ -75,7 +75,7 @@ namespace FunkyTrinity
         // **********************************************************************************************
         // *****                      Log the nice items we found and stashed                       *****
         // **********************************************************************************************
-		  public static void LogGoodItems(CacheACDItem thisgooditem, GilesBaseItemType thisgilesbaseitemtype, GilesItemType thisgilesitemtype, double ithisitemvalue)
+		  internal static void LogGoodItems(CacheACDItem thisgooditem, GilesBaseItemType thisgilesbaseitemtype, GilesItemType thisgilesitemtype, double ithisitemvalue)
         {
             FileStream LogStream = null;
             try
@@ -163,7 +163,7 @@ namespace FunkyTrinity
         // **********************************************************************************************
         // *****                   Log the rubbish junk items we salvaged or sold                   *****
         // **********************************************************************************************
-		  public static void LogJunkItems(CacheACDItem thisgooditem, GilesBaseItemType thisgilesbaseitemtype, GilesItemType thisgilesitemtype, double ithisitemvalue)
+		  internal static void LogJunkItems(CacheACDItem thisgooditem, GilesBaseItemType thisgilesbaseitemtype, GilesItemType thisgilesitemtype, double ithisitemvalue)
         {
             FileStream LogStream = null;
             try

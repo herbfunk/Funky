@@ -143,7 +143,7 @@ namespace FunkyTrinity
                 {SNOPower.Wizard_Teleport, 16000}, // Need to be able to check rune that let's us spam this 3 times in a row then cooldown
                 {SNOPower.Wizard_WaveOfForce, 12000}, // normally 15/16 seconds, but a certain rune can allow 12 seconds :(
                 {SNOPower.Wizard_EnergyTwister, 5},
-                {SNOPower.Wizard_Hydra, 12000},
+                {SNOPower.Wizard_Hydra, 1500},
                 {SNOPower.Wizard_Meteor, 1000},
                 {SNOPower.Wizard_Blizzard, 6000}, // Effect lasts for 6 seconds, actual cooldown is 0...
                 {SNOPower.Wizard_IceArmor, 115000},

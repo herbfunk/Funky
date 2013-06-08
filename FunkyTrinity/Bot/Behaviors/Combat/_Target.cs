@@ -14,7 +14,7 @@ namespace FunkyTrinity
 	 public partial class Funky
 	 {
 
-		  public class TargetHandler
+		  internal class TargetHandler
 		  {
 				//Constructor
 				public TargetHandler()
@@ -24,7 +24,7 @@ namespace FunkyTrinity
 					 ValidObjects=new List<CacheObject>();
 				}
 
-				public List<CacheObject> ValidObjects { get; set; }
+				internal List<CacheObject> ValidObjects { get; set; }
 
 				///<summary>
 				///This method handles the current object target.
@@ -183,7 +183,7 @@ namespace FunkyTrinity
 						  //Find any units that we should kite, sorted by distance.
 						  var nearbyUnits=ValidObjects.OfType<CacheUnit>().Where(unit => unit.ShouldBeKited
 																												 &&unit.RadiusDistance<Bot.Class.KiteDistance);
-																												
+
 						  if (nearbyUnits.Any())
 						  {
 								if (CurrentTarget!=null&&CurrentTarget.targetType.HasValue&&TargetType.ServerObjects.HasFlag(CurrentTarget.targetType.Value))
@@ -359,7 +359,7 @@ namespace FunkyTrinity
 						  // Is the weight of this one higher than the current-highest weight? Then make this the new primary target!
 						  if (thisobj.Weight>iHighestWeightFound&&thisobj.Weight>0)
 						  {
-								//Check combat looting
+								//Check combat looting (Demonbuddy Setting)
 								if (iHighestWeightFound>0
 													 &&thisobj.targetType.Value==TargetType.Item
 													 &&!Zeta.CommonBot.Settings.CharacterSettings.Instance.CombatLooting
@@ -417,11 +417,11 @@ namespace FunkyTrinity
 
 					 // Special pausing *AFTER* using certain powers
 					 #region PauseCheck
-					 if (Bot.Combat.bWaitingAfterPower&&Bot.Combat.powerPrime.iForceWaitLoopsAfter>=1)
+					 if (Bot.Combat.bWaitingAfterPower&&Bot.Combat.powerPrime.WaitLoopsAfter>=1)
 					 {
-						  if (Bot.Combat.powerPrime.iForceWaitLoopsAfter>=1)
-								Bot.Combat.powerPrime.iForceWaitLoopsAfter--;
-						  if (Bot.Combat.powerPrime.iForceWaitLoopsAfter<=0)
+						  if (Bot.Combat.powerPrime.WaitLoopsAfter>=1)
+								Bot.Combat.powerPrime.WaitLoopsAfter--;
+						  if (Bot.Combat.powerPrime.WaitLoopsAfter<=0)
 								Bot.Combat.bWaitingAfterPower=false;
 						  CurrentState=RunStatus.Running;
 						  return false;
@@ -543,7 +543,7 @@ namespace FunkyTrinity
 										  BotMain.StatusText=statusText;
 									 }
 									 Bot.Combat.bWaitingAfterPower=true;
-									 Bot.Combat.powerPrime.iForceWaitLoopsAfter=3;
+									 Bot.Combat.powerPrime.WaitLoopsAfter=3;
 									 CurrentState=RunStatus.Running;
 									 return false;
 								}
@@ -721,7 +721,16 @@ namespace FunkyTrinity
 								#region LOSUpdate
 								if (!CurrentTarget.IgnoresLOSCheck&&CurrentTarget.RequiresLOSCheck&&CurrentTarget.LastLOSSearchMS>1800)
 								{
-									 if (!CurrentTarget.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass||!CurrentTarget.WithinInteractionRange())))
+									 NavCellFlags LOSNavFlags=NavCellFlags.None;
+									 if (Bot.Class.IsMeleeClass||!CurrentTarget.WithinInteractionRange())
+									 {
+										  if (!Bot.Class.IsMeleeClass) //Add Projectile Testing!
+												LOSNavFlags=NavCellFlags.AllowWalk|NavCellFlags.AllowProjectile;
+										  else
+												LOSNavFlags=NavCellFlags.AllowWalk;
+									 }
+
+									 if (!CurrentTarget.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), LOSNavFlags))
 									 {
 										  //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
 										  if (CurrentTarget.ObjectIsSpecial)
@@ -785,7 +794,7 @@ namespace FunkyTrinity
 						  Bot.Combat.powerBuff=GilesAbilitySelector(true, false, false);
 						  if (Bot.Combat.powerBuff.Power!=SNOPower.None)
 						  {
-								ZetaDia.Me.UsePower(Bot.Combat.powerBuff.Power, Bot.Combat.powerBuff.TargetPosition, Bot.Combat.powerBuff.WorldID, Bot.Combat.powerBuff.TargetRaGuid);
+								ZetaDia.Me.UsePower(Bot.Combat.powerBuff.Power, Bot.Combat.powerBuff.TargetPosition, Bot.Combat.powerBuff.WorldID, Bot.Combat.powerBuff.TargetRAGUID);
 								Bot.Combat.powerLastSnoPowerUsed=Bot.Combat.powerBuff.Power;
 								dictAbilityLastUse[Bot.Combat.powerBuff.Power]=DateTime.Now;
 						  }
@@ -906,7 +915,7 @@ namespace FunkyTrinity
 								  "R-Dist="+Math.Round(CurrentTarget.RadiusDistance, 2).ToString()+". ";
 
 						  if (CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Combat.powerPrime.Power!=SNOPower.None)
-								sStatusText+="Power="+Bot.Combat.powerPrime.Power.ToString()+" (range "+Bot.Combat.powerPrime.iMinimumRange.ToString()+") ";
+								sStatusText+="Power="+Bot.Combat.powerPrime.Power.ToString()+" (range "+Bot.Combat.powerPrime.MinimumRange.ToString()+") ";
 
 
 						  sStatusText+="Weight="+CurrentTarget.Weight.ToString();
@@ -950,7 +959,7 @@ namespace FunkyTrinity
 						  "R-Dist="+Math.Round(CurrentTarget.RadiusDistance, 2).ToString()+". ";
 
 					 if (CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Combat.powerPrime.Power!=SNOPower.None)
-						  sStatusText+="Power="+Bot.Combat.powerPrime.Power.ToString()+" (range "+Bot.Combat.powerPrime.iMinimumRange.ToString()+") ";
+						  sStatusText+="Power="+Bot.Combat.powerPrime.Power.ToString()+" (range "+Bot.Combat.powerPrime.MinimumRange.ToString()+") ";
 
 					 sStatusText+="Weight="+CurrentTarget.Weight.ToString();
 					 BotMain.StatusText=sStatusText;

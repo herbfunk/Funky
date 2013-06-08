@@ -9,9 +9,9 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public static partial class GridPointAreaCache
+		  internal static partial class GridPointAreaCache
 		  {
-				public enum QuadrantLocation
+				internal enum QuadrantLocation
 				{
 					 None=0,
 					 BottomRight=6,
@@ -27,7 +27,7 @@ namespace FunkyTrinity
 					 private HashSet<GridPoint> NonNavigationalPoints=new HashSet<GridPoint>();
 					 //To quickly lookup points locations within the grid.
 					 //public Hashtable OutCodes=new Hashtable();
-					 public Dictionary<GridPoint, QuadrantLocation> Points=new Dictionary<GridPoint, QuadrantLocation>();
+					 internal Dictionary<GridPoint, QuadrantLocation> Points=new Dictionary<GridPoint, QuadrantLocation>();
 
 					 public Dictionary<QuadrantLocation, GridPoint> CornerPoints=new Dictionary<QuadrantLocation, GridPoint>()
 					 {

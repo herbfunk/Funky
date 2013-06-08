@@ -12,12 +12,12 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public partial class Bot
+		  internal static partial class Bot
 		  {
 				///<summary>
 				///Cache of all values Character Class related (Individual Bot Info).
 				///</summary>
-				public class CharacterInfo
+				internal class CharacterInfo
 				{
 					 public CharacterInfo(ActorClass a)
 					 {
@@ -47,24 +47,24 @@ namespace FunkyTrinity
 					 ///<summary>
 					 ///The actor class of this bot.
 					 ///</summary>
-					 public readonly ActorClass AC;
-					 public readonly bool IsMeleeClass;
+					 internal readonly ActorClass AC;
+					 internal readonly bool IsMeleeClass;
 
 					 // This is used so we don't use certain skills until we "top up" our primary resource by enough
-					 public double iWaitingReservedAmount=0d;
-					 public bool bWaitingForSpecial=false;
+					 internal double iWaitingReservedAmount=0d;
+					 internal bool bWaitingForSpecial=false;
 
-					 public HashSet<SNOPower> PassiveAbilities=new HashSet<SNOPower>();
-					 public HashSet<SNOPower> HotbarAbilities=new HashSet<SNOPower>();
+					 internal HashSet<SNOPower> PassiveAbilities=new HashSet<SNOPower>();
+					 internal HashSet<SNOPower> HotbarAbilities=new HashSet<SNOPower>();
 					 private HashSet<SNOPower> CachedHotbarAbilities=new HashSet<SNOPower>();
 					 private Dictionary<HotbarSlot, SNOPower> HotbarPowerCache=new Dictionary<HotbarSlot, SNOPower>();
-					 public Dictionary<SNOPower, int> RuneIndexCache=new Dictionary<SNOPower, int>();
+					 internal Dictionary<SNOPower, int> RuneIndexCache=new Dictionary<SNOPower, int>();
 
-					 public Dictionary<SNOPower, int> AbilityCooldowns=new Dictionary<SNOPower, int>();
+					 internal Dictionary<SNOPower, int> AbilityCooldowns=new Dictionary<SNOPower, int>();
 
 					 private List<ItemType> CurrentEquippedItemTypes=new List<ItemType>();
 
-					 public List<ItemType> EquippedItemTypes
+					 internal List<ItemType> EquippedItemTypes
 					 {
 						  get
 						  {
@@ -95,7 +95,7 @@ namespace FunkyTrinity
 					 ///<summary>
 					 ///Returns a specific dictionary according to the bots character flags.
 					 ///</summary>
-					 public Dictionary<AvoidanceType, double> AvoidancesHealth
+					 internal Dictionary<AvoidanceType, double> AvoidancesHealth
 					 {
 						  get
 						  {
@@ -106,10 +106,10 @@ namespace FunkyTrinity
 						  }
 					 }
 
-					 public Dictionary<int, int> CurrentBuffs=new Dictionary<int, int>();
+					 internal Dictionary<int, int> CurrentBuffs=new Dictionary<int, int>();
 
-					 public List<int> OffensiveAbilities=new List<int>();
-					 public List<int> EnergyGenerationAbilities=new List<int>();
+					 internal List<int> OffensiveAbilities=new List<int>();
+					 internal List<int> EnergyGenerationAbilities=new List<int>();
 
 					 private bool specialMovementUseCheck(SNOPower P)
 					 {
@@ -126,7 +126,7 @@ namespace FunkyTrinity
 					 ///<summary>
 					 ///Returns a power for special movement if any are currently present in the hotbar abilities. None will return SnoPower.None.
 					 ///</summary>
-					 public bool FindSpecialMovementPower(out SNOPower Power)
+					 internal bool FindSpecialMovementPower(out SNOPower Power)
 					 {
 						  Power=SNOPower.None;
 						  foreach (var item in HotbarAbilities.Where(A => SpecialMovementAbilities.Contains(A)))
@@ -140,28 +140,28 @@ namespace FunkyTrinity
 						  return false;
 					 }
 
-					 public int KiteDistance
+					 internal int KiteDistance
 					 {
 						  get
 						  {
 								return SettingsFunky.KiteDistance;
 						  }
 					 }
-					 public int ContainerRange
+					 internal int ContainerRange
 					 {
 						  get
 						  {
 								return SettingsFunky.ContainerOpenRange;
 						  }
 					 }
-					 public int NonEliteRange
+					 internal int NonEliteRange
 					 {
 						  get
 						  {
 								return SettingsFunky.NonEliteCombatRange;
 						  }
 					 }
-					 public int DestructibleRange
+					 internal int DestructibleRange
 					 {
 						  get
 						  {
@@ -169,16 +169,16 @@ namespace FunkyTrinity
 						  }
 					 }
 
-					 public HashSet<int> hashActorSNOKitingIgnore=new HashSet<int>();
+					 internal HashSet<int> hashActorSNOKitingIgnore=new HashSet<int>();
 
-					 public double EmergencyHealthPotionLimit
+					 internal double EmergencyHealthPotionLimit
 					 {
 						  get
 						  {
 								return SettingsFunky.PotionHealthPercent;
 						  }
 					 }
-					 public double EmergencyHealthGlobeLimit
+					 internal double EmergencyHealthGlobeLimit
 					 {
 						  get
 						  {
@@ -190,7 +190,7 @@ namespace FunkyTrinity
 					 ///<summary>
 					 ///Returns a SnoPower based upon current hotbar abilities. If an ability not found than weapon melee/ranged instant is returned.
 					 ///</summary>
-					 public SNOPower DestructiblePower(SNOPower ignore=Zeta.Internals.Actors.SNOPower.None)
+					 internal SNOPower DestructiblePower(SNOPower ignore=Zeta.Internals.Actors.SNOPower.None)
 					 {
 						  if (destructibleabilities.Count>0)
 								return destructibleabilities.First(a => a!=ignore);
@@ -202,7 +202,7 @@ namespace FunkyTrinity
 					 ///<summary>
 					 ///Used to check for a secondary hotbar set. Currently only used for wizards with Archon.
 					 ///</summary>
-					 public void SecondaryHotbarBuffPresent()
+					 internal void SecondaryHotbarBuffPresent()
 					 {
 
 						  if (AC==ActorClass.Wizard)
@@ -235,7 +235,7 @@ namespace FunkyTrinity
 					 ///<summary>
 					 ///Enumerates KnownSkills and adds them to specific collections.
 					 ///</summary>
-					 public void UpdateActiveSkillCache()
+					 internal void UpdateActiveSkillCache()
 					 {
 						  OffensiveAbilities=new List<int>();
 
@@ -263,7 +263,7 @@ namespace FunkyTrinity
 					 ///<summary>
 					 ///Enumerates through the ActiveSkills and adds them to the HotbarAbilities collection.
 					 ///</summary>
-					 public void RefreshHotbar(bool Secondary=false)
+					 internal void RefreshHotbar(bool Secondary=false)
 					 {
 						  if (Secondary)
 						  {
@@ -319,7 +319,7 @@ namespace FunkyTrinity
 					 ///<summary>
 					 ///Enumerates through the PassiveSkills and adds them to the PassiveAbilities collection. Used to adjust repeat timers of abilities.
 					 ///</summary>
-					 public void RefreshPassives()
+					 internal void RefreshPassives()
 					 {
 
 						  using (ZetaDia.Memory.AcquireFrame())
@@ -338,7 +338,7 @@ namespace FunkyTrinity
 					 ///<summary>
 					 ///Sets each current hotbar ability repeat timer with adjustments made based upon passives.
 					 ///</summary>
-					 public void UpdateRepeatAbilityTimes()
+					 internal void UpdateRepeatAbilityTimes()
 					 {
 						  AbilityCooldowns=new Dictionary<SNOPower, int>();
 						  foreach (var item in HotbarAbilities)
@@ -415,7 +415,7 @@ namespace FunkyTrinity
 						  }
 					 }
 
-					 public bool IgnoringAvoidanceType(AvoidanceType thisAvoidance)
+					 internal bool IgnoringAvoidanceType(AvoidanceType thisAvoidance)
 					 {
 						  if (!SettingsFunky.AttemptAvoidanceMovements)
 								return true;
@@ -432,7 +432,7 @@ namespace FunkyTrinity
 					 ///<summary>
 					 ///Tests the given avoidance type to see if it should be ignored either due to a buff or if health is greater than the avoidance HP.
 					 ///</summary>
-					 public bool IgnoreAvoidance(AvoidanceType thisAvoidance)
+					 internal bool IgnoreAvoidance(AvoidanceType thisAvoidance)
 					 {
 						  double dThisHealthAvoid;
 						  if (!Bot.Class.AvoidancesHealth.TryGetValue(thisAvoidance, out dThisHealthAvoid))
@@ -487,7 +487,7 @@ namespace FunkyTrinity
 					 ///<summary>
 					 ///Enumerates through GetAllBuffs and adds them to the CurrentBuffs collection.
 					 ///</summary>
-					 public void RefreshCurrentBuffs()
+					 internal void RefreshCurrentBuffs()
 					 {
 						  CurrentBuffs=new Dictionary<int, int>();
 						  using (ZetaDia.Memory.AcquireFrame())

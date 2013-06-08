@@ -6,7 +6,7 @@ namespace FunkyTrinity
 {
     public partial class Funky
     {
-		  public class CacheBalance
+		  internal class CacheBalance
 		  {
 				public int iThisItemLevel { get; set; }
 				public ItemType thisItemType { get; set; }

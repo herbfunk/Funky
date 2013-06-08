@@ -10,12 +10,12 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public partial class ObjectCache
+		  internal partial class ObjectCache
 		  {
 				///<summary>
 				///Holds all "obstacle" related objects including Navigational and Avoidance related.
 				///</summary>
-				public class ObstacleCollection : IDictionary<int, CacheObstacle>
+				internal class ObstacleCollection : IDictionary<int, CacheObstacle>
 				{
 					 private Dictionary<int, CacheObstacle> obstacles=new Dictionary<int, CacheObstacle>();
 

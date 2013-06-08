@@ -9,8 +9,9 @@ namespace FunkyTrinity
 	 public partial class Funky
 	 {
 
-		  public abstract class CacheObstacle : CacheObject
+		  internal abstract class CacheObstacle : CacheObject
 		  {
+
 				public virtual double PointRadius
 				{
 					 get
@@ -23,6 +24,13 @@ namespace FunkyTrinity
 					 get
 					 {
 						  return base.CollisionRadius.HasValue?base.CollisionRadius.Value:base.Radius;
+					 }
+				}
+				public override float RadiusDistance
+				{
+					 get
+					 {
+						  return Math.Max(0f, base.CentreDistance-this.Radius);
 					 }
 				}
 				public new string DebugString
@@ -122,7 +130,7 @@ namespace FunkyTrinity
 		  ///<summary>
 		  ///Used for all avoidance objects
 		  ///</summary>
-		  public class CacheAvoidance : CacheObstacle
+		  internal class CacheAvoidance : CacheObstacle
 		  {
 				public new string DebugString
 				{
@@ -357,7 +365,7 @@ namespace FunkyTrinity
 		  ///<summary>
 		  ///Used for all non-avoidance objects (Monsters, Gizmos, and Misc Objects)
 		  ///</summary>
-		  public class CacheServerObject : CacheObstacle
+		  internal class CacheServerObject : CacheObstacle
 		  {
 				public CacheServerObject(CacheObject parent)
 					 : base(parent)

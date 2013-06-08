@@ -9,14 +9,14 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public static partial class GridPointAreaCache
+		  internal static partial class GridPointAreaCache
 		  {
 				///<summary>
 				///GridPointCircle
 				///A collection of GridPoints that is surrounding a given vector3.
 				///Allows safespot finding and will iterate thru its sectors to find any safespots contained within.
 				///</summary>
-				public class GPRectangle : PointCollection
+				internal class GPRectangle : PointCollection
 				{
 					 ///<summary>
 					 ///Creates a new point collection from center point. 
@@ -54,7 +54,6 @@ namespace FunkyTrinity
 					 {
 						  // Logging.WriteVerbose("StartPoint: {0} EndPoint {1} Range: {2}", Direction.StartingPoint.ToString(), Direction.EndingPoint.ToString(), Direction.Range);
 
-						  CreationDirectionPoint=Direction;
 						  CreationVector=(Vector3)Direction.Center;
 						  GridPoint center_=Direction.Center;
 						  searchablepoints_=new List<GridPoint>();
@@ -140,9 +139,7 @@ namespace FunkyTrinity
 						  }
 					 }
 
-					 private readonly DirectionPoint CreationDirectionPoint;
 					 public readonly List<DirectionPoint> Directions;
-					 private Dictionary<GridPoint, GPRectangle> DirectionGPR=new Dictionary<GridPoint, GPRectangle>();
 
 					 public double DirectionPointsTotalWeight
 					 {
@@ -163,7 +160,7 @@ namespace FunkyTrinity
 									 return null;
 						  }
 					 }
-					 private List<GridPoint> CenterConnectingPoints=new List<GridPoint>();
+
 					 internal List<GridPoint> searchablepoints_; //the "outer" points of the collection in which we use to search and expand.
 					 private DateTime lastRefreshedObjectContents=DateTime.Today;
 					 internal bool AllQuadrantsFailed=false;
@@ -243,8 +240,10 @@ namespace FunkyTrinity
 						  return false;
 					 }
 
-					 private void FullyExpand()
+					 internal void FullyExpand()
 					 {
+						  if (!CanExpandFurther) return;
+
 						  GridPoint[] currentSearchPoints_=searchablepoints_.ToArray();
 						  int count=searchablepoints_.Count;
 						  foreach (var item in currentSearchPoints_)

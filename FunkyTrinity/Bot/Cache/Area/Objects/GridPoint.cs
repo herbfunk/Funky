@@ -10,7 +10,7 @@ namespace FunkyTrinity
 		  ///<summary>
 		  ///X,Y of a point. Conversions added for System Points and Vectors.
 		  ///</summary>
-		  public class GridPoint : IComparer<GridPoint>
+		  internal class GridPoint : IComparer<GridPoint>
 		  {
 				private float x_;
 				public float X

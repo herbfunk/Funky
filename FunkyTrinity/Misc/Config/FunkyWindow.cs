@@ -50,7 +50,7 @@ namespace FunkyTrinity
         internal static FunkyWindow funkyConfigWindow;
 
         [System.Runtime.InteropServices.ComVisible(false)]
-        public partial class FunkyWindow : Window
+        internal partial class FunkyWindow : Window
         {
             private ListBox lbGeneralContent;
 

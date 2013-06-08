@@ -9,7 +9,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public static partial class GridPointAreaCache
+		  internal static partial class GridPointAreaCache
 		  {
 				///<summary>
 				///The maximum number of GPCs that will be added to cache during routine movement.
@@ -44,98 +44,193 @@ namespace FunkyTrinity
 				}
 
 				private static DateTime LastNavigationBlockCheck=DateTime.Today;
-				private static bool BotIsNavigationallyBlocked=false;
+
+				///<summary>
+				///Bots Position is blocked from adjacent movement -- Updated whenever searching for a safe location!
+				///</summary>
+				internal static bool BotIsNavigationallyBlocked=false;
+
+				///<summary>
+				///Current Grid Points that are Blocked.
+				///</summary>
 				private static List<GridPoint> NavigationBlockedPoints=new List<GridPoint>();
-				internal static bool IsPointNavigationallyBlocked(Vector3 TestPosition)
+
+				//Tracks Objects that occupy surrounding navigation grid points
+				private static Dictionary<int, int> ObjectblockCounter=new Dictionary<int, int>();
+				private static Dictionary<int, GridPoint[]> ObjectOccupiedGridPoints=new Dictionary<int, GridPoint[]>();
+
+
+				private static void RefreshNavigationBlocked()
 				{
-					 GPRectangle PointRectArea=new GPRectangle(TestPosition);
-
-					 List<GridPoint> SurroundingPoints=PointRectArea.Points.Keys.Where(gp => !gp.Equals(PointRectArea.centerpoint)).ToList();
-					 int TotalSurroundingPoints=SurroundingPoints.Count;
-					 int TotalBlockedCount=0;
-
-					 List<CacheServerObject> NearbyObjects=ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
-																												.Where(obj => obj.Position.Distance(TestPosition)-obj.Radius<=2.5f).ToList();
-
-					 if (SettingsFunky.LogSafeMovementOutput)
-						  Logging.WriteVerbose("Nearby Occupied Object Count {0}", NearbyObjects.Count);
-
-					 Dictionary<int, int> ObjectblockCounter=new Dictionary<int, int>();
-					 NavigationBlockedPoints=new List<GridPoint>();
-
-					 foreach (GridPoint item in SurroundingPoints)
+					 //Check if bot is navigationally blocked..
+					 if (DateTime.Now.Subtract(LastNavigationBlockCheck).TotalMilliseconds>500)
 					 {
-						  if (item.Ignored)
+						  LastNavigationBlockCheck=DateTime.Now;
+
+						  if (UpdateNavigationalBlocking())
 						  {
-								TotalBlockedCount++;
-								NavigationBlockedPoints.Add(item);
-						  }
-						  else if (NearbyObjects.Any())
-						  {
-
-								//Monsters can only occupy two surround points (if diagonal to the center) and any other object can occupy upto 4, so we ignore any objects that go beyond this logic.
-								var NonIgnoredObjs=NearbyObjects.Where(obj => obj.PointInside(item)&&//obj.GPRect.Contains(item)&&
-									 (!ObjectblockCounter.ContainsKey(obj.RAGUID)
-									 ||ObjectblockCounter[obj.RAGUID]<(obj.PointRadius)));
-
-								if (NonIgnoredObjs!=null&&NonIgnoredObjs.Any())
-								{
-									 //NonIgnoredObjs=NonIgnoredObjs.OrderBy(obj => GridPoint.GetDistanceBetweenPoints(item, obj.PointPosition));
-									 //Logging.WriteVerbose("Found {0} potential objects and total contained {1}", NearbyObjects.Count, NonIgnoredObjs.Count());
-
-									 var ThisObjBlocking=NonIgnoredObjs.First();
-									 if (ObjectblockCounter.ContainsKey(ThisObjBlocking.RAGUID))
-										  ObjectblockCounter[ThisObjBlocking.RAGUID]++;
-									 else
-										  ObjectblockCounter.Add(ThisObjBlocking.RAGUID, 1);
-
-									 TotalBlockedCount++;
-									 NavigationBlockedPoints.Add(item);
-								}
-								else
-								{
-									 //Logging.WriteVerbose("Found {0} potential objects for nav surrounding test, all failed", NearbyObjects.Count);
-								}
+								Logging.WriteVerbose("Bots Current Position is navigationally blocked!");
+								BotIsNavigationallyBlocked=true;
 						  }
 						  else
-						  {
-								//Validate that this point is navigable by checking Z difference and raycasting
-								Vector3 itemV3=(Vector3)item;
-								if (Difference(TestPosition.Z, itemV3.Z)>1f)
-								{
-									 Vector3 GPV3Test=TestPosition;
-									 GPV3Test.Z+=1f;
-									 itemV3.Z+=1f;
+								BotIsNavigationallyBlocked=false;
+					 }
+				}
+				///<summary>
+				///Checks if the Bots current position is total blocked from adjacent movement
+				///</summary>
+				private static bool UpdateNavigationalBlocking()
+				{
+					 //Reset Navigationally Blocked GPs
+					 NavigationBlockedPoints=new List<GridPoint>();
+					 if (CurrentLocationGPRect.Count==0)
+					 {
+						  Logging.WriteDiagnostic("Current Location GP Rect has no valid Grid Points!");
+						  return false;
+					 }
 
-									 if (!GilesCanRayCast(GPV3Test, itemV3, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
-									 {
-										  TotalBlockedCount++;
-										  NavigationBlockedPoints.Add(item);
-									 }
-								}
+					 GridPoint[] CurrentLocationGridPoints=CurrentLocationGPRect.Keys.ToArray();
+					 List<GridPoint> SurroundingPoints=new List<GridPoint>();
+					 for (int i=0; i<8; i++)
+					 {
+						  GridPoint gp=CurrentLocationGridPoints[i];
+						  if (!gp.Ignored)
+								SurroundingPoints.Add(gp);
+						  else
+								NavigationBlockedPoints.Add(gp);
+					 }
+
+					 List<int> NearbyObjectRAGUIDs=new List<int>();
+					 List<CacheServerObject> NearbyObjects=ObjectCache.Obstacles.Navigations.Where(obj => obj.RadiusDistance<=5f).ToList();
+
+					 //no nearby objects passed distance check..
+					 if (NearbyObjects.Count==0)
+					 {
+						  //Clear list, and return pure navigational check (Zero means we are completely stuck in a non-navigable location?)
+						  ObjectblockCounter.Clear();
+						  ObjectOccupiedGridPoints.Clear();
+
+						  if (SettingsFunky.LogSafeMovementOutput)
+								Logging.WriteVerbose("Current Location Point has {0} usable points", SurroundingPoints.Count);
+
+						  return (SurroundingPoints.Count==0);
+					 }
+
+					 //Update ObjectBlockCounter Collection
+					 if (ObjectblockCounter.Count>0)
+					 {
+						  //Add current nearby object RAGUIDs to collection
+						  NearbyObjectRAGUIDs.AddRange((from objs in NearbyObjects
+																  select objs.RAGUID).ToArray());
+
+						  //Generate Removal List for ObjectBlockCounter Collections
+						  List<int> RemovalRAGUIDList=(from raguids in ObjectblockCounter.Keys
+																 where !NearbyObjectRAGUIDs.Contains(raguids)
+																 select raguids).ToList();
+
+						  //Removal
+						  foreach (var item in RemovalRAGUIDList)
+						  {
+								ObjectblockCounter.Remove(item);
+								ObjectOccupiedGridPoints.Remove(item);
 						  }
 					 }
 
-					 if (SettingsFunky.LogSafeMovementOutput)
-						  Logging.WriteVerbose("Current Location Point has surrounding points {0} out of {1} blocked", TotalBlockedCount, TotalSurroundingPoints);
+					 //Check any exisiting block entries
+					 if (ObjectblockCounter.Count>0)
+					 {
+						  foreach (var item in ObjectOccupiedGridPoints.Values)
+						  {
+								NavigationBlockedPoints.AddRange(item);
+						  }
 
-					 return (TotalSurroundingPoints==TotalBlockedCount);
+						  //Update Surrounding Points
+						  SurroundingPoints=SurroundingPoints.Except(NavigationBlockedPoints).ToList();
+
+						  if (SurroundingPoints.Count==0)
+						  {
+								if (SettingsFunky.LogSafeMovementOutput)
+									 Logging.WriteVerbose("No available surrounding points -- NavBlocked!");
+
+								return true;
+						  }
+					 }
+
+					 //Generate new object list that contains objects that are not already accounted for
+					 List<CacheServerObject> NewObjects=NearbyObjects.Where(obj => !ObjectblockCounter.ContainsKey(obj.RAGUID)||ObjectblockCounter[obj.RAGUID]<4).ToList();
+
+					 //No new objects to test..
+					 if (NewObjects.Count==0)
+					 {
+						  if (SettingsFunky.LogSafeMovementOutput)
+								Logging.WriteVerbose("No new Objects Unaccounted");
+						  
+						  return (SurroundingPoints.Count==0);
+					 }
+
+
+					 foreach (GridPoint item in SurroundingPoints)
+					 {
+						  //Find any objects that contain this GP
+						  CacheServerObject[] ContainedObjs=NewObjects.Where(Obj => Obj.PointInside(item)			   //only objects that have hit there maximum block count.
+																						  &&(!ObjectblockCounter.ContainsKey(Obj.RAGUID)||Math.Abs(Obj.PointRadius)<ObjectblockCounter[Obj.RAGUID])).ToArray();
+						  if (ContainedObjs.Length>0)
+						  {
+								CacheServerObject ThisObjBlocking=ContainedObjs[0];
+								int ObjRAGUID=ThisObjBlocking.RAGUID;
+
+								if (ObjectblockCounter.ContainsKey(ObjRAGUID))
+								{
+									 int GPCount=ObjectOccupiedGridPoints[ObjRAGUID].Length;
+									 ObjectblockCounter[ObjRAGUID]++;
+									 GridPoint[] newArrayGPs=new GridPoint[GPCount];
+									 ObjectOccupiedGridPoints[ObjRAGUID].CopyTo(newArrayGPs, 0);
+									 newArrayGPs[GPCount-1]=item.Clone();
+									 ObjectOccupiedGridPoints[ObjRAGUID]=newArrayGPs.ToArray();
+								}
+								else
+								{
+									 ObjectblockCounter.Add(ObjRAGUID, 1);
+									 GridPoint[] NewArrayGP=new GridPoint[1] { item.Clone() };
+									 ObjectOccupiedGridPoints.Add(ObjRAGUID, NewArrayGP);
+								}
+								NavigationBlockedPoints.Add(item);
+						  }
+					 }
+
+					 //Update Surrounding Points
+					 SurroundingPoints=SurroundingPoints.Except(NavigationBlockedPoints).ToList();
+
+					 if (SettingsFunky.LogSafeMovementOutput)
+						  Logging.WriteVerbose("Current Location Point has {0} usable points", SurroundingPoints.Count);
+
+
+					 return (SurroundingPoints.Count==0);
 				}
 
 				//These vars are used here internally to search and track our actions.
+
+				///<summary>
+				///Location of the Bot when we searched for a safe location.
+				///</summary>
 				private static Vector3 LastSearchVector=vNullLocation;
+
+
 				private static List<DirectionPoint> DirectionPoints=new List<DirectionPoint>();
 				private static GPRectangle CurrentLocationGPRect=null;
 				private static bool UpdatedLocalMovementTree=false;
 				internal static List<GPRectangle> CacheSafeGPR=new List<GPRectangle>();
+
+				///<summary>
+				///Last successful GP Rectangle used during search method.
+				///</summary>
 				private static GPRectangle LastUsedRect=null;
+
 				private static bool AllGPRectsFailed=false;
-
-				internal static bool AllDirectionsFailed=false;
 				internal static HashSet<GridPoint> BlacklistedGridpoints=new HashSet<GridPoint>();
-
 				private static double CurrentLocationWeight=0d;
 				private static float MinimumChangeofDistanceBeforeRefresh=15f;
+
 
 				internal static void BlacklistLastSafespot()
 				{
@@ -144,13 +239,11 @@ namespace FunkyTrinity
 						  //Blacklist the creation vector and nullify the last used..
 						  BlacklistedGridpoints.Add(LastUsedRect.LastFoundSafeSpot);
 					 }
-
 					 vlastSafeSpot=vNullLocation;
 				}
 
 				///<summary>
 				///Searches for a safespot!
-				///
 				///</summary>
 				public static bool AttemptFindSafeSpot(out Vector3 safespot, Vector3 LOS, bool kiting=false)
 				{
@@ -164,7 +257,7 @@ namespace FunkyTrinity
 					 }
 
 					 //Check if we should refresh..
-					 if (LastSearchVector==vNullLocation||LastSearchVector.Distance(Bot.Character.Position)>=MinimumChangeofDistanceBeforeRefresh)
+					 if (LastSearchVector==vNullLocation||!CurrentLocationGPRect.centerpoint.Equals(Bot.Character.PointPosition))
 						  Refresh(kiting);
 					 else if (AllGPRectsFailed&&BlacklistedGridpoints.Count>0)
 					 {
@@ -178,7 +271,7 @@ namespace FunkyTrinity
 					 safespot=vNullLocation;
 
 					 //Check Bot Navigationally blocked
-					 UpdateBotNavBlocked();
+					 RefreshNavigationBlocked();
 					 if (BotIsNavigationallyBlocked)
 						  return false;
 
@@ -317,7 +410,7 @@ namespace FunkyTrinity
 
 
 					 //Check Bot Navigationally blocked
-					 UpdateBotNavBlocked();
+					 RefreshNavigationBlocked();
 					 if (BotIsNavigationallyBlocked)
 						  return false;
 
@@ -393,23 +486,11 @@ namespace FunkyTrinity
 					 return (safespot!=vNullLocation);
 				}
 
-				private static void UpdateBotNavBlocked()
-				{
-					 //Check if bot is navigationally blocked..
-					 if (DateTime.Now.Subtract(LastNavigationBlockCheck).TotalMilliseconds>500)
-					 {
-						  LastNavigationBlockCheck=DateTime.Now;
 
-						  if (IsPointNavigationallyBlocked(Bot.Character.Position))
-						  {
-								Logging.WriteVerbose("Bots Current Position is navigationally blocked!");
-								BotIsNavigationallyBlocked=true;
-						  }
-						  else
-								BotIsNavigationallyBlocked=false;
-					 }
-				}
 
+				///<summary>
+				///Resets direction vars and recreates local GPR (benethe the bot) and direction points
+				///</summary>
 				private static void Refresh(bool kiting)
 				{
 					 //Recreation of our current position and directions(maximum range)
@@ -423,10 +504,13 @@ namespace FunkyTrinity
 					 BlacklistedGridpoints.Clear();
 					 DirectionPoints.Clear();
 
-					 //Create a 4x4 rect to start our direction search
-					 //Create a new GPC under the bot!
-					 CurrentLocationGPRect=new GPRectangle(LastSearchVector, 3);
-					 
+					 //Create simple 3x3 to start with (This represents the 8 navigational points that the bot could take)
+					 LastNavigationBlockCheck=DateTime.Today;
+					 CurrentLocationGPRect=new GPRectangle(LastSearchVector);
+					 RefreshNavigationBlocked();
+
+					 //Now we expand our local GPC so we can get 24 direction points
+					 CurrentLocationGPRect.FullyExpand();
 
 					 //Update our base weight which we compare others with to see if its a better placement.
 					 CurrentLocationWeight=CurrentLocationGPRect.Weight;
@@ -482,9 +566,6 @@ namespace FunkyTrinity
 				{
 					 List<GPRectangle> newMovementGPCs=new List<GPRectangle>();
 
-					 //Update to see if all directions will be ignored..
-					 AllDirectionsFailed=!DirectionPoints.Any(dp => dp.Range>5f);
-
 					 float maxrangeFound=0f;
 					 //Create GPCs based on DirectionPoints that have range > 5f
 					 foreach (var direction in DirectionPoints)
@@ -498,10 +579,10 @@ namespace FunkyTrinity
 						  GPRectangle newEntry=new GPRectangle(direction);
 						  newMovementGPCs.Add(newEntry);
 					 }
+
 					 //Cache our movement GPCs to switch back after we are done.
 					 CacheSafeGPR=new List<GPRectangle>();
 					 CacheSafeGPR.AddRange(cacheMovementGPRs.ToArray());
-
 
 					 GridPoint botPoint=Bot.Character.PointPosition;
 					 if (WeightSorted)
@@ -509,16 +590,10 @@ namespace FunkyTrinity
 					 else
 						  cacheMovementGPRs=new List<GPRectangle>(newMovementGPCs.OrderByDescending(gpc => gpc.centerpoint.Distance(botPoint)).ToArray());
 
-
 					 //update refresh range
 					 MinimumChangeofDistanceBeforeRefresh=maxrangeFound;
-
-
-
 					 UpdatedLocalMovementTree=true;
-					 if (SettingsFunky.LogSafeMovementOutput)
-						  Logging.WriteDiagnostic("Updated Local GPCs");
-
+					 if (SettingsFunky.LogSafeMovementOutput) Logging.WriteDiagnostic("Updated Local GPCs");
 				}
 		  }
 	 }

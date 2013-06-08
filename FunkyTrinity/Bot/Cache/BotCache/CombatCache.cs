@@ -12,12 +12,12 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public partial class Bot
+		  internal static partial class Bot
 		  {
 				///<summary>
 				///Cache of current combat variables
 				///</summary>
-				public class CombatCache
+				internal class CombatCache
 				{
 					 public CombatCache()
 					 {
@@ -66,73 +66,86 @@ namespace FunkyTrinity
 						  UsesDOTDPSAbility=false;
 					 }
 
-					 public CacheObject LastCachedTarget { get; set; }
-					 public List<int> PrioritizedRAGUIDs=new List<int>();
-					 public List<CacheAvoidance> TriggeringAvoidances=new List<CacheAvoidance>();
-					 public List<int> UnitRAGUIDs=new List<int>();
-					 public List<int> ValidClusterUnits=new List<int>();
-					 public List<Cluster> CurrentTargetClusters=new List<Cluster>();
-					 public DateTime LastClusterTargetLogicRefresh=DateTime.Today;
+					 internal CacheObject LastCachedTarget { get; set; }
+					 internal List<int> PrioritizedRAGUIDs=new List<int>();
+					 internal List<CacheAvoidance> TriggeringAvoidances=new List<CacheAvoidance>();
+					 internal List<int> UnitRAGUIDs=new List<int>();
+					 internal List<int> ValidClusterUnits=new List<int>();
+					 internal List<Cluster> CurrentTargetClusters=new List<Cluster>();
+					 internal DateTime LastClusterTargetLogicRefresh=DateTime.Today;
 
-					 public List<Cluster> RunKMeans(int MinUnitCount=1, double Distance=5d)
+					 internal List<Cluster> RunKMeans(int MinUnitCount=1, double Distance=5d)
 					 {
 						  List<CacheUnit> objects=new List<CacheUnit>();
+
+						  //If ClusterTargetLogic is disabled.. we need to generate clusters!
+						  if (!SettingsFunky.EnableClusteringTargetLogic&&DateTime.Now.Subtract(LastClusterTargetLogicRefresh).TotalMilliseconds>200)
+						  {
+								LastClusterTargetLogicRefresh=DateTime.Now;
+								List<CacheObject> listObjectUnits=ObjectCache.Objects.Values.Where(u => UnitRAGUIDs.Contains(u.RAGUID)).ToList();
+								
+								if (listObjectUnits.Count>0)
+									 CurrentTargetClusters=RunKmeans(listObjectUnits, Distance);
+						  }
+
 						  //populate with units
 						  (from clusters in CurrentTargetClusters		 //Only Clusters with a valid targetable unit 
 							where clusters.RAGUIDS.Count>=MinUnitCount&&(!clusters.ContainsNoTagetableUnits&&clusters.CurrentValidUnit!=null)
 							select clusters.ListUnits)
 								.ForEach(units => objects.AddRange(units));
 
-						  return RunKmeans<CacheUnit>(objects, Distance).Where(clusters=>clusters.RAGUIDS.Count>=MinUnitCount).ToList();
+
+
+						  return RunKmeans<CacheUnit>(objects, Distance).Where(clusters => clusters.RAGUIDS.Count>=MinUnitCount).ToList();
 					 }
 
 					 #region Movement
 					 // Timestamp of when our position was last measured as changed
-					 public DateTime lastMovedDuringCombat { get; set; }
+					 internal DateTime lastMovedDuringCombat { get; set; }
 					 //Used to check movement during target
-					 public Vector3 lastPlayerPosDuringTargetMovement { get; set; }
-					 public Vector3 vLastMoveToTarget { get; set; }
-					 public float fLastDistanceFromTarget { get; set; }
-					 public Vector3 vCurrentDestination { get; set; }
-					 public bool UsedAutoMovementCommand { get; set; }
-					 public int totalNonMovementCount { get; set; }
-					 public bool bAlreadyMoving { get; set; }
-					 public DateTime lastMovementCommand { get; set; }
+					 internal Vector3 lastPlayerPosDuringTargetMovement { get; set; }
+					 internal Vector3 vLastMoveToTarget { get; set; }
+					 internal float fLastDistanceFromTarget { get; set; }
+					 internal Vector3 vCurrentDestination { get; set; }
+					 internal bool UsedAutoMovementCommand { get; set; }
+					 internal int totalNonMovementCount { get; set; }
+					 internal bool bAlreadyMoving { get; set; }
+					 internal DateTime lastMovementCommand { get; set; }
 					 // How many times a movement fails because of being "blocked"
-					 public int iTimesBlockedMoving { get; set; }
+					 internal int iTimesBlockedMoving { get; set; }
 					 #endregion
 
 
-					 public DateTime LastHealthChange { get; set; }
-					 public double LastHealthDropPct { get; set; }
+					 internal DateTime LastHealthChange { get; set; }
+					 internal double LastHealthDropPct { get; set; }
 
 					 #region Kite & Avoid
 
 					 ///<summary>
 					 ///Tracks if kiting was used last loop.
 					 ///</summary>
-					 public bool KitedLastTarget { get; set; }
+					 internal bool KitedLastTarget { get; set; }
 					 //Kiting
-					 public bool IsKiting { get; set; }
+					 internal bool IsKiting { get; set; }
 					 // Prevent spam-kiting too much - allow fighting between each kite movement
-					 public DateTime timeCancelledKiteMove=DateTime.Today;
-					 public int iMillisecondsCancelledKiteMoveFor=0;
-					 public DateTime LastKiteAction=DateTime.Today;
+					 internal DateTime timeCancelledKiteMove=DateTime.Today;
+					 internal int iMillisecondsCancelledKiteMoveFor=0;
+					 internal DateTime LastKiteAction=DateTime.Today;
 					 //Avoidance Related
-					 public bool RequiresAvoidance { get; set; }
-					 public bool TravellingAvoidance { get; set; }
-					 public bool DontMove { get; set; }
-					 public bool CriticalAvoidance { get; set; }
-					 public DateTime LastAvoidanceMovement { get; set; }
+					 internal bool RequiresAvoidance { get; set; }
+					 internal bool TravellingAvoidance { get; set; }
+					 internal bool DontMove { get; set; }
+					 internal bool CriticalAvoidance { get; set; }
+					 internal DateTime LastAvoidanceMovement { get; set; }
 					 // When did we last send a move-power command?
-					 public DateTime lastSentMovePower=DateTime.Today;
+					 internal DateTime lastSentMovePower=DateTime.Today;
 					 // This force-prevents avoidance for XX loops incase we get stuck trying to avoid stuff
-					 public DateTime timeCancelledEmergencyMove=DateTime.Today;
-					 public int iMillisecondsCancelledEmergencyMoveFor=0;
+					 internal DateTime timeCancelledEmergencyMove=DateTime.Today;
+					 internal int iMillisecondsCancelledEmergencyMoveFor=0;
 					 // This lets us know if there is a target but it's in avoidance so we can just "stay put" until avoidance goes
-					 public bool bStayPutDuringAvoidance=false;
+					 internal bool bStayPutDuringAvoidance=false;
 
-					 public void UpdateAvoidKiteRates()
+					 internal void UpdateAvoidKiteRates()
 					 {
 						  double extraWaitTime=SettingsFunky.AvoidanceRecheckMaximumRate*Bot.Character.dCurrentHealthPct;
 						  if (extraWaitTime<SettingsFunky.AvoidanceRecheckMinimumRate) extraWaitTime=SettingsFunky.AvoidanceRecheckMinimumRate;
@@ -145,87 +158,87 @@ namespace FunkyTrinity
 
 
 					 // Variables used to actually hold powers the power-selector has picked to use, for buffing and main power use
-					 public Ability powerBuff { get; set; }
-					 public Ability powerPrime;
-					 public SNOPower powerLastSnoPowerUsed { get; set; }
+					 internal Ability powerBuff { get; set; }
+					 internal Ability powerPrime;
+					 internal SNOPower powerLastSnoPowerUsed { get; set; }
 
 					 //Loot Check
-					 public bool ShouldCheckItemLooted { get; set; }
-					 public int recheckCount { get; set; }
-					 public bool reCheckedFinished { get; set; }
+					 internal bool ShouldCheckItemLooted { get; set; }
+					 internal int recheckCount { get; set; }
+					 internal bool reCheckedFinished { get; set; }
 
 
 					 #region HandlerFlags
 
 					 // A flag to indicate whether we have a new target from the overlord (decorator) or not, in which case don't refresh targets again this first loop
-					 public bool bWholeNewTarget { get; set; }
+					 internal bool bWholeNewTarget { get; set; }
 					 // A flag to indicate if we should pick a new power/ability to use or not
-					 public bool bPickNewAbilities { get; set; }
+					 internal bool bPickNewAbilities { get; set; }
 					 // Flag used to indicate if we are simply waiting for a power to go off - so don't do any new target checking or anything
-					 public bool bWaitingForPower { get; set; }
+					 internal bool bWaitingForPower { get; set; }
 					 // And a special post-use pause
-					 public bool bWaitingAfterPower { get; set; }
+					 internal bool bWaitingAfterPower { get; set; }
 					 // If we are waiting before popping a potion
-					 public bool bWaitingForPotion { get; set; }
+					 internal bool bWaitingForPotion { get; set; }
 					 // Force a target update after certain interactions
-					 public bool bForceTargetUpdate { get; set; }
+					 internal bool bForceTargetUpdate { get; set; }
 					 // Variable to let us force new target creations immediately after a root
-					 public bool bWasRootedLastTick { get; set; }
+					 internal bool bWasRootedLastTick { get; set; }
 					 // This holds whether or not we want to prioritize a close-target, used when we might be body-blocked by monsters
-					 public bool bForceCloseRangeTarget { get; set; }
+					 internal bool bForceCloseRangeTarget { get; set; }
 					 #endregion
 
 					 // how long to force close-range targets for
-					 public int iMillisecondsForceCloseRange=0;
+					 internal int iMillisecondsForceCloseRange=0;
 					 // Date time we were last told to stick to close range targets
-					 public DateTime lastForcedKeepCloseRange=DateTime.Today;
+					 internal DateTime lastForcedKeepCloseRange=DateTime.Today;
 
 
 					 // Variables relating to quick-reference of monsters within sepcific ranges (if anyone has suggestion for similar functionality with reduced CPU use, lemme know, but this is fast atm!)
-					 public int[] iElitesWithinRange;
+					 internal int[] iElitesWithinRange;
 
-					 public int[] iAnythingWithinRange { get; set; }
-					 public int iNonRendedTargets_6 { get; set; }
-					 public bool UsesDOTDPSAbility { get; set; }
-					 public int SurroundingUnits { get; set; }
-					 
+					 internal int[] iAnythingWithinRange { get; set; }
+					 internal int iNonRendedTargets_6 { get; set; }
+					 internal bool UsesDOTDPSAbility { get; set; }
+					 internal int SurroundingUnits { get; set; }
+
 
 					 #region Last seen objects
 					 // Last had any mob in range, for loot-waiting
-					 public DateTime lastHadUnitInSights { get; set; }
+					 internal DateTime lastHadUnitInSights { get; set; }
 					 // When we last saw a boss/elite etc.
-					 public DateTime lastHadEliteUnitInSights { get; set; }
+					 internal DateTime lastHadEliteUnitInSights { get; set; }
 					 //Last time we had a container, for loot-waiting
-					 public DateTime lastHadContainerAsTarget { get; set; }
+					 internal DateTime lastHadContainerAsTarget { get; set; }
 					 //When we last saw a "rare" chest
-					 public DateTime lastHadRareChestAsTarget { get; set; }
+					 internal DateTime lastHadRareChestAsTarget { get; set; }
 					 // Store the date-time when we *FIRST* picked this target, so we can blacklist after X period of time targeting
-					 public DateTime dateSincePickedTarget { get; set; }
-					 public int iTotalNumberGoblins=0;
-					 public DateTime lastGoblinTime=DateTime.Today;
+					 internal DateTime dateSincePickedTarget { get; set; }
+					 internal int iTotalNumberGoblins=0;
+					 internal DateTime lastGoblinTime=DateTime.Today;
 					 #endregion
 
 
-					 public int iACDGUIDLastWhirlwind=0;
-					 public Vector3 vSideToSideTarget=vNullLocation;
-					 public DateTime lastChangedZigZag=DateTime.Today;
-					 public Vector3 vPositionLastZigZagCheck=Vector3.Zero;
+					 internal int iACDGUIDLastWhirlwind=0;
+					 internal Vector3 vSideToSideTarget=vNullLocation;
+					 internal DateTime lastChangedZigZag=DateTime.Today;
+					 internal Vector3 vPositionLastZigZagCheck=Vector3.Zero;
 
-					 public bool bAnyChampionsPresent { get; set; }
-					 public bool bAnyTreasureGoblinsPresent { get; set; }
-					 public bool bAnyMobsInCloseRange { get; set; }
-					 public bool bAnyBossesInRange { get; set; }
+					 internal bool bAnyChampionsPresent { get; set; }
+					 internal bool bAnyTreasureGoblinsPresent { get; set; }
+					 internal bool bAnyMobsInCloseRange { get; set; }
+					 internal bool bAnyBossesInRange { get; set; }
 					 // A flag to say whether any NONE-hashActorSNOWhirlwindIgnore things are around
-					 public bool bAnyNonWWIgnoreMobsInRange { get; set; }
+					 internal bool bAnyNonWWIgnoreMobsInRange { get; set; }
 					 /// <summary>
 					 /// Check LoS if waller avoidance detected
 					 /// </summary>
-					 public bool bCheckGround=false;
+					 internal bool bCheckGround=false;
 
 
-					 public float iCurrentMaxKillRadius=0f;
-					 public float iCurrentMaxLootRadius=0f;
-					 public void UpdateKillLootRadiusValues()
+					 internal float iCurrentMaxKillRadius=0f;
+					 internal float iCurrentMaxLootRadius=0f;
+					 internal void UpdateKillLootRadiusValues()
 					 {
 						  iCurrentMaxKillRadius=Zeta.CommonBot.Settings.CharacterSettings.Instance.KillRadius;
 						  iCurrentMaxLootRadius=Zeta.CommonBot.Settings.CharacterSettings.Instance.LootRadius;
@@ -263,7 +276,7 @@ namespace FunkyTrinity
 					 ///<summary>
 					 ///Checks behavioral flags that are considered OOC/Non-Combat
 					 ///</summary>
-					 public bool IsInNonCombatBehavior
+					 internal bool IsInNonCombatBehavior
 					 {
 						  get
 						  {
@@ -273,7 +286,7 @@ namespace FunkyTrinity
 					 }
 
 
-					 public void Reset()
+					 internal void Reset()
 					 {
 						  iElitesWithinRange=new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 						  iAnythingWithinRange=new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -291,7 +304,7 @@ namespace FunkyTrinity
 						  UsesDOTDPSAbility=false;
 						  bCheckGround=false;
 					 }
-					 public void ResetTargetHandling()
+					 internal void ResetTargetHandling()
 					 {
 						  Bot.Target.CurrentTarget=null;
 						  iTimesBlockedMoving=0;

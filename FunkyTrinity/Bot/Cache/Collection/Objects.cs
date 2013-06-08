@@ -9,12 +9,12 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public partial class ObjectCache
+		  internal partial class ObjectCache
 		  {
 				///<summary>
 				///Collection which is used to hold cached objects.
 				///</summary>
-				public class ObjectCollection : IDictionary<int, CacheObject>
+				internal class ObjectCollection : IDictionary<int, CacheObject>
 				{
 					 private Dictionary<int, CacheObject> objects=new Dictionary<int, CacheObject>();
 

@@ -28,7 +28,7 @@ namespace FunkyTrinity
 		  #endregion
 
 
-		  public abstract class SNO
+		  internal abstract class SNO
 		  {
 				#region Constructors
 				public SNO(int sno, bool Null=false)
@@ -469,7 +469,7 @@ namespace FunkyTrinity
 		  ///<summary>
 		  ///Caches all SNO related data.
 		  ///</summary>
-		  public class CachedSNOEntry : SNO
+		  internal class CachedSNOEntry : SNO
 		  {
 
 				public CachedSNOEntry(int sno, String internalname, ActorType? actortype=null, TargetType? targettype=null, MonsterType? monstertype=null, MonsterSize? monstersize=null, float? collisionradius=null, bool? canburrow=null, bool? grantsnoxp=null, bool? dropsnoloot=null, bool? isbarricade=null, ObstacleType? obstacletype=null, float? actorsphereradius=null, GizmoType? gizmotype=null)

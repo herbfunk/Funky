@@ -24,7 +24,7 @@ namespace FunkyTrinity
 		  // **********************************************************************************************
 		  // *****                             Player Mover Class                                     *****
 		  // **********************************************************************************************
-		  public class PlayerMover : IPlayerMover
+		  internal class PlayerMover : IPlayerMover
 		  {
 
 				private static bool ShrinesInArea(Vector3 targetpos)

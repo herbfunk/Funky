@@ -14,7 +14,7 @@ namespace FunkyTrinity
 	 public partial class Funky
 	 {
 
-		  public class CacheObject : CachedSNOEntry, IComparable
+		  internal class CacheObject : CachedSNOEntry, IComparable
 		  {
 
 				#region Constructors
@@ -68,11 +68,11 @@ namespace FunkyTrinity
 				{
 					 this.AcdGuid=parent.AcdGuid;
 					 this.BlacklistFlag=parent.BlacklistFlag;
-					 this.BlacklistLoops=parent.BlacklistLoops;
+					 this.BlacklistLoops_=parent.BlacklistLoops_;
 					 this.gprect_=parent.gprect_;
 					 this.InteractionAttempts=parent.InteractionAttempts;
 					 this.LastLOSCheck=parent.LastLOSCheck;
-					 this.LoopsUnseen=parent.LoopsUnseen;
+					 this.LoopsUnseen_=parent.LoopsUnseen_;
 					 this.LOSV3=parent.LOSV3;
 					 this.NeedsRemoved=parent.NeedsRemoved;
 					 this.NeedsUpdate=parent.NeedsUpdate;
@@ -141,7 +141,7 @@ namespace FunkyTrinity
 					 }
 				}
 
-				public float CentreDistance
+				public virtual float CentreDistance
 				{
 					 get
 					 {
@@ -149,7 +149,7 @@ namespace FunkyTrinity
 					 }
 				}
 
-				public float RadiusDistance
+				public virtual float RadiusDistance
 				{
 					 get
 					 {
@@ -170,12 +170,12 @@ namespace FunkyTrinity
 						  try
 						  {
 								this.Position=this.ref_DiaObject.Position;
-								this.lastUpdatedPosition=DateTime.Now;
-								this.positionUpdated=true;
 						  } catch (NullReferenceException)
 						  {
 								Logging.WriteVerbose("Safely Handled Updating Position for Object {0}", this.InternalName);
 						  }
+						  this.lastUpdatedPosition=DateTime.Now;
+						  this.positionUpdated=true;
 					 }
 				}
 				///<summary>
@@ -193,8 +193,8 @@ namespace FunkyTrinity
 					 }
 				}
 
-				internal GridPointAreaCache.GPRectangle gprect_;
-				public virtual GridPointAreaCache.GPRectangle GPRect
+				private GridPointAreaCache.GPRectangle gprect_;
+				internal virtual GridPointAreaCache.GPRectangle GPRect
 				{
 					 get
 					 {
@@ -204,19 +204,32 @@ namespace FunkyTrinity
 
 						  return gprect_;
 					 }
+					 set { gprect_=value; }
 				}
 				#endregion
 
 
 				#region Blacklist, Removal, and Valid
+				private int LoopsUnseen_=0;
 				///<summary>
 				///Counter which increases when object is not seen during the refresh stage.
 				///</summary>
-				public int LoopsUnseen=0;
+				public int LoopsUnseen
+				{
+					 get { return LoopsUnseen_; }
+					 set { LoopsUnseen_=value; }
+				}
+
+				private int BlacklistLoops_=0;
 				///<summary>
 				///Amount of loops this object is being ignored during the Usable Object iteration. If set to -1 it will be ignored indefinitely.
 				///</summary>
-				public int BlacklistLoops=0;
+				public int BlacklistLoops
+				{
+					 get { return BlacklistLoops_; }
+					 set { BlacklistLoops_=value; }
+				}
+
 				///<summary>
 				///Flag that determines if the object will be updated during Refresh (Live Data).
 				///</summary>
@@ -238,6 +251,7 @@ namespace FunkyTrinity
 					 }
 				}
 				internal bool removal_;
+
 				///<summary>
 				///This is evaluated during removal and when set to something other than none it will be blacklisted.
 				///</summary>
@@ -284,7 +298,7 @@ namespace FunkyTrinity
 				///<summary>
 				///Runs raycasting and intersection tests to validate LOS.
 				///</summary>
-				public bool LOSTest(Vector3 PositionToTestFrom, bool NavRayCast=true, bool ServerObjectIntersection=true, bool NavCellWalkable=false)
+				public bool LOSTest(Vector3 PositionToTestFrom, bool NavRayCast=true, bool ServerObjectIntersection=true, NavCellFlags Flags=NavCellFlags.None)
 				{
 					 this.LastLOSCheck=DateTime.Now;
 					 Vector3 botmeleeVector=this.BotMeleeVector;
@@ -295,7 +309,7 @@ namespace FunkyTrinity
 					 if (ServerObjectIntersection&&ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obstacle => obstacle.Obstacletype.HasValue&&obstacle.Obstacletype.Value!=ObstacleType.Monster&&obstacle.TestIntersection(PositionToTestFrom, botmeleeVector)))
 						  return false;
 
-					 if (NavCellWalkable&&!GilesCanRayCast(PositionToTestFrom, botmeleeVector, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
+					 if (!Flags.HasFlag(NavCellFlags.None)&&!GilesCanRayCast(PositionToTestFrom, botmeleeVector, Flags))
 						  return false;
 
 
@@ -339,8 +353,8 @@ namespace FunkyTrinity
 									 FoundLOSLocation=this.GPRect.TryFindSafeSpot(out LOSV3, this.BotMeleeVector, (Bot.Class.KiteDistance>0));
 						  }
 
-
-						  if (FoundLOSLocation&&GilesCanRayCast(this.Position, LOSV3, NavCellFlags.AllowWalk))
+						  //Validate that we can move to this LOS Position from our current Position!
+						  if (FoundLOSLocation&&GilesCanRayCast(Bot.Character.Position, LOSV3, NavCellFlags.AllowWalk))
 						  {
 								Logging.WriteVerbose("LOS Found new location for target {0}", this.InternalName);
 								this.LOSV3=LOSV3;
@@ -370,27 +384,6 @@ namespace FunkyTrinity
 					 }
 
 					 set { losv3_=value; losv3LastChanged=DateTime.Now; }
-				}
-				///<summary>
-				///Validates that the current LOS
-				///</summary>
-				public bool LastLOSCheckStillValid
-				{
-					 get
-					 {
-						  double LastCheckMS=this.LastLOSCheckMS;
-						  //priority counter
-						  if (this.PriorityCounter>1&&LastCheckMS>2500)
-								return false;
-
-						  //Recheck the LOS against the target.
-						  bool valid=this.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), (Bot.Class.IsMeleeClass||!this.WithinInteractionRange()));
-
-						  if (!valid)
-								this.LOSV3=vNullLocation;
-
-						  return valid;
-					 }
 				}
 				#endregion
 
@@ -422,15 +415,15 @@ namespace FunkyTrinity
 					 get
 					 {
 						  //Blacklist loop counter checks
-						  if (this.BlacklistLoops<0) return false;
-						  if (this.BlacklistLoops>0)
+						  if (this.BlacklistLoops_<0) return false;
+						  if (this.BlacklistLoops_>0)
 						  {
-								this.BlacklistLoops--;
+								this.BlacklistLoops_--;
 								return false;
 						  }
 
 						  //Skip objects if not seen during cache refresh
-						  if (this.LoopsUnseen>0) return false;
+						  if (this.LoopsUnseen_>0) return false;
 
 						  //Check if we are doing something important.. if so we only want to check units!
 						  if (Bot.Combat.IsInNonCombatBehavior)
@@ -452,8 +445,6 @@ namespace FunkyTrinity
 								this.NeedsRemoved=true;
 								return false;
 						  }
-
-
 
 						  return true;
 					 }
@@ -500,12 +491,12 @@ namespace FunkyTrinity
 						  //Test if this object is within any avoidances (Excluding Gold/Globe)
 						  if (!GoldGlobeObj&&ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
 								this.Weight=1;
-						  
+
 
 						  //Gold and Globe gain bots pickup radius.. so we should calculate a new position accordingly!
 						  if (GoldGlobeObj)
 								TestPosition=MathEx.GetPointAt(this.Position, Bot.Character.PickupRadius, FindDirection(this.Position, Bot.Character.Position, true));
-						  
+
 
 						  //intersecting avoidances..
 						  if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition))
@@ -571,7 +562,7 @@ namespace FunkyTrinity
 						  this.NeedsRemoved=true;
 						  this.BlacklistFlag=BlacklistType.Temporary;
 					 }
-					 this.BlacklistLoops=10;
+					 this.BlacklistLoops_=10;
 
 					 return RunStatus.Success;
 				}
@@ -637,7 +628,7 @@ namespace FunkyTrinity
 						  }
 						  DbHelper.Log(DbHelper.TrinityLogLevel.Debug, DbHelper.LogCategory.Behavior, "{0}: Ignoring mob {1} due to no movement counter reaching {2}", "[Funky]", this.InternalName+" _ SNO:"+this.SNOID, Bot.Combat.totalNonMovementCount);
 						  Logging.WriteDiagnostic("totalNonMovementCount == "+Bot.Combat.totalNonMovementCount);
-						  this.BlacklistLoops=50;
+						  this.BlacklistLoops_=50;
 						  Bot.Combat.bForceTargetUpdate=true;
 						  Bot.Combat.totalNonMovementCount=0;
 
@@ -762,7 +753,7 @@ namespace FunkyTrinity
 														  if (hitTest!=Vector3.Zero)
 														  {
 																this.RequiresLOSCheck=true;
-																this.BlacklistLoops=10;
+																this.BlacklistLoops_=10;
 																Log("Ignoring object "+this.InternalName+" due to not moving and raycast failure!", true);
 																Bot.Combat.bForceTargetUpdate=true;
 																return RunStatus.Running;
@@ -971,8 +962,9 @@ namespace FunkyTrinity
 
 					 if (DateTime.Now.Subtract(Bot.Combat.lastSentMovePower).TotalMilliseconds>=250||currentDistance>=2f||bForceNewMovement)
 					 {
-
-						  if (this.LOSV3==vNullLocation)
+						  //Use Walk Power when not using LOS Movement, target is not an item and target does not ignore LOS.
+						  bool UsePower=(this.LOSV3==vNullLocation&&this.targetType.Value!=TargetType.Item&&!this.IgnoresLOSCheck);
+						  if (UsePower)
 						  {
 								ZetaDia.Me.UsePower(SNOPower.Walk, Bot.Combat.vCurrentDestination, Bot.Character.iCurrentWorldID, -1);
 						  }

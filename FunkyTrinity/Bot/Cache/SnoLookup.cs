@@ -234,11 +234,13 @@ namespace FunkyTrinity
 				public static readonly HashSet<int> hashGargantuan=new HashSet<int> { 179780, 179778, 179772, 179779, 179776, 122305 };
 				public static readonly HashSet<int> hashZombie=new HashSet<int> { 110959, 103235, 103215, 105763, 103217, 51353 };
 				public static readonly HashSet<int> hashDHPets=new HashSet<int> { 178664, 173827, 133741, 159144, 181748, 159098 };
+				public static readonly HashSet<int> hashWizHydras=new HashSet<int> { 80745, 81515, 82111, 82972, 82109, 83959 }; //IDs taken from d3lexicon
 				//Quick reference to all possible pets
 				public static readonly HashSet<int> hashSummonedPets=new HashSet<int> { 169123, 123885, 169890, 168878, 169891, 169077, 169904, 169907, 169906, 169908, 169905, 169909,
                                                                                     179780, 179778, 179772, 179779, 179776, 122305,
                                                                                      110959, 103235, 103215, 105763, 103217, 51353,
-                                                                                      178664, 173827, 133741, 159144, 181748, 159098};
+                                                                                      178664, 173827, 133741, 159144, 181748, 159098,
+																													80745, 81515, 82111, 82972, 82109, 83959, };
 		  }
 	 }
 }

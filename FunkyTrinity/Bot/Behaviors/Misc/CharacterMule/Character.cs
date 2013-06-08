@@ -8,7 +8,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public class D3Character
+		  public static class D3Character
 		  {
 				private static UIElement SwitchHeroButton_;
 				public static UIElement SwitchHeroButton

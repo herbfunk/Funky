@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FunkyTrinity
 {
-	 public partial class Cluster
+	 internal partial class Cluster
 	 {
 		  public string DebugString
 		  {

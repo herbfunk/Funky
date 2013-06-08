@@ -12,7 +12,7 @@ namespace FunkyTrinity
 	 public partial class Funky
 	 {
 
-		  public partial class dbRefresh
+		  public static partial class dbRefresh
 		  {
 				private static int RefreshRateMilliseconds=150;
 				public static bool ShouldRefreshObjectList

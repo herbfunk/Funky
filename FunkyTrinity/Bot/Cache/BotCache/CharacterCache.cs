@@ -13,35 +13,65 @@ namespace FunkyTrinity
 	 public partial class Funky
 	 {
 
-		  public partial class Bot
+		  internal static partial class Bot
 		  {
 
 				///<summary>
 				///Cache of all values Character related and variable.
 				///</summary>
-				public class CharacterCache
+				internal class CharacterCache
 				{
+					 public CharacterCache()
+					 {
+						  lastUpdatedPlayer=DateTime.Today;
+						  lastPreformedNonCombatAction=DateTime.Today;
+						  bIsIncapacitated=false;
+						  bIsRooted=false;
+						  bIsInTown=false;
+						  dCurrentHealthPct=0d;
+						  dCurrentEnergy=0d;
+						  dCurrentEnergyPct=0d;
+						  dDiscipline=0d;
+						  dDisciplinePct=0d;
+						  EnergyRegenerationRate=0;
+						  bWaitingForReserveEnergy=false;
+						  iMyDynamicID=0;
+						  iMyLevel=1;
+						  iMyParagonLevel=0;
+						  iSceneID=-1;
+						  iCurrentWorldID=-1;
+						  BackPack=new Backpack();
+						  PetData=new Pets();
+						  PickupRadius=1;
+						  isMoving=false;
+						  LastCachedTarget=FakeCacheObject;
+						  fCharacterRadius=0f;
+						  iCurrentGameDifficulty=GameDifficulty.Invalid;
+						  CurrentProfileBehavior=null;
+						  IsRunningTownPortalBehavior=false;
+					 }
+
 					 private DateTime lastUpdatedPlayer { get; set; }
-					 public DateTime lastPreformedNonCombatAction { get; set; }
-					 public bool bIsIncapacitated { get; set; }
-					 public bool bIsRooted { get; set; }
-					 public bool bIsInTown { get; set; }
-					 public double dCurrentHealthPct { get; set; }
-					 public double dCurrentEnergy { get; set; }
-					 public double dCurrentEnergyPct { get; set; }
-					 public double dDiscipline { get; set; }
-					 public double dDisciplinePct { get; set; }
-					 public int EnergyRegenerationRate { get; set; }
-					 public bool isMoving { get; set; }
-					 public int iCurrentWorldID=-1;
-					 public GameDifficulty iCurrentGameDifficulty=GameDifficulty.Invalid;
-					 public Zeta.CommonBot.Profile.ProfileBehavior CurrentProfileBehavior=null;
-					 public bool IsRunningTownPortalBehavior=false;
+					 internal DateTime lastPreformedNonCombatAction { get; set; }
+					 internal bool bIsIncapacitated { get; set; }
+					 internal bool bIsRooted { get; set; }
+					 internal bool bIsInTown { get; set; }
+					 internal double dCurrentHealthPct { get; set; }
+					 internal double dCurrentEnergy { get; set; }
+					 internal double dCurrentEnergyPct { get; set; }
+					 internal double dDiscipline { get; set; }
+					 internal double dDisciplinePct { get; set; }
+					 internal int EnergyRegenerationRate { get; set; }
+					 internal bool isMoving { get; set; }
+					 internal int iCurrentWorldID { get; set; }
+					 internal GameDifficulty iCurrentGameDifficulty { get; set; }
+					 internal Zeta.CommonBot.Profile.ProfileBehavior CurrentProfileBehavior { get; set; }
+					 internal bool IsRunningTownPortalBehavior { get; set; }
 
 					 //Returns Live Data
 					 private DateTime lastPositionUpdate=DateTime.Today;
 					 private Vector3 lastPosition=vNullLocation;
-					 public Vector3 Position
+					 internal Vector3 Position
 					 {
 						  get
 						  {
@@ -63,7 +93,7 @@ namespace FunkyTrinity
 								return lastPosition;
 						  }
 					 }
-					 public GridPoint PointPosition
+					 internal GridPoint PointPosition
 					 {
 						  get
 						  {
@@ -71,8 +101,8 @@ namespace FunkyTrinity
 						  }
 					 }
 
-					 public float fCharacterRadius { get; set; }
-					 public Sphere CharacterSphere
+					 internal float fCharacterRadius { get; set; }
+					 internal Sphere CharacterSphere
 					 {
 						  get
 						  {
@@ -83,7 +113,7 @@ namespace FunkyTrinity
 					 private DateTime lastMovementUpdate=DateTime.Today;
 
 					 private int curmovementTargetGUID=-1;
-					 public int iCurrentMovementTargetGUID
+					 internal int iCurrentMovementTargetGUID
 					 {
 						  get
 						  {
@@ -99,7 +129,7 @@ namespace FunkyTrinity
 					 }
 
 					 private MovementState curMoveState=MovementState.None;
-					 public MovementState currentMovementState
+					 internal MovementState currentMovementState
 					 {
 						  get
 						  {
@@ -115,7 +145,7 @@ namespace FunkyTrinity
 					 }
 
 					 private float curRotation=0f;
-					 public float currentRotation
+					 internal float currentRotation
 					 {
 						  get
 						  {
@@ -131,7 +161,7 @@ namespace FunkyTrinity
 					 }
 
 					 private double curSpeedXY=0d;
-					 public double currentSpeedXY
+					 internal double currentSpeedXY
 					 {
 						  get
 						  {
@@ -146,52 +176,28 @@ namespace FunkyTrinity
 						  }
 					 }
 
-					 public bool bWaitingForReserveEnergy { get; set; }
-					 public int iMyDynamicID { get; set; }
-					 public int iMyLevel { get; set; }
-					 public int iMyParagonLevel { get; set; }
-					 public int iTotalPotions { get; set; }
-					 public int iSceneID { get; set; }
-					 public Pets PetData { get; set; }
-					 public Backpack BackPack { get; set; }
-					 public float PickupRadius { get; set; }
-					 public int FreeBackpackSlots { get; set; }
+					 internal bool bWaitingForReserveEnergy { get; set; }
+					 internal int iMyDynamicID { get; set; }
+					 internal int iMyLevel { get; set; }
+					 internal int iMyParagonLevel { get; set; }
+					 internal int iTotalPotions { get; set; }
+					 internal int iSceneID { get; set; }
+					 internal Pets PetData { get; set; }
+					 internal Backpack BackPack { get; set; }
+					 internal float PickupRadius { get; set; }
+					 internal int FreeBackpackSlots { get; set; }
 
-					 public CacheObject LastCachedTarget { get; set; }
-					 public AnimationState CurrentAnimationState { get; set; }
-					 public SNOAnim CurrentSNOAnim { get; set; }
+					 internal CacheObject LastCachedTarget { get; set; }
+					 internal AnimationState CurrentAnimationState { get; set; }
+					 internal SNOAnim CurrentSNOAnim { get; set; }
 
-					 public CharacterCache()
-					 {
-						  lastUpdatedPlayer=DateTime.Today;
-						  lastPreformedNonCombatAction=DateTime.Today;
-						  bIsIncapacitated=false;
-						  bIsRooted=false;
-						  bIsInTown=false;
-						  dCurrentHealthPct=0d;
-						  dCurrentEnergy=0d;
-						  dCurrentEnergyPct=0d;
-						  dDiscipline=0d;
-						  dDisciplinePct=0d;
-						  EnergyRegenerationRate=0;
-						  bWaitingForReserveEnergy=false;
-						  iMyDynamicID=0;
-						  iMyLevel=1;
-						  iMyParagonLevel=0;
-						  iSceneID=-1;
-						  BackPack=new Backpack();
-						  PetData=new Pets();
-						  PickupRadius=1;
-						  isMoving=false;
-						  LastCachedTarget=FakeCacheObject;
-						  fCharacterRadius=0f;
-					 }
+
 
 					 internal DateTime lastUpdateNonEssentialData=DateTime.Today;
 					 internal DateTime lastCheckedSceneID=DateTime.Today;
 
 
-					 public void Update(bool combat=false, bool force=false)
+					 internal void Update(bool combat=false, bool force=false)
 					 {
 						  // If we aren't in the game of a world is loading, don't do anything yet
 						  if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld)
@@ -278,7 +284,7 @@ namespace FunkyTrinity
 					 }
 
 					 private DateTime LastUpdatedMovementData=DateTime.Today;
-					 public void UpdateMovementData()
+					 internal void UpdateMovementData()
 					 {
 						  // If we aren't in the game of a world is loading, don't do anything yet
 						  if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld)
@@ -306,7 +312,7 @@ namespace FunkyTrinity
 					 }
 
 					 //private DateTime LastUpdatedAnimationData=DateTime.Today;
-					 public void UpdateAnimationState(bool animState=true, bool snoAnim=true)
+					 internal void UpdateAnimationState(bool animState=true, bool snoAnim=true)
 					 {
 						  // If we aren't in the game of a world is loading, don't do anything yet
 						  if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld)//||DateTime.Now.Subtract(LastUpdatedAnimationData).TotalMilliseconds<150)
@@ -324,7 +330,7 @@ namespace FunkyTrinity
 					 }
 
 					 //Subclass: Holds data on current player pet counts
-					 public class Pets
+					 internal class Pets
 					 {
 						  public Pets()
 						  {
@@ -352,6 +358,11 @@ namespace FunkyTrinity
 								get;
 								set;
 						  }
+						  public int WizardHydra
+						  {
+								get;
+								set;
+						  }
 
 						  public void Reset()
 						  {
@@ -359,12 +370,13 @@ namespace FunkyTrinity
 								Gargantuan=0;
 								ZombieDogs=0;
 								DemonHunterPet=0;
+								WizardHydra=0;
 						  }
 
 					 }
 
 					 //Subclass: Holds data of backpack and multiple subclasses that contain related data
-					 public class Backpack
+					 internal class Backpack
 					 {
 						  public Backpack()
 						  {

@@ -9,12 +9,12 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public partial class ObjectCache
+		  internal partial class ObjectCache
 		  {
 				///<summary>
 				///Used to contain the cached sno entries. 
 				///</summary>
-				public class SnoCollection : IDictionary<int, CachedSNOEntry>
+				internal class SnoCollection : IDictionary<int, CachedSNOEntry>
 				{
 					 public string DumpDebugInfo()
 					 {

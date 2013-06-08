@@ -72,7 +72,7 @@ namespace FunkyTrinity
 				return !Navigator.Raycast(vStartLocation,vDestination);
 		  }
 
-		  public static bool ProjectileIntersects(CacheAvoidance Projectile, Vector3 start, Vector3 end, float ProjectileDistance=50f)
+		  internal static bool ProjectileIntersects(CacheAvoidance Projectile, Vector3 start, Vector3 end, float ProjectileDistance=50f)
 		  {
 				Vector3 ProjectileEndPoint=MathEx.GetPointAt(Projectile.Position, ProjectileDistance, Projectile.Rotation);
 				return GridPoint.LineIntersectsLine(start, end, Projectile.PointPosition, ProjectileEndPoint);

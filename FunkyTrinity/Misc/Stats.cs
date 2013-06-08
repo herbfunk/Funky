@@ -37,7 +37,7 @@ namespace FunkyTrinity
     public partial class Funky
     {
         internal static BotStatistics Statistics = new BotStatistics();
-        public class BotStatistics
+        internal class BotStatistics
         {
             public BotStatistics()
             {
@@ -52,7 +52,7 @@ namespace FunkyTrinity
 
         }
 
-        public class ItemStatistics
+		  internal class ItemStatistics
         {
             public ItemStatistics()
             {
@@ -269,7 +269,7 @@ namespace FunkyTrinity
 
         }
 
-        public class GameStatistics
+		  internal class GameStatistics
         {
             public GameStatistics()
             {
@@ -307,7 +307,7 @@ namespace FunkyTrinity
             }
         }
 
-        public class ProfileStatisics
+		  internal class ProfileStatisics
         {
 
             public ProfileStats CurrentProfile { get; set; }
