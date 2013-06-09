@@ -30,9 +30,10 @@ namespace FunkyTrinity
 					 this.position_=position;
 					 this.RequiresLOSCheck=!(base.IgnoresLOSCheck); //require a LOS check initally on a new object!
 					 this.LastLOSCheck=DateTime.Today;
+					 this.LosSearchRetryMilliseconds_=1000;
 					 this.PrioritizedDate=DateTime.Today;
 					 this.PriorityCounter=0;
-					 this.LOSV3=vNullLocation;
+					 this.losv3_=vNullLocation;
 
 					 //Keep track of each unique RaGuid that is created and uses this SNO during each level.
 					 //if (!UsedByRaGuids.Contains(RAGUID)) UsedByRaGuids.Add(RAGUID);
@@ -65,7 +66,8 @@ namespace FunkyTrinity
 					 this.InteractionAttempts=parent.InteractionAttempts;
 					 this.LastLOSCheck=parent.LastLOSCheck;
 					 this.LoopsUnseen_=parent.LoopsUnseen_;
-					 this.LOSV3=parent.LOSV3;
+					 this.losv3_=parent.losv3_;
+					 this.LosSearchRetryMilliseconds_=parent.LosSearchRetryMilliseconds_;
 					 this.NeedsRemoved=parent.NeedsRemoved;
 					 this.NeedsUpdate=parent.NeedsUpdate;
 					 this.PrioritizedDate=parent.PrioritizedDate;
@@ -308,10 +310,10 @@ namespace FunkyTrinity
 
 					 return true;
 				}
+				private DateTime LastLOSSearch { get; set; }
 				///<summary>
 				///Last time we preformed a LOS vector search
 				///</summary>
-				public DateTime LastLOSSearch { get; set; }
 				public double LastLOSSearchMS
 				{
 					 get
@@ -319,6 +321,13 @@ namespace FunkyTrinity
 						  return (DateTime.Now.Subtract(LastLOSSearch).TotalMilliseconds);
 					 }
 				}
+				private double LosSearchRetryMilliseconds_;
+				public double LosSearchRetryMilliseconds
+				{
+					 get { return LosSearchRetryMilliseconds_; }
+					 set { LosSearchRetryMilliseconds_=value; }
+				}
+
 				///<summary>
 				///Searches using the GridPointAreaCache and returns bool if LOSV3 has been set.
 				///</summary>
@@ -329,37 +338,22 @@ namespace FunkyTrinity
 						  this.LastLOSSearch=DateTime.Now;
 
 						  Vector3 LOSV3;
-						  bool FoundLOSLocation=false;
-
-						  if (Bot.Class.IsMeleeClass)
-						  {
-								FoundLOSLocation=this.GPRect.TryFindSafeSpot(out LOSV3, this.Position, (Bot.Class.KiteDistance>0));
-
-								if (!FoundLOSLocation)
-									 FoundLOSLocation=GridPointAreaCache.AttemptFindTargetSafeLocation(out LOSV3, this, true, (Bot.Class.KiteDistance>0));
-						  }
-						  else
-						  {
-								FoundLOSLocation=FoundLOSLocation=GridPointAreaCache.AttemptFindTargetSafeLocation(out LOSV3, this, true, (Bot.Class.KiteDistance>0));
-								if (!FoundLOSLocation)
-									 FoundLOSLocation=this.GPRect.TryFindSafeSpot(out LOSV3, this.BotMeleeVector, (Bot.Class.KiteDistance>0));
-						  }
+						  bool FoundLOSLocation=FoundLOSLocation=GridPointAreaCache.AttemptFindTargetSafeLocation(out LOSV3, this, true, (Bot.Class.KiteDistance>0));
 
 						  //Validate that we can move to this LOS Position from our current Position!
-						  if (FoundLOSLocation&&GilesCanRayCast(Bot.Character.Position, LOSV3, NavCellFlags.AllowWalk))
+						  if (FoundLOSLocation)
 						  {
-								Logging.WriteVerbose("LOS Found new location for target {0}", this.InternalName);
-								this.LOSV3=LOSV3;
+								Logging.WriteVerbose("LOS Found new location for target {0} at {1}", this.InternalName, LOSV3.ToString());
+								this.losv3_=LOSV3;
+								this.losv3LastChanged=DateTime.Now;
 						  }
-						  else
-								FoundLOSLocation=false;
 
 
 						  return FoundLOSLocation;
 
 					 }
 				}
-				private Vector3 losv3_;
+				private Vector3 losv3_=vNullLocation;
 				private DateTime losv3LastChanged=DateTime.Today;
 				///<summary>
 				///Used during targeting as destination vector
@@ -369,13 +363,22 @@ namespace FunkyTrinity
 					 get
 					 {
 						  //invalidate los vector after 4 seconds
-						  if ((this.LastLOSCheckMS>1500&&!this.RequiresLOSCheck)||DateTime.Now.Subtract(losv3LastChanged).TotalSeconds>4)
+						  if (DateTime.Now.Subtract(losv3LastChanged).TotalSeconds>4)
+						  {
 								losv3_=vNullLocation;
+								//this.RequiresLOSCheck=this.IgnoresLOSCheck==false?true:false;
+						  }
 
 						  return losv3_;
 					 }
-
-					 set { losv3_=value; losv3LastChanged=DateTime.Now; }
+					 set { losv3_=value; }
+				}
+				public bool UsingLOSV3
+				{
+					 get
+					 {
+						  return losv3_!=vNullLocation;
+					 }
 				}
 				#endregion
 
@@ -631,10 +634,6 @@ namespace FunkyTrinity
 						  bForceNewMovement=true;
 						  if (DateTime.Now.Subtract(Bot.Combat.lastMovedDuringCombat).TotalMilliseconds>=250)
 						  {
-								//If we are moving to a LOS location.. nullify it!
-								if (this.LOSV3!=vNullLocation)
-									 this.losv3_=vNullLocation;
-
 								Bot.Combat.lastMovedDuringCombat=DateTime.Now;
 								// We've been stuck at least 250 ms, let's go and pick new targets etc.
 								Bot.Combat.iTimesBlockedMoving++;
@@ -726,6 +725,13 @@ namespace FunkyTrinity
 										  }
 
 										  //Than check our movement state
+										  //If we are moving to a LOS location.. nullify it!
+										  if (this.LOSV3!=vNullLocation)
+										  {
+												Logging.WriteVerbose("Blockcounter Reseting LOS Movement Vector");
+												this.losv3_=vNullLocation;
+										  }
+
 										  break;
 									 default:
 										  if (this.targetType.Value!=TargetType.Avoidance)
@@ -951,7 +957,7 @@ namespace FunkyTrinity
 					 if (DateTime.Now.Subtract(Bot.Combat.lastSentMovePower).TotalMilliseconds>=250||currentDistance>=2f||bForceNewMovement)
 					 {
 						  //Use Walk Power when not using LOS Movement, target is not an item and target does not ignore LOS.
-						  bool UsePower=(this.LOSV3==vNullLocation&&this.targetType.Value!=TargetType.Item&&!this.IgnoresLOSCheck);
+						  bool UsePower=(!this.UsingLOSV3&&this.targetType.Value!=TargetType.Item&&!this.IgnoresLOSCheck);
 						  if (UsePower)
 						  {
 								ZetaDia.Me.UsePower(SNOPower.Walk, Bot.Combat.vCurrentDestination, Bot.Character.iCurrentWorldID, -1);

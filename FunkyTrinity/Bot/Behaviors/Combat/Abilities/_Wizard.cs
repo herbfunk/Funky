@@ -46,12 +46,12 @@ namespace FunkyTrinity
 				if (!HasBuff(SNOPower.Wizard_Archon))
 				{
 					 #region Slow time
-					 // Slow time, for if being followed
-					 if (bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_SlowTime)&&
-						 AbilityUseTimer(SNOPower.Wizard_SlowTime, true)&&PowerManager.CanCast(SNOPower.Wizard_SlowTime))
-					 {
-						  return new Ability(SNOPower.Wizard_SlowTime, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-					 }
+					 //// Slow time, for if being followed
+					 //if (bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_SlowTime)&&
+					 //   AbilityUseTimer(SNOPower.Wizard_SlowTime, true)&&PowerManager.CanCast(SNOPower.Wizard_SlowTime))
+					 //{
+					 //    return new Ability(SNOPower.Wizard_SlowTime, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
+					 //}
 					 #endregion
 					 #region Slow time
 					 // Slow Time for in combat
@@ -99,7 +99,7 @@ namespace FunkyTrinity
 								Vector3 Location=ObjectCache.Objects.Clusters()[0].ListUnits[0].Position;
 								return new Ability(SNOPower.Wizard_Meteor, 45f, Location, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
 						  }
-						  
+
 					 }
 					 #endregion
 					 #region Teleport
@@ -177,7 +177,7 @@ namespace FunkyTrinity
 						 Bot.Character.dCurrentEnergy>=15&&AbilityUseTimer(SNOPower.Wizard_Hydra)
 						 &&!Bot.Target.CurrentTarget.IsTreasureGoblin)
 					 {
-						  if (ObjectCache.Objects.Clusters(10d, 45f, 3, true).Count>0)
+						  if (Bot.Target.CurrentTarget.IsBoss||thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||ObjectCache.Objects.Clusters(10d, 45f, 3, true).Count>0)
 						  {
 								Vector3 Location=ObjectCache.Objects.Clusters()[0].ListUnits[0].Position;
 								return new Ability(SNOPower.Wizard_Hydra, 45f, Location, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);

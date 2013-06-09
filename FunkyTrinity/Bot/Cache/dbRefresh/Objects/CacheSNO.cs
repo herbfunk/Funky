@@ -777,6 +777,9 @@ namespace FunkyTrinity
 								} catch (NullReferenceException )
 								{ Logging.WriteVerbose("Failure to get CollisionRadius for SNO: {0}", this.SNOID); failureDuringUpdate=true; }
 								#endregion
+
+								if (this.InternalName=="monsterAffix_waller_model")
+									 this.CollisionRadius/=2.5f;
 						  }
 
 						  if (!this.ActorSphereRadius.HasValue)

@@ -52,7 +52,7 @@ namespace FunkyTrinity
 				}
 				#endregion
 
-
+				private bool? IsNPC { get; set; }
 				public bool ForceLeap { get; set; }
 				public bool? HasDOTdps { get; set; }
 				public bool? IsTargetable { get; set; }
@@ -644,7 +644,7 @@ namespace FunkyTrinity
 
 						  #region Validations
 						  // Unit is already dead
-						  if (this.CurrentHealthPct.HasValue&&this.CurrentHealthPct.Value<=0d)
+						  if (this.CurrentHealthPct.HasValue&&this.CurrentHealthPct.Value<=0d||this.CurrentHealthPct.Value>1d)
 						  {
 
 								if (!base.IsRespawnable)
@@ -711,14 +711,25 @@ namespace FunkyTrinity
 
 								if (!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), LOSNavFlags))
 								{
-									 //ignore non-special units.. or units who already attempted to find a location within the last 3s
-									 if (!this.ObjectIsSpecial)
-									 {
-										  this.BlacklistLoops=10;
-										  return false;
-									 }
+									 ////Failure to find LOS.. check if we should find a LOS Vector for movement.
+									 //if (!this.ObjectIsSpecial)
+									 //{
+									 //    this.BlacklistLoops=10;
+									 //    return false;
+									 //}
+									 //else if (this.LastLOSSearchMS>5000)
+									 //{
+									 //    //Search for LOS Positioning Vector
+									 //    if (!this.FindLOSLocation)
+									 //    {
+									 //        //Double the time before retry!
+									 //        //this.LosSearchRetryMilliseconds+=2000;
+									 //        return false;
+									 //    }
+									 //}
 									 //else
-									 //    return true;
+									 this.BlacklistLoops=10;
+									 return false;
 								}
 
 								this.RequiresLOSCheck=false;
@@ -809,13 +820,19 @@ namespace FunkyTrinity
 
 					 //NPC Check
 					 bool isNPC=false;
-					 try
+					 if (!this.IsNPC.HasValue||this.IsNPC.Value==true)
 					 {
-						  isNPC=(base.ref_DiaObject.CommonData.GetAttribute<float>(ActorAttributeType.IsNPC)>0);
-					 } catch (AccessViolationException)
-					 {
-						  Logging.WriteVerbose("Safely Handled Getting Attribute IsNPC for object {0}", this.InternalName);
+						  try
+						  {
+								this.IsNPC=(base.ref_DiaObject.CommonData.GetAttribute<float>(ActorAttributeType.IsNPC)>0);
+						  } catch (AccessViolationException)
+						  {
+								Logging.WriteVerbose("Safely Handled Getting Attribute IsNPC for object {0}", this.InternalName);
+						  }
+						  isNPC=this.IsNPC.Value;
 					 }
+
+
 
 					 // Make sure it's a valid monster type
 					 if (!base.MonsterTypeIsHostile()||isNPC)

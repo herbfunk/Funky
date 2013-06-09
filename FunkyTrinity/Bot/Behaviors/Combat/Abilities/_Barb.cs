@@ -104,7 +104,7 @@ namespace FunkyTrinity
 						HotbarAbilitiesContainsPower(SNOPower.Barbarian_Whirlwind))&&
 						(!Bot.Combat.bAnyBossesInRange||
 						HotbarAbilitiesContainsPower(SNOPower.Barbarian_Whirlwind))
-								&&((ObjectCache.Objects.Clusters(10d, 30f, 3).Any(c => c.EliteCount>2))))) //find any with at least 3.)))&&
+								&&((ObjectCache.Objects.Clusters(12d, 45f, 3).Any(c => c.EliteCount>2))))) //find any with at least 3.)))&&
 					 // Don't still have the buff
 					&&!HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)&&
 					AbilityUseTimer(SNOPower.Barbarian_WrathOfTheBerserker, true)&&

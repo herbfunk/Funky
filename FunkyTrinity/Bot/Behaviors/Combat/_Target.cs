@@ -224,7 +224,7 @@ namespace FunkyTrinity
 					 // No valid targets but we were told to stay put?
 					 if (CurrentTarget==null&&Bot.Combat.bStayPutDuringAvoidance)
 					 {
-						  if (!Bot.Combat.RequiresAvoidance)
+						  if (Bot.Combat.TriggeringAvoidances.Count==0)
 						  {
 								CurrentTarget=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "StayPutPoint", 2.5f, -1);
 								return true;
@@ -352,7 +352,10 @@ namespace FunkyTrinity
 						  if (thisobj.Weight==1)
 						  {// Force the character to stay where it is if there is nothing available that is out of avoidance stuff and we aren't already in avoidance stuff
 								thisobj.Weight=0;
-								Bot.Combat.bStayPutDuringAvoidance=true;
+
+								if (!Bot.Combat.RequiresAvoidance)
+									 Bot.Combat.bStayPutDuringAvoidance=true;
+
 								continue;
 						  }
 
@@ -719,44 +722,49 @@ namespace FunkyTrinity
 
 								//Check LOS still valid...
 								#region LOSUpdate
-								if (!CurrentTarget.IgnoresLOSCheck&&CurrentTarget.RequiresLOSCheck&&CurrentTarget.LastLOSSearchMS>1800)
+								if (!CurrentTarget.RequiresLOSCheck&&CurrentTarget.LastLOSCheckMS>3000)
 								{
-									 NavCellFlags LOSNavFlags=NavCellFlags.None;
-									 if (Bot.Class.IsMeleeClass||!CurrentTarget.WithinInteractionRange())
+									 if (!CurrentTarget.IgnoresLOSCheck)
 									 {
-										  if (!Bot.Class.IsMeleeClass) //Add Projectile Testing!
-												LOSNavFlags=NavCellFlags.AllowWalk|NavCellFlags.AllowProjectile;
-										  else
-												LOSNavFlags=NavCellFlags.AllowWalk;
-									 }
-
-									 if (!CurrentTarget.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), LOSNavFlags))
-									 {
-										  //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
-										  if (CurrentTarget.ObjectIsSpecial)
+										  NavCellFlags LOSNavFlags=NavCellFlags.None;
+										  if (Bot.Class.IsMeleeClass||!CurrentTarget.WithinInteractionRange())
 										  {
-												if (CurrentTarget.FindLOSLocation)
-												{
-													 Logging.WriteVerbose("Using LOS Vector at {0} to move to", CurrentTarget.LOSV3.ToString());
-													 CurrentTarget.RequiresLOSCheck=false;
-													 Bot.Combat.bWholeNewTarget=true;
-													 CurrentState=RunStatus.Running;
-													 return false;
-												}
+												if (!Bot.Class.IsMeleeClass) //Add Projectile Testing!
+													 LOSNavFlags=NavCellFlags.AllowWalk|NavCellFlags.AllowProjectile;
 												else
-												{
-													 CurrentTarget.BlacklistLoops=10;
-												}
+													 LOSNavFlags=NavCellFlags.AllowWalk;
 										  }
 
-										  //We could not find a LOS Locaiton or did not find a reason to try.. so we reset LOS check, temp ignore it, and force new target.
-										  Logging.WriteVerbose("LOS Request for object {0} due to raycast failure!", CurrentTarget.InternalName);
-										  Bot.Combat.bForceTargetUpdate=true;
-										  CurrentState=RunStatus.Running;
-										  return false;
+										  if (!CurrentTarget.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), LOSNavFlags))
+										  {
+												//LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
+												if (CurrentTarget.ObjectIsSpecial&&CurrentTarget.LastLOSSearchMS>1800)
+												{
+													 Vector3 LOSV3;
+													 if (CurrentTarget.GPRect.TryFindSafeSpot(out LOSV3, Bot.Character.Position))
+													 {
+														  CurrentTarget.LOSV3=LOSV3;
+														  Logging.WriteVerbose("Using LOS Vector at {0} to move to", CurrentTarget.LOSV3.ToString());
+														  CurrentTarget.RequiresLOSCheck=false;
+														  Bot.Combat.bWholeNewTarget=true;
+														  CurrentState=RunStatus.Running;
+														  return false;
+													 }
+													 else
+													 {
+														  CurrentTarget.BlacklistLoops=10;
+													 }
+												}
+
+												//We could not find a LOS Locaiton or did not find a reason to try.. so we reset LOS check, temp ignore it, and force new target.
+												Logging.WriteVerbose("LOS Request for object {0} due to raycast failure!", CurrentTarget.InternalName);
+												Bot.Combat.bForceTargetUpdate=true;
+												CurrentState=RunStatus.Running;
+												return false;
+										  }
+										  else
+												CurrentTarget.RequiresLOSCheck=false;
 									 }
-									 else
-										  CurrentTarget.RequiresLOSCheck=false;
 								}
 								#endregion
 						  }
@@ -809,61 +817,37 @@ namespace FunkyTrinity
 				{
 					 // Set current destination to our current target's destination
 					 Bot.Combat.vCurrentDestination=CurrentTarget.Position;
-					 bool LOSMoving=CurrentTarget.LOSV3!=vNullLocation;
-
-					 if (LOSMoving)
+					 if (CurrentTarget.LOSV3!=vNullLocation)
 					 {
+						  //Recheck LOS every second
+						  if (CurrentTarget.LastLOSCheckMS>2500)
+						  {
+								NavCellFlags LOSNavFlags=NavCellFlags.None;
+								if (Bot.Class.IsMeleeClass||!CurrentTarget.WithinInteractionRange())
+								{
+									 if (!Bot.Class.IsMeleeClass) //Add Projectile Testing!
+										  LOSNavFlags=NavCellFlags.AllowWalk|NavCellFlags.AllowProjectile;
+									 else
+										  LOSNavFlags=NavCellFlags.AllowWalk;
+								}
+
+								if (CurrentTarget.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), LOSNavFlags))
+								{
+									 //Los Passed!
+									 CurrentTarget.LOSV3=vNullLocation;
+									 Bot.Combat.bWholeNewTarget=true;
+									 return false;
+								}
+						  }
+
 						  Bot.Combat.vCurrentDestination=CurrentTarget.LOSV3;
-						  if (Bot.Character.Position.Distance(CurrentTarget.LOSV3)>10f)
+						  if (Bot.Character.Position.Distance(CurrentTarget.LOSV3)>2.5f)
 						  {
 								CurrentState=CurrentTarget.MoveTowards();
 								return false;
 						  }
-						  else
-						  {
-								CurrentTarget.LOSV3=vNullLocation;
-								Bot.Combat.bPickNewAbilities=true;
-								return false;
-						  }
 					 }
 
-					 //Check if we used AutoMovement (Melee Targeting)
-					 #region AutoMovement
-					 if (Bot.Combat.UsedAutoMovementCommand)
-					 {
-						  //Waiting for movement to occur..
-						  if (DateTime.Now.Subtract(Bot.Combat.lastMovementCommand).TotalMilliseconds<50)
-								return false;
-
-						  //Force update to get accurate read
-						  Bot.Character.UpdateMovementData();
-
-
-						  //if (SettingsFunky.DebugStatusBar)
-						  //{
-						  //	 BotMain.StatusText=("[Funky] Movement Command, Movement State "+Bot.Character.currentMovementState.ToString()+
-						  //			  ", IsMoving: "+Bot.Character.isMoving.ToString()+", MovementTarget Match "+(CurrentTarget.AcdGuid.Value==Bot.Character.iCurrentMovementTargetGUID).ToString());
-						  //}
-
-						  if (Bot.Character.isMoving)
-						  {//We are successfully moving..
-								if (Bot.Character.currentMovementState==MovementState.WalkingInPlace)
-								{//Check if we are stuck moving in place..
-									 Logging.WriteVerbose("Movement State returned {0} , Blacklist Bot.CurrentTarget!", Bot.Character.currentMovementState.ToString());
-									 Bot.Combat.bForceTargetUpdate=true;
-									 CurrentTarget.BlacklistLoops=5;
-								}
-								return false;
-						  }
-
-						  //If we make it here its because.. We are not moving OR we are moving but target IDs do not match!
-						  //Turn off automovement, force target update, and switch off wait.
-						  Bot.Combat.UsedAutoMovementCommand=false;
-						  Bot.Combat.bForceTargetUpdate=true;
-						  Bot.Combat.bWaitingForPower=false;
-						  Bot.Combat.bPickNewAbilities=true;
-					 }
-					 #endregion
 
 
 					 //Check if we are in range for interaction..

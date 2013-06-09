@@ -164,7 +164,7 @@ namespace FunkyTrinity
 					 {
 						  if (SettingsFunky.LogSafeMovementOutput)
 								Logging.WriteVerbose("No new Objects Unaccounted");
-						  
+
 						  return (SurroundingPoints.Count==0);
 					 }
 
@@ -176,7 +176,7 @@ namespace FunkyTrinity
 																						  &&(!ObjectblockCounter.ContainsKey(Obj.RAGUID)||Math.Round(Obj.PointRadius)<ObjectblockCounter[Obj.RAGUID])).ToArray();
 						  if (ContainedObjs.Length>0)
 						  {
-								if (ContainedObjs.Length>1)
+								if (ContainedObjs.Length>1&&SettingsFunky.LogSafeMovementOutput)
 									 Logging.WriteVerbose("Multiple Objects Found Occuping Grid Point!");
 
 								CacheServerObject ThisObjBlocking=ContainedObjs[0];
@@ -423,46 +423,49 @@ namespace FunkyTrinity
 						  CreateNewSurroundingGPRs();
 
 
-					 Logging.WriteVerbose("Searching for a valid location!");
+					 Logging.WriteVerbose("Searching for a valid location for target {0}", Target.InternalName);
 
-
-					 #region IterationOfGPCs
-					 //Check if we actually created any surrounding GPCs..
-					 if (cacheMovementGPRs.Count>0)
+					 //Use Target GPRect First!
+					 if (Target.GPRect.TryFindSafeSpot(out safespot, Bot.Character.Position, false, false))
 					 {
-						  foreach (var item in cacheMovementGPRs)
+						  LastUsedRect=Target.GPRect;
+					 }
+					 else
+					 {
+						  //Check if we actually created any surrounding GPCs..
+						  if (cacheMovementGPRs.Count>0)
 						  {
-								if (item.TryFindSafeSpot(out safespot, Target.BotMeleeVector, CheckKiting, CheckAvoidance))
-								{//Found a spot..
-									 LastUsedRect=item;
-									 break;
+								foreach (var item in cacheMovementGPRs)
+								{
+									 if (item.TryFindSafeSpot(out safespot, Target.BotMeleeVector, CheckKiting, CheckAvoidance))
+									 {//Found a spot, but we need to validate its connected with our current Position!
+										  if (GilesCanRayCast(Bot.Character.Position, safespot, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
+										  {
+												LastUsedRect=item;
+												break;
+										  }
+									 }
 								}
 						  }
 					 }
 
+					 #region IterationOfGPCs
 
 					 //Try to use the routine movement GPCs if we have any!
 					 if (LastUsedRect==null&&CacheSafeGPR.Count>0)
 					 {
 						  for (int i=CacheSafeGPR.Count-1; i>0; i--)
 						  {
-								//if (BlacklistedSafespots.Contains(CachedMovementGPCs[i].CreationVector)) continue;
-
-								if (CacheSafeGPR[i].CreationVector.Distance(Bot.Character.Position)>75f) continue;
-
 								if (CacheSafeGPR[i].TryFindSafeSpot(out safespot, Target.BotMeleeVector, CheckKiting, CheckAvoidance))
 								{
-									 LastUsedRect=CacheSafeGPR[i];
-									 break;
+									 if (GilesCanRayCast(Bot.Character.Position, safespot, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
+									 {
+										  LastUsedRect=CacheSafeGPR[i];
+										  break;
+									 }
 								}
 						  }
 					 }
-
-					 if (LastUsedRect==null)
-						  if (CurrentLocationGPRect.TryFindSafeSpot(out safespot, Target.BotMeleeVector, CheckKiting, CheckAvoidance))
-								LastUsedRect=CurrentLocationGPRect;
-
-
 
 
 					 //If still failed to find a safe spot.. set the timer before we try again.
@@ -472,13 +475,6 @@ namespace FunkyTrinity
 								Logging.WriteVerbose("All GPCs failed to find a valid location to move!");
 
 						  AllGPRectsFailed=true;
-						  CurrentLocationGPRect.UpdateObjectCount();
-						  CurrentLocationWeight=CurrentLocationGPRect.Weight;
-
-						  if (SettingsFunky.LogSafeMovementOutput)
-								Logging.WriteVerbose("Current Location GPC Weight is {0}", CurrentLocationWeight);
-
-
 						  vlastSafeSpot=vNullLocation;
 						  return false;
 					 }

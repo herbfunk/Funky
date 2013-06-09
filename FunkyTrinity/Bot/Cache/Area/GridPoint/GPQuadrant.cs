@@ -253,7 +253,7 @@ namespace FunkyTrinity
 									 }
 									 else
 									 {
-										  if (!GilesCanRayCast(pointVector, LoSCheckV3, Zeta.Internals.SNO.NavCellFlags.AllowProjectile)) continue;
+										  if (!GilesCanRayCast(pointVector, LoSCheckV3, Zeta.Internals.SNO.NavCellFlags.AllowWalk|Zeta.Internals.SNO.NavCellFlags.AllowProjectile)) continue;
 									 }
 								}
 
