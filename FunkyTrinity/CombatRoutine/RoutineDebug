@@ -20,7 +20,6 @@ namespace GilesBlankCombatRoutine
 	 {
 		  private static Label lblDebug_DumpUnits, lblDebug_OpenLog, lblDebug_DumpUnitAttributes, lblDebug_DumpObjects;
 		  private static MenuItem menuItem_Debug, menuItem_Debug_Units;
-		  public static Demonbuddy.SplitButton btnSplit_FunkyDebug;
 
 		  public static void initDebugLabels(out Demonbuddy.SplitButton btn)
 		  {
@@ -45,14 +44,15 @@ namespace GilesBlankCombatRoutine
 				};
 				lblDebug_OpenLog.MouseDown+=lblDebug_OpenDBLog;
 
-				lblDebug_DumpObjects=new Label
+				Label OpenTrinityFolder=new Label
 				{
-					 Content="Dump Objects",
+					 Content="Open Funky Folder",
 					 Width=100,
-					 Height=25
+					 Height=25,
+					 HorizontalAlignment=HorizontalAlignment.Stretch,
 
 				};
-				lblDebug_DumpObjects.MouseDown+=lblDebug_DumpObjects_Click;
+				OpenTrinityFolder.MouseDown+=lblDebug_OpenTrinityFolder;
 
 				Label Recompile=new Label
 				{
@@ -105,6 +105,7 @@ namespace GilesBlankCombatRoutine
 					 Width=125
 				};
 				menuItem_Debug.Items.Add(lblDebug_OpenLog);
+				menuItem_Debug.Items.Add(OpenTrinityFolder);
 				menuItem_Debug.Items.Add(Recompile);
 				//menuItem_Debug.Items.Add(Testing);
 				btn.ButtonMenuItemsSource.Add(menuItem_Debug);
@@ -119,9 +120,6 @@ namespace GilesBlankCombatRoutine
 				//btn.ButtonMenuItemsSource.Add(menuItem_DumpInfo);
 
 		  }
-
-		  //internal static List<System.Drawing.Point> CurrentTestPoints=new List<System.Drawing.Point>();
-		  private static Queue<Vector3> testingPoints=new Queue<Vector3>();
 		  //private static GridPointAreaCache.GPMap map=null;
 		  static void lblTest_Click(object sender, EventArgs e)
 		  {
@@ -185,14 +183,22 @@ namespace GilesBlankCombatRoutine
 
 		  static void lblDebug_OpenDBLog(object sender, EventArgs e)
 		  {
-				string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-				FileInfo demonbuddyLogFolder=new FileInfo(sDemonBuddyPath+@"\Logs\");
-				if (!demonbuddyLogFolder.Directory.GetFiles().Any()) 
+				//string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+				
+				FileInfo demonbuddyLogFolder=new FileInfo(Zeta.Common.Logging.LogFilePath);
+				if (!demonbuddyLogFolder.Directory.GetFiles().Any())
 					 return;
 
 				var newestfile=demonbuddyLogFolder.Directory.GetFiles().OrderByDescending(file => file.LastWriteTime).First();
 				System.Diagnostics.Process.Start(newestfile.FullName);
 
+		  }
+
+		  static void lblDebug_OpenTrinityFolder(object sender, EventArgs e)
+		  {
+				string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+				System.Diagnostics.Process.Start(sDemonBuddyPath + @"\Plugins\FunkyTrinity\");
 		  }
 
 		  static void lblDebug_DumpUnits_Click(object sender, EventArgs e)
@@ -324,7 +330,7 @@ namespace GilesBlankCombatRoutine
 				{
 					 if (!o.IsValid) continue;
 
-					 string attributesFound="";
+					 //string attributesFound="";
 
 					 /*
 					 foreach (ActorAttributeType aType in Enum.GetValues(typeof(ActorAttributeType)))
@@ -366,26 +372,26 @@ namespace GilesBlankCombatRoutine
 				return iType;
 		  }
 
-		  private static int GetItemStat(int iType, ACDItem item, Zeta.Internals.ItemStats.Stat stat)
-		  {
-				try
-				{
-					 iType=(int)item.Stats.GetStat<Zeta.Internals.ItemStats.Stat>(stat);
-				} catch
-				{
-					 iType=-1;
-				}
+		  //private static int GetItemStat(int iType, ACDItem item, Zeta.Internals.ItemStats.Stat stat)
+		  //{
+		  //	 try
+		  //	 {
+		  //		  iType=(int)item.Stats.GetStat<Zeta.Internals.ItemStats.Stat>(stat);
+		  //	 } catch
+		  //	 {
+		  //		  iType=-1;
+		  //	 }
 
-				return iType;
-		  }
+		  //	 return iType;
+		  //}
 
 		  private static string getProfilePosition(Vector3 pos)
 		  {
 				return String.Format("x=\"{0:0}\" y=\"{1:0}\" z=\"{2:0}\" ", pos.X, pos.Y, pos.Z);
 		  }
-		  private static string getSimplePosition(Vector3 pos)
-		  {
-				return String.Format("{0:0}, {1:0}, {2:0},", pos.X, pos.Y, pos.Z);
-		  }
+		  //private static string getSimplePosition(Vector3 pos)
+		  //{
+		  //	 return String.Format("{0:0}, {1:0}, {2:0},", pos.X, pos.Y, pos.Z);
+		  //}
 	 }
 }

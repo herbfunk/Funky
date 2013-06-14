@@ -637,7 +637,7 @@ namespace FunkyTrinity
 						  if (bShouldRefreshDiaObjects)
 						  {
 								// Now call the function that refreshes targets
-								dbRefresh.RefreshDiaObjects();
+								Bot.RefreshDiaObjects();
 
 								// No target, return success
 								if (CurrentTarget==null)

@@ -35,7 +35,7 @@ namespace FunkyTrinity
 
 				if (useTargetBasedZigZag&&!Bot.Combat.bAnyTreasureGoblinsPresent&&Bot.Combat.UnitRAGUIDs.Count>=minTargets)
 				{
-					 List<CacheObject> units_=ObjectCache.Objects.Values.Where(obj => Bot.Combat.UnitRAGUIDs.Contains(obj.RAGUID)).ToList();
+					 List<CacheServerObject> units_=Bot.Combat.NearbyObstacleObjects.Where(obj => Bot.Combat.UnitRAGUIDs.Contains(obj.RAGUID)).ToList();
 
 					 IEnumerable<CacheObject> zigZagTargets=
 						  from u in units_

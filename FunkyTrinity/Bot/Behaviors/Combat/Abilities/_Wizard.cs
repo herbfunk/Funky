@@ -264,7 +264,7 @@ namespace FunkyTrinity
 					 #endregion
 					 #region Disintegrate
 					 // Disintegrate
-					 if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Disintegrate)&&Bot.Target.CurrentTarget!=null&&
+					 if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Disintegrate)&&Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.targetType.Value==TargetType.Unit&&
 						 ((Bot.Character.dCurrentEnergy>=20&&!Bot.Character.bWaitingForReserveEnergy)||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount))
 					 {
 						  float fThisRange=35f;
@@ -385,7 +385,7 @@ namespace FunkyTrinity
 					 if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Archon_ArcaneBlast)&&
 						 AbilityUseTimer(SNOPower.Wizard_Archon_ArcaneBlast)&&PowerManager.CanCast(SNOPower.Wizard_Archon_ArcaneBlast))
 					 {
-						  if (ObjectCache.Objects.Clusters(4d, 10f, 2, true).Count>0)
+						  if (ObjectCache.Objects.Clusters(3d, 10f, 2, true).Count>0)
 						  {
 								return new Ability(SNOPower.Wizard_Archon_ArcaneBlast, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
 						  }

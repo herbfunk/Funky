@@ -74,7 +74,8 @@ namespace FunkyTrinity
 					 return;
 
 
-				DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Verbose, FunkyTrinity.Funky.DbHelper.LogCategory.CacheManagement, "Updating Grid Provider", true);
+				Log("[Funky] Updating Main Grid Provider....", true);
+				
 				try
 				{
 					 mgp.Update();

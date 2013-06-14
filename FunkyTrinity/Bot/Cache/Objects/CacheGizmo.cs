@@ -656,13 +656,15 @@ namespace FunkyTrinity
 					 if (dictSNOExtendedDestructRange.ContainsKey(this.SNOID))
 					 {
 						  fRangeRequired=this.CollisionRadius.Value;
-
-						  //Increase Range for Ranged Classes
-						  if (!Bot.Class.IsMeleeClass)
-								fRangeRequired*=3f;
 					 }
+					 else
+						  fRangeRequired=this.ActorSphereRadius.Value;
 
-					 fDistanceReduction=(this.Radius*0.33f);
+					 //Increase Range for Ranged Classes
+					 if (!Bot.Class.IsMeleeClass)
+						  fRangeRequired*=3f;
+
+					 fDistanceReduction=(this.Radius*0.5f);
 
 					 if (Bot.Combat.bForceCloseRangeTarget)
 						  fDistanceReduction-=3f;

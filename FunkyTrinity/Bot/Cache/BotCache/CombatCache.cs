@@ -75,7 +75,7 @@ namespace FunkyTrinity
 					 internal List<Cluster> CurrentTargetClusters=new List<Cluster>();
 					 internal DateTime LastClusterTargetLogicRefresh=DateTime.Today;
 
-					 internal List<Cluster> RunKMeans(int MinUnitCount=1, double Distance=5d)
+					 internal List<Cluster> RunKMeans(int MinUnitCount=1, double Distance=5d, float DistanceFromBot=25f)
 					 {
 						  List<CacheUnit> objects=new List<CacheUnit>();
 
@@ -83,10 +83,15 @@ namespace FunkyTrinity
 						  if (!SettingsFunky.EnableClusteringTargetLogic&&DateTime.Now.Subtract(LastClusterTargetLogicRefresh).TotalMilliseconds>200)
 						  {
 								LastClusterTargetLogicRefresh=DateTime.Now;
-								List<CacheObject> listObjectUnits=ObjectCache.Objects.Values.Where(u => UnitRAGUIDs.Contains(u.RAGUID)).ToList();
-								
+								List<CacheObject> listObjectUnits=Bot.Target.ValidObjects.Where(u => UnitRAGUIDs.Contains(u.RAGUID)&&u.CentreDistance<=DistanceFromBot).ToList();
+
 								if (listObjectUnits.Count>0)
+								{
 									 CurrentTargetClusters=RunKmeans(listObjectUnits, Distance);
+									 return CurrentTargetClusters.Where(clusters => clusters.RAGUIDS.Count>=MinUnitCount).ToList();
+								}
+								else
+									 return CurrentTargetClusters;
 						  }
 
 						  //populate with units
@@ -95,6 +100,7 @@ namespace FunkyTrinity
 							select clusters.ListUnits)
 								.ForEach(units => objects.AddRange(units));
 
+						  objects=objects.Where(u => u.CentreDistance<=DistanceFromBot).ToList();
 
 
 						  return RunKmeans<CacheUnit>(objects, Distance).Where(clusters => clusters.RAGUIDS.Count>=MinUnitCount).ToList();

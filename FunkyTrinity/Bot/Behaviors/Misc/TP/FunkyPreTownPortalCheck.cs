@@ -20,7 +20,7 @@ namespace FunkyTrinity
             bool bShouldRefreshDiaObjects = DateTime.Now.Subtract(lastRefreshedObjects).TotalMilliseconds >= 150;
             if (bShouldRefreshDiaObjects)
             {
-					 dbRefresh.RefreshDiaObjects();
+					 Bot.RefreshDiaObjects();
 					 // Check for death / player being dead
 					 if (Bot.Character.dCurrentHealthPct<=0)
 					 {

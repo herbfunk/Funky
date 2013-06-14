@@ -23,7 +23,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky : IPlugin
 	 {
-		  public Version Version { get { return new Version(1, 1, 2, 1); } }
+		  public Version Version { get { return new Version(1, 1, 2, 2); } }
 		  public string Author { get { return "Herbfunk"; } }
 		  public string Description
 		  {
@@ -35,7 +35,7 @@ namespace FunkyTrinity
 		  public string Name { get { return "FunkyTrinity"; } }
 		  public bool Equals(IPlugin other) { return (other.Name==Name)&&(other.Version==Version); }
 
-		  [LoaderOptimizationAttribute(LoaderOptimization.MultiDomain)]
+		 
 		  public void OnInitialize()
 		  {
 				bool BotWasRunning=BotMain.IsRunning;
@@ -95,12 +95,12 @@ namespace FunkyTrinity
 				string sRoutinePath=FolderPaths.sDemonBuddyPath+@"\Routines\Funky\";
 				string sPluginRoutineFolder=FolderPaths.sDemonBuddyPath+@"\Plugins\FunkyTrinity\CombatRoutine\";
 
-				DateTime RoutineCombatDate=System.IO.File.GetLastWriteTime(sRoutinePath+"CombatRoutine.cs");
-				DateTime RoutineDebugDate=System.IO.File.GetLastWriteTime(sRoutinePath+"RoutineDebug.cs");
-				DateTime PluginCombatDate=System.IO.File.GetLastWriteTime(sPluginRoutineFolder+"CombatRoutine");
-				DateTime PluginDebugDate=System.IO.File.GetLastWriteTime(sPluginRoutineFolder+"RoutineDebug");
-				bool RoutineFilesMismatch=RoutineCombatDate.CompareTo(PluginCombatDate)>0||RoutineDebugDate.CompareTo(PluginDebugDate)>0;
-				if (RoutineFilesMismatch||!initFunkyButton)
+				//DateTime RoutineCombatDate=System.IO.File.GetLastWriteTime(sRoutinePath+"CombatRoutine.cs");
+				//DateTime RoutineDebugDate=System.IO.File.GetLastWriteTime(sRoutinePath+"RoutineDebug.cs");
+				//DateTime PluginCombatDate=System.IO.File.GetLastWriteTime(sPluginRoutineFolder+"CombatRoutine");
+				//DateTime PluginDebugDate=System.IO.File.GetLastWriteTime(sPluginRoutineFolder+"RoutineDebug");
+				//bool RoutineFilesMismatch=RoutineCombatDate.CompareTo(PluginCombatDate)>0||RoutineDebugDate.CompareTo(PluginDebugDate)>0;
+				if (!initFunkyButton)
 				{
 					 //stop bot
 					 if (BotWasRunning)
@@ -122,10 +122,10 @@ namespace FunkyTrinity
 
 
 					 //Recompile Routine
-					 Zeta.Common.Compiler.CodeCompiler FunkyRoutineCode=new Zeta.Common.Compiler.CodeCompiler(sRoutinePath);
-					 FunkyRoutineCode.ParseFilesForCompilerOptions();
-					 FunkyRoutineCode.Compile();
-					 Logging.WriteDiagnostic(FunkyRoutineCode.CompiledToLocation);
+					 //Zeta.Common.Compiler.CodeCompiler FunkyRoutineCode=new Zeta.Common.Compiler.CodeCompiler(sRoutinePath);
+					 //FunkyRoutineCode.ParseFilesForCompilerOptions();
+					 //FunkyRoutineCode.Compile();
+					 //Logging.WriteDiagnostic(FunkyRoutineCode.CompiledToLocation);
 
 					 //Reload Routines
 					 Zeta.CommonBot.RoutineManager.Reload();

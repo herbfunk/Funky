@@ -15,6 +15,8 @@ namespace FunkyTrinity
 
     public partial class Funky
     {
+		  internal static readonly CacheObject FakeCacheObject=new CacheObject(vNullLocation, TargetType.None, 0d, "Fake Target", 1f, -1);
+
 		  private static bool bPluginEnabled=false;
 		  private static bool initFunkyButton=false;
 		  private static bool initTreeHooks=false;

@@ -162,12 +162,13 @@ namespace FunkyTrinity
 						  //only run Kmeans every 200ms or when cache is empty!
 						  if (DateTime.Now.Subtract(lastClusterComputed).TotalMilliseconds>150)
 						  {
-								LastClusterList=Bot.Combat.RunKMeans(MinUnitCount, Distance);
-								LastClusterList=LastClusterList.OrderBy(o => o.NearestMonsterDistance).ToList();
+								LastClusterList=Bot.Combat.RunKMeans(MinUnitCount, Distance, MaxDistanceFromBot);
+								
 
 								//Sort by distance -- reverse to get nearest unit First
 								if (LastClusterList.Count>0)
 								{
+									 LastClusterList=LastClusterList.OrderBy(o => o.NearestMonsterDistance).ToList();
 									 LastClusterList.First().ListUnits.Sort();
 									 LastClusterList.First().ListUnits.Reverse();
 								}

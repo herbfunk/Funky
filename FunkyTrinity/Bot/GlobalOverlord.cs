@@ -124,9 +124,9 @@ namespace FunkyTrinity
 				}
 
 				// Should we refresh target list?
-				if (dbRefresh.ShouldRefreshObjectList)
+				if (Bot.ShouldRefreshObjectList)
 				{
-					 dbRefresh.RefreshDiaObjects();
+					 Bot.RefreshDiaObjects();
 
 					 // We have a target, start the target handler!
 					 if (Bot.Target.CurrentTarget!=null)

@@ -241,7 +241,7 @@ namespace FunkyTrinity
 					 {
 						  removal_=value;
 						  //This helps reduce code by flagging this here instead of after everytime we flag removal of an object!
-						  if (value==true) dbRefresh.RemovalCheck=true;
+						  if (value==true) Bot.RemovalCheck=true;
 					 }
 				}
 				internal bool removal_;

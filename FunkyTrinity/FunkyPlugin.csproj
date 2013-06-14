@@ -118,19 +118,19 @@
     <Compile Include="Bot\Cache\Collection\SNO.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\dbRefresh\Objects\CacheACDItem.cs">
+    <Compile Include="Bot\Cache\Objects\CacheACDItem.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\dbRefresh\Objects\CacheGizmo.cs">
+    <Compile Include="Bot\Cache\Objects\CacheGizmo.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\dbRefresh\Objects\CacheObject.cs">
+    <Compile Include="Bot\Cache\Objects\CacheObject.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\dbRefresh\Objects\CacheSNO.cs">
+    <Compile Include="Bot\Cache\Objects\CacheSNO.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\dbRefresh\Objects\CacheUnit.cs">
+    <Compile Include="Bot\Cache\Objects\CacheUnit.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\Gamebalance.cs">
@@ -141,6 +141,12 @@
     </Compile>
     <Compile Include="CombatRoutine\CombatRoutine.cs" />
     <Compile Include="CombatRoutine\RoutineDebug.cs" />
+    <None Include="CombatRoutine\CombatRoutine">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="CombatRoutine\RoutineDebug">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="ItemRules\Rules\hard\common.dis">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -324,19 +330,16 @@
     <Compile Include="Bot\Cache\Collection\ObjectCache.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\dbRefresh\Objects\CacheBalance.cs">
+    <Compile Include="Bot\Cache\Objects\CacheBalance.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\dbRefresh\Objects\CacheItem.cs">
+    <Compile Include="Bot\Cache\Objects\CacheItem.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\dbRefresh\Objects\CacheObstacle.cs">
+    <Compile Include="Bot\Cache\Objects\CacheObstacle.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\dbRefresh\Update\Refresh.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Bot\Cache\dbRefresh\Update\RefreshCacheObjects.cs">
+    <Compile Include="Bot\Cache\BotCache\Refresh.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Misc\CleanUp.cs">
@@ -430,6 +433,7 @@
     </Content>
     <Content Include="Treehooks.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="XML\FunkyXMLTags.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
