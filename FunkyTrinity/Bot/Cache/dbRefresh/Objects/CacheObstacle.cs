@@ -56,9 +56,9 @@ namespace FunkyTrinity
 				///<summary>
 				///Tests if this intersects between two vectors
 				///</summary>
-				public virtual bool TestIntersection(Vector3 V1, Vector3 V2)
+				public virtual bool TestIntersection(Vector3 V1, Vector3 V2, bool CollisonRadius=true)
 				{
-					 return GilesIntersectsPath(base.Position, this.Radius, V1, V2);
+					 return GilesIntersectsPath(base.Position, CollisonRadius==true?this.Radius:base.Radius, V1, V2);
 				}
 				///<summary>
 				///Tests if this intersects between two gridpoints
@@ -313,9 +313,9 @@ namespace FunkyTrinity
 				{
 					 return base.Position.Distance2D(V3)<=this.Radius;
 				}
-				public override bool TestIntersection(Vector3 V1, Vector3 V2)
+				public override bool TestIntersection(Vector3 V1, Vector3 V2, bool CollisonRadius=true)
 				{
-					 return GilesIntersectsPath(this.Position, this.Radius, V1, V2);
+					 return GilesIntersectsPath(this.Position, CollisonRadius==true?this.Radius:base.Radius, V1, V2);
 				}
 
 				public override Rect AvoidanceRect

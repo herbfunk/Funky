@@ -29,6 +29,7 @@ namespace FunkyTrinity
 				internal static string sJunkItemStatString="";
 				// Whether to try forcing a vendor-run for custom reasons
 				internal static bool bWantToTownRun=false;
+				internal static bool bFailedToLootLastItem=false;
 				private static bool bLastTownRunCheckResult=false;
 				private static bool bReachedSafety=false;
 				// DateTime check to prevent inventory-check spam when looking for repairs being needed

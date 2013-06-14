@@ -132,9 +132,6 @@ namespace FunkyTrinity
 					 {
 						  get
 						  {
-								if (DateTime.Now.Subtract(lastMovementUpdate).TotalMilliseconds>500)
-									 UpdateMovementData();
-
 								return curRotation;
 						  }
 					 }

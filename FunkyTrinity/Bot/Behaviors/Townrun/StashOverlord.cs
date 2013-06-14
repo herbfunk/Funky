@@ -95,6 +95,7 @@ namespace FunkyTrinity
 					 bUpdatedStashMap=false;
 					 iCurrentItemLoops=0;
 					 RandomizeTheTimer();
+					 TownRunManager.bFailedToLootLastItem=false;
 					 return RunStatus.Success;
 				}
 

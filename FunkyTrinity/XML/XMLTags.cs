@@ -421,7 +421,6 @@ namespace FunkyTrinity
 
 		  protected override Composite CreateBehavior()
 		  {
-				Funky.CacheMovementTracking.bSkipAheadAGo=true;
 				//Funky.hashSkipAheadAreaCache=new HashSet<Funky.SkipAheadNavigation>();
 				Composite[] children=new Composite[2];
 				Composite[] compositeArray=new Composite[2];
@@ -449,7 +448,6 @@ namespace FunkyTrinity
 
 					 if (skippingAhead)
 					 {
-						  Funky.CacheMovementTracking.bSkipAheadAGo=false;
 						  return RunStatus.Success;
 					 }
 				}
@@ -468,6 +466,10 @@ namespace FunkyTrinity
 				}
 				else
 				{
+					 //Special cache for skipping locations visited.
+					 if (Funky.SettingsFunky.SkipAhead)
+						  Funky.CacheMovementTracking.RecordSkipAheadCachePoint();
+
 					 Navigator.MoveTo(NavTarget);
 				}
 
@@ -1990,7 +1992,6 @@ namespace FunkyTrinity
 					 CheckIsObjectiveFinished(),
 					 new Decorator(ret => GetRouteUnvisitedNodeCount()==0&&timesForcedReset>timesForceResetMax,
 						  new Sequence(
-								new Action(ret => FunkyTrinity.Funky.CacheMovementTracking.bSkipAheadAGo=false),
 								new Action(ret => isDone=true)
 						  )
 					 ),
@@ -2553,8 +2554,10 @@ namespace FunkyTrinity
 
 				string nodeName=String.Format("{0} Distance: {1:0} Direction: {2}",
 					 NextNode.NavigableCenter, NextNode.NavigableCenter.Distance(FunkyTrinity.Funky.Bot.Character.Position), FunkyTrinity.Funky.GetHeadingToPoint(NextNode.NavigableCenter));
-
-				//Funky.RecordSkipAheadCachePoint();
+				
+				//Special cache for skipping locations visited.
+				if (Funky.SettingsFunky.SkipAhead)
+					 Funky.CacheMovementTracking.RecordSkipAheadCachePoint();
 
 				LastMoveResult=Navigator.MoveTo(CurrentNavTarget);
 		  }
@@ -2586,8 +2589,6 @@ namespace FunkyTrinity
 				if (TimeoutValue==0)
 					 TimeoutValue=900;
 
-				//FunkyTrinity.Funky.hashSkipAheadAreaCache.Clear();
-				FunkyTrinity.Funky.CacheMovementTracking.bSkipAheadAGo=true;
 				PriorityScenesInvestigated.Clear();
 				FunkyTrinity.MiniMapMarker.KnownMarkers.Clear();
 
@@ -2622,10 +2623,7 @@ namespace FunkyTrinity
 				get
 				{
 					 bool done=(!IsActiveQuestStep||isDone);
-					 if (done)
-					 {
-						  FunkyTrinity.Funky.CacheMovementTracking.bSkipAheadAGo=false;
-					 }
+
 					 return done;
 				}
 		  }

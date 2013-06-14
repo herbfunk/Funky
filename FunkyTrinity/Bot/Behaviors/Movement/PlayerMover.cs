@@ -364,7 +364,7 @@ namespace FunkyTrinity
 					 }
 
 					 //Special cache for skipping locations visited.
-					 if (CacheMovementTracking.bSkipAheadAGo)
+					 if (SettingsFunky.SkipAhead)
 						  CacheMovementTracking.RecordSkipAheadCachePoint();
 
 					 // Store distance to current moveto target
@@ -447,35 +447,14 @@ namespace FunkyTrinity
 					 } // Is the built-in unstucker enabled or not? 
 					 #endregion
 
-					 #region ObstacleCheck
 
-					 if (vShiftedPosition==vNullLocation&&!Bot.Character.bIsInTown)
+					 if (!Bot.Character.bIsInTown)
 					 {
-						  Vector3 obstacleV3;
-						  // See if there's an obstacle in our way, if so try to navigate around it
-						  if (CurrentMovementPosition!=vNullLocation
-								&&ObstacleCheck(out obstacleV3, CurrentMovementPosition))
-						  {
-
-								lastShiftedPosition=DateTime.Now;
-								iShiftPositionFor=2500;
-								vShiftedPosition=obstacleV3;
-
-								if (vShiftedPosition!=vNullLocation)
-								{
-									 Logging.WriteDiagnostic("[PlayerMover] altered navigation vector {0} to bypass obstacle", vShiftedPosition.ToString());
-									 vMoveToTarget=vShiftedPosition;
-								}
-						  }
+						  ObstacleCheck(vMyCurrentPosition);
 					 }
-					 else
-					 {
-						  if (Bot.Character.Position.Distance(vShiftedPosition)<=10f||DateTime.Now.Subtract(lastShiftedPosition).TotalMilliseconds>iShiftPositionFor)
-								vShiftedPosition=vNullLocation;
-						  else
-								vMoveToTarget=vShiftedPosition;
-					 }
-					 #endregion
+
+					 
+
 
 					 #region MovementAbilities
 					 // See if we can use abilities like leap etc. for movement out of combat, but not in town and only if we can raycast.
@@ -644,6 +623,10 @@ namespace FunkyTrinity
 
 					 if (distanceToTarget<=5f||MoveTargetIsInLoS)
 					 {
+						  //Special cache for skipping locations visited.
+						  if (SettingsFunky.SkipAhead)
+								CacheMovementTracking.RecordSkipAheadCachePoint();
+
 						  Navigator.PlayerMover.MoveTowards(moveTarget);
 						  return MoveResult.Moved;
 					 }

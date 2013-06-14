@@ -91,9 +91,10 @@ namespace FunkyTrinity
                  configWriter.WriteLine("IgnoreClusteringWhenLowHP=" + SettingsFunky.IgnoreClusteringWhenLowHP.ToString());
                  configWriter.WriteLine("IgnoreClusterLowHPValue=" + SettingsFunky.IgnoreClusterLowHPValue.ToString());
                  configWriter.WriteLine("TreasureGoblinRange=" + SettingsFunky.TreasureGoblinRange.ToString());
+					  configWriter.WriteLine("SkipAhead="+SettingsFunky.SkipAhead.ToString());
+					  configWriter.WriteLine("GlobeRange="+SettingsFunky.GlobeRange.ToString());
 
-
-                 //GoldRange
+					  //GlobeRange
                  switch (ActorClass)
                  {
                      case Zeta.Internals.Actors.ActorClass.Barbarian:
@@ -490,7 +491,13 @@ namespace FunkyTrinity
                                  case "GoblinMinimumRange":
                                      SettingsFunky.Class.GoblinMinimumRange = Convert.ToInt32(config[1]);
                                      break;
-                                 //
+											case "SkipAhead":
+												 SettingsFunky.SkipAhead=Convert.ToBoolean(config[1]);
+												 break;
+											case "GlobeRange":
+												 SettingsFunky.GlobeRange=Convert.ToInt32(config[1]);
+												 break;
+											//GlobeRange
                              }
                          }
                      }
@@ -508,6 +515,7 @@ namespace FunkyTrinity
          {
              public bool DebugStatusBar { get; set; }
              public bool LogSafeMovementOutput { get; set; }
+				 public bool SkipAhead { get; set; }
              
              public bool LogStuckLocations { get; set; }
              public bool EnableUnstucker { get; set; }
@@ -542,6 +550,7 @@ namespace FunkyTrinity
              public bool IgnoreLootRange { get; set; }
              public int ItemRange { get; set; }
              public int GoldRange { get; set; }
+				 public int GlobeRange { get; set; }
              public int ShrineRange { get; set; }
              public int DestructibleRange { get; set; }
              public int ContainerOpenRange { get; set; }
@@ -647,6 +656,7 @@ namespace FunkyTrinity
                  EliteCombatRange = eliterange;
                  ExtendedCombatRange = extendedrange;
                  GoldRange = goldrange;
+					  GlobeRange=40;
                  ItemRange = 50;
                  TreasureGoblinRange = 40;
                  ShrineRange = shrinerange;
@@ -681,6 +691,7 @@ namespace FunkyTrinity
                  ClusterDistance = 10d;
                  ClusterMinimumUnitCount = 3;
                  IgnoreClusterLowHPValue = 0.50d;
+					  SkipAhead=true;
 
                  Class = new ClassSettings();
              }

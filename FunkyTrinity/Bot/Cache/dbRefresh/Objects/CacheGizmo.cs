@@ -59,6 +59,16 @@ namespace FunkyTrinity
 				{
 					 base.UpdateWeight();
 
+
+					 if (this.CentreDistance>=2f)
+					 {
+						  Vector3 TestPosition=this.Position;
+						  if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
+								this.Weight=1;
+						  else if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition)) //intersecting avoidances..
+								this.Weight=1;
+					 }
+
 					 if (this.Weight!=1)
 					 {
 						  Vector3 BotPosition=Bot.Character.Position;
@@ -73,11 +83,11 @@ namespace FunkyTrinity
 									 // health pool
 									 if (base.IsHealthWell)
 									 {
-										  if (Bot.Character.dCurrentHealthPct>0.75)
+										  if (Bot.Character.dCurrentHealthPct>0.75d)
 												this.Weight=0;
 										  else
 												//Give weight based upon current health percent.
-												this.Weight+=1000/(Bot.Character.dCurrentHealthPct);
+												this.Weight+=1000d/(Bot.Character.dCurrentHealthPct);
 									 }
 
 									 if (this.Weight>0)
@@ -275,7 +285,7 @@ namespace FunkyTrinity
 									 if (this.ref_Gizmo is GizmoHealthwell)
 									 {
 										  //Health wells..
-										  if (Bot.Character.dCurrentHealthPct>0.50)
+										  if (Bot.Character.dCurrentHealthPct>0.75)
 												IgnoreThis=true;
 									 }
 									 else
@@ -467,7 +477,7 @@ namespace FunkyTrinity
 										  this.HandleAsObstacle=true;
 
 									 GizmoLootContainer gizmoContainer=this.ref_Gizmo as GizmoLootContainer;
-									 this.GizmoHasBeenUsed=gizmoContainer.HasBeenOperated;
+									 this.GizmoHasBeenUsed=gizmoContainer.IsOpen;
 								}
 						  } catch (AccessViolationException)
 						  {
@@ -587,12 +597,12 @@ namespace FunkyTrinity
 						  WaitWhileAnimating(12, true);
 
 						  if (hashDestructableLocationTarget.Contains(this.SNOID)
-								||(Bot.Character.LastCachedTarget==this
+								||(this.InteractionAttempts>1
 								&&this.RadiusDistance<6f))//Bot.Class.IsMeleeClass
 						  {//Melee class and no change in target.. we attempt to attack by shift-clicking..
 								// Location attack - attack the Vector3/map-area (equivalent of holding shift and left-clicking the object in-game to "force-attack")
 								Vector3 vAttackPoint;
-								if (this.CentreDistance>=6f)
+								if (this.RadiusDistance>=6f)
 									 vAttackPoint=MathEx.CalculatePointFrom(this.Position, Bot.Character.Position, 6f);
 								else
 									 vAttackPoint=this.Position;
@@ -649,7 +659,7 @@ namespace FunkyTrinity
 
 						  //Increase Range for Ranged Classes
 						  if (!Bot.Class.IsMeleeClass)
-								fRangeRequired*=1.5f;
+								fRangeRequired*=3f;
 					 }
 
 					 fDistanceReduction=(this.Radius*0.33f);

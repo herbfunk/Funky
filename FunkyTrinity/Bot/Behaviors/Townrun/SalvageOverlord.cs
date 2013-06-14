@@ -91,7 +91,7 @@ namespace FunkyTrinity
 						  return RunStatus.Failure;
 					 }
 
-
+					 TownRunManager.bFailedToLootLastItem=false;
 					 bLoggedJunkThisStash=false;
 					 bCurrentlyMoving=false;
 					 iCurrentItemLoops=0;
@@ -164,7 +164,7 @@ namespace FunkyTrinity
 
 
 					 iCurrentItemLoops++;
-					 if (iCurrentItemLoops<iItemDelayLoopLimit*1.5)
+					 if (iCurrentItemLoops<iItemDelayLoopLimit*1.25)
 						  return RunStatus.Running;
 
 					 iCurrentItemLoops=0;

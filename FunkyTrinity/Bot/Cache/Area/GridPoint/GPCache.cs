@@ -18,7 +18,7 @@ namespace FunkyTrinity
 				///<summary>
 				///This sets whether or not to cache GPCs during routine movement.
 				///</summary>
-				internal static bool EnableBacktrackGPRcache=true;
+				internal static bool EnableBacktrackGPRcache=false;
 				///<summary>
 				///The minimum range required to cache a new GPC during routine movement.
 				///</summary>

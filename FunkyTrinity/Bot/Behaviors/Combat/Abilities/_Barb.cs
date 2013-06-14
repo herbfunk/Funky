@@ -87,7 +87,7 @@ namespace FunkyTrinity
 					 if (Bot.Character.dCurrentEnergy>=50)
 						  return new Ability(SNOPower.Barbarian_Earthquake, 13f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 4, 4, USE_SLOWLY);
 					 Bot.Class.bWaitingForSpecial=true;
-				} 
+				}
 				#endregion
 
 				#region Wrath of the berserker
@@ -113,7 +113,7 @@ namespace FunkyTrinity
 					 if (Bot.Character.dCurrentEnergy>=50)
 						  return new Ability(SNOPower.Barbarian_WrathOfTheBerserker, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 4, 4, USE_SLOWLY);
 					 Bot.Class.bWaitingForSpecial=true;
-				} 
+				}
 				#endregion
 				#region Call of the ancients
 				// Call of the ancients, elites only
@@ -125,7 +125,7 @@ namespace FunkyTrinity
 					 if (Bot.Character.dCurrentEnergy>=50)
 						  return new Ability(SNOPower.Barbarian_CallOfTheAncients, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 4, 4, USE_SLOWLY);
 					 Bot.Class.bWaitingForSpecial=true;
-				} 
+				}
 				#endregion
 				#region BattleRage OOC
 				// Battle rage, for if being followed and before we do sprint
@@ -134,7 +134,7 @@ namespace FunkyTrinity
 					Bot.Character.dCurrentEnergy>=20&&PowerManager.CanCast(SNOPower.Barbarian_BattleRage))
 				{
 					 return new Ability(SNOPower.Barbarian_BattleRage, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-				} 
+				}
 				#endregion
 				#region Sprint OOC
 				// Special segment for sprint as an out-of-combat only
@@ -144,7 +144,7 @@ namespace FunkyTrinity
 					Bot.Character.dCurrentEnergy>=20&&AbilityUseTimer(SNOPower.Barbarian_Sprint)&&PowerManager.CanCast(SNOPower.Barbarian_Sprint))
 				{
 					 return new Ability(SNOPower.Barbarian_Sprint, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
-				} 
+				}
 				#endregion
 				#region Warcry
 				// War cry, constantly maintain
@@ -163,7 +163,7 @@ namespace FunkyTrinity
 					&&Bot.Character.dCurrentEnergyPct<0.9)
 				{
 					 return new Ability(SNOPower.Barbarian_WarCry, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-				} 
+				}
 				#endregion
 
 				#region Threatening Shout
@@ -177,7 +177,7 @@ namespace FunkyTrinity
 					AbilityUseTimer(SNOPower.Barbarian_ThreateningShout, true)&&PowerManager.CanCast(SNOPower.Barbarian_ThreateningShout))
 				{
 					 return new Ability(SNOPower.Barbarian_ThreateningShout, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-				} 
+				}
 				#endregion
 				#region Ground Stomp
 				// Ground Stomp
@@ -187,7 +187,7 @@ namespace FunkyTrinity
 					PowerManager.CanCast(SNOPower.Barbarian_GroundStomp))
 				{
 					 return new Ability(SNOPower.Barbarian_GroundStomp, 16f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
-				} 
+				}
 				#endregion
 				#region Revenge
 				// Revenge used off-cooldown
@@ -211,7 +211,7 @@ namespace FunkyTrinity
 						  }
 					 }
 					 return new Ability(SNOPower.Barbarian_Revenge, 0f, Bot.Character.Position, Bot.Character.iCurrentWorldID, -1, iPreDelay, iPostDelay, USE_SLOWLY);
-				} 
+				}
 				#endregion
 				#region Furious Charge
 				// Furious charge
@@ -245,7 +245,7 @@ namespace FunkyTrinity
 						  fExtraDistance=35-Bot.Target.CurrentTarget.CentreDistance;
 					 Vector3 vNewTarget=MathEx.CalculatePointFrom(Bot.Target.CurrentTarget.Position, Bot.Character.Position, Bot.Target.CurrentTarget.CentreDistance+fExtraDistance);
 					 return new Ability(SNOPower.Barbarian_Leap, 35f, vNewTarget, Bot.Character.iCurrentWorldID, -1, 2, 2, USE_SLOWLY);
-				} 
+				}
 				#endregion
 				#region Rend
 				// Rend spam
@@ -260,7 +260,7 @@ namespace FunkyTrinity
 					(!HotbarAbilitiesContainsPower(SNOPower.Barbarian_Whirlwind)&&
 							(
 					 //We use rend every 3.5s, Or if there are non-rended targets, or our current target is not rended
-							(AbilityUseTimer(SNOPower.Barbarian_Rend)||(Bot.Combat.iNonRendedTargets_6>1||(thisCacheUnitObj!=null&&thisCacheUnitObj.HasDOTdps.HasValue&&!thisCacheUnitObj.HasDOTdps.Value)))
+							(AbilityUseTimer(SNOPower.Barbarian_Rend)||(Bot.Combat.iNonRendedTargets_6>2||(thisCacheUnitObj!=null&&thisCacheUnitObj.HasDOTdps.HasValue&&!thisCacheUnitObj.HasDOTdps.Value)))
 							)
 
 					// This segment is for people who *DO* have whirlwind
@@ -290,16 +290,14 @@ namespace FunkyTrinity
 					 // Since whirlwind seems to interrupt rend so easily
 					 int iPreDelay=1;
 					 int iPostDelay=1;
-					 if (HotbarAbilitiesContainsPower(SNOPower.Barbarian_Whirlwind))
+					 if (Bot.Combat.powerLastSnoPowerUsed==SNOPower.Barbarian_Whirlwind||Bot.Combat.powerLastSnoPowerUsed==SNOPower.Barbarian_HammerOfTheAncients||Bot.Combat.powerLastSnoPowerUsed==SNOPower.None)
 					 {
-						  if (Bot.Combat.powerLastSnoPowerUsed==SNOPower.Barbarian_Whirlwind||Bot.Combat.powerLastSnoPowerUsed==SNOPower.Barbarian_HammerOfTheAncients||Bot.Combat.powerLastSnoPowerUsed==SNOPower.None)
-						  {
-								iPreDelay=5;
-								iPostDelay=5;
-						  }
+						  iPreDelay=5;
+						  iPostDelay=5;
 					 }
-					 return new Ability(SNOPower.Barbarian_Rend, 0f, Bot.Character.Position, Bot.Character.iCurrentWorldID, Bot.Target.CurrentTarget.AcdGuid.Value, iPreDelay, iPostDelay, USE_SLOWLY);
-				} 
+
+					 return new Ability(SNOPower.Barbarian_Rend, 0f, Bot.Character.Position, Bot.Character.iCurrentWorldID, -1, iPreDelay, iPostDelay, USE_SLOWLY);
+				}
 				#endregion
 				#region Overpower
 				// Overpower used off-cooldown
@@ -331,7 +329,7 @@ namespace FunkyTrinity
 						  }
 					 }
 					 return new Ability(SNOPower.Barbarian_Overpower, 0f, Bot.Character.Position, Bot.Character.iCurrentWorldID, -1, iPreDelay, iPostDelay, USE_SLOWLY);
-				} 
+				}
 				#endregion
 				#region Seismic Slam
 				// Seismic slam enemies within close range
@@ -354,7 +352,7 @@ namespace FunkyTrinity
 						  ACDGuid=ObjectCache.Objects.Clusters(MinUnitCount: 2)[0].CurrentValidUnit.AcdGuid.Value;
 						  return new Ability(SNOPower.Barbarian_SeismicSlam, 40f, vNullLocation, -1, ACDGuid, 2, 2, USE_SLOWLY);
 					 }
-				} 
+				}
 				#endregion
 				#region Ancient Spear
 				// Ancient spear 
@@ -374,7 +372,7 @@ namespace FunkyTrinity
 						  fExtraDistance=5f;
 					 Vector3 vNewTarget=MathEx.CalculatePointFrom(Bot.Target.CurrentTarget.Position, Bot.Character.Position, Bot.Target.CurrentTarget.CentreDistance+fExtraDistance);
 					 return new Ability(SNOPower.Barbarian_AncientSpear, 35f, vNewTarget, Bot.Character.iCurrentWorldID, -1, 2, 2, USE_SLOWLY);
-				} 
+				}
 				#endregion
 				#region Sprint
 				// Sprint buff, if same suitable targets as elites, keep maintained for WW users
@@ -398,7 +396,7 @@ namespace FunkyTrinity
 					Bot.Character.dCurrentEnergy>=20)
 				{
 					 return new Ability(SNOPower.Barbarian_Sprint, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-				} 
+				}
 				#endregion
 				#region WhirlWind
 				// Whirlwind spam as long as necessary pre-buffs are up
@@ -437,7 +435,7 @@ namespace FunkyTrinity
 						  Bot.Combat.lastChangedZigZag=DateTime.Now;
 					 }
 					 return new Ability(SNOPower.Barbarian_Whirlwind, 15f, Bot.Combat.vSideToSideTarget, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
-				} 
+				}
 				#endregion
 				#region Battle Rage
 				// Battle rage, constantly maintain
@@ -450,7 +448,7 @@ namespace FunkyTrinity
 					Bot.Character.dCurrentEnergy>=20&&PowerManager.CanCast(SNOPower.Barbarian_BattleRage))
 				{
 					 return new Ability(SNOPower.Barbarian_BattleRage, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-				} 
+				}
 				#endregion
 				#region Hammer of the ancients
 				// Hammer of the ancients spam-attacks - never use if waiting for special
@@ -491,7 +489,7 @@ namespace FunkyTrinity
 								return new Ability(SNOPower.Barbarian_HammerOfTheAncients, Range, vNullLocation, -1, ACDGuid, 1, 2, USE_SLOWLY);
 						  }
 					 }
-				} 
+				}
 				#endregion
 				#region Weapon Throw
 				// Weapon throw
@@ -499,35 +497,35 @@ namespace FunkyTrinity
 					Bot.Character.dCurrentEnergy>=10)
 				{
 					 return new Ability(SNOPower.Barbarian_WeaponThrow, 44f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
-				} 
+				}
 				#endregion
 				#region Frenzy
 				// Frenzy rapid-attacks
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_Frenzy))
 				{
 					 return new Ability(SNOPower.Barbarian_Frenzy, 10f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, SIGNATURE_SPAM);
-				} 
+				}
 				#endregion
 				#region Bash
 				// Bash fast-attacks
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_Bash))
 				{
 					 return new Ability(SNOPower.Barbarian_Bash, 10f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
-				} 
+				}
 				#endregion
 				#region Cleave
 				// Cleave fast-attacks
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_Cleave))
 				{
 					 return new Ability(SNOPower.Barbarian_Cleave, 10f, vNullLocation, Bot.Character.iCurrentWorldID, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 2, USE_SLOWLY);
-				} 
+				}
 				#endregion
 				#region Default
 				// Default attacks
 				if (!bOOCBuff&&!bCurrentlyAvoiding)
 				{
 					 return new Ability(SNOPower.Weapon_Melee_Instant, 10f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 1, 1, USE_SLOWLY);
-				} 
+				}
 				#endregion
 
 				return new Ability(SNOPower.None, 0, vNullLocation, -1, -1, 0, 0, false);

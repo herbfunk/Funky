@@ -87,7 +87,7 @@ namespace FunkyTrinity
             private CheckBox[] CBGems;
             private ComboBox CBGemQualityLevel;
 
-            private TextBox TBBreakTimeHour, TBKiteDistance, TBGlobeHealth, TBPotionHealth, TBContainerRange, TBNonEliteRange, TBDestructibleRange, TBAfterCombatDelay, TBiDHVaultMovementDelay, TBShrineRange, TBEliteRange, TBExtendedCombatRange, TBGoldRange, TBMinLegendaryLevel, TBMaxHealthPots, TBMinGoldPile, TBMiscItemLevel, TBGilesWeaponScore, TBGilesArmorScore, TBGilesJeweleryScore, TBClusterDistance, TBClusterMinUnitCount, TBItemRange, TBGoblinRange, TBGoblinMinRange, TBClusterLowHPValue;
+            private TextBox TBBreakTimeHour, TBKiteDistance, TBGlobeHealth, TBPotionHealth, TBContainerRange, TBNonEliteRange, TBDestructibleRange, TBAfterCombatDelay, TBiDHVaultMovementDelay, TBShrineRange, TBEliteRange, TBExtendedCombatRange, TBGoldRange, TBMinLegendaryLevel, TBMaxHealthPots, TBMinGoldPile, TBMiscItemLevel, TBGilesWeaponScore, TBGilesArmorScore, TBGilesJeweleryScore, TBClusterDistance, TBClusterMinUnitCount, TBItemRange, TBGoblinRange, TBGoblinMinRange, TBClusterLowHPValue, TBGlobeRange;
             private TextBox[] TBKiteTimeLimits;
             private TextBox[] TBAvoidanceTimeLimits;
 
@@ -1092,27 +1092,38 @@ namespace FunkyTrinity
                 tcTargeting.Items.Add(RangeTabItem);
                 ListBox lbTargetRange = new ListBox();
 
+					 StackPanel spIgnoreProfileValues = new StackPanel
+					 {
+						  Orientation = Orientation.Horizontal,
+						  HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch,
+					 };
+
                 CheckBox cbIgnoreCombatRange = new CheckBox
                 {
                     Content = "Ignore Combat Range (Set by Profile)",
-                    Width = 300,
+                   // Width = 300,
+						 HorizontalContentAlignment = System.Windows.HorizontalAlignment.Left,
                     Height = 30,
                     IsChecked = (SettingsFunky.IgnoreCombatRange)
                 };
                 cbIgnoreCombatRange.Checked += IgnoreCombatRangeChecked;
                 cbIgnoreCombatRange.Unchecked += IgnoreCombatRangeChecked;
-                lbTargetRange.Items.Add(cbIgnoreCombatRange);
+					 spIgnoreProfileValues.Children.Add(cbIgnoreCombatRange);
 
                 CheckBox cbIgnoreLootRange = new CheckBox
                 {
                     Content = "Ignore Loot Range (Set by Profile)",
-                    Width = 300,
+                   // Width = 300,
                     Height = 30,
+						  HorizontalContentAlignment=System.Windows.HorizontalAlignment.Right,
                     IsChecked = (SettingsFunky.IgnoreLootRange)
                 };
                 cbIgnoreLootRange.Checked += IgnoreLootRangeChecked;
                 cbIgnoreLootRange.Unchecked += IgnoreLootRangeChecked;
-                lbTargetRange.Items.Add(cbIgnoreLootRange);
+					 spIgnoreProfileValues.Children.Add(cbIgnoreLootRange);
+
+					 lbTargetRange.Items.Add(spIgnoreProfileValues);
+
 
 					 TextBlock Target_Range_Text=new TextBlock
 					 {
@@ -1333,6 +1344,36 @@ namespace FunkyTrinity
                 GoldRangeStackPanel.Children.Add(TBGoldRange);
                 lbTargetRange.Items.Add(GoldRangeStackPanel);
                 #endregion
+
+					 #region GlobeRange
+					 lbTargetRange.Items.Add("Globe Range");
+					 Slider sliderGlobeRange=new Slider
+					 {
+						  Width=100,
+						  Maximum=75,
+						  Minimum=0,
+						  TickFrequency=5,
+						  LargeChange=5,
+						  SmallChange=1,
+						  Value=SettingsFunky.GlobeRange,
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 };
+					 sliderGlobeRange.ValueChanged+=GlobeRangeSliderChanged;
+					 TBGlobeRange=new TextBox
+					 {
+						  Text=SettingsFunky.GlobeRange.ToString(),
+						  IsReadOnly=true,
+					 };
+					 StackPanel GlobeRangeStackPanel=new StackPanel
+					 {
+						  Width=600,
+						  Height=20,
+						  Orientation=Orientation.Horizontal,
+					 };
+					 GlobeRangeStackPanel.Children.Add(sliderGlobeRange);
+					 GlobeRangeStackPanel.Children.Add(TBGlobeRange);
+					 lbTargetRange.Items.Add(GlobeRangeStackPanel);
+					 #endregion
 
                 #region ItemRange
                 lbTargetRange.Items.Add("Item Loot Range");
@@ -2633,6 +2674,17 @@ namespace FunkyTrinity
                 CBLogSafeMovementOutput.Checked += LogSafeMovementOutputChecked;
                 CBLogSafeMovementOutput.Unchecked += LogSafeMovementOutputChecked;
                 lbAdvancedContent.Items.Add(CBLogSafeMovementOutput);
+
+					 CheckBox CBSkipAhead=new CheckBox
+					 {
+						  Content="Skip Ahead Feature (TrinityMoveTo/Explore)",
+						  Width=300,
+						  Height=20,
+						  IsChecked=SettingsFunky.SkipAhead,
+					 };
+					 CBSkipAhead.Checked+=LogSafeMovementOutputChecked;
+					 CBSkipAhead.Unchecked+=LogSafeMovementOutputChecked;
+					 lbAdvancedContent.Items.Add(CBSkipAhead);
 
                 AdvancedTabItem.Content = lbAdvancedContent;
 

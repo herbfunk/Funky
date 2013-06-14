@@ -95,7 +95,7 @@ namespace FunkyTrinity
 		  ///Used to describe the object type for target handling.
 		  ///</summary>
 		  [Flags]
-		  internal enum TargetType
+		  public enum TargetType
 		  {
 
 				Unit=1,
@@ -121,7 +121,7 @@ namespace FunkyTrinity
 		  ///Used to describe the objects obstacle type.
 		  ///</summary>
 		  [Flags]
-		  internal enum ObstacleType
+		  public enum ObstacleType
 		  {
 				Monster=1,
 				StaticAvoidance=2,

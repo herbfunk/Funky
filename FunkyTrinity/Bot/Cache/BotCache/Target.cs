@@ -85,6 +85,14 @@ namespace FunkyTrinity
 				///</summary>
 				public bool UpdateTarget()
 				{
+					 //Generate a vaild object list using our cached collection!
+					 Bot.Target.ValidObjects=ObjectCache.Objects.Values
+														  .Where(obj => obj.ObjectIsValidForTargeting).ToList();
+
+					 //Check avoidance requirement still valid
+					 if (Bot.Combat.RequiresAvoidance&&Bot.Combat.TriggeringAvoidances.Count==0)
+						  Bot.Combat.RequiresAvoidance=false;
+
 					 Vector3 LOS=vNullLocation;
 
 					 //Check if we require avoidance movement.
@@ -241,14 +249,14 @@ namespace FunkyTrinity
 								//Cut the delay time in half for non-elite monsters!
 								DateTime.Now.Subtract(Bot.Combat.lastHadUnitInSights).TotalMilliseconds<=SettingsFunky.AfterCombatDelay)
 						  {
-								CurrentTarget=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "WaitForLootDrops", 0f, -1);
+								CurrentTarget=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "WaitForLootDrops", 2f, -1);
 								return true;
 						  }
 						  //Herbfunks wait after loot containers are opened. 3s for rare chests, half the settings delay for everything else.
 						  if ((DateTime.Now.Subtract(Bot.Combat.lastHadRareChestAsTarget).TotalMilliseconds<=3750)||
 								(DateTime.Now.Subtract(Bot.Combat.lastHadContainerAsTarget).TotalMilliseconds<=(SettingsFunky.AfterCombatDelay*1.25)))
 						  {
-								CurrentTarget=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "ContainerLootDropsWait", 0f, -1);
+								CurrentTarget=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "ContainerLootDropsWait", 2f, -1);
 								return true;
 						  }
 
@@ -401,8 +409,6 @@ namespace FunkyTrinity
 					 #endregion
 
 				}
-
-				//We only actually call this the first time, during the class BOT initilizing
 
 
 				//Prechecks are things prior to target checks and actual target handling.. This is always called first.
@@ -617,7 +623,7 @@ namespace FunkyTrinity
 						  // If we AREN'T getting new targets - find out if we SHOULD because the current unit has died etc.
 						  if (!bShouldRefreshDiaObjects&&CurrentTarget.targetType.Value==TargetType.Unit)
 						  {
-								if (!CurrentTarget.IsStillValid())
+								if (!CurrentTarget.ObjectIsValidForTargeting)
 								{
 									 bShouldRefreshDiaObjects=true;
 								}
@@ -702,6 +708,15 @@ namespace FunkyTrinity
 					 Bot.Combat.bWholeNewTarget=false;
 
 
+					 //Health Change Timer
+					 if (CurrentTarget.targetType.Value==TargetType.Unit&&
+						  DateTime.Now.Subtract(Bot.Combat.LastHealthChange).TotalMilliseconds>3000)
+					 {
+						  Logging.WriteVerbose("Health change has not occured within 3 seconds for unit {0}", CurrentTarget.InternalName);
+						  CurrentTarget.NeedsRemoved=true;
+						  return false;
+					 }
+
 
 					 //We are ready for the specific object type interaction
 					 return true;
@@ -738,21 +753,25 @@ namespace FunkyTrinity
 										  if (!CurrentTarget.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), LOSNavFlags))
 										  {
 												//LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
-												if (CurrentTarget.ObjectIsSpecial&&CurrentTarget.LastLOSSearchMS>1800)
+												if (CurrentTarget.ObjectIsSpecial&&CurrentTarget.LastLOSSearchMS>2500)
 												{
+													 CurrentTarget.LastLOSSearch=DateTime.Now;
+
+													 GridPointAreaCache.GPRectangle TargetGPRect=CurrentTarget.GPRect;
+													 //Expand GPRect into 5x5, 7x7 for ranged!
+													 TargetGPRect.FullyExpand();
+													 if (!Bot.Class.IsMeleeClass)
+														  TargetGPRect.FullyExpand();
+
 													 Vector3 LOSV3;
-													 if (CurrentTarget.GPRect.TryFindSafeSpot(out LOSV3, Bot.Character.Position))
+													 if (TargetGPRect.TryFindSafeSpot(out LOSV3, CurrentTarget.BotMeleeVector))
 													 {
 														  CurrentTarget.LOSV3=LOSV3;
-														  Logging.WriteVerbose("Using LOS Vector at {0} to move to", CurrentTarget.LOSV3.ToString());
+														  Logging.WriteVerbose("Using LOS Vector at {0} to move to", LOSV3.ToString());
 														  CurrentTarget.RequiresLOSCheck=false;
 														  Bot.Combat.bWholeNewTarget=true;
 														  CurrentState=RunStatus.Running;
 														  return false;
-													 }
-													 else
-													 {
-														  CurrentTarget.BlacklistLoops=10;
 													 }
 												}
 
@@ -812,7 +831,7 @@ namespace FunkyTrinity
 					 return true;
 				}
 
-				//3rd Step..
+
 				public virtual bool Movement()
 				{
 					 // Set current destination to our current target's destination

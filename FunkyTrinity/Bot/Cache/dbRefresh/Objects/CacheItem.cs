@@ -79,6 +79,27 @@ namespace FunkyTrinity
 				{
 					 base.UpdateWeight();
 
+
+					 if (this.CentreDistance>=2f)
+					 {
+						  Vector3 TestPosition=this.Position;
+						  bool GoldGlobeObj=this.targetType.Value==TargetType.Globe||this.targetType.Value==TargetType.Gold;
+
+						  //Test if this object is within any avoidances (Excluding Gold/Globe)
+						  if (!GoldGlobeObj&&ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
+								this.Weight=1;
+
+						  //Gold and Globe gain bots pickup radius.. so we should calculate a new position accordingly!
+						  if (GoldGlobeObj)
+								TestPosition=MathEx.GetPointAt(this.Position, Bot.Character.PickupRadius, FindDirection(this.Position, Bot.Character.Position, true));
+
+						  //intersecting avoidances..
+						  if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition))
+						  {
+								this.Weight=1;
+						  }
+					 }
+
 					 if (this.Weight!=1)
 					 {
 						  Vector3 BotPosition=Bot.Character.Position;
@@ -166,8 +187,8 @@ namespace FunkyTrinity
 										  if (ObjectCache.Obstacles.Avoidances.Any(cp => cp.TestIntersection(this, BotPosition)))
 												this.Weight*=0.9;
 										  // Calculate a spot reaching a little bit further out from the globe, to help globe-movements
-										  if (this.Weight>0)
-												this.Position=MathEx.CalculatePointFrom(this.Position, Bot.Character.Position, this.CentreDistance+3f);
+										  //if (this.Weight>0)
+										  //    this.Position=MathEx.CalculatePointFrom(this.Position, Bot.Character.Position, this.CentreDistance+3f);
 									 }
 									 break;
 						  }
@@ -199,6 +220,9 @@ namespace FunkyTrinity
 									 return false;
 								}
 
+								if (Bot.Combat.IsInNonCombatBehavior&&TownRunManager.bFailedToLootLastItem)
+									 return false;
+
 
 								// Ignore it if it's not in range yet - allow legendary items to have 15 feet extra beyond our profile max loot radius
 								double dMultiplier=1d;
@@ -220,7 +244,7 @@ namespace FunkyTrinity
 						  else
 						  {
 								// Blacklist objects already in pickup radius range
-								if (this.CentreDistance<Bot.Character.PickupRadius)
+								if (this.CentreDistance+1f<Bot.Character.PickupRadius)
 								{
 									 this.NeedsRemoved=true;
 									 this.BlacklistFlag=BlacklistType.Temporary;
@@ -237,6 +261,7 @@ namespace FunkyTrinity
 									 }
 									 else if (this.CentreDistance>SettingsFunky.GoldRange)
 									 {
+										  this.BlacklistLoops=20;
 										  return false;
 									 }
 								}
@@ -244,10 +269,9 @@ namespace FunkyTrinity
 								{
 									 //GLOBE
 									 // Ignore it if it's not in range yet
-									 if (this.CentreDistance>Bot.Combat.iCurrentMaxLootRadius||this.CentreDistance>37f)
+									 if (this.CentreDistance>Bot.Combat.iCurrentMaxLootRadius||this.CentreDistance>SettingsFunky.GlobeRange)
 									 {
-										  this.BlacklistFlag=BlacklistType.Temporary;
-										  this.NeedsRemoved=true;
+										  this.BlacklistLoops=20;
 										  return false;
 									 }
 								}
@@ -436,6 +460,7 @@ namespace FunkyTrinity
 
 								if (!Zeta.CommonBot.Logic.BrainBehavior.CanPickUpItem(this.ref_DiaItem))
 								{
+									 TownRunManager.bFailedToLootLastItem=true;
 									 Zeta.CommonBot.Logic.BrainBehavior.ForceTownrun("No more space to pickup item");
 									 return RunStatus.Success;
 								}

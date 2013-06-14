@@ -165,6 +165,7 @@ namespace FunkyTrinity
 								Bot.Combat.LastHealthChange=DateTime.Now;
 								Bot.Combat.LastHealthDropPct=(this.LastCurrentHealth_-this.CurrentHealthPct.Value);
 						  }
+
 						  return true;
 					 }
 
@@ -448,11 +449,33 @@ namespace FunkyTrinity
 
 					 //Ignore non-clustered, *only when not prioritized!*
 					 if (this.BeingIgnoredDueToClusterLogic
-						  &&this.PriorityCounter==0)
+						  &&this.PriorityCounter==0
+						  &&(Bot.Target.CurrentTarget!=null
+						  ||Bot.Combat.iAnythingWithinRange[RANGE_30]==0
+						  ||ObjectCache.Objects.objectsIgnoredDueToAvoidance.Count==0))
 					 {
 						  this.Weight=0;
 						  return;
 					 }
+
+					 if (Bot.Class.IsMeleeClass&&this.CentreDistance>=2f)
+					 {
+						  Vector3 TestPosition=this.BotMeleeVector;
+						  if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
+								this.Weight=1;
+
+						  //intersecting avoidances..
+						  if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition))
+						  {
+								if (this.Weight!=1&&this.ObjectIsSpecial)
+								{//Only add this to the avoided list when its not currently inside avoidance area
+									 ObjectCache.Objects.objectsIgnoredDueToAvoidance.Add(this);
+								}
+								else
+									 this.Weight=1;
+						  }
+					 }
+
 
 					 if (this.Weight!=1)
 					 {
@@ -644,7 +667,7 @@ namespace FunkyTrinity
 
 						  #region Validations
 						  // Unit is already dead
-						  if (this.CurrentHealthPct.HasValue&&this.CurrentHealthPct.Value<=0d||this.CurrentHealthPct.Value>1d)
+						  if (this.CurrentHealthPct.HasValue&&(this.CurrentHealthPct.Value<=0d||this.CurrentHealthPct.Value>1d))
 						  {
 
 								if (!base.IsRespawnable)
@@ -658,14 +681,7 @@ namespace FunkyTrinity
 									 return false;
 								}
 						  }
-						  //Health Change Timer
-						  if (this==Bot.Target.CurrentTarget&&
-								this.LastCurrentHealth_==0d&&DateTime.Now.Subtract(Bot.Combat.LastHealthChange).TotalMilliseconds>3000)
-						  {
-								Logging.WriteVerbose("Health change has not occured within 3 seconds for unit {0}", this.InternalName);
-								this.NeedsRemoved=true;
-								return false;
-						  }
+
 						  #endregion
 
 						  //Attackable/Burrowed?

@@ -14,9 +14,8 @@ namespace FunkyTrinity
 		  private static DateTime lastShiftedPosition=DateTime.Today;
 		  private static int iShiftPositionFor=0;
 
-		  private static bool ObstacleCheck(out Vector3 TempMovementVector, Vector3 DestinationVector, float range=20f)
+		  private static void ObstacleCheck(Vector3 DestinationVector, float range=20f)
 		  {
-				TempMovementVector=vNullLocation;
 
 				if (DateTime.Now.Subtract(LastObstacleIntersectionTest).TotalMilliseconds>1500)
 				{
@@ -27,56 +26,30 @@ namespace FunkyTrinity
 						  LastObstacleIntersectionTest=DateTime.Now;
 
 						  Vector3 CurrentPosition=Bot.Character.Position;
-						  Vector3 IntersectionDestinationVector=MathEx.GetPointAt(Bot.Character.Position, range, Bot.Character.currentRotation);
+						  Vector3 IntersectionDestinationVector=MathEx.GetPointAt(CurrentPosition, range, Bot.Character.currentRotation);
+						  GridPoint IntersectionDestinationPoint=(GridPoint)IntersectionDestinationVector;
+						  GridPoint BotGridPoint=Bot.Character.PointPosition;
 
 						  //get collection of objects that pass the tests.
-						  GridPoint BotPoint=Bot.Character.PointPosition;
 						  var intersectingObstacles=ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
 																					 .Where(obstacle =>
 																						  !Bot.Combat.PrioritizedRAGUIDs.Contains(obstacle.RAGUID)//Only objects not already prioritized
 																						  &&obstacle.Obstacletype.HasValue
 																						  &&ObstacleType.Navigation.HasFlag(obstacle.Obstacletype.Value)//only navigation/intersection blocking objects!
-																						  &&obstacle.CentreDistance<30f //Only within range..
-																						  &&obstacle.TestIntersection(BotPoint, (GridPoint)IntersectionDestinationVector));
+																						  &&obstacle.CentreDistance<=range //Only within range..
+																						  &&obstacle.TestIntersection(BotGridPoint, IntersectionDestinationPoint));
 
 
 
 						  if (intersectingObstacles.Any())
 						  {
-								//intersectingObstacles=intersectingObstacles.OrderBy(obstacle => obstacle.CentreDistance);
-								foreach (var item in intersectingObstacles)
-								{
-									 Bot.Combat.PrioritizedRAGUIDs.Add(item.RAGUID);
-								}
-								////get monsters and prioritize them
-								//var intersectingUnits=intersectingObstacles.Where(obstacle => obstacle.Obstacletype.Value==ObstacleType.Monster).ToList();
-								//if (intersectingUnits.Any())
-								//{
-								//    int counter=0;
-								//    foreach (var item in intersectingUnits)
-								//    {
-								//        Bot.Combat.PrioritizedRAGUIDs.Add(item.RAGUID);
-								//        counter++;
-								//    }
-								//    Logging.WriteVerbose("A total of {0} units were prioritized!", counter.ToString());
-								//}
+								var intersectingObjectRAGUIDs=(from objs in intersectingObstacles
+																		 select objs.RAGUID);
 
-								////find any non-monsters within 20f and find a location around it..
-								//foreach (var intersectingObstacle in intersectingObstacles.Except(intersectingUnits).Where(obj => obj.CentreDistance<20f))
-								//{
-
-								//    if (intersectingObstacle.GPRect.TryFindSafeSpot(out TempMovementVector, DestinationVector, false, true))
-								//    {
-								//        Logging.WriteVerbose("Found intersecting obstacle object {0} -- using LOS Vector to move to destination", intersectingObstacle.InternalName);
-								//        return true;
-								//    }
-								//}
-								//return true;
+								Bot.Combat.PrioritizedRAGUIDs.AddRange(intersectingObjectRAGUIDs);
 						  }
 					 }
 				}
-				//nothing?
-				return false;
 		  }
 
 	 }

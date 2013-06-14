@@ -158,16 +158,8 @@ namespace FunkyTrinity
 					 //Update object cache collection
 					 UpdateCacheObjectCollection();
 
-					 //Generate a vaild object list using our cached collection!
-					 Bot.Target.ValidObjects=ObjectCache.Objects.Values
-														  .Where(obj => obj.ObjectIsValidForTargeting).ToList();
-
 					 //Update last Refresh Time
 					 lastRefreshedObjects=DateTime.Now;
-
-					 //Check avoidance requirement still valid
-					 if (Bot.Combat.RequiresAvoidance&&Bot.Combat.TriggeringAvoidances.Count==0)
-						  Bot.Combat.RequiresAvoidance=false;
 
 					 // Still no target, let's end it all!
 					 if (!Bot.Target.UpdateTarget())
@@ -185,25 +177,24 @@ namespace FunkyTrinity
 						  if (Bot.Target.CurrentTarget.IsResplendantChest)
 								Bot.Combat.lastHadRareChestAsTarget=DateTime.Now;
 					 }
+
+					 // We're sticking to the same target, so update the target's health cache to check for stucks
+					 if (Bot.Target.CurrentTarget.targetType==TargetType.Unit)
+					 {
+						  CacheUnit thisUnitObj=(CacheUnit)Bot.Target.CurrentTarget;
+						  //Used to pause after no targets found.
+						  Bot.Combat.lastHadUnitInSights=DateTime.Now;
+
+						  // And record when we last saw any form of elite
+						  if (Bot.Target.CurrentTarget.IsBoss||thisUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsTreasureGoblin)
+								Bot.Combat.lastHadEliteUnitInSights=DateTime.Now;
+					 }
+
 					 // Record the last time our target changed etc.
 					 if (Bot.Target.CurrentTarget!=Bot.Character.LastCachedTarget)
 					 {
 						  Bot.Combat.dateSincePickedTarget=DateTime.Now;
 						  Bot.Combat.LastHealthChange=DateTime.Now;
-					 }
-					 else
-					 {
-						  // We're sticking to the same target, so update the target's health cache to check for stucks
-						  if (Bot.Target.CurrentTarget.targetType==TargetType.Unit)
-						  {
-								CacheUnit thisUnitObj=(CacheUnit)Bot.Target.CurrentTarget;
-								//Used to pause after no targets found.
-								Bot.Combat.lastHadUnitInSights=DateTime.Now;
-
-								// And record when we last saw any form of elite
-								if (Bot.Target.CurrentTarget.IsBoss||thisUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsTreasureGoblin)
-									 Bot.Combat.lastHadEliteUnitInSights=DateTime.Now;
-						  }
 					 }
 				}
 		  }

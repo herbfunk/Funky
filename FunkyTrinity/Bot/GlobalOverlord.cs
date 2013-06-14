@@ -11,6 +11,10 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
+		  private static HashSet<Type> oocDBTags=new HashSet<Type> { typeof(Zeta.CommonBot.Profile.Common.UseWaypointTag), 
+																	  typeof(Zeta.CommonBot.Profile.Common.UseObjectTag),
+																	  typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),};
+
 		  // Total main loops so we can update things every XX loops
 		  private static int iCombatLoops=0;
 		  private static bool GlobalOverlord(object ret)
@@ -101,6 +105,24 @@ namespace FunkyTrinity
 				Bot.Combat.ResetTargetHandling();
 				Bot.Combat.DontMove=false;
 
+				//Override Townportal Tag Behavior (After it starts..)
+				if (Bot.Character.CurrentProfileBehavior==null
+					 ||Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior!=null&&Bot.Character.CurrentProfileBehavior.Behavior.Guid!=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior.Guid)
+				{
+					 Bot.Character.CurrentProfileBehavior=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior;
+
+					 if (oocDBTags.Contains(Bot.Character.CurrentProfileBehavior.GetType()))
+					 {
+						  //Zeta.CommonBot.Profile.Common.UseWaypointTag
+						  //
+
+						  Logging.WriteVerbose("Current Profile Behavior is OOC Tag");
+						  Bot.Character.IsRunningTownPortalBehavior=true;
+					 }
+					 else
+						  Bot.Character.IsRunningTownPortalBehavior=false;
+				}
+
 				// Should we refresh target list?
 				if (dbRefresh.ShouldRefreshObjectList)
 				{
@@ -188,21 +210,7 @@ namespace FunkyTrinity
 					 }
 				}
 
-				//Override Townportal Tag Behavior (After it starts..)
-				if (Bot.Character.CurrentProfileBehavior==null
-					 ||Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior!=null&&Bot.Character.CurrentProfileBehavior.Behavior.Guid!=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior.Guid)
-				{
-					 Bot.Character.CurrentProfileBehavior=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior;
 
-					 if (Bot.Character.CurrentProfileBehavior.GetType()==typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag))
-					 {
-						  Logging.WriteVerbose("Current Profile Behavior is TownPortal Tag");
-						  Bot.Character.IsRunningTownPortalBehavior=true;
-						  return true;
-					 }
-					 else
-						  Bot.Character.IsRunningTownPortalBehavior=false;
-				}
 
 
 				// Ok let DemonBuddy do stuff this loop, since we're done for the moment

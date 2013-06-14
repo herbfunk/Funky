@@ -44,14 +44,15 @@ namespace GilesBlankCombatRoutine
 				};
 				lblDebug_OpenLog.MouseDown+=lblDebug_OpenDBLog;
 
-				lblDebug_DumpObjects=new Label
+				Label OpenTrinityFolder=new Label
 				{
-					 Content="Dump Objects",
+					 Content="Open Funky Folder",
 					 Width=100,
-					 Height=25
+					 Height=25,
+					 HorizontalAlignment=HorizontalAlignment.Stretch,
 
 				};
-				lblDebug_DumpObjects.MouseDown+=lblDebug_DumpObjects_Click;
+				OpenTrinityFolder.MouseDown+=lblDebug_OpenTrinityFolder;
 
 				Label Recompile=new Label
 				{
@@ -104,6 +105,7 @@ namespace GilesBlankCombatRoutine
 					 Width=125
 				};
 				menuItem_Debug.Items.Add(lblDebug_OpenLog);
+				menuItem_Debug.Items.Add(OpenTrinityFolder);
 				menuItem_Debug.Items.Add(Recompile);
 				//menuItem_Debug.Items.Add(Testing);
 				btn.ButtonMenuItemsSource.Add(menuItem_Debug);
@@ -181,14 +183,22 @@ namespace GilesBlankCombatRoutine
 
 		  static void lblDebug_OpenDBLog(object sender, EventArgs e)
 		  {
-				string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-				FileInfo demonbuddyLogFolder=new FileInfo(sDemonBuddyPath+@"\Logs\");
-				if (!demonbuddyLogFolder.Directory.GetFiles().Any()) 
+				//string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+				
+				FileInfo demonbuddyLogFolder=new FileInfo(Zeta.Common.Logging.LogFilePath);
+				if (!demonbuddyLogFolder.Directory.GetFiles().Any())
 					 return;
 
 				var newestfile=demonbuddyLogFolder.Directory.GetFiles().OrderByDescending(file => file.LastWriteTime).First();
 				System.Diagnostics.Process.Start(newestfile.FullName);
 
+		  }
+
+		  static void lblDebug_OpenTrinityFolder(object sender, EventArgs e)
+		  {
+				string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+				System.Diagnostics.Process.Start(sDemonBuddyPath + @"\Plugins\FunkyTrinity\");
 		  }
 
 		  static void lblDebug_DumpUnits_Click(object sender, EventArgs e)

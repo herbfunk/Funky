@@ -32,18 +32,20 @@ namespace FunkyTrinity
 				float minDistance=6f;
 				float maxDistance=16f;
 				int minTargets=2;
-				List<CacheUnit> units=ObjectCache.Objects.Values.OfType<CacheUnit>().ToList();
-				if (useTargetBasedZigZag&&!Bot.Combat.bAnyTreasureGoblinsPresent&&units.Count>=minTargets)
+
+				if (useTargetBasedZigZag&&!Bot.Combat.bAnyTreasureGoblinsPresent&&Bot.Combat.UnitRAGUIDs.Count>=minTargets)
 				{
-					 IEnumerable<CacheUnit> zigZagTargets=
-						  from u in units
-						  where u.RadiusDistance>minDistance&&u.RadiusDistance<maxDistance&&u.RAGUID!=Bot.Target.CurrentTarget.RAGUID&&
+					 List<CacheObject> units_=ObjectCache.Objects.Values.Where(obj => Bot.Combat.UnitRAGUIDs.Contains(obj.RAGUID)).ToList();
+
+					 IEnumerable<CacheObject> zigZagTargets=
+						  from u in units_
+						  where u.CentreDistance>minDistance&&u.CentreDistance<maxDistance&&u.RAGUID!=Bot.Target.CurrentTarget.RAGUID&&
 						  !ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(u.Position)
 						  select u;
 
 					 if (zigZagTargets.Count()>=minTargets)
 					 {
-						  vThisZigZag=zigZagTargets.OrderByDescending(u=>u.Weight).ThenByDescending(u => u.CentreDistance).FirstOrDefault().Position;
+						  vThisZigZag=zigZagTargets.OrderByDescending(u => u.Weight).FirstOrDefault().Position;
 						  return vThisZigZag;
 					 }
 				}
@@ -136,7 +138,7 @@ namespace FunkyTrinity
 								if (Bot.Class.KiteDistance>0&&ObjectCache.Objects.IsPointNearbyMonsters(vThisZigZag, Bot.Class.KiteDistance))
 									 continue;
 
-								if (ObjectCache.Obstacles.DoesPositionIntersectAny(vThisZigZag, ObstacleType.ServerObject))
+								if (ObjectCache.Obstacles.Navigations.Any(obj => obj.Obstacletype.Value!=ObstacleType.Monster&&obj.TestIntersection(Bot.Character.Position, vThisZigZag, false)))
 									 continue;
 
 								float distanceToPoint=vThisZigZag.Distance2D(Bot.Character.Position);

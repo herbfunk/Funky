@@ -106,6 +106,9 @@
     <Compile Include="Bot\Cache\BotCache\CombatCache.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Bot\Cache\BotCache\Target.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Bot\Cache\Collection\Objects.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -194,6 +197,7 @@
     <Reference Include="Demonbuddy">
       <HintPath>..\..\..\..\Desktop\DB_DebugCopy\Demonbuddy.exe</HintPath>
       <Private>False</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -231,9 +235,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Behaviors\Combat\Abilities\_Wizard.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Bot\Behaviors\Combat\_Target.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Behaviors\ID Behavior\FunkyIDOverlord.cs">
@@ -341,13 +342,13 @@
     <Compile Include="Misc\CleanUp.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Misc\Config\FunkyWindow.cs">
+    <Compile Include="Config\FunkyWindow.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Misc\Config\FunkySettings.cs">
+    <Compile Include="Config\FunkySettings.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Misc\Config\FunkyWindowEvents.cs">
+    <Compile Include="Config\FunkyWindowEvents.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Misc\Logging\DBHelper.cs">

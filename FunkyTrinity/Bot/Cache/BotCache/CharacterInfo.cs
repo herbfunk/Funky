@@ -57,6 +57,7 @@ namespace FunkyTrinity
 					 internal HashSet<SNOPower> PassiveAbilities=new HashSet<SNOPower>();
 					 internal HashSet<SNOPower> HotbarAbilities=new HashSet<SNOPower>();
 					 private HashSet<SNOPower> CachedHotbarAbilities=new HashSet<SNOPower>();
+					 private bool UsingSecondaryHotbarAbilities=false;
 					 private Dictionary<HotbarSlot, SNOPower> HotbarPowerCache=new Dictionary<HotbarSlot, SNOPower>();
 					 internal Dictionary<SNOPower, int> RuneIndexCache=new Dictionary<SNOPower, int>();
 
@@ -167,7 +168,7 @@ namespace FunkyTrinity
 					 {
 						  if (destructibleabilities.Count>0)
 								return destructibleabilities.First(a => a!=ignore);
-						  
+
 						  return IsMeleeClass?SNOPower.Weapon_Melee_Instant:SNOPower.Weapon_Ranged_Instant;
 					 }
 
@@ -180,29 +181,21 @@ namespace FunkyTrinity
 
 						  if (AC==ActorClass.Wizard)
 						  {
+								bool ArchonBuffPresent=(CurrentBuffs.ContainsKey((int)SNOPower.Wizard_Archon));
 								bool RefreshNeeded=false;
-								using (ZetaDia.Memory.AcquireFrame())
-								{
-									 if (ZetaDia.Me.GetAllBuffs().Any(b => b.SNOId==(int)SNOPower.Wizard_Archon))
-									 {
-										  RefreshNeeded=true;
-									 }
-								}
 
-								if (RefreshNeeded&&CachedHotbarAbilities.Count==0)
+								if (ArchonBuffPresent&&!UsingSecondaryHotbarAbilities)
+									 RefreshNeeded=true;
+								else if (!ArchonBuffPresent&&UsingSecondaryHotbarAbilities)
+									 RefreshNeeded=true;
+
+								if (RefreshNeeded)
 								{
-									 RefreshHotbar(true); //Create new secondary set..
-									 UpdateRepeatAbilityTimes();
-								}
-								else if (CachedHotbarAbilities.Count>0)
-								{//Switch between two sets!
-									 HashSet<SNOPower> CurrentAbilities=new HashSet<SNOPower>(HotbarAbilities);
-									 HotbarAbilities=new HashSet<SNOPower>(CachedHotbarAbilities);
-									 CachedHotbarAbilities=new HashSet<SNOPower>(CurrentAbilities);
+									 Logging.WriteVerbose("Updating Hotbar abilities!");
+									 RefreshHotbar(ArchonBuffPresent);
 									 UpdateRepeatAbilityTimes();
 								}
 						  }
-
 					 }
 
 					 ///<summary>
@@ -241,7 +234,10 @@ namespace FunkyTrinity
 						  if (Secondary)
 						  {
 								CachedHotbarAbilities=new HashSet<SNOPower>(HotbarAbilities);
+								UsingSecondaryHotbarAbilities=true;
 						  }
+						  else
+								UsingSecondaryHotbarAbilities=false;
 
 						  HotbarAbilities=new HashSet<SNOPower>();
 						  destructibleabilities=new List<SNOPower>();

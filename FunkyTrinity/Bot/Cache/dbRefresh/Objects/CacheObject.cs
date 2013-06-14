@@ -14,7 +14,7 @@ namespace FunkyTrinity
 	 public partial class Funky
 	 {
 
-		  internal class CacheObject : CachedSNOEntry, IComparable
+		  public class CacheObject : CachedSNOEntry, IComparable
 		  {
 
 				#region Constructors
@@ -310,7 +310,7 @@ namespace FunkyTrinity
 
 					 return true;
 				}
-				private DateTime LastLOSSearch { get; set; }
+				public DateTime LastLOSSearch { get; set; }
 				///<summary>
 				///Last time we preformed a LOS vector search
 				///</summary>
@@ -371,7 +371,7 @@ namespace FunkyTrinity
 
 						  return losv3_;
 					 }
-					 set { losv3_=value; }
+					 set { losv3_=value; losv3LastChanged=DateTime.Now; }
 				}
 				public bool UsingLOSV3
 				{
@@ -421,8 +421,8 @@ namespace FunkyTrinity
 						  if (this.LoopsUnseen_>0) return false;
 
 						  //Check if we are doing something important.. if so we only want to check units!
-						  if (Bot.Combat.IsInNonCombatBehavior)
-								if (!this.targetType.HasValue||this.targetType.Value!=TargetType.Unit) return false;
+						  if (Bot.Combat.IsInNonCombatBehavior&&(!this.targetType.HasValue||!(TargetType.Unit|TargetType.Item).HasFlag(this.targetType.Value)))
+								return false;
 
 						  //Validate refrence still remains
 						  if (!this.IsStillValid())
@@ -471,39 +471,6 @@ namespace FunkyTrinity
 								this.PriorityCounter=this.PriorityCounter-1;
 					 }
 
-
-					 //Unit && Melee Or Gizmo/Item AND Distance > xf.. than we check against avoidance zones!
-					 bool ShouldTestMeleeAvoidance=((this.targetType.Value==TargetType.Unit&&Bot.Class.IsMeleeClass)||
-															 (this.Actortype.Value==ActorType.Gizmo||this.Actortype.Value==ActorType.Item)
-															 &&this.CentreDistance>=2.5f);
-
-					 if (ShouldTestMeleeAvoidance)
-					 {
-						  Vector3 TestPosition=this.targetType.Value==TargetType.Unit?this.BotMeleeVector:this.Position;
-						  bool GoldGlobeObj=this.targetType.Value==TargetType.Globe||this.targetType.Value==TargetType.Gold;
-
-
-						  //Test if this object is within any avoidances (Excluding Gold/Globe)
-						  if (!GoldGlobeObj&&ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
-								this.Weight=1;
-
-
-						  //Gold and Globe gain bots pickup radius.. so we should calculate a new position accordingly!
-						  if (GoldGlobeObj)
-								TestPosition=MathEx.GetPointAt(this.Position, Bot.Character.PickupRadius, FindDirection(this.Position, Bot.Character.Position, true));
-
-
-						  //intersecting avoidances..
-						  if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition))
-						  {
-								if (!GoldGlobeObj&&this.Weight!=1&&(this.ObjectIsSpecial&&Bot.Class.IsMeleeClass))
-								{//Only add this to the avoided list when its not currently inside avoidance area
-									 ObjectCache.Objects.objectsIgnoredDueToAvoidance.Add(this);
-								}
-								else
-									 this.Weight=1;
-						  }
-					 }
 				}
 
 				///<summary>
@@ -608,7 +575,7 @@ namespace FunkyTrinity
 					 if (Bot.Character.bIsIncapacitated||Bot.Character.bIsRooted)
 						  return RunStatus.Running;
 
-					 if (CacheMovementTracking.bSkipAheadAGo)
+					 if (SettingsFunky.SkipAhead)
 						  CacheMovementTracking.RecordSkipAheadCachePoint();
 
 					 // Some stuff to avoid spamming usepower EVERY loop, and also to detect stucks/staying in one place for too long
@@ -792,35 +759,9 @@ namespace FunkyTrinity
 					 Bot.Combat.fLastDistanceFromTarget=this.DistanceFromTarget;
 
 
-					 // See if there's an obstacle in our way, if so try to navigate around it
-					 #region ObstacleCheck
-					 if (vShiftedPosition==vNullLocation&&!Bot.Character.bIsInTown)
-					 {
-						  Vector3 obstacleV3;
-						  // See if there's an obstacle in our way, if so try to navigate around it
-						  if (Bot.Combat.vCurrentDestination!=vNullLocation
-								&&ObstacleCheck(out obstacleV3, Bot.Combat.vCurrentDestination))
-						  {
+					 //Prioritize blocking objects
+					 ObstacleCheck(Bot.Combat.vCurrentDestination);
 
-								lastShiftedPosition=DateTime.Now;
-								iShiftPositionFor=1000;
-								vShiftedPosition=obstacleV3;
-
-								if (vShiftedPosition!=vNullLocation)
-								{
-									 Logging.WriteDiagnostic("[Target MoveTowards] Using altered navigation vector {0} to bypass obstacle", vShiftedPosition.ToString());
-									 Bot.Combat.vCurrentDestination=vShiftedPosition;
-								}
-						  }
-					 }
-					 else
-					 {
-						  if (Bot.Character.Position.Distance2D(vShiftedPosition)<=2.5f||DateTime.Now.Subtract(lastShiftedPosition).TotalMilliseconds>iShiftPositionFor)
-								vShiftedPosition=vNullLocation;
-						  else
-								Bot.Combat.vCurrentDestination=vShiftedPosition;
-					 }
-					 #endregion
 
 					 // See if we want to ACTUALLY move, or are just waiting for the last move command...
 					 if (!bForceNewMovement&&Bot.Combat.bAlreadyMoving&&Bot.Combat.vCurrentDestination==Bot.Combat.vLastMoveToTarget&&DateTime.Now.Subtract(Bot.Combat.lastMovementCommand).TotalMilliseconds<=100)
@@ -832,7 +773,7 @@ namespace FunkyTrinity
 
 					 // If we're doing avoidance, globes or backtracking, try to use special abilities to move quicker
 					 #region SpecialMovementChecks
-					 if ((TargetType.Avoidance|TargetType.Gold|TargetType.Globe|TargetType.Destructible|TargetType.Unit).HasFlag(this.targetType.Value))
+					 if ((TargetType.Avoidance|TargetType.Gold|TargetType.Globe).HasFlag(this.targetType.Value))
 					 {
 
 						  bool bTooMuchZChange=((Bot.Character.Position.Z-Bot.Combat.vCurrentDestination.Z)>=4f);
@@ -851,8 +792,9 @@ namespace FunkyTrinity
 										  vTargetAimPoint=MathEx.CalculatePointFrom(Bot.Combat.vCurrentDestination, Bot.Character.Position, 10f);
 										  Bot.Character.UpdateAnimationState(false, true);
 										  bool isHobbling=Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.Monk_Female_Hobble_Run|SNOAnim.Monk_Male_HTH_Hobble_Run);
-										  foundMovementPower=(!bTooMuchZChange&&(((!isHobbling||lastUsedAbilityMS>200)&&Bot.Character.dCurrentEnergy>=50)||((isHobbling||lastUsedAbilityMS<400)&&Bot.Character.dCurrentEnergy>15))
+										  foundMovementPower=(!bTooMuchZChange&&currentDistance<15f&&(((!isHobbling||lastUsedAbilityMS>200)&&Bot.Character.dCurrentEnergy>=50)||((isHobbling||lastUsedAbilityMS<400)&&Bot.Character.dCurrentEnergy>15))
 												&&!ObjectCache.Obstacles.DoesPositionIntersectAny(vTargetAimPoint, ObstacleType.ServerObject));
+
 										  break;
 									 case SNOPower.DemonHunter_Vault:
 										  foundMovementPower=(this.targetType.Value!=TargetType.Destructible&&!bTooMuchZChange&&currentDistance>=18f&&

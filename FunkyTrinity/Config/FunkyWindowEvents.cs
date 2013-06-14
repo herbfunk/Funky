@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using Zeta.Common;
 using System.Globalization;
 using System.Collections.ObjectModel;
+using Zeta.Internals.Actors;
 
 namespace FunkyTrinity
 {
@@ -86,25 +87,32 @@ namespace FunkyTrinity
                  }
                  else if (btnsender.Name == "TEST")
                  {
-                     try
-                     {
-                         if (Bot.Class == null)
-                             return;
 
-                         Logging.Write("Character Information");
-                         Logging.Write("Hotbar Abilities");
-                         foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.HotbarAbilities)
-                         {
-                             Logging.Write("{0} with current rune index {1}", item.ToString(), Bot.Class.RuneIndexCache.ContainsKey(item) ? Bot.Class.RuneIndexCache[item].ToString() : "none");
-                         }
-                         Bot.Character.UpdateAnimationState();
-                         Logging.Write("State: {0} -- SNOAnim {1}", Bot.Character.CurrentAnimationState.ToString(), Bot.Character.CurrentSNOAnim.ToString());
 
-                     }
-                     catch (Exception ex)
-                     {
-                         Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
-                     }
+							try
+							{
+								 if (Bot.Class==null)
+									  return;
+
+								 Logging.Write("Character Information");
+								 Logging.Write("Hotbar Abilities");
+								 foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.HotbarAbilities)
+								 {
+									  Logging.Write("{0} with current rune index {1}", item.ToString(), Bot.Class.RuneIndexCache.ContainsKey(item)?Bot.Class.RuneIndexCache[item].ToString():"none");
+								 }
+								 Bot.Character.UpdateAnimationState();
+								 Logging.Write("State: {0} -- SNOAnim {1}", Bot.Character.CurrentAnimationState.ToString(), Bot.Character.CurrentSNOAnim.ToString());
+								 Logging.Write("Current Buffs");
+								 foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.CurrentBuffs.Keys)
+								 {
+									  Logging.Write("Buff: {0}", Enum.GetName(typeof(SNOPower), item));
+								 }
+
+
+							} catch (Exception ex)
+							{
+								 Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
+							}
 
                  }
 
@@ -282,6 +290,13 @@ namespace FunkyTrinity
                  SettingsFunky.GoldRange = Value;
                  TBGoldRange.Text = Value.ToString();
              }
+				 private void GlobeRangeSliderChanged(object sender, EventArgs e)
+				 {
+					  Slider slider_sender=(Slider)sender;
+					  int Value=(int)slider_sender.Value;
+					  SettingsFunky.GlobeRange=Value;
+					  TBGlobeRange.Text=Value.ToString();
+				 }
              private void ItemRangeSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
@@ -634,6 +649,10 @@ namespace FunkyTrinity
              {
                  SettingsFunky.LogSafeMovementOutput = !SettingsFunky.LogSafeMovementOutput;
              }
+				 private void SkipAheadChecked(object sender, EventArgs e)
+				 {
+					  SettingsFunky.SkipAhead=!SettingsFunky.SkipAhead;
+				 }
 
              private void ExtendRangeRepChestChecked(object sender, EventArgs e)
              {
