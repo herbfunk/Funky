@@ -31,7 +31,7 @@ namespace FunkyTrinity
 						  GridPoint BotGridPoint=Bot.Character.PointPosition;
 
 						  //get collection of objects that pass the tests.
-						  var intersectingObstacles=ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
+						  var intersectingObstacles=Bot.Combat.NearbyObstacleObjects //ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
 																					 .Where(obstacle =>
 																						  !Bot.Combat.PrioritizedRAGUIDs.Contains(obstacle.RAGUID)//Only objects not already prioritized
 																						  &&obstacle.Obstacletype.HasValue

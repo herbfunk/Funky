@@ -224,7 +224,7 @@ namespace FunkyTrinity
 									 {
 										  //Check last time we attempted avoidance movement (Only if its been at least a second since last time we required it..)
 										  //if (DateTime.Now.Subtract(Bot.Combat.LastAvoidanceMovement).TotalMilliseconds<1000)
-												//continue;
+										  //continue;
 
 										  CacheAvoidance thisAvoidance=thisObstacle as CacheAvoidance;
 
@@ -253,7 +253,11 @@ namespace FunkyTrinity
 										  if (bRequireAvoidance)
 												Bot.Combat.TriggeringAvoidances.Add((CacheAvoidance)thisObstacle);
 									 }
-
+									 else
+									 {
+										  if (thisObstacle.CentreDistance<25f)
+												Bot.Combat.NearbyObstacleObjects.Add((CacheServerObject)thisObstacle);
+									 }
 
 									 continue;
 									 #endregion
@@ -288,6 +292,7 @@ namespace FunkyTrinity
 									 &&(TargetType.ServerObjects.HasFlag(tmp_CachedObj.targetType.Value)))
 								{
 									 CacheObstacle thisObstacleObj;
+
 									 if (!ObjectCache.Obstacles.TryGetValue(tmp_CachedObj.RAGUID, out thisObstacleObj))
 									 {
 										  ObjectCache.Obstacles.Add(tmp_CachedObj.RAGUID, new CacheServerObject(tmp_CachedObj));
@@ -300,6 +305,9 @@ namespace FunkyTrinity
 												thisObstacleObj.Position=tmp_CachedObj.Position;
 												ObjectCache.Obstacles[tmp_CachedObj.RAGUID]=thisObstacleObj;
 										  }
+
+										  if (thisObstacleObj.CentreDistance<=25f)
+												Bot.Combat.NearbyObstacleObjects.Add((CacheServerObject)thisObstacleObj);
 									 }
 								}
 

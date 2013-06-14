@@ -242,7 +242,7 @@ namespace FunkyTrinity
 						  //Extended Range / Noncombat Behavior?
 						  if ((iKeepKillRadiusExtendedFor>0)||Bot.Combat.IsInNonCombatBehavior)
 						  {
-								dUseKillRadius=SettingsFunky.ExtendedCombatRange;
+								dUseKillRadius+=SettingsFunky.ExtendedCombatRange;
 
 								if (this.CentreDistance<=dUseKillRadius)
 									 Bot.Combat.bAnyMobsInCloseRange=true;
@@ -705,8 +705,10 @@ namespace FunkyTrinity
 						  }
 
 
+						  float centreDistance=this.CentreDistance;
+				
 						  //Distance Check
-						  if (this.CentreDistance>this.KillRadius)
+						  if (centreDistance>this.KillRadius)
 								return false;
 
 
@@ -787,7 +789,7 @@ namespace FunkyTrinity
 						  }
 
 						  // Total up monsters at various ranges
-						  if (this.CentreDistance<=50f)
+						  if (centreDistance<=50f)
 						  {
 								this.TallyTarget();
 						  }
@@ -1203,8 +1205,7 @@ namespace FunkyTrinity
 									 (this.PriorityCounter>0)||
 									 (this.IsBoss)||(this.IsSucideBomber&&this.CentreDistance<25f)||
 									 (this.IsTreasureGoblin&&SettingsFunky.GoblinPriority>1)||
-									 (this.CurrentHealthPct<0.25&&SettingsFunky.ClusterKillLowHPUnits
-								//lower the kill radius for melee!
+									 (SettingsFunky.ClusterKillLowHPUnits&&this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0
 											&&(!Bot.Class.IsMeleeClass||(this.CentreDistance<this.KillRadius*0.25f))))
 
 

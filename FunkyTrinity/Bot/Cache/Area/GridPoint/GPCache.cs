@@ -101,7 +101,7 @@ namespace FunkyTrinity
 					 }
 
 					 List<int> NearbyObjectRAGUIDs=new List<int>();
-					 List<CacheServerObject> NearbyObjects=ObjectCache.Obstacles.Navigations.Where(obj => obj.RadiusDistance<=5f).ToList();
+					 List<CacheServerObject> NearbyObjects=Bot.Combat.NearbyObstacleObjects.Where(obj => obj.RadiusDistance<=5f).ToList();//ObjectCache.Obstacles.Navigations.Where(obj => obj.RadiusDistance<=5f).ToList();
 
 					 //no nearby objects passed distance check..
 					 if (NearbyObjects.Count==0)

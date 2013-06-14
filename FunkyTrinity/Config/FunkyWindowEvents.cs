@@ -88,31 +88,40 @@ namespace FunkyTrinity
                  else if (btnsender.Name == "TEST")
                  {
 
-
 							try
 							{
-								 if (Bot.Class==null)
-									  return;
-
-								 Logging.Write("Character Information");
-								 Logging.Write("Hotbar Abilities");
-								 foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.HotbarAbilities)
-								 {
-									  Logging.Write("{0} with current rune index {1}", item.ToString(), Bot.Class.RuneIndexCache.ContainsKey(item)?Bot.Class.RuneIndexCache[item].ToString():"none");
-								 }
-								 Bot.Character.UpdateAnimationState();
-								 Logging.Write("State: {0} -- SNOAnim {1}", Bot.Character.CurrentAnimationState.ToString(), Bot.Character.CurrentSNOAnim.ToString());
-								 Logging.Write("Current Buffs");
-								 foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.CurrentBuffs.Keys)
-								 {
-									  Logging.Write("Buff: {0}", Enum.GetName(typeof(SNOPower), item));
-								 }
-
+								 Zeta.Common.ScriptManager.Init(typeof(Funky));
+								 string test="test";
+								 Zeta.Common.ScriptManager.GetStatement("Funky.Log(null)").Invoke();
 
 							} catch (Exception ex)
 							{
-								 Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
+								 Logging.Write("Exception occured {0}", ex.Message);
 							}
+							//try
+							//{
+							//    if (Bot.Class==null)
+							//        return;
+
+							//    Logging.Write("Character Information");
+							//    Logging.Write("Hotbar Abilities");
+							//    foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.HotbarAbilities)
+							//    {
+							//        Logging.Write("{0} with current rune index {1}", item.ToString(), Bot.Class.RuneIndexCache.ContainsKey(item)?Bot.Class.RuneIndexCache[item].ToString():"none");
+							//    }
+							//    Bot.Character.UpdateAnimationState();
+							//    Logging.Write("State: {0} -- SNOAnim {1}", Bot.Character.CurrentAnimationState.ToString(), Bot.Character.CurrentSNOAnim.ToString());
+							//    Logging.Write("Current Buffs");
+							//    foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.CurrentBuffs.Keys)
+							//    {
+							//        Logging.Write("Buff: {0}", Enum.GetName(typeof(SNOPower), item));
+							//    }
+
+
+							//} catch (Exception ex)
+							//{
+							//    Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
+							//}
 
                  }
 

@@ -183,6 +183,10 @@ namespace FunkyTrinity
 					 193077,
 					 //a2 cave slime geyser
 					 218228,
+				// Siegebreaker (96192), Azmodan (89690), Cydea (95250), Heart-thing (193077), Kulle (80509), Small Belial (220160), Big Belial (3349), Diablo 1 (114917), terror Diablo (133562), burrowed horrow worm (219847)
+            96192, 89690, 95250, 193077, 80509, 3349, 114917, 133562,
+             // Uber_ZoltunKulle, Uber_SkeletonKingRed,  Uber_SiegebreakerDemon, Uber_Maghda, Uber_Despair, Uber_Gluttony
+            256508, 255929, 256187, 256189, 256711, 256709,
 				};
 				//Special list of "fallen" which is used to skip blacklisting
 				public static readonly HashSet<int> hashActorSNOSummonedUnit=new HashSet<int>

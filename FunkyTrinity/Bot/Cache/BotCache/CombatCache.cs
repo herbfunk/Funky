@@ -68,6 +68,7 @@ namespace FunkyTrinity
 
 					 internal CacheObject LastCachedTarget { get; set; }
 					 internal List<int> PrioritizedRAGUIDs=new List<int>();
+					 internal List<CacheServerObject> NearbyObstacleObjects=new List<CacheServerObject>();
 					 internal List<CacheAvoidance> TriggeringAvoidances=new List<CacheAvoidance>();
 					 internal List<int> UnitRAGUIDs=new List<int>();
 					 internal List<int> ValidClusterUnits=new List<int>();
@@ -303,6 +304,7 @@ namespace FunkyTrinity
 						  IsKiting=false;
 						  UsesDOTDPSAbility=false;
 						  bCheckGround=false;
+						  NearbyObstacleObjects.Clear();
 					 }
 					 internal void ResetTargetHandling()
 					 {

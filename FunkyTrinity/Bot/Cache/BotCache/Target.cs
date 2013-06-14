@@ -623,7 +623,7 @@ namespace FunkyTrinity
 						  // If we AREN'T getting new targets - find out if we SHOULD because the current unit has died etc.
 						  if (!bShouldRefreshDiaObjects&&CurrentTarget.targetType.Value==TargetType.Unit)
 						  {
-								if (!CurrentTarget.ObjectIsValidForTargeting)
+								if (!CurrentTarget.IsStillValid())
 								{
 									 bShouldRefreshDiaObjects=true;
 								}

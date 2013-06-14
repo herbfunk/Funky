@@ -1140,7 +1140,7 @@ namespace FunkyTrinity
                 Slider sliderEliteRange = new Slider
                 {
                     Width = 100,
-                    Maximum = 75,
+                    Maximum = 150,
                     Minimum = 0,
                     TickFrequency = 5,
                     LargeChange = 5,
@@ -1170,7 +1170,7 @@ namespace FunkyTrinity
                 Slider sliderNonEliteRange = new Slider
                 {
                     Width = 100,
-                    Maximum = 75,
+                    Maximum = 150,
                     Minimum = 0,
                     TickFrequency = 5,
                     LargeChange = 5,
@@ -1230,7 +1230,7 @@ namespace FunkyTrinity
                 Slider sliderShrineRange = new Slider
                 {
                     Width = 100,
-                    Maximum = 70,
+                    Maximum = 75,
                     Minimum = 0,
                     TickFrequency = 5,
                     LargeChange = 5,
@@ -1260,7 +1260,7 @@ namespace FunkyTrinity
                 Slider sliderContainerRange = new Slider
                 {
                     Width = 100,
-                    Maximum = 70,
+                    Maximum = 75,
                     Minimum = 0,
                     TickFrequency = 5,
                     LargeChange = 5,
@@ -1290,7 +1290,7 @@ namespace FunkyTrinity
                 Slider sliderDestructibleRange = new Slider
                 {
                     Width = 100,
-                    Maximum = 70,
+                    Maximum = 75,
                     Minimum = 0,
                     TickFrequency = 5,
                     LargeChange = 5,
@@ -1320,7 +1320,7 @@ namespace FunkyTrinity
                 Slider sliderGoldRange = new Slider
                 {
                     Width = 100,
-                    Maximum = 75,
+                    Maximum = 150,
                     Minimum = 0,
                     TickFrequency = 5,
                     LargeChange = 5,
@@ -1380,7 +1380,7 @@ namespace FunkyTrinity
                 Slider sliderItemRange = new Slider
                 {
                     Width = 100,
-                    Maximum = 75,
+                    Maximum = 150,
                     Minimum = 0,
                     TickFrequency = 5,
                     LargeChange = 5,
@@ -1410,7 +1410,7 @@ namespace FunkyTrinity
                 Slider sliderGoblinRange = new Slider
                 {
                     Width = 100,
-                    Maximum = 75,
+                    Maximum = 150,
                     Minimum = 0,
                     TickFrequency = 5,
                     LargeChange = 5,
