@@ -421,7 +421,7 @@ namespace FunkyTrinity
 						  if (this.LoopsUnseen_>0) return false;
 
 						  //Check if we are doing something important.. if so we only want to check units!
-						  if (Bot.Combat.IsInNonCombatBehavior&&(!this.targetType.HasValue||!(TargetType.Unit|TargetType.Item).HasFlag(this.targetType.Value)))
+						  if (Bot.Combat.IsInNonCombatBehavior&&(!this.targetType.HasValue||!(TargetType.Unit|TargetType.Item|TargetType.Gold|TargetType.Globe).HasFlag(this.targetType.Value)))
 								return false;
 
 						  //Validate refrence still remains

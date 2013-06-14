@@ -238,6 +238,9 @@ namespace FunkyTrinity
 
 								double lootDistance=(Bot.Combat.iCurrentMaxLootRadius+SettingsFunky.ItemRange)*dMultiplier;
 
+								if (Bot.Combat.IsInNonCombatBehavior)
+									 lootDistance=50f;
+
 								if (this.CentreDistance>lootDistance) return false;
 
 						  }
@@ -259,7 +262,13 @@ namespace FunkyTrinity
 										  this.BlacklistFlag=BlacklistType.Temporary;
 										  return false;
 									 }
-									 else if (this.CentreDistance>SettingsFunky.GoldRange)
+
+									 float lootRange=SettingsFunky.GoldRange;
+
+									 if (Bot.Combat.IsInNonCombatBehavior)
+										  lootRange=50f;
+
+										  if (this.CentreDistance>lootRange)
 									 {
 										  this.BlacklistLoops=20;
 										  return false;

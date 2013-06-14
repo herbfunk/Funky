@@ -330,9 +330,9 @@ namespace FunkyTrinity
 								dUseKillRadius+=Bot.Class.NonEliteRange;
 
 
-						  // Safety for Giles own portal-back-to-town for full-backpack
-						  if ((Bot.Combat.IsInNonCombatBehavior)&&dUseKillRadius<75)
-								dUseKillRadius=75;
+						  // Standard 50f range when preforming OOC behaviors!
+						  if (Bot.Combat.IsInNonCombatBehavior)
+								dUseKillRadius=50;
 
 						  return dUseKillRadius;
 					 }
