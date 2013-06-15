@@ -100,7 +100,7 @@ namespace FunkyTrinity
 
 						  if (SettingsFunky.EnableClusteringTargetLogic
 								&&(!SettingsFunky.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>SettingsFunky.IgnoreClusterLowHPValue)
-								&&!Bot.Combat.IsInNonCombatBehavior)
+								&&!Bot.IsInNonCombatBehavior)
 						  {
 								//Check if this unit is valid based on if its contained in valid clusters
 								if (!Bot.Combat.ValidClusterUnits.Contains(this.RAGUID)&&!this.ObjectIsSpecial)
@@ -237,10 +237,10 @@ namespace FunkyTrinity
 					 get
 					 {
 						  //Set our current radius to the settings of profile.
-						  double dUseKillRadius=Bot.Combat.iCurrentMaxKillRadius;
+						  double dUseKillRadius=Bot.iCurrentMaxKillRadius;
 
 						  //Extended Range / Noncombat Behavior?
-						  if ((iKeepKillRadiusExtendedFor>0)||Bot.Combat.IsInNonCombatBehavior)
+						  if ((iKeepKillRadiusExtendedFor>0)||Bot.IsInNonCombatBehavior)
 						  {
 								dUseKillRadius+=SettingsFunky.ExtendedCombatRange;
 
@@ -257,7 +257,7 @@ namespace FunkyTrinity
 								if (dUseKillRadius<=30&&SnoCacheLookup.hashActorSNORanged.Contains(this.SNOID))
 									 dUseKillRadius=30;
 
-								if (this.CentreDistance<=Bot.Class.NonEliteRange)
+								if (this.CentreDistance<=Bot.NonEliteRange)
 									 Bot.Combat.bAnyMobsInCloseRange=true;
 						  }
 
@@ -311,27 +311,27 @@ namespace FunkyTrinity
 
 								//Use a shorter range if not yet noticed..
 								if (this.CurrentHealthPct<=0.10)
-									 dUseKillRadius+=SettingsFunky.TreasureGoblinRange+(SettingsFunky.GoblinPriority*24);
+									 dUseKillRadius+=Bot.TreasureGoblinRange+(SettingsFunky.GoblinPriority*24);
 								else if (this.CurrentHealthPct<=0.99)
-									 dUseKillRadius+=SettingsFunky.TreasureGoblinRange+(SettingsFunky.GoblinPriority*16);
+									 dUseKillRadius+=Bot.TreasureGoblinRange+(SettingsFunky.GoblinPriority*16);
 								else
-									 dUseKillRadius+=SettingsFunky.TreasureGoblinRange+(SettingsFunky.GoblinPriority*12);
+									 dUseKillRadius+=Bot.TreasureGoblinRange+(SettingsFunky.GoblinPriority*12);
 
 								this.ForceLeap=true;
 						  }
 						  // Elitey type mobs and things
 						  else if ((this.IsEliteRareUnique))
 						  {
-								dUseKillRadius+=SettingsFunky.EliteCombatRange;
+								dUseKillRadius+=Bot.EliteRange;
 								this.ForceLeap=true;
 						  }
 						  else
 								//Not Boss, Goblin, Elite/Rare/Unique..
-								dUseKillRadius+=Bot.Class.NonEliteRange;
+								dUseKillRadius+=Bot.NonEliteRange;
 
 
 						  // Standard 50f range when preforming OOC behaviors!
-						  if (Bot.Combat.IsInNonCombatBehavior)
+						  if (Bot.IsInNonCombatBehavior)
 								dUseKillRadius=50;
 
 						  return dUseKillRadius;
@@ -509,15 +509,15 @@ namespace FunkyTrinity
 
 									 // Distance as a percentage of max radius gives a value up to 1000 (1000 would be point-blank range)
 
-									 if (this.RadiusDistance<Bot.Combat.iCurrentMaxKillRadius)
+									 if (this.RadiusDistance<Bot.iCurrentMaxKillRadius)
 									 {
 										  int RangeModifier=1200;
 										  //Increase Distance Modifier if recently kited.
-										  if (Bot.Class.KiteDistance>0&&DateTime.Now.Subtract(Bot.Combat.LastKiteAction).TotalMilliseconds<3000)
+										  if (Bot.KiteDistance>0&&DateTime.Now.Subtract(Bot.Combat.LastKiteAction).TotalMilliseconds<3000)
 												RangeModifier=12000;
 
 
-										  this.Weight+=(RangeModifier*(1-(this.RadiusDistance/Bot.Combat.iCurrentMaxKillRadius)));
+										  this.Weight+=(RangeModifier*(1-(this.RadiusDistance/Bot.iCurrentMaxKillRadius)));
 									 }
 
 									 // Give extra weight to ranged enemies
@@ -759,7 +759,7 @@ namespace FunkyTrinity
 						  if (this.IsBoss||this.IsEliteRareUnique)
 						  {
 								//Ignore Setting?
-								if (SettingsFunky.IgnoreAboveAverageMobs&&this.LastPriortized>1500&&!Bot.Combat.IsInNonCombatBehavior&&!this.IsBoss)
+								if (SettingsFunky.IgnoreAboveAverageMobs&&this.LastPriortized>1500&&!Bot.IsInNonCombatBehavior&&!this.IsBoss)
 									 return false;
 
 								Bot.Combat.bAnyChampionsPresent=true;
@@ -771,7 +771,7 @@ namespace FunkyTrinity
 
 
 						  // Units with very high priority (1900+) allow an extra 50% on the non-elite kill slider range
-						  if (!Bot.Combat.bAnyMobsInCloseRange&&!Bot.Combat.bAnyChampionsPresent&&!Bot.Combat.bAnyTreasureGoblinsPresent&&this.CentreDistance<=(Bot.Class.NonEliteRange*1.5))
+						  if (!Bot.Combat.bAnyMobsInCloseRange&&!Bot.Combat.bAnyChampionsPresent&&!Bot.Combat.bAnyTreasureGoblinsPresent&&this.CentreDistance<=(Bot.NonEliteRange*1.5))
 						  {
 								int iExtraPriority;
 								// Enable extended kill radius for specific unit-types
@@ -843,11 +843,12 @@ namespace FunkyTrinity
 						  try
 						  {
 								this.IsNPC=(base.ref_DiaObject.CommonData.GetAttribute<float>(ActorAttributeType.IsNPC)>0);
+								isNPC=this.IsNPC.Value;
 						  } catch (AccessViolationException)
 						  {
 								Logging.WriteVerbose("Safely Handled Getting Attribute IsNPC for object {0}", this.InternalName);
 						  }
-						  isNPC=this.IsNPC.Value;
+						 
 					 }
 
 
@@ -976,7 +977,7 @@ namespace FunkyTrinity
 					 }
 
 					 //Attackable
-					 if (this.MonsterShielding)
+					 if (this.MonsterShielding||(this.IsGrotesqueActor&&this.CurrentHealthPct.HasValue&&(this.CurrentHealthPct.Value<1d||this.CurrentHealthPct.Value>1d)))
 					 {
 						  try
 						  {
@@ -1220,8 +1221,15 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  return String.Format("{0}\r\n Burrowed{1}/Attackable{2} HP{3}% / MaxHP{4} \r\n PriorityCounter={5} LOSCheck {6} LOSV3 {7}",
-								base.DebugString, this.IsBurrowed.HasValue?this.IsBurrowed.Value.ToString():"", this.IsTargetable.HasValue?this.IsTargetable.Value.ToString():"", this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value.ToString():"", this.MaximumHealth.HasValue?this.MaximumHealth.Value.ToString():"", this.PriorityCounter.ToString(), this.RequiresLOSCheck.ToString(), this.LOSV3.ToString());
+						  return String.Format("{0}\r\n Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} \r\n PriorityCounter={6} ReqLOS={7} LOSV3 {8}",
+								base.DebugString, 
+								this.IsBurrowed.HasValue?this.IsBurrowed.Value.ToString():"", 
+								this.IsTargetable.HasValue?this.IsTargetable.Value.ToString():"", 
+								this.IsAttackable.HasValue?this.IsAttackable.Value.ToString():"",
+								this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value.ToString():"", 
+								this.MaximumHealth.HasValue?this.MaximumHealth.Value.ToString():"", 
+								this.PriorityCounter.ToString(), this.RequiresLOSCheck.ToString(), 
+								this.LOSV3.ToString());
 					 }
 				}
 

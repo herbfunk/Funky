@@ -241,7 +241,7 @@ namespace FunkyTrinity
 								if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(pointVector)) continue;
 
 								//Kiting Check
-								if (kite&&ObjectCache.Objects.IsPointNearbyMonsters(pointVector, Bot.Class.KiteDistance)) continue;
+								if (kite&&ObjectCache.Objects.IsPointNearbyMonsters(pointVector, Bot.KiteDistance)) continue;
 
 								//LOS Check
 								//Melee -- Walkable , Range -- Projectile

@@ -55,7 +55,7 @@ namespace FunkyTrinity
 					 Bot.Target.CurrentTarget=null;
 
 					 //Kill Loot Radius Update
-					 Bot.Combat.UpdateKillLootRadiusValues();
+					 Bot.UpdateKillLootRadiusValues();
 
 					 // Refresh buffs (so we can check for wrath being up to ignore ice balls and anything else like that)
 					 Bot.Class.RefreshCurrentBuffs();
@@ -137,7 +137,7 @@ namespace FunkyTrinity
 					 ObjectCache.Obstacles.AttemptToClearEntries();
 
 					 //Non-Combat behavior we reset temp blacklist so we don't get killed by "ignored" units..
-					 if (Bot.Combat.IsInNonCombatBehavior&&DateTime.Now.Subtract(dateSinceTemporaryBlacklistClear).TotalSeconds>10)
+					 if (Bot.IsInNonCombatBehavior&&DateTime.Now.Subtract(dateSinceTemporaryBlacklistClear).TotalSeconds>10)
 					 {
 						  dateSinceTemporaryBlacklistClear=DateTime.Now;
 						  hashRGUIDTemporaryIgnoreBlacklist=new HashSet<int>();
@@ -411,7 +411,7 @@ namespace FunkyTrinity
 
 										  CacheAvoidance thisAvoidance=thisObstacle as CacheAvoidance;
 
-										  if (Bot.Class.IgnoreAvoidance(thisAvoidance.AvoidanceType)) continue;
+										  if (Bot.IgnoreAvoidance(thisAvoidance.AvoidanceType)) continue;
 
 										  //Only update position of Movement Avoidances!
 										  if (thisAvoidance.Obstacletype.Value==ObstacleType.MovingAvoidance)
@@ -438,6 +438,10 @@ namespace FunkyTrinity
 									 }
 									 else
 									 {
+										  //Add this server object to cell weighting in MGP
+										  mgp.AddCellWeightingObstacle(thisObstacle.SNOID, thisObstacle.CollisionRadius.Value);
+
+										  //Add nearby objects to our collection (used in navblock/obstaclecheck methods to reduce queries)
 										  if (thisObstacle.CentreDistance<25f)
 												Bot.Combat.NearbyObstacleObjects.Add((CacheServerObject)thisObstacle);
 									 }
@@ -489,6 +493,7 @@ namespace FunkyTrinity
 												ObjectCache.Obstacles[tmp_CachedObj.RAGUID]=thisObstacleObj;
 										  }
 
+										  //Add nearby objects to our collection (used in navblock/obstaclecheck methods to reduce queries)
 										  if (thisObstacleObj.CentreDistance<=25f)
 												Bot.Combat.NearbyObstacleObjects.Add((CacheServerObject)thisObstacleObj);
 									 }

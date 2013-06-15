@@ -242,7 +242,7 @@ namespace FunkyTrinity
 					 &&(Bot.Character.dCurrentEnergy>=75||Bot.Class.RuneIndexCache[SNOPower.Monk_WaveOfLight]==3&&Bot.Character.dCurrentEnergy>=40)
 					 &&Bot.Combat.iAnythingWithinRange[RANGE_12]>2)
 				{
-					 System.Collections.Generic.List<Cluster> clusters=ObjectCache.Objects.Clusters(7d, 35f, 3, true);
+					 System.Collections.Generic.List<Cluster> clusters=Clusters(7d, 35f, 3, true);
 					 if (clusters.Count>0)
 					 {
 						  Vector3 Center=clusters[0].ListUnits[0].Position;

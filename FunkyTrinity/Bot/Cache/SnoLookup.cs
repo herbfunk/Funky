@@ -140,7 +140,12 @@ namespace FunkyTrinity
 					 //a2 sand dwellers (big guys who can reflect range missles)
 					 5191, 5192, 5193, 5194,
 				};
+				public static readonly HashSet<int> hashActorSNOCorpulent=new HashSet<int>
+				{
+					 //grotesque Exploding Guys
+					 3847,3848,3849,3850,218308,218405,113994,195639,
 
+				};
 				public static readonly HashSet<int> hashActorSNOSucideBomberUnits=new HashSet<int>
 				{
 					 //Lunitics

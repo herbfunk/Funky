@@ -160,7 +160,7 @@ namespace FunkyTrinity
 									 }
 									 break;
 								case TargetType.Globe:
-									 if (Bot.Character.dCurrentHealthPct>Bot.Class.EmergencyHealthGlobeLimit)
+									 if (Bot.Character.dCurrentHealthPct>Bot.EmergencyHealthGlobeLimit)
 									 {
 										  this.Weight=0;
 									 }
@@ -220,7 +220,7 @@ namespace FunkyTrinity
 									 return false;
 								}
 
-								if (Bot.Combat.IsInNonCombatBehavior&&TownRunManager.bFailedToLootLastItem)
+								if (Bot.IsInNonCombatBehavior&&TownRunManager.bFailedToLootLastItem)
 									 return false;
 
 
@@ -236,9 +236,9 @@ namespace FunkyTrinity
 									 dMultiplier+=0.45d;
 								}
 
-								double lootDistance=(Bot.Combat.iCurrentMaxLootRadius+SettingsFunky.ItemRange)*dMultiplier;
+								double lootDistance=(Bot.iCurrentMaxLootRadius+Bot.ItemRange)*dMultiplier;
 
-								if (Bot.Combat.IsInNonCombatBehavior)
+								if (Bot.IsInNonCombatBehavior)
 									 lootDistance=50f;
 
 								if (this.CentreDistance>lootDistance) return false;
@@ -263,9 +263,9 @@ namespace FunkyTrinity
 										  return false;
 									 }
 
-									 float lootRange=SettingsFunky.GoldRange;
+									 float lootRange=Bot.GoldRange;
 
-									 if (Bot.Combat.IsInNonCombatBehavior)
+									 if (Bot.IsInNonCombatBehavior)
 										  lootRange=50f;
 
 										  if (this.CentreDistance>lootRange)
@@ -278,7 +278,7 @@ namespace FunkyTrinity
 								{
 									 //GLOBE
 									 // Ignore it if it's not in range yet
-									 if (this.CentreDistance>Bot.Combat.iCurrentMaxLootRadius||this.CentreDistance>SettingsFunky.GlobeRange)
+									 if (this.CentreDistance>Bot.iCurrentMaxLootRadius||this.CentreDistance>Bot.GlobeRange)
 									 {
 										  this.BlacklistLoops=20;
 										  return false;

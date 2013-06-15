@@ -80,9 +80,9 @@ namespace FunkyTrinity
 						  !Bot.Target.CurrentTarget.IsTreasureGoblin&&
 						  Bot.Character.dCurrentEnergy>=50&&PowerManager.CanCast(SNOPower.Wizard_Meteor))
 					 {
-						  if (ObjectCache.Objects.Clusters(4d, 45f, 3, true).Count>0)
+						  if (Clusters(4d, 45f, 3, true).Count>0)
 						  {
-								Vector3 Location=ObjectCache.Objects.Clusters()[0].ListUnits[0].Position;
+								Vector3 Location=Clusters()[0].ListUnits[0].Position;
 								return new Ability(SNOPower.Wizard_Meteor, 45f, Location, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
 						  }
 
@@ -163,9 +163,9 @@ namespace FunkyTrinity
 						 Bot.Character.dCurrentEnergy>=15&&AbilityUseTimer(SNOPower.Wizard_Hydra)
 						 &&!Bot.Target.CurrentTarget.IsTreasureGoblin)
 					 {
-						  if (ObjectCache.Objects.Clusters(10d, 45f, 3, true).Count>0)
+						  if (Clusters(10d, 45f, 3, true).Count>0)
 						  {
-								Vector3 Location=ObjectCache.Objects.Clusters()[0].ListUnits[0].Position;
+								Vector3 Location=Clusters()[0].ListUnits[0].Position;
 								return new Ability(SNOPower.Wizard_Hydra, 45f, Location, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
 						  }
 						  else if (Bot.Target.CurrentTarget.ObjectIsSpecial)
@@ -234,7 +234,7 @@ namespace FunkyTrinity
 					 #endregion
 					 #region Explosive Blast
 					 // Explosive Blast SPAM when enough AP, blow erry thing up, nah mean
-					 if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Wizard_ExplosiveBlast)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=20&&
+					 if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Wizard_ExplosiveBlast)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=20&&
 						 ((Bot.Combat.iElitesWithinRange[RANGE_25]>=1||Bot.Combat.iAnythingWithinRange[RANGE_25]>=1||Bot.Character.dCurrentHealthPct<=0.7)&&Bot.Target.CurrentTarget.RadiusDistance<=12f)&&
 						 PowerManager.CanCast(SNOPower.Wizard_ExplosiveBlast))
 					 {
@@ -249,7 +249,7 @@ namespace FunkyTrinity
 						 HotbarAbilitiesContainsPower(SNOPower.Wizard_SpectralBlade)||HotbarAbilitiesContainsPower(SNOPower.Wizard_Electrocute));
 					 #region Energy Twister
 					 // Energy Twister SPAMS whenever 35 or more ap to generate Arcane Power
-					 if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_EnergyTwister)&&
+					 if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_EnergyTwister)&&
 						  // If using storm chaser, then force a signature spell every 1 stack of the buff, if we have a signature spell
 						 (!bHasSignatureSpell||GetBuffStacks(SNOPower.Wizard_EnergyTwister)<1)&&
 						 (Bot.Combat.iElitesWithinRange[RANGE_30]>=1||Bot.Combat.iAnythingWithinRange[RANGE_25]>=1||Bot.Target.CurrentTarget.RadiusDistance<=12f)&&
@@ -264,7 +264,7 @@ namespace FunkyTrinity
 					 #endregion
 					 #region Disintegrate
 					 // Disintegrate
-					 if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Disintegrate)&&Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.targetType.Value==TargetType.Unit&&
+					 if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Disintegrate)&&Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.targetType.Value==TargetType.Unit&&
 						 ((Bot.Character.dCurrentEnergy>=20&&!Bot.Character.bWaitingForReserveEnergy)||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount))
 					 {
 						  float fThisRange=35f;
@@ -275,7 +275,7 @@ namespace FunkyTrinity
 					 #endregion
 					 #region Arcane Orb
 					 // Arcane Orb
-					 if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_ArcaneOrb)&&
+					 if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_ArcaneOrb)&&
 						 ((Bot.Character.dCurrentEnergy>=35&&!Bot.Character.bWaitingForReserveEnergy)||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount)&&
 						 AbilityUseTimer(SNOPower.Wizard_ArcaneOrb))
 					 {
@@ -283,9 +283,9 @@ namespace FunkyTrinity
 						  if (SettingsFunky.Class.bEnableCriticalMass)
 								fThisRange=20f;
 
-						  if (ObjectCache.Objects.Clusters(4d, fThisRange, 2, true).Count>0)
+						  if (Clusters(4d, fThisRange, 2, true).Count>0)
 						  {
-								int ACD=ObjectCache.Objects.Clusters()[0].ListUnits[0].AcdGuid.Value;
+								int ACD=Clusters()[0].ListUnits[0].AcdGuid.Value;
 								return new Ability(SNOPower.Wizard_ArcaneOrb, fThisRange, vNullLocation, -1, ACD, 1, 1, USE_SLOWLY);
 						  }
 						  else if (Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial)
@@ -296,7 +296,7 @@ namespace FunkyTrinity
 					 #endregion
 					 #region Arcane Torrent
 					 // Arcane Torrent
-					 if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_ArcaneTorrent)&&Bot.Target.CurrentTarget!=null&&
+					 if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_ArcaneTorrent)&&Bot.Target.CurrentTarget!=null&&
 						 ((Bot.Character.dCurrentEnergy>=16&&!Bot.Character.bWaitingForReserveEnergy)||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount)&&
 						 AbilityUseTimer(SNOPower.Wizard_ArcaneTorrent))
 					 {
@@ -382,10 +382,10 @@ namespace FunkyTrinity
 					 #endregion
 					 #region Arcane Blast
 					 // Arcane Blast
-					 if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Archon_ArcaneBlast)&&
+					 if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Archon_ArcaneBlast)&&
 						 AbilityUseTimer(SNOPower.Wizard_Archon_ArcaneBlast)&&PowerManager.CanCast(SNOPower.Wizard_Archon_ArcaneBlast))
 					 {
-						  if (ObjectCache.Objects.Clusters(3d, 10f, 2, true).Count>0)
+						  if (Bot.Combat.iAnythingWithinRange[RANGE_6]>2||Bot.Combat.iElitesWithinRange[RANGE_6]>0||(Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=8f))
 						  {
 								return new Ability(SNOPower.Wizard_Archon_ArcaneBlast, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
 						  }
@@ -393,7 +393,7 @@ namespace FunkyTrinity
 					 #endregion
 					 #region Arcane Strike
 					 // Arcane Strike (Arcane Strike) Rapid Spam at close-range only
-					 if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Archon_ArcaneStrike)&&Bot.Combat.iAnythingWithinRange[RANGE_12]>2&&Bot.Target.CurrentTarget!=null)
+					 if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Archon_ArcaneStrike)&&Bot.Combat.iAnythingWithinRange[RANGE_12]>2&&Bot.Target.CurrentTarget!=null)
 					 {
 						  return new Ability(SNOPower.Wizard_Archon_ArcaneStrike, 11f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 1, 1, USE_SLOWLY);
 					 }

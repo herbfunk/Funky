@@ -208,12 +208,12 @@ namespace FunkyTrinity
 						  float centreDistance=this.CentreDistance;
 
 						  // Ignore it if it's not in range yet
-						  if (centreDistance>Bot.Combat.iCurrentMaxLootRadius)
+						  if (centreDistance>Bot.iCurrentMaxLootRadius)
 						  {
 								//Containers that are Rep Chests within 75f, or shrines within open container range setting are not ignored here.
 								if ((this.targetType==TargetType.Container&&
 									(this.IsResplendantChest&&SettingsFunky.UseExtendedRangeRepChest&&centreDistance<75f))||
-									this.targetType==TargetType.Shrine&&centreDistance<SettingsFunky.ShrineRange) //&&centreDistance<(settings.iContainerOpenRange*1.25))
+									this.targetType==TargetType.Shrine&&centreDistance<Bot.ShrineRange) //&&centreDistance<(settings.iContainerOpenRange*1.25))
 								{
 
 								}
@@ -296,7 +296,7 @@ namespace FunkyTrinity
 									 }
 
 									 //Ignoring..?
-									 if (SettingsFunky.ShrineRange<=0||IgnoreThis)
+									 if (Bot.ShrineRange<=0||IgnoreThis)
 									 {
 										  this.NeedsRemoved=true;
 										  this.BlacklistFlag=BlacklistType.Permanent;
@@ -361,7 +361,7 @@ namespace FunkyTrinity
 
 
 									 if (this.targetType.Value==TargetType.Destructible&&
-										 this.CentreDistance>(Bot.Class.DestructibleRange+(this.Radius)))
+										 this.CentreDistance>(Bot.DestructibleRange+(this.Radius)))
 									 {
 										  return false;
 									 }
@@ -397,7 +397,7 @@ namespace FunkyTrinity
 									 iMinDistance=0f;
 									 // Any physics mesh? Give a minimum distance of 5 feet
 									 if (this.PhysicsSNO.HasValue&&this.PhysicsSNO>0)
-										  iMinDistance=Bot.Class.ContainerRange;
+										  iMinDistance=Bot.ContainerRange;
 
 									 // Superlist for rare chests etc.
 
@@ -651,14 +651,7 @@ namespace FunkyTrinity
 					 float fRangeRequired=0f;
 					 float fDistanceReduction=0f;
 
-					 fRangeRequired=Bot.Combat.powerPrime.Power==SNOPower.None?6f:Bot.Combat.powerPrime.MinimumRange;
-
-					 if (dictSNOExtendedDestructRange.ContainsKey(this.SNOID))
-					 {
-						  fRangeRequired=this.CollisionRadius.Value;
-					 }
-					 else
-						  fRangeRequired=this.ActorSphereRadius.Value;
+					 fRangeRequired=this.CollisionRadius.Value;
 
 					 //Increase Range for Ranged Classes
 					 if (!Bot.Class.IsMeleeClass)
@@ -672,7 +665,7 @@ namespace FunkyTrinity
 					 if (fDistanceReduction<=0f)
 						  fDistanceReduction=0f;
 
-					 if (GridPoint.GetDistanceBetweenPoints(Bot.Character.PointPosition, this.Position)<=1.5f)
+					 if (this.RadiusDistance<=2.5f)
 						  fDistanceReduction+=1f;
 
 					 base.DistanceFromTarget=Vector3.Distance(Bot.Character.Position, this.Position)-fDistanceReduction;
@@ -770,7 +763,7 @@ namespace FunkyTrinity
 					 {
 						  // Treat the distance as closer based on the radius of the object
 						  //fDistanceReduction=ObjectData.Radius;
-						  fRangeRequired=8f;
+						  fRangeRequired=this.CollisionRadius.Value;
 
 						  if (Bot.Combat.bForceCloseRangeTarget)
 								fRangeRequired-=2f;
@@ -781,7 +774,7 @@ namespace FunkyTrinity
 								fRangeRequired=(float)iTempRange;
 						  }
 						  // Treat the distance as closer if the X & Y distance are almost point-blank, for objects
-						  if (Bot.Character.Position.Distance(this.Position)<=1.5f)
+						  if (this.RadiusDistance<=2f)
 								fDistanceReduction+=1f;
 
 						  base.DistanceFromTarget=Vector3.Distance(Bot.Character.Position, this.Position)-fDistanceReduction;

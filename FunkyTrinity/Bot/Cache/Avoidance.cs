@@ -145,7 +145,7 @@ namespace FunkyTrinity
                                                                                       
                 {AvoidanceType.BeeProjectile, 2},{AvoidanceType.LacuniBomb,2},{AvoidanceType.ShamanFireBall,2}, {AvoidanceType.SuccubusProjectile, 2},
 
-					 {AvoidanceType.PoisonTree, 14},{AvoidanceType.PlagueHand, 15},{AvoidanceType.MageFirePool, 10},	
+					 {AvoidanceType.PoisonTree, 13},{AvoidanceType.PlagueHand, 15},{AvoidanceType.MageFirePool, 10},	
   
 					 {AvoidanceType.AzmodanPool, 54},{AvoidanceType.AzmodanFireball, 16},{AvoidanceType.AzmodanBodies, 47},  
 					 {AvoidanceType.BelialGround, 25},
@@ -206,7 +206,7 @@ namespace FunkyTrinity
                                                                                       
                 {AvoidanceType.BeeProjectile,0.50},{AvoidanceType.LacuniBomb,0.25},{AvoidanceType.ShamanFireBall,0.10},{AvoidanceType.SuccubusProjectile,0.25},
 
-					 {AvoidanceType.PoisonTree, 0.9},{AvoidanceType.PlagueHand, 1},{AvoidanceType.MageFirePool, 0.95},	
+					 {AvoidanceType.PoisonTree, 1},{AvoidanceType.PlagueHand, 1},{AvoidanceType.MageFirePool, 0.95},	
   
 					 {AvoidanceType.AzmodanPool, 1},{AvoidanceType.AzmodanFireball, 1},{AvoidanceType.AzmodanBodies, 1},  
 					 {AvoidanceType.BelialGround, 1},

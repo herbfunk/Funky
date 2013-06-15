@@ -26,8 +26,8 @@ namespace FunkyTrinity
                      Zeta.Common.Logging.WriteVerbose("Dumping Object Cache");
                      try
                      {
-
-                         foreach (var item in ObjectCache.Objects.Values)
+								 var SortedValues=ObjectCache.Objects.Values.OrderBy(obj => obj.targetType.Value).ThenBy(obj=>obj.CentreDistance);
+								 foreach (var item in SortedValues)
                          {
                              LBDebug.Items.Add(item.DebugString);
                          }
@@ -43,8 +43,10 @@ namespace FunkyTrinity
                      LBDebug.Items.Add(ObjectCache.Obstacles.DumpDebugInfo());
 
                      Zeta.Common.Logging.WriteVerbose("Dumping Obstacle Cache");
+
                      try
                      {
+								 var SortedValues=ObjectCache.Obstacles.Values.OrderBy(obj => obj.Obstacletype.Value).ThenBy(obj => obj.CentreDistance);
                          foreach (var item in ObjectCache.Obstacles)
                          {
                              LBDebug.Items.Add(item.Value.DebugString);
@@ -65,6 +67,7 @@ namespace FunkyTrinity
                      Zeta.Common.Logging.WriteVerbose("Dumping SNO Cache");
                      try
                      {
+								 var SortedValues=ObjectCache.cacheSnoCollection.Values.OrderBy(obj => obj.SNOID);
                          foreach (var item in ObjectCache.cacheSnoCollection)
                          {
                              LBDebug.Items.Add(item.Value.DebugString);
@@ -87,41 +90,30 @@ namespace FunkyTrinity
                  }
                  else if (btnsender.Name == "TEST")
                  {
-
 							try
 							{
-								 Zeta.Common.ScriptManager.Init(typeof(Funky));
-								 string test="test";
-								 Zeta.Common.ScriptManager.GetStatement("Funky.Log(null)").Invoke();
+								 if (Bot.Class==null)
+									  return;
+
+								 Logging.Write("Character Information");
+								 Logging.Write("Hotbar Abilities");
+								 foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.HotbarAbilities)
+								 {
+									  Logging.Write("{0} with current rune index {1}", item.ToString(), Bot.Class.RuneIndexCache.ContainsKey(item)?Bot.Class.RuneIndexCache[item].ToString():"none");
+								 }
+								 Bot.Character.UpdateAnimationState();
+								 Logging.Write("State: {0} -- SNOAnim {1}", Bot.Character.CurrentAnimationState.ToString(), Bot.Character.CurrentSNOAnim.ToString());
+								 Logging.Write("Current Buffs");
+								 foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.CurrentBuffs.Keys)
+								 {
+									  Logging.Write("Buff: {0}", Enum.GetName(typeof(SNOPower), item));
+								 }
+
 
 							} catch (Exception ex)
 							{
-								 Logging.Write("Exception occured {0}", ex.Message);
+								 Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
 							}
-							//try
-							//{
-							//    if (Bot.Class==null)
-							//        return;
-
-							//    Logging.Write("Character Information");
-							//    Logging.Write("Hotbar Abilities");
-							//    foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.HotbarAbilities)
-							//    {
-							//        Logging.Write("{0} with current rune index {1}", item.ToString(), Bot.Class.RuneIndexCache.ContainsKey(item)?Bot.Class.RuneIndexCache[item].ToString():"none");
-							//    }
-							//    Bot.Character.UpdateAnimationState();
-							//    Logging.Write("State: {0} -- SNOAnim {1}", Bot.Character.CurrentAnimationState.ToString(), Bot.Character.CurrentSNOAnim.ToString());
-							//    Logging.Write("Current Buffs");
-							//    foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.CurrentBuffs.Keys)
-							//    {
-							//        Logging.Write("Buff: {0}", Enum.GetName(typeof(SNOPower), item));
-							//    }
-
-
-							//} catch (Exception ex)
-							//{
-							//    Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
-							//}
 
                  }
 

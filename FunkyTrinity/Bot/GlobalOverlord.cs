@@ -117,10 +117,10 @@ namespace FunkyTrinity
 						  //
 
 						  Logging.WriteVerbose("Current Profile Behavior is OOC Tag");
-						  Bot.Character.IsRunningTownPortalBehavior=true;
+						  Bot.Character.IsRunningOOCBehavior=true;
 					 }
 					 else
-						  Bot.Character.IsRunningTownPortalBehavior=false;
+						  Bot.Character.IsRunningOOCBehavior=false;
 				}
 
 				// Should we refresh target list?
@@ -172,7 +172,7 @@ namespace FunkyTrinity
 					 return false;
 				}
 				// Pop a potion when necessary
-				if (Bot.Character.dCurrentHealthPct<=Bot.Class.EmergencyHealthPotionLimit)
+				if (Bot.Character.dCurrentHealthPct<=Bot.EmergencyHealthPotionLimit)
 				{
 					 if (!Bot.Character.bIsIncapacitated&&AbilityUseTimer(SNOPower.DrinkHealthPotion))
 					 {

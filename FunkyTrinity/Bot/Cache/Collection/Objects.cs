@@ -46,7 +46,7 @@ namespace FunkyTrinity
 
 					 public string DumpDebugInfo()
 					 {
-						  string s="[Object Cache] Total: ["+Count+"] - Units ("+Bot.Combat.UnitRAGUIDs.Count+") ["+Values.OfType<CacheUnit>().Count()+"] Items ["+Values.OfType<CacheItem>().Count()+"]"+" Gizmos ["+Values.OfType<CacheGizmo>().Count()+"]\r\n";
+						  string s="[Object Cache] Total: ["+Count+"] - Units ["+Values.OfType<CacheUnit>().Count()+"] Items ["+Values.OfType<CacheItem>().Count()+"]"+" Gizmos ["+Values.OfType<CacheGizmo>().Count()+"]\r\n";
 						  s+="Maximum Health Average: "+this.MaximumHitPointAverage.ToString()+"  using "+HealthEntriesForAverageValue.Count.ToString()+" entries";
 
 						  Logging.WriteVerbose(s);
@@ -151,30 +151,7 @@ namespace FunkyTrinity
 						  }
 					 }
 
-					 private DateTime lastClusterComputed=DateTime.Today;
 
-
-					 private List<Cluster> LC_=new List<Cluster>();
-					 //Cache last filtered list generated
-					 private List<Cluster> LastClusterList=new List<Cluster>();
-					 public List<Cluster> Clusters(double Distance=12d, float MaxDistanceFromBot=50f, int MinUnitCount=1, bool ignoreFullyNonAttackable=true)
-					 {
-						  //only run Kmeans every 200ms or when cache is empty!
-						  if (DateTime.Now.Subtract(lastClusterComputed).TotalMilliseconds>150)
-						  {
-								LastClusterList=Bot.Combat.RunKMeans(MinUnitCount, Distance, MaxDistanceFromBot);
-								
-
-								//Sort by distance -- reverse to get nearest unit First
-								if (LastClusterList.Count>0)
-								{
-									 LastClusterList=LastClusterList.OrderBy(o => o.NearestMonsterDistance).ToList();
-									 LastClusterList.First().ListUnits.Sort();
-									 LastClusterList.First().ListUnits.Reverse();
-								}
-						  }
-						  return LastClusterList;
-					 }
 
 					 public bool IsPointNearbyMonsters(Vector3 Vector, float Range=1f)
 					 {

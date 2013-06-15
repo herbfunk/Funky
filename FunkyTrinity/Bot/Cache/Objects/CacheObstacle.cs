@@ -281,7 +281,7 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  return !(Bot.Class.IgnoreAvoidance(AvoidanceType));
+						  return !(Bot.IgnoreAvoidance(AvoidanceType));
 					 }
 				}
 
@@ -290,7 +290,7 @@ namespace FunkyTrinity
 					 get
 					 {
 						  return ((SettingsFunky.AttemptAvoidanceMovements||Bot.Combat.CriticalAvoidance)
-									 &&Bot.Class.AvoidancesHealth.ContainsKey(this.AvoidanceType)&&Bot.Class.AvoidancesHealth[this.AvoidanceType]>0d);
+									 &&Bot.AvoidancesHealth.ContainsKey(this.AvoidanceType)&&Bot.AvoidancesHealth[this.AvoidanceType]>0d);
 					 }
 				}
 

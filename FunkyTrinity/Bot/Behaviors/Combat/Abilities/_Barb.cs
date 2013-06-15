@@ -104,7 +104,7 @@ namespace FunkyTrinity
 						HotbarAbilitiesContainsPower(SNOPower.Barbarian_Whirlwind))&&
 						(!Bot.Combat.bAnyBossesInRange||
 						HotbarAbilitiesContainsPower(SNOPower.Barbarian_Whirlwind))
-								&&((ObjectCache.Objects.Clusters(12d, 45f, 3).Any(c => c.EliteCount>2))))) //find any with at least 3.)))&&
+								&&((Clusters(12d, 45f, 3).Any(c => c.EliteCount>2))))) //find any with at least 3.)))&&
 					 // Don't still have the buff
 					&&!HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)&&
 					AbilityUseTimer(SNOPower.Barbarian_WrathOfTheBerserker, true)&&
@@ -347,9 +347,9 @@ namespace FunkyTrinity
 					 {
 						  return new Ability(SNOPower.Barbarian_SeismicSlam, 40f, vNullLocation, -1, thisCacheUnitObj.AcdGuid.Value, 2, 2, USE_SLOWLY);
 					 }
-					 else if (ObjectCache.Objects.Clusters(ClusterDist, 40f, 2).Count>0)
+					 else if (Clusters(ClusterDist, 40f, 2).Count>0)
 					 {
-						  ACDGuid=ObjectCache.Objects.Clusters(MinUnitCount: 2)[0].CurrentValidUnit.AcdGuid.Value;
+						  ACDGuid=Clusters(MinUnitCount: 2)[0].CurrentValidUnit.AcdGuid.Value;
 						  return new Ability(SNOPower.Barbarian_SeismicSlam, 40f, vNullLocation, -1, ACDGuid, 2, 2, USE_SLOWLY);
 					 }
 				}
@@ -477,9 +477,9 @@ namespace FunkyTrinity
 					 else
 					 {
 
-						  if (ObjectCache.Objects.Clusters(ClusterDist, Range, 2).Count>0)
+						  if (Clusters(ClusterDist, Range, 2).Count>0)
 						  {
-								ACDGuid=ObjectCache.Objects.Clusters(MinUnitCount: 2)[0].CurrentValidUnit.AcdGuid.Value;
+								ACDGuid=Clusters(MinUnitCount: 2)[0].CurrentValidUnit.AcdGuid.Value;
 
 								return new Ability(SNOPower.Barbarian_HammerOfTheAncients, 0f, vNullLocation, Bot.Character.iCurrentWorldID, ACDGuid, 1, 2, USE_SLOWLY);
 						  }

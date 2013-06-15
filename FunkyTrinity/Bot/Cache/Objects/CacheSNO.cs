@@ -434,6 +434,7 @@ namespace FunkyTrinity
 				public bool IsStealthableUnit { get { return SnoCacheLookup.hashActorSNOStealthUnits.Contains(SNOID); } }
 				public bool IsBurrowableUnit { get { return SnoCacheLookup.hashActorSNOBurrowableUnits.Contains(SNOID); } }
 				public bool IsSucideBomber { get { return SnoCacheLookup.hashActorSNOSucideBomberUnits.Contains(SNOID); } }
+				public bool IsGrotesqueActor { get { return SnoCacheLookup.hashActorSNOCorpulent.Contains(SNOID); } }
 				#endregion
 
 				public bool ContainsNullValues()
@@ -566,7 +567,7 @@ namespace FunkyTrinity
 										  AvoidanceType AT=FindAvoidanceUsingSNOID(this.SNOID);
 
 										  //Check if avoidance is enabled or if the avoidance type is set to 0
-										  if (!SettingsFunky.AttemptAvoidanceMovements||AT!=AvoidanceType.Unknown&&Bot.Class.IgnoringAvoidanceType(AT))
+										  if (!SettingsFunky.AttemptAvoidanceMovements||AT!=AvoidanceType.Unknown&&Bot.IgnoringAvoidanceType(AT))
 										  {
 												AddObjectToBlacklist(raguid, BlacklistType.Temporary);
 												return false;
@@ -677,7 +678,7 @@ namespace FunkyTrinity
 													 //Use unknown since we lookup SNO ID for server prop related objects.
 													 this.targetType=TargetType.None;
 												}
-												else if (Bot.Class.AvoidancesHealth.ContainsKey(T))
+												else if (Bot.AvoidancesHealth.ContainsKey(T))
 												{
 													 Logging.WriteVerbose("Found Avoidance not recongized by SNO! Name {0} SNO {1}", TestString, this.SNOID);
 													 hashAvoidanceSNOList.Add(this.SNOID);

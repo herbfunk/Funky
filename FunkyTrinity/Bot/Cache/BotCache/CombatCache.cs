@@ -72,9 +72,12 @@ namespace FunkyTrinity
 					 internal List<CacheAvoidance> TriggeringAvoidances=new List<CacheAvoidance>();
 					 internal List<int> UnitRAGUIDs=new List<int>();
 					 internal List<int> ValidClusterUnits=new List<int>();
+
+
 					 internal List<Cluster> CurrentTargetClusters=new List<Cluster>();
 					 internal DateTime LastClusterTargetLogicRefresh=DateTime.Today;
 
+					 //This is used during Ability Selection -- we reuse the targeting cluster data if possible!
 					 internal List<Cluster> RunKMeans(int MinUnitCount=1, double Distance=5d, float DistanceFromBot=25f)
 					 {
 						  List<CacheUnit> objects=new List<CacheUnit>();
@@ -83,7 +86,7 @@ namespace FunkyTrinity
 						  if (!SettingsFunky.EnableClusteringTargetLogic&&DateTime.Now.Subtract(LastClusterTargetLogicRefresh).TotalMilliseconds>200)
 						  {
 								LastClusterTargetLogicRefresh=DateTime.Now;
-								List<CacheObject> listObjectUnits=Bot.Target.ValidObjects.Where(u => UnitRAGUIDs.Contains(u.RAGUID)&&u.CentreDistance<=DistanceFromBot).ToList();
+								List<CacheObject> listObjectUnits=Bot.ValidObjects.Where(u => UnitRAGUIDs.Contains(u.RAGUID)&&u.CentreDistance<=DistanceFromBot).ToList();
 
 								if (listObjectUnits.Count>0)
 								{
@@ -104,6 +107,36 @@ namespace FunkyTrinity
 
 
 						  return RunKmeans<CacheUnit>(objects, Distance).Where(clusters => clusters.RAGUIDS.Count>=MinUnitCount).ToList();
+					 }
+
+
+					 internal void UpdateTargetClusteringVariables()
+					 {
+						  //Clear Clusters and Unit collection
+						  CurrentTargetClusters=new List<Cluster>();
+						  ValidClusterUnits=new List<int>();
+
+						  //Check if there are enough units present currently..
+						  if (UnitRAGUIDs.Count>=SettingsFunky.ClusterMinimumUnitCount)
+						  {
+								//Get unit objects only!
+								List<CacheObject> listObjectUnits=Bot.ValidObjects.Where(u => Bot.Combat.UnitRAGUIDs.Contains(u.RAGUID)).ToList();
+
+								//Make sure there are units before we continue!
+								if (listObjectUnits.Count>0)
+								{
+									 //Update Cluster Collection
+									 CurrentTargetClusters=RunKmeans(listObjectUnits, SettingsFunky.ClusterDistance);
+									 LastClusterTargetLogicRefresh=DateTime.Now;
+
+									 //Add each RAGUID to collection only if clusters contained units meets minimum setting
+									 foreach (var item in CurrentTargetClusters)
+									 {
+										  if (item.ListUnits.Count>=SettingsFunky.ClusterMinimumUnitCount)
+												ValidClusterUnits.AddRange(item.RAGUIDS);
+									 }
+								}
+						  }
 					 }
 
 					 #region Movement
@@ -152,15 +185,7 @@ namespace FunkyTrinity
 					 // This lets us know if there is a target but it's in avoidance so we can just "stay put" until avoidance goes
 					 internal bool bStayPutDuringAvoidance=false;
 
-					 internal void UpdateAvoidKiteRates()
-					 {
-						  double extraWaitTime=SettingsFunky.AvoidanceRecheckMaximumRate*Bot.Character.dCurrentHealthPct;
-						  if (extraWaitTime<SettingsFunky.AvoidanceRecheckMinimumRate) extraWaitTime=SettingsFunky.AvoidanceRecheckMinimumRate;
-						  Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=(int)extraWaitTime;
 
-						  extraWaitTime=MathEx.Random(SettingsFunky.KitingRecheckMinimumRate, SettingsFunky.KitingRecheckMaximumRate)*Bot.Character.dCurrentHealthPct;
-						  Bot.Combat.iMillisecondsCancelledKiteMoveFor=(int)extraWaitTime;
-					 }
 					 #endregion
 
 
@@ -243,54 +268,10 @@ namespace FunkyTrinity
 					 internal bool bCheckGround=false;
 
 
-					 internal float iCurrentMaxKillRadius=0f;
-					 internal float iCurrentMaxLootRadius=0f;
-					 internal void UpdateKillLootRadiusValues()
-					 {
-						  iCurrentMaxKillRadius=Zeta.CommonBot.Settings.CharacterSettings.Instance.KillRadius;
-						  iCurrentMaxLootRadius=Zeta.CommonBot.Settings.CharacterSettings.Instance.LootRadius;
-						  // Not allowed to kill monsters due to profile/routine/combat targeting settings - just set the kill range to a third
-						  if (!ProfileManager.CurrentProfile.KillMonsters)
-						  {
-								iCurrentMaxKillRadius/=3;
-						  }
-						  // Always have a minimum kill radius, so we're never getting whacked without retaliating
-						  if (iCurrentMaxKillRadius<10||SettingsFunky.IgnoreCombatRange)
-								iCurrentMaxKillRadius=10;
-
-						  if (shouldPreformOOCItemIDing||FunkyTPBehaviorFlag||TownRunManager.bWantToTownRun)
-								iCurrentMaxKillRadius=50;
-
-						  // Not allowed to loots due to profile/routine/loot targeting settings - just set range to a quarter
-						  if (!ProfileManager.CurrentProfile.PickupLoot)
-						  {
-								iCurrentMaxLootRadius/=4;
-						  }
-
-						  //Ignore Loot Range Setting
-						  if (SettingsFunky.IgnoreLootRange)
-								iCurrentMaxLootRadius=10;
 
 
-						  // Counter for how many cycles we extend or reduce our attack/kill radius, and our loot radius, after a last kill
-						  if (iKeepKillRadiusExtendedFor>0)
-								iKeepKillRadiusExtendedFor--;
-						  if (iKeepLootRadiusExtendedFor>0)
-								iKeepLootRadiusExtendedFor--;
-					 }
 
 
-					 ///<summary>
-					 ///Checks behavioral flags that are considered OOC/Non-Combat
-					 ///</summary>
-					 internal bool IsInNonCombatBehavior
-					 {
-						  get
-						  {
-								//OOC IDing, Town Portal Casting, Town Run
-								return (Bot.Character.IsRunningTownPortalBehavior||shouldPreformOOCItemIDing||FunkyTPBehaviorFlag||TownRunManager.bWantToTownRun);
-						  }
-					 }
 
 
 					 internal void Reset()

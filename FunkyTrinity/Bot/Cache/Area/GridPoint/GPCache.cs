@@ -254,7 +254,7 @@ namespace FunkyTrinity
 					 if (!Bot.Combat.TravellingAvoidance&&DateTime.Now.Subtract(lastFoundSafeSpot).TotalMilliseconds<=600
 						&&vlastSafeSpot!=vNullLocation
 						&&(!ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(vlastSafeSpot))
-						  &&(!kiting||!ObjectCache.Objects.IsPointNearbyMonsters(vlastSafeSpot, Bot.Class.KiteDistance)))
+						  &&(!kiting||!ObjectCache.Objects.IsPointNearbyMonsters(vlastSafeSpot, Bot.KiteDistance)))
 					 {	 //Already found a safe spot in the last 800ms
 						  safespot=vlastSafeSpot;
 						  return true;

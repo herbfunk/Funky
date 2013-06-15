@@ -201,7 +201,10 @@ namespace FunkyTrinity
         private static void OutputReport()
         {
             TimeSpan TotalRunningTime = DateTime.Now.Subtract(ItemStatsWhenStartedBot);
-				string sLogFileName=CurrentAccountName+" - Stats - "+ZetaDia.Actors.Me.ActorClass.ToString()+".log";
+				if (Bot.Class==null||String.IsNullOrEmpty(CurrentAccountName))
+					 UpdateCurrentAccountDetails();
+
+				string sLogFileName=CurrentAccountName+" - Stats - "+ActorClass.ToString()+".log";
 
             // Create whole new file
 				FileStream LogStream=File.Open(FolderPaths.sTrinityLogPath+sLogFileName, FileMode.Create, FileAccess.Write, FileShare.Read);

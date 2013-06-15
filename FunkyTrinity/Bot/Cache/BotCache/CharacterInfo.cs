@@ -66,19 +66,7 @@ namespace FunkyTrinity
 					 private List<ItemType> CurrentEquippedItemTypes=new List<ItemType>();
 
 
-					 ///<summary>
-					 ///Returns a specific dictionary according to the bots character flags.
-					 ///</summary>
-					 internal Dictionary<AvoidanceType, double> AvoidancesHealth
-					 {
-						  get
-						  {
-								if (Bot.Combat.CriticalAvoidance||Bot.Combat.IsInNonCombatBehavior)
-									 return dictAvoidanceHealthOOCIDBehaviorDefaults;
-								else
-									 return ReturnDictionaryUsingActorClass(AC);
-						  }
-					 }
+
 
 					 internal Dictionary<int, int> CurrentBuffs=new Dictionary<int, int>();
 
@@ -114,51 +102,7 @@ namespace FunkyTrinity
 						  return false;
 					 }
 
-					 internal int KiteDistance
-					 {
-						  get
-						  {
-								return SettingsFunky.KiteDistance;
-						  }
-					 }
-					 internal int ContainerRange
-					 {
-						  get
-						  {
-								return SettingsFunky.ContainerOpenRange;
-						  }
-					 }
-					 internal int NonEliteRange
-					 {
-						  get
-						  {
-								return SettingsFunky.NonEliteCombatRange;
-						  }
-					 }
-					 internal int DestructibleRange
-					 {
-						  get
-						  {
-								return SettingsFunky.DestructibleRange;
-						  }
-					 }
-
 					 internal HashSet<int> hashActorSNOKitingIgnore=new HashSet<int>();
-
-					 internal double EmergencyHealthPotionLimit
-					 {
-						  get
-						  {
-								return SettingsFunky.PotionHealthPercent;
-						  }
-					 }
-					 internal double EmergencyHealthGlobeLimit
-					 {
-						  get
-						  {
-								return SettingsFunky.GlobeHealthPercent;
-						  }
-					 }
 
 					 private List<SNOPower> destructibleabilities=new List<SNOPower>();
 					 ///<summary>
@@ -384,68 +328,6 @@ namespace FunkyTrinity
 						  }
 					 }
 
-					 internal bool IgnoringAvoidanceType(AvoidanceType thisAvoidance)
-					 {
-						  if (!SettingsFunky.AttemptAvoidanceMovements)
-								return true;
-
-						  double dThisHealthAvoid;
-						  if (!Bot.Class.AvoidancesHealth.TryGetValue(thisAvoidance, out dThisHealthAvoid))
-								return true;
-						  else if (dThisHealthAvoid==0d)
-								return true;
-
-						  return false;
-					 }
-
-					 ///<summary>
-					 ///Tests the given avoidance type to see if it should be ignored either due to a buff or if health is greater than the avoidance HP.
-					 ///</summary>
-					 internal bool IgnoreAvoidance(AvoidanceType thisAvoidance)
-					 {
-						  double dThisHealthAvoid;
-						  if (!Bot.Class.AvoidancesHealth.TryGetValue(thisAvoidance, out dThisHealthAvoid))
-								return true;
-
-						  if (!Bot.Combat.CriticalAvoidance)
-						  {//Not Critical Avoidance, should we be in total ignorance because of a buff?
-
-								// Monks with Serenity up ignore all AOE's
-								if (AC==ActorClass.Monk&&HotbarAbilities.Contains(SNOPower.Monk_Serenity)&&HasBuff(SNOPower.Monk_Serenity))
-								{
-									 // Monks with serenity are immune
-									 return true;
-
-								}// Witch doctors with spirit walk available and not currently Spirit Walking will subtly ignore ice balls, arcane, desecrator & plague cloud
-								else if (AC==ActorClass.WitchDoctor
-									 &&HotbarAbilities.Contains(SNOPower.Witchdoctor_SpiritWalk)
-									 &&(!HasBuff(SNOPower.Witchdoctor_SpiritWalk)&&AbilityUseTimer(SNOPower.Witchdoctor_SpiritWalk))||HasBuff(SNOPower.Witchdoctor_SpiritWalk))
-								{
-									 switch (thisAvoidance)
-									 {
-										  case AvoidanceType.Frozen:
-										  case AvoidanceType.ArcaneSentry:
-										  case AvoidanceType.Dececrator:
-										  case AvoidanceType.PlagueCloud:
-												return true;
-									 }
-								}
-								else if (AC==ActorClass.Barbarian&&HotbarAbilities.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))
-								{
-									 switch (thisAvoidance)
-									 {
-										  case AvoidanceType.Frozen:
-										  case AvoidanceType.ArcaneSentry:
-										  case AvoidanceType.Dececrator:
-										  case AvoidanceType.PlagueCloud:
-												return true;
-									 }
-								}
-						  }
-
-						  //Only procedee if health percent is necessary for avoidance!
-						  return dThisHealthAvoid<Bot.Character.dCurrentHealthPct;
-					 }
 
 					 private readonly HashSet<int> PowerStackImportant=new HashSet<int>
 				{

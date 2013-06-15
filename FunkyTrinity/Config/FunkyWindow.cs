@@ -1444,6 +1444,10 @@ namespace FunkyTrinity
                 tcTargeting.Items.Add(TargetingClusterItem);
                 ListBox lbTargetCluster = new ListBox();
 
+					 StackPanel spClusteringOptions= new StackPanel
+					 {
+
+					 };
 
                 #region ClusterTargetLogic
                 CheckBox cbClusterEnabled = new CheckBox
@@ -1455,10 +1459,14 @@ namespace FunkyTrinity
                 };
                 cbClusterEnabled.Checked += EnableClusteringTargetLogicChecked;
                 cbClusterEnabled.Unchecked += EnableClusteringTargetLogicChecked;
-                lbTargetCluster.Items.Add(cbClusterEnabled);
+                spClusteringOptions.Children.Add(cbClusterEnabled);
                 #endregion
 
                 #region LowHP
+					 StackPanel spClusterLowHPOption=new StackPanel
+					 {
+						  Orientation= Orientation.Vertical,
+					 };
                 CheckBox cbClusterIgnoreBotLowHP = new CheckBox
                 {
                     Content = "Disable Logic on Bot HP",
@@ -1468,10 +1476,23 @@ namespace FunkyTrinity
                 };
                 cbClusterIgnoreBotLowHP.Checked += IgnoreClusteringBotLowHPisChecked;
                 cbClusterIgnoreBotLowHP.Unchecked += IgnoreClusteringBotLowHPisChecked;
-                // lbTargetCluster.Items.Add(cbClusterIgnoreBotLowHP);
+					 spClusterLowHPOption.Children.Add(cbClusterIgnoreBotLowHP);
 
                 #region ClusterLowHPSliderValue
-                lbTargetCluster.Items.Add("HP Value");
+
+
+					 StackPanel spClusterLowHP=new StackPanel
+					 {
+						  Orientation=Orientation.Vertical,
+					 };
+					 TextBlock ClusterLowHP_Text_Header=new TextBlock
+					 {
+						  Text="Health Percent",
+						  FontSize=12,
+						  //Background=System.Windows.Media.Brushes.MediumSeaGreen,
+					 };
+					 spClusterLowHP.Children.Add(ClusterLowHP_Text_Header);
+
                 Slider sliderClusterLowHPValue = new Slider
                 {
                     Width = 100,
@@ -1493,17 +1514,31 @@ namespace FunkyTrinity
                 {
                     Width = 600,
                     Height = 20,
-                    Orientation = Orientation.Horizontal,
+                    Orientation = Orientation.Vertical,
                 };
-                ClusterLowHPValueStackPanel.Children.Add(cbClusterIgnoreBotLowHP);
                 ClusterLowHPValueStackPanel.Children.Add(sliderClusterLowHPValue);
                 ClusterLowHPValueStackPanel.Children.Add(TBClusterLowHPValue);
-                lbTargetCluster.Items.Add(ClusterLowHPValueStackPanel);
+					 spClusterLowHP.Children.Add(ClusterLowHPValueStackPanel);
+
+					 spClusterLowHPOption.Children.Add(spClusterLowHP);
+					 spClusteringOptions.Children.Add(spClusterLowHPOption);
+
+                
                 #endregion
                 #endregion
 
                 #region ClusterDistance
-                lbTargetCluster.Items.Add("Cluster Distance");
+					 StackPanel spClusterDistanceOptions=new StackPanel
+					 {
+						  Orientation= Orientation.Vertical,
+					 };
+					 TextBlock ClusterDistance_Text_Header=new TextBlock
+					 {
+						  Text="Cluster Distance",
+						  FontSize=12,
+					 };
+					 spClusterDistanceOptions.Children.Add(ClusterDistance_Text_Header);
+
                 Slider sliderClusterDistance = new Slider
                 {
                     Width = 100,
@@ -1529,11 +1564,22 @@ namespace FunkyTrinity
                 };
                 ClusterDistanceStackPanel.Children.Add(sliderClusterDistance);
                 ClusterDistanceStackPanel.Children.Add(TBClusterDistance);
-                lbTargetCluster.Items.Add(ClusterDistanceStackPanel);
+					 spClusterDistanceOptions.Children.Add(ClusterDistanceStackPanel);
+					 spClusteringOptions.Children.Add(spClusterDistanceOptions);
                 #endregion
 
                 #region ClusterMinUnitCount
-                lbTargetCluster.Items.Add("Cluster Minimum Unit Count");
+					 StackPanel spClusterMinUnitOptions=new StackPanel
+					 {
+						  Orientation= Orientation.Vertical,
+					 };
+					 TextBlock ClusterMinUnitCount_Text_Header=new TextBlock
+					 {
+						  Text="Cluster Minimum Unit Count",
+						  FontSize=12,
+					 };
+					 spClusterMinUnitOptions.Children.Add(ClusterMinUnitCount_Text_Header);
+
                 Slider sliderClusterMinUnitCount = new Slider
                 {
                     Width = 100,
@@ -1559,10 +1605,11 @@ namespace FunkyTrinity
                 };
                 ClusterMinUnitCountStackPanel.Children.Add(sliderClusterMinUnitCount);
                 ClusterMinUnitCountStackPanel.Children.Add(TBClusterMinUnitCount);
-                lbTargetCluster.Items.Add(ClusterMinUnitCountStackPanel);
+					 spClusterMinUnitOptions.Children.Add(ClusterMinUnitCountStackPanel);
+					 spClusteringOptions.Children.Add(spClusterMinUnitOptions);
                 #endregion
 
-
+					 lbTargetCluster.Items.Add(spClusteringOptions);
                 TargetingClusterItem.Content = lbTargetCluster;
 
                 #endregion
@@ -2801,6 +2848,10 @@ namespace FunkyTrinity
                     VerticalAlignment = System.Windows.VerticalAlignment.Stretch,
                     VerticalContentAlignment = System.Windows.VerticalAlignment.Stretch,
                     HorizontalContentAlignment = System.Windows.HorizontalAlignment.Stretch,
+						  FontSize=10,
+						  FontStretch= FontStretches.SemiCondensed,
+						  Background= System.Windows.Media.Brushes.Black,
+						  Foreground= System.Windows.Media.Brushes.GhostWhite,
                 };
 
                 DockPanel_Debug.Children.Add(LBDebug);

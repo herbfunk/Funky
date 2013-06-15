@@ -55,7 +55,7 @@ namespace FunkyTrinity
 				// Soul Harvest Any Elites or 2+ Norms and baby it's harvest season
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_SoulHarvest)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=59&&GetBuffStacks(SNOPower.Witchdoctor_SoulHarvest)<4&&PowerManager.CanCast(SNOPower.Witchdoctor_SoulHarvest))
 				{
-					 System.Collections.Generic.List<Cluster> clusters=ObjectCache.Objects.Clusters(2d, 4f, 3, true);
+					 System.Collections.Generic.List<Cluster> clusters=Clusters(2d, 4f, 3, true);
 					 if (clusters.Count>0)
 					 {
 						  return new Ability(SNOPower.Witchdoctor_SoulHarvest, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 1, USE_SLOWLY);
@@ -123,9 +123,9 @@ namespace FunkyTrinity
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_GraspOfTheDead)&&!Bot.Character.bIsIncapacitated&&
 					Bot.Character.dCurrentEnergy>=122&&PowerManager.CanCast(SNOPower.Witchdoctor_GraspOfTheDead))
 				{
-					 if (ObjectCache.Objects.Clusters(5d, 35f, 2).Count>0)
+					 if (Clusters(5d, 35f, 2).Count>0)
 					 {
-						  Vector3 Center=ObjectCache.Objects.Clusters()[0].ListUnits[0].Position;
+						  Vector3 Center=Clusters()[0].ListUnits[0].Position;
 						  return new Ability(SNOPower.Witchdoctor_GraspOfTheDead, 35f, Center, Bot.Character.iCurrentWorldID, -1, 0, 3, USE_SLOWLY);
 					 }
 				} 
@@ -164,11 +164,11 @@ namespace FunkyTrinity
 				{
 					 //We want to only haunt clusters of at least 2 units with no current haunt.
 
-					 if (ObjectCache.Objects.Clusters(5d, 30f, 2).Count>0)
+					 if (Clusters(5d, 30f, 2).Count>0)
 					 {
-						  if (ObjectCache.Objects.Clusters().Any(c => c.DotDPSRatio<0.25))
+						  if (Clusters().Any(c => c.DotDPSRatio<0.25))
 						  {
-								Cluster clust=ObjectCache.Objects.Clusters().First(c => c.DotDPSRatio<0.25);
+								Cluster clust=Clusters().First(c => c.DotDPSRatio<0.25);
 								if (clust.ListUnits.Any(u => !u.HasDOTdps.HasValue||!u.HasDOTdps.Value))
 								{
 									 int acdguid=clust.ListUnits.First(u => !u.HasDOTdps.HasValue||!u.HasDOTdps.Value).AcdGuid.Value;
@@ -186,11 +186,11 @@ namespace FunkyTrinity
 					PowerManager.CanCast(SNOPower.Witchdoctor_Locust_Swarm)&&AbilityLastUseMS(SNOPower.Witchdoctor_Locust_Swarm)>1000
 					 &&!Bot.Combat.bAnyTreasureGoblinsPresent||SettingsFunky.GoblinPriority<2)
 				{
-					 if (ObjectCache.Objects.Clusters(5d, 30f, 2).Count>0)
+					 if (Clusters(5d, 30f, 2).Count>0)
 					 {
-						  if (ObjectCache.Objects.Clusters().Any(c => c.DotDPSRatio<0.25))
+						  if (Clusters().Any(c => c.DotDPSRatio<0.25))
 						  {
-								Cluster clust=ObjectCache.Objects.Clusters().First(c => c.DotDPSRatio<0.25);
+								Cluster clust=Clusters().First(c => c.DotDPSRatio<0.25);
 								if (clust.ListUnits.Any(u => !u.HasDOTdps.HasValue||!u.HasDOTdps.Value))
 								{
 									 int acdguid=clust.ListUnits.First(u => !u.HasDOTdps.HasValue||!u.HasDOTdps.Value).AcdGuid.Value;
@@ -212,7 +212,7 @@ namespace FunkyTrinity
 				#endregion
 				#region Zombie Charger
 				// Zombie Charger aka Zombie bears Spams Bears @ Everything from 11feet away
-				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_ZombieCharger)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=134&&
+				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_ZombieCharger)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=134&&
 					(Bot.Combat.iAnythingWithinRange[RANGE_12]>1||(thisCacheUnitObj!=null&&thisCacheUnitObj.ObjectIsSpecial))&&
 					PowerManager.CanCast(SNOPower.Witchdoctor_ZombieCharger))
 				{
@@ -221,9 +221,9 @@ namespace FunkyTrinity
 					 else
 					 {
 						  //Cluster tests
-						  if (ObjectCache.Objects.Clusters(6d, 25f, 2, true).Count>0)
+						  if (Clusters(6d, 25f, 2, true).Count>0)
 						  {
-								Vector3 Centeroid=ObjectCache.Objects.Clusters()[0].ListUnits[0].BotMeleeVector;
+								Vector3 Centeroid=Clusters()[0].ListUnits[0].BotMeleeVector;
 								return new Ability(SNOPower.Witchdoctor_ZombieCharger, 0f, Centeroid, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
 						  }
 					 }
@@ -254,10 +254,10 @@ namespace FunkyTrinity
 						  if (RuneIndex==4)
 						  {
 								//Only tight cluster
-								if (ObjectCache.Objects.Clusters(6d, 30f, 2).Count>0)
+								if (Clusters(6d, 30f, 2).Count>0)
 								{
 									 ConditionalTestResult=true;
-									 Location=ObjectCache.Objects.Clusters()[0].ListUnits[0].Position;
+									 Location=Clusters()[0].ListUnits[0].Position;
 								}
 						  }
 						  else
@@ -265,10 +265,10 @@ namespace FunkyTrinity
 								//If we using the 24f rune then we allow larger distance for cluster
 								double distance=RuneIndex==1?6d:4d;
 
-								if (ObjectCache.Objects.Clusters(distance, 45f, 2).Count>0)
+								if (Clusters(distance, 45f, 2).Count>0)
 								{
 									 ConditionalTestResult=true;
-									 ACDGuid=ObjectCache.Objects.Clusters()[0].ListUnits[0].AcdGuid.Value;
+									 ACDGuid=Clusters()[0].ListUnits[0].AcdGuid.Value;
 									 
 								}
 						  }
@@ -314,7 +314,7 @@ namespace FunkyTrinity
 								//Dire Bats
 								if (RuneIndex==0)
 								{
-									 clusters=ObjectCache.Objects.Clusters(5d, 25f, 2);
+									 clusters=Clusters(5d, 25f, 2);
 									 //We want a cluster that is tight with at least 2 units!
 									 if (clusters.Count>0)
 									 {
@@ -326,7 +326,7 @@ namespace FunkyTrinity
 								else if (RuneIndex==4)
 								{//Cloud -- only 12f range!
 
-									 clusters=ObjectCache.Objects.Clusters(6d, 12f, 2);
+									 clusters=Clusters(6d, 12f, 2);
 									 if (clusters.Count>0)
 									 {
 										  ConditionalTestResult=true;
@@ -335,7 +335,7 @@ namespace FunkyTrinity
 								}
 								else
 								{//Posion/Vampire/HungryBats/NoRune (Small AOE Range)
-									 clusters=ObjectCache.Objects.Clusters(4d, 18f, 2);
+									 clusters=Clusters(4d, 18f, 2);
 									 //we want cluster that is semi-tight with at least 2 units!
 									 if (clusters.Count>0)
 									 {

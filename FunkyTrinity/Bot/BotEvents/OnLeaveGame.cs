@@ -13,12 +13,13 @@ namespace FunkyTrinity
         // Each time we join & leave a game, might as well clear the hashset of looked-at dropped items - just to keep it smaller
         private static void FunkyOnLeaveGame(object src, EventArgs mea)
         {
+
 				Bot.iTotalLeaveGames++;
+				//Update Game Duration..
+				Statistics.ProfileStats.OutputReport();
+
             ResetGame();
 				initTreeHooks=false;
-
-            //Update Game Duration..
-            Statistics.ProfileStats.OutputReport();
         }
     }
 }

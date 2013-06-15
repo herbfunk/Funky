@@ -135,7 +135,7 @@ namespace FunkyTrinity
 								if (iMultiplier==2)
 									 fThisWeight-=80f;
 
-								if (Bot.Class.KiteDistance>0&&ObjectCache.Objects.IsPointNearbyMonsters(vThisZigZag, Bot.Class.KiteDistance))
+								if (Bot.KiteDistance>0&&ObjectCache.Objects.IsPointNearbyMonsters(vThisZigZag, Bot.KiteDistance))
 									 continue;
 
 								if (ObjectCache.Obstacles.Navigations.Any(obj => obj.Obstacletype.Value!=ObstacleType.Monster&&obj.TestIntersection(Bot.Character.Position, vThisZigZag, false)))

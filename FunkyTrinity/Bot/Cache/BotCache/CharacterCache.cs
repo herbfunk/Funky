@@ -48,7 +48,7 @@ namespace FunkyTrinity
 						  fCharacterRadius=0f;
 						  iCurrentGameDifficulty=GameDifficulty.Invalid;
 						  CurrentProfileBehavior=null;
-						  IsRunningTownPortalBehavior=false;
+						  IsRunningOOCBehavior=false;
 					 }
 
 					 private DateTime lastUpdatedPlayer { get; set; }
@@ -66,7 +66,7 @@ namespace FunkyTrinity
 					 internal int iCurrentWorldID { get; set; }
 					 internal GameDifficulty iCurrentGameDifficulty { get; set; }
 					 internal Zeta.CommonBot.Profile.ProfileBehavior CurrentProfileBehavior { get; set; }
-					 internal bool IsRunningTownPortalBehavior { get; set; }
+					 internal bool IsRunningOOCBehavior { get; set; }
 
 					 //Returns Live Data
 					 private DateTime lastPositionUpdate=DateTime.Today;

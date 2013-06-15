@@ -338,7 +338,7 @@ namespace FunkyTrinity
 						  this.LastLOSSearch=DateTime.Now;
 
 						  Vector3 LOSV3;
-						  bool FoundLOSLocation=FoundLOSLocation=GridPointAreaCache.AttemptFindTargetSafeLocation(out LOSV3, this, true, (Bot.Class.KiteDistance>0));
+						  bool FoundLOSLocation=FoundLOSLocation=GridPointAreaCache.AttemptFindTargetSafeLocation(out LOSV3, this, true, (Bot.KiteDistance>0));
 
 						  //Validate that we can move to this LOS Position from our current Position!
 						  if (FoundLOSLocation)
@@ -421,7 +421,7 @@ namespace FunkyTrinity
 						  if (this.LoopsUnseen_>0) return false;
 
 						  //Check if we are doing something important.. if so we only want to check units!
-						  if (Bot.Combat.IsInNonCombatBehavior&&(!this.targetType.HasValue||!(TargetType.Unit|TargetType.Item|TargetType.Gold|TargetType.Globe).HasFlag(this.targetType.Value)))
+						  if (Bot.IsInNonCombatBehavior&&(!this.targetType.HasValue||!(TargetType.Unit|TargetType.Item|TargetType.Gold|TargetType.Globe).HasFlag(this.targetType.Value)))
 								return false;
 
 						  //Validate refrence still remains

@@ -21,10 +21,8 @@ namespace FunkyTrinity
 				{
 					 CurrentState=RunStatus.Running;
 					 CurrentTarget=null;
-					 ValidObjects=new List<CacheObject>();
 				}
 
-				internal List<CacheObject> ValidObjects { get; set; }
 
 				///<summary>
 				///This method handles the current object target.
@@ -86,7 +84,7 @@ namespace FunkyTrinity
 				public bool UpdateTarget()
 				{
 					 //Generate a vaild object list using our cached collection!
-					 Bot.Target.ValidObjects=ObjectCache.Objects.Values
+					 Bot.ValidObjects=ObjectCache.Objects.Values
 														  .Where(obj => obj.ObjectIsValidForTargeting).ToList();
 
 					 //Check avoidance requirement still valid
@@ -138,59 +136,35 @@ namespace FunkyTrinity
 								return true;
 						  }
 
-						  Bot.Combat.UpdateAvoidKiteRates();
+						  Bot.UpdateAvoidKiteRates();
 					 }
 					 #endregion
 
 					 Bot.Combat.bStayPutDuringAvoidance=false;
 
 					 //update cluster targeting valid selection list
-					 //future: also compute any abilities that have clustering checks
-					 #region Cluster Target Refresh
-					 //Cluster Target Logic
 					 if (SettingsFunky.EnableClusteringTargetLogic
 							 &&(!SettingsFunky.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>SettingsFunky.IgnoreClusterLowHPValue)
 							 &&(DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalMilliseconds>500||DateTime.Now.Subtract(Bot.Combat.LastClusterTargetLogicRefresh).TotalMilliseconds>200))
 					 {
-						  Bot.Combat.CurrentTargetClusters=new List<Cluster>();
-						  Bot.Combat.ValidClusterUnits=new List<int>();
-
-						  if (Bot.Combat.UnitRAGUIDs.Count>=SettingsFunky.ClusterMinimumUnitCount)
-						  {
-								List<CacheObject> listObjectUnits=ValidObjects.Where(u => Bot.Combat.UnitRAGUIDs.Contains(u.RAGUID)).ToList();
-
-								if (listObjectUnits.Count>0)
-								{
-									 Bot.Combat.CurrentTargetClusters=RunKmeans(listObjectUnits, SettingsFunky.ClusterDistance);
-									 Bot.Combat.LastClusterTargetLogicRefresh=DateTime.Now;
-
-									 foreach (var item in Bot.Combat.CurrentTargetClusters)
-									 {
-										  if (item.ListUnits.Count>=SettingsFunky.ClusterMinimumUnitCount)
-										  {
-												Bot.Combat.ValidClusterUnits.AddRange(item.RAGUIDS);
-												//Logging.WriteVerbose("Cluster has total units {0} with accumulated weight {1}", item.ListUnits.Count.ToString(), item.AccumulatedWeight.ToString());
-										  }
-									 }
-								}
-						  }
+						  Bot.Combat.UpdateTargetClusteringVariables();
 					 }
-					 #endregion
+
 
 					 //Standard weighting of valid objects -- updates current target.
 					 this.WeightEvaluationObjList();
 
 					 //check kiting
 					 #region Kiting
-					 if (Bot.Class.KiteDistance>0
+					 if (Bot.KiteDistance>0
 						  &&(!Bot.Combat.bAnyTreasureGoblinsPresent||SettingsFunky.GoblinPriority<2)
 						  &&DateTime.Now.Subtract(Bot.Combat.timeCancelledKiteMove).TotalMilliseconds>=Bot.Combat.iMillisecondsCancelledKiteMoveFor
 						  &&(Bot.Class.AC!=ActorClass.Wizard||(Bot.Class.AC==ActorClass.Wizard&&(!SettingsFunky.Class.bKiteOnlyArchon||HasBuff(SNOPower.Wizard_Archon)))))
 					 {
 
 						  //Find any units that we should kite, sorted by distance.
-						  var nearbyUnits=ValidObjects.OfType<CacheUnit>().Where(unit => unit.ShouldBeKited
-																												 &&unit.RadiusDistance<Bot.Class.KiteDistance);
+						  var nearbyUnits=Bot.ValidObjects.OfType<CacheUnit>().Where(unit => unit.ShouldBeKited
+																												 &&unit.RadiusDistance<Bot.KiteDistance);
 
 						  if (nearbyUnits.Any())
 						  {
@@ -213,7 +187,7 @@ namespace FunkyTrinity
 									 Bot.Combat.timeCancelledKiteMove=DateTime.Now;
 									 return true;
 								}
-								Bot.Combat.UpdateAvoidKiteRates();
+								Bot.UpdateAvoidKiteRates();
 						  }
 					 }
 
@@ -335,7 +309,7 @@ namespace FunkyTrinity
 					 double iHighestWeightFound=0;
 
 
-					 foreach (CacheObject thisobj in this.ValidObjects)
+					 foreach (CacheObject thisobj in Bot.ValidObjects)
 					 {
 						  thisobj.UpdateWeight();
 
@@ -346,7 +320,7 @@ namespace FunkyTrinity
 								if (thisobj.Weight>iHighestWeightFound)
 								{//Only if we don't have a higher priority already..
 
-									 if (thisobj.GPRect.TryFindSafeSpot(out SafeLOSMovement, Bot.Character.Position, Bot.Class.KiteDistance>0f, true))
+									 if (thisobj.GPRect.TryFindSafeSpot(out SafeLOSMovement, Bot.Character.Position, Bot.KiteDistance>0f, true))
 									 {
 										  CurrentTarget=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
 										  iHighestWeightFound=thisobj.Weight;
@@ -797,7 +771,7 @@ namespace FunkyTrinity
 					 // Pop a potion when necessary
 					 // Note that we force a single-loop pause first, to help potion popping "go off"
 					 #region PotionCheck
-					 if (Bot.Character.dCurrentHealthPct<=Bot.Class.EmergencyHealthPotionLimit
+					 if (Bot.Character.dCurrentHealthPct<=Bot.EmergencyHealthPotionLimit
 							&&!Bot.Combat.bWaitingForPower&&!Bot.Combat.bWaitingForPotion&&!Bot.Character.bIsIncapacitated&&AbilityUseTimer(SNOPower.DrinkHealthPotion))
 					 {
 						  Bot.Combat.bWaitingForPotion=true;

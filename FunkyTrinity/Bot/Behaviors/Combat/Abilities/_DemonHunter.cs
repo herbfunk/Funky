@@ -84,7 +84,7 @@ namespace FunkyTrinity
 				// Sentry Turret
 				if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_Sentry)&&
 					Bot.Combat.powerLastSnoPowerUsed!=SNOPower.DemonHunter_Sentry&&
-					(Bot.Class.KiteDistance>0&&Bot.Combat.KitedLastTarget||DateTime.Now.Subtract(Bot.Combat.LastKiteAction).TotalMilliseconds<1000)||
+					(Bot.KiteDistance>0&&Bot.Combat.KitedLastTarget||DateTime.Now.Subtract(Bot.Combat.LastKiteAction).TotalMilliseconds<1000)||
 					(Bot.Combat.iElitesWithinRange[RANGE_40]>=1||Bot.Combat.iAnythingWithinRange[RANGE_40]>=2)&&
 					Bot.Character.dCurrentEnergy>=30&&AbilityUseTimer(SNOPower.DemonHunter_Sentry))
 				{
@@ -143,7 +143,7 @@ namespace FunkyTrinity
 						  return new Ability(SNOPower.DemonHunter_Multishot, 55f, vNullLocation, Bot.Character.iCurrentWorldID, thisCacheUnitObj.AcdGuid.Value, 1, 1, USE_SLOWLY);
 
 					 //cluster target..
-					 System.Collections.Generic.List<Cluster> clusters=ObjectCache.Objects.Clusters(7d, 45f, 2);
+					 System.Collections.Generic.List<Cluster> clusters=Clusters(7d, 45f, 2);
 					 if (clusters.Count>0)
 					 {
 
@@ -293,9 +293,9 @@ namespace FunkyTrinity
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.DemonHunter_Grenades)&&!Bot.Character.bIsIncapacitated)
 				{
 					 int acdguid=Bot.Target.CurrentTarget.AcdGuid.Value;
-					 if (ObjectCache.Objects.Clusters(6d, 40f, 1, true).Count>0)
+					 if (Clusters(6d, 40f, 1, true).Count>0)
 					 {
-						  acdguid=ObjectCache.Objects.Clusters()[0].ListUnits[0].AcdGuid.Value;
+						  acdguid=Clusters()[0].ListUnits[0].AcdGuid.Value;
 					 }
 					 return new Ability(SNOPower.DemonHunter_Grenades, 40f, vNullLocation, -1, acdguid, 0, 1, USE_SLOWLY);
 				} 
