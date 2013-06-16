@@ -103,7 +103,8 @@ namespace FunkyTrinity
 								&&!Bot.IsInNonCombatBehavior)
 						  {
 								//Check if this unit is valid based on if its contained in valid clusters
-								if (!Bot.Combat.ValidClusterUnits.Contains(this.RAGUID)&&!this.ObjectIsSpecial)
+								if (!Bot.Combat.ValidClusterUnits.Contains(this.RAGUID)
+									 &&(!this.ObjectIsSpecial&&(!Bot.Combat.AvoidanceLastTarget||this.CentreDistance>45f)))
 								{
 									 return true;
 								}
@@ -449,8 +450,7 @@ namespace FunkyTrinity
 
 					 //Ignore non-clustered, *only when not prioritized!*
 
-					 if ((!Bot.Combat.AvoidanceLastTarget||((Bot.Class.IsMeleeClass&&this.CentreDistance>25f)||this.CentreDistance>45f)) //Not Avoiding or nearby (melee >25f ranged >45f)
-						  &&this.BeingIgnoredDueToClusterLogic
+					 if (this.BeingIgnoredDueToClusterLogic
 						  &&this.PriorityCounter==0
 						  &&(Bot.Target.CurrentTarget!=null
 						  ||Bot.Combat.iAnythingWithinRange[RANGE_30]==0
