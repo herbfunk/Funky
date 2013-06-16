@@ -16,9 +16,7 @@ namespace FunkyTrinity
             //Avoidance Flag
 				Bot.Combat.CriticalAvoidance=true;
 
-            //Refresh objects..
-            bool bShouldRefreshDiaObjects = DateTime.Now.Subtract(lastRefreshedObjects).TotalMilliseconds >= 150;
-            if (bShouldRefreshDiaObjects)
+            if (Bot.ShouldRefreshObjectList)
             {
 					 Bot.RefreshDiaObjects();
 					 // Check for death / player being dead

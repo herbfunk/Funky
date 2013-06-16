@@ -96,7 +96,7 @@ namespace FunkyTrinity
 					 // Not on heart of sin after Cydaea
 					Bot.Target.CurrentTarget.SNOID!=193077&&
 					 // Make sure we are allowed to use wrath on goblins, else make sure this isn't a goblin
-					(SettingsFunky.Class.bGoblinWrath||!Bot.Target.CurrentTarget.IsTreasureGoblin)&&
+					(Bot.SettingsFunky.Class.bGoblinWrath||!Bot.Target.CurrentTarget.IsTreasureGoblin)&&
 					 // If on a boss, only when injured
 					((Bot.Target.CurrentTarget.IsBoss&&thisCacheUnitObj!=null&&thisCacheUnitObj.CurrentHealthPct.Value<=0.99&&!HotbarAbilitiesContainsPower(SNOPower.Barbarian_Whirlwind))||
 					 // If *NOT* on a boss, and definitely no boss in range, then judge based on any elites at all within 30 feet
@@ -138,7 +138,7 @@ namespace FunkyTrinity
 				#endregion
 				#region Sprint OOC
 				// Special segment for sprint as an out-of-combat only
-				if (bOOCBuff&&(SettingsFunky.OutOfCombatMovement||HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))&&
+				if (bOOCBuff&&(Bot.SettingsFunky.OutOfCombatMovement||HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))&&
 					!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_Sprint)&&
 					!HasBuff(SNOPower.Barbarian_Sprint)&&
 					Bot.Character.dCurrentEnergy>=20&&AbilityUseTimer(SNOPower.Barbarian_Sprint)&&PowerManager.CanCast(SNOPower.Barbarian_Sprint))
@@ -267,8 +267,8 @@ namespace FunkyTrinity
 						 ||(HotbarAbilitiesContainsPower(SNOPower.Barbarian_Whirlwind)&&
 					 // See if it's off-cooldown and at least 40 fury, or use as a fury dump
 							 (
-								(SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.92&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
-								(SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.92)||
+								(Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.92&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
+								(Bot.SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.92)||
 								(DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Barbarian_Rend]).TotalMilliseconds>=2800)
 							 )&&
 					 // Max once every 1.2 seconds even if fury dumping, so sprint can be fury dumped too
@@ -381,8 +381,8 @@ namespace FunkyTrinity
 					&&
 					 // Fury Dump Options for sprint: use at max energy constantly, or on a timer
 					(
-						(SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.95&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
-						(SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.95)||
+						(Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.95&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
+						(Bot.SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.95)||
 						((AbilityUseTimer(SNOPower.Barbarian_Sprint)&&!HasBuff(SNOPower.Barbarian_Sprint))&&
 					 // Always keep up if we are whirlwinding, or if the target is a goblin
 							(HotbarAbilitiesContainsPower(SNOPower.Barbarian_Whirlwind)||Bot.Target.CurrentTarget.IsTreasureGoblin))
@@ -402,7 +402,7 @@ namespace FunkyTrinity
 				// Whirlwind spam as long as necessary pre-buffs are up
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Class.bWaitingForSpecial&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_Whirlwind)&&!Bot.Character.bIsIncapacitated&&!Bot.Character.bIsRooted
 					 // Don't WW against goblins, units in the special SNO list
-					&&(!SettingsFunky.Class.bSelectiveWhirlwind||Bot.Combat.bAnyNonWWIgnoreMobsInRange||!SnoCacheLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Target.CurrentTarget.SNOID))&&
+					&&(!Bot.SettingsFunky.Class.bSelectiveWhirlwind||Bot.Combat.bAnyNonWWIgnoreMobsInRange||!SnoCacheLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Target.CurrentTarget.SNOID))&&
 					 // Only if within 15 foot of main target
 					((Bot.Target.CurrentTarget.RadiusDistance<=20f||Bot.Combat.iAnythingWithinRange[RANGE_25]>=1)&&
 					(Bot.Combat.iAnythingWithinRange[RANGE_50]>=2||(thisCacheUnitObj!=null&&thisCacheUnitObj.CurrentHealthPct>=0.30)||Bot.Target.CurrentTarget.IsBoss||(thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique)||Bot.Character.dCurrentHealthPct<=0.60))&&
@@ -442,8 +442,8 @@ namespace FunkyTrinity
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_BattleRage)&&!Bot.Character.bIsIncapacitated&&
 					 // Fury Dump Options for battle rage IF they don't have sprint 
 					(
-					 (SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.99&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
-					 (SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.99)||!HasBuff(SNOPower.Barbarian_BattleRage)
+					 (Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.99&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
+					 (Bot.SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.99)||!HasBuff(SNOPower.Barbarian_BattleRage)
 					)&&
 					Bot.Character.dCurrentEnergy>=20&&PowerManager.CanCast(SNOPower.Barbarian_BattleRage))
 				{

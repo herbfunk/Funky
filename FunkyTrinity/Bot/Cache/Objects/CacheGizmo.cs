@@ -214,7 +214,7 @@ namespace FunkyTrinity
 						  {
 								//Containers that are Rep Chests within 75f, or shrines within open container range setting are not ignored here.
 								if ((this.targetType==TargetType.Container&&
-									(this.IsResplendantChest&&SettingsFunky.UseExtendedRangeRepChest&&centreDistance<75f))||
+									(this.IsResplendantChest&&Bot.SettingsFunky.UseExtendedRangeRepChest&&centreDistance<75f))||
 									this.targetType==TargetType.Shrine&&centreDistance<Bot.ShrineRange) //&&centreDistance<(settings.iContainerOpenRange*1.25))
 								{
 
@@ -390,7 +390,7 @@ namespace FunkyTrinity
 										  return false;
 									 }
 
-									 if (!this.IsChestContainer&&SettingsFunky.IgnoreCorpses)
+									 if (!this.IsChestContainer&&Bot.SettingsFunky.IgnoreCorpses)
 									 {
 										  this.BlacklistLoops=-1;
 										  return false;
@@ -403,7 +403,7 @@ namespace FunkyTrinity
 
 									 // Superlist for rare chests etc.
 
-									 if (this.IsResplendantChest&&SettingsFunky.UseExtendedRangeRepChest)
+									 if (this.IsResplendantChest&&Bot.SettingsFunky.UseExtendedRangeRepChest)
 									 {
 										  iMinDistance=75;
 										  //setup wait time. (Unlike Units, we blacklist right after we interact)

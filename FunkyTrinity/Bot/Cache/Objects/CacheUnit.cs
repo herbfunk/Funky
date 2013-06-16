@@ -98,8 +98,8 @@ namespace FunkyTrinity
 					 get
 					 {
 
-						  if (SettingsFunky.EnableClusteringTargetLogic
-								&&(!SettingsFunky.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>SettingsFunky.IgnoreClusterLowHPValue)
+						  if (Bot.SettingsFunky.EnableClusteringTargetLogic
+								&&(!Bot.SettingsFunky.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>Bot.SettingsFunky.IgnoreClusterLowHPValue)
 								&&!Bot.IsInNonCombatBehavior)
 						  {
 								//Check if this unit is valid based on if its contained in valid clusters
@@ -243,7 +243,7 @@ namespace FunkyTrinity
 						  //Extended Range / Noncombat Behavior?
 						  if ((iKeepKillRadiusExtendedFor>0)||Bot.IsInNonCombatBehavior)
 						  {
-								dUseKillRadius+=SettingsFunky.ExtendedCombatRange;
+								dUseKillRadius+=Bot.SettingsFunky.ExtendedCombatRange;
 
 								if (this.CentreDistance<=dUseKillRadius)
 									 Bot.Combat.bAnyMobsInCloseRange=true;
@@ -312,11 +312,11 @@ namespace FunkyTrinity
 
 								//Use a shorter range if not yet noticed..
 								if (this.CurrentHealthPct<=0.10)
-									 dUseKillRadius+=Bot.TreasureGoblinRange+(SettingsFunky.GoblinPriority*24);
+									 dUseKillRadius+=Bot.TreasureGoblinRange+(Bot.SettingsFunky.GoblinPriority*24);
 								else if (this.CurrentHealthPct<=0.99)
-									 dUseKillRadius+=Bot.TreasureGoblinRange+(SettingsFunky.GoblinPriority*16);
+									 dUseKillRadius+=Bot.TreasureGoblinRange+(Bot.SettingsFunky.GoblinPriority*16);
 								else
-									 dUseKillRadius+=Bot.TreasureGoblinRange+(SettingsFunky.GoblinPriority*12);
+									 dUseKillRadius+=Bot.TreasureGoblinRange+(Bot.SettingsFunky.GoblinPriority*12);
 
 								this.ForceLeap=true;
 						  }
@@ -347,6 +347,10 @@ namespace FunkyTrinity
 					 bIsRended=(this.HasDOTdps.HasValue&&this.HasDOTdps.Value);
 					 bCountAsElite=(this.IsEliteRareUnique||this.IsTreasureGoblin||this.IsBoss);
 					 float RadiusDistance=this.RadiusDistance;
+
+					 if (Bot.KiteDistance>0&&RadiusDistance<=Bot.KiteDistance&&this.ShouldBeKited)
+						  Bot.Combat.NearbyKitingUnits.Add(this);
+					 
 
 					 if (RadiusDistance<=6f)
 					 {
@@ -460,7 +464,7 @@ namespace FunkyTrinity
 						  return;
 					 }
 
-					 if (Bot.Class.IsMeleeClass&&this.CentreDistance>=2f&&Bot.Combat.NearbyAvoidances.Count>0)
+					 if (this.CentreDistance>=2f&&Bot.Combat.NearbyAvoidances.Count>0&&Bot.Class.IsMeleeClass)
 					 {
 						  if (DateTime.Now.Subtract(LastAvoidanceIgnored).TotalMilliseconds<1000)
 						  {
@@ -485,6 +489,11 @@ namespace FunkyTrinity
 						  }
 					 }
 
+					 //Range Class Ignore (Avoid/Kite last target!)
+					 if ((Bot.Combat.KitedLastTarget&&Bot.Combat.NearbyKitingUnits.Count>0&&Bot.Combat.NearbyKitingUnits.Contains(this))||
+						  (Bot.Combat.AvoidanceLastTarget&&Bot.Combat.TriggeringAvoidances.Count>0))
+						  this.Weight=1;
+
 
 					 if (this.Weight!=1)
 					 {
@@ -502,7 +511,7 @@ namespace FunkyTrinity
 								this.Weight=20000-(Math.Floor(radiusDistance)*200);
 
 								// Goblin priority KAMIKAZEEEEEEEE
-								if (this.IsTreasureGoblin&&SettingsFunky.GoblinPriority>1)
+								if (this.IsTreasureGoblin&&Bot.SettingsFunky.GoblinPriority>1)
 									 this.Weight+=25000;
 						  }
 						  else
@@ -570,7 +579,7 @@ namespace FunkyTrinity
 										  this.Weight+=(1500*(1-(this.CurrentHealthPct.Value/0.45)));
 
 									 // Goblins on low health get extra priority - up to 2500
-									 if (SettingsFunky.GoblinPriority>=2&&this.IsTreasureGoblin&&this.CurrentHealthPct<=0.98)
+									 if (Bot.SettingsFunky.GoblinPriority>=2&&this.IsTreasureGoblin&&this.CurrentHealthPct<=0.98)
 										  this.Weight+=(3000*(1-(this.CurrentHealthPct.Value/0.85)));
 
 									 // Bonuses to priority type monsters from the dictionary/hashlist set at the top of the code
@@ -642,7 +651,7 @@ namespace FunkyTrinity
 													 Bot.Combat.lastGoblinTime=DateTime.Today;
 										  }
 										  // Original Trinity stuff for priority handling now
-										  switch (SettingsFunky.GoblinPriority)
+										  switch (Bot.SettingsFunky.GoblinPriority)
 										  {
 												case 2:
 													 // Super-high priority option below... 
@@ -713,11 +722,10 @@ namespace FunkyTrinity
 									 if (base.IsGrotesqueActor)
 									 {
 										  //Setup this as an avoidance object now!
-										  this.targetType=TargetType.Avoidance;
+										  this.HandleAsAvoidanceObject=true;
 										  CacheAvoidance newAvoidance=new CacheAvoidance(this, AvoidanceType.GrotesqueExplosion);
-										  newAvoidance.Obstacletype=ObstacleType.StaticAvoidance;
-
 										  ObjectCache.Obstacles[this.RAGUID]=newAvoidance;
+
 										  return false;
 									 }
 
@@ -788,7 +796,7 @@ namespace FunkyTrinity
 						  if (this.IsBoss||this.IsEliteRareUnique)
 						  {
 								//Ignore Setting?
-								if (SettingsFunky.IgnoreAboveAverageMobs&&this.LastPriortized>1500&&!Bot.IsInNonCombatBehavior&&!this.IsBoss)
+								if (Bot.SettingsFunky.IgnoreAboveAverageMobs&&this.LastPriortized>1500&&!Bot.IsInNonCombatBehavior&&!this.IsBoss)
 									 return false;
 
 								Bot.Combat.bAnyChampionsPresent=true;
@@ -946,7 +954,7 @@ namespace FunkyTrinity
 										  ObjectCache.Objects.UpdateMaximumHealthAverage();
 									 }
 								}
-						  } catch (NullReferenceException) { Logging.WriteVerbose("Failure to get maximum health for {0}", base.InternalName); return false; }
+						  } catch (Exception) { Logging.WriteVerbose("Failure to get maximum health for {0}", base.InternalName); return false; }
 					 }
 
 
@@ -997,7 +1005,7 @@ namespace FunkyTrinity
 									 //if (!this.ObjectIsSpecial)
 									 //return false;
 								}
-						  } catch (AccessViolationException ex)
+						  } catch (Exception ex)
 						  {
 								Logging.WriteVerbose("[Funky] Safely handled exception getting is-targetable attribute for unit "+this.InternalName+" ["+this.SNOID.ToString()+"]");
 								Logging.WriteDiagnostic(ex.ToString());
@@ -1213,8 +1221,8 @@ namespace FunkyTrinity
 						  Bot.Combat.powerPrime.MinimumRange=15f;
 					 else if (this.IsStealthableUnit&&this.IsAttackable.HasValue&&this.IsAttackable.Value==false&&this.IsEliteRareUnique)
 						  Bot.Combat.powerPrime.MinimumRange=15f;
-					 else if (this.IsTreasureGoblin&&!Bot.Class.IsMeleeClass&&SettingsFunky.Class.GoblinMinimumRange>0)
-						  Bot.Combat.powerPrime.MinimumRange=SettingsFunky.Class.GoblinMinimumRange;
+					 else if (this.IsTreasureGoblin&&!Bot.Class.IsMeleeClass&&Bot.SettingsFunky.Class.GoblinMinimumRange>0)
+						  Bot.Combat.powerPrime.MinimumRange=Bot.SettingsFunky.Class.GoblinMinimumRange;
 					 else
 						  fDistanceReduction=base.Radius;
 
@@ -1231,11 +1239,11 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  if ((this.IsEliteRareUnique&&!SettingsFunky.IgnoreAboveAverageMobs)||
+						  if ((this.IsEliteRareUnique&&!Bot.SettingsFunky.IgnoreAboveAverageMobs)||
 									 (this.PriorityCounter>0)||
 									 (this.IsBoss)||(this.IsSucideBomber&&this.CentreDistance<25f)||
-									 (this.IsTreasureGoblin&&SettingsFunky.GoblinPriority>1)||
-									 (SettingsFunky.ClusterKillLowHPUnits&&this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0
+									 (this.IsTreasureGoblin&&Bot.SettingsFunky.GoblinPriority>1)||
+									 (Bot.SettingsFunky.ClusterKillLowHPUnits&&this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0
 											&&(!Bot.Class.IsMeleeClass||(this.CentreDistance<this.KillRadius*0.25f))))
 
 

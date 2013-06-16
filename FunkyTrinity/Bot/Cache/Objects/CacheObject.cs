@@ -34,7 +34,7 @@ namespace FunkyTrinity
 					 this.PrioritizedDate=DateTime.Today;
 					 this.PriorityCounter=0;
 					 this.losv3_=vNullLocation;
-
+					 this.HandleAsAvoidanceObject=false;
 					 //Keep track of each unique RaGuid that is created and uses this SNO during each level.
 					 //if (!UsedByRaGuids.Contains(RAGUID)) UsedByRaGuids.Add(RAGUID);
 				}
@@ -51,7 +51,7 @@ namespace FunkyTrinity
 					 this.BlacklistFlag=BlacklistType.None;
 					 this.targetType=thisobjecttype;
 					 this.InternalName=name;
-
+					 this.HandleAsAvoidanceObject=false;
 				}
 				///<summary>
 				///Used to recreate from temp into obstacle object.
@@ -80,6 +80,7 @@ namespace FunkyTrinity
 					 this.RequiresLOSCheck=parent.RequiresLOSCheck;
 					 this.SummonerID=parent.SummonerID;
 					 this.weight_=parent.Weight;
+					 this.HandleAsAvoidanceObject=parent.HandleAsAvoidanceObject;
 				}
 				#endregion
 
@@ -91,6 +92,7 @@ namespace FunkyTrinity
 				private float radius_;
 				public virtual float Radius { get { return radius_; } set { radius_=value; } }
 
+				public bool HandleAsAvoidanceObject { get; set; }
 
 				///<summary>
 				///Used only if the object is a summonable pet.
@@ -383,7 +385,29 @@ namespace FunkyTrinity
 				#endregion
 
 
+				public virtual bool BotIsFacing()
+				{
 
+					 //return Vector3.Dot(Bot.Character.Position, this.Position)<0;
+					 Vector3 NormalizedVector=this.Position;
+					 NormalizedVector.Normalize();
+
+					 Vector3 BotPositionNormalized=Bot.Character.Position;
+					 BotPositionNormalized.Normalize();
+
+					 float angleDegrees=Vector3.AngleBetween(BotPositionNormalized, NormalizedVector);
+
+					 return (angleDegrees<=0.0045||angleDegrees>0.0315);
+
+				}
+				public virtual bool BotIsFacing(Vector3 DestinationVector)
+				{
+					 Vector3 NormalizedVector=this.Position;
+					 NormalizedVector.Normalize();
+					 float angleDegrees=Vector3.AngleBetween(DestinationVector, NormalizedVector);
+
+					 return (angleDegrees<=0.0045||angleDegrees>0.0315);
+				}
 
 
 				public override bool UpdateData(DiaObject thisObj, int RaGuid)
@@ -508,7 +532,7 @@ namespace FunkyTrinity
 				///</summary>
 				public virtual bool WithinInteractionRange()
 				{
-					 this.DistanceFromTarget=Vector3.Distance(Bot.Character.Position, this.Position);
+					 this.DistanceFromTarget=Bot.Character.Position.Distance2D(this.Position);
 					 return (this.Radius<=0f||this.DistanceFromTarget<=this.Radius);
 				}
 				///<summary>
@@ -533,7 +557,7 @@ namespace FunkyTrinity
 				{
 
 					 #region DebugInfo
-					 if (SettingsFunky.DebugStatusBar)
+					 if (Bot.SettingsFunky.DebugStatusBar)
 					 {
 						  string Action="[Move-";
 						  switch (this.targetType.Value)
@@ -575,7 +599,7 @@ namespace FunkyTrinity
 					 if (Bot.Character.bIsIncapacitated||Bot.Character.bIsRooted)
 						  return RunStatus.Running;
 
-					 if (SettingsFunky.SkipAhead)
+					 if (Bot.SettingsFunky.SkipAhead)
 						  CacheMovementTracking.RecordSkipAheadCachePoint();
 
 					 // Some stuff to avoid spamming usepower EVERY loop, and also to detect stucks/staying in one place for too long
@@ -607,9 +631,11 @@ namespace FunkyTrinity
 								Bot.Combat.bForceCloseRangeTarget=true;
 								Bot.Combat.lastForcedKeepCloseRange=DateTime.Now;
 
-								// And tell Trinity to get a new target
-								Bot.Combat.bForceTargetUpdate=true;
-
+								if (this.targetType.Value==TargetType.Item)
+								{
+									 Bot.Combat.bForceTargetUpdate=true;
+									 return RunStatus.Running;
+								}
 
 								// Tell target finder to prioritize close-combat targets incase we were bodyblocked
 								#region TargetingPriortize
@@ -617,80 +643,6 @@ namespace FunkyTrinity
 								{
 									 case 2:
 									 case 3:
-										  if (this.targetType.Value!=TargetType.Avoidance)
-										  {
-												// Check for raycastability against static objects
-
-												//Units blocking us..
-												//Destuctibles blocking us..
-												//Door not opened..
-												//Walls/Props blocking us from our target..
-												//Navigation impossible or is stuck running in place?
-												//Eliminate any potential objects first..
-												//	-Units by # surrounding us, that we are facing!
-												//Bot.Character.UpdateMovementData();
-
-												List<CacheUnit> monsterobstacles_;
-
-												monsterobstacles_=ObjectCache.Objects.Values.OfType<CacheUnit>().Where(unit => ((PlayerMover.iTimesReachedStuckPoint==0&&ZetaDia.Me.IsFacing(unit.Position))||PlayerMover.iTimesReachedStuckPoint>0)&&unit.CentreDistance<=10f).ToList();
-												//ObjectCache.Obstacles.FindObstaclesSurroundingObject<CacheUnit>(ObjectData, 20f, out monsterobstacles_);
-												if (monsterobstacles_.Count>0&&monsterobstacles_.Any())
-												{
-													 Bot.Combat.PrioritizedRAGUIDs.AddRange(from monsters in monsterobstacles_
-																										 where !Bot.Combat.PrioritizedRAGUIDs.Contains(monsters.RAGUID)
-																										 select monsters.RAGUID);
-
-													 Logging.WriteVerbose("Nearby Monsters being prioritzed!");
-												}
-												else
-												{
-													 IEnumerable<CacheDestructable> GizmoObjects=ObjectCache.Objects.OfType<CacheDestructable>();
-
-													 //Destuctibles.. bot is facing that are less than 12f away.
-													 CacheObject[] Destructibles=GizmoObjects.Where(obj => ((PlayerMover.iTimesReachedStuckPoint==0&&ZetaDia.Me.IsFacing(obj.Position))||PlayerMover.iTimesReachedStuckPoint>0)
-																																&&obj.CentreDistance<=10f).ToArray();
-
-
-													 if (Destructibles!=null&&Destructibles.Length>0)
-													 {
-														  Bot.Combat.PrioritizedRAGUIDs.AddRange(from objs in Destructibles
-																											  where !Bot.Combat.PrioritizedRAGUIDs.Contains(objs.RAGUID)
-																											  select objs.RAGUID);
-
-														  Logging.WriteVerbose("Nearby Destructibles being prioritzed!");
-													 }
-													 else
-													 {//Interactables...
-														  IEnumerable<CacheInteractable> GizmoInteractables=ObjectCache.Objects.OfType<CacheInteractable>();
-
-														  CacheObject[] Interactables=GizmoInteractables.Where(obj => ((PlayerMover.iTimesReachedStuckPoint==0&&ZetaDia.Me.IsFacing(obj.Position))||PlayerMover.iTimesReachedStuckPoint>0)
-																																&&obj.CentreDistance<=10f).ToArray();
-														  if (Interactables!=null&&Interactables.Length>0)
-														  {
-																Bot.Combat.PrioritizedRAGUIDs.AddRange(from objs in Interactables
-																													where !Bot.Combat.PrioritizedRAGUIDs.Contains(objs.RAGUID)
-																													select objs.RAGUID);
-
-																Logging.WriteVerbose("Nearby Interactables being prioritzed!");
-														  }
-														  else
-														  {//Movement State
-																Bot.Character.UpdateMovementData();
-																if (Bot.Character.currentMovementState.HasFlag(MovementState.WalkingInPlace))
-																{
-																	 Logging.WriteVerbose("Stuck running in place!");
-																}
-														  }
-													 }
-												}
-										  }
-										  else
-										  {//Avoidance Movement..
-												GridPointAreaCache.BlacklistLastSafespot();
-												Bot.Combat.bForceTargetUpdate=true;
-												return RunStatus.Running;
-										  }
-
 										  //Than check our movement state
 										  //If we are moving to a LOS location.. nullify it!
 										  if (this.LOSV3!=vNullLocation)
@@ -698,6 +650,33 @@ namespace FunkyTrinity
 												Logging.WriteVerbose("Blockcounter Reseting LOS Movement Vector");
 												this.losv3_=vNullLocation;
 										  }
+
+										  var intersectingObstacles=Bot.Combat.NearbyObstacleObjects //ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
+																					.Where(obstacle =>
+																						 !Bot.Combat.PrioritizedRAGUIDs.Contains(obstacle.RAGUID)//Only objects not already prioritized
+																						 &&obstacle.Obstacletype.HasValue
+																						 &&ObstacleType.Navigation.HasFlag(obstacle.Obstacletype.Value)//only navigation/intersection blocking objects!
+																						 &&obstacle.RadiusDistance<=10f);
+
+										  if (intersectingObstacles.Any())
+										  {
+												var intersectingObjectRAGUIDs=(from objs in intersectingObstacles
+																						 select objs.RAGUID);
+
+												Bot.Combat.PrioritizedRAGUIDs.AddRange(intersectingObjectRAGUIDs);
+										  }
+
+
+
+										  if (this.targetType.Value==TargetType.Avoidance)
+										  {//Avoidance Movement..
+												GridPointAreaCache.BlacklistLastSafespot();
+												Bot.UpdateAvoidKiteRates(true);
+												Bot.Combat.bForceTargetUpdate=true;
+												return RunStatus.Running;
+										  }
+
+
 
 										  break;
 									 default:
@@ -758,10 +737,11 @@ namespace FunkyTrinity
 					 // Update the last distance stored
 					 Bot.Combat.fLastDistanceFromTarget=this.DistanceFromTarget;
 
-
-					 //Prioritize blocking objects
-					 ObstacleCheck(Bot.Combat.vCurrentDestination);
-
+					 if (Bot.Combat.iTimesBlockedMoving<2)
+					 {
+						  //Prioritize blocking objects
+						  ObstacleCheck(Bot.Combat.vCurrentDestination);
+					 }
 
 					 // See if we want to ACTUALLY move, or are just waiting for the last move command...
 					 if (!bForceNewMovement&&Bot.Combat.bAlreadyMoving&&Bot.Combat.vCurrentDestination==Bot.Combat.vLastMoveToTarget&&DateTime.Now.Subtract(Bot.Combat.lastMovementCommand).TotalMilliseconds<=100)
@@ -798,7 +778,7 @@ namespace FunkyTrinity
 										  break;
 									 case SNOPower.DemonHunter_Vault:
 										  foundMovementPower=(this.targetType.Value!=TargetType.Destructible&&!bTooMuchZChange&&currentDistance>=18f&&
-																	 (lastUsedAbilityMS>=Funky.SettingsFunky.Class.iDHVaultMovementDelay));
+																	 (lastUsedAbilityMS>=Funky.Bot.SettingsFunky.Class.iDHVaultMovementDelay));
 										  pointDistance=35f;
 										  if (currentDistance>pointDistance)
 												vTargetAimPoint=MathEx.CalculatePointFrom(Bot.Combat.vCurrentDestination, Bot.Character.Position, pointDistance);
@@ -860,7 +840,7 @@ namespace FunkyTrinity
 									 &&(!(TargetType.Avoidance|TargetType.Gold|TargetType.Globe).HasFlag(this.targetType.Value)&this.DistanceFromTarget>=6f)
 									 &&(this.targetType.Value!=TargetType.Unit
 									 ||(this.targetType.Value==TargetType.Unit&&!this.IsTreasureGoblin
-										  &&(!SettingsFunky.Class.bSelectiveWhirlwind
+										  &&(!Bot.SettingsFunky.Class.bSelectiveWhirlwind
 												||Bot.Combat.bAnyNonWWIgnoreMobsInRange
 												||!SnoCacheLookup.hashActorSNOWhirlwindIgnore.Contains(this.SNOID)))))
 								{
@@ -974,8 +954,8 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  return String.Format("RAGUID {0}: \r\n {1} \r\n Distance (Centre{2} / Radius{3})",
-								this.RAGUID.ToString(), base.DebugString, this.CentreDistance.ToString(), this.RadiusDistance.ToString());
+						  return String.Format("RAGUID {0}: \r\n {1} \r\n Distance (Centre{2} / Radius{3}) BotFacing={4}",
+								this.RAGUID.ToString(), base.DebugString, this.CentreDistance.ToString(), this.RadiusDistance.ToString(), this.BotIsFacing().ToString());
 					 }
 				}
 

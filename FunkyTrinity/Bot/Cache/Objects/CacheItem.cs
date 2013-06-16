@@ -116,12 +116,12 @@ namespace FunkyTrinity
 						  {
 
 								case TargetType.Item:
-									 this.Weight=13000d-(Math.Floor(centreDistance)*190d);
+									 this.Weight=(Bot.ItemRange*1000)-(Math.Floor(centreDistance)*120d);
 									 // Point-blank items get a weight increase 
 									 if (centreDistance<=12f)
 										  this.Weight+=600d;
 									 // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-									 if (this==Bot.Character.LastCachedTarget&&centreDistance<=25f)
+									 if (this==Bot.Character.LastCachedTarget)
 										  this.Weight+=600;
 									 // Give yellows more weight
 									 if (this.Itemquality.Value>=ItemQuality.Rare4)
@@ -136,7 +136,7 @@ namespace FunkyTrinity
 									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 										  this.Weight*=0.75;
 									 //Finally check if we should reduce the weight when more then 2 monsters are nearby..
-									 if (Bot.Combat.iAnythingWithinRange[RANGE_25]>2&&
+									 if (Bot.Combat.iAnythingWithinRange[RANGE_12]>2&&
 										  //But Only when we are low in health..
 											 (Bot.Character.dCurrentHealthPct<0.25||
 										  //Or we havn't changed targets after 2.5 secs
@@ -274,7 +274,7 @@ namespace FunkyTrinity
 
 								if (this.targetType==TargetType.Gold)
 								{
-									 if (this.GoldAmount.Value<SettingsFunky.MinimumGoldPile)
+									 if (this.GoldAmount.Value<Bot.SettingsFunky.MinimumGoldPile)
 									 {
 										  this.NeedsRemoved=true;
 										  this.BlacklistFlag=BlacklistType.Temporary;
@@ -411,7 +411,7 @@ namespace FunkyTrinity
 						  #region PickupValidation
 						  if (!this.ShouldPickup.HasValue)
 						  {
-								if (SettingsFunky.UseItemRules)
+								if (Bot.SettingsFunky.UseItemRules)
 								{
 									 Interpreter.InterpreterAction action=ItemRulesEval.checkPickUpItem(this, ItemEvaluationType.PickUp);
 									 switch (action)
@@ -429,12 +429,12 @@ namespace FunkyTrinity
 								{
 									 //Use Giles Scoring or DB Weighting..
 									 this.ShouldPickup=
-										  SettingsFunky.ItemRuleGilesScoring?GilesPickupItemValidation(this)
+										  Bot.SettingsFunky.ItemRuleGilesScoring?GilesPickupItemValidation(this)
 										  :ItemManager.Current.EvaluateItem((ACDItem)this.ref_DiaItem.CommonData, Zeta.CommonBot.ItemEvaluationType.PickUp); ;
 								}
 
 								//Low Level Evaluation
-								if (SettingsFunky.UseLevelingLogic&&Bot.Character.iMyLevel<60)
+								if (Bot.SettingsFunky.UseLevelingLogic&&Bot.Character.iMyLevel<60)
 								{
 									 if (this.Itemquality.HasValue&&this.Itemquality.Value>=ItemQuality.Magic1)
 									 {

@@ -89,8 +89,7 @@ namespace FunkyTrinity
         // A null location, may shave off the tiniest fraction of CPU time, but probably not. Still, I like using this variable! :D
         private static readonly Vector3 vNullLocation = Vector3.Zero;
 
-        // Used to force-refresh dia objects at least once every XX milliseconds 
-        private static DateTime lastRefreshedObjects = DateTime.Today;
+
 
         // Status text for DB main window status
         private static string sStatusText = "";

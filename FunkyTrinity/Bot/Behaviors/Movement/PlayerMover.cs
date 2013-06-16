@@ -118,7 +118,7 @@ namespace FunkyTrinity
 						  vSafeMovementLocation=Funky.FindSafeZone(true, iTotalAntiStuckAttempts, Vector3.Zero);
 
 						  // Temporarily log stuff
-						  if (iTotalAntiStuckAttempts==1&&Funky.SettingsFunky.LogStuckLocations)
+						  if (iTotalAntiStuckAttempts==1&&Funky.Bot.SettingsFunky.LogStuckLocations)
 						  {
 								FileStream LogStream=File.Open(Funky.FolderPaths.sTrinityLogPath+ZetaDia.Service.CurrentHero.BattleTagName+" - Stucks - "+ZetaDia.Actors.Me.ActorClass.ToString()+".log", FileMode.Append, FileAccess.Write, FileShare.Read);
 								using (StreamWriter LogWriter=new StreamWriter(LogStream))
@@ -228,7 +228,7 @@ namespace FunkyTrinity
 						  iTimesReachedMaxUnstucks=3;
 					 }
 					 // Exit the game and reload the profile
-					 if (Funky.SettingsFunky.RestartGameOnLongStucks&&DateTime.Now.Subtract(timeLastRestartedGame).TotalMinutes>=15)
+					 if (Funky.Bot.SettingsFunky.RestartGameOnLongStucks&&DateTime.Now.Subtract(timeLastRestartedGame).TotalMinutes>=15)
 					 {
 						  HadDisconnectError=true;
 						  timeLastRestartedGame=DateTime.Now;
@@ -291,7 +291,7 @@ namespace FunkyTrinity
 
 					 if (vMoveToTarget!=vLastMoveTo)
 					 {
-						  if (Funky.SettingsFunky.LogStuckLocations)
+						  if (Funky.Bot.SettingsFunky.LogStuckLocations)
 						  {
 								vLastMoveTo=vMoveToTarget;
 								bLastWaypointWasTown=false;
@@ -364,7 +364,7 @@ namespace FunkyTrinity
 					 }
 
 					 //Special cache for skipping locations visited.
-					 if (SettingsFunky.SkipAhead)
+					 if (Bot.SettingsFunky.SkipAhead)
 						  CacheMovementTracking.RecordSkipAheadCachePoint();
 
 					 // Store distance to current moveto target
@@ -372,7 +372,7 @@ namespace FunkyTrinity
 
 					 #region Unstucker
 					 // Do unstuckery things
-					 if (Funky.SettingsFunky.EnableUnstucker)
+					 if (Funky.Bot.SettingsFunky.EnableUnstucker)
 					 {
 						  // Store the "real" (not anti-stuck) destination
 						  vOldMoveToTarget=vMoveToTarget;
@@ -458,7 +458,7 @@ namespace FunkyTrinity
 
 					 #region MovementAbilities
 					 // See if we can use abilities like leap etc. for movement out of combat, but not in town and only if we can raycast.
-					 if (Funky.SettingsFunky.OutOfCombatMovement&&!ZetaDia.Me.IsInTown)
+					 if (Funky.Bot.SettingsFunky.OutOfCombatMovement&&!ZetaDia.Me.IsInTown)
 					 //&&)
 					 {
 
@@ -488,7 +488,7 @@ namespace FunkyTrinity
 										  break;
 									 case SNOPower.DemonHunter_Vault:
 										  foundMovementPower=(!bTooMuchZChange&&fDistanceFromTarget>=18f&&
-																	 (lastUsedAbilityMS>=Funky.SettingsFunky.Class.iDHVaultMovementDelay));
+																	 (lastUsedAbilityMS>=Funky.Bot.SettingsFunky.Class.iDHVaultMovementDelay));
 
 
 										  pointDistance=35f;
@@ -557,7 +557,7 @@ namespace FunkyTrinity
 						  }
 						  // Vault for a DH - maximum set by user-defined setting
 						  if (Funky.HotbarAbilitiesContainsPower(SNOPower.DemonHunter_Vault)&&!bTooMuchZChange&&
-								DateTime.Now.Subtract(Funky.dictAbilityLastUse[SNOPower.DemonHunter_Vault]).TotalMilliseconds>=Funky.SettingsFunky.Class.iDHVaultMovementDelay&&
+								DateTime.Now.Subtract(Funky.dictAbilityLastUse[SNOPower.DemonHunter_Vault]).TotalMilliseconds>=Funky.Bot.SettingsFunky.Class.iDHVaultMovementDelay&&
 								fDistanceFromTarget>=18f&&
 								PowerManager.CanCast(SNOPower.DemonHunter_Vault)&&!ShrinesInArea(vMoveToTarget))
 						  {
@@ -626,7 +626,7 @@ namespace FunkyTrinity
 					 if (distanceToTarget<=5f||MoveTargetIsInLoS)
 					 {
 						  //Special cache for skipping locations visited.
-						  if (SettingsFunky.SkipAhead)
+						  if (Bot.SettingsFunky.SkipAhead)
 								CacheMovementTracking.RecordSkipAheadCachePoint();
 
 						  Navigator.PlayerMover.MoveTowards(moveTarget);

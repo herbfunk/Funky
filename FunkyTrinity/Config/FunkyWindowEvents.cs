@@ -96,6 +96,7 @@ namespace FunkyTrinity
 									  return;
 
 								 Logging.Write("Character Information");
+								 Logging.Write("Radius {0}", Bot.Character.fCharacterRadius);
 								 Logging.Write("Hotbar Abilities");
 								 foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.HotbarAbilities)
 								 {
@@ -126,12 +127,12 @@ namespace FunkyTrinity
                  int Value = (int)slider_sender.Value;
                  if (slider_sender.Name == "Magic")
                  {
-                     SettingsFunky.MinimumWeaponItemLevel[0] = Value;
+                     Bot.SettingsFunky.MinimumWeaponItemLevel[0] = Value;
                      TBMinimumWeaponLevel[0].Text = Value.ToString();
                  }
                  else
                  {
-                     SettingsFunky.MinimumWeaponItemLevel[1] = Value;
+                     Bot.SettingsFunky.MinimumWeaponItemLevel[1] = Value;
                      TBMinimumWeaponLevel[1].Text = Value.ToString();
                  }
              }
@@ -141,12 +142,12 @@ namespace FunkyTrinity
                  int Value = (int)slider_sender.Value;
                  if (slider_sender.Name == "Magic")
                  {
-                     SettingsFunky.MinimumArmorItemLevel[0] = Value;
+                     Bot.SettingsFunky.MinimumArmorItemLevel[0] = Value;
                      TBMinimumArmorLevel[0].Text = Value.ToString();
                  }
                  else
                  {
-                     SettingsFunky.MinimumArmorItemLevel[1] = Value;
+                     Bot.SettingsFunky.MinimumArmorItemLevel[1] = Value;
                      TBMinimumArmorLevel[1].Text = Value.ToString();
                  }
              }
@@ -156,12 +157,12 @@ namespace FunkyTrinity
                  int Value = (int)slider_sender.Value;
                  if (slider_sender.Name == "Magic")
                  {
-                     SettingsFunky.MinimumJeweleryItemLevel[0] = Value;
+                     Bot.SettingsFunky.MinimumJeweleryItemLevel[0] = Value;
                      TBMinimumJeweleryLevel[0].Text = Value.ToString();
                  }
                  else
                  {
-                     SettingsFunky.MinimumJeweleryItemLevel[1] = Value;
+                     Bot.SettingsFunky.MinimumJeweleryItemLevel[1] = Value;
                      TBMinimumJeweleryLevel[1].Text = Value.ToString();
                  }
              }
@@ -169,21 +170,21 @@ namespace FunkyTrinity
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.GilesMinimumWeaponScore = Value;
+                 Bot.SettingsFunky.GilesMinimumWeaponScore = Value;
                  TBGilesWeaponScore.Text = Value.ToString();
              }
              private void GilesArmorScoreSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.GilesMinimumArmorScore = Value;
+                 Bot.SettingsFunky.GilesMinimumArmorScore = Value;
                  TBGilesArmorScore.Text = Value.ToString();
              }
              private void GilesJeweleryScoreSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.GilesMinimumJeweleryScore = Value;
+                 Bot.SettingsFunky.GilesMinimumJeweleryScore = Value;
                  TBGilesJeweleryScore.Text = Value.ToString();
              }
 
@@ -191,245 +192,245 @@ namespace FunkyTrinity
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.MinimumLegendaryItemLevel = Value;
+                 Bot.SettingsFunky.MinimumLegendaryItemLevel = Value;
                  TBMinLegendaryLevel.Text = Value.ToString();
              }
              private void HealthPotionSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.MaximumHealthPotions = Value;
+                 Bot.SettingsFunky.MaximumHealthPotions = Value;
                  TBMaxHealthPots.Text = Value.ToString();
              }
              private void GoldAmountSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.MinimumGoldPile = Value;
+                 Bot.SettingsFunky.MinimumGoldPile = Value;
                  TBMinGoldPile.Text = Value.ToString();
              }
              private void ClusterDistanceSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.ClusterDistance = Value;
+                 Bot.SettingsFunky.ClusterDistance = Value;
                  TBClusterDistance.Text = Value.ToString();
              }
              private void ClusterMinUnitSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.ClusterMinimumUnitCount = Value;
+                 Bot.SettingsFunky.ClusterMinimumUnitCount = Value;
                  TBClusterMinUnitCount.Text = Value.ToString();
              }
              private void ClusterLowHPValueSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  double Value = Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
-                 SettingsFunky.IgnoreClusterLowHPValue = Value;
+                 Bot.SettingsFunky.IgnoreClusterLowHPValue = Value;
                  TBClusterLowHPValue.Text = Value.ToString();
              }
              private void EnableClusteringTargetLogicChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.EnableClusteringTargetLogic = !SettingsFunky.EnableClusteringTargetLogic;
+                 Bot.SettingsFunky.EnableClusteringTargetLogic = !Bot.SettingsFunky.EnableClusteringTargetLogic;
              }
              private void IgnoreClusteringBotLowHPisChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.IgnoreClusteringWhenLowHP = !SettingsFunky.IgnoreClusteringWhenLowHP;
+                 Bot.SettingsFunky.IgnoreClusteringWhenLowHP = !Bot.SettingsFunky.IgnoreClusteringWhenLowHP;
              }
              private void ClusteringKillLowHPChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.ClusterKillLowHPUnits = !SettingsFunky.ClusterKillLowHPUnits;
+                 Bot.SettingsFunky.ClusterKillLowHPUnits = !Bot.SettingsFunky.ClusterKillLowHPUnits;
              }
              private void PickupCraftTomesChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.PickupCraftTomes = !SettingsFunky.PickupCraftTomes;
+                 Bot.SettingsFunky.PickupCraftTomes = !Bot.SettingsFunky.PickupCraftTomes;
              }
              private void PickupCraftPlansChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.PickupCraftPlans = !SettingsFunky.PickupCraftPlans;
+                 Bot.SettingsFunky.PickupCraftPlans = !Bot.SettingsFunky.PickupCraftPlans;
              }
              private void PickupFollowerItemsChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.PickupFollowerItems = !SettingsFunky.PickupFollowerItems;
+                 Bot.SettingsFunky.PickupFollowerItems = !Bot.SettingsFunky.PickupFollowerItems;
              }
              private void GemsChecked(object sender, EventArgs e)
              {
                  CheckBox sender_ = (CheckBox)sender;
-                 if (sender_.Name == "red") SettingsFunky.PickupGems[0] = !SettingsFunky.PickupGems[0];
-                 if (sender_.Name == "green") SettingsFunky.PickupGems[1] = !SettingsFunky.PickupGems[1];
-                 if (sender_.Name == "purple") SettingsFunky.PickupGems[2] = !SettingsFunky.PickupGems[2];
-                 if (sender_.Name == "yellow") SettingsFunky.PickupGems[3] = !SettingsFunky.PickupGems[3];
+                 if (sender_.Name == "red") Bot.SettingsFunky.PickupGems[0] = !Bot.SettingsFunky.PickupGems[0];
+                 if (sender_.Name == "green") Bot.SettingsFunky.PickupGems[1] = !Bot.SettingsFunky.PickupGems[1];
+                 if (sender_.Name == "purple") Bot.SettingsFunky.PickupGems[2] = !Bot.SettingsFunky.PickupGems[2];
+                 if (sender_.Name == "yellow") Bot.SettingsFunky.PickupGems[3] = !Bot.SettingsFunky.PickupGems[3];
              }
              private void MiscItemLevelSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.MiscItemLevel = Value;
+                 Bot.SettingsFunky.MiscItemLevel = Value;
                  TBMiscItemLevel.Text = Value.ToString();
              }
              private void IgnoreCombatRangeChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.IgnoreCombatRange = !SettingsFunky.IgnoreCombatRange;
+                 Bot.SettingsFunky.IgnoreCombatRange = !Bot.SettingsFunky.IgnoreCombatRange;
              }
              private void IgnoreLootRangeChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.IgnoreLootRange = !SettingsFunky.IgnoreLootRange;
+                 Bot.SettingsFunky.IgnoreLootRange = !Bot.SettingsFunky.IgnoreLootRange;
              }
 
              private void EliteRangeSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.EliteCombatRange = Value;
+                 Bot.SettingsFunky.EliteCombatRange = Value;
                  TBEliteRange.Text = Value.ToString();
              }
              private void GoldRangeSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.GoldRange = Value;
+                 Bot.SettingsFunky.GoldRange = Value;
                  TBGoldRange.Text = Value.ToString();
              }
 				 private void GlobeRangeSliderChanged(object sender, EventArgs e)
 				 {
 					  Slider slider_sender=(Slider)sender;
 					  int Value=(int)slider_sender.Value;
-					  SettingsFunky.GlobeRange=Value;
+					  Bot.SettingsFunky.GlobeRange=Value;
 					  TBGlobeRange.Text=Value.ToString();
 				 }
              private void ItemRangeSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.ItemRange = Value;
+                 Bot.SettingsFunky.ItemRange = Value;
                  TBItemRange.Text = Value.ToString();
              }
              private void ShrineRangeSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.ShrineRange = Value;
+                 Bot.SettingsFunky.ShrineRange = Value;
                  TBShrineRange.Text = Value.ToString();
              }
              private void GlobeHealthSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  double Value = Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
-                 SettingsFunky.GlobeHealthPercent = Value;
+                 Bot.SettingsFunky.GlobeHealthPercent = Value;
                  TBGlobeHealth.Text = Value.ToString();
              }
              private void PotionHealthSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  double Value = Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
-                 SettingsFunky.PotionHealthPercent = Value;
+                 Bot.SettingsFunky.PotionHealthPercent = Value;
                  TBPotionHealth.Text = Value.ToString();
              }
              private void ContainerRangeSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.ContainerOpenRange = Value;
+                 Bot.SettingsFunky.ContainerOpenRange = Value;
                  TBContainerRange.Text = Value.ToString();
              }
              private void NonEliteRangeSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.NonEliteCombatRange = Value;
+                 Bot.SettingsFunky.NonEliteCombatRange = Value;
                  TBNonEliteRange.Text = Value.ToString();
              }
              private void TreasureGoblinRangeSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.TreasureGoblinRange = Value;
+                 Bot.SettingsFunky.TreasureGoblinRange = Value;
                  TBGoblinRange.Text = Value.ToString();
              }
              private void TreasureGoblinMinimumRangeSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.Class.GoblinMinimumRange = Value;
+                 Bot.SettingsFunky.Class.GoblinMinimumRange = Value;
                  TBGoblinMinRange.Text = Value.ToString();
              }
              private void DestructibleSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.DestructibleRange = Value;
+                 Bot.SettingsFunky.DestructibleRange = Value;
                  TBDestructibleRange.Text = Value.ToString();
              }
              private void ExtendCombatRangeSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.ExtendedCombatRange = Value;
+                 Bot.SettingsFunky.ExtendedCombatRange = Value;
                  TBExtendedCombatRange.Text = Value.ToString();
              }
              private void IgnoreCorpsesChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.IgnoreCorpses = !SettingsFunky.IgnoreCorpses;
+                 Bot.SettingsFunky.IgnoreCorpses = !Bot.SettingsFunky.IgnoreCorpses;
              }
              private void IgnoreEliteMonstersChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.IgnoreAboveAverageMobs = !SettingsFunky.IgnoreAboveAverageMobs;
+                 Bot.SettingsFunky.IgnoreAboveAverageMobs = !Bot.SettingsFunky.IgnoreAboveAverageMobs;
              }
              private void OutOfCombatMovementChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.OutOfCombatMovement = !SettingsFunky.OutOfCombatMovement;
+                 Bot.SettingsFunky.OutOfCombatMovement = !Bot.SettingsFunky.OutOfCombatMovement;
              }
              private void KiteSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.KiteDistance = Value;
+                 Bot.SettingsFunky.KiteDistance = Value;
                  TBKiteDistance.Text = Value.ToString();
              }
              private void AfterCombatDelaySliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.AfterCombatDelay = Value;
+                 Bot.SettingsFunky.AfterCombatDelay = Value;
                  TBAfterCombatDelay.Text = Value.ToString();
              }
              private void AvoidanceMinimumRetrySliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.AvoidanceRecheckMinimumRate = Value;
+                 Bot.SettingsFunky.AvoidanceRecheckMinimumRate = Value;
                  TBAvoidanceTimeLimits[0].Text = Value.ToString();
              }
              private void AvoidanceMaximumRetrySliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.AvoidanceRecheckMaximumRate = Value;
+                 Bot.SettingsFunky.AvoidanceRecheckMaximumRate = Value;
                  TBAvoidanceTimeLimits[1].Text = Value.ToString();
              }
              private void KitingMaximumRetrySliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.KitingRecheckMaximumRate = Value;
+                 Bot.SettingsFunky.KitingRecheckMaximumRate = Value;
                  TBKiteTimeLimits[1].Text = Value.ToString();
              }
              private void KitingMinimumRetrySliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.KitingRecheckMinimumRate = Value;
+                 Bot.SettingsFunky.KitingRecheckMinimumRate = Value;
                  TBKiteTimeLimits[0].Text = Value.ToString();
              }
              //UseAdvancedProjectileTesting
              private void UseAdvancedProjectileTestingChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.UseAdvancedProjectileTesting = !SettingsFunky.UseAdvancedProjectileTesting;
+                 Bot.SettingsFunky.UseAdvancedProjectileTesting = !Bot.SettingsFunky.UseAdvancedProjectileTesting;
              }
              private void AvoidanceAttemptMovementChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.AttemptAvoidanceMovements = !SettingsFunky.AttemptAvoidanceMovements;
+                 Bot.SettingsFunky.AttemptAvoidanceMovements = !Bot.SettingsFunky.AttemptAvoidanceMovements;
              }
              private void AvoidanceRadiusSliderValueChanged(object sender, EventArgs e)
              {
@@ -454,7 +455,7 @@ namespace FunkyTrinity
                  AvoidanceType avoidancetype = (AvoidanceType)Enum.Parse(typeof(AvoidanceType), slider_info[0]);
 
 
-                 switch (ActorClass)
+                 switch (Bot.ActorClass)
                  {
                      case Zeta.Internals.Actors.ActorClass.Barbarian:
                          dictAvoidanceHealthBarb[avoidancetype] = currentValue;
@@ -478,67 +479,67 @@ namespace FunkyTrinity
 
              private void bEnableCriticalMassChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.Class.bEnableCriticalMass = !SettingsFunky.Class.bEnableCriticalMass;
+                 Bot.SettingsFunky.Class.bEnableCriticalMass = !Bot.SettingsFunky.Class.bEnableCriticalMass;
              }
 
              private void bWaitForArchonChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.Class.bWaitForArchon = !SettingsFunky.Class.bWaitForArchon;
+                 Bot.SettingsFunky.Class.bWaitForArchon = !Bot.SettingsFunky.Class.bWaitForArchon;
              }
              private void bKiteOnlyArchonChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.Class.bKiteOnlyArchon = !SettingsFunky.Class.bKiteOnlyArchon;
+                 Bot.SettingsFunky.Class.bKiteOnlyArchon = !Bot.SettingsFunky.Class.bKiteOnlyArchon;
              }
 
              private void bSelectiveWhirlwindChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.Class.bSelectiveWhirlwind = !SettingsFunky.Class.bSelectiveWhirlwind;
+                 Bot.SettingsFunky.Class.bSelectiveWhirlwind = !Bot.SettingsFunky.Class.bSelectiveWhirlwind;
              }
              private void bWaitForWrathChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.Class.bWaitForWrath = !SettingsFunky.Class.bWaitForWrath;
+                 Bot.SettingsFunky.Class.bWaitForWrath = !Bot.SettingsFunky.Class.bWaitForWrath;
              }
              private void bGoblinWrathChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.Class.bGoblinWrath = !SettingsFunky.Class.bGoblinWrath;
+                 Bot.SettingsFunky.Class.bGoblinWrath = !Bot.SettingsFunky.Class.bGoblinWrath;
              }
              private void bFuryDumpWrathChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.Class.bFuryDumpWrath = !SettingsFunky.Class.bFuryDumpWrath;
+                 Bot.SettingsFunky.Class.bFuryDumpWrath = !Bot.SettingsFunky.Class.bFuryDumpWrath;
              }
              private void bFuryDumpAlwaysChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.Class.bFuryDumpAlways = !SettingsFunky.Class.bFuryDumpAlways;
+                 Bot.SettingsFunky.Class.bFuryDumpAlways = !Bot.SettingsFunky.Class.bFuryDumpAlways;
              }
              private void bMonkInnaSetChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.Class.bMonkInnaSet = !SettingsFunky.Class.bMonkInnaSet;
+                 Bot.SettingsFunky.Class.bMonkInnaSet = !Bot.SettingsFunky.Class.bMonkInnaSet;
              }
              private void iDHVaultMovementDelaySliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.Class.iDHVaultMovementDelay = Value;
+                 Bot.SettingsFunky.Class.iDHVaultMovementDelay = Value;
                  TBiDHVaultMovementDelay.Text = Value.ToString();
              }
              #endregion
 
              private void OOCIDChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.OOCIdentifyItems = !SettingsFunky.OOCIdentifyItems;
+                 Bot.SettingsFunky.OOCIdentifyItems = !Bot.SettingsFunky.OOCIdentifyItems;
              }
              private void BuyPotionsDuringTownRunChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.BuyPotionsDuringTownRun = !SettingsFunky.BuyPotionsDuringTownRun;
+                 Bot.SettingsFunky.BuyPotionsDuringTownRun = !Bot.SettingsFunky.BuyPotionsDuringTownRun;
              }
              private void EnableWaitAfterContainersChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.EnableWaitAfterContainers = !SettingsFunky.EnableWaitAfterContainers;
+                 Bot.SettingsFunky.EnableWaitAfterContainers = !Bot.SettingsFunky.EnableWaitAfterContainers;
              }
 
              private void GemQualityLevelChanged(object sender, EventArgs e)
              {
-                 SettingsFunky.MinimumGemItemLevel = (int)Enum.Parse(typeof(GemQuality), CBGemQualityLevel.Items[CBGemQualityLevel.SelectedIndex].ToString());
+                 Bot.SettingsFunky.MinimumGemItemLevel = (int)Enum.Parse(typeof(GemQuality), CBGemQualityLevel.Items[CBGemQualityLevel.SelectedIndex].ToString());
              }
              class GemQualityTypes : ObservableCollection<string>
              {
@@ -586,48 +587,48 @@ namespace FunkyTrinity
              private void GoblinPriorityChanged(object sender, EventArgs e)
              {
                  ComboBox senderCB = (ComboBox)sender;
-                 SettingsFunky.GoblinPriority = senderCB.SelectedIndex;
+                 Bot.SettingsFunky.GoblinPriority = senderCB.SelectedIndex;
              }
              private void ItemRulesTypeChanged(object sender, EventArgs e)
              {
-                 SettingsFunky.ItemRuleType = ItemRuleType.Items[ItemRuleType.SelectedIndex].ToString();
+                 Bot.SettingsFunky.ItemRuleType = ItemRuleType.Items[ItemRuleType.SelectedIndex].ToString();
              }
              private void ItemRulesScoringChanged(object sender, EventArgs e)
              {
-                 SettingsFunky.ItemRuleGilesScoring = ItemRuleGilesScoring.IsChecked.Value;
+                 Bot.SettingsFunky.ItemRuleGilesScoring = ItemRuleGilesScoring.IsChecked.Value;
              }
              private void ItemRulesLogPickupChanged(object sender, EventArgs e)
              {
-                 SettingsFunky.ItemRuleLogPickup = ItemRuleLogPickup.Items[ItemRuleLogPickup.SelectedIndex].ToString();
+                 Bot.SettingsFunky.ItemRuleLogPickup = ItemRuleLogPickup.Items[ItemRuleLogPickup.SelectedIndex].ToString();
              }
              private void ItemRulesLogKeepChanged(object sender, EventArgs e)
              {
-                 SettingsFunky.ItemRuleLogKeep = ItemRuleLogKeep.Items[ItemRuleLogKeep.SelectedIndex].ToString();
+                 Bot.SettingsFunky.ItemRuleLogKeep = ItemRuleLogKeep.Items[ItemRuleLogKeep.SelectedIndex].ToString();
              }
 
              private void ItemRulesChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.UseItemRules = !SettingsFunky.UseItemRules;
+                 Bot.SettingsFunky.UseItemRules = !Bot.SettingsFunky.UseItemRules;
              }
              private void ItemRulesPickupChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.UseItemRulesPickup = !SettingsFunky.UseItemRulesPickup;
+                 Bot.SettingsFunky.UseItemRulesPickup = !Bot.SettingsFunky.UseItemRulesPickup;
              }
              private void ItemRulesItemIDsChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.ItemRuleUseItemIDs = !SettingsFunky.ItemRuleUseItemIDs;
+                 Bot.SettingsFunky.ItemRuleUseItemIDs = !Bot.SettingsFunky.ItemRuleUseItemIDs;
              }
              private void ItemRulesDebugChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.ItemRuleDebug = !SettingsFunky.ItemRuleDebug;
+                 Bot.SettingsFunky.ItemRuleDebug = !Bot.SettingsFunky.ItemRuleDebug;
              }
              private void ItemLevelingLogicChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.UseLevelingLogic = !SettingsFunky.UseLevelingLogic;
+                 Bot.SettingsFunky.UseLevelingLogic = !Bot.SettingsFunky.UseLevelingLogic;
              }
              private void ItemRulesSalvagingChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.ItemRulesSalvaging = !SettingsFunky.ItemRulesSalvaging;
+                 Bot.SettingsFunky.ItemRulesSalvaging = !Bot.SettingsFunky.ItemRulesSalvaging;
              }
              //UseLevelingLogic
              private void ItemRulesReload_Click(object sender, EventArgs e)
@@ -644,37 +645,37 @@ namespace FunkyTrinity
              }
              private void DebugStatusBarChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.DebugStatusBar = !SettingsFunky.DebugStatusBar;
+                 Bot.SettingsFunky.DebugStatusBar = !Bot.SettingsFunky.DebugStatusBar;
              }
              private void LogSafeMovementOutputChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.LogSafeMovementOutput = !SettingsFunky.LogSafeMovementOutput;
+                 Bot.SettingsFunky.LogSafeMovementOutput = !Bot.SettingsFunky.LogSafeMovementOutput;
              }
 				 private void SkipAheadChecked(object sender, EventArgs e)
 				 {
-					  SettingsFunky.SkipAhead=!SettingsFunky.SkipAhead;
+					  Bot.SettingsFunky.SkipAhead=!Bot.SettingsFunky.SkipAhead;
 				 }
 
              private void ExtendRangeRepChestChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.UseExtendedRangeRepChest = !SettingsFunky.UseExtendedRangeRepChest;
+                 Bot.SettingsFunky.UseExtendedRangeRepChest = !Bot.SettingsFunky.UseExtendedRangeRepChest;
              }
              private void EnableCoffeeBreaksChecked(object sender, EventArgs e)
              {
-                 SettingsFunky.EnableCoffeeBreaks = !SettingsFunky.EnableCoffeeBreaks;
+                 Bot.SettingsFunky.EnableCoffeeBreaks = !Bot.SettingsFunky.EnableCoffeeBreaks;
              }
              private void BreakMinMinutesSliderChange(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.MinBreakTime = Value;
+                 Bot.SettingsFunky.MinBreakTime = Value;
                  tbMinBreakTime.Text = Value.ToString();
              }
              private void BreakMaxMinutesSliderChange(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 SettingsFunky.MaxBreakTime = Value;
+                 Bot.SettingsFunky.MaxBreakTime = Value;
                  tbMaxBreakTime.Text = Value.ToString();
              }
 
@@ -684,7 +685,7 @@ namespace FunkyTrinity
                  string lastText = OOCIdentfyItemsMinCount.Text;
                  if (isStringFullyNumerical(lastText))
                  {
-                     SettingsFunky.OOCIdentifyItemsMinimumRequired = Convert.ToInt32(lastText);
+                     Bot.SettingsFunky.OOCIdentifyItemsMinimumRequired = Convert.ToInt32(lastText);
                  }
              }
              private void OOCMinimumItems_KeyUp(object sender, EventArgs e)
@@ -700,7 +701,7 @@ namespace FunkyTrinity
              {
                  Slider slider_sender = (Slider)sender;
                  double Value = Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
-                 SettingsFunky.breakTimeHour = Value;
+                 Bot.SettingsFunky.breakTimeHour = Value;
                  TBBreakTimeHour.Text = Value.ToString();
              }
 

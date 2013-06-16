@@ -16,24 +16,15 @@ namespace FunkyTrinity
 {
     public partial class Funky
     {
-        private static Zeta.Internals.Actors.ActorClass ActorClass;
-        private static string CurrentAccountName;
-        private static string CurrentHeroName;
 
-        private static void UpdateCurrentAccountDetails()
-        {
-            ActorClass = Zeta.ZetaDia.Service.CurrentHero.Class;
-            CurrentAccountName = Zeta.ZetaDia.Service.CurrentHero.BattleTagName;
-            CurrentHeroName = Zeta.ZetaDia.Service.CurrentHero.Name;
-        }
 
         private static void buttonFunkySettingDB_Click(object sender, RoutedEventArgs e)
         {
-            ActorClass = Zeta.ZetaDia.Service.CurrentHero.Class;
-            CurrentAccountName = Zeta.ZetaDia.Service.CurrentHero.BattleTagName;
-            CurrentHeroName = Zeta.ZetaDia.Service.CurrentHero.Name;
+				Bot.ActorClass=Zeta.ZetaDia.Service.CurrentHero.Class;
+				Bot.CurrentAccountName=Zeta.ZetaDia.Service.CurrentHero.BattleTagName;
+				Bot.CurrentHeroName=Zeta.ZetaDia.Service.CurrentHero.Name;
 
-            string settingsFolder = FolderPaths.sDemonBuddyPath + @"\Settings\FunkyTrinity\" + CurrentAccountName;
+				string settingsFolder=FolderPaths.sDemonBuddyPath+@"\Settings\FunkyTrinity\"+Bot.CurrentAccountName;
             if(!Directory.Exists(settingsFolder))
                 Directory.CreateDirectory(settingsFolder);
             try
@@ -199,7 +190,7 @@ namespace FunkyTrinity
                 CheckBox CBAttemptAvoidanceMovements = new CheckBox
                 {
                     Content = "Enable Avoidance",
-                    IsChecked = SettingsFunky.AttemptAvoidanceMovements,
+                    IsChecked = Bot.SettingsFunky.AttemptAvoidanceMovements,
 
                 };
                 CBAttemptAvoidanceMovements.Checked += AvoidanceAttemptMovementChecked;
@@ -208,7 +199,7 @@ namespace FunkyTrinity
                 CheckBox CBAdvancedProjectileTesting = new CheckBox
                 {
                     Content = "Use Advanced Avoidance Projectile Test",
-                    IsChecked = SettingsFunky.UseAdvancedProjectileTesting,
+                    IsChecked = Bot.SettingsFunky.UseAdvancedProjectileTesting,
                 };
                 CBAdvancedProjectileTesting.Checked += UseAdvancedProjectileTestingChecked;
                 CBAdvancedProjectileTesting.Unchecked += UseAdvancedProjectileTestingChecked;
@@ -257,7 +248,7 @@ namespace FunkyTrinity
                     TickFrequency = 500,
                     LargeChange = 1000,
                     SmallChange = 50,
-                    Value = SettingsFunky.AvoidanceRecheckMinimumRate,
+                    Value = Bot.SettingsFunky.AvoidanceRecheckMinimumRate,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                     Margin = new Thickness(6),
                 };
@@ -265,7 +256,7 @@ namespace FunkyTrinity
                 TBAvoidanceTimeLimits = new TextBox[2];
                 TBAvoidanceTimeLimits[0] = new TextBox
                 {
-                    Text = SettingsFunky.AvoidanceRecheckMinimumRate.ToString(),
+                    Text = Bot.SettingsFunky.AvoidanceRecheckMinimumRate.ToString(),
                     IsReadOnly = true,
                 };
 
@@ -285,14 +276,14 @@ namespace FunkyTrinity
                     TickFrequency = 500,
                     LargeChange = 1000,
                     SmallChange = 50,
-                    Value = SettingsFunky.AvoidanceRecheckMaximumRate,
+                    Value = Bot.SettingsFunky.AvoidanceRecheckMaximumRate,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                     Margin = new Thickness(6),
                 };
                 sliderAvoidMaximumRetry.ValueChanged += AvoidanceMaximumRetrySliderChanged;
                 TBAvoidanceTimeLimits[1] = new TextBox
                 {
-                    Text = SettingsFunky.AvoidanceRecheckMaximumRate.ToString(),
+                    Text = Bot.SettingsFunky.AvoidanceRecheckMaximumRate.ToString(),
                     IsReadOnly = true,
                 };
 
@@ -337,7 +328,7 @@ namespace FunkyTrinity
                     TickFrequency = 500,
                     LargeChange = 1000,
                     SmallChange = 50,
-                    Value = SettingsFunky.KitingRecheckMinimumRate,
+                    Value = Bot.SettingsFunky.KitingRecheckMinimumRate,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                     Margin = new Thickness(6),
 
@@ -346,7 +337,7 @@ namespace FunkyTrinity
                 TBKiteTimeLimits = new TextBox[2];
                 TBKiteTimeLimits[0] = new TextBox
                 {
-                    Text = SettingsFunky.KitingRecheckMinimumRate.ToString(),
+                    Text = Bot.SettingsFunky.KitingRecheckMinimumRate.ToString(),
                     IsReadOnly = true,
                 };
 
@@ -367,14 +358,14 @@ namespace FunkyTrinity
                     TickFrequency = 500,
                     LargeChange = 1000,
                     SmallChange = 50,
-                    Value = SettingsFunky.KitingRecheckMaximumRate,
+                    Value = Bot.SettingsFunky.KitingRecheckMaximumRate,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                     Margin = new Thickness(6),
                 };
                 sliderKiteMaximumRetry.ValueChanged += KitingMaximumRetrySliderChanged;
                 TBKiteTimeLimits[1] = new TextBox
                 {
-                    Text = SettingsFunky.KitingRecheckMaximumRate.ToString(),
+                    Text = Bot.SettingsFunky.KitingRecheckMaximumRate.ToString(),
                     IsReadOnly = true,
                 };
                 TextBlock Kite_Retry_Max_Text = new TextBlock
@@ -408,13 +399,13 @@ namespace FunkyTrinity
                     TickFrequency = 5,
                     LargeChange = 5,
                     SmallChange = 1,
-                    Value = SettingsFunky.KiteDistance,
+                    Value = Bot.SettingsFunky.KiteDistance,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderKiteDistance.ValueChanged += KiteSliderChanged;
                 TBKiteDistance = new TextBox
                 {
-                    Text = SettingsFunky.KiteDistance.ToString(),
+                    Text = Bot.SettingsFunky.KiteDistance.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel KiteDistanceStackPanel = new StackPanel
@@ -530,13 +521,13 @@ namespace FunkyTrinity
                     TickFrequency = 0.25,
                     LargeChange = 0.20,
                     SmallChange = 0.10,
-                    Value = SettingsFunky.GlobeHealthPercent,
+                    Value = Bot.SettingsFunky.GlobeHealthPercent,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderGlobeHealth.ValueChanged += GlobeHealthSliderChanged;
                 TBGlobeHealth = new TextBox
                 {
-                    Text = SettingsFunky.GlobeHealthPercent.ToString("F2", CultureInfo.InvariantCulture),
+                    Text = Bot.SettingsFunky.GlobeHealthPercent.ToString("F2", CultureInfo.InvariantCulture),
                     IsReadOnly = true,
                 };
                 StackPanel GlobeHealthStackPanel = new StackPanel
@@ -568,13 +559,13 @@ namespace FunkyTrinity
                     TickFrequency = 0.25,
                     LargeChange = 0.20,
                     SmallChange = 0.10,
-                    Value = SettingsFunky.PotionHealthPercent,
+                    Value = Bot.SettingsFunky.PotionHealthPercent,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderPotionHealth.ValueChanged += PotionHealthSliderChanged;
                 TBPotionHealth = new TextBox
                 {
-                    Text = SettingsFunky.PotionHealthPercent.ToString("F2", CultureInfo.InvariantCulture),
+                    Text = Bot.SettingsFunky.PotionHealthPercent.ToString("F2", CultureInfo.InvariantCulture),
                     IsReadOnly = true,
                 };
                 StackPanel PotionHealthStackPanel = new StackPanel
@@ -615,7 +606,7 @@ namespace FunkyTrinity
 					 CheckBox cbClusterEnabled=new CheckBox
 					 {
 						  Content="Enable Clustering Target Logic",
-						  IsChecked=(SettingsFunky.EnableClusteringTargetLogic),
+						  IsChecked=(Bot.SettingsFunky.EnableClusteringTargetLogic),
 						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+10),
 					 };
@@ -654,13 +645,13 @@ namespace FunkyTrinity
 						  TickFrequency=0.25,
 						  LargeChange=0.25,
 						  SmallChange=0.10,
-						  Value=SettingsFunky.IgnoreClusterLowHPValue,
+						  Value=Bot.SettingsFunky.IgnoreClusterLowHPValue,
 						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 };
 					 sliderClusterLowHPValue.ValueChanged+=ClusterLowHPValueSliderChanged;
 					 TBClusterLowHPValue=new TextBox
 					 {
-						  Text=SettingsFunky.IgnoreClusterLowHPValue.ToString("F2", CultureInfo.InvariantCulture),
+						  Text=Bot.SettingsFunky.IgnoreClusterLowHPValue.ToString("F2", CultureInfo.InvariantCulture),
 						  IsReadOnly=true,
 					 };
 					 StackPanel ClusterLowHPValueStackPanel=new StackPanel
@@ -680,7 +671,7 @@ namespace FunkyTrinity
 					 CheckBox cbClusterIgnoreBotLowHP=new CheckBox
 					 {
 						  Content="Cluster Logic Disable at HP %",
-						  IsChecked=(SettingsFunky.IgnoreClusteringWhenLowHP),
+						  IsChecked=(Bot.SettingsFunky.IgnoreClusteringWhenLowHP),
 						  HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
 						  VerticalAlignment=System.Windows.VerticalAlignment.Bottom,
 						  Margin=new Thickness(Margin.Left+5, Margin.Top, Margin.Right, Margin.Bottom),
@@ -712,13 +703,13 @@ namespace FunkyTrinity
 						  TickFrequency=4,
 						  LargeChange=5,
 						  SmallChange=1,
-						  Value=SettingsFunky.ClusterDistance,
+						  Value=Bot.SettingsFunky.ClusterDistance,
 						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 };
 					 sliderClusterDistance.ValueChanged+=ClusterDistanceSliderChanged;
 					 TBClusterDistance=new TextBox
 					 {
-						  Text=SettingsFunky.ClusterDistance.ToString(),
+						  Text=Bot.SettingsFunky.ClusterDistance.ToString(),
 						  IsReadOnly=true,
 					 };
 					 StackPanel ClusterDistanceStackPanel=new StackPanel
@@ -754,13 +745,13 @@ namespace FunkyTrinity
 						  TickFrequency=2,
 						  LargeChange=2,
 						  SmallChange=1,
-						  Value=SettingsFunky.ClusterMinimumUnitCount,
+						  Value=Bot.SettingsFunky.ClusterMinimumUnitCount,
 						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 };
 					 sliderClusterMinUnitCount.ValueChanged+=ClusterMinUnitSliderChanged;
 					 TBClusterMinUnitCount=new TextBox
 					 {
-						  Text=SettingsFunky.ClusterMinimumUnitCount.ToString(),
+						  Text=Bot.SettingsFunky.ClusterMinimumUnitCount.ToString(),
 						  IsReadOnly=true,
 					 };
 					 StackPanel ClusterMinUnitCountStackPanel=new StackPanel
@@ -853,7 +844,7 @@ namespace FunkyTrinity
                 AvoidanceLayoutGrid.Children.Add(ColumnHeader2);
                 AvoidanceLayoutGrid.Children.Add(ColumnHeader3);
 
-                Dictionary<AvoidanceType, double> currentDictionaryAvoidance = ReturnDictionaryUsingActorClass(ActorClass);
+					 Dictionary<AvoidanceType, double> currentDictionaryAvoidance=ReturnDictionaryUsingActorClass(Bot.ActorClass);
                 AvoidanceType[] avoidanceTypes = currentDictionaryAvoidance.Keys.ToArray();
                 TBavoidanceHealth = new TextBox[avoidanceTypes.Length - 1];
                 TBavoidanceRadius = new TextBox[avoidanceTypes.Length - 1];
@@ -892,7 +883,7 @@ namespace FunkyTrinity
                     };
 
                     double defaultHealth = 0d;
-                    ReturnDictionaryUsingActorClass(ActorClass).TryGetValue(avoidanceTypes[i], out defaultHealth);
+						  ReturnDictionaryUsingActorClass(Bot.ActorClass).TryGetValue(avoidanceTypes[i], out defaultHealth);
                     Slider avoidanceHealth = new Slider
                     {
                         Name = avoidanceString + "_health_" + i.ToString(),
@@ -981,7 +972,7 @@ namespace FunkyTrinity
                 CombatTabControl.Items.Add(ClassTabItem);
                 ListBox LBClass = new ListBox();
 
-                switch(ActorClass)
+					 switch (Bot.ActorClass)
                 {
                     case Zeta.Internals.Actors.ActorClass.Barbarian:
                         CheckBox cbbSelectiveWhirlwind = new CheckBox
@@ -989,7 +980,7 @@ namespace FunkyTrinity
                             Content = "Selective Whirlwind Targeting",
                             Width = 300,
                             Height = 30,
-                            IsChecked = (SettingsFunky.Class.bSelectiveWhirlwind)
+                            IsChecked = (Bot.SettingsFunky.Class.bSelectiveWhirlwind)
                         };
                         cbbSelectiveWhirlwind.Checked += bSelectiveWhirlwindChecked;
                         cbbSelectiveWhirlwind.Unchecked += bSelectiveWhirlwindChecked;
@@ -1000,7 +991,7 @@ namespace FunkyTrinity
                             Content = "Wait for Wrath",
                             Width = 300,
                             Height = 30,
-                            IsChecked = (SettingsFunky.Class.bWaitForWrath)
+                            IsChecked = (Bot.SettingsFunky.Class.bWaitForWrath)
                         };
                         cbbWaitForWrath.Checked += bWaitForWrathChecked;
                         cbbWaitForWrath.Unchecked += bWaitForWrathChecked;
@@ -1011,7 +1002,7 @@ namespace FunkyTrinity
                             Content = "Use Wrath on Goblins",
                             Width = 300,
                             Height = 30,
-                            IsChecked = (SettingsFunky.Class.bGoblinWrath)
+                            IsChecked = (Bot.SettingsFunky.Class.bGoblinWrath)
                         };
                         cbbGoblinWrath.Checked += bGoblinWrathChecked;
                         cbbGoblinWrath.Unchecked += bGoblinWrathChecked;
@@ -1022,7 +1013,7 @@ namespace FunkyTrinity
                             Content = "Fury Dump during Wrath",
                             Width = 300,
                             Height = 30,
-                            IsChecked = (SettingsFunky.Class.bFuryDumpWrath)
+                            IsChecked = (Bot.SettingsFunky.Class.bFuryDumpWrath)
                         };
                         cbbFuryDumpWrath.Checked += bFuryDumpWrathChecked;
                         cbbFuryDumpWrath.Unchecked += bFuryDumpWrathChecked;
@@ -1033,7 +1024,7 @@ namespace FunkyTrinity
                             Content = "Fury Dump Always",
                             Width = 300,
                             Height = 30,
-                            IsChecked = (SettingsFunky.Class.bFuryDumpAlways)
+                            IsChecked = (Bot.SettingsFunky.Class.bFuryDumpAlways)
                         };
                         cbbFuryDumpAlways.Checked += bFuryDumpAlwaysChecked;
                         cbbFuryDumpAlways.Unchecked += bFuryDumpAlwaysChecked;
@@ -1050,13 +1041,13 @@ namespace FunkyTrinity
                             TickFrequency = 5,
                             LargeChange = 5,
                             SmallChange = 1,
-                            Value = SettingsFunky.Class.iDHVaultMovementDelay,
+                            Value = Bot.SettingsFunky.Class.iDHVaultMovementDelay,
                             HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                         };
                         iDHVaultMovementDelayslider.ValueChanged += iDHVaultMovementDelaySliderChanged;
                         TBiDHVaultMovementDelay = new TextBox
                         {
-                            Text = SettingsFunky.Class.iDHVaultMovementDelay.ToString(),
+                            Text = Bot.SettingsFunky.Class.iDHVaultMovementDelay.ToString(),
                             IsReadOnly = true,
                         };
                         StackPanel DhVaultPanel = new StackPanel
@@ -1076,7 +1067,7 @@ namespace FunkyTrinity
                             Content = "Full Inna Set Bonus",
                             Width = 300,
                             Height = 30,
-                            IsChecked = (SettingsFunky.Class.bMonkInnaSet)
+                            IsChecked = (Bot.SettingsFunky.Class.bMonkInnaSet)
                         };
                         cbbMonkInnaSet.Checked += bMonkInnaSetChecked;
                         cbbMonkInnaSet.Unchecked += bMonkInnaSetChecked;
@@ -1090,20 +1081,20 @@ namespace FunkyTrinity
                             Content = "Critical Mass",
                             Width = 300,
                             Height = 30,
-                            IsChecked = (SettingsFunky.Class.bEnableCriticalMass)
+                            IsChecked = (Bot.SettingsFunky.Class.bEnableCriticalMass)
                         };
                         cbbEnableCriticalMass.Checked += bEnableCriticalMassChecked;
                         cbbEnableCriticalMass.Unchecked += bEnableCriticalMassChecked;
                         LBClass.Items.Add(cbbEnableCriticalMass);
 
-                        if(ActorClass == Zeta.Internals.Actors.ActorClass.Wizard)
+								if (Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Wizard)
                         {
                             CheckBox cbbWaitForArchon = new CheckBox
                             {
                                 Content = "Wait for Archon",
                                 Width = 300,
                                 Height = 30,
-                                IsChecked = (SettingsFunky.Class.bWaitForArchon)
+                                IsChecked = (Bot.SettingsFunky.Class.bWaitForArchon)
                             };
                             cbbWaitForArchon.Checked += bWaitForArchonChecked;
                             cbbWaitForArchon.Unchecked += bWaitForArchonChecked;
@@ -1114,7 +1105,7 @@ namespace FunkyTrinity
                                 Content = "Kite Only During Archon",
                                 Width = 300,
                                 Height = 30,
-                                IsChecked = (SettingsFunky.Class.bKiteOnlyArchon)
+                                IsChecked = (Bot.SettingsFunky.Class.bKiteOnlyArchon)
                             };
                             cbbKiteOnlyArchon.Checked += bKiteOnlyArchonChecked;
                             cbbKiteOnlyArchon.Unchecked += bKiteOnlyArchonChecked;
@@ -1124,7 +1115,7 @@ namespace FunkyTrinity
 
                         break;
                 }
-                if(ActorClass == Zeta.Internals.Actors.ActorClass.DemonHunter || ActorClass == Zeta.Internals.Actors.ActorClass.WitchDoctor || ActorClass == Zeta.Internals.Actors.ActorClass.Wizard)
+					 if (Bot.ActorClass==Zeta.Internals.Actors.ActorClass.DemonHunter||Bot.ActorClass==Zeta.Internals.Actors.ActorClass.WitchDoctor||Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Wizard)
                 {
 
                     #region GoblinMinimumRange
@@ -1137,13 +1128,13 @@ namespace FunkyTrinity
                         TickFrequency = 5,
                         LargeChange = 5,
                         SmallChange = 1,
-                        Value = SettingsFunky.Class.GoblinMinimumRange,
+                        Value = Bot.SettingsFunky.Class.GoblinMinimumRange,
                         HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                     };
                     sliderGoblinMinRange.ValueChanged += TreasureGoblinMinimumRangeSliderChanged;
                     TBGoblinMinRange = new TextBox
                     {
-                        Text = SettingsFunky.Class.GoblinMinimumRange.ToString(),
+                        Text = Bot.SettingsFunky.Class.GoblinMinimumRange.ToString(),
                         IsReadOnly = true,
                     };
                     StackPanel GoblinMinRangeStackPanel = new StackPanel
@@ -1209,7 +1200,7 @@ namespace FunkyTrinity
                     Content = "Finish Units with 25% or less HP",
                     Width = 300,
                     Height = 30,
-                    IsChecked = (SettingsFunky.ClusterKillLowHPUnits),
+                    IsChecked = (Bot.SettingsFunky.ClusterKillLowHPUnits),
 						  HorizontalAlignment= System.Windows.HorizontalAlignment.Left,
                 };
                 cbClusterKillLowHPUnits.Checked += ClusteringKillLowHPChecked;
@@ -1222,7 +1213,7 @@ namespace FunkyTrinity
                     Content = "Ignore Rare/Elite/Unique Monsters",
                     Width = 300,
                     Height = 30,
-                    IsChecked = (SettingsFunky.IgnoreAboveAverageMobs),
+                    IsChecked = (Bot.SettingsFunky.IgnoreAboveAverageMobs),
 						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
                 };
                 cbIgnoreElites.Checked += IgnoreEliteMonstersChecked;
@@ -1235,7 +1226,7 @@ namespace FunkyTrinity
                     Content = "Ignore Looting Corpses",
                     Width = 300,
                     Height = 30,
-                    IsChecked = (SettingsFunky.IgnoreCorpses),
+                    IsChecked = (Bot.SettingsFunky.IgnoreCorpses),
 						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
                 };
                 cbIgnoreCorpses.Checked += IgnoreCorpsesChecked;
@@ -1248,7 +1239,7 @@ namespace FunkyTrinity
 						  Content="Allow high range on rare chests",
 						  Width=300,
 						  Height=20,
-						  IsChecked=(SettingsFunky.UseExtendedRangeRepChest),
+						  IsChecked=(Bot.SettingsFunky.UseExtendedRangeRepChest),
 						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 
 					 };
@@ -1274,7 +1265,7 @@ namespace FunkyTrinity
 						  Height=25,
 						  Width=300,
 						  ItemsSource=new GoblinPriority(),
-						  SelectedIndex=SettingsFunky.GoblinPriority,
+						  SelectedIndex=Bot.SettingsFunky.GoblinPriority,
 						  Margin= new Thickness(4),
 					 };
 					 CBGoblinPriority.SelectionChanged+=GoblinPriorityChanged;
@@ -1314,7 +1305,7 @@ namespace FunkyTrinity
                    // Width = 300,
 						 HorizontalContentAlignment = System.Windows.HorizontalAlignment.Left,
                     Height = 30,
-                    IsChecked = (SettingsFunky.IgnoreCombatRange)
+                    IsChecked = (Bot.SettingsFunky.IgnoreCombatRange)
                 };
                 cbIgnoreCombatRange.Checked += IgnoreCombatRangeChecked;
                 cbIgnoreCombatRange.Unchecked += IgnoreCombatRangeChecked;
@@ -1326,7 +1317,7 @@ namespace FunkyTrinity
                    // Width = 300,
                     Height = 30,
 						  HorizontalContentAlignment=System.Windows.HorizontalAlignment.Right,
-                    IsChecked = (SettingsFunky.IgnoreLootRange)
+                    IsChecked = (Bot.SettingsFunky.IgnoreLootRange)
                 };
                 cbIgnoreLootRange.Checked += IgnoreLootRangeChecked;
                 cbIgnoreLootRange.Unchecked += IgnoreLootRangeChecked;
@@ -1355,13 +1346,13 @@ namespace FunkyTrinity
                     TickFrequency = 5,
                     LargeChange = 5,
                     SmallChange = 1,
-                    Value = SettingsFunky.EliteCombatRange,
+                    Value = Bot.SettingsFunky.EliteCombatRange,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderEliteRange.ValueChanged += EliteRangeSliderChanged;
                 TBEliteRange = new TextBox
                 {
-                    Text = SettingsFunky.EliteCombatRange.ToString(),
+                    Text = Bot.SettingsFunky.EliteCombatRange.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel EliteStackPanel = new StackPanel
@@ -1385,13 +1376,13 @@ namespace FunkyTrinity
                     TickFrequency = 5,
                     LargeChange = 5,
                     SmallChange = 1,
-                    Value = SettingsFunky.NonEliteCombatRange,
+                    Value = Bot.SettingsFunky.NonEliteCombatRange,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderNonEliteRange.ValueChanged += NonEliteRangeSliderChanged;
                 TBNonEliteRange = new TextBox
                 {
-                    Text = SettingsFunky.NonEliteCombatRange.ToString(),
+                    Text = Bot.SettingsFunky.NonEliteCombatRange.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel NonEliteStackPanel = new StackPanel
@@ -1415,13 +1406,13 @@ namespace FunkyTrinity
                     TickFrequency = 5,
                     LargeChange = 5,
                     SmallChange = 1,
-                    Value = SettingsFunky.ExtendedCombatRange,
+                    Value = Bot.SettingsFunky.ExtendedCombatRange,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderExtendedCombatRange.ValueChanged += ExtendCombatRangeSliderChanged;
                 TBExtendedCombatRange = new TextBox
                 {
-                    Text = SettingsFunky.ExtendedCombatRange.ToString(),
+                    Text = Bot.SettingsFunky.ExtendedCombatRange.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel ExtendedRangeStackPanel = new StackPanel
@@ -1445,13 +1436,13 @@ namespace FunkyTrinity
                     TickFrequency = 5,
                     LargeChange = 5,
                     SmallChange = 1,
-                    Value = SettingsFunky.ShrineRange,
+                    Value = Bot.SettingsFunky.ShrineRange,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderShrineRange.ValueChanged += ShrineRangeSliderChanged;
                 TBShrineRange = new TextBox
                 {
-                    Text = SettingsFunky.ShrineRange.ToString(),
+                    Text = Bot.SettingsFunky.ShrineRange.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel ShrineStackPanel = new StackPanel
@@ -1475,13 +1466,13 @@ namespace FunkyTrinity
                     TickFrequency = 5,
                     LargeChange = 5,
                     SmallChange = 1,
-                    Value = SettingsFunky.ContainerOpenRange,
+                    Value = Bot.SettingsFunky.ContainerOpenRange,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderContainerRange.ValueChanged += ContainerRangeSliderChanged;
                 TBContainerRange = new TextBox
                 {
-                    Text = SettingsFunky.ContainerOpenRange.ToString(),
+                    Text = Bot.SettingsFunky.ContainerOpenRange.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel ContainerStackPanel = new StackPanel
@@ -1505,13 +1496,13 @@ namespace FunkyTrinity
                     TickFrequency = 5,
                     LargeChange = 5,
                     SmallChange = 1,
-                    Value = SettingsFunky.DestructibleRange,
+                    Value = Bot.SettingsFunky.DestructibleRange,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderDestructibleRange.ValueChanged += DestructibleSliderChanged;
                 TBDestructibleRange = new TextBox
                 {
-                    Text = SettingsFunky.DestructibleRange.ToString(),
+                    Text = Bot.SettingsFunky.DestructibleRange.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel DestructibleStackPanel = new StackPanel
@@ -1535,13 +1526,13 @@ namespace FunkyTrinity
                     TickFrequency = 5,
                     LargeChange = 5,
                     SmallChange = 1,
-                    Value = SettingsFunky.GoldRange,
+                    Value = Bot.SettingsFunky.GoldRange,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderGoldRange.ValueChanged += GoldRangeSliderChanged;
                 TBGoldRange = new TextBox
                 {
-                    Text = SettingsFunky.GoldRange.ToString(),
+                    Text = Bot.SettingsFunky.GoldRange.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel GoldRangeStackPanel = new StackPanel
@@ -1565,13 +1556,13 @@ namespace FunkyTrinity
 						  TickFrequency=5,
 						  LargeChange=5,
 						  SmallChange=1,
-						  Value=SettingsFunky.GlobeRange,
+						  Value=Bot.SettingsFunky.GlobeRange,
 						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 };
 					 sliderGlobeRange.ValueChanged+=GlobeRangeSliderChanged;
 					 TBGlobeRange=new TextBox
 					 {
-						  Text=SettingsFunky.GlobeRange.ToString(),
+						  Text=Bot.SettingsFunky.GlobeRange.ToString(),
 						  IsReadOnly=true,
 					 };
 					 StackPanel GlobeRangeStackPanel=new StackPanel
@@ -1595,13 +1586,13 @@ namespace FunkyTrinity
                     TickFrequency = 5,
                     LargeChange = 5,
                     SmallChange = 1,
-                    Value = SettingsFunky.ItemRange,
+                    Value = Bot.SettingsFunky.ItemRange,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderItemRange.ValueChanged += ItemRangeSliderChanged;
                 TBItemRange = new TextBox
                 {
-                    Text = SettingsFunky.ItemRange.ToString(),
+                    Text = Bot.SettingsFunky.ItemRange.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel ItemRangeStackPanel = new StackPanel
@@ -1625,13 +1616,13 @@ namespace FunkyTrinity
                     TickFrequency = 5,
                     LargeChange = 5,
                     SmallChange = 1,
-                    Value = SettingsFunky.TreasureGoblinRange,
+                    Value = Bot.SettingsFunky.TreasureGoblinRange,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderGoblinRange.ValueChanged += TreasureGoblinRangeSliderChanged;
                 TBGoblinRange = new TextBox
                 {
-                    Text = SettingsFunky.TreasureGoblinRange.ToString(),
+                    Text = Bot.SettingsFunky.TreasureGoblinRange.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel GoblinRangeStackPanel = new StackPanel
@@ -1695,7 +1686,7 @@ namespace FunkyTrinity
                 OOCIdentifyItems = new CheckBox
                 {
                     Content = "Enable Out Of Combat Idenification Behavior",
-                    IsChecked = (SettingsFunky.OOCIdentifyItems),
+                    IsChecked = (Bot.SettingsFunky.OOCIdentifyItems),
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
 
                 };
@@ -1715,7 +1706,7 @@ namespace FunkyTrinity
 
                 OOCIdentfyItemsMinCount = new TextBox
                 {
-                    Text = SettingsFunky.OOCIdentifyItemsMinimumRequired.ToString(),
+                    Text = Bot.SettingsFunky.OOCIdentifyItemsMinimumRequired.ToString(),
                     Width = 100,
                     Height = 25
                 };
@@ -1739,7 +1730,7 @@ namespace FunkyTrinity
                     Content = "Buy Potions During Town Run (Uses Maximum Potion Count Setting)",
                     Width = 500,
                     Height = 30,
-                    IsChecked = (SettingsFunky.BuyPotionsDuringTownRun)
+                    IsChecked = (Bot.SettingsFunky.BuyPotionsDuringTownRun)
                 };
                 BuyPotionsDuringTownRunCB.Checked += BuyPotionsDuringTownRunChecked;
                 BuyPotionsDuringTownRunCB.Unchecked += BuyPotionsDuringTownRunChecked;
@@ -1752,7 +1743,7 @@ namespace FunkyTrinity
                     Content = "Use Out Of Combat Ability Movements",
                     Width = 300,
                     Height = 30,
-                    IsChecked = (SettingsFunky.OutOfCombatMovement)
+                    IsChecked = (Bot.SettingsFunky.OutOfCombatMovement)
                 };
                 cbOutOfCombatMovement.Checked += OutOfCombatMovementChecked;
                 cbOutOfCombatMovement.Unchecked += OutOfCombatMovementChecked;
@@ -1771,7 +1762,7 @@ namespace FunkyTrinity
                     TickFrequency = 200,
                     LargeChange = 100,
                     SmallChange = 50,
-                    Value = SettingsFunky.AfterCombatDelay,
+                    Value = Bot.SettingsFunky.AfterCombatDelay,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                     Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right + 5, Margin.Bottom),
                 };
@@ -1779,7 +1770,7 @@ namespace FunkyTrinity
                 TBAfterCombatDelay = new TextBox
                 {
                     Margin = new Thickness(Margin.Left + 5, Margin.Top, Margin.Right, Margin.Bottom),
-                    Text = SettingsFunky.AfterCombatDelay.ToString(),
+                    Text = Bot.SettingsFunky.AfterCombatDelay.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel AfterCombatStackPanel = new StackPanel
@@ -1797,7 +1788,7 @@ namespace FunkyTrinity
                     Content = "Apply Delay After Opening Containers",
                     Width = 300,
                     Height = 20,
-                    IsChecked = (SettingsFunky.EnableWaitAfterContainers)
+                    IsChecked = (Bot.SettingsFunky.EnableWaitAfterContainers)
                 };
                 EnableWaitAfterContainersCB.Checked += EnableWaitAfterContainersChecked;
                 EnableWaitAfterContainersCB.Unchecked += EnableWaitAfterContainersChecked;
@@ -1848,7 +1839,7 @@ namespace FunkyTrinity
                 {
                     Content = "Enable Coffee Breaks",
                     Height = 20,
-                    IsChecked = (SettingsFunky.EnableCoffeeBreaks)
+                    IsChecked = (Bot.SettingsFunky.EnableCoffeeBreaks)
 
                 };
                 CoffeeBreaks.Checked += EnableCoffeeBreaksChecked;
@@ -1880,7 +1871,7 @@ namespace FunkyTrinity
                     TickFrequency = 5,
                     LargeChange = 2,
                     SmallChange = 1,
-                    Value = SettingsFunky.MinBreakTime,
+                    Value = Bot.SettingsFunky.MinBreakTime,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderBreakMinMinutes.ValueChanged += BreakMinMinutesSliderChange;
@@ -1917,7 +1908,7 @@ namespace FunkyTrinity
                     TickFrequency = 5,
                     LargeChange = 2,
                     SmallChange = 1,
-                    Value = SettingsFunky.MaxBreakTime,
+                    Value = Bot.SettingsFunky.MaxBreakTime,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderBreakMaxMinutes.ValueChanged += BreakMaxMinutesSliderChange;
@@ -1957,7 +1948,7 @@ namespace FunkyTrinity
                     TickFrequency = 1,
                     LargeChange = 0.50,
                     SmallChange = 0.05,
-                    Value = SettingsFunky.breakTimeHour,
+                    Value = Bot.SettingsFunky.breakTimeHour,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderBreakTimeHour.ValueChanged += BreakTimeHourSliderChanged;
@@ -2025,7 +2016,7 @@ namespace FunkyTrinity
                     Content = "Giles Item Scoring",
                     Width = 300,
                     Height = 30,
-                    IsChecked = SettingsFunky.ItemRuleGilesScoring
+                    IsChecked = Bot.SettingsFunky.ItemRuleGilesScoring
                 };
                 ItemRuleDBScoring = new RadioButton
                 {
@@ -2033,7 +2024,7 @@ namespace FunkyTrinity
                     Content = "DB Weight Scoring",
                     Width = 300,
                     Height = 30,
-                    IsChecked = !SettingsFunky.ItemRuleGilesScoring
+                    IsChecked = !Bot.SettingsFunky.ItemRuleGilesScoring
                 };
 
                 ItemRuleGilesScoring.Checked += ItemRulesScoringChanged;
@@ -2046,7 +2037,7 @@ namespace FunkyTrinity
                     Content = "Leveling Item Logic",
                     Width = 300,
                     Height = 30,
-                    IsChecked = (SettingsFunky.UseLevelingLogic),
+                    IsChecked = (Bot.SettingsFunky.UseLevelingLogic),
                 };
                 LevelingLogic.Checked += ItemLevelingLogicChecked;
                 LevelingLogic.Unchecked += ItemLevelingLogicChecked;
@@ -2066,7 +2057,7 @@ namespace FunkyTrinity
                     Content = "Use Item Rules",
                     Width = 300,
                     Height = 30,
-                    IsChecked = (SettingsFunky.UseItemRules)
+                    IsChecked = (Bot.SettingsFunky.UseItemRules)
 
                 };
                 ItemRules.Checked += ItemRulesChecked;
@@ -2078,7 +2069,7 @@ namespace FunkyTrinity
                     Content = "Use Item Rules Pickup",
                     Width = 300,
                     Height = 30,
-                    IsChecked = (SettingsFunky.UseItemRulesPickup)
+                    IsChecked = (Bot.SettingsFunky.UseItemRulesPickup)
 
                 };
                 ItemRulesPickup.Checked += ItemRulesPickupChecked;
@@ -2090,7 +2081,7 @@ namespace FunkyTrinity
                     Content = "Item Rules Salvaging",
                     Width = 300,
                     Height = 30,
-                    IsChecked = (SettingsFunky.ItemRulesSalvaging),
+                    IsChecked = (Bot.SettingsFunky.ItemRulesSalvaging),
                 };
                 CBItemRulesSalvaging.Checked += ItemRulesSalvagingChecked;
                 CBItemRulesSalvaging.Unchecked += ItemRulesSalvagingChecked;
@@ -2103,8 +2094,8 @@ namespace FunkyTrinity
                     Height = 30,
                     Width = 300,
                     ItemsSource = new ItemRuleTypes(),
-                    SelectedIndex=SettingsFunky.ItemRuleType.ToLower().Contains("soft")?1:SettingsFunky.ItemRuleType.ToLower().Contains("hard")?2:0,
-                    Text = SettingsFunky.ItemRuleType.ToString(),
+                    SelectedIndex=Bot.SettingsFunky.ItemRuleType.ToLower().Contains("soft")?1:Bot.SettingsFunky.ItemRuleType.ToLower().Contains("hard")?2:0,
+                    Text = Bot.SettingsFunky.ItemRuleType.ToString(),
                 };
                 ItemRuleType.SelectionChanged += ItemRulesTypeChanged;
                 lbItemRulesContent.Items.Add(ItemRuleType);
@@ -2116,7 +2107,7 @@ namespace FunkyTrinity
                     Height = 30,
                     Width = 300,
                     ItemsSource = new ItemRuleQuality(),
-                    Text = SettingsFunky.ItemRuleLogKeep
+                    Text = Bot.SettingsFunky.ItemRuleLogKeep
                 };
                 ItemRuleLogKeep.SelectionChanged += ItemRulesLogKeepChanged;
                 lbItemRulesContent.Items.Add(ItemRuleLogKeep);
@@ -2127,7 +2118,7 @@ namespace FunkyTrinity
                     Height = 30,
                     Width = 300,
                     ItemsSource = new ItemRuleQuality(),
-                    Text = SettingsFunky.ItemRuleLogPickup
+                    Text = Bot.SettingsFunky.ItemRuleLogPickup
                 };
                 ItemRuleLogPickup.SelectionChanged += ItemRulesLogPickupChanged;
                 lbItemRulesContent.Items.Add(ItemRuleLogPickup);
@@ -2137,7 +2128,7 @@ namespace FunkyTrinity
                     Content = "Use Item IDs",
                     Width = 300,
                     Height = 30,
-                    IsChecked = (SettingsFunky.ItemRuleUseItemIDs)
+                    IsChecked = (Bot.SettingsFunky.ItemRuleUseItemIDs)
 
                 };
                 ItemRuleUseItemIDs.Checked += ItemRulesItemIDsChecked;
@@ -2149,7 +2140,7 @@ namespace FunkyTrinity
                     Content = "Debug",
                     Width = 300,
                     Height = 30,
-                    IsChecked = (SettingsFunky.ItemRuleDebug)
+                    IsChecked = (Bot.SettingsFunky.ItemRuleDebug)
 
                 };
                 ItemRuleDebug.Checked += ItemRulesDebugChecked;
@@ -2201,13 +2192,13 @@ namespace FunkyTrinity
                     TickFrequency = 5,
                     LargeChange = 5,
                     SmallChange = 1,
-                    Value = SettingsFunky.MinimumWeaponItemLevel[0],
+                    Value = Bot.SettingsFunky.MinimumWeaponItemLevel[0],
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 weaponMagicLevelSlider.ValueChanged += WeaponItemLevelSliderChanged;
                 TBMinimumWeaponLevel[0] = new TextBox
                 {
-                    Text = SettingsFunky.MinimumWeaponItemLevel[0].ToString(),
+                    Text = Bot.SettingsFunky.MinimumWeaponItemLevel[0].ToString(),
                     IsReadOnly = true,
                 };
 
@@ -2226,13 +2217,13 @@ namespace FunkyTrinity
                     TickFrequency = 5,
                     LargeChange = 5,
                     SmallChange = 1,
-                    Value = SettingsFunky.MinimumWeaponItemLevel[1],
+                    Value = Bot.SettingsFunky.MinimumWeaponItemLevel[1],
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Right,
                 };
                 weaponRareLevelSlider.ValueChanged += WeaponItemLevelSliderChanged;
                 TBMinimumWeaponLevel[1] = new TextBox
                 {
-                    Text = SettingsFunky.MinimumWeaponItemLevel[1].ToString(),
+                    Text = Bot.SettingsFunky.MinimumWeaponItemLevel[1].ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel weaponLevelSPanel = new StackPanel
@@ -2274,13 +2265,13 @@ namespace FunkyTrinity
                     TickFrequency = 5,
                     LargeChange = 5,
                     SmallChange = 1,
-                    Value = SettingsFunky.MinimumArmorItemLevel[0],
+                    Value = Bot.SettingsFunky.MinimumArmorItemLevel[0],
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 armorMagicLevelSlider.ValueChanged += ArmorItemLevelSliderChanged;
                 TBMinimumArmorLevel[0] = new TextBox
                 {
-                    Text = SettingsFunky.MinimumArmorItemLevel[0].ToString(),
+                    Text = Bot.SettingsFunky.MinimumArmorItemLevel[0].ToString(),
                     IsReadOnly = true,
                 };
 
@@ -2299,13 +2290,13 @@ namespace FunkyTrinity
                     LargeChange = 5,
                     SmallChange = 1,
                     Width = 120,
-                    Value = SettingsFunky.MinimumArmorItemLevel[1],
+                    Value = Bot.SettingsFunky.MinimumArmorItemLevel[1],
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Right,
                 };
                 armorRareLevelSlider.ValueChanged += ArmorItemLevelSliderChanged;
                 TBMinimumArmorLevel[1] = new TextBox
                 {
-                    Text = SettingsFunky.MinimumArmorItemLevel[1].ToString(),
+                    Text = Bot.SettingsFunky.MinimumArmorItemLevel[1].ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel armorLevelSPanel = new StackPanel
@@ -2347,13 +2338,13 @@ namespace FunkyTrinity
                     TickFrequency = 5,
                     LargeChange = 5,
                     SmallChange = 1,
-                    Value = SettingsFunky.MinimumJeweleryItemLevel[0],
+                    Value = Bot.SettingsFunky.MinimumJeweleryItemLevel[0],
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 jeweleryMagicLevelSlider.ValueChanged += JeweleryItemLevelSliderChanged;
                 TBMinimumJeweleryLevel[0] = new TextBox
                 {
-                    Text = SettingsFunky.MinimumJeweleryItemLevel[0].ToString(),
+                    Text = Bot.SettingsFunky.MinimumJeweleryItemLevel[0].ToString(),
                     IsReadOnly = true,
                 };
                 TextBlock txt_jeweleryRare = new TextBlock
@@ -2371,13 +2362,13 @@ namespace FunkyTrinity
                     LargeChange = 5,
                     SmallChange = 1,
                     Width = 120,
-                    Value = SettingsFunky.MinimumJeweleryItemLevel[1],
+                    Value = Bot.SettingsFunky.MinimumJeweleryItemLevel[1],
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Right,
                 };
                 jeweleryRareLevelSlider.ValueChanged += JeweleryItemLevelSliderChanged;
                 TBMinimumJeweleryLevel[1] = new TextBox
                 {
-                    Text = SettingsFunky.MinimumJeweleryItemLevel[1].ToString(),
+                    Text = Bot.SettingsFunky.MinimumJeweleryItemLevel[1].ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel jeweleryLevelSPanel = new StackPanel
@@ -2406,13 +2397,13 @@ namespace FunkyTrinity
                     TickFrequency = 5,
                     LargeChange = 5,
                     SmallChange = 1,
-                    Value = SettingsFunky.MinimumLegendaryItemLevel,
+                    Value = Bot.SettingsFunky.MinimumLegendaryItemLevel,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderLegendaryILevel.ValueChanged += LegendaryItemLevelSliderChanged;
                 TBMinLegendaryLevel = new TextBox
                 {
-                    Text = SettingsFunky.MinimumLegendaryItemLevel.ToString(),
+                    Text = Bot.SettingsFunky.MinimumLegendaryItemLevel.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel LegendaryILvlStackPanel = new StackPanel
@@ -2436,13 +2427,13 @@ namespace FunkyTrinity
                     TickFrequency = 25,
                     LargeChange = 20,
                     SmallChange = 5,
-                    Value = SettingsFunky.MaximumHealthPotions,
+                    Value = Bot.SettingsFunky.MaximumHealthPotions,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderMaxHealthPots.ValueChanged += HealthPotionSliderChanged;
                 TBMaxHealthPots = new TextBox
                 {
-                    Text = SettingsFunky.MaximumHealthPotions.ToString(),
+                    Text = Bot.SettingsFunky.MaximumHealthPotions.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel MaxHealthPotsStackPanel = new StackPanel
@@ -2466,13 +2457,13 @@ namespace FunkyTrinity
                     TickFrequency = 1000,
                     LargeChange = 1000,
                     SmallChange = 1,
-                    Value = SettingsFunky.MinimumGoldPile,
+                    Value = Bot.SettingsFunky.MinimumGoldPile,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 slideMinGoldPile.ValueChanged += GoldAmountSliderChanged;
                 TBMinGoldPile = new TextBox
                 {
-                    Text = SettingsFunky.MinimumGoldPile.ToString(),
+                    Text = Bot.SettingsFunky.MinimumGoldPile.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel MinGoldPileStackPanel = new StackPanel
@@ -2493,7 +2484,7 @@ namespace FunkyTrinity
                     Content = "Pickup Craft Tomes",
                     Width = 300,
                     Height = 20,
-                    IsChecked = (SettingsFunky.PickupCraftTomes)
+                    IsChecked = (Bot.SettingsFunky.PickupCraftTomes)
                 };
                 cbPickupCraftTomes.Checked += PickupCraftTomesChecked;
                 cbPickupCraftTomes.Unchecked += PickupCraftTomesChecked;
@@ -2505,7 +2496,7 @@ namespace FunkyTrinity
                     Content = "Pickup Craft Plans",
                     Width = 300,
                     Height = 20,
-                    IsChecked = (SettingsFunky.PickupCraftPlans)
+                    IsChecked = (Bot.SettingsFunky.PickupCraftPlans)
                 };
                 cbPickupCraftPlans.Checked += PickupCraftPlansChecked;
                 cbPickupCraftPlans.Unchecked += PickupCraftPlansChecked;
@@ -2517,7 +2508,7 @@ namespace FunkyTrinity
                     Content = "Pickup Follower Items",
                     Width = 300,
                     Height = 20,
-                    IsChecked = (SettingsFunky.PickupFollowerItems)
+                    IsChecked = (Bot.SettingsFunky.PickupFollowerItems)
                 };
                 cbPickupFollowerItems.Checked += PickupFollowerItemsChecked;
                 cbPickupFollowerItems.Unchecked += PickupFollowerItemsChecked;
@@ -2533,13 +2524,13 @@ namespace FunkyTrinity
                     TickFrequency = 5,
                     LargeChange = 5,
                     SmallChange = 1,
-                    Value = SettingsFunky.MiscItemLevel,
+                    Value = Bot.SettingsFunky.MiscItemLevel,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 slideMinMiscItemLevel.ValueChanged += MiscItemLevelSliderChanged;
                 TBMiscItemLevel = new TextBox
                 {
-                    Text = SettingsFunky.MiscItemLevel.ToString(),
+                    Text = Bot.SettingsFunky.MiscItemLevel.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel MinMiscItemLevelStackPanel = new StackPanel
@@ -2561,7 +2552,7 @@ namespace FunkyTrinity
                     Height = 20,
                     Width = 200,
                     ItemsSource = new GemQualityTypes(),
-                    Text = Enum.GetName(typeof(GemQuality), SettingsFunky.MinimumGemItemLevel).ToString(),
+                    Text = Enum.GetName(typeof(GemQuality), Bot.SettingsFunky.MinimumGemItemLevel).ToString(),
                 };
                 CBGemQualityLevel.SelectionChanged += GemQualityLevelChanged;
                 lbGilesContent.Items.Add(CBGemQualityLevel);
@@ -2576,7 +2567,7 @@ namespace FunkyTrinity
                     Name = "red",
                     Width = 300,
                     Height = 20,
-                    IsChecked = (SettingsFunky.PickupGems[0])
+                    IsChecked = (Bot.SettingsFunky.PickupGems[0])
                 };
                 CBGems[0].Checked += GemsChecked;
                 CBGems[0].Unchecked += GemsChecked;
@@ -2589,7 +2580,7 @@ namespace FunkyTrinity
                     Name = "green",
                     Width = 300,
                     Height = 20,
-                    IsChecked = (SettingsFunky.PickupGems[1])
+                    IsChecked = (Bot.SettingsFunky.PickupGems[1])
                 };
                 CBGems[1].Checked += GemsChecked;
                 CBGems[1].Unchecked += GemsChecked;
@@ -2602,7 +2593,7 @@ namespace FunkyTrinity
                     Name = "purple",
                     Width = 300,
                     Height = 20,
-                    IsChecked = (SettingsFunky.PickupGems[2])
+                    IsChecked = (Bot.SettingsFunky.PickupGems[2])
                 };
                 CBGems[2].Checked += GemsChecked;
                 CBGems[2].Unchecked += GemsChecked;
@@ -2615,7 +2606,7 @@ namespace FunkyTrinity
                     Name = "yellow",
                     Width = 300,
                     Height = 20,
-                    IsChecked = (SettingsFunky.PickupGems[3])
+                    IsChecked = (Bot.SettingsFunky.PickupGems[3])
                 };
                 CBGems[3].Checked += GemsChecked;
                 CBGems[3].Unchecked += GemsChecked;
@@ -2641,13 +2632,13 @@ namespace FunkyTrinity
                     TickFrequency = 1000,
                     LargeChange = 5000,
                     SmallChange = 1000,
-                    Value = SettingsFunky.GilesMinimumWeaponScore,
+                    Value = Bot.SettingsFunky.GilesMinimumWeaponScore,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderGilesWeaponScore.ValueChanged += GilesWeaponScoreSliderChanged;
                 TBGilesWeaponScore = new TextBox
                 {
-                    Text = SettingsFunky.GilesMinimumWeaponScore.ToString(),
+                    Text = Bot.SettingsFunky.GilesMinimumWeaponScore.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel GilesWeaponScoreStackPanel = new StackPanel
@@ -2671,13 +2662,13 @@ namespace FunkyTrinity
                     TickFrequency = 1000,
                     LargeChange = 5000,
                     SmallChange = 1000,
-                    Value = SettingsFunky.GilesMinimumArmorScore,
+                    Value = Bot.SettingsFunky.GilesMinimumArmorScore,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderGilesArmorScore.ValueChanged += GilesArmorScoreSliderChanged;
                 TBGilesArmorScore = new TextBox
                 {
-                    Text = SettingsFunky.GilesMinimumArmorScore.ToString(),
+                    Text = Bot.SettingsFunky.GilesMinimumArmorScore.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel GilesArmorScoreStackPanel = new StackPanel
@@ -2701,13 +2692,13 @@ namespace FunkyTrinity
                     TickFrequency = 1000,
                     LargeChange = 5000,
                     SmallChange = 1000,
-                    Value = SettingsFunky.GilesMinimumJeweleryScore,
+                    Value = Bot.SettingsFunky.GilesMinimumJeweleryScore,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 };
                 sliderGilesJeweleryScore.ValueChanged += GilesJeweleryScoreSliderChanged;
                 TBGilesJeweleryScore = new TextBox
                 {
-                    Text = SettingsFunky.GilesMinimumJeweleryScore.ToString(),
+                    Text = Bot.SettingsFunky.GilesMinimumJeweleryScore.ToString(),
                     IsReadOnly = true,
                 };
                 StackPanel GilesJeweleryScoreStackPanel = new StackPanel
@@ -2739,7 +2730,7 @@ namespace FunkyTrinity
                     Content = "Enable Debug Status Bar",
                     Width = 300,
                     Height = 20,
-                    IsChecked = SettingsFunky.DebugStatusBar,
+                    IsChecked = Bot.SettingsFunky.DebugStatusBar,
                 };
                 CBDebugStatusBar.Checked += DebugStatusBarChecked;
                 CBDebugStatusBar.Unchecked += DebugStatusBarChecked;
@@ -2750,7 +2741,7 @@ namespace FunkyTrinity
                     Content = "Enable Logging For Safe Movement",
                     Width = 300,
                     Height = 20,
-                    IsChecked = SettingsFunky.LogSafeMovementOutput,
+                    IsChecked = Bot.SettingsFunky.LogSafeMovementOutput,
                 };
                 CBLogSafeMovementOutput.Checked += LogSafeMovementOutputChecked;
                 CBLogSafeMovementOutput.Unchecked += LogSafeMovementOutputChecked;
@@ -2761,7 +2752,7 @@ namespace FunkyTrinity
 						  Content="Skip Ahead Feature (TrinityMoveTo/Explore)",
 						  Width=300,
 						  Height=20,
-						  IsChecked=SettingsFunky.SkipAhead,
+						  IsChecked=Bot.SettingsFunky.SkipAhead,
 					 };
 					 CBSkipAhead.Checked+=LogSafeMovementOutputChecked;
 					 CBSkipAhead.Unchecked+=LogSafeMovementOutputChecked;

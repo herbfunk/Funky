@@ -101,7 +101,11 @@ namespace FunkyTrinity
 						  }
 					 }
 
+					 //Male Wizard: Radius 5.633342
+					 //Female Demonhunter: Radius 6.437767
 					 internal float fCharacterRadius { get; set; }
+
+
 					 internal Sphere CharacterSphere
 					 {
 						  get
@@ -206,7 +210,7 @@ namespace FunkyTrinity
 										  bWaitingForReserveEnergy=true;
 
 									 //Critical Avoidance (when no avoidance is set!)
-									 if (dCurrentHealthPct<0.50d&&!SettingsFunky.AttemptAvoidanceMovements&&
+									 if (dCurrentHealthPct<0.50d&&!Bot.SettingsFunky.AttemptAvoidanceMovements&&
 										  !Zeta.CommonBot.PowerManager.CanCast(SNOPower.DrinkHealthPotion))
 										  Bot.Combat.CriticalAvoidance=true;
 									 else if (Bot.Combat.CriticalAvoidance&&!shouldPreformOOCItemIDing&&!FunkyTPBehaviorFlag&&dCurrentHealthPct>0.5)

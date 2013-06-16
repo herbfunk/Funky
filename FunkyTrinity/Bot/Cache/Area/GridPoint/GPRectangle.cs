@@ -113,7 +113,7 @@ namespace FunkyTrinity
 								debugstring+="SectorID: "+item.ToString()+" "+Quadrant[item].ContainedPoints.Count+",";
 						  }
 
-						  if (SettingsFunky.LogSafeMovementOutput)
+						  if (Bot.SettingsFunky.LogSafeMovementOutput)
 								Logging.WriteDiagnostic(debugstring);
 					 }
 
@@ -181,7 +181,7 @@ namespace FunkyTrinity
 								var SectorOccupiedLists=(from sector in Quadrant.Values
 																 select sector.OccupiedObjects);
 
-								if (SettingsFunky.LogSafeMovementOutput)
+								if (Bot.SettingsFunky.LogSafeMovementOutput)
 									 Logging.WriteDiagnostic("Updated GPC with Avoids {0} / Mobs {1} Count and total weight {2}", this.AvoidanceCount, this.MonsterCount, this.Weight);
 						  }
 					 }

@@ -571,7 +571,7 @@ namespace FunkyTrinity
 										  AvoidanceType AT=FindAvoidanceUsingSNOID(this.SNOID);
 
 										  //Check if avoidance is enabled or if the avoidance type is set to 0
-										  if (!SettingsFunky.AttemptAvoidanceMovements||AT!=AvoidanceType.Unknown&&Bot.IgnoringAvoidanceType(AT))
+										  if (!Bot.SettingsFunky.AttemptAvoidanceMovements||AT!=AvoidanceType.Unknown&&Bot.IgnoringAvoidanceType(AT))
 										  {
 												AddObjectToBlacklist(raguid, BlacklistType.Temporary);
 												return false;

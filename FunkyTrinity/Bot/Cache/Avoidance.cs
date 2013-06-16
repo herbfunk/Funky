@@ -293,7 +293,7 @@ namespace FunkyTrinity
 
 		  private static Dictionary<AvoidanceType, double> ReturnDictionaryUsingActorClass(Zeta.Internals.Actors.ActorClass AC)
 		  {
-				switch (ActorClass)
+				switch (Bot.ActorClass)
 				{
 					 case Zeta.Internals.Actors.ActorClass.Barbarian:
 						  return dictAvoidanceHealthBarb;

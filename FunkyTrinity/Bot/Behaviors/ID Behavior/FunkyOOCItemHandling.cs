@@ -57,7 +57,7 @@ namespace FunkyTrinity
 				RefreshUnidList();
 
 				//Refresh list is updated during first run and everytime we confirm looted items..
-				if (UnidentifiedItems.Count()>=SettingsFunky.OOCIdentifyItemsMinimumRequired)
+				if (UnidentifiedItems.Count()>=Bot.SettingsFunky.OOCIdentifyItemsMinimumRequired)
 					 shouldPreformOOCItemIDing=true;
 				else
 					 shouldPreformOOCItemIDing=false;

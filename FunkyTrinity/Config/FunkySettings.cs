@@ -11,119 +11,119 @@ namespace FunkyTrinity
          private static void SaveFunkyConfiguration()
          {
 
-             string sFunkyCharacterConfigFile = Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyTrinity", CurrentAccountName, CurrentHeroName + ".cfg");
+				 string sFunkyCharacterConfigFile=Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyTrinity", Bot.CurrentAccountName, Bot.CurrentHeroName+".cfg");
 
              FileStream configStream = File.Open(sFunkyCharacterConfigFile, FileMode.Create, FileAccess.Write, FileShare.Read);
              using (StreamWriter configWriter = new StreamWriter(configStream))
              {
-                 configWriter.WriteLine("OOCIdentifyItems=" + SettingsFunky.OOCIdentifyItems.ToString());
-                 configWriter.WriteLine("BuyPotionsDuringTownRun=" + SettingsFunky.BuyPotionsDuringTownRun.ToString());
-                 configWriter.WriteLine("EnableWaitAfterContainers=" + SettingsFunky.EnableWaitAfterContainers.ToString());
-                 configWriter.WriteLine("UseExtendedRangeRepChest=" + SettingsFunky.UseExtendedRangeRepChest.ToString());
-                 configWriter.WriteLine("UseItemRules=" + SettingsFunky.UseItemRules.ToString());
-                 configWriter.WriteLine("UseItemRulesPickup=" + SettingsFunky.UseItemRulesPickup.ToString());
-                 configWriter.WriteLine("OOCIdentifyItemsMinimumRequired=" + SettingsFunky.OOCIdentifyItemsMinimumRequired.ToString());
+                 configWriter.WriteLine("OOCIdentifyItems=" + Bot.SettingsFunky.OOCIdentifyItems.ToString());
+                 configWriter.WriteLine("BuyPotionsDuringTownRun=" + Bot.SettingsFunky.BuyPotionsDuringTownRun.ToString());
+                 configWriter.WriteLine("EnableWaitAfterContainers=" + Bot.SettingsFunky.EnableWaitAfterContainers.ToString());
+                 configWriter.WriteLine("UseExtendedRangeRepChest=" + Bot.SettingsFunky.UseExtendedRangeRepChest.ToString());
+                 configWriter.WriteLine("UseItemRules=" + Bot.SettingsFunky.UseItemRules.ToString());
+                 configWriter.WriteLine("UseItemRulesPickup=" + Bot.SettingsFunky.UseItemRulesPickup.ToString());
+                 configWriter.WriteLine("OOCIdentifyItemsMinimumRequired=" + Bot.SettingsFunky.OOCIdentifyItemsMinimumRequired.ToString());
 
-                 configWriter.WriteLine("EnableCoffeeBreaks=" + SettingsFunky.EnableCoffeeBreaks.ToString());
-                 configWriter.WriteLine("MinBreakTime=" + SettingsFunky.MinBreakTime.ToString());
-                 configWriter.WriteLine("MaxBreakTime=" + SettingsFunky.MaxBreakTime.ToString());
-                 configWriter.WriteLine("breakTimeHour=" + SettingsFunky.breakTimeHour.ToString());
-                 configWriter.WriteLine("ShrineRange=" + SettingsFunky.ShrineRange.ToString());
+                 configWriter.WriteLine("EnableCoffeeBreaks=" + Bot.SettingsFunky.EnableCoffeeBreaks.ToString());
+                 configWriter.WriteLine("MinBreakTime=" + Bot.SettingsFunky.MinBreakTime.ToString());
+                 configWriter.WriteLine("MaxBreakTime=" + Bot.SettingsFunky.MaxBreakTime.ToString());
+                 configWriter.WriteLine("breakTimeHour=" + Bot.SettingsFunky.breakTimeHour.ToString());
+                 configWriter.WriteLine("ShrineRange=" + Bot.SettingsFunky.ShrineRange.ToString());
 
-                 configWriter.WriteLine("ItemRuleUseItemIDs=" + SettingsFunky.ItemRuleUseItemIDs.ToString());
-                 configWriter.WriteLine("ItemRuleDebug=" + SettingsFunky.ItemRuleDebug.ToString());
-                 configWriter.WriteLine("ItemRuleType=" + SettingsFunky.ItemRuleType.ToString());
-                 configWriter.WriteLine("ItemRuleLogPickup=" + SettingsFunky.ItemRuleLogPickup);
-                 configWriter.WriteLine("ItemRuleLogKeep=" + SettingsFunky.ItemRuleLogKeep);
-                 configWriter.WriteLine("ItemRuleGilesScoring=" + SettingsFunky.ItemRuleGilesScoring.ToString());
-                 configWriter.WriteLine("UseLevelingLogic=" + SettingsFunky.UseLevelingLogic.ToString());
+                 configWriter.WriteLine("ItemRuleUseItemIDs=" + Bot.SettingsFunky.ItemRuleUseItemIDs.ToString());
+                 configWriter.WriteLine("ItemRuleDebug=" + Bot.SettingsFunky.ItemRuleDebug.ToString());
+                 configWriter.WriteLine("ItemRuleType=" + Bot.SettingsFunky.ItemRuleType.ToString());
+                 configWriter.WriteLine("ItemRuleLogPickup=" + Bot.SettingsFunky.ItemRuleLogPickup);
+                 configWriter.WriteLine("ItemRuleLogKeep=" + Bot.SettingsFunky.ItemRuleLogKeep);
+                 configWriter.WriteLine("ItemRuleGilesScoring=" + Bot.SettingsFunky.ItemRuleGilesScoring.ToString());
+                 configWriter.WriteLine("UseLevelingLogic=" + Bot.SettingsFunky.UseLevelingLogic.ToString());
 
-                 configWriter.WriteLine("AttemptAvoidanceMovements=" + SettingsFunky.AttemptAvoidanceMovements.ToString());
-                 configWriter.WriteLine("UseAdvancedProjectileTesting=" + SettingsFunky.UseAdvancedProjectileTesting.ToString());
+                 configWriter.WriteLine("AttemptAvoidanceMovements=" + Bot.SettingsFunky.AttemptAvoidanceMovements.ToString());
+                 configWriter.WriteLine("UseAdvancedProjectileTesting=" + Bot.SettingsFunky.UseAdvancedProjectileTesting.ToString());
 
-                 configWriter.WriteLine("KiteDistance=" + SettingsFunky.KiteDistance.ToString());
-                 configWriter.WriteLine("DestructibleRange=" + SettingsFunky.DestructibleRange.ToString());
+                 configWriter.WriteLine("KiteDistance=" + Bot.SettingsFunky.KiteDistance.ToString());
+                 configWriter.WriteLine("DestructibleRange=" + Bot.SettingsFunky.DestructibleRange.ToString());
 
-                 configWriter.WriteLine("GlobeHealthPercent=" + SettingsFunky.GlobeHealthPercent.ToString());
-                 configWriter.WriteLine("PotionHealthPercent=" + SettingsFunky.PotionHealthPercent.ToString());
+                 configWriter.WriteLine("GlobeHealthPercent=" + Bot.SettingsFunky.GlobeHealthPercent.ToString());
+                 configWriter.WriteLine("PotionHealthPercent=" + Bot.SettingsFunky.PotionHealthPercent.ToString());
 
-                 configWriter.WriteLine("IgnoreCombatRange=" + SettingsFunky.IgnoreCombatRange.ToString());
-                 configWriter.WriteLine("IgnoreLootRange=" + SettingsFunky.IgnoreLootRange.ToString());
-                 configWriter.WriteLine("ItemRange=" + SettingsFunky.ItemRange.ToString());
-                 configWriter.WriteLine("ContainerOpenRange=" + SettingsFunky.ContainerOpenRange.ToString());
-                 configWriter.WriteLine("NonEliteCombatRange=" + SettingsFunky.NonEliteCombatRange.ToString());
-                 configWriter.WriteLine("IgnoreCorpses=" + SettingsFunky.IgnoreCorpses.ToString());
-                 configWriter.WriteLine("IgnoreAboveAverageMobs=" + SettingsFunky.IgnoreAboveAverageMobs.ToString());
-                 configWriter.WriteLine("GoblinPriority=" + SettingsFunky.GoblinPriority.ToString());
-                 configWriter.WriteLine("AfterCombatDelay=" + SettingsFunky.AfterCombatDelay.ToString());
-                 configWriter.WriteLine("OutOfCombatMovement=" + SettingsFunky.OutOfCombatMovement.ToString());
-                 configWriter.WriteLine("EliteCombatRange=" + SettingsFunky.EliteCombatRange.ToString());
-                 configWriter.WriteLine("ExtendedCombatRange=" + SettingsFunky.ExtendedCombatRange.ToString());
-                 configWriter.WriteLine("GoldRange=" + SettingsFunky.GoldRange.ToString());
-                 configWriter.WriteLine("MinimumWeaponItemLevel=" + SettingsFunky.MinimumWeaponItemLevel[0].ToString() + "," + SettingsFunky.MinimumWeaponItemLevel[1].ToString());
-                 configWriter.WriteLine("MinimumArmorItemLevel=" + SettingsFunky.MinimumArmorItemLevel[0].ToString() + "," + SettingsFunky.MinimumArmorItemLevel[1].ToString());
-                 configWriter.WriteLine("MinimumJeweleryItemLevel=" + SettingsFunky.MinimumJeweleryItemLevel[0].ToString() + "," + SettingsFunky.MinimumJeweleryItemLevel[1].ToString());
-                 configWriter.WriteLine("MinimumLegendaryItemLevel=" + SettingsFunky.MinimumLegendaryItemLevel.ToString());
-                 configWriter.WriteLine("MaximumHealthPotions=" + SettingsFunky.MaximumHealthPotions.ToString());
-                 configWriter.WriteLine("MinimumGoldPile=" + SettingsFunky.MinimumGoldPile.ToString());
-                 configWriter.WriteLine("MinimumGemItemLevel=" + SettingsFunky.MinimumGemItemLevel.ToString());
-                 configWriter.WriteLine("PickupGems=" + SettingsFunky.PickupGems[0].ToString() + "," + SettingsFunky.PickupGems[1].ToString() + "," + SettingsFunky.PickupGems[2].ToString() + "," + SettingsFunky.PickupGems[3].ToString());
-                 configWriter.WriteLine("PickupCraftTomes=" + SettingsFunky.PickupCraftTomes.ToString());
-                 configWriter.WriteLine("PickupCraftPlans=" + SettingsFunky.PickupCraftPlans.ToString());
-                 configWriter.WriteLine("PickupFollowerItems=" + SettingsFunky.PickupFollowerItems.ToString());
-                 configWriter.WriteLine("MiscItemLevel=" + SettingsFunky.MiscItemLevel.ToString());
-                 configWriter.WriteLine("GilesMinimumWeaponScore=" + SettingsFunky.GilesMinimumWeaponScore.ToString());
-                 configWriter.WriteLine("GilesMinimumArmorScore=" + SettingsFunky.GilesMinimumArmorScore.ToString());
-                 configWriter.WriteLine("GilesMinimumJeweleryScore=" + SettingsFunky.GilesMinimumJeweleryScore.ToString());
+                 configWriter.WriteLine("IgnoreCombatRange=" + Bot.SettingsFunky.IgnoreCombatRange.ToString());
+                 configWriter.WriteLine("IgnoreLootRange=" + Bot.SettingsFunky.IgnoreLootRange.ToString());
+                 configWriter.WriteLine("ItemRange=" + Bot.SettingsFunky.ItemRange.ToString());
+                 configWriter.WriteLine("ContainerOpenRange=" + Bot.SettingsFunky.ContainerOpenRange.ToString());
+                 configWriter.WriteLine("NonEliteCombatRange=" + Bot.SettingsFunky.NonEliteCombatRange.ToString());
+                 configWriter.WriteLine("IgnoreCorpses=" + Bot.SettingsFunky.IgnoreCorpses.ToString());
+                 configWriter.WriteLine("IgnoreAboveAverageMobs=" + Bot.SettingsFunky.IgnoreAboveAverageMobs.ToString());
+                 configWriter.WriteLine("GoblinPriority=" + Bot.SettingsFunky.GoblinPriority.ToString());
+                 configWriter.WriteLine("AfterCombatDelay=" + Bot.SettingsFunky.AfterCombatDelay.ToString());
+                 configWriter.WriteLine("OutOfCombatMovement=" + Bot.SettingsFunky.OutOfCombatMovement.ToString());
+                 configWriter.WriteLine("EliteCombatRange=" + Bot.SettingsFunky.EliteCombatRange.ToString());
+                 configWriter.WriteLine("ExtendedCombatRange=" + Bot.SettingsFunky.ExtendedCombatRange.ToString());
+                 configWriter.WriteLine("GoldRange=" + Bot.SettingsFunky.GoldRange.ToString());
+                 configWriter.WriteLine("MinimumWeaponItemLevel=" + Bot.SettingsFunky.MinimumWeaponItemLevel[0].ToString() + "," + Bot.SettingsFunky.MinimumWeaponItemLevel[1].ToString());
+                 configWriter.WriteLine("MinimumArmorItemLevel=" + Bot.SettingsFunky.MinimumArmorItemLevel[0].ToString() + "," + Bot.SettingsFunky.MinimumArmorItemLevel[1].ToString());
+                 configWriter.WriteLine("MinimumJeweleryItemLevel=" + Bot.SettingsFunky.MinimumJeweleryItemLevel[0].ToString() + "," + Bot.SettingsFunky.MinimumJeweleryItemLevel[1].ToString());
+                 configWriter.WriteLine("MinimumLegendaryItemLevel=" + Bot.SettingsFunky.MinimumLegendaryItemLevel.ToString());
+                 configWriter.WriteLine("MaximumHealthPotions=" + Bot.SettingsFunky.MaximumHealthPotions.ToString());
+                 configWriter.WriteLine("MinimumGoldPile=" + Bot.SettingsFunky.MinimumGoldPile.ToString());
+                 configWriter.WriteLine("MinimumGemItemLevel=" + Bot.SettingsFunky.MinimumGemItemLevel.ToString());
+                 configWriter.WriteLine("PickupGems=" + Bot.SettingsFunky.PickupGems[0].ToString() + "," + Bot.SettingsFunky.PickupGems[1].ToString() + "," + Bot.SettingsFunky.PickupGems[2].ToString() + "," + Bot.SettingsFunky.PickupGems[3].ToString());
+                 configWriter.WriteLine("PickupCraftTomes=" + Bot.SettingsFunky.PickupCraftTomes.ToString());
+                 configWriter.WriteLine("PickupCraftPlans=" + Bot.SettingsFunky.PickupCraftPlans.ToString());
+                 configWriter.WriteLine("PickupFollowerItems=" + Bot.SettingsFunky.PickupFollowerItems.ToString());
+                 configWriter.WriteLine("MiscItemLevel=" + Bot.SettingsFunky.MiscItemLevel.ToString());
+                 configWriter.WriteLine("GilesMinimumWeaponScore=" + Bot.SettingsFunky.GilesMinimumWeaponScore.ToString());
+                 configWriter.WriteLine("GilesMinimumArmorScore=" + Bot.SettingsFunky.GilesMinimumArmorScore.ToString());
+                 configWriter.WriteLine("GilesMinimumJeweleryScore=" + Bot.SettingsFunky.GilesMinimumJeweleryScore.ToString());
 
-                 configWriter.WriteLine("AvoidanceRetryMin=" + SettingsFunky.AvoidanceRecheckMinimumRate);
-                 configWriter.WriteLine("AvoidanceRetryMax=" + SettingsFunky.AvoidanceRecheckMaximumRate);
-                 configWriter.WriteLine("KiteRetryMin=" + SettingsFunky.KitingRecheckMinimumRate);
-                 configWriter.WriteLine("KiteRetryMax=" + SettingsFunky.KitingRecheckMaximumRate);
-                 configWriter.WriteLine("ItemRulesSalvaging=" + SettingsFunky.ItemRulesSalvaging);
-                 configWriter.WriteLine("DebugStatusBar=" + SettingsFunky.DebugStatusBar);
-                 configWriter.WriteLine("LogSafeMovementOutput=" + SettingsFunky.LogSafeMovementOutput);
+                 configWriter.WriteLine("AvoidanceRetryMin=" + Bot.SettingsFunky.AvoidanceRecheckMinimumRate);
+                 configWriter.WriteLine("AvoidanceRetryMax=" + Bot.SettingsFunky.AvoidanceRecheckMaximumRate);
+                 configWriter.WriteLine("KiteRetryMin=" + Bot.SettingsFunky.KitingRecheckMinimumRate);
+                 configWriter.WriteLine("KiteRetryMax=" + Bot.SettingsFunky.KitingRecheckMaximumRate);
+                 configWriter.WriteLine("ItemRulesSalvaging=" + Bot.SettingsFunky.ItemRulesSalvaging);
+                 configWriter.WriteLine("DebugStatusBar=" + Bot.SettingsFunky.DebugStatusBar);
+                 configWriter.WriteLine("LogSafeMovementOutput=" + Bot.SettingsFunky.LogSafeMovementOutput);
 
-                 configWriter.WriteLine("EnableClusteringTargetLogic=" + SettingsFunky.EnableClusteringTargetLogic.ToString());
-                 configWriter.WriteLine("ClusterDistance=" + SettingsFunky.ClusterDistance.ToString());
-                 configWriter.WriteLine("ClusterMinimumUnitCount=" + SettingsFunky.ClusterMinimumUnitCount.ToString());
-                 configWriter.WriteLine("ClusterKillLowHPUnits=" + SettingsFunky.ClusterKillLowHPUnits.ToString());
-                 configWriter.WriteLine("IgnoreClusteringWhenLowHP=" + SettingsFunky.IgnoreClusteringWhenLowHP.ToString());
-                 configWriter.WriteLine("IgnoreClusterLowHPValue=" + SettingsFunky.IgnoreClusterLowHPValue.ToString());
-                 configWriter.WriteLine("TreasureGoblinRange=" + SettingsFunky.TreasureGoblinRange.ToString());
-					  configWriter.WriteLine("SkipAhead="+SettingsFunky.SkipAhead.ToString());
-					  configWriter.WriteLine("GlobeRange="+SettingsFunky.GlobeRange.ToString());
+                 configWriter.WriteLine("EnableClusteringTargetLogic=" + Bot.SettingsFunky.EnableClusteringTargetLogic.ToString());
+                 configWriter.WriteLine("ClusterDistance=" + Bot.SettingsFunky.ClusterDistance.ToString());
+                 configWriter.WriteLine("ClusterMinimumUnitCount=" + Bot.SettingsFunky.ClusterMinimumUnitCount.ToString());
+                 configWriter.WriteLine("ClusterKillLowHPUnits=" + Bot.SettingsFunky.ClusterKillLowHPUnits.ToString());
+                 configWriter.WriteLine("IgnoreClusteringWhenLowHP=" + Bot.SettingsFunky.IgnoreClusteringWhenLowHP.ToString());
+                 configWriter.WriteLine("IgnoreClusterLowHPValue=" + Bot.SettingsFunky.IgnoreClusterLowHPValue.ToString());
+                 configWriter.WriteLine("TreasureGoblinRange=" + Bot.SettingsFunky.TreasureGoblinRange.ToString());
+					  configWriter.WriteLine("SkipAhead="+Bot.SettingsFunky.SkipAhead.ToString());
+					  configWriter.WriteLine("GlobeRange="+Bot.SettingsFunky.GlobeRange.ToString());
 
 					  //GlobeRange
-                 switch (ActorClass)
+					  switch (Bot.ActorClass)
                  {
                      case Zeta.Internals.Actors.ActorClass.Barbarian:
-                         configWriter.WriteLine("bSelectiveWhirlwind=" + SettingsFunky.Class.bSelectiveWhirlwind.ToString());
-                         configWriter.WriteLine("bWaitForWrath=" + SettingsFunky.Class.bWaitForWrath.ToString());
-                         configWriter.WriteLine("bGoblinWrath=" + SettingsFunky.Class.bGoblinWrath.ToString());
-                         configWriter.WriteLine("bFuryDumpWrath=" + SettingsFunky.Class.bFuryDumpWrath.ToString());
-                         configWriter.WriteLine("bFuryDumpWrath=" + SettingsFunky.Class.bFuryDumpAlways.ToString());
+                         configWriter.WriteLine("bSelectiveWhirlwind=" + Bot.SettingsFunky.Class.bSelectiveWhirlwind.ToString());
+                         configWriter.WriteLine("bWaitForWrath=" + Bot.SettingsFunky.Class.bWaitForWrath.ToString());
+                         configWriter.WriteLine("bGoblinWrath=" + Bot.SettingsFunky.Class.bGoblinWrath.ToString());
+                         configWriter.WriteLine("bFuryDumpWrath=" + Bot.SettingsFunky.Class.bFuryDumpWrath.ToString());
+                         configWriter.WriteLine("bFuryDumpWrath=" + Bot.SettingsFunky.Class.bFuryDumpAlways.ToString());
                          break;
                      case Zeta.Internals.Actors.ActorClass.DemonHunter:
-                         configWriter.WriteLine("iDHVaultMovementDelay=" + SettingsFunky.Class.iDHVaultMovementDelay.ToString());
-                         configWriter.WriteLine("GoblinMinimumRange=" + SettingsFunky.Class.GoblinMinimumRange.ToString());
+                         configWriter.WriteLine("iDHVaultMovementDelay=" + Bot.SettingsFunky.Class.iDHVaultMovementDelay.ToString());
+                         configWriter.WriteLine("GoblinMinimumRange=" + Bot.SettingsFunky.Class.GoblinMinimumRange.ToString());
                          break;
                      case Zeta.Internals.Actors.ActorClass.Monk:
-                         configWriter.WriteLine("bMonkInnaSet=" + SettingsFunky.Class.bMonkInnaSet.ToString());
+                         configWriter.WriteLine("bMonkInnaSet=" + Bot.SettingsFunky.Class.bMonkInnaSet.ToString());
                          break;
                      case Zeta.Internals.Actors.ActorClass.WitchDoctor:
-                         configWriter.WriteLine("bEnableCriticalMass=" + SettingsFunky.Class.bEnableCriticalMass.ToString());
-                         configWriter.WriteLine("GoblinMinimumRange=" + SettingsFunky.Class.GoblinMinimumRange.ToString());
+                         configWriter.WriteLine("bEnableCriticalMass=" + Bot.SettingsFunky.Class.bEnableCriticalMass.ToString());
+                         configWriter.WriteLine("GoblinMinimumRange=" + Bot.SettingsFunky.Class.GoblinMinimumRange.ToString());
                          break;
                      case Zeta.Internals.Actors.ActorClass.Wizard:
-                         configWriter.WriteLine("bEnableCriticalMass=" + SettingsFunky.Class.bEnableCriticalMass.ToString());
-                         configWriter.WriteLine("bWaitForArchon=" + SettingsFunky.Class.bWaitForArchon.ToString());
-                         configWriter.WriteLine("bKiteOnlyArchon=" + SettingsFunky.Class.bKiteOnlyArchon.ToString());
-                         configWriter.WriteLine("GoblinMinimumRange=" + SettingsFunky.Class.GoblinMinimumRange.ToString());
+                         configWriter.WriteLine("bEnableCriticalMass=" + Bot.SettingsFunky.Class.bEnableCriticalMass.ToString());
+                         configWriter.WriteLine("bWaitForArchon=" + Bot.SettingsFunky.Class.bWaitForArchon.ToString());
+                         configWriter.WriteLine("bKiteOnlyArchon=" + Bot.SettingsFunky.Class.bKiteOnlyArchon.ToString());
+                         configWriter.WriteLine("GoblinMinimumRange=" + Bot.SettingsFunky.Class.GoblinMinimumRange.ToString());
                          break;
                  }
 
-                 System.Collections.Generic.Dictionary<AvoidanceType, double> currentDictionaryAvoidance = ReturnDictionaryUsingActorClass(ActorClass);
+					  System.Collections.Generic.Dictionary<AvoidanceType, double> currentDictionaryAvoidance=ReturnDictionaryUsingActorClass(Bot.ActorClass);
                  //Avoidances..
                  foreach (AvoidanceType item in currentDictionaryAvoidance.Keys)
                  {
@@ -138,30 +138,30 @@ namespace FunkyTrinity
          private static void LoadFunkyConfiguration()
          {
 
-             if (CurrentAccountName == null)
+				 if (Bot.CurrentAccountName==null)
              {
-                 UpdateCurrentAccountDetails();
+					  Bot.UpdateCurrentAccountDetails();
              }
 
-             string sFunkyCharacterFolder = Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyTrinity", CurrentAccountName);
+				 string sFunkyCharacterFolder=Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyTrinity", Bot.CurrentAccountName);
              if (!System.IO.Directory.Exists(sFunkyCharacterFolder))
                  System.IO.Directory.CreateDirectory(sFunkyCharacterFolder);
 
-             string sFunkyCharacterConfigFile = Path.Combine(sFunkyCharacterFolder, CurrentHeroName + ".cfg");
+				 string sFunkyCharacterConfigFile=Path.Combine(sFunkyCharacterFolder, Bot.CurrentHeroName+".cfg");
 
              //Check for Config file
              if (!File.Exists(sFunkyCharacterConfigFile))
              {
                  Log("No config file found, now creating a new config from defaults at: " + sFunkyCharacterConfigFile);
-                 if(ActorClass == Zeta.Internals.Actors.ActorClass.Barbarian || ActorClass == Zeta.Internals.Actors.ActorClass.Monk)
+					  if (Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Barbarian||Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Monk)
                  {
-                     SettingsFunky = new Settings_Funky(false, false, true, true, true, true, false, 0, 0, 0, 0, false, 30, false, false, "hard", "Rare", "Rare", true, true, 0, 10, 25, 40, 0.6d, 0.4d, false, 2, 500, false, 60, 30, 40, new int[1], new int[1], new int[1], 55, 60, 250, new bool[3], 60, false, true, true, 59, false, 70000, 30000, 27000, false, false);
+                     Bot.SettingsFunky = new Settings_Funky(false, false, true, true, true, true, false, 0, 0, 0, 0, false, 30, false, false, "hard", "Rare", "Rare", true, true, 0, 10, 25, 40, 0.6d, 0.4d, false, 2, 500, false, 60, 30, 40, new int[1], new int[1], new int[1], 55, 60, 250, new bool[3], 60, false, true, true, 59, false, 70000, 30000, 27000, false, false);
                  }
                  else
                  {
-                     SettingsFunky = new Settings_Funky(false, false, true, true, true, true, false, 0, 0, 0, 0, false, 30, false, false, "hard", "Rare", "Rare", true, true, 5, 10, 25, 40, 0.4d, 0.6d, false, 2, 500, false, 60, 30, 40, new int[1], new int[1], new int[1], 55, 60, 250, new bool[3], 60, false, true, true, 59, false, 70000, 30000, 27000, false, false);
+                     Bot.SettingsFunky = new Settings_Funky(false, false, true, true, true, true, false, 0, 0, 0, 0, false, 30, false, false, "hard", "Rare", "Rare", true, true, 5, 10, 25, 40, 0.4d, 0.6d, false, 2, 500, false, 60, 30, 40, new int[1], new int[1], new int[1], 55, 60, 250, new bool[3], 60, false, true, true, 59, false, 70000, 30000, 27000, false, false);
                  }
-                 //SettingsFunky = new Settings_Funky(false, false, false, false, false, false, false, 4, 8, 3, 1.5d, true, 20, false, false, "hard", "Rare", "Rare", true, false, 0, 5, 15, 20, 0.5d, 0.5d, false, 2, 500, false, 50, 30, 40, new int[1], new int[1], new int[1], 1, 100, 300, new bool[3], 60, true, true, true, 59, false, 70000, 16000, 15000, false, false);
+                 //Bot.SettingsFunky = new Settings_Funky(false, false, false, false, false, false, false, 4, 8, 3, 1.5d, true, 20, false, false, "hard", "Rare", "Rare", true, false, 0, 5, 15, 20, 0.5d, 0.5d, false, 2, 500, false, 50, 30, 40, new int[1], new int[1], new int[1], 1, 100, 300, new bool[3], 60, true, true, true, 59, false, 70000, 16000, 15000, false, false);
                 SaveFunkyConfiguration();
              }
 
@@ -201,7 +201,7 @@ namespace FunkyTrinity
                                      Logging.Write("Exception converting to Double At Avoidance Health {0}", avoidType.ToString());
                                  }
 
-                                 switch (ActorClass)
+											switch (Bot.ActorClass)
                                  {
                                      case Zeta.Internals.Actors.ActorClass.Barbarian:
                                          dictAvoidanceHealthBarb[avoidType] = health;
@@ -230,39 +230,39 @@ namespace FunkyTrinity
                              switch (config[0])
                              {
                                  case "OOCIdentifyItems":
-                                     SettingsFunky.OOCIdentifyItems = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.OOCIdentifyItems = Convert.ToBoolean(config[1]);
                                      break;
                                  case "BuyPotionsDuringTownRun":
-                                     SettingsFunky.BuyPotionsDuringTownRun = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.BuyPotionsDuringTownRun = Convert.ToBoolean(config[1]);
                                      break;
                                  case "EnableWaitAfterContainers":
-                                     SettingsFunky.EnableWaitAfterContainers = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.EnableWaitAfterContainers = Convert.ToBoolean(config[1]);
                                      break;
                                  case "UseItemRules":
-                                     SettingsFunky.UseItemRules = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.UseItemRules = Convert.ToBoolean(config[1]);
                                      break;
                                  case "UseItemRulesPickup":
-                                     SettingsFunky.UseItemRulesPickup = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.UseItemRulesPickup = Convert.ToBoolean(config[1]);
                                      break;
                                  case "UseExtendedRangeRepChest":
-                                     SettingsFunky.UseExtendedRangeRepChest = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.UseExtendedRangeRepChest = Convert.ToBoolean(config[1]);
                                      break;
                                  case "EnableCoffeeBreaks":
-                                     SettingsFunky.EnableCoffeeBreaks = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.EnableCoffeeBreaks = Convert.ToBoolean(config[1]);
                                      break;
                                  case "MinBreakTime":
-                                     SettingsFunky.MinBreakTime = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.MinBreakTime = Convert.ToInt32(config[1]);
                                      break;
                                  case "MaxBreakTime":
-                                     SettingsFunky.MaxBreakTime = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.MaxBreakTime = Convert.ToInt32(config[1]);
                                      break;
                                  case "OOCIdentifyItemsMinimumRequired":
-                                     SettingsFunky.OOCIdentifyItemsMinimumRequired = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.OOCIdentifyItemsMinimumRequired = Convert.ToInt32(config[1]);
                                      break;
                                  case "breakTimeHour":
                                      try
                                      {
-                                         SettingsFunky.breakTimeHour = Convert.ToDouble(String.Format(config[1], "F2", CultureInfo.InvariantCulture));
+                                         Bot.SettingsFunky.breakTimeHour = Convert.ToDouble(String.Format(config[1], "F2", CultureInfo.InvariantCulture));
                                      }
                                      catch
                                      {
@@ -270,39 +270,39 @@ namespace FunkyTrinity
                                      }
                                      break;
                                  case "ShrineRange":
-                                     SettingsFunky.ShrineRange = Convert.ToInt16(config[1]);
+                                     Bot.SettingsFunky.ShrineRange = Convert.ToInt16(config[1]);
                                      break;
                                  case "ItemRuleUseItemIDs":
-                                     SettingsFunky.ItemRuleUseItemIDs = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.ItemRuleUseItemIDs = Convert.ToBoolean(config[1]);
                                      break;
                                  case "ItemRuleDebug":
-                                     SettingsFunky.ItemRuleDebug = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.ItemRuleDebug = Convert.ToBoolean(config[1]);
                                      break;
                                  case "ItemRuleType":
-                                     SettingsFunky.ItemRuleType = Convert.ToString(config[1]);
+                                     Bot.SettingsFunky.ItemRuleType = Convert.ToString(config[1]);
                                      break;
                                  case "ItemRuleLogKeep":
-                                     SettingsFunky.ItemRuleLogKeep = Convert.ToString(config[1]);
+                                     Bot.SettingsFunky.ItemRuleLogKeep = Convert.ToString(config[1]);
                                      break;
                                  case "ItemRuleLogPickup":
-                                     SettingsFunky.ItemRuleLogPickup = Convert.ToString(config[1]);
+                                     Bot.SettingsFunky.ItemRuleLogPickup = Convert.ToString(config[1]);
                                      break;
                                  case "ItemRuleGilesScoring":
-                                     SettingsFunky.ItemRuleGilesScoring = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.ItemRuleGilesScoring = Convert.ToBoolean(config[1]);
                                      break;
                                  case "AttemptAvoidanceMovements":
-                                     SettingsFunky.AttemptAvoidanceMovements = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.AttemptAvoidanceMovements = Convert.ToBoolean(config[1]);
                                      break;
                                  case "KiteDistance":
-                                     SettingsFunky.KiteDistance = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.KiteDistance = Convert.ToInt32(config[1]);
                                      break;
                                  case "DestructibleRange":
-                                     SettingsFunky.DestructibleRange = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.DestructibleRange = Convert.ToInt32(config[1]);
                                      break;
                                  case "GlobeHealthPercent":
                                      try
                                      {
-                                         SettingsFunky.GlobeHealthPercent = Convert.ToDouble(String.Format(config[1], "F2", CultureInfo.InvariantCulture));
+                                         Bot.SettingsFunky.GlobeHealthPercent = Convert.ToDouble(String.Format(config[1], "F2", CultureInfo.InvariantCulture));
                                      }
                                      catch
                                      {
@@ -313,7 +313,7 @@ namespace FunkyTrinity
                                  case "PotionHealthPercent":
                                      try
                                      {
-                                         SettingsFunky.PotionHealthPercent = Convert.ToDouble(String.Format(config[1], "F2", CultureInfo.InvariantCulture));
+                                         Bot.SettingsFunky.PotionHealthPercent = Convert.ToDouble(String.Format(config[1], "F2", CultureInfo.InvariantCulture));
 
                                      }
                                      catch
@@ -323,170 +323,170 @@ namespace FunkyTrinity
 
                                      break;
                                  case "ContainerOpenRange":
-                                     SettingsFunky.ContainerOpenRange = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.ContainerOpenRange = Convert.ToInt32(config[1]);
                                      break;
                                  case "IgnoreCombatRange":
-                                     SettingsFunky.IgnoreCombatRange = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.IgnoreCombatRange = Convert.ToBoolean(config[1]);
                                      break;
                                  case "IgnoreLootRange":
-                                     SettingsFunky.IgnoreLootRange = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.IgnoreLootRange = Convert.ToBoolean(config[1]);
                                      break;
                                  case "NonEliteCombatRange":
-                                     SettingsFunky.NonEliteCombatRange = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.NonEliteCombatRange = Convert.ToInt32(config[1]);
                                      break;
                                  case "IgnoreCorpses":
-                                     SettingsFunky.IgnoreCorpses = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.IgnoreCorpses = Convert.ToBoolean(config[1]);
                                      break;
                                  case "GoblinPriority":
-                                     SettingsFunky.GoblinPriority = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.GoblinPriority = Convert.ToInt32(config[1]);
                                      break;
                                  case "TreasureGoblinRange":
-                                     SettingsFunky.TreasureGoblinRange = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.TreasureGoblinRange = Convert.ToInt32(config[1]);
                                      break;
                                  case "AfterCombatDelay":
-                                     SettingsFunky.AfterCombatDelay = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.AfterCombatDelay = Convert.ToInt32(config[1]);
                                      break;
                                  case "OutOfCombatMovement":
-                                     SettingsFunky.OutOfCombatMovement = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.OutOfCombatMovement = Convert.ToBoolean(config[1]);
                                      break;
                                  case "bEnableCriticalMass":
-                                     SettingsFunky.Class.bEnableCriticalMass = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.Class.bEnableCriticalMass = Convert.ToBoolean(config[1]);
                                      break;
                                  case "bSelectiveWhirlwind":
-                                     SettingsFunky.Class.bSelectiveWhirlwind = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.Class.bSelectiveWhirlwind = Convert.ToBoolean(config[1]);
                                      break;
                                  case "bWaitForWrath":
-                                     SettingsFunky.Class.bWaitForWrath = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.Class.bWaitForWrath = Convert.ToBoolean(config[1]);
                                      break;
                                  case "bGoblinWrath":
-                                     SettingsFunky.Class.bGoblinWrath = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.Class.bGoblinWrath = Convert.ToBoolean(config[1]);
                                      break;
                                  case "bFuryDumpWrath":
-                                     SettingsFunky.Class.bFuryDumpWrath = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.Class.bFuryDumpWrath = Convert.ToBoolean(config[1]);
                                      break;
                                  case "bFuryDumpAlways":
-                                     SettingsFunky.Class.bFuryDumpAlways = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.Class.bFuryDumpAlways = Convert.ToBoolean(config[1]);
                                      break;
                                  case "iDHVaultMovementDelay":
-                                     SettingsFunky.Class.iDHVaultMovementDelay = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.Class.iDHVaultMovementDelay = Convert.ToInt32(config[1]);
                                      break;
                                  case "bMonkInnaSet":
-                                     SettingsFunky.Class.bMonkInnaSet = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.Class.bMonkInnaSet = Convert.ToBoolean(config[1]);
                                      break;
                                  case "bWaitForArchon":
-                                     SettingsFunky.Class.bWaitForArchon = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.Class.bWaitForArchon = Convert.ToBoolean(config[1]);
                                      break;
                                  case "bKiteOnlyArchon":
-                                     SettingsFunky.Class.bKiteOnlyArchon = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.Class.bKiteOnlyArchon = Convert.ToBoolean(config[1]);
                                      break;
                                  case "EliteCombatRange":
-                                     SettingsFunky.EliteCombatRange = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.EliteCombatRange = Convert.ToInt32(config[1]);
                                      break;
                                  case "ExtendedCombatRange":
-                                     SettingsFunky.ExtendedCombatRange = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.ExtendedCombatRange = Convert.ToInt32(config[1]);
                                      break;
                                  case "GoldRange":
-                                     SettingsFunky.GoldRange = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.GoldRange = Convert.ToInt32(config[1]);
                                      break;
                                  case "MinimumWeaponItemLevel":
                                      splitValue = config[1].Split(',');
-                                     SettingsFunky.MinimumWeaponItemLevel = new int[] { Convert.ToInt16(splitValue[0]), Convert.ToInt16(splitValue[1]) };
+                                     Bot.SettingsFunky.MinimumWeaponItemLevel = new int[] { Convert.ToInt16(splitValue[0]), Convert.ToInt16(splitValue[1]) };
                                      break;
                                  case "MinimumArmorItemLevel":
                                      splitValue = config[1].Split(',');
-                                     SettingsFunky.MinimumArmorItemLevel = new int[] { Convert.ToInt16(splitValue[0]), Convert.ToInt16(splitValue[1]) };
+                                     Bot.SettingsFunky.MinimumArmorItemLevel = new int[] { Convert.ToInt16(splitValue[0]), Convert.ToInt16(splitValue[1]) };
                                      break;
                                  case "MinimumJeweleryItemLevel":
                                      splitValue = config[1].Split(',');
-                                     SettingsFunky.MinimumJeweleryItemLevel = new int[] { Convert.ToInt16(splitValue[0]), Convert.ToInt16(splitValue[1]) };
+                                     Bot.SettingsFunky.MinimumJeweleryItemLevel = new int[] { Convert.ToInt16(splitValue[0]), Convert.ToInt16(splitValue[1]) };
                                      break;
                                  case "MinimumLegendaryItemLevel":
-                                     SettingsFunky.MinimumLegendaryItemLevel = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.MinimumLegendaryItemLevel = Convert.ToInt32(config[1]);
                                      break;
                                  case "MaximumHealthPotions":
-                                     SettingsFunky.MaximumHealthPotions = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.MaximumHealthPotions = Convert.ToInt32(config[1]);
                                      break;
                                  case "MinimumGoldPile":
-                                     SettingsFunky.MinimumGoldPile = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.MinimumGoldPile = Convert.ToInt32(config[1]);
                                      break;
                                  case "MinimumGemItemLevel":
-                                     SettingsFunky.MinimumGemItemLevel = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.MinimumGemItemLevel = Convert.ToInt32(config[1]);
                                      break;
                                  case "PickupCraftTomes":
-                                     SettingsFunky.PickupCraftTomes = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.PickupCraftTomes = Convert.ToBoolean(config[1]);
                                      break;
                                  case "PickupCraftPlans":
-                                     SettingsFunky.PickupCraftPlans = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.PickupCraftPlans = Convert.ToBoolean(config[1]);
                                      break;
                                  case "PickupFollowerItems":
-                                     SettingsFunky.PickupFollowerItems = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.PickupFollowerItems = Convert.ToBoolean(config[1]);
                                      break;
                                  case "MiscItemLevel":
-                                     SettingsFunky.MiscItemLevel = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.MiscItemLevel = Convert.ToInt32(config[1]);
                                      break;
                                  case "GilesMinimumWeaponScore":
-                                     SettingsFunky.GilesMinimumWeaponScore = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.GilesMinimumWeaponScore = Convert.ToInt32(config[1]);
                                      break;
                                  case "GilesMinimumArmorScore":
-                                     SettingsFunky.GilesMinimumArmorScore = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.GilesMinimumArmorScore = Convert.ToInt32(config[1]);
                                      break;
                                  case "GilesMinimumJeweleryScore":
-                                     SettingsFunky.GilesMinimumJeweleryScore = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.GilesMinimumJeweleryScore = Convert.ToInt32(config[1]);
                                      break;
                                  case "PickupGems":
                                      splitValue = config[1].Split(',');
-                                     SettingsFunky.PickupGems = new bool[] { Convert.ToBoolean(splitValue[0]), Convert.ToBoolean(splitValue[1]), Convert.ToBoolean(splitValue[2]), Convert.ToBoolean(splitValue[3]) };
+                                     Bot.SettingsFunky.PickupGems = new bool[] { Convert.ToBoolean(splitValue[0]), Convert.ToBoolean(splitValue[1]), Convert.ToBoolean(splitValue[2]), Convert.ToBoolean(splitValue[3]) };
                                      break;
                                  case "UseLevelingLogic":
                                      //UseLevelingLogic
-                                     SettingsFunky.UseLevelingLogic = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.UseLevelingLogic = Convert.ToBoolean(config[1]);
                                      break;
                                  case "UseAdvancedProjectileTesting":
-                                     SettingsFunky.UseAdvancedProjectileTesting = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.UseAdvancedProjectileTesting = Convert.ToBoolean(config[1]);
                                      break;
                                  case "IgnoreAboveAverageMobs":
-                                     SettingsFunky.IgnoreAboveAverageMobs = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.IgnoreAboveAverageMobs = Convert.ToBoolean(config[1]);
                                      break;
                                  case "ItemRulesSalvaging":
-                                     SettingsFunky.ItemRulesSalvaging = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.ItemRulesSalvaging = Convert.ToBoolean(config[1]);
                                      break;
                                  case "AvoidanceRetryMin":
-                                     SettingsFunky.AvoidanceRecheckMinimumRate = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.AvoidanceRecheckMinimumRate = Convert.ToInt32(config[1]);
                                      break;
                                  case "AvoidanceRetryMax":
-                                     SettingsFunky.AvoidanceRecheckMaximumRate = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.AvoidanceRecheckMaximumRate = Convert.ToInt32(config[1]);
                                      break;
                                  case "KiteRetryMin":
-                                     SettingsFunky.KitingRecheckMinimumRate = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.KitingRecheckMinimumRate = Convert.ToInt32(config[1]);
                                      break;
                                  case "KiteRetryMax":
-                                     SettingsFunky.KitingRecheckMaximumRate = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.KitingRecheckMaximumRate = Convert.ToInt32(config[1]);
                                      break;
                                  case "DebugStatusBar":
-                                     SettingsFunky.DebugStatusBar = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.DebugStatusBar = Convert.ToBoolean(config[1]);
                                      break;
                                  case "LogSafeMovementOutput":
-                                     SettingsFunky.LogSafeMovementOutput = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.LogSafeMovementOutput = Convert.ToBoolean(config[1]);
                                      break;
                                  case "EnableClusteringTargetLogic":
-                                     SettingsFunky.EnableClusteringTargetLogic = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.EnableClusteringTargetLogic = Convert.ToBoolean(config[1]);
                                      break;
                                  case "ClusterDistance":
-                                     SettingsFunky.ClusterDistance = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.ClusterDistance = Convert.ToInt32(config[1]);
                                      break;
                                  case "ClusterMinimumUnitCount":
-                                     SettingsFunky.ClusterMinimumUnitCount = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.ClusterMinimumUnitCount = Convert.ToInt32(config[1]);
                                      break;
                                  case "ClusterKillLowHPUnits":
-                                     SettingsFunky.ClusterKillLowHPUnits = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.ClusterKillLowHPUnits = Convert.ToBoolean(config[1]);
                                      break;
                                  case "IgnoreClusteringWhenLowHP":
-                                     SettingsFunky.IgnoreClusteringWhenLowHP = Convert.ToBoolean(config[1]);
+                                     Bot.SettingsFunky.IgnoreClusteringWhenLowHP = Convert.ToBoolean(config[1]);
                                      break;
                                  case "IgnoreClusterLowHPValue":
                                      try
                                      {
-                                         SettingsFunky.IgnoreClusterLowHPValue = Convert.ToDouble(String.Format(config[1], "F2", CultureInfo.InvariantCulture));
+                                         Bot.SettingsFunky.IgnoreClusterLowHPValue = Convert.ToDouble(String.Format(config[1], "F2", CultureInfo.InvariantCulture));
                                      }
                                      catch
                                      {
@@ -495,16 +495,16 @@ namespace FunkyTrinity
 
                                      break;
                                  case "ItemRange":
-                                     SettingsFunky.ItemRange = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.ItemRange = Convert.ToInt32(config[1]);
                                      break;
                                  case "GoblinMinimumRange":
-                                     SettingsFunky.Class.GoblinMinimumRange = Convert.ToInt32(config[1]);
+                                     Bot.SettingsFunky.Class.GoblinMinimumRange = Convert.ToInt32(config[1]);
                                      break;
 											case "SkipAhead":
-												 SettingsFunky.SkipAhead=Convert.ToBoolean(config[1]);
+												 Bot.SettingsFunky.SkipAhead=Convert.ToBoolean(config[1]);
 												 break;
 											case "GlobeRange":
-												 SettingsFunky.GlobeRange=Convert.ToInt32(config[1]);
+												 Bot.SettingsFunky.GlobeRange=Convert.ToInt32(config[1]);
 												 break;
 											//GlobeRange
                              }
@@ -517,8 +517,6 @@ namespace FunkyTrinity
 
              Zeta.Common.Logging.WriteDiagnostic("[Funky] Character settings loaded!");
          }
-
-         public static Settings_Funky SettingsFunky = new Settings_Funky(false, false, false, false, false, false, false, 4, 8, 3, 1.5d, true, 20, false, false, "hard", "Rare", "Rare", true, false, 0, 10, 30, 60, 0.6d, 0.4d, true, 2, 250, false, 60, 30, 40, new int[1], new int[1], new int[1], 1, 100, 300, new bool[3], 60, true, true, true, 59, false, 75000, 25000, 25000, false, false);
 
          public class Settings_Funky
          {

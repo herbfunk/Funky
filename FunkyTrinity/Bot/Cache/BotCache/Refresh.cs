@@ -14,6 +14,8 @@ namespace FunkyTrinity
 
 		  internal static partial class Bot
 		  {
+				// Used to force-refresh dia objects at least once every XX milliseconds 
+				internal static DateTime lastRefreshedObjects=DateTime.Today;
 				private static int RefreshRateMilliseconds=150;
 				public static bool ShouldRefreshObjectList
 				{
@@ -179,7 +181,7 @@ namespace FunkyTrinity
 						  return;
 					 }
 
-					 if (SettingsFunky.EnableWaitAfterContainers&&Bot.Target.CurrentTarget.targetType==TargetType.Container)
+					 if (Bot.SettingsFunky.EnableWaitAfterContainers&&Bot.Target.CurrentTarget.targetType==TargetType.Container)
 					 {
 						  //Herbfunks delay for container loot.
 						  Bot.Combat.lastHadContainerAsTarget=DateTime.Now;
@@ -305,9 +307,9 @@ namespace FunkyTrinity
 										  try
 										  {
 												tmp_CachedObj.SummonerID=thisObj.CommonData.GetAttribute<int>(ActorAttributeType.SummonedByACDID);
-										  } catch (NullReferenceException ex)
+										  } catch (Exception ex)
 										  {
-												Logging.WriteVerbose("[Funky] Safely handled exception getting summoned-by info for Mystic Ally ["+tmp_CachedObj.SNOID.ToString()+"]");
+												Logging.WriteVerbose("[Funky] Safely handled exception getting summoned-by info ["+tmp_CachedObj.SNOID.ToString()+"]");
 												Logging.WriteDiagnostic(ex.ToString());
 												continue;
 										  }
@@ -330,7 +332,8 @@ namespace FunkyTrinity
 										  }
 										  else if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Wizard)
 										  {
-												if (SnoCacheLookup.hashWizHydras.Contains(tmp_CachedObj.SNOID))
+												//only count when range is within 45f (so we can summon a new one)
+												if (SnoCacheLookup.hashWizHydras.Contains(tmp_CachedObj.SNOID)&&tmp_CachedObj.CentreDistance<=45f)
 													 Bot.Character.PetData.WizardHydra++;
 										  }
 									 }
@@ -358,7 +361,7 @@ namespace FunkyTrinity
 								if (!tmp_CachedObj.NeedsUpdate) continue;
 
 								//Obstacles -- (Not an actual object we add to targeting.)
-								if (tmp_CachedObj.targetType.Value==TargetType.Avoidance||tmp_CachedObj.IsObstacle)
+								if (tmp_CachedObj.targetType.Value==TargetType.Avoidance||tmp_CachedObj.IsObstacle||tmp_CachedObj.HandleAsAvoidanceObject)
 								{
 									 #region Obstacles
 									 bool bRequireAvoidance=false;
@@ -507,11 +510,11 @@ namespace FunkyTrinity
 												thisObstacleObj.Position=tmp_CachedObj.Position;
 												ObjectCache.Obstacles[tmp_CachedObj.RAGUID]=thisObstacleObj;
 										  }
-
-										  //Add nearby objects to our collection (used in navblock/obstaclecheck methods to reduce queries)
 										  if (thisObstacleObj.CentreDistance<=25f)
 												Bot.Combat.NearbyObstacleObjects.Add((CacheServerObject)thisObstacleObj);
 									 }
+									 //Add nearby objects to our collection (used in navblock/obstaclecheck methods to reduce queries)
+
 								}
 
 								//cache it

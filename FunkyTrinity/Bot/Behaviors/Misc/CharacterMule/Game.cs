@@ -133,12 +133,12 @@ namespace FunkyTrinity
 									 SortedStashItems.Clear();
 									 LastActionTaken=DateTime.Today;
 									 TransferedGear=true;
-									 UpdateCurrentAccountDetails();
+									 Bot.UpdateCurrentAccountDetails();
 									 //Delete settings
-									 string sFunkyCharacterFolder=System.IO.Path.Combine(Funky.FolderPaths.sDemonBuddyPath, "Settings", "FunkyTrinity", CurrentAccountName);
+									 string sFunkyCharacterFolder=System.IO.Path.Combine(Funky.FolderPaths.sDemonBuddyPath, "Settings", "FunkyTrinity", Bot.CurrentAccountName);
 									 if (System.IO.Directory.Exists(sFunkyCharacterFolder))
 									 {
-										  string sFunkyCharacterConfigFile=System.IO.Path.Combine(sFunkyCharacterFolder, CurrentHeroName+".cfg");
+										  string sFunkyCharacterConfigFile=System.IO.Path.Combine(sFunkyCharacterFolder, Bot.CurrentHeroName+".cfg");
 										  if (System.IO.File.Exists(sFunkyCharacterConfigFile))
 												System.IO.File.Delete(sFunkyCharacterConfigFile);
 									 }

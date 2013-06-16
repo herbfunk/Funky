@@ -42,12 +42,10 @@ namespace FunkyTrinity
 
 					 if (!bOOCBuff)
 					 {
-						  if (!bCurrentlyAvoiding)
-						  {//Non Avoidance Movement and Non Buff
 
 								#region Teleport
 								// Teleport in combat for critical-mass wizards
-								if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Teleport)&&SettingsFunky.Class.bEnableCriticalMass&&
+								if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Teleport)&&Bot.SettingsFunky.Class.bEnableCriticalMass&&
 									Bot.Combat.powerLastSnoPowerUsed!=SNOPower.Wizard_Teleport&&
 									Bot.Character.dCurrentEnergy>=15&&Bot.Target.CurrentTarget.CentreDistance<=35f&&
 									PowerManager.CanCast(SNOPower.Wizard_Teleport))
@@ -100,7 +98,7 @@ namespace FunkyTrinity
 									PowerManager.CanCast(SNOPower.Wizard_ExplosiveBlast))
 								{
 									 float fThisRange=11f;
-									 if (SettingsFunky.Class.bEnableCriticalMass)
+									 if (Bot.SettingsFunky.Class.bEnableCriticalMass)
 										  fThisRange=9f;
 									 return new Ability(SNOPower.Wizard_ExplosiveBlast, fThisRange, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
 								}
@@ -117,10 +115,10 @@ namespace FunkyTrinity
 									(!bHasSignatureSpell||GetBuffStacks(SNOPower.Wizard_EnergyTwister)<1)&&
 									(Bot.Combat.iElitesWithinRange[RANGE_30]>=1||Bot.Combat.iAnythingWithinRange[RANGE_25]>=1||Bot.Target.CurrentTarget.RadiusDistance<=12f)&&
 									(!HotbarAbilitiesContainsPower(SNOPower.Wizard_Electrocute)||!SnoCacheLookup.hashActorSNOFastMobs.Contains(Bot.Target.CurrentTarget.SNOID))&&
-									((SettingsFunky.Class.bEnableCriticalMass&&(!bHasSignatureSpell||Bot.Character.dCurrentEnergy>=35))||(!SettingsFunky.Class.bEnableCriticalMass&&Bot.Character.dCurrentEnergy>=35)))
+									((Bot.SettingsFunky.Class.bEnableCriticalMass&&(!bHasSignatureSpell||Bot.Character.dCurrentEnergy>=35))||(!Bot.SettingsFunky.Class.bEnableCriticalMass&&Bot.Character.dCurrentEnergy>=35)))
 								{
 									 float fThisRange=28f;
-									 if (SettingsFunky.Class.bEnableCriticalMass)
+									 if (Bot.SettingsFunky.Class.bEnableCriticalMass)
 										  fThisRange=9f;
 									 return new Ability(SNOPower.Wizard_EnergyTwister, fThisRange, new Vector3(Bot.Target.CurrentTarget.Position.X, Bot.Target.CurrentTarget.Position.Y, Bot.Target.CurrentTarget.Position.Z), Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
 								}
@@ -131,7 +129,7 @@ namespace FunkyTrinity
 									((Bot.Character.dCurrentEnergy>=20&&!Bot.Character.bWaitingForReserveEnergy)||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount))
 								{
 									 float fThisRange=35f;
-									 if (SettingsFunky.Class.bEnableCriticalMass)
+									 if (Bot.SettingsFunky.Class.bEnableCriticalMass)
 										  fThisRange=20f;
 									 return new Ability(SNOPower.Wizard_Disintegrate, fThisRange, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, SIGNATURE_SPAM);
 								}
@@ -143,7 +141,7 @@ namespace FunkyTrinity
 									AbilityUseTimer(SNOPower.Wizard_ArcaneOrb))
 								{
 									 float fThisRange=40f;
-									 if (SettingsFunky.Class.bEnableCriticalMass)
+									 if (Bot.SettingsFunky.Class.bEnableCriticalMass)
 										  fThisRange=20f;
 
 									 if (Clusters(4d, fThisRange, 2, true).Count>0)
@@ -175,54 +173,11 @@ namespace FunkyTrinity
 									Bot.Character.dCurrentEnergy>=12)
 								{
 									 float fThisRange=35f;
-									 if (SettingsFunky.Class.bEnableCriticalMass)
+									 if (Bot.SettingsFunky.Class.bEnableCriticalMass)
 										  fThisRange=20f;
 									 return new Ability(SNOPower.Wizard_RayOfFrost, fThisRange, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, SIGNATURE_SPAM);
 								}
 								#endregion
-								#region Magic Missile
-								// Magic Missile
-								if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Wizard_MagicMissile)&&Bot.Target.CurrentTarget!=null&&(!Bot.Target.CurrentTarget.IsMissileReflecting||Bot.Character.dCurrentEnergy<30))
-								{
-									 float fThisRange=35f;
-									 if (SettingsFunky.Class.bEnableCriticalMass)
-										  fThisRange=20f;
-									 return new Ability(SNOPower.Wizard_MagicMissile, fThisRange, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, USE_SLOWLY);
-								}
-								#endregion
-								#region Shock Pulse
-								// Shock Pulse
-								if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Wizard_ShockPulse)&&Bot.Target.CurrentTarget!=null)
-								{
-									 return new Ability(SNOPower.Wizard_ShockPulse, 15f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
-								}
-								#endregion
-								#region Spectral Blade
-								// Spectral Blade
-								if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Wizard_SpectralBlade)&&Bot.Target.CurrentTarget!=null)
-								{
-									 return new Ability(SNOPower.Wizard_SpectralBlade, 14f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
-								}
-								#endregion
-								#region Electrocute
-								// Electrocute
-								if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Electrocute)&&Bot.Target.CurrentTarget!=null)
-								{
-									 return new Ability(SNOPower.Wizard_Electrocute, 18f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, USE_SLOWLY);
-								}
-								#endregion
-								#region Default attacks
-								// Default attacks
-								if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated&&Bot.Target.CurrentTarget!=null)
-								{
-									 return new Ability(SNOPower.Weapon_Melee_Instant, 10f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 1, 1, USE_SLOWLY);
-								}
-								#endregion
-						  }
-						  else
-						  {//Avoidance-Buff Selection
-
-
 								#region Slow time
 								// Slow Time for in combat
 								if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_SlowTime)&&
@@ -237,10 +192,10 @@ namespace FunkyTrinity
 								if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=25&&
 									(
 									 // Check this isn't a critical mass wizard, cos they won't want to use this except for low health unless they don't have nova/blast in which case go for it
-									(SettingsFunky.Class.bEnableCriticalMass&&((!HotbarAbilitiesContainsPower(SNOPower.Wizard_FrostNova)&&!HotbarAbilitiesContainsPower(SNOPower.Wizard_ExplosiveBlast))||
+									(Bot.SettingsFunky.Class.bEnableCriticalMass&&((!HotbarAbilitiesContainsPower(SNOPower.Wizard_FrostNova)&&!HotbarAbilitiesContainsPower(SNOPower.Wizard_ExplosiveBlast))||
 										(Bot.Character.dCurrentHealthPct<=0.7&&(Bot.Combat.iElitesWithinRange[RANGE_15]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>0||(Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=23f)))))
 									 // Else normal wizard in which case check standard stuff
-									||(!SettingsFunky.Class.bEnableCriticalMass&&Bot.Combat.iElitesWithinRange[RANGE_15]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>3||Bot.Character.dCurrentHealthPct<=0.7||(Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=23f))
+									||(!Bot.SettingsFunky.Class.bEnableCriticalMass&&Bot.Combat.iElitesWithinRange[RANGE_15]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>3||Bot.Character.dCurrentHealthPct<=0.7||(Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=23f))
 									)&&
 									HotbarAbilitiesContainsPower(SNOPower.Wizard_WaveOfForce)&&
 									AbilityUseTimer(SNOPower.Wizard_WaveOfForce, true)&&PowerManager.CanCast(SNOPower.Wizard_WaveOfForce))
@@ -252,10 +207,13 @@ namespace FunkyTrinity
 								// Blizzard
 								if (!bOOCBuff&&!Bot.Character.bIsIncapacitated&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Blizzard)&&
 									Bot.Combat.powerLastSnoPowerUsed!=SNOPower.Wizard_Blizzard&&
-									(Bot.Combat.iElitesWithinRange[RANGE_25]>0||Bot.Combat.iAnythingWithinRange[RANGE_25]>2||Bot.Target.CurrentTarget.ObjectIsSpecial||Bot.Character.dCurrentHealthPct<=0.7)&&
 									Bot.Character.dCurrentEnergy>=40&&AbilityUseTimer(SNOPower.Wizard_Blizzard))
 								{
-									 return new Ability(SNOPower.Wizard_Blizzard, 40f, new Vector3(Bot.Target.CurrentTarget.Position.X, Bot.Target.CurrentTarget.Position.Y, Bot.Target.CurrentTarget.Position.Z), Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
+									 if (Clusters(4d, 45f, 4, true).Count>0||(Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial&&Clusters(4d,45f,2).Count>0))
+									 {
+										  Vector3 Location=Clusters()[0].ListUnits[0].Position;
+										  return new Ability(SNOPower.Wizard_Blizzard, 45f, Location, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
+									 }
 								}
 								#endregion
 								#region Meteor
@@ -307,12 +265,53 @@ namespace FunkyTrinity
 									PowerManager.CanCast(SNOPower.Wizard_FrostNova))
 								{
 									 float fThisRange=14f;
-									 if (SettingsFunky.Class.bEnableCriticalMass)
+									 if (Bot.SettingsFunky.Class.bEnableCriticalMass)
 										  fThisRange=9f;
 									 return new Ability(SNOPower.Wizard_FrostNova, fThisRange, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
 								}
 								#endregion
-						  }
+
+
+								#region Magic Missile
+								// Magic Missile
+								if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Wizard_MagicMissile)&&Bot.Target.CurrentTarget!=null&&(!Bot.Target.CurrentTarget.IsMissileReflecting||Bot.Character.dCurrentEnergy<30))
+								{
+									 float fThisRange=35f;
+									 return new Ability(SNOPower.Wizard_MagicMissile, fThisRange, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, USE_SLOWLY);
+								}
+								#endregion
+								#region Shock Pulse
+								// Shock Pulse
+								if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Wizard_ShockPulse)&&Bot.Target.CurrentTarget!=null)
+								{
+									 return new Ability(SNOPower.Wizard_ShockPulse, 15f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
+								}
+								#endregion
+								#region Spectral Blade
+								// Spectral Blade
+								if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Wizard_SpectralBlade)&&Bot.Target.CurrentTarget!=null)
+								{
+									 return new Ability(SNOPower.Wizard_SpectralBlade, 14f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
+								}
+								#endregion
+								#region Electrocute
+								// Electrocute
+								if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Wizard_Electrocute)&&!Bot.Character.bIsIncapacitated)
+								{
+									 float Range=40f;
+									 if (Bot.Class.RuneIndexCache[SNOPower.Wizard_Electrocute]==2)
+										  Range=15f;
+
+									 return new Ability(SNOPower.Wizard_Electrocute, Range, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, USE_SLOWLY);
+								}
+								#endregion
+								#region Default attacks
+								// Default attacks
+								if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated)
+								{
+									 return new Ability(SNOPower.Weapon_Melee_Instant, 10f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 1, 1, USE_SLOWLY);
+								}
+								#endregion
 					 }
 
 
@@ -320,7 +319,7 @@ namespace FunkyTrinity
 					 // Diamond Skin SPAM
 					 if (HotbarAbilitiesContainsPower(SNOPower.Wizard_DiamondSkin)&&Bot.Combat.powerLastSnoPowerUsed!=SNOPower.Wizard_DiamondSkin&&
 						 (Bot.Combat.iElitesWithinRange[RANGE_25]>0||Bot.Combat.iAnythingWithinRange[RANGE_25]>0||Bot.Character.dCurrentHealthPct<=0.90||Bot.Character.bIsIncapacitated||Bot.Character.bIsRooted||(!bOOCBuff&&Bot.Target.CurrentTarget.RadiusDistance<=40f))&&
-						 ((SettingsFunky.Class.bEnableCriticalMass&&!bOOCBuff)||!HasBuff(SNOPower.Wizard_DiamondSkin))&&
+						 ((Bot.SettingsFunky.Class.bEnableCriticalMass&&!bOOCBuff)||!HasBuff(SNOPower.Wizard_DiamondSkin))&&
 						 PowerManager.CanCast(SNOPower.Wizard_DiamondSkin))
 					 {
 						  return new Ability(SNOPower.Wizard_DiamondSkin, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 1, USE_SLOWLY);

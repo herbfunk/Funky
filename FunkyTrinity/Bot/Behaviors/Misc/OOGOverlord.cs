@@ -23,13 +23,13 @@ namespace FunkyTrinity
 		  public static bool OutOfGameOverlord(object ret)
 		  {
 				//Herbfunk
-				if (SettingsFunky.EnableCoffeeBreaks&&
-					 DateTime.Now.Subtract(LastBreak).TotalHours>=SettingsFunky.breakTimeHour)
+				if (Bot.SettingsFunky.EnableCoffeeBreaks&&
+					 DateTime.Now.Subtract(LastBreak).TotalHours>=Bot.SettingsFunky.breakTimeHour)
 				{
 					 Logging.Write("Going AFK for a break..");
 					 AFKBreak=true;
 					 BreakStart=DateTime.Now;
-					 BreakMinutes=MathEx.Random(SettingsFunky.MinBreakTime, SettingsFunky.MinBreakTime+SettingsFunky.MaxBreakTime);
+					 BreakMinutes=MathEx.Random(Bot.SettingsFunky.MinBreakTime, Bot.SettingsFunky.MinBreakTime+Bot.SettingsFunky.MaxBreakTime);
 					 return true;
 				}
 				else if (MuleBehavior)
@@ -61,7 +61,7 @@ namespace FunkyTrinity
 
 		  public static RunStatus OutOfGameBehavior(object ret)
 		  {
-				if (SettingsFunky.EnableCoffeeBreaks&&AFKBreak)
+				if (Bot.SettingsFunky.EnableCoffeeBreaks&&AFKBreak)
 				{
 					 if (DateTime.Now.Subtract(BreakStart).TotalMinutes>=BreakMinutes)
 					 {
@@ -92,7 +92,7 @@ namespace FunkyTrinity
 						  {
 								CreatedCharacter=true;
 								//Setup Settings
-								UpdateCurrentAccountDetails();
+								Bot.UpdateCurrentAccountDetails();
 								LoadFunkyConfiguration();
 						  }
 						  return RunStatus.Running;
@@ -118,7 +118,7 @@ namespace FunkyTrinity
 								InitMuleBehavior=false;
 								MuleBehavior=false;
 								//Load Settings
-								UpdateCurrentAccountDetails();
+								Bot.UpdateCurrentAccountDetails();
 								LoadFunkyConfiguration();
 
 								return RunStatus.Success;

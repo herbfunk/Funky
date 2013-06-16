@@ -308,7 +308,7 @@ namespace FunkyTrinity
 												break;
 										  case SNOPower.Witchdoctor_Passive_GraveInjustice:
 										  case SNOPower.Wizard_Passive_CriticalMass:
-												SettingsFunky.Class.bEnableCriticalMass=true;
+												Bot.SettingsFunky.Class.bEnableCriticalMass=true;
 												break;
 									 }
 								}

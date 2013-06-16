@@ -31,7 +31,7 @@ namespace FunkyTrinity
 								// Find out if this item's in a protected bag slot
 								if (!ItemManager.Current.ItemIsProtected(thisitem.ACDItem))
 								{
-									 if (SettingsFunky.UseItemRules)
+									 if (Bot.SettingsFunky.UseItemRules)
 									 {
 										  if (ItemRulesEval.checkUnidStashItem(thisitem.ACDItem)==Interpreter.InterpreterAction.KEEP)
 										  {

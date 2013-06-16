@@ -149,16 +149,16 @@ namespace FunkyTrinity
 				macroDic=new Dictionary<string, string>();
 
 				// use giles setting
-				if (FunkyTrinity.Funky.SettingsFunky.ItemRuleDebug)
+				if (FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleDebug)
 					 FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "ItemRules is running in debug mode!", logPickQuality);
-				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "ItemRules is using the {0} rule set.", FunkyTrinity.Funky.SettingsFunky.ItemRuleType.ToString().ToLower());
-				logPickQuality=getTrinityItemQualityFromString(FunkyTrinity.Funky.SettingsFunky.ItemRuleLogPickup.ToString());
+				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "ItemRules is using the {0} rule set.", FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleType.ToString().ToLower());
+				logPickQuality=getTrinityItemQualityFromString(FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleLogPickup.ToString());
 				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "PICKLOG = {0} ", logPickQuality);
-				logKeepQuality=getTrinityItemQualityFromString(FunkyTrinity.Funky.SettingsFunky.ItemRuleLogKeep.ToString());
+				logKeepQuality=getTrinityItemQualityFromString(FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleLogKeep.ToString());
 				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "KEEPLOG = {0} ", logKeepQuality);
 
 				string rulesPath;
-				rulesPath=Path.Combine(itemrulesPath, "Rules", FunkyTrinity.Funky.SettingsFunky.ItemRuleType.ToString().ToLower());
+				rulesPath=Path.Combine(itemrulesPath, "Rules", FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleType.ToString().ToLower());
 
 				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "RULEPATH = {0} ", rulesPath);
 
@@ -199,7 +199,7 @@ namespace FunkyTrinity
 				}
 
 				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "... loaded: {0} Macros", macroDic.Count);
-				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "ItemRules loaded a total of {0} {1} rules!", ruleSet.Count, FunkyTrinity.Funky.SettingsFunky.ItemRuleType.ToString());
+				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "ItemRules loaded a total of {0} {1} rules!", ruleSet.Count, FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleType.ToString());
 		  }
 
 		  /// <summary>
@@ -233,7 +233,7 @@ namespace FunkyTrinity
 					 // - stop macro transformation
 
 					 // do simple translation with name to itemid
-					 if (FunkyTrinity.Funky.SettingsFunky.ItemRuleUseItemIDs&&str.Contains("[NAME]"))
+					 if (FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleUseItemIDs&&str.Contains("[NAME]"))
 					 {
 						  bool foundTranslation=false;
 						  foreach (string key in nameToBalanceId.Keys.ToList())
@@ -246,7 +246,7 @@ namespace FunkyTrinity
 									 break;
 								}
 						  }
-						  if (!foundTranslation&&FunkyTrinity.Funky.SettingsFunky.ItemRuleDebug)
+						  if (!foundTranslation&&FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleDebug)
 								FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "No translation found for rule: {0}", str);
 					 }
 
@@ -563,7 +563,7 @@ namespace FunkyTrinity
 		  public void logOut(string str, InterpreterAction action, LogType logType)
 		  {
 				// no debugging when flag set false
-				if (logType==LogType.DEBUG&&!FunkyTrinity.Funky.SettingsFunky.ItemRuleDebug)
+				if (logType==LogType.DEBUG&&!FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleDebug)
 					 return;
 
 				//if (!GilesTrinity.Settings.Advanced.ItemRulesLogs)
@@ -746,7 +746,7 @@ namespace FunkyTrinity
 				}
 
 				// check for missing translations
-				if (FunkyTrinity.Funky.SettingsFunky.ItemRuleDebug&&item.ItemQualityLevel==ItemQuality.Legendary)
+				if (FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleDebug&&item.ItemQualityLevel==ItemQuality.Legendary)
 					 checkItemForMissingTranslation(item);
 
 				// add log unique key

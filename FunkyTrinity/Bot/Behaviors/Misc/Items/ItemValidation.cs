@@ -48,7 +48,7 @@ namespace FunkyTrinity
 					 //if (thisGilesItemType == GilesItemType.TwoHandSword && templevel == 60)
 					 //  return false;
 
-					 if (SettingsFunky.MinimumLegendaryItemLevel>0&&(item.BalanceData.iThisItemLevel>=SettingsFunky.MinimumLegendaryItemLevel||SettingsFunky.MinimumLegendaryItemLevel==1))
+					 if (Bot.SettingsFunky.MinimumLegendaryItemLevel>0&&(item.BalanceData.iThisItemLevel>=Bot.SettingsFunky.MinimumLegendaryItemLevel||Bot.SettingsFunky.MinimumLegendaryItemLevel==1))
 						  return true;
 
 					 return false;
@@ -77,7 +77,7 @@ namespace FunkyTrinity
 						  }
 						  if (item.Itemquality>=ItemQuality.Magic1&&item.Itemquality<ItemQuality.Rare4)
 						  {
-								if (SettingsFunky.MinimumWeaponItemLevel[0]==0||(SettingsFunky.MinimumWeaponItemLevel[0]!=0&&item.BalanceData.iThisItemLevel<SettingsFunky.MinimumWeaponItemLevel[0]))
+								if (Bot.SettingsFunky.MinimumWeaponItemLevel[0]==0||(Bot.SettingsFunky.MinimumWeaponItemLevel[0]!=0&&item.BalanceData.iThisItemLevel<Bot.SettingsFunky.MinimumWeaponItemLevel[0]))
 								{
 									 // Between magic and rare, and either we want no blues, or this level is higher than the blue level we want
 									 return false;
@@ -85,7 +85,7 @@ namespace FunkyTrinity
 						  }
 						  else
 						  {
-								if (SettingsFunky.MinimumWeaponItemLevel[1]==0||(SettingsFunky.MinimumWeaponItemLevel[1]!=0&&item.BalanceData.iThisItemLevel<SettingsFunky.MinimumWeaponItemLevel[1]))
+								if (Bot.SettingsFunky.MinimumWeaponItemLevel[1]==0||(Bot.SettingsFunky.MinimumWeaponItemLevel[1]!=0&&item.BalanceData.iThisItemLevel<Bot.SettingsFunky.MinimumWeaponItemLevel[1]))
 								{
 									 // Between magic and rare, and either we want no blues, or this level is higher than the blue level we want
 									 return false;
@@ -101,7 +101,7 @@ namespace FunkyTrinity
 						  }
 						  if (item.Itemquality>=ItemQuality.Magic1&&item.Itemquality<ItemQuality.Rare4)
 						  {
-								if (SettingsFunky.MinimumArmorItemLevel[0]==0||(SettingsFunky.MinimumArmorItemLevel[0]!=0&&item.BalanceData.iThisItemLevel<SettingsFunky.MinimumArmorItemLevel[0]))
+								if (Bot.SettingsFunky.MinimumArmorItemLevel[0]==0||(Bot.SettingsFunky.MinimumArmorItemLevel[0]!=0&&item.BalanceData.iThisItemLevel<Bot.SettingsFunky.MinimumArmorItemLevel[0]))
 								{
 									 // Between magic and rare, and either we want no blues, or this level is higher than the blue level we want
 									 return false;
@@ -109,7 +109,7 @@ namespace FunkyTrinity
 						  }
 						  else
 						  {
-								if (SettingsFunky.MinimumArmorItemLevel[1]==0||(SettingsFunky.MinimumArmorItemLevel[1]!=0&&item.BalanceData.iThisItemLevel<SettingsFunky.MinimumArmorItemLevel[1]))
+								if (Bot.SettingsFunky.MinimumArmorItemLevel[1]==0||(Bot.SettingsFunky.MinimumArmorItemLevel[1]!=0&&item.BalanceData.iThisItemLevel<Bot.SettingsFunky.MinimumArmorItemLevel[1]))
 								{
 									 // Between magic and rare, and either we want no blues, or this level is higher than the blue level we want
 									 return false;
@@ -124,7 +124,7 @@ namespace FunkyTrinity
 						  }
 						  if (item.Itemquality>=ItemQuality.Magic1&&item.Itemquality<ItemQuality.Rare4)
 						  {
-								if (SettingsFunky.MinimumJeweleryItemLevel[0]==0||(SettingsFunky.MinimumJeweleryItemLevel[0]!=0&&item.BalanceData.iThisItemLevel<SettingsFunky.MinimumJeweleryItemLevel[0]))
+								if (Bot.SettingsFunky.MinimumJeweleryItemLevel[0]==0||(Bot.SettingsFunky.MinimumJeweleryItemLevel[0]!=0&&item.BalanceData.iThisItemLevel<Bot.SettingsFunky.MinimumJeweleryItemLevel[0]))
 								{
 									 // Between magic and rare, and either we want no blues, or this level is higher than the blue level we want
 									 return false;
@@ -132,7 +132,7 @@ namespace FunkyTrinity
 						  }
 						  else
 						  {
-								if (SettingsFunky.MinimumJeweleryItemLevel[1]==0||(SettingsFunky.MinimumJeweleryItemLevel[1]!=0&&item.BalanceData.iThisItemLevel<SettingsFunky.MinimumJeweleryItemLevel[1]))
+								if (Bot.SettingsFunky.MinimumJeweleryItemLevel[1]==0||(Bot.SettingsFunky.MinimumJeweleryItemLevel[1]!=0&&item.BalanceData.iThisItemLevel<Bot.SettingsFunky.MinimumJeweleryItemLevel[1]))
 								{
 									 // Between magic and rare, and either we want no blues, or this level is higher than the blue level we want
 									 return false;
@@ -140,7 +140,7 @@ namespace FunkyTrinity
 						  }
 						  break;
 					 case GilesBaseItemType.FollowerItem:
-						  if (item.BalanceData.iThisItemLevel<60||!SettingsFunky.PickupFollowerItems||item.Itemquality<ItemQuality.Rare4)
+						  if (item.BalanceData.iThisItemLevel<60||!Bot.SettingsFunky.PickupFollowerItems||item.Itemquality<ItemQuality.Rare4)
 						  {
 								if (!_hashsetItemFollowersIgnored.Contains(item.DynamicID.Value))
 								{
@@ -151,30 +151,30 @@ namespace FunkyTrinity
 						  }
 						  break;
 					 case GilesBaseItemType.Gem:
-						  if (item.BalanceData.iThisItemLevel<SettingsFunky.MinimumGemItemLevel||(thisGilesItemType==GilesItemType.Ruby&&!SettingsFunky.PickupGems[0])||(thisGilesItemType==GilesItemType.Emerald&&!SettingsFunky.PickupGems[1])||
-								(thisGilesItemType==GilesItemType.Amethyst&&!SettingsFunky.PickupGems[2])||(thisGilesItemType==GilesItemType.Topaz&&!SettingsFunky.PickupGems[3]))
+						  if (item.BalanceData.iThisItemLevel<Bot.SettingsFunky.MinimumGemItemLevel||(thisGilesItemType==GilesItemType.Ruby&&!Bot.SettingsFunky.PickupGems[0])||(thisGilesItemType==GilesItemType.Emerald&&!Bot.SettingsFunky.PickupGems[1])||
+								(thisGilesItemType==GilesItemType.Amethyst&&!Bot.SettingsFunky.PickupGems[2])||(thisGilesItemType==GilesItemType.Topaz&&!Bot.SettingsFunky.PickupGems[3]))
 						  {
 								return false;
 						  }
 						  break;
 					 case GilesBaseItemType.Misc:
 						  // Note; Infernal keys are misc, so should be picked up here - we aren't filtering them out, so should default to true at the end of this function
-						  if (thisGilesItemType==GilesItemType.CraftingMaterial&&item.BalanceData.iThisItemLevel<SettingsFunky.MiscItemLevel)
+						  if (thisGilesItemType==GilesItemType.CraftingMaterial&&item.BalanceData.iThisItemLevel<Bot.SettingsFunky.MiscItemLevel)
 						  {
 								return false;
 						  }
-						  if (thisGilesItemType==GilesItemType.CraftTome&&(item.BalanceData.iThisItemLevel<SettingsFunky.MiscItemLevel||!SettingsFunky.PickupCraftTomes))
+						  if (thisGilesItemType==GilesItemType.CraftTome&&(item.BalanceData.iThisItemLevel<Bot.SettingsFunky.MiscItemLevel||!Bot.SettingsFunky.PickupCraftTomes))
 						  {
 								return false;
 						  }
-						  if (thisGilesItemType==GilesItemType.CraftingPlan&&!SettingsFunky.PickupCraftPlans)
+						  if (thisGilesItemType==GilesItemType.CraftingPlan&&!Bot.SettingsFunky.PickupCraftPlans)
 						  {
 								return false;
 						  }
 						  // Potion filtering
 						  if (thisGilesItemType==GilesItemType.HealthPotion)
 						  {	
-								if (SettingsFunky.MaximumHealthPotions<=0) 
+								if (Bot.SettingsFunky.MaximumHealthPotions<=0) 
 									 return false;
 
 								var Potions = Bot.Character.BackPack.ReturnCurrentPotions();
@@ -183,7 +183,7 @@ namespace FunkyTrinity
 									 return true;
 								else if (Bot.Character.BackPack.BestPotionToUse!=null&&item.BalanceData.iThisItemLevel<Bot.Character.BackPack.BestPotionToUse.Level) 
 									 return false;
-								else if (Potions.Sum(potions => potions.ItemStackQuantity)>=SettingsFunky.MaximumHealthPotions)
+								else if (Potions.Sum(potions => potions.ItemStackQuantity)>=Bot.SettingsFunky.MaximumHealthPotions)
 									 return false;
 						  }
 						  break;

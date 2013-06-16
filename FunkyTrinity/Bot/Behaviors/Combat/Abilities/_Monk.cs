@@ -114,16 +114,16 @@ namespace FunkyTrinity
 						(Bot.Combat.iAnythingWithinRange[RANGE_20]>=5&&Bot.Combat.iElitesWithinRange[RANGE_50]==0)||
 						(Bot.Combat.iAnythingWithinRange[RANGE_15]>=3&&Bot.Character.dCurrentEnergyPct<=0.5)||
 						(Bot.Target.CurrentTarget.IsBoss&&Bot.Target.CurrentTarget.RadiusDistance<=15f)||
-						(SettingsFunky.Class.bMonkInnaSet&&Bot.Combat.iAnythingWithinRange[RANGE_15]>=1&&HotbarAbilitiesContainsPower(SNOPower.Monk_SweepingWind)&&!HasBuff(SNOPower.Monk_SweepingWind))
+						(Bot.SettingsFunky.Class.bMonkInnaSet&&Bot.Combat.iAnythingWithinRange[RANGE_15]>=1&&HotbarAbilitiesContainsPower(SNOPower.Monk_SweepingWind)&&!HasBuff(SNOPower.Monk_SweepingWind))
 					)&&
 					 // Check if we don't have breath of heaven
 					(!HotbarAbilitiesContainsPower(SNOPower.Monk_BreathOfHeaven)||
-					(HotbarAbilitiesContainsPower(SNOPower.Monk_BreathOfHeaven)&&(!SettingsFunky.Class.bMonkInnaSet||
+					(HotbarAbilitiesContainsPower(SNOPower.Monk_BreathOfHeaven)&&(!Bot.SettingsFunky.Class.bMonkInnaSet||
 					HasBuff(SNOPower.Monk_BreathOfHeaven))))&&
 					 // Check if either we don't have sweeping winds, or we do and it's ready to cast in a moment
 					(!HotbarAbilitiesContainsPower(SNOPower.Monk_SweepingWind)||
 					(HotbarAbilitiesContainsPower(SNOPower.Monk_SweepingWind)&&(Bot.Character.dCurrentEnergy>=95||
-					(SettingsFunky.Class.bMonkInnaSet&&Bot.Character.dCurrentEnergy>=25)||HasBuff(SNOPower.Monk_SweepingWind)))||
+					(Bot.SettingsFunky.Class.bMonkInnaSet&&Bot.Character.dCurrentEnergy>=25)||HasBuff(SNOPower.Monk_SweepingWind)))||
 					Bot.Character.dCurrentHealthPct<=0.4)&&
 					AbilityUseTimer(SNOPower.Monk_BlindingFlash)&&PowerManager.CanCast(SNOPower.Monk_BlindingFlash))
 				{
@@ -141,18 +141,18 @@ namespace FunkyTrinity
 				// Sweeping wind
 				//intell -- inna
 				if (!bOOCBuff&&HotbarAbilitiesContainsPower(SNOPower.Monk_SweepingWind)&&!HasBuff(SNOPower.Monk_SweepingWind)&&
-					(Bot.Combat.iElitesWithinRange[RANGE_25]>0||Bot.Combat.iAnythingWithinRange[RANGE_20]>=2||(Bot.Combat.iAnythingWithinRange[RANGE_20]>=1&&SettingsFunky.Class.bMonkInnaSet)||(thisCacheUnitObj!=null&&(thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=25f))&&
+					(Bot.Combat.iElitesWithinRange[RANGE_25]>0||Bot.Combat.iAnythingWithinRange[RANGE_20]>=2||(Bot.Combat.iAnythingWithinRange[RANGE_20]>=1&&Bot.SettingsFunky.Class.bMonkInnaSet)||(thisCacheUnitObj!=null&&(thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=25f))&&
 					 // Check if either we don't have blinding flash, or we do and it's been cast in the last 6000ms
 					 //DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Monk_BlindingFlash]).TotalMilliseconds <= 6000)) &&
 					(!HotbarAbilitiesContainsPower(SNOPower.Monk_BlindingFlash)||
 					(HotbarAbilitiesContainsPower(SNOPower.Monk_BlindingFlash)&&
-					((!SettingsFunky.Class.bMonkInnaSet&&Bot.Combat.iElitesWithinRange[RANGE_50]==0&&thisCacheUnitObj!=null&&!thisCacheUnitObj.IsEliteRareUnique&&!Bot.Target.CurrentTarget.IsBoss)||HasBuff(SNOPower.Monk_BlindingFlash))))&&
+					((!Bot.SettingsFunky.Class.bMonkInnaSet&&Bot.Combat.iElitesWithinRange[RANGE_50]==0&&thisCacheUnitObj!=null&&!thisCacheUnitObj.IsEliteRareUnique&&!Bot.Target.CurrentTarget.IsBoss)||HasBuff(SNOPower.Monk_BlindingFlash))))&&
 					 // Check our mantras, if we have them, are up first
 					(!HotbarAbilitiesContainsPower(SNOPower.Monk_MantraOfEvasion)||(HotbarAbilitiesContainsPower(SNOPower.Monk_MantraOfEvasion)&&HasBuff(SNOPower.Monk_MantraOfEvasion)))&&
 					(!HotbarAbilitiesContainsPower(SNOPower.Monk_MantraOfConviction)||(HotbarAbilitiesContainsPower(SNOPower.Monk_MantraOfConviction)&&HasBuff(SNOPower.Monk_MantraOfConviction)))&&
 					(!HotbarAbilitiesContainsPower(SNOPower.Monk_MantraOfRetribution)||(HotbarAbilitiesContainsPower(SNOPower.Monk_MantraOfRetribution)&&HasBuff(SNOPower.Monk_MantraOfRetribution)))&&
 					 // Check the re-use timer and energy costs
-					(Bot.Character.dCurrentEnergy>=75||(SettingsFunky.Class.bMonkInnaSet&&Bot.Character.dCurrentEnergy>=5)))
+					(Bot.Character.dCurrentEnergy>=75||(Bot.SettingsFunky.Class.bMonkInnaSet&&Bot.Character.dCurrentEnergy>=5)))
 				{
 					 return new Ability(SNOPower.Monk_SweepingWind, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 1, USE_SLOWLY); //intell -- 2,2
 				} 

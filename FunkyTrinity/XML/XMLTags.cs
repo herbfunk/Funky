@@ -467,7 +467,7 @@ namespace FunkyTrinity
 				else
 				{
 					 //Special cache for skipping locations visited.
-					 if (Funky.SettingsFunky.SkipAhead)
+					 if (Funky.Bot.SettingsFunky.SkipAhead)
 						  Funky.CacheMovementTracking.RecordSkipAheadCachePoint();
 
 					 Navigator.MoveTo(NavTarget);
@@ -2556,7 +2556,7 @@ namespace FunkyTrinity
 					 NextNode.NavigableCenter, NextNode.NavigableCenter.Distance(FunkyTrinity.Funky.Bot.Character.Position), FunkyTrinity.Funky.GetHeadingToPoint(NextNode.NavigableCenter));
 				
 				//Special cache for skipping locations visited.
-				if (Funky.SettingsFunky.SkipAhead)
+				if (Funky.Bot.SettingsFunky.SkipAhead)
 					 Funky.CacheMovementTracking.RecordSkipAheadCachePoint();
 
 				LastMoveResult=Navigator.MoveTo(CurrentNavTarget);

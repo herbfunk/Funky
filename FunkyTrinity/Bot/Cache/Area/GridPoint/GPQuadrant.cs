@@ -116,6 +116,8 @@ namespace FunkyTrinity
 
 												if (!UsedRAGUIDs.Contains(item.RAGUID))
 												{
+													 if (!Bot.Combat.UnitRAGUIDs.Contains(item.RAGUID)) continue;
+
 													 CacheUnit thisUnitObj;
 													 if (ObjectCache.Objects.TryGetValue(item.RAGUID, out thisUnitObj))
 													 {
@@ -162,10 +164,12 @@ namespace FunkyTrinity
 									 {
 										  if (!UsedRAGUIDs.Contains(item.RAGUID))
 										  {
+												AvoidanceType thisAvoidanceType=((CacheAvoidance)item).AvoidanceType;
+												if (Bot.IgnoringAvoidanceType(thisAvoidanceType)) continue;
+
 												avoidcount++;
 												float BaseWeight=0f;
 
-												AvoidanceType thisAvoidanceType=((CacheAvoidance)item).AvoidanceType;
 												if (thisAvoidanceType==AvoidanceType.ArcaneSentry||thisAvoidanceType==AvoidanceType.Dececrator||thisAvoidanceType==AvoidanceType.MoltenCore)
 													 BaseWeight=2.5f;
 												else
@@ -247,14 +251,15 @@ namespace FunkyTrinity
 								//Melee -- Walkable , Range -- Projectile
 								if (checkLOS)
 								{
-									 if (Bot.Class.IsMeleeClass)
-									 {
-										  if (!GilesCanRayCast(pointVector, LoSCheckV3, Zeta.Internals.SNO.NavCellFlags.AllowWalk)) continue;
-									 }
-									 else
-									 {
-										  if (!GilesCanRayCast(pointVector, LoSCheckV3, Zeta.Internals.SNO.NavCellFlags.AllowWalk|Zeta.Internals.SNO.NavCellFlags.AllowProjectile)) continue;
-									 }
+									 if (!GilesCanRayCast(pointVector, LoSCheckV3, Zeta.Internals.SNO.NavCellFlags.AllowWalk)) continue;
+									 //if (Bot.Class.IsMeleeClass)
+									 //{
+									 //    if (!GilesCanRayCast(pointVector, LoSCheckV3, Zeta.Internals.SNO.NavCellFlags.AllowWalk)) continue;
+									 //}
+									 //else
+									 //{
+									 //    if (!GilesCanRayCast(pointVector, LoSCheckV3, Zeta.Internals.SNO.NavCellFlags.AllowWalk|Zeta.Internals.SNO.NavCellFlags.AllowProjectile)) continue;
+									 //}
 								}
 
 								//Avoidance Intersection Check

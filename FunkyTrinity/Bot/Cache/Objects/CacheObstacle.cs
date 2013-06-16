@@ -232,18 +232,14 @@ namespace FunkyTrinity
 
 					 this.Position=newPosition;
 
-					 if (SettingsFunky.UseAdvancedProjectileTesting)
+					 if (Bot.SettingsFunky.UseAdvancedProjectileTesting)
 					 {
 						  //Do fancy checks for this fixed projectile.
 						  if (this.Ray.Intersects(Bot.Character.CharacterSphere).HasValue)
 						  {
-								//We get the total Milliseconds it took from now since last refresh occured.
-								double LastRefreshMS=DateTime.Now.Subtract(lastRefreshedObjects).TotalMilliseconds;
-								//LastRefreshMS=MathEx.Clamp(150f, 250f, (float)LastRefreshMS);
-
 								//Now we get the distance from us, divide it by the speed (which is also divided by 10 to normalize it) to get the total, this is than divided by our lastrefresh time, which gives us our loops before intersection.
 								//Example: 35f away, 0.02f is speed, when divided is equal to 1750. Average Refresh is 150ms, so the loops would be ~11.6
-								BlacklistRefreshCounter=(int)(Math.Round((Vector3.Distance(Position, Bot.Character.Position)/(Speed/10))/LastRefreshMS));
+								BlacklistRefreshCounter=(int)(Math.Round((Vector3.Distance(Position, Bot.Character.Position)/(Speed/10))/150));
 								if (BlacklistRefreshCounter<5&&BlacklistRefreshCounter>1)
 								{
 									 projectileraytest_=true;
@@ -289,7 +285,7 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  return ((SettingsFunky.AttemptAvoidanceMovements||Bot.Combat.CriticalAvoidance)
+						  return ((Bot.SettingsFunky.AttemptAvoidanceMovements||Bot.Combat.CriticalAvoidance)
 									 &&Bot.AvoidancesHealth.ContainsKey(this.AvoidanceType)&&Bot.AvoidancesHealth[this.AvoidanceType]>0d);
 					 }
 				}

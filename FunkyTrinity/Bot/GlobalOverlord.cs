@@ -32,7 +32,7 @@ namespace FunkyTrinity
 					 Bot.Character.iCurrentWorldID=ZetaDia.CurrentWorldDynamicId;
 
 				//Check if we need to resfresh class data!
-				if (SettingsFunky.UseLevelingLogic)
+				if (Bot.SettingsFunky.UseLevelingLogic)
 				{
 					 double lastlevelupMS=DateTime.Now.Subtract(LastLevelUp).TotalSeconds;
 					 if (lastlevelupMS<30&&lastlevelupMS>15)
@@ -63,7 +63,13 @@ namespace FunkyTrinity
 
 					 //Set Character Radius?
 					 if (Bot.Character.fCharacterRadius==0f)
+					 {
 						  Bot.Character.fCharacterRadius=ZetaDia.Me.ActorInfo.Sphere.Radius;
+
+						  //Wizards are short -- causing issues (At least Male Wizard is!)
+						  if (Bot.ActorClass==ActorClass.Wizard)
+								Bot.Character.fCharacterRadius+=1f;
+					 }
 
 					 // Game difficulty, used really for vault on DH's
 					 if (ZetaDia.Service.CurrentHero.CurrentDifficulty!=GameDifficulty.Invalid)
@@ -140,7 +146,7 @@ namespace FunkyTrinity
 				else
 				{
 					 //Check OOC ID Behavior..
-					 if (SettingsFunky.OOCIdentifyItems&&ShouldRunIDBehavior())
+					 if (Bot.SettingsFunky.OOCIdentifyItems&&ShouldRunIDBehavior())
 					 {
 						  Logging.WriteDiagnostic("[Funky] Starting OOC ID Behavior");
 						  Bot.Combat.DontMove=true;
@@ -158,7 +164,7 @@ namespace FunkyTrinity
 						  }
 					 }
 					 // Only do something when pulsing if it's been at least 5 seconds since last pulse, to prevent spam
-					 else if (SettingsFunky.UseLevelingLogic&&Bot.Character.iMyLevel<60&&DateTime.Now.Subtract(_lastLooked).TotalSeconds>5)
+					 else if (Bot.SettingsFunky.UseLevelingLogic&&Bot.Character.iMyLevel<60&&DateTime.Now.Subtract(_lastLooked).TotalSeconds>5)
 					 {
 						  // Every 5 minutes, re-check all equipped items and clear stored blacklist
 						  if (DateTime.Now.Subtract(_lastFullEvaluation).TotalSeconds>300)
@@ -185,7 +191,7 @@ namespace FunkyTrinity
 					 dateSinceTemporaryBlacklistClear=DateTime.Now;
 					 hashRGUIDTemporaryIgnoreBlacklist=new HashSet<int>();
 				}
-				if (SettingsFunky.DebugStatusBar&&bResetStatusText)
+				if (Bot.SettingsFunky.DebugStatusBar&&bResetStatusText)
 				{
 					 bResetStatusText=false;
 					 BotMain.StatusText="[Funky] No more targets - DemonBuddy/profile management is now in control";

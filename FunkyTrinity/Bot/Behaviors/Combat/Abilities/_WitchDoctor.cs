@@ -43,7 +43,7 @@ namespace FunkyTrinity
 				#region Spirit Walk
 				// Spirit Walk Cast on 65% health or while avoiding anything but molten core or incapacitated or Chasing Goblins
 				if (HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_SpiritWalk)&&Bot.Character.dCurrentEnergy>=49&&
-					(Bot.Character.dCurrentHealthPct<=0.65||(Bot.Combat.IsKiting&&Bot.Combat.iAnythingWithinRange[RANGE_15]>1)||Bot.Character.bIsIncapacitated||Bot.Character.bIsRooted||(SettingsFunky.OutOfCombatMovement&&bOOCBuff)||
+					(Bot.Character.dCurrentHealthPct<=0.65||(Bot.Combat.IsKiting&&Bot.Combat.iAnythingWithinRange[RANGE_15]>1)||Bot.Character.bIsIncapacitated||Bot.Character.bIsRooted||(Bot.SettingsFunky.OutOfCombatMovement&&bOOCBuff)||
 					 (!bOOCBuff&&Bot.Target.CurrentTarget.IsTreasureGoblin&&thisCacheUnitObj!=null&&thisCacheUnitObj.CurrentHealthPct<0.90&&Bot.Target.CurrentTarget.RadiusDistance<=40f))
 					 &&PowerManager.CanCast(SNOPower.Witchdoctor_SpiritWalk))
 				{
@@ -160,7 +160,7 @@ namespace FunkyTrinity
 				// Haunt the shit out of monster and maybe they will give you treats
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_Haunt)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=98&&
 					PowerManager.CanCast(SNOPower.Witchdoctor_Haunt)&&AbilityLastUseMS(SNOPower.Witchdoctor_Haunt)>1000
-					 &&!Bot.Combat.bAnyTreasureGoblinsPresent||SettingsFunky.GoblinPriority<2)
+					 &&!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.SettingsFunky.GoblinPriority<2)
 				{
 					 //We want to only haunt clusters of at least 2 units with no current haunt.
 
@@ -184,7 +184,7 @@ namespace FunkyTrinity
 				// Locust
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_Locust_Swarm)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=196&&
 					PowerManager.CanCast(SNOPower.Witchdoctor_Locust_Swarm)&&AbilityLastUseMS(SNOPower.Witchdoctor_Locust_Swarm)>1000
-					 &&!Bot.Combat.bAnyTreasureGoblinsPresent||SettingsFunky.GoblinPriority<2)
+					 &&!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.SettingsFunky.GoblinPriority<2)
 				{
 					 if (Clusters(5d, 30f, 2).Count>0)
 					 {

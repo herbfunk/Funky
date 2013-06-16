@@ -96,7 +96,7 @@ namespace FunkyTrinity
 					 //Check if we require avoidance movement.
 					 #region AvodianceMovementCheck
 					 // Note that if treasure goblin level is set to kamikaze, even avoidance moves are disabled to reach the goblin!
-					 if (Bot.Combat.RequiresAvoidance&&(!Bot.Combat.bAnyTreasureGoblinsPresent||SettingsFunky.GoblinPriority<2)&&
+					 if (Bot.Combat.RequiresAvoidance&&(!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.SettingsFunky.GoblinPriority<2)&&
 						  DateTime.Now.Subtract(Bot.Combat.timeCancelledEmergencyMove).TotalMilliseconds>=Bot.Combat.iMillisecondsCancelledEmergencyMoveFor)
 					 {//Bot requires avoidance movement.. (Note: we have not done the weighting of our targeting list yet..)
 						  Vector3 vAnySafePoint;
@@ -130,7 +130,7 @@ namespace FunkyTrinity
 								CurrentTarget=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "SafeAvoid", 2.5f, -1);
 
 								//Set timer here until next we try... since we've already attempted at least 9 GPCs!
-								Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=(int)(Bot.Character.dCurrentHealthPct*SettingsFunky.AvoidanceRecheckMaximumRate);
+								Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=(int)(Bot.Character.dCurrentHealthPct*Bot.SettingsFunky.AvoidanceRecheckMaximumRate);
 								Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
 								//Bot.Combat.LastAvoidanceMovement=DateTime.Now;
 								return true;
@@ -143,8 +143,8 @@ namespace FunkyTrinity
 					 Bot.Combat.bStayPutDuringAvoidance=false;
 
 					 //update cluster targeting valid selection list
-					 if (SettingsFunky.EnableClusteringTargetLogic
-							 &&(!SettingsFunky.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>SettingsFunky.IgnoreClusterLowHPValue)
+					 if (Bot.SettingsFunky.EnableClusteringTargetLogic
+							 &&(!Bot.SettingsFunky.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>Bot.SettingsFunky.IgnoreClusterLowHPValue)
 							 &&(DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalMilliseconds>500||DateTime.Now.Subtract(Bot.Combat.LastClusterTargetLogicRefresh).TotalMilliseconds>200))
 					 {
 						  Bot.Combat.UpdateTargetClusteringVariables();
@@ -157,16 +157,16 @@ namespace FunkyTrinity
 					 //check kiting
 					 #region Kiting
 					 if (Bot.KiteDistance>0
-						  &&(!Bot.Combat.bAnyTreasureGoblinsPresent||SettingsFunky.GoblinPriority<2)
+						  &&(!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.SettingsFunky.GoblinPriority<2)
 						  &&DateTime.Now.Subtract(Bot.Combat.timeCancelledKiteMove).TotalMilliseconds>=Bot.Combat.iMillisecondsCancelledKiteMoveFor
-						  &&(Bot.Class.AC!=ActorClass.Wizard||(Bot.Class.AC==ActorClass.Wizard&&(!SettingsFunky.Class.bKiteOnlyArchon||HasBuff(SNOPower.Wizard_Archon)))))
+						  &&(Bot.Class.AC!=ActorClass.Wizard||(Bot.Class.AC==ActorClass.Wizard&&(!Bot.SettingsFunky.Class.bKiteOnlyArchon||HasBuff(SNOPower.Wizard_Archon)))))
 					 {
 
-						  //Find any units that we should kite, sorted by distance.
-						  var nearbyUnits=Bot.ValidObjects.OfType<CacheUnit>().Where(unit => unit.ShouldBeKited
-																												 &&unit.RadiusDistance<Bot.KiteDistance);
+						  ////Find any units that we should kite, sorted by distance.
+						  //var nearbyUnits=Bot.ValidObjects.OfType<CacheUnit>().Where(unit => unit.ShouldBeKited
+						  //                                                                 &&unit.RadiusDistance<Bot.KiteDistance);
 
-						  if (nearbyUnits.Any())
+						  if (Bot.Combat.NearbyKitingUnits.Count>0)
 						  {
 								if (CurrentTarget!=null&&CurrentTarget.targetType.HasValue&&TargetType.ServerObjects.HasFlag(CurrentTarget.targetType.Value))
 									 LOS=CurrentTarget.Position;
@@ -183,7 +183,7 @@ namespace FunkyTrinity
 										  Bot.Character.LastCachedTarget=CurrentTarget;
 
 									 CurrentTarget=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "Kitespot", 2.5f, -1);
-									 Bot.Combat.iMillisecondsCancelledKiteMoveFor=(int)(Bot.Character.dCurrentHealthPct*SettingsFunky.KitingRecheckMaximumRate);
+									 Bot.Combat.iMillisecondsCancelledKiteMoveFor=(int)(Bot.Character.dCurrentHealthPct*Bot.SettingsFunky.KitingRecheckMaximumRate);
 									 Bot.Combat.timeCancelledKiteMove=DateTime.Now;
 									 return true;
 								}
@@ -219,23 +219,23 @@ namespace FunkyTrinity
 					 if (CurrentTarget==null)
 					 {
 						  // See if we should wait for milliseconds for possible loot drops before continuing run
-						  if (DateTime.Now.Subtract(Bot.Combat.lastHadUnitInSights).TotalMilliseconds<=SettingsFunky.AfterCombatDelay&&DateTime.Now.Subtract(Bot.Combat.lastHadEliteUnitInSights).TotalMilliseconds<=10000||
+						  if (DateTime.Now.Subtract(Bot.Combat.lastHadUnitInSights).TotalMilliseconds<=Bot.SettingsFunky.AfterCombatDelay&&DateTime.Now.Subtract(Bot.Combat.lastHadEliteUnitInSights).TotalMilliseconds<=10000||
 								//Cut the delay time in half for non-elite monsters!
-								DateTime.Now.Subtract(Bot.Combat.lastHadUnitInSights).TotalMilliseconds<=SettingsFunky.AfterCombatDelay)
+								DateTime.Now.Subtract(Bot.Combat.lastHadUnitInSights).TotalMilliseconds<=Bot.SettingsFunky.AfterCombatDelay)
 						  {
 								CurrentTarget=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "WaitForLootDrops", 2f, -1);
 								return true;
 						  }
 						  //Herbfunks wait after loot containers are opened. 3s for rare chests, half the settings delay for everything else.
 						  if ((DateTime.Now.Subtract(Bot.Combat.lastHadRareChestAsTarget).TotalMilliseconds<=3750)||
-								(DateTime.Now.Subtract(Bot.Combat.lastHadContainerAsTarget).TotalMilliseconds<=(SettingsFunky.AfterCombatDelay*1.25)))
+								(DateTime.Now.Subtract(Bot.Combat.lastHadContainerAsTarget).TotalMilliseconds<=(Bot.SettingsFunky.AfterCombatDelay*1.25)))
 						  {
 								CurrentTarget=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "ContainerLootDropsWait", 2f, -1);
 								return true;
 						  }
 
 						  // Finally, a special check for waiting for wrath of the berserker cooldown before engaging Azmodan
-						  if (HotbarAbilitiesContainsPower(SNOPower.Barbarian_WrathOfTheBerserker)&&SettingsFunky.Class.bWaitForWrath&&!AbilityUseTimer(SNOPower.Barbarian_WrathOfTheBerserker)&&
+						  if (HotbarAbilitiesContainsPower(SNOPower.Barbarian_WrathOfTheBerserker)&&Bot.SettingsFunky.Class.bWaitForWrath&&!AbilityUseTimer(SNOPower.Barbarian_WrathOfTheBerserker)&&
 								ZetaDia.CurrentWorldId==121214&&
 								(Vector3.Distance(Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						  {
@@ -244,7 +244,7 @@ namespace FunkyTrinity
 								return true;
 						  }
 						  // And a special check for wizard archon
-						  if (HotbarAbilitiesContainsPower(SNOPower.Wizard_Archon)&&!AbilityUseTimer(SNOPower.Wizard_Archon)&&SettingsFunky.Class.bWaitForArchon&&ZetaDia.CurrentWorldId==121214&&
+						  if (HotbarAbilitiesContainsPower(SNOPower.Wizard_Archon)&&!AbilityUseTimer(SNOPower.Wizard_Archon)&&Bot.SettingsFunky.Class.bWaitForArchon&&ZetaDia.CurrentWorldId==121214&&
 								(Vector3.Distance(Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						  {
 								Logging.Write("[Funky] Waiting for Wizard Archon cooldown before continuing to Azmodan.");
@@ -262,7 +262,7 @@ namespace FunkyTrinity
 
 
 						  //Check if our current path intersects avoidances. (When not in town, and not currently inside avoidance)
-						  if (!Bot.Character.bIsInTown&&(SettingsFunky.AttemptAvoidanceMovements||Bot.Combat.CriticalAvoidance)
+						  if (!Bot.Character.bIsInTown&&(Bot.SettingsFunky.AttemptAvoidanceMovements||Bot.Combat.CriticalAvoidance)
 								  &&NP.CurrentPath.Count>0
 								  &&Bot.Combat.TriggeringAvoidances.Count==0)
 						  {
@@ -299,7 +299,7 @@ namespace FunkyTrinity
 				private void WeightEvaluationObjList()
 				{
 					 // Store if we are ignoring all units this cycle or not
-					 bool bIgnoreAllUnits=!Bot.Combat.bAnyChampionsPresent&&!Bot.Combat.bAnyMobsInCloseRange&&((!Bot.Combat.bAnyTreasureGoblinsPresent&&SettingsFunky.GoblinPriority>=2)||SettingsFunky.GoblinPriority<2)&&
+					 bool bIgnoreAllUnits=!Bot.Combat.bAnyChampionsPresent&&!Bot.Combat.bAnyMobsInCloseRange&&((!Bot.Combat.bAnyTreasureGoblinsPresent&&Bot.SettingsFunky.GoblinPriority>=2)||Bot.SettingsFunky.GoblinPriority<2)&&
 										  Bot.Character.dCurrentHealthPct>=0.85d;
 
 					 //clear our last "avoid" list..
@@ -460,7 +460,7 @@ namespace FunkyTrinity
 						  {
 								Zeta.CommonBot.GameEvents.FireItemLooted(CurrentTarget.AcdGuid.Value);
 
-								if (SettingsFunky.DebugStatusBar) BotMain.StatusText=statusText;
+								if (Bot.SettingsFunky.DebugStatusBar) BotMain.StatusText=statusText;
 
 								//This is where we should manipulate information of both what dropped and what was looted.
 								LogItemInformation();
@@ -521,7 +521,7 @@ namespace FunkyTrinity
 								if (!Bot.Combat.reCheckedFinished)
 								{
 									 statusText+=" RECHECKING";
-									 if (SettingsFunky.DebugStatusBar)
+									 if (Bot.SettingsFunky.DebugStatusBar)
 									 {
 										  BotMain.StatusText=statusText;
 									 }
@@ -588,8 +588,8 @@ namespace FunkyTrinity
 					 {
 						  // Update targets at least once every 80 milliseconds
 						  if (Bot.Combat.bForceTargetUpdate||Bot.Combat.TravellingAvoidance||
-							  ((DateTime.Now.Subtract(lastRefreshedObjects).TotalMilliseconds>=80&&CurrentTarget.targetType.Value!=TargetType.Avoidance)||
-								 DateTime.Now.Subtract(lastRefreshedObjects).TotalMilliseconds>=800))
+							  ((DateTime.Now.Subtract(Bot.lastRefreshedObjects).TotalMilliseconds>=80&&CurrentTarget.targetType.Value!=TargetType.Avoidance)||
+								 DateTime.Now.Subtract(Bot.lastRefreshedObjects).TotalMilliseconds>=800))
 						  {
 								bShouldRefreshDiaObjects=true;
 						  }
@@ -641,7 +641,7 @@ namespace FunkyTrinity
 									 // PREVENT blacklisting a monster on less than 90% health unless we haven't damaged it for more than 2 minutes
 									 if (CurrentTarget.targetType.Value==TargetType.Unit)
 									 {
-										  if (CurrentTarget.IsTreasureGoblin&&SettingsFunky.GoblinPriority>=3)
+										  if (CurrentTarget.IsTreasureGoblin&&Bot.SettingsFunky.GoblinPriority>=3)
 												bBlacklistThis=false;
 										  if (DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds<=120)
 												bBlacklistThis=false;
@@ -707,7 +707,7 @@ namespace FunkyTrinity
 						  {
 								//ToDo: Check clustering..
 								// Pick a suitable ability								Shielded units: Find destructible power instead.
-								Bot.Combat.powerPrime=GilesAbilitySelector(false, false, !CurrentTarget.CanInteract());
+								Bot.Combat.powerPrime=GilesAbilitySelector(false, false,false);
 
 								//Check LOS still valid...
 								#region LOSUpdate
@@ -858,7 +858,7 @@ namespace FunkyTrinity
 				{
 
 					 #region DebugInfo
-					 if (SettingsFunky.DebugStatusBar)
+					 if (Bot.SettingsFunky.DebugStatusBar)
 					 {
 						  sStatusText="[Interact- ";
 						  switch (CurrentTarget.targetType.Value)

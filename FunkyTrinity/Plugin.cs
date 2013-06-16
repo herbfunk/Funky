@@ -23,7 +23,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky : IPlugin
 	 {
-		  public Version Version { get { return new Version(1, 1, 3, 1); } }
+		  public Version Version { get { return new Version(1, 1, 3, 2); } }
 		  public string Author { get { return "Herbfunk"; } }
 		  public string Description
 		  {
@@ -267,8 +267,8 @@ namespace FunkyTrinity
 		  {
 				get
 				{
-					 UpdateCurrentAccountDetails();
-					 string settingsFolder=FolderPaths.sDemonBuddyPath+@"\Settings\FunkyTrinity\"+CurrentAccountName;
+					 Bot.UpdateCurrentAccountDetails();
+					 string settingsFolder=FolderPaths.sDemonBuddyPath+@"\Settings\FunkyTrinity\"+Bot.CurrentAccountName;
 					 if (!Directory.Exists(settingsFolder))
 						  Directory.CreateDirectory(settingsFolder);
 					 try

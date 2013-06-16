@@ -91,7 +91,8 @@ namespace FunkyTrinity
 
 					 GridPoint[] CurrentLocationGridPoints=CurrentLocationGPRect.Keys.ToArray();
 					 List<GridPoint> SurroundingPoints=new List<GridPoint>();
-					 for (int i=0; i<8; i++)
+					 int SurroundingMaxCount=CurrentLocationGPRect.Count>=8?8:CurrentLocationGPRect.Count;
+					 for (int i=0; i<SurroundingMaxCount; i++)
 					 {
 						  GridPoint gp=CurrentLocationGridPoints[i];
 						  if (!gp.Ignored)
@@ -110,7 +111,7 @@ namespace FunkyTrinity
 						  ObjectblockCounter.Clear();
 						  ObjectOccupiedGridPoints.Clear();
 
-						  if (SettingsFunky.LogSafeMovementOutput)
+						  if (Bot.SettingsFunky.LogSafeMovementOutput)
 								Logging.WriteVerbose("Current Location Point has {0} usable points (NoNewObjs)", SurroundingPoints.Count);
 
 						  return (SurroundingPoints.Count==0);
@@ -149,7 +150,7 @@ namespace FunkyTrinity
 
 						  if (SurroundingPoints.Count==0)
 						  {
-								if (SettingsFunky.LogSafeMovementOutput)
+								if (Bot.SettingsFunky.LogSafeMovementOutput)
 									 Logging.WriteVerbose("NavBlocked -- No available surrounding points.");
 
 								return true;
@@ -162,7 +163,7 @@ namespace FunkyTrinity
 					 //No new objects to test..
 					 if (NewObjects.Count==0)
 					 {
-						  if (SettingsFunky.LogSafeMovementOutput)
+						  if (Bot.SettingsFunky.LogSafeMovementOutput)
 								Logging.WriteVerbose("No new Objects Unaccounted");
 
 						  return (SurroundingPoints.Count==0);
@@ -176,7 +177,7 @@ namespace FunkyTrinity
 																						  &&(!ObjectblockCounter.ContainsKey(Obj.RAGUID)||Math.Round(Obj.PointRadius)<ObjectblockCounter[Obj.RAGUID])).ToArray();
 						  if (ContainedObjs.Length>0)
 						  {
-								if (ContainedObjs.Length>1&&SettingsFunky.LogSafeMovementOutput)
+								if (ContainedObjs.Length>1&&Bot.SettingsFunky.LogSafeMovementOutput)
 									 Logging.WriteVerbose("Multiple Objects Found Occuping Grid Point!");
 
 								CacheServerObject ThisObjBlocking=ContainedObjs[0];
@@ -205,7 +206,7 @@ namespace FunkyTrinity
 					 //Update Surrounding Points
 					 SurroundingPoints=SurroundingPoints.Except(NavigationBlockedPoints).ToList();
 
-					 if (SettingsFunky.LogSafeMovementOutput)
+					 if (Bot.SettingsFunky.LogSafeMovementOutput)
 						  Logging.WriteVerbose("Current Location Point has {0} usable points", SurroundingPoints.Count);
 
 
@@ -254,7 +255,7 @@ namespace FunkyTrinity
 					 if (!Bot.Combat.TravellingAvoidance&&DateTime.Now.Subtract(lastFoundSafeSpot).TotalMilliseconds<=600
 						&&vlastSafeSpot!=vNullLocation
 						&&(!ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(vlastSafeSpot))
-						  &&(!kiting||!ObjectCache.Objects.IsPointNearbyMonsters(vlastSafeSpot, Bot.KiteDistance)))
+						  &&(!kiting||!ObjectCache.Objects.IsPointNearbyMonsters(vlastSafeSpot,Bot.KiteDistance)))
 					 {	 //Already found a safe spot in the last 800ms
 						  safespot=vlastSafeSpot;
 						  return true;
@@ -335,14 +336,14 @@ namespace FunkyTrinity
 					 //If still failed to find a safe spot.. set the timer before we try again.
 					 if (safespot==vNullLocation)
 					 {
-						  if (SettingsFunky.LogSafeMovementOutput)
+						  if (Bot.SettingsFunky.LogSafeMovementOutput)
 								Logging.WriteVerbose("All GPCs failed to find a valid location to move!");
 
 						  AllGPRectsFailed=true;
 						  CurrentLocationGPRect.UpdateObjectCount();
 						  CurrentLocationWeight=CurrentLocationGPRect.Weight;
 
-						  if (SettingsFunky.LogSafeMovementOutput)
+						  if (Bot.SettingsFunky.LogSafeMovementOutput)
 								Logging.WriteVerbose("Current Location GPC Weight is {0}", CurrentLocationWeight);
 
 						  MinimumChangeofDistanceBeforeRefresh-=5f;
@@ -355,12 +356,12 @@ namespace FunkyTrinity
 						  if (!kiting)
 						  {
 								//Set timer here until next we try... since we've already attempted at least 9 GPCs!
-								Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=(int)(Bot.Character.dCurrentHealthPct*SettingsFunky.AvoidanceRecheckMinimumRate)+1000;
+								Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=(int)(Bot.Character.dCurrentHealthPct*Bot.SettingsFunky.AvoidanceRecheckMinimumRate)+1000;
 								Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
 						  }
 						  else
 						  {
-								Bot.Combat.iMillisecondsCancelledKiteMoveFor=(int)(Bot.Character.dCurrentHealthPct*SettingsFunky.KitingRecheckMinimumRate)+1000;
+								Bot.Combat.iMillisecondsCancelledKiteMoveFor=(int)(Bot.Character.dCurrentHealthPct*Bot.SettingsFunky.KitingRecheckMinimumRate)+1000;
 								Bot.Combat.timeCancelledKiteMove=DateTime.Now;
 						  }
 
@@ -471,7 +472,7 @@ namespace FunkyTrinity
 					 //If still failed to find a safe spot.. set the timer before we try again.
 					 if (safespot==vNullLocation)
 					 {
-						  if (SettingsFunky.LogSafeMovementOutput)
+						  if (Bot.SettingsFunky.LogSafeMovementOutput)
 								Logging.WriteVerbose("All GPCs failed to find a valid location to move!");
 
 						  AllGPRectsFailed=true;
@@ -498,7 +499,7 @@ namespace FunkyTrinity
 					 LastSearchVector=Bot.Character.Position;
 					 LastUsedRect=null;
 					 AllGPRectsFailed=false;
-					 float MaximumRangeAllowed=(kiting?75f:100f);
+					 float MaximumRangeAllowed=(kiting?125f:100f);
 
 					 //Clear Blacklisted
 					 BlacklistedGridpoints.Clear();
@@ -514,7 +515,7 @@ namespace FunkyTrinity
 
 					 //Update our base weight which we compare others with to see if its a better placement.
 					 CurrentLocationWeight=CurrentLocationGPRect.Weight;
-					 if (SettingsFunky.LogSafeMovementOutput)
+					 if (Bot.SettingsFunky.LogSafeMovementOutput)
 						  Logging.WriteVerbose("Current Location GPC Weight is {0}", CurrentLocationWeight);
 
 
@@ -539,7 +540,7 @@ namespace FunkyTrinity
 						  }
 					 }
 
-					 if (SettingsFunky.LogSafeMovementOutput)
+					 if (Bot.SettingsFunky.LogSafeMovementOutput)
 						  Logging.WriteVerbose("Total Direction Points Successfully Created {0}", DirectionPoints.Count);
 
 					 //Check if we swapped into our "Routine" cache GPCs..
@@ -558,7 +559,7 @@ namespace FunkyTrinity
 
 					 //Update avoidance objects so they are sorted by distance from bot..
 					 ObjectCache.Obstacles.SortAvoidanceZones();
-					 if (SettingsFunky.LogSafeMovementOutput)
+					 if (Bot.SettingsFunky.LogSafeMovementOutput)
 						  Logging.WriteDiagnostic("Finished Creating Direction Points and Local GPC");
 				}
 
@@ -593,7 +594,7 @@ namespace FunkyTrinity
 					 //update refresh range
 					 MinimumChangeofDistanceBeforeRefresh=maxrangeFound;
 					 UpdatedLocalMovementTree=true;
-					 if (SettingsFunky.LogSafeMovementOutput) Logging.WriteDiagnostic("Updated Local GPCs");
+					 if (Bot.SettingsFunky.LogSafeMovementOutput) Logging.WriteDiagnostic("Updated Local GPCs");
 				}
 		  }
 	 }

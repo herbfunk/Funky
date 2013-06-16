@@ -71,6 +71,7 @@ namespace FunkyTrinity
 					 internal List<int> PrioritizedRAGUIDs=new List<int>();
 					 internal List<CacheServerObject> NearbyObstacleObjects=new List<CacheServerObject>();
 					 internal List<int> NearbyAvoidances=new List<int>();
+					 internal List<CacheUnit> NearbyKitingUnits=new List<CacheUnit>();
 					 internal List<CacheAvoidance> TriggeringAvoidances=new List<CacheAvoidance>();
 					 internal List<int> UnitRAGUIDs=new List<int>();
 					 internal List<int> ValidClusterUnits=new List<int>();
@@ -85,7 +86,7 @@ namespace FunkyTrinity
 						  List<CacheUnit> objects=new List<CacheUnit>();
 
 						  //If ClusterTargetLogic is disabled.. we need to generate clusters!
-						  if (!SettingsFunky.EnableClusteringTargetLogic&&DateTime.Now.Subtract(LastClusterTargetLogicRefresh).TotalMilliseconds>200)
+						  if (!Bot.SettingsFunky.EnableClusteringTargetLogic&&DateTime.Now.Subtract(LastClusterTargetLogicRefresh).TotalMilliseconds>200)
 						  {
 								LastClusterTargetLogicRefresh=DateTime.Now;
 								List<CacheObject> listObjectUnits=Bot.ValidObjects.Where(u => UnitRAGUIDs.Contains(u.RAGUID)&&u.CentreDistance<=DistanceFromBot).ToList();
@@ -119,7 +120,7 @@ namespace FunkyTrinity
 						  ValidClusterUnits=new List<int>();
 
 						  //Check if there are enough units present currently..
-						  if (UnitRAGUIDs.Count>=SettingsFunky.ClusterMinimumUnitCount)
+						  if (UnitRAGUIDs.Count>=Bot.SettingsFunky.ClusterMinimumUnitCount)
 						  {
 								//Get unit objects only!
 								List<CacheObject> listObjectUnits=Bot.ValidObjects.Where(u => Bot.Combat.UnitRAGUIDs.Contains(u.RAGUID)).ToList();
@@ -128,13 +129,13 @@ namespace FunkyTrinity
 								if (listObjectUnits.Count>0)
 								{
 									 //Update Cluster Collection
-									 CurrentTargetClusters=RunKmeans(listObjectUnits, SettingsFunky.ClusterDistance);
+									 CurrentTargetClusters=RunKmeans(listObjectUnits, Bot.SettingsFunky.ClusterDistance);
 									 LastClusterTargetLogicRefresh=DateTime.Now;
 
 									 //Add each RAGUID to collection only if clusters contained units meets minimum setting
 									 foreach (var item in CurrentTargetClusters)
 									 {
-										  if (item.ListUnits.Count>=SettingsFunky.ClusterMinimumUnitCount)
+										  if (item.ListUnits.Count>=Bot.SettingsFunky.ClusterMinimumUnitCount)
 												ValidClusterUnits.AddRange(item.RAGUIDS);
 									 }
 								}
@@ -296,6 +297,7 @@ namespace FunkyTrinity
 						  bCheckGround=false;
 						  NearbyAvoidances.Clear();
 						  NearbyObstacleObjects.Clear();
+						  NearbyKitingUnits.Clear();
 					 }
 					 internal void ResetTargetHandling()
 					 {
