@@ -7,11 +7,11 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  // For path finding
+
 		  /// <summary>
-		  /// The Grid Provider for Navigation checks
+		  /// MainGridProvider
 		  /// </summary>
-		  internal static MainGridProvider mgp
+		  internal static MainGridProvider MGP
 		  {
 				get
 				{
@@ -19,9 +19,9 @@ namespace FunkyTrinity
 				}
 		  }
 		  /// <summary>
-		  /// Bot Dungeon Explorer -- Used to find current path.
+		  /// DungeonExplorer
 		  /// </summary>
-		  internal static Zeta.CommonBot.Dungeons.DungeonExplorer de
+		  internal static Zeta.CommonBot.Dungeons.DungeonExplorer DE
 		  {
 				get
 				{
@@ -30,24 +30,31 @@ namespace FunkyTrinity
 		  }
 
 		  ///<summary>
-		  ///Returns Navigator as DefaultNavigationProvider (Pathing)
+		  ///Returns GetNavigationProviderAs as DefaultNavigationProvider (Pathing)
 		  ///</summary>
-		  internal static DefaultNavigationProvider navigation
+		  internal static DefaultNavigationProvider NP
 		  {
 				get
 				{
 					 return Navigator.GetNavigationProviderAs<DefaultNavigationProvider>();
 				}
 		  }
+
+
+
+
 		  private static Vector3 currentpathvector_=vNullLocation;
+		  ///<summary>
+		  ///Trys to find current path by checking NavigationProvider and DungeonExplorer for any valid pathing.
+		  ///</summary>
 		  internal static Vector3 CurrentPathVector
 		  {
 				get
 				{
-					 if (navigation.CurrentPath.Count>0&&currentpathvector_!=navigation.CurrentPath.Current)
-						  currentpathvector_=navigation.CurrentPath.Current;
-					 else if (de.CurrentRoute!=null&&de.CurrentRoute.Count>0&&currentpathvector_!=de.CurrentNode.NavigableCenter)
-						  currentpathvector_=de.CurrentNode.NavigableCenter;
+					 if (NP.CurrentPath.Count>0&&currentpathvector_!=NP.CurrentPath.Current)
+						  currentpathvector_=NP.CurrentPath.Current;
+					 else if (DE.CurrentRoute!=null&&DE.CurrentRoute.Count>0&&currentpathvector_!=DE.CurrentNode.NavigableCenter)
+						  currentpathvector_=DE.CurrentNode.NavigableCenter;
 					 else
 						  currentpathvector_=vNullLocation;
 
@@ -55,8 +62,10 @@ namespace FunkyTrinity
 				}
 		  }
 
-		  internal static DateTime LastMGPUpdate=DateTime.MinValue;
-		  internal static int LastScenceUpdateOccured=0;
+
+		  private static DateTime LastMGPUpdate=DateTime.MinValue;
+		  private static int LastScenceUpdateOccured=0;
+
 		  internal static void UpdateSearchGridProvider(bool force=false)
 		  {
 				if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld)
@@ -78,7 +87,7 @@ namespace FunkyTrinity
 				
 				try
 				{
-					 mgp.Update();
+					 MGP.Update();
 				} catch
 				{
 					 Log("MGP Update Exception Safely Handled!", true);

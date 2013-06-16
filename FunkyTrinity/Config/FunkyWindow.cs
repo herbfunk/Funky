@@ -161,9 +161,8 @@ namespace FunkyTrinity
                 tabControl1.Items.Add(CombatSettingsTabItem);
                 TabControl CombatTabControl = new TabControl
                 {
-                    Width = 600,
-                    Height = 600,
-
+						  HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch,
+						  VerticalAlignment= System.Windows.VerticalAlignment.Stretch,
                 };
 
                 #region General
@@ -176,6 +175,8 @@ namespace FunkyTrinity
 
                 StackPanel AvoidanceOptionsStackPanel = new StackPanel
                 {
+						  Orientation= System.Windows.Controls.Orientation.Vertical,
+						  HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch,
                     Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom + 5),
                 };
 
@@ -185,6 +186,7 @@ namespace FunkyTrinity
                     FontSize = 12,
                     Background = System.Windows.Media.Brushes.MediumSeaGreen,
                     TextAlignment = TextAlignment.Center,
+						  HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch,
                 };
 
                 #region AvoidanceCheckboxes
@@ -592,17 +594,208 @@ namespace FunkyTrinity
                 HealthOptionsStackPanel.Children.Add(HealthPotion_Info_Text);
                 HealthOptionsStackPanel.Children.Add(PotionHealthStackPanel);
                 CombatGeneralContentListBox.Items.Add(HealthOptionsStackPanel);
-                CombatGeneralTabItem.Content = CombatGeneralContentListBox;
+                
                 #endregion
+					 #region Clustering
+					 StackPanel spClusteringOptions=new StackPanel
+					 {
 
+					 };
+					 TextBlock Clustering_Text_Header=new TextBlock
+					 {
+						  Text="Target Clustering Options",
+						  FontSize=12,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Background=System.Windows.Media.Brushes.DarkGreen,
+						  TextAlignment=TextAlignment.Center,
+					 };
+					 spClusteringOptions.Children.Add(Clustering_Text_Header);
+
+					 #region ClusterTargetLogic
+					 CheckBox cbClusterEnabled=new CheckBox
+					 {
+						  Content="Enable Clustering Target Logic",
+						  IsChecked=(SettingsFunky.EnableClusteringTargetLogic),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+10),
+					 };
+					 cbClusterEnabled.Checked+=EnableClusteringTargetLogicChecked;
+					 cbClusterEnabled.Unchecked+=EnableClusteringTargetLogicChecked;
+					 spClusteringOptions.Children.Add(cbClusterEnabled);
+					 #endregion
+
+					 #region LowHP
+					 StackPanel spClusterLowHPOption=new StackPanel
+					 {
+						  Orientation=Orientation.Horizontal,
+					 };
+
+					 #region ClusterLowHPSliderValue
+
+
+					 StackPanel spClusterLowHP=new StackPanel
+					 {
+						  Orientation=Orientation.Vertical,
+					 };
+					 TextBlock ClusterLowHP_Text_Header=new TextBlock
+					 {
+						  Text="Disable Health Percent",
+						  FontSize=12,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  //Background=System.Windows.Media.Brushes.MediumSeaGreen,
+					 };
+					 spClusterLowHP.Children.Add(ClusterLowHP_Text_Header);
+
+					 Slider sliderClusterLowHPValue=new Slider
+					 {
+						  Width=100,
+						  Maximum=1,
+						  Minimum=0,
+						  TickFrequency=0.25,
+						  LargeChange=0.25,
+						  SmallChange=0.10,
+						  Value=SettingsFunky.IgnoreClusterLowHPValue,
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 };
+					 sliderClusterLowHPValue.ValueChanged+=ClusterLowHPValueSliderChanged;
+					 TBClusterLowHPValue=new TextBox
+					 {
+						  Text=SettingsFunky.IgnoreClusterLowHPValue.ToString("F2", CultureInfo.InvariantCulture),
+						  IsReadOnly=true,
+					 };
+					 StackPanel ClusterLowHPValueStackPanel=new StackPanel
+					 {
+						  Orientation=Orientation.Horizontal,
+					 };
+					 ClusterLowHPValueStackPanel.Children.Add(sliderClusterLowHPValue);
+					 ClusterLowHPValueStackPanel.Children.Add(TBClusterLowHPValue);
+					 spClusterLowHP.Children.Add(ClusterLowHPValueStackPanel);
+
+					 spClusterLowHPOption.Children.Add(spClusterLowHP);
+
+
+
+					 #endregion
+
+					 CheckBox cbClusterIgnoreBotLowHP=new CheckBox
+					 {
+						  Content="Cluster Logic Disable at HP %",
+						  IsChecked=(SettingsFunky.IgnoreClusteringWhenLowHP),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
+						  VerticalAlignment=System.Windows.VerticalAlignment.Bottom,
+						  Margin=new Thickness(Margin.Left+5, Margin.Top, Margin.Right, Margin.Bottom),
+					 };
+					 cbClusterIgnoreBotLowHP.Checked+=IgnoreClusteringBotLowHPisChecked;
+					 cbClusterIgnoreBotLowHP.Unchecked+=IgnoreClusteringBotLowHPisChecked;
+					 spClusterLowHPOption.Children.Add(cbClusterIgnoreBotLowHP);
+					 spClusteringOptions.Children.Add(spClusterLowHPOption);
+					 #endregion
+
+					 #region ClusterDistance
+					 StackPanel spClusterDistanceOptions=new StackPanel
+					 {
+						  Orientation=Orientation.Vertical,
+					 };
+					 TextBlock ClusterDistance_Text_Header=new TextBlock
+					 {
+						  Text="Cluster Distance",
+						  FontSize=12,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 };
+					 spClusterDistanceOptions.Children.Add(ClusterDistance_Text_Header);
+
+					 Slider sliderClusterDistance=new Slider
+					 {
+						  Width=100,
+						  Maximum=20,
+						  Minimum=0,
+						  TickFrequency=4,
+						  LargeChange=5,
+						  SmallChange=1,
+						  Value=SettingsFunky.ClusterDistance,
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 };
+					 sliderClusterDistance.ValueChanged+=ClusterDistanceSliderChanged;
+					 TBClusterDistance=new TextBox
+					 {
+						  Text=SettingsFunky.ClusterDistance.ToString(),
+						  IsReadOnly=true,
+					 };
+					 StackPanel ClusterDistanceStackPanel=new StackPanel
+					 {
+						  Width=600,
+						  Height=20,
+						  Orientation=Orientation.Horizontal,
+					 };
+					 ClusterDistanceStackPanel.Children.Add(sliderClusterDistance);
+					 ClusterDistanceStackPanel.Children.Add(TBClusterDistance);
+					 spClusterDistanceOptions.Children.Add(ClusterDistanceStackPanel);
+					 spClusteringOptions.Children.Add(spClusterDistanceOptions);
+					 #endregion
+
+					 #region ClusterMinUnitCount
+					 StackPanel spClusterMinUnitOptions=new StackPanel
+					 {
+						  Orientation=Orientation.Vertical,
+					 };
+					 TextBlock ClusterMinUnitCount_Text_Header=new TextBlock
+					 {
+						  Text="Cluster Minimum Unit Count",
+						  FontSize=12,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 };
+					 spClusterMinUnitOptions.Children.Add(ClusterMinUnitCount_Text_Header);
+
+					 Slider sliderClusterMinUnitCount=new Slider
+					 {
+						  Width=100,
+						  Maximum=10,
+						  Minimum=1,
+						  TickFrequency=2,
+						  LargeChange=2,
+						  SmallChange=1,
+						  Value=SettingsFunky.ClusterMinimumUnitCount,
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 };
+					 sliderClusterMinUnitCount.ValueChanged+=ClusterMinUnitSliderChanged;
+					 TBClusterMinUnitCount=new TextBox
+					 {
+						  Text=SettingsFunky.ClusterMinimumUnitCount.ToString(),
+						  IsReadOnly=true,
+					 };
+					 StackPanel ClusterMinUnitCountStackPanel=new StackPanel
+					 {
+						  Width=600,
+						  Height=20,
+						  Orientation=Orientation.Horizontal,
+					 };
+					 ClusterMinUnitCountStackPanel.Children.Add(sliderClusterMinUnitCount);
+					 ClusterMinUnitCountStackPanel.Children.Add(TBClusterMinUnitCount);
+					 spClusterMinUnitOptions.Children.Add(ClusterMinUnitCountStackPanel);
+					 spClusteringOptions.Children.Add(spClusterMinUnitOptions);
+					 #endregion
+					 CombatGeneralContentListBox.Items.Add(spClusteringOptions);
+					 #endregion
+
+					 CombatGeneralTabItem.Content=CombatGeneralContentListBox;
                 #endregion
 
 
                 #region Avoidances
-                TabItem AvoidanceTabItem = new TabItem();
+					 TabItem AvoidanceTabItem=new TabItem
+					 {
+						  Header="Avoidances",
+						  HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch,
+						  VerticalAlignment= System.Windows.VerticalAlignment.Stretch,
+					 };
                 AvoidanceTabItem.Header = "Avoidances";
                 CombatTabControl.Items.Add(AvoidanceTabItem);
-                ListBox LBcharacterAvoidance = new ListBox();
+					 ListBox LBcharacterAvoidance=new ListBox
+					 {
+						  HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch,
+						  VerticalAlignment= System.Windows.VerticalAlignment.Stretch,
+						  
+					 };
 
 
 
@@ -631,14 +824,16 @@ namespace FunkyTrinity
                     Text = "Type",
                     FontSize = 12,
                     TextAlignment = System.Windows.TextAlignment.Center,
-                    Background = System.Windows.Media.Brushes.WhiteSmoke,
+                    Background = System.Windows.Media.Brushes.DarkTurquoise,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
                 };
                 TextBlock ColumnHeader2 = new TextBlock
                 {
                     Text = "Radius",
                     FontSize = 12,
                     TextAlignment = System.Windows.TextAlignment.Center,
-                    Background = System.Windows.Media.Brushes.Goldenrod,
+                    Background = System.Windows.Media.Brushes.DarkGoldenrod,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
                 };
                 TextBlock ColumnHeader3 = new TextBlock
                 {
@@ -646,6 +841,7 @@ namespace FunkyTrinity
                     FontSize = 12,
                     TextAlignment = System.Windows.TextAlignment.Center,
                     Background = System.Windows.Media.Brushes.DarkRed,
+						  Foreground = System.Windows.Media.Brushes.GhostWhite,
                 };
                 Grid.SetColumn(ColumnHeader1, 0);
                 Grid.SetColumn(ColumnHeader2, 1);
@@ -661,8 +857,12 @@ namespace FunkyTrinity
                 AvoidanceType[] avoidanceTypes = currentDictionaryAvoidance.Keys.ToArray();
                 TBavoidanceHealth = new TextBox[avoidanceTypes.Length - 1];
                 TBavoidanceRadius = new TextBox[avoidanceTypes.Length - 1];
+					 int alternatingColor=0;
+
                 for(int i = 0; i < avoidanceTypes.Length - 1; i++)
                 {
+						  if (alternatingColor>1)alternatingColor=0;
+
                     string avoidanceString = avoidanceTypes[i].ToString();
 
                     float defaultRadius = 0f;
@@ -720,25 +920,34 @@ namespace FunkyTrinity
                     AvoidanceLayoutGrid.RowDefinitions.Add(newRow);
 
 
-                    TextBlock txt1 = new TextBlock();
-                    txt1.Text = avoidanceString;
-                    txt1.FontSize = 14;
-                    txt1.Background = System.Windows.Media.Brushes.Moccasin;
-
+						  TextBlock txt1=new TextBlock
+						  {
+								Text = avoidanceString,
+								FontSize = 12,
+								VerticalAlignment= System.Windows.VerticalAlignment.Stretch,
+								Background=alternatingColor==0?System.Windows.Media.Brushes.DarkSeaGreen:Background=System.Windows.Media.Brushes.SlateGray,
+								Foreground= System.Windows.Media.Brushes.GhostWhite,
+								FontStretch= FontStretches.SemiCondensed,
+						  };
+						
                     StackPanel avoidRadiusStackPanel = new StackPanel
                     {
                         Width = 175,
-                        Height = 30,
+                        Height = 25,
                         Orientation = Orientation.Horizontal,
-                    };
+								Background=alternatingColor==0?System.Windows.Media.Brushes.DarkSeaGreen:Background=System.Windows.Media.Brushes.SlateGray,
+
+						  };
                     avoidRadiusStackPanel.Children.Add(avoidanceRadius);
                     avoidRadiusStackPanel.Children.Add(TBavoidanceRadius[i]);
 
                     StackPanel avoidHealthStackPanel = new StackPanel
                     {
                         Width = 175,
-                        Height = 30,
+                        Height = 25,
                         Orientation = Orientation.Horizontal,
+								Background=alternatingColor==0?System.Windows.Media.Brushes.DarkSeaGreen:Background=System.Windows.Media.Brushes.SlateGray,
+
                     };
                     avoidHealthStackPanel.Children.Add(avoidanceHealth);
                     avoidHealthStackPanel.Children.Add(TBavoidanceHealth[i]);
@@ -755,6 +964,7 @@ namespace FunkyTrinity
                     AvoidanceLayoutGrid.Children.Add(txt1);
                     AvoidanceLayoutGrid.Children.Add(avoidRadiusStackPanel);
                     AvoidanceLayoutGrid.Children.Add(avoidHealthStackPanel);
+						  alternatingColor++;
                 }
 
                 LBcharacterAvoidance.Items.Add(AvoidanceLayoutGrid);
@@ -1436,182 +1646,6 @@ namespace FunkyTrinity
                 #endregion
 
                 RangeTabItem.Content = lbTargetRange;
-                #endregion
-
-                #region Targeting_Clustering
-                TabItem TargetingClusterItem = new TabItem();
-                TargetingClusterItem.Header = "Clustering";
-                tcTargeting.Items.Add(TargetingClusterItem);
-                ListBox lbTargetCluster = new ListBox();
-
-					 StackPanel spClusteringOptions= new StackPanel
-					 {
-
-					 };
-
-                #region ClusterTargetLogic
-                CheckBox cbClusterEnabled = new CheckBox
-                {
-                    Content = "Enable Clustering Target Logic",
-                    Width = 300,
-                    Height = 20,
-                    IsChecked = (SettingsFunky.EnableClusteringTargetLogic)
-                };
-                cbClusterEnabled.Checked += EnableClusteringTargetLogicChecked;
-                cbClusterEnabled.Unchecked += EnableClusteringTargetLogicChecked;
-                spClusteringOptions.Children.Add(cbClusterEnabled);
-                #endregion
-
-                #region LowHP
-					 StackPanel spClusterLowHPOption=new StackPanel
-					 {
-						  Orientation= Orientation.Vertical,
-					 };
-                CheckBox cbClusterIgnoreBotLowHP = new CheckBox
-                {
-                    Content = "Disable Logic on Bot HP",
-                    Width = 300,
-                    Height = 20,
-                    IsChecked = (SettingsFunky.IgnoreClusteringWhenLowHP)
-                };
-                cbClusterIgnoreBotLowHP.Checked += IgnoreClusteringBotLowHPisChecked;
-                cbClusterIgnoreBotLowHP.Unchecked += IgnoreClusteringBotLowHPisChecked;
-					 spClusterLowHPOption.Children.Add(cbClusterIgnoreBotLowHP);
-
-                #region ClusterLowHPSliderValue
-
-
-					 StackPanel spClusterLowHP=new StackPanel
-					 {
-						  Orientation=Orientation.Vertical,
-					 };
-					 TextBlock ClusterLowHP_Text_Header=new TextBlock
-					 {
-						  Text="Health Percent",
-						  FontSize=12,
-						  //Background=System.Windows.Media.Brushes.MediumSeaGreen,
-					 };
-					 spClusterLowHP.Children.Add(ClusterLowHP_Text_Header);
-
-                Slider sliderClusterLowHPValue = new Slider
-                {
-                    Width = 100,
-                    Maximum = 1,
-                    Minimum = 0,
-                    TickFrequency = 0.25,
-                    LargeChange = 0.25,
-                    SmallChange = 0.10,
-                    Value = SettingsFunky.IgnoreClusterLowHPValue,
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
-                };
-                sliderClusterLowHPValue.ValueChanged += ClusterLowHPValueSliderChanged;
-                TBClusterLowHPValue = new TextBox
-                {
-                    Text = SettingsFunky.IgnoreClusterLowHPValue.ToString("F2", CultureInfo.InvariantCulture),
-                    IsReadOnly = true,
-                };
-                StackPanel ClusterLowHPValueStackPanel = new StackPanel
-                {
-                    Width = 600,
-                    Height = 20,
-                    Orientation = Orientation.Vertical,
-                };
-                ClusterLowHPValueStackPanel.Children.Add(sliderClusterLowHPValue);
-                ClusterLowHPValueStackPanel.Children.Add(TBClusterLowHPValue);
-					 spClusterLowHP.Children.Add(ClusterLowHPValueStackPanel);
-
-					 spClusterLowHPOption.Children.Add(spClusterLowHP);
-					 spClusteringOptions.Children.Add(spClusterLowHPOption);
-
-                
-                #endregion
-                #endregion
-
-                #region ClusterDistance
-					 StackPanel spClusterDistanceOptions=new StackPanel
-					 {
-						  Orientation= Orientation.Vertical,
-					 };
-					 TextBlock ClusterDistance_Text_Header=new TextBlock
-					 {
-						  Text="Cluster Distance",
-						  FontSize=12,
-					 };
-					 spClusterDistanceOptions.Children.Add(ClusterDistance_Text_Header);
-
-                Slider sliderClusterDistance = new Slider
-                {
-                    Width = 100,
-                    Maximum = 20,
-                    Minimum = 0,
-                    TickFrequency = 4,
-                    LargeChange = 5,
-                    SmallChange = 1,
-                    Value = SettingsFunky.ClusterDistance,
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
-                };
-                sliderClusterDistance.ValueChanged += ClusterDistanceSliderChanged;
-                TBClusterDistance = new TextBox
-                {
-                    Text = SettingsFunky.ClusterDistance.ToString(),
-                    IsReadOnly = true,
-                };
-                StackPanel ClusterDistanceStackPanel = new StackPanel
-                {
-                    Width = 600,
-                    Height = 20,
-                    Orientation = Orientation.Horizontal,
-                };
-                ClusterDistanceStackPanel.Children.Add(sliderClusterDistance);
-                ClusterDistanceStackPanel.Children.Add(TBClusterDistance);
-					 spClusterDistanceOptions.Children.Add(ClusterDistanceStackPanel);
-					 spClusteringOptions.Children.Add(spClusterDistanceOptions);
-                #endregion
-
-                #region ClusterMinUnitCount
-					 StackPanel spClusterMinUnitOptions=new StackPanel
-					 {
-						  Orientation= Orientation.Vertical,
-					 };
-					 TextBlock ClusterMinUnitCount_Text_Header=new TextBlock
-					 {
-						  Text="Cluster Minimum Unit Count",
-						  FontSize=12,
-					 };
-					 spClusterMinUnitOptions.Children.Add(ClusterMinUnitCount_Text_Header);
-
-                Slider sliderClusterMinUnitCount = new Slider
-                {
-                    Width = 100,
-                    Maximum = 10,
-                    Minimum = 1,
-                    TickFrequency = 2,
-                    LargeChange = 2,
-                    SmallChange = 1,
-                    Value = SettingsFunky.ClusterMinimumUnitCount,
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
-                };
-                sliderClusterMinUnitCount.ValueChanged += ClusterMinUnitSliderChanged;
-                TBClusterMinUnitCount = new TextBox
-                {
-                    Text = SettingsFunky.ClusterMinimumUnitCount.ToString(),
-                    IsReadOnly = true,
-                };
-                StackPanel ClusterMinUnitCountStackPanel = new StackPanel
-                {
-                    Width = 600,
-                    Height = 20,
-                    Orientation = Orientation.Horizontal,
-                };
-                ClusterMinUnitCountStackPanel.Children.Add(sliderClusterMinUnitCount);
-                ClusterMinUnitCountStackPanel.Children.Add(TBClusterMinUnitCount);
-					 spClusterMinUnitOptions.Children.Add(ClusterMinUnitCountStackPanel);
-					 spClusteringOptions.Children.Add(spClusterMinUnitOptions);
-                #endregion
-
-					 lbTargetCluster.Items.Add(spClusteringOptions);
-                TargetingClusterItem.Content = lbTargetCluster;
-
                 #endregion
 
                 TargetTabItem.Content = tcTargeting;

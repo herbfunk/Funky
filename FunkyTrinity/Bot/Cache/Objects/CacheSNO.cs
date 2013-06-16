@@ -283,7 +283,7 @@ namespace FunkyTrinity
 					 }
 				}
 
-				private readonly TargetType? _targettype;
+				private TargetType? _targettype;
 				public TargetType? targetType
 				{
 					 get
@@ -294,7 +294,11 @@ namespace FunkyTrinity
 					 }
 					 set
 					 {
-						  if (this.IsFinalized) return;
+						  if (this.IsFinalized)
+						  {
+								_targettype=value;
+								return;
+						  }
 
 						  dictTargetType[SNOID]=value;
 					 }
@@ -717,13 +721,15 @@ namespace FunkyTrinity
 					 if (this.targetType.Value==TargetType.Unit)
 					 {
 						  SNORecordMonster monsterInfo=null;
-						  if (thisObj.CommonData==null)
-								return false;
-						  else
+						  try
+						  {
 								monsterInfo=thisObj.CommonData.MonsterInfo;
-
-						  if (monsterInfo==null) 
+						  } catch (Exception)
+						  {
+								Logging.WriteDiagnostic("Safely Handled MonsterInfo Exception for Object {0}", this.InternalName);
 								return false;
+						  }
+							
 
 						  if (!this.Monstertype.HasValue||this.ShouldRefreshMonsterType)
 						  {

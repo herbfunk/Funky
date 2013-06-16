@@ -22,15 +22,15 @@ namespace FunkyTrinity
 
 					 Vector2 RaycastTestV2;
 					 //we use main grid providers raycast to test since we are looking at how far we can travel and not if anything is blocking us.
-					 if (mgp.Raycast(startV3.ToVector2(), MaxRangeTestVector3.ToVector2(), out RaycastTestV2))
+					 if (MGP.Raycast(startV3.ToVector2(), MaxRangeTestVector3.ToVector2(), out RaycastTestV2))
 					 {//Set our endpoint at the Hit point
 						  MaxRangeTestVector3=RaycastTestV2.ToVector3();
-						  MaxRangeTestVector3.Z=mgp.GetHeight(MaxRangeTestVector3.ToVector2()); //adjust height acordingly!
+						  MaxRangeTestVector3.Z=MGP.GetHeight(MaxRangeTestVector3.ToVector2()); //adjust height acordingly!
 					 }
 					 Range=Vector3.Distance2D(ref startV3, ref MaxRangeTestVector3);
 
 					 //lets see if we can stand here at all?
-					 if (!mgp.CanStandAt(MaxRangeTestVector3))
+					 if (!MGP.CanStandAt(MaxRangeTestVector3))
 					 {
 
 						  //just because raycast set our max range, we need to see if we can use that cell as a walking point!
@@ -44,7 +44,7 @@ namespace FunkyTrinity
 								for (int i=0; i<maxTestAttempts; i++)
 								{
 									 Vector3 newtestPoint=MathEx.GetPointAt(MaxRangeTestVector3, currentRange, directionRadianFlipped);
-									 newtestPoint.Z=mgp.GetHeight(newtestPoint.ToVector2());//update Z
+									 newtestPoint.Z=MGP.GetHeight(newtestPoint.ToVector2());//update Z
 									 if (GilesCanRayCast(startV3, newtestPoint, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
 									 {
 										  MaxRangeTestVector3=newtestPoint;

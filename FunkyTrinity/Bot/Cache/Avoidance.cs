@@ -19,15 +19,17 @@ namespace FunkyTrinity
 				DiabloMetor,
 				DiabloPrison,
 				Frozen,
+				GrotesqueExplosion,
 				LacuniBomb,
 				MageFirePool,
 				MoltenCore,
 				MoltenTrail,
 				PlagueCloud,
 				PlagueHand,
-				PoisonTree,
+				PoisonGas,
 				ShamanFireBall,
 				SuccubusProjectile,
+				TreeSpore,
 				Unknown,
 				Wall,
 		  }
@@ -80,7 +82,7 @@ namespace FunkyTrinity
 				{
 					 if (Name.StartsWith("skeletonmage_fire_groundpool")) return AvoidanceType.MageFirePool;
 					 if (Name.StartsWith("fallenshaman_fireball_projectile")) return AvoidanceType.ShamanFireBall;
-					 if (Name.StartsWith("woodwraith_sporecloud_emitter")) return AvoidanceType.PoisonTree;
+					 if (Name.StartsWith("woodwraith_sporecloud_emitter")) return AvoidanceType.TreeSpore;
 				}
 
 				return AvoidanceType.Unknown;
@@ -97,7 +99,7 @@ namespace FunkyTrinity
 						  return AvoidanceType.Dececrator;
 					 case 5482:
 					 case 6578:
-						  return AvoidanceType.PoisonTree;
+						  return AvoidanceType.TreeSpore;
 					 case 4803:
 					 case 4804:
 						  return AvoidanceType.MoltenCore;
@@ -130,6 +132,8 @@ namespace FunkyTrinity
 						  return AvoidanceType.MageFirePool;
 					 case 4546:
 						  return AvoidanceType.LacuniBomb;
+					 case 4176:
+						  return AvoidanceType.PoisonGas;
 					 case 164829:
 						  return AvoidanceType.SuccubusProjectile;
 				}
@@ -145,11 +149,12 @@ namespace FunkyTrinity
                                                                                       
                 {AvoidanceType.BeeProjectile, 2},{AvoidanceType.LacuniBomb,2},{AvoidanceType.ShamanFireBall,2}, {AvoidanceType.SuccubusProjectile, 2},
 
-					 {AvoidanceType.PoisonTree, 13},{AvoidanceType.PlagueHand, 15},{AvoidanceType.MageFirePool, 10},	
+					 {AvoidanceType.TreeSpore, 13},{AvoidanceType.PlagueHand, 15},{AvoidanceType.MageFirePool, 10},	
   
 					 {AvoidanceType.AzmodanPool, 54},{AvoidanceType.AzmodanFireball, 16},{AvoidanceType.AzmodanBodies, 47},  
 					 {AvoidanceType.BelialGround, 25},
                 {AvoidanceType.DiabloPrison, 15},{AvoidanceType.DiabloMetor, 28},
+					 {AvoidanceType.GrotesqueExplosion, 20},{AvoidanceType.PoisonGas,9},
 
             };
 
@@ -161,7 +166,8 @@ namespace FunkyTrinity
                                                                                       
                 {AvoidanceType.BeeProjectile, 0.60},{AvoidanceType.LacuniBomb,0},{AvoidanceType.ShamanFireBall,0.25},{AvoidanceType.SuccubusProjectile,0.25},
 
-					 {AvoidanceType.PoisonTree, 0.75},{AvoidanceType.PlagueHand, 0.75},{AvoidanceType.MageFirePool, 0.95},	
+					 {AvoidanceType.TreeSpore, 0.75},{AvoidanceType.PlagueHand, 0.75},{AvoidanceType.MageFirePool, 0.95},	
+					 {AvoidanceType.GrotesqueExplosion, 0.40}, {AvoidanceType.PoisonGas, 0.50},
   
 					 {AvoidanceType.AzmodanPool, 0.75},{AvoidanceType.AzmodanFireball, 0.5},{AvoidanceType.AzmodanBodies, 0.75},  
 					 {AvoidanceType.BelialGround, 1},
@@ -176,7 +182,8 @@ namespace FunkyTrinity
                                                                                       
                 {AvoidanceType.BeeProjectile, 0.60},{AvoidanceType.LacuniBomb,0},{AvoidanceType.ShamanFireBall,0.25},{AvoidanceType.SuccubusProjectile,0.25},
 
-					 {AvoidanceType.PoisonTree, 0.75},{AvoidanceType.PlagueHand, 0.75},{AvoidanceType.MageFirePool, 0.95},	
+					 {AvoidanceType.TreeSpore, 0.75},{AvoidanceType.PlagueHand, 0.75},{AvoidanceType.MageFirePool, 0.95},
+					 {AvoidanceType.GrotesqueExplosion, 0.40},{AvoidanceType.PoisonGas, 0.50},
   
 					 {AvoidanceType.AzmodanPool, 0.75},{AvoidanceType.AzmodanFireball, 0.5},{AvoidanceType.AzmodanBodies, 0.75},  
 					 {AvoidanceType.BelialGround, 1},
@@ -191,7 +198,8 @@ namespace FunkyTrinity
                                                                                       
                 {AvoidanceType.BeeProjectile,0.75},{AvoidanceType.LacuniBomb,0.25},{AvoidanceType.ShamanFireBall,0.10},{AvoidanceType.SuccubusProjectile,0.25},
 
-					 {AvoidanceType.PoisonTree, 0.75},{AvoidanceType.PlagueHand, 0.75},{AvoidanceType.MageFirePool, 0.25},	
+					 {AvoidanceType.TreeSpore, 0.75},{AvoidanceType.PlagueHand, 0.75},{AvoidanceType.MageFirePool, 0.25},	
+					 {AvoidanceType.GrotesqueExplosion, 0.40},{AvoidanceType.PoisonGas, 0.50},
   
 					 {AvoidanceType.AzmodanPool, 1},{AvoidanceType.AzmodanFireball, 1},{AvoidanceType.AzmodanBodies, 1},  
 					 {AvoidanceType.BelialGround, 1},
@@ -206,12 +214,13 @@ namespace FunkyTrinity
                                                                                       
                 {AvoidanceType.BeeProjectile,0.50},{AvoidanceType.LacuniBomb,0.25},{AvoidanceType.ShamanFireBall,0.10},{AvoidanceType.SuccubusProjectile,0.25},
 
-					 {AvoidanceType.PoisonTree, 1},{AvoidanceType.PlagueHand, 1},{AvoidanceType.MageFirePool, 0.95},	
+					 {AvoidanceType.TreeSpore, 1},{AvoidanceType.PlagueHand, 1},{AvoidanceType.MageFirePool, 0.95},	
+					 {AvoidanceType.GrotesqueExplosion, 0.40},{AvoidanceType.PoisonGas, 0.50},
   
 					 {AvoidanceType.AzmodanPool, 1},{AvoidanceType.AzmodanFireball, 1},{AvoidanceType.AzmodanBodies, 1},  
 					 {AvoidanceType.BelialGround, 1},
                 {AvoidanceType.DiabloPrison, 1},{AvoidanceType.DiabloMetor, 0.8},
-
+					
             };
 
 		  private static readonly Dictionary<AvoidanceType, double> dictAvoidanceHealthDemonDefaultsType=new Dictionary<AvoidanceType, double>
@@ -221,12 +230,13 @@ namespace FunkyTrinity
                                                                                       
                 {AvoidanceType.BeeProjectile,0.50},{AvoidanceType.LacuniBomb,0.25},{AvoidanceType.ShamanFireBall,0.10},{AvoidanceType.SuccubusProjectile,0.25},
 
-					 {AvoidanceType.PoisonTree, 0.75},{AvoidanceType.PlagueHand, 0.75},{AvoidanceType.MageFirePool, 0.95},	
+					 {AvoidanceType.TreeSpore, 0.75},{AvoidanceType.PlagueHand, 0.75},{AvoidanceType.MageFirePool, 0.95},	
+					 {AvoidanceType.GrotesqueExplosion, 0.40},{AvoidanceType.PoisonGas, 0.50},
   
 					 {AvoidanceType.AzmodanPool, 1},{AvoidanceType.AzmodanFireball, 1},{AvoidanceType.AzmodanBodies, 1},  
 					 {AvoidanceType.BelialGround, 1},
                 {AvoidanceType.DiabloPrison, 1},{AvoidanceType.DiabloMetor, 0.8},
-
+					 
             };
 
 		  private static readonly Dictionary<AvoidanceType, double> dictAvoidanceHealthOOCIDBehaviorDefaults=new Dictionary<AvoidanceType, double>
@@ -236,12 +246,12 @@ namespace FunkyTrinity
                                                                                       
                 {AvoidanceType.BeeProjectile,1},{AvoidanceType.LacuniBomb,1},{AvoidanceType.ShamanFireBall,1},{AvoidanceType.SuccubusProjectile,1},
 
-					 {AvoidanceType.PoisonTree, 1},{AvoidanceType.PlagueHand, 1},{AvoidanceType.MageFirePool, 1},	
+					 {AvoidanceType.TreeSpore, 1},{AvoidanceType.PlagueHand, 1},{AvoidanceType.MageFirePool, 1},
+					 {AvoidanceType.GrotesqueExplosion, 0.40},{AvoidanceType.PoisonGas, 0.50},
   
 					 {AvoidanceType.AzmodanPool, 1},{AvoidanceType.AzmodanFireball, 1},{AvoidanceType.AzmodanBodies, 1},  
 					 {AvoidanceType.BelialGround, 1},
                 {AvoidanceType.DiabloPrison, 1},{AvoidanceType.DiabloMetor, 0.8},
-
             };
 
 
@@ -256,10 +266,10 @@ namespace FunkyTrinity
                 219702,          221225,       84608,       5482,6578,     4803, 4804,   95868,         108869,        402, 223675,             
                 // Bees-Wasps    Plague-Hands  Azmo Pools   Azmo fireball  Azmo bodies   Belial 1       Belial 2      
                 5212,            3865,         123124,      123842,        123839,       161822,        161833, 
-                // Sha-Ball      Mol Ball      Mage Fire    Diablo Prison  Diablo Meteor Ice-trail      CaveLarva
+                // Sha-Ball      Mol Ball      Mage Fire    Diablo Prison  Diablo Meteor Ice-trail      PoisonGas
                 4103,            160154,       432,         168031,        214845,       260377,        4176,
 					 //lacuni bomb		Succubus Bloodstar
-					 4546,			   164829,
+					 4546,			   164829, 
             };
 
 		  // A list of SNO's that are projectiles (so constantly look for new locations while avoiding)

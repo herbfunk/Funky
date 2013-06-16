@@ -63,12 +63,14 @@ namespace FunkyTrinity
 						  DontMove=false;
 						  CriticalAvoidance=false;
 						  KitedLastTarget=false;
+						  AvoidanceLastTarget=false;
 						  UsesDOTDPSAbility=false;
 					 }
 
 					 internal CacheObject LastCachedTarget { get; set; }
 					 internal List<int> PrioritizedRAGUIDs=new List<int>();
 					 internal List<CacheServerObject> NearbyObstacleObjects=new List<CacheServerObject>();
+					 internal List<int> NearbyAvoidances=new List<int>();
 					 internal List<CacheAvoidance> TriggeringAvoidances=new List<CacheAvoidance>();
 					 internal List<int> UnitRAGUIDs=new List<int>();
 					 internal List<int> ValidClusterUnits=new List<int>();
@@ -165,6 +167,7 @@ namespace FunkyTrinity
 					 ///Tracks if kiting was used last loop.
 					 ///</summary>
 					 internal bool KitedLastTarget { get; set; }
+					 internal bool AvoidanceLastTarget { get; set; }
 					 //Kiting
 					 internal bool IsKiting { get; set; }
 					 // Prevent spam-kiting too much - allow fighting between each kite movement
@@ -291,6 +294,7 @@ namespace FunkyTrinity
 						  IsKiting=false;
 						  UsesDOTDPSAbility=false;
 						  bCheckGround=false;
+						  NearbyAvoidances.Clear();
 						  NearbyObstacleObjects.Clear();
 					 }
 					 internal void ResetTargetHandling()

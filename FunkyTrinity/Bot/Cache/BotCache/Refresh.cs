@@ -43,14 +43,24 @@ namespace FunkyTrinity
 						  Bot.Character.LastCachedTarget=Bot.Target.CurrentTarget!=null?Bot.Target.CurrentTarget.Clone():FakeCacheObject;
 
 					 if (!Bot.Target.Equals(null)&&Bot.Target.CurrentTarget.targetType.HasValue&&Bot.Target.CurrentTarget.targetType.Value==TargetType.Avoidance
-						  &&!String.IsNullOrEmpty(Bot.Target.CurrentTarget.InternalName)&&Bot.Target.CurrentTarget.InternalName.Contains("Kitespot"))
+						  &&!String.IsNullOrEmpty(Bot.Target.CurrentTarget.InternalName))
 					 {
-						  Bot.Combat.LastKiteAction=DateTime.Now;
-						  Bot.Combat.KitedLastTarget=true;
+						  string internalname=Bot.Target.CurrentTarget.InternalName;
+						  if (internalname.Contains("Kitespot"))
+						  {
+								Bot.Combat.LastKiteAction=DateTime.Now;
+								Bot.Combat.KitedLastTarget=true;
+						  }
+						  else if (internalname.Contains("AvoidanceIntersection")||internalname.Contains("StayPutPoint")||internalname.Contains("SafeAvoid"))
+						  {
+								Bot.Combat.AvoidanceLastTarget=true;
+						  }
 					 }
 					 else
+					 {
 						  Bot.Combat.KitedLastTarget=false;
-
+						  Bot.Combat.AvoidanceLastTarget=false;
+					 }
 
 					 Bot.Target.CurrentTarget=null;
 
@@ -427,9 +437,14 @@ namespace FunkyTrinity
 												//If we need to avoid, than enable travel avoidance flag also.
 												if (bRequireAvoidance) bTravellingAvoidance=true;
 										  }
-										  else if (thisAvoidance.Position.Distance(Bot.Character.Position)<=thisAvoidance.Radius)
-												bRequireAvoidance=true;
+										  else
+										  {
+												if (thisObstacle.CentreDistance<50f)
+													 Bot.Combat.NearbyAvoidances.Add(thisObstacle.RAGUID);
 
+												if (thisAvoidance.Position.Distance(Bot.Character.Position)<=thisAvoidance.Radius)
+													 bRequireAvoidance=true;
+										  }
 
 										  Bot.Combat.RequiresAvoidance=bRequireAvoidance;
 										  Bot.Combat.TravellingAvoidance=bTravellingAvoidance;
@@ -439,7 +454,7 @@ namespace FunkyTrinity
 									 else
 									 {
 										  //Add this server object to cell weighting in MGP
-										  mgp.AddCellWeightingObstacle(thisObstacle.SNOID, thisObstacle.CollisionRadius.Value);
+										  //MGP.AddCellWeightingObstacle(thisObstacle.SNOID, thisObstacle.CollisionRadius.Value);
 
 										  //Add nearby objects to our collection (used in navblock/obstaclecheck methods to reduce queries)
 										  if (thisObstacle.CentreDistance<25f)

@@ -79,17 +79,17 @@ namespace FunkyTrinity
 				public static implicit operator GridPoint(Vector3 V)
 				{
 					 //return new GridPoint(V.X, V.Y, V.Z);
-					 return mgp.WorldToGrid(V.ToVector2());
+					 return MGP.WorldToGrid(V.ToVector2());
 				}
 				public static implicit operator Vector2(GridPoint P)
 				{
-					 return mgp.GridToWorld(P);
+					 return MGP.GridToWorld(P);
 				}
 				public static explicit operator Vector3(GridPoint P)
 				{
 					 //return new Vector3(P.X, P.Y, P.Z);
-					 Vector2 v_=mgp.GridToWorld(P);
-					 Vector3 p_=new Vector3(v_.X, v_.Y, mgp.GetHeight(v_));
+					 Vector2 v_=MGP.GridToWorld(P);
+					 Vector3 p_=new Vector3(v_.X, v_.Y, MGP.GetHeight(v_));
 					 return p_;
 				}
 				#endregion

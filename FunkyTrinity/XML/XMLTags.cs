@@ -1787,7 +1787,7 @@ namespace FunkyTrinity
 		  {
 				get
 				{
-					 return FunkyTrinity.Funky.mgp;
+					 return FunkyTrinity.Funky.MGP;
 				}
 		  }
 
@@ -2839,7 +2839,7 @@ namespace FunkyTrinity
 
 
 		  public Vector3 MyPos { get { return ZetaDia.Me.Position; } }
-		  private ISearchAreaProvider gp { get { return FunkyTrinity.Funky.mgp; } }
+		  private ISearchAreaProvider gp { get { return FunkyTrinity.Funky.MGP; } }
 		  //private PathFinder pf { get { return GilesTrinity.pf; } }
 
 		  public override void OnStart()

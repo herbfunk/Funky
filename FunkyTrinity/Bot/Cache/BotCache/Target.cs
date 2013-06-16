@@ -263,11 +263,11 @@ namespace FunkyTrinity
 
 						  //Check if our current path intersects avoidances. (When not in town, and not currently inside avoidance)
 						  if (!Bot.Character.bIsInTown&&(SettingsFunky.AttemptAvoidanceMovements||Bot.Combat.CriticalAvoidance)
-								  &&navigation.CurrentPath.Count>0
+								  &&NP.CurrentPath.Count>0
 								  &&Bot.Combat.TriggeringAvoidances.Count==0)
 						  {
 								Vector3 curpos=Bot.Character.Position;
-								IndexedList<Vector3> curpath=navigation.CurrentPath;
+								IndexedList<Vector3> curpath=NP.CurrentPath;
 
 								var CurrentNearbyPath=curpath.Where(v => curpos.Distance(v)<=40f);
 								if (CurrentNearbyPath!=null&&CurrentNearbyPath.Any())

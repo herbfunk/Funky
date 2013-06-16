@@ -76,7 +76,7 @@
     <Compile Include="Bot\Cache\Area\Objects\GridPointComparer.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Behaviors\Movement\MGP.cs">
+    <Compile Include="Misc\MGP.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Behaviors\Movement\Helper\ObstacleFinder.cs">
@@ -267,7 +267,7 @@
     <Compile Include="Bot\Cache\Area\Objects\DirectionPoint.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Area\GridPoint\GPCache.cs">
+    <Compile Include="Bot\Cache\Area\GPCache.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\Area\GridPoint\GPRectangle.cs">

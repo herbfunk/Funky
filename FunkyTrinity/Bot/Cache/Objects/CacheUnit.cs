@@ -51,7 +51,7 @@ namespace FunkyTrinity
 					 }
 				}
 				#endregion
-
+				private DateTime LastAvoidanceIgnored=DateTime.Today;
 				private bool? IsNPC { get; set; }
 				public bool ForceLeap { get; set; }
 				public bool? HasDOTdps { get; set; }
@@ -448,7 +448,9 @@ namespace FunkyTrinity
 					 base.UpdateWeight();
 
 					 //Ignore non-clustered, *only when not prioritized!*
-					 if (this.BeingIgnoredDueToClusterLogic
+
+					 if ((!Bot.Combat.AvoidanceLastTarget||((Bot.Class.IsMeleeClass&&this.CentreDistance>25f)||this.CentreDistance>45f)) //Not Avoiding or nearby (melee >25f ranged >45f)
+						  &&this.BeingIgnoredDueToClusterLogic
 						  &&this.PriorityCounter==0
 						  &&(Bot.Target.CurrentTarget!=null
 						  ||Bot.Combat.iAnythingWithinRange[RANGE_30]==0
@@ -458,36 +460,46 @@ namespace FunkyTrinity
 						  return;
 					 }
 
-					 if (Bot.Class.IsMeleeClass&&this.CentreDistance>=2f)
+					 if (Bot.Class.IsMeleeClass&&this.CentreDistance>=2f&&Bot.Combat.NearbyAvoidances.Count>0)
 					 {
-						  Vector3 TestPosition=this.BotMeleeVector;
-						  if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
-								this.Weight=1;
-
-						  //intersecting avoidances..
-						  if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition))
+						  if (DateTime.Now.Subtract(LastAvoidanceIgnored).TotalMilliseconds<1000)
 						  {
-								if (this.Weight!=1&&this.ObjectIsSpecial)
-								{//Only add this to the avoided list when its not currently inside avoidance area
-									 ObjectCache.Objects.objectsIgnoredDueToAvoidance.Add(this);
-								}
-								else
+								this.Weight=1;
+						  }
+						  else
+						  {
+								Vector3 TestPosition=this.BotMeleeVector;
+								if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
 									 this.Weight=1;
+
+								//intersecting avoidances..
+								if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition))
+								{
+									 if (this.Weight!=1&&this.ObjectIsSpecial)
+									 {//Only add this to the avoided list when its not currently inside avoidance area
+										  ObjectCache.Objects.objectsIgnoredDueToAvoidance.Add(this);
+									 }
+									 else
+										  this.Weight=1;
+								}
 						  }
 					 }
 
 
 					 if (this.Weight!=1)
 					 {
+						  float centreDistance=this.CentreDistance;
+						  float radiusDistance=this.RadiusDistance;
+
 						  // Flag up any bosses in range
-						  if (this.IsBoss&&this.CentreDistance<=50f)
+						  if (this.IsBoss&&centreDistance<=50f)
 								this.Weight+=9999;
 
 						  // Force a close range target because we seem to be stuck *OR* if not ranged and currently rooted
 						  if (Bot.Combat.bForceCloseRangeTarget||(Bot.Class.IsMeleeClass&&Bot.Character.bIsRooted))
 						  {
 
-								this.Weight=20000-(Math.Floor(this.RadiusDistance)*200);
+								this.Weight=20000-(Math.Floor(radiusDistance)*200);
 
 								// Goblin priority KAMIKAZEEEEEEEE
 								if (this.IsTreasureGoblin&&SettingsFunky.GoblinPriority>1)
@@ -509,7 +521,7 @@ namespace FunkyTrinity
 
 									 // Distance as a percentage of max radius gives a value up to 1000 (1000 would be point-blank range)
 
-									 if (this.RadiusDistance<Bot.iCurrentMaxKillRadius)
+									 if (radiusDistance<Bot.iCurrentMaxKillRadius)
 									 {
 										  int RangeModifier=1200;
 										  //Increase Distance Modifier if recently kited.
@@ -517,7 +529,7 @@ namespace FunkyTrinity
 												RangeModifier=12000;
 
 
-										  this.Weight+=(RangeModifier*(1-(this.RadiusDistance/Bot.iCurrentMaxKillRadius)));
+										  this.Weight+=(RangeModifier*(1-(radiusDistance/Bot.iCurrentMaxKillRadius)));
 									 }
 
 									 // Give extra weight to ranged enemies
@@ -570,7 +582,7 @@ namespace FunkyTrinity
 
 									 // Close range get higher weights the more of them there are, to prevent body-blocking
 									 // Plus a free bonus to anything close anyway
-									 if (this.RadiusDistance<=11f)
+									 if (radiusDistance<=11f)
 									 {
 										  // Extra bonus for point-blank range
 										  //iUnitsSurrounding++;
@@ -579,35 +591,35 @@ namespace FunkyTrinity
 									 }
 
 									 // Special additional weight for corrupt growths in act 4 ONLY if they are at close range (not a standard priority thing)
-									 if ((this.SNOID==210120||this.SNOID==210268)&&this.CentreDistance<=35f)
+									 if ((this.SNOID==210120||this.SNOID==210268)&&centreDistance<=35f)
 										  this.Weight+=2000;
 
 									 // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-									 if (this==Bot.Character.LastCachedTarget&&this.CentreDistance<=25f)
+									 if (this==Bot.Character.LastCachedTarget&&centreDistance<=25f)
 										  this.Weight+=400;
 
-									 // Lower the priority for EACH AOE *BETWEEN* us and the target, NOT counting the one directly under-foot, up to a maximum of 1500 reduction
-									 Vector3 thisObjPosition=this.Position;
-									 float fWeightRemoval=0;
-									 Vector3 BotPosition=Bot.Character.Position;
-									 foreach (CacheAvoidance tempobstacle in ObjectCache.Obstacles.Avoidances.Where(cp => cp.TestIntersection(this, BotPosition)))
-									 {
-										  fWeightRemoval+=(float)tempobstacle.Weight*8;
-									 }
-									 if (fWeightRemoval>1500)
-										  fWeightRemoval=1500;
-									 this.Weight-=fWeightRemoval;
+									 //// Lower the priority for EACH AOE *BETWEEN* us and the target, NOT counting the one directly under-foot, up to a maximum of 1500 reduction
+									 //Vector3 thisObjPosition=this.Position;
+									 //float fWeightRemoval=0;
+									 //Vector3 BotPosition=Bot.Character.Position;
+									 //foreach (CacheAvoidance tempobstacle in ObjectCache.Obstacles.Avoidances.Where(cp => cp.TestIntersection(this, BotPosition)))
+									 //{
+									 //    fWeightRemoval+=(float)tempobstacle.Weight*8;
+									 //}
+									 //if (fWeightRemoval>1500)
+									 //    fWeightRemoval=1500;
+									 //this.Weight-=fWeightRemoval;
 
 									 // Lower the priority if there is AOE *UNDER* the target, by the HIGHEST weight there only
-									 fWeightRemoval=0;
+									 //fWeightRemoval=0;
 
-									 foreach (CacheAvoidance tempobstacle in ObjectCache.Obstacles.Avoidances.Where(cp => cp.PointInside(this.Position)))
-									 {
-										  // Up to 200 weight for a high-priority AOE - maximum 3400 weight reduction
-										  if (tempobstacle.Weight>fWeightRemoval)
-												fWeightRemoval=(float)tempobstacle.Weight*30;
-									 }
-									 this.Weight-=fWeightRemoval;
+									 //foreach (CacheAvoidance tempobstacle in ObjectCache.Obstacles.Avoidances.Where(cp => cp.PointInside(this.Position)))
+									 //{
+									 //    // Up to 200 weight for a high-priority AOE - maximum 3400 weight reduction
+									 //    if (tempobstacle.Weight>fWeightRemoval)
+									 //        fWeightRemoval=(float)tempobstacle.Weight*30;
+									 //}
+									 //this.Weight-=fWeightRemoval;
 
 									 // Prevent going less than 300 yet to prevent annoyances (should only lose this much weight from priority reductions in priority list?)
 									 if (this.Weight<300)
@@ -622,7 +634,7 @@ namespace FunkyTrinity
 										  {
 												Bot.Combat.iTotalNumberGoblins++;
 												Bot.Combat.lastGoblinTime=DateTime.Now;
-												Logging.Write("[Funky] Goblin #"+Bot.Combat.iTotalNumberGoblins.ToString()+" in sight. Distance="+this.CentreDistance);
+												Logging.Write("[Funky] Goblin #"+Bot.Combat.iTotalNumberGoblins.ToString()+" in sight. Distance="+centreDistance);
 										  }
 										  else
 										  {
@@ -648,6 +660,12 @@ namespace FunkyTrinity
 								} // Forcing close range target or not?
 						  } // This is an attackable unit
 					 }
+					 else
+					 {
+						  LastAvoidanceIgnored=DateTime.Now;
+						  if (!this.ObjectIsSpecial)
+								this.Weight=0;
+					 }
 
 				}
 
@@ -667,7 +685,7 @@ namespace FunkyTrinity
 
 						  #region Validations
 						  // Unit is already dead
-						  if (this.CurrentHealthPct.HasValue&&(this.CurrentHealthPct.Value<=0d||this.CurrentHealthPct.Value>1d))
+						  if (this.CurrentHealthPct.HasValue&&(this.CurrentHealthPct.Value<=0d))
 						  {
 
 								if (!base.IsRespawnable)
@@ -690,8 +708,19 @@ namespace FunkyTrinity
 								(this.IsAttackable.HasValue&&this.IsAttackable.Value==false))
 						  {
 								//We skip all but worm bosses in A2 and monsters who can shield.
-								if (!this.IsWormBoss&&!this.MonsterShielding&&!this.IsEliteRareUnique)
+								if (!this.IsWormBoss&&!this.MonsterShielding&&(!this.IsEliteRareUnique||this.IsGrotesqueActor))
 								{
+									 if (base.IsGrotesqueActor)
+									 {
+										  //Setup this as an avoidance object now!
+										  this.targetType=TargetType.Avoidance;
+										  CacheAvoidance newAvoidance=new CacheAvoidance(this, AvoidanceType.GrotesqueExplosion);
+										  newAvoidance.Obstacletype=ObstacleType.StaticAvoidance;
+
+										  ObjectCache.Obstacles[this.RAGUID]=newAvoidance;
+										  return false;
+									 }
+
 									 //Stealthable units -- low blacklist counter
 									 if (base.IsStealthableUnit)
 										  this.BlacklistLoops=2;
@@ -706,7 +735,7 @@ namespace FunkyTrinity
 
 
 						  float centreDistance=this.CentreDistance;
-				
+
 						  //Distance Check
 						  if (centreDistance>this.KillRadius)
 								return false;
@@ -844,11 +873,11 @@ namespace FunkyTrinity
 						  {
 								this.IsNPC=(base.ref_DiaObject.CommonData.GetAttribute<float>(ActorAttributeType.IsNPC)>0);
 								isNPC=this.IsNPC.Value;
-						  } catch (AccessViolationException)
+						  } catch (Exception)
 						  {
 								Logging.WriteVerbose("Safely Handled Getting Attribute IsNPC for object {0}", this.InternalName);
 						  }
-						 
+
 					 }
 
 
@@ -944,7 +973,7 @@ namespace FunkyTrinity
 								//ignore units who are stealthed completly (exception when object is special!)
 								//if (this.IsBurrowed.Value&&!this.ObjectIsSpecial)
 								//return false;
-						  } catch (AccessViolationException) { }
+						  } catch (Exception) { }
 					 }
 					 #endregion
 
@@ -1222,13 +1251,13 @@ namespace FunkyTrinity
 					 get
 					 {
 						  return String.Format("{0}\r\n Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} \r\n PriorityCounter={6} ReqLOS={7} LOSV3 {8}",
-								base.DebugString, 
-								this.IsBurrowed.HasValue?this.IsBurrowed.Value.ToString():"", 
-								this.IsTargetable.HasValue?this.IsTargetable.Value.ToString():"", 
+								base.DebugString,
+								this.IsBurrowed.HasValue?this.IsBurrowed.Value.ToString():"",
+								this.IsTargetable.HasValue?this.IsTargetable.Value.ToString():"",
 								this.IsAttackable.HasValue?this.IsAttackable.Value.ToString():"",
-								this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value.ToString():"", 
-								this.MaximumHealth.HasValue?this.MaximumHealth.Value.ToString():"", 
-								this.PriorityCounter.ToString(), this.RequiresLOSCheck.ToString(), 
+								this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value.ToString():"",
+								this.MaximumHealth.HasValue?this.MaximumHealth.Value.ToString():"",
+								this.PriorityCounter.ToString(), this.RequiresLOSCheck.ToString(),
 								this.LOSV3.ToString());
 					 }
 				}

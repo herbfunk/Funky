@@ -179,7 +179,16 @@ namespace FunkyTrinity
                          if (config[0].Contains("_"))
                          {
                              string[] avoidstr = config[0].Split('_');
-                             AvoidanceType avoidType = (AvoidanceType)Enum.Parse(typeof(AvoidanceType), avoidstr[0]);
+									  AvoidanceType avoidType;
+									  try
+									  {
+											avoidType=(AvoidanceType)Enum.Parse(typeof(AvoidanceType), avoidstr[0]);
+									  } catch (Exception)
+									  {
+											continue;
+									  }
+                             
+
                              if (avoidstr[1].Contains("health"))
                              {
                                  double health = 0d;

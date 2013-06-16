@@ -613,6 +613,8 @@ namespace FunkyTrinity
 					 ZetaDia.Me.Movement.MoveActor(vMoveToTarget);
 				}
 
+			
+
 				internal static MoveResult NavigateTo(Vector3 moveTarget, string destinationName="")
 				{
 					 Vector3 MyPos=ZetaDia.Me.Position;

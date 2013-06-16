@@ -121,7 +121,7 @@ namespace FunkyTrinity
 								fRunDistance=8f;
 						  }
 
-						  bCanRayCast=mgp.CanStandAt(vThisZigZag);
+						  bCanRayCast=MGP.CanStandAt(vThisZigZag);
 
 
 
@@ -152,7 +152,7 @@ namespace FunkyTrinity
 									 fHighestWeight=fThisWeight;
 
 
-									 vBestLocation=new Vector3(vThisZigZag.X, vThisZigZag.Y, mgp.GetHeight(vThisZigZag.ToVector2()));
+									 vBestLocation=new Vector3(vThisZigZag.X, vThisZigZag.Y, MGP.GetHeight(vThisZigZag.ToVector2()));
 
 
 									 if (!bAnyAvoidance)

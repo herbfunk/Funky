@@ -6,6 +6,7 @@ using Zeta.Common;
 using Zeta.Internals.Actors;
 using Zeta.CommonBot;
 using Zeta.TreeSharp;
+using System.Collections.Generic;
 
 namespace FunkyTrinity
 {
@@ -26,6 +27,7 @@ namespace FunkyTrinity
 				public bool ItemQualityRechecked { get; set; }
 				public GilesItemType GilesItemType { get; set; }
 				public bool? ShouldPickup { get; set; }
+				private DateTime LastAvoidanceIgnored=DateTime.Today;
 
 				[System.Diagnostics.DebuggerNonUserCode]
 				public int? GoldAmount { get; set; }
@@ -80,39 +82,46 @@ namespace FunkyTrinity
 					 base.UpdateWeight();
 
 
-					 if (this.CentreDistance>=2f)
+					 if (this.CentreDistance>=2f&&Bot.Combat.NearbyAvoidances.Count>0)
 					 {
-						  Vector3 TestPosition=this.Position;
-						  bool GoldGlobeObj=this.targetType.Value==TargetType.Globe||this.targetType.Value==TargetType.Gold;
-
-						  //Test if this object is within any avoidances (Excluding Gold/Globe)
-						  if (!GoldGlobeObj&&ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
-								this.Weight=1;
-
-						  //Gold and Globe gain bots pickup radius.. so we should calculate a new position accordingly!
-						  if (GoldGlobeObj)
-								TestPosition=MathEx.GetPointAt(this.Position, Bot.Character.PickupRadius, FindDirection(this.Position, Bot.Character.Position, true));
-
-						  //intersecting avoidances..
-						  if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition))
+						  //If we are already ignored this recently.. lets just assume its still being ignored!
+						  if (DateTime.Now.Subtract(LastAvoidanceIgnored).TotalMilliseconds<1000)
 						  {
 								this.Weight=1;
+						  }
+						  else
+						  {
+								Vector3 TestPosition=this.Position;
+
+								//Use modified Test Position for Gold/Globe
+								if ((TargetType.Globe|TargetType.Gold).HasFlag(this.targetType.Value))
+									 TestPosition=MathEx.CalculatePointFrom(this.Position, Bot.Character.Position, this.CentreDistance-Bot.Character.PickupRadius);
+								//MathEx.GetPointAt(this.Position, Bot.Character.PickupRadius, FindDirection(this.Position, Bot.Character.Position, true));
+
+								//Test if this object is within any avoidances
+								if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
+									 this.Weight=1;
+								//Test intersection of avoidances
+								else if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition))
+									 this.Weight=1;
+
 						  }
 					 }
 
 					 if (this.Weight!=1)
 					 {
+						  float centreDistance=this.CentreDistance;
 						  Vector3 BotPosition=Bot.Character.Position;
 						  switch (this.targetType.Value)
 						  {
 
 								case TargetType.Item:
-									 this.Weight=13000d-(Math.Floor(this.CentreDistance)*190d);
+									 this.Weight=13000d-(Math.Floor(centreDistance)*190d);
 									 // Point-blank items get a weight increase 
-									 if (this.CentreDistance<=12f)
+									 if (centreDistance<=12f)
 										  this.Weight+=600d;
 									 // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-									 if (this==Bot.Character.LastCachedTarget&&this.CentreDistance<=25f)
+									 if (this==Bot.Character.LastCachedTarget&&centreDistance<=25f)
 										  this.Weight+=600;
 									 // Give yellows more weight
 									 if (this.Itemquality.Value>=ItemQuality.Rare4)
@@ -122,7 +131,7 @@ namespace FunkyTrinity
 										  this.Weight+=10000d;
 									 // Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
 									 if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
-										  this.Weight=18000-(Math.Floor(this.CentreDistance)*200);
+										  this.Weight=18000-(Math.Floor(centreDistance)*200);
 									 // If there's a monster in the path-line to the item, reduce the weight by 25%
 									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 										  this.Weight*=0.75;
@@ -142,13 +151,13 @@ namespace FunkyTrinity
 									 break;
 								case TargetType.Gold:
 									 if (this.GoldAmount>0)
-										  this.Weight=11000d-(Math.Floor(this.CentreDistance)*200d);
+										  this.Weight=11000d-(Math.Floor(centreDistance)*200d);
 									 // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-									 if (this==Bot.Character.LastCachedTarget&&this.CentreDistance<=25f)
+									 if (this==Bot.Character.LastCachedTarget&&centreDistance<=25f)
 										  this.Weight+=600;
 									 // Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
 									 if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
-										  this.Weight=18000-(Math.Floor(this.CentreDistance)*200);
+										  this.Weight=18000-(Math.Floor(centreDistance)*200);
 									 // If there's a monster in the path-line to the item, reduce the weight by 25%
 									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 										  this.Weight*=0.75;
@@ -167,15 +176,15 @@ namespace FunkyTrinity
 									 else
 									 {
 										  // Ok we have globes enabled, and our health is low...!
-										  this.Weight=17000d-(Math.Floor(this.CentreDistance)*90d);
+										  this.Weight=17000d-(Math.Floor(centreDistance)*90d);
 										  // Point-blank items get a weight increase
-										  if (this.CentreDistance<=15f)
+										  if (centreDistance<=15f)
 												this.Weight+=3000d;
 										  // Close items get a weight increase
-										  if (this.CentreDistance<=60f)
+										  if (centreDistance<=60f)
 												this.Weight+=1500d;
 										  // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-										  if (this==Bot.Character.LastCachedTarget&&this.CentreDistance<=25f)
+										  if (this==Bot.Character.LastCachedTarget&&centreDistance<=25f)
 												this.Weight+=400;
 										  // If there's a monster in the path-line to the item, reduce the weight by 15% for each
 										  Vector3 point=this.Position;
@@ -183,14 +192,23 @@ namespace FunkyTrinity
 										  {
 												this.Weight*=0.85;
 										  }
-										  // See if there's any AOE avoidance in that spot, if so reduce the weight by 10%
-										  if (ObjectCache.Obstacles.Avoidances.Any(cp => cp.TestIntersection(this, BotPosition)))
-												this.Weight*=0.9;
+
 										  // Calculate a spot reaching a little bit further out from the globe, to help globe-movements
 										  //if (this.Weight>0)
 										  //    this.Position=MathEx.CalculatePointFrom(this.Position, Bot.Character.Position, this.CentreDistance+3f);
 									 }
 									 break;
+						  }
+					 }
+					 else
+					 {
+						  LastAvoidanceIgnored=DateTime.Now;
+
+						  //Skipped Due To Avoidances -- Gold and Globes, we blacklist them for a bit so we don't rerun the tests over and over!
+						  if (this.targetType.Value!=TargetType.Item)
+						  {
+								this.Weight=0; //Zero will ignore the object completely! (Target)
+								this.BlacklistLoops=20;
 						  }
 					 }
 				}

@@ -237,11 +237,11 @@ namespace FunkyTrinity
 					 }
 					 private void Expand(GridPoint point)
 					 {
-						  foreach (var item in mgp.GetSearchAreaNeighbors(point, true))
+						  foreach (var item in MGP.GetSearchAreaNeighbors(point, true))
 						  {
 								if (!this.Contains(item))
 								{
-									 this.Add(new GridPoint(item.X, item.Y, mgp.GetHeight(mgp.GridToWorld(item)), !mgp.CanStandAt(item)));
+									 this.Add(new GridPoint(item.X, item.Y, MGP.GetHeight(MGP.GridToWorld(item)), !MGP.CanStandAt(item)));
 
 									 if (!searchablepoints_.Contains(item))
 									 {
