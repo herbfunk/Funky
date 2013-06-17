@@ -249,7 +249,7 @@ namespace FunkyTrinity
 				#endregion
 				#region Rend
 				// Rend spam
-				if (!bOOCBuff&&!Bot.Class.bWaitingForSpecial&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_Rend)&&!Bot.Combat.UsedAutoMovementCommand&&!Bot.Character.bIsIncapacitated&&
+				if (!bOOCBuff&&!Bot.Class.bWaitingForSpecial&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_Rend)&&!Bot.Combat.UsedAutoMovementCommand&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=20&&
 					 //Only if 2 non-elite targets OR 1 elite target is within 6feet
 					(Bot.Combat.iAnythingWithinRange[RANGE_6]>1||Bot.Combat.iElitesWithinRange[RANGE_6]>0)&&
 
@@ -281,9 +281,7 @@ namespace FunkyTrinity
 								((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=6f&&Bot.Combat.iAnythingWithinRange[RANGE_15]>=3)
 							 )
 						 )
-					)&&
-					 // And finally, got at least 20 energy
-					Bot.Character.dCurrentEnergy>=20)
+					))
 				{
 					 //iACDGUIDLastRend = Bot.CurrentTarget.ObjectData.AcdGuid.Value;
 					 // Note - we have LONGER animation times for whirlwind-users
@@ -343,7 +341,7 @@ namespace FunkyTrinity
 					 int ACDGuid=-1;
 
 					 //Goblins ignore clustering..
-					 if (thisCacheUnitObj!=null&&thisCacheUnitObj.IsTreasureGoblin&&thisCacheUnitObj.CurrentHealthPct<0.25)
+					 if (Bot.Target.CurrentTarget.ObjectIsSpecial)
 					 {
 						  return new Ability(SNOPower.Barbarian_SeismicSlam, 40f, vNullLocation, -1, thisCacheUnitObj.AcdGuid.Value, 2, 2, USE_SLOWLY);
 					 }
@@ -472,7 +470,7 @@ namespace FunkyTrinity
 					 //1 == 24f, 7d
 					 //	  16f, 6d
 
-					 if (Bot.Target.CurrentTarget.IsTreasureGoblin)
+					 if (Bot.Target.CurrentTarget.ObjectIsSpecial)
 						  return new Ability(SNOPower.Barbarian_HammerOfTheAncients, 12f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 1, 3, USE_SLOWLY);
 					 else
 					 {

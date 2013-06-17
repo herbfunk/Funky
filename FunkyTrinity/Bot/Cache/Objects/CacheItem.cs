@@ -82,10 +82,10 @@ namespace FunkyTrinity
 					 base.UpdateWeight();
 
 
-					 if (this.CentreDistance>=2f&&Bot.Combat.NearbyAvoidances.Count>0)
+					 if (this.CentreDistance>=2f)
 					 {
 						  //If we are already ignored this recently.. lets just assume its still being ignored!
-						  if (DateTime.Now.Subtract(LastAvoidanceIgnored).TotalMilliseconds<1000)
+						  if (DateTime.Now.Subtract(LastAvoidanceIgnored).TotalMilliseconds<1000&&Bot.Combat.NearbyAvoidances.Count>0)
 						  {
 								this.Weight=1;
 						  }

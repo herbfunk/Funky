@@ -351,23 +351,34 @@ namespace FunkyTrinity
 													 &&CurrentTarget.targetType.Value==TargetType.Unit) continue;
 
 
-								CacheObject curTargetObj=CurrentTarget!=null?CurrentTarget:null;
+								//cache RAGUID so we can switch back if we need to
+								int CurrentTargetRAGUID=CurrentTarget!=null?CurrentTarget.RAGUID:-1;
+
 								//Set our current target to this object!
 								CurrentTarget=ObjectCache.Objects[thisobj.RAGUID];
+
 								//Check for Range Classes and Unit Targets
-								if (!Bot.Class.IsMeleeClass&&CurrentTarget.targetType.Value==TargetType.Unit&&(Bot.Combat.NearbyAvoidances.Count>0||Bot.Combat.NearbyKitingUnits.Count>0))
+								if (!Bot.Class.IsMeleeClass&&CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Combat.NearbyAvoidances.Count>0)
 								{
+									 //Generate next ability..
 									 Ability nextAbility=GilesAbilitySelector();
+
+									 //Check if our range requires movement.
 									 if (nextAbility.CurrentBotRange>nextAbility.MinimumRange)
 									 {
-										  if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(nextAbility.DestinationVector))
+										  if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(nextAbility.DestinationVector))
 										  {
-												if (thisobj.ObjectIsSpecial)
+												if (thisobj.ObjectIsSpecial&&!Bot.Combat.RequiresAvoidance)
 													 Bot.Combat.bStayPutDuringAvoidance=true;
 
-												CurrentTarget=curTargetObj;
+												CurrentTarget=CurrentTargetRAGUID!=-1?ObjectCache.Objects[CurrentTargetRAGUID]:null;
 												continue;
 										  }
+									 }
+									 else if (Bot.Combat.TriggeringAvoidances.Count>0)
+									 {
+										  CurrentTarget=CurrentTargetRAGUID!=-1?ObjectCache.Objects[CurrentTargetRAGUID]:null;
+										  continue;
 									 }
 								}
 
@@ -376,31 +387,6 @@ namespace FunkyTrinity
 						  }
 
 					 } // Loop through all the objects and give them a weight
-
-
-					 #region RangeClassTargetUnit
-					 /*
-					 if (CurrentTarget!=null&&CurrentTarget.targetType.Value==TargetType.Unit&&!Bot.Class.IsMeleeClass)
-					 {
-						  Ability tmpSNOPowerAbility=GilesAbilitySelector(false, false, false);
-						  float range=Math.Min(CurrentTarget.RadiusDistance, tmpSNOPowerAbility.iMinimumRange);
-						  Vector3 abilityPosition=MathEx.GetPointAt(Bot.Character.Position, range, FindDirection(Bot.Character.Position, CurrentTarget.Position, true));
-
-						  if (range>0f)
-						  {
-								Bot.Combat.bForceCloseRangeTarget=true;
-
-								if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(Bot.Character.Position, abilityPosition))
-									 CurrentTarget.BlacklistLoops=1;
-
-								if (ObjectCache.Objects.IsPointNearbyMonsters(abilityPosition, Bot.Class.KiteDistance)&&ObjectCache.Objects.Values.OfType<CacheUnit>().Any(unit => unit.Position.Distance(abilityPosition)+unit.Radius<Bot.Class.KiteDistance))
-									 CurrentTarget=ObjectCache.Objects.Values.OfType<CacheUnit>().First(unit => unit.Position.Distance(abilityPosition)+unit.Radius<Bot.Class.KiteDistance);
-						  }
-					 }
-
-					 */
-					 #endregion
-
 				}
 
 
@@ -608,7 +594,7 @@ namespace FunkyTrinity
 						  // Update targets at least once every 80 milliseconds
 						  if (Bot.Combat.bForceTargetUpdate||Bot.Combat.TravellingAvoidance||
 							  ((DateTime.Now.Subtract(Bot.lastRefreshedObjects).TotalMilliseconds>=80&&CurrentTarget.targetType.Value!=TargetType.Avoidance)||
-								 DateTime.Now.Subtract(Bot.lastRefreshedObjects).TotalMilliseconds>=800))
+								 DateTime.Now.Subtract(Bot.lastRefreshedObjects).TotalMilliseconds>=1200))
 						  {
 								bShouldRefreshDiaObjects=true;
 						  }
@@ -702,12 +688,19 @@ namespace FunkyTrinity
 
 
 					 //Health Change Timer
-					 if (CurrentTarget.targetType.Value==TargetType.Unit&&
-						  DateTime.Now.Subtract(Bot.Combat.LastHealthChange).TotalMilliseconds>3000)
+					 if (CurrentTarget.targetType.Value==TargetType.Unit)
 					 {
-						  Logging.WriteVerbose("Health change has not occured within 3 seconds for unit {0}", CurrentTarget.InternalName);
-						  CurrentTarget.NeedsRemoved=true;
-						  return false;
+						  double HealthChangeMS=DateTime.Now.Subtract(Bot.Combat.LastHealthChange).TotalMilliseconds;
+
+						  if (HealthChangeMS>3000&&!CurrentTarget.ObjectIsSpecial||HealthChangeMS>6000)
+						  {
+								Logging.WriteVerbose("Health change has not occured within 3 seconds for unit {0}", CurrentTarget.InternalName);
+								Bot.Combat.bForceTargetUpdate=true;
+								CurrentState=RunStatus.Running;
+								CurrentTarget.BlacklistLoops=10;
+								return false;
+						  }
+
 					 }
 
 

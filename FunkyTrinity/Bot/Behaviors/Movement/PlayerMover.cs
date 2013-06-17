@@ -120,7 +120,8 @@ namespace FunkyTrinity
 						  // Temporarily log stuff
 						  if (iTotalAntiStuckAttempts==1&&Funky.Bot.SettingsFunky.LogStuckLocations)
 						  {
-								FileStream LogStream=File.Open(Funky.FolderPaths.sTrinityLogPath+ZetaDia.Service.CurrentHero.BattleTagName+" - Stucks - "+ZetaDia.Actors.Me.ActorClass.ToString()+".log", FileMode.Append, FileAccess.Write, FileShare.Read);
+								string sLogFileName=LoggingPrefixString+" -- Stucks.log";
+								FileStream LogStream=File.Open(LoggingFolderPath+sLogFileName, FileMode.Append, FileAccess.Write, FileShare.Read);
 								using (StreamWriter LogWriter=new StreamWriter(LogStream))
 								{
 									 LogWriter.WriteLine(DateTime.Now.ToString()+": Original Destination="+vOldMoveToTarget.ToString()+". Current player position when stuck="+vMyCurrentPosition.ToString());
@@ -303,7 +304,8 @@ namespace FunkyTrinity
 									 if (!hashDoneThisVector.Contains(vMoveToTarget))
 									 {
 										  // Log it
-										  FileStream LogStream=File.Open(Funky.FolderPaths.sTrinityLogPath+ZetaDia.Service.CurrentHero.BattleTagName+" - LongPaths - "+ZetaDia.Actors.Me.ActorClass.ToString()+".log", FileMode.Append, FileAccess.Write, FileShare.Read);
+										  string sLogFileName=LoggingPrefixString+" -- LongPaths.log";
+										  FileStream LogStream=File.Open(LoggingFolderPath+sLogFileName, FileMode.Append, FileAccess.Write, FileShare.Read);
 										  using (StreamWriter LogWriter=new StreamWriter(LogStream))
 										  {
 												LogWriter.WriteLine(DateTime.Now.ToString()+":");

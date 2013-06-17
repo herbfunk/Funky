@@ -464,9 +464,9 @@ namespace FunkyTrinity
 						  return;
 					 }
 
-					 if (this.CentreDistance>=2f&&Bot.Combat.NearbyAvoidances.Count>0&&Bot.Class.IsMeleeClass)
+					 if (this.RadiusDistance>=5f&&Bot.Class.IsMeleeClass)
 					 {
-						  if (DateTime.Now.Subtract(LastAvoidanceIgnored).TotalMilliseconds<1000)
+						  if (DateTime.Now.Subtract(LastAvoidanceIgnored).TotalMilliseconds<1000&&Bot.Combat.NearbyAvoidances.Count>0)
 						  {
 								this.Weight=1;
 						  }
@@ -766,24 +766,11 @@ namespace FunkyTrinity
 
 								if (!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), LOSNavFlags))
 								{
-									 ////Failure to find LOS.. check if we should find a LOS Vector for movement.
-									 //if (!this.ObjectIsSpecial)
-									 //{
-									 //    this.BlacklistLoops=10;
-									 //    return false;
-									 //}
-									 //else if (this.LastLOSSearchMS>5000)
-									 //{
-									 //    //Search for LOS Positioning Vector
-									 //    if (!this.FindLOSLocation)
-									 //    {
-									 //        //Double the time before retry!
-									 //        //this.LosSearchRetryMilliseconds+=2000;
-									 //        return false;
-									 //    }
-									 //}
-									 //else
-									 this.BlacklistLoops=10;
+									 if (!Bot.Character.bIsIncapacitated)
+										  this.BlacklistLoops=10;
+									 else//Incapacitated we reset check
+										  this.LastLOSCheck=DateTime.Today;
+
 									 return false;
 								}
 

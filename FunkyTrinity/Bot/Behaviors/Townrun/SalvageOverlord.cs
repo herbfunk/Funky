@@ -218,7 +218,8 @@ namespace FunkyTrinity
 						  FileStream LogStream=null;
 						  try
 						  {
-								LogStream=File.Open(FolderPaths.sTrinityLogPath+ZetaDia.Service.CurrentHero.BattleTagName+" - JunkLog - "+ZetaDia.Actors.Me.ActorClass.ToString()+".log", FileMode.Append, FileAccess.Write, FileShare.Read);
+								string sLogFileName=LoggingPrefixString+" -- JunkLog.log";
+								LogStream=File.Open(LoggingFolderPath+sLogFileName, FileMode.Append, FileAccess.Write, FileShare.Read);
 								using (StreamWriter LogWriter=new StreamWriter(LogStream))
 									 LogWriter.WriteLine("");
 								//LogStream.Close();

@@ -219,8 +219,17 @@ namespace FunkyTrinity
 
 									 bIsInTown=me.IsInTown;
 									 bIsRooted=me.IsRooted;
-									 //bIsInKnockBack=(me.CommonData.GetAttribute<int>(ActorAttributeType.InKnockback)!=0);
-									 bIsIncapacitated=(me.IsFeared||me.IsStunned||me.IsFrozen||me.IsBlind);
+									
+									 if (me.IsFeared||me.IsStunned||me.IsFrozen||me.IsBlind)
+										  bIsIncapacitated=true;
+									 else
+									 {
+										  bool bIsInKnockBack=(me.CommonData.GetAttribute<int>(ActorAttributeType.InKnockback)!=0);
+										  if (bIsInKnockBack)
+												bIsIncapacitated=true;
+										  else
+												bIsIncapacitated=false;
+									 }
 
 									 //Update vars that are not essential to combat (survival).
 									 if (DateTime.Now.Subtract(lastUpdateNonEssentialData).TotalSeconds>30)

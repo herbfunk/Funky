@@ -862,7 +862,7 @@ namespace FunkyTrinity
                     {
                         Width = 125,
                         Name = avoidanceString + "_radius_" + i.ToString(),
-                        Maximum = 25,
+                        Maximum = 30,
                         Minimum = 0,
                         TickFrequency = 5,
                         LargeChange = 5,

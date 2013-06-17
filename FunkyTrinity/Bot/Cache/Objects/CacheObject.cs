@@ -297,6 +297,7 @@ namespace FunkyTrinity
 				public bool LOSTest(Vector3 PositionToTestFrom, bool NavRayCast=true, bool ServerObjectIntersection=true, NavCellFlags Flags=NavCellFlags.None)
 				{
 					 this.LastLOSCheck=DateTime.Now;
+
 					 Vector3 botmeleeVector=!this.IsBoss?this.BotMeleeVector:this.Position;
 
 					 if (NavRayCast&&Zeta.Navigation.Navigator.Raycast(PositionToTestFrom, botmeleeVector))
