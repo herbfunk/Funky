@@ -37,7 +37,7 @@ namespace FunkyTrinity
 						  if (!GilesCanRayCast(startV3, MaxRangeTestVector3, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
 						  {
 								//loop to find a walkable range.
-								float currentRange=Range-1f;
+								float currentRange=Range-2.5f;
 								float directionRadianFlipped=FindDirection(MaxRangeTestVector3, startV3, true);
 								int maxTestAttempts=(int)(currentRange/2.5f);
 
@@ -51,8 +51,8 @@ namespace FunkyTrinity
 										  break;
 									 }
 
-									 if (currentRange-4f<=0f) break;
-									 currentRange=-4f;
+									 if (currentRange-2.5f<=0f) break;
+									 currentRange=-2.5f;
 								}
 								Range=currentRange;
 						  }
@@ -61,7 +61,7 @@ namespace FunkyTrinity
 					 
 					 EndingPoint=MaxRangeTestVector3;
 					 StartingPoint=startV3;
-					 Range=(float)GridPoint.GetDistanceBetweenPoints(StartingPoint, EndingPoint);
+					 Range=startV3.Distance2D(MaxRangeTestVector3); //(float)GridPoint.GetDistanceBetweenPoints(StartingPoint, EndingPoint);
 					 Center=MathEx.GetPointAt(startV3, Range/2, MathEx.ToRadians(DirectionDegrees));
 				}
 

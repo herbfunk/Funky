@@ -81,7 +81,7 @@ namespace FunkyTrinity
 
 						  Vector3 sectorCenter=this.Center;
 						  //Get the Diagonal Length between start and end, multiply by 2.5 since each point represents an area of 5f than Divide the total by 2 for the radius range.
-						  double range=(GridPoint.GetDistanceBetweenPoints(this.StartPoint, this.CornerPoint)*2.5)/2;
+						  double range=GridPoint.GetDistanceBetweenPoints(this.StartPoint, this.CornerPoint);
 
 						  int TotalGridPoints=this.ContainedPoints.Count;
 						  this.ThisWeight=0d;
@@ -98,8 +98,8 @@ namespace FunkyTrinity
 								this.ThisWeight=0;
 
 								//copy SectorPoints
-								GridPoint[] SectorPoints=new GridPoint[this.ContainedPoints.Count];
-								this.ContainedPoints.CopyTo(SectorPoints);
+								//GridPoint[] SectorPoints=new GridPoint[this.ContainedPoints.Count];
+								//this.ContainedPoints.CopyTo(SectorPoints);
 
 								List<GridPoint> NonNavPoints=new List<GridPoint>();
 
@@ -121,44 +121,35 @@ namespace FunkyTrinity
 													 CacheUnit thisUnitObj;
 													 if (ObjectCache.Objects.TryGetValue(item.RAGUID, out thisUnitObj))
 													 {
-
-														  double thismaxhp=thisUnitObj.MaximumHealth.Value;
-
+														  int HealthPointAverageWeight=thisUnitObj.UnitMaxHitPointAverageWeight;
 														  //Monsters who have high health will give more points.
-														  if (thisUnitObj.UnitMaxHitPointAverageWeight>0)
+														  if (HealthPointAverageWeight>0)
 														  {
-																double multiplier=(thismaxhp/maxaverage);
-																this.ThisWeight+=(5*multiplier);
+																this.ThisWeight+=(5*HealthPointAverageWeight);
 														  }
 
 														  if (thisUnitObj.IsEliteRareUnique)
-																this.ThisWeight+=5;
-
-
-														  if (thisUnitObj.CurrentHealthPct.Value>0.75d)
 																this.ThisWeight+=5;
 													 }
 
 													 this.ThisWeight+=5;
 													 monstercount++;
 													 UsedRAGUIDs.Add(item.RAGUID);
-
-
 												}
 										  }
 
 
-										  //Since server objects occupy space, we eliminate points
-										  foreach (var point in SectorPoints)
-										  {
-												if (item.PointInside(point))
-												{
-													 NonNavPoints.Add(point);
-												}
-										  }
-										  GridPoint[] NewSectorPointArray=new GridPoint[SectorPoints.Length];
-										  SectorPoints.CopyTo(NewSectorPointArray, 0);
-										  SectorPoints=Array.FindAll(NewSectorPointArray, P => !NonNavPoints.Contains(P));
+										  ////Since server objects occupy space, we eliminate points
+										  //foreach (var point in SectorPoints)
+										  //{
+										  //    if (item.PointInside(point))
+										  //    {
+										  //        NonNavPoints.Add(point);
+										  //    }
+										  //}
+										  //GridPoint[] NewSectorPointArray=new GridPoint[SectorPoints.Length];
+										  //SectorPoints.CopyTo(NewSectorPointArray, 0);
+										  //SectorPoints=Array.FindAll(NewSectorPointArray, P => !NonNavPoints.Contains(P));
 									 }
 									 else if (item is CacheAvoidance)
 									 {
@@ -169,13 +160,12 @@ namespace FunkyTrinity
 
 												avoidcount++;
 												float BaseWeight=0f;
-
-												if (thisAvoidanceType==AvoidanceType.ArcaneSentry||thisAvoidanceType==AvoidanceType.Dececrator||thisAvoidanceType==AvoidanceType.MoltenCore)
-													 BaseWeight=2.5f;
-												else
+												
+												if ((AvoidanceType.ArcaneSentry|AvoidanceType.Dececrator|AvoidanceType.MoltenCore).HasFlag(thisAvoidanceType))
 													 BaseWeight=1f;
+												else
+													 BaseWeight=0.5f;
 
-												//Multiply the avoidance by health value (Max value possible 2500 -- 1% HP using 25)
 												this.ThisWeight+=(BaseWeight/Bot.Character.dCurrentHealthPct);
 
 												UsedRAGUIDs.Add(item.RAGUID);
@@ -183,10 +173,10 @@ namespace FunkyTrinity
 									 }
 								}
 
-								//Now add a base score for non-nav points. (25 being 100% non-navigable)
-								int PointMultiplier=(25/TotalGridPoints);
-								int RemainingPoints=SectorPoints.Length;
-								this.ThisWeight+=25-(RemainingPoints*PointMultiplier);
+								////Now add a base score for non-nav points. (25 being 100% non-navigable)
+								//int PointMultiplier=(25/TotalGridPoints);
+								//int RemainingPoints=SectorPoints.Length;
+								//this.ThisWeight+=25-(RemainingPoints*PointMultiplier);
 
 
 								//Logging.WriteVerbose("Weight assigned to this sector {0}. \r\n"

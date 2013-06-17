@@ -84,6 +84,42 @@ namespace FunkyTrinity
 					 set { SuccessUsed_=value; }
 				}
 
+				public float CurrentBotRange
+				{
+					 get
+					 {
+						  //If Vector is null then we check if acdguid matches current target
+						  if (TargetPosition_==vNullLocation)
+						  {
+								if (TargetRAGUID_!=-1&&Bot.Target.CurrentTarget.AcdGuid.HasValue&&TargetRAGUID_==Bot.Target.CurrentTarget.AcdGuid.Value)
+								{
+									 return Bot.Target.CurrentTarget.RadiusDistance;
+								}
+								return MinimumRange_;
+						  }
+						  else
+						  {
+								return Bot.Character.Position.Distance(TargetPosition_);
+						  }
+					 }
+				}
+				public Vector3 DestinationVector
+				{
+					 get
+					 {
+						  if (TargetPosition_==vNullLocation)
+						  {
+								if (TargetRAGUID_!=-1&&Bot.Target.CurrentTarget.AcdGuid.HasValue&&TargetRAGUID_==Bot.Target.CurrentTarget.AcdGuid.Value)
+								{
+									 return Bot.Target.CurrentTarget.Position;
+								}
+								return vNullLocation;
+						  }
+						  else
+								return TargetPosition_;
+					 }
+				}
+
 				public Zeta.CommonBot.PowerManager.CanCastFlags CanCastFlags;
 
             public Ability(SNOPower thispower, float thisrange, Vector3 thisloc, int thisworld, int thisguid, int waitloops, int afterloops, bool repeat)

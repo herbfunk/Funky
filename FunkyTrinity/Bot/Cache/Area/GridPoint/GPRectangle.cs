@@ -76,20 +76,6 @@ namespace FunkyTrinity
 
 						  UpdateObjectCount();
 						  lastRefreshedObjectContents=DateTime.Now;
-						  /*
-						  //Since we used a DirectionPoint to establish this.. we also want to a quick 90 degree interval direction point search.
-						  //These DPs will be used to evaluate against other GPCs for which would be best to use overall.
-						  List<DirectionPoint> DPs=new List<DirectionPoint>();
-						  float Radians=MathEx.ToRadians(Direction.DirectionDegrees);
-						  for (int i=1; i<2; i++)
-						  {
-								float DegreesPOS=MathEx.ToDegrees(NormalizeRadian(Radians+MathEx.ToRadians(45*i)));
-								DPs.Add(new DirectionPoint(CreationVector, DegreesPOS));
-								float DegreesNEG=MathEx.ToDegrees(NormalizeRadian(Radians+MathEx.ToRadians(-45*i)));
-								DPs.Add(new DirectionPoint(CreationVector, DegreesNEG));
-						  }
-						  Directions=new List<DirectionPoint>(DPs.OrderByDescending(dp => dp.Range).ToArray());
-						  */
 					 }
 
 					 private void UpdateQuadrants()

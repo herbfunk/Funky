@@ -132,16 +132,16 @@ namespace FunkyTrinity
 									 // Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
 									 if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
 										  this.Weight=18000-(Math.Floor(centreDistance)*200);
-									 // If there's a monster in the path-line to the item, reduce the weight by 25%
+									 // If there's a monster in the path-line to the item, reduce the weight
 									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
-										  this.Weight*=0.75;
+										  this.Weight*=0.25;
 									 //Finally check if we should reduce the weight when more then 2 monsters are nearby..
 									 if (Bot.Combat.iAnythingWithinRange[RANGE_12]>2&&
 										  //But Only when we are low in health..
 											 (Bot.Character.dCurrentHealthPct<0.25||
 										  //Or we havn't changed targets after 2.5 secs
 											 DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds>2.5))
-										  this.Weight*=0.5;
+										  this.Weight*=0.10;
 									 //Did we have a target last time? and if so was it a goblin?
 									 if (Bot.Character.LastCachedTarget.RAGUID!=-1)
 									 {

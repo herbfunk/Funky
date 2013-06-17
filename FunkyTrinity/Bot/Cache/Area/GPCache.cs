@@ -262,7 +262,7 @@ namespace FunkyTrinity
 					 }
 
 					 //Check if we should refresh..
-					 if (LastSearchVector==vNullLocation||!CurrentLocationGPRect.centerpoint.Equals(Bot.Character.PointPosition))
+					 if (LastSearchVector==vNullLocation||!CurrentLocationGPRect.Contains(Bot.Character.PointPosition)&&CurrentLocationGPRect.CreationVector.Distance2D(Bot.Character.Position)>MinimumChangeofDistanceBeforeRefresh)
 						  Refresh(kiting);
 					 else if (AllGPRectsFailed&&BlacklistedGridpoints.Count>0)
 					 {
@@ -314,7 +314,7 @@ namespace FunkyTrinity
 						  {
 								//if (BlacklistedSafespots.Contains(CachedMovementGPCs[i].CreationVector)) continue;
 
-								if (CacheSafeGPR[i].CreationVector.Distance(BotPosition)>75f) continue;
+								//if (CacheSafeGPR[i].CreationVector.Distance(BotPosition)>75f) continue;
 
 								if (CacheSafeGPR[i].Weight>CurrentLocationWeight)
 								{
@@ -345,13 +345,6 @@ namespace FunkyTrinity
 
 						  if (Bot.SettingsFunky.LogSafeMovementOutput)
 								Logging.WriteVerbose("Current Location GPC Weight is {0}", CurrentLocationWeight);
-
-						  MinimumChangeofDistanceBeforeRefresh-=5f;
-						  if (MinimumChangeofDistanceBeforeRefresh<0f)
-						  {
-								MinimumChangeofDistanceBeforeRefresh=25f;
-						  }
-
 
 						  if (!kiting)
 						  {
@@ -519,7 +512,7 @@ namespace FunkyTrinity
 						  Logging.WriteVerbose("Current Location GPC Weight is {0}", CurrentLocationWeight);
 
 
-					 //Get upto 15 points for "Point of View" directions, we create rectangles with them.
+					 //Get all valid points (besides current point) from our current location GPR
 					 var SearchPoints=CurrentLocationGPRect.Points.Keys.Where(gp => !gp.Equals(CurrentLocationGPRect.centerpoint));
 
 
@@ -535,7 +528,7 @@ namespace FunkyTrinity
 
 								//Its a valid point for direction testing!
 								float DirectionDegrees=FindDirection(LastSearchVector, thisV3, false);
-								DirectionPoint P=new DirectionPoint(LastSearchVector, DirectionDegrees, MaximumRangeAllowed);
+								DirectionPoint P=new DirectionPoint((Vector3)item, DirectionDegrees, MaximumRangeAllowed);
 								DirectionPoints.Add(P);
 						  }
 					 }
@@ -591,7 +584,7 @@ namespace FunkyTrinity
 					 else
 						  cacheMovementGPRs=new List<GPRectangle>(newMovementGPCs.OrderByDescending(gpc => gpc.centerpoint.Distance(botPoint)).ToArray());
 
-					 //update refresh range
+					 
 					 MinimumChangeofDistanceBeforeRefresh=maxrangeFound;
 					 UpdatedLocalMovementTree=true;
 					 if (Bot.SettingsFunky.LogSafeMovementOutput) Logging.WriteDiagnostic("Updated Local GPCs");

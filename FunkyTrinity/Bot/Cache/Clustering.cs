@@ -65,11 +65,10 @@ namespace FunkyTrinity
 		  internal static List<Cluster> Clusters(double Distance=12d, float MaxDistanceFromBot=50f, int MinUnitCount=1, bool ignoreFullyNonAttackable=true)
 		  {
 				//only run Kmeans every 200ms or when cache is empty!
-				if (DateTime.Now.Subtract(lastClusterComputed).TotalMilliseconds>150)
+				if (DateTime.Now.Subtract(lastClusterComputed).TotalMilliseconds>200)
 				{
+					 lastClusterComputed=DateTime.Now;
 					 LastClusterList=Bot.Combat.RunKMeans(MinUnitCount, Distance, MaxDistanceFromBot);
-
-
 					 //Sort by distance -- reverse to get nearest unit First
 					 if (LastClusterList.Count>0)
 					 {

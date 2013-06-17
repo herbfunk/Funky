@@ -351,8 +351,27 @@ namespace FunkyTrinity
 													 &&CurrentTarget.targetType.Value==TargetType.Unit) continue;
 
 
+								CacheObject curTargetObj=CurrentTarget!=null?CurrentTarget:null;
 								//Set our current target to this object!
 								CurrentTarget=ObjectCache.Objects[thisobj.RAGUID];
+								//Check for Range Classes and Unit Targets
+								if (!Bot.Class.IsMeleeClass&&CurrentTarget.targetType.Value==TargetType.Unit&&(Bot.Combat.NearbyAvoidances.Count>0||Bot.Combat.NearbyKitingUnits.Count>0))
+								{
+									 Ability nextAbility=GilesAbilitySelector();
+									 if (nextAbility.CurrentBotRange>nextAbility.MinimumRange)
+									 {
+										  if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(nextAbility.DestinationVector))
+										  {
+												if (thisobj.ObjectIsSpecial)
+													 Bot.Combat.bStayPutDuringAvoidance=true;
+
+												CurrentTarget=curTargetObj;
+												continue;
+										  }
+									 }
+								}
+
+
 								iHighestWeightFound=thisobj.Weight;
 						  }
 

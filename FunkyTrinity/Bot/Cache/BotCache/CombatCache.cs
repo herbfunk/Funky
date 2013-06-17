@@ -83,33 +83,26 @@ namespace FunkyTrinity
 					 //This is used during Ability Selection -- we reuse the targeting cluster data if possible!
 					 internal List<Cluster> RunKMeans(int MinUnitCount=1, double Distance=5d, float DistanceFromBot=25f)
 					 {
-						  List<CacheUnit> objects=new List<CacheUnit>();
 
 						  //If ClusterTargetLogic is disabled.. we need to generate clusters!
-						  if (!Bot.SettingsFunky.EnableClusteringTargetLogic&&DateTime.Now.Subtract(LastClusterTargetLogicRefresh).TotalMilliseconds>200)
+						  if (!Bot.SettingsFunky.EnableClusteringTargetLogic)
 						  {
-								LastClusterTargetLogicRefresh=DateTime.Now;
-								List<CacheObject> listObjectUnits=Bot.ValidObjects.Where(u => UnitRAGUIDs.Contains(u.RAGUID)&&u.CentreDistance<=DistanceFromBot).ToList();
 
+								List<CacheObject> listObjectUnits=Bot.ValidObjects.Where(u => UnitRAGUIDs.Contains(u.RAGUID)&&u.CentreDistance<=DistanceFromBot).ToList();
 								if (listObjectUnits.Count>0)
 								{
-									 CurrentTargetClusters=RunKmeans(listObjectUnits, Distance);
-									 return CurrentTargetClusters.Where(clusters => clusters.RAGUIDS.Count>=MinUnitCount).ToList();
+									 return RunKmeans(listObjectUnits, Distance);
 								}
 								else
-									 return CurrentTargetClusters;
+									 return new List<Cluster>();
 						  }
-
-						  //populate with units
-						  (from clusters in CurrentTargetClusters		 //Only Clusters with a valid targetable unit 
-							where clusters.RAGUIDS.Count>=MinUnitCount&&(!clusters.ContainsNoTagetableUnits&&clusters.CurrentValidUnit!=null)
-							select clusters.ListUnits)
-								.ForEach(units => objects.AddRange(units));
-
-						  objects=objects.Where(u => u.CentreDistance<=DistanceFromBot).ToList();
-
-
-						  return RunKmeans<CacheUnit>(objects, Distance).Where(clusters => clusters.RAGUIDS.Count>=MinUnitCount).ToList();
+						  else
+						  {
+								//Since we use Target Clustering, we can grab valid objects by using the clusterunits list
+								List<CacheObject> objects=new List<CacheObject>();
+								objects.AddRange(ValidObjects.Where(unit => ValidClusterUnits.Contains(unit.RAGUID)&&unit.CentreDistance<=DistanceFromBot));
+								return RunKmeans(objects, Distance);
+						  }
 					 }
 
 
