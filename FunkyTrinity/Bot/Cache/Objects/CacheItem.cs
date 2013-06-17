@@ -136,7 +136,7 @@ namespace FunkyTrinity
 									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 										  this.Weight*=0.25;
 									 //Finally check if we should reduce the weight when more then 2 monsters are nearby..
-									 if (Bot.Combat.iAnythingWithinRange[RANGE_12]>2&&
+									 if (Bot.Combat.iAnythingWithinRange[RANGE_25]>2&&
 										  //But Only when we are low in health..
 											 (Bot.Character.dCurrentHealthPct<0.25||
 										  //Or we havn't changed targets after 2.5 secs

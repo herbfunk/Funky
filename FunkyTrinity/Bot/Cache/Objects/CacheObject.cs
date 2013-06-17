@@ -631,11 +631,7 @@ namespace FunkyTrinity
 								Bot.Combat.bForceCloseRangeTarget=true;
 								Bot.Combat.lastForcedKeepCloseRange=DateTime.Now;
 
-								if (this.targetType.Value==TargetType.Item)
-								{
-									 Bot.Combat.bForceTargetUpdate=true;
-									 return RunStatus.Running;
-								}
+
 
 								// Tell target finder to prioritize close-combat targets incase we were bodyblocked
 								#region TargetingPriortize
@@ -665,7 +661,6 @@ namespace FunkyTrinity
 
 												Bot.Combat.PrioritizedRAGUIDs.AddRange(intersectingObjectRAGUIDs);
 										  }
-
 
 
 										  if (this.targetType.Value==TargetType.Avoidance)
@@ -723,6 +718,12 @@ namespace FunkyTrinity
 								}
 								#endregion
 
+
+								if (this.targetType.Value==TargetType.Item)
+								{
+									 this.BlacklistLoops=1;
+									 Bot.Combat.bForceTargetUpdate=true;
+								}
 
 								return RunStatus.Running;
 						  } // Been 250 milliseconds of non-movement?
