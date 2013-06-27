@@ -76,7 +76,7 @@ namespace FunkyTrinity
             private TextBox[] TBMinimumArmorLevel;
             private TextBox[] TBMinimumJeweleryLevel;
             private CheckBox[] CBGems;
-            private ComboBox CBGemQualityLevel;
+            //private ComboBox CBGemQualityLevel;
 
             private TextBox TBBreakTimeHour, TBKiteDistance, TBGlobeHealth, TBPotionHealth, TBContainerRange, TBNonEliteRange, TBDestructibleRange, TBAfterCombatDelay, TBiDHVaultMovementDelay, TBShrineRange, TBEliteRange, TBExtendedCombatRange, TBGoldRange, TBMinLegendaryLevel, TBMaxHealthPots, TBMinGoldPile, TBMiscItemLevel, TBGilesWeaponScore, TBGilesArmorScore, TBGilesJeweleryScore, TBClusterDistance, TBClusterMinUnitCount, TBItemRange, TBGoblinRange, TBGoblinMinRange, TBClusterLowHPValue, TBGlobeRange;
             private TextBox[] TBKiteTimeLimits;
@@ -2855,14 +2855,13 @@ namespace FunkyTrinity
 						  Foreground=System.Windows.Media.Brushes.GhostWhite,
 						  TextAlignment=TextAlignment.Left,
 					 };
-					 CBGemQualityLevel=new ComboBox
+					 ComboBox CBGemQualityLevel=new ComboBox
 					 {
 						  Height=20,
-						  Width=200,
 						  ItemsSource=new GemQualityTypes(),
 						  Text=Enum.GetName(typeof(GemQuality), Bot.SettingsFunky.MinimumGemItemLevel).ToString(),
 						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
-						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+4),
+						  Margin=new Thickness(5),
 					 };
 					 CBGemQualityLevel.SelectionChanged+=GemQualityLevelChanged;
 					 spGemOptions.Children.Add(Text_MinimumGemQuality);

@@ -543,7 +543,9 @@ namespace FunkyTrinity
 
              private void GemQualityLevelChanged(object sender, EventArgs e)
              {
-                 Bot.SettingsFunky.MinimumGemItemLevel = (int)Enum.Parse(typeof(GemQuality), CBGemQualityLevel.Items[CBGemQualityLevel.SelectedIndex].ToString());
+					  ComboBox cbSender=(ComboBox)sender;
+
+					  Bot.SettingsFunky.MinimumGemItemLevel=(int)Enum.Parse(typeof(GemQuality), cbSender.Items[cbSender.SelectedIndex].ToString());
              }
              class GemQualityTypes : ObservableCollection<string>
              {

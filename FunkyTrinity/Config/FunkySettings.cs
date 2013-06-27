@@ -157,7 +157,7 @@ namespace FunkyTrinity
              if (!File.Exists(sFunkyCharacterConfigFile))
              {
                 Log("No config file found, now creating a new config from defaults at: " + sFunkyCharacterConfigFile);
-					 Bot.SettingsFunky=new Settings_Funky(false, false, true, true, true, true, false, 0, 0, 0, 0, false, 30, false, false, "Hard", "Rare", "Rare", true, true, 0, 10, 25, 40, 0.6d, 0.4d, false, 2, 500, false, 60, 0, 40, new int[1], new int[1], new int[1], 55, 60, 250, new bool[3], 100, false, true, true, 59, false, 70000, 30000, 27000, false, false);
+					 Bot.SettingsFunky=new Settings_Funky(false, false, true, true, true, true, false, 0, 0, 0, 0, false, 30, false, false, "Hard", "Rare", "Rare", true, true, 0, 10, 25, 40, 0.6d, 0.4d, false, 2, 500, false, 60, 0, 40, new int[1], new int[1], new int[1], 55, 100, 500, new bool[3], 60, false, true, true, 59, false, 70000, 30000, 27000, false, false);
                 SaveFunkyConfiguration();
              }
 
@@ -409,7 +409,13 @@ namespace FunkyTrinity
                                      Bot.SettingsFunky.MinimumGoldPile = Convert.ToInt32(config[1]);
                                      break;
                                  case "MinimumGemItemLevel":
-                                     Bot.SettingsFunky.MinimumGemItemLevel = Convert.ToInt32(config[1]);
+												 int value=Convert.ToInt32(config[1]);
+												 
+												 if (!Enum.IsDefined(typeof(GemQuality), value))
+													  Bot.SettingsFunky.MinimumGemItemLevel=60;
+												 else
+													  Bot.SettingsFunky.MinimumGemItemLevel=value;
+
                                      break;
                                  case "PickupCraftTomes":
                                      Bot.SettingsFunky.PickupCraftTomes = Convert.ToBoolean(config[1]);
