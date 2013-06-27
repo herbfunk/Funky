@@ -146,7 +146,7 @@ namespace FunkyTrinity
 						  }
 						  if (thisCacheUnitObj!=null&&(thisCacheUnitObj.IsEliteRareUnique||thisCacheUnitObj.IsBoss))
 						  {
-								return new Ability(SNOPower.Witchdoctor_GraspOfTheDead, 35f, vNullLocation, Bot.Target.CurrentTarget.AcdGuid.Value, -1, 0, 3, USE_SLOWLY);
+								return new Ability(SNOPower.Witchdoctor_GraspOfTheDead, 35f, vNullLocation, Bot.Character.iCurrentWorldID, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 3, USE_SLOWLY);
 						  }
 					 }
 					 #endregion
