@@ -235,11 +235,14 @@ namespace FunkyTrinity
 				{
 					 bPluginEnabled=true;
 
-					 // Safety check incase DB "OnStart" event didn't fire properly
-					 if (BotMain.IsRunning)
+					 try
 					 {
-						  FunkyBotStart(null);
-					 }
+						  MainWindow.Title="DB - "+ZetaDia.Service.CurrentHero.BattleTagName;
+					 } catch{}
+
+					 // Safety check incase DB "OnStart" event didn't fire properly
+					 if (BotMain.IsRunning) FunkyBotStart(null);
+					 
 
 
 					 // Carguy's ticks-per-second feature
@@ -340,7 +343,13 @@ namespace FunkyTrinity
 
 
 		  }
-
+		  internal static Window MainWindow
+		  {
+				get
+				{
+					 return System.Windows.Application.Current.MainWindow;
+				}
+		  }
 		  internal void RemoveHandlers()
 		  {
 				GameEvents.OnLevelUp-=OnPlayerLevelUp;

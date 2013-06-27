@@ -112,9 +112,8 @@ namespace FunkyTrinity
 						  for (int i=lastGPRectIndexUsed; i<gridpointrectangles_.Count-1; i++)
 						  {
 								GPRectangle item=gridpointrectangles_[i];
-								item.UpdateObjectCount();
-								if (item.Weight>CurrentLocationGPRect.Weight)
-									 continue;
+								item.UpdateObjectCount(AllGPRectsFailed);
+								if (item.Weight>CurrentLocationGPRect.Weight) continue;
 								
 								if (item.TryFindSafeSpot(out safespot, LOS, kiting, false, AllGPRectsFailed))  return;									
 						  }

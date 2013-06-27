@@ -89,7 +89,7 @@ namespace FunkyTrinity
 					 {
 						  return ((!this.BeingIgnoredDueToClusterLogic||this.PriorityCounter>0) //not ignored because of clusters
 										&&(!this.IsBurrowed.HasValue||!this.IsBurrowed.Value) //ignore burrowed!
-										&&(!Bot.Class.hashActorSNOKitingIgnore.Contains(base.SNOID)||this.MonsterRare||this.MonsterMinion||this.MonsterElite));
+										&&(!Bot.HashActorSNOKitingIgnore.Contains(base.SNOID)||this.MonsterRare||this.MonsterMinion||this.MonsterElite));
 					 }
 				}
 
@@ -558,7 +558,7 @@ namespace FunkyTrinity
 										  this.Weight+=4000;
 
 									 // Barbarians with wrath of the berserker up should prioritize elites more
-									 if (HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)&&(this.IsEliteRareUnique||this.IsTreasureGoblin||this.IsBoss))
+									 if (Bot.Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)&&(this.IsEliteRareUnique||this.IsTreasureGoblin||this.IsBoss))
 										  this.Weight+=2000;
 
 
@@ -1018,7 +1018,7 @@ namespace FunkyTrinity
 					 if (Bot.Class.AC==ActorClass.Barbarian)
 					 {
 						  //Rend DotDPS update
-						  if (HotbarAbilitiesContainsPower(SNOPower.Barbarian_Rend))
+						  if (Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Rend))
 						  {
 								try
 								{
@@ -1029,7 +1029,7 @@ namespace FunkyTrinity
 					 else if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.WitchDoctor)
 					 {
 						  //Haunted DotDPS update
-						  if (HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_Haunt)||HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_Locust_Swarm))
+						  if (Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_Haunt)||Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_Locust_Swarm))
 						  {
 								Bot.Combat.UsesDOTDPSAbility=true;
 								try
@@ -1041,11 +1041,11 @@ namespace FunkyTrinity
 									 int visualBuff=this.ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.BuffVisualEffect);
 									 this.HasDOTdps=(dotDPS>0&&visualBuff>0);
 									 /*
-									 if (HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_Haunt))
+									 if (Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_Haunt))
 									 {
 										  this.HasDOTdps=(visualBuff>0&&(dotDPS==1194344448||dotDPS==1194786816||dotDPS==1202929855||dotDPS==1194983424||dotDPS==1196072960||dotDPS==1194770432));
 									 }
-									 else if (HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_Locust_Swarm))
+									 else if (Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_Locust_Swarm))
 									 {
 										  this.HasDOTdps=(visualBuff>0&&(dotDPS==1178820608||dotDPS==1197301760||dotDPS==1182662656));
 									 }
@@ -1095,7 +1095,7 @@ namespace FunkyTrinity
 
 						  // Wait while animating before an attack
 						  if (Bot.Combat.powerPrime.WaitWhileAnimating)
-								WaitWhileAnimating(5, false);
+								Bot.Character.WaitWhileAnimating(5, false);
 
 						  // Note that whirlwinds use an off-on-off-on to avoid spam
 						  if (Bot.Combat.powerPrime.Power!=SNOPower.Barbarian_Whirlwind&&Bot.Combat.powerPrime.Power!=SNOPower.DemonHunter_Strafe)
@@ -1162,7 +1162,7 @@ namespace FunkyTrinity
 
 						  // Wait for animating AFTER the attack
 						  if (Bot.Combat.powerPrime.WaitWhileAnimating)
-								WaitWhileAnimating(3, false);
+								Bot.Character.WaitWhileAnimating(3, false);
 
 						  Bot.Combat.bPickNewAbilities=true;
 

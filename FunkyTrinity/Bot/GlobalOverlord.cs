@@ -56,8 +56,27 @@ namespace FunkyTrinity
 						  Logging.WriteDiagnostic("[Funky] Safely handled exception trying to get character class.");
 					 }
 					 if (tempClass!=ActorClass.Invalid&&Bot.Class==null)
-						  Bot.Class=new Bot.CharacterInfo(tempClass);
-
+					 {
+						  switch (tempClass)
+						  {
+								case ActorClass.Barbarian:
+									 Bot.Class=new Barbarian(tempClass);
+									 break;
+								case ActorClass.DemonHunter:
+									 Bot.Class=new DemonHunter(tempClass);
+									 break;
+								case ActorClass.Monk:
+									 Bot.Class=new Monk(tempClass);
+									 break;
+								case ActorClass.WitchDoctor:
+									 Bot.Class=new WitchDoctor(tempClass);
+									 break;
+								case ActorClass.Wizard:
+									 Bot.Class=new Wizard(tempClass);
+									 break;
+						  }
+						  
+					 }
 
 					 iCombatLoops=0;
 
@@ -101,6 +120,13 @@ namespace FunkyTrinity
 						  Funky.sLastProfileSeen=sThisProfile;
 						  if (String.IsNullOrEmpty(Funky.sFirstProfileSeen))
 								Funky.sFirstProfileSeen=sThisProfile;
+
+						  //Refresh Profile Target Blacklist 
+						  hashSNOTargetBlacklist=new HashSet<int>();
+						  foreach (var item in Zeta.CommonBot.ProfileManager.CurrentProfile.TargetBlacklists)
+						  {
+								hashSNOTargetBlacklist.Add(item.ActorId);
+						  }
 					 }
 				}
 				#endregion
@@ -180,7 +206,7 @@ namespace FunkyTrinity
 				// Pop a potion when necessary
 				if (Bot.Character.dCurrentHealthPct<=Bot.EmergencyHealthPotionLimit)
 				{
-					 if (!Bot.Character.bIsIncapacitated&&AbilityUseTimer(SNOPower.DrinkHealthPotion))
+					 if (!Bot.Character.bIsIncapacitated&&Bot.Class.AbilityUseTimer(SNOPower.DrinkHealthPotion))
 					 {
 						  Bot.AttemptToUseHealthPotion();
 					 }
@@ -205,14 +231,14 @@ namespace FunkyTrinity
 				AnimationState myAnimationState=Bot.Character.CurrentAnimationState;
 				if (!Bot.Character.bIsInTown&&!TownRunManager.bWantToTownRun&&myAnimationState!=AnimationState.Attacking&&myAnimationState!=AnimationState.Casting&&myAnimationState!=AnimationState.Channeling)
 				{
-					 Bot.Combat.powerBuff=GilesAbilitySelector(false, true, false);
+					 Bot.Combat.powerBuff=Bot.Class.AbilitySelector(false, true, false);
 					 if (Bot.Combat.powerBuff.Power!=SNOPower.None)
 					 {
-						  WaitWhileAnimating(4, true);
+						  Bot.Character.WaitWhileAnimating(4, true);
 						  ZetaDia.Me.UsePower(Bot.Combat.powerBuff.Power, Bot.Combat.powerBuff.TargetPosition, Bot.Combat.powerBuff.WorldID, Bot.Combat.powerBuff.TargetRAGUID);
 						  Bot.Combat.powerLastSnoPowerUsed=Bot.Combat.powerBuff.Power;
 						  dictAbilityLastUse[Bot.Combat.powerBuff.Power]=DateTime.Now;
-						  WaitWhileAnimating(3, true);
+						  Bot.Character.WaitWhileAnimating(3, true);
 					 }
 				}
 

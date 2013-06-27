@@ -513,7 +513,7 @@ namespace FunkyTrinity
 					 Bot.Combat.bWaitingForPower=false;
 
 					 // Pick the item up the usepower way, and "blacklist" for a couple of loops
-					 WaitWhileAnimating(15, true);
+					 Bot.Character.WaitWhileAnimating(15, true);
 					 ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, Vector3.Zero, 0, this.AcdGuid.Value);
 					 Bot.Combat.lastChangedZigZag=DateTime.Today;
 					 Bot.Combat.vPositionLastZigZagCheck=Vector3.Zero;
@@ -521,7 +521,7 @@ namespace FunkyTrinity
 
 					 Bot.Combat.ShouldCheckItemLooted=true;
 
-					 WaitWhileAnimating(5, true);
+					 Bot.Character.WaitWhileAnimating(5, true);
 					 return Zeta.TreeSharp.RunStatus.Running;
 				}
 

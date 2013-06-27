@@ -235,7 +235,7 @@ namespace FunkyTrinity
 						  hashDoneThisRactor.Add(tmp_raGUID);
 
 						  //Update RactorGUID and check blacklisting..
-						  if (!IsObjectBlacklisted(tmp_raGUID)) continue;
+						  if (IsRAGUIDBlacklisted(tmp_raGUID)) continue;
 						  CacheObject tmp_CachedObj;
 						  using (ZetaDia.Memory.AcquireFrame())
 						  {
@@ -255,7 +255,7 @@ namespace FunkyTrinity
 
 
 									 //check our SNO blacklist
-									 if (hashActorSNOIgnoreBlacklist.Contains(tmp_SNOID)&&!SnoCacheLookup.hashSummonedPets.Contains(tmp_SNOID)) continue;
+									 if (IsSNOIDBlacklisted(tmp_SNOID)&&!SnoCacheLookup.hashSummonedPets.Contains(tmp_SNOID)) continue;
 
 
 									 #region Position

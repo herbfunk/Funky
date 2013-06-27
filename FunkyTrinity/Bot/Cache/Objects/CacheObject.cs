@@ -750,7 +750,7 @@ namespace FunkyTrinity
 										  vTargetAimPoint=MathEx.CalculatePointFrom(Bot.Combat.vCurrentDestination, Bot.Character.Position, 10f);
 										  Bot.Character.UpdateAnimationState(false, true);
 										  bool isHobbling=Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.Monk_Female_Hobble_Run|SNOAnim.Monk_Male_HTH_Hobble_Run);
-										  foundMovementPower=(!bTooMuchZChange&&currentDistance<15f&&((isHobbling||lastUsedAbilityMS<400)&&Bot.Character.dCurrentEnergy>15)
+										  foundMovementPower=(!bTooMuchZChange&&currentDistance<15f&&((isHobbling||lastUsedAbilityMS<300)&&Bot.Character.dCurrentEnergy>15)
 												&&!ObjectCache.Obstacles.DoesPositionIntersectAny(vTargetAimPoint, ObstacleType.ServerObject));
 
 										  break;
@@ -774,11 +774,11 @@ namespace FunkyTrinity
 									 case SNOPower.Barbarian_Whirlwind:
 										  break;
 									 default:
-										  WaitWhileAnimating(3, true);
+										  Bot.Character.WaitWhileAnimating(3, true);
 										  ZetaDia.Me.UsePower(MovementPower, Bot.Combat.vCurrentDestination, Bot.Character.iCurrentWorldID, -1);
 										  dictAbilityLastUse[MovementPower]=DateTime.Now;
 
-										  WaitWhileAnimating(6, true);
+										  Bot.Character.WaitWhileAnimating(6, true);
 										  // Store the current destination for comparison incase of changes next loop
 										  Bot.Combat.vLastMoveToTarget=Bot.Combat.vCurrentDestination;
 										  // Reset total body-block count, since we should have moved
@@ -808,13 +808,13 @@ namespace FunkyTrinity
 						  }
 
 						  //Special Whirlwind Code
-						  if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Barbarian&&HotbarAbilitiesContainsPower(SNOPower.Barbarian_Whirlwind))
+						  if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Barbarian&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind))
 						  {
 								// Whirlwind against everything within range (except backtrack points)
 								if (Bot.Character.dCurrentEnergy>=10
 									 &&Bot.Combat.iAnythingWithinRange[RANGE_20]>=1
 									 &&this.DistanceFromTarget<=12f
-									 &&(!HotbarAbilitiesContainsPower(SNOPower.Barbarian_Sprint)||HasBuff(SNOPower.Barbarian_Sprint))
+									 &&(!Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Sprint)||Bot.Class.HasBuff(SNOPower.Barbarian_Sprint))
 									 &&(!(TargetType.Avoidance|TargetType.Gold|TargetType.Globe).HasFlag(this.targetType.Value)&this.DistanceFromTarget>=6f)
 									 &&(this.targetType.Value!=TargetType.Unit
 									 ||(this.targetType.Value==TargetType.Unit&&!this.IsTreasureGoblin

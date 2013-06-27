@@ -52,7 +52,7 @@ namespace FunkyTrinity
             178664, 173827, 133741, 159144, 181748, 159098, 206569, 200706, 5895, 5896, 5897, 5899, 4686, 87037, 85843, 103919, 249338, 
             251416, 249192, 80812, 196899,196900,196903,223333,220636,218951,206559,208543,166133,114304,212231,
             2976, 181563,181857,181858,5215,175482,3901,152126,80447,425,3609,58568, 210087, 164057,220160, 87534, 144405, 181176, 181177,62522,220114,
-				113983,108882,210419,60108,
+				108882,210419,60108,
         };
 
 		  // IGNORE LIST / BLACKLIST - for world objects
@@ -64,7 +64,7 @@ namespace FunkyTrinity
             108490, 52833, 3341, 4482, 188129, 188127, 55259, 54693, 3689, 131494, 3609, 225589, 171635, 3948,5739, 185949, 182697, 200371,
 				75023,
          };
-
+		  internal static HashSet<int> hashSNOTargetBlacklist=new HashSet<int>();
 		  internal static void AddObjectToBlacklist(int RAGUID, BlacklistType blacklist)
 		  {
 				if (blacklist==BlacklistType.Permanent)
@@ -84,22 +84,34 @@ namespace FunkyTrinity
 		  }
 
 		  //Updates RActorGUID and returns if we should continue Cache Process by checking blacklists.
-		  internal static bool IsObjectBlacklisted(int ractorGUID)
+		  internal static bool IsRAGUIDBlacklisted(int ractorGUID)
 		  {
 				// See if it's on our temporary blacklist (from being stuck targeting it), as long as it's distance is not extremely close
 				if (hashRGUIDTemporaryIgnoreBlacklist.Contains(ractorGUID))
 				{
-					 return false;
+					 return true;
 				}
 				// Or on our more permanent "per-game" blacklist
 				if (hashRGUIDIgnoreBlacklist.Contains(ractorGUID))
 				{
-					 return false;
+					 return true;
 				}
 
-				return true;
+				return false;
 		  }
+		  internal static bool IsSNOIDBlacklisted(int snoID)
+		  {
+				if (hashActorSNOIgnoreBlacklist.Contains(snoID))
+					 return true;
+				
+				if (hashSNOIgnoreBlacklist.Contains(snoID))
+					 return true;
+				
+				if (hashSNOTargetBlacklist.Contains(snoID))
+					 return true;
 
+				return false;
+		  }
 		  internal static void IgnoreThisObject(CachedSNOEntry snoObj, int RAGUID, bool removal=true, bool blacklistSNOID=true)
 		  {
 				Logging.WriteVerbose("[Blacklist] -- RAGUID {0} SNOID {1} ({2})", snoObj.SNOID, RAGUID, snoObj.InternalName);

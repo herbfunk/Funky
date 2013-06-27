@@ -184,7 +184,7 @@ namespace FunkyTrinity
 
 
 					 // Wizards can look for bee stings in range and try a wave of force to dispel them
-					 if (!bKitingSpot&&Bot.Class.AC==ActorClass.Wizard&&HotbarAbilitiesContainsPower(SNOPower.Wizard_WaveOfForce)&&Bot.Character.dCurrentEnergy>=25&&
+					 if (!bKitingSpot&&Bot.Class.AC==ActorClass.Wizard&&Bot.Class.HotbarAbilities.Contains(SNOPower.Wizard_WaveOfForce)&&Bot.Character.dCurrentEnergy>=25&&
 						  DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Wizard_WaveOfForce]).TotalMilliseconds>=dictAbilityRepeatDelay[SNOPower.Wizard_WaveOfForce]&&
 						  !Bot.Character.bIsIncapacitated&&ObjectCache.Obstacles.Values.OfType<CacheAvoidance>().Count(u => u.SNOID==5212&&u.Position.Distance(Bot.Character.Position)<=15f)>=2&&
 						  (Bot.SettingsFunky.Class.bEnableCriticalMass||PowerManager.CanCast(SNOPower.Wizard_WaveOfForce)))

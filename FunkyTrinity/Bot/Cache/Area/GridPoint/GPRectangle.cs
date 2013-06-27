@@ -171,7 +171,7 @@ namespace FunkyTrinity
 					 public int AvoidanceCount=0;
 					 public double Weight { get; set; }
 
-					 internal void UpdateObjectCount()
+					 internal void UpdateObjectCount(bool resetSearchIndex=false)
 					 {
 						  //TODO: Implement static object cache for contained area, as well as a cache of cacheunits contained, populated initally on creation?
 						  if (DateTime.Now.Subtract(lastRefreshedObjectContents).TotalMilliseconds>150)
@@ -189,7 +189,7 @@ namespace FunkyTrinity
 								{
 									 if (item==null) continue;
 
-									 this.Weight+=item.UpdateWeight(out monsters, out avoids, ref OccupiedRAGUIDS);
+									 this.Weight+=item.UpdateWeight(out monsters, out avoids, ref OccupiedRAGUIDS, resetSearchIndex);
 									 this.MonsterCount+=monsters;
 									 this.AvoidanceCount+=avoids;
 
@@ -205,14 +205,11 @@ namespace FunkyTrinity
 
 					 public bool TryFindSafeSpot(out Vector3 safespot, Vector3 los, bool kite=false, bool checkAvoidIntersection=false, bool expandOnFailure=false)
 					 {
-						  this.UpdateObjectCount();
-
 						  lastUsedQuadrant=null;
 						  safespot=vNullLocation;
 
 						  //Do not continue search if all sectors failed recently.
-						  if (AllQuadrantsFailed)
-								return false;
+						  if (AllQuadrantsFailed) return false;
 
 
 						  foreach (var item in Quadrant.Values)

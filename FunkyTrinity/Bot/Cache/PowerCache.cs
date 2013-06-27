@@ -11,7 +11,11 @@ namespace FunkyTrinity
 		  private static readonly Range Melee_Range=new Range(0f, 10f);
 		  private static readonly Range Melee_NearbyOnly=new Range(0f, 7f);
 		  private static readonly Range Melee_AOE_Range =new Range(0f,16f);
-
+		  internal static readonly HashSet<int> PowerStackImportant=new HashSet<int>
+				{
+					 (int)SNOPower.Witchdoctor_SoulHarvest,
+					 (int)SNOPower.Wizard_EnergyTwister
+				};
 		  //private static readonly HashSet<SNOPower> AbilitiesBuff=new HashSet<SNOPower>
 		  //{
 		  //	 SNOPower.Barbarian_WarCry,SNOPower.Barbarian_BattleRage,SNOPower.Barbarian_Sprint,

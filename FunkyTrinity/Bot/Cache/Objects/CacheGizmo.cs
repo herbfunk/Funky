@@ -596,7 +596,7 @@ namespace FunkyTrinity
 									this.Radius.ToString()+". SphereRadius="+this.ActorSphereRadius.Value.ToString()+". Type="+this.targetType.ToString()+". Using power="+Bot.Combat.powerPrime.Power.ToString());
 
 						  //Actual interaction
-						  WaitWhileAnimating(12, true);
+						  Bot.Character.WaitWhileAnimating(12, true);
 
 						  if (hashDestructableLocationTarget.Contains(this.SNOID)
 								||(this.InteractionAttempts>1
@@ -628,7 +628,7 @@ namespace FunkyTrinity
 
 						  dictAbilityLastUse[Bot.Combat.powerPrime.Power]=DateTime.Now;
 						  Bot.Combat.powerPrime.Power=SNOPower.None;
-						  WaitWhileAnimating(6, true);
+						  Bot.Character.WaitWhileAnimating(6, true);
 					 }
 
 					 //Get current animation state! (Idle = Untouched, Dead = Destroyed)
@@ -720,7 +720,7 @@ namespace FunkyTrinity
 
 				public override RunStatus Interact()
 				{
-					 WaitWhileAnimating(10, true);
+					 Bot.Character.WaitWhileAnimating(10, true);
 					 ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, base.Position, Bot.Character.iCurrentWorldID, base.AcdGuid.Value);
 					 this.InteractionAttempts++;
 
@@ -734,11 +734,11 @@ namespace FunkyTrinity
 					 // Interactables can have a long channeling time...
 					 if (this.targetType.Value.HasFlag(TargetType.Interactable))
 					 {
-						  WaitWhileAnimating(1500, true);
+						  Bot.Character.WaitWhileAnimating(1500, true);
 						  this.BlacklistLoops=20;
 					 }
 
-					 WaitWhileAnimating(175, true);
+					 Bot.Character.WaitWhileAnimating(175, true);
 
 					 // If we've tried interacting too many times, blacklist this for a while
 					 if (this.InteractionAttempts>5)

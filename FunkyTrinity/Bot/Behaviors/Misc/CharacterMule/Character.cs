@@ -193,7 +193,7 @@ namespace FunkyTrinity
 					 var chars="abcdefghijklmnopqrstuvwxyz";
 					 var random=new Random();
 					 var result=new string(
-						  Enumerable.Repeat(chars, 6)
+						  Enumerable.Repeat(chars, random.Next(5,8))
 						  .Select(s => s[random.Next(s.Length)])
 						  .ToArray());
 

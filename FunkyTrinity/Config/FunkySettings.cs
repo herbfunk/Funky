@@ -94,8 +94,9 @@ namespace FunkyTrinity
 					  configWriter.WriteLine("SkipAhead="+Bot.SettingsFunky.SkipAhead.ToString());
 					  configWriter.WriteLine("GlobeRange="+Bot.SettingsFunky.GlobeRange.ToString());
 					  configWriter.WriteLine("ItemRuleCustomPath="+(!String.IsNullOrEmpty(Bot.SettingsFunky.ItemRuleCustomPath)?Bot.SettingsFunky.ItemRuleCustomPath.ToString():""));
+					  configWriter.WriteLine("ItemRulesUnidStashing="+Bot.SettingsFunky.ItemRulesUnidStashing.ToString());
 
-					  //
+					  //ItemRulesUnidStashing
 					  switch (Bot.ActorClass)
                  {
                      case Zeta.Internals.Actors.ActorClass.Barbarian:
@@ -111,7 +112,9 @@ namespace FunkyTrinity
                          break;
                      case Zeta.Internals.Actors.ActorClass.Monk:
                          configWriter.WriteLine("bMonkInnaSet=" + Bot.SettingsFunky.Class.bMonkInnaSet.ToString());
-                         break;
+								 configWriter.WriteLine("bMonkSpamMantra="+Bot.SettingsFunky.Class.bMonkSpamMantra.ToString());
+								 //bMonkSpamMantra
+								 break;
                      case Zeta.Internals.Actors.ActorClass.WitchDoctor:
                          configWriter.WriteLine("bEnableCriticalMass=" + Bot.SettingsFunky.Class.bEnableCriticalMass.ToString());
                          configWriter.WriteLine("GoblinMinimumRange=" + Bot.SettingsFunky.Class.GoblinMinimumRange.ToString());
@@ -153,16 +156,8 @@ namespace FunkyTrinity
              //Check for Config file
              if (!File.Exists(sFunkyCharacterConfigFile))
              {
-                 Log("No config file found, now creating a new config from defaults at: " + sFunkyCharacterConfigFile);
-					  if (Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Barbarian||Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Monk)
-                 {
-                     Bot.SettingsFunky = new Settings_Funky(false, false, true, true, true, true, false, 0, 0, 0, 0, false, 30, false, false, "hard", "Rare", "Rare", true, true, 0, 10, 25, 40, 0.6d, 0.4d, false, 2, 500, false, 60, 30, 40, new int[1], new int[1], new int[1], 55, 60, 250, new bool[3], 60, false, true, true, 59, false, 70000, 30000, 27000, false, false);
-                 }
-                 else
-                 {
-                     Bot.SettingsFunky = new Settings_Funky(false, false, true, true, true, true, false, 0, 0, 0, 0, false, 30, false, false, "hard", "Rare", "Rare", true, true, 5, 10, 25, 40, 0.4d, 0.6d, false, 2, 500, false, 60, 30, 40, new int[1], new int[1], new int[1], 55, 60, 250, new bool[3], 60, false, true, true, 59, false, 70000, 30000, 27000, false, false);
-                 }
-                 //Bot.SettingsFunky = new Settings_Funky(false, false, false, false, false, false, false, 4, 8, 3, 1.5d, true, 20, false, false, "hard", "Rare", "Rare", true, false, 0, 5, 15, 20, 0.5d, 0.5d, false, 2, 500, false, 50, 30, 40, new int[1], new int[1], new int[1], 1, 100, 300, new bool[3], 60, true, true, true, 59, false, 70000, 16000, 15000, false, false);
+                Log("No config file found, now creating a new config from defaults at: " + sFunkyCharacterConfigFile);
+					 Bot.SettingsFunky=new Settings_Funky(false, false, true, true, true, true, false, 0, 0, 0, 0, false, 30, false, false, "Hard", "Rare", "Rare", true, true, 0, 10, 25, 40, 0.6d, 0.4d, false, 2, 500, false, 60, 0, 40, new int[1], new int[1], new int[1], 55, 60, 250, new bool[3], 100, false, true, true, 59, false, 70000, 30000, 27000, false, false);
                 SaveFunkyConfiguration();
              }
 
@@ -374,6 +369,9 @@ namespace FunkyTrinity
                                  case "bMonkInnaSet":
                                      Bot.SettingsFunky.Class.bMonkInnaSet = Convert.ToBoolean(config[1]);
                                      break;
+											case "bMonkSpamMantra":
+												 Bot.SettingsFunky.Class.bMonkSpamMantra=Convert.ToBoolean(config[1]);
+												 break;
                                  case "bWaitForArchon":
                                      Bot.SettingsFunky.Class.bWaitForArchon = Convert.ToBoolean(config[1]);
                                      break;
@@ -510,7 +508,10 @@ namespace FunkyTrinity
 											case "ItemRuleCustomPath":
 												 Bot.SettingsFunky.ItemRuleCustomPath=config[1];
 												 break;
-											//GlobeRange
+											case "ItemRulesUnidStashing":
+												 Bot.SettingsFunky.ItemRulesUnidStashing=Convert.ToBoolean(config[1]);
+												 break;
+											//ItemRulesUnidStashing
                              }
                          }
                      }
@@ -572,6 +573,7 @@ namespace FunkyTrinity
 				 public bool UseItemRulesPickup { get; set; }
 				 public bool UseItemRules { get; set; }
              public bool ItemRulesSalvaging { get; set; }
+				 public bool ItemRulesUnidStashing { get; set; }
              public bool ItemRuleUseItemIDs { get; set; }
              public bool ItemRuleDebug { get; set; }
              public string ItemRuleType { get; set; }
@@ -634,12 +636,13 @@ namespace FunkyTrinity
                  AvoidanceRecheckMinimumRate = 550;
                  KitingRecheckMaximumRate = 4500;
                  KitingRecheckMinimumRate = 1000;
-                 ItemRulesSalvaging = true;
                  OOCIdentifyItems = oocIDitems;
                  BuyPotionsDuringTownRun = buyPotions;
                  EnableWaitAfterContainers = WaitForContainers;
                  UseItemRulesPickup = itemRulesPickup;
                  UseItemRules = itemRules;
+					  ItemRulesUnidStashing=true;
+					  ItemRulesSalvaging=true;
                  UseExtendedRangeRepChest = extendRangeRepChest;
                  EnableCoffeeBreaks = coffeebreak;
                  MaxBreakTime = minbreak;
@@ -669,8 +672,8 @@ namespace FunkyTrinity
                  ExtendedCombatRange = extendedrange;
                  GoldRange = goldrange;
 					  GlobeRange=40;
-                 ItemRange = 50;
-                 TreasureGoblinRange = 40;
+                 ItemRange = 75;
+                 TreasureGoblinRange = 55;
                  ShrineRange = shrinerange;
                  MinimumWeaponItemLevel = new int[] { 0, 59 };
                  MinimumArmorItemLevel = new int[] { 0, 59 };
@@ -683,12 +686,12 @@ namespace FunkyTrinity
                  MaximumHealthPotions = maxhealthpots;
                  MinimumGoldPile = mingoldpile;
 
-                 PickupGems = new bool[] { true, true, false, false };
+					  PickupGems=new bool[] { true, true, true, true };
 
                  MinimumGemItemLevel = minGemLevel;
-                 PickupCraftTomes = craftTomes;
-                 PickupCraftPlans = craftPlans;
-                 PickupFollowerItems = Followeritems;
+					  PickupCraftTomes=true;
+					  PickupCraftPlans=true;
+					  PickupFollowerItems=true;
                  MiscItemLevel = miscitemlevel;
                  UseLevelingLogic = itemlevelinglogic;
                  UseAdvancedProjectileTesting = projectiletesting;
@@ -700,9 +703,9 @@ namespace FunkyTrinity
                  EnableClusteringTargetLogic = true;
                  IgnoreClusteringWhenLowHP = true;
                  ClusterKillLowHPUnits = true;
-                 ClusterDistance = 10d;
-                 ClusterMinimumUnitCount = 3;
-                 IgnoreClusterLowHPValue = 0.50d;
+                 ClusterDistance = 9d;
+                 ClusterMinimumUnitCount = 2;
+                 IgnoreClusterLowHPValue = 0.55d;
 					  SkipAhead=true;
 
                  Class = new ClassSettings();
@@ -723,6 +726,7 @@ namespace FunkyTrinity
 
                  //Monk
                  public bool bMonkInnaSet { get; set; }
+					  public bool bMonkSpamMantra { get; set; }
 
                  //Wiz
                  public bool bWaitForArchon { get; set; }
@@ -744,9 +748,10 @@ namespace FunkyTrinity
                      bFuryDumpAlways = false;
                      iDHVaultMovementDelay = 400;
                      bMonkInnaSet = false;
+							bMonkSpamMantra=false;
                      bWaitForArchon = false;
                      bKiteOnlyArchon = false;
-                     GoblinMinimumRange = 35;
+                     GoblinMinimumRange = 40;
                  }
              }
          }

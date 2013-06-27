@@ -159,7 +159,7 @@ namespace FunkyTrinity
 					 if (Bot.KiteDistance>0
 						  &&(!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.SettingsFunky.GoblinPriority<2)
 						  &&DateTime.Now.Subtract(Bot.Combat.timeCancelledKiteMove).TotalMilliseconds>=Bot.Combat.iMillisecondsCancelledKiteMoveFor
-						  &&(Bot.Class.AC!=ActorClass.Wizard||(Bot.Class.AC==ActorClass.Wizard&&(!Bot.SettingsFunky.Class.bKiteOnlyArchon||HasBuff(SNOPower.Wizard_Archon)))))
+						  &&(Bot.Class.AC!=ActorClass.Wizard||(Bot.Class.AC==ActorClass.Wizard&&(!Bot.SettingsFunky.Class.bKiteOnlyArchon||Bot.Class.HasBuff(SNOPower.Wizard_Archon)))))
 					 {
 
 						  ////Find any units that we should kite, sorted by distance.
@@ -235,7 +235,7 @@ namespace FunkyTrinity
 						  }
 
 						  // Finally, a special check for waiting for wrath of the berserker cooldown before engaging Azmodan
-						  if (HotbarAbilitiesContainsPower(SNOPower.Barbarian_WrathOfTheBerserker)&&Bot.SettingsFunky.Class.bWaitForWrath&&!AbilityUseTimer(SNOPower.Barbarian_WrathOfTheBerserker)&&
+						  if (Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&Bot.SettingsFunky.Class.bWaitForWrath&&!Bot.Class.AbilityUseTimer(SNOPower.Barbarian_WrathOfTheBerserker)&&
 								ZetaDia.CurrentWorldId==121214&&
 								(Vector3.Distance(Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						  {
@@ -244,7 +244,7 @@ namespace FunkyTrinity
 								return true;
 						  }
 						  // And a special check for wizard archon
-						  if (HotbarAbilitiesContainsPower(SNOPower.Wizard_Archon)&&!AbilityUseTimer(SNOPower.Wizard_Archon)&&Bot.SettingsFunky.Class.bWaitForArchon&&ZetaDia.CurrentWorldId==121214&&
+						  if (Bot.Class.HotbarAbilities.Contains(SNOPower.Wizard_Archon)&&!Bot.Class.AbilityUseTimer(SNOPower.Wizard_Archon)&&Bot.SettingsFunky.Class.bWaitForArchon&&ZetaDia.CurrentWorldId==121214&&
 								(Vector3.Distance(Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						  {
 								Logging.Write("[Funky] Waiting for Wizard Archon cooldown before continuing to Azmodan.");
@@ -252,7 +252,7 @@ namespace FunkyTrinity
 								return true;
 						  }
 						  // And a very sexy special check for WD BigBadVoodoo
-						  if (HotbarAbilitiesContainsPower(SNOPower.Witchdoctor_BigBadVoodoo)&&!PowerManager.CanCast(SNOPower.Witchdoctor_BigBadVoodoo)&&ZetaDia.CurrentWorldId==121214&&
+						  if (Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_BigBadVoodoo)&&!PowerManager.CanCast(SNOPower.Witchdoctor_BigBadVoodoo)&&ZetaDia.CurrentWorldId==121214&&
 								(Vector3.Distance(Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						  {
 								Logging.Write("[Funky] Waiting for WD BigBadVoodoo cooldown before continuing to Azmodan.");
@@ -305,7 +305,7 @@ namespace FunkyTrinity
 					 //clear our last "avoid" list..
 					 ObjectCache.Objects.objectsIgnoredDueToAvoidance.Clear();
 					 bool bPrioritizeCloseRange=(Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted);
-					 bool bIsBerserked=HasBuff(SNOPower.Barbarian_WrathOfTheBerserker);
+					 bool bIsBerserked=Bot.Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker);
 					 double iHighestWeightFound=0;
 
 
@@ -361,7 +361,7 @@ namespace FunkyTrinity
 								if (!Bot.Class.IsMeleeClass&&CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Combat.NearbyAvoidances.Count>0)
 								{
 									 //Generate next ability..
-									 Ability nextAbility=GilesAbilitySelector();
+									 Ability nextAbility=Bot.Class.AbilitySelector();
 
 									 //Check if our range requires movement.
 									 if (nextAbility.CurrentBotRange>nextAbility.MinimumRange)
@@ -720,7 +720,7 @@ namespace FunkyTrinity
 						  {
 								//ToDo: Check clustering..
 								// Pick a suitable ability								Shielded units: Find destructible power instead.
-								Bot.Combat.powerPrime=GilesAbilitySelector(false, false,false);
+								Bot.Combat.powerPrime=Bot.Class.AbilitySelector(false, false,false);
 
 								//Check LOS still valid...
 								#region LOSUpdate
@@ -777,7 +777,7 @@ namespace FunkyTrinity
 
 						  // Select an ability for destroying a destructible with in advance
 						  if (CurrentTarget.targetType.Value==TargetType.Destructible||CurrentTarget.targetType==TargetType.Barricade)
-								Bot.Combat.powerPrime=GilesAbilitySelector(false, false, true);
+								Bot.Combat.powerPrime=Bot.Class.AbilitySelector(false, false, true);
 					 }
 					 #endregion
 
@@ -785,7 +785,7 @@ namespace FunkyTrinity
 					 // Note that we force a single-loop pause first, to help potion popping "go off"
 					 #region PotionCheck
 					 if (Bot.Character.dCurrentHealthPct<=Bot.EmergencyHealthPotionLimit
-							&&!Bot.Combat.bWaitingForPower&&!Bot.Combat.bWaitingForPotion&&!Bot.Character.bIsIncapacitated&&AbilityUseTimer(SNOPower.DrinkHealthPotion))
+							&&!Bot.Combat.bWaitingForPower&&!Bot.Combat.bWaitingForPotion&&!Bot.Character.bIsIncapacitated&&Bot.Class.AbilityUseTimer(SNOPower.DrinkHealthPotion))
 					 {
 						  Bot.Combat.bWaitingForPotion=true;
 						  CurrentState=RunStatus.Running;
@@ -794,7 +794,7 @@ namespace FunkyTrinity
 					 if (Bot.Combat.bWaitingForPotion)
 					 {
 						  Bot.Combat.bWaitingForPotion=false;
-						  if (!Bot.Character.bIsIncapacitated&&AbilityUseTimer(SNOPower.DrinkHealthPotion))
+						  if (!Bot.Character.bIsIncapacitated&&Bot.Class.AbilityUseTimer(SNOPower.DrinkHealthPotion))
 						  {
 								Bot.AttemptToUseHealthPotion();
 						  }
@@ -805,7 +805,7 @@ namespace FunkyTrinity
 					 #region AvoidanceSpecialAbilityCheck
 					 if (CurrentTarget.targetType.Value==TargetType.Avoidance)
 					 {
-						  Bot.Combat.powerBuff=GilesAbilitySelector(true, false, false);
+						  Bot.Combat.powerBuff=Bot.Class.AbilitySelector(true, false, false);
 						  if (Bot.Combat.powerBuff.Power!=SNOPower.None)
 						  {
 								ZetaDia.Me.UsePower(Bot.Combat.powerBuff.Power, Bot.Combat.powerBuff.TargetPosition, Bot.Combat.powerBuff.WorldID, Bot.Combat.powerBuff.TargetRAGUID);

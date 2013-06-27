@@ -1063,6 +1063,17 @@ namespace FunkyTrinity
 
                         break;
                     case Zeta.Internals.Actors.ActorClass.Monk:
+								CheckBox cbbMonkSpamMantra = new CheckBox
+                        {
+                            Content = "Spam Mantra Ability",
+                            Width = 300,
+                            Height = 30,
+                            IsChecked = (Bot.SettingsFunky.Class.bMonkSpamMantra)
+                        };
+								cbbMonkSpamMantra.Checked+=bMonkSpamMantraChecked;
+								cbbMonkSpamMantra.Unchecked+=bMonkSpamMantraChecked;
+								LBClass.Items.Add(cbbMonkSpamMantra);
+
                         CheckBox cbbMonkInnaSet = new CheckBox
                         {
                             Content = "Full Inna Set Bonus",
@@ -2022,60 +2033,97 @@ namespace FunkyTrinity
                 tcItems.Items.Add(ItemRulesTabItem);
                 ListBox lbItemRulesContent = new ListBox();
 
+					 StackPanel spItemRules=new StackPanel();
 					 #region ItemRules Checkbox
 					 ItemRules=new CheckBox
 					 {
-						  Content="Use Item Rules",
-						  Width=300,
+						  Content="Enable Item Rules",
 						  Height=30,
-						  IsChecked=(Bot.SettingsFunky.UseItemRules)
+						  IsChecked=(Bot.SettingsFunky.UseItemRules),
+						  FontSize=14,
+						  FontStyle= FontStyles.Oblique,
 
 					 };
 					 ItemRules.Checked+=ItemRulesChecked;
 					 ItemRules.Unchecked+=ItemRulesChecked;
-					 lbItemRulesContent.Items.Add(ItemRules); 
+					 spItemRules.Children.Add(ItemRules);
 					 #endregion
+					 TextBlock txt_ItemRulesOptions=new TextBlock
+					 {
+						  Text="Additional Rules",
+						  FontSize=12,
+						  Background=System.Windows.Media.Brushes.DarkSlateGray,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 spItemRules.Children.Add(txt_ItemRulesOptions);
+
+					 StackPanel spItemRulesOptions=new StackPanel
+					 {
+						  Orientation=Orientation.Horizontal,
+					 };
 					 #region ItemRules Pickup Checkbox
 					 ItemRulesPickup=new CheckBox
 					 {
-						  Content="Use Item Rules Pickup",
-						  Width=300,
+						  Content="ItemRules Pickup",
 						  Height=30,
-						  IsChecked=(Bot.SettingsFunky.UseItemRulesPickup)
+						  IsChecked=(Bot.SettingsFunky.UseItemRulesPickup),
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+10, Margin.Bottom),
 
 					 };
 					 ItemRulesPickup.Checked+=ItemRulesPickupChecked;
 					 ItemRulesPickup.Unchecked+=ItemRulesPickupChecked;
-					 lbItemRulesContent.Items.Add(ItemRulesPickup); 
+					 spItemRulesOptions.Children.Add(ItemRulesPickup); 
 					 #endregion
 					 #region ItemRules Salvage Checkbox
 					 CheckBox CBItemRulesSalvaging=new CheckBox
 					 {
-						  Content="Item Rules Salvaging",
-						  Width=300,
+						  Content="ItemRules Salvaging",
 						  Height=30,
 						  IsChecked=(Bot.SettingsFunky.ItemRulesSalvaging),
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+10, Margin.Bottom),
 					 };
 					 CBItemRulesSalvaging.Checked+=ItemRulesSalvagingChecked;
 					 CBItemRulesSalvaging.Unchecked+=ItemRulesSalvagingChecked;
-					 lbItemRulesContent.Items.Add(CBItemRulesSalvaging); 
+					 spItemRulesOptions.Children.Add(CBItemRulesSalvaging); 
 					 #endregion
+					 #region ItemRules Unid Stashing Checkbox
+					 CheckBox CBItemRulesUnidStashing=new CheckBox
+					 {
+						  Content="ItemRules Unid Stashing",
+						  Height=30,
+						  IsChecked=(Bot.SettingsFunky.ItemRulesUnidStashing),
+					 };
+					 CBItemRulesSalvaging.Checked+=ItemRulesUnidStashingChecked;
+					 CBItemRulesSalvaging.Unchecked+=ItemRulesUnidStashingChecked;
+					 spItemRulesOptions.Children.Add(CBItemRulesUnidStashing);
+					 #endregion
+					 spItemRules.Children.Add(spItemRulesOptions);
+					 #region ItemRules Rule Set
+					 TextBlock txt_ItemRulesRule=new TextBlock
+					 {
+						  Text="Rule Set",
+						  FontSize=12,
+						  Background=System.Windows.Media.Brushes.DarkSlateGray,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 spItemRules.Children.Add(txt_ItemRulesRule);
 
-                lbItemRulesContent.Items.Add("Rule Set");
-					 StackPanel spItemRules_RuleSet = new StackPanel
+					 StackPanel spItemRules_RuleSet=new StackPanel
 					 {
 						  Orientation=Orientation.Horizontal,
 					 };
 
-                ItemRuleType = new ComboBox
-                {
-                    Height = 30,
-						  Width = 150,
-                    ItemsSource = new ItemRuleTypes(),
-                    SelectedIndex=Bot.SettingsFunky.ItemRuleType.ToLower().Contains("soft")?1:Bot.SettingsFunky.ItemRuleType.ToLower().Contains("hard")?2:0,
-                    Text = Bot.SettingsFunky.ItemRuleType.ToString(),
-                };
-                ItemRuleType.SelectionChanged += ItemRulesTypeChanged;
+					 ItemRuleType=new ComboBox
+					 {
+						  Height=30,
+						  Width=150,
+						  ItemsSource=new ItemRuleTypes(),
+						  SelectedIndex=Bot.SettingsFunky.ItemRuleType.ToLower().Contains("soft")?1:Bot.SettingsFunky.ItemRuleType.ToLower().Contains("hard")?2:0,
+						  Text=Bot.SettingsFunky.ItemRuleType.ToString(),
+					 };
+					 ItemRuleType.SelectionChanged+=ItemRulesTypeChanged;
 					 spItemRules_RuleSet.Children.Add(ItemRuleType);
 
 					 tbCustomItemRulePath=new TextBox
@@ -2093,54 +2141,114 @@ namespace FunkyTrinity
 					 btnCustomItemRulesBrowse.Click+=ItemRulesBrowse_Click;
 					 spItemRules_RuleSet.Children.Add(btnCustomItemRulesBrowse);
 
-					 lbItemRulesContent.Items.Add(spItemRules_RuleSet);
+					 spItemRules.Children.Add(spItemRules_RuleSet); 
+					 #endregion
 
-                lbItemRulesContent.Items.Add("Log Items Keep");
-                ItemRuleLogKeep = new ComboBox
-                {
-                    Height = 30,
-                    Width = 300,
-                    ItemsSource = new ItemRuleQuality(),
-                    Text = Bot.SettingsFunky.ItemRuleLogKeep
-                };
-                ItemRuleLogKeep.SelectionChanged += ItemRulesLogKeepChanged;
-                lbItemRulesContent.Items.Add(ItemRuleLogKeep);
+					 #region ItemRulesLogging
+					 TextBlock txt_Header_ItemRulesLogging=new TextBlock
+					 {
+						  Text="Logging",
+						  FontSize=12,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Background=System.Windows.Media.Brushes.DarkSlateGray,
+						  Margin=new Thickness(Margin.Left, Margin.Top+10, Margin.Right, Margin.Bottom+5),
+					 };
+					 spItemRules.Children.Add(txt_Header_ItemRulesLogging);
 
-                lbItemRulesContent.Items.Add("Log Items Pickup");
-                ItemRuleLogPickup = new ComboBox
-                {
-                    Height = 30,
-                    Width = 300,
-                    ItemsSource = new ItemRuleQuality(),
-                    Text = Bot.SettingsFunky.ItemRuleLogPickup
-                };
-                ItemRuleLogPickup.SelectionChanged += ItemRulesLogPickupChanged;
-                lbItemRulesContent.Items.Add(ItemRuleLogPickup);
+					 StackPanel spItemRulesLogging=new StackPanel
+					 {
+						  Orientation=Orientation.Horizontal,
+					 };
+					 #region Log Items Stashed
+					 StackPanel spItemRulesLoggingKeep=new StackPanel();
+					 TextBlock txt_LogItemKeep=new TextBlock
+					 {
+						  Text="Items Stashed",
+						  FontSize=11,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 };
+					 spItemRulesLoggingKeep.Children.Add(txt_LogItemKeep);
+					 ItemRuleLogKeep=new ComboBox
+					 {
+						  Height=30,
+						  Width=150,
+						  ItemsSource=new ItemRuleQuality(),
+						  Text=Bot.SettingsFunky.ItemRuleLogKeep
+					 };
+					 ItemRuleLogKeep.SelectionChanged+=ItemRulesLogKeepChanged;
+					 spItemRulesLoggingKeep.Children.Add(ItemRuleLogKeep);
+					 spItemRulesLogging.Children.Add(spItemRulesLoggingKeep);
+					 #endregion
 
-                ItemRuleUseItemIDs = new CheckBox
-                {
-                    Content = "Use Item IDs",
-                    Width = 300,
-                    Height = 30,
-                    IsChecked = (Bot.SettingsFunky.ItemRuleUseItemIDs)
+					 #region Log Items Pickup
+					 StackPanel spItemRulesLoggingPickup=new StackPanel();
+					 TextBlock txt_LogItemPickup=new TextBlock
+					 {
+						  Text="Items Pickup",
+						  FontSize=11,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 };
+					 spItemRulesLoggingPickup.Children.Add(txt_LogItemPickup);
+					 ItemRuleLogPickup=new ComboBox
+					 {
+						  Height=30,
+						  Width=150,
+						  ItemsSource=new ItemRuleQuality(),
+						  Text=Bot.SettingsFunky.ItemRuleLogPickup
+					 };
+					 ItemRuleLogPickup.SelectionChanged+=ItemRulesLogPickupChanged;
+					 spItemRulesLoggingPickup.Children.Add(ItemRuleLogPickup);
+					 spItemRulesLogging.Children.Add(spItemRulesLoggingPickup);
+					 #endregion
 
-                };
-                ItemRuleUseItemIDs.Checked += ItemRulesItemIDsChecked;
-                ItemRuleUseItemIDs.Unchecked += ItemRulesItemIDsChecked;
-                lbItemRulesContent.Items.Add(ItemRuleUseItemIDs);
+					 spItemRules.Children.Add(spItemRulesLogging); 
+					 #endregion
 
-                ItemRuleDebug = new CheckBox
-                {
-                    Content = "Debug",
-                    Width = 300,
-                    Height = 30,
-                    IsChecked = (Bot.SettingsFunky.ItemRuleDebug)
+					 TextBlock txt_ItemRulesMisc=new TextBlock
+					 {
+						  Text="Misc",
+						  FontSize=12,
+						  Background=System.Windows.Media.Brushes.DarkSlateGray,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin=new Thickness(Margin.Left, Margin.Top+10, Margin.Right, Margin.Bottom+5),
+					 };
+					 spItemRules.Children.Add(txt_ItemRulesMisc);
 
-                };
-                ItemRuleDebug.Checked += ItemRulesDebugChecked;
-                ItemRuleDebug.Unchecked += ItemRulesDebugChecked;
-                lbItemRulesContent.Items.Add(ItemRuleDebug);
+					 StackPanel spItemRulesMisc=new StackPanel
+					 {
+						  Orientation= Orientation.Horizontal,
+					 };
+					 #region ItemRulesIDs
+					 ItemRuleUseItemIDs=new CheckBox
+					 {
+						  Content="Use Item IDs",
+						  Height=30,
+						  IsChecked=(Bot.SettingsFunky.ItemRuleUseItemIDs),
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 
+					 };
+					 ItemRuleUseItemIDs.Checked+=ItemRulesItemIDsChecked;
+					 ItemRuleUseItemIDs.Unchecked+=ItemRulesItemIDsChecked;
+					 spItemRulesMisc.Children.Add(ItemRuleUseItemIDs);
+					 
+					 #endregion
+					 #region ItemRulesDebug
+					 ItemRuleDebug=new CheckBox
+					 {
+						  Content="Debugging",
+						  Height=30,
+						  IsChecked=(Bot.SettingsFunky.ItemRuleDebug),
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom),
+
+					 };
+					 ItemRuleDebug.Checked+=ItemRulesDebugChecked;
+					 ItemRuleDebug.Unchecked+=ItemRulesDebugChecked;
+					 spItemRulesMisc.Children.Add(ItemRuleDebug);
+					 
+					 #endregion
+					 spItemRules.Children.Add(spItemRulesMisc);
+
+					 lbItemRulesContent.Items.Add(spItemRules);
 
                 ItemRulesReload = new Button
                 {
@@ -2491,11 +2599,11 @@ namespace FunkyTrinity
 					 TextBlock Text_Header_ItemPickup=new TextBlock
 					 {
 						  Text="Item Level Pickup",
-						  FontSize=12,
-						  Background=System.Windows.Media.Brushes.DarkGreen,
+						  FontSize=14,
+						  Background=System.Windows.Media.Brushes.DimGray,
 						  Foreground=System.Windows.Media.Brushes.GhostWhite,
 						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
-						  TextAlignment= TextAlignment.Left,
+						  TextAlignment= TextAlignment.Center,
 					 };
 					 spItemPickup.Children.Add(Text_Header_ItemPickup);
 					 spItemPickup.Children.Add(spItemPickupLevel);

@@ -14,7 +14,7 @@ namespace FunkyTrinity
 		  internal static partial class Bot
 		  {
 				internal static Settings_Funky SettingsFunky=new Settings_Funky(false, false, false, false, false, false, false, 4, 8, 3, 1.5d, true, 20, false, false, "hard", "Rare", "Rare", true, false, 0, 10, 30, 60, 0.6d, 0.4d, true, 2, 250, false, 60, 30, 40, new int[1], new int[1], new int[1], 1, 100, 300, new bool[3], 60, true, true, true, 59, false, 75000, 25000, 25000, false, false);
-				internal static CharacterInfo Class { get; set; }
+				internal static Player Class { get; set; }
 				internal static CharacterCache Character { get; set; }
 				internal static CombatCache Combat { get; set; }
 				internal static TargetHandler Target { get; set; }
@@ -224,7 +224,7 @@ namespace FunkyTrinity
 					 {//Not Critical Avoidance, should we be in total ignorance because of a buff?
 
 						  // Monks with Serenity up ignore all AOE's
-						  if (Class.AC==ActorClass.Monk&&Class.HotbarAbilities.Contains(SNOPower.Monk_Serenity)&&HasBuff(SNOPower.Monk_Serenity))
+						  if (Class.AC==ActorClass.Monk&&Class.HotbarAbilities.Contains(SNOPower.Monk_Serenity)&&Class.HasBuff(SNOPower.Monk_Serenity))
 						  {
 								// Monks with serenity are immune
 								return true;
@@ -232,7 +232,7 @@ namespace FunkyTrinity
 						  }// Witch doctors with spirit walk available and not currently Spirit Walking will subtly ignore ice balls, arcane, desecrator & plague cloud
 						  else if (Class.AC==ActorClass.WitchDoctor
 								&&Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_SpiritWalk)
-								&&(!HasBuff(SNOPower.Witchdoctor_SpiritWalk)&&AbilityUseTimer(SNOPower.Witchdoctor_SpiritWalk))||HasBuff(SNOPower.Witchdoctor_SpiritWalk))
+								&&(!Class.HasBuff(SNOPower.Witchdoctor_SpiritWalk)&&Class.AbilityUseTimer(SNOPower.Witchdoctor_SpiritWalk))||Class.HasBuff(SNOPower.Witchdoctor_SpiritWalk))
 						  {
 								switch (thisAvoidance)
 								{
@@ -243,7 +243,7 @@ namespace FunkyTrinity
 										  return true;
 								}
 						  }
-						  else if (Class.AC==ActorClass.Barbarian&&Class.HotbarAbilities.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))
+						  else if (Class.AC==ActorClass.Barbarian&&Class.HotbarAbilities.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))
 						  {
 								switch (thisAvoidance)
 								{
@@ -261,6 +261,26 @@ namespace FunkyTrinity
 				}
 
 				#endregion
+
+				private static HashSet<int> hashActorSNOKitingIgnore_;
+				internal static HashSet<int> HashActorSNOKitingIgnore
+				{
+					 get 
+					 {
+						  if (hashActorSNOKitingIgnore_==null)
+						  {
+								hashActorSNOKitingIgnore_=new HashSet<int> { 4095, 144315 };
+								//burrowing units
+								hashActorSNOKitingIgnore_.UnionWith(SnoCacheLookup.hashActorSNOBurrowableUnits);
+								//grunts
+								hashActorSNOKitingIgnore_.UnionWith(SnoCacheLookup.hashActorSNOSummonedUnit);
+								//LOS exceptions (gyser, heart of sin)
+								hashActorSNOKitingIgnore_.UnionWith(SnoCacheLookup.hashActorSNOIgnoreLOSCheck);
+						  }
+						  return Bot.hashActorSNOKitingIgnore_; 
+					 }
+				}
+
 
 				internal static void UpdateAvoidKiteRates(bool Reset=false)
 				{
@@ -287,11 +307,11 @@ namespace FunkyTrinity
 					 Zeta.Internals.Actors.ACDItem thisBestPotion=Character.BackPack.BestPotionToUse;
 					 if (thisBestPotion!=null)
 					 {
-						  WaitWhileAnimating(4, true);
+						  Bot.Character.WaitWhileAnimating(4, true);
 						  ZetaDia.Me.Inventory.UseItem((thisBestPotion.DynamicId));
 					 }
 					 dictAbilityLastUse[Zeta.Internals.Actors.SNOPower.DrinkHealthPotion]=DateTime.Now;
-					 WaitWhileAnimating(3, true);
+					 Bot.Character.WaitWhileAnimating(3, true);
 				}
 
 				internal static void Reset()

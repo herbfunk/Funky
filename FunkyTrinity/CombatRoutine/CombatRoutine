@@ -23,15 +23,8 @@ namespace GilesBlankCombatRoutine
             new System.Action(
             () =>
             {
-                Window mainWindow = System.Windows.Application.Current.MainWindow;
-                try
-                {
-                    mainWindow.Title = "DB - " + ZetaDia.Service.CurrentHero.BattleTagName;
-                }
-                catch
-                {
+					 System.Windows.Window mainWindow=System.Windows.Application.Current.MainWindow;
 
-                }
                 var tab = mainWindow.FindName("tabControlMain") as TabControl;
                 if (tab == null) return;
                 var infoDumpTab = tab.Items[0] as TabItem;
@@ -76,7 +69,7 @@ namespace GilesBlankCombatRoutine
 
         public override string Name { get { return "Funky"; } }
 
-        public override Window ConfigWindow { get { return null; } }
+        public override Window ConfigWindow { get { return new Window(); } }
 
         public override ActorClass Class { get { return ZetaDia.Me.ActorClass; } }
 

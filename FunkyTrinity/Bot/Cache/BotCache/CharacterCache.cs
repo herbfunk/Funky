@@ -313,6 +313,34 @@ namespace FunkyTrinity
 									 CurrentSNOAnim=ZetaDia.Me.CommonData.CurrentAnimation;
 						  }
 					 }
+					 // **********************************************************************************************
+					 // *****      Quick and Dirty routine just to force a wait until the character is "free"    *****
+					 // **********************************************************************************************
+					 internal void WaitWhileAnimating(int iMaxSafetyLoops=10, bool bWaitForAttacking=false)
+					 {
+						  bool bKeepLooping=true;
+						  int iSafetyLoops=0;
+						  while (bKeepLooping)
+						  {
+								iSafetyLoops++;
+								if (iSafetyLoops>iMaxSafetyLoops)
+									 bKeepLooping=false;
+								bool bIsAnimating=false;
+								try
+								{
+									 UpdateAnimationState();
+									 if (CurrentAnimationState==AnimationState.Casting||CurrentAnimationState==AnimationState.Channeling)
+										  bIsAnimating=true;
+									 if (bWaitForAttacking&&(CurrentAnimationState==AnimationState.Attacking))
+										  bIsAnimating=true;
+								} catch (NullReferenceException)
+								{
+									 bIsAnimating=true;
+								}
+								if (!bIsAnimating)
+									 bKeepLooping=false;
+						  }
+					 }
 
 					 //Subclass: Holds data on current player pet counts
 					 internal class Pets

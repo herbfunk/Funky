@@ -515,6 +515,10 @@ namespace FunkyTrinity
              {
                  Bot.SettingsFunky.Class.bMonkInnaSet = !Bot.SettingsFunky.Class.bMonkInnaSet;
              }
+				 private void bMonkSpamMantraChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.Class.bMonkSpamMantra=!Bot.SettingsFunky.Class.bMonkSpamMantra;
+				 }
              private void iDHVaultMovementDelaySliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
@@ -652,6 +656,10 @@ namespace FunkyTrinity
              {
                  Bot.SettingsFunky.ItemRulesSalvaging = !Bot.SettingsFunky.ItemRulesSalvaging;
              }
+				 private void ItemRulesUnidStashingChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.ItemRulesUnidStashing=!Bot.SettingsFunky.ItemRulesUnidStashing;
+				 }
              //UseLevelingLogic
              private void ItemRulesReload_Click(object sender, EventArgs e)
              {

@@ -177,10 +177,10 @@ namespace FunkyTrinity
 						  while (!ZetaDia.Me.IsInTown)
 						  {
 								iSafetyLoops++;
-								Funky.WaitWhileAnimating(5, true);
+								Funky.Bot.Character.WaitWhileAnimating(5, true);
 								ZetaDia.Me.UsePower(SNOPower.UseStoneOfRecall, ZetaDia.Me.Position, ZetaDia.Me.WorldDynamicId, -1);
 								Thread.Sleep(1000);
-								Funky.WaitWhileAnimating(1000, true);
+								Funky.Bot.Character.WaitWhileAnimating(1000, true);
 								if (iSafetyLoops>5)
 									 break;
 						  }
@@ -201,10 +201,10 @@ namespace FunkyTrinity
 									 while (!ZetaDia.Me.IsInTown)
 									 {
 										  iSafetyLoops++;
-										  Funky.WaitWhileAnimating(5, true);
+										  Funky.Bot.Character.WaitWhileAnimating(5, true);
 										  ZetaDia.Me.UsePower(SNOPower.UseStoneOfRecall, ZetaDia.Me.Position, ZetaDia.Me.WorldDynamicId, -1);
 										  Thread.Sleep(1000);
-										  Funky.WaitWhileAnimating(1000, true);
+										  Funky.Bot.Character.WaitWhileAnimating(1000, true);
 										  if (iSafetyLoops>5)
 												break;
 									 }
@@ -469,7 +469,7 @@ namespace FunkyTrinity
 						  SNOPower MovementPower;
 						  if (Bot.Class.FindSpecialMovementPower(out MovementPower))
 						  {
-								double lastUsedAbilityMS=AbilityLastUseMS(MovementPower);
+								double lastUsedAbilityMS=Bot.Class.AbilityLastUseMS(MovementPower);
 								bool foundMovementPower=false;
 								bool checkShrines=false;
 								float pointDistance=0f;

@@ -74,8 +74,7 @@ namespace FunkyTrinity
 					 {
 						  monstercount=0;
 						  avoidcount=0;
-						  if (ResetIndex)
-								LastIndexUsed=0;
+						  if (ResetIndex) LastIndexUsed=0;
 
 						  OccupiedObjects.Clear();
 
