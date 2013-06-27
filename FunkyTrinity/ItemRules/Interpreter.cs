@@ -158,7 +158,12 @@ namespace FunkyTrinity
 				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "KEEPLOG = {0} ", logKeepQuality);
 
 				string rulesPath;
-				rulesPath=Path.Combine(itemrulesPath, "Rules", FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleType.ToString().ToLower());
+				if (FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleType.Equals("Custom"))
+				{
+					 rulesPath=Path.GetFullPath(FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleCustomPath);
+				}
+				else
+					 rulesPath=Path.Combine(itemrulesPath, "Rules", FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleType.ToString().ToLower());
 
 				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "RULEPATH = {0} ", rulesPath);
 
@@ -178,11 +183,11 @@ namespace FunkyTrinity
 				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "... loaded: {0} Pickup rules", pickUpRuleSet.Count);
 
 				//parse savlage file
-				salvageRuleSet=readLinesToArray(new StreamReader(Path.Combine(rulesPath, salvageFile)), salvageRuleSet);
+				salvageRuleSet=readLinesToArray(new StreamReader(Path.Combine(itemrulesPath, "Rules", salvageFile)), salvageRuleSet);
 				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "... loaded: {0} Salvage rules", salvageRuleSet.Count);
 
 				//parse unid keep file
-				unidKeepRuleSet=readLinesToArray(new StreamReader(Path.Combine(rulesPath, unidFile)), unidKeepRuleSet);
+				unidKeepRuleSet=readLinesToArray(new StreamReader(Path.Combine(itemrulesPath, "Rules", unidFile)), unidKeepRuleSet);
 				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "... loaded: {0} Unid Keep rules", unidKeepRuleSet.Count);
 
 				// parse all item files

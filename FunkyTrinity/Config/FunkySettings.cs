@@ -93,8 +93,9 @@ namespace FunkyTrinity
                  configWriter.WriteLine("TreasureGoblinRange=" + Bot.SettingsFunky.TreasureGoblinRange.ToString());
 					  configWriter.WriteLine("SkipAhead="+Bot.SettingsFunky.SkipAhead.ToString());
 					  configWriter.WriteLine("GlobeRange="+Bot.SettingsFunky.GlobeRange.ToString());
+					  configWriter.WriteLine("ItemRuleCustomPath="+(!String.IsNullOrEmpty(Bot.SettingsFunky.ItemRuleCustomPath)?Bot.SettingsFunky.ItemRuleCustomPath.ToString():""));
 
-					  //GlobeRange
+					  //
 					  switch (Bot.ActorClass)
                  {
                      case Zeta.Internals.Actors.ActorClass.Barbarian:
@@ -506,6 +507,9 @@ namespace FunkyTrinity
 											case "GlobeRange":
 												 Bot.SettingsFunky.GlobeRange=Convert.ToInt32(config[1]);
 												 break;
+											case "ItemRuleCustomPath":
+												 Bot.SettingsFunky.ItemRuleCustomPath=config[1];
+												 break;
 											//GlobeRange
                              }
                          }
@@ -531,8 +535,6 @@ namespace FunkyTrinity
              public bool OOCIdentifyItems { get; set; }
              public bool BuyPotionsDuringTownRun { get; set; }
              public bool EnableWaitAfterContainers { get; set; }
-             public bool UseItemRulesPickup { get; set; }
-             public bool UseItemRules { get; set; }
              public bool UseExtendedRangeRepChest { get; set; }
              public bool EnableCoffeeBreaks { get; set; }
              public int MinBreakTime { get; set; }
@@ -567,10 +569,13 @@ namespace FunkyTrinity
              public int ExtendedCombatRange { get; set; }
 
              //Item Rules Additions
+				 public bool UseItemRulesPickup { get; set; }
+				 public bool UseItemRules { get; set; }
              public bool ItemRulesSalvaging { get; set; }
              public bool ItemRuleUseItemIDs { get; set; }
              public bool ItemRuleDebug { get; set; }
              public string ItemRuleType { get; set; }
+				 public string ItemRuleCustomPath { get; set; }
              public string ItemRuleLogPickup { get; set; }
              public string ItemRuleLogKeep { get; set; }
              public bool ItemRuleGilesScoring { get; set; }
@@ -624,7 +629,7 @@ namespace FunkyTrinity
                  LogStuckLocations = true;
                  RestartGameOnLongStucks = true;
                  EnableUnstucker = true;
-
+					  ItemRuleCustomPath="";
                  AvoidanceRecheckMaximumRate = 3500;
                  AvoidanceRecheckMinimumRate = 550;
                  KitingRecheckMaximumRate = 4500;

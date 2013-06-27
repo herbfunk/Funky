@@ -81,6 +81,7 @@ namespace FunkyTrinity
             private TextBox TBBreakTimeHour, TBKiteDistance, TBGlobeHealth, TBPotionHealth, TBContainerRange, TBNonEliteRange, TBDestructibleRange, TBAfterCombatDelay, TBiDHVaultMovementDelay, TBShrineRange, TBEliteRange, TBExtendedCombatRange, TBGoldRange, TBMinLegendaryLevel, TBMaxHealthPots, TBMinGoldPile, TBMiscItemLevel, TBGilesWeaponScore, TBGilesArmorScore, TBGilesJeweleryScore, TBClusterDistance, TBClusterMinUnitCount, TBItemRange, TBGoblinRange, TBGoblinMinRange, TBClusterLowHPValue, TBGlobeRange;
             private TextBox[] TBKiteTimeLimits;
             private TextBox[] TBAvoidanceTimeLimits;
+				private TextBox tbCustomItemRulePath;
 
             private ListBox LBDebug;
 
@@ -1660,7 +1661,6 @@ namespace FunkyTrinity
                 tcGeneral.Items.Add(GeneralTab);
                 lbGeneralContent = new ListBox();
 
-
                 #region OOCItemBehavior
                 StackPanel OOCItemBehaviorStackPanel = new StackPanel
                 {
@@ -1723,6 +1723,19 @@ namespace FunkyTrinity
                 OOCItemBehaviorStackPanel.Children.Add(OOCIdentfyItemsMinCount);
                 lbGeneralContent.Items.Add(OOCItemBehaviorStackPanel);
                 #endregion
+
+					 #region LevelingLogic
+					 CheckBox LevelingLogic=new CheckBox
+					 {
+						  Content="Leveling Item Logic",
+						  Width=300,
+						  Height=30,
+						  IsChecked=(Bot.SettingsFunky.UseLevelingLogic),
+					 };
+					 LevelingLogic.Checked+=ItemLevelingLogicChecked;
+					 LevelingLogic.Unchecked+=ItemLevelingLogicChecked;
+					 lbGeneralContent.Items.Add(LevelingLogic);
+					 #endregion
 
                 #region PotionsDuringTownRun
                 BuyPotionsDuringTownRunCB = new CheckBox
@@ -2003,103 +2016,84 @@ namespace FunkyTrinity
                     Height = 600
                 };
 
-                #region ItemGeneral
-                TabItem ItemGeneralTabItem = new TabItem();
-                ItemGeneralTabItem.Header = "General";
-                tcItems.Items.Add(ItemGeneralTabItem);
-                ListBox lbLootContent = new ListBox();
-
-                lbLootContent.Items.Add("Default Scoring Option");
-                ItemRuleGilesScoring = new RadioButton
-                {
-                    GroupName = "Scoring",
-                    Content = "Giles Item Scoring",
-                    Width = 300,
-                    Height = 30,
-                    IsChecked = Bot.SettingsFunky.ItemRuleGilesScoring
-                };
-                ItemRuleDBScoring = new RadioButton
-                {
-                    GroupName = "Scoring",
-                    Content = "DB Weight Scoring",
-                    Width = 300,
-                    Height = 30,
-                    IsChecked = !Bot.SettingsFunky.ItemRuleGilesScoring
-                };
-
-                ItemRuleGilesScoring.Checked += ItemRulesScoringChanged;
-                ItemRuleDBScoring.Checked += ItemRulesScoringChanged;
-                lbLootContent.Items.Add(ItemRuleGilesScoring);
-                lbLootContent.Items.Add(ItemRuleDBScoring);
-
-                CheckBox LevelingLogic = new CheckBox
-                {
-                    Content = "Leveling Item Logic",
-                    Width = 300,
-                    Height = 30,
-                    IsChecked = (Bot.SettingsFunky.UseLevelingLogic),
-                };
-                LevelingLogic.Checked += ItemLevelingLogicChecked;
-                LevelingLogic.Unchecked += ItemLevelingLogicChecked;
-                lbLootContent.Items.Add(LevelingLogic);
-
-                ItemGeneralTabItem.Content = lbLootContent;
-                #endregion
-
                 #region ItemRules
                 TabItem ItemRulesTabItem = new TabItem();
                 ItemRulesTabItem.Header = "Item Rules";
                 tcItems.Items.Add(ItemRulesTabItem);
                 ListBox lbItemRulesContent = new ListBox();
 
-                ItemRules = new CheckBox
-                {
-                    Content = "Use Item Rules",
-                    Width = 300,
-                    Height = 30,
-                    IsChecked = (Bot.SettingsFunky.UseItemRules)
+					 #region ItemRules Checkbox
+					 ItemRules=new CheckBox
+					 {
+						  Content="Use Item Rules",
+						  Width=300,
+						  Height=30,
+						  IsChecked=(Bot.SettingsFunky.UseItemRules)
 
-                };
-                ItemRules.Checked += ItemRulesChecked;
-                ItemRules.Unchecked += ItemRulesChecked;
-                lbItemRulesContent.Items.Add(ItemRules);
+					 };
+					 ItemRules.Checked+=ItemRulesChecked;
+					 ItemRules.Unchecked+=ItemRulesChecked;
+					 lbItemRulesContent.Items.Add(ItemRules); 
+					 #endregion
+					 #region ItemRules Pickup Checkbox
+					 ItemRulesPickup=new CheckBox
+					 {
+						  Content="Use Item Rules Pickup",
+						  Width=300,
+						  Height=30,
+						  IsChecked=(Bot.SettingsFunky.UseItemRulesPickup)
 
-                ItemRulesPickup = new CheckBox
-                {
-                    Content = "Use Item Rules Pickup",
-                    Width = 300,
-                    Height = 30,
-                    IsChecked = (Bot.SettingsFunky.UseItemRulesPickup)
-
-                };
-                ItemRulesPickup.Checked += ItemRulesPickupChecked;
-                ItemRulesPickup.Unchecked += ItemRulesPickupChecked;
-                lbItemRulesContent.Items.Add(ItemRulesPickup);
-
-                CheckBox CBItemRulesSalvaging = new CheckBox
-                {
-                    Content = "Item Rules Salvaging",
-                    Width = 300,
-                    Height = 30,
-                    IsChecked = (Bot.SettingsFunky.ItemRulesSalvaging),
-                };
-                CBItemRulesSalvaging.Checked += ItemRulesSalvagingChecked;
-                CBItemRulesSalvaging.Unchecked += ItemRulesSalvagingChecked;
-                lbItemRulesContent.Items.Add(CBItemRulesSalvaging);
+					 };
+					 ItemRulesPickup.Checked+=ItemRulesPickupChecked;
+					 ItemRulesPickup.Unchecked+=ItemRulesPickupChecked;
+					 lbItemRulesContent.Items.Add(ItemRulesPickup); 
+					 #endregion
+					 #region ItemRules Salvage Checkbox
+					 CheckBox CBItemRulesSalvaging=new CheckBox
+					 {
+						  Content="Item Rules Salvaging",
+						  Width=300,
+						  Height=30,
+						  IsChecked=(Bot.SettingsFunky.ItemRulesSalvaging),
+					 };
+					 CBItemRulesSalvaging.Checked+=ItemRulesSalvagingChecked;
+					 CBItemRulesSalvaging.Unchecked+=ItemRulesSalvagingChecked;
+					 lbItemRulesContent.Items.Add(CBItemRulesSalvaging); 
+					 #endregion
 
                 lbItemRulesContent.Items.Add("Rule Set");
-                
+					 StackPanel spItemRules_RuleSet = new StackPanel
+					 {
+						  Orientation=Orientation.Horizontal,
+					 };
+
                 ItemRuleType = new ComboBox
                 {
                     Height = 30,
-                    Width = 300,
+						  Width = 150,
                     ItemsSource = new ItemRuleTypes(),
                     SelectedIndex=Bot.SettingsFunky.ItemRuleType.ToLower().Contains("soft")?1:Bot.SettingsFunky.ItemRuleType.ToLower().Contains("hard")?2:0,
                     Text = Bot.SettingsFunky.ItemRuleType.ToString(),
                 };
                 ItemRuleType.SelectionChanged += ItemRulesTypeChanged;
-                lbItemRulesContent.Items.Add(ItemRuleType);
+					 spItemRules_RuleSet.Children.Add(ItemRuleType);
 
+					 tbCustomItemRulePath=new TextBox
+					 {
+						  Height=30,
+						  Width=300,
+						  Text=Bot.SettingsFunky.ItemRuleCustomPath,
+					 };
+					 spItemRules_RuleSet.Children.Add(tbCustomItemRulePath);
+
+					 Button btnCustomItemRulesBrowse=new Button
+					 {
+						  Content="Browse",
+					 };
+					 btnCustomItemRulesBrowse.Click+=ItemRulesBrowse_Click;
+					 spItemRules_RuleSet.Children.Add(btnCustomItemRulesBrowse);
+
+					 lbItemRulesContent.Items.Add(spItemRules_RuleSet);
 
                 lbItemRulesContent.Items.Add("Log Items Keep");
                 ItemRuleLogKeep = new ComboBox
@@ -2157,6 +2151,45 @@ namespace FunkyTrinity
                 ItemRulesReload.Click += ItemRulesReload_Click;
                 lbItemRulesContent.Items.Add(ItemRulesReload);
 
+
+
+					 #region DefaultItemScoring
+					 StackPanel spDefaultItemScoring=new StackPanel();
+					 TextBlock Text_DefaultItemScoring=new TextBlock
+					 {
+						  Text="Default Scoring Option",
+						  FontSize=12,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
+						  TextAlignment=TextAlignment.Left,
+					 };
+					 spDefaultItemScoring.Children.Add(Text_DefaultItemScoring);
+					 ItemRuleGilesScoring=new RadioButton
+					 {
+						  GroupName="Scoring",
+						  Content="Giles Item Scoring",
+						  Width=300,
+						  Height=30,
+						  IsChecked=Bot.SettingsFunky.ItemRuleGilesScoring,
+						  IsEnabled=!Bot.SettingsFunky.UseItemRules,
+					 };
+					 ItemRuleDBScoring=new RadioButton
+					 {
+						  GroupName="Scoring",
+						  Content="DB Weight Scoring",
+						  Width=300,
+						  Height=30,
+						  IsChecked=!Bot.SettingsFunky.ItemRuleGilesScoring,
+						  IsEnabled=!Bot.SettingsFunky.UseItemRules,
+					 };
+					 ItemRuleGilesScoring.Checked+=ItemRulesScoringChanged;
+					 ItemRuleDBScoring.Checked+=ItemRulesScoringChanged;
+					 spDefaultItemScoring.Children.Add(ItemRuleGilesScoring);
+					 spDefaultItemScoring.Children.Add(ItemRuleDBScoring);
+					 lbItemRulesContent.Items.Add(spDefaultItemScoring);
+					 #endregion
+
+
                 ItemRulesTabItem.Content = lbItemRulesContent;
                 #endregion
 
@@ -2166,259 +2199,394 @@ namespace FunkyTrinity
                 tcItems.Items.Add(ItemGilesTabItem);
                 ListBox lbGilesContent = new ListBox();
 
-                lbGilesContent.Items.Add("Item Level Pickup");
-                #region minimumWeaponILevel
-                TextBlock txt_weaponIlvl = new TextBlock
-                {
-                    Text = "Weapons",
-                    FontSize = 12,
-                    Background = System.Windows.Media.Brushes.DarkSlateGray,
-                };
-                lbGilesContent.Items.Add(txt_weaponIlvl);
+					 #region Item Level Pickup
+					 StackPanel spItemPickupLevel=new StackPanel
+					 {
+						  Orientation=Orientation.Horizontal,
+					 };
+					 #region minimumWeaponILevel
+					 StackPanel spWeaponPickupLevel=new StackPanel
+					 {
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
+					 };
 
-                TextBlock txt_weaponMagical = new TextBlock
-                {
-                    Text = "Magic",
-                    FontSize = 12,
-                    Background = System.Windows.Media.Brushes.LightSteelBlue,
-                };
-                TBMinimumWeaponLevel = new TextBox[2];
-                Slider weaponMagicLevelSlider = new Slider
-                {
-                    Name = "Magic",
-                    Width = 120,
-                    Maximum = 63,
-                    Minimum = 0,
-                    TickFrequency = 5,
-                    LargeChange = 5,
-                    SmallChange = 1,
-                    Value = Bot.SettingsFunky.MinimumWeaponItemLevel[0],
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
-                };
-                weaponMagicLevelSlider.ValueChanged += WeaponItemLevelSliderChanged;
-                TBMinimumWeaponLevel[0] = new TextBox
-                {
-                    Text = Bot.SettingsFunky.MinimumWeaponItemLevel[0].ToString(),
-                    IsReadOnly = true,
-                };
+					 TextBlock txt_weaponIlvl=new TextBlock
+					 {
+						  Text="Weapons",
+						  FontSize=12,
+						  Background=System.Windows.Media.Brushes.DarkSlateGray,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 spWeaponPickupLevel.Children.Add(txt_weaponIlvl);
 
-                TextBlock txt_weaponRare = new TextBlock
-                {
-                    Text = "Rare",
-                    FontSize = 12,
-                    Background = System.Windows.Media.Brushes.LightGoldenrodYellow,
-                };
-                Slider weaponRareLevelSlider = new Slider
-                {
-                    Name = "Rare",
-                    Width = 120,
-                    Maximum = 63,
-                    Minimum = 0,
-                    TickFrequency = 5,
-                    LargeChange = 5,
-                    SmallChange = 1,
-                    Value = Bot.SettingsFunky.MinimumWeaponItemLevel[1],
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Right,
-                };
-                weaponRareLevelSlider.ValueChanged += WeaponItemLevelSliderChanged;
-                TBMinimumWeaponLevel[1] = new TextBox
-                {
-                    Text = Bot.SettingsFunky.MinimumWeaponItemLevel[1].ToString(),
-                    IsReadOnly = true,
-                };
-                StackPanel weaponLevelSPanel = new StackPanel
-                {
-                    Width = 600,
-                    Height = 20,
-                    Orientation = Orientation.Horizontal,
-                };
-                weaponLevelSPanel.Children.Add(txt_weaponMagical);
-                weaponLevelSPanel.Children.Add(weaponMagicLevelSlider);
-                weaponLevelSPanel.Children.Add(TBMinimumWeaponLevel[0]);
-                weaponLevelSPanel.Children.Add(txt_weaponRare);
-                weaponLevelSPanel.Children.Add(weaponRareLevelSlider);
-                weaponLevelSPanel.Children.Add(TBMinimumWeaponLevel[1]);
-                lbGilesContent.Items.Add(weaponLevelSPanel);
-                #endregion
-                #region minimumArmorILevel
-                TBMinimumArmorLevel = new TextBox[2];
-                TextBlock txt_armorIlvl = new TextBlock
-                {
-                    Text = "Armor",
-                    FontSize = 12,
-                    Background = System.Windows.Media.Brushes.DarkSlateGray,
-                };
-                lbGilesContent.Items.Add(txt_armorIlvl);
-
-                TextBlock txt_armorMagic = new TextBlock
-                {
-                    Text = "Magic",
-                    FontSize = 12,
-                    Background = System.Windows.Media.Brushes.LightSteelBlue,
-                };
-                Slider armorMagicLevelSlider = new Slider
-                {
-                    Name = "Magic",
-                    Width = 120,
-                    Maximum = 63,
-                    Minimum = 0,
-                    TickFrequency = 5,
-                    LargeChange = 5,
-                    SmallChange = 1,
-                    Value = Bot.SettingsFunky.MinimumArmorItemLevel[0],
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
-                };
-                armorMagicLevelSlider.ValueChanged += ArmorItemLevelSliderChanged;
-                TBMinimumArmorLevel[0] = new TextBox
-                {
-                    Text = Bot.SettingsFunky.MinimumArmorItemLevel[0].ToString(),
-                    IsReadOnly = true,
-                };
-
-                TextBlock txt_armorRare = new TextBlock
-                {
-                    Text = "Rare",
-                    FontSize = 12,
-                    Background = System.Windows.Media.Brushes.LightGoldenrodYellow,
-                };
-                Slider armorRareLevelSlider = new Slider
-                {
-                    Name = "Rare",
-                    Maximum = 63,
-                    Minimum = 0,
-                    TickFrequency = 5,
-                    LargeChange = 5,
-                    SmallChange = 1,
-                    Width = 120,
-                    Value = Bot.SettingsFunky.MinimumArmorItemLevel[1],
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Right,
-                };
-                armorRareLevelSlider.ValueChanged += ArmorItemLevelSliderChanged;
-                TBMinimumArmorLevel[1] = new TextBox
-                {
-                    Text = Bot.SettingsFunky.MinimumArmorItemLevel[1].ToString(),
-                    IsReadOnly = true,
-                };
-                StackPanel armorLevelSPanel = new StackPanel
-                {
-                    Width = 600,
-                    Height = 20,
-                    Orientation = Orientation.Horizontal,
-                };
-                armorLevelSPanel.Children.Add(txt_armorMagic);
-                armorLevelSPanel.Children.Add(armorMagicLevelSlider);
-                armorLevelSPanel.Children.Add(TBMinimumArmorLevel[0]);
-                armorLevelSPanel.Children.Add(txt_armorRare);
-                armorLevelSPanel.Children.Add(armorRareLevelSlider);
-                armorLevelSPanel.Children.Add(TBMinimumArmorLevel[1]);
-                lbGilesContent.Items.Add(armorLevelSPanel);
-                #endregion
-                #region minimumJeweleryILevel
-                TBMinimumJeweleryLevel = new TextBox[2];
-                TextBlock txt_jeweleryIlvl = new TextBlock
-                {
-                    Text = "Jewelery",
-                    FontSize = 12,
-                    Background = System.Windows.Media.Brushes.DarkSlateGray,
-                };
-                lbGilesContent.Items.Add(txt_jeweleryIlvl);
-
-                TextBlock txt_jeweleryMagic = new TextBlock
-                {
-                    Text = "Magic",
-                    FontSize = 12,
-                    Background = System.Windows.Media.Brushes.LightSteelBlue,
-                };
-                Slider jeweleryMagicLevelSlider = new Slider
-                {
-                    Name = "Magic",
-                    Width = 120,
-                    Maximum = 63,
-                    Minimum = 0,
-                    TickFrequency = 5,
-                    LargeChange = 5,
-                    SmallChange = 1,
-                    Value = Bot.SettingsFunky.MinimumJeweleryItemLevel[0],
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
-                };
-                jeweleryMagicLevelSlider.ValueChanged += JeweleryItemLevelSliderChanged;
-                TBMinimumJeweleryLevel[0] = new TextBox
-                {
-                    Text = Bot.SettingsFunky.MinimumJeweleryItemLevel[0].ToString(),
-                    IsReadOnly = true,
-                };
-                TextBlock txt_jeweleryRare = new TextBlock
-                {
-                    Text = "Rare",
-                    FontSize = 12,
-                    Background = System.Windows.Media.Brushes.LightGoldenrodYellow,
-                };
-                Slider jeweleryRareLevelSlider = new Slider
-                {
-                    Name = "Rare",
-                    Maximum = 63,
-                    Minimum = 0,
-                    TickFrequency = 5,
-                    LargeChange = 5,
-                    SmallChange = 1,
-                    Width = 120,
-                    Value = Bot.SettingsFunky.MinimumJeweleryItemLevel[1],
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Right,
-                };
-                jeweleryRareLevelSlider.ValueChanged += JeweleryItemLevelSliderChanged;
-                TBMinimumJeweleryLevel[1] = new TextBox
-                {
-                    Text = Bot.SettingsFunky.MinimumJeweleryItemLevel[1].ToString(),
-                    IsReadOnly = true,
-                };
-                StackPanel jeweleryLevelSPanel = new StackPanel
-                {
-                    Width = 600,
-                    Height = 20,
-                    Orientation = Orientation.Horizontal,
-                };
-                jeweleryLevelSPanel.Children.Add(txt_jeweleryMagic);
-                jeweleryLevelSPanel.Children.Add(jeweleryMagicLevelSlider);
-                jeweleryLevelSPanel.Children.Add(TBMinimumJeweleryLevel[0]);
-                jeweleryLevelSPanel.Children.Add(txt_jeweleryRare);
-                jeweleryLevelSPanel.Children.Add(jeweleryRareLevelSlider);
-                jeweleryLevelSPanel.Children.Add(TBMinimumJeweleryLevel[1]);
-                lbGilesContent.Items.Add(jeweleryLevelSPanel);
-                #endregion
+					 StackPanel spWeaponPickupMagical=new StackPanel
+					 {
+						  Orientation=Orientation.Horizontal,
+					 };
+					 TextBlock txt_weaponMagical=new TextBlock
+					 {
+						  Text="Magic",
+						  FontSize=12,
+						  Background=System.Windows.Media.Brushes.DarkBlue,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 TBMinimumWeaponLevel=new TextBox[2];
+					 Slider weaponMagicLevelSlider=new Slider
+					 {
+						  Name="Magic",
+						  Width=120,
+						  Maximum=63,
+						  Minimum=0,
+						  TickFrequency=5,
+						  LargeChange=5,
+						  SmallChange=1,
+						  Value=Bot.SettingsFunky.MinimumWeaponItemLevel[0],
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 weaponMagicLevelSlider.ValueChanged+=WeaponItemLevelSliderChanged;
+					 TBMinimumWeaponLevel[0]=new TextBox
+					 {
+						  Text=Bot.SettingsFunky.MinimumWeaponItemLevel[0].ToString(),
+						  IsReadOnly=true,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 spWeaponPickupMagical.Children.Add(txt_weaponMagical);
+					 spWeaponPickupMagical.Children.Add(weaponMagicLevelSlider);
+					 spWeaponPickupMagical.Children.Add(TBMinimumWeaponLevel[0]);
+					 spWeaponPickupLevel.Children.Add(spWeaponPickupMagical);
 
 
-                #region LegendaryLevel
-                lbGilesContent.Items.Add("Minimum Legendary Item Level");
-                Slider sliderLegendaryILevel = new Slider
-                {
-                    Width = 120,
-                    Maximum = 63,
-                    Minimum = 0,
-                    TickFrequency = 5,
-                    LargeChange = 5,
-                    SmallChange = 1,
-                    Value = Bot.SettingsFunky.MinimumLegendaryItemLevel,
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
-                };
-                sliderLegendaryILevel.ValueChanged += LegendaryItemLevelSliderChanged;
-                TBMinLegendaryLevel = new TextBox
-                {
-                    Text = Bot.SettingsFunky.MinimumLegendaryItemLevel.ToString(),
-                    IsReadOnly = true,
-                };
-                StackPanel LegendaryILvlStackPanel = new StackPanel
-                {
-                    Width = 600,
-                    Height = 20,
-                    Orientation = Orientation.Horizontal,
-                };
-                LegendaryILvlStackPanel.Children.Add(sliderLegendaryILevel);
-                LegendaryILvlStackPanel.Children.Add(TBMinLegendaryLevel);
-                lbGilesContent.Items.Add(LegendaryILvlStackPanel);
-                #endregion
+					 StackPanel spWeaponPickupRare=new StackPanel
+					 {
+						  Orientation=Orientation.Horizontal,
+					 };
+					 TextBlock txt_weaponRare=new TextBlock
+					 {
+						  Text="Rare",
+						  FontSize=12,
+						  Foreground=System.Windows.Media.Brushes.Black,
+						  Background=System.Windows.Media.Brushes.Gold,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 Slider weaponRareLevelSlider=new Slider
+					 {
+						  Name="Rare",
+						  Width=120,
+						  Maximum=63,
+						  Minimum=0,
+						  TickFrequency=5,
+						  LargeChange=5,
+						  SmallChange=1,
+						  Value=Bot.SettingsFunky.MinimumWeaponItemLevel[1],
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 weaponRareLevelSlider.ValueChanged+=WeaponItemLevelSliderChanged;
+					 TBMinimumWeaponLevel[1]=new TextBox
+					 {
+						  Text=Bot.SettingsFunky.MinimumWeaponItemLevel[1].ToString(),
+						  IsReadOnly=true,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 spWeaponPickupRare.Children.Add(txt_weaponRare);
+					 spWeaponPickupRare.Children.Add(weaponRareLevelSlider);
+					 spWeaponPickupRare.Children.Add(TBMinimumWeaponLevel[1]);
+					 spWeaponPickupLevel.Children.Add(spWeaponPickupRare);
+
+					 spItemPickupLevel.Children.Add(spWeaponPickupLevel);
+					 #endregion
+					 #region minimumArmorILevel
+					 StackPanel spArmorPickupLevel=new StackPanel
+					 {
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
+					 };
+
+					 TBMinimumArmorLevel=new TextBox[2];
+					 TextBlock txt_armorIlvl=new TextBlock
+					 {
+						  Text="Armor",
+						  FontSize=12,
+						  Background=System.Windows.Media.Brushes.DarkSlateGray,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 spArmorPickupLevel.Children.Add(txt_armorIlvl);
+
+					 StackPanel spArmorPickupMagical=new StackPanel
+					 {
+						  Orientation=Orientation.Horizontal,
+					 };
+					 TextBlock txt_armorMagic=new TextBlock
+					 {
+						  Text="Magic",
+						  FontSize=12,
+						  Background=System.Windows.Media.Brushes.DarkBlue,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 Slider armorMagicLevelSlider=new Slider
+					 {
+						  Name="Magic",
+						  Width=120,
+						  Maximum=63,
+						  Minimum=0,
+						  TickFrequency=5,
+						  LargeChange=5,
+						  SmallChange=1,
+						  Value=Bot.SettingsFunky.MinimumArmorItemLevel[0],
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 armorMagicLevelSlider.ValueChanged+=ArmorItemLevelSliderChanged;
+					 TBMinimumArmorLevel[0]=new TextBox
+					 {
+						  Text=Bot.SettingsFunky.MinimumArmorItemLevel[0].ToString(),
+						  IsReadOnly=true,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 spArmorPickupMagical.Children.Add(txt_armorMagic);
+					 spArmorPickupMagical.Children.Add(armorMagicLevelSlider);
+					 spArmorPickupMagical.Children.Add(TBMinimumArmorLevel[0]);
+					 spArmorPickupLevel.Children.Add(spArmorPickupMagical);
+
+
+					 StackPanel spArmorPickupRare=new StackPanel
+					 {
+						  Orientation=Orientation.Horizontal,
+					 };
+					 TextBlock txt_armorRare=new TextBlock
+					 {
+						  Text="Rare",
+						  FontSize=12,
+						  Foreground=System.Windows.Media.Brushes.Black,
+						  Background=System.Windows.Media.Brushes.Gold,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 Slider armorRareLevelSlider=new Slider
+					 {
+						  Name="Rare",
+						  Maximum=63,
+						  Minimum=0,
+						  TickFrequency=5,
+						  LargeChange=5,
+						  SmallChange=1,
+						  Width=120,
+						  Value=Bot.SettingsFunky.MinimumArmorItemLevel[1],
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 armorRareLevelSlider.ValueChanged+=ArmorItemLevelSliderChanged;
+					 TBMinimumArmorLevel[1]=new TextBox
+					 {
+						  Text=Bot.SettingsFunky.MinimumArmorItemLevel[1].ToString(),
+						  IsReadOnly=true,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 spArmorPickupRare.Children.Add(txt_armorRare);
+					 spArmorPickupRare.Children.Add(armorRareLevelSlider);
+					 spArmorPickupRare.Children.Add(TBMinimumArmorLevel[1]);
+					 spArmorPickupLevel.Children.Add(spArmorPickupRare);
+
+					 spItemPickupLevel.Children.Add(spArmorPickupLevel);
+					 #endregion
+					 #region minimumJeweleryILevel
+					 TBMinimumJeweleryLevel=new TextBox[2];
+					 TextBlock txt_jeweleryIlvl=new TextBlock
+					 {
+						  Text="Jewelery",
+						  FontSize=12,
+						  Background=System.Windows.Media.Brushes.DarkSlateGray,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 StackPanel spJeweleryPickupLevel=new StackPanel
+					 {
+
+					 };
+					 spJeweleryPickupLevel.Children.Add(txt_jeweleryIlvl);
+
+					 StackPanel spJeweleryPickupMagical=new StackPanel
+					 {
+						  Orientation=Orientation.Horizontal,
+					 };
+					 TextBlock txt_jeweleryMagic=new TextBlock
+					 {
+						  Text="Magic",
+						  FontSize=12,
+						  Background=System.Windows.Media.Brushes.DarkBlue,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 Slider jeweleryMagicLevelSlider=new Slider
+					 {
+						  Name="Magic",
+						  Width=120,
+						  Maximum=63,
+						  Minimum=0,
+						  TickFrequency=5,
+						  LargeChange=5,
+						  SmallChange=1,
+						  Value=Bot.SettingsFunky.MinimumJeweleryItemLevel[0],
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 jeweleryMagicLevelSlider.ValueChanged+=JeweleryItemLevelSliderChanged;
+					 TBMinimumJeweleryLevel[0]=new TextBox
+					 {
+						  Text=Bot.SettingsFunky.MinimumJeweleryItemLevel[0].ToString(),
+						  IsReadOnly=true,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 spJeweleryPickupMagical.Children.Add(txt_jeweleryMagic);
+					 spJeweleryPickupMagical.Children.Add(jeweleryMagicLevelSlider);
+					 spJeweleryPickupMagical.Children.Add(TBMinimumJeweleryLevel[0]);
+					 spJeweleryPickupLevel.Children.Add(spJeweleryPickupMagical);
+
+					 StackPanel spJeweleryPickupRare=new StackPanel
+					 {
+						  Orientation=Orientation.Horizontal,
+					 };
+					 TextBlock txt_jeweleryRare=new TextBlock
+					 {
+						  Text="Rare",
+						  FontSize=12,
+						  Foreground=System.Windows.Media.Brushes.Black,
+						  Background=System.Windows.Media.Brushes.Gold,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 Slider jeweleryRareLevelSlider=new Slider
+					 {
+						  Name="Rare",
+						  Maximum=63,
+						  Minimum=0,
+						  TickFrequency=5,
+						  LargeChange=5,
+						  SmallChange=1,
+						  Width=120,
+						  Value=Bot.SettingsFunky.MinimumJeweleryItemLevel[1],
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 jeweleryRareLevelSlider.ValueChanged+=JeweleryItemLevelSliderChanged;
+					 TBMinimumJeweleryLevel[1]=new TextBox
+					 {
+						  Text=Bot.SettingsFunky.MinimumJeweleryItemLevel[1].ToString(),
+						  IsReadOnly=true,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 spJeweleryPickupRare.Children.Add(txt_jeweleryRare);
+					 spJeweleryPickupRare.Children.Add(jeweleryRareLevelSlider);
+					 spJeweleryPickupRare.Children.Add(TBMinimumJeweleryLevel[1]);
+					 spJeweleryPickupLevel.Children.Add(spJeweleryPickupRare);
+					 spItemPickupLevel.Children.Add(spJeweleryPickupLevel);
+					 #endregion 
+
+					 StackPanel spItemPickup=new StackPanel
+					 {
+
+					 };
+					 TextBlock Text_Header_ItemPickup=new TextBlock
+					 {
+						  Text="Item Level Pickup",
+						  FontSize=12,
+						  Background=System.Windows.Media.Brushes.DarkGreen,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
+						  TextAlignment= TextAlignment.Left,
+					 };
+					 spItemPickup.Children.Add(Text_Header_ItemPickup);
+					 spItemPickup.Children.Add(spItemPickupLevel);
+
+					 #region LegendaryLevel
+					 TextBlock Text_Legendary_ItemLevel=new TextBlock
+					 {
+						  Text="Legendary Items",
+						  FontSize=12,
+						  //Background=System.Windows.Media.Brushes.DarkGreen,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
+						  TextAlignment=TextAlignment.Left,
+					 };
+					 spItemPickup.Children.Add(Text_Legendary_ItemLevel);
+					 Slider sliderLegendaryILevel=new Slider
+					 {
+						  Width=120,
+						  Maximum=63,
+						  Minimum=0,
+						  TickFrequency=5,
+						  LargeChange=5,
+						  SmallChange=1,
+						  Value=Bot.SettingsFunky.MinimumLegendaryItemLevel,
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 };
+					 sliderLegendaryILevel.ValueChanged+=LegendaryItemLevelSliderChanged;
+					 TBMinLegendaryLevel=new TextBox
+					 {
+						  Text=Bot.SettingsFunky.MinimumLegendaryItemLevel.ToString(),
+						  IsReadOnly=true,
+					 };
+					 StackPanel LegendaryILvlStackPanel=new StackPanel
+					 {
+						  Width=600,
+						  Height=20,
+						  Orientation=Orientation.Horizontal,
+					 };
+					 LegendaryILvlStackPanel.Children.Add(sliderLegendaryILevel);
+					 LegendaryILvlStackPanel.Children.Add(TBMinLegendaryLevel);
+
+					 spItemPickup.Children.Add(LegendaryILvlStackPanel);
+					 #endregion
+
+
+					 #region MinMiscItemLevel
+					 TextBlock Text_Misc_ItemLevel=new TextBlock
+					 {
+						  Text="Misc Item",
+						  FontSize=12,
+						  //Background=System.Windows.Media.Brushes.DarkGreen,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
+						  TextAlignment=TextAlignment.Left,
+					 };
+					 spItemPickup.Children.Add(Text_Misc_ItemLevel);
+					 Slider slideMinMiscItemLevel=new Slider
+					 {
+						  Width=100,
+						  Maximum=63,
+						  Minimum=0,
+						  TickFrequency=5,
+						  LargeChange=5,
+						  SmallChange=1,
+						  Value=Bot.SettingsFunky.MiscItemLevel,
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 };
+					 slideMinMiscItemLevel.ValueChanged+=MiscItemLevelSliderChanged;
+					 TBMiscItemLevel=new TextBox
+					 {
+						  Text=Bot.SettingsFunky.MiscItemLevel.ToString(),
+						  IsReadOnly=true,
+					 };
+					 StackPanel MinMiscItemLevelStackPanel=new StackPanel
+					 {
+						  Width=600,
+						  Height=20,
+						  Orientation=Orientation.Horizontal,
+					 };
+					 MinMiscItemLevelStackPanel.Children.Add(slideMinMiscItemLevel);
+					 MinMiscItemLevelStackPanel.Children.Add(TBMiscItemLevel);
+					 spItemPickup.Children.Add(MinMiscItemLevelStackPanel);
+					 #endregion
+
+
+					 lbGilesContent.Items.Add(spItemPickup);
+					 #endregion
+
+
 
                 #region MaxHealthPotions
-                lbGilesContent.Items.Add("Maximum Health Potions");
                 Slider sliderMaxHealthPots = new Slider
                 {
                     Width = 100,
@@ -2444,11 +2612,20 @@ namespace FunkyTrinity
                 };
                 MaxHealthPotsStackPanel.Children.Add(sliderMaxHealthPots);
                 MaxHealthPotsStackPanel.Children.Add(TBMaxHealthPots);
-                lbGilesContent.Items.Add(MaxHealthPotsStackPanel);
+					 StackPanel spHealthPotions=new StackPanel();
+					
+					 TextBlock txt_HealthPotions=new TextBlock
+					 {
+						  Text="Health Potions",
+						  FontSize=12,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 spHealthPotions.Children.Add(txt_HealthPotions);
+					 spHealthPotions.Children.Add(MaxHealthPotsStackPanel);
                 #endregion
 
                 #region MinimumGoldPile
-                lbGilesContent.Items.Add("Minimum Gold Pile");
                 Slider slideMinGoldPile = new Slider
                 {
                     Width = 120,
@@ -2474,144 +2651,189 @@ namespace FunkyTrinity
                 };
                 MinGoldPileStackPanel.Children.Add(slideMinGoldPile);
                 MinGoldPileStackPanel.Children.Add(TBMinGoldPile);
-                lbGilesContent.Items.Add(MinGoldPileStackPanel);
+					 StackPanel spMinimumGold=new StackPanel();
+
+					 TextBlock txt_MinimumGold=new TextBlock
+					 {
+						  Text="Minimum Gold Pile",
+						  FontSize=12,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 spMinimumGold.Children.Add(txt_MinimumGold);
+					 spMinimumGold.Children.Add(MinGoldPileStackPanel);
                 #endregion
 
-
+					 StackPanel spMiscItemPickupOptions=new StackPanel
+					 {
+						  Orientation=Orientation.Horizontal,
+					 };
                 #region PickupCraftTomes
                 CheckBox cbPickupCraftTomes = new CheckBox
                 {
                     Content = "Pickup Craft Tomes",
-                    Width = 300,
                     Height = 20,
-                    IsChecked = (Bot.SettingsFunky.PickupCraftTomes)
+                    IsChecked = (Bot.SettingsFunky.PickupCraftTomes),
+						  HorizontalAlignment= System.Windows.HorizontalAlignment.Left,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
                 };
                 cbPickupCraftTomes.Checked += PickupCraftTomesChecked;
                 cbPickupCraftTomes.Unchecked += PickupCraftTomesChecked;
-                lbGilesContent.Items.Add(cbPickupCraftTomes);
+					 spMiscItemPickupOptions.Children.Add(cbPickupCraftTomes);
                 #endregion
                 #region PickupCraftPlans
                 CheckBox cbPickupCraftPlans = new CheckBox
                 {
                     Content = "Pickup Craft Plans",
-                    Width = 300,
                     Height = 20,
-                    IsChecked = (Bot.SettingsFunky.PickupCraftPlans)
+                    IsChecked = (Bot.SettingsFunky.PickupCraftPlans),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Center,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
                 };
                 cbPickupCraftPlans.Checked += PickupCraftPlansChecked;
                 cbPickupCraftPlans.Unchecked += PickupCraftPlansChecked;
-                lbGilesContent.Items.Add(cbPickupCraftPlans);
+					 spMiscItemPickupOptions.Children.Add(cbPickupCraftPlans);
                 #endregion
                 #region PickupFollowerItems
                 CheckBox cbPickupFollowerItems = new CheckBox
                 {
                     Content = "Pickup Follower Items",
-                    Width = 300,
                     Height = 20,
-                    IsChecked = (Bot.SettingsFunky.PickupFollowerItems)
+                    IsChecked = (Bot.SettingsFunky.PickupFollowerItems),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
                 };
                 cbPickupFollowerItems.Checked += PickupFollowerItemsChecked;
                 cbPickupFollowerItems.Unchecked += PickupFollowerItemsChecked;
-                lbGilesContent.Items.Add(cbPickupFollowerItems);
+					 spMiscItemPickupOptions.Children.Add(cbPickupFollowerItems);
                 #endregion
-                #region MinMiscItemLevel
-                lbGilesContent.Items.Add("Misc Item Level");
-                Slider slideMinMiscItemLevel = new Slider
-                {
-                    Width = 100,
-                    Maximum = 63,
-                    Minimum = 0,
-                    TickFrequency = 5,
-                    LargeChange = 5,
-                    SmallChange = 1,
-                    Value = Bot.SettingsFunky.MiscItemLevel,
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
-                };
-                slideMinMiscItemLevel.ValueChanged += MiscItemLevelSliderChanged;
-                TBMiscItemLevel = new TextBox
-                {
-                    Text = Bot.SettingsFunky.MiscItemLevel.ToString(),
-                    IsReadOnly = true,
-                };
-                StackPanel MinMiscItemLevelStackPanel = new StackPanel
-                {
-                    Width = 600,
-                    Height = 20,
-                    Orientation = Orientation.Horizontal,
-                };
-                MinMiscItemLevelStackPanel.Children.Add(slideMinMiscItemLevel);
-                MinMiscItemLevelStackPanel.Children.Add(TBMiscItemLevel);
-                lbGilesContent.Items.Add(MinMiscItemLevelStackPanel);
-                #endregion
+					 TextBlock txt_miscPickup=new TextBlock
+					 {
+						  Text="Misc Pickup Options",
+						  FontSize=12,
+						  Background=System.Windows.Media.Brushes.DarkSlateGray,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 StackPanel spMiscItemPickup=new StackPanel();
+					 spMiscItemPickup.Children.Add(txt_miscPickup);
+					 spMiscItemPickup.Children.Add(spMiscItemPickupOptions);
+					 spMiscItemPickup.Children.Add(spMinimumGold);
+					 spMiscItemPickup.Children.Add(spHealthPotions);
+
+					 lbGilesContent.Items.Add(spMiscItemPickup);
 
 
-                #region GemQuality
-                lbGilesContent.Items.Add("Minimum Gem Quality");
-                CBGemQualityLevel = new ComboBox
-                {
-                    Height = 20,
-                    Width = 200,
-                    ItemsSource = new GemQualityTypes(),
-                    Text = Enum.GetName(typeof(GemQuality), Bot.SettingsFunky.MinimumGemItemLevel).ToString(),
-                };
-                CBGemQualityLevel.SelectionChanged += GemQualityLevelChanged;
-                lbGilesContent.Items.Add(CBGemQualityLevel);
-                #endregion
+					 #region Gems
+					 StackPanel spGemOptions=new StackPanel
+					 {
+						  Orientation=Orientation.Vertical,
+					 };
+					 TextBlock Text_GemOptions=new TextBlock
+					 {
+						  Text="Gems",
+						  FontSize=12,
+						  Foreground=System.Windows.Media.Brushes.Black,
+						  Background=System.Windows.Media.Brushes.Gold,
+						  TextAlignment=TextAlignment.Left,
+					 };
+					 spGemOptions.Children.Add(Text_GemOptions);
 
-                CBGems = new CheckBox[4];
+					 #region GemQuality
+					 TextBlock Text_MinimumGemQuality=new TextBlock
+					 {
+						  Text="Minimum Gem Quality",
+						  FontSize=11,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  TextAlignment=TextAlignment.Left,
+					 };
+					 CBGemQualityLevel=new ComboBox
+					 {
+						  Height=20,
+						  Width=200,
+						  ItemsSource=new GemQualityTypes(),
+						  Text=Enum.GetName(typeof(GemQuality), Bot.SettingsFunky.MinimumGemItemLevel).ToString(),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+4),
+					 };
+					 CBGemQualityLevel.SelectionChanged+=GemQualityLevelChanged;
+					 spGemOptions.Children.Add(Text_MinimumGemQuality);
+					 spGemOptions.Children.Add(CBGemQualityLevel);
+					 #endregion
 
-                #region PickupGemsRed
-                CBGems[0] = new CheckBox
-                {
-                    Content = "Pickup Gem Red",
-                    Name = "red",
-                    Width = 300,
-                    Height = 20,
-                    IsChecked = (Bot.SettingsFunky.PickupGems[0])
-                };
-                CBGems[0].Checked += GemsChecked;
-                CBGems[0].Unchecked += GemsChecked;
-                lbGilesContent.Items.Add(CBGems[0]);
-                #endregion
-                #region PickupGemsGreen
-                CBGems[1] = new CheckBox
-                {
-                    Content = "Pickup Gem Green",
-                    Name = "green",
-                    Width = 300,
-                    Height = 20,
-                    IsChecked = (Bot.SettingsFunky.PickupGems[1])
-                };
-                CBGems[1].Checked += GemsChecked;
-                CBGems[1].Unchecked += GemsChecked;
-                lbGilesContent.Items.Add(CBGems[1]);
-                #endregion
-                #region PickupGemsPurple
-                CBGems[2] = new CheckBox
-                {
-                    Content = "Pickup Gem Purple",
-                    Name = "purple",
-                    Width = 300,
-                    Height = 20,
-                    IsChecked = (Bot.SettingsFunky.PickupGems[2])
-                };
-                CBGems[2].Checked += GemsChecked;
-                CBGems[2].Unchecked += GemsChecked;
-                lbGilesContent.Items.Add(CBGems[2]);
-                #endregion
-                #region PickupGemsYellow
-                CBGems[3] = new CheckBox
-                {
-                    Content = "Pickup Gem Yellow",
-                    Name = "yellow",
-                    Width = 300,
-                    Height = 20,
-                    IsChecked = (Bot.SettingsFunky.PickupGems[3])
-                };
-                CBGems[3].Checked += GemsChecked;
-                CBGems[3].Unchecked += GemsChecked;
-                lbGilesContent.Items.Add(CBGems[3]);
-                #endregion
+					 CBGems=new CheckBox[4];
+
+					 StackPanel spGemColorsREDGREEN=new StackPanel
+					 {
+						  Orientation=Orientation.Vertical,
+					 };
+					 #region PickupGemsRed
+					 CBGems[0]=new CheckBox
+					 {
+						  Content="Pickup Gem Red",
+						  Name="red",
+						  Width=150,
+						  Height=20,
+						  IsChecked=(Bot.SettingsFunky.PickupGems[0])
+					 };
+					 CBGems[0].Checked+=GemsChecked;
+					 CBGems[0].Unchecked+=GemsChecked;
+					 spGemColorsREDGREEN.Children.Add(CBGems[0]);
+					 #endregion
+					 #region PickupGemsGreen
+					 CBGems[1]=new CheckBox
+					 {
+						  Content="Pickup Gem Green",
+						  Name="green",
+						  Width=150,
+						  Height=20,
+						  IsChecked=(Bot.SettingsFunky.PickupGems[1])
+					 };
+					 CBGems[1].Checked+=GemsChecked;
+					 CBGems[1].Unchecked+=GemsChecked;
+					 spGemColorsREDGREEN.Children.Add(CBGems[1]);
+					 #endregion
+
+					 StackPanel spGemColorsPurpleYellow=new StackPanel
+					 {
+						  Orientation=Orientation.Vertical,
+					 };
+					 #region PickupGemsPurple
+					 CBGems[2]=new CheckBox
+					 {
+						  Content="Pickup Gem Purple",
+						  Name="purple",
+						  Width=150,
+						  Height=20,
+						  IsChecked=(Bot.SettingsFunky.PickupGems[2])
+					 };
+					 CBGems[2].Checked+=GemsChecked;
+					 CBGems[2].Unchecked+=GemsChecked;
+					 spGemColorsPurpleYellow.Children.Add(CBGems[2]);
+					 #endregion
+					 #region PickupGemsYellow
+					 CBGems[3]=new CheckBox
+					 {
+						  Content="Pickup Gem Yellow",
+						  Name="yellow",
+						  Width=150,
+						  Height=20,
+						  IsChecked=(Bot.SettingsFunky.PickupGems[3])
+					 };
+					 CBGems[3].Checked+=GemsChecked;
+					 CBGems[3].Unchecked+=GemsChecked;
+					 spGemColorsPurpleYellow.Children.Add(CBGems[3]);
+					 #endregion
+					 StackPanel spGemColorPanels=new StackPanel
+					 {
+						  Orientation=Orientation.Horizontal,
+					 };
+					 spGemColorPanels.Children.Add(spGemColorsREDGREEN);
+					 spGemColorPanels.Children.Add(spGemColorsPurpleYellow);
+
+					 spGemOptions.Children.Add(spGemColorPanels);
+					 lbGilesContent.Items.Add(spGemOptions); 
+					 #endregion
 
                 ItemGilesTabItem.Content = lbGilesContent;
                 #endregion

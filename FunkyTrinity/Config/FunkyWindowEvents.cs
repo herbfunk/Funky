@@ -593,6 +593,26 @@ namespace FunkyTrinity
              {
                  Bot.SettingsFunky.ItemRuleType = ItemRuleType.Items[ItemRuleType.SelectedIndex].ToString();
              }
+				 private void ItemRulesBrowse_Click(object sender, EventArgs e)
+				 {
+					  System.Windows.Forms.FolderBrowserDialog OFD=new System.Windows.Forms.FolderBrowserDialog
+					  {
+							
+					  };
+					  System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
+					  
+					  if (OFD_Result==System.Windows.Forms.DialogResult.OK)
+					  {
+							try
+							{
+								 Bot.SettingsFunky.ItemRuleCustomPath=OFD.SelectedPath;
+								 tbCustomItemRulePath.Text=Bot.SettingsFunky.ItemRuleCustomPath;
+							} catch
+							{
+
+							}
+					  }
+				 }
              private void ItemRulesScoringChanged(object sender, EventArgs e)
              {
                  Bot.SettingsFunky.ItemRuleGilesScoring = ItemRuleGilesScoring.IsChecked.Value;
@@ -609,6 +629,8 @@ namespace FunkyTrinity
              private void ItemRulesChecked(object sender, EventArgs e)
              {
                  Bot.SettingsFunky.UseItemRules = !Bot.SettingsFunky.UseItemRules;
+					  ItemRuleGilesScoring.IsEnabled=!Bot.SettingsFunky.UseItemRules;
+					  ItemRuleDBScoring.IsEnabled=!Bot.SettingsFunky.UseItemRules;
              }
              private void ItemRulesPickupChecked(object sender, EventArgs e)
              {
