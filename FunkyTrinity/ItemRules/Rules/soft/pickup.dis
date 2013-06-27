@@ -17,7 +17,7 @@
 //[TYPE] == "CraftingPlan" (now controlled through Trinity)
 
 //Demonic Essence
-[QUALITY] == "Normal" && [TYPE] == "CraftingReagent" && [LEVEL] == 63 -> [IGNORE]
+[QUALITY] == "Normal" && [TYPE] == "CraftingReagent" && [LEVEL] == 63
 
 // +---------------------------------------------------------------------------+
 // |  _____   _______ _______ _______ _______ _____  _______ ______ ___ ___ 

@@ -153,11 +153,12 @@ namespace FunkyTrinity
 		  {
 				public int ACDGUID { get; set; }
 				public ACDItem Ref_ACDItem { get; set; }
-
+				public int StackCount { get; set; }
 				public CacheBPItem(int Acdguid, ACDItem acditem)
 				{
 					 this.ACDGUID=Acdguid;
 					 this.Ref_ACDItem=acditem;
+					 this.StackCount=acditem.MaxStackCount;
 				}
 		  }
 	 }

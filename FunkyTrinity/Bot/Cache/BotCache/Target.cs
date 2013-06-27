@@ -460,6 +460,8 @@ namespace FunkyTrinity
 						  Bot.Combat.recheckCount++;
 						  string statusText="[Item Confirmation] Current recheck count "+Bot.Combat.recheckCount;
 						  bool LootedSuccess=Bot.Character.BackPack.ContainsItem(CurrentTarget.AcdGuid.Value);
+						  //Verify item is non-stackable!
+						  
 						  statusText+=" [ItemFound="+LootedSuccess+"]";
 						  if (LootedSuccess)
 						  {
@@ -538,9 +540,8 @@ namespace FunkyTrinity
 								else
 								{
 									 //We Rechecked Max Confirmation Checking Count, now we check if we want to retry confirmation, or simply try once more then ignore for a few.
-
-
-									 if (thisObjItem.Itemquality.Value>ItemQuality.Magic3)
+									 bool stackableItem=(ItemType.Potion| ItemType.CraftingPage| ItemType.CraftingPlan | ItemType.CraftingReagent).HasFlag(thisObjItem.BalanceData.thisItemType);
+									 if (thisObjItem.Itemquality.Value>ItemQuality.Magic3||stackableItem)
 									 {
 										  //Items above rare quality don't get blacklisted, just ignored for a few loops.
 										  //This will force a movement if stuck.. but 5 loops is only 750ms

@@ -2193,9 +2193,9 @@ namespace FunkyTrinity
                 ItemRulesTabItem.Content = lbItemRulesContent;
                 #endregion
 
-                #region GilesPickup
+                #region Pickup
                 TabItem ItemGilesTabItem = new TabItem();
-                ItemGilesTabItem.Header = "Giles Pickup";
+                ItemGilesTabItem.Header = "Pickup";
                 tcItems.Items.Add(ItemGilesTabItem);
                 ListBox lbGilesContent = new ListBox();
 
@@ -2838,9 +2838,9 @@ namespace FunkyTrinity
                 ItemGilesTabItem.Content = lbGilesContent;
                 #endregion
 
-                #region GilesScoring
+                #region Scoring
                 TabItem ItemGilesScoringTabItem = new TabItem();
-                ItemGilesScoringTabItem.Header = "Giles Scoring";
+                ItemGilesScoringTabItem.Header = "Scoring";
                 tcItems.Items.Add(ItemGilesScoringTabItem);
                 ListBox lbGilesScoringContent = new ListBox();
 

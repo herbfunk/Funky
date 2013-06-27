@@ -78,6 +78,39 @@ namespace FunkyTrinity
 						  lastRefreshedObjectContents=DateTime.Now;
 					 }
 
+					 ///<summary>
+					 ///Using a direction point. Center will be established at the DirectionPoint center, with an area covering the start/end points.
+					 ///</summary>
+					 public GPRectangle(DirectionPoint Direction, PointCollection baseCache)
+						  : base(baseCache)
+					 {
+						  // Logging.WriteVerbose("StartPoint: {0} EndPoint {1} Range: {2}", Direction.StartingPoint.ToString(), Direction.EndingPoint.ToString(), Direction.Range);
+
+						  CreationVector=(Vector3)Direction.Center;
+						  GridPoint center_=Direction.Center;
+						  searchablepoints_=new List<GridPoint>();
+						  searchablepoints_.Add(center_);//this is our first "surrounding" point to expand upon..
+						  this.centerpoint=Direction.Center;
+
+
+						  int expansion=(int)(Math.Round(Math.Sqrt(Direction.Range), MidpointRounding.AwayFromZero)); //Get the radius value and square it to get # of expansions we want..
+						  //Logging.WriteVerbose("Expansion count == {0}, Diameter == {1}", expansion, Diameter);
+
+						  //This will expand by finding new surrounding points
+						  for (int i=0; i<expansion; i++)
+						  {
+								if (searchablepoints_.Count==0) break; //no remaining searchable points..
+
+								this.FullyExpand();
+						  }
+
+						  this.UpdateQuadrants();
+
+						  UpdateObjectCount();
+						  lastRefreshedObjectContents=DateTime.Now;
+					 }
+
+
 					 private void UpdateQuadrants()
 					 {
 						  QuadrantLocation[] sectors_=Quadrant.Keys.ToArray();
@@ -140,13 +173,12 @@ namespace FunkyTrinity
 
 					 internal void UpdateObjectCount()
 					 {
-						  if (DateTime.Now.Subtract(lastRefreshedObjectContents).TotalMilliseconds>250)
+						  //TODO: Implement static object cache for contained area, as well as a cache of cacheunits contained, populated initally on creation?
+						  if (DateTime.Now.Subtract(lastRefreshedObjectContents).TotalMilliseconds>150)
 						  {
 								lastRefreshedObjectContents=DateTime.Now;
 								this.AllQuadrantsFailed=false;
 								this.Weight=0;
-								//MonsterCount=ObjectCache.Objects.OfType<CacheUnit>().Count(monster => CreationVector.Distance2D(monster.Position)<=this.Radius);
-								//AvoidanceCount=ObjectCache.Obstacles.Avoidances.Count(avoidance => CreationVector.Distance2D(avoidance.Position)<=this.Radius);
 								int monsters, avoids;
 								this.MonsterCount=0;
 								this.AvoidanceCount=0;
@@ -164,15 +196,14 @@ namespace FunkyTrinity
 									 OccupiedRAGUIDS=OccupiedRAGUIDS.Union(item.OccupiedObjects).ToList();
 								}
 
-								var SectorOccupiedLists=(from sector in Quadrant.Values
-																 select sector.OccupiedObjects);
+								//var SectorOccupiedLists=(from sector in Quadrant.Values
+								//                         select sector.OccupiedObjects);
 
-								if (Bot.SettingsFunky.LogSafeMovementOutput)
-									 Logging.WriteDiagnostic("Updated GPC with Avoids {0} / Mobs {1} Count and total weight {2}", this.AvoidanceCount, this.MonsterCount, this.Weight);
+								if (Bot.SettingsFunky.LogSafeMovementOutput) Logging.WriteDiagnostic("Updated GPC with Avoids {0} / Mobs {1} Count and total weight {2}", this.AvoidanceCount, this.MonsterCount, this.Weight);
 						  }
 					 }
 
-					 public bool TryFindSafeSpot(out Vector3 safespot, Vector3 los, bool kite=false, bool checkAvoidIntersection=false)
+					 public bool TryFindSafeSpot(out Vector3 safespot, Vector3 los, bool kite=false, bool checkAvoidIntersection=false, bool expandOnFailure=false)
 					 {
 						  this.UpdateObjectCount();
 
@@ -198,7 +229,7 @@ namespace FunkyTrinity
 
 						  AllQuadrantsFailed=true;
 
-						  if (CanExpandFurther)
+						  if (expandOnFailure&&CanExpandFurther)
 						  {
 								//Logging.WriteVerbose("Expanding GPC due to failure to find a location!");
 								this.FullyExpand();

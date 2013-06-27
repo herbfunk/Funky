@@ -28,6 +28,7 @@ namespace FunkyTrinity
 					 //To quickly lookup points locations within the grid.
 					 //public Hashtable OutCodes=new Hashtable();
 					 internal Dictionary<GridPoint, QuadrantLocation> Points=new Dictionary<GridPoint, QuadrantLocation>();
+					 private List<GridPoint> BasePoints=new List<GridPoint>();
 
 					 public Dictionary<QuadrantLocation, GridPoint> CornerPoints=new Dictionary<QuadrantLocation, GridPoint>()
 					 {
@@ -145,26 +146,13 @@ namespace FunkyTrinity
 					 }
 					 public PointCollection(PointCollection clone)
 					 {
-						  this.bl=clone.bl.Clone();
-						  this.br=clone.br.Clone();
-						  this.tl=clone.tl.Clone();
-						  this.tr=clone.tr.Clone();
-						  this.Points=new Dictionary<GridPoint, QuadrantLocation>(clone.Points);
-						  GridPoint[] NonNavPoints=new GridPoint[clone.NonNavigationalPoints.Count-1];
-						  clone.NonNavigationalPoints.CopyTo(NonNavPoints);
-
-						  foreach (var item in NonNavPoints)
-						  {
-								this.NonNavigationalPoints.Add(item.Clone());
-						  }
-
-						  this.NonIgnoredPoints.AddRange(clone.NonIgnoredPoints);
-						  foreach (var item in clone.CornerPoints)
-						  {
-								this.CornerPoints.Add(item.Key, item.Value.Clone());
-						  }
-
-						  this.centerpoint_=clone.centerpoint_.Clone();
+						  //this.bl=clone.bl;
+						  //this.br=clone.br;
+						  //this.tl=clone.tl;
+						  //this.tr=clone.tr;
+						  this.BasePoints=clone.Points.Keys.ToList();
+						  //this.CornerPoints=clone.CornerPoints;
+						  //this.centerpoint_=clone.centerpoint_;
 					 }
 
 
@@ -174,9 +162,6 @@ namespace FunkyTrinity
 					 {
 						  QuadrantLocation code_=(QuadrantLocation)ComputeOutCode(item.X, item.Y);
 						  this.Add(item, code_);
-
-						  if (item.Ignored&&!NonNavigationalPoints.Contains(item))
-								NonNavigationalPoints.Add(item);
 					 }
 
 					 public void Clear()
@@ -187,7 +172,7 @@ namespace FunkyTrinity
 
 					 public bool Contains(GridPoint item)
 					 {
-						  return this.Points.Keys.Contains(item);
+						  return (this.Points.Keys.Contains(item)||this.BasePoints.Contains(item));
 					 }
 
 					 public void CopyTo(GridPoint[] array, int arrayIndex)

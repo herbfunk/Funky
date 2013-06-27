@@ -237,23 +237,16 @@ namespace FunkyTrinity
 								//Kiting Check
 								if (kite&&ObjectCache.Objects.IsPointNearbyMonsters(pointVector, Bot.KiteDistance)) continue;
 
+								//Avoidance Intersection Check
+								if (checkBotAvoidIntersection&&ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(botcurpos, pointVector)) continue;
+
 								//LOS Check
 								//Melee -- Walkable , Range -- Projectile
 								if (checkLOS)
 								{
 									 if (!GilesCanRayCast(pointVector, LoSCheckV3, Zeta.Internals.SNO.NavCellFlags.AllowWalk)) continue;
-									 //if (Bot.Class.IsMeleeClass)
-									 //{
-									 //    if (!GilesCanRayCast(pointVector, LoSCheckV3, Zeta.Internals.SNO.NavCellFlags.AllowWalk)) continue;
-									 //}
-									 //else
-									 //{
-									 //    if (!GilesCanRayCast(pointVector, LoSCheckV3, Zeta.Internals.SNO.NavCellFlags.AllowWalk|Zeta.Internals.SNO.NavCellFlags.AllowProjectile)) continue;
-									 //}
 								}
 
-								//Avoidance Intersection Check
-								if (checkBotAvoidIntersection&&ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(botcurpos, pointVector)) continue;
 
 
 								LastSafespotFound=pointVectorReturn;

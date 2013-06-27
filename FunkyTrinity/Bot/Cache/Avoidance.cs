@@ -145,7 +145,7 @@ namespace FunkyTrinity
 		  private static readonly Dictionary<AvoidanceType, float> dictAvoidanceRadiusDefaultsType=new Dictionary<AvoidanceType, float>
             {
 
-                {AvoidanceType.ArcaneSentry, 14},{AvoidanceType.Dececrator, 11},{AvoidanceType.MoltenCore, 20},{AvoidanceType.MoltenTrail, 6},{AvoidanceType.Frozen, 19},{AvoidanceType.PlagueCloud, 19},    
+                {AvoidanceType.ArcaneSentry, 14},{AvoidanceType.Dececrator, 9},{AvoidanceType.MoltenCore, 20},{AvoidanceType.MoltenTrail, 6},{AvoidanceType.Frozen, 19},{AvoidanceType.PlagueCloud, 19},    
                                                                                       
                 {AvoidanceType.BeeProjectile, 2},{AvoidanceType.LacuniBomb,2},{AvoidanceType.ShamanFireBall,2}, {AvoidanceType.SuccubusProjectile, 2},
 

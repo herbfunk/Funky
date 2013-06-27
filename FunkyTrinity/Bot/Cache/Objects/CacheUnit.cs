@@ -754,9 +754,9 @@ namespace FunkyTrinity
 						  {
 								//Preform Test every 2500ms on normal objects, 1250ms on special objects.
 								double lastLOSCheckMS=this.LastLOSCheckMS;
-								if (lastLOSCheckMS<1250)
+								if (lastLOSCheckMS<750)
 									 return false;
-								else if (lastLOSCheckMS<2500&&!this.ObjectIsSpecial)
+								else if (lastLOSCheckMS<1500&&!this.ObjectIsSpecial)
 									 return false;
 
 								NavCellFlags LOSNavFlags=NavCellFlags.None;

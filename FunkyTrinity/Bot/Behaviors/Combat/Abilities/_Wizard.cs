@@ -284,7 +284,17 @@ namespace FunkyTrinity
 								// Shock Pulse
 								if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Wizard_ShockPulse)&&Bot.Target.CurrentTarget!=null)
 								{
-									 return new Ability(SNOPower.Wizard_ShockPulse, 15f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
+									 float range=15f;
+									 //rune index
+									 //1 == walking
+									 //2 == piercing orb
+									 int runeIndex=Bot.Class.RuneIndexCache[SNOPower.Wizard_ShockPulse];
+									 if (runeIndex==2)
+										  range=40f;
+									 else if (runeIndex==1)
+										  range=35f;
+
+									 return new Ability(SNOPower.Wizard_ShockPulse, range, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
 								}
 								#endregion
 								#region Spectral Blade

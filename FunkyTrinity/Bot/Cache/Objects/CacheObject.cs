@@ -331,31 +331,7 @@ namespace FunkyTrinity
 					 set { LosSearchRetryMilliseconds_=value; }
 				}
 
-				///<summary>
-				///Searches using the GridPointAreaCache and returns bool if LOSV3 has been set.
-				///</summary>
-				public bool FindLOSLocation
-				{
-					 get
-					 {
-						  this.LastLOSSearch=DateTime.Now;
 
-						  Vector3 LOSV3;
-						  bool FoundLOSLocation=FoundLOSLocation=GridPointAreaCache.AttemptFindTargetSafeLocation(out LOSV3, this, true, (Bot.KiteDistance>0));
-
-						  //Validate that we can move to this LOS Position from our current Position!
-						  if (FoundLOSLocation)
-						  {
-								Logging.WriteVerbose("LOS Found new location for target {0} at {1}", this.InternalName, LOSV3.ToString());
-								this.losv3_=LOSV3;
-								this.losv3LastChanged=DateTime.Now;
-						  }
-
-
-						  return FoundLOSLocation;
-
-					 }
-				}
 				private Vector3 losv3_=vNullLocation;
 				private DateTime losv3LastChanged=DateTime.Today;
 				///<summary>
@@ -774,7 +750,7 @@ namespace FunkyTrinity
 										  vTargetAimPoint=MathEx.CalculatePointFrom(Bot.Combat.vCurrentDestination, Bot.Character.Position, 10f);
 										  Bot.Character.UpdateAnimationState(false, true);
 										  bool isHobbling=Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.Monk_Female_Hobble_Run|SNOAnim.Monk_Male_HTH_Hobble_Run);
-										  foundMovementPower=(!bTooMuchZChange&&currentDistance<15f&&(((!isHobbling||lastUsedAbilityMS>200)&&Bot.Character.dCurrentEnergy>=50)||((isHobbling||lastUsedAbilityMS<400)&&Bot.Character.dCurrentEnergy>15))
+										  foundMovementPower=(!bTooMuchZChange&&currentDistance<15f&&((isHobbling||lastUsedAbilityMS<400)&&Bot.Character.dCurrentEnergy>15)
 												&&!ObjectCache.Obstacles.DoesPositionIntersectAny(vTargetAimPoint, ObstacleType.ServerObject));
 
 										  break;

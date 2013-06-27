@@ -45,6 +45,13 @@ namespace FunkyTrinity
 
 				public int BlacklistRefreshCounter { get; set; }
 
+				private int RefreshRemovalCounter_=0;
+				public int RefreshRemovalCounter
+				{
+					 get { return RefreshRemovalCounter_; }
+					 set { RefreshRemovalCounter_=value; }
+				}
+
 				///<summary>
 				///Tests if this intersects with current bot position using CacheObject
 				///</summary>
@@ -332,6 +339,10 @@ namespace FunkyTrinity
 					 : base(parent)
 				{
 					 this.AvoidanceType=avoidancetype;
+
+					 //Special avoidances that require additional loops before removal
+					 if ((Funky.AvoidanceType.TreeSpore|Funky.AvoidanceType.GrotesqueExplosion).HasFlag(this.AvoidanceType))
+						  this.RefreshRemovalCounter=30;
 				}
 
 				public CacheAvoidance(CacheObject parent, AvoidanceType type, Ray R, double speed)

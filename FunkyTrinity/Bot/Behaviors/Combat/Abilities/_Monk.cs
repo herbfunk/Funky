@@ -12,7 +12,6 @@ namespace FunkyTrinity
 	 {
 		  internal static Ability MonkAbility(bool bCurrentlyAvoiding=false, bool bOOCBuff=false, bool bDestructiblePower=false)
 		  {
-	
 				// Pick the best destructible power available
 				if (bDestructiblePower)
 				{
@@ -255,7 +254,7 @@ namespace FunkyTrinity
 				#region tempest rush
 				// For tempest rush re-use
 				if (!bOOCBuff&&Bot.Character.dCurrentEnergy>=15&&HotbarAbilitiesContainsPower(SNOPower.Monk_TempestRush)&&
-					 AbilityLastUseMS(SNOPower.Monk_TempestRush)<150&&Bot.Combat.iAnythingWithinRange[RANGE_50]>0&&thisCacheUnitObj!=null)
+					 AbilityLastUseMS(SNOPower.Monk_TempestRush)<350&&Bot.Combat.iAnythingWithinRange[RANGE_50]>0&&Bot.Target.CurrentTarget!=null)
 				{
 					 float fExtraDistance=Bot.Target.CurrentTarget.CentreDistance<=20f?5f:1f;
 					 Bot.Combat.vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, Bot.Target.CurrentTarget.CentreDistance+fExtraDistance);
@@ -293,10 +292,10 @@ namespace FunkyTrinity
 				#region Dashing Strike
 				// Dashing Strike
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated&&
-					(Bot.Combat.iElitesWithinRange[RANGE_25]>0||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=14f)||Bot.Combat.iAnythingWithinRange[RANGE_15]>2)&&
+					(((thisCacheUnitObj!=null&&(thisCacheUnitObj.IsEliteRareUnique||thisCacheUnitObj.Monstersize==Zeta.Internals.SNO.MonsterSize.Ranged)||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=14f))&&
 					HotbarAbilitiesContainsPower(SNOPower.Monk_DashingStrike)&&((Bot.Character.dCurrentEnergy>=30&&!Bot.Character.bWaitingForReserveEnergy)||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount))
 				{
-					 return new Ability(SNOPower.Monk_DashingStrike, 14f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
+					 return new Ability(SNOPower.Monk_DashingStrike, 30f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
 				} 
 				#endregion
 
@@ -304,7 +303,13 @@ namespace FunkyTrinity
 				// Fists of thunder as the primary, repeatable attack
 				if (!bOOCBuff&&!bCurrentlyAvoiding&&HotbarAbilitiesContainsPower(SNOPower.Monk_FistsofThunder))
 				{
-					 return new Ability(SNOPower.Monk_FistsofThunder, 30f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, SIGNATURE_SPAM);
+					 float range=12f;
+
+					 //thunderclap -- increased range!
+					 if (Bot.Class.RuneIndexCache[SNOPower.Monk_FistsofThunder]==0)
+						  range=25f;
+
+					 return new Ability(SNOPower.Monk_FistsofThunder, range, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, SIGNATURE_SPAM);
 				} 
 				#endregion
 				#region Deadly reach

@@ -84,9 +84,6 @@ namespace FunkyTrinity
 					 Bot.Combat.Reset();
 
 
-					 //clear GPCache (Only melee uses this)
-					 GridPointAreaCache.CheckClearedSearchRefresh();
-
 					 //Check if we should trim our SNO cache..
 					 if (DateTime.Now.Subtract(ObjectCache.cacheSnoCollection.lastTrimming).TotalMinutes>3)
 						  ObjectCache.cacheSnoCollection.TrimOldUnusedEntries();

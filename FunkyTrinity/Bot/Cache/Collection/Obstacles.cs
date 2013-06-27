@@ -115,8 +115,16 @@ namespace FunkyTrinity
 					 public bool TryGetValue(int key, out CacheObstacle value)
 					 {
 						  bool found=this.obstacles.TryGetValue(key, out value);
-						  if (found)//we exclude this from being removed..
-								RemovalList.Remove(key);
+
+						  if (found)
+						  {
+								//Removal Counter Check (Grace peroid for removal!)
+								if (this.obstacles[key].RefreshRemovalCounter>0)
+								{
+									  RemovalList.Remove(key);//we exclude this from being removed..
+									 this.obstacles[key].RefreshRemovalCounter--;
+								}	
+						  }
 
 						  return found;
 
