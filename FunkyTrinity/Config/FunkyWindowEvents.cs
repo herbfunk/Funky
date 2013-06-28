@@ -21,21 +21,91 @@ namespace FunkyTrinity
                  Button btnsender = (Button)sender;
                  if (btnsender.Name == "Objects")
                  {
-                     LBDebug.Items.Add(ObjectCache.Objects.DumpDebugInfo());
+							string OutPut=ObjectCache.Objects.DumpDebugInfo();
+
+							LBDebug.Items.Add(OutPut);
+
+							
+
+							#region ColorIndex
+							//Create Color Map ID
+							StackPanel spColorIndexs=new StackPanel
+							{
+								 Orientation=Orientation.Horizontal,
+							};
+							CheckBox cbMonsterID=new CheckBox
+							{
+								 Background=System.Windows.Media.Brushes.MediumSeaGreen,
+								 FontSize=11,
+								 Content="Unit",
+								 Foreground=System.Windows.Media.Brushes.GhostWhite,
+								 Margin=new System.Windows.Thickness(5),
+							};
+							CheckBox cbItemID=new CheckBox
+							{
+								 Background=System.Windows.Media.Brushes.Gold,
+								 FontSize=11,
+								 Content="Item",
+								 Foreground=System.Windows.Media.Brushes.GhostWhite,
+								 Margin=new System.Windows.Thickness(5),
+							};
+							CheckBox cbDestructibleID=new CheckBox
+							{
+								 Background=System.Windows.Media.Brushes.DarkSlateGray,
+								 FontSize=11,
+								 Content="Destructible",
+								 Foreground=System.Windows.Media.Brushes.GhostWhite,
+								 Margin=new System.Windows.Thickness(5),
+							};
+							CheckBox cbInteractableID=new CheckBox
+							{
+								 Background=System.Windows.Media.Brushes.DimGray,
+								 FontSize=11,
+								 Content="Interactable",
+								 Foreground=System.Windows.Media.Brushes.GhostWhite,
+								 Margin=new System.Windows.Thickness(5),
+							};
+							spColorIndexs.Children.Add(cbMonsterID);
+							spColorIndexs.Children.Add(cbItemID);
+							spColorIndexs.Children.Add(cbDestructibleID);
+							spColorIndexs.Children.Add(cbInteractableID);
+							LBDebug.Items.Add(spColorIndexs);
+							
+							#endregion
 
                      Zeta.Common.Logging.WriteVerbose("Dumping Object Cache");
+
+							OutPut+="\r\n";
                      try
                      {
 								 var SortedValues=ObjectCache.Objects.Values.OrderBy(obj => obj.targetType.Value).ThenBy(obj=>obj.CentreDistance);
 								 foreach (var item in SortedValues)
                          {
-                             LBDebug.Items.Add(item.DebugString);
+									  string objDebugStr=item.DebugString;
+									  OutPut+=objDebugStr+"\r\n";
+
+									  TextBlock objDebug=new TextBlock
+									  {
+											Text=objDebugStr,
+											TextAlignment= System.Windows.TextAlignment.Left,
+											FontSize=11,
+											Foreground=System.Windows.Media.Brushes.GhostWhite,
+											Background=(item is CacheDestructable)?System.Windows.Media.Brushes.DarkSlateGray
+											:(item is CacheUnit)?System.Windows.Media.Brushes.MediumSeaGreen
+											:(item is CacheItem)?System.Windows.Media.Brushes.Gold
+											:(item is CacheInteractable)?System.Windows.Media.Brushes.DimGray
+											:System.Windows.Media.Brushes.Gray,
+									  };
+									  LBDebug.Items.Add(objDebug);
                          }
                      }
                      catch
                      {
                          LBDebug.Items.Add("End of Output due to Modification Exception");
+								 return;
                      }
+
+							Logging.WriteDiagnostic(OutPut);
 
                  }
                  else if (btnsender.Name == "Obstacles")
@@ -503,6 +573,10 @@ namespace FunkyTrinity
              {
                  Bot.SettingsFunky.Class.bGoblinWrath = !Bot.SettingsFunky.Class.bGoblinWrath;
              }
+				 private void bBarbUseWOTBAlwaysChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.Class.bBarbUseWOTBAlways=!Bot.SettingsFunky.Class.bBarbUseWOTBAlways;
+				 }
              private void bFuryDumpWrathChecked(object sender, EventArgs e)
              {
                  Bot.SettingsFunky.Class.bFuryDumpWrath = !Bot.SettingsFunky.Class.bFuryDumpWrath;

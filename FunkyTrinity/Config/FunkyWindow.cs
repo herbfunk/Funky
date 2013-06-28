@@ -987,28 +987,56 @@ namespace FunkyTrinity
                         cbbSelectiveWhirlwind.Unchecked += bSelectiveWhirlwindChecked;
                         LBClass.Items.Add(cbbSelectiveWhirlwind);
 
+								TextBlock txtblockWrathOptions=new TextBlock
+								{
+									 Text="Wrath of the Berserker Options",
+									 FontStyle=FontStyles.Oblique,
+									 Foreground=System.Windows.Media.Brushes.GhostWhite,
+									 FontSize=11,
+									 TextAlignment=TextAlignment.Left,
+								};
+								LBClass.Items.Add(txtblockWrathOptions);
+
+								StackPanel spWrathOptions=new StackPanel
+								{
+									 Orientation=Orientation.Horizontal,
+								};
                         CheckBox cbbWaitForWrath = new CheckBox
                         {
                             Content = "Wait for Wrath",
-                            Width = 300,
                             Height = 30,
-                            IsChecked = (Bot.SettingsFunky.Class.bWaitForWrath)
+                            IsChecked = (Bot.SettingsFunky.Class.bWaitForWrath),
+									 Margin=new Thickness(5),
                         };
                         cbbWaitForWrath.Checked += bWaitForWrathChecked;
                         cbbWaitForWrath.Unchecked += bWaitForWrathChecked;
-                        LBClass.Items.Add(cbbWaitForWrath);
+								spWrathOptions.Children.Add(cbbWaitForWrath);
 
                         CheckBox cbbGoblinWrath = new CheckBox
                         {
                             Content = "Use Wrath on Goblins",
-                            Width = 300,
                             Height = 30,
-                            IsChecked = (Bot.SettingsFunky.Class.bGoblinWrath)
+                            IsChecked = (Bot.SettingsFunky.Class.bGoblinWrath),
+									 Margin=new Thickness(5),
                         };
                         cbbGoblinWrath.Checked += bGoblinWrathChecked;
                         cbbGoblinWrath.Unchecked += bGoblinWrathChecked;
-                        LBClass.Items.Add(cbbGoblinWrath);
+								spWrathOptions.Children.Add(cbbGoblinWrath);
 
+								CheckBox cbbBarbUseWOTBAlways=new CheckBox
+                        {
+                            Content = "Use Wrath on Always",
+                            Height = 30,
+									 IsChecked=(Bot.SettingsFunky.Class.bBarbUseWOTBAlways),
+									 Margin=new Thickness(5),
+                        };
+								cbbBarbUseWOTBAlways.Checked+=bBarbUseWOTBAlwaysChecked;
+								cbbBarbUseWOTBAlways.Unchecked+=bBarbUseWOTBAlwaysChecked;
+								spWrathOptions.Children.Add(cbbBarbUseWOTBAlways);
+								LBClass.Items.Add(spWrathOptions);
+
+
+								
                         CheckBox cbbFuryDumpWrath = new CheckBox
                         {
                             Content = "Fury Dump during Wrath",

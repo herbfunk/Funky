@@ -932,7 +932,7 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  return String.Format("RAGUID {0}: \r\n {1} \r\n Distance (Centre{2} / Radius{3}) BotFacing={4}",
+						  return String.Format("RAGUID {0}: \r\n {1} Distance (Centre{2} / Radius{3}) BotFacing={4}",
 								this.RAGUID.ToString(), base.DebugString, this.CentreDistance.ToString(), this.RadiusDistance.ToString(), this.BotIsFacing().ToString());
 					 }
 				}

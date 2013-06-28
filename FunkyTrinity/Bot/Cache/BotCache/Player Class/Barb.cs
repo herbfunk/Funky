@@ -81,7 +81,8 @@ namespace FunkyTrinity
 						  if (!bOOCBuff&&!bCurrentlyAvoiding
 								&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_WrathOfTheBerserker)
 								&&Bot.Class.AbilityUseTimer(SNOPower.Barbarian_WrathOfTheBerserker)
-								&&Bot.Combat.iElitesWithinRange[RANGE_50]>2)
+								&&Bot.SettingsFunky.Class.bWaitForWrath
+								&&(Bot.Combat.iElitesWithinRange[RANGE_50]>2||(Bot.SettingsFunky.Class.bGoblinWrath&&Bot.Target.CurrentTarget.IsTreasureGoblin)||(Bot.SettingsFunky.Class.bBarbUseWOTBAlways)))
 						  {
 								this.bWaitingForSpecial=true;
 						  }
@@ -112,8 +113,10 @@ namespace FunkyTrinity
 						 Bot.Target.CurrentTarget.SNOID!=193077&&
 						  // Make sure we are allowed to use wrath on goblins, else make sure this isn't a goblin
 						 (Bot.SettingsFunky.Class.bGoblinWrath||!Bot.Target.CurrentTarget.IsTreasureGoblin)&&
+						  //Check if Use Always Setting is enabled
+						 (!bCurrentlyAvoiding&&Bot.Target.CurrentTarget!=null&&Bot.SettingsFunky.Class.bBarbUseWOTBAlways||
 						  // If on a boss, only when injured
-						 ((Bot.Target.CurrentTarget.IsBoss&&thisCacheUnitObj!=null&&thisCacheUnitObj.CurrentHealthPct.Value<=0.99&&!Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind))||
+						 (Bot.Target.CurrentTarget.IsBoss&&thisCacheUnitObj!=null&&thisCacheUnitObj.CurrentHealthPct.Value<=0.99&&!Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind))||
 						  // If *NOT* on a boss, and definitely no boss in range, then judge based on any elites at all within 30 feet
 						  ((!Bot.Target.CurrentTarget.IsBoss||
 							 Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind))&&

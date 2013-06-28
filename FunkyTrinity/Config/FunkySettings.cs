@@ -105,7 +105,9 @@ namespace FunkyTrinity
                          configWriter.WriteLine("bGoblinWrath=" + Bot.SettingsFunky.Class.bGoblinWrath.ToString());
                          configWriter.WriteLine("bFuryDumpWrath=" + Bot.SettingsFunky.Class.bFuryDumpWrath.ToString());
                          configWriter.WriteLine("bFuryDumpWrath=" + Bot.SettingsFunky.Class.bFuryDumpAlways.ToString());
-                         break;
+								 configWriter.WriteLine("bBarbUseWOTBAlways="+Bot.SettingsFunky.Class.bBarbUseWOTBAlways.ToString());
+								 //
+								 break;
                      case Zeta.Internals.Actors.ActorClass.DemonHunter:
                          configWriter.WriteLine("iDHVaultMovementDelay=" + Bot.SettingsFunky.Class.iDHVaultMovementDelay.ToString());
                          configWriter.WriteLine("GoblinMinimumRange=" + Bot.SettingsFunky.Class.GoblinMinimumRange.ToString());
@@ -354,6 +356,10 @@ namespace FunkyTrinity
                                  case "bWaitForWrath":
                                      Bot.SettingsFunky.Class.bWaitForWrath = Convert.ToBoolean(config[1]);
                                      break;
+											//
+											case "bBarbUseWOTBAlways":
+												 Bot.SettingsFunky.Class.bBarbUseWOTBAlways=Convert.ToBoolean(config[1]);
+												 break;
                                  case "bGoblinWrath":
                                      Bot.SettingsFunky.Class.bGoblinWrath = Convert.ToBoolean(config[1]);
                                      break;
@@ -726,7 +732,7 @@ namespace FunkyTrinity
                  public bool bGoblinWrath { get; set; }
                  public bool bFuryDumpWrath { get; set; }
                  public bool bFuryDumpAlways { get; set; }
-
+					  public bool bBarbUseWOTBAlways { get; set; }
                  //DH
                  public int iDHVaultMovementDelay { get; set; }
 
@@ -746,6 +752,7 @@ namespace FunkyTrinity
 
                  public ClassSettings()
                  {
+							bBarbUseWOTBAlways=false;
                      bEnableCriticalMass = false;
                      bSelectiveWhirlwind = false;
                      bWaitForWrath = false;

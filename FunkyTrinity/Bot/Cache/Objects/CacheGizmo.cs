@@ -332,8 +332,8 @@ namespace FunkyTrinity
 									 if (!Zeta.CommonBot.Settings.CharacterSettings.Instance.DestroyEnvironment&&
 										  this.targetType.Value==TargetType.Destructible)
 									 {//Check for NoLoot/NoXP flags..
-										  if ((this.DropsNoLoot.HasValue&&this.DropsNoLoot.Value||this.GrantsNoXP.HasValue&&this.GrantsNoXP.Value)&&
-												this.LastPriortized>1500)
+										  if ((this.DropsNoLoot.HasValue&&this.DropsNoLoot.Value&&this.GrantsNoXP.HasValue&&this.GrantsNoXP.Value)&&
+												this.LastPriortized>10000)
 										  {
 												//ignore from being a targeted right now..
 												this.BlacklistLoops=25;

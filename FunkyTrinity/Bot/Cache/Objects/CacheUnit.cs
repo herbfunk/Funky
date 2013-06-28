@@ -1245,7 +1245,7 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  return String.Format("{0}\r\n Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} \r\n PriorityCounter={6} ReqLOS={7} LOSV3 {8}",
+						  return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} \r\n PriorityCounter={6} ReqLOS={7} LOSV3 {8}",
 								base.DebugString,
 								this.IsBurrowed.HasValue?this.IsBurrowed.Value.ToString():"",
 								this.IsTargetable.HasValue?this.IsTargetable.Value.ToString():"",
