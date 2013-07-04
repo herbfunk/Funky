@@ -381,8 +381,10 @@ namespace FunkyTrinity
 				{
 					 Vector3 NormalizedVector=this.Position;
 					 NormalizedVector.Normalize();
-					 float angleDegrees=Vector3.AngleBetween(DestinationVector, NormalizedVector);
 
+					 Vector3 NormalizedBotDestination=Vector3.NormalizedDirection(Bot.Character.Position,DestinationVector);
+
+					 float angleDegrees=Vector3.AngleBetween(NormalizedVector, NormalizedBotDestination);
 					 return (angleDegrees<=0.0045||angleDegrees>0.0315);
 				}
 
@@ -468,7 +470,7 @@ namespace FunkyTrinity
 						  this.Weight+=(10000*this.PriorityCounter);
 
 						  //decrease priority
-						  if (this.LastPriortized>(this.PriorityCounter*500)+1500)
+						  if (this.LastPriortized>(this.PriorityCounter*500)+2500)
 								this.PriorityCounter=this.PriorityCounter-1;
 					 }
 
@@ -717,8 +719,9 @@ namespace FunkyTrinity
 
 					 if (Bot.Combat.iTimesBlockedMoving<2)
 					 {
+						  float obstacleDistanceCheck=this.CentreDistance>20f?20f:this.RadiusDistance;
 						  //Prioritize blocking objects
-						  ObstacleCheck(Bot.Combat.vCurrentDestination);
+						  ObstacleCheck(Bot.Combat.vCurrentDestination, obstacleDistanceCheck);
 					 }
 
 					 // See if we want to ACTUALLY move, or are just waiting for the last move command...

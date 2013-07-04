@@ -89,7 +89,7 @@ namespace FunkyTrinity
 											Text=objDebugStr,
 											TextAlignment= System.Windows.TextAlignment.Left,
 											FontSize=11,
-											Foreground=System.Windows.Media.Brushes.GhostWhite,
+											Foreground=(item is CacheItem)?System.Windows.Media.Brushes.Black:System.Windows.Media.Brushes.GhostWhite,
 											Background=(item is CacheDestructable)?System.Windows.Media.Brushes.DarkSlateGray
 											:(item is CacheUnit)?System.Windows.Media.Brushes.MediumSeaGreen
 											:(item is CacheItem)?System.Windows.Media.Brushes.Gold

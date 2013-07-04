@@ -152,11 +152,11 @@ namespace FunkyTrinity
 								UseAvoiding=true,
 								UseOOCBuff=true,
 								Priority=AbilityPriority.High,
-								PreCastConditions=(AbilityConditions.CheckCanCast),
+								PreCastConditions=(AbilityConditions.CheckCanCast|AbilityConditions.CheckEnergy),
 								RuneIndex=this.RuneIndexCache[Power],
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return (this.PassiveAbilities.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler)&&Bot.Character.PetData.ZombieDogs<4||Bot.Character.PetData.ZombieDogs<3);
+									 return Bot.Character.PetData.ZombieDogs<(this.PassiveAbilities.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler)?4:3);
 								}),
 						  };
 					 }
@@ -234,10 +234,10 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.ClusterTarget | AbilityUseType.Target,
-								ClusterConditions= new Tuple<double,float,int,bool>(5d,35f,1,true),
+								ClusterConditions= new Tuple<double,float,int,bool>(4d,45f,1,true),
 								AbilityWaitVars=new Tuple<int, int, bool>(0, 3, true),
 								Cost=122,
-								Range=35,
+								Range=45,
 								UseAvoiding=false,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
@@ -245,7 +245,7 @@ namespace FunkyTrinity
 								RuneIndex=this.RuneIndexCache[Power],
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return Clusters(5d, 35f, 2).Count>0 || Bot.Target.CurrentTarget.ObjectIsSpecial;
+									 return Clusters(4d, 45f, 3).Count>0 || Bot.Target.CurrentTarget.ObjectIsSpecial;
 								}),
 						  };
 					 }
@@ -421,7 +421,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.ClusterTarget| AbilityUseType.Target,
-								ClusterConditions=new Tuple<double, float, int, bool>(5d, this.RuneIndexCache[Power]==4?30f:45f, 1, true),
+								ClusterConditions=new Tuple<double, float, int, bool>(4d, this.RuneIndexCache[Power]==4?30f:45f, 1, true),
 								AbilityWaitVars=new Tuple<int, int, bool>(1, 1, true),
 								Cost=250,
 								Range=this.RuneIndexCache[Power]==4?20:40,
@@ -432,7 +432,7 @@ namespace FunkyTrinity
 								RuneIndex=this.RuneIndexCache[Power],
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return (Clusters(5d, 35f, 2).Count>0)||(Bot.Target.CurrentTarget.ObjectIsSpecial);
+									 return (Clusters(4d, this.RuneIndexCache[Power]==4?30f:45f, 3).Count>0)||(Bot.Target.CurrentTarget.ObjectIsSpecial);
 								}),
 						  };
 					 }

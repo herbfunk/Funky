@@ -319,6 +319,7 @@ namespace FunkyTrinity
 								Vector3 SafeLOSMovement;
 								if (thisobj.Weight>iHighestWeightFound)
 								{//Only if we don't have a higher priority already..
+									 CurrentPath=new IndexedList<Vector3>(NP.CurrentPath.ToArray());
 
 									 if (thisobj.GPRect.TryFindSafeSpot(out SafeLOSMovement, Bot.Character.Position, Bot.KiteDistance>0f, true))
 									 {
@@ -809,9 +810,9 @@ namespace FunkyTrinity
 						  Bot.Combat.powerBuff=Bot.Class.AbilitySelector(true, false);
 						  if (Bot.Combat.powerBuff.Power!=SNOPower.None)
 						  {
-								ZetaDia.Me.UsePower(Bot.Combat.powerBuff.Power, Bot.Combat.powerBuff.TargetPosition, Bot.Combat.powerBuff.WorldID, Bot.Combat.powerBuff.TargetRAGUID);
-								Bot.Combat.powerLastSnoPowerUsed=Bot.Combat.powerBuff.Power;
-								dictAbilityLastUse[Bot.Combat.powerBuff.Power]=DateTime.Now;
+								Bot.Combat.powerBuff.UsePower();
+							//	ZetaDia.Me.UsePower(Bot.Combat.powerBuff.Power, Bot.Combat.powerBuff.TargetPosition, Bot.Combat.powerBuff.WorldID, Bot.Combat.powerBuff.TargetRAGUID);
+								Bot.Combat.powerBuff.SuccessfullyUsed();
 						  }
 					 }
 					 #endregion

@@ -81,6 +81,11 @@ namespace FunkyTrinity
 				{
 					 base.UpdateWeight();
 
+					 Vector3 TestPosition=this.Position;
+
+					 //Use modified Test Position for Gold/Globe
+					 if ((TargetType.Globe|TargetType.Gold).HasFlag(this.targetType.Value))
+						  TestPosition=MathEx.CalculatePointFrom(this.Position, Bot.Character.Position, this.CentreDistance-Bot.Character.PickupRadius);
 
 					 if (this.CentreDistance>=2f)
 					 {
@@ -91,19 +96,15 @@ namespace FunkyTrinity
 						  }
 						  else
 						  {
-								Vector3 TestPosition=this.Position;
-
-								//Use modified Test Position for Gold/Globe
-								if ((TargetType.Globe|TargetType.Gold).HasFlag(this.targetType.Value))
-									 TestPosition=MathEx.CalculatePointFrom(this.Position, Bot.Character.Position, this.CentreDistance-Bot.Character.PickupRadius);
-								//MathEx.GetPointAt(this.Position, Bot.Character.PickupRadius, FindDirection(this.Position, Bot.Character.Position, true));
-
 								//Test if this object is within any avoidances
 								if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
 									 this.Weight=1;
+
 								//Test intersection of avoidances
 								else if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition))
 									 this.Weight=1;
+
+							
 
 						  }
 					 }
@@ -116,7 +117,7 @@ namespace FunkyTrinity
 						  {
 
 								case TargetType.Item:
-									 this.Weight=(Bot.ItemRange*1000)-(Math.Floor(centreDistance)*120d);
+									 this.Weight=(Bot.ItemRange*275)-(Math.Floor(centreDistance)*1000d);
 									 // Point-blank items get a weight increase 
 									 if (centreDistance<=12f)
 										  this.Weight+=600d;
@@ -177,20 +178,23 @@ namespace FunkyTrinity
 									 {
 										  // Ok we have globes enabled, and our health is low...!
 										  this.Weight=17000d-(Math.Floor(centreDistance)*90d);
+
 										  // Point-blank items get a weight increase
 										  if (centreDistance<=15f)
 												this.Weight+=3000d;
+
 										  // Close items get a weight increase
 										  if (centreDistance<=60f)
 												this.Weight+=1500d;
+
 										  // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
 										  if (this==Bot.Character.LastCachedTarget&&centreDistance<=25f)
 												this.Weight+=400;
-										  // If there's a monster in the path-line to the item, reduce the weight by 15% for each
-										  Vector3 point=this.Position;
-										  foreach (CacheServerObject tempobstacle in ObjectCache.Obstacles.Monsters.Where(cp => cp.TestIntersection(this, BotPosition)))
+
+										  // If there's a monster in the path-line to the item, reduce the weight
+										  if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(BotPosition, TestPosition, true)))
 										  {
-												this.Weight*=0.85;
+												this.Weight*=0.25f;
 										  }
 
 										  // Calculate a spot reaching a little bit further out from the globe, to help globe-movements

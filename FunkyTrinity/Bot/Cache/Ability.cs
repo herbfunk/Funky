@@ -68,6 +68,7 @@ namespace FunkyTrinity
 		  {
 				public Ability()
 				{
+					 Power=SNOPower.None;
 					 Fcriteria=new Func<bool>(() => { return true; });
 					 AbilityWaitVars=new Tuple<int, int, bool>(0, 0, USE_SLOWLY);
 					 Cooldown=new Zeta.Common.Helpers.WaitTimer(new TimeSpan(0, 0, 0, 0, 0));
@@ -121,13 +122,16 @@ namespace FunkyTrinity
 				///Describes variables for use of ability: PreWait Loops, PostWait Loops, Reuseable
 				///</summary>
 				public Tuple<int, int, bool> AbilityWaitVars { get; set; }
+
 				///<summary>
 				///Holds int vaule that describes pet count or buff stacks.
 				///</summary>
 				public int Counter { get; set; }
 
 				public AbilityPriority Priority { get; set; }
+
 				public AbilityUseType UsageType { get; set; }
+
 				///<summary>
 				///This ability is allowed for buffing.
 				///</summary>
@@ -192,6 +196,7 @@ namespace FunkyTrinity
 				///Describes values for clustering used for target (Cdistance, DistanceFromBot, MinUnits, IgnoreNonTargetable)
 				///</summary>
 				public Tuple<double, float, int, bool> ClusterConditions { get; set; }
+
 				///<summary>
 				///Method that is used to determine if current combat conditions are valid.
 				///</summary>

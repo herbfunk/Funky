@@ -21,12 +21,14 @@ namespace FunkyTrinity
 				{
 					 Bot.Character.UpdateMovementData();
 
-					 if (!Bot.Character.isMoving||Bot.Character.currentMovementState==MovementState.WalkingInPlace)
+					 if (!Bot.Character.isMoving||Bot.Character.currentMovementState.HasFlag(MovementState.WalkingInPlace|MovementState.None))
 					 {
 						  LastObstacleIntersectionTest=DateTime.Now;
 
 						  Vector3 CurrentPosition=Bot.Character.Position;
-						  Vector3 IntersectionDestinationVector=MathEx.GetPointAt(CurrentPosition, range, Bot.Character.currentRotation);
+
+						 // Vector3 IntersectionDestinationVector=MathEx.CalculatePointFrom(CurrentPosition, DestinationVector, range);
+								//MathEx.GetPointAt(CurrentPosition, range, FindDirection(CurrentPosition,DestinationVector,true));
 						  //GridPoint IntersectionDestinationPoint=(GridPoint)IntersectionDestinationVector;
 						  //GridPoint BotGridPoint=Bot.Character.PointPosition;
 
@@ -37,7 +39,7 @@ namespace FunkyTrinity
 																						  &&obstacle.Obstacletype.HasValue
 																						  &&ObstacleType.Navigation.HasFlag(obstacle.Obstacletype.Value)//only navigation/intersection blocking objects!
 																						  &&obstacle.CentreDistance<=range //Only within range..
-																						  &&obstacle.BotIsFacing());
+																						  &&obstacle.BotIsFacing(DestinationVector));
 																						  //&&obstacle.TestIntersection(BotGridPoint, IntersectionDestinationPoint));
 
 

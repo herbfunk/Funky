@@ -40,7 +40,8 @@ namespace FunkyTrinity
 				}
 		  }
 
-
+		  private static IndexedList<Vector3> CurrentPath=null;
+		  
 
 
 		  private static Vector3 currentpathvector_=vNullLocation;
