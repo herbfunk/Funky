@@ -292,9 +292,11 @@ namespace FunkyTrinity
 									 }
 									 else
 									 {
+										  ShrineTypes shrinetype=FindShrineType(this.SNOID);
+										  
 										  //Ignore XP Shrines at MAX Paragon Level!
-										  if (this.SNOID==176075&&Bot.Character.iMyParagonLevel==100)
-												IgnoreThis=true;
+										  //if (this.SNOID==176075&&Bot.Character.iMyParagonLevel==100)
+										  IgnoreThis=!Bot.SettingsFunky.UseShrineTypes[(int)shrinetype];
 									 }
 
 									 //Ignoring..?
@@ -627,7 +629,7 @@ namespace FunkyTrinity
 						  }
 
 						  dictAbilityLastUse[Bot.Combat.powerPrime.Power]=DateTime.Now;
-						  Bot.Combat.powerPrime.Power=SNOPower.None;
+						  //Bot.Combat.powerPrime=null;
 						  Bot.Character.WaitWhileAnimating(6, true);
 					 }
 

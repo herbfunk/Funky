@@ -13,13 +13,13 @@ namespace FunkyTrinity
 	 public partial class Funky
 	 {
 
-		  internal static partial class Bot
+		  public static partial class Bot
 		  {
 
 				///<summary>
 				///Cache of all values Character related and variable.
 				///</summary>
-				internal class CharacterCache
+				public class CharacterCache
 				{
 					 public CharacterCache()
 					 {
@@ -53,25 +53,25 @@ namespace FunkyTrinity
 
 					 private DateTime lastUpdatedPlayer { get; set; }
 					 internal DateTime lastPreformedNonCombatAction { get; set; }
-					 internal bool bIsIncapacitated { get; set; }
-					 internal bool bIsRooted { get; set; }
-					 internal bool bIsInTown { get; set; }
-					 internal double dCurrentHealthPct { get; set; }
-					 internal double dCurrentEnergy { get; set; }
-					 internal double dCurrentEnergyPct { get; set; }
-					 internal double dDiscipline { get; set; }
-					 internal double dDisciplinePct { get; set; }
+					 public bool bIsIncapacitated { get; set; }
+					 public bool bIsRooted { get; set; }
+					 public bool bIsInTown { get; set; }
+					 public double dCurrentHealthPct { get; set; }
+					 public double dCurrentEnergy { get; set; }
+					 public double dCurrentEnergyPct { get; set; }
+					 public double dDiscipline { get; set; }
+					 public double dDisciplinePct { get; set; }
 					 internal int EnergyRegenerationRate { get; set; }
-					 internal bool isMoving { get; set; }
-					 internal int iCurrentWorldID { get; set; }
-					 internal GameDifficulty iCurrentGameDifficulty { get; set; }
+					 public bool isMoving { get; set; }
+					 public int iCurrentWorldID { get; set; }
+					 public GameDifficulty iCurrentGameDifficulty { get; set; }
 					 internal Zeta.CommonBot.Profile.ProfileBehavior CurrentProfileBehavior { get; set; }
 					 internal bool IsRunningOOCBehavior { get; set; }
 
 					 //Returns Live Data
 					 private DateTime lastPositionUpdate=DateTime.Today;
 					 private Vector3 lastPosition=vNullLocation;
-					 internal Vector3 Position
+					 public Vector3 Position
 					 {
 						  get
 						  {
@@ -120,7 +120,7 @@ namespace FunkyTrinity
 
 
 					 private MovementState curMoveState=MovementState.None;
-					 internal MovementState currentMovementState
+					 public MovementState currentMovementState
 					 {
 						  get
 						  {

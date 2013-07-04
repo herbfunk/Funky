@@ -12,7 +12,7 @@ namespace FunkyTrinity
 	 public partial class Funky
 	 {
 
-		  internal static partial class Bot
+		  public static partial class Bot
 		  {
 				// Used to force-refresh dia objects at least once every XX milliseconds 
 				internal static DateTime lastRefreshedObjects=DateTime.Today;

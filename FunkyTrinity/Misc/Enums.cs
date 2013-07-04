@@ -4,6 +4,33 @@ namespace FunkyTrinity
 {
     public partial class Funky
     {
+		  internal enum ShrineTypes
+		  {
+				Fleeting=0,
+				Enlightenment=1,
+				Frenzy=2,
+				Fortune=3,
+				Protection=4,
+				Empowered=5,
+		  }
+		  internal static ShrineTypes FindShrineType(int SNOID)
+		  {
+				switch (SNOID)
+				{
+					 case 176075:
+						  return ShrineTypes.Enlightenment;
+					 case 176077:
+						  return ShrineTypes.Frenzy;
+					 case 176074:
+						  return ShrineTypes.Protection;
+					 case 176076:
+						  return ShrineTypes.Fortune;
+					 case 260331:
+						  return ShrineTypes.Fleeting;
+					 default:
+						  return ShrineTypes.Empowered; //260330
+				}
+		  }
 		  internal enum GemQuality
 		  {
 				Chipped=14,

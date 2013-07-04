@@ -1861,9 +1861,41 @@ namespace FunkyTrinity
 
                 #endregion
 
-                GeneralTab.Content = lbGeneralContent;
 
+					 StackPanel spShrinePanel=new StackPanel();
+					 TextBlock Shrines_Header_Text=new TextBlock
+					 {
+						  Text="Shrines",
+						  FontSize=13,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin=new Thickness(Margin.Left,Margin.Top,Margin.Right,Margin.Bottom+5),
+						  TextAlignment=TextAlignment.Left,
+					 };
+					 spShrinePanel.Children.Add(Shrines_Header_Text);
+					 StackPanel spShrineUseOptions=new StackPanel
+					 {
+						  Orientation= Orientation.Horizontal,
+					 };
+					 CheckBox[] cbUseShrine=new CheckBox[6];
+					 string[] ShrineNames=Enum.GetNames(typeof(ShrineTypes));
+					 for (int i=0; i<6; i++)
+					 {
+						  cbUseShrine[i]=new CheckBox
+						  {
+								Content=ShrineNames[i],
+								Name=ShrineNames[i],
+								IsChecked=Bot.SettingsFunky.UseShrineTypes[i],
+								Margin=new Thickness(Margin.Left+3, Margin.Top, Margin.Right, Margin.Bottom+5),
+						  };
+						  cbUseShrine[i].Checked+=UseShrineChecked;
+						  cbUseShrine[i].Unchecked+=UseShrineChecked;
+						  spShrineUseOptions.Children.Add(cbUseShrine[i]);
+					 }
+					 spShrinePanel.Children.Add(spShrineUseOptions);
 
+					 lbGeneralContent.Items.Add(spShrinePanel);
+
+					 GeneralTab.Content=lbGeneralContent;
 
                 #region CoffeeBreaks
                 TabItem CoffeeBreakTab = new TabItem();
@@ -2278,7 +2310,16 @@ namespace FunkyTrinity
 
 					 lbItemRulesContent.Items.Add(spItemRules);
 
-                ItemRulesReload = new Button
+					 Button ItemRulesExploreFolder=new Button
+					 {
+						  Content="Open Item Rules Folder",
+						  Width=300,
+						  Height=30
+					 };
+					 ItemRulesExploreFolder.Click+=ItemRulesOpenFolder_Click;
+					 lbItemRulesContent.Items.Add(ItemRulesExploreFolder);
+
+					 ItemRulesReload = new Button
                 {
                     Content = "Reload rules",
                     Width = 300,

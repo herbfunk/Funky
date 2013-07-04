@@ -13,7 +13,7 @@ namespace FunkyTrinity
 	 {
 
 
-		  internal abstract class Player
+		  public abstract class Player
 		  {
 				//Base class for each individual class!
 				public Player(ActorClass a)
@@ -22,9 +22,6 @@ namespace FunkyTrinity
 					 RefreshHotbar();
 					 RefreshPassives();
 					 UpdateRepeatAbilityTimes();
-
-					 //UpdateActiveSkillCache();
-
 					 Logging.WriteVerbose("[Funky] Created the Player Class Data");
 				}
 
@@ -44,19 +41,78 @@ namespace FunkyTrinity
 				internal double iWaitingReservedAmount=0d;
 				internal bool bWaitingForSpecial=false;
 
-				public virtual Ability AbilitySelector(bool bCurrentlyAvoiding=false, bool bOOCBuff=false, bool bDestructiblePower=false)
+				public virtual void RecreateAbilities()
 				{
-					 return new Ability(SNOPower.None, 0, vNullLocation, -1, -1, 0, 0, false);
-				}
 
+				}
+				///<summary>
+				///Selects first ability that is successful in precast and combat testing.
+				///</summary>
+				public virtual Ability AbilitySelector(bool bCurrentlyAvoiding=false, bool bOOCBuff=false)
+				{
+					 foreach (var item in this.Abilities.Values.ToList().OrderByDescending(a => a.Priority))
+					 {
+						  if (!item.Cooldown.IsFinished) continue;
+						  if (bCurrentlyAvoiding&&item.UseAvoiding==false) continue;
+						  if (bOOCBuff&&item.UseOOCBuff==false) continue;
+						  if (!item.CheckConditionMethod()) continue;
+
+						  //
+						  if (item.Fcriteria())
+						  {
+								item.SetupAbilityForUse();
+								return item;
+						  }
+					 }
+
+					 return new Ability();
+				}
+				///<summary>
+				///Returns ability used for destructibles
+				///</summary>
+				public virtual Ability DestructibleAbility()
+				{
+					 return new Ability();
+				}
+				///<summary>
+				///Create ability (Derieved classes override this!)
+				///</summary>
+				public virtual Ability CreateAbility(SNOPower P)
+				{
+					 return new Ability();
+				}
+				///<summary>
+				///Check if Bot should generate a new ZigZag location.
+				///</summary>
+				public virtual bool ShouldGenerateNewZigZagPath()
+				{
+					 return true;
+				}
+				///<summary>
+				///Generates a new ZigZag location.
+				///</summary>
+				public virtual void GenerateNewZigZagPath()
+				{
+
+				}
+				///<summary>
+				///
+				///</summary>
+				public virtual int MainPetCount
+				{
+					 get
+					 {
+						  return 0;
+					 }
+				}
 
 				internal HashSet<SNOPower> PassiveAbilities=new HashSet<SNOPower>();
 				internal HashSet<SNOPower> HotbarAbilities=new HashSet<SNOPower>();
 				private bool UsingSecondaryHotbarAbilities=false;
-				private Dictionary<HotbarSlot, SNOPower> HotbarPowerCache=new Dictionary<HotbarSlot, SNOPower>();
 				internal Dictionary<SNOPower, int> RuneIndexCache=new Dictionary<SNOPower, int>();
 				internal Dictionary<SNOPower, int> AbilityCooldowns=new Dictionary<SNOPower, int>();
 				internal Dictionary<int, int> CurrentBuffs=new Dictionary<int, int>();
+				internal Dictionary<SNOPower, Ability> Abilities=new Dictionary<SNOPower, Ability>();
 
 				private bool specialMovementUseCheck(SNOPower P)
 				{
@@ -102,13 +158,13 @@ namespace FunkyTrinity
 				///<summary>
 				///Used to check for a secondary hotbar set. Currently only used for wizards with Archon.
 				///</summary>
-				internal void SecondaryHotbarBuffPresent()
+				internal bool SecondaryHotbarBuffPresent()
 				{
 
 					 if (AC==ActorClass.Wizard)
 					 {
-						  bool ArchonBuffPresent=(CurrentBuffs.ContainsKey((int)SNOPower.Wizard_Archon));
-						  bool RefreshNeeded=false;
+						  bool ArchonBuffPresent=this.HasBuff(SNOPower.Wizard_Archon);
+						  bool RefreshNeeded=(Abilities.Count==0);
 
 						  if (ArchonBuffPresent&&!UsingSecondaryHotbarAbilities)
 								RefreshNeeded=true;
@@ -120,8 +176,11 @@ namespace FunkyTrinity
 								Logging.WriteVerbose("Updating Hotbar abilities!");
 								RefreshHotbar(ArchonBuffPresent);
 								UpdateRepeatAbilityTimes();
+								RecreateAbilities();
+								return true;
 						  }
 					 }
+					 return false;
 				}
 
 				///<summary>
@@ -161,11 +220,8 @@ namespace FunkyTrinity
 				{
 
 					 UsingSecondaryHotbarAbilities=Secondary;
-
-
 					 HotbarAbilities=new HashSet<SNOPower>();
 					 destructibleabilities=new List<SNOPower>();
-					 HotbarPowerCache=new Dictionary<HotbarSlot, SNOPower>();
 					 RuneIndexCache=new Dictionary<SNOPower, int>();
 
 					 using (ZetaDia.Memory.AcquireFrame())
@@ -173,41 +229,50 @@ namespace FunkyTrinity
 						  if (ZetaDia.CPlayer.IsValid)
 						  {
 
+								//Cache each hotbar SNOPower
 								foreach (SNOPower ability in ZetaDia.CPlayer.ActiveSkills)
 								{
-									 if (!HotbarAbilities.Contains(ability))
-										  HotbarAbilities.Add(ability);
+									 //"None" -- Occuring during Wizard Archon (Exceptions)
+									 if (ability.Equals(SNOPower.None)) continue;
 
+									 if (!this.HotbarAbilities.Contains(ability))
+										  this.HotbarAbilities.Add(ability);
+
+									 //Check if the SNOPower is a destructible ability
 									 if (AbilitiesDestructiblePriority.Contains(ability))
 									 {
-										  if (!destructibleabilities.Contains(ability))
-												destructibleabilities.Add(ability);
+										  if (!this.destructibleabilities.Contains(ability))
+												this.destructibleabilities.Add(ability);
 									 }
 
 								}
 
+								//Cache each Rune Index
 								foreach (HotbarSlot item in Enum.GetValues(typeof(HotbarSlot)))
 								{
 									 if (item==HotbarSlot.Invalid) continue;
 
 									 SNOPower hotbarPower=ZetaDia.CPlayer.GetPowerForSlot(item);
 
-									 if (!HotbarAbilities.Contains(hotbarPower)) continue;
+									 if (!this.HotbarAbilities.Contains(hotbarPower)) continue;
 
-									 if (!HotbarPowerCache.ContainsKey(item))
-										  HotbarPowerCache.Add(item, hotbarPower);
-
-									 int RuneIndex=ZetaDia.CPlayer.GetRuneIndexForSlot(item);
-
-									 if (!RuneIndexCache.ContainsKey(hotbarPower))
-										  RuneIndexCache.Add(hotbarPower, RuneIndex);
-
-									 //Logging.WriteVerbose("Hotbar Slot {0} contains Power {1} with RuneIndex {2}", item.ToString(), hotbarPower.ToString(), RuneIndex.ToString());
-									 //HotbarPowerCache
+									 try
+									 {
+										  int RuneIndex=ZetaDia.CPlayer.GetRuneIndexForSlot(item);
+										  if (!this.RuneIndexCache.ContainsKey(hotbarPower))
+												this.RuneIndexCache.Add(hotbarPower, RuneIndex);
+									 } catch
+									 {
+										  if (!this.RuneIndexCache.ContainsKey(hotbarPower))
+												this.RuneIndexCache.Add(hotbarPower, -1);
+									 }
 								}
+
 						  }
 					 }
 				}
+
+
 
 				///<summary>
 				///Enumerates through the PassiveSkills and adds them to the PassiveAbilities collection. Used to adjust repeat timers of abilities.
@@ -354,6 +419,34 @@ namespace FunkyTrinity
 				{
 					 int id=(int)power;
 					 return CurrentBuffs.Keys.Any(u => u==id);
+				}
+
+
+				public void DebugString()
+				{
+
+
+						  Logging.Write("Character Information\r\nRadius {0}\r\nHotBar Abilities [{1}]\r\n", Bot.Character.fCharacterRadius, this.HotbarAbilities.Count);
+
+						  foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.HotbarAbilities)
+						  {
+								Logging.Write("{0} with current rune index {1}", item.ToString(), Bot.Class.RuneIndexCache.ContainsKey(item)?Bot.Class.RuneIndexCache[item].ToString():"none");
+						  }
+
+						  Logging.Write("Created Abilities [{0}]", Abilities.Count);
+						  foreach (var item in this.Abilities.Values)
+						  {
+								Logging.Write("Power [{0}] -- Priority {1} --", item.Power.ToString(), item.Priority);
+						  }
+
+						  Bot.Character.UpdateAnimationState();
+						  Logging.Write("State: {0} -- SNOAnim {1}", Bot.Character.CurrentAnimationState.ToString(), Bot.Character.CurrentSNOAnim.ToString());
+						  Logging.Write("Current Buffs");
+						  foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.CurrentBuffs.Keys)
+						  {
+								Logging.Write("Buff: {0}", Enum.GetName(typeof(SNOPower), item));
+						  }
+					 
 				}
 		  }
 	 }

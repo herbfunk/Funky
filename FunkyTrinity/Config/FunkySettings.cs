@@ -30,6 +30,13 @@ namespace FunkyTrinity
                  configWriter.WriteLine("breakTimeHour=" + Bot.SettingsFunky.breakTimeHour.ToString());
                  configWriter.WriteLine("ShrineRange=" + Bot.SettingsFunky.ShrineRange.ToString());
 
+					  foreach (var item in Enum.GetNames(typeof(ShrineTypes)))
+					  {
+							int index=(int)Enum.Parse(typeof(ShrineTypes), item);
+							configWriter.WriteLine(item+"="+Bot.SettingsFunky.UseShrineTypes[index].ToString());
+
+					  }
+
                  configWriter.WriteLine("ItemRuleUseItemIDs=" + Bot.SettingsFunky.ItemRuleUseItemIDs.ToString());
                  configWriter.WriteLine("ItemRuleDebug=" + Bot.SettingsFunky.ItemRuleDebug.ToString());
                  configWriter.WriteLine("ItemRuleType=" + Bot.SettingsFunky.ItemRuleType.ToString());
@@ -227,6 +234,25 @@ namespace FunkyTrinity
                          {
                              switch (config[0])
                              {
+											case "Fleeting":
+												 Bot.SettingsFunky.UseShrineTypes[0]=Convert.ToBoolean(config[1]);
+												 break;
+											case "Enlightenment":
+												 Bot.SettingsFunky.UseShrineTypes[1]=Convert.ToBoolean(config[1]);
+												 break;
+											case "Frenzy":
+												 Bot.SettingsFunky.UseShrineTypes[2]=Convert.ToBoolean(config[1]);
+												 break;
+											case "Fortune":
+												 Bot.SettingsFunky.UseShrineTypes[3]=Convert.ToBoolean(config[1]);
+												 break;
+											case "Protection":
+												 Bot.SettingsFunky.UseShrineTypes[4]=Convert.ToBoolean(config[1]);
+												 break;
+											case "Empowered":
+												 Bot.SettingsFunky.UseShrineTypes[5]=Convert.ToBoolean(config[1]);
+												 break;
+
                                  case "OOCIdentifyItems":
                                      Bot.SettingsFunky.OOCIdentifyItems = Convert.ToBoolean(config[1]);
                                      break;
@@ -554,6 +580,7 @@ namespace FunkyTrinity
              public int MaxBreakTime { get; set; }
              public int OOCIdentifyItemsMinimumRequired { get; set; }
              public double breakTimeHour { get; set; }
+				 public bool[] UseShrineTypes { get; set; }
 
              //Character Related
              public bool AttemptAvoidanceMovements { get; set; }
@@ -640,6 +667,7 @@ namespace FunkyTrinity
                   int eliterange, int extendedrange, int goldrange, int[] minweaponlevel, int[] minarmorlevel, int[] minjewelerylevel, int minlegendarylevel,
                   int maxhealthpots, int mingoldpile, bool[] gems, int minGemLevel, bool craftTomes, bool craftPlans, bool Followeritems, int miscitemlevel, bool itemlevelinglogic, int gilesWeaponScore, int gilesArmorScore, int gilesJeweleryScore, bool projectiletesting, bool ignoreelites)
              {
+					  UseShrineTypes=new bool[6] { true, true, true, true, true, true };
                  LogStuckLocations = true;
                  RestartGameOnLongStucks = true;
                  EnableUnstucker = true;

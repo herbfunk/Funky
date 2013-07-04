@@ -1125,39 +1125,10 @@ namespace FunkyTrinity
 								//Logging.Write(powerPrime.powerThis.ToString() + " used successfully");
 								Bot.Combat.powerLastSnoPowerUsed=Bot.Combat.powerPrime.Power;
 								Bot.Combat.powerPrime.SuccessfullyUsed();
-
-								// Keep looking for monsters at "normal kill range" a few moments after we successfully attack a monster incase we can pull them into range
-								iKeepKillRadiusExtendedFor=20;
-								iKeepLootRadiusExtendedFor=20;
 						  }
 						  else
 						  {
 								dictAbilityLastFailed[Bot.Combat.powerPrime.Power]=DateTime.Now;
-
-								/*
-								//Check type of ability
-								if (Bot.Class.OffensiveAbilities.Contains((int)powerPrime.Power)
-									 &&!powerPrime.CanCastFlags.HasFlag(
-										  PowerManager.CanCastFlags.PowerTargetTooFar|PowerManager.CanCastFlags.PowerInvalidTarget|PowerManager.CanCastFlags.PowerNotEnoughResource))
-								{//Raycast test to see if anything is in "front" of us..
-
-									 Logging.WriteVerbose("Failure of ability use {0} Reason {1}!", powerPrime.Power.ToString(), powerPrime.CanCastFlags.ToString());
-									 NavCellFlags raycastNavCellFlagTest=Bot.Class.IsMeleeClass?NavCellFlags.AllowWalk:NavCellFlags.AllowProjectile;
-									 if (!GilesCanRayCast(Bot.Character.vCurrentPosition, ObjectData.Position, raycastNavCellFlagTest))
-									 {//Not successful with testing raycast navcell..
-										  Logging.WriteVerbose("Failure to raycast navcell.. blacklisting Target {0}!", ObjectData.InternalName);
-										  ObjectData.BlacklistLoops=10;
-										  Flags.bForceTargetUpdate=true;
-										  return RunStatus.Running;
-									 }
-								}
-								*/
-
-								/*
-								Logging.WriteVerbose("GSDebug: Skill use apparently failed=" + powerPrime.Power.ToString() + ", against enemy: " + ObjectData.InternalName +
-									" (skill use range=" + powerPrime.iMinimumRange.ToString() + ", enemy centre range=" + ObjectData.CentreDistance.ToString() + ", radius range=" +
-									ObjectData.RadiusDistance.ToString()+" (radius="+ObjectData.Radius.ToString()+")");
-								*/
 						  }
 
 						  // Wait for animating AFTER the attack
@@ -1201,13 +1172,13 @@ namespace FunkyTrinity
 
 					 //Check if we should mod our distance:: used for worm bosses
 					 if (base.IsWormBoss)
-						  Bot.Combat.powerPrime.MinimumRange=Bot.Class.IsMeleeClass?14f:16f;
+						  Bot.Combat.powerPrime.MinimumRange=Bot.Class.IsMeleeClass?14:16;
 					 else if (base.IgnoresLOSCheck)
-						  Bot.Combat.powerPrime.MinimumRange=base.ActorSphereRadius.Value*1.5f;
+						  Bot.Combat.powerPrime.MinimumRange=(int)(base.ActorSphereRadius.Value*1.5);
 					 else if (this.IsBurrowed.HasValue&&this.IsBurrowed.Value&&this.IsEliteRareUnique)//Force close range on burrowed elites!
-						  Bot.Combat.powerPrime.MinimumRange=15f;
+						  Bot.Combat.powerPrime.MinimumRange=15;
 					 else if (this.IsStealthableUnit&&this.IsAttackable.HasValue&&this.IsAttackable.Value==false&&this.IsEliteRareUnique)
-						  Bot.Combat.powerPrime.MinimumRange=15f;
+						  Bot.Combat.powerPrime.MinimumRange=15;
 					 else if (this.IsTreasureGoblin&&!Bot.Class.IsMeleeClass&&Bot.SettingsFunky.Class.GoblinMinimumRange>0)
 						  Bot.Combat.powerPrime.MinimumRange=Bot.SettingsFunky.Class.GoblinMinimumRange;
 					 else

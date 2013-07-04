@@ -12,12 +12,12 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  internal static partial class Bot
+		  public static partial class Bot
 		  {
 				///<summary>
 				///Cache of current combat variables
 				///</summary>
-				internal class CombatCache
+				public class CombatCache
 				{
 					 public CombatCache()
 					 {
@@ -41,7 +41,7 @@ namespace FunkyTrinity
 						  LastHealthDropPct=0d;
 						  LastHealthChange=DateTime.Today;
 						  lastSentMovePower=DateTime.Today;
-						  powerPrime=new Ability(SNOPower.None, 0f, vNullLocation, -1, -1, 0, 0, false);
+						  powerPrime=new Ability();
 						  iElitesWithinRange=new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 						  iAnythingWithinRange=new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 						  iNonRendedTargets_6=0;

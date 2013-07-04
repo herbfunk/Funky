@@ -132,6 +132,7 @@ namespace FunkyTrinity
 				#endregion
 
 				Bot.Class.SecondaryHotbarBuffPresent();
+				
 
 				// Clear target current and reset key variables used during the target-handling function
 				Bot.Combat.ResetTargetHandling();
@@ -231,7 +232,7 @@ namespace FunkyTrinity
 				AnimationState myAnimationState=Bot.Character.CurrentAnimationState;
 				if (!Bot.Character.bIsInTown&&!TownRunManager.bWantToTownRun&&myAnimationState!=AnimationState.Attacking&&myAnimationState!=AnimationState.Casting&&myAnimationState!=AnimationState.Channeling)
 				{
-					 Bot.Combat.powerBuff=Bot.Class.AbilitySelector(false, true, false);
+					 Bot.Combat.powerBuff=Bot.Class.AbilitySelector(false, true);
 					 if (Bot.Combat.powerBuff.Power!=SNOPower.None)
 					 {
 						  Bot.Character.WaitWhileAnimating(4, true);

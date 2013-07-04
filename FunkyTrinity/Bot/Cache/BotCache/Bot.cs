@@ -11,13 +11,13 @@ namespace FunkyTrinity
 	 {
 		  //This class is used to hold the data
 
-		  internal static partial class Bot
+		  public static partial class Bot
 		  {
 				internal static Settings_Funky SettingsFunky=new Settings_Funky(false, false, false, false, false, false, false, 4, 8, 3, 1.5d, true, 20, false, false, "hard", "Rare", "Rare", true, false, 0, 10, 30, 60, 0.6d, 0.4d, true, 2, 250, false, 60, 30, 40, new int[1], new int[1], new int[1], 1, 100, 300, new bool[3], 60, true, true, true, 59, false, 75000, 25000, 25000, false, false);
-				internal static Player Class { get; set; }
-				internal static CharacterCache Character { get; set; }
-				internal static CombatCache Combat { get; set; }
-				internal static TargetHandler Target { get; set; }
+				public static Player Class { get; set; }
+				public static CharacterCache Character { get; set; }
+				public static CombatCache Combat { get; set; }
+				public static TargetHandler Target { get; set; }
 
 				///<summary>
 				///Usable Objects -- refresh inside Target.UpdateTarget

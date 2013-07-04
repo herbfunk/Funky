@@ -1,8 +1,13 @@
-//Rules: [QUALITY] [REQLEVEL] [REDUCEDLEVEL] [LEVEL]
-//				   Required   Reduced Affix  ILevel
+//SALVAGE RULES -- USED TO DETERMINE IF ITEM SHOULD BE SALVAGED INSTEAD OF SOLD!
+
 
 //Legendaries with no reduced level.
 [QUALITY] == "Legendary" && ([LEVEL] > 60) && ([REDUCEDLEVEL] <= 0)
 
+
 //Rares that are level 60 required only!
 [QUALITY] == "Rare" && ([LEVEL] > 60) && ([REDUCEDLEVEL] <= 0)
+
+
+//Magic that are level 60 requried only!
+//[QUALITY] == "Magic" && ([LEVEL] > 60) && ([REDUCEDLEVEL] <= 0)

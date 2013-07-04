@@ -38,7 +38,7 @@ namespace FunkyTrinity
 		  };
 		  private static readonly HashSet<SNOPower> SpecialMovementAbilities=new HashSet<SNOPower>
 		  {
-				SNOPower.Barbarian_Leap,SNOPower.Barbarian_FuriousCharge,SNOPower.Barbarian_Whirlwind,
+				SNOPower.Barbarian_Leap,SNOPower.Barbarian_FuriousCharge,SNOPower.Barbarian_Whirlwind, SNOPower.Barbarian_Sprint,
 				SNOPower.DemonHunter_Vault,SNOPower.DemonHunter_Strafe,
 				SNOPower.Wizard_Teleport,SNOPower.Wizard_Archon_Teleport,
 				SNOPower.Monk_TempestRush,

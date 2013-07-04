@@ -15,536 +15,574 @@ namespace FunkyTrinity
 		  {
 				//Base class for each individual class!
 				public Barbarian(ActorClass a)
-					 :base(a)
+					 : base(a)
 				{
-
+					 this.RecreateAbilities();
+					 IsRangedBuild=(base.HotbarAbilities.Contains(SNOPower.Barbarian_WeaponThrow)&&base.HotbarAbilities.Contains(SNOPower.Barbarian_AncientSpear));
 				}
+				public override void RecreateAbilities()
+				{
+					base.Abilities=new Dictionary<SNOPower, Ability>();
+
+					 //Create the abilities
+					 foreach (var item in base.HotbarAbilities)
+					 {
+						  base.Abilities.Add(item, this.CreateAbility(item));
+					 }
+				}
+				private bool IsRangedBuild=false;
 				public override bool IsMeleeClass
 				{
 					 get
 					 {
-						  return true;
+						  return !IsRangedBuild;
 					 }
 				}
-				public override Ability AbilitySelector(bool bCurrentlyAvoiding=false, bool bOOCBuff=false, bool bDestructiblePower=false)
+
+
+				public override bool ShouldGenerateNewZigZagPath()
 				{
-					 // Pick the best destructible power available
-					 #region DestructiblePower
-					 if (bDestructiblePower)
-					 {
-						  SNOPower destructiblePower=this.DestructiblePower();
-						  if (destructiblePower==SNOPower.Barbarian_WeaponThrow)
-						  {
-								if (Bot.Character.dCurrentEnergy>=20)
-								{
-									 return new Ability(SNOPower.Barbarian_WeaponThrow, 15f, vNullLocation, -1, -1, 0, 0, USE_SLOWLY);
-								}
-								else
-								{
-									 return new Ability(SNOPower.Weapon_Melee_Instant, 10f, vNullLocation, -1, -1, 0, 0, USE_SLOWLY);
-								}
-						  }
-
-						  return new Ability(destructiblePower, 10f, vNullLocation, -1, -1, 0, 0, USE_SLOWLY);
-					 }
-					 #endregion
-
-					 // Barbarians need 56 reserve for special spam like WW
-					 this.iWaitingReservedAmount=56;
-					 // Ignore Pain when low on health
-					 if (!bOOCBuff&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_IgnorePain)&&Bot.Character.dCurrentHealthPct<=0.45&&
-						 Bot.Class.AbilityUseTimer(SNOPower.Barbarian_IgnorePain, true)&&PowerManager.CanCast(SNOPower.Barbarian_IgnorePain))
-					 {
-						  return new Ability(SNOPower.Barbarian_IgnorePain, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
-					 }
-
-					 CacheUnit thisCacheUnitObj;
-
-					 if (!bOOCBuff&&Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.targetType.Value==TargetType.Unit)
-						  thisCacheUnitObj=(CacheUnit)Bot.Target.CurrentTarget;
+					 return (DateTime.Now.Subtract(Bot.Combat.lastChangedZigZag).TotalMilliseconds>=2000f||
+								(Bot.Combat.vPositionLastZigZagCheck!=vNullLocation&&Bot.Character.Position==Bot.Combat.vPositionLastZigZagCheck&&DateTime.Now.Subtract(Bot.Combat.lastChangedZigZag).TotalMilliseconds>=1200)||
+								Vector3.Distance(Bot.Character.Position, Bot.Combat.vSideToSideTarget)<=5f||
+								Bot.Target.CurrentTarget.AcdGuid.Value!=Bot.Combat.iACDGUIDLastWhirlwind);
+				}
+				public override void GenerateNewZigZagPath()
+				{
+					 if (Bot.Combat.bCheckGround)
+						  Bot.Combat.vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, 25f, false, true, true);
+					 else if (Bot.Combat.iAnythingWithinRange[RANGE_30]>=6||Bot.Combat.iElitesWithinRange[RANGE_30]>=3)
+						  Bot.Combat.vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, 25f, false, true);
 					 else
-						  thisCacheUnitObj=null;
+						  Bot.Combat.vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, 25f);
+					 Bot.Combat.powerLastSnoPowerUsed=SNOPower.None;
+					 Bot.Combat.iACDGUIDLastWhirlwind=Bot.Target.CurrentTarget.AcdGuid.Value;
+					 Bot.Combat.lastChangedZigZag=DateTime.Now;
+				}
 
-					 // Flag up a variable to see if we should reserve 50 fury for special abilities
-					 this.bWaitingForSpecial=false;
-					 //Only check if we are not already 100%
-					 if (Bot.Character.dCurrentEnergyPct<1)
+
+				public override Ability DestructibleAbility()
+				{
+					 SNOPower destructiblePower=this.DestructiblePower();
+					 Ability returnAbility=this.Abilities[destructiblePower];
+					 if (destructiblePower==SNOPower.Barbarian_WeaponThrow)
 					 {
-						  if (thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique&&thisCacheUnitObj.MonsterShielding&&!thisCacheUnitObj.IsAttackable.Value)
-								this.bWaitingForSpecial=true;
-
-						  if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Earthquake)&&
-							  Bot.Combat.iElitesWithinRange[RANGE_25]>=1&&Bot.Class.AbilityUseTimer(SNOPower.Barbarian_Earthquake))
+						  if (Bot.Character.dCurrentEnergy>=10)
 						  {
-								this.bWaitingForSpecial=true;
+								
+								returnAbility.SetupAbilityForUse();
+								return returnAbility;
 						  }
-						  if (!bOOCBuff&&!bCurrentlyAvoiding
-								&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_WrathOfTheBerserker)
-								&&Bot.Class.AbilityUseTimer(SNOPower.Barbarian_WrathOfTheBerserker)
-								&&Bot.SettingsFunky.Class.bWaitForWrath
-								&&(Bot.Combat.iElitesWithinRange[RANGE_50]>2||(Bot.SettingsFunky.Class.bGoblinWrath&&Bot.Target.CurrentTarget.IsTreasureGoblin)||(Bot.SettingsFunky.Class.bBarbUseWOTBAlways)))
+						  else
 						  {
-								this.bWaitingForSpecial=true;
-						  }
-						  if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_CallOfTheAncients)&&
-							  Bot.Combat.iElitesWithinRange[RANGE_15]>=3&&Bot.Class.AbilityUseTimer(SNOPower.Barbarian_CallOfTheAncients))
-						  {
-								this.bWaitingForSpecial=true;
+								return Instant_Melee_Attack;
 						  }
 					 }
 
+					 
+					 returnAbility.SetupAbilityForUse();
+					 return returnAbility;
+				}
+
+				public override Ability CreateAbility(SNOPower Power)
+				{
+					 Ability returnAbility=null;
+					 // Ignore Pain when low on health
+					 if (Power.Equals(SNOPower.Barbarian_IgnorePain))
+					 {
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Buff,
+								AbilityWaitVars=new Tuple<int, int, bool>(0, 0, true),
+								Cost=0,
+								UseAvoiding=true,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.High,
+								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckCanCast),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() => { return Bot.Character.dCurrentHealthPct<=0.45; }),
+						  };
+					 }
 					 #region Earthquake
 					 // Earthquake, elites close-range only
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Earthquake)&&!Bot.Character.bIsIncapacitated&&
-						 (Bot.Combat.iElitesWithinRange[RANGE_15]>0||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=13f))&&
-						 Bot.Class.AbilityUseTimer(SNOPower.Barbarian_Earthquake, true)&&
-						 PowerManager.CanCast(SNOPower.Barbarian_Earthquake))
+					 if (Power.Equals(SNOPower.Barbarian_Earthquake))
 					 {
-						  if (Bot.Character.dCurrentEnergy>=50)
-								return new Ability(SNOPower.Barbarian_Earthquake, 13f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 4, 4, USE_SLOWLY);
-						  this.bWaitingForSpecial=true;
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Buff,
+								AbilityWaitVars=new Tuple<int, int, bool>(4, 4, true),
+								Cost=0,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.High,
+								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckExisitingBuff|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() => { return (Bot.Combat.iElitesWithinRange[RANGE_15]>0||(Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=13f)); }),
+						  };
+
 					 }
 					 #endregion
-
 					 #region Wrath of the berserker
 					 // Wrath of the berserker, elites only (wrath of berserker)
-					 if (!bOOCBuff&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&
-						  // Not on heart of sin after Cydaea
-						 Bot.Target.CurrentTarget.SNOID!=193077&&
-						  // Make sure we are allowed to use wrath on goblins, else make sure this isn't a goblin
-						 (Bot.SettingsFunky.Class.bGoblinWrath||!Bot.Target.CurrentTarget.IsTreasureGoblin)&&
-						  //Check if Use Always Setting is enabled
-						 (!bCurrentlyAvoiding&&Bot.Target.CurrentTarget!=null&&Bot.SettingsFunky.Class.bBarbUseWOTBAlways||
-						  // If on a boss, only when injured
-						 (Bot.Target.CurrentTarget.IsBoss&&thisCacheUnitObj!=null&&thisCacheUnitObj.CurrentHealthPct.Value<=0.99&&!Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind))||
-						  // If *NOT* on a boss, and definitely no boss in range, then judge based on any elites at all within 30 feet
-						  ((!Bot.Target.CurrentTarget.IsBoss||
-							 Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind))&&
-							 (!Bot.Combat.bAnyBossesInRange||
-							 Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind))
-									 &&((Clusters(12d, 45f, 3).Any(c => c.EliteCount>2))))) //find any with at least 3.)))&&
-						  // Don't still have the buff
-						 &&!HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)&&
-						 Bot.Class.AbilityUseTimer(SNOPower.Barbarian_WrathOfTheBerserker, true)&&
-						 PowerManager.CanCast(SNOPower.Barbarian_WrathOfTheBerserker))
+					 if (Power.Equals(SNOPower.Barbarian_WrathOfTheBerserker))
 					 {
-						  if (Bot.Character.dCurrentEnergy>=50)
-								return new Ability(SNOPower.Barbarian_WrathOfTheBerserker, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 4, 4, USE_SLOWLY);
-						  this.bWaitingForSpecial=true;
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Buff,
+								AbilityWaitVars=new Tuple<int, int, bool>(4, 4, true),
+								Cost=50,
+								UseAvoiding=true,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.High,
+								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckExisitingBuff|AbilityConditions.CheckCanCast),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return (Bot.SettingsFunky.Class.bGoblinWrath&&Bot.Target.CurrentTarget.IsTreasureGoblin)||
+												(Bot.SettingsFunky.Class.bBarbUseWOTBAlways)||
+												(Clusters(12d, 45f, 3).Any(c => c.EliteCount>2));
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Call of the ancients
 					 // Call of the ancients, elites only
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_CallOfTheAncients)&&!Bot.Character.bIsIncapacitated&&
-						 (Bot.Combat.iElitesWithinRange[RANGE_25]>0||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsTreasureGoblin||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=25f))&&
-						 Bot.Class.AbilityUseTimer(SNOPower.Barbarian_CallOfTheAncients, true)&&
-						 PowerManager.CanCast(SNOPower.Barbarian_CallOfTheAncients))
+					 if (Power.Equals(SNOPower.Barbarian_CallOfTheAncients))
 					 {
-						  if (Bot.Character.dCurrentEnergy>=50)
-								return new Ability(SNOPower.Barbarian_CallOfTheAncients, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 4, 4, USE_SLOWLY);
-						  this.bWaitingForSpecial=true;
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Buff,
+								AbilityWaitVars=new Tuple<int, int, bool>(4, 4, true),
+								Cost=50,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.High,
+								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() => { return (Bot.Combat.iElitesWithinRange[RANGE_25]>0||(Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=25f)); }),
+						  };
 					 }
 					 #endregion
-					 #region BattleRage OOC
-					 // Battle rage, for if being followed and before we do sprint
-					 if (bOOCBuff&&!Bot.Character.bIsIncapacitated&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_BattleRage)&&
-						 (Bot.Class.AbilityUseTimer(SNOPower.Barbarian_BattleRage)||!HasBuff(SNOPower.Barbarian_BattleRage))&&
-						 Bot.Character.dCurrentEnergy>=20&&PowerManager.CanCast(SNOPower.Barbarian_BattleRage))
+
+
+					 #region BattleRage
+					 if (Power.Equals(SNOPower.Barbarian_BattleRage))
 					 {
-						  return new Ability(SNOPower.Barbarian_BattleRage, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-					 }
-					 #endregion
-					 #region Sprint OOC
-					 // Special segment for sprint as an out-of-combat only
-					 if (bOOCBuff&&(Bot.SettingsFunky.OutOfCombatMovement||HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))&&
-						 !Bot.Character.bIsIncapacitated&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Sprint)&&
-						 !HasBuff(SNOPower.Barbarian_Sprint)&&
-						 Bot.Character.dCurrentEnergy>=20&&Bot.Class.AbilityUseTimer(SNOPower.Barbarian_Sprint)&&PowerManager.CanCast(SNOPower.Barbarian_Sprint))
-					 {
-						  return new Ability(SNOPower.Barbarian_Sprint, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Buff,
+								AbilityWaitVars=new Tuple<int, int, bool>(1, 1, true),
+								Cost=20,
+								UseAvoiding=true,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.High,
+								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return !HasBuff(SNOPower.Barbarian_BattleRage)||
+												((Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.99&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
+												(Bot.SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.99));
+								}),
+
+						  };
 					 }
 					 #endregion
 					 #region Warcry
-					 // War cry, constantly maintain
-					 if (!Bot.Character.bIsIncapacitated&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_WarCry)&&
-						 (PowerManager.CanCast(SNOPower.Barbarian_WarCry)&&
-						 (!HasBuff(SNOPower.Barbarian_WarCry)
-							 ||(Bot.Class.PassiveAbilities.Contains(SNOPower.Barbarian_Passive_InspiringPresence)&&DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Barbarian_WarCry]).TotalSeconds>59
-							 ||Bot.Character.dCurrentEnergyPct<0.10)
-						 )))
-					 {
-						  return new Ability(SNOPower.Barbarian_WarCry, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-					 }
 					 // war cry OOC 
-					 if (bOOCBuff&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_WarCry)&&
-						 (PowerManager.CanCast(SNOPower.Barbarian_WarCry)&&Bot.Combat.iAnythingWithinRange[RANGE_25]>1)
-						 &&Bot.Character.dCurrentEnergyPct<0.9)
+					 if (Power.Equals(SNOPower.Barbarian_WarCry))
 					 {
-						  return new Ability(SNOPower.Barbarian_WarCry, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-					 }
-					 #endregion
-
-					 #region Threatening Shout
-					 // Threatening shout
-					 if (!bOOCBuff&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_ThreateningShout)&&!Bot.Character.bIsIncapacitated&&
-						 (
-							 Bot.Combat.iElitesWithinRange[RANGE_20]>1||(Bot.Target.CurrentTarget.IsBoss&&Bot.Target.CurrentTarget.RadiusDistance<=20)||
-							 (Bot.Combat.iAnythingWithinRange[RANGE_20]>2&&!Bot.Combat.bAnyBossesInRange&&(Bot.Combat.iElitesWithinRange[RANGE_50]==0||Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_SeismicSlam)))||
-							 Bot.Character.dCurrentHealthPct<=0.75
-						 )&&
-						 Bot.Class.AbilityUseTimer(SNOPower.Barbarian_ThreateningShout, true)&&PowerManager.CanCast(SNOPower.Barbarian_ThreateningShout))
-					 {
-						  return new Ability(SNOPower.Barbarian_ThreateningShout, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-					 }
-					 #endregion
-					 #region Ground Stomp
-					 // Ground Stomp
-					 if (!bOOCBuff&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_GroundStomp)&&!Bot.Character.bIsIncapacitated&&
-						 (Bot.Combat.iElitesWithinRange[RANGE_15]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>4||Bot.Character.dCurrentHealthPct<=0.7)&&
-						 Bot.Class.AbilityUseTimer(SNOPower.Barbarian_GroundStomp, true)&&
-						 PowerManager.CanCast(SNOPower.Barbarian_GroundStomp))
-					 {
-						  return new Ability(SNOPower.Barbarian_GroundStomp, 16f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
-					 }
-					 #endregion
-					 #region Revenge
-					 // Revenge used off-cooldown
-					 if (!bOOCBuff&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Revenge)&&!Bot.Character.bIsIncapacitated&&
-						  // Don't use revenge on goblins, too slow!
-						 (!Bot.Target.CurrentTarget.IsTreasureGoblin||Bot.Combat.iAnythingWithinRange[RANGE_12]>=5)&&
-						  // Doesn't need CURRENT target to be in range, just needs ANYTHING to be within 9 foot, since it's an AOE!
-						 (Bot.Combat.iAnythingWithinRange[RANGE_6]>0||Bot.Target.CurrentTarget.RadiusDistance<=6f)&&
-						 Bot.Class.AbilityUseTimer(SNOPower.Barbarian_Revenge)&&PowerManager.CanCast(SNOPower.Barbarian_Revenge))
-					 {
-						  // Note - we have LONGER animation times for whirlwind-users
-						  // Since whirlwind seems to interrupt rend so easily
-						  int iPreDelay=3;
-						  int iPostDelay=3;
-						  if (Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind))
+						  return new Ability
 						  {
-								if (Bot.Combat.powerLastSnoPowerUsed==SNOPower.Barbarian_Whirlwind)
+								Power=Power,
+								UsageType=AbilityUseType.Buff,
+								AbilityWaitVars=new Tuple<int, int, bool>(1, 1, true),
+								Cost=0,
+								UseAvoiding=false,
+								UseOOCBuff=true,
+								Priority=AbilityPriority.High,
+								PreCastConditions=(AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
 								{
-									 iPreDelay=5;
-									 iPostDelay=5;
-								}
-						  }
-						  return new Ability(SNOPower.Barbarian_Revenge, 0f, Bot.Character.Position, Bot.Character.iCurrentWorldID, -1, iPreDelay, iPostDelay, USE_SLOWLY);
-					 }
-					 #endregion
-					 #region Furious Charge
-					 // Furious charge
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_FuriousCharge)&&!Bot.Character.bIsRooted&&!Bot.Character.bIsIncapacitated&&
-						 (Bot.Combat.iElitesWithinRange[RANGE_25]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>3||Bot.Character.dCurrentHealthPct<=0.7||Bot.Target.CurrentTarget.CentreDistance>=15f||thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsTreasureGoblin||Bot.Target.CurrentTarget.IsBoss)&&
-						 Bot.Class.AbilityUseTimer(SNOPower.Barbarian_FuriousCharge)&&
-						 PowerManager.CanCast(SNOPower.Barbarian_FuriousCharge))
-					 {
-						  float fExtraDistance;
-						  if (Bot.Target.CurrentTarget.CentreDistance<=15)
-								fExtraDistance=10;
-						  else
-								fExtraDistance=(25-Bot.Target.CurrentTarget.CentreDistance);
-						  if (fExtraDistance<5f)
-								fExtraDistance=5f;
-						  Vector3 vNewTarget=MathEx.CalculatePointFrom(Bot.Target.CurrentTarget.Position, Bot.Character.Position, Bot.Target.CurrentTarget.CentreDistance+fExtraDistance);
-						  return new Ability(SNOPower.Barbarian_FuriousCharge, 32f, vNewTarget, Bot.Character.iCurrentWorldID, -1, 1, 2, USE_SLOWLY);
-					 }
-					 // Leap used when off-cooldown, or when out-of-range
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Leap)&&!Bot.Character.bIsIncapacitated&&
-						  // Less than 90% health *OR* target >= 18 feet away *OR* an elite within 30 feet of us
-						 (Bot.Character.dCurrentHealthPct<=0.75||Bot.Target.CurrentTarget.CentreDistance>=18f||thisCacheUnitObj!=null&&thisCacheUnitObj.ForceLeap||Bot.Combat.iElitesWithinRange[RANGE_30]>=1)&&
-						 Bot.Class.AbilityUseTimer(SNOPower.Barbarian_Leap, true)&&
-						 PowerManager.CanCast(SNOPower.Barbarian_Leap))
-					 {
-						  // For close-by monsters, try to leap a little further than their centre-point
-						  float fExtraDistance=Bot.Target.CurrentTarget.Radius;
-						  if (fExtraDistance<=4f)
-								fExtraDistance=4f;
-						  if (Bot.Target.CurrentTarget.CentreDistance+fExtraDistance>35f)
-								fExtraDistance=35-Bot.Target.CurrentTarget.CentreDistance;
-						  Vector3 vNewTarget=MathEx.CalculatePointFrom(Bot.Target.CurrentTarget.Position, Bot.Character.Position, Bot.Target.CurrentTarget.CentreDistance+fExtraDistance);
-						  return new Ability(SNOPower.Barbarian_Leap, 35f, vNewTarget, Bot.Character.iCurrentWorldID, -1, 2, 2, USE_SLOWLY);
-					 }
-					 #endregion
-					 #region Rend
-					 // Rend spam
-					 if (!bOOCBuff&&!this.bWaitingForSpecial&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Rend)&&!Bot.Combat.UsedAutoMovementCommand&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=20&&
-						  //Only if 2 non-elite targets OR 1 elite target is within 6feet
-						 (Bot.Combat.iAnythingWithinRange[RANGE_6]>1||Bot.Combat.iElitesWithinRange[RANGE_6]>0)&&
-
-						 // Don't use against goblins (they run too quick!) Or any mobs added to the fast list unless elite.                                                                  
-						 (!Bot.Target.CurrentTarget.IsTreasureGoblin&&(!SnoCacheLookup.hashActorSNOFastMobs.Contains(Bot.Target.CurrentTarget.SNOID)||thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique)||Bot.Combat.iAnythingWithinRange[RANGE_6]>3)
-						 &&
-						  //Non-WW users
-						 (!Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind)&&
-								 (
-						  //We use rend every 3.5s, Or if there are non-rended targets, or our current target is not rended
-								 (Bot.Class.AbilityUseTimer(SNOPower.Barbarian_Rend)||(Bot.Combat.iNonRendedTargets_6>2||(thisCacheUnitObj!=null&&thisCacheUnitObj.HasDOTdps.HasValue&&!thisCacheUnitObj.HasDOTdps.Value)))
-								 )
-
-						 // This segment is for people who *DO* have whirlwind
-							  ||(Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind)&&
-						  // See if it's off-cooldown and at least 40 fury, or use as a fury dump
-								  (
-									 (Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.92&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
-									 (Bot.SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.92)||
-									 (DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Barbarian_Rend]).TotalMilliseconds>=2800)
-								  )&&
-						  // Max once every 1.2 seconds even if fury dumping, so sprint can be fury dumped too
-						  // DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Barbarian_Rend]).TotalMilliseconds >= 1200 &&
-						  // 3+ mobs of any kind at close range *OR* one elite/boss/special at close range
-								  (
-									 (Bot.Combat.iAnythingWithinRange[RANGE_15]>=3&&Bot.Combat.iElitesWithinRange[RANGE_12]>=1)||
-									 (Bot.Combat.iAnythingWithinRange[RANGE_15]>=3&&Bot.Target.CurrentTarget.IsTreasureGoblin&&Bot.Target.CurrentTarget.RadiusDistance<=6f)||
-									 Bot.Combat.iAnythingWithinRange[RANGE_15]>=5||
-									 ((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=6f&&Bot.Combat.iAnythingWithinRange[RANGE_15]>=3)
-								  )
-							  )
-						 ))
-					 {
-						  //iACDGUIDLastRend = Bot.CurrentTarget.ObjectData.AcdGuid.Value;
-						  // Note - we have LONGER animation times for whirlwind-users
-						  // Since whirlwind seems to interrupt rend so easily
-						  int iPreDelay=1;
-						  int iPostDelay=1;
-						  if (Bot.Combat.powerLastSnoPowerUsed==SNOPower.Barbarian_Whirlwind||Bot.Combat.powerLastSnoPowerUsed==SNOPower.Barbarian_HammerOfTheAncients||Bot.Combat.powerLastSnoPowerUsed==SNOPower.None)
-						  {
-								iPreDelay=5;
-								iPostDelay=5;
-						  }
-
-						  return new Ability(SNOPower.Barbarian_Rend, 0f, Bot.Character.Position, Bot.Character.iCurrentWorldID, -1, iPreDelay, iPostDelay, USE_SLOWLY);
-					 }
-					 #endregion
-					 #region Overpower
-					 // Overpower used off-cooldown
-					 if (!bOOCBuff&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Overpower)&&!Bot.Character.bIsIncapacitated&&
-						  // Doesn't need CURRENT target to be in range, just needs ANYTHING to be within 9 foot, since it's an AOE!
-						  //(BOT.DATA_Combat.iAnythingWithinRange[RANGE_5] > 0 || Bot.CurrentTarget.ObjectData.RadiusDistance <= 6f) &&
-						  //intell
-						 (
-							 Bot.Combat.iAnythingWithinRange[RANGE_6]>=2||
-							 (Bot.Character.dCurrentHealthPct<=0.85&&Bot.Target.CurrentTarget.RadiusDistance<=5f)||
-							 (
-								 Bot.Combat.iAnythingWithinRange[RANGE_6]>=1&&
-								 ((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique)||Bot.Target.CurrentTarget.IsBoss||HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)||
-								  Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_SeismicSlam))
-							 )
-						 )&&
-						 Bot.Class.AbilityUseTimer(SNOPower.Barbarian_Overpower)&&PowerManager.CanCast(SNOPower.Barbarian_Overpower))
-					 {
-						  // Note - we have LONGER animation times for whirlwind-users
-						  // Since whirlwind seems to interrupt rend so easily
-						  int iPreDelay=3;
-						  int iPostDelay=3;
-						  if (Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind))
-						  {
-								if (Bot.Combat.powerLastSnoPowerUsed==SNOPower.Barbarian_Whirlwind||Bot.Combat.powerLastSnoPowerUsed==SNOPower.None)
-								{
-									 iPreDelay=5;
-									 iPostDelay=5;
-								}
-						  }
-						  return new Ability(SNOPower.Barbarian_Overpower, 0f, Bot.Character.Position, Bot.Character.iCurrentWorldID, -1, iPreDelay, iPostDelay, USE_SLOWLY);
-					 }
-					 #endregion
-					 #region Seismic Slam
-					 // Seismic slam enemies within close range
-					 if ((!bOOCBuff&&!this.bWaitingForSpecial&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_SeismicSlam)
-						  &&!Bot.Character.bIsIncapacitated&&PowerManager.CanCast(SNOPower.Barbarian_SeismicSlam))
-						  &&(Bot.Character.dCurrentEnergy>30||this.RuneIndexCache[SNOPower.Barbarian_SeismicSlam]==3&&Bot.Character.dCurrentEnergy>15))
-					 {
-						  int RuneIndex=this.RuneIndexCache[SNOPower.Barbarian_SeismicSlam];
-						  //Reduce cluster for Crackling Rift
-						  double ClusterDist=RuneIndex==4?4d:6d;
-						  int ACDGuid=-1;
-
-						  //Goblins ignore clustering..
-						  if (Bot.Target.CurrentTarget.ObjectIsSpecial)
-						  {
-								return new Ability(SNOPower.Barbarian_SeismicSlam, 40f, vNullLocation, -1, thisCacheUnitObj.AcdGuid.Value, 2, 2, USE_SLOWLY);
-						  }
-						  else if (Clusters(ClusterDist, 40f, 2).Count>0)
-						  {
-								ACDGuid=Clusters(MinUnitCount: 2)[0].CurrentValidUnit.AcdGuid.Value;
-								return new Ability(SNOPower.Barbarian_SeismicSlam, 40f, vNullLocation, -1, ACDGuid, 2, 2, USE_SLOWLY);
-						  }
-					 }
-					 #endregion
-					 #region Ancient Spear
-					 // Ancient spear 
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_AncientSpear)&&
-						  // Don't use if target < 20% health
-						 (thisCacheUnitObj!=null&&thisCacheUnitObj.CurrentHealthPct>=0.2)&&
-						 Bot.Class.AbilityUseTimer(SNOPower.Barbarian_AncientSpear)&&
-						 PowerManager.CanCast(SNOPower.Barbarian_AncientSpear))
-					 {
-						  // For close-by monsters, try to leap a little further than their centre-point
-						  float fExtraDistance=Bot.Target.CurrentTarget.Radius;
-						  if (fExtraDistance<=4f)
-								fExtraDistance=4f;
-						  if (Bot.Target.CurrentTarget.CentreDistance+fExtraDistance>30f)
-								fExtraDistance=30-Bot.Target.CurrentTarget.CentreDistance;
-						  if (fExtraDistance<5f)
-								fExtraDistance=5f;
-						  Vector3 vNewTarget=MathEx.CalculatePointFrom(Bot.Target.CurrentTarget.Position, Bot.Character.Position, Bot.Target.CurrentTarget.CentreDistance+fExtraDistance);
-						  return new Ability(SNOPower.Barbarian_AncientSpear, 35f, vNewTarget, Bot.Character.iCurrentWorldID, -1, 2, 2, USE_SLOWLY);
+									 return (!HasBuff(SNOPower.Barbarian_WarCry)
+												||(Bot.Class.PassiveAbilities.Contains(SNOPower.Barbarian_Passive_InspiringPresence)&&DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Barbarian_WarCry]).TotalSeconds>59
+												||Bot.Character.dCurrentEnergyPct<0.10));
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Sprint
 					 // Sprint buff, if same suitable targets as elites, keep maintained for WW users
-					 if (!bOOCBuff&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Sprint)
-						 &&!Bot.Character.bIsIncapacitated&&!HasBuff(SNOPower.Barbarian_Sprint)
-						 &&
-						  // Fury Dump Options for sprint: use at max energy constantly, or on a timer
-						 (
-							 (Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.95&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
-							 (Bot.SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.95)||
-							 ((Bot.Class.AbilityUseTimer(SNOPower.Barbarian_Sprint)&&!HasBuff(SNOPower.Barbarian_Sprint))&&
-						  // Always keep up if we are whirlwinding, or if the target is a goblin
-								 (Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind)||Bot.Target.CurrentTarget.IsTreasureGoblin))
-						 )&&
-						  // Or if the target is >16 feet away and we have 50+ fury
-						  //(Bot.CurrentTarget.ObjectData.CentreDistance >= 16f && BOT.DATA_Character.dCurrentEnergy >= 50)
-						  // If they have battle-rage, make sure it's up
-						 (!Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_BattleRage)||(Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_BattleRage)&&HasBuff(SNOPower.Barbarian_BattleRage)))&&
-						  // Check for reserved-energy waiting or not
-						  //((BOT.DATA_Character.dCurrentEnergy >= 40 && !BOT.DATA_Character.bWaitingForReserveEnergy) || BOT.DATA_Character.dCurrentEnergy >= this.iWaitingReservedAmount) &&
-						 Bot.Character.dCurrentEnergy>=20)
+					 if (Power.Equals(SNOPower.Barbarian_Sprint))
 					 {
-						  return new Ability(SNOPower.Barbarian_Sprint, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Buff,
+								AbilityWaitVars=new Tuple<int, int, bool>(1, 1, true),
+								Cost=20,
+								UseAvoiding=true,
+								UseOOCBuff=true,
+								Priority=AbilityPriority.High,
+								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return (!HasBuff(SNOPower.Barbarian_Sprint)&&(Bot.SettingsFunky.OutOfCombatMovement||HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)))||
+										  (((Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.95&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
+										  (Bot.SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.95)||
+										  ((Bot.Class.AbilityUseTimer(SNOPower.Barbarian_Sprint)&&!HasBuff(SNOPower.Barbarian_Sprint))&&
+										  // Always keep up if we are whirlwinding, or if the target is a goblin
+										  (Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind)||Bot.Target.CurrentTarget.IsTreasureGoblin)))&&
+										  (!Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_BattleRage)||(Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_BattleRage)&&HasBuff(SNOPower.Barbarian_BattleRage))));
+								}),
+
+						  };
 					 }
 					 #endregion
+
+
+					 #region Threatening Shout
+					 // Threatening shout
+					 if (Power.Equals(SNOPower.Barbarian_ThreateningShout))
+					 {
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Buff,
+								AbilityWaitVars=new Tuple<int, int, bool>(1, 1, true),
+								Cost=20,
+								UseAvoiding=true,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return (
+										  Bot.Combat.iElitesWithinRange[RANGE_20]>1||(Bot.Target.CurrentTarget.IsBoss&&Bot.Target.CurrentTarget.RadiusDistance<=20)||
+										  (Bot.Combat.iAnythingWithinRange[RANGE_20]>2&&!Bot.Combat.bAnyBossesInRange&&(Bot.Combat.iElitesWithinRange[RANGE_50]==0||Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_SeismicSlam)))||
+										  Bot.Character.dCurrentHealthPct<=0.75
+										  );
+								}),
+						  };
+					 }
+					 #endregion
+					 #region Ground Stomp
+					 // Ground Stomp
+					 if (Power.Equals(SNOPower.Barbarian_GroundStomp))
+					 {
+						  //
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Buff,
+								AbilityWaitVars=new Tuple<int, int, bool>(1, 2, true),
+								Cost=20,
+								Range=16,
+								UseAvoiding=true,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() => { return (Bot.Combat.iElitesWithinRange[RANGE_15]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>4||Bot.Character.dCurrentHealthPct<=0.7); }),
+						  };
+					 }
+					 #endregion
+					 #region Revenge
+					 // Revenge used off-cooldown
+					 if (Power.Equals(SNOPower.Barbarian_Revenge))
+					 {
+						  //
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Buff,
+								AbilityWaitVars=new Tuple<int, int, bool>(4, 4, true),
+								Cost=0,
+								UseAvoiding=false,
+								UseOOCBuff=true,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return (!Bot.Target.CurrentTarget.IsTreasureGoblin||Bot.Combat.iAnythingWithinRange[RANGE_12]>=5)&&
+										  // Doesn't need CURRENT target to be in range, just needs ANYTHING to be within 9 foot, since it's an AOE!
+									  (Bot.Combat.iAnythingWithinRange[RANGE_6]>0||Bot.Target.CurrentTarget.RadiusDistance<=6f);
+								}),
+						  };
+					 }
+					 #endregion
+					 #region Furious Charge
+					 // Furious charge
+					 if (Power.Equals(SNOPower.Barbarian_FuriousCharge))
+					 {
+						  //TODO:: Make Cluster Location --
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Target,
+								AbilityWaitVars=new Tuple<int, int, bool>(1, 2, true),
+								Cost=20,
+								Range=35,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() => { return (Bot.Combat.iElitesWithinRange[RANGE_25]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>3||Bot.Character.dCurrentHealthPct<=0.7||Bot.Target.CurrentTarget.CentreDistance>=15f||Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial); }),
+						  };
+					 }
+					 #endregion
+					 #region Rend
+					 // Rend spam
+					 if (Power.Equals(SNOPower.Barbarian_Rend))
+					 {
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Buff,
+								AbilityWaitVars=new Tuple<int, int, bool>(3, 3, true),
+								Cost=20,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return 						  //Only if 2 non-elite targets OR 1 elite target is within 6feet
+									  (Bot.Combat.iAnythingWithinRange[RANGE_6]>1||Bot.Combat.iElitesWithinRange[RANGE_6]>0)&&
+										  // Don't use against goblins (they run too quick!) Or any mobs added to the fast list unless elite.                                                                  
+									  (!Bot.Target.CurrentTarget.IsTreasureGoblin&&(!SnoCacheLookup.hashActorSNOFastMobs.Contains(Bot.Target.CurrentTarget.SNOID)||Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial)||Bot.Combat.iAnythingWithinRange[RANGE_6]>3)&&
+										  //Non-WW users
+									 (!Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind)&&((Bot.Class.AbilityUseTimer(SNOPower.Barbarian_Rend)||(Bot.Combat.iNonRendedTargets_6>2)))
+										  // This segment is for people who *DO* have whirlwind
+										  ||(Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind)&&
+										  // See if it's off-cooldown and at least 40 fury, or use as a fury dump
+										  ((Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.92&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
+										  (Bot.SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.92)||
+										  (DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Barbarian_Rend]).TotalMilliseconds>=2800))&&
+										  // Max once every 1.2 seconds even if fury dumping, so sprint can be fury dumped too
+										  // DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Barbarian_Rend]).TotalMilliseconds >= 1200 &&
+										  // 3+ mobs of any kind at close range *OR* one elite/boss/special at close range
+									  ((Bot.Combat.iAnythingWithinRange[RANGE_15]>=3&&Bot.Combat.iElitesWithinRange[RANGE_12]>=1)||
+									  (Bot.Combat.iAnythingWithinRange[RANGE_15]>=3&&Bot.Target.CurrentTarget.IsTreasureGoblin&&Bot.Target.CurrentTarget.RadiusDistance<=6f)||
+											Bot.Combat.iAnythingWithinRange[RANGE_15]>=5||
+									  ((Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial)&&Bot.Target.CurrentTarget.RadiusDistance<=6f&&Bot.Combat.iAnythingWithinRange[RANGE_15]>=3))));
+								}),
+						  };
+					 }
+					 #endregion
+					 #region Overpower
+					 // Overpower used off-cooldown
+					 if (Power.Equals(SNOPower.Barbarian_Overpower))
+					 {
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Buff,
+								AbilityWaitVars=new Tuple<int, int, bool>(4, 4, true),
+								Cost=20,
+								UseAvoiding=true,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return Bot.Combat.iAnythingWithinRange[RANGE_6]>=2||(Bot.Character.dCurrentHealthPct<=0.85&&Bot.Target.CurrentTarget.RadiusDistance<=5f)||
+										  (Bot.Combat.iAnythingWithinRange[RANGE_6]>=1&&
+										  ((Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial)||HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)||
+										  Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_SeismicSlam)));
+								}),
+						  };
+					 }
+					 #endregion
+					 #region Seismic Slam
+					 // Seismic slam enemies within close range
+					 if (Power.Equals(SNOPower.Barbarian_SeismicSlam))
+					 {
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.ClusterLocation| AbilityUseType.Location,
+								AbilityWaitVars=new Tuple<int, int, bool>(2, 2, true),
+								ClusterConditions=new Tuple<double, float, int, bool>(6d, 40f, 1, true),
+								Cost=this.RuneIndexCache[SNOPower.Barbarian_SeismicSlam]==3?15:30,
+								Range=40,
+								UseAvoiding=true,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() => { return Bot.Target.CurrentTarget.ObjectIsSpecial||Clusters(6d, 40f, 2).Count>0; }),
+						  };
+					 }
+					 #endregion
+					 #region Ancient Spear
+					 // Ancient spear 
+					 if (Power.Equals(SNOPower.Barbarian_AncientSpear))
+					 {
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Target,
+								AbilityWaitVars=new Tuple<int, int, bool>(2, 2, true),
+								Range=35,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(()=>
+									 {
+										  return Bot.Character.dCurrentEnergyPct<0.5d;
+									 }),
+						  };
+					 }
+					 #endregion
+
 					 #region WhirlWind
 					 // Whirlwind spam as long as necessary pre-buffs are up
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&!this.bWaitingForSpecial&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind)&&!Bot.Character.bIsIncapacitated&&!Bot.Character.bIsRooted
-						  // Don't WW against goblins, units in the special SNO list
-						 &&(!Bot.SettingsFunky.Class.bSelectiveWhirlwind||Bot.Combat.bAnyNonWWIgnoreMobsInRange||!SnoCacheLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Target.CurrentTarget.SNOID))&&
-						  // Only if within 15 foot of main target
-						 ((Bot.Target.CurrentTarget.RadiusDistance<=20f||Bot.Combat.iAnythingWithinRange[RANGE_25]>=1)&&
-						 (Bot.Combat.iAnythingWithinRange[RANGE_50]>=2||(thisCacheUnitObj!=null&&thisCacheUnitObj.CurrentHealthPct>=0.30)||Bot.Target.CurrentTarget.IsBoss||(thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique)||Bot.Character.dCurrentHealthPct<=0.60))&&
-						  // Check for energy reservation amounts
-						  //((BOT.DATA_Character.dCurrentEnergy >= 20 && !BOT.DATA_Character.bWaitingForReserveEnergy) || BOT.DATA_Character.dCurrentEnergy >= this.iWaitingReservedAmount) &&
-						 Bot.Character.dCurrentEnergy>=10&&
-						  // If they have battle-rage, make sure it's up
-						 (!Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_BattleRage)||(Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_BattleRage)&&HasBuff(SNOPower.Barbarian_BattleRage))))
-					 // If they have sprint, make sure it's up
-					 //(!hashPowerHotbarAbilities.Contains(SNOPower.Barbarian_Sprint) || (hashPowerHotbarAbilities.Contains(SNOPower.Barbarian_Sprint) && GilesHasBuff(SNOPower.Barbarian_Sprint))))
+					 if (Power.Equals(SNOPower.Barbarian_Whirlwind))
 					 {
-						  bool bGenerateNewZigZag=(DateTime.Now.Subtract(Bot.Combat.lastChangedZigZag).TotalMilliseconds>=2000f||
-								(Bot.Combat.vPositionLastZigZagCheck!=vNullLocation&&Bot.Character.Position==Bot.Combat.vPositionLastZigZagCheck&&DateTime.Now.Subtract(Bot.Combat.lastChangedZigZag).TotalMilliseconds>=1200)||
-								Vector3.Distance(Bot.Character.Position, Bot.Combat.vSideToSideTarget)<=5f||
-								Bot.Target.CurrentTarget.AcdGuid.Value!=Bot.Combat.iACDGUIDLastWhirlwind);
-						  Bot.Combat.vPositionLastZigZagCheck=Bot.Character.Position;
-						  if (bGenerateNewZigZag)
+						  return new Ability
 						  {
-								//float fExtraDistance = targetCurrent.fCentreDistance+(targetCurrent.fCentreDistance <= 16f ? 16f : 8f);
-								//Bot.Combat.vSideToSideTarget = FindZigZagTargetLocation(Bot.CurrentTarget.Position, Bot.CurrentTarget.CentreDistance + 25f);
-								// Resetting this to ensure the "no-spam" is reset since we changed our target location
-								if (Bot.Combat.bCheckGround)
-									 Bot.Combat.vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, 25f, false, true, true);
-								else if (Bot.Combat.iAnythingWithinRange[RANGE_30]>=6||Bot.Combat.iElitesWithinRange[RANGE_30]>=3)
-									 Bot.Combat.vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, 25f, false, true);
-								else
-									 Bot.Combat.vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, 25f);
-								Bot.Combat.powerLastSnoPowerUsed=SNOPower.None;
-								Bot.Combat.iACDGUIDLastWhirlwind=Bot.Target.CurrentTarget.AcdGuid.Value;
-								Bot.Combat.lastChangedZigZag=DateTime.Now;
-						  }
-						  return new Ability(SNOPower.Barbarian_Whirlwind, 15f, Bot.Combat.vSideToSideTarget, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+								Power=Power,
+								UsageType=AbilityUseType.ZigZagPathing,
+								AbilityWaitVars=new Tuple<int, int, bool>(0, 0, true),
+								Cost=10,
+								Range=15,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return (!Bot.SettingsFunky.Class.bSelectiveWhirlwind||Bot.Combat.bAnyNonWWIgnoreMobsInRange||!SnoCacheLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Target.CurrentTarget.SNOID))&&
+										  // Only if within 15 foot of main target
+										  ((Bot.Target.CurrentTarget.RadiusDistance<=20f||Bot.Combat.iAnythingWithinRange[RANGE_25]>=1)&&
+										  (Bot.Combat.iAnythingWithinRange[RANGE_50]>=2||(Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial)||Bot.Character.dCurrentHealthPct<=0.60))&&
+										  // If they have battle-rage, make sure it's up
+										  (!Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_BattleRage)||(Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_BattleRage)&&HasBuff(SNOPower.Barbarian_BattleRage)));
+								}),
+
+						  };
 					 }
 					 #endregion
-					 #region Battle Rage
-					 // Battle rage, constantly maintain
-					 if (!bOOCBuff&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_BattleRage)&&!Bot.Character.bIsIncapacitated&&
-						  // Fury Dump Options for battle rage IF they don't have sprint 
-						 (
-						  (Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.99&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
-						  (Bot.SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.99)||!HasBuff(SNOPower.Barbarian_BattleRage)
-						 )&&
-						 Bot.Character.dCurrentEnergy>=20&&PowerManager.CanCast(SNOPower.Barbarian_BattleRage))
-					 {
-						  return new Ability(SNOPower.Barbarian_BattleRage, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
-					 }
-					 #endregion
+
 					 #region Hammer of the ancients
 					 // Hammer of the ancients spam-attacks - never use if waiting for special
-					 if (!bOOCBuff&&!bCurrentlyAvoiding
-						  &&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_HammerOfTheAncients)
-						  &&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=20&&PowerManager.CanCast(SNOPower.Barbarian_HammerOfTheAncients)&&!this.bWaitingForSpecial)
+					 if (Power.Equals(SNOPower.Barbarian_HammerOfTheAncients))
 					 {
-						  int RuneIndex=this.RuneIndexCache[SNOPower.Barbarian_HammerOfTheAncients];
-						  float Range=16f;
-						  double ClusterDist=5d;
-						  int ACDGuid=-1;
-
-						  if (RuneIndex==0)
-								Range=13f;
-						  else if (RuneIndex==1)
+						  return new Ability
 						  {
-								Range=20f;
-								ClusterDist=6d;
-						  }
-						  //0 == 12f, 4d
-						  //1 == 24f, 7d
-						  //	  16f, 6d
-
-						  if (Bot.Target.CurrentTarget.ObjectIsSpecial)
-								return new Ability(SNOPower.Barbarian_HammerOfTheAncients, 12f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 1, 3, USE_SLOWLY);
-						  else
-						  {
-
-								if (Clusters(ClusterDist, Range, 2).Count>0)
-								{
-									 ACDGuid=Clusters(MinUnitCount: 2)[0].CurrentValidUnit.AcdGuid.Value;
-
-									 return new Ability(SNOPower.Barbarian_HammerOfTheAncients, 0f, vNullLocation, Bot.Character.iCurrentWorldID, ACDGuid, 1, 2, USE_SLOWLY);
-								}
-								else if (thisCacheUnitObj!=null&&thisCacheUnitObj.ObjectIsSpecial)
-								{
-									 ACDGuid=Bot.Target.CurrentTarget.AcdGuid.Value;
-									 return new Ability(SNOPower.Barbarian_HammerOfTheAncients, Range, vNullLocation, -1, ACDGuid, 1, 2, USE_SLOWLY);
-								}
-						  }
+								Power=Power,
+								UsageType=AbilityUseType.ClusterTarget|AbilityUseType.Target,
+								ClusterConditions=new Tuple<double, float, int, bool>(6d, 15f, 1, true),
+								AbilityWaitVars=new Tuple<int, int, bool>(1, 2, true),
+								Cost=20,
+								Range=12,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+						  };
 					 }
 					 #endregion
 					 #region Weapon Throw
 					 // Weapon throw
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_WeaponThrow)&&!Bot.Character.bIsIncapacitated&&
-						 Bot.Character.dCurrentEnergy>=10)
+					 if (Power.Equals(SNOPower.Barbarian_WeaponThrow))
 					 {
-						  return new Ability(SNOPower.Barbarian_WeaponThrow, 44f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Target,
+								AbilityWaitVars=new Tuple<int, int, bool>(0, 1, true),
+								Cost=10,
+								Range=44,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.None,
+								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+						  };
 					 }
 					 #endregion
 					 #region Frenzy
 					 // Frenzy rapid-attacks
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Frenzy))
+					 if (Power.Equals(SNOPower.Barbarian_Frenzy))
 					 {
-						  return new Ability(SNOPower.Barbarian_Frenzy, 10f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 0, SIGNATURE_SPAM);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Target,
+								AbilityWaitVars=new Tuple<int, int, bool>(0, 0, true),
+								Cost=0,
+								Range=10,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.None,
+								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+						  };
 					 }
 					 #endregion
 					 #region Bash
 					 // Bash fast-attacks
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Bash))
+					 if (Power.Equals(SNOPower.Barbarian_Bash))
 					 {
-						  return new Ability(SNOPower.Barbarian_Bash, 10f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Target,
+								AbilityWaitVars=new Tuple<int, int, bool>(0, 1, true),
+								Cost=0,
+								Range=10,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.None,
+								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+						  };
 					 }
 					 #endregion
 					 #region Cleave
 					 // Cleave fast-attacks
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Cleave))
+					 if (Power.Equals(SNOPower.Barbarian_Cleave))
 					 {
-						  return new Ability(SNOPower.Barbarian_Cleave, 10f, vNullLocation, Bot.Character.iCurrentWorldID, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 2, USE_SLOWLY);
-					 }
-					 #endregion
-					 #region Default
-					 // Default attacks
-					 if (!bOOCBuff&&!bCurrentlyAvoiding)
-					 {
-						  return new Ability(SNOPower.Weapon_Melee_Instant, 10f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 1, 1, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Target,
+								AbilityWaitVars=new Tuple<int, int, bool>(0, 2, true),
+								Cost=0,
+								Range=10,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.None,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+						  };
 					 }
 					 #endregion
 
-					 return new Ability(SNOPower.None, 0, vNullLocation, -1, -1, 0, 0, false);
+					 return returnAbility;
+				}
+
+				public override Ability AbilitySelector(bool bCurrentlyAvoiding=false, bool bOOCBuff=false)
+				{
+					 return base.AbilitySelector(bCurrentlyAvoiding, bOOCBuff);
 				}
 		  }
 	 }

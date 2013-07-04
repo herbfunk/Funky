@@ -95,6 +95,7 @@ namespace FunkyTrinity
 				if (Funky.Bot.Combat.UsesDOTDPSAbility&&unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
 					 DotDPSCount++;
 
+
 		  }  // of overloaded constructor
 
 		  private bool ContainsUnit(Funky.CacheUnit unit)

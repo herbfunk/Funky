@@ -42,14 +42,19 @@ namespace FunkyTrinity
 
                 case GilesBaseItemType.Unknown:
                 case GilesBaseItemType.Misc:
+						  if (thisgilesitemtype== GilesItemType.CraftingMaterial||thisgilesitemtype== GilesItemType.CraftingPlan||thisgilesitemtype== GilesItemType.CraftTome)
+								Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[(int)LootIndex.Crafting]++;
+						  else if (thisgilesitemtype==GilesItemType.InfernalKey)
+								Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[(int)LootIndex.Key]++;
+						  else
+								Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[0]++;
+						  break;
                 case GilesBaseItemType.Gem:
-                    if (thisgilesitemtype != GilesItemType.HealthPotion)
-                        Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[0]++;
+                    Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[(int)LootIndex.Gem]++;
                     break;
             }
 
-            if (thisgilesitemtype == GilesItemType.InfernalKey)
-                Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[0]++;
+            
         }
 
 		  private static void StashedItemLog(CacheACDItem i)
@@ -61,8 +66,11 @@ namespace FunkyTrinity
             {
                 case ItemType.CraftingPage:
                 case ItemType.CraftingPlan:
+					 case ItemType.CraftingReagent:
+						  Statistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[(int)LootIndex.Crafting]++;
+                    break;
                 case ItemType.Gem:
-                    Statistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[0]++;
+						  Statistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[(int)LootIndex.Gem]++;
                     break;
                 case ItemType.Amulet:
                 case ItemType.Axe:
@@ -165,7 +173,7 @@ namespace FunkyTrinity
             int TotalStashed = 0;
             int TotalLooted = 0;
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 6; i++)
             {
                 TotalStashed += stashedCounts[i];
                 TotalLooted += lootedCounts[i];
@@ -180,6 +188,8 @@ namespace FunkyTrinity
                 "Rares Looted (" + lootedCounts[2] + ") / Stashed (" + stashedCounts[2] + ")" + "\r\n" +
                 "Magical Looted (" + lootedCounts[1] + ") / Stashed (" + stashedCounts[1] + ")" + "\r\n" +
                 "Misc Looted (" + lootedCounts[0] + ") / Stashed (" + stashedCounts[0] + ")" + "\r\n" +
+					 "Gems Looted ("+lootedCounts[(int)LootIndex.Gem]+") / Stashed ("+stashedCounts[(int)LootIndex.Gem]+")"+"\r\n"+
+					 "Craft Looted ("+lootedCounts[(int)LootIndex.Crafting]+") / Stashed ("+stashedCounts[(int)LootIndex.Crafting]+")"+"\r\n"+
 					 "Items looted per minute "+itemPerMin.ToString("F2", System.Globalization.CultureInfo.InvariantCulture) +"\r\n"+
                 "Total time running " + totalTime.ToString("F2", System.Globalization.CultureInfo.InvariantCulture) + " minutes" + "\r\n" +
                 "============================================";

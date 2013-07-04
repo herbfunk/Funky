@@ -36,6 +36,17 @@ namespace FunkyTrinity
 
     public partial class Funky
     {
+		  public enum LootIndex
+		  {
+				Misc=0,
+				Magical=1,
+				Rare=2,
+				Legendary=3,
+				Gem=4,
+				Crafting=5,
+				Key=6,
+		  }
+
         internal static BotStatistics Statistics = new BotStatistics();
         internal class BotStatistics
         {
@@ -57,8 +68,8 @@ namespace FunkyTrinity
             public ItemStatistics()
             {
                 //misc, magical, rare, legendary
-                lootedItemTotals = new int[] { 0, 0, 0, 0 };
-                stashedItemTotals = new int[] { 0, 0, 0, 0 };
+                lootedItemTotals = new int[] { 0, 0, 0, 0,0,0,0 };
+                stashedItemTotals = new int[] { 0, 0, 0, 0,0,0,0 };
                 timeTracked = new TimeSpan(0, 0, 0, 0);
                 droppedItemTotals = new SortedList<int, int[]>();
                 CurrentGame = new CurrentGameItemStats();
@@ -86,7 +97,7 @@ namespace FunkyTrinity
                 //Returns a temp total of looted items.
                 int[] tmp_LootedTotals = (int[])lootedItemTotals.Clone();
                 int[] tmp_CurrentGameTotals = CurrentGame.temp_LootedTotals();
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     tmp_LootedTotals[i] += tmp_CurrentGameTotals[i];
                 }
@@ -100,7 +111,7 @@ namespace FunkyTrinity
                 int[] tmp_StashedTotals = (int[])stashedItemTotals.Clone();
                 int[] tmp_CurrentGameTotals = CurrentGame.temp_StashedTotals();
 
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     tmp_StashedTotals[i] += tmp_CurrentGameTotals[i];
                 }
@@ -134,7 +145,7 @@ namespace FunkyTrinity
 
             private void UpdateTotals()
             {
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     lootedItemTotals[i] += CurrentGame.lootedItemTotals[i];
                     stashedItemTotals[i] += CurrentGame.stashedItemTotals[i];
@@ -147,7 +158,7 @@ namespace FunkyTrinity
                         droppedItemTotals.Add(ilvl, CurrentGame.droppedItemTotals[ilvl]);
                     else
                     {
-                        for (int i = 0; i < 4; i++)
+                        for (int i = 0; i < 6; i++)
                         {
                             droppedItemTotals[ilvl][i] += CurrentGame.droppedItemTotals[ilvl][i];
                         }
@@ -183,7 +194,7 @@ namespace FunkyTrinity
                 public void ProfileChanged(ProfileStatisics.ProfileStats.ProfileItemStats stats)
                 {
                     //Update Current Game Stats using the profile stats.
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 6; i++)
                     {
                         lootedItemTotals[i] += stats.lootedItemTotals[i];
                         stashedItemTotals[i] += stats.stashedItemTotals[i];
@@ -196,7 +207,7 @@ namespace FunkyTrinity
                             droppedItemTotals.Add(ilvl, stats.droppedItemTotals[ilvl]);
                         else
                         {
-                            for (int i = 0; i < 4; i++)
+                            for (int i = 0; i < 6; i++)
                             {
                                 droppedItemTotals[ilvl][i] += stats.droppedItemTotals[ilvl][i];
                             }
@@ -207,7 +218,7 @@ namespace FunkyTrinity
                 public int LootTotal()
                 {
                     int count = 0;
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 6; i++)
                     {
                         count += lootedItemTotals[i];
                     }
@@ -218,7 +229,7 @@ namespace FunkyTrinity
                 public int StashTotal()
                 {
                     int count = 0;
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 6; i++)
                     {
                         count += stashedItemTotals[i];
                     }
@@ -234,7 +245,7 @@ namespace FunkyTrinity
                     if (Statistics.ProfileStats.CurrentProfile == null)
                         return tmp_LootedTotals;
 
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 6; i++)
                     {
                         tmp_LootedTotals[i] += Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[i];
                     }
@@ -249,7 +260,7 @@ namespace FunkyTrinity
                     if (Statistics.ProfileStats.CurrentProfile == null)
                         return tmp_StashedTotals;
 
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 6; i++)
                     {
                         tmp_StashedTotals[i] += Statistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[i];
                     }
@@ -260,8 +271,8 @@ namespace FunkyTrinity
                 public void Reset()
                 {
                     //misc, magical, rare, legendary
-                    lootedItemTotals = new int[] { 0, 0, 0, 0 };
-                    stashedItemTotals = new int[] { 0, 0, 0, 0 };
+                    lootedItemTotals = new int[] { 0, 0, 0, 0,0,0,0 };
+                    stashedItemTotals = new int[] { 0, 0, 0, 0,0,0,0 };
                     droppedItemTotals = new SortedList<int, int[]>();
                     TimeTrackingBegan = DateTime.Now;
                 }
@@ -470,8 +481,8 @@ namespace FunkyTrinity
                     public void Reset()
                     {
                         //misc, magical, rare, legendary
-                        lootedItemTotals = new int[] { 0, 0, 0, 0 };
-                        stashedItemTotals = new int[] { 0, 0, 0, 0 };
+                        lootedItemTotals = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+								stashedItemTotals=new int[] { 0, 0, 0, 0, 0, 0, 0 };
                         droppedItemTotals = new SortedList<int, int[]>();
                         TimeTrackingBegan = DateTime.Now;
                     }
@@ -479,7 +490,7 @@ namespace FunkyTrinity
                     public int lootedTOTAL()
                     {
                         int count = 0;
-                        for (int i = 0; i < 4; i++)
+                        for (int i = 0; i < 6; i++)
                         {
                             count += lootedItemTotals[i];
                         }
@@ -490,7 +501,7 @@ namespace FunkyTrinity
                     public int stashedTOTAL()
                     {
                         int count = 0;
-                        for (int i = 0; i < 4; i++)
+                        for (int i = 0; i < 6; i++)
                         {
                             count += stashedItemTotals[i];
                         }

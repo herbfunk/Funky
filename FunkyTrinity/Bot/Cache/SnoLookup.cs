@@ -102,7 +102,7 @@ namespace FunkyTrinity
          }; 
 		  // Destructible things that need targeting by a location instead of an ACDGUID (stuff you can't "click on" to destroy in-game)
 		  private static readonly HashSet<int> hashDestructableLocationTarget=new HashSet<int> { 
-            170657, 116409, 121586, 3016, 121586,80231,58559,
+            170657, 116409, 121586, 3016, 121586,80231,58559,58962,62562
          };
 
 

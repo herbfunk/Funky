@@ -14,7 +14,7 @@ namespace FunkyTrinity
 	 public partial class Funky
 	 {
 
-		  internal class TargetHandler
+		  public class TargetHandler
 		  {
 				//Constructor
 				public TargetHandler()
@@ -402,6 +402,7 @@ namespace FunkyTrinity
 
 					 // See if we should update hotbar abilities
 					 Bot.Class.SecondaryHotbarBuffPresent();
+						 
 
 					 // Special pausing *AFTER* using certain powers
 					 #region PauseCheck
@@ -720,7 +721,7 @@ namespace FunkyTrinity
 						  {
 								//ToDo: Check clustering..
 								// Pick a suitable ability								Shielded units: Find destructible power instead.
-								Bot.Combat.powerPrime=Bot.Class.AbilitySelector(false, false,false);
+								Bot.Combat.powerPrime=Bot.Class.AbilitySelector(false, false);
 
 								//Check LOS still valid...
 								#region LOSUpdate
@@ -777,7 +778,7 @@ namespace FunkyTrinity
 
 						  // Select an ability for destroying a destructible with in advance
 						  if (CurrentTarget.targetType.Value==TargetType.Destructible||CurrentTarget.targetType==TargetType.Barricade)
-								Bot.Combat.powerPrime=Bot.Class.AbilitySelector(false, false, true);
+								Bot.Combat.powerPrime=Bot.Class.DestructibleAbility();
 					 }
 					 #endregion
 
@@ -805,7 +806,7 @@ namespace FunkyTrinity
 					 #region AvoidanceSpecialAbilityCheck
 					 if (CurrentTarget.targetType.Value==TargetType.Avoidance)
 					 {
-						  Bot.Combat.powerBuff=Bot.Class.AbilitySelector(true, false, false);
+						  Bot.Combat.powerBuff=Bot.Class.AbilitySelector(true, false);
 						  if (Bot.Combat.powerBuff.Power!=SNOPower.None)
 						  {
 								ZetaDia.Me.UsePower(Bot.Combat.powerBuff.Power, Bot.Combat.powerBuff.TargetPosition, Bot.Combat.powerBuff.WorldID, Bot.Combat.powerBuff.TargetRAGUID);

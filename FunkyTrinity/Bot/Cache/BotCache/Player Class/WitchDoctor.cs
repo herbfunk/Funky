@@ -17,7 +17,24 @@ namespace FunkyTrinity
 				public WitchDoctor(ActorClass a)
 					 : base(a)
 				{
+					 this.RecreateAbilities();
+				}
+				public override void RecreateAbilities()
+				{
+					 base.Abilities=new Dictionary<SNOPower, Ability>();
 
+					 //Create the abilities
+					 foreach (var item in base.HotbarAbilities)
+					 {
+						  base.Abilities.Add(item, this.CreateAbility(item));
+					 }
+				}
+				public override int MainPetCount
+				{
+					 get
+					 {
+						  return Bot.Character.PetData.Gargantuan;
+					 }
 				}
 				public override bool IsMeleeClass
 				{
@@ -26,408 +43,541 @@ namespace FunkyTrinity
 						  return false;
 					 }
 				}
-				public override Ability AbilitySelector(bool bCurrentlyAvoiding=false, bool bOOCBuff=false, bool bDestructiblePower=false)
+				public override Ability CreateAbility(SNOPower Power)
 				{
-					 // Extra height thingy, not REALLY used as it was originally going to be, will probably get phased out...
-					 float iThisHeight=2f;
-
-					 // Pick the best destructible power available
-					 if (bDestructiblePower)
-					 {
-						  SNOPower destructiblePower=this.DestructiblePower();
-						  if (destructiblePower==SNOPower.Witchdoctor_ZombieCharger)
-						  {
-								if (Bot.Character.dCurrentEnergy>=140)
-									 return new Ability(SNOPower.Witchdoctor_ZombieCharger, 12f, vNullLocation, -1, -1, 0, 0, USE_SLOWLY);
-								else
-									 return new Ability(SNOPower.Weapon_Melee_Instant, 10f, vNullLocation, -1, -1, 0, 0, USE_SLOWLY);
-						  }
-
-
-						  return new Ability(destructiblePower, 12f, vNullLocation, -1, -1, 0, 0, USE_SLOWLY);
-					 }
-					 CacheUnit thisCacheUnitObj;
-
-					 if (!bOOCBuff&&!Bot.Target.Equals(null)&&Bot.Target.CurrentTarget.targetType.Value==TargetType.Unit)
-						  thisCacheUnitObj=(CacheUnit)Bot.Target.CurrentTarget;
-					 else
-						  thisCacheUnitObj=null;
-
-					 // Witch doctors have no reserve requirements?
-					 this.iWaitingReservedAmount=0;
-
+					 Ability returnAbility=null;
 					 #region Spirit Walk
 					 // Spirit Walk Cast on 65% health or while avoiding anything but molten core or incapacitated or Chasing Goblins
-					 if (Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_SpiritWalk)&&Bot.Character.dCurrentEnergy>=49&&
-						 (Bot.Character.dCurrentHealthPct<=0.65||(Bot.Combat.IsKiting&&Bot.Combat.iAnythingWithinRange[RANGE_15]>1)||Bot.Character.bIsIncapacitated||Bot.Character.bIsRooted||(Bot.SettingsFunky.OutOfCombatMovement&&bOOCBuff)||
-						  (!bOOCBuff&&Bot.Target.CurrentTarget.IsTreasureGoblin&&thisCacheUnitObj!=null&&thisCacheUnitObj.CurrentHealthPct<0.90&&Bot.Target.CurrentTarget.RadiusDistance<=40f))
-						  &&PowerManager.CanCast(SNOPower.Witchdoctor_SpiritWalk))
+					 if (Power.Equals(SNOPower.Witchdoctor_SpiritWalk))
 					 {
-						  return new Ability(SNOPower.Witchdoctor_SpiritWalk, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Buff,
+								AbilityWaitVars=new Tuple<int, int, bool>(0, 0, true),
+								Cost=49,
+								UseAvoiding=true,
+								UseOOCBuff=true,
+								Priority=AbilityPriority.High,
+								PreCastConditions=(AbilityConditions.CheckEnergy| AbilityConditions.CheckCanCast),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return (Bot.Character.dCurrentHealthPct<=0.65||(Bot.Combat.IsKiting&&Bot.Combat.iAnythingWithinRange[RANGE_15]>1)||Bot.Character.bIsIncapacitated||Bot.Character.bIsRooted||(Bot.SettingsFunky.OutOfCombatMovement)||
+												(Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=40f));
+								}),
+						  };
 					 }
 					 #endregion
-
 					 #region Soul Harvest
 					 // Soul Harvest Any Elites or 2+ Norms and baby it's harvest season
-					 if (!bOOCBuff&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_SoulHarvest)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=59&&this.GetBuffStacks(SNOPower.Witchdoctor_SoulHarvest)<4&&PowerManager.CanCast(SNOPower.Witchdoctor_SoulHarvest))
+					 if (Power.Equals(SNOPower.Witchdoctor_SoulHarvest))
 					 {
-						  System.Collections.Generic.List<Cluster> clusters=Clusters(2d, 4f, 3, true);
-						  if (clusters.Count>0)
+						  return new Ability
 						  {
-								return new Ability(SNOPower.Witchdoctor_SoulHarvest, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 1, USE_SLOWLY);
-						  }
-
+								Power=Power,
+								UsageType=AbilityUseType.Buff,
+								AbilityWaitVars=new Tuple<int, int, bool>(0, 1, true),
+								Cost=59,
+								Counter=5,
+								UseAvoiding=true,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.High,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated| AbilityConditions.CheckCanCast | AbilityConditions.CheckExisitingBuff | AbilityConditions.CheckEnergy),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return Bot.Combat.iAnythingWithinRange[RANGE_12]>3;
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Sacrifice
 					 // Sacrifice AKA Zombie Dog Jihad, use on Elites Only or to try and Save yourself
-					 if (!bOOCBuff&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_Sacrifice)&&
-						 (Bot.Combat.iElitesWithinRange[RANGE_15]>0||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss||Bot.Target.CurrentTarget.IsTreasureGoblin)&&Bot.Target.CurrentTarget.RadiusDistance<=15f))&&
-						 PowerManager.CanCast(SNOPower.Witchdoctor_Sacrifice))
+					 if (Power.Equals(SNOPower.Witchdoctor_Sacrifice))
 					 {
-						  return new Ability(SNOPower.Witchdoctor_Sacrifice, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 0, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Buff,
+								AbilityWaitVars=new Tuple<int, int, bool>(1, 0, true),
+								Cost=10,
+								Range=48,
+								UseAvoiding=true,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.None,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated| AbilityConditions.CheckCanCast),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return (Bot.Combat.iElitesWithinRange[RANGE_15]>0||((Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial)&&Bot.Target.CurrentTarget.RadiusDistance<=15f));
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Gargantuan
 					 // Gargantuan, Recast on 1+ Elites or Bosses to trigger Restless Giant
-					 if (Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_Gargantuan)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=147&&PowerManager.CanCast(SNOPower.Witchdoctor_Gargantuan)&&
-						  (this.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]==0&&(Bot.Combat.iElitesWithinRange[RANGE_15]>=1||(thisCacheUnitObj!=null&&((thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=15f)))
-						  ||this.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]!=0&&Bot.Character.PetData.Gargantuan==0))
+					 if (Power.Equals(SNOPower.Witchdoctor_Gargantuan))
 					 {
-						  return new Ability(SNOPower.Witchdoctor_Gargantuan, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 2, 1, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Buff,
+								AbilityWaitVars=new Tuple<int, int, bool>(2, 1, true),
+								Cost=147,
+								Counter=1,
+								UseAvoiding=true,
+								UseOOCBuff=true,
+								Priority=AbilityPriority.High,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated| AbilityConditions.CheckCanCast | AbilityConditions.CheckEnergy | AbilityConditions.CheckPetCount),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return (this.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]==0&&(Bot.Combat.iElitesWithinRange[RANGE_15]>=1||(Bot.Target.CurrentTarget!=null&&((Bot.Target.CurrentTarget.ObjectIsSpecial)&&Bot.Target.CurrentTarget.RadiusDistance<=15f)))
+												||this.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]!=0&&Bot.Character.PetData.Gargantuan==0);
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Zombie dogs
 					 // Zombie dogs Woof Woof, good for being blown up, cast when less than or equal to 1 Dog or Not Blowing them up and cast when less than 4
-					 if (Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_SummonZombieDog)
-						  &&(this.PassiveAbilities.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler)&&Bot.Character.PetData.ZombieDogs<4||Bot.Character.PetData.ZombieDogs<3)
-						  &&PowerManager.CanCast(SNOPower.Witchdoctor_SummonZombieDog))
+					 if (Power.Equals(SNOPower.Witchdoctor_SummonZombieDog))
 					 {
-						  return new Ability(SNOPower.Witchdoctor_SummonZombieDog, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Buff,
+								AbilityWaitVars=new Tuple<int, int, bool>(0, 0, true),
+								Cost=49,
+								UseAvoiding=true,
+								UseOOCBuff=true,
+								Priority=AbilityPriority.High,
+								PreCastConditions=(AbilityConditions.CheckCanCast),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return (this.PassiveAbilities.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler)&&Bot.Character.PetData.ZombieDogs<4||Bot.Character.PetData.ZombieDogs<3);
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Hex
 					 // Hex Spam Cast on ANYTHING in range, mmm pork and chicken
-					 if (!bOOCBuff&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_Hex)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=49&&
-						 (Bot.Combat.iElitesWithinRange[RANGE_12]>=1||Bot.Combat.iAnythingWithinRange[RANGE_12]>=1||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsTreasureGoblin||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=18f))&&
-						 PowerManager.CanCast(SNOPower.Witchdoctor_Hex))
+					 if (Power.Equals(SNOPower.Witchdoctor_Hex))
 					 {
-						  return new Ability(SNOPower.Witchdoctor_Hex, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Self,
+								AbilityWaitVars=new Tuple<int, int, bool>(0, 0, true),
+								Cost=49,
+								UseAvoiding=true,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated| AbilityConditions.CheckEnergy | AbilityConditions.CheckCanCast),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return (Bot.Combat.iElitesWithinRange[RANGE_12]>=1||Bot.Combat.iAnythingWithinRange[RANGE_12]>=1||((Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial)&&Bot.Target.CurrentTarget.RadiusDistance<=18f));
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Mass Confuse
 					 // Mass Confuse, elites only or big mobs or to escape on low health
-					 if (!bOOCBuff&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_MassConfusion)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=74&&
-						 (Bot.Combat.iElitesWithinRange[RANGE_12]>=1||Bot.Combat.iAnythingWithinRange[RANGE_12]>=6||Bot.Character.dCurrentHealthPct<=0.25||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=12f))&&
-						 !Bot.Target.CurrentTarget.IsTreasureGoblin&&PowerManager.CanCast(SNOPower.Witchdoctor_MassConfusion))
+					 if (Power.Equals(SNOPower.Witchdoctor_MassConfusion))
 					 {
-						  return new Ability(SNOPower.Witchdoctor_MassConfusion, 0f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 1, 1, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Target,
+								AbilityWaitVars=new Tuple<int, int, bool>(1, 1, true),
+								Cost=74,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return (Bot.Combat.iElitesWithinRange[RANGE_12]>=1||Bot.Combat.iAnythingWithinRange[RANGE_12]>=6||Bot.Character.dCurrentHealthPct<=0.25||((Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial)&&Bot.Target.CurrentTarget.RadiusDistance<=12f));
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Big Bad Voodoo
 					 // Big Bad Voodoo, elites and bosses only
-					 if (!bOOCBuff&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_BigBadVoodoo)&&!Bot.Character.bIsIncapacitated&&
-						 !Bot.Target.CurrentTarget.IsTreasureGoblin&&
-						 (Bot.Combat.iElitesWithinRange[RANGE_6]>0||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=12f))&&
-						 PowerManager.CanCast(SNOPower.Witchdoctor_BigBadVoodoo))
+					 if (Power.Equals(SNOPower.Witchdoctor_BigBadVoodoo))
 					 {
-						  return new Ability(SNOPower.Witchdoctor_BigBadVoodoo, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Self,
+								AbilityWaitVars=new Tuple<int, int, bool>(0, 0, true),
+								UseAvoiding=true,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated| AbilityConditions.CheckCanCast),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return(Bot.Combat.iElitesWithinRange[RANGE_6]>0||((Bot.Target.CurrentTarget!=null&&!Bot.Target.CurrentTarget.IsTreasureGoblin&&Bot.Target.CurrentTarget.ObjectIsSpecial)&&Bot.Target.CurrentTarget.RadiusDistance<=12f));
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Grasp of the Dead
 					 // Grasp of the Dead, look below, droping globes and dogs when using it on elites and 3 norms
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_GraspOfTheDead)&&!Bot.Character.bIsIncapacitated&&
-						 Bot.Character.dCurrentEnergy>=122&&PowerManager.CanCast(SNOPower.Witchdoctor_GraspOfTheDead))
+					 if (Power.Equals(SNOPower.Witchdoctor_GraspOfTheDead))
 					 {
-						  if (Clusters(5d, 35f, 2).Count>0)
+						  return new Ability
 						  {
-								Vector3 Center=Clusters()[0].ListUnits[0].Position;
-								return new Ability(SNOPower.Witchdoctor_GraspOfTheDead, 35f, Center, Bot.Character.iCurrentWorldID, -1, 0, 3, USE_SLOWLY);
-						  }
-						  if (thisCacheUnitObj!=null&&(thisCacheUnitObj.IsEliteRareUnique||thisCacheUnitObj.IsBoss))
-						  {
-								return new Ability(SNOPower.Witchdoctor_GraspOfTheDead, 35f, vNullLocation, Bot.Character.iCurrentWorldID, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 3, USE_SLOWLY);
-						  }
+								Power=Power,
+								UsageType=AbilityUseType.ClusterTarget | AbilityUseType.Target,
+								ClusterConditions= new Tuple<double,float,int,bool>(5d,35f,1,true),
+								AbilityWaitVars=new Tuple<int, int, bool>(0, 3, true),
+								Cost=122,
+								Range=35,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated| AbilityConditions.CheckCanCast | AbilityConditions.CheckEnergy),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return Clusters(5d, 35f, 2).Count>0 || Bot.Target.CurrentTarget.ObjectIsSpecial;
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Horrify
 					 // Horrify Buff at 60% health
-					 if (!bOOCBuff&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_Horrify)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=37&&
-						 Bot.Character.dCurrentHealthPct<=0.60&&
-						 PowerManager.CanCast(SNOPower.Witchdoctor_Horrify))
+					 if (Power.Equals(SNOPower.Witchdoctor_Horrify))
 					 {
-						  return new Ability(SNOPower.Witchdoctor_Horrify, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Self,
+								AbilityWaitVars=new Tuple<int, int, bool>(0, 0, true),
+								Cost=37,
+								UseAvoiding=true,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckCanCast|AbilityConditions.CheckEnergy),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return Bot.Character.dCurrentHealthPct<=0.60;
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Fetish Army
 					 // Fetish Army, elites only
-					 if (!bOOCBuff&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_FetishArmy)&&!Bot.Character.bIsIncapacitated&&
-						 (Bot.Combat.iElitesWithinRange[RANGE_25]>0||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsTreasureGoblin||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=16f))&&
-						 PowerManager.CanCast(SNOPower.Witchdoctor_FetishArmy))
+					 if (Power.Equals(SNOPower.Witchdoctor_FetishArmy))
 					 {
-						  return new Ability(SNOPower.Witchdoctor_FetishArmy, 0f, vNullLocation, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Self,
+								AbilityWaitVars=new Tuple<int, int, bool>(1, 1, true),
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated| AbilityConditions.CheckCanCast),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return (Bot.Combat.iElitesWithinRange[RANGE_25]>0||((Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial)&&Bot.Target.CurrentTarget.RadiusDistance<=16f));
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Spirit Barrage
 					 // Spirit Barrage
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_SpiritBarrage)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=108&&
-						 PowerManager.CanCast(SNOPower.Witchdoctor_SpiritBarrage))
+					 if (Power.Equals(SNOPower.Witchdoctor_SpiritBarrage))
 					 {
-						  return new Ability(SNOPower.Witchdoctor_SpiritBarrage, 21f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 1, 1, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.ClusterTarget| AbilityUseType.Target,
+								ClusterConditions=new Tuple<double,float,int,bool>(5d,20f,1,true),
+								AbilityWaitVars=new Tuple<int, int, bool>(1, 1, true),
+								Cost=108,
+								Range=21,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated| AbilityConditions.CheckCanCast | AbilityConditions.CheckEnergy),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return true;
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Haunt
 					 // Haunt the shit out of monster and maybe they will give you treats
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_Haunt)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=98&&
-						 PowerManager.CanCast(SNOPower.Witchdoctor_Haunt)&&AbilityLastUseMS(SNOPower.Witchdoctor_Haunt)>1000
-						  &&!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.SettingsFunky.GoblinPriority<2)
+					 if (Power.Equals(SNOPower.Witchdoctor_Haunt))
 					 {
-						  //We want to only haunt clusters of at least 2 units with no current haunt.
-
-						  if (Clusters(5d, 30f, 2).Count>0)
+						  return new Ability
 						  {
-								if (Clusters().Any(c => c.DotDPSRatio<0.25))
+								Power=Power,
+								UsageType=AbilityUseType.ClusterTarget| AbilityUseType.Target,
+								ClusterConditions=new Tuple<double, float, int, bool>(5d, 20f, 1, true),
+								AbilityWaitVars=new Tuple<int, int, bool>(1, 1, true),
+								Cost=98,
+								Range=21,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckCanCast|AbilityConditions.CheckEnergy|AbilityConditions.CheckRecastTimer),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
 								{
-									 Cluster clust=Clusters().First(c => c.DotDPSRatio<0.25);
-									 if (clust.ListUnits.Any(u => !u.HasDOTdps.HasValue||!u.HasDOTdps.Value))
-									 {
-										  int acdguid=clust.ListUnits.First(u => !u.HasDOTdps.HasValue||!u.HasDOTdps.Value).AcdGuid.Value;
-										  return new Ability(SNOPower.Witchdoctor_Haunt, 21f, vNullLocation, Bot.Character.iCurrentWorldID, acdguid, 1, 1, USE_SLOWLY);
-									 }
-								}
-						  }
-
-
+									 return Clusters().Count>0&&Clusters().Any(c => c.DotDPSRatio<0.25);
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Locust
 					 // Locust
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_Locust_Swarm)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=196&&
-						 PowerManager.CanCast(SNOPower.Witchdoctor_Locust_Swarm)&&AbilityLastUseMS(SNOPower.Witchdoctor_Locust_Swarm)>1000
-						  &&!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.SettingsFunky.GoblinPriority<2)
+					 if (Power.Equals(SNOPower.Witchdoctor_Locust_Swarm))
 					 {
-						  if (Clusters(5d, 30f, 2).Count>0)
+						  return new Ability
 						  {
-								if (Clusters().Any(c => c.DotDPSRatio<0.25))
+								Power=Power,
+								UsageType=AbilityUseType.ClusterTarget| AbilityUseType.Target,
+								ClusterConditions=new Tuple<double, float, int, bool>(5d, 20f, 1, true),
+								AbilityWaitVars=new Tuple<int, int, bool>(1, 1, true),
+								Cost=196,
+								Range=21,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckCanCast|AbilityConditions.CheckEnergy|AbilityConditions.CheckRecastTimer),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
 								{
-									 Cluster clust=Clusters().First(c => c.DotDPSRatio<0.25);
-									 if (clust.ListUnits.Any(u => !u.HasDOTdps.HasValue||!u.HasDOTdps.Value))
-									 {
-										  int acdguid=clust.ListUnits.First(u => !u.HasDOTdps.HasValue||!u.HasDOTdps.Value).AcdGuid.Value;
-										  return new Ability(SNOPower.Witchdoctor_Locust_Swarm, 21f, vNullLocation, Bot.Character.iCurrentWorldID, acdguid, 1, 1, USE_SLOWLY);
-									 }
-								}
-						  }
+									 return Clusters().Count>0&&Clusters().Any(c => c.DotDPSRatio<0.25);
+								}),
+						  };
 					 }
 					 #endregion
 
 					 #region Wall of Zombies
 					 // Wall of Zombies
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_WallOfZombies)&&!Bot.Character.bIsIncapacitated&&
-						 (Bot.Combat.iElitesWithinRange[RANGE_15]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>3||((thisCacheUnitObj!=null&&thisCacheUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsTreasureGoblin||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=25f))&&
-						 Bot.Character.dCurrentEnergy>=103&&PowerManager.CanCast(SNOPower.Witchdoctor_WallOfZombies))
+					 if (Power.Equals(SNOPower.Witchdoctor_WallOfZombies))
 					 {
-						  return new Ability(SNOPower.Witchdoctor_WallOfZombies, 25f, Bot.Target.CurrentTarget.Position, Bot.Character.iCurrentWorldID, -1, 1, 1, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Location,
+								AbilityWaitVars=new Tuple<int, int, bool>(1, 1, true),
+								Cost=103,
+								Range=25,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated| AbilityConditions.CheckEnergy | AbilityConditions.CheckCanCast ),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return (Bot.Combat.iElitesWithinRange[RANGE_15]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>3||((Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial)&&Bot.Target.CurrentTarget.RadiusDistance<=25f));
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Zombie Charger
 					 // Zombie Charger aka Zombie bears Spams Bears @ Everything from 11feet away
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_ZombieCharger)&&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=134&&
-						 (Bot.Combat.iAnythingWithinRange[RANGE_12]>1||(thisCacheUnitObj!=null&&thisCacheUnitObj.ObjectIsSpecial))&&
-						 PowerManager.CanCast(SNOPower.Witchdoctor_ZombieCharger))
+					 if (Power.Equals(SNOPower.Witchdoctor_ZombieCharger))
 					 {
-						  if (thisCacheUnitObj!=null&&thisCacheUnitObj.ObjectIsSpecial)
-								return new Ability(SNOPower.Witchdoctor_ZombieCharger, 11f, new Vector3(Bot.Target.CurrentTarget.Position.X, Bot.Target.CurrentTarget.Position.Y, Bot.Target.CurrentTarget.Position.Z+iThisHeight), Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
-						  else
+						  return new Ability
 						  {
-								//Cluster tests
-								if (Clusters(6d, 25f, 2, true).Count>0)
+								Power=Power,
+								UsageType=AbilityUseType.ClusterTarget|AbilityUseType.Target,
+								ClusterConditions=new Tuple<double, float, int, bool>(5d, 20f, 1, true),
+								AbilityWaitVars=new Tuple<int, int, bool>(0, 1, true),
+								Cost=134,
+								Range=11,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
 								{
-									 Vector3 Centeroid=Clusters()[0].ListUnits[0].BotMeleeVector;
-									 return new Ability(SNOPower.Witchdoctor_ZombieCharger, 0f, Centeroid, Bot.Character.iCurrentWorldID, -1, 0, 0, USE_SLOWLY);
-								}
-						  }
+									 return Clusters(6d, 25f, 2, true).Count>0 || Bot.Target.CurrentTarget.ObjectIsSpecial;
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Acid Cloud
 					 // Acid Cloud
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_AcidCloud)&&Bot.Class.AbilityUseTimer(SNOPower.Witchdoctor_AcidCloud)
-						  &&!Bot.Character.bIsIncapacitated&&Bot.Character.dCurrentEnergy>=250
-						  &&PowerManager.CanCast(SNOPower.Witchdoctor_AcidCloud))
+					 if (Power.Equals(SNOPower.Witchdoctor_AcidCloud))
 					 {
-						  bool ConditionalTestResult=false;
-						  int ACDGuid=-1;
-						  Vector3 Location=vNullLocation;
-						  float range=0f;
-						  int RuneIndex=this.RuneIndexCache[SNOPower.Witchdoctor_AcidCloud];
-						  //1 == Larger Radius (25f)
-						  //4 == Kiss Of Death (Directional AOE 20f)
-
-						  if (thisCacheUnitObj!=null&&thisCacheUnitObj.IsMissileReflecting)
+						  return new Ability
 						  {
-								ConditionalTestResult=true;
-								ACDGuid=thisCacheUnitObj.AcdGuid.Value;
-						  }
-						  else
-						  {
-
-								if (RuneIndex==4)
+								Power=Power,
+								UsageType=AbilityUseType.ClusterTarget| AbilityUseType.Target,
+								ClusterConditions=new Tuple<double, float, int, bool>(5d, this.RuneIndexCache[Power]==4?30f:45f, 1, true),
+								AbilityWaitVars=new Tuple<int, int, bool>(1, 1, true),
+								Cost=250,
+								Range=this.RuneIndexCache[Power]==4?20:40,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.Low,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
 								{
-									 //Only tight cluster
-									 if (Clusters(6d, 30f, 2).Count>0)
-									 {
-										  ConditionalTestResult=true;
-										  Location=Clusters()[0].ListUnits[0].Position;
-									 }
-								}
-								else
-								{
-									 //If we using the 24f rune then we allow larger distance for cluster
-									 double distance=RuneIndex==1?6d:4d;
-
-									 if (Clusters(distance, 45f, 2).Count>0)
-									 {
-										  ConditionalTestResult=true;
-										  ACDGuid=Clusters()[0].ListUnits[0].AcdGuid.Value;
-
-									 }
-								}
-						  }
-
-						  //Setup range
-						  if (ConditionalTestResult)
-						  {
-								if (RuneIndex==4)
-									 range=20f;
-								else
-									 range=40f;
-						  }
-
-						  if (ConditionalTestResult)
-								return new Ability(SNOPower.Witchdoctor_AcidCloud, range, Location, Bot.Character.iCurrentWorldID, ACDGuid, 1, 1, USE_SLOWLY);
-
+									 return (Clusters(5d, 35f, 2).Count>0)||(Bot.Target.CurrentTarget.ObjectIsSpecial);
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Fire Bats
 					 // Fire Bats fast-attack
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_Firebats)&&!Bot.Character.bIsIncapacitated)
+					 if (Power.Equals(SNOPower.Witchdoctor_Firebats))
 					 {
-						  //Check our mana first!
-						  if (Bot.Character.dCurrentEnergy>=221||(Bot.Character.dCurrentEnergy>66
-								&&Bot.Character.CurrentAnimationState==AnimationState.Channeling&&Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.WitchDoctor_Female_1HT_spell_channel|SNOAnim.WitchDoctor_Female_2HT_spell_channel|SNOAnim.WitchDoctor_Female_HTH_spell_channel|SNOAnim.WitchDoctor_Male_1HT_Spell_Channel|SNOAnim.WitchDoctor_Male_HTH_Spell_Channel)))
+						  return new Ability
 						  {
-								bool ConditionalTestResult=false;
-								int ACDGuid=-1;
-								Vector3 Location=vNullLocation;
-								float range=0f;
-								int RuneIndex=this.RuneIndexCache[SNOPower.Witchdoctor_Firebats];
-
-								//Reflective units ignore normal tests.
-								if (thisCacheUnitObj!=null&&thisCacheUnitObj.IsMissileReflecting)
+								Power=Power,
+								UsageType=AbilityUseType.ClusterTarget|AbilityUseType.Target,
+								ClusterConditions=new Tuple<double, float, int, bool>(5d, this.RuneIndexCache[Power]==4?12f:20f, 1, true),
+								AbilityWaitVars=new Tuple<int, int, bool>(1, 2, true),
+								Range=this.RuneIndexCache[Power]==0?0:this.RuneIndexCache[Power]==4?14:25,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.None,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
 								{
-									 ACDGuid=thisCacheUnitObj.AcdGuid.Value;
-									 ConditionalTestResult=true;
-								}
-								else
-								{
-									 System.Collections.Generic.List<Cluster> clusters;
-									 //Dire Bats
-									 if (RuneIndex==0)
-									 {
-										  clusters=Clusters(5d, 25f, 2);
-										  //We want a cluster that is tight with at least 2 units!
-										  if (clusters.Count>0)
-										  {
-												ConditionalTestResult=true;
-												Location=clusters[0].ListUnits[0].Position;
-										  }
-
-									 }
-									 else if (RuneIndex==4)
-									 {//Cloud -- only 12f range!
-
-										  clusters=Clusters(6d, 12f, 2);
-										  if (clusters.Count>0)
-										  {
-												ConditionalTestResult=true;
-												Location=Bot.Character.Position;
-										  }
-									 }
-									 else
-									 {//Posion/Vampire/HungryBats/NoRune (Small AOE Range)
-										  clusters=Clusters(4d, 18f, 2);
-										  //we want cluster that is semi-tight with at least 2 units!
-										  if (clusters.Count>0)
-										  {
-												ConditionalTestResult=true;
-												Location=clusters[0].ListUnits[0].Position;
-										  }
-									 }
-								}
-
-								//Setup range
-								if (ConditionalTestResult)
-								{
-									 if (RuneIndex==0)
-										  range=0f;
-									 else if (RuneIndex==4)
-										  range=14f;
-									 else
-										  range=25f;
-								}
-
-								if (ConditionalTestResult)
-									 return new Ability(SNOPower.Witchdoctor_Firebats, range, Location, Bot.Character.iCurrentWorldID, ACDGuid, 1, 2, USE_SLOWLY);
-						  }
+									 return ((Clusters(5d, 35f, 2).Count>0)||(Bot.Target.CurrentTarget.ObjectIsSpecial)&&
+												Bot.Character.dCurrentEnergy>=221||(Bot.Character.dCurrentEnergy>66
+												&&Bot.Character.CurrentAnimationState==AnimationState.Channeling&&Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.WitchDoctor_Female_1HT_spell_channel|SNOAnim.WitchDoctor_Female_2HT_spell_channel|SNOAnim.WitchDoctor_Female_HTH_spell_channel|SNOAnim.WitchDoctor_Male_1HT_Spell_Channel|SNOAnim.WitchDoctor_Male_HTH_Spell_Channel)));
+								}),
+						  };
 					 }
 					 #endregion
 
 
 					 #region Poison Darts
 					 // Poison Darts fast-attack Spams Darts when mana is too low (to cast bears) @12yds or @10yds if Bears avialable
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_PoisonDart)&&!Bot.Character.bIsIncapacitated)
+					 if (Power.Equals(SNOPower.Witchdoctor_PoisonDart))
 					 {
-						  return new Ability(SNOPower.Witchdoctor_PoisonDart, 44f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Target,
+								AbilityWaitVars=new Tuple<int, int, bool>(0, 1, true),
+								Cost=10,
+								Range=48,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.None,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return true;
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Corpse Spiders
 					 // Corpse Spiders fast-attacks Spams Spiders when mana is too low (to cast bears) @12yds or @10yds if Bears avialable
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_CorpseSpider)&&!Bot.Character.bIsIncapacitated)
+					 if (Power.Equals(SNOPower.Witchdoctor_CorpseSpider))
 					 {
-						  float fUseThisRange=35f;
-						  if (Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_ZombieCharger)&&Bot.Character.dCurrentEnergy>=150)
-								fUseThisRange=30f;
-						  return new Ability(SNOPower.Witchdoctor_CorpseSpider, fUseThisRange, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Target,
+								AbilityWaitVars=new Tuple<int, int, bool>(0, 1, true),
+								Cost=10,
+								Range=40,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.None,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return true;
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Toads
 					 // Toads fast-attacks Spams Toads when mana is too low (to cast bears) @12yds or @10yds if Bears avialable
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_PlagueOfToads)&&!Bot.Character.bIsIncapacitated)
+					 if (Power.Equals(SNOPower.Witchdoctor_PlagueOfToads))
 					 {
-						  float fUseThisRange=35f;
-						  if (Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_AcidCloud)&&Bot.Character.dCurrentEnergy>=225)
-								fUseThisRange=30f;
-						  return new Ability(SNOPower.Witchdoctor_PlagueOfToads, fUseThisRange, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 0, 1, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Target,
+								AbilityWaitVars=new Tuple<int, int, bool>(0, 1, true),
+								Cost=10,
+								Range=30,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.None,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return true;
+								}),
+						  };
 					 }
 					 #endregion
 					 #region Fire Bomb
 					 // Fire Bomb fast-attacks Spams Bomb when mana is too low (to cast bears) @12yds or @10yds if Bears avialable
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_Firebomb)&&!Bot.Character.bIsIncapacitated)
+					 if (Power.Equals(SNOPower.Witchdoctor_Firebomb))
 					 {
-						  float fUseThisRange=35f;
-						  if (Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_ZombieCharger)&&Bot.Character.dCurrentEnergy>=150)
-								fUseThisRange=30f;
-						  return new Ability(SNOPower.Witchdoctor_Firebomb, fUseThisRange, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 1, 3, USE_SLOWLY);
+						  return new Ability
+						  {
+								Power=Power,
+								UsageType=AbilityUseType.Target,
+								AbilityWaitVars=new Tuple<int, int, bool>(0, 1, true),
+								Range=35,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								Priority=AbilityPriority.None,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
+								RuneIndex=this.RuneIndexCache[Power],
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return true;
+								}),
+						  };
 					 }
 					 #endregion
-					 #region Default attacks
-					 // Default attacks
-					 if (!bOOCBuff&&!bCurrentlyAvoiding&&!Bot.Character.bIsIncapacitated)
+					 return returnAbility;
+				}
+				public override Ability DestructibleAbility()
+				{
+					 SNOPower destructiblePower=this.DestructiblePower();
+					 if (destructiblePower==SNOPower.Witchdoctor_ZombieCharger)
 					 {
-						  return new Ability(SNOPower.Weapon_Melee_Instant, 11f, vNullLocation, -1, Bot.Target.CurrentTarget.AcdGuid.Value, 1, 1, USE_SLOWLY);
+						  if (Bot.Character.dCurrentEnergy<140)
+								return Instant_Melee_Attack;
 					 }
-					 #endregion
-					 return new Ability(SNOPower.None, 0, vNullLocation, -1, -1, 0, 0, false);
+
+					 Ability returnAbility=this.Abilities[destructiblePower];
+					 returnAbility.SetupAbilityForUse();
+					 returnAbility.MinimumRange=25f;
+					 return returnAbility;
+					
+				}
+				public override Ability AbilitySelector(bool bCurrentlyAvoiding=false, bool bOOCBuff=false)
+				{
+					 // Witch doctors have no reserve requirements?
+					 this.iWaitingReservedAmount=0;
+
+					 return base.AbilitySelector(bCurrentlyAvoiding, bOOCBuff);
 				}
 		  }
 	 }

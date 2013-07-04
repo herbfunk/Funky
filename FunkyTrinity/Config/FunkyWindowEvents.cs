@@ -165,20 +165,7 @@ namespace FunkyTrinity
 								 if (Bot.Class==null)
 									  return;
 
-								 Logging.Write("Character Information");
-								 Logging.Write("Radius {0}", Bot.Character.fCharacterRadius);
-								 Logging.Write("Hotbar Abilities");
-								 foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.HotbarAbilities)
-								 {
-									  Logging.Write("{0} with current rune index {1}", item.ToString(), Bot.Class.RuneIndexCache.ContainsKey(item)?Bot.Class.RuneIndexCache[item].ToString():"none");
-								 }
-								 Bot.Character.UpdateAnimationState();
-								 Logging.Write("State: {0} -- SNOAnim {1}", Bot.Character.CurrentAnimationState.ToString(), Bot.Character.CurrentSNOAnim.ToString());
-								 Logging.Write("Current Buffs");
-								 foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.CurrentBuffs.Keys)
-								 {
-									  Logging.Write("Buff: {0}", Enum.GetName(typeof(SNOPower), item));
-								 }
+								 Bot.Class.DebugString();
 
 
 							} catch (Exception ex)
@@ -300,6 +287,12 @@ namespace FunkyTrinity
                  Bot.SettingsFunky.IgnoreClusterLowHPValue = Value;
                  TBClusterLowHPValue.Text = Value.ToString();
              }
+				 private void UseShrineChecked(object sender, EventArgs e)
+				 {
+					  CheckBox cbSender=(CheckBox)sender;
+					  int index=(int)Enum.Parse(typeof(ShrineTypes), cbSender.Name);
+					  Bot.SettingsFunky.UseShrineTypes[index]=!(Bot.SettingsFunky.UseShrineTypes[index]);
+				 }
              private void EnableClusteringTargetLogicChecked(object sender, EventArgs e)
              {
                  Bot.SettingsFunky.EnableClusteringTargetLogic = !Bot.SettingsFunky.EnableClusteringTargetLogic;
@@ -737,6 +730,10 @@ namespace FunkyTrinity
 					  Bot.SettingsFunky.ItemRulesUnidStashing=!Bot.SettingsFunky.ItemRulesUnidStashing;
 				 }
              //UseLevelingLogic
+				 private void ItemRulesOpenFolder_Click(object sender, EventArgs e)
+				 {
+					  System.Diagnostics.Process.Start(System.IO.Path.Combine(FolderPaths.sTrinityPluginPath, "ItemRules", "Rules"));
+				 }
              private void ItemRulesReload_Click(object sender, EventArgs e)
              {
                  try
