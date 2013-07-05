@@ -190,7 +190,7 @@ namespace FunkyTrinity
 								double lastLOSCheckMS=this.LastLOSCheckMS;
 								if (lastLOSCheckMS<1250)
 									 return false;
-								else if (lastLOSCheckMS<2500&&!this.ObjectIsSpecial)
+								else if (lastLOSCheckMS<2500&&!this.ObjectIsSpecial&&this.CentreDistance>10f)
 									 return false;
 
 								NavCellFlags LOSNavFlags=NavCellFlags.None;

@@ -34,7 +34,7 @@ namespace FunkyTrinity
 				SNOPower.DemonHunter_HungeringArrow, SNOPower.DemonHunter_EntanglingShot, SNOPower.DemonHunter_BolaShot, SNOPower.DemonHunter_Grenades, SNOPower.DemonHunter_ElementalArrow, SNOPower.DemonHunter_RapidFire, SNOPower.DemonHunter_Chakram,
 				SNOPower.Monk_FistsofThunder,SNOPower.Monk_DeadlyReach,SNOPower.Monk_CripplingWave,SNOPower.Monk_WayOfTheHundredFists,
 				SNOPower.Witchdoctor_Firebomb, SNOPower.Witchdoctor_PoisonDart, SNOPower.Witchdoctor_ZombieCharger, SNOPower.Witchdoctor_CorpseSpider, SNOPower.Witchdoctor_PlagueOfToads,
-				SNOPower.Wizard_EnergyTwister, SNOPower.Wizard_MagicMissile,SNOPower.Wizard_ShockPulse,SNOPower.Wizard_SpectralBlade, SNOPower.Wizard_Electrocute,
+				SNOPower.Wizard_EnergyTwister, SNOPower.Wizard_MagicMissile,SNOPower.Wizard_ShockPulse,SNOPower.Wizard_SpectralBlade, SNOPower.Wizard_Electrocute, SNOPower.Wizard_Archon_DisintegrationWave,
 		  };
 		  private static readonly HashSet<SNOPower> SpecialMovementAbilities=new HashSet<SNOPower>
 		  {
@@ -149,7 +149,7 @@ namespace FunkyTrinity
                 {SNOPower.Wizard_EnergyTwister, 5},
                 {SNOPower.Wizard_Hydra, 1500},
                 {SNOPower.Wizard_Meteor, 1000},
-                {SNOPower.Wizard_Blizzard, 6000}, // Effect lasts for 6 seconds, actual cooldown is 0...
+                {SNOPower.Wizard_Blizzard, 2500}, // Effect lasts for 6 seconds, actual cooldown is 0...
                 {SNOPower.Wizard_IceArmor, 115000},
                 {SNOPower.Wizard_StormArmor, 115000},
                 {SNOPower.Wizard_MagicWeapon, 60000},

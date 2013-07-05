@@ -102,8 +102,9 @@ namespace FunkyTrinity
 					  configWriter.WriteLine("GlobeRange="+Bot.SettingsFunky.GlobeRange.ToString());
 					  configWriter.WriteLine("ItemRuleCustomPath="+(!String.IsNullOrEmpty(Bot.SettingsFunky.ItemRuleCustomPath)?Bot.SettingsFunky.ItemRuleCustomPath.ToString():""));
 					  configWriter.WriteLine("ItemRulesUnidStashing="+Bot.SettingsFunky.ItemRulesUnidStashing.ToString());
+					  configWriter.WriteLine("MissleDampeningEnforceCloseRange="+Bot.SettingsFunky.MissleDampeningEnforceCloseRange.ToString());
 
-					  //ItemRulesUnidStashing
+					  //
 					  switch (Bot.ActorClass)
                  {
                      case Zeta.Internals.Actors.ActorClass.Barbarian:
@@ -125,11 +126,11 @@ namespace FunkyTrinity
 								 //bMonkSpamMantra
 								 break;
                      case Zeta.Internals.Actors.ActorClass.WitchDoctor:
-                         configWriter.WriteLine("bEnableCriticalMass=" + Bot.SettingsFunky.Class.bEnableCriticalMass.ToString());
+								 //configWriter.WriteLine("bEnableCriticalMass=" + Bot.SettingsFunky.Class.bEnableCriticalMass.ToString());
                          configWriter.WriteLine("GoblinMinimumRange=" + Bot.SettingsFunky.Class.GoblinMinimumRange.ToString());
                          break;
                      case Zeta.Internals.Actors.ActorClass.Wizard:
-                         configWriter.WriteLine("bEnableCriticalMass=" + Bot.SettingsFunky.Class.bEnableCriticalMass.ToString());
+								 //configWriter.WriteLine("bEnableCriticalMass=" + Bot.SettingsFunky.Class.bEnableCriticalMass.ToString());
                          configWriter.WriteLine("bWaitForArchon=" + Bot.SettingsFunky.Class.bWaitForArchon.ToString());
                          configWriter.WriteLine("bKiteOnlyArchon=" + Bot.SettingsFunky.Class.bKiteOnlyArchon.ToString());
                          configWriter.WriteLine("GoblinMinimumRange=" + Bot.SettingsFunky.Class.GoblinMinimumRange.ToString());
@@ -373,9 +374,9 @@ namespace FunkyTrinity
                                  case "OutOfCombatMovement":
                                      Bot.SettingsFunky.OutOfCombatMovement = Convert.ToBoolean(config[1]);
                                      break;
-                                 case "bEnableCriticalMass":
-                                     Bot.SettingsFunky.Class.bEnableCriticalMass = Convert.ToBoolean(config[1]);
-                                     break;
+											//case "bEnableCriticalMass":
+											//    Bot.SettingsFunky.Class.bEnableCriticalMass = Convert.ToBoolean(config[1]);
+											//    break;
                                  case "bSelectiveWhirlwind":
                                      Bot.SettingsFunky.Class.bSelectiveWhirlwind = Convert.ToBoolean(config[1]);
                                      break;
@@ -549,7 +550,10 @@ namespace FunkyTrinity
 											case "ItemRulesUnidStashing":
 												 Bot.SettingsFunky.ItemRulesUnidStashing=Convert.ToBoolean(config[1]);
 												 break;
-											//ItemRulesUnidStashing
+											case "MissleDampeningEnforceCloseRange":
+												 Bot.SettingsFunky.MissleDampeningEnforceCloseRange=Convert.ToBoolean(config[1]);
+												 break;
+											//
                              }
                          }
                      }
@@ -593,6 +597,7 @@ namespace FunkyTrinity
              public int AfterCombatDelay { get; set; }
              public bool IgnoreAboveAverageMobs { get; set; }
              public bool OutOfCombatMovement { get; set; }
+				 public bool MissleDampeningEnforceCloseRange { get; set; }
 
              //new additions
              public bool IgnoreCombatRange { get; set; }
@@ -747,6 +752,7 @@ namespace FunkyTrinity
                  ClusterMinimumUnitCount = 2;
                  IgnoreClusterLowHPValue = 0.55d;
 					  SkipAhead=true;
+					  MissleDampeningEnforceCloseRange=true;
 
                  Class = new ClassSettings();
              }
@@ -773,7 +779,7 @@ namespace FunkyTrinity
                  public bool bKiteOnlyArchon { get; set; }
 
                  //WD+Wiz
-                 public bool bEnableCriticalMass { get; set; }
+					  //public bool bEnableCriticalMass { get; set; }
 
                  //Range Class
                  public int GoblinMinimumRange { get; set; }
@@ -781,7 +787,6 @@ namespace FunkyTrinity
                  public ClassSettings()
                  {
 							bBarbUseWOTBAlways=false;
-                     bEnableCriticalMass = false;
                      bSelectiveWhirlwind = false;
                      bWaitForWrath = false;
                      bGoblinWrath = false;

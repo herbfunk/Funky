@@ -1116,16 +1116,16 @@ namespace FunkyTrinity
                         break;
                     case Zeta.Internals.Actors.ActorClass.WitchDoctor:
                     case Zeta.Internals.Actors.ActorClass.Wizard:
-                        CheckBox cbbEnableCriticalMass = new CheckBox
-                        {
-                            Content = "Critical Mass",
-                            Width = 300,
-                            Height = 30,
-                            IsChecked = (Bot.SettingsFunky.Class.bEnableCriticalMass)
-                        };
-                        cbbEnableCriticalMass.Checked += bEnableCriticalMassChecked;
-                        cbbEnableCriticalMass.Unchecked += bEnableCriticalMassChecked;
-                        LBClass.Items.Add(cbbEnableCriticalMass);
+								//CheckBox cbbEnableCriticalMass = new CheckBox
+								//{
+								//    Content = "Critical Mass",
+								//    Width = 300,
+								//    Height = 30,
+								//    IsChecked = (Bot.SettingsFunky.Class.bEnableCriticalMass)
+								//};
+								//cbbEnableCriticalMass.Checked += bEnableCriticalMassChecked;
+								//cbbEnableCriticalMass.Unchecked += bEnableCriticalMassChecked;
+								//LBClass.Items.Add(cbbEnableCriticalMass);
 
 								if (Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Wizard)
                         {
@@ -1187,6 +1187,17 @@ namespace FunkyTrinity
                     GoblinMinRangeStackPanel.Children.Add(TBGoblinMinRange);
                     LBClass.Items.Add(GoblinMinRangeStackPanel);
                     #endregion
+
+
+						  CheckBox cbMissleDampeningCloseRange=new CheckBox
+						  {
+								Content="Close Range on Missile Dampening Monsters",
+								IsChecked=Bot.SettingsFunky.MissleDampeningEnforceCloseRange,
+						  };
+						  cbMissleDampeningCloseRange.Checked+=MissileDampeningChecked;
+						  cbMissleDampeningCloseRange.Unchecked+=MissileDampeningChecked;
+						  LBClass.Items.Add(cbMissleDampeningCloseRange);
+
                 }
                 ClassTabItem.Content = LBClass;
                 #endregion

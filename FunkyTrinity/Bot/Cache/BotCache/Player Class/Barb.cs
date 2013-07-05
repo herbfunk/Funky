@@ -18,7 +18,6 @@ namespace FunkyTrinity
 					 : base(a)
 				{
 					 this.RecreateAbilities();
-					 IsRangedBuild=(base.HotbarAbilities.Contains(SNOPower.Barbarian_WeaponThrow)&&base.HotbarAbilities.Contains(SNOPower.Barbarian_AncientSpear));
 				}
 				public override void RecreateAbilities()
 				{
@@ -30,12 +29,12 @@ namespace FunkyTrinity
 						  base.Abilities.Add(item, this.CreateAbility(item));
 					 }
 				}
-				private bool IsRangedBuild=false;
+
 				public override bool IsMeleeClass
 				{
 					 get
 					 {
-						  return !IsRangedBuild;
+						  return false;
 					 }
 				}
 
@@ -437,6 +436,7 @@ namespace FunkyTrinity
 								UsageType=AbilityUseType.Target,
 								AbilityWaitVars=new Tuple<int, int, bool>(2, 2, true),
 								Range=35,
+								IsRanged=true,
 								UseAvoiding=false,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
@@ -511,6 +511,7 @@ namespace FunkyTrinity
 								AbilityWaitVars=new Tuple<int, int, bool>(0, 1, true),
 								Cost=10,
 								Range=44,
+								IsRanged=true,
 								UseAvoiding=false,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.None,

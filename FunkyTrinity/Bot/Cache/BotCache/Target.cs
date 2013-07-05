@@ -319,8 +319,6 @@ namespace FunkyTrinity
 								Vector3 SafeLOSMovement;
 								if (thisobj.Weight>iHighestWeightFound)
 								{//Only if we don't have a higher priority already..
-									 CurrentPath=new IndexedList<Vector3>(NP.CurrentPath.ToArray());
-
 									 if (thisobj.GPRect.TryFindSafeSpot(out SafeLOSMovement, Bot.Character.Position, Bot.KiteDistance>0f, true))
 									 {
 										  CurrentTarget=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
@@ -364,20 +362,26 @@ namespace FunkyTrinity
 									 //Generate next ability..
 									 Ability nextAbility=Bot.Class.AbilitySelector();
 
-									 //Check if our range requires movement.
-									 if (nextAbility.CurrentBotRange>nextAbility.MinimumRange)
+									 //Check if we are already within interaction range.
+									 if (!thisobj.WithinInteractionRange())
 									 {
+										  //Check if the estimated destination will also be inside avoidance zone..
 										  if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(nextAbility.DestinationVector))
 										  {
+												//Only wait if the object is special and we are not avoiding..
 												if (thisobj.ObjectIsSpecial&&!Bot.Combat.RequiresAvoidance)
 													 Bot.Combat.bStayPutDuringAvoidance=true;
 
+												//Reset Target
 												CurrentTarget=CurrentTargetRAGUID!=-1?ObjectCache.Objects[CurrentTargetRAGUID]:null;
 												continue;
 										  }
 									 }
 									 else if (Bot.Combat.TriggeringAvoidances.Count>0)
-									 {
+									 {//Triggering Avoidances means we are currently inside avoidance zone.. 
+
+										  //Ignore target!
+										  //Reset back to last target if we had one.. 
 										  CurrentTarget=CurrentTargetRAGUID!=-1?ObjectCache.Objects[CurrentTargetRAGUID]:null;
 										  continue;
 									 }
@@ -403,7 +407,7 @@ namespace FunkyTrinity
 
 					 // See if we should update hotbar abilities
 					 Bot.Class.SecondaryHotbarBuffPresent();
-						 
+
 
 					 // Special pausing *AFTER* using certain powers
 					 #region PauseCheck
@@ -463,7 +467,7 @@ namespace FunkyTrinity
 						  string statusText="[Item Confirmation] Current recheck count "+Bot.Combat.recheckCount;
 						  bool LootedSuccess=Bot.Character.BackPack.ContainsItem(CurrentTarget.AcdGuid.Value);
 						  //Verify item is non-stackable!
-						  
+
 						  statusText+=" [ItemFound="+LootedSuccess+"]";
 						  if (LootedSuccess)
 						  {
@@ -542,7 +546,7 @@ namespace FunkyTrinity
 								else
 								{
 									 //We Rechecked Max Confirmation Checking Count, now we check if we want to retry confirmation, or simply try once more then ignore for a few.
-									 bool stackableItem=(ItemType.Potion| ItemType.CraftingPage| ItemType.CraftingPlan | ItemType.CraftingReagent).HasFlag(thisObjItem.BalanceData.thisItemType);
+									 bool stackableItem=(ItemType.Potion|ItemType.CraftingPage|ItemType.CraftingPlan|ItemType.CraftingReagent).HasFlag(thisObjItem.BalanceData.thisItemType);
 									 if (thisObjItem.Itemquality.Value>ItemQuality.Magic3||stackableItem)
 									 {
 										  //Items above rare quality don't get blacklisted, just ignored for a few loops.
@@ -721,7 +725,7 @@ namespace FunkyTrinity
 						  if (CurrentTarget.targetType.Value==TargetType.Unit&&CurrentTarget.AcdGuid.HasValue)
 						  {
 								//ToDo: Check clustering..
-								// Pick a suitable ability								Shielded units: Find destructible power instead.
+								// Pick a suitable ability			
 								Bot.Combat.powerPrime=Bot.Class.AbilitySelector(false, false);
 
 								//Check LOS still valid...
@@ -733,13 +737,13 @@ namespace FunkyTrinity
 										  NavCellFlags LOSNavFlags=NavCellFlags.None;
 										  if (Bot.Class.IsMeleeClass||!CurrentTarget.WithinInteractionRange())
 										  {
-												if (!Bot.Class.IsMeleeClass) //Add Projectile Testing!
+												if (Bot.Combat.powerPrime.IsRanged) //Add Projectile Testing!
 													 LOSNavFlags=NavCellFlags.AllowWalk|NavCellFlags.AllowProjectile;
 												else
 													 LOSNavFlags=NavCellFlags.AllowWalk;
 										  }
 
-										  if (!CurrentTarget.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), LOSNavFlags))
+										  if (!CurrentTarget.LOSTest(Bot.Character.Position, true, Bot.Combat.powerPrime.IsRanged, LOSNavFlags))
 										  {
 												//LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
 												if (CurrentTarget.ObjectIsSpecial&&CurrentTarget.LastLOSSearchMS>2500)
@@ -811,7 +815,7 @@ namespace FunkyTrinity
 						  if (Bot.Combat.powerBuff.Power!=SNOPower.None)
 						  {
 								Bot.Combat.powerBuff.UsePower();
-							//	ZetaDia.Me.UsePower(Bot.Combat.powerBuff.Power, Bot.Combat.powerBuff.TargetPosition, Bot.Combat.powerBuff.WorldID, Bot.Combat.powerBuff.TargetRAGUID);
+								//	ZetaDia.Me.UsePower(Bot.Combat.powerBuff.Power, Bot.Combat.powerBuff.TargetPosition, Bot.Combat.powerBuff.WorldID, Bot.Combat.powerBuff.TargetRAGUID);
 								Bot.Combat.powerBuff.SuccessfullyUsed();
 						  }
 					 }
@@ -833,13 +837,13 @@ namespace FunkyTrinity
 								NavCellFlags LOSNavFlags=NavCellFlags.None;
 								if (Bot.Class.IsMeleeClass||!CurrentTarget.WithinInteractionRange())
 								{
-									 if (!Bot.Class.IsMeleeClass) //Add Projectile Testing!
+									 if (Bot.Combat.powerPrime.IsRanged) //Add Projectile Testing!
 										  LOSNavFlags=NavCellFlags.AllowWalk|NavCellFlags.AllowProjectile;
 									 else
 										  LOSNavFlags=NavCellFlags.AllowWalk;
 								}
 
-								if (CurrentTarget.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), LOSNavFlags))
+								if (CurrentTarget.LOSTest(Bot.Character.Position, true, Bot.Combat.powerPrime.IsRanged, LOSNavFlags))
 								{
 									 //Los Passed!
 									 CurrentTarget.LOSV3=vNullLocation;

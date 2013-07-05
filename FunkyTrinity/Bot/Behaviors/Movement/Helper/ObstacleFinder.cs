@@ -27,10 +27,8 @@ namespace FunkyTrinity
 
 						  Vector3 CurrentPosition=Bot.Character.Position;
 
-						 // Vector3 IntersectionDestinationVector=MathEx.CalculatePointFrom(CurrentPosition, DestinationVector, range);
-								//MathEx.GetPointAt(CurrentPosition, range, FindDirection(CurrentPosition,DestinationVector,true));
-						  //GridPoint IntersectionDestinationPoint=(GridPoint)IntersectionDestinationVector;
-						  //GridPoint BotGridPoint=Bot.Character.PointPosition;
+						  //We want to get a new vector that is towards the direction of our destination
+						  //Vector3 IntersectionDestinationVector=MathEx.CalculatePointFrom(CurrentPosition, DestinationVector, range);
 
 						  //get collection of objects that pass the tests.
 						  var intersectingObstacles=Bot.Combat.NearbyObstacleObjects //ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
@@ -39,8 +37,8 @@ namespace FunkyTrinity
 																						  &&obstacle.Obstacletype.HasValue
 																						  &&ObstacleType.Navigation.HasFlag(obstacle.Obstacletype.Value)//only navigation/intersection blocking objects!
 																						  &&obstacle.CentreDistance<=range //Only within range..
-																						  &&obstacle.BotIsFacing(DestinationVector));
-																						  //&&obstacle.TestIntersection(BotGridPoint, IntersectionDestinationPoint));
+																						  &&obstacle.BotIsFacing());
+						  //&&obstacle.TestIntersection(BotGridPoint, IntersectionDestinationPoint));
 
 
 

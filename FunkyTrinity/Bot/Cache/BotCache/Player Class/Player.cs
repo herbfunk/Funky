@@ -12,7 +12,9 @@ namespace FunkyTrinity
 	 public partial class Funky
 	 {
 
-
+		  ///<summary>
+		  ///Used to describe the Current Player -- Class, Hotbar Abilities, Passives, etc..
+		  ///</summary>
 		  public abstract class Player
 		  {
 				//Base class for each individual class!
@@ -31,6 +33,9 @@ namespace FunkyTrinity
 				internal readonly ActorClass AC;
 
 				private bool IsMeleeClass_=false;
+				///<summary>
+				///This is used to determine things such as how we preform certain checks (I.E. Line Of Sight)
+				///</summary>
 				public virtual bool IsMeleeClass
 				{
 					 get { return IsMeleeClass_; }
@@ -40,6 +45,7 @@ namespace FunkyTrinity
 				// This is used so we don't use certain skills until we "top up" our primary resource by enough
 				internal double iWaitingReservedAmount=0d;
 				internal bool bWaitingForSpecial=false;
+				internal bool bUsingCriticalMassPassive=false;
 
 				public virtual void RecreateAbilities()
 				{
@@ -183,35 +189,7 @@ namespace FunkyTrinity
 					 return false;
 				}
 
-				///<summary>
-				///Enumerates KnownSkills and adds them to specific collections.
-				///</summary>
-				internal void UpdateActiveSkillCache()
-				{
-					 OffensiveAbilities=new List<int>();
 
-					 if (ZetaDia.Me.IsValid)
-					 {
-						  using (ZetaDia.Memory.AcquireFrame())
-						  {
-								foreach (var item in ZetaDia.Me.KnownSkills)
-								{
-									 if (item.Category.HasFlag(ActiveSkillCategory.Offensive))
-									 {
-										  OffensiveAbilities.Add(item.SNOPower);
-									 }
-
-									 //Energy Generating Abilities
-									 if ((ActiveSkillCategory.FuryGenerator|ActiveSkillCategory.HatredGenerator|ActiveSkillCategory.SpiritGenerator).HasFlag(item.Category))
-									 {
-										  EnergyGenerationAbilities.Add(item.SNOPower);
-									 }
-								}
-						  }
-					 }
-				}
-				internal List<int> OffensiveAbilities=new List<int>();
-				internal List<int> EnergyGenerationAbilities=new List<int>();
 
 				///<summary>
 				///Enumerates through the ActiveSkills and adds them to the HotbarAbilities collection.
@@ -353,7 +331,7 @@ namespace FunkyTrinity
 										  break;
 									 case SNOPower.Witchdoctor_Passive_GraveInjustice:
 									 case SNOPower.Wizard_Passive_CriticalMass:
-										  Bot.SettingsFunky.Class.bEnableCriticalMass=true;
+										  this.bUsingCriticalMassPassive=true;
 										  break;
 								}
 						  }

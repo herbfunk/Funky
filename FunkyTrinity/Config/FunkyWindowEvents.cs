@@ -293,6 +293,10 @@ namespace FunkyTrinity
 					  int index=(int)Enum.Parse(typeof(ShrineTypes), cbSender.Name);
 					  Bot.SettingsFunky.UseShrineTypes[index]=!(Bot.SettingsFunky.UseShrineTypes[index]);
 				 }
+				 private void MissileDampeningChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.MissleDampeningEnforceCloseRange=!Bot.SettingsFunky.MissleDampeningEnforceCloseRange;
+				 }
              private void EnableClusteringTargetLogicChecked(object sender, EventArgs e)
              {
                  Bot.SettingsFunky.EnableClusteringTargetLogic = !Bot.SettingsFunky.EnableClusteringTargetLogic;
@@ -540,10 +544,10 @@ namespace FunkyTrinity
 
              #region ClassSettings
 
-             private void bEnableCriticalMassChecked(object sender, EventArgs e)
-             {
-                 Bot.SettingsFunky.Class.bEnableCriticalMass = !Bot.SettingsFunky.Class.bEnableCriticalMass;
-             }
+				 //private void bEnableCriticalMassChecked(object sender, EventArgs e)
+				 //{
+				 //    Bot.SettingsFunky.Class.bEnableCriticalMass = !Bot.SettingsFunky.Class.bEnableCriticalMass;
+				 //}
 
              private void bWaitForArchonChecked(object sender, EventArgs e)
              {

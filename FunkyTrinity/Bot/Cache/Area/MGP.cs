@@ -7,6 +7,13 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
+		  internal static Zeta.Pathfinding.PathFinder PathFinder
+		  {
+				get
+				{
+					 return (Navigator.SearchGridProvider as Zeta.Pathfinding.PathFinder);
+				}
+		  }
 
 		  /// <summary>
 		  /// MainGridProvider

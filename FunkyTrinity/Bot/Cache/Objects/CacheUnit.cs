@@ -32,9 +32,21 @@ namespace FunkyTrinity
 					 MonsterMinion=theseaffixes.HasFlag(MonsterAffixes.Minion);
 
 					 if (IsEliteRareUnique)
+					 {
 						  MonsterShielding=theseaffixes.HasFlag(MonsterAffixes.Shielding);
+						  MonsterMissileDampening=theseaffixes.HasFlag(MonsterAffixes.MissileDampening);
+						  MonsterIlluionist=theseaffixes.HasFlag(MonsterAffixes.Illusionist);
+						  MonsterExtraHealth=theseaffixes.HasFlag(MonsterAffixes.ExtraHealth);
+						  MonsterLifeLink=theseaffixes.HasFlag(MonsterAffixes.HealthLink);
+					 }
 					 else
+					 {
 						  MonsterShielding=false;
+						  MonsterMissileDampening=false;
+						  MonsterIlluionist=false;
+						  MonsterExtraHealth=false;
+						  MonsterLifeLink=false;
+					 }
 
 					 CheckedMonsterAffixes_=true;
 				}
@@ -42,7 +54,14 @@ namespace FunkyTrinity
 				public bool MonsterUnique { get; set; }
 				public bool MonsterElite { get; set; }
 				public bool MonsterMinion { get; set; }
+
+
 				public bool MonsterShielding { get; set; }
+				public bool MonsterMissileDampening { get; set; }
+				public bool MonsterIlluionist { get; set; }
+				public bool MonsterExtraHealth { get; set; }
+				public bool MonsterLifeLink { get; set; }
+
 				public bool IsEliteRareUnique
 				{
 					 get
@@ -752,12 +771,16 @@ namespace FunkyTrinity
 						  //Line of sight pre-check
 						  if (this.RequiresLOSCheck)
 						  {
-								//Preform Test every 2500ms on normal objects, 1250ms on special objects.
+								
 								double lastLOSCheckMS=this.LastLOSCheckMS;
-								if (lastLOSCheckMS<750)
+
+								
+								if (lastLOSCheckMS<500)
 									 return false;
-								else if (lastLOSCheckMS<1500&&!this.ObjectIsSpecial)
+									 //Less then 2 seconds, not special, and further than 25f. 
+								else if (lastLOSCheckMS<2000&&!this.ObjectIsSpecial&&this.CentreDistance>25f)
 									 return false;
+								
 
 								NavCellFlags LOSNavFlags=NavCellFlags.None;
 								if (Bot.Class.IsMeleeClass||!this.WithinInteractionRange())
@@ -1181,6 +1204,8 @@ namespace FunkyTrinity
 						  Bot.Combat.powerPrime.MinimumRange=15;
 					 else if (this.IsTreasureGoblin&&!Bot.Class.IsMeleeClass&&Bot.SettingsFunky.Class.GoblinMinimumRange>0)
 						  Bot.Combat.powerPrime.MinimumRange=Bot.SettingsFunky.Class.GoblinMinimumRange;
+					 else if (this.MonsterMissileDampening&&Bot.SettingsFunky.MissleDampeningEnforceCloseRange)
+						  Bot.Combat.powerPrime.MinimumRange=15;
 					 else
 						  fDistanceReduction=base.Radius;
 

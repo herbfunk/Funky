@@ -72,6 +72,7 @@ namespace FunkyTrinity
 					 Fcriteria=new Func<bool>(() => { return true; });
 					 AbilityWaitVars=new Tuple<int, int, bool>(0, 0, USE_SLOWLY);
 					 Cooldown=new Zeta.Common.Helpers.WaitTimer(new TimeSpan(0, 0, 0, 0, 0));
+					 IsRanged=false;
 				}
 				public Ability(Ability A)
 				{
@@ -105,6 +106,11 @@ namespace FunkyTrinity
 						  minimumRange_=value;
 					 }
 				}
+
+				///<summary>
+				///Ability is either projectile or is usable at a further location then melee
+				///</summary>
+				public bool IsRanged { get; set; }
 
 				public Zeta.Common.Helpers.WaitTimer Cooldown { get; set; }
 				private TimeSpan cooldowntimespan_;
