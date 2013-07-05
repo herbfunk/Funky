@@ -9,6 +9,61 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
+		  //Condition Type -- Condition Parameters
+
+		  //CheckClusterConditions
+
+		  //PlayerCurrentHealth
+
+		  //Units In Range -- Distance, Count, ElitesOnly
+
+		  //Target Distance -- Optional Use RadiusDistance
+		  //Target Special
+		  //Target Health
+		  //Target Special Property -- (Add Enum for each one) [Reflecting/MissleDampening/Shielding/Boss/Rare&Elites/Unique/TreasureGoblin]
+		  
+		  [Flags]
+		  public enum ConditionCriteraTypes
+		  {
+				Cluster=1,
+				PlayerHealthPercent=2,
+				UnitsInRange=4,
+				TargetDistance=8,
+				TargetSpecial=16,
+				TargetHealth=32,
+				TargetProperty=64,
+		  }
+		  [Flags]
+		  public enum TargetProperties
+		  {
+				Reflecting=1,
+				MissileDampening=2,
+				Shielding=4,
+				Boss=8,
+				RareElite=16,
+				Unique=32,
+				TreasureGoblin=64,
+				Stealthable=128,
+				Burrowing=256,
+				SucideBomber=512,
+		  }
+
+		  //public class UnitTargetConditions
+		  //{
+		  //    public UnitTargetConditions(CacheUnit target)
+		  //    {
+		  //        Conditions=new Func<bool>(() => { return true; });
+		  //    }
+
+		  //    public Func<bool> Conditions { get; set; }
+
+		  //}
+
+
+
+
+
+
 		  public struct Range
 		  {
 				public float minimum, maximum;
@@ -22,6 +77,7 @@ namespace FunkyTrinity
 		  ///<summary>
 		  ///Describes how to use the Ability (SNOPower)
 		  ///</summary>
+		  [Flags]
 		  public enum AbilityUseType
 		  {
 				None=0,
@@ -201,7 +257,30 @@ namespace FunkyTrinity
 				///<summary>
 				///Describes values for clustering used for target (Cdistance, DistanceFromBot, MinUnits, IgnoreNonTargetable)
 				///</summary>
-				public Tuple<double, float, int, bool> ClusterConditions { get; set; }
+				public Tuple<double, float, int, bool> ClusterConditions
+				{
+					 get { return ClusterConditions_; }
+					 set 
+					 { 
+						  ClusterConditions_=value; 
+						  //FcriteriaSet+=new Func<bool>(() => { return CheckClusterConditions(this); }); 
+					 }
+				}
+				private Tuple<double, float, int, bool> ClusterConditions_;
+
+				////Range, Count, ElitesOnly
+				//public Tuple<UnitRangeValues, int, bool> UnitsWithinRangeConditions
+				//{
+				//    get { return UnitsWithinRangeConditions_; }
+				//    set 
+				//    { 
+				//        UnitsWithinRangeConditions_=value;
+				//        FcriteriaSet+=new Func<bool>(() => { return CheckUnitsInRangeConditions(this); });
+				//    }
+				//}
+				//private Tuple<UnitRangeValues, int, bool> UnitsWithinRangeConditions_;
+
+				//public Func<bool> FcriteriaSet { get; set; }
 
 				///<summary>
 				///Method that is used to determine if current combat conditions are valid.
@@ -246,6 +325,15 @@ namespace FunkyTrinity
 					 return Clusters(A.ClusterConditions.Item1, A.ClusterConditions.Item2, A.ClusterConditions.Item3, A.ClusterConditions.Item4).Count>0;
 						   
 				}
+				//public static bool CheckUnitsInRangeConditions(Ability A)
+				//{
+				//    //Elites Only?
+				//    if (A.UnitsWithinRangeConditions.Item3)
+				//        return Bot.Combat.iElitesWithinRange[(int)A.UnitsWithinRangeConditions.Item1]>=A.UnitsWithinRangeConditions.Item2;
+				//    else
+				//        return Bot.Combat.iAnythingWithinRange[(int)A.UnitsWithinRangeConditions.Item1]>=A.UnitsWithinRangeConditions.Item2;
+
+				//}
 
 				///<summary>
 				///Check Ability is valid to use.
@@ -265,6 +353,31 @@ namespace FunkyTrinity
 
 					 return true;
 				}
+
+				//public void AddConditionMethod(UnitTargetConditions Condition)
+				//{
+				//    switch (Condition.Type)
+				//    {
+				//        case ConditionCriteraTypes.Cluster:
+				//            Fcriteria+=new Func<bool>(() => { return Ability.CheckClusterConditions(this); });
+				//            break;
+				//        case ConditionCriteraTypes.PlayerHealthPercent:
+				//            Fcriteria+=new Func<bool>(() => { return Bot.Character.dCurrentEnergyPct>=(double)Condition.Value; });
+				//            break;
+				//        case ConditionCriteraTypes.UnitsInRange:
+				//            break;
+				//        case ConditionCriteraTypes.TargetDistance:
+				//            break;
+				//        case ConditionCriteraTypes.TargetSpecial:
+				//            break;
+				//        case ConditionCriteraTypes.TargetHealth:
+				//            break;
+				//        case ConditionCriteraTypes.TargetProperty:
+				//            break;
+				//        default:
+				//            break;
+				//    }
+				//}
 
 
 				#region UseAbilityVars
