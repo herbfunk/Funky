@@ -937,8 +937,8 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  return String.Format("RAGUID {0}: \r\n {1} Distance (Centre{2} / Radius{3}) BotFacing={4}",
-								this.RAGUID.ToString(), base.DebugString, this.CentreDistance.ToString(), this.RadiusDistance.ToString(), this.BotIsFacing().ToString());
+						  return String.Format("RAGUID {0}: \r\n {1} Distance (Centre{2} / Radius{3}) BotFacing={4} \r\n BlackListLoops[{5}]",
+								this.RAGUID.ToString(), base.DebugString, this.CentreDistance.ToString(), this.RadiusDistance.ToString(), this.BotIsFacing().ToString(), this.BlacklistLoops.ToString());
 					 }
 				}
 

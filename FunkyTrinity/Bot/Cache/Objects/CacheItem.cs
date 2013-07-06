@@ -111,13 +111,16 @@ namespace FunkyTrinity
 
 					 if (this.Weight!=1)
 					 {
-						  float centreDistance=this.CentreDistance;
+						  
 						  Vector3 BotPosition=Bot.Character.Position;
+						  float centreDistance=BotPosition.Distance(TestPosition);
+
 						  switch (this.targetType.Value)
 						  {
 
 								case TargetType.Item:
-									 this.Weight=(Bot.ItemRange*275)-(Math.Floor(centreDistance)*1000d);
+									 //this.Weight=(Bot.ItemRange*275)-(Math.Floor(centreDistance)*1000d);
+									 this.Weight=15000d-(Math.Floor(centreDistance)*190d);
 									 // Point-blank items get a weight increase 
 									 if (centreDistance<=12f)
 										  this.Weight+=600d;
@@ -212,7 +215,7 @@ namespace FunkyTrinity
 						  if (this.targetType.Value!=TargetType.Item)
 						  {
 								this.Weight=0; //Zero will ignore the object completely! (Target)
-								this.BlacklistLoops=20;
+								this.BlacklistLoops=10;
 						  }
 					 }
 				}

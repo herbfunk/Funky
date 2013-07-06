@@ -325,6 +325,8 @@ namespace FunkyTrinity
 										  CurrentTarget=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
 										  iHighestWeightFound=thisobj.Weight;
 									 }
+									 else if (iHighestWeightFound==0)
+										  thisobj.Weight=1;
 								}
 
 								continue;
@@ -747,7 +749,7 @@ namespace FunkyTrinity
 													 LOSNavFlags=NavCellFlags.AllowWalk;
 										  }
 
-										  if (!CurrentTarget.LOSTest(Bot.Character.Position, true, Bot.Combat.powerPrime.IsRanged, LOSNavFlags))
+										  if (!CurrentTarget.LOSTest(Bot.Character.Position, true, true, LOSNavFlags))
 										  {
 												//LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
 												if (CurrentTarget.ObjectIsSpecial&&CurrentTarget.LastLOSSearchMS>2500)

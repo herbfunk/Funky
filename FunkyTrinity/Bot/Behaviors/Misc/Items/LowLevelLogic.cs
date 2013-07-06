@@ -7,6 +7,9 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
+		  //Update Skills after Combat
+		  internal static bool LeveledUpEventFired=false;
+
 		  // Score weighting for armours and jewelry - feel free to change these values!
 		  internal static int iWeightPrimary=50;
 		  internal static int iWeightVitality=30;

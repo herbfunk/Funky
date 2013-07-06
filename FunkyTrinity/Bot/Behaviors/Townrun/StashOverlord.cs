@@ -48,6 +48,20 @@ namespace FunkyTrinity
 								{
 									 bool bShouldStashThis=false;
 
+									 if (Bot.SettingsFunky.UseLevelingLogic)
+									 {
+										  if (thisitem.ThisQuality>=ItemQuality.Legendary)
+												bShouldStashThis=true;
+										  else if (thisitem.Sockets>0&&thisitem.ACDItem.NumSocketsFilled>0)
+												bShouldStashThis=true;
+
+										  if (bShouldStashThis)
+										  {
+												Bot.Character.BackPack.townRunCache.hashGilesCachedKeepItems.Add(thisitem);
+												continue;
+										  }
+									 }
+
 									 if (Bot.SettingsFunky.UseItemRules)
 									 {
 										  Interpreter.InterpreterAction action=ItemRulesEval.checkItem(thisitem.ACDItem, Zeta.CommonBot.ItemEvaluationType.Keep);
@@ -62,11 +76,13 @@ namespace FunkyTrinity
 									 }
 
 
+									 bShouldStashThis=(Bot.SettingsFunky.ItemRuleGilesScoring==true?ShouldWeStashThis(thisitem)
+																:ItemManager.Current.ShouldStashItem(thisitem.ACDItem));
+
 
 									 //Log("GilesTrinityScoring == "+Bot.SettingsFunky.ItemRuleGilesScoring.ToString());
 
-									 bShouldStashThis=(Bot.SettingsFunky.ItemRuleGilesScoring==true?ShouldWeStashThis(thisitem)
-																:ItemManager.Current.ShouldStashItem(thisitem.ACDItem));
+
 
 									 if (bShouldStashThis)
 									 {

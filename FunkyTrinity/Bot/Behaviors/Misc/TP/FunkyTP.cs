@@ -58,7 +58,7 @@ namespace FunkyTrinity
 						  return false;
 					 else
 						  return true;
-				} catch (NullReferenceException)
+				} catch (Exception)
 				{
 					 return false;
 				}

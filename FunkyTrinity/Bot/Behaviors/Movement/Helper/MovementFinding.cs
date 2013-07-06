@@ -40,12 +40,13 @@ namespace FunkyTrinity
 					 IEnumerable<CacheObject> zigZagTargets=
 						  from u in units_
 						  where u.CentreDistance>minDistance&&u.CentreDistance<maxDistance&&u.RAGUID!=Bot.Target.CurrentTarget.RAGUID&&
-						  !ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(u.Position)
+						  !ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(u.Position) && MGP.CanStandAt(u.BotMeleeVector)
 						  select u;
 
 					 if (zigZagTargets.Count()>=minTargets)
 					 {
-						  vThisZigZag=zigZagTargets.OrderByDescending(u => u.Weight).FirstOrDefault().Position;
+						  CacheObject unit=zigZagTargets.OrderByDescending(u => u.Weight).FirstOrDefault();
+						  vThisZigZag=unit.Position;
 						  return vThisZigZag;
 					 }
 				}

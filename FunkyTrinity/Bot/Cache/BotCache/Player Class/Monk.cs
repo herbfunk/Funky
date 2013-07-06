@@ -98,12 +98,12 @@ namespace FunkyTrinity
 								RuneIndex=this.RuneIndexCache[Power],
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return !HasBuff(Power)||Bot.SettingsFunky.Class.bMonkSpamMantra&&Bot.Target.CurrentTarget!=null&&(Bot.Combat.iElitesWithinRange[RANGE_25]>0||Bot.Combat.iAnythingWithinRange[RANGE_20]>=2||(Bot.Combat.iAnythingWithinRange[RANGE_20]>=1&&Bot.SettingsFunky.Class.bMonkInnaSet)||(Bot.Target.CurrentTarget.ObjectIsSpecial||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=25f)&&
+									 return !HasBuff(Power)||Bot.SettingsFunky.Class.bMonkSpamMantra&&Bot.Target.CurrentTarget!=null&&(Bot.Combat.iElitesWithinRange[RANGE_25]>0||Bot.Combat.iAnythingWithinRange[RANGE_20]>=2||(Bot.Combat.iAnythingWithinRange[RANGE_20]>=1&&Bot.SettingsFunky.Class.bMonkInnaSet)||(Bot.Target.CurrentUnitTarget.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=25f)&&
 										  // Check if either we don't have blinding flash, or we do and it's been cast in the last 6000ms
 										  //DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Monk_BlindingFlash]).TotalMilliseconds <= 6000)) &&
 										  (!Bot.Class.HotbarAbilities.Contains(SNOPower.Monk_BlindingFlash)||
 										  (Bot.Class.HotbarAbilities.Contains(SNOPower.Monk_BlindingFlash)&&
-										  ((!Bot.SettingsFunky.Class.bMonkInnaSet&&Bot.Combat.iElitesWithinRange[RANGE_50]==0&&(Bot.Target.CurrentTarget.ObjectIsSpecial&&!Bot.Target.CurrentTarget.IsBoss)||HasBuff(SNOPower.Monk_BlindingFlash))))&&
+										  ((!Bot.SettingsFunky.Class.bMonkInnaSet&&Bot.Combat.iElitesWithinRange[RANGE_50]==0&&(Bot.Target.CurrentUnitTarget.IsEliteRareUnique&&!Bot.Target.CurrentTarget.IsBoss)||HasBuff(SNOPower.Monk_BlindingFlash))))&&
 										  // Check our mantras, if we have them, are up first
 										  (!Bot.Class.HotbarAbilities.Contains(SNOPower.Monk_MantraOfEvasion)||(Bot.Class.HotbarAbilities.Contains(SNOPower.Monk_MantraOfEvasion)&&HasBuff(SNOPower.Monk_MantraOfEvasion)))&&
 										  (!Bot.Class.HotbarAbilities.Contains(SNOPower.Monk_MantraOfConviction)||(Bot.Class.HotbarAbilities.Contains(SNOPower.Monk_MantraOfConviction)&&HasBuff(SNOPower.Monk_MantraOfConviction)))&&
@@ -172,6 +172,7 @@ namespace FunkyTrinity
 					 // Breath of heaven when needing healing or the buff
 					 if (Power.Equals(SNOPower.Monk_BreathOfHeaven))
 					 {
+						  //Add RuneIndex for Buff
 						  return new Ability
 						  {
 								Power=Power,
@@ -232,18 +233,19 @@ namespace FunkyTrinity
 						  return new Ability
 						  {
 								Power=Power,
+								RuneIndex=this.RuneIndexCache[Power],
 								UsageType=AbilityUseType.Buff,
 								AbilityWaitVars=new Tuple<int, int, bool>(0, 1, true),
 								Cost=Bot.SettingsFunky.Class.bMonkInnaSet?5:75,
 								Priority=AbilityPriority.High,
+								UseOOCBuff=false,
 								UseAvoiding=true,
 
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckExisitingBuff),
 								ElitesWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_20,1),
 								UnitsWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_20,Bot.SettingsFunky.Class.bMonkInnaSet?1:2),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 25),
-
-								RuneIndex=this.RuneIndexCache[Power],
+								
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return
@@ -251,7 +253,7 @@ namespace FunkyTrinity
 										  //DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Monk_BlindingFlash]).TotalMilliseconds <= 6000)) &&
 										  (!this.HotbarAbilities.Contains(SNOPower.Monk_BlindingFlash)||
 										  (this.HotbarAbilities.Contains(SNOPower.Monk_BlindingFlash)&&
-										  ((!Bot.SettingsFunky.Class.bMonkInnaSet&&Bot.Combat.iElitesWithinRange[RANGE_50]==0&&Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial&&!Bot.Target.CurrentTarget.IsBoss)||HasBuff(SNOPower.Monk_BlindingFlash))))&&
+										  ((!Bot.SettingsFunky.Class.bMonkInnaSet&&Bot.Combat.iElitesWithinRange[RANGE_50]==0&&Bot.Target.CurrentUnitTarget.IsEliteRareUnique&&!Bot.Target.CurrentTarget.IsBoss)||HasBuff(SNOPower.Monk_BlindingFlash))))&&
 										  // Check our mantras, if we have them, are up first
 										  (!this.HotbarAbilities.Contains(SNOPower.Monk_MantraOfEvasion)||(this.HotbarAbilities.Contains(SNOPower.Monk_MantraOfEvasion)&&HasBuff(SNOPower.Monk_MantraOfEvasion)))&&
 										  (!this.HotbarAbilities.Contains(SNOPower.Monk_MantraOfConviction)||(this.HotbarAbilities.Contains(SNOPower.Monk_MantraOfConviction)&&HasBuff(SNOPower.Monk_MantraOfConviction)))&&
@@ -348,6 +350,7 @@ namespace FunkyTrinity
 						  return new Ability
 						  {
 								Power=Power,
+								RuneIndex=this.RuneIndexCache[Power],
 								UsageType=AbilityUseType.Target,
 								AbilityWaitVars=new Tuple<int, int, bool>(1, 1, true),
 								Cost=30,
@@ -355,11 +358,10 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.Low,
 
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckPlayerIncapacitated),
-								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 4),
-								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1),
+								ClusterConditions=new Tuple<double,float,int,bool>(4d,18f,3,true),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 10),
 								
-								RuneIndex=this.RuneIndexCache[Power],
+
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return 
@@ -410,7 +412,7 @@ namespace FunkyTrinity
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return (AbilityLastUseMS(SNOPower.Monk_TempestRush)<350&&Bot.Combat.iAnythingWithinRange[RANGE_50]>0&&Bot.Target.CurrentTarget!=null)
-										  ||((Bot.Combat.iElitesWithinRange[RANGE_25]>0||Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=14f)||Bot.Combat.iAnythingWithinRange[RANGE_15]>2)&&
+										  ||((Bot.Combat.iElitesWithinRange[RANGE_25]>0||Bot.Target.CurrentUnitTarget.IsEliteRareUnique&&Bot.Target.CurrentTarget.RadiusDistance<=14f)||Bot.Combat.iAnythingWithinRange[RANGE_15]>2)&&
 										  (!Bot.Character.bWaitingForReserveEnergy||Bot.Character.dCurrentEnergy>=this.iWaitingReservedAmount);
 								}),
 						  };
@@ -430,7 +432,7 @@ namespace FunkyTrinity
 								Range=30,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckPlayerIncapacitated),
-								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,14),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.Ranged,20),
 
 								RuneIndex=this.RuneIndexCache[Power],
 								Fcriteria=new Func<bool>(() =>

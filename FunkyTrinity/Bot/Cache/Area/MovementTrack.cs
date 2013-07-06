@@ -13,7 +13,7 @@ namespace FunkyTrinity
 				private static List<SkipAheadNavigation> SkipAheadAreaCache=new List<SkipAheadNavigation>();
 				internal static bool bSkipAheadAGo=false;
 				private static DateTime lastRecordedSkipAheadCache=DateTime.Today;
-				internal static void RecordSkipAheadCachePoint()
+				internal static void RecordSkipAheadCachePoint(float Precision=20f)
 				{
 					 double millisecondsLastRecord=DateTime.Now.Subtract(lastRecordedSkipAheadCache).TotalMilliseconds;
 
@@ -22,10 +22,10 @@ namespace FunkyTrinity
 					 // else if (millisecondsLastRecord>10000) //10 seconds.. clear cache!
 					 // SkipAheadAreaCache.Clear();
 
-					 if (SkipAheadAreaCache.Any(p => p.Position.Distance(ZetaDia.Me.Position)<=20f))
+					 if (SkipAheadAreaCache.Any(p => p.Position.Distance(ZetaDia.Me.Position)<=Precision))
 						  return;
 
-					 SkipAheadAreaCache.Add(new SkipAheadNavigation(ZetaDia.Me.Position, 20f));
+					 SkipAheadAreaCache.Add(new SkipAheadNavigation(ZetaDia.Me.Position, Precision));
 
 					 lastRecordedSkipAheadCache=DateTime.Now;
 				}

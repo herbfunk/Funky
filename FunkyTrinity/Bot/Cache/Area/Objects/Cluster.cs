@@ -65,6 +65,15 @@ namespace FunkyTrinity
 		  public float NearestMonsterDistance { get; set; }
 
 
+		  private Funky.GridPoint MidPoint;
+		  public Funky.GridPoint Midpoint
+		  {
+				get
+				{
+					 return MidPoint/ListUnits.Count;
+				}
+		  }
+
 		  protected Cluster()
 		  {
 				ListPoints=new List<Funky.GridPoint>();
@@ -88,6 +97,8 @@ namespace FunkyTrinity
 		  {
 				ListUnits.Add(unit);
 				ListPoints.Add(unit.PointPosition);
+				MidPoint=unit.PointPosition;
+
 				RAGUIDS.Add(unit.RAGUID);
 				NearestMonsterDistance=unit.CentreDistance;
 				if (unit.MonsterElite)
@@ -125,6 +136,7 @@ namespace FunkyTrinity
 						  ListUnits.Add(unit);
 						  ListPoints.Add(unit.PointPosition);
 						  RAGUIDS.Add(unit.RAGUID);
+						  MidPoint+=unit.PointPosition;
 
 						  float distance=unit.CentreDistance;
 						  if (distance<this.NearestMonsterDistance)
@@ -166,6 +178,7 @@ namespace FunkyTrinity
 		  {
 				bool l_bSuccess=true;
 
+				MidPoint+=p_Cluster.MidPoint;
 				ListUnits.AddRange(p_Cluster.ListUnits);
 				ListPoints.AddRange(p_Cluster.ListPoints);
 				RAGUIDS.AddRange(p_Cluster.RAGUIDS);
@@ -177,6 +190,34 @@ namespace FunkyTrinity
 				return l_bSuccess;
 
 		  }  // of AnnexCluster()
+
+		  public Funky.CacheUnit GetNearestUnitToCenteroid()
+		  {
+				double minimumDistance=0.0;
+				int nearestPointIndex=-1;
+				Funky.GridPoint centeroid=this.Midpoint;
+
+				foreach (Funky.GridPoint p in this.ListPoints)
+				{
+					 double distance=Funky.GridPoint.GetDistanceBetweenPoints(p, centeroid);
+
+					 if (this.ListPoints.IndexOf(p)==0)
+					 {
+						  minimumDistance=distance;
+						  nearestPointIndex=this.ListPoints.IndexOf(p);
+					 }
+					 else
+					 {
+						  if (minimumDistance>distance)
+						  {
+								minimumDistance=distance;
+								nearestPointIndex=this.ListPoints.IndexOf(p);
+						  }
+					 }
+				}
+
+				return (this.ListUnits[nearestPointIndex]);
+		  }
 
 		  public static Cluster MergeClusters(Cluster p_C1, Cluster p_C2)
 		  {

@@ -158,14 +158,17 @@ namespace FunkyTrinity
                  {
                      UpdateSearchGridProvider(true);
                  }
-                 else if (btnsender.Name == "TEST")
+					  else if (btnsender.Name=="Ability")
                  {
 							try
 							{
 								 if (Bot.Class==null)
 									  return;
 
-								 Bot.Class.DebugString();
+								 foreach (var item in Bot.Class.Abilities.Values)
+								 {
+									  LBDebug.Items.Add(item.DebugString());
+								 }
 
 
 							} catch (Exception ex)
@@ -174,7 +177,23 @@ namespace FunkyTrinity
 							}
 
                  }
+					  else if (btnsender.Name=="TEST")
+					  {
+							try
+							{
+								 DiaUnit[] Units=ZetaDia.Actors.GetActorsOfType<DiaUnit>(true, true).ToArray();
+								 foreach (var item in Units)
+								 {
+									  double speed=item.Movement.SpeedXY;
+									  Logging.Write("Unit {0} has Speed {1}", item.Name, speed.ToString());
+								 }
 
+							} catch (Exception ex)
+							{
+								 Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
+							}
+
+					  }
                  LBDebug.Items.Refresh();
              }
 

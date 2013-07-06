@@ -468,7 +468,7 @@ namespace FunkyTrinity
 				{
 					 //Special cache for skipping locations visited.
 					 if (Funky.Bot.SettingsFunky.SkipAhead)
-						  Funky.CacheMovementTracking.RecordSkipAheadCachePoint();
+						  Funky.CacheMovementTracking.RecordSkipAheadCachePoint(PathPrecision);
 
 					 Navigator.MoveTo(NavTarget);
 				}
@@ -2557,7 +2557,7 @@ namespace FunkyTrinity
 				
 				//Special cache for skipping locations visited.
 				if (Funky.Bot.SettingsFunky.SkipAhead)
-					 Funky.CacheMovementTracking.RecordSkipAheadCachePoint();
+					 Funky.CacheMovementTracking.RecordSkipAheadCachePoint(PathPrecision);
 
 				LastMoveResult=Navigator.MoveTo(CurrentNavTarget);
 		  }

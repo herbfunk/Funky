@@ -48,6 +48,7 @@ namespace FunkyTrinity
 				LowHealth=1028,
 				FullHealth=2048,
 				IsSpecial=4096,
+				Ranged=8192,
 		  }
 
 		  //Describes a condition for a single unit
@@ -326,6 +327,10 @@ namespace FunkyTrinity
 					 {
 						  TargetUnitConditionFlags_=value;
 
+						  if (value.ConditionFlags.HasFlag(TargetProperties.None))
+								FSingleTargetUnitCriteria+=new Func<bool>(() => { return true; });
+
+
 						  if (value.Distance>-1)
 								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.RadiusDistance<=value.Distance; });
 
@@ -359,6 +364,8 @@ namespace FunkyTrinity
 								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsTreasureGoblin; });
 						  if (value.ConditionFlags.HasFlag(TargetProperties.Unique))
 								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterUnique; });
+						  if(value.ConditionFlags.HasFlag(TargetProperties.Ranged))
+								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.Monstersize.Value==Zeta.Internals.SNO.MonsterSize.Ranged; });
 					 }
 				}
 				private UnitTargetConditions TargetUnitConditionFlags_;
@@ -590,14 +597,16 @@ namespace FunkyTrinity
 					 SuccessUsed_=null;
 
 					 //Check Clustering First.. we verify that cluster condition was last to be tested.
-					 if (this.UsageType.HasFlag(AbilityUseType.ClusterTarget)&&this.LastConditionPassed==ConditionCriteraTypes.Cluster) //Cluster ACDGUID
+					 if (this.UsageType.HasFlag(AbilityUseType.ClusterTarget)&&CheckClusterConditions(this)) //Cluster ACDGUID
 					 {
-						  TargetRAGUID_=Clusters(this.ClusterConditions.Item1, this.ClusterConditions.Item2, this.ClusterConditions.Item3, this.ClusterConditions.Item4)[0].ListUnits[0].AcdGuid.Value;
+						  //ListUnits[0].AcdGuid.Value;
+						  TargetRAGUID_=Clusters(this.ClusterConditions.Item1, this.ClusterConditions.Item2, this.ClusterConditions.Item3, this.ClusterConditions.Item4)[0].GetNearestUnitToCenteroid().AcdGuid.Value;
 						  return;
 					 }
-					 if (this.UsageType.HasFlag(AbilityUseType.ClusterLocation)&&this.LastConditionPassed==ConditionCriteraTypes.Cluster) //Cluster Target Position
+					 if (this.UsageType.HasFlag(AbilityUseType.ClusterLocation)&&CheckClusterConditions(this)) //Cluster Target Position
 					 {
-						  TargetPosition_=Clusters(this.ClusterConditions.Item1, this.ClusterConditions.Item2, this.ClusterConditions.Item3, this.ClusterConditions.Item4)[0].ListUnits.First(u => u.ObjectIsValidForTargeting).Position;
+						  //.ListUnits.First(u => u.ObjectIsValidForTargeting).Position;
+						  TargetPosition_=(Vector3)Clusters(this.ClusterConditions.Item1, this.ClusterConditions.Item2, this.ClusterConditions.Item3, this.ClusterConditions.Item4)[0].Midpoint;
 						  return;
 					 }
 
@@ -692,6 +701,15 @@ namespace FunkyTrinity
 						  Ability p=(Ability)obj;
 						  return this.Power==p.Power;
 					 }
+				}
+
+				public string DebugString()
+				{
+					 return String.Format("Ability: {0} [RuneIndex={1}] \r\n"+
+												"Range={2} Priority [{3}] UseType [{4}] \r\n"+
+												"Avoid {5} Buff {6}", this.power_.ToString(), this.RuneIndex.ToString(),
+																			 this.Range.ToString(), this.Priority.ToString(), this.UsageType.ToString(),
+																			 this.UseAvoiding.ToString(), this.UseOOCBuff.ToString());
 				}
 
 		  }

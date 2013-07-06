@@ -13,15 +13,15 @@ namespace FunkyTrinity
 		  internal static partial class GridPointAreaCache
 		  {
 				internal static GPArea CurrentGPAREA=null;
-
+				
 				internal class GPArea
 				{
 					 //ToDo: Track object IDs so we can add them to the appropriate GPRect to use for updating.
 
 					 //GPArea -- a collection of GPRects which are connected, describes the entire location, holds each point indexed for easier access
 					 private List<GPRectangle> gridpointrectangles_;
-
-					 private GPRectangle centerGPRect;
+					 internal bool AllGPRectsFailed=false;
+					 internal GPRectangle centerGPRect;
 
 					 public GPArea(Vector3 startingLocation)
 					 {

@@ -137,7 +137,15 @@ namespace FunkyTrinity
 				#region Health Related
 				//Monter Hitpoints
 				public double? MaximumHealth { get; set; }
+
+				internal DateTime LastHealthChange=DateTime.Today;
 				private double LastCurrentHealth_=0d;
+				public double LastCurrentHealth
+				{
+					 get { return LastCurrentHealth_; }
+					 set { LastCurrentHealth_=value; LastHealthChange=DateTime.Now; }
+				}
+
 				public double? CurrentHealthPct { get; set; }
 				private int HealthChecks=0;
 
@@ -524,7 +532,7 @@ namespace FunkyTrinity
 								this.Weight+=9999;
 
 						  // Force a close range target because we seem to be stuck *OR* if not ranged and currently rooted
-						  if (Bot.Combat.bForceCloseRangeTarget||(Bot.Class.IsMeleeClass&&Bot.Character.bIsRooted))
+						  if (Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted)
 						  {
 
 								this.Weight=20000-(Math.Floor(radiusDistance)*200);
@@ -774,13 +782,26 @@ namespace FunkyTrinity
 								
 								double lastLOSCheckMS=this.LastLOSCheckMS;
 
-								
+
 								if (lastLOSCheckMS<500)
 									 return false;
-									 //Less then 2 seconds, not special, and further than 25f. 
-								else if (lastLOSCheckMS<2000&&!this.ObjectIsSpecial&&this.CentreDistance>25f)
-									 return false;
-								
+								else
+								{
+									 //Last Health Changed, Distance, Special Unit..
+									 double ReCheckTime=7500;
+									 
+									 if (DateTime.Now.Subtract(this.LastHealthChange).TotalMilliseconds<5000)
+										  ReCheckTime*=0.75;
+
+									 //Close Range.. we change the recheck timer based on how close
+									 if (this.CentreDistance<25f)
+										  ReCheckTime=(this.CentreDistance*225);
+									 else if (this.ObjectIsSpecial)
+										  ReCheckTime*=0.25;
+
+									 if (lastLOSCheckMS<ReCheckTime)
+										  return false;
+								}
 
 								NavCellFlags LOSNavFlags=NavCellFlags.None;
 								if (Bot.Class.IsMeleeClass||!this.WithinInteractionRange())

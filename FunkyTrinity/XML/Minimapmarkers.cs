@@ -134,6 +134,9 @@ namespace FunkyTrinity
 
 		  internal static RunStatus MoveToNearestMarker(Vector3 near)
 		  {
+				if (Funky.CacheMovementTracking.bSkipAheadAGo)
+					 Funky.CacheMovementTracking.RecordSkipAheadCachePoint();
+
 				MiniMapMarker m=MiniMapMarker.GetNearestUnvisitedMarker(near);
 				lastMoveResult=Navigator.MoveTo(MiniMapMarker.GetNearestUnvisitedMarker(near).Position);
 

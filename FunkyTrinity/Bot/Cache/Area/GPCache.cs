@@ -43,7 +43,7 @@ namespace FunkyTrinity
 					 }
 				}
 
-				
+
 
 
 
@@ -81,7 +81,7 @@ namespace FunkyTrinity
 				///Last successful GP Rectangle used during search method.
 				///</summary>
 				private static GPRectangle LastUsedRect=null;
-				private static bool AllGPRectsFailed=false;
+
 				internal static HashSet<GridPoint> BlacklistedGridpoints=new HashSet<GridPoint>();
 				private static double CurrentLocationWeight=0d;
 				private static float MinimumChangeofDistanceBeforeRefresh=15f;
@@ -106,16 +106,16 @@ namespace FunkyTrinity
 					 if (!Bot.Combat.TravellingAvoidance&&DateTime.Now.Subtract(lastFoundSafeSpot).TotalMilliseconds<=800
 						&&vlastSafeSpot!=vNullLocation
 						&&(!ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(vlastSafeSpot)))
-						  //&&(!kiting||!ObjectCache.Objects.IsPointNearbyMonsters(vlastSafeSpot,Bot.KiteDistance)))
+					 //&&(!kiting||!ObjectCache.Objects.IsPointNearbyMonsters(vlastSafeSpot,Bot.KiteDistance)))
 					 {	 //Already found a safe spot in the last 800ms
 						  return true;
 					 }
-					 
+
 
 					 Vector3 BotPosition=Bot.Character.Position;
 
 					 //Check if we should refresh..
-					 if (CurrentGPAREA==null||!CurrentGPAREA.GridPointContained(BotPosition))
+					 if (CurrentGPAREA==null||CurrentGPAREA.AllGPRectsFailed&&!CurrentGPAREA.centerGPRect.Contains(BotPosition)||!CurrentGPAREA.GridPointContained(BotPosition))
 						  CurrentGPAREA=new GPArea(BotPosition);
 
 					 //Check Bot Navigationally blocked
@@ -245,7 +245,7 @@ namespace FunkyTrinity
 				//    else
 				//        cacheMovementGPRs=new List<GPRectangle>(newMovementGPCs.OrderByDescending(gpc => gpc.centerpoint.Distance(botPoint)).ToArray());
 
-					 
+
 				//    MinimumChangeofDistanceBeforeRefresh=maxrangeFound;
 				//    UpdatedLocalMovementTree=true;
 				//    if (Bot.SettingsFunky.LogSafeMovementOutput) Logging.WriteDiagnostic("Updated Local GPCs");

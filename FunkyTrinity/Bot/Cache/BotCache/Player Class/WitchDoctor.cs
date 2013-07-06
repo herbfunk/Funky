@@ -68,7 +68,7 @@ namespace FunkyTrinity
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return (Bot.Character.dCurrentHealthPct<=0.65||(Bot.Combat.IsKiting&&Bot.Combat.iAnythingWithinRange[RANGE_15]>1)||Bot.Character.bIsIncapacitated||Bot.Character.bIsRooted||(Bot.SettingsFunky.OutOfCombatMovement)||
-												(Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=40f));
+												(Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentUnitTarget.IsEliteRareUnique&&Bot.Target.CurrentTarget.RadiusDistance<=40f));
 								}),
 						  };
 					 }
@@ -135,7 +135,7 @@ namespace FunkyTrinity
 								RuneIndex=this.RuneIndexCache[Power],
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return (this.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]==0&&(Bot.Combat.iElitesWithinRange[RANGE_15]>=1||(Bot.Target.CurrentTarget!=null&&((Bot.Target.CurrentTarget.ObjectIsSpecial)&&Bot.Target.CurrentTarget.RadiusDistance<=15f)))
+									 return (this.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]==0&&(Bot.Combat.iElitesWithinRange[RANGE_15]>=1||(Bot.Target.CurrentUnitTarget.IsEliteRareUnique&&Bot.Target.CurrentTarget.RadiusDistance<=15f))
 												||this.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]!=0&&Bot.Character.PetData.Gargantuan==0);
 								}),
 						  };
@@ -246,7 +246,7 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.Low,
 
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated| AbilityConditions.CheckCanCast | AbilityConditions.CheckEnergy),
-								ClusterConditions=new Tuple<double, float, int, bool>(4d, 45f, 1, true),
+								ClusterConditions=new Tuple<double, float, int, bool>(4d, 45f, 2, true),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 45),
 
 								RuneIndex=this.RuneIndexCache[Power],

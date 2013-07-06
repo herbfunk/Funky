@@ -34,6 +34,30 @@ namespace FunkyTrinity
 				//Check if we need to resfresh class data!
 				if (Bot.SettingsFunky.UseLevelingLogic)
 				{
+					 if (LeveledUpEventFired)
+					 {
+						  switch (Bot.Class.AC)
+						  {
+								case Zeta.Internals.Actors.ActorClass.Barbarian:
+									 BarbarianOnLevelUp(null, null);
+									 break;
+								case Zeta.Internals.Actors.ActorClass.DemonHunter:
+									 DemonHunterOnLevelUp(null, null);
+									 break;
+								case Zeta.Internals.Actors.ActorClass.Monk:
+									 MonkOnLevelUp(null, null);
+									 break;
+								case Zeta.Internals.Actors.ActorClass.WitchDoctor:
+									 WitchDoctorOnLevelUp(null, null);
+									 break;
+								case Zeta.Internals.Actors.ActorClass.Wizard:
+									 WizardOnLevelUp(null, null);
+									 break;
+						  }
+						  LeveledUpEventFired=false;
+						  LastLevelUp=DateTime.Now;
+					 }
+
 					 double lastlevelupMS=DateTime.Now.Subtract(LastLevelUp).TotalSeconds;
 					 if (lastlevelupMS<30&&lastlevelupMS>15)
 					 {

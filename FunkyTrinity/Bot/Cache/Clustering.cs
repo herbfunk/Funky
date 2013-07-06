@@ -57,7 +57,7 @@ namespace FunkyTrinity
 
 				return LC_;
 		  }
-		 
+
 
 
 		  //Cache last filtered list generated
@@ -75,10 +75,11 @@ namespace FunkyTrinity
 						  LastClusterList=LastClusterList.OrderBy(o => o.NearestMonsterDistance).ToList();
 						  LastClusterList.First().ListUnits.Sort();
 						  LastClusterList.First().ListUnits.Reverse();
+						//  Zeta.Common.Logging.WriteVerbose("MidPoint for Cluster == {0}", LastClusterList.First().Midpoint.ToString());
 					 }
 				}
 				return LastClusterList.Where(c => c.ListUnits.Count>=MinUnitCount).ToList();
 		  }
 
-    }
+	 }
 }

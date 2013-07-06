@@ -3210,36 +3210,40 @@ namespace FunkyTrinity
 
                 Button btnObjects_Debug = new Button
                 {
-                    Content = "Dump Object Cache",
-                    Width = 150,
+                    Content = "Object Cache",
+						  FontSize=10,
+                    Width = 100,
                     Height = 25,
                     Name = "Objects",
                 };
                 btnObjects_Debug.Click += DebugButtonClicked;
                 Button btnObstacles_Debug = new Button
                 {
-                    Content = "Dump Obstacle Cache",
-                    Width = 150,
+                    Content = "Obstacle Cache",
+                    Width = 100,
+						  FontSize=10,
                     Height = 25,
                     Name = "Obstacles",
                 };
                 btnObstacles_Debug.Click += DebugButtonClicked;
                 Button btnSNO_Debug = new Button
                 {
-                    Content = "Dump SNO Cache",
-                    Width = 150,
+                    Content = "SNO Cache",
+						  FontSize=10,
+                    Width = 100,
                     Height = 25,
                     Name = "SNO",
                 };
                 btnSNO_Debug.Click += DebugButtonClicked;
-                Button btnGPC_Debug = new Button
+                Button btnAbility_Debug = new Button
                 {
-                    Content = "Reset Bot Cache",
-                    Width = 150,
+                    Content = "Ability Cache",
+						  FontSize=10,
+                    Width = 100,
                     Height = 25,
-                    Name = "RESET",
+						  Name="Ability",
                 };
-                btnGPC_Debug.Click += DebugButtonClicked;
+                btnAbility_Debug.Click += DebugButtonClicked;
                 Button btnMGP_Debug = new Button
                 {
                     Content = "MGP Details",
@@ -3251,7 +3255,8 @@ namespace FunkyTrinity
                 Button btnTEST_Debug = new Button
                 {
                     Content = "Test",
-                    Width = 150,
+						  FontSize=10,
+                    Width = 100,
                     Height = 25,
                     Name = "TEST",
                 };
@@ -3268,6 +3273,7 @@ namespace FunkyTrinity
                 StackPanel_DebugButtons.Children.Add(btnObjects_Debug);
                 StackPanel_DebugButtons.Children.Add(btnObstacles_Debug);
                 StackPanel_DebugButtons.Children.Add(btnSNO_Debug);
+					 StackPanel_DebugButtons.Children.Add(btnAbility_Debug);
                 StackPanel_DebugButtons.Children.Add(btnTEST_Debug);
                 //StackPanel_DebugButtons.Children.Add(btnMGP_Debug);
                 //StackPanel_DebugButtons.Children.Add(btnGPC_Debug);
