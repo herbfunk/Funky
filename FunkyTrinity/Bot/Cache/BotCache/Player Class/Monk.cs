@@ -28,6 +28,9 @@ namespace FunkyTrinity
 					 {
 						  base.Abilities.Add(item, this.CreateAbility(item));
 					 }
+
+					 //Sort Abilities
+					 base.SortedAbilities=base.Abilities.Values.OrderByDescending(a => a.Priority).ThenBy(a => a.Range).ToList();
 				}
 				public override int MainPetCount
 				{
@@ -234,11 +237,16 @@ namespace FunkyTrinity
 								Cost=Bot.SettingsFunky.Class.bMonkInnaSet?5:75,
 								Priority=AbilityPriority.High,
 								UseAvoiding=true,
+
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckExisitingBuff),
+								ElitesWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_20,1),
+								UnitsWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_20,Bot.SettingsFunky.Class.bMonkInnaSet?1:2),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 25),
+
 								RuneIndex=this.RuneIndexCache[Power],
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return (Bot.Combat.iElitesWithinRange[RANGE_25]>0||Bot.Combat.iAnythingWithinRange[RANGE_20]>=2||(Bot.Combat.iAnythingWithinRange[RANGE_20]>=1&&Bot.SettingsFunky.Class.bMonkInnaSet)||Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=25f)&&
+									 return
 										  // Check if either we don't have blinding flash, or we do and it's been cast in the last 6000ms
 										  //DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Monk_BlindingFlash]).TotalMilliseconds <= 6000)) &&
 										  (!this.HotbarAbilities.Contains(SNOPower.Monk_BlindingFlash)||
@@ -265,12 +273,15 @@ namespace FunkyTrinity
 								Cost=50,
 								Range=16,
 								Priority=AbilityPriority.Low,
+								
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckPlayerIncapacitated),
+								ElitesWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_25,1),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 15),
+								
 								RuneIndex=this.RuneIndexCache[Power],
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return (Bot.Combat.iElitesWithinRange[RANGE_15]>=1||(Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=15f)||Bot.Character.dCurrentHealthPct<=0.55)&&
-										  (!Bot.Character.bWaitingForReserveEnergy||Bot.Character.dCurrentEnergy>=this.iWaitingReservedAmount);
+									 return !Bot.Character.bWaitingForReserveEnergy||Bot.Character.dCurrentEnergy>=this.iWaitingReservedAmount;
 								}),
 						  };
 					 }
@@ -289,11 +300,15 @@ namespace FunkyTrinity
 								Range=14,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckPlayerIncapacitated),
+
+								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 3),
+								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 14),
+								
 								RuneIndex=this.RuneIndexCache[Power],
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return (Bot.Combat.iElitesWithinRange[RANGE_25]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>=3||(Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=14f))&&
-										  (!Bot.Character.bWaitingForReserveEnergy||Bot.Character.dCurrentEnergy>=this.iWaitingReservedAmount);
+									 return (!Bot.Character.bWaitingForReserveEnergy||Bot.Character.dCurrentEnergy>=this.iWaitingReservedAmount);
 								}),
 						  };
 					 }
@@ -310,12 +325,17 @@ namespace FunkyTrinity
 								AbilityWaitVars=new Tuple<int, int, bool>(2, 2, true),
 								Cost=50,
 								Priority=AbilityPriority.Low,
+
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckPlayerIncapacitated),
+								
+								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 2),
+								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 1),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 18),
+								
 								RuneIndex=this.RuneIndexCache[Power],
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return (Bot.Combat.iElitesWithinRange[RANGE_20]>=1||Bot.Combat.iAnythingWithinRange[RANGE_20]>=2||Bot.Character.dCurrentEnergyPct>=0.5||(Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=18f))&&
-										  (!Bot.Character.bWaitingForReserveEnergy||Bot.Character.dCurrentEnergy>=this.iWaitingReservedAmount);
+									 return (!Bot.Character.bWaitingForReserveEnergy||Bot.Character.dCurrentEnergy>=this.iWaitingReservedAmount);
 								}),
 						  };
 					 }
@@ -333,11 +353,16 @@ namespace FunkyTrinity
 								Cost=30,
 								Range=10,
 								Priority=AbilityPriority.Low,
+
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckPlayerIncapacitated),
+								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 4),
+								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 10),
+								
 								RuneIndex=this.RuneIndexCache[Power],
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return (Bot.Combat.iElitesWithinRange[RANGE_15]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>4||(Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=10f))&&
+									 return 
 										  // Either doesn't have sweeping wind, or does but the buff is already up
 										  (!this.HotbarAbilities.Contains(SNOPower.Monk_SweepingWind)||(this.HotbarAbilities.Contains(SNOPower.Monk_SweepingWind)&&HasBuff(SNOPower.Monk_SweepingWind)))&&
 										  (!Bot.Character.bWaitingForReserveEnergy||Bot.Character.dCurrentEnergy>=this.iWaitingReservedAmount);
@@ -358,10 +383,13 @@ namespace FunkyTrinity
 								Cost=this.RuneIndexCache[SNOPower.Monk_WaveOfLight]==3?40:75,
 								Range=16,
 								Priority=AbilityPriority.Low,
-								ClusterConditions=Tuple.Create<double, float, int, bool>(7d, 35f, 3, true),
+
+							
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckPlayerIncapacitated),
+								ClusterConditions=Tuple.Create<double, float, int, bool>(7d, 35f, 3, true),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,20),
+
 								RuneIndex=this.RuneIndexCache[Power],
-								Fcriteria=new Func<bool>(() => { return (Bot.Combat.iAnythingWithinRange[RANGE_25]>2&&Clusters(7d, 35f, 3, true).Count>0); }),
 						  };
 					 }
 					 #endregion
@@ -402,11 +430,12 @@ namespace FunkyTrinity
 								Range=30,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckPlayerIncapacitated),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,14),
+
 								RuneIndex=this.RuneIndexCache[Power],
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return ((Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=14f))&&
-										  (!Bot.Character.bWaitingForReserveEnergy||Bot.Character.dCurrentEnergy>=this.iWaitingReservedAmount);
+									 return (!Bot.Character.bWaitingForReserveEnergy||Bot.Character.dCurrentEnergy>=this.iWaitingReservedAmount);
 								}),
 						  };
 					 }
@@ -421,12 +450,15 @@ namespace FunkyTrinity
 								Power=Power,
 								UsageType=AbilityUseType.ClusterTarget|AbilityUseType.Target,
 								AbilityWaitVars=new Tuple<int, int, bool>(0, 1, false),
-								ClusterConditions=new Tuple<double, float, int, bool>(5d, 20f, 1, true),
+								
 								Priority=AbilityPriority.None,
 								Range=this.RuneIndexCache[SNOPower.Monk_FistsofThunder]==0?25:12,
+
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
+								ClusterConditions=new Tuple<double, float, int, bool>(5d, 20f, 1, true),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None),
+
 								RuneIndex=this.RuneIndexCache[Power],
-								Fcriteria=new Func<bool>(() => { return (Bot.Combat.iAnythingWithinRange[RANGE_12]>1&&Clusters(5d, 12f, 2, true).Count>0)||Bot.Target.CurrentTarget.targetType.Value==TargetType.Unit; }),
 						  };
 
 					 }

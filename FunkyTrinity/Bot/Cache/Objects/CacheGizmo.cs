@@ -606,10 +606,10 @@ namespace FunkyTrinity
 						  {//Melee class and no change in target.. we attempt to attack by shift-clicking..
 								// Location attack - attack the Vector3/map-area (equivalent of holding shift and left-clicking the object in-game to "force-attack")
 								Vector3 vAttackPoint;
-								if (this.RadiusDistance>=6f)
-									 vAttackPoint=MathEx.CalculatePointFrom(this.Position, Bot.Character.Position, 6f);
-								else
-									 vAttackPoint=this.Position;
+								//if (this.RadiusDistance>=6f)
+								//    vAttackPoint=MathEx.CalculatePointFrom(this.Position, Bot.Character.Position, 6f);
+								//else
+								vAttackPoint=this.Position;
 								vAttackPoint.Z+=1.5f;
 								Logging.WriteDiagnostic("[Funky] (NB: Attacking location of destructable)");
 								ZetaDia.Me.UsePower(Bot.Combat.powerPrime.Power, vAttackPoint, Bot.Character.iCurrentWorldID, -1);

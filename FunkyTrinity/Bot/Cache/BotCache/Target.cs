@@ -77,6 +77,7 @@ namespace FunkyTrinity
 				///This must be set to a valid cacheobject in order to properly handle it.
 				///</summary>
 				public CacheObject CurrentTarget;
+				internal CacheUnit CurrentUnitTarget;
 
 				///<summary>
 				///Update our current object data ("Current Target")
@@ -697,6 +698,9 @@ namespace FunkyTrinity
 					 //Health Change Timer
 					 if (CurrentTarget.targetType.Value==TargetType.Unit)
 					 {
+						  if (CurrentUnitTarget==null)
+								CurrentUnitTarget=(CacheUnit)CurrentTarget;
+
 						  double HealthChangeMS=DateTime.Now.Subtract(Bot.Combat.LastHealthChange).TotalMilliseconds;
 
 						  if (HealthChangeMS>3000&&!CurrentTarget.ObjectIsSpecial||HealthChangeMS>6000)
@@ -809,7 +813,7 @@ namespace FunkyTrinity
 
 					 // See if we can use any special buffs etc. while in avoidance
 					 #region AvoidanceSpecialAbilityCheck
-					 if (CurrentTarget.targetType.Value==TargetType.Avoidance)
+					 if ((TargetType.Avoidance|TargetType.Gold|TargetType.Globe|TargetType.Gizmo|TargetType.Item).HasFlag(CurrentTarget.targetType.Value))
 					 {
 						  Bot.Combat.powerBuff=Bot.Class.AbilitySelector(true, false);
 						  if (Bot.Combat.powerBuff.Power!=SNOPower.None)

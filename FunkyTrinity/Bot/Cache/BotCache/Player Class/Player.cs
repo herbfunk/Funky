@@ -56,15 +56,17 @@ namespace FunkyTrinity
 				///</summary>
 				public virtual Ability AbilitySelector(bool bCurrentlyAvoiding=false, bool bOOCBuff=false)
 				{
-					 foreach (var item in this.Abilities.Values.ToList().OrderByDescending(a => a.Priority))
+					 foreach (var item in this.SortedAbilities)
 					 {
-						  if (!item.Cooldown.IsFinished) continue;
+						  //if (!item.Cooldown.IsFinished) continue;
 						  if (bCurrentlyAvoiding&&item.UseAvoiding==false) continue;
 						  if (bOOCBuff&&item.UseOOCBuff==false) continue;
-						  if (!item.CheckConditionMethod()) continue;
+
+
+						  if (!item.CheckPreCastConditionMethod()) continue;
 
 						  //
-						  if (item.Fcriteria())
+						  if (item.CheckCombatConditionMethod())
 						  {
 								item.SetupAbilityForUse();
 								return item;
@@ -118,7 +120,9 @@ namespace FunkyTrinity
 				internal Dictionary<SNOPower, int> RuneIndexCache=new Dictionary<SNOPower, int>();
 				internal Dictionary<SNOPower, int> AbilityCooldowns=new Dictionary<SNOPower, int>();
 				internal Dictionary<int, int> CurrentBuffs=new Dictionary<int, int>();
+
 				internal Dictionary<SNOPower, Ability> Abilities=new Dictionary<SNOPower, Ability>();
+				internal List<Ability> SortedAbilities=new List<Ability>();
 
 				private bool specialMovementUseCheck(SNOPower P)
 				{

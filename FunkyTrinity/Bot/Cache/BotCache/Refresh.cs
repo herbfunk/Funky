@@ -65,6 +65,7 @@ namespace FunkyTrinity
 					 }
 
 					 Bot.Target.CurrentTarget=null;
+					 Bot.Target.CurrentUnitTarget=null;
 
 					 //Kill Loot Radius Update
 					 Bot.UpdateKillLootRadiusValues();

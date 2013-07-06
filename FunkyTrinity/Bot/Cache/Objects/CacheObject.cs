@@ -364,12 +364,12 @@ namespace FunkyTrinity
 
 				public virtual bool BotIsFacing()
 				{
-
-					 //return Vector3.Dot(Bot.Character.Position, this.Position)<0;
 					 Vector3 NormalizedVector=this.Position;
+					 NormalizedVector.Z=0f; //Use Zero for Z -- this helps with units that hover..
 					 NormalizedVector.Normalize();
 
 					 Vector3 BotPositionNormalized=Bot.Character.Position;
+					 BotPositionNormalized.Z=0f;
 					 BotPositionNormalized.Normalize();
 
 					 float angleDegrees=Vector3.AngleBetween(BotPositionNormalized, NormalizedVector);
@@ -380,9 +380,11 @@ namespace FunkyTrinity
 				public virtual bool BotIsFacing(Vector3 DestinationVector)
 				{
 					 Vector3 NormalizedVector=this.Position;
+					 NormalizedVector.Z=0f;
 					 NormalizedVector.Normalize();
 
 					 Vector3 NormalizedBotDestination=Vector3.NormalizedDirection(Bot.Character.Position,DestinationVector);
+					 NormalizedBotDestination.Z=0f;
 
 					 float angleDegrees=Vector3.AngleBetween(NormalizedVector, NormalizedBotDestination);
 					 return (angleDegrees<=0.0045||angleDegrees>0.0315);

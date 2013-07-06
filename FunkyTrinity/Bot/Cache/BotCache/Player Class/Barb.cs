@@ -28,6 +28,10 @@ namespace FunkyTrinity
 					 {
 						  base.Abilities.Add(item, this.CreateAbility(item));
 					 }
+
+
+					 //Sort Abilities
+					 base.SortedAbilities=base.Abilities.Values.OrderByDescending(a => a.Priority).ThenBy(a => a.Range).ToList();
 				}
 
 				public override bool IsMeleeClass
@@ -112,13 +116,15 @@ namespace FunkyTrinity
 								Power=Power,
 								UsageType=AbilityUseType.Buff,
 								AbilityWaitVars=new Tuple<int, int, bool>(4, 4, true),
+								ElitesWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_15,1),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,13),
 								Cost=0,
 								UseAvoiding=false,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckExisitingBuff|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
 								RuneIndex=this.RuneIndexCache[Power],
-								Fcriteria=new Func<bool>(() => { return (Bot.Combat.iElitesWithinRange[RANGE_15]>0||(Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=13f)); }),
+								
 						  };
 
 					 }
@@ -156,13 +162,14 @@ namespace FunkyTrinity
 								Power=Power,
 								UsageType=AbilityUseType.Buff,
 								AbilityWaitVars=new Tuple<int, int, bool>(4, 4, true),
+								ElitesWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_25,1),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,25),
 								Cost=50,
 								UseAvoiding=false,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
 								RuneIndex=this.RuneIndexCache[Power],
-								Fcriteria=new Func<bool>(() => { return (Bot.Combat.iElitesWithinRange[RANGE_25]>0||(Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=25f)); }),
 						  };
 					 }
 					 #endregion
@@ -288,9 +295,12 @@ namespace FunkyTrinity
 								UseAvoiding=true,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
+
 								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								UnitsWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_15,4),
+								ElitesWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_15,1),
+								
 								RuneIndex=this.RuneIndexCache[Power],
-								Fcriteria=new Func<bool>(() => { return (Bot.Combat.iElitesWithinRange[RANGE_15]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>4||Bot.Character.dCurrentHealthPct<=0.7); }),
 						  };
 					 }
 					 #endregion
@@ -414,15 +424,17 @@ namespace FunkyTrinity
 								Power=Power,
 								UsageType=AbilityUseType.ClusterLocation| AbilityUseType.Location,
 								AbilityWaitVars=new Tuple<int, int, bool>(2, 2, true),
-								ClusterConditions=new Tuple<double, float, int, bool>(6d, 40f, 1, true),
+								
 								Cost=this.RuneIndexCache[SNOPower.Barbarian_SeismicSlam]==3?15:30,
 								Range=40,
 								UseAvoiding=true,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								ClusterConditions=new Tuple<double, float, int, bool>(6d, 40f, 1, true),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial),
+
 								RuneIndex=this.RuneIndexCache[Power],
-								Fcriteria=new Func<bool>(() => { return Bot.Target.CurrentTarget.ObjectIsSpecial||Clusters(6d, 40f, 2).Count>0; }),
 						  };
 					 }
 					 #endregion
@@ -464,14 +476,15 @@ namespace FunkyTrinity
 								UseAvoiding=false,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
+
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckPlayerIncapacitated),
+								UnitsWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_25,2),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,20),
+
 								RuneIndex=this.RuneIndexCache[Power],
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return (!Bot.SettingsFunky.Class.bSelectiveWhirlwind||Bot.Combat.bAnyNonWWIgnoreMobsInRange||!SnoCacheLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Target.CurrentTarget.SNOID))&&
-										  // Only if within 15 foot of main target
-										  ((Bot.Target.CurrentTarget.RadiusDistance<=20f||Bot.Combat.iAnythingWithinRange[RANGE_25]>=1)&&
-										  (Bot.Combat.iAnythingWithinRange[RANGE_50]>=2||(Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial)||Bot.Character.dCurrentHealthPct<=0.60))&&
 										  // If they have battle-rage, make sure it's up
 										  (!Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_BattleRage)||(Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_BattleRage)&&HasBuff(SNOPower.Barbarian_BattleRage)));
 								}),

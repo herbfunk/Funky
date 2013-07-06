@@ -61,6 +61,10 @@ namespace FunkyTrinity
 					 {
 						  base.Abilities.Add(item, this.CreateAbility(item));
 					 }
+
+
+					 //Sort Abilities
+					 base.SortedAbilities=base.Abilities.Values.OrderByDescending(a => a.Priority).ThenByDescending(a => a.Range).ToList();
 				}
 				public override Ability CreateAbility(SNOPower Power)
 				{
@@ -152,12 +156,11 @@ namespace FunkyTrinity
 								UseAvoiding=true,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.High,
+
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckRecastTimer),
+								UnitsWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_20,1),
+
 								RuneIndex=this.RuneIndexCache[Power],
-								Fcriteria=new Func<bool>(() =>
-								{
-									 return (Bot.Combat.iAnythingWithinRange[RANGE_20]>=1||Bot.Target.CurrentTarget.RadiusDistance<=30f);
-								}),
 						  };
 					 }
 					 #endregion
@@ -222,11 +225,11 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckEnergy|AbilityConditions.CheckRecastTimer),
+								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_40, 3),
+								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_40, 1),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 40),
+								
 								RuneIndex=this.RuneIndexCache[Power],
-								Fcriteria=new Func<bool>(() =>
-								{
-									 return (Bot.Combat.iElitesWithinRange[RANGE_40]>=1||Bot.Combat.iAnythingWithinRange[RANGE_40]>=3||((Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial)&&Bot.Target.CurrentTarget.RadiusDistance<=40f));
-								}),
 						  };
 					 }
 					 #endregion
@@ -245,12 +248,12 @@ namespace FunkyTrinity
 								UseAvoiding=false,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
+
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckCanCast|AbilityConditions.CheckEnergy|AbilityConditions.CheckRecastTimer),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None,10),
+								UnitsWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_6,1),
+								
 								RuneIndex=this.RuneIndexCache[Power],
-								Fcriteria=new Func<bool>(() =>
-								{
-									 return (Bot.Target.CurrentTarget.RadiusDistance<=10f||Bot.Combat.iAnythingWithinRange[RANGE_6]>=1);
-								}),
 						  };
 					 }
 					 #endregion
@@ -267,12 +270,12 @@ namespace FunkyTrinity
 								UseAvoiding=true,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
+
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckCanCast),
+								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 7),
+								ElitesWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_25, 1),
+
 								RuneIndex=this.RuneIndexCache[Power],
-								Fcriteria=new Func<bool>(() =>
-								{
-									 return (Bot.Combat.iAnythingWithinRange[RANGE_25]>=7||Bot.Combat.iElitesWithinRange[RANGE_25]>=1);
-								}),
 						  };
 					 }
 					 #endregion
@@ -292,11 +295,12 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckEnergy|AbilityConditions.CheckRecastTimer),
+
+								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_50, 5),
+								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_50, 1),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,69),
+
 								RuneIndex=this.RuneIndexCache[Power],
-								Fcriteria=new Func<bool>(() =>
-								{
-									 return (Bot.Combat.iElitesWithinRange[RANGE_50]>=1||Bot.Combat.iAnythingWithinRange[RANGE_50]>=5||((Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial)&&Bot.Target.CurrentTarget.RadiusDistance<=69f));
-								}),
 						  };
 					 }
 					 #endregion
@@ -308,7 +312,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.ClusterTarget| AbilityUseType.Target,
-								ClusterConditions=new Tuple<double, float, int, bool>(5d, 40, 1, true),
+								
 								AbilityWaitVars=new Tuple<int, int, bool>(1, 1, true),
 								Cost=30,
 								Range=55,
@@ -317,11 +321,11 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckEnergy),
+								ClusterConditions=new Tuple<double, float, int, bool>(5d, 40, 1, true),
+								UnitsWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_40,2),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial),
+
 								RuneIndex=this.RuneIndexCache[Power],
-								Fcriteria=new Func<bool>(() =>
-								{
-									 return Clusters(5d,40,2,true).Count>0||(Bot.Combat.iAnythingWithinRange[RANGE_40]>2||Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial);
-								}),
 						  };
 					 }
 					 #endregion
@@ -340,11 +344,10 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy),
+								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 4),
+								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1),
+
 								RuneIndex=this.RuneIndexCache[Power],
-								Fcriteria=new Func<bool>(() =>
-								{
-									 return (Bot.Combat.iAnythingWithinRange[RANGE_15]>=4||Bot.Combat.iElitesWithinRange[RANGE_15]>=1);
-								}),
 						  };
 					 }
 					 #endregion
@@ -363,11 +366,9 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckEnergy),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None,15),
+
 								RuneIndex=this.RuneIndexCache[Power],
-								Fcriteria=new Func<bool>(() =>
-								{
-									 return Bot.Target.CurrentTarget.RadiusDistance<=15f;
-								}),
 						  };
 					 }
 					 #endregion
@@ -385,12 +386,17 @@ namespace FunkyTrinity
 								UseAvoiding=true,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
+
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy),
+								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 4),
+								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_30, 1),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,35),
+
 								RuneIndex=this.RuneIndexCache[Power],
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return Bot.Combat.powerLastSnoPowerUsed!=SNOPower.DemonHunter_SpikeTrap&&
-											 (Bot.Combat.iElitesWithinRange[RANGE_30]>=1||Bot.Combat.iAnythingWithinRange[RANGE_25]>4||((Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.ObjectIsSpecial)&&Bot.Target.CurrentTarget.RadiusDistance<=35f));
+									 return Bot.Combat.powerLastSnoPowerUsed!=SNOPower.DemonHunter_SpikeTrap;
+										
 								}),
 						  };
 					 }
@@ -411,11 +417,10 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckEnergy|AbilityConditions.CheckRecastTimer),
+								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_30, 2),
+								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_40, 1),
+
 								RuneIndex=this.RuneIndexCache[Power],
-								Fcriteria=new Func<bool>(() =>
-								{
-									 return (Bot.Combat.iAnythingWithinRange[RANGE_30]>=2||Bot.Combat.iElitesWithinRange[RANGE_40]>=1);
-								}),
 						  };
 
 					 }
@@ -487,10 +492,6 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckEnergy),
 								RuneIndex=this.RuneIndexCache[Power],
-								Fcriteria=new Func<bool>(() =>
-								{
-									 return true;
-								}),
 						  };
 					 }
 					 #endregion
@@ -509,11 +510,12 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None,12),
+
 								RuneIndex=this.RuneIndexCache[Power],
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return ((Bot.Character.dCurrentEnergy>=25&&!Bot.Character.bWaitingForReserveEnergy)||Bot.Character.dCurrentEnergy>=this.iWaitingReservedAmount)&&
-												 Bot.Target.CurrentTarget.RadiusDistance<=12f;
+									 return ((Bot.Character.dCurrentEnergy>=25&&!Bot.Character.bWaitingForReserveEnergy)||Bot.Character.dCurrentEnergy>=this.iWaitingReservedAmount);
 								}),
 						  };
 					 }

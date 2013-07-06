@@ -225,8 +225,8 @@ namespace FunkyTrinity
 
 					 // Variables relating to quick-reference of monsters within sepcific ranges (if anyone has suggestion for similar functionality with reduced CPU use, lemme know, but this is fast atm!)
 					 internal int[] iElitesWithinRange;
+					 internal int[] iAnythingWithinRange;
 
-					 internal int[] iAnythingWithinRange { get; set; }
 					 internal int iNonRendedTargets_6 { get; set; }
 					 internal bool UsesDOTDPSAbility { get; set; }
 					 internal int SurroundingUnits { get; set; }
