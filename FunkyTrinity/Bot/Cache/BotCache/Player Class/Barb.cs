@@ -28,17 +28,19 @@ namespace FunkyTrinity
 					 {
 						  base.Abilities.Add(item, this.CreateAbility(item));
 					 }
-
+					 if (base.Abilities.ContainsKey(SNOPower.Barbarian_WeaponThrow))
+						  UsingWeaponThrowAbility=true;
 
 					 //Sort Abilities
 					 base.SortedAbilities=base.Abilities.Values.OrderByDescending(a => a.Priority).ThenBy(a => a.Range).ToList();
 				}
 
+				private bool UsingWeaponThrowAbility=false;
 				public override bool IsMeleeClass
 				{
 					 get
 					 {
-						  return false;
+						  return !UsingWeaponThrowAbility;
 					 }
 				}
 
@@ -209,6 +211,7 @@ namespace FunkyTrinity
 								UsageType=AbilityUseType.Buff,
 								AbilityWaitVars=new Tuple<int, int, bool>(1, 1, true),
 								Cost=0,
+								Range=0,
 								UseAvoiding=false,
 								UseOOCBuff=true,
 								Priority=AbilityPriority.High,
@@ -319,12 +322,8 @@ namespace FunkyTrinity
 								UseOOCBuff=true,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
-								Fcriteria=new Func<bool>(() =>
-								{
-									 return (!Bot.Target.CurrentTarget.IsTreasureGoblin||Bot.Combat.iAnythingWithinRange[RANGE_12]>=5)&&
-										  // Doesn't need CURRENT target to be in range, just needs ANYTHING to be within 9 foot, since it's an AOE!
-									  (Bot.Combat.iAnythingWithinRange[RANGE_6]>0||Bot.Target.CurrentTarget.RadiusDistance<=6f);
-								}),
+								
+								UnitsWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_6,1),
 						  };
 					 }
 					 #endregion
@@ -461,9 +460,12 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.Ranged,25,0.50d),
+								
+								TestCustomCombatConditionAlways=true,
 								Fcriteria=new Func<bool>(()=>
 								{
-									return Bot.Character.dCurrentEnergyPct<0.5d;
+									return Bot.Target.CurrentUnitTarget.Monstersize.Value==MonsterSize.Ranged || Bot.Character.dCurrentEnergyPct<0.5d;
 								}),
 						  };
 					 }

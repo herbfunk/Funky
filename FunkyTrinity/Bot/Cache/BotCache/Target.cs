@@ -362,8 +362,14 @@ namespace FunkyTrinity
 								//Check for Range Classes and Unit Targets
 								if (!Bot.Class.IsMeleeClass&&CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Combat.NearbyAvoidances.Count>0)
 								{
+									 //set unit target (for ability selector).
+									 CurrentUnitTarget=(CacheUnit)CurrentTarget;
+
 									 //Generate next ability..
 									 Ability nextAbility=Bot.Class.AbilitySelector();
+
+									 //reset unit target
+									 CurrentUnitTarget=null;
 
 									 //Check if we are already within interaction range.
 									 if (!thisobj.WithinInteractionRange())
@@ -380,14 +386,14 @@ namespace FunkyTrinity
 												continue;
 										  }
 									 }
-									 else if (Bot.Combat.TriggeringAvoidances.Count>0)
-									 {//Triggering Avoidances means we are currently inside avoidance zone.. 
+									 //else if (Bot.Combat.TriggeringAvoidances.Count>0)
+									 //{//Triggering Avoidances means we are currently inside avoidance zone.. 
 
-										  //Ignore target!
-										  //Reset back to last target if we had one.. 
-										  CurrentTarget=CurrentTargetRAGUID!=-1?ObjectCache.Objects[CurrentTargetRAGUID]:null;
-										  continue;
-									 }
+									 //    //Ignore target!
+									 //    //Reset back to last target if we had one.. 
+									 //    CurrentTarget=CurrentTargetRAGUID!=-1?ObjectCache.Objects[CurrentTargetRAGUID]:null;
+									 //    continue;
+									 //}
 								}
 
 
@@ -673,10 +679,9 @@ namespace FunkyTrinity
 									 }
 								}
 								// Make sure we start trying to move again should we need to!
-								Bot.Combat.bAlreadyMoving=false;
-								Bot.Combat.lastMovementCommand=DateTime.Today;
 								Bot.Combat.bPickNewAbilities=true;
-								Bot.Combat.fLastDistanceFromTarget=-1f;
+
+								TargetMovement.NewTargetResetVars();
 						  }
 						  // Ok we didn't want a new target list, should we at least update the position of the current target, if it's a monster?
 						  else if (CurrentTarget.targetType.Value==TargetType.Unit&&CurrentTarget.IsStillValid())
@@ -741,8 +746,10 @@ namespace FunkyTrinity
 									 if (!CurrentTarget.IgnoresLOSCheck)
 									 {
 										  NavCellFlags LOSNavFlags=NavCellFlags.None;
-										  if (Bot.Class.IsMeleeClass||!CurrentTarget.WithinInteractionRange())
-										  {
+
+										  if (!CurrentTarget.WithinInteractionRange())
+										  {//Ability requires movement prior to use, so we test nav flags.
+
 												if (Bot.Combat.powerPrime.IsRanged) //Add Projectile Testing!
 													 LOSNavFlags=NavCellFlags.AllowWalk|NavCellFlags.AllowProjectile;
 												else
@@ -834,7 +841,7 @@ namespace FunkyTrinity
 				public virtual bool Movement()
 				{
 					 // Set current destination to our current target's destination
-					 Bot.Combat.vCurrentDestination=CurrentTarget.Position;
+					 TargetMovement.CurrentTargetLocation=CurrentTarget.Position;
 					 if (CurrentTarget.LOSV3!=vNullLocation)
 					 {
 						  //Recheck LOS every second
@@ -858,10 +865,11 @@ namespace FunkyTrinity
 								}
 						  }
 
-						  Bot.Combat.vCurrentDestination=CurrentTarget.LOSV3;
+						  TargetMovement.CurrentTargetLocation=CurrentTarget.LOSV3;
 						  if (Bot.Character.Position.Distance(CurrentTarget.LOSV3)>2.5f)
 						  {
-								CurrentState=CurrentTarget.MoveTowards();
+
+								CurrentState=TargetMovement.TargetMoveTo(CurrentTarget);
 								return false;
 						  }
 					 }
@@ -873,7 +881,7 @@ namespace FunkyTrinity
 						  return true;
 					 else
 					 {//Movement required..
-						  CurrentState=CurrentTarget.MoveTowards();
+						  CurrentState=TargetMovement.TargetMoveTo(CurrentTarget);
 						  return false;
 					 }
 				}

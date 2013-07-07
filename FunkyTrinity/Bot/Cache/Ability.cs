@@ -147,6 +147,7 @@ namespace FunkyTrinity
 					 Cooldown=new Zeta.Common.Helpers.WaitTimer(new TimeSpan(0, 0, 0, 0, 0));
 					 IsRanged=false;
 					 LastConditionPassed=ConditionCriteraTypes.None;
+					 TestCustomCombatConditionAlways=false;
 				}
 
 				#region Properties
@@ -215,6 +216,7 @@ namespace FunkyTrinity
 				///</summary>
 				public bool UseAvoiding { get; set; }
 
+				public bool TestCustomCombatConditionAlways { get; set; }
 				public ConditionCriteraTypes LastConditionPassed { get; set; }
 				#endregion
 
@@ -518,7 +520,7 @@ namespace FunkyTrinity
 					 }
 
 					 //Tested Conditions but Ended Up With Failed Attempt.
-					 if (TestCustomConditions&&FailedCondition) return false;
+					 if (TestCustomConditions&&FailedCondition&&!TestCustomCombatConditionAlways) return false;
 
 
 					 foreach (Func<bool> item in this.Fcriteria.GetInvocationList())

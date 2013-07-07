@@ -546,7 +546,7 @@ namespace FunkyTrinity
 						  if (Bot.Combat.bForceCloseRangeTarget)
 								fRangeRequired-=1f;
 
-						  if (Bot.Character.Position.Distance(Bot.Combat.vCurrentDestination)<=1.5f)
+						  if (Bot.Character.Position.Distance(TargetMovement.CurrentTargetLocation)<=1.5f)
 								fDistanceReduction+=1f;
 					 }
 					 else

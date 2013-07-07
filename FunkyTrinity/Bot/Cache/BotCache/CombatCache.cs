@@ -28,19 +28,14 @@ namespace FunkyTrinity
 						  bWaitingForPotion=false;
 						  bForceTargetUpdate=false;
 						  bWasRootedLastTick=false;
-						  lastMovementCommand=DateTime.Today;
-						  iTimesBlockedMoving=0;
-						  bAlreadyMoving=false;
+
 						  ShouldCheckItemLooted=false;
 						  reCheckedFinished=false;
 						  recheckCount=0;
-						  totalNonMovementCount=0;
-						  UsedAutoMovementCommand=false;
-						  lastMovedDuringCombat=DateTime.Today;
-						  lastPlayerPosDuringTargetMovement=Vector3.Zero;
+						  
+						  
 						  LastHealthDropPct=0d;
 						  LastHealthChange=DateTime.Today;
-						  lastSentMovePower=DateTime.Today;
 						  powerPrime=new Ability();
 						  iElitesWithinRange=new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 						  iAnythingWithinRange=new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -135,22 +130,6 @@ namespace FunkyTrinity
 						  }
 					 }
 
-					 #region Movement
-					 // Timestamp of when our position was last measured as changed
-					 internal DateTime lastMovedDuringCombat { get; set; }
-					 //Used to check movement during target
-					 internal Vector3 lastPlayerPosDuringTargetMovement { get; set; }
-					 internal Vector3 vLastMoveToTarget { get; set; }
-					 internal float fLastDistanceFromTarget { get; set; }
-					 internal Vector3 vCurrentDestination { get; set; }
-					 internal bool UsedAutoMovementCommand { get; set; }
-					 internal int totalNonMovementCount { get; set; }
-					 internal bool bAlreadyMoving { get; set; }
-					 internal DateTime lastMovementCommand { get; set; }
-					 // How many times a movement fails because of being "blocked"
-					 internal int iTimesBlockedMoving { get; set; }
-					 #endregion
-
 
 					 internal DateTime LastHealthChange { get; set; }
 					 internal double LastHealthDropPct { get; set; }
@@ -174,8 +153,7 @@ namespace FunkyTrinity
 					 internal bool DontMove { get; set; }
 					 internal bool CriticalAvoidance { get; set; }
 					 internal DateTime LastAvoidanceMovement { get; set; }
-					 // When did we last send a move-power command?
-					 internal DateTime lastSentMovePower=DateTime.Today;
+
 					 // This force-prevents avoidance for XX loops incase we get stuck trying to avoid stuff
 					 internal DateTime timeCancelledEmergencyMove=DateTime.Today;
 					 internal int iMillisecondsCancelledEmergencyMoveFor=0;
@@ -295,20 +273,19 @@ namespace FunkyTrinity
 					 internal void ResetTargetHandling()
 					 {
 						  Bot.Target.CurrentTarget=null;
-						  iTimesBlockedMoving=0;
-						  totalNonMovementCount=0;
-						  bAlreadyMoving=false;
-						  lastMovementCommand=DateTime.Today;
+						  TargetMovement.ResetTargetMovementVars();
+
+						  
 						  bWaitingForPower=false;
 						  bWaitingAfterPower=false;
 						  bWaitingForPotion=false;
 						  bWasRootedLastTick=false;
 						  recheckCount=0;
 						  reCheckedFinished=false;
-						  UsedAutoMovementCommand=false;
+
 						  LastHealthChange=DateTime.MinValue;
 						  LastHealthDropPct=0d;
-						  fLastDistanceFromTarget=-1f;
+						  
 					 }
 				}
 
