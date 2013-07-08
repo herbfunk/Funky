@@ -38,7 +38,13 @@ namespace FunkyTrinity
 
 				public override void GenerateNewZigZagPath()
 				{
-					 Bot.Combat.vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, Bot.Target.CurrentTarget.CentreDistance, true);
+					 Vector3 loc;
+					 //Low HP -- Flee Teleport
+					 if (Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP&&Bot.Character.dCurrentHealthPct<0.5d&&
+								(GridPointAreaCache.AttemptFindSafeSpot(out loc, Bot.Target.CurrentTarget.Position, true)))
+						  Bot.Combat.vSideToSideTarget=loc;
+					 else
+						  Bot.Combat.vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, Bot.Target.CurrentTarget.CentreDistance, true);
 				}
 				public override int MainPetCount
 				{
@@ -51,16 +57,19 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
+						  //bool LastUsedCloseRangeAbility=(SNOPower.Wizard_Archon_ArcaneStrike|SNOPower.Wizard_Archon_ArcaneBlast).HasFlag(Bot.Combat.powerLastSnoPowerUsed);
 						  return false;
 					 }
 				}
 
 				private bool MissingBuffs()
 				{
-					 if ((base.HotbarAbilities.Contains(SNOPower.Wizard_EnergyArmor)&&!HasBuff(SNOPower.Wizard_EnergyArmor))||(base.HotbarAbilities.Contains(SNOPower.Wizard_IceArmor)&&!HasBuff(SNOPower.Wizard_IceArmor))||(base.HotbarAbilities.Contains(SNOPower.Wizard_StormArmor)&&!HasBuff(SNOPower.Wizard_StormArmor)))
+					 HashSet<SNOPower> abilities_=HasBuff(SNOPower.Wizard_Archon)?base.CachedAbilities:base.HotbarAbilities;
+
+					 if ((abilities_.Contains(SNOPower.Wizard_EnergyArmor)&&!HasBuff(SNOPower.Wizard_EnergyArmor))||(abilities_.Contains(SNOPower.Wizard_IceArmor)&&!HasBuff(SNOPower.Wizard_IceArmor))||(abilities_.Contains(SNOPower.Wizard_StormArmor)&&!HasBuff(SNOPower.Wizard_StormArmor)))
 						  return true;
 
-					 if (base.HotbarAbilities.Contains(SNOPower.Wizard_MagicWeapon)&&!HasBuff(SNOPower.Wizard_MagicWeapon))
+					 if (abilities_.Contains(SNOPower.Wizard_MagicWeapon)&&!HasBuff(SNOPower.Wizard_MagicWeapon))
 						  return true;
 
 					 return false;
@@ -77,7 +86,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								RuneIndex=this.RuneIndexCache[Power],
-								UsageType=AbilityUseType.ZigZagPathing,
+								UsageType=AbilityUseType.ClusterLocation|AbilityUseType.ZigZagPathing,
 								AbilityWaitVars=new Tuple<int, int, bool>(0, 1, true),
 								Cost=15,
 								Range=35,
@@ -85,11 +94,13 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckCanCast|AbilityConditions.CheckEnergy),
-							
+								ClusterConditions=new Tuple<double, float, int, bool>(5d, 48f, 2, false),
+								TestCustomCombatConditionAlways=true,
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return Bot.Combat.powerLastSnoPowerUsed!=SNOPower.Wizard_Teleport&&
-									Bot.Character.dCurrentEnergy>=15&&Bot.Target.CurrentTarget.CentreDistance<=35f;
+									 return ((Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP&&Bot.Character.dCurrentHealthPct<0.5d)
+											||(Bot.SettingsFunky.Class.bTeleportIntoGrouping&&Clusters(5d, 48f, 2, false).Count>0&&Clusters()[0].Midpoint.Distance(Bot.Character.PointPosition)>15f)
+											||(!Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP&&!Bot.SettingsFunky.Class.bTeleportIntoGrouping));
 								}),
 						  };
 					 }
@@ -624,16 +635,25 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								RuneIndex=this.RuneIndexCache[Power],
-								UsageType=AbilityUseType.Target,
+								UsageType=AbilityUseType.ClusterLocation|AbilityUseType.ZigZagPathing,
 								AbilityWaitVars=new Tuple<int, int, bool>(1, 1, true),
 								Range=48,
-								UseAvoiding=false,
+								UseAvoiding=true,
 								UseOOCBuff=false,
-								Priority=AbilityPriority.Low,
+								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckCanCast),
-								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 3),
-								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1),
-								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.Boss, 15),
+								//UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 3),
+								//ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1),
+								//TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.Boss, 15),
+								ClusterConditions=new Tuple<double,float,int,bool>(5d, 48f, 2, false),
+								TestCustomCombatConditionAlways=true,
+								Fcriteria=new Func<bool>(()=>
+								{
+									 return ((Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP&&Bot.Character.dCurrentHealthPct<0.5d)
+												||(Bot.SettingsFunky.Class.bTeleportIntoGrouping&&Clusters(5d, 48f, 2, false).Count>0&&Clusters()[0].Midpoint.Distance(Bot.Character.PointPosition)>15f)
+												||(!Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP&&!Bot.SettingsFunky.Class.bTeleportIntoGrouping));
+
+								}),
 						  };
 					 }
 					 #endregion
@@ -657,6 +677,12 @@ namespace FunkyTrinity
 								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 1),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 8),
 
+
+								Fcriteria=new Func<bool>(()=>
+								{//We only want to use this if there are nearby units!
+									 return Bot.Combat.iAnythingWithinRange[RANGE_12]>0;
+								}),
+
 						  };
 					 }
 					 #endregion
@@ -676,10 +702,10 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.None,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.TargetableAndAttackable),
 								Fcriteria=new Func<bool>(()=>
 								{
-									 //Only use when nothing is nearby.. (Else we use Arcane Strike!)
-									  return (Bot.Combat.iAnythingWithinRange[RANGE_12]==0);
+									 return Bot.Combat.iAnythingWithinRange[RANGE_12]==0;
 								}),
 						  };
 					 }
@@ -700,6 +726,12 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.None,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
 								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_12, 1),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None, 6),
+
+								Fcriteria=new Func<bool>(() =>
+								{//We only want to use this if there are nearby units!
+									 return Bot.Combat.iAnythingWithinRange[RANGE_12]>0;
+								}),
 						  };
 					 }
 					 #endregion
@@ -722,6 +754,15 @@ namespace FunkyTrinity
 
 				public override Ability AbilitySelector(bool bCurrentlyAvoiding=false, bool bOOCBuff=false)
 				{
+					 if ((bCurrentlyAvoiding||bOOCBuff)
+						  &&(Bot.SettingsFunky.Class.bCancelArchonRebuff&&HasBuff(SNOPower.Wizard_Archon)))
+					 {
+						  if (MissingBuffs())
+						  {//We are missing buffs.. time to cancel archon!
+								return Cancel_Archon_Buff;
+						  }
+					 }
+
 					 // Wizards want to save up to a reserve of 65+ energy
 					 this.iWaitingReservedAmount=65;
 

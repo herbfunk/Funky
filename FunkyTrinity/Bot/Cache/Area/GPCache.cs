@@ -50,7 +50,7 @@ namespace FunkyTrinity
 				///<summary>
 				///Bots Position is blocked from adjacent movement -- Updated whenever searching for a safe location!
 				///</summary>
-				private static void RefreshNavigationBlocked()
+				internal static void RefreshNavigationBlocked()
 				{
 					 //Check if bot is navigationally blocked..
 					 if (DateTime.Now.Subtract(LastNavigationBlockCheck).TotalMilliseconds>500)

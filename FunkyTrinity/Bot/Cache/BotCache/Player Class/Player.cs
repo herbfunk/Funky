@@ -116,6 +116,8 @@ namespace FunkyTrinity
 
 				internal HashSet<SNOPower> PassiveAbilities=new HashSet<SNOPower>();
 				internal HashSet<SNOPower> HotbarAbilities=new HashSet<SNOPower>();
+				internal HashSet<SNOPower> CachedAbilities=new HashSet<SNOPower>();
+
 				private bool UsingSecondaryHotbarAbilities=false;
 				internal Dictionary<SNOPower, int> RuneIndexCache=new Dictionary<SNOPower, int>();
 				internal Dictionary<SNOPower, int> AbilityCooldowns=new Dictionary<SNOPower, int>();
@@ -184,6 +186,7 @@ namespace FunkyTrinity
 						  if (RefreshNeeded)
 						  {
 								Logging.WriteVerbose("Updating Hotbar abilities!");
+								CachedAbilities=new HashSet<SNOPower>(HotbarAbilities);
 								RefreshHotbar(ArchonBuffPresent);
 								UpdateRepeatAbilityTimes();
 								RecreateAbilities();
@@ -200,7 +203,6 @@ namespace FunkyTrinity
 				///</summary>
 				internal void RefreshHotbar(bool Secondary=false)
 				{
-
 					 UsingSecondaryHotbarAbilities=Secondary;
 					 HotbarAbilities=new HashSet<SNOPower>();
 					 destructibleabilities=new List<SNOPower>();

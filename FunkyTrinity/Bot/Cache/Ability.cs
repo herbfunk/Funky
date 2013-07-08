@@ -49,6 +49,7 @@ namespace FunkyTrinity
 				FullHealth=2048,
 				IsSpecial=4096,
 				Ranged=8192,
+				TargetableAndAttackable=16384,
 		  }
 
 		  //Describes a condition for a single unit
@@ -95,6 +96,7 @@ namespace FunkyTrinity
 				ClusterLocation=16,
 				ZigZagPathing=32,
 				Self=64,
+				RemoveBuff=128,
 		  }
 		  ///<summary>
 		  ///Priority assigned to abilities
@@ -297,7 +299,7 @@ namespace FunkyTrinity
 					 set
 					 {
 						  UnitsWithinRangeConditions_=value;
-						  FUnitsInRangeConditions+=new Func<bool>(() => { return Bot.Combat.iAnythingWithinRange[(int)value.Item1]>=value.Item2; });
+						  FUnitsInRangeConditions+=new Func<bool>(() => { return Bot.Combat.iAnythingWithinRange[(int)UnitsWithinRangeConditions_.Item1]>=UnitsWithinRangeConditions_.Item2; });
 					 }
 				}
 				private Tuple<RangeIntervals, int> UnitsWithinRangeConditions_;
@@ -312,7 +314,7 @@ namespace FunkyTrinity
 					 set
 					 {
 						  ElitesWithinRangeConditions_=value;
-						  FElitesInRangeConditions+=new Func<bool>(() => { return Bot.Combat.iElitesWithinRange[(int)value.Item1]>=value.Item2; });
+						  FElitesInRangeConditions+=new Func<bool>(() => { return Bot.Combat.iElitesWithinRange[(int)ElitesWithinRangeConditions_.Item1]>=ElitesWithinRangeConditions_.Item2; });
 					 }
 				}
 				private Tuple<RangeIntervals, int> ElitesWithinRangeConditions_;
@@ -333,11 +335,11 @@ namespace FunkyTrinity
 								FSingleTargetUnitCriteria+=new Func<bool>(() => { return true; });
 
 
-						  if (value.Distance>-1)
-								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.RadiusDistance<=value.Distance; });
+						  if (TargetUnitConditionFlags_.Distance>-1)
+								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.RadiusDistance<=TargetUnitConditionFlags_.Distance; });
 
-						  if (value.HealthPercent>0d)
-								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value<=value.HealthPercent; });
+						  if (TargetUnitConditionFlags_.HealthPercent>0d)
+								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value<=TargetUnitConditionFlags_.HealthPercent; });
 
 
 						  if (value.ConditionFlags.HasFlag(TargetProperties.Boss))
@@ -368,6 +370,8 @@ namespace FunkyTrinity
 								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterUnique; });
 						  if(value.ConditionFlags.HasFlag(TargetProperties.Ranged))
 								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.Monstersize.Value==Zeta.Internals.SNO.MonsterSize.Ranged; });
+						  if (value.ConditionFlags.HasFlag(TargetProperties.TargetableAndAttackable))
+								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.IsTargetableAndAttackable; });
 					 }
 				}
 				private UnitTargetConditions TargetUnitConditionFlags_;
@@ -634,8 +638,16 @@ namespace FunkyTrinity
 
 				public void UsePower()
 				{
-					 Zeta.CommonBot.PowerManager.CanCast(this.Power, out CanCastFlags);
-					 SuccessUsed_=ZetaDia.Me.UsePower(this.Power, this.TargetPosition_, this.WorldID, this.TargetRAGUID_);
+					 if (!this.UsageType.HasFlag(AbilityUseType.RemoveBuff))
+					 {
+						  Zeta.CommonBot.PowerManager.CanCast(this.Power, out CanCastFlags);
+						  SuccessUsed_=ZetaDia.Me.UsePower(this.Power, this.TargetPosition_, this.WorldID, this.TargetRAGUID_);
+					 }
+					 else
+					 {
+						  ZetaDia.Me.GetBuff(this.Power).Cancel();
+						  SuccessUsed_=true;
+					 }
 				}
 
 				///<summary>
@@ -648,40 +660,38 @@ namespace FunkyTrinity
 					 Cooldown=new Zeta.Common.Helpers.WaitTimer(CooldownTimeSpan);
 				}
 
-
-				public float CurrentBotRange
-				{
-					 get
-					 {
-						  //If Vector is null then we check if acdguid matches current target
-						  if (TargetPosition_==vNullLocation)
-						  {
-								if (TargetRAGUID_!=-1&&Bot.Target.CurrentTarget.AcdGuid.HasValue&&TargetRAGUID_==Bot.Target.CurrentTarget.AcdGuid.Value)
-								{
-									 return Bot.Target.CurrentTarget.RadiusDistance;
-								}
-								return Range;
-						  }
-						  else
-						  {
-								return Bot.Character.Position.Distance(TargetPosition_);
-						  }
-					 }
-				}
+				///<summary>
+				///Returns an estimated destination using the minimum range and distance from the radius of target.
+				///</summary>
 				public Vector3 DestinationVector
 				{
 					 get
 					 {
+						  Vector3 DestinationV;
 						  if (TargetPosition_==vNullLocation)
 						  {
 								if (TargetRAGUID_!=-1&&Bot.Target.CurrentTarget.AcdGuid.HasValue&&TargetRAGUID_==Bot.Target.CurrentTarget.AcdGuid.Value)
-								{
-									 return Bot.Target.CurrentTarget.Position;
-								}
-								return vNullLocation;
+									 DestinationV=Bot.Target.CurrentTarget.BotMeleeVector;
+								else
+									 return vNullLocation;
 						  }
 						  else
-								return TargetPosition_;
+								DestinationV=TargetPosition_;
+
+						  
+						  if (this.IsRanged)
+						  {
+								float DistanceFromTarget=Vector3.Distance(Bot.Character.Position, DestinationV);
+								if (this.MinimumRange>DistanceFromTarget)
+								{
+									 float RangeNeeded=(this.MinimumRange-DistanceFromTarget);
+									 return MathEx.GetPointAt(Bot.Character.Position, RangeNeeded, FindDirection(Bot.Character.Position, DestinationV, true));
+								}
+								else
+									 return Bot.Character.Position;
+						  }
+						  else
+								return Bot.Target.CurrentTarget.BotMeleeVector;
 					 }
 				}
 
@@ -729,6 +739,12 @@ namespace FunkyTrinity
 				Power=SNOPower.Weapon_Ranged_Instant,
 				UsageType=AbilityUseType.Target,
 				AbilityWaitVars=new Tuple<int, int, bool>(0, 0, true),
+		  };
+		  public static readonly Ability Cancel_Archon_Buff=new Ability
+		  {
+				UsageType= AbilityUseType.RemoveBuff,
+				AbilityWaitVars=new Tuple<int,int,bool>(3,3,true),
+				Power= SNOPower.Wizard_Archon,
 		  };
 	 }
 }

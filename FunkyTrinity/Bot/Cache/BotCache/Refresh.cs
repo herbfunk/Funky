@@ -28,6 +28,8 @@ namespace FunkyTrinity
 				///Tracks the current Level ID
 				///</summary>
 				private static int LastLevelID=-1;
+				private static DateTime LastCheckedLevelID=DateTime.Today;
+
 				///<summary>
 				///Used to flag when Init should iterate and remove the objects
 				///</summary>
@@ -91,25 +93,33 @@ namespace FunkyTrinity
 
 
 					 //Check Level ID changes and clear cache objects.
-					 if (ZetaDia.CurrentLevelAreaId!=LastLevelID&&
-								(!ZetaDia.Me.IsInTown))
-					 {
-						  LastLevelID=ZetaDia.CurrentLevelAreaId;
+					
+					
+						  
+						  if (ZetaDia.CurrentLevelAreaId!=LastLevelID&&(!ZetaDia.Me.IsInTown))
+						  {
+								//Grace Peroid of 5 Seconds before updating.
+								if (DateTime.Now.Subtract(LastCheckedLevelID).TotalSeconds>5)
+								{
+									 LastCheckedLevelID=DateTime.Now;
+									 LastLevelID=ZetaDia.CurrentLevelAreaId;
 
-						  //Clear our current collection since we changed levels.
-						  ObjectCache.Objects.Clear();
-						  RemovalCheck=false;
+									 //Clear our current collection since we changed levels.
+									 ObjectCache.Objects.Clear();
+									 ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
+									 RemovalCheck=false;
 
-						  //Reset Playermover Backtrack Positions
-						  GridPointAreaCache.cacheMovementGPRs.Clear();
+									 //Reset Playermover Backtrack Positions
+									 GridPointAreaCache.cacheMovementGPRs.Clear();
 
-						  //Reset Skip Ahead Cache
-						  CacheMovementTracking.ClearCache();
+									 //Reset Skip Ahead Cache
+									 CacheMovementTracking.ClearCache();
 
-						  //This is the only time we should call this. MGP only needs updated every level change!
-						  UpdateSearchGridProvider(true);
-					 }
-
+									 //This is the only time we should call this. MGP only needs updated every level change!
+									 UpdateSearchGridProvider(true);
+								}
+						  }
+					 
 
 
 					 //Check Cached Object Removal flag

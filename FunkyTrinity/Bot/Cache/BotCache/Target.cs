@@ -160,7 +160,7 @@ namespace FunkyTrinity
 					 if (Bot.KiteDistance>0
 						  &&(!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.SettingsFunky.GoblinPriority<2)
 						  &&DateTime.Now.Subtract(Bot.Combat.timeCancelledKiteMove).TotalMilliseconds>=Bot.Combat.iMillisecondsCancelledKiteMoveFor
-						  &&(Bot.Class.AC!=ActorClass.Wizard||(Bot.Class.AC==ActorClass.Wizard&&(!Bot.SettingsFunky.Class.bKiteOnlyArchon||Bot.Class.HasBuff(SNOPower.Wizard_Archon)))))
+						  &&(Bot.Class.AC!=ActorClass.Wizard||(Bot.Class.AC==ActorClass.Wizard&&(!Bot.Class.HasBuff(SNOPower.Wizard_Archon)||!Bot.SettingsFunky.Class.bKiteOnlyArchon))))
 					 {
 
 						  ////Find any units that we should kite, sorted by distance.
@@ -314,25 +314,6 @@ namespace FunkyTrinity
 					 {
 						  thisobj.UpdateWeight();
 
-						  //Avoidance (Melee Only) Attempt to find a location where we can attack!
-						  if (ObjectCache.Objects.objectsIgnoredDueToAvoidance.Contains(thisobj))
-						  {
-								Vector3 SafeLOSMovement;
-								if (thisobj.Weight>iHighestWeightFound)
-								{//Only if we don't have a higher priority already..
-									 if (thisobj.GPRect.TryFindSafeSpot(out SafeLOSMovement, Bot.Character.Position, Bot.KiteDistance>0f, true))
-									 {
-										  CurrentTarget=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
-										  iHighestWeightFound=thisobj.Weight;
-									 }
-									 else if (iHighestWeightFound==0)
-										  thisobj.Weight=1;
-								}
-
-								continue;
-						  }
-
-
 						  if (thisobj.Weight==1)
 						  {// Force the character to stay where it is if there is nothing available that is out of avoidance stuff and we aren't already in avoidance stuff
 								thisobj.Weight=0;
@@ -359,6 +340,7 @@ namespace FunkyTrinity
 								//Set our current target to this object!
 								CurrentTarget=ObjectCache.Objects[thisobj.RAGUID];
 
+								bool resetTarget=false;
 								//Check for Range Classes and Unit Targets
 								if (!Bot.Class.IsMeleeClass&&CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Combat.NearbyAvoidances.Count>0)
 								{
@@ -378,24 +360,51 @@ namespace FunkyTrinity
 										  if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(nextAbility.DestinationVector))
 										  {
 												//Only wait if the object is special and we are not avoiding..
-												if (thisobj.ObjectIsSpecial&&!Bot.Combat.RequiresAvoidance)
-													 Bot.Combat.bStayPutDuringAvoidance=true;
+												if (thisobj.ObjectIsSpecial)
+												{
+													 if (!Bot.Combat.RequiresAvoidance)
+													 {
+														  Bot.Combat.bStayPutDuringAvoidance=true;
+														  resetTarget=true;
+													 }
+													 else if(!nextAbility.IsRanged&&nextAbility.Range>0)
+													 {//Non-Ranged Ability.. act like melee..
 
-												//Reset Target
-												CurrentTarget=CurrentTargetRAGUID!=-1?ObjectCache.Objects[CurrentTargetRAGUID]:null;
-												continue;
+														  //Try to find a spot
+														  ObjectCache.Objects.objectsIgnoredDueToAvoidance.Add(thisobj);
+													 }
+												}
+												else
+													 resetTarget=true;
 										  }
 									 }
-									 //else if (Bot.Combat.TriggeringAvoidances.Count>0)
-									 //{//Triggering Avoidances means we are currently inside avoidance zone.. 
-
-									 //    //Ignore target!
-									 //    //Reset back to last target if we had one.. 
-									 //    CurrentTarget=CurrentTargetRAGUID!=-1?ObjectCache.Objects[CurrentTargetRAGUID]:null;
-									 //    continue;
-									 //}
 								}
 
+								//Avoidance (Melee Only) Attempt to find a location where we can attack!
+								if (ObjectCache.Objects.objectsIgnoredDueToAvoidance.Contains(thisobj))
+								{
+									 //Check Bot Navigationally blocked
+									 GridPointAreaCache.RefreshNavigationBlocked();
+									 if (!GridPointAreaCache.BotIsNavigationallyBlocked)
+									 {
+										  Vector3 SafeLOSMovement;
+										  if (thisobj.GPRect.TryFindSafeSpot(Bot.Character.Position, out SafeLOSMovement, vNullLocation, Bot.KiteDistance>0f, true))
+												CurrentTarget=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
+										  else if (iHighestWeightFound==0)
+										  {
+												Bot.Combat.bStayPutDuringAvoidance=true;
+												resetTarget=true;
+										  }
+									 }
+									 else
+										  resetTarget=true;
+								}
+
+								if (resetTarget)
+								{
+									 CurrentTarget=CurrentTargetRAGUID!=-1?ObjectCache.Objects[CurrentTargetRAGUID]:null;
+									 continue;
+								}
 
 								iHighestWeightFound=thisobj.Weight;
 						  }
@@ -770,7 +779,7 @@ namespace FunkyTrinity
 														  TargetGPRect.FullyExpand();
 
 													 Vector3 LOSV3;
-													 if (TargetGPRect.TryFindSafeSpot(out LOSV3, CurrentTarget.BotMeleeVector))
+													 if (TargetGPRect.TryFindSafeSpot(Bot.Character.Position, out LOSV3, CurrentTarget.BotMeleeVector))
 													 {
 														  CurrentTarget.LOSV3=LOSV3;
 														  Logging.WriteVerbose("Using LOS Vector at {0} to move to", LOSV3.ToString());

@@ -116,7 +116,7 @@ namespace FunkyTrinity
 						  this.objects.Clear();
 						  this.HealthEntriesForAverageValue.Clear();
 						  this.MaximumHealthAverage=0d;
-						  cacheSnoCollection.ClearDictionaryCacheEntries();
+						  
 					 }
 
 					 public int Count

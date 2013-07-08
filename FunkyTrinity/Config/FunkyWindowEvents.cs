@@ -576,7 +576,18 @@ namespace FunkyTrinity
              {
                  Bot.SettingsFunky.Class.bKiteOnlyArchon = !Bot.SettingsFunky.Class.bKiteOnlyArchon;
              }
-
+				 private void bCancelArchonRebuffChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.Class.bCancelArchonRebuff=!Bot.SettingsFunky.Class.bCancelArchonRebuff;
+				 }
+				 private void bTeleportFleeWhenLowHPChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP=!Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP;
+				 }
+				 private void bTeleportIntoGroupingChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.Class.bTeleportIntoGrouping=!Bot.SettingsFunky.Class.bTeleportIntoGrouping;
+				 }
              private void bSelectiveWhirlwindChecked(object sender, EventArgs e)
              {
                  Bot.SettingsFunky.Class.bSelectiveWhirlwind = !Bot.SettingsFunky.Class.bSelectiveWhirlwind;

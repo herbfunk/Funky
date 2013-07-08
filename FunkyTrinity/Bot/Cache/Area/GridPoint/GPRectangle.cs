@@ -203,7 +203,7 @@ namespace FunkyTrinity
 						  }
 					 }
 
-					 public bool TryFindSafeSpot(out Vector3 safespot, Vector3 los, bool kite=false, bool checkAvoidIntersection=false, bool expandOnFailure=false)
+					 public bool TryFindSafeSpot(Vector3 CurrentPosition,out Vector3 safespot, Vector3 los, bool kite=false, bool checkAvoidIntersection=false, bool expandOnFailure=false)
 					 {
 						  lastUsedQuadrant=null;
 						  safespot=vNullLocation;
@@ -216,7 +216,7 @@ namespace FunkyTrinity
 						  {
 								if (item==null) continue;
 
-								if (item.FindSafeSpot(out safespot, los, kite, checkAvoidIntersection))
+								if (item.FindSafeSpot(CurrentPosition, out safespot, los, kite, checkAvoidIntersection))
 								{
 									 lastUsedQuadrant=item;
 									 return true;

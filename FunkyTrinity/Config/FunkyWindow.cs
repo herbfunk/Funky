@@ -1142,7 +1142,7 @@ namespace FunkyTrinity
 
                             CheckBox cbbKiteOnlyArchon = new CheckBox
                             {
-                                Content = "Kite Only During Archon",
+                                Content = "Do NOT Kite During Archon",
                                 Width = 300,
                                 Height = 30,
                                 IsChecked = (Bot.SettingsFunky.Class.bKiteOnlyArchon)
@@ -1150,6 +1150,37 @@ namespace FunkyTrinity
                             cbbKiteOnlyArchon.Checked += bKiteOnlyArchonChecked;
                             cbbKiteOnlyArchon.Unchecked += bKiteOnlyArchonChecked;
                             LBClass.Items.Add(cbbKiteOnlyArchon);
+
+									 CheckBox cbbCancelArchonRebuff=new CheckBox
+									 {
+										  Content = "Cancel Archon for Rebuff",
+										  Height=30,
+										  IsChecked=(Bot.SettingsFunky.Class.bCancelArchonRebuff),
+									 };
+									 cbbCancelArchonRebuff.Checked+=bCancelArchonRebuffChecked;
+									 cbbCancelArchonRebuff.Unchecked+=bCancelArchonRebuffChecked;
+									 LBClass.Items.Add(cbbCancelArchonRebuff);
+
+									 CheckBox cbbTeleportFleeWhenLowHP=new CheckBox
+									 {
+										  Content="Teleport: Flee When Low HP",
+										  Height=30,
+										  IsChecked=(Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP),
+									 };
+									 cbbTeleportFleeWhenLowHP.Checked+=bTeleportFleeWhenLowHPChecked;
+									 cbbTeleportFleeWhenLowHP.Unchecked+=bTeleportFleeWhenLowHPChecked;
+									 LBClass.Items.Add(cbbTeleportFleeWhenLowHP);
+
+									 CheckBox cbbTeleportIntoGrouping=new CheckBox
+									 {
+										  Content="Teleport: Into Monster Groups",
+										  Height=30,
+										  IsChecked=(Bot.SettingsFunky.Class.bTeleportIntoGrouping),
+									 };
+									 cbbTeleportIntoGrouping.Checked+=bTeleportIntoGroupingChecked;
+									 cbbTeleportIntoGrouping.Unchecked+=bTeleportIntoGroupingChecked;
+									 LBClass.Items.Add(cbbTeleportIntoGrouping);
+									 //
 
                         }
 

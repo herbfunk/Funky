@@ -72,7 +72,7 @@ namespace FunkyTrinity
 						  //Check if we actually created any surrounding GPCs..
 						  if (gridpointrectangles_.Count>0)
 						  {
-								iterateGPRectsSafeSpot(out safespot, LOS, kiting);
+								iterateGPRectsSafeSpot(CurrentPosition, out safespot, LOS, kiting);
 								//If still failed to find a safe spot.. set the timer before we try again.
 								if (safespot==vNullLocation)
 								{
@@ -106,7 +106,7 @@ namespace FunkyTrinity
 					 }
 
 					 private int lastGPRectIndexUsed=0;
-					 private void iterateGPRectsSafeSpot(out Vector3 safespot, Vector3 LOS, bool kiting=false)
+					 private void iterateGPRectsSafeSpot(Vector3 CurrentPosition,out Vector3 safespot, Vector3 LOS, bool kiting=false)
 					 {
 						  safespot=vNullLocation;
 						  for (int i=lastGPRectIndexUsed; i<gridpointrectangles_.Count-1; i++)
@@ -114,8 +114,13 @@ namespace FunkyTrinity
 								GPRectangle item=gridpointrectangles_[i];
 								item.UpdateObjectCount(AllGPRectsFailed);
 								if (item.Weight>CurrentLocationGPRect.Weight) continue;
-								
-								if (item.TryFindSafeSpot(out safespot, LOS, kiting, false, AllGPRectsFailed))  return;									
+
+								if (item.TryFindSafeSpot(CurrentPosition,out safespot, LOS, kiting, false, AllGPRectsFailed))
+								{
+									 //GridPoint safepoint=safespot;
+									 //if (LastNavigationBlockedPoints.Any(p=>GridPoint.IsOnLine(CurrentPosition,p,safepoint))) continue;
+									 return;
+								}
 						  }
 						  lastGPRectIndexUsed=0;
 					 }

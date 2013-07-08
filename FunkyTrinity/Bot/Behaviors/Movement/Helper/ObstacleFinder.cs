@@ -21,7 +21,7 @@ namespace FunkyTrinity
 				{
 					 Bot.Character.UpdateMovementData();
 
-					 if (!Bot.Character.isMoving||Bot.Character.currentMovementState.HasFlag(MovementState.WalkingInPlace|MovementState.None))
+					 if (!Bot.Character.isMoving||Bot.Character.currentMovementState.HasFlag(MovementState.WalkingInPlace|MovementState.None)||TargetMovement.BlockedMovementCounter>0)
 					 {
 						  LastObstacleIntersectionTest=DateTime.Now;
 

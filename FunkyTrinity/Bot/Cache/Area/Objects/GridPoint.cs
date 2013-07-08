@@ -179,6 +179,11 @@ namespace FunkyTrinity
 
 					 return true;
 				}
+				public static bool IsOnLine(GridPoint endPoint1, GridPoint endPoint2, GridPoint checkPoint)
+				{
+					 return (checkPoint.Y-endPoint1.Y)/(checkPoint.X-endPoint1.X)
+						   ==(endPoint2.Y-endPoint1.Y)/(endPoint2.X-endPoint1.X);
+				}
 				//public bool IsConnectedWith(GridPoint Test)
 				//{
 				//	 if (Difference(this.X, Test.X)>1||Difference(this.Y, Test.Y)>1) 

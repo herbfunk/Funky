@@ -81,7 +81,8 @@ namespace FunkyTrinity
 					 get
 					 {
 						  return ((this.IsAttackable.HasValue&&this.IsAttackable.Value)
-									 &&(!this.IsBurrowed.HasValue||!this.IsBurrowed.Value));
+									 &&(!this.IsBurrowed.HasValue||!this.IsBurrowed.Value)
+									 &&(this.IsTargetable.HasValue&&this.IsTargetable.Value));
 					 }
 				}
 				//public int? KillRadius { get; set; }

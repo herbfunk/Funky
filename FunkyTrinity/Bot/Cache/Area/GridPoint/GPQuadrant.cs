@@ -190,7 +190,7 @@ namespace FunkyTrinity
 					 ///<summary>
 					 ///Searches through the contained GridPoints and preforms multiple tests to return a successful point for navigation.
 					 ///</summary>
-					 public bool FindSafeSpot(out Vector3 safespot, Vector3 LoSCheckV3, bool kite=false, bool checkBotAvoidIntersection=false)
+					 public bool FindSafeSpot(Vector3 CurrentLocation,out Vector3 safespot, Vector3 LoSCheckV3, bool kite=false, bool checkBotAvoidIntersection=false)
 					 {
 						  bool checkLOS=LoSCheckV3!=vNullLocation;
 						  
@@ -224,28 +224,29 @@ namespace FunkyTrinity
 								//3D Obstacle Navigation Check
 								if (!ZCheck)
 								{
-									 if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObstacleType.Navigation.HasFlag(obj.Obstacletype.Value)&&obj.PointInside(pointVector))) continue;
-
 									 //Because Z Variance we need to check if we can raycast walk to the location.
 									 if (!GilesCanRayCast(botcurpos, pointVector, Zeta.Internals.SNO.NavCellFlags.AllowWalk)) continue;
+
+									 if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObstacleType.Navigation.HasFlag(obj.Obstacletype.Value)&&obj.PointInside(pointVector))) continue;
+								}
+
+								//LOS Check
+								if (checkLOS)
+								{
+									 if (!GilesCanRayCast(pointVector, LoSCheckV3)) continue;
 								}
 
 								//Avoidance Check (Any Avoidance)
 								if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(pointVector)) continue;
 
 								//Kiting Check
-								if (kite&&ObjectCache.Objects.IsPointNearbyMonsters(pointVector, Bot.KiteDistance)) continue;
+								if (kite&&ObjectCache.Obstacles.Monsters.Any(m => m.IsPositionWithinRange(pointVector,Bot.KiteDistance))) continue;
 
 								//Avoidance Intersection Check
 								if (checkBotAvoidIntersection&&ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(botcurpos, pointVector)) continue;
 
-								//LOS Check
-								//Melee -- Walkable , Range -- Projectile
-								if (checkLOS)
-								{
-									 if (!GilesCanRayCast(pointVector, LoSCheckV3, Zeta.Internals.SNO.NavCellFlags.AllowWalk)) continue;
-								}
-
+								//Make sure this wont intersect a navblocked point
+								if (LastNavigationBlockedPoints.Any(p => GridPoint.IsOnLine(CurrentLocation, point, p))) continue;
 
 
 								LastSafespotFound=pointVectorReturn;

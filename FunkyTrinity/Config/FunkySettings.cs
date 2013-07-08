@@ -133,7 +133,10 @@ namespace FunkyTrinity
 								 //configWriter.WriteLine("bEnableCriticalMass=" + Bot.SettingsFunky.Class.bEnableCriticalMass.ToString());
                          configWriter.WriteLine("bWaitForArchon=" + Bot.SettingsFunky.Class.bWaitForArchon.ToString());
                          configWriter.WriteLine("bKiteOnlyArchon=" + Bot.SettingsFunky.Class.bKiteOnlyArchon.ToString());
+								 configWriter.WriteLine("bCancelArchonRebuff="+Bot.SettingsFunky.Class.bCancelArchonRebuff.ToString());
                          configWriter.WriteLine("GoblinMinimumRange=" + Bot.SettingsFunky.Class.GoblinMinimumRange.ToString());
+								 configWriter.WriteLine("bTeleportFleeWhenLowHP="+Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP.ToString());
+								 configWriter.WriteLine("bTeleportIntoGrouping="+Bot.SettingsFunky.Class.bTeleportIntoGrouping.ToString());
                          break;
                  }
 
@@ -411,6 +414,15 @@ namespace FunkyTrinity
                                  case "bKiteOnlyArchon":
                                      Bot.SettingsFunky.Class.bKiteOnlyArchon = Convert.ToBoolean(config[1]);
                                      break;
+											case "bCancelArchonRebuff":
+												 Bot.SettingsFunky.Class.bCancelArchonRebuff=Convert.ToBoolean(config[1]);
+												 break;
+											case "bTeleportFleeWhenLowHP":
+												 Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP=Convert.ToBoolean(config[1]);
+												 break;
+											case "bTeleportIntoGrouping":
+												 Bot.SettingsFunky.Class.bTeleportIntoGrouping=Convert.ToBoolean(config[1]);
+												 break;
                                  case "EliteCombatRange":
                                      Bot.SettingsFunky.EliteCombatRange = Convert.ToInt32(config[1]);
                                      break;
@@ -777,6 +789,9 @@ namespace FunkyTrinity
                  //Wiz
                  public bool bWaitForArchon { get; set; }
                  public bool bKiteOnlyArchon { get; set; }
+					  public bool bCancelArchonRebuff { get; set; }
+					  public bool bTeleportIntoGrouping { get; set; }
+					  public bool bTeleportFleeWhenLowHP { get; set; }
 
                  //WD+Wiz
 					  //public bool bEnableCriticalMass { get; set; }
@@ -786,6 +801,9 @@ namespace FunkyTrinity
 
                  public ClassSettings()
                  {
+							bTeleportIntoGrouping=false;
+							bTeleportFleeWhenLowHP=true;
+							bCancelArchonRebuff=false;
 							bBarbUseWOTBAlways=false;
                      bSelectiveWhirlwind = false;
                      bWaitForWrath = false;
@@ -796,7 +814,7 @@ namespace FunkyTrinity
                      bMonkInnaSet = false;
 							bMonkSpamMantra=false;
                      bWaitForArchon = false;
-                     bKiteOnlyArchon = false;
+                     bKiteOnlyArchon = true;
                      GoblinMinimumRange = 40;
                  }
              }
