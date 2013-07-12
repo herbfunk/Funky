@@ -181,11 +181,9 @@ namespace FunkyTrinity
 					  {
 							try
 							{
-								 DiaUnit[] Units=ZetaDia.Actors.GetActorsOfType<DiaUnit>(true, true).ToArray();
-								 foreach (var item in Units)
+								 foreach (var item in ZetaDia.Me.GetAllBuffs())
 								 {
-									  double speed=item.Movement.SpeedXY;
-									  Logging.Write("Unit {0} has Speed {1}", item.Name, speed.ToString());
+									  Logging.Write("Buff {0} -- Stack {1} -- Duration {2}", ((SNOPower)item.SNOId).ToString(), item.StackCount, item.FrameDuration);
 								 }
 
 							} catch (Exception ex)

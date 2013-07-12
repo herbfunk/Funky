@@ -671,7 +671,7 @@ namespace FunkyTrinity
 								UseAvoiding=false,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
-								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckCanCast),
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckCanCast),
 								
 								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 2),
 								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 1),
@@ -705,7 +705,7 @@ namespace FunkyTrinity
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.TargetableAndAttackable),
 								Fcriteria=new Func<bool>(()=>
 								{
-									 return Bot.Combat.iAnythingWithinRange[RANGE_12]==0;
+									 return Bot.Combat.iAnythingWithinRange[RANGE_6]==0;
 								}),
 						  };
 					 }

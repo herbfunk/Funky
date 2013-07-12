@@ -58,108 +58,6 @@ namespace FunkyTrinity
 				public override void UpdateWeight()
 				{
 					 base.UpdateWeight();
-
-
-					 if (this.CentreDistance>=2f&&Bot.Combat.NearbyAvoidances.Count>0)
-					 {
-						  Vector3 TestPosition=this.Position;
-						  if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
-								this.Weight=1;
-						  else if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition)) //intersecting avoidances..
-								this.Weight=1;
-					 }
-
-					 if (this.Weight!=1)
-					 {
-						  float centreDistance=this.CentreDistance;
-						  Vector3 BotPosition=Bot.Character.Position;
-						  switch (this.targetType.Value)
-						  {
-								case TargetType.Shrine:
-									 this.Weight=14500d-(Math.Floor(centreDistance)*170d);
-									 // Very close shrines get a weight increase
-									 if (centreDistance<=20f)
-										  this.Weight+=1000d;
-
-									 // health pool
-									 if (base.IsHealthWell)
-									 {
-										  if (Bot.Character.dCurrentHealthPct>0.75d)
-												this.Weight=0;
-										  else
-												//Give weight based upon current health percent.
-												this.Weight+=1000d/(Bot.Character.dCurrentHealthPct);
-									 }
-
-									 if (this.Weight>0)
-									 {
-										  // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-										  if (this==Bot.Character.LastCachedTarget&&centreDistance<=25f)
-												this.Weight+=400;
-										  // Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
-										  if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
-												this.Weight=18500d-(Math.Floor(centreDistance)*200);
-										  // If there's a monster in the path-line to the item, reduce the weight by 25%
-										  if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
-												this.Weight*=0.75;
-									 }
-									 break;
-								case TargetType.Interactable:
-								case TargetType.Door:
-									 this.Weight=15000d-(Math.Floor(centreDistance)*170d);
-									 if (centreDistance<=12f)
-										  this.Weight+=800d;
-									 // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-									 if (this==Bot.Character.LastCachedTarget&&centreDistance<=25f)
-										  this.Weight+=400;
-									 // If there's a monster in the path-line to the item, reduce the weight by 50%
-									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
-										  this.Weight*=0.5;
-									 break;
-								case TargetType.Destructible:
-								case TargetType.Barricade:
-									 this.Weight=12000d-(Math.Floor(centreDistance)*175d);
-									 // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-									 if (this==Bot.Character.LastCachedTarget&&centreDistance<=25f)
-										  this.Weight+=400;
-									 // Close destructibles get a weight increase
-									 if (centreDistance<=16f)
-										  this.Weight+=1500d;
-									 // If there's a monster in the path-line to the item, reduce the weight by 50%
-									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
-										  this.Weight*=0.5;
-									 // Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
-									 if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
-										  this.Weight=19200d-(Math.Floor(centreDistance)*200d);
-									 // Very close destructibles get a final weight increase
-									 if (centreDistance<=12f)
-										  this.Weight+=2000d;
-									 break;
-								case TargetType.Container:
-									 this.Weight=11000d-(Math.Floor(centreDistance)*190d);
-									 if (centreDistance<=12f)
-										  this.Weight+=600d;
-									 // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-									 if (this==Bot.Character.LastCachedTarget&&centreDistance<=25f)
-									 {
-										  this.Weight+=400;
-									 }
-									 // If there's a monster in the path-line to the item, reduce the weight by 50%
-									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
-									 {
-										  this.Weight*=0.5;
-									 }
-									 if (this.IsResplendantChest)
-										  this.Weight+=1500;
-									 
-									 break;
-						  }
-					 }
-					 else
-					 {
-						  this.Weight=0;
-						  this.BlacklistLoops=15;
-					 }
 				}
 
 				public override bool ObjectIsValidForTargeting
@@ -560,6 +458,31 @@ namespace FunkyTrinity
 				{
 				}
 
+				public override void UpdateWeight()
+				{
+					 base.UpdateWeight();
+
+					 float centreDistance=this.CentreDistance;
+					 this.Weight=12000d-(Math.Floor(centreDistance)*175d);
+					 // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
+					 if (this==Bot.Character.LastCachedTarget&&centreDistance<=25f)
+						  this.Weight+=400;
+					 // Close destructibles get a weight increase
+					 if (centreDistance<=16f)
+						  this.Weight+=1500d;
+					 Vector3 BotPosition=Bot.Character.Position;
+					 // If there's a monster in the path-line to the item, reduce the weight by 50%
+					 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
+						  this.Weight*=0.5;
+					 // Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
+					 if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
+						  this.Weight=19200d-(Math.Floor(centreDistance)*200d);
+					 // Very close destructibles get a final weight increase
+					 if (centreDistance<=12f)
+						  this.Weight+=2000d;
+
+				}
+
 				public override bool IsZDifferenceValid
 				{
 					 get
@@ -606,9 +529,9 @@ namespace FunkyTrinity
 						  {// Location attack - attack the Vector3/map-area (equivalent of holding shift and left-clicking the object in-game to "force-attack")
 								
 								Vector3 vAttackPoint;
-
-								if (Bot.Class.IsMeleeClass&&this.RadiusDistance>=6f)
-								    vAttackPoint=MathEx.CalculatePointFrom(this.Position, Bot.Character.Position, 6f);
+								//MathEx.CalculatePointFrom(this.Position, Bot.Character.Position, 6f);
+								if (Bot.Class.IsMeleeClass)
+									 vAttackPoint=this.BotMeleeVector;
 								else
 									 vAttackPoint=this.Position;
 
@@ -625,9 +548,9 @@ namespace FunkyTrinity
 						  this.InteractionAttempts++;
 
 						  // If we've tried interacting too many times, blacklist this for a while
-						  if (this.InteractionAttempts>3)
+						  if (this.InteractionAttempts>5)
 						  {
-								this.BlacklistLoops=50;
+								this.BlacklistLoops=20;
 								this.InteractionAttempts=0;
 						  }
 
@@ -700,6 +623,92 @@ namespace FunkyTrinity
 					 }
 				}
 
+				public override void UpdateWeight()
+				{
+					 base.UpdateWeight();
+
+					 if (this.CentreDistance>=4f&&Bot.Combat.NearbyAvoidances.Count>0)
+					 {
+						  Vector3 TestPosition=this.Position;
+						  if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
+								this.Weight=1;
+						  else if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition)) //intersecting avoidances..
+								this.Weight=1;
+					 }
+
+					 if (this.Weight!=1)
+					 {
+						  float centreDistance=this.CentreDistance;
+						  Vector3 BotPosition=Bot.Character.Position;
+						  switch (this.targetType.Value)
+						  {
+								case TargetType.Shrine:
+									 this.Weight=14500d-(Math.Floor(centreDistance)*170d);
+									 // Very close shrines get a weight increase
+									 if (centreDistance<=20f)
+										  this.Weight+=1000d;
+
+									 // health pool
+									 if (base.IsHealthWell)
+									 {
+										  if (Bot.Character.dCurrentHealthPct>0.75d)
+												this.Weight=0;
+										  else
+												//Give weight based upon current health percent.
+												this.Weight+=1000d/(Bot.Character.dCurrentHealthPct);
+									 }
+
+									 if (this.Weight>0)
+									 {
+										  // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
+										  if (this==Bot.Character.LastCachedTarget&&centreDistance<=25f)
+												this.Weight+=400;
+										  // Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
+										  if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
+												this.Weight=18500d-(Math.Floor(centreDistance)*200);
+										  // If there's a monster in the path-line to the item, reduce the weight by 25%
+										  if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
+												this.Weight*=0.75;
+									 }
+									 break;
+								case TargetType.Interactable:
+								case TargetType.Door:
+									 this.Weight=15000d-(Math.Floor(centreDistance)*170d);
+									 if (centreDistance<=12f)
+										  this.Weight+=800d;
+									 // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
+									 if (this==Bot.Character.LastCachedTarget&&centreDistance<=25f)
+										  this.Weight+=400;
+									 // If there's a monster in the path-line to the item, reduce the weight by 50%
+									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
+										  this.Weight*=0.5;
+									 break;
+								case TargetType.Container:
+									 this.Weight=11000d-(Math.Floor(centreDistance)*190d);
+									 if (centreDistance<=12f)
+										  this.Weight+=600d;
+									 // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
+									 if (this==Bot.Character.LastCachedTarget&&centreDistance<=25f)
+									 {
+										  this.Weight+=400;
+									 }
+									 // If there's a monster in the path-line to the item, reduce the weight by 50%
+									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
+									 {
+										  this.Weight*=0.5;
+									 }
+									 if (this.IsResplendantChest)
+										  this.Weight+=1500;
+
+									 break;
+						  }
+					 }
+					 else
+					 {
+						  this.Weight=0;
+						  this.BlacklistLoops=15;
+					 }
+				}
 
 				public override bool IsZDifferenceValid
 				{
