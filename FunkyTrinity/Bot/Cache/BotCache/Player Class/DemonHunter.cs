@@ -286,7 +286,7 @@ namespace FunkyTrinity
 						  return new Ability
 						  {
 								Power=Power,
-								UsageType=AbilityUseType.Target,
+								UsageType=AbilityUseType.Location|AbilityUseType.ClusterLocation,
 								AbilityWaitVars=new Tuple<int, int, bool>(1, 1, true),
 								Cost=50,
 								Range=50,
@@ -299,6 +299,7 @@ namespace FunkyTrinity
 								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_50, 5),
 								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_50, 1),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,69),
+								ClusterConditions=new Tuple<double, float, int, bool>(5d, 40, 1, true),
 
 								RuneIndex=this.RuneIndexCache[Power],
 						  };
@@ -567,7 +568,7 @@ namespace FunkyTrinity
 						  return new Ability
 						  {
 								Power=Power,
-								UsageType=AbilityUseType.Target,
+								UsageType=AbilityUseType.ClusterTarget|AbilityUseType.Target,
 								AbilityWaitVars=new Tuple<int, int, bool>(0, 1, true),
 								Cost=0,
 								Range=50,
@@ -576,6 +577,10 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.None,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
+							
+								ClusterConditions=new Tuple<double, float, int, bool>(5d, 49f, 1, true),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None),
+
 								RuneIndex=this.RuneIndexCache[Power],
 						  };
 					 }

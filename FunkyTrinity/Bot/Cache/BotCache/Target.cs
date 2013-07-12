@@ -390,9 +390,12 @@ namespace FunkyTrinity
 										  Vector3 SafeLOSMovement;
 										  if (thisobj.GPRect.TryFindSafeSpot(Bot.Character.Position, out SafeLOSMovement, vNullLocation, Bot.KiteDistance>0f, true))
 												CurrentTarget=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
-										  else if (iHighestWeightFound==0)
+										  else
 										  {
-												Bot.Combat.bStayPutDuringAvoidance=true;
+												//Wait if no valid target found yet..
+												if (iHighestWeightFound==0)
+													 Bot.Combat.bStayPutDuringAvoidance=true;
+
 												resetTarget=true;
 										  }
 									 }

@@ -322,7 +322,7 @@ namespace FunkyTrinity
 					 if (DateTime.Now.Subtract(LastMovementAttempted).TotalMilliseconds>=250||currentDistance>=2f||bForceNewMovement)
 					 {
 						  //Use Walk Power when not using LOS Movement, target is not an item and target does not ignore LOS.
-						  bool UsePower=(!obj.UsingLOSV3&&obj.targetType.Value!=TargetType.Item&&!obj.IgnoresLOSCheck);
+						  bool UsePower=(NonMovementCounter<10&&!obj.UsingLOSV3&&obj.targetType.Value!=TargetType.Item&&!obj.IgnoresLOSCheck);
 						  if (UsePower)
 						  {
 								ZetaDia.Me.UsePower(SNOPower.Walk, CurrentTargetLocation, Bot.Character.iCurrentWorldID, -1);

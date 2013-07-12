@@ -540,7 +540,7 @@ namespace FunkyTrinity
 
 								// Goblin priority KAMIKAZEEEEEEEE
 								if (this.IsTreasureGoblin&&Bot.SettingsFunky.GoblinPriority>1)
-									 this.Weight+=25000;
+									 this.Weight+=10250*(Bot.SettingsFunky.GoblinPriority-1);
 						  }
 						  else
 						  {
