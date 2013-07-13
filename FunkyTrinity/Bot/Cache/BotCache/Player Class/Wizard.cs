@@ -641,7 +641,7 @@ namespace FunkyTrinity
 								UseAvoiding=true,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.High,
-								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckCanCast),
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckCanCast),
 								//UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 3),
 								//ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1),
 								//TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.Boss, 15),
@@ -735,6 +735,10 @@ namespace FunkyTrinity
 						  };
 					 }
 					 #endregion
+
+
+					 if (Power==SNOPower.Weapon_Ranged_Wand)
+						  returnAbility=Wand_Range_Attack;
 
 					 return returnAbility;
 				}

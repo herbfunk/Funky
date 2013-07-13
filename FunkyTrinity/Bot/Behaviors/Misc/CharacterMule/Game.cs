@@ -30,6 +30,7 @@ namespace FunkyTrinity
 				internal static int BotHeroIndex=-1;
 				internal static string LastProfile=null;
 				internal static string BotHeroName=null;
+				internal static int LastHandicap=0;
 
 				public static RunStatus BeginNewGameProfile()
 				{
@@ -42,6 +43,7 @@ namespace FunkyTrinity
 								{
 									 Log("Loading NewGame profile");
 									 ProfileManager.Load(NewGameProfile, true);
+									 Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel=0;
 								}
 						  }
 						  else
@@ -176,6 +178,7 @@ namespace FunkyTrinity
 						  {
 								Zeta.CommonBot.ProfileManager.Load(LastProfile);
 								RandomizeWaitTime();
+								Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel=NewMuleGame.LastHandicap;
 						  }
 						  else
 						  {

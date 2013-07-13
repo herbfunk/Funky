@@ -192,9 +192,9 @@ namespace FunkyTrinity
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckPlayerIncapacitated),
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return !HasBuff(SNOPower.Barbarian_BattleRage)||
-												((Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.99&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
-												(Bot.SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.99));
+									 return !HasBuff(SNOPower.Barbarian_BattleRage);
+												//||((Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.98&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
+												//(Bot.SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.98));
 								}),
 
 						  };
@@ -242,7 +242,7 @@ namespace FunkyTrinity
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return (!HasBuff(SNOPower.Barbarian_Sprint)&&(Bot.SettingsFunky.OutOfCombatMovement||HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)))||
+									 return (!HasBuff(SNOPower.Barbarian_Sprint)&&Bot.SettingsFunky.OutOfCombatMovement)||
 										  (((Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.95&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
 										  (Bot.SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.95)||
 										  ((Bot.Class.AbilityUseTimer(SNOPower.Barbarian_Sprint)&&!HasBuff(SNOPower.Barbarian_Sprint))&&
@@ -605,6 +605,9 @@ namespace FunkyTrinity
 						  };
 					 }
 					 #endregion
+
+					 if (Power==SNOPower.Weapon_Melee_Instant)
+						  returnAbility=Instant_Melee_Attack;
 
 					 return returnAbility;
 				}

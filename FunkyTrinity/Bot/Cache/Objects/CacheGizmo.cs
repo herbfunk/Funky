@@ -52,9 +52,6 @@ namespace FunkyTrinity
 					 }
 				}
 
-
-
-
 				public override void UpdateWeight()
 				{
 					 base.UpdateWeight();
@@ -448,6 +445,15 @@ namespace FunkyTrinity
 
 					 return base.IsStillValid();
 				}
+
+				public override string DebugString
+				{
+					 get
+					 {
+						  return String.Format("{0} -- InteractionAttempts[{1}]",
+													 base.DebugString, this.InteractionAttempts.ToString());
+					 }
+				}
 		  }
 
 		  internal class CacheDestructable : CacheGizmo
@@ -521,17 +527,18 @@ namespace FunkyTrinity
 									this.Radius.ToString()+". SphereRadius="+this.ActorSphereRadius.Value.ToString()+". Type="+this.targetType.ToString()+". Using power="+Bot.Combat.powerPrime.Power.ToString());
 
 						  //Actual interaction
-						  Bot.Character.WaitWhileAnimating(12, true);
+						  Bot.Character.WaitWhileAnimating(12);
 
 						  if (hashDestructableLocationTarget.Contains(this.SNOID)
 								||(this.InteractionAttempts>1
-								&&this.RadiusDistance<6f))
+								&&this.RadiusDistance<7f))
 						  {// Location attack - attack the Vector3/map-area (equivalent of holding shift and left-clicking the object in-game to "force-attack")
 								
 								Vector3 vAttackPoint;
-								//MathEx.CalculatePointFrom(this.Position, Bot.Character.Position, 6f);
-								if (Bot.Class.IsMeleeClass)
-									 vAttackPoint=this.BotMeleeVector;
+
+								
+								if (Bot.Class.IsMeleeClass) //Use a point that will focus our attack directly at the object
+									 vAttackPoint=MathEx.GetPointAt(this.Position, 6f, FindDirection(Bot.Character.Position, this.Position, true));
 								else
 									 vAttackPoint=this.Position;
 
@@ -581,7 +588,7 @@ namespace FunkyTrinity
 					 float fRangeRequired=0f;
 					 float fDistanceReduction=0f;
 
-					 fRangeRequired=this.CollisionRadius.Value;
+					 fRangeRequired=this.ActorSphereRadius.Value;
 
 					 //Increase Range for Ranged Classes
 					 if (!Bot.Class.IsMeleeClass)

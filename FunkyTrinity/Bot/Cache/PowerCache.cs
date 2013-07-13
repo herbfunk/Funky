@@ -206,7 +206,7 @@ namespace FunkyTrinity
                 {SNOPower.DemonHunter_Preparation, 5000},	
                 {SNOPower.DemonHunter_Companion, 30000},	
                 {SNOPower.DemonHunter_MarkedForDeath, 10000},		
-                {SNOPower.DemonHunter_EvasiveFire, 300},	
+                {SNOPower.DemonHunter_EvasiveFire, 1500},	
                 {SNOPower.DemonHunter_FanOfKnives, 10000},
 				{SNOPower.DemonHunter_SpikeTrap, 1000},		
                 {SNOPower.DemonHunter_Sentry, 12000},

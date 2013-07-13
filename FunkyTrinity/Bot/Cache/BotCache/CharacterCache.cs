@@ -306,11 +306,17 @@ namespace FunkyTrinity
 						  //LastUpdatedAnimationData=DateTime.Now;
 						  using (ZetaDia.Memory.AcquireFrame())
 						  {
-								if (animState)
-									 CurrentAnimationState=ZetaDia.Me.CommonData.AnimationState;
+								try
+								{
+									 if (animState)
+										  CurrentAnimationState=ZetaDia.Me.CommonData.AnimationState;
 
-								if (snoAnim)
-									 CurrentSNOAnim=ZetaDia.Me.CommonData.CurrentAnimation;
+									 if (snoAnim)
+										  CurrentSNOAnim=ZetaDia.Me.CommonData.CurrentAnimation;
+								} catch (Exception)
+								{
+								}
+
 						  }
 					 }
 					 // **********************************************************************************************
@@ -329,9 +335,9 @@ namespace FunkyTrinity
 								try
 								{
 									 UpdateAnimationState();
-									 if (CurrentAnimationState==AnimationState.Casting||CurrentAnimationState==AnimationState.Channeling)
+									 if (CurrentAnimationState.HasFlag(AnimationState.Casting|AnimationState.Channeling))
 										  bIsAnimating=true;
-									 if (bWaitForAttacking&&(CurrentAnimationState==AnimationState.Attacking))
+									 if (bWaitForAttacking&&(CurrentAnimationState.HasFlag(AnimationState.Attacking)))
 										  bIsAnimating=true;
 								} catch (NullReferenceException)
 								{

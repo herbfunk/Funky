@@ -514,6 +514,9 @@ namespace FunkyTrinity
 					 }
 					 #endregion
 
+					 if (Power==SNOPower.Weapon_Melee_Instant)
+						  returnAbility=Instant_Melee_Attack;
+
 					 return returnAbility;
 				}
 				public override Ability AbilitySelector(bool bCurrentlyAvoiding=false, bool bOOCBuff=false)

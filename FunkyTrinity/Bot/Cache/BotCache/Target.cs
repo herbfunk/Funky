@@ -97,17 +97,17 @@ namespace FunkyTrinity
 					 //Check if we require avoidance movement.
 					 #region AvodianceMovementCheck
 					 // Note that if treasure goblin level is set to kamikaze, even avoidance moves are disabled to reach the goblin!
-					 if (Bot.Combat.RequiresAvoidance&&(!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.SettingsFunky.GoblinPriority<2)&&
-						  DateTime.Now.Subtract(Bot.Combat.timeCancelledEmergencyMove).TotalMilliseconds>=Bot.Combat.iMillisecondsCancelledEmergencyMoveFor)
+					 if (Bot.Combat.RequiresAvoidance&&(!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.SettingsFunky.GoblinPriority<2)
+						  &&DateTime.Now.Subtract(Bot.Combat.timeCancelledEmergencyMove).TotalMilliseconds>=Bot.Combat.iMillisecondsCancelledEmergencyMoveFor)
 					 {//Bot requires avoidance movement.. (Note: we have not done the weighting of our targeting list yet..)
 						  Vector3 vAnySafePoint;
 
 						  bool SafeMovementFound=false;
 
-						  if (CurrentTarget!=null&&CurrentTarget.targetType.HasValue&&TargetType.ServerObjects.HasFlag(CurrentTarget.targetType.Value))
-								LOS=CurrentTarget.Position;
-						  else
-								LOS=vNullLocation;
+						  //if (CurrentTarget!=null&&CurrentTarget.targetType.HasValue&&TargetType.ServerObjects.HasFlag(CurrentTarget.targetType.Value))
+						  //    LOS=CurrentTarget.Position;
+						  //else
+						  //    LOS=vNullLocation;
 
 
 						  SafeMovementFound=GridPointAreaCache.AttemptFindSafeSpot(out vAnySafePoint, LOS);

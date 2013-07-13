@@ -112,7 +112,7 @@ namespace FunkyTrinity
                          configWriter.WriteLine("bWaitForWrath=" + Bot.SettingsFunky.Class.bWaitForWrath.ToString());
                          configWriter.WriteLine("bGoblinWrath=" + Bot.SettingsFunky.Class.bGoblinWrath.ToString());
                          configWriter.WriteLine("bFuryDumpWrath=" + Bot.SettingsFunky.Class.bFuryDumpWrath.ToString());
-                         configWriter.WriteLine("bFuryDumpWrath=" + Bot.SettingsFunky.Class.bFuryDumpAlways.ToString());
+								 configWriter.WriteLine("bFuryDumpAlways="+Bot.SettingsFunky.Class.bFuryDumpAlways.ToString());
 								 configWriter.WriteLine("bBarbUseWOTBAlways="+Bot.SettingsFunky.Class.bBarbUseWOTBAlways.ToString());
 								 //
 								 break;

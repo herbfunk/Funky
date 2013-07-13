@@ -136,6 +136,17 @@ namespace FunkyTrinity
 														  }
 													 }
 												}
+												else if (obj.Actortype.HasValue&&obj.Actortype.Value.HasFlag(ActorType.Item))
+												{
+													 //Check if we can walk to this location from current location..
+													 if (!GilesCanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
+													 {
+														  obj.BlacklistLoops=10;
+														  Log("Ignoring Item due to AllowWalk RayCast Failure!", true);
+														  Bot.Combat.bForceTargetUpdate=true;
+														  return RunStatus.Running;
+													 }
+												}
 										  }
 										  else
 										  {
@@ -321,15 +332,21 @@ namespace FunkyTrinity
 
 					 if (DateTime.Now.Subtract(LastMovementAttempted).TotalMilliseconds>=250||currentDistance>=2f||bForceNewMovement)
 					 {
-						  //Use Walk Power when not using LOS Movement, target is not an item and target does not ignore LOS.
-						  bool UsePower=(NonMovementCounter<10&&!obj.UsingLOSV3&&obj.targetType.Value!=TargetType.Item&&!obj.IgnoresLOSCheck);
-						  if (UsePower)
+						  if (obj.targetType.Value.Equals(TargetType.Avoidance))
 						  {
-								ZetaDia.Me.UsePower(SNOPower.Walk, CurrentTargetLocation, Bot.Character.iCurrentWorldID, -1);
+								ZetaDia.Me.Movement.MoveActor(CurrentTargetLocation);
 						  }
 						  else
-								ZetaDia.Me.Movement.MoveActor(CurrentTargetLocation);
-
+						  {
+								//Use Walk Power when not using LOS Movement, target is not an item and target does not ignore LOS.
+								bool UsePower=(NonMovementCounter<10&&!obj.UsingLOSV3&&obj.targetType.Value!=TargetType.Item&&!obj.IgnoresLOSCheck);
+								if (UsePower)
+								{
+									 ZetaDia.Me.UsePower(SNOPower.Walk, CurrentTargetLocation, Bot.Character.iCurrentWorldID, -1);
+								}
+								else
+									 ZetaDia.Me.Movement.MoveActor(CurrentTargetLocation);
+						  }
 
 						  LastMovementAttempted=DateTime.Now;
 						  // Store the current destination for comparison incase of changes next loop

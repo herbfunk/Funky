@@ -181,10 +181,7 @@ namespace FunkyTrinity
 					  {
 							try
 							{
-								 foreach (var item in ZetaDia.Me.GetAllBuffs())
-								 {
-									  Logging.Write("Buff {0} -- Stack {1} -- Duration {2}", ((SNOPower)item.SNOId).ToString(), item.StackCount, item.FrameDuration);
-								 }
+								 MuleBehavior=true;
 
 							} catch (Exception ex)
 							{

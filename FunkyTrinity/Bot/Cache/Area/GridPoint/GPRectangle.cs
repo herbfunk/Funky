@@ -110,6 +110,15 @@ namespace FunkyTrinity
 						  lastRefreshedObjectContents=DateTime.Now;
 					 }
 
+					 public GPRectangle(GPRectangle clone)
+						  :base(clone)
+					 {
+						  base.CornerPoints=clone.CornerPoints;
+						  this.Quadrant=clone.Quadrant;
+						  this.CreationVector=clone.CreationVector;
+						  this.searchablepoints_=clone.searchablepoints_;
+					 }
+
 
 					 private void UpdateQuadrants()
 					 {
@@ -291,6 +300,12 @@ namespace FunkyTrinity
 					 //{
 					 //	 return (GPRectangle)this.MemberwiseClone();
 					 //}
+
+					 public GridPointAreaCache.GPRectangle Clone()
+					 {
+						  return new GPRectangle(this);
+					 }
+
 					 public override bool Equals(object obj)
 					 {
 						  //Check for null and compare run-time types. 

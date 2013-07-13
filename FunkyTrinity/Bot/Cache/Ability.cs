@@ -132,7 +132,7 @@ namespace FunkyTrinity
 		  public class Ability
 		  {
 				//Ability describes the hotbar power.
-				//Contains Condtional Methods which are used to determine if the power should be used.
+				//Contains Conditional Methods which are used to determine if the power should be used.
 				//	 -Precast
 				//	 -Combat Criteria (UnitsInRange/Clusters/SingleTarget)
 				//		  *These are either a Tuple Type or Custom Class
@@ -195,18 +195,34 @@ namespace FunkyTrinity
 						  return cooldowntimespan_;
 					 }
 				}
+
+				public DateTime LastUsed
+				{
+					 get
+					 {
+						  return dictAbilityLastUse[this.power_];
+					 }
+					 set
+					 {
+						  dictAbilityLastUse[this.power_]=value;
+					 }
+				}
+
 				///<summary>
 				///Describes variables for use of ability: PreWait Loops, PostWait Loops, Reuseable
 				///</summary>
 				public Tuple<int, int, bool> AbilityWaitVars { get; set; }
 
 				///<summary>
-				///Holds int vaule that describes pet count or buff stacks.
+				///Holds int value that describes pet count or buff stacks.
 				///</summary>
 				public int Counter { get; set; }
 
 				public AbilityPriority Priority { get; set; }
 
+				///<summary>
+				///This is used to determine how the ability will be used
+				///</summary>
 				public AbilityUseType UsageType { get; set; }
 
 				///<summary>
@@ -218,7 +234,11 @@ namespace FunkyTrinity
 				///</summary>
 				public bool UseAvoiding { get; set; }
 
+				///<summary>
+				///will test final custom conditions even if all combat criteria conditions failed or none were ever set.
+				///</summary>
 				public bool TestCustomCombatConditionAlways { get; set; }
+
 				public ConditionCriteraTypes LastConditionPassed { get; set; }
 				#endregion
 
@@ -655,7 +675,7 @@ namespace FunkyTrinity
 				///</summary>
 				public void SuccessfullyUsed()
 				{
-					 dictAbilityLastUse[Power]=DateTime.Now;
+					 this.LastUsed=DateTime.Now;
 					 lastGlobalCooldownUse=DateTime.Now;
 					 Cooldown=new Zeta.Common.Helpers.WaitTimer(CooldownTimeSpan);
 				}
@@ -726,10 +746,12 @@ namespace FunkyTrinity
 
 		  }
 
+		  //Default Abilities -- Used on new characters!
 		  public static readonly Ability Instant_Melee_Attack=new Ability
 		  {
 				Range=8,
 				Power=SNOPower.Weapon_Melee_Instant,
+				Priority=AbilityPriority.None,
 				UsageType=AbilityUseType.Target,
 				AbilityWaitVars=new Tuple<int, int, bool>(0, 0, true),
 		  };
@@ -737,6 +759,23 @@ namespace FunkyTrinity
 		  {
 				Range=25,
 				Power=SNOPower.Weapon_Ranged_Instant,
+				Priority=AbilityPriority.None,
+				UsageType=AbilityUseType.Target,
+				AbilityWaitVars=new Tuple<int, int, bool>(0, 0, true),
+		  };
+		  public static readonly Ability Projectile_Range_Attack=new Ability
+		  {
+				Range=25,
+				Power=SNOPower.Weapon_Ranged_Projectile,
+				Priority=AbilityPriority.None,
+				UsageType=AbilityUseType.Target,
+				AbilityWaitVars=new Tuple<int, int, bool>(0, 0, true),
+		  };
+		  public static readonly Ability Wand_Range_Attack=new Ability
+		  {
+				Range=25,
+				Power=SNOPower.Weapon_Ranged_Wand,
+				Priority=AbilityPriority.None,
 				UsageType=AbilityUseType.Target,
 				AbilityWaitVars=new Tuple<int, int, bool>(0, 0, true),
 		  };

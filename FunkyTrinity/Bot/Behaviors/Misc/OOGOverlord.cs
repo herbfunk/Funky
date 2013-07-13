@@ -82,6 +82,7 @@ namespace FunkyTrinity
 						  NewMuleGame.BotHeroName=ZetaDia.Service.CurrentHero.Name;
 						  NewMuleGame.BotHeroIndex=0;
 						  NewMuleGame.LastProfile=Zeta.CommonBot.ProfileManager.CurrentProfile.Path;
+						  NewMuleGame.LastHandicap=Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel;
 					 }
 
 					 if (!CreatedCharacter)

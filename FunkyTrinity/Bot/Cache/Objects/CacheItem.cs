@@ -104,14 +104,14 @@ namespace FunkyTrinity
 								else if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition))
 									 this.Weight=1;
 
-							
+
 
 						  }
 					 }
 
 					 if (this.Weight!=1)
 					 {
-						  
+
 						  Vector3 BotPosition=Bot.Character.Position;
 						  float centreDistance=BotPosition.Distance(TestPosition);
 
@@ -290,10 +290,9 @@ namespace FunkyTrinity
 
 									 float lootRange=Bot.GoldRange;
 
-									 if (Bot.IsInNonCombatBehavior)
-										  lootRange=50f;
+									 if (Bot.IsInNonCombatBehavior) lootRange=50f;
 
-										  if (this.CentreDistance>lootRange)
+									 if (this.CentreDistance>lootRange)
 									 {
 										  this.BlacklistLoops=20;
 										  return false;

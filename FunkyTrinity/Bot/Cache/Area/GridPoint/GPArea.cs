@@ -27,6 +27,8 @@ namespace FunkyTrinity
 					 {
 						  //Creation and Cache base
 						  centerGPRect=new GPRectangle(startingLocation, 3);
+						  GridPointAreaCache.GPRectangle centerClone=centerGPRect.Clone();
+
 						  //Get all valid points (besides current point) from our current location GPR
 						  GridPoint[] SearchPoints=centerGPRect.Points.Keys.Where(gp => !gp.Ignored).ToArray();
 						  gridpointrectangles_=new List<GPRectangle>();
@@ -47,6 +49,8 @@ namespace FunkyTrinity
 										  gridpointrectangles_.Add(new GPRectangle(P, centerGPRect));
 									 }
 								}
+								gridpointrectangles_.Add(centerClone);
+								gridpointrectangles_=gridpointrectangles_.OrderByDescending(gpr => gpr.Count).ToList();
 						  }
 					 }
 

@@ -1,0 +1,74 @@
+﻿Propeties 6
+Item Plan: Exalted Grand Armplates -- Gamebalance ID: -1051150313
+Item Plan: Exalted Grand Archmage Headpiece -- Gamebalance ID: -93021373
+Item Plan: Exalted Grand Behemoth -- Gamebalance ID: -1660666893
+--Conquest Sword--
+Item Plan: Exalted Grand Crag Hammer -- Gamebalance ID: -1690232948
+Item Plan: Exalted Grand Dread Shield -- Gamebalance ID: -2015049106
+Item Plan: Exalted Grand Doomcaster -- Gamebalance ID: -364008976
+Item Plan: Exalted Grand Flesh Ripper -- Gamebalance ID: -576445430
+Item Plan: Exalted Grand Ghost Sight -- Gamebalance ID: 972140825
+Item Plan: Exalted Grand Galraki -- Gamebalance ID: 1108898772
+Item Plan: Exalted Grand Golden Talon -- Gamebalance ID: -275669100
+Item Plan: Exalted Grand Heavy Baldric -- Gamebalance ID: 531375006
+Item Plan: Exalted Grand Heaven Strand -- Gamebalance ID: 2129978460
+Item Plan: Exalted Grand Impellor -- Gamebalance ID: 364927531
+Item Plan: Exalted Grand Massacre Axe -- Gamebalance ID: -1661852814
+Item Plan: Exalted Grand Manitou Mask -- Gamebalance ID: -1162323497
+Item Plan: Exalted Grand Mythical Staff -- Gamebalance ID: 82340210
+Item Plan: Exalted Grand Orbit Stones -- Gamebalance ID: 1134806017
+Item Plan: Exalted Grand Oni Blade -- Gamebalance ID: -636820186
+Item Plan: Exalted Grand Pallium -- Gamebalance ID: 255305006
+Item Plan: Exalted Grand Piercer -- Gamebalance ID: 368302888
+Item Plan: Exalted Grand Phantom Bow -- Gamebalance ID: 623242822
+Item Plan: Exalted Grand Runic Quiver -- Gamebalance ID: 844895418
+Item Plan: Exalted Grand Slag Hammer -- Gamebalance ID: -1689047027
+Item Plan: Exalted Grand Sovereign Helm -- Gamebalance ID: 1288600123
+Item Plan: Exalted Grand Sovereign Tassets -- Gamebalance ID: 435695963
+Item Plan: Exalted Grand Sagaris -- Gamebalance ID: 1110084693
+Item Plan: Exalted Grand Sovereign Mail -- Gamebalance ID: 543691116
+Item Plan: Exalted Grand Sovereign Vambraces -- Gamebalance ID: -1205502139
+Item Plan: Exalted Grand Sovereign Greaves -- Gamebalance ID: 1717766204
+Item Plan: Exalted Grand Strike Wand -- Gamebalance ID: -115137848
+Item Plan: Exalted Grand Stalker Cape -- Gamebalance ID: 1784279615
+Item Plan: Exalted Grand Unspeakable Thing -- Gamebalance ID: 398631475
+Item Plan: Exalted Grand Zhezl -- Gamebalance ID: -807237752
+
+
+
+Item Plan: Archon Gauntlets of Intelligence -- Gamebalance ID: -1427340245
+Item Plan: Archon Gauntlets of Dexterity -- Gamebalance ID: -1427345983
+Item Plan: Archon Gauntlets of Vitality -- Gamebalance ID: -1427326253
+Item Plan: Archon Gauntlets of Strength -- Gamebalance ID: -1427329159
+
+Item Plan: Archon Spaulders of Intelligence -- Gamebalance ID: 1194999700
+Item Plan: Archon Spaulders of Vitality -- Gamebalance ID: 1195013692
+Item Plan: Archon Spaulders of Dexterity -- Gamebalance ID: 1194993962
+Item Plan: Archon Spaulders of Strength -- Gamebalance ID: 1195010786
+
+Item Design: Amulet of Vitality -- Gamebalance ID: 2110615435
+Item Design: Amulet of Intelligence -- Gamebalance ID: 2110601443
+Item Design: Amulet of Strength -- Gamebalance ID: 2110612529
+Item Design: Amulet of Dexterity -- Gamebalance ID: 2110595705
+
+
+
+Item Design: Flawless Star Amethyst -- Gamebalance ID: -1171649812
+Item Design: Radiant Star Amethyst -- Gamebalance ID: -1171577936
+Item Design: Perfect Star Amethyst -- Gamebalance ID: -1171613874
+Item Design: Marquise Amethyst -- Gamebalance ID: -1171541998
+
+Item Design: Flawless Star Topaz -- Gamebalance ID: 872611723
+Item Design: Radiant Star Topaz -- Gamebalance ID: 872683599
+Item Design: Perfect Star Topaz -- Gamebalance ID: 872647661
+Item Design: Marquise Topaz -- Gamebalance ID: 872719537
+
+Item Design: Marquise Emerald -- Gamebalance ID: 521850877
+Item Design: Radiant Star Emerald -- Gamebalance ID: 521814939
+Item Design: Flawless Star Emerald -- Gamebalance ID: 521743063
+Item Design: Perfect Star Emerald -- Gamebalance ID: 521779001
+
+Item Design: Perfect Star Ruby -- Gamebalance ID: 2147165121
+Item Design: Flawless Star Ruby -- Gamebalance ID: 2147129183
+Item Design: Radiant Star Ruby -- Gamebalance ID: 2147201059
+Item Design: Marquise Ruby -- Gamebalance ID: 2147236997

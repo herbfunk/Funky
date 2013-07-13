@@ -164,7 +164,9 @@ namespace FunkyTrinity
 
 				//Override Townportal Tag Behavior (After it starts..)
 				if (Bot.Character.CurrentProfileBehavior==null
-					 ||Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior!=null&&Bot.Character.CurrentProfileBehavior.Behavior.Guid!=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior.Guid)
+					 ||Zeta.CommonBot.ProfileManager.CurrentProfileBehavior!=null
+					 &&Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior!=null
+					 &&Bot.Character.CurrentProfileBehavior.Behavior.Guid!=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior.Guid)
 				{
 					 Bot.Character.CurrentProfileBehavior=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior;
 

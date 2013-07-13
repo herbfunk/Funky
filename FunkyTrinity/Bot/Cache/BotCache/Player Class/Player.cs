@@ -176,12 +176,13 @@ namespace FunkyTrinity
 					 if (AC==ActorClass.Wizard)
 					 {
 						  bool ArchonBuffPresent=this.HasBuff(SNOPower.Wizard_Archon);
-						  bool RefreshNeeded=(Abilities.Count==0);
+						  bool RefreshNeeded=((!ArchonBuffPresent&&Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast))
+													 ||(ArchonBuffPresent&&!Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast)));
 
-						  if (ArchonBuffPresent&&!UsingSecondaryHotbarAbilities)
-								RefreshNeeded=true;
-						  else if (!ArchonBuffPresent&&UsingSecondaryHotbarAbilities)
-								RefreshNeeded=true;
+						  //if (ArchonBuffPresent&&!UsingSecondaryHotbarAbilities)
+						  //    RefreshNeeded=true;
+						  //else if (!ArchonBuffPresent&&UsingSecondaryHotbarAbilities)
+						  //    RefreshNeeded=true;
 
 						  if (RefreshNeeded)
 						  {
