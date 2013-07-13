@@ -386,7 +386,11 @@ namespace FunkyTrinity
 				 {
 					  Bot.SettingsFunky.PickupJewelerDesignAmulet=!Bot.SettingsFunky.PickupJewelerDesignAmulet;
 				 }
-
+				 private void PickupInfernalKeysChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.PickupInfernalKeys=!Bot.SettingsFunky.PickupInfernalKeys;
+				 }
+				 //
 
              private void PickupFollowerItemsChecked(object sender, EventArgs e)
              {

@@ -190,6 +190,10 @@ namespace FunkyTrinity
 
 
 						  }
+						  if (thisGilesItemType==GilesItemType.InfernalKey)
+						  {
+								if (!Bot.SettingsFunky.PickupInfernalKeys) return false;
+						  }
 						  // Potion filtering
 						  if (thisGilesItemType==GilesItemType.HealthPotion)
 						  {	

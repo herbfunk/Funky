@@ -146,6 +146,9 @@ namespace FunkyTrinity
 					 // Prevent spam-kiting too much - allow fighting between each kite movement
 					 internal DateTime timeCancelledKiteMove=DateTime.Today;
 					 internal int iMillisecondsCancelledKiteMoveFor=0;
+					 //Duration: Seconds of the kite movement
+					 internal int iSecondsKiteMoveFor=0;
+
 					 internal DateTime LastKiteAction=DateTime.Today;
 					 //Avoidance Related
 					 internal bool RequiresAvoidance { get; set; }
@@ -157,6 +160,9 @@ namespace FunkyTrinity
 					 // This force-prevents avoidance for XX loops incase we get stuck trying to avoid stuff
 					 internal DateTime timeCancelledEmergencyMove=DateTime.Today;
 					 internal int iMillisecondsCancelledEmergencyMoveFor=0;
+					 //Duration: Seconds of the avoid movement
+					 internal int iSecondsEmergencyMoveFor=0;
+
 					 // This lets us know if there is a target but it's in avoidance so we can just "stay put" until avoidance goes
 					 internal bool bStayPutDuringAvoidance=false;
 

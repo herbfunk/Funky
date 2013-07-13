@@ -98,8 +98,16 @@ namespace FunkyTrinity
 					 #region AvodianceMovementCheck
 					 // Note that if treasure goblin level is set to kamikaze, even avoidance moves are disabled to reach the goblin!
 					 if (Bot.Combat.RequiresAvoidance&&(!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.SettingsFunky.GoblinPriority<2)
-						  &&DateTime.Now.Subtract(Bot.Combat.timeCancelledEmergencyMove).TotalMilliseconds>=Bot.Combat.iMillisecondsCancelledEmergencyMoveFor)
+						  &&(DateTime.Now.Subtract(Bot.Combat.timeCancelledEmergencyMove).TotalMilliseconds>Bot.Combat.iMillisecondsCancelledEmergencyMoveFor))
 					 {//Bot requires avoidance movement.. (Note: we have not done the weighting of our targeting list yet..)
+
+						  if (DateTime.Now.Subtract(Bot.Combat.LastAvoidanceMovement).TotalMilliseconds>=Bot.Combat.iSecondsEmergencyMoveFor
+								&&vlastSafeSpot!=vNullLocation)
+						  {
+								CurrentTarget=new CacheObject(vlastSafeSpot, TargetType.Avoidance, 20000f, "SafeAvoid", 2.5f, -1);
+								return true;
+						  }
+						  
 						  Vector3 vAnySafePoint;
 
 						  bool SafeMovementFound=false;
@@ -129,11 +137,7 @@ namespace FunkyTrinity
 									 Bot.Combat.LastCachedTarget=CurrentTarget.Clone();
 
 								CurrentTarget=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "SafeAvoid", 2.5f, -1);
-
-								//Set timer here until next we try... since we've already attempted at least 9 GPCs!
-								Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=(int)(Bot.Character.dCurrentHealthPct*Bot.SettingsFunky.AvoidanceRecheckMaximumRate);
-								Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
-								//Bot.Combat.LastAvoidanceMovement=DateTime.Now;
+								Bot.Combat.iSecondsEmergencyMoveFor=1+(int)(Vector3.Distance(Bot.Character.Position, vlastSafeSpot)/25f);
 								return true;
 						  }
 
@@ -158,17 +162,20 @@ namespace FunkyTrinity
 					 //check kiting
 					 #region Kiting
 					 if (Bot.KiteDistance>0
+						  &&(DateTime.Now.Subtract(Bot.Combat.timeCancelledKiteMove).TotalMilliseconds>Bot.Combat.iMillisecondsCancelledKiteMoveFor)
 						  &&(!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.SettingsFunky.GoblinPriority<2)
-						  &&DateTime.Now.Subtract(Bot.Combat.timeCancelledKiteMove).TotalMilliseconds>=Bot.Combat.iMillisecondsCancelledKiteMoveFor
 						  &&(Bot.Class.AC!=ActorClass.Wizard||(Bot.Class.AC==ActorClass.Wizard&&(!Bot.Class.HasBuff(SNOPower.Wizard_Archon)||!Bot.SettingsFunky.Class.bKiteOnlyArchon))))
 					 {
-
-						  ////Find any units that we should kite, sorted by distance.
-						  //var nearbyUnits=Bot.ValidObjects.OfType<CacheUnit>().Where(unit => unit.ShouldBeKited
-						  //                                                                 &&unit.RadiusDistance<Bot.KiteDistance);
-
 						  if (Bot.Combat.NearbyKitingUnits.Count>0)
 						  {
+								//Resuse last safespot until timer expires!
+								if (DateTime.Now.Subtract(Bot.Combat.LastKiteAction).TotalSeconds<Bot.Combat.iSecondsKiteMoveFor
+									 &&vlastSafeSpot!=vNullLocation)
+								{
+									 CurrentTarget=new CacheObject(vlastSafeSpot, TargetType.Avoidance, 20000f, "Kitespot", 2.5f, -1);
+									 return true;
+								}
+
 								if (CurrentTarget!=null&&CurrentTarget.targetType.HasValue&&TargetType.ServerObjects.HasFlag(CurrentTarget.targetType.Value))
 									 LOS=CurrentTarget.Position;
 								else
@@ -184,8 +191,8 @@ namespace FunkyTrinity
 										  Bot.Character.LastCachedTarget=CurrentTarget;
 
 									 CurrentTarget=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "Kitespot", 2.5f, -1);
-									 Bot.Combat.iMillisecondsCancelledKiteMoveFor=(int)(Bot.Character.dCurrentHealthPct*Bot.SettingsFunky.KitingRecheckMaximumRate);
-									 Bot.Combat.timeCancelledKiteMove=DateTime.Now;
+
+									 Bot.Combat.iSecondsKiteMoveFor=1+(int)(Vector3.Distance(Bot.Character.Position,vlastSafeSpot)/25f);
 									 return true;
 								}
 								Bot.UpdateAvoidKiteRates();
@@ -961,6 +968,8 @@ namespace FunkyTrinity
 								CurrentState=CurrentTarget.Interact();
 								break;
 						  case TargetType.Avoidance:
+								Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
+								Bot.Combat.timeCancelledKiteMove=DateTime.Now;
 								CurrentState=RunStatus.Running;
 								break;
 					 }

@@ -57,6 +57,7 @@ namespace FunkyTrinity
 						  }
 						  else if (internalname.Contains("AvoidanceIntersection")||internalname.Contains("StayPutPoint")||internalname.Contains("SafeAvoid"))
 						  {
+								Bot.Combat.LastAvoidanceMovement=DateTime.Now;
 								Bot.Combat.AvoidanceLastTarget=true;
 						  }
 					 }

@@ -3119,6 +3119,21 @@ namespace FunkyTrinity
                 cbPickupFollowerItems.Unchecked += PickupFollowerItemsChecked;
 					 spMiscItemPickupOptions.Children.Add(cbPickupFollowerItems);
                 #endregion
+					 #region PickupInfernalKeys
+					 CheckBox cbPickupInfernalKeys=new CheckBox
+					 {
+						  Content="Pickup Inferno Keys",
+						  Height=20,
+						  IsChecked=(Bot.SettingsFunky.PickupInfernalKeys),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
+					 };
+					 cbPickupInfernalKeys.Checked+=PickupInfernalKeysChecked;
+					 cbPickupInfernalKeys.Unchecked+=PickupInfernalKeysChecked;
+					 spMiscItemPickupOptions.Children.Add(cbPickupInfernalKeys);
+					 #endregion
+
+					 //
 					 TextBlock txt_miscPickup=new TextBlock
 					 {
 						  Text="Misc Pickup Options",

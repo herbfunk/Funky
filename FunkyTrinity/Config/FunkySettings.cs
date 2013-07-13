@@ -90,9 +90,10 @@ namespace FunkyTrinity
 					  configWriter.WriteLine("PickupJewelerDesignRadiantStar="+Bot.SettingsFunky.PickupJewelerDesignRadiantStar.ToString());
 					  configWriter.WriteLine("PickupJewelerDesignMarquise="+Bot.SettingsFunky.PickupJewelerDesignMarquise.ToString());
 					  configWriter.WriteLine("PickupJewelerDesignAmulet="+Bot.SettingsFunky.PickupJewelerDesignAmulet.ToString());
-                 
-					  
-					  
+
+					  configWriter.WriteLine("PickupInfernalKeys="+Bot.SettingsFunky.PickupInfernalKeys.ToString());
+
+					  //
 					  
 					  
 					  
@@ -525,10 +526,13 @@ namespace FunkyTrinity
 												 Bot.SettingsFunky.PickupJewelerDesignAmulet=Convert.ToBoolean(config[1]);
 												 break;
 
-
+											//
                                  case "PickupFollowerItems":
                                      Bot.SettingsFunky.PickupFollowerItems = Convert.ToBoolean(config[1]);
                                      break;
+											case "PickupInfernalKeys":
+												 Bot.SettingsFunky.PickupInfernalKeys=Convert.ToBoolean(config[1]);
+												 break;
                                  case "MiscItemLevel":
                                      Bot.SettingsFunky.MiscItemLevel = Convert.ToInt32(config[1]);
                                      break;
@@ -731,6 +735,8 @@ namespace FunkyTrinity
 				 public bool PickupJewelerDesignAmulet { get; set; }
 
              public bool PickupFollowerItems { get; set; }
+				 public bool PickupInfernalKeys { get; set; }
+
              public int MiscItemLevel { get; set; }
 
              public int AvoidanceRecheckMaximumRate { get; set; }//=1250;
@@ -831,6 +837,7 @@ namespace FunkyTrinity
 					  PickupJewelerDesignRadiantStar=false;
 					  PickupJewelerDesignMarquise=false;
 					  PickupJewelerDesignAmulet=false;
+					  PickupInfernalKeys=true;
 
 					  PickupFollowerItems=true;
                  MiscItemLevel = miscitemlevel;

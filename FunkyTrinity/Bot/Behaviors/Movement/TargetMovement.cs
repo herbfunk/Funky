@@ -33,6 +33,44 @@ namespace FunkyTrinity
 				internal static RunStatus TargetMoveTo(CacheObject obj)
 				{
 
+					 #region DebugInfo
+					 if (Bot.SettingsFunky.DebugStatusBar)
+					 {
+						  string Action="[Move-";
+						  switch (obj.targetType.Value)
+						  {
+								case TargetType.Avoidance:
+									 Action+="Avoid] ";
+									 break;
+								case TargetType.Unit:
+									 if (obj.LOSV3!=vNullLocation)
+										  Action+="LOS] ";
+									 else
+										  Action+="Combat] ";
+
+									 break;
+								case TargetType.Item:
+								case TargetType.Gold:
+								case TargetType.Globe:
+									 Action+="Pickup] ";
+									 break;
+								case TargetType.Interactable:
+									 Action+="Interact] ";
+									 break;
+								case TargetType.Container:
+									 Action+="Open] ";
+									 break;
+								case TargetType.Destructible:
+								case TargetType.Barricade:
+									 Action+="Destroy] ";
+									 break;
+								case TargetType.Shrine:
+									 Action+="Click] ";
+									 break;
+						  }
+						  Bot.Target.UpdateStatusText(Action);
+					 }
+					 #endregion
 
 					 // Are we currently incapacitated? If so then wait...
 					 if (Bot.Character.bIsIncapacitated||Bot.Character.bIsRooted)
@@ -138,6 +176,9 @@ namespace FunkyTrinity
 												}
 												else if (obj.Actortype.HasValue&&obj.Actortype.Value.HasFlag(ActorType.Item))
 												{
+													 Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
+													 Bot.Combat.timeCancelledKiteMove=DateTime.Now;
+
 													 //Check if we can walk to this location from current location..
 													 if (!GilesCanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
 													 {
@@ -334,7 +375,10 @@ namespace FunkyTrinity
 					 {
 						  if (obj.targetType.Value.Equals(TargetType.Avoidance))
 						  {
-								ZetaDia.Me.Movement.MoveActor(CurrentTargetLocation);
+								if (NonMovementCounter<10)
+									 ZetaDia.Me.Movement.MoveActor(CurrentTargetLocation);
+								else
+									 ZetaDia.Me.UsePower(SNOPower.Walk, CurrentTargetLocation, Bot.Character.iCurrentWorldID, -1);
 						  }
 						  else
 						  {
