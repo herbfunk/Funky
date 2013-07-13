@@ -167,9 +167,28 @@ namespace FunkyTrinity
 						  {
 								return false;
 						  }
-						  if (thisGilesItemType==GilesItemType.CraftingPlan&&!Bot.SettingsFunky.PickupCraftPlans)
+						  if (thisGilesItemType==GilesItemType.CraftingPlan)
 						  {
-								return false;
+								if (!Bot.SettingsFunky.PickupCraftPlans) return false;
+
+								int gamebalanceID=item.BalanceID.Value;
+
+								if (HashPlansPropertiesSix.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupBlacksmithPlanSix) return false;
+								if (HashPlansPropertiesFive.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupBlacksmithPlanFive) return false;
+								if (HashPlansPropertiesFour.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupBlacksmithPlanFour) return false;
+								
+								if (HashPlansArchonSpaulders.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupBlacksmithPlanArchonSpaulders) return false;
+								if (HashPlansArchonGauntlets.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupBlacksmithPlanArchonGauntlets) return false;
+								if (HashPlansRazorspikes.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupBlacksmithPlanRazorspikes) return false;
+
+								
+								if (HashDesignAmulet.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupJewelerDesignAmulet) return false;
+								if (HashDesignFlawlessStarGem.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupJewelerDesignFlawlessStar) return false;
+								if (HashDesignMarquiseGem.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupJewelerDesignMarquise) return false;
+								if (HashDesignPerfectStarGem.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupJewelerDesignPerfectStar) return false;
+								if (HashDesignRadiantStarGem.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupJewelerDesignRadiantStar) return false;
+
+
 						  }
 						  // Potion filtering
 						  if (thisGilesItemType==GilesItemType.HealthPotion)

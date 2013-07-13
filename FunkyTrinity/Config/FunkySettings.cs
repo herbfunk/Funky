@@ -77,7 +77,28 @@ namespace FunkyTrinity
                  configWriter.WriteLine("PickupGems=" + Bot.SettingsFunky.PickupGems[0].ToString() + "," + Bot.SettingsFunky.PickupGems[1].ToString() + "," + Bot.SettingsFunky.PickupGems[2].ToString() + "," + Bot.SettingsFunky.PickupGems[3].ToString());
                  configWriter.WriteLine("PickupCraftTomes=" + Bot.SettingsFunky.PickupCraftTomes.ToString());
                  configWriter.WriteLine("PickupCraftPlans=" + Bot.SettingsFunky.PickupCraftPlans.ToString());
-                 configWriter.WriteLine("PickupFollowerItems=" + Bot.SettingsFunky.PickupFollowerItems.ToString());
+
+					  configWriter.WriteLine("PickupBlacksmithPlanSix="+Bot.SettingsFunky.PickupBlacksmithPlanSix.ToString());
+					  configWriter.WriteLine("PickupBlacksmithPlanFive="+Bot.SettingsFunky.PickupBlacksmithPlanFive.ToString());
+					  configWriter.WriteLine("PickupBlacksmithPlanFour="+Bot.SettingsFunky.PickupBlacksmithPlanFour.ToString());
+					  configWriter.WriteLine("PickupBlacksmithPlanArchonGauntlets="+Bot.SettingsFunky.PickupBlacksmithPlanArchonGauntlets.ToString());
+					  configWriter.WriteLine("PickupBlacksmithPlanArchonSpaulders="+Bot.SettingsFunky.PickupBlacksmithPlanArchonSpaulders.ToString());
+					  configWriter.WriteLine("PickupBlacksmithPlanRazorspikes="+Bot.SettingsFunky.PickupBlacksmithPlanRazorspikes.ToString());
+
+					  configWriter.WriteLine("PickupJewelerDesignFlawlessStar="+Bot.SettingsFunky.PickupJewelerDesignFlawlessStar.ToString());
+					  configWriter.WriteLine("PickupJewelerDesignPerfectStar="+Bot.SettingsFunky.PickupJewelerDesignPerfectStar.ToString());
+					  configWriter.WriteLine("PickupJewelerDesignRadiantStar="+Bot.SettingsFunky.PickupJewelerDesignRadiantStar.ToString());
+					  configWriter.WriteLine("PickupJewelerDesignMarquise="+Bot.SettingsFunky.PickupJewelerDesignMarquise.ToString());
+					  configWriter.WriteLine("PickupJewelerDesignAmulet="+Bot.SettingsFunky.PickupJewelerDesignAmulet.ToString());
+                 
+					  
+					  
+					  
+					  
+					  
+
+					  
+					  configWriter.WriteLine("PickupFollowerItems=" + Bot.SettingsFunky.PickupFollowerItems.ToString());
                  configWriter.WriteLine("MiscItemLevel=" + Bot.SettingsFunky.MiscItemLevel.ToString());
                  configWriter.WriteLine("GilesMinimumWeaponScore=" + Bot.SettingsFunky.GilesMinimumWeaponScore.ToString());
                  configWriter.WriteLine("GilesMinimumArmorScore=" + Bot.SettingsFunky.GilesMinimumArmorScore.ToString());
@@ -468,6 +489,43 @@ namespace FunkyTrinity
                                  case "PickupCraftPlans":
                                      Bot.SettingsFunky.PickupCraftPlans = Convert.ToBoolean(config[1]);
                                      break;
+
+											case "PickupBlacksmithPlanSix":
+												 Bot.SettingsFunky.PickupBlacksmithPlanSix=Convert.ToBoolean(config[1]);
+												 break;
+											case "PickupBlacksmithPlanFive":
+												 Bot.SettingsFunky.PickupBlacksmithPlanFive=Convert.ToBoolean(config[1]);
+												 break;
+											case "PickupBlacksmithPlanFour":
+												 Bot.SettingsFunky.PickupBlacksmithPlanFour=Convert.ToBoolean(config[1]);
+												 break;
+											case "PickupBlacksmithPlanArchonGauntlets":
+												 Bot.SettingsFunky.PickupBlacksmithPlanArchonGauntlets=Convert.ToBoolean(config[1]);
+												 break;
+											case "PickupBlacksmithPlanArchonSpaulders":
+												 Bot.SettingsFunky.PickupBlacksmithPlanArchonSpaulders=Convert.ToBoolean(config[1]);
+												 break;
+											case "PickupBlacksmithPlanRazorspikes":
+												 Bot.SettingsFunky.PickupBlacksmithPlanRazorspikes=Convert.ToBoolean(config[1]);
+												 break;
+
+											case "PickupJewelerDesignFlawlessStar":
+												 Bot.SettingsFunky.PickupJewelerDesignFlawlessStar=Convert.ToBoolean(config[1]);
+												 break;
+											case "PickupJewelerDesignPerfectStar":
+												 Bot.SettingsFunky.PickupJewelerDesignPerfectStar=Convert.ToBoolean(config[1]);
+												 break;
+											case "PickupJewelerDesignRadiantStar":
+												 Bot.SettingsFunky.PickupJewelerDesignRadiantStar=Convert.ToBoolean(config[1]);
+												 break;
+											case "PickupJewelerDesignMarquise":
+												 Bot.SettingsFunky.PickupJewelerDesignMarquise=Convert.ToBoolean(config[1]);
+												 break;
+											case "PickupJewelerDesignAmulet":
+												 Bot.SettingsFunky.PickupJewelerDesignAmulet=Convert.ToBoolean(config[1]);
+												 break;
+
+
                                  case "PickupFollowerItems":
                                      Bot.SettingsFunky.PickupFollowerItems = Convert.ToBoolean(config[1]);
                                      break;
@@ -658,6 +716,20 @@ namespace FunkyTrinity
 
              public bool PickupCraftTomes { get; set; }
              public bool PickupCraftPlans { get; set; }
+
+				 public bool PickupBlacksmithPlanSix { get; set; }
+				 public bool PickupBlacksmithPlanFive { get; set; }
+				 public bool PickupBlacksmithPlanFour { get; set; }
+				 public bool PickupBlacksmithPlanArchonGauntlets { get; set; }
+				 public bool PickupBlacksmithPlanArchonSpaulders { get; set; }
+				 public bool PickupBlacksmithPlanRazorspikes { get; set; }
+
+				 public bool PickupJewelerDesignFlawlessStar { get; set; }
+				 public bool PickupJewelerDesignPerfectStar { get; set; }
+				 public bool PickupJewelerDesignRadiantStar { get; set; }
+				 public bool PickupJewelerDesignMarquise { get; set; }
+				 public bool PickupJewelerDesignAmulet { get; set; }
+
              public bool PickupFollowerItems { get; set; }
              public int MiscItemLevel { get; set; }
 
@@ -748,6 +820,18 @@ namespace FunkyTrinity
                  MinimumGemItemLevel = minGemLevel;
 					  PickupCraftTomes=true;
 					  PickupCraftPlans=true;
+					  PickupBlacksmithPlanSix=true;
+					  PickupBlacksmithPlanFive=false;
+					  PickupBlacksmithPlanFour=false;
+					  PickupBlacksmithPlanRazorspikes=false;
+					  PickupBlacksmithPlanArchonGauntlets=false;
+					  PickupBlacksmithPlanArchonSpaulders=false;
+					  PickupJewelerDesignFlawlessStar=false;
+					  PickupJewelerDesignPerfectStar=false;
+					  PickupJewelerDesignRadiantStar=false;
+					  PickupJewelerDesignMarquise=false;
+					  PickupJewelerDesignAmulet=false;
+
 					  PickupFollowerItems=true;
                  MiscItemLevel = miscitemlevel;
                  UseLevelingLogic = itemlevelinglogic;

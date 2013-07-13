@@ -64,6 +64,8 @@ namespace FunkyTrinity
 
             private RadioButton ItemRuleGilesScoring, ItemRuleDBScoring;
 
+				private StackPanel spBlacksmithPlans, spJewelerPlans;
+
             private CheckBox CoffeeBreaks;
             private TextBox tbMinBreakTime, tbMaxBreakTime;
 
@@ -2883,6 +2885,210 @@ namespace FunkyTrinity
 					 spMinimumGold.Children.Add(MinGoldPileStackPanel);
                 #endregion
 
+
+					 StackPanel spCraftPlans=new StackPanel();
+					 TextBlock txt_CraftPlansPickup=new TextBlock
+					 {
+						  Text="Craft Plan Options",
+						  FontSize=12,
+						  Background=System.Windows.Media.Brushes.DarkSlateGray,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
+					 };
+					 spCraftPlans.Children.Add(txt_CraftPlansPickup);
+
+					 #region PickupCraftPlans
+					 CheckBox cbPickupCraftPlans=new CheckBox
+					 {
+						  Content="Pickup Craft Plans",
+						  Height=20,
+						  IsChecked=(Bot.SettingsFunky.PickupCraftPlans),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
+					 };
+					 cbPickupCraftPlans.Checked+=PickupCraftPlansChecked;
+					 cbPickupCraftPlans.Unchecked+=PickupCraftPlansChecked;
+					 spCraftPlans.Children.Add(cbPickupCraftPlans);
+					 #endregion
+
+					 spBlacksmithPlans=new StackPanel
+					 {
+						  Orientation=Orientation.Horizontal,
+						  IsEnabled=Bot.SettingsFunky.PickupCraftPlans,
+					 };
+					 StackPanel spBlacksmithPlansProperties=new StackPanel();
+
+					 #region Blacksmith_property_six
+					 CheckBox cbBlacksmithPropertySix=new CheckBox
+					 {
+						  Content="Plans: Property Six",
+						  Height=20,
+						  IsChecked=(Bot.SettingsFunky.PickupBlacksmithPlanSix),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
+					 };
+					 cbBlacksmithPropertySix.Checked+=PickupBlacksmithPlanSixChecked;
+					 cbBlacksmithPropertySix.Unchecked+=PickupBlacksmithPlanSixChecked;
+					 spBlacksmithPlansProperties.Children.Add(cbBlacksmithPropertySix); 
+					 #endregion
+
+					 #region Blacksmith_property_five
+					 CheckBox cbBlacksmithPropertyFive=new CheckBox
+					 {
+						  Content="Plans: Property Five",
+						  Height=20,
+						  IsChecked=(Bot.SettingsFunky.PickupBlacksmithPlanFive),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
+					 };
+					 cbBlacksmithPropertyFive.Checked+=PickupBlacksmithPlanFiveChecked;
+					 cbBlacksmithPropertyFive.Unchecked+=PickupBlacksmithPlanFiveChecked;
+					 spBlacksmithPlansProperties.Children.Add(cbBlacksmithPropertyFive); 
+					 #endregion
+
+					 #region Blacksmith_property_four
+					 CheckBox cbBlacksmithPropertyFour=new CheckBox
+					 {
+						  Content="Plans: Property Four",
+						  Height=20,
+						  IsChecked=(Bot.SettingsFunky.PickupBlacksmithPlanFour),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
+					 };
+					 cbBlacksmithPropertyFive.Checked+=PickupBlacksmithPlanFourChecked;
+					 cbBlacksmithPropertyFive.Unchecked+=PickupBlacksmithPlanFourChecked;
+					 spBlacksmithPlansProperties.Children.Add(cbBlacksmithPropertyFour); 
+					 #endregion
+
+					 spBlacksmithPlans.Children.Add(spBlacksmithPlansProperties);
+
+					 StackPanel spBlacksmithPlansArchonRazor=new StackPanel();
+
+					 #region Blacksmith_archon_gauntlets
+					 CheckBox cbBlacksmithArchonGauntlets=new CheckBox
+					 {
+						  Content="Plans: Archon Gauntlets",
+						  Height=20,
+						  IsChecked=(Bot.SettingsFunky.PickupBlacksmithPlanArchonGauntlets),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
+					 };
+					 cbBlacksmithArchonGauntlets.Checked+=PickupBlacksmithPlanArchonGauntletsChecked;
+					 cbBlacksmithArchonGauntlets.Unchecked+=PickupBlacksmithPlanArchonGauntletsChecked;
+					 spBlacksmithPlansArchonRazor.Children.Add(cbBlacksmithArchonGauntlets); 
+					 #endregion
+
+					 #region Blacksmith_archon_spaulders
+					 CheckBox cbBlacksmithArchonSpaulders=new CheckBox
+					 {
+						  Content="Plans: Archon Spaulders",
+						  Height=20,
+						  IsChecked=(Bot.SettingsFunky.PickupBlacksmithPlanArchonSpaulders),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
+					 };
+					 cbBlacksmithArchonSpaulders.Checked+=PickupBlacksmithPlanArchonSpauldersChecked;
+					 cbBlacksmithArchonSpaulders.Unchecked+=PickupBlacksmithPlanArchonSpauldersChecked;
+					 spBlacksmithPlansArchonRazor.Children.Add(cbBlacksmithArchonSpaulders); 
+					 #endregion
+
+					 #region Blacksmith_archon_razorspikes
+					 CheckBox cbBlacksmithRazorSpikes=new CheckBox
+					 {
+						  Content="Plans: Razorspikes",
+						  Height=20,
+						  IsChecked=(Bot.SettingsFunky.PickupBlacksmithPlanRazorspikes),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
+					 };
+					 cbBlacksmithRazorSpikes.Checked+=PickupBlacksmithPlanRazorspikesChecked;
+					 cbBlacksmithRazorSpikes.Unchecked+=PickupBlacksmithPlanRazorspikesChecked;
+					 spBlacksmithPlansArchonRazor.Children.Add(cbBlacksmithRazorSpikes); 
+					 #endregion
+
+					 spBlacksmithPlans.Children.Add(spBlacksmithPlansArchonRazor);
+					 spCraftPlans.Children.Add(spBlacksmithPlans);
+
+					 spJewelerPlans=new StackPanel
+					 {
+						  IsEnabled=Bot.SettingsFunky.PickupCraftPlans,
+					 };
+
+					 #region design_flawlessStar
+					 CheckBox cbJewelerFlawlessStar=new CheckBox
+					 {
+						  Content="Design: Flawless Star",
+						  Height=20,
+						  IsChecked=(Bot.SettingsFunky.PickupJewelerDesignFlawlessStar),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
+					 };
+					 cbJewelerFlawlessStar.Checked+=PickupJewelerDesignFlawlessStarChecked;
+					 cbJewelerFlawlessStar.Unchecked+=PickupJewelerDesignFlawlessStarChecked;
+					 spJewelerPlans.Children.Add(cbJewelerFlawlessStar); 
+					 #endregion
+
+					 #region design_perfectstar
+					 CheckBox cbJewelerPerfectStar=new CheckBox
+					 {
+						  Content="Design: Perfect Star",
+						  Height=20,
+						  IsChecked=(Bot.SettingsFunky.PickupJewelerDesignPerfectStar),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
+					 };
+					 cbJewelerPerfectStar.Checked+=PickupJewelerDesignPerfectStarChecked;
+					 cbJewelerPerfectStar.Unchecked+=PickupJewelerDesignPerfectStarChecked;
+					 spJewelerPlans.Children.Add(cbJewelerPerfectStar); 
+					 #endregion
+
+					 #region design_radiantstar
+					 CheckBox cbJewelerRadiantStar=new CheckBox
+					 {
+						  Content="Design: Radiant Star",
+						  Height=20,
+						  IsChecked=(Bot.SettingsFunky.PickupJewelerDesignRadiantStar),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
+					 };
+					 cbJewelerRadiantStar.Checked+=PickupJewelerDesignRadiantStarChecked;
+					 cbJewelerRadiantStar.Unchecked+=PickupJewelerDesignRadiantStarChecked;
+					 spJewelerPlans.Children.Add(cbJewelerRadiantStar); 
+					 #endregion
+
+					 #region design_marquise
+					 CheckBox cbJewelerMarquise=new CheckBox
+					 {
+						  Content="Design: Marquise",
+						  Height=20,
+						  IsChecked=(Bot.SettingsFunky.PickupJewelerDesignMarquise),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
+					 };
+					 cbJewelerMarquise.Checked+=PickupJewelerDesignMarquiseChecked;
+					 cbJewelerMarquise.Unchecked+=PickupJewelerDesignMarquiseChecked;
+					 spJewelerPlans.Children.Add(cbJewelerMarquise); 
+					 #endregion
+
+					 #region design_amulets
+					 CheckBox cbJewelerAmulets=new CheckBox
+					 {
+						  Content="Design: Amulets",
+						  Height=20,
+						  IsChecked=(Bot.SettingsFunky.PickupJewelerDesignAmulet),
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
+					 };
+					 cbJewelerAmulets.Checked+=PickupJewelerDesignAmuletChecked;
+					 cbJewelerAmulets.Unchecked+=PickupJewelerDesignAmuletChecked;
+					 spJewelerPlans.Children.Add(cbJewelerAmulets); 
+					 #endregion
+
+					 spCraftPlans.Children.Add(spJewelerPlans);
+
+					 lbGilesContent.Items.Add(spCraftPlans);
+
+
 					 StackPanel spMiscItemPickupOptions=new StackPanel
 					 {
 						  Orientation=Orientation.Horizontal,
@@ -2899,19 +3105,6 @@ namespace FunkyTrinity
                 cbPickupCraftTomes.Checked += PickupCraftTomesChecked;
                 cbPickupCraftTomes.Unchecked += PickupCraftTomesChecked;
 					 spMiscItemPickupOptions.Children.Add(cbPickupCraftTomes);
-                #endregion
-                #region PickupCraftPlans
-                CheckBox cbPickupCraftPlans = new CheckBox
-                {
-                    Content = "Pickup Craft Plans",
-                    Height = 20,
-                    IsChecked = (Bot.SettingsFunky.PickupCraftPlans),
-						  HorizontalAlignment=System.Windows.HorizontalAlignment.Center,
-						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
-                };
-                cbPickupCraftPlans.Checked += PickupCraftPlansChecked;
-                cbPickupCraftPlans.Unchecked += PickupCraftPlansChecked;
-					 spMiscItemPickupOptions.Children.Add(cbPickupCraftPlans);
                 #endregion
                 #region PickupFollowerItems
                 CheckBox cbPickupFollowerItems = new CheckBox

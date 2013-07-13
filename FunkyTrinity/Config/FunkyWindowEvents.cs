@@ -181,7 +181,13 @@ namespace FunkyTrinity
 					  {
 							try
 							{
-								 MuleBehavior=true;
+								 ZetaDia.Actors.Clear();
+								 ZetaDia.Actors.Update();
+
+								 foreach (var item in ZetaDia.Me.Inventory.Backpack)
+								 {
+									  Logging.Write("{0} -- GamebalanceID: {1}", item.Name, item.GameBalanceId);
+								 }
 
 							} catch (Exception ex)
 							{
@@ -330,7 +336,58 @@ namespace FunkyTrinity
              private void PickupCraftPlansChecked(object sender, EventArgs e)
              {
                  Bot.SettingsFunky.PickupCraftPlans = !Bot.SettingsFunky.PickupCraftPlans;
+					  spBlacksmithPlans.IsEnabled=Bot.SettingsFunky.PickupCraftPlans;
+					  spJewelerPlans.IsEnabled=Bot.SettingsFunky.PickupCraftPlans;
              }
+
+				 private void PickupBlacksmithPlanSixChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.PickupBlacksmithPlanSix=!Bot.SettingsFunky.PickupBlacksmithPlanSix;
+				 }
+				 private void PickupBlacksmithPlanFiveChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.PickupBlacksmithPlanFive=!Bot.SettingsFunky.PickupBlacksmithPlanFive;
+				 }
+				 private void PickupBlacksmithPlanFourChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.PickupBlacksmithPlanFour=!Bot.SettingsFunky.PickupBlacksmithPlanFour;
+				 }
+
+				 private void PickupBlacksmithPlanArchonGauntletsChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.PickupBlacksmithPlanArchonGauntlets=!Bot.SettingsFunky.PickupBlacksmithPlanArchonGauntlets;
+				 }
+				 private void PickupBlacksmithPlanArchonSpauldersChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.PickupBlacksmithPlanArchonSpaulders=!Bot.SettingsFunky.PickupBlacksmithPlanArchonSpaulders;
+				 }
+				 private void PickupBlacksmithPlanRazorspikesChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.PickupBlacksmithPlanRazorspikes=!Bot.SettingsFunky.PickupBlacksmithPlanRazorspikes;
+				 }
+
+				 private void PickupJewelerDesignFlawlessStarChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.PickupJewelerDesignFlawlessStar=!Bot.SettingsFunky.PickupJewelerDesignFlawlessStar;
+				 }
+				 private void PickupJewelerDesignPerfectStarChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.PickupJewelerDesignPerfectStar=!Bot.SettingsFunky.PickupJewelerDesignPerfectStar;
+				 }
+				 private void PickupJewelerDesignRadiantStarChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.PickupJewelerDesignRadiantStar=!Bot.SettingsFunky.PickupJewelerDesignRadiantStar;
+				 }
+				 private void PickupJewelerDesignMarquiseChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.PickupJewelerDesignMarquise=!Bot.SettingsFunky.PickupJewelerDesignMarquise;
+				 }
+				 private void PickupJewelerDesignAmuletChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.PickupJewelerDesignAmulet=!Bot.SettingsFunky.PickupJewelerDesignAmulet;
+				 }
+
+
              private void PickupFollowerItemsChecked(object sender, EventArgs e)
              {
                  Bot.SettingsFunky.PickupFollowerItems = !Bot.SettingsFunky.PickupFollowerItems;

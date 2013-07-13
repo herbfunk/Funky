@@ -1,1 +1,13 @@
-﻿First bot start will occasionally not properly set treehooks. (Found to only occur with YAR)
+﻿PickupBlacksmithPlanSix
+PickupBlacksmithPlanFive
+PickupBlacksmithPlanFour
+
+PickupBlacksmithPlanArchonGauntlets
+PickupBlacksmithPlanArchonSpaulders
+PickupBlacksmithPlanRazorspikes
+
+PickupJewelerDesignFlawlessStar
+PickupJewelerDesignPerfectStar
+PickupJewelerDesignRadiantStar
+PickupJewelerDesignMarquise
+PickupJewelerDesignAmulet

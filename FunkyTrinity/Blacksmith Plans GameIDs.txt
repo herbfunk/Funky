@@ -2,7 +2,7 @@
 Item Plan: Exalted Grand Armplates -- Gamebalance ID: -1051150313
 Item Plan: Exalted Grand Archmage Headpiece -- Gamebalance ID: -93021373
 Item Plan: Exalted Grand Behemoth -- Gamebalance ID: -1660666893
---Conquest Sword--
+Plan: Exalted Grand Conquest Sword -- GamebalanceID: -638006107
 Item Plan: Exalted Grand Crag Hammer -- Gamebalance ID: -1690232948
 Item Plan: Exalted Grand Dread Shield -- Gamebalance ID: -2015049106
 Item Plan: Exalted Grand Doomcaster -- Gamebalance ID: -364008976
@@ -35,23 +35,96 @@ Item Plan: Exalted Grand Unspeakable Thing -- Gamebalance ID: 398631475
 Item Plan: Exalted Grand Zhezl -- Gamebalance ID: -807237752
 
 
+Propeties 5
+Plan: Exalted Fine Mythical Staff -- GamebalanceID: 82340209
+Plan: Exalted Fine Massacre Axe -- GamebalanceID: -1661852815
+Plan: Exalted Fine Impellor -- GamebalanceID: 364927530
+Plan: Exalted Fine Heaven Strand -- GamebalanceID: 2129978459
+Plan: Exalted Fine Golden Talon -- GamebalanceID: -275669101
+Plan: Exalted Fine Galraki -- GamebalanceID: 1108898771
+Plan: Exalted Fine Flesh Ripper -- GamebalanceID: -576445431
+Plan: Exalted Fine Dread Shield -- GamebalanceID: -2015049107
+Plan: Exalted Fine Doomcaster -- GamebalanceID: -364008977
+Plan: Exalted Fine Crag Hammer -- GamebalanceID: -1690232949
+Plan: Exalted Fine Conquest Sword -- GamebalanceID: -638006108
+Plan: Exalted Fine Behemoth -- GamebalanceID: -1660666894
+Plan: Exalted Fine Armplates -- GamebalanceID: -1051150314
+Plan: Exalted Fine Sovereign Vambraces -- GamebalanceID: -1205502140
+Plan: Exalted Fine Sovereign Tassets -- GamebalanceID: 435695962
+Plan: Exalted Fine Sovereign Mail -- GamebalanceID: 543691115
+Plan: Exalted Fine Sovereign Helm -- GamebalanceID: 1288600122
+Plan: Exalted Fine Sovereign Greaves -- GamebalanceID: 1717766203
+Plan: Exalted Fine Slag Hammer -- GamebalanceID: -1689047028
+Plan: Exalted Fine Sagaris -- GamebalanceID: 1110084692
+Plan: Exalted Fine Runic Quiver -- GamebalanceID: 844895417
+Plan: Exalted Fine Piercer -- GamebalanceID: 368302887
+Plan: Exalted Fine Phantom Bow -- GamebalanceID: 623242821
+Plan: Exalted Fine Pallium -- GamebalanceID: 255305005
+Plan: Exalted Fine Orbit Stones -- GamebalanceID: 1134806016
+Plan: Exalted Fine Oni Blade -- GamebalanceID: -636820187
+Plan: Exalted Fine Zhezl -- GamebalanceID: -807237753
+Plan: Exalted Fine Unspeakable Thing -- GamebalanceID: 398631474
+Plan: Exalted Fine Strike Wand -- GamebalanceID: -115137849
 
-Item Plan: Archon Gauntlets of Intelligence -- Gamebalance ID: -1427340245
-Item Plan: Archon Gauntlets of Dexterity -- Gamebalance ID: -1427345983
-Item Plan: Archon Gauntlets of Vitality -- Gamebalance ID: -1427326253
-Item Plan: Archon Gauntlets of Strength -- Gamebalance ID: -1427329159
+Propeties 4
+Plan: Exalted Doomcaster -- GamebalanceID: -364008978
+Plan: Exalted Crag Hammer -- GamebalanceID: -1690232950
+Plan: Exalted Conquest Sword -- GamebalanceID: -638006109
+Plan: Exalted Behemoth -- GamebalanceID: -1660666895
+Plan: Exalted Golden Talon -- GamebalanceID: -275669102
+Plan: Exalted Galraki -- GamebalanceID: 1108898770
+Plan: Exalted Flesh Ripper -- GamebalanceID: -576445432
+Plan: Exalted Dread Shield -- GamebalanceID: -2015049108
+Plan: Exalted Pallium -- GamebalanceID: 255305004
+Plan: Exalted Orbit Stones -- GamebalanceID: 1134806015
+Plan: Exalted Oni Blade -- GamebalanceID: -636820188
+Plan: Exalted Mythical Staff -- GamebalanceID: 82340208
+Plan: Exalted Massacre Axe -- GamebalanceID: -1661852816
+Plan: Exalted Impellor -- GamebalanceID: 364927529
+Plan: Exalted Zhezl -- GamebalanceID: -807237754
+Plan: Exalted Unspeakable Thing -- GamebalanceID: 398631473
+Plan: Exalted Strike Wand -- GamebalanceID: -115137850
+Plan: Exalted Sovereign Mail -- GamebalanceID: 543691114
+Plan: Exalted Sovereign Helm -- GamebalanceID: 1288600121
+Plan: Exalted Slag Hammer -- GamebalanceID: -1689047029
+Plan: Exalted Sagaris -- GamebalanceID: 1110084691
+Plan: Exalted Runic Quiver -- GamebalanceID: 844895416
+Plan: Exalted Piercer -- GamebalanceID: 368302886
+Plan: Exalted Phantom Bow -- GamebalanceID: 623242820
 
-Item Plan: Archon Spaulders of Intelligence -- Gamebalance ID: 1194999700
-Item Plan: Archon Spaulders of Vitality -- Gamebalance ID: 1195013692
-Item Plan: Archon Spaulders of Dexterity -- Gamebalance ID: 1194993962
-Item Plan: Archon Spaulders of Strength -- Gamebalance ID: 1195010786
+
+Legendary:
+Plan: Cataclysm -- GamebalanceID: -412066328
+
+
+Plan: Archon Armor of Dexterity -- GamebalanceID: -1069218648
+Plan: Archon Armor of Intelligence -- GamebalanceID: -1069212910
+Plan: Archon Armor of Strength -- GamebalanceID: -1069201824
+Plan: Archon Armor of Vitality -- GamebalanceID: -1069198918
+
+Plan: Archon Gauntlets of Intelligence -- Gamebalance ID: -1427340245
+Plan: Archon Gauntlets of Dexterity -- Gamebalance ID: -1427345983
+Plan: Archon Gauntlets of Vitality -- Gamebalance ID: -1427326253
+Plan: Archon Gauntlets of Strength -- Gamebalance ID: -1427329159
+
+Plan: Archon Spaulders of Intelligence -- Gamebalance ID: 1194999700
+Plan: Archon Spaulders of Vitality -- Gamebalance ID: 1195013692
+Plan: Archon Spaulders of Dexterity -- Gamebalance ID: 1194993962
+Plan: Archon Spaulders of Strength -- Gamebalance ID: 1195010786
+
+Plan: Razorspikes of Vitality -- GamebalanceID: -1656008187
+Plan: Razorspikes of Strength -- GamebalanceID: -1656011093
+Plan: Razorspikes of Intelligence -- GamebalanceID: -1656022179
+Plan: Razorspikes of Dexterity -- GamebalanceID: -1656027917
+
+
+
+Design: Hellfire Ring -- GamebalanceID: -1792019289
 
 Item Design: Amulet of Vitality -- Gamebalance ID: 2110615435
 Item Design: Amulet of Intelligence -- Gamebalance ID: 2110601443
 Item Design: Amulet of Strength -- Gamebalance ID: 2110612529
 Item Design: Amulet of Dexterity -- Gamebalance ID: 2110595705
-
-
 
 Item Design: Flawless Star Amethyst -- Gamebalance ID: -1171649812
 Item Design: Radiant Star Amethyst -- Gamebalance ID: -1171577936
