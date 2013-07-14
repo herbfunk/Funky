@@ -24,7 +24,7 @@ namespace FunkyTrinity
 					 base.Abilities=new Dictionary<SNOPower, Ability>();
 
 					 //Create the abilities
-					 foreach (var item in base.HotbarAbilities)
+					 foreach (var item in base.HotbarPowers)
 					 {
 						  base.Abilities.Add(item, this.CreateAbility(item));
 					 }
@@ -65,7 +65,7 @@ namespace FunkyTrinity
 				public override Ability DestructibleAbility()
 				{
 					 //Tempest Rush used recently..
-					 if (this.HotbarAbilities.Contains(SNOPower.Monk_TempestRush))
+					 if (this.HotbarPowers.Contains(SNOPower.Monk_TempestRush))
 					 {
 						  //Check if we are still using..
 						  Bot.Character.UpdateAnimationState(false, true);
@@ -101,13 +101,13 @@ namespace FunkyTrinity
 									 return !HasBuff(Power)||Bot.SettingsFunky.Class.bMonkSpamMantra&&Bot.Target.CurrentTarget!=null&&(Bot.Combat.iElitesWithinRange[RANGE_25]>0||Bot.Combat.iAnythingWithinRange[RANGE_20]>=2||(Bot.Combat.iAnythingWithinRange[RANGE_20]>=1&&Bot.SettingsFunky.Class.bMonkInnaSet)||(Bot.Target.CurrentUnitTarget.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=25f)&&
 										  // Check if either we don't have blinding flash, or we do and it's been cast in the last 6000ms
 										  //DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Monk_BlindingFlash]).TotalMilliseconds <= 6000)) &&
-										  (!Bot.Class.HotbarAbilities.Contains(SNOPower.Monk_BlindingFlash)||
-										  (Bot.Class.HotbarAbilities.Contains(SNOPower.Monk_BlindingFlash)&&
+										  (!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)||
+										  (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)&&
 										  ((!Bot.SettingsFunky.Class.bMonkInnaSet&&Bot.Combat.iElitesWithinRange[RANGE_50]==0&&(Bot.Target.CurrentUnitTarget.IsEliteRareUnique&&!Bot.Target.CurrentTarget.IsBoss)||HasBuff(SNOPower.Monk_BlindingFlash))))&&
 										  // Check our mantras, if we have them, are up first
-										  (!Bot.Class.HotbarAbilities.Contains(SNOPower.Monk_MantraOfEvasion)||(Bot.Class.HotbarAbilities.Contains(SNOPower.Monk_MantraOfEvasion)&&HasBuff(SNOPower.Monk_MantraOfEvasion)))&&
-										  (!Bot.Class.HotbarAbilities.Contains(SNOPower.Monk_MantraOfConviction)||(Bot.Class.HotbarAbilities.Contains(SNOPower.Monk_MantraOfConviction)&&HasBuff(SNOPower.Monk_MantraOfConviction)))&&
-										  (!Bot.Class.HotbarAbilities.Contains(SNOPower.Monk_MantraOfRetribution)||(Bot.Class.HotbarAbilities.Contains(SNOPower.Monk_MantraOfRetribution)&&HasBuff(SNOPower.Monk_MantraOfRetribution))));
+										  (!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfEvasion)||(Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfEvasion)&&HasBuff(SNOPower.Monk_MantraOfEvasion)))&&
+										  (!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfConviction)||(Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfConviction)&&HasBuff(SNOPower.Monk_MantraOfConviction)))&&
+										  (!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfRetribution)||(Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfRetribution)&&HasBuff(SNOPower.Monk_MantraOfRetribution))));
 								}),
 						  };
 					 }
@@ -210,15 +210,15 @@ namespace FunkyTrinity
 										  (Bot.Combat.iAnythingWithinRange[RANGE_20]>=5&&Bot.Combat.iElitesWithinRange[RANGE_50]==0)||
 										  (Bot.Combat.iAnythingWithinRange[RANGE_15]>=3&&Bot.Character.dCurrentEnergyPct<=0.5)||
 										  (Bot.Target.CurrentTarget.IsBoss&&Bot.Target.CurrentTarget.RadiusDistance<=15f)||
-										  (Bot.SettingsFunky.Class.bMonkInnaSet&&Bot.Combat.iAnythingWithinRange[RANGE_15]>=1&&this.HotbarAbilities.Contains(SNOPower.Monk_SweepingWind)&&!HasBuff(SNOPower.Monk_SweepingWind))
+										  (Bot.SettingsFunky.Class.bMonkInnaSet&&Bot.Combat.iAnythingWithinRange[RANGE_15]>=1&&this.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)&&!HasBuff(SNOPower.Monk_SweepingWind))
 										  &&
 										  // Check if we don't have breath of heaven
-										  (!this.HotbarAbilities.Contains(SNOPower.Monk_BreathOfHeaven)||
-										  (this.HotbarAbilities.Contains(SNOPower.Monk_BreathOfHeaven)&&(!Bot.SettingsFunky.Class.bMonkInnaSet||
+										  (!this.HotbarPowers.Contains(SNOPower.Monk_BreathOfHeaven)||
+										  (this.HotbarPowers.Contains(SNOPower.Monk_BreathOfHeaven)&&(!Bot.SettingsFunky.Class.bMonkInnaSet||
 										  HasBuff(SNOPower.Monk_BreathOfHeaven))))&&
 										  // Check if either we don't have sweeping winds, or we do and it's ready to cast in a moment
-										  (!this.HotbarAbilities.Contains(SNOPower.Monk_SweepingWind)||
-										  (this.HotbarAbilities.Contains(SNOPower.Monk_SweepingWind)&&(Bot.Character.dCurrentEnergy>=95||
+										  (!this.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)||
+										  (this.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)&&(Bot.Character.dCurrentEnergy>=95||
 										  (Bot.SettingsFunky.Class.bMonkInnaSet&&Bot.Character.dCurrentEnergy>=25)||HasBuff(SNOPower.Monk_SweepingWind)))||
 										  Bot.Character.dCurrentHealthPct<=0.4);
 								}),
@@ -251,13 +251,13 @@ namespace FunkyTrinity
 									 return
 										  // Check if either we don't have blinding flash, or we do and it's been cast in the last 6000ms
 										  //DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Monk_BlindingFlash]).TotalMilliseconds <= 6000)) &&
-										  (!this.HotbarAbilities.Contains(SNOPower.Monk_BlindingFlash)||
-										  (this.HotbarAbilities.Contains(SNOPower.Monk_BlindingFlash)&&
+										  (!this.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)||
+										  (this.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)&&
 										  ((!Bot.SettingsFunky.Class.bMonkInnaSet&&Bot.Combat.iElitesWithinRange[RANGE_50]==0&&Bot.Target.CurrentUnitTarget.IsEliteRareUnique&&!Bot.Target.CurrentTarget.IsBoss)||HasBuff(SNOPower.Monk_BlindingFlash))))&&
 										  // Check our mantras, if we have them, are up first
-										  (!this.HotbarAbilities.Contains(SNOPower.Monk_MantraOfEvasion)||(this.HotbarAbilities.Contains(SNOPower.Monk_MantraOfEvasion)&&HasBuff(SNOPower.Monk_MantraOfEvasion)))&&
-										  (!this.HotbarAbilities.Contains(SNOPower.Monk_MantraOfConviction)||(this.HotbarAbilities.Contains(SNOPower.Monk_MantraOfConviction)&&HasBuff(SNOPower.Monk_MantraOfConviction)))&&
-										  (!this.HotbarAbilities.Contains(SNOPower.Monk_MantraOfRetribution)||(this.HotbarAbilities.Contains(SNOPower.Monk_MantraOfRetribution)&&HasBuff(SNOPower.Monk_MantraOfRetribution)));
+										  (!this.HotbarPowers.Contains(SNOPower.Monk_MantraOfEvasion)||(this.HotbarPowers.Contains(SNOPower.Monk_MantraOfEvasion)&&HasBuff(SNOPower.Monk_MantraOfEvasion)))&&
+										  (!this.HotbarPowers.Contains(SNOPower.Monk_MantraOfConviction)||(this.HotbarPowers.Contains(SNOPower.Monk_MantraOfConviction)&&HasBuff(SNOPower.Monk_MantraOfConviction)))&&
+										  (!this.HotbarPowers.Contains(SNOPower.Monk_MantraOfRetribution)||(this.HotbarPowers.Contains(SNOPower.Monk_MantraOfRetribution)&&HasBuff(SNOPower.Monk_MantraOfRetribution)));
 								}),
 
 						  };
@@ -366,7 +366,7 @@ namespace FunkyTrinity
 								{
 									 return 
 										  // Either doesn't have sweeping wind, or does but the buff is already up
-										  (!this.HotbarAbilities.Contains(SNOPower.Monk_SweepingWind)||(this.HotbarAbilities.Contains(SNOPower.Monk_SweepingWind)&&HasBuff(SNOPower.Monk_SweepingWind)))&&
+										  (!this.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)||(this.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)&&HasBuff(SNOPower.Monk_SweepingWind)))&&
 										  (!Bot.Character.bWaitingForReserveEnergy||Bot.Character.dCurrentEnergy>=this.iWaitingReservedAmount);
 								}),
 

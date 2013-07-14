@@ -131,8 +131,7 @@ namespace FunkyTrinity
 						  }
 
 						  //Check cache for barricades..
-						  if (Funky.ObjectCache.Objects.OfType<CacheGizmo>()
-								.Where(CO => CO.IsBarricade.HasValue&&CO.IsBarricade.Value&&CO.RadiusDistance<=10f).Any())
+						  if (Funky.ObjectCache.Objects.OfType<CacheDestructable>().Any(CO =>CO.RadiusDistance<=10f))
 						  {
 								Logging.Write("[Funky] Found nearby barricade, flagging barricade destruction!");
 								ShouldHandleObstacleObject=true;
@@ -466,16 +465,16 @@ namespace FunkyTrinity
 
 						  bool bTooMuchZChange=((vMyCurrentPosition.Z-vMoveToTarget.Z)>=4f);
 
-						  SNOPower MovementPower;
+						  Ability MovementPower;
 						  if (Bot.Class.FindSpecialMovementPower(out MovementPower))
 						  {
-								double lastUsedAbilityMS=Bot.Class.AbilityLastUseMS(MovementPower);
+								double lastUsedAbilityMS=MovementPower.LastUsedMilliseconds;
 								bool foundMovementPower=false;
 								bool checkShrines=false;
 								float pointDistance=0f;
 								Vector3 vTargetAimPoint=vMoveToTarget;
 
-								switch (MovementPower)
+								switch (MovementPower.Power)
 								{
 									 case SNOPower.Monk_TempestRush:
 										  vTargetAimPoint=MathEx.CalculatePointFrom(vMoveToTarget, vMyCurrentPosition, 10f);
@@ -520,11 +519,11 @@ namespace FunkyTrinity
 								if (foundMovementPower&&(!checkShrines||!ShrinesInArea(vTargetAimPoint)))
 								{
 
-									 if ((MovementPower==SNOPower.Monk_TempestRush&&lastUsedAbilityMS<250)||
+									 if ((MovementPower.Power==SNOPower.Monk_TempestRush&&lastUsedAbilityMS<250)||
 										  GilesCanRayCast(vMyCurrentPosition, vTargetAimPoint))
 									 {
-										  ZetaDia.Me.UsePower(MovementPower, vTargetAimPoint, Funky.Bot.Character.iCurrentWorldID, -1);
-										  Funky.dictAbilityLastUse[MovementPower]=DateTime.Now;
+										  ZetaDia.Me.UsePower(MovementPower.Power, vTargetAimPoint, Funky.Bot.Character.iCurrentWorldID, -1);
+										  MovementPower.LastUsed=DateTime.Now;
 										  return;
 									 }
 								}

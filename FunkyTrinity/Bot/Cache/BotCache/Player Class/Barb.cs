@@ -24,7 +24,7 @@ namespace FunkyTrinity
 					base.Abilities=new Dictionary<SNOPower, Ability>();
 
 					 //Create the abilities
-					 foreach (var item in base.HotbarAbilities)
+					 foreach (var item in base.HotbarPowers)
 					 {
 						  base.Abilities.Add(item, this.CreateAbility(item));
 					 }
@@ -92,6 +92,8 @@ namespace FunkyTrinity
 				public override Ability CreateAbility(SNOPower Power)
 				{
 					 Ability returnAbility=null;
+
+					 #region IgnorePain
 					 // Ignore Pain when low on health
 					 if (Power.Equals(SNOPower.Barbarian_IgnorePain))
 					 {
@@ -103,12 +105,14 @@ namespace FunkyTrinity
 								Cost=0,
 								UseAvoiding=true,
 								UseOOCBuff=false,
+								IsSpecialAbility=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckCanCast),
 								RuneIndex=this.RuneIndexCache[Power],
 								Fcriteria=new Func<bool>(() => { return Bot.Character.dCurrentHealthPct<=0.45; }),
 						  };
-					 }
+					 } 
+					 #endregion
 					 #region Earthquake
 					 // Earthquake, elites close-range only
 					 if (Power.Equals(SNOPower.Barbarian_Earthquake))
@@ -122,6 +126,7 @@ namespace FunkyTrinity
 								Cost=0,
 								UseAvoiding=false,
 								UseOOCBuff=false,
+								IsSpecialAbility=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckExisitingBuff|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
 								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1),
@@ -143,6 +148,7 @@ namespace FunkyTrinity
 								Cost=50,
 								UseAvoiding=true,
 								UseOOCBuff=false,
+								IsSpecialAbility=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckExisitingBuff|AbilityConditions.CheckCanCast),
 								Fcriteria=new Func<bool>(() =>
@@ -192,9 +198,11 @@ namespace FunkyTrinity
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckPlayerIncapacitated),
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return !HasBuff(SNOPower.Barbarian_BattleRage);
-												//||((Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.98&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
-												//(Bot.SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.98));
+									 return !HasBuff(SNOPower.Barbarian_BattleRage)||
+												//Only if we cannot spam sprint..
+												(!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Sprint)&&
+													 ((Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.98&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
+													 (Bot.SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.98)));
 								}),
 
 						  };
@@ -219,7 +227,7 @@ namespace FunkyTrinity
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return (!HasBuff(SNOPower.Barbarian_WarCry)
-												||(Bot.Class.PassiveAbilities.Contains(SNOPower.Barbarian_Passive_InspiringPresence)&&DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Barbarian_WarCry]).TotalSeconds>59
+												||(Bot.Class.PassivePowers.Contains(SNOPower.Barbarian_Passive_InspiringPresence)&&DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Barbarian_WarCry]).TotalSeconds>59
 												||Bot.Character.dCurrentEnergyPct<0.10));
 								}),
 						  };
@@ -247,8 +255,8 @@ namespace FunkyTrinity
 										  (Bot.SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.95)||
 										  ((Bot.Class.AbilityUseTimer(SNOPower.Barbarian_Sprint)&&!HasBuff(SNOPower.Barbarian_Sprint))&&
 										  // Always keep up if we are whirlwinding, or if the target is a goblin
-										  (Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind)||Bot.Target.CurrentTarget.IsTreasureGoblin)))&&
-										  (!Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_BattleRage)||(Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_BattleRage)&&HasBuff(SNOPower.Barbarian_BattleRage))));
+										  (Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind)||Bot.Target.CurrentTarget.IsTreasureGoblin)))&&
+										  (!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage)||(Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage)&&HasBuff(SNOPower.Barbarian_BattleRage))));
 								}),
 
 						  };
@@ -275,7 +283,7 @@ namespace FunkyTrinity
 								{
 									 return (
 										  Bot.Combat.iElitesWithinRange[RANGE_20]>1||(Bot.Target.CurrentTarget.IsBoss&&Bot.Target.CurrentTarget.RadiusDistance<=20)||
-										  (Bot.Combat.iAnythingWithinRange[RANGE_20]>2&&!Bot.Combat.bAnyBossesInRange&&(Bot.Combat.iElitesWithinRange[RANGE_50]==0||Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_SeismicSlam)))||
+										  (Bot.Combat.iAnythingWithinRange[RANGE_20]>2&&!Bot.Combat.bAnyBossesInRange&&(Bot.Combat.iElitesWithinRange[RANGE_50]==0||Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_SeismicSlam)))||
 										  Bot.Character.dCurrentHealthPct<=0.75
 										  );
 								}),
@@ -306,6 +314,28 @@ namespace FunkyTrinity
 						  };
 					 }
 					 #endregion
+					 #region Leap
+					 if (Power.Equals(SNOPower.Barbarian_Leap))
+					 {
+
+						  return new Ability
+						  {
+								Power=Power,
+								RuneIndex=this.RuneIndexCache[Power],
+								AbilityWaitVars=new Tuple<int, int, bool>(2, 2, true),
+								UsageType=AbilityUseType.ClusterLocation|AbilityUseType.Location,
+								Range=35,
+								Priority=AbilityPriority.Low,
+								UseAvoiding=false,
+								UseOOCBuff=false,
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckCanCast),
+								ClusterConditions=new Tuple<double, float, int, bool>(5d, 30, 2, true),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, falseConditionalFlags: TargetProperties.Fast, MinimumRadiusDistance: 30),
+
+						  };
+					 } 
+					 #endregion
+
 					 #region Revenge
 					 // Revenge used off-cooldown
 					 if (Power.Equals(SNOPower.Barbarian_Revenge))
@@ -372,14 +402,16 @@ namespace FunkyTrinity
 								
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return 						  //Only if 2 non-elite targets OR 1 elite target is within 6feet
+									 return 
+										 !this.bWaitingForSpecial&&
+										  //Only if 2 non-elite targets OR 1 elite target is within 6feet
 									  (Bot.Combat.iAnythingWithinRange[RANGE_6]>1||Bot.Combat.iElitesWithinRange[RANGE_6]>0)&&
 										  // Don't use against goblins (they run too quick!) Or any mobs added to the fast list unless elite.                                                                  
 									  (!Bot.Target.CurrentTarget.IsTreasureGoblin&&(!SnoCacheLookup.hashActorSNOFastMobs.Contains(Bot.Target.CurrentTarget.SNOID)||Bot.Target.CurrentUnitTarget.IsEliteRareUnique)||Bot.Combat.iAnythingWithinRange[RANGE_6]>3)&&
 										  //Non-WW users
-									 (!Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind)&&((Bot.Class.AbilityUseTimer(SNOPower.Barbarian_Rend)||(Bot.Combat.iNonRendedTargets_6>2)))
+									 (!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind)&&((Bot.Class.AbilityUseTimer(SNOPower.Barbarian_Rend)||(Bot.Combat.iNonRendedTargets_6>2)))
 										  // This segment is for people who *DO* have whirlwind
-										  ||(Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind)&&
+										  ||(Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind)&&
 										  // See if it's off-cooldown and at least 40 fury, or use as a fury dump
 										  ((Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.92&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
 										  (Bot.SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.92)||
@@ -415,7 +447,7 @@ namespace FunkyTrinity
 									 return Bot.Combat.iAnythingWithinRange[RANGE_6]>=2||(Bot.Character.dCurrentHealthPct<=0.85&&Bot.Target.CurrentTarget.RadiusDistance<=5f)||
 										  (Bot.Combat.iAnythingWithinRange[RANGE_6]>=1&&
 										  ((Bot.Target.CurrentUnitTarget.IsEliteRareUnique)||HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)||
-										  Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_SeismicSlam)));
+										  Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_SeismicSlam)));
 								}),
 						  };
 					 }
@@ -428,18 +460,19 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								RuneIndex=this.RuneIndexCache[Power],
-								UsageType=AbilityUseType.ClusterLocation| AbilityUseType.Location,
+								UsageType=AbilityUseType.ClusterLocation|AbilityUseType.Location,
 								AbilityWaitVars=new Tuple<int, int, bool>(2, 2, true),
 								Cost=this.RuneIndexCache[SNOPower.Barbarian_SeismicSlam]==3?15:30,
 								Range=40,
-								UseAvoiding=true,
+								UseAvoiding=false,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 
 								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
-								ClusterConditions=new Tuple<double, float, int, bool>(6d, 40f, 1, true),
-								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial),
+								ClusterConditions=new Tuple<double, float, int, bool>(this.RuneIndexCache[Power]==4?4d:6d, 40f, 2, true),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, falseConditionalFlags: TargetProperties.TreasureGoblin|TargetProperties.Fast),
 
+								Fcriteria=new Func<bool>(()=>{return !this.bWaitingForSpecial;}),
 								
 						  };
 					 }
@@ -489,14 +522,15 @@ namespace FunkyTrinity
 
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckPlayerIncapacitated),
 								UnitsWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_25,2),
-								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,20),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,20, falseConditionalFlags: TargetProperties.Fast),
 
 								
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return (!Bot.SettingsFunky.Class.bSelectiveWhirlwind||Bot.Combat.bAnyNonWWIgnoreMobsInRange||!SnoCacheLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Target.CurrentTarget.SNOID))&&
+									 return !this.bWaitingForSpecial&&
+										  (!Bot.SettingsFunky.Class.bSelectiveWhirlwind||Bot.Combat.bAnyNonWWIgnoreMobsInRange||!SnoCacheLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Target.CurrentTarget.SNOID))&&
 										  // If they have battle-rage, make sure it's up
-										  (!Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_BattleRage)||(Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_BattleRage)&&HasBuff(SNOPower.Barbarian_BattleRage)));
+										  (!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage)||(Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage)&&HasBuff(SNOPower.Barbarian_BattleRage)));
 								}),
 
 						  };
@@ -512,14 +546,16 @@ namespace FunkyTrinity
 								Power=Power,
 								RuneIndex=this.RuneIndexCache[Power],
 								UsageType=AbilityUseType.ClusterTarget|AbilityUseType.Target,
-								ClusterConditions=new Tuple<double, float, int, bool>(6d, 15f, 1, true),
 								AbilityWaitVars=new Tuple<int, int, bool>(1, 2, true),
 								Cost=20,
-								Range=12,
+								Range=this.RuneIndexCache[Power]==0?13:this.RuneIndexCache[Power]==1?20:16,
 								UseAvoiding=false,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								ClusterConditions=new Tuple<double, float, int, bool>(5d, 15f, 2, true),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,15,falseConditionalFlags: TargetProperties.Fast),
+								Fcriteria=new Func<bool>(() => { return !this.bWaitingForSpecial; }),
 								
 						  };
 					 }
@@ -593,7 +629,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								RuneIndex=this.RuneIndexCache[Power],
-								UsageType=AbilityUseType.Target,
+								UsageType=AbilityUseType.Target|AbilityUseType.ClusterTarget,
 								AbilityWaitVars=new Tuple<int, int, bool>(0, 2, true),
 								Cost=0,
 								Range=10,
@@ -601,7 +637,8 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.None,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
-								
+								ClusterConditions=new Tuple<double,float,int,bool>(4d,10f,2,true),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None),
 						  };
 					 }
 					 #endregion

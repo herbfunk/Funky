@@ -224,14 +224,14 @@ namespace FunkyTrinity
 					 {//Not Critical Avoidance, should we be in total ignorance because of a buff?
 
 						  // Monks with Serenity up ignore all AOE's
-						  if (Class.AC==ActorClass.Monk&&Class.HotbarAbilities.Contains(SNOPower.Monk_Serenity)&&Class.HasBuff(SNOPower.Monk_Serenity))
+						  if (Class.AC==ActorClass.Monk&&Class.HotbarPowers.Contains(SNOPower.Monk_Serenity)&&Class.HasBuff(SNOPower.Monk_Serenity))
 						  {
 								// Monks with serenity are immune
 								return true;
 
 						  }// Witch doctors with spirit walk available and not currently Spirit Walking will subtly ignore ice balls, arcane, desecrator & plague cloud
 						  else if (Class.AC==ActorClass.WitchDoctor
-								&&Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_SpiritWalk)
+								&&Class.HotbarPowers.Contains(SNOPower.Witchdoctor_SpiritWalk)
 								&&(!Class.HasBuff(SNOPower.Witchdoctor_SpiritWalk)&&Class.AbilityUseTimer(SNOPower.Witchdoctor_SpiritWalk))||Class.HasBuff(SNOPower.Witchdoctor_SpiritWalk))
 						  {
 								switch (thisAvoidance)
@@ -243,7 +243,7 @@ namespace FunkyTrinity
 										  return true;
 								}
 						  }
-						  else if (Class.AC==ActorClass.Barbarian&&Class.HotbarAbilities.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))
+						  else if (Class.AC==ActorClass.Barbarian&&Class.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))
 						  {
 								switch (thisAvoidance)
 								{

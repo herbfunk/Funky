@@ -85,7 +85,7 @@ namespace FunkyTrinity
 
 					 //Use modified Test Position for Gold/Globe
 					 if ((TargetType.Globe|TargetType.Gold).HasFlag(this.targetType.Value))
-						  TestPosition=MathEx.CalculatePointFrom(this.Position, Bot.Character.Position, this.CentreDistance-Bot.Character.PickupRadius);
+						  TestPosition=MathEx.CalculatePointFrom(Bot.Character.Position,this.Position,Math.Max(0f,this.CentreDistance-Bot.Character.PickupRadius));
 
 					 if (this.CentreDistance>=2f)
 					 {

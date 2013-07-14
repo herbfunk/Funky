@@ -50,19 +50,22 @@ namespace FunkyTrinity
 				IsSpecial=4096,
 				Ranged=8192,
 				TargetableAndAttackable=16384,
+				Fast=32768,
 		  }
 
 		  //Describes a condition for a single unit
 		  public class UnitTargetConditions
 		  {
-				public UnitTargetConditions(TargetProperties conditionalFlags, int MinimumRadiusDistance=-1, double MinimumHealthPercent=0d)
+				public UnitTargetConditions(TargetProperties trueconditionalFlags, int MinimumRadiusDistance=-1, double MinimumHealthPercent=0d, TargetProperties falseConditionalFlags=TargetProperties.None)
 				{
-					 ConditionFlags=conditionalFlags;
+					 TrueConditionFlags=trueconditionalFlags;
+					 FalseConditionFlags=falseConditionalFlags;
 					 Distance=MinimumRadiusDistance;
 					 HealthPercent=MinimumHealthPercent;
 				}
 
-				public TargetProperties ConditionFlags { get; set; }
+				public TargetProperties TrueConditionFlags { get; set; }
+				public TargetProperties FalseConditionFlags { get; set; }
 				public readonly int Distance;
 				public readonly double HealthPercent;
 		  }
@@ -72,16 +75,17 @@ namespace FunkyTrinity
 
 
 
-		  public struct Range
-		  {
-				public float minimum, maximum;
-				public Range(float min, float max)
-				{
-					 minimum=min;
-					 maximum=max;
-				}
+		  //public struct Range
+		  //{
+		  //    public float minimum, maximum;
+		  //    public Range(float min, float max)
+		  //    {
+		  //        minimum=min;
+		  //        maximum=max;
+		  //    }
+		  //}
 
-		  }
+
 		  ///<summary>
 		  ///Describes how to use the Ability (SNOPower)
 		  ///</summary>
@@ -125,6 +129,7 @@ namespace FunkyTrinity
 				CheckRecastTimer=8,
 				CheckCanCast=16,
 				CheckPlayerIncapacitated=32,
+				CheckPlayerRooted=64,
 		  }
 		  ///<summary>
 		  ///Cached Object that Describes an individual ability.
@@ -146,10 +151,10 @@ namespace FunkyTrinity
 					 Power=SNOPower.None;
 					 Fcriteria=new Func<bool>(() => { return true; });
 					 AbilityWaitVars=new Tuple<int, int, bool>(0, 0, USE_SLOWLY);
-					 Cooldown=new Zeta.Common.Helpers.WaitTimer(new TimeSpan(0, 0, 0, 0, 0));
 					 IsRanged=false;
 					 LastConditionPassed=ConditionCriteraTypes.None;
 					 TestCustomCombatConditionAlways=false;
+					 IsSpecialAbility=false;
 				}
 
 				#region Properties
@@ -164,8 +169,13 @@ namespace FunkyTrinity
 				}
 
 				public int RuneIndex { get; set; }
+
 				public double Cost { get; set; }
 				public bool SecondaryEnergy { get; set; }
+				///<summary>
+				///Ability will trigger WaitingForSpecial if Energy Check fails.
+				///</summary>
+				public bool IsSpecialAbility { get; set; }
 
 				private int range_;
 				public int Range
@@ -183,19 +193,6 @@ namespace FunkyTrinity
 				///</summary>
 				public bool IsRanged { get; set; }
 
-				public Zeta.Common.Helpers.WaitTimer Cooldown { get; set; }
-				private TimeSpan cooldowntimespan_;
-				public TimeSpan CooldownTimeSpan
-				{
-					 get
-					 {
-						  if (cooldowntimespan_==null)
-								cooldowntimespan_=new TimeSpan(0, 0, 0, 0, Bot.Class.AbilityCooldowns[Power]);
-
-						  return cooldowntimespan_;
-					 }
-				}
-
 				public DateTime LastUsed
 				{
 					 get
@@ -206,6 +203,15 @@ namespace FunkyTrinity
 					 {
 						  dictAbilityLastUse[this.power_]=value;
 					 }
+				}
+				public double LastUsedMilliseconds
+				{
+					 get { return DateTime.Now.Subtract(LastUsed).TotalMilliseconds; }
+				}
+
+				public double Cooldown
+				{
+					 get { return Bot.Class.AbilityCooldowns[this.Power]; }
 				}
 
 				///<summary>
@@ -266,31 +272,41 @@ namespace FunkyTrinity
 
 						  Fprecast=null;
 						  if (precastconditions_.HasFlag(AbilityConditions.CheckPlayerIncapacitated))
-						  {
-								Fprecast+=(new Func<bool>(() => { return PlayerIsIncapacitated(); }));
-						  }
+								Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsIncapacitated; }));
+						  
+						  if (precastconditions_.HasFlag(AbilityConditions.CheckPlayerRooted))
+								Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsRooted; }));
+						 
+						  if (precastconditions_.HasFlag(AbilityConditions.CheckCanCast))
+								Fprecast+=(new Func<bool>(() => { return Zeta.CommonBot.PowerManager.CanCast(this.Power); }));
+						  
+						  if (precastconditions_.HasFlag(AbilityConditions.CheckExisitingBuff))
+								Fprecast+=(new Func<bool>(() => { return !Bot.Class.HasBuff(this.Power); }));
+						  
+						  if (precastconditions_.HasFlag(AbilityConditions.CheckPetCount))
+								Fprecast+=(new Func<bool>(() => { return Bot.Class.MainPetCount<this.Counter; }));
+						  
+						  if (precastconditions_.HasFlag(AbilityConditions.CheckRecastTimer))
+								Fprecast+=(new Func<bool>(() => { return this.LastUsedMilliseconds>this.Cooldown; }));
+
 						  if (precastconditions_.HasFlag(AbilityConditions.CheckEnergy))
 						  {
 								if (!this.SecondaryEnergy)
-									 Fprecast+=(new Func<bool>(() => { return AbilityEnergyCheck(this.Cost); }));
+									 Fprecast+=(new Func<bool>(() =>
+									 {
+										  bool energyCheck=Bot.Character.dCurrentEnergy>=this.Cost;
+										  if (this.IsSpecialAbility) //we trigger waiting for special here.
+												Bot.Class.bWaitingForSpecial=!energyCheck;
+										  return energyCheck;
+									 }));
 								else
-									 Fprecast+=(new Func<bool>(() => { return AbilityEnergySecondaryCheck(this.Cost); }));
-						  }
-						  if (precastconditions_.HasFlag(AbilityConditions.CheckCanCast))
-						  {
-								Fprecast+=(new Func<bool>(() => { return CanCastAbility(this.Power); }));
-						  }
-						  if (precastconditions_.HasFlag(AbilityConditions.CheckExisitingBuff))
-						  {
-								Fprecast+=(new Func<bool>(() => { return CheckBuffAbility(this.Power); }));
-						  }
-						  if (precastconditions_.HasFlag(AbilityConditions.CheckPetCount))
-						  {
-								Fprecast+=(new Func<bool>(() => { return CheckPetCounter(this.Counter); }));
-						  }
-						  if (precastconditions_.HasFlag(AbilityConditions.CheckRecastTimer))
-						  {
-								Fprecast+=(new Func<bool>(() => { return CheckRecastTimer(this.Power); }));
+									 Fprecast+=(new Func<bool>(() =>
+									 {
+										  bool energyCheck=Bot.Character.dDiscipline>=this.Cost;
+										  if (this.IsSpecialAbility) //we trigger waiting for special here.
+												Bot.Class.bWaitingForSpecial=!energyCheck;
+										  return energyCheck;
+									 }));
 						  }
 					 }
 				}
@@ -351,47 +367,89 @@ namespace FunkyTrinity
 					 {
 						  TargetUnitConditionFlags_=value;
 
-						  if (value.ConditionFlags.HasFlag(TargetProperties.None))
-								FSingleTargetUnitCriteria+=new Func<bool>(() => { return true; });
-
 
 						  if (TargetUnitConditionFlags_.Distance>-1)
 								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.RadiusDistance<=TargetUnitConditionFlags_.Distance; });
-
 						  if (TargetUnitConditionFlags_.HealthPercent>0d)
 								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value<=TargetUnitConditionFlags_.HealthPercent; });
 
+						  //TRUE CONDITIONS
+						  if (value.TrueConditionFlags.HasFlag(TargetProperties.None))
+								FSingleTargetUnitCriteria+=new Func<bool>(() => { return true; });
+						  else
+						  {
+								if (value.TrueConditionFlags.HasFlag(TargetProperties.Boss))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsBoss; });
+								if (value.TrueConditionFlags.HasFlag(TargetProperties.Burrowing))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsBurrowableUnit; });
+								if (value.TrueConditionFlags.HasFlag(TargetProperties.FullHealth))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value==1d; });
+								if (value.TrueConditionFlags.HasFlag(TargetProperties.IsSpecial))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.ObjectIsSpecial; });
+								if (value.TrueConditionFlags.HasFlag(TargetProperties.LowHealth))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value<0.25d; });
+								if (value.TrueConditionFlags.HasFlag(TargetProperties.MissileDampening))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterMissileDampening; });
+								if (value.TrueConditionFlags.HasFlag(TargetProperties.RareElite))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.IsEliteRareUnique; });
+								if (value.TrueConditionFlags.HasFlag(TargetProperties.Reflecting))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsMissileReflecting; });
+								if (value.TrueConditionFlags.HasFlag(TargetProperties.Shielding))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterShielding; });
+								if (value.TrueConditionFlags.HasFlag(TargetProperties.Stealthable))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsStealthableUnit; });
+								if (value.TrueConditionFlags.HasFlag(TargetProperties.SucideBomber))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsSucideBomber; });
+								if (value.TrueConditionFlags.HasFlag(TargetProperties.TreasureGoblin))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsTreasureGoblin; });
+								if (value.TrueConditionFlags.HasFlag(TargetProperties.Unique))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterUnique; });
+								if (value.TrueConditionFlags.HasFlag(TargetProperties.Ranged))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.Monstersize.Value==Zeta.Internals.SNO.MonsterSize.Ranged; });
+								if (value.TrueConditionFlags.HasFlag(TargetProperties.TargetableAndAttackable))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.IsTargetableAndAttackable; });
+								if (value.TrueConditionFlags.HasFlag(TargetProperties.Fast))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.IsFast; });
+						  }
 
-						  if (value.ConditionFlags.HasFlag(TargetProperties.Boss))
-								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsBoss; });
-						  if (value.ConditionFlags.HasFlag(TargetProperties.Burrowing))
-								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsBurrowableUnit; });
-						  if (value.ConditionFlags.HasFlag(TargetProperties.FullHealth))
-								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value==1d; });
-						  if (value.ConditionFlags.HasFlag(TargetProperties.IsSpecial))
-								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.ObjectIsSpecial; });
-						  if (value.ConditionFlags.HasFlag(TargetProperties.LowHealth))
-								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value<0.25d; });
-						  if (value.ConditionFlags.HasFlag(TargetProperties.MissileDampening))
-								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterMissileDampening; });
-						  if (value.ConditionFlags.HasFlag(TargetProperties.RareElite))
-								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.IsEliteRareUnique; });
-						  if (value.ConditionFlags.HasFlag(TargetProperties.Reflecting))
-								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsMissileReflecting; });
-						  if (value.ConditionFlags.HasFlag(TargetProperties.Shielding))
-								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterShielding; });
-						  if (value.ConditionFlags.HasFlag(TargetProperties.Stealthable))
-								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsStealthableUnit; });
-						  if (value.ConditionFlags.HasFlag(TargetProperties.SucideBomber))
-								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsSucideBomber; });
-						  if (value.ConditionFlags.HasFlag(TargetProperties.TreasureGoblin))
-								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsTreasureGoblin; });
-						  if (value.ConditionFlags.HasFlag(TargetProperties.Unique))
-								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterUnique; });
-						  if(value.ConditionFlags.HasFlag(TargetProperties.Ranged))
-								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.Monstersize.Value==Zeta.Internals.SNO.MonsterSize.Ranged; });
-						  if (value.ConditionFlags.HasFlag(TargetProperties.TargetableAndAttackable))
-								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.IsTargetableAndAttackable; });
+						  //FALSE CONDITIONS
+						  if (value.FalseConditionFlags.HasFlag(TargetProperties.None))
+								FSingleTargetUnitCriteria+=new Func<bool>(() => { return true; });
+						  else
+						  {
+								if (value.FalseConditionFlags.HasFlag(TargetProperties.Boss))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsBoss; });
+								if (value.FalseConditionFlags.HasFlag(TargetProperties.Burrowing))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsBurrowableUnit; });
+								if (value.FalseConditionFlags.HasFlag(TargetProperties.FullHealth))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value!=1d; });
+								if (value.FalseConditionFlags.HasFlag(TargetProperties.IsSpecial))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.ObjectIsSpecial; });
+								if (value.FalseConditionFlags.HasFlag(TargetProperties.LowHealth))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value>0.25d; });
+								if (value.FalseConditionFlags.HasFlag(TargetProperties.MissileDampening))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.MonsterMissileDampening; });
+								if (value.FalseConditionFlags.HasFlag(TargetProperties.RareElite))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.IsEliteRareUnique; });
+								if (value.FalseConditionFlags.HasFlag(TargetProperties.Reflecting))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsMissileReflecting; });
+								if (value.FalseConditionFlags.HasFlag(TargetProperties.Shielding))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.MonsterShielding; });
+								if (value.FalseConditionFlags.HasFlag(TargetProperties.Stealthable))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsStealthableUnit; });
+								if (value.FalseConditionFlags.HasFlag(TargetProperties.SucideBomber))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsSucideBomber; });
+								if (value.FalseConditionFlags.HasFlag(TargetProperties.TreasureGoblin))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsTreasureGoblin; });
+								if (value.FalseConditionFlags.HasFlag(TargetProperties.Unique))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.MonsterUnique; });
+								if (value.FalseConditionFlags.HasFlag(TargetProperties.Ranged))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.Monstersize.Value!=Zeta.Internals.SNO.MonsterSize.Ranged; });
+								if (value.FalseConditionFlags.HasFlag(TargetProperties.TargetableAndAttackable))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.IsTargetableAndAttackable; });
+								if (value.FalseConditionFlags.HasFlag(TargetProperties.Fast))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.IsFast; });
+						  }
 					 }
 				}
 				private UnitTargetConditions TargetUnitConditionFlags_;
@@ -404,9 +462,10 @@ namespace FunkyTrinity
 
 
 				#region Condition Static Methods
-				public static bool PlayerIsIncapacitated()
+				public static bool CheckClusterConditions(Ability A)
 				{
-					 return !Bot.Character.bIsIncapacitated;
+					 return Clusters(A.ClusterConditions.Item1, A.ClusterConditions.Item2, A.ClusterConditions.Item3, A.ClusterConditions.Item4).Count>0;
+
 				}
 				public static bool AbilityEnergyCheck(double Cost)
 				{
@@ -417,27 +476,6 @@ namespace FunkyTrinity
 				{
 					 bool EnergyTest=Bot.Character.dDiscipline>=Cost;
 					 return EnergyTest;
-				}
-				public static bool CanCastAbility(SNOPower P)
-				{
-					 return Zeta.CommonBot.PowerManager.CanCast(P);
-				}
-				public static bool CheckBuffAbility(SNOPower P)
-				{
-					 return !Bot.Class.HasBuff(P);
-				}
-				public static bool CheckPetCounter(int C)
-				{
-					 return Bot.Class.MainPetCount<C;
-				}
-				public static bool CheckRecastTimer(SNOPower P)
-				{
-					 return Bot.Class.AbilityUseTimer(P);
-				}
-				public static bool CheckClusterConditions(Ability A)
-				{
-					 return Clusters(A.ClusterConditions.Item1, A.ClusterConditions.Item2, A.ClusterConditions.Item3, A.ClusterConditions.Item4).Count>0;
-
 				}
 				#endregion
 
@@ -677,7 +715,6 @@ namespace FunkyTrinity
 				{
 					 this.LastUsed=DateTime.Now;
 					 lastGlobalCooldownUse=DateTime.Now;
-					 Cooldown=new Zeta.Common.Helpers.WaitTimer(CooldownTimeSpan);
 				}
 
 				///<summary>
@@ -704,7 +741,7 @@ namespace FunkyTrinity
 								float DistanceFromTarget=Vector3.Distance(Bot.Character.Position, DestinationV);
 								if (this.MinimumRange>DistanceFromTarget)
 								{
-									 float RangeNeeded=(this.MinimumRange-DistanceFromTarget);
+									 float RangeNeeded=Math.Max(0f,(this.MinimumRange-DistanceFromTarget));
 									 return MathEx.GetPointAt(Bot.Character.Position, RangeNeeded, FindDirection(Bot.Character.Position, DestinationV, true));
 								}
 								else

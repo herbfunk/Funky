@@ -1063,7 +1063,7 @@ namespace FunkyTrinity
 					 if (Bot.Class.AC==ActorClass.Barbarian)
 					 {
 						  //Rend DotDPS update
-						  if (Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Rend))
+						  if (Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Rend))
 						  {
 								try
 								{
@@ -1074,7 +1074,7 @@ namespace FunkyTrinity
 					 else if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.WitchDoctor)
 					 {
 						  //Haunted DotDPS update
-						  if (Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_Haunt)||Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_Locust_Swarm))
+						  if (Bot.Class.HotbarPowers.Contains(SNOPower.Witchdoctor_Haunt)||Bot.Class.HotbarPowers.Contains(SNOPower.Witchdoctor_Locust_Swarm))
 						  {
 								Bot.Combat.UsesDOTDPSAbility=true;
 								try
@@ -1263,15 +1263,14 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} \r\n PriorityCounter={6} ReqLOS={7} LOSV3 {8}",
+						  return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} \r\n PriorityCounter={6}",
 								base.DebugString,
 								this.IsBurrowed.HasValue?this.IsBurrowed.Value.ToString():"",
 								this.IsTargetable.HasValue?this.IsTargetable.Value.ToString():"",
 								this.IsAttackable.HasValue?this.IsAttackable.Value.ToString():"",
 								this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value.ToString():"",
 								this.MaximumHealth.HasValue?this.MaximumHealth.Value.ToString():"",
-								this.PriorityCounter.ToString(), this.RequiresLOSCheck.ToString(),
-								this.LOSV3.ToString());
+								this.PriorityCounter.ToString());
 					 }
 				}
 

@@ -439,6 +439,7 @@ namespace FunkyTrinity
 				public bool IsBurrowableUnit { get { return SnoCacheLookup.hashActorSNOBurrowableUnits.Contains(SNOID); } }
 				public bool IsSucideBomber { get { return SnoCacheLookup.hashActorSNOSucideBomberUnits.Contains(SNOID); } }
 				public bool IsGrotesqueActor { get { return SnoCacheLookup.hashActorSNOCorpulent.Contains(SNOID); } }
+				public bool IsFast { get { return SnoCacheLookup.hashActorSNOFastMobs.Contains(SNOID); } }
 				#endregion
 
 				public bool ContainsNullValues()

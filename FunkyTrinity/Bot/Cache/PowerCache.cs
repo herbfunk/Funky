@@ -7,10 +7,10 @@ namespace FunkyTrinity
 {
     public partial class Funky
     {
-		  private static readonly Range No_Range=new Range(0f, 0f);
-		  private static readonly Range Melee_Range=new Range(0f, 10f);
-		  private static readonly Range Melee_NearbyOnly=new Range(0f, 7f);
-		  private static readonly Range Melee_AOE_Range =new Range(0f,16f);
+		  //private static readonly Range No_Range=new Range(0f, 0f);
+		  //private static readonly Range Melee_Range=new Range(0f, 10f);
+		  //private static readonly Range Melee_NearbyOnly=new Range(0f, 7f);
+		  //private static readonly Range Melee_AOE_Range =new Range(0f,16f);
 		  internal static readonly HashSet<int> PowerStackImportant=new HashSet<int>
 				{
 					 (int)SNOPower.Witchdoctor_SoulHarvest,

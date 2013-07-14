@@ -85,7 +85,7 @@ namespace FunkyTrinity
 								double lastLOSCheckMS=this.LastLOSCheckMS;
 								if (lastLOSCheckMS<1250)
 									 return false;
-								else if (lastLOSCheckMS<2500&&!this.ObjectIsSpecial&&this.CentreDistance>10f)
+								else if (lastLOSCheckMS<2500&&this.CentreDistance>20f)
 									 return false;
 
 								NavCellFlags LOSNavFlags=NavCellFlags.None;
@@ -219,7 +219,7 @@ namespace FunkyTrinity
 									 }
 
 									 //We don't cache unless its 40f, so if its out of range we remove it!
-									 if (base.CentreDistance>40f)
+									 if (base.CentreDistance>75f)
 									 {
 										  this.NeedsRemoved=true;
 										  return false;
@@ -253,7 +253,7 @@ namespace FunkyTrinity
 									 if ((this.targetType.Value==TargetType.Barricade||this.IsBarricade.HasValue&&this.IsBarricade.Value)&&
 										  (!PlayerMover.ShouldHandleObstacleObject  //Have special flag from unstucker to destroy nearby barricade.
 										  &&Difference(BarricadeTest.Z, Bot.Character.Position.Z)<15f//Ignore things blocked by z difference
-										  &&!MathEx.IntersectsPath(this.Position, this.Radius, Bot.Character.Position, BarricadeTest)))
+										  &&!MathEx.IntersectsPath(this.Position, this.CollisionRadius.Value, Bot.Character.Position, BarricadeTest)))
 									 {
 										  return false;
 									 }
@@ -478,7 +478,7 @@ namespace FunkyTrinity
 						  this.Weight+=1500d;
 					 Vector3 BotPosition=Bot.Character.Position;
 					 // If there's a monster in the path-line to the item, reduce the weight by 50%
-					 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
+					 if (this.RadiusDistance>0f&&ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 						  this.Weight*=0.5;
 					 // Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
 					 if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
@@ -591,19 +591,15 @@ namespace FunkyTrinity
 					 fRangeRequired=this.ActorSphereRadius.Value;
 
 					 //Increase Range for Ranged Classes
-					 if (!Bot.Class.IsMeleeClass)
-						  fRangeRequired*=3f;
+					 if (!Bot.Class.IsMeleeClass) fRangeRequired*=3f;
 
-					 fDistanceReduction=(this.Radius*0.5f);
+					 //fDistanceReduction=(this.Radius*0.5f);
 
-					 if (Bot.Combat.bForceCloseRangeTarget)
-						  fDistanceReduction-=3f;
+					 if (Bot.Combat.bForceCloseRangeTarget) fDistanceReduction-=3f;
 
-					 if (fDistanceReduction<=0f)
-						  fDistanceReduction=0f;
+					 if (fDistanceReduction<=0f) fDistanceReduction=0f;
 
-					 if (this.RadiusDistance<=2.5f)
-						  fDistanceReduction+=1f;
+					 if (this.RadiusDistance<=2.5f) fDistanceReduction+=1f;
 
 					 base.DistanceFromTarget=Vector3.Distance(Bot.Character.Position, this.Position)-fDistanceReduction;
 

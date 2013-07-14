@@ -57,7 +57,7 @@ namespace FunkyTrinity
 					 base.Abilities=new Dictionary<SNOPower, Ability>();
 
 					 //Create the abilities
-					 foreach (var item in base.HotbarAbilities)
+					 foreach (var item in base.HotbarPowers)
 					 {
 						  base.Abilities.Add(item, this.CreateAbility(item));
 					 }
@@ -472,7 +472,7 @@ namespace FunkyTrinity
 
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return ((!Bot.Class.HotbarAbilities.Contains(SNOPower.DemonHunter_ClusterArrow))||
+									 return ((!Bot.Class.HotbarPowers.Contains(SNOPower.DemonHunter_ClusterArrow))||
 												DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.DemonHunter_Chakram]).TotalMilliseconds>=110000);
 								}),
 						  };

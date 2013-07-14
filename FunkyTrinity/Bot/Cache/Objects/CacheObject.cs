@@ -513,7 +513,7 @@ namespace FunkyTrinity
 				///</summary>
 				public virtual bool WithinInteractionRange()
 				{
-					 this.DistanceFromTarget=Bot.Character.Position.Distance2D(this.Position);
+					 this.DistanceFromTarget=Bot.Character.Position.Distance(this.Position);
 					 return (this.Radius<=0f||this.DistanceFromTarget<=this.Radius);
 				}
 				///<summary>
@@ -574,8 +574,10 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  return String.Format("RAGUID {0}: \r\n {1} Distance (Centre{2} / Radius{3}) BotFacing={4} \r\n BlackListLoops[{5}]",
-								this.RAGUID.ToString(), base.DebugString, this.CentreDistance.ToString(), this.RadiusDistance.ToString(), this.BotIsFacing().ToString(), this.BlacklistLoops.ToString());
+						  return String.Format("RAGUID {0}: \r\n {1} Distance (Centre{2} / Radius{3}) \r\n ReqLOS={4} [LOSV3: {5}] BotFacing={6} \r\n BlackListLoops[{7}]",
+								this.RAGUID.ToString(), base.DebugString, this.CentreDistance.ToString(), this.RadiusDistance.ToString(),
+								this.RequiresLOSCheck.ToString(), this.LOSV3.ToString(),
+								this.BotIsFacing().ToString(), this.BlacklistLoops.ToString());
 					 }
 				}
 

@@ -176,7 +176,8 @@ namespace FunkyTrinity
 									 return true;
 								}
 
-								if (CurrentTarget!=null&&CurrentTarget.targetType.HasValue&&TargetType.ServerObjects.HasFlag(CurrentTarget.targetType.Value))
+								if (CurrentTarget!=null&&CurrentTarget.targetType.HasValue&&TargetType.ServerObjects.HasFlag(CurrentTarget.targetType.Value)
+									 &&(GridPointAreaCache.CurrentGPAREA==null||!GridPointAreaCache.CurrentGPAREA.AllGPRectsFailed))
 									 LOS=CurrentTarget.Position;
 								else
 									 LOS=vNullLocation;
@@ -243,7 +244,7 @@ namespace FunkyTrinity
 						  }
 
 						  // Finally, a special check for waiting for wrath of the berserker cooldown before engaging Azmodan
-						  if (Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&Bot.SettingsFunky.Class.bWaitForWrath&&!Bot.Class.AbilityUseTimer(SNOPower.Barbarian_WrathOfTheBerserker)&&
+						  if (Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&Bot.SettingsFunky.Class.bWaitForWrath&&!Bot.Class.AbilityUseTimer(SNOPower.Barbarian_WrathOfTheBerserker)&&
 								ZetaDia.CurrentWorldId==121214&&
 								(Vector3.Distance(Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						  {
@@ -252,7 +253,7 @@ namespace FunkyTrinity
 								return true;
 						  }
 						  // And a special check for wizard archon
-						  if (Bot.Class.HotbarAbilities.Contains(SNOPower.Wizard_Archon)&&!Bot.Class.AbilityUseTimer(SNOPower.Wizard_Archon)&&Bot.SettingsFunky.Class.bWaitForArchon&&ZetaDia.CurrentWorldId==121214&&
+						  if (Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_Archon)&&!Bot.Class.AbilityUseTimer(SNOPower.Wizard_Archon)&&Bot.SettingsFunky.Class.bWaitForArchon&&ZetaDia.CurrentWorldId==121214&&
 								(Vector3.Distance(Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						  {
 								Logging.Write("[Funky] Waiting for Wizard Archon cooldown before continuing to Azmodan.");
@@ -260,7 +261,7 @@ namespace FunkyTrinity
 								return true;
 						  }
 						  // And a very sexy special check for WD BigBadVoodoo
-						  if (Bot.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_BigBadVoodoo)&&!PowerManager.CanCast(SNOPower.Witchdoctor_BigBadVoodoo)&&ZetaDia.CurrentWorldId==121214&&
+						  if (Bot.Class.HotbarPowers.Contains(SNOPower.Witchdoctor_BigBadVoodoo)&&!PowerManager.CanCast(SNOPower.Witchdoctor_BigBadVoodoo)&&ZetaDia.CurrentWorldId==121214&&
 								(Vector3.Distance(Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						  {
 								Logging.Write("[Funky] Waiting for WD BigBadVoodoo cooldown before continuing to Azmodan.");
@@ -363,8 +364,10 @@ namespace FunkyTrinity
 									 //Check if we are already within interaction range.
 									 if (!thisobj.WithinInteractionRange())
 									 {
+										  Vector3 destinationV3=nextAbility.DestinationVector;
 										  //Check if the estimated destination will also be inside avoidance zone..
-										  if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(nextAbility.DestinationVector))
+										  if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(destinationV3)
+												||ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(destinationV3))
 										  {
 												//Only wait if the object is special and we are not avoiding..
 												if (thisobj.ObjectIsSpecial)
@@ -375,8 +378,8 @@ namespace FunkyTrinity
 														  resetTarget=true;
 													 }
 													 else if(!nextAbility.IsRanged&&nextAbility.Range>0)
-													 {//Non-Ranged Ability.. act like melee..
-
+													 {
+														  //Non-Ranged Ability.. act like melee..
 														  //Try to find a spot
 														  ObjectCache.Objects.objectsIgnoredDueToAvoidance.Add(thisobj);
 													 }
@@ -399,15 +402,13 @@ namespace FunkyTrinity
 												CurrentTarget=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
 										  else
 										  {
-												//Wait if no valid target found yet..
-												if (iHighestWeightFound==0)
+												//Wait if no valid target found yet.. and no avoidance movement required.
+												if (iHighestWeightFound==0&&!Bot.Combat.RequiresAvoidance)
 													 Bot.Combat.bStayPutDuringAvoidance=true;
 
 												resetTarget=true;
 										  }
 									 }
-									 else
-										  resetTarget=true;
 								}
 
 								if (resetTarget)

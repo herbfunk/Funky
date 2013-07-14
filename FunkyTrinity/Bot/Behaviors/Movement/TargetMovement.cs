@@ -144,8 +144,10 @@ namespace FunkyTrinity
 
 										  if (obj.targetType.Value==TargetType.Avoidance)
 										  {//Avoidance Movement..
+												Bot.Combat.timeCancelledKiteMove=DateTime.Now;
+												Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
 												GridPointAreaCache.BlacklistLastSafespot();
-												Bot.UpdateAvoidKiteRates(true);
+												Bot.UpdateAvoidKiteRates();
 												Bot.Combat.bForceTargetUpdate=true;
 												return RunStatus.Running;
 										  }
@@ -231,13 +233,6 @@ namespace FunkyTrinity
 					 // Update the last distance stored
 					 LastDistanceFromTarget=obj.DistanceFromTarget;
 
-					 //if (BlockedMovementCounter<2)
-					 //{
-					 //    float obstacleDistanceCheck=obj.CentreDistance>20f?20f:obj.RadiusDistance;
-					 //    //Prioritize blocking objects
-					 //    ObstacleCheck(CurrentTargetLocation, obstacleDistanceCheck);
-					 //}
-
 					 // See if we want to ACTUALLY move, or are just waiting for the last move command...
 					 if (!bForceNewMovement&&IsAlreadyMoving&&CurrentTargetLocation==LastTargetLocation&&DateTime.Now.Subtract(LastMovementCommand).TotalMilliseconds<=100)
 					 {
@@ -253,15 +248,16 @@ namespace FunkyTrinity
 
 						  bool bTooMuchZChange=((Bot.Character.Position.Z-CurrentTargetLocation.Z)>=4f);
 
-						  SNOPower MovementPower;
+						  Ability MovementPower;
 						  if (Bot.Class.FindSpecialMovementPower(out MovementPower))
 						  {
-								double lastUsedAbilityMS=DateTime.Now.Subtract(Funky.dictAbilityLastUse[MovementPower]).TotalMilliseconds;
+								double lastUsedAbilityMS=MovementPower.LastUsedMilliseconds;
 								bool foundMovementPower=false;
 								float pointDistance=0f;
 								Vector3 vTargetAimPoint=CurrentTargetLocation;
+								bool ignoreLOSTest=false;
 
-								switch (MovementPower)
+								switch (MovementPower.Power)
 								{
 									 case SNOPower.Monk_TempestRush:
 										  vTargetAimPoint=MathEx.CalculatePointFrom(CurrentTargetLocation, Bot.Character.Position, 10f);
@@ -279,21 +275,34 @@ namespace FunkyTrinity
 												vTargetAimPoint=MathEx.CalculatePointFrom(CurrentTargetLocation, Bot.Character.Position, pointDistance);
 										  break;
 									 case SNOPower.Barbarian_FuriousCharge:
-									 case SNOPower.Barbarian_Leap:
-									 case SNOPower.Wizard_Archon_Teleport:
-									 case SNOPower.Wizard_Teleport:
-										  foundMovementPower=(obj.targetType.Value!=TargetType.Destructible&&!bTooMuchZChange&&currentDistance>20f);
+										  foundMovementPower=(obj.targetType.Value!=TargetType.Destructible&&!bTooMuchZChange
+																	 &&(currentDistance>20f||obj.targetType.Value.HasFlag(TargetType.Avoidance)&&(NonMovementCounter>0||BlockedMovementCounter>0)));
+
 										  pointDistance=35f;
 										  if (currentDistance>pointDistance)
 												vTargetAimPoint=MathEx.CalculatePointFrom(CurrentTargetLocation, Bot.Character.Position, pointDistance);
 
 										  break;
+									 case SNOPower.Barbarian_Leap:
+									 case SNOPower.Wizard_Archon_Teleport:
+									 case SNOPower.Wizard_Teleport:
+										  foundMovementPower=(obj.targetType.Value!=TargetType.Destructible&&!bTooMuchZChange
+																	 &&(currentDistance>20f||obj.targetType.Value.HasFlag(TargetType.Avoidance)&&(NonMovementCounter>0||BlockedMovementCounter>0)));
+
+										  pointDistance=35f;
+										  if (currentDistance>pointDistance)
+												vTargetAimPoint=MathEx.CalculatePointFrom(CurrentTargetLocation, Bot.Character.Position, pointDistance);
+
+										  //Teleport and Leap ignores raycast testing below!
+										  ignoreLOSTest=true;
+										  break;
 									 case SNOPower.Barbarian_Whirlwind:
 										  break;
 									 default:
 										  Bot.Character.WaitWhileAnimating(3, true);
-										  ZetaDia.Me.UsePower(MovementPower, CurrentTargetLocation, Bot.Character.iCurrentWorldID, -1);
-										  dictAbilityLastUse[MovementPower]=DateTime.Now;
+
+										  ZetaDia.Me.UsePower(MovementPower.Power, CurrentTargetLocation, Bot.Character.iCurrentWorldID, -1);
+										  MovementPower.LastUsed=DateTime.Now;
 
 										  Bot.Character.WaitWhileAnimating(6, true);
 										  // Store the current destination for comparison incase of changes next loop
@@ -307,11 +316,11 @@ namespace FunkyTrinity
 								if (foundMovementPower)
 								{
 
-									 if ((MovementPower==SNOPower.Monk_TempestRush&&lastUsedAbilityMS>500)||
-									  ZetaDia.Physics.Raycast(Bot.Character.Position, vTargetAimPoint, NavCellFlags.AllowWalk))
+									 if ((MovementPower.Power==SNOPower.Monk_TempestRush&&lastUsedAbilityMS>500)||
+										  (ignoreLOSTest||ZetaDia.Physics.Raycast(Bot.Character.Position, vTargetAimPoint, NavCellFlags.AllowWalk)))
 									 {
-										  ZetaDia.Me.UsePower(MovementPower, vTargetAimPoint, Funky.Bot.Character.iCurrentWorldID, -1);
-										  Funky.dictAbilityLastUse[MovementPower]=DateTime.Now;
+										  ZetaDia.Me.UsePower(MovementPower.Power, vTargetAimPoint, Funky.Bot.Character.iCurrentWorldID, -1);
+										  MovementPower.LastUsed=DateTime.Now;
 
 										  // Store the current destination for comparison incase of changes next loop
 										  LastTargetLocation=CurrentTargetLocation;
@@ -325,13 +334,13 @@ namespace FunkyTrinity
 						  }
 
 						  //Special Whirlwind Code
-						  if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Barbarian&&Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Whirlwind))
+						  if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Barbarian&&Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind))
 						  {
 								// Whirlwind against everything within range (except backtrack points)
 								if (Bot.Character.dCurrentEnergy>=10
 									 &&Bot.Combat.iAnythingWithinRange[RANGE_20]>=1
 									 &&obj.DistanceFromTarget<=12f
-									 &&(!Bot.Class.HotbarAbilities.Contains(SNOPower.Barbarian_Sprint)||Bot.Class.HasBuff(SNOPower.Barbarian_Sprint))
+									 &&(!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Sprint)||Bot.Class.HasBuff(SNOPower.Barbarian_Sprint))
 									 &&(!(TargetType.Avoidance|TargetType.Gold|TargetType.Globe).HasFlag(obj.targetType.Value)&obj.DistanceFromTarget>=6f)
 									 &&(obj.targetType.Value!=TargetType.Unit
 									 ||(obj.targetType.Value==TargetType.Unit&&!obj.IsTreasureGoblin

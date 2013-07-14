@@ -18,15 +18,15 @@ namespace FunkyTrinity
 					 : base(a)
 				{
 					 this.RecreateAbilities();
-					 HasSignatureAbility=(this.HotbarAbilities.Contains(SNOPower.Wizard_MagicMissile)||this.HotbarAbilities.Contains(SNOPower.Wizard_ShockPulse)||
-									this.HotbarAbilities.Contains(SNOPower.Wizard_SpectralBlade)||this.HotbarAbilities.Contains(SNOPower.Wizard_Electrocute));
+					 HasSignatureAbility=(this.HotbarPowers.Contains(SNOPower.Wizard_MagicMissile)||this.HotbarPowers.Contains(SNOPower.Wizard_ShockPulse)||
+									this.HotbarPowers.Contains(SNOPower.Wizard_SpectralBlade)||this.HotbarPowers.Contains(SNOPower.Wizard_Electrocute));
 				}
 				public override void RecreateAbilities()
 				{
 					 base.Abilities=new Dictionary<SNOPower, Ability>();
 
 					 //Create the abilities
-					 foreach (var item in base.HotbarAbilities)
+					 foreach (var item in base.HotbarPowers)
 					 {
 						  base.Abilities.Add(item, this.CreateAbility(item));
 					 }
@@ -64,7 +64,7 @@ namespace FunkyTrinity
 
 				private bool MissingBuffs()
 				{
-					 HashSet<SNOPower> abilities_=HasBuff(SNOPower.Wizard_Archon)?base.CachedAbilities:base.HotbarAbilities;
+					 HashSet<SNOPower> abilities_=HasBuff(SNOPower.Wizard_Archon)?base.CachedPowers:base.HotbarPowers;
 
 					 if ((abilities_.Contains(SNOPower.Wizard_EnergyArmor)&&!HasBuff(SNOPower.Wizard_EnergyArmor))||(abilities_.Contains(SNOPower.Wizard_IceArmor)&&!HasBuff(SNOPower.Wizard_IceArmor))||(abilities_.Contains(SNOPower.Wizard_StormArmor)&&!HasBuff(SNOPower.Wizard_StormArmor)))
 						  return true;
@@ -118,6 +118,7 @@ namespace FunkyTrinity
 								Cost=25,
 								UseAvoiding=false,
 								UseOOCBuff=false,
+								IsSpecialAbility=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckCanCast|AbilityConditions.CheckEnergy),
 								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1),
@@ -179,7 +180,7 @@ namespace FunkyTrinity
 								{
 									 return (!HasSignatureAbility||this.GetBuffStacks(SNOPower.Wizard_EnergyTwister)<1)&&
 												(Bot.Combat.iElitesWithinRange[RANGE_30]>=1||Bot.Combat.iAnythingWithinRange[RANGE_25]>=1||Bot.Target.CurrentTarget.RadiusDistance<=12f)&&
-												(!Bot.Class.HotbarAbilities.Contains(SNOPower.Wizard_Electrocute)||!SnoCacheLookup.hashActorSNOFastMobs.Contains(Bot.Target.CurrentTarget.SNOID))&&
+												(!Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_Electrocute)||!SnoCacheLookup.hashActorSNOFastMobs.Contains(Bot.Target.CurrentTarget.SNOID))&&
 												((base.bUsingCriticalMassPassive&&(!HasSignatureAbility||Bot.Character.dCurrentEnergy>=35))||(!base.bUsingCriticalMassPassive&&Bot.Character.dCurrentEnergy>=35));
 								}),
 						  };
@@ -202,6 +203,7 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckEnergy),
+								Fcriteria=new Func<bool>(() => { return !this.bWaitingForSpecial; }),
 								
 						  };
 					 }
@@ -225,7 +227,8 @@ namespace FunkyTrinity
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy),
 								ClusterConditions=new Tuple<double, float, int, bool>(5d, base.bUsingCriticalMassPassive?20:40, 1, true),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial),
-
+								Fcriteria=new Func<bool>(() => { return !this.bWaitingForSpecial; }),
+								
 								
 						  };
 					 }
@@ -248,7 +251,8 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckEnergy|AbilityConditions.CheckRecastTimer),
-							
+								Fcriteria=new Func<bool>(() => { return !this.bWaitingForSpecial; }),
+								
 						  };
 					 }
 					 #endregion
@@ -314,7 +318,7 @@ namespace FunkyTrinity
 								{
 									 return
 										  // Check this isn't a critical mass wizard, cos they won't want to use this except for low health unless they don't have nova/blast in which case go for it
-										  ((base.bUsingCriticalMassPassive&&((!Bot.Class.HotbarAbilities.Contains(SNOPower.Wizard_FrostNova)&&!Bot.Class.HotbarAbilities.Contains(SNOPower.Wizard_ExplosiveBlast))||
+										  ((base.bUsingCriticalMassPassive&&((!Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_FrostNova)&&!Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_ExplosiveBlast))||
 										  (Bot.Character.dCurrentHealthPct<=0.7&&(Bot.Combat.iElitesWithinRange[RANGE_15]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>0||(Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=23f)))))
 										  // Else normal wizard in which case check standard stuff
 										  ||(!base.bUsingCriticalMassPassive&&Bot.Combat.iElitesWithinRange[RANGE_15]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>3||Bot.Character.dCurrentHealthPct<=0.7||(Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=23f)));
@@ -340,8 +344,9 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckEnergy|AbilityConditions.CheckRecastTimer),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial),
-								ClusterConditions=new Tuple<double, float, int, bool>(5d, 50f, 1, true),
-
+								ClusterConditions=new Tuple<double, float, int, bool>(5d, 50f, 2, true),
+								Fcriteria=new Func<bool>(() => { return !this.bWaitingForSpecial; }),
+								
 								
 						  };
 					 }
@@ -363,8 +368,9 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckEnergy|AbilityConditions.CheckRecastTimer),
-								ClusterConditions=new Tuple<double, float, int, bool>(4d, 50f, 1, true),
-								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial),
+								ClusterConditions=new Tuple<double, float, int, bool>(4d, 50f, 2, true),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, falseConditionalFlags:TargetProperties.Fast),
+								Fcriteria=new Func<bool>(() => { return !this.bWaitingForSpecial; }),
 								
 						  };
 					 }
@@ -387,8 +393,8 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckEnergy|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckPetCount),
-								ClusterConditions=new Tuple<double, float, int, bool>(7d, 50f, 1, true),
-								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial),
+								ClusterConditions=new Tuple<double, float, int, bool>(7d, 50f, 2, true),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, falseConditionalFlags: TargetProperties.Fast),
 								
 						  };
 					 }

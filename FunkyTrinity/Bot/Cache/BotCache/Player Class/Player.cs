@@ -114,9 +114,9 @@ namespace FunkyTrinity
 					 }
 				}
 
-				internal HashSet<SNOPower> PassiveAbilities=new HashSet<SNOPower>();
-				internal HashSet<SNOPower> HotbarAbilities=new HashSet<SNOPower>();
-				internal HashSet<SNOPower> CachedAbilities=new HashSet<SNOPower>();
+				internal HashSet<SNOPower> PassivePowers=new HashSet<SNOPower>();
+				internal HashSet<SNOPower> HotbarPowers=new HashSet<SNOPower>();
+				internal HashSet<SNOPower> CachedPowers=new HashSet<SNOPower>();
 
 				private bool UsingSecondaryHotbarAbilities=false;
 				internal Dictionary<SNOPower, int> RuneIndexCache=new Dictionary<SNOPower, int>();
@@ -126,29 +126,18 @@ namespace FunkyTrinity
 				internal Dictionary<SNOPower, Ability> Abilities=new Dictionary<SNOPower, Ability>();
 				internal List<Ability> SortedAbilities=new List<Ability>();
 
-				private bool specialMovementUseCheck(SNOPower P)
-				{
-					 int repeatTimer=dictAbilityRepeatDelay[P];
-					 double LastUsedMiliseconds=DateTime.Now.Subtract(dictAbilityLastUse[P]).TotalMilliseconds;
-
-					 //Tempest Rush does not need to be checked if currently being used.
-					 if (P==SNOPower.Monk_TempestRush&&LastUsedMiliseconds<250)
-						  return true;
-
-					 return (LastUsedMiliseconds>=repeatTimer&&
-						  PowerManager.CanCast(P));
-				}
 				///<summary>
 				///Returns a power for special movement if any are currently present in the hotbar abilities. None will return SnoPower.None.
 				///</summary>
-				internal bool FindSpecialMovementPower(out SNOPower Power)
+				internal bool FindSpecialMovementPower(out Ability MovementAbility)
 				{
-					 Power=SNOPower.None;
-					 foreach (var item in HotbarAbilities.Where(A => SpecialMovementAbilities.Contains(A)))
+					 MovementAbility=null;
+					 foreach (var item in this.Abilities.Keys.Where(A => SpecialMovementAbilities.Contains(A)))
 					 {
-						  if (specialMovementUseCheck(item))
+
+						  if (this.Abilities[item].CheckPreCastConditionMethod())
 						  {
-								Power=item;
+								MovementAbility=this.Abilities[item];
 								return true;
 						  }
 					 }
@@ -176,18 +165,15 @@ namespace FunkyTrinity
 					 if (AC==ActorClass.Wizard)
 					 {
 						  bool ArchonBuffPresent=this.HasBuff(SNOPower.Wizard_Archon);
+
+						  //Confirm we don't have archon ability without archon buff.
 						  bool RefreshNeeded=((!ArchonBuffPresent&&Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast))
 													 ||(ArchonBuffPresent&&!Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast)));
-
-						  //if (ArchonBuffPresent&&!UsingSecondaryHotbarAbilities)
-						  //    RefreshNeeded=true;
-						  //else if (!ArchonBuffPresent&&UsingSecondaryHotbarAbilities)
-						  //    RefreshNeeded=true;
 
 						  if (RefreshNeeded)
 						  {
 								Logging.WriteVerbose("Updating Hotbar abilities!");
-								CachedAbilities=new HashSet<SNOPower>(HotbarAbilities);
+								CachedPowers=new HashSet<SNOPower>(HotbarPowers);
 								RefreshHotbar(ArchonBuffPresent);
 								UpdateRepeatAbilityTimes();
 								RecreateAbilities();
@@ -205,7 +191,7 @@ namespace FunkyTrinity
 				internal void RefreshHotbar(bool Secondary=false)
 				{
 					 UsingSecondaryHotbarAbilities=Secondary;
-					 HotbarAbilities=new HashSet<SNOPower>();
+					 HotbarPowers=new HashSet<SNOPower>();
 					 destructibleabilities=new List<SNOPower>();
 					 RuneIndexCache=new Dictionary<SNOPower, int>();
 
@@ -220,8 +206,8 @@ namespace FunkyTrinity
 									 //"None" -- Occuring during Wizard Archon (Exceptions)
 									 if (ability.Equals(SNOPower.None)) continue;
 
-									 if (!this.HotbarAbilities.Contains(ability))
-										  this.HotbarAbilities.Add(ability);
+									 if (!this.HotbarPowers.Contains(ability))
+										  this.HotbarPowers.Add(ability);
 
 									 //Check if the SNOPower is a destructible ability
 									 if (AbilitiesDestructiblePriority.Contains(ability))
@@ -239,7 +225,7 @@ namespace FunkyTrinity
 
 									 SNOPower hotbarPower=ZetaDia.CPlayer.GetPowerForSlot(item);
 
-									 if (!this.HotbarAbilities.Contains(hotbarPower)) continue;
+									 if (!this.HotbarPowers.Contains(hotbarPower)) continue;
 
 									 try
 									 {
@@ -271,7 +257,7 @@ namespace FunkyTrinity
 						  {
 								foreach (var item in ZetaDia.CPlayer.PassiveSkills)
 								{
-									 PassiveAbilities.Add(item);
+									 PassivePowers.Add(item);
 								}
 						  }
 					 }
@@ -284,12 +270,12 @@ namespace FunkyTrinity
 				internal void UpdateRepeatAbilityTimes()
 				{
 					 AbilityCooldowns=new Dictionary<SNOPower, int>();
-					 foreach (var item in HotbarAbilities)
+					 foreach (var item in HotbarPowers)
 					 {
 						  if (dictAbilityRepeatDefaults.ContainsKey(item))
 								AbilityCooldowns.Add(item, dictAbilityRepeatDefaults[item]);
 					 }
-					 foreach (var item in PassiveAbilities)
+					 foreach (var item in PassivePowers)
 					 {
 						  if (PassiveAbiltiesReduceRepeatTime.Contains(item))
 						  {
@@ -411,9 +397,9 @@ namespace FunkyTrinity
 				{
 
 
-						  Logging.Write("Character Information\r\nRadius {0}\r\nHotBar Abilities [{1}]\r\n", Bot.Character.fCharacterRadius, this.HotbarAbilities.Count);
+						  Logging.Write("Character Information\r\nRadius {0}\r\nHotBar Abilities [{1}]\r\n", Bot.Character.fCharacterRadius, this.HotbarPowers.Count);
 
-						  foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.HotbarAbilities)
+						  foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.HotbarPowers)
 						  {
 								Logging.Write("{0} with current rune index {1}", item.ToString(), Bot.Class.RuneIndexCache.ContainsKey(item)?Bot.Class.RuneIndexCache[item].ToString():"none");
 						  }

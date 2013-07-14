@@ -24,7 +24,7 @@ namespace FunkyTrinity
 					 base.Abilities=new Dictionary<SNOPower, Ability>();
 
 					 //Create the abilities
-					 foreach (var item in base.HotbarAbilities)
+					 foreach (var item in base.HotbarPowers)
 					 {
 						  base.Abilities.Add(item, this.CreateAbility(item));
 					 }
@@ -111,7 +111,7 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.None,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated| AbilityConditions.CheckCanCast),
 								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1),
-								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,15),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 15),
 
 								RuneIndex=this.RuneIndexCache[Power],
 						  };
@@ -158,7 +158,7 @@ namespace FunkyTrinity
 								RuneIndex=this.RuneIndexCache[Power],
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return Bot.Character.PetData.ZombieDogs<(this.PassiveAbilities.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler)?4:3);
+									 return Bot.Character.PetData.ZombieDogs<(this.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler)?4:3);
 								}),
 						  };
 					 }

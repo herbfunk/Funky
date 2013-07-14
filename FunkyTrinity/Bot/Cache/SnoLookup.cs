@@ -102,7 +102,7 @@ namespace FunkyTrinity
          }; 
 		  // Destructible things that need targeting by a location instead of an ACDGUID (stuff you can't "click on" to destroy in-game)
 		  private static readonly HashSet<int> hashDestructableLocationTarget=new HashSet<int> { 
-            170657, 116409, 121586, 3016, 121586,80231,58559,58962,62562
+            170657, 116409, 121586, 3016, 121586,80231,58559,58962,62562,54477,54191
          };
 
 
@@ -125,6 +125,20 @@ namespace FunkyTrinity
             5212,5208,5209,5210,
             //a2 little grunts
             4085,4084,4083,4080,
+				//Lunitics
+				4093,4094,4095,
+				//sand imps
+				5189,5188,5187,
+				//Succubus
+				5508, 152679, 
+				//Soul ripper
+				5436, 169615,
+				//A2 Fast Mummy (Betrayed)
+				4104, 4105, 4106,
+				//A1 Ghosts
+				370, 4196, 4197, 4198,
+				//A1 Scavenger
+				5235, 5236, 5238, 5239,
          };
 
 				public static readonly HashSet<int> hashActorSNOBurrowableUnits=new HashSet<int>
