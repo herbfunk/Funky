@@ -104,8 +104,14 @@ namespace FunkyTrinity
 						  if (DateTime.Now.Subtract(Bot.Combat.LastAvoidanceMovement).TotalMilliseconds>=Bot.Combat.iSecondsEmergencyMoveFor
 								&&vlastSafeSpot!=vNullLocation)
 						  {
-								CurrentTarget=new CacheObject(vlastSafeSpot, TargetType.Avoidance, 20000f, "SafeAvoid", 2.5f, -1);
-								return true;
+								//Check how close we are..
+								if (Bot.Character.Position.Distance2D(vlastSafeSpot)>2.5f)
+								{
+									 CurrentTarget=new CacheObject(vlastSafeSpot, TargetType.Avoidance, 20000f, "SafeAvoid", 2.5f, -1);
+									 return true;
+								}
+								else
+									 vlastSafeSpot=vNullLocation;
 						  }
 						  
 						  Vector3 vAnySafePoint;
@@ -133,11 +139,14 @@ namespace FunkyTrinity
 								//bFoundSafeSpot = true;
 
 								//setup avoidance target
-								if (CurrentTarget!=null)
-									 Bot.Combat.LastCachedTarget=CurrentTarget.Clone();
+								if (CurrentTarget!=null) Bot.Combat.LastCachedTarget=CurrentTarget.Clone();
 
 								CurrentTarget=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "SafeAvoid", 2.5f, -1);
-								Bot.Combat.iSecondsEmergencyMoveFor=1+(int)(Vector3.Distance(Bot.Character.Position, vlastSafeSpot)/25f);
+								Bot.Combat.iSecondsEmergencyMoveFor=1+(int)(distance/25f);
+
+								//Avoidance takes priority over kiting..
+								Bot.Combat.timeCancelledKiteMove=DateTime.Now;
+								Bot.Combat.iMillisecondsCancelledKiteMoveFor=((Bot.Combat.iSecondsEmergencyMoveFor+1)*1000);
 								return true;
 						  }
 
@@ -172,8 +181,13 @@ namespace FunkyTrinity
 								if (DateTime.Now.Subtract(Bot.Combat.LastKiteAction).TotalSeconds<Bot.Combat.iSecondsKiteMoveFor
 									 &&vlastSafeSpot!=vNullLocation)
 								{
-									 CurrentTarget=new CacheObject(vlastSafeSpot, TargetType.Avoidance, 20000f, "Kitespot", 2.5f, -1);
-									 return true;
+									 if (Bot.Character.Position.Distance2D(vlastSafeSpot)>2.5f)
+									 {
+										  CurrentTarget=new CacheObject(vlastSafeSpot, TargetType.Avoidance, 20000f, "Kitespot", 2.5f, -1);
+										  return true;
+									 }
+									 else
+										  vlastSafeSpot=vNullLocation;
 								}
 
 								if (CurrentTarget!=null&&CurrentTarget.targetType.HasValue&&TargetType.ServerObjects.HasFlag(CurrentTarget.targetType.Value)
@@ -399,7 +413,12 @@ namespace FunkyTrinity
 									 {
 										  Vector3 SafeLOSMovement;
 										  if (thisobj.GPRect.TryFindSafeSpot(Bot.Character.Position, out SafeLOSMovement, vNullLocation, Bot.KiteDistance>0f, true))
+										  {
 												CurrentTarget=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
+												//Reset Avoidance Timer so we don't trigger it while moving towards the target!
+												Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
+												Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=1000+((int)(Bot.Target.CurrentTarget.CentreDistance/25f)*1000);
+										  }
 										  else
 										  {
 												//Wait if no valid target found yet.. and no avoidance movement required.

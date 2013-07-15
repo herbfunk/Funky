@@ -9,19 +9,9 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  //Condition Type -- Condition Parameters
-
-		  //CheckClusterConditions
-
-		  //PlayerCurrentHealth
-
-		  //Units In Range -- Distance, Count, ElitesOnly
-
-		  //Target Distance -- Optional Use RadiusDistance
-		  //Target Special
-		  //Target Health
-		  //Target Special Property -- (Add Enum for each one) [Reflecting/MissleDampening/Shielding/Boss/Rare&Elites/Unique/TreasureGoblin]
-
+		  ///<summary>
+		  ///
+		  ///</summary>
 		  [Flags]
 		  public enum ConditionCriteraTypes
 		  {
@@ -31,6 +21,9 @@ namespace FunkyTrinity
 				ElitesInRange=4,
 				SingleTarget=8,
 		  }
+		  ///<summary>
+		  ///Flags that are used to test TargetConditions.
+		  ///</summary>
 		  [Flags]
 		  public enum TargetProperties
 		  {
@@ -45,47 +38,13 @@ namespace FunkyTrinity
 				Stealthable=128,
 				Burrowing=256,
 				SucideBomber=512,
-				LowHealth=1028,
+				Weak=1028,
 				FullHealth=2048,
 				IsSpecial=4096,
 				Ranged=8192,
 				TargetableAndAttackable=16384,
 				Fast=32768,
 		  }
-
-		  //Describes a condition for a single unit
-		  public class UnitTargetConditions
-		  {
-				public UnitTargetConditions(TargetProperties trueconditionalFlags, int MinimumRadiusDistance=-1, double MinimumHealthPercent=0d, TargetProperties falseConditionalFlags=TargetProperties.None)
-				{
-					 TrueConditionFlags=trueconditionalFlags;
-					 FalseConditionFlags=falseConditionalFlags;
-					 Distance=MinimumRadiusDistance;
-					 HealthPercent=MinimumHealthPercent;
-				}
-
-				public TargetProperties TrueConditionFlags { get; set; }
-				public TargetProperties FalseConditionFlags { get; set; }
-				public readonly int Distance;
-				public readonly double HealthPercent;
-		  }
-
-
-
-
-
-
-		  //public struct Range
-		  //{
-		  //    public float minimum, maximum;
-		  //    public Range(float min, float max)
-		  //    {
-		  //        minimum=min;
-		  //        maximum=max;
-		  //    }
-		  //}
-
-
 		  ///<summary>
 		  ///Describes how to use the Ability (SNOPower)
 		  ///</summary>
@@ -115,7 +74,6 @@ namespace FunkyTrinity
 				Low=1,
 				High=2,
 		  }
-
 		  ///<summary>
 		  ///Conditions used to determine if ability is capable of use.
 		  ///</summary>
@@ -131,26 +89,89 @@ namespace FunkyTrinity
 				CheckPlayerIncapacitated=32,
 				CheckPlayerRooted=64,
 		  }
+
+
+
+		  ///<summary>
+		  ///Describes a condition for a single unit
+		  ///</summary>
+		  public class UnitTargetConditions
+		  {
+				public UnitTargetConditions(TargetProperties trueconditionalFlags, int MinimumRadiusDistance=-1, double MinimumHealthPercent=0d, TargetProperties falseConditionalFlags=TargetProperties.None)
+				{
+					 TrueConditionFlags=trueconditionalFlags;
+					 FalseConditionFlags=falseConditionalFlags;
+					 Distance=MinimumRadiusDistance;
+					 HealthPercent=MinimumHealthPercent;
+				}
+
+				//Default Constructor
+				public UnitTargetConditions()
+				{
+					 TrueConditionFlags=TargetProperties.None;
+					 FalseConditionFlags=TargetProperties.None;
+					 Distance=-1;
+					 HealthPercent=0d;
+				}
+
+				public TargetProperties TrueConditionFlags { get; set; }
+				public TargetProperties FalseConditionFlags { get; set; }
+				public int Distance { get; set; }
+				public double HealthPercent { get; set; }
+		  }
+
+		  public struct AbilityWaitLoops
+		  {
+				public readonly int PreLoops;
+				public readonly int PostLoops;
+				public readonly bool Reusable;
+
+				public AbilityWaitLoops(int BeforeLoops, int AfterLoops, bool Reuse)
+				{
+					 PreLoops=BeforeLoops;
+					 PostLoops=AfterLoops;
+					 Reusable=Reuse;
+				}
+		  }
+
+		  public class ClusterConditions
+		  {
+				public readonly double ClusterDistance;
+				public readonly float MaximumDistance;
+				public readonly int MinimumUnits;
+				public readonly bool IgnoreNonTargetable;
+
+				public ClusterConditions(double clusterRadius, float MaxDistanceFromBot, int MinimumUnitCount, bool IgnoreNonTargetableUnits)
+				{
+					 ClusterDistance=clusterRadius;
+					 MaximumDistance=MaxDistanceFromBot;
+					 MinimumUnits=MinimumUnitCount;
+					 IgnoreNonTargetable=IgnoreNonTargetableUnits;
+				}
+		  }
+
+
+
 		  ///<summary>
 		  ///Cached Object that Describes an individual ability.
 		  ///</summary>
 		  public class Ability
 		  {
-				//Ability describes the hotbar power.
-				//Contains Conditional Methods which are used to determine if the power should be used.
-				//	 -Precast
-				//	 -Combat Criteria (UnitsInRange/Clusters/SingleTarget)
+
+				//Conditional Methods which are used to determine if the power should be used.
+				//	 -Precast Conditions
+				//	 -Combat Criteria
 				//		  *These are either a Tuple Type or Custom Class
 				//		  *When set, they create the delegate func that is used to validate the conditions.
 				//	 -Final Custom Conditional Check
 
-				//And it contains old Power Class properties and methods
+
 
 				public Ability()
 				{
 					 Power=SNOPower.None;
 					 Fcriteria=new Func<bool>(() => { return true; });
-					 AbilityWaitVars=new Tuple<int, int, bool>(0, 0, USE_SLOWLY);
+					 AbilityWaitVars=new AbilityWaitLoops(0, 0, USE_SLOWLY);
 					 IsRanged=false;
 					 LastConditionPassed=ConditionCriteraTypes.None;
 					 TestCustomCombatConditionAlways=false;
@@ -168,7 +189,10 @@ namespace FunkyTrinity
 					 }
 				}
 
-				public int RuneIndex { get; set; }
+				public int RuneIndex
+				{
+					 get { return Bot.Class.RuneIndexCache[this.Power]; }
+				}
 
 				public double Cost { get; set; }
 				public bool SecondaryEnergy { get; set; }
@@ -217,7 +241,7 @@ namespace FunkyTrinity
 				///<summary>
 				///Describes variables for use of ability: PreWait Loops, PostWait Loops, Reuseable
 				///</summary>
-				public Tuple<int, int, bool> AbilityWaitVars { get; set; }
+				public AbilityWaitLoops AbilityWaitVars { get; set; }
 
 				///<summary>
 				///Holds int value that describes pet count or buff stacks.
@@ -245,9 +269,9 @@ namespace FunkyTrinity
 				///</summary>
 				public bool TestCustomCombatConditionAlways { get; set; }
 
-				public ConditionCriteraTypes LastConditionPassed { get; set; }
 				#endregion
 
+				internal ConditionCriteraTypes LastConditionPassed { get; set; }
 
 
 				///<summary>
@@ -268,45 +292,65 @@ namespace FunkyTrinity
 					 set
 					 {
 						  precastconditions_=value;
-
-
 						  Fprecast=null;
-						  if (precastconditions_.HasFlag(AbilityConditions.CheckPlayerIncapacitated))
-								Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsIncapacitated; }));
-						  
-						  if (precastconditions_.HasFlag(AbilityConditions.CheckPlayerRooted))
-								Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsRooted; }));
-						 
-						  if (precastconditions_.HasFlag(AbilityConditions.CheckCanCast))
-								Fprecast+=(new Func<bool>(() => { return Zeta.CommonBot.PowerManager.CanCast(this.Power); }));
-						  
-						  if (precastconditions_.HasFlag(AbilityConditions.CheckExisitingBuff))
-								Fprecast+=(new Func<bool>(() => { return !Bot.Class.HasBuff(this.Power); }));
-						  
-						  if (precastconditions_.HasFlag(AbilityConditions.CheckPetCount))
-								Fprecast+=(new Func<bool>(() => { return Bot.Class.MainPetCount<this.Counter; }));
-						  
-						  if (precastconditions_.HasFlag(AbilityConditions.CheckRecastTimer))
-								Fprecast+=(new Func<bool>(() => { return this.LastUsedMilliseconds>this.Cooldown; }));
 
-						  if (precastconditions_.HasFlag(AbilityConditions.CheckEnergy))
+						  if (precastconditions_.Equals(AbilityConditions.None))
+								Fprecast+=(new Func<bool>(() => { return true; }));
+						  else
 						  {
-								if (!this.SecondaryEnergy)
-									 Fprecast+=(new Func<bool>(() =>
-									 {
-										  bool energyCheck=Bot.Character.dCurrentEnergy>=this.Cost;
-										  if (this.IsSpecialAbility) //we trigger waiting for special here.
-												Bot.Class.bWaitingForSpecial=!energyCheck;
-										  return energyCheck;
-									 }));
-								else
-									 Fprecast+=(new Func<bool>(() =>
-									 {
-										  bool energyCheck=Bot.Character.dDiscipline>=this.Cost;
-										  if (this.IsSpecialAbility) //we trigger waiting for special here.
-												Bot.Class.bWaitingForSpecial=!energyCheck;
-										  return energyCheck;
-									 }));
+								if (precastconditions_.HasFlag(AbilityConditions.CheckPlayerIncapacitated))
+									 Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsIncapacitated; }));
+
+								if (precastconditions_.HasFlag(AbilityConditions.CheckPlayerRooted))
+									 Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsRooted; }));
+
+								if (precastconditions_.HasFlag(AbilityConditions.CheckExisitingBuff))
+									 Fprecast+=(new Func<bool>(() => { return !Bot.Class.HasBuff(this.Power); }));
+
+								if (precastconditions_.HasFlag(AbilityConditions.CheckPetCount))
+									 Fprecast+=(new Func<bool>(() => { return Bot.Class.MainPetCount<this.Counter; }));
+
+								if (precastconditions_.HasFlag(AbilityConditions.CheckRecastTimer))
+									 Fprecast+=(new Func<bool>(() => { return this.LastUsedMilliseconds>this.Cooldown; }));
+
+								if (precastconditions_.HasFlag(AbilityConditions.CheckCanCast))
+								{
+									 Fprecast+=(new Func<bool>(() => 
+																		  { 
+																				bool cancast=Zeta.CommonBot.PowerManager.CanCast(this.Power, out this.CanCastFlags);
+
+																				//Special Ability -- Trigger Waiting For Special When Not Enough Resource to Cast.
+																				if (this.IsSpecialAbility)
+																				{
+																					 if (!cancast&&this.CanCastFlags.HasFlag(Zeta.CommonBot.PowerManager.CanCastFlags.PowerNotEnoughResource))
+																						  Bot.Class.bWaitingForSpecial=true;
+																					 else
+																						  Bot.Class.bWaitingForSpecial=false;
+																				}
+
+																				return cancast;
+																		  }));
+								}
+
+								if (precastconditions_.HasFlag(AbilityConditions.CheckEnergy))
+								{
+									 if (!this.SecondaryEnergy)
+										  Fprecast+=(new Func<bool>(() =>
+										  {
+												bool energyCheck=Bot.Character.dCurrentEnergy>=this.Cost;
+												if (this.IsSpecialAbility) //we trigger waiting for special here.
+													 Bot.Class.bWaitingForSpecial=!energyCheck;
+												return energyCheck;
+										  }));
+									 else
+										  Fprecast+=(new Func<bool>(() =>
+										  {
+												bool energyCheck=Bot.Character.dDiscipline>=this.Cost;
+												if (this.IsSpecialAbility) //we trigger waiting for special here.
+													 Bot.Class.bWaitingForSpecial=!energyCheck;
+												return energyCheck;
+										  }));
+								}
 						  }
 					 }
 				}
@@ -314,7 +358,10 @@ namespace FunkyTrinity
 				///<summary>
 				///Describes values for clustering used for target (Cdistance, DistanceFromBot, MinUnits, IgnoreNonTargetable)
 				///</summary>
-				public Tuple<double, float, int, bool> ClusterConditions
+				///<value>
+				///Clustering Distance, Distance From Bot, Minimum Unit Count, Ignore Non-Targetables
+				///</value>
+				public ClusterConditions ClusterConditions
 				{
 					 get { return ClusterConditions_; }
 					 set
@@ -323,7 +370,7 @@ namespace FunkyTrinity
 						  FClusterConditions+=new Func<bool>(() => { return CheckClusterConditions(this); });
 					 }
 				}
-				private Tuple<double, float, int, bool> ClusterConditions_;
+				private ClusterConditions ClusterConditions_;
 				private Func<bool> FClusterConditions { get; set; }
 
 				///<summary>
@@ -358,7 +405,7 @@ namespace FunkyTrinity
 
 
 				///<summary>
-				///Single Target Conditions
+				///Single Target Conditions -- Should only used if ability is offensive!
 				///</summary>
 				public UnitTargetConditions TargetUnitConditionFlags
 				{
@@ -374,7 +421,7 @@ namespace FunkyTrinity
 								FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value<=TargetUnitConditionFlags_.HealthPercent; });
 
 						  //TRUE CONDITIONS
-						  if (value.TrueConditionFlags.HasFlag(TargetProperties.None))
+						  if (value.TrueConditionFlags.Equals(TargetProperties.None))
 								FSingleTargetUnitCriteria+=new Func<bool>(() => { return true; });
 						  else
 						  {
@@ -386,8 +433,8 @@ namespace FunkyTrinity
 									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value==1d; });
 								if (value.TrueConditionFlags.HasFlag(TargetProperties.IsSpecial))
 									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.ObjectIsSpecial; });
-								if (value.TrueConditionFlags.HasFlag(TargetProperties.LowHealth))
-									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value<0.25d; });
+								if (value.TrueConditionFlags.HasFlag(TargetProperties.Weak))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.UnitMaxHitPointAverageWeight<0; });
 								if (value.TrueConditionFlags.HasFlag(TargetProperties.MissileDampening))
 									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterMissileDampening; });
 								if (value.TrueConditionFlags.HasFlag(TargetProperties.RareElite))
@@ -413,7 +460,7 @@ namespace FunkyTrinity
 						  }
 
 						  //FALSE CONDITIONS
-						  if (value.FalseConditionFlags.HasFlag(TargetProperties.None))
+						  if (value.FalseConditionFlags.Equals(TargetProperties.None))
 								FSingleTargetUnitCriteria+=new Func<bool>(() => { return true; });
 						  else
 						  {
@@ -425,8 +472,8 @@ namespace FunkyTrinity
 									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value!=1d; });
 								if (value.FalseConditionFlags.HasFlag(TargetProperties.IsSpecial))
 									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.ObjectIsSpecial; });
-								if (value.FalseConditionFlags.HasFlag(TargetProperties.LowHealth))
-									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value>0.25d; });
+								if (value.FalseConditionFlags.HasFlag(TargetProperties.Weak))
+									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.UnitMaxHitPointAverageWeight>0; });
 								if (value.FalseConditionFlags.HasFlag(TargetProperties.MissileDampening))
 									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.MonsterMissileDampening; });
 								if (value.FalseConditionFlags.HasFlag(TargetProperties.RareElite))
@@ -464,7 +511,7 @@ namespace FunkyTrinity
 				#region Condition Static Methods
 				public static bool CheckClusterConditions(Ability A)
 				{
-					 return Clusters(A.ClusterConditions.Item1, A.ClusterConditions.Item2, A.ClusterConditions.Item3, A.ClusterConditions.Item4).Count>0;
+					 return Clusters(A.ClusterConditions.ClusterDistance, A.ClusterConditions.MaximumDistance, A.ClusterConditions.MinimumUnits, A.ClusterConditions.IgnoreNonTargetable).Count>0;
 
 				}
 				public static bool AbilityEnergyCheck(double Cost)
@@ -598,14 +645,14 @@ namespace FunkyTrinity
 				#region UseAbilityVars
 
 				private float minimumRange_;
-				public float MinimumRange
+				internal float MinimumRange
 				{
 					 get { return minimumRange_; }
 					 set { minimumRange_=value; }
 				}
 
 				private Vector3 TargetPosition_;
-				public Vector3 TargetPosition
+				internal Vector3 TargetPosition
 				{
 					 get { return TargetPosition_; }
 					 set { TargetPosition_=value; }
@@ -617,21 +664,21 @@ namespace FunkyTrinity
 				}
 
 				private int TargetRAGUID_;
-				public int TargetRAGUID
+				internal int TargetRAGUID
 				{
 					 get { return TargetRAGUID_; }
 					 set { TargetRAGUID_=value; }
 				}
 
 				private int WaitLoopsBefore_;
-				public int WaitLoopsBefore
+				internal int WaitLoopsBefore
 				{
 					 get { return WaitLoopsBefore_; }
 					 set { WaitLoopsBefore_=value; }
 				}
 
 				private int WaitLoopsAfter_;
-				public int WaitLoopsAfter
+				internal int WaitLoopsAfter
 				{
 					 get { return WaitLoopsAfter_; }
 					 set { WaitLoopsAfter_=value; }
@@ -639,10 +686,10 @@ namespace FunkyTrinity
 
 				public bool WaitWhileAnimating
 				{
-					 get { return AbilityWaitVars.Item3; }
+					 get { return AbilityWaitVars.Reusable; }
 				}
 				private bool? SuccessUsed_;
-				public bool? SuccessUsed
+				internal bool? SuccessUsed
 				{
 					 get { return SuccessUsed_; }
 					 set { SuccessUsed_=value; }
@@ -654,8 +701,8 @@ namespace FunkyTrinity
 					 MinimumRange=Range;
 					 TargetPosition_=vNullLocation;
 					 TargetRAGUID_=-1;
-					 WaitLoopsBefore_=this.AbilityWaitVars.Item1;
-					 WaitLoopsAfter_=this.AbilityWaitVars.Item2;
+					 WaitLoopsBefore_=this.AbilityWaitVars.PreLoops;
+					 WaitLoopsAfter_=this.AbilityWaitVars.PostLoops;
 
 					 CanCastFlags=Zeta.CommonBot.PowerManager.CanCastFlags.None;
 					 SuccessUsed_=null;
@@ -664,13 +711,13 @@ namespace FunkyTrinity
 					 if (this.UsageType.HasFlag(AbilityUseType.ClusterTarget)&&CheckClusterConditions(this)) //Cluster ACDGUID
 					 {
 						  //ListUnits[0].AcdGuid.Value;
-						  TargetRAGUID_=Clusters(this.ClusterConditions.Item1, this.ClusterConditions.Item2, this.ClusterConditions.Item3, this.ClusterConditions.Item4)[0].GetNearestUnitToCenteroid().AcdGuid.Value;
+						  TargetRAGUID_=Clusters(this.ClusterConditions.ClusterDistance, this.ClusterConditions.MaximumDistance, this.ClusterConditions.MinimumUnits, this.ClusterConditions.IgnoreNonTargetable)[0].GetNearestUnitToCenteroid().AcdGuid.Value;
 						  return;
 					 }
 					 if (this.UsageType.HasFlag(AbilityUseType.ClusterLocation)&&CheckClusterConditions(this)) //Cluster Target Position
 					 {
 						  //.ListUnits.First(u => u.ObjectIsValidForTargeting).Position;
-						  TargetPosition_=(Vector3)Clusters(this.ClusterConditions.Item1, this.ClusterConditions.Item2, this.ClusterConditions.Item3, this.ClusterConditions.Item4)[0].Midpoint;
+						  TargetPosition_=(Vector3)Clusters(this.ClusterConditions.ClusterDistance, this.ClusterConditions.MaximumDistance, this.ClusterConditions.MinimumUnits, this.ClusterConditions.IgnoreNonTargetable)[0].Midpoint;
 						  return;
 					 }
 
@@ -690,7 +737,7 @@ namespace FunkyTrinity
 						  TargetRAGUID_=Bot.Target.CurrentTarget.AcdGuid.Value;
 				}
 
-				public Zeta.CommonBot.PowerManager.CanCastFlags CanCastFlags;
+				internal Zeta.CommonBot.PowerManager.CanCastFlags CanCastFlags;
 				#endregion
 
 
@@ -790,7 +837,7 @@ namespace FunkyTrinity
 				Power=SNOPower.Weapon_Melee_Instant,
 				Priority=AbilityPriority.None,
 				UsageType=AbilityUseType.Target,
-				AbilityWaitVars=new Tuple<int, int, bool>(0, 0, true),
+				AbilityWaitVars=new AbilityWaitLoops(0, 0, true),
 		  };
 		  public static readonly Ability Instant_Range_Attack=new Ability
 		  {
@@ -798,7 +845,7 @@ namespace FunkyTrinity
 				Power=SNOPower.Weapon_Ranged_Instant,
 				Priority=AbilityPriority.None,
 				UsageType=AbilityUseType.Target,
-				AbilityWaitVars=new Tuple<int, int, bool>(0, 0, true),
+				AbilityWaitVars=new AbilityWaitLoops(0, 0, true),
 		  };
 		  public static readonly Ability Projectile_Range_Attack=new Ability
 		  {
@@ -806,7 +853,7 @@ namespace FunkyTrinity
 				Power=SNOPower.Weapon_Ranged_Projectile,
 				Priority=AbilityPriority.None,
 				UsageType=AbilityUseType.Target,
-				AbilityWaitVars=new Tuple<int, int, bool>(0, 0, true),
+				AbilityWaitVars=new AbilityWaitLoops(0, 0, true),
 		  };
 		  public static readonly Ability Wand_Range_Attack=new Ability
 		  {
@@ -814,12 +861,12 @@ namespace FunkyTrinity
 				Power=SNOPower.Weapon_Ranged_Wand,
 				Priority=AbilityPriority.None,
 				UsageType=AbilityUseType.Target,
-				AbilityWaitVars=new Tuple<int, int, bool>(0, 0, true),
+				AbilityWaitVars=new AbilityWaitLoops(0, 0, true),
 		  };
 		  public static readonly Ability Cancel_Archon_Buff=new Ability
 		  {
 				UsageType= AbilityUseType.RemoveBuff,
-				AbilityWaitVars=new Tuple<int,int,bool>(3,3,true),
+				AbilityWaitVars=new AbilityWaitLoops(3, 3, true),
 				Power= SNOPower.Wizard_Archon,
 		  };
 	 }

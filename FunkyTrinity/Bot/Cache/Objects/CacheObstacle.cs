@@ -88,13 +88,7 @@ namespace FunkyTrinity
 				}
 
 
-				///<summary>
-				///Check if the distance between the object and vector is less than range. (Factors the radius of object too)
-				///</summary>
-				public bool IsPositionWithinRange(Vector3 V, float Range)
-				{
-					 return Math.Max(0f, Vector3.Distance(V, this.Position)-this.Radius)<=Range;
-				}
+
 
 				private System.Windows.Rect rect_;
 				public virtual System.Windows.Rect AvoidanceRect

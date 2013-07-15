@@ -389,7 +389,13 @@ namespace FunkyTrinity
 					 float angleDegrees=Vector3.AngleBetween(NormalizedVector, NormalizedBotDestination);
 					 return (angleDegrees<=0.0045||angleDegrees>0.0315);
 				}
-
+				///<summary>
+				///Check if the distance between the object and vector is less than range. (Factors the radius of object too)
+				///</summary>
+				public bool IsPositionWithinRange(Vector3 V, float Range)
+				{
+					 return Math.Max(0f, this.Position.Distance(V)-this.Radius)<=Range;
+				}
 
 				public override bool UpdateData(DiaObject thisObj, int RaGuid)
 				{

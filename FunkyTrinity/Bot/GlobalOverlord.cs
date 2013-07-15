@@ -13,7 +13,8 @@ namespace FunkyTrinity
 	 {
 		  private static HashSet<Type> oocDBTags=new HashSet<Type> { typeof(Zeta.CommonBot.Profile.Common.UseWaypointTag), 
 																	  typeof(Zeta.CommonBot.Profile.Common.UseObjectTag),
-																	  typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),};
+																	  typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),
+																	  typeof(Zeta.CommonBot.Profile.Common.WaitTimerTag),};
 
 		  // Total main loops so we can update things every XX loops
 		  private static int iCombatLoops=0;
@@ -172,10 +173,7 @@ namespace FunkyTrinity
 
 					 if (oocDBTags.Contains(Bot.Character.CurrentProfileBehavior.GetType()))
 					 {
-						  //Zeta.CommonBot.Profile.Common.UseWaypointTag
-						  //
-
-						  Logging.WriteVerbose("Current Profile Behavior is OOC Tag");
+						  Logging.WriteDiagnostic("Current Profile Behavior has enabled OOC Behavior.");
 						  Bot.Character.IsRunningOOCBehavior=true;
 					 }
 					 else

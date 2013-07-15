@@ -240,7 +240,7 @@ namespace FunkyTrinity
 								if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(pointVector)) continue;
 
 								//Kiting Check
-								if (kite&&ObjectCache.Obstacles.Monsters.Any(m => m.IsPositionWithinRange(pointVector,Bot.KiteDistance))) continue;
+								if (kite&&ObjectCache.Objects.OfType<CacheUnit>().Any(m => m.ShouldBeKited && m.IsPositionWithinRange(pointVector,Bot.KiteDistance))) continue;
 
 								//Avoidance Intersection Check
 								if (checkBotAvoidIntersection&&ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(botcurpos, pointVector)) continue;

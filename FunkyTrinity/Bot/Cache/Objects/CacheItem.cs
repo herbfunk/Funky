@@ -146,6 +146,14 @@ namespace FunkyTrinity
 										  //Or we havn't changed targets after 2.5 secs
 											 DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds>2.5))
 										  this.Weight*=0.10;
+
+									 //Test if there are nearby units that will trigger kite action..
+									 if (Bot.KiteDistance>0)
+									 {
+										  if (ObjectCache.Objects.OfType<CacheUnit>().Any(m=>m.ShouldBeKited&&m.IsPositionWithinRange(this.Position, Bot.KiteDistance)))
+												this.Weight=1;
+									 }
+
 									 //Did we have a target last time? and if so was it a goblin?
 									 if (Bot.Character.LastCachedTarget.RAGUID!=-1)
 									 {
