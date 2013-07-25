@@ -156,7 +156,7 @@ namespace FunkyTrinity
                  }
                  else if (btnsender.Name == "MGP")
                  {
-                     UpdateSearchGridProvider(true);
+							Bot.NavigationCache.UpdateSearchGridProvider(true);
                  }
 					  else if (btnsender.Name=="Ability")
                  {
@@ -504,13 +504,13 @@ namespace FunkyTrinity
                  Bot.SettingsFunky.DestructibleRange = Value;
                  TBDestructibleRange.Text = Value.ToString();
              }
-             private void ExtendCombatRangeSliderChanged(object sender, EventArgs e)
-             {
-                 Slider slider_sender = (Slider)sender;
-                 int Value = (int)slider_sender.Value;
-                 Bot.SettingsFunky.ExtendedCombatRange = Value;
-                 TBExtendedCombatRange.Text = Value.ToString();
-             }
+				 //private void ExtendCombatRangeSliderChanged(object sender, EventArgs e)
+				 //{
+				 //	 Slider slider_sender = (Slider)sender;
+				 //	 int Value = (int)slider_sender.Value;
+				 //	 Bot.SettingsFunky.ExtendedCombatRange = Value;
+				 //	 TBExtendedCombatRange.Text = Value.ToString();
+				 //}
              private void IgnoreCorpsesChecked(object sender, EventArgs e)
              {
                  Bot.SettingsFunky.IgnoreCorpses = !Bot.SettingsFunky.IgnoreCorpses;

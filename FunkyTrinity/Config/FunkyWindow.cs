@@ -20,13 +20,11 @@ namespace FunkyTrinity
 
         private static void buttonFunkySettingDB_Click(object sender, RoutedEventArgs e)
         {
-				Bot.ActorClass=Zeta.ZetaDia.Service.CurrentHero.Class;
-				Bot.CurrentAccountName=Zeta.ZetaDia.Service.CurrentHero.BattleTagName;
-				Bot.CurrentHeroName=Zeta.ZetaDia.Service.CurrentHero.Name;
+				Bot.UpdateCurrentAccountDetails();
 
 				string settingsFolder=FolderPaths.sDemonBuddyPath+@"\Settings\FunkyTrinity\"+Bot.CurrentAccountName;
-            if(!Directory.Exists(settingsFolder))
-                Directory.CreateDirectory(settingsFolder);
+            if(!Directory.Exists(settingsFolder)) Directory.CreateDirectory(settingsFolder);
+
             try
             {
                 funkyConfigWindow = new FunkyWindow();
@@ -1480,35 +1478,35 @@ namespace FunkyTrinity
                 lbTargetRange.Items.Add(NonEliteStackPanel);
                 #endregion
 
-                #region ExtendedCombatRange
-                lbTargetRange.Items.Add("Extended Combat Range");
-                Slider sliderExtendedCombatRange = new Slider
-                {
-                    Width = 100,
-                    Maximum = 50,
-                    Minimum = 0,
-                    TickFrequency = 5,
-                    LargeChange = 5,
-                    SmallChange = 1,
-                    Value = Bot.SettingsFunky.ExtendedCombatRange,
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
-                };
-                sliderExtendedCombatRange.ValueChanged += ExtendCombatRangeSliderChanged;
-                TBExtendedCombatRange = new TextBox
-                {
-                    Text = Bot.SettingsFunky.ExtendedCombatRange.ToString(),
-                    IsReadOnly = true,
-                };
-                StackPanel ExtendedRangeStackPanel = new StackPanel
-                {
-                    Width = 600,
-                    Height = 20,
-                    Orientation = Orientation.Horizontal,
-                };
-                ExtendedRangeStackPanel.Children.Add(sliderExtendedCombatRange);
-                ExtendedRangeStackPanel.Children.Add(TBExtendedCombatRange);
-                lbTargetRange.Items.Add(ExtendedRangeStackPanel);
-                #endregion
+					 #region ExtendedCombatRange
+					 //lbTargetRange.Items.Add("Extended Combat Range");
+					 //Slider sliderExtendedCombatRange = new Slider
+					 //{
+					 //	 Width = 100,
+					 //	 Maximum = 50,
+					 //	 Minimum = 0,
+					 //	 TickFrequency = 5,
+					 //	 LargeChange = 5,
+					 //	 SmallChange = 1,
+					 //	 Value = Bot.SettingsFunky.ExtendedCombatRange,
+					 //	 HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
+					 //};
+					 //sliderExtendedCombatRange.ValueChanged += ExtendCombatRangeSliderChanged;
+					 //TBExtendedCombatRange = new TextBox
+					 //{
+					 //	 Text = Bot.SettingsFunky.ExtendedCombatRange.ToString(),
+					 //	 IsReadOnly = true,
+					 //};
+					 //StackPanel ExtendedRangeStackPanel = new StackPanel
+					 //{
+					 //	 Width = 600,
+					 //	 Height = 20,
+					 //	 Orientation = Orientation.Horizontal,
+					 //};
+					 //ExtendedRangeStackPanel.Children.Add(sliderExtendedCombatRange);
+					 //ExtendedRangeStackPanel.Children.Add(TBExtendedCombatRange);
+					 //lbTargetRange.Items.Add(ExtendedRangeStackPanel);
+					 #endregion
 
                 #region ShrineRange
                 lbTargetRange.Items.Add("Shrine Range");
@@ -3402,8 +3400,8 @@ namespace FunkyTrinity
 						  Height=20,
 						  IsChecked=Bot.SettingsFunky.SkipAhead,
 					 };
-					 CBSkipAhead.Checked+=LogSafeMovementOutputChecked;
-					 CBSkipAhead.Unchecked+=LogSafeMovementOutputChecked;
+					 CBSkipAhead.Checked+=SkipAheadChecked;
+					 CBSkipAhead.Unchecked+=SkipAheadChecked;
 					 lbAdvancedContent.Items.Add(CBSkipAhead);
 
                 AdvancedTabItem.Content = lbAdvancedContent;

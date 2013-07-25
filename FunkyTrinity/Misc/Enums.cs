@@ -43,7 +43,7 @@ namespace FunkyTrinity
 				FlawlessSquare=60,
 		  }
 		  // Primary "lowest level" item type (eg EXACTLY what kind of item it is)
-		  internal enum GilesItemType
+		  public enum GilesItemType
 		  {
 				Unknown,
 				Axe,
@@ -116,7 +116,67 @@ namespace FunkyTrinity
 				Gem,
 				HealthGlobe
 		  }
-        
+
+		  //Used for pet counter in character cache.
+		  public enum PetTypes
+		  {
+				MONK_MysticAlly=1,
+				WITCHDOCTOR_Gargantuan=2,
+				WITCHDOCTOR_ZombieDogs=4,
+				DEMONHUNTER_Pet=8,
+				WIZARD_Hydra=16,
+		  }
+
+		  public enum AvoidanceType
+		  {
+				ArcaneSentry,
+				AzmodanBodies,
+				AzmodanFireball,
+				AzmodanPool,
+				AzmodanOrb,
+				BeeProjectile,
+				BelialGround,
+				Dececrator,
+				DiabloMetor,
+				DiabloPrison,
+				Frozen,
+				GrotesqueExplosion,
+				LacuniBomb,
+				MageFirePool,
+				MoltenCore,
+				MoltenTrail,
+				PlagueCloud,
+				PlagueHand,
+				PoisonGas,
+				ShamanFireBall,
+				SuccubusProjectile,
+				TreeSpore,
+				Unknown,
+				Wall,
+		  }
+
+		  ///<summary>
+		  ///Determines the type of blacklist an object should recieve. Permanent is entire game, Temporary is 60 seconds long.
+		  ///</summary>
+		  public enum BlacklistType
+		  {
+				None,
+				Temporary,
+				Permanent
+		  }
+
+		  //Range Values used for monster range counters
+		  public enum RangeIntervals
+		  {
+				Range_50=0,
+				Range_40=1,
+				Range_30=2,
+				Range_25=3,
+				Range_20=4,
+				Range_15=5,
+				Range_12=6,
+				Range_6=7,
+		  }
 
 		  ///<summary>
 		  ///Used to describe the object type for target handling.

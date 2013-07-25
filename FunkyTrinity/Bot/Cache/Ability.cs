@@ -28,7 +28,7 @@ namespace FunkyTrinity
 		  public enum TargetProperties
 		  {
 				None=0,
-				Reflecting=1,
+				MissileReflecting=1,
 				MissileDampening=2,
 				Shielding=4,
 				Boss=8,
@@ -171,11 +171,12 @@ namespace FunkyTrinity
 				{
 					 Power=SNOPower.None;
 					 Fcriteria=new Func<bool>(() => { return true; });
-					 AbilityWaitVars=new AbilityWaitLoops(0, 0, USE_SLOWLY);
+					 AbilityWaitVars=new AbilityWaitLoops(0, 0, true);
 					 IsRanged=false;
 					 LastConditionPassed=ConditionCriteraTypes.None;
 					 TestCustomCombatConditionAlways=false;
 					 IsSpecialAbility=false;
+					
 				}
 
 				#region Properties
@@ -189,10 +190,9 @@ namespace FunkyTrinity
 					 }
 				}
 
-				public int RuneIndex
-				{
-					 get { return Bot.Class.RuneIndexCache[this.Power]; }
-				}
+				public int RuneIndex { get { return Bot.Class.RuneIndexCache[this.Power]; } }
+				public bool IsADestructiblePower { get { return AbilitiesDestructiblePriority.Contains(this.Power); } }
+				public bool IsASpecialMovementPower { get { return SpecialMovementAbilities.Contains(this.Power); } }
 
 				public double Cost { get; set; }
 				public bool SecondaryEnergy { get; set; }
@@ -439,7 +439,7 @@ namespace FunkyTrinity
 									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterMissileDampening; });
 								if (value.TrueConditionFlags.HasFlag(TargetProperties.RareElite))
 									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.IsEliteRareUnique; });
-								if (value.TrueConditionFlags.HasFlag(TargetProperties.Reflecting))
+								if (value.TrueConditionFlags.HasFlag(TargetProperties.MissileReflecting))
 									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsMissileReflecting; });
 								if (value.TrueConditionFlags.HasFlag(TargetProperties.Shielding))
 									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterShielding; });
@@ -478,7 +478,7 @@ namespace FunkyTrinity
 									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.MonsterMissileDampening; });
 								if (value.FalseConditionFlags.HasFlag(TargetProperties.RareElite))
 									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.IsEliteRareUnique; });
-								if (value.FalseConditionFlags.HasFlag(TargetProperties.Reflecting))
+								if (value.FalseConditionFlags.HasFlag(TargetProperties.MissileReflecting))
 									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsMissileReflecting; });
 								if (value.FalseConditionFlags.HasFlag(TargetProperties.Shielding))
 									 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.MonsterShielding; });
@@ -699,7 +699,7 @@ namespace FunkyTrinity
 				internal void SetupAbilityForUse()
 				{
 					 MinimumRange=Range;
-					 TargetPosition_=vNullLocation;
+					 TargetPosition_=Vector3.Zero;
 					 TargetRAGUID_=-1;
 					 WaitLoopsBefore_=this.AbilityWaitVars.PreLoops;
 					 WaitLoopsAfter_=this.AbilityWaitVars.PostLoops;
@@ -772,12 +772,12 @@ namespace FunkyTrinity
 					 get
 					 {
 						  Vector3 DestinationV;
-						  if (TargetPosition_==vNullLocation)
+						  if (TargetPosition_==Vector3.Zero)
 						  {
 								if (TargetRAGUID_!=-1&&Bot.Target.CurrentTarget.AcdGuid.HasValue&&TargetRAGUID_==Bot.Target.CurrentTarget.AcdGuid.Value)
 									 DestinationV=Bot.Target.CurrentTarget.BotMeleeVector;
 								else
-									 return vNullLocation;
+									 return Vector3.Zero;
 						  }
 						  else
 								DestinationV=TargetPosition_;
@@ -789,7 +789,7 @@ namespace FunkyTrinity
 								if (this.MinimumRange>DistanceFromTarget)
 								{
 									 float RangeNeeded=Math.Max(0f,(this.MinimumRange-DistanceFromTarget));
-									 return MathEx.GetPointAt(Bot.Character.Position, RangeNeeded, FindDirection(Bot.Character.Position, DestinationV, true));
+									 return MathEx.GetPointAt(Bot.Character.Position, RangeNeeded, Navigation.FindDirection(Bot.Character.Position, DestinationV, true));
 								}
 								else
 									 return Bot.Character.Position;
@@ -823,9 +823,12 @@ namespace FunkyTrinity
 				{
 					 return String.Format("Ability: {0} [RuneIndex={1}] \r\n"+
 												"Range={2} Priority [{3}] UseType [{4}] \r\n"+
-												"Avoid {5} Buff {6}", this.power_.ToString(), this.RuneIndex.ToString(),
+												"Avoid {5} Buff {6} \r\n"+
+												"Last Condition {7}", 
+																			 this.power_.ToString(), this.RuneIndex.ToString(),
 																			 this.Range.ToString(), this.Priority.ToString(), this.UsageType.ToString(),
-																			 this.UseAvoiding.ToString(), this.UseOOCBuff.ToString());
+																			 this.UseAvoiding.ToString(), this.UseOOCBuff.ToString(),
+																			 this.LastConditionPassed.ToString());
 				}
 
 		  }

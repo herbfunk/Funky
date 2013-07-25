@@ -57,12 +57,12 @@ namespace FunkyTrinity
 				// Recording of all the XML's in use this run
 
 					 string sThisProfile=Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
-					 if (sThisProfile!=sLastProfileSeen)
+					 if (sThisProfile!=Bot.Stats.sLastProfileSeen)
 					 {
-						  listProfilesLoaded.Add(sThisProfile);
-						  sLastProfileSeen=sThisProfile;
-						  if (String.IsNullOrEmpty(sFirstProfileSeen))
-								sFirstProfileSeen=sThisProfile;
+						  Bot.Stats.listProfilesLoaded.Add(sThisProfile);
+						  Bot.Stats.sLastProfileSeen=sThisProfile;
+						  if (String.IsNullOrEmpty(Bot.Stats.sFirstProfileSeen))
+								Bot.Stats.sFirstProfileSeen=sThisProfile;
 					 }
 
 					 //herbfunk stats

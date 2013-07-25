@@ -13,6 +13,8 @@ namespace FunkyTrinity
 	 {
 		  internal class Wizard : Player
 		  {
+				internal bool bUsingCriticalMassPassive=false;
+
 				//Base class for each individual class!
 				public Wizard(ActorClass a)
 					 : base(a)
@@ -20,6 +22,9 @@ namespace FunkyTrinity
 					 this.RecreateAbilities();
 					 HasSignatureAbility=(this.HotbarPowers.Contains(SNOPower.Wizard_MagicMissile)||this.HotbarPowers.Contains(SNOPower.Wizard_ShockPulse)||
 									this.HotbarPowers.Contains(SNOPower.Wizard_SpectralBlade)||this.HotbarPowers.Contains(SNOPower.Wizard_Electrocute));
+
+					 //Check passive critical mass
+					 this.bUsingCriticalMassPassive=base.PassivePowers.Contains(SNOPower.Wizard_Passive_CriticalMass);
 				}
 				public override void RecreateAbilities()
 				{
@@ -41,10 +46,10 @@ namespace FunkyTrinity
 					 Vector3 loc;
 					 //Low HP -- Flee Teleport
 					 if (Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP&&Bot.Character.dCurrentHealthPct<0.5d&&
-								(GridPointAreaCache.AttemptFindSafeSpot(out loc, Bot.Target.CurrentTarget.Position, true)))
+								(Bot.NavigationCache.AttemptFindSafeSpot(out loc, Bot.Target.CurrentTarget.Position, true)))
 						  Bot.Combat.vSideToSideTarget=loc;
 					 else
-						  Bot.Combat.vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, Bot.Target.CurrentTarget.CentreDistance, true);
+						  Bot.Combat.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, Bot.Target.CurrentTarget.CentreDistance, true);
 				}
 				public override int MainPetCount
 				{
@@ -169,7 +174,7 @@ namespace FunkyTrinity
 								UsageType=AbilityUseType.Location,
 								AbilityWaitVars=new AbilityWaitLoops(0, 0, true),
 								Cost=35,
-								Range=base.bUsingCriticalMassPassive?9:28,
+								Range=this.bUsingCriticalMassPassive?9:28,
 								IsRanged=true,
 								UseAvoiding=false,
 								UseOOCBuff=false,
@@ -181,7 +186,7 @@ namespace FunkyTrinity
 									 return (!HasSignatureAbility||this.GetBuffStacks(SNOPower.Wizard_EnergyTwister)<1)&&
 												(Bot.Combat.iElitesWithinRange[RANGE_30]>=1||Bot.Combat.iAnythingWithinRange[RANGE_25]>=1||Bot.Target.CurrentTarget.RadiusDistance<=12f)&&
 												(!Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_Electrocute)||!SnoCacheLookup.hashActorSNOFastMobs.Contains(Bot.Target.CurrentTarget.SNOID))&&
-												((base.bUsingCriticalMassPassive&&(!HasSignatureAbility||Bot.Character.dCurrentEnergy>=35))||(!base.bUsingCriticalMassPassive&&Bot.Character.dCurrentEnergy>=35));
+												((this.bUsingCriticalMassPassive&&(!HasSignatureAbility||Bot.Character.dCurrentEnergy>=35))||(!this.bUsingCriticalMassPassive&&Bot.Character.dCurrentEnergy>=35));
 								}),
 						  };
 					 }
@@ -196,7 +201,7 @@ namespace FunkyTrinity
 								UsageType=AbilityUseType.Target,
 								AbilityWaitVars=new AbilityWaitLoops(0, 0, true),
 								Cost=20,
-								Range=base.bUsingCriticalMassPassive?20:35,
+								Range=this.bUsingCriticalMassPassive?20:35,
 								IsRanged=true,
 								UseAvoiding=false,
 								UseOOCBuff=false,
@@ -218,13 +223,13 @@ namespace FunkyTrinity
 								UsageType=AbilityUseType.ClusterTarget|AbilityUseType.Target,
 								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
 								Cost=35,
-								Range=base.bUsingCriticalMassPassive?20:40,
+								Range=this.bUsingCriticalMassPassive?20:40,
 								IsRanged=true,
 								UseAvoiding=false,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy),
-								ClusterConditions=new ClusterConditions(5d, base.bUsingCriticalMassPassive?20:40, 1, true),
+								ClusterConditions=new ClusterConditions(5d, this.bUsingCriticalMassPassive?20:40, 1, true),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial),
 								Fcriteria=new Func<bool>(() => { return !this.bWaitingForSpecial; }),
 								
@@ -315,10 +320,10 @@ namespace FunkyTrinity
 								{
 									 return
 										  // Check this isn't a critical mass wizard, cos they won't want to use this except for low health unless they don't have nova/blast in which case go for it
-										  ((base.bUsingCriticalMassPassive&&((!Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_FrostNova)&&!Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_ExplosiveBlast))||
+										  ((this.bUsingCriticalMassPassive&&((!Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_FrostNova)&&!Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_ExplosiveBlast))||
 										  (Bot.Character.dCurrentHealthPct<=0.7&&(Bot.Combat.iElitesWithinRange[RANGE_15]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>0||(Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=23f)))))
 										  // Else normal wizard in which case check standard stuff
-										  ||(!base.bUsingCriticalMassPassive&&Bot.Combat.iElitesWithinRange[RANGE_15]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>3||Bot.Character.dCurrentHealthPct<=0.7||(Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=23f)));
+										  ||(!this.bUsingCriticalMassPassive&&Bot.Combat.iElitesWithinRange[RANGE_15]>0||Bot.Combat.iAnythingWithinRange[RANGE_15]>3||Bot.Character.dCurrentHealthPct<=0.7||(Bot.Target.CurrentTarget.ObjectIsSpecial&&Bot.Target.CurrentTarget.RadiusDistance<=23f)));
 								}),
 						  };
 					 }
@@ -506,8 +511,8 @@ namespace FunkyTrinity
 						  return new Ability
 						  {
 								Power=Power,
-								
-								UsageType=AbilityUseType.Target,
+
+								UsageType=AbilityUseType.Target|AbilityUseType.ClusterTarget,
 								AbilityWaitVars=new AbilityWaitLoops(0, 0, true),
 								Range=(this.RuneIndexCache[SNOPower.Wizard_Electrocute]==2?15:40),
 								IsRanged=true,
@@ -515,6 +520,12 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.None,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
+
+								//Aim for cluster with 2 units very close together.
+								ClusterConditions=new ClusterConditions(3d, this.RuneIndexCache[SNOPower.Wizard_Electrocute]==2?15:40, 2, true),
+								//No conditions for a single target.
+								TargetUnitConditionFlags=new UnitTargetConditions(),
+
 						  };
 					 }
 					 #endregion
@@ -739,8 +750,7 @@ namespace FunkyTrinity
 					 #endregion
 
 
-					 if (Power==SNOPower.Weapon_Ranged_Wand)
-						  returnAbility=Wand_Range_Attack;
+					 if (Power==SNOPower.Weapon_Ranged_Wand) returnAbility=Wand_Range_Attack;
 
 					 return returnAbility;
 				}

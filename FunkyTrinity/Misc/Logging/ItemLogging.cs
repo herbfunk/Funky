@@ -236,19 +236,19 @@ namespace FunkyTrinity
 					 LogWriter.WriteLine("===== Misc Statistics =====");
 					 LogWriter.WriteLine("Total tracking time: "+TotalRunningTime.Hours.ToString()+"h "+TotalRunningTime.Minutes.ToString()+
 						  "m "+TotalRunningTime.Seconds.ToString()+"s");
-					 LogWriter.WriteLine("Total deaths: "+Bot.iTotalDeaths.ToString()+" ["+Math.Round(Bot.iTotalDeaths/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
-					 LogWriter.WriteLine("Total games (approx): "+Bot.iTotalLeaveGames.ToString()+" ["+Math.Round(Bot.iTotalLeaveGames/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
-					 if (Bot.iTotalLeaveGames==0&&Bot.iTotalJoinGames>0)
+					 LogWriter.WriteLine("Total deaths: "+Bot.Stats.iTotalDeaths.ToString()+" ["+Math.Round(Bot.Stats.iTotalDeaths/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+					 LogWriter.WriteLine("Total games (approx): "+Bot.Stats.iTotalLeaveGames.ToString()+" ["+Math.Round(Bot.Stats.iTotalLeaveGames/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+					 if (Bot.Stats.iTotalLeaveGames==0&&Bot.Stats.iTotalJoinGames>0)
 					 {
-						  if (Bot.iTotalJoinGames==1&&Bot.iTotalProfileRecycles>1)
+						  if (Bot.Stats.iTotalJoinGames==1&&Bot.Stats.iTotalProfileRecycles>1)
 						  {
 								LogWriter.WriteLine("(a profile manager/death handler is interfering with join/leave game events, attempting to guess total runs based on profile-loops)");
-								LogWriter.WriteLine("Total full profile cycles: "+Bot.iTotalProfileRecycles.ToString()+" ["+Math.Round(Bot.iTotalProfileRecycles/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+								LogWriter.WriteLine("Total full profile cycles: "+Bot.Stats.iTotalProfileRecycles.ToString()+" ["+Math.Round(Bot.Stats.iTotalProfileRecycles/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
 						  }
 						  else
 						  {
 								LogWriter.WriteLine("(your games left value may be bugged @ 0 due to profile managers/routines etc., now showing games joined instead:)");
-								LogWriter.WriteLine("Total games joined: "+Bot.iTotalJoinGames.ToString()+" ["+Math.Round(Bot.iTotalJoinGames/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+								LogWriter.WriteLine("Total games joined: "+Bot.Stats.iTotalJoinGames.ToString()+" ["+Math.Round(Bot.Stats.iTotalJoinGames/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
 						  }
 					 }
 					 LogWriter.WriteLine("");

@@ -11,18 +11,20 @@ namespace FunkyTrinity
 {
     public partial class Funky
     {
-		  internal static DateTime LastJoinedGame=DateTime.MinValue;
+		  
         // Each time we join & leave a game, might as well clear the hashset of looked-at dropped items - just to keep it smaller
         private static void FunkyOnJoinGame(object src, EventArgs mea)
         {
-				Bot.iTotalJoinGames++;
+				Bot.Stats.iTotalJoinGames++;
+				Bot.Stats.LastJoinedGame=DateTime.Now;
+
             ResetGame();
             //Start new current game stats
             Statistics.ItemStats.CurrentGame.Reset();
             Statistics.GameStats.CurrentGame.Reset();
 				ResetProfileVars();
 
-				LastJoinedGame=DateTime.Now;
+				
 
 				//Disconnect -- Starting Profile Setup.
 				if (HadDisconnectError)

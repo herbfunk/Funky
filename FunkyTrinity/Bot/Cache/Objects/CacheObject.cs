@@ -33,7 +33,7 @@ namespace FunkyTrinity
 					 this.LosSearchRetryMilliseconds_=1000;
 					 this.PrioritizedDate=DateTime.Today;
 					 this.PriorityCounter=0;
-					 this.losv3_=vNullLocation;
+					 this.losv3_=Vector3.Zero;
 					 this.HandleAsAvoidanceObject=false;
 					 //Keep track of each unique RaGuid that is created and uses this SNO during each level.
 					 //if (!UsedByRaGuids.Contains(RAGUID)) UsedByRaGuids.Add(RAGUID);
@@ -185,18 +185,18 @@ namespace FunkyTrinity
 												:this.CollisionRadius.HasValue?this.CollisionRadius.Value:this.Radius;
 
 						  Vector3 GroundedVector=new Vector3(this.position_.X, this.position_.Y, this.position_.Z+this.radius_/2);
-						  return MathEx.GetPointAt(GroundedVector, (distance*1.15f), FindDirection(GroundedVector, Bot.Character.Position, true));
+						  return MathEx.GetPointAt(GroundedVector, (distance*1.15f), Navigation.FindDirection(GroundedVector, Bot.Character.Position, true));
 					 }
 				}
 
-				private GridPointAreaCache.GPRectangle gprect_;
-				internal virtual GridPointAreaCache.GPRectangle GPRect
+				private GPRectangle gprect_;
+				internal virtual GPRectangle GPRect
 				{
 					 get
 					 {
 						  //Create new one..
 						  if (gprect_==null)
-								gprect_=new GridPointAreaCache.GPRectangle(Position, (int)(Math.Sqrt(this.ActorSphereRadius.Value)));
+								gprect_=new GPRectangle(Position, (int)(Math.Sqrt(this.ActorSphereRadius.Value)));
 
 						  return gprect_;
 					 }
@@ -306,7 +306,7 @@ namespace FunkyTrinity
 					 if (ServerObjectIntersection&&ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obstacle => obstacle.Obstacletype.HasValue&&obstacle.Obstacletype.Value!=ObstacleType.Monster&&obstacle.TestIntersection(PositionToTestFrom, botmeleeVector)))
 						  return false;
 
-					 if (!Flags.HasFlag(NavCellFlags.None)&&!GilesCanRayCast(PositionToTestFrom, botmeleeVector, Flags))
+					 if (!Flags.HasFlag(NavCellFlags.None)&&!Navigation.CanRayCast(PositionToTestFrom, botmeleeVector, Flags))
 						  return false;
 
 
@@ -332,7 +332,7 @@ namespace FunkyTrinity
 				}
 
 
-				private Vector3 losv3_=vNullLocation;
+				private Vector3 losv3_=Vector3.Zero;
 				private DateTime losv3LastChanged=DateTime.Today;
 				///<summary>
 				///Used during targeting as destination vector
@@ -344,7 +344,7 @@ namespace FunkyTrinity
 						  //invalidate los vector after 4 seconds
 						  if (DateTime.Now.Subtract(losv3LastChanged).TotalSeconds>4)
 						  {
-								losv3_=vNullLocation;
+								losv3_=Vector3.Zero;
 								//this.RequiresLOSCheck=this.IgnoresLOSCheck==false?true:false;
 						  }
 
@@ -356,7 +356,7 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  return losv3_!=vNullLocation;
+						  return losv3_!=Vector3.Zero;
 					 }
 				}
 				#endregion

@@ -77,6 +77,8 @@ namespace FunkyTrinity
 				///This must be set to a valid cacheobject in order to properly handle it.
 				///</summary>
 				public CacheObject CurrentTarget;
+
+				//Used to reduce additional unboxing when target is an unit.
 				internal CacheUnit CurrentUnitTarget;
 
 				///<summary>
@@ -85,24 +87,22 @@ namespace FunkyTrinity
 				public bool UpdateTarget()
 				{
 					 //Generate a vaild object list using our cached collection!
-					 Bot.ValidObjects=ObjectCache.Objects.Values
-														  .Where(obj => obj.ObjectIsValidForTargeting).ToList();
+					 Bot.ValidObjects=ObjectCache.Objects.Values.Where(obj => obj.ObjectIsValidForTargeting).ToList();
 
 					 //Check avoidance requirement still valid
-					 if (Bot.Combat.RequiresAvoidance&&Bot.Combat.TriggeringAvoidances.Count==0)
-						  Bot.Combat.RequiresAvoidance=false;
+					 if (Bot.Combat.RequiresAvoidance&&Bot.Combat.TriggeringAvoidances.Count==0) Bot.Combat.RequiresAvoidance=false;
 
-					 Vector3 LOS=vNullLocation;
+					 Vector3 LOS=Vector3.Zero;
 
 					 //Check if we require avoidance movement.
 					 #region AvodianceMovementCheck
-					 // Note that if treasure goblin level is set to kamikaze, even avoidance moves are disabled to reach the goblin!
-					 if (Bot.Combat.RequiresAvoidance&&(!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.SettingsFunky.GoblinPriority<2)
-						  &&(DateTime.Now.Subtract(Bot.Combat.timeCancelledEmergencyMove).TotalMilliseconds>Bot.Combat.iMillisecondsCancelledEmergencyMoveFor))
-					 {//Bot requires avoidance movement.. (Note: we have not done the weighting of our targeting list yet..)
 
-						  if (DateTime.Now.Subtract(Bot.Combat.LastAvoidanceMovement).TotalMilliseconds>=Bot.Combat.iSecondsEmergencyMoveFor
-								&&vlastSafeSpot!=vNullLocation)
+					 if (Bot.Combat.RequiresAvoidance&&(!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.SettingsFunky.GoblinPriority<2)
+						 &&(DateTime.Now.Subtract(Bot.Combat.timeCancelledEmergencyMove).TotalMilliseconds>Bot.Combat.iMillisecondsCancelledEmergencyMoveFor))
+					 {
+
+						  //Reuse the last generated safe spot...
+						  if (DateTime.Now.Subtract(Bot.Combat.LastAvoidanceMovement).TotalMilliseconds>=Bot.Combat.iSecondsEmergencyMoveFor&&vlastSafeSpot!=Vector3.Zero)
 						  {
 								//Check how close we are..
 								if (Bot.Character.Position.Distance2D(vlastSafeSpot)>2.5f)
@@ -110,43 +110,38 @@ namespace FunkyTrinity
 									 CurrentTarget=new CacheObject(vlastSafeSpot, TargetType.Avoidance, 20000f, "SafeAvoid", 2.5f, -1);
 									 return true;
 								}
-								else
-									 vlastSafeSpot=vNullLocation;
+								else vlastSafeSpot=Vector3.Zero;
 						  }
-						  
+
 						  Vector3 vAnySafePoint;
-
-						  bool SafeMovementFound=false;
-
 						  //if (CurrentTarget!=null&&CurrentTarget.targetType.HasValue&&TargetType.ServerObjects.HasFlag(CurrentTarget.targetType.Value))
 						  //    LOS=CurrentTarget.Position;
 						  //else
-						  //    LOS=vNullLocation;
+						  //    LOS=Vector3.Zero;
 
-
-						  SafeMovementFound=GridPointAreaCache.AttemptFindSafeSpot(out vAnySafePoint, LOS);
-						  if (SafeMovementFound)
+						  if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, LOS))
 						  {
 								float distance=vAnySafePoint.Distance(Bot.Character.Position);
 
 								float losdistance=0f;
-								if (LOS!=vNullLocation)
-									 losdistance=LOS.Distance(Bot.Character.Position);
+								if (LOS!=Vector3.Zero) losdistance=LOS.Distance(Bot.Character.Position);
 
-								string los=LOS!=vNullLocation?("\r\n using LOS location "+LOS.ToString()+" distance "+losdistance.ToString()):" ";
+								string los=LOS!=Vector3.Zero?("\r\n using LOS location "+LOS.ToString()+" distance "+losdistance.ToString()):" ";
 
-								Logging.WriteDiagnostic("Safespot found at {0} with {1} distance{2}", vAnySafePoint.ToString(), distance, los);
+								Logging.WriteDiagnostic("Avoid Movement found AT {0} with {1} Distance", vAnySafePoint.ToString(), distance);
 								//bFoundSafeSpot = true;
 
 								//setup avoidance target
 								if (CurrentTarget!=null) Bot.Combat.LastCachedTarget=CurrentTarget.Clone();
-
 								CurrentTarget=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "SafeAvoid", 2.5f, -1);
+
+								//Estimate time we will be reusing this movement vector3
 								Bot.Combat.iSecondsEmergencyMoveFor=1+(int)(distance/25f);
 
 								//Avoidance takes priority over kiting..
 								Bot.Combat.timeCancelledKiteMove=DateTime.Now;
 								Bot.Combat.iMillisecondsCancelledKiteMoveFor=((Bot.Combat.iSecondsEmergencyMoveFor+1)*1000);
+
 								return true;
 						  }
 
@@ -154,19 +149,16 @@ namespace FunkyTrinity
 					 }
 					 #endregion
 
+
 					 Bot.Combat.bStayPutDuringAvoidance=false;
 
-					 //update cluster targeting valid selection list
-					 if (Bot.SettingsFunky.EnableClusteringTargetLogic
-							 &&(!Bot.SettingsFunky.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>Bot.SettingsFunky.IgnoreClusterLowHPValue)
-							 &&(DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalMilliseconds>500||DateTime.Now.Subtract(Bot.Combat.LastClusterTargetLogicRefresh).TotalMilliseconds>200))
-					 {
-						  Bot.Combat.UpdateTargetClusteringVariables();
-					 }
 
+					 //cluster target update
+					 Bot.Combat.UpdateTargetClusteringVariables();
 
 					 //Standard weighting of valid objects -- updates current target.
 					 this.WeightEvaluationObjList();
+
 
 					 //check kiting
 					 #region Kiting
@@ -179,7 +171,7 @@ namespace FunkyTrinity
 						  {
 								//Resuse last safespot until timer expires!
 								if (DateTime.Now.Subtract(Bot.Combat.LastKiteAction).TotalSeconds<Bot.Combat.iSecondsKiteMoveFor
-									 &&vlastSafeSpot!=vNullLocation)
+									 &&vlastSafeSpot!=Vector3.Zero)
 								{
 									 if (Bot.Character.Position.Distance2D(vlastSafeSpot)>2.5f)
 									 {
@@ -187,19 +179,19 @@ namespace FunkyTrinity
 										  return true;
 									 }
 									 else
-										  vlastSafeSpot=vNullLocation;
+										  vlastSafeSpot=Vector3.Zero;
 								}
 
 								if (CurrentTarget!=null&&CurrentTarget.targetType.HasValue&&TargetType.ServerObjects.HasFlag(CurrentTarget.targetType.Value)
-									 &&(GridPointAreaCache.CurrentGPAREA==null||!GridPointAreaCache.CurrentGPAREA.AllGPRectsFailed))
+									 &&(Bot.NavigationCache.CurrentGPArea==null||!Bot.NavigationCache.CurrentGPArea.AllGPRectsFailed))
 									 LOS=CurrentTarget.Position;
 								else
-									 LOS=vNullLocation;
+									 LOS=Vector3.Zero;
 
 								Vector3 vAnySafePoint;
-								if (GridPointAreaCache.AttemptFindSafeSpot(out vAnySafePoint, LOS, true))
+								if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, LOS, true))
 								{
-									 Logging.WriteDiagnostic("Kitespot found at {0} with {1} distance from our current position!", vAnySafePoint.ToString(), vAnySafePoint.Distance(Bot.Character.Position));
+									 Logging.WriteDiagnostic("Kite Movement found AT {0} with {1} Distance", vAnySafePoint.ToString(), vAnySafePoint.Distance(Bot.Character.Position));
 									 Bot.Combat.IsKiting=true;
 
 									 if (CurrentTarget!=null)
@@ -207,7 +199,7 @@ namespace FunkyTrinity
 
 									 CurrentTarget=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "Kitespot", 2.5f, -1);
 
-									 Bot.Combat.iSecondsKiteMoveFor=1+(int)(Vector3.Distance(Bot.Character.Position,vlastSafeSpot)/25f);
+									 Bot.Combat.iSecondsKiteMoveFor=1+(int)(Vector3.Distance(Bot.Character.Position, vlastSafeSpot)/25f);
 									 return true;
 								}
 								Bot.UpdateAvoidKiteRates();
@@ -221,10 +213,11 @@ namespace FunkyTrinity
 					 {
 						  //Swap back to our orginal "kite" target
 						  CurrentTarget=ObjectCache.Objects[Bot.Character.LastCachedTarget.RAGUID];
-						  Logging.WriteVerbose("Swapping back to unit {0} after kiting!", CurrentTarget.InternalName);
+						  Logging.WriteVerbose("Swapping back to unit {0} after kiting", CurrentTarget.InternalName);
 						  return true;
 					 }
 					 #endregion
+
 
 					 // No valid targets but we were told to stay put?
 					 if (CurrentTarget==null&&Bot.Combat.bStayPutDuringAvoidance)
@@ -286,21 +279,21 @@ namespace FunkyTrinity
 
 						  //Check if our current path intersects avoidances. (When not in town, and not currently inside avoidance)
 						  if (!Bot.Character.bIsInTown&&(Bot.SettingsFunky.AttemptAvoidanceMovements||Bot.Combat.CriticalAvoidance)
-								  &&NP.CurrentPath.Count>0
+								  &&Navigation.NP.CurrentPath.Count>0
 								  &&Bot.Combat.TriggeringAvoidances.Count==0)
 						  {
 								Vector3 curpos=Bot.Character.Position;
-								IndexedList<Vector3> curpath=NP.CurrentPath;
+								IndexedList<Vector3> curpath=Navigation.NP.CurrentPath;
 
 								var CurrentNearbyPath=curpath.Where(v => curpos.Distance(v)<=40f);
 								if (CurrentNearbyPath!=null&&CurrentNearbyPath.Any())
 								{
 									 CurrentNearbyPath.OrderBy(v => curpath.IndexOf(v));
 
-									 Vector3 lastV3=vNullLocation;
+									 Vector3 lastV3=Vector3.Zero;
 									 foreach (var item in CurrentNearbyPath)
 									 {
-										  if (lastV3==vNullLocation)
+										  if (lastV3==Vector3.Zero)
 												lastV3=item;
 										  else if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(item, lastV3))
 										  {
@@ -322,27 +315,26 @@ namespace FunkyTrinity
 				private void WeightEvaluationObjList()
 				{
 					 // Store if we are ignoring all units this cycle or not
-					 bool bIgnoreAllUnits=!Bot.Combat.bAnyChampionsPresent&&!Bot.Combat.bAnyMobsInCloseRange&&((!Bot.Combat.bAnyTreasureGoblinsPresent&&Bot.SettingsFunky.GoblinPriority>=2)||Bot.SettingsFunky.GoblinPriority<2)&&
-										  Bot.Character.dCurrentHealthPct>=0.85d;
+					 bool bIgnoreAllUnits=!Bot.Combat.bAnyChampionsPresent
+												 &&!Bot.Combat.bAnyMobsInCloseRange
+												 &&((!Bot.Combat.bAnyTreasureGoblinsPresent&&Bot.SettingsFunky.GoblinPriority>=2)||Bot.SettingsFunky.GoblinPriority<2)
+												 &&Bot.Character.dCurrentHealthPct>=0.85d;
+
 
 					 //clear our last "avoid" list..
 					 ObjectCache.Objects.objectsIgnoredDueToAvoidance.Clear();
-					 bool bPrioritizeCloseRange=(Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted);
-					 bool bIsBerserked=Bot.Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker);
-					 double iHighestWeightFound=0;
 
+					 double iHighestWeightFound=0;
 
 					 foreach (CacheObject thisobj in Bot.ValidObjects)
 					 {
 						  thisobj.UpdateWeight();
 
 						  if (thisobj.Weight==1)
-						  {// Force the character to stay where it is if there is nothing available that is out of avoidance stuff and we aren't already in avoidance stuff
+						  {
+								// Force the character to stay where it is if there is nothing available that is out of avoidance stuff and we aren't already in avoidance stuff
 								thisobj.Weight=0;
-
-								if (!Bot.Combat.RequiresAvoidance)
-									 Bot.Combat.bStayPutDuringAvoidance=true;
-
+								if (!Bot.Combat.RequiresAvoidance) Bot.Combat.bStayPutDuringAvoidance=true;
 								continue;
 						  }
 
@@ -391,7 +383,7 @@ namespace FunkyTrinity
 														  Bot.Combat.bStayPutDuringAvoidance=true;
 														  resetTarget=true;
 													 }
-													 else if(!nextAbility.IsRanged&&nextAbility.Range>0)
+													 else if (!nextAbility.IsRanged&&nextAbility.Range>0)
 													 {
 														  //Non-Ranged Ability.. act like melee..
 														  //Try to find a spot
@@ -404,15 +396,15 @@ namespace FunkyTrinity
 									 }
 								}
 
-								//Avoidance (Melee Only) Attempt to find a location where we can attack!
+								//Avoidance Attempt to find a location where we can attack!
 								if (ObjectCache.Objects.objectsIgnoredDueToAvoidance.Contains(thisobj))
 								{
 									 //Check Bot Navigationally blocked
-									 GridPointAreaCache.RefreshNavigationBlocked();
-									 if (!GridPointAreaCache.BotIsNavigationallyBlocked)
+									 Bot.NavigationCache.RefreshNavigationBlocked();
+									 if (!Bot.NavigationCache.BotIsNavigationallyBlocked)
 									 {
 										  Vector3 SafeLOSMovement;
-										  if (thisobj.GPRect.TryFindSafeSpot(Bot.Character.Position, out SafeLOSMovement, vNullLocation, Bot.KiteDistance>0f, true))
+										  if (thisobj.GPRect.TryFindSafeSpot(Bot.Character.Position, out SafeLOSMovement, Vector3.Zero, Bot.KiteDistance>0f, true))
 										  {
 												CurrentTarget=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
 												//Reset Avoidance Timer so we don't trigger it while moving towards the target!
@@ -461,10 +453,9 @@ namespace FunkyTrinity
 					 #region PauseCheck
 					 if (Bot.Combat.bWaitingAfterPower&&Bot.Combat.powerPrime.WaitLoopsAfter>=1)
 					 {
-						  if (Bot.Combat.powerPrime.WaitLoopsAfter>=1)
-								Bot.Combat.powerPrime.WaitLoopsAfter--;
-						  if (Bot.Combat.powerPrime.WaitLoopsAfter<=0)
-								Bot.Combat.bWaitingAfterPower=false;
+						  if (Bot.Combat.powerPrime.WaitLoopsAfter>=1) Bot.Combat.powerPrime.WaitLoopsAfter--;
+						  if (Bot.Combat.powerPrime.WaitLoopsAfter<=0) Bot.Combat.bWaitingAfterPower=false;
+
 						  CurrentState=RunStatus.Running;
 						  return false;
 					 }
@@ -478,8 +469,7 @@ namespace FunkyTrinity
 					 if (Bot.Character.dCurrentHealthPct<=0)
 					 {
 						  //Disable OOC IDing behavior if dead!
-						  if (shouldPreformOOCItemIDing)
-								shouldPreformOOCItemIDing=false;
+						  if (shouldPreformOOCItemIDing) shouldPreformOOCItemIDing=false;
 
 						  CurrentState=RunStatus.Success;
 						  return false;
@@ -625,8 +615,8 @@ namespace FunkyTrinity
 						  Bot.Combat.bWasRootedLastTick=true;
 						  Bot.Combat.bForceTargetUpdate=true;
 					 }
-					 if (!Bot.Character.bIsRooted)
-						  Bot.Combat.bWasRootedLastTick=false;
+
+					 if (!Bot.Character.bIsRooted) Bot.Combat.bWasRootedLastTick=false;
 
 					 return true;
 				}
@@ -647,21 +637,18 @@ namespace FunkyTrinity
 					 if (!Bot.Combat.bWholeNewTarget&&!Bot.Combat.bWaitingForPower&&!Bot.Combat.bWaitingForPotion)
 					 {
 						  // Update targets at least once every 80 milliseconds
-						  if (Bot.Combat.bForceTargetUpdate||Bot.Combat.TravellingAvoidance||
-							  ((DateTime.Now.Subtract(Bot.lastRefreshedObjects).TotalMilliseconds>=80&&CurrentTarget.targetType.Value!=TargetType.Avoidance)||
-								 DateTime.Now.Subtract(Bot.lastRefreshedObjects).TotalMilliseconds>=1200))
+						  if (Bot.Combat.bForceTargetUpdate
+								||Bot.Combat.TravellingAvoidance
+								||((DateTime.Now.Subtract(Bot.lastRefreshedObjects).TotalMilliseconds>=80&&CurrentTarget.targetType.Value!=TargetType.Avoidance)
+								||DateTime.Now.Subtract(Bot.lastRefreshedObjects).TotalMilliseconds>=1200))
 						  {
 								bShouldRefreshDiaObjects=true;
 						  }
 
 						  // If we AREN'T getting new targets - find out if we SHOULD because the current unit has died etc.
-						  if (!bShouldRefreshDiaObjects&&CurrentTarget.targetType.Value==TargetType.Unit)
-						  {
-								if (!CurrentTarget.IsStillValid())
-								{
-									 bShouldRefreshDiaObjects=true;
-								}
-						  }
+						  if (!bShouldRefreshDiaObjects&&CurrentTarget.targetType.Value==TargetType.Unit&&!CurrentTarget.IsStillValid())
+								bShouldRefreshDiaObjects=true;
+						  
 					 }
 
 					 // So, after all that, do we actually want a new target list?
@@ -689,10 +676,9 @@ namespace FunkyTrinity
 
 								// Been trying to handle the same target for more than 30 seconds without damaging/reaching it? Blacklist it!
 								// Note: The time since target picked updates every time the current target loses health, if it's a monster-target
-								if (CurrentTarget.targetType.Value!=TargetType.Avoidance&&
-									((CurrentTarget.targetType.Value!=TargetType.Unit&&DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds>12)||
-									 (CurrentTarget.targetType.Value==TargetType.Unit&&!CurrentTarget.IsBoss&&DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds>40))
-									)
+								if (CurrentTarget.targetType.Value!=TargetType.Avoidance
+									 &&((CurrentTarget.targetType.Value!=TargetType.Unit&&DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds>12)
+									 ||(CurrentTarget.targetType.Value==TargetType.Unit&&!CurrentTarget.IsBoss&&DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds>40)))
 								{
 									 // NOTE: This only blacklists if it's remained the PRIMARY TARGET that we are trying to actually directly attack!
 									 // So it won't blacklist a monster "on the edge of the screen" who isn't even being targetted
@@ -701,11 +687,10 @@ namespace FunkyTrinity
 									 // PREVENT blacklisting a monster on less than 90% health unless we haven't damaged it for more than 2 minutes
 									 if (CurrentTarget.targetType.Value==TargetType.Unit)
 									 {
-										  if (CurrentTarget.IsTreasureGoblin&&Bot.SettingsFunky.GoblinPriority>=3)
-												bBlacklistThis=false;
-										  if (DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds<=120)
-												bBlacklistThis=false;
+										  if (CurrentTarget.IsTreasureGoblin&&Bot.SettingsFunky.GoblinPriority>=3)bBlacklistThis=false;
+										  if (DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds<=120) bBlacklistThis=false;
 									 }
+
 									 if (bBlacklistThis)
 									 {
 										  if (CurrentTarget.targetType.Value==TargetType.Unit)
@@ -713,6 +698,7 @@ namespace FunkyTrinity
 												//Logging.WriteDiagnostic("[Funky] Blacklisting a monster because of possible stuck issues. Monster="+ObjectData.InternalName+" {"+
 												//ObjectData.SNOID.ToString()+"}. Range="+ObjectData.CentreDistance.ToString()+", health %="+ObjectData.CurrentHealthPct.ToString());
 										  }
+
 										  CurrentTarget.NeedsRemoved=true;
 										  CurrentTarget.BlacklistFlag=BlacklistType.Temporary;
 									 }
@@ -744,8 +730,8 @@ namespace FunkyTrinity
 					 //Health Change Timer
 					 if (CurrentTarget.targetType.Value==TargetType.Unit)
 					 {
-						  if (CurrentUnitTarget==null)
-								CurrentUnitTarget=(CacheUnit)CurrentTarget;
+						  //Update CurrentUnitTarget Variable.
+						  if (CurrentUnitTarget==null) CurrentUnitTarget=(CacheUnit)CurrentTarget;
 
 						  double HealthChangeMS=DateTime.Now.Subtract(Bot.Combat.LastHealthChange).TotalMilliseconds;
 
@@ -757,7 +743,6 @@ namespace FunkyTrinity
 								CurrentTarget.BlacklistLoops=10;
 								return false;
 						  }
-
 					 }
 
 
@@ -802,7 +787,7 @@ namespace FunkyTrinity
 												{
 													 CurrentTarget.LastLOSSearch=DateTime.Now;
 
-													 GridPointAreaCache.GPRectangle TargetGPRect=CurrentTarget.GPRect;
+													 GPRectangle TargetGPRect=CurrentTarget.GPRect;
 													 //Expand GPRect into 5x5, 7x7 for ranged!
 													 TargetGPRect.FullyExpand();
 													 if (!Bot.Class.IsMeleeClass)
@@ -881,7 +866,7 @@ namespace FunkyTrinity
 				{
 					 // Set current destination to our current target's destination
 					 TargetMovement.CurrentTargetLocation=CurrentTarget.Position;
-					 if (CurrentTarget.LOSV3!=vNullLocation)
+					 if (CurrentTarget.LOSV3!=Vector3.Zero)
 					 {
 						  //Recheck LOS every second
 						  if (CurrentTarget.LastLOSCheckMS>2500)
@@ -898,7 +883,7 @@ namespace FunkyTrinity
 								if (CurrentTarget.LOSTest(Bot.Character.Position, true, Bot.Combat.powerPrime.IsRanged, LOSNavFlags))
 								{
 									 //Los Passed!
-									 CurrentTarget.LOSV3=vNullLocation;
+									 CurrentTarget.LOSV3=Vector3.Zero;
 									 Bot.Combat.bWholeNewTarget=true;
 									 return false;
 								}
@@ -907,7 +892,6 @@ namespace FunkyTrinity
 						  TargetMovement.CurrentTargetLocation=CurrentTarget.LOSV3;
 						  if (Bot.Character.Position.Distance(CurrentTarget.LOSV3)>2.5f)
 						  {
-
 								CurrentState=TargetMovement.TargetMoveTo(CurrentTarget);
 								return false;
 						  }

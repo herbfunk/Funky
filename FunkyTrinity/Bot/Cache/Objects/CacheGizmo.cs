@@ -12,7 +12,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  internal class CacheGizmo : CacheObject
+		  public class CacheGizmo : CacheObject
 		  {
 
 				public CacheGizmo(CacheObject baseobj)
@@ -147,7 +147,7 @@ namespace FunkyTrinity
 									 if (this.targetType.Value==TargetType.Door)
 									 {
 										  Vector3 InteractionTest;
-										  if (PlayerMover.CurrentMovementPosition==vNullLocation)
+										  if (PlayerMover.CurrentMovementPosition==Vector3.Zero)
 										  {
 												InteractionTest=this.Position;
 										  }
@@ -155,7 +155,7 @@ namespace FunkyTrinity
 												InteractionTest=PlayerMover.CurrentMovementPosition;
 
 										  if ((Difference(InteractionTest.Z, Bot.Character.Position.Z)<15f//Ignore things blocked by z difference
-												&&!GilesIntersectsPath(this.Position, this.Radius, Bot.Character.Position, InteractionTest)))
+												&&!MathEx.IntersectsPath(this.Position, this.Radius, Bot.Character.Position, InteractionTest)))
 										  {
 												return false;
 										  }
@@ -240,7 +240,7 @@ namespace FunkyTrinity
 									 }
 
 									 Vector3 BarricadeTest;
-									 if (PlayerMover.CurrentMovementPosition==vNullLocation)
+									 if (PlayerMover.CurrentMovementPosition==Vector3.Zero)
 									 {
 										  BarricadeTest=this.Position;
 									 }
@@ -456,7 +456,7 @@ namespace FunkyTrinity
 				}
 		  }
 
-		  internal class CacheDestructable : CacheGizmo
+		  public class CacheDestructable : CacheGizmo
 		  {
 
 				public CacheDestructable(CacheObject baseobj)
@@ -538,7 +538,7 @@ namespace FunkyTrinity
 
 								
 								if (Bot.Class.IsMeleeClass) //Use a point that will focus our attack directly at the object
-									 vAttackPoint=MathEx.GetPointAt(this.Position, 6f, FindDirection(Bot.Character.Position, this.Position, true));
+									 vAttackPoint=MathEx.GetPointAt(this.Position, 6f, Navigation.FindDirection(Bot.Character.Position, this.Position, true));
 								else
 									 vAttackPoint=this.Position;
 
@@ -550,7 +550,7 @@ namespace FunkyTrinity
 						  else
 						  {
 								// Standard attack - attack the ACDGUID (equivalent of left-clicking the object in-game)
-								ZetaDia.Me.UsePower(Bot.Combat.powerPrime.Power, vNullLocation, Bot.Character.iCurrentWorldID, base.AcdGuid.Value);
+								ZetaDia.Me.UsePower(Bot.Combat.powerPrime.Power, Vector3.Zero, Bot.Character.iCurrentWorldID, base.AcdGuid.Value);
 						  }
 						  this.InteractionAttempts++;
 
@@ -608,7 +608,7 @@ namespace FunkyTrinity
 
 		  }
 
-		  internal class CacheInteractable : CacheGizmo
+		  public class CacheInteractable : CacheGizmo
 		  {
 				public CacheInteractable(CacheObject baseobj)
 					 : base(baseobj)

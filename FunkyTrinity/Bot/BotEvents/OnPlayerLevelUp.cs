@@ -9,7 +9,6 @@ namespace FunkyTrinity
 
 		  public void OnPlayerLevelUp(object sender, EventArgs e)
 		  {
-				
 				LeveledUpEventFired=true;
 		  }
     }

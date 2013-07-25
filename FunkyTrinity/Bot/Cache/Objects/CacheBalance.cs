@@ -6,7 +6,7 @@ namespace FunkyTrinity
 {
     public partial class Funky
     {
-		  internal class CacheBalance
+		  public class CacheBalance
 		  {
 				public int iThisItemLevel { get; set; }
 				public ItemType thisItemType { get; set; }
@@ -40,6 +40,21 @@ namespace FunkyTrinity
 				{
 					 bNeedsUpdated=true;
 				}
+
+				//public override bool Equals(object obj)
+				//{
+				//	 //Check for null and compare run-time types. 
+				//	 if (obj==null||this.GetType()!=obj.GetType())
+				//	 {
+				//		  return false;
+				//	 }
+				//	 else
+				//	 {
+				//		  CacheBalance p=(CacheBalance)obj;
+				//		  return this.thisItemType.Equals(p.thisItemType)&&this.thisItemBaseType.Equals(p.thisItemBaseType)&&this.iThisItemLevel.Equals(p.iThisItemLevel);
+				//	 }
+				//}
+				
 		  }
     }
 }

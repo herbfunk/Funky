@@ -5,8 +5,6 @@ using Zeta.Common;
 
 namespace FunkyTrinity
 {
-	 public partial class Funky
-	 {
 		  ///<summary>
 		  ///X,Y of a point. Conversions added for System Points and Vectors.
 		  ///</summary>
@@ -79,17 +77,17 @@ namespace FunkyTrinity
 				public static implicit operator GridPoint(Vector3 V)
 				{
 					 //return new GridPoint(V.X, V.Y, V.Z);
-					 return MGP.WorldToGrid(V.ToVector2());
+					 return Funky.Navigation.MGP.WorldToGrid(V.ToVector2());
 				}
 				public static implicit operator Vector2(GridPoint P)
 				{
-					 return MGP.GridToWorld(P);
+					 return Funky.Navigation.MGP.GridToWorld(P);
 				}
 				public static explicit operator Vector3(GridPoint P)
 				{
 					 //return new Vector3(P.X, P.Y, P.Z);
-					 Vector2 v_=MGP.GridToWorld(P);
-					 Vector3 p_=new Vector3(v_.X, v_.Y, MGP.GetHeight(v_));
+					 Vector2 v_=Funky.Navigation.MGP.GridToWorld(P);
+					 Vector3 p_=new Vector3(v_.X, v_.Y, Funky.Navigation.MGP.GetHeight(v_));
 					 return p_;
 				}
 				#endregion
@@ -268,5 +266,5 @@ namespace FunkyTrinity
 					 return l_v;
 				}
 		  }
-	 }
+	 
 }

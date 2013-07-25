@@ -86,7 +86,7 @@ namespace FunkyTrinity
 				return true;
 		  }
 
-		  internal static void ResetTPBehavior()
+		  public static void ResetTPBehavior()
 		  {
 				worldtransferStarted=false;
 				FunkyTPBehaviorFlag=false;
@@ -254,10 +254,10 @@ namespace FunkyTrinity
 				}
 
 				//Update Movement Data
-				Bot.Character.UpdateMovementData();
+				Bot.NavigationCache.RefreshMovementCache();
 
 				//Make sure we are not moving..
-				if (Bot.Character.isMoving)
+				if (Bot.NavigationCache.IsMoving)
 					 return RunStatus.Running;
 
 				//Check if we are casting, if not cast, else if casting but time has elapsed then cancel cast.
@@ -287,8 +287,13 @@ namespace FunkyTrinity
 					 {
 						  //Void Cast?
 						  Logging.WriteVerbose("[FunkyTP] Attempting to void cast with movement..");
-						  Vector3 safePOS=FindSafeZone(false, 1, Bot.Character.Position);
-						  Zeta.Navigation.Navigator.MoveTo(safePOS, "Void Cast Movement", false);
+						  Vector3 V3loc;
+						  bool success=Bot.NavigationCache.AttemptFindSafeSpot(out V3loc, Vector3.Zero);
+						  if (success)
+						  {
+								Zeta.Navigation.Navigator.MoveTo(V3loc, "Void Cast Movement", false);
+						  }
+						  
 						  return RunStatus.Running;
 					 }
 

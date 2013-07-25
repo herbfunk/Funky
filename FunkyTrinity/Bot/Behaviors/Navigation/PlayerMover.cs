@@ -115,7 +115,7 @@ namespace FunkyTrinity
 					 {
 						  Logging.Write("[Funky] Your bot got stuck! Trying to unstuck (attempt #"+iTotalAntiStuckAttempts.ToString()+" of 8 attempts)");
 						  Logging.WriteDiagnostic("(destination="+vOriginalDestination.ToString()+", which is "+Vector3.Distance(vOriginalDestination, vMyCurrentPosition).ToString()+" distance away)");
-						  vSafeMovementLocation=Funky.FindSafeZone(true, iTotalAntiStuckAttempts, Vector3.Zero);
+						  Bot.NavigationCache.AttemptFindSafeSpot(out vSafeMovementLocation, Vector3.Zero);
 
 						  // Temporarily log stuff
 						  if (iTotalAntiStuckAttempts==1&&Funky.Bot.SettingsFunky.LogStuckLocations)
@@ -188,7 +188,7 @@ namespace FunkyTrinity
 						  if (ZetaDia.Me.IsInTown)
 						  {
 
-								string profile=Funky.sFirstProfileSeen;
+								string profile=Bot.Stats.sFirstProfileSeen;
 
 								if (!string.IsNullOrEmpty(profile))
 								{
@@ -232,7 +232,7 @@ namespace FunkyTrinity
 					 {
 						  HadDisconnectError=true;
 						  timeLastRestartedGame=DateTime.Now;
-						  string sUseProfile=Funky.sFirstProfileSeen;
+						  string sUseProfile=Bot.Stats.sFirstProfileSeen;
 						  Logging.Write("[Funky] Anti-stuck measures exiting current game.");
 						  // Load the first profile seen last run
 						  ProfileManager.Load(!string.IsNullOrEmpty(sUseProfile)
@@ -331,31 +331,31 @@ namespace FunkyTrinity
 
 					 // Store player current position
 					 Vector3 vMyCurrentPosition=ZetaDia.Me.Position;
-					 CurrentMovementPosition=CurrentPathVector;
+					 CurrentMovementPosition=Bot.NavigationCache.CurrentPathVector;
 					 
 
 					 //Check GPC entry (backtracking cache) -- only when not in town!
-					 if (GridPointAreaCache.EnableBacktrackGPRcache&&!ZetaDia.Me.IsInTown)
+					 if (BackTrackCache.EnableBacktrackGPRcache&&!ZetaDia.Me.IsInTown)
 					 {
 						  if (DateTime.Now.Subtract(LastCombatPointChecked).TotalMilliseconds>1250)
 						  {
-								if (GridPointAreaCache.cacheMovementGPRs.Count==0)
-									 GridPointAreaCache.StartNewGPR(vMyCurrentPosition);
+								if (BackTrackCache.cacheMovementGPRs.Count==0)
+									 BackTrackCache.StartNewGPR(vMyCurrentPosition);
 								else
 								{//Add new point only if distance is 25f difference
-									 if (GridPointAreaCache.cacheMovementGPRs.Count==1)
+									 if (BackTrackCache.cacheMovementGPRs.Count==1)
 									 {
-										  if (GridPointAreaCache.cacheMovementGPRs[0].CreationVector.Distance(vMyCurrentPosition)>=GridPointAreaCache.MinimumRangeBetweenMovementGPRs)
+										  if (BackTrackCache.cacheMovementGPRs[0].CreationVector.Distance(vMyCurrentPosition)>=BackTrackCache.MinimumRangeBetweenMovementGPRs)
 										  {
-												GridPointAreaCache.StartNewGPR(vMyCurrentPosition);
+												BackTrackCache.StartNewGPR(vMyCurrentPosition);
 										  }
 									 }
 									 else
 									 {
 										  //Only if no GPCs currently are less than 20f from us..
-										  if (!GridPointAreaCache.cacheMovementGPRs.Any(GPC => GPC.CreationVector.Distance(vMyCurrentPosition)<GridPointAreaCache.MinimumRangeBetweenMovementGPRs))
+										  if (!BackTrackCache.cacheMovementGPRs.Any(GPC => GPC.CreationVector.Distance(vMyCurrentPosition)<BackTrackCache.MinimumRangeBetweenMovementGPRs))
 										  {
-												GridPointAreaCache.StartNewGPR(vMyCurrentPosition);
+												BackTrackCache.StartNewGPR(vMyCurrentPosition);
 										  }
 									 }
 								}
@@ -365,8 +365,7 @@ namespace FunkyTrinity
 					 }
 
 					 //Special cache for skipping locations visited.
-					 if (Bot.SettingsFunky.SkipAhead)
-						  CacheMovementTracking.RecordSkipAheadCachePoint();
+					 if (Bot.SettingsFunky.SkipAhead) SkipAheadCache.RecordSkipAheadCachePoint();
 
 					 // Store distance to current moveto target
 					 float fDistanceFromTarget;
@@ -421,8 +420,7 @@ namespace FunkyTrinity
 								// Do we want to immediately generate a 2nd waypoint to "chain" anti-stucks in an ever-increasing path-length?
 								if (iTimesReachedStuckPoint<=iTotalAntiStuckAttempts)
 								{
-									 //Trinity.Bot.Character.vCurrentPosition=vMyCurrentPosition;
-									 vSafeMovementLocation=Funky.FindSafeZone(true, iTotalAntiStuckAttempts, Vector3.Zero);
+									 Bot.NavigationCache.AttemptFindSafeSpot(out vSafeMovementLocation, Vector3.Zero);
 									 vMoveToTarget=vSafeMovementLocation;
 								}
 								else
@@ -449,10 +447,9 @@ namespace FunkyTrinity
 					 #endregion
 
 
-					 if (!Bot.Character.bIsInTown)
-					 {
-						  ObstacleCheck(vMyCurrentPosition);
-					 }
+					 //Prioritize "blocking" objects.
+					 if (!Bot.Character.bIsInTown) Bot.NavigationCache.ObstaclePrioritizeCheck();
+					 
 
 					 
 
@@ -460,9 +457,7 @@ namespace FunkyTrinity
 					 #region MovementAbilities
 					 // See if we can use abilities like leap etc. for movement out of combat, but not in town and only if we can raycast.
 					 if (Funky.Bot.SettingsFunky.OutOfCombatMovement&&!ZetaDia.Me.IsInTown)
-					 //&&)
 					 {
-
 						  bool bTooMuchZChange=((vMyCurrentPosition.Z-vMoveToTarget.Z)>=4f);
 
 						  Ability MovementPower;
@@ -479,11 +474,11 @@ namespace FunkyTrinity
 									 case SNOPower.Monk_TempestRush:
 										  vTargetAimPoint=MathEx.CalculatePointFrom(vMoveToTarget, vMyCurrentPosition, 10f);
 										  Bot.Character.UpdateAnimationState(false, true);
-										  Bot.Character.UpdateMovementData();
+										  Bot.NavigationCache.RefreshMovementCache();
 
 										  bool isHobbling=Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.Monk_Female_Hobble_Run|SNOAnim.Monk_Male_HTH_Hobble_Run);
 
-										  foundMovementPower=(!bTooMuchZChange&&(((!isHobbling||lastUsedAbilityMS>200)&&Bot.Character.dCurrentEnergy>=50)||((isHobbling||lastUsedAbilityMS<400&&Bot.Character.isMoving)&&Bot.Character.dCurrentEnergy>15))
+										  foundMovementPower=(!bTooMuchZChange&&(((!isHobbling||lastUsedAbilityMS>200)&&Bot.Character.dCurrentEnergy>=50)||((isHobbling||lastUsedAbilityMS<400&&Bot.NavigationCache.IsMoving)&&Bot.Character.dCurrentEnergy>15))
 												&&!ObjectCache.Obstacles.DoesPositionIntersectAny(vTargetAimPoint, ObstacleType.ServerObject));
 
 										  break;
@@ -520,7 +515,7 @@ namespace FunkyTrinity
 								{
 
 									 if ((MovementPower.Power==SNOPower.Monk_TempestRush&&lastUsedAbilityMS<250)||
-										  GilesCanRayCast(vMyCurrentPosition, vTargetAimPoint))
+										  Navigation.CanRayCast(vMyCurrentPosition, vTargetAimPoint))
 									 {
 										  ZetaDia.Me.UsePower(MovementPower.Power, vTargetAimPoint, Funky.Bot.Character.iCurrentWorldID, -1);
 										  MovementPower.LastUsed=DateTime.Now;
@@ -528,89 +523,11 @@ namespace FunkyTrinity
 									 }
 								}
 						  }
-						  #region "OldMovement"
-						  /*
-						  // Leap movement for a barb
-						  if (Funky.HotbarAbilitiesContainsPower(SNOPower.Barbarian_Leap)&&
-								DateTime.Now.Subtract(Funky.dictAbilityLastUse[SNOPower.Barbarian_Leap]).TotalMilliseconds>=Funky.dictAbilityRepeatDelay[SNOPower.Barbarian_Leap]&&
-								fDistanceFromTarget>=20f&&
-								PowerManager.CanCast(SNOPower.Barbarian_Leap)&&!ShrinesInArea(vMoveToTarget))
-						  {
-								Vector3 vThisTarget=vMoveToTarget;
-								if (fDistanceFromTarget>35f)
-									 vThisTarget=MathEx.CalculatePointFrom(vMoveToTarget, vMyCurrentPosition, 35f);
-								ZetaDia.Me.UsePower(SNOPower.Barbarian_Leap, vThisTarget, Funky.Bot.Character.iCurrentWorldID, -1);
-								Funky.dictAbilityLastUse[SNOPower.Barbarian_Leap]=DateTime.Now;
-								return;
-						  }
-						  // Furious Charge movement for a barb
-						  if (Funky.HotbarAbilitiesContainsPower(SNOPower.Barbarian_FuriousCharge)&&!bTooMuchZChange&&
-								DateTime.Now.Subtract(Funky.dictAbilityLastUse[SNOPower.Barbarian_FuriousCharge]).TotalMilliseconds>=Funky.dictAbilityRepeatDelay[SNOPower.Barbarian_FuriousCharge]&&
-								fDistanceFromTarget>=20f&&
-								PowerManager.CanCast(SNOPower.Barbarian_FuriousCharge)&&!ShrinesInArea(vMoveToTarget))
-						  {
-								Vector3 vThisTarget=vMoveToTarget;
-								if (fDistanceFromTarget>35f)
-									 vThisTarget=MathEx.CalculatePointFrom(vMoveToTarget, vMyCurrentPosition, 35f);
-								ZetaDia.Me.UsePower(SNOPower.Barbarian_FuriousCharge, vThisTarget, Funky.Bot.Character.iCurrentWorldID, -1);
-								Funky.dictAbilityLastUse[SNOPower.Barbarian_FuriousCharge]=DateTime.Now;
-								return;
-						  }
-						  // Vault for a DH - maximum set by user-defined setting
-						  if (Funky.HotbarAbilitiesContainsPower(SNOPower.DemonHunter_Vault)&&!bTooMuchZChange&&
-								DateTime.Now.Subtract(Funky.dictAbilityLastUse[SNOPower.DemonHunter_Vault]).TotalMilliseconds>=Funky.Bot.SettingsFunky.Class.iDHVaultMovementDelay&&
-								fDistanceFromTarget>=18f&&
-								PowerManager.CanCast(SNOPower.DemonHunter_Vault)&&!ShrinesInArea(vMoveToTarget))
-						  {
-								Vector3 vThisTarget=vMoveToTarget;
-								if (fDistanceFromTarget>35f)
-									 vThisTarget=MathEx.CalculatePointFrom(vMoveToTarget, vMyCurrentPosition, 35f);
-								ZetaDia.Me.UsePower(SNOPower.DemonHunter_Vault, vThisTarget, Funky.Bot.Character.iCurrentWorldID, -1);
-								Funky.dictAbilityLastUse[SNOPower.DemonHunter_Vault]=DateTime.Now;
-								return;
-						  }
-						  // Tempest rush for a monk
-						  if (Funky.HotbarAbilitiesContainsPower(SNOPower.Monk_TempestRush)&&!bTooMuchZChange&&ZetaDia.Me.CurrentPrimaryResource>=20)
-						  {
-								Vector3 vTargetAimPoint=MathEx.CalculatePointFrom(vMoveToTarget, vMyCurrentPosition, 10f);
-								ZetaDia.Me.UsePower(SNOPower.Monk_TempestRush, vTargetAimPoint, Funky.Bot.Character.iCurrentWorldID, -1);
-								return;
-						  }
-						  // Teleport for a wizard (need to be able to check skill rune in DB for a 3-4 teleport spam in a row)
-						  if (Funky.HotbarAbilitiesContainsPower(SNOPower.Wizard_Teleport)&&
-								DateTime.Now.Subtract(Funky.dictAbilityLastUse[SNOPower.Wizard_Teleport]).TotalMilliseconds>=Funky.dictAbilityRepeatDelay[SNOPower.Wizard_Teleport]&&
-								fDistanceFromTarget>=20f&&
-								PowerManager.CanCast(SNOPower.Wizard_Teleport)&&!ShrinesInArea(vMoveToTarget))
-						  {
-								Vector3 vThisTarget=vMoveToTarget;
-								if (fDistanceFromTarget>35f)
-									 vThisTarget=MathEx.CalculatePointFrom(vMoveToTarget, vMyCurrentPosition, 35f);
-								ZetaDia.Me.UsePower(SNOPower.Wizard_Teleport, vThisTarget, Funky.Bot.Character.iCurrentWorldID, -1);
-								Funky.dictAbilityLastUse[SNOPower.Wizard_Teleport]=DateTime.Now;
-								return;
-						  }
-						  // Archon Teleport for a wizard 
-						  if (Funky.HotbarAbilitiesContainsPower(SNOPower.Wizard_Archon_Teleport)&&
-								DateTime.Now.Subtract(Funky.dictAbilityLastUse[SNOPower.Wizard_Archon_Teleport]).TotalMilliseconds>=Funky.dictAbilityRepeatDelay[SNOPower.Wizard_Archon_Teleport]&&
-								fDistanceFromTarget>=20f&&
-								PowerManager.CanCast(SNOPower.Wizard_Archon_Teleport)&&!ShrinesInArea(vMoveToTarget))
-						  {
-								Vector3 vThisTarget=vMoveToTarget;
-								if (fDistanceFromTarget>35f)
-									 vThisTarget=MathEx.CalculatePointFrom(vMoveToTarget, vMyCurrentPosition, 35f);
-								ZetaDia.Me.UsePower(SNOPower.Wizard_Archon_Teleport, vThisTarget, Funky.Bot.Character.iCurrentWorldID, -1);
-								Funky.dictAbilityLastUse[SNOPower.Wizard_Archon_Teleport]=DateTime.Now;
-								return;
-						  }
-						  
-						  */
-						  #endregion
-
 					 } // Allowed to use movement powers to move out-of-combat? 
 					 #endregion
 
 
-
+					 //Send Movement Command!
 					 ZetaDia.Me.Movement.MoveActor(vMoveToTarget);
 				}
 
@@ -628,7 +545,7 @@ namespace FunkyTrinity
 					 {
 						  //Special cache for skipping locations visited.
 						  if (Bot.SettingsFunky.SkipAhead)
-								CacheMovementTracking.RecordSkipAheadCachePoint();
+								SkipAheadCache.RecordSkipAheadCachePoint();
 
 						  Navigator.PlayerMover.MoveTowards(moveTarget);
 						  return MoveResult.Moved;

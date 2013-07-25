@@ -9,8 +9,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  internal static partial class GridPointAreaCache
-		  {
+
 				///<summary>
 				///GridPoint Rectangle 
 				///</summary>
@@ -26,7 +25,7 @@ namespace FunkyTrinity
 					 public readonly bool AreaIsFlat;
 
 
-					 public Vector3 LastSafespotFound=vNullLocation;
+					 public Vector3 LastSafespotFound=Vector3.Zero;
 					 public GridPoint LastSafeGridPointFound { get; set; }
 
 
@@ -192,7 +191,7 @@ namespace FunkyTrinity
 					 ///</summary>
 					 public bool FindSafeSpot(Vector3 CurrentLocation,out Vector3 safespot, Vector3 LoSCheckV3, bool kite=false, bool checkBotAvoidIntersection=false)
 					 {
-						  bool checkLOS=LoSCheckV3!=vNullLocation;
+						  bool checkLOS=LoSCheckV3!=Vector3.Zero;
 						  
 						  float averageZ=this.AverageAreaVectorZ;
 						  Vector3 botcurpos=(Bot.Character.Position);
@@ -203,7 +202,7 @@ namespace FunkyTrinity
 						  {
 								GridPoint point=ContainedPoints[curIndex];
 								//Check blacklisted points and ignored
-								if (GridPointAreaCache.BlacklistedGridpoints.Contains(point)||point.Ignored) continue;
+								if (Bot.NavigationCache.BlacklistedGridpoints.Contains(point)||point.Ignored) continue;
 
 								//2D Obstacle Navigation Check
 								bool ZCheck=false;
@@ -225,7 +224,7 @@ namespace FunkyTrinity
 								if (!ZCheck)
 								{
 									 //Because Z Variance we need to check if we can raycast walk to the location.
-									 if (!GilesCanRayCast(botcurpos, pointVector, Zeta.Internals.SNO.NavCellFlags.AllowWalk)) continue;
+									 if (!Navigation.CanRayCast(botcurpos, pointVector, Zeta.Internals.SNO.NavCellFlags.AllowWalk)) continue;
 
 									 if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObstacleType.Navigation.HasFlag(obj.Obstacletype.Value)&&obj.PointInside(pointVector))) continue;
 								}
@@ -233,7 +232,7 @@ namespace FunkyTrinity
 								//LOS Check
 								if (checkLOS)
 								{
-									 if (!GilesCanRayCast(pointVector, LoSCheckV3)) continue;
+									 if (!Navigation.CanRayCast(pointVector, LoSCheckV3)) continue;
 								}
 
 								//Avoidance Check (Any Avoidance)
@@ -246,7 +245,7 @@ namespace FunkyTrinity
 								if (checkBotAvoidIntersection&&ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(botcurpos, pointVector)) continue;
 
 								//Make sure this wont intersect a navblocked point
-								if (LastNavigationBlockedPoints.Any(p => GridPoint.IsOnLine(CurrentLocation, point, p))) continue;
+								//if (Bot.Navigation.LastNavigationBlockedPoints.Any(p => GridPoint.IsOnLine(CurrentLocation, point, p))) continue;
 
 
 								LastSafespotFound=pointVectorReturn;
@@ -256,13 +255,13 @@ namespace FunkyTrinity
 								return true;
 						  }
 
-						  LastSafespotFound=vNullLocation;
+						  LastSafespotFound=Vector3.Zero;
 						  safespot=LastSafespotFound;
 						  LastIndexUsed=this.ContainedPoints.Count-1;
 						  return false;
 					 }
 
 				}
-		  }
+		  
 	 }
 }

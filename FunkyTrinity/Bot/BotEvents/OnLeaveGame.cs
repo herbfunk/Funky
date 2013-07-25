@@ -14,7 +14,7 @@ namespace FunkyTrinity
         private static void FunkyOnLeaveGame(object src, EventArgs mea)
         {
 
-				Bot.iTotalLeaveGames++;
+				Bot.Stats.iTotalLeaveGames++;
 				//Update Game Duration..
 				Statistics.ProfileStats.OutputReport();
 

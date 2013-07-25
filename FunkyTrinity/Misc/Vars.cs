@@ -15,7 +15,7 @@ namespace FunkyTrinity
 
     public partial class Funky
     {
-		  internal static readonly CacheObject FakeCacheObject=new CacheObject(vNullLocation, TargetType.None, 0d, "Fake Target", 1f, -1);
+		  internal static readonly CacheObject FakeCacheObject=new CacheObject(Vector3.Zero, TargetType.None, 0d, "Fake Target", 1f, -1);
 
 		  private static bool bPluginEnabled=false;
 		  private static bool initFunkyButton=false;
@@ -25,17 +25,7 @@ namespace FunkyTrinity
         // **********************************************************************************************
         // *****   A few special variables, mainly for Giles use, just at the top for easy access   *****
         // **********************************************************************************************
-		  public enum RangeIntervals
-		  {
-				Range_50=0,
-				Range_40=1,
-				Range_30=2,
-				Range_25=3,
-				Range_20=4,
-				Range_15=5,
-				Range_12=6,
-				Range_6=7,
-		  }
+
         #region Constants
 
         private const int RANGE_50 = 0;
@@ -96,10 +86,10 @@ namespace FunkyTrinity
         // Darkfriend's Looting Rule
 		  private static Interpreter ItemRulesEval;
 
-        // A null location, may shave off the tiniest fraction of CPU time, but probably not. Still, I like using this variable! :D
-        private static readonly Vector3 vNullLocation = Vector3.Zero;
-
-
+		  internal static float Difference(float A, float B)
+		  {
+				return Math.Abs(A-B);
+		  }
 
         // Status text for DB main window status
         private static string sStatusText = "";
@@ -107,12 +97,7 @@ namespace FunkyTrinity
 		  private static bool bResetStatusText=false;
 
 		  
-        // Related to the profile reloaded when restarting games, to pick the FIRST profile.
-        // Also storing a list of all profiles, for experimental reasons/incase I want to use them down the line
-		  private static List<string> listProfilesLoaded=new List<string>();
-		  private static string sLastProfileSeen="";
-		  private static string sFirstProfileSeen="";
-		  private static DateTime lastProfileCheck=DateTime.Today;
+
 
 
 
@@ -122,13 +107,6 @@ namespace FunkyTrinity
 		  internal static Dictionary<int, int> dictUseOnceID=new Dictionary<int, int>();
         // For the random ID tag
 		  internal static Dictionary<int, int> dictRandomID=new Dictionary<int, int>();
-
-
-
-        // The number of loops to extend kill range for after a fight to try to maximize kill bonus exp etc.
-		  private static int iKeepKillRadiusExtendedFor=0;
-        // The number of loops to extend loot range for after a fight to try to stop missing loot
-        private static int iKeepLootRadiusExtendedFor = 0;
 
 
 

@@ -1,13 +1,4 @@
-﻿PickupBlacksmithPlanSix
-PickupBlacksmithPlanFive
-PickupBlacksmithPlanFour
+﻿Act 3 keep -- Items that are not in LOS cause stucks to occur.
+	--This becomes issue with multiple items due to blacklist expiring and causing endless loop thru.
 
-PickupBlacksmithPlanArchonGauntlets
-PickupBlacksmithPlanArchonSpaulders
-PickupBlacksmithPlanRazorspikes
-
-PickupJewelerDesignFlawlessStar
-PickupJewelerDesignPerfectStar
-PickupJewelerDesignRadiantStar
-PickupJewelerDesignMarquise
-PickupJewelerDesignAmulet
+Act 3 Stashing Behavior appears to get stuck during Unidified Item Stashing (possibly fixed -- was due to raycasting?)

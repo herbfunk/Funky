@@ -94,33 +94,33 @@ namespace FunkyTrinity
 
 
 					 //Check Level ID changes and clear cache objects.
-					
-					
-						  
-						  if (ZetaDia.CurrentLevelAreaId!=LastLevelID&&(!ZetaDia.Me.IsInTown))
+
+
+
+					 if (ZetaDia.CurrentLevelAreaId!=LastLevelID&&(!ZetaDia.Me.IsInTown))
+					 {
+						  //Grace Peroid of 5 Seconds before updating.
+						  if (DateTime.Now.Subtract(LastCheckedLevelID).TotalSeconds>5)
 						  {
-								//Grace Peroid of 5 Seconds before updating.
-								if (DateTime.Now.Subtract(LastCheckedLevelID).TotalSeconds>5)
-								{
-									 LastCheckedLevelID=DateTime.Now;
-									 LastLevelID=ZetaDia.CurrentLevelAreaId;
+								LastCheckedLevelID=DateTime.Now;
+								LastLevelID=ZetaDia.CurrentLevelAreaId;
 
-									 //Clear our current collection since we changed levels.
-									 ObjectCache.Objects.Clear();
-									 ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
-									 RemovalCheck=false;
+								//Clear our current collection since we changed levels.
+								ObjectCache.Objects.Clear();
+								ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
+								RemovalCheck=false;
 
-									 //Reset Playermover Backtrack Positions
-									 GridPointAreaCache.cacheMovementGPRs.Clear();
+								//Reset Playermover Backtrack Positions
+								BackTrackCache.cacheMovementGPRs.Clear();
 
-									 //Reset Skip Ahead Cache
-									 CacheMovementTracking.ClearCache();
+								//Reset Skip Ahead Cache
+								SkipAheadCache.ClearCache();
 
-									 //This is the only time we should call this. MGP only needs updated every level change!
-									 UpdateSearchGridProvider(true);
-								}
+								//This is the only time we should call this. MGP only needs updated every level change!
+								Bot.NavigationCache.UpdateSearchGridProvider(true);
 						  }
-					 
+					 }
+
 
 
 					 //Check Cached Object Removal flag
@@ -139,9 +139,9 @@ namespace FunkyTrinity
 								{
 									 CacheObject thisObj=ObjectCache.Objects[removalList[i]];
 
-                                    //remove prioritized raguid
-                                     if(Bot.Combat.PrioritizedRAGUIDs.Contains(removalList[i]))
-                                         Bot.Combat.PrioritizedRAGUIDs.Remove(removalList[i]);
+									 //remove prioritized raguid
+									 if (Bot.Combat.PrioritizedRAGUIDs.Contains(removalList[i]))
+										  Bot.Combat.PrioritizedRAGUIDs.Remove(removalList[i]);
 
 									 //Blacklist flag check
 									 if (thisObj.BlacklistFlag!=BlacklistType.None)

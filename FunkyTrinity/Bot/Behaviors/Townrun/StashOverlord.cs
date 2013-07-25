@@ -202,10 +202,10 @@ namespace FunkyTrinity
 						  else if (iDistanceFromStash>7.5f&&!UIElements.StashWindow.IsVisible)
 						  {
 								//Use our click movement
-								Bot.Character.UpdateMovementData();
+								Bot.NavigationCache.RefreshMovementCache();
 
 								//Wait until we are not moving to send click again..
-								if (Bot.Character.isMoving) return RunStatus.Running;
+								if (Bot.NavigationCache.IsMoving) return RunStatus.Running;
 
 								ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, vectorStashLocation, ZetaDia.Me.WorldDynamicId, objPlayStash.ACDGuid);
 								return RunStatus.Running;

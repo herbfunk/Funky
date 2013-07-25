@@ -81,18 +81,18 @@ namespace FunkyTrinity
 					 {
 						  if (CurrentStashObject.Distance>7.5f)
 						  {
-								Bot.Character.UpdateMovementData();
+								Bot.NavigationCache.RefreshMovementCache();
 
-								if (!Bot.Character.isMoving)
+								if (!Bot.NavigationCache.IsMoving)
 								{
 									 if (CurrentStashObject.Distance>50f)
 										  ZetaDia.Me.UsePower(SNOPower.Walk, CurrentStashObject.Position, ZetaDia.Me.WorldDynamicId);
 									 else
 									 {
 										  //Use our click movement
-										  Bot.Character.UpdateMovementData();
+										  Bot.NavigationCache.RefreshMovementCache();
 										  //Wait until we are not moving to send click again..
-										  if (Bot.Character.isMoving)
+										  if (Bot.NavigationCache.IsMoving)
 												return RunStatus.Running;
 
 										  ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, CurrentStashObject.Position, ZetaDia.Me.WorldDynamicId, CurrentStashObject.ACDGuid);

@@ -43,7 +43,7 @@ namespace FunkyTrinity
 									 Action+="Avoid] ";
 									 break;
 								case TargetType.Unit:
-									 if (obj.LOSV3!=vNullLocation)
+									 if (obj.LOSV3!=Vector3.Zero)
 										  Action+="LOS] ";
 									 else
 										  Action+="Combat] ";
@@ -77,7 +77,7 @@ namespace FunkyTrinity
 						  return RunStatus.Running;
 
 					 if (Bot.SettingsFunky.SkipAhead)
-						  CacheMovementTracking.RecordSkipAheadCachePoint();
+						  SkipAheadCache.RecordSkipAheadCachePoint();
 
 					 // Some stuff to avoid spamming usepower EVERY loop, and also to detect stucks/staying in one place for too long
 					 bool bForceNewMovement=false;
@@ -95,7 +95,7 @@ namespace FunkyTrinity
 						  return RunStatus.Running;
 					 }
 
-					 ObstacleCheck(CurrentTargetLocation);
+					 Bot.NavigationCache.ObstaclePrioritizeCheck();
 
 					 #region DistanceChecks
 					 // Count how long we have failed to move - body block stuff etc.
@@ -120,10 +120,10 @@ namespace FunkyTrinity
 									 case 3:
 										  //Than check our movement state
 										  //If we are moving to a LOS location.. nullify it!
-										  if (obj.LOSV3!=vNullLocation)
+										  if (obj.LOSV3!=Vector3.Zero)
 										  {
 												Logging.WriteVerbose("Blockcounter Reseting LOS Movement Vector");
-												obj.LOSV3=vNullLocation;
+												obj.LOSV3=Vector3.Zero;
 										  }
 
 										  var intersectingObstacles=Bot.Combat.NearbyObstacleObjects //ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
@@ -146,7 +146,7 @@ namespace FunkyTrinity
 										  {//Avoidance Movement..
 												Bot.Combat.timeCancelledKiteMove=DateTime.Now;
 												Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
-												GridPointAreaCache.BlacklistLastSafespot();
+												Bot.NavigationCache.BlacklistLastSafespot();
 												Bot.UpdateAvoidKiteRates();
 												Bot.Combat.bForceTargetUpdate=true;
 												return RunStatus.Running;
@@ -182,7 +182,7 @@ namespace FunkyTrinity
 													 Bot.Combat.timeCancelledKiteMove=DateTime.Now;
 
 													 //Check if we can walk to this location from current location..
-													 if (!GilesCanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
+													 if (!Navigation.CanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
 													 {
 														  obj.BlacklistLoops=10;
 														  Log("Ignoring Item due to AllowWalk RayCast Failure!", true);
@@ -193,7 +193,7 @@ namespace FunkyTrinity
 										  }
 										  else
 										  {
-												if (!GilesCanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
+												if (!Navigation.CanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
 												{
 													 Logging.WriteVerbose("Cannot continue with avoidance movement due to raycast failure!");
 													 BlockedMovementCounter=0;
@@ -204,7 +204,7 @@ namespace FunkyTrinity
 													 Bot.Combat.iMillisecondsCancelledKiteMoveFor/=2;
 													 Bot.Combat.timeCancelledKiteMove=DateTime.Now;
 
-													 GridPointAreaCache.BlacklistLastSafespot();
+													 Bot.NavigationCache.BlacklistLastSafespot();
 													 Bot.Combat.bForceTargetUpdate=true;
 													 return RunStatus.Running;
 												}

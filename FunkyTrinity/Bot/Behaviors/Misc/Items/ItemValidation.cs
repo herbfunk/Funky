@@ -19,6 +19,86 @@ namespace FunkyTrinity
 		  //Archon Spaulders
 		  //Razorspikes
 
+		  // **********************************************************************************************
+		  // *****      Determine if we should stash this item or not based on item type and score    *****
+		  // **********************************************************************************************
+		  private static bool ShouldWeStashThis(CacheACDItem thisitem)
+		  {
+				// Stash all unidentified items - assume we want to keep them since we are using an identifier over-ride
+				if (thisitem.IsUnidentified)
+				{
+					 if (bOutputItemScores) Log(thisitem.ThisRealName+" ["+thisitem.ThisInternalName+"] = (autokeep unidentified items)");
+					 return true;
+				}
+				// Now look for Misc items we might want to keep
+				GilesItemType TrueItemType=DetermineItemType(thisitem.ThisInternalName, thisitem.ThisDBItemType, thisitem.ThisFollowerType);
+
+				if (TrueItemType==GilesItemType.StaffOfHerding)
+				{
+					 if (bOutputItemScores) Log(thisitem.ThisRealName+" ["+thisitem.ThisInternalName+"] ["+TrueItemType.ToString()+"] = (autokeep staff of herding)");
+					 return true;
+				}
+				if (TrueItemType==GilesItemType.CraftingMaterial)
+				{
+					 if (bOutputItemScores) Log(thisitem.ThisRealName+" ["+thisitem.ThisInternalName+"] ["+TrueItemType.ToString()+"] = (autokeep craft materials)");
+					 return true;
+				}
+				if (TrueItemType==GilesItemType.CraftingPlan)
+				{
+					 if (bOutputItemScores) Log(thisitem.ThisRealName+" ["+thisitem.ThisInternalName+"] ["+TrueItemType.ToString()+"] = (autokeep plans)");
+					 return true;
+				}
+				if (TrueItemType==GilesItemType.Emerald)
+				{
+					 if (bOutputItemScores) Log(thisitem.ThisRealName+" ["+thisitem.ThisInternalName+"] ["+TrueItemType.ToString()+"] = (autokeep gems)");
+					 return true;
+				}
+				if (TrueItemType==GilesItemType.Amethyst)
+				{
+					 if (bOutputItemScores) Log(thisitem.ThisRealName+" ["+thisitem.ThisInternalName+"] ["+TrueItemType.ToString()+"] = (autokeep gems)");
+					 return true;
+				}
+				if (TrueItemType==GilesItemType.Topaz)
+				{
+					 if (bOutputItemScores) Log(thisitem.ThisRealName+" ["+thisitem.ThisInternalName+"] ["+TrueItemType.ToString()+"] = (autokeep gems)");
+					 return true;
+				}
+				if (TrueItemType==GilesItemType.Ruby)
+				{
+					 if (bOutputItemScores) Log(thisitem.ThisRealName+" ["+thisitem.ThisInternalName+"] ["+TrueItemType.ToString()+"] = (autokeep gems)");
+					 return true;
+				}
+				if (TrueItemType==GilesItemType.CraftTome)
+				{
+					 if (bOutputItemScores) Log(thisitem.ThisRealName+" ["+thisitem.ThisInternalName+"] ["+TrueItemType.ToString()+"] = (autokeep tomes)");
+					 return true;
+				}
+				if (TrueItemType==GilesItemType.InfernalKey)
+				{
+					 if (bOutputItemScores) Log(thisitem.ThisRealName+" ["+thisitem.ThisInternalName+"] ["+TrueItemType.ToString()+"] = (autokeep infernal key)");
+					 return true;
+				}
+				if (TrueItemType==GilesItemType.HealthPotion)
+				{
+					 if (bOutputItemScores) Log(thisitem.ThisRealName+" ["+thisitem.ThisInternalName+"] ["+TrueItemType.ToString()+"] = (ignoring potions)");
+					 return false;
+				}
+
+				if (thisitem.ThisQuality>=ItemQuality.Legendary)
+				{
+					 if (bOutputItemScores) Log(thisitem.ThisRealName+" ["+thisitem.ThisInternalName+"] ["+TrueItemType.ToString()+"] = (autokeep legendaries)");
+					 return true;
+				}
+
+				// Ok now try to do some decent item scoring based on item types
+				double iNeedScore=ScoreNeeded(TrueItemType);
+				double iMyScore=ValueThisItem(thisitem, TrueItemType);
+				if (bOutputItemScores) Log(thisitem.ThisRealName+" ["+thisitem.ThisInternalName+"] ["+TrueItemType.ToString()+"] = "+iMyScore.ToString());
+				if (iMyScore>=iNeedScore) return true;
+
+				// If we reached this point, then we found no reason to keep the item!
+				return false;
+		  }
 
 		  // **********************************************************************************************
 		  // *****       Pickup Validation - Determines what should or should not be picked up        *****

@@ -19,16 +19,16 @@ namespace FunkyTrinity
 		  public bool Visited { get; set; }
 		  public bool Failed { get; set; }
 		  public MiniMapMarker() { }
-		  internal static List<MiniMapMarker> KnownMarkers=new List<MiniMapMarker>();
+		  public static List<MiniMapMarker> KnownMarkers=new List<MiniMapMarker>();
 
-		  internal static MoveResult lastMoveResult=MoveResult.Moved;
+		  public static MoveResult lastMoveResult=MoveResult.Moved;
 
-		  internal static bool AnyUnvisitedMarkers()
+		  public static bool AnyUnvisitedMarkers()
 		  {
 				return MiniMapMarker.KnownMarkers.Any(m => !m.Visited&&!m.Failed);
 		  }
 
-		  internal static void SetNearbyMarkersVisited(Vector3 near, float pathPrecision)
+		  public static void SetNearbyMarkersVisited(Vector3 near, float pathPrecision)
 		  {
 				MiniMapMarker nearestMarker=GetNearestUnvisitedMarker(near);
 				if (nearestMarker!=null)
@@ -64,14 +64,14 @@ namespace FunkyTrinity
 
 		  }
 
-		  internal static MiniMapMarker GetNearestUnvisitedMarker(Vector3 near)
+		  public static MiniMapMarker GetNearestUnvisitedMarker(Vector3 near)
 		  {
 				return KnownMarkers.OrderBy(m => m.MarkerNameHash!=0).ThenBy(m => Vector3.Distance(near, m.Position)).FirstOrDefault(m => !m.Visited&&!m.Failed);
 		  }
 
 		  private static DefaultNavigationProvider NavProvider;
 
-		  internal static void UpdateFailedMarkers()
+		  public static void UpdateFailedMarkers()
 		  {
 				if (NavProvider==null)
 					 NavProvider=new DefaultNavigationProvider();
@@ -109,7 +109,7 @@ namespace FunkyTrinity
 				return ZetaDia.Minimap.Markers.CurrentWorldMarkers.Where(m => (m.NameHash==0||m.NameHash==includeMarker)&&!KnownMarkers.Any(ml => ml.Position==m.Position&&ml.MarkerNameHash==m.NameHash)).OrderBy(m => m.NameHash!=0);
 		  }
 
-		  internal static DecoratorContinue DetectMiniMapMarkers(int includeMarker=0)
+		  public static DecoratorContinue DetectMiniMapMarkers(int includeMarker=0)
 		  {
 				return
 				new DecoratorContinue(ret => ZetaDia.Minimap.Markers.CurrentWorldMarkers.Any(m => (m.NameHash==0||m.NameHash==includeMarker)&&!KnownMarkers.Any(m2 => m2.Position!=m.Position&&m2.MarkerNameHash==m.NameHash)),
@@ -119,7 +119,7 @@ namespace FunkyTrinity
 				);
 		  }
 
-		  internal static Decorator VisitMiniMapMarkers(Vector3 near, float markerDistance)
+		  public static Decorator VisitMiniMapMarkers(Vector3 near, float markerDistance)
 		  {
 				return
 				new Decorator(ret => MiniMapMarker.AnyUnvisitedMarkers(),
@@ -132,10 +132,10 @@ namespace FunkyTrinity
 				);
 		  }
 
-		  internal static RunStatus MoveToNearestMarker(Vector3 near)
+		  public static RunStatus MoveToNearestMarker(Vector3 near)
 		  {
-				if (Funky.CacheMovementTracking.bSkipAheadAGo)
-					 Funky.CacheMovementTracking.RecordSkipAheadCachePoint();
+				if (Funky.SkipAheadCache.bSkipAheadAGo)
+					 Funky.SkipAheadCache.RecordSkipAheadCachePoint();
 
 				MiniMapMarker m=MiniMapMarker.GetNearestUnvisitedMarker(near);
 				lastMoveResult=Navigator.MoveTo(MiniMapMarker.GetNearestUnvisitedMarker(near).Position);

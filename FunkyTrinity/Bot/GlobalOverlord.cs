@@ -11,13 +11,19 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  private static HashSet<Type> oocDBTags=new HashSet<Type> { typeof(Zeta.CommonBot.Profile.Common.UseWaypointTag), 
+		  //Common Used Profile Tags that should be considered Out-Of-Combat Behavior.
+		  private static readonly HashSet<Type> oocDBTags=new HashSet<Type> 
+																	{ 
+																	  typeof(Zeta.CommonBot.Profile.Common.UseWaypointTag), 
 																	  typeof(Zeta.CommonBot.Profile.Common.UseObjectTag),
 																	  typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),
-																	  typeof(Zeta.CommonBot.Profile.Common.WaitTimerTag),};
+																	  typeof(Zeta.CommonBot.Profile.Common.WaitTimerTag),
+																	};
 
 		  // Total main loops so we can update things every XX loops
 		  private static int iCombatLoops=0;
+
+
 		  private static bool GlobalOverlord(object ret)
 		  {
 				// If we aren't in the game of a world is loading, don't do anything yet
@@ -29,43 +35,11 @@ namespace FunkyTrinity
 				}
 
 				// World ID safety caching incase it's ever unavailable
-				if (ZetaDia.CurrentWorldDynamicId!=-1)
-					 Bot.Character.iCurrentWorldID=ZetaDia.CurrentWorldDynamicId;
+				if (ZetaDia.CurrentWorldDynamicId!=-1) Bot.Character.iCurrentWorldID=ZetaDia.CurrentWorldDynamicId;
 
-				//Check if we need to resfresh class data!
-				if (Bot.SettingsFunky.UseLevelingLogic)
-				{
-					 if (LeveledUpEventFired)
-					 {
-						  switch (Bot.Class.AC)
-						  {
-								case Zeta.Internals.Actors.ActorClass.Barbarian:
-									 BarbarianOnLevelUp(null, null);
-									 break;
-								case Zeta.Internals.Actors.ActorClass.DemonHunter:
-									 DemonHunterOnLevelUp(null, null);
-									 break;
-								case Zeta.Internals.Actors.ActorClass.Monk:
-									 MonkOnLevelUp(null, null);
-									 break;
-								case Zeta.Internals.Actors.ActorClass.WitchDoctor:
-									 WitchDoctorOnLevelUp(null, null);
-									 break;
-								case Zeta.Internals.Actors.ActorClass.Wizard:
-									 WizardOnLevelUp(null, null);
-									 break;
-						  }
-						  LeveledUpEventFired=false;
-						  LastLevelUp=DateTime.Now;
-					 }
-
-					 double lastlevelupMS=DateTime.Now.Subtract(LastLevelUp).TotalSeconds;
-					 if (lastlevelupMS<30&&lastlevelupMS>15)
-					 {
-						  Bot.Class=null;
-						  LastLevelUp=DateTime.MinValue;
-					 }
-				}
+				//Check Low Level Logic Setting
+				if (Bot.SettingsFunky.UseLevelingLogic) LowLevelLogicPulse();
+				
 
 				// Store all of the player's abilities every now and then, to keep it cached and handy, also check for critical-mass timer changes etc.
 				iCombatLoops++;
@@ -80,8 +54,11 @@ namespace FunkyTrinity
 					 {
 						  Logging.WriteDiagnostic("[Funky] Safely handled exception trying to get character class.");
 					 }
+
+
 					 if (tempClass!=ActorClass.Invalid&&Bot.Class==null)
 					 {
+						  //Create Specific Player Class
 						  switch (tempClass)
 						  {
 								case ActorClass.Barbarian:
@@ -100,7 +77,6 @@ namespace FunkyTrinity
 									 Bot.Class=new Wizard(tempClass);
 									 break;
 						  }
-						  
 					 }
 
 					 iCombatLoops=0;
@@ -111,40 +87,39 @@ namespace FunkyTrinity
 						  Bot.Character.fCharacterRadius=ZetaDia.Me.ActorInfo.Sphere.Radius;
 
 						  //Wizards are short -- causing issues (At least Male Wizard is!)
-						  if (Bot.ActorClass==ActorClass.Wizard)
-								Bot.Character.fCharacterRadius+=1f;
+						  if (Bot.ActorClass==ActorClass.Wizard) Bot.Character.fCharacterRadius+=1f;
 					 }
 
 					 // Game difficulty, used really for vault on DH's
-					 if (ZetaDia.Service.CurrentHero.CurrentDifficulty!=GameDifficulty.Invalid)
-						  Bot.Character.iCurrentGameDifficulty=ZetaDia.Service.CurrentHero.CurrentDifficulty;
+					 //if (ZetaDia.Service.CurrentHero.CurrentDifficulty!=GameDifficulty.Invalid)
+					 //    Bot.Character.iCurrentGameDifficulty=ZetaDia.Service.CurrentHero.CurrentDifficulty;
 				}
 
 				// Recording of all the XML's in use this run
 				#region NewProfileCheck
-				if (DateTime.Now.Subtract(lastProfileCheck).TotalMilliseconds>1000)
+				if (DateTime.Now.Subtract(Bot.Stats.lastProfileCheck).TotalMilliseconds>1000)
 				{
-					 lastProfileCheck=DateTime.Now;
+					 Bot.Stats.lastProfileCheck=DateTime.Now;
 					 string sThisProfile=Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
-					 if (sThisProfile!=Funky.sLastProfileSeen)
+					 if (sThisProfile!=Bot.Stats.sLastProfileSeen)
 					 {
 						  //herbfunk stats
 						  Statistics.ProfileStats.UpdateProfileChanged();
 
 						  // See if we appear to have started a new game
-						  if (!String.IsNullOrEmpty(Funky.sFirstProfileSeen)&&sThisProfile==Funky.sFirstProfileSeen)
+						  if (!String.IsNullOrEmpty(Bot.Stats.sFirstProfileSeen)&&sThisProfile==Bot.Stats.sFirstProfileSeen)
 						  {
-								Bot.iTotalProfileRecycles++;
-								if (Bot.iTotalProfileRecycles>Bot.iTotalJoinGames&&Bot.iTotalProfileRecycles>Bot.iTotalLeaveGames)
+								Bot.Stats.iTotalProfileRecycles++;
+								if (Bot.Stats.iTotalProfileRecycles>Bot.Stats.iTotalJoinGames&&Bot.Stats.iTotalProfileRecycles>Bot.Stats.iTotalLeaveGames)
 								{
 									 Log("Reseting Game Data -- Total Profile Recycles exceedes join and leave count!");
 									 Funky.ResetGame();
 								}
 						  }
-						  Funky.listProfilesLoaded.Add(sThisProfile);
-						  Funky.sLastProfileSeen=sThisProfile;
-						  if (String.IsNullOrEmpty(Funky.sFirstProfileSeen))
-								Funky.sFirstProfileSeen=sThisProfile;
+						  Bot.Stats.listProfilesLoaded.Add(sThisProfile);
+						  Bot.Stats.sLastProfileSeen=sThisProfile;
+						  if (String.IsNullOrEmpty(Bot.Stats.sFirstProfileSeen))
+								Bot.Stats.sFirstProfileSeen=sThisProfile;
 
 						  //Refresh Profile Target Blacklist 
 						  hashSNOTargetBlacklist=new HashSet<int>();
@@ -156,6 +131,8 @@ namespace FunkyTrinity
 				}
 				#endregion
 
+
+				//Seconday Hotbar Check
 				Bot.Class.SecondaryHotbarBuffPresent();
 				
 
@@ -163,7 +140,8 @@ namespace FunkyTrinity
 				Bot.Combat.ResetTargetHandling();
 				Bot.Combat.DontMove=false;
 
-				//Override Townportal Tag Behavior (After it starts..)
+				#region Non-Combat Default Tag Check
+				//Override Non-Combat Default Tag Behaviors
 				if (Bot.Character.CurrentProfileBehavior==null
 					 ||Zeta.CommonBot.ProfileManager.CurrentProfileBehavior!=null
 					 &&Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior!=null
@@ -179,6 +157,7 @@ namespace FunkyTrinity
 					 else
 						  Bot.Character.IsRunningOOCBehavior=false;
 				}
+				#endregion
 
 				// Should we refresh target list?
 				if (Bot.ShouldRefreshObjectList)
@@ -242,6 +221,8 @@ namespace FunkyTrinity
 					 dateSinceTemporaryBlacklistClear=DateTime.Now;
 					 hashRGUIDTemporaryIgnoreBlacklist=new HashSet<int>();
 				}
+
+
 				if (Bot.SettingsFunky.DebugStatusBar&&bResetStatusText)
 				{
 					 bResetStatusText=false;

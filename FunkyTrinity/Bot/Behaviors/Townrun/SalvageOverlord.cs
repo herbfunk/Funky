@@ -125,9 +125,9 @@ namespace FunkyTrinity
 						  vectorSalvageLocation=objBlacksmith.Position;
 
 
-					 Bot.Character.UpdateMovementData();
+					 Bot.NavigationCache.RefreshMovementCache();
 					 //Wait until we are not moving
-					 if (Bot.Character.isMoving)
+					 if (Bot.NavigationCache.IsMoving)
 						  return RunStatus.Running;
 
 
@@ -136,10 +136,10 @@ namespace FunkyTrinity
 					 if (objBlacksmith==null||iDistanceFromSell>12f)//|| !GilesCanRayCast(vectorPlayerPosition, vectorSalvageLocation, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
 					 {
 						  //Use our click movement
-						  Bot.Character.UpdateMovementData();
+						  Bot.NavigationCache.RefreshMovementCache();
 
 						  //Wait until we are not moving to send click again..
-						  if (Bot.Character.isMoving)
+						  if (Bot.NavigationCache.IsMoving)
 								return RunStatus.Running;
 
 						  Navigator.PlayerMover.MoveTowards(vectorSalvageLocation);

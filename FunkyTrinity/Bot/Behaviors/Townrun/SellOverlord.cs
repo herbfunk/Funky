@@ -185,10 +185,10 @@ namespace FunkyTrinity
 						  else if (iDistanceFromSell>7.5f&&!Zeta.Internals.UIElements.VendorWindow.IsValid)
 						  {
 								//Use our click movement
-								Bot.Character.UpdateMovementData();
+								Bot.NavigationCache.RefreshMovementCache();
 
 								//Wait until we are not moving to send click again..
-								if (Bot.Character.isMoving) 
+								if (Bot.NavigationCache.IsMoving) 
 									 return RunStatus.Running;
 
 								objSellNavigation.Interact();

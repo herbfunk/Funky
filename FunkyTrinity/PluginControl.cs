@@ -19,7 +19,7 @@ namespace FunkyTrinity
 					 Logging.WriteDiagnostic(totalMessage);
 		  }
 
-		  internal static void ResetBot()
+		  public static void ResetBot()
 		  {
 				Log("Preforming reset of bot data...", true);
 				hashRGUIDIgnoreBlacklist=new HashSet<int>();
@@ -52,27 +52,27 @@ namespace FunkyTrinity
 				ObjectCache.Obstacles.Clear();
 				ObjectCache.Objects.Clear();
 
-				UpdateSearchGridProvider();
+				Bot.NavigationCache.UpdateSearchGridProvider();
 		  }
-		  internal static void ResetGame()
+		  public static void ResetGame()
 		  {
 				ResetBot();
 
 				hashUseOnceID=new HashSet<int>();
 				dictUseOnceID=new Dictionary<int, int>();
 				dictRandomID=new Dictionary<int, int>();
-				CacheMovementTracking.ClearCache();
+				SkipAheadCache.ClearCache();
 
-				Bot.iMaxDeathsAllowed=0;
-				Bot.iDeathsThisRun=0;
+				Bot.Stats.iMaxDeathsAllowed=0;
+				Bot.Stats.iDeathsThisRun=0;
 				_hashsetItemStatsLookedAt=new HashSet<int>();
 				_hashsetItemPicksLookedAt=new HashSet<int>();
 				_hashsetItemFollowersIgnored=new HashSet<int>();
 				TownRunManager._dictItemStashAttempted=new Dictionary<int, int>();
 
-				listProfilesLoaded=new List<string>();
-				sLastProfileSeen="";
-				sFirstProfileSeen="";
+				Bot.Stats.listProfilesLoaded=new List<string>();
+				Bot.Stats.sLastProfileSeen="";
+				Bot.Stats.sFirstProfileSeen="";
 
 		  }
 

@@ -73,27 +73,25 @@
     <Compile Include="Bot\Behaviors\Misc\Items\LowLevelLogic.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Area\GPCache.cs">
+    <Compile Include="Bot\Cache\Navigation\MovementBackTrack.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Area\GridPoint\GPArea.cs">
+    <Compile Include="Bot\Cache\Navigation\GridPoint\GPArea.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Area\GridPoint\GPCollection.cs">
+    <Compile Include="Bot\Cache\Navigation\GridPoint\GPCollection.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Area\GridPoint\GPQuadrant.cs">
+    <Compile Include="Bot\Cache\Navigation\GridPoint\GPQuadrant.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Area\GridPoint\GPRectangle.cs">
+    <Compile Include="Bot\Cache\Navigation\GridPoint\GPRectangle.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Area\Objects\GridPointComparer.cs">
+    <Compile Include="Bot\Behaviors\Navigation\TargetMovement.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Behaviors\Movement\TargetMovement.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
+    <Compile Include="Bot\Cache\Navigation\Navigation.cs" />
     <Compile Include="Bot\Cache\BotCache\Player Class\Barb.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -112,12 +110,6 @@
     <Compile Include="Bot\Cache\BotCache\Player Class\Player.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Area\MGP.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Bot\Behaviors\Movement\Helper\ObstacleFinder.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Bot\Behaviors\Townrun\UnidOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -133,10 +125,13 @@
     <Compile Include="Bot\BotEvents\OnPlayerLevelUp.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Area\Objects\SkipAhead.cs">
+    <Compile Include="Bot\Cache\Navigation\Objects\SkipAhead.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\BotCache\CombatCache.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\BotCache\Stats.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\BotCache\Target.cs">
@@ -172,11 +167,14 @@
     <Compile Include="Bot\Cache\Gamebalance.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Area\MovementTrack.cs">
+    <Compile Include="Bot\Cache\Navigation\MovementSkipAhead.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="CombatRoutine\CombatRoutine.cs" />
     <Compile Include="CombatRoutine\RoutineDebug.cs" />
+    <Compile Include="XML\XMLTags.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <None Include="CombatRoutine\CombatRoutine">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -270,19 +268,13 @@
     <Compile Include="Bot\Behaviors\Misc\OOGOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Behaviors\Movement\PlayerMover.cs">
+    <Compile Include="Bot\Behaviors\Navigation\PlayerMover.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Area\Objects\DirectionPoint.cs">
+    <Compile Include="Bot\Cache\Navigation\Objects\DirectionPoint.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Area\Objects\GridPoint.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Bot\Behaviors\Movement\Helper\MovementFinding.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Bot\Behaviors\Movement\Helper\MovementHelper.cs">
+    <Compile Include="Bot\Cache\Navigation\Objects\GridPoint.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Behaviors\Townrun\SalvageOverlord.cs">
@@ -390,7 +382,7 @@
     <Compile Include="Bot\Behaviors\Misc\Items\ItemValidation.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Area\Objects\Cluster.cs">
+    <Compile Include="Bot\Cache\Navigation\Objects\Cluster.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Misc\Stats.cs">
@@ -411,9 +403,6 @@
     <Compile Include="Misc\Prowl.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="XML\XMLTags.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Misc\Enums.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -425,7 +414,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Blacksmith Plans GameIDs.txt" />
     <Content Include="Bot\Behaviors\Misc\CharacterMule\NewGame.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

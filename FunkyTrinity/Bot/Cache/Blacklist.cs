@@ -17,15 +17,7 @@ namespace FunkyTrinity
 					 ActorType.Invalid
 				};
 
-		  ///<summary>
-		  ///Determines the type of blacklist an object should recieve. Permanent is entire game, Temporary is 60 seconds long.
-		  ///</summary>
-		  public enum BlacklistType
-		  {
-				None,
-				Temporary,
-				Permanent
-		  }
+
 
 		  // When did we last clear the temporary blacklist?
 		  private static DateTime dateSinceTemporaryBlacklistClear=DateTime.Today;

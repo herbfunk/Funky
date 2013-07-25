@@ -9,7 +9,7 @@ namespace FunkyTrinity
 	 public partial class Funky
 	 {
 
-		  internal abstract class CacheObstacle : CacheObject
+		  public abstract class CacheObstacle : CacheObject
 		  {
 
 				public virtual double PointRadius
@@ -57,7 +57,7 @@ namespace FunkyTrinity
 				///</summary>
 				public virtual bool TestIntersection(CacheObject OBJ, Vector3 BotPosition)
 				{
-					 return GilesIntersectsPath(base.Position, this.Radius, BotPosition, base.BotMeleeVector);
+					 return MathEx.IntersectsPath(base.Position, this.Radius, BotPosition, base.BotMeleeVector);
 
 				}
 				///<summary>
@@ -65,7 +65,7 @@ namespace FunkyTrinity
 				///</summary>
 				public virtual bool TestIntersection(Vector3 V1, Vector3 V2, bool CollisonRadius=true)
 				{
-					 return GilesIntersectsPath(base.Position, CollisonRadius==true?this.Radius:base.Radius, V1, V2);
+					 return MathEx.IntersectsPath(base.Position, CollisonRadius==true?this.Radius:base.Radius, V1, V2);
 				}
 				///<summary>
 				///Tests if this intersects between two gridpoints
@@ -140,7 +140,7 @@ namespace FunkyTrinity
 		  ///<summary>
 		  ///Used for all avoidance objects
 		  ///</summary>
-		  internal class CacheAvoidance : CacheObstacle
+		  public class CacheAvoidance : CacheObstacle
 		  {
 				public new string DebugString
 				{
@@ -299,16 +299,15 @@ namespace FunkyTrinity
 									 &&Bot.AvoidancesHealth.ContainsKey(this.AvoidanceType)&&Bot.AvoidancesHealth[this.AvoidanceType]>0d);
 					 }
 				}
-
-
 				public override bool TestIntersection(CacheObject OBJ, Vector3 BotPosition)
 				{
 					 if (this.Obstacletype.Value==ObstacleType.MovingAvoidance)
 					 {
-						  return ProjectileIntersects(this, BotPosition, OBJ.Position, this.ProjectileMaxRange);
+						  Vector3 ProjectileEndPoint=MathEx.GetPointAt(this.Position, this.ProjectileMaxRange, this.Rotation);
+						  return GridPoint.LineIntersectsLine(BotPosition, this.Position, this.PointPosition, ProjectileEndPoint);
 					 }
 
-					 return GilesIntersectsPath(base.Position, this.Radius, BotPosition, OBJ.Position);
+					 return MathEx.IntersectsPath(base.Position, this.Radius, BotPosition, OBJ.Position);
 				}
 
 				public override bool PointInside(GridPoint Pos)
@@ -321,7 +320,7 @@ namespace FunkyTrinity
 				}
 				public override bool TestIntersection(Vector3 V1, Vector3 V2, bool CollisonRadius=true)
 				{
-					 return GilesIntersectsPath(this.Position, CollisonRadius==true?this.Radius:base.Radius, V1, V2);
+					 return MathEx.IntersectsPath(this.Position, CollisonRadius==true?this.Radius:base.Radius, V1, V2);
 				}
 
 				public override Rect AvoidanceRect
@@ -362,7 +361,7 @@ namespace FunkyTrinity
 		  ///<summary>
 		  ///Used for all non-avoidance objects (Monsters, Gizmos, and Misc Objects)
 		  ///</summary>
-		  internal class CacheServerObject : CacheObstacle
+		  public class CacheServerObject : CacheObstacle
 		  {
 				public CacheServerObject(CacheObject parent)
 					 : base(parent)

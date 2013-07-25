@@ -557,7 +557,7 @@ namespace FunkyTrinity
 						  return new Ability
 						  {
 								Power=Power,
-								UsageType=AbilityUseType.Target,
+								UsageType=AbilityUseType.Target|AbilityUseType.ClusterTarget,
 								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
 								Range=35,
 								IsRanged=true,
@@ -565,17 +565,14 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.None,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
-								
-								Fcriteria=new Func<bool>(() =>
-								{
-									 return true;
-								}),
+
+								ClusterConditions=new ClusterConditions(4d,35,2,true),
+								TargetUnitConditionFlags=new UnitTargetConditions(),
 						  };
 					 }
 					 #endregion
 
-					 if (Power==SNOPower.Weapon_Melee_Instant)
-						  returnAbility=Instant_Melee_Attack;
+					 if (Power==SNOPower.Weapon_Melee_Instant) returnAbility=Instant_Melee_Attack;
 
 					 return returnAbility;
 				}

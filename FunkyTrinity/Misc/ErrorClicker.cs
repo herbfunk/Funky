@@ -10,7 +10,7 @@ namespace FunkyTrinity
     {
 		  private static bool HadDisconnectError=false;
 		  internal static Thread ErrorClickerThread;
-		  void ErrorClickerWorker()
+		  internal void ErrorClickerWorker()
 		  {
 				do
 				{
@@ -61,10 +61,13 @@ namespace FunkyTrinity
 						  try
 						  {
 								if (ZetaDia.IsPlayingCutscene)
+								{
+									 Logging.WriteDiagnostic("[ErrorClicker] Attempting to Skip Cut Scene.");
 									 ZetaDia.Me.SkipCutscene();
+								}
 						  } catch
 						  {
-
+								Logging.WriteDiagnostic("[ErrorClicker] Exception Caught: Attempting to Skip Cut Scene.");
 						  }
 					 }
 

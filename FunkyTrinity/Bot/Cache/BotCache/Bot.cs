@@ -13,11 +13,13 @@ namespace FunkyTrinity
 
 		  public static partial class Bot
 		  {
-				internal static Settings_Funky SettingsFunky=new Settings_Funky(false, false, false, false, false, false, false, 4, 8, 3, 1.5d, true, 20, false, false, "hard", "Rare", "Rare", true, false, 0, 10, 30, 60, 0.6d, 0.4d, true, 2, 250, false, 60, 30, 40, new int[1], new int[1], new int[1], 1, 100, 300, new bool[3], 60, true, true, true, 59, false, 75000, 25000, 25000, false, false);
+				public static Settings_Funky SettingsFunky=new Settings_Funky();
 				public static Player Class { get; set; }
 				public static CharacterCache Character { get; set; }
 				public static CombatCache Combat { get; set; }
 				public static TargetHandler Target { get; set; }
+				public static BotStatistics Stats { get; set; }
+				public static Navigation NavigationCache { get; set; }
 
 				///<summary>
 				///Usable Objects -- refresh inside Target.UpdateTarget
@@ -27,11 +29,21 @@ namespace FunkyTrinity
 				internal static Zeta.Internals.Actors.ActorClass ActorClass=Zeta.Internals.Actors.ActorClass.Invalid;
 				internal static string CurrentAccountName;
 				internal static string CurrentHeroName;
+				///<summary>
+				///Updates Account Name, Current Hero Name and Class Variables
+				///</summary>
 				internal static void UpdateCurrentAccountDetails()
 				{
-					 ActorClass=Zeta.ZetaDia.Service.CurrentHero.Class;
-					 CurrentAccountName=Zeta.ZetaDia.Service.CurrentHero.BattleTagName;
-					 CurrentHeroName=Zeta.ZetaDia.Service.CurrentHero.Name;
+
+					 try
+					 {
+						  ActorClass=Zeta.ZetaDia.Service.CurrentHero.Class;
+						  CurrentAccountName=Zeta.ZetaDia.Service.CurrentHero.BattleTagName;
+						  CurrentHeroName=Zeta.ZetaDia.Service.CurrentHero.Name;
+					 } catch (Exception)
+					 {
+						  Logging.WriteDiagnostic("[Funky] Exception Attempting to Update Current Account Details.");
+					 }
 				}
 
 				///<summary>
@@ -46,19 +58,6 @@ namespace FunkyTrinity
 					 }
 				}
 
-				// Death counts
-				internal static int iMaxDeathsAllowed=0;
-				internal static int iDeathsThisRun=0;
-				// On death, clear the timers for all abilities
-				internal static DateTime lastDied=DateTime.Today;
-				internal static int iTotalDeaths=0;
-				// How many total leave games, for stat-tracking?
-				internal static int iTotalJoinGames=0;
-				// How many total leave games, for stat-tracking?
-				internal static int iTotalLeaveGames=0;
-				internal static int iTotalProfileRecycles=0;
-
-
 				internal static float iCurrentMaxKillRadius=0f;
 				internal static float iCurrentMaxLootRadius=0f;
 				internal static void UpdateKillLootRadiusValues()
@@ -66,33 +65,20 @@ namespace FunkyTrinity
 					 iCurrentMaxKillRadius=Zeta.CommonBot.Settings.CharacterSettings.Instance.KillRadius;
 					 iCurrentMaxLootRadius=Zeta.CommonBot.Settings.CharacterSettings.Instance.LootRadius;
 					 // Not allowed to kill monsters due to profile/routine/combat targeting settings - just set the kill range to a third
-					 if (!ProfileManager.CurrentProfile.KillMonsters)
-					 {
-						  iCurrentMaxKillRadius/=3;
-					 }
+					 if (!ProfileManager.CurrentProfile.KillMonsters) iCurrentMaxKillRadius/=3;
+					 
 					 // Always have a minimum kill radius, so we're never getting whacked without retaliating
-					 if (iCurrentMaxKillRadius<10||Bot.SettingsFunky.IgnoreCombatRange)
-						  iCurrentMaxKillRadius=10;
+					 if (iCurrentMaxKillRadius<10||Bot.SettingsFunky.IgnoreCombatRange) iCurrentMaxKillRadius=10;
 
-					 if (shouldPreformOOCItemIDing||FunkyTPBehaviorFlag||TownRunManager.bWantToTownRun)
-						  iCurrentMaxKillRadius=50;
+					 //Non-Combat Behavior we set minimum kill radius
+					 if (IsInNonCombatBehavior) iCurrentMaxKillRadius=50;
 
 					 // Not allowed to loots due to profile/routine/loot targeting settings - just set range to a quarter
-					 if (!ProfileManager.CurrentProfile.PickupLoot)
-					 {
-						  iCurrentMaxLootRadius/=4;
-					 }
+					 if (!ProfileManager.CurrentProfile.PickupLoot) iCurrentMaxLootRadius/=4;
+					 
 
 					 //Ignore Loot Range Setting
-					 if (Bot.SettingsFunky.IgnoreLootRange)
-						  iCurrentMaxLootRadius=10;
-
-
-					 // Counter for how many cycles we extend or reduce our attack/kill radius, and our loot radius, after a last kill
-					 if (iKeepKillRadiusExtendedFor>0)
-						  iKeepKillRadiusExtendedFor--;
-					 if (iKeepLootRadiusExtendedFor>0)
-						  iKeepLootRadiusExtendedFor--;
+					 if (Bot.SettingsFunky.IgnoreLootRange)  iCurrentMaxLootRadius=10;
 				}
 
 				#region SettingsRangeValues
@@ -320,6 +306,7 @@ namespace FunkyTrinity
 					 Character=new CharacterCache();
 					 Combat=new CombatCache();
 					 Target=new TargetHandler();
+					 NavigationCache=new Navigation();
 				}
 
 		  }

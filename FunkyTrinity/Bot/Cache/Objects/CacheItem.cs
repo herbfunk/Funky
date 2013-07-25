@@ -12,7 +12,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  internal class CacheItem : CacheObject
+		  public class CacheItem : CacheObject
 		  {
 				public CacheItem(CacheObject baseobj)
 					 : base(baseobj)
@@ -253,26 +253,17 @@ namespace FunkyTrinity
 									 return false;
 								}
 
-								if (Bot.IsInNonCombatBehavior&&TownRunManager.bFailedToLootLastItem)
-									 return false;
+								//Attempted to loot previously but failed due to inventory full.
+								if (Bot.IsInNonCombatBehavior&&TownRunManager.bFailedToLootLastItem) return false;
 
 
 								// Ignore it if it's not in range yet - allow legendary items to have 15 feet extra beyond our profile max loot radius
 								double dMultiplier=1d;
-
-								if (iKeepLootRadiusExtendedFor>0||this.Itemquality>=ItemQuality.Rare4)
-								{
-									 dMultiplier+=0.25d;
-								}
-								if (iKeepLootRadiusExtendedFor>0||this.Itemquality>=ItemQuality.Legendary)
-								{
-									 dMultiplier+=0.45d;
-								}
-
+								if (this.Itemquality>=ItemQuality.Rare4) dMultiplier+=0.25d;
+								if (this.Itemquality>=ItemQuality.Legendary) dMultiplier+=0.45d;
 								double lootDistance=(Bot.iCurrentMaxLootRadius+Bot.ItemRange)*dMultiplier;
 
-								if (Bot.IsInNonCombatBehavior)
-									 lootDistance=50f;
+								if (Bot.IsInNonCombatBehavior) lootDistance=50f;
 
 								if (this.CentreDistance>lootDistance) return false;
 

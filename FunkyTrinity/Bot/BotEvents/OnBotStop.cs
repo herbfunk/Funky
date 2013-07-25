@@ -26,8 +26,8 @@ namespace FunkyTrinity
             hashUseOnceID = new HashSet<int>();
             dictUseOnceID = new Dictionary<int, int>();
             dictRandomID = new Dictionary<int, int>();
-				Bot.iMaxDeathsAllowed=0;
-				Bot.iDeathsThisRun=0;
+				Bot.Stats.iMaxDeathsAllowed=0;
+				Bot.Stats.iDeathsThisRun=0;
 				initTreeHooks=false;
             //Total Stats
             Statistics.ItemStats.Update();

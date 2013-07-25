@@ -9,7 +9,7 @@ namespace FunkyTrinity
 	 {
 
 		  public List<Funky.CacheUnit> ListUnits { get; protected set; }
-		  public List<Funky.GridPoint> ListPoints { get; protected set; }
+		  public List<GridPoint> ListPoints { get; protected set; }
 		 
 		  private Funky.CacheUnit currentValidUnit=null;
 		  public Funky.CacheUnit CurrentValidUnit
@@ -65,8 +65,8 @@ namespace FunkyTrinity
 		  public float NearestMonsterDistance { get; set; }
 
 
-		  private Funky.GridPoint MidPoint;
-		  public Funky.GridPoint Midpoint
+		  private GridPoint MidPoint;
+		  public GridPoint Midpoint
 		  {
 				get
 				{
@@ -76,7 +76,7 @@ namespace FunkyTrinity
 
 		  protected Cluster()
 		  {
-				ListPoints=new List<Funky.GridPoint>();
+				ListPoints=new List<GridPoint>();
 				ListUnits=new List<Funky.CacheUnit>();
 				EliteCount=0;
 				DotDPSCount=0;
@@ -160,7 +160,7 @@ namespace FunkyTrinity
 		  /// </summary>
 		  /// <param name="p_Point"></param>
 		  /// <returns>true if point is inside a circle of radius Dist of any of the cluster's points</returns>
-		  public bool IsPointReachable(Funky.GridPoint p_Point)
+		  public bool IsPointReachable(GridPoint p_Point)
 		  {
 				if (ListPoints.FindAll(x => x.Distance(p_Point)<=Dist).Count>0)
 					 return true;
@@ -195,11 +195,11 @@ namespace FunkyTrinity
 		  {
 				double minimumDistance=0.0;
 				int nearestPointIndex=-1;
-				Funky.GridPoint centeroid=this.Midpoint;
+				GridPoint centeroid=this.Midpoint;
 
-				foreach (Funky.GridPoint p in this.ListPoints)
+				foreach (GridPoint p in this.ListPoints)
 				{
-					 double distance=Funky.GridPoint.GetDistanceBetweenPoints(p, centeroid);
+					 double distance=GridPoint.GetDistanceBetweenPoints(p, centeroid);
 
 					 if (this.ListPoints.IndexOf(p)==0)
 					 {

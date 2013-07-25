@@ -19,22 +19,22 @@ namespace FunkyTrinity
 		  ///<summary>
 		  ///Contains Collections for all the cached objects being tracked.
 		  ///</summary>
-		  internal partial class ObjectCache
+		  public partial class ObjectCache
 		  {
 				///<summary>
 				///Cached Objects.
 				///</summary>
-				internal static ObjectCollection Objects=new ObjectCollection();
+				public static ObjectCollection Objects=new ObjectCollection();
 
 				///<summary>
 				///Obstacles related to either avoidances or navigational blocks.
 				///</summary>
-				internal static ObstacleCollection Obstacles=new ObstacleCollection();
+				public static ObstacleCollection Obstacles=new ObstacleCollection();
 
 				///<summary>
 				///Cached Sno Data.
 				///</summary>
-				internal static SnoCollection cacheSnoCollection=new SnoCollection();
+				public static SnoCollection cacheSnoCollection=new SnoCollection();
 
 		  }
 	 }

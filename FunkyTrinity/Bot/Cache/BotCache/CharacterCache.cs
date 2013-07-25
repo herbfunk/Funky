@@ -33,7 +33,7 @@ namespace FunkyTrinity
 						  dCurrentEnergyPct=0d;
 						  dDiscipline=0d;
 						  dDisciplinePct=0d;
-						  EnergyRegenerationRate=0;
+						  //EnergyRegenerationRate=0;
 						  bWaitingForReserveEnergy=false;
 						  iMyDynamicID=0;
 						  iMyLevel=1;
@@ -43,34 +43,37 @@ namespace FunkyTrinity
 						  BackPack=new Backpack();
 						  PetData=new Pets();
 						  PickupRadius=1;
-						  isMoving=false;
+
 						  LastCachedTarget=FakeCacheObject;
 						  fCharacterRadius=0f;
-						  iCurrentGameDifficulty=GameDifficulty.Invalid;
+						  //iCurrentGameDifficulty=GameDifficulty.Invalid;
 						  CurrentProfileBehavior=null;
 						  IsRunningOOCBehavior=false;
 					 }
 
 					 private DateTime lastUpdatedPlayer { get; set; }
 					 internal DateTime lastPreformedNonCombatAction { get; set; }
+
 					 public bool bIsIncapacitated { get; set; }
 					 public bool bIsRooted { get; set; }
 					 public bool bIsInTown { get; set; }
+
 					 public double dCurrentHealthPct { get; set; }
 					 public double dCurrentEnergy { get; set; }
 					 public double dCurrentEnergyPct { get; set; }
 					 public double dDiscipline { get; set; }
 					 public double dDisciplinePct { get; set; }
-					 internal int EnergyRegenerationRate { get; set; }
-					 public bool isMoving { get; set; }
+
+					 //internal int EnergyRegenerationRate { get; set; }
+					 
 					 public int iCurrentWorldID { get; set; }
-					 public GameDifficulty iCurrentGameDifficulty { get; set; }
+					 //public GameDifficulty iCurrentGameDifficulty { get; set; }
 					 internal Zeta.CommonBot.Profile.ProfileBehavior CurrentProfileBehavior { get; set; }
 					 internal bool IsRunningOOCBehavior { get; set; }
 
 					 //Returns Live Data
 					 private DateTime lastPositionUpdate=DateTime.Today;
-					 private Vector3 lastPosition=vNullLocation;
+					 private Vector3 lastPosition=Vector3.Zero;
 					 public Vector3 Position
 					 {
 						  get
@@ -84,7 +87,7 @@ namespace FunkyTrinity
 										  lastPositionUpdate=DateTime.Now;
 									 } catch (NullReferenceException)
 									 {
-										  lastPosition=vNullLocation;
+										  lastPosition=Vector3.Zero;
 									 }
 
 
@@ -114,43 +117,6 @@ namespace FunkyTrinity
 						  }
 					 }
 
-					 private DateTime lastMovementUpdate=DateTime.Today;
-
-					// private int curmovementTargetGUID=-1;
-
-
-					 private MovementState curMoveState=MovementState.None;
-					 public MovementState currentMovementState
-					 {
-						  get
-						  {
-								if (DateTime.Now.Subtract(lastMovementUpdate).TotalMilliseconds>500)
-									 UpdateMovementData();
-
-								return curMoveState;
-						  }
-					 }
-
-					 private float curRotation=0f;
-					 internal float currentRotation
-					 {
-						  get
-						  {
-								return curRotation;
-						  }
-					 }
-
-					 private double curSpeedXY=0d;
-					 internal double currentSpeedXY
-					 {
-						  get
-						  {
-								if (DateTime.Now.Subtract(lastMovementUpdate).TotalMilliseconds>500)
-									 UpdateMovementData();
-
-								return curSpeedXY;
-						  }
-					 }
 
 					 internal bool bWaitingForReserveEnergy { get; set; }
 					 internal int iMyDynamicID { get; set; }
@@ -268,33 +234,7 @@ namespace FunkyTrinity
 						  lastUpdatedPlayer=DateTime.Now;
 					 }
 
-					 private DateTime LastUpdatedMovementData=DateTime.Today;
-					 internal void UpdateMovementData()
-					 {
-						  // If we aren't in the game of a world is loading, don't do anything yet
-						  if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld)
-								return;
 
-						  if (DateTime.Now.Subtract(LastUpdatedMovementData).TotalMilliseconds>150)
-						  {
-								LastUpdatedMovementData=DateTime.Now;
-
-								//These vars are used to accuratly predict what the bot is doing (Melee Movement/Combat)
-								using (ZetaDia.Memory.AcquireFrame())
-								{
-									 ActorMovement botMovement=ZetaDia.Me.Movement;
-									 //vCurrentPosition=ZetaDia.Me.Position;
-									 isMoving=botMovement.IsMoving;
-									 curSpeedXY=botMovement.SpeedXY;
-									 //iCurrentMovementTargetGUID=botMovement.ACDTargetGuid;
-									 //if (ZetaDia.Me.Movement.ACDTarget!=null)
-									 //iCurrentMovementTargetGUID=ZetaDia.Me.Movement.ACDTarget.ACDGuid;
-									 curRotation=botMovement.Rotation;
-									 curMoveState=botMovement.MovementState;
-									 // Logging.WriteVerbose("Movement TargetACDGUID == "+iCurrentMovementTargetGUID);
-								}
-						  }
-					 }
 
 					 //private DateTime LastUpdatedAnimationData=DateTime.Today;
 					 internal void UpdateAnimationState(bool animState=true, bool snoAnim=true)
@@ -319,10 +259,11 @@ namespace FunkyTrinity
 
 						  }
 					 }
+
 					 // **********************************************************************************************
 					 // *****      Quick and Dirty routine just to force a wait until the character is "free"    *****
 					 // **********************************************************************************************
-					 internal void WaitWhileAnimating(int iMaxSafetyLoops=10, bool bWaitForAttacking=false)
+					 public void WaitWhileAnimating(int iMaxSafetyLoops=10, bool bWaitForAttacking=false)
 					 {
 						  bool bKeepLooping=true;
 						  int iSafetyLoops=0;
@@ -348,9 +289,13 @@ namespace FunkyTrinity
 						  }
 					 }
 
+
+
 					 //Subclass: Holds data on current player pet counts
 					 internal class Pets
 					 {
+						  public Dictionary<PetTypes, int> dictPetCounter=new Dictionary<PetTypes, int>();
+
 						  public Pets()
 						  {
 								Reset();
@@ -359,28 +304,88 @@ namespace FunkyTrinity
 						  // A count for player mystic ally, gargantuans, and zombie dogs
 						  public int MysticAlly
 						  {
-								get;
-								set;
+								get
+								{
+									 if (!dictPetCounter.ContainsKey(PetTypes.MONK_MysticAlly))
+										  dictPetCounter.Add(PetTypes.MONK_MysticAlly, 0);
+
+									 return dictPetCounter[PetTypes.MONK_MysticAlly];
+								}
+								set
+								{
+									 if (!dictPetCounter.ContainsKey(PetTypes.MONK_MysticAlly))
+										  dictPetCounter.Add(PetTypes.MONK_MysticAlly, value);
+									 else
+										  dictPetCounter[PetTypes.MONK_MysticAlly]=value;
+								}
 						  }
 						  public int Gargantuan
 						  {
-								get;
-								set;
+								get
+								{
+									 if (!dictPetCounter.ContainsKey(PetTypes.WITCHDOCTOR_Gargantuan))
+										  dictPetCounter.Add(PetTypes.WITCHDOCTOR_Gargantuan, 0);
+
+									 return dictPetCounter[PetTypes.WITCHDOCTOR_Gargantuan];
+								}
+								set
+								{
+									 if (!dictPetCounter.ContainsKey(PetTypes.WITCHDOCTOR_Gargantuan))
+										  dictPetCounter.Add(PetTypes.WITCHDOCTOR_Gargantuan, value);
+									 else
+										  dictPetCounter[PetTypes.WITCHDOCTOR_Gargantuan]=value;
+								}
 						  }
 						  public int ZombieDogs
 						  {
-								get;
-								set;
+								get
+								{
+									 if (!dictPetCounter.ContainsKey(PetTypes.WITCHDOCTOR_ZombieDogs))
+										  dictPetCounter.Add(PetTypes.WITCHDOCTOR_ZombieDogs, 0);
+
+									 return dictPetCounter[PetTypes.WITCHDOCTOR_ZombieDogs];
+								}
+								set
+								{
+									 if (!dictPetCounter.ContainsKey(PetTypes.WITCHDOCTOR_ZombieDogs))
+										  dictPetCounter.Add(PetTypes.WITCHDOCTOR_ZombieDogs, value);
+									 else
+										  dictPetCounter[PetTypes.WITCHDOCTOR_ZombieDogs]=value;
+								}
 						  }
 						  public int DemonHunterPet
 						  {
-								get;
-								set;
+								get
+								{
+									 if (!dictPetCounter.ContainsKey(PetTypes.DEMONHUNTER_Pet))
+										  dictPetCounter.Add(PetTypes.DEMONHUNTER_Pet, 0);
+
+									 return dictPetCounter[PetTypes.DEMONHUNTER_Pet];
+								}
+								set
+								{
+									 if (!dictPetCounter.ContainsKey(PetTypes.DEMONHUNTER_Pet))
+										  dictPetCounter.Add(PetTypes.DEMONHUNTER_Pet, value);
+									 else
+										  dictPetCounter[PetTypes.DEMONHUNTER_Pet]=value;
+								}
 						  }
 						  public int WizardHydra
 						  {
-								get;
-								set;
+								get
+								{
+									 if (!dictPetCounter.ContainsKey(PetTypes.WIZARD_Hydra))
+										  dictPetCounter.Add(PetTypes.WIZARD_Hydra, 0);
+
+									 return dictPetCounter[PetTypes.WIZARD_Hydra];
+								}
+								set
+								{
+									 if (!dictPetCounter.ContainsKey(PetTypes.WIZARD_Hydra))
+										  dictPetCounter.Add(PetTypes.WIZARD_Hydra, value);
+									 else
+										  dictPetCounter[PetTypes.WIZARD_Hydra]=value;
+								}
 						  }
 
 						  public void Reset()

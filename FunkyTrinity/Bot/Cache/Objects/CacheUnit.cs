@@ -11,7 +11,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  internal class CacheUnit : CacheObject
+		  public class CacheUnit : CacheObject
 		  {
 				public CacheUnit(CacheObject baseobj)
 					 : base(baseobj)
@@ -268,27 +268,16 @@ namespace FunkyTrinity
 						  //Set our current radius to the settings of profile.
 						  double dUseKillRadius=Bot.iCurrentMaxKillRadius;
 
-						  //Extended Range / Noncombat Behavior?
-						  if ((iKeepKillRadiusExtendedFor>0)||Bot.IsInNonCombatBehavior)
-						  {
-								dUseKillRadius+=Bot.SettingsFunky.ExtendedCombatRange;
 
-								if (this.CentreDistance<=dUseKillRadius)
-									 Bot.Combat.bAnyMobsInCloseRange=true;
-						  }
-						  else
-						  {
-								// Special short-range list to ignore weakling mobs
-								if (SnoCacheLookup.hashActorSNOShortRangeOnly.Contains(this.SNOID))
-									 dUseKillRadius=12;
+						  // Special short-range list to ignore weakling mobs
+						  if (SnoCacheLookup.hashActorSNOShortRangeOnly.Contains(this.SNOID)) dUseKillRadius=12;
 
-								// Prevent long-range mobs beign ignored while they may be pounding on us
-								if (dUseKillRadius<=30&&SnoCacheLookup.hashActorSNORanged.Contains(this.SNOID))
-									 dUseKillRadius=30;
+						  // Prevent long-range mobs beign ignored while they may be pounding on us
+						  if (dUseKillRadius<=30&&SnoCacheLookup.hashActorSNORanged.Contains(this.SNOID)) dUseKillRadius=30;
 
-								if (this.CentreDistance<=Bot.NonEliteRange)
-									 Bot.Combat.bAnyMobsInCloseRange=true;
-						  }
+						  if (this.CentreDistance<=Bot.NonEliteRange) Bot.Combat.bAnyMobsInCloseRange=true;
+
+
 
 						  // Bosses get extra radius
 						  if (this.IsBoss)
@@ -378,7 +367,7 @@ namespace FunkyTrinity
 
 					 if (Bot.KiteDistance>0&&RadiusDistance<=Bot.KiteDistance&&this.ShouldBeKited)
 						  Bot.Combat.NearbyKitingUnits.Add(this);
-					 
+
 
 					 if (RadiusDistance<=6f)
 					 {
@@ -439,12 +428,12 @@ namespace FunkyTrinity
 				}
 				#endregion
 
-				internal override GridPointAreaCache.GPRectangle GPRect
+				internal override GPRectangle GPRect
 				{
 					 get
 					 {
 						  if (base.GPRect.CreationVector!=this.Position)
-								base.GPRect=new GridPointAreaCache.GPRectangle(this.Position, (int)Math.Sqrt(this.ActorSphereRadius.Value)*2);
+								base.GPRect=new GPRectangle(this.Position, (int)Math.Sqrt(this.ActorSphereRadius.Value)*2);
 
 						  return base.GPRect;
 					 }
@@ -458,7 +447,7 @@ namespace FunkyTrinity
 						  if (fThisHeightDifference>=10f)
 						  {
 								//raycast.. 
-								if (!GilesCanRayCast(Bot.Character.Position, this.Position))
+								if (!Navigation.CanRayCast(Bot.Character.Position, this.Position))
 								{
 									 return false;
 								}
@@ -780,7 +769,7 @@ namespace FunkyTrinity
 						  //Line of sight pre-check
 						  if (this.RequiresLOSCheck)
 						  {
-								
+
 								double lastLOSCheckMS=this.LastLOSCheckMS;
 
 
@@ -790,7 +779,7 @@ namespace FunkyTrinity
 								{
 									 //Last Health Changed, Distance, Special Unit..
 									 double ReCheckTime=7500;
-									 
+
 									 if (DateTime.Now.Subtract(this.LastHealthChange).TotalMilliseconds<5000)
 										  ReCheckTime*=0.75;
 

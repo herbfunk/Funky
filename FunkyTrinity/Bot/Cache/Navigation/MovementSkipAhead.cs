@@ -8,28 +8,14 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  public static class CacheMovementTracking
+		  public static class SkipAheadCache
 		  {
+				public static bool bSkipAheadAGo=false;
+
 				private static List<SkipAheadNavigation> SkipAheadAreaCache=new List<SkipAheadNavigation>();
-				internal static bool bSkipAheadAGo=false;
 				private static DateTime lastRecordedSkipAheadCache=DateTime.Today;
-				internal static void RecordSkipAheadCachePoint(float Precision=20f)
-				{
-					 double millisecondsLastRecord=DateTime.Now.Subtract(lastRecordedSkipAheadCache).TotalMilliseconds;
-
-					 if (millisecondsLastRecord<100)
-						  return;
-					 // else if (millisecondsLastRecord>10000) //10 seconds.. clear cache!
-					 // SkipAheadAreaCache.Clear();
-
-					 if (SkipAheadAreaCache.Any(p => p.Position.Distance(ZetaDia.Me.Position)<=Precision))
-						  return;
-
-					 SkipAheadAreaCache.Add(new SkipAheadNavigation(ZetaDia.Me.Position, Precision));
-
-					 lastRecordedSkipAheadCache=DateTime.Now;
-				}
 				private static List<SkipAheadNavigation> UsedSkipAheadAreaCache=new List<SkipAheadNavigation>();
+
 				internal static void ClearCache()
 				{
 					 SkipAheadAreaCache.Clear();
@@ -67,6 +53,22 @@ namespace FunkyTrinity
 					 }
 					 return valid;
 
+				}
+				public static void RecordSkipAheadCachePoint(float Precision=20f)
+				{
+					 double millisecondsLastRecord=DateTime.Now.Subtract(lastRecordedSkipAheadCache).TotalMilliseconds;
+
+					 if (millisecondsLastRecord<100)
+						  return;
+					 // else if (millisecondsLastRecord>10000) //10 seconds.. clear cache!
+					 // SkipAheadAreaCache.Clear();
+
+					 if (SkipAheadAreaCache.Any(p => p.Position.Distance(ZetaDia.Me.Position)<=Precision))
+						  return;
+
+					 SkipAheadAreaCache.Add(new SkipAheadNavigation(ZetaDia.Me.Position, Precision));
+
+					 lastRecordedSkipAheadCache=DateTime.Now;
 				}
 		  }
     }

@@ -103,28 +103,33 @@ namespace FunkyTrinity
 
 					 internal void UpdateTargetClusteringVariables()
 					 {
-						  //Clear Clusters and Unit collection
-						  CurrentTargetClusters=new List<Cluster>();
-						  ValidClusterUnits=new List<int>();
-
-						  //Check if there are enough units present currently..
-						  if (UnitRAGUIDs.Count>=Bot.SettingsFunky.ClusterMinimumUnitCount)
+						  if (Bot.SettingsFunky.EnableClusteringTargetLogic
+							 &&(!Bot.SettingsFunky.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>Bot.SettingsFunky.IgnoreClusterLowHPValue)
+							 &&(DateTime.Now.Subtract(dateSincePickedTarget).TotalMilliseconds>500||DateTime.Now.Subtract(LastClusterTargetLogicRefresh).TotalMilliseconds>200))
 						  {
-								//Get unit objects only!
-								List<CacheObject> listObjectUnits=Bot.ValidObjects.Where(u => Bot.Combat.UnitRAGUIDs.Contains(u.RAGUID)).ToList();
+								//Clear Clusters and Unit collection
+								CurrentTargetClusters=new List<Cluster>();
+								ValidClusterUnits=new List<int>();
 
-								//Make sure there are units before we continue!
-								if (listObjectUnits.Count>0)
+								//Check if there are enough units present currently..
+								if (UnitRAGUIDs.Count>=Bot.SettingsFunky.ClusterMinimumUnitCount)
 								{
-									 //Update Cluster Collection
-									 CurrentTargetClusters=RunKmeans(listObjectUnits, Bot.SettingsFunky.ClusterDistance);
-									 LastClusterTargetLogicRefresh=DateTime.Now;
+									 //Get unit objects only!
+									 List<CacheObject> listObjectUnits=Bot.ValidObjects.Where(u => UnitRAGUIDs.Contains(u.RAGUID)).ToList();
 
-									 //Add each RAGUID to collection only if clusters contained units meets minimum setting
-									 foreach (var item in CurrentTargetClusters)
+									 //Make sure there are units before we continue!
+									 if (listObjectUnits.Count>0)
 									 {
-										  if (item.ListUnits.Count>=Bot.SettingsFunky.ClusterMinimumUnitCount)
-												ValidClusterUnits.AddRange(item.RAGUIDS);
+										  //Update Cluster Collection
+										  CurrentTargetClusters=RunKmeans(listObjectUnits, Bot.SettingsFunky.ClusterDistance);
+										  LastClusterTargetLogicRefresh=DateTime.Now;
+
+										  //Add each RAGUID to collection only if clusters contained units meets minimum setting
+										  foreach (var item in CurrentTargetClusters)
+										  {
+												if (item.ListUnits.Count>=Bot.SettingsFunky.ClusterMinimumUnitCount)
+													 ValidClusterUnits.AddRange(item.RAGUIDS);
+										  }
 									 }
 								}
 						  }
@@ -233,7 +238,7 @@ namespace FunkyTrinity
 
 
 					 internal int iACDGUIDLastWhirlwind=0;
-					 internal Vector3 vSideToSideTarget=vNullLocation;
+					 internal Vector3 vSideToSideTarget=Vector3.Zero;
 					 internal DateTime lastChangedZigZag=DateTime.Today;
 					 internal Vector3 vPositionLastZigZagCheck=Vector3.Zero;
 

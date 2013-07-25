@@ -12,11 +12,11 @@ namespace FunkyTrinity
 	 {
 		  private void FunkyOnDeath(object src, EventArgs mea)
 		  {
-				if (DateTime.Now.Subtract(Bot.lastDied).TotalSeconds>10)
+				if (DateTime.Now.Subtract(Bot.Stats.lastDied).TotalSeconds>10)
 				{
-					 Bot.lastDied=DateTime.Now;
-					 Bot.iTotalDeaths++;
-					 Bot.iDeathsThisRun++;
+					 Bot.Stats.lastDied=DateTime.Now;
+					 Bot.Stats.iTotalDeaths++;
+					 Bot.Stats.iDeathsThisRun++;
 
 					 //Herbfunk Stats
 					 Statistics.GameStats.CurrentGame.Deaths++;
@@ -26,13 +26,13 @@ namespace FunkyTrinity
 
 	
 					 // Does Trinity need to handle deaths?
-					 if (Bot.iMaxDeathsAllowed>0)
+					 if (Bot.Stats.iMaxDeathsAllowed>0)
 					 {
-						  if (Bot.iDeathsThisRun>=Bot.iMaxDeathsAllowed)
+						  if (Bot.Stats.iDeathsThisRun>=Bot.Stats.iMaxDeathsAllowed)
 						  {
 								Logging.Write("[Funky] You have died too many times. Now restarting the game.");
 
-								string sUseProfile=Funky.sFirstProfileSeen;
+								string sUseProfile=Bot.Stats.sFirstProfileSeen;
 								ProfileManager.Load(!string.IsNullOrEmpty(sUseProfile)
 																?sUseProfile
 																:Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile);

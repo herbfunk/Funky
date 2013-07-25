@@ -232,12 +232,12 @@ namespace FunkyTrinity
 		  {
 				return new Zeta.TreeSharp.Action(ret =>
 				{
-					 if (MaxDeaths!=Funky.Bot.iMaxDeathsAllowed)
+					 if (MaxDeaths!=Funky.Bot.Stats.iMaxDeathsAllowed)
 						  Logging.Write("[Funky] Max deaths set by profile. Trinity now handling deaths, and will restart the game after "+MaxDeaths.ToString());
 
-					 Funky.Bot.iMaxDeathsAllowed=MaxDeaths;
+					 Funky.Bot.Stats.iMaxDeathsAllowed=MaxDeaths;
 					 if (Reset!=null&&Reset.ToLower()=="true")
-						  Funky.Bot.iDeathsThisRun=0;
+						  Funky.Bot.Stats.iDeathsThisRun=0;
 					 m_IsDone=true;
 				});
 		  }
@@ -440,7 +440,7 @@ namespace FunkyTrinity
 				// First check if we can skip ahead because we recently moved here
 				if (NoSkip==null||NoSkip.ToLower()!="true")
 				{
-					 if (Funky.CacheMovementTracking.CheckPositionForSkipping(Position))
+					 if (Funky.SkipAheadCache.CheckPositionForSkipping(Position))
 					 {
 						  Logging.WriteDiagnostic("Finished Path {0} earlier due to SkipAreaCache find!", Position.ToString());
 						  skippingAhead=true;
@@ -468,7 +468,7 @@ namespace FunkyTrinity
 				{
 					 //Special cache for skipping locations visited.
 					 if (Funky.Bot.SettingsFunky.SkipAhead)
-						  Funky.CacheMovementTracking.RecordSkipAheadCachePoint(PathPrecision);
+						  Funky.SkipAheadCache.RecordSkipAheadCachePoint(PathPrecision);
 
 					 Navigator.MoveTo(NavTarget);
 				}
@@ -1787,7 +1787,7 @@ namespace FunkyTrinity
 		  {
 				get
 				{
-					 return FunkyTrinity.Funky.MGP;
+					 return FunkyTrinity.Funky.Navigation.MGP;
 				}
 		  }
 
@@ -2370,13 +2370,13 @@ namespace FunkyTrinity
 								new Action(ret => UpdateRoute())
 						  )
 					 ),
-					 new Decorator(ret => !FunkyTrinity.Funky.Bot.Character.currentMovementState.HasFlag(MovementState.WalkingInPlace|MovementState.None)&&myPos.Distance2D(CurrentNavTarget)<=50f&&!Navigator.Raycast(myPos, CurrentNavTarget),
+					 new Decorator(ret => !FunkyTrinity.Funky.Bot.NavigationCache.currentMovementState.HasFlag(MovementState.WalkingInPlace|MovementState.None)&&myPos.Distance2D(CurrentNavTarget)<=50f&&!Navigator.Raycast(myPos, CurrentNavTarget),
 						  new Sequence(
 								new Action(ret => SetNodeVisited("Stuck moving to node point, marking done (in LoS and nearby!)")),
 								new Action(ret => UpdateRoute())
 						  )
 					 ),
-					 new Decorator(ret => FunkyTrinity.Funky.CacheMovementTracking.CheckPositionForSkipping(CurrentNavTarget),
+					 new Decorator(ret => FunkyTrinity.Funky.SkipAheadCache.CheckPositionForSkipping(CurrentNavTarget),
 						  new Sequence(
 								new Action(ret => SetNodeVisited("Found node to be in skip ahead cache, marking done")),
 								new Action(ret => UpdateRoute())
@@ -2542,6 +2542,22 @@ namespace FunkyTrinity
 					 return 0;
 		  }
 
+
+		  private string GetHeadingToPoint(Vector3 TargetPoint)
+		  {
+				return GetHeading(Funky.Navigation.FindDirection(Funky.Bot.Character.Position, TargetPoint));
+		  }
+		  private string GetHeading(float heading)
+		  {
+				var directions=new string[] {
+              //"n", "ne", "e", "se", "s", "sw", "w", "nw", "n"
+                "s", "se", "e", "ne", "n", "nw", "w", "sw", "s"
+            };
+
+				var index=(((int)heading)+23)/45;
+				return directions[index].ToUpper();
+		  }
+
 		  private MoveResult LastMoveResult=MoveResult.Moved;
 //		  private DateTime lastGeneratedPath=DateTime.MinValue;
 		  /// <summary>
@@ -2553,11 +2569,11 @@ namespace FunkyTrinity
 				Vector3 moveTarget=NextNode.NavigableCenter;
 
 				string nodeName=String.Format("{0} Distance: {1:0} Direction: {2}",
-					 NextNode.NavigableCenter, NextNode.NavigableCenter.Distance(FunkyTrinity.Funky.Bot.Character.Position), FunkyTrinity.Funky.GetHeadingToPoint(NextNode.NavigableCenter));
+					 NextNode.NavigableCenter, NextNode.NavigableCenter.Distance(FunkyTrinity.Funky.Bot.Character.Position), GetHeadingToPoint(NextNode.NavigableCenter));
 				
 				//Special cache for skipping locations visited.
 				if (Funky.Bot.SettingsFunky.SkipAhead)
-					 Funky.CacheMovementTracking.RecordSkipAheadCachePoint(PathPrecision);
+					 Funky.SkipAheadCache.RecordSkipAheadCachePoint(PathPrecision);
 
 				LastMoveResult=Navigator.MoveTo(CurrentNavTarget);
 		  }
@@ -2839,7 +2855,7 @@ namespace FunkyTrinity
 
 
 		  public Vector3 MyPos { get { return ZetaDia.Me.Position; } }
-		  private ISearchAreaProvider gp { get { return FunkyTrinity.Funky.MGP; } }
+		  private ISearchAreaProvider gp { get { return FunkyTrinity.Funky.Navigation.MGP; } }
 		  //private PathFinder pf { get { return GilesTrinity.pf; } }
 
 		  public override void OnStart()

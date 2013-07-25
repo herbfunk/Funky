@@ -49,14 +49,14 @@ namespace FunkyTrinity
 				public override bool ShouldGenerateNewZigZagPath()
 				{
 					 return (DateTime.Now.Subtract(Bot.Combat.lastChangedZigZag).TotalMilliseconds>=1500||
-							  (Bot.Combat.vPositionLastZigZagCheck!=vNullLocation&&Bot.Character.Position==Bot.Combat.vPositionLastZigZagCheck&&DateTime.Now.Subtract(Bot.Combat.lastChangedZigZag).TotalMilliseconds>=200)||
+							  (Bot.Combat.vPositionLastZigZagCheck!=Vector3.Zero&&Bot.Character.Position==Bot.Combat.vPositionLastZigZagCheck&&DateTime.Now.Subtract(Bot.Combat.lastChangedZigZag).TotalMilliseconds>=200)||
 							  Vector3.Distance(Bot.Character.Position, Bot.Combat.vSideToSideTarget)<=4f||
 							  Bot.Target.CurrentTarget.AcdGuid.Value!=Bot.Combat.iACDGUIDLastWhirlwind);
 				}
 				public override void GenerateNewZigZagPath()
 				{
 					 float fExtraDistance=Bot.Target.CurrentTarget.CentreDistance<=20f?5f:1f;
-					 Bot.Combat.vSideToSideTarget=FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, Bot.Target.CurrentTarget.CentreDistance+fExtraDistance);
+					 Bot.Combat.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, Bot.Target.CurrentTarget.CentreDistance+fExtraDistance);
 					 // Resetting this to ensure the "no-spam" is reset since we changed our target location
 					 Bot.Combat.powerLastSnoPowerUsed=SNOPower.None;
 					 Bot.Combat.iACDGUIDLastWhirlwind=Bot.Target.CurrentTarget.AcdGuid.Value;
@@ -426,10 +426,7 @@ namespace FunkyTrinity
 
 								Fcriteria=new Func<bool>(() =>
 								{
-									 //Update Current Bot Animation State.
-									 Bot.Character.UpdateAnimationState(false, true);
-									 bool isHobbling=Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.Monk_Female_Hobble_Run|SNOAnim.Monk_Male_HTH_Hobble_Run);
-									 bool isChanneling=(isHobbling||AbilityLastUseMS(SNOPower.Monk_TempestRush)<350);
+									 bool isChanneling=(this.IsHobbling||AbilityLastUseMS(SNOPower.Monk_TempestRush)<350);
 									 int channelingCost=this.RuneIndexCache[Power]==3?8:10;
 
 									 //If channeling, check if energy is greater then 10.. else only start when energy is at least -40-
@@ -545,6 +542,15 @@ namespace FunkyTrinity
 					 // Monks need 80 for special spam like tempest rushing
 					 this.iWaitingReservedAmount=80;
 					 return base.AbilitySelector(bCurrentlyAvoiding, bOOCBuff);
+				}
+
+				private bool IsHobbling
+				{
+					 get
+					 {
+						  Bot.Character.UpdateAnimationState(false);
+						  return Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.Monk_Female_Hobble_Run|SNOAnim.Monk_Male_HTH_Hobble_Run);
+					 }
 				}
 		  }
 	 }

@@ -8,9 +8,9 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
+
          private static void SaveFunkyConfiguration()
          {
-
 				 string sFunkyCharacterConfigFile=Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyTrinity", Bot.CurrentAccountName, Bot.CurrentHeroName+".cfg");
 
              FileStream configStream = File.Open(sFunkyCharacterConfigFile, FileMode.Create, FileAccess.Write, FileShare.Read);
@@ -65,7 +65,7 @@ namespace FunkyTrinity
                  configWriter.WriteLine("AfterCombatDelay=" + Bot.SettingsFunky.AfterCombatDelay.ToString());
                  configWriter.WriteLine("OutOfCombatMovement=" + Bot.SettingsFunky.OutOfCombatMovement.ToString());
                  configWriter.WriteLine("EliteCombatRange=" + Bot.SettingsFunky.EliteCombatRange.ToString());
-                 configWriter.WriteLine("ExtendedCombatRange=" + Bot.SettingsFunky.ExtendedCombatRange.ToString());
+					  //configWriter.WriteLine("ExtendedCombatRange=" + Bot.SettingsFunky.ExtendedCombatRange.ToString());
                  configWriter.WriteLine("GoldRange=" + Bot.SettingsFunky.GoldRange.ToString());
                  configWriter.WriteLine("MinimumWeaponItemLevel=" + Bot.SettingsFunky.MinimumWeaponItemLevel[0].ToString() + "," + Bot.SettingsFunky.MinimumWeaponItemLevel[1].ToString());
                  configWriter.WriteLine("MinimumArmorItemLevel=" + Bot.SettingsFunky.MinimumArmorItemLevel[0].ToString() + "," + Bot.SettingsFunky.MinimumArmorItemLevel[1].ToString());
@@ -177,14 +177,11 @@ namespace FunkyTrinity
          private static void LoadFunkyConfiguration()
          {
 
-				 if (Bot.CurrentAccountName==null)
-             {
-					  Bot.UpdateCurrentAccountDetails();
-             }
+				 if (Bot.CurrentAccountName==null) Bot.UpdateCurrentAccountDetails();
+             
 
 				 string sFunkyCharacterFolder=Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyTrinity", Bot.CurrentAccountName);
-             if (!System.IO.Directory.Exists(sFunkyCharacterFolder))
-                 System.IO.Directory.CreateDirectory(sFunkyCharacterFolder);
+             if (!System.IO.Directory.Exists(sFunkyCharacterFolder)) System.IO.Directory.CreateDirectory(sFunkyCharacterFolder);
 
 				 string sFunkyCharacterConfigFile=Path.Combine(sFunkyCharacterFolder, Bot.CurrentHeroName+".cfg");
 
@@ -192,7 +189,7 @@ namespace FunkyTrinity
              if (!File.Exists(sFunkyCharacterConfigFile))
              {
                 Log("No config file found, now creating a new config from defaults at: " + sFunkyCharacterConfigFile);
-					 Bot.SettingsFunky=new Settings_Funky(false, false, true, true, true, true, false, 0, 0, 0, 0, false, 30, false, false, "Hard", "Rare", "Rare", true, true, 0, 10, 25, 40, 0.6d, 0.4d, false, 2, 500, false, 60, 0, 40, new int[1], new int[1], new int[1], 55, 100, 500, new bool[3], 60, false, true, true, 59, false, 70000, 30000, 27000, false, false);
+					 Bot.SettingsFunky=new Settings_Funky();
                 SaveFunkyConfiguration();
              }
 
@@ -448,9 +445,9 @@ namespace FunkyTrinity
                                  case "EliteCombatRange":
                                      Bot.SettingsFunky.EliteCombatRange = Convert.ToInt32(config[1]);
                                      break;
-                                 case "ExtendedCombatRange":
-                                     Bot.SettingsFunky.ExtendedCombatRange = Convert.ToInt32(config[1]);
-                                     break;
+											//case "ExtendedCombatRange":
+											//	 Bot.SettingsFunky.ExtendedCombatRange = Convert.ToInt32(config[1]);
+											//	 break;
                                  case "GoldRange":
                                      Bot.SettingsFunky.GoldRange = Convert.ToInt32(config[1]);
                                      break;
@@ -685,7 +682,7 @@ namespace FunkyTrinity
              public int NonEliteCombatRange { get; set; }
              public int EliteCombatRange { get; set; }
              public int TreasureGoblinRange { get; set; }
-             public int ExtendedCombatRange { get; set; }
+				 //public int ExtendedCombatRange { get; set; }
 
              //Item Rules Additions
 				 public bool UseItemRulesPickup { get; set; }
@@ -753,14 +750,7 @@ namespace FunkyTrinity
 
              //Class Settings
              public ClassSettings Class { get; set; }
-             public Settings_Funky(bool oocIDitems, bool buyPotions, bool WaitForContainers,
-                  bool itemRulesPickup, bool itemRules, bool extendRangeRepChest,
-                  bool coffeebreak, int minbreak, int maxbreak, int minOOCitems, double breakTime, bool ignoreDestructibles, int shrinerange
-                  , bool itemruleIDs, bool itemruleDebug, string itemruletype, string itemrulekeeplog, string itemrulepickuplog, bool gilesscoring,
-                  bool attemptavoidance, int Kite, int destructiblerange, int containerrange, int noneliterange,
-                  double globehealth, double potionhealth, bool ignorecorpse, int goblinpriority, int aftercombatdelay, bool outofcombatmovement,
-                  int eliterange, int extendedrange, int goldrange, int[] minweaponlevel, int[] minarmorlevel, int[] minjewelerylevel, int minlegendarylevel,
-                  int maxhealthpots, int mingoldpile, bool[] gems, int minGemLevel, bool craftTomes, bool craftPlans, bool Followeritems, int miscitemlevel, bool itemlevelinglogic, int gilesWeaponScore, int gilesArmorScore, int gilesJeweleryScore, bool projectiletesting, bool ignoreelites)
+             public Settings_Funky()
              {
 					  UseShrineTypes=new bool[6] { true, true, true, true, true, true };
                  LogStuckLocations = true;
@@ -771,59 +761,59 @@ namespace FunkyTrinity
                  AvoidanceRecheckMinimumRate = 550;
                  KitingRecheckMaximumRate = 4500;
                  KitingRecheckMinimumRate = 1000;
-                 OOCIdentifyItems = oocIDitems;
-                 BuyPotionsDuringTownRun = buyPotions;
-                 EnableWaitAfterContainers = WaitForContainers;
-                 UseItemRulesPickup = itemRulesPickup;
-                 UseItemRules = itemRules;
+                 OOCIdentifyItems = false;
+                 BuyPotionsDuringTownRun = false;
+					  EnableWaitAfterContainers=false;
+                 UseItemRulesPickup = true;
+					  UseItemRules=true;
 					  ItemRulesUnidStashing=true;
 					  ItemRulesSalvaging=true;
-                 UseExtendedRangeRepChest = extendRangeRepChest;
-                 EnableCoffeeBreaks = coffeebreak;
-                 MaxBreakTime = minbreak;
-                 MinBreakTime = maxbreak;
-                 OOCIdentifyItemsMinimumRequired = minOOCitems;
-                 breakTimeHour = breakTime;
-                 ItemRuleDebug = itemruleDebug;
-                 ItemRuleUseItemIDs = itemruleIDs;
-                 ItemRuleType = itemruletype;
-                 ItemRuleLogKeep = itemrulekeeplog;
-                 ItemRuleLogPickup = itemrulepickuplog;
-                 ItemRuleGilesScoring = gilesscoring;
-                 AttemptAvoidanceMovements = attemptavoidance;
-                 KiteDistance = Kite;
+                 UseExtendedRangeRepChest = false;
+					  EnableCoffeeBreaks=false;
+                 MaxBreakTime = 4;
+                 MinBreakTime = 8;
+                 OOCIdentifyItemsMinimumRequired = 10;
+                 breakTimeHour = 1.5d;
+                 ItemRuleDebug = false;
+                 ItemRuleUseItemIDs = false;
+                 ItemRuleType = "hard";
+                 ItemRuleLogKeep = "Rare";
+					  ItemRuleLogPickup="Rare";
+                 ItemRuleGilesScoring = true;
+					  AttemptAvoidanceMovements=true;
+                 KiteDistance = 0;
                  IgnoreCombatRange = false;
                  IgnoreLootRange = false;
-                 DestructibleRange = destructiblerange;
-                 ContainerOpenRange = containerrange;
-                 NonEliteCombatRange = noneliterange;
-                 GlobeHealthPercent = globehealth;
-                 PotionHealthPercent = potionhealth;
-                 IgnoreCorpses = ignorecorpse;
-                 GoblinPriority = goblinpriority;
-                 AfterCombatDelay = aftercombatdelay;
-                 OutOfCombatMovement = outofcombatmovement;
-                 EliteCombatRange = eliterange;
-                 ExtendedCombatRange = extendedrange;
-                 GoldRange = goldrange;
+                 DestructibleRange = 10;
+                 ContainerOpenRange = 30;
+                 NonEliteCombatRange = 45;
+                 GlobeHealthPercent = 0.6d;
+                 PotionHealthPercent = 0.5d;
+                 IgnoreCorpses = false;
+                 GoblinPriority = 2;
+                 AfterCombatDelay = 500;
+                 OutOfCombatMovement = false;
+                 EliteCombatRange = 60;
+					  //ExtendedCombatRange = extendedrange;
+                 GoldRange = 45;
 					  GlobeRange=40;
                  ItemRange = 75;
                  TreasureGoblinRange = 55;
-                 ShrineRange = shrinerange;
+                 ShrineRange = 30;
                  MinimumWeaponItemLevel = new int[] { 0, 59 };
                  MinimumArmorItemLevel = new int[] { 0, 59 };
                  MinimumJeweleryItemLevel = new int[] { 0, 55 };
-                 GilesMinimumWeaponScore = gilesWeaponScore;
-                 GilesMinimumArmorScore = gilesArmorScore;
-                 GilesMinimumJeweleryScore = gilesJeweleryScore;
+                 GilesMinimumWeaponScore = 75000;
+                 GilesMinimumArmorScore = 30000;
+                 GilesMinimumJeweleryScore = 30000;
 
-                 MinimumLegendaryItemLevel = minlegendarylevel;
-                 MaximumHealthPotions = maxhealthpots;
-                 MinimumGoldPile = mingoldpile;
+                 MinimumLegendaryItemLevel = 59;
+                 MaximumHealthPotions = 100;
+                 MinimumGoldPile = 425;
 
 					  PickupGems=new bool[] { true, true, true, true };
 
-                 MinimumGemItemLevel = minGemLevel;
+                 MinimumGemItemLevel = 60;
 					  PickupCraftTomes=true;
 					  PickupCraftPlans=true;
 					  PickupBlacksmithPlanSix=true;
@@ -840,10 +830,10 @@ namespace FunkyTrinity
 					  PickupInfernalKeys=true;
 
 					  PickupFollowerItems=true;
-                 MiscItemLevel = miscitemlevel;
-                 UseLevelingLogic = itemlevelinglogic;
-                 UseAdvancedProjectileTesting = projectiletesting;
-                 IgnoreAboveAverageMobs = ignoreelites;
+                 MiscItemLevel = 59;
+                 UseLevelingLogic = false;
+                 UseAdvancedProjectileTesting = false;
+                 IgnoreAboveAverageMobs = false;
                  DebugStatusBar = false;
                  LogSafeMovementOutput = false;
 

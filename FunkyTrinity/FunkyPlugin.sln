@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyPlugin", "FunkyPlugin.csproj", "{4B51B3E8-7674-455D-8478-681C08AA01E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyXMLTags", "..\FunkyXMLTags\FunkyXMLTags.csproj", "{130F6EAA-40B1-4ED9-9908-8FC537AFE554}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,10 @@ Global
 		{4B51B3E8-7674-455D-8478-681C08AA01E5}.Debug|x86.Build.0 = Debug|x86
 		{4B51B3E8-7674-455D-8478-681C08AA01E5}.Release|x86.ActiveCfg = Release|x86
 		{4B51B3E8-7674-455D-8478-681C08AA01E5}.Release|x86.Build.0 = Release|x86
+		{130F6EAA-40B1-4ED9-9908-8FC537AFE554}.Debug|x86.ActiveCfg = Debug|x86
+		{130F6EAA-40B1-4ED9-9908-8FC537AFE554}.Debug|x86.Build.0 = Debug|x86
+		{130F6EAA-40B1-4ED9-9908-8FC537AFE554}.Release|x86.ActiveCfg = Release|x86
+		{130F6EAA-40B1-4ED9-9908-8FC537AFE554}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
