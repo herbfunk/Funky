@@ -19,7 +19,7 @@ namespace FunkyTrinity
 		  ///<summary>
 		  ///Contains Collections for all the cached objects being tracked.
 		  ///</summary>
-		  public partial class ObjectCache
+		  public static partial class ObjectCache
 		  {
 				///<summary>
 				///Cached Objects.

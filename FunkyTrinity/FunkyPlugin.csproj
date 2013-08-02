@@ -441,7 +441,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Bot\Cache\Navigation\Movements\" />
     <Folder Include="ItemRules\Log\Archive\" />
     <Folder Include="Log\ProfileStats\" />
   </ItemGroup>
