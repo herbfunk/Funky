@@ -50,10 +50,10 @@ namespace FunkyTrinity
 						  &&!String.IsNullOrEmpty(Bot.Target.CurrentTarget.InternalName))
 					 {
 						  string internalname=Bot.Target.CurrentTarget.InternalName;
-						  if (internalname.Contains("Kitespot"))
+						  if (internalname.Contains("FleeSpot"))
 						  {
-								Bot.Combat.LastKiteAction=DateTime.Now;
-								Bot.Combat.KitedLastTarget=true;
+								Bot.Combat.LastFleeAction=DateTime.Now;
+								Bot.Combat.FleeingLastTarget=true;
 						  }
 						  else if (internalname.Contains("AvoidanceIntersection")||internalname.Contains("StayPutPoint")||internalname.Contains("SafeAvoid"))
 						  {
@@ -63,7 +63,7 @@ namespace FunkyTrinity
 					 }
 					 else
 					 {
-						  Bot.Combat.KitedLastTarget=false;
+						  Bot.Combat.FleeingLastTarget=false;
 						  Bot.Combat.AvoidanceLastTarget=false;
 					 }
 

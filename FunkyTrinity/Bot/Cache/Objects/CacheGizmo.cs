@@ -242,7 +242,7 @@ namespace FunkyTrinity
 									 Vector3 BarricadeTest;
 									 if (PlayerMover.CurrentMovementPosition==Vector3.Zero)
 									 {
-										  BarricadeTest=this.Position;
+										  BarricadeTest=MathEx.GetPointAt(this.Position, 10f, Navigation.FindDirection(Bot.Character.Position, this.Position, true));
 									 }
 									 else
 										  BarricadeTest=PlayerMover.CurrentMovementPosition;
@@ -252,6 +252,7 @@ namespace FunkyTrinity
 									 //The best method would be to get the hight of the object and compare it to our current Z-height if we are nearly within radius distance of the object.
 									 if ((this.targetType.Value==TargetType.Barricade||this.IsBarricade.HasValue&&this.IsBarricade.Value)&&
 										  (!PlayerMover.ShouldHandleObstacleObject  //Have special flag from unstucker to destroy nearby barricade.
+										  &&this.PriorityCounter==0
 										  &&Difference(BarricadeTest.Z, Bot.Character.Position.Z)<15f//Ignore things blocked by z difference
 										  &&!MathEx.IntersectsPath(this.Position, this.CollisionRadius.Value, Bot.Character.Position, BarricadeTest)))
 									 {

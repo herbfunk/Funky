@@ -3,6 +3,7 @@ using Zeta;
 using System.IO;
 using System.Globalization;
 using Zeta.Common;
+using System.Xml.Serialization;
 
 namespace FunkyTrinity
 {
@@ -47,6 +48,11 @@ namespace FunkyTrinity
 
                  configWriter.WriteLine("AttemptAvoidanceMovements=" + Bot.SettingsFunky.AttemptAvoidanceMovements.ToString());
                  configWriter.WriteLine("UseAdvancedProjectileTesting=" + Bot.SettingsFunky.UseAdvancedProjectileTesting.ToString());
+
+					  configWriter.WriteLine("FleeMaxMonsterDistance="+Bot.SettingsFunky.FleeMaxMonsterDistance.ToString());
+					  configWriter.WriteLine("EnableFleeingBehavior="+Bot.SettingsFunky.EnableFleeingBehavior.ToString());
+					  configWriter.WriteLine("FleeBotMinimumHealthPercent="+Bot.SettingsFunky.FleeBotMinimumHealthPercent.ToString());
+
 
                  configWriter.WriteLine("KiteDistance=" + Bot.SettingsFunky.KiteDistance.ToString());
                  configWriter.WriteLine("DestructibleRange=" + Bot.SettingsFunky.DestructibleRange.ToString());
@@ -173,8 +179,22 @@ namespace FunkyTrinity
              }
              //configStream.Close();
          }
+			private static void LoadFunkyConfiguration()
+			{
+				 string sFunkyCharacterConfigFile=FolderPaths.sFunkySettingsCurrentPath;
 
-         private static void LoadFunkyConfiguration()
+				 //Check for Config file
+				 if (!File.Exists(sFunkyCharacterConfigFile))
+				 {
+					  Log("No config file found, now creating a new config from defaults at: "+sFunkyCharacterConfigFile);
+					  Bot.SettingsFunky=new Settings_Funky();
+					  Settings_Funky.SerializeToXML(Bot.SettingsFunky);
+				 }
+
+				 Bot.SettingsFunky=Settings_Funky.DeserializeFromXML();
+			}
+
+         private static void LoadFunkyConfiguration_()
          {
 
 				 if (Bot.CurrentAccountName==null) Bot.UpdateCurrentAccountDetails();
@@ -340,6 +360,17 @@ namespace FunkyTrinity
                                  case "AttemptAvoidanceMovements":
                                      Bot.SettingsFunky.AttemptAvoidanceMovements = Convert.ToBoolean(config[1]);
                                      break;
+
+											case "EnableFleeingBehavior":
+												 Bot.SettingsFunky.EnableFleeingBehavior=Convert.ToBoolean(config[1]);
+												 break;
+											case "FleeMaxMonsterDistance":
+												 Bot.SettingsFunky.FleeMaxMonsterDistance=Convert.ToInt32(config[1]);
+												 break;
+											case "FleeBotMinimumHealthPercent":
+												 Bot.SettingsFunky.FleeBotMinimumHealthPercent=Convert.ToDouble(String.Format(config[1], "F2", CultureInfo.InvariantCulture));
+												 break;
+
                                  case "KiteDistance":
                                      Bot.SettingsFunky.KiteDistance = Convert.ToInt32(config[1]);
                                      break;
@@ -660,7 +691,13 @@ namespace FunkyTrinity
              //Character Related
              public bool AttemptAvoidanceMovements { get; set; }
              public bool UseAdvancedProjectileTesting { get; set; }
+
+				 public bool EnableFleeingBehavior { get; set; }
+				 public double FleeBotMinimumHealthPercent { get; set; }
+				 public int FleeMaxMonsterDistance { get; set; }
+
              public int KiteDistance { get; set; }
+
 
 				 public bool AttemptGroupingMovements { get; set; }
 				 public int GroupingMaximumDistanceAllowed { get; set; }
@@ -758,23 +795,22 @@ namespace FunkyTrinity
              public ClassSettings Class { get; set; }
              public Settings_Funky()
              {
-					  UseShrineTypes=new bool[6] { true, true, true, true, true, true };
-                 LogStuckLocations = true;
-                 RestartGameOnLongStucks = true;
-                 EnableUnstucker = true;
-					  ItemRuleCustomPath="";
-
 					  AttemptGroupingMovements=false;
 					  GroupingMaximumDistanceAllowed=125;
 					  GroupingMinimumClusterCount=1;
 					  GroupingMinimumUnitsInCluster=4;
-
+					  EnableFleeingBehavior=true;
+					  FleeMaxMonsterDistance=6;
+					  FleeBotMinimumHealthPercent=0.75d;
+					  EnableUnstucker=true;
+					  RestartGameOnLongStucks=true;
+					  LogStuckLocations=true;
+					  UseShrineTypes=new bool[6] { true, true, true, true, true, true };
+					  ItemRuleCustomPath="";
                  AvoidanceRecheckMaximumRate = 3500;
                  AvoidanceRecheckMinimumRate = 550;
-
                  KitingRecheckMaximumRate = 4500;
                  KitingRecheckMinimumRate = 1000;
-
                  OOCIdentifyItems = false;
                  BuyPotionsDuringTownRun = false;
 					  EnableWaitAfterContainers=false;
@@ -808,7 +844,6 @@ namespace FunkyTrinity
                  AfterCombatDelay = 500;
                  OutOfCombatMovement = false;
                  EliteCombatRange = 60;
-					  //ExtendedCombatRange = extendedrange;
                  GoldRange = 45;
 					  GlobeRange=40;
                  ItemRange = 75;
@@ -913,6 +948,24 @@ namespace FunkyTrinity
                      GoblinMinimumRange = 40;
                  }
              }
+
+				 public static void SerializeToXML(Settings_Funky settings)
+				 {
+					  XmlSerializer serializer=new XmlSerializer(typeof(Settings_Funky));
+					  TextWriter textWriter=new StreamWriter(FolderPaths.sFunkySettingsCurrentPath);
+					  serializer.Serialize(textWriter, settings);
+					  textWriter.Close();
+				 }
+				 public static Settings_Funky DeserializeFromXML()
+				 {
+					  XmlSerializer deserializer=new XmlSerializer(typeof(Settings_Funky));
+					  TextReader textReader=new StreamReader(FolderPaths.sFunkySettingsCurrentPath);
+					  Settings_Funky settings;
+					  settings=(Settings_Funky)deserializer.Deserialize(textReader);
+					  textReader.Close();
+
+					  return settings;
+				 }
          }
     }
 }

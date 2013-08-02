@@ -114,7 +114,7 @@ namespace FunkyTrinity
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return (!HasBuff(SNOPower.DemonHunter_ShadowPower)||Bot.Character.bIsIncapacitated)
-												&&(Bot.Character.dDiscipline>=28||(Bot.Character.dDiscipline>=14&&Bot.Combat.IsKiting))
+												&&(Bot.Character.dDiscipline>=28||(Bot.Character.dDiscipline>=14&&Bot.Combat.IsFleeing))
 												&&(Bot.Character.dCurrentHealthPct<=0.90||Bot.Character.bIsRooted||Bot.Combat.iElitesWithinRange[RANGE_20]>=1||Bot.Combat.iAnythingWithinRange[RANGE_15]>=3||Bot.Character.bIsIncapacitated);
 								}),
 						  };
@@ -203,7 +203,7 @@ namespace FunkyTrinity
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return Bot.Combat.powerLastSnoPowerUsed!=SNOPower.DemonHunter_Sentry&&
-												(Bot.KiteDistance>0&&Bot.Combat.KitedLastTarget||DateTime.Now.Subtract(Bot.Combat.LastKiteAction).TotalMilliseconds<1000)||
+												(Bot.Combat.FleeingLastTarget||DateTime.Now.Subtract(Bot.Combat.LastFleeAction).TotalMilliseconds<1000)||
 												(Bot.Combat.iElitesWithinRange[RANGE_40]>=1||Bot.Combat.iAnythingWithinRange[RANGE_40]>=2);
 								}),
 						  };

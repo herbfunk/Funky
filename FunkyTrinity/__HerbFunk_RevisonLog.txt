@@ -1,5 +1,15 @@
 ﻿// herbfunk revisions
 
+v1.4.0.0
+	-Refactored code -- Navigation and Stats are now static properties of Bot Class.
+	-Settings now uses XML Serialization.
+	-Kiting renamed to Fleeing -- Added option for health percent of bot.
+
+	Misc:
+	-Fixed issue of getting stuck during town run -- unid stashing -- in Act 3.
+	-Craft plans are automically stashed if in inventory. (Settings filter pickup of plans now)
+	-Barricades with priority will no longer test intersection in ObjectIsValidForTargeting.
+
 v1.1.1.0
 	-Redesigned Navigational block checking.
 	-LOS Checking for Ranged Classes during Target Handling will also use AllowProjectile NavCellFlag.

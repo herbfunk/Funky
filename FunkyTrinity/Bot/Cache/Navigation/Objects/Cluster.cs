@@ -245,6 +245,24 @@ namespace FunkyTrinity
 
 		  }  // of MergeClusters()
 
+		  public override bool Equals(object obj)
+		  {
+				//Check for null and compare run-time types. 
+				if (obj==null||this.GetType()!=obj.GetType())
+				{
+					 return false;
+				}
+				else
+				{
+					 Cluster p=(Cluster)obj;
+					 return this.Midpoint.Equals(p.Midpoint);
+				}
+		  }
+		  public override int GetHashCode()
+		  {
+				return this.Midpoint.GetHashCode();
+		  }
+
 	 }  // of partial class Cluster
 
 }  // of namespace BasicLibrary

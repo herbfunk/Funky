@@ -64,6 +64,15 @@ namespace FunkyTrinity
 					 public double dDiscipline { get; set; }
 					 public double dDisciplinePct { get; set; }
 
+					 public bool ShouldFlee
+					 {
+						  get
+						  {
+								bool flee=Bot.SettingsFunky.EnableFleeingBehavior&&Bot.Character.dCurrentHealthPct<=Bot.SettingsFunky.FleeBotMinimumHealthPercent;
+								return flee;
+						  }
+					 }
+
 					 //internal int EnergyRegenerationRate { get; set; }
 					 
 					 public int iCurrentWorldID { get; set; }
@@ -166,6 +175,8 @@ namespace FunkyTrinity
 
 									 //vCurrentPosition=me.Position;
 									 dCurrentHealthPct=me.HitpointsCurrentPct;
+									 if (this.ShouldFlee) Bot.Combat.RequiresAvoidance=true;
+
 									 dCurrentEnergy=me.CurrentPrimaryResource;
 									 dCurrentEnergyPct=dCurrentEnergy/me.MaxPrimaryResource;
 									 //EnergyRegenerationRate=me.CommonData.GetAttribute<int>(ActorAttributeType.ResourceRegenPerSecond);

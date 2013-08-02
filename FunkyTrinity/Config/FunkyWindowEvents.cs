@@ -150,9 +150,25 @@ namespace FunkyTrinity
                      }
 
                  }
-                 else if (btnsender.Name == "RESET")
+					  else if (btnsender.Name=="CHARACTER")
                  {
+							try
+							{
+								 Zeta.Common.Logging.WriteVerbose("Dumping Character Cache");
 
+								 string charString=String.Format("Character Info \r\n"+
+																			"DynamicID={0} -- WorldID={1} \r\n"+
+																			"SNOAnim={2} AnimState={3}\r\n",
+																			Bot.Character.iMyDynamicID.ToString(), Bot.Character.iCurrentWorldID.ToString(),
+																			Bot.Character.CurrentSNOAnim.ToString(), Bot.Character.CurrentAnimationState.ToString());
+
+
+								 LBDebug.Items.Add(charString);
+
+							} catch (Exception ex)
+							{
+								 Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
+							}
                  }
                  else if (btnsender.Name == "MGP")
                  {
@@ -179,20 +195,7 @@ namespace FunkyTrinity
                  }
 					  else if (btnsender.Name=="TEST")
 					  {
-							try
-							{
-								 ZetaDia.Actors.Clear();
-								 ZetaDia.Actors.Update();
-
-								 foreach (var item in ZetaDia.Me.Inventory.Backpack)
-								 {
-									  Logging.Write("{0} -- GamebalanceID: {1}", item.Name, item.GameBalanceId);
-								 }
-
-							} catch (Exception ex)
-							{
-								 Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
-							}
+							Settings_Funky.SerializeToXML(Bot.SettingsFunky);
 
 					  }
                  LBDebug.Items.Refresh();
@@ -530,6 +533,20 @@ namespace FunkyTrinity
                  Bot.SettingsFunky.KiteDistance = Value;
                  TBKiteDistance.Text = Value.ToString();
              }
+				 private void FleeMonsterDistanceSliderChanged(object sender, EventArgs e)
+				 {
+					  Slider slider_sender=(Slider)sender;
+					  int Value=(int)slider_sender.Value;
+					  Bot.SettingsFunky.FleeMaxMonsterDistance=Value;
+					  TBFleemonsterDistance.Text=Value.ToString();
+				 }
+				 private void FleeMinimumHealthSliderChanged(object sender, EventArgs e)
+				 {
+					  Slider slider_sender=(Slider)sender;
+					  double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
+					  Bot.SettingsFunky.FleeBotMinimumHealthPercent=Value;
+					  TBFleeMinimumHealth.Text=Value.ToString();
+				 }
              private void AfterCombatDelaySliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
@@ -616,6 +633,12 @@ namespace FunkyTrinity
                          break;
                  }
              }
+				 private void FleeingAttemptMovementChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.EnableFleeingBehavior=!Bot.SettingsFunky.EnableFleeingBehavior;
+					  bool enabled=Bot.SettingsFunky.EnableFleeingBehavior;
+					  spFleeingOptions.IsEnabled=enabled;
+				 }
 
              #region ClassSettings
 
@@ -826,6 +849,12 @@ namespace FunkyTrinity
 				 }
              private void ItemRulesReload_Click(object sender, EventArgs e)
              {
+					  if (Funky.ItemRulesEval==null)
+					  {
+							Log("Cannot reload rules until bot has started", true);
+							return;
+					  }
+
                  try
                  {
                      Funky.ItemRulesEval.reloadFromUI();
@@ -924,7 +953,7 @@ namespace FunkyTrinity
 
              protected override void OnClosed(EventArgs e)
              {
-                 SaveFunkyConfiguration();
+                 Settings_Funky.SerializeToXML(Bot.SettingsFunky);
                  base.OnClosed(e);
              }
 

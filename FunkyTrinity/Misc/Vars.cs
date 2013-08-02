@@ -115,7 +115,34 @@ namespace FunkyTrinity
 				internal static string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 				internal static string sTrinityPluginPath=sDemonBuddyPath+@"\Plugins\FunkyTrinity\";
 				internal static string sTrinityLogPath=sDemonBuddyPath+@"\Plugins\FunkyTrinity\Log\";
-				
+				internal static string sFunkySettingsPath
+				{
+					 get
+					 {
+						  if (Bot.CurrentAccountName==null) 
+								Bot.UpdateCurrentAccountDetails();
+
+						  string sFunkyCharacterFolder=Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyTrinity", Bot.CurrentAccountName);
+						  if (!System.IO.Directory.Exists(sFunkyCharacterFolder))
+						  {
+								Logging.WriteDiagnostic("Creating Funky Settings Folder @ {0}", sFunkyCharacterFolder);
+								System.IO.Directory.CreateDirectory(sFunkyCharacterFolder);
+						  }
+
+						  return sFunkyCharacterFolder;
+					 }
+				}
+				internal static string sFunkySettingsCurrentPath
+				{
+					 get
+					 {
+						  if (Bot.CurrentHeroName==null)
+								Bot.UpdateCurrentAccountDetails();
+
+						  return Path.Combine(sFunkySettingsPath, Bot.CurrentHeroName+".xml");
+
+					 }
+				}
 		  }
     }
 }

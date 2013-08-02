@@ -57,7 +57,7 @@ namespace FunkyTrinity
 						  SurroundingUnits=0;
 						  DontMove=false;
 						  CriticalAvoidance=false;
-						  KitedLastTarget=false;
+						  FleeingLastTarget=false;
 						  AvoidanceLastTarget=false;
 						  UsesDOTDPSAbility=false;
 					 }
@@ -66,7 +66,7 @@ namespace FunkyTrinity
 					 internal List<int> PrioritizedRAGUIDs=new List<int>();
 					 internal List<CacheServerObject> NearbyObstacleObjects=new List<CacheServerObject>();
 					 internal List<int> NearbyAvoidances=new List<int>();
-					 internal List<CacheUnit> NearbyKitingUnits=new List<CacheUnit>();
+					 internal List<CacheUnit> FleeTriggeringUnits=new List<CacheUnit>();
 					 internal List<CacheAvoidance> TriggeringAvoidances=new List<CacheAvoidance>();
 					 internal List<int> UnitRAGUIDs=new List<int>();
 					 internal List<int> ValidClusterUnits=new List<int>();
@@ -177,17 +177,17 @@ namespace FunkyTrinity
 					 ///<summary>
 					 ///Tracks if kiting was used last loop.
 					 ///</summary>
-					 internal bool KitedLastTarget { get; set; }
+					 internal bool FleeingLastTarget { get; set; }
 					 internal bool AvoidanceLastTarget { get; set; }
 					 //Kiting
-					 internal bool IsKiting { get; set; }
+					 internal bool IsFleeing { get; set; }
 					 // Prevent spam-kiting too much - allow fighting between each kite movement
-					 internal DateTime timeCancelledKiteMove=DateTime.Today;
-					 internal int iMillisecondsCancelledKiteMoveFor=0;
+					 internal DateTime timeCancelledFleeMove=DateTime.Today;
+					 internal int iMillisecondsCancelledFleeMoveFor=0;
 					 //Duration: Seconds of the kite movement
-					 internal int iSecondsKiteMoveFor=0;
+					 internal int iSecondsFleeMoveFor=0;
 
-					 internal DateTime LastKiteAction=DateTime.Today;
+					 internal DateTime LastFleeAction=DateTime.Today;
 					 //Avoidance Related
 					 internal bool RequiresAvoidance { get; set; }
 					 internal bool TravellingAvoidance { get; set; }
@@ -307,17 +307,18 @@ namespace FunkyTrinity
 						  UnitRAGUIDs=new List<int>();
 						  SurroundingUnits=0;
 						  TriggeringAvoidances.Clear();
-						  IsKiting=false;
+						  IsFleeing=false;
 						  UsesDOTDPSAbility=false;
 						  bCheckGround=false;
 						  NearbyAvoidances.Clear();
 						  NearbyObstacleObjects.Clear();
-						  NearbyKitingUnits.Clear();
+						  FleeTriggeringUnits.Clear();
 						  DistantUnits.Clear();
 					 }
 					 internal void ResetTargetHandling()
 					 {
 						  Bot.Target.CurrentTarget=null;
+						  //Bot.NavigationCache.ResetPathing();
 						  TargetMovement.ResetTargetMovementVars();
 
 

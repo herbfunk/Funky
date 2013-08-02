@@ -5,6 +5,12 @@ using Zeta.Common;
 using Zeta.Internals.Actors;
 using System.Collections.Generic;
 
+/*
+   at FunkyTrinity.Funky.Ability.set_Power(SNOPower value) in c:\Users\aaron\Desktop\DB_DebugCopy\Plugins\FunkyTrinity\Bot\Cache\Ability.cs:line 190
+   at FunkyTrinity.Funky.Ability..ctor() in c:\Users\aaron\Desktop\DB_DebugCopy\Plugins\FunkyTrinity\Bot\Cache\Ability.cs:line 172
+   at FunkyTrinity.Funky..cctor() in c:\Users\aaron\Desktop\DB_DebugCopy\Plugins\FunkyTrinity\Bot\Cache\Ability.cs:line 847
+*/
+
 namespace FunkyTrinity
 {
 	 public partial class Funky
@@ -176,7 +182,7 @@ namespace FunkyTrinity
 					 LastConditionPassed=ConditionCriteraTypes.None;
 					 TestCustomCombatConditionAlways=false;
 					 IsSpecialAbility=false;
-					
+					 
 				}
 
 				#region Properties
@@ -190,9 +196,9 @@ namespace FunkyTrinity
 					 }
 				}
 
-				public int RuneIndex { get { return Bot.Class.RuneIndexCache[this.Power]; } }
-				public bool IsADestructiblePower { get { return AbilitiesDestructiblePriority.Contains(this.Power); } }
-				public bool IsASpecialMovementPower { get { return SpecialMovementAbilities.Contains(this.Power); } }
+				internal int RuneIndex { get { return Bot.Class.RuneIndexCache[this.Power]; } }
+				internal bool IsADestructiblePower { get { return AbilitiesDestructiblePriority.Contains(this.Power); } }
+				internal bool IsASpecialMovementPower { get { return SpecialMovementAbilities.Contains(this.Power); } }
 
 				public double Cost { get; set; }
 				public bool SecondaryEnergy { get; set; }
@@ -200,6 +206,13 @@ namespace FunkyTrinity
 				///Ability will trigger WaitingForSpecial if Energy Check fails.
 				///</summary>
 				public bool IsSpecialAbility { get; set; }
+
+				private bool isNavigationSpecial=false;
+				public bool IsNavigationSpecial
+				{
+					 get { return isNavigationSpecial; }
+					 set { isNavigationSpecial=value; }
+				}
 
 				private int range_;
 				public int Range
@@ -217,7 +230,7 @@ namespace FunkyTrinity
 				///</summary>
 				public bool IsRanged { get; set; }
 
-				public DateTime LastUsed
+				internal DateTime LastUsed
 				{
 					 get
 					 {
@@ -228,12 +241,12 @@ namespace FunkyTrinity
 						  dictAbilityLastUse[this.power_]=value;
 					 }
 				}
-				public double LastUsedMilliseconds
+				internal double LastUsedMilliseconds
 				{
 					 get { return DateTime.Now.Subtract(LastUsed).TotalMilliseconds; }
 				}
 
-				public double Cooldown
+				internal double Cooldown
 				{
 					 get { return Bot.Class.AbilityCooldowns[this.Power]; }
 				}
@@ -283,7 +296,7 @@ namespace FunkyTrinity
 				///<summary>
 				///Describes the pre casting conditions - when set it will create the precast method used.
 				///</summary>
-				public AbilityConditions PreCastConditions
+				internal AbilityConditions PreCastConditions
 				{
 					 get
 					 {
@@ -361,7 +374,7 @@ namespace FunkyTrinity
 				///<value>
 				///Clustering Distance, Distance From Bot, Minimum Unit Count, Ignore Non-Targetables
 				///</value>
-				public ClusterConditions ClusterConditions
+				internal ClusterConditions ClusterConditions
 				{
 					 get { return ClusterConditions_; }
 					 set
@@ -376,7 +389,7 @@ namespace FunkyTrinity
 				///<summary>
 				///Units within Range Conditions
 				///</summary>
-				public Tuple<RangeIntervals, int> UnitsWithinRangeConditions
+				internal Tuple<RangeIntervals, int> UnitsWithinRangeConditions
 				{
 					 get { return UnitsWithinRangeConditions_; }
 					 set
@@ -391,7 +404,7 @@ namespace FunkyTrinity
 				///<summary>
 				///Elites within Range Conditions
 				///</summary>
-				public Tuple<RangeIntervals, int> ElitesWithinRangeConditions
+				internal Tuple<RangeIntervals, int> ElitesWithinRangeConditions
 				{
 					 get { return ElitesWithinRangeConditions_; }
 					 set
@@ -407,7 +420,7 @@ namespace FunkyTrinity
 				///<summary>
 				///Single Target Conditions -- Should only used if ability is offensive!
 				///</summary>
-				public UnitTargetConditions TargetUnitConditionFlags
+				internal UnitTargetConditions TargetUnitConditionFlags
 				{
 					 get { return TargetUnitConditionFlags_; }
 					 set
@@ -505,7 +518,7 @@ namespace FunkyTrinity
 				///<summary>
 				///Custom Conditions for Combat
 				///</summary>
-				public Func<bool> Fcriteria { get; set; }
+				internal Func<bool> Fcriteria { get; set; }
 
 
 				#region Condition Static Methods
@@ -658,7 +671,7 @@ namespace FunkyTrinity
 					 set { TargetPosition_=value; }
 				}
 
-				public int WorldID
+				internal int WorldID
 				{
 					 get { return Bot.Character.iCurrentWorldID; }
 				}
@@ -684,7 +697,7 @@ namespace FunkyTrinity
 					 set { WaitLoopsAfter_=value; }
 				}
 
-				public bool WaitWhileAnimating
+				internal bool WaitWhileAnimating
 				{
 					 get { return AbilityWaitVars.Reusable; }
 				}
@@ -767,7 +780,7 @@ namespace FunkyTrinity
 				///<summary>
 				///Returns an estimated destination using the minimum range and distance from the radius of target.
 				///</summary>
-				public Vector3 DestinationVector
+				internal Vector3 DestinationVector
 				{
 					 get
 					 {
@@ -822,13 +835,13 @@ namespace FunkyTrinity
 				public string DebugString()
 				{
 					 return String.Format("Ability: {0} [RuneIndex={1}] \r\n"+
-												"Range={2} Priority [{3}] UseType [{4}] \r\n"+
-												"Avoid {5} Buff {6} \r\n"+
-												"Last Condition {7}", 
+												"Range={2} ReuseMS={3} Priority [{4}] UseType [{5}] \r\n"+
+												"Avoid {6} Buff {7} \r\n"+
+												"Last Condition {8} -- Last Used {9}", 
 																			 this.power_.ToString(), this.RuneIndex.ToString(),
-																			 this.Range.ToString(), this.Priority.ToString(), this.UsageType.ToString(),
+																			 this.Range.ToString(), this.Cooldown.ToString(), this.Priority.ToString(), this.UsageType.ToString(),
 																			 this.UseAvoiding.ToString(), this.UseOOCBuff.ToString(),
-																			 this.LastConditionPassed.ToString());
+																			 this.LastConditionPassed.ToString(),this.LastUsedMilliseconds<100000?this.LastUsedMilliseconds.ToString()+"ms":"Never");
 				}
 
 		  }

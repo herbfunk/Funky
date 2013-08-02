@@ -328,6 +328,7 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.Low,
 								UseAvoiding=false,
 								UseOOCBuff=false,
+								IsNavigationSpecial=true,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckCanCast),
 								ClusterConditions=new ClusterConditions(5d, 30, 2, true),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, falseConditionalFlags: TargetProperties.Fast, MinimumRadiusDistance: 30),

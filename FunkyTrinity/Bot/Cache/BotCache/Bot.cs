@@ -91,7 +91,13 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  return Bot.SettingsFunky.KiteDistance;
+						  int value=Bot.SettingsFunky.KiteDistance;
+
+						  if (value==0&&Bot.Character.ShouldFlee)
+								value=8;
+						  
+
+						  return value;
 					 }
 				}
 				internal static int ContainerRange
@@ -278,7 +284,7 @@ namespace FunkyTrinity
 					 if (Reset)
 					 {
 						  Combat.iMillisecondsCancelledEmergencyMoveFor=0;
-						  Combat.iMillisecondsCancelledKiteMoveFor=0;
+						  Combat.iMillisecondsCancelledFleeMoveFor=0;
 						  return;
 					 }
 
@@ -287,7 +293,7 @@ namespace FunkyTrinity
 					 Combat.iMillisecondsCancelledEmergencyMoveFor=(int)extraWaitTime;
 
 					 extraWaitTime=MathEx.Random(Bot.SettingsFunky.KitingRecheckMinimumRate, Bot.SettingsFunky.KitingRecheckMaximumRate)*Character.dCurrentHealthPct;
-					 Combat.iMillisecondsCancelledKiteMoveFor=(int)extraWaitTime;
+					 Combat.iMillisecondsCancelledFleeMoveFor=(int)extraWaitTime;
 				}
 
 				internal static void AttemptToUseHealthPotion()

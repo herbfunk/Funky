@@ -85,8 +85,7 @@ namespace FunkyTrinity
 					 //Herbfunk: Added this to prevent stucks attempting to move to a target blocked. (Case: 3 champs behind a wall, within range but could not engage due to being on the other side.)
 					 if (NonMovementCounter>50)
 					 {
-						  DbHelper.Log(DbHelper.TrinityLogLevel.Debug, DbHelper.LogCategory.Behavior, "{0}: Ignoring mob {1} due to no movement counter reaching {2}", "[Funky]", obj.InternalName+" _ SNO:"+obj.SNOID, NonMovementCounter);
-						  Logging.WriteDiagnostic("totalNonMovementCount == "+NonMovementCounter);
+						  Logging.WriteVerbose("{0}: Ignoring obj {1} due to no movement counter reaching {2}", "[Funky]", obj.InternalName+" _ SNO:"+obj.SNOID, NonMovementCounter);
 						  obj.BlacklistLoops=50;
 						  Bot.Combat.bForceTargetUpdate=true;
 						  NonMovementCounter=0;
@@ -144,7 +143,7 @@ namespace FunkyTrinity
 
 										  if (obj.targetType.Value==TargetType.Avoidance)
 										  {//Avoidance Movement..
-												Bot.Combat.timeCancelledKiteMove=DateTime.Now;
+												Bot.Combat.timeCancelledFleeMove=DateTime.Now;
 												Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
 												Bot.NavigationCache.BlacklistLastSafespot();
 												Bot.UpdateAvoidKiteRates();
@@ -179,7 +178,7 @@ namespace FunkyTrinity
 												else if (obj.Actortype.HasValue&&obj.Actortype.Value.HasFlag(ActorType.Item))
 												{
 													 Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
-													 Bot.Combat.timeCancelledKiteMove=DateTime.Now;
+													 Bot.Combat.timeCancelledFleeMove=DateTime.Now;
 
 													 //Check if we can walk to this location from current location..
 													 if (!Navigation.CanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
@@ -201,8 +200,8 @@ namespace FunkyTrinity
 													 Bot.Combat.iMillisecondsCancelledEmergencyMoveFor/=2;
 													 Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
 													 //Ignore avoidance movements.
-													 Bot.Combat.iMillisecondsCancelledKiteMoveFor/=2;
-													 Bot.Combat.timeCancelledKiteMove=DateTime.Now;
+													 Bot.Combat.iMillisecondsCancelledFleeMoveFor/=2;
+													 Bot.Combat.timeCancelledFleeMove=DateTime.Now;
 
 													 Bot.NavigationCache.BlacklistLastSafespot();
 													 Bot.Combat.bForceTargetUpdate=true;
@@ -249,7 +248,7 @@ namespace FunkyTrinity
 						  bool bTooMuchZChange=((Bot.Character.Position.Z-CurrentTargetLocation.Z)>=4f);
 
 						  Ability MovementPower;
-						  if (Bot.Class.FindSpecialMovementPower(out MovementPower))
+						  if (Bot.Class.FindMovementPower(out MovementPower))
 						  {
 								double lastUsedAbilityMS=MovementPower.LastUsedMilliseconds;
 								bool foundMovementPower=false;

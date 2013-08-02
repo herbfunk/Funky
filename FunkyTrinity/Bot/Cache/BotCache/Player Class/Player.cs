@@ -146,7 +146,7 @@ namespace FunkyTrinity
 				///<summary>
 				///Returns a power for special movement if any are currently present in the abilities.
 				///</summary>
-				internal bool FindSpecialMovementPower(out Ability MovementAbility)
+				internal bool FindMovementPower(out Ability MovementAbility)
 				{
 					 MovementAbility=null;
 					 foreach (var item in this.Abilities.Keys.Where(A => SpecialMovementAbilities.Contains(A)))
@@ -155,6 +155,23 @@ namespace FunkyTrinity
 						  if (this.Abilities[item].CheckPreCastConditionMethod())
 						  {
 								MovementAbility=this.Abilities[item];
+								return true;
+						  }
+					 }
+					 return false;
+				}
+				///<summary>
+				///Returns a power for special movement if any are currently present in the abilities.
+				///</summary>
+				internal bool FindSpecialMovementPower(out Ability MovementAbility)
+				{
+					 MovementAbility=null;
+					 foreach (var item in this.Abilities.Values.Where(A=>A.IsASpecialMovementPower))
+					 {
+
+						  if (item.CheckPreCastConditionMethod())
+						  {
+								MovementAbility=item;
 								return true;
 						  }
 					 }

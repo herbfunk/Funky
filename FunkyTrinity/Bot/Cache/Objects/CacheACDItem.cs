@@ -65,6 +65,9 @@ namespace FunkyTrinity
 				public float MaxMana { get; set; }
 				public float ArcaneOnCrit { get; set; }
 				public float ManaRegen { get; set; }
+				public float SpiritRegen { get; set; }
+				public float ExperienceBonus { get; set; }
+
 				public float GlobeBonus { get; set; }
 				public ACDItem ACDItem { get; set; }
 				public int ACDGUID { get; set; }
@@ -90,6 +93,9 @@ namespace FunkyTrinity
 					 ThisFollowerType=dbfollowertype;
 					 IsUnidentified=unidentified;
 					 ThisItemStackQuantity=stackquantity;
+
+					 SpiritRegen=thesestats.SpiritRegen;
+					 ExperienceBonus=thesestats.ExperienceBonus;
 					 Dexterity=thesestats.Dexterity;
 					 Intelligence=thesestats.Intelligence;
 					 Strength=thesestats.Strength;
@@ -125,6 +131,8 @@ namespace FunkyTrinity
 					 ArcaneOnCrit=thesestats.ArcaneOnCrit;
 					 ManaRegen=thesestats.ManaRegen;
 					 GlobeBonus=thesestats.HealthGlobeBonus;
+
+
 					 ACDItem=item;
 					 invRow=row;
 					 invCol=col;

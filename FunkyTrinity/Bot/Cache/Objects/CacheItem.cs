@@ -148,9 +148,9 @@ namespace FunkyTrinity
 										  this.Weight*=0.10;
 
 									 //Test if there are nearby units that will trigger kite action..
-									 if (Bot.KiteDistance>0)
+									 if (Bot.Character.ShouldFlee)
 									 {
-										  if (ObjectCache.Objects.OfType<CacheUnit>().Any(m=>m.ShouldBeKited&&m.IsPositionWithinRange(this.Position, Bot.KiteDistance)))
+										  if (ObjectCache.Objects.OfType<CacheUnit>().Any(m=>m.ShouldBeKited&&m.IsPositionWithinRange(this.Position, Bot.SettingsFunky.FleeMaxMonsterDistance)))
 												this.Weight=1;
 									 }
 

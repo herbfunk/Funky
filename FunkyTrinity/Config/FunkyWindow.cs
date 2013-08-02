@@ -61,7 +61,7 @@ namespace FunkyTrinity
             private ComboBox ItemRuleType;
 
             private RadioButton ItemRuleGilesScoring, ItemRuleDBScoring;
-
+				private StackPanel spFleeingOptions, SPFleeing;
 				private StackPanel spBlacksmithPlans, spJewelerPlans;
 
             private CheckBox CoffeeBreaks;
@@ -78,9 +78,10 @@ namespace FunkyTrinity
             private CheckBox[] CBGems;
             //private ComboBox CBGemQualityLevel;
 
-            private TextBox TBBreakTimeHour, TBKiteDistance, TBGlobeHealth, TBPotionHealth, TBContainerRange, TBNonEliteRange, TBDestructibleRange, TBAfterCombatDelay, TBiDHVaultMovementDelay, TBShrineRange, TBEliteRange, TBExtendedCombatRange, TBGoldRange, TBMinLegendaryLevel, TBMaxHealthPots, TBMinGoldPile, TBMiscItemLevel, TBGilesWeaponScore, TBGilesArmorScore, TBGilesJeweleryScore, TBClusterDistance, TBClusterMinUnitCount, TBItemRange, TBGoblinRange, TBGoblinMinRange, TBClusterLowHPValue, TBGlobeRange;
+				private TextBox TBBreakTimeHour, TBKiteDistance, TBGlobeHealth, TBPotionHealth, TBContainerRange, TBNonEliteRange, TBDestructibleRange, TBAfterCombatDelay, TBiDHVaultMovementDelay, TBShrineRange, TBEliteRange, TBExtendedCombatRange, TBGoldRange, TBMinLegendaryLevel, TBMaxHealthPots, TBMinGoldPile, TBMiscItemLevel, TBGilesWeaponScore, TBGilesArmorScore, TBGilesJeweleryScore, TBClusterDistance, TBClusterMinUnitCount, TBItemRange, TBGoblinRange, TBGoblinMinRange, TBClusterLowHPValue, TBGlobeRange, TBFleemonsterDistance, TBFleeMinimumHealth;
             private TextBox[] TBKiteTimeLimits;
             private TextBox[] TBAvoidanceTimeLimits;
+		
 				private TextBox tbCustomItemRulePath;
 
             private ListBox LBDebug;
@@ -167,18 +168,19 @@ namespace FunkyTrinity
 
                 StackPanel AvoidanceOptionsStackPanel = new StackPanel
                 {
-						  Orientation= System.Windows.Controls.Orientation.Vertical,
-						  HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch,
+						  //Orientation= System.Windows.Controls.Orientation.Vertical,
+						  //HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch,
                     Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom + 5),
-                };
+						  Background=System.Windows.Media.Brushes.DimGray,
+					 };
 
                 TextBlock Avoidance_Text_Header = new TextBlock
                 {
                     Text = "Avoidances",
                     FontSize = 12,
                     Background = System.Windows.Media.Brushes.MediumSeaGreen,
-                    TextAlignment = TextAlignment.Center,
-						  HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch,
+						  TextAlignment=TextAlignment.Center,
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
                 };
 
                 #region AvoidanceCheckboxes
@@ -186,6 +188,7 @@ namespace FunkyTrinity
                 StackPanel AvoidanceCheckBoxesPanel = new StackPanel
                 {
                     Orientation = Orientation.Vertical,
+						  Width=600,
                 };
 
                 CheckBox CBAttemptAvoidanceMovements = new CheckBox
@@ -306,16 +309,139 @@ namespace FunkyTrinity
 
                 AvoidanceOptionsStackPanel.Children.Add(Avoidance_Text_Header);
                 AvoidanceOptionsStackPanel.Children.Add(AvoidanceCheckBoxesPanel);
-                AvoidanceOptionsStackPanel.Children.Add(AvoidDelayStackPanel);
-                AvoidanceOptionsStackPanel.Children.Add(AvoidRetryTimeStackPanel);
+					 //AvoidanceOptionsStackPanel.Children.Add(AvoidDelayStackPanel);
+					 //AvoidanceOptionsStackPanel.Children.Add(AvoidRetryTimeStackPanel);
                 CombatGeneralContentListBox.Items.Add(AvoidanceOptionsStackPanel);
 
                 #endregion
-                #region Kiting
 
-                StackPanel KitingOptionsStackPanel = new StackPanel
+					 #region Fleeing
+					 SPFleeing=new StackPanel
+					 {
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
+						  Background=System.Windows.Media.Brushes.DimGray,
+					 };
+					 TextBlock Flee_Text_Header=new TextBlock
+					 {
+						  Text="Fleeing",
+						  FontSize=12,
+						  Background=System.Windows.Media.Brushes.SeaGreen,
+						  TextAlignment=TextAlignment.Center,
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+					 };
+
+					 CheckBox CBAttemptFleeingBehavior=new CheckBox
+					 {
+						  Content="Enable Fleeing",
+						  IsChecked=Bot.SettingsFunky.EnableFleeingBehavior,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
+					 };
+					 CBAttemptFleeingBehavior.Checked+=FleeingAttemptMovementChecked;
+					 CBAttemptFleeingBehavior.Unchecked+=FleeingAttemptMovementChecked;
+
+					 spFleeingOptions=new StackPanel
+					 {
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
+						  IsEnabled=Bot.SettingsFunky.EnableFleeingBehavior,
+					 };
+					 #region Fleeing Monster Distance
+					 TextBlock Flee_MonsterDistance_Label=new TextBlock
+					 {
+						  Text="Maximum Monster Distance",
+						  FontSize=13,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  //Background = System.Windows.Media.Brushes.Crimson,
+						  TextAlignment=TextAlignment.Left,
+					 };
+					 
+					 Slider sliderFleeMonsterDistance=new Slider
+					 {
+						  Width=100,
+						  Maximum=20,
+						  Minimum=0,
+						  TickFrequency=5,
+						  LargeChange=5,
+						  SmallChange=1,
+						  Value=Bot.SettingsFunky.FleeMaxMonsterDistance,
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 };
+					 sliderFleeMonsterDistance.ValueChanged+=FleeMonsterDistanceSliderChanged;
+					 TBFleemonsterDistance=new TextBox
+					 {
+						  Text=Bot.SettingsFunky.FleeMaxMonsterDistance.ToString(),
+						  IsReadOnly=true,
+					 };
+					 StackPanel FleeMonsterDistanceStackPanel=new StackPanel
+					 {
+						  Width=600,
+						  Height=20,
+						  Orientation=Orientation.Horizontal,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+6),
+					 };
+
+					 FleeMonsterDistanceStackPanel.Children.Add(sliderFleeMonsterDistance);
+					 FleeMonsterDistanceStackPanel.Children.Add(TBFleemonsterDistance);
+					 #endregion
+
+					 #region Fleeing Minimum Health Percent
+					 TextBlock Flee_HealthPercent_Label=new TextBlock
+					 {
+						  Text="Bot Min Health Percent",
+						  FontSize=13,
+						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  //Background = System.Windows.Media.Brushes.Crimson,
+						  TextAlignment=TextAlignment.Left,
+					 };
+					 
+
+					 Slider sliderFleeHealthPercent=new Slider
+					 {
+						  Width=100,
+						  Maximum=1,
+						  Minimum=0,
+						  TickFrequency=0.25,
+						  LargeChange=0.1,
+						  SmallChange=0.05,
+						  Value=Bot.SettingsFunky.FleeBotMinimumHealthPercent,
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 };
+					 sliderFleeHealthPercent.ValueChanged+=FleeMinimumHealthSliderChanged;
+					 TBFleeMinimumHealth=new TextBox
+					 {
+						  Text=Bot.SettingsFunky.FleeBotMinimumHealthPercent.ToString(),
+						  IsReadOnly=true,
+					 };
+					 StackPanel FleeMinimumHealthtackPanel=new StackPanel
+					 {
+						  Width=600,
+						  Height=20,
+						  Orientation=Orientation.Horizontal,
+						  Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+6),
+					 };
+					 FleeMinimumHealthtackPanel.Children.Add(sliderFleeHealthPercent);
+					 FleeMinimumHealthtackPanel.Children.Add(TBFleeMinimumHealth);
+					 #endregion
+
+					 SPFleeing.Children.Add(Flee_Text_Header);
+					 SPFleeing.Children.Add(CBAttemptFleeingBehavior);
+
+					 spFleeingOptions.Children.Add(Flee_MonsterDistance_Label);
+					 spFleeingOptions.Children.Add(FleeMonsterDistanceStackPanel);
+					 spFleeingOptions.Children.Add(Flee_HealthPercent_Label);
+					 spFleeingOptions.Children.Add(FleeMinimumHealthtackPanel);
+
+					 SPFleeing.Children.Add(spFleeingOptions);
+
+
+					 CombatGeneralContentListBox.Items.Add(SPFleeing);
+					 #endregion
+
+					 #region Kiting
+
+					 StackPanel KitingOptionsStackPanel = new StackPanel
                 {
                     Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom + 5),
+						  Background=System.Windows.Media.Brushes.DimGray,
                 };
 
 
@@ -477,8 +603,8 @@ namespace FunkyTrinity
                 KitingOptionsStackPanel.Children.Add(Kite_Header_Text);
                 KitingOptionsStackPanel.Children.Add(KiteDistanceInfoStackPanel);
                 KitingOptionsStackPanel.Children.Add(KiteDistanceStackPanel);
-                KitingOptionsStackPanel.Children.Add(KiteDelayInfoStackPanel);
-                KitingOptionsStackPanel.Children.Add(KiteRetryTimeStackPanel);
+					 //KitingOptionsStackPanel.Children.Add(KiteDelayInfoStackPanel);
+					 //KitingOptionsStackPanel.Children.Add(KiteRetryTimeStackPanel);
                 CombatGeneralContentListBox.Items.Add(KitingOptionsStackPanel);
 
                 #endregion
@@ -486,6 +612,7 @@ namespace FunkyTrinity
                 StackPanel HealthOptionsStackPanel = new StackPanel
                 {
                     Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom + 5),
+						  Background=System.Windows.Media.Brushes.DimGray,
                 };
                 TextBlock Health_Options_Text = new TextBlock
                 {
@@ -591,7 +718,7 @@ namespace FunkyTrinity
 					 #region Clustering
 					 StackPanel spClusteringOptions=new StackPanel
 					 {
-
+						  Background=System.Windows.Media.Brushes.DimGray,
 					 };
 					 TextBlock Clustering_Text_Header=new TextBlock
 					 {
@@ -2222,9 +2349,9 @@ namespace FunkyTrinity
 						  Height=30,
 						  Width=150,
 						  ItemsSource=new ItemRuleTypes(),
-						  SelectedIndex=Bot.SettingsFunky.ItemRuleType.ToLower().Contains("soft")?1:Bot.SettingsFunky.ItemRuleType.ToLower().Contains("hard")?2:0,
-						  Text=Bot.SettingsFunky.ItemRuleType.ToString(),
+						  //Text=Bot.SettingsFunky.ItemRuleType.ToString(),
 					 };
+					 ItemRuleType.SelectedIndex=Bot.SettingsFunky.ItemRuleType.ToLower().Contains("soft")?1:Bot.SettingsFunky.ItemRuleType.ToLower().Contains("hard")?2:0;
 					 ItemRuleType.SelectionChanged+=ItemRulesTypeChanged;
 					 spItemRules_RuleSet.Children.Add(ItemRuleType);
 
@@ -3489,6 +3616,15 @@ namespace FunkyTrinity
                     Name = "MGP",
                 };
                 btnMGP_Debug.Click += DebugButtonClicked;
+					 Button btnCharacterCache_Debug=new Button
+					 {
+						  Content="Character",
+						  FontSize=10,
+						  Width=100,
+						  Height=25,
+						  Name="CHARACTER",
+					 };
+					 btnCharacterCache_Debug.Click+=DebugButtonClicked;
                 Button btnTEST_Debug = new Button
                 {
                     Content = "Test",
@@ -3511,6 +3647,7 @@ namespace FunkyTrinity
                 StackPanel_DebugButtons.Children.Add(btnObstacles_Debug);
                 StackPanel_DebugButtons.Children.Add(btnSNO_Debug);
 					 StackPanel_DebugButtons.Children.Add(btnAbility_Debug);
+					 StackPanel_DebugButtons.Children.Add(btnCharacterCache_Debug);
                 StackPanel_DebugButtons.Children.Add(btnTEST_Debug);
                 //StackPanel_DebugButtons.Children.Add(btnMGP_Debug);
                 //StackPanel_DebugButtons.Children.Add(btnGPC_Debug);

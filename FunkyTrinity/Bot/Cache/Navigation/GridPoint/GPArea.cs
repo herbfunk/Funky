@@ -91,8 +91,8 @@ namespace FunkyTrinity
 								}
 								else
 								{
-									 Bot.Combat.iMillisecondsCancelledKiteMoveFor=(int)(Bot.Character.dCurrentHealthPct*Bot.SettingsFunky.KitingRecheckMinimumRate)+1000;
-									 Bot.Combat.timeCancelledKiteMove=DateTime.Now;
+									 Bot.Combat.iMillisecondsCancelledFleeMoveFor=(int)(Bot.Character.dCurrentHealthPct*Bot.SettingsFunky.KitingRecheckMinimumRate)+1000;
+									 Bot.Combat.timeCancelledFleeMove=DateTime.Now;
 								}
 								return safespot;
 						  }

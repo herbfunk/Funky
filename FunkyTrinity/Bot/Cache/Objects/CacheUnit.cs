@@ -375,8 +375,8 @@ namespace FunkyTrinity
 					 bCountAsElite=(this.IsEliteRareUnique||this.IsTreasureGoblin||this.IsBoss);
 					 float RadiusDistance=this.RadiusDistance;
 
-					 if (Bot.KiteDistance>0&&RadiusDistance<=Bot.KiteDistance&&this.ShouldBeKited)
-						  Bot.Combat.NearbyKitingUnits.Add(this);
+					 if (Bot.SettingsFunky.EnableFleeingBehavior&&RadiusDistance<=Bot.SettingsFunky.FleeMaxMonsterDistance&&this.ShouldBeKited)
+						  Bot.Combat.FleeTriggeringUnits.Add(this);
 
 
 					 if (RadiusDistance<=6f)
@@ -449,6 +449,21 @@ namespace FunkyTrinity
 					 }
 				}
 
+				internal Cluster CurrentTargetCluster
+				{
+					 get
+					 {
+						  if (Bot.Combat.CurrentTargetClusters.Count>0)
+						  {
+								var containedClusters=Bot.Combat.CurrentTargetClusters.Where(c => c.RAGUIDS.Contains(this.RAGUID));
+								if (containedClusters.Any())
+									 return containedClusters.First();
+						  }
+
+						  return null;
+					 }
+				}
+
 				public override bool IsZDifferenceValid
 				{
 					 get
@@ -517,7 +532,7 @@ namespace FunkyTrinity
 					 }
 
 					 //Range Class Ignore (Avoid/Kite last target!)
-					 if ((Bot.Combat.KitedLastTarget&&Bot.Combat.NearbyKitingUnits.Count>0&&Bot.Combat.NearbyKitingUnits.Contains(this))||
+					 if ((Bot.Combat.FleeingLastTarget&&Bot.Combat.FleeTriggeringUnits.Count>0&&Bot.Combat.FleeTriggeringUnits.Contains(this))||
 						  (Bot.Combat.AvoidanceLastTarget&&Bot.Combat.TriggeringAvoidances.Count>0))
 						  this.Weight=1;
 
@@ -561,7 +576,7 @@ namespace FunkyTrinity
 									 {
 										  int RangeModifier=1200;
 										  //Increase Distance Modifier if recently kited.
-										  if (Bot.KiteDistance>0&&DateTime.Now.Subtract(Bot.Combat.LastKiteAction).TotalMilliseconds<3000)
+										  if (Bot.SettingsFunky.EnableFleeingBehavior&&DateTime.Now.Subtract(Bot.Combat.LastFleeAction).TotalMilliseconds<3000)
 												RangeModifier=12000;
 
 
@@ -691,6 +706,8 @@ namespace FunkyTrinity
 												// PS: 58008 is an awesome number on any calculator.
 
 										  }
+
+										  
 									 }
 
 								} // Forcing close range target or not?

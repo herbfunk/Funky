@@ -307,7 +307,7 @@
     <Compile Include="Bot\BotEvents\OnBotStop.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\GlobalOverlord.cs">
+    <Compile Include="Bot\GlobalOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\BotCache\CharacterCache.cs">

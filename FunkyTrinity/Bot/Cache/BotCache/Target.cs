@@ -90,7 +90,9 @@ namespace FunkyTrinity
 					 Bot.ValidObjects=ObjectCache.Objects.Values.Where(obj => obj.ObjectIsValidForTargeting).ToList();
 
 					 //Check avoidance requirement still valid
-					 if (Bot.Combat.RequiresAvoidance&&Bot.Combat.TriggeringAvoidances.Count==0) Bot.Combat.RequiresAvoidance=false;
+					 if (Bot.Combat.RequiresAvoidance&&
+									 Bot.Combat.TriggeringAvoidances.Count==0&&
+									 (!Bot.SettingsFunky.EnableFleeingBehavior||Bot.Character.dCurrentHealthPct>0.25d)) Bot.Combat.RequiresAvoidance=false;
 
 					 Vector3 LOS=Vector3.Zero;
 
@@ -119,7 +121,7 @@ namespace FunkyTrinity
 						  //else
 						  //    LOS=Vector3.Zero;
 
-						  if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, LOS))
+						  if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, LOS, Bot.Character.ShouldFlee))
 						  {
 								float distance=vAnySafePoint.Distance(Bot.Character.Position);
 
@@ -139,8 +141,8 @@ namespace FunkyTrinity
 								Bot.Combat.iSecondsEmergencyMoveFor=1+(int)(distance/25f);
 
 								//Avoidance takes priority over kiting..
-								Bot.Combat.timeCancelledKiteMove=DateTime.Now;
-								Bot.Combat.iMillisecondsCancelledKiteMoveFor=((Bot.Combat.iSecondsEmergencyMoveFor+1)*1000);
+								Bot.Combat.timeCancelledFleeMove=DateTime.Now;
+								Bot.Combat.iMillisecondsCancelledFleeMoveFor=((Bot.Combat.iSecondsEmergencyMoveFor+1)*1000);
 
 								return true;
 						  }
@@ -157,60 +159,59 @@ namespace FunkyTrinity
 					 //Standard weighting of valid objects -- updates current target.
 					 this.WeightEvaluationObjList();
 
-					 //check kiting
-					 #region Kiting
-					 if (Bot.KiteDistance>0
-						  &&(DateTime.Now.Subtract(Bot.Combat.timeCancelledKiteMove).TotalMilliseconds>Bot.Combat.iMillisecondsCancelledKiteMoveFor)
+					 //check Fleeing
+					 #region Fleeing
+					 if (Bot.SettingsFunky.EnableFleeingBehavior&&Bot.Character.dCurrentHealthPct<=Bot.SettingsFunky.FleeBotMinimumHealthPercent&&Bot.Combat.FleeTriggeringUnits.Count>0
+						  &&(DateTime.Now.Subtract(Bot.Combat.timeCancelledFleeMove).TotalMilliseconds>Bot.Combat.iMillisecondsCancelledFleeMoveFor)
 						  &&(!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.SettingsFunky.GoblinPriority<2)
 						  &&(Bot.Class.AC!=ActorClass.Wizard||(Bot.Class.AC==ActorClass.Wizard&&(!Bot.Class.HasBuff(SNOPower.Wizard_Archon)||!Bot.SettingsFunky.Class.bKiteOnlyArchon))))
 					 {
-						  if (Bot.Combat.NearbyKitingUnits.Count>0)
+
+						  //Resuse last safespot until timer expires!
+						  if (DateTime.Now.Subtract(Bot.Combat.LastFleeAction).TotalSeconds<Bot.Combat.iSecondsFleeMoveFor
+								&&vlastSafeSpot!=Vector3.Zero)
 						  {
-								//Resuse last safespot until timer expires!
-								if (DateTime.Now.Subtract(Bot.Combat.LastKiteAction).TotalSeconds<Bot.Combat.iSecondsKiteMoveFor
-									 &&vlastSafeSpot!=Vector3.Zero)
+								if (Bot.Character.Position.Distance2D(vlastSafeSpot)>2.5f)
 								{
-									 if (Bot.Character.Position.Distance2D(vlastSafeSpot)>2.5f)
-									 {
-										  CurrentTarget=new CacheObject(vlastSafeSpot, TargetType.Avoidance, 20000f, "Kitespot", 2.5f, -1);
-										  return true;
-									 }
-									 else
-										  vlastSafeSpot=Vector3.Zero;
-								}
-
-								if (CurrentTarget!=null&&CurrentTarget.targetType.HasValue&&TargetType.ServerObjects.HasFlag(CurrentTarget.targetType.Value)
-									 &&(Bot.NavigationCache.CurrentGPArea==null||!Bot.NavigationCache.CurrentGPArea.AllGPRectsFailed))
-									 LOS=CurrentTarget.Position;
-								else
-									 LOS=Vector3.Zero;
-
-								Vector3 vAnySafePoint;
-								if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, LOS, true))
-								{
-									 Logging.WriteDiagnostic("Kite Movement found AT {0} with {1} Distance", vAnySafePoint.ToString(), vAnySafePoint.Distance(Bot.Character.Position));
-									 Bot.Combat.IsKiting=true;
-
-									 if (CurrentTarget!=null)
-										  Bot.Character.LastCachedTarget=CurrentTarget;
-
-									 CurrentTarget=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "Kitespot", 2.5f, -1);
-
-									 Bot.Combat.iSecondsKiteMoveFor=1+(int)(Vector3.Distance(Bot.Character.Position, vlastSafeSpot)/25f);
+									 CurrentTarget=new CacheObject(vlastSafeSpot, TargetType.Avoidance, 20000f, "FleeSpot", 2.5f, -1);
 									 return true;
 								}
-								Bot.UpdateAvoidKiteRates();
+								else
+									 vlastSafeSpot=Vector3.Zero;
 						  }
+
+						  if (CurrentTarget!=null&&CurrentTarget.targetType.HasValue&&TargetType.ServerObjects.HasFlag(CurrentTarget.targetType.Value)
+								&&(Bot.NavigationCache.CurrentGPArea==null||!Bot.NavigationCache.CurrentGPArea.AllGPRectsFailed))
+								LOS=CurrentTarget.Position;
+						  else
+								LOS=Vector3.Zero;
+
+						  Vector3 vAnySafePoint;
+						  if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, LOS, true))
+						  {
+								Logging.WriteDiagnostic("Flee Movement found AT {0} with {1} Distance", vAnySafePoint.ToString(), vAnySafePoint.Distance(Bot.Character.Position));
+								Bot.Combat.IsFleeing=true;
+
+								if (CurrentTarget!=null)
+									 Bot.Character.LastCachedTarget=CurrentTarget;
+
+								CurrentTarget=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "FleeSpot", 2.5f, -1);
+
+								Bot.Combat.iSecondsFleeMoveFor=1+(int)(Vector3.Distance(Bot.Character.Position, vlastSafeSpot)/25f);
+								return true;
+						  }
+						  Bot.UpdateAvoidKiteRates();
+
 					 }
 
 					 //If we have a cached kite target.. and no current target, lets swap back!
-					 if (Bot.Combat.KitedLastTarget&&CurrentTarget==null
+					 if (Bot.Combat.FleeingLastTarget&&CurrentTarget==null
 								  &&Bot.Character.LastCachedTarget!=null
 								  &&ObjectCache.Objects.ContainsKey(Bot.Character.LastCachedTarget.RAGUID))
 					 {
 						  //Swap back to our orginal "kite" target
 						  CurrentTarget=ObjectCache.Objects[Bot.Character.LastCachedTarget.RAGUID];
-						  Logging.WriteVerbose("Swapping back to unit {0} after kiting", CurrentTarget.InternalName);
+						  Logging.WriteVerbose("Swapping back to unit {0} after fleeing", CurrentTarget.InternalName);
 						  return true;
 					 }
 					 #endregion
@@ -431,12 +432,16 @@ namespace FunkyTrinity
 								//Avoidance Attempt to find a location where we can attack!
 								if (ObjectCache.Objects.objectsIgnoredDueToAvoidance.Contains(thisobj))
 								{
+									 //Wait if no valid target found yet.. and no avoidance movement required.
+									 if (!Bot.Combat.RequiresAvoidance)
+										  Bot.Combat.bStayPutDuringAvoidance=true;
+
 									 //Check Bot Navigationally blocked
 									 Bot.NavigationCache.RefreshNavigationBlocked();
 									 if (!Bot.NavigationCache.BotIsNavigationallyBlocked)
 									 {
 										  Vector3 SafeLOSMovement;
-										  if (thisobj.GPRect.TryFindSafeSpot(Bot.Character.Position, out SafeLOSMovement, Vector3.Zero, Bot.KiteDistance>0f, true))
+										  if (thisobj.GPRect.TryFindSafeSpot(Bot.Character.Position, out SafeLOSMovement, Vector3.Zero, Bot.Character.ShouldFlee, true))
 										  {
 												CurrentTarget=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
 												//Reset Avoidance Timer so we don't trigger it while moving towards the target!
@@ -445,10 +450,6 @@ namespace FunkyTrinity
 										  }
 										  else
 										  {
-												//Wait if no valid target found yet.. and no avoidance movement required.
-												if (iHighestWeightFound==0&&!Bot.Combat.RequiresAvoidance)
-													 Bot.Combat.bStayPutDuringAvoidance=true;
-
 												resetTarget=true;
 										  }
 									 }
@@ -878,7 +879,18 @@ namespace FunkyTrinity
 
 					 // See if we can use any special buffs etc. while in avoidance
 					 #region AvoidanceSpecialAbilityCheck
-					 if ((TargetType.Avoidance|TargetType.Gold|TargetType.Globe|TargetType.Gizmo|TargetType.Item).HasFlag(CurrentTarget.targetType.Value))
+					 if (TargetType.Avoidance.HasFlag(CurrentTarget.targetType.Value))
+					 {
+						  Ability movement;
+						  if (Bot.Class.FindSpecialMovementPower(out movement))
+						  {
+								movement.SetupAbilityForUse();
+								movement.UsePower();
+								movement.SuccessfullyUsed();
+						  }
+					 }
+
+					 if ((TargetType.Gold|TargetType.Globe|TargetType.Gizmo|TargetType.Item).HasFlag(CurrentTarget.targetType.Value))
 					 {
 						  Bot.Combat.powerBuff=Bot.Class.AbilitySelector(true, false);
 						  if (Bot.Combat.powerBuff.Power!=SNOPower.None)
@@ -1005,7 +1017,7 @@ namespace FunkyTrinity
 								break;
 						  case TargetType.Avoidance:
 								Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
-								Bot.Combat.timeCancelledKiteMove=DateTime.Now;
+								Bot.Combat.timeCancelledFleeMove=DateTime.Now;
 								CurrentState=RunStatus.Running;
 								break;
 					 }

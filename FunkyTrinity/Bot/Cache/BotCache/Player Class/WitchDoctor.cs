@@ -62,13 +62,14 @@ namespace FunkyTrinity
 								Cost=49,
 								UseAvoiding=true,
 								UseOOCBuff=true,
+								IsNavigationSpecial=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast),
 								TestCustomCombatConditionAlways=true,
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return (Bot.Character.dCurrentHealthPct<=0.65
-										  ||(Bot.Combat.KitedLastTarget&&Bot.Combat.iAnythingWithinRange[RANGE_25]>1)
+										  ||(Bot.Combat.FleeingLastTarget&&Bot.Combat.iAnythingWithinRange[RANGE_25]>1)
 										  ||(Bot.Combat.AvoidanceLastTarget&&Bot.Combat.NearbyAvoidances.Count>0)
 										  ||Bot.Character.bIsIncapacitated
 										  ||Bot.Character.bIsRooted
@@ -252,7 +253,10 @@ namespace FunkyTrinity
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated| AbilityConditions.CheckCanCast | AbilityConditions.CheckEnergy),
 								ClusterConditions=new ClusterConditions(4d, 45f, 2, true),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 45, falseConditionalFlags: TargetProperties.Fast|TargetProperties.Weak),
-
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return !this.bWaitingForSpecial;
+								}),
 								
 						  };
 					 }
@@ -318,7 +322,7 @@ namespace FunkyTrinity
 								
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return true;
+									 return !this.bWaitingForSpecial;
 								}),
 						  };
 					 }
@@ -354,16 +358,17 @@ namespace FunkyTrinity
 						  return new Ability
 						  {
 								Power=Power,
-								UsageType=AbilityUseType.ClusterTarget| AbilityUseType.Target,
+								UsageType=AbilityUseType.ClusterLocation|AbilityUseType.Location,
 								ClusterConditions=new ClusterConditions(5d, 20f, 1, true),
 								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
 								Cost=196,
 								Range=21,
 								UseAvoiding=false,
 								UseOOCBuff=false,
-								Priority=AbilityPriority.Low,
+								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckCanCast|AbilityConditions.CheckEnergy|AbilityConditions.CheckRecastTimer),
-								
+								IsSpecialAbility=true,
+
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return Clusters().Count>0&&Clusters().Any(c => c.DotDPSRatio<0.25);
@@ -390,7 +395,10 @@ namespace FunkyTrinity
 								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 3),
 								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 25),
-
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return !this.bWaitingForSpecial;
+								}),
 								
 						  };
 					 }
@@ -441,7 +449,10 @@ namespace FunkyTrinity
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, falseConditionalFlags: TargetProperties.Fast),
 								ClusterConditions=new ClusterConditions(4d, this.RuneIndexCache[Power]==4?20f:40f, 2, true),
 
-
+								Fcriteria=new Func<bool>(() =>
+								{
+									 return !this.bWaitingForSpecial;
+								}),
 
 								
 						  };

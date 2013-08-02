@@ -12,37 +12,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  /*
-  AVOIDANCE
-		 -Searching for safe location -- away from all threats
 
-  KITING
-		 -Searching for location that should be best suited to execute offense
-		 -Ideally Open Location with LOS on multiple engaged units away from any potental flanking packs.
-		 -Optionally rotate around outer boundary of cluster to remain within the same area.
-		 -Minimum Nearby Units, Minimum Unit Distance, Always on Elites, Allow Agro Locations, 
-
-
-  GROUPING
-		 -Searching for location that should connect the best points for maximum results
-		 -Growing groups by finding nearby neighboring clusters and rotating between each to center into a single group.
-		 -Behavior should be evaluated for a better grouping setup then the current.
-		 -Difference of how behavior is conducted for Melee and Ranged:
-			  *Ranged can agro at further distances and remain near the final centering location.
-			  *Melee requires close encounters to agro and will require a queued movement plan to group efficently.
-					 
-		 -Pack Count, Max Distance from bot, Grouping Minimum Units
-
-
-		  -Refresh pulse will do a cluster search for 
-
-
-
-  ZIGZAG
-		 -Searching for location that will hit most units within a given range
-
-
-  */
 
 		  ///<summary>
 		  ///Cache of all values Navigation related
@@ -362,8 +332,8 @@ namespace FunkyTrinity
 					 safespot=vlastSafeSpot;
 					 if (!Bot.Combat.TravellingAvoidance&&DateTime.Now.Subtract(lastFoundSafeSpot).TotalMilliseconds<=800
 						&&vlastSafeSpot!=Vector3.Zero
-						&&(!ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(vlastSafeSpot)))
-					 //&&(!kiting||!ObjectCache.Objects.IsPointNearbyMonsters(vlastSafeSpot,Bot.KiteDistance)))
+						&&(!ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(vlastSafeSpot))
+					   &&(!kiting||!ObjectCache.Objects.IsPointNearbyMonsters(vlastSafeSpot,Bot.KiteDistance)))
 					 {	 //Already found a safe spot in the last 800ms
 						  return true;
 					 }
@@ -377,7 +347,18 @@ namespace FunkyTrinity
 
 					 //Check Bot Navigationally blocked
 					 RefreshNavigationBlocked();
-					 if (BotIsNavigationallyBlocked) return false;
+					 if (BotIsNavigationallyBlocked)
+					 {
+						  Ability movementAbility;
+
+						  //Check if we can use a special movement ability to ignore blocking.
+						  if (!Bot.Class.FindSpecialMovementPower(out movementAbility))
+						  {
+								return false;
+						  }
+
+
+					 }
 
 					 if (Bot.NavigationCache.CurrentLocationGPrect==null||Bot.NavigationCache.CurrentLocationGPrect.centerpoint!=Bot.Character.PointPosition)
 						  Bot.NavigationCache.CurrentLocationGPrect=new GPRectangle(Bot.Character.Position);
@@ -501,7 +482,7 @@ namespace FunkyTrinity
 									 if (iMultiplier==2)
 										  fThisWeight-=80f;
 
-									 if (Bot.KiteDistance>0&&ObjectCache.Objects.IsPointNearbyMonsters(vThisZigZag, Bot.KiteDistance))
+									 if (Bot.Character.ShouldFlee&&ObjectCache.Objects.IsPointNearbyMonsters(vThisZigZag, Bot.SettingsFunky.FleeMaxMonsterDistance))
 										  continue;
 
 									 if (ObjectCache.Obstacles.Navigations.Any(obj => obj.Obstacletype.Value!=ObstacleType.Monster&&obj.TestIntersection(Bot.Character.Position, vThisZigZag, false)))
@@ -630,7 +611,7 @@ namespace FunkyTrinity
 																								&&obstacle.Obstacletype.HasValue
 																								&&ObstacleType.Navigation.HasFlag(obstacle.Obstacletype.Value)//only navigation/intersection blocking objects!
 																								&&obstacle.CentreDistance<=range //Only within range..
-																								&&obstacle.BotIsFacing());
+																								&&obstacle.BotIsFacing()||obstacle.RadiusDistance<=0f);
 								//&&obstacle.TestIntersection(BotGridPoint, IntersectionDestinationPoint));
 
 
@@ -647,6 +628,33 @@ namespace FunkyTrinity
 				}
 
 
+
+				private IndexedList<Vector3> CachedPathFinderCurrentPath=new IndexedList<Vector3>();
+				private IndexedList<Vector3> CurrentPathFinderPath=new IndexedList<Vector3>();
+
+				internal void ResetPathing()
+				{
+					 if (CachedPathFinderCurrentPath.Count>0)
+						  NP.CurrentPath=new IndexedList<Vector3>(CachedPathFinderCurrentPath.ToArray());
+
+
+					 CachedPathFinderCurrentPath.Clear();
+					 CurrentPathFinderPath.Clear();
+				}
+				public IndexedList<Vector3> MoveToPathToLocation(Vector3 Destination)
+				{
+					 if (CurrentPathFinderPath.Count==0)
+					 {
+						  if (NP.CurrentPath.Count>0)
+								CachedPathFinderCurrentPath=new IndexedList<Vector3>(NP.CurrentPath.ToArray());
+
+						  NP.Clear();
+						  NP.MoveTo(Destination, "Pathing");
+						  CurrentPathFinderPath=new IndexedList<Vector3>(NP.CurrentPath.ToArray());
+					 }
+
+					 return CurrentPathFinderPath;
+				}
 
 				private Vector3 currentpathvector_=Vector3.Zero;
 				///<summary>
