@@ -529,6 +529,9 @@ namespace FunkyTrinity
 						  //Actual interaction
 						  Bot.Character.WaitWhileAnimating(12);
 
+						  Bot.Combat.powerPrime.WaitLoopsAfter=15;
+
+
 						  if (hashDestructableLocationTarget.Contains(this.SNOID)
 								||(this.InteractionAttempts>1
 								&&this.RadiusDistance<7f))

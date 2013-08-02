@@ -149,16 +149,13 @@ namespace FunkyTrinity
 					 }
 					 #endregion
 
-
 					 Bot.Combat.bStayPutDuringAvoidance=false;
 
-
-					 //cluster target update
+					 //cluster update
 					 Bot.Combat.UpdateTargetClusteringVariables();
 
 					 //Standard weighting of valid objects -- updates current target.
 					 this.WeightEvaluationObjList();
-
 
 					 //check kiting
 					 #region Kiting
@@ -257,6 +254,7 @@ namespace FunkyTrinity
 						  {
 								Logging.Write("[Funky] Waiting for Wrath Of The Berserker cooldown before continuing to Azmodan.");
 								CurrentTarget=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "GilesWaitForWrath", 0f, -1);
+								InactivityDetector.Reset();
 								return true;
 						  }
 						  // And a special check for wizard archon
@@ -265,6 +263,7 @@ namespace FunkyTrinity
 						  {
 								Logging.Write("[Funky] Waiting for Wizard Archon cooldown before continuing to Azmodan.");
 								CurrentTarget=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "GilesWaitForArchon", 0f, -1);
+								InactivityDetector.Reset();
 								return true;
 						  }
 						  // And a very sexy special check for WD BigBadVoodoo
@@ -273,6 +272,7 @@ namespace FunkyTrinity
 						  {
 								Logging.Write("[Funky] Waiting for WD BigBadVoodoo cooldown before continuing to Azmodan.");
 								CurrentTarget=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "GilesWaitForVoodooo", 0f, -1);
+								InactivityDetector.Reset();
 								return true;
 						  }
 
@@ -305,7 +305,39 @@ namespace FunkyTrinity
 						  }
 					 }
 					 else
+					 {
+
+						  //Grouping Movements
+						  if (Bot.SettingsFunky.AttemptGroupingMovements)
+						  {
+								Bot.Combat.UpdateGroupClusteringVariables();
+
+								if (Bot.NavigationCache.groupRunningBehavior)
+								{
+
+								}
+								else if (CurrentTarget.targetType.Value.Equals(TargetType.Unit)
+										  &&Bot.Combat.CurrentGroupClusters.Count>=Bot.SettingsFunky.GroupingMinimumClusterCount)
+								{
+
+									 //Lets check conditions prior to grouping..
+									 if (CurrentTarget.ObjectIsSpecial&&!CurrentTarget.IsTreasureGoblin)
+									 {
+
+
+
+										  bool success=Bot.NavigationCache.FindGroupingLocation();
+										  if (success)
+										  {
+												return true;
+										  }
+									 }
+								}
+						  }
+
 						  return true;
+					 }
+
 
 					 return false;
 				}
@@ -648,7 +680,7 @@ namespace FunkyTrinity
 						  // If we AREN'T getting new targets - find out if we SHOULD because the current unit has died etc.
 						  if (!bShouldRefreshDiaObjects&&CurrentTarget.targetType.Value==TargetType.Unit&&!CurrentTarget.IsStillValid())
 								bShouldRefreshDiaObjects=true;
-						  
+
 					 }
 
 					 // So, after all that, do we actually want a new target list?
@@ -687,7 +719,7 @@ namespace FunkyTrinity
 									 // PREVENT blacklisting a monster on less than 90% health unless we haven't damaged it for more than 2 minutes
 									 if (CurrentTarget.targetType.Value==TargetType.Unit)
 									 {
-										  if (CurrentTarget.IsTreasureGoblin&&Bot.SettingsFunky.GoblinPriority>=3)bBlacklistThis=false;
+										  if (CurrentTarget.IsTreasureGoblin&&Bot.SettingsFunky.GoblinPriority>=3) bBlacklistThis=false;
 										  if (DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds<=120) bBlacklistThis=false;
 									 }
 

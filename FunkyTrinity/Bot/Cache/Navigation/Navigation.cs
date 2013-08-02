@@ -12,6 +12,37 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
+		  /*
+  AVOIDANCE
+		 -Searching for safe location -- away from all threats
+
+  KITING
+		 -Searching for location that should be best suited to execute offense
+		 -Ideally Open Location with LOS on multiple engaged units away from any potental flanking packs.
+		 -Optionally rotate around outer boundary of cluster to remain within the same area.
+		 -Minimum Nearby Units, Minimum Unit Distance, Always on Elites, Allow Agro Locations, 
+
+
+  GROUPING
+		 -Searching for location that should connect the best points for maximum results
+		 -Growing groups by finding nearby neighboring clusters and rotating between each to center into a single group.
+		 -Behavior should be evaluated for a better grouping setup then the current.
+		 -Difference of how behavior is conducted for Melee and Ranged:
+			  *Ranged can agro at further distances and remain near the final centering location.
+			  *Melee requires close encounters to agro and will require a queued movement plan to group efficently.
+					 
+		 -Pack Count, Max Distance from bot, Grouping Minimum Units
+
+
+		  -Refresh pulse will do a cluster search for 
+
+
+
+  ZIGZAG
+		 -Searching for location that will hit most units within a given range
+
+
+  */
 
 		  ///<summary>
 		  ///Cache of all values Navigation related
@@ -348,13 +379,14 @@ namespace FunkyTrinity
 					 RefreshNavigationBlocked();
 					 if (BotIsNavigationallyBlocked) return false;
 
+					 if (Bot.NavigationCache.CurrentLocationGPrect==null||Bot.NavigationCache.CurrentLocationGPrect.centerpoint!=Bot.Character.PointPosition)
+						  Bot.NavigationCache.CurrentLocationGPrect=new GPRectangle(Bot.Character.Position);
+
 					 Bot.NavigationCache.CurrentLocationGPRect.UpdateObjectCount();
 
 					 safespot=Bot.NavigationCache.CurrentGPArea.AttemptFindSafeSpot(BotPosition, LOS, kiting);
 					 return (safespot!=Vector3.Zero);
 				}
-
-
 
 
 				//Special Movements
@@ -499,6 +531,74 @@ namespace FunkyTrinity
 					 }
 					 // Loop through multiplier
 					 return vBestLocation;
+				}
+
+				internal bool groupRunningBehavior=false;
+				private CacheObject groupingCurrentUnit=null;
+				private Cluster groupingOrginCluster;
+				private Cluster groupingCurrentCluster;
+				private DateTime groupingLastUnitChecked=DateTime.Today;
+				 
+				public bool FindGroupingLocation()
+				{
+					 //Step one: Establish our goal. 
+					 //			 --The Location we are grouping at.
+					 //			 --The different groups we want to engage.
+					 //			 --
+
+					 //Step two: Refresh clusters
+
+
+					 Logging.WriteVerbose("Finding Group Location...");
+
+					 if (groupingOrginCluster==null)
+					 {
+						  //No current cluster: Start of the behavior.
+						  //
+
+						  Logging.WriteVerbose("Grouping Behavior Triggered");
+
+						  //Set our orgin -- "place of return" to nearest cluster.
+						  groupingOrginCluster=Bot.Combat.CurrentGroupClusters.Last();
+					 }
+					 else
+					 {
+						  //Check our orgin cluster if its still a valid group..
+					 }
+
+					 if (groupingCurrentUnit!=null)
+					 {
+						  if (DateTime.Now.Subtract(groupingLastUnitChecked).TotalMilliseconds>1250)
+						  {
+								Logging.WriteVerbose("Validating Current Unit Cluster Group Target.");
+								//validate it still remains best location for current group to engage.
+								groupingLastUnitChecked=DateTime.Now;
+						  }
+
+
+					 }
+					 else
+					 {
+						  //Set the destination here
+						  //depends on melee or ranged
+						  //melee will encounter nearest mobs into center
+						  //ranged will position themselves to hit near centeroid?
+						  Logging.WriteVerbose("Updating Group Cluster Current Target");
+
+						  if (Bot.Class.IsMeleeClass)
+						  {
+								groupingCurrentUnit=groupingCurrentCluster.ListUnits[0];
+						  }
+						  else
+						  {
+								groupingCurrentUnit=groupingCurrentCluster.GetNearestUnitToCenteroid();
+						  }
+
+						  Bot.Target.CurrentTarget=groupingCurrentUnit;
+					 }
+
+					 return true;
+
 				}
 
 

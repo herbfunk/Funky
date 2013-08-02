@@ -32,8 +32,8 @@ namespace FunkyTrinity
 						  ShouldCheckItemLooted=false;
 						  reCheckedFinished=false;
 						  recheckCount=0;
-						  
-						  
+
+
 						  LastHealthDropPct=0d;
 						  LastHealthChange=DateTime.Today;
 						  powerPrime=new Ability();
@@ -70,17 +70,20 @@ namespace FunkyTrinity
 					 internal List<CacheAvoidance> TriggeringAvoidances=new List<CacheAvoidance>();
 					 internal List<int> UnitRAGUIDs=new List<int>();
 					 internal List<int> ValidClusterUnits=new List<int>();
-
+					 internal List<CacheUnit> DistantUnits=new List<CacheUnit>();
 
 					 internal List<Cluster> CurrentTargetClusters=new List<Cluster>();
-					 internal DateTime LastClusterTargetLogicRefresh=DateTime.Today;
+					 internal List<Cluster> CurrentGroupClusters=new List<Cluster>();
+
+					 internal DateTime LastClusterTargetLogicRefresh=DateTime.MinValue;
+					 internal DateTime LastClusterGroupingLogicRefresh=DateTime.MinValue;
 
 					 //This is used during Ability Selection -- we reuse the targeting cluster data if possible!
 					 internal List<Cluster> RunKMeans(int MinUnitCount=1, double Distance=5d, float DistanceFromBot=25f)
 					 {
 
-						  //If ClusterTargetLogic is disabled.. we need to generate clusters!
-						  if (!Bot.SettingsFunky.EnableClusteringTargetLogic)
+						  //If Cluster Logic is disabled.. we need to generate clusters!
+						  if (!Bot.SettingsFunky.EnableClusteringTargetLogic&&!Bot.SettingsFunky.AttemptGroupingMovements)
 						  {
 
 								List<CacheObject> listObjectUnits=Bot.ValidObjects.Where(u => UnitRAGUIDs.Contains(u.RAGUID)&&u.CentreDistance<=DistanceFromBot).ToList();
@@ -93,19 +96,46 @@ namespace FunkyTrinity
 						  }
 						  else
 						  {
-								//Since we use Target Clustering, we can grab valid objects by using the clusterunits list
+								//Since we use Clustering, we can grab valid objects by using the clusterunits list
 								List<CacheObject> objects=new List<CacheObject>();
 								objects.AddRange(ValidObjects.Where(unit => ValidClusterUnits.Contains(unit.RAGUID)&&unit.CentreDistance<=DistanceFromBot));
 								return RunKmeans(objects, Distance);
 						  }
 					 }
 
+					 internal void UpdateGroupClusteringVariables()
+					 {
+						  //grouping clustering
+						  if (Bot.SettingsFunky.AttemptGroupingMovements)
+						  {
+								if ((CurrentGroupClusters.Count==0&&DateTime.Compare(LastClusterGroupingLogicRefresh, DateTime.Now)<0)
+									 ||(CurrentGroupClusters.Count>0&&DateTime.Now.Subtract(LastClusterGroupingLogicRefresh).TotalMilliseconds>1250))
+								{
+									 //Clear Clusters and Unit collection
+									 CurrentGroupClusters=new List<Cluster>();
+
+									 //Check if there are enough units present currently..
+									 if (DistantUnits.Count>Bot.SettingsFunky.GroupingMinimumUnitsInCluster)
+									 {
+
+										  //Update Cluster Collection
+										  CurrentGroupClusters=RunKmeans(DistantUnits, 6d)
+												.Where(cluster => cluster.ListUnits.Count>=Bot.SettingsFunky.GroupingMinimumUnitsInCluster&&cluster.NearestMonsterDistance<=Bot.SettingsFunky.GroupingMaximumDistanceAllowed)
+												.OrderByDescending(cluster => cluster.NearestMonsterDistance).ToList();
+
+										  Logging.WriteVerbose("Updated Group Clusters. Count={0}", CurrentGroupClusters.Count.ToString());
+										  LastClusterGroupingLogicRefresh=DateTime.Now;
+									 }
+
+								}
+						  }
+					 }
 
 					 internal void UpdateTargetClusteringVariables()
 					 {
-						  if (Bot.SettingsFunky.EnableClusteringTargetLogic
-							 &&(!Bot.SettingsFunky.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>Bot.SettingsFunky.IgnoreClusterLowHPValue)
-							 &&(DateTime.Now.Subtract(dateSincePickedTarget).TotalMilliseconds>500||DateTime.Now.Subtract(LastClusterTargetLogicRefresh).TotalMilliseconds>200))
+						  //normal clustering
+						  if ((Bot.SettingsFunky.EnableClusteringTargetLogic&&(!Bot.SettingsFunky.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>Bot.SettingsFunky.IgnoreClusterLowHPValue)&&(DateTime.Now.Subtract(dateSincePickedTarget).TotalMilliseconds>500||DateTime.Now.Subtract(LastClusterTargetLogicRefresh).TotalMilliseconds>200))
+								||(Bot.SettingsFunky.AttemptGroupingMovements&&DateTime.Compare(DateTime.Now, LastClusterGroupingLogicRefresh)<0))
 						  {
 								//Clear Clusters and Unit collection
 								CurrentTargetClusters=new List<Cluster>();
@@ -133,6 +163,9 @@ namespace FunkyTrinity
 									 }
 								}
 						  }
+
+
+
 					 }
 
 
@@ -280,13 +313,14 @@ namespace FunkyTrinity
 						  NearbyAvoidances.Clear();
 						  NearbyObstacleObjects.Clear();
 						  NearbyKitingUnits.Clear();
+						  DistantUnits.Clear();
 					 }
 					 internal void ResetTargetHandling()
 					 {
 						  Bot.Target.CurrentTarget=null;
 						  TargetMovement.ResetTargetMovementVars();
 
-						  
+
 						  bWaitingForPower=false;
 						  bWaitingAfterPower=false;
 						  bWaitingForPotion=false;
@@ -296,7 +330,7 @@ namespace FunkyTrinity
 
 						  LastHealthChange=DateTime.MinValue;
 						  LastHealthDropPct=0d;
-						  
+
 					 }
 				}
 

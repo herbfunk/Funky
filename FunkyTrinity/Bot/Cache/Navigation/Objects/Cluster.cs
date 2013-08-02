@@ -60,6 +60,15 @@ namespace FunkyTrinity
 				}
 		  }
 
+		  internal int UnitMobileCounter { get; set; }
+		  internal double UnitsMovementRatio
+		  {
+				get
+				{
+					 return UnitMobileCounter/ListUnits.Count;
+				}
+		  }
+
 		  public double Dist { get; protected set; }
 
 		  public float NearestMonsterDistance { get; set; }
@@ -80,6 +89,7 @@ namespace FunkyTrinity
 				ListUnits=new List<Funky.CacheUnit>();
 				EliteCount=0;
 				DotDPSCount=0;
+				UnitMobileCounter=0;
 				NearestMonsterDistance=-1f;
 				RAGUIDS=new List<int>();
 
@@ -105,7 +115,8 @@ namespace FunkyTrinity
 					 EliteCount++;
 				if (Funky.Bot.Combat.UsesDOTDPSAbility&&unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
 					 DotDPSCount++;
-
+				if (unit.IsMoving)
+					 UnitMobileCounter++;
 
 		  }  // of overloaded constructor
 
@@ -147,6 +158,9 @@ namespace FunkyTrinity
 
 						  if (Funky.Bot.Combat.UsesDOTDPSAbility&&unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
 								DotDPSCount++;
+
+						  if (unit.IsMoving)
+								UnitMobileCounter++;
 					 }
 					 else
 						  l_bSuccess=false;
@@ -182,8 +196,11 @@ namespace FunkyTrinity
 				ListUnits.AddRange(p_Cluster.ListUnits);
 				ListPoints.AddRange(p_Cluster.ListPoints);
 				RAGUIDS.AddRange(p_Cluster.RAGUIDS);
+
 				EliteCount+=p_Cluster.EliteCount;
 				DotDPSCount+=p_Cluster.DotDPSCount;
+				UnitMobileCounter+=p_Cluster.UnitMobileCounter;
+
 				if (this.NearestMonsterDistance>p_Cluster.NearestMonsterDistance)
 					 this.NearestMonsterDistance=p_Cluster.NearestMonsterDistance;
 

@@ -91,7 +91,9 @@
     <Compile Include="Bot\Behaviors\Navigation\TargetMovement.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Navigation\Navigation.cs" />
+    <Compile Include="Bot\Cache\Navigation\Navigation.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Bot\Cache\BotCache\Player Class\Barb.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -174,6 +176,7 @@
     <Compile Include="CombatRoutine\RoutineDebug.cs" />
     <Compile Include="XML\XMLTags.cs">
       <SubType>Code</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <None Include="CombatRoutine\CombatRoutine">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -304,7 +307,7 @@
     <Compile Include="Bot\BotEvents\OnBotStop.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\GlobalOverlord.cs">
+    <Compile Include="Bot\Cache\GlobalOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\BotCache\CharacterCache.cs">
@@ -438,6 +441,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Bot\Cache\Navigation\Movements\" />
     <Folder Include="ItemRules\Log\Archive\" />
     <Folder Include="Log\ProfileStats\" />
   </ItemGroup>

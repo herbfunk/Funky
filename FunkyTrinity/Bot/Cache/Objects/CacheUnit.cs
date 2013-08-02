@@ -70,6 +70,14 @@ namespace FunkyTrinity
 					 }
 				}
 				#endregion
+
+				private bool ismoving=false;
+				public bool IsMoving
+				{
+					 get { return ismoving; }
+					 set { ismoving=value; }
+				}
+
 				private DateTime LastAvoidanceIgnored=DateTime.Today;
 				private bool? IsNPC { get; set; }
 				public bool ForceLeap { get; set; }
@@ -351,6 +359,8 @@ namespace FunkyTrinity
 						  // Standard 50f range when preforming OOC behaviors!
 						  if (Bot.IsInNonCombatBehavior)
 								dUseKillRadius=50;
+						  else if (Bot.SettingsFunky.AttemptGroupingMovements&&dUseKillRadius<Bot.SettingsFunky.GroupingMaximumDistanceAllowed)
+								dUseKillRadius=Bot.SettingsFunky.GroupingMaximumDistanceAllowed;
 
 						  return dUseKillRadius;
 					 }
@@ -761,6 +771,10 @@ namespace FunkyTrinity
 
 						  float centreDistance=this.CentreDistance;
 
+						  //Distant Units List
+						  if (centreDistance>=75)
+								Bot.Combat.DistantUnits.Add(this);
+
 						  //Distance Check
 						  if (centreDistance>this.KillRadius)
 								return false;
@@ -1047,6 +1061,18 @@ namespace FunkyTrinity
 					 }
 
 
+					 //Clustering Target Engaged Check
+					 if (Bot.SettingsFunky.AttemptGroupingMovements)
+					 {
+						  try
+						  {
+								this.IsMoving=this.ref_DiaObject.Movement.IsMoving;
+						  } catch
+						  {
+								Logging.WriteVerbose("[Funky] Safely handled exception getting LastACDAttackedBy attribute for unit "+this.InternalName+" ["+this.SNOID.ToString()+"]");
+						  }
+					 }
+
 
 					 //Barb specific updates
 					 if (Bot.Class.AC==ActorClass.Barbarian)
@@ -1252,13 +1278,14 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} \r\n PriorityCounter={6}",
+						  return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} -- IsMoving: {6} \r\n PriorityCounter={7}",
 								base.DebugString,
 								this.IsBurrowed.HasValue?this.IsBurrowed.Value.ToString():"",
 								this.IsTargetable.HasValue?this.IsTargetable.Value.ToString():"",
 								this.IsAttackable.HasValue?this.IsAttackable.Value.ToString():"",
 								this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value.ToString():"",
 								this.MaximumHealth.HasValue?this.MaximumHealth.Value.ToString():"",
+								this.IsMoving.ToString(),
 								this.PriorityCounter.ToString());
 					 }
 				}

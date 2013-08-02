@@ -18,7 +18,12 @@ namespace FunkyTrinity
 				public static CharacterCache Character { get; set; }
 				public static CombatCache Combat { get; set; }
 				public static TargetHandler Target { get; set; }
-				public static BotStatistics Stats { get; set; }
+				private static BotStatistics Stats_=new BotStatistics();
+				public static BotStatistics Stats
+				{
+					 get { return Bot.Stats_; }
+					 set { Bot.Stats_=value; }
+				}
 				public static Navigation NavigationCache { get; set; }
 
 				///<summary>
@@ -307,6 +312,7 @@ namespace FunkyTrinity
 					 Combat=new CombatCache();
 					 Target=new TargetHandler();
 					 NavigationCache=new Navigation();
+					 Stats=new BotStatistics();
 				}
 
 		  }

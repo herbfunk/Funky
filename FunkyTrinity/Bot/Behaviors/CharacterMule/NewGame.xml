@@ -1,0 +1,26 @@
+<Profile>
+	<!-- Special thanks to Kickazz006 for the dev copy, which this profile is based from -->
+  <Name>Start New Act 1 by rrrix</Name>
+  <KillMonsters>True</KillMonsters>
+  <PickupLoot>True</PickupLoot>
+  <GameParams quest="87700" step="-1" act="A1" difficulty="Normal" resumeFromSave="False" isPrivate="True" numGames="-1" />
+
+  <Order>
+    <WaitTimer waitTime="1000" />
+    <If condition="IsActiveQuest(87700) and IsActiveQuestStep(-1) and CurrentWorldId == 71150">
+      <!-- The Fallen Star -->
+      <SafeMoveTo questId="87700" stepId="-1" actorId="3739" x="2837" y="2931" z="24" />
+      <!-- Pickup the quest from Captain Rumfoord -->
+      <TalkTo questId="87700" stepId="-1" actorId="3739" x="2837" y="2931" z="24" />
+      <WaitTimer questId="87700" stepId="-1" waitTime="1000" />
+    </If>
+    <While condition="IsActiveQuest(87700) and IsActiveQuestStep(66) and CurrentWorldId == 71150">
+      <!-- Survive the Waves , just stay and kill anything that comes in our way. -->
+      <MoveTo questId="87700" stepId="66" x="2840" y="2975" z="24" name="Zombie spawn spot" />
+      <MoveTo questId="87700" stepId="66" x="2873" y="2969" z="26" name="Zombie spawn spot" />
+    </While>
+    <If condition="IsActiveQuest(87700) and IsActiveQuestStep(42) and CurrentWorldId == 71150">
+      <SafeMoveTo questId="87700" stepId="42" x="2992" y="2785" z="24" />
+    </If>
+  </Order>
+</Profile>

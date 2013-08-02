@@ -1,0 +1,13 @@
+﻿										  /*
+											 GROUPING
+											-Searching for location that should connect the best points for maximum results
+											-Growing groups by finding nearby neighboring clusters and rotating between each to center into a single group.
+											-Behavior should be evaluated for a better grouping setup then the current.
+											-Difference of how behavior is conducted for Melee and Ranged:
+												*Ranged can agro at further distances and remain near the final centering location.
+												*Melee requires close encounters to agro and will require a queued movement plan to group efficently.
+					 
+											-Pack Count, Max Distance from bot, Grouping Minimum Units
+										  */
+
+Create Line of Sight Movement Object

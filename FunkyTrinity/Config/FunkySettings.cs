@@ -661,6 +661,12 @@ namespace FunkyTrinity
              public bool AttemptAvoidanceMovements { get; set; }
              public bool UseAdvancedProjectileTesting { get; set; }
              public int KiteDistance { get; set; }
+
+				 public bool AttemptGroupingMovements { get; set; }
+				 public int GroupingMaximumDistanceAllowed { get; set; }
+				 public int GroupingMinimumClusterCount { get; set; }
+				 public int GroupingMinimumUnitsInCluster { get; set; }
+
              public double GlobeHealthPercent { get; set; }
              public double PotionHealthPercent { get; set; }
              public bool IgnoreCorpses { get; set; }
@@ -757,10 +763,18 @@ namespace FunkyTrinity
                  RestartGameOnLongStucks = true;
                  EnableUnstucker = true;
 					  ItemRuleCustomPath="";
+
+					  AttemptGroupingMovements=false;
+					  GroupingMaximumDistanceAllowed=125;
+					  GroupingMinimumClusterCount=1;
+					  GroupingMinimumUnitsInCluster=4;
+
                  AvoidanceRecheckMaximumRate = 3500;
                  AvoidanceRecheckMinimumRate = 550;
+
                  KitingRecheckMaximumRate = 4500;
                  KitingRecheckMinimumRate = 1000;
+
                  OOCIdentifyItems = false;
                  BuyPotionsDuringTownRun = false;
 					  EnableWaitAfterContainers=false;
