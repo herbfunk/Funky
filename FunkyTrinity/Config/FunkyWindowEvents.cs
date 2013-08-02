@@ -195,8 +195,18 @@ namespace FunkyTrinity
                  }
 					  else if (btnsender.Name=="TEST")
 					  {
-							Settings_Funky.SerializeToXML(Bot.SettingsFunky);
-
+							try
+							{
+								 ZetaDia.Actors.Update();
+								 foreach (var item in ZetaDia.Me.Inventory.Pet)
+								 {
+									  Logging.Write(item.Stats.ToString());
+									  Logging.Write(item.ItemLink);
+								 }
+							} catch 
+							{
+								 
+							}
 					  }
                  LBDebug.Items.Refresh();
              }

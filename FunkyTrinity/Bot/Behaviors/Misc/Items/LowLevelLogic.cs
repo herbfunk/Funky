@@ -57,6 +57,7 @@ namespace FunkyTrinity
 		  {
 				get
 				{
+					 
 					 ItemType[] range;
 					 List<ItemType> returningList=new List<ItemType>() { ItemType.CraftingPage, ItemType.CraftingPlan, ItemType.CraftingReagent, ItemType.Gem, ItemType.Potion, ItemType.Unknown };
 					 switch (Bot.Class.AC)
@@ -87,7 +88,7 @@ namespace FunkyTrinity
 
 		  }
 
-		  private static float ValueThisItem(ACDItem thisitem, bool bIsEquipped)
+		  private static float ValueThisItem(ACDItem thisitem, ActorClass AC, bool bIsEquipped)
 		  {
 				float iTempPoints=0;
 				float iThisPrimaryStat=0;
@@ -97,7 +98,7 @@ namespace FunkyTrinity
 				if (thisGilesBaseType==GilesBaseItemType.Armor||thisGilesBaseType==GilesBaseItemType.Jewelry||thisGilesBaseType==GilesBaseItemType.Offhand)
 				{
 					 // Work out the primary stat based on your class
-					 switch (ZetaDia.Me.ActorClass)
+					 switch (AC)
 					 {
 						  case ActorClass.Barbarian:
 								iThisPrimaryStat=thisitem.Stats.Strength;
@@ -130,7 +131,7 @@ namespace FunkyTrinity
 				else if (thisGilesBaseType==GilesBaseItemType.WeaponOneHand||thisGilesBaseType==GilesBaseItemType.WeaponTwoHand||thisGilesBaseType==GilesBaseItemType.WeaponRange)
 				{
 					 // Work out the primary stat based on your class
-					 switch (ZetaDia.Me.ActorClass)
+					 switch (AC)
 					 {
 						  case ActorClass.Barbarian:
 								iThisPrimaryStat=thisitem.Stats.Strength;
@@ -165,7 +166,7 @@ namespace FunkyTrinity
 					 {
 						  if (thisGilesBaseType==GilesBaseItemType.WeaponOneHand||thisGilesBaseType==GilesBaseItemType.WeaponRange)
 						  {
-								switch (ZetaDia.Me.ActorClass)
+								switch (AC)
 								{
 									 case ActorClass.Barbarian:
 										  if (thisGilesType==GilesItemType.Axe||thisGilesType==GilesItemType.Dagger||thisGilesType==GilesItemType.Mace||
@@ -264,43 +265,43 @@ namespace FunkyTrinity
 						  switch (myitem.InventorySlot)
 						  {
 								case InventorySlot.PlayerBracers:
-									 iMyBracersPoints=ValueThisItem(myitem, true);
+									 iMyBracersPoints=ValueThisItem(myitem,Bot.ActorClass, true);
 									 break;
 								case InventorySlot.PlayerFeet:
-									 iMyFeetPoints=ValueThisItem(myitem, true);
+									 iMyFeetPoints=ValueThisItem(myitem, Bot.ActorClass, true);
 									 break;
 								case InventorySlot.PlayerHands:
-									 iMyHandsPoints=ValueThisItem(myitem, true);
+									 iMyHandsPoints=ValueThisItem(myitem, Bot.ActorClass, true);
 									 break;
 								case InventorySlot.PlayerHead:
-									 iMyHeadPoints=ValueThisItem(myitem, true);
+									 iMyHeadPoints=ValueThisItem(myitem, Bot.ActorClass, true);
 									 break;
 								case InventorySlot.PlayerLeftFinger:
-									 iMyLeftFingerPoints=ValueThisItem(myitem, true);
+									 iMyLeftFingerPoints=ValueThisItem(myitem, Bot.ActorClass, true);
 									 break;
 								case InventorySlot.PlayerLeftHand:
-									 iMyLeftHandPoints=ValueThisItem(myitem, true);
+									 iMyLeftHandPoints=ValueThisItem(myitem, Bot.ActorClass, true);
 									 break;
 								case InventorySlot.PlayerLegs:
-									 iMyLegsPoints=ValueThisItem(myitem, true);
+									 iMyLegsPoints=ValueThisItem(myitem, Bot.ActorClass, true);
 									 break;
 								case InventorySlot.PlayerNeck:
-									 iMyNeckPoints=ValueThisItem(myitem, true);
+									 iMyNeckPoints=ValueThisItem(myitem, Bot.ActorClass, true);
 									 break;
 								case InventorySlot.PlayerRightFinger:
-									 iMyRightFingerPoints=ValueThisItem(myitem, true);
+									 iMyRightFingerPoints=ValueThisItem(myitem, Bot.ActorClass, true);
 									 break;
 								case InventorySlot.PlayerRightHand:
-									 iMyRightHandPoints=ValueThisItem(myitem, true);
+									 iMyRightHandPoints=ValueThisItem(myitem, Bot.ActorClass, true);
 									 break;
 								case InventorySlot.PlayerShoulders:
-									 iMyShouldersPoints=ValueThisItem(myitem, true);
+									 iMyShouldersPoints=ValueThisItem(myitem, Bot.ActorClass, true);
 									 break;
 								case InventorySlot.PlayerTorso:
-									 iMyTorsoPoints=ValueThisItem(myitem, true);
+									 iMyTorsoPoints=ValueThisItem(myitem, Bot.ActorClass, true);
 									 break;
 								case InventorySlot.PlayerWaist:
-									 iMyWaistPoints=ValueThisItem(myitem, true);
+									 iMyWaistPoints=ValueThisItem(myitem, Bot.ActorClass, true);
 									 break;
 						  } // End switch inventory slot
 					 } // Loop through all my equipped items
@@ -333,7 +334,7 @@ namespace FunkyTrinity
 										  // DH only
 										  if (ZetaDia.Me.ActorClass==ActorClass.DemonHunter&&!bIgnoreWeapons)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyLeftHandPoints)
 												{
@@ -347,7 +348,7 @@ namespace FunkyTrinity
 										  // WD only
 										  if (ZetaDia.Me.ActorClass==ActorClass.WitchDoctor&&!bIgnoreWeapons)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem, Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyLeftHandPoints)
 												{
@@ -367,7 +368,7 @@ namespace FunkyTrinity
 										  // Monk only
 										  if (ZetaDia.Me.ActorClass==ActorClass.Monk&&!bIgnoreWeapons)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyLeftHandPoints)
 												{
@@ -387,7 +388,7 @@ namespace FunkyTrinity
 										  // Monk only
 										  if (ZetaDia.Me.ActorClass==ActorClass.Wizard&&!bIgnoreWeapons)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyLeftHandPoints)
 												{
@@ -407,7 +408,7 @@ namespace FunkyTrinity
 										  // Monk only
 										  if (ZetaDia.Me.ActorClass==ActorClass.Barbarian&&!bIgnoreWeapons)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyLeftHandPoints)
 												{
@@ -431,7 +432,7 @@ namespace FunkyTrinity
 										  // Not DH
 										  if (ZetaDia.Me.ActorClass!=ActorClass.DemonHunter&&!bIgnoreWeapons)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyLeftHandPoints)
 												{
@@ -451,7 +452,7 @@ namespace FunkyTrinity
 										  // Any class
 										  if (!bIgnoreJewelry)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyNeckPoints)
 												{
@@ -465,7 +466,7 @@ namespace FunkyTrinity
 										  // Any class
 										  if (!bIgnoreJewelry)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if ((iThisItemPoints>iMyLeftFingerPoints&&iThisItemPoints<=iMyRightFingerPoints)||
 													 (iThisItemPoints>iMyLeftFingerPoints&&((iThisItemPoints-iMyLeftFingerPoints)>(iThisItemPoints-iMyRightFingerPoints))))
@@ -487,7 +488,7 @@ namespace FunkyTrinity
 										  // Any class
 										  if (!bIgnoreArmor)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyWaistPoints)
 												{
@@ -501,7 +502,7 @@ namespace FunkyTrinity
 										  // Wizard only
 										  if (ZetaDia.Me.ActorClass==ActorClass.Barbarian&&!bIgnoreArmor)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyWaistPoints)
 												{
@@ -515,7 +516,7 @@ namespace FunkyTrinity
 										  // Any class
 										  if (!bIgnoreArmor)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyFeetPoints)
 												{
@@ -529,7 +530,7 @@ namespace FunkyTrinity
 										  // Any class
 										  if (!bIgnoreArmor)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyBracersPoints)
 												{
@@ -543,7 +544,7 @@ namespace FunkyTrinity
 										  // Any class
 										  if (!bIgnoreArmor)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyTorsoPoints)
 												{
@@ -557,7 +558,7 @@ namespace FunkyTrinity
 										  // Wizard only
 										  if (ZetaDia.Me.ActorClass==ActorClass.DemonHunter&&!bIgnoreArmor)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyTorsoPoints)
 												{
@@ -571,7 +572,7 @@ namespace FunkyTrinity
 										  // Any class
 										  if (!bIgnoreArmor)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyHandsPoints)
 												{
@@ -585,7 +586,7 @@ namespace FunkyTrinity
 										  // Any class
 										  if (!bIgnoreArmor&&!bIgnoreHelm)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyHeadPoints)
 												{
@@ -599,7 +600,7 @@ namespace FunkyTrinity
 										  // Wizard only
 										  if (ZetaDia.Me.ActorClass==ActorClass.Wizard&&!bIgnoreArmor&&!bIgnoreHelm)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyHeadPoints)
 												{
@@ -613,7 +614,7 @@ namespace FunkyTrinity
 										  // Wizard only
 										  if (ZetaDia.Me.ActorClass==ActorClass.Monk&&!bIgnoreArmor&&!bIgnoreHelm)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyHeadPoints)
 												{
@@ -627,7 +628,7 @@ namespace FunkyTrinity
 										  // Wizard only
 										  if (ZetaDia.Me.ActorClass==ActorClass.WitchDoctor&&!bIgnoreArmor&&!bIgnoreHelm)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyHeadPoints)
 												{
@@ -641,7 +642,7 @@ namespace FunkyTrinity
 										  // Any class
 										  if (!bIgnoreArmor)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyLegsPoints)
 												{
@@ -655,7 +656,7 @@ namespace FunkyTrinity
 										  // Any class
 										  if (!bIgnoreArmor)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyShouldersPoints)
 												{
@@ -669,7 +670,7 @@ namespace FunkyTrinity
 										  // Witch Doctor only and not if already using a two-hander
 										  if (ZetaDia.Me.ActorClass==ActorClass.WitchDoctor&&!bMyUsingTwoHandedMelee&&!bIgnoreWeapons)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyRightHandPoints)
 												{
@@ -683,7 +684,7 @@ namespace FunkyTrinity
 										  // Wizard only and not if already using a two-hander
 										  if (ZetaDia.Me.ActorClass==ActorClass.Wizard&&!bMyUsingTwoHandedMelee&&!bIgnoreWeapons)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyRightHandPoints)
 												{
@@ -697,7 +698,7 @@ namespace FunkyTrinity
 										  // DH only
 										  if (ZetaDia.Me.ActorClass==ActorClass.DemonHunter&&!bIgnoreWeapons)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyRightHandPoints)
 												{
@@ -711,7 +712,7 @@ namespace FunkyTrinity
 										  // Barbarian and Monk only and not if already using a two-hander
 										  if ((ZetaDia.Me.ActorClass==ActorClass.Barbarian||ZetaDia.Me.ActorClass==ActorClass.Monk)&&!bMyUsingTwoHandedMelee&&!bIgnoreWeapons)
 										  {
-												iThisItemPoints=ValueThisItem(thisitem, false);
+												iThisItemPoints=ValueThisItem(thisitem,Bot.ActorClass, false);
 												Log("Evaluated '"+thisitem.Name+"'. Points="+iThisItemPoints.ToString());
 												if (iThisItemPoints>iMyRightHandPoints)
 												{
@@ -777,10 +778,10 @@ namespace FunkyTrinity
 				}
 
 				double lastlevelupMS=DateTime.Now.Subtract(LastLevelUp).TotalSeconds;
-				if (lastlevelupMS<30&&lastlevelupMS>15)
+				if (lastlevelupMS>15)
 				{
 					 Bot.Class=null;
-					 LastLevelUp=DateTime.MinValue;
+					 LastLevelUp=DateTime.MaxValue;
 				}
 		  }
 
