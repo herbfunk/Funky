@@ -59,7 +59,7 @@ namespace FunkyTrinity
 					 Bot.Combat.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, Bot.Target.CurrentTarget.CentreDistance+fExtraDistance);
 					 // Resetting this to ensure the "no-spam" is reset since we changed our target location
 					 Bot.Combat.powerLastSnoPowerUsed=SNOPower.None;
-					 Bot.Combat.iACDGUIDLastWhirlwind=Bot.Target.CurrentTarget.AcdGuid.Value;
+					 Bot.Combat.iACDGUIDLastWhirlwind=Bot.Target.CurrentTarget.AcdGuid.HasValue?Bot.Target.CurrentTarget.AcdGuid.Value:-1;
 					 Bot.Combat.lastChangedZigZag=DateTime.Now;
 				}
 				public override Ability DestructibleAbility()
@@ -88,7 +88,7 @@ namespace FunkyTrinity
 						  return new Ability
 						  {
 								Power=Power,
-								
+
 
 								UsageType=AbilityUseType.Buff,
 								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
@@ -107,8 +107,7 @@ namespace FunkyTrinity
 										  // Check if either we don't have blinding flash, or we do and it's been cast in the last 6000ms
 										  //DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Monk_BlindingFlash]).TotalMilliseconds <= 6000)) &&
 										  (!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)||
-										  (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)&&
-										  ((!Bot.SettingsFunky.Class.bMonkInnaSet&&Bot.Combat.iElitesWithinRange[RANGE_50]==0&&(Bot.Target.CurrentUnitTarget.IsEliteRareUnique&&!Bot.Target.CurrentTarget.IsBoss)||HasBuff(SNOPower.Monk_BlindingFlash))))&&
+										  (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)&&(HasBuff(SNOPower.Monk_BlindingFlash)))&&
 										  // Check our mantras, if we have them, are up first
 										  (!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfEvasion)||(Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfEvasion)&&HasBuff(SNOPower.Monk_MantraOfEvasion)))&&
 										  (!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfConviction)||(Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfConviction)&&HasBuff(SNOPower.Monk_MantraOfConviction)))&&
@@ -132,7 +131,7 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.High,
 								Counter=1,
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPetCount),
-								
+
 						  };
 					 }
 					 #endregion
@@ -149,7 +148,7 @@ namespace FunkyTrinity
 								UseAvoiding=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer),
-								
+
 								Fcriteria=new Func<bool>(() => { return Bot.Character.dCurrentHealthPct<=0.45; }),
 						  };
 					 }
@@ -168,7 +167,7 @@ namespace FunkyTrinity
 								UseOOCBuff=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer),
-								
+
 								Fcriteria=new Func<bool>(() => { return Bot.Character.dCurrentHealthPct<=0.50; }),
 						  };
 					 }
@@ -188,7 +187,7 @@ namespace FunkyTrinity
 								UseOOCBuff=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer),
-								
+
 								Fcriteria=new Func<bool>(() => { return (Bot.Character.dCurrentHealthPct<=0.5||!HasBuff(SNOPower.Monk_BreathOfHeaven)); }),
 						  };
 					 }
@@ -207,7 +206,7 @@ namespace FunkyTrinity
 								UseAvoiding=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer),
-								
+
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return
@@ -238,32 +237,19 @@ namespace FunkyTrinity
 						  return new Ability
 						  {
 								Power=Power,
-								
+
 								UsageType=AbilityUseType.Buff,
 								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
 								Cost=Bot.SettingsFunky.Class.bMonkInnaSet?5:75,
 								Priority=AbilityPriority.High,
 								UseOOCBuff=false,
 								UseAvoiding=true,
+								IsSpecialAbility=true,
 
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckExisitingBuff),
-								ElitesWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_20,1),
-								UnitsWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_20,Bot.SettingsFunky.Class.bMonkInnaSet?1:2),
-								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 25),
 								
-								Fcriteria=new Func<bool>(() =>
-								{
-									 return
-										  // Check if either we don't have blinding flash, or we do and it's been cast in the last 6000ms
-										  //DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Monk_BlindingFlash]).TotalMilliseconds <= 6000)) &&
-										  (!this.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)||
-										  (this.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)&&
-										  ((!Bot.SettingsFunky.Class.bMonkInnaSet&&Bot.Combat.iElitesWithinRange[RANGE_50]==0&&Bot.Target.CurrentUnitTarget.IsEliteRareUnique&&!Bot.Target.CurrentTarget.IsBoss)||HasBuff(SNOPower.Monk_BlindingFlash))))&&
-										  // Check our mantras, if we have them, are up first
-										  (!this.HotbarPowers.Contains(SNOPower.Monk_MantraOfEvasion)||(this.HotbarPowers.Contains(SNOPower.Monk_MantraOfEvasion)&&HasBuff(SNOPower.Monk_MantraOfEvasion)))&&
-										  (!this.HotbarPowers.Contains(SNOPower.Monk_MantraOfConviction)||(this.HotbarPowers.Contains(SNOPower.Monk_MantraOfConviction)&&HasBuff(SNOPower.Monk_MantraOfConviction)))&&
-										  (!this.HotbarPowers.Contains(SNOPower.Monk_MantraOfRetribution)||(this.HotbarPowers.Contains(SNOPower.Monk_MantraOfRetribution)&&HasBuff(SNOPower.Monk_MantraOfRetribution)));
-								}),
+								ClusterConditions=new ClusterConditions(7d,35f,2,false),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 25),
 
 						  };
 					 }
@@ -280,12 +266,12 @@ namespace FunkyTrinity
 								Cost=50,
 								Range=16,
 								Priority=AbilityPriority.Low,
-								
+
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckPlayerIncapacitated),
-								ElitesWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_25,1),
+								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 15),
-								
-								
+
+
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return !this.bWaitingForSpecial||Bot.Character.dCurrentEnergy>=this.iWaitingReservedAmount;
@@ -311,8 +297,8 @@ namespace FunkyTrinity
 								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 3),
 								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 14),
-								
-								
+
+
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return (!this.bWaitingForSpecial||Bot.Character.dCurrentEnergy>=this.iWaitingReservedAmount);
@@ -334,12 +320,12 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.Low,
 
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckPlayerIncapacitated),
-								
+
 								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 2),
 								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 1),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 18),
-								
-								
+
+
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return (!this.bWaitingForSpecial||Bot.Character.dCurrentEnergy>=this.iWaitingReservedAmount);
@@ -355,7 +341,7 @@ namespace FunkyTrinity
 						  return new Ability
 						  {
 								Power=Power,
-								
+
 								UsageType=AbilityUseType.Target,
 								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
 								Cost=30,
@@ -363,13 +349,13 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.Low,
 
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckPlayerIncapacitated),
-								ClusterConditions=new ClusterConditions(4d,18f,3,true),
+								ClusterConditions=new ClusterConditions(4d, 18f, 3, true),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 10),
-								
+
 
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return 
+									 return
 										  // Either doesn't have sweeping wind, or does but the buff is already up
 										  (!this.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)||(this.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)&&HasBuff(SNOPower.Monk_SweepingWind)))&&
 										  (!this.bWaitingForSpecial||Bot.Character.dCurrentEnergy>=this.iWaitingReservedAmount);
@@ -385,19 +371,19 @@ namespace FunkyTrinity
 						  return new Ability
 						  {
 								Power=Power,
-								UsageType=AbilityUseType.ClusterLocation| AbilityUseType.Location,
+								UsageType=AbilityUseType.ClusterLocation|AbilityUseType.Location,
 								AbilityWaitVars=new AbilityWaitLoops(2, 2, true),
 								Cost=this.RuneIndexCache[SNOPower.Monk_WaveOfLight]==3?40:75,
 								Range=16,
 								Priority=AbilityPriority.Low,
 
-								
+
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckPlayerIncapacitated),
 								ClusterConditions=new ClusterConditions(6d, 35f, 3, true),
-								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,20),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 20),
 
-								Fcriteria=new Func<bool>(()=>{return !this.bWaitingForSpecial;}),
-								
+								Fcriteria=new Func<bool>(() => { return !this.bWaitingForSpecial; }),
+
 						  };
 					 }
 					 #endregion
@@ -414,10 +400,10 @@ namespace FunkyTrinity
 								Range=23,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
-								
 
-								UnitsWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_25,2),
-								ElitesWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_25,1),
+
+								UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 2),
+								ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1),
 								TargetUnitConditionFlags=new UnitTargetConditions
 								{
 									 TrueConditionFlags=TargetProperties.RareElite|TargetProperties.Unique,
@@ -450,9 +436,9 @@ namespace FunkyTrinity
 								Range=30,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckPlayerIncapacitated),
-								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.Ranged,20),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.Ranged, 20),
 
-								
+
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return (!this.bWaitingForSpecial||Bot.Character.dCurrentEnergy>=this.iWaitingReservedAmount);
@@ -470,7 +456,7 @@ namespace FunkyTrinity
 								Power=Power,
 								UsageType=AbilityUseType.ClusterTarget|AbilityUseType.Target,
 								AbilityWaitVars=new AbilityWaitLoops(0, 1, false),
-								
+
 								Priority=AbilityPriority.None,
 								Range=this.RuneIndexCache[SNOPower.Monk_FistsofThunder]==0?25:12,
 
@@ -478,7 +464,7 @@ namespace FunkyTrinity
 								ClusterConditions=new ClusterConditions(5d, 20f, 1, true),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None),
 
-								
+
 						  };
 
 					 }
@@ -495,7 +481,7 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.None,
 								Range=16,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
-								
+
 						  };
 					 }
 					 #endregion
@@ -511,7 +497,7 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.None,
 								Range=14,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
-								
+
 						  };
 					 }
 					 #endregion
@@ -527,7 +513,7 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.None,
 								Range=14,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
-								
+
 						  };
 					 }
 					 #endregion
@@ -543,7 +529,7 @@ namespace FunkyTrinity
 					 this.iWaitingReservedAmount=80;
 					 return base.AbilitySelector(bCurrentlyAvoiding, bOOCBuff);
 				}
-
+				
 				private bool IsHobbling
 				{
 					 get

@@ -1278,7 +1278,7 @@ namespace FunkyTrinity
 					 {
 						  if ((this.IsEliteRareUnique&&!Bot.SettingsFunky.IgnoreAboveAverageMobs)||
 									 (this.PriorityCounter>0)||
-									 (this.IsBoss&&this.CurrentHealthPct<=0.99d)||(this.IsSucideBomber&&this.CentreDistance<25f)||
+									 (this.IsBoss&&this.CurrentHealthPct<=0.99d)||((this.IsSucideBomber||this.IsCorruptantGrowth)&&this.CentreDistance<45f)||
 									 (this.IsTreasureGoblin&&Bot.SettingsFunky.GoblinPriority>1)||
 									 (Bot.SettingsFunky.ClusterKillLowHPUnits&&this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0
 											&&((!Bot.Class.IsMeleeClass&&this.CentreDistance<30f)||(Bot.Class.IsMeleeClass&&this.RadiusDistance<12f))))

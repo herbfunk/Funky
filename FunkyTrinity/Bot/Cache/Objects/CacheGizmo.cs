@@ -146,13 +146,11 @@ namespace FunkyTrinity
 
 									 if (this.targetType.Value==TargetType.Door)
 									 {
-										  Vector3 InteractionTest;
-										  if (PlayerMover.CurrentMovementPosition==Vector3.Zero)
+										  Vector3 InteractionTest=this.Position;
+										  if (this.RadiusDistance>1f)
 										  {
-												InteractionTest=this.Position;
+												InteractionTest=MathEx.GetPointAt(this.Position, 10f, Navigation.FindDirection(Bot.Character.Position, this.Position, true));
 										  }
-										  else
-												InteractionTest=PlayerMover.CurrentMovementPosition;
 
 										  if ((Difference(InteractionTest.Z, Bot.Character.Position.Z)<15f//Ignore things blocked by z difference
 												&&!MathEx.IntersectsPath(this.Position, this.Radius, Bot.Character.Position, InteractionTest)))
@@ -239,13 +237,11 @@ namespace FunkyTrinity
 										  }
 									 }
 
-									 Vector3 BarricadeTest;
-									 if (PlayerMover.CurrentMovementPosition==Vector3.Zero)
+									 Vector3 BarricadeTest=this.Position;
+									 if (this.RadiusDistance>1f)
 									 {
 										  BarricadeTest=MathEx.GetPointAt(this.Position, 10f, Navigation.FindDirection(Bot.Character.Position, this.Position, true));
 									 }
-									 else
-										  BarricadeTest=PlayerMover.CurrentMovementPosition;
 
 									 //Barricade and path intersects the actorsphere radius..
 									 //Some barricades may be lower than ourself, or our destination is high enough to raycast past the object. So we add a little to the Z of the obstacle.
@@ -741,22 +737,21 @@ namespace FunkyTrinity
 
 				public override RunStatus Interact()
 				{
-					 Bot.Character.WaitWhileAnimating(10, true);
-					 ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, base.Position, Bot.Character.iCurrentWorldID, base.AcdGuid.Value);
+					 Bot.Character.WaitWhileAnimating(20);
+					 ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, this.Position, Bot.Character.iCurrentWorldID, base.AcdGuid.Value);
 					 this.InteractionAttempts++;
 
 					 if (this.InteractionAttempts==1)
 					 {
 						  // Force waiting AFTER power use for certain abilities
 						  Bot.Combat.bWaitingAfterPower=true;
-						  Bot.Combat.powerPrime.WaitLoopsAfter=5;
+						  Bot.Combat.powerPrime.WaitLoopsAfter=10;
 					 }
 
 					 // Interactables can have a long channeling time...
 					 if (this.targetType.Value.HasFlag(TargetType.Interactable))
 					 {
-						  Bot.Character.WaitWhileAnimating(1500, true);
-						  this.BlacklistLoops=20;
+						  Bot.Character.WaitWhileAnimating(1500);
 					 }
 
 					 Bot.Character.WaitWhileAnimating(175, true);

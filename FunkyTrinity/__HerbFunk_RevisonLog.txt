@@ -1,14 +1,22 @@
 ﻿// herbfunk revisions
 
 v1.4.0.0
-	-Refactored code -- Navigation and Stats are now static properties of Bot Class.
-	-Settings now uses XML Serialization.
-	-Kiting renamed to Fleeing -- Added option for health percent of bot.
+	Refactor -- *Details: https://github.com/herbfunk/Funky/commit/ed2ff629826fefae82bcc836b568979871e598ac
+		*Navigation and Stats are now static properties of Bot Class.
+		*Kiting renamed to Fleeing
+
+
+	Settings: !All Settings will need to be set again! 
+		*switched to XML Serialization
+		*removed kiting/avoidance min and max retry settings
 
 	Misc:
+	-Began implementing Code for Grouping Behavior: https://github.com/herbfunk/Funky/commit/cd98e6ee1778733196c85c6db3b640c4e274fc01
 	-Fixed issue of getting stuck during town run -- unid stashing -- in Act 3.
 	-Craft plans are automically stashed if in inventory. (Settings filter pickup of plans now)
 	-Barricades with priority will no longer test intersection in ObjectIsValidForTargeting.
+	-Reset inactivity timer during waits for skill on bosses.
+
 
 v1.1.1.0
 	-Redesigned Navigational block checking.

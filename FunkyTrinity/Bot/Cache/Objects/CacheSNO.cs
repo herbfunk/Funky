@@ -440,6 +440,7 @@ namespace FunkyTrinity
 				public bool IsSucideBomber { get { return SnoCacheLookup.hashActorSNOSucideBomberUnits.Contains(SNOID); } }
 				public bool IsGrotesqueActor { get { return SnoCacheLookup.hashActorSNOCorpulent.Contains(SNOID); } }
 				public bool IsFast { get { return SnoCacheLookup.hashActorSNOFastMobs.Contains(SNOID); } }
+				public bool IsCorruptantGrowth { get { return SNOID==210120||SNOID==210268; } }
 				#endregion
 
 				public bool ContainsNullValues()
