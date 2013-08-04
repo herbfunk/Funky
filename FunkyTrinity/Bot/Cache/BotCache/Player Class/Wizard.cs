@@ -161,7 +161,7 @@ namespace FunkyTrinity
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return ((Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP&&Bot.Character.dCurrentHealthPct<0.5d)
-											||(Bot.SettingsFunky.Class.bTeleportIntoGrouping&&Funky.Clusters(5d, 48f, 2, false).Count>0&&Funky.Clusters()[0].Midpoint.Distance(Bot.Character.PointPosition)>15f)
+											||(Bot.SettingsFunky.Class.bTeleportIntoGrouping&&Bot.Combat.Clusters(5d, 48f, 2, false).Count>0&&Bot.Combat.Clusters()[0].Midpoint.Distance(Bot.Character.PointPosition)>15f)
 											||(!Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP&&!Bot.SettingsFunky.Class.bTeleportIntoGrouping));
 								}),
 						  };
@@ -721,7 +721,7 @@ namespace FunkyTrinity
 								Fcriteria=new Func<bool>(()=>
 								{
 									 return ((Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP&&Bot.Character.dCurrentHealthPct<0.5d)
-												||(Bot.SettingsFunky.Class.bTeleportIntoGrouping&&Funky.Clusters(5d, 48f, 2, false).Count>0&&Funky.Clusters()[0].Midpoint.Distance(Bot.Character.PointPosition)>15f)
+												||(Bot.SettingsFunky.Class.bTeleportIntoGrouping&&Bot.Combat.Clusters(5d, 48f, 2, false).Count>0&&Bot.Combat.Clusters()[0].Midpoint.Distance(Bot.Character.PointPosition)>15f)
 												||(!Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP&&!Bot.SettingsFunky.Class.bTeleportIntoGrouping));
 
 								}),

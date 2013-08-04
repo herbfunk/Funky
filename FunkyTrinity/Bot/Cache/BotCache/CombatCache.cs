@@ -104,6 +104,27 @@ namespace FunkyTrinity
 								return Cluster.RunKmeans(objects, Distance);
 						  }
 					 }
+					 //Cache last filtered list generated
+					 internal List<Cluster> LastClusterList=new List<Cluster>();
+					 private DateTime lastClusterComputed=DateTime.Today;
+					 internal List<Cluster> Clusters(double Distance=12d, float MaxDistanceFromBot=50f, int MinUnitCount=1, bool ignoreFullyNonAttackable=true)
+					 {
+							//only run Kmeans every 200ms or when cache is empty!
+							if (DateTime.Now.Subtract(lastClusterComputed).TotalMilliseconds>200)
+							{
+								 lastClusterComputed=DateTime.Now;
+								 LastClusterList=RunKMeans(MinUnitCount, Distance, MaxDistanceFromBot);
+								 //Sort by distance -- reverse to get nearest unit First
+								 if (LastClusterList.Count>0)
+								 {
+										LastClusterList=LastClusterList.OrderBy(o => o.NearestMonsterDistance).ToList();
+										LastClusterList.First().ListUnits.Sort();
+										LastClusterList.First().ListUnits.Reverse();
+										//  Zeta.Common.Logging.WriteVerbose("MidPoint for Cluster == {0}", LastClusterList.First().Midpoint.ToString());
+								 }
+							}
+							return LastClusterList.Where(c => c.ListUnits.Count>=MinUnitCount).ToList();
+					 }
 
 					 internal void UpdateGroupClusteringVariables()
 					 {
@@ -121,7 +142,7 @@ namespace FunkyTrinity
 									 {
 
 										  //Update Cluster Collection
-											CurrentGroupClusters=Cluster.RunKmeans(DistantUnits, 6d)
+										  CurrentGroupClusters=Cluster.RunKmeans(DistantUnits, Bot.SettingsFunky.GroupingClusterRadiusDistance)
 												.Where(cluster => cluster.ListUnits.Count>=Bot.SettingsFunky.GroupingMinimumUnitsInCluster&&cluster.NearestMonsterDistance<=Bot.SettingsFunky.GroupingMaximumDistanceAllowed)
 												.OrderByDescending(cluster => cluster.NearestMonsterDistance).ToList();
 

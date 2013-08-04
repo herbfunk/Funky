@@ -6,12 +6,115 @@ using Zeta.Common;
 using Zeta.Internals.SNO;
 using Zeta.Internals.Actors;
 using System.Windows;
+using FunkyTrinity.Enums;
 
 namespace FunkyTrinity.Cache
 {
 
 		  internal static class CacheIDLookup
 		  {
+				 internal static ShrineTypes FindShrineType(int SNOID)
+				 {
+						switch (SNOID)
+						{
+							 case 176075:
+									return ShrineTypes.Enlightenment;
+							 case 176077:
+									return ShrineTypes.Frenzy;
+							 case 176074:
+									return ShrineTypes.Protection;
+							 case 176076:
+									return ShrineTypes.Fortune;
+							 case 260331:
+									return ShrineTypes.Fleeting;
+							 default:
+									return ShrineTypes.Empowered; //260330
+						}
+				 }
+
+				 internal static AvoidanceType FindAvoidanceUsingName(string Name)
+				 {
+						Name=Name.ToLower();
+						if (Name.StartsWith("monsteraffix_"))
+						{
+							 if (Name.Contains("dececrator")) return AvoidanceType.Dececrator;
+							 if (Name.Contains("frozen")) return AvoidanceType.Frozen;
+							 if (Name.Contains("molten"))
+							 {
+									if (Name.Contains("trail")) return AvoidanceType.MoltenTrail; else return AvoidanceType.MoltenCore;
+							 }
+							 if (Name.Contains("plagued")) return AvoidanceType.PlagueCloud;
+							 if (Name.Contains("wall")) return AvoidanceType.Wall;
+						}
+						else if (Name.Contains("azmodan")||Name.Contains("belial")||Name.Contains("diablo"))
+						{
+							 //Bosses
+							 if (Name.StartsWith("belial_armslam_projectile")) return AvoidanceType.BelialGround;
+							 if (Name.StartsWith("belial_groundprojectile")) return AvoidanceType.BelialGround;
+						}
+						else
+						{
+							 if (Name.StartsWith("skeletonmage_fire_groundpool")) return AvoidanceType.MageFirePool;
+							 if (Name.StartsWith("fallenshaman_fireball_projectile")) return AvoidanceType.ShamanFireBall;
+							 if (Name.StartsWith("woodwraith_sporecloud_emitter")) return AvoidanceType.TreeSpore;
+						}
+
+						return AvoidanceType.Unknown;
+				 }
+
+				 internal static AvoidanceType FindAvoidanceUsingSNOID(int SNOID)
+				 {
+						switch (SNOID)
+						{
+							 case 219702:
+							 case 221225:
+									return AvoidanceType.ArcaneSentry;
+							 case 84608:
+									return AvoidanceType.Dececrator;
+							 case 5482:
+							 case 6578:
+									return AvoidanceType.TreeSpore;
+							 case 4803:
+							 case 4804:
+									return AvoidanceType.MoltenCore;
+							 case 95868:
+									return AvoidanceType.MoltenTrail;
+							 case 108869:
+									return AvoidanceType.PlagueCloud;
+							 case 402:
+							 case 223675:
+									return AvoidanceType.Frozen;
+							 case 5212:
+									return AvoidanceType.BeeProjectile;
+							 case 3865:
+									return AvoidanceType.PlagueHand;
+							 case 123124:
+									return AvoidanceType.AzmodanPool;
+							 case 123842:
+									return AvoidanceType.AzmodanFireball;
+							 case 123839:
+									return AvoidanceType.AzmodanBodies;
+							 case 161822:
+							 case 161833:
+							 case 60108:
+									return AvoidanceType.BelialGround;
+							 case 168031:
+									return AvoidanceType.DiabloPrison;
+							 case 214845:
+									return AvoidanceType.DiabloMetor;
+							 case 432:
+									return AvoidanceType.MageFirePool;
+							 case 4546:
+									return AvoidanceType.LacuniBomb;
+							 case 4176:
+									return AvoidanceType.PoisonGas;
+							 case 164829:
+									return AvoidanceType.SuccubusProjectile;
+						}
+						return AvoidanceType.Unknown;
+				 }
+
+
 				 internal static List<ItemType> RestrictedItemTypes
 				 {
 						get

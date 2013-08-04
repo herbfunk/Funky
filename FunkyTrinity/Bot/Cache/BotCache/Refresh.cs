@@ -385,10 +385,10 @@ namespace FunkyTrinity
 										  AvoidanceType AvoidanceType=AvoidanceType.Unknown;
 										  if (tmp_CachedObj.IsAvoidance)
 										  {
-												AvoidanceType=Funky.FindAvoidanceUsingSNOID(tmp_CachedObj.SNOID);
+												 AvoidanceType=CacheIDLookup.FindAvoidanceUsingSNOID(tmp_CachedObj.SNOID);
 												if (AvoidanceType==AvoidanceType.Unknown)
 												{
-													 AvoidanceType=Funky.FindAvoidanceUsingName(tmp_CachedObj.InternalName);
+													 AvoidanceType=CacheIDLookup.FindAvoidanceUsingName(tmp_CachedObj.InternalName);
 													 if (AvoidanceType==AvoidanceType.Unknown) continue;
 												}
 										  }

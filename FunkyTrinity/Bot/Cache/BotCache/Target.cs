@@ -125,10 +125,7 @@ namespace FunkyTrinity
 									if (!Bot.NavigationCache.groupingOrginUnit.IsStillValid()
 										 ||Bot.NavigationCache.groupingOrginUnit.CentreDistance<40f)
 									{
-										 Logging.WriteVerbose("Finished Grouping Behavior.");
-										 Bot.NavigationCache.groupRunningBehavior=false;
-										 Bot.NavigationCache.groupReturningToOrgin=false;
-										 Bot.NavigationCache.groupingCurrentUnit=null;
+										 Bot.NavigationCache.GroupingFinishBehavior();
 									}
 									else
 									{
@@ -372,7 +369,7 @@ namespace FunkyTrinity
 													 //Trigger for tough grouping..
 													 if (toughUnitCount>1)
 													 {
-															var targetableUnits=currentTargetCluster.ListUnits.Where(unit => unit.ObjectIsValidForTargeting);
+															var targetableUnits=Bot.Combat.CurrentGroupClusters[0].ListUnits.Where(unit => unit.ObjectIsValidForTargeting);
 															if (targetableUnits.Any())
 															{
 
@@ -393,7 +390,7 @@ namespace FunkyTrinity
 															int rangedUnitCount=currentTargetCluster.ListUnits.Count(unit => unit.Monstersize.Value==MonsterSize.Ranged&&unit.CurrentHealthPct.Value>0.50d);
 															if (rangedUnitCount>2)
 															{
-																 var targetableUnits=currentTargetCluster.ListUnits.Where(unit => unit.ObjectIsValidForTargeting);
+																 var targetableUnits=Bot.Combat.CurrentGroupClusters[0].ListUnits.Where(unit => unit.ObjectIsValidForTargeting);
 																 if (targetableUnits.Any())
 																 {
 																		Logging.WriteVerbose("Starting Grouping Behavior. Triggered by Range Group");

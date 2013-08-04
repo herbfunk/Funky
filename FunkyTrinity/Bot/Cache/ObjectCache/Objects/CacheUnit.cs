@@ -792,7 +792,7 @@ namespace FunkyTrinity.Cache
 						  float centreDistance=this.CentreDistance;
 
 						  //Distant Units List
-						  if (centreDistance>=75)
+						  if (centreDistance>=Bot.SettingsFunky.GroupingMinimumUnitDistance)
 								Bot.Combat.DistantUnits.Add(this);
 
 						  //Distance Check

@@ -392,7 +392,7 @@ namespace FunkyTrinity
 								
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return Funky.Clusters().Count>0&&Funky.Clusters().Any(c => c.DotDPSRatio<0.25);
+									 return Bot.Combat.Clusters().Count>0&&Bot.Combat.Clusters().Any(c => c.DotDPSRatio<0.25);
 								}),
 						  };
 					 }
@@ -417,7 +417,7 @@ namespace FunkyTrinity
 
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return Funky.Clusters().Count>0&&Funky.Clusters().Any(c => c.DotDPSRatio<0.25);
+									 return Bot.Combat.Clusters().Count>0&&Bot.Combat.Clusters().Any(c => c.DotDPSRatio<0.25);
 								}),
 						  };
 					 }

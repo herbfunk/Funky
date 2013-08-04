@@ -265,7 +265,7 @@ namespace FunkyTrinity.Movement
 				return this.Midpoint.GetHashCode();
 		  }
 
-
+			
 		 public static List<Cluster> RunKmeans<T>(List<T> unitList, double distance) where T : CacheObject
 			{
 				 List<Cluster> LC_=new List<Cluster>();

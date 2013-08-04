@@ -79,10 +79,7 @@ namespace FunkyTrinity
         // Darkfriend's Looting Rule
 	    internal static Interpreter ItemRulesEval;
 
-		  internal static float Difference(float A, float B)
-		  {
-				return Math.Abs(A-B);
-		  }
+
 
         // Status text for DB main window status
 	    internal static string sStatusText = "";

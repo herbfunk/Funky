@@ -200,7 +200,7 @@ namespace FunkyTrinity
 								{
 									 return (Bot.SettingsFunky.Class.bGoblinWrath&&Bot.Target.CurrentTarget.IsTreasureGoblin)||
 												(Bot.SettingsFunky.Class.bBarbUseWOTBAlways)||
-												(Funky.Clusters(12d, 45f, 3).Any(c => c.EliteCount>2));
+												(Bot.Combat.Clusters(12d, 45f, 3).Any(c => c.EliteCount>2));
 								}),
 						  };
 					 }

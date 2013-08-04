@@ -545,6 +545,34 @@ namespace FunkyTrinity
                  Bot.SettingsFunky.KiteDistance = Value;
                  TBKiteDistance.Text = Value.ToString();
              }
+				 private void GroupMinimumUnitDistanceSliderChanged(object sender, EventArgs e)
+				 {
+					  Slider slider_sender=(Slider)sender;
+					  int Value=(int)slider_sender.Value;
+					  Bot.SettingsFunky.GroupingMinimumUnitDistance=Value;
+					  TBGroupingMinUnitDistance.Text=Value.ToString();
+				 }
+				 private void GroupMaxDistanceSliderChanged(object sender, EventArgs e)
+				 {
+					  Slider slider_sender=(Slider)sender;
+					  int Value=(int)slider_sender.Value;
+					  Bot.SettingsFunky.GroupingMaximumDistanceAllowed=Value;
+					  TBGroupingMaxDistance.Text=Value.ToString();
+				 }
+				 private void GroupMinimumClusterCountSliderChanged(object sender, EventArgs e)
+				 {
+					  Slider slider_sender=(Slider)sender;
+					  int Value=(int)slider_sender.Value;
+					  Bot.SettingsFunky.GroupingMinimumClusterCount=Value;
+					  TBGroupingMinimumClusterCount.Text=Value.ToString();
+				 }
+				 private void GroupMinimumUnitsInClusterSliderChanged(object sender, EventArgs e)
+				 {
+					  Slider slider_sender=(Slider)sender;
+					  int Value=(int)slider_sender.Value;
+					  Bot.SettingsFunky.GroupingMinimumUnitsInCluster=Value;
+					  TBGroupingMinimumUnitsInCluster.Text=Value.ToString();
+				 }
 				 private void FleeMonsterDistanceSliderChanged(object sender, EventArgs e)
 				 {
 					  Slider slider_sender=(Slider)sender;
@@ -892,6 +920,8 @@ namespace FunkyTrinity
 				 private void GroupingBehaviorChecked(object sender, EventArgs e)
 				 {
 					  Bot.SettingsFunky.AttemptGroupingMovements=!Bot.SettingsFunky.AttemptGroupingMovements;
+						bool enabled=Bot.SettingsFunky.AttemptGroupingMovements;
+						spGroupingOptions.IsEnabled=enabled;
 				 }
              private void ExtendRangeRepChestChecked(object sender, EventArgs e)
              {

@@ -192,7 +192,7 @@ namespace FunkyTrinity.Cache
 									 }
 									 else
 									 {
-											ShrineTypes shrinetype=Funky.FindShrineType(this.SNOID);
+											ShrineTypes shrinetype=CacheIDLookup.FindShrineType(this.SNOID);
 
 										  //Ignore XP Shrines at MAX Paragon Level!
 										  //if (this.SNOID==176075&&Bot.Character.iMyParagonLevel==100)

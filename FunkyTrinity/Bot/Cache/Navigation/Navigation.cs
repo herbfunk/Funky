@@ -532,77 +532,19 @@ namespace FunkyTrinity.Movement
 					 return vBestLocation;
 				}
 
+				#region Grouping
 				internal bool groupRunningBehavior=false;
 				internal bool groupReturningToOrgin=false;
 				internal CacheUnit groupingCurrentUnit=null;
 				internal CacheUnit groupingOrginUnit=null;
-
-				private Cluster groupingOrginCluster;
-				private Cluster groupingCurrentCluster;
-				private DateTime groupingLastUnitChecked=DateTime.Today;
-				 
-				public bool FindGroupingLocation()
+				internal void GroupingFinishBehavior()
 				{
-					 //Step one: Establish our goal. 
-					 //			 --The Location we are grouping at.
-					 //			 --The different groups we want to engage.
-					 //			 --
-
-					 //Step two: Refresh clusters
-
-
-					 Logging.WriteVerbose("Finding Group Location...");
-
-					 if (groupingOrginCluster==null)
-					 {
-						  //No current cluster: Start of the behavior.
-						  //
-
-						  Logging.WriteVerbose("Grouping Behavior Triggered");
-
-						  //Set our orgin -- "place of return" to nearest cluster.
-						  groupingOrginCluster=Bot.Combat.CurrentGroupClusters.Last();
-					 }
-					 else
-					 {
-						  //Check our orgin cluster if its still a valid group..
-					 }
-
-					 if (groupingCurrentUnit!=null)
-					 {
-						  if (DateTime.Now.Subtract(groupingLastUnitChecked).TotalMilliseconds>1250)
-						  {
-								Logging.WriteVerbose("Validating Current Unit Cluster Group Target.");
-								//validate it still remains best location for current group to engage.
-								groupingLastUnitChecked=DateTime.Now;
-						  }
-
-
-					 }
-					 else
-					 {
-						  //Set the destination here
-						  //depends on melee or ranged
-						  //melee will encounter nearest mobs into center
-						  //ranged will position themselves to hit near centeroid?
-						  Logging.WriteVerbose("Updating Group Cluster Current Target");
-
-						  if (Bot.Class.IsMeleeClass)
-						  {
-								groupingCurrentUnit=groupingCurrentCluster.ListUnits[0];
-						  }
-						  else
-						  {
-								groupingCurrentUnit=groupingCurrentCluster.GetNearestUnitToCenteroid();
-						  }
-
-						  Bot.Target.CurrentTarget=groupingCurrentUnit;
-					 }
-
-					 return true;
-
+					 Logging.WriteVerbose("Finished Grouping Behavior.");
+					 Bot.NavigationCache.groupRunningBehavior=false;
+					 Bot.NavigationCache.groupReturningToOrgin=false;
+					 Bot.NavigationCache.groupingCurrentUnit=null;
 				}
-
+				#endregion
 
 				// For "position-shifting" to navigate around obstacle SNO's
 				private DateTime LastObstacleIntersectionTest=DateTime.Today;

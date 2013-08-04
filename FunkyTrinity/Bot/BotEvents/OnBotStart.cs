@@ -24,7 +24,7 @@ namespace FunkyTrinity
 				Logging.WriteDiagnostic("[Funky] Plugin settings location="+FunkySettingsPath);
 
 				//LoadConfiguration();
-				LoadFunkyConfiguration();
+				Settings_Funky.LoadFunkyConfiguration();
 				ItemRulesEval=new Interpreter();
 
 				Navigator.PlayerMover=new PlayerMover();

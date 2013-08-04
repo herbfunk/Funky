@@ -163,10 +163,9 @@
     <Compile Include="Bot\Cache\BotCache\Target.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Clustering.cs">
+    <Compile Include="Bot\Cache\ObjectCache\Blacklisting.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\ObjectCache\Blacklisting.cs" />
     <Compile Include="Bot\Cache\ObjectCache\Collection\Objects.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -455,7 +454,7 @@
     <Compile Include="Bot\Cache\CacheIDLookup.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Avoidance.cs">
+    <Compile Include="Config\Avoidance.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\ObjectCache\ObjectCache.cs">

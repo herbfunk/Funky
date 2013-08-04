@@ -242,7 +242,7 @@ namespace FunkyTrinity.ability
 
 			private bool CheckClusterConditions()
 			{
-				 return Funky.Clusters(this.ClusterConditions.ClusterDistance, this.ClusterConditions.MaximumDistance, this.ClusterConditions.MinimumUnits, this.ClusterConditions.IgnoreNonTargetable).Count>0;
+				 return Bot.Combat.Clusters(this.ClusterConditions.ClusterDistance, this.ClusterConditions.MaximumDistance, this.ClusterConditions.MinimumUnits, this.ClusterConditions.IgnoreNonTargetable).Count>0;
 			}
 
 			///<summary>
@@ -567,13 +567,13 @@ namespace FunkyTrinity.ability
 				 if (this.UsageType.HasFlag(AbilityUseType.ClusterTarget)&&this.CheckClusterConditions()) //Cluster ACDGUID
 				 {
 						//ListUnits[0].AcdGuid.Value;
-						TargetRAGUID_=Funky.Clusters(this.ClusterConditions.ClusterDistance, this.ClusterConditions.MaximumDistance, this.ClusterConditions.MinimumUnits, this.ClusterConditions.IgnoreNonTargetable)[0].GetNearestUnitToCenteroid().AcdGuid.Value;
+						TargetRAGUID_=Bot.Combat.Clusters(this.ClusterConditions.ClusterDistance, this.ClusterConditions.MaximumDistance, this.ClusterConditions.MinimumUnits, this.ClusterConditions.IgnoreNonTargetable)[0].GetNearestUnitToCenteroid().AcdGuid.Value;
 						return;
 				 }
 				 if (this.UsageType.HasFlag(AbilityUseType.ClusterLocation)&&this.CheckClusterConditions()) //Cluster Target Position
 				 {
 						//.ListUnits.First(u => u.ObjectIsValidForTargeting).Position;
-						TargetPosition_=(Vector3)Funky.Clusters(this.ClusterConditions.ClusterDistance, this.ClusterConditions.MaximumDistance, this.ClusterConditions.MinimumUnits, this.ClusterConditions.IgnoreNonTargetable)[0].Midpoint;
+						TargetPosition_=(Vector3)Bot.Combat.Clusters(this.ClusterConditions.ClusterDistance, this.ClusterConditions.MaximumDistance, this.ClusterConditions.MinimumUnits, this.ClusterConditions.IgnoreNonTargetable)[0].Midpoint;
 						return;
 				 }
 

@@ -129,6 +129,8 @@ namespace FunkyTrinity.Movement
 												obj.LOSV3=Vector3.Zero;
 										  }
 
+
+
 										  var intersectingObstacles=Bot.Combat.NearbyObstacleObjects //ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
 																					.Where(obstacle =>
 																						 !Bot.Combat.PrioritizedRAGUIDs.Contains(obstacle.RAGUID)//Only objects not already prioritized
@@ -144,6 +146,13 @@ namespace FunkyTrinity.Movement
 												Bot.Combat.PrioritizedRAGUIDs.AddRange(intersectingObjectRAGUIDs);
 										  }
 
+										  if (Bot.NavigationCache.groupRunningBehavior)
+										  {
+												Logging.WriteVerbose("Grouping Behavior stopped due to blocking counter");
+												Bot.NavigationCache.GroupingFinishBehavior();
+												Bot.Combat.bForceTargetUpdate=true;
+												return RunStatus.Running;
+										  }
 
 										  if (obj.targetType.Value==TargetType.Avoidance)
 										  {//Avoidance Movement..

@@ -94,7 +94,7 @@ namespace FunkyTrinity
 								CreatedCharacter=true;
 								//Setup Settings
 								Bot.UpdateCurrentAccountDetails();
-								LoadFunkyConfiguration();
+								Settings_Funky.LoadFunkyConfiguration();
 						  }
 						  return RunStatus.Running;
 					 }
@@ -120,7 +120,7 @@ namespace FunkyTrinity
 								MuleBehavior=false;
 								//Load Settings
 								Bot.UpdateCurrentAccountDetails();
-								LoadFunkyConfiguration();
+								Settings_Funky.LoadFunkyConfiguration();
 
 								return RunStatus.Success;
 						  }
