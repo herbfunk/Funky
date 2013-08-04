@@ -7,6 +7,8 @@ using Zeta.Internals.Actors;
 using Zeta.CommonBot;
 using System.Linq;
 using System.IO;
+using FunkyTrinity.Enums;
+using FunkyTrinity.Cache;
 
 
 namespace FunkyTrinity

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Zeta;
 using Zeta.Common;
+using FunkyTrinity.Enums;
 
 namespace FunkyTrinity
 {
@@ -3530,6 +3531,17 @@ namespace FunkyTrinity
 					 CBSkipAhead.Checked+=SkipAheadChecked;
 					 CBSkipAhead.Unchecked+=SkipAheadChecked;
 					 lbAdvancedContent.Items.Add(CBSkipAhead);
+
+					 CheckBox CBGroupingBehavior=new CheckBox
+					 {
+						  Content="Grouping Behavior",
+						  Width=300,
+						  Height=20,
+						  IsChecked=Bot.SettingsFunky.AttemptGroupingMovements,
+					 };
+					 CBGroupingBehavior.Checked+=GroupingBehaviorChecked;
+					 CBGroupingBehavior.Unchecked+=GroupingBehaviorChecked;
+					 lbAdvancedContent.Items.Add(CBGroupingBehavior);
 
                 AdvancedTabItem.Content = lbAdvancedContent;
 

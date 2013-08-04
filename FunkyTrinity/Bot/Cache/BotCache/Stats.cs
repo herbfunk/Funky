@@ -4,8 +4,7 @@ using Zeta;
 
 namespace FunkyTrinity
 {
-	 public partial class Funky
-	 {
+
 		  public static partial class Bot
 		  {
 				public class BotStatistics
@@ -50,5 +49,5 @@ namespace FunkyTrinity
 					 public DateTime lastProfileCheck { get; set; }
 				}
 		  }
-    }
+    
 }

@@ -6,13 +6,63 @@ using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
+using FunkyTrinity.Enums;
+using FunkyTrinity.ability;
+using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
 {
-	 public partial class Funky
-	 {
+
 		  internal class DemonHunter : Player
 		  {
+				 enum DemonHunterActiveSkills
+				 {
+						DemonHunter_SpikeTrap=75301,
+						DemonHunter_EntanglingShot=75873,
+						DemonHunter_FanOfKnives=77546,
+						DemonHunter_BolaShot=77552,
+						DemonHunter_MoltenArrow=77601,
+						DemonHunter_Multishot=77649,
+						DemonHunter_Grenades=86610,
+						DemonHunter_Vault=111215,
+						DemonHunter_Preparation=129212,
+						DemonHunter_Chakram=129213,
+						DemonHunter_ClusterArrow=129214,
+						DemonHunter_HungeringArrow=129215,
+						DemonHunter_Caltrops=129216,
+						DemonHunter_Sentry=129217,
+						DemonHunter_Sentry_TurretAttack=129661,
+						DemonHunter_SmokeScreen=130695,
+						DemonHunter_MarkedForDeath=130738,
+						DemonHunter_ShadowPower=130830,
+						DemonHunter_RainOfVengeance=130831,
+						DemonHunter_RapidFire=131192,
+						DemonHunter_ElementalArrow=131325,
+						DemonHunter_Impale=131366,
+						DemonHunter_Companion=133695,
+						DemonHunter_Strafe=134030,
+						DemonHunter_EvasiveFire=134209,
+
+				 }
+				 enum DemonHunterPassiveSkills
+				 {
+						DemonHunter_Passive_NightStalker=218350,
+						DemonHunter_Passive_TacticalAdvantage=218385,
+						DemonHunter_Passive_NumbingTraps=218398,
+						DemonHunter_Passive_Archery=209734,
+						DemonHunter_Passive_Brooding=210801,
+						DemonHunter_Passive_ThrillOfTheHunt=211225,
+						DemonHunter_Passive_Grenadier=208779,
+						DemonHunter_Passive_CustomEngineering=208610,
+						DemonHunter_Passive_SteadyAim=164363,
+						DemonHunter_Passive_Vengeance=155714,
+						DemonHunter_Passive_Sharpshooter=155715,
+						DemonHunter_Passive_CullTheWeak=155721,
+						DemonHunter_Passive_Perfectionist=155722,
+						DemonHunter_Passive_Ballistics=155723,
+						DemonHunter_Passive_HotPursuit=155725,
+
+				 }
 				//Base class for each individual class!
 				public DemonHunter(ActorClass a)
 					 : base(a)
@@ -38,18 +88,18 @@ namespace FunkyTrinity
 					 return (DateTime.Now.Subtract(Bot.Combat.lastChangedZigZag).TotalMilliseconds>=1500f||
 								(Bot.Combat.vPositionLastZigZagCheck!=Vector3.Zero&&Bot.Character.Position==Bot.Combat.vPositionLastZigZagCheck&&DateTime.Now.Subtract(Bot.Combat.lastChangedZigZag).TotalMilliseconds>=1200)||
 								Vector3.Distance(Bot.Character.Position, Bot.Combat.vSideToSideTarget)<=6f||
-								Bot.Target.CurrentTarget.AcdGuid.Value!=Bot.Combat.iACDGUIDLastWhirlwind);
+								Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.AcdGuid.HasValue&&Bot.Target.CurrentTarget.AcdGuid.Value!=Bot.Combat.iACDGUIDLastWhirlwind);
 				}
 				public override void GenerateNewZigZagPath()
 				{
 					 if (Bot.Combat.bCheckGround)
 						  Bot.Combat.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, 25f, false, true, true);
-					 else if (Bot.Combat.iAnythingWithinRange[RANGE_30]>=6||Bot.Combat.iElitesWithinRange[RANGE_30]>=3)
+					 else if (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_30]>=6||Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_30]>=3)
 						  Bot.Combat.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, 25f, false, true);
 					 else
 						  Bot.Combat.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, 25f);
 					 Bot.Combat.powerLastSnoPowerUsed=SNOPower.None;
-					 Bot.Combat.iACDGUIDLastWhirlwind=Bot.Target.CurrentTarget.AcdGuid.Value;
+					 Bot.Combat.iACDGUIDLastWhirlwind=Bot.Target.CurrentTarget.AcdGuid.HasValue?Bot.Target.CurrentTarget.AcdGuid.Value:-1;
 					 Bot.Combat.lastChangedZigZag=DateTime.Now;
 				}
 				public override void RecreateAbilities()
@@ -78,7 +128,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								Cost=14,
 								SecondaryEnergy=true,
 								UseAvoiding=true,
@@ -88,7 +138,7 @@ namespace FunkyTrinity
 								
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return (Bot.Character.dCurrentHealthPct<=0.99d||Bot.Character.bIsRooted||Bot.Combat.iElitesWithinRange[RANGE_25]>=1||Bot.Combat.iAnythingWithinRange[RANGE_15]>=3);
+									 return (Bot.Character.dCurrentHealthPct<=0.99d||Bot.Character.bIsRooted||Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_25]>=1||Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3);
 
 								}),
 						  };
@@ -102,7 +152,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
+								WaitVars=new WaitLoops(0, 1, true),
 								Cost=28,
 								SecondaryEnergy=true,
 								Range=0,
@@ -115,7 +165,7 @@ namespace FunkyTrinity
 								{
 									 return (!HasBuff(SNOPower.DemonHunter_ShadowPower)||Bot.Character.bIsIncapacitated)
 												&&(Bot.Character.dDiscipline>=28||(Bot.Character.dDiscipline>=14&&Bot.Combat.IsFleeing))
-												&&(Bot.Character.dCurrentHealthPct<=0.90||Bot.Character.bIsRooted||Bot.Combat.iElitesWithinRange[RANGE_20]>=1||Bot.Combat.iAnythingWithinRange[RANGE_15]>=3||Bot.Character.bIsIncapacitated);
+												&&(Bot.Character.dCurrentHealthPct<=0.90||Bot.Character.bIsRooted||Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_20]>=1||Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3||Bot.Character.bIsIncapacitated);
 								}),
 						  };
 					 }
@@ -128,7 +178,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								UseAvoiding=true,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.High,
@@ -151,7 +201,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								Cost=0,
 								UseAvoiding=true,
 								UseOOCBuff=false,
@@ -172,7 +222,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(2, 1, true),
+								WaitVars=new WaitLoops(2, 1, true),
 								Cost=10,
 								SecondaryEnergy=true,
 								Counter=1,
@@ -193,7 +243,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Self,
-								AbilityWaitVars=new AbilityWaitLoops(0, 0, true),
+								WaitVars=new WaitLoops(0, 0, true),
 								Cost=30,
 								UseAvoiding=true,
 								UseOOCBuff=false,
@@ -204,7 +254,7 @@ namespace FunkyTrinity
 								{
 									 return Bot.Combat.powerLastSnoPowerUsed!=SNOPower.DemonHunter_Sentry&&
 												(Bot.Combat.FleeingLastTarget||DateTime.Now.Subtract(Bot.Combat.LastFleeAction).TotalMilliseconds<1000)||
-												(Bot.Combat.iElitesWithinRange[RANGE_40]>=1||Bot.Combat.iAnythingWithinRange[RANGE_40]>=2);
+												(Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_40]>=1||Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_40]>=2);
 								}),
 						  };
 					 }
@@ -217,7 +267,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								Cost=3,
 								SecondaryEnergy=true,
 								Range=40,
@@ -241,7 +291,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Location,
-								AbilityWaitVars=new AbilityWaitLoops(1, 2, true),
+								WaitVars=new WaitLoops(1, 2, true),
 								Cost=8,
 								SecondaryEnergy=true,
 								Range=20,
@@ -265,7 +315,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								Cost=0,
 								UseAvoiding=true,
 								UseOOCBuff=false,
@@ -287,7 +337,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Location|AbilityUseType.ClusterLocation,
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								Cost=50,
 								Range=50,
 								IsRanged=true,
@@ -314,7 +364,7 @@ namespace FunkyTrinity
 								Power=Power,
 								UsageType=AbilityUseType.ClusterTarget| AbilityUseType.Target,
 								
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								Cost=30,
 								Range=55,
 								IsRanged=true,
@@ -336,7 +386,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								Cost=20,
 								Range=0,
 								UseAvoiding=false,
@@ -358,7 +408,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.ZigZagPathing,
-								AbilityWaitVars=new AbilityWaitLoops(0, 0, true),
+								WaitVars=new WaitLoops(0, 0, true),
 								Cost=15,
 								Range=25,
 								UseAvoiding=false,
@@ -379,7 +429,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Location,
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								Cost=30,
 								Range=40,
 								UseAvoiding=true,
@@ -408,7 +458,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								Cost=6,
 								SecondaryEnergy=true,
 								Range=0,
@@ -433,7 +483,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.ClusterTarget|AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
+								WaitVars=new WaitLoops(0, 1, true),
 								Cost=10,
 								Range=48,
 								IsRanged=true,
@@ -459,7 +509,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.ClusterTarget|AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
+								WaitVars=new WaitLoops(0, 1, true),
 								Cost=10,
 								Range=50,
 								UseAvoiding=false,
@@ -473,7 +523,7 @@ namespace FunkyTrinity
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return ((!Bot.Class.HotbarPowers.Contains(SNOPower.DemonHunter_ClusterArrow))||
-												DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.DemonHunter_Chakram]).TotalMilliseconds>=110000);
+												DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastUse[SNOPower.DemonHunter_Chakram]).TotalMilliseconds>=110000);
 								}),
 						  };
 					 }
@@ -486,7 +536,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
+								WaitVars=new WaitLoops(0, 1, true),
 								Cost=20,
 								Range=50,
 								IsRanged=true,
@@ -506,7 +556,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
+								WaitVars=new WaitLoops(0, 1, true),
 								Cost=25,
 								Range=12,
 								UseAvoiding=false,
@@ -531,7 +581,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
+								WaitVars=new WaitLoops(0, 1, true),
 								Cost=0,
 								Range=50,
 								IsRanged=true,
@@ -551,7 +601,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
+								WaitVars=new WaitLoops(0, 1, true),
 								Cost=0,
 								Range=50,
 								IsRanged=true,
@@ -571,7 +621,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.ClusterTarget|AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
+								WaitVars=new WaitLoops(0, 1, true),
 								Cost=0,
 								Range=50,
 								IsRanged=true,
@@ -596,7 +646,7 @@ namespace FunkyTrinity
 								Power=Power,
 								UsageType=AbilityUseType.ClusterTarget| AbilityUseType.Target,
 								ClusterConditions=new ClusterConditions(6d, 40f, 1, true),
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
+								WaitVars=new WaitLoops(0, 1, true),
 								Cost=0,
 								Range=40,
 								IsRanged=true,
@@ -610,7 +660,7 @@ namespace FunkyTrinity
 					 #endregion
 
 					 if (Power==SNOPower.Weapon_Ranged_Projectile)
-						  returnAbility=Projectile_Range_Attack;
+						  returnAbility=Ability.Projectile_Range_Attack;
 
 					 return returnAbility;
 				}
@@ -633,5 +683,5 @@ namespace FunkyTrinity
 				}
 
 		  }
-	 }
+	 
 }

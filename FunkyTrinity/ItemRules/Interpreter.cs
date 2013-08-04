@@ -10,6 +10,7 @@ using GilesTrinity.ItemRules.Core;
 using Zeta;
 using Zeta.CommonBot.Items;
 using Zeta.CommonBot;
+using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
 {
@@ -104,9 +105,9 @@ namespace FunkyTrinity
 
 				// read configuration file and item files now
 				readConfiguration();
-				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, " _______________________________________");
-				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, " ___-|: Darkfriend's Item Rules 2 :|-___");
-				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, " ___________________Rel.-v {0}_______", version);
+				Logging.Write(" _______________________________________");
+				Logging.Write(" ___-|: Darkfriend's Item Rules 2 :|-___");
+				Logging.Write(" ___________________Rel.-v {0}_______", version);
 		  }
 
 		  public void reset()
@@ -149,23 +150,23 @@ namespace FunkyTrinity
 				macroDic=new Dictionary<string, string>();
 
 				// use giles setting
-				if (FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleDebug)
-					 FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "ItemRules is running in debug mode!", logPickQuality);
-				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "ItemRules is using the {0} rule set.", FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleType.ToString().ToLower());
-				logPickQuality=getTrinityItemQualityFromString(FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleLogPickup.ToString());
-				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "PICKLOG = {0} ", logPickQuality);
-				logKeepQuality=getTrinityItemQualityFromString(FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleLogKeep.ToString());
-				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "KEEPLOG = {0} ", logKeepQuality);
+				if (Bot.SettingsFunky.ItemRuleDebug)
+					 Logging.Write("ItemRules is running in debug mode!", logPickQuality);
+				Logging.Write("ItemRules is using the {0} rule set.", Bot.SettingsFunky.ItemRuleType.ToString().ToLower());
+				logPickQuality=getTrinityItemQualityFromString(Bot.SettingsFunky.ItemRuleLogPickup.ToString());
+				Logging.Write("PICKLOG = {0} ", logPickQuality);
+				logKeepQuality=getTrinityItemQualityFromString(Bot.SettingsFunky.ItemRuleLogKeep.ToString());
+				Logging.Write("KEEPLOG = {0} ", logKeepQuality);
 
 				string rulesPath;
-				if (FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleType.Equals("Custom"))
+				if (Bot.SettingsFunky.ItemRuleType.Equals("Custom"))
 				{
-					 rulesPath=Path.GetFullPath(FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleCustomPath);
+					 rulesPath=Path.GetFullPath(Bot.SettingsFunky.ItemRuleCustomPath);
 				}
 				else
-					 rulesPath=Path.Combine(itemrulesPath, "Rules", FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleType.ToString().ToLower());
+					 rulesPath=Path.Combine(itemrulesPath, "Rules", Bot.SettingsFunky.ItemRuleType.ToString().ToLower());
 
-				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "RULEPATH = {0} ", rulesPath);
+				Logging.Write("RULEPATH = {0} ", rulesPath);
 
 				// fill translation dictionary
 				nameToBalanceId=new Dictionary<string, string>();
@@ -180,15 +181,15 @@ namespace FunkyTrinity
 
 				// parse pickup file
 				pickUpRuleSet=readLinesToArray(new StreamReader(Path.Combine(rulesPath, pickupFile)), pickUpRuleSet);
-				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "... loaded: {0} Pickup rules", pickUpRuleSet.Count);
+				Logging.Write("... loaded: {0} Pickup rules", pickUpRuleSet.Count);
 
 				//parse savlage file
 				salvageRuleSet=readLinesToArray(new StreamReader(Path.Combine(itemrulesPath, "Rules", salvageFile)), salvageRuleSet);
-				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "... loaded: {0} Salvage rules", salvageRuleSet.Count);
+				Logging.Write("... loaded: {0} Salvage rules", salvageRuleSet.Count);
 
 				//parse unid keep file
 				unidKeepRuleSet=readLinesToArray(new StreamReader(Path.Combine(itemrulesPath, "Rules", unidFile)), unidKeepRuleSet);
-				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "... loaded: {0} Unid Keep rules", unidKeepRuleSet.Count);
+				Logging.Write("... loaded: {0} Unid Keep rules", unidKeepRuleSet.Count);
 
 				// parse all item files
 				foreach (TrinityItemQuality itemQuality in Enum.GetValues(typeof(TrinityItemQuality)))
@@ -199,12 +200,12 @@ namespace FunkyTrinity
 					 if (File.Exists(filePath))
 					 {
 						  ruleSet=readLinesToArray(new StreamReader(filePath), ruleSet);
-						  FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "... loaded: {0} {1} rules", (ruleSet.Count-oldValue), itemQuality.ToString());
+						  Logging.Write("... loaded: {0} {1} rules", (ruleSet.Count-oldValue), itemQuality.ToString());
 					 }
 				}
 
-				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "... loaded: {0} Macros", macroDic.Count);
-				FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "ItemRules loaded a total of {0} {1} rules!", ruleSet.Count, FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleType.ToString());
+				Logging.Write("... loaded: {0} Macros", macroDic.Count);
+				Logging.Write("ItemRules loaded a total of {0} {1} rules!", ruleSet.Count, Bot.SettingsFunky.ItemRuleType.ToString());
 		  }
 
 		  /// <summary>
@@ -238,7 +239,7 @@ namespace FunkyTrinity
 					 // - stop macro transformation
 
 					 // do simple translation with name to itemid
-					 if (FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleUseItemIDs&&str.Contains("[NAME]"))
+					 if (Bot.SettingsFunky.ItemRuleUseItemIDs&&str.Contains("[NAME]"))
 					 {
 						  bool foundTranslation=false;
 						  foreach (string key in nameToBalanceId.Keys.ToList())
@@ -251,8 +252,8 @@ namespace FunkyTrinity
 									 break;
 								}
 						  }
-						  if (!foundTranslation&&FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleDebug)
-								FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "No translation found for rule: {0}", str);
+						  if (!foundTranslation&&Bot.SettingsFunky.ItemRuleDebug)
+								Logging.Write("No translation found for rule: {0}", str);
 					 }
 
 					 array.Add(str);
@@ -265,7 +266,7 @@ namespace FunkyTrinity
 		  /// </summary>
 		  /// <param name="item"></param>
 		  /// <returns></returns>
-		  internal InterpreterAction checkPickUpItem(FunkyTrinity.Funky.CacheItem item, ItemEvaluationType evaluationType)
+		  internal InterpreterAction checkPickUpItem(CacheItem item, ItemEvaluationType evaluationType)
 		  {
 				fillPickupDic(item);
 
@@ -568,7 +569,7 @@ namespace FunkyTrinity
 		  public void logOut(string str, InterpreterAction action, LogType logType)
 		  {
 				// no debugging when flag set false
-				if (logType==LogType.DEBUG&&!FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleDebug)
+				if (logType==LogType.DEBUG&&!Bot.SettingsFunky.ItemRuleDebug)
 					 return;
 
 				//if (!GilesTrinity.Settings.Advanced.ItemRulesLogs)
@@ -690,7 +691,7 @@ namespace FunkyTrinity
 		  /// <param name="isOneHand"></param>
 		  /// <param name="isTwoHand"></param>
 		  /// <param name="gameBalanceId"></param>
-		  private void fillPickupDic(FunkyTrinity.Funky.CacheItem item)
+		  private void fillPickupDic(CacheItem item)
 		  {
 				object result;
 				itemDic=new Dictionary<string, object>();
@@ -705,7 +706,7 @@ namespace FunkyTrinity
 				/// TODO remove this check if it isnt necessary anymore
 				if (item.BalanceData.thisItemType==ItemType.Unknown&&(item.InternalName.Contains("Plan")||item.InternalName.Contains("Design")))
 				{
-					 FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "There are still buggy itemType infos for craftingPlan around {0} has itemType = {1}", item.InternalName, item.BalanceData.thisItemType);
+					 Logging.Write("There are still buggy itemType infos for craftingPlan around {0} has itemType = {1}", item.InternalName, item.BalanceData.thisItemType);
 					 result=ItemType.CraftingPlan.ToString();
 				}
 				else result=item.BalanceData.thisItemType.ToString();
@@ -751,7 +752,7 @@ namespace FunkyTrinity
 				}
 
 				// check for missing translations
-				if (FunkyTrinity.Funky.Bot.SettingsFunky.ItemRuleDebug&&item.ItemQualityLevel==ItemQuality.Legendary)
+				if (Bot.SettingsFunky.ItemRuleDebug&&item.ItemQualityLevel==ItemQuality.Legendary)
 					 checkItemForMissingTranslation(item);
 
 				// add log unique key
@@ -764,7 +765,7 @@ namespace FunkyTrinity
 				/// TODO remove this check if it isnt necessary anymore
 				if (item.ItemType==ItemType.Unknown&&item.Name.Contains("Plan"))
 				{
-					 FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "There are still buggy itemType infos for craftingPlan around {0} has itemType = {1}", item.Name, item.ItemType);
+					 Logging.Write("There are still buggy itemType infos for craftingPlan around {0} has itemType = {1}", item.Name, item.ItemType);
 					 result=ItemType.CraftingPlan.ToString();
 				}
 				else result=item.ItemType.ToString();
@@ -928,7 +929,7 @@ namespace FunkyTrinity
 				string balanceIDstr;
 				if (!nameToBalanceId.TryGetValue(item.Name.Replace(" ", ""), out balanceIDstr)&&!nameToBalanceId.ContainsValue(item.GameBalanceId.ToString()))
 				{
-					 FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "Translation: Missing: "+item.GameBalanceId.ToString()+";"+item.Name+" (ID is missing report)");
+					 Logging.Write("Translation: Missing: "+item.GameBalanceId.ToString()+";"+item.Name+" (ID is missing report)");
 					 // not found missing name
 					 StreamWriter transFix=new StreamWriter(Path.Combine(logPath, transFixFile), true);
 					 transFix.WriteLine("Missing: "+item.GameBalanceId.ToString()+";"+item.Name);
@@ -936,7 +937,7 @@ namespace FunkyTrinity
 				}
 				else if (balanceIDstr!=item.GameBalanceId.ToString())
 				{
-					 FunkyTrinity.Funky.DbHelper.Log(FunkyTrinity.Funky.DbHelper.TrinityLogLevel.Normal, FunkyTrinity.Funky.DbHelper.LogCategory.UserInformation, "Translation: Wrong("+balanceIDstr+"): "+item.GameBalanceId.ToString()+";"+item.Name);
+					 Logging.Write("Translation: Wrong("+balanceIDstr+"): "+item.GameBalanceId.ToString()+";"+item.Name);
 					 // wrong reference
 					 StreamWriter transFix=new StreamWriter(Path.Combine(logPath, transFixFile), true);
 					 transFix.WriteLine("Wrong("+balanceIDstr+"): "+item.GameBalanceId.ToString()+";"+item.Name);

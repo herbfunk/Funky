@@ -7,6 +7,8 @@ using Zeta.Internals.Actors;
 using System.IO;
 using Zeta;
 using System.Collections.Generic;
+using FunkyTrinity.Enums;
+using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
 {
@@ -129,7 +131,7 @@ namespace FunkyTrinity
 									 Logging.Write("+=+=+=+=+=+=+=+=+ LEGENDARY FOUND +=+=+=+=+=+=+=+=+");
 									 Logging.Write("+  Name:       "+thisgooditem.ThisRealName+" ("+thisgilesitemtype.ToString()+")");
 									 Logging.Write("+  Score:       "+Math.Round(ithisitemvalue).ToString());
-									 Logging.Write("+  Attributes: "+TownRunManager.sValueItemStatString);
+									 Logging.Write("+  Attributes: "+ thisgooditem.ItemStatString);
 									 Logging.Write("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+");
 								}
 								else
@@ -170,7 +172,7 @@ namespace FunkyTrinity
 						  if (!thisgooditem.IsUnidentified)
 						  {
 								LogWriter.WriteLine(thisgilesbaseitemtype.ToString()+" - "+thisgilesitemtype.ToString()+" '"+thisgooditem.ThisRealName+"'. Score = "+Math.Round(ithisitemvalue).ToString()+sLegendaryString);
-								LogWriter.WriteLine("  "+TownRunManager.sValueItemStatString);
+								LogWriter.WriteLine("  "+thisgooditem.ItemStatString);
 								LogWriter.WriteLine("");
 						  }
 						  else
@@ -388,7 +390,7 @@ namespace FunkyTrinity
 
 
 		  //Called during the confirmed loot stage of target handling.
-		  private static void LogItemInformation()
+		 internal static void LogItemInformation()
 		  {
 				// Store item pickup stats
 				if (!_hashsetItemPicksLookedAt.Contains(Bot.Target.CurrentTarget.RAGUID))

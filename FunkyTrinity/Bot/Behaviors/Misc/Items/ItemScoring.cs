@@ -5,6 +5,8 @@ using System.Windows;
 using Zeta.Common;
 using Zeta.Internals.Actors;
 using Zeta;
+using FunkyTrinity.Enums;
+using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
 {

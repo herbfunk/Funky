@@ -2,6 +2,7 @@
 using Zeta;
 using Zeta.Internals.Actors;
 using System.Collections.Generic;
+using FunkyTrinity.Enums;
 
 namespace FunkyTrinity
 {
@@ -53,40 +54,6 @@ namespace FunkyTrinity
 		  internal static Boolean bMyUsingTwoHandedMelee=false;
 		  internal static Boolean bNeedFullItemUpdate=true;
 
-		  private static List<ItemType> RestrictedTypes
-		  {
-				get
-				{
-					 
-					 ItemType[] range;
-					 List<ItemType> returningList=new List<ItemType>() { ItemType.CraftingPage, ItemType.CraftingPlan, ItemType.CraftingReagent, ItemType.Gem, ItemType.Potion, ItemType.Unknown };
-					 switch (Bot.Class.AC)
-					 {
-						  case ActorClass.Barbarian:
-								range=new ItemType[] { ItemType.Bow, ItemType.CeremonialDagger, ItemType.Cloak, ItemType.Crossbow, ItemType.Daibo, ItemType.FistWeapon, ItemType.HandCrossbow, ItemType.Mojo, ItemType.Orb, ItemType.Quiver, ItemType.SpiritStone, ItemType.Staff, ItemType.VoodooMask, ItemType.Wand, ItemType.WizardHat };
-								returningList.AddRange(range);
-								break;
-						  case ActorClass.DemonHunter:
-								range=new ItemType[] { ItemType.Axe, ItemType.CeremonialDagger, ItemType.Dagger, ItemType.Daibo, ItemType.FistWeapon, ItemType.Mace, ItemType.MightyBelt, ItemType.MightyWeapon, ItemType.Mojo, ItemType.Orb, ItemType.Polearm, ItemType.Spear, ItemType.SpiritStone, ItemType.Staff, ItemType.Sword, ItemType.VoodooMask, ItemType.Wand, ItemType.WizardHat };
-								returningList.AddRange(range);
-								break;
-						  case ActorClass.Monk:
-								range=new ItemType[] { ItemType.Bow, ItemType.CeremonialDagger, ItemType.Cloak, ItemType.Crossbow, ItemType.HandCrossbow, ItemType.MightyBelt, ItemType.MightyWeapon, ItemType.Mojo, ItemType.Orb, ItemType.Quiver, ItemType.VoodooMask, ItemType.Wand, ItemType.WizardHat };
-								returningList.AddRange(range);
-								break;
-						  case ActorClass.WitchDoctor:
-								range=new ItemType[] { ItemType.Cloak, ItemType.Daibo, ItemType.FistWeapon, ItemType.HandCrossbow, ItemType.MightyBelt, ItemType.MightyWeapon, ItemType.Orb, ItemType.Polearm, ItemType.Quiver, ItemType.SpiritStone, ItemType.Wand, ItemType.WizardHat };
-								returningList.AddRange(range);
-								break;
-						  case ActorClass.Wizard:
-								range=new ItemType[] { ItemType.CeremonialDagger, ItemType.Cloak, ItemType.Daibo, ItemType.FistWeapon, ItemType.MightyBelt, ItemType.MightyWeapon, ItemType.Mojo, ItemType.Polearm, ItemType.Quiver, ItemType.SpiritStone, ItemType.VoodooMask };
-								returningList.AddRange(range);
-								break;
-					 }
-					 return returningList;
-				}
-
-		  }
 
 		  private static float ValueThisItem(ACDItem thisitem, ActorClass AC, bool bIsEquipped)
 		  {
@@ -728,27 +695,7 @@ namespace FunkyTrinity
 				} // Foreach through backpack items
 		  } // CheckBackpack
 
-		  private static bool ItemTypeIsRestricted(ItemType type)
-		  {
-				/*
-				if ((type==ItemType.CeremonialDagger||type==ItemType.VoodooMask||type==ItemType.Mojo)&&Bot.Class.AC==Zeta.Internals.Actors.ActorClass.WitchDoctor)
-					 return false;
 
-				if ((type==ItemType.MightyBelt||type==ItemType.MightyWeapon)&&Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Barbarian)
-					 return false;
-
-				if ((type==ItemType.WizardHat||type==ItemType.Wand||type==ItemType.Orb)&&Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Wizard)
-					 return false;
-
-				if ((type==ItemType.SpiritStone||type==ItemType.FistWeapon||type==ItemType.Daibo)&&Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Monk)
-					 return false;
-
-				if ((type==ItemType.HandCrossbow||type==ItemType.Quiver||type==ItemType.Cloak)&&Bot.Class.AC==Zeta.Internals.Actors.ActorClass.DemonHunter)
-					 return false;
-				*/
-
-				return (RestrictedTypes.Contains(type));
-		  }
 
 
 		  private static void LowLevelLogicPulse()

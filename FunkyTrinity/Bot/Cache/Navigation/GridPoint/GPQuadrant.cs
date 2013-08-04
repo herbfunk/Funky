@@ -4,11 +4,13 @@ using Zeta;
 using System.Collections.Generic;
 using Zeta.Common;
 using System.Windows;
+using FunkyTrinity.Enums;
+using FunkyTrinity.Cache;
+using FunkyTrinity.Movement;
 
-namespace FunkyTrinity
+namespace FunkyTrinity.Movement
 {
-	 public partial class Funky
-	 {
+
 
 				///<summary>
 				///GridPoint Rectangle 
@@ -194,9 +196,9 @@ namespace FunkyTrinity
 						  bool checkLOS=LoSCheckV3!=Vector3.Zero;
 						  
 						  float averageZ=this.AverageAreaVectorZ;
-						  Vector3 botcurpos=(Bot.Character.Position);
+							Vector3 botcurpos=(Bot.Character.Position);
 						  float botCurrentZ=botcurpos.Z;
-						  bool ZHeightCheckPass=Difference(this.AverageAreaVectorZ, botCurrentZ)<1f;
+							bool ZHeightCheckPass=Funky.Difference(this.AverageAreaVectorZ, botCurrentZ)<1f;
 
 						  for (int curIndex=LastIndexUsed; curIndex<ContainedPoints.Count-1; curIndex++)
 						  {
@@ -239,7 +241,7 @@ namespace FunkyTrinity
 								if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(pointVector)) continue;
 
 								//Kiting Check
-								if (kite&&ObjectCache.Objects.OfType<CacheUnit>().Any(m => m.ShouldBeKited && m.IsPositionWithinRange(pointVector,Bot.SettingsFunky.FleeMaxMonsterDistance))) continue;
+								if (kite&&ObjectCache.Objects.OfType<CacheUnit>().Any(m => m.ShouldBeKited&&m.IsPositionWithinRange(pointVector, Bot.SettingsFunky.FleeMaxMonsterDistance))) continue;
 
 								//Avoidance Intersection Check
 								if (checkBotAvoidIntersection&&ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(botcurpos, pointVector)) continue;
@@ -263,5 +265,5 @@ namespace FunkyTrinity
 
 				}
 		  
-	 }
+	 
 }

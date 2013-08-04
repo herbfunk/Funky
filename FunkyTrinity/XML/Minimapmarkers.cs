@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FunkyTrinity.Movement;
 using Zeta;
 using Zeta.Common;
 using Zeta.Navigation;
 using Zeta.TreeSharp;
 using Action=Zeta.TreeSharp.Action;
 
-namespace FunkyTrinity
+namespace FunkyTrinity.XMLTags
 {
 	 /// <summary>
 	 /// Class to help track MiniMapMarkers during Dungeon Exploration
@@ -134,8 +135,8 @@ namespace FunkyTrinity
 
 		  public static RunStatus MoveToNearestMarker(Vector3 near)
 		  {
-				if (Funky.SkipAheadCache.bSkipAheadAGo)
-					 Funky.SkipAheadCache.RecordSkipAheadCachePoint();
+				if (SkipAheadCache.bSkipAheadAGo)
+					 SkipAheadCache.RecordSkipAheadCachePoint();
 
 				MiniMapMarker m=MiniMapMarker.GetNearestUnvisitedMarker(near);
 				lastMoveResult=Navigator.MoveTo(MiniMapMarker.GetNearestUnvisitedMarker(near).Position);

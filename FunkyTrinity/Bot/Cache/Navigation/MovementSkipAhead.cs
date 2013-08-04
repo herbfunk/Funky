@@ -4,10 +4,9 @@ using Zeta;
 using Zeta.Common;
 using System.Collections.Generic;
 
-namespace FunkyTrinity
+namespace FunkyTrinity.Movement
 {
-	 public partial class Funky
-	 {
+
 		  public static class SkipAheadCache
 		  {
 				public static bool bSkipAheadAGo=false;
@@ -71,5 +70,5 @@ namespace FunkyTrinity
 					 lastRecordedSkipAheadCache=DateTime.Now;
 				}
 		  }
-    }
+    
 }

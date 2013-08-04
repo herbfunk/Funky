@@ -2,10 +2,9 @@
 using Zeta;
 using Zeta.Common;
 
-namespace FunkyTrinity
+namespace FunkyTrinity.Movement
 {
-	 public partial class Funky
-	 {
+
 		  // A list of small areas covering zones we move through while fighting to help our custom move-handler skip ahead waypoints
 		  internal class SkipAheadNavigation
 		  {
@@ -23,5 +22,5 @@ namespace FunkyTrinity
 					 return (SkipAheadNavigation)this.MemberwiseClone();
 				}
 		  }
-    }
+    
 }

@@ -4,10 +4,9 @@ using System.Linq;
 using Zeta;
 using Zeta.Common;
 
-namespace FunkyTrinity
+namespace FunkyTrinity.Movement
 {
-	 public partial class Funky
-	 {
+
 		  //Redesign how we use the GPCache by creating it into a instance which contains the entrie area we conduct a search in.
 
 
@@ -99,12 +98,12 @@ namespace FunkyTrinity
 						  else
 						  {
 								//Cache it and set timer
-								lastFoundSafeSpot=DateTime.Now;
-								vlastSafeSpot=safespot;
+								Bot.NavigationCache.lastFoundSafeSpot=DateTime.Now;
+								Bot.NavigationCache.vlastSafeSpot=safespot;
 						  }
 					 }
 					 //Logging.WriteVerbose("Safespot location {0} distance from {1} is {2}", safespot.ToString(), LastSearchVector.ToString(), safespot.Distance2D(LastSearchVector));
-					 return vlastSafeSpot;
+					 return Bot.NavigationCache.vlastSafeSpot;
 				}
 
 				private int lastGPRectIndexUsed=0;
@@ -127,5 +126,5 @@ namespace FunkyTrinity
 				}
 		  }
 
-	 }
+	 
 }

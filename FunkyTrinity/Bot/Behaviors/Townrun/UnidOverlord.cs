@@ -10,6 +10,8 @@ using System.IO;
 using Zeta.Internals.SNO;
 using Zeta.Internals;
 using Zeta.Internals.Actors.Gizmos;
+using FunkyTrinity.Enums;
+using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
 {

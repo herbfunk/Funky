@@ -6,6 +6,7 @@ using Zeta.Internals.Actors;
 using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.TreeSharp;
+using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
 {
@@ -122,10 +123,10 @@ namespace FunkyTrinity
 								Bot.Stats.sFirstProfileSeen=sThisProfile;
 
 						  //Refresh Profile Target Blacklist 
-						  hashSNOTargetBlacklist=new HashSet<int>();
+							ObjectCache.hashSNOTargetBlacklist=new HashSet<int>();
 						  foreach (var item in Zeta.CommonBot.ProfileManager.CurrentProfile.TargetBlacklists)
 						  {
-								hashSNOTargetBlacklist.Add(item.ActorId);
+								 ObjectCache.hashSNOTargetBlacklist.Add(item.ActorId);
 						  }
 					 }
 				}
@@ -215,12 +216,8 @@ namespace FunkyTrinity
 						  Bot.AttemptToUseHealthPotion();
 					 }
 				}
-				// Clear the temporary blacklist every 90 seconds
-				if (DateTime.Now.Subtract(dateSinceTemporaryBlacklistClear).TotalSeconds>90)
-				{
-					 dateSinceTemporaryBlacklistClear=DateTime.Now;
-					 hashRGUIDTemporaryIgnoreBlacklist=new HashSet<int>();
-				}
+
+			  ObjectCache.CheckRefreshBlacklists();
 
 
 				if (Bot.SettingsFunky.DebugStatusBar&&bResetStatusText)
@@ -243,7 +240,7 @@ namespace FunkyTrinity
 						  Bot.Character.WaitWhileAnimating(4, true);
 						  ZetaDia.Me.UsePower(Bot.Combat.powerBuff.Power, Bot.Combat.powerBuff.TargetPosition, Bot.Combat.powerBuff.WorldID, Bot.Combat.powerBuff.TargetRAGUID);
 						  Bot.Combat.powerLastSnoPowerUsed=Bot.Combat.powerBuff.Power;
-						  dictAbilityLastUse[Bot.Combat.powerBuff.Power]=DateTime.Now;
+							PowerCacheLookup.dictAbilityLastUse[Bot.Combat.powerBuff.Power]=DateTime.Now;
 						  Bot.Character.WaitWhileAnimating(3, true);
 					 }
 				}

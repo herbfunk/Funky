@@ -5,6 +5,7 @@ using Zeta.Common;
 using Zeta.TreeSharp;
 using Zeta.Internals.Actors;
 using System.Xml;
+using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
 {
@@ -22,9 +23,8 @@ namespace FunkyTrinity
 		  public static void ResetBot()
 		  {
 				Log("Preforming reset of bot data...", true);
-				hashRGUIDIgnoreBlacklist=new HashSet<int>();
-				hashRGUIDTemporaryIgnoreBlacklist=new HashSet<int>();
-				dictAbilityLastUse=new Dictionary<SNOPower, DateTime>(dictAbilityLastUseDefaults);
+			  ObjectCache.ClearBlacklistCollections();
+				PowerCacheLookup.dictAbilityLastUse=new Dictionary<SNOPower, DateTime>(PowerCacheLookup.dictAbilityLastUseDefaults);
 
 				PlayerMover.iTotalAntiStuckAttempts=1;
 				PlayerMover.vSafeMovementLocation=Vector3.Zero;
@@ -61,7 +61,7 @@ namespace FunkyTrinity
 				hashUseOnceID=new HashSet<int>();
 				dictUseOnceID=new Dictionary<int, int>();
 				dictRandomID=new Dictionary<int, int>();
-				SkipAheadCache.ClearCache();
+				FunkyTrinity.Movement.SkipAheadCache.ClearCache();
 
 				Bot.Stats.iMaxDeathsAllowed=0;
 				Bot.Stats.iDeathsThisRun=0;

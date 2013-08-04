@@ -2,10 +2,9 @@
 using Zeta;
 using Zeta.Common;
 
-namespace FunkyTrinity
+namespace FunkyTrinity.Movement
 {
-	 public partial class Funky
-	 {
+
 
 		  public struct DirectionPoint
 		  {
@@ -82,5 +81,5 @@ namespace FunkyTrinity
 				}
 		  }
 
-	 }
+	 
 }

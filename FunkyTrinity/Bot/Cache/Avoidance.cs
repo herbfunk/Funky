@@ -1,6 +1,7 @@
 ﻿using System;
 using Zeta;
 using System.Collections.Generic;
+using FunkyTrinity.Enums;
 
 namespace FunkyTrinity
 {
@@ -31,7 +32,7 @@ namespace FunkyTrinity
 		  //Walls with 0 degree rotation are facing "north to south".
 		  //Walls have 10-20f length, with 1-3f width
 
-		  private static AvoidanceType FindAvoidanceUsingName(string Name)
+	    internal static AvoidanceType FindAvoidanceUsingName(string Name)
 		  {
 				Name=Name.ToLower();
 				if (Name.StartsWith("monsteraffix_"))
@@ -61,7 +62,7 @@ namespace FunkyTrinity
 				return AvoidanceType.Unknown;
 		  }
 
-		  private static AvoidanceType FindAvoidanceUsingSNOID(int SNOID)
+	    internal static AvoidanceType FindAvoidanceUsingSNOID(int SNOID)
 		  {
 				switch (SNOID)
 				{
@@ -212,7 +213,7 @@ namespace FunkyTrinity
 					 
             };
 
-		  private static readonly Dictionary<AvoidanceType, double> dictAvoidanceHealthOOCIDBehaviorDefaults=new Dictionary<AvoidanceType, double>
+	    internal static readonly Dictionary<AvoidanceType, double> dictAvoidanceHealthOOCIDBehaviorDefaults=new Dictionary<AvoidanceType, double>
             {
 
                 {AvoidanceType.ArcaneSentry, 1},{AvoidanceType.Dececrator, 1},{AvoidanceType.MoltenCore,1},{AvoidanceType.MoltenTrail, 1},{AvoidanceType.Frozen, 1},{AvoidanceType.PlagueCloud, 1},    
@@ -232,27 +233,8 @@ namespace FunkyTrinity
 		  // *****    Avoidance-related dictionaries/defaults           *****
 		  // ****************************************************************
 		  #region Avoidance
-		  // A list of all the SNO's to avoid - you could add 
-		  private static readonly HashSet<int> hashAvoidanceSNOList=new HashSet<int>
-            {
-                // Arcane        Arcane 2      Desecrator   Poison Tree    Molten Core   Molten Trail   Plague Cloud   Ice Balls     
-                219702,          221225,       84608,       5482,6578,     4803, 4804,   95868,         108869,        402, 223675,             
-                // Bees-Wasps    Plague-Hands  Azmo Pools   Azmo fireball  Azmo bodies   Belial 1       Belial 2      
-                5212,            3865,         123124,      123842,        123839,       161822,        161833, 
-                // Sha-Ball      Mol Ball      Mage Fire    Diablo Prison  Diablo Meteor Ice-trail      PoisonGas
-                4103,            160154,       432,         168031,        214845,       260377,        4176,
-					 //lacuni bomb		Succubus Bloodstar
-					 4546,			   164829, 
-            };
 
-		  // A list of SNO's that are projectiles (so constantly look for new locations while avoiding)
-		  private static readonly HashSet<int> hashAvoidanceSNOProjectiles=new HashSet<int>
-            {
-                // Bees-Wasps  Sha-Ball   Mol Ball   Azmo fireball
-                5212,          4103,      160154,    123842,		164829, 
-            };
-
-		  private static Dictionary<AvoidanceType, float> dictAvoidanceRadius=new Dictionary<AvoidanceType, float>(dictAvoidanceRadiusDefaultsType);
+	    internal static Dictionary<AvoidanceType, float> dictAvoidanceRadius=new Dictionary<AvoidanceType, float>(dictAvoidanceRadiusDefaultsType);
 
 		  private static Dictionary<AvoidanceType, double> dictAvoidanceHealthBarb=new Dictionary<AvoidanceType, double>(dictAvoidanceHealthBarbDefaultsType);
 
@@ -264,7 +246,7 @@ namespace FunkyTrinity
 
 		  private static Dictionary<AvoidanceType, double> dictAvoidanceHealthDemon=new Dictionary<AvoidanceType, double>(dictAvoidanceHealthDemonDefaultsType);
 
-		  private static Dictionary<AvoidanceType, double> ReturnDictionaryUsingActorClass(Zeta.Internals.Actors.ActorClass AC)
+	    internal static Dictionary<AvoidanceType, double> ReturnDictionaryUsingActorClass(Zeta.Internals.Actors.ActorClass AC)
 		  {
 				switch (Bot.ActorClass)
 				{

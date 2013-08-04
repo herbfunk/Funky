@@ -7,11 +7,13 @@ using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.Internals.SNO;
 using Zeta.CommonBot;
+using FunkyTrinity.ability;
+using FunkyTrinity.Cache;
+using FunkyTrinity.Movement;
 
 namespace FunkyTrinity
 {
-	 public partial class Funky
-	 {
+
 		  public static partial class Bot
 		  {
 				///<summary>
@@ -89,7 +91,7 @@ namespace FunkyTrinity
 								List<CacheObject> listObjectUnits=Bot.ValidObjects.Where(u => UnitRAGUIDs.Contains(u.RAGUID)&&u.CentreDistance<=DistanceFromBot).ToList();
 								if (listObjectUnits.Count>0)
 								{
-									 return RunKmeans(listObjectUnits, Distance);
+									 return Cluster.RunKmeans(listObjectUnits, Distance);
 								}
 								else
 									 return new List<Cluster>();
@@ -99,7 +101,7 @@ namespace FunkyTrinity
 								//Since we use Clustering, we can grab valid objects by using the clusterunits list
 								List<CacheObject> objects=new List<CacheObject>();
 								objects.AddRange(ValidObjects.Where(unit => ValidClusterUnits.Contains(unit.RAGUID)&&unit.CentreDistance<=DistanceFromBot));
-								return RunKmeans(objects, Distance);
+								return Cluster.RunKmeans(objects, Distance);
 						  }
 					 }
 
@@ -119,7 +121,7 @@ namespace FunkyTrinity
 									 {
 
 										  //Update Cluster Collection
-										  CurrentGroupClusters=RunKmeans(DistantUnits, 6d)
+											CurrentGroupClusters=Cluster.RunKmeans(DistantUnits, 6d)
 												.Where(cluster => cluster.ListUnits.Count>=Bot.SettingsFunky.GroupingMinimumUnitsInCluster&&cluster.NearestMonsterDistance<=Bot.SettingsFunky.GroupingMaximumDistanceAllowed)
 												.OrderByDescending(cluster => cluster.NearestMonsterDistance).ToList();
 
@@ -151,7 +153,7 @@ namespace FunkyTrinity
 									 if (listObjectUnits.Count>0)
 									 {
 										  //Update Cluster Collection
-										  CurrentTargetClusters=RunKmeans(listObjectUnits, Bot.SettingsFunky.ClusterDistance);
+											CurrentTargetClusters=Cluster.RunKmeans(listObjectUnits, Bot.SettingsFunky.ClusterDistance);
 										  LastClusterTargetLogicRefresh=DateTime.Now;
 
 										  //Add each RAGUID to collection only if clusters contained units meets minimum setting
@@ -223,7 +225,7 @@ namespace FunkyTrinity
 
 					 // A flag to indicate whether we have a new target from the overlord (decorator) or not, in which case don't refresh targets again this first loop
 					 internal bool bWholeNewTarget { get; set; }
-					 // A flag to indicate if we should pick a new power/ability to use or not
+					 // A flag to indicate if we should pick a new power/Ability to use or not
 					 internal bool bPickNewAbilities { get; set; }
 					 // Flag used to indicate if we are simply waiting for a power to go off - so don't do any new target checking or anything
 					 internal bool bWaitingForPower { get; set; }
@@ -319,7 +321,7 @@ namespace FunkyTrinity
 					 {
 						  Bot.Target.CurrentTarget=null;
 						  //Bot.NavigationCache.ResetPathing();
-						  TargetMovement.ResetTargetMovementVars();
+						  FunkyTrinity.Movement.TargetMovement.ResetTargetMovementVars();
 
 
 						  bWaitingForPower=false;
@@ -336,5 +338,5 @@ namespace FunkyTrinity
 				}
 
 		  }
-	 }
+	 
 }

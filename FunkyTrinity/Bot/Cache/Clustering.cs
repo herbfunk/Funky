@@ -2,13 +2,15 @@
 using System.Linq;
 using Zeta;
 using System.Collections.Generic;
+using FunkyTrinity.Cache;
+using FunkyTrinity.Movement;
 
 namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
 		  private static DateTime lastClusterComputed=DateTime.Today;
-		  private static List<Cluster> LC_=new List<Cluster>();
+
 
 		  private static List<Cluster> RunKmeans<T>(List<T> unitList, double distance) where T : CacheObject
 		  {

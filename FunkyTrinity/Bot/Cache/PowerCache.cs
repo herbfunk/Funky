@@ -3,32 +3,32 @@ using Zeta;
 using System.Collections.Generic;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity
+namespace FunkyTrinity.Cache
 {
-    public partial class Funky
+    public class PowerCacheLookup
     {
-		  //private static readonly Range No_Range=new Range(0f, 0f);
-		  //private static readonly Range Melee_Range=new Range(0f, 10f);
-		  //private static readonly Range Melee_NearbyOnly=new Range(0f, 7f);
-		  //private static readonly Range Melee_AOE_Range =new Range(0f,16f);
+		  //internal static readonly Range No_Range=new Range(0f, 0f);
+		  //internal static readonly Range Melee_Range=new Range(0f, 10f);
+		  //internal static readonly Range Melee_NearbyOnly=new Range(0f, 7f);
+		  //internal static readonly Range Melee_AOE_Range =new Range(0f,16f);
 		  internal static readonly HashSet<int> PowerStackImportant=new HashSet<int>
 				{
 					 (int)SNOPower.Witchdoctor_SoulHarvest,
 					 (int)SNOPower.Wizard_EnergyTwister
 				};
-		  //private static readonly HashSet<SNOPower> AbilitiesBuff=new HashSet<SNOPower>
+		  //internal static readonly HashSet<SNOPower> AbilitiesBuff=new HashSet<SNOPower>
 		  //{
 		  //	 SNOPower.Barbarian_WarCry,SNOPower.Barbarian_BattleRage,SNOPower.Barbarian_Sprint,
 		  //	 SNOPower.Monk_BreathOfHeaven, SNOPower.Monk_MantraOfEvasion, SNOPower.Monk_MantraOfConviction, SNOPower.Monk_MantraOfHealing, SNOPower.Monk_MantraOfRetribution,
 		  //	 SNOPower.Wizard_SlowTime, SNOPower.Wizard_EnergyArmor, SNOPower.Wizard_IceArmor, SNOPower.Wizard_StormArmor,SNOPower.Wizard_MagicWeapon,
 		  //};
-		  //private static readonly HashSet<SNOPower> AbilitiesPetSummon=new HashSet<SNOPower>
+		  //internal static readonly HashSet<SNOPower> AbilitiesPetSummon=new HashSet<SNOPower>
 		  //{
 		  //	 SNOPower.DemonHunter_Companion,
 		  //	 SNOPower.Monk_MysticAlly,
 		  //	 SNOPower.Witchdoctor_Gargantuan, SNOPower.Witchdoctor_SummonZombieDog, 
 		  //};
-		  private static readonly HashSet<SNOPower> AbilitiesDestructiblePriority=new HashSet<SNOPower>
+	    internal static readonly HashSet<SNOPower> AbilitiesDestructiblePriority=new HashSet<SNOPower>
 		  {
 				SNOPower.Barbarian_Frenzy, SNOPower.Barbarian_Bash,SNOPower.Barbarian_Cleave,SNOPower.Barbarian_WeaponThrow, SNOPower.Barbarian_Rend,
 				SNOPower.DemonHunter_HungeringArrow, SNOPower.DemonHunter_EntanglingShot, SNOPower.DemonHunter_BolaShot, SNOPower.DemonHunter_Grenades, SNOPower.DemonHunter_ElementalArrow, SNOPower.DemonHunter_RapidFire, SNOPower.DemonHunter_Chakram,
@@ -36,14 +36,15 @@ namespace FunkyTrinity
 				SNOPower.Witchdoctor_Firebomb, SNOPower.Witchdoctor_PoisonDart, SNOPower.Witchdoctor_ZombieCharger, SNOPower.Witchdoctor_CorpseSpider, SNOPower.Witchdoctor_PlagueOfToads,
 				SNOPower.Wizard_EnergyTwister, SNOPower.Wizard_MagicMissile,SNOPower.Wizard_ShockPulse,SNOPower.Wizard_SpectralBlade, SNOPower.Wizard_Electrocute, SNOPower.Wizard_Archon_DisintegrationWave,
 		  };
-		  private static readonly HashSet<SNOPower> SpecialMovementAbilities=new HashSet<SNOPower>
+
+	    internal static readonly HashSet<SNOPower> SpecialMovementAbilities=new HashSet<SNOPower>
 		  {
 				SNOPower.Barbarian_FuriousCharge,SNOPower.Barbarian_Whirlwind, SNOPower.Barbarian_Sprint,
 				SNOPower.DemonHunter_Vault,SNOPower.DemonHunter_Strafe,
 				SNOPower.Monk_TempestRush,
 		  };
 
-		  //private static readonly Dictionary<SNOPower, Range> BarbarianAbilityRange=new Dictionary<SNOPower, Range> 
+		  //internal static readonly Dictionary<SNOPower, Range> BarbarianAbilityRange=new Dictionary<SNOPower, Range> 
 		  //{
 		  //	 {SNOPower.Barbarian_Cleave,Melee_Range},	  {SNOPower.Barbarian_HammerOfTheAncients,Melee_AOE_Range},
 		  //	 {SNOPower.Barbarian_Frenzy,Melee_Range},	  {SNOPower.Barbarian_Rend,Melee_NearbyOnly},
@@ -66,7 +67,7 @@ namespace FunkyTrinity
 
 		  //};
 
-		  private static readonly HashSet<SNOPower> PassiveAbiltiesReduceRepeatTime=new HashSet<SNOPower>
+		  internal static readonly HashSet<SNOPower> PassiveAbiltiesReduceRepeatTime=new HashSet<SNOPower>
 		  {
 				//barb
 				SNOPower.Barbarian_Passive_BoonOfBulKathos,
@@ -77,7 +78,7 @@ namespace FunkyTrinity
 				SNOPower.Wizard_Passive_Evocation,
 				SNOPower.Wizard_Passive_CriticalMass,
 		  };
-		  private static readonly Dictionary<SNOPower, int> dictAbilityRepeatDefaults=new Dictionary<SNOPower, int>
+		  internal static readonly Dictionary<SNOPower, int> dictAbilityRepeatDefaults=new Dictionary<SNOPower, int>
             {
                 #region Barb
 		{SNOPower.DrinkHealthPotion, 30000}, 
@@ -220,7 +221,7 @@ namespace FunkyTrinity
 		  // Last used-timers for all abilities to prevent spamming D3 memory for cancast checks too often
 		  // These should NEVER need manually editing
 		  // But you do need to make sure every skill used by Trinity is listed in here once!
-		  private static Dictionary<SNOPower, DateTime> dictAbilityLastUseDefaults=new Dictionary<SNOPower, DateTime>
+		  internal static Dictionary<SNOPower, DateTime> dictAbilityLastUseDefaults=new Dictionary<SNOPower, DateTime>
             {
                 {SNOPower.DrinkHealthPotion, DateTime.Today},{SNOPower.Weapon_Melee_Instant, DateTime.Today},{SNOPower.Weapon_Ranged_Instant, DateTime.Today}, 
                 // Barbarian last-used timers
@@ -289,7 +290,7 @@ namespace FunkyTrinity
 		  public static DateTime lastGlobalCooldownUse=DateTime.Today;
 
 		  // Used only for certain skills that spam the powermanager regularly, to limit their CPU hits
-		  private static Dictionary<SNOPower, DateTime> dictAbilityLastPowerChecked=new Dictionary<SNOPower, DateTime>
+		  internal static Dictionary<SNOPower, DateTime> dictAbilityLastPowerChecked=new Dictionary<SNOPower, DateTime>
             {
                 {SNOPower.Barbarian_Revenge, DateTime.Today}, 
                 {SNOPower.Barbarian_FuriousCharge, DateTime.Today},

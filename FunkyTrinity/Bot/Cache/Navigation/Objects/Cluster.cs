@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FunkyTrinity.Cache;
+using FunkyTrinity.Movement;
 
-namespace FunkyTrinity
+namespace FunkyTrinity.Movement
 {
 	 internal partial class Cluster
 	 {
 
-		  public List<Funky.CacheUnit> ListUnits { get; protected set; }
+		  public List<CacheUnit> ListUnits { get; protected set; }
 		  public List<GridPoint> ListPoints { get; protected set; }
 		 
-		  private Funky.CacheUnit currentValidUnit=null;
-		  public Funky.CacheUnit CurrentValidUnit
+		  private CacheUnit currentValidUnit=null;
+		  public CacheUnit CurrentValidUnit
 		  {
 				get
 				{
@@ -86,7 +88,7 @@ namespace FunkyTrinity
 		  protected Cluster()
 		  {
 				ListPoints=new List<GridPoint>();
-				ListUnits=new List<Funky.CacheUnit>();
+				ListUnits=new List<CacheUnit>();
 				EliteCount=0;
 				DotDPSCount=0;
 				UnitMobileCounter=0;
@@ -102,7 +104,7 @@ namespace FunkyTrinity
 
 		  }  // of overloaded constructor
 
-		  public Cluster(double p_Dist, Funky.CacheUnit unit)
+		  public Cluster(double p_Dist, CacheUnit unit)
 				: this(p_Dist)
 		  {
 				ListUnits.Add(unit);
@@ -113,14 +115,14 @@ namespace FunkyTrinity
 				NearestMonsterDistance=unit.CentreDistance;
 				if (unit.MonsterElite)
 					 EliteCount++;
-				if (Funky.Bot.Combat.UsesDOTDPSAbility&&unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
+				if (Bot.Combat.UsesDOTDPSAbility&&unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
 					 DotDPSCount++;
 				if (unit.IsMoving)
 					 UnitMobileCounter++;
 
 		  }  // of overloaded constructor
 
-		  private bool ContainsUnit(Funky.CacheUnit unit)
+		  private bool ContainsUnit(CacheUnit unit)
 		  {
 				bool u_Exists=false;
 
@@ -137,11 +139,11 @@ namespace FunkyTrinity
 		  /// <param name="p_Point">The point to be added to this cluster</param>
 		  /// <returns>false if point can't be added (that is either already in cluster
 		  /// or it is unreachable from any of the cluster's points)</returns>
-		  private bool AddUnit(Funky.CacheUnit unit)
+		  private bool AddUnit(CacheUnit unit)
 		  {
 				bool l_bSuccess=true;
 
-				if (!ContainsUnit(unit)&&Funky.Bot.Combat.UnitRAGUIDs.Contains(unit.RAGUID))
+				if (!ContainsUnit(unit)&&Bot.Combat.UnitRAGUIDs.Contains(unit.RAGUID))
 					 if (IsPointReachable(unit.PointPosition))
 					 {
 						  ListUnits.Add(unit);
@@ -156,7 +158,7 @@ namespace FunkyTrinity
 						  if (unit.MonsterElite)
 								EliteCount++;
 
-						  if (Funky.Bot.Combat.UsesDOTDPSAbility&&unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
+						  if (Bot.Combat.UsesDOTDPSAbility&&unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
 								DotDPSCount++;
 
 						  if (unit.IsMoving)
@@ -208,7 +210,7 @@ namespace FunkyTrinity
 
 		  }  // of AnnexCluster()
 
-		  public Funky.CacheUnit GetNearestUnitToCenteroid()
+		  public CacheUnit GetNearestUnitToCenteroid()
 		  {
 				double minimumDistance=0.0;
 				int nearestPointIndex=-1;
@@ -262,6 +264,56 @@ namespace FunkyTrinity
 		  {
 				return this.Midpoint.GetHashCode();
 		  }
+
+
+		 public static List<Cluster> RunKmeans<T>(List<T> unitList, double distance) where T : CacheObject
+			{
+				 List<Cluster> LC_=new List<Cluster>();
+
+				 if (unitList.Count==0)
+						return LC_;
+
+				 List<CacheObject> l_ListUnits=new List<CacheObject>(unitList.ToArray());
+
+				 if (l_ListUnits.Count==0)
+						return LC_;
+
+
+
+				 // for starters, take a point to create one cluster
+				 CacheUnit l_P1=(CacheUnit)l_ListUnits[0];
+
+				 l_ListUnits.RemoveAt(0);
+
+				 // so far, we have a one-point cluster
+				 LC_.Add(new Cluster(distance, l_P1));
+
+				 #region Main Loop
+				 // the algorithm is inside this loop
+				 List<Cluster> l_ListAttainableClusters;
+				 Cluster l_c;
+				 foreach (CacheUnit p in l_ListUnits)
+				 {
+						l_ListAttainableClusters=new List<Cluster>();
+						l_ListAttainableClusters=LC_.FindAll(x => x.IsPointReachable(p.PointPosition));
+						LC_.RemoveAll(x => x.IsPointReachable(p.PointPosition));
+						l_c=new Cluster(distance, p);
+						// merge point's "reachable" clusters
+						if (l_ListAttainableClusters.Count>0)
+							 l_c.AnnexCluster(l_ListAttainableClusters.Aggregate((c, x) =>
+								c=Cluster.MergeClusters(x, c)));
+						LC_.Add(l_c);
+						//Logging.WriteVerbose("Cluster Found: Total Points {0} with Centeroid {1}", l_c.ListPoints.Count, l_c.Centeroid.ToString());
+						l_ListAttainableClusters=null;
+						l_c=null;
+				 }  // of loop over candidate points
+
+				 //LC_=LC_.OrderByDescending(o => o.ListPoints.Count).ToList();
+				 #endregion
+
+				 return LC_;
+			}
+
 
 	 }  // of partial class Cluster
 

@@ -7,6 +7,8 @@ using Zeta.Common;
 using Zeta.Internals.Actors;
 using Zeta.CommonBot;
 using Zeta;
+using FunkyTrinity.Enums;
+using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
 {
@@ -103,7 +105,7 @@ namespace FunkyTrinity
 		  // **********************************************************************************************
 		  // *****       Pickup Validation - Determines what should or should not be picked up        *****
 		  // **********************************************************************************************
-		  private static bool GilesPickupItemValidation(CacheItem item)
+		 internal static bool GilesPickupItemValidation(CacheItem item)
 		  {
 				// Calculate giles item types and base types etc.
 				GilesItemType thisGilesItemType=DetermineItemType(item.InternalName, item.BalanceData.thisItemType, item.BalanceData.thisFollowerType);
@@ -253,20 +255,20 @@ namespace FunkyTrinity
 
 								int gamebalanceID=item.BalanceID.Value;
 
-								if (HashPlansPropertiesSix.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupBlacksmithPlanSix) return false;
-								if (HashPlansPropertiesFive.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupBlacksmithPlanFive) return false;
-								if (HashPlansPropertiesFour.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupBlacksmithPlanFour) return false;
-								
-								if (HashPlansArchonSpaulders.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupBlacksmithPlanArchonSpaulders) return false;
-								if (HashPlansArchonGauntlets.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupBlacksmithPlanArchonGauntlets) return false;
-								if (HashPlansRazorspikes.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupBlacksmithPlanRazorspikes) return false;
+								if (CacheIDLookup.HashPlansPropertiesSix.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupBlacksmithPlanSix) return false;
+								if (CacheIDLookup.HashPlansPropertiesFive.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupBlacksmithPlanFive) return false;
+								if (CacheIDLookup.HashPlansPropertiesFour.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupBlacksmithPlanFour) return false;
 
-								
-								if (HashDesignAmulet.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupJewelerDesignAmulet) return false;
-								if (HashDesignFlawlessStarGem.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupJewelerDesignFlawlessStar) return false;
-								if (HashDesignMarquiseGem.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupJewelerDesignMarquise) return false;
-								if (HashDesignPerfectStarGem.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupJewelerDesignPerfectStar) return false;
-								if (HashDesignRadiantStarGem.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupJewelerDesignRadiantStar) return false;
+								if (CacheIDLookup.HashPlansArchonSpaulders.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupBlacksmithPlanArchonSpaulders) return false;
+								if (CacheIDLookup.HashPlansArchonGauntlets.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupBlacksmithPlanArchonGauntlets) return false;
+								if (CacheIDLookup.HashPlansRazorspikes.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupBlacksmithPlanRazorspikes) return false;
+
+
+								if (CacheIDLookup.HashDesignAmulet.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupJewelerDesignAmulet) return false;
+								if (CacheIDLookup.HashDesignFlawlessStarGem.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupJewelerDesignFlawlessStar) return false;
+								if (CacheIDLookup.HashDesignMarquiseGem.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupJewelerDesignMarquise) return false;
+								if (CacheIDLookup.HashDesignPerfectStarGem.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupJewelerDesignPerfectStar) return false;
+								if (CacheIDLookup.HashDesignRadiantStarGem.Contains(gamebalanceID)&&!Bot.SettingsFunky.PickupJewelerDesignRadiantStar) return false;
 
 
 						  }

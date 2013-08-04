@@ -7,12 +7,13 @@ using System.Collections.Generic;
 using Zeta.Internals.SNO;
 using Zeta.Navigation;
 using System.Globalization;
+using FunkyTrinity.Enums;
+using FunkyTrinity.ability;
+using FunkyTrinity.Cache;
 
-namespace FunkyTrinity
+namespace FunkyTrinity.Movement
 {
-	 public partial class Funky
-	 {
-
+	
 
 		  ///<summary>
 		  ///Cache of all values Navigation related
@@ -84,7 +85,7 @@ namespace FunkyTrinity
 									 curMoveState=botMovement.MovementState;
 								} catch
 								{
-									 Log("Safely handled exception during RefreshMovementCache()", true);
+									 
 								}
 						  }
 					 }
@@ -114,7 +115,7 @@ namespace FunkyTrinity
 						  //Blacklist the creation vector and nullify the last used..
 						  Bot.NavigationCache.BlacklistedGridpoints.Add(Bot.NavigationCache.LastUsedRect.LastFoundSafeSpot);
 					 }
-					 vlastSafeSpot=Vector3.Zero;
+					 //vlastSafeSpot=Vector3.Zero;
 				}
 
 
@@ -311,6 +312,9 @@ namespace FunkyTrinity
 					 get { return CurrentGParea; }
 					 set { CurrentGParea=value; }
 				}
+				// When we last FOUND a safe spot
+			  public DateTime lastFoundSafeSpot=DateTime.Today;
+			  public Vector3 vlastSafeSpot=Vector3.Zero;
 				///<summary>
 				///Last successful GP Rectangle used during search method.
 				///</summary>
@@ -324,6 +328,20 @@ namespace FunkyTrinity
 					 get { return lastsearchvector; }
 					 set { lastsearchvector=value; }
 				}
+
+			  public Vector3 AttemptToReuseLastLocationFound()
+			  {
+					 if (vlastSafeSpot!=Vector3.Zero)
+					 {
+							//Check how close we are..
+							if (Bot.Character.Position.Distance2D(vlastSafeSpot)<2.5f)
+							{
+								 vlastSafeSpot=Vector3.Zero;
+								
+							}
+					 }
+					 return vlastSafeSpot;
+			  }
 				///<summary>
 				///Searches for a safespot!
 				///</summary>
@@ -351,7 +369,7 @@ namespace FunkyTrinity
 					 {
 						  Ability movementAbility;
 
-						  //Check if we can use a special movement ability to ignore blocking.
+						  //Check if we can use a special movement Ability to ignore blocking.
 						  if (!Bot.Class.FindSpecialMovementPower(out movementAbility))
 						  {
 								return false;
@@ -515,7 +533,10 @@ namespace FunkyTrinity
 				}
 
 				internal bool groupRunningBehavior=false;
-				private CacheObject groupingCurrentUnit=null;
+				internal bool groupReturningToOrgin=false;
+				internal CacheUnit groupingCurrentUnit=null;
+				internal CacheUnit groupingOrginUnit=null;
+
 				private Cluster groupingOrginCluster;
 				private Cluster groupingCurrentCluster;
 				private DateTime groupingLastUnitChecked=DateTime.Today;
@@ -695,14 +716,14 @@ namespace FunkyTrinity
 						  return;
 
 
-					 Log("Updating Main Grid Provider", true);
+					 Logging.WriteDiagnostic("[Funky] Updating Main Grid Provider", true);
 
 					 try
 					 {
 						  Navigation.MGP.Update();
 					 } catch
 					 {
-						  Log("MGP Update Exception Safely Handled!", true);
+						  Logging.WriteDiagnostic("[Funky] MGP Update Exception Safely Handled!", true);
 						  return;
 					 }
 
@@ -802,5 +823,5 @@ namespace FunkyTrinity
 				#endregion
 		  }
 
-	 }
+	 
 }

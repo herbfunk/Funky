@@ -9,6 +9,8 @@ using Zeta;
 using System.Reflection;
 using Zeta.Navigation;
 using System.IO;
+using FunkyTrinity.Enums;
+using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
 {
@@ -27,15 +29,6 @@ namespace FunkyTrinity
         // **********************************************************************************************
 
         #region Constants
-
-        private const int RANGE_50 = 0;
-        private const int RANGE_40 = 1;
-        private const int RANGE_30 = 2;
-        private const int RANGE_25 = 3;
-        private const int RANGE_20 = 4;
-        private const int RANGE_15 = 5;
-        private const int RANGE_12 = 6;
-        private const int RANGE_6 = 7;
 
         private const bool USE_COMBAT_ONLY = false;
         private const bool USE_ANY_TIME = true;
@@ -84,7 +77,7 @@ namespace FunkyTrinity
         #endregion
 
         // Darkfriend's Looting Rule
-		  private static Interpreter ItemRulesEval;
+	    internal static Interpreter ItemRulesEval;
 
 		  internal static float Difference(float A, float B)
 		  {
@@ -92,9 +85,9 @@ namespace FunkyTrinity
 		  }
 
         // Status text for DB main window status
-        private static string sStatusText = "";
+	    internal static string sStatusText = "";
 		  // Do we need to reset the debug bar after combat handling?
-		  private static bool bResetStatusText=false;
+	    internal static bool bResetStatusText=false;
 
 		  
 

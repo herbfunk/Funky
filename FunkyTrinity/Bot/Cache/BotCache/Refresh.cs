@@ -6,11 +6,13 @@ using Zeta.Internals.Actors;
 using System.Collections.Generic;
 using Zeta.Internals.SNO;
 using Zeta.CommonBot;
+using FunkyTrinity.Enums;
+using FunkyTrinity.Cache;
+using FunkyTrinity.Movement;
 
 namespace FunkyTrinity
 {
-	 public partial class Funky
-	 {
+
 
 		  public static partial class Bot
 		  {
@@ -44,7 +46,7 @@ namespace FunkyTrinity
 				{
 					 //Cache last target only if current target is not avoidance (Movement).
 					 if (!Bot.Target.Equals(null)&&Bot.Target.CurrentTarget.targetType.HasValue&&Bot.Target.CurrentTarget.targetType.Value!=TargetType.Avoidance)
-						  Bot.Character.LastCachedTarget=Bot.Target.CurrentTarget!=null?Bot.Target.CurrentTarget.Clone():FakeCacheObject;
+						  Bot.Character.LastCachedTarget=Bot.Target.CurrentTarget!=null?Bot.Target.CurrentTarget.Clone():Funky.FakeCacheObject;
 
 					 if (!Bot.Target.Equals(null)&&Bot.Target.CurrentTarget.targetType.HasValue&&Bot.Target.CurrentTarget.targetType.Value==TargetType.Avoidance
 						  &&!String.IsNullOrEmpty(Bot.Target.CurrentTarget.InternalName))
@@ -145,7 +147,7 @@ namespace FunkyTrinity
 
 									 //Blacklist flag check
 									 if (thisObj.BlacklistFlag!=BlacklistType.None)
-										  AddObjectToBlacklist(thisObj.RAGUID, thisObj.BlacklistFlag);
+											ObjectCache.AddObjectToBlacklist(thisObj.RAGUID, thisObj.BlacklistFlag);
 
 									 ObjectCache.Objects.Remove(thisObj.RAGUID);
 								}
@@ -158,10 +160,9 @@ namespace FunkyTrinity
 					 ObjectCache.Obstacles.AttemptToClearEntries();
 
 					 //Non-Combat behavior we reset temp blacklist so we don't get killed by "ignored" units..
-					 if (Bot.IsInNonCombatBehavior&&DateTime.Now.Subtract(dateSinceTemporaryBlacklistClear).TotalSeconds>10)
+					 if (Bot.IsInNonCombatBehavior)
 					 {
-						  dateSinceTemporaryBlacklistClear=DateTime.Now;
-						  hashRGUIDTemporaryIgnoreBlacklist=new HashSet<int>();
+							ObjectCache.CheckRefreshBlacklists(10);
 					 }
 				}
 
@@ -247,7 +248,7 @@ namespace FunkyTrinity
 						  hashDoneThisRactor.Add(tmp_raGUID);
 
 						  //Update RactorGUID and check blacklisting..
-						  if (IsRAGUIDBlacklisted(tmp_raGUID)) continue;
+							if (ObjectCache.IsRAGUIDBlacklisted(tmp_raGUID)) continue;
 						  CacheObject tmp_CachedObj;
 						  using (ZetaDia.Memory.AcquireFrame())
 						  {
@@ -267,7 +268,7 @@ namespace FunkyTrinity
 
 
 									 //check our SNO blacklist
-									 if (IsSNOIDBlacklisted(tmp_SNOID)&&!SnoCacheLookup.hashSummonedPets.Contains(tmp_SNOID)) continue;
+									 if (ObjectCache.IsSNOIDBlacklisted(tmp_SNOID)&&!CacheIDLookup.hashSummonedPets.Contains(tmp_SNOID)) continue;
 
 
 									 #region Position
@@ -330,19 +331,19 @@ namespace FunkyTrinity
 										  //Now modify the player data pets count..
 										  if (Bot.Class.AC==ActorClass.Monk)
 												Bot.Character.PetData.MysticAlly++;
-										  else if (Bot.Class.AC==ActorClass.DemonHunter&&SnoCacheLookup.hashDHPets.Contains(tmp_CachedObj.SNOID))
+										  else if (Bot.Class.AC==ActorClass.DemonHunter&&CacheIDLookup.hashDHPets.Contains(tmp_CachedObj.SNOID))
 												Bot.Character.PetData.DemonHunterPet++;
 										  else if (Bot.Class.AC==ActorClass.WitchDoctor)
 										  {
-												if (SnoCacheLookup.hashZombie.Contains(tmp_CachedObj.SNOID))
+												if (CacheIDLookup.hashZombie.Contains(tmp_CachedObj.SNOID))
 													 Bot.Character.PetData.ZombieDogs++;
-												else if (SnoCacheLookup.hashGargantuan.Contains(tmp_CachedObj.SNOID))
+												else if (CacheIDLookup.hashGargantuan.Contains(tmp_CachedObj.SNOID))
 													 Bot.Character.PetData.Gargantuan++;
 										  }
 										  else if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Wizard)
 										  {
 												//only count when range is within 45f (so we can summon a new one)
-												if (SnoCacheLookup.hashWizHydras.Contains(tmp_CachedObj.SNOID)&&tmp_CachedObj.CentreDistance<=45f)
+												if (CacheIDLookup.hashWizHydras.Contains(tmp_CachedObj.SNOID)&&tmp_CachedObj.CentreDistance<=45f)
 													 Bot.Character.PetData.WizardHydra++;
 										  }
 									 }
@@ -381,13 +382,13 @@ namespace FunkyTrinity
 									 //Do we have this cached?
 									 if (!ObjectCache.Obstacles.TryGetValue(tmp_CachedObj.RAGUID, out thisObstacle))
 									 {
-										  AvoidanceType AvoidanceType=Funky.AvoidanceType.Unknown;
+										  AvoidanceType AvoidanceType=AvoidanceType.Unknown;
 										  if (tmp_CachedObj.IsAvoidance)
 										  {
-												AvoidanceType=FindAvoidanceUsingSNOID(tmp_CachedObj.SNOID);
+												AvoidanceType=Funky.FindAvoidanceUsingSNOID(tmp_CachedObj.SNOID);
 												if (AvoidanceType==AvoidanceType.Unknown)
 												{
-													 AvoidanceType=FindAvoidanceUsingName(tmp_CachedObj.InternalName);
+													 AvoidanceType=Funky.FindAvoidanceUsingName(tmp_CachedObj.InternalName);
 													 if (AvoidanceType==AvoidanceType.Unknown) continue;
 												}
 										  }
@@ -401,10 +402,10 @@ namespace FunkyTrinity
 												Ray R=new Ray(tmp_CachedObj.Position, Direction.ToVector3());
 												double Speed;
 												//Lookup Cached Speed, or add new entry.
-												if (!dictProjectileSpeed.TryGetValue(tmp_CachedObj.SNOID, out Speed))
+												if (!ObjectCache.dictProjectileSpeed.TryGetValue(tmp_CachedObj.SNOID, out Speed))
 												{
 													 Speed=thisMovement.DesiredSpeed;
-													 dictProjectileSpeed.Add(tmp_CachedObj.SNOID, Speed);
+													 ObjectCache.dictProjectileSpeed.Add(tmp_CachedObj.SNOID, Speed);
 												}
 
 												thisObstacle=new CacheAvoidance(tmp_CachedObj, AvoidanceType, R, Speed);
@@ -565,5 +566,5 @@ namespace FunkyTrinity
 
 				}
 		  }
-	 }
+	 
 }

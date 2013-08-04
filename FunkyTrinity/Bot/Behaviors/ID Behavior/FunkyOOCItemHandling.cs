@@ -17,7 +17,7 @@ namespace FunkyTrinity
 		  internal static bool RefreshDone=false;
 		  internal static DateTime lastActionPreformed=DateTime.MinValue;
 		  internal static List<ACDItem> IdentifiedItems=new List<ACDItem>();
-		  internal static bool shouldPreformOOCItemIDing=false;
+		 public static bool shouldPreformOOCItemIDing=false;
 
 		  internal static void RefreshUnidList(bool behaviorRefresh=false)
 		  {

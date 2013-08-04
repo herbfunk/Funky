@@ -4,20 +4,13 @@ using Zeta;
 using Zeta.Common;
 using System.Collections.Generic;
 using System.Collections;
+using FunkyTrinity.Enums;
 
-namespace FunkyTrinity
+namespace FunkyTrinity.Movement
 {
-	 public partial class Funky
-	 {
 
-		  public enum QuadrantLocation
-		  {
-				None=0,
-				BottomRight=6,
-				BottomLeft=5,
-				TopRight=10,
-				TopLeft=9,
-		  }
+
+
 		  ///<summary>
 		  ///Point collection that manipulates points to test specific things about the points contained using sectors or the entire area it covers.
 		  ///</summary>
@@ -287,6 +280,6 @@ namespace FunkyTrinity
 
 				#endregion
 		  }
-	 }
+	 
 
 }

@@ -11,15 +11,17 @@ using Zeta.Internals.Actors;
 using Zeta.Internals.SNO;
 using Zeta.Navigation;
 using Zeta.TreeSharp;
+using FunkyTrinity.Enums;
+using FunkyTrinity.ability;
+using FunkyTrinity.Cache;
+using FunkyTrinity.Movement;
 
 
 namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  // When we last FOUND a safe spot
-		  private static DateTime lastFoundSafeSpot=DateTime.Today;
-		  private static Vector3 vlastSafeSpot=Vector3.Zero;
+
 
 		  // **********************************************************************************************
 		  // *****                             Player Mover Class                                     *****
@@ -39,7 +41,7 @@ namespace FunkyTrinity
 
 				public void MoveStop()
 				{
-					 ZetaDia.Me.UsePower(SNOPower.Walk, ZetaDia.Me.Position, Funky.Bot.Character.iCurrentWorldID, -1);
+					 ZetaDia.Me.UsePower(SNOPower.Walk, ZetaDia.Me.Position, Bot.Character.iCurrentWorldID, -1);
 				}
 				// Anti-stuck variables
 				private static Vector3 vOldMoveToTarget=Vector3.Zero;
@@ -118,7 +120,7 @@ namespace FunkyTrinity
 						  Bot.NavigationCache.AttemptFindSafeSpot(out vSafeMovementLocation, Vector3.Zero);
 
 						  // Temporarily log stuff
-						  if (iTotalAntiStuckAttempts==1&&Funky.Bot.SettingsFunky.LogStuckLocations)
+						  if (iTotalAntiStuckAttempts==1&&Bot.SettingsFunky.LogStuckLocations)
 						  {
 								string sLogFileName=LoggingPrefixString+" -- Stucks.log";
 								FileStream LogStream=File.Open(LoggingFolderPath+sLogFileName, FileMode.Append, FileAccess.Write, FileShare.Read);
@@ -131,7 +133,7 @@ namespace FunkyTrinity
 						  }
 
 						  //Check cache for barricades..
-						  if (Funky.ObjectCache.Objects.OfType<CacheDestructable>().Any(CO =>CO.RadiusDistance<=10f))
+						  if (ObjectCache.Objects.OfType<CacheDestructable>().Any(CO =>CO.RadiusDistance<=10f))
 						  {
 								Logging.Write("[Funky] Found nearby barricade, flagging barricade destruction!");
 								ShouldHandleObstacleObject=true;
@@ -176,10 +178,10 @@ namespace FunkyTrinity
 						  while (!ZetaDia.Me.IsInTown)
 						  {
 								iSafetyLoops++;
-								Funky.Bot.Character.WaitWhileAnimating(5, true);
+								Bot.Character.WaitWhileAnimating(5, true);
 								ZetaDia.Me.UsePower(SNOPower.UseStoneOfRecall, ZetaDia.Me.Position, ZetaDia.Me.WorldDynamicId, -1);
 								Thread.Sleep(1000);
-								Funky.Bot.Character.WaitWhileAnimating(1000, true);
+								Bot.Character.WaitWhileAnimating(1000, true);
 								if (iSafetyLoops>5)
 									 break;
 						  }
@@ -200,10 +202,10 @@ namespace FunkyTrinity
 									 while (!ZetaDia.Me.IsInTown)
 									 {
 										  iSafetyLoops++;
-										  Funky.Bot.Character.WaitWhileAnimating(5, true);
+										  Bot.Character.WaitWhileAnimating(5, true);
 										  ZetaDia.Me.UsePower(SNOPower.UseStoneOfRecall, ZetaDia.Me.Position, ZetaDia.Me.WorldDynamicId, -1);
 										  Thread.Sleep(1000);
-										  Funky.Bot.Character.WaitWhileAnimating(1000, true);
+										  Bot.Character.WaitWhileAnimating(1000, true);
 										  if (iSafetyLoops>5)
 												break;
 									 }
@@ -228,7 +230,7 @@ namespace FunkyTrinity
 						  iTimesReachedMaxUnstucks=3;
 					 }
 					 // Exit the game and reload the profile
-					 if (Funky.Bot.SettingsFunky.RestartGameOnLongStucks&&DateTime.Now.Subtract(timeLastRestartedGame).TotalMinutes>=15)
+					 if (Bot.SettingsFunky.RestartGameOnLongStucks&&DateTime.Now.Subtract(timeLastRestartedGame).TotalMinutes>=15)
 					 {
 						  HadDisconnectError=true;
 						  timeLastRestartedGame=DateTime.Now;
@@ -291,7 +293,7 @@ namespace FunkyTrinity
 
 					 if (vMoveToTarget!=vLastMoveTo)
 					 {
-						  if (Funky.Bot.SettingsFunky.LogStuckLocations)
+						  if (Bot.SettingsFunky.LogStuckLocations)
 						  {
 								vLastMoveTo=vMoveToTarget;
 								bLastWaypointWasTown=false;
@@ -326,7 +328,7 @@ namespace FunkyTrinity
 
 
 					 // Make sure GilesTrinity doesn't want us to avoid routine-movement
-					 if (Funky.Bot.Combat.DontMove)
+					 if (Bot.Combat.DontMove)
 						  return;
 
 					 // Store player current position
@@ -372,7 +374,7 @@ namespace FunkyTrinity
 
 					 #region Unstucker
 					 // Do unstuckery things
-					 if (Funky.Bot.SettingsFunky.EnableUnstucker)
+					 if (Bot.SettingsFunky.EnableUnstucker)
 					 {
 						  // Store the "real" (not anti-stuck) destination
 						  vOldMoveToTarget=vMoveToTarget;
@@ -456,7 +458,7 @@ namespace FunkyTrinity
 
 					 #region MovementAbilities
 					 // See if we can use abilities like leap etc. for movement out of combat, but not in town and only if we can raycast.
-					 if (Funky.Bot.SettingsFunky.OutOfCombatMovement&&!ZetaDia.Me.IsInTown)
+					 if (Bot.SettingsFunky.OutOfCombatMovement&&!ZetaDia.Me.IsInTown)
 					 {
 						  bool bTooMuchZChange=((vMyCurrentPosition.Z-vMoveToTarget.Z)>=4f);
 
@@ -478,13 +480,13 @@ namespace FunkyTrinity
 
 										  bool isHobbling=Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.Monk_Female_Hobble_Run|SNOAnim.Monk_Male_HTH_Hobble_Run);
 
-										  foundMovementPower=(!bTooMuchZChange&&(((!isHobbling||lastUsedAbilityMS>200)&&Bot.Character.dCurrentEnergy>=50)||((isHobbling||lastUsedAbilityMS<400&&Bot.NavigationCache.IsMoving)&&Bot.Character.dCurrentEnergy>15))
+										  foundMovementPower=(!bTooMuchZChange&&!Bot.Class.bWaitingForSpecial&&(((!isHobbling||lastUsedAbilityMS>200)&&Bot.Character.dCurrentEnergy>=50)||((isHobbling||lastUsedAbilityMS<400&&Bot.NavigationCache.IsMoving)&&Bot.Character.dCurrentEnergy>15))
 												&&!ObjectCache.Obstacles.DoesPositionIntersectAny(vTargetAimPoint, ObstacleType.ServerObject));
 
 										  break;
 									 case SNOPower.DemonHunter_Vault:
 										  foundMovementPower=(!bTooMuchZChange&&fDistanceFromTarget>=18f&&
-																	 (lastUsedAbilityMS>=Funky.Bot.SettingsFunky.Class.iDHVaultMovementDelay));
+																	 (lastUsedAbilityMS>=Bot.SettingsFunky.Class.iDHVaultMovementDelay));
 
 
 										  pointDistance=35f;
@@ -517,7 +519,7 @@ namespace FunkyTrinity
 									 if ((MovementPower.Power==SNOPower.Monk_TempestRush&&lastUsedAbilityMS<250)||
 										  Navigation.CanRayCast(vMyCurrentPosition, vTargetAimPoint))
 									 {
-										  ZetaDia.Me.UsePower(MovementPower.Power, vTargetAimPoint, Funky.Bot.Character.iCurrentWorldID, -1);
+										  ZetaDia.Me.UsePower(MovementPower.Power, vTargetAimPoint, Bot.Character.iCurrentWorldID, -1);
 										  MovementPower.LastUsed=DateTime.Now;
 										  return;
 									 }

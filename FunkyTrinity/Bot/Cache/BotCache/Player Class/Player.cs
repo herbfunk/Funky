@@ -6,11 +6,12 @@ using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
+using FunkyTrinity.ability;
+using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
 {
-	 public partial class Funky
-	 {
+
 
 		  ///<summary>
 		  ///Used to describe the Current Player -- Class, Hotbar Abilities, Passives, etc..
@@ -81,7 +82,7 @@ namespace FunkyTrinity
 				///</summary>
 				public virtual Ability DestructibleAbility()
 				{
-					 Ability returnAbility=IsMeleeClass?Instant_Melee_Attack:Instant_Range_Attack;
+					 Ability returnAbility=IsMeleeClass?Ability.Instant_Melee_Attack:Ability.Instant_Range_Attack;
 
 					 foreach (var item in this.Abilities.Values)
 					 {
@@ -149,7 +150,7 @@ namespace FunkyTrinity
 				internal bool FindMovementPower(out Ability MovementAbility)
 				{
 					 MovementAbility=null;
-					 foreach (var item in this.Abilities.Keys.Where(A => SpecialMovementAbilities.Contains(A)))
+					 foreach (var item in this.Abilities.Keys.Where(A => PowerCacheLookup.SpecialMovementAbilities.Contains(A)))
 					 {
 
 						  if (this.Abilities[item].CheckPreCastConditionMethod())
@@ -243,7 +244,7 @@ namespace FunkyTrinity
 										  this.HotbarPowers.Add(ability);
 
 									 //Check if the SNOPower is a destructible ability
-									 if (AbilitiesDestructiblePriority.Contains(ability))
+									 if (PowerCacheLookup.AbilitiesDestructiblePriority.Contains(ability))
 									 {
 										  if (!this.destructibleabilities.Contains(ability))
 												this.destructibleabilities.Add(ability);
@@ -305,12 +306,12 @@ namespace FunkyTrinity
 					 AbilityCooldowns=new Dictionary<SNOPower, int>();
 					 foreach (var item in HotbarPowers)
 					 {
-						  if (dictAbilityRepeatDefaults.ContainsKey(item))
-								AbilityCooldowns.Add(item, dictAbilityRepeatDefaults[item]);
+							if (PowerCacheLookup.dictAbilityRepeatDefaults.ContainsKey(item))
+								 AbilityCooldowns.Add(item, PowerCacheLookup.dictAbilityRepeatDefaults[item]);
 					 }
 					 foreach (var item in PassivePowers)
 					 {
-						  if (PassiveAbiltiesReduceRepeatTime.Contains(item))
+							if (PowerCacheLookup.PassiveAbiltiesReduceRepeatTime.Contains(item))
 						  {
 								switch (item)
 								{
@@ -386,7 +387,7 @@ namespace FunkyTrinity
 								if (CurrentBuffs.ContainsKey(item.SNOId))
 									 continue;
 
-								if (PowerStackImportant.Contains(item.SNOId))
+								if (PowerCacheLookup.PowerStackImportant.Contains(item.SNOId))
 									 CurrentBuffs.Add(item.SNOId, item.StackCount);
 								else
 									 CurrentBuffs.Add(item.SNOId, 1);
@@ -404,7 +405,7 @@ namespace FunkyTrinity
 				}
 				internal double AbilityLastUseMS(SNOPower P)
 				{
-					 return DateTime.Now.Subtract(dictAbilityLastUse[P]).TotalMilliseconds;
+					 return DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastUse[P]).TotalMilliseconds;
 				}
 				internal int GetBuffStacks(SNOPower thispower)
 				{
@@ -447,5 +448,5 @@ namespace FunkyTrinity
 
 				}
 		  }
-	 }
+	 
 }

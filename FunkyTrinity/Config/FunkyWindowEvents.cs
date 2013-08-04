@@ -6,6 +6,8 @@ using Zeta.Common;
 using System.Globalization;
 using System.Collections.ObjectModel;
 using Zeta.Internals.Actors;
+using FunkyTrinity.Enums;
+using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
 {
@@ -887,7 +889,10 @@ namespace FunkyTrinity
 				 {
 					  Bot.SettingsFunky.SkipAhead=!Bot.SettingsFunky.SkipAhead;
 				 }
-
+				 private void GroupingBehaviorChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.AttemptGroupingMovements=!Bot.SettingsFunky.AttemptGroupingMovements;
+				 }
              private void ExtendRangeRepChestChecked(object sender, EventArgs e)
              {
                  Bot.SettingsFunky.UseExtendedRangeRepChest = !Bot.SettingsFunky.UseExtendedRangeRepChest;

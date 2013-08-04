@@ -4,11 +4,11 @@ using Zeta;
 using System.Collections.Generic;
 using Zeta.Common;
 using System.Collections;
+using FunkyTrinity.Movement;
 
-namespace FunkyTrinity
+namespace FunkyTrinity.Movement
 {
-	 public partial class Funky
-	 {
+
 		  internal static class BackTrackCache
 		  {
 				///<summary>
@@ -43,5 +43,5 @@ namespace FunkyTrinity
 					 }
 				}
 		  }
-	 }
+	 
 }

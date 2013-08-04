@@ -4,6 +4,7 @@ using System.IO;
 using System.Globalization;
 using Zeta.Common;
 using System.Xml.Serialization;
+using FunkyTrinity.Enums;
 
 namespace FunkyTrinity
 {
@@ -795,10 +796,11 @@ namespace FunkyTrinity
              public ClassSettings Class { get; set; }
              public Settings_Funky()
              {
-					  AttemptGroupingMovements=false;
+					  AttemptGroupingMovements=true;
 					  GroupingMaximumDistanceAllowed=125;
 					  GroupingMinimumClusterCount=1;
 					  GroupingMinimumUnitsInCluster=4;
+
 					  EnableFleeingBehavior=true;
 					  FleeMaxMonsterDistance=6;
 					  FleeBotMinimumHealthPercent=0.75d;

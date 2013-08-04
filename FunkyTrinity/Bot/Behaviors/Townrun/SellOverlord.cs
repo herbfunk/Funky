@@ -9,6 +9,8 @@ using System.Linq;
 using System.IO;
 using System.Collections.Generic;
 using Zeta.Internals.SNO;
+using FunkyTrinity.Enums;
+using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
 {

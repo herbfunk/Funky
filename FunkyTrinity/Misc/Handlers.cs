@@ -27,7 +27,7 @@ namespace FunkyTrinity
         private static readonly List<DiaObject> listEmptyList = new List<DiaObject>();
         public List<DiaObject> GetObjectsByWeight()
         {
-				if (!Funky.Bot.Combat.DontMove)
+				if (!Bot.Combat.DontMove)
                 return listEmptyList;
             List<DiaObject> listFakeList = new List<DiaObject>();
             listFakeList.Add(null);

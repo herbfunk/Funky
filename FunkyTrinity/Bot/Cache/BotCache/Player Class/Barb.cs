@@ -6,13 +6,58 @@ using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
+using FunkyTrinity.Enums;
+using FunkyTrinity.ability;
+using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
 {
-	 public partial class Funky
-	 {
+
 		  internal class Barbarian : Player
 		  {
+				 enum BarbarianActiveSkills
+				 {
+						Barbarian_AncientSpear=69979,
+						Barbarian_Rend=70472,
+						Barbarian_Frenzy=78548,
+						Barbarian_Sprint=78551,
+						Barbarian_BattleRage=79076,
+						Barbarian_ThreateningShout=79077,
+						Barbarian_Bash=79242,
+						Barbarian_GroundStomp=79446,
+						Barbarian_IgnorePain=79528,
+						Barbarian_WrathOfTheBerserker=79607,
+						Barbarian_HammerOfTheAncients=80028,
+						Barbarian_CallOfTheAncients=80049,
+						Barbarian_Cleave=80263,
+						Barbarian_WarCry=81612,
+						Barbarian_SeismicSlam=86989,
+						Barbarian_Leap=93409,
+						Barbarian_WeaponThrow=93885,
+						Barbarian_Whirlwind=96296,
+						Barbarian_FuriousCharge=97435,
+						Barbarian_Earthquake=98878,
+						Barbarian_Revenge=109342,
+						Barbarian_Overpower=159169,
+				 }
+				 enum BarbarianPassiveSkills
+				 {
+						Barbarian_Passive_BoonOfBulKathos=204603,
+						Barbarian_Passive_NoEscape=204725,
+						Barbarian_Passive_Brawler=205133,
+						Barbarian_Passive_Ruthless=205175,
+						Barbarian_Passive_BerserkerRage=205187,
+						Barbarian_Passive_PoundOfFlesh=205205,
+						Barbarian_Passive_Bloodthirst=205217,
+						Barbarian_Passive_Animosity=205228,
+						Barbarian_Passive_Unforgiving=205300,
+						Barbarian_Passive_Relentless=205398,
+						Barbarian_Passive_Superstition=205491,
+						Barbarian_Passive_InspiringPresence=205546,
+						Barbarian_Passive_Juggernaut=205707,
+						Barbarian_Passive_ToughAsNails=205848,
+						Barbarian_Passive_WeaponsMaster=206147,
+				 }
 				//Base class for each individual class!
 				public Barbarian(ActorClass a)
 					 : base(a)
@@ -50,18 +95,18 @@ namespace FunkyTrinity
 					 return (DateTime.Now.Subtract(Bot.Combat.lastChangedZigZag).TotalMilliseconds>=2000f||
 								(Bot.Combat.vPositionLastZigZagCheck!=Vector3.Zero&&Bot.Character.Position==Bot.Combat.vPositionLastZigZagCheck&&DateTime.Now.Subtract(Bot.Combat.lastChangedZigZag).TotalMilliseconds>=1200)||
 								Vector3.Distance(Bot.Character.Position, Bot.Combat.vSideToSideTarget)<=5f||
-								Bot.Target.CurrentTarget.AcdGuid.Value!=Bot.Combat.iACDGUIDLastWhirlwind);
+								Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.AcdGuid.HasValue&&Bot.Target.CurrentTarget.AcdGuid.Value!=Bot.Combat.iACDGUIDLastWhirlwind);
 				}
 				public override void GenerateNewZigZagPath()
 				{
 					 if (Bot.Combat.bCheckGround)
 						  Bot.Combat.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, 25f, false, true, true);
-					 else if (Bot.Combat.iAnythingWithinRange[RANGE_30]>=6||Bot.Combat.iElitesWithinRange[RANGE_30]>=3)
+					 else if (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_30]>=6||Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_30]>=3)
 						  Bot.Combat.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, 25f, false, true);
 					 else
 						  Bot.Combat.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, 25f);
 					 Bot.Combat.powerLastSnoPowerUsed=SNOPower.None;
-					 Bot.Combat.iACDGUIDLastWhirlwind=Bot.Target.CurrentTarget.AcdGuid.Value;
+					 Bot.Combat.iACDGUIDLastWhirlwind=Bot.Target.CurrentTarget.AcdGuid.HasValue?Bot.Target.CurrentTarget.AcdGuid.Value:-1;
 					 Bot.Combat.lastChangedZigZag=DateTime.Now;
 				}
 
@@ -80,7 +125,7 @@ namespace FunkyTrinity
 						  }
 						  else
 						  {
-								return Instant_Melee_Attack;
+								return Ability.Instant_Melee_Attack;
 						  }
 					 }
 
@@ -101,7 +146,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(0, 0, true),
+								WaitVars=new WaitLoops(0, 0, true),
 								Cost=0,
 								UseAvoiding=true,
 								UseOOCBuff=false,
@@ -122,7 +167,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(4, 4, true),
+								WaitVars=new WaitLoops(4, 4, true),
 								Cost=0,
 								UseAvoiding=false,
 								UseOOCBuff=false,
@@ -144,7 +189,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(4, 4, true),
+								WaitVars=new WaitLoops(4, 4, true),
 								Cost=50,
 								UseAvoiding=true,
 								UseOOCBuff=false,
@@ -155,7 +200,7 @@ namespace FunkyTrinity
 								{
 									 return (Bot.SettingsFunky.Class.bGoblinWrath&&Bot.Target.CurrentTarget.IsTreasureGoblin)||
 												(Bot.SettingsFunky.Class.bBarbUseWOTBAlways)||
-												(Clusters(12d, 45f, 3).Any(c => c.EliteCount>2));
+												(Funky.Clusters(12d, 45f, 3).Any(c => c.EliteCount>2));
 								}),
 						  };
 					 }
@@ -169,7 +214,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(4, 4, true),
+								WaitVars=new WaitLoops(4, 4, true),
 								Cost=50,
 								UseAvoiding=false,
 								UseOOCBuff=false,
@@ -190,7 +235,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								Cost=20,
 								UseAvoiding=true,
 								UseOOCBuff=false,
@@ -217,7 +262,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								Cost=0,
 								Range=0,
 								UseAvoiding=false,
@@ -227,7 +272,7 @@ namespace FunkyTrinity
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return (!HasBuff(SNOPower.Barbarian_WarCry)
-												||(Bot.Class.PassivePowers.Contains(SNOPower.Barbarian_Passive_InspiringPresence)&&DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Barbarian_WarCry]).TotalSeconds>59
+												||(Bot.Class.PassivePowers.Contains(SNOPower.Barbarian_Passive_InspiringPresence)&&DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastUse[SNOPower.Barbarian_WarCry]).TotalSeconds>59
 												||Bot.Character.dCurrentEnergyPct<0.10));
 								}),
 						  };
@@ -242,7 +287,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								Cost=20,
 								UseAvoiding=true,
 								UseOOCBuff=true,
@@ -273,7 +318,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								Cost=20,
 								UseAvoiding=true,
 								UseOOCBuff=false,
@@ -282,8 +327,8 @@ namespace FunkyTrinity
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return (
-										  Bot.Combat.iElitesWithinRange[RANGE_20]>1||(Bot.Target.CurrentTarget.IsBoss&&Bot.Target.CurrentTarget.RadiusDistance<=20)||
-										  (Bot.Combat.iAnythingWithinRange[RANGE_20]>2&&!Bot.Combat.bAnyBossesInRange&&(Bot.Combat.iElitesWithinRange[RANGE_50]==0||Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_SeismicSlam)))||
+										  Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_20]>1||(Bot.Target.CurrentTarget.IsBoss&&Bot.Target.CurrentTarget.RadiusDistance<=20)||
+										  (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]>2&&!Bot.Combat.bAnyBossesInRange&&(Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_50]==0||Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_SeismicSlam)))||
 										  Bot.Character.dCurrentHealthPct<=0.75
 										  );
 								}),
@@ -299,7 +344,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(1, 2, true),
+								WaitVars=new WaitLoops(1, 2, true),
 								Cost=20,
 								Range=16,
 								UseAvoiding=true,
@@ -322,7 +367,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								
-								AbilityWaitVars=new AbilityWaitLoops(2, 2, true),
+								WaitVars=new WaitLoops(2, 2, true),
 								UsageType=AbilityUseType.ClusterLocation|AbilityUseType.Location,
 								Range=35,
 								Priority=AbilityPriority.Low,
@@ -347,7 +392,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(4, 4, true),
+								WaitVars=new WaitLoops(4, 4, true),
 								Cost=0,
 								UseAvoiding=false,
 								UseOOCBuff=true,
@@ -368,7 +413,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(1, 2, true),
+								WaitVars=new WaitLoops(1, 2, true),
 								Cost=20,
 								Range=35,
 								UseAvoiding=false,
@@ -394,7 +439,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(3, 3, true),
+								WaitVars=new WaitLoops(3, 3, true),
 								Cost=20,
 								UseAvoiding=false,
 								UseOOCBuff=false,
@@ -406,9 +451,9 @@ namespace FunkyTrinity
 									 return 
 										 !this.bWaitingForSpecial&&
 										  //Only if 2 non-elite targets OR 1 elite target is within 6feet
-									  (Bot.Combat.iAnythingWithinRange[RANGE_6]>1||Bot.Combat.iElitesWithinRange[RANGE_6]>0)&&
+									  (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_6]>1||Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_6]>0)&&
 										  // Don't use against goblins (they run too quick!) Or any mobs added to the fast list unless elite.                                                                  
-									  (!Bot.Target.CurrentTarget.IsTreasureGoblin&&(!SnoCacheLookup.hashActorSNOFastMobs.Contains(Bot.Target.CurrentTarget.SNOID)||Bot.Target.CurrentUnitTarget.IsEliteRareUnique)||Bot.Combat.iAnythingWithinRange[RANGE_6]>3)&&
+									  (!Bot.Target.CurrentTarget.IsTreasureGoblin&&(!CacheIDLookup.hashActorSNOFastMobs.Contains(Bot.Target.CurrentTarget.SNOID)||Bot.Target.CurrentUnitTarget.IsEliteRareUnique)||Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_6]>3)&&
 										  //Non-WW users
 									 (!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind)&&((Bot.Class.AbilityUseTimer(SNOPower.Barbarian_Rend)||(Bot.Combat.iNonRendedTargets_6>2)))
 										  // This segment is for people who *DO* have whirlwind
@@ -416,14 +461,14 @@ namespace FunkyTrinity
 										  // See if it's off-cooldown and at least 40 fury, or use as a fury dump
 										  ((Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.92&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
 										  (Bot.SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.92)||
-										  (DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Barbarian_Rend]).TotalMilliseconds>=2800))&&
+											(DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastUse[SNOPower.Barbarian_Rend]).TotalMilliseconds>=2800))&&
 										  // Max once every 1.2 seconds even if fury dumping, so sprint can be fury dumped too
 										  // DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Barbarian_Rend]).TotalMilliseconds >= 1200 &&
 										  // 3+ mobs of any kind at close range *OR* one elite/boss/special at close range
-									  ((Bot.Combat.iAnythingWithinRange[RANGE_15]>=3&&Bot.Combat.iElitesWithinRange[RANGE_12]>=1)||
-									  (Bot.Combat.iAnythingWithinRange[RANGE_15]>=3&&Bot.Target.CurrentTarget.IsTreasureGoblin&&Bot.Target.CurrentTarget.RadiusDistance<=6f)||
-											Bot.Combat.iAnythingWithinRange[RANGE_15]>=5||
-									  ((Bot.Target.CurrentUnitTarget.IsEliteRareUnique)&&Bot.Target.CurrentTarget.RadiusDistance<=6f&&Bot.Combat.iAnythingWithinRange[RANGE_15]>=3))));
+									  ((Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3&&Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_12]>=1)||
+									  (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3&&Bot.Target.CurrentTarget.IsTreasureGoblin&&Bot.Target.CurrentTarget.RadiusDistance<=6f)||
+											Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=5||
+									  ((Bot.Target.CurrentUnitTarget.IsEliteRareUnique)&&Bot.Target.CurrentTarget.RadiusDistance<=6f&&Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3))));
 								}),
 						  };
 					 }
@@ -437,7 +482,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(4, 4, true),
+								WaitVars=new WaitLoops(4, 4, true),
 								Cost=20,
 								UseAvoiding=true,
 								UseOOCBuff=false,
@@ -445,8 +490,8 @@ namespace FunkyTrinity
 								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return Bot.Combat.iAnythingWithinRange[RANGE_6]>=2||(Bot.Character.dCurrentHealthPct<=0.85&&Bot.Target.CurrentTarget.RadiusDistance<=5f)||
-										  (Bot.Combat.iAnythingWithinRange[RANGE_6]>=1&&
+									 return Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_6]>=2||(Bot.Character.dCurrentHealthPct<=0.85&&Bot.Target.CurrentTarget.RadiusDistance<=5f)||
+										  (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_6]>=1&&
 										  ((Bot.Target.CurrentUnitTarget.IsEliteRareUnique)||HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)||
 										  Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_SeismicSlam)));
 								}),
@@ -462,7 +507,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.ClusterLocation|AbilityUseType.Location,
-								AbilityWaitVars=new AbilityWaitLoops(2, 2, true),
+								WaitVars=new WaitLoops(2, 2, true),
 								Cost=this.RuneIndexCache[SNOPower.Barbarian_SeismicSlam]==3?15:30,
 								Range=40,
 								UseAvoiding=false,
@@ -487,7 +532,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(2, 2, true),
+								WaitVars=new WaitLoops(2, 2, true),
 								Range=35,
 								IsRanged=true,
 								UseAvoiding=false,
@@ -514,7 +559,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.ZigZagPathing,
-								AbilityWaitVars=new AbilityWaitLoops(0, 0, true),
+								WaitVars=new WaitLoops(0, 0, true),
 								Cost=10,
 								Range=15,
 								UseAvoiding=false,
@@ -529,7 +574,7 @@ namespace FunkyTrinity
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return !this.bWaitingForSpecial&&
-										  (!Bot.SettingsFunky.Class.bSelectiveWhirlwind||Bot.Combat.bAnyNonWWIgnoreMobsInRange||!SnoCacheLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Target.CurrentTarget.SNOID))&&
+										  (!Bot.SettingsFunky.Class.bSelectiveWhirlwind||Bot.Combat.bAnyNonWWIgnoreMobsInRange||!CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Target.CurrentTarget.SNOID))&&
 										  // If they have battle-rage, make sure it's up
 										  (!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage)||(Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage)&&HasBuff(SNOPower.Barbarian_BattleRage)));
 								}),
@@ -547,7 +592,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.ClusterTarget|AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(1, 2, true),
+								WaitVars=new WaitLoops(1, 2, true),
 								Cost=20,
 								Range=this.RuneIndexCache[Power]==0?13:this.RuneIndexCache[Power]==1?20:16,
 								UseAvoiding=false,
@@ -570,7 +615,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
+								WaitVars=new WaitLoops(0, 1, true),
 								Cost=10,
 								Range=44,
 								IsRanged=true,
@@ -591,7 +636,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(0, 0, true),
+								WaitVars=new WaitLoops(0, 0, true),
 								Cost=0,
 								Range=10,
 								UseAvoiding=false,
@@ -611,7 +656,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
+								WaitVars=new WaitLoops(0, 1, true),
 								Cost=0,
 								Range=10,
 								UseAvoiding=false,
@@ -631,7 +676,7 @@ namespace FunkyTrinity
 								Power=Power,
 								
 								UsageType=AbilityUseType.Target|AbilityUseType.ClusterTarget,
-								AbilityWaitVars=new AbilityWaitLoops(0, 2, true),
+								WaitVars=new WaitLoops(0, 2, true),
 								Cost=0,
 								Range=10,
 								UseAvoiding=false,
@@ -645,7 +690,7 @@ namespace FunkyTrinity
 					 #endregion
 
 					 if (Power==SNOPower.Weapon_Melee_Instant)
-						  returnAbility=Instant_Melee_Attack;
+						  returnAbility=Ability.Instant_Melee_Attack;
 
 					 return returnAbility;
 				}
@@ -655,5 +700,5 @@ namespace FunkyTrinity
 					 return base.AbilitySelector(bCurrentlyAvoiding, bOOCBuff);
 				}
 		  }
-	 }
+	 
 }

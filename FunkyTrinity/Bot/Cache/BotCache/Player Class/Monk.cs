@@ -6,13 +6,57 @@ using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
+using FunkyTrinity.Enums;
+using FunkyTrinity.ability;
 
 namespace FunkyTrinity
 {
-	 public partial class Funky
-	 {
+
 		  internal class Monk : Player
 		  {
+				 enum MonkActiveSkills
+				 {
+						Monk_BreathOfHeaven=69130,
+						Monk_MantraOfRetribution=69484,
+						Monk_MantraOfHealing=69490,
+						Monk_MantraOfConviction=95572,
+						Monk_FistsofThunder=95940,
+						Monk_DeadlyReach=96019,
+						Monk_WaveOfLight=96033,
+						Monk_SweepingWind=96090,
+						Monk_DashingStrike=96203,
+						Monk_Serenity=96215,
+						Monk_CripplingWave=96311,
+						Monk_SevenSidedStrike=96694,
+						Monk_WayOfTheHundredFists=97110,
+						Monk_InnerSanctuary=97222,
+						Monk_ExplodingPalm=97328,
+						Monk_LashingTailKick=111676,
+						Monk_TempestRush=121442,
+						Monk_MysticAlly=123208,
+						Monk_BlindingFlash=136954,
+						Monk_MantraOfEvasion=192405,
+						Monk_CycloneStrike=223473,
+				 }
+				 enum MonkPassiveSkills
+				 {
+						Monk_Passive_CombinationStrike=218415,
+						Monk_Passive_Resolve=211581,
+						Monk_Passive_TheGuardiansPath=209812,
+						Monk_Passive_Pacifism=209813,
+						Monk_Passive_SixthSense=209622,
+						Monk_Passive_SeizeTheInitiative=209628,
+						Monk_Passive_OneWithEverything=209656,
+						Monk_Passive_Transcendence=209250,
+						Monk_Passive_BeaconOfYtar=209104,
+						Monk_Passive_ExaltedSoul=209027,
+						Monk_Passive_FleetFooted=209029,
+						Monk_Passive_ChantOfResonance=156467,
+						Monk_Passive_NearDeathExperience=156484,
+						Monk_Passive_GuidingLight=156492,
+
+				 }
+
 				//Base class for each individual class!
 				public Monk(ActorClass a)
 					 : base(a)
@@ -51,7 +95,7 @@ namespace FunkyTrinity
 					 return (DateTime.Now.Subtract(Bot.Combat.lastChangedZigZag).TotalMilliseconds>=1500||
 							  (Bot.Combat.vPositionLastZigZagCheck!=Vector3.Zero&&Bot.Character.Position==Bot.Combat.vPositionLastZigZagCheck&&DateTime.Now.Subtract(Bot.Combat.lastChangedZigZag).TotalMilliseconds>=200)||
 							  Vector3.Distance(Bot.Character.Position, Bot.Combat.vSideToSideTarget)<=4f||
-							  Bot.Target.CurrentTarget.AcdGuid.Value!=Bot.Combat.iACDGUIDLastWhirlwind);
+							  Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.AcdGuid.HasValue&&Bot.Target.CurrentTarget.AcdGuid.Value!=Bot.Combat.iACDGUIDLastWhirlwind);
 				}
 				public override void GenerateNewZigZagPath()
 				{
@@ -91,7 +135,7 @@ namespace FunkyTrinity
 
 
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
+								WaitVars=new WaitLoops(0, 1, true),
 								Cost=50,
 								UseAvoiding=true,
 								UseOOCBuff=true,
@@ -103,7 +147,7 @@ namespace FunkyTrinity
 								{
 
 									 return
-										  !HasBuff(Power)||Bot.SettingsFunky.Class.bMonkSpamMantra&&Bot.Target.CurrentTarget!=null&&(Bot.Combat.iElitesWithinRange[RANGE_25]>0||Bot.Combat.iAnythingWithinRange[RANGE_20]>=2||(Bot.Combat.iAnythingWithinRange[RANGE_20]>=1&&Bot.SettingsFunky.Class.bMonkInnaSet)||(Bot.Target.CurrentUnitTarget.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=25f)&&
+										  !HasBuff(Power)||Bot.SettingsFunky.Class.bMonkSpamMantra&&Bot.Target.CurrentTarget!=null&&(Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_25]>0||Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=2||(Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=1&&Bot.SettingsFunky.Class.bMonkInnaSet)||(Bot.Target.CurrentUnitTarget.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=25f)&&
 										  // Check if either we don't have blinding flash, or we do and it's been cast in the last 6000ms
 										  //DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Monk_BlindingFlash]).TotalMilliseconds <= 6000)) &&
 										  (!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)||
@@ -124,7 +168,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(2, 2, true),
+								WaitVars=new WaitLoops(2, 2, true),
 								Cost=25,
 								UseAvoiding=true,
 								UseOOCBuff=true,
@@ -143,7 +187,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								Cost=30,
 								UseAvoiding=true,
 								Priority=AbilityPriority.High,
@@ -161,7 +205,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								Cost=10,
 								UseAvoiding=true,
 								UseOOCBuff=true,
@@ -181,7 +225,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								Cost=25,
 								UseAvoiding=true,
 								UseOOCBuff=true,
@@ -201,7 +245,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
+								WaitVars=new WaitLoops(0, 1, true),
 								Cost=10,
 								UseAvoiding=true,
 								Priority=AbilityPriority.High,
@@ -210,11 +254,11 @@ namespace FunkyTrinity
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return
-										  Bot.Combat.iElitesWithinRange[RANGE_15]>=1||Bot.Character.dCurrentHealthPct<=0.4||
-										  (Bot.Combat.iAnythingWithinRange[RANGE_20]>=5&&Bot.Combat.iElitesWithinRange[RANGE_50]==0)||
-										  (Bot.Combat.iAnythingWithinRange[RANGE_15]>=3&&Bot.Character.dCurrentEnergyPct<=0.5)||
+										  Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_15]>=1||Bot.Character.dCurrentHealthPct<=0.4||
+										  (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=5&&Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_50]==0)||
+										  (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3&&Bot.Character.dCurrentEnergyPct<=0.5)||
 										  (Bot.Target.CurrentTarget.IsBoss&&Bot.Target.CurrentTarget.RadiusDistance<=15f)||
-										  (Bot.SettingsFunky.Class.bMonkInnaSet&&Bot.Combat.iAnythingWithinRange[RANGE_15]>=1&&this.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)&&!HasBuff(SNOPower.Monk_SweepingWind))
+										  (Bot.SettingsFunky.Class.bMonkInnaSet&&Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=1&&this.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)&&!HasBuff(SNOPower.Monk_SweepingWind))
 										  &&
 										  // Check if we don't have breath of heaven
 										  (!this.HotbarPowers.Contains(SNOPower.Monk_BreathOfHeaven)||
@@ -239,7 +283,7 @@ namespace FunkyTrinity
 								Power=Power,
 
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
+								WaitVars=new WaitLoops(0, 1, true),
 								Cost=Bot.SettingsFunky.Class.bMonkInnaSet?5:75,
 								Priority=AbilityPriority.High,
 								UseOOCBuff=false,
@@ -262,7 +306,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Location,
-								AbilityWaitVars=new AbilityWaitLoops(2, 3, true),
+								WaitVars=new WaitLoops(2, 3, true),
 								Cost=50,
 								Range=16,
 								Priority=AbilityPriority.Low,
@@ -288,7 +332,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								Cost=40,
 								Range=14,
 								Priority=AbilityPriority.Low,
@@ -315,7 +359,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Buff,
-								AbilityWaitVars=new AbilityWaitLoops(2, 2, true),
+								WaitVars=new WaitLoops(2, 2, true),
 								Cost=50,
 								Priority=AbilityPriority.Low,
 
@@ -343,7 +387,7 @@ namespace FunkyTrinity
 								Power=Power,
 
 								UsageType=AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(1, 1, true),
+								WaitVars=new WaitLoops(1, 1, true),
 								Cost=30,
 								Range=10,
 								Priority=AbilityPriority.Low,
@@ -372,7 +416,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.ClusterLocation|AbilityUseType.Location,
-								AbilityWaitVars=new AbilityWaitLoops(2, 2, true),
+								WaitVars=new WaitLoops(2, 2, true),
 								Cost=this.RuneIndexCache[SNOPower.Monk_WaveOfLight]==3?40:75,
 								Range=16,
 								Priority=AbilityPriority.Low,
@@ -395,7 +439,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.ZigZagPathing,
-								AbilityWaitVars=new AbilityWaitLoops(0, 0, true),
+								WaitVars=new WaitLoops(0, 0, true),
 								Cost=15,
 								Range=23,
 								Priority=AbilityPriority.Low,
@@ -431,7 +475,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
+								WaitVars=new WaitLoops(0, 1, true),
 								Cost=25,
 								Range=30,
 								Priority=AbilityPriority.Low,
@@ -455,7 +499,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.ClusterTarget|AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, false),
+								WaitVars=new WaitLoops(0, 1, false),
 
 								Priority=AbilityPriority.None,
 								Range=this.RuneIndexCache[SNOPower.Monk_FistsofThunder]==0?25:12,
@@ -477,7 +521,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
+								WaitVars=new WaitLoops(0, 1, true),
 								Priority=AbilityPriority.None,
 								Range=16,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
@@ -493,7 +537,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, true),
+								WaitVars=new WaitLoops(0, 1, true),
 								Priority=AbilityPriority.None,
 								Range=14,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
@@ -509,7 +553,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.Target,
-								AbilityWaitVars=new AbilityWaitLoops(0, 1, false),
+								WaitVars=new WaitLoops(0, 1, false),
 								Priority=AbilityPriority.None,
 								Range=14,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
@@ -519,7 +563,7 @@ namespace FunkyTrinity
 					 #endregion
 
 					 if (Power==SNOPower.Weapon_Melee_Instant)
-						  returnAbility=Instant_Melee_Attack;
+						  returnAbility=Ability.Instant_Melee_Attack;
 
 					 return returnAbility;
 				}
@@ -539,5 +583,5 @@ namespace FunkyTrinity
 					 }
 				}
 		  }
-	 }
+	 
 }

@@ -7,11 +7,13 @@ using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.Internals.SNO;
 using Zeta.CommonBot;
+using FunkyTrinity.Enums;
+using FunkyTrinity.Cache;
+using FunkyTrinity.Movement;
 
 namespace FunkyTrinity
 {
-	 public partial class Funky
-	 {
+
 
 		  public static partial class Bot
 		  {
@@ -44,7 +46,7 @@ namespace FunkyTrinity
 						  PetData=new Pets();
 						  PickupRadius=1;
 
-						  LastCachedTarget=FakeCacheObject;
+							LastCachedTarget=Funky.FakeCacheObject;
 						  fCharacterRadius=0f;
 						  //iCurrentGameDifficulty=GameDifficulty.Invalid;
 						  CurrentProfileBehavior=null;
@@ -190,7 +192,7 @@ namespace FunkyTrinity
 									 if (dCurrentHealthPct<0.50d&&!Bot.SettingsFunky.AttemptAvoidanceMovements&&
 										  !Zeta.CommonBot.PowerManager.CanCast(SNOPower.DrinkHealthPotion))
 										  Bot.Combat.CriticalAvoidance=true;
-									 else if (Bot.Combat.CriticalAvoidance&&!shouldPreformOOCItemIDing&&!FunkyTPBehaviorFlag&&dCurrentHealthPct>0.5)
+									 else if (Bot.Combat.CriticalAvoidance&&!Funky.shouldPreformOOCItemIDing&&!Funky.FunkyTPBehaviorFlag&&dCurrentHealthPct>0.5)
 										  //Disable it when not OOC/TP/Low health still..
 										  Bot.Combat.CriticalAvoidance=false;
 
@@ -444,9 +446,10 @@ namespace FunkyTrinity
 									 {
 										  using (ZetaDia.Memory.AcquireFrame())
 										  {
-												CacheACDItem thiscacheditem=new CacheACDItem(thisitem.InternalName, thisitem.Name, thisitem.Level, thisitem.ItemQualityLevel, thisitem.Gold, thisitem.GameBalanceId,
-																thisitem.DynamicId, thisitem.Stats.WeaponDamagePerSecond, thisitem.IsOneHand, thisitem.DyeType, thisitem.ItemType, thisitem.FollowerSpecialType,
-																thisitem.IsUnidentified, thisitem.ItemStackQuantity, thisitem.Stats, thisitem, thisitem.InventoryRow, thisitem.InventoryColumn, thisitem.IsPotion, thisitem.ACDGuid);
+												//CacheACDItem thiscacheditem=new CacheACDItem(thisitem.InternalName, thisitem.Name, thisitem.Level, thisitem.ItemQualityLevel, thisitem.Gold, thisitem.GameBalanceId,
+												//            thisitem.DynamicId, thisitem.Stats.WeaponDamagePerSecond, thisitem.IsOneHand, thisitem.DyeType, thisitem.ItemType, thisitem.FollowerSpecialType,
+												//            thisitem.IsUnidentified, thisitem.ItemStackQuantity, thisitem.Stats, thisitem, thisitem.InventoryRow, thisitem.InventoryColumn, thisitem.IsPotion, thisitem.ACDGuid);
+												CacheACDItem thiscacheditem=new CacheACDItem(thisitem);
 												CacheItemList.Add(thiscacheditem.ACDGUID,thiscacheditem);
 										  }
 									 }
@@ -722,5 +725,5 @@ namespace FunkyTrinity
 					 }
 				}
 		  }
-	 }
+	 
 }

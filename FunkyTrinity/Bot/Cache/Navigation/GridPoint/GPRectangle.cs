@@ -4,11 +4,11 @@ using Zeta;
 using Zeta.Common;
 using System.Collections.Generic;
 using System.Collections;
+using FunkyTrinity.Enums;
 
-namespace FunkyTrinity
+namespace FunkyTrinity.Movement
 {
-	 public partial class Funky
-	 {
+
 
 		  ///<summary>
 		  ///GridPointCircle
@@ -207,7 +207,7 @@ namespace FunkyTrinity
 						  //var SectorOccupiedLists=(from sector in Quadrant.Values
 						  //                         select sector.OccupiedObjects);
 
-						  if (Bot.SettingsFunky.LogSafeMovementOutput) Logging.WriteDiagnostic("Updated GPC with Avoids {0} / Mobs {1} Count and total weight {2}", this.AvoidanceCount, this.MonsterCount, this.Weight);
+							if (Bot.SettingsFunky.LogSafeMovementOutput) Logging.WriteDiagnostic("Updated GPC with Avoids {0} / Mobs {1} Count and total weight {2}", this.AvoidanceCount, this.MonsterCount, this.Weight);
 					 }
 				}
 
@@ -324,5 +324,5 @@ namespace FunkyTrinity
 				}
 		  }
 
-	 }
+	 
 }

@@ -5,11 +5,13 @@ using Zeta.TreeSharp;
 using Zeta.Common;
 using Zeta.Internals.SNO;
 using Zeta.Internals.Actors;
+using FunkyTrinity.Enums;
+using FunkyTrinity.ability;
+using FunkyTrinity.Cache;
 
-namespace FunkyTrinity
+namespace FunkyTrinity.Movement
 {
-	 public partial class Funky
-	 {
+
 		  public static class TargetMovement
 		  {
 				//TargetMovement -- Used during Target Handling to move the bot into Interaction Range.
@@ -45,6 +47,8 @@ namespace FunkyTrinity
 								case TargetType.Unit:
 									 if (obj.LOSV3!=Vector3.Zero)
 										  Action+="LOS] ";
+									 else if (Bot.NavigationCache.groupRunningBehavior&&Bot.NavigationCache.groupingCurrentUnit!=null&&Bot.NavigationCache.groupingCurrentUnit==obj)
+										  Action+="Grouping] ";
 									 else
 										  Action+="Combat] ";
 
@@ -169,7 +173,7 @@ namespace FunkyTrinity
 														  {
 																obj.RequiresLOSCheck=true;
 																obj.BlacklistLoops=10;
-																Log("Ignoring object "+obj.InternalName+" due to not moving and raycast failure!", true);
+																Logging.WriteDiagnostic("Ignoring object "+obj.InternalName+" due to not moving and raycast failure!", true);
 																Bot.Combat.bForceTargetUpdate=true;
 																return RunStatus.Running;
 														  }
@@ -184,7 +188,7 @@ namespace FunkyTrinity
 													 if (!Navigation.CanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
 													 {
 														  obj.BlacklistLoops=10;
-														  Log("Ignoring Item due to AllowWalk RayCast Failure!", true);
+															Logging.WriteDiagnostic("Ignoring Item due to AllowWalk RayCast Failure!", true);
 														  Bot.Combat.bForceTargetUpdate=true;
 														  return RunStatus.Running;
 													 }
@@ -262,13 +266,13 @@ namespace FunkyTrinity
 										  vTargetAimPoint=MathEx.CalculatePointFrom(CurrentTargetLocation, Bot.Character.Position, 10f);
 										  Bot.Character.UpdateAnimationState(false, true);
 										  bool isHobbling=Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.Monk_Female_Hobble_Run|SNOAnim.Monk_Male_HTH_Hobble_Run);
-										  foundMovementPower=(!bTooMuchZChange&&currentDistance<15f&&((isHobbling||lastUsedAbilityMS<300)&&Bot.Character.dCurrentEnergy>15)
+										  foundMovementPower=(!bTooMuchZChange&&!Bot.Class.bWaitingForSpecial&&currentDistance<15f&&((isHobbling||lastUsedAbilityMS<300)&&Bot.Character.dCurrentEnergy>15)
 												&&!ObjectCache.Obstacles.DoesPositionIntersectAny(vTargetAimPoint, ObstacleType.ServerObject));
 
 										  break;
 									 case SNOPower.DemonHunter_Vault:
 										  foundMovementPower=(obj.targetType.Value!=TargetType.Destructible&&!bTooMuchZChange&&currentDistance>=18f&&
-																	 (lastUsedAbilityMS>=Funky.Bot.SettingsFunky.Class.iDHVaultMovementDelay));
+																	 (lastUsedAbilityMS>=Bot.SettingsFunky.Class.iDHVaultMovementDelay));
 										  pointDistance=35f;
 										  if (currentDistance>pointDistance)
 												vTargetAimPoint=MathEx.CalculatePointFrom(CurrentTargetLocation, Bot.Character.Position, pointDistance);
@@ -318,7 +322,7 @@ namespace FunkyTrinity
 									 if ((MovementPower.Power==SNOPower.Monk_TempestRush&&lastUsedAbilityMS>500)||
 										  (ignoreLOSTest||ZetaDia.Physics.Raycast(Bot.Character.Position, vTargetAimPoint, NavCellFlags.AllowWalk)))
 									 {
-										  ZetaDia.Me.UsePower(MovementPower.Power, vTargetAimPoint, Funky.Bot.Character.iCurrentWorldID, -1);
+										  ZetaDia.Me.UsePower(MovementPower.Power, vTargetAimPoint, Bot.Character.iCurrentWorldID, -1);
 										  MovementPower.LastUsed=DateTime.Now;
 
 										  // Store the current destination for comparison incase of changes next loop
@@ -337,7 +341,7 @@ namespace FunkyTrinity
 						  {
 								// Whirlwind against everything within range (except backtrack points)
 								if (Bot.Character.dCurrentEnergy>=10
-									 &&Bot.Combat.iAnythingWithinRange[RANGE_20]>=1
+									 &&Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=1
 									 &&obj.DistanceFromTarget<=12f
 									 &&(!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Sprint)||Bot.Class.HasBuff(SNOPower.Barbarian_Sprint))
 									 &&(!(TargetType.Avoidance|TargetType.Gold|TargetType.Globe).HasFlag(obj.targetType.Value)&obj.DistanceFromTarget>=6f)
@@ -345,21 +349,21 @@ namespace FunkyTrinity
 									 ||(obj.targetType.Value==TargetType.Unit&&!obj.IsTreasureGoblin
 										  &&(!Bot.SettingsFunky.Class.bSelectiveWhirlwind
 												||Bot.Combat.bAnyNonWWIgnoreMobsInRange
-												||!SnoCacheLookup.hashActorSNOWhirlwindIgnore.Contains(obj.SNOID)))))
+												||!CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(obj.SNOID)))))
 								{
 									 // Special code to prevent whirlwind double-spam, this helps save fury
 									 bool bUseThisLoop=SNOPower.Barbarian_Whirlwind!=Bot.Combat.powerLastSnoPowerUsed;
 									 if (!bUseThisLoop)
 									 {
 										  Bot.Combat.powerLastSnoPowerUsed=SNOPower.None;
-										  if (DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Barbarian_Whirlwind]).TotalMilliseconds>=200)
+											if (DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastUse[SNOPower.Barbarian_Whirlwind]).TotalMilliseconds>=200)
 												bUseThisLoop=true;
 									 }
 									 if (bUseThisLoop)
 									 {
 										  ZetaDia.Me.UsePower(SNOPower.Barbarian_Whirlwind, CurrentTargetLocation, Bot.Character.iCurrentWorldID, -1);
 										  Bot.Combat.powerLastSnoPowerUsed=SNOPower.Barbarian_Whirlwind;
-										  dictAbilityLastUse[SNOPower.Barbarian_Whirlwind]=DateTime.Now;
+											PowerCacheLookup.dictAbilityLastUse[SNOPower.Barbarian_Whirlwind]=DateTime.Now;
 									 }
 									 // Store the current destination for comparison incase of changes next loop
 									 LastTargetLocation=CurrentTargetLocation;
@@ -432,5 +436,5 @@ namespace FunkyTrinity
 					 LastMovementCommand=DateTime.Today;
 				}
 		  }
-    }
+    
 }

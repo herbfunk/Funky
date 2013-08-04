@@ -4,6 +4,8 @@ using System.Windows.Media;
 using System.Windows;
 using Zeta.Common;
 using Zeta.Internals.Actors;
+using FunkyTrinity.Enums;
+using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
 {

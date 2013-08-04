@@ -11,6 +11,8 @@ using Zeta.Internals.Actors.Gizmos;
 using Zeta.Internals;
 using System.Globalization;
 using Zeta.Internals.SNO;
+using FunkyTrinity.Enums;
+using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
 {

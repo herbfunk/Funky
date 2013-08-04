@@ -32,7 +32,7 @@ namespace FunkyTrinity
 		  internal static Vector3 StartingPosition=Vector3.Zero;
 		  internal static bool MovementOccured=false;
 
-		  private static bool FunkyTPBehaviorFlag=false;
+		 public static bool FunkyTPBehaviorFlag=false;
 
 		  public static bool FunkyTPOverlord(object ret)
 		  {

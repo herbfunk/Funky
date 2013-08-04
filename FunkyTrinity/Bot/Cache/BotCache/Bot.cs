@@ -4,16 +4,18 @@ using Zeta.CommonBot;
 using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.Internals.Actors;
+using FunkyTrinity.Enums;
+using FunkyTrinity.Cache;
+using FunkyTrinity.Movement;
 
 namespace FunkyTrinity
 {
-	 public partial class Funky
-	 {
+
 		  //This class is used to hold the data
 
 		  public static partial class Bot
 		  {
-				public static Settings_Funky SettingsFunky=new Settings_Funky();
+				 public static Funky.Settings_Funky SettingsFunky=new Funky.Settings_Funky();
 				public static Player Class { get; set; }
 				public static CharacterCache Character { get; set; }
 				public static CombatCache Combat { get; set; }
@@ -59,7 +61,7 @@ namespace FunkyTrinity
 					 get
 					 {
 						  //OOC IDing, Town Portal Casting, Town Run
-						  return (Character.IsRunningOOCBehavior||shouldPreformOOCItemIDing||FunkyTPBehaviorFlag||TownRunManager.bWantToTownRun);
+							return (Character.IsRunningOOCBehavior||Funky.shouldPreformOOCItemIDing||Funky.FunkyTPBehaviorFlag||Funky.TownRunManager.bWantToTownRun);
 					 }
 				}
 
@@ -188,9 +190,9 @@ namespace FunkyTrinity
 					 get
 					 {
 						  if (Combat.CriticalAvoidance||IsInNonCombatBehavior)
-								return dictAvoidanceHealthOOCIDBehaviorDefaults;
+								 return Funky.dictAvoidanceHealthOOCIDBehaviorDefaults;
 						  else
-								return ReturnDictionaryUsingActorClass(Class.AC);
+								 return Funky.ReturnDictionaryUsingActorClass(Class.AC);
 					 }
 				}
 
@@ -268,11 +270,11 @@ namespace FunkyTrinity
 						  {
 								hashActorSNOKitingIgnore_=new HashSet<int> { 4095, 144315 };
 								//burrowing units
-								hashActorSNOKitingIgnore_.UnionWith(SnoCacheLookup.hashActorSNOBurrowableUnits);
+								hashActorSNOKitingIgnore_.UnionWith(CacheIDLookup.hashActorSNOBurrowableUnits);
 								//grunts
-								hashActorSNOKitingIgnore_.UnionWith(SnoCacheLookup.hashActorSNOSummonedUnit);
+								hashActorSNOKitingIgnore_.UnionWith(CacheIDLookup.hashActorSNOSummonedUnit);
 								//LOS exceptions (gyser, heart of sin)
-								hashActorSNOKitingIgnore_.UnionWith(SnoCacheLookup.hashActorSNOIgnoreLOSCheck);
+								hashActorSNOKitingIgnore_.UnionWith(CacheIDLookup.hashActorSNOIgnoreLOSCheck);
 						  }
 						  return Bot.hashActorSNOKitingIgnore_; 
 					 }
@@ -307,7 +309,7 @@ namespace FunkyTrinity
 						  Bot.Character.WaitWhileAnimating(4, true);
 						  ZetaDia.Me.Inventory.UseItem((thisBestPotion.DynamicId));
 					 }
-					 dictAbilityLastUse[Zeta.Internals.Actors.SNOPower.DrinkHealthPotion]=DateTime.Now;
+					 PowerCacheLookup.dictAbilityLastUse[Zeta.Internals.Actors.SNOPower.DrinkHealthPotion]=DateTime.Now;
 					 Bot.Character.WaitWhileAnimating(3, true);
 				}
 
@@ -322,5 +324,5 @@ namespace FunkyTrinity
 				}
 
 		  }
-	 }
+	 
 }
