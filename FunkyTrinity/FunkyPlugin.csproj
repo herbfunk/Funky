@@ -201,6 +201,9 @@
     <Compile Include="Enums\BlacklistType.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Enums\LootIndex.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Enums\QuadrantLocation.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

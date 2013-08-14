@@ -20,8 +20,8 @@ namespace FunkyTrinity
 
             ResetGame();
             //Start new current game stats
-            Statistics.ItemStats.CurrentGame.Reset();
-            Statistics.GameStats.CurrentGame.Reset();
+				Bot.Stats.Statistics.ItemStats.CurrentGame.Reset();
+				Bot.Stats.Statistics.GameStats.CurrentGame.Reset();
 				ResetProfileVars();
 
 				

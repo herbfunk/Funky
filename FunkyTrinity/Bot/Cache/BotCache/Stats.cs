@@ -63,7 +63,7 @@ namespace FunkyTrinity
 								if (sThisProfile!=Bot.Stats.sLastProfileSeen)
 								{
 									 //herbfunk stats
-									 Funky.Statistics.ProfileStats.UpdateProfileChanged();
+									 Bot.Stats.Statistics.ProfileStats.UpdateProfileChanged();
 
 									 // See if we appear to have started a new game
 									 if (!String.IsNullOrEmpty(Bot.Stats.sFirstProfileSeen)&&sThisProfile==Bot.Stats.sFirstProfileSeen)
@@ -91,16 +91,7 @@ namespace FunkyTrinity
 					 }
 				}
 
-				public enum LootIndex
-				{
-					 Misc=0,
-					 Magical=1,
-					 Rare=2,
-					 Legendary=3,
-					 Gem=4,
-					 Crafting=5,
-					 Key=6,
-				}
+
 
 				internal class Statistics
 				{

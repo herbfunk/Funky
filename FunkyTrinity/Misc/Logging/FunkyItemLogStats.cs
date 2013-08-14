@@ -17,7 +17,7 @@ namespace FunkyTrinity
                 return;
 
             //No profile set.. because new game?
-            if (Statistics.ProfileStats.CurrentProfile == null)
+				if (Bot.Stats.Statistics.ProfileStats.CurrentProfile==null)
                 return;
 
             switch (thisgilesbasetype)
@@ -31,28 +31,28 @@ namespace FunkyTrinity
                 case GilesBaseItemType.FollowerItem:
                     if (itemQuality > ItemQuality.Rare6)
                     {
-                        Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[3]++;
+								Bot.Stats.Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[3]++;
                         //Statistics.ItemStats.CurrentGame.lootedItemTotals[3]++;
                     }
                     else if (itemQuality > ItemQuality.Magic3)
                     {
-                        Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[2]++;
+								Bot.Stats.Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[2]++;
                     }
                     else
-                        Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[1]++;
+								Bot.Stats.Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[1]++;
                     break;
 
                 case GilesBaseItemType.Unknown:
                 case GilesBaseItemType.Misc:
 						  if (thisgilesitemtype== GilesItemType.CraftingMaterial||thisgilesitemtype== GilesItemType.CraftingPlan||thisgilesitemtype== GilesItemType.CraftTome)
-								Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[(int)LootIndex.Crafting]++;
+								Bot.Stats.Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[(int)LootIndex.Crafting]++;
 						  else if (thisgilesitemtype==GilesItemType.InfernalKey)
-								Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[(int)LootIndex.Key]++;
+								Bot.Stats.Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[(int)LootIndex.Key]++;
 						  else
-								Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[0]++;
+								Bot.Stats.Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[0]++;
 						  break;
                 case GilesBaseItemType.Gem:
-                    Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[(int)LootIndex.Gem]++;
+						  Bot.Stats.Statistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[(int)LootIndex.Gem]++;
                     break;
             }
 
@@ -61,7 +61,7 @@ namespace FunkyTrinity
 
 		  private static void StashedItemLog(CacheACDItem i)
         {
-            if (Statistics.ProfileStats.CurrentProfile == null)
+				if (Bot.Stats.Statistics.ProfileStats.CurrentProfile==null)
                 return;
 
             switch (i.ACDItem.ItemType)
@@ -69,10 +69,10 @@ namespace FunkyTrinity
                 case ItemType.CraftingPage:
                 case ItemType.CraftingPlan:
 					 case ItemType.CraftingReagent:
-						  Statistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[(int)LootIndex.Crafting]++;
+						  Bot.Stats.Statistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[(int)LootIndex.Crafting]++;
                     break;
                 case ItemType.Gem:
-						  Statistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[(int)LootIndex.Gem]++;
+						  Bot.Stats.Statistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[(int)LootIndex.Gem]++;
                     break;
                 case ItemType.Amulet:
                 case ItemType.Axe:
@@ -110,18 +110,18 @@ namespace FunkyTrinity
                 case ItemType.Wand:
                 case ItemType.WizardHat:
                     if (i.ThisQuality == ItemQuality.Legendary)
-                        Statistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[3]++;
+								Bot.Stats.Statistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[3]++;
                     else if (i.ThisQuality > ItemQuality.Magic3)
-                        Statistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[2]++;
+								Bot.Stats.Statistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[2]++;
                     else
-                        Statistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[1]++;
+								Bot.Stats.Statistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[1]++;
                     break;
             }
         }
 
         private static void ItemDroppedLog(ACDItem item)
         {
-            if (Statistics.ProfileStats.CurrentProfile == null)
+				if (Bot.Stats.Statistics.ProfileStats.CurrentProfile==null)
                 return;
 
             //No implementation for misc items yet!
@@ -159,19 +159,19 @@ namespace FunkyTrinity
                     break;
             }
 
-            if (!Statistics.ProfileStats.CurrentProfile.ItemStats.droppedItemTotals.ContainsKey(ItemLevel))
-                Statistics.ProfileStats.CurrentProfile.ItemStats.droppedItemTotals.Add(ItemLevel,new int[] {0,0,0,0});
+				if (!Bot.Stats.Statistics.ProfileStats.CurrentProfile.ItemStats.droppedItemTotals.ContainsKey(ItemLevel))
+					 Bot.Stats.Statistics.ProfileStats.CurrentProfile.ItemStats.droppedItemTotals.Add(ItemLevel, new int[] { 0, 0, 0, 0 });
 
-            Statistics.ProfileStats.CurrentProfile.ItemStats.droppedItemTotals[ItemLevel][Itemquality]++;
+				Bot.Stats.Statistics.ProfileStats.CurrentProfile.ItemStats.droppedItemTotals[ItemLevel][Itemquality]++;
         }
 
 
         private static string ReturnLogOutputString()
         {
-            System.TimeSpan diff1 = Statistics.ItemStats.TotalTimeTracked();
+				System.TimeSpan diff1=Bot.Stats.Statistics.ItemStats.TotalTimeTracked();
             int[] stashedCounts, lootedCounts;
-            stashedCounts = Statistics.ItemStats.stashedTotals();
-            lootedCounts = Statistics.ItemStats.lootedTotals();
+				stashedCounts=Bot.Stats.Statistics.ItemStats.stashedTotals();
+				lootedCounts=Bot.Stats.Statistics.ItemStats.lootedTotals();
             int TotalStashed = 0;
             int TotalLooted = 0;
 

@@ -66,7 +66,7 @@ namespace FunkyTrinity
 					 }
 
 					 //herbfunk stats
-					 Statistics.ProfileStats.CurrentProfile=new ProfileStatisics.ProfileStats(sThisProfile);
+					 Bot.Stats.Statistics.ProfileStats.CurrentProfile=new Bot.ProfileStatisics.ProfileStats(sThisProfile);
 
 
 
