@@ -1,19 +1,69 @@
 ﻿// herbfunk revisions
 
 v1.4.4.0
-	Ability:
-		Removed Property TestCustomConditionsAlways. If no combat conditions are tested (none were set), then it will test the custom condtion by default.
-		Added DOTDPS to TargetProperties.
-		SuccessfullyUsed method will now reset TargetMovement.BlockCounter.
+Ability:
+Clusters used for abilities are now seperated from Target/Group
+clusters.
+Cluster  method used now uses ClusterConditions as the parameter.
+Removed Property CheckCustomConditionsAlways.
+Added DOTDPS to TargetProperties.
+TargetMovement.BlockedMovementCounter is now reset after
+SuccessfullyUsed method is called.
+Added ClusterTargetNearest to AbilityUseTypes.
+--This will target closest unit of the cluster.
 
 
+Barb Cleave now uses ClusterTargetNearest.
+Monk FOT now uses ClusterTargetNearest.
+WitchDoctor:
+Added TargetUnitConditionFlags to Lotus Swarm and Spirit Barge.
 
-	Bot Stop on Low Health Feature Implemented:
-		Triggered when Health Percent is less than or equal to value set.
-		This will open the game menu up and stop the bot!
-		Screenshot is optional -- this will resize window, move it, refresh it, capture, and return it back to orginal.
-			*Screenshots are saved in @FunkyTrinity/Log/Screenshots/
-			*Width and Height of the resize can be edited directly in the XML settings for the character.
+
+Grouping:
+Changed unit validation to ObjectIsValidForTargeting
+Kill Radius extension only applies to units added to DistantUnits list.
+
+TargetMovement:
+NonMovementCounter will require LOS check on object.
+Changed how Distant Check is tested.
+Items will now require LOS during Distant Check.
+
+NEW FEATURE: Bot Stop on Low Health Feature Implemented:
+Triggered when Health Percent is less than or equal to value set.
+This will open the game menu up and stop the bot!
+Screenshot is optional -- this will resize window, move it, refresh it,
+capture, and return it back to orginal.
+*Screenshots are saved in @FunkyTrinity/Log/Screenshots/
+*Width and Height of the resize can be edited directly in the XML
+settings for the character.
+
+
+Refactor:
+Removed Statistics Class (Held all other stat classes).
+ItemStats,GameStats, and ProfileStats are now properties of Stats Class.
+Refresh is now a static class inside Bot.
+
+
+Misc:
+ObstacleChecking will now modify range based upon stuck counter.
+Added a list for profile blacklisting which will be ignored if object is
+being prioritized.
+BotStatistics and related classes have been moved into Bot.Stats.
+BotStatistics has been renamed to Statistics.
+Profile Check has been moved into Bot.Stats as Void.
+Profile Behavior checking has been moved into Bot Class.
+Fixed IgnoreCorpses by checking if its actual corpse.
+Added Spawner Unit Hash Set and Property to CacheSNO.
+Added Clustering Setting Exceptions -- Spawner Units, Ranged Units.
+Fixed ObjectIsSpecial for CacheUnit.
+Added a2dun_Zolt_SandBridgeBase to BlackList.
+
+Settings:
+Demonic Essences Pick Up option added to Funky Settings (Item->Pickup)
+Grouping Output option added. (Logs various actions).
+Clustering now has its own tab under Combat Tab.
+Added Cluster Exceptions: Spawner units and Ranged units.
+
 
 
 v1.4.2.0
