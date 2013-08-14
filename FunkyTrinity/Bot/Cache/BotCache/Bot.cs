@@ -404,6 +404,7 @@ namespace FunkyTrinity
 					 Target=new TargetHandler();
 					 NavigationCache=new Navigation();
 					 Stats=new BotStatistics();
+					 shuttingDownBot=false;
 				}
 
 		  }
