@@ -519,8 +519,8 @@ namespace FunkyTrinity.Cache
 					 Bot.Combat.bWaitingForPower=false;
 
 					 // Pick the item up the usepower way, and "blacklist" for a couple of loops
-					 Bot.Character.WaitWhileAnimating(15, true);
-					 ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, Vector3.Zero, 0, this.AcdGuid.Value);
+					 Bot.Character.WaitWhileAnimating(20, false);
+					 ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, Vector3.Zero, Bot.Character.iCurrentWorldID, this.AcdGuid.Value);
 					 Bot.Combat.lastChangedZigZag=DateTime.Today;
 					 Bot.Combat.vPositionLastZigZagCheck=Vector3.Zero;
 
@@ -545,8 +545,8 @@ namespace FunkyTrinity.Cache
 						  if (Bot.Combat.bForceCloseRangeTarget)
 								fRangeRequired-=1f;
 
-							if (Bot.Character.Position.Distance(TargetMovement.CurrentTargetLocation)<=1.5f)
-								fDistanceReduction+=1f;
+							//if (Bot.Character.Position.Distance(TargetMovement.CurrentTargetLocation)<=1.5f)
+							//   fDistanceReduction+=1f;
 					 }
 					 else
 					 {

@@ -1008,16 +1008,16 @@ namespace FunkyTrinity
 							 }
 						}
 
-						if ((TargetType.Gold|TargetType.Globe|TargetType.Gizmo|TargetType.Item).HasFlag(CurrentTarget.targetType.Value))
-						{
-							 Bot.Combat.powerBuff=Bot.Class.AbilitySelector(true, false);
-							 if (Bot.Combat.powerBuff.Power!=SNOPower.None)
-							 {
-									Bot.Combat.powerBuff.UsePower();
-									//	ZetaDia.Me.UsePower(Bot.Combat.powerBuff.Power, Bot.Combat.powerBuff.TargetPosition, Bot.Combat.powerBuff.WorldID, Bot.Combat.powerBuff.TargetRAGUID);
-									Bot.Combat.powerBuff.SuccessfullyUsed();
-							 }
-						}
+						//if ((TargetType.Gold|TargetType.Globe|TargetType.Gizmo|TargetType.Item).HasFlag(CurrentTarget.targetType.Value))
+						//{
+						//    Bot.Combat.powerBuff=Bot.Class.AbilitySelector(true, false);
+						//    if (Bot.Combat.powerBuff.Power!=SNOPower.None)
+						//    {
+						//         Bot.Combat.powerBuff.UsePower();
+						//         //	ZetaDia.Me.UsePower(Bot.Combat.powerBuff.Power, Bot.Combat.powerBuff.TargetPosition, Bot.Combat.powerBuff.WorldID, Bot.Combat.powerBuff.TargetRAGUID);
+						//         Bot.Combat.powerBuff.SuccessfullyUsed();
+						//    }
+						//}
 						#endregion
 
 						return true;

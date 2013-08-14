@@ -123,6 +123,10 @@ namespace FunkyTrinity
 					 return (this.HotbarPowers.Contains(SNOPower.Barbarian_Bash)||this.HotbarPowers.Contains(SNOPower.Barbarian_Cleave)||this.HotbarPowers.Contains(SNOPower.Barbarian_WeaponThrow)||this.HotbarPowers.Contains(SNOPower.Barbarian_Frenzy));
 				}
 
+
+				//TODO:: Add settings to enable skills to be used to fury dump.
+				//private bool FuryDumping=false;
+
 				public override Ability DestructibleAbility()
 				{
 					 SNOPower destructiblePower=this.DestructiblePower();
@@ -460,27 +464,12 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
 								
-								ClusterConditions=new ClusterConditions(4d,10,2,true,0.50d),
-								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,10,falseConditionalFlags: TargetProperties.DOTDPS),
+								ClusterConditions=new ClusterConditions(5d,8,2,true,0.90d),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None,10,falseConditionalFlags: TargetProperties.DOTDPS),
 								
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return 
-										 !this.bWaitingForSpecial&&
-										  (!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind))
-										  // This segment is for people who *DO* have whirlwind
-										  ||(Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind)&&
-										  // See if it's off-cooldown and at least 40 fury, or use as a fury dump
-										  ((Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.92&&HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
-										  (Bot.SettingsFunky.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.92)||
-											(DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastUse[SNOPower.Barbarian_Rend]).TotalMilliseconds>=2800))&&
-										  // Max once every 1.2 seconds even if fury dumping, so sprint can be fury dumped too
-										  // DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Barbarian_Rend]).TotalMilliseconds >= 1200 &&
-										  // 3+ mobs of any kind at close range *OR* one elite/boss/special at close range
-										  ((Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3&&Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_12]>=1)||
-										  (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3&&Bot.Target.CurrentTarget.IsTreasureGoblin&&Bot.Target.CurrentTarget.RadiusDistance<=6f)||
-											Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=5||
-										  ((Bot.Target.CurrentUnitTarget.IsEliteRareUnique)&&Bot.Target.CurrentTarget.RadiusDistance<=6f&&Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3)));
+									 return !this.bWaitingForSpecial;
 								}),
 						  };
 					 }
@@ -500,12 +489,12 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None, 10, falseConditionalFlags: TargetProperties.Fast),
+								ClusterConditions=new ClusterConditions(5d, 7, 2, false),
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_6]>=2||(Bot.Character.dCurrentHealthPct<=0.85&&Bot.Target.CurrentTarget.RadiusDistance<=5f)||
-										  (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_6]>=1&&
-										  ((Bot.Target.CurrentUnitTarget.IsEliteRareUnique)||HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)||
-										  Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_SeismicSlam)));
+									 // Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_6]>=2||(Bot.Character.dCurrentHealthPct<=0.85&&Bot.Target.CurrentTarget.RadiusDistance<=5f)||
+									 return true;
 								}),
 						  };
 					 }
