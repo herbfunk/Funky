@@ -151,7 +151,6 @@
     <Compile Include="Bot\BotEvents\OnPlayerLevelUp.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Navigation\Objects\Class1.cs" />
     <Compile Include="Bot\Cache\Navigation\Objects\SkipAhead.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -519,9 +518,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\Navigation\Objects\Cluster.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Misc\Stats.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="PluginControl.cs">
