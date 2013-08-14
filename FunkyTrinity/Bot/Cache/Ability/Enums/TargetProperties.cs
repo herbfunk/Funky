@@ -25,5 +25,6 @@ namespace FunkyTrinity.ability
 			Ranged=8192,
 			TargetableAndAttackable=16384,
 			Fast=32768,
+			DOTDPS=65536,
 	 }
 }

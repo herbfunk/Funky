@@ -112,10 +112,22 @@ namespace FunkyTrinity
 						  base.Abilities.Add(item, this.CreateAbility(item));
 					 }
 
+					 //No default generation ability.
+					 if (!this.HotbarContainsAPrimaryAbility())
+					 {
+						  base.Abilities.Add(SNOPower.Weapon_Ranged_Projectile, Ability.Projectile_Range_Attack);
+						  base.RuneIndexCache.Add(SNOPower.Weapon_Ranged_Projectile, -1);
+					 }
 
 					 //Sort Abilities
 					 base.SortedAbilities=base.Abilities.Values.OrderByDescending(a => a.Priority).ThenByDescending(a => a.Range).ToList();
 				}
+
+				public override bool HotbarContainsAPrimaryAbility()
+				{
+					 return (this.HotbarPowers.Contains(SNOPower.DemonHunter_HungeringArrow)||this.HotbarPowers.Contains(SNOPower.DemonHunter_EntanglingShot)||this.HotbarPowers.Contains(SNOPower.DemonHunter_BolaShot)||this.HotbarPowers.Contains(SNOPower.DemonHunter_Grenades));
+				}
+
 				public override Ability CreateAbility(SNOPower Power)
 				{
 					 Ability returnAbility=null;

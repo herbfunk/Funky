@@ -73,6 +73,13 @@ namespace FunkyTrinity
 						  base.Abilities.Add(item, this.CreateAbility(item));
 					 }
 
+					 //No default generation ability
+					 if (!this.HotbarContainsAPrimaryAbility())
+					 {
+						  base.Abilities.Add(SNOPower.Weapon_Melee_Instant, Ability.Instant_Melee_Attack);
+						  base.RuneIndexCache.Add(SNOPower.Weapon_Melee_Instant, -1);
+					 }
+
 					 //Sort Abilities
 					 base.SortedAbilities=base.Abilities.Values.OrderByDescending(a => a.Priority).ThenBy(a => a.Range).ToList();
 				}
@@ -122,6 +129,36 @@ namespace FunkyTrinity
 					 returnAbility.SetupAbilityForUse();
 					 return returnAbility;
 				}
+
+				private bool HasMantraBuff()
+				{
+					if (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfConviction))
+					{
+						 return HasBuff(SNOPower.Monk_MantraOfConviction);
+					}
+					else if (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfEvasion))
+					{
+						 return HasBuff(SNOPower.Monk_MantraOfEvasion);
+					}
+					else if (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfHealing))
+					{
+						 return HasBuff(SNOPower.Monk_MantraOfHealing);
+					}
+					else if (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfRetribution))
+					{
+						 return HasBuff(SNOPower.Monk_MantraOfRetribution);
+					}
+
+					 //No Mantra on Hotbar.. we return true since we cannot cast it.
+					return true;
+				}
+
+
+				public override bool HotbarContainsAPrimaryAbility()
+				{
+					 return (this.HotbarPowers.Contains(SNOPower.Monk_FistsofThunder)||this.HotbarPowers.Contains(SNOPower.Monk_DeadlyReach)||this.HotbarPowers.Contains(SNOPower.Monk_CripplingWave)||this.HotbarPowers.Contains(SNOPower.Monk_WayOfTheHundredFists));
+				}
+
 				public override Ability CreateAbility(SNOPower Power)
 				{
 					 Ability returnAbility=null;
@@ -140,22 +177,21 @@ namespace FunkyTrinity
 								UseAvoiding=true,
 								UseOOCBuff=true,
 								Priority=AbilityPriority.High,
-								PreCastConditions=(AbilityConditions.CheckCanCast),
+								PreCastConditions=(AbilityConditions.CheckEnergy),
 								IsSpecialAbility=true,
-
+								//TestCustomCombatConditionAlways=true,
 								Fcriteria=new Func<bool>(() =>
 								{
 
 									 return
-										  !HasBuff(Power)||Bot.SettingsFunky.Class.bMonkSpamMantra&&Bot.Target.CurrentTarget!=null&&(Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_25]>0||Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=2||(Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=1&&Bot.SettingsFunky.Class.bMonkInnaSet)||(Bot.Target.CurrentUnitTarget.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=25f)&&
+										  !HasBuff(Power)
+										  ||Bot.SettingsFunky.Class.bMonkSpamMantra&&Bot.Target.CurrentTarget!=null&&(Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_25]>0||Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=2||(Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=1&&Bot.SettingsFunky.Class.bMonkInnaSet)||(Bot.Target.CurrentUnitTarget.IsEliteRareUnique||Bot.Target.CurrentTarget.IsBoss)&&Bot.Target.CurrentTarget.RadiusDistance<=25f)&&
 										  // Check if either we don't have blinding flash, or we do and it's been cast in the last 6000ms
 										  //DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Monk_BlindingFlash]).TotalMilliseconds <= 6000)) &&
 										  (!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)||
 										  (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)&&(HasBuff(SNOPower.Monk_BlindingFlash)))&&
 										  // Check our mantras, if we have them, are up first
-										  (!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfEvasion)||(Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfEvasion)&&HasBuff(SNOPower.Monk_MantraOfEvasion)))&&
-										  (!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfConviction)||(Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfConviction)&&HasBuff(SNOPower.Monk_MantraOfConviction)))&&
-										  (!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfRetribution)||(Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfRetribution)&&HasBuff(SNOPower.Monk_MantraOfRetribution))));
+										  this.HasMantraBuff());
 								}),
 						  };
 					 }
@@ -173,9 +209,11 @@ namespace FunkyTrinity
 								UseAvoiding=true,
 								UseOOCBuff=true,
 								Priority=AbilityPriority.High,
+								IsSpecialAbility=true,
 								Counter=1,
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPetCount),
-
+								//TestCustomCombatConditionAlways=true,
+								Fcriteria=new Func<bool>(() => { return true; }),
 						  };
 					 }
 					 #endregion
@@ -231,7 +269,7 @@ namespace FunkyTrinity
 								UseOOCBuff=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer),
-
+								//TestCustomCombatConditionAlways=true,
 								Fcriteria=new Func<bool>(() => { return (Bot.Character.dCurrentHealthPct<=0.5||!HasBuff(SNOPower.Monk_BreathOfHeaven)); }),
 						  };
 					 }
@@ -426,7 +464,7 @@ namespace FunkyTrinity
 								ClusterConditions=new ClusterConditions(6d, 35f, 3, true),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 20),
 
-								Fcriteria=new Func<bool>(() => { return !this.bWaitingForSpecial; }),
+								Fcriteria=new Func<bool>(() => { return !this.bWaitingForSpecial && this.HasMantraBuff(); }),
 
 						  };
 					 }

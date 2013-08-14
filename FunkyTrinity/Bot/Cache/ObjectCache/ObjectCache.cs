@@ -56,7 +56,14 @@ namespace FunkyTrinity.Cache
 				internal static Dictionary<int, double> dictProjectileSpeed=new Dictionary<int, double>();
 				#endregion
 
-
+				//Common Used Profile Tags that should be considered Out-Of-Combat Behavior.
+				internal static readonly HashSet<Type> oocDBTags=new HashSet<Type> 
+																	{ 
+																	  typeof(Zeta.CommonBot.Profile.Common.UseWaypointTag), 
+																	  typeof(Zeta.CommonBot.Profile.Common.UseObjectTag),
+																	  typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),
+																	  typeof(Zeta.CommonBot.Profile.Common.WaitTimerTag),
+																	};
 			
 		  }
 	 

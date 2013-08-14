@@ -15,7 +15,7 @@ namespace FunkyTrinity
 
 		  public static partial class Bot
 		  {
-				 public static Funky.Settings_Funky SettingsFunky=new Funky.Settings_Funky();
+				public static Funky.Settings_Funky SettingsFunky=new Funky.Settings_Funky();
 				public static Player Class { get; set; }
 				public static CharacterCache Character { get; set; }
 				public static CombatCache Combat { get; set; }
@@ -27,6 +27,37 @@ namespace FunkyTrinity
 					 set { Bot.Stats_=value; }
 				}
 				public static Navigation NavigationCache { get; set; }
+
+
+				private static Zeta.CommonBot.Profile.ProfileBehavior CurrentProfileBehavior { get; set; }
+				private static DateTime LastProfileBehaviorCheck=DateTime.Today;
+				///<summary>
+				///Tracks Current Profile Behavior and sets IsRunningOOCBehavior depending on the current Type of behavior.
+				///</summary>
+				internal static void CheckCurrentProfileBehavior()
+				{
+					 if (DateTime.Now.Subtract(LastProfileBehaviorCheck).TotalMilliseconds>1000)
+					 {
+						  LastProfileBehaviorCheck=DateTime.Now;
+
+						  if (Bot.CurrentProfileBehavior==null
+								||Zeta.CommonBot.ProfileManager.CurrentProfileBehavior!=null
+								&&Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior!=null
+								&&Bot.CurrentProfileBehavior.Behavior.Guid!=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior.Guid)
+						  {
+								Bot.CurrentProfileBehavior=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior;
+
+								if (ObjectCache.oocDBTags.Contains(Bot.CurrentProfileBehavior.GetType()))
+								{
+									 Logging.WriteDiagnostic("Current Profile Behavior has enabled OOC Behavior.");
+									 Bot.Character.IsRunningOOCBehavior=true;
+								}
+								else
+									 Bot.Character.IsRunningOOCBehavior=false;
+						  }
+					 }
+				}
+
 
 				///<summary>
 				///Usable Objects -- refresh inside Target.UpdateTarget

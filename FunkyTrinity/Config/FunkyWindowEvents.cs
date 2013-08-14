@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using Zeta.Internals.Actors;
 using FunkyTrinity.Enums;
 using FunkyTrinity.Cache;
+using FunkyTrinity.Movement;
 
 namespace FunkyTrinity
 {
@@ -172,9 +173,15 @@ namespace FunkyTrinity
 								 Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
 							}
                  }
-                 else if (btnsender.Name == "MGP")
+					  else if (btnsender.Name=="TargetMove")
                  {
-							Bot.NavigationCache.UpdateSearchGridProvider(true);
+							try
+							{
+								 Logging.Write("TargetMovement: BlockedCounter{0} -- NonMovementCounter{1}", TargetMovement.BlockedMovementCounter, TargetMovement.NonMovementCounter);
+							} catch 
+							{
+								 
+							}
                  }
 					  else if (btnsender.Name=="Ability")
                  {
@@ -405,7 +412,10 @@ namespace FunkyTrinity
 				 {
 					  Bot.SettingsFunky.PickupInfernalKeys=!Bot.SettingsFunky.PickupInfernalKeys;
 				 }
-				 //
+				 private void PickupDemonicEssenceChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.PickupDemonicEssence=!Bot.SettingsFunky.PickupDemonicEssence;
+				 }
 
              private void PickupFollowerItemsChecked(object sender, EventArgs e)
              {
@@ -913,6 +923,10 @@ namespace FunkyTrinity
              {
                  Bot.SettingsFunky.LogSafeMovementOutput = !Bot.SettingsFunky.LogSafeMovementOutput;
              }
+				 private void LogGroupingOutputChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.LogGroupingOutput=!Bot.SettingsFunky.LogGroupingOutput;
+				 }
 				 private void SkipAheadChecked(object sender, EventArgs e)
 				 {
 					  Bot.SettingsFunky.SkipAhead=!Bot.SettingsFunky.SkipAhead;

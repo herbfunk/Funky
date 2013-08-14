@@ -75,6 +75,12 @@ namespace FunkyTrinity
 						  base.Abilities.Add(item, this.CreateAbility(item));
 					 }
 
+					 //No default generation ability..
+					 if (!this.HotbarContainsAPrimaryAbility())
+					 {
+						  base.Abilities.Add(SNOPower.Weapon_Melee_Instant, Ability.Instant_Melee_Attack);
+						  base.RuneIndexCache.Add(SNOPower.Weapon_Melee_Instant, -1);
+					 }
 
 					 //Sort Abilities
 					 base.SortedAbilities=base.Abilities.Values.OrderByDescending(a => a.Priority).ThenByDescending(a => a.Range).ToList();
@@ -93,6 +99,11 @@ namespace FunkyTrinity
 						  return false;
 					 }
 				}
+				public override bool HotbarContainsAPrimaryAbility()
+				{
+					 return (this.HotbarPowers.Contains(SNOPower.Witchdoctor_PoisonDart)||this.HotbarPowers.Contains(SNOPower.Witchdoctor_CorpseSpider)||this.HotbarPowers.Contains(SNOPower.Witchdoctor_PlagueOfToads)||this.HotbarPowers.Contains(SNOPower.Witchdoctor_Firebomb));
+				}
+
 				public override Ability CreateAbility(SNOPower Power)
 				{
 					 Ability returnAbility=null;
@@ -111,7 +122,7 @@ namespace FunkyTrinity
 								IsNavigationSpecial=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast),
-								TestCustomCombatConditionAlways=true,
+								//TestCustomCombatConditionAlways=true,
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return (Bot.Character.dCurrentHealthPct<=0.65
@@ -380,19 +391,19 @@ namespace FunkyTrinity
 						  return new Ability
 						  {
 								Power=Power,
-								UsageType=AbilityUseType.ClusterTarget| AbilityUseType.Target,
-								ClusterConditions=new ClusterConditions(5d, 20f, 1, true),
+								UsageType=AbilityUseType.Target,
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None, 24, falseConditionalFlags: TargetProperties.DOTDPS),
 								WaitVars=new WaitLoops(1, 1, true),
 								Cost=98,
 								Range=21,
 								UseAvoiding=false,
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
-								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckCanCast|AbilityConditions.CheckEnergy|AbilityConditions.CheckRecastTimer),
+								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckCanCast|AbilityConditions.CheckEnergy),
 								
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return Bot.Combat.Clusters().Count>0&&Bot.Combat.Clusters().Any(c => c.DotDPSRatio<0.25);
+									 return true;
 								}),
 						  };
 					 }
@@ -405,7 +416,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								UsageType=AbilityUseType.ClusterLocation|AbilityUseType.Location,
-								ClusterConditions=new ClusterConditions(5d, 20f, 1, true),
+								ClusterConditions=new ClusterConditions(5d, 20f, 1, true, 0.25d),
 								WaitVars=new WaitLoops(1, 1, true),
 								Cost=196,
 								Range=21,
@@ -417,7 +428,7 @@ namespace FunkyTrinity
 
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return Bot.Combat.Clusters().Count>0&&Bot.Combat.Clusters().Any(c => c.DotDPSRatio<0.25);
+									 return true;
 								}),
 						  };
 					 }
@@ -466,12 +477,8 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.Low,
 
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast),
-								ClusterConditions=new ClusterConditions(5d, 20f, 1, true),
-								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial),
-
-
-
-								
+								ClusterConditions=new ClusterConditions(5d, 20f, 2, true),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 15),
 						  };
 					 }
 					 #endregion

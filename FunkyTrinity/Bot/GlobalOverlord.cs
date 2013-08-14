@@ -12,14 +12,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  //Common Used Profile Tags that should be considered Out-Of-Combat Behavior.
-		  private static readonly HashSet<Type> oocDBTags=new HashSet<Type> 
-																	{ 
-																	  typeof(Zeta.CommonBot.Profile.Common.UseWaypointTag), 
-																	  typeof(Zeta.CommonBot.Profile.Common.UseObjectTag),
-																	  typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),
-																	  typeof(Zeta.CommonBot.Profile.Common.WaitTimerTag),
-																	};
+
 
 		  // Total main loops so we can update things every XX loops
 		  private static int iCombatLoops=0;
@@ -97,40 +90,7 @@ namespace FunkyTrinity
 				}
 
 				// Recording of all the XML's in use this run
-				#region NewProfileCheck
-				if (DateTime.Now.Subtract(Bot.Stats.lastProfileCheck).TotalMilliseconds>1000)
-				{
-					 Bot.Stats.lastProfileCheck=DateTime.Now;
-					 string sThisProfile=Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
-					 if (sThisProfile!=Bot.Stats.sLastProfileSeen)
-					 {
-						  //herbfunk stats
-						  Statistics.ProfileStats.UpdateProfileChanged();
-
-						  // See if we appear to have started a new game
-						  if (!String.IsNullOrEmpty(Bot.Stats.sFirstProfileSeen)&&sThisProfile==Bot.Stats.sFirstProfileSeen)
-						  {
-								Bot.Stats.iTotalProfileRecycles++;
-								if (Bot.Stats.iTotalProfileRecycles>Bot.Stats.iTotalJoinGames&&Bot.Stats.iTotalProfileRecycles>Bot.Stats.iTotalLeaveGames)
-								{
-									 Log("Reseting Game Data -- Total Profile Recycles exceedes join and leave count!");
-									 Funky.ResetGame();
-								}
-						  }
-						  Bot.Stats.listProfilesLoaded.Add(sThisProfile);
-						  Bot.Stats.sLastProfileSeen=sThisProfile;
-						  if (String.IsNullOrEmpty(Bot.Stats.sFirstProfileSeen))
-								Bot.Stats.sFirstProfileSeen=sThisProfile;
-
-						  //Refresh Profile Target Blacklist 
-							ObjectCache.hashSNOTargetBlacklist=new HashSet<int>();
-						  foreach (var item in Zeta.CommonBot.ProfileManager.CurrentProfile.TargetBlacklists)
-						  {
-								 ObjectCache.hashSNOTargetBlacklist.Add(item.ActorId);
-						  }
-					 }
-				}
-				#endregion
+				Bot.Stats.CheckProfile();
 
 
 				//Seconday Hotbar Check
@@ -141,24 +101,9 @@ namespace FunkyTrinity
 				Bot.Combat.ResetTargetHandling();
 				Bot.Combat.DontMove=false;
 
-				#region Non-Combat Default Tag Check
-				//Override Non-Combat Default Tag Behaviors
-				if (Bot.Character.CurrentProfileBehavior==null
-					 ||Zeta.CommonBot.ProfileManager.CurrentProfileBehavior!=null
-					 &&Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior!=null
-					 &&Bot.Character.CurrentProfileBehavior.Behavior.Guid!=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior.Guid)
-				{
-					 Bot.Character.CurrentProfileBehavior=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior;
+				//update current profile behavior.
+				Bot.CheckCurrentProfileBehavior();
 
-					 if (oocDBTags.Contains(Bot.Character.CurrentProfileBehavior.GetType()))
-					 {
-						  Logging.WriteDiagnostic("Current Profile Behavior has enabled OOC Behavior.");
-						  Bot.Character.IsRunningOOCBehavior=true;
-					 }
-					 else
-						  Bot.Character.IsRunningOOCBehavior=false;
-				}
-				#endregion
 
 				// Should we refresh target list?
 				if (Bot.ShouldRefreshObjectList)

@@ -537,9 +537,13 @@ namespace FunkyTrinity.Movement
 				internal bool groupReturningToOrgin=false;
 				internal CacheUnit groupingCurrentUnit=null;
 				internal CacheUnit groupingOrginUnit=null;
+				internal DateTime groupingSuspendedDate=DateTime.MinValue;
+
 				internal void GroupingFinishBehavior()
 				{
-					 Logging.WriteVerbose("Finished Grouping Behavior.");
+					 if (Bot.SettingsFunky.LogGroupingOutput)
+						  Logging.WriteVerbose("Finished Grouping Behavior.");
+
 					 Bot.NavigationCache.groupRunningBehavior=false;
 					 Bot.NavigationCache.groupReturningToOrgin=false;
 					 Bot.NavigationCache.groupingCurrentUnit=null;
@@ -564,8 +568,8 @@ namespace FunkyTrinity.Movement
 
 								Vector3 CurrentPosition=Bot.Character.Position;
 
-								//We want to get a new vector that is towards the direction of our destination
-								//Vector3 IntersectionDestinationVector=MathEx.CalculatePointFrom(CurrentPosition, DestinationVector, range);
+								//modify range based upon # of stucks
+								if (Funky.PlayerMover.iTotalAntiStuckAttempts>0) range+=(Funky.PlayerMover.iTotalAntiStuckAttempts*5f);
 
 								//get collection of objects that pass the tests.
 								var intersectingObstacles=Bot.Combat.NearbyObstacleObjects //ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
@@ -573,7 +577,7 @@ namespace FunkyTrinity.Movement
 																								!Bot.Combat.PrioritizedRAGUIDs.Contains(obstacle.RAGUID)//Only objects not already prioritized
 																								&&obstacle.Obstacletype.HasValue
 																								&&ObstacleType.Navigation.HasFlag(obstacle.Obstacletype.Value)//only navigation/intersection blocking objects!
-																								&&obstacle.CentreDistance<=range //Only within range..
+																								&&obstacle.RadiusDistance<=range //Only within range..
 																								&&obstacle.BotIsFacing()||obstacle.RadiusDistance<=0f);
 								//&&obstacle.TestIntersection(BotGridPoint, IntersectionDestinationPoint));
 

@@ -104,34 +104,66 @@ namespace FunkyTrinity
 							 {
 									Bot.Combat.UpdateGroupClusteringVariables();
 
-									if (!Bot.NavigationCache.groupingCurrentUnit.IsStillValid()||
-										 Bot.NavigationCache.groupingCurrentUnit.CurrentHealthPct.Value<1d)
+									bool EndBehavior=false;
+									if (!Bot.NavigationCache.groupingCurrentUnit.ObjectIsValidForTargeting)
 									{
-										 Logging.WriteVerbose("Grouping: Engaged grouping target.. switching back to orgin.");
+										 if (Bot.SettingsFunky.LogGroupingOutput)
+										  Logging.WriteVerbose("[Grouping] Target is no longer valid. Starting return to Orgin.");
+										 
+										 EndBehavior=true;
+									}
+									else if (Bot.NavigationCache.groupingCurrentUnit.CurrentHealthPct.Value<1d
+										 &&Bot.NavigationCache.groupingCurrentUnit.IsMoving)
+									{
+										 if (Bot.SettingsFunky.LogGroupingOutput)
+										  Logging.WriteVerbose("[Grouping] Target has been engaged. Starting return to Orgin.");
+										 
+										 EndBehavior=true;
+									}
+
+
+									if (!EndBehavior)
+									{
+										 CurrentTarget=Bot.NavigationCache.groupingCurrentUnit;
+										 return true;
+									}
+									else
+									{
 										 Bot.NavigationCache.groupingCurrentUnit=null;
 										 Bot.NavigationCache.groupReturningToOrgin=true;
 										 CurrentTarget=Bot.NavigationCache.groupingOrginUnit;
 										 return true;
 									}
-									else
-									{
-										 CurrentTarget=Bot.NavigationCache.groupingCurrentUnit;
-										 return true;
-									}
+
+
 							 }
 							 else
 							 {
+								  bool endBehavior=false;
+
 									//Returning to Orgin Unit..
-									if (!Bot.NavigationCache.groupingOrginUnit.IsStillValid()
-										 ||Bot.NavigationCache.groupingOrginUnit.CentreDistance<40f)
+								  if (!Bot.NavigationCache.groupingOrginUnit.ObjectIsValidForTargeting)
 									{
-										 Bot.NavigationCache.GroupingFinishBehavior();
+										 endBehavior=true;
+
+										 if (Bot.SettingsFunky.LogGroupingOutput)
+										  Logging.WriteVerbose("[Grouping] Orgin Target is no longer valid for targeting.");
 									}
-									else
-									{
-										 CurrentTarget=Bot.NavigationCache.groupingOrginUnit;
-										 return true;
-									}
+								  else if (Bot.NavigationCache.groupingOrginUnit.CentreDistance<40f)
+								  {
+										if (Bot.SettingsFunky.LogGroupingOutput)
+										  Logging.WriteVerbose("[Grouping] Orgin Target is within 40f of the bot.");
+										
+										endBehavior=true;
+								  }
+
+								  if (!endBehavior)
+								  {
+										CurrentTarget=Bot.NavigationCache.groupingOrginUnit;
+										return true;
+								  }
+								  else
+										Bot.NavigationCache.GroupingFinishBehavior();
 							 }
 						}
 
@@ -355,7 +387,9 @@ namespace FunkyTrinity
 
 									//Grouping Movements
 									if (Bot.SettingsFunky.AttemptGroupingMovements
-										 &&CurrentUnitTarget.CurrentHealthPct.Value<1d) //only after we engaged the target.
+										 &&CurrentUnitTarget.CurrentHealthPct.Value<1d
+										 &&DateTime.Compare(DateTime.Now,Bot.NavigationCache.groupingSuspendedDate)>0
+										 &&!CurrentUnitTarget.IsTreasureGoblin||Bot.SettingsFunky.GoblinPriority<2) //only after we engaged the target.
 									{
 										 Bot.Combat.UpdateGroupClusteringVariables();
 
@@ -372,8 +406,8 @@ namespace FunkyTrinity
 															var targetableUnits=Bot.Combat.CurrentGroupClusters[0].ListUnits.Where(unit => unit.ObjectIsValidForTargeting);
 															if (targetableUnits.Any())
 															{
-
-																 Logging.WriteVerbose("Starting Grouping Behavior. Triggered by Tough Group");
+																 if (Bot.SettingsFunky.LogGroupingOutput)
+																	 Logging.WriteVerbose("Starting Grouping Behavior. Triggered by Tough Group");
 
 																 //Activate Behavior
 																 Bot.NavigationCache.groupRunningBehavior=true;
@@ -393,7 +427,9 @@ namespace FunkyTrinity
 																 var targetableUnits=Bot.Combat.CurrentGroupClusters[0].ListUnits.Where(unit => unit.ObjectIsValidForTargeting);
 																 if (targetableUnits.Any())
 																 {
-																		Logging.WriteVerbose("Starting Grouping Behavior. Triggered by Range Group");
+																	  if (Bot.SettingsFunky.LogGroupingOutput)
+																		  Logging.WriteVerbose("Starting Grouping Behavior. Triggered by Range Group");
+
 																		//Activate Behavior
 																		Bot.NavigationCache.groupRunningBehavior=true;
 																		Bot.NavigationCache.groupingOrginUnit=(CacheUnit)ObjectCache.Objects[CurrentTarget.RAGUID];
@@ -1104,7 +1140,7 @@ namespace FunkyTrinity
 						Bot.Combat.lastChangedZigZag=DateTime.Today;
 						Bot.Combat.vPositionLastZigZagCheck=Vector3.Zero;
 						Bot.Combat.bForceTargetUpdate=true;
-
+						
 						return false;
 				 }
 

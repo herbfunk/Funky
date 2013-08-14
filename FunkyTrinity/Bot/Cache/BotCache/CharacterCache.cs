@@ -49,7 +49,6 @@ namespace FunkyTrinity
 							LastCachedTarget=Funky.FakeCacheObject;
 						  fCharacterRadius=0f;
 						  //iCurrentGameDifficulty=GameDifficulty.Invalid;
-						  CurrentProfileBehavior=null;
 						  IsRunningOOCBehavior=false;
 					 }
 
@@ -79,7 +78,6 @@ namespace FunkyTrinity
 					 
 					 public int iCurrentWorldID { get; set; }
 					 //public GameDifficulty iCurrentGameDifficulty { get; set; }
-					 internal Zeta.CommonBot.Profile.ProfileBehavior CurrentProfileBehavior { get; set; }
 					 internal bool IsRunningOOCBehavior { get; set; }
 
 					 //Returns Live Data

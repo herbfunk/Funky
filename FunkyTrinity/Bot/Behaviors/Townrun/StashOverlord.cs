@@ -237,11 +237,14 @@ namespace FunkyTrinity
 						  for (int iRow=(ZetaDia.Me.NumSharedStashSlots/7); iRow<=29; iRow++)
 								for (int iColumn=0; iColumn<=6; iColumn++)
 									 GilesStashSlotBlocked[iColumn, iRow]=true;
+
+						  StashedItems.Clear();
 						  // Map out all the items already in the stash
 						  foreach (ACDItem tempitem in ZetaDia.Me.Inventory.StashItems)
 						  {
 								if (tempitem.BaseAddress!=IntPtr.Zero)
 								{
+									 StashedItems.Add(new CacheACDItem(tempitem));
 									 int inventoryRow=tempitem.InventoryRow;
 									 int inventoryColumn=tempitem.InventoryColumn;
 									 // Mark this slot as not-free

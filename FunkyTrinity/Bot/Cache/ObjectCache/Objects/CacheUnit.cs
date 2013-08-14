@@ -91,7 +91,6 @@ namespace FunkyTrinity.Cache
 					 get
 					 {
 						  return ((this.IsAttackable.HasValue&&this.IsAttackable.Value)
-									 &&(!this.IsBurrowed.HasValue||!this.IsBurrowed.Value)
 									 &&(this.IsTargetable.HasValue&&this.IsTargetable.Value));
 					 }
 				}
@@ -362,7 +361,7 @@ namespace FunkyTrinity.Cache
 						  // Standard 50f range when preforming OOC behaviors!
 							if (Bot.IsInNonCombatBehavior)
 								dUseKillRadius=50;
-							else if (Bot.SettingsFunky.AttemptGroupingMovements&&dUseKillRadius<Bot.SettingsFunky.GroupingMaximumDistanceAllowed)
+							else if (Bot.Combat.DistantUnits.Contains(this)&&dUseKillRadius<Bot.SettingsFunky.GroupingMaximumDistanceAllowed)
 								 dUseKillRadius=Bot.SettingsFunky.GroupingMaximumDistanceAllowed;
 
 						  return dUseKillRadius;
@@ -792,7 +791,7 @@ namespace FunkyTrinity.Cache
 						  float centreDistance=this.CentreDistance;
 
 						  //Distant Units List
-						  if (centreDistance>=Bot.SettingsFunky.GroupingMinimumUnitDistance)
+						  if (centreDistance>=Bot.SettingsFunky.GroupingMinimumUnitDistance&&Bot.SettingsFunky.AttemptGroupingMovements)
 								Bot.Combat.DistantUnits.Add(this);
 
 						  //Distance Check
@@ -889,6 +888,15 @@ namespace FunkyTrinity.Cache
 						  #endregion
 
 
+						  //Profile Blacklisted.
+						  if (ObjectCache.hashProfileSNOTargetBlacklist.Contains(this.SNOID))
+						  {
+								//Only if not prioritized..
+								if (this.PriorityCounter==0)
+									 return false;
+						  }
+
+
 						  //Add this valid unit RAGUID to list
 						  if (!Bot.Combat.UnitRAGUIDs.Contains(this.RAGUID))
 								Bot.Combat.UnitRAGUIDs.Add(this.RAGUID);
@@ -899,7 +907,7 @@ namespace FunkyTrinity.Cache
 
 				public override bool UpdateData()
 				{
-					 #region Unit
+					 
 					 if (!base.IsStillValid())
 						  return false;
 
@@ -1093,7 +1101,7 @@ namespace FunkyTrinity.Cache
 						  }
 					 }
 
-
+					 #region Class DOT DPS Check
 					 //Barb specific updates
 					 if (Bot.Class.AC==ActorClass.Barbarian)
 					 {
@@ -1281,10 +1289,11 @@ namespace FunkyTrinity.Cache
 					 {
 						  if ((this.IsEliteRareUnique&&!Bot.SettingsFunky.IgnoreAboveAverageMobs)||
 									 (this.PriorityCounter>0)||
-									 (this.IsBoss&&this.CurrentHealthPct<=0.99d)||((this.IsSucideBomber||this.IsCorruptantGrowth)&&this.CentreDistance<45f)||
-									 (this.IsTreasureGoblin&&Bot.SettingsFunky.GoblinPriority>1)||
-									 (Bot.SettingsFunky.ClusterKillLowHPUnits&&this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0
-											&&((!Bot.Class.IsMeleeClass&&this.CentreDistance<30f)||(Bot.Class.IsMeleeClass&&this.RadiusDistance<12f))))
+									 (this.IsBoss&&this.CurrentHealthPct<=0.99d)||
+									 ((this.IsSucideBomber||this.IsCorruptantGrowth)&&this.CentreDistance<45f)||
+									 ((!this.IsTreasureGoblin||Bot.SettingsFunky.GoblinPriority>1))||
+									 ((!Bot.SettingsFunky.ClusterKillLowHPUnits||
+									 (this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0)&&((!Bot.Class.IsMeleeClass&&this.CentreDistance<30f)||(Bot.Class.IsMeleeClass&&this.RadiusDistance<12f)))))
 
 
 

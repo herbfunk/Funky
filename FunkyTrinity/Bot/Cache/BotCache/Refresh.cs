@@ -191,6 +191,9 @@ namespace FunkyTrinity
 						  return;
 					 }
 
+					 if (!Bot.Target.CurrentTarget.Equals(Bot.Character.LastCachedTarget))
+						  TargetMovement.NewTargetResetVars();
+
 					 if (Bot.SettingsFunky.EnableWaitAfterContainers&&Bot.Target.CurrentTarget.targetType==TargetType.Container)
 					 {
 						  //Herbfunks delay for container loot.

@@ -52,6 +52,14 @@ namespace FunkyTrinity
 				public virtual void RecreateAbilities() { }
 
 				///<summary>
+				///Checks if hotbar contains any of the "Primary" abilities.
+				///</summary>
+				public virtual bool HotbarContainsAPrimaryAbility()
+				{
+					 return false;
+				}
+
+				///<summary>
 				///Selects first ability that is successful in precast and combat testing.
 				///</summary>
 				public virtual Ability AbilitySelector(bool bCurrentlyAvoiding=false, bool bOOCBuff=false)

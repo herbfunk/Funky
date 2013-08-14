@@ -91,6 +91,7 @@ namespace FunkyTrinity.Movement
 					 {
 						  Logging.WriteVerbose("{0}: Ignoring obj {1} due to no movement counter reaching {2}", "[Funky]", obj.InternalName+" _ SNO:"+obj.SNOID, NonMovementCounter);
 						  obj.BlacklistLoops=50;
+						  obj.RequiresLOSCheck=true;
 						  Bot.Combat.bForceTargetUpdate=true;
 						  NonMovementCounter=0;
 
@@ -98,11 +99,13 @@ namespace FunkyTrinity.Movement
 						  return RunStatus.Running;
 					 }
 
+					 Bot.NavigationCache.RefreshMovementCache();
 					 Bot.NavigationCache.ObstaclePrioritizeCheck();
 
 					 #region DistanceChecks
+
 					 // Count how long we have failed to move - body block stuff etc.
-					 if (obj.DistanceFromTarget==LastDistanceFromTarget)
+					 if (!Bot.NavigationCache.IsMoving||Bot.NavigationCache.currentMovementState.HasFlag(MovementState.WalkingInPlace|MovementState.None))
 					 {
 						  bForceNewMovement=true;
 						  if (DateTime.Now.Subtract(LastMovementDuringCombat).TotalMilliseconds>=250)
@@ -150,6 +153,7 @@ namespace FunkyTrinity.Movement
 										  {
 												Logging.WriteVerbose("Grouping Behavior stopped due to blocking counter");
 												Bot.NavigationCache.GroupingFinishBehavior();
+												Bot.NavigationCache.groupingSuspendedDate=DateTime.Now.AddMilliseconds(2500);
 												Bot.Combat.bForceTargetUpdate=true;
 												return RunStatus.Running;
 										  }
@@ -197,7 +201,8 @@ namespace FunkyTrinity.Movement
 													 if (!Navigation.CanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
 													 {
 														  obj.BlacklistLoops=10;
-															Logging.WriteDiagnostic("Ignoring Item due to AllowWalk RayCast Failure!", true);
+														  obj.RequiresLOSCheck=true;
+														  Logging.WriteDiagnostic("Ignoring Item {0} -- due to AllowWalk RayCast Failure!", obj.InternalName);
 														  Bot.Combat.bForceTargetUpdate=true;
 														  return RunStatus.Running;
 													 }

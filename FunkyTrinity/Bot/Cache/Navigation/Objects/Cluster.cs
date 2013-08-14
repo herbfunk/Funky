@@ -7,6 +7,19 @@ using FunkyTrinity.Movement;
 
 namespace FunkyTrinity.Movement
 {
+	 //Redesign Cluster Class
+	 /*
+		  Abstract base to contain cluster properties.
+		  Derieved Abstract -- Major Cluster -- this will be used in the regular pulse refreshing.
+				*10f Cluster Radius, that will accept any units in distance of bot using current kill radius as maximum.
+				*These clusters will be used as the base for smaller more detailed clusters.
+
+		  Derieved From Major -- Small Cluster -- this will be used in ability checking and targeting.
+				*Variable cluster radius
+				
+	 */
+
+
 	 internal partial class Cluster
 	 {
 

@@ -414,7 +414,7 @@ namespace FunkyTrinity.XMLTags
 			}
 			if (ExploreTimeoutType==TimeoutType.Timer&&TagTimer.Elapsed.TotalSeconds>TimeoutValue)
 			{
-				//DbHelper.Log(TrinityLogLevel.Normal, LogCategory.UserInformation, "TrinityExploreDungeon timer ended ({0}), tag finished!", TimeoutValue);
+				Logging.WriteVerbose("TrinityExploreDungeon timer ended ({0}), tag finished!", TimeoutValue);
 				timeoutBreached=true;
 				return RunStatus.Success;
 			}
@@ -442,7 +442,7 @@ namespace FunkyTrinity.XMLTags
 			}
 			else if (lastCoinage==ZetaDia.Me.Inventory.Coinage&&TagTimer.Elapsed.TotalSeconds>TimeoutValue)
 			{
-				//DbHelper.Log(TrinityLogLevel.Normal, LogCategory.UserInformation, "TrinityExploreDungeon gold inactivity timer tripped ({0}), tag finished!", TimeoutValue);
+				 Logging.WriteVerbose("TrinityExploreDungeon gold inactivity timer tripped ({0}), tag finished!", TimeoutValue);
 				timeoutBreached=true;
 				return RunStatus.Success;
 			}

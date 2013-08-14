@@ -1,6 +1,13 @@
 ﻿// herbfunk revisions
 
-v1.4.x.x
+v1.4.3.0
+	Ability:
+		Removed Property TestCustomConditionsAlways. If no combat conditions are tested (none were set), then it will test the custom condtion by default.
+		Added DOTDPS to TargetProperties.
+		SuccessfullyUsed method will now reset TargetMovement.BlockCounter.
+
+
+v1.4.2.0
 	Refactor -- *Details: https://github.com/herbfunk/Funky/commit/ed2ff629826fefae82bcc836b568979871e598ac
 		*Navigation and Stats are now static properties of Bot Class.
 		*Kiting renamed to Fleeing

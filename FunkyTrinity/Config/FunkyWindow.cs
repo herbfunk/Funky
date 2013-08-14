@@ -3296,7 +3296,19 @@ namespace FunkyTrinity
 						cbPickupInfernalKeys.Unchecked+=PickupInfernalKeysChecked;
 						spMiscItemPickupOptions.Children.Add(cbPickupInfernalKeys);
 						#endregion
-
+						#region PickupDemonicEssence
+						CheckBox cbPickupDemonicEssence=new CheckBox
+						{
+							 Content="Pickup Demonic Essences",
+							 Height=20,
+							 IsChecked=(Bot.SettingsFunky.PickupDemonicEssence),
+							 HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
+							 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
+						};
+						cbPickupDemonicEssence.Checked+=PickupDemonicEssenceChecked;
+						cbPickupDemonicEssence.Unchecked+=PickupDemonicEssenceChecked;
+						spMiscItemPickupOptions.Children.Add(cbPickupDemonicEssence);
+						#endregion
 						//
 						TextBlock txt_miscPickup=new TextBlock
 						{
@@ -3537,6 +3549,18 @@ namespace FunkyTrinity
 						tabControl1.Items.Add(AdvancedTabItem);
 						ListBox lbAdvancedContent=new ListBox();
 
+						#region Debug Logging
+						StackPanel SPLoggingOptions=new StackPanel();
+						TextBlock Logging_Text_Header=new TextBlock
+						{
+							 Text="Debug Output Options",
+							 FontSize=12,
+							 Background=System.Windows.Media.Brushes.LightSeaGreen,
+							 TextAlignment=TextAlignment.Center,
+							 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+						};
+						SPLoggingOptions.Children.Add(Logging_Text_Header);
+
 						CheckBox CBDebugStatusBar=new CheckBox
 						{
 							 Content="Enable Debug Status Bar",
@@ -3546,7 +3570,7 @@ namespace FunkyTrinity
 						};
 						CBDebugStatusBar.Checked+=DebugStatusBarChecked;
 						CBDebugStatusBar.Unchecked+=DebugStatusBarChecked;
-						lbAdvancedContent.Items.Add(CBDebugStatusBar);
+						SPLoggingOptions.Children.Add(CBDebugStatusBar);
 
 						CheckBox CBLogSafeMovementOutput=new CheckBox
 						{
@@ -3557,7 +3581,25 @@ namespace FunkyTrinity
 						};
 						CBLogSafeMovementOutput.Checked+=LogSafeMovementOutputChecked;
 						CBLogSafeMovementOutput.Unchecked+=LogSafeMovementOutputChecked;
-						lbAdvancedContent.Items.Add(CBLogSafeMovementOutput);
+						SPLoggingOptions.Children.Add(CBLogSafeMovementOutput);
+
+						CheckBox CBLogGroupingOutput=new CheckBox
+						{
+							 Content="Enable Logging For Grouping Behavior",
+							 Width=300,
+							 Height=20,
+							 IsChecked=Bot.SettingsFunky.LogGroupingOutput,
+						};
+						CBLogGroupingOutput.Checked+=LogGroupingOutputChecked;
+						CBLogGroupingOutput.Unchecked+=LogGroupingOutputChecked;
+						SPLoggingOptions.Children.Add(CBLogGroupingOutput);
+
+
+						lbAdvancedContent.Items.Add(SPLoggingOptions);
+						#endregion
+
+						
+
 
 						CheckBox CBSkipAhead=new CheckBox
 						{
@@ -3616,7 +3658,7 @@ namespace FunkyTrinity
 						{
 							 Content="Object Cache",
 							 FontSize=10,
-							 Width=100,
+							 Width=80,
 							 Height=25,
 							 Name="Objects",
 						};
@@ -3624,7 +3666,7 @@ namespace FunkyTrinity
 						Button btnObstacles_Debug=new Button
 						{
 							 Content="Obstacle Cache",
-							 Width=100,
+							 Width=80,
 							 FontSize=10,
 							 Height=25,
 							 Name="Obstacles",
@@ -3634,7 +3676,7 @@ namespace FunkyTrinity
 						{
 							 Content="SNO Cache",
 							 FontSize=10,
-							 Width=100,
+							 Width=80,
 							 Height=25,
 							 Name="SNO",
 						};
@@ -3643,7 +3685,7 @@ namespace FunkyTrinity
 						{
 							 Content="Ability Cache",
 							 FontSize=10,
-							 Width=100,
+							 Width=80,
 							 Height=25,
 							 Name="Ability",
 						};
@@ -3660,16 +3702,25 @@ namespace FunkyTrinity
 						{
 							 Content="Character",
 							 FontSize=10,
-							 Width=100,
+							 Width=80,
 							 Height=25,
 							 Name="CHARACTER",
 						};
 						btnCharacterCache_Debug.Click+=DebugButtonClicked;
+						Button btnTargetMovement_Debug=new Button
+						{
+							 Content="TargetMove",
+							 FontSize=10,
+							 Width=80,
+							 Height=25,
+							 Name="TargetMove",
+						};
+						btnTargetMovement_Debug.Click+=DebugButtonClicked;
 						Button btnTEST_Debug=new Button
 						{
 							 Content="Test",
 							 FontSize=10,
-							 Width=100,
+							 Width=80,
 							 Height=25,
 							 Name="TEST",
 						};
@@ -3688,8 +3739,9 @@ namespace FunkyTrinity
 						StackPanel_DebugButtons.Children.Add(btnSNO_Debug);
 						StackPanel_DebugButtons.Children.Add(btnAbility_Debug);
 						StackPanel_DebugButtons.Children.Add(btnCharacterCache_Debug);
+						StackPanel_DebugButtons.Children.Add(btnTargetMovement_Debug);
 						StackPanel_DebugButtons.Children.Add(btnTEST_Debug);
-						//StackPanel_DebugButtons.Children.Add(btnMGP_Debug);
+
 						//StackPanel_DebugButtons.Children.Add(btnGPC_Debug);
 
 						DockPanel.SetDock(StackPanel_DebugButtons, Dock.Top);

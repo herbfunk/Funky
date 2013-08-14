@@ -160,6 +160,7 @@ namespace FunkyTrinity.Cache
 										  }
 
 										  if ((Funky.Difference(InteractionTest.Z, Bot.Character.Position.Z)<15f//Ignore things blocked by z Funky.Difference
+												&&radiusDistance>0f
 												&&!MathEx.IntersectsPath(this.Position, this.Radius, Bot.Character.Position, InteractionTest)))
 										  {
 												return false;
@@ -233,7 +234,8 @@ namespace FunkyTrinity.Cache
 									 //Ignore Destructibles Setting
 									 if (!Zeta.CommonBot.Settings.CharacterSettings.Instance.DestroyEnvironment
 										  &&this.Gizmotype.Value==GizmoType.Destructible
-										  &&this.PriorityCounter==0)
+										  &&this.PriorityCounter==0
+										  &&!this.IsBarricade.Value)
 									 {
 										  //ignore from being a targeted right now..
 										  this.BlacklistLoops=15;
@@ -259,6 +261,7 @@ namespace FunkyTrinity.Cache
 									 if ((this.targetType.Value==TargetType.Barricade||this.IsBarricade.HasValue&&this.IsBarricade.Value)&&
 										  (!Funky.PlayerMover.ShouldHandleObstacleObject  //Have special flag from unstucker to destroy nearby barricade.
 										  &&this.PriorityCounter==0
+										  &&radiusDistance>0f
 										  &&Funky.Difference(BarricadeTest.Z, Bot.Character.Position.Z)<15f//Ignore things blocked by z Funky.Difference
 										  &&!MathEx.IntersectsPath(this.Position, this.CollisionRadius.Value, Bot.Character.Position, BarricadeTest)))
 									 {

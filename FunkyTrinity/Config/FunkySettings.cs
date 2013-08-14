@@ -16,6 +16,8 @@ namespace FunkyTrinity
          {
              public bool DebugStatusBar { get; set; }
              public bool LogSafeMovementOutput { get; set; }
+				 public bool LogGroupingOutput { get; set; }
+
 				 public bool SkipAhead { get; set; }
              
              public bool LogStuckLocations { get; set; }
@@ -123,6 +125,7 @@ namespace FunkyTrinity
 
              public bool PickupFollowerItems { get; set; }
 				 public bool PickupInfernalKeys { get; set; }
+				 public bool PickupDemonicEssence { get; set; }
 
              public int MiscItemLevel { get; set; }
 
@@ -148,6 +151,7 @@ namespace FunkyTrinity
 					  GroupingMaximumDistanceAllowed=125;
 					  GroupingMinimumClusterCount=1;
 					  GroupingMinimumUnitsInCluster=4;
+					  LogGroupingOutput=false;
 
 					  EnableFleeingBehavior=true;
 					  FleeMaxMonsterDistance=6;
@@ -227,6 +231,7 @@ namespace FunkyTrinity
 					  PickupJewelerDesignMarquise=false;
 					  PickupJewelerDesignAmulet=false;
 					  PickupInfernalKeys=true;
+					  PickupDemonicEssence=true;
 
 					  PickupFollowerItems=true;
                  MiscItemLevel = 59;

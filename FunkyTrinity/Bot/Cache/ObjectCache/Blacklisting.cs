@@ -14,6 +14,8 @@ namespace FunkyTrinity.Cache
 		 // These are blacklists used to blacklist objects/monsters/items either for the rest of the current game, or for a shorter period
 		 private static HashSet<int> hashRGUIDTemporaryIgnoreBlacklist=new HashSet<int>();
 		 private static HashSet<int> hashRGUIDIgnoreBlacklist=new HashSet<int>();
+		 internal static HashSet<int> hashSNOTargetBlacklist=new HashSet<int>();
+		 internal static HashSet<int> hashProfileSNOTargetBlacklist=new HashSet<int>();
 
 		 internal static void ClearBlacklistCollections()
 		 {
@@ -40,7 +42,7 @@ namespace FunkyTrinity.Cache
 				}
 		 }
 
-		 internal static HashSet<int> hashSNOTargetBlacklist=new HashSet<int>();
+		 
 		 internal static void AddObjectToBlacklist(int RAGUID, BlacklistType blacklist)
 		 {
 				if (blacklist==BlacklistType.Permanent)

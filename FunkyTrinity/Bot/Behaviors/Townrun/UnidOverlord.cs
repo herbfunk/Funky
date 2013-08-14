@@ -209,6 +209,54 @@ namespace FunkyTrinity
 					 }
 					 return RunStatus.Success;
 				}
+
+				internal static RunStatus UnidStashOptimisedPreStash(object ret)
+				{
+					 if (Bot.SettingsFunky.DebugStatusBar)
+						  BotMain.StatusText="Town run: Unid Item Stash routine started";
+					 Log("GSDebug: Unid Stash routine started.", true);
+					 bLoggedAnythingThisStash=false;
+					 bUpdatedStashMap=false;
+					 iCurrentItemLoops=0;
+					 RandomizeTheTimer();
+					 TownRunManager.bFailedToLootLastItem=false;
+					 return RunStatus.Success;
+				}
+
+				// **********************************************************************************************
+				// *****            Post Stash tidies up and signs off log file after a stash run           *****
+				// **********************************************************************************************
+				internal static RunStatus UnidStashOptimisedPostStash(object ret)
+				{
+					 Log("GSDebug: Unid Stash routine ending sequence...", true);
+					 // See if there's any legendary items we should send Prowl notifications about
+					 while (pushQueue.Count>0) { SendNotification(pushQueue.Dequeue()); }
+					 /*
+					  if (bLoggedAnythingThisStash)
+					  {
+							FileStream LogStream = null;
+							try
+							{
+								 LogStream = File.Open(sTrinityPluginPath + ZetaDia.Service.CurrentHero.BattleTagName + " - StashLog - " + ZetaDia.Actors.Me.ActorClass.ToString() + ".log", FileMode.Append, FileAccess.Write, FileShare.Read);
+								 using (StreamWriter LogWriter = new StreamWriter(LogStream))
+									  LogWriter.WriteLine("");
+								 LogStream.Close();
+							}
+							catch (IOException)
+							{
+								 Log("Fatal Error: File access error for signing off the stash log file.");
+								 if (LogStream != null)
+									  LogStream.Close();
+							}
+							bLoggedAnythingThisStash = false;
+					  }
+						*/
+					 Bot.Character.lastPreformedNonCombatAction=DateTime.Now;
+
+
+					 Log("GSDebug: Unid Stash routine finished.", true);
+					 return RunStatus.Success;
+				}
 		  }
 	 }
 }

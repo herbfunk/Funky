@@ -93,6 +93,13 @@ namespace FunkyTrinity
 						  base.Abilities.Add(item, this.CreateAbility(item));
 					 }
 
+					 //No default generation ability..
+					 if (!this.HotbarContainsAPrimaryAbility())
+					 {
+						  base.Abilities.Add(SNOPower.Weapon_Ranged_Wand, Ability.Wand_Range_Attack);
+						  base.RuneIndexCache.Add(SNOPower.Weapon_Ranged_Wand, -1);
+					 }
+
 					 //Sort Abilities
 					 base.SortedAbilities=base.Abilities.Values.OrderByDescending(a => a.Priority).ThenByDescending(a => a.Range).ToList();
 				}
@@ -136,6 +143,11 @@ namespace FunkyTrinity
 					 return false;
 						  
 				}
+				public override bool HotbarContainsAPrimaryAbility()
+				{
+					 return (this.HotbarPowers.Contains(SNOPower.Wizard_MagicMissile)||this.HotbarPowers.Contains(SNOPower.Wizard_ShockPulse)||this.HotbarPowers.Contains(SNOPower.Wizard_SpectralBlade)||this.HotbarPowers.Contains(SNOPower.Wizard_Electrocute));
+				}
+
 				public override Ability CreateAbility(SNOPower Power)
 				{
 					 Ability returnAbility=null;
@@ -157,11 +169,11 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckCanCast|AbilityConditions.CheckEnergy),
 								ClusterConditions=new ClusterConditions(5d, 48f, 2, false),
-								TestCustomCombatConditionAlways=true,
+								//TestCustomCombatConditionAlways=true,
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return ((Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP&&Bot.Character.dCurrentHealthPct<0.5d)
-											||(Bot.SettingsFunky.Class.bTeleportIntoGrouping&&Bot.Combat.Clusters(5d, 48f, 2, false).Count>0&&Bot.Combat.Clusters()[0].Midpoint.Distance(Bot.Character.PointPosition)>15f)
+											||(Bot.SettingsFunky.Class.bTeleportIntoGrouping&&Bot.Combat.Clusters(new ClusterConditions(5d, 48f, 2, false)).Count>0&&Bot.Combat.Clusters(new ClusterConditions(5d, 48f, 2, false))[0].Midpoint.Distance(Bot.Character.PointPosition)>15f)
 											||(!Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP&&!Bot.SettingsFunky.Class.bTeleportIntoGrouping));
 								}),
 						  };
@@ -717,11 +729,11 @@ namespace FunkyTrinity
 								//ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1),
 								//TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.Boss, 15),
 								ClusterConditions=new ClusterConditions(5d, 48f, 2, false),
-								TestCustomCombatConditionAlways=true,
+								//TestCustomCombatConditionAlways=true,
 								Fcriteria=new Func<bool>(()=>
 								{
 									 return ((Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP&&Bot.Character.dCurrentHealthPct<0.5d)
-												||(Bot.SettingsFunky.Class.bTeleportIntoGrouping&&Bot.Combat.Clusters(5d, 48f, 2, false).Count>0&&Bot.Combat.Clusters()[0].Midpoint.Distance(Bot.Character.PointPosition)>15f)
+												||(Bot.SettingsFunky.Class.bTeleportIntoGrouping&&Bot.Combat.Clusters(new ClusterConditions(5d, 48f, 2, false)).Count>0&&Bot.Combat.Clusters(new ClusterConditions(5d, 48f, 2, false))[0].Midpoint.Distance(Bot.Character.PointPosition)>15f)
 												||(!Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP&&!Bot.SettingsFunky.Class.bTeleportIntoGrouping));
 
 								}),

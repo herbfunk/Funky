@@ -30,11 +30,12 @@ namespace FunkyTrinity.ability
 			public Ability()
 			{
 				 Power=SNOPower.None;
+				 PreCastConditions=AbilityConditions.None;
 				 Fcriteria=new Func<bool>(() => { return true; });
 				 WaitVars=new WaitLoops(0, 0, true);
 				 IsRanged=false;
 				 LastConditionPassed=ConditionCriteraTypes.None;
-				 TestCustomCombatConditionAlways=false;
+				 //TestCustomCombatConditionAlways=false;
 				 IsSpecialAbility=false;
 
 			}
@@ -131,10 +132,10 @@ namespace FunkyTrinity.ability
 			///</summary>
 			public bool UseAvoiding { get; set; }
 
-			///<summary>
-			///will test final custom conditions even if all combat criteria conditions failed or none were ever set.
-			///</summary>
-			public bool TestCustomCombatConditionAlways { get; set; }
+			/////<summary>
+			/////will test final custom conditions even if all combat criteria conditions failed or none were ever set.
+			/////</summary>
+			//public bool TestCustomCombatConditionAlways { get; set; }
 
 			#endregion
 
@@ -234,15 +235,15 @@ namespace FunkyTrinity.ability
 				 set
 				 {
 						ClusterConditions_=value;
-						FClusterConditions+=new Func<bool>(() => { return this.CheckClusterConditions(); });
+						FClusterConditions=new Func<bool>(() => { return CheckClusterConditions(this.ClusterConditions); });
 				 }
 			}
 			private ClusterConditions ClusterConditions_;
 			private Func<bool> FClusterConditions { get; set; }
 
-			private bool CheckClusterConditions()
+			internal static bool CheckClusterConditions(ClusterConditions CC)
 			{
-				 return Bot.Combat.Clusters(this.ClusterConditions.ClusterDistance, this.ClusterConditions.MaximumDistance, this.ClusterConditions.MinimumUnits, this.ClusterConditions.IgnoreNonTargetable).Count>0;
+				 return Bot.Combat.Clusters(CC).Count>0;
 			}
 
 			///<summary>
@@ -329,6 +330,8 @@ namespace FunkyTrinity.ability
 									FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.IsTargetableAndAttackable; });
 							 if (value.TrueConditionFlags.HasFlag(TargetProperties.Fast))
 									FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.IsFast; });
+							 if (value.TrueConditionFlags.HasFlag(TargetProperties.DOTDPS))
+								  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.HasDOTdps.HasValue&&Bot.Target.CurrentUnitTarget.HasDOTdps.Value; });
 						}
 
 						//FALSE CONDITIONS
@@ -368,6 +371,8 @@ namespace FunkyTrinity.ability
 									FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.IsTargetableAndAttackable; });
 							 if (value.FalseConditionFlags.HasFlag(TargetProperties.Fast))
 									FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.IsFast; });
+							 if (value.FalseConditionFlags.HasFlag(TargetProperties.DOTDPS))
+								  FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.HasDOTdps.HasValue||!Bot.Target.CurrentUnitTarget.HasDOTdps.Value; });
 						}
 				 }
 			}
@@ -452,14 +457,12 @@ namespace FunkyTrinity.ability
 				 if ((!TestCustomConditions||FailedCondition)&&ClusterConditions!=null)
 				 {
 						FailedCondition=false;
-						foreach (Func<bool> item in this.FClusterConditions.GetInvocationList())
+
+						if (!this.FClusterConditions.Invoke())
 						{
-							 if (!item())
-							 {
-									FailedCondition=true;
-									break;
-							 }
+							 FailedCondition=true;
 						}
+						
 						if (!FailedCondition)
 						{
 							 LastConditionPassed=ConditionCriteraTypes.Cluster;
@@ -484,8 +487,9 @@ namespace FunkyTrinity.ability
 						}
 				 }
 
-				 //Tested Conditions but Ended Up With Failed Attempt.
-				 if (TestCustomConditions&&FailedCondition&&!TestCustomCombatConditionAlways) return false;
+				 //If TestCustomCondtion failed, and FailedCondition is true.. then we tested a combat condition.
+				 //If FailedCondition is false, then we never tested a condition.
+				 if (!TestCustomConditions&&FailedCondition) return false;
 
 
 				 foreach (Func<bool> item in this.Fcriteria.GetInvocationList())
@@ -564,16 +568,16 @@ namespace FunkyTrinity.ability
 				 SuccessUsed_=null;
 
 				 //Check Clustering First.. we verify that cluster condition was last to be tested.
-				 if (this.UsageType.HasFlag(AbilityUseType.ClusterTarget)&&this.CheckClusterConditions()) //Cluster ACDGUID
+				 if (this.UsageType.HasFlag(AbilityUseType.ClusterTarget)&&CheckClusterConditions(this.ClusterConditions)) //Cluster ACDGUID
 				 {
 						//ListUnits[0].AcdGuid.Value;
-						TargetRAGUID_=Bot.Combat.Clusters(this.ClusterConditions.ClusterDistance, this.ClusterConditions.MaximumDistance, this.ClusterConditions.MinimumUnits, this.ClusterConditions.IgnoreNonTargetable)[0].GetNearestUnitToCenteroid().AcdGuid.Value;
+						TargetRAGUID_=Bot.Combat.Clusters(this.ClusterConditions)[0].GetNearestUnitToCenteroid().AcdGuid.Value;
 						return;
 				 }
-				 if (this.UsageType.HasFlag(AbilityUseType.ClusterLocation)&&this.CheckClusterConditions()) //Cluster Target Position
+				 if (this.UsageType.HasFlag(AbilityUseType.ClusterLocation)&&CheckClusterConditions(this.ClusterConditions)) //Cluster Target Position
 				 {
 						//.ListUnits.First(u => u.ObjectIsValidForTargeting).Position;
-						TargetPosition_=(Vector3)Bot.Combat.Clusters(this.ClusterConditions.ClusterDistance, this.ClusterConditions.MaximumDistance, this.ClusterConditions.MinimumUnits, this.ClusterConditions.IgnoreNonTargetable)[0].Midpoint;
+					  TargetPosition_=(Vector3)Bot.Combat.Clusters(this.ClusterConditions)[0].Midpoint;
 						return;
 				 }
 
@@ -618,6 +622,8 @@ namespace FunkyTrinity.ability
 			{
 				 this.LastUsed=DateTime.Now;
 				 PowerCacheLookup.lastGlobalCooldownUse=DateTime.Now;
+				 //Reset Blockcounter --
+				 TargetMovement.BlockedMovementCounter=0;
 			}
 
 			///<summary>

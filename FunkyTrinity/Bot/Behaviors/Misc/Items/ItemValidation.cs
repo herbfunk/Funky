@@ -114,22 +114,6 @@ namespace FunkyTrinity
 				// If it's legendary, we always want it *IF* it's level is right
 				if (item.Itemquality>=ItemQuality.Legendary)
 				{
-					 //Frost burn
-					 // if (thisdbItemType == ItemType.Gloves && templevel == 62)
-					 //   return false;
-					 //Death mantle Watch
-					 //if (thisdbItemType == ItemType.Shoulder && templevel == 58)
-					 //  return false;
-					 //Heart Slaughter
-					 //if (thisdbItemType == ItemType.Polearm && templevel == 60)
-					 //  return false;
-					 //Wormwood
-					 // if (thisdbItemType == ItemType.Staff && templevel == 60)
-					 //   return false;
-					 //Sultan 2h Sword
-					 //if (thisGilesItemType == GilesItemType.TwoHandSword && templevel == 60)
-					 //  return false;
-
 					 if (Bot.SettingsFunky.MinimumLegendaryItemLevel>0&&(item.BalanceData.iThisItemLevel>=Bot.SettingsFunky.MinimumLegendaryItemLevel||Bot.SettingsFunky.MinimumLegendaryItemLevel==1))
 						  return true;
 
@@ -241,9 +225,12 @@ namespace FunkyTrinity
 						  break;
 					 case GilesBaseItemType.Misc:
 						  // Note; Infernal keys are misc, so should be picked up here - we aren't filtering them out, so should default to true at the end of this function
-						  if (thisGilesItemType==GilesItemType.CraftingMaterial&&item.BalanceData.iThisItemLevel<Bot.SettingsFunky.MiscItemLevel)
+						  if (thisGilesItemType==GilesItemType.CraftingMaterial)
 						  {
-								return false;
+								if (item.BalanceData.iThisItemLevel==63&&Bot.SettingsFunky.PickupDemonicEssence)
+									 return true;
+
+								return item.BalanceData.iThisItemLevel<Bot.SettingsFunky.MiscItemLevel;
 						  }
 						  if (thisGilesItemType==GilesItemType.CraftTome&&(item.BalanceData.iThisItemLevel<Bot.SettingsFunky.MiscItemLevel||!Bot.SettingsFunky.PickupCraftTomes))
 						  {

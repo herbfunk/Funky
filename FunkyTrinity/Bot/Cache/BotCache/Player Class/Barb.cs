@@ -73,6 +73,14 @@ namespace FunkyTrinity
 					 {
 						  base.Abilities.Add(item, this.CreateAbility(item));
 					 }
+
+					 //No default rage generation ability.. then we add the Instant Melee Ability.
+					 if (!this.HotbarContainsAPrimaryAbility())
+					 {
+						  base.Abilities.Add(SNOPower.Weapon_Melee_Instant, Ability.Instant_Melee_Attack);
+						  base.RuneIndexCache.Add(SNOPower.Weapon_Melee_Instant, -1);
+					 }
+
 					 if (base.Abilities.ContainsKey(SNOPower.Barbarian_WeaponThrow))
 						  UsingWeaponThrowAbility=true;
 
@@ -110,6 +118,10 @@ namespace FunkyTrinity
 					 Bot.Combat.lastChangedZigZag=DateTime.Now;
 				}
 
+				public override bool HotbarContainsAPrimaryAbility()
+				{
+					 return (this.HotbarPowers.Contains(SNOPower.Barbarian_Bash)||this.HotbarPowers.Contains(SNOPower.Barbarian_Cleave)||this.HotbarPowers.Contains(SNOPower.Barbarian_WeaponThrow)||this.HotbarPowers.Contains(SNOPower.Barbarian_Frenzy));
+				}
 
 				public override Ability DestructibleAbility()
 				{
@@ -198,9 +210,9 @@ namespace FunkyTrinity
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckExisitingBuff|AbilityConditions.CheckCanCast),
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return (Bot.SettingsFunky.Class.bGoblinWrath&&Bot.Target.CurrentTarget.IsTreasureGoblin)||
-												(Bot.SettingsFunky.Class.bBarbUseWOTBAlways)||
-												(Bot.Combat.Clusters(12d, 45f, 3).Any(c => c.EliteCount>2));
+									 return Bot.Combat.bAnyChampionsPresent
+                        || (Bot.SettingsFunky.Class.bBarbUseWOTBAlways && Bot.Combat.bAnyMobsInCloseRange)
+                        || (Bot.SettingsFunky.Class.bGoblinWrath && Bot.Target.CurrentTarget.IsTreasureGoblin);
 								}),
 						  };
 					 }
@@ -238,9 +250,10 @@ namespace FunkyTrinity
 								WaitVars=new WaitLoops(1, 1, true),
 								Cost=20,
 								UseAvoiding=true,
-								UseOOCBuff=false,
+								UseOOCBuff=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckPlayerIncapacitated),
+								//TestCustomCombatConditionAlways=true,
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return !HasBuff(SNOPower.Barbarian_BattleRage)||
@@ -265,10 +278,11 @@ namespace FunkyTrinity
 								WaitVars=new WaitLoops(1, 1, true),
 								Cost=0,
 								Range=0,
-								UseAvoiding=false,
+								UseAvoiding=true,
 								UseOOCBuff=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
+								//TestCustomCombatConditionAlways=true,
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return (!HasBuff(SNOPower.Barbarian_WarCry)
@@ -541,7 +555,7 @@ namespace FunkyTrinity
 								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.Ranged,25,0.50d),
 								
-								TestCustomCombatConditionAlways=true,
+								//TestCustomCombatConditionAlways=true,
 								Fcriteria=new Func<bool>(()=>
 								{
 									return Bot.Target.CurrentUnitTarget.Monstersize.Value==MonsterSize.Ranged || Bot.Character.dCurrentEnergyPct<0.5d;
@@ -567,9 +581,7 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.Low,
 
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckPlayerIncapacitated),
-								UnitsWithinRangeConditions=new Tuple<RangeIntervals,int>(RangeIntervals.Range_25,2),
-								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,20, falseConditionalFlags: TargetProperties.Fast),
-
+								ClusterConditions=new ClusterConditions(10d,30f,2,true),
 								
 								Fcriteria=new Func<bool>(() =>
 								{
@@ -599,8 +611,8 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
-								ClusterConditions=new ClusterConditions(5d, 15f, 2, true),
-								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,15,falseConditionalFlags: TargetProperties.Fast),
+								ClusterConditions=new ClusterConditions(6d, 20f, 1, true),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,20),
 								Fcriteria=new Func<bool>(() => { return !this.bWaitingForSpecial; }),
 								
 						  };

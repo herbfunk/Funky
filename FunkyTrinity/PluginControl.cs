@@ -11,7 +11,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  private static void Log(string message, bool bIsDiagnostic=false)
+		  internal static void Log(string message, bool bIsDiagnostic=false)
 		  {
 				string totalMessage=String.Format("[Funky] {0}", message);
 				if (!bIsDiagnostic)
@@ -254,8 +254,8 @@ namespace FunkyTrinity
 						  //CanRunDecoratorDelegate canRunDelegateUseTownPortalReturn = new CanRunDecoratorDelegate(
 
 						  CanRunDecoratorDelegate canRunUnidBehavior=new CanRunDecoratorDelegate(TownRunManager.UnidItemOverlord);
-						  ActionDelegate actionDelegatePreUnidStash=new ActionDelegate(TownRunManager.GilesOptimisedPreStash);
-						  ActionDelegate actionDelegatePostUnidStash=new ActionDelegate(TownRunManager.GilesOptimisedPostStash);
+						  ActionDelegate actionDelegatePreUnidStash=new ActionDelegate(TownRunManager.UnidStashOptimisedPreStash);
+						  ActionDelegate actionDelegatePostUnidStash=new ActionDelegate(TownRunManager.UnidStashOptimisedPostStash);
 						  ActionDelegate actionDelegateUnidBehavior=new ActionDelegate(TownRunManager.UnidStashBehavior);
 						  Sequence sequenceUnidStash=new Sequence(
 								  new Zeta.TreeSharp.Action(actionDelegatePreUnidStash),
