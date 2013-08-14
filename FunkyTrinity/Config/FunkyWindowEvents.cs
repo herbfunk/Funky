@@ -183,8 +183,20 @@ namespace FunkyTrinity
 								 
 							}
                  }
+					  else if (btnsender.Name=="CombatCache")
+					  {
+							try
+							{
+								 string debugString=Bot.Combat.DebugString;
+								 Logging.WriteDiagnostic(debugString);
+								 LBDebug.Items.Add(debugString);
+							} catch
+							{
+
+							}
+					  }
 					  else if (btnsender.Name=="Ability")
-                 {
+					  {
 							try
 							{
 								 if (Bot.Class==null)
@@ -201,7 +213,7 @@ namespace FunkyTrinity
 								 Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
 							}
 
-                 }
+					  }
 					  else if (btnsender.Name=="TEST")
 					  {
 							try
@@ -212,9 +224,9 @@ namespace FunkyTrinity
 									  Logging.Write(item.Stats.ToString());
 									  Logging.Write(item.ItemLink);
 								 }
-							} catch 
+							} catch
 							{
-								 
+
 							}
 					  }
                  LBDebug.Items.Refresh();

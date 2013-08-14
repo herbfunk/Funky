@@ -331,7 +331,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								
-								UsageType=AbilityUseType.Buff,
+								UsageType=AbilityUseType.Self,
 								WaitVars=new WaitLoops(1, 1, true),
 								Cost=20,
 								UseAvoiding=true,
@@ -357,7 +357,7 @@ namespace FunkyTrinity
 						  return new Ability
 						  {
 								Power=Power,
-								UsageType=AbilityUseType.Buff,
+								UsageType=AbilityUseType.Self,
 								WaitVars=new WaitLoops(1, 2, true),
 								Cost=20,
 								Range=16,
@@ -405,7 +405,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								
-								UsageType=AbilityUseType.Buff,
+								UsageType=AbilityUseType.Self,
 								WaitVars=new WaitLoops(4, 4, true),
 								Cost=0,
 								UseAvoiding=false,
@@ -452,7 +452,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								
-								UsageType=AbilityUseType.Buff,
+								UsageType=AbilityUseType.Self,
 								WaitVars=new WaitLoops(3, 3, true),
 								Cost=20,
 								UseAvoiding=false,
@@ -460,16 +460,14 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
 								
+								ClusterConditions=new ClusterConditions(4d,10,2,true,0.50d),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,10,falseConditionalFlags: TargetProperties.DOTDPS),
+								
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return 
 										 !this.bWaitingForSpecial&&
-										  //Only if 2 non-elite targets OR 1 elite target is within 6feet
-									  (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_6]>1||Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_6]>0)&&
-										  // Don't use against goblins (they run too quick!) Or any mobs added to the fast list unless elite.                                                                  
-									  (!Bot.Target.CurrentTarget.IsTreasureGoblin&&(!CacheIDLookup.hashActorSNOFastMobs.Contains(Bot.Target.CurrentTarget.SNOID)||Bot.Target.CurrentUnitTarget.IsEliteRareUnique)||Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_6]>3)&&
-										  //Non-WW users
-									 (!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind)&&((Bot.Class.AbilityUseTimer(SNOPower.Barbarian_Rend)||(Bot.Combat.iNonRendedTargets_6>2)))
+										  (!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind))
 										  // This segment is for people who *DO* have whirlwind
 										  ||(Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind)&&
 										  // See if it's off-cooldown and at least 40 fury, or use as a fury dump
@@ -479,10 +477,10 @@ namespace FunkyTrinity
 										  // Max once every 1.2 seconds even if fury dumping, so sprint can be fury dumped too
 										  // DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Barbarian_Rend]).TotalMilliseconds >= 1200 &&
 										  // 3+ mobs of any kind at close range *OR* one elite/boss/special at close range
-									  ((Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3&&Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_12]>=1)||
-									  (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3&&Bot.Target.CurrentTarget.IsTreasureGoblin&&Bot.Target.CurrentTarget.RadiusDistance<=6f)||
+										  ((Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3&&Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_12]>=1)||
+										  (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3&&Bot.Target.CurrentTarget.IsTreasureGoblin&&Bot.Target.CurrentTarget.RadiusDistance<=6f)||
 											Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=5||
-									  ((Bot.Target.CurrentUnitTarget.IsEliteRareUnique)&&Bot.Target.CurrentTarget.RadiusDistance<=6f&&Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3))));
+										  ((Bot.Target.CurrentUnitTarget.IsEliteRareUnique)&&Bot.Target.CurrentTarget.RadiusDistance<=6f&&Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3)));
 								}),
 						  };
 					 }
@@ -495,7 +493,7 @@ namespace FunkyTrinity
 						  {
 								Power=Power,
 								
-								UsageType=AbilityUseType.Buff,
+								UsageType=AbilityUseType.Self,
 								WaitVars=new WaitLoops(4, 4, true),
 								Cost=20,
 								UseAvoiding=true,
@@ -611,7 +609,7 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.Low,
 								PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
-								ClusterConditions=new ClusterConditions(6d, 20f, 1, true),
+								ClusterConditions=new ClusterConditions(6d, 20f, 2, true),
 								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,20),
 								Fcriteria=new Func<bool>(() => { return !this.bWaitingForSpecial; }),
 								

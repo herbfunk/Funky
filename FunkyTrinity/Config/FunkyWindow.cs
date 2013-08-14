@@ -3716,6 +3716,15 @@ namespace FunkyTrinity
 							 Name="TargetMove",
 						};
 						btnTargetMovement_Debug.Click+=DebugButtonClicked;
+						Button btnCombatCache_Debug=new Button
+						{
+							 Content="CombatCache",
+							 FontSize=10,
+							 Width=80,
+							 Height=25,
+							 Name="CombatCache",
+						};
+						btnCombatCache_Debug.Click+=DebugButtonClicked;
 						Button btnTEST_Debug=new Button
 						{
 							 Content="Test",
@@ -3739,7 +3748,7 @@ namespace FunkyTrinity
 						StackPanel_DebugButtons.Children.Add(btnSNO_Debug);
 						StackPanel_DebugButtons.Children.Add(btnAbility_Debug);
 						StackPanel_DebugButtons.Children.Add(btnCharacterCache_Debug);
-						StackPanel_DebugButtons.Children.Add(btnTargetMovement_Debug);
+						StackPanel_DebugButtons.Children.Add(btnCombatCache_Debug);
 						StackPanel_DebugButtons.Children.Add(btnTEST_Debug);
 
 						//StackPanel_DebugButtons.Children.Add(btnGPC_Debug);
