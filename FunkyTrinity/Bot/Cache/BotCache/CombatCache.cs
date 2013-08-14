@@ -83,29 +83,10 @@ namespace FunkyTrinity
 				///<summary>
 				///Tracks Lists of Clusters for specific Conditions used during Ability Clustering.
 				///</summary>
-				internal Dictionary<ClusterConditions, List<Cluster>> AbilityClusters=new Dictionary<ClusterConditions, List<Cluster>>();
+				internal Dictionary<ClusterConditions, ClusterCollection> AbilityClusters=new Dictionary<ClusterConditions, ClusterCollection>();
 
 				internal DateTime LastClusterTargetLogicRefresh=DateTime.MinValue;
 				internal DateTime LastClusterGroupingLogicRefresh=DateTime.MinValue;
-
-				//This is used during Ability Selection -- we reuse the targeting cluster data if possible!
-				internal List<Cluster> RunKMeans(ClusterConditions CC)
-				{
-					 //Get unit objects only!
-					 List<CacheUnit> listObjectUnits=Bot.ValidObjects.OfType<CacheUnit>().Where(u => 
-						  UnitRAGUIDs.Contains(u.RAGUID)
-						  &&u.CentreDistance<=CC.MaximumDistance
-						  &&(!CC.IgnoreNonTargetable||u.IsTargetable.HasValue&&u.IsTargetable.Value)).ToList();
-					   
-
-					 //Logging.WriteVerbose("Total Units {0}", listObjectUnits.Count.ToString());
-					 if (listObjectUnits.Count>0)
-					 {
-						  return Cluster.RunKmeans(listObjectUnits, CC.ClusterDistance).Where(c => c.ListUnits.Count>=CC.MinimumUnits&&(CC.DOTDPSRatio==0.00d||c.DotDPSRatio<=CC.DOTDPSRatio)).ToList();
-					 }
-					 else
-						  return new List<Cluster>();
-				}
 
 
 				//Cache last filtered list generated
@@ -113,32 +94,19 @@ namespace FunkyTrinity
 				private DateTime lastClusterComputed=DateTime.Today;
 				internal List<Cluster> Clusters(ClusterConditions CC)
 				{
-					 //only run Kmeans every 200ms or when cache is empty!
-					 if (DateTime.Now.Subtract(lastClusterComputed).TotalMilliseconds>200||!AbilityClusters.ContainsKey(CC))
+					 if (!AbilityClusters.ContainsKey(CC))
 					 {
-						  lastClusterComputed=DateTime.Now;
-						  List<Cluster> newClusterList=RunKMeans(CC);
-
-						  //Sort by distance -- reverse to get nearest unit First
-						  if (newClusterList.Count>0)
-						  {
-								newClusterList=newClusterList.OrderBy(o => o.NearestMonsterDistance).ToList();
-								newClusterList.First().ListUnits.Sort();
-								newClusterList.First().ListUnits.Reverse();
-						  }
-
-						  //Add or update dictionary entry.
-						  if (!AbilityClusters.ContainsKey(CC))
-						  {
-								Logging.WriteVerbose("Creating new entry for ClusterConditions -- {0}", CC.ToString());
-								AbilityClusters.Add(CC, newClusterList);
-						  }
-						  else
-								AbilityClusters[CC]=newClusterList;
+						  Logging.WriteVerbose("Creating new entry for ClusterConditions -- {0}", CC.ToString());
+						  AbilityClusters.Add(CC, new ClusterCollection(CC));
 					 }
 
+					 if (AbilityClusters[CC].ShouldRefreshClusters)
+						  AbilityClusters[CC].UpdateClusters();
+					 else
+						  AbilityClusters[CC].RefreshClusters();
+
 					 //Logging.WriteVerbose("Ability Clusters Found {0}", AbilityClusters[CC].Count.ToString());
-					 return AbilityClusters[CC];
+					 return AbilityClusters[CC].CurrentClusters;
 				}
 
 

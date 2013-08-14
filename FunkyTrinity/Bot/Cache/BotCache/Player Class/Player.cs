@@ -188,6 +188,26 @@ namespace FunkyTrinity
 				}
 
 				///<summary>
+				///Returns a power for Buffing.
+				///</summary>
+				internal bool FindBuffPower(out Ability BuffAbility)
+				{
+					 BuffAbility=null;
+					 foreach (var item in this.Abilities.Values.Where(A => A.UseOOCBuff))
+					 {
+						  if (item.CheckPreCastConditionMethod())
+						  {
+								if (item.CheckBuffConditionMethod())
+								{
+									 BuffAbility=item;
+									 return true;
+								}
+						  }
+					 }
+					 return false;
+				}
+
+				///<summary>
 				///Returns a SnoPower based upon current hotbar abilities. If an ability not found than weapon melee/ranged instant is returned.
 				///</summary>
 				internal SNOPower DestructiblePower(SNOPower ignore=Zeta.Internals.Actors.SNOPower.None)

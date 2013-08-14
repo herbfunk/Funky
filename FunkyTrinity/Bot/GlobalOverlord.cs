@@ -183,16 +183,19 @@ namespace FunkyTrinity
 				Bot.Combat.vPositionLastZigZagCheck=Vector3.Zero;
 
 				// Out of combat buffing etc. but only if we don't want to return to town etc.
+				Bot.Character.UpdateAnimationState(true, false);
 				AnimationState myAnimationState=Bot.Character.CurrentAnimationState;
-				if (!Bot.Character.bIsInTown&&!TownRunManager.bWantToTownRun&&myAnimationState!=AnimationState.Attacking&&myAnimationState!=AnimationState.Casting&&myAnimationState!=AnimationState.Channeling)
+				if ((!Bot.Character.bIsInTown||Bot.SettingsFunky.AllowBuffingInTown)&&
+					 !TownRunManager.bWantToTownRun&&
+					 myAnimationState!=AnimationState.Attacking&&myAnimationState!=AnimationState.Casting&&myAnimationState!=AnimationState.Channeling)
 				{
-					 Bot.Combat.powerBuff=Bot.Class.AbilitySelector(false, true);
-					 if (Bot.Combat.powerBuff.Power!=SNOPower.None)
+					 FunkyTrinity.ability.Ability Buff;
+					 if (Bot.Class.FindBuffPower(out Buff))
 					 {
+						  Buff.SetupAbilityForUse();
 						  Bot.Character.WaitWhileAnimating(4, true);
-						  ZetaDia.Me.UsePower(Bot.Combat.powerBuff.Power, Bot.Combat.powerBuff.TargetPosition, Bot.Combat.powerBuff.WorldID, Bot.Combat.powerBuff.TargetRAGUID);
-						  Bot.Combat.powerLastSnoPowerUsed=Bot.Combat.powerBuff.Power;
-							PowerCacheLookup.dictAbilityLastUse[Bot.Combat.powerBuff.Power]=DateTime.Now;
+						  Buff.UsePower();
+						  Buff.SuccessfullyUsed();
 						  Bot.Character.WaitWhileAnimating(3, true);
 					 }
 				}

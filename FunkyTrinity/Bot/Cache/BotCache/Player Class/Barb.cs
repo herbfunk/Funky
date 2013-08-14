@@ -253,7 +253,7 @@ namespace FunkyTrinity
 								UseOOCBuff=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckPlayerIncapacitated),
-								//TestCustomCombatConditionAlways=true,
+								Fbuff=new Func<bool>(() => { return !HasBuff(SNOPower.Barbarian_BattleRage); }),
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return !HasBuff(SNOPower.Barbarian_BattleRage)||
@@ -282,7 +282,7 @@ namespace FunkyTrinity
 								UseOOCBuff=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated),
-								//TestCustomCombatConditionAlways=true,
+								Fbuff=new Func<bool>(() => { return !HasBuff(SNOPower.Barbarian_WarCry); }),
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return (!HasBuff(SNOPower.Barbarian_WarCry)

@@ -35,9 +35,7 @@ namespace FunkyTrinity.ability
 				 WaitVars=new WaitLoops(0, 0, true);
 				 IsRanged=false;
 				 LastConditionPassed=ConditionCriteraTypes.None;
-				 //TestCustomCombatConditionAlways=false;
 				 IsSpecialAbility=false;
-
 			}
 
 			#region Properties
@@ -123,10 +121,21 @@ namespace FunkyTrinity.ability
 			///</summary>
 			public AbilityUseType UsageType { get; set; }
 
+			private bool useOOCBuff;
 			///<summary>
 			///This ability is allowed for buffing.
 			///</summary>
-			public bool UseOOCBuff { get; set; }
+			public bool UseOOCBuff
+			{
+				 get { return useOOCBuff; }
+				 set 
+				 { 
+					  useOOCBuff=value; 
+					  //Set default Func
+					  if (value==true) Fbuff=new Func<bool>(() => { return true; });
+				 }
+			}
+
 			///<summary>
 			///This ability is allowed during avoidance movements.
 			///</summary>
@@ -384,11 +393,25 @@ namespace FunkyTrinity.ability
 			///</summary>
 			internal Func<bool> Fcriteria { get; set; }
 
+			///<summary>
+			///Custom Conditions for Buffing
+			///</summary>
+			internal Func<bool> Fbuff { get; set; }
 
 
 
+			///<summary>
+			///Check Ability Buff Conditions
+			///</summary>
+			public bool CheckBuffConditionMethod()
+			{
+				 foreach (Func<bool> item in this.Fbuff.GetInvocationList())
+				 {
+					  if (!item()) return false;
+				 }
 
-
+				 return true;
+			}
 			///<summary>
 			///Check Ability is valid to use.
 			///</summary>

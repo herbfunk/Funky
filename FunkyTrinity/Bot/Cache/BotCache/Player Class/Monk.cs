@@ -179,7 +179,11 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckEnergy),
 								IsSpecialAbility=true,
-								//TestCustomCombatConditionAlways=true,
+								Fbuff=new Func<bool>(() =>
+								{
+									 return !HasBuff(Power);
+								}),
+
 								Fcriteria=new Func<bool>(() =>
 								{
 
@@ -212,7 +216,6 @@ namespace FunkyTrinity
 								IsSpecialAbility=true,
 								Counter=1,
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckPetCount),
-								//TestCustomCombatConditionAlways=true,
 								Fcriteria=new Func<bool>(() => { return true; }),
 						  };
 					 }
@@ -269,7 +272,7 @@ namespace FunkyTrinity
 								UseOOCBuff=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckCanCast|AbilityConditions.CheckRecastTimer),
-								//TestCustomCombatConditionAlways=true,
+								Fbuff=new Func<bool>(() => { return !HasBuff(SNOPower.Monk_BreathOfHeaven); }),
 								Fcriteria=new Func<bool>(() => { return (Bot.Character.dCurrentHealthPct<=0.5||!HasBuff(SNOPower.Monk_BreathOfHeaven)); }),
 						  };
 					 }

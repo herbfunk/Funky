@@ -194,7 +194,7 @@ namespace FunkyTrinity
 								UseOOCBuff=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated| AbilityConditions.CheckCanCast | AbilityConditions.CheckEnergy | AbilityConditions.CheckPetCount),
-								
+								Fbuff=new Func<bool>(() => { return this.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]!=0&&Bot.Character.PetData.Gargantuan==0; }),
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return (this.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]==0&&(Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_15]>=1||(Bot.Target.CurrentUnitTarget.IsEliteRareUnique&&Bot.Target.CurrentTarget.RadiusDistance<=15f))
@@ -217,7 +217,7 @@ namespace FunkyTrinity
 								UseOOCBuff=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckCanCast|AbilityConditions.CheckEnergy),
-								
+								Fbuff=new Func<bool>(() => { return Bot.Character.PetData.ZombieDogs<(this.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler)?4:3); }),
 								Fcriteria=new Func<bool>(() =>
 								{
 									 return Bot.Character.PetData.ZombieDogs<(this.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler)?4:3);

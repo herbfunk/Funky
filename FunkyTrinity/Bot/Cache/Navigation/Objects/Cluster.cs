@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
+using Zeta.Common;
+using FunkyTrinity.ability;
 
 namespace FunkyTrinity.Movement
 {
@@ -88,6 +90,58 @@ namespace FunkyTrinity.Movement
 
 		  public float NearestMonsterDistance { get; set; }
 
+		  public void UpdateUnitPointLists(ClusterConditions CC)
+		  {
+				List<int> RemovalIndexList=new List<int>();
+				bool changeOccured=false;
+				foreach (var item in ListUnits)
+				{
+					 if (!item.IsStillValid()||(!CC.IgnoreNonTargetable||!item.IsTargetable.Value))
+					 {
+						  RemovalIndexList.Add(ListUnits.IndexOf(item));
+						  RAGUIDS.Remove(item.RAGUID);
+						  changeOccured=true;
+					 }
+				}
+
+
+				if (changeOccured)
+				{
+					 Logging.WriteVerbose("Found a total of {0} CacheUnits to Remove", RemovalIndexList.Count);
+
+					 foreach (var item in RemovalIndexList)
+					 {
+						  ListUnits.RemoveAt(item);
+						  ListPoints.RemoveAt(item);
+					 }
+
+					 if (ListUnits.Count>1)
+					 {
+						  Logging.WriteVerbose("Updating Cluster");
+
+						  //Reset Vars
+						  EliteCount=0;
+						  DotDPSCount=0;
+
+						  NearestMonsterDistance=-1f;
+
+						  //Set default using First Unit
+						  CacheUnit firstUnit=ListUnits[0];
+						  MidPoint=firstUnit.PointPosition;
+						  RAGUIDS.Add(firstUnit.RAGUID);
+						  NearestMonsterDistance=firstUnit.CentreDistance;
+						  if (firstUnit.MonsterElite)EliteCount++;
+						  if (Bot.Combat.UsesDOTDPSAbility&&firstUnit.HasDOTdps.HasValue&&firstUnit.HasDOTdps.Value)DotDPSCount++;
+
+						  //Iterate thru the remaining
+						  for (int i=1; i<ListUnits.Count-1; i++)
+						  {
+								this.UpdateProperties(ListUnits[i]);
+						  }
+					 }
+
+				}
+		  }
 
 		  private GridPoint MidPoint;
 		  public GridPoint Midpoint
@@ -104,7 +158,7 @@ namespace FunkyTrinity.Movement
 				ListUnits=new List<CacheUnit>();
 				EliteCount=0;
 				DotDPSCount=0;
-				UnitMobileCounter=0;
+				//UnitMobileCounter=0;
 				NearestMonsterDistance=-1f;
 				RAGUIDS=new List<int>();
 
@@ -130,8 +184,8 @@ namespace FunkyTrinity.Movement
 					 EliteCount++;
 				if (Bot.Combat.UsesDOTDPSAbility&&unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
 					 DotDPSCount++;
-				if (unit.IsMoving)
-					 UnitMobileCounter++;
+				//if (unit.IsMoving)
+				//    UnitMobileCounter++;
 
 		  }  // of overloaded constructor
 
@@ -143,6 +197,25 @@ namespace FunkyTrinity.Movement
 					 u_Exists=true;
 
 				return u_Exists;
+		  }
+
+		  private void UpdateProperties(CacheUnit unit)
+		  {
+				RAGUIDS.Add(unit.RAGUID);
+				MidPoint+=unit.PointPosition;
+
+				float distance=unit.CentreDistance;
+				if (distance<this.NearestMonsterDistance)
+					 this.NearestMonsterDistance=distance;
+
+				if (unit.MonsterElite)
+					 EliteCount++;
+
+				if (Bot.Combat.UsesDOTDPSAbility&&unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
+					 DotDPSCount++;
+
+				//if (unit.IsMoving)
+				//    UnitMobileCounter++;
 		  }
 
 		  /// <summary>
@@ -161,21 +234,7 @@ namespace FunkyTrinity.Movement
 					 {
 						  ListUnits.Add(unit);
 						  ListPoints.Add(unit.PointPosition);
-						  RAGUIDS.Add(unit.RAGUID);
-						  MidPoint+=unit.PointPosition;
-
-						  float distance=unit.CentreDistance;
-						  if (distance<this.NearestMonsterDistance)
-								this.NearestMonsterDistance=distance;
-
-						  if (unit.MonsterElite)
-								EliteCount++;
-
-						  if (Bot.Combat.UsesDOTDPSAbility&&unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
-								DotDPSCount++;
-
-						  if (unit.IsMoving)
-								UnitMobileCounter++;
+						  this.UpdateProperties(unit);
 					 }
 					 else
 						  l_bSuccess=false;
@@ -214,7 +273,7 @@ namespace FunkyTrinity.Movement
 
 				EliteCount+=p_Cluster.EliteCount;
 				DotDPSCount+=p_Cluster.DotDPSCount;
-				UnitMobileCounter+=p_Cluster.UnitMobileCounter;
+				//UnitMobileCounter+=p_Cluster.UnitMobileCounter;
 
 				if (this.NearestMonsterDistance>p_Cluster.NearestMonsterDistance)
 					 this.NearestMonsterDistance=p_Cluster.NearestMonsterDistance;

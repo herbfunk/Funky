@@ -242,7 +242,7 @@ namespace FunkyTrinity
 								Counter=1,
 								Range=0,
 								UseAvoiding=false,
-								UseOOCBuff=false,
+								UseOOCBuff=true,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckPetCount|AbilityConditions.CheckEnergy|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckPlayerIncapacitated),
 								

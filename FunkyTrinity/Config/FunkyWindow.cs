@@ -2157,6 +2157,19 @@ namespace FunkyTrinity
 						lbGeneralContent.Items.Add(cbOutOfCombatMovement);
 						#endregion
 
+						#region AllowBuffingInTown
+						CheckBox cbAllowBuffingInTown=new CheckBox
+						{
+							 Content="Allow Buffing In Town",
+							 Width=300,
+							 Height=30,
+							 IsChecked=(Bot.SettingsFunky.AllowBuffingInTown)
+						};
+						cbAllowBuffingInTown.Checked+=AllowBuffingInTownChecked;
+						cbAllowBuffingInTown.Unchecked+=AllowBuffingInTownChecked;
+						lbGeneralContent.Items.Add(cbAllowBuffingInTown);
+						#endregion
+
 						#region AfterCombatDelayOptions
 						StackPanel AfterCombatDelayStackPanel=new StackPanel();
 						#region AfterCombatDelay

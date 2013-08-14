@@ -68,16 +68,18 @@ namespace FunkyTrinity
 						  ScreenCapture SC=new ScreenCapture();
 						  SC.CaptureWindowToFile(Funky.D3Handle, Funky.FolderPaths.sTrinityLogScreenShotPath+"LowHealthSS_"+Bot.CurrentAccountName+"_"+DateTime.Now.ToString("MM_dd--hh-mm-ss-tt")+".Jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
 
+						  //Pause Game
+						  Zeta.Internals.UIElements.BackgroundScreenPCButtonMenu.Click();
+
 						  //Return to orginal
 						  ScreenCapture.MoveWindow(Funky.D3Handle, OrginRECT.left, OrginRECT.top, OrginRECT.Width(), OrginRECT.Height(), true);
-						  
 						  
 						  //Click to refresh?
 						  ScreenCapture.LeftClick(OrginRECT.left+2, OrginRECT.Height()/2);
 					 }
+					 else
+						  Zeta.Internals.UIElements.BackgroundScreenPCButtonMenu.Click();
 
-					 //Pause Game and stop Bot
-					 Zeta.Internals.UIElements.BackgroundScreenPCButtonMenu.Click();
 					 BotMain.Stop(true, "Low Health Setting Triggered!");
 				}
 

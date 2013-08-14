@@ -571,6 +571,10 @@ namespace FunkyTrinity
              {
                  Bot.SettingsFunky.OutOfCombatMovement = !Bot.SettingsFunky.OutOfCombatMovement;
              }
+				 private void AllowBuffingInTownChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.AllowBuffingInTown=!Bot.SettingsFunky.AllowBuffingInTown;
+				 }
              private void KiteSliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;

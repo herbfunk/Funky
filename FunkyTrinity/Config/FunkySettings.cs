@@ -66,6 +66,7 @@ namespace FunkyTrinity
              public int AfterCombatDelay { get; set; }
              public bool IgnoreAboveAverageMobs { get; set; }
              public bool OutOfCombatMovement { get; set; }
+				 public bool AllowBuffingInTown { get; set; }
 				 public bool MissleDampeningEnforceCloseRange { get; set; }
 
              //new additions
@@ -206,6 +207,7 @@ namespace FunkyTrinity
                  GoblinPriority = 2;
                  AfterCombatDelay = 500;
                  OutOfCombatMovement = false;
+					  AllowBuffingInTown=false;
                  EliteCombatRange = 60;
                  GoldRange = 45;
 					  GlobeRange=40;
