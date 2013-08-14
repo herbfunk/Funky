@@ -166,7 +166,7 @@ namespace FunkyTrinity.Cache
             169906, 169908, 169905, 169909, 179780, 179778, 179772, 179779, 179776, 122305, 110959, 103235, 103215, 105763, 103217, 51353, 80140, 
             178664, 173827, 133741, 159144, 181748, 159098, 206569, 200706, 5895, 5896, 5897, 5899, 4686, 87037, 85843, 103919, 249338, 
             251416, 249192, 80812, 196899,196900,196903,223333,220636,218951,206559,208543,166133,114304,212231,
-            2976, 181563,181857,181858,5215,175482,3901,152126,80447,425,3609,58568, 210087, 164057,220160, 87534, 144405, 181176, 181177,62522,220114,
+            181563,181857,181858,5215,175482,3901,152126,80447,425,3609,58568, 210087, 164057,220160, 87534, 144405, 181176, 181177,62522,220114,
 				108882,210419,60108,245919,
         };
 
@@ -177,7 +177,7 @@ namespace FunkyTrinity.Cache
             60665, 60844, 78554, 86400, 86428, 81699, 86266, 86400, 110769, 211456, 6190, 80002, 104596, 58836, 104827, 74909, 6155, 6156, 6158, 6159, 75132,
             181504, 91688, 3007, 3011, 3014, 130858, 131573, 214396, 182730, 226087, 141639, 206569, 15119, 54413, 54926, 2979, 56416, 53802, 5776, 3949, 
             108490, 52833, 3341, 4482, 188129, 188127, 55259, 54693, 3689, 131494, 3609, 225589, 171635, 3948,5739, 185949, 182697, 200371,
-				75023,54972,73260,
+				75023,54972,73260,172810,
          };
 
 
@@ -695,6 +695,26 @@ namespace FunkyTrinity.Cache
 				//{218228, 
          };
 				 #endregion
+
+
+				//Spawner units: summons units, and does not move.
+			  public static readonly HashSet<int> hashSpawnerUnitSNOs=new HashSet<int>
+			  {
+					//a2 Round Spawner
+					3037,
+					//a2 Tesla Tower
+					204509,
+					//a2 Tesla Poison
+					208826,
+					//a2 Tesla Fire
+					208825,
+					//a2 Tesla Cold
+					208824,
+					//a3dun_crater_Demon_GroundTrap_GasChamber
+					120652,
+					//a3dun_battlefield_Demon_GroundTrap_GasChamber
+					171283,
+			  };
 
 				 // NOTE: you don't NEED interactable SNO's listed here. But if they are listed here, *THIS* is the range at which your character will try to walk to within the object 
 				 // BEFORE trying to actually "click it". Certain objects need you to get very close, so it's worth having them listed with low interact ranges

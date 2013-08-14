@@ -1291,7 +1291,9 @@ namespace FunkyTrinity.Cache
 									 (this.PriorityCounter>0)||
 									 (this.IsBoss&&this.CurrentHealthPct<=0.99d)||
 									 ((this.IsSucideBomber||this.IsCorruptantGrowth)&&this.CentreDistance<45f)||
+									 (this.IsSpawnerUnit&&Bot.SettingsFunky.ClusteringAllowSpawnerUnits)||
 									 ((this.IsTreasureGoblin&&Bot.SettingsFunky.GoblinPriority>1))||
+									 (this.Monstersize.Value==MonsterSize.Ranged&&Bot.SettingsFunky.ClusteringAllowRangedUnits)||
 									 ((Bot.SettingsFunky.ClusterKillLowHPUnits&&((this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0)
 												&&((!Bot.Class.IsMeleeClass&&this.CentreDistance<30f)||(Bot.Class.IsMeleeClass&&this.RadiusDistance<12f))))))
 

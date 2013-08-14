@@ -244,7 +244,7 @@ namespace FunkyTrinity.Cache
 					 {
 						  removal_=value;
 						  //This helps reduce code by flagging this here instead of after everytime we flag removal of an object!
-							if (value==true) Bot.RemovalCheck=true;
+						  if (value==true) Bot.Refresh.RemovalCheck=true;
 					 }
 				}
 				internal bool removal_;
@@ -307,7 +307,7 @@ namespace FunkyTrinity.Cache
 					 if (ServerObjectIntersection&&ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obstacle => obstacle.Obstacletype.HasValue&&obstacle.Obstacletype.Value!=ObstacleType.Monster&&obstacle.TestIntersection(PositionToTestFrom, botmeleeVector)))
 						  return false;
 
-					 if (!Flags.HasFlag(NavCellFlags.None)&&!Navigation.CanRayCast(PositionToTestFrom, botmeleeVector, Flags))
+					 if (!Flags.Equals(NavCellFlags.None)&&!Navigation.CanRayCast(PositionToTestFrom, botmeleeVector, Flags))
 						  return false;
 
 

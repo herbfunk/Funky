@@ -14,7 +14,9 @@ namespace FunkyTrinity
 {
 
 
-		  public static partial class Bot
+	 public static partial class Bot
+	 {
+		  public static class Refresh
 		  {
 				// Used to force-refresh dia objects at least once every XX milliseconds 
 				internal static DateTime lastRefreshedObjects=DateTime.Today;
@@ -147,7 +149,7 @@ namespace FunkyTrinity
 
 									 //Blacklist flag check
 									 if (thisObj.BlacklistFlag!=BlacklistType.None)
-											ObjectCache.AddObjectToBlacklist(thisObj.RAGUID, thisObj.BlacklistFlag);
+										  ObjectCache.AddObjectToBlacklist(thisObj.RAGUID, thisObj.BlacklistFlag);
 
 									 ObjectCache.Objects.Remove(thisObj.RAGUID);
 								}
@@ -162,7 +164,7 @@ namespace FunkyTrinity
 					 //Non-Combat behavior we reset temp blacklist so we don't get killed by "ignored" units..
 					 if (Bot.IsInNonCombatBehavior)
 					 {
-							ObjectCache.CheckRefreshBlacklists(10);
+						  ObjectCache.CheckRefreshBlacklists(10);
 					 }
 				}
 
@@ -251,7 +253,7 @@ namespace FunkyTrinity
 						  hashDoneThisRactor.Add(tmp_raGUID);
 
 						  //Update RactorGUID and check blacklisting..
-							if (ObjectCache.IsRAGUIDBlacklisted(tmp_raGUID)) continue;
+						  if (ObjectCache.IsRAGUIDBlacklisted(tmp_raGUID)) continue;
 						  CacheObject tmp_CachedObj;
 						  using (ZetaDia.Memory.AcquireFrame())
 						  {
@@ -388,7 +390,7 @@ namespace FunkyTrinity
 										  AvoidanceType AvoidanceType=AvoidanceType.Unknown;
 										  if (tmp_CachedObj.IsAvoidance)
 										  {
-												 AvoidanceType=CacheIDLookup.FindAvoidanceUsingSNOID(tmp_CachedObj.SNOID);
+												AvoidanceType=CacheIDLookup.FindAvoidanceUsingSNOID(tmp_CachedObj.SNOID);
 												if (AvoidanceType==AvoidanceType.Unknown)
 												{
 													 AvoidanceType=CacheIDLookup.FindAvoidanceUsingName(tmp_CachedObj.InternalName);
@@ -569,5 +571,5 @@ namespace FunkyTrinity
 
 				}
 		  }
-	 
+	 }
 }

@@ -789,8 +789,8 @@ namespace FunkyTrinity
 							 // Update targets at least once every 80 milliseconds
 							 if (Bot.Combat.bForceTargetUpdate
 								 ||Bot.Combat.TravellingAvoidance
-								 ||((DateTime.Now.Subtract(Bot.lastRefreshedObjects).TotalMilliseconds>=80&&CurrentTarget.targetType.Value!=TargetType.Avoidance)
-								 ||DateTime.Now.Subtract(Bot.lastRefreshedObjects).TotalMilliseconds>=1200))
+								 ||((DateTime.Now.Subtract(Bot.Refresh.lastRefreshedObjects).TotalMilliseconds>=80&&CurrentTarget.targetType.Value!=TargetType.Avoidance)
+								 ||DateTime.Now.Subtract(Bot.Refresh.lastRefreshedObjects).TotalMilliseconds>=1200))
 							 {
 									bShouldRefreshDiaObjects=true;
 							 }
@@ -808,7 +808,7 @@ namespace FunkyTrinity
 							 if (bShouldRefreshDiaObjects)
 							 {
 									// Now call the function that refreshes targets
-									Bot.RefreshDiaObjects();
+								  Bot.Refresh.RefreshDiaObjects();
 
 									// No target, return success
 									if (CurrentTarget==null)

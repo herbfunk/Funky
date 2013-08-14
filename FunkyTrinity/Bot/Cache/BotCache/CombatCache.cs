@@ -21,31 +21,6 @@ namespace FunkyTrinity
 		  ///</summary>
 		  public class CombatCache
 		  {
-				internal string DebugString
-				{
-					 get
-					 {
-						  string strDebug_LAST=string.Format("LastPickedTarget {0} -- LastHealthChanged {1} // HealthDrop {2}\r\n"+
-																		  "lastHadUnitInSights {3} -- lastHadEliteUnitInSights {4} -- lastHadContainerAsTarget {5} -- lastHadRareChestAsTarget {6}\r\n"+
-																		  "LastAvoidanceMovement {7}",
-																		  this.dateSincePickedTarget.ToString(), this.LastHealthChange.ToString(), this.LastHealthDropPct.ToString(),
-																		  this.lastHadUnitInSights.ToString(), this.lastHadEliteUnitInSights.ToString(), this.lastHadContainerAsTarget.ToString(), this.lastHadRareChestAsTarget.ToString(), this.LastAvoidanceMovement.ToString());
-
-						  string strDebug_ClusterTarget=string.Format("LastClusterTargetLogicRefresh {0}\r\n"+
-																					 "CurrentTargetClusters Count {1} -- ValidClusterUnits Count {2}",
-																					 this.LastClusterTargetLogicRefresh.ToString(), this.CurrentTargetClusters.Count, this.ValidClusterUnits.Count);
-
-						  string strDebug_ClusterGroup=string.Format("LastClusterGroupingLogicRefresh {0}\r\n"+
-																					 "CurrentGroupClusters Count {1} -- DistantUnits Count {2}",
-																					 this.LastClusterGroupingLogicRefresh.ToString(), this.CurrentGroupClusters.Count, this.DistantUnits.Count);
-
-						  string strDebug_ClusterAbility=string.Format("Total Ability Cluster Entries {0}", this.AbilityClusters.Keys.ToString());
-
-
-
-						  return String.Format("Combat Cache\r\n {0} \r\n {1} \r\n {2} \r\n {3}", strDebug_LAST, strDebug_ClusterTarget, strDebug_ClusterGroup, strDebug_ClusterAbility);
-					 }
-				}
 
 				public CombatCache()
 				{
@@ -358,6 +333,31 @@ namespace FunkyTrinity
 				internal bool bCheckGround=false;
 
 
+				internal string DebugString
+				{
+					 get
+					 {
+						  string strDebug_LAST=string.Format("LastPickedTarget {0} -- LastHealthChanged {1} // HealthDrop {2}\r\n"+
+																		  "lastHadUnitInSights {3} -- lastHadEliteUnitInSights {4} -- lastHadContainerAsTarget {5} -- lastHadRareChestAsTarget {6}\r\n"+
+																		  "LastAvoidanceMovement {7}",
+																		  this.dateSincePickedTarget.ToString(), this.LastHealthChange.ToString(), this.LastHealthDropPct.ToString(),
+																		  this.lastHadUnitInSights.ToString(), this.lastHadEliteUnitInSights.ToString(), this.lastHadContainerAsTarget.ToString(), this.lastHadRareChestAsTarget.ToString(), this.LastAvoidanceMovement.ToString());
+
+						  string strDebug_ClusterTarget=string.Format("LastClusterTargetLogicRefresh {0}\r\n"+
+																					 "CurrentTargetClusters Count {1} -- ValidClusterUnits Count {2}",
+																					 this.LastClusterTargetLogicRefresh.ToString(), this.CurrentTargetClusters.Count, this.ValidClusterUnits.Count);
+
+						  string strDebug_ClusterGroup=string.Format("LastClusterGroupingLogicRefresh {0}\r\n"+
+																					 "CurrentGroupClusters Count {1} -- DistantUnits Count {2}",
+																					 this.LastClusterGroupingLogicRefresh.ToString(), this.CurrentGroupClusters.Count, this.DistantUnits.Count);
+
+						  string strDebug_ClusterAbility=string.Format("Total Ability Cluster Entries {0}", this.AbilityClusters.Keys.ToString());
+
+
+
+						  return String.Format("Combat Cache\r\n {0} \r\n {1} \r\n {2} \r\n {3}", strDebug_LAST, strDebug_ClusterTarget, strDebug_ClusterGroup, strDebug_ClusterAbility);
+					 }
+				}
 
 
 

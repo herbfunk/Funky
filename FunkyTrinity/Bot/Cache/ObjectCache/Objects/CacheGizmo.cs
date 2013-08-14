@@ -297,7 +297,7 @@ namespace FunkyTrinity.Cache
 										  return false;
 									 }
 
-									 if (!this.IsChestContainer&&Bot.SettingsFunky.IgnoreCorpses)
+									 if (this.IsCorpseContainer&&Bot.SettingsFunky.IgnoreCorpses)
 									 {
 										  this.BlacklistLoops=-1;
 										  return false;

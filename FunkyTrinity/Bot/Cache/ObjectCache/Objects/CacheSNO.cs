@@ -416,7 +416,7 @@ namespace FunkyTrinity.Cache
 				public bool IsSummonedPet { get { return CacheIDLookup.hashSummonedPets.Contains(SNOID); } }
 				public bool IsRespawnable { get { return CacheIDLookup.hashActorSNOSummonedUnit.Contains(SNOID); } }
 				public bool IsProjectileAvoidance { get { return CacheIDLookup.hashAvoidanceSNOProjectiles.Contains(SNOID); } }
-				//public bool IsCorpseContainer { get { return (this.internalNameLower.Contains("loottype")||this.internalNameLower.Contains("corpse")); } }
+				public bool IsCorpseContainer { get { return (this.internalNameLower.Contains("loottype")||this.internalNameLower.Contains("corpse")); } }
 				public bool IsChestContainer { get { return (this.internalNameLower.Contains("chest")); } }
 				public bool IgnoresLOSCheck { get { return CacheIDLookup.hashActorSNOIgnoreLOSCheck.Contains(SNOID); } }
 				public bool IsMissileReflecting { get { return CacheIDLookup.hashActorSNOReflectiveMissleUnits.Contains(SNOID); } }
@@ -426,6 +426,7 @@ namespace FunkyTrinity.Cache
 				public bool IsGrotesqueActor { get { return CacheIDLookup.hashActorSNOCorpulent.Contains(SNOID); } }
 				public bool IsFast { get { return CacheIDLookup.hashActorSNOFastMobs.Contains(SNOID); } }
 				public bool IsCorruptantGrowth { get { return SNOID==210120||SNOID==210268; } }
+				public bool IsSpawnerUnit { get { return CacheIDLookup.hashSpawnerUnitSNOs.Contains(SNOID); } }
 				#endregion
 
 				public bool ContainsNullValues()

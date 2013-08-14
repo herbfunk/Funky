@@ -195,10 +195,12 @@ namespace FunkyTrinity
 								UseOOCBuff=false,
 								Priority=AbilityPriority.High,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckRecastTimer|AbilityConditions.CheckCanCast),
-								
+								Cost=this.RuneIndexCache[SNOPower.DemonHunter_Preparation]==0?25:0,
 								Fcriteria=new Func<bool>(() =>
 								{
-									 return Bot.Character.dDisciplinePct<0.50d&&Bot.Character.dCurrentHealthPct<0.75d;
+									 return Bot.Character.dDisciplinePct<0.25d
+										  //Rune: Punishment (Restores all Hatered for 25 disc)
+										  ||(this.RuneIndexCache[Power]==0&&Bot.Character.dCurrentEnergyPct<0.20d);
 								}),
 						  };
 					 }
@@ -642,8 +644,8 @@ namespace FunkyTrinity
 								Priority=AbilityPriority.None,
 								PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated),
 							
-								ClusterConditions=new ClusterConditions(5d, 49f, 1, true),
-								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None),
+								ClusterConditions=new ClusterConditions(5d, 49f, 2, true),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None, 49),
 
 								
 						  };

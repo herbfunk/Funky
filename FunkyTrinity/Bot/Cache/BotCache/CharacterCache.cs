@@ -17,7 +17,6 @@ namespace FunkyTrinity
 
 		  public static partial class Bot
 		  {
-
 				///<summary>
 				///Cache of all values Character related and variable.
 				///</summary>
@@ -30,7 +29,7 @@ namespace FunkyTrinity
 						  bIsIncapacitated=false;
 						  bIsRooted=false;
 						  bIsInTown=false;
-						  dCurrentHealthPct=0d;
+						  dcurrentHealthPct=0d;
 						  dCurrentEnergy=0d;
 						  dCurrentEnergyPct=0d;
 						  dDiscipline=0d;
@@ -59,7 +58,19 @@ namespace FunkyTrinity
 					 public bool bIsRooted { get; set; }
 					 public bool bIsInTown { get; set; }
 
-					 public double dCurrentHealthPct { get; set; }
+					 private double dcurrentHealthPct;
+					 public double dCurrentHealthPct
+					 {
+						  get { return dcurrentHealthPct; }
+						  set 
+						  { 
+								dcurrentHealthPct=value;
+								if (Bot.SettingsFunky.StopGameOnBotLowHealth&&value<=Bot.SettingsFunky.StopGameOnBotHealthPercent)
+								{
+									 Bot.ShuttingDownBot=true;
+								}
+						  }
+					 }
 					 public double dCurrentEnergy { get; set; }
 					 public double dCurrentEnergyPct { get; set; }
 					 public double dDiscipline { get; set; }

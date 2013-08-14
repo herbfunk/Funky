@@ -19,8 +19,8 @@ namespace FunkyTrinity
 					 Bot.Stats.iDeathsThisRun++;
 
 					 //Herbfunk Stats
-					 Bot.Stats.Statistics.GameStats.CurrentGame.Deaths++;
-					 Bot.Stats.Statistics.ProfileStats.CurrentProfile.DeathCount++;
+					 Bot.Stats.GameStats.CurrentGame.Deaths++;
+					 Bot.Stats.ProfileStats.CurrentProfile.DeathCount++;
 
 					 ResetBot();
 

@@ -17,9 +17,9 @@ namespace FunkyTrinity
             //Avoidance Flag
 				Bot.Combat.CriticalAvoidance=true;
 
-            if (Bot.ShouldRefreshObjectList)
+				if (Bot.Refresh.ShouldRefreshObjectList)
             {
-					 Bot.RefreshDiaObjects();
+					 Bot.Refresh.RefreshDiaObjects();
 					 // Check for death / player being dead
 					 if (Bot.Character.dCurrentHealthPct<=0)
 					 {

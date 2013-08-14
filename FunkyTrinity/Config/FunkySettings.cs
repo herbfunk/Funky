@@ -19,6 +19,12 @@ namespace FunkyTrinity
 				 public bool LogGroupingOutput { get; set; }
 
 				 public bool SkipAhead { get; set; }
+
+				 public bool StopGameOnBotLowHealth { get; set; }
+				 public double StopGameOnBotHealthPercent { get; set; }
+				 public bool StopGameOnBotEnableScreenShot { get; set; }
+				 public int StopGameScreenShotWindowWidth { get; set; }
+				 public int StopGameScreenShotWindowHeight { get; set; }
              
              public bool LogStuckLocations { get; set; }
              public bool EnableUnstucker { get; set; }
@@ -76,7 +82,7 @@ namespace FunkyTrinity
              public int TreasureGoblinRange { get; set; }
 				 //public int ExtendedCombatRange { get; set; }
 
-             //Item Rules Additions
+
 				 public bool UseItemRulesPickup { get; set; }
 				 public bool UseItemRules { get; set; }
              public bool ItemRulesSalvaging { get; set; }
@@ -88,6 +94,7 @@ namespace FunkyTrinity
              public string ItemRuleLogPickup { get; set; }
              public string ItemRuleLogKeep { get; set; }
              public bool ItemRuleGilesScoring { get; set; }
+
              public bool UseLevelingLogic { get; set; }
 
              //Plugin Item Default Settings
@@ -138,6 +145,8 @@ namespace FunkyTrinity
              public int ClusterMinimumUnitCount { get; set; }
              public bool EnableClusteringTargetLogic { get; set; }
              public bool ClusterKillLowHPUnits { get; set; }
+				 public bool ClusteringAllowRangedUnits { get; set; }
+				 public bool ClusteringAllowSpawnerUnits { get; set; }
              public bool IgnoreClusteringWhenLowHP { get; set; }
              public double IgnoreClusterLowHPValue { get; set; }
 
@@ -248,7 +257,17 @@ namespace FunkyTrinity
                  ClusterDistance = 9d;
                  ClusterMinimumUnitCount = 2;
                  IgnoreClusterLowHPValue = 0.55d;
+					  ClusteringAllowRangedUnits=true;
+					  ClusteringAllowSpawnerUnits=true;
+
 					  SkipAhead=true;
+
+					  StopGameOnBotEnableScreenShot=true;
+					  StopGameOnBotLowHealth=false;
+					  StopGameOnBotHealthPercent=0.10d;
+					  StopGameScreenShotWindowWidth=1000;
+					  StopGameScreenShotWindowHeight=800;
+
 					  MissleDampeningEnforceCloseRange=true;
 
                  Class = new ClassSettings();

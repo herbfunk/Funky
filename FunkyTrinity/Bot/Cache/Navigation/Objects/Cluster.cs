@@ -156,7 +156,7 @@ namespace FunkyTrinity.Movement
 		  {
 				bool l_bSuccess=true;
 
-				if (!ContainsUnit(unit)&&Bot.Combat.UnitRAGUIDs.Contains(unit.RAGUID))
+				if (!ContainsUnit(unit))//&&Bot.Combat.UnitRAGUIDs.Contains(unit.RAGUID))
 					 if (IsPointReachable(unit.PointPosition))
 					 {
 						  ListUnits.Add(unit);

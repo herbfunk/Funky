@@ -562,7 +562,7 @@ namespace FunkyTrinity.Movement
 					 {
 						  this.RefreshMovementCache();
 
-						  if (!this.IsMoving||this.currentMovementState.HasFlag(MovementState.WalkingInPlace|MovementState.None)||TargetMovement.BlockedMovementCounter>0)
+						  if (!this.IsMoving||this.currentMovementState.Equals(MovementState.WalkingInPlace)||this.currentMovementState.Equals(MovementState.None)||TargetMovement.BlockedMovementCounter>0)
 						  {
 								LastObstacleIntersectionTest=DateTime.Now;
 

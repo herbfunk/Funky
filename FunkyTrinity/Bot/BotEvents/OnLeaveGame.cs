@@ -16,7 +16,7 @@ namespace FunkyTrinity
 
 				Bot.Stats.iTotalLeaveGames++;
 				//Update Game Duration..
-				Bot.Stats.Statistics.ProfileStats.OutputReport();
+				Bot.Stats.ProfileStats.OutputReport();
 
             ResetGame();
 				initTreeHooks=false;

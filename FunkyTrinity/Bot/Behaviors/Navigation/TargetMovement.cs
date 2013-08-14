@@ -105,7 +105,7 @@ namespace FunkyTrinity.Movement
 					 #region DistanceChecks
 
 					 // Count how long we have failed to move - body block stuff etc.
-					 if (!Bot.NavigationCache.IsMoving||Bot.NavigationCache.currentMovementState.HasFlag(MovementState.WalkingInPlace|MovementState.None))
+					 if (!Bot.NavigationCache.IsMoving||Bot.NavigationCache.currentMovementState.Equals(MovementState.WalkingInPlace)||Bot.NavigationCache.currentMovementState.Equals(MovementState.None))
 					 {
 						  bForceNewMovement=true;
 						  if (DateTime.Now.Subtract(LastMovementDuringCombat).TotalMilliseconds>=250)

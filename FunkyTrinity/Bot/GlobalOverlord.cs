@@ -28,6 +28,13 @@ namespace FunkyTrinity
 					 return false;
 				}
 
+				if (Bot.ShuttingDownBot)
+				{
+					 Logging.Write("Stopping Bot due to low health!");
+					 Bot.ShutDownBot();
+					 return false;
+				}
+
 				// World ID safety caching incase it's ever unavailable
 				if (ZetaDia.CurrentWorldDynamicId!=-1) Bot.Character.iCurrentWorldID=ZetaDia.CurrentWorldDynamicId;
 
@@ -106,9 +113,9 @@ namespace FunkyTrinity
 
 
 				// Should we refresh target list?
-				if (Bot.ShouldRefreshObjectList)
+				if (Bot.Refresh.ShouldRefreshObjectList)
 				{
-					 Bot.RefreshDiaObjects();
+					 Bot.Refresh.RefreshDiaObjects();
 
 					 // We have a target, start the target handler!
 					 if (Bot.Target.CurrentTarget!=null)

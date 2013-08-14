@@ -196,9 +196,9 @@ namespace FunkyTrinity
 				FunkyTPBehaviorFlag=true;
 
 				//Refresh?
-				if (Bot.ShouldRefreshObjectList)
+				if (Bot.Refresh.ShouldRefreshObjectList)
 				{
-					 Bot.RefreshDiaObjects();
+					 Bot.Refresh.RefreshDiaObjects();
 				}
 
 				//Check if we have any NEW targets to deal with.. 

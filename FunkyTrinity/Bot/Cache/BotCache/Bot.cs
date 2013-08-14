@@ -7,6 +7,7 @@ using Zeta.Internals.Actors;
 using FunkyTrinity.Enums;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
+using System.Threading;
 
 namespace FunkyTrinity
 {
@@ -28,6 +29,57 @@ namespace FunkyTrinity
 				}
 				public static Navigation NavigationCache { get; set; }
 
+
+
+				private static bool shuttingDownBot=false;
+				internal static bool ShuttingDownBot
+				{
+					 get { return Bot.shuttingDownBot; }
+					 set { Bot.shuttingDownBot=value; }
+				}
+
+				internal static void ShutDownBot()
+				{
+					 if (Bot.SettingsFunky.StopGameOnBotEnableScreenShot)
+					 {
+						  //Pause Game
+						  Zeta.Internals.UIElements.BackgroundScreenPCButtonMenu.Click();
+
+						  //Copy orginal coords
+						  ScreenCapture.RECT OrginRECT=new ScreenCapture.RECT();
+						  ScreenCapture.GetWindowRect(Funky.D3Handle,ref OrginRECT);
+
+						  //Resize and Move
+						  ScreenCapture.MoveWindow(Funky.D3Handle, 0, 0, Bot.SettingsFunky.StopGameScreenShotWindowWidth, Bot.SettingsFunky.StopGameScreenShotWindowHeight, true);
+
+						  //Click to refresh?
+						  ScreenCapture.LeftClick(2, Bot.SettingsFunky.StopGameScreenShotWindowHeight/2);
+
+						  //Bring window to foreground
+						  ScreenCapture.SetForegroundWindow(Funky.D3Handle);
+
+						  //Sleep...
+						  Thread.Sleep(2500);
+
+						  //UnPause Game
+						  Zeta.Internals.UIElements.BackgroundScreenPCButtonMenu.Click();
+
+						  //Capture Screen
+						  ScreenCapture SC=new ScreenCapture();
+						  SC.CaptureWindowToFile(Funky.D3Handle, Funky.FolderPaths.sTrinityLogScreenShotPath+"LowHealthSS_"+Bot.CurrentAccountName+"_"+DateTime.Now.ToString("MM_dd--hh-mm-ss-tt")+".Jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
+
+						  //Return to orginal
+						  ScreenCapture.MoveWindow(Funky.D3Handle, OrginRECT.left, OrginRECT.top, OrginRECT.Width(), OrginRECT.Height(), true);
+						  
+						  
+						  //Click to refresh?
+						  ScreenCapture.LeftClick(OrginRECT.left+2, OrginRECT.Height()/2);
+					 }
+
+					 //Pause Game and stop Bot
+					 Zeta.Internals.UIElements.BackgroundScreenPCButtonMenu.Click();
+					 BotMain.Stop(true, "Low Health Setting Triggered!");
+				}
 
 				private static Zeta.CommonBot.Profile.ProfileBehavior CurrentProfileBehavior { get; set; }
 				private static DateTime LastProfileBehaviorCheck=DateTime.Today;

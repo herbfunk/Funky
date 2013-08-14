@@ -231,6 +231,9 @@
     <Compile Include="Enums\TargetType.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Misc\ScreenCapture.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="XML\AddRandomProfileSetTag.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

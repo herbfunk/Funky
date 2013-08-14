@@ -145,7 +145,7 @@ namespace FunkyTrinity
 				}
 				public override bool HotbarContainsAPrimaryAbility()
 				{
-					 return (this.HotbarPowers.Contains(SNOPower.Wizard_MagicMissile)||this.HotbarPowers.Contains(SNOPower.Wizard_ShockPulse)||this.HotbarPowers.Contains(SNOPower.Wizard_SpectralBlade)||this.HotbarPowers.Contains(SNOPower.Wizard_Electrocute));
+					 return (this.HotbarPowers.Contains(SNOPower.Wizard_MagicMissile)||this.HotbarPowers.Contains(SNOPower.Wizard_ShockPulse)||this.HotbarPowers.Contains(SNOPower.Wizard_SpectralBlade)||this.HotbarPowers.Contains(SNOPower.Wizard_Electrocute)||this.HotbarPowers.Contains(SNOPower.Wizard_Archon_DisintegrationWave));
 				}
 
 				public override Ability CreateAbility(SNOPower Power)

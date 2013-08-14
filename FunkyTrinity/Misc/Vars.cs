@@ -11,6 +11,7 @@ using Zeta.Navigation;
 using System.IO;
 using FunkyTrinity.Enums;
 using FunkyTrinity.Cache;
+using System.Diagnostics;
 
 namespace FunkyTrinity
 {
@@ -98,13 +99,32 @@ namespace FunkyTrinity
         // For the random ID tag
 		  internal static Dictionary<int, int> dictRandomID=new Dictionary<int, int>();
 
-
+		  internal static IntPtr D3Handle
+		  {
+				get
+				{
+					 Process p=Process.GetProcessById(ZetaDia.Memory.Process.Id);
+					 return p.MainWindowHandle;
+				}
+		  }
 
 		  public static class FolderPaths
 		  {
 				internal static string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 				internal static string sTrinityPluginPath=sDemonBuddyPath+@"\Plugins\FunkyTrinity\";
 				internal static string sTrinityLogPath=sDemonBuddyPath+@"\Plugins\FunkyTrinity\Log\";
+				internal static string sTrinityLogScreenShotPath
+				{
+					 get
+					 {
+						  string path=Path.Combine(sTrinityLogPath, @"ScreenShots\");
+						  if (!System.IO.Directory.Exists(path))
+								System.IO.Directory.CreateDirectory(path);
+
+						  return path;
+					 }
+				}
+
 				internal static string sFunkySettingsPath
 				{
 					 get

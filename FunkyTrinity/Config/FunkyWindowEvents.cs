@@ -218,12 +218,7 @@ namespace FunkyTrinity
 					  {
 							try
 							{
-								 ZetaDia.Actors.Update();
-								 foreach (var item in ZetaDia.Me.Inventory.Pet)
-								 {
-									  Logging.Write(item.Stats.ToString());
-									  Logging.Write(item.ItemLink);
-								 }
+								 LBDebug.Items.Add(Bot.Target.CurrentTarget.DebugString);
 							} catch
 							{
 
@@ -341,6 +336,13 @@ namespace FunkyTrinity
                  Bot.SettingsFunky.IgnoreClusterLowHPValue = Value;
                  TBClusterLowHPValue.Text = Value.ToString();
              }
+				 private void BotStopHPValueSliderChanged(object sender, EventArgs e)
+				 {
+					  Slider slider_sender=(Slider)sender;
+					  double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
+					  Bot.SettingsFunky.StopGameOnBotHealthPercent=Value;
+					  TBBotStopHealthPercent.Text=Value.ToString();
+				 }
 				 private void UseShrineChecked(object sender, EventArgs e)
 				 {
 					  CheckBox cbSender=(CheckBox)sender;
@@ -363,6 +365,15 @@ namespace FunkyTrinity
              {
                  Bot.SettingsFunky.ClusterKillLowHPUnits = !Bot.SettingsFunky.ClusterKillLowHPUnits;
              }
+				 private void ClusteringAllowRangedUnitsChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.ClusteringAllowRangedUnits=!Bot.SettingsFunky.ClusteringAllowRangedUnits;
+				 }
+				 private void ClusteringAllowSpawnerUnitsChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.ClusteringAllowSpawnerUnits=!Bot.SettingsFunky.ClusteringAllowSpawnerUnits;
+				 }
+
              private void PickupCraftTomesChecked(object sender, EventArgs e)
              {
                  Bot.SettingsFunky.PickupCraftTomes = !Bot.SettingsFunky.PickupCraftTomes;
@@ -942,6 +953,16 @@ namespace FunkyTrinity
 				 private void SkipAheadChecked(object sender, EventArgs e)
 				 {
 					  Bot.SettingsFunky.SkipAhead=!Bot.SettingsFunky.SkipAhead;
+				 }
+				 private void StopGameOnBotLowHealthChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.StopGameOnBotLowHealth=!Bot.SettingsFunky.StopGameOnBotLowHealth;
+					  bool enabled=Bot.SettingsFunky.StopGameOnBotLowHealth;
+					  spBotStop.IsEnabled=enabled;
+				 }
+				 private void StopGameOnBotEnableScreenShotChecked(object sender, EventArgs e)
+				 {
+					  Bot.SettingsFunky.StopGameOnBotEnableScreenShot=!Bot.SettingsFunky.StopGameOnBotEnableScreenShot;
 				 }
 				 private void GroupingBehaviorChecked(object sender, EventArgs e)
 				 {

@@ -62,7 +62,7 @@ namespace FunkyTrinity
 				 private ComboBox ItemRuleType;
 
 				 private RadioButton ItemRuleGilesScoring, ItemRuleDBScoring;
-				 private StackPanel spFleeingOptions, SPFleeing, spGroupingOptions;
+				 private StackPanel spFleeingOptions, SPFleeing, spGroupingOptions, spBotStop;
 				 private StackPanel spBlacksmithPlans, spJewelerPlans;
 				 private TextBox TBGroupingMinUnitDistance, TBGroupingMaxDistance, TBGroupingMinimumClusterCount, TBGroupingMinimumUnitsInCluster;
 
@@ -80,7 +80,7 @@ namespace FunkyTrinity
 				 private CheckBox[] CBGems;
 				 //private ComboBox CBGemQualityLevel;
 
-				 private TextBox TBBreakTimeHour, TBKiteDistance, TBGlobeHealth, TBPotionHealth, TBContainerRange, TBNonEliteRange, TBDestructibleRange, TBAfterCombatDelay, TBiDHVaultMovementDelay, TBShrineRange, TBEliteRange, TBExtendedCombatRange, TBGoldRange, TBMinLegendaryLevel, TBMaxHealthPots, TBMinGoldPile, TBMiscItemLevel, TBGilesWeaponScore, TBGilesArmorScore, TBGilesJeweleryScore, TBClusterDistance, TBClusterMinUnitCount, TBItemRange, TBGoblinRange, TBGoblinMinRange, TBClusterLowHPValue, TBGlobeRange, TBFleemonsterDistance, TBFleeMinimumHealth;
+				 private TextBox TBBreakTimeHour, TBKiteDistance, TBGlobeHealth, TBPotionHealth, TBContainerRange, TBNonEliteRange, TBDestructibleRange, TBAfterCombatDelay, TBiDHVaultMovementDelay, TBShrineRange, TBEliteRange, TBExtendedCombatRange, TBGoldRange, TBMinLegendaryLevel, TBMaxHealthPots, TBMinGoldPile, TBMiscItemLevel, TBGilesWeaponScore, TBGilesArmorScore, TBGilesJeweleryScore, TBClusterDistance, TBClusterMinUnitCount, TBItemRange, TBGoblinRange, TBGoblinMinRange, TBClusterLowHPValue, TBGlobeRange, TBFleemonsterDistance, TBFleeMinimumHealth, TBBotStopHealthPercent;
 				 private TextBox[] TBKiteTimeLimits;
 				 private TextBox[] TBAvoidanceTimeLimits;
 
@@ -754,7 +754,15 @@ namespace FunkyTrinity
 
 						#endregion
 
+						CombatGeneralTabItem.Content=CombatGeneralContentListBox;
+						#endregion
+
 						#region Clustering
+						TabItem CombatClusterTabItem=new TabItem();
+						CombatClusterTabItem.Header="Clustering";
+						CombatTabControl.Items.Add(CombatClusterTabItem);
+						ListBox CombatClusteringContentListBox=new ListBox();
+
 						StackPanel spClusteringOptions=new StackPanel
 						{
 							 Background=System.Windows.Media.Brushes.DimGray,
@@ -932,10 +940,74 @@ namespace FunkyTrinity
 						spClusterMinUnitOptions.Children.Add(ClusterMinUnitCountStackPanel);
 						spClusteringOptions.Children.Add(spClusterMinUnitOptions);
 						#endregion
-						CombatGeneralContentListBox.Items.Add(spClusteringOptions);
+
+						CombatClusteringContentListBox.Items.Add(spClusteringOptions);
+
+
+
+						StackPanel spClusteringExceptions=new StackPanel
+						{
+							 Background=System.Windows.Media.Brushes.DimGray,
+						};
+						TextBlock ClusteringExceptions_Text_Header=new TextBlock
+						{
+							 Text="Clustering Exceptions",
+							 FontSize=12,
+							 Foreground=System.Windows.Media.Brushes.GhostWhite,
+							 Background=System.Windows.Media.Brushes.OrangeRed,
+							 TextAlignment=TextAlignment.Center,
+						};
+						spClusteringExceptions.Children.Add(ClusteringExceptions_Text_Header);
+
+						#region KillLOWHPUnits
+						CheckBox cbClusterKillLowHPUnits=new CheckBox
+						{
+							 Content="Allow Units with 25% or less HP",
+							 Width=300,
+							 Height=30,
+							 IsChecked=(Bot.SettingsFunky.ClusterKillLowHPUnits),
+							 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						};
+						cbClusterKillLowHPUnits.Checked+=ClusteringKillLowHPChecked;
+						cbClusterKillLowHPUnits.Unchecked+=ClusteringKillLowHPChecked;
+						spClusteringExceptions.Children.Add(cbClusterKillLowHPUnits);
 						#endregion
 
-						CombatGeneralTabItem.Content=CombatGeneralContentListBox;
+						#region AllowRangedUnits
+						CheckBox cbClusteringAllowRangedUnits=new CheckBox
+						{
+							 Content="Allow Ranged Units",
+							 Width=300,
+							 Height=30,
+							 IsChecked=(Bot.SettingsFunky.ClusteringAllowRangedUnits),
+							 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						};
+						cbClusteringAllowRangedUnits.Checked+=ClusteringAllowRangedUnitsChecked;
+						cbClusteringAllowRangedUnits.Unchecked+=ClusteringAllowRangedUnitsChecked;
+						spClusteringExceptions.Children.Add(cbClusteringAllowRangedUnits);
+						#endregion
+
+						#region AllowSpawnerUnits
+						CheckBox cbClusteringAllowSpawnerUnits=new CheckBox
+						{
+							 Content="Allow Spawner Units",
+							 Width=300,
+							 Height=30,
+							 IsChecked=(Bot.SettingsFunky.ClusteringAllowSpawnerUnits),
+							 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						};
+						cbClusteringAllowSpawnerUnits.Checked+=ClusteringAllowSpawnerUnitsChecked;
+						cbClusteringAllowSpawnerUnits.Unchecked+=ClusteringAllowSpawnerUnitsChecked;
+						spClusteringExceptions.Children.Add(cbClusteringAllowSpawnerUnits);
+						#endregion
+
+						CombatClusteringContentListBox.Items.Add(spClusteringExceptions);
+
+
+						CombatClusterTabItem.Content=CombatClusteringContentListBox;
+
+
+
 						#endregion
 
 
@@ -1430,7 +1502,8 @@ namespace FunkyTrinity
 						{
 							 Orientation=Orientation.Vertical,
 							 Focusable=false,
-							 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch
+							 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+							 Background=System.Windows.Media.Brushes.DimGray,
 						};
 						TextBlock Target_General_Text=new TextBlock
 						{
@@ -1442,18 +1515,7 @@ namespace FunkyTrinity
 							 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
 						};
 
-						#region KillLOWHPUnits
-						CheckBox cbClusterKillLowHPUnits=new CheckBox
-						{
-							 Content="Finish Units with 25% or less HP",
-							 Width=300,
-							 Height=30,
-							 IsChecked=(Bot.SettingsFunky.ClusterKillLowHPUnits),
-							 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
-						};
-						cbClusterKillLowHPUnits.Checked+=ClusteringKillLowHPChecked;
-						cbClusterKillLowHPUnits.Unchecked+=ClusteringKillLowHPChecked;
-						#endregion
+
 
 						#region IgnoreElites
 						CheckBox cbIgnoreElites=new CheckBox
@@ -1521,7 +1583,6 @@ namespace FunkyTrinity
 						#endregion
 
 						Targeting_General_Options_Stackpanel.Children.Add(Target_General_Text);
-						Targeting_General_Options_Stackpanel.Children.Add(cbClusterKillLowHPUnits);
 						Targeting_General_Options_Stackpanel.Children.Add(cbIgnoreElites);
 						Targeting_General_Options_Stackpanel.Children.Add(cbIgnoreCorpses);
 						Targeting_General_Options_Stackpanel.Children.Add(UseExtendedRangeRepChestCB);
@@ -1912,6 +1973,7 @@ namespace FunkyTrinity
 						StackPanel OOCItemBehaviorStackPanel=new StackPanel
 						{
 							 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
+							 Background=System.Windows.Media.Brushes.DimGray,
 						};
 						TextBlock OOCItemBehavior_Header_Text=new TextBlock
 						{
@@ -1970,6 +2032,91 @@ namespace FunkyTrinity
 						OOCItemBehaviorStackPanel.Children.Add(OOCIdentfyItemsMinCount);
 						lbGeneralContent.Items.Add(OOCItemBehaviorStackPanel);
 						#endregion
+
+						StackPanel spBotStopLowHP=new StackPanel
+						{
+							 Orientation=Orientation.Vertical,
+							 Background=System.Windows.Media.Brushes.DimGray,
+						};
+						TextBlock BotStop_Text_Header=new TextBlock
+						{
+							 Text="Emergency Bot Health Stopping",
+							 FontSize=12,
+							 Foreground=System.Windows.Media.Brushes.GhostWhite,
+							 Background=System.Windows.Media.Brushes.IndianRed,
+						};
+						spBotStopLowHP.Children.Add(BotStop_Text_Header);
+
+
+						
+
+						#region StopGameOnBotLowHealth
+						CheckBox CBStopGameOnBotLowHealth=new CheckBox
+						{
+							 Content="Enable Bot Stop Behavior",
+							 Width=300,
+							 Height=30,
+							 IsChecked=(Bot.SettingsFunky.StopGameOnBotLowHealth),
+						};
+						CBStopGameOnBotLowHealth.Checked+=StopGameOnBotLowHealthChecked;
+						CBStopGameOnBotLowHealth.Unchecked+=StopGameOnBotLowHealthChecked;
+						spBotStopLowHP.Children.Add(CBStopGameOnBotLowHealth);
+						#endregion
+
+						#region StopBotOnLowHealth--Slider
+						spBotStop=new StackPanel();
+						TextBlock BotStopLowHP_Text_Header=new TextBlock
+						{
+							 Text="Bot Stop Health Percent",
+							 FontSize=12,
+							 Foreground=System.Windows.Media.Brushes.GhostWhite,
+							 //Background=System.Windows.Media.Brushes.MediumSeaGreen,
+						};
+						spBotStop.Children.Add(BotStopLowHP_Text_Header);
+
+						Slider sliderBotStopLowHPValue=new Slider
+						{
+							 Width=100,
+							 Maximum=1,
+							 Minimum=0,
+							 TickFrequency=0.25,
+							 LargeChange=0.25,
+							 SmallChange=0.10,
+							 Value=Bot.SettingsFunky.StopGameOnBotHealthPercent,
+							 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						};
+						sliderBotStopLowHPValue.ValueChanged+=BotStopHPValueSliderChanged;
+						TBBotStopHealthPercent=new TextBox
+						{
+							 Text=Bot.SettingsFunky.StopGameOnBotHealthPercent.ToString("F2", CultureInfo.InvariantCulture),
+							 IsReadOnly=true,
+						};
+						StackPanel BotStopHPValueStackPanel=new StackPanel
+						{
+							 Orientation=Orientation.Horizontal,
+						};
+						BotStopHPValueStackPanel.Children.Add(sliderBotStopLowHPValue);
+						BotStopHPValueStackPanel.Children.Add(TBBotStopHealthPercent);
+						spBotStop.Children.Add(BotStopHPValueStackPanel);
+						#endregion
+
+						#region StopGameOnBotLowHealth-ScreenShot
+						CheckBox CBStopGameOnBotEnableScreenShot=new CheckBox
+						{
+							 Content="Take A Screenshot before stopping",
+							 Width=300,
+							 Height=30,
+							 IsChecked=(Bot.SettingsFunky.StopGameOnBotEnableScreenShot),
+						};
+						CBStopGameOnBotEnableScreenShot.Checked+=StopGameOnBotEnableScreenShotChecked;
+						CBStopGameOnBotEnableScreenShot.Unchecked+=StopGameOnBotEnableScreenShotChecked;
+						spBotStop.Children.Add(CBStopGameOnBotEnableScreenShot);
+						#endregion
+
+						spBotStopLowHP.Children.Add(spBotStop);
+						lbGeneralContent.Items.Add(spBotStopLowHP);
+
+
 
 						#region LevelingLogic
 						CheckBox LevelingLogic=new CheckBox
@@ -2301,7 +2448,10 @@ namespace FunkyTrinity
 						tcItems.Items.Add(ItemRulesTabItem);
 						ListBox lbItemRulesContent=new ListBox();
 
-						StackPanel spItemRules=new StackPanel();
+						StackPanel spItemRules=new StackPanel
+						{
+							 Background=System.Windows.Media.Brushes.DimGray,
+						};
 						#region ItemRules Checkbox
 						ItemRules=new CheckBox
 						{
@@ -2871,7 +3021,7 @@ namespace FunkyTrinity
 
 						StackPanel spItemPickup=new StackPanel
 						{
-
+							 Background=System.Windows.Media.Brushes.DimGray,
 						};
 						TextBlock Text_Header_ItemPickup=new TextBlock
 						{
@@ -3050,7 +3200,10 @@ namespace FunkyTrinity
 						#endregion
 
 
-						StackPanel spCraftPlans=new StackPanel();
+						StackPanel spCraftPlans=new StackPanel
+						{
+							 Background=System.Windows.Media.Brushes.DimGray,
+						};
 						TextBlock txt_CraftPlansPickup=new TextBlock
 						{
 							 Text="Craft Plan Options",
@@ -3318,7 +3471,10 @@ namespace FunkyTrinity
 							 Foreground=System.Windows.Media.Brushes.GhostWhite,
 							 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 						};
-						StackPanel spMiscItemPickup=new StackPanel();
+						StackPanel spMiscItemPickup=new StackPanel
+						{
+							 Background=System.Windows.Media.Brushes.DimGray,
+						};
 						spMiscItemPickup.Children.Add(txt_miscPickup);
 						spMiscItemPickup.Children.Add(spMiscItemPickupOptions);
 						spMiscItemPickup.Children.Add(spMinimumGold);
@@ -3331,6 +3487,7 @@ namespace FunkyTrinity
 						StackPanel spGemOptions=new StackPanel
 						{
 							 Orientation=Orientation.Vertical,
+							 Background=System.Windows.Media.Brushes.DimGray,
 						};
 						TextBlock Text_GemOptions=new TextBlock
 						{
