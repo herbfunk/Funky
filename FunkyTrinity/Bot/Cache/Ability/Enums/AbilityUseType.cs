@@ -17,5 +17,6 @@ namespace FunkyTrinity.ability
 			ZigZagPathing=32,
 			Self=64,
 			RemoveBuff=128,
+			ClusterTargetNearest=256,
 	 }
 }

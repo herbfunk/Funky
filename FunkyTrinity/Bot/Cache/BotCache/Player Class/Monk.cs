@@ -536,7 +536,7 @@ namespace FunkyTrinity
 						  return new Ability
 						  {
 								Power=Power,
-								UsageType=AbilityUseType.ClusterTarget|AbilityUseType.Target,
+								UsageType=AbilityUseType.ClusterTargetNearest|AbilityUseType.Target,
 								WaitVars=new WaitLoops(0, 1, false),
 
 								Priority=AbilityPriority.None,

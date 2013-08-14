@@ -367,8 +367,9 @@ namespace FunkyTrinity
 						  return new Ability
 						  {
 								Power=Power,
-								UsageType=AbilityUseType.ClusterTarget| AbilityUseType.Target,
+								UsageType=AbilityUseType.ClusterTargetNearest| AbilityUseType.Target,
 								ClusterConditions=new ClusterConditions(5d,20f,1,true),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None,25,falseConditionalFlags: TargetProperties.DOTDPS),
 								WaitVars=new WaitLoops(1, 1, true),
 								Cost=108,
 								Range=21,
@@ -417,6 +418,7 @@ namespace FunkyTrinity
 								Power=Power,
 								UsageType=AbilityUseType.ClusterLocation|AbilityUseType.Location,
 								ClusterConditions=new ClusterConditions(5d, 20f, 1, true, 0.25d),
+								TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None, 21, 0.5d, TargetProperties.DOTDPS),
 								WaitVars=new WaitLoops(1, 1, true),
 								Cost=196,
 								Range=21,

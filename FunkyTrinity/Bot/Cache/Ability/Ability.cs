@@ -568,17 +568,24 @@ namespace FunkyTrinity.ability
 				 SuccessUsed_=null;
 
 				 //Check Clustering First.. we verify that cluster condition was last to be tested.
+				 
+				 //Cluster Target -- Aims for Centeroid Unit
 				 if (this.UsageType.HasFlag(AbilityUseType.ClusterTarget)&&CheckClusterConditions(this.ClusterConditions)) //Cluster ACDGUID
 				 {
-						//ListUnits[0].AcdGuid.Value;
 						TargetRAGUID_=Bot.Combat.Clusters(this.ClusterConditions)[0].GetNearestUnitToCenteroid().AcdGuid.Value;
 						return;
 				 }
+				 //Cluster Location -- Aims for Center of Cluster
 				 if (this.UsageType.HasFlag(AbilityUseType.ClusterLocation)&&CheckClusterConditions(this.ClusterConditions)) //Cluster Target Position
 				 {
-						//.ListUnits.First(u => u.ObjectIsValidForTargeting).Position;
 					  TargetPosition_=(Vector3)Bot.Combat.Clusters(this.ClusterConditions)[0].Midpoint;
 						return;
+				 }
+				 //Cluster Target Nearest -- Gets nearest unit in cluster as target.
+				 if (this.UsageType.HasFlag(AbilityUseType.ClusterTargetNearest)&&CheckClusterConditions(this.ClusterConditions)) //Cluster Target Position
+				 {
+					  TargetRAGUID_=Bot.Combat.Clusters(this.ClusterConditions)[0].ListUnits[0].AcdGuid.Value;
+					  return;
 				 }
 
 				 if (this.UsageType.HasFlag(AbilityUseType.Location)) //Current Target Position
