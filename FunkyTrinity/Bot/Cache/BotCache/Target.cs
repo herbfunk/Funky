@@ -404,24 +404,39 @@ namespace FunkyTrinity
 												Cluster currentTargetCluster=CurrentUnitTarget.CurrentTargetCluster;
 												if (currentTargetCluster!=null)
 												{
+													 bool ShouldTriggerBehavior=(currentTargetCluster.Info.Properties.HasFlag(ClusterProperties.Elites)||
+																						  currentTargetCluster.Info.Properties.HasFlag(ClusterProperties.Large)||
+																						  currentTargetCluster.Info.Properties.HasFlag(ClusterProperties.Strong)||
+																						  currentTargetCluster.Info.Properties.HasFlag(ClusterProperties.Fast));
 
-													 int toughUnitCount=currentTargetCluster.ListUnits.Count(unit => unit.UnitMaxHitPointAverageWeight>0&&unit.CurrentHealthPct.Value>0.50d);
-
-													 //Trigger for tough grouping..
-													 if (toughUnitCount>1)
+													 //Trigger for grouping..
+													 if (ShouldTriggerBehavior)
 													 {
-															var targetableUnits=Bot.Combat.CurrentGroupClusters[0].ListUnits.Where(unit => unit.ObjectIsValidForTargeting && (unit.UnitMaxHitPointAverageWeight>0||unit.ObjectIsSpecial));
-															if (targetableUnits.Any())
+														  var PossibleGroups=Bot.Combat.CurrentGroupClusters
+																	 .Where(c => 
+																		  c.Info.Properties.HasFlag(ClusterProperties.Elites)||
+																		  c.Info.Properties.HasFlag(ClusterProperties.Large)||
+																		  c.Info.Properties.HasFlag(ClusterProperties.Strong));
+
+
+															if (PossibleGroups.Any())
 															{
 																 if (Bot.SettingsFunky.LogGroupingOutput)
-																	 Logging.WriteVerbose("Starting Grouping Behavior. Triggered by Tough Group");
+																	 Logging.WriteVerbose("Starting Grouping Behavior");
 
 																 //Activate Behavior
 																 Bot.NavigationCache.groupRunningBehavior=true;
 																 Bot.NavigationCache.groupingOrginUnit=(CacheUnit)ObjectCache.Objects[CurrentTarget.RAGUID];
 
+																 //Get Cluster
+																 Cluster groupCluster=PossibleGroups.First();
+																 Bot.NavigationCache.groupingCurrentCluster=groupCluster;
+
+																 if (Bot.SettingsFunky.LogGroupingOutput)
+																	  Logging.WriteVerbose("Group Cluster Propeties {0}" , groupCluster.Info.Properties.ToString());
+
 																 //Find initial grouping target..
-																 CurrentTarget=targetableUnits.First();
+																 CurrentTarget=groupCluster.ListUnits[0];
 																 CurrentUnitTarget=(CacheUnit)CurrentTarget;
 																 Bot.NavigationCache.groupingCurrentUnit=CurrentUnitTarget;
 															}

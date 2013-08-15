@@ -59,7 +59,7 @@ namespace FunkyTrinity.Movement
 						  item.UpdateUnitPointLists(clusterConditions);
 					 }
 
-					 CurrentClusters=CurrentClusters.Where(c => c.ListUnits.Count>=clusterConditions.MinimumUnits&&(clusterConditions.DOTDPSRatio==0.00d||c.DotDPSRatio<=clusterConditions.DOTDPSRatio)).ToList();
+					 CurrentClusters=CurrentClusters.Where(c => c.ListUnits.Count>=clusterConditions.MinimumUnits&&(clusterConditions.DOTDPSRatio==0.00d||c.Info.DotDPSRatio<=clusterConditions.DOTDPSRatio)).ToList();
 				}
 
 				lastClusterRefresh=DateTime.Now;
@@ -93,7 +93,7 @@ namespace FunkyTrinity.Movement
 				//Logging.WriteVerbose("Total Units {0}", listObjectUnits.Count.ToString());
 				if (listObjectUnits.Count>0)
 				{
-					 CurrentClusters=Cluster.RunKmeans(listObjectUnits, clusterConditions.ClusterDistance).Where(c => c.ListUnits.Count>=clusterConditions.MinimumUnits&&(clusterConditions.DOTDPSRatio==0.00d||c.DotDPSRatio<=clusterConditions.DOTDPSRatio)).ToList();
+					 CurrentClusters=Cluster.RunKmeans(listObjectUnits, clusterConditions.ClusterDistance).Where(c => c.ListUnits.Count>=clusterConditions.MinimumUnits&&(clusterConditions.DOTDPSRatio==0.00d||c.Info.DotDPSRatio<=clusterConditions.DOTDPSRatio)).ToList();
 
 					 //Sort by distance -- reverse to get nearest unit First
 					 if (CurrentClusters.Count>0)
@@ -148,7 +148,7 @@ namespace FunkyTrinity.Movement
 						  item.UpdateUnitPointLists(this.clusterConditions);
 					 }
 
-					 base.CurrentClusters=base.CurrentClusters.Where(c => c.ListUnits.Count>=this.clusterConditions.MinimumUnits&&(this.clusterConditions.DOTDPSRatio==0.00d||c.DotDPSRatio<=this.clusterConditions.DOTDPSRatio)).ToList();
+					 base.CurrentClusters=base.CurrentClusters.Where(c => c.ListUnits.Count>=this.clusterConditions.MinimumUnits&&(this.clusterConditions.DOTDPSRatio==0.00d||c.Info.DotDPSRatio<=this.clusterConditions.DOTDPSRatio)).ToList();
 				}
 
 				base.lastClusterRefresh=DateTime.Now;
@@ -167,7 +167,7 @@ namespace FunkyTrinity.Movement
 				//Logging.WriteVerbose("Total Units {0}", listObjectUnits.Count.ToString());
 				if (listObjectUnits.Count>0)
 				{
-					 CurrentClusters=Cluster.RunKmeans(listObjectUnits, this.clusterConditions.ClusterDistance).Where(c => c.ListUnits.Count>=this.clusterConditions.MinimumUnits&&(this.clusterConditions.DOTDPSRatio==0.00d||c.DotDPSRatio<=this.clusterConditions.DOTDPSRatio)).ToList();
+					 CurrentClusters=Cluster.RunKmeans(listObjectUnits, this.clusterConditions.ClusterDistance).Where(c => c.ListUnits.Count>=this.clusterConditions.MinimumUnits&&(this.clusterConditions.DOTDPSRatio==0.00d||c.Info.DotDPSRatio<=this.clusterConditions.DOTDPSRatio)).ToList();
 
 					 //Sort by distance -- reverse to get nearest unit First
 					 if (CurrentClusters.Count>0)

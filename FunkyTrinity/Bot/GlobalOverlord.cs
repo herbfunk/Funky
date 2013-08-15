@@ -169,6 +169,7 @@ namespace FunkyTrinity
 						  if (Bot.Character.Position.Distance(Bot.Character.BackTrackVector)>7.5f)
 						  {
 								Logging.WriteVerbose("BackTracking back to orginal location");
+								Logging.WriteVerbose("Current Vector used {0}", Bot.Character.BackTrackVector.ToString());
 								//Return to the vector set.
 								Bot.Target.CurrentTarget=new CacheObject(Bot.Character.BackTrackVector, Enums.TargetType.Avoidance, 20000, "BackTrack", 5f);
 								Bot.Combat.DontMove=true;

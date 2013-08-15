@@ -535,6 +535,7 @@ namespace FunkyTrinity.Movement
 				#region Grouping
 				internal bool groupRunningBehavior=false;
 				internal bool groupReturningToOrgin=false;
+				internal Cluster groupingCurrentCluster=null;
 				internal CacheUnit groupingCurrentUnit=null;
 				internal CacheUnit groupingOrginUnit=null;
 				internal DateTime groupingSuspendedDate=DateTime.MinValue;
@@ -547,6 +548,7 @@ namespace FunkyTrinity.Movement
 					 Bot.NavigationCache.groupRunningBehavior=false;
 					 Bot.NavigationCache.groupReturningToOrgin=false;
 					 Bot.NavigationCache.groupingCurrentUnit=null;
+					 groupingCurrentCluster=null;
 				}
 				#endregion
 

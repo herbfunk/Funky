@@ -22,12 +22,129 @@ namespace FunkyTrinity.Movement
 	 */
 
 
+	 [Flags]
+	 public enum ClusterProperties
+	 {
+		  None=0,
+
+		  Weak=1,
+		  Strong=2,
+		  
+		  Large=4,
+		  Small=8,
+		  
+		  Elites=16,
+		  Boss=32,
+
+		  Fast=64,
+		  Ranged=128,
+
+	 }
+
+	 ///<summary>
+	 ///Describes a cluster -- tracks data to describe properties of the entire cluster.
+	 ///</summary>
+	 public class ClusterInfo
+	 {
+		  private ClusterProperties properties;
+		  public ClusterProperties Properties
+		  {
+				get { return properties; }
+				set { properties=value; }
+		  }
+
+		  public ClusterInfo()
+		  {
+				properties=ClusterProperties.None;
+		  }
+
+		  public void Merge(ClusterInfo other)
+		  {
+				this.UnitCounter+=other.UnitCounter;
+				this.WeakCounter+=other.WeakCounter;
+				this.StrongCounter+=other.StrongCounter;
+				this.ElitesCounter+=other.ElitesCounter;
+				this.FastCounter+=other.FastCounter;
+				this.RangedCounter+=other.RangedCounter;
+				this.DOTDPSCounter+=other.DOTDPSCounter;
+				this.BossCounter+=other.BossCounter;
+
+				UpdateProperties();
+		  }
+
+
+		  //internal data
+		  protected int UnitCounter=0;
+
+		  protected int WeakCounter=0;
+		  protected int StrongCounter=0;
+
+		  protected int ElitesCounter=0;
+		  protected int BossCounter=0;
+
+		  protected int FastCounter=0;
+		  protected int RangedCounter=0;
+
+		  //
+		  protected int DOTDPSCounter=0;
+		  public double DotDPSRatio
+		  {
+				get
+				{
+					 return DOTDPSCounter/UnitCounter;
+				}
+		  }
+
+
+		  public void Update(ref CacheUnit unit, bool refreshproperties=false)
+		  {
+				UnitCounter++;
+
+				if (unit.UnitMaxHitPointAverageWeight<0) WeakCounter++; else if (unit.UnitMaxHitPointAverageWeight>0) StrongCounter++;
+
+				if (unit.IsEliteRareUnique) ElitesCounter++; else if (unit.IsBoss) BossCounter++;
+
+				if (unit.IsFast) FastCounter++;
+				if (unit.Monstersize.Value==Zeta.Internals.SNO.MonsterSize.Ranged) RangedCounter++;
+
+				if (Bot.Combat.UsesDOTDPSAbility&&unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value) DOTDPSCounter++;
+
+				if (refreshproperties) UpdateProperties();
+		  }
+
+		  private void UpdateProperties()
+		  {
+				properties=ClusterProperties.None;
+
+
+				if (WeakCounter/UnitCounter>0.50d)
+					 properties|=ClusterProperties.Weak;
+				else if (StrongCounter/UnitCounter>0.50d)
+					 properties|=ClusterProperties.Strong;
+
+				if (FastCounter/UnitCounter>0.50d)
+					 properties|=ClusterProperties.Fast;
+				if (RangedCounter/UnitCounter>0.50d)
+					 properties|=ClusterProperties.Ranged;
+				if (ElitesCounter>0)
+					 properties|=ClusterProperties.Elites;
+				if (BossCounter>0)
+					 properties|=ClusterProperties.Boss;
+				if (UnitCounter<4)
+					 properties|=ClusterProperties.Small;
+				else if (UnitCounter>7)
+					 properties|=ClusterProperties.Large;
+		  }
+
+	 }
+
 	 internal partial class Cluster
 	 {
 
 		  public List<CacheUnit> ListUnits { get; protected set; }
 		  public List<GridPoint> ListPoints { get; protected set; }
-		 
+		  public ClusterInfo Info { get; set; }
+
 		  private CacheUnit currentValidUnit=null;
 		  public CacheUnit CurrentValidUnit
 		  {
@@ -67,15 +184,6 @@ namespace FunkyTrinity.Movement
 				}
 		  }
 		  internal List<int> RAGUIDS { get; set; }
-		  internal int EliteCount { get; set; }
-		  internal int DotDPSCount { get; set; }
-		  internal double DotDPSRatio
-		  {
-				get
-				{
-					 return DotDPSCount/ListUnits.Count;
-				}
-		  }
 
 		  internal int UnitMobileCounter { get; set; }
 		  internal double UnitsMovementRatio
@@ -120,8 +228,7 @@ namespace FunkyTrinity.Movement
 						  //Logging.WriteVerbose("Updating Cluster");
 
 						  //Reset Vars
-						  EliteCount=0;
-						  DotDPSCount=0;
+						  Info=new ClusterInfo();
 
 						  NearestMonsterDistance=-1f;
 
@@ -130,8 +237,8 @@ namespace FunkyTrinity.Movement
 						  MidPoint=firstUnit.PointPosition;
 						  RAGUIDS.Add(firstUnit.RAGUID);
 						  NearestMonsterDistance=firstUnit.CentreDistance;
-						  if (firstUnit.MonsterElite)EliteCount++;
-						  if (Bot.Combat.UsesDOTDPSAbility&&firstUnit.HasDOTdps.HasValue&&firstUnit.HasDOTdps.Value)DotDPSCount++;
+						  Info.Update(ref firstUnit);
+
 
 						  //Iterate thru the remaining
 						  for (int i=1; i<ListUnits.Count-1; i++)
@@ -156,11 +263,10 @@ namespace FunkyTrinity.Movement
 		  {
 				ListPoints=new List<GridPoint>();
 				ListUnits=new List<CacheUnit>();
-				EliteCount=0;
-				DotDPSCount=0;
 				//UnitMobileCounter=0;
 				NearestMonsterDistance=-1f;
 				RAGUIDS=new List<int>();
+				Info=new ClusterInfo();
 
 		  }  // of parameterless constructor
 
@@ -180,12 +286,8 @@ namespace FunkyTrinity.Movement
 
 				RAGUIDS.Add(unit.RAGUID);
 				NearestMonsterDistance=unit.CentreDistance;
-				if (unit.MonsterElite)
-					 EliteCount++;
-				if (Bot.Combat.UsesDOTDPSAbility&&unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
-					 DotDPSCount++;
-				//if (unit.IsMoving)
-				//    UnitMobileCounter++;
+				Info=new ClusterInfo();
+				Info.Update(ref unit);
 
 		  }  // of overloaded constructor
 
@@ -202,20 +304,16 @@ namespace FunkyTrinity.Movement
 		  private void UpdateProperties(CacheUnit unit)
 		  {
 				RAGUIDS.Add(unit.RAGUID);
+
+
 				MidPoint+=unit.PointPosition;
 
 				float distance=unit.CentreDistance;
 				if (distance<this.NearestMonsterDistance)
 					 this.NearestMonsterDistance=distance;
 
-				if (unit.MonsterElite)
-					 EliteCount++;
+				Info.Update(ref unit, true);
 
-				if (Bot.Combat.UsesDOTDPSAbility&&unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
-					 DotDPSCount++;
-
-				//if (unit.IsMoving)
-				//    UnitMobileCounter++;
 		  }
 
 		  /// <summary>
@@ -270,13 +368,10 @@ namespace FunkyTrinity.Movement
 				ListUnits.AddRange(p_Cluster.ListUnits);
 				ListPoints.AddRange(p_Cluster.ListPoints);
 				RAGUIDS.AddRange(p_Cluster.RAGUIDS);
-
-				EliteCount+=p_Cluster.EliteCount;
-				DotDPSCount+=p_Cluster.DotDPSCount;
-				//UnitMobileCounter+=p_Cluster.UnitMobileCounter;
-
 				if (this.NearestMonsterDistance>p_Cluster.NearestMonsterDistance)
 					 this.NearestMonsterDistance=p_Cluster.NearestMonsterDistance;
+
+				Info.Merge(p_Cluster.Info);
 
 				return l_bSuccess;
 

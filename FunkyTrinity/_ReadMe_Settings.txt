@@ -22,11 +22,8 @@ Funky Settings:
 		-Setting an avoidance health percent to zero will ignore it.
 		-All avoidances can be ignored by unchecking Attempt Avoidance Movements.
 		-Radius may need to be tweaked for best "avoidance" movement.
-		
 	-Combat:
-		-Kite Distance - Zero disables kiting, anything above zero will check if monsters are closer than the kite distance, and will attempt to find a safe spot.
 		-Globe and Potion percents are health percent when bot .
-		-Avoidance/Kiting Search Retry values are the min/max time before another search will be conducted.
 	-Class
 		-Settings vary depending on which class is currently active.
 	-General:
@@ -50,13 +47,7 @@ Funky Settings:
 			-Delay after combat sets a time that will enforce a wait after combat finishes.
 			-Extend Combat Range will temporary extend all kill ranges by the value set.
 		
-Plugin Settings:
-	-Advanced Settings:
-		-Unstucker
-		-Stuck Game Restart
-		-Ticks-Per-Second
-		-Log Stuck Location
-	-Mobile Notification Settings
+
 
 
 ItemRules Funky Extensions:
