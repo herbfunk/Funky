@@ -30,9 +30,9 @@ namespace FunkyTrinity
 				Bot.Stats.iDeathsThisRun=0;
 				initTreeHooks=false;
             //Total Stats
-				Bot.Stats.ItemStats.Update();
-				Bot.Stats.GameStats.Update();
-				Bot.Stats.ProfileStats.OutputReport();
+				Bot.BotStatistics.ItemStats.Update();
+				Bot.BotStatistics.GameStats.Update();
+				Bot.BotStatistics.ProfileStats.OutputReport();
 
 
 

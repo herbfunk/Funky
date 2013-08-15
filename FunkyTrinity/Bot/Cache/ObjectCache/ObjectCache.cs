@@ -64,7 +64,15 @@ namespace FunkyTrinity.Cache
 																	  typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),
 																	  typeof(Zeta.CommonBot.Profile.Common.WaitTimerTag),
 																	};
-			
+
+				//Common Used Profile Tags that requires backtracking during combat sessions.
+				internal static readonly HashSet<Type> InteractiveTags=new HashSet<Type> 
+																	{ 
+																	  typeof(Zeta.CommonBot.Profile.Common.UseWaypointTag), 
+																	  typeof(Zeta.CommonBot.Profile.Common.UseObjectTag),
+																	  typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),
+																	  typeof(Zeta.CommonBot.Profile.Common.UsePortalTag),
+																	};
 		  }
 	 
 }

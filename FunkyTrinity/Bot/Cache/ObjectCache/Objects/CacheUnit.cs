@@ -892,7 +892,7 @@ namespace FunkyTrinity.Cache
 						  if (ObjectCache.hashProfileSNOTargetBlacklist.Contains(this.SNOID))
 						  {
 								//Only if not prioritized..
-								if (this.PriorityCounter==0)
+								if (this.PriorityCounter==0&&!Bot.IsInNonCombatBehavior)
 									 return false;
 						  }
 

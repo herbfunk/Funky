@@ -120,6 +120,13 @@ namespace FunkyTrinity
 					 // We have a target, start the target handler!
 					 if (Bot.Target.CurrentTarget!=null)
 					 {
+						  //Backtracking?
+						  if (Bot.Character.IsRunningInteractiveBehavior&&!Bot.Character.ShouldBackTrack)
+						  {
+								Bot.Character.BackTrackVector=Bot.Character.Position;
+								Bot.Character.ShouldBackTrack=true;
+						  }
+
 						  Bot.Combat.bWholeNewTarget=true;
 						  Bot.Combat.DontMove=true;
 						  Bot.Combat.bPickNewAbilities=true;
@@ -157,6 +164,18 @@ namespace FunkyTrinity
 						  // Now check the backpack
 						  CheckBackpack();
 					 }
+					 else if (Bot.Character.ShouldBackTrack)
+					 {
+						  if (Bot.Character.Position.Distance(Bot.Character.BackTrackVector)>7.5f)
+						  {
+								Logging.WriteVerbose("BackTracking back to orginal location");
+								//Return to the vector set.
+								Bot.Target.CurrentTarget=new CacheObject(Bot.Character.BackTrackVector, Enums.TargetType.Avoidance, 20000, "BackTrack", 5f);
+								Bot.Combat.DontMove=true;
+								return true;
+						  }
+					 }
+
 					 // Return false here means we only do all of the below OOC stuff at max once every 150ms
 					 return false;
 				}

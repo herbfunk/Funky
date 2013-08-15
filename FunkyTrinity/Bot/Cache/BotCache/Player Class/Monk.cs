@@ -456,7 +456,9 @@ namespace FunkyTrinity
 						  return new Ability
 						  {
 								Power=Power,
-								UsageType=AbilityUseType.ClusterLocation|AbilityUseType.Location,
+
+								//RuneIndex of 1 (Explosive Light) is self cast.
+								UsageType=this.RuneIndexCache[SNOPower.Monk_WaveOfLight]==1?AbilityUseType.Self:AbilityUseType.ClusterLocation|AbilityUseType.Location,
 								WaitVars=new WaitLoops(2, 2, true),
 								Cost=this.RuneIndexCache[SNOPower.Monk_WaveOfLight]==3?40:75,
 								Range=16,

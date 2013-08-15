@@ -49,6 +49,8 @@ namespace FunkyTrinity
 						  fCharacterRadius=0f;
 						  //iCurrentGameDifficulty=GameDifficulty.Invalid;
 						  IsRunningOOCBehavior=false;
+						  ShouldBackTrack=false;
+						  BackTrackVector=Vector3.Zero;
 					 }
 
 					 private DateTime lastUpdatedPlayer { get; set; }
@@ -90,6 +92,10 @@ namespace FunkyTrinity
 					 public int iCurrentWorldID { get; set; }
 					 //public GameDifficulty iCurrentGameDifficulty { get; set; }
 					 internal bool IsRunningOOCBehavior { get; set; }
+
+					 internal bool IsRunningInteractiveBehavior { get; set; }
+					 internal bool ShouldBackTrack { get; set; }
+					 internal Vector3 BackTrackVector { get; set; }
 
 					 //Returns Live Data
 					 private DateTime lastPositionUpdate=DateTime.Today;

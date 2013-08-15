@@ -596,6 +596,9 @@ namespace FunkyTrinity.Movement
 
 
 
+
+
+
 				private IndexedList<Vector3> CachedPathFinderCurrentPath=new IndexedList<Vector3>();
 				private IndexedList<Vector3> CurrentPathFinderPath=new IndexedList<Vector3>();
 

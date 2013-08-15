@@ -11,6 +11,10 @@ namespace FunkyTrinity
 		  {
 				public class BotStatistics
 				{
+					 public static GameStatistics GameStats=new GameStatistics();
+					 public static ItemStatistics ItemStats=new ItemStatistics();
+					 public static ProfileStatisics ProfileStats=new ProfileStatisics();
+
 					 public BotStatistics()
 					 {
 						  iMaxDeathsAllowed=0;
@@ -28,10 +32,6 @@ namespace FunkyTrinity
 						  lastProfileCheck=DateTime.Today;
 
 						  LastJoinedGame=DateTime.MinValue;
-
-						  ItemStats=new ItemStatistics();
-						  GameStats=new GameStatistics();
-						  ProfileStats=new ProfileStatisics();
 					 }
 
 					 public DateTime LastJoinedGame { get; set; }
@@ -53,9 +53,7 @@ namespace FunkyTrinity
 					 public string sLastProfileSeen { get; set; }
 					 public string sFirstProfileSeen { get; set; }
 					 
-					 public GameStatistics GameStats { get; set; }
-					 public ItemStatistics ItemStats { get; set; }
-					 public ProfileStatisics ProfileStats { get; set; }
+
 
 					 private DateTime lastProfileCheck { get; set; }
 					 ///<summary>
@@ -70,7 +68,7 @@ namespace FunkyTrinity
 								if (sThisProfile!=Bot.Stats.sLastProfileSeen)
 								{
 									 //herbfunk stats
-									 Bot.Stats.ProfileStats.UpdateProfileChanged();
+									 Bot.BotStatistics.ProfileStats.UpdateProfileChanged();
 
 									 // See if we appear to have started a new game
 									 if (!String.IsNullOrEmpty(Bot.Stats.sFirstProfileSeen)&&sThisProfile==Bot.Stats.sFirstProfileSeen)
@@ -277,12 +275,12 @@ namespace FunkyTrinity
 									 //Returns a temp total of looted items.
 									 int[] tmp_LootedTotals=(int[])lootedItemTotals.Clone();
 
-									 if (Bot.Stats.ProfileStats.CurrentProfile==null)
+									 if (Bot.BotStatistics.ProfileStats.CurrentProfile==null)
 										  return tmp_LootedTotals;
 
 									 for (int i=0; i<6; i++)
 									 {
-										  tmp_LootedTotals[i]+=Bot.Stats.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[i];
+										  tmp_LootedTotals[i]+=Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[i];
 									 }
 
 									 return tmp_LootedTotals;
@@ -292,12 +290,12 @@ namespace FunkyTrinity
 								{
 									 int[] tmp_StashedTotals=(int[])stashedItemTotals.Clone();
 
-									 if (Bot.Stats.ProfileStats.CurrentProfile==null)
+									 if (Bot.BotStatistics.ProfileStats.CurrentProfile==null)
 										  return tmp_StashedTotals;
 
 									 for (int i=0; i<6; i++)
 									 {
-										  tmp_StashedTotals[i]+=Bot.Stats.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[i];
+										  tmp_StashedTotals[i]+=Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[i];
 									 }
 
 									 return tmp_StashedTotals;
@@ -375,7 +373,7 @@ namespace FunkyTrinity
 									 //Update last profile, start tracking a new one
 									 CurrentProfile.FinalizeStats();
 									 completedProfiles.Add(CurrentProfile);
-									 Bot.Stats.ItemStats.CurrentGame.ProfileChanged(CurrentProfile.ItemStats);
+									 Bot.BotStatistics.ItemStats.CurrentGame.ProfileChanged(CurrentProfile.ItemStats);
 									 CurrentProfile=new ProfileStats(currentProfile);
 								}
 								else if (CurrentProfile==null)
@@ -393,9 +391,9 @@ namespace FunkyTrinity
 								CurrentProfile.FinalizeStats();
 								completedProfiles.Add(CurrentProfile);
 
-								Bot.Stats.GameStats.Update();
-								Bot.Stats.ItemStats.CurrentGame.ProfileChanged(CurrentProfile.ItemStats);
-								Bot.Stats.ItemStats.Update();
+								Bot.BotStatistics.GameStats.Update();
+								Bot.BotStatistics.ItemStats.CurrentGame.ProfileChanged(CurrentProfile.ItemStats);
+								Bot.BotStatistics.ItemStats.Update();
 
 
 								string outputPath=Funky.FolderPaths.sTrinityLogPath+@"ProfileStats\";
@@ -406,24 +404,24 @@ namespace FunkyTrinity
 								FileStream LogStream=File.Open(outputPath+outputFileName, FileMode.Create, FileAccess.Write, FileShare.Read);
 								using (StreamWriter LogWriter=new StreamWriter(LogStream))
 								{
-									 TimeSpan gameDuration=DateTime.Now.Subtract(Bot.Stats.ItemStats.CurrentGame.TimeTrackingBegan).Duration();
+									 TimeSpan gameDuration=DateTime.Now.Subtract(Bot.BotStatistics.ItemStats.CurrentGame.TimeTrackingBegan).Duration();
 									 LogWriter.WriteLine("===== Profile Output =====");
 									 LogWriter.WriteLine("Total of "+completedProfiles.Count+" profiles tracked");
 									 LogWriter.WriteLine("Duration of the game: "+gameDuration.ToString());
 									 LogWriter.WriteLine("Date: "+DateTime.Now.ToString());
-									 LogWriter.WriteLine("Death Count: "+Bot.Stats.GameStats.CurrentGame.Deaths);
+									 LogWriter.WriteLine("Death Count: "+Bot.BotStatistics.GameStats.CurrentGame.Deaths);
 									 LogWriter.WriteLine("");
-									 LogWriter.WriteLine("Item Totals: Looted ("+Bot.Stats.ItemStats.CurrentGame.LootTotal()+") / Stashed ("+Bot.Stats.ItemStats.CurrentGame.StashTotal()+")");
-									 double itemLootedPerMinTotal=Math.Round(Bot.Stats.ItemStats.CurrentGame.LootTotal()/gameDuration.TotalMinutes, 3);
-									 double itemStashedPerMinTotal=Math.Round(Bot.Stats.ItemStats.CurrentGame.StashTotal()/gameDuration.TotalMinutes, 3);
+									 LogWriter.WriteLine("Item Totals: Looted ("+Bot.BotStatistics.ItemStats.CurrentGame.LootTotal()+") / Stashed ("+Bot.BotStatistics.ItemStats.CurrentGame.StashTotal()+")");
+									 double itemLootedPerMinTotal=Math.Round(Bot.BotStatistics.ItemStats.CurrentGame.LootTotal()/gameDuration.TotalMinutes, 3);
+									 double itemStashedPerMinTotal=Math.Round(Bot.BotStatistics.ItemStats.CurrentGame.StashTotal()/gameDuration.TotalMinutes, 3);
 									 LogWriter.WriteLine("IMP: Looted("+itemLootedPerMinTotal+") / Stashed("+itemStashedPerMinTotal+")");
 									 LogWriter.WriteLine("");
 									 LogWriter.WriteLine("=== Seen Dropped Loot (Armor/Weapon/Jewelery) ===");
 									 LogWriter.WriteLine("ILvl \t White \t Magic \t Rare \t Legendary");
 									 int[] droppedQualityTotals=new int[] { 0, 0, 0, 0 };
-									 foreach (var item in Bot.Stats.ItemStats.CurrentGame.droppedItemTotals.Keys)
+									 foreach (var item in Bot.BotStatistics.ItemStats.CurrentGame.droppedItemTotals.Keys)
 									 {
-										  int[] totals=Bot.Stats.ItemStats.CurrentGame.droppedItemTotals[item];
+										  int[] totals=Bot.BotStatistics.ItemStats.CurrentGame.droppedItemTotals[item];
 										  droppedQualityTotals[0]+=totals[0];
 										  droppedQualityTotals[1]+=totals[1];
 										  droppedQualityTotals[2]+=totals[2];
