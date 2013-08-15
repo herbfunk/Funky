@@ -63,6 +63,7 @@ namespace FunkyTrinity
 					 FleeingLastTarget=false;
 					 AvoidanceLastTarget=false;
 					 UsesDOTDPSAbility=false;
+					 TargetClusterCollection=new ClusterTargetCollection(TargetClusterConditions);
 				}
 
 				internal CacheObject LastCachedTarget { get; set; }
@@ -75,7 +76,8 @@ namespace FunkyTrinity
 				internal List<int> ValidClusterUnits=new List<int>();
 				internal List<CacheUnit> DistantUnits=new List<CacheUnit>();
 
-
+				private ClusterConditions TargetClusterConditions=new ClusterConditions(Bot.SettingsFunky.ClusterDistance, 100f, Bot.SettingsFunky.ClusterMinimumUnitCount, false);
+				internal ClusterTargetCollection TargetClusterCollection { get; set; }
 
 				internal List<Cluster> CurrentTargetClusters=new List<Cluster>();
 				internal List<Cluster> CurrentGroupClusters=new List<Cluster>();
@@ -100,7 +102,7 @@ namespace FunkyTrinity
 						  AbilityClusters.Add(CC, new ClusterCollection(CC));
 					 }
 
-					 if (AbilityClusters[CC].ShouldRefreshClusters)
+					 if (AbilityClusters[CC].ShouldUpdateClusters)
 						  AbilityClusters[CC].UpdateClusters();
 					 else
 						  AbilityClusters[CC].RefreshClusters();
@@ -145,41 +147,28 @@ namespace FunkyTrinity
 				///</summary>
 				internal void UpdateTargetClusteringVariables()
 				{
-
+					 
 					 //normal clustering
-					 if ((Bot.SettingsFunky.EnableClusteringTargetLogic
-						  &&(!Bot.SettingsFunky.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>Bot.SettingsFunky.IgnoreClusterLowHPValue)
-						  &&(DateTime.Now.Subtract(dateSincePickedTarget).TotalMilliseconds>500||DateTime.Now.Subtract(LastClusterTargetLogicRefresh).TotalMilliseconds>200)))
+					 if (Bot.SettingsFunky.EnableClusteringTargetLogic&&
+						  (!Bot.SettingsFunky.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>Bot.SettingsFunky.IgnoreClusterLowHPValue))
 					 {
-						  //Clear Clusters and Unit collection
-						  CurrentTargetClusters=new List<Cluster>();
-						  ValidClusterUnits=new List<int>();
-
-						  //Check if there are enough units present currently..
 						  if (UnitRAGUIDs.Count>=Bot.SettingsFunky.ClusterMinimumUnitCount)
 						  {
-								//Get unit objects only!
-								List<CacheObject> listObjectUnits=Bot.ValidObjects.Where(u => UnitRAGUIDs.Contains(u.RAGUID)).ToList();
+								if (TargetClusterCollection.ShouldUpdateClusters)
+									 TargetClusterCollection.UpdateClusters();
 
-								//Make sure there are units before we continue!
-								if (listObjectUnits.Count>0)
-								{
-									 //Update Cluster Collection
-									 CurrentTargetClusters=Cluster.RunKmeans(listObjectUnits, Bot.SettingsFunky.ClusterDistance);
-									 LastClusterTargetLogicRefresh=DateTime.Now;
+									// TargetClusterCollection.RefreshClusters();
+								//else
+									 
 
-									 //Add each RAGUID to collection only if clusters contained units meets minimum setting
-									 foreach (var item in CurrentTargetClusters)
-									 {
-										  if (item.ListUnits.Count>=Bot.SettingsFunky.ClusterMinimumUnitCount)
-												ValidClusterUnits.AddRange(item.RAGUIDS);
-									 }
-								}
+								//Logging.WriteVerbose("Target Clusters Found {0}", TargetClusterCollection.CurrentClusters.Count);
+
+								List<CacheUnit> units=TargetClusterCollection.RetrieveAllUnits();
+
+								if (units.Count>0)
+									 ValidClusterUnits=units.Select(u => u.RAGUID).ToList();
 						  }
 					 }
-
-
-
 				}
 
 

@@ -107,8 +107,8 @@ namespace FunkyTrinity.Movement
 
 				if (changeOccured)
 				{
-					 Logging.WriteVerbose("Found a total of {0} CacheUnits to Remove", RemovalIndexList.Count);
-
+					 RemovalIndexList.Sort();
+					 RemovalIndexList.Reverse();
 					 foreach (var item in RemovalIndexList)
 					 {
 						  ListUnits.RemoveAt(item);
@@ -117,7 +117,7 @@ namespace FunkyTrinity.Movement
 
 					 if (ListUnits.Count>1)
 					 {
-						  Logging.WriteVerbose("Updating Cluster");
+						  //Logging.WriteVerbose("Updating Cluster");
 
 						  //Reset Vars
 						  EliteCount=0;

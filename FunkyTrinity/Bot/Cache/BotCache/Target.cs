@@ -151,10 +151,10 @@ namespace FunkyTrinity
 										if (Bot.SettingsFunky.LogGroupingOutput)
 											 Logging.WriteVerbose("[Grouping] Orgin Target is no longer valid for targeting.");
 								  }
-								  else if (Bot.NavigationCache.groupingOrginUnit.CentreDistance<40f)
+								  else if (Bot.NavigationCache.groupingOrginUnit.CentreDistance<(Bot.Class.IsMeleeClass?25f:45f))
 								  {
 										if (Bot.SettingsFunky.LogGroupingOutput)
-											 Logging.WriteVerbose("[Grouping] Orgin Target is within 40f of the bot.");
+											 Logging.WriteVerbose("[Grouping] Orgin Target is within {0}f of the bot.", (Bot.Class.IsMeleeClass?25f:45f).ToString());
 
 										endBehavior=true;
 								  }
@@ -397,17 +397,20 @@ namespace FunkyTrinity
 									{
 										 Bot.Combat.UpdateGroupClusteringVariables();
 
+
+
 										 if (Bot.Combat.CurrentGroupClusters.Count>0)
 										 {
 												Cluster currentTargetCluster=CurrentUnitTarget.CurrentTargetCluster;
 												if (currentTargetCluster!=null)
 												{
+
 													 int toughUnitCount=currentTargetCluster.ListUnits.Count(unit => unit.UnitMaxHitPointAverageWeight>0&&unit.CurrentHealthPct.Value>0.50d);
 
 													 //Trigger for tough grouping..
 													 if (toughUnitCount>1)
 													 {
-															var targetableUnits=Bot.Combat.CurrentGroupClusters[0].ListUnits.Where(unit => unit.ObjectIsValidForTargeting);
+															var targetableUnits=Bot.Combat.CurrentGroupClusters[0].ListUnits.Where(unit => unit.ObjectIsValidForTargeting && (unit.UnitMaxHitPointAverageWeight>0||unit.ObjectIsSpecial));
 															if (targetableUnits.Any())
 															{
 																 if (Bot.SettingsFunky.LogGroupingOutput)
@@ -423,29 +426,6 @@ namespace FunkyTrinity
 																 Bot.NavigationCache.groupingCurrentUnit=CurrentUnitTarget;
 															}
 													 }
-													 else
-													 {
-															int rangedUnitCount=currentTargetCluster.ListUnits.Count(unit => unit.Monstersize.Value==MonsterSize.Ranged&&unit.CurrentHealthPct.Value>0.50d);
-															if (rangedUnitCount>2)
-															{
-																 var targetableUnits=Bot.Combat.CurrentGroupClusters[0].ListUnits.Where(unit => unit.ObjectIsValidForTargeting);
-																 if (targetableUnits.Any())
-																 {
-																	  if (Bot.SettingsFunky.LogGroupingOutput)
-																		  Logging.WriteVerbose("Starting Grouping Behavior. Triggered by Range Group");
-
-																		//Activate Behavior
-																		Bot.NavigationCache.groupRunningBehavior=true;
-																		Bot.NavigationCache.groupingOrginUnit=(CacheUnit)ObjectCache.Objects[CurrentTarget.RAGUID];
-
-																		//Find initial grouping target..
-																		CurrentTarget=targetableUnits.First();
-																		CurrentUnitTarget=(CacheUnit)CurrentTarget;
-																		Bot.NavigationCache.groupingCurrentUnit=CurrentUnitTarget;
-																 }
-															}
-													 }
-
 												}
 										 }
 									}

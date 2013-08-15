@@ -9,28 +9,49 @@ namespace FunkyTrinity.Movement
 {
 	 internal class ClusterCollection
 	 {
-		  public ClusterConditions clusterConditions { get; set; }
+		  public virtual ClusterConditions clusterConditions { get; set; }
 		  public List<Cluster> CurrentClusters { get; set; }
-		  private DateTime lastClusterComputed { get; set; }
-		  private DateTime lastClusterRefresh { get; set; }
+		  internal DateTime lastClusterComputed { get; set; }
+		  internal DateTime lastClusterRefresh { get; set; }
 
-		  public bool ShouldRefreshClusters
+		  private int refreshRate;
+		  ///<summary>
+		  ///The rate at which refreshing the clusters can occur. (Exisiting Clusters)
+		  ///</summary>
+		  public int RefreshRate
+		  {
+				get { return refreshRate; }
+				set { refreshRate=value; }
+		  }
+		  private int updateRate;
+		  ///<summary>
+		  ///The rate at which the clusters are recomputed. (New Clusters)
+		  ///</summary>
+		  public int UpdateRate
+		  {
+				get { return updateRate; }
+				set { updateRate=value; }
+		  }
+
+
+
+		  public bool ShouldUpdateClusters
 		  {
 				get
 				{
-					 return DateTime.Now.Subtract(lastClusterComputed).TotalMilliseconds>200;
+					 return DateTime.Now.Subtract(lastClusterComputed).TotalMilliseconds>this.UpdateRate;
 				}
 		  }
 
 		  ///<summary>
 		  ///Iterates thru the cluster list and calls the update method on each.
 		  ///</summary>
-		  public void RefreshClusters()
+		  public virtual void RefreshClusters()
 		  {
-				if (DateTime.Now.Subtract(lastClusterRefresh).TotalMilliseconds<100)
+				if (DateTime.Now.Subtract(lastClusterRefresh).TotalMilliseconds<this.RefreshRate)
 					 return;
 
-				
+
 				if (CurrentClusters.Count>0)
 				{
 					 foreach (var item in CurrentClusters)
@@ -38,16 +59,27 @@ namespace FunkyTrinity.Movement
 						  item.UpdateUnitPointLists(clusterConditions);
 					 }
 
-					CurrentClusters=CurrentClusters.Where(c => c.ListUnits.Count>=clusterConditions.MinimumUnits&&(clusterConditions.DOTDPSRatio==0.00d||c.DotDPSRatio<=clusterConditions.DOTDPSRatio)).ToList();
+					 CurrentClusters=CurrentClusters.Where(c => c.ListUnits.Count>=clusterConditions.MinimumUnits&&(clusterConditions.DOTDPSRatio==0.00d||c.DotDPSRatio<=clusterConditions.DOTDPSRatio)).ToList();
 				}
 
 				lastClusterRefresh=DateTime.Now;
 		  }
 
+		  public List<CacheUnit> RetrieveAllUnits()
+		  {
+				List<CacheUnit> returnList=new List<CacheUnit>();
+				foreach (var item in CurrentClusters)
+				{
+					 returnList.AddRange(item.ListUnits);
+				}
+
+				return returnList;
+		  }
+
 		  ///<summary>
 		  ///Updates the Cluster List!
 		  ///</summary>
-		  public void UpdateClusters()
+		  public virtual void UpdateClusters()
 		  {
 				CurrentClusters.Clear();
 
@@ -75,12 +107,78 @@ namespace FunkyTrinity.Movement
 				lastClusterComputed=DateTime.Now;
 		  }
 
-		  public ClusterCollection(ClusterConditions CC)
+		  public ClusterCollection(ClusterConditions CC,int updaterate=200, int refreshrate=100)
 		  {
 				CurrentClusters=new List<Cluster>();
 				lastClusterComputed=DateTime.Today;
 				lastClusterRefresh=DateTime.Today;
 				clusterConditions=CC;
+				RefreshRate=refreshrate;
+				UpdateRate=updaterate;
 		  }
-    }
+	 }
+
+	 internal class ClusterTargetCollection : ClusterCollection
+	 {
+		  public ClusterTargetCollection(ClusterConditions CC) : base(CC) { }
+
+
+		  public override ClusterConditions clusterConditions
+		  {
+				get
+				{
+					 return new ClusterConditions(Bot.SettingsFunky.ClusterDistance, 125f, Bot.SettingsFunky.ClusterMinimumUnitCount, false);
+				}
+				set
+				{
+					 base.clusterConditions=value;
+				}
+		  }
+
+		  public override void RefreshClusters()
+		  {
+				if (DateTime.Now.Subtract(base.lastClusterRefresh).TotalMilliseconds<base.RefreshRate)
+					 return;
+
+
+				if (CurrentClusters.Count>0)
+				{
+					 foreach (var item in base.CurrentClusters)
+					 {
+						  item.UpdateUnitPointLists(this.clusterConditions);
+					 }
+
+					 base.CurrentClusters=base.CurrentClusters.Where(c => c.ListUnits.Count>=this.clusterConditions.MinimumUnits&&(this.clusterConditions.DOTDPSRatio==0.00d||c.DotDPSRatio<=this.clusterConditions.DOTDPSRatio)).ToList();
+				}
+
+				base.lastClusterRefresh=DateTime.Now;
+		  }
+		  public override void UpdateClusters()
+		  {
+				CurrentClusters.Clear();
+
+				//Get unit objects only!
+				List<CacheUnit> listObjectUnits=Bot.ValidObjects.OfType<CacheUnit>().Where(u =>
+					 Bot.Combat.UnitRAGUIDs.Contains(u.RAGUID)
+					 &&u.CentreDistance<=this.clusterConditions.MaximumDistance
+					 &&(!this.clusterConditions.IgnoreNonTargetable||u.IsTargetable.HasValue&&u.IsTargetable.Value)).ToList();
+
+
+				//Logging.WriteVerbose("Total Units {0}", listObjectUnits.Count.ToString());
+				if (listObjectUnits.Count>0)
+				{
+					 CurrentClusters=Cluster.RunKmeans(listObjectUnits, this.clusterConditions.ClusterDistance).Where(c => c.ListUnits.Count>=this.clusterConditions.MinimumUnits&&(this.clusterConditions.DOTDPSRatio==0.00d||c.DotDPSRatio<=this.clusterConditions.DOTDPSRatio)).ToList();
+
+					 //Sort by distance -- reverse to get nearest unit First
+					 if (CurrentClusters.Count>0)
+					 {
+						  CurrentClusters=CurrentClusters.OrderBy(o => o.NearestMonsterDistance).ToList();
+						  CurrentClusters.First().ListUnits.Sort();
+						  CurrentClusters.First().ListUnits.Reverse();
+					 }
+				}
+
+				lastClusterComputed=DateTime.Now;
+		  }
+	 }
 }

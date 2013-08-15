@@ -455,9 +455,9 @@ namespace FunkyTrinity.Cache
 				{
 					 get
 					 {
-						  if (Bot.Combat.CurrentTargetClusters.Count>0)
+						  if (Bot.Combat.TargetClusterCollection.CurrentClusters.Count>0)
 						  {
-								var containedClusters=Bot.Combat.CurrentTargetClusters.Where(c => c.RAGUIDS.Contains(this.RAGUID));
+								var containedClusters=Bot.Combat.TargetClusterCollection.CurrentClusters.Where(c => c.RAGUIDS.Contains(this.RAGUID));
 								if (containedClusters.Any())
 									 return containedClusters.First();
 						  }
