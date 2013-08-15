@@ -110,12 +110,12 @@ namespace FunkyTrinity
 									 Bot.Character.IsRunningOOCBehavior=false;
 
 
-								Bot.Character.IsRunningInteractiveBehavior=ObjectCache.InteractiveTags.Contains(Bot.CurrentProfileBehavior.GetType());
+								//Bot.Character.IsRunningInteractiveBehavior=ObjectCache.InteractiveTags.Contains(Bot.CurrentProfileBehavior.GetType());
 
-								if (Bot.Character.ShouldBackTrack&&!Bot.Character.IsRunningInteractiveBehavior)
-								{
-									 Bot.Character.ShouldBackTrack=false;
-								}
+								//if (Bot.Character.ShouldBackTrack&&!Bot.Character.IsRunningInteractiveBehavior)
+								//{
+								//    Bot.Character.ShouldBackTrack=false;
+								//}
 						  }
 					 }
 				}

@@ -9,19 +9,86 @@ using Zeta.TreeSharp;
 using FunkyTrinity.Enums;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
+using FunkyTrinity.ability;
 
 namespace FunkyTrinity.Cache
 {
 
 		  public class CacheUnit : CacheObject
 		  {
+
+				private TargetProperties EvaluateUnitProperties(CacheUnit unit)
+				{
+					 TargetProperties properties=TargetProperties.None;
+
+
+						  if (unit.IsBoss)
+								properties|=TargetProperties.Boss;
+
+						  if (unit.IsBurrowableUnit)
+								properties|=TargetProperties.Burrowing;
+
+						  if (unit.MonsterMissileDampening)
+								properties|=TargetProperties.MissileDampening;
+
+						  if (unit.IsMissileReflecting)
+								properties|=TargetProperties.MissileReflecting;
+
+						  if (unit.MonsterShielding)
+								properties|=TargetProperties.Shielding;
+
+						  if (unit.IsStealthableUnit)
+								properties|=TargetProperties.Stealthable;
+
+						  if (unit.IsSucideBomber)
+								properties|=TargetProperties.SucideBomber;
+
+						  if (unit.IsTreasureGoblin)
+								properties|=TargetProperties.TreasureGoblin;
+
+						  if (unit.IsFast)
+								properties|=TargetProperties.Fast;
+					 
+
+
+						  if (unit.IsEliteRareUnique)
+								properties|=TargetProperties.RareElite;
+
+						  if (unit.MonsterUnique)
+								properties|=TargetProperties.Unique;
+
+						  if (unit.ObjectIsSpecial)
+								properties|=TargetProperties.IsSpecial;
+
+						  if (unit.CurrentHealthPct.Value==1d)
+								properties|=TargetProperties.FullHealth;
+
+						  if (unit.UnitMaxHitPointAverageWeight<0)
+								properties|=TargetProperties.Weak;
+
+
+						  if (unit.Monstersize.Value==MonsterSize.Ranged)
+								properties|=TargetProperties.Ranged;
+
+
+						  if (unit.IsTargetableAndAttackable)
+								properties|=TargetProperties.TargetableAndAttackable;
+
+
+						  if (unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
+								properties|=TargetProperties.DOTDPS;
+					 
+
+					 return properties;
+				}
 				public CacheUnit(CacheObject baseobj)
 					 : base(baseobj)
 				{
-
 				}
 
 				public DiaUnit ref_DiaUnit { get; set; }
+
+				public TargetProperties Properties { get { return EvaluateUnitProperties(this); } }
 
 
 				#region Monster Affixes Related
@@ -1309,7 +1376,7 @@ namespace FunkyTrinity.Cache
 				{
 					 get
 					 {
-						  return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} -- IsMoving: {6} \r\n PriorityCounter={7}",
+						  return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} -- IsMoving: {6} \r\n PriorityCounter={7}\r\nUnit Properties {8}",
 								base.DebugString,
 								this.IsBurrowed.HasValue?this.IsBurrowed.Value.ToString():"",
 								this.IsTargetable.HasValue?this.IsTargetable.Value.ToString():"",
@@ -1317,7 +1384,8 @@ namespace FunkyTrinity.Cache
 								this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value.ToString():"",
 								this.MaximumHealth.HasValue?this.MaximumHealth.Value.ToString():"",
 								this.IsMoving.ToString(),
-								this.PriorityCounter.ToString());
+								this.PriorityCounter.ToString(),
+								this.Properties.ToString());
 					 }
 				}
 
