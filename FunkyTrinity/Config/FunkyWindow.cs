@@ -323,6 +323,10 @@ namespace FunkyTrinity
 							 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
 							 Background=System.Windows.Media.Brushes.DimGray,
 						};
+						ToolTip TTFleeInfo=new System.Windows.Controls.ToolTip
+						{
+							 Content="Trys to move away from any monsters that are within the distance set",
+						};
 						TextBlock Flee_Text_Header=new TextBlock
 						{
 							 Text="Fleeing",
@@ -330,6 +334,7 @@ namespace FunkyTrinity
 							 Background=System.Windows.Media.Brushes.SeaGreen,
 							 TextAlignment=TextAlignment.Center,
 							 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+							 ToolTip=TTFleeInfo,
 						};
 
 						CheckBox CBAttemptFleeingBehavior=new CheckBox
@@ -445,6 +450,10 @@ namespace FunkyTrinity
 								Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
 								Background=System.Windows.Media.Brushes.DimGray,
 						 };
+						ToolTip TTGrouping=new System.Windows.Controls.ToolTip
+						{
+							 Content="Attempts to engage additional nearby monster groups",
+						};
 						TextBlock Grouping_Text_Header=new TextBlock
 						{
 							 Text="Grouping",
@@ -452,6 +461,7 @@ namespace FunkyTrinity
 							 Background=System.Windows.Media.Brushes.LightSeaGreen,
 							 TextAlignment=TextAlignment.Center,
 							 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+							 ToolTip=TTGrouping,
 						};
 						GroupingOptionsStackPanel.Children.Add(Grouping_Text_Header);
 						CheckBox CBGroupingBehavior=new CheckBox

@@ -24,7 +24,7 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.None;
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
-			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.TargetableAndAttackable);
+			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None);
 			Fcriteria = new Func<bool>(() =>
 			{
 				return Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_6] == 0;
