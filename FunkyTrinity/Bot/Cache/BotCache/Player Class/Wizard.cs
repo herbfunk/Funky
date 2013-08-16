@@ -10,7 +10,7 @@ using FunkyTrinity.Enums;
 using FunkyTrinity.ability;
 using FunkyTrinity.Cache;
 using FunkyTrinity.ability.Abilities;
-
+using FunkyTrinity.ability.Abilities.Wizard;
 namespace FunkyTrinity
 {
 
@@ -77,14 +77,9 @@ namespace FunkyTrinity
 				public Wizard(ActorClass a)
 					 : base(a)
 				{
-					 this.RecreateAbilities();
-					HasSignatureAbility=(this.HotbarPowers.Contains(SNOPower.Wizard_MagicMissile)||this.HotbarPowers.Contains(SNOPower.Wizard_ShockPulse)||
-									this.HotbarPowers.Contains(SNOPower.Wizard_SpectralBlade)||this.HotbarPowers.Contains(SNOPower.Wizard_Electrocute));
-
-					 //Check passive critical mass
-					this.bUsingCriticalMassPassive=this.PassivePowers.Contains(SNOPower.Wizard_Passive_CriticalMass);
 				}
-				public virtual Ability DefaultAttack
+
+				public override Ability DefaultAttack
 				{
 					 get { return new WeaponRangedWand(); }
 				}
@@ -129,15 +124,96 @@ namespace FunkyTrinity
 					 return false;
 						  
 				}
+				public override void RecreateAbilities()
+				{
+					 Abilities=new Dictionary<SNOPower, Ability>();
+
+					 //Create the abilities
+					 foreach (var item in HotbarPowers)
+					 {
+							Abilities.Add(item, this.CreateAbility(item));
+					 }
+
+					 //No default rage generation ability.. then we add the Instant Melee Ability.
+					 if (!HotbarContainsAPrimaryAbility())
+					 {
+							Ability defaultAbility=this.DefaultAttack;
+							Abilities.Add(defaultAbility.Power, defaultAbility);
+							RuneIndexCache.Add(defaultAbility.Power, -1);
+					 }
+
+					 //Sort Abilities
+					 SortedAbilities=Abilities.Values.OrderByDescending(a => a.Priority).ThenBy(a => a.Range).ToList();
+				}
 				public override Ability CreateAbility(SNOPower Power)
 				{
-					 WizardActiveSkills power=(WizardActiveSkills)Enum.Parse(typeof(WizardActiveSkills), Power.ToString());
-
+					 WizardActiveSkills power=(WizardActiveSkills)Enum.ToObject(typeof(WizardActiveSkills), (int)Power);
 					 switch (power)
 					 {
+							case WizardActiveSkills.Wizard_Electrocute:
+							 return new Electrocute();
+							case WizardActiveSkills.Wizard_SlowTime:
+							 return new SlowTime();
+							case WizardActiveSkills.Wizard_ArcaneOrb:
+							 return new ArcaneOrb();
+							case WizardActiveSkills.Wizard_Blizzard:
+							 return new Blizzard();
+							case WizardActiveSkills.Wizard_FrostNova:
+							 return new FrostNova();
+							case WizardActiveSkills.Wizard_Hydra:
+							 return new Hydra();
+							case WizardActiveSkills.Wizard_MagicMissile:
+							 return new MagicMissile();
+							case WizardActiveSkills.Wizard_ShockPulse:
+							 return new ShockPulse();
+							case WizardActiveSkills.Wizard_WaveOfForce:
+							 return new WaveOfForce();
+							case WizardActiveSkills.Wizard_Meteor:
+							 return new Meteor();
+							case WizardActiveSkills.Wizard_SpectralBlade:
+							 return new SpectralBlade();
+							case WizardActiveSkills.Wizard_IceArmor:
+							 return new IceArmor();
+							case WizardActiveSkills.Wizard_StormArmor:
+							 return new StormArmor();
+							case WizardActiveSkills.Wizard_DiamondSkin:
+							 return new DiamondSkin();
+							case WizardActiveSkills.Wizard_MagicWeapon:
+							 return new MagicWeapon();
+							case WizardActiveSkills.Wizard_EnergyTwister:
+							 return new EnergyTwister();
+							case WizardActiveSkills.Wizard_EnergyArmor:
+							 return new EnergyArmor();
+							case WizardActiveSkills.Wizard_ExplosiveBlast:
+							 return new ExplosiveBlast();
+							case WizardActiveSkills.Wizard_Disintegrate:
+							 return new Disintegrate();
+							case WizardActiveSkills.Wizard_RayOfFrost:
+							 return new RayOfFrost();
+							case WizardActiveSkills.Wizard_MirrorImage:
+							 return new MirrorImage();
+							case WizardActiveSkills.Wizard_Familiar:
+							 return new Familiar();
+							case WizardActiveSkills.Wizard_ArcaneTorrent:
+							 return new ArcaneTorrent();
+							case WizardActiveSkills.Wizard_Archon:
+							 return new Archon();
+							case WizardActiveSkills.Wizard_Archon_ArcaneStrike:
+							 return new ArchonArcaneStrike();
+							case WizardActiveSkills.Wizard_Archon_DisintegrationWave:
+							 return new ArchonDisintegrationWave();
+							case WizardActiveSkills.Wizard_Archon_SlowTime:
+							 return new ArchonSlowTime();
+							case WizardActiveSkills.Wizard_Archon_ArcaneBlast:
+							 return new ArchonArcaneBlast();
+							case WizardActiveSkills.Wizard_Archon_Teleport:
+							 return new ArchonTeleport();
+							case WizardActiveSkills.Wizard_Teleport:
+							 return new Teleport();
 							default:
-								 return DefaultAttack;
+								 return this.DefaultAttack;
 					 }
+					
 				}
 
 

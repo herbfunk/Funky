@@ -352,6 +352,96 @@
     <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\ZombieCharger.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\ArcaneOrb.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\ArcaneTorrent.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\Archon.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\ArchonArcaneBlast.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\ArchonArcaneStrike.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\ArchonDisintegrationWave.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\ArchonSlowTime.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\ArchonTeleport.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\Blizzard.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\DiamondSkin.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\Disintegrate.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\Electrocute.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\EnergyArmor.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\EnergyTwister.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\ExplosiveBlast.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\Familiar.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\FrostNova.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\Hydra.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\IceArmor.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\MagicMissile.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\MagicWeapon.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\Meteor.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\MirrorImage.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\RayOfFrost.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\ShockPulse.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\SlowTime.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\SpectralBlade.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\StormArmor.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\Teleport.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Wizard\WaveOfForce.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Bot\Cache\Ability\AbilityCriteria.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -870,7 +960,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Bot\Cache\Ability\Abilities\Wizard\" />
     <Folder Include="ItemRules\Log\Archive\" />
     <Folder Include="Log\ProfileStats\" />
   </ItemGroup>

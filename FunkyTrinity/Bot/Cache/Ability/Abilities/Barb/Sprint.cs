@@ -28,6 +28,13 @@ namespace FunkyTrinity.ability.Abilities.Barb
 			Priority = AbilityPriority.High;
 			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckCanCast |
 			                     AbilityConditions.CheckPlayerIncapacitated);
+
+			IsBuff=true;
+			Fbuff=new Func<bool>(() =>
+				 {
+					  return Bot.SettingsFunky.OutOfCombatMovement&&!Bot.Class.HasBuff(this.Power);
+				 }
+			);
 			Fcriteria = new Func<bool>(() =>
 			{
 				return (!Bot.Class.HasBuff(SNOPower.Barbarian_Sprint) && Bot.SettingsFunky.OutOfCombatMovement) ||
