@@ -1173,7 +1173,7 @@ namespace FunkyTrinity.Cache
 					 if (Bot.Class.AC==ActorClass.Barbarian)
 					 {
 						  //Rend DotDPS update
-						  if (Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Rend))
+							if (Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Rend))
 						  {
 								try
 								{
@@ -1184,7 +1184,7 @@ namespace FunkyTrinity.Cache
 					 else if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.WitchDoctor)
 					 {
 						  //Haunted DotDPS update
-						  if (Bot.Class.HotbarPowers.Contains(SNOPower.Witchdoctor_Haunt)||Bot.Class.HotbarPowers.Contains(SNOPower.Witchdoctor_Locust_Swarm))
+							if (Bot.Class.HotbarPowers.Contains(SNOPower.Witchdoctor_Haunt)||Bot.Class.HotbarPowers.Contains(SNOPower.Witchdoctor_Locust_Swarm))
 						  {
 								Bot.Combat.UsesDOTDPSAbility=true;
 								try

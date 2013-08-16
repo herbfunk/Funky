@@ -12,10 +12,18 @@ using FunkyTrinity.Movement;
 
 namespace FunkyTrinity.ability
 {
+	 [Flags]
+	 public enum AbilityUseage
+	 {
+		  Anywhere=1,
+		  OutOfCombat=2,
+		  Combat=4,
+	 }
+
 	 ///<summary>
 	 ///Cached Object that Describes an individual ability.
 	 ///</summary>
-	 public partial class Ability
+	 public partial class Ability : IAbility
 	 {
 
 			//Conditional Methods which are used to determine if the power should be used.
@@ -29,32 +37,48 @@ namespace FunkyTrinity.ability
 
 			public Ability()
 			{
-				 Power=SNOPower.None;
 				 PreCastConditions=AbilityConditions.None;
 				 Fcriteria=new Func<bool>(() => { return true; });
 				 WaitVars=new WaitLoops(0, 0, true);
 				 IsRanged=false;
+				 UseageType=AbilityUseage.Anywhere;
+				 ExecutionType=AbilityUseType.None;
 				 LastConditionPassed=ConditionCriteraTypes.None;
 				 IsSpecialAbility=false;
+				 Range=0;
+				 Priority=AbilityPriority.None;
+				Initialize();
+			}
+			protected virtual void Initialize()
+			{
+
 			}
 
 			#region Properties
-			private SNOPower power_;
-			public SNOPower Power
+			public AbilityPriority Priority { get; set; }
+			///<summary>
+			///Describes variables for use of ability: PreWait Loops, PostWait Loops, Reuseable
+			///</summary>
+			public WaitLoops WaitVars { get; set; }
+			public int Range { get; set; }
+			public double Cost { get; set; }
+			public bool SecondaryEnergy { get; set; }
+			///<summary>
+			///This is used to determine how the ability will be used
+			///</summary>
+			public AbilityUseType ExecutionType { get; set; }
+
+			private AbilityUseage useageType;
+			public AbilityUseage UseageType
 			{
-				 get { return power_; }
-				 set
-				 {
-						power_=value;
-				 }
+				 get { return useageType; }
+				 set { useageType=value; if (value.HasFlag(AbilityUseage.OutOfCombat|AbilityUseage.Anywhere)) Fbuff=new Func<bool>(() => { return true; }); }
 			}
 
-			internal int RuneIndex { get { return Bot.Class.RuneIndexCache[this.Power]; } }
+			public virtual int RuneIndex { get { return -1; } }
 			internal bool IsADestructiblePower { get { return PowerCacheLookup.AbilitiesDestructiblePriority.Contains(this.Power); } }
 			internal bool IsASpecialMovementPower { get { return PowerCacheLookup.SpecialMovementAbilities.Contains(this.Power); } }
 
-			public double Cost { get; set; }
-			public bool SecondaryEnergy { get; set; }
 			///<summary>
 			///Ability will trigger WaitingForSpecial if Energy Check fails.
 			///</summary>
@@ -67,16 +91,7 @@ namespace FunkyTrinity.ability
 				 set { isNavigationSpecial=value; }
 			}
 
-			private int range_;
-			public int Range
-			{
-				 get { return range_; }
-				 set
-				 {
-						range_=value;
-						minimumRange_=value;
-				 }
-			}
+
 
 			///<summary>
 			///Ability is either projectile or is usable at a further location then melee
@@ -87,11 +102,11 @@ namespace FunkyTrinity.ability
 			{
 				 get
 				 {
-						return PowerCacheLookup.dictAbilityLastUse[this.power_];
+						return PowerCacheLookup.dictAbilityLastUse[this.Power];
 				 }
 				 set
 				 {
-						PowerCacheLookup.dictAbilityLastUse[this.power_]=value;
+					  PowerCacheLookup.dictAbilityLastUse[this.Power]=value;
 				 }
 			}
 			internal double LastUsedMilliseconds
@@ -104,47 +119,12 @@ namespace FunkyTrinity.ability
 				 get { return Bot.Class.AbilityCooldowns[this.Power]; }
 			}
 
-			///<summary>
-			///Describes variables for use of ability: PreWait Loops, PostWait Loops, Reuseable
-			///</summary>
-			public WaitLoops WaitVars { get; set; }
 
 			///<summary>
 			///Holds int value that describes pet count or buff stacks.
 			///</summary>
 			public int Counter { get; set; }
 
-			public AbilityPriority Priority { get; set; }
-
-			///<summary>
-			///This is used to determine how the ability will be used
-			///</summary>
-			public AbilityUseType UsageType { get; set; }
-
-			private bool useOOCBuff;
-			///<summary>
-			///This ability is allowed for buffing.
-			///</summary>
-			public bool UseOOCBuff
-			{
-				 get { return useOOCBuff; }
-				 set 
-				 { 
-					  useOOCBuff=value; 
-					  //Set default Func
-					  if (value==true) Fbuff=new Func<bool>(() => { return true; });
-				 }
-			}
-
-			///<summary>
-			///This ability is allowed during avoidance movements.
-			///</summary>
-			public bool UseAvoiding { get; set; }
-
-			/////<summary>
-			/////will test final custom conditions even if all combat criteria conditions failed or none were ever set.
-			/////</summary>
-			//public bool TestCustomCombatConditionAlways { get; set; }
 
 			#endregion
 
@@ -160,7 +140,7 @@ namespace FunkyTrinity.ability
 			///<summary>
 			///Describes the pre casting conditions - when set it will create the precast method used.
 			///</summary>
-			internal AbilityConditions PreCastConditions
+			public virtual AbilityConditions PreCastConditions
 			{
 				 get
 				 {
@@ -169,68 +149,74 @@ namespace FunkyTrinity.ability
 				 set
 				 {
 						precastconditions_=value;
-						Fprecast=null;
-
-						if (precastconditions_.Equals(AbilityConditions.None))
-							 Fprecast+=(new Func<bool>(() => { return true; }));
-						else
-						{
-							 if (precastconditions_.HasFlag(AbilityConditions.CheckPlayerIncapacitated))
-									Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsIncapacitated; }));
-
-							 if (precastconditions_.HasFlag(AbilityConditions.CheckPlayerRooted))
-									Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsRooted; }));
-
-							 if (precastconditions_.HasFlag(AbilityConditions.CheckExisitingBuff))
-									Fprecast+=(new Func<bool>(() => { return !Bot.Class.HasBuff(this.Power); }));
-
-							 if (precastconditions_.HasFlag(AbilityConditions.CheckPetCount))
-									Fprecast+=(new Func<bool>(() => { return Bot.Class.MainPetCount<this.Counter; }));
-
-							 if (precastconditions_.HasFlag(AbilityConditions.CheckRecastTimer))
-									Fprecast+=(new Func<bool>(() => { return this.LastUsedMilliseconds>this.Cooldown; }));
-
-							 if (precastconditions_.HasFlag(AbilityConditions.CheckCanCast))
-							 {
-									Fprecast+=(new Func<bool>(() =>
-									{
-										 bool cancast=PowerManager.CanCast(this.Power, out this.CanCastFlags);
-
-										 //Special Ability -- Trigger Waiting For Special When Not Enough Resource to Cast.
-										 if (this.IsSpecialAbility)
-										 {
-												if (!cancast&&this.CanCastFlags.HasFlag(PowerManager.CanCastFlags.PowerNotEnoughResource))
-													 Bot.Class.bWaitingForSpecial=true;
-												else
-													 Bot.Class.bWaitingForSpecial=false;
-										 }
-
-										 return cancast;
-									}));
-							 }
-
-							 if (precastconditions_.HasFlag(AbilityConditions.CheckEnergy))
-							 {
-									if (!this.SecondaryEnergy)
-										 Fprecast+=(new Func<bool>(() =>
-										 {
-												bool energyCheck=Bot.Character.dCurrentEnergy>=this.Cost;
-												if (this.IsSpecialAbility) //we trigger waiting for special here.
-													 Bot.Class.bWaitingForSpecial=!energyCheck;
-												return energyCheck;
-										 }));
-									else
-										 Fprecast+=(new Func<bool>(() =>
-										 {
-												bool energyCheck=Bot.Character.dDiscipline>=this.Cost;
-												if (this.IsSpecialAbility) //we trigger waiting for special here.
-													 Bot.Class.bWaitingForSpecial=!energyCheck;
-												return energyCheck;
-										 }));
-							 }
-						}
 				 }
 			}
+
+			internal static void CreatePreCastConditions(out Func<bool> Fprecast, Ability ability)
+		 {
+				Fprecast=null;
+				AbilityConditions precastconditions_=ability.PreCastConditions;
+
+				if (precastconditions_.Equals(AbilityConditions.None))
+					 Fprecast+=(new Func<bool>(() => { return true; }));
+				else
+				{
+					 if (precastconditions_.HasFlag(AbilityConditions.CheckPlayerIncapacitated))
+							Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsIncapacitated; }));
+
+					 if (precastconditions_.HasFlag(AbilityConditions.CheckPlayerRooted))
+							Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsRooted; }));
+
+					 if (precastconditions_.HasFlag(AbilityConditions.CheckExisitingBuff))
+							Fprecast+=(new Func<bool>(() => { return !Bot.Class.HasBuff(ability.Power); }));
+
+					 if (precastconditions_.HasFlag(AbilityConditions.CheckPetCount))
+							Fprecast+=(new Func<bool>(() => { return Bot.Class.MainPetCount<ability.Counter; }));
+
+					 if (precastconditions_.HasFlag(AbilityConditions.CheckRecastTimer))
+							Fprecast+=(new Func<bool>(() => { return ability.LastUsedMilliseconds>ability.Cooldown; }));
+
+					 if (precastconditions_.HasFlag(AbilityConditions.CheckCanCast))
+					 {
+							Fprecast+=(new Func<bool>(() =>
+							{
+								 bool cancast=PowerManager.CanCast(ability.Power, out ability.CanCastFlags);
+
+								 //Special Ability -- Trigger Waiting For Special When Not Enough Resource to Cast.
+								 if (ability.IsSpecialAbility)
+								 {
+										if (!cancast&&ability.CanCastFlags.HasFlag(PowerManager.CanCastFlags.PowerNotEnoughResource))
+											 Bot.Class.bWaitingForSpecial=true;
+										else
+											 Bot.Class.bWaitingForSpecial=false;
+								 }
+
+								 return cancast;
+							}));
+					 }
+
+					 if (precastconditions_.HasFlag(AbilityConditions.CheckEnergy))
+					 {
+							if (!ability.SecondaryEnergy)
+								 Fprecast+=(new Func<bool>(() =>
+								 {
+										bool energyCheck=Bot.Character.dCurrentEnergy>=ability.Cost;
+										if (ability.IsSpecialAbility) //we trigger waiting for special here.
+											 Bot.Class.bWaitingForSpecial=!energyCheck;
+										return energyCheck;
+								 }));
+							else
+								 Fprecast+=(new Func<bool>(() =>
+								 {
+										bool energyCheck=Bot.Character.dDiscipline>=ability.Cost;
+										if (ability.IsSpecialAbility) //we trigger waiting for special here.
+											 Bot.Class.bWaitingForSpecial=!energyCheck;
+										return energyCheck;
+								 }));
+					 }
+				}
+
+		 }
 
 			///<summary>
 			///Describes values for clustering used for target (Cdistance, DistanceFromBot, MinUnits, IgnoreNonTargetable)
@@ -238,18 +224,21 @@ namespace FunkyTrinity.ability
 			///<value>
 			///Clustering Distance, Distance From Bot, Minimum Unit Count, Ignore Non-Targetables
 			///</value>
-			internal ClusterConditions ClusterConditions
+			public virtual ClusterConditions ClusterConditions
 			{
 				 get { return ClusterConditions_; }
 				 set
 				 {
 						ClusterConditions_=value;
-						FClusterConditions=new Func<bool>(() => { return CheckClusterConditions(this.ClusterConditions); });
 				 }
 			}
 			private ClusterConditions ClusterConditions_;
-			private Func<bool> FClusterConditions { get; set; }
+			internal Func<bool> FClusterConditions { get; set; }
 
+		 internal static void CreateClusterConditions(out Func<bool> FClusterConditions, Ability ability)
+		 {
+				FClusterConditions=new Func<bool>(() => { return CheckClusterConditions(ability.ClusterConditions); });
+		 }
 			internal static bool CheckClusterConditions(ClusterConditions CC)
 			{
 				 return Bot.Combat.Clusters(CC).Count>0;
@@ -579,7 +568,7 @@ namespace FunkyTrinity.ability
 			}
 
 			//Resets Properties
-			internal void SetupAbilityForUse()
+			public virtual void SetupAbilityForUse()
 			{
 				 MinimumRange=Range;
 				 TargetPosition_=Vector3.Zero;
@@ -590,59 +579,15 @@ namespace FunkyTrinity.ability
 				 CanCastFlags=PowerManager.CanCastFlags.None;
 				 SuccessUsed_=null;
 
-				 //Check Clustering First.. we verify that cluster condition was last to be tested.
-				 
-				 //Cluster Target -- Aims for Centeroid Unit
-				 if (this.UsageType.HasFlag(AbilityUseType.ClusterTarget)&&CheckClusterConditions(this.ClusterConditions)) //Cluster ACDGUID
-				 {
-						TargetRAGUID_=Bot.Combat.Clusters(this.ClusterConditions)[0].GetNearestUnitToCenteroid().AcdGuid.Value;
-						return;
-				 }
-				 //Cluster Location -- Aims for Center of Cluster
-				 if (this.UsageType.HasFlag(AbilityUseType.ClusterLocation)&&CheckClusterConditions(this.ClusterConditions)) //Cluster Target Position
-				 {
-					  TargetPosition_=(Vector3)Bot.Combat.Clusters(this.ClusterConditions)[0].Midpoint;
-						return;
-				 }
-				 //Cluster Target Nearest -- Gets nearest unit in cluster as target.
-				 if (this.UsageType.HasFlag(AbilityUseType.ClusterTargetNearest)&&CheckClusterConditions(this.ClusterConditions)) //Cluster Target Position
-				 {
-					  TargetRAGUID_=Bot.Combat.Clusters(this.ClusterConditions)[0].ListUnits[0].AcdGuid.Value;
-					  return;
-				 }
-
-				 if (this.UsageType.HasFlag(AbilityUseType.Location)) //Current Target Position
-						TargetPosition_=Bot.Target.CurrentTarget.Position;
-				 else if (this.UsageType.HasFlag(AbilityUseType.Self)) //Current Bot Position
-						TargetPosition_=Bot.Character.Position;
-				 else if (this.UsageType.HasFlag(AbilityUseType.ZigZagPathing)) //Zig-Zag Pathing
-				 {
-						Bot.Combat.vPositionLastZigZagCheck=Bot.Character.Position;
-						if (Bot.Class.ShouldGenerateNewZigZagPath())
-							 Bot.Class.GenerateNewZigZagPath();
-
-						TargetPosition_=Bot.Combat.vSideToSideTarget;
-				 }
-				 else if (this.UsageType.HasFlag(AbilityUseType.Target)) //Current Target ACDGUID
-						TargetRAGUID_=Bot.Target.CurrentTarget.AcdGuid.Value;
 			}
 
 			internal PowerManager.CanCastFlags CanCastFlags;
 			#endregion
 
 
-			public void UsePower()
+			public virtual void UsePower()
 			{
-				 if (!this.UsageType.HasFlag(AbilityUseType.RemoveBuff))
-				 {
-						PowerManager.CanCast(this.Power, out CanCastFlags);
-						SuccessUsed_=ZetaDia.Me.UsePower(this.Power, this.TargetPosition_, this.WorldID, this.TargetRAGUID_);
-				 }
-				 else
-				 {
-						ZetaDia.Me.GetBuff(this.Power).Cancel();
-						SuccessUsed_=true;
-				 }
+
 			}
 
 			///<summary>
@@ -693,11 +638,11 @@ namespace FunkyTrinity.ability
 
 
 
-			public override int GetHashCode()
+			public virtual int GetHashCode()
 			{
 				 return (int)this.Power;
 			}
-			public override bool Equals(object obj)
+			public virtual bool Equals(object obj)
 			{
 				 //Check for null and compare run-time types. 
 				 if (obj==null||this.GetType()!=obj.GetType())
@@ -715,17 +660,25 @@ namespace FunkyTrinity.ability
 			{
 				 return String.Format("Ability: {0} [RuneIndex={1}] \r\n"+
 											"Range={2} ReuseMS={3} Priority [{4}] UseType [{5}] \r\n"+
-											"Avoid {6} Buff {7} \r\n"+
-											"Last Condition {8} -- Last Used {9}",
-																		 this.power_.ToString(), this.RuneIndex.ToString(),
-																		 this.Range.ToString(), this.Cooldown.ToString(), this.Priority.ToString(), this.UsageType.ToString(),
-																		 this.UseAvoiding.ToString(), this.UseOOCBuff.ToString(),
+											"Usage {6} \r\n"+
+											"Last Condition {7} -- Last Used {8}",
+																		 this.Power.ToString(), this.RuneIndex.ToString(),
+																		 this.Range.ToString(), this.Cooldown.ToString(), this.Priority.ToString(), this.ExecutionType.ToString(),
+																		 this.UseageType.ToString(),
 																		 this.LastConditionPassed.ToString(), this.LastUsedMilliseconds<100000?this.LastUsedMilliseconds.ToString()+"ms":"Never");
 			}
 
 
 
 
+
+			#region IAbility Members
+
+			public virtual SNOPower Power
+			{
+				 get { return SNOPower.None; }
+			}
+			#endregion
 	 }
 
 }

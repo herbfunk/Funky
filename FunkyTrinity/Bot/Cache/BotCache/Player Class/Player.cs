@@ -29,6 +29,7 @@ namespace FunkyTrinity
 					 Logging.WriteVerbose("[Funky] Finished Creating Player Class");
 				}
 
+
 				///<summary>
 				///The actor class of this bot.
 				///</summary>
@@ -48,16 +49,78 @@ namespace FunkyTrinity
 				internal double iWaitingReservedAmount=0d;
 				internal bool bWaitingForSpecial=false;
 				
+				///<summary>
+				///Create ability (Derieved classes override this!)
+				///</summary>
+				public virtual Ability CreateAbility(SNOPower P)
+				{
+					 return new Ability();
+				}
 
-				public virtual void RecreateAbilities() { }
+			  public virtual Ability DefaultAttack
+			  {
+				  get { return new Ability(); }
+			  }
+
+			  ///<summary>
+				///Check if Bot should generate a new ZigZag location.
+				///</summary>
+				public virtual bool ShouldGenerateNewZigZagPath()
+				{
+					 return true;
+				}
+
+				///<summary>
+				///Generates a new ZigZag location.
+				///</summary>
+				public virtual void GenerateNewZigZagPath() { }
+
+				///<summary>
+				///
+				///</summary>
+				public virtual int MainPetCount { get { return 0; } }
+
+				///<summary>
+				///Used to check for a secondary hotbar set. Currently only used for wizards with Archon.
+				///</summary>
+				public virtual bool SecondaryHotbarBuffPresent()
+				{
+
+					 //if (AC==ActorClass.Wizard)
+					 //{
+					 //	 bool ArchonBuffPresent=this.HasBuff(SNOPower.Wizard_Archon);
+
+					 //	 //Confirm we don't have archon ability without archon buff.
+					 //	 bool RefreshNeeded=((!ArchonBuffPresent&&Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast))
+					 //								||(ArchonBuffPresent&&!Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast)));
+
+					 //	 if (RefreshNeeded)
+					 //	 {
+					 //			Logging.WriteVerbose("Updating Hotbar abilities!");
+					 //			CachedPowers=new HashSet<SNOPower>(HotbarPowers);
+					 //			RefreshHotbar();
+					 //			UpdateRepeatAbilityTimes();
+					 //			RecreateAbilities();
+					 //			return true;
+					 //	 }
+					 //}
+					 return false;
+				}
+
+
+				public virtual void RecreateAbilities()
+				{
+					
+				}
 
 				///<summary>
 				///Checks if hotbar contains any of the "Primary" abilities.
 				///</summary>
-				public virtual bool HotbarContainsAPrimaryAbility()
+				public bool HotbarContainsAPrimaryAbility()
 				{
-					 return false;
+					 return this.HotbarPowers.Any(p => PowerCacheLookup.PrimaryAbilities.Contains(p));
 				}
+
 
 				///<summary>
 				///Selects first ability that is successful in precast and combat testing.
@@ -67,8 +130,8 @@ namespace FunkyTrinity
 					 foreach (var item in this.SortedAbilities)
 					 {
 						  //Check Avoidance and Buff only parameters!
-						  if (bCurrentlyAvoiding&&item.UseAvoiding==false) continue;
-						  if (bOOCBuff&&item.UseOOCBuff==false) continue;
+						  if (bCurrentlyAvoiding&&item.UseageType.HasFlag(AbilityUseage.Anywhere)==false) continue;
+						  if (bOOCBuff&&item.UseageType.HasFlag(AbilityUseage.OutOfCombat|AbilityUseage.Anywhere)==false) continue;
 
 						  //Check precast conditions
 						  if (!item.CheckPreCastConditionMethod()) continue;
@@ -90,7 +153,7 @@ namespace FunkyTrinity
 				///</summary>
 				public virtual Ability DestructibleAbility()
 				{
-					 Ability returnAbility=IsMeleeClass?Ability.Instant_Melee_Attack:Ability.Instant_Range_Attack;
+					 Ability returnAbility=Bot.Class.DefaultAttack;
 
 					 foreach (var item in this.Abilities.Values)
 					 {
@@ -104,36 +167,10 @@ namespace FunkyTrinity
 						  }
 					 }
 
-					 
+
 					 returnAbility.SetupAbilityForUse();
 					 return returnAbility;
 				}
-
-				///<summary>
-				///Create ability (Derieved classes override this!)
-				///</summary>
-				public virtual Ability CreateAbility(SNOPower P)
-				{
-					 return new Ability();
-				}
-
-				///<summary>
-				///Check if Bot should generate a new ZigZag location.
-				///</summary>
-				public virtual bool ShouldGenerateNewZigZagPath()
-				{
-					 return true;
-				}
-
-				///<summary>
-				///Generates a new ZigZag location.
-				///</summary>
-				public virtual void GenerateNewZigZagPath() { }
-
-				///<summary>
-				///
-				///</summary>
-				public virtual int MainPetCount { get { return 0; } }
 
 
 				internal HashSet<SNOPower> PassivePowers=new HashSet<SNOPower>();
@@ -175,7 +212,7 @@ namespace FunkyTrinity
 				internal bool FindSpecialMovementPower(out Ability MovementAbility)
 				{
 					 MovementAbility=null;
-					 foreach (var item in this.Abilities.Values.Where(A=>A.IsASpecialMovementPower))
+					 foreach (var item in this.Abilities.Values.Where(A => A.IsASpecialMovementPower))
 					 {
 
 						  if (item.CheckPreCastConditionMethod())
@@ -193,7 +230,7 @@ namespace FunkyTrinity
 				internal bool FindBuffPower(out Ability BuffAbility)
 				{
 					 BuffAbility=null;
-					 foreach (var item in this.Abilities.Values.Where(A => A.UseOOCBuff))
+					 foreach (var item in this.Abilities.Values.Where(A => A.UseageType.HasFlag(AbilityUseage.OutOfCombat)))
 					 {
 						  if (item.CheckPreCastConditionMethod())
 						  {
@@ -215,38 +252,8 @@ namespace FunkyTrinity
 					 if (destructibleabilities.Count>0)
 						  return destructibleabilities.First(a => a!=ignore);
 
-					 return IsMeleeClass?SNOPower.Weapon_Melee_Instant:SNOPower.Weapon_Ranged_Instant;
+					 return Bot.Class.DefaultAttack.Power;
 				}
-				
-
-				///<summary>
-				///Used to check for a secondary hotbar set. Currently only used for wizards with Archon.
-				///</summary>
-				internal bool SecondaryHotbarBuffPresent()
-				{
-
-					 if (AC==ActorClass.Wizard)
-					 {
-						  bool ArchonBuffPresent=this.HasBuff(SNOPower.Wizard_Archon);
-
-						  //Confirm we don't have archon ability without archon buff.
-						  bool RefreshNeeded=((!ArchonBuffPresent&&Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast))
-													 ||(ArchonBuffPresent&&!Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast)));
-
-						  if (RefreshNeeded)
-						  {
-								Logging.WriteVerbose("Updating Hotbar abilities!");
-								CachedPowers=new HashSet<SNOPower>(HotbarPowers);
-								RefreshHotbar();
-								UpdateRepeatAbilityTimes();
-								RecreateAbilities();
-								return true;
-						  }
-					 }
-					 return false;
-				}
-
-
 
 				///<summary>
 				///Enumerates through the ActiveSkills and adds them to the HotbarAbilities collection.
@@ -334,12 +341,12 @@ namespace FunkyTrinity
 					 AbilityCooldowns=new Dictionary<SNOPower, int>();
 					 foreach (var item in HotbarPowers)
 					 {
-							if (PowerCacheLookup.dictAbilityRepeatDefaults.ContainsKey(item))
-								 AbilityCooldowns.Add(item, PowerCacheLookup.dictAbilityRepeatDefaults[item]);
+						  if (PowerCacheLookup.dictAbilityRepeatDefaults.ContainsKey(item))
+								AbilityCooldowns.Add(item, PowerCacheLookup.dictAbilityRepeatDefaults[item]);
 					 }
 					 foreach (var item in PassivePowers)
 					 {
-							if (PowerCacheLookup.PassiveAbiltiesReduceRepeatTime.Contains(item))
+						  if (PowerCacheLookup.PassiveAbiltiesReduceRepeatTime.Contains(item))
 						  {
 								switch (item)
 								{
@@ -389,17 +396,6 @@ namespace FunkyTrinity
 					 }
 					 if (!AbilityCooldowns.ContainsKey(SNOPower.DrinkHealthPotion))
 						  AbilityCooldowns.Add(SNOPower.DrinkHealthPotion, 30000);
-
-					 if (IsMeleeClass)
-					 {
-						  if (!AbilityCooldowns.ContainsKey(SNOPower.Weapon_Melee_Instant))
-								AbilityCooldowns.Add(SNOPower.Weapon_Melee_Instant, 5);
-					 }
-					 else
-					 {
-						  if (!AbilityCooldowns.ContainsKey(SNOPower.Weapon_Ranged_Instant))
-								AbilityCooldowns.Add(SNOPower.Weapon_Ranged_Instant, 5);
-					 }
 				}
 
 				///<summary>
@@ -425,7 +421,7 @@ namespace FunkyTrinity
 				internal bool AbilityUseTimer(SNOPower thispower, bool bReCheck=false)
 				{
 					 double lastUseMS=AbilityLastUseMS(thispower);
-					 if (lastUseMS>=Bot.Class.AbilityCooldowns[thispower])
+					 if (lastUseMS>=this.AbilityCooldowns[thispower])
 						  return true;
 					 if (bReCheck&&lastUseMS>=150&&lastUseMS<=600)
 						  return true;
@@ -450,18 +446,17 @@ namespace FunkyTrinity
 					 return CurrentBuffs.Keys.Any(u => u==id);
 				}
 
-
 				public void DebugString()
 				{
-					 Logging.Write("Character Information\r\nRadius {0}\r\nHotBar Abilities [{1}]\r\n", Bot.Character.fCharacterRadius, this.HotbarPowers.Count);
+					 Logging.Write("Character Information\r\nRadius {0}\r\nHotBar Abilities [{1}]\r\n", Bot.Character.fCharacterRadius, HotbarPowers.Count);
 
 					 foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.HotbarPowers)
 					 {
-						  Logging.Write("{0} with current rune index {1}", item.ToString(), Bot.Class.RuneIndexCache.ContainsKey(item)?Bot.Class.RuneIndexCache[item].ToString():"none");
+						  Logging.Write("{0} with current rune index {1}", item.ToString(), RuneIndexCache.ContainsKey(item)?RuneIndexCache[item].ToString():"none");
 					 }
 
 					 Logging.Write("Created Abilities [{0}]", Abilities.Count);
-					 foreach (var item in this.Abilities.Values)
+					 foreach (var item in Abilities.Values)
 					 {
 						  Logging.Write("Power [{0}] -- Priority {1} --", item.Power.ToString(), item.Priority, item.DebugString());
 					 }
@@ -469,7 +464,7 @@ namespace FunkyTrinity
 					 Bot.Character.UpdateAnimationState();
 					 Logging.Write("State: {0} -- SNOAnim {1}", Bot.Character.CurrentAnimationState.ToString(), Bot.Character.CurrentSNOAnim.ToString());
 					 Logging.Write("Current Buffs");
-					 foreach (Zeta.Internals.Actors.SNOPower item in Bot.Class.CurrentBuffs.Keys)
+					 foreach (Zeta.Internals.Actors.SNOPower item in CurrentBuffs.Keys)
 					 {
 						  Logging.Write("Buff: {0}", Enum.GetName(typeof(SNOPower), item));
 					 }

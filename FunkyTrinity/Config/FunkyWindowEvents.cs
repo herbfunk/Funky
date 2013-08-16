@@ -204,7 +204,13 @@ namespace FunkyTrinity
 
 								 foreach (var item in Bot.Class.Abilities.Values)
 								 {
-									  LBDebug.Items.Add(item.DebugString());
+									  try
+									  {
+											LBDebug.Items.Add(item.DebugString());
+									  } catch (Exception ex)
+									  {
+											 Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
+									  }
 								 }
 
 
@@ -218,7 +224,7 @@ namespace FunkyTrinity
 					  {
 							try
 							{
-								 LBDebug.Items.Add(Bot.Target.CurrentTarget.DebugString);
+								 Bot.Class.DebugString();
 							} catch
 							{
 

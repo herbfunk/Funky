@@ -351,7 +351,7 @@ namespace FunkyTrinity.Movement
 						  }
 
 						  //Special Whirlwind Code
-						  if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Barbarian&&Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind))
+							if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Barbarian&&Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind))
 						  {
 								// Whirlwind against everything within range (except backtrack points)
 								if (Bot.Character.dCurrentEnergy>=10

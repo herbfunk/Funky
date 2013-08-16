@@ -335,7 +335,7 @@ namespace FunkyTrinity
 										  return true;
 								}
 						  }
-						  else if (Class.AC==ActorClass.Barbarian&&Class.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))
+							else if (Class.AC==ActorClass.Barbarian&&Class.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))
 						  {
 								switch (thisAvoidance)
 								{

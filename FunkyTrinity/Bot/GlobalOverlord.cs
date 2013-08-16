@@ -78,6 +78,7 @@ namespace FunkyTrinity
 									 Bot.Class=new Wizard(tempClass);
 									 break;
 						  }
+
 					 }
 
 					 iCombatLoops=0;

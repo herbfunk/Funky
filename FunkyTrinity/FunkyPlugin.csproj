@@ -73,6 +73,180 @@
     <Compile Include="Bot\Behaviors\Misc\Items\LowLevelLogic.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\AncientSpear.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\Bash.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\Battlerage.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\CalloftheAncients.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\Cleave.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\Earthquake.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\Frenzy.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\FuriousCharge.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\GroundStomp.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\HammeroftheAncients.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\IgnorePain.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\Leap.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\Overpower.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\Rend.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\Revenge.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\SeismicSlam.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\Sprint.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\ThreateningShout.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\Warcry.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\WeaponThrow.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\Whirlwind.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Barb\WrathOfTheBerserker.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\CancelArchonBuff.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\BolaShot.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\Caltrops.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\Chakram.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\ClusterArrow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\Companion.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\ElementalArrow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\EntanglingShot.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\EvasiveFire.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\FanofKnives.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\Grenades.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\HungeringArrow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\Impale.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\MarkedforDeath.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\MultiShot.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\Preparation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\RainofVengeance.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\RapidFire.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\SentryTurret.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\ShadowPower.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\SmokeScreen.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\SpikeTrap.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\Strafe.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\Vault.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\BlindingFlash.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\BreathOfHeaven.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\CripplingWave.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\CycloneStrike.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\DashingStrike.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\DeadlyReach.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\ExplodingPalm.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\FistsOfThunder.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\InnerSanctuary.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\LashingTailKick.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\MantraOfConviction.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\MantraOfEvasion.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\MantraOfHealing.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\MantraOfRetribution.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\MysticAlly.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\Serenity.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\SevenSidedStrike.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\SweepingWind.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\TempestRush.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\WaveOfLight.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\WayOfTheHundredFists.cs" />
+    <Compile Include="Bot\Cache\Ability\Abilities\ProjectileRangeAttack.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WeaponMeleeInsant.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WeaponRangedWand.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Hotbar.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\IAbility.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Bot\Cache\Ability\WaitLoops.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -95,6 +269,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\Ability\UnitTargetConditions.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WeaponInstantRanged.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\BotCache\Player Class\DemonHunter.cs">
@@ -320,9 +497,6 @@
     </Compile>
     <Compile Include="XML\TrinityRandomWait.cs">
       <SubType>Code</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Bot\Cache\Ability\Ability.StaticAbilities.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <None Include="CombatRoutine\CombatRoutine">
@@ -579,6 +753,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Bot\Cache\Ability\Abilities\WitchDoctor\" />
+    <Folder Include="Bot\Cache\Ability\Abilities\Wizard\" />
     <Folder Include="ItemRules\Log\Archive\" />
     <Folder Include="Log\ProfileStats\" />
   </ItemGroup>

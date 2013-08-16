@@ -44,6 +44,15 @@ namespace FunkyTrinity.Cache
 				SNOPower.Monk_TempestRush,
 		  };
 
+			internal static readonly HashSet<SNOPower> PrimaryAbilities=new HashSet<SNOPower>
+		  {
+				 SNOPower.Barbarian_Bash,SNOPower.Barbarian_Cleave,SNOPower.Barbarian_WeaponThrow,SNOPower.Barbarian_Frenzy,
+				 SNOPower.DemonHunter_HungeringArrow,SNOPower.DemonHunter_EntanglingShot,SNOPower.DemonHunter_BolaShot,SNOPower.DemonHunter_Grenades,
+				 SNOPower.Monk_FistsofThunder,SNOPower.Monk_DeadlyReach,SNOPower.Monk_CripplingWave,SNOPower.Monk_WayOfTheHundredFists,
+				 SNOPower.Witchdoctor_PoisonDart,SNOPower.Witchdoctor_CorpseSpider,SNOPower.Witchdoctor_PlagueOfToads,SNOPower.Witchdoctor_Firebomb,
+				 SNOPower.Wizard_MagicMissile,SNOPower.Wizard_ShockPulse,SNOPower.Wizard_SpectralBlade,SNOPower.Wizard_Electrocute,SNOPower.Wizard_Archon_DisintegrationWave,
+		  };
+
 		  //internal static readonly Dictionary<SNOPower, Range> BarbarianAbilityRange=new Dictionary<SNOPower, Range> 
 		  //{
 		  //	 {SNOPower.Barbarian_Cleave,Melee_Range},	  {SNOPower.Barbarian_HammerOfTheAncients,Melee_AOE_Range},
@@ -223,7 +232,7 @@ namespace FunkyTrinity.Cache
 		  // But you do need to make sure every skill used by Trinity is listed in here once!
 		  internal static Dictionary<SNOPower, DateTime> dictAbilityLastUseDefaults=new Dictionary<SNOPower, DateTime>
             {
-                {SNOPower.DrinkHealthPotion, DateTime.Today},{SNOPower.Weapon_Melee_Instant, DateTime.Today},{SNOPower.Weapon_Ranged_Instant, DateTime.Today}, 
+                {SNOPower.None, DateTime.Today},{SNOPower.DrinkHealthPotion, DateTime.Today},{SNOPower.Weapon_Melee_Instant, DateTime.Today},{SNOPower.Weapon_Ranged_Instant, DateTime.Today}, 
                 // Barbarian last-used timers
                 #region Barb
 		        {SNOPower.Barbarian_Bash, DateTime.Today},{SNOPower.Barbarian_Cleave, DateTime.Today},{SNOPower.Barbarian_Frenzy, DateTime.Today}, 
