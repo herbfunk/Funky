@@ -200,7 +200,6 @@ namespace FunkyTrinity.Movement
 													 //Check if we can walk to this location from current location..
 													 if (!Navigation.CanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
 													 {
-														  obj.BlacklistLoops=10;
 														  obj.RequiresLOSCheck=true;
 														  Logging.WriteDiagnostic("Ignoring Item {0} -- due to AllowWalk RayCast Failure!", obj.InternalName);
 														  Bot.Combat.bForceTargetUpdate=true;
@@ -426,7 +425,7 @@ namespace FunkyTrinity.Movement
 								BlockedMovementCounter=0;
 
 						  //Herbfunk: Quick fix for stuck occuring on above average mob who is damaged..
-						  if (LastPlayerLocation==Bot.Character.Position)
+						  if (LastPlayerLocation.Distance(Bot.Character.Position)<=5f)
 								NonMovementCounter++;
 						  else
 								NonMovementCounter=0;

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using FunkyTrinity.Enums;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
+using Zeta.Internals.SNO;
 
 namespace FunkyTrinity.Cache
 {
@@ -267,7 +268,26 @@ namespace FunkyTrinity.Cache
 
 								if (Bot.IsInNonCombatBehavior) lootDistance=50f;
 
-								if (this.CentreDistance>lootDistance) return false;
+								float centredistance=this.CentreDistance;
+								if (centredistance>lootDistance) return false;
+
+
+								//Check if we require LOS
+								if (this.RequiresLOSCheck)
+								{
+									 if (!Navigation.CanRayCast(Bot.Character.Position, this.Position, NavCellFlags.AllowWalk))
+									 {
+										  int blacklistloopCount=50;
+										  if (this.CentreDistance<25f)
+												blacklistloopCount/=2;
+										  if (this.Itemquality>=ItemQuality.Rare4)
+												blacklistloopCount/=4;
+
+										  return false;
+									 }
+
+									 this.RequiresLOSCheck=false;
+								}
 
 						  }
 						  else

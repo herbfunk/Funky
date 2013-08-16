@@ -99,7 +99,7 @@ namespace FunkyTrinity
 					 if (!AbilityClusters.ContainsKey(CC))
 					 {
 						  Logging.WriteVerbose("Creating new entry for ClusterConditions -- {0}", CC.ToString());
-						  AbilityClusters.Add(CC, new ClusterCollection(CC));
+						  AbilityClusters.Add(CC, new ClusterCollection(CC, 400,200));
 					 }
 
 					 if (AbilityClusters[CC].ShouldUpdateClusters)

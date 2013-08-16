@@ -25,8 +25,8 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 			Priority = AbilityPriority.Low;
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckRecastTimer |
 			                     AbilityConditions.CheckEnergy);
-			ClusterConditions=new ClusterConditions(5d, this.UsingCriticalMass()?20:40, 1, true);
-			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial);
+			ClusterConditions=new ClusterConditions(4d, this.UsingCriticalMass()?20:40, 3, true);
+			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 25, 0.5d, TargetProperties.Fast);
 			Fcriteria = new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
 		}
 
