@@ -11,6 +11,7 @@ namespace FunkyTrinity.ability
 			public AbilityCriteria()
 			{
 				 Fcriteria=new Func<bool>(() => { return true; });
+				 Fbuff=new Func<bool>(() => { return true; });
 				 AbilityTestConditions=new AbilityUsablityTests();
 			}
 

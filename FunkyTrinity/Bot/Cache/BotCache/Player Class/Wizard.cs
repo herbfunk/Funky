@@ -136,7 +136,7 @@ namespace FunkyTrinity
 					 switch (power)
 					 {
 							default:
-								 return new Ability();
+								 return DefaultAttack;
 					 }
 				}
 

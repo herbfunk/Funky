@@ -574,7 +574,7 @@ FoundStashLocation:
 				internal static RunStatus GilesStashPause(object ret)
 				{
 					 iPreStashLoops++;
-					 if (iPreStashLoops<40)
+					 if (iPreStashLoops<20)
 						  return RunStatus.Running;
 					 return RunStatus.Success;
 				}

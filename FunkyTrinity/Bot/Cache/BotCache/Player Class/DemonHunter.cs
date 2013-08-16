@@ -10,7 +10,7 @@ using FunkyTrinity.Enums;
 using FunkyTrinity.ability;
 using FunkyTrinity.Cache;
 using FunkyTrinity.ability.Abilities;
-
+using FunkyTrinity.ability.Abilities.DemonHunter;
 namespace FunkyTrinity
 {
 
@@ -32,7 +32,6 @@ namespace FunkyTrinity
 						DemonHunter_HungeringArrow=129215,
 						DemonHunter_Caltrops=129216,
 						DemonHunter_Sentry=129217,
-						DemonHunter_Sentry_TurretAttack=129661,
 						DemonHunter_SmokeScreen=130695,
 						DemonHunter_MarkedForDeath=130738,
 						DemonHunter_ShadowPower=130830,
@@ -70,7 +69,7 @@ namespace FunkyTrinity
 				{
 
 				}
-				public virtual Ability DefaultAttack
+				public override Ability DefaultAttack
 				{
 					 get { return new ProjectileRangeAttack(); }
 				}
@@ -108,16 +107,84 @@ namespace FunkyTrinity
 					 Bot.Combat.lastChangedZigZag=DateTime.Now;
 				}
 
+				public override void RecreateAbilities()
+				{
+					 Abilities=new Dictionary<SNOPower, Ability>();
 
+					 //Create the abilities
+					 foreach (var item in HotbarPowers)
+					 {
+							Abilities.Add(item, this.CreateAbility(item));
+					 }
+
+					 //No default rage generation ability.. then we add the Instant Melee Ability.
+					 if (!HotbarContainsAPrimaryAbility())
+					 {
+							Ability defaultAbility=this.DefaultAttack;
+							Abilities.Add(defaultAbility.Power, defaultAbility);
+							RuneIndexCache.Add(defaultAbility.Power, -1);
+					 }
+
+					 //Sort Abilities
+					 SortedAbilities=Abilities.Values.OrderByDescending(a => a.Priority).ThenBy(a => a.Range).ToList();
+				}
 
 				public override Ability CreateAbility(SNOPower Power)
 				{
-					DemonHunterActiveSkills power = (DemonHunterActiveSkills)Enum.Parse(typeof (DemonHunterActiveSkills), Power.ToString());
+					DemonHunterActiveSkills power=(DemonHunterActiveSkills)Enum.ToObject(typeof(DemonHunterActiveSkills), (int)Power);
 
 					switch (power)
 					{
+						 case DemonHunterActiveSkills.DemonHunter_SpikeTrap:
+							return new SpikeTrap();
+						 case DemonHunterActiveSkills.DemonHunter_EntanglingShot:
+							return new EntanglingShot();
+						 case DemonHunterActiveSkills.DemonHunter_FanOfKnives:
+							return new FanOfKnives();
+						 case DemonHunterActiveSkills.DemonHunter_BolaShot:
+							return new BolaShot();
+						 case DemonHunterActiveSkills.DemonHunter_MoltenArrow:
+							return new MoltenArrow();
+						 case DemonHunterActiveSkills.DemonHunter_Multishot:
+							return new Multishot();
+						 case DemonHunterActiveSkills.DemonHunter_Grenades:
+							return new Grenades();
+						 case DemonHunterActiveSkills.DemonHunter_Vault:
+							return new Vault();
+						 case DemonHunterActiveSkills.DemonHunter_Preparation:
+							return new Preparation();
+						 case DemonHunterActiveSkills.DemonHunter_Chakram:
+							return new Chakram();
+						 case DemonHunterActiveSkills.DemonHunter_ClusterArrow:
+							return new ClusterArrow();
+						 case DemonHunterActiveSkills.DemonHunter_HungeringArrow:
+							return new HungeringArrow();
+						 case DemonHunterActiveSkills.DemonHunter_Caltrops:
+							return new Caltrops();
+						 case DemonHunterActiveSkills.DemonHunter_Sentry:
+							return new Sentry();
+						 case DemonHunterActiveSkills.DemonHunter_SmokeScreen:
+							return new SmokeScreen();
+						 case DemonHunterActiveSkills.DemonHunter_MarkedForDeath:
+							return new MarkedForDeath();
+						 case DemonHunterActiveSkills.DemonHunter_ShadowPower:
+							return new ShadowPower();
+						 case DemonHunterActiveSkills.DemonHunter_RainOfVengeance:
+							return new RainOfVengeance();
+						 case DemonHunterActiveSkills.DemonHunter_RapidFire:
+							return new RapidFire();
+						 case DemonHunterActiveSkills.DemonHunter_ElementalArrow:
+							return new ElementalArrow();
+						 case DemonHunterActiveSkills.DemonHunter_Impale:
+							return new Impale();
+						 case DemonHunterActiveSkills.DemonHunter_Companion:
+							return new Companion();
+						 case DemonHunterActiveSkills.DemonHunter_Strafe:
+							return new Strafe();
+						 case DemonHunterActiveSkills.DemonHunter_EvasiveFire:
+							return new EvasiveFire();
 						 default:
-							return new Ability();
+							return this.DefaultAttack;
 					}
 				}
 

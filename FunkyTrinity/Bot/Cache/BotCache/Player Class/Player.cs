@@ -54,12 +54,12 @@ namespace FunkyTrinity
 				///</summary>
 				public virtual Ability CreateAbility(SNOPower P)
 				{
-					 return new Ability();
+					 return this.DefaultAttack;
 				}
 
 			  public virtual Ability DefaultAttack
 			  {
-				  get { return new Ability(); }
+				  get { return new ability.Abilities.WeaponMeleeInsant(); }
 			  }
 
 			  ///<summary>
@@ -126,7 +126,7 @@ namespace FunkyTrinity
 				///</summary>
 				public virtual Ability AbilitySelector(bool bCurrentlyAvoiding=false, bool bOOCBuff=false)
 				{
-					 Ability returnAbility=new Ability();
+					 Ability returnAbility=this.DefaultAttack;
 					 foreach (var item in this.SortedAbilities)
 					 {
 						  //Check Avoidance and Buff only parameters!

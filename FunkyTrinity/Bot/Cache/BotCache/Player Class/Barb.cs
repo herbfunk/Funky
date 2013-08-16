@@ -178,7 +178,7 @@ namespace FunkyTrinity
 						 case BarbarianActiveSkills.Barbarian_Overpower:
 								return new ability.Abilities.Barb.Overpower();
 						 default:
-								return new Ability();
+								return this.DefaultAttack;
 					}
 
 

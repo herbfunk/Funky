@@ -39,7 +39,7 @@ namespace FunkyTrinity
 
 					 LastHealthDropPct=0d;
 					 LastHealthChange=DateTime.Today;
-					 powerPrime=new Ability();
+					 powerPrime=new ability.Abilities.WeaponMeleeInsant();
 					 iElitesWithinRange=new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 					 iAnythingWithinRange=new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 					 iNonRendedTargets_6=0;

@@ -166,7 +166,7 @@ namespace FunkyTrinity
 
 
 					 iCurrentItemLoops++;
-					 if (iCurrentItemLoops<iItemDelayLoopLimit*1.25)
+					 if (iCurrentItemLoops<iItemDelayLoopLimit*1.15)
 						  return RunStatus.Running;
 
 					 iCurrentItemLoops=0;

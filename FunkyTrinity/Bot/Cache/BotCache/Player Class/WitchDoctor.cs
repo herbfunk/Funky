@@ -157,7 +157,7 @@ namespace FunkyTrinity
 							case WitchDoctorActiveSkills.Witchdoctor_PoisonDart:
 							 return new PoisonDart();
 							default:
-								 return new Ability();
+							 return this.DefaultAttack;
 					 }
 				}
 

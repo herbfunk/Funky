@@ -17,7 +17,7 @@ namespace FunkyTrinity.ability
 	 ///<summary>
 	 ///Cached Object that Describes an individual ability.
 	 ///</summary>
-	 public partial class Ability : AbilityCriteria, IAbility
+	 public abstract class Ability : AbilityCriteria, IAbility
 	 {
 
 		  //Conditional Methods which are used to determine if the power should be used.

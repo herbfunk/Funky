@@ -195,7 +195,7 @@ namespace FunkyTrinity
 							case MonkActiveSkills.Monk_CycloneStrike:
 								 return new CycloneStrike();
 							default:
-								 return new Ability();
+								 return this.DefaultAttack;
 					 }
 				}
 
