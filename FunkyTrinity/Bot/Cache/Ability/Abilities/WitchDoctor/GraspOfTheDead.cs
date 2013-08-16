@@ -1,5 +1,4 @@
 ﻿using System;
-using FunkyTrinity.Enums;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
@@ -7,9 +6,9 @@ using Zeta.Internals.Actors;
 
 namespace FunkyTrinity.ability.Abilities.WitchDoctor
 {
-	public class Gargantuan : Ability, IAbility
+	public class GraspOfTheDead : Ability, IAbility
 	{
-		public Gargantuan() : base()
+		public GraspOfTheDead() : base()
 		{
 		}
 
@@ -19,27 +18,23 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Buff;
-			WaitVars = new WaitLoops(2, 1, true);
-			Cost = 147;
-			Counter = 1;
-			UseageType=AbilityUseage.Anywhere;
-			Priority = AbilityPriority.High;
+			ExecutionType = AbilityUseType.ClusterTarget | AbilityUseType.Target;
+
+			WaitVars = new WaitLoops(0, 3, true);
+			Cost = 122;
+			Range = 45;
+			IsRanged = true;
+			UseageType=AbilityUseage.Combat;
+			Priority = AbilityPriority.Low;
+
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckCanCast |
-			                     AbilityConditions.CheckEnergy | AbilityConditions.CheckPetCount);
-			IsBuff=true;
-			 Fbuff =
-				new Func<bool>(
-					() =>
-					{
-						return Bot.Class.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan] != 0 && Bot.Character.PetData.Gargantuan == 0;
-					});
+			                     AbilityConditions.CheckEnergy);
+			ClusterConditions = new ClusterConditions(4d, 45f, 2, true);
+			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 45,
+				falseConditionalFlags: TargetProperties.Fast | TargetProperties.Weak);
 			Fcriteria = new Func<bool>(() =>
 			{
-				 return (Bot.Class.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]==0&&
-				        (Bot.Combat.iElitesWithinRange[(int) RangeIntervals.Range_15] >= 1 ||
-				         (Bot.Target.CurrentUnitTarget.IsEliteRareUnique && Bot.Target.CurrentTarget.RadiusDistance <= 15f))
-								||Bot.Class.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]!=0&&Bot.Character.PetData.Gargantuan==0);
+				return !Bot.Class.bWaitingForSpecial;
 			});
 		}
 
@@ -49,8 +44,6 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 		}
 
 		#region IAbility
-
-
 
 		public override int GetHashCode()
 		{
@@ -75,7 +68,7 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 
 		public override SNOPower Power
 		{
-			get { return SNOPower.Witchdoctor_Gargantuan; }
+			get { return SNOPower.Witchdoctor_GraspOfTheDead; }
 		}
 	}
 }

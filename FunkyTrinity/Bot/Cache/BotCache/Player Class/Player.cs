@@ -85,10 +85,6 @@ namespace FunkyTrinity
 				///</summary>
 				public virtual bool SecondaryHotbarBuffPresent()
 				{
-
-					 if (Abilities.Count==0)
-
-
 					 if (AC==ActorClass.Wizard)
 					 {
 						  bool ArchonBuffPresent=this.HasBuff(SNOPower.Wizard_Archon);
@@ -134,8 +130,8 @@ namespace FunkyTrinity
 					 foreach (var item in this.SortedAbilities)
 					 {
 						  //Check Avoidance and Buff only parameters!
-						  if (bCurrentlyAvoiding&&item.UseageType.HasFlag(AbilityUseage.Anywhere)==false) continue;
-						  if (bOOCBuff&&item.UseageType.HasFlag(AbilityUseage.OutOfCombat|AbilityUseage.Anywhere)==false) continue;
+						  if (bCurrentlyAvoiding&&(!item.IsBuff||!item.IsASpecialMovementPower)) continue;
+						  if (bOOCBuff&&item.IsBuff==false) continue;
 
 						  //Check precast conditions
 						  if (!item.AbilityTestConditions.CheckPreCastConditionMethod()) continue;
@@ -235,7 +231,7 @@ namespace FunkyTrinity
 				internal bool FindBuffPower(out Ability BuffAbility)
 				{
 					 BuffAbility=null;
-					 foreach (var item in this.Abilities.Values.Where(A => A.UseageType.HasFlag(AbilityUseage.OutOfCombat)))
+					 foreach (var item in this.Abilities.Values.Where(A => A.IsBuff))
 					 {
 						  if (item.AbilityTestConditions.CheckPreCastConditionMethod())
 						  {

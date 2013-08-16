@@ -1,5 +1,4 @@
 ﻿using System;
-using FunkyTrinity.Enums;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
@@ -7,39 +6,36 @@ using Zeta.Internals.Actors;
 
 namespace FunkyTrinity.ability.Abilities.WitchDoctor
 {
-	public class Gargantuan : Ability, IAbility
+	public class SummonZombieDogs : Ability, IAbility
 	{
-		public Gargantuan() : base()
+		public SummonZombieDogs() : base()
 		{
 		}
 
 
-
 		public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
+
 
 		public override void Initialize()
 		{
 			ExecutionType = AbilityUseType.Buff;
-			WaitVars = new WaitLoops(2, 1, true);
-			Cost = 147;
-			Counter = 1;
+			WaitVars = new WaitLoops(0, 0, true);
+			Cost = 49;
 			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckCanCast |
-			                     AbilityConditions.CheckEnergy | AbilityConditions.CheckPetCount);
+			PreCastConditions = (AbilityConditions.CheckCanCast | AbilityConditions.CheckEnergy);
 			IsBuff=true;
 			 Fbuff =
 				new Func<bool>(
 					() =>
 					{
-						return Bot.Class.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan] != 0 && Bot.Character.PetData.Gargantuan == 0;
+						return Bot.Character.PetData.ZombieDogs <
+						       (Bot.Class.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler) ? 4 : 3);
 					});
 			Fcriteria = new Func<bool>(() =>
 			{
-				 return (Bot.Class.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]==0&&
-				        (Bot.Combat.iElitesWithinRange[(int) RangeIntervals.Range_15] >= 1 ||
-				         (Bot.Target.CurrentUnitTarget.IsEliteRareUnique && Bot.Target.CurrentTarget.RadiusDistance <= 15f))
-								||Bot.Class.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]!=0&&Bot.Character.PetData.Gargantuan==0);
+				return Bot.Character.PetData.ZombieDogs <
+				       (Bot.Class.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler) ? 4 : 3);
 			});
 		}
 
@@ -49,7 +45,6 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 		}
 
 		#region IAbility
-
 
 
 		public override int GetHashCode()
@@ -75,7 +70,7 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 
 		public override SNOPower Power
 		{
-			get { return SNOPower.Witchdoctor_Gargantuan; }
+			get { return SNOPower.Witchdoctor_SummonZombieDog; }
 		}
 	}
 }

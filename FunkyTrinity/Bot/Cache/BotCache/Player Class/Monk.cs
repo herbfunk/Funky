@@ -9,6 +9,7 @@ using Zeta.Internals.SNO;
 using FunkyTrinity.Enums;
 using FunkyTrinity.ability;
 using FunkyTrinity.ability.Abilities;
+using FunkyTrinity.ability.Abilities.Monk;
 
 namespace FunkyTrinity
 {
@@ -64,7 +65,7 @@ namespace FunkyTrinity
 				{
 
 				}
-				public virtual Ability DefaultAttack
+				public override Ability DefaultAttack
 				{
 					 get { return new WeaponMeleeInsant(); }
 				}
@@ -123,13 +124,76 @@ namespace FunkyTrinity
 					return true;
 				}
 
+				public override void RecreateAbilities()
+				{
+					 Abilities=new Dictionary<SNOPower, Ability>();
+
+					 //Create the abilities
+					 foreach (var item in HotbarPowers)
+					 {
+							Abilities.Add(item, this.CreateAbility(item));
+					 }
+
+					 //No default rage generation ability.. then we add the Instant Melee Ability.
+					 if (!HotbarContainsAPrimaryAbility())
+					 {
+							Ability defaultAbility=this.DefaultAttack;
+							Abilities.Add(defaultAbility.Power, defaultAbility);
+							RuneIndexCache.Add(defaultAbility.Power, -1);
+					 }
+
+					 //Sort Abilities
+					 SortedAbilities=Abilities.Values.OrderByDescending(a => a.Priority).ThenBy(a => a.Range).ToList();
+				}
 
 				public override Ability CreateAbility(SNOPower Power)
 				{
-					 MonkActiveSkills power=(MonkActiveSkills)Enum.Parse(typeof(MonkActiveSkills), Power.ToString());
-
+				  MonkActiveSkills power=(MonkActiveSkills)Enum.ToObject(typeof(MonkActiveSkills), (int)Power);
+					
 					 switch (power)
 					 {
+							case MonkActiveSkills.Monk_BreathOfHeaven:
+								 return new BreathofHeaven();
+							case MonkActiveSkills.Monk_MantraOfRetribution:
+								 return new MantraOfRetribution();
+							case MonkActiveSkills.Monk_MantraOfHealing:
+								 return new MantraOfHealing();
+							case MonkActiveSkills.Monk_MantraOfConviction:
+								 return new MantraOfConviction();
+							case MonkActiveSkills.Monk_FistsofThunder:
+								 return new FistsofThunder();
+							case MonkActiveSkills.Monk_DeadlyReach:
+								 return new DeadlyReach();
+							case MonkActiveSkills.Monk_WaveOfLight:
+								 return new WaveOfLight();
+							case MonkActiveSkills.Monk_SweepingWind:
+								 return new SweepingWind();
+							case MonkActiveSkills.Monk_DashingStrike:
+								 return new DashingStrike();
+							case MonkActiveSkills.Monk_Serenity:
+								 return new Serenity();
+							case MonkActiveSkills.Monk_CripplingWave:
+								 return new CripplingWave();
+							case MonkActiveSkills.Monk_SevenSidedStrike:
+								 return new SevenSidedStrike();
+							case MonkActiveSkills.Monk_WayOfTheHundredFists:
+								 return new WayOfTheHundredFists();
+							case MonkActiveSkills.Monk_InnerSanctuary:
+								 return new InnerSanctuary();
+							case MonkActiveSkills.Monk_ExplodingPalm:
+								 return new ExplodingPalm();
+							case MonkActiveSkills.Monk_LashingTailKick:
+								 return new LashingTailKick();
+							case MonkActiveSkills.Monk_TempestRush:
+								 return new TempestRush();
+							case MonkActiveSkills.Monk_MysticAlly:
+								 return new MysticAlly();
+							case MonkActiveSkills.Monk_BlindingFlash:
+								 return new BlindingFlash();
+							case MonkActiveSkills.Monk_MantraOfEvasion:
+								 return new MantraOfEvasion();
+							case MonkActiveSkills.Monk_CycloneStrike:
+								 return new CycloneStrike();
 							default:
 								 return new Ability();
 					 }

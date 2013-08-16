@@ -36,7 +36,6 @@ namespace FunkyTrinity.ability
 				IsRanged=false;
 				UseageType=AbilityUseage.Anywhere;
 				ExecutionType=AbilityUseType.None;
-				
 				IsSpecialAbility=false;
 				Range=0;
 				Priority=AbilityPriority.None;
@@ -90,6 +89,7 @@ namespace FunkyTrinity.ability
 				get { return isNavigationSpecial; }
 				set { isNavigationSpecial=value; }
 		  }
+
 
 
 

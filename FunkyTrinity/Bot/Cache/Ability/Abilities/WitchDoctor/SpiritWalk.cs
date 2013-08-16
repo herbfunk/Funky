@@ -7,39 +7,34 @@ using Zeta.Internals.Actors;
 
 namespace FunkyTrinity.ability.Abilities.WitchDoctor
 {
-	public class Gargantuan : Ability, IAbility
+	public class SpiritWalk : Ability, IAbility
 	{
-		public Gargantuan() : base()
+		public SpiritWalk() : base()
 		{
 		}
 
 
-
 		public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
+
 
 		public override void Initialize()
 		{
 			ExecutionType = AbilityUseType.Buff;
-			WaitVars = new WaitLoops(2, 1, true);
-			Cost = 147;
-			Counter = 1;
+			WaitVars = new WaitLoops(0, 0, true);
+			Cost = 49;
 			UseageType=AbilityUseage.Anywhere;
+			IsNavigationSpecial = true;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckCanCast |
-			                     AbilityConditions.CheckEnergy | AbilityConditions.CheckPetCount);
-			IsBuff=true;
-			 Fbuff =
-				new Func<bool>(
-					() =>
-					{
-						return Bot.Class.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan] != 0 && Bot.Character.PetData.Gargantuan == 0;
-					});
+			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckCanCast);
+								//TestCustomCombatConditionAlways=true,
 			Fcriteria = new Func<bool>(() =>
 			{
-				 return (Bot.Class.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]==0&&
-				        (Bot.Combat.iElitesWithinRange[(int) RangeIntervals.Range_15] >= 1 ||
-				         (Bot.Target.CurrentUnitTarget.IsEliteRareUnique && Bot.Target.CurrentTarget.RadiusDistance <= 15f))
-								||Bot.Class.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]!=0&&Bot.Character.PetData.Gargantuan==0);
+				return (Bot.Character.dCurrentHealthPct <= 0.65
+				        || (Bot.Combat.FleeingLastTarget && Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_25] > 1)
+				        || (Bot.Combat.AvoidanceLastTarget && Bot.Combat.NearbyAvoidances.Count > 0)
+				        || Bot.Character.bIsIncapacitated
+				        || Bot.Character.bIsRooted
+				        || Bot.SettingsFunky.OutOfCombatMovement);
 			});
 		}
 
@@ -49,7 +44,6 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 		}
 
 		#region IAbility
-
 
 
 		public override int GetHashCode()
@@ -75,7 +69,7 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 
 		public override SNOPower Power
 		{
-			get { return SNOPower.Witchdoctor_Gargantuan; }
+			get { return SNOPower.Witchdoctor_SpiritWalk; }
 		}
 	}
 }

@@ -28,6 +28,8 @@ namespace FunkyTrinity.ability
 			///Custom Conditions for Buffing
 			///</summary>
 			internal Func<bool> Fbuff;
+			public bool IsBuff { get; set; }
+
 			///<summary>
 			///Check Ability Buff Conditions
 			///</summary>

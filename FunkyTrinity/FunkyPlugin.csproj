@@ -142,6 +142,69 @@
     <Compile Include="Bot\Cache\Ability\Abilities\CancelArchonBuff.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\BlindingFlash.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\BreathofHeaven.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\CripplingWave.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\CycloneStrike.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\DashingStrike.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\DeadlyReach.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\ExplodingPalm.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\FistsofThunder.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\InnerSanctuary.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\LashingTailKick.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\MantraOfConviction.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\MantraOfEvasion.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\MantraOfHealing.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\MantraOfRetribution.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\MysticAlly.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\Serenity.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\SevenSidedStrike.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\SweepingWind.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\TempestRush.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\WaveOfLight.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\Monk\WayOfTheHundredFists.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Bot\Cache\Ability\Abilities\ProjectileRangeAttack.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -149,6 +212,72 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\Ability\Abilities\WeaponRangedWand.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\AcidCloud.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\BigBadVoodoo.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\CorpseSpider.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\FetishArmy.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\Firebats.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\Firebomb.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\Gargantuan.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\GraspOfTheDead.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\Haunt.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\Hex.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\Horrify.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\LocustSwarm.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\MassConfusion.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\PlagueOfToads.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\PoisonDart.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\Sacrifice.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\SoulHarvest.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\SpiritBarrage.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\SpiritWalk.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\SummonZombieDogs.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\WallOfZombies.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\WitchDoctor\ZombieCharger.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\Ability\AbilityCriteria.cs">
@@ -670,8 +799,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Bot\Cache\Ability\Abilities\DemonHunter\" />
-    <Folder Include="Bot\Cache\Ability\Abilities\Monk\" />
-    <Folder Include="Bot\Cache\Ability\Abilities\WitchDoctor\" />
     <Folder Include="Bot\Cache\Ability\Abilities\Wizard\" />
     <Folder Include="ItemRules\Log\Archive\" />
     <Folder Include="Log\ProfileStats\" />

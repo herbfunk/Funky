@@ -4,19 +4,29 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.ability.Abilities.DemonHunter
+namespace FunkyTrinity.ability.Abilities.Monk
 {
-	public class BolaShot : Ability, IAbility
+	public class CripplingWave : Ability, IAbility
 	{
-		public BolaShot() : base()
+		public CripplingWave() : base()
 		{
 		}
 
 
 
-		protected override void Initialize()
+		public override void Initialize()
 		{
+			ExecutionType = AbilityUseType.Target;
+			UseageType=AbilityUseage.Combat;
+			WaitVars = new WaitLoops(0, 1, true);
+			Priority = AbilityPriority.None;
+			Range = 14;
+			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
+		}
 
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility
@@ -47,9 +57,9 @@ namespace FunkyTrinity.ability.Abilities.DemonHunter
 
 		#endregion
 
-		SNOPower IAbility.Power
+		public override SNOPower Power
 		{
-			get { return SNOPower.DemonHunter_BolaShot; }
+			get { return SNOPower.Monk_CripplingWave; }
 		}
 	}
 }

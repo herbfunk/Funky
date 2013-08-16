@@ -9,6 +9,7 @@ using Zeta.CommonBot;
 using Zeta.Internals.SNO;
 using FunkyTrinity.Enums;
 using FunkyTrinity.ability;
+using FunkyTrinity.ability.Abilities.WitchDoctor;
 
 namespace FunkyTrinity
 {
@@ -38,7 +39,7 @@ namespace FunkyTrinity
 						Witchdoctor_SpiritBarrage=108506,
 						Witchdoctor_BigBadVoodoo=117402,
 						Witchdoctor_WallOfZombies=134837,
-
+						Witchdoctor_PoisonDart=103181,
 				 }
 				 enum WitchDoctorPassiveSkills
 				 {
@@ -64,9 +65,9 @@ namespace FunkyTrinity
 				public WitchDoctor(ActorClass a)
 					 : base(a)
 				{
-					 this.RecreateAbilities();
+
 				}
-				public virtual Ability DefaultAttack
+				public override Ability DefaultAttack
 				{
 					 get { return new WeaponMeleeInsant(); }
 				}
@@ -84,13 +85,77 @@ namespace FunkyTrinity
 						  return false;
 					 }
 				}
+				public override void RecreateAbilities()
+				{
+					 Abilities=new Dictionary<SNOPower, Ability>();
 
+					 //Create the abilities
+					 foreach (var item in HotbarPowers)
+					 {
+							Abilities.Add(item, this.CreateAbility(item));
+					 }
+
+					 //No default rage generation ability.. then we add the Instant Melee Ability.
+					 if (!HotbarContainsAPrimaryAbility())
+					 {
+							Ability defaultAbility=this.DefaultAttack;
+							Abilities.Add(defaultAbility.Power, defaultAbility);
+							RuneIndexCache.Add(defaultAbility.Power, -1);
+					 }
+
+					 //Sort Abilities
+					 SortedAbilities=Abilities.Values.OrderByDescending(a => a.Priority).ThenBy(a => a.Range).ToList();
+				}
 				public override Ability CreateAbility(SNOPower Power)
 				{
-					 WitchDoctorActiveSkills power=(WitchDoctorActiveSkills)Enum.Parse(typeof(WitchDoctorActiveSkills), Power.ToString());
-
+					 WitchDoctorActiveSkills power=(WitchDoctorActiveSkills)Enum.ToObject(typeof(WitchDoctorActiveSkills), (int)Power);
+					
 					 switch (power)
 					 {
+							case WitchDoctorActiveSkills.Witchdoctor_Gargantuan:
+								 return new Gargantuan();
+							case WitchDoctorActiveSkills.Witchdoctor_Hex:
+								 return new Hex();
+							case WitchDoctorActiveSkills.Witchdoctor_Firebomb:
+								 return new Firebomb();
+							case WitchDoctorActiveSkills.Witchdoctor_MassConfusion:
+								 return new MassConfusion();
+							case WitchDoctorActiveSkills.Witchdoctor_SoulHarvest:
+								 return new SoulHarvest();
+							case WitchDoctorActiveSkills.Witchdoctor_Horrify:
+								 return new Horrify();
+							case WitchDoctorActiveSkills.Witchdoctor_GraspOfTheDead:
+								 return new GraspOfTheDead();
+							case WitchDoctorActiveSkills.Witchdoctor_CorpseSpider:
+								 return new CorpseSpider();
+							case WitchDoctorActiveSkills.Witchdoctor_Locust_Swarm:
+								 return new LocustSwarm();
+							case WitchDoctorActiveSkills.Witchdoctor_AcidCloud:
+								 return new AcidCloud();
+							case WitchDoctorActiveSkills.Witchdoctor_FetishArmy:
+								 return new FetishArmy();
+							case WitchDoctorActiveSkills.Witchdoctor_ZombieCharger:
+								 return new ZombieCharger();
+							case WitchDoctorActiveSkills.Witchdoctor_Haunt:
+								 return new Haunt();
+							case WitchDoctorActiveSkills.Witchdoctor_Sacrifice:
+								 return new Sacrifice();
+							case WitchDoctorActiveSkills.Witchdoctor_SummonZombieDog:
+								 return new SummonZombieDogs();
+							case WitchDoctorActiveSkills.Witchdoctor_Firebats:
+								 return new Firebats();
+							case WitchDoctorActiveSkills.Witchdoctor_SpiritWalk:
+								 return new SpiritWalk();
+							case WitchDoctorActiveSkills.Witchdoctor_PlagueOfToads:
+								 return new PlagueOfToads();
+							case WitchDoctorActiveSkills.Witchdoctor_SpiritBarrage:
+								 return new SpiritBarrage();
+							case WitchDoctorActiveSkills.Witchdoctor_BigBadVoodoo:
+								 return new BigBadVoodoo();
+							case WitchDoctorActiveSkills.Witchdoctor_WallOfZombies:
+								 return new WallOfZombies();
+							case WitchDoctorActiveSkills.Witchdoctor_PoisonDart:
+							 return new PoisonDart();
 							default:
 								 return new Ability();
 					 }

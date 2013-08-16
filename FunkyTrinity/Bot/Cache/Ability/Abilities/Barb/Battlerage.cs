@@ -24,6 +24,7 @@ namespace FunkyTrinity.ability.Abilities.Barb
 			ExecutionType = AbilityUseType.Buff;
 			WaitVars = new WaitLoops(1, 1, true);
 			Cost = 20;
+			IsBuff=true;
 			UseageType = AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
 			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckPlayerIncapacitated);
