@@ -86,24 +86,27 @@ namespace FunkyTrinity
 				public virtual bool SecondaryHotbarBuffPresent()
 				{
 
-					 //if (AC==ActorClass.Wizard)
-					 //{
-					 //	 bool ArchonBuffPresent=this.HasBuff(SNOPower.Wizard_Archon);
+					 if (Abilities.Count==0)
 
-					 //	 //Confirm we don't have archon ability without archon buff.
-					 //	 bool RefreshNeeded=((!ArchonBuffPresent&&Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast))
-					 //								||(ArchonBuffPresent&&!Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast)));
 
-					 //	 if (RefreshNeeded)
-					 //	 {
-					 //			Logging.WriteVerbose("Updating Hotbar abilities!");
-					 //			CachedPowers=new HashSet<SNOPower>(HotbarPowers);
-					 //			RefreshHotbar();
-					 //			UpdateRepeatAbilityTimes();
-					 //			RecreateAbilities();
-					 //			return true;
-					 //	 }
-					 //}
+					 if (AC==ActorClass.Wizard)
+					 {
+						  bool ArchonBuffPresent=this.HasBuff(SNOPower.Wizard_Archon);
+
+						  //Confirm we don't have archon ability without archon buff.
+						  bool RefreshNeeded=((!ArchonBuffPresent&&Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast))
+													 ||(ArchonBuffPresent&&!Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast)));
+
+						  if (RefreshNeeded)
+						  {
+								Logging.WriteVerbose("Updating Hotbar abilities!");
+								CachedPowers=new HashSet<SNOPower>(HotbarPowers);
+								RefreshHotbar();
+								UpdateRepeatAbilityTimes();
+								RecreateAbilities();
+								return true;
+						  }
+					 }
 					 return false;
 				}
 
@@ -135,10 +138,10 @@ namespace FunkyTrinity
 						  if (bOOCBuff&&item.UseageType.HasFlag(AbilityUseage.OutOfCombat|AbilityUseage.Anywhere)==false) continue;
 
 						  //Check precast conditions
-						  if (!item.CheckPreCastConditionMethod()) continue;
+						  if (!item.AbilityTestConditions.CheckPreCastConditionMethod()) continue;
 
 						  //Check Combat Conditions!
-						  if (item.CheckCombatConditionMethod())
+						  if (item.AbilityTestConditions.CheckCombatConditionMethod())
 						  {
 								returnAbility=item;
 								break;
@@ -161,7 +164,7 @@ namespace FunkyTrinity
 					 {
 						  if (item.IsADestructiblePower)
 						  {
-								if (item.CheckPreCastConditionMethod())
+								if (item.AbilityTestConditions.CheckPreCastConditionMethod())
 								{
 									 returnAbility=item;
 									 break;
@@ -200,7 +203,7 @@ namespace FunkyTrinity
 					 foreach (var item in this.Abilities.Keys.Where(A => PowerCacheLookup.SpecialMovementAbilities.Contains(A)))
 					 {
 
-						  if (this.Abilities[item].CheckPreCastConditionMethod())
+						  if (this.Abilities[item].AbilityTestConditions.CheckPreCastConditionMethod())
 						  {
 								MovementAbility=this.Abilities[item];
 								return true;
@@ -217,7 +220,7 @@ namespace FunkyTrinity
 					 foreach (var item in this.Abilities.Values.Where(A => A.IsASpecialMovementPower))
 					 {
 
-						  if (item.CheckPreCastConditionMethod())
+						  if (item.AbilityTestConditions.CheckPreCastConditionMethod())
 						  {
 								MovementAbility=item;
 								return true;
@@ -234,7 +237,7 @@ namespace FunkyTrinity
 					 BuffAbility=null;
 					 foreach (var item in this.Abilities.Values.Where(A => A.UseageType.HasFlag(AbilityUseage.OutOfCombat)))
 					 {
-						  if (item.CheckPreCastConditionMethod())
+						  if (item.AbilityTestConditions.CheckPreCastConditionMethod())
 						  {
 								if (item.CheckBuffConditionMethod())
 								{

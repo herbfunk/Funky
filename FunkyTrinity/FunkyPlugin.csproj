@@ -151,13 +151,22 @@
     <Compile Include="Bot\Cache\Ability\Abilities\WeaponRangedWand.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Bot\Cache\Ability\AbilityCriteria.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\ConditionObjects\AbilityUsablityTests.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Ability\Enums\AbilityUsage.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Bot\Cache\Ability\IAbility.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Ability\WaitLoops.cs">
+    <Compile Include="Bot\Cache\Ability\ConditionObjects\WaitLoops.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Ability\ClusterConditions.cs">
+    <Compile Include="Bot\Cache\Ability\ConditionObjects\ClusterConditions.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\Ability\Enums\AbilityConditions.cs">
@@ -175,7 +184,7 @@
     <Compile Include="Bot\Cache\Ability\Enums\TargetProperties.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Ability\UnitTargetConditions.cs">
+    <Compile Include="Bot\Cache\Ability\ConditionObjects\UnitTargetConditions.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\Ability\Abilities\WeaponInstantRanged.cs">
@@ -660,6 +669,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Bot\Cache\Ability\Abilities\DemonHunter\" />
+    <Folder Include="Bot\Cache\Ability\Abilities\Monk\" />
     <Folder Include="Bot\Cache\Ability\Abilities\WitchDoctor\" />
     <Folder Include="Bot\Cache\Ability\Abilities\Wizard\" />
     <Folder Include="ItemRules\Log\Archive\" />

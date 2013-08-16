@@ -19,15 +19,15 @@ namespace FunkyTrinity.ability.Abilities.Barb
 
 		public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
 
-		protected override void Initialize()
+		public override void Initialize()
 		{
 			ExecutionType = AbilityUseType.Self;
 			WaitVars = new WaitLoops(3, 3, true);
 			Cost = 20;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (AbilityConditions.CheckRecastTimer | AbilityConditions.CheckEnergy |
-			                     AbilityConditions.CheckCanCast | AbilityConditions.CheckPlayerIncapacitated);
+			PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|
+													 AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated);
 
 			ClusterConditions = new ClusterConditions(5d, 8, 2, true, 0.90d);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None, 10,
@@ -37,6 +37,10 @@ namespace FunkyTrinity.ability.Abilities.Barb
 			{
 				return !Bot.Class.bWaitingForSpecial;
 			});
+		}
+		public override void InitCriteria()
+		{
+			 base.AbilityTestConditions=new AbilityUsablityTests(this);
 		}
 		#region IAbility
 		public override int GetHashCode()

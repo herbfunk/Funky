@@ -19,7 +19,7 @@ namespace FunkyTrinity.ability.Abilities.Barb
 
 		public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
 
-		protected override void Initialize()
+		public override void Initialize()
 		{
 			ExecutionType = AbilityUseType.Buff;
 			WaitVars = new WaitLoops(4, 4, true);
@@ -35,6 +35,10 @@ namespace FunkyTrinity.ability.Abilities.Barb
 				       || (Bot.SettingsFunky.Class.bBarbUseWOTBAlways && Bot.Combat.bAnyMobsInCloseRange)
 				       || (Bot.SettingsFunky.Class.bGoblinWrath && Bot.Target.CurrentTarget.IsTreasureGoblin);
 			});
+		}
+		public override void InitCriteria()
+		{
+			 base.AbilityTestConditions=new AbilityUsablityTests(this);
 		}
 		#region IAbility
 		public override int GetHashCode()

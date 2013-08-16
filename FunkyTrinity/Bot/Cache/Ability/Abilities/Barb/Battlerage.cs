@@ -19,7 +19,7 @@ namespace FunkyTrinity.ability.Abilities.Barb
 
 		public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
 
-		protected override void Initialize()
+		public override void Initialize()
 		{
 			ExecutionType = AbilityUseType.Buff;
 			WaitVars = new WaitLoops(1, 1, true);
@@ -37,6 +37,10 @@ namespace FunkyTrinity.ability.Abilities.Barb
 									Bot.Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
 				         (Bot.SettingsFunky.Class.bFuryDumpAlways && Bot.Character.dCurrentEnergyPct >= 0.98)));
 			});
+		}
+		public override void InitCriteria()
+		{
+			 base.AbilityTestConditions=new AbilityUsablityTests(this);
 		}
 		#region IAbility
 		public override int GetHashCode()

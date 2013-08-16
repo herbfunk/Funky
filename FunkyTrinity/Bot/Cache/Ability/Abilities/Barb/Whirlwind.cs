@@ -11,6 +11,7 @@ namespace FunkyTrinity.ability.Abilities.Barb
 	{
 		public Whirlwind() : base()
 		{
+			 
 		}
 
 		public override SNOPower Power
@@ -19,8 +20,11 @@ namespace FunkyTrinity.ability.Abilities.Barb
 		}
 
 		public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
-
-		protected override void Initialize()
+		public override void InitCriteria()
+		{
+			 base.AbilityTestConditions=new AbilityUsablityTests(this);
+		}
+		public override void Initialize()
 		{
 			ExecutionType = AbilityUseType.ZigZagPathing;
 			WaitVars = new WaitLoops(0, 0, true);
@@ -29,7 +33,7 @@ namespace FunkyTrinity.ability.Abilities.Barb
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
 
-			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckPlayerIncapacitated);
+			PreCastConditions=(ability.AbilityConditions.CheckEnergy|ability.AbilityConditions.CheckPlayerIncapacitated);
 			ClusterConditions = new ClusterConditions(10d, 30f, 2, true);
 
 			Fcriteria = new Func<bool>(() =>
@@ -41,6 +45,8 @@ namespace FunkyTrinity.ability.Abilities.Barb
 				       (!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage) ||
 				        (Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage) && Bot.Class.HasBuff(SNOPower.Barbarian_BattleRage)));
 			});
+
+			
 		}
 		#region IAbility
 		public override int GetHashCode()

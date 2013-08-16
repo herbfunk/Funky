@@ -17,7 +17,7 @@ namespace FunkyTrinity.ability.Abilities
 			get { return SNOPower.Weapon_Melee_Instant; }
 		}
 
-		protected override void Initialize()
+		public override void Initialize()
 		{
 			Range = 8;
 			Priority = AbilityPriority.None;

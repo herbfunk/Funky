@@ -17,7 +17,7 @@ namespace FunkyTrinity.ability.Abilities
 			 get { return SNOPower.Weapon_Ranged_Projectile; }
 		}
 
-		protected override void Initialize()
+		public override void Initialize()
 		{
 			Range = 25;
 			Priority = AbilityPriority.None;

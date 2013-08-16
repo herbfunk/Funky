@@ -79,6 +79,8 @@ namespace FunkyTrinity
 									 break;
 						  }
 
+						  Bot.Class.RecreateAbilities();
+
 					 }
 
 					 iCombatLoops=0;

@@ -19,7 +19,7 @@ namespace FunkyTrinity.ability.Abilities.Barb
 
 		public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
 
-		protected override void Initialize()
+		public override void Initialize()
 		{
 			WaitVars = new WaitLoops(2, 2, true);
 			ExecutionType = AbilityUseType.ClusterLocation | AbilityUseType.Location;
@@ -33,6 +33,10 @@ namespace FunkyTrinity.ability.Abilities.Barb
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial,
 				falseConditionalFlags: TargetProperties.Fast, MinimumRadiusDistance: 30);
 
+		}
+		public override void InitCriteria()
+		{
+			 base.AbilityTestConditions=new AbilityUsablityTests(this);
 		}
 		#region IAbility
 		public override int GetHashCode()

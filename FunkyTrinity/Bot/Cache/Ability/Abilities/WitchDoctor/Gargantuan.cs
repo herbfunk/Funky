@@ -4,17 +4,17 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.ability.Abilities.Monk
+namespace FunkyTrinity.ability.Abilities.WitchDoctor
 {
-	public class BlindingFlash : Ability, IAbility
+	public class Gargantuan : Ability, IAbility
 	{
-		public BlindingFlash() : base()
+		public Gargantuan() : base()
 		{
 		}
 
 
 
-		protected override void Initialize()
+		public override void Initialize()
 		{
 
 		}
@@ -49,7 +49,7 @@ namespace FunkyTrinity.ability.Abilities.Monk
 
 		SNOPower IAbility.Power
 		{
-			get { return SNOPower.Monk_BlindingFlash; }
+			get { return SNOPower.Witchdoctor_Gargantuan; }
 		}
 	}
 }

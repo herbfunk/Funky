@@ -14,7 +14,7 @@ namespace FunkyTrinity.ability.Abilities
 			 get { return SNOPower.Wizard_Archon; }
 		}
 
-		protected override void Initialize()
+		public override void Initialize()
 		{
 			ExecutionType = AbilityUseType.RemoveBuff;
 			WaitVars = new WaitLoops(3, 3, true);

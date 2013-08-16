@@ -17,7 +17,7 @@ namespace FunkyTrinity.ability.Abilities.Barb
 			get { return SNOPower.Barbarian_AncientSpear; }
 		}
 
-		protected override void Initialize()
+		public override void Initialize()
 		{
 			ExecutionType = AbilityUseType.Target;
 			WaitVars = new WaitLoops(2, 2, true);
@@ -36,7 +36,10 @@ namespace FunkyTrinity.ability.Abilities.Barb
 				       Bot.Character.dCurrentEnergyPct < 0.5d;
 			});
 		}
-
+		public override void InitCriteria()
+		{
+			 base.AbilityTestConditions=new AbilityUsablityTests(this);
+		}
 		#region IAbility
 		public override int GetHashCode()
 		{

@@ -6,7 +6,10 @@ namespace FunkyTrinity.ability
 	 {
 		  SNOPower Power { get; }
 		  int RuneIndex { get; }
-		
+
+		 void Initialize();
+		 void InitCriteria();
+
 		 bool Equals(object obj);
 		 int GetHashCode();
 	 }

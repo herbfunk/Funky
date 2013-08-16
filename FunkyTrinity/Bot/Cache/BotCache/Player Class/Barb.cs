@@ -63,7 +63,6 @@ namespace FunkyTrinity
 				public Barbarian(ActorClass a)
 					 : base(a)
 				{
-					 this.RecreateAbilities();
 				}
 				public override Ability DefaultAttack
 				{

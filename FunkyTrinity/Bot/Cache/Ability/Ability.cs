@@ -12,274 +12,7 @@ using FunkyTrinity.Movement;
 
 namespace FunkyTrinity.ability
 {
-	 [Flags]
-	 public enum AbilityUseage
-	 {
-		  Anywhere=1,
-		  OutOfCombat=2,
-		  Combat=4,
-	 }
 
-	 public abstract class AbilityCriteria
-	 {
-		  public AbilityCriteria() 
-		  {
-				LastConditionPassed=ConditionCriteraTypes.None;
-		  }
-
-		  public ConditionCriteraTypes LastConditionPassed
-		  {
-				get { return lastConditionPassed; }
-				set { lastConditionPassed=value; }
-		  }
-		  private ConditionCriteraTypes lastConditionPassed=ConditionCriteraTypes.None;
-
-		  ///<summary>
-		  ///Describes the pre casting conditions - when set it will create the precast method used.
-		  ///</summary>
-		  public AbilityConditions PreCastConditions
-		  {
-				get
-				{
-					 return precastconditions_;
-				}
-				set
-				{
-					 precastconditions_=value;
-
-				}
-		  }
-		  private AbilityConditions precastconditions_= AbilityConditions.None;
-
-		  ///<summary>
-		  ///Describes values for clustering used for target (Cdistance, DistanceFromBot, MinUnits, IgnoreNonTargetable)
-		  ///</summary>
-		  ///<value>
-		  ///Clustering Distance, Distance From Bot, Minimum Unit Count, Ignore Non-Targetables
-		  ///</value>
-		  public ClusterConditions ClusterConditions
-		  {
-				get { return ClusterConditions_; }
-				set
-				{
-					 ClusterConditions_=value;
-				}
-		  }
-		  private ClusterConditions ClusterConditions_=null;
-		  ///<summary>
-		  ///Units within Range Conditions
-		  ///</summary>
-		  public Tuple<RangeIntervals, int> UnitsWithinRangeConditions
-		  {
-				get { return UnitsWithinRangeConditions_; }
-				set
-				{
-					 UnitsWithinRangeConditions_=value;
-				}
-		  }
-		  private Tuple<RangeIntervals, int> UnitsWithinRangeConditions_=null;
-
-
-		  public Tuple<RangeIntervals, int> ElitesWithinRangeConditions
-		  {
-				get { return elitesWithinRangeConditions; }
-				set { elitesWithinRangeConditions=value; }
-		  }
-		  private Tuple<RangeIntervals, int> elitesWithinRangeConditions=null;
-
-		  ///<summary>
-		  ///Single Target Conditions -- Should only used if ability is offensive!
-		  ///</summary>
-		  public UnitTargetConditions TargetUnitConditionFlags
-		  {
-				get { return targetUnitConditionFlags; }
-				set { targetUnitConditionFlags=value; }
-		  }
-		  private UnitTargetConditions targetUnitConditionFlags=null;
-
-
-
-		  public static void CreateClusterConditions(ref Func<bool> FClusterConditions, Ability ability)
-		  {
-				FClusterConditions=null;
-				if (ability.ClusterConditions==null) return;
-
-				FClusterConditions=new Func<bool>(() => { return Ability.CheckClusterConditions(ability.ClusterConditions); });
-		  }
-		  public static void CreatePreCastConditions(ref Func<bool> Fprecast, Ability ability)
-		  {
-				Fprecast=null;
-				if (ability.PreCastConditions==null) return;
-				AbilityConditions precastconditions_=ability.PreCastConditions;
-
-				if (precastconditions_.Equals(AbilityConditions.None))
-					 Fprecast+=(new Func<bool>(() => { return true; }));
-				else
-				{
-					 if (precastconditions_.HasFlag(AbilityConditions.CheckPlayerIncapacitated))
-						  Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsIncapacitated; }));
-
-					 if (precastconditions_.HasFlag(AbilityConditions.CheckPlayerRooted))
-						  Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsRooted; }));
-
-					 if (precastconditions_.HasFlag(AbilityConditions.CheckExisitingBuff))
-						  Fprecast+=(new Func<bool>(() => { return !Bot.Class.HasBuff(ability.Power); }));
-
-					 if (precastconditions_.HasFlag(AbilityConditions.CheckPetCount))
-						  Fprecast+=(new Func<bool>(() => { return Bot.Class.MainPetCount<ability.Counter; }));
-
-					 if (precastconditions_.HasFlag(AbilityConditions.CheckRecastTimer))
-						  Fprecast+=(new Func<bool>(() => { return ability.LastUsedMilliseconds>ability.Cooldown; }));
-
-					 if (precastconditions_.HasFlag(AbilityConditions.CheckCanCast))
-					 {
-						  Fprecast+=(new Func<bool>(() =>
-						  {
-								bool cancast=PowerManager.CanCast(ability.Power, out ability.CanCastFlags);
-
-								//Special Ability -- Trigger Waiting For Special When Not Enough Resource to Cast.
-								if (ability.IsSpecialAbility)
-								{
-									 if (!cancast&&ability.CanCastFlags.HasFlag(PowerManager.CanCastFlags.PowerNotEnoughResource))
-										  Bot.Class.bWaitingForSpecial=true;
-									 else
-										  Bot.Class.bWaitingForSpecial=false;
-								}
-
-								return cancast;
-						  }));
-					 }
-
-					 if (precastconditions_.HasFlag(AbilityConditions.CheckEnergy))
-					 {
-						  if (!ability.SecondaryEnergy)
-								Fprecast+=(new Func<bool>(() =>
-								{
-									 bool energyCheck=Bot.Character.dCurrentEnergy>=ability.Cost;
-									 if (ability.IsSpecialAbility) //we trigger waiting for special here.
-										  Bot.Class.bWaitingForSpecial=!energyCheck;
-									 return energyCheck;
-								}));
-						  else
-								Fprecast+=(new Func<bool>(() =>
-								{
-									 bool energyCheck=Bot.Character.dDiscipline>=ability.Cost;
-									 if (ability.IsSpecialAbility) //we trigger waiting for special here.
-										  Bot.Class.bWaitingForSpecial=!energyCheck;
-									 return energyCheck;
-								}));
-					 }
-				}
-
-		  }
-		  public static void CreateTargetConditions(ref Func<bool> FSingleTargetUnitCriteria, Ability ability)
-		  {
-				
-				FSingleTargetUnitCriteria=null;
-
-				if (ability.TargetUnitConditionFlags==null) return;
-				UnitTargetConditions TargetUnitConditionFlags_=ability.TargetUnitConditionFlags;
-
-				if (TargetUnitConditionFlags_.Distance>-1)
-					 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.RadiusDistance<=TargetUnitConditionFlags_.Distance; });
-				if (TargetUnitConditionFlags_.HealthPercent>0d)
-					 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value<=TargetUnitConditionFlags_.HealthPercent; });
-
-				//TRUE CONDITIONS
-				if (TargetUnitConditionFlags_.TrueConditionFlags.Equals(TargetProperties.None))
-					 FSingleTargetUnitCriteria+=new Func<bool>(() => { return true; });
-				else
-				{
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Boss))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsBoss; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Burrowing))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsBurrowableUnit; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.FullHealth))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value==1d; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.IsSpecial))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.ObjectIsSpecial; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Weak))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.UnitMaxHitPointAverageWeight<0; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.MissileDampening))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterMissileDampening; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.RareElite))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.IsEliteRareUnique; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.MissileReflecting))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsMissileReflecting; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Shielding))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterShielding; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Stealthable))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsStealthableUnit; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.SucideBomber))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsSucideBomber; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.TreasureGoblin))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsTreasureGoblin; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Unique))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterUnique; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Ranged))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.Monstersize.Value==MonsterSize.Ranged; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.TargetableAndAttackable))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.IsTargetableAndAttackable; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Fast))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.IsFast; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.DOTDPS))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.HasDOTdps.HasValue&&Bot.Target.CurrentUnitTarget.HasDOTdps.Value; });
-				}
-
-				//FALSE CONDITIONS
-				if (TargetUnitConditionFlags_.FalseConditionFlags.Equals(TargetProperties.None))
-					 FSingleTargetUnitCriteria+=new Func<bool>(() => { return true; });
-				else
-				{
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Boss))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsBoss; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Burrowing))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsBurrowableUnit; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.FullHealth))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value!=1d; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.IsSpecial))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.ObjectIsSpecial; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Weak))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.UnitMaxHitPointAverageWeight>0; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.MissileDampening))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.MonsterMissileDampening; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.RareElite))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.IsEliteRareUnique; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.MissileReflecting))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsMissileReflecting; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Shielding))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.MonsterShielding; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Stealthable))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsStealthableUnit; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.SucideBomber))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsSucideBomber; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.TreasureGoblin))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsTreasureGoblin; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Unique))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.MonsterUnique; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Ranged))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.Monstersize.Value!=MonsterSize.Ranged; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.TargetableAndAttackable))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.IsTargetableAndAttackable; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Fast))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.IsFast; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.DOTDPS))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.HasDOTdps.HasValue||!Bot.Target.CurrentUnitTarget.HasDOTdps.Value; });
-				}
-		  }
-		  public static void CreateUnitsInRangeConditions(ref Func<bool> FUnitRange, Ability ability)
-		  {
-				FUnitRange=null;
-				if (ability.UnitsWithinRangeConditions!=null)
-					 FUnitRange+=new Func<bool>(() => { return Bot.Combat.iAnythingWithinRange[(int)ability.UnitsWithinRangeConditions.Item1]>=ability.UnitsWithinRangeConditions.Item2; });
-		  }
-		  public static void CreateElitesInRangeConditions(ref Func<bool> FUnitRange, Ability ability)
-		  {
-				FUnitRange=null;
-				if (ability.ElitesWithinRangeConditions!=null)
-					 FUnitRange+=new Func<bool>(() => { return Bot.Combat.iElitesWithinRange[(int)ability.ElitesWithinRangeConditions.Item1]>=ability.ElitesWithinRangeConditions.Item2; });
-		  }
-	 }
 
 	 ///<summary>
 	 ///Cached Object that Describes an individual ability.
@@ -299,10 +32,6 @@ namespace FunkyTrinity.ability
 		  public Ability()
 				: base()
 		  {
-
-				Fcriteria=new Func<bool>(() => { return true; });
-				Fbuff=new Func<bool>(() => { return false; });
-
 				WaitVars=new WaitLoops(0, 0, true);
 				IsRanged=false;
 				UseageType=AbilityUseage.Anywhere;
@@ -316,17 +45,13 @@ namespace FunkyTrinity.ability
 				Initialize();
 				InitCriteria();
 		  }
-		  protected virtual void Initialize()
+		  public virtual void Initialize()
 		  {
 
 		  }
-		  protected void InitCriteria()
+			public virtual void InitCriteria()
 		  {
-				AbilityCriteria.CreatePreCastConditions(ref Fprecast, this);
-				AbilityCriteria.CreateTargetConditions(ref FSingleTargetUnitCriteria, this);
-				AbilityCriteria.CreateUnitsInRangeConditions(ref FUnitsInRangeConditions, this);
-				AbilityCriteria.CreateElitesInRangeConditions(ref FElitesInRangeConditions, this);
-				AbilityCriteria.CreateClusterConditions(ref FClusterConditions, this);
+				 
 		  }
 
 		  #region Properties
@@ -404,145 +129,9 @@ namespace FunkyTrinity.ability
 		  #endregion
 
 
-		  ///<summary>
-		  ///Method that is used to determine if current ability precast conditions are valid.
-		  ///</summary>
-		  private Func<bool> Fprecast;
-		  private Func<bool> FClusterConditions;
-		  private Func<bool> FUnitsInRangeConditions;
-		  private Func<bool> FElitesInRangeConditions;
-		  private Func<bool> FSingleTargetUnitCriteria;
-		  ///<summary>
-		  ///Custom Conditions for Combat
-		  ///</summary>
-		  protected Func<bool> Fcriteria;
-		  ///<summary>
-		  ///Custom Conditions for Buffing
-		  ///</summary>
-		  protected Func<bool> Fbuff;
 
 
-		  ///<summary>
-		  ///Check Ability Buff Conditions
-		  ///</summary>
-		  public bool CheckBuffConditionMethod()
-		  {
-				foreach (Func<bool> item in Fbuff.GetInvocationList())
-				{
-					 if (!item()) return false;
-				}
 
-				return true;
-		  }
-		  ///<summary>
-		  ///Check Ability is valid to use.
-		  ///</summary>
-		  public bool CheckPreCastConditionMethod()
-		  {
-				foreach (Func<bool> item in Fprecast.GetInvocationList())
-				{
-					 if (!item()) return false;
-				}
-
-				//Reset Last Condition
-				LastConditionPassed=ConditionCriteraTypes.None;
-				return true;
-		  }
-		  ///<summary>
-		  ///Check Combat
-		  ///</summary>
-		  public bool CheckCombatConditionMethod()
-		  {
-				//Order in which tests are conducted..
-
-				//Units in Range (Not Cluster)
-				//Clusters
-				//Single Target
-
-				//If all are null or any of them are successful, then we test Custom Conditions
-				//Custom Condition
-
-
-				bool TestCustomConditions=false;
-
-				bool FailedCondition=false;
-				if (ElitesWithinRangeConditions!=null)
-				{
-					 foreach (Func<bool> item in this.FElitesInRangeConditions.GetInvocationList())
-					 {
-						  if (!item())
-						  {
-								FailedCondition=true;
-								break;
-						  }
-					 }
-					 if (!FailedCondition)
-					 {
-						  TestCustomConditions=true;
-						  LastConditionPassed=ConditionCriteraTypes.ElitesInRange;
-					 }
-				}
-				if ((!TestCustomConditions||FailedCondition)&&UnitsWithinRangeConditions!=null)
-				{
-					 FailedCondition=false;
-					 foreach (Func<bool> item in this.FUnitsInRangeConditions.GetInvocationList())
-					 {
-						  if (!item())
-						  {
-								FailedCondition=true;
-								break;
-						  }
-					 }
-					 if (!FailedCondition)
-					 {
-						  LastConditionPassed=ConditionCriteraTypes.UnitsInRange;
-						  TestCustomConditions=true;
-					 }
-				}
-				if ((!TestCustomConditions||FailedCondition)&&ClusterConditions!=null)
-				{
-					 FailedCondition=false;
-
-					 if (!this.FClusterConditions.Invoke())
-					 {
-						  FailedCondition=true;
-					 }
-
-					 if (!FailedCondition)
-					 {
-						  LastConditionPassed=ConditionCriteraTypes.Cluster;
-						  TestCustomConditions=true;
-					 }
-				}
-				if ((!TestCustomConditions||FailedCondition)&&TargetUnitConditionFlags!=null)
-				{
-					 FailedCondition=false;
-					 foreach (Func<bool> item in this.FSingleTargetUnitCriteria.GetInvocationList())
-					 {
-						  if (!item())
-						  {
-								FailedCondition=true;
-								break;
-						  }
-					 }
-					 if (!FailedCondition)
-					 {
-						  LastConditionPassed=ConditionCriteraTypes.SingleTarget;
-						  TestCustomConditions=true;
-					 }
-				}
-
-				//If TestCustomCondtion failed, and FailedCondition is true.. then we tested a combat condition.
-				//If FailedCondition is false, then we never tested a condition.
-				if (!TestCustomConditions&&FailedCondition) return false;
-
-
-				foreach (Func<bool> item in this.Fcriteria.GetInvocationList())
-					 if (!item()) return false;
-
-
-				return true;
-		  }
 
 
 		  internal static bool CheckClusterConditions(ClusterConditions CC)
@@ -743,7 +332,7 @@ namespace FunkyTrinity.ability
 																		this.Power.ToString(), this.RuneIndex.ToString(),
 																		this.Range.ToString(), this.Cooldown.ToString(), this.Priority.ToString(), this.ExecutionType.ToString(),
 																		this.UseageType.ToString(),
-																		this.LastConditionPassed.ToString(), this.LastUsedMilliseconds<100000?this.LastUsedMilliseconds.ToString()+"ms":"Never");
+																		this.AbilityTestConditions.LastConditionPassed.ToString(), this.LastUsedMilliseconds<100000?this.LastUsedMilliseconds.ToString()+"ms":"Never");
 		  }
 
 
