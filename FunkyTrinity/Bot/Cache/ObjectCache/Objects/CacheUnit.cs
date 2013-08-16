@@ -1255,7 +1255,7 @@ namespace FunkyTrinity.Cache
 						  // Note that whirlwinds use an off-on-off-on to avoid spam
 						  if (Bot.Combat.powerPrime.Power!=SNOPower.Barbarian_Whirlwind&&Bot.Combat.powerPrime.Power!=SNOPower.DemonHunter_Strafe)
 						  {
-								Bot.Combat.powerPrime.UsePower();
+								Ability.UsePower(ref Bot.Combat.powerPrime);
 								Bot.Combat.lastChangedZigZag=DateTime.Today;
 								Bot.Combat.vPositionLastZigZagCheck=Vector3.Zero;
 						  }
@@ -1271,7 +1271,7 @@ namespace FunkyTrinity.Cache
 								}
 								if (bUseThisLoop)
 								{
-									 Bot.Combat.powerPrime.UsePower();
+									 Ability.UsePower(ref Bot.Combat.powerPrime);
 								}
 						  }
 

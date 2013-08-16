@@ -213,9 +213,9 @@ namespace FunkyTrinity
 					 FunkyTrinity.ability.Ability Buff;
 					 if (Bot.Class.FindBuffPower(out Buff))
 					 {
-						  Buff.SetupAbilityForUse();
+						  FunkyTrinity.ability.Ability.SetupAbilityForUse(ref Buff);
 						  Bot.Character.WaitWhileAnimating(4, true);
-						  Buff.UsePower();
+						  ability.Ability.UsePower(ref Buff);
 						  Buff.SuccessfullyUsed();
 						  Bot.Character.WaitWhileAnimating(3, true);
 					 }

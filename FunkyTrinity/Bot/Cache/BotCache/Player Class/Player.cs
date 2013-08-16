@@ -127,6 +127,7 @@ namespace FunkyTrinity
 				///</summary>
 				public virtual Ability AbilitySelector(bool bCurrentlyAvoiding=false, bool bOOCBuff=false)
 				{
+					 Ability returnAbility=new Ability();
 					 foreach (var item in this.SortedAbilities)
 					 {
 						  //Check Avoidance and Buff only parameters!
@@ -139,13 +140,14 @@ namespace FunkyTrinity
 						  //Check Combat Conditions!
 						  if (item.CheckCombatConditionMethod())
 						  {
-								//Setup Ability (sets vars according to current cache)
-								item.SetupAbilityForUse();
-								return item;
+								returnAbility=item;
+								break;
 						  }
 					 }
 
-					 return new Ability();
+					 //Setup Ability (sets vars according to current cache)
+					 Ability.SetupAbilityForUse(ref returnAbility);
+					 return returnAbility;
 				}
 
 				///<summary>
@@ -168,7 +170,7 @@ namespace FunkyTrinity
 					 }
 
 
-					 returnAbility.SetupAbilityForUse();
+					 Ability.SetupAbilityForUse(ref returnAbility);
 					 return returnAbility;
 				}
 

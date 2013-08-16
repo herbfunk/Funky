@@ -997,8 +997,8 @@ namespace FunkyTrinity
 							 Ability movement;
 							 if (Bot.Class.FindSpecialMovementPower(out movement))
 							 {
-									movement.SetupAbilityForUse();
-									movement.UsePower();
+								  ability.Ability.SetupAbilityForUse(ref movement);
+								  ability.Ability.UsePower(ref movement);
 									movement.SuccessfullyUsed();
 							 }
 						}
