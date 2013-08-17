@@ -404,7 +404,7 @@ namespace FunkyTrinity
 												Cluster currentTargetCluster=CurrentUnitTarget.CurrentTargetCluster;
 												if (currentTargetCluster!=null)
 												{
-													 bool ShouldTriggerBehavior=(currentTargetCluster.Info.Properties.HasFlag(ClusterProperties.Elites)||
+													 bool ShouldTriggerBehavior=(!Bot.SettingsFunky.IgnoreAboveAverageMobs&&currentTargetCluster.Info.Properties.HasFlag(ClusterProperties.Elites)||
 																						  currentTargetCluster.Info.Properties.HasFlag(ClusterProperties.Large)||
 																						  currentTargetCluster.Info.Properties.HasFlag(ClusterProperties.Strong)||
 																						  currentTargetCluster.Info.Properties.HasFlag(ClusterProperties.Fast));
@@ -413,8 +413,8 @@ namespace FunkyTrinity
 													 if (ShouldTriggerBehavior)
 													 {
 														  var PossibleGroups=Bot.Combat.CurrentGroupClusters
-																	 .Where(c => 
-																		  c.Info.Properties.HasFlag(ClusterProperties.Elites)||
+																	 .Where(c =>
+																		  (!Bot.SettingsFunky.IgnoreAboveAverageMobs&&c.Info.Properties.HasFlag(ClusterProperties.Elites))||
 																		  c.Info.Properties.HasFlag(ClusterProperties.Large)||
 																		  c.Info.Properties.HasFlag(ClusterProperties.Strong));
 

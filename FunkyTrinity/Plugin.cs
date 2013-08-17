@@ -23,7 +23,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky : IPlugin
 	 {
-		  public Version Version { get { return new Version(2, 0, 0, 2); } }
+		  public Version Version { get { return new Version(2, 0, 0, 3); } }
 		  public string Author { get { return "Herbfunk"; } }
 		  public string Description
 		  {
@@ -239,6 +239,7 @@ namespace FunkyTrinity
 					 {
 						  MainWindow.Title="DB - "+ZetaDia.Service.CurrentHero.BattleTagName;
 					 } catch{}
+
 
 					 // Safety check incase DB "OnStart" event didn't fire properly
 					 if (BotMain.IsRunning) FunkyBotStart(null);

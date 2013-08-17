@@ -93,7 +93,7 @@ namespace FunkyTrinity.Movement
 				//Logging.WriteVerbose("Total Units {0}", listObjectUnits.Count.ToString());
 				if (listObjectUnits.Count>0)
 				{
-					 CurrentClusters=Cluster.RunKmeans(listObjectUnits, clusterConditions.ClusterDistance).Where(c => c.ListUnits.Count>=clusterConditions.MinimumUnits&&(clusterConditions.DOTDPSRatio==0.00d||c.Info.DotDPSRatio<=clusterConditions.DOTDPSRatio)).ToList();
+					 CurrentClusters=Cluster.RunKmeans(listObjectUnits, clusterConditions.ClusterDistance).Where(c => c.Info.Properties.HasFlag(clusterConditions.ClusterFlags)&&c.ListUnits.Count>=clusterConditions.MinimumUnits&&(clusterConditions.DOTDPSRatio==0.00d||c.Info.DotDPSRatio<=clusterConditions.DOTDPSRatio)).ToList();
 
 					 //Sort by distance -- reverse to get nearest unit First
 					 if (CurrentClusters.Count>0)

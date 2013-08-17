@@ -106,17 +106,7 @@ namespace FunkyTrinity.Movement
 					 set { CurrentLocationGPrect=value; }
 				}
 
-				//Blacklisted points used by movement behaviors
-				public HashSet<GridPoint> BlacklistedGridpoints=new HashSet<GridPoint>();
-				internal void BlacklistLastSafespot()
-				{
-					 if (Bot.NavigationCache.LastUsedRect!=null)
-					 {
-						  //Blacklist the creation vector and nullify the last used..
-						  Bot.NavigationCache.BlacklistedGridpoints.Add(Bot.NavigationCache.LastUsedRect.LastFoundSafeSpot);
-					 }
-					 //vlastSafeSpot=Vector3.Zero;
-				}
+
 
 
 

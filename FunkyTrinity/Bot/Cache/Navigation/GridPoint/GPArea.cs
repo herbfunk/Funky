@@ -55,18 +55,30 @@ namespace FunkyTrinity.Movement
 				{
 					 return centerGPRect.Contains(point);
 				}
+				//Blacklisted points used by movement behaviors
+				internal HashSet<GridPoint> BlacklistedGridpoints=new HashSet<GridPoint>();
+				private bool BlacklistedPoint=false;
+				internal void BlacklistLastSafespot()
+				{
+					 if (lastUsedGPRect!=null)
+					 {
+						  this.BlacklistedGridpoints.Add(lastUsedGPRect.LastFoundSafeSpot);
+						  BlacklistedPoint=true;
+					 }
+
+				}
 
 				///<summary>
 				///Searches for a safespot!
 				///</summary>
 				public Vector3 AttemptFindSafeSpot(Vector3 CurrentPosition, Vector3 LOS, bool kiting=false)
 				{
-					 if (AllGPRectsFailed&&Bot.NavigationCache.BlacklistedGridpoints.Count>0)
+					 if (AllGPRectsFailed&&Bot.NavigationCache.CurrentGPArea.BlacklistedGridpoints.Count>0)
 					 {
 						  //Reset all blacklist to retry again.
 						  AllGPRectsFailed=false;
 						  //Clear Blacklisted
-						  Bot.NavigationCache.BlacklistedGridpoints.Clear();
+						  Bot.NavigationCache.CurrentGPArea.BlacklistedGridpoints.Clear();
 					 }
 
 					 Vector3 safespot=Vector3.Zero;
@@ -109,6 +121,13 @@ namespace FunkyTrinity.Movement
 				private int lastGPRectIndexUsed=0;
 				private void iterateGPRectsSafeSpot(Vector3 CurrentPosition, out Vector3 safespot, Vector3 LOS, bool kiting=false)
 				{
+					 //blacklisted a point?.. we advance to next index!
+					 if (BlacklistedPoint)
+					 {
+						  lastGPRectIndexUsed++;
+						  BlacklistedPoint=false;
+					 }
+
 					 safespot=Vector3.Zero;
 					 for (int i=lastGPRectIndexUsed; i<gridpointrectangles_.Count-1; i++)
 					 {

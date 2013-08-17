@@ -40,10 +40,10 @@ namespace FunkyTrinity.ability
 		 private Func<bool> FUnitsInRangeConditions;
 		 private Func<bool> FElitesInRangeConditions;
 		 private Func<bool> FSingleTargetUnitCriteria;
-		  
 
 
-		private void CreateClusterConditions(ref Func<bool> FClusterConditions, Ability ability)
+		 #region Function Creation Methods
+		 private void CreateClusterConditions(ref Func<bool> FClusterConditions, Ability ability)
 		 {
 				FClusterConditions=null;
 				if (ability.ClusterConditions==null) return;
@@ -226,7 +226,7 @@ namespace FunkyTrinity.ability
 				if (ability.ElitesWithinRangeConditions!=null)
 					 FUnitRange+=new Func<bool>(() => { return Bot.Combat.iElitesWithinRange[(int)ability.ElitesWithinRangeConditions.Item1]>=ability.ElitesWithinRangeConditions.Item2; });
 		 }
-
+		 #endregion
 
 		///<summary>
 		///Tracks last successful condition if any.

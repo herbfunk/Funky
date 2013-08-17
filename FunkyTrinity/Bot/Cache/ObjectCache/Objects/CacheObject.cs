@@ -275,10 +275,15 @@ namespace FunkyTrinity.Cache
 
 
 				#region Line Of Sight Properties & Methods
+				private bool requiresLOSCheck;
 				///<summary>
 				///Line Of Sight Checking Variable
 				///</summary>
-				public bool RequiresLOSCheck { get; set; }
+				public virtual bool RequiresLOSCheck
+				{
+					 get { return requiresLOSCheck; }
+					 set { requiresLOSCheck=value; }
+				}
 
 
 				///<summary>

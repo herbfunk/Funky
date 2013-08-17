@@ -252,7 +252,7 @@ namespace FunkyTrinity.Cache
 									 }
 									 else
 									 {
-										  BarricadeTest=MathEx.GetPointAt(this.Position, 1f, Navigation.FindDirection(Bot.Character.Position, this.Position, true));
+										  BarricadeTest=MathEx.GetPointAt(this.Position, 5f, Navigation.FindDirection(Bot.Character.Position, this.Position, true));
 									 }
 
 									 //Barricade and path intersects the actorsphere radius..
@@ -607,7 +607,7 @@ namespace FunkyTrinity.Cache
 					 fRangeRequired=this.ActorSphereRadius.Value;
 
 					 //Increase Range for Ranged Classes
-					 if (!Bot.Class.IsMeleeClass) fRangeRequired*=3f;
+					 if (!Bot.Class.IsMeleeClass&&Bot.Combat.powerPrime.IsRanged) fRangeRequired*=3f;
 
 					 //fDistanceReduction=(this.Radius*0.5f);
 

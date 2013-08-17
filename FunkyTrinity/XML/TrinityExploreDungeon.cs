@@ -878,7 +878,7 @@ namespace FunkyTrinity.XMLTags
 		/// <param name="reason"></param>
 		private void SetNodeVisited(string reason="")
 		{
-			//DbHelper.Log(TrinityLogLevel.Normal, LogCategory.ProfileTag, "Dequeueing current node {0} - {1}", BrainBehavior.DungeonExplorer.CurrentNode.NavigableCenter, reason);
+			Logging.WriteDiagnostic("Dequeueing current node {0} - {1}", BrainBehavior.DungeonExplorer.CurrentNode.NavigableCenter, reason);
 			BrainBehavior.DungeonExplorer.CurrentNode.Visited=true;
 			BrainBehavior.DungeonExplorer.CurrentRoute.Dequeue();
 			PrintNodeCounts("SetNodeVisited");

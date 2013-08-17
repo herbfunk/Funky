@@ -87,10 +87,6 @@ namespace FunkyTrinity
 		  // Do we need to reset the debug bar after combat handling?
 	    internal static bool bResetStatusText=false;
 
-		  
-
-
-
 
 
         // A list of "useonceonly" tags that have been triggered this xml profile
@@ -103,6 +99,7 @@ namespace FunkyTrinity
 		  {
 				get
 				{
+						
 					 Process p=Process.GetProcessById(ZetaDia.Memory.Process.Id);
 					 return p.MainWindowHandle;
 				}

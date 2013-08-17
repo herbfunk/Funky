@@ -1,4 +1,5 @@
-﻿namespace FunkyTrinity.ability
+﻿using FunkyTrinity.Movement;
+namespace FunkyTrinity.ability
 {
 	 public class ClusterConditions
 	 {
@@ -7,14 +8,16 @@
 			public readonly int MinimumUnits;
 			public readonly bool IgnoreNonTargetable;
 			public readonly double DOTDPSRatio;
+			public readonly ClusterProperties ClusterFlags;
 			private readonly System.Guid GUID;
-			public ClusterConditions(double clusterRadius, float MaxDistanceFromBot, int MinimumUnitCount, bool IgnoreNonTargetableUnits, double DotDPSRatio=0.00)
+			public ClusterConditions(double clusterRadius, float MaxDistanceFromBot, int MinimumUnitCount, bool IgnoreNonTargetableUnits, double DotDPSRatio=0.00, ClusterProperties clusterflags=ClusterProperties.None)
 			{
 				 ClusterDistance=clusterRadius;
 				 MaximumDistance=MaxDistanceFromBot;
 				 MinimumUnits=MinimumUnitCount;
 				 IgnoreNonTargetable=IgnoreNonTargetableUnits;
 				 DOTDPSRatio=DotDPSRatio;
+				 ClusterFlags=clusterflags;
 				 GUID=System.Guid.NewGuid();
 			}
 

@@ -123,7 +123,9 @@ namespace FunkyTrinity
 					 iCurrentItemLoops=0;
 					 RandomizeTheTimer();
 					 TownRunManager.bFailedToLootLastItem=false;
-					 Bot.Character.iTotalPotions=Bot.Character.BackPack.ReturnCurrentPotions().Sum(potions => potions.ItemStackQuantity);
+
+					 List<ACDItem> potions=Bot.Character.BackPack.ReturnCurrentPotions();
+					 Bot.Character.iTotalPotions=potions.Any()?potions.Sum(p => p.ItemStackQuantity):0;
 					 return RunStatus.Success;
 				}
 

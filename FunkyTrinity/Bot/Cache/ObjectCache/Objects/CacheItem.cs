@@ -20,9 +20,15 @@ namespace FunkyTrinity.Cache
 				public CacheItem(CacheObject baseobj)
 					 : base(baseobj)
 				{
+					 
 				}
 
-
+				private bool requiresLOSCheck=false;
+				public override bool RequiresLOSCheck
+				{
+					 get { return requiresLOSCheck; }
+					 set { requiresLOSCheck=value; }
+				}
 
 				public DiaItem ref_DiaItem { get; set; }
 				public int? DynamicID { get; set; }
@@ -275,7 +281,8 @@ namespace FunkyTrinity.Cache
 								//Check if we require LOS
 								if (this.RequiresLOSCheck)
 								{
-									 if (!Navigation.CanRayCast(Bot.Character.Position, this.Position, NavCellFlags.AllowWalk))
+									 Vector3 testPosition=new Vector3(this.Position.X, this.Position.Y, this.Position.Z+1f);
+									 if (!Navigation.CanRayCast(Bot.Character.Position, testPosition, NavCellFlags.AllowWalk))
 									 {
 										  int blacklistloopCount=50;
 										  if (this.CentreDistance<25f)
@@ -293,7 +300,7 @@ namespace FunkyTrinity.Cache
 						  else
 						  {
 								// Blacklist objects already in pickup radius range
-								if (this.CentreDistance+1f<Bot.Character.PickupRadius)
+								if (this.CentreDistance+2.5f<Bot.Character.PickupRadius)
 								{
 									 this.NeedsRemoved=true;
 									 this.BlacklistFlag=BlacklistType.Temporary;
