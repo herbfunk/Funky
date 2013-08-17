@@ -23,6 +23,12 @@ namespace FunkyTrinity.ability.Abilities
 			Priority = AbilityPriority.None;
 			ExecutionType = AbilityUseType.Target;
 			WaitVars = new WaitLoops(0, 0, true);
+			PreCastConditions=AbilityConditions.None;
+			UseageType=AbilityUseage.Combat;
+		}
+		public override void InitCriteria()
+		{
+			 base.AbilityTestConditions=new AbilityUsablityTests(this);
 		}
 		#region IAbility
 		public override int GetHashCode()
