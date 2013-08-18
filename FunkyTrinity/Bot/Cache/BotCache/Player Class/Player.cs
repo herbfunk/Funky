@@ -124,7 +124,7 @@ namespace FunkyTrinity
 				///<summary>
 				///Selects first ability that is successful in precast and combat testing.
 				///</summary>
-				public virtual Ability AbilitySelector(bool bCurrentlyAvoiding=false, bool bOOCBuff=false)
+				public virtual Ability AbilitySelector(bool bCurrentlyAvoiding=false, bool bOOCBuff=false, ConditionCriteraTypes criteria=ConditionCriteraTypes.All)
 				{
 					 Ability returnAbility=this.DefaultAttack;
 					 foreach (var item in this.SortedAbilities)
@@ -137,7 +137,7 @@ namespace FunkyTrinity
 						  if (!item.AbilityTestConditions.CheckPreCastConditionMethod()) continue;
 
 						  //Check Combat Conditions!
-						  if (item.AbilityTestConditions.CheckCombatConditionMethod())
+						  if (item.AbilityTestConditions.CheckCombatConditionMethod(criteria))
 						  {
 								returnAbility=item;
 								break;
@@ -169,7 +169,7 @@ namespace FunkyTrinity
 					 }
 
 
-					 Ability.SetupAbilityForUse(ref returnAbility);
+					 Ability.SetupAbilityForUse(ref returnAbility, true);
 					 return returnAbility;
 				}
 

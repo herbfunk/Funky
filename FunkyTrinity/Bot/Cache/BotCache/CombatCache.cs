@@ -10,6 +10,7 @@ using Zeta.CommonBot;
 using FunkyTrinity.ability;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
+using FunkyTrinity.Movement.Clustering;
 
 namespace FunkyTrinity
 {
@@ -79,8 +80,8 @@ namespace FunkyTrinity
 				private ClusterConditions TargetClusterConditions=new ClusterConditions(Bot.SettingsFunky.ClusterDistance, 100f, Bot.SettingsFunky.ClusterMinimumUnitCount, false);
 				internal ClusterTargetCollection TargetClusterCollection { get; set; }
 
-				internal List<Cluster> CurrentTargetClusters=new List<Cluster>();
-				internal List<Cluster> CurrentGroupClusters=new List<Cluster>();
+				internal List<UnitCluster> CurrentTargetClusters=new List<UnitCluster>();
+				internal List<UnitCluster> CurrentGroupClusters=new List<UnitCluster>();
 
 				///<summary>
 				///Tracks Lists of Clusters for specific Conditions used during Ability Clustering.
@@ -92,9 +93,9 @@ namespace FunkyTrinity
 
 
 				//Cache last filtered list generated
-				internal List<Cluster> LastClusterList=new List<Cluster>();
+				internal List<UnitCluster> LastClusterList=new List<UnitCluster>();
 				private DateTime lastClusterComputed=DateTime.Today;
-				internal List<Cluster> Clusters(ClusterConditions CC)
+				internal List<UnitCluster> Clusters(ClusterConditions CC)
 				{
 					 if (!AbilityClusters.ContainsKey(CC))
 					 {
@@ -121,14 +122,14 @@ namespace FunkyTrinity
 								||(CurrentGroupClusters.Count>0&&DateTime.Now.Subtract(LastClusterGroupingLogicRefresh).TotalMilliseconds>1250))
 						  {
 								//Clear Clusters and Unit collection
-								CurrentGroupClusters=new List<Cluster>();
+								CurrentGroupClusters=new List<UnitCluster>();
 
 								//Check if there are enough units present currently..
 								if (DistantUnits.Count>Bot.SettingsFunky.GroupingMinimumUnitsInCluster)
 								{
 
-									 //Update Cluster Collection
-									 CurrentGroupClusters=Cluster.RunKmeans(DistantUnits, Bot.SettingsFunky.GroupingClusterRadiusDistance)
+									 //Update UnitCluster Collection
+									 CurrentGroupClusters=UnitCluster.RunKmeans(DistantUnits, Bot.SettingsFunky.GroupingClusterRadiusDistance)
 										  .Where(cluster => cluster.ListUnits.Count>=Bot.SettingsFunky.GroupingMinimumUnitsInCluster&&cluster.NearestMonsterDistance<=Bot.SettingsFunky.GroupingMaximumDistanceAllowed)
 										  .OrderByDescending(cluster => cluster.NearestMonsterDistance).ToList();
 
@@ -308,7 +309,7 @@ namespace FunkyTrinity
 																					 "CurrentGroupClusters Count {1} -- DistantUnits Count {2}",
 																					 this.LastClusterGroupingLogicRefresh.ToString(), this.CurrentGroupClusters.Count, this.DistantUnits.Count);
 
-						  string strDebug_ClusterAbility=string.Format("Total Ability Cluster Entries {0}", this.AbilityClusters.Keys.ToString());
+						  string strDebug_ClusterAbility=string.Format("Total Ability UnitCluster Entries {0}", this.AbilityClusters.Keys.ToString());
 
 
 

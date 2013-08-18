@@ -222,16 +222,54 @@ namespace FunkyTrinity.ability
 				TargetMovement.BlockedMovementCounter=0;
 		  }
 
-		  public static void SetupAbilityForUse(ref Ability ability)
+		  public static void SetupAbilityForUse(ref Ability ability, bool Destructible=false)
 		  {
 				ability.MinimumRange=ability.Range;
 				ability.TargetPosition_=Vector3.Zero;
 				ability.TargetRAGUID_=-1;
 				ability.WaitLoopsBefore_=ability.WaitVars.PreLoops;
 				ability.WaitLoopsAfter_=ability.WaitVars.PostLoops;
-
 				ability.CanCastFlags=PowerManager.CanCastFlags.None;
 				ability.SuccessUsed_=null;
+
+				 //Destructible Setup
+			  if (Destructible)
+			  {
+				  bool LocationalAttack = (CacheIDLookup.hashDestructableLocationTarget.Contains(Bot.Target.CurrentTarget.SNOID) ||
+				                           (Bot.Target.CurrentTarget.InteractionAttempts > 1 && Bot.Target.CurrentTarget.RadiusDistance < 7f));
+
+				  if (LocationalAttack)
+				  {
+					  Vector3 attacklocation = Bot.Target.CurrentTarget.Position;
+
+						 //melee attack
+					  if (!ability.IsRanged)
+					  {
+							//if (Bot.Target.CurrentTarget.RadiusDistance > 2.5f)
+							//{
+							//	attacklocation = MathEx.GetPointAt(Bot.Target.CurrentTarget.Position, 2.5f,
+							//		Navigation.FindDirection(Bot.Character.Position, Bot.Target.CurrentTarget.Position, true));
+							//}
+							//else
+							//{
+							 
+							//}
+							attacklocation=MathEx.CalculatePointFrom(Bot.Character.Position, Bot.Target.CurrentTarget.Position, 1f);
+						 
+					  }
+
+						 //modify Z value
+						//attacklocation.Z+=1.5f;
+
+					  ability.TargetPosition = attacklocation;
+				  }
+				  else
+				  {
+						 ability.TargetRAGUID=Bot.Target.CurrentTarget.AcdGuid.Value;
+				  }
+
+					return;
+			  }
 
 				//Cluster Target -- Aims for Centeroid Unit
 				if (ability.ExecutionType.HasFlag(AbilityUseType.ClusterTarget)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster ACDGUID
@@ -328,11 +366,12 @@ namespace FunkyTrinity.ability
 				return String.Format("Ability: {0} [RuneIndex={1}] \r\n"+
 										  "Range={2} ReuseMS={3} Priority [{4}] UseType [{5}] \r\n"+
 										  "Usage {6} \r\n"+
-										  "Last Condition {7} -- Last Used {8}",
+										  "Last Condition {7} -- Last Used {8} -- Used Successfully=[{9}]",
 																		this.Power.ToString(), this.RuneIndex.ToString(),
 																		this.Range.ToString(), this.Cooldown.ToString(), this.Priority.ToString(), this.ExecutionType.ToString(),
 																		this.UseageType.ToString(),
-																		this.AbilityTestConditions.LastConditionPassed.ToString(), this.LastUsedMilliseconds<100000?this.LastUsedMilliseconds.ToString()+"ms":"Never");
+																		this.AbilityTestConditions.LastConditionPassed.ToString(), this.LastUsedMilliseconds<100000?this.LastUsedMilliseconds.ToString()+"ms":"Never",
+																		this.SuccessUsed.HasValue?this.SuccessUsed.Value.ToString():"NULL");
 		  }
 
 

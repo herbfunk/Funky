@@ -9,6 +9,47 @@ using FunkyTrinity.Enums;
 namespace FunkyTrinity.Movement
 {
 
+	 [Flags]
+	 public enum LocationFlags
+	 {
+		  None=0,
+		  Right=1,
+		  Left=2,
+		  Bottom=3,
+		  Top=4,
+
+		  BottomLeft=Bottom|Left,
+		  BottomRight=Bottom|Right,
+
+		  TopLeft=Top|Left,
+		  TopRight=Top|Right,
+	 }
+
+	 public class AreaBoundary
+	 {
+		  public AreaBoundary(GridPoint TopLeft, GridPoint BottomRight)
+		  {
+				tl=TopLeft;
+				br=BottomRight;
+		  }
+
+		  private readonly GridPoint tl, br;
+
+		  public LocationFlags ComputeOutCode(double x, double y)
+		  {
+				LocationFlags code=LocationFlags.None;
+				if (x<tl.X)           // to the left of center
+					 code|=LocationFlags.Left;
+				else if (x>br.X)      // to the right of center
+					 code|=LocationFlags.Right;
+				if (y>br.Y)           // below the center
+					 code|=LocationFlags.Bottom;
+				else if (y<tl.Y)      // above the center
+					 code|=LocationFlags.Top;
+				return code;
+		  }
+	 }
+
 
 
 		  ///<summary>
@@ -68,29 +109,6 @@ namespace FunkyTrinity.Movement
 				}
 				#endregion
 
-
-				public List<GridPoint> NonIgnoredPoints
-				{
-					 get
-					 {
-						  /*
-						  return (from GridPoint points in OutCodes.Keys
-									 where points.Ignored==false
-									 select points).ToList();
-					 */
-
-						  return NonNavigationalPoints.ToList();
-					 }
-				}
-
-				//private System.Windows.Rect rect_;
-
-				//public void DebugInfo()
-				//{
-				//	 Logging.WriteVerbose("TL {0} BR {1} TOTAL POINTS {2} / Not Ignored {3}",
-				//		  tl.ToString(), br.ToString(), Points.Keys.Count.ToString(), NonIgnoredPoints.Count.ToString());
-
-				//}
 
 				public GridPoint[] QuadrantPoints(QuadrantLocation SectorCode, out GridPoint EndPoint)
 				{

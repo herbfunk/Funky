@@ -10,6 +10,7 @@ using FunkyTrinity.Enums;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
 using FunkyTrinity.ability;
+using FunkyTrinity.Movement.Clustering;
 
 namespace FunkyTrinity.Cache
 {
@@ -518,7 +519,7 @@ namespace FunkyTrinity.Cache
 					 }
 				}
 
-				internal Cluster CurrentTargetCluster
+				internal UnitCluster CurrentTargetCluster
 				{
 					 get
 					 {
@@ -896,7 +897,8 @@ namespace FunkyTrinity.Cache
 								NavCellFlags LOSNavFlags=NavCellFlags.None;
 								if (Bot.Class.IsMeleeClass||!this.WithinInteractionRange())
 									 LOSNavFlags=NavCellFlags.AllowWalk;
-
+								//if (!Bot.Class.IsMeleeClass)
+								//    LOSNavFlags|=NavCellFlags.AllowProjectile;
 
 								if (!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), LOSNavFlags))
 								{

@@ -255,7 +255,7 @@ namespace FunkyTrinity.ability
 		///<summary>
 		///Check Combat
 		///</summary>
-		public bool CheckCombatConditionMethod()
+		public bool CheckCombatConditionMethod(ConditionCriteraTypes conditions=ConditionCriteraTypes.All)
 		{
 			 //Order in which tests are conducted..
 
@@ -268,9 +268,9 @@ namespace FunkyTrinity.ability
 
 
 			 bool TestCustomConditions=false;
-
 			 bool FailedCondition=false;
-			 if (FElitesInRangeConditions!=null)
+
+			 if (conditions.HasFlag(ConditionCriteraTypes.ElitesInRange)&&FElitesInRangeConditions!=null)
 			 {
 					foreach (Func<bool> item in this.FElitesInRangeConditions.GetInvocationList())
 					{
@@ -286,7 +286,7 @@ namespace FunkyTrinity.ability
 						 LastConditionPassed=ConditionCriteraTypes.ElitesInRange;
 					}
 			 }
-			 if ((!TestCustomConditions||FailedCondition)&&FUnitsInRangeConditions!=null)
+			 if ((!TestCustomConditions||FailedCondition)&&conditions.HasFlag(ConditionCriteraTypes.UnitsInRange)&&FUnitsInRangeConditions!=null)
 			 {
 					FailedCondition=false;
 					foreach (Func<bool> item in this.FUnitsInRangeConditions.GetInvocationList())
@@ -303,7 +303,7 @@ namespace FunkyTrinity.ability
 						 TestCustomConditions=true;
 					}
 			 }
-			 if ((!TestCustomConditions||FailedCondition)&&FClusterConditions!=null)
+			 if ((!TestCustomConditions||FailedCondition)&&conditions.HasFlag(ConditionCriteraTypes.Cluster)&&FClusterConditions!=null)
 			 {
 					FailedCondition=false;
 
@@ -318,7 +318,7 @@ namespace FunkyTrinity.ability
 						 TestCustomConditions=true;
 					}
 			 }
-			 if ((!TestCustomConditions||FailedCondition)&&FSingleTargetUnitCriteria!=null)
+			 if ((!TestCustomConditions||FailedCondition)&&conditions.HasFlag(ConditionCriteraTypes.SingleTarget)&&FSingleTargetUnitCriteria!=null)
 			 {
 					FailedCondition=false;
 					foreach (Func<bool> item in this.FSingleTargetUnitCriteria.GetInvocationList())

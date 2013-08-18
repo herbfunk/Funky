@@ -496,6 +496,15 @@
     <Compile Include="Bot\Cache\BotCache\Player Class\Wizard.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Bot\Cache\Navigation\Clustering\ClusterInfo.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Navigation\Clustering\ClusterProperties.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Navigation\Clustering\UnitCluster.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Bot\Cache\Navigation\MovementBackTrack.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -535,7 +544,7 @@
     <Compile Include="Bot\BotEvents\OnPlayerLevelUp.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Navigation\Objects\ClusterCollection.cs">
+    <Compile Include="Bot\Cache\Navigation\Clustering\ClusterCollection.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\Navigation\Objects\SkipAhead.cs">
@@ -907,7 +916,7 @@
     <Compile Include="Bot\Behaviors\Misc\Items\ItemValidation.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Navigation\Objects\Cluster.cs">
+    <Compile Include="Bot\Cache\Navigation\Clustering\Cluster.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="PluginControl.cs">

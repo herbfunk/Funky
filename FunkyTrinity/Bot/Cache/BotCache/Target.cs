@@ -12,6 +12,7 @@ using FunkyTrinity.Enums;
 using FunkyTrinity.ability;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
+using FunkyTrinity.Movement.Clustering;
 
 namespace FunkyTrinity
 {
@@ -401,7 +402,7 @@ namespace FunkyTrinity
 
 										 if (Bot.Combat.CurrentGroupClusters.Count>0)
 										 {
-												Cluster currentTargetCluster=CurrentUnitTarget.CurrentTargetCluster;
+											  UnitCluster currentTargetCluster=CurrentUnitTarget.CurrentTargetCluster;
 												if (currentTargetCluster!=null)
 												{
 													 bool ShouldTriggerBehavior=(!Bot.SettingsFunky.IgnoreAboveAverageMobs&&currentTargetCluster.Info.Properties.HasFlag(ClusterProperties.Elites)||
@@ -429,7 +430,7 @@ namespace FunkyTrinity
 																 Bot.NavigationCache.groupingOrginUnit=(CacheUnit)ObjectCache.Objects[CurrentTarget.RAGUID];
 
 																 //Get Cluster
-																 Cluster groupCluster=PossibleGroups.First();
+																 UnitCluster groupCluster=PossibleGroups.First();
 																 Bot.NavigationCache.groupingCurrentCluster=groupCluster;
 
 																 if (Bot.SettingsFunky.LogGroupingOutput)
@@ -905,9 +906,11 @@ namespace FunkyTrinity
 							 Bot.Combat.bPickNewAbilities=false;
 							 if (CurrentTarget.targetType.Value==TargetType.Unit&&CurrentTarget.AcdGuid.HasValue)
 							 {
-									//ToDo: Check clustering..
-									// Pick a suitable Ability			
-									Bot.Combat.powerPrime=Bot.Class.AbilitySelector(false, false);
+								  // Pick a suitable Ability			
+								  if (CurrentUnitTarget.IsSucideBomber||(CurrentUnitTarget.IsTreasureGoblin&&Bot.SettingsFunky.GoblinPriority>1))
+										Bot.Combat.powerPrime=Bot.Class.AbilitySelector(false, false, ConditionCriteraTypes.SingleTarget);
+								  else
+										Bot.Combat.powerPrime=Bot.Class.AbilitySelector(false, false);
 
 									//Check LOS still valid...
 									#region LOSUpdate

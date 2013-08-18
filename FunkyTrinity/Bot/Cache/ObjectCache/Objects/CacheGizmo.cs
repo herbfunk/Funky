@@ -215,68 +215,7 @@ namespace FunkyTrinity.Cache
 								#region Barricade/Destructible
 								case TargetType.Barricade:
 								case TargetType.Destructible:
-									 // No physics mesh? Ignore this destructible altogether
-									 if (this.PhysicsSNO.HasValue&&this.PhysicsSNO.Value<=0)
-									 {
-										  // No physics mesh on a destructible, probably bugged
-										  this.NeedsRemoved=true;
-										  this.BlacklistFlag=BlacklistType.Permanent;
-										  return false;
-									 }
-
-									 //We don't cache unless its 40f, so if its out of range we remove it!
-									 if (base.CentreDistance>75f)
-									 {
-										  this.NeedsRemoved=true;
-										  return false;
-									 }
-
-									 //Ignore Destructibles Setting
-									 if (!Zeta.CommonBot.Settings.CharacterSettings.Instance.DestroyEnvironment
-										  &&this.Gizmotype.Value==GizmoType.Destructible
-										  &&this.PriorityCounter==0
-										  &&!this.IsBarricade.Value)
-									 {
-										  //ignore from being a targeted right now..
-										  this.BlacklistLoops=15;
-										  //We dont want to complete ignore this since the object may pose a navigational obstacle.
-										  return false;
-									 }
-
-									 
-									 Vector3 BarricadeTest=this.Position;
-									 if (radiusDistance>1f)
-									 {
-										  if (radiusDistance<10f)
-												BarricadeTest=MathEx.GetPointAt(this.Position, 10f, Navigation.FindDirection(Bot.Character.Position, this.Position, true));
-									 }
-									 else
-									 {
-										  BarricadeTest=MathEx.GetPointAt(this.Position, 5f, Navigation.FindDirection(Bot.Character.Position, this.Position, true));
-									 }
-
-									 //Barricade and path intersects the actorsphere radius..
-									 //Some barricades may be lower than ourself, or our destination is high enough to raycast past the object. So we add a little to the Z of the obstacle.
-									 //The best method would be to get the hight of the object and compare it to our current Z-height if we are nearly within radius distance of the object.
-									 if ((this.targetType.Value==TargetType.Barricade||this.IsBarricade.HasValue&&this.IsBarricade.Value)&&
-										  (!Funky.PlayerMover.ShouldHandleObstacleObject  //Have special flag from unstucker to destroy nearby barricade.
-										  &&this.PriorityCounter==0
-										  &&radiusDistance>0f
-										  &&Funky.Difference(BarricadeTest.Z, Bot.Character.Position.Z)<15f//Ignore things blocked by z Funky.Difference
-										  &&!MathEx.IntersectsPath(this.Position, this.CollisionRadius.Value, Bot.Character.Position, BarricadeTest)))
-									 {
-										  return false;
-									 }
-
-
-									 if (this.targetType.Value==TargetType.Destructible&&
-										 this.CentreDistance>(Bot.DestructibleRange+(this.Radius)))
-									 {
-										  return false;
-									 }
-
-
-
+									
 									 break;
 								#endregion
 								#region Container
@@ -477,6 +416,78 @@ namespace FunkyTrinity.Cache
 				{
 				}
 
+				private bool? lastIntersectionTestResult=null;
+
+				public override bool ObjectIsValidForTargeting
+				{
+					 get
+					 {
+						  if (!base.ObjectIsValidForTargeting) return false;
+
+						  // No physics mesh? Ignore this destructible altogether
+						  if (this.PhysicsSNO.HasValue&&this.PhysicsSNO.Value<=0)
+						  {
+								// No physics mesh on a destructible, probably bugged
+								this.NeedsRemoved=true;
+								this.BlacklistFlag=BlacklistType.Permanent;
+								return false;
+						  }
+
+						  //We don't cache unless its 40f, so if its out of range we remove it!
+						  if (base.CentreDistance>75f)
+						  {
+								this.NeedsRemoved=true;
+								return false;
+						  }
+
+						  //Ignore Destructibles Setting
+						  if (!Zeta.CommonBot.Settings.CharacterSettings.Instance.DestroyEnvironment
+								&&this.Gizmotype.Value==GizmoType.Destructible
+								&&this.PriorityCounter==0
+								&&!this.IsBarricade.Value)
+						  {
+								//ignore from being a targeted right now..
+								this.BlacklistLoops=15;
+								//We dont want to complete ignore this since the object may pose a navigational obstacle.
+								return false;
+						  }
+
+
+
+						  float radiusDistance=this.RadiusDistance;
+						  //Barricade and path intersects the actorsphere radius..
+						  //Some barricades may be lower than ourself, or our destination is high enough to raycast past the object. So we add a little to the Z of the obstacle.
+						  //The best method would be to get the hight of the object and compare it to our current Z-height if we are nearly within radius distance of the object.
+						  if ((this.targetType.Value==TargetType.Barricade||this.IsBarricade.HasValue&&this.IsBarricade.Value)&&
+								(!Funky.PlayerMover.ShouldHandleObstacleObject  //Have special flag from unstucker to destroy nearby barricade.
+								&&this.PriorityCounter==0
+								&&radiusDistance>0f))
+						  {
+								Vector3 BarricadeTest=this.Position;
+								if (radiusDistance>1f)
+								{
+									 if (radiusDistance<10f)
+									 {
+										  BarricadeTest=MathEx.GetPointAt(this.Position, 10f, Navigation.FindDirection(Bot.Character.Position, this.Position, true));
+										  this.lastIntersectionTestResult=!MathEx.IntersectsPath(this.Position, this.CollisionRadius.Value, Bot.Character.Position, BarricadeTest);
+										  if (!this.lastIntersectionTestResult.Value)
+										  {
+												return false;
+										  }
+									 }
+								}
+						  }
+
+						  if (this.targetType.Value==TargetType.Destructible&&this.RadiusDistance>(Bot.DestructibleRange+5f))
+						  {
+								return false;
+						  }
+
+
+						  return true;
+					 }
+				}
+
 				public override void UpdateWeight()
 				{
 					 base.UpdateWeight();
@@ -528,8 +539,13 @@ namespace FunkyTrinity.Cache
 
 				public override RunStatus Interact()
 				{
+
 					 if (Bot.Combat.powerPrime.Power!=SNOPower.None)
 					 {
+						  // Wait while animating before an attack
+						  if (Bot.Combat.powerPrime.WaitWhileAnimating)
+								Bot.Character.WaitWhileAnimating(9);
+
 						  if (this.targetType.Value==TargetType.Barricade)
 								Logging.WriteDiagnostic("[Funky] Barricade: Name="+this.InternalName+". SNO="+this.SNOID.ToString()+
 									", Range="+this.CentreDistance.ToString()+". Needed range="+Bot.Combat.powerPrime.MinimumRange.ToString()+". Radius="+
@@ -539,37 +555,20 @@ namespace FunkyTrinity.Cache
 									", Range="+this.CentreDistance.ToString()+". Needed range="+Bot.Combat.powerPrime.MinimumRange.ToString()+". Radius="+
 									this.Radius.ToString()+". SphereRadius="+this.ActorSphereRadius.Value.ToString()+". Type="+this.targetType.ToString()+". Using power="+Bot.Combat.powerPrime.Power.ToString());
 
-						  //Actual interaction
-						  Bot.Character.WaitWhileAnimating(12);
+						 ability.Ability.UsePower(ref Bot.Combat.powerPrime);
 
-						  Bot.Combat.powerPrime.WaitLoopsAfter=15;
+						 if (Bot.Combat.powerPrime.SuccessUsed.HasValue&&Bot.Combat.powerPrime.SuccessUsed.Value)
+						 {
+								//Logging.Write(powerPrime.powerThis.ToString() + " used successfully");
+								Bot.Combat.powerLastSnoPowerUsed=Bot.Combat.powerPrime.Power;
+								Bot.Combat.powerPrime.SuccessfullyUsed();
+						 }
+						 else
+						 {
+								PowerCacheLookup.dictAbilityLastFailed[Bot.Combat.powerPrime.Power]=DateTime.Now;
+						 }
 
-
-						  if (CacheIDLookup.hashDestructableLocationTarget.Contains(this.SNOID)
-								||(this.InteractionAttempts>1
-								&&this.RadiusDistance<7f))
-						  {// Location attack - attack the Vector3/map-area (equivalent of holding shift and left-clicking the object in-game to "force-attack")
-
-								Vector3 vAttackPoint;
-
-
-								if (Bot.Class.IsMeleeClass) //Use a point that will focus our attack directly at the object
-									 vAttackPoint=MathEx.GetPointAt(this.Position, 6f, Navigation.FindDirection(Bot.Character.Position, this.Position, true));
-								else
-									 vAttackPoint=this.Position;
-
-								vAttackPoint.Z+=1.5f;
-
-								Logging.WriteDiagnostic("[Funky] (NB: Attacking location of destructable)");
-								ZetaDia.Me.UsePower(Bot.Combat.powerPrime.Power, vAttackPoint, Bot.Character.iCurrentWorldID, -1);
-						  }
-						  else
-						  {
-								// Standard attack - attack the ACDGUID (equivalent of left-clicking the object in-game)
-								ZetaDia.Me.UsePower(Bot.Combat.powerPrime.Power, Vector3.Zero, Bot.Character.iCurrentWorldID, base.AcdGuid.Value);
-						  }
 						  this.InteractionAttempts++;
-
 						  // If we've tried interacting too many times, blacklist this for a while
 						  if (this.InteractionAttempts>5)
 						  {
@@ -577,9 +576,8 @@ namespace FunkyTrinity.Cache
 								this.InteractionAttempts=0;
 						  }
 
-							PowerCacheLookup.dictAbilityLastUse[Bot.Combat.powerPrime.Power]=DateTime.Now;
-						  //Bot.Combat.powerPrime=null;
-						  Bot.Character.WaitWhileAnimating(6, true);
+							
+						  Bot.Character.WaitWhileAnimating(9, true);
 					 }
 
 					 //Get current animation state! (Idle = Untouched, Dead = Destroyed)
@@ -593,7 +591,7 @@ namespace FunkyTrinity.Cache
 							Funky.PlayerMover.ShouldHandleObstacleObject=false;
 
 						  //Blacklist all destructibles surrounding this obj
-						  ObjectCache.Objects.BlacklistObjectsSurroundingObject<CacheDestructable>(this, 20f, 15);
+						  ObjectCache.Objects.BlacklistObjectsSurroundingObject<CacheDestructable>(this, 10f, 15);
 					 }
 
 					 return RunStatus.Running;
@@ -604,22 +602,34 @@ namespace FunkyTrinity.Cache
 					 float fRangeRequired=0f;
 					 float fDistanceReduction=0f;
 
-					 fRangeRequired=this.ActorSphereRadius.Value;
+					 fRangeRequired=Bot.Combat.powerPrime.MinimumRange;
 
-					 //Increase Range for Ranged Classes
-					 if (!Bot.Class.IsMeleeClass&&Bot.Combat.powerPrime.IsRanged) fRangeRequired*=3f;
+					 ////Increase Range for Ranged Classes
+					 //if (!Bot.Class.IsMeleeClass&&Bot.Combat.powerPrime.IsRanged)
+					 //	 fRangeRequired*=3f;
+					 //else
+					 //	 fRangeRequired*=1.15f;
 
 					 //fDistanceReduction=(this.Radius*0.5f);
 
-					 if (Bot.Combat.bForceCloseRangeTarget) fDistanceReduction-=3f;
+					 //if (fDistanceReduction<=0f) fDistanceReduction=0f;
 
-					 if (fDistanceReduction<=0f) fDistanceReduction=0f;
+					 //if (this.RadiusDistance<=2.5f) fDistanceReduction+=1f;
 
-					 if (this.RadiusDistance<=2.5f) fDistanceReduction+=1f;
-
-					 base.DistanceFromTarget=Vector3.Distance(Bot.Character.Position, this.Position)-fDistanceReduction;
+					 base.DistanceFromTarget=this.RadiusDistance;
 
 					 return (fRangeRequired<=0f||base.DistanceFromTarget<=fRangeRequired);
+				}
+
+				public override string DebugString
+				{
+
+					 get
+					 {
+						  return String.Format("{0} \r\n LastIntersectionResult={1}",
+								base.DebugString,
+								this.lastIntersectionTestResult.HasValue?this.lastIntersectionTestResult.Value.ToString():"NULL");
+					 }
 				}
 		  }
 

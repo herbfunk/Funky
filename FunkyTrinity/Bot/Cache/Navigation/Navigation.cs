@@ -10,6 +10,7 @@ using System.Globalization;
 using FunkyTrinity.Enums;
 using FunkyTrinity.ability;
 using FunkyTrinity.Cache;
+using FunkyTrinity.Movement.Clustering;
 
 namespace FunkyTrinity.Movement
 {
@@ -62,6 +63,16 @@ namespace FunkyTrinity.Movement
 					 }
 				}
 
+				private StuckFlags stuckflags;
+				public StuckFlags Stuckflags
+				{
+					 get
+					 {
+						  RefreshMovementCache();
+						  return stuckflags;
+					 }
+				}
+
 				private DateTime LastUpdatedMovementData=DateTime.Today;
 				internal void RefreshMovementCache()
 				{
@@ -83,6 +94,7 @@ namespace FunkyTrinity.Movement
 									 curSpeedXY=botMovement.SpeedXY;
 									 curRotation=botMovement.Rotation;
 									 curMoveState=botMovement.MovementState;
+									 stuckflags=botMovement.StuckFlags;
 								} catch
 								{
 									 
@@ -106,6 +118,12 @@ namespace FunkyTrinity.Movement
 					 set { CurrentLocationGPrect=value; }
 				}
 
+				private AreaBoundary currentLocationBoundary=null;
+				public AreaBoundary CurrentLocationBoundary
+				{
+					 get { return currentLocationBoundary; }
+					 set { currentLocationBoundary=value; }
+				}
 
 
 
@@ -353,6 +371,8 @@ namespace FunkyTrinity.Movement
 					 if (Bot.NavigationCache.CurrentGPArea==null||Bot.NavigationCache.CurrentGPArea.AllGPRectsFailed&&!Bot.NavigationCache.CurrentGPArea.centerGPRect.Contains(BotPosition)||!Bot.NavigationCache.CurrentGPArea.GridPointContained(BotPosition))
 						  Bot.NavigationCache.CurrentGPArea=new GPArea(BotPosition);
 
+
+
 					 //Check Bot Navigationally blocked
 					 RefreshNavigationBlocked();
 					 if (BotIsNavigationallyBlocked)
@@ -364,12 +384,16 @@ namespace FunkyTrinity.Movement
 						  {
 								return false;
 						  }
-
-
 					 }
 
 					 if (Bot.NavigationCache.CurrentLocationGPrect==null||Bot.NavigationCache.CurrentLocationGPrect.centerpoint!=Bot.Character.PointPosition)
+					 {
 						  Bot.NavigationCache.CurrentLocationGPrect=new GPRectangle(Bot.Character.Position);
+						  GridPoint tl=Bot.NavigationCache.CurrentLocationGPrect.CornerPoints[QuadrantLocation.TopLeft];
+						  GridPoint br=Bot.NavigationCache.CurrentLocationGPrect.CornerPoints[QuadrantLocation.BottomRight];
+						  currentLocationBoundary=new AreaBoundary(tl, br);
+						  UpdateLocationsBlocked();
+					 }
 
 					 Bot.NavigationCache.CurrentLocationGPRect.UpdateObjectCount();
 
@@ -377,6 +401,78 @@ namespace FunkyTrinity.Movement
 					 return (safespot!=Vector3.Zero);
 				}
 
+				private List<LocationFlags> blockedLocationDirections=new List<LocationFlags>();
+				public List<LocationFlags> BlockedLocationDirections
+				{
+					 get { return blockedLocationDirections; }
+					 set { blockedLocationDirections=value; }
+				}
+				public bool CheckPointAgainstBlockedDirection(GridPoint point)
+				{
+					 if (blockedLocationDirections.Count>0)
+					 {
+						  LocationFlags pointFlags=CurrentLocationBoundary.ComputeOutCode(point.X, point.Y);
+						  return this.blockedLocationDirections.Contains(pointFlags);
+					 }
+					 return false;
+				}
+				private void UpdateLocationsBlocked()
+				{
+					 blockedLocationDirections.Clear();
+
+					 if (this.LastNavigationBlockedPoints.Count>0)
+					 {
+						  if (this.LastNavigationBlockedPoints.Count>2)
+						  {
+								//TOP
+								if (this.LastNavigationBlockedPoints.Count(p => CurrentLocationBoundary.ComputeOutCode(p.X, p.Y).HasFlag(LocationFlags.Top))>2)
+								{
+									 blockedLocationDirections.Add(LocationFlags.Top);
+								}
+								//BOTTOM
+								if (this.LastNavigationBlockedPoints.Count(p => CurrentLocationBoundary.ComputeOutCode(p.X, p.Y).HasFlag(LocationFlags.Bottom))>2)
+								{
+									 blockedLocationDirections.Add(LocationFlags.Bottom);
+								}
+								//LEFT
+								if (this.LastNavigationBlockedPoints.Count(p => CurrentLocationBoundary.ComputeOutCode(p.X, p.Y).HasFlag(LocationFlags.Left))>2)
+								{
+									 blockedLocationDirections.Add(LocationFlags.Left);
+								}
+								//RIGHT
+								if (this.LastNavigationBlockedPoints.Count(p => CurrentLocationBoundary.ComputeOutCode(p.X, p.Y).HasFlag(LocationFlags.Right))>2)
+								{
+									 blockedLocationDirections.Add(LocationFlags.Right);
+								}
+						  }
+
+						  //CHECK CORNERS
+						  if (!blockedLocationDirections.Contains(LocationFlags.Bottom))
+						  {
+								if (!blockedLocationDirections.Contains(LocationFlags.Left)&&this.LastNavigationBlockedPoints.Any(p => CurrentLocationBoundary.ComputeOutCode(p.X, p.Y).HasFlag(LocationFlags.BottomLeft)))
+								{
+									 blockedLocationDirections.Add(LocationFlags.BottomLeft);
+								}
+								if (!blockedLocationDirections.Contains(LocationFlags.Right)&&this.LastNavigationBlockedPoints.Any(p => CurrentLocationBoundary.ComputeOutCode(p.X, p.Y).HasFlag(LocationFlags.BottomRight)))
+								{
+									 blockedLocationDirections.Add(LocationFlags.BottomRight);
+								}
+						  }
+						  if (!blockedLocationDirections.Contains(LocationFlags.Top))
+						  {
+								if (!blockedLocationDirections.Contains(LocationFlags.Left)&&this.LastNavigationBlockedPoints.Any(p => CurrentLocationBoundary.ComputeOutCode(p.X, p.Y).HasFlag(LocationFlags.TopLeft)))
+								{
+									 blockedLocationDirections.Add(LocationFlags.TopLeft);
+								}
+								if (!blockedLocationDirections.Contains(LocationFlags.Right)&&this.LastNavigationBlockedPoints.Any(p => CurrentLocationBoundary.ComputeOutCode(p.X, p.Y).HasFlag(LocationFlags.TopRight)))
+								{
+									 blockedLocationDirections.Add(LocationFlags.TopRight);
+								}
+						  }
+
+						  Logging.WriteDiagnostic("Blocked Directions Count == [{0}]", blockedLocationDirections.Count.ToString());
+					 }
+				}
 
 				//Special Movements
 				public Vector3 FindZigZagTargetLocation(Vector3 vTargetLocation, float fDistanceOutreach, bool bRandomizeDistance=false, bool bRandomizeStart=false, bool bCheckGround=false)
@@ -525,7 +621,7 @@ namespace FunkyTrinity.Movement
 				#region Grouping
 				internal bool groupRunningBehavior=false;
 				internal bool groupReturningToOrgin=false;
-				internal Cluster groupingCurrentCluster=null;
+				internal UnitCluster groupingCurrentCluster=null;
 				internal CacheUnit groupingCurrentUnit=null;
 				internal CacheUnit groupingOrginUnit=null;
 				internal DateTime groupingSuspendedDate=DateTime.MinValue;
@@ -760,8 +856,8 @@ namespace FunkyTrinity.Movement
 						  return Navigator.GetNavigationProviderAs<DefaultNavigationProvider>();
 					 }
 				}
-				
-				#endregion
+
+			  #endregion
 		  }
 
 	 

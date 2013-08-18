@@ -132,6 +132,9 @@ namespace FunkyTrinity.Movement
 					 for (int i=lastGPRectIndexUsed; i<gridpointrectangles_.Count-1; i++)
 					 {
 						  GPRectangle item=gridpointrectangles_[i];
+						  if (Bot.NavigationCache.CheckPointAgainstBlockedDirection(item.centerpoint))
+								continue;
+
 						  item.UpdateObjectCount(AllGPRectsFailed);
 						  if (item.Weight>Bot.NavigationCache.CurrentLocationGPRect.Weight) continue;
 

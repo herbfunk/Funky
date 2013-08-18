@@ -13,5 +13,7 @@ namespace FunkyTrinity.ability
 			UnitsInRange=2,
 			ElitesInRange=4,
 			SingleTarget=8,
+
+		  All=Cluster|UnitsInRange|ElitesInRange|SingleTarget,
 	 }
 }

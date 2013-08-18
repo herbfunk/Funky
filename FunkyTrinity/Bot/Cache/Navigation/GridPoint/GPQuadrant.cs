@@ -204,7 +204,7 @@ namespace FunkyTrinity.Movement
 						  {
 								GridPoint point=ContainedPoints[curIndex];
 								//Check blacklisted points and ignored
-								if (Bot.NavigationCache.CurrentGPArea.BlacklistedGridpoints.Contains(point)||point.Ignored) continue;
+								if (point.Ignored) continue;
 
 								//2D Obstacle Navigation Check
 								bool ZCheck=false;

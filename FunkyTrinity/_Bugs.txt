@@ -1,5 +1,7 @@
-﻿Act 3 keep -- Items that are not in LOS cause stucks to occur.
-	--This becomes issue with multiple items due to blacklist expiring and causing endless loop thru.
+﻿Destructibles and Interactables that are face-to-face with bot are causing the intersection test to continue to fail, resulting in no interaction.
 
-Destructibles and Interactables that are face-to-face with bot are causing the intersection test to continue to fail, resulting in no interaction.
+LOS test for rechecks on UNITs should incorperate the ability being tested.
+	-Projectiles should require AllowProjectile in navcheck
+	-Ranged Locational abilities should check object intersection
+	-These abilities should be tracked and rechecked against the unit in target validation.
 
