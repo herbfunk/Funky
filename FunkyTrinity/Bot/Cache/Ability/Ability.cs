@@ -235,8 +235,8 @@ namespace FunkyTrinity.ability
 				 //Destructible Setup
 			  if (Destructible)
 			  {
-				  bool LocationalAttack = (CacheIDLookup.hashDestructableLocationTarget.Contains(Bot.Target.CurrentTarget.SNOID) ||
-				                           (Bot.Target.CurrentTarget.InteractionAttempts > 1 && Bot.Target.CurrentTarget.RadiusDistance < 7f));
+				  bool LocationalAttack = (CacheIDLookup.hashDestructableLocationTarget.Contains(Bot.Target.CurrentTarget.SNOID));
+													//||(Bot.Target.CurrentTarget.InteractionAttempts>1&&Bot.Target.CurrentTarget.RadiusDistance<7f));
 
 				  if (LocationalAttack)
 				  {

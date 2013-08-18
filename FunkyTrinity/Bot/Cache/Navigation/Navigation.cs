@@ -30,8 +30,11 @@ namespace FunkyTrinity.Movement
 				///</summary>
 				public bool IsMoving
 				{
-					 get { return isMoving; }
-					 set { isMoving=value; }
+					 get
+					 {
+						  RefreshMovementCache();
+						  return isMoving;
+					 }
 				}
 
 				private MovementState curMoveState=MovementState.None;

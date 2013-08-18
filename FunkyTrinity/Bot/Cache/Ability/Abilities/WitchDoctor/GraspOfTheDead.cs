@@ -29,6 +29,9 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckCanCast |
 			                     AbilityConditions.CheckEnergy);
+
+			Fprecast=new Func<bool>(() => { return !Bot.Class.HasDebuff(SNOPower.Succubus_BloodStar); });
+
 			ClusterConditions = new ClusterConditions(4d, 45f, 2, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 45,
 				falseConditionalFlags: TargetProperties.Fast | TargetProperties.Weak);

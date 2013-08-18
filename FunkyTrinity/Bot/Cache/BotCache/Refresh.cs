@@ -79,6 +79,7 @@ namespace FunkyTrinity
 
 					 // Refresh buffs (so we can check for wrath being up to ignore ice balls and anything else like that)
 					 Bot.Class.RefreshCurrentBuffs();
+					 Bot.Class.RefreshCurrentDebuffs();
 
 					 // Clear forcing close-range priority on mobs after XX period of time
 					 if (Bot.Combat.bForceCloseRangeTarget&&DateTime.Now.Subtract(Bot.Combat.lastForcedKeepCloseRange).TotalMilliseconds>Bot.Combat.iMillisecondsForceCloseRange)

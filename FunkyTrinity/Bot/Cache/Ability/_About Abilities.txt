@@ -1,0 +1,23 @@
+﻿ExecutionType - How the ability should be setup for use. (accepts multiple values)
+Cost
+SecondaryEnergy
+Counter
+WaitVars
+Range
+IsRanged
+IsBuff - Usable as a buff.
+IsSpecialAbility
+UseageType - When to use the ability (Combat or Anywhere)
+Priority - The order in which abilities are checked.
+
+Structured Conditions:
+	PreCastConditions
+	ClusterConditions
+	TargetUnitConditionFlags
+	UnitsWithinRangeConditions
+	ElitesWithinRangeConditions
+
+Custom Bool Funcs:
+	Fprecast - Precast Condition
+	Fbuff - Buff Condition
+	Fcriteria - Combat Condition

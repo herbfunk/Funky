@@ -80,28 +80,6 @@ namespace FunkyTrinity.Cache
 								return false;
 						  }
 
-						  if (this.RequiresLOSCheck&&!this.IgnoresLOSCheck)
-						  {
-								//Preform Test every 2500ms on normal objects, 1250ms on special objects.
-								double lastLOSCheckMS=this.LastLOSCheckMS;
-								if (lastLOSCheckMS<1250)
-									 return false;
-								else if (lastLOSCheckMS<2500&&this.CentreDistance>20f)
-									 return false;
-
-								NavCellFlags LOSNavFlags=NavCellFlags.None;
-								if (Bot.Class.IsMeleeClass||!this.WithinInteractionRange())
-								{
-									 LOSNavFlags=NavCellFlags.AllowWalk;
-								}
-
-								if (!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), LOSNavFlags))
-								{
-									 return false;
-								}
-
-								this.RequiresLOSCheck=false;
-						  }
 
 						  float centreDistance=this.CentreDistance;
 						  float radiusDistance=this.RadiusDistance;
@@ -215,8 +193,7 @@ namespace FunkyTrinity.Cache
 								#region Barricade/Destructible
 								case TargetType.Barricade:
 								case TargetType.Destructible:
-									
-									 break;
+									 return true;
 								#endregion
 								#region Container
 								case TargetType.Container:
@@ -275,6 +252,30 @@ namespace FunkyTrinity.Cache
 									 break;
 								#endregion
 						  } // Object switch on type (to seperate shrines, destructibles, barricades etc.)
+
+
+						  if (this.RequiresLOSCheck&&!this.IgnoresLOSCheck)
+						  {
+								//Preform Test every 2500ms on normal objects, 1250ms on special objects.
+								double lastLOSCheckMS=this.LastLOSCheckMS;
+								if (lastLOSCheckMS<1250)
+									 return false;
+								else if (lastLOSCheckMS<2500&&this.CentreDistance>20f)
+									 return false;
+
+								NavCellFlags LOSNavFlags=NavCellFlags.None;
+								if (Bot.Class.IsMeleeClass||!this.WithinInteractionRange())
+								{
+									 LOSNavFlags=NavCellFlags.AllowWalk;
+								}
+
+								if (!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), LOSNavFlags))
+								{
+									 return false;
+								}
+
+								this.RequiresLOSCheck=false;
+						  }
 
 						  return true;
 					 }
@@ -438,6 +439,30 @@ namespace FunkyTrinity.Cache
 						  {
 								this.NeedsRemoved=true;
 								return false;
+						  }
+
+
+						  if (this.RequiresLOSCheck&&!this.IgnoresLOSCheck&&this.RadiusDistance>2.5f)
+						  {
+								//Preform Test every 2500ms on normal objects, 1250ms on special objects.
+								double lastLOSCheckMS=this.LastLOSCheckMS;
+								if (lastLOSCheckMS<1250)
+									 return false;
+								else if (lastLOSCheckMS<2500&&this.CentreDistance>20f)
+									 return false;
+
+								NavCellFlags LOSNavFlags=NavCellFlags.None;
+								if (Bot.Class.IsMeleeClass||!this.WithinInteractionRange())
+								{
+									 LOSNavFlags=NavCellFlags.AllowWalk;
+								}
+
+								if (!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), LOSNavFlags))
+								{
+									 return false;
+								}
+
+								this.RequiresLOSCheck=false;
 						  }
 
 						  //Ignore Destructibles Setting

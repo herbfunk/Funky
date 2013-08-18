@@ -14,6 +14,7 @@ namespace FunkyTrinity.ability
 		{
 			 this.LastConditionPassed=ConditionCriteraTypes.None;
 			 this.Fcriteria=ability.Fcriteria;
+			 this.Fprecast=ability.Fprecast;
 			this.CreatePreCastConditions(ref Fprecast, ability);
 			this.CreateTargetConditions(ref FSingleTargetUnitCriteria, ability);
 			this.CreateUnitsInRangeConditions(ref FUnitsInRangeConditions, ability);
@@ -31,9 +32,7 @@ namespace FunkyTrinity.ability
 				FElitesInRangeConditions=null;
 			 FSingleTargetUnitCriteria = null;
 		 }
-		///<summary>
-		///ability precast conditions
-		///</summary>
+
 		 private Func<bool> Fprecast;
 		 private Func<bool> Fcriteria;
 		 private Func<bool> FClusterConditions;
@@ -53,65 +52,63 @@ namespace FunkyTrinity.ability
 
 		private void CreatePreCastConditions(ref Func<bool> Fprecast, Ability ability)
 		 {
-				Fprecast=null;
 				AbilityConditions precastconditions_=ability.PreCastConditions;
-
 				if (precastconditions_.Equals(AbilityConditions.None))
-					 Fprecast+=(new Func<bool>(() => { return true; }));
+					 return;
 				else
 				{
 					 if (precastconditions_.HasFlag(AbilityConditions.CheckPlayerIncapacitated))
-							Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsIncapacitated; }));
+						  Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsIncapacitated; }));
 
 					 if (precastconditions_.HasFlag(AbilityConditions.CheckPlayerRooted))
-							Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsRooted; }));
+						  Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsRooted; }));
 
 					 if (precastconditions_.HasFlag(AbilityConditions.CheckExisitingBuff))
-							Fprecast+=(new Func<bool>(() => { return !Bot.Class.HasBuff(ability.Power); }));
+						  Fprecast+=(new Func<bool>(() => { return !Bot.Class.HasBuff(ability.Power); }));
 
 					 if (precastconditions_.HasFlag(AbilityConditions.CheckPetCount))
-							Fprecast+=(new Func<bool>(() => { return Bot.Class.MainPetCount<ability.Counter; }));
+						  Fprecast+=(new Func<bool>(() => { return Bot.Class.MainPetCount<ability.Counter; }));
 
 					 if (precastconditions_.HasFlag(AbilityConditions.CheckRecastTimer))
-							Fprecast+=(new Func<bool>(() => { return ability.LastUsedMilliseconds>ability.Cooldown; }));
+						  Fprecast+=(new Func<bool>(() => { return ability.LastUsedMilliseconds>ability.Cooldown; }));
 
 					 if (precastconditions_.HasFlag(AbilityConditions.CheckCanCast))
 					 {
-							Fprecast+=(new Func<bool>(() =>
-							{
-								 bool cancast=PowerManager.CanCast(ability.Power, out ability.CanCastFlags);
+						  Fprecast+=(new Func<bool>(() =>
+						  {
+								bool cancast=PowerManager.CanCast(ability.Power, out ability.CanCastFlags);
 
-								 //Special Ability -- Trigger Waiting For Special When Not Enough Resource to Cast.
-								 if (ability.IsSpecialAbility)
-								 {
-										if (!cancast&&ability.CanCastFlags.HasFlag(PowerManager.CanCastFlags.PowerNotEnoughResource))
-											 Bot.Class.bWaitingForSpecial=true;
-										else
-											 Bot.Class.bWaitingForSpecial=false;
-								 }
+								//Special Ability -- Trigger Waiting For Special When Not Enough Resource to Cast.
+								if (ability.IsSpecialAbility)
+								{
+									 if (!cancast&&ability.CanCastFlags.HasFlag(PowerManager.CanCastFlags.PowerNotEnoughResource))
+										  Bot.Class.bWaitingForSpecial=true;
+									 else
+										  Bot.Class.bWaitingForSpecial=false;
+								}
 
-								 return cancast;
-							}));
+								return cancast;
+						  }));
 					 }
 
 					 if (precastconditions_.HasFlag(AbilityConditions.CheckEnergy))
 					 {
-							if (!ability.SecondaryEnergy)
-								 Fprecast+=(new Func<bool>(() =>
-								 {
-										bool energyCheck=Bot.Character.dCurrentEnergy>=ability.Cost;
-										if (ability.IsSpecialAbility) //we trigger waiting for special here.
-											 Bot.Class.bWaitingForSpecial=!energyCheck;
-										return energyCheck;
-								 }));
-							else
-								 Fprecast+=(new Func<bool>(() =>
-								 {
-										bool energyCheck=Bot.Character.dDiscipline>=ability.Cost;
-										if (ability.IsSpecialAbility) //we trigger waiting for special here.
-											 Bot.Class.bWaitingForSpecial=!energyCheck;
-										return energyCheck;
-								 }));
+						  if (!ability.SecondaryEnergy)
+								Fprecast+=(new Func<bool>(() =>
+								{
+									 bool energyCheck=Bot.Character.dCurrentEnergy>=ability.Cost;
+									 if (ability.IsSpecialAbility) //we trigger waiting for special here.
+										  Bot.Class.bWaitingForSpecial=!energyCheck;
+									 return energyCheck;
+								}));
+						  else
+								Fprecast+=(new Func<bool>(() =>
+								{
+									 bool energyCheck=Bot.Character.dDiscipline>=ability.Cost;
+									 if (ability.IsSpecialAbility) //we trigger waiting for special here.
+										  Bot.Class.bWaitingForSpecial=!energyCheck;
+									 return energyCheck;
+								}));
 					 }
 				}
 

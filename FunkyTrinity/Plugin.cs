@@ -23,7 +23,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky : IPlugin
 	 {
-		  public Version Version { get { return new Version(2, 0, 1, 0); } }
+		  public Version Version { get { return new Version(2, 0, 1, 1); } }
 		  public string Author { get { return "Herbfunk"; } }
 		  public string Description
 		  {

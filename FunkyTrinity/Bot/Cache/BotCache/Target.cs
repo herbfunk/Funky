@@ -94,9 +94,22 @@ namespace FunkyTrinity
 						Bot.ValidObjects=ObjectCache.Objects.Values.Where(obj => obj.ObjectIsValidForTargeting).ToList();
 
 						//Check avoidance requirement still valid
-						if (Bot.Combat.RequiresAvoidance&&
-										Bot.Combat.TriggeringAvoidances.Count==0&&
-										(!Bot.SettingsFunky.EnableFleeingBehavior||Bot.Character.dCurrentHealthPct>0.25d)) Bot.Combat.RequiresAvoidance=false;
+						if (Bot.Combat.RequiresAvoidance)
+						{
+							 if (Bot.Combat.TriggeringAvoidances.Count==0)
+							 {
+								  if (!Bot.SettingsFunky.EnableFleeingBehavior||Bot.Character.dCurrentHealthPct>0.25d)
+										Bot.Combat.RequiresAvoidance=false;
+							 }
+							 //else
+							 //{
+							 //	//Triggering avoidance means we are inside something.
+							 //	//If we are moving.. then we will ignore it this time!
+							 //	 if (Bot.NavigationCache.IsMoving)
+							 //		  Bot.Combat.RequiresAvoidance=false;
+							 //}
+						}
+									
 
 
 						#region Grouping Behavior Resume

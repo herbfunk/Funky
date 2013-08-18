@@ -224,7 +224,7 @@ namespace FunkyTrinity
 					  {
 							try
 							{
-								 Logging.WriteVerbose("Stuck Flags = {0}", Bot.NavigationCache.Stuckflags.ToString());
+								 Bot.Class.DebugString();
 							} catch
 							{
 

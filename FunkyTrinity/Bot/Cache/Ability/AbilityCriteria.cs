@@ -10,6 +10,7 @@ namespace FunkyTrinity.ability
 	 {
 			public AbilityCriteria()
 			{
+				 Fprecast=new Func<bool>(() => { return true; });
 				 Fcriteria=new Func<bool>(() => { return true; });
 				 Fbuff=new Func<bool>(() => { return true; });
 				 AbilityTestConditions=new AbilityUsablityTests();
@@ -20,7 +21,10 @@ namespace FunkyTrinity.ability
 				 get;
 				 set;
 			}
-
+			///<summary>
+			///ability precast conditions
+			///</summary>
+			internal Func<bool> Fprecast;
 			///<summary>
 			///Custom Conditions for Combat
 			///</summary>
@@ -29,6 +33,7 @@ namespace FunkyTrinity.ability
 			///Custom Conditions for Buffing
 			///</summary>
 			internal Func<bool> Fbuff;
+
 			public bool IsBuff { get; set; }
 
 			///<summary>

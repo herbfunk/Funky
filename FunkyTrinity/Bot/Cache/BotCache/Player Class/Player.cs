@@ -183,6 +183,7 @@ namespace FunkyTrinity
 				internal Dictionary<SNOPower, int> RuneIndexCache=new Dictionary<SNOPower, int>();
 				internal Dictionary<SNOPower, int> AbilityCooldowns=new Dictionary<SNOPower, int>();
 				internal Dictionary<int, int> CurrentBuffs=new Dictionary<int, int>();
+				internal List<int> CurrentDebuffs=new List<int>();
 				internal List<SNOPower> destructibleabilities=new List<SNOPower>();
 
 
@@ -419,6 +420,20 @@ namespace FunkyTrinity
 						  }
 					 }
 				}
+				///<summary>
+				///
+				///</summary>
+				internal void RefreshCurrentDebuffs()
+				{
+					 CurrentDebuffs=new List<int>();
+					 using (ZetaDia.Memory.AcquireFrame())
+					 {
+						  foreach (var item in ZetaDia.Me.GetAllDebuffs())
+						  {
+								CurrentDebuffs.Add(item.SNOId);
+						  }
+					 }
+				}
 				internal bool AbilityUseTimer(SNOPower thispower, bool bReCheck=false)
 				{
 					 double lastUseMS=AbilityLastUseMS(thispower);
@@ -446,7 +461,11 @@ namespace FunkyTrinity
 					 int id=(int)power;
 					 return CurrentBuffs.Keys.Any(u => u==id);
 				}
-
+				internal bool HasDebuff(SNOPower power)
+				{
+					 int id=(int)power;
+					 return CurrentDebuffs.Contains(id);
+				}
 				public void DebugString()
 				{
 					 Logging.Write("Character Information\r\nRadius {0}\r\nHotBar Abilities [{1}]\r\n", Bot.Character.fCharacterRadius, HotbarPowers.Count);
@@ -468,6 +487,11 @@ namespace FunkyTrinity
 					 foreach (Zeta.Internals.Actors.SNOPower item in CurrentBuffs.Keys)
 					 {
 						  Logging.Write("Buff: {0}", Enum.GetName(typeof(SNOPower), item));
+					 }
+					 Logging.Write("Current Debuffs");
+					 foreach (Zeta.Internals.Actors.SNOPower item in CurrentDebuffs)
+					 {
+						  Logging.Write("Debuff: {0}", Enum.GetName(typeof(SNOPower), item));
 					 }
 
 				}

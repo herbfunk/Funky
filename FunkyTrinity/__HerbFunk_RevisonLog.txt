@@ -1,5 +1,66 @@
 ﻿// herbfunk revisions
 
+v2.0.1.1
+
+Abilities:
+*All Abilities used by Every Class has been extracted into its own file.
+-CheckCombatConditionMethod now uses ConditionCriteraTypes optional parameter which can be used to specify the criteria checks.
+-SetupAbilityForUse now supports setup for destructible ability.
+-Sucide Bombers and Treasure Goblins will now use criteria of single target only.. to prevent other targets from being used.
+-Fprecast is now accessible in abilities allowing custom conditions to be added.
+
+CacheObject:
+-RequiresLOSCheck is now virtual.
+
+CacheGizmo:
+-Increased the range used in BarricadeTest Vector. (when obj is less then 1f). Fixes issue with face-to-face and ignoring it.
+-InteractionRange for non-melee classes will no longer increase range if ability is not ranged.
+-Interactables now use ActorMoveTo in TargetMovement.
+-Implemented override of ObjectIsValidForTargeting in CacheDestructable.
+-Clickable destructibles will no longer use location attack.
+
+CacheItem:
+-Items will now test LOS inside ObjectIsValidForTargeting.
+-CacheItem now overrides RequiresLOSCheck, which is set to false as default.
+-LosCheck will use modified position that increases the Z value by 1f.
+-Increased range of ignoring gold/globes when already within pickup range to 2.5f.
+
+CacheUnit
+-Blacklisted units from profile will not be ignored during NonCombatBehavior.
+
+
+Navigation:
+-Added Enum LocationFlags -- to describe each possible direction the bot can take.
+-Added Class AreaBoundary is used to check other points to return LocationFlags.
+-Implemented Blocked Directions -- GPArea checks BlockLocationDirections to skip GPRects.
+-Blacklisted Search Points is now part of GPArea Class -- removed from Navigation Class.
+-When blacklisting a point occurs, it will increase index for searching rects.
+
+TargetMovement:
+-Item LOS Check has been moved out of the block counter check and placed in the non movement check.
+
+Clustering:
+-Refactored Cluster into new namespace FunkyTrinity.Movement.Clustering.
+-Added Property: ClusterProperties into ClusterConditions
+-ClusterInfo is a class that tracks data of units that are passed thru during the clustering process.
+-Cluster conditions is an enum of flags that is used to describe general things about the cluster. -- Weak/Strong, Large/Small, Elites/Boss, Fast/Ranged
+-Grouping now uses this cluster info in triggering the look for groups and the groups that are valid to engage.
+
+Misc:
+-Added cache hashset for Interactive Common Behavior Tags.
+-Added debuffs into Player Class.
+
+Bugs:
+-Fixed exception during town runs when no potions were in backpack.
+-Fixed Monks Wave of Light when using Explosive Light as rune.
+
+
+ 
+ 
+
+
+
+
 v1.4.4.0
 Ability:
 Clusters used for abilities are now seperated from Target/Group
