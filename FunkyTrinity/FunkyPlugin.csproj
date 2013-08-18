@@ -684,6 +684,9 @@
     <Compile Include="XML\TrinityMoveTo.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="XML\TrinityMoveToScene.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="XML\TrinityMoveToSNOTag.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
