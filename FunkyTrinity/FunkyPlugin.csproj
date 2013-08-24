@@ -636,6 +636,9 @@
     <Compile Include="Enums\TargetType.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Misc\Logging\Logger.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Misc\ScreenCapture.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

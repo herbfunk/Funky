@@ -224,7 +224,7 @@ namespace FunkyTrinity
 					  {
 							try
 							{
-								 Bot.Class.DebugString();
+								 Logger.Write(LogLevel.User, "Testing! {0}", "Test?");
 							} catch
 							{
 

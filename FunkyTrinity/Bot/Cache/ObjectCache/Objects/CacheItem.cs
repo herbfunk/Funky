@@ -364,7 +364,7 @@ namespace FunkyTrinity.Cache
 								try
 								{
 									 this.DynamicID=base.ref_DiaObject.CommonData.DynamicId;
-								} catch (NullReferenceException ex) { Logging.WriteVerbose("Failure to get Dynamic ID for {0} \r\n Exception: {1}", this.InternalName, ex.Message); return false; }
+								} catch (NullReferenceException ex) { Logger.Write(LogLevel.Execption, "Failure to get Dynamic ID for {0} \r\n Exception: {1}", this.InternalName, ex.Message); return false; }
 						  }
 						  #endregion
 
@@ -374,7 +374,7 @@ namespace FunkyTrinity.Cache
 								try
 								{
 									 this.BalanceID=base.ref_DiaObject.CommonData.GameBalanceId;
-								} catch (NullReferenceException) { Logging.WriteVerbose("Failure to get gamebalance ID for item {0}", this.InternalName); return false; }
+								} catch (NullReferenceException) { Logger.Write(LogLevel.Execption, "Failure to get gamebalance ID for item {0}", this.InternalName); return false; }
 						  }
 
 						  if (!this.BalanceID.HasValue) return false;
@@ -404,7 +404,7 @@ namespace FunkyTrinity.Cache
 									 thisnewGamebalance=new CacheBalance(tmp_Level, tmp_ThisType, tmp_ThisDBItemType, tmp_bThisOneHanded, tmp_bThisTwoHanded, tmp_ThisFollowerType);
 								} catch (NullReferenceException)
 								{
-									 Logging.WriteVerbose("Failure to add/update gamebalance data for item {0}", this.InternalName);
+									 Logger.Write(LogLevel.Execption, "Failure to add/update gamebalance data for item {0}", this.InternalName);
 									 return false;
 								}
 
@@ -429,7 +429,7 @@ namespace FunkyTrinity.Cache
 								try
 								{
 									 this.Itemquality=this.ref_DiaItem.CommonData.ItemQualityLevel;
-								} catch (NullReferenceException) { Logging.WriteVerbose("Failure to get item quality for {0}", this.InternalName); return false; }
+								} catch (NullReferenceException) { Logger.Write(LogLevel.Execption, "Failure to get item quality for {0}", this.InternalName); return false; }
 
 
 								if (!this.ItemQualityRechecked)
@@ -494,7 +494,7 @@ namespace FunkyTrinity.Cache
 								try
 								{
 									 this.GoldAmount=this.ref_DiaItem.CommonData.GetAttribute<int>(ActorAttributeType.Gold);
-								} catch (NullReferenceException) { Logging.WriteVerbose("Failure to get gold amount for gold pile!"); return false; }
+								} catch (NullReferenceException) { Logger.Write(LogLevel.Execption, "Failure to get gold amount for gold pile!"); return false; }
 						  }
 
 						  this.NeedsUpdate=false;

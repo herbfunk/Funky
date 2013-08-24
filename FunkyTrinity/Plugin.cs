@@ -240,12 +240,15 @@ namespace FunkyTrinity
 						  MainWindow.Title="DB - "+ZetaDia.Service.CurrentHero.BattleTagName;
 					 } catch{}
 
+					 Logger.Filename=Path.Combine(FolderPaths.sDemonBuddyPath, "Logs", Logger.FileNamePrefix, DateTime.Today.ToString("YYYY - MM - DD - hh-mm-ss"), ".txt");
 
 					 // Safety check incase DB "OnStart" event didn't fire properly
-					 if (BotMain.IsRunning) FunkyBotStart(null);
+					 if (BotMain.IsRunning) 
+						  FunkyBotStart(null);
+
+
+					 Logger.Init();
 					 
-
-
 					 // Carguy's ticks-per-second feature
 					 //if (settings.bEnableTPS)
 					 //  BotMain.TicksPerSecond=(int)settings.iTPSAmount;

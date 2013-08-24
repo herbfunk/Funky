@@ -103,7 +103,7 @@ namespace FunkyTrinity.Cache
 						  try
 						  {
 								this.ref_Gizmo=(DiaGizmo)base.ref_DiaObject;
-						  } catch (NullReferenceException) { Logging.WriteVerbose("Failure to convert obj to DiaItem!"); return false; }
+						  } catch (NullReferenceException) { Logger.Write(LogLevel.Execption, "Failure to convert obj to DiaItem!"); return false; }
 					 }
 
 					 //Destructibles are not important unless they are close.. 40f is minimum range!
@@ -144,7 +144,7 @@ namespace FunkyTrinity.Cache
 								}
 						  } catch (AccessViolationException)
 						  {
-								Logging.WriteVerbose("Safely handled getting attribute GizmoHasBeenOperated gizmo {0}", this.InternalName);
+								Logger.Write(LogLevel.Execption, "Safely handled getting attribute GizmoHasBeenOperated gizmo {0}", this.InternalName);
 								return false;
 						  }
 
@@ -171,7 +171,7 @@ namespace FunkyTrinity.Cache
 								this.PhysicsSNO=base.ref_DiaObject.PhysicsSNO;
 						  } catch (NullReferenceException ex)
 						  {
-								Logging.WriteVerbose("[Funky] Safely handled exception getting physics SNO for object "+this.InternalName+" ["+this.SNOID.ToString()+"]\r\n"+ex.Message);
+								Logger.Write(LogLevel.Execption, "Safely handled exception getting physics SNO for object "+this.InternalName+" ["+this.SNOID.ToString()+"]\r\n"+ex.Message);
 								return false;
 						  }
 					 }

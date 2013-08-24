@@ -1047,13 +1047,13 @@ namespace FunkyTrinity.Cache
 						  try
 						  {
 								this.ref_DiaUnit=base.ref_DiaObject as DiaUnit;
-						  } catch (NullReferenceException) { Logging.WriteVerbose("Failure to convert obj to DiaUnit!"); return false; }
+						  } catch (NullReferenceException) { Logger.Write(LogLevel.Execption, "Failure to convert obj to DiaUnit!"); return false; }
 					 }
 
 					 ACD CommonData=base.ref_DiaObject.CommonData;
 					 if (CommonData==null)
 					 {
-						  Logging.WriteVerbose("Common Data Null!");
+						  Logger.Write(LogLevel.Execption, "Common Data Null!");
 						  return false;
 					 }
 
@@ -1077,7 +1077,7 @@ namespace FunkyTrinity.Cache
 								isNPC=this.IsNPC.Value;
 						  } catch (Exception)
 						  {
-								Logging.WriteVerbose("Safely Handled Getting Attribute IsNPC for object {0}", this.InternalName);
+								Logger.Write(LogLevel.Execption, "Safely Handled Getting Attribute IsNPC for object {0}", this.InternalName);
 						  }
 
 					 }
@@ -1127,7 +1127,7 @@ namespace FunkyTrinity.Cache
 								this.CheckMonsterAffixes(CommonData.MonsterAffixes);
 						  } catch (NullReferenceException)
 						  {
-								Logging.WriteVerbose("Failure to check monster affixes for unit {0}", base.InternalName);
+								Logger.Write(LogLevel.Execption, "Failure to check monster affixes for unit {0}", base.InternalName);
 								return false;
 						  }
 
@@ -1148,7 +1148,7 @@ namespace FunkyTrinity.Cache
 										  ObjectCache.Objects.UpdateMaximumHealthAverage();
 									 }
 								}
-						  } catch (Exception) { Logging.WriteVerbose("Failure to get maximum health for {0}", base.InternalName); return false; }
+						  } catch (Exception) { Logger.Write(LogLevel.Execption, "Failure to get maximum health for {0}", base.InternalName); return false; }
 					 }
 
 
@@ -1201,7 +1201,7 @@ namespace FunkyTrinity.Cache
 								}
 						  } catch (Exception ex)
 						  {
-								Logging.WriteVerbose("[Funky] Safely handled exception getting is-targetable attribute for unit "+this.InternalName+" ["+this.SNOID.ToString()+"]");
+								Logger.Write(LogLevel.Execption, "[Funky] Safely handled exception getting is-targetable attribute for unit "+this.InternalName+" ["+this.SNOID.ToString()+"]");
 								Logging.WriteDiagnostic(ex.ToString());
 								this.IsTargetable=true;
 						  }

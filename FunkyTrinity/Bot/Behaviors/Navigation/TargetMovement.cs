@@ -89,7 +89,7 @@ namespace FunkyTrinity.Movement
 					 //Herbfunk: Added this to prevent stucks attempting to move to a target blocked. (Case: 3 champs behind a wall, within range but could not engage due to being on the other side.)
 					 if (NonMovementCounter>50)
 					 {
-						  Logging.WriteDiagnostic("[Funky] non movement counter reached {0}", NonMovementCounter);
+						  Logger.Write(LogLevel.Movement,"non movement counter reached {0}", NonMovementCounter);
 
 						  if (obj.Actortype.HasValue&&obj.Actortype.Value.HasFlag(ActorType.Item))
 						  {
@@ -100,7 +100,7 @@ namespace FunkyTrinity.Movement
 								if (!Navigation.CanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
 								{
 									 obj.RequiresLOSCheck=true;
-									 Logging.WriteDiagnostic("Ignoring Item {0} -- due to AllowWalk RayCast Failure!", obj.InternalName);
+									 Logger.Write(LogLevel.Movement, "Ignoring Item {0} -- due to AllowWalk RayCast Failure!", obj.InternalName);
 									 Bot.Combat.bForceTargetUpdate=true;
 									 return RunStatus.Running;
 								}
@@ -108,7 +108,7 @@ namespace FunkyTrinity.Movement
 						  else
 						  {
 
-								Logging.WriteVerbose("{0}: Ignoring obj {1} ", "[Funky]", obj.InternalName+" _ SNO:"+obj.SNOID);
+								Logger.Write(LogLevel.Movement, "Ignoring obj {0} ",obj.InternalName+" _ SNO:"+obj.SNOID);
 								obj.BlacklistLoops=50;
 								obj.RequiresLOSCheck=true;
 								Bot.Combat.bForceTargetUpdate=true;
@@ -148,7 +148,7 @@ namespace FunkyTrinity.Movement
 										  //If we are moving to a LOS location.. nullify it!
 										  if (obj.LOSV3!=Vector3.Zero)
 										  {
-												Logging.WriteVerbose("Blockcounter Reseting LOS Movement Vector");
+												Logger.Write(LogLevel.Movement, "Blockcounter Reseting LOS Movement Vector");
 												obj.LOSV3=Vector3.Zero;
 										  }
 
@@ -171,7 +171,7 @@ namespace FunkyTrinity.Movement
 
 										  if (Bot.NavigationCache.groupRunningBehavior)
 										  {
-												Logging.WriteVerbose("Grouping Behavior stopped due to blocking counter");
+												Logger.Write(LogLevel.Movement, "Grouping Behavior stopped due to blocking counter");
 												Bot.NavigationCache.GroupingFinishBehavior();
 												Bot.NavigationCache.groupingSuspendedDate=DateTime.Now.AddMilliseconds(2500);
 												Bot.Combat.bForceTargetUpdate=true;
@@ -206,7 +206,7 @@ namespace FunkyTrinity.Movement
 														  {
 																obj.RequiresLOSCheck=true;
 																obj.BlacklistLoops=10;
-																Logging.WriteDiagnostic("Ignoring object "+obj.InternalName+" due to not moving and raycast failure!", true);
+																Logger.Write(LogLevel.Movement, "Ignoring object "+obj.InternalName+" due to not moving and raycast failure!", true);
 																Bot.Combat.bForceTargetUpdate=true;
 																return RunStatus.Running;
 														  }
@@ -218,7 +218,7 @@ namespace FunkyTrinity.Movement
 										  {
 												if (!Navigation.CanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
 												{
-													 Logging.WriteVerbose("Cannot continue with avoidance movement due to raycast failure!");
+													 Logger.Write(LogLevel.Movement, "Cannot continue with avoidance movement due to raycast failure!");
 													 BlockedMovementCounter=0;
 
 													 Bot.Combat.iMillisecondsCancelledEmergencyMoveFor/=2;

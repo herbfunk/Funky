@@ -124,7 +124,7 @@ namespace FunkyTrinity
 								  if (!Bot.NavigationCache.groupingCurrentUnit.ObjectIsValidForTargeting)
 								  {
 										if (Bot.SettingsFunky.LogGroupingOutput)
-											 Logging.WriteVerbose("[Grouping] Target is no longer valid. Starting return to Orgin.");
+											 Logger.Write(LogLevel.Grouping, "Target is no longer valid. Starting return to Orgin.");
 
 										EndBehavior=true;
 								  }
@@ -132,7 +132,7 @@ namespace FunkyTrinity
 										&&Bot.NavigationCache.groupingCurrentUnit.IsMoving)
 								  {
 										if (Bot.SettingsFunky.LogGroupingOutput)
-											 Logging.WriteVerbose("[Grouping] Target has been engaged. Starting return to Orgin.");
+											Logger.Write(LogLevel.Grouping, "Target has been engaged. Starting return to Orgin.");
 
 										EndBehavior=true;
 								  }
@@ -163,12 +163,12 @@ namespace FunkyTrinity
 										endBehavior=true;
 
 										if (Bot.SettingsFunky.LogGroupingOutput)
-											 Logging.WriteVerbose("[Grouping] Orgin Target is no longer valid for targeting.");
+											 Logger.Write(LogLevel.Grouping, "Orgin Target is no longer valid for targeting.");
 								  }
 								  else if (Bot.NavigationCache.groupingOrginUnit.CentreDistance<(Bot.Class.IsMeleeClass?25f:45f))
 								  {
 										if (Bot.SettingsFunky.LogGroupingOutput)
-											 Logging.WriteVerbose("[Grouping] Orgin Target is within {0}f of the bot.", (Bot.Class.IsMeleeClass?25f:45f).ToString());
+											 Logger.Write(LogLevel.Grouping, "Orgin Target is within {0}f of the bot.", (Bot.Class.IsMeleeClass?25f:45f).ToString());
 
 										endBehavior=true;
 								  }
@@ -436,7 +436,7 @@ namespace FunkyTrinity
 															if (PossibleGroups.Any())
 															{
 																 if (Bot.SettingsFunky.LogGroupingOutput)
-																	 Logging.WriteVerbose("Starting Grouping Behavior");
+																	  Logger.Write(LogLevel.Grouping, "Starting Grouping Behavior");
 
 																 //Activate Behavior
 																 Bot.NavigationCache.groupRunningBehavior=true;
@@ -447,7 +447,7 @@ namespace FunkyTrinity
 																 Bot.NavigationCache.groupingCurrentCluster=groupCluster;
 
 																 if (Bot.SettingsFunky.LogGroupingOutput)
-																	  Logging.WriteVerbose("Group Cluster Propeties {0}" , groupCluster.Info.Properties.ToString());
+																	 Logger.Write(LogLevel.Grouping,"Group Cluster Propeties {0}" , groupCluster.Info.Properties.ToString());
 
 																 //Find initial grouping target..
 																 CurrentTarget=groupCluster.ListUnits[0];
@@ -897,7 +897,7 @@ namespace FunkyTrinity
 
 							 if (HealthChangeMS>3000&&!CurrentTarget.ObjectIsSpecial||HealthChangeMS>6000)
 							 {
-									Logging.WriteVerbose("Health change has not occured within 3 seconds for unit {0}", CurrentTarget.InternalName);
+									Logger.Write(LogLevel.Target, "Health change has not occured within 3 seconds for unit {0}", CurrentTarget.InternalName);
 									Bot.Combat.bForceTargetUpdate=true;
 									CurrentState=RunStatus.Running;
 									CurrentTarget.BlacklistLoops=10;
