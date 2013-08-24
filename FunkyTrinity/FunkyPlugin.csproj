@@ -574,7 +574,13 @@
     <Compile Include="Bot\Cache\ObjectCache\Objects\CacheACDItem.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Bot\Cache\ObjectCache\Objects\CacheDestructable.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Bot\Cache\ObjectCache\Objects\CacheGizmo.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\ObjectCache\Objects\CacheInteractable.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\ObjectCache\Objects\CacheObject.cs">

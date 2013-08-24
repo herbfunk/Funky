@@ -306,13 +306,13 @@ namespace FunkyTrinity.Cache
 
 					 Vector3 botmeleeVector=!this.IsBoss?this.BotMeleeVector:this.Position;
 
-					 if (NavRayCast&&Zeta.Navigation.Navigator.Raycast(PositionToTestFrom, botmeleeVector))
+					 if (NavRayCast&&Zeta.Navigation.Navigator.Raycast(PositionToTestFrom, this.Position))
 						  return false;
 
 					 if (ServerObjectIntersection&&ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obstacle => obstacle.Obstacletype.HasValue&&obstacle.Obstacletype.Value!=ObstacleType.Monster&&obstacle.TestIntersection(PositionToTestFrom, botmeleeVector)))
 						  return false;
 
-					 if (!Flags.Equals(NavCellFlags.None)&&!Navigation.CanRayCast(PositionToTestFrom, botmeleeVector, Flags))
+					 if (!Flags.Equals(NavCellFlags.None)&&!Navigation.CanRayCast(PositionToTestFrom, this.Position, Flags))
 						  return false;
 
 

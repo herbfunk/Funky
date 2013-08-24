@@ -94,7 +94,7 @@ namespace FunkyTrinity
 						Settings_Funky.LoadFunkyConfiguration();
 
 						this.Owner=Demonbuddy.App.Current.MainWindow;
-						this.Title="Funky Window";
+						this.Title="Funky Settings -- " + Bot.CurrentHeroName;
 						this.SizeToContent=System.Windows.SizeToContent.WidthAndHeight;
 						this.ResizeMode=System.Windows.ResizeMode.CanMinimize;
 						this.Background=System.Windows.Media.Brushes.Black;

@@ -920,64 +920,10 @@ namespace FunkyTrinity
 							 if (CurrentTarget.targetType.Value==TargetType.Unit&&CurrentTarget.AcdGuid.HasValue)
 							 {
 								  // Pick a suitable Ability			
-								  if (CurrentUnitTarget.IsSucideBomber||(CurrentUnitTarget.IsTreasureGoblin&&Bot.SettingsFunky.GoblinPriority>1))
+								  if (CurrentUnitTarget.IsClusterException)
 										Bot.Combat.powerPrime=Bot.Class.AbilitySelector(false, false, ConditionCriteraTypes.SingleTarget);
 								  else
 										Bot.Combat.powerPrime=Bot.Class.AbilitySelector(false, false);
-
-									//Check LOS still valid...
-									#region LOSUpdate
-									if (!CurrentTarget.RequiresLOSCheck&&CurrentTarget.LastLOSCheckMS>3000)
-									{
-										 if (!CurrentTarget.IgnoresLOSCheck)
-										 {
-												NavCellFlags LOSNavFlags=NavCellFlags.None;
-
-												if (!CurrentTarget.WithinInteractionRange())
-												{//Ability requires movement prior to use, so we test nav flags.
-
-													 if (Bot.Combat.powerPrime.IsRanged) //Add Projectile Testing!
-															LOSNavFlags=NavCellFlags.AllowWalk|NavCellFlags.AllowProjectile;
-													 else
-															LOSNavFlags=NavCellFlags.AllowWalk;
-												}
-
-												if (!CurrentTarget.LOSTest(Bot.Character.Position, true, true, LOSNavFlags))
-												{
-													 //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
-													 if (CurrentTarget.ObjectIsSpecial&&CurrentTarget.LastLOSSearchMS>2500)
-													 {
-															CurrentTarget.LastLOSSearch=DateTime.Now;
-
-															GPRectangle TargetGPRect=CurrentTarget.GPRect;
-															//Expand GPRect into 5x5, 7x7 for ranged!
-															TargetGPRect.FullyExpand();
-															if (!Bot.Class.IsMeleeClass)
-																 TargetGPRect.FullyExpand();
-
-															Vector3 LOSV3;
-															if (TargetGPRect.TryFindSafeSpot(Bot.Character.Position, out LOSV3, CurrentTarget.BotMeleeVector))
-															{
-																 CurrentTarget.LOSV3=LOSV3;
-																 Logging.WriteVerbose("Using LOS Vector at {0} to move to", LOSV3.ToString());
-																 CurrentTarget.RequiresLOSCheck=false;
-																 Bot.Combat.bWholeNewTarget=true;
-																 CurrentState=RunStatus.Running;
-																 return false;
-															}
-													 }
-
-													 //We could not find a LOS Locaiton or did not find a reason to try.. so we reset LOS check, temp ignore it, and force new target.
-													 Logging.WriteVerbose("LOS Request for object {0} due to raycast failure!", CurrentTarget.InternalName);
-													 Bot.Combat.bForceTargetUpdate=true;
-													 CurrentState=RunStatus.Running;
-													 return false;
-												}
-												else
-													 CurrentTarget.RequiresLOSCheck=false;
-										 }
-									}
-									#endregion
 							 }
 
 							 // Select an Ability for destroying a destructible with in advance
@@ -1154,7 +1100,7 @@ namespace FunkyTrinity
 						// Now tell Trinity to get a new target!
 						Bot.Combat.lastChangedZigZag=DateTime.Today;
 						Bot.Combat.vPositionLastZigZagCheck=Vector3.Zero;
-						Bot.Combat.bForceTargetUpdate=true;
+						//Bot.Combat.bForceTargetUpdate=true;
 						
 						return false;
 				 }

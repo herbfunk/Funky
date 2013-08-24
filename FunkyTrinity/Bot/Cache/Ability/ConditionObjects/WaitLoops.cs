@@ -1,5 +1,8 @@
 ﻿namespace FunkyTrinity.ability
 {
+	 /// <summary> 
+	 /// Describes Pre and Post Wait Loops for an ability.
+	 /// </summary> 
 	 public struct WaitLoops
 	 {
 			public readonly int PreLoops;

@@ -210,6 +210,18 @@ namespace FunkyTrinity.Cache
 						  return false;
 					 }
 				}
+			  public bool IsClusterException
+			  {
+					get
+					{
+						 return this.IsSucideBomber
+							  ||(this.IsTreasureGoblin&&Bot.SettingsFunky.TreasureGoblinRange>1)
+							  ||(this.Monstersize.Value==MonsterSize.Ranged&&Bot.SettingsFunky.ClusteringAllowRangedUnits)
+							  ||(this.IsSpawnerUnit&&Bot.SettingsFunky.ClusteringAllowSpawnerUnits)
+							  ||((Bot.SettingsFunky.ClusterKillLowHPUnits&&((this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0)
+												&&((!Bot.Class.IsMeleeClass&&this.CentreDistance<30f)||(Bot.Class.IsMeleeClass&&this.RadiusDistance<12f)))));
+					}
+			  }
 
 
 				#region Health Related
@@ -911,6 +923,56 @@ namespace FunkyTrinity.Cache
 								}
 
 								this.RequiresLOSCheck=false;
+						  } 
+						  else if (this.LastLOSCheckMS>3000)
+						  {
+								if (!this.IgnoresLOSCheck)
+								{
+									 NavCellFlags LOSNavFlags=NavCellFlags.None;
+
+									 if (!this.WithinInteractionRange())
+									 {//Ability requires movement prior to use, so we test nav flags.
+
+										  if (Bot.Combat.powerPrime.IsRanged) //Add Projectile Testing!
+												LOSNavFlags=NavCellFlags.AllowWalk|NavCellFlags.AllowProjectile;
+										  else
+												LOSNavFlags=NavCellFlags.AllowWalk;
+									 }
+
+									 if (!this.LOSTest(Bot.Character.Position, true, true, LOSNavFlags))
+									 {
+										  bool Valid=false;
+										  //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
+										  if (this.ObjectIsSpecial&&this.LastLOSSearchMS>2500)
+										  {
+												this.LastLOSSearch=DateTime.Now;
+
+												GPRectangle TargetGPRect=this.GPRect;
+												//Expand GPRect into 5x5, 7x7 for ranged!
+												TargetGPRect.FullyExpand();
+												if (!Bot.Class.IsMeleeClass)
+													 TargetGPRect.FullyExpand();
+
+												Vector3 LOSV3;
+												if (TargetGPRect.TryFindSafeSpot(Bot.Character.Position, out LOSV3, this.BotMeleeVector))
+												{
+													 this.LOSV3=LOSV3;
+													 Logging.WriteVerbose("Using LOS Vector at {0} to move to", LOSV3.ToString());
+													 this.RequiresLOSCheck=false;
+													 Valid=true;
+												}
+										  }
+
+										  if (!Valid)
+										  {
+												//We could not find a LOS Locaiton or did not find a reason to try.. so we reset LOS check, temp ignore it, and force new target.
+												Logging.WriteVerbose("LOS Request for object {0} due to raycast failure!", this.InternalName);
+												return false;
+										  }
+									 }
+									 else
+										  this.RequiresLOSCheck=false;
+								}
 						  }
 
 

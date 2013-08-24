@@ -81,6 +81,7 @@ namespace FunkyTrinity.Movement
 						  Bot.NavigationCache.CurrentGPArea.BlacklistedGridpoints.Clear();
 					 }
 
+
 					 Vector3 safespot=Vector3.Zero;
 					 //Check if we actually created any surrounding GPCs..
 					 if (gridpointrectangles_.Count>0)
@@ -128,15 +129,20 @@ namespace FunkyTrinity.Movement
 						  BlacklistedPoint=false;
 					 }
 
+					 GPRectangle PositionRect=GetGPRectContainingPoint(CurrentPosition);
 					 safespot=Vector3.Zero;
 					 for (int i=lastGPRectIndexUsed; i<gridpointrectangles_.Count-1; i++)
 					 {
 						  GPRectangle item=gridpointrectangles_[i];
 						  if (Bot.NavigationCache.CheckPointAgainstBlockedDirection(item.centerpoint))
 								continue;
+						  
 
 						  item.UpdateObjectCount(AllGPRectsFailed);
-						  if (item.Weight>Bot.NavigationCache.CurrentLocationGPRect.Weight) continue;
+						  if (PositionRect!=null)
+						  {
+								if (item.Weight>PositionRect.Weight) continue;
+						  }
 
 						  if (item.TryFindSafeSpot(CurrentPosition, out safespot, LOS, kiting, false, AllGPRectsFailed))
 						  {
@@ -145,6 +151,17 @@ namespace FunkyTrinity.Movement
 						  }
 					 }
 					 lastGPRectIndexUsed=0;
+				}
+
+				private GPRectangle GetGPRectContainingPoint(GridPoint Point)
+				{
+					 foreach (var item in this.gridpointrectangles_)
+					 {
+						  if (item.Contains(Point))
+								return item;
+					 }
+
+					 return null;
 				}
 		  }
 

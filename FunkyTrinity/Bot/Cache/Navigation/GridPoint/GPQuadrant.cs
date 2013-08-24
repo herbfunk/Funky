@@ -161,7 +161,7 @@ namespace FunkyTrinity.Movement
 												avoidcount++;
 												float BaseWeight=0f;
 												
-												if ((AvoidanceType.ArcaneSentry|AvoidanceType.Dececrator|AvoidanceType.MoltenCore).HasFlag(thisAvoidanceType))
+												if ((AvoidanceType.ArcaneSentry|AvoidanceType.Dececrator|AvoidanceType.MoltenCore|AvoidanceType.PlagueCloud).HasFlag(thisAvoidanceType))
 													 BaseWeight=1f;
 												else
 													 BaseWeight=0.5f;

@@ -39,8 +39,8 @@ namespace FunkyTrinity.ability
 				IsSpecialAbility=false;
 				Range=0;
 				Priority=AbilityPriority.None;
-
-
+			
+				
 				Initialize();
 				InitCriteria();
 		  }
@@ -235,32 +235,27 @@ namespace FunkyTrinity.ability
 				 //Destructible Setup
 			  if (Destructible)
 			  {
+					if (!ability.IsRanged)
+						 ability.MinimumRange=10f;
+					else
+						 ability.MinimumRange=25f;
+
 				  bool LocationalAttack = (CacheIDLookup.hashDestructableLocationTarget.Contains(Bot.Target.CurrentTarget.SNOID));
-													//||(Bot.Target.CurrentTarget.InteractionAttempts>1&&Bot.Target.CurrentTarget.RadiusDistance<7f));
 
 				  if (LocationalAttack)
 				  {
 					  Vector3 attacklocation = Bot.Target.CurrentTarget.Position;
 
-						 //melee attack
 					  if (!ability.IsRanged)
 					  {
-							//if (Bot.Target.CurrentTarget.RadiusDistance > 2.5f)
-							//{
-							//	attacklocation = MathEx.GetPointAt(Bot.Target.CurrentTarget.Position, 2.5f,
-							//		Navigation.FindDirection(Bot.Character.Position, Bot.Target.CurrentTarget.Position, true));
-							//}
-							//else
-							//{
-							 
-							//}
-							attacklocation=MathEx.CalculatePointFrom(Bot.Character.Position, Bot.Target.CurrentTarget.Position, 1f);
-						 
+							attacklocation=MathEx.CalculatePointFrom(Bot.Character.Position,Bot.Target.CurrentTarget.Position, 0.25f);
+					  }
+					  else
+					  {
+							attacklocation=MathEx.GetPointAt(Bot.Target.CurrentTarget.Position, 1f, Navigation.FindDirection(Bot.Target.CurrentTarget.Position, Bot.Character.Position, true));
 					  }
 
-						 //modify Z value
-						//attacklocation.Z+=1.5f;
-
+					  attacklocation.Z=Navigation.MGP.GetHeight(attacklocation.ToVector2());
 					  ability.TargetPosition = attacklocation;
 				  }
 				  else
@@ -271,23 +266,27 @@ namespace FunkyTrinity.ability
 					return;
 			  }
 
-				//Cluster Target -- Aims for Centeroid Unit
-				if (ability.ExecutionType.HasFlag(AbilityUseType.ClusterTarget)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster ACDGUID
+
+				if (ability.AbilityTestConditions.LastConditionPassed== ConditionCriteraTypes.Cluster)
 				{
-					 ability.TargetRAGUID=Bot.Combat.Clusters(ability.ClusterConditions)[0].GetNearestUnitToCenteroid().AcdGuid.Value;
-					 return;
-				}
-				//Cluster Location -- Aims for Center of Cluster
-				if (ability.ExecutionType.HasFlag(AbilityUseType.ClusterLocation)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
-				{
-					 ability.TargetPosition=(Vector3)Bot.Combat.Clusters(ability.ClusterConditions)[0].Midpoint;
-					 return;
-				}
-				//Cluster Target Nearest -- Gets nearest unit in cluster as target.
-				if (ability.ExecutionType.HasFlag(AbilityUseType.ClusterTargetNearest)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
-				{
-					 ability.TargetRAGUID=Bot.Combat.Clusters(ability.ClusterConditions)[0].ListUnits[0].AcdGuid.Value;
-					 return;
+						 //Cluster Target -- Aims for Centeroid Unit
+						 if (ability.ExecutionType.HasFlag(AbilityUseType.ClusterTarget)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster ACDGUID
+						 {
+							  ability.TargetRAGUID=Bot.Combat.Clusters(ability.ClusterConditions)[0].GetNearestUnitToCenteroid().AcdGuid.Value;
+							  return;
+						 }
+						 //Cluster Location -- Aims for Center of Cluster
+						 if (ability.ExecutionType.HasFlag(AbilityUseType.ClusterLocation)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
+						 {
+							  ability.TargetPosition=(Vector3)Bot.Combat.Clusters(ability.ClusterConditions)[0].Midpoint;
+							  return;
+						 }
+						 //Cluster Target Nearest -- Gets nearest unit in cluster as target.
+						 if (ability.ExecutionType.HasFlag(AbilityUseType.ClusterTargetNearest)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
+						 {
+							  ability.TargetRAGUID=Bot.Combat.Clusters(ability.ClusterConditions)[0].ListUnits[0].AcdGuid.Value;
+							  return;
+						 }
 				}
 
 				if (ability.ExecutionType.HasFlag(AbilityUseType.Location)) //Current Target Position
