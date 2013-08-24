@@ -966,7 +966,7 @@ namespace FunkyTrinity.Cache
 										  if (!Valid)
 										  {
 												//We could not find a LOS Locaiton or did not find a reason to try.. so we reset LOS check, temp ignore it, and force new target.
-												Logging.WriteVerbose("LOS Request for object {0} due to raycast failure!", this.InternalName);
+												//Logging.WriteVerbose("LOS Request for object {0} due to raycast failure!", this.InternalName);
 												return false;
 										  }
 									 }
@@ -1221,16 +1221,16 @@ namespace FunkyTrinity.Cache
 
 
 					 //Clustering Target Engaged Check
-					 if (Bot.SettingsFunky.AttemptGroupingMovements)
-					 {
-						  try
-						  {
-								this.IsMoving=this.ref_DiaObject.Movement.IsMoving;
-						  } catch
-						  {
-								Logging.WriteVerbose("[Funky] Safely handled exception getting LastACDAttackedBy attribute for unit "+this.InternalName+" ["+this.SNOID.ToString()+"]");
-						  }
-					 }
+					 //if (Bot.SettingsFunky.AttemptGroupingMovements)
+					 //{
+					 //    try
+					 //    {
+					 //        this.IsMoving=this.ref_DiaObject.Movement.IsMoving;
+					 //    } catch
+					 //    {
+					 //        Logging.WriteVerbose("[Funky] Safely handled exception getting LastACDAttackedBy attribute for unit "+this.InternalName+" ["+this.SNOID.ToString()+"]");
+					 //    }
+					 //}
 
 					 #region Class DOT DPS Check
 					 //Barb specific updates

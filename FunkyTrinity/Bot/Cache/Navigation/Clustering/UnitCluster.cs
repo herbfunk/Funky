@@ -10,14 +10,14 @@ namespace FunkyTrinity.Movement.Clustering
 		public ClusterInfo Info { get; set; }
 
 
-		internal int UnitMobileCounter { get; set; }
-		internal double UnitsMovementRatio
-		{
-			get
-			{
-				return UnitMobileCounter/ListUnits.Count;
-			}
-		}
+		//internal int UnitMobileCounter { get; set; }
+		//internal double UnitsMovementRatio
+		//{
+		//   get
+		//   {
+		//      return UnitMobileCounter/ListUnits.Count;
+		//   }
+		//}
 
 		public float NearestMonsterDistance { get; set; }
 

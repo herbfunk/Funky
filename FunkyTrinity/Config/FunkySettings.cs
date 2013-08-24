@@ -256,8 +256,8 @@ namespace FunkyTrinity
                  EnableClusteringTargetLogic = true;
                  IgnoreClusteringWhenLowHP = true;
                  ClusterKillLowHPUnits = true;
-                 ClusterDistance = 9d;
-                 ClusterMinimumUnitCount = 2;
+                 ClusterDistance = 7d;
+                 ClusterMinimumUnitCount = 3;
                  IgnoreClusterLowHPValue = 0.55d;
 					  ClusteringAllowRangedUnits=true;
 					  ClusteringAllowSpawnerUnits=true;

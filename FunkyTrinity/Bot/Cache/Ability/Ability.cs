@@ -249,7 +249,7 @@ namespace FunkyTrinity.ability
 					  if (!ability.IsRanged)
 					  {
 							//attacklocation=MathEx.CalculatePointFrom(Bot.Character.Position,Bot.Target.CurrentTarget.Position, 0.25f);
-							attacklocation=MathEx.GetPointAt(Bot.Character.Position, 1f, Navigation.FindDirection(Bot.Character.Position, Bot.Target.CurrentTarget.Position, true));
+							attacklocation=MathEx.GetPointAt(Bot.Character.Position, 0.50f, Navigation.FindDirection(Bot.Character.Position, Bot.Target.CurrentTarget.Position, true));
 					  }
 					  else
 					  {

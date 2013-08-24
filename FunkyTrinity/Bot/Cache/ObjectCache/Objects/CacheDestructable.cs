@@ -61,12 +61,12 @@ namespace FunkyTrinity.Cache
 						return false;
 
 					NavCellFlags LOSNavFlags=NavCellFlags.None;
-					if (Bot.Class.IsMeleeClass||!this.WithinInteractionRange())
+					if (!this.WithinInteractionRange())
 					{
 						LOSNavFlags=NavCellFlags.AllowWalk;
 					}
 
-					if (!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), LOSNavFlags))
+					if (!base.LOSTest(Bot.Character.Position, true, false, LOSNavFlags))
 					{
 						return false;
 					}
@@ -238,9 +238,9 @@ namespace FunkyTrinity.Cache
 			float fRangeRequired=Bot.Combat.powerPrime.MinimumRange;
 
 			float distance=this.RadiusDistance;
-			if (CacheIDLookup.hashDestructableLocationTarget.Contains(this.SNOID))
+			if (Bot.Character.LastCachedTarget.Equals(this))
 			{
-				 //distance+=(this.CollisionRadius.Value*0.25f);
+				 distance+=(this.CollisionRadius.Value*0.25f);
 			}
 
 			base.DistanceFromTarget=distance;
