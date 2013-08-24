@@ -103,7 +103,7 @@ namespace FunkyTrinity.Cache
 						if (radiusDistance<10f)
 						{
 							BarricadeTest=MathEx.GetPointAt(this.Position, 10f, Navigation.FindDirection(Bot.Character.Position, this.Position, true));
-							this.lastIntersectionTestResult=!MathEx.IntersectsPath(this.Position, this.CollisionRadius.Value, Bot.Character.Position, BarricadeTest);
+							this.lastIntersectionTestResult=MathEx.IntersectsPath(this.Position, this.CollisionRadius.Value, Bot.Character.Position, BarricadeTest);
 							if (!this.lastIntersectionTestResult.Value)
 							{
 								return false;
