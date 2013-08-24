@@ -609,7 +609,7 @@ namespace FunkyTrinity.Cache
 										  } catch (NullReferenceException ) { Logging.WriteVerbose("Failure to get actor Gizmo Type!"); return false; }
 
 
-										  if (thisGizmoType==GizmoType.DestructibleLootContainer)
+										  if (thisGizmoType==GizmoType.DestructibleLootContainer||thisGizmoType==GizmoType.Destructible)
 												this.targetType=TargetType.Destructible;
 										  else if (thisGizmoType==GizmoType.Shrine||thisGizmoType==GizmoType.Healthwell)
 										  {
@@ -617,7 +617,7 @@ namespace FunkyTrinity.Cache
 										  }
 										  else if (thisGizmoType==GizmoType.LootContainer)
 												this.targetType=TargetType.Container;
-										  else if (thisGizmoType==GizmoType.Destructible||thisGizmoType==GizmoType.Barricade)
+										  else if (thisGizmoType==GizmoType.Barricade)
 												this.targetType=TargetType.Barricade;
 										  else if (thisGizmoType==GizmoType.Door)
 												this.targetType=TargetType.Door;

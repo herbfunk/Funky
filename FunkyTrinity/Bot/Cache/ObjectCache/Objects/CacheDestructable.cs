@@ -240,7 +240,7 @@ namespace FunkyTrinity.Cache
 			float distance=this.RadiusDistance;
 			if (CacheIDLookup.hashDestructableLocationTarget.Contains(this.SNOID))
 			{
-				 distance+=(this.CollisionRadius.Value*0.33f);
+				 //distance+=(this.CollisionRadius.Value*0.25f);
 			}
 
 			base.DistanceFromTarget=distance;

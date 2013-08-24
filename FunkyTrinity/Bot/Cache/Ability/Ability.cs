@@ -236,9 +236,9 @@ namespace FunkyTrinity.ability
 			  if (Destructible)
 			  {
 					if (!ability.IsRanged)
-						 ability.MinimumRange=10f;
+						 ability.MinimumRange=8f;
 					else
-						 ability.MinimumRange=25f;
+						 ability.MinimumRange=30f;
 
 				  bool LocationalAttack = (CacheIDLookup.hashDestructableLocationTarget.Contains(Bot.Target.CurrentTarget.SNOID));
 
@@ -248,7 +248,8 @@ namespace FunkyTrinity.ability
 
 					  if (!ability.IsRanged)
 					  {
-							attacklocation=MathEx.CalculatePointFrom(Bot.Character.Position,Bot.Target.CurrentTarget.Position, 0.25f);
+							//attacklocation=MathEx.CalculatePointFrom(Bot.Character.Position,Bot.Target.CurrentTarget.Position, 0.25f);
+							attacklocation=MathEx.GetPointAt(Bot.Character.Position, 1f, Navigation.FindDirection(Bot.Character.Position, Bot.Target.CurrentTarget.Position, true));
 					  }
 					  else
 					  {
