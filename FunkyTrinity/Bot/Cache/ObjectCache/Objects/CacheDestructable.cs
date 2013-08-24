@@ -112,7 +112,8 @@ namespace FunkyTrinity.Cache
 					}
 				}
 
-				if (this.targetType.Value==TargetType.Destructible&&this.RadiusDistance>(Bot.DestructibleRange+5f))
+				if (this.targetType.Value==TargetType.Destructible&&
+					 radiusDistance>(Bot.DestructibleRange+5f))
 				{
 					return false;
 				}
@@ -236,7 +237,13 @@ namespace FunkyTrinity.Cache
 		{
 			float fRangeRequired=Bot.Combat.powerPrime.MinimumRange;
 
-			base.DistanceFromTarget=this.RadiusDistance;
+			float distance=this.RadiusDistance;
+			if (CacheIDLookup.hashDestructableLocationTarget.Contains(this.SNOID))
+			{
+				 distance+=(this.CollisionRadius.Value*0.33f);
+			}
+
+			base.DistanceFromTarget=distance;
 
 			return (base.DistanceFromTarget<=fRangeRequired);
 		}

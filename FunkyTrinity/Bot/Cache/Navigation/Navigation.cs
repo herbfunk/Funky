@@ -392,7 +392,7 @@ namespace FunkyTrinity.Movement
 					 if (Bot.NavigationCache.CurrentLocationGPrect==null||Bot.NavigationCache.CurrentLocationGPrect.centerpoint!=Bot.Character.PointPosition)
 					 {
 						  Bot.NavigationCache.CurrentLocationGPrect=new GPRectangle(Bot.Character.Position);
-						  currentLocationBoundary=new AreaBoundary(Bot.NavigationCache.CurrentLocationGPrect.centerpoint, Bot.NavigationCache.CurrentLocationGPrect.centerpoint);
+						  currentLocationBoundary=new AreaBoundary(Bot.NavigationCache.CurrentLocationGPrect.centerpoint);
 						  UpdateLocationsBlocked();
 					 }
 

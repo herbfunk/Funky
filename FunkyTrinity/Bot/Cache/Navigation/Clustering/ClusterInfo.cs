@@ -91,9 +91,10 @@ namespace FunkyTrinity.Movement.Clustering
 				properties|=ClusterProperties.Elites;
 			if (BossCounter>0)
 				properties|=ClusterProperties.Boss;
+
 			if (UnitCounter<4)
 				properties|=ClusterProperties.Small;
-			else if (UnitCounter>7)
+			else if (UnitCounter>6)
 				properties|=ClusterProperties.Large;
 		}
 

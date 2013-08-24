@@ -25,32 +25,6 @@ namespace FunkyTrinity.Movement
 		  TopRight=Top|Right,
 	 }
 
-	 public class AreaBoundary
-	 {
-		  public AreaBoundary(GridPoint TopLeft, GridPoint BottomRight)
-		  {
-				tl=TopLeft;
-				br=BottomRight;
-		  }
-
-		  private readonly GridPoint tl, br;
-
-		  public LocationFlags ComputeOutCode(double x, double y)
-		  {
-				LocationFlags code=LocationFlags.None;
-				if (x<tl.X)           // to the left of center
-					 code|=LocationFlags.Left;
-				else if (x>br.X)      // to the right of center
-					 code|=LocationFlags.Right;
-				if (y>br.Y)           // below the center
-					 code|=LocationFlags.Bottom;
-				else if (y<tl.Y)      // above the center
-					 code|=LocationFlags.Top;
-				return code;
-		  }
-	 }
-
-
 
 		  ///<summary>
 		  ///Point collection that manipulates points to test specific things about the points contained using sectors or the entire area it covers.

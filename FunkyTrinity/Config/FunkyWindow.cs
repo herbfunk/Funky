@@ -2043,6 +2043,7 @@ namespace FunkyTrinity
 						lbGeneralContent.Items.Add(OOCItemBehaviorStackPanel);
 						#endregion
 
+						#region Bot Stop Feature
 						StackPanel spBotStopLowHP=new StackPanel
 						{
 							 Orientation=Orientation.Vertical,
@@ -2056,9 +2057,6 @@ namespace FunkyTrinity
 							 Background=System.Windows.Media.Brushes.IndianRed,
 						};
 						spBotStopLowHP.Children.Add(BotStop_Text_Header);
-
-
-						
 
 						#region StopGameOnBotLowHealth
 						CheckBox CBStopGameOnBotLowHealth=new CheckBox
@@ -2074,7 +2072,10 @@ namespace FunkyTrinity
 						#endregion
 
 						#region StopBotOnLowHealth--Slider
-						spBotStop=new StackPanel();
+						spBotStop=new StackPanel
+						{
+							 IsEnabled=Bot.SettingsFunky.StopGameOnBotLowHealth,
+						};
 						TextBlock BotStopLowHP_Text_Header=new TextBlock
 						{
 							 Text="Bot Stop Health Percent",
@@ -2125,8 +2126,7 @@ namespace FunkyTrinity
 
 						spBotStopLowHP.Children.Add(spBotStop);
 						lbGeneralContent.Items.Add(spBotStopLowHP);
-
-
+						#endregion
 
 						#region LevelingLogic
 						CheckBox LevelingLogic=new CheckBox

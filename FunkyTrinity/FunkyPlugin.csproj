@@ -505,6 +505,9 @@
     <Compile Include="Bot\Cache\Navigation\Clustering\UnitCluster.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Bot\Cache\Navigation\Objects\AreaBoundary.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Bot\Cache\Navigation\MovementBackTrack.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

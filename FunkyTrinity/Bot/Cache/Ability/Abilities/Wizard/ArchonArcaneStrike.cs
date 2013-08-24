@@ -17,20 +17,14 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Target;
+			ExecutionType = AbilityUseType.Target|AbilityUseType.ClusterTargetNearest;
 			WaitVars = new WaitLoops(1, 1, true);
 			Range = 15;
 			UseageType=AbilityUseage.Combat;
-			Priority = AbilityPriority.None;
+			Priority=AbilityPriority.Low;
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
-			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_12, 1);
-			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None, 6);
-
-			Fcriteria = new Func<bool>(() =>
-			{
-//We only want to use this if there are nearby units!
-				return Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_12] > 0;
-			});
+			ClusterConditions=new ClusterConditions(6d, 20, 2, true);
+			TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None, 8);
 		}
 
 		public override void InitCriteria()

@@ -24,7 +24,7 @@ namespace FunkyTrinity.ability.Abilities.Barb
 		{
 			ExecutionType = AbilityUseType.Self;
 			WaitVars = new WaitLoops(1, 1, true);
-			Cost = 20;
+			Cost = 0;
 			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.Low;
 			PreCastConditions = (AbilityConditions.CheckRecastTimer | AbilityConditions.CheckEnergy |

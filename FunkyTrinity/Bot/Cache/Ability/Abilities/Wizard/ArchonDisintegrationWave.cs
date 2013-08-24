@@ -22,13 +22,9 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 			Range = 48;
 			IsRanged = true;
 			UseageType=AbilityUseage.Combat;
-			Priority = AbilityPriority.None;
+			Priority = AbilityPriority.Low;
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None);
-			Fcriteria = new Func<bool>(() =>
-			{
-				return Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_6] == 0;
-			});
 		}
 
 		public override void InitCriteria()

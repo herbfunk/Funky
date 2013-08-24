@@ -146,7 +146,7 @@ namespace FunkyTrinity.Cache
 									 if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
 										  this.Weight=18000-(Math.Floor(centreDistance)*200);
 									 // If there's a monster in the path-line to the item, reduce the weight
-									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
+									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.PointInside(this.Position)))
 										  this.Weight*=0.25;
 									 //Finally check if we should reduce the weight when more then 2 monsters are nearby..
 									 if (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_25]>2&&
