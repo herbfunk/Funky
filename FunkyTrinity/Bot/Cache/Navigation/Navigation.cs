@@ -636,9 +636,6 @@ namespace FunkyTrinity.Movement
 
 				internal void GroupingFinishBehavior()
 				{
-					 if (Bot.SettingsFunky.LogGroupingOutput)
-						  Logging.WriteVerbose("Finished Grouping Behavior.");
-
 					 Bot.NavigationCache.groupRunningBehavior=false;
 					 Bot.NavigationCache.groupReturningToOrgin=false;
 					 Bot.NavigationCache.groupingCurrentUnit=null;

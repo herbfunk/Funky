@@ -22,7 +22,7 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 			Range = 48;
 			IsRanged = true;
 			UseageType=AbilityUseage.Combat;
-			Priority = AbilityPriority.Low;
+			Priority = AbilityPriority.None;
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None);
 		}

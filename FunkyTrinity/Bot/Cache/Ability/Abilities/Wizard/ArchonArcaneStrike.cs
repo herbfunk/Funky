@@ -21,7 +21,7 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 			WaitVars = new WaitLoops(1, 1, true);
 			Range = 15;
 			UseageType=AbilityUseage.Combat;
-			Priority=AbilityPriority.Low;
+			Priority=AbilityPriority.None;
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
 			ClusterConditions=new ClusterConditions(6d, 20, 2, true);
 			TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None, 8);

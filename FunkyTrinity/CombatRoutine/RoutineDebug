@@ -18,7 +18,7 @@ namespace GilesBlankCombatRoutine
 {
 	 public class FunkyDebug
 	 {
-		  private static Label lblDebug_DumpUnits, lblDebug_OpenLog, lblDebug_DumpUnitAttributes, lblDebug_DumpObjects;
+		  private static Label lblDebug_DumpUnits, lblDebug_OpenLog, lblDebug_DumpUnitAttributes, lblDebug_DumpObjects, lblDebug_FunkyLog;
 		  private static MenuItem menuItem_Debug, menuItem_Debug_Units;
 
 		  public static void initDebugLabels(out Demonbuddy.SplitButton btn)
@@ -37,12 +37,21 @@ namespace GilesBlankCombatRoutine
 
 				lblDebug_OpenLog=new Label
 				{
-					 Content="Open DB Log File",
+					 Content="Open DB LogFile",
 					 Width=100,
 					 Height=25,
 					 HorizontalAlignment=HorizontalAlignment.Stretch,
 				};
 				lblDebug_OpenLog.MouseDown+=lblDebug_OpenDBLog;
+
+				lblDebug_FunkyLog=new Label
+				{
+					 Content="Open Funky LogFile",
+					 Width=100,
+					 Height=25,
+					 HorizontalAlignment=HorizontalAlignment.Stretch,
+				};
+				lblDebug_FunkyLog.MouseDown+=lblDebug_OpenFunkyLog;
 
 				Label OpenTrinityFolder=new Label
 				{
@@ -105,9 +114,9 @@ namespace GilesBlankCombatRoutine
 					 Width=125
 				};
 				menuItem_Debug.Items.Add(lblDebug_OpenLog);
+				menuItem_Debug.Items.Add(lblDebug_FunkyLog);
 				menuItem_Debug.Items.Add(OpenTrinityFolder);
 				menuItem_Debug.Items.Add(Recompile);
-				//menuItem_Debug.Items.Add(Testing);
 				btn.ButtonMenuItemsSource.Add(menuItem_Debug);
 
 				MenuItem menuItem_DumpInfo=new MenuItem
@@ -180,8 +189,18 @@ namespace GilesBlankCombatRoutine
 				Zeta.Common.Logging.WriteDiagnostic("Enabling Plugins");
 				Zeta.Common.Plugins.PluginManager.SetEnabledPlugins(EnabledPlugins);
 		  }
-
 		  static void lblDebug_OpenDBLog(object sender, EventArgs e)
+		  {
+				try
+				{
+					 System.Diagnostics.Process.Start(Zeta.Common.Logging.LogFilePath);
+
+				} catch (Exception)
+				{
+
+				}
+		  }
+		  static void lblDebug_OpenFunkyLog(object sender, EventArgs e)
 		  {
 				//string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 				
@@ -189,9 +208,14 @@ namespace GilesBlankCombatRoutine
 				if (!demonbuddyLogFolder.Directory.GetFiles().Any())
 					 return;
 
-				var newestfile=demonbuddyLogFolder.Directory.GetFiles().OrderByDescending(file => file.LastWriteTime).First();
-				System.Diagnostics.Process.Start(newestfile.FullName);
+				var newestfile=demonbuddyLogFolder.Directory.GetFiles().Where(f=>f.Name.Contains("FunkyLog")).OrderByDescending(file => file.LastWriteTime).First();
+				try
+				{
+					 System.Diagnostics.Process.Start(newestfile.FullName);
+				} catch (Exception)
+				{
 
+				}
 		  }
 
 		  static void lblDebug_OpenTrinityFolder(object sender, EventArgs e)

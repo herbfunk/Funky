@@ -156,14 +156,14 @@ namespace FunkyTrinity
 						  {
 								if (TargetClusterCollection.ShouldUpdateClusters)
 									 TargetClusterCollection.UpdateClusters();
-
-								List<CacheUnit> units=TargetClusterCollection.RetrieveAllUnits();
-
-								if (units.Count>0)
-									 ValidClusterUnits=units.Select(u => u.RAGUID).ToList();
 						  }
 						  else
 								TargetClusterCollection.RefreshClusters();
+
+						  List<CacheUnit> units=TargetClusterCollection.RetrieveAllUnits();
+
+						  if (units.Count>0)
+								ValidClusterUnits=units.Select(u => u.RAGUID).ToList();
 					 }
 				}
 
