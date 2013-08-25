@@ -157,17 +157,13 @@ namespace FunkyTrinity
 								if (TargetClusterCollection.ShouldUpdateClusters)
 									 TargetClusterCollection.UpdateClusters();
 
-									// TargetClusterCollection.RefreshClusters();
-								//else
-									 
-
-								//Logging.WriteVerbose("Target Clusters Found {0}", TargetClusterCollection.CurrentClusters.Count);
-
 								List<CacheUnit> units=TargetClusterCollection.RetrieveAllUnits();
 
 								if (units.Count>0)
 									 ValidClusterUnits=units.Select(u => u.RAGUID).ToList();
 						  }
+						  else
+								TargetClusterCollection.RefreshClusters();
 					 }
 				}
 

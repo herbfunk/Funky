@@ -30,6 +30,7 @@ namespace FunkyTrinity
 				{
 					 this.random=r;
 					 this.Profiles=p.Split(Char.Parse(","));
+				
 				}
 		  }
 

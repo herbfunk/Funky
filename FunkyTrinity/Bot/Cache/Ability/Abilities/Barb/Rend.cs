@@ -35,7 +35,9 @@ namespace FunkyTrinity.ability.Abilities.Barb
 
 			Fcriteria = new Func<bool>(() =>
 			{
-				return !Bot.Class.bWaitingForSpecial;
+				return !Bot.Class.bWaitingForSpecial
+					 ||(Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.95&&
+									Bot.Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)&&!Bot.Class.Abilities.ContainsKey(SNOPower.Barbarian_Rend));
 			});
 		}
 		public override void InitCriteria()

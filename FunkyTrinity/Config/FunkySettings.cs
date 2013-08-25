@@ -157,10 +157,10 @@ namespace FunkyTrinity
              {
 					  AttemptGroupingMovements=true;
 					  GroupingClusterRadiusDistance=10d;
-					  GroupingMinimumUnitDistance=60;
-					  GroupingMaximumDistanceAllowed=125;
+					  GroupingMinimumUnitDistance=35;
+					  GroupingMaximumDistanceAllowed=110;
 					  GroupingMinimumClusterCount=1;
-					  GroupingMinimumUnitsInCluster=4;
+					  GroupingMinimumUnitsInCluster=3;
 					  LogGroupingOutput=false;
 
 					  EnableFleeingBehavior=true;

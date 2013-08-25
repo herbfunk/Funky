@@ -205,6 +205,8 @@ namespace FunkyTrinity
 				DBLogFile=Zeta.Common.Logging.LogFilePath;
 				Logger.Write(LogLevel.User, "Init Logger Completed! DB Log Path Set {0}", DBLogFile);
 				//if (BotWasRunning) BotMain.Start();
+
+				CheckUpdate();
 		  }
 
 		  public void OnPulse()
