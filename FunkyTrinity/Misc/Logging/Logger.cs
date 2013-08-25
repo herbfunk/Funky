@@ -15,7 +15,9 @@ namespace FunkyTrinity
 		  Movement=16,
 		  Ability=32,
 		  Target=64,
-
+		  Items=128,
+		  OutOfGame=256,
+		  OutOfCombat=512,
 	 }
 	 public static class Logger
 	 {
@@ -44,13 +46,20 @@ namespace FunkyTrinity
 		  {
 				filename=Logger.FileNamePrefix+DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss")+".txt";
 		  }
+		  public static void Write(LogLevel level, string Message,bool WriteToMainLog, params object[] args)
+		  {
+				string prefix="["+DateTime.Now.ToString("hh:mm:ss.fff")+" "+level.ToString()+"]";
+				string message=String.Format(Message, args);
+				WriteLine(String.Format("{0} {1}", prefix, message), true);
+				if (WriteToMainLog)
+					 Zeta.Common.Logging.Write("{0} {1}","[Funky]", message);
+		  }
 		  public static void Write(LogLevel level, string Message, params object[] args)
 		  {
 				string prefix="["+DateTime.Now.ToString("hh:mm:ss.fff")+" "+level.ToString()+"]";
 				string message=String.Format(Message, args);
 				WriteLine(String.Format("{0} {1}", prefix, message), true);
 		  }
-
 		  private static void WriteLine(string text, bool append)
 		  {
 				// open file

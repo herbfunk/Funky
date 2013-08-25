@@ -41,7 +41,7 @@ namespace FunkyTrinity
 						  {
 								if (System.IO.File.Exists(NewGameProfile))
 								{
-									 Log("Loading NewGame profile");
+									 Logger.Write(LogLevel.OutOfGame, "Loading NewGame profile");
 									 ProfileManager.Load(NewGameProfile, true);
 									 Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel=0;
 								}

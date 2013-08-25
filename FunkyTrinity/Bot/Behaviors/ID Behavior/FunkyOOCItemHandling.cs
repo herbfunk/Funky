@@ -34,7 +34,7 @@ namespace FunkyTrinity
 						  UnidentifiedItems=Bot.Character.BackPack.ReturnUnidifiedItemsRandomizedSorted();
 				} catch
 				{
-					 Logging.WriteDiagnostic("[Funky] Exception occured during refresh of inventory");
+					 Logger.Write(LogLevel.Items, "Exception occured during refresh of inventory");
 				}
 		  }
 
@@ -134,7 +134,7 @@ namespace FunkyTrinity
 					 //3 successive failures.. so lets just finish this behavior until next time.
 					 if (totalFailures>2)
 					 {
-						  Logging.WriteDiagnostic("[Funky] Quiting OOC Behavior due to too many failures");
+						 Logger.Write(LogLevel.Items,"Quiting OOC Behavior due to too many failures");
 						  FinishBehavior();
 						  return Zeta.TreeSharp.RunStatus.Success;
 					 }
@@ -251,7 +251,7 @@ namespace FunkyTrinity
 				else
 					 return;
 
-				Logging.WriteDiagnostic("[Funky] Finishing OOC ID Behavior");
+			Logger.Write(LogLevel.Items,"Finishing OOC ID Behavior");
 
 				//reset vars
 				RefreshDone=false;

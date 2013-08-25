@@ -127,7 +127,7 @@ namespace FunkyTrinity
 								else if (ZetaDia.Service.CurrentHero.Name==NewCharacterName)
 								{
 									 //
-									 Log("Successfully Created New Character");
+									 Logger.Write(LogLevel.OutOfGame, "Successfully Created New Character");
 									 return RunStatus.Success;
 								}
 						  }
@@ -153,7 +153,7 @@ namespace FunkyTrinity
 
 									 if (HeroNameText.TextObject.IsValid)
 									 {
-										  Log("Valid TextObject for character name UI");
+										   Logger.Write(LogLevel.OutOfGame, "Valid TextObject for character name UI");
 									 }
 
 									 if (!HeroNameText.HasText)

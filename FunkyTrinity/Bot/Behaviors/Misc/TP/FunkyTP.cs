@@ -80,7 +80,7 @@ namespace FunkyTrinity
 				
 				if (!cancast)
 				{
-					 Logging.Write("[FunkyTP] Cannot cast TP: "+TPcastTest);
+					Logger.Write(LogLevel.OutOfCombat,"Cannot cast TP: "+TPcastTest);
 					 return false;
 				}
 				return true;
@@ -101,7 +101,7 @@ namespace FunkyTrinity
 		  internal static bool initizedTPBehavior=false;
 		  internal static void InitTPBehavior()
 		  {
-				Logging.WriteVerbose("[FunkyTP] Starting TP Behavior");
+				Logger.Write(LogLevel.OutOfCombat,"Starting TP Behavior",true);
 				worldtransferStarted=false;
 				worldChanged=false;
 				//GameEvents.OnWorldChanged+=OnWorldChanged;
@@ -156,13 +156,13 @@ namespace FunkyTrinity
 				{
 					 if (ElapsedTime<10||worldChanged)
 					 {
-						  Logging.WriteVerbose("[FunkyTP] Waiting for world change!");
+						 Logger.Write(LogLevel.OutOfCombat,"Waiting for world change!");
 
 						  if (!ZetaDia.Me.IsInTown)
 								return RunStatus.Running;
 						  else
 						  {
-								Logging.WriteVerbose("[FunkyTP] Casting Behavior Finished, we are in town!");
+								Logger.Write(LogLevel.OutOfCombat,"Casting Behavior Finished, we are in town!", true);
 								ResetTPBehavior();
 								//UpdateSearchGridProvider(true);
 								return RunStatus.Success;
@@ -273,7 +273,7 @@ namespace FunkyTrinity
 					 else if (ElapsedTime>8||!CastAttempted)
 					 {
 						  //Recast
-						  Logging.WriteVerbose("[FunkyTP] Casting TP..");
+						  Logger.Write(LogLevel.OutOfCombat,"Casting TP..");
 						  ZetaDia.Me.UseTownPortal();
 						  CastAttempted=true;
 						  FunkyTP_LastCastAttempt=DateTime.Now;
@@ -286,7 +286,7 @@ namespace FunkyTrinity
 					 if (ElapsedTime>8)
 					 {
 						  //Void Cast?
-						  Logging.WriteVerbose("[FunkyTP] Attempting to void cast with movement..");
+						  Logger.Write(LogLevel.OutOfCombat,"Attempting to void cast with movement..");
 						  Vector3 V3loc;
 						  bool success=Bot.NavigationCache.AttemptFindSafeSpot(out V3loc, Vector3.Zero);
 						  if (success)

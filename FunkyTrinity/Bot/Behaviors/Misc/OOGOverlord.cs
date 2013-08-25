@@ -26,7 +26,7 @@ namespace FunkyTrinity
 				if (Bot.SettingsFunky.EnableCoffeeBreaks&&
 					 DateTime.Now.Subtract(LastBreak).TotalHours>=Bot.SettingsFunky.breakTimeHour)
 				{
-					 Logging.Write("Going AFK for a break..");
+					 Logger.Write(LogLevel.OutOfGame, "Going AFK for a break..");
 					 AFKBreak=true;
 					 BreakStart=DateTime.Now;
 					 BreakMinutes=MathEx.Random(Bot.SettingsFunky.MinBreakTime, Bot.SettingsFunky.MinBreakTime+Bot.SettingsFunky.MaxBreakTime);
@@ -42,14 +42,14 @@ namespace FunkyTrinity
 					 if (RanProfile&&TransferedGear&&!Finished)
 						  return true;
 
-					 Log("Starting Mule Behavior");
+					 Logger.Write(LogLevel.OutOfGame, "Starting Mule Behavior");
 					 CreatedCharacter=false;
 					 RanProfile=false;
 					 TransferedGear=false;
 
 					 if (ZetaDia.Service.GameAccount.NumEmptyHeroSlots==0)
 					 {
-						  Log("No Empty Hero Slots Remain, and our stash if full.. stopping the bot!");
+						  Logger.Write(LogLevel.OutOfGame, "No Empty Hero Slots Remain, and our stash if full.. stopping the bot!");
 						  Zeta.CommonBot.BotMain.Stop(true, "Cannot stash anymore items!");
 					 }
 					 else
@@ -66,7 +66,7 @@ namespace FunkyTrinity
 					 if (DateTime.Now.Subtract(BreakStart).TotalMinutes>=BreakMinutes)
 					 {
 						  //Finished.
-						  Logging.Write("Afk Break Finished..");
+						  Logger.Write(LogLevel.OutOfGame, "Afk Break Finished..");
 						  AFKBreak=false;
 						  LastBreak=DateTime.Now;
 						  return RunStatus.Success;

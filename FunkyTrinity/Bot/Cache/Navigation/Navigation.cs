@@ -423,25 +423,31 @@ namespace FunkyTrinity.Movement
 
 					 if (this.LastNavigationBlockedPoints.Count>0)
 					 {
-						  if (this.LastNavigationBlockedPoints.Count>2)
+						  List<LocationFlags> Locations=new List<LocationFlags>();
+						  foreach (var item in this.LastNavigationBlockedPoints)
+						  {
+								Locations.Add(CurrentLocationBoundary.ComputeOutCode(item.X,item.Y));
+						  }
+
+						  if (Locations.Count>2)
 						  {
 								//TOP
-								if (this.LastNavigationBlockedPoints.Count(p => CurrentLocationBoundary.ComputeOutCode(p.X, p.Y).HasFlag(LocationFlags.Top))>2)
+								if (Locations.Count(p => p.HasFlag(LocationFlags.Top))>2)
 								{
 									 blockedLocationDirections.Add(LocationFlags.Top);
 								}
 								//BOTTOM
-								if (this.LastNavigationBlockedPoints.Count(p => CurrentLocationBoundary.ComputeOutCode(p.X, p.Y).HasFlag(LocationFlags.Bottom))>2)
+								if (Locations.Count(p => p.HasFlag(LocationFlags.Bottom))>2)
 								{
 									 blockedLocationDirections.Add(LocationFlags.Bottom);
 								}
 								//LEFT
-								if (this.LastNavigationBlockedPoints.Count(p => CurrentLocationBoundary.ComputeOutCode(p.X, p.Y).HasFlag(LocationFlags.Left))>2)
+								if (Locations.Count(p => p.HasFlag(LocationFlags.Left))>2)
 								{
 									 blockedLocationDirections.Add(LocationFlags.Left);
 								}
 								//RIGHT
-								if (this.LastNavigationBlockedPoints.Count(p => CurrentLocationBoundary.ComputeOutCode(p.X, p.Y).HasFlag(LocationFlags.Right))>2)
+								if (Locations.Count(p => p.HasFlag(LocationFlags.Right))>2)
 								{
 									 blockedLocationDirections.Add(LocationFlags.Right);
 								}
@@ -450,22 +456,22 @@ namespace FunkyTrinity.Movement
 						  //CHECK CORNERS
 						  if (!blockedLocationDirections.Contains(LocationFlags.Bottom))
 						  {
-								if (!blockedLocationDirections.Contains(LocationFlags.Left)&&this.LastNavigationBlockedPoints.Any(p => CurrentLocationBoundary.ComputeOutCode(p.X, p.Y).HasFlag(LocationFlags.BottomLeft)))
+								if (!blockedLocationDirections.Contains(LocationFlags.Left)&&Locations.Count(p => p.HasFlag(LocationFlags.BottomLeft))>0)
 								{
 									 blockedLocationDirections.Add(LocationFlags.BottomLeft);
 								}
-								if (!blockedLocationDirections.Contains(LocationFlags.Right)&&this.LastNavigationBlockedPoints.Any(p => CurrentLocationBoundary.ComputeOutCode(p.X, p.Y).HasFlag(LocationFlags.BottomRight)))
+								if (!blockedLocationDirections.Contains(LocationFlags.Right)&&Locations.Count(p => p.HasFlag(LocationFlags.BottomRight))>0)
 								{
 									 blockedLocationDirections.Add(LocationFlags.BottomRight);
 								}
 						  }
 						  if (!blockedLocationDirections.Contains(LocationFlags.Top))
 						  {
-								if (!blockedLocationDirections.Contains(LocationFlags.Left)&&this.LastNavigationBlockedPoints.Any(p => CurrentLocationBoundary.ComputeOutCode(p.X, p.Y).HasFlag(LocationFlags.TopLeft)))
+								if (!blockedLocationDirections.Contains(LocationFlags.Left)&&Locations.Count(p => p.HasFlag(LocationFlags.TopLeft))>0)
 								{
 									 blockedLocationDirections.Add(LocationFlags.TopLeft);
 								}
-								if (!blockedLocationDirections.Contains(LocationFlags.Right)&&this.LastNavigationBlockedPoints.Any(p => CurrentLocationBoundary.ComputeOutCode(p.X, p.Y).HasFlag(LocationFlags.TopRight)))
+								if (!blockedLocationDirections.Contains(LocationFlags.Right)&&Locations.Count(p => p.HasFlag(LocationFlags.TopRight))>0)
 								{
 									 blockedLocationDirections.Add(LocationFlags.TopRight);
 								}

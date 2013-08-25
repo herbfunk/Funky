@@ -99,7 +99,7 @@ namespace FunkyTrinity
 				{
 					 if (!AbilityClusters.ContainsKey(CC))
 					 {
-						  Logging.WriteVerbose("Creating new entry for ClusterConditions -- {0}", CC.ToString());
+						  Logger.Write(LogLevel.Cluster, "Creating new entry for ClusterConditions -- {0}", CC.ToString());
 						  AbilityClusters.Add(CC, new ClusterCollection(CC, 400,200));
 					 }
 
@@ -134,7 +134,7 @@ namespace FunkyTrinity
 										  .OrderByDescending(cluster => cluster.NearestMonsterDistance).ToList();
 
 									 if (Bot.SettingsFunky.LogGroupingOutput)
-										  Logging.WriteVerbose("Updated Group Clusters. Count={0}", CurrentGroupClusters.Count.ToString());
+										  Logger.Write(LogLevel.Cluster, "Updated Group Clusters. Count={0}", CurrentGroupClusters.Count.ToString());
 
 									 LastClusterGroupingLogicRefresh=DateTime.Now;
 								}
