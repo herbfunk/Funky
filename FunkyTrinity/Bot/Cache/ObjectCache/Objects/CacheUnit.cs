@@ -981,7 +981,7 @@ namespace FunkyTrinity.Cache
 						  if (this.IsBoss||this.IsEliteRareUnique)
 						  {
 								//Ignore Setting?
-								if (Bot.SettingsFunky.IgnoreAboveAverageMobs&&this.LastPriortized>1500&&!Bot.IsInNonCombatBehavior&&!this.IsBoss)
+								if (Bot.SettingsFunky.IgnoreAboveAverageMobs&&this.PriorityCounter<=1&&!Bot.IsInNonCombatBehavior&&!this.IsBoss)
 									 return false;
 
 								Bot.Combat.bAnyChampionsPresent=true;
@@ -1420,12 +1420,14 @@ namespace FunkyTrinity.Cache
 					 {
 						  if ((this.IsEliteRareUnique&&!Bot.SettingsFunky.IgnoreAboveAverageMobs)||
 									 (this.PriorityCounter>0)||
-									 (this.IsBoss&&this.CurrentHealthPct<=0.99d)||
+									 (this.IsBoss&&!Bot.SettingsFunky.IgnoreAboveAverageMobs&&this.CurrentHealthPct<=0.99d)||
 									 ((this.IsSucideBomber||this.IsCorruptantGrowth)&&this.CentreDistance<45f)||
 									 (this.IsSpawnerUnit&&Bot.SettingsFunky.ClusteringAllowSpawnerUnits)||
 									 ((this.IsTreasureGoblin&&Bot.SettingsFunky.GoblinPriority>1))||
-									 (this.Monstersize.Value==MonsterSize.Ranged&&Bot.SettingsFunky.ClusteringAllowRangedUnits)||
+									 (this.Monstersize.Value==MonsterSize.Ranged&&Bot.SettingsFunky.ClusteringAllowRangedUnits
+										  &&(!this.IsEliteRareUnique||!Bot.SettingsFunky.IgnoreAboveAverageMobs))||
 									 ((Bot.SettingsFunky.ClusterKillLowHPUnits&&((this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0)
+												&&(!this.IsEliteRareUnique||!Bot.SettingsFunky.IgnoreAboveAverageMobs)
 												&&((!Bot.Class.IsMeleeClass&&this.CentreDistance<30f)||(Bot.Class.IsMeleeClass&&this.RadiusDistance<12f))))))
 
 

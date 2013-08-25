@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyPlugin", "FunkyPlugin.csproj", "{4B51B3E8-7674-455D-8478-681C08AA01E5}"
 EndProject
 Global
