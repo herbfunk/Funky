@@ -25,7 +25,7 @@ namespace FunkyTrinity
 
 				try
 				{
-					 string xmlURL="https://raw.github.com/herbfunk/Funky/Targeting/FunkyTrinity/Version.xml";
+					 string xmlURL="https://raw.github.com/herbfunk/Funky/master/FunkyTrinity/Version.xml";
 					 using (XmlTextReader reader=new XmlTextReader(xmlURL))
 					 {
 						  // simply (and easily) skip the junk at the beginning
