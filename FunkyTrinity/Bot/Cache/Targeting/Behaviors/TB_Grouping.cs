@@ -87,8 +87,8 @@ namespace FunkyTrinity.Targeting.Behaviors
 		  private delegate bool CheckCurrentCluster(UnitCluster cluster);
 		  private CheckCurrentCluster CheckCluster=(UnitCluster cluster) =>
 		  {
-				if (Bot.SettingsFunky.LogGroupingOutput)
-					 Logger.Write(LogLevel.Grouping, "Current Unit Cluster Propeties [{0}]", cluster.Info.Properties.ToString());
+				//if (Bot.SettingsFunky.LogGroupingOutput)
+				//    Logger.Write(LogLevel.Grouping, "Current Unit Cluster Propeties [{0}]", cluster.Info.Properties.ToString());
 
 				return ((!FunkyTrinity.Bot.SettingsFunky.IgnoreAboveAverageMobs&&(cluster.Info.Properties.HasFlag(ClusterProperties.Elites)||cluster.Info.Properties.HasFlag(ClusterProperties.Boss)))||
 																					 cluster.Info.Properties.HasFlag(ClusterProperties.Large)||

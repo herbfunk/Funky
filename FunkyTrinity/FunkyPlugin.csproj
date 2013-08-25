@@ -1001,9 +1001,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Version.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Version.xml" />
     <Content Include="XML\FunkyXMLTags.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

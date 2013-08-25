@@ -43,9 +43,9 @@ namespace FunkyTrinity
 				ITargetingProvider newObstacleTargetingProvider=new TrinityObstacleTargetingProvider();
 				ObstacleTargeting.Instance.Provider=newObstacleTargetingProvider;
 
-				
 
-
+				//Demonbuddy.App.Current.Exit+=DBExitHandler;
+				//MainWindow.Closing+=DBExitHandler;
 				if (!bPluginEnabled&&bot!=null)
 				{
 					 Logging.Write("WARNING: FunkyTrinity Plugin is NOT ENABLED. Bot start detected");

@@ -25,7 +25,7 @@ namespace FunkyTrinity.ability.Abilities.Barb
 			WaitVars = new WaitLoops(1, 1, true);
 			Cost = 20;
 			UseageType=AbilityUseage.Anywhere;
-			Priority = AbilityPriority.High;
+			Priority = AbilityPriority.Low;
 			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckCanCast |
 			                     AbilityConditions.CheckPlayerIncapacitated);
 
@@ -39,7 +39,7 @@ namespace FunkyTrinity.ability.Abilities.Barb
 			{
 				return (!Bot.Class.HasBuff(SNOPower.Barbarian_Sprint) && Bot.SettingsFunky.OutOfCombatMovement) ||
 				       (((Bot.SettingsFunky.Class.bFuryDumpWrath && Bot.Character.dCurrentEnergyPct >= 0.95 &&
-									Bot.Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker) && !Bot.Class.Abilities.ContainsKey(SNOPower.Barbarian_Rend))||
+									Bot.Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
 				         (Bot.SettingsFunky.Class.bFuryDumpAlways && Bot.Character.dCurrentEnergyPct >= 0.95) ||
 								 ((Bot.Class.AbilityUseTimer(SNOPower.Barbarian_Sprint)&&!Bot.Class.HasBuff(SNOPower.Barbarian_Sprint))&&
 				          // Always keep up if we are whirlwinding, or if the target is a goblin

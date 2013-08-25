@@ -132,8 +132,8 @@ namespace FunkyTrinity
 										  .Where(cluster => cluster.ListUnits.Count>=Bot.SettingsFunky.GroupingMinimumUnitsInCluster&&cluster.NearestMonsterDistance<=Bot.SettingsFunky.GroupingMaximumDistanceAllowed)
 										  .OrderByDescending(cluster => cluster.NearestMonsterDistance).ToList();
 
-									 if (Bot.SettingsFunky.LogGroupingOutput)
-										  Logger.Write(LogLevel.Cluster, "Updated Group Clusters. Count={0}", CurrentGroupClusters.Count.ToString());
+									 //if (Bot.SettingsFunky.LogGroupingOutput)
+									 //    Logger.Write(LogLevel.Cluster, "Updated Group Clusters. Count={0}", CurrentGroupClusters.Count.ToString());
 
 									 LastClusterGroupingLogicRefresh=DateTime.Now;
 								}
