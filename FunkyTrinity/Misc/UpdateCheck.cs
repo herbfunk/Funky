@@ -87,6 +87,7 @@ namespace FunkyTrinity
 				if (this.Version.CompareTo(newVersion)<0)
 				{
 					 Zeta.Common.Logging.Write("New Version Available!");
+					 Zeta.Common.Logging.Write("https://github.com/herbfunk/Funky/archive/master.zip");
 				}
 		  }
 

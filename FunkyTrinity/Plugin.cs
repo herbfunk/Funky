@@ -206,7 +206,7 @@ namespace FunkyTrinity
 				Logger.Write(LogLevel.User, "Init Logger Completed! DB Log Path Set {0}", DBLogFile);
 				//if (BotWasRunning) BotMain.Start();
 
-				CheckUpdate();
+
 		  }
 
 		  public void OnPulse()
@@ -270,6 +270,8 @@ namespace FunkyTrinity
 
 					 string profile=Zeta.CommonBot.ProfileManager.CurrentProfile!=null?Zeta.CommonBot.ProfileManager.CurrentProfile.Name:Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
 					 Logging.Write("Loaded Profile "+profile);
+
+					 CheckUpdate();
 				}
 		  }
 		  public Window DisplayWindow
