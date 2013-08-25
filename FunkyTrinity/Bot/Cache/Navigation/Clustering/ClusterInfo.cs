@@ -80,7 +80,7 @@ namespace FunkyTrinity.Movement.Clustering
 
 			if (WeakCounter/UnitCounter>0.50d)
 				properties|=ClusterProperties.Weak;
-			else if (StrongCounter/UnitCounter>0.50d)
+			else if (StrongCounter/UnitCounter>0.40d)
 				properties|=ClusterProperties.Strong;
 
 			if (FastCounter/UnitCounter>0.50d)
@@ -92,9 +92,9 @@ namespace FunkyTrinity.Movement.Clustering
 			if (BossCounter>0)
 				properties|=ClusterProperties.Boss;
 
-			if (UnitCounter<4)
+			if (UnitCounter<3)
 				properties|=ClusterProperties.Small;
-			else if (UnitCounter>6)
+			else if (UnitCounter>4)
 				properties|=ClusterProperties.Large;
 		}
 

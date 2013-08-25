@@ -4,11 +4,20 @@ using FunkyTrinity.Enums;
 using Zeta.Common;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity
+namespace FunkyTrinity.Targeting.Behaviors
 {
-	 public class TLA_Fleeing : TargetLogicAction
+	 public class TB_Fleeing : TargetBehavior
 	 {
-		  public override TargetActions TargetActionType { get { return TargetActions.Fleeing; } }
+		  public TB_Fleeing() : base() { }
+
+		  public override bool BehavioralCondition
+		  {
+				get
+				{
+					 return Bot.SettingsFunky.EnableFleeingBehavior;
+				}
+		  }
+		  public override TargetBehavioralTypes TargetBehavioralTypeType { get { return TargetBehavioralTypes.Fleeing; } }
 
 		  public override void Initialize()
 		  {
@@ -30,43 +39,34 @@ namespace FunkyTrinity
 								}
 						  }
 
-						  Vector3 LOS=Vector3.Zero;
-						  if (obj!=null&&obj.targetType.HasValue&&TargetType.ServerObjects.HasFlag(obj.targetType.Value)
-							  &&(FunkyTrinity.Bot.NavigationCache.CurrentGPArea==null||!FunkyTrinity.Bot.NavigationCache.CurrentGPArea.AllGPRectsFailed))
-								LOS=obj.Position;
-						  else
-								LOS=Vector3.Zero;
-
 						  Vector3 vAnySafePoint;
-						  if (FunkyTrinity.Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, LOS, true))
+						  if (FunkyTrinity.Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, Vector3.Zero, true))
 						  {
 
 								Logging.WriteDiagnostic("Flee Movement found AT {0} with {1} Distance", vAnySafePoint.ToString(), vAnySafePoint.Distance(FunkyTrinity.Bot.Character.Position));
 								FunkyTrinity.Bot.Combat.IsFleeing=true;
 
-								if (obj!=null)
-									 FunkyTrinity.Bot.Character.LastCachedTarget=obj;
-								obj=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "FleeSpot", 2.5f, -1);
+								//if (obj!=null)FunkyTrinity.Bot.Character.LastCachedTarget=obj;
 
+								obj=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "FleeSpot", 2.5f, -1);
 								FunkyTrinity.Bot.Combat.iSecondsFleeMoveFor=1+(int)(Vector3.Distance(FunkyTrinity.Bot.Character.Position, vAnySafePoint)/25f);
 								return true;
-
 						  }
 						  FunkyTrinity.Bot.UpdateAvoidKiteRates();
 
 					 }
 
-					 //If we have a cached kite target.. and no current target, lets swap back!
-					 if (FunkyTrinity.Bot.Combat.FleeingLastTarget&&obj==null
-								  &&FunkyTrinity.Bot.Character.LastCachedTarget!=null
-								  &&ObjectCache.Objects.ContainsKey(FunkyTrinity.Bot.Character.LastCachedTarget.RAGUID))
-					 {
-						  //Swap back to our orginal "kite" target
-						  obj=ObjectCache.Objects[FunkyTrinity.Bot.Character.LastCachedTarget.RAGUID];
-						  Logging.WriteVerbose("Swapping back to unit {0} after fleeing", obj.InternalName);
-						  return true;
+					 ////If we have a cached kite target.. and no current target, lets swap back!
+					 //if (FunkyTrinity.Bot.Combat.FleeingLastTarget&&obj==null
+					 //			 &&FunkyTrinity.Bot.Character.LastCachedTarget!=null
+					 //			 &&ObjectCache.Objects.ContainsKey(FunkyTrinity.Bot.Character.LastCachedTarget.RAGUID))
+					 //{
+					 //	 //Swap back to our orginal "kite" target
+					 //	 obj=ObjectCache.Objects[FunkyTrinity.Bot.Character.LastCachedTarget.RAGUID];
+					 //	 Logging.WriteVerbose("Swapping back to unit {0} after fleeing", obj.InternalName);
+					 //	 return true;
 
-					 }
+					 //}
 
 					 return false;
 				};

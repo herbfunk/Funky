@@ -218,7 +218,7 @@ namespace FunkyTrinity.Movement
 										  {
 												if (!Navigation.CanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
 												{
-													 Logger.Write(LogLevel.Movement, "Cannot continue with avoidance movement due to raycast failure!");
+													 //Logger.Write(LogLevel.Movement, "Cannot continue with avoidance movement due to raycast failure!");
 													 BlockedMovementCounter=0;
 
 													 Bot.Combat.iMillisecondsCancelledEmergencyMoveFor/=2;

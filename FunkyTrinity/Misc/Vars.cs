@@ -80,7 +80,7 @@ namespace FunkyTrinity
         // Darkfriend's Looting Rule
 	    internal static Interpreter ItemRulesEval;
 
-
+		 internal static string DBLogFile;
 
         // Status text for DB main window status
 	    internal static string sStatusText = "";

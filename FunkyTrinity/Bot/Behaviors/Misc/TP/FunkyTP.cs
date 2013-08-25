@@ -156,7 +156,7 @@ namespace FunkyTrinity
 				{
 					 if (ElapsedTime<10||worldChanged)
 					 {
-						 Logger.Write(LogLevel.OutOfCombat,"Waiting for world change!");
+						 //Logger.Write(LogLevel.OutOfCombat,"Waiting for world change!");
 
 						  if (!ZetaDia.Me.IsInTown)
 								return RunStatus.Running;

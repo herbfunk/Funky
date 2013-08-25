@@ -80,7 +80,6 @@ namespace FunkyTrinity
 				private ClusterConditions TargetClusterConditions=new ClusterConditions(Bot.SettingsFunky.ClusterDistance, 100f, Bot.SettingsFunky.ClusterMinimumUnitCount, false);
 				internal ClusterTargetCollection TargetClusterCollection { get; set; }
 
-				internal List<UnitCluster> CurrentTargetClusters=new List<UnitCluster>();
 				internal List<UnitCluster> CurrentGroupClusters=new List<UnitCluster>();
 
 				///<summary>
@@ -303,11 +302,18 @@ namespace FunkyTrinity
 
 						  string strDebug_ClusterTarget=string.Format("LastClusterTargetLogicRefresh {0}\r\n"+
 																					 "CurrentTargetClusters Count {1} -- ValidClusterUnits Count {2}",
-																					 this.LastClusterTargetLogicRefresh.ToString(), this.CurrentTargetClusters.Count, this.ValidClusterUnits.Count);
-
+																					 this.LastClusterTargetLogicRefresh.ToString(), this.TargetClusterCollection.CurrentClusters.Count, this.ValidClusterUnits.Count);
+						  string currentgroupclusterinfo=String.Empty;
+						  if (this.CurrentGroupClusters.Count>0)
+						  {
+								foreach (var item in CurrentGroupClusters)
+							  {
+									currentgroupclusterinfo=currentgroupclusterinfo+"Units=["+item.ListUnits.Count.ToString()+"] -- Flags: "+item.Info.Properties.ToString()+"\r\n";
+							  }
+						  }
 						  string strDebug_ClusterGroup=string.Format("LastClusterGroupingLogicRefresh {0}\r\n"+
-																					 "CurrentGroupClusters Count {1} -- DistantUnits Count {2}",
-																					 this.LastClusterGroupingLogicRefresh.ToString(), this.CurrentGroupClusters.Count, this.DistantUnits.Count);
+																					 "CurrentGroupClusters Count {1} -- DistantUnits Count {2} \r\n {3}",
+																					 this.LastClusterGroupingLogicRefresh.ToString(), this.CurrentGroupClusters.Count, this.DistantUnits.Count, currentgroupclusterinfo);
 
 						  string strDebug_ClusterAbility=string.Format("Total Ability UnitCluster Entries {0}", this.AbilityClusters.Keys.ToString());
 

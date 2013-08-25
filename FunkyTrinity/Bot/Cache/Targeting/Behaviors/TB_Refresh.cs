@@ -2,15 +2,19 @@
 using System.Linq;
 using FunkyTrinity.Cache;
 
-namespace FunkyTrinity
+namespace FunkyTrinity.Targeting.Behaviors
 {
-	 public class TLA_Refresh : TargetLogicAction
+	 public class TB_Refresh : TargetBehavior
 	 {
+		  public TB_Refresh() : base() { }
+
+
+
 		  public override void Initialize()
 		  {
 				base.Test=(ref CacheObject obj) =>
 				{
-					 FunkyTrinity.Bot.ValidObjects=ObjectCache.Objects.Values.Where(o => o.ObjectIsValidForTargeting).ToList();
+					
 
 					 //Check avoidance requirement still valid
 					 if (FunkyTrinity.Bot.Combat.RequiresAvoidance)
@@ -20,7 +24,15 @@ namespace FunkyTrinity
 								if (!FunkyTrinity.Bot.SettingsFunky.EnableFleeingBehavior||FunkyTrinity.Bot.Character.dCurrentHealthPct>0.25d)
 									 FunkyTrinity.Bot.Combat.RequiresAvoidance=false;
 						  }
+						  else
+						  {
+								if (Bot.NavigationCache.IsMoving)
+									 Bot.Combat.RequiresAvoidance=false;
+						  }
 					 }
+
+					 FunkyTrinity.Bot.ValidObjects=ObjectCache.Objects.Values.Where(o => o.ObjectIsValidForTargeting).ToList();
+
 					 return false;
 				};
 		  }

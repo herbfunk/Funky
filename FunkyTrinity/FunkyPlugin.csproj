@@ -496,7 +496,7 @@
     <Compile Include="Bot\Cache\BotCache\Player Class\Wizard.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Targeting\TargetActions.cs">
+    <Compile Include="Bot\Cache\Targeting\Behaviors\TargetBehavioralTypes.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\Targeting\TargetHandler.cs">
@@ -604,28 +604,28 @@
     <Compile Include="Bot\Cache\Navigation\MovementSkipAhead.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Targeting\TargetLogicAction\TargetLogicAction.cs">
+    <Compile Include="Bot\Cache\Targeting\Behaviors\TargetBehavior.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Targeting\TargetLogicAction\TLA_Avoidance.cs">
+    <Compile Include="Bot\Cache\Targeting\Behaviors\TB_Avoidance.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Targeting\TargetLogicAction\TLA_Finalize.cs">
+    <Compile Include="Bot\Cache\Targeting\Behaviors\TB_End.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Targeting\TargetLogicAction\TLA_Fleeing.cs">
+    <Compile Include="Bot\Cache\Targeting\Behaviors\TB_Fleeing.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Targeting\TargetLogicAction\TLA_GroupingResume.cs">
+    <Compile Include="Bot\Cache\Targeting\Behaviors\TB_GroupingResume.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Targeting\TargetLogicAction\TLA_Refresh.cs">
+    <Compile Include="Bot\Cache\Targeting\Behaviors\TB_Refresh.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Targeting\TargetLogicAction\TLA_UpdateTarget.cs">
+    <Compile Include="Bot\Cache\Targeting\Behaviors\TB_UpdateTarget.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Targeting\TargetLogicAction\TLA_Grouping.cs">
+    <Compile Include="Bot\Cache\Targeting\Behaviors\TB_Grouping.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="CombatRoutine\CombatRoutine.cs" />

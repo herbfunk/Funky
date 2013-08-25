@@ -22,7 +22,7 @@ namespace FunkyTrinity
 	 public static class Logger
 	 {
 		  internal static readonly string FileNamePrefix="FunkyLog - ";
-		  private static string filename;
+		  private static string filename=Path.Combine(Funky.FolderPaths.sDemonBuddyPath, "Logs", Logger.FileNamePrefix+DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss")+".txt");
 		  public static string Filename
 		  {
 				get { return filename; }
@@ -44,7 +44,7 @@ namespace FunkyTrinity
 		  }
 		  public static void Init()
 		  {
-				filename=Logger.FileNamePrefix+DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss")+".txt";
+
 		  }
 		  public static void Write(LogLevel level, string Message,bool WriteToMainLog, params object[] args)
 		  {

@@ -25,7 +25,7 @@ namespace FunkyTrinity.ability.Abilities.Barb
 			WaitVars = new WaitLoops(4, 4, true);
 			Cost = 50;
 			UseageType=AbilityUseage.Anywhere;
-			IsSpecialAbility = true;
+			IsSpecialAbility = Bot.SettingsFunky.Class.bWaitForWrath;
 			Priority = AbilityPriority.High;
 			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckExisitingBuff |
 			                     AbilityConditions.CheckCanCast);

@@ -202,7 +202,8 @@ namespace FunkyTrinity
 					 FunkyButton.Click+=buttonFunkySettingDB_Click;
 				}
 
-
+				DBLogFile=Zeta.Common.Logging.LogFilePath;
+				Logger.Write(LogLevel.User, "Init Logger Completed! DB Log Path Set {0}", DBLogFile);
 				//if (BotWasRunning) BotMain.Start();
 		  }
 
@@ -240,14 +241,13 @@ namespace FunkyTrinity
 						  MainWindow.Title="DB - "+ZetaDia.Service.CurrentHero.BattleTagName;
 					 } catch{}
 
-					 Logger.Filename=Path.Combine(FolderPaths.sDemonBuddyPath, "Logs", Logger.FileNamePrefix, DateTime.Today.ToString("YYYY - MM - DD - hh-mm-ss"), ".txt");
 
 					 // Safety check incase DB "OnStart" event didn't fire properly
 					 if (BotMain.IsRunning) 
 						  FunkyBotStart(null);
 
 
-					 Logger.Init();
+					 
 					 
 					 // Carguy's ticks-per-second feature
 					 //if (settings.bEnableTPS)

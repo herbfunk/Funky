@@ -8,6 +8,7 @@ using FunkyTrinity.Enums;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
 using System.Threading;
+using FunkyTrinity.Targeting;
 
 namespace FunkyTrinity
 {

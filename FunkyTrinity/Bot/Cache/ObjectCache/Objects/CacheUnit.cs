@@ -870,9 +870,14 @@ namespace FunkyTrinity.Cache
 
 						  float centreDistance=this.CentreDistance;
 
+						  bool distantUnit=false;
 						  //Distant Units List
 						  if (centreDistance>=Bot.SettingsFunky.GroupingMinimumUnitDistance&&Bot.SettingsFunky.AttemptGroupingMovements)
-								Bot.Combat.DistantUnits.Add(this);
+						  {
+							  	Bot.Combat.DistantUnits.Add(this);
+								distantUnit=true;
+						  }
+							
 
 						  //Distance Check
 						  if (centreDistance>this.KillRadius)
@@ -907,12 +912,12 @@ namespace FunkyTrinity.Cache
 								}
 
 								NavCellFlags LOSNavFlags=NavCellFlags.None;
-								if (Bot.Class.IsMeleeClass||!this.WithinInteractionRange())
+								if ((Bot.Class.IsMeleeClass||!this.WithinInteractionRange())&&!distantUnit)
 									 LOSNavFlags=NavCellFlags.AllowWalk;
 								//if (!Bot.Class.IsMeleeClass)
 								//    LOSNavFlags|=NavCellFlags.AllowProjectile;
 
-								if (!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass), LOSNavFlags))
+								if (!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass&&!distantUnit), LOSNavFlags))
 								{
 									 if (!Bot.Character.bIsIncapacitated)
 										  this.BlacklistLoops=10;
