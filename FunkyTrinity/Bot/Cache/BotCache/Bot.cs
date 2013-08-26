@@ -84,7 +84,7 @@ namespace FunkyTrinity
 					 BotMain.Stop(true, "Low Health Setting Triggered!");
 				}
 
-				private static Zeta.CommonBot.Profile.ProfileBehavior CurrentProfileBehavior { get; set; }
+				internal static Zeta.CommonBot.Profile.ProfileBehavior CurrentProfileBehavior { get; set; }
 				private static DateTime LastProfileBehaviorCheck=DateTime.Today;
 				///<summary>
 				///Tracks Current Profile Behavior and sets IsRunningOOCBehavior depending on the current Type of behavior.
@@ -224,11 +224,11 @@ namespace FunkyTrinity
 						  return Bot.SettingsFunky.GlobeRange;
 					 }
 				}
-				internal static int ItemRange
+				internal static double ItemRange
 				{
 					 get
 					 {
-						  return Bot.SettingsFunky.ItemRange;
+						  return Bot.iCurrentMaxLootRadius+SettingsFunky.ItemRange;
 					 }
 				}
 				internal static int GoldRange

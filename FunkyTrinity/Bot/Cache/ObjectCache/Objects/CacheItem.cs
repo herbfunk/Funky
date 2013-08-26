@@ -141,7 +141,18 @@ namespace FunkyTrinity.Cache
 										  this.Weight+=6000d;
 									 // Give legendaries more weight
 									 if (this.Itemquality.Value>=ItemQuality.Legendary)
+									 {
 										  this.Weight+=10000d;
+
+										  double rangelimitRatio=this.CentreDistance/Bot.ItemRange;
+										  if (rangelimitRatio>0.5d&&this.PriorityCounter==0)
+										  {
+												//prioritize!
+												this.Weight+=25000d;
+												this.PrioritizedDate=DateTime.Now;
+												this.PriorityCounter=5;
+										  }
+									 }
 									 // Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
 									 if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
 										  this.Weight=18000-(Math.Floor(centreDistance)*200);
@@ -270,12 +281,14 @@ namespace FunkyTrinity.Cache
 								double dMultiplier=1d;
 								if (this.Itemquality>=ItemQuality.Rare4) dMultiplier+=0.25d;
 								if (this.Itemquality>=ItemQuality.Legendary) dMultiplier+=0.45d;
-								double lootDistance=(Bot.iCurrentMaxLootRadius+Bot.ItemRange)*dMultiplier;
+								double lootDistance=Bot.ItemRange*dMultiplier;
 
 								if (Bot.IsInNonCombatBehavior) lootDistance=50f;
 
 								float centredistance=this.CentreDistance;
-								if (centredistance>lootDistance) return false;
+
+								if (centredistance>lootDistance) 
+									 return false;
 
 
 								//Check if we require LOS
