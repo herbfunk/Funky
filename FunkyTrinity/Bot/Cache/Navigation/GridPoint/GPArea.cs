@@ -90,7 +90,7 @@ namespace FunkyTrinity.Movement
 						  //If still failed to find a safe spot.. set the timer before we try again.
 						  if (safespot==Vector3.Zero)
 						  {
-								if (Bot.SettingsFunky.LogSafeMovementOutput)
+								if (Bot.SettingsFunky.FunkyLogFlags.HasFlag(LogLevel.Movement))
 									 Logging.WriteVerbose("All GPCs failed to find a valid location to move!");
 
 								AllGPRectsFailed=true;

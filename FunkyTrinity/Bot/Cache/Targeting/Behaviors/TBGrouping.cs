@@ -56,7 +56,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 
 													 if (groupCluster==null) return false;
 
-													 if (FunkyTrinity.Bot.SettingsFunky.LogGroupingOutput)
+													 if (FunkyTrinity.Bot.SettingsFunky.FunkyLogFlags.HasFlag(LogLevel.Grouping))
 														  Logger.Write(LogLevel.Grouping, "Starting Grouping Behavior");
 
 													 //Activate Behavior
@@ -66,7 +66,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 													 //Get Cluster
 													 FunkyTrinity.Bot.NavigationCache.groupingCurrentCluster=groupCluster;
 
-													 if (FunkyTrinity.Bot.SettingsFunky.LogGroupingOutput)
+													 if (FunkyTrinity.Bot.SettingsFunky.FunkyLogFlags.HasFlag(LogLevel.Grouping))
 														  Logger.Write(LogLevel.Grouping, "Group Cluster Propeties {0}", groupCluster.Info.Properties.ToString());
 
 													 //Find initial grouping target..

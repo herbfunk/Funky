@@ -15,7 +15,6 @@ namespace FunkyTrinity
          public class Settings_Funky
          {
              public bool DebugStatusBar { get; set; }
-             public bool LogSafeMovementOutput { get; set; }
 				 public bool LogGroupingOutput { get; set; }
 				 public LogLevel FunkyLogFlags { get; set; }
 
@@ -157,9 +156,7 @@ namespace FunkyTrinity
              public Settings_Funky()
              {
 					  DebugStatusBar=true;
-					  LogSafeMovementOutput=false;
-					  LogGroupingOutput=false;
-					  FunkyLogFlags=LogLevel.OutOfCombat| LogLevel.OutOfGame | LogLevel.User;
+					  FunkyLogFlags=LogLevel.All;
 
 					  AttemptGroupingMovements=true;
 					  GroupingClusterRadiusDistance=10d;

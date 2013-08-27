@@ -208,7 +208,7 @@ namespace FunkyTrinity.Movement
 						  LastObjectblockCounter.Clear();
 						  LastObjectOccupiedGridPoints.Clear();
 
-						  if (Bot.SettingsFunky.LogSafeMovementOutput)
+						  if (Bot.SettingsFunky.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logging.WriteVerbose("Current Location Point has {0} usable points (NoNewObjs)", SurroundingPoints.Count);
 
 						  return (SurroundingPoints.Count==0);
@@ -247,7 +247,7 @@ namespace FunkyTrinity.Movement
 
 						  if (SurroundingPoints.Count==0)
 						  {
-								if (Bot.SettingsFunky.LogSafeMovementOutput)
+								if (Bot.SettingsFunky.FunkyLogFlags.HasFlag(LogLevel.Movement))
 									 Logging.WriteVerbose("NavBlocked -- No available surrounding points.");
 
 								return true;
@@ -260,7 +260,7 @@ namespace FunkyTrinity.Movement
 					 //No new objects to test..
 					 if (NewObjects.Count==0)
 					 {
-						  if (Bot.SettingsFunky.LogSafeMovementOutput)
+						  if (Bot.SettingsFunky.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logging.WriteVerbose("No new Objects Unaccounted");
 
 						  return (SurroundingPoints.Count==0);
@@ -274,7 +274,7 @@ namespace FunkyTrinity.Movement
 																						  &&(!LastObjectblockCounter.ContainsKey(Obj.RAGUID)||Math.Round(Obj.PointRadius)<LastObjectblockCounter[Obj.RAGUID])).ToArray();
 						  if (ContainedObjs.Length>0)
 						  {
-								if (ContainedObjs.Length>1&&Bot.SettingsFunky.LogSafeMovementOutput)
+								if (ContainedObjs.Length>1&&Bot.SettingsFunky.FunkyLogFlags.HasFlag(LogLevel.Movement))
 									 Logging.WriteVerbose("Multiple Objects Found Occuping Grid Point!");
 
 								CacheServerObject ThisObjBlocking=ContainedObjs[0];
@@ -303,7 +303,7 @@ namespace FunkyTrinity.Movement
 					 //Update Surrounding Points
 					 SurroundingPoints=SurroundingPoints.Except(this.LastNavigationBlockedPoints).ToList();
 
-					 if (Bot.SettingsFunky.LogSafeMovementOutput)
+					 if (Bot.SettingsFunky.FunkyLogFlags.HasFlag(LogLevel.Movement))
 						  Logging.WriteVerbose("Current Location Point has {0} usable points", SurroundingPoints.Count);
 
 

@@ -518,7 +518,7 @@ namespace FunkyTrinity.Cache
 						  try
 						  {
 								this.InternalName=thisObj.Name;
-						  } catch (NullReferenceException) {Logger.Write(LogLevel.Execption, "Failure to get internal name on object, SNO {0}", this.SNOID); return false; }
+						  } catch (NullReferenceException) {Logger.Write(LogLevel.Exception, "Failure to get internal name on object, SNO {0}", this.SNOID); return false; }
 					 }
 
 					 if (!this.Actortype.HasValue)
@@ -527,7 +527,7 @@ namespace FunkyTrinity.Cache
 						  try
 						  {
 								this.Actortype=thisObj.ActorType;
-						  } catch (NullReferenceException) { Logger.Write(LogLevel.Execption, "Failure to get actorType for object, SNO: {0}", this.SNOID); return false; }
+						  } catch (NullReferenceException) { Logger.Write(LogLevel.Exception, "Failure to get actorType for object, SNO: {0}", this.SNOID); return false; }
 						  #endregion
 					 }
 
@@ -606,7 +606,7 @@ namespace FunkyTrinity.Cache
 										  try
 										  {
 												thisGizmoType=thisObj.ActorInfo.GizmoType;
-										  } catch (NullReferenceException) { Logger.Write(LogLevel.Execption, "Failure to get actor Gizmo Type!"); return false; }
+										  } catch (NullReferenceException) { Logger.Write(LogLevel.Exception, "Failure to get actor Gizmo Type!"); return false; }
 
 
 										  if (thisGizmoType==GizmoType.DestructibleLootContainer||thisGizmoType==GizmoType.Destructible)
@@ -697,7 +697,7 @@ namespace FunkyTrinity.Cache
 										  return false;
 									 }
 								}
-						  } catch (NullReferenceException) { Logger.Write(LogLevel.Execption, "Failure to get actorType for object, SNO: {0}", this.SNOID); return false; }
+						  } catch (NullReferenceException) { Logger.Write(LogLevel.Exception, "Failure to get actorType for object, SNO: {0}", this.SNOID); return false; }
 						  #endregion
 					 }
 
@@ -714,7 +714,7 @@ namespace FunkyTrinity.Cache
 								monsterInfo=thisObj.CommonData.MonsterInfo;
 						  } catch (Exception)
 						  {
-								Logger.Write(LogLevel.Execption, "Safely Handled MonsterInfo Exception for Object {0}", this.InternalName);
+								Logger.Write(LogLevel.Exception, "Safely Handled MonsterInfo Exception for Object {0}", this.InternalName);
 								return false;
 						  }
 							
@@ -726,7 +726,7 @@ namespace FunkyTrinity.Cache
 								{
 									 this.Monstertype=monsterInfo.MonsterType;
 								} catch (NullReferenceException )
-								{ Logger.Write(LogLevel.Execption, "Failure to get MonsterType for SNO: {0}", this.SNOID); failureDuringUpdate=true; }
+								{ Logger.Write(LogLevel.Exception, "Failure to get MonsterType for SNO: {0}", this.SNOID); failureDuringUpdate=true; }
 								#endregion
 						  }
 						  if (!this.Monstersize.HasValue)
@@ -736,7 +736,7 @@ namespace FunkyTrinity.Cache
 								{
 									 this.Monstersize=monsterInfo.MonsterSize;
 								} catch (NullReferenceException )
-								{ Logger.Write(LogLevel.Execption, "Failure to get MonsterSize for SNO: {0}", this.SNOID); failureDuringUpdate=true; }
+								{ Logger.Write(LogLevel.Exception, "Failure to get MonsterSize for SNO: {0}", this.SNOID); failureDuringUpdate=true; }
 								#endregion
 						  }
 
@@ -770,7 +770,7 @@ namespace FunkyTrinity.Cache
 								{
 									 this.CollisionRadius=sphereInfo.Radius;
 								} catch (NullReferenceException )
-								{ Logger.Write(LogLevel.Execption, "Failure to get CollisionRadius for SNO: {0}", this.SNOID); failureDuringUpdate=true; }
+								{ Logger.Write(LogLevel.Exception, "Failure to get CollisionRadius for SNO: {0}", this.SNOID); failureDuringUpdate=true; }
 								#endregion
 
 								if (this.InternalName=="monsterAffix_waller_model")
@@ -785,7 +785,7 @@ namespace FunkyTrinity.Cache
 									 this.ActorSphereRadius=thisObj.ActorInfo.Sphere.Radius;
 								} catch (NullReferenceException )
 								{
-									 Logger.Write(LogLevel.Execption, "Safely handled getting attribute Sphere radius for gizmo {0}", this.InternalName);
+									 Logger.Write(LogLevel.Exception, "Safely handled getting attribute Sphere radius for gizmo {0}", this.InternalName);
 									 failureDuringUpdate=true;
 								}
 								#endregion
@@ -803,7 +803,7 @@ namespace FunkyTrinity.Cache
 										  this.DropsNoLoot=thisObj.CommonData.GetAttribute<float>(ActorAttributeType.DropsNoLoot)<=0;
 									 } catch (NullReferenceException )
 									 {
-										  Logger.Write(LogLevel.Execption, "Safely handled reading DropsNoLoot for gizmo {0}", this.InternalName);
+										  Logger.Write(LogLevel.Exception, "Safely handled reading DropsNoLoot for gizmo {0}", this.InternalName);
 										  failureDuringUpdate=true;
 									 }
 									 #endregion
@@ -818,7 +818,7 @@ namespace FunkyTrinity.Cache
 										  this.GrantsNoXP=thisObj.CommonData.GetAttribute<float>(ActorAttributeType.GrantsNoXP)<=0;
 									 } catch (NullReferenceException )
 									 {
-										  Logger.Write(LogLevel.Execption, "Safely handled reading GrantsNoXp for gizmo {0}", this.InternalName);
+										  Logger.Write(LogLevel.Exception, "Safely handled reading GrantsNoXp for gizmo {0}", this.InternalName);
 										  failureDuringUpdate=true;
 									 }
 									 #endregion
@@ -832,7 +832,7 @@ namespace FunkyTrinity.Cache
 										  this.IsBarricade=((DiaGizmo)thisObj).IsBarricade;
 									 } catch (NullReferenceException )
 									 {
-										  Logger.Write(LogLevel.Execption, "Safely handled getting attribute IsBarricade for gizmo {0}", this.InternalName);
+										  Logger.Write(LogLevel.Exception, "Safely handled getting attribute IsBarricade for gizmo {0}", this.InternalName);
 										  failureDuringUpdate=true;
 									 }
 									 #endregion

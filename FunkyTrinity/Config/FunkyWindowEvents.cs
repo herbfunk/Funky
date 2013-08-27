@@ -962,14 +962,6 @@ namespace FunkyTrinity
              {
                  Bot.SettingsFunky.DebugStatusBar = !Bot.SettingsFunky.DebugStatusBar;
              }
-             private void LogSafeMovementOutputChecked(object sender, EventArgs e)
-             {
-                 Bot.SettingsFunky.LogSafeMovementOutput = !Bot.SettingsFunky.LogSafeMovementOutput;
-             }
-				 private void LogGroupingOutputChecked(object sender, EventArgs e)
-				 {
-					  Bot.SettingsFunky.LogGroupingOutput=!Bot.SettingsFunky.LogGroupingOutput;
-				 }
 				 private void SkipAheadChecked(object sender, EventArgs e)
 				 {
 					  Bot.SettingsFunky.SkipAhead=!Bot.SettingsFunky.SkipAhead;

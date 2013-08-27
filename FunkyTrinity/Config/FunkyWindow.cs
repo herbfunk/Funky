@@ -3767,27 +3767,6 @@ namespace FunkyTrinity
 						CBDebugStatusBar.Unchecked+=DebugStatusBarChecked;
 						SPLoggingOptions.Children.Add(CBDebugStatusBar);
 
-						CheckBox CBLogSafeMovementOutput=new CheckBox
-						{
-							 Content="Enable Logging For Safe Movement",
-							 Width=300,
-							 Height=20,
-							 IsChecked=Bot.SettingsFunky.LogSafeMovementOutput,
-						};
-						CBLogSafeMovementOutput.Checked+=LogSafeMovementOutputChecked;
-						CBLogSafeMovementOutput.Unchecked+=LogSafeMovementOutputChecked;
-						SPLoggingOptions.Children.Add(CBLogSafeMovementOutput);
-
-						CheckBox CBLogGroupingOutput=new CheckBox
-						{
-							 Content="Enable Logging For Grouping Behavior",
-							 Width=300,
-							 Height=20,
-							 IsChecked=Bot.SettingsFunky.LogGroupingOutput,
-						};
-						CBLogGroupingOutput.Checked+=LogGroupingOutputChecked;
-						CBLogGroupingOutput.Unchecked+=LogGroupingOutputChecked;
-						SPLoggingOptions.Children.Add(CBLogGroupingOutput);
 
 						TextBlock Logging_FunkyLogLevels_Header=new TextBlock
 						{
