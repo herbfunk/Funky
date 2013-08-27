@@ -1,23 +1,24 @@
-﻿ExecutionType - How the ability should be setup for use. (accepts multiple values)
-Cost
-SecondaryEnergy
-Counter
-WaitVars
-Range
-IsRanged
-IsBuff - Usable as a buff.
-IsSpecialAbility
-UseageType - When to use the ability (Combat or Anywhere)
-Priority - The order in which abilities are checked.
+﻿Properties:
+		ExecutionType - How the ability should be setup for use. (accepts multiple values)
+		Cost - The Resource Required To Cast.
+		SecondaryEnergy - Used only for Demon Hunters, Discipline is Secondary.
+		Counter - Used for Pets or Buffs. (See: Witchdoctor -> Soul Harvest / Gargantuan)
+		WaitVars - Pre Interaction and Post Interaction Wait Loops.
+		Range - Maximum Range Allowed.
+		IsRanged - Ranged Abilities
+		IsBuff - Usable as a buff.
+		IsSpecialAbility - 
+		UseageType - When to use the ability (Combat or Anywhere)
+		Priority - The order in which abilities are checked.
 
 Structured Conditions:
-	PreCastConditions
-	ClusterConditions
-	TargetUnitConditionFlags
-	UnitsWithinRangeConditions
-	ElitesWithinRangeConditions
+	PreCastConditions - The conditions to validate the ability is usable.
+	ClusterConditions - A Cluster Condition (Should be used with ExecutionTypes: ClusterTarget, ClusterLocation, ClusterTargetNearest)
+	TargetUnitConditionFlags - Single Target Conditions
+	UnitsWithinRangeConditions - Any Units within Range.
+	ElitesWithinRangeConditions - Any Above Average Units within Range.
 
-Custom Bool Funcs:
+Custom Func Conditions:
 	Fprecast - Precast Condition
 	Fbuff - Buff Condition
 	Fcriteria - Combat Condition

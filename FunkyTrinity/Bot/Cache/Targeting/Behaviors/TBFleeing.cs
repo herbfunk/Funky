@@ -6,9 +6,9 @@ using Zeta.Internals.Actors;
 
 namespace FunkyTrinity.Targeting.Behaviors
 {
-	 public class TB_Fleeing : TargetBehavior
+	 public class TBFleeing : TargetBehavior
 	 {
-		  public TB_Fleeing() : base() { }
+		  public TBFleeing() : base() { }
 
 		  public override bool BehavioralCondition
 		  {

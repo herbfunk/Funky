@@ -16,6 +16,16 @@ namespace FunkyTrinity
 	 {
 		  internal partial class FunkyWindow
          {
+				 private void FunkyLogLevelChanged(object sender, EventArgs e)
+				 {
+					  CheckBox cbSender=(CheckBox)sender;
+					  LogLevel LogLevelValue= (LogLevel)Enum.Parse(typeof(LogLevel),cbSender.Name);
+
+					  if (Bot.SettingsFunky.FunkyLogFlags.HasFlag(LogLevelValue))
+							Bot.SettingsFunky.FunkyLogFlags&=LogLevelValue;
+					  else
+							Bot.SettingsFunky.FunkyLogFlags|=LogLevelValue;
+			    }
 
              private void DebugButtonClicked(object sender, EventArgs e)
              {

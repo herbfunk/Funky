@@ -5,9 +5,9 @@ using Zeta.Common;
 
 namespace FunkyTrinity.Targeting.Behaviors
 {
-	 public class TB_Avoidance : TargetBehavior
+	 public class TBAvoidance : TargetBehavior
 	 {
-		  public TB_Avoidance() : base() { }
+		  public TBAvoidance() : base() { }
 
 		  public override TargetBehavioralTypes TargetBehavioralTypeType { get { return TargetBehavioralTypes.Avoidance; } }
 		  public override bool BehavioralCondition

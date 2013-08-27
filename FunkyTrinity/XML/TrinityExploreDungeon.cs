@@ -842,7 +842,7 @@ namespace FunkyTrinity.XMLTags
 							new Action(ret => UpdateRoute())
 							)
 						),
-					new Decorator(ret => !FunkyTrinity.Bot.NavigationCache.currentMovementState.HasFlag(MovementState.WalkingInPlace|MovementState.None)&&myPos.Distance2D(CurrentNavTarget)<=50f&&!Navigator.Raycast(myPos, CurrentNavTarget),
+					new Decorator(ret => FunkyTrinity.Bot.NavigationCache.currentMovementState.HasFlag(MovementState.WalkingInPlace|MovementState.None)&&myPos.Distance2D(CurrentNavTarget)<=50f&&!Navigator.Raycast(myPos, CurrentNavTarget),
 						new Sequence(
 							new Action(ret => SetNodeVisited("Stuck moving to node point, marking done (in LoS and nearby!)")),
 							new Action(ret => UpdateRoute())

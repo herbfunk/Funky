@@ -23,7 +23,7 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 			UseageType=AbilityUseage.Combat;
 			Priority=AbilityPriority.None;
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
-			ClusterConditions=new ClusterConditions(6d, 20, 2, true);
+			ClusterConditions=new ClusterConditions(6d, 10f, 2, true);
 			TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None, 8);
 		}
 

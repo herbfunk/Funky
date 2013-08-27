@@ -16,5 +16,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 
 		 public TargetBehavior() { Initialize(); }
 		 public virtual void Initialize(){}
+
+
 	}
 }

@@ -6,16 +6,20 @@ using Zeta.TreeSharp;
 using System.Windows.Controls;
 using System.IO;
 using System.Reflection;
+using System;
 
 namespace GilesBlankCombatRoutine
 {
 	 [System.Runtime.InteropServices.ComVisible(false)]
     public class FunkyRoutine : CombatRoutine
     {
-        private static string sDemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-        private static string sTrinityPluginPath = sDemonBuddyPath + @"\Plugins\FunkyTrinity\";
+		  private static string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+		  private static string sTrinityPluginPath=sDemonBuddyPath+@"\Plugins\FunkyTrinity\";
 
         
+
+
+
         public override void Initialize()
         {
             // Set up the pause button

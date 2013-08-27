@@ -2,9 +2,9 @@
 
 namespace FunkyTrinity.Targeting.Behaviors
 {
-	 public class TB_GroupingResume : TargetBehavior
+	 public class TBGroupingResume : TargetBehavior
 	 {
-		  public TB_GroupingResume() : base() { }
+		  public TBGroupingResume() : base() { }
 
 
 		  public override TargetBehavioralTypes TargetBehavioralTypeType { get { return TargetBehavioralTypes.Grouping; } }

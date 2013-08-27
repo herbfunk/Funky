@@ -110,6 +110,9 @@ namespace FunkyTrinity.Cache
 
 				public int PriorityCounter { get; set; }
 				public DateTime PrioritizedDate { get; set; }
+				///<summary>
+				///Milliseconds since last prioritized.
+				///</summary>
 				public double LastPriortized
 				{
 					 get

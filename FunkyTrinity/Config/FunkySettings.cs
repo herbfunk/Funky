@@ -17,6 +17,7 @@ namespace FunkyTrinity
              public bool DebugStatusBar { get; set; }
              public bool LogSafeMovementOutput { get; set; }
 				 public bool LogGroupingOutput { get; set; }
+				 public LogLevel FunkyLogFlags { get; set; }
 
 				 public bool SkipAhead { get; set; }
 
@@ -155,13 +156,18 @@ namespace FunkyTrinity
              public ClassSettings Class { get; set; }
              public Settings_Funky()
              {
+					  DebugStatusBar=true;
+					  LogSafeMovementOutput=false;
+					  LogGroupingOutput=false;
+					  FunkyLogFlags=LogLevel.OutOfCombat| LogLevel.OutOfGame | LogLevel.User;
+
 					  AttemptGroupingMovements=true;
 					  GroupingClusterRadiusDistance=10d;
 					  GroupingMinimumUnitDistance=35;
 					  GroupingMaximumDistanceAllowed=110;
 					  GroupingMinimumClusterCount=1;
 					  GroupingMinimumUnitsInCluster=3;
-					  LogGroupingOutput=false;
+					 
 
 					  EnableFleeingBehavior=true;
 					  FleeMaxMonsterDistance=6;
@@ -249,8 +255,7 @@ namespace FunkyTrinity
                  UseLevelingLogic = false;
                  UseAdvancedProjectileTesting = false;
                  IgnoreAboveAverageMobs = false;
-                 DebugStatusBar = false;
-                 LogSafeMovementOutput = false;
+
 
 
                  EnableClusteringTargetLogic = true;

@@ -88,6 +88,7 @@ namespace FunkyTrinity.Movement.Clustering
 				List<CacheUnit> listObjectUnits=Bot.ValidObjects.OfType<CacheUnit>().Where(u =>
 					 Bot.Combat.UnitRAGUIDs.Contains(u.RAGUID)
 					 &&u.CentreDistance<=clusterConditions.MaximumDistance
+					 &&u.CentreDistance>=clusterConditions.MinimumDistance
 					 &&(!clusterConditions.IgnoreNonTargetable||u.IsTargetable.HasValue&&u.IsTargetable.Value)).ToList();
 
 

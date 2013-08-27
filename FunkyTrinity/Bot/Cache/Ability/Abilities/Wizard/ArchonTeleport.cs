@@ -20,23 +20,22 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 			WaitVars = new WaitLoops(1, 1, true);
 			Range = 48;
 			UseageType=AbilityUseage.Anywhere;
-			IsNavigationSpecial = true;
+			//IsNavigationSpecial = true;
 			Priority = AbilityPriority.High;
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckCanCast);
-								//UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 3),
-								//ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1),
-								//TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.Boss, 15),
-			ClusterConditions = new ClusterConditions(5d, 48f, 2, false);
-								//TestCustomCombatConditionAlways=true,
+
+			ClusterConditions = new ClusterConditions(5d, 48f, 2, false, minDistance: 15f);
+
 			Fcriteria = new Func<bool>(() =>
 			{
-				return ((Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP && Bot.Character.dCurrentHealthPct < 0.5d)
+				 return ((Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP&&
+								(Bot.Character.dCurrentHealthPct<0.5d)||
+								(Bot.Combat.RequiresAvoidance)||
+								(Bot.Combat.IsFleeing))
 				        ||
-				        (Bot.SettingsFunky.Class.bTeleportIntoGrouping &&
-				         Bot.Combat.Clusters(new ClusterConditions(5d, 48f, 2, false)).Count > 0 &&
-				         Bot.Combat.Clusters(new ClusterConditions(5d, 48f, 2, false))[0].Midpoint.Distance(
-					         Bot.Character.PointPosition) > 15f)
-				        || (!Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP && !Bot.SettingsFunky.Class.bTeleportIntoGrouping));
+				        (Bot.SettingsFunky.Class.bTeleportIntoGrouping && this.AbilityTestConditions.LastConditionPassed==ConditionCriteraTypes.Cluster)
+				        ||
+						  (!Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP && !Bot.SettingsFunky.Class.bTeleportIntoGrouping));
 
 			});
 		}

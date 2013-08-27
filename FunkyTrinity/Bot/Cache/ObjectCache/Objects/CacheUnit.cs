@@ -370,80 +370,78 @@ namespace FunkyTrinity.Cache
 
 
 						  // Bosses get extra radius
-						  if (this.IsBoss)
-						  {
-								// Kulle Exception
-								if (this.SNOID!=80509) dUseKillRadius*=1.5;
+							if (this.IsBoss)
+							{
+								 // Kulle Exception
+								 if (this.SNOID!=80509) dUseKillRadius*=1.5;
 
-								//more if they're already injured
-								if (this.CurrentHealthPct<=0.98) dUseKillRadius*=4;
+								 //more if they're already injured
+								 if (this.CurrentHealthPct<=0.98) dUseKillRadius*=4;
 
-								// And make sure we have a MINIMUM range for bosses - incase they are at screen edge etc.
-								if (dUseKillRadius<=200)
-									 if (this.SNOID==218947||this.SNOID==256000)
-										  dUseKillRadius=75;
-									 else if (this.SNOID!=80509) //Kulle Exception
-										  dUseKillRadius=200;
-						  }
-						  // Tressure Goblins
-						  else if (this.IsTreasureGoblin)
-						  {
-								//Check if this goblin is in combat and we are not to close..
+								 // And make sure we have a MINIMUM range for bosses - incase they are at screen edge etc.
+								 if (dUseKillRadius<=200)
+									  if (this.SNOID==218947||this.SNOID==256000)
+											dUseKillRadius=75;
+									  else if (this.SNOID!=80509) //Kulle Exception
+											dUseKillRadius=200;
+							}
+							// Tressure Goblins
+							else if (this.IsTreasureGoblin)
+							{
+								 //Check if this goblin is in combat and we are not to close..
 
-								if (this.CurrentHealthPct.Value>=1d
-									 &&this.RadiusDistance>20f)
-								{
-									 //Lets calculate if we want to bum rush this goblin by checking surrounding units.
+								 if (this.CurrentHealthPct.Value>=1d
+									  &&this.RadiusDistance>20f)
+								 {
+									  //Lets calculate if we want to bum rush this goblin by checking surrounding units.
 
-									 System.Collections.Generic.List<CacheUnit> surroundingList;
-									 ObjectCache.Objects.FindSurroundingObjects(this.Position, 50f, out surroundingList);
-									 surroundingList.RemoveAll(p => !p.IsEliteRareUnique&&!p.IsBoss);
-									 surroundingList.TrimExcess();
+									  System.Collections.Generic.List<CacheUnit> surroundingList;
+									  ObjectCache.Objects.FindSurroundingObjects(this.Position, 50f, out surroundingList);
+									  surroundingList.RemoveAll(p => !p.IsEliteRareUnique&&!p.IsBoss);
+									  surroundingList.TrimExcess();
 
-									 if (surroundingList.Count>0)
-									 {
-										  //See if any of those elites/rares/bosses are closer than the goblin but further than 20f from the goblin..
-										  float distanceFromGoblin=this.RadiusDistance;
-										  if (surroundingList.Any(u => u.RadiusDistance<distanceFromGoblin
-																				&&u.Position.Distance(this.Position)>20f))
-										  {
-												return 0f;
-										  }
-
-
-										  //Either no above average units or they are farther than the goblin is..
-										  //We will let calculations below preform instead!
-									 }
-								}
+									  if (surroundingList.Count>0)
+									  {
+											//See if any of those elites/rares/bosses are closer than the goblin but further than 20f from the goblin..
+											float distanceFromGoblin=this.RadiusDistance;
+											if (surroundingList.Any(u => u.RadiusDistance<distanceFromGoblin
+																				 &&u.Position.Distance(this.Position)>20f))
+											{
+												 return 0f;
+											}
 
 
-								//Use a shorter range if not yet noticed..
-								if (this.CurrentHealthPct<=0.10)
-									 dUseKillRadius+=Bot.TreasureGoblinRange+(Bot.SettingsFunky.GoblinPriority*24);
-								else if (this.CurrentHealthPct<=0.99)
-									 dUseKillRadius+=Bot.TreasureGoblinRange+(Bot.SettingsFunky.GoblinPriority*16);
-								else
-									 dUseKillRadius+=Bot.TreasureGoblinRange+(Bot.SettingsFunky.GoblinPriority*12);
+											//Either no above average units or they are farther than the goblin is..
+											//We will let calculations below preform instead!
+									  }
+								 }
 
-								this.ForceLeap=true;
-						  }
-						  // Elitey type mobs and things
-						  else if ((this.IsEliteRareUnique))
-						  {
+
+								 //Use a shorter range if not yet noticed..
+								 if (this.CurrentHealthPct<=0.10)
+									  dUseKillRadius+=Bot.TreasureGoblinRange+(Bot.SettingsFunky.GoblinPriority*24);
+								 else if (this.CurrentHealthPct<=0.99)
+									  dUseKillRadius+=Bot.TreasureGoblinRange+(Bot.SettingsFunky.GoblinPriority*16);
+								 else
+									  dUseKillRadius+=Bot.TreasureGoblinRange+(Bot.SettingsFunky.GoblinPriority*12);
+
+								 this.ForceLeap=true;
+							}
+							// Elitey type mobs and things
+							else if ((this.IsEliteRareUnique))
+							{
 								 dUseKillRadius+=Bot.EliteRange;
-								this.ForceLeap=true;
-						  }
-						  else
-								//Not Boss, Goblin, Elite/Rare/Unique..
+								 this.ForceLeap=true;
+							}
+							else
+								 //Not Boss, Goblin, Elite/Rare/Unique..
 								 dUseKillRadius+=Bot.NonEliteRange;
 
 
 						  // Standard 50f range when preforming OOC behaviors!
 							if (Bot.IsInNonCombatBehavior)
 								dUseKillRadius=50;
-							else if (Bot.Combat.DistantUnits.Contains(this)&&dUseKillRadius<Bot.SettingsFunky.GroupingMaximumDistanceAllowed)
-								 dUseKillRadius=Bot.SettingsFunky.GroupingMaximumDistanceAllowed;
-
+							
 						  return dUseKillRadius;
 					 }
 				}
@@ -871,17 +869,22 @@ namespace FunkyTrinity.Cache
 						  float centreDistance=this.CentreDistance;
 
 						  bool distantUnit=false;
+						  bool validUnit=false;
 						  //Distant Units List
 						  if (centreDistance>=Bot.SettingsFunky.GroupingMinimumUnitDistance&&Bot.SettingsFunky.AttemptGroupingMovements)
 						  {
-							  	Bot.Combat.DistantUnits.Add(this);
+							  	
 								distantUnit=true;
 						  }
-							
 
-						  //Distance Check
-						  if (centreDistance>this.KillRadius)
+
+						  if (centreDistance>this.KillRadius&&!distantUnit)
+						  {
 								return false;
+						  }
+						  else
+								validUnit=true;
+								
 
 
 						  //Line of sight pre-check
@@ -912,8 +915,8 @@ namespace FunkyTrinity.Cache
 								}
 
 								NavCellFlags LOSNavFlags=NavCellFlags.None;
-								if ((Bot.Class.IsMeleeClass||!this.WithinInteractionRange())&&!distantUnit)
-									 LOSNavFlags=NavCellFlags.AllowWalk;
+								//if ((Bot.Class.IsMeleeClass||!this.WithinInteractionRange())&&!distantUnit)
+								//	 LOSNavFlags=NavCellFlags.AllowWalk;
 								//if (!Bot.Class.IsMeleeClass)
 								//    LOSNavFlags|=NavCellFlags.AllowProjectile;
 
@@ -929,56 +932,7 @@ namespace FunkyTrinity.Cache
 
 								this.RequiresLOSCheck=false;
 						  } 
-						  else if (this.LastLOSCheckMS>3000)
-						  {
-								if (!this.IgnoresLOSCheck)
-								{
-									 NavCellFlags LOSNavFlags=NavCellFlags.None;
-
-									 if (!this.WithinInteractionRange())
-									 {//Ability requires movement prior to use, so we test nav flags.
-
-										  if (Bot.Combat.powerPrime.IsRanged) //Add Projectile Testing!
-												LOSNavFlags=NavCellFlags.AllowWalk|NavCellFlags.AllowProjectile;
-										  else
-												LOSNavFlags=NavCellFlags.AllowWalk;
-									 }
-
-									 if (!this.LOSTest(Bot.Character.Position, true, true, LOSNavFlags))
-									 {
-										  bool Valid=false;
-										  //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
-										  if (this.ObjectIsSpecial&&this.LastLOSSearchMS>2500)
-										  {
-												this.LastLOSSearch=DateTime.Now;
-
-												GPRectangle TargetGPRect=this.GPRect;
-												//Expand GPRect into 5x5, 7x7 for ranged!
-												TargetGPRect.FullyExpand();
-												if (!Bot.Class.IsMeleeClass)
-													 TargetGPRect.FullyExpand();
-
-												Vector3 LOSV3;
-												if (TargetGPRect.TryFindSafeSpot(Bot.Character.Position, out LOSV3, this.BotMeleeVector))
-												{
-													 this.LOSV3=LOSV3;
-													 Logging.WriteVerbose("Using LOS Vector at {0} to move to", LOSV3.ToString());
-													 this.RequiresLOSCheck=false;
-													 Valid=true;
-												}
-										  }
-
-										  if (!Valid)
-										  {
-												//We could not find a LOS Locaiton or did not find a reason to try.. so we reset LOS check, temp ignore it, and force new target.
-												//Logging.WriteVerbose("LOS Request for object {0} due to raycast failure!", this.InternalName);
-												return false;
-										  }
-									 }
-									 else
-										  this.RequiresLOSCheck=false;
-								}
-						  }
+	
 
 
 						  #region CombatFlags
@@ -1028,14 +982,16 @@ namespace FunkyTrinity.Cache
 						  if (ObjectCache.hashProfileSNOTargetBlacklist.Contains(this.SNOID))
 						  {
 								//Only if not prioritized..
-								if (this.PriorityCounter==0&&!Bot.IsInNonCombatBehavior)
+								if (!Bot.IsInNonCombatBehavior)
 									 return false;
 						  }
 
-
-						  //Add this valid unit RAGUID to list
-						  if (!Bot.Combat.UnitRAGUIDs.Contains(this.RAGUID))
+						  if (distantUnit)
+								Bot.Combat.DistantUnits.Add(this); //Add this valid unit to Distant List.
+						  if (validUnit) //Add this valid unit RAGUID to list
 								Bot.Combat.UnitRAGUIDs.Add(this.RAGUID);
+
+
 
 						  return true;
 					 }
@@ -1305,6 +1261,8 @@ namespace FunkyTrinity.Cache
 				{
 					 if (Bot.Combat.powerPrime.Power!=SNOPower.None)
 					 {
+						  //Check our Interaction LOS!
+						  this.CheckInteractionLOS();
 
 						  // Force waiting for global cooldown timer or long-animation abilities
 							if (Bot.Combat.powerPrime.WaitLoopsBefore>=1||(Bot.Combat.powerPrime.WaitWhileAnimating!=false&&DateTime.Now.Subtract(PowerCacheLookup.lastGlobalCooldownUse).TotalMilliseconds<=50))
@@ -1374,6 +1332,56 @@ namespace FunkyTrinity.Cache
 					 }
 
 					 return RunStatus.Running;
+				}
+
+				private void CheckInteractionLOS()
+				{
+					 if (this.LastLOSCheckMS>3000)
+					 {
+						  if (!this.IgnoresLOSCheck)
+						  {
+								NavCellFlags LOSNavFlags=NavCellFlags.None;
+
+								if (!this.WithinInteractionRange())//Ability requires movement prior to use, so we test nav flags.
+									 LOSNavFlags=NavCellFlags.AllowWalk;
+								
+								 if (Bot.Combat.powerPrime.IsRanged) //Add Projectile Testing!
+										LOSNavFlags|=NavCellFlags.AllowProjectile;
+
+
+								 if (!this.LOSTest(Bot.Character.Position, true, Bot.Combat.powerPrime.IsRanged, LOSNavFlags))
+								{
+									 bool Valid=false;
+									 //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
+									 if (this.ObjectIsSpecial&&this.LastLOSSearchMS>2500)
+									 {
+										  this.LastLOSSearch=DateTime.Now;
+
+										  GPRectangle TargetGPRect=this.GPRect;
+										  //Expand GPRect into 5x5, 7x7 for ranged!
+										  TargetGPRect.FullyExpand();
+
+										  if (!Bot.Class.IsMeleeClass) TargetGPRect.FullyExpand();
+
+										  Vector3 LOSV3;
+										  if (TargetGPRect.TryFindSafeSpot(Bot.Character.Position, out LOSV3, this.BotMeleeVector))
+										  {
+												this.LOSV3=LOSV3;
+												Logging.WriteVerbose("Using LOS Vector at {0} to move to", LOSV3.ToString());
+												this.RequiresLOSCheck=false;
+												Valid=true;
+										  }
+									 }
+
+									 if (!Valid)
+									 {
+										  this.RequiresLOSCheck=true;
+									 }
+								}
+								else
+									 this.RequiresLOSCheck=false;
+						  }
+					 }
 				}
 
 				public override bool CanInteract()

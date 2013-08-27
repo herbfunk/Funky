@@ -21,7 +21,7 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 			Cost = 15;
 			Range = 35;
 			UseageType=AbilityUseage.Combat;
-			IsNavigationSpecial = true;
+			//IsNavigationSpecial = true;
 			Priority = AbilityPriority.High;
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckCanCast |
 			                     AbilityConditions.CheckEnergy);

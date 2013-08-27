@@ -11,10 +11,10 @@ using Zeta.Internals.Actors;
 
 namespace FunkyTrinity.Targeting.Behaviors
 {
-	public class TB_UpdateTarget:TargetBehavior
+	public class TBUpdateTarget:TargetBehavior
 	{
 
-		 public TB_UpdateTarget() : base() { }
+		 public TBUpdateTarget() : base() { }
 
 
 		 public override TargetBehavioralTypes TargetBehavioralTypeType

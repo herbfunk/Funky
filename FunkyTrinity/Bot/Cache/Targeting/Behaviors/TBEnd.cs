@@ -1,9 +1,9 @@
 ﻿using FunkyTrinity.Cache;
 namespace FunkyTrinity.Targeting.Behaviors
 {
-	 public class TB_End : TargetBehavior
+	 public class TBEnd : TargetBehavior
 	 {
-		  public TB_End() : base() { }
+		  public TBEnd() : base() { }
 		  public override TargetBehavioralTypes TargetBehavioralTypeType { get { return TargetBehavioralTypes.Target; } }
 
 

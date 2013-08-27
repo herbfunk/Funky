@@ -19,14 +19,29 @@ namespace FunkyTrinity.Targeting
 		  //Order is important! -- we test from start to finish.
 		  internal readonly TargetBehavior[] TargetBehaviors=new TargetBehavior[]
 		  {
-			  new TB_Refresh(), 
-			  new TB_GroupingResume(), 
-			  new TB_Avoidance(), 
-			  new TB_Fleeing(), 
-			  new TB_UpdateTarget(), 
-			  new TB_Grouping(), 
-			  new TB_End(),
+			  new TBGroupingResume(), 
+			  new TBAvoidance(), 
+			  new TBFleeing(), 
+			  new TBUpdateTarget(), 
+			  new TBGrouping(), 
+			  new TBEnd(),
 		  };
+
+		  internal TargetBehavioralTypes lastBehavioralType=TargetBehavioralTypes.None;
+		  internal class TargetChangedArgs : EventArgs
+		  {
+				public CacheObject newObject { get; set; }
+				public TargetBehavioralTypes targetBehaviorUsed { get; set; }
+
+				public TargetChangedArgs(CacheObject newobj, TargetBehavioralTypes sendingtype)
+				{
+					 newObject=newobj;
+					 targetBehaviorUsed=sendingtype;
+				}
+		  }
+		  internal delegate void TargetChangeHandler(object cacheobj, TargetChangedArgs timeInformation);
+
+		  internal TargetChangeHandler TargetChanged;
 
 		 ///<summary>
 		  ///Update our current object data ("Current Target")
@@ -34,7 +49,7 @@ namespace FunkyTrinity.Targeting
 		  public bool UpdateTarget()
 		  {
 				bool conditionTest=false;
-				TargetBehavioralTypes lastBehavioralType=TargetBehavioralTypes.None;
+				lastBehavioralType=TargetBehavioralTypes.None;
 				foreach (var TLA in TargetBehaviors)
 				{
 					 if (!TLA.BehavioralCondition) continue;
@@ -42,14 +57,36 @@ namespace FunkyTrinity.Targeting
 					 conditionTest=TLA.Test.Invoke(ref CurrentTarget);
 					 if (conditionTest)
 					 {
+						  if (!Bot.Character.LastCachedTarget.Equals(CurrentTarget))
+						  {
+								if (Bot.SettingsFunky.FunkyLogFlags.HasFlag(LogLevel.Target))
+									 Logger.Write(LogLevel.Target, "Changed Object: {0}", MakeStringSingleLine(CurrentTarget.DebugString));
+
+								TargetChangedArgs TargetChangedInfo=
+									 new TargetChangedArgs(CurrentTarget, lastBehavioralType);
+
+								// if anyone has subscribed, notify them
+								if (TargetChanged!=null)
+								{
+									 TargetChanged(CurrentTarget, TargetChangedInfo);
+								}
+						  }
+
 						  lastBehavioralType=TLA.TargetBehavioralTypeType;
 						  break;
 					 }
 				}
 
+
+					
 				return conditionTest;
 		  }
-
+		  private Char CHARnewLine='\x000A';
+		  private Char CHARspace='\x0009';
+		  private string MakeStringSingleLine(string str)
+		  {
+				return str.Replace(CHARnewLine, CHARspace);
+		  }
 
 
 	 }

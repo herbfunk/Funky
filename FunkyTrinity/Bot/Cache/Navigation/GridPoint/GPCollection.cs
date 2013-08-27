@@ -31,7 +31,6 @@ namespace FunkyTrinity.Movement
 		  ///</summary>
 		  public class PointCollection : IDictionary<GridPoint, QuadrantLocation>
 		  {
-				private HashSet<GridPoint> NonNavigationalPoints=new HashSet<GridPoint>();
 				//To quickly lookup points locations within the grid.
 				//public Hashtable OutCodes=new Hashtable();
 				internal Dictionary<GridPoint, QuadrantLocation> Points=new Dictionary<GridPoint, QuadrantLocation>();

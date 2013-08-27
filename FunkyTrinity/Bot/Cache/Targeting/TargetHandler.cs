@@ -5,6 +5,7 @@ using FunkyTrinity.Cache;
 using FunkyTrinity.Enums;
 using FunkyTrinity.Movement;
 using FunkyTrinity.Movement.Clustering;
+using FunkyTrinity.Targeting.Behaviors;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
@@ -80,6 +81,7 @@ namespace FunkyTrinity.Targeting
 
 		  //Used to reduce additional unboxing when target is an unit.
 		  internal CacheUnit CurrentUnitTarget;
+
 
 
 		  //Prechecks are things prior to target checks and actual target handling.. This is always called first.

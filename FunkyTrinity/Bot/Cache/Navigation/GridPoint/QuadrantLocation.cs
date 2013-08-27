@@ -1,4 +1,4 @@
-﻿namespace FunkyTrinity.Enums
+﻿namespace FunkyTrinity.Movement
 {
 	 public enum QuadrantLocation
 	 {

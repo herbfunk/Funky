@@ -318,14 +318,16 @@ namespace FunkyTrinity
 						#endregion
 
 						#region Fleeing
+
+						ToolTip TTFleeInfo=new System.Windows.Controls.ToolTip
+						{
+							 Content="Trys to move away from any monsters that are within the distance set",
+						};
 						SPFleeing=new StackPanel
 						{
 							 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
 							 Background=System.Windows.Media.Brushes.DimGray,
-						};
-						ToolTip TTFleeInfo=new System.Windows.Controls.ToolTip
-						{
-							 Content="Trys to move away from any monsters that are within the distance set",
+							 ToolTip=TTFleeInfo,
 						};
 						TextBlock Flee_Text_Header=new TextBlock
 						{
@@ -445,14 +447,16 @@ namespace FunkyTrinity
 
 						#region Grouping
 
-						StackPanel GroupingOptionsStackPanel=new StackPanel
-						 {
-								Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
-								Background=System.Windows.Media.Brushes.DimGray,
-						 };
+
 						ToolTip TTGrouping=new System.Windows.Controls.ToolTip
 						{
 							 Content="Attempts to engage additional nearby monster groups",
+						};
+						StackPanel GroupingOptionsStackPanel=new StackPanel
+						{
+							 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
+							 Background=System.Windows.Media.Brushes.DimGray,
+							 ToolTip=TTGrouping,
 						};
 						TextBlock Grouping_Text_Header=new TextBlock
 						{
@@ -773,9 +777,14 @@ namespace FunkyTrinity
 						CombatTabControl.Items.Add(CombatClusterTabItem);
 						ListBox CombatClusteringContentListBox=new ListBox();
 
+						ToolTip TTClustering=new System.Windows.Controls.ToolTip
+						{
+							 Content="Determines eligible targets using only units from valid clusters",
+						};
 						StackPanel spClusteringOptions=new StackPanel
 						{
 							 Background=System.Windows.Media.Brushes.DimGray,
+							 ToolTip=TTClustering,
 						};
 						TextBlock Clustering_Text_Header=new TextBlock
 						{
@@ -784,6 +793,7 @@ namespace FunkyTrinity
 							 Foreground=System.Windows.Media.Brushes.GhostWhite,
 							 Background=System.Windows.Media.Brushes.DarkGreen,
 							 TextAlignment=TextAlignment.Center,
+							 ToolTip=TTClustering,
 						};
 						spClusteringOptions.Children.Add(Clustering_Text_Header);
 
@@ -2129,12 +2139,17 @@ namespace FunkyTrinity
 						#endregion
 
 						#region LevelingLogic
+						ToolTip TTLevelingLogic=new System.Windows.Controls.ToolTip
+						{
+							 Content="Enables auto-equipping of items, abilities. This overrides default item loot settings.",
+						};
 						CheckBox LevelingLogic=new CheckBox
 						{
 							 Content="Leveling Item Logic",
 							 Width=300,
 							 Height=30,
 							 IsChecked=(Bot.SettingsFunky.UseLevelingLogic),
+							 ToolTip=TTLevelingLogic,
 						};
 						LevelingLogic.Checked+=ItemLevelingLogicChecked;
 						LevelingLogic.Unchecked+=ItemLevelingLogicChecked;
@@ -3774,6 +3789,46 @@ namespace FunkyTrinity
 						CBLogGroupingOutput.Unchecked+=LogGroupingOutputChecked;
 						SPLoggingOptions.Children.Add(CBLogGroupingOutput);
 
+						TextBlock Logging_FunkyLogLevels_Header=new TextBlock
+						{
+							 Text="Funky Logging Options",
+							 FontSize=12,
+							 Background=System.Windows.Media.Brushes.MediumSeaGreen,
+							 TextAlignment=TextAlignment.Center,
+							 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+						};
+
+						StackPanel panelFunkyLogFlags=new StackPanel
+						{
+							 Orientation= System.Windows.Controls.Orientation.Vertical,
+							 VerticalAlignment= System.Windows.VerticalAlignment.Stretch,
+						};
+						panelFunkyLogFlags.Children.Add(Logging_FunkyLogLevels_Header);
+
+						var LogLevels=Enum.GetValues(typeof(LogLevel));
+					   Logger.GetLogLevelName fRetrieveNames=new Logger.GetLogLevelName((s)=>
+					   {
+							 return Enum.GetName(typeof(LogLevel), s);
+					   });
+
+						foreach (var logLevel in LogLevels)
+						{
+							 LogLevel thisloglevel=(LogLevel)logLevel;
+							 if (thisloglevel.Equals(LogLevel.None)) continue;
+
+							 string loglevelName=fRetrieveNames(logLevel);
+							 CheckBox cbLevel=new CheckBox
+							 {
+								  Name=loglevelName,
+								  Content=loglevelName,
+								  IsChecked=Bot.SettingsFunky.FunkyLogFlags.HasFlag(thisloglevel),
+							 };
+							 cbLevel.Checked+=FunkyLogLevelChanged;
+							 cbLevel.Unchecked+=FunkyLogLevelChanged;
+
+							 panelFunkyLogFlags.Children.Add(cbLevel);
+						}
+						SPLoggingOptions.Children.Add(panelFunkyLogFlags);
 
 						lbAdvancedContent.Items.Add(SPLoggingOptions);
 						#endregion

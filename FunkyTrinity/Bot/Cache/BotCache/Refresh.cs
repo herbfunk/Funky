@@ -126,38 +126,32 @@ namespace FunkyTrinity
 						  }
 					 }
 
-
-
 					 //Check Cached Object Removal flag
 					 if (RemovalCheck)
 					 {
 						  //Remove flagged objects
-						  List<int> RemovalObjs=(from objs in ObjectCache.Objects.Values
-														 where objs.NeedsRemoved
-														 select objs.RAGUID).ToList();
+						  var RemovalObjs=(from objs in ObjectCache.Objects.Values
+												 where objs.NeedsRemoved
+												 select objs.RAGUID).ToList();
 
-						  if (RemovalObjs.Count>0)
+						  foreach (var item in RemovalObjs)
 						  {
-								List<int> removalList=RemovalObjs.ToList();
+								CacheObject thisObj=ObjectCache.Objects[item];
 
-								for (int i=0; i<removalList.Count; i++)
-								{
-									 CacheObject thisObj=ObjectCache.Objects[removalList[i]];
+								//remove prioritized raguid
+								if (Bot.Combat.PrioritizedRAGUIDs.Contains(item))
+									 Bot.Combat.PrioritizedRAGUIDs.Remove(item);
 
-									 //remove prioritized raguid
-									 if (Bot.Combat.PrioritizedRAGUIDs.Contains(removalList[i]))
-										  Bot.Combat.PrioritizedRAGUIDs.Remove(removalList[i]);
+								//Blacklist flag check
+								if (thisObj.BlacklistFlag!=BlacklistType.None)
+									 ObjectCache.AddObjectToBlacklist(thisObj.RAGUID, thisObj.BlacklistFlag);
 
-									 //Blacklist flag check
-									 if (thisObj.BlacklistFlag!=BlacklistType.None)
-										  ObjectCache.AddObjectToBlacklist(thisObj.RAGUID, thisObj.BlacklistFlag);
-
-									 ObjectCache.Objects.Remove(thisObj.RAGUID);
-								}
+								ObjectCache.Objects.Remove(thisObj.RAGUID);
 						  }
 
 						  RemovalCheck=false;
 					 }
+
 
 					 //Increase counter, clear entries if overdue.
 					 ObjectCache.Obstacles.AttemptToClearEntries();
@@ -185,6 +179,25 @@ namespace FunkyTrinity
 
 					 //Update last Refresh Time
 					 lastRefreshedObjects=DateTime.Now;
+
+
+					 //Check avoidance requirement still valid
+					 if (FunkyTrinity.Bot.Combat.RequiresAvoidance)
+					 {
+						  if (FunkyTrinity.Bot.Combat.TriggeringAvoidances.Count==0)
+						  {
+								if (!FunkyTrinity.Bot.SettingsFunky.EnableFleeingBehavior||FunkyTrinity.Bot.Character.dCurrentHealthPct>0.25d)
+									 FunkyTrinity.Bot.Combat.RequiresAvoidance=false;
+						  }
+						  else
+						  {
+								if (Bot.NavigationCache.IsMoving)
+									 Bot.Combat.RequiresAvoidance=false;
+						  }
+					 }
+
+					 FunkyTrinity.Bot.ValidObjects=ObjectCache.Objects.Values.Where(o => o.ObjectIsValidForTargeting).ToList();
+
 
 					 // Still no target, let's end it all!
 					 if (!Bot.Target.UpdateTarget())
@@ -516,7 +529,12 @@ namespace FunkyTrinity
 
 									 if (!ObjectCache.Obstacles.TryGetValue(tmp_CachedObj.RAGUID, out thisObstacleObj))
 									 {
-										  ObjectCache.Obstacles.Add(tmp_CachedObj.RAGUID, new CacheServerObject(tmp_CachedObj));
+										  CacheServerObject newobj =new CacheServerObject(tmp_CachedObj);
+										  ObjectCache.Obstacles.Add(tmp_CachedObj.RAGUID, newobj);
+
+										  //Add nearby objects to our collection (used in navblock/obstaclecheck methods to reduce queries)
+										  if (CacheIDLookup.hashSNONavigationObstacles.Contains(newobj.SNOID))
+												Navigation.MGP.AddCellWeightingObstacle(newobj.SNOID, newobj.Radius);
 									 }
 									 else
 									 {
@@ -529,7 +547,6 @@ namespace FunkyTrinity
 										  if (thisObstacleObj.CentreDistance<=25f)
 												Bot.Combat.NearbyObstacleObjects.Add((CacheServerObject)thisObstacleObj);
 									 }
-									 //Add nearby objects to our collection (used in navblock/obstaclecheck methods to reduce queries)
 
 								}
 

@@ -6,8 +6,10 @@ using System.IO;
 
 namespace FunkyTrinity
 {
+	 [Flags]
 	 public enum LogLevel
 	 {
+		  None=0,
 		  User=1,
 		  Execption=2,
 		  Cluster=4,
@@ -21,27 +23,19 @@ namespace FunkyTrinity
 	 }
 	 public static class Logger
 	 {
+		  internal delegate string GetLogLevelName(object obj);
+
+		  private static string[] FilePath=Path.GetFileName(Funky.DBLogFile).Split(Char.Parse(" "));
+
 		  internal static readonly string FileNamePrefix="FunkyLog - ";
-		  private static string filename=Path.Combine(Funky.FolderPaths.sDemonBuddyPath, "Logs", Logger.FileNamePrefix+DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss")+".txt");
-		  public static string Filename
+
+		  private static string filename=Path.Combine(Funky.FolderPaths.sDemonBuddyPath, "Logs", FileNamePrefix+FilePath[1]+" "+FilePath[2]);
+		  public static string FunkyLogFilename
 		  {
 				get { return filename; }
 				set { filename=value; }
 		  }
-		  private static string FolderPath
-		  {
-				get
-				{
-					 return Path.Combine(Funky.FolderPaths.sDemonBuddyPath, "Logs");
-				}
-		  }
-		  private static string FilePath
-		  {
-				get
-				{
-					 return Path.Combine(FolderPath,Filename);
-				}
-		  }
+
 		  public static void Init()
 		  {
 
@@ -66,8 +60,9 @@ namespace FunkyTrinity
 				// If an error occurs throw it to the caller.
 				try
 				{
-					 StreamWriter Writer=new StreamWriter(FilePath, append, Encoding.UTF8);
-					 if (text!="") Writer.WriteLine(text);
+
+					 StreamWriter Writer=new StreamWriter(FunkyLogFilename, append, Encoding.UTF8);
+					 if (!String.IsNullOrEmpty(text)) Writer.WriteLine(text);
 					 Writer.Flush();
 					 Writer.Close();
 				} catch

@@ -12,9 +12,9 @@ using Zeta.Internals.Actors;
 
 namespace FunkyTrinity.Targeting.Behaviors
 {
-	 public class TB_Grouping : TargetBehavior
+	 public class TBGrouping : TargetBehavior
 	 {
-		  public TB_Grouping() : base() { }
+		  public TBGrouping() : base() { }
 
 		  public override TargetBehavioralTypes TargetBehavioralTypeType { get { return TargetBehavioralTypes.Grouping; } }
 		  public override bool BehavioralCondition
@@ -38,9 +38,10 @@ namespace FunkyTrinity.Targeting.Behaviors
 
 								//Grouping Movements
 								if (FunkyTrinity.Bot.SettingsFunky.AttemptGroupingMovements
-									 &&unitObj.CurrentHealthPct.Value<1d
+									 &&unitObj.CurrentHealthPct.Value<1d //only after we engaged the target.
+									 &&!unitObj.BeingIgnoredDueToClusterLogic && !unitObj.IsClusterException //we only want a cluster target!
 									 &&DateTime.Compare(DateTime.Now, FunkyTrinity.Bot.NavigationCache.groupingSuspendedDate)>0
-									 &&!unitObj.IsTreasureGoblin||FunkyTrinity.Bot.SettingsFunky.GoblinPriority<2) //only after we engaged the target.
+									 &&!unitObj.IsTreasureGoblin||FunkyTrinity.Bot.SettingsFunky.GoblinPriority<2) 
 								{
 									 FunkyTrinity.Bot.Combat.UpdateGroupClusteringVariables();
 

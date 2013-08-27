@@ -10,8 +10,24 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
+		  private static bool DumpedDeathInfo=false;
+
 		  private void FunkyOnDeath(object src, EventArgs mea)
 		  {
+				if(!DumpedDeathInfo)
+				{
+					 Logger.Write(LogLevel.User, "Death Info Dump \r\n ProfileBehavior {0} \r\n Last Target Behavior {1} \r\n"+
+									  "{2} \r\n"+
+									  "Triggering Avoidances={3} -- RequiredAvoidance={4} -- LastAvoidAction={5} \r\n"+
+									  "Nearby Flee Triggering Units={6} -- IsFleeing={7} -- LastFleeAction={8} \r\n",
+									  Bot.CurrentProfileBehavior.GetType().ToString(), Bot.Target.lastBehavioralType.ToString(),
+									  Cache.ObjectCache.Objects.DumpDebugInfo(),
+									  Bot.Combat.TriggeringAvoidances.Count, Bot.Combat.RequiresAvoidance, Bot.Combat.LastAvoidanceMovement.ToString(),
+									  Bot.Combat.FleeTriggeringUnits.Count, Bot.Combat.IsFleeing, Bot.Combat.LastFleeAction.ToString());
+
+					 DumpedDeathInfo=true;
+				}
+
 				if (DateTime.Now.Subtract(Bot.Stats.lastDied).TotalSeconds>10)
 				{
 					 Bot.Stats.lastDied=DateTime.Now;
@@ -22,9 +38,11 @@ namespace FunkyTrinity
 					 Bot.BotStatistics.GameStats.CurrentGame.Deaths++;
 					 Bot.BotStatistics.ProfileStats.CurrentProfile.DeathCount++;
 
+
+
 					 ResetBot();
 
-	
+					 
 					 // Does Trinity need to handle deaths?
 					 if (Bot.Stats.iMaxDeathsAllowed>0)
 					 {
