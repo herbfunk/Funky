@@ -80,7 +80,7 @@ namespace FunkyTrinity
 					 }
 					 else
 						  Zeta.Internals.UIElements.BackgroundScreenPCButtonMenu.Click();
-
+					
 					 BotMain.Stop(true, "Low Health Setting Triggered!");
 				}
 

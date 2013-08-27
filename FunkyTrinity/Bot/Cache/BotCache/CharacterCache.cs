@@ -44,7 +44,7 @@ namespace FunkyTrinity
 						  BackPack=new Backpack();
 						  PetData=new Pets();
 						  PickupRadius=1;
-
+						  Coinage=0;
 							LastCachedTarget=Funky.FakeCacheObject;
 						  fCharacterRadius=0f;
 						  //iCurrentGameDifficulty=GameDifficulty.Invalid;
@@ -77,7 +77,7 @@ namespace FunkyTrinity
 					 public double dCurrentEnergyPct { get; set; }
 					 public double dDiscipline { get; set; }
 					 public double dDisciplinePct { get; set; }
-
+					 public int Coinage { get; set; }
 					 public bool ShouldFlee
 					 {
 						  get
@@ -224,7 +224,7 @@ namespace FunkyTrinity
 										  else
 												bIsIncapacitated=false;
 									 }
-
+									 Coinage=me.Inventory.Coinage;
 									 //Update vars that are not essential to combat (survival).
 									 if (DateTime.Now.Subtract(lastUpdateNonEssentialData).TotalSeconds>30)
 									 {
