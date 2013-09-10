@@ -1,4 +1,41 @@
 ﻿// herbfunk revisions
+v2.2.2.0
+
+Line of Sight:
+-Line of Sight Checking has been changed. Ranged and Projectile abilities are now more aware..
+*Extracted properties and methods from CacheObject -- into new object LOSInfo.
+*Objects are still subjected to raycast testing -- removed additional tests from the valid testing.
+*Abilities that are ranged, and returned for single target condition, will be subjected to additional LOS testing.
+
+Abilities:
+-Added IsProjectile Property, this is used strictly for abilities that travel.
+-Added Default Ranged and Wand to Last Used Cache.
+-Destructible Ability Selector will now test non-destructible abilities as well -- and will use it if no suitable destuctible ability can be found.
+
+Monk:
+-Wave of Light should now be used as a buff when health is low.
+
+Demon Hunter:
+-Fixed Impale not checking if castable.
+-Rapid Fire is now channeled correctly.
+-Evasive Fire: Reduced UnitRange Condition of  from 20 to 15.
+-MultiShot: Reduced Range from 55 to 50.
+-Rapid Fire: Added Clustering  and SingleTarget Conditions.
+-Strafe: Changed condition to UnitsInRange -- removed SingleTarget condition.
+
+Wizard:
+-Fixed Wizard Archon Canceling Feature.
+-Reduced ShockPulse range for Living Lightning Rune to 26 -- was 35.
+-Removed CheckPlayerIncapacitated from Diamond Skin PreCastCheck.
+
+Misc:
+-Updated TrinityLoadOnce and TrinityLoadProfile. This should fix issue with recycling used profiles.
+-Stuck handler will now use Navigator more often!
+-Fixed Setting ItemRules Unid Rules not saving correctly.
+-Town run checks on new games will now be checked immediately.
+-Added new settings for level one characters to disable Grouping/Clustering/Fleeing by default.
+-Fixed Avoidance Behavior Reuse Check, and increased the wait time after finding a spot.
+
 
 v2.0.1.1
 
