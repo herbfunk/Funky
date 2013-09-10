@@ -24,13 +24,12 @@ namespace FunkyTrinity.Targeting.Behaviors
 				 {
 
 					  //Reuse the last generated safe spot...
-					  if (DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.LastAvoidanceMovement).TotalMilliseconds>=
-							  FunkyTrinity.Bot.Combat.iSecondsEmergencyMoveFor)
+					  if (DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.LastAvoidanceMovement).TotalMilliseconds<FunkyTrinity.Bot.Combat.iSecondsEmergencyMoveFor)
 					  {
 							Vector3 reuseV3=FunkyTrinity.Bot.NavigationCache.AttemptToReuseLastLocationFound();
 							if (reuseV3!=Vector3.Zero)
 							{
-								 obj=new CacheObject(reuseV3, TargetType.Avoidance, 20000f, "SafeAvoid", 2.5f, -1);
+								 obj=new CacheObject(reuseV3, TargetType.Avoidance, 20000f, "SafeReuseAvoid", 2.5f, -1);
 								 return true;
 							}
 					  }
@@ -46,7 +45,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 							obj=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "SafeAvoid", 2.5f, -1);
 
 							//Estimate time we will be reusing this movement vector3
-							FunkyTrinity.Bot.Combat.iSecondsEmergencyMoveFor=1+(int)(distance/25f);
+							FunkyTrinity.Bot.Combat.iSecondsEmergencyMoveFor=1+(int)(distance/5f);
 
 							//Avoidance takes priority over kiting..
 							FunkyTrinity.Bot.Combat.timeCancelledFleeMove=DateTime.Now;

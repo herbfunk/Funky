@@ -59,7 +59,7 @@ namespace FunkyTrinity
 								Bot.Combat.LastFleeAction=DateTime.Now;
 								Bot.Combat.FleeingLastTarget=true;
 						  }
-						  else if (internalname.Contains("AvoidanceIntersection")||internalname.Contains("StayPutPoint")||internalname.Contains("SafeAvoid"))
+						  else if (internalname.Contains("AvoidanceIntersection")||internalname.Contains("StayPutPoint")||internalname.Contains("SafeAvoid")||internalname.Contains("SafeReuseAvoid"))
 						  {
 								Bot.Combat.LastAvoidanceMovement=DateTime.Now;
 								Bot.Combat.AvoidanceLastTarget=true;

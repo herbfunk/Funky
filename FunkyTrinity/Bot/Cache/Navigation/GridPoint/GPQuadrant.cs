@@ -217,7 +217,7 @@ namespace FunkyTrinity.Movement
 								//Create Vector3
 								Vector3 pointVectorReturn=(Vector3)point;
 								Vector3 pointVector=pointVectorReturn;
-								pointVector.Z+=Bot.Character.fCharacterRadius/2f;
+								//pointVector.Z+=Bot.Character.fCharacterRadius/2f;
 
 								//Check if we already within this "point".
 								if (botcurpos.Distance(pointVector)<2.5f) continue;
