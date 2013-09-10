@@ -16,6 +16,16 @@ namespace FunkyTrinity
 	 {
 		  internal partial class FunkyWindow
          {
+				private void DefaultMenuLevelingClicked(object sender, EventArgs e)
+				{
+					 Bot.SettingsFunky.AttemptGroupingMovements=false;
+					 Bot.SettingsFunky.EnableFleeingBehavior=false;
+					 Bot.SettingsFunky.EnableClusteringTargetLogic=false;
+					 Bot.SettingsFunky.UseLevelingLogic=true;
+					 Settings_Funky.SerializeToXML(Bot.SettingsFunky);
+					 funkyConfigWindow.Close();
+				}
+
 				 private void FunkyLogLevelChanged(object sender, EventArgs e)
 				 {
 					  CheckBox cbSender=(CheckBox)sender;

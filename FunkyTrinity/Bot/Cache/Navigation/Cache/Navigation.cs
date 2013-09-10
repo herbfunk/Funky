@@ -734,7 +734,7 @@ namespace FunkyTrinity.Movement
 								currentpathvector_=DE.CurrentNode.NavigableCenter;
 						  else
 								currentpathvector_=Funky.PlayerMover.vLastMoveTo;
-
+						  
 						  return currentpathvector_;
 					 }
 				}

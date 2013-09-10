@@ -33,7 +33,7 @@ namespace FunkyTrinity
 				Bot.BotStatistics.ItemStats.Update();
 				Bot.BotStatistics.GameStats.Update();
 				Bot.BotStatistics.ProfileStats.OutputReport();
-
+				LeveledUpEventFired=false;
 
 
 				RemoveHandlers();

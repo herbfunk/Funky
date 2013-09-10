@@ -108,33 +108,23 @@ namespace FunkyTrinity
 							 VerticalAlignment=System.Windows.VerticalAlignment.Stretch,
 						};
 
-						StackPanel StackPanelTopWindow=new StackPanel
+						Menu Menu_Settings=new Menu
 						{
-							 Height=40,
-							 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
-							 FlowDirection=System.Windows.FlowDirection.LeftToRight,
-							 Orientation=Orientation.Horizontal,
+							 HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch,
 						};
-						Button OpenPluginSettings=new Button
+						MenuItem Menu_Defaults=new MenuItem
 						{
-							 Content="Open Plugin Settings",
-							 Width=150,
-							 Height=25,
+							 Header="Default",
 						};
-						OpenPluginSettings.Click+=OpenPluginSettings_Click;
-						StackPanelTopWindow.Children.Add(OpenPluginSettings);
-
-
-						OpenPluginFolder=new Button
+						MenuItem Menu_Default_Leveling=new MenuItem
 						{
-							 Content="Open Trinity Folder",
-							 Width=150,
-							 Height=25,
+							 Header="Leveling",
 						};
-						OpenPluginFolder.Click+=OpenPluginFolder_Click;
-						StackPanelTopWindow.Children.Add(OpenPluginFolder);
+						Menu_Default_Leveling.Click+=DefaultMenuLevelingClicked;
+						Menu_Defaults.Items.Add(Menu_Default_Leveling);
 
-						//LBWindowContent.Items.Add(StackPanelTopWindow);
+						Menu_Settings.Items.Add(Menu_Defaults);
+						LBWindowContent.Items.Add(Menu_Settings);
 
 						TabControl tabControl1=new TabControl
 						{

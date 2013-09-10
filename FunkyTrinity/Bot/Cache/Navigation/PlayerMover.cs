@@ -115,13 +115,20 @@ namespace FunkyTrinity
 					 }
 					 if (iTotalAntiStuckAttempts<=8)
 					 {
+						  //Check cache for barricades..
+						  if (ObjectCache.Objects.OfType<CacheDestructable>().Any(CO => CO.RadiusDistance<=10f))
+						  {
+								Logging.Write("[Funky] Found nearby barricade, flagging barricade destruction!");
+								ShouldHandleObstacleObject=true;
+						  }
+
 						  Logging.Write("[Funky] Your bot got stuck! Trying to unstuck (attempt #"+iTotalAntiStuckAttempts.ToString()+" of 8 attempts)");
 						  Logging.WriteDiagnostic("(destination="+vOriginalDestination.ToString()+", which is "+Vector3.Distance(vOriginalDestination, vMyCurrentPosition).ToString()+" distance away)");
 						  
 						  if (Bot.SettingsFunky.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logger.Write(LogLevel.Movement, "Stuck Flags: {0}", Bot.NavigationCache.Stuckflags.ToString());
 
-						  Bot.NavigationCache.AttemptFindSafeSpot(out vSafeMovementLocation, Vector3.Zero);
+						  bool FoundRandomMovementLocation=Bot.NavigationCache.AttemptFindSafeSpot(out vSafeMovementLocation, Vector3.Zero);
 
 						  // Temporarily log stuff
 						  if (iTotalAntiStuckAttempts==1&&Bot.SettingsFunky.LogStuckLocations)
@@ -133,20 +140,25 @@ namespace FunkyTrinity
 									 LogWriter.WriteLine(DateTime.Now.ToString()+": Original Destination="+vOldMoveToTarget.ToString()+". Current player position when stuck="+vMyCurrentPosition.ToString());
 									 LogWriter.WriteLine("Profile Name="+ProfileManager.CurrentProfile.Name);
 								}
-								//LogStream.Close();
-						  }
-
-						  //Check cache for barricades..
-						  if (ObjectCache.Objects.OfType<CacheDestructable>().Any(CO =>CO.RadiusDistance<=10f))
-						  {
-								Logging.Write("[Funky] Found nearby barricade, flagging barricade destruction!");
-								ShouldHandleObstacleObject=true;
 						  }
 
 						  // Now count up our stuck attempt generations
 						  iTotalAntiStuckAttempts++;
-						  return vSafeMovementLocation;
+
+						  if (FoundRandomMovementLocation)
+						  {
+								return vSafeMovementLocation;
+						  }
+						  else
+						  {
+								Navigator.Clear();
+								Navigator.MoveTo(vOriginalDestination, "original destination", false);
+								iCancelUnstuckerForSeconds=40;
+								timeCancelledUnstuckerFor=DateTime.Now;
+								return Vector3.Zero;
+						  }
 					 }
+
 					 iTimesReachedMaxUnstucks++;
 					 iTotalAntiStuckAttempts=1;
 					 vSafeMovementLocation=Vector3.Zero;
@@ -292,11 +304,12 @@ namespace FunkyTrinity
 					 // The below code is to help profile/routine makers avoid waypoints with a long distance between them.
 					 // Long-distances between waypoints is bad - it increases stucks, and forces the DB nav-server to be called.
 
-					 if (vLastMoveTo==Vector3.Zero)
-						  vLastMoveTo=vMoveToTarget;
+					 //if (vLastMoveTo==Vector3.Zero) vLastMoveTo=vMoveToTarget;
 
 					 if (vMoveToTarget!=vLastMoveTo)
 					 {
+						  vLastMoveTo=vMoveToTarget;
+
 						  if (Bot.SettingsFunky.LogStuckLocations)
 						  {
 								vLastMoveTo=vMoveToTarget;
