@@ -24,7 +24,7 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 			Range = 0;
 			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckCanCast |
+			PreCastConditions = (AbilityConditions.CheckCanCast |
 			                     AbilityConditions.CheckExisitingBuff);
 
 			Fcriteria = new Func<bool>(() =>

@@ -18,9 +18,9 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 		{
 			ExecutionType = AbilityUseType.Target;
 			WaitVars = new WaitLoops(0, 1, true);
-			Range = Bot.Class.RuneIndexCache[SNOPower.Wizard_ShockPulse] == 2
-				? 40
-				:Bot.Class.RuneIndexCache[SNOPower.Wizard_ShockPulse]==1?35:15;
+			Range = Bot.Class.RuneIndexCache[SNOPower.Wizard_ShockPulse] == 2 ? 40
+				:Bot.Class.RuneIndexCache[SNOPower.Wizard_ShockPulse]==1?26:15;
+
 			IsRanged = true;
 			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;

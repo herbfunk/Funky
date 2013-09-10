@@ -122,7 +122,6 @@ namespace FunkyTrinity
 						  return true;
 
 					 return false;
-						  
 				}
 				public override void RecreateAbilities()
 				{
@@ -140,6 +139,12 @@ namespace FunkyTrinity
 							Ability defaultAbility=this.DefaultAttack;
 							Abilities.Add(defaultAbility.Power, defaultAbility);
 							RuneIndexCache.Add(defaultAbility.Power, -1);
+					 }
+
+					 //Check for buff Archon -- and if we should add Cancel to abilities.
+					 if (Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneStrike)&&Bot.SettingsFunky.Class.bCancelArchonRebuff)
+					 {
+						  Abilities.Add(SNOPower.Wizard_Archon_Cancel, new CancelArchonBuff());
 					 }
 
 					 //Sort Abilities

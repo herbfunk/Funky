@@ -219,9 +219,9 @@ namespace FunkyTrinity
 					  {
 							try
 							{
-								 if (Bot.Class==null)
-									  return;
+								 if (Bot.Class==null) return;
 
+								 LBDebug.Items.Add("==Current HotBar Abilities==");
 								 foreach (var item in Bot.Class.Abilities.Values)
 								 {
 									  try
@@ -233,6 +233,17 @@ namespace FunkyTrinity
 									  }
 								 }
 
+								 LBDebug.Items.Add("==Cached HotBar Abilities==");
+								 foreach (var item in Bot.Class.CachedPowers)
+								 {
+									  try
+									  {
+											LBDebug.Items.Add(item.ToString());
+									  } catch (Exception ex)
+									  {
+											Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
+									  }
+								 }
 
 							} catch (Exception ex)
 							{
