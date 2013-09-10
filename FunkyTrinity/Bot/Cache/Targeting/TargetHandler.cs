@@ -477,7 +477,7 @@ namespace FunkyTrinity.Targeting
 				if (CurrentTarget.LOSV3!=Vector3.Zero)
 				{
 					 //Recheck LOS every second
-					 if (CurrentTarget.LastLOSCheckMS>2500)
+					 if (CurrentTarget.LineOfSight.LastLOSCheckMS>2500)
 					 {
 						  NavCellFlags LOSNavFlags=NavCellFlags.None;
 						  if (FunkyTrinity.Bot.Class.IsMeleeClass||!CurrentTarget.WithinInteractionRange())
@@ -488,7 +488,7 @@ namespace FunkyTrinity.Targeting
 									 LOSNavFlags=NavCellFlags.AllowWalk;
 						  }
 
-						  if (CurrentTarget.LOSTest(FunkyTrinity.Bot.Character.Position, true, FunkyTrinity.Bot.Combat.powerPrime.IsRanged, LOSNavFlags))
+						  if (CurrentTarget.LineOfSight.LOSTest(FunkyTrinity.Bot.Character.Position, true, FunkyTrinity.Bot.Combat.powerPrime.IsRanged, LOSNavFlags))
 						  {
 								//Los Passed!
 								CurrentTarget.LOSV3=Vector3.Zero;

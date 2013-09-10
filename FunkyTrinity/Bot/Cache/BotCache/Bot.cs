@@ -419,6 +419,7 @@ namespace FunkyTrinity
 					 NavigationCache=new Navigation();
 					 Stats=new BotStatistics();
 					 shuttingDownBot=false;
+					 Funky.LeveledUpEventFired=false;
 				}
 
 		  }

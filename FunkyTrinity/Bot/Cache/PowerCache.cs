@@ -232,7 +232,11 @@ namespace FunkyTrinity.Cache
 		  // But you do need to make sure every skill used by Trinity is listed in here once!
 		  internal static Dictionary<SNOPower, DateTime> dictAbilityLastUseDefaults=new Dictionary<SNOPower, DateTime>
             {
-                {SNOPower.None, DateTime.Today},{SNOPower.DrinkHealthPotion, DateTime.Today},{SNOPower.Weapon_Melee_Instant, DateTime.Today},{SNOPower.Weapon_Ranged_Instant, DateTime.Today}, 
+                {SNOPower.None, DateTime.Today},{SNOPower.DrinkHealthPotion, DateTime.Today},
+
+					 {SNOPower.Weapon_Melee_Instant, DateTime.Today},{SNOPower.Weapon_Ranged_Instant, DateTime.Today},
+					 {SNOPower.Weapon_Ranged_Projectile, DateTime.Today},{SNOPower.Weapon_Ranged_Wand, DateTime.Today},
+ 
                 // Barbarian last-used timers
                 #region Barb
 		        {SNOPower.Barbarian_Bash, DateTime.Today},{SNOPower.Barbarian_Cleave, DateTime.Today},{SNOPower.Barbarian_Frenzy, DateTime.Today}, 

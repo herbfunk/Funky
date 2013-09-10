@@ -9,7 +9,12 @@ namespace FunkyTrinity
 	 public partial class Funky
 	 {
 		  //Update Skills after Combat
-		  internal static bool LeveledUpEventFired=false;
+		  private static bool leveledUpeventfired=false;
+		 internal static bool LeveledUpEventFired
+		 {
+			  get { return leveledUpeventfired; }
+			  set { leveledUpeventfired=value; }
+		 }
 
 		  // Score weighting for armours and jewelry - feel free to change these values!
 		  internal static int iWeightPrimary=50;
@@ -720,7 +725,7 @@ namespace FunkyTrinity
 								WizardOnLevelUp(null, null);
 								break;
 					 }
-					 LeveledUpEventFired=false;
+					 leveledUpeventfired=false;
 					 LastLevelUp=DateTime.Now;
 				}
 

@@ -446,6 +446,9 @@
     <Compile Include="Bot\Cache\Ability\ConditionObjects\AbilityUsablityTests.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Bot\Cache\Ability\ConditionObjects\LOSInfo.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Bot\Cache\Ability\Enums\AbilityUsage.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

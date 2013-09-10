@@ -23,7 +23,9 @@ namespace FunkyTrinity.ability.Abilities.DemonHunter
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckEnergy);
-			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None, 15);
+			UnitsWithinRangeConditions=new Tuple<Enums.RangeIntervals, int>(Enums.RangeIntervals.Range_15, 2);
+			 //TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None, 15);
+
 		}
 
 		public override void InitCriteria()

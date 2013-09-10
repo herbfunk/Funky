@@ -24,7 +24,7 @@ namespace FunkyTrinity.ability.Abilities.DemonHunter
 			Priority = AbilityPriority.Low;
 
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckRecastTimer);
-			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 1);
+			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
 		}
 
 		public override void InitCriteria()

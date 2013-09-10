@@ -63,18 +63,13 @@ namespace FunkyTrinity.Cache
 				  if (this.RequiresLOSCheck&&!this.IgnoresLOSCheck)
 				  {
 						//Preform Test every 2500ms on normal objects, 1250ms on special objects.
-						double lastLOSCheckMS=this.LastLOSCheckMS;
+						double lastLOSCheckMS=base.LineOfSight.LastLOSCheckMS;
 						if (lastLOSCheckMS<1250)
 							 return false;
 						else if (lastLOSCheckMS<2500&&this.CentreDistance>20f)
 							 return false;
 
-						NavCellFlags LOSNavFlags=NavCellFlags.None;
-						if (!this.WithinInteractionRange())
-							 LOSNavFlags=NavCellFlags.AllowWalk;
-
-
-						if (!base.LOSTest(Bot.Character.Position, true, false, LOSNavFlags))
+						if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, false))
 						{
 							 return false;
 						}

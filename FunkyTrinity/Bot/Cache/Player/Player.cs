@@ -136,21 +136,39 @@ namespace FunkyTrinity
 						  //Check precast conditions
 						  if (!item.AbilityTestConditions.CheckPreCastConditionMethod()) continue;
 
-						  //Check LOS -- Projectiles
-						  if (item.IsRanged&&!Bot.Target.CurrentUnitTarget.IgnoresLOSCheck&&Bot.Target.CurrentUnitTarget.LastLOSCheckMS>3000)
+						  //Check Combat Conditions!
+						  if (!item.AbilityTestConditions.CheckCombatConditionMethod(criteria))
 						  {
-								if (!Bot.Target.CurrentUnitTarget.LOSTest(Bot.Character.Position, true, item.IsProjectile))
+								continue;
+						  }
+
+
+
+						  //Check LOS -- Projectiles
+						  if (item.AbilityTestConditions.LastConditionPassed.HasFlag(ConditionCriteraTypes.SingleTarget))
+						  {
+								if (item.IsRanged&&!Bot.Target.CurrentUnitTarget.IgnoresLOSCheck)
 								{
-									 continue;
+									 ability.LOSInfo LOSINFO=Bot.Target.CurrentTarget.LineOfSight;
+									 if (LOSINFO.LastLOSCheckMS>3000||(item.IsProjectile&&!LOSINFO.ObjectIntersection.HasValue)||!LOSINFO.NavCellProjectile.HasValue)
+									 {
+										  if (!LOSINFO.LOSTest(Bot.Character.Position, true, item.IsProjectile, NavCellFlags.AllowProjectile))
+										  {
+												//Raycast failed.. reset LOS Check -- for valid checking.
+												if (!LOSINFO.RayCast.Value) Bot.Target.CurrentTarget.RequiresLOSCheck=true;
+												continue;
+										  }
+									 }
+									 else if ((item.IsProjectile&&LOSINFO.ObjectIntersection.Value)||!LOSINFO.NavCellProjectile.Value)
+									 {
+										  continue;
+									 }
 								}
 						  }
 
-						  //Check Combat Conditions!
-						  if (item.AbilityTestConditions.CheckCombatConditionMethod(criteria))
-						  {
-								returnAbility=item;
-								break;
-						  }
+
+						  returnAbility=item;
+						  break;
 					 }
 
 					 //Setup Ability (sets vars according to current cache)
@@ -169,10 +187,21 @@ namespace FunkyTrinity
 					 {
 						  if (item.IsADestructiblePower)
 						  {
-								//LOS Check
-								if (item.IsRanged&&Bot.Target.CurrentTarget.LastLOSCheckMS>3000)
+
+								//Check LOS -- Projectiles
+								if (item.IsRanged&&!Bot.Target.CurrentTarget.IgnoresLOSCheck)
 								{
-									 if (!Bot.Target.CurrentTarget.LOSTest(Bot.Character.Position, true, item.IsProjectile))
+									 ability.LOSInfo LOSINFO=Bot.Target.CurrentTarget.LineOfSight;
+									 if (LOSINFO.LastLOSCheckMS>3000||(item.IsProjectile&&!LOSINFO.ObjectIntersection.HasValue)||!LOSINFO.NavCellProjectile.HasValue)
+									 {
+										  if (!LOSINFO.LOSTest(Bot.Character.Position, true, item.IsProjectile, NavCellFlags.AllowProjectile))
+										  {
+												//Raycast failed.. reset LOS Check -- for valid checking.
+												if (!LOSINFO.RayCast.Value) Bot.Target.CurrentTarget.RequiresLOSCheck=true;
+												continue;
+										  }
+									 }
+									 else if ((item.IsProjectile&&LOSINFO.ObjectIntersection.Value)||!LOSINFO.NavCellProjectile.Value)
 									 {
 										  continue;
 									 }
@@ -185,12 +214,23 @@ namespace FunkyTrinity
 									 return returnAbility;
 								}
 						  }
-						  else if (item.UseageType.HasFlag(ability.AbilityUseType.Target)||item.UseageType.HasFlag(AbilityUseType.Location))
+						  else if (item.ExecutionType.HasFlag(ability.AbilityUseType.Target)||item.ExecutionType.HasFlag(AbilityUseType.Location))
 						  {
-								//LOS Check
-								if (item.IsRanged&&Bot.Target.CurrentTarget.LastLOSCheckMS>3000)
+
+								//Check LOS -- Projectiles
+								if (item.IsRanged&&!Bot.Target.CurrentTarget.IgnoresLOSCheck)
 								{
-									 if (!Bot.Target.CurrentTarget.LOSTest(Bot.Character.Position, true, item.IsProjectile))
+									 ability.LOSInfo LOSINFO=Bot.Target.CurrentTarget.LineOfSight;
+									 if (LOSINFO.LastLOSCheckMS>3000||(item.IsProjectile&&!LOSINFO.ObjectIntersection.HasValue)||!LOSINFO.NavCellProjectile.HasValue)
+									 {
+										  if (!LOSINFO.LOSTest(Bot.Character.Position, true, item.IsProjectile, NavCellFlags.AllowProjectile))
+										  {
+												//Raycast failed.. reset LOS Check -- for valid checking.
+												if (!LOSINFO.RayCast.Value) Bot.Target.CurrentTarget.RequiresLOSCheck=true;
+												continue;
+										  }
+									 }
+									 else if ((item.IsProjectile&&LOSINFO.ObjectIntersection.Value)||!LOSINFO.NavCellProjectile.Value)
 									 {
 										  continue;
 									 }

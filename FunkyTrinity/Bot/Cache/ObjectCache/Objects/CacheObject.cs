@@ -30,7 +30,7 @@ namespace FunkyTrinity.Cache
 					 this.radius_=0f;
 					 this.position_=position;
 					 this.RequiresLOSCheck=!(base.IgnoresLOSCheck); //require a LOS check initally on a new object!
-					 this.LastLOSCheck=DateTime.Today;
+					 this.lineofsight=new ability.LOSInfo(this);
 					 this.LosSearchRetryMilliseconds_=1000;
 					 this.PrioritizedDate=DateTime.Today;
 					 this.PriorityCounter=0;
@@ -65,7 +65,7 @@ namespace FunkyTrinity.Cache
 					 this.BlacklistLoops_=parent.BlacklistLoops_;
 					 this.gprect_=parent.gprect_;
 					 this.InteractionAttempts=parent.InteractionAttempts;
-					 this.LastLOSCheck=parent.LastLOSCheck;
+					 this.lineofsight=new ability.LOSInfo(this);
 					 this.LoopsUnseen_=parent.LoopsUnseen_;
 					 this.losv3_=parent.losv3_;
 					 this.LosSearchRetryMilliseconds_=parent.LosSearchRetryMilliseconds_;
@@ -288,46 +288,12 @@ namespace FunkyTrinity.Cache
 					 set { requiresLOSCheck=value; }
 				}
 
-
-				///<summary>
-				///Last time we preformed LOS Raycasting Test
-				///</summary>
-				public DateTime LastLOSCheck { get; set; }
-				public double LastLOSCheckMS
+				private ability.LOSInfo lineofsight;
+				public ability.LOSInfo LineOfSight
 				{
-					 get
-					 {
-						  return (DateTime.Now.Subtract(LastLOSCheck).TotalMilliseconds);
-					 }
+					 get { return lineofsight; }
 				}
-				///<summary>
-				///Runs raycasting and intersection tests to validate LOS.
-				///</summary>
-				public bool LOSTest(Vector3 PositionToTestFrom, bool NavRayCast=true, bool ServerObjectIntersection=true, NavCellFlags Flags=NavCellFlags.None)
-				{
-					 this.LastLOSCheck=DateTime.Now;
 
-					 Vector3 botmeleeVector=!this.IsBoss?this.BotMeleeVector:this.Position;
-
-					 if (NavRayCast&&Zeta.Navigation.Navigator.Raycast(PositionToTestFrom, this.Position))
-						  return false;
-
-					 if (ServerObjectIntersection&&
-						  ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
-								.Any(obstacle =>
-									 obstacle.RAGUID!=this.RAGUID&&
-									 obstacle.Obstacletype.HasValue&&
-									 obstacle.Obstacletype.Value!=ObstacleType.Monster&&
-									 obstacle.TestIntersection(PositionToTestFrom,	 this.Position)))
-						  return false;
-
-					 if (!Flags.Equals(NavCellFlags.None)&&!Navigation.CanRayCast(PositionToTestFrom, this.Position, Flags))
-						  return false;
-
-
-
-					 return true;
-				}
 				public DateTime LastLOSSearch { get; set; }
 				///<summary>
 				///Last time we preformed a LOS vector search

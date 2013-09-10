@@ -61,14 +61,14 @@ namespace FunkyTrinity.Cache
 						  if (unit.ObjectIsSpecial)
 								properties|=TargetProperties.IsSpecial;
 
-						  if (unit.CurrentHealthPct.Value==1d)
+						  if (unit.CurrentHealthPct.HasValue&&unit.CurrentHealthPct.Value==1d)
 								properties|=TargetProperties.FullHealth;
 
 						  if (unit.UnitMaxHitPointAverageWeight<0)
 								properties|=TargetProperties.Weak;
 
 
-						  if (unit.Monstersize.Value==MonsterSize.Ranged)
+						  if (unit.Monstersize.HasValue&&unit.Monstersize.Value==MonsterSize.Ranged)
 								properties|=TargetProperties.Ranged;
 
 
@@ -891,7 +891,7 @@ namespace FunkyTrinity.Cache
 						  if (this.RequiresLOSCheck)
 						  {
 
-								double lastLOSCheckMS=this.LastLOSCheckMS;
+								double lastLOSCheckMS=base.LineOfSight.LastLOSCheckMS;
 
 
 								if (lastLOSCheckMS<500)
@@ -914,18 +914,12 @@ namespace FunkyTrinity.Cache
 										  return false;
 								}
 
-								NavCellFlags LOSNavFlags=NavCellFlags.None;
-								//if ((Bot.Class.IsMeleeClass||!this.WithinInteractionRange())&&!distantUnit)
-								//	 LOSNavFlags=NavCellFlags.AllowWalk;
-								//if (!Bot.Class.IsMeleeClass)
-								//    LOSNavFlags|=NavCellFlags.AllowProjectile;
-
-								if (!base.LOSTest(Bot.Character.Position, true, (!Bot.Class.IsMeleeClass&&!distantUnit), LOSNavFlags))
+								if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, false))
 								{
 									 if (!Bot.Character.bIsIncapacitated)
 										  this.BlacklistLoops=10;
 									 else//Incapacitated we reset check
-										  this.LastLOSCheck=DateTime.Today;
+										  base.LineOfSight.LastLOSCheck=DateTime.Today;
 
 									 return false;
 								}
@@ -1331,55 +1325,55 @@ namespace FunkyTrinity.Cache
 					 return RunStatus.Running;
 				}
 
-				private void CheckInteractionLOS()
-				{
-					 if (this.LastLOSCheckMS>3000)
-					 {
-						  if (!this.IgnoresLOSCheck)
-						  {
-								NavCellFlags LOSNavFlags=NavCellFlags.None;
+				//private void CheckInteractionLOS()
+				//{
+				//	 if (this.LastLOSCheckMS>3000)
+				//	 {
+				//		  if (!this.IgnoresLOSCheck)
+				//		  {
+				//				NavCellFlags LOSNavFlags=NavCellFlags.None;
 
-								if (!this.WithinInteractionRange())//Ability requires movement prior to use, so we test nav flags.
-									 LOSNavFlags=NavCellFlags.AllowWalk;
+				//				if (!this.WithinInteractionRange())//Ability requires movement prior to use, so we test nav flags.
+				//					 LOSNavFlags=NavCellFlags.AllowWalk;
 								
-								 if (Bot.Combat.powerPrime.IsRanged) //Add Projectile Testing!
-										LOSNavFlags|=NavCellFlags.AllowProjectile;
+				//				 if (Bot.Combat.powerPrime.IsRanged) //Add Projectile Testing!
+				//						LOSNavFlags|=NavCellFlags.AllowProjectile;
 
 
-								 if (!this.LOSTest(Bot.Character.Position, true, Bot.Combat.powerPrime.IsProjectile, LOSNavFlags))
-								{
-									 bool Valid=false;
-									 //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
-									 if (this.ObjectIsSpecial&&this.LastLOSSearchMS>2500)
-									 {
-										  this.LastLOSSearch=DateTime.Now;
+				//				 if (!this.LOSTest(Bot.Character.Position, true, Bot.Combat.powerPrime.IsProjectile, LOSNavFlags))
+				//				{
+				//					 bool Valid=false;
+				//					 //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
+				//					 if (this.ObjectIsSpecial&&this.LastLOSSearchMS>2500)
+				//					 {
+				//						  this.LastLOSSearch=DateTime.Now;
 
-										  GPRectangle TargetGPRect=this.GPRect;
-										  //Expand GPRect into 5x5, 7x7 for ranged!
-										  TargetGPRect.FullyExpand();
+				//						  GPRectangle TargetGPRect=this.GPRect;
+				//						  //Expand GPRect into 5x5, 7x7 for ranged!
+				//						  TargetGPRect.FullyExpand();
 
-										  if (!Bot.Class.IsMeleeClass) TargetGPRect.FullyExpand();
+				//						  if (!Bot.Class.IsMeleeClass) TargetGPRect.FullyExpand();
 
-										  Vector3 LOSV3;
-										  if (TargetGPRect.TryFindSafeSpot(Bot.Character.Position, out LOSV3, this.BotMeleeVector))
-										  {
-												this.LOSV3=LOSV3;
-												Logging.WriteVerbose("Using LOS Vector at {0} to move to", LOSV3.ToString());
-												this.RequiresLOSCheck=false;
-												Valid=true;
-										  }
-									 }
+				//						  Vector3 LOSV3;
+				//						  if (TargetGPRect.TryFindSafeSpot(Bot.Character.Position, out LOSV3, this.BotMeleeVector))
+				//						  {
+				//								this.LOSV3=LOSV3;
+				//								Logging.WriteVerbose("Using LOS Vector at {0} to move to", LOSV3.ToString());
+				//								this.RequiresLOSCheck=false;
+				//								Valid=true;
+				//						  }
+				//					 }
 
-									 if (!Valid)
-									 {
-										  this.RequiresLOSCheck=true;
-									 }
-								}
-								else
-									 this.RequiresLOSCheck=false;
-						  }
-					 }
-				}
+				//					 if (!Valid)
+				//					 {
+				//						  this.RequiresLOSCheck=true;
+				//					 }
+				//				}
+				//				else
+				//					 this.RequiresLOSCheck=false;
+				//		  }
+				//	 }
+				//}
 
 				public override bool CanInteract()
 				{
