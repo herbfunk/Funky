@@ -32,6 +32,9 @@ namespace FunkyTrinity.ability.Abilities.Monk
 
 			Fcriteria=new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
 
+			Fbuff=new Func<bool>(() => { return Bot.Character.dCurrentHealthPct<0.25d; });
+			IsBuff=true;
+
 		}
 
 		public override void InitCriteria()

@@ -2550,8 +2550,8 @@ namespace FunkyTrinity
 							 Height=30,
 							 IsChecked=(Bot.SettingsFunky.ItemRulesUnidStashing),
 						};
-						CBItemRulesSalvaging.Checked+=ItemRulesUnidStashingChecked;
-						CBItemRulesSalvaging.Unchecked+=ItemRulesUnidStashingChecked;
+						CBItemRulesUnidStashing.Checked+=ItemRulesUnidStashingChecked;
+						CBItemRulesUnidStashing.Unchecked+=ItemRulesUnidStashingChecked;
 						spItemRulesOptions.Children.Add(CBItemRulesUnidStashing);
 						#endregion
 						spItemRules.Children.Add(spItemRulesOptions);
