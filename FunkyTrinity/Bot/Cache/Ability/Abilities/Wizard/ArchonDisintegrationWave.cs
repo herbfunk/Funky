@@ -21,6 +21,7 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 			WaitVars = new WaitLoops(0, 0, true);
 			Range = 48;
 			IsRanged = true;
+			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.None;
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);

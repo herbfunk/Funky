@@ -727,12 +727,13 @@ namespace FunkyTrinity.Movement
 				{
 					 get
 					 {
+
 						  if (NP.CurrentPath.Count>0&&currentpathvector_!=NP.CurrentPath.Current)
 								currentpathvector_=NP.CurrentPath.Current;
 						  else if (DE.CurrentRoute!=null&&DE.CurrentRoute.Count>0&&currentpathvector_!=DE.CurrentNode.NavigableCenter)
 								currentpathvector_=DE.CurrentNode.NavigableCenter;
 						  else
-								currentpathvector_=Vector3.Zero;
+								currentpathvector_=Funky.PlayerMover.vLastMoveTo;
 
 						  return currentpathvector_;
 					 }

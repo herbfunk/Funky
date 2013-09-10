@@ -21,6 +21,7 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 			Cost = 10;
 			Range = 30;
 			IsRanged = true;
+			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.None;
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);

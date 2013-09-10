@@ -11,7 +11,7 @@ namespace FunkyTrinity
 	 {
 		  None=0,
 		  User=1,
-		  Exception=2,
+		  Execption=2, //doh?
 		  Cluster=4,
 		  Grouping=8,
 		  Movement=16,
@@ -21,7 +21,7 @@ namespace FunkyTrinity
 		  OutOfGame=256,
 		  OutOfCombat=512,
 
-		  All=User|Exception|Cluster|Grouping|Movement|Ability|Target|Items|OutOfGame|OutOfCombat,
+		  All=User|Execption|Cluster|Grouping|Movement|Ability|Target|Items|OutOfGame|OutOfCombat,
 	 }
 	 public static class Logger
 	 {

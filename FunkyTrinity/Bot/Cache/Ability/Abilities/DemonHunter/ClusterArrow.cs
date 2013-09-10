@@ -22,6 +22,7 @@ namespace FunkyTrinity.ability.Abilities.DemonHunter
 			Cost = 50;
 			Range = 50;
 			IsRanged = true;
+			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckEnergy |

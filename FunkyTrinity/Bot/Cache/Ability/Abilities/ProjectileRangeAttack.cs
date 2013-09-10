@@ -22,6 +22,8 @@ namespace FunkyTrinity.ability.Abilities
 			Range = 25;
 			Priority = AbilityPriority.None;
 			ExecutionType = AbilityUseType.Target;
+			IsProjectile=true;
+			IsRanged=true;
 			WaitVars = new WaitLoops(0, 0, true);
 			PreCastConditions=AbilityConditions.None;
 			UseageType=AbilityUseage.Combat;

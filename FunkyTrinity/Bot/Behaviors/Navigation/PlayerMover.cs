@@ -117,6 +117,10 @@ namespace FunkyTrinity
 					 {
 						  Logging.Write("[Funky] Your bot got stuck! Trying to unstuck (attempt #"+iTotalAntiStuckAttempts.ToString()+" of 8 attempts)");
 						  Logging.WriteDiagnostic("(destination="+vOriginalDestination.ToString()+", which is "+Vector3.Distance(vOriginalDestination, vMyCurrentPosition).ToString()+" distance away)");
+						  
+						  if (Bot.SettingsFunky.FunkyLogFlags.HasFlag(LogLevel.Movement))
+								Logger.Write(LogLevel.Movement, "Stuck Flags: {0}", Bot.NavigationCache.Stuckflags.ToString());
+
 						  Bot.NavigationCache.AttemptFindSafeSpot(out vSafeMovementLocation, Vector3.Zero);
 
 						  // Temporarily log stuff

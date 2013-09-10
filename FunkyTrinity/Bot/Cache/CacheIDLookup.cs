@@ -178,7 +178,7 @@ namespace FunkyTrinity.Cache
             181504, 91688, 3007, 3011, 3014, 130858, 131573, 214396, 182730, 226087, 141639, 206569, 15119, 54413, 54926, 2979, 56416, 53802, 5776, 3949, 
             108490, 52833, 3341, 4482, 188129, 188127, 55259, 54693, 3689, 131494, 3609, 225589, 171635, 3948,5739, 185949, 182697, 200371,
 				75023,54972,73260,172810,225567,225565, 225566, 
-				206461,61459,63114,53853,54331,53957,54379,199337,
+				206461,61459,63114,53853,54331,53957,54379,199337,5900,
          };
 
 
@@ -739,6 +739,7 @@ namespace FunkyTrinity.Cache
 				 // Destructible things that need targeting by a location instead of an ACDGUID (stuff you can't "click on" to destroy in-game)
 			  public static readonly HashSet<int> hashDestructableLocationTarget=new HashSet<int> { 
             170657, 116409, 121586, 3016, 121586,80231,58559,58962,62562,54477,54191,53957,54446,54477,53999,54191,54025,
+				98910,
          };
 
 				 // A list of all the SNO's to avoid - you could add 

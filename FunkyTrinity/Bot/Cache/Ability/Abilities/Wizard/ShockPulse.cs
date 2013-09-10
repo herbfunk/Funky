@@ -22,6 +22,7 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 				? 40
 				:Bot.Class.RuneIndexCache[SNOPower.Wizard_ShockPulse]==1?35:15;
 			IsRanged = true;
+			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.None;
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);

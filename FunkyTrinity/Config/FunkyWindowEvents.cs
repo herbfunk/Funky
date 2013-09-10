@@ -234,7 +234,7 @@ namespace FunkyTrinity
 					  {
 							try
 							{
-								 Logger.Write(LogLevel.User, "Testing! {0}", "Test?");
+								 LBDebug.Items.Add(Bot.NavigationCache.CurrentPathVector.ToString());
 							} catch
 							{
 

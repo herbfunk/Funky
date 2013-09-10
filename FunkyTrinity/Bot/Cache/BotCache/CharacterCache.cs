@@ -44,7 +44,7 @@ namespace FunkyTrinity
 						  BackPack=new Backpack();
 						  PetData=new Pets();
 						  PickupRadius=1;
-						  Coinage=0;
+						  coinage=0;
 							LastCachedTarget=Funky.FakeCacheObject;
 						  fCharacterRadius=0f;
 						  //iCurrentGameDifficulty=GameDifficulty.Invalid;
@@ -77,7 +77,22 @@ namespace FunkyTrinity
 					 public double dCurrentEnergyPct { get; set; }
 					 public double dDiscipline { get; set; }
 					 public double dDisciplinePct { get; set; }
-					 public int Coinage { get; set; }
+
+					 private int coinage;
+					 public int Coinage 
+					 { 
+						  get
+						  {
+								return coinage;
+						  }
+						  set
+						  {
+								coinage=value;
+								UpdateCoinage=false;
+						  }
+					 }
+					 internal bool UpdateCoinage { get; set; }
+
 					 public bool ShouldFlee
 					 {
 						  get
@@ -224,7 +239,7 @@ namespace FunkyTrinity
 										  else
 												bIsIncapacitated=false;
 									 }
-									 Coinage=me.Inventory.Coinage;
+									
 									 //Update vars that are not essential to combat (survival).
 									 if (DateTime.Now.Subtract(lastUpdateNonEssentialData).TotalSeconds>30)
 									 {
@@ -237,10 +252,13 @@ namespace FunkyTrinity
 										  iMyDynamicID=me.CommonData.DynamicId;
 										  FreeBackpackSlots=me.Inventory.NumFreeBackpackSlots;
 										  PickupRadius=me.GoldPickupRadius;
-
+										  Coinage=me.Inventory.Coinage;
 										  //Clear our BPItems list..
 										  BackPack.BPItems.Clear();
 									 }
+
+									 if (UpdateCoinage)
+										  Coinage=me.Inventory.Coinage;
 
 									 //Check current scence every 1.5 seconds
 									 if (!bIsInTown&&DateTime.Now.Subtract(lastCheckedSceneID).TotalSeconds>1.50)

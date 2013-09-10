@@ -20,6 +20,7 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 			WaitVars = new WaitLoops(0, 0, true);
 			Range=(Bot.Class.RuneIndexCache[SNOPower.Wizard_Electrocute]==2?15:40);
 			IsRanged = true;
+			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.None;
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);

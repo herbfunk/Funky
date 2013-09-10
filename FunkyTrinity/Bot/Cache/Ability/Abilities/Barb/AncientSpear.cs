@@ -23,6 +23,7 @@ namespace FunkyTrinity.ability.Abilities.Barb
 			WaitVars = new WaitLoops(2, 2, true);
 			Range = 35;
 			IsRanged = true;
+			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
 			PreCastConditions = (AbilityConditions.CheckRecastTimer | AbilityConditions.CheckCanCast |

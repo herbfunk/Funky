@@ -20,6 +20,8 @@ namespace FunkyTrinity.ability.Abilities
 		public override void Initialize()
 		{
 			Range = 25;
+			IsRanged=true;
+			IsProjectile=true;
 			Priority = AbilityPriority.None;
 			ExecutionType = AbilityUseType.Target;
 			WaitVars = new WaitLoops(0, 0, true);

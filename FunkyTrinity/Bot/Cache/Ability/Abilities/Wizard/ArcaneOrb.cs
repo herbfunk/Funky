@@ -21,6 +21,7 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 			Cost = 35;
 			Range=this.UsingCriticalMass()?20:40;
 			IsRanged = true;
+			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckRecastTimer |

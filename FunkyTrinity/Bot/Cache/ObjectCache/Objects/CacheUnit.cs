@@ -1008,13 +1008,13 @@ namespace FunkyTrinity.Cache
 						  try
 						  {
 								this.ref_DiaUnit=base.ref_DiaObject as DiaUnit;
-						  } catch (NullReferenceException) { Logger.Write(LogLevel.Exception, "Failure to convert obj to DiaUnit!"); return false; }
+						  } catch (NullReferenceException) { Logger.Write(LogLevel.Execption, "Failure to convert obj to DiaUnit!"); return false; }
 					 }
 
 					 ACD CommonData=base.ref_DiaObject.CommonData;
 					 if (CommonData==null)
 					 {
-						  Logger.Write(LogLevel.Exception, "Common Data Null!");
+						  Logger.Write(LogLevel.Execption, "Common Data Null!");
 						  return false;
 					 }
 
@@ -1038,7 +1038,7 @@ namespace FunkyTrinity.Cache
 								isNPC=this.IsNPC.Value;
 						  } catch (Exception)
 						  {
-								Logger.Write(LogLevel.Exception, "Safely Handled Getting Attribute IsNPC for object {0}", this.InternalName);
+								Logger.Write(LogLevel.Execption, "Safely Handled Getting Attribute IsNPC for object {0}", this.InternalName);
 						  }
 
 					 }
@@ -1072,8 +1072,8 @@ namespace FunkyTrinity.Cache
 						  {
 								this.Radius=base.ActorSphereRadius.Value;
 
-								if (this.Monstersize.Value==Zeta.Internals.SNO.MonsterSize.Big||this.Monstersize.Value==Zeta.Internals.SNO.MonsterSize.Boss)
-									 this.Radius*=0.25f;
+								//if (this.Monstersize.Value==Zeta.Internals.SNO.MonsterSize.Big||this.Monstersize.Value==Zeta.Internals.SNO.MonsterSize.Boss)
+								//	 this.Radius*=0.25f;
 
 								if (this.Radius<0f)
 									 this.Radius=1f;
@@ -1088,7 +1088,7 @@ namespace FunkyTrinity.Cache
 								this.CheckMonsterAffixes(CommonData.MonsterAffixes);
 						  } catch (NullReferenceException)
 						  {
-								Logger.Write(LogLevel.Exception, "Failure to check monster affixes for unit {0}", base.InternalName);
+								Logger.Write(LogLevel.Execption, "Failure to check monster affixes for unit {0}", base.InternalName);
 								return false;
 						  }
 
@@ -1109,7 +1109,7 @@ namespace FunkyTrinity.Cache
 										  ObjectCache.Objects.UpdateMaximumHealthAverage();
 									 }
 								}
-						  } catch (Exception) { Logger.Write(LogLevel.Exception, "Failure to get maximum health for {0}", base.InternalName); return false; }
+						  } catch (Exception) { Logger.Write(LogLevel.Execption, "Failure to get maximum health for {0}", base.InternalName); return false; }
 					 }
 
 
@@ -1162,7 +1162,7 @@ namespace FunkyTrinity.Cache
 								}
 						  } catch (Exception ex)
 						  {
-								Logger.Write(LogLevel.Exception, "[Funky] Safely handled exception getting is-targetable attribute for unit "+this.InternalName+" ["+this.SNOID.ToString()+"]");
+								Logger.Write(LogLevel.Execption, "[Funky] Safely handled exception getting is-targetable attribute for unit "+this.InternalName+" ["+this.SNOID.ToString()+"]");
 								Logging.WriteDiagnostic(ex.ToString());
 								this.IsTargetable=true;
 						  }
@@ -1349,7 +1349,7 @@ namespace FunkyTrinity.Cache
 										LOSNavFlags|=NavCellFlags.AllowProjectile;
 
 
-								 if (!this.LOSTest(Bot.Character.Position, true, Bot.Combat.powerPrime.IsRanged, LOSNavFlags))
+								 if (!this.LOSTest(Bot.Character.Position, true, Bot.Combat.powerPrime.IsProjectile, LOSNavFlags))
 								{
 									 bool Valid=false;
 									 //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.

@@ -34,6 +34,7 @@ namespace FunkyTrinity.ability
 		  {
 				WaitVars=new WaitLoops(0, 0, true);
 				IsRanged=false;
+				IsProjectile=false;
 				UseageType=AbilityUseage.Anywhere;
 				ExecutionType=AbilityUseType.None;
 				IsSpecialAbility=false;
@@ -94,9 +95,13 @@ namespace FunkyTrinity.ability
 
 
 		  ///<summary>
-		  ///Ability is either projectile or is usable at a further location then melee
+		  ///
 		  ///</summary>
 		  public bool IsRanged { get; set; }
+		  ///<summary>
+		  ///Ability is a projectile -- meaning it starts from bot position and travels to destination.
+		  ///</summary>
+		  public bool IsProjectile { get; set; }
 
 		  internal DateTime LastUsed
 		  {
@@ -240,7 +245,8 @@ namespace FunkyTrinity.ability
 					else
 						 ability.MinimumRange=30f;
 
-				  bool LocationalAttack = (CacheIDLookup.hashDestructableLocationTarget.Contains(Bot.Target.CurrentTarget.SNOID));
+				  bool LocationalAttack = (CacheIDLookup.hashDestructableLocationTarget.Contains(Bot.Target.CurrentTarget.SNOID)
+													||DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastFailed[ability.Power]).TotalMilliseconds<1000);
 
 				  if (LocationalAttack)
 				  {

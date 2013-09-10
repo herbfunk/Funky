@@ -21,6 +21,7 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 			WaitVars = new WaitLoops(1, 1, true);
 			Range = Bot.Class.RuneIndexCache[Power] == 0 ? 0 : Bot.Class.RuneIndexCache[Power] == 4 ? 14 : 25;
 			IsRanged = true;
+			IsProjectile=true;
 			UseageType = AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
 			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
