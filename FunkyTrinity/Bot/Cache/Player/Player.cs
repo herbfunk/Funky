@@ -136,6 +136,15 @@ namespace FunkyTrinity
 						  //Check precast conditions
 						  if (!item.AbilityTestConditions.CheckPreCastConditionMethod()) continue;
 
+						  //Check LOS -- Projectiles
+						  if (item.IsRanged&&!Bot.Target.CurrentUnitTarget.IgnoresLOSCheck&&Bot.Target.CurrentUnitTarget.LastLOSCheckMS>3000)
+						  {
+								if (!Bot.Target.CurrentUnitTarget.LOSTest(Bot.Character.Position, true, item.IsProjectile))
+								{
+									 continue;
+								}
+						  }
+
 						  //Check Combat Conditions!
 						  if (item.AbilityTestConditions.CheckCombatConditionMethod(criteria))
 						  {
@@ -155,19 +164,49 @@ namespace FunkyTrinity
 				public virtual Ability DestructibleAbility()
 				{
 					 Ability returnAbility=Bot.Class.DefaultAttack;
-
+					 List<Ability> nonDestructibleAbilities=new List<Ability>();
 					 foreach (var item in this.Abilities.Values)
 					 {
 						  if (item.IsADestructiblePower)
 						  {
+								//LOS Check
+								if (item.IsRanged&&Bot.Target.CurrentTarget.LastLOSCheckMS>3000)
+								{
+									 if (!Bot.Target.CurrentTarget.LOSTest(Bot.Character.Position, true, item.IsProjectile))
+									 {
+										  continue;
+									 }
+								}
+
 								if (item.AbilityTestConditions.CheckPreCastConditionMethod())
 								{
 									 returnAbility=item;
-									 break;
+									 Ability.SetupAbilityForUse(ref returnAbility, true);
+									 return returnAbility;
+								}
+						  }
+						  else if (item.UseageType.HasFlag(ability.AbilityUseType.Target)||item.UseageType.HasFlag(AbilityUseType.Location))
+						  {
+								//LOS Check
+								if (item.IsRanged&&Bot.Target.CurrentTarget.LastLOSCheckMS>3000)
+								{
+									 if (!Bot.Target.CurrentTarget.LOSTest(Bot.Character.Position, true, item.IsProjectile))
+									 {
+										  continue;
+									 }
+								}
+
+								//Add this ability to our list.. incase we cant find an offical ability to use.
+								if (item.AbilityTestConditions.CheckPreCastConditionMethod())
+								{
+									 nonDestructibleAbilities.Add(item);
 								}
 						  }
 					 }
 
+					 //Use non-destructible ability..
+					 if (nonDestructibleAbilities.Count>0)
+						  returnAbility=nonDestructibleAbilities[0];
 
 					 Ability.SetupAbilityForUse(ref returnAbility, true);
 					 return returnAbility;

@@ -177,6 +177,7 @@ namespace FunkyTrinity.Cache
 		public override RunStatus Interact()
 		{
 			ability.Ability.SetupAbilityForUse(ref Bot.Combat.powerPrime, true);
+
 			if (Bot.Combat.powerPrime.Power!=SNOPower.None)
 			{
 				// Wait while animating before an attack

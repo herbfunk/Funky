@@ -201,7 +201,7 @@ namespace FunkyTrinity
                  KiteDistance = 0;
                  IgnoreCombatRange = false;
                  IgnoreLootRange = false;
-                 DestructibleRange = 10;
+                 DestructibleRange = 0;
                  ContainerOpenRange = 30;
                  NonEliteCombatRange = 45;
                  GlobeHealthPercent = 0.6d;
@@ -335,7 +335,15 @@ namespace FunkyTrinity
 					  if (!File.Exists(sFunkyCharacterConfigFile))
 					  {
 							Log("No config file found, now creating a new config from defaults at: "+sFunkyCharacterConfigFile);
-							Bot.SettingsFunky=new Settings_Funky();
+							
+							Bot.SettingsFunky=new Settings_Funky
+							{
+								 AttemptGroupingMovements=Bot.CurrentLevel==1?false:true,
+								 EnableClusteringTargetLogic=Bot.CurrentLevel==1?false:true,
+								 EnableFleeingBehavior=Bot.CurrentLevel==1?false:true,
+								 UseLevelingLogic=Bot.CurrentLevel==1?false:true,
+							};
+
 							Settings_Funky.SerializeToXML(Bot.SettingsFunky);
 					  }
 

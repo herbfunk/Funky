@@ -22,7 +22,7 @@ namespace FunkyTrinity.ability.Abilities.DemonHunter
 			Range = 12;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
+			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckCanCast);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None, 12);
 
 

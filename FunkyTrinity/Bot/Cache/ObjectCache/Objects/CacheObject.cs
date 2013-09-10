@@ -312,7 +312,13 @@ namespace FunkyTrinity.Cache
 					 if (NavRayCast&&Zeta.Navigation.Navigator.Raycast(PositionToTestFrom, this.Position))
 						  return false;
 
-					 if (ServerObjectIntersection&&ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obstacle => obstacle.Obstacletype.HasValue&&obstacle.Obstacletype.Value!=ObstacleType.Monster&&obstacle.TestIntersection(PositionToTestFrom, botmeleeVector)))
+					 if (ServerObjectIntersection&&
+						  ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
+								.Any(obstacle =>
+									 obstacle.RAGUID!=this.RAGUID&&
+									 obstacle.Obstacletype.HasValue&&
+									 obstacle.Obstacletype.Value!=ObstacleType.Monster&&
+									 obstacle.TestIntersection(PositionToTestFrom,	 this.Position)))
 						  return false;
 
 					 if (!Flags.Equals(NavCellFlags.None)&&!Navigation.CanRayCast(PositionToTestFrom, this.Position, Flags))

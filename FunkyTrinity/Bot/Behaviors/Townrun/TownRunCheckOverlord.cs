@@ -33,7 +33,7 @@ namespace FunkyTrinity
 				private static bool bLastTownRunCheckResult=false;
 				private static bool bReachedSafety=false;
 				// DateTime check to prevent inventory-check spam when looking for repairs being needed
-				private static DateTime TimeLastCheckedForTownRun=DateTime.Now;
+				private static DateTime TimeLastCheckedForTownRun=DateTime.Today;
 				private static bool bCurrentlyMoving=false;
 				private static bool bNeedsEquipmentRepairs=false;
 				// Stash mapper - it's an array representing every slot in your stash, true or false dictating if the slot is free or not

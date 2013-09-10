@@ -130,6 +130,8 @@ namespace FunkyTrinity
 				internal static Zeta.Internals.Actors.ActorClass ActorClass=Zeta.Internals.Actors.ActorClass.Invalid;
 				internal static string CurrentAccountName;
 				internal static string CurrentHeroName;
+				internal static int CurrentLevel;
+
 				///<summary>
 				///Updates Account Name, Current Hero Name and Class Variables
 				///</summary>
@@ -141,6 +143,7 @@ namespace FunkyTrinity
 						  ActorClass=Zeta.ZetaDia.Service.CurrentHero.Class;
 						  CurrentAccountName=Zeta.ZetaDia.Service.CurrentHero.BattleTagName;
 						  CurrentHeroName=Zeta.ZetaDia.Service.CurrentHero.Name;
+						  CurrentLevel=Zeta.ZetaDia.Service.CurrentHero.Level;
 					 } catch (Exception)
 					 {
 						  Logging.WriteDiagnostic("[Funky] Exception Attempting to Update Current Account Details.");

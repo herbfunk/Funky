@@ -1261,9 +1261,6 @@ namespace FunkyTrinity.Cache
 				{
 					 if (Bot.Combat.powerPrime.Power!=SNOPower.None)
 					 {
-						  //Check our Interaction LOS!
-						  this.CheckInteractionLOS();
-
 						  // Force waiting for global cooldown timer or long-animation abilities
 							if (Bot.Combat.powerPrime.WaitLoopsBefore>=1||(Bot.Combat.powerPrime.WaitWhileAnimating!=false&&DateTime.Now.Subtract(PowerCacheLookup.lastGlobalCooldownUse).TotalMilliseconds<=50))
 						  {
@@ -1422,7 +1419,6 @@ namespace FunkyTrinity.Cache
 					 fRangeRequired=Bot.Combat.powerPrime.Power==SNOPower.None?9f:Bot.Combat.powerPrime.MinimumRange;
 
 					 base.DistanceFromTarget=base.CentreDistance-fDistanceReduction;
-
 
 					 return (fRangeRequired<=0f||base.DistanceFromTarget<=fRangeRequired);
 				}
