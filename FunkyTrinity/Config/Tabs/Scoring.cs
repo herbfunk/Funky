@@ -1,10 +1,35 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace FunkyTrinity
 {
 	 internal partial class FunkyWindow : Window
 	 {
+		  #region EventHandling
+		  private void GilesWeaponScoreSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Loot.GilesMinimumWeaponScore=Value;
+				TBGilesWeaponScore.Text=Value.ToString();
+		  }
+		  private void GilesArmorScoreSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Loot.GilesMinimumArmorScore=Value;
+				TBGilesArmorScore.Text=Value.ToString();
+		  }
+		  private void GilesJeweleryScoreSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Loot.GilesMinimumJeweleryScore=Value;
+				TBGilesJeweleryScore.Text=Value.ToString();
+		  }
+		  #endregion
+
 		  private TextBox TBGilesWeaponScore, TBGilesArmorScore, TBGilesJeweleryScore;
 
 		  internal void InitItemScoringControls()

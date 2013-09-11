@@ -1,13 +1,198 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using FunkyTrinity.Settings;
 
 namespace FunkyTrinity
 {
 	 internal partial class FunkyWindow : Window
 	 {
+		  #region EventHandling
+		  private void GroupMinimumUnitDistanceSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Grouping.GroupingMinimumUnitDistance=Value;
+				TBGroupingMinUnitDistance.Text=Value.ToString();
+		  }
+		  private void GroupMaxDistanceSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Grouping.GroupingMaximumDistanceAllowed=Value;
+				TBGroupingMaxDistance.Text=Value.ToString();
+		  }
+		  private void GroupMinimumClusterCountSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Grouping.GroupingMinimumClusterCount=Value;
+				TBGroupingMinimumClusterCount.Text=Value.ToString();
+		  }
+		  private void GroupMinimumUnitsInClusterSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Grouping.GroupingMinimumUnitsInCluster=Value;
+				TBGroupingMinimumUnitsInCluster.Text=Value.ToString();
+		  }
+		  private void GroupingBehaviorChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Grouping.AttemptGroupingMovements=!Bot.SettingsFunky.Grouping.AttemptGroupingMovements;
+				bool enabled=Bot.SettingsFunky.Grouping.AttemptGroupingMovements;
+				spGroupingOptions.IsEnabled=enabled;
+		  }
+		  private void FleeingAttemptMovementChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Fleeing.EnableFleeingBehavior=!Bot.SettingsFunky.Fleeing.EnableFleeingBehavior;
+				bool enabled=Bot.SettingsFunky.Fleeing.EnableFleeingBehavior;
+				spFleeingOptions.IsEnabled=enabled;
+		  }
+		  private void FleeMonsterDistanceSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Fleeing.FleeMaxMonsterDistance=Value;
+				TBFleemonsterDistance.Text=Value.ToString();
+		  }
+		  private void FleeMinimumHealthSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
+				Bot.SettingsFunky.Fleeing.FleeBotMinimumHealthPercent=Value;
+				TBFleeMinimumHealth.Text=Value.ToString();
+		  }
+		  private void UseAdvancedProjectileTestingChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.UseAdvancedProjectileTesting=!Bot.SettingsFunky.UseAdvancedProjectileTesting;
+		  }
+		  private void AvoidanceAttemptMovementChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.AttemptAvoidanceMovements=!Bot.SettingsFunky.AttemptAvoidanceMovements;
+		  }
+		  private void GlobeHealthSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
+				Bot.SettingsFunky.GlobeHealthPercent=Value;
+				TBGlobeHealth.Text=Value.ToString();
+		  }
+		  private void PotionHealthSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
+				Bot.SettingsFunky.PotionHealthPercent=Value;
+				TBPotionHealth.Text=Value.ToString();
+		  }
+		  private void FleeingLoadXMLClicked(object sender, EventArgs e)
+		  {
+				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
+				{
+					 InitialDirectory=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+					 RestoreDirectory=false,
+					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
+					 Title="Fleeing Template",
+				};
+				System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
 
-		 internal void InitCombatControls()
+				if (OFD_Result==System.Windows.Forms.DialogResult.OK)
+				{
+					 try
+					 {
+						  //;
+						  SettingFleeing newSettings=SettingFleeing.DeserializeFromXML(OFD.FileName);
+						  Bot.SettingsFunky.Fleeing=newSettings;
+						
+						  Funky.funkyConfigWindow.Close();
+					 } catch
+					 {
+
+					 }
+				}
+		  }
+		  private void GroupingLoadXMLClicked(object sender, EventArgs e)
+		  {
+				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
+				{
+					 InitialDirectory=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+					 RestoreDirectory=false,
+					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
+					 Title="Grouping Template",
+				};
+				System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
+
+				if (OFD_Result==System.Windows.Forms.DialogResult.OK)
+				{
+					 try
+					 {
+						  //;
+						  SettingGrouping newSettings=SettingGrouping.DeserializeFromXML(OFD.FileName);
+						  Bot.SettingsFunky.Grouping=newSettings;
+						
+						  Funky.funkyConfigWindow.Close();
+					 } catch
+					 {
+
+					 }
+				}
+
+			
+		  }
+		  #endregion
+
+		  private TextBox TBClusterDistance, TBClusterMinUnitCount,
+								TBPotionHealth, TBGlobeHealth;
+
+		  private StackPanel spFleeingOptions, SPFleeing, spGroupingOptions;
+
+		  private CheckBox CBAttemptFleeingBehavior;
+		  private Slider sliderFleeMonsterDistance, sliderFleeHealthPercent;
+		  private TextBox TBFleemonsterDistance, TBFleeMinimumHealth;
+		  private void UpdateFleeingValues()
+		  {
+				CBAttemptFleeingBehavior.IsChecked=!Bot.SettingsFunky.Fleeing.EnableFleeingBehavior;
+
+				//bool enabled=Bot.SettingsFunky.Fleeing.EnableFleeingBehavior;
+				//spFleeingOptions.IsEnabled=enabled;
+
+				sliderFleeMonsterDistance.Value=Bot.SettingsFunky.Fleeing.FleeMaxMonsterDistance;
+				sliderFleeHealthPercent.Value=Bot.SettingsFunky.Fleeing.FleeBotMinimumHealthPercent;
+				TBFleemonsterDistance.Text=Bot.SettingsFunky.Fleeing.FleeMaxMonsterDistance.ToString();
+				TBFleeMinimumHealth.Text=Bot.SettingsFunky.Fleeing.FleeBotMinimumHealthPercent.ToString();
+
+				spFleeingOptions.InvalidateVisual();
+
+		  }
+
+
+		  private CheckBox CBGroupingBehavior;
+		  private Slider sliderGroupingMinimumUnitDistance, sliderGroupingMaximumDistance, sliderGroupingMinimumUnits, sliderGroupingMinimumCluster;
+		  private TextBox TBGroupingMinUnitDistance, TBGroupingMaxDistance, TBGroupingMinimumClusterCount, TBGroupingMinimumUnitsInCluster;
+		  private void UpdateGroupingValues()
+		  {
+				CBGroupingBehavior.IsChecked=Bot.SettingsFunky.Grouping.AttemptGroupingMovements;
+
+				bool enabled=Bot.SettingsFunky.Grouping.AttemptGroupingMovements;
+				spGroupingOptions.IsEnabled=enabled;
+				spGroupingOptions.UpdateLayout();
+
+				sliderGroupingMaximumDistance.Value=Bot.SettingsFunky.Grouping.GroupingMaximumDistanceAllowed;
+				sliderGroupingMinimumUnitDistance.Value=Bot.SettingsFunky.Grouping.GroupingMinimumUnitDistance;
+				sliderGroupingMinimumUnits.Value=Bot.SettingsFunky.Grouping.GroupingMinimumUnitsInCluster;
+				sliderGroupingMinimumCluster.Value=Bot.SettingsFunky.Grouping.GroupingMinimumClusterCount;
+
+				TBGroupingMinUnitDistance.Text=Bot.SettingsFunky.Grouping.GroupingMinimumUnitDistance.ToString();
+				TBGroupingMaxDistance.Text=Bot.SettingsFunky.Grouping.GroupingMaximumDistanceAllowed.ToString();
+				TBGroupingMinimumClusterCount.Text=Bot.SettingsFunky.Grouping.GroupingMinimumClusterCount.ToString();
+				TBGroupingMinimumUnitsInCluster.Text=Bot.SettingsFunky.Grouping.GroupingMinimumUnitsInCluster.ToString();
+
+				
+		  }
+
+
+		  internal void InitCombatControls()
 		 {
 			  //Combat
 			  TabItem CombatGeneralTabItem=new TabItem();
@@ -62,110 +247,32 @@ namespace FunkyTrinity
 			  #endregion;
 
 
-			  #region AvoidanceRetryTextInfo
-			  StackPanel AvoidDelayStackPanel=new StackPanel();
-			  TextBlock Avoid_Delay_Text=new TextBlock
-			  {
-					Text="Delay invtervals",
-					FontSize=13,
-					Foreground=System.Windows.Media.Brushes.GhostWhite,
-					TextAlignment=TextAlignment.Left,
-			  };
-			  TextBlock Avoid_DelayInfo_Text=new TextBlock
-			  {
-					Text="Minimum is delay used if failed, Maximum is delay after successful searching",
-					FontSize=9,
-					FontStyle=FontStyles.Italic,
-					Foreground=System.Windows.Media.Brushes.GhostWhite,
-					TextAlignment=TextAlignment.Left,
-			  };
-			  AvoidDelayStackPanel.Children.Add(Avoid_Delay_Text);
-			  AvoidDelayStackPanel.Children.Add(Avoid_DelayInfo_Text);
-			  #endregion
 
 
-			  #region AvoidanceRetry
-
-
-			  TextBlock Avoid_Retry_Min_Text=new TextBlock
-			  {
-					Text="Minimum",
-					FontSize=13,
-					Foreground=System.Windows.Media.Brushes.GhostWhite,
-					TextAlignment=TextAlignment.Center,
-			  };
-			  Slider sliderAvoidMinimumRetry=new Slider
-			  {
-					Width=120,
-					Maximum=10000,
-					Minimum=0,
-					TickFrequency=500,
-					LargeChange=1000,
-					SmallChange=50,
-					Value=Bot.SettingsFunky.AvoidanceRecheckMinimumRate,
-					HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
-					Margin=new Thickness(6),
-			  };
-			  sliderAvoidMinimumRetry.ValueChanged+=AvoidanceMinimumRetrySliderChanged;
-			  TBAvoidanceTimeLimits=new TextBox[2];
-			  TBAvoidanceTimeLimits[0]=new TextBox
-			  {
-					Text=Bot.SettingsFunky.AvoidanceRecheckMinimumRate.ToString(),
-					IsReadOnly=true,
-			  };
-
-			  TextBlock Avoid_Retry_Max_Text=new TextBlock
-			  {
-					Text="Maximum",
-					FontSize=13,
-					Foreground=System.Windows.Media.Brushes.GhostWhite,
-					TextAlignment=TextAlignment.Center,
-			  };
-
-			  Slider sliderAvoidMaximumRetry=new Slider
-			  {
-					Width=120,
-					Maximum=10000,
-					Minimum=0,
-					TickFrequency=500,
-					LargeChange=1000,
-					SmallChange=50,
-					Value=Bot.SettingsFunky.AvoidanceRecheckMaximumRate,
-					HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
-					Margin=new Thickness(6),
-			  };
-			  sliderAvoidMaximumRetry.ValueChanged+=AvoidanceMaximumRetrySliderChanged;
-			  TBAvoidanceTimeLimits[1]=new TextBox
-			  {
-					Text=Bot.SettingsFunky.AvoidanceRecheckMaximumRate.ToString(),
-					IsReadOnly=true,
-			  };
-
-			  StackPanel AvoidRetryTimeStackPanel=new StackPanel
-			  {
-					Margin=new Thickness(Margin.Left, Margin.Top+5, Margin.Right, Margin.Bottom+5),
-					Orientation=Orientation.Horizontal,
-			  };
-			  AvoidRetryTimeStackPanel.Children.Add(Avoid_Retry_Min_Text);
-			  AvoidRetryTimeStackPanel.Children.Add(sliderAvoidMinimumRetry);
-			  AvoidRetryTimeStackPanel.Children.Add(TBAvoidanceTimeLimits[0]);
-			  AvoidRetryTimeStackPanel.Children.Add(Avoid_Retry_Max_Text);
-			  AvoidRetryTimeStackPanel.Children.Add(sliderAvoidMaximumRetry);
-			  AvoidRetryTimeStackPanel.Children.Add(TBAvoidanceTimeLimits[1]);
-			  //LBcharacterCombat.Items.Add(AvoidRetryTimeStackPanel);
-			  #endregion
-
-			  //
 
 			  AvoidanceOptionsStackPanel.Children.Add(Avoidance_Text_Header);
 			  AvoidanceOptionsStackPanel.Children.Add(AvoidanceCheckBoxesPanel);
-			  //AvoidanceOptionsStackPanel.Children.Add(AvoidDelayStackPanel);
-			  //AvoidanceOptionsStackPanel.Children.Add(AvoidRetryTimeStackPanel);
 			  CombatGeneralContentListBox.Items.Add(AvoidanceOptionsStackPanel);
 
 			  #endregion
 
 			  #region Fleeing
+			  Button BtnFleeingLoadTemplate=new Button
+			  {
+					Content="Load Setup",
+					Background= System.Windows.Media.Brushes.OrangeRed,
+					Foreground= System.Windows.Media.Brushes.GhostWhite,
+					FontStyle= FontStyles.Italic,
+					FontSize=12,
+
+					HorizontalAlignment= System.Windows.HorizontalAlignment.Left,
+					VerticalAlignment= System.Windows.VerticalAlignment.Top,
+					Width=75,
+					Height=30,
+
+					Margin=new Thickness(Margin.Left, Margin.Top+5, Margin.Right, Margin.Bottom+5),
+			  };
+			  BtnFleeingLoadTemplate.Click+=FleeingLoadXMLClicked;
 
 			  ToolTip TTFleeInfo=new System.Windows.Controls.ToolTip
 			  {
@@ -187,7 +294,7 @@ namespace FunkyTrinity
 					ToolTip=TTFleeInfo,
 			  };
 
-			  CheckBox CBAttemptFleeingBehavior=new CheckBox
+			  CBAttemptFleeingBehavior=new CheckBox
 			  {
 					Content="Enable Fleeing",
 					IsChecked=Bot.SettingsFunky.Fleeing.EnableFleeingBehavior,
@@ -211,7 +318,7 @@ namespace FunkyTrinity
 					TextAlignment=TextAlignment.Left,
 			  };
 
-			  Slider sliderFleeMonsterDistance=new Slider
+			  sliderFleeMonsterDistance=new Slider
 			  {
 					Width=100,
 					Maximum=20,
@@ -251,7 +358,7 @@ namespace FunkyTrinity
 			  };
 
 
-			  Slider sliderFleeHealthPercent=new Slider
+			  sliderFleeHealthPercent=new Slider
 			  {
 					Width=100,
 					Maximum=1,
@@ -279,6 +386,7 @@ namespace FunkyTrinity
 			  FleeMinimumHealthtackPanel.Children.Add(TBFleeMinimumHealth);
 			  #endregion
 
+			 
 			  SPFleeing.Children.Add(Flee_Text_Header);
 			  SPFleeing.Children.Add(CBAttemptFleeingBehavior);
 
@@ -288,13 +396,29 @@ namespace FunkyTrinity
 			  spFleeingOptions.Children.Add(FleeMinimumHealthtackPanel);
 
 			  SPFleeing.Children.Add(spFleeingOptions);
-
+			  SPFleeing.Children.Add(BtnFleeingLoadTemplate);
 
 			  CombatGeneralContentListBox.Items.Add(SPFleeing);
 			  #endregion
 
 			  #region Grouping
 
+			  Button BtnGroupingLoadTemplate=new Button
+			  {
+					Content="Load Setup",
+					Background=System.Windows.Media.Brushes.OrangeRed,
+					Foreground=System.Windows.Media.Brushes.GhostWhite,
+					FontStyle=FontStyles.Italic,
+					FontSize=12,
+
+					HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					VerticalAlignment=System.Windows.VerticalAlignment.Top,
+					Width=75,
+					Height=30,
+
+					Margin=new Thickness(Margin.Left, Margin.Top+5, Margin.Right, Margin.Bottom+5),
+			  };
+			  BtnGroupingLoadTemplate.Click+=GroupingLoadXMLClicked;
 
 			  ToolTip TTGrouping=new System.Windows.Controls.ToolTip
 			  {
@@ -316,7 +440,7 @@ namespace FunkyTrinity
 					ToolTip=TTGrouping,
 			  };
 			  GroupingOptionsStackPanel.Children.Add(Grouping_Text_Header);
-			  CheckBox CBGroupingBehavior=new CheckBox
+			  CBGroupingBehavior=new CheckBox
 			  {
 					Content="Enable Grouping",
 					Height=20,
@@ -344,7 +468,7 @@ namespace FunkyTrinity
 					TextAlignment=TextAlignment.Left,
 			  };
 
-			  Slider sliderGroupingMinimumUnitDistance=new Slider
+			  sliderGroupingMinimumUnitDistance=new Slider
 			  {
 					Width=100,
 					Maximum=100,
@@ -386,7 +510,7 @@ namespace FunkyTrinity
 					TextAlignment=TextAlignment.Left,
 			  };
 
-			  Slider sliderGroupingMaximumDistance=new Slider
+			  sliderGroupingMaximumDistance=new Slider
 			  {
 					Width=100,
 					Maximum=200,
@@ -428,7 +552,7 @@ namespace FunkyTrinity
 					TextAlignment=TextAlignment.Left,
 			  };
 
-			  Slider sliderGroupingMinimumCluster=new Slider
+			  sliderGroupingMinimumCluster=new Slider
 			  {
 					Width=100,
 					Maximum=8,
@@ -470,7 +594,7 @@ namespace FunkyTrinity
 					TextAlignment=TextAlignment.Left,
 			  };
 
-			  Slider sliderGroupingMinimumUnits=new Slider
+			  sliderGroupingMinimumUnits=new Slider
 			  {
 					Width=100,
 					Maximum=10,
@@ -504,6 +628,8 @@ namespace FunkyTrinity
 
 
 			  GroupingOptionsStackPanel.Children.Add(spGroupingOptions);
+			  GroupingOptionsStackPanel.Children.Add(BtnGroupingLoadTemplate);
+
 			  CombatGeneralContentListBox.Items.Add(GroupingOptionsStackPanel);
 
 			  #endregion

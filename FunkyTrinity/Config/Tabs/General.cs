@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using FunkyTrinity.Enums;
@@ -8,6 +9,120 @@ namespace FunkyTrinity
 {
 	 internal partial class FunkyWindow : Window
 	 {
+		  #region EventHandling
+		  private void OutOfCombatMovementChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.OutOfCombatMovement=!Bot.SettingsFunky.OutOfCombatMovement;
+		  }
+		  private void AllowBuffingInTownChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.AllowBuffingInTown=!Bot.SettingsFunky.AllowBuffingInTown;
+		  }
+		  private void AfterCombatDelaySliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.AfterCombatDelay=Value;
+				TBAfterCombatDelay.Text=Value.ToString();
+		  }
+		  private void BotStopHPValueSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
+				Bot.SettingsFunky.StopGameOnBotHealthPercent=Value;
+				TBBotStopHealthPercent.Text=Value.ToString();
+		  }
+		  private void OOCIDChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.OOCIdentifyItems=!Bot.SettingsFunky.OOCIdentifyItems;
+		  }
+		  private void BuyPotionsDuringTownRunChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.BuyPotionsDuringTownRun=!Bot.SettingsFunky.BuyPotionsDuringTownRun;
+		  }
+		  private void EnableWaitAfterContainersChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.EnableWaitAfterContainers=!Bot.SettingsFunky.EnableWaitAfterContainers;
+		  }
+		  private void StopGameOnBotLowHealthChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.StopGameOnBotLowHealth=!Bot.SettingsFunky.StopGameOnBotLowHealth;
+				bool enabled=Bot.SettingsFunky.StopGameOnBotLowHealth;
+				spBotStop.IsEnabled=enabled;
+		  }
+		  private void StopGameOnBotEnableScreenShotChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.StopGameOnBotEnableScreenShot=!Bot.SettingsFunky.StopGameOnBotEnableScreenShot;
+		  }
+
+		  private void EnableCoffeeBreaksChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.EnableCoffeeBreaks=!Bot.SettingsFunky.EnableCoffeeBreaks;
+		  }
+		  private void BreakMinMinutesSliderChange(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.MinBreakTime=Value;
+				tbMinBreakTime.Text=Value.ToString();
+		  }
+		  private void BreakMaxMinutesSliderChange(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.MaxBreakTime=Value;
+				tbMaxBreakTime.Text=Value.ToString();
+		  }
+
+		  #region OOCIDItemTextBox
+		  private void OOCIdentifyItemsMinValueChanged(object sender, EventArgs e)
+		  {
+				string lastText=OOCIdentfyItemsMinCount.Text;
+				if (isStringFullyNumerical(lastText))
+				{
+					 Bot.SettingsFunky.OOCIdentifyItemsMinimumRequired=Convert.ToInt32(lastText);
+				}
+		  }
+		  private void OOCMinimumItems_KeyUp(object sender, EventArgs e)
+		  {
+				if (!Char.IsNumber(OOCIdentfyItemsMinCount.Text.Last()))
+				{
+					 OOCIdentfyItemsMinCount.Text=OOCIdentfyItemsMinCount.Text.Substring(0, OOCIdentfyItemsMinCount.Text.Length-1);
+				}
+		  }
+		  #endregion
+
+		  private void BreakTimeHourSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
+				Bot.SettingsFunky.breakTimeHour=Value;
+				TBBreakTimeHour.Text=Value.ToString();
+		  }
+
+		  private bool isStringFullyNumerical(String S, bool isDouble=false)
+		  {
+				if (!isDouble)
+				{
+					 return !S.Any<Char>(c => !Char.IsNumber(c));
+				}
+				else
+				{
+					 System.Text.RegularExpressions.Regex isnumber=new System.Text.RegularExpressions.Regex(@"^[0-9]+(\.[0-9]+)?$");
+					 return isnumber.IsMatch(S);
+				}
+		  }
+		  #endregion
+
+		  private CheckBox CoffeeBreaks;
+		  private TextBox tbMinBreakTime, tbMaxBreakTime;
+		  private CheckBox OOCIdentifyItems;
+		  private TextBox OOCIdentfyItemsMinCount;
+		  private CheckBox BuyPotionsDuringTownRunCB;
+		  private CheckBox EnableWaitAfterContainersCB;
+		  private StackPanel spBotStop;
+		  private TextBox TBBreakTimeHour, TBBotStopHealthPercent, TBAfterCombatDelay;
+
 		  internal void InitGeneralControls()
 		  {
 				TabItem GeneralTab=new TabItem();

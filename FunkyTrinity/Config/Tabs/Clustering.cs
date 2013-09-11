@@ -1,12 +1,93 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using FunkyTrinity.Settings;
 
 namespace FunkyTrinity
 {
 	 internal partial class FunkyWindow : Window
 	 {
+		  #region EventHandling
+		  private void ClusterDistanceSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Cluster.ClusterDistance=Value;
+				TBClusterDistance.Text=Value.ToString();
+		  }
+		  private void ClusterMinUnitSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Cluster.ClusterMinimumUnitCount=Value;
+				TBClusterMinUnitCount.Text=Value.ToString();
+		  }
+		  private void ClusterLowHPValueSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
+				Bot.SettingsFunky.Cluster.IgnoreClusterLowHPValue=Value;
+				TBClusterLowHPValue.Text=Value.ToString();
+		  }
+		  private void EnableClusteringTargetLogicChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Cluster.EnableClusteringTargetLogic=!Bot.SettingsFunky.Cluster.EnableClusteringTargetLogic;
+		  }
+		  private void IgnoreClusteringBotLowHPisChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Cluster.IgnoreClusteringWhenLowHP=!Bot.SettingsFunky.Cluster.IgnoreClusteringWhenLowHP;
+		  }
+		  private void ClusteringKillLowHPChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Cluster.ClusterKillLowHPUnits=!Bot.SettingsFunky.Cluster.ClusterKillLowHPUnits;
+		  }
+		  private void ClusteringAllowRangedUnitsChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Cluster.ClusteringAllowRangedUnits=!Bot.SettingsFunky.Cluster.ClusteringAllowRangedUnits;
+		  }
+		  private void ClusteringAllowSpawnerUnitsChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Cluster.ClusteringAllowSpawnerUnits=!Bot.SettingsFunky.Cluster.ClusteringAllowSpawnerUnits;
+		  }
+		  private void ClusteringAllowSucideBombersChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Cluster.ClusteringAllowSucideBombers=!Bot.SettingsFunky.Cluster.ClusteringAllowSucideBombers;
+		  }
+		  private void ClusteringLoadXMLClicked(object sender, EventArgs e)
+		  {
+				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
+				{
+					 InitialDirectory=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+					 RestoreDirectory=false,
+					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
+					 Title="Clustering Template",
+				};
+				System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
 
+				if (OFD_Result==System.Windows.Forms.DialogResult.OK)
+				{
+					 try
+					 {
+						  //;
+						  SettingCluster newSettings=SettingCluster.DeserializeFromXML(OFD.FileName);
+						  Bot.SettingsFunky.Cluster=newSettings;
+						  
+						  Funky.funkyConfigWindow.Close();
+					 } catch
+					 {
+
+					 }
+				}
+
+				
+		  }
+
+		  #endregion
+
+		  private StackPanel spClusteringOptions;
+		  private TextBox TBClusterLowHPValue;
 
 		  internal void InitClusteringControls()
 		  {
@@ -24,13 +105,8 @@ namespace FunkyTrinity
 					 Background=System.Windows.Media.Brushes.DimGray,
 					 ToolTip=TTClustering,
 				};
-				Button Clustering_LoadSettings=new Button
-				{
-					 Content="Load",
-					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+10),
-				};
-				Clustering_LoadSettings.Click+=ClusteringLoadXMLClicked;
-				spClusteringOptions.Children.Add(Clustering_LoadSettings);
+
+				
 
 				TextBlock Clustering_Text_Header=new TextBlock
 				{
@@ -287,7 +363,23 @@ namespace FunkyTrinity
 				#endregion
 
 				CombatClusteringContentListBox.Items.Add(spClusteringExceptions);
+				Button BtnClusteringLoadTemplate=new Button
+				{
+					 Content="Load Setup",
+					 Background=System.Windows.Media.Brushes.OrangeRed,
+					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 FontStyle=FontStyles.Italic,
+					 FontSize=12,
 
+					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 VerticalAlignment=System.Windows.VerticalAlignment.Top,
+					 Width=75,
+					 Height=30,
+
+					 Margin=new Thickness(Margin.Left, Margin.Top+5, Margin.Right, Margin.Bottom+5),
+				};
+				BtnClusteringLoadTemplate.Click+=ClusteringLoadXMLClicked;
+				CombatClusteringContentListBox.Items.Add(BtnClusteringLoadTemplate);
 
 				CombatClusterTabItem.Content=CombatClusteringContentListBox;
 		  }

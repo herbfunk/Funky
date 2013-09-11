@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -9,8 +10,57 @@ namespace FunkyTrinity
 {
 	 internal partial class FunkyWindow : Window
 	 {
+		  #region EventHandling
 
-		 internal void InitAvoidanceControls()
+		  private void AvoidanceRadiusSliderValueChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				string[] slider_info=slider_sender.Name.Split("_".ToCharArray());
+				int tb_index=Convert.ToInt16(slider_info[2]);
+				float currentValue=(int)slider_sender.Value;
+
+				TBavoidanceRadius[tb_index].Text=currentValue.ToString();
+				AvoidanceType avoidancetype=(AvoidanceType)Enum.Parse(typeof(AvoidanceType), slider_info[0]);
+				Funky.dictAvoidanceRadius[avoidancetype]=currentValue;
+		  }
+
+		  private void AvoidanceHealthSliderValueChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				string[] slider_info=slider_sender.Name.Split("_".ToCharArray());
+				double currentValue=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
+				int tb_index=Convert.ToInt16(slider_info[2]);
+
+				TBavoidanceHealth[tb_index].Text=currentValue.ToString();
+				AvoidanceType avoidancetype=(AvoidanceType)Enum.Parse(typeof(AvoidanceType), slider_info[0]);
+
+
+				switch (Bot.ActorClass)
+				{
+					 case Zeta.Internals.Actors.ActorClass.Barbarian:
+						  Funky.dictAvoidanceHealthBarb[avoidancetype]=currentValue;
+						  break;
+					 case Zeta.Internals.Actors.ActorClass.DemonHunter:
+						  Funky.dictAvoidanceHealthDemon[avoidancetype]=currentValue;
+						  break;
+					 case Zeta.Internals.Actors.ActorClass.Monk:
+						  Funky.dictAvoidanceHealthMonk[avoidancetype]=currentValue;
+						  break;
+					 case Zeta.Internals.Actors.ActorClass.WitchDoctor:
+						  Funky.dictAvoidanceHealthWitch[avoidancetype]=currentValue;
+						  break;
+					 case Zeta.Internals.Actors.ActorClass.Wizard:
+						  Funky.dictAvoidanceHealthWizard[avoidancetype]=currentValue;
+						  break;
+				}
+		  }
+
+		  #endregion
+
+		  private TextBox[] TBavoidanceRadius;
+		  private TextBox[] TBavoidanceHealth;
+
+		  internal void InitAvoidanceControls()
 		 {
 			  TabItem AvoidanceTabItem=new TabItem
 			  {

@@ -1,10 +1,85 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
+using FunkyTrinity.Enums;
+using FunkyTrinity.Settings;
 
 namespace FunkyTrinity
 {
 	 internal partial class FunkyWindow : Window
 	 {
+		  #region EventHandling
+		  private void TargetingLoadXMLClicked(object sender, EventArgs e)
+		  {
+				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
+				{
+					 InitialDirectory=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+					 RestoreDirectory=false,
+					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
+					 Title="Targeting Template",
+				};
+				System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
+
+				if (OFD_Result==System.Windows.Forms.DialogResult.OK)
+				{
+					 try
+					 {
+						  //;
+						  SettingTargeting newSettings=SettingTargeting.DeserializeFromXML(OFD.FileName);
+						  Bot.SettingsFunky.Targeting=newSettings;
+
+						  Funky.funkyConfigWindow.Close();
+					 } catch
+					 {
+
+					 }
+				}
+
+
+		  }
+
+		  private void IgnoreCorpsesChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Targeting.IgnoreCorpses=!Bot.SettingsFunky.Targeting.IgnoreCorpses;
+		  }
+		  private void IgnoreEliteMonstersChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Targeting.IgnoreAboveAverageMobs=!Bot.SettingsFunky.Targeting.IgnoreAboveAverageMobs;
+		  }
+		  private void MissileDampeningChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Targeting.MissleDampeningEnforceCloseRange=!Bot.SettingsFunky.Targeting.MissleDampeningEnforceCloseRange;
+		  }
+		  private void UseShrineChecked(object sender, EventArgs e)
+		  {
+				CheckBox cbSender=(CheckBox)sender;
+				int index=(int)Enum.Parse(typeof(ShrineTypes), cbSender.Name);
+				Bot.SettingsFunky.Targeting.UseShrineTypes[index]=!(Bot.SettingsFunky.Targeting.UseShrineTypes[index]);
+		  }
+		  class GoblinPriority : ObservableCollection<string>
+		  {
+				public GoblinPriority()
+				{
+
+					 Add("None");
+					 Add("Normal");
+					 Add("Important");
+					 Add("Ridiculousness");
+				}
+		  }
+		  private void GoblinPriorityChanged(object sender, EventArgs e)
+		  {
+				ComboBox senderCB=(ComboBox)sender;
+				Bot.SettingsFunky.Targeting.GoblinPriority=senderCB.SelectedIndex;
+		  }
+		  private void ExtendRangeRepChestChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Targeting.UseExtendedRangeRepChest=!Bot.SettingsFunky.Targeting.UseExtendedRangeRepChest;
+		  }
+		  #endregion
+
 		  internal void InitTargetingGeneralControls()
 		  {
 				TabItem TargetingMiscTabItem=new TabItem();
@@ -116,8 +191,23 @@ namespace FunkyTrinity
 				Targeting_General_Options_Stackpanel.Children.Add(GoblinPriority_StackPanel);
 				Target_General_ContentListBox.Items.Add(Targeting_General_Options_Stackpanel);
 
+				Button BtnTargetTemplate=new Button
+				{
+					 Content="Load Setup",
+					 Background=System.Windows.Media.Brushes.OrangeRed,
+					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 FontStyle=FontStyles.Italic,
+					 FontSize=12,
 
+					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 VerticalAlignment=System.Windows.VerticalAlignment.Top,
+					 Width=75,
+					 Height=30,
 
+					 Margin=new Thickness(Margin.Left, Margin.Top+5, Margin.Right, Margin.Bottom+5),
+				};
+				BtnTargetTemplate.Click+=TargetingLoadXMLClicked;
+				Target_General_ContentListBox.Items.Add(BtnTargetTemplate);
 
 
 				TargetingMiscTabItem.Content=Target_General_ContentListBox;

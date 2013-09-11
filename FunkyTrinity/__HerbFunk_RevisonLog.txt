@@ -1,6 +1,23 @@
 ﻿// herbfunk revisions
-v2.2.2.0
 
+v2.3.0.0
+Settings:
+-Refactored a lot of the code, including both the settings and the UI.
+-Created new Setting Objects, which will allow for "templates" to be loaded -- I.E. Clustering Template, or Grouping Template.
+-Loadable Settings Implemented:
+	*Clustering, Grouping, Fleeing, ItemRules, Loot Pickup, Targeting, Ranges
+
+Line of Sight:
+-Moved the LOS Checking from ability selector into the SingleTargetCondition creation method.
+-LOS Movements are active again for special units -- which will now use Navigator to execute movement.
+
+Misc:
+-Fixed Avoidance Movement ending earlier.
+-Added SucideBomber Exception Setting to Cluster Exception Rules. (Note: these exceptions determine if object is special regardless if clustering is enabled)
+
+
+
+v2.2.2.0
 Line of Sight:
 -Line of Sight Checking has been changed. Ranged and Projectile abilities are now more aware..
 *Extracted properties and methods from CacheObject -- into new object LOSInfo.

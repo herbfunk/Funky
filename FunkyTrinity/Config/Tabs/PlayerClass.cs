@@ -1,10 +1,20 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace FunkyTrinity
 {
 	 internal partial class FunkyWindow : Window
 	 {
+		  #region EventHandling
+		  private void TreasureGoblinMinimumRangeSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Class.GoblinMinimumRange=Value;
+				TBGoblinMinRange.Text=Value.ToString();
+		  }
+		  #endregion
 
 
 		  internal void InitPlayerClassControls()

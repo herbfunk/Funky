@@ -17,10 +17,6 @@ using FunkyTrinity.Settings;
 namespace FunkyTrinity
 {
 
-
-
-
-
 			[System.Runtime.InteropServices.ComVisible(false)]
 			internal partial class FunkyWindow : Window
 			{
@@ -31,43 +27,8 @@ namespace FunkyTrinity
 
 				 private ListBox lbGeneralContent;
 
-				 private CheckBox OOCIdentifyItems;
-				 private TextBox OOCIdentfyItemsMinCount;
+				 private TextBox TBGoblinMinRange, TBiDHVaultMovementDelay;
 
-				 private CheckBox BuyPotionsDuringTownRunCB;
-				 private CheckBox EnableWaitAfterContainersCB;
-				 
-
-
-
-				 private StackPanel spFleeingOptions, SPFleeing, spGroupingOptions, spBotStop, spClusteringOptions;
-				
-				 private TextBox TBGroupingMinUnitDistance, TBGroupingMaxDistance, TBGroupingMinimumClusterCount, TBGroupingMinimumUnitsInCluster;
-
-				 private CheckBox CoffeeBreaks;
-				 private TextBox tbMinBreakTime, tbMaxBreakTime;
-
-				 private Button OpenPluginFolder;
-
-				 private TextBox[] TBavoidanceRadius;
-				 private TextBox[] TBavoidanceHealth;
-
-
-
-				 //private ComboBox CBGemQualityLevel;
-
-				 private TextBox TBBreakTimeHour, TBKiteDistance, TBGlobeHealth, TBAfterCombatDelay,
-									 TBClusterDistance, TBClusterMinUnitCount,
-									 TBGoblinMinRange, TBClusterLowHPValue, TBFleemonsterDistance,
-									 TBFleeMinimumHealth, TBBotStopHealthPercent, TBPotionHealth, TBiDHVaultMovementDelay, TBExtendedCombatRange;
-
-
-										  
-
-				 private TextBox[] TBKiteTimeLimits;
-				 private TextBox[] TBAvoidanceTimeLimits;
-
-				 
 
 				 private ListBox LBDebug;
 
@@ -317,10 +278,6 @@ namespace FunkyTrinity
 							 Header="Debug",
 							 VerticalContentAlignment=System.Windows.VerticalAlignment.Stretch,
 							 VerticalAlignment=System.Windows.VerticalAlignment.Stretch,
-							 //Width=600,
-							 //Height=600,
-							 //VerticalContentAlignment=System.Windows.VerticalAlignment.Stretch,
-							 //HorizontalContentAlignment=System.Windows.HorizontalAlignment.Stretch,
 						};
 						tabControl1.Items.Add(DebuggingTabItem);
 						DockPanel DockPanel_Debug=new DockPanel
@@ -330,9 +287,6 @@ namespace FunkyTrinity
 
 						};
 
-						//ListBox lbDebugContent=new ListBox();
-						//lbDebugContent.HorizontalContentAlignment=System.Windows.HorizontalAlignment.Stretch;
-						//lbDebugContent.VerticalContentAlignment=System.Windows.VerticalAlignment.Stretch;
 
 						Button btnObjects_Debug=new Button
 						{

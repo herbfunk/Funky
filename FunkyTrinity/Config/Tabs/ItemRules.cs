@@ -1,10 +1,153 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
+using FunkyTrinity.Settings;
 
 namespace FunkyTrinity
 {
 	 internal partial class FunkyWindow : Window
 	 {
+		  private void ItemRulesLoadXMLClicked(object sender, EventArgs e)
+		  {
+				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
+				{
+					 InitialDirectory=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+					 RestoreDirectory=false,
+					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
+					 Title="ItemRules Template",
+				};
+				System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
+
+				if (OFD_Result==System.Windows.Forms.DialogResult.OK)
+				{
+					 try
+					 {
+						  //;
+						  SettingItemRules newSettings=SettingItemRules.DeserializeFromXML(OFD.FileName);
+						  Bot.SettingsFunky.ItemRules=newSettings;
+
+						  Funky.funkyConfigWindow.Close();
+					 } catch
+					 {
+
+					 }
+				}
+		  }
+		  class ItemRuleTypes : ObservableCollection<string>
+		  {
+				public ItemRuleTypes()
+				{
+
+					 Add("Custom");
+					 Add("Soft");
+					 Add("Hard");
+				}
+		  }
+		  class ItemRuleQuality : ObservableCollection<string>
+		  {
+				public ItemRuleQuality()
+				{
+					 Add("Common");
+					 Add("Normal");
+					 Add("Magic");
+					 Add("Rare");
+					 Add("Legendary");
+				}
+		  }
+		  #region EventHandling
+		  private void ItemRulesTypeChanged(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.ItemRules.ItemRuleType=ItemRuleType.Items[ItemRuleType.SelectedIndex].ToString();
+		  }
+		  private void ItemRulesBrowse_Click(object sender, EventArgs e)
+		  {
+				System.Windows.Forms.FolderBrowserDialog OFD=new System.Windows.Forms.FolderBrowserDialog
+				{
+
+				};
+				System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
+
+				if (OFD_Result==System.Windows.Forms.DialogResult.OK)
+				{
+					 try
+					 {
+						  Bot.SettingsFunky.ItemRules.ItemRuleCustomPath=OFD.SelectedPath;
+						  tbCustomItemRulePath.Text=Bot.SettingsFunky.ItemRules.ItemRuleCustomPath;
+					 } catch
+					 {
+
+					 }
+				}
+		  }
+		  private void ItemRulesScoringChanged(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring=ItemRuleGilesScoring.IsChecked.Value;
+		  }
+		  private void ItemRulesLogPickupChanged(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.ItemRules.ItemRuleLogPickup=ItemRuleLogPickup.Items[ItemRuleLogPickup.SelectedIndex].ToString();
+		  }
+		  private void ItemRulesLogKeepChanged(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.ItemRules.ItemRuleLogKeep=ItemRuleLogKeep.Items[ItemRuleLogKeep.SelectedIndex].ToString();
+		  }
+
+		  private void ItemRulesChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.ItemRules.UseItemRules=!Bot.SettingsFunky.ItemRules.UseItemRules;
+				ItemRuleGilesScoring.IsEnabled=!Bot.SettingsFunky.ItemRules.UseItemRules;
+				ItemRuleDBScoring.IsEnabled=!Bot.SettingsFunky.ItemRules.UseItemRules;
+		  }
+		  private void ItemRulesPickupChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.ItemRules.UseItemRulesPickup=!Bot.SettingsFunky.ItemRules.UseItemRulesPickup;
+		  }
+		  private void ItemRulesItemIDsChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.ItemRules.ItemRuleUseItemIDs=!Bot.SettingsFunky.ItemRules.ItemRuleUseItemIDs;
+		  }
+		  private void ItemRulesDebugChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.ItemRules.ItemRuleDebug=!Bot.SettingsFunky.ItemRules.ItemRuleDebug;
+		  }
+		  private void ItemLevelingLogicChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.UseLevelingLogic=!Bot.SettingsFunky.UseLevelingLogic;
+		  }
+		  private void ItemRulesSalvagingChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.ItemRules.ItemRulesSalvaging=!Bot.SettingsFunky.ItemRules.ItemRulesSalvaging;
+		  }
+		  private void ItemRulesUnidStashingChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.ItemRules.ItemRulesUnidStashing=!Bot.SettingsFunky.ItemRules.ItemRulesUnidStashing;
+		  }
+		  //UseLevelingLogic
+		  private void ItemRulesOpenFolder_Click(object sender, EventArgs e)
+		  {
+				System.Diagnostics.Process.Start(System.IO.Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "ItemRules", "Rules"));
+		  }
+		  private void ItemRulesReload_Click(object sender, EventArgs e)
+		  {
+				if (Funky.ItemRulesEval==null)
+				{
+					 Funky.Log("Cannot reload rules until bot has started", true);
+					 return;
+				}
+
+				try
+				{
+					 Funky.ItemRulesEval.reloadFromUI();
+				} catch (Exception ex)
+				{
+					 Funky.Log(ex.Message+"\r\n"+ex.StackTrace);
+				}
+
+		  }
+		  #endregion
+
 		  private CheckBox ItemRules;
 		  private CheckBox ItemRulesPickup;
 		  private Button ItemRulesReload;
@@ -300,7 +443,23 @@ namespace FunkyTrinity
 				spDefaultItemScoring.Children.Add(ItemRuleDBScoring);
 				lbItemRulesContent.Items.Add(spDefaultItemScoring);
 				#endregion
+				Button BtnItemRulesLoadTemplate=new Button
+				{
+					 Content="Load Setup",
+					 Background=System.Windows.Media.Brushes.OrangeRed,
+					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 FontStyle=FontStyles.Italic,
+					 FontSize=12,
 
+					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 VerticalAlignment=System.Windows.VerticalAlignment.Top,
+					 Width=75,
+					 Height=30,
+
+					 Margin=new Thickness(Margin.Left, Margin.Top+5, Margin.Right, Margin.Bottom+5),
+				};
+				BtnItemRulesLoadTemplate.Click+=ItemRulesLoadXMLClicked;
+				lbItemRulesContent.Items.Add(BtnItemRulesLoadTemplate);
 
 				ItemRulesTabItem.Content=lbItemRulesContent;
 				#endregion

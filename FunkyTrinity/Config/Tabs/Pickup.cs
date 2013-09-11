@@ -1,12 +1,217 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using FunkyTrinity.Enums;
+using FunkyTrinity.Settings;
 
 namespace FunkyTrinity
 {
 	 internal partial class FunkyWindow : Window
 	 {
+		  #region EventHandling
+		  private void PickUpLoadXMLClicked(object sender, EventArgs e)
+		  {
+				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
+				{
+					 InitialDirectory=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+					 RestoreDirectory=false,
+					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
+					 Title="Pickup Template",
+				};
+				System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
+
+				if (OFD_Result==System.Windows.Forms.DialogResult.OK)
+				{
+					 try
+					 {
+						  //;
+						  SettingLoot newSettings=SettingLoot.DeserializeFromXML(OFD.FileName);
+						  Bot.SettingsFunky.Loot=newSettings;
+
+						  Funky.funkyConfigWindow.Close();
+					 } catch
+					 {
+
+					 }
+				}
+
+
+		  }
+
+		  private void PickupCraftTomesChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Loot.PickupCraftTomes=!Bot.SettingsFunky.Loot.PickupCraftTomes;
+		  }
+		  private void PickupCraftPlansChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Loot.PickupCraftPlans=!Bot.SettingsFunky.Loot.PickupCraftPlans;
+				spBlacksmithPlans.IsEnabled=Bot.SettingsFunky.Loot.PickupCraftPlans;
+				spJewelerPlans.IsEnabled=Bot.SettingsFunky.Loot.PickupCraftPlans;
+		  }
+
+		  private void PickupBlacksmithPlanSixChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Loot.PickupBlacksmithPlanSix=!Bot.SettingsFunky.Loot.PickupBlacksmithPlanSix;
+		  }
+		  private void PickupBlacksmithPlanFiveChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Loot.PickupBlacksmithPlanFive=!Bot.SettingsFunky.Loot.PickupBlacksmithPlanFive;
+		  }
+		  private void PickupBlacksmithPlanFourChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Loot.PickupBlacksmithPlanFour=!Bot.SettingsFunky.Loot.PickupBlacksmithPlanFour;
+		  }
+
+		  private void PickupBlacksmithPlanArchonGauntletsChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Loot.PickupBlacksmithPlanArchonGauntlets=!Bot.SettingsFunky.Loot.PickupBlacksmithPlanArchonGauntlets;
+		  }
+		  private void PickupBlacksmithPlanArchonSpauldersChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Loot.PickupBlacksmithPlanArchonSpaulders=!Bot.SettingsFunky.Loot.PickupBlacksmithPlanArchonSpaulders;
+		  }
+		  private void PickupBlacksmithPlanRazorspikesChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Loot.PickupBlacksmithPlanRazorspikes=!Bot.SettingsFunky.Loot.PickupBlacksmithPlanRazorspikes;
+		  }
+
+		  private void PickupJewelerDesignFlawlessStarChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Loot.PickupJewelerDesignFlawlessStar=!Bot.SettingsFunky.Loot.PickupJewelerDesignFlawlessStar;
+		  }
+		  private void PickupJewelerDesignPerfectStarChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Loot.PickupJewelerDesignPerfectStar=!Bot.SettingsFunky.Loot.PickupJewelerDesignPerfectStar;
+		  }
+		  private void PickupJewelerDesignRadiantStarChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Loot.PickupJewelerDesignRadiantStar=!Bot.SettingsFunky.Loot.PickupJewelerDesignRadiantStar;
+		  }
+		  private void PickupJewelerDesignMarquiseChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Loot.PickupJewelerDesignMarquise=!Bot.SettingsFunky.Loot.PickupJewelerDesignMarquise;
+		  }
+		  private void PickupJewelerDesignAmuletChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Loot.PickupJewelerDesignAmulet=!Bot.SettingsFunky.Loot.PickupJewelerDesignAmulet;
+		  }
+		  private void PickupInfernalKeysChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Loot.PickupInfernalKeys=!Bot.SettingsFunky.Loot.PickupInfernalKeys;
+		  }
+		  private void PickupDemonicEssenceChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Loot.PickupDemonicEssence=!Bot.SettingsFunky.Loot.PickupDemonicEssence;
+		  }
+
+		  private void PickupFollowerItemsChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Loot.PickupFollowerItems=!Bot.SettingsFunky.Loot.PickupFollowerItems;
+		  }
+		  private void GemsChecked(object sender, EventArgs e)
+		  {
+				CheckBox sender_=(CheckBox)sender;
+				if (sender_.Name=="red") Bot.SettingsFunky.Loot.PickupGems[0]=!Bot.SettingsFunky.Loot.PickupGems[0];
+				if (sender_.Name=="green") Bot.SettingsFunky.Loot.PickupGems[1]=!Bot.SettingsFunky.Loot.PickupGems[1];
+				if (sender_.Name=="purple") Bot.SettingsFunky.Loot.PickupGems[2]=!Bot.SettingsFunky.Loot.PickupGems[2];
+				if (sender_.Name=="yellow") Bot.SettingsFunky.Loot.PickupGems[3]=!Bot.SettingsFunky.Loot.PickupGems[3];
+		  }
+		  private void MiscItemLevelSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Loot.MiscItemLevel=Value;
+				TBMiscItemLevel.Text=Value.ToString();
+		  }
+		  private void GemQualityLevelChanged(object sender, EventArgs e)
+		  {
+				ComboBox cbSender=(ComboBox)sender;
+
+				Bot.SettingsFunky.Loot.MinimumGemItemLevel=(int)Enum.Parse(typeof(GemQuality), cbSender.Items[cbSender.SelectedIndex].ToString());
+		  }
+		  class GemQualityTypes : ObservableCollection<string>
+		  {
+				public GemQualityTypes()
+				{
+					 string[] GemNames=Enum.GetNames(typeof(GemQuality));
+					 foreach (var item in GemNames)
+					 {
+						  Add(item);
+					 }
+				}
+		  }
+		  private void LegendaryItemLevelSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Loot.MinimumLegendaryItemLevel=Value;
+				TBMinLegendaryLevel.Text=Value.ToString();
+		  }
+		  private void HealthPotionSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Loot.MaximumHealthPotions=Value;
+				TBMaxHealthPots.Text=Value.ToString();
+		  }
+		  private void GoldAmountSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Loot.MinimumGoldPile=Value;
+				TBMinGoldPile.Text=Value.ToString();
+		  }
+
+		  private void WeaponItemLevelSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				if (slider_sender.Name=="Magic")
+				{
+					 Bot.SettingsFunky.Loot.MinimumWeaponItemLevel[0]=Value;
+					 TBMinimumWeaponLevel[0].Text=Value.ToString();
+				}
+				else
+				{
+					 Bot.SettingsFunky.Loot.MinimumWeaponItemLevel[1]=Value;
+					 TBMinimumWeaponLevel[1].Text=Value.ToString();
+				}
+		  }
+		  private void ArmorItemLevelSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				if (slider_sender.Name=="Magic")
+				{
+					 Bot.SettingsFunky.Loot.MinimumArmorItemLevel[0]=Value;
+					 TBMinimumArmorLevel[0].Text=Value.ToString();
+				}
+				else
+				{
+					 Bot.SettingsFunky.Loot.MinimumArmorItemLevel[1]=Value;
+					 TBMinimumArmorLevel[1].Text=Value.ToString();
+				}
+		  }
+		  private void JeweleryItemLevelSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				if (slider_sender.Name=="Magic")
+				{
+					 Bot.SettingsFunky.Loot.MinimumJeweleryItemLevel[0]=Value;
+					 TBMinimumJeweleryLevel[0].Text=Value.ToString();
+				}
+				else
+				{
+					 Bot.SettingsFunky.Loot.MinimumJeweleryItemLevel[1]=Value;
+					 TBMinimumJeweleryLevel[1].Text=Value.ToString();
+				}
+		  }
+  
+		  #endregion
+
 		  private StackPanel spBlacksmithPlans, spJewelerPlans;
 		  private TextBox[] TBMinimumWeaponLevel, TBMinimumJeweleryLevel, TBMinimumArmorLevel;
 		  private TextBox TBMinLegendaryLevel, TBMaxHealthPots, TBMinGoldPile, TBMiscItemLevel;
@@ -880,6 +1085,24 @@ namespace FunkyTrinity
 				spGemOptions.Children.Add(spGemColorPanels);
 				lbGilesContent.Items.Add(spGemOptions);
 				#endregion
+
+				Button BtnPickUpLoadTemplate=new Button
+				{
+					 Content="Load Setup",
+					 Background=System.Windows.Media.Brushes.OrangeRed,
+					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 FontStyle=FontStyles.Italic,
+					 FontSize=12,
+
+					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 VerticalAlignment=System.Windows.VerticalAlignment.Top,
+					 Width=75,
+					 Height=30,
+
+					 Margin=new Thickness(Margin.Left, Margin.Top+5, Margin.Right, Margin.Bottom+5),
+				};
+				BtnPickUpLoadTemplate.Click+=PickUpLoadXMLClicked;
+				lbGilesContent.Items.Add(BtnPickUpLoadTemplate);
 
 				ItemGilesTabItem.Content=lbGilesContent;
 				#endregion

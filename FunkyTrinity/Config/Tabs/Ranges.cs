@@ -1,10 +1,118 @@
-﻿using System.Windows;
+﻿using System;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
+using FunkyTrinity.Settings;
 
 namespace FunkyTrinity
 {
 	 internal partial class FunkyWindow : Window
 	 {
+		  #region EventHandling
+		  private void RangeLoadXMLClicked(object sender, EventArgs e)
+		  {
+				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
+				{
+					 InitialDirectory=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+					 RestoreDirectory=false,
+					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
+					 Title="Ranges Template",
+				};
+				System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
+
+				if (OFD_Result==System.Windows.Forms.DialogResult.OK)
+				{
+					 try
+					 {
+						  //;
+						  SettingRanges newSettings=SettingRanges.DeserializeFromXML(OFD.FileName);
+						  Bot.SettingsFunky.Ranges=newSettings;
+
+						  Funky.funkyConfigWindow.Close();
+					 } catch
+					 {
+
+					 }
+				}
+
+
+		  }
+
+		  private void IgnoreCombatRangeChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Ranges.IgnoreCombatRange=!Bot.SettingsFunky.Ranges.IgnoreCombatRange;
+		  }
+		  private void IgnoreLootRangeChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Ranges.IgnoreLootRange=!Bot.SettingsFunky.Ranges.IgnoreLootRange;
+		  }
+		  private void EliteRangeSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Ranges.EliteCombatRange=Value;
+				TBEliteRange.Text=Value.ToString();
+		  }
+		  private void GoldRangeSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Ranges.GoldRange=Value;
+				TBGoldRange.Text=Value.ToString();
+		  }
+		  private void GlobeRangeSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Ranges.GlobeRange=Value;
+				TBGlobeRange.Text=Value.ToString();
+		  }
+		  private void ItemRangeSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Ranges.ItemRange=Value;
+				TBItemRange.Text=Value.ToString();
+		  }
+		  private void ShrineRangeSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Ranges.ShrineRange=Value;
+				TBShrineRange.Text=Value.ToString();
+		  }
+
+		  private void ContainerRangeSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Ranges.ContainerOpenRange=Value;
+				TBContainerRange.Text=Value.ToString();
+		  }
+		  private void NonEliteRangeSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Ranges.NonEliteCombatRange=Value;
+				TBNonEliteRange.Text=Value.ToString();
+		  }
+		  private void TreasureGoblinRangeSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Ranges.TreasureGoblinRange=Value;
+				TBGoblinRange.Text=Value.ToString();
+		  }
+		  private void DestructibleSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Ranges.DestructibleRange=Value;
+				TBDestructibleRange.Text=Value.ToString();
+		  }
+		  #endregion
+
+
 		  private TextBox TBContainerRange, TBNonEliteRange, TBDestructibleRange, 
 								TBGlobeRange, TBGoblinRange, TBItemRange, 
 								TBShrineRange, TBEliteRange, TBGoldRange;
@@ -331,6 +439,24 @@ namespace FunkyTrinity
 				GoblinRangeStackPanel.Children.Add(TBGoblinRange);
 				lbTargetRange.Items.Add(GoblinRangeStackPanel);
 				#endregion
+
+				Button BtnRangeTemplate=new Button
+				{
+					 Content="Load Setup",
+					 Background=System.Windows.Media.Brushes.OrangeRed,
+					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 FontStyle=FontStyles.Italic,
+					 FontSize=12,
+
+					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 VerticalAlignment=System.Windows.VerticalAlignment.Top,
+					 Width=75,
+					 Height=30,
+
+					 Margin=new Thickness(Margin.Left, Margin.Top+5, Margin.Right, Margin.Bottom+5),
+				};
+				BtnRangeTemplate.Click+=RangeLoadXMLClicked;
+				lbTargetRange.Items.Add(BtnRangeTemplate);
 
 				RangeTabItem.Content=lbTargetRange;
 				#endregion

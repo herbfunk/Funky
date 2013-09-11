@@ -477,7 +477,7 @@ namespace FunkyTrinity.Targeting
 				if (CurrentTarget.LOSV3!=Vector3.Zero)
 				{
 					 //Recheck LOS every second
-					 if (CurrentTarget.LineOfSight.LastLOSCheckMS>2500)
+					 if (CurrentTarget.LineOfSight.LastLOSCheckMS>1500)
 					 {
 						  if (CurrentTarget.LineOfSight.LOSTest(Bot.Character.Position, true, false, NavCellFlags.AllowWalk))
 						  {
