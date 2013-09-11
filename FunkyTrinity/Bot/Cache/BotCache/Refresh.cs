@@ -189,11 +189,6 @@ namespace FunkyTrinity
 								if (!FunkyTrinity.Bot.SettingsFunky.Fleeing.EnableFleeingBehavior||FunkyTrinity.Bot.Character.dCurrentHealthPct>0.25d)
 									 FunkyTrinity.Bot.Combat.RequiresAvoidance=false;
 						  }
-						  //else
-						  //{
-						  //	 if (Bot.NavigationCache.IsMoving)
-						  //		  Bot.Combat.RequiresAvoidance=false;
-						  //}
 					 }
 
 					 FunkyTrinity.Bot.ValidObjects=ObjectCache.Objects.Values.Where(o => o.ObjectIsValidForTargeting).ToList();

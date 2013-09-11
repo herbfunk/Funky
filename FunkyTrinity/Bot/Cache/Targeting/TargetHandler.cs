@@ -408,11 +408,23 @@ namespace FunkyTrinity.Targeting
 					 FunkyTrinity.Bot.Combat.bPickNewAbilities=false;
 					 if (CurrentTarget.targetType.Value==TargetType.Unit&&CurrentTarget.AcdGuid.HasValue)
 					 {
+						  Ability nextAbility;
 						  // Pick a suitable Ability			
 						  if (CurrentUnitTarget.IsClusterException)
-								FunkyTrinity.Bot.Combat.powerPrime=FunkyTrinity.Bot.Class.AbilitySelector(false, false, ConditionCriteraTypes.SingleTarget);
+								nextAbility=FunkyTrinity.Bot.Class.AbilitySelector(false, false, ConditionCriteraTypes.SingleTarget);
 						  else
-								FunkyTrinity.Bot.Combat.powerPrime=FunkyTrinity.Bot.Class.AbilitySelector(false, false);
+								nextAbility=FunkyTrinity.Bot.Class.AbilitySelector(false, false);
+
+						  if (nextAbility==Bot.Class.DefaultAttack)
+						  {
+								Logger.Write(LogLevel.Ability, "Failed to find a valid ability to use -- Target: {0}", Bot.Target.CurrentTarget.InternalName);
+								FunkyTrinity.Bot.Combat.bForceTargetUpdate=true;
+								CurrentState=RunStatus.Running;
+								CurrentTarget.BlacklistLoops=10;
+								return false;
+						  }
+
+						  FunkyTrinity.Bot.Combat.powerPrime=nextAbility;
 					 }
 
 					 // Select an Ability for destroying a destructible with in advance
