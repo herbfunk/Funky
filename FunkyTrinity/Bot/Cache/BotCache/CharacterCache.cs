@@ -97,7 +97,7 @@ namespace FunkyTrinity
 					 {
 						  get
 						  {
-								bool flee=Bot.SettingsFunky.EnableFleeingBehavior&&Bot.Character.dCurrentHealthPct<=Bot.SettingsFunky.FleeBotMinimumHealthPercent;
+								bool flee=Bot.SettingsFunky.Fleeing.EnableFleeingBehavior&&Bot.Character.dCurrentHealthPct<=Bot.SettingsFunky.Fleeing.FleeBotMinimumHealthPercent;
 								return flee;
 						  }
 					 }

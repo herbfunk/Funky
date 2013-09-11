@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingTargeting xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <IgnoreAboveAverageMobs>false</IgnoreAboveAverageMobs>
+  <IgnoreCorpses>false</IgnoreCorpses>
+  <MissleDampeningEnforceCloseRange>true</MissleDampeningEnforceCloseRange>
+  <GoblinPriority>2</GoblinPriority>
+  <UseShrineTypes>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+  </UseShrineTypes>
+  <UseExtendedRangeRepChest>true</UseExtendedRangeRepChest>
+</SettingTargeting>

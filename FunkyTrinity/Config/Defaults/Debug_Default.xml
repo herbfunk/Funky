@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingDebug xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DebugStatusBar>true</DebugStatusBar>
+  <LogGroupingOutput>false</LogGroupingOutput>
+  <FunkyLogFlags>All</FunkyLogFlags>
+  <SkipAhead>true</SkipAhead>
+  <LogStuckLocations>true</LogStuckLocations>
+  <EnableUnstucker>true</EnableUnstucker>
+  <RestartGameOnLongStucks>true</RestartGameOnLongStucks>
+</SettingDebug>

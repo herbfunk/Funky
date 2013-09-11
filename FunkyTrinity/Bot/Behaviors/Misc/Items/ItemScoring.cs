@@ -27,11 +27,11 @@ namespace FunkyTrinity
 					 thisGilesItemType==GilesItemType.TwoHandDaibo||thisGilesItemType==GilesItemType.TwoHandCrossbow||thisGilesItemType==GilesItemType.TwoHandMace||
 					 thisGilesItemType==GilesItemType.TwoHandMighty||thisGilesItemType==GilesItemType.TwoHandPolearm||thisGilesItemType==GilesItemType.TwoHandStaff||
 					 thisGilesItemType==GilesItemType.TwoHandSword||thisGilesItemType==GilesItemType.TwoHandAxe||thisGilesItemType==GilesItemType.HandCrossbow||thisGilesItemType==GilesItemType.TwoHandBow)
-					 iThisNeedScore=Bot.SettingsFunky.GilesMinimumWeaponScore;
+					 iThisNeedScore=Bot.SettingsFunky.Loot.GilesMinimumWeaponScore;
             // Jewelry
 				if (thisGilesItemType==GilesItemType.Ring||thisGilesItemType==GilesItemType.Amulet||thisGilesItemType==GilesItemType.FollowerEnchantress||
 					 thisGilesItemType==GilesItemType.FollowerScoundrel||thisGilesItemType==GilesItemType.FollowerTemplar)
-					 iThisNeedScore=Bot.SettingsFunky.GilesMinimumJeweleryScore;
+					 iThisNeedScore=Bot.SettingsFunky.Loot.GilesMinimumJeweleryScore;
 
             // Armor
 				if (thisGilesItemType==GilesItemType.Mojo||thisGilesItemType==GilesItemType.Source||thisGilesItemType==GilesItemType.Quiver||
@@ -40,7 +40,7 @@ namespace FunkyTrinity
 					 thisGilesItemType==GilesItemType.Gloves||thisGilesItemType==GilesItemType.Helm||thisGilesItemType==GilesItemType.Pants||
 					 thisGilesItemType==GilesItemType.MightyBelt||thisGilesItemType==GilesItemType.Shoulders||thisGilesItemType==GilesItemType.SpiritStone||
 					 thisGilesItemType==GilesItemType.VoodooMask||thisGilesItemType==GilesItemType.WizardHat)
-					 iThisNeedScore=Bot.SettingsFunky.GilesMinimumArmorScore;
+					 iThisNeedScore=Bot.SettingsFunky.Loot.GilesMinimumArmorScore;
             return Math.Round(iThisNeedScore);
         }
 

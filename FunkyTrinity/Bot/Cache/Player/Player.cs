@@ -142,31 +142,6 @@ namespace FunkyTrinity
 								continue;
 						  }
 
-
-
-						  //Check LOS -- Projectiles
-						  if (item.AbilityTestConditions.LastConditionPassed.HasFlag(ConditionCriteraTypes.SingleTarget))
-						  {
-								if (item.IsRanged&&!Bot.Target.CurrentUnitTarget.IgnoresLOSCheck)
-								{
-									 ability.LOSInfo LOSINFO=Bot.Target.CurrentTarget.LineOfSight;
-									 if (LOSINFO.LastLOSCheckMS>3000||(item.IsProjectile&&!LOSINFO.ObjectIntersection.HasValue)||!LOSINFO.NavCellProjectile.HasValue)
-									 {
-										  if (!LOSINFO.LOSTest(Bot.Character.Position, true, item.IsProjectile, NavCellFlags.AllowProjectile))
-										  {
-												//Raycast failed.. reset LOS Check -- for valid checking.
-												if (!LOSINFO.RayCast.Value) Bot.Target.CurrentTarget.RequiresLOSCheck=true;
-												continue;
-										  }
-									 }
-									 else if ((item.IsProjectile&&LOSINFO.ObjectIntersection.Value)||!LOSINFO.NavCellProjectile.Value)
-									 {
-										  continue;
-									 }
-								}
-						  }
-
-
 						  returnAbility=item;
 						  break;
 					 }

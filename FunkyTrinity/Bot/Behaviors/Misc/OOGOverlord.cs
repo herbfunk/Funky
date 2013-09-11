@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyTrinity.Settings;
 using Zeta;
 using Zeta.Common;
 using Zeta.TreeSharp;

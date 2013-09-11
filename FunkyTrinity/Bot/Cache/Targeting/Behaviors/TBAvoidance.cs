@@ -14,7 +14,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 		  {
 				get
 				{
-					 return (FunkyTrinity.Bot.Combat.RequiresAvoidance&&(!FunkyTrinity.Bot.Combat.bAnyTreasureGoblinsPresent||FunkyTrinity.Bot.SettingsFunky.GoblinPriority<2)
+					 return (FunkyTrinity.Bot.Combat.RequiresAvoidance&&(!FunkyTrinity.Bot.Combat.bAnyTreasureGoblinsPresent||FunkyTrinity.Bot.SettingsFunky.Targeting.GoblinPriority<2)
 							&&(DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.timeCancelledEmergencyMove).TotalMilliseconds>FunkyTrinity.Bot.Combat.iMillisecondsCancelledEmergencyMoveFor));
 				}
 		  }

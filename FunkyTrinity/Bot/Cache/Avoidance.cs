@@ -154,15 +154,15 @@ namespace FunkyTrinity
 
 	    internal static Dictionary<AvoidanceType, float> dictAvoidanceRadius=new Dictionary<AvoidanceType, float>(dictAvoidanceRadiusDefaultsType);
 
-		  private static Dictionary<AvoidanceType, double> dictAvoidanceHealthBarb=new Dictionary<AvoidanceType, double>(dictAvoidanceHealthBarbDefaultsType);
+		 internal static Dictionary<AvoidanceType, double> dictAvoidanceHealthBarb=new Dictionary<AvoidanceType, double>(dictAvoidanceHealthBarbDefaultsType);
 
-		  private static Dictionary<AvoidanceType, double> dictAvoidanceHealthMonk=new Dictionary<AvoidanceType, double>(dictAvoidanceHealthMonkDefaultsType);
+		 internal static Dictionary<AvoidanceType, double> dictAvoidanceHealthMonk=new Dictionary<AvoidanceType, double>(dictAvoidanceHealthMonkDefaultsType);
 
-		  private static Dictionary<AvoidanceType, double> dictAvoidanceHealthWizard=new Dictionary<AvoidanceType, double>(dictAvoidanceHealthWizardDefaultsType);
+		 internal static Dictionary<AvoidanceType, double> dictAvoidanceHealthWizard=new Dictionary<AvoidanceType, double>(dictAvoidanceHealthWizardDefaultsType);
 
-		  private static Dictionary<AvoidanceType, double> dictAvoidanceHealthWitch=new Dictionary<AvoidanceType, double>(dictAvoidanceHealthWitchDefaultsType);
+		 internal static Dictionary<AvoidanceType, double> dictAvoidanceHealthWitch=new Dictionary<AvoidanceType, double>(dictAvoidanceHealthWitchDefaultsType);
 
-		  private static Dictionary<AvoidanceType, double> dictAvoidanceHealthDemon=new Dictionary<AvoidanceType, double>(dictAvoidanceHealthDemonDefaultsType);
+		 internal static Dictionary<AvoidanceType, double> dictAvoidanceHealthDemon=new Dictionary<AvoidanceType, double>(dictAvoidanceHealthDemonDefaultsType);
 
 	    internal static Dictionary<AvoidanceType, double> ReturnDictionaryUsingActorClass(Zeta.Internals.Actors.ActorClass AC)
 		  {

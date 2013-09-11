@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingLoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GilesMinimumWeaponScore>75000</GilesMinimumWeaponScore>
+  <GilesMinimumArmorScore>30000</GilesMinimumArmorScore>
+  <GilesMinimumJeweleryScore>30000</GilesMinimumJeweleryScore>
+  <MinimumWeaponItemLevel>
+    <int>0</int>
+    <int>59</int>
+  </MinimumWeaponItemLevel>
+  <MinimumArmorItemLevel>
+    <int>0</int>
+    <int>59</int>
+  </MinimumArmorItemLevel>
+  <MinimumJeweleryItemLevel>
+    <int>0</int>
+    <int>55</int>
+  </MinimumJeweleryItemLevel>
+  <MinimumLegendaryItemLevel>1</MinimumLegendaryItemLevel>
+  <MaximumHealthPotions>100</MaximumHealthPotions>
+  <MinimumGoldPile>425</MinimumGoldPile>
+  <PickupGems>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+  </PickupGems>
+  <MinimumGemItemLevel>60</MinimumGemItemLevel>
+  <PickupCraftTomes>true</PickupCraftTomes>
+  <PickupCraftPlans>true</PickupCraftPlans>
+  <PickupBlacksmithPlanSix>true</PickupBlacksmithPlanSix>
+  <PickupBlacksmithPlanFive>false</PickupBlacksmithPlanFive>
+  <PickupBlacksmithPlanFour>false</PickupBlacksmithPlanFour>
+  <PickupBlacksmithPlanArchonGauntlets>false</PickupBlacksmithPlanArchonGauntlets>
+  <PickupBlacksmithPlanArchonSpaulders>false</PickupBlacksmithPlanArchonSpaulders>
+  <PickupBlacksmithPlanRazorspikes>false</PickupBlacksmithPlanRazorspikes>
+  <PickupJewelerDesignFlawlessStar>false</PickupJewelerDesignFlawlessStar>
+  <PickupJewelerDesignPerfectStar>false</PickupJewelerDesignPerfectStar>
+  <PickupJewelerDesignRadiantStar>false</PickupJewelerDesignRadiantStar>
+  <PickupJewelerDesignMarquise>false</PickupJewelerDesignMarquise>
+  <PickupJewelerDesignAmulet>false</PickupJewelerDesignAmulet>
+  <PickupFollowerItems>true</PickupFollowerItems>
+  <PickupInfernalKeys>true</PickupInfernalKeys>
+  <PickupDemonicEssence>true</PickupDemonicEssence>
+  <MiscItemLevel>59</MiscItemLevel>
+</SettingLoot>

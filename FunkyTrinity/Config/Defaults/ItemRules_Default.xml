@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingItemRules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <UseItemRulesPickup>true</UseItemRulesPickup>
+  <UseItemRules>true</UseItemRules>
+  <ItemRulesSalvaging>true</ItemRulesSalvaging>
+  <ItemRulesUnidStashing>true</ItemRulesUnidStashing>
+  <ItemRuleUseItemIDs>false</ItemRuleUseItemIDs>
+  <ItemRuleDebug>false</ItemRuleDebug>
+  <ItemRuleType>hard</ItemRuleType>
+  <ItemRuleCustomPath />
+  <ItemRuleLogPickup>Rare</ItemRuleLogPickup>
+  <ItemRuleLogKeep>Rare</ItemRuleLogKeep>
+  <ItemRuleGilesScoring>true</ItemRuleGilesScoring>
+</SettingItemRules>

@@ -160,7 +160,7 @@ namespace FunkyTrinity.Targeting
 					 {
 						  Zeta.CommonBot.GameEvents.FireItemLooted(CurrentTarget.AcdGuid.Value);
 
-						  if (FunkyTrinity.Bot.SettingsFunky.DebugStatusBar) BotMain.StatusText=statusText;
+						  if (FunkyTrinity.Bot.SettingsFunky.Debug.DebugStatusBar) BotMain.StatusText=statusText;
 
 						  //This is where we should manipulate information of both what dropped and what was looted.
 						  Funky.LogItemInformation();
@@ -221,7 +221,7 @@ namespace FunkyTrinity.Targeting
 						  if (!FunkyTrinity.Bot.Combat.reCheckedFinished)
 						  {
 								statusText+=" RECHECKING";
-								if (FunkyTrinity.Bot.SettingsFunky.DebugStatusBar)
+								if (FunkyTrinity.Bot.SettingsFunky.Debug.DebugStatusBar)
 								{
 									 BotMain.StatusText=statusText;
 								}
@@ -336,7 +336,7 @@ namespace FunkyTrinity.Targeting
 								// PREVENT blacklisting a monster on less than 90% health unless we haven't damaged it for more than 2 minutes
 								if (CurrentTarget.targetType.Value==TargetType.Unit)
 								{
-									 if (CurrentTarget.IsTreasureGoblin&&FunkyTrinity.Bot.SettingsFunky.GoblinPriority>=3) bBlacklistThis=false;
+									 if (CurrentTarget.IsTreasureGoblin&&FunkyTrinity.Bot.SettingsFunky.Targeting.GoblinPriority>=3) bBlacklistThis=false;
 									 if (DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.dateSincePickedTarget).TotalSeconds<=120) bBlacklistThis=false;
 								}
 
@@ -479,17 +479,10 @@ namespace FunkyTrinity.Targeting
 					 //Recheck LOS every second
 					 if (CurrentTarget.LineOfSight.LastLOSCheckMS>2500)
 					 {
-						  NavCellFlags LOSNavFlags=NavCellFlags.None;
-						  if (FunkyTrinity.Bot.Class.IsMeleeClass||!CurrentTarget.WithinInteractionRange())
+						  if (CurrentTarget.LineOfSight.LOSTest(Bot.Character.Position, true, false, NavCellFlags.AllowWalk))
 						  {
-								if (FunkyTrinity.Bot.Combat.powerPrime.IsRanged) //Add Projectile Testing!
-									 LOSNavFlags=NavCellFlags.AllowWalk|NavCellFlags.AllowProjectile;
-								else
-									 LOSNavFlags=NavCellFlags.AllowWalk;
-						  }
-
-						  if (CurrentTarget.LineOfSight.LOSTest(FunkyTrinity.Bot.Character.Position, true, FunkyTrinity.Bot.Combat.powerPrime.IsRanged, LOSNavFlags))
-						  {
+								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+									 Logger.Write(LogLevel.Movement, "LOS Movement Completed for Object {0}", CurrentTarget.InternalName);
 								//Los Passed!
 								CurrentTarget.LOSV3=Vector3.Zero;
 								FunkyTrinity.Bot.Combat.bWholeNewTarget=true;
@@ -500,7 +493,9 @@ namespace FunkyTrinity.Targeting
 					 TargetMovement.CurrentTargetLocation=CurrentTarget.LOSV3;
 					 if (FunkyTrinity.Bot.Character.Position.Distance(CurrentTarget.LOSV3)>2.5f)
 					 {
-						  CurrentState=TargetMovement.TargetMoveTo(CurrentTarget);
+						  //CurrentState=TargetMovement.TargetMoveTo(CurrentTarget);
+						  CurrentState=RunStatus.Running;
+						  Zeta.Navigation.Navigator.MoveTo(CurrentTarget.LOSV3, "LOS Movement", true);
 						  return false;
 					 }
 				}
@@ -522,7 +517,7 @@ namespace FunkyTrinity.Targeting
 		  {
 
 				#region DebugInfo
-				if (FunkyTrinity.Bot.SettingsFunky.DebugStatusBar)
+				if (FunkyTrinity.Bot.SettingsFunky.Debug.DebugStatusBar)
 				{
 					 Funky.sStatusText="[Interact- ";
 					 switch (CurrentTarget.targetType.Value)

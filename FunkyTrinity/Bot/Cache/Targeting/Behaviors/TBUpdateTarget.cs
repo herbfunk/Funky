@@ -141,7 +141,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 			  // Store if we are ignoring all units this cycle or not
 			  bool bIgnoreAllUnits=!FunkyTrinity.Bot.Combat.bAnyChampionsPresent
 										  &&!FunkyTrinity.Bot.Combat.bAnyMobsInCloseRange
-										  &&((!FunkyTrinity.Bot.Combat.bAnyTreasureGoblinsPresent&&FunkyTrinity.Bot.SettingsFunky.GoblinPriority>=2)||FunkyTrinity.Bot.SettingsFunky.GoblinPriority<2)
+										  &&((!FunkyTrinity.Bot.Combat.bAnyTreasureGoblinsPresent&&FunkyTrinity.Bot.SettingsFunky.Targeting.GoblinPriority>=2)||FunkyTrinity.Bot.SettingsFunky.Targeting.GoblinPriority<2)
 										  &&FunkyTrinity.Bot.Character.dCurrentHealthPct>=0.85d;
 
 

@@ -129,7 +129,7 @@ namespace FunkyTrinity.Movement.Clustering
 		  {
 				get
 				{
-					 return new ClusterConditions(Bot.SettingsFunky.ClusterDistance, 125f, Bot.SettingsFunky.ClusterMinimumUnitCount, false);
+					 return new ClusterConditions(Bot.SettingsFunky.Cluster.ClusterDistance, 125f, Bot.SettingsFunky.Cluster.ClusterMinimumUnitCount, false);
 				}
 				set
 				{

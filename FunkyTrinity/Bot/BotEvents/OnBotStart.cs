@@ -7,6 +7,7 @@ using System.Threading;
 using Zeta.CommonBot;
 using Zeta.TreeSharp;
 using Zeta.Navigation;
+using FunkyTrinity.Settings;
 
 namespace FunkyTrinity
 {

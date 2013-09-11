@@ -59,7 +59,7 @@ namespace FunkyTrinity.Targeting
 					 {
 						  if (!Bot.Character.LastCachedTarget.Equals(CurrentTarget))
 						  {
-								if (Bot.SettingsFunky.FunkyLogFlags.HasFlag(LogLevel.Target))
+								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 									 Logger.Write(LogLevel.Target, "Changed Object: {0}", MakeStringSingleLine(CurrentTarget.DebugString));
 
 								TargetChangedArgs TargetChangedInfo=

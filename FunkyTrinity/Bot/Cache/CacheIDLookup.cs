@@ -731,7 +731,7 @@ namespace FunkyTrinity.Cache
 				 // Navigation obstacles for standard navigation down dungeons etc. to help DB movement
 				 // MAKE SURE you add the *SAME* SNO to the "size" dictionary below, and include a reasonable size (keep it smaller rather than larger) for the SNO.
 			  public static HashSet<int> hashSNONavigationObstacles=new HashSet<int> {
-            174900, 191459, 58379, 204168, 3341, 185391, 123325, 
+            174900, 191459, 58379, 204168, 3341, 185391, 123325, 196211,
         };
 				 // Destructible things that are very large and need breaking at a bigger distance - eg logstacks, large crates, carts, etc.
 				 internal static readonly Dictionary<int, int> dictSNOExtendedDestructRange=new Dictionary<int, int> { 
