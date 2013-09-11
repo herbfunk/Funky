@@ -20,6 +20,7 @@ Misc:
 -Fixed Avoidance Movement ending earlier.
 -Added SucideBomber Exception Setting to Cluster Exception Rules. (Note: these exceptions determine if object is special regardless if clustering is enabled)
 -Fixed WithinInteraction Method for Units -- no longer adds radius of object -- causing "false" interactions.
+-Added Demonbuddy Settings Override -- currently only has Monster Power -- which will set MP prior to new game if enabled.
 
 
 

@@ -11,7 +11,7 @@ namespace FunkyTrinity.Settings
 	 
          public class Settings_Funky
          {
-
+				 public SettingDemonBuddy Demonbuddy { get; set; }
 				 public SettingDebug Debug { get; set; }
 				 public SettingTargeting Targeting { get; set; }
 
@@ -82,7 +82,7 @@ namespace FunkyTrinity.Settings
              public Settings_Funky()
              {
 
-
+					  Demonbuddy=new SettingDemonBuddy();
 					  Debug=new SettingDebug();
 					  Grouping=new SettingGrouping();
 					  Fleeing=new SettingFleeing();

@@ -89,11 +89,12 @@ namespace FunkyTrinity
 					 HookBehaviorTree();
 				}
 
-
-				if (ZetaDia.IsInGame&&!Zeta.CommonBot.BotMain.IsRunning)
+				bool isingame=ZetaDia.IsInGame;
+				if (isingame&&!Zeta.CommonBot.BotMain.IsRunning)
 				{
 					 FunkyOnGameChanged(null, null);
 				}
+
 
 				Bot.Reset();
 		  }

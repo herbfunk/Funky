@@ -137,7 +137,7 @@ namespace FunkyTrinity.ability
 						  if (!Bot.Target.CurrentUnitTarget.IgnoresLOSCheck)
 						  {
 								ability.LOSInfo LOSINFO=Bot.Target.CurrentTarget.LineOfSight;
-								if (LOSINFO.LastLOSCheckMS>2000||(ability.IsProjectile&&!LOSINFO.ObjectIntersection.HasValue)||!LOSINFO.NavCellProjectile.HasValue)
+								if (!Bot.Character.bIsIncapacitated&&(LOSINFO.LastLOSCheckMS>2000||(ability.IsProjectile&&!LOSINFO.ObjectIntersection.HasValue)||!LOSINFO.NavCellProjectile.HasValue))
 								{
 									 if (!LOSINFO.LOSTest(Bot.Character.Position, true, ability.IsProjectile, NavCellFlags.AllowProjectile))
 									 {

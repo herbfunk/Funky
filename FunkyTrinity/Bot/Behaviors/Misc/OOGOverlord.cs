@@ -57,6 +57,12 @@ namespace FunkyTrinity
 						  return true;
 				}
 
+				//Change the Monster Power!
+				if (Bot.SettingsFunky.Demonbuddy.EnableDemonBuddyCharacterSettings)
+				{
+					 Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel=Bot.SettingsFunky.Demonbuddy.MonsterPower;
+				}
+
 				return false;
 		  }
 

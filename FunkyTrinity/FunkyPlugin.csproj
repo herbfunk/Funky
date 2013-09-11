@@ -638,6 +638,9 @@
     <Compile Include="Config\Settings\SettingDebug.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Config\Settings\SettingDemonBuddy.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Config\Settings\SettingFleeing.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -1053,6 +1056,9 @@
     </Content>
     <Content Include="Bot\Cache\Ability\_About Abilities.txt" />
     <Content Include="Config\Defaults\Clustering_Default.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Defaults\Demonbuddy_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Config\Defaults\Debug_Default.xml">
