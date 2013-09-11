@@ -21,7 +21,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 		  {
 				get
 				{
-					 return FunkyTrinity.Bot.SettingsFunky.AttemptGroupingMovements;
+					 return FunkyTrinity.Bot.SettingsFunky.Grouping.AttemptGroupingMovements;
 				}
 		  }
 		  public override void Initialize()
@@ -37,11 +37,11 @@ namespace FunkyTrinity.Targeting.Behaviors
 								CacheUnit unitObj=(CacheUnit)obj;
 
 								//Grouping Movements
-								if (FunkyTrinity.Bot.SettingsFunky.AttemptGroupingMovements
+								if (FunkyTrinity.Bot.SettingsFunky.Grouping.AttemptGroupingMovements
 									 &&unitObj.CurrentHealthPct.Value<1d //only after we engaged the target.
 									 &&!unitObj.BeingIgnoredDueToClusterLogic && !unitObj.IsClusterException //we only want a cluster target!
 									 &&DateTime.Compare(DateTime.Now, FunkyTrinity.Bot.NavigationCache.groupingSuspendedDate)>0
-									 &&!unitObj.IsTreasureGoblin||FunkyTrinity.Bot.SettingsFunky.GoblinPriority<2) 
+									 &&!unitObj.IsTreasureGoblin||FunkyTrinity.Bot.SettingsFunky.Targeting.GoblinPriority<2) 
 								{
 									 FunkyTrinity.Bot.Combat.UpdateGroupClusteringVariables();
 
@@ -56,7 +56,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 
 													 if (groupCluster==null) return false;
 
-													 if (FunkyTrinity.Bot.SettingsFunky.FunkyLogFlags.HasFlag(LogLevel.Grouping))
+													 if (FunkyTrinity.Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Grouping))
 														  Logger.Write(LogLevel.Grouping, "Starting Grouping Behavior");
 
 													 //Activate Behavior
@@ -66,7 +66,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 													 //Get Cluster
 													 FunkyTrinity.Bot.NavigationCache.groupingCurrentCluster=groupCluster;
 
-													 if (FunkyTrinity.Bot.SettingsFunky.FunkyLogFlags.HasFlag(LogLevel.Grouping))
+													 if (FunkyTrinity.Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Grouping))
 														  Logger.Write(LogLevel.Grouping, "Group Cluster Propeties {0}", groupCluster.Info.Properties.ToString());
 
 													 //Find initial grouping target..
@@ -91,7 +91,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 				//if (Bot.SettingsFunky.LogGroupingOutput)
 				//    Logger.Write(LogLevel.Grouping, "Current Unit Cluster Propeties [{0}]", cluster.Info.Properties.ToString());
 
-				return ((!FunkyTrinity.Bot.SettingsFunky.IgnoreAboveAverageMobs&&(cluster.Info.Properties.HasFlag(ClusterProperties.Elites)||cluster.Info.Properties.HasFlag(ClusterProperties.Boss)))||
+				return ((!FunkyTrinity.Bot.SettingsFunky.Targeting.IgnoreAboveAverageMobs&&(cluster.Info.Properties.HasFlag(ClusterProperties.Elites)||cluster.Info.Properties.HasFlag(ClusterProperties.Boss)))||
 																					 cluster.Info.Properties.HasFlag(ClusterProperties.Large)||
 																					 cluster.Info.Properties.HasFlag(ClusterProperties.Strong)||
 																					 cluster.Info.Properties.HasFlag(ClusterProperties.Fast));
@@ -102,7 +102,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 		  {
 				var PossibleGroups=clusters
 						  .Where(c =>
-								(!FunkyTrinity.Bot.SettingsFunky.IgnoreAboveAverageMobs&&(c.Info.Properties.HasFlag(ClusterProperties.Elites))||c.Info.Properties.HasFlag(ClusterProperties.Boss))||
+								(!FunkyTrinity.Bot.SettingsFunky.Targeting.IgnoreAboveAverageMobs&&(c.Info.Properties.HasFlag(ClusterProperties.Elites))||c.Info.Properties.HasFlag(ClusterProperties.Boss))||
 								c.Info.Properties.HasFlag(ClusterProperties.Large)||
 								c.Info.Properties.HasFlag(ClusterProperties.Strong)||
 								c.Info.Properties.HasFlag(ClusterProperties.Ranged)||

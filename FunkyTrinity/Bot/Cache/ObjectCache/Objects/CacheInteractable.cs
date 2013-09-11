@@ -29,6 +29,25 @@ namespace FunkyTrinity.Cache
 					this.AnimState.ToString());
 			}
 		}
+		private double LootRadius
+		{
+			 get
+			 {
+				  if (this.targetType.Value==TargetType.Shrine)
+						return this.IsHealthWell?Bot.ShrineRange*2:Bot.ShrineRange;
+
+				  if (this.targetType.Value==TargetType.Container)
+				  {
+						if (this.IsResplendantChest&&Bot.SettingsFunky.Targeting.UseExtendedRangeRepChest)
+							 return Bot.ContainerRange*2;
+						else
+							 return Bot.ContainerRange;
+				  }
+
+				  return Bot.iCurrentMaxLootRadius;
+			 }
+		}
+
 		public override bool ObjectIsValidForTargeting
 		{
 			 get
@@ -40,25 +59,15 @@ namespace FunkyTrinity.Cache
 				  float centreDistance=this.CentreDistance;
 				  float radiusDistance=this.RadiusDistance;
 
-				  // Ignore it if it's not in range yet
-				  if (centreDistance>Bot.iCurrentMaxLootRadius)
-				  {
-						//Containers that are Rep Chests within 75f, or shrines within open container range setting are not ignored here.
-						if ((this.targetType==TargetType.Container&&
-							(this.IsResplendantChest&&Bot.SettingsFunky.UseExtendedRangeRepChest&&centreDistance<75f))||
-							this.targetType==TargetType.Shrine&&centreDistance<Bot.ShrineRange) //&&centreDistance<(settings.iContainerOpenRange*1.25))
-						{
-
-						}
-						else
-							 return false;
-				  }
-
-
-
 				  if (!this.targetType.HasValue)
 						return false;
 
+				  // Ignore it if it's not in range yet
+				  if (centreDistance>this.LootRadius)
+				  {
+						this.BlacklistLoops=10;
+						return false;
+				  }
 
 				  if (this.RequiresLOSCheck&&!this.IgnoresLOSCheck)
 				  {
@@ -78,7 +87,6 @@ namespace FunkyTrinity.Cache
 				  }
 
 				  // Now for the specifics
-				  double iMinDistance;
 				  switch (this.targetType.Value)
 				  {
 						#region Interactable
@@ -127,10 +135,10 @@ namespace FunkyTrinity.Cache
 							 }
 
 							 bool IgnoreThis=false;
-							 if (this.ref_Gizmo is GizmoHealthwell)
+							 if (this.IsHealthWell)
 							 {
 								  //Health wells..
-								  if (Bot.Character.dCurrentHealthPct>0.75)
+								  if (Bot.Character.dCurrentHealthPct>0.50d)
 										IgnoreThis=true;
 							 }
 							 else
@@ -139,11 +147,11 @@ namespace FunkyTrinity.Cache
 
 								  //Ignore XP Shrines at MAX Paragon Level!
 								  //if (this.SNOID==176075&&Bot.Character.iMyParagonLevel==100)
-								  IgnoreThis=!Bot.SettingsFunky.UseShrineTypes[(int)shrinetype];
+								  IgnoreThis=!Bot.SettingsFunky.Targeting.UseShrineTypes[(int)shrinetype];
 							 }
 
 							 //Ignoring..?
-							 if (Bot.ShrineRange<=0||IgnoreThis)
+							 if (IgnoreThis)
 							 {
 								  this.NeedsRemoved=true;
 								  this.BlacklistFlag=BlacklistType.Permanent;
@@ -172,34 +180,30 @@ namespace FunkyTrinity.Cache
 								  return false;
 							 }
 
-							 if (this.IsCorpseContainer&&Bot.SettingsFunky.IgnoreCorpses)
+							 if (this.IsCorpseContainer&&Bot.SettingsFunky.Targeting.IgnoreCorpses)
 							 {
 								  this.BlacklistLoops=-1;
 								  return false;
 							 }
 
-							 iMinDistance=0f;
+
 							 // Any physics mesh? Give a minimum distance of 5 feet
-							 if (this.PhysicsSNO.HasValue&&this.PhysicsSNO>0)
-								  iMinDistance=Bot.ContainerRange;
+							 if (this.PhysicsSNO.HasValue&&this.PhysicsSNO<=0)
+							 {
+								  this.NeedsRemoved=true;
+								  return false;
+							 }
+								 
 
 							 // Superlist for rare chests etc.
-
-							 if (this.IsResplendantChest&&Bot.SettingsFunky.UseExtendedRangeRepChest)
+							 if (this.IsResplendantChest)
 							 {
-								  iMinDistance=75;
 								  //setup wait time. (Unlike Units, we blacklist right after we interact)
 								  if (Bot.Character.LastCachedTarget==this)
 								  {
 										Bot.Combat.lastHadContainerAsTarget=DateTime.Now;
 										Bot.Combat.lastHadRareChestAsTarget=DateTime.Now;
 								  }
-							 }
-
-							 if (iMinDistance<=0||centreDistance>iMinDistance)
-							 {
-								  this.BlacklistLoops=5;
-								  return false;
 							 }
 
 							 // Bag it!

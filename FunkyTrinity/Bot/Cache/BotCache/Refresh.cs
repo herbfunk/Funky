@@ -186,13 +186,8 @@ namespace FunkyTrinity
 					 {
 						  if (FunkyTrinity.Bot.Combat.TriggeringAvoidances.Count==0)
 						  {
-								if (!FunkyTrinity.Bot.SettingsFunky.EnableFleeingBehavior||FunkyTrinity.Bot.Character.dCurrentHealthPct>0.25d)
+								if (!FunkyTrinity.Bot.SettingsFunky.Fleeing.EnableFleeingBehavior||FunkyTrinity.Bot.Character.dCurrentHealthPct>0.25d)
 									 FunkyTrinity.Bot.Combat.RequiresAvoidance=false;
-						  }
-						  else
-						  {
-								if (Bot.NavigationCache.IsMoving)
-									 Bot.Combat.RequiresAvoidance=false;
 						  }
 					 }
 

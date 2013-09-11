@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingRanges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <IgnoreCombatRange>false</IgnoreCombatRange>
+  <IgnoreLootRange>false</IgnoreLootRange>
+  <ItemRange>75</ItemRange>
+  <GoldRange>45</GoldRange>
+  <GlobeRange>40</GlobeRange>
+  <ShrineRange>30</ShrineRange>
+  <DestructibleRange>0</DestructibleRange>
+  <ContainerOpenRange>30</ContainerOpenRange>
+  <NonEliteCombatRange>45</NonEliteCombatRange>
+  <EliteCombatRange>60</EliteCombatRange>
+  <TreasureGoblinRange>55</TreasureGoblinRange>
+</SettingRanges>

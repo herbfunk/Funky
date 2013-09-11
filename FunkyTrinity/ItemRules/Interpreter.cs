@@ -150,21 +150,21 @@ namespace FunkyTrinity
 				macroDic=new Dictionary<string, string>();
 
 				// use giles setting
-				if (Bot.SettingsFunky.ItemRuleDebug)
+				if (Bot.SettingsFunky.ItemRules.ItemRuleDebug)
 					 Logging.Write("ItemRules is running in debug mode!", logPickQuality);
-				Logging.Write("ItemRules is using the {0} rule set.", Bot.SettingsFunky.ItemRuleType.ToString().ToLower());
-				logPickQuality=getTrinityItemQualityFromString(Bot.SettingsFunky.ItemRuleLogPickup.ToString());
+				Logging.Write("ItemRules is using the {0} rule set.", Bot.SettingsFunky.ItemRules.ItemRuleType.ToString().ToLower());
+				logPickQuality=getTrinityItemQualityFromString(Bot.SettingsFunky.ItemRules.ItemRuleLogPickup.ToString());
 				Logging.Write("PICKLOG = {0} ", logPickQuality);
-				logKeepQuality=getTrinityItemQualityFromString(Bot.SettingsFunky.ItemRuleLogKeep.ToString());
+				logKeepQuality=getTrinityItemQualityFromString(Bot.SettingsFunky.ItemRules.ItemRuleLogKeep.ToString());
 				Logging.Write("KEEPLOG = {0} ", logKeepQuality);
 
 				string rulesPath;
-				if (Bot.SettingsFunky.ItemRuleType.Equals("Custom"))
+				if (Bot.SettingsFunky.ItemRules.ItemRuleType.Equals("Custom"))
 				{
-					 rulesPath=Path.GetFullPath(Bot.SettingsFunky.ItemRuleCustomPath);
+					 rulesPath=Path.GetFullPath(Bot.SettingsFunky.ItemRules.ItemRuleCustomPath);
 				}
 				else
-					 rulesPath=Path.Combine(itemrulesPath, "Rules", Bot.SettingsFunky.ItemRuleType.ToString().ToLower());
+					 rulesPath=Path.Combine(itemrulesPath, "Rules", Bot.SettingsFunky.ItemRules.ItemRuleType.ToString().ToLower());
 
 				Logging.Write("RULEPATH = {0} ", rulesPath);
 
@@ -205,7 +205,7 @@ namespace FunkyTrinity
 				}
 
 				Logging.Write("... loaded: {0} Macros", macroDic.Count);
-				Logging.Write("ItemRules loaded a total of {0} {1} rules!", ruleSet.Count, Bot.SettingsFunky.ItemRuleType.ToString());
+				Logging.Write("ItemRules loaded a total of {0} {1} rules!", ruleSet.Count, Bot.SettingsFunky.ItemRules.ItemRuleType.ToString());
 		  }
 
 		  /// <summary>
@@ -239,7 +239,7 @@ namespace FunkyTrinity
 					 // - stop macro transformation
 
 					 // do simple translation with name to itemid
-					 if (Bot.SettingsFunky.ItemRuleUseItemIDs&&str.Contains("[NAME]"))
+					 if (Bot.SettingsFunky.ItemRules.ItemRuleUseItemIDs&&str.Contains("[NAME]"))
 					 {
 						  bool foundTranslation=false;
 						  foreach (string key in nameToBalanceId.Keys.ToList())
@@ -252,7 +252,7 @@ namespace FunkyTrinity
 									 break;
 								}
 						  }
-						  if (!foundTranslation&&Bot.SettingsFunky.ItemRuleDebug)
+						  if (!foundTranslation&&Bot.SettingsFunky.ItemRules.ItemRuleDebug)
 								Logging.Write("No translation found for rule: {0}", str);
 					 }
 
@@ -569,7 +569,7 @@ namespace FunkyTrinity
 		  public void logOut(string str, InterpreterAction action, LogType logType)
 		  {
 				// no debugging when flag set false
-				if (logType==LogType.DEBUG&&!Bot.SettingsFunky.ItemRuleDebug)
+				if (logType==LogType.DEBUG&&!Bot.SettingsFunky.ItemRules.ItemRuleDebug)
 					 return;
 
 				//if (!GilesTrinity.Settings.Advanced.ItemRulesLogs)
@@ -752,7 +752,7 @@ namespace FunkyTrinity
 				}
 
 				// check for missing translations
-				if (Bot.SettingsFunky.ItemRuleDebug&&item.ItemQualityLevel==ItemQuality.Legendary)
+				if (Bot.SettingsFunky.ItemRules.ItemRuleDebug&&item.ItemQualityLevel==ItemQuality.Legendary)
 					 checkItemForMissingTranslation(item);
 
 				// add log unique key

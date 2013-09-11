@@ -1,0 +1,288 @@
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
+
+namespace FunkyTrinity
+{
+	 internal partial class FunkyWindow : Window
+	 {
+		  #region EventHandling
+		  private void TreasureGoblinMinimumRangeSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.SettingsFunky.Class.GoblinMinimumRange=Value;
+				TBGoblinMinRange.Text=Value.ToString();
+		  }
+		  #endregion
+
+
+		  internal void InitPlayerClassControls()
+		  {
+				//Class Specific
+				TabItem ClassTabItem=new TabItem();
+				ClassTabItem.Header="Class";
+				CombatTabControl.Items.Add(ClassTabItem);
+				ListBox LBClass=new ListBox();
+
+				switch (Bot.ActorClass)
+				{
+					 case Zeta.Internals.Actors.ActorClass.Barbarian:
+						  CheckBox cbbSelectiveWhirlwind=new CheckBox
+						  {
+								Content="Selective Whirlwind Targeting",
+								Width=300,
+								Height=30,
+								IsChecked=(Bot.SettingsFunky.Class.bSelectiveWhirlwind)
+						  };
+						  cbbSelectiveWhirlwind.Checked+=bSelectiveWhirlwindChecked;
+						  cbbSelectiveWhirlwind.Unchecked+=bSelectiveWhirlwindChecked;
+						  LBClass.Items.Add(cbbSelectiveWhirlwind);
+
+						  TextBlock txtblockWrathOptions=new TextBlock
+						  {
+								Text="Wrath of the Berserker Options",
+								FontStyle=FontStyles.Oblique,
+								Foreground=System.Windows.Media.Brushes.GhostWhite,
+								FontSize=11,
+								TextAlignment=TextAlignment.Left,
+						  };
+						  LBClass.Items.Add(txtblockWrathOptions);
+
+						  StackPanel spWrathOptions=new StackPanel
+						  {
+								Orientation=Orientation.Horizontal,
+						  };
+						  CheckBox cbbWaitForWrath=new CheckBox
+						  {
+								Content="Wait for Wrath",
+								Height=30,
+								IsChecked=(Bot.SettingsFunky.Class.bWaitForWrath),
+								Margin=new Thickness(5),
+						  };
+						  cbbWaitForWrath.Checked+=bWaitForWrathChecked;
+						  cbbWaitForWrath.Unchecked+=bWaitForWrathChecked;
+						  spWrathOptions.Children.Add(cbbWaitForWrath);
+
+						  CheckBox cbbGoblinWrath=new CheckBox
+						  {
+								Content="Use Wrath on Goblins",
+								Height=30,
+								IsChecked=(Bot.SettingsFunky.Class.bGoblinWrath),
+								Margin=new Thickness(5),
+						  };
+						  cbbGoblinWrath.Checked+=bGoblinWrathChecked;
+						  cbbGoblinWrath.Unchecked+=bGoblinWrathChecked;
+						  spWrathOptions.Children.Add(cbbGoblinWrath);
+
+						  CheckBox cbbBarbUseWOTBAlways=new CheckBox
+						  {
+								Content="Use Wrath on Always",
+								Height=30,
+								IsChecked=(Bot.SettingsFunky.Class.bBarbUseWOTBAlways),
+								Margin=new Thickness(5),
+						  };
+						  cbbBarbUseWOTBAlways.Checked+=bBarbUseWOTBAlwaysChecked;
+						  cbbBarbUseWOTBAlways.Unchecked+=bBarbUseWOTBAlwaysChecked;
+						  spWrathOptions.Children.Add(cbbBarbUseWOTBAlways);
+						  LBClass.Items.Add(spWrathOptions);
+
+
+
+						  CheckBox cbbFuryDumpWrath=new CheckBox
+						  {
+								Content="Fury Dump during Wrath",
+								Width=300,
+								Height=30,
+								IsChecked=(Bot.SettingsFunky.Class.bFuryDumpWrath)
+						  };
+						  cbbFuryDumpWrath.Checked+=bFuryDumpWrathChecked;
+						  cbbFuryDumpWrath.Unchecked+=bFuryDumpWrathChecked;
+						  LBClass.Items.Add(cbbFuryDumpWrath);
+
+						  CheckBox cbbFuryDumpAlways=new CheckBox
+						  {
+								Content="Fury Dump Always",
+								Width=300,
+								Height=30,
+								IsChecked=(Bot.SettingsFunky.Class.bFuryDumpAlways)
+						  };
+						  cbbFuryDumpAlways.Checked+=bFuryDumpAlwaysChecked;
+						  cbbFuryDumpAlways.Unchecked+=bFuryDumpAlwaysChecked;
+						  LBClass.Items.Add(cbbFuryDumpAlways);
+
+						  break;
+					 case Zeta.Internals.Actors.ActorClass.DemonHunter:
+						  LBClass.Items.Add("Reuse Vault Delay");
+						  Slider iDHVaultMovementDelayslider=new Slider
+						  {
+								Width=200,
+								Maximum=4000,
+								Minimum=400,
+								TickFrequency=5,
+								LargeChange=5,
+								SmallChange=1,
+								Value=Bot.SettingsFunky.Class.iDHVaultMovementDelay,
+								HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  };
+						  iDHVaultMovementDelayslider.ValueChanged+=iDHVaultMovementDelaySliderChanged;
+						  TBiDHVaultMovementDelay=new TextBox
+						  {
+								Text=Bot.SettingsFunky.Class.iDHVaultMovementDelay.ToString(),
+								IsReadOnly=true,
+						  };
+						  StackPanel DhVaultPanel=new StackPanel
+						  {
+								Width=600,
+								Height=30,
+								Orientation=Orientation.Horizontal,
+						  };
+						  DhVaultPanel.Children.Add(iDHVaultMovementDelayslider);
+						  DhVaultPanel.Children.Add(TBiDHVaultMovementDelay);
+						  LBClass.Items.Add(DhVaultPanel);
+
+						  break;
+					 case Zeta.Internals.Actors.ActorClass.Monk:
+						  CheckBox cbbMonkSpamMantra=new CheckBox
+						  {
+								Content="Spam Mantra Ability",
+								Width=300,
+								Height=30,
+								IsChecked=(Bot.SettingsFunky.Class.bMonkSpamMantra)
+						  };
+						  cbbMonkSpamMantra.Checked+=bMonkSpamMantraChecked;
+						  cbbMonkSpamMantra.Unchecked+=bMonkSpamMantraChecked;
+						  LBClass.Items.Add(cbbMonkSpamMantra);
+
+						  CheckBox cbbMonkInnaSet=new CheckBox
+						  {
+								Content="Full Inna Set Bonus",
+								Width=300,
+								Height=30,
+								IsChecked=(Bot.SettingsFunky.Class.bMonkInnaSet)
+						  };
+						  cbbMonkInnaSet.Checked+=bMonkInnaSetChecked;
+						  cbbMonkInnaSet.Unchecked+=bMonkInnaSetChecked;
+						  LBClass.Items.Add(cbbMonkInnaSet);
+
+						  break;
+					 case Zeta.Internals.Actors.ActorClass.WitchDoctor:
+					 case Zeta.Internals.Actors.ActorClass.Wizard:
+						  //CheckBox cbbEnableCriticalMass = new CheckBox
+						  //{
+						  //    Content = "Critical Mass",
+						  //    Width = 300,
+						  //    Height = 30,
+						  //    IsChecked = (Bot.SettingsFunky.Class.bEnableCriticalMass)
+						  //};
+						  //cbbEnableCriticalMass.Checked += bEnableCriticalMassChecked;
+						  //cbbEnableCriticalMass.Unchecked += bEnableCriticalMassChecked;
+						  //LBClass.Items.Add(cbbEnableCriticalMass);
+
+						  if (Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Wizard)
+						  {
+								CheckBox cbbWaitForArchon=new CheckBox
+								{
+									 Content="Wait for Archon",
+									 Width=300,
+									 Height=30,
+									 IsChecked=(Bot.SettingsFunky.Class.bWaitForArchon)
+								};
+								cbbWaitForArchon.Checked+=bWaitForArchonChecked;
+								cbbWaitForArchon.Unchecked+=bWaitForArchonChecked;
+								LBClass.Items.Add(cbbWaitForArchon);
+
+								CheckBox cbbKiteOnlyArchon=new CheckBox
+								{
+									 Content="Do NOT Kite During Archon",
+									 Width=300,
+									 Height=30,
+									 IsChecked=(Bot.SettingsFunky.Class.bKiteOnlyArchon)
+								};
+								cbbKiteOnlyArchon.Checked+=bKiteOnlyArchonChecked;
+								cbbKiteOnlyArchon.Unchecked+=bKiteOnlyArchonChecked;
+								LBClass.Items.Add(cbbKiteOnlyArchon);
+
+								CheckBox cbbCancelArchonRebuff=new CheckBox
+								{
+									 Content="Cancel Archon for Rebuff",
+									 Height=30,
+									 IsChecked=(Bot.SettingsFunky.Class.bCancelArchonRebuff),
+								};
+								cbbCancelArchonRebuff.Checked+=bCancelArchonRebuffChecked;
+								cbbCancelArchonRebuff.Unchecked+=bCancelArchonRebuffChecked;
+								LBClass.Items.Add(cbbCancelArchonRebuff);
+
+								CheckBox cbbTeleportFleeWhenLowHP=new CheckBox
+								{
+									 Content="Teleport: Flee When Low HP",
+									 Height=30,
+									 IsChecked=(Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP),
+								};
+								cbbTeleportFleeWhenLowHP.Checked+=bTeleportFleeWhenLowHPChecked;
+								cbbTeleportFleeWhenLowHP.Unchecked+=bTeleportFleeWhenLowHPChecked;
+								LBClass.Items.Add(cbbTeleportFleeWhenLowHP);
+
+								CheckBox cbbTeleportIntoGrouping=new CheckBox
+								{
+									 Content="Teleport: Into Monster Groups",
+									 Height=30,
+									 IsChecked=(Bot.SettingsFunky.Class.bTeleportIntoGrouping),
+								};
+								cbbTeleportIntoGrouping.Checked+=bTeleportIntoGroupingChecked;
+								cbbTeleportIntoGrouping.Unchecked+=bTeleportIntoGroupingChecked;
+								LBClass.Items.Add(cbbTeleportIntoGrouping);
+								//
+
+						  }
+
+						  break;
+				}
+				if (Bot.ActorClass==Zeta.Internals.Actors.ActorClass.DemonHunter||Bot.ActorClass==Zeta.Internals.Actors.ActorClass.WitchDoctor||Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Wizard)
+				{
+
+					 #region GoblinMinimumRange
+					 LBClass.Items.Add("Treasure Goblin Minimum Range");
+					 Slider sliderGoblinMinRange=new Slider
+					 {
+						  Width=200,
+						  Maximum=75,
+						  Minimum=0,
+						  TickFrequency=5,
+						  LargeChange=5,
+						  SmallChange=1,
+						  Value=Bot.SettingsFunky.Class.GoblinMinimumRange,
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 };
+					 sliderGoblinMinRange.ValueChanged+=TreasureGoblinMinimumRangeSliderChanged;
+					 TBGoblinMinRange=new TextBox
+					 {
+						  Text=Bot.SettingsFunky.Class.GoblinMinimumRange.ToString(),
+						  IsReadOnly=true,
+					 };
+					 StackPanel GoblinMinRangeStackPanel=new StackPanel
+					 {
+						  Width=600,
+						  Height=30,
+						  Orientation=Orientation.Horizontal,
+					 };
+					 GoblinMinRangeStackPanel.Children.Add(sliderGoblinMinRange);
+					 GoblinMinRangeStackPanel.Children.Add(TBGoblinMinRange);
+					 LBClass.Items.Add(GoblinMinRangeStackPanel);
+					 #endregion
+
+
+					 CheckBox cbMissleDampeningCloseRange=new CheckBox
+					 {
+						  Content="Close Range on Missile Dampening Monsters",
+						  IsChecked=Bot.SettingsFunky.Targeting.MissleDampeningEnforceCloseRange,
+					 };
+					 cbMissleDampeningCloseRange.Checked+=MissileDampeningChecked;
+					 cbMissleDampeningCloseRange.Unchecked+=MissileDampeningChecked;
+					 LBClass.Items.Add(cbMissleDampeningCloseRange);
+
+				}
+				ClassTabItem.Content=LBClass;
+		  }
+	}
+}

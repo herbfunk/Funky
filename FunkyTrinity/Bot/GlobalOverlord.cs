@@ -195,7 +195,7 @@ namespace FunkyTrinity
 			  ObjectCache.CheckRefreshBlacklists();
 
 
-				if (Bot.SettingsFunky.DebugStatusBar&&bResetStatusText)
+				if (Bot.SettingsFunky.Debug.DebugStatusBar&&bResetStatusText)
 				{
 					 bResetStatusText=false;
 					 BotMain.StatusText="[Funky] No more targets - DemonBuddy/profile management is now in control";

@@ -31,7 +31,7 @@ namespace FunkyTrinity
 					 Bot.Character.BackPack.Update();
 
 					 //Refresh item manager if we are not using item rules nor giles scoring.
-					 if (!Bot.SettingsFunky.UseItemRules&&!Bot.SettingsFunky.ItemRuleGilesScoring)
+					 if (!Bot.SettingsFunky.ItemRules.UseItemRules&&!Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring)
 						  ItemManager.Current.Refresh();
 
 					 foreach (var thisitem in Bot.Character.BackPack.CacheItemList.Values)
@@ -42,7 +42,7 @@ namespace FunkyTrinity
 								if (!ItemManager.Current.ItemIsProtected(thisitem.ACDItem))
 								{
 
-									 if (Bot.SettingsFunky.ItemRulesSalvaging)
+									 if (Bot.SettingsFunky.ItemRules.ItemRulesSalvaging)
 									 {
 										  if (ItemRulesEval.checkSalvageItem(thisitem.ACDItem)==Interpreter.InterpreterAction.SALVAGE)
 										  {
@@ -53,7 +53,7 @@ namespace FunkyTrinity
 
 
 
-									 //Log("GilesTrinityScoring == "+Bot.SettingsFunky.ItemRuleGilesScoring.ToString());
+									 //Log("GilesTrinityScoring == "+Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring.ToString());
 
 									 bShouldVisitSalvage=ItemManager.Current.ShouldStashItem(thisitem.ACDItem);
 
@@ -83,7 +83,7 @@ namespace FunkyTrinity
 
 				internal static RunStatus GilesOptimisedPreSalvage(object ret)
 				{
-					 if (Bot.SettingsFunky.DebugStatusBar)
+					 if (Bot.SettingsFunky.Debug.DebugStatusBar)
 						  BotMain.StatusText="Town run: Salvage routine started";
 					 Log("GSDebug: Salvage routine started.", true);
 

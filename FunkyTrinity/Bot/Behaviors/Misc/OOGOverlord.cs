@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyTrinity.Settings;
 using Zeta;
 using Zeta.Common;
 using Zeta.TreeSharp;
@@ -54,6 +55,12 @@ namespace FunkyTrinity
 					 }
 					 else
 						  return true;
+				}
+
+				//Change the Monster Power!
+				if (Bot.SettingsFunky.Demonbuddy.EnableDemonBuddyCharacterSettings)
+				{
+					 Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel=Bot.SettingsFunky.Demonbuddy.MonsterPower;
 				}
 
 				return false;

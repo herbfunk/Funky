@@ -119,96 +119,138 @@ namespace FunkyTrinity.ability
 
 				FSingleTargetUnitCriteria=null;
 
-				if (ability.TargetUnitConditionFlags==null) return;
-				UnitTargetConditions TargetUnitConditionFlags_=ability.TargetUnitConditionFlags;
-
-				if (TargetUnitConditionFlags_.Distance>-1)
-					 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.RadiusDistance<=TargetUnitConditionFlags_.Distance; });
-				if (TargetUnitConditionFlags_.HealthPercent>0d)
-					 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value<=TargetUnitConditionFlags_.HealthPercent; });
-
-				//TRUE CONDITIONS
-				if (TargetUnitConditionFlags_.TrueConditionFlags.Equals(TargetProperties.None))
+			   //No Conditions Set by default.. (?? May have to verify ability execution can be Target)
+			   //-- Ranged Abilities that do not set any single target conditions will never be checked for LOS.
+				if (ability.TargetUnitConditionFlags==null)
 					 FSingleTargetUnitCriteria+=new Func<bool>(() => { return true; });
 				else
-				{
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Boss))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsBoss; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Burrowing))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsBurrowableUnit; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.FullHealth))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value==1d; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.IsSpecial))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.ObjectIsSpecial; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Weak))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.UnitMaxHitPointAverageWeight<0; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.MissileDampening))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterMissileDampening; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.RareElite))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.IsEliteRareUnique; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.MissileReflecting))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsMissileReflecting; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Shielding))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterShielding; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Stealthable))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsStealthableUnit; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.SucideBomber))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsSucideBomber; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.TreasureGoblin))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsTreasureGoblin; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Unique))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterUnique; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Ranged))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.Monstersize.Value==MonsterSize.Ranged; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.TargetableAndAttackable))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.IsTargetableAndAttackable; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Fast))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.IsFast; });
-					 if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.DOTDPS))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.HasDOTdps.HasValue&&Bot.Target.CurrentUnitTarget.HasDOTdps.Value; });
-				}
+					 CreateTargetFlagConditions(ref FSingleTargetUnitCriteria, ability.TargetUnitConditionFlags);	//Create conditions using TargetUnitCondition object
 
-				//FALSE CONDITIONS
-				if (TargetUnitConditionFlags_.FalseConditionFlags.Equals(TargetProperties.None))
-					 FSingleTargetUnitCriteria+=new Func<bool>(() => { return true; });
-				else
+			
+				
+
+				//Ranged Abilities should check LOS!
+				if (ability.IsRanged)
 				{
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Boss))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsBoss; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Burrowing))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsBurrowableUnit; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.FullHealth))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value!=1d; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.IsSpecial))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.ObjectIsSpecial; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Weak))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.UnitMaxHitPointAverageWeight>0; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.MissileDampening))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.MonsterMissileDampening; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.RareElite))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.IsEliteRareUnique; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.MissileReflecting))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsMissileReflecting; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Shielding))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.MonsterShielding; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Stealthable))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsStealthableUnit; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.SucideBomber))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsSucideBomber; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.TreasureGoblin))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsTreasureGoblin; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Unique))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.MonsterUnique; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Ranged))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.Monstersize.Value!=MonsterSize.Ranged; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.TargetableAndAttackable))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.IsTargetableAndAttackable; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Fast))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.IsFast; });
-					 if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.DOTDPS))
-							FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.HasDOTdps.HasValue||!Bot.Target.CurrentUnitTarget.HasDOTdps.Value; });
+					 FSingleTargetUnitCriteria+=new Func<bool>(() =>
+					 {
+						  if (!Bot.Target.CurrentUnitTarget.IgnoresLOSCheck)
+						  {
+								ability.LOSInfo LOSINFO=Bot.Target.CurrentTarget.LineOfSight;
+								if (!Bot.Character.bIsIncapacitated&&(LOSINFO.LastLOSCheckMS>2000||(ability.IsProjectile&&!LOSINFO.ObjectIntersection.HasValue)||!LOSINFO.NavCellProjectile.HasValue))
+								{
+									 if (!LOSINFO.LOSTest(Bot.Character.Position, true, ability.IsProjectile, NavCellFlags.AllowProjectile))
+									 {
+										  //Raycast failed.. reset LOS Check -- for valid checking.
+										  if (!LOSINFO.RayCast.Value) Bot.Target.CurrentTarget.RequiresLOSCheck=true;
+										  return false;
+									 }
+								}
+								else if ((ability.IsProjectile&&LOSINFO.ObjectIntersection.Value)||!LOSINFO.NavCellProjectile.Value)
+								{
+									 return false;
+								}
+						  }
+						  return true;
+					 });
 				}
+			  
 		 }
+		
+		private void CreateTargetFlagConditions(ref Func<bool> FSingleTargetUnitCriteria, UnitTargetConditions TargetUnitConditionFlags_)
+		 {
+			 //Distance
+			  if (TargetUnitConditionFlags_.Distance>-1)
+					FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.CentreDistance<=TargetUnitConditionFlags_.Distance; });
+			 //Health
+			 if (TargetUnitConditionFlags_.HealthPercent>0d)
+					FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value<=TargetUnitConditionFlags_.HealthPercent; });
+
+
+			  //TRUE CONDITIONS
+			  if (TargetUnitConditionFlags_.TrueConditionFlags.Equals(TargetProperties.None))
+					FSingleTargetUnitCriteria+=new Func<bool>(() => { return true; });
+			  else
+			  {
+					if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Boss))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsBoss; });
+					if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Burrowing))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsBurrowableUnit; });
+					if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.FullHealth))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value==1d; });
+					if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.IsSpecial))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.ObjectIsSpecial; });
+					if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Weak))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.UnitMaxHitPointAverageWeight<0; });
+					if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.MissileDampening))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterMissileDampening; });
+					if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.RareElite))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.IsEliteRareUnique; });
+					if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.MissileReflecting))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsMissileReflecting; });
+					if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Shielding))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterShielding; });
+					if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Stealthable))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsStealthableUnit; });
+					if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.SucideBomber))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsSucideBomber; });
+					if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.TreasureGoblin))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.IsTreasureGoblin; });
+					if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Unique))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.MonsterUnique; });
+					if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Ranged))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.Monstersize.Value==MonsterSize.Ranged; });
+					if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.TargetableAndAttackable))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.IsTargetableAndAttackable; });
+					if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.Fast))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.IsFast; });
+					if (TargetUnitConditionFlags_.TrueConditionFlags.HasFlag(TargetProperties.DOTDPS))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.HasDOTdps.HasValue&&Bot.Target.CurrentUnitTarget.HasDOTdps.Value; });
+			  }
+
+			  //FALSE CONDITIONS
+			  if (TargetUnitConditionFlags_.FalseConditionFlags.Equals(TargetProperties.None))
+					FSingleTargetUnitCriteria+=new Func<bool>(() => { return true; });
+			  else
+			  {
+					if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Boss))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsBoss; });
+					if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Burrowing))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsBurrowableUnit; });
+					if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.FullHealth))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value!=1d; });
+					if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.IsSpecial))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.ObjectIsSpecial; });
+					if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Weak))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.UnitMaxHitPointAverageWeight>0; });
+					if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.MissileDampening))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.MonsterMissileDampening; });
+					if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.RareElite))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.IsEliteRareUnique; });
+					if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.MissileReflecting))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsMissileReflecting; });
+					if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Shielding))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.MonsterShielding; });
+					if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Stealthable))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsStealthableUnit; });
+					if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.SucideBomber))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsSucideBomber; });
+					if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.TreasureGoblin))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentTarget.IsTreasureGoblin; });
+					if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Unique))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.MonsterUnique; });
+					if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Ranged))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.Monstersize.Value!=MonsterSize.Ranged; });
+					if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.TargetableAndAttackable))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.IsTargetableAndAttackable; });
+					if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.Fast))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.IsFast; });
+					if (TargetUnitConditionFlags_.FalseConditionFlags.HasFlag(TargetProperties.DOTDPS))
+						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.HasDOTdps.HasValue||!Bot.Target.CurrentUnitTarget.HasDOTdps.Value; });
+			  }
+		 }
+
+
 
 		private void CreateUnitsInRangeConditions(ref Func<bool> FUnitRange, Ability ability)
 		 {

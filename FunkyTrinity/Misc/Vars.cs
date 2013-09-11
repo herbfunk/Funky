@@ -12,6 +12,7 @@ using System.IO;
 using FunkyTrinity.Enums;
 using FunkyTrinity.Cache;
 using System.Diagnostics;
+using System.Windows;
 
 namespace FunkyTrinity
 {
@@ -87,7 +88,24 @@ namespace FunkyTrinity
 		  // Do we need to reset the debug bar after combat handling?
 	    internal static bool bResetStatusText=false;
 
+		 private static void buttonFunkySettingDB_Click(object sender, RoutedEventArgs e)
+		 {
+			  Bot.UpdateCurrentAccountDetails();
 
+			  string settingsFolder=FolderPaths.sDemonBuddyPath+@"\Settings\FunkyTrinity\"+Bot.CurrentAccountName;
+			  if (!Directory.Exists(settingsFolder)) Directory.CreateDirectory(settingsFolder);
+
+			  try
+			  {
+					funkyConfigWindow=new FunkyWindow();
+					funkyConfigWindow.Show();
+			  } catch (Exception ex)
+			  {
+					Logging.WriteVerbose("Failure to initilize Funky Setting Window! \r\n {0} \r\n {1} \r\n {2}", ex.Message, ex.Source, ex.StackTrace);
+			  }
+		 }
+
+		 internal static FunkyWindow funkyConfigWindow;
 
         // A list of "useonceonly" tags that have been triggered this xml profile
 		  internal static HashSet<int> hashUseOnceID=new HashSet<int>();

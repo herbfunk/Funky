@@ -74,7 +74,7 @@ namespace FunkyTrinity.XMLTags
 			else
 			{
 				//Special cache for skipping locations visited.
-				if (Bot.SettingsFunky.SkipAhead)
+				if (Bot.SettingsFunky.Debug.SkipAhead)
 					SkipAheadCache.RecordSkipAheadCachePoint(PathPrecision);
 
 				Navigator.MoveTo(NavTarget);

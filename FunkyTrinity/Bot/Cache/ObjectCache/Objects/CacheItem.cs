@@ -170,7 +170,7 @@ namespace FunkyTrinity.Cache
 									 //Test if there are nearby units that will trigger kite action..
 									 if (Bot.Character.ShouldFlee)
 									 {
-										  if (ObjectCache.Objects.OfType<CacheUnit>().Any(m=>m.ShouldBeKited&&m.IsPositionWithinRange(this.Position, Bot.SettingsFunky.FleeMaxMonsterDistance)))
+										  if (ObjectCache.Objects.OfType<CacheUnit>().Any(m=>m.ShouldBeKited&&m.IsPositionWithinRange(this.Position, Bot.SettingsFunky.Fleeing.FleeMaxMonsterDistance)))
 												this.Weight=1;
 									 }
 
@@ -323,7 +323,7 @@ namespace FunkyTrinity.Cache
 
 								if (this.targetType==TargetType.Gold)
 								{
-									 if (this.GoldAmount.Value<Bot.SettingsFunky.MinimumGoldPile)
+									 if (this.GoldAmount.Value<Bot.SettingsFunky.Loot.MinimumGoldPile)
 									 {
 										  this.NeedsRemoved=true;
 										  this.BlacklistFlag=BlacklistType.Temporary;
@@ -459,7 +459,7 @@ namespace FunkyTrinity.Cache
 						  #region PickupValidation
 						  if (!this.ShouldPickup.HasValue)
 						  {
-								if (Bot.SettingsFunky.UseItemRules)
+								if (Bot.SettingsFunky.ItemRules.UseItemRules)
 								{
 									 Interpreter.InterpreterAction action=Funky.ItemRulesEval.checkPickUpItem(this, ItemEvaluationType.PickUp);
 									 switch (action)
@@ -477,7 +477,7 @@ namespace FunkyTrinity.Cache
 								{
 									 //Use Giles Scoring or DB Weighting..
 									 this.ShouldPickup=
-											Bot.SettingsFunky.ItemRuleGilesScoring?Funky.GilesPickupItemValidation(this)
+											Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring?Funky.GilesPickupItemValidation(this)
 										  :ItemManager.Current.EvaluateItem((ACDItem)this.ref_DiaItem.CommonData, Zeta.CommonBot.ItemEvaluationType.PickUp); ;
 								}
 

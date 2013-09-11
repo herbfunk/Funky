@@ -166,7 +166,7 @@ namespace FunkyTrinity
         }
 
 
-        private static string ReturnLogOutputString()
+        internal static string ReturnLogOutputString()
         {
 				System.TimeSpan diff1=Bot.BotStatistics.ItemStats.TotalTimeTracked();
             int[] stashedCounts, lootedCounts;

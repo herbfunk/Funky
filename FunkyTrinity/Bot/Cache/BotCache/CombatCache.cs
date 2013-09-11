@@ -77,7 +77,7 @@ namespace FunkyTrinity
 				internal List<int> ValidClusterUnits=new List<int>();
 				internal List<CacheUnit> DistantUnits=new List<CacheUnit>();
 
-				private ClusterConditions TargetClusterConditions=new ClusterConditions(Bot.SettingsFunky.ClusterDistance, 100f, Bot.SettingsFunky.ClusterMinimumUnitCount, false);
+				private ClusterConditions TargetClusterConditions=new ClusterConditions(Bot.SettingsFunky.Cluster.ClusterDistance, 100f, Bot.SettingsFunky.Cluster.ClusterMinimumUnitCount, false);
 				internal ClusterTargetCollection TargetClusterCollection { get; set; }
 
 				internal List<UnitCluster> CurrentGroupClusters=new List<UnitCluster>();
@@ -115,7 +115,7 @@ namespace FunkyTrinity
 				internal void UpdateGroupClusteringVariables()
 				{
 					 //grouping clustering
-					 if (Bot.SettingsFunky.AttemptGroupingMovements)
+					 if (Bot.SettingsFunky.Grouping.AttemptGroupingMovements)
 					 {
 						  if ((CurrentGroupClusters.Count==0&&DateTime.Compare(LastClusterGroupingLogicRefresh, DateTime.Now)<0)
 								||(CurrentGroupClusters.Count>0&&DateTime.Now.Subtract(LastClusterGroupingLogicRefresh).TotalMilliseconds>1250))
@@ -124,12 +124,12 @@ namespace FunkyTrinity
 								CurrentGroupClusters=new List<UnitCluster>();
 
 								//Check if there are enough units present currently..
-								if (DistantUnits.Count>Bot.SettingsFunky.GroupingMinimumUnitsInCluster)
+								if (DistantUnits.Count>Bot.SettingsFunky.Grouping.GroupingMinimumUnitsInCluster)
 								{
 
 									 //Update UnitCluster Collection
-									 CurrentGroupClusters=UnitCluster.RunKmeans(DistantUnits, Bot.SettingsFunky.GroupingClusterRadiusDistance)
-										  .Where(cluster => cluster.ListUnits.Count>=Bot.SettingsFunky.GroupingMinimumUnitsInCluster&&cluster.NearestMonsterDistance<=Bot.SettingsFunky.GroupingMaximumDistanceAllowed)
+									 CurrentGroupClusters=UnitCluster.RunKmeans(DistantUnits, Bot.SettingsFunky.Grouping.GroupingClusterRadiusDistance)
+										  .Where(cluster => cluster.ListUnits.Count>=Bot.SettingsFunky.Grouping.GroupingMinimumUnitsInCluster&&cluster.NearestMonsterDistance<=Bot.SettingsFunky.Grouping.GroupingMaximumDistanceAllowed)
 										  .OrderByDescending(cluster => cluster.NearestMonsterDistance).ToList();
 
 									 //if (Bot.SettingsFunky.LogGroupingOutput)
@@ -149,10 +149,10 @@ namespace FunkyTrinity
 				{
 					 
 					 //normal clustering
-					 if (Bot.SettingsFunky.EnableClusteringTargetLogic&&
-						  (!Bot.SettingsFunky.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>Bot.SettingsFunky.IgnoreClusterLowHPValue))
+					 if (Bot.SettingsFunky.Cluster.EnableClusteringTargetLogic&&
+						  (!Bot.SettingsFunky.Cluster.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>Bot.SettingsFunky.Cluster.IgnoreClusterLowHPValue))
 					 {
-						  if (UnitRAGUIDs.Count>=Bot.SettingsFunky.ClusterMinimumUnitCount)
+						  if (UnitRAGUIDs.Count>=Bot.SettingsFunky.Cluster.ClusterMinimumUnitCount)
 						  {
 								if (TargetClusterCollection.ShouldUpdateClusters)
 									 TargetClusterCollection.UpdateClusters();

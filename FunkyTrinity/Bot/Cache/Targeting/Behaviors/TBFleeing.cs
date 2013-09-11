@@ -14,7 +14,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 		  {
 				get
 				{
-					 return Bot.SettingsFunky.EnableFleeingBehavior;
+					 return Bot.SettingsFunky.Fleeing.EnableFleeingBehavior;
 				}
 		  }
 		  public override TargetBehavioralTypes TargetBehavioralTypeType { get { return TargetBehavioralTypes.Fleeing; } }
@@ -23,9 +23,9 @@ namespace FunkyTrinity.Targeting.Behaviors
 		  {
 				this.Test=(ref CacheObject obj) =>
 				{
-					 if (FunkyTrinity.Bot.SettingsFunky.EnableFleeingBehavior&&FunkyTrinity.Bot.Character.dCurrentHealthPct<=FunkyTrinity.Bot.SettingsFunky.FleeBotMinimumHealthPercent&&FunkyTrinity.Bot.Combat.FleeTriggeringUnits.Count>0
+					 if (FunkyTrinity.Bot.SettingsFunky.Fleeing.EnableFleeingBehavior&&FunkyTrinity.Bot.Character.dCurrentHealthPct<=FunkyTrinity.Bot.SettingsFunky.Fleeing.FleeBotMinimumHealthPercent&&FunkyTrinity.Bot.Combat.FleeTriggeringUnits.Count>0
 								&&(DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.timeCancelledFleeMove).TotalMilliseconds>FunkyTrinity.Bot.Combat.iMillisecondsCancelledFleeMoveFor)
-								&&(!FunkyTrinity.Bot.Combat.bAnyTreasureGoblinsPresent||FunkyTrinity.Bot.SettingsFunky.GoblinPriority<2)
+								&&(!FunkyTrinity.Bot.Combat.bAnyTreasureGoblinsPresent||FunkyTrinity.Bot.SettingsFunky.Targeting.GoblinPriority<2)
 								&&(FunkyTrinity.Bot.Class.AC!=ActorClass.Wizard||(FunkyTrinity.Bot.Class.AC==ActorClass.Wizard&&(!FunkyTrinity.Bot.Class.HasBuff(SNOPower.Wizard_Archon)||!FunkyTrinity.Bot.SettingsFunky.Class.bKiteOnlyArchon))))
 					 {
 						  //Resuse last safespot until timer expires!

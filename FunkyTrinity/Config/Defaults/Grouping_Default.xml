@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingGrouping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AttemptGroupingMovements>true</AttemptGroupingMovements>
+  <GroupingClusterRadiusDistance>10</GroupingClusterRadiusDistance>
+  <GroupingMinimumUnitDistance>35</GroupingMinimumUnitDistance>
+  <GroupingMaximumDistanceAllowed>110</GroupingMaximumDistanceAllowed>
+  <GroupingMinimumClusterCount>1</GroupingMinimumClusterCount>
+  <GroupingMinimumUnitsInCluster>3</GroupingMinimumUnitsInCluster>
+</SettingGrouping>
