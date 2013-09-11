@@ -119,10 +119,15 @@ namespace FunkyTrinity.ability
 
 				FSingleTargetUnitCriteria=null;
 
-				if (ability.TargetUnitConditionFlags==null) return;
+			   //No Conditions Set by default.. (?? May have to verify ability execution can be Target)
+			   //-- Ranged Abilities that do not set any single target conditions will never be checked for LOS.
+				if (ability.TargetUnitConditionFlags==null)
+					 FSingleTargetUnitCriteria+=new Func<bool>(() => { return true; });
+				else
+					 CreateTargetFlagConditions(ref FSingleTargetUnitCriteria, ability.TargetUnitConditionFlags);	//Create conditions using TargetUnitCondition object
 
-				//Create conditions using TargetUnitCondition object
-				CreateTargetFlagConditions(ref FSingleTargetUnitCriteria, ability.TargetUnitConditionFlags);
+			
+				
 
 				//Ranged Abilities should check LOS!
 				if (ability.IsRanged)
@@ -156,7 +161,7 @@ namespace FunkyTrinity.ability
 		 {
 			 //Distance
 			  if (TargetUnitConditionFlags_.Distance>-1)
-					FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.RadiusDistance<=TargetUnitConditionFlags_.Distance; });
+					FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentTarget.CentreDistance<=TargetUnitConditionFlags_.Distance; });
 			 //Health
 			 if (TargetUnitConditionFlags_.HealthPercent>0d)
 					FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Target.CurrentUnitTarget.CurrentHealthPct.Value<=TargetUnitConditionFlags_.HealthPercent; });

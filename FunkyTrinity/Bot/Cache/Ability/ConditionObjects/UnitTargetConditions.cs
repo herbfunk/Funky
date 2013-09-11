@@ -7,11 +7,11 @@ namespace FunkyTrinity.ability
 	 ///</summary>
 	 public class UnitTargetConditions
 	 {
-			public UnitTargetConditions(TargetProperties trueconditionalFlags, int MinimumRadiusDistance=-1, double MinimumHealthPercent=0d, TargetProperties falseConditionalFlags=TargetProperties.None)
+			public UnitTargetConditions(TargetProperties trueconditionalFlags, int MinimumDistance=-1, double MinimumHealthPercent=0d, TargetProperties falseConditionalFlags=TargetProperties.None)
 			{
 				 TrueConditionFlags=trueconditionalFlags;
 				 FalseConditionFlags=falseConditionalFlags;
-				 Distance=MinimumRadiusDistance;
+				 Distance=MinimumDistance;
 				 HealthPercent=MinimumHealthPercent;
 			}
 

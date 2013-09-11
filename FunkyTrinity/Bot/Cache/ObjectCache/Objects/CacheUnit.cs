@@ -894,19 +894,19 @@ namespace FunkyTrinity.Cache
 								double lastLOSCheckMS=base.LineOfSight.LastLOSCheckMS;
 
 
-								if (lastLOSCheckMS<500)
+								if (lastLOSCheckMS<500&&centreDistance>1f)
 									 return false;
 								else
 								{
 									 //Last Health Changed, Distance, Special Unit..
-									 double ReCheckTime=7500;
+									 double ReCheckTime=5500;
 
 									 if (DateTime.Now.Subtract(this.LastHealthChange).TotalMilliseconds<5000)
 										  ReCheckTime*=0.75;
 
 									 //Close Range.. we change the recheck timer based on how close
 									 if (this.CentreDistance<25f)
-										  ReCheckTime=(this.CentreDistance*225);
+										  ReCheckTime=(this.CentreDistance*125);
 									 else if (this.ObjectIsSpecial)
 										  ReCheckTime*=0.25;
 
@@ -1438,8 +1438,8 @@ namespace FunkyTrinity.Cache
 						  Bot.Combat.powerPrime.MinimumRange=Bot.SettingsFunky.Class.GoblinMinimumRange;
 					 else if (this.MonsterMissileDampening&&Bot.SettingsFunky.Targeting.MissleDampeningEnforceCloseRange)
 						  Bot.Combat.powerPrime.MinimumRange=15;
-					 else
-						  fDistanceReduction=base.Radius;
+					 //else
+					 //	 fDistanceReduction=base.Radius;
 
 					 // Pick a range to try to reach
 					 fRangeRequired=Bot.Combat.powerPrime.Power==SNOPower.None?9f:Bot.Combat.powerPrime.MinimumRange;

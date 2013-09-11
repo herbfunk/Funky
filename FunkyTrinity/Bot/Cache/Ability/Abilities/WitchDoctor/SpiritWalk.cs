@@ -23,18 +23,23 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 			WaitVars = new WaitLoops(0, 0, true);
 			Cost = 49;
 			UseageType=AbilityUseage.Anywhere;
-			IsNavigationSpecial = true;
+			//IsNavigationSpecial = true;
 			Priority = AbilityPriority.High;
 			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckCanCast);
-								//TestCustomCombatConditionAlways=true,
+
+			IsBuff=true;
+			Fbuff=new Func<bool>(() =>
+			{
+				 return Bot.SettingsFunky.OutOfCombatMovement;
+			});
+
 			Fcriteria = new Func<bool>(() =>
 			{
 				return (Bot.Character.dCurrentHealthPct <= 0.65
-				        || (Bot.Combat.FleeingLastTarget && Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_25] > 1)
-				        || (Bot.Combat.AvoidanceLastTarget && Bot.Combat.NearbyAvoidances.Count > 0)
+				        || (Bot.Combat.FleeTriggeringUnits.Count>0)
+				        || (Bot.Combat.TriggeringAvoidances.Count > 0)
 				        || Bot.Character.bIsIncapacitated
-				        || Bot.Character.bIsRooted
-				        || Bot.SettingsFunky.OutOfCombatMovement);
+				        || Bot.Character.bIsRooted);
 			});
 		}
 

@@ -10,10 +10,17 @@ Settings:
 Line of Sight:
 -Moved the LOS Checking from ability selector into the SingleTargetCondition creation method.
 -LOS Movements are active again for special units -- which will now use Navigator to execute movement.
+-Reduced the recheck wait on all LOS related testing.
+-Changed LOS Test for Object Intersection Vector back to Center (was using MeleeVector)
+
+Witch Doctor:
+-Spirit walk changed conditions -- added buff condition for out-of-combat movement.
 
 Misc:
 -Fixed Avoidance Movement ending earlier.
 -Added SucideBomber Exception Setting to Cluster Exception Rules. (Note: these exceptions determine if object is special regardless if clustering is enabled)
+-Fixed WithinInteraction Method for Units -- no longer adds radius of object -- causing "false" interactions.
+
 
 
 

@@ -31,7 +31,7 @@ namespace FunkyTrinity.ability.Abilities.Barb
 			                     AbilityConditions.CheckCanCast);
 			ClusterConditions = new ClusterConditions(5d, 30, 2, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial,
-				falseConditionalFlags: TargetProperties.Fast, MinimumRadiusDistance: 30);
+				falseConditionalFlags: TargetProperties.Fast, MinimumDistance: 30);
 
 		}
 		public override void InitCriteria()

@@ -728,10 +728,9 @@ namespace FunkyTrinity.Cache
             {56686, 4}, {52685, 4}, {54850, 14},  {54882, 40}, {54908, 4},
          };
 				 // 174900 = fire-spewers (demonic forge) in Act 3, 54908 = iron gates  58379 = a2_desolate_large_bones
-				 // Navigation obstacles for standard navigation down dungeons etc. to help DB movement
-				 // MAKE SURE you add the *SAME* SNO to the "size" dictionary below, and include a reasonable size (keep it smaller rather than larger) for the SNO.
+			  // 3048 = a2 zolt dungeon "sand wall" door, 200872 = a3dunRmpt_Interactives_signal_fire_A_Prop
 			  public static HashSet<int> hashSNONavigationObstacles=new HashSet<int> {
-            174900, 191459, 58379, 204168, 3341, 185391, 123325, 196211,
+            174900, 191459, 58379, 204168, 3341, 185391, 123325, 196211, 3048, 200872,
         };
 				 // Destructible things that are very large and need breaking at a bigger distance - eg logstacks, large crates, carts, etc.
 				 internal static readonly Dictionary<int, int> dictSNOExtendedDestructRange=new Dictionary<int, int> { 

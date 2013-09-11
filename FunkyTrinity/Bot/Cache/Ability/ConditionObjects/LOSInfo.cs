@@ -64,7 +64,7 @@ namespace FunkyTrinity.ability
 							  obstacle.RAGUID!=Obj.RAGUID&&
 							  obstacle.Obstacletype.HasValue&&
 							  obstacle.Obstacletype.Value!=ObstacleType.Monster&&
-							  obstacle.TestIntersection(PositionToTestFrom, Obj.BotMeleeVector));
+							  obstacle.TestIntersection(PositionToTestFrom, Obj.Position));
 
 					if (!Failed&&ObjectIntersection.Value) Failed=true;
 			  }
