@@ -890,17 +890,18 @@ namespace FunkyTrinity.Cache
 						  //Line of sight pre-check
 						  if (this.RequiresLOSCheck)
 						  {
-
+								//Get the wait time since last used LOSTest
 								double lastLOSCheckMS=base.LineOfSight.LastLOSCheckMS;
 
-
+								//unless its in front of us.. we wait 500ms mandatory.
 								if (lastLOSCheckMS<500&&centreDistance>1f)
 									 return false;
 								else
 								{
-									 //Last Health Changed, Distance, Special Unit..
+									 //Set the maximum wait time
 									 double ReCheckTime=5500;
 
+									 //health recently changed
 									 if (DateTime.Now.Subtract(this.LastHealthChange).TotalMilliseconds<5000)
 										  ReCheckTime*=0.75;
 
@@ -914,7 +915,9 @@ namespace FunkyTrinity.Cache
 										  return false;
 								}
 
-								if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, false))
+								//This is intial test to validate we can "see" the unit.. 
+								if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, false, 
+												Bot.Class.IsMeleeClass?NavCellFlags.AllowWalk:NavCellFlags.None)) //Melee need to check movement is capable..
 								{
 									 //if (!Bot.Character.bIsIncapacitated)
 									 //	 this.BlacklistLoops=10;
@@ -923,6 +926,8 @@ namespace FunkyTrinity.Cache
 
 									 //return false;
 
+
+									 //LOS Movement -- Check for special objects
 									 bool Valid=false;
 									 //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
 									 if (this.ObjectIsSpecial&&this.LastLOSSearchMS>2500)

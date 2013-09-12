@@ -671,6 +671,9 @@
     <Compile Include="Config\Tabs\General.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Config\Tabs\Grouping.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Config\Tabs\ItemRules.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

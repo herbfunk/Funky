@@ -11,6 +11,7 @@ namespace FunkyTrinity.Settings
 		public int GroupingMaximumDistanceAllowed { get; set; }
 		public int GroupingMinimumClusterCount { get; set; }
 		public int GroupingMinimumUnitsInCluster { get; set; }
+		public double GroupingMinimumBotHealth { get; set; }
 
 		public SettingGrouping(bool enabled=true)
 		{
@@ -20,6 +21,7 @@ namespace FunkyTrinity.Settings
 			GroupingMaximumDistanceAllowed=110;
 			GroupingMinimumClusterCount=1;
 			GroupingMinimumUnitsInCluster=3;
+			GroupingMinimumBotHealth=0d;
 		}
 		public SettingGrouping()
 		{
@@ -29,6 +31,7 @@ namespace FunkyTrinity.Settings
 			GroupingMaximumDistanceAllowed=110;
 			GroupingMinimumClusterCount=1;
 			GroupingMinimumUnitsInCluster=3;
+			GroupingMinimumBotHealth=0d;
 		}
 
 		private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults", "Grouping_Default.xml");

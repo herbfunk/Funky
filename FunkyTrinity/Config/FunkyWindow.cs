@@ -98,6 +98,8 @@ namespace FunkyTrinity
 
 					  InitClusteringControls();
 
+					  InitGroupingControls();
+
 					  InitAvoidanceControls();
 
 					  InitPlayerClassControls();

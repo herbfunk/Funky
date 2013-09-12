@@ -21,7 +21,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 		  {
 				get
 				{
-					 return FunkyTrinity.Bot.SettingsFunky.Grouping.AttemptGroupingMovements;
+					 return FunkyTrinity.Bot.SettingsFunky.Grouping.AttemptGroupingMovements&&Bot.SettingsFunky.Grouping.GroupingMinimumBotHealth<=Bot.Character.dCurrentHealthPct;
 				}
 		  }
 		  public override void Initialize()

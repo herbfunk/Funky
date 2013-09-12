@@ -6,4 +6,5 @@
   <GroupingMaximumDistanceAllowed>110</GroupingMaximumDistanceAllowed>
   <GroupingMinimumClusterCount>1</GroupingMinimumClusterCount>
   <GroupingMinimumUnitsInCluster>3</GroupingMinimumUnitsInCluster>
+  <GroupingMinimumBotHealth>0</GroupingMinimumBotHealth>
 </SettingGrouping>
