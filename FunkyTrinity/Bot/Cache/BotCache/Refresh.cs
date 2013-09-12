@@ -122,7 +122,7 @@ namespace FunkyTrinity
 								SkipAheadCache.ClearCache();
 
 								//This is the only time we should call this. MGP only needs updated every level change!
-								Bot.NavigationCache.UpdateSearchGridProvider(true);
+								//Bot.NavigationCache.UpdateSearchGridProvider(true);
 						  }
 					 }
 
