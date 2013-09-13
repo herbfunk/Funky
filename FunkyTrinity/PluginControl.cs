@@ -52,7 +52,7 @@ namespace FunkyTrinity
 				ObjectCache.Obstacles.Clear();
 				ObjectCache.Objects.Clear();
 
-				Bot.NavigationCache.UpdateSearchGridProvider();
+				//Bot.NavigationCache.UpdateSearchGridProvider();
 
 				DumpedDeathInfo=false;
 		  }

@@ -154,6 +154,35 @@ namespace FunkyTrinity.ability
 						  return true;
 					 });
 				}
+				else if(ability.Range>0)
+				{//Melee
+					 FSingleTargetUnitCriteria+=new Func<bool>(() =>
+					 {
+						  if (!Bot.Target.CurrentUnitTarget.IgnoresLOSCheck)
+						  {
+								//Check if within interaction range..
+								if (Bot.Target.CurrentTarget.RadiusDistance>ability.Range)
+								{
+									 //Verify LOS walk
+									 ability.LOSInfo LOSINFO=Bot.Target.CurrentTarget.LineOfSight;
+									 if (!Bot.Character.bIsIncapacitated&&(LOSINFO.LastLOSCheckMS>2000||!LOSINFO.NavCellWalk.HasValue))
+									 {
+										  if (!LOSINFO.LOSTest(Bot.Character.Position, true, false, NavCellFlags.AllowWalk))
+										  {
+												//Raycast failed.. reset LOS Check -- for valid checking.
+												if (!LOSINFO.RayCast.Value) Bot.Target.CurrentTarget.RequiresLOSCheck=true;
+												return false;
+										  }
+									 }
+									 else if (!LOSINFO.NavCellWalk.Value)
+									 {
+										  return false;
+									 }
+								}
+						  }
+						  return true;
+					 });
+				}
 			  
 		 }
 		

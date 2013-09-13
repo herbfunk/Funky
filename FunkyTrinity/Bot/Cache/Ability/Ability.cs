@@ -349,11 +349,11 @@ namespace FunkyTrinity.ability
 
 
 
-		  public virtual int GetHashCode()
+		  public override int GetHashCode()
 		  {
 				return (int)this.Power;
 		  }
-		  public virtual bool Equals(object obj)
+		  public override bool Equals(object obj)
 		  {
 				//Check for null and compare run-time types. 
 				if (obj==null||this.GetType()!=obj.GetType())

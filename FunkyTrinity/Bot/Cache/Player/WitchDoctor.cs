@@ -105,6 +105,9 @@ namespace FunkyTrinity
 
 					 //Sort Abilities
 					 SortedAbilities=Abilities.Values.OrderByDescending(a => a.Priority).ThenBy(a => a.Range).ToList();
+					
+					 //Update LOS conditions
+					 base.UpdateLOSConditions();
 				}
 				public override Ability CreateAbility(SNOPower Power)
 				{

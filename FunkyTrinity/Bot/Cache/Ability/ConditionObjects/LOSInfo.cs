@@ -48,17 +48,17 @@ namespace FunkyTrinity.ability
 		 public bool LOSTest(Vector3 PositionToTestFrom, bool NavRayCast=true, bool ServerObjectIntersection=true, NavCellFlags Flags=NavCellFlags.None)
 		 {
 			  this.LastLOSCheck=DateTime.Now;
-
 			  bool Failed=false;
 
+			  
 			  if (NavRayCast)
-			  {
+			  {//This is a basic raycast test to see if we have clear view of the object.
 					RayCast=!Zeta.Navigation.Navigator.Raycast(PositionToTestFrom, Obj.Position);
 					if (!RayCast.Value) Failed=true;
 			  }
 
 			  if (ServerObjectIntersection)
-			  {
+			  {//This test uses the obstacle cache to check objects for intersection
 					ObjectIntersection=ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
 						 .Any(obstacle =>
 							  obstacle.RAGUID!=Obj.RAGUID&&
@@ -71,7 +71,7 @@ namespace FunkyTrinity.ability
 					
 
 			  if (!Flags.Equals(NavCellFlags.None))
-			  {
+			  {//Raycast test to validate it can preform the path -- walk/projectile
 					bool NavTest=Navigation.CanRayCast(PositionToTestFrom, Obj.Position, Flags);
 
 					if (Flags.HasFlag(NavCellFlags.AllowWalk)) NavCellWalk=NavTest;

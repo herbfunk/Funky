@@ -45,6 +45,22 @@ namespace FunkyTrinity
 					 set { IsMeleeClass_=value; }
 				}
 
+				private LOSConditions losconditions;
+				///<summary>
+				///This is used to determine things such as how we preform certain checks (I.E. Line Of Sight)
+				///</summary>
+				public LOSConditions LOSconditions
+				{
+					 get { return losconditions; }
+					 set { losconditions=value; }
+				}
+
+				//method to go thru the abilities and recreate the LOSConditions used.
+				internal void UpdateLOSConditions()
+				{
+					 losconditions=new LOSConditions(this.Abilities);
+				}
+
 				// This is used so we don't use certain skills until we "top up" our primary resource by enough
 				internal double iWaitingReservedAmount=0d;
 				internal bool bWaitingForSpecial=false;
@@ -124,15 +140,11 @@ namespace FunkyTrinity
 				///<summary>
 				///Selects first ability that is successful in precast and combat testing.
 				///</summary>
-				public virtual Ability AbilitySelector(bool bCurrentlyAvoiding=false, bool bOOCBuff=false, ConditionCriteraTypes criteria=ConditionCriteraTypes.All)
+				public virtual Ability AbilitySelector(ConditionCriteraTypes criteria=ConditionCriteraTypes.All)
 				{
 					 Ability returnAbility=this.DefaultAttack;
 					 foreach (var item in this.SortedAbilities)
 					 {
-						  //Check Avoidance and Buff only parameters!
-						  if (bCurrentlyAvoiding&&(!item.IsBuff||!item.IsASpecialMovementPower)) continue;
-						  if (bOOCBuff&&item.IsBuff==false) continue;
-
 						  //Check precast conditions
 						  if (!item.AbilityTestConditions.CheckPreCastConditionMethod()) continue;
 

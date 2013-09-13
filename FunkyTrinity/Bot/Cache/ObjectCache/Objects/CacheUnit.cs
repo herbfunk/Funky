@@ -93,6 +93,8 @@ namespace FunkyTrinity.Cache
 
 
 				#region Monster Affixes Related
+				//TODO:: Add property for Reflect -- And check for animation.
+
 				private bool CheckedMonsterAffixes_=false;
 				private void CheckMonsterAffixes(MonsterAffixes theseaffixes)
 				{
@@ -214,11 +216,12 @@ namespace FunkyTrinity.Cache
 			  {
 					get
 					{
-						 return this.IsSucideBomber
-							  ||(this.IsTreasureGoblin&&Bot.SettingsFunky.Ranges.TreasureGoblinRange>1)
-							  ||(this.Monstersize.Value==MonsterSize.Ranged&&Bot.SettingsFunky.Cluster.ClusteringAllowRangedUnits)
-							  ||(this.IsSpawnerUnit&&Bot.SettingsFunky.Cluster.ClusteringAllowSpawnerUnits)
-							  ||((Bot.SettingsFunky.Cluster.ClusterKillLowHPUnits&&((this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0)
+						 return
+							  (this.IsSucideBomber&&Bot.SettingsFunky.Cluster.ClusteringAllowSucideBombers)||
+							  (this.IsTreasureGoblin&&Bot.SettingsFunky.Ranges.TreasureGoblinRange>1)||
+							  (this.Monstersize.Value==MonsterSize.Ranged&&Bot.SettingsFunky.Cluster.ClusteringAllowRangedUnits)||
+							  (this.IsSpawnerUnit&&Bot.SettingsFunky.Cluster.ClusteringAllowSpawnerUnits)||
+							  ((Bot.SettingsFunky.Cluster.ClusterKillLowHPUnits&&((this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0)
 												&&((!Bot.Class.IsMeleeClass&&this.CentreDistance<30f)||(Bot.Class.IsMeleeClass&&this.RadiusDistance<12f)))));
 					}
 			  }
@@ -916,17 +919,8 @@ namespace FunkyTrinity.Cache
 								}
 
 								//This is intial test to validate we can "see" the unit.. 
-								if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, false, 
-												Bot.Class.IsMeleeClass?NavCellFlags.AllowWalk:NavCellFlags.None)) //Melee need to check movement is capable..
+								if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, Bot.Class.LOSconditions.RequiresServerObjectIntersection, Bot.Class.LOSconditions.NavCellFlags)) 
 								{
-									 //if (!Bot.Character.bIsIncapacitated)
-									 //	 this.BlacklistLoops=10;
-									 //else//Incapacitated we reset check
-									 //	 base.LineOfSight.LastLOSCheck=DateTime.Today;
-
-									 //return false;
-
-
 									 //LOS Movement -- Check for special objects
 									 bool Valid=false;
 									 //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
@@ -953,7 +947,7 @@ namespace FunkyTrinity.Cache
 									 if (!Valid)
 									 {
 										  if (!Bot.Character.bIsIncapacitated)
-												this.BlacklistLoops=10;
+												this.BlacklistLoops=2;
 										  else//Incapacitated we reset check
 												base.LineOfSight.LastLOSCheck=DateTime.Today;
 

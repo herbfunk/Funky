@@ -382,6 +382,8 @@ namespace FunkyTrinity.Targeting
 					 //Update CurrentUnitTarget Variable.
 					 if (CurrentUnitTarget==null) CurrentUnitTarget=(CacheUnit)CurrentTarget;
 
+					 
+
 					 double HealthChangeMS=DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.LastHealthChange).TotalMilliseconds;
 
 					 if (HealthChangeMS>3000&&!CurrentTarget.ObjectIsSpecial||HealthChangeMS>6000)
@@ -409,13 +411,19 @@ namespace FunkyTrinity.Targeting
 					 if (CurrentTarget.targetType.Value==TargetType.Unit&&CurrentTarget.AcdGuid.HasValue)
 					 {
 						  Ability nextAbility;
-						  // Pick a suitable Ability			
-						  if (CurrentUnitTarget.IsClusterException)
-								nextAbility=FunkyTrinity.Bot.Class.AbilitySelector(false, false, ConditionCriteraTypes.SingleTarget);
-						  else
-								nextAbility=FunkyTrinity.Bot.Class.AbilitySelector(false, false);
+						  ConditionCriteraTypes criterias=ConditionCriteraTypes.All;
 
-						  if (nextAbility==Bot.Class.DefaultAttack)
+						  //Although the unit is a cluster exception.. we should verify it is not a clustered object.
+						  if (CurrentUnitTarget.IsClusterException&&CurrentUnitTarget.BeingIgnoredDueToClusterLogic)
+						  {
+								criterias=ConditionCriteraTypes.SingleTarget;
+						  }
+
+						  // Pick an Ability		
+						  nextAbility=FunkyTrinity.Bot.Class.AbilitySelector(criterias);
+
+						  // Did we get default attack?
+						  if (nextAbility.Equals(Bot.Class.DefaultAttack))
 						  {
 								Logger.Write(LogLevel.Ability, "Failed to find a valid ability to use -- Target: {0}", Bot.Target.CurrentTarget.InternalName);
 								FunkyTrinity.Bot.Combat.bForceTargetUpdate=true;
