@@ -76,7 +76,7 @@ namespace FunkyTrinity
 				internal List<int> UnitRAGUIDs=new List<int>();
 				internal List<int> ValidClusterUnits=new List<int>();
 				internal List<CacheUnit> DistantUnits=new List<CacheUnit>();
-
+				internal List<CacheUnit> LoSMovementUnits=new List<CacheUnit>();
 				private ClusterConditions TargetClusterConditions=new ClusterConditions(Bot.SettingsFunky.Cluster.ClusterDistance, 100f, Bot.SettingsFunky.Cluster.ClusterMinimumUnitCount, false);
 				internal ClusterTargetCollection TargetClusterCollection { get; set; }
 
@@ -345,6 +345,7 @@ namespace FunkyTrinity
 					 NearbyObstacleObjects.Clear();
 					 FleeTriggeringUnits.Clear();
 					 DistantUnits.Clear();
+					 LoSMovementUnits.Clear();
 				}
 				internal void ResetTargetHandling()
 				{

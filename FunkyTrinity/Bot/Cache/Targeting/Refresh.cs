@@ -16,6 +16,8 @@ namespace FunkyTrinity.Targeting
 {
 	 public partial class TargetHandler
 	 {
+		  //TODO:: Added Line of Sight Movement as a behavior.
+
 		  //Order is important! -- we test from start to finish.
 		  internal readonly TargetBehavior[] TargetBehaviors=new TargetBehavior[]
 		  {
@@ -24,6 +26,7 @@ namespace FunkyTrinity.Targeting
 			  new TBFleeing(), 
 			  new TBUpdateTarget(), 
 			  new TBGrouping(), 
+			  new TBLOSMovement(),
 			  new TBEnd(),
 		  };
 

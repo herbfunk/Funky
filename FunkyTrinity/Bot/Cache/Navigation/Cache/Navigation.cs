@@ -643,6 +643,10 @@ namespace FunkyTrinity.Movement
 				}
 				#endregion
 
+				#region Line of Sight Movement
+				internal CacheUnit LOSmovementUnit=null;
+				#endregion
+
 				// For "position-shifting" to navigate around obstacle SNO's
 				private DateTime LastObstacleIntersectionTest=DateTime.Today;
 				///<summary>

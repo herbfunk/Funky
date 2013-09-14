@@ -8,7 +8,7 @@ namespace FunkyTrinity.Enums
 	 [Flags]
 	 public enum TargetType
 	 {
-
+		   None=0,
 			Unit=1,
 			Shrine=2,
 			Interactable=4,
@@ -20,7 +20,7 @@ namespace FunkyTrinity.Enums
 			Globe=256,
 			Avoidance=512,
 			Door=1024,
-			None=2048,
+			LineOfSight=2048,
 
 			All=Unit|Shrine|Interactable|Destructible|Barricade|Container|Item|Gold|Globe|Avoidance|Door,
 			Gizmo=Shrine|Interactable|Destructible|Barricade|Container|Door,

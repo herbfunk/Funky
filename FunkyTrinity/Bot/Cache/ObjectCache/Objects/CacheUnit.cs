@@ -919,7 +919,10 @@ namespace FunkyTrinity.Cache
 
 								//unless its in front of us.. we wait 500ms mandatory.
 								if (lastLOSCheckMS<500&&centreDistance>1f)
+								{
+									 if (this.ObjectIsSpecial) Bot.Combat.LoSMovementUnits.Add(this);
 									 return false;
+								}
 								else
 								{
 									 //Set the maximum wait time
@@ -936,7 +939,10 @@ namespace FunkyTrinity.Cache
 										  ReCheckTime*=0.25;
 
 									 if (lastLOSCheckMS<ReCheckTime)
+									 {
+										  if (this.ObjectIsSpecial) Bot.Combat.LoSMovementUnits.Add(this);
 										  return false;
+									 }
 								}
 
 								//This is intial test to validate we can "see" the unit.. 
@@ -945,24 +951,28 @@ namespace FunkyTrinity.Cache
 									 //LOS Movement -- Check for special objects
 									 bool Valid=false;
 									 //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
-									 if (this.ObjectIsSpecial&&this.LastLOSSearchMS>2500)
+									 if (this.ObjectIsSpecial)
 									 {
-										  this.LastLOSSearch=DateTime.Now;
+										  Bot.Combat.LoSMovementUnits.Add(this);
+										  //if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+										  //	 Logger.Write(LogLevel.Movement, "Attempting to search for a valid LOS vector for obj {0}", this.InternalName);
 
-										  GPRectangle TargetGPRect=this.GPRect;
-										  //Expand GPRect into 5x5, 7x7 for ranged!
-										  TargetGPRect.FullyExpand();
+										  //this.LastLOSSearch=DateTime.Now;
 
-										  if (!Bot.Class.IsMeleeClass) TargetGPRect.FullyExpand();
+										  //GPRectangle TargetGPRect=this.GPRect;
+										  ////Expand GPRect into 5x5, 7x7 for ranged!
+										  //TargetGPRect.FullyExpand();
 
-										  Vector3 LOSV3;
-										  if (TargetGPRect.TryFindSafeSpot(Bot.Character.Position, out LOSV3, this.Position))
-										  {
-												this.LOSV3=LOSV3;
-												if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-													 Logger.Write(LogLevel.Movement,"Using LOS Vector at {0} to move into LOS for Obj {1}", LOSV3.ToString(), this.InternalName);
-												Valid=true;
-										  }
+										  //if (!Bot.Class.IsMeleeClass) TargetGPRect.FullyExpand();
+
+										  //Vector3 LOSV3;
+										  //if (TargetGPRect.TryFindSafeSpot(Bot.Character.Position, out LOSV3, this.Position))
+										  //{
+										  //	 this.LOSV3=LOSV3;
+										  //	 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+										  //		  Logger.Write(LogLevel.Movement,"Using LOS Vector at {0} to move into LOS for Obj {1}", LOSV3.ToString(), this.InternalName);
+										  //	 Valid=true;
+										  //}
 									 }
 
 									 //Valid?? Did we find a location we could move to for LOS?
@@ -1479,8 +1489,8 @@ namespace FunkyTrinity.Cache
 					 // Pick a range to try to reach
 					 fRangeRequired=Bot.Combat.powerPrime.Power==SNOPower.None?9f:Bot.Combat.powerPrime.MinimumRange;
 
-					 //LOS Movement -- we require close range until LOS is OK..
-					 if (this.LOSV3!=Vector3.Zero) fRangeRequired=10;
+					 ////LOS Movement -- we require close range until LOS is OK..
+					 //if (this.LOSV3!=Vector3.Zero) fRangeRequired=10;
 
 					 base.DistanceFromTarget=base.CentreDistance-fDistanceReduction;
 

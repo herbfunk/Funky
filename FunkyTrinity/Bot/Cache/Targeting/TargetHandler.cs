@@ -483,38 +483,23 @@ namespace FunkyTrinity.Targeting
 
 		  public virtual bool Movement()
 		  {
-				// Set current destination to our current target's destination
-				TargetMovement.CurrentTargetLocation=CurrentTarget.Position;
-				if (CurrentTarget.LOSV3!=Vector3.Zero)
+				
+				if (CurrentTarget.targetType.Value==TargetType.LineOfSight)
 				{
 
-					 bool endLOSmovement=false;
 					 //Validate LOS movement
-					 if (CurrentTarget.LastLOSMoveResult.HasFlag(Zeta.Navigation.MoveResult.Failed|Zeta.Navigation.MoveResult.UnstuckAttempt|Zeta.Navigation.MoveResult.PathGenerationFailed))
+					 if (CurrentTarget.LastLOSMoveResult.HasFlag(Zeta.Navigation.MoveResult.Failed|Zeta.Navigation.MoveResult.UnstuckAttempt|Zeta.Navigation.MoveResult.PathGenerationFailed|Zeta.Navigation.MoveResult.ReachedDestination))
 					 {
 						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logger.Write(LogLevel.Movement, "LOS Ended Due to MoveResult {0} for Object {1}",CurrentTarget.LastLOSMoveResult.ToString(), CurrentTarget.InternalName);
 
-						  endLOSmovement=true;
-					 }
-
-					 if (CurrentTarget.LineOfSight.LOSTest(Bot.Character.Position, true, false, NavCellFlags.AllowWalk))
-					 {//Los valid
-						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-								Logger.Write(LogLevel.Movement, "LOS Movement Completed for Object {0}", CurrentTarget.InternalName);
-
-						  endLOSmovement=true;
-					 }
-
-					 if (endLOSmovement)
-					 {
-						  CurrentTarget.LOSV3=Vector3.Zero;
+						  //CurrentTarget.LOSV3=Vector3.Zero;
+						  Bot.NavigationCache.LOSmovementUnit=null;
 						  FunkyTrinity.Bot.Combat.bWholeNewTarget=true;
 						  return false;
 					 }
 
-					 TargetMovement.CurrentTargetLocation=CurrentTarget.LOSV3;
-					 if (FunkyTrinity.Bot.Character.Position.Distance(CurrentTarget.LOSV3)>2.5f)
+					 if (CurrentTarget.LastLOSMoveResult.HasFlag(Zeta.Navigation.MoveResult.Moved))
 					 {
 						  //CurrentState=TargetMovement.TargetMoveTo(CurrentTarget);
 						  CurrentState=RunStatus.Running;
@@ -523,7 +508,8 @@ namespace FunkyTrinity.Targeting
 					 }
 				}
 
-
+				// Set current destination to our current target's destination
+				TargetMovement.CurrentTargetLocation=CurrentTarget.Position;
 
 				//Check if we are in range for interaction..
 				if (CurrentTarget.WithinInteractionRange())

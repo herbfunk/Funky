@@ -44,10 +44,13 @@ namespace FunkyTrinity.Movement
 								case TargetType.Avoidance:
 									 Action+="Avoid] ";
 									 break;
+
+								case TargetType.LineOfSight:
+									 Action+="LOS] ";
+									 break;
+
 								case TargetType.Unit:
-									 if (obj.LOSV3!=Vector3.Zero)
-										  Action+="LOS] ";
-									 else if (Bot.NavigationCache.groupRunningBehavior&&Bot.NavigationCache.groupingCurrentUnit!=null&&Bot.NavigationCache.groupingCurrentUnit==obj)
+									 if (Bot.NavigationCache.groupRunningBehavior&&Bot.NavigationCache.groupingCurrentUnit!=null&&Bot.NavigationCache.groupingCurrentUnit==obj)
 										  Action+="Grouping] ";
 									 else
 										  Action+="Combat] ";
@@ -146,17 +149,6 @@ namespace FunkyTrinity.Movement
 								{
 									 case 2:
 									 case 3:
-										  //Than check our movement state
-										  //If we are moving to a LOS location.. nullify it!
-										  if (obj.LOSV3!=Vector3.Zero)
-										  {
-												if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-													 Logger.Write(LogLevel.Movement, "Blockcounter Reseting LOS Movement Vector");
-												
-												obj.LOSV3=Vector3.Zero;
-										  }
-
-
 
 										  var intersectingObstacles=Bot.Combat.NearbyObstacleObjects //ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
 																					.Where(obstacle =>

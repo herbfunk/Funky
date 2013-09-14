@@ -509,6 +509,9 @@
     <Compile Include="Bot\Cache\Targeting\Behaviors\TargetBehavioralTypes.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Bot\Cache\Targeting\Behaviors\TBLOSMovement.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Bot\Cache\Targeting\TargetHandler.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

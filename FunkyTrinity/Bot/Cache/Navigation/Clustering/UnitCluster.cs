@@ -198,6 +198,33 @@ namespace FunkyTrinity.Movement.Clustering
 			return (this.ListUnits[nearestPointIndex]);
 		}
 
+		 public CacheUnit GetClosestUnitToPosition(GridPoint loc)
+		 {
+			  double minimumDistance=0.0;
+			  int nearestPointIndex=-1;
+			
+			  foreach (GridPoint p in this.ListPoints)
+			  {
+					double distance=GridPoint.GetDistanceBetweenPoints(p, loc);
+
+					if (this.ListPoints.IndexOf(p)==0)
+					{
+						 minimumDistance=distance;
+						 nearestPointIndex=this.ListPoints.IndexOf(p);
+					}
+					else
+					{
+						 if (minimumDistance>distance)
+						 {
+							  minimumDistance=distance;
+							  nearestPointIndex=this.ListPoints.IndexOf(p);
+						 }
+					}
+			  }
+
+			  return (this.ListUnits[nearestPointIndex]);
+		 }
+
 
 		public override bool Equals(object obj)
 		{

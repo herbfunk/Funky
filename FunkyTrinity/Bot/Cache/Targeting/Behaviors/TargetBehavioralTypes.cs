@@ -7,5 +7,6 @@
 		Avoidance=2,
 		Fleeing=4,
 		Target=8,
+		LineOfSight=16,
 	}
 }
