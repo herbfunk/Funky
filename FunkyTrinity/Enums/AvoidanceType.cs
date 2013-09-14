@@ -12,8 +12,8 @@ namespace FunkyTrinity.Enums
 		  AzmodanFireball,
 		  [XmlEnum(Name="AzmodanPool")]
 		  AzmodanPool,
-		  [XmlEnum(Name="AzmodanOrb")]
-		  AzmodanOrb,
+		  //[XmlEnum(Name="AzmodanOrb")]
+		  //AzmodanOrb,
 		  [XmlEnum(Name="BeeProjectile")]
 		  BeeProjectile,
 		  [XmlEnum(Name="BelialGround")]

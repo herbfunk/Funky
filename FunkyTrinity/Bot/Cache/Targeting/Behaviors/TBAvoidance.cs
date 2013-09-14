@@ -22,7 +22,12 @@ namespace FunkyTrinity.Targeting.Behaviors
 		  {
 				base.Test=(ref CacheObject obj) =>
 				 {
-
+					  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+					  {
+							string avoidances="";
+							Bot.Combat.TriggeringAvoidances.ForEach(a => avoidances = avoidances + a.AvoidanceType.ToString() + ", ");
+							Logger.Write(LogLevel.Movement, "Avoidances Triggering: {0}", avoidances);
+					  }
 					  //Reuse the last generated safe spot...
 					  if (DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.LastAvoidanceMovement).TotalMilliseconds<FunkyTrinity.Bot.Combat.iSecondsEmergencyMoveFor)
 					  {
