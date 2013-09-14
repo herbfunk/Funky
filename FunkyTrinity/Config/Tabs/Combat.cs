@@ -35,25 +35,32 @@ namespace FunkyTrinity
 		  }
 		  private void UseAdvancedProjectileTestingChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.UseAdvancedProjectileTesting=!Bot.SettingsFunky.UseAdvancedProjectileTesting;
+				Bot.SettingsFunky.Avoidance.UseAdvancedProjectileTesting=!Bot.SettingsFunky.Avoidance.UseAdvancedProjectileTesting;
 		  }
 		  private void AvoidanceAttemptMovementChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.AttemptAvoidanceMovements=!Bot.SettingsFunky.AttemptAvoidanceMovements;
+				Bot.SettingsFunky.Avoidance.AttemptAvoidanceMovements=!Bot.SettingsFunky.Avoidance.AttemptAvoidanceMovements;
 		  }
 		  private void GlobeHealthSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
-				Bot.SettingsFunky.GlobeHealthPercent=Value;
+				Bot.SettingsFunky.Combat.GlobeHealthPercent=Value;
 				TBGlobeHealth.Text=Value.ToString();
 		  }
 		  private void PotionHealthSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
-				Bot.SettingsFunky.PotionHealthPercent=Value;
+				Bot.SettingsFunky.Combat.PotionHealthPercent=Value;
 				TBPotionHealth.Text=Value.ToString();
+		  }
+		  private void WellHealthSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
+				Bot.SettingsFunky.Combat.HealthWellHealthPercent=Value;
+				TBWellHealth.Text=Value.ToString();
 		  }
 		  private void FleeingLoadXMLClicked(object sender, EventArgs e)
 		  {
@@ -112,7 +119,7 @@ namespace FunkyTrinity
 		  #endregion
 
 		  private TextBox TBClusterDistance, TBClusterMinUnitCount,
-								TBPotionHealth, TBGlobeHealth;
+								TBPotionHealth, TBGlobeHealth, TBWellHealth;
 
 		  private StackPanel spFleeingOptions, SPFleeing, spGroupingOptions;
 
@@ -168,62 +175,7 @@ namespace FunkyTrinity
 			  CombatGeneralTabItem.Header="General";
 			  CombatTabControl.Items.Add(CombatGeneralTabItem);
 			  ListBox CombatGeneralContentListBox=new ListBox();
-			  #region Avoidances
 
-			  StackPanel AvoidanceOptionsStackPanel=new StackPanel
-			  {
-					//Orientation= System.Windows.Controls.Orientation.Vertical,
-					//HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch,
-					Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
-					Background=System.Windows.Media.Brushes.DimGray,
-			  };
-
-			  TextBlock Avoidance_Text_Header=new TextBlock
-			  {
-					Text="Avoidances",
-					FontSize=12,
-					Background=System.Windows.Media.Brushes.MediumSeaGreen,
-					TextAlignment=TextAlignment.Center,
-					HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
-			  };
-
-			  #region AvoidanceCheckboxes
-
-			  StackPanel AvoidanceCheckBoxesPanel=new StackPanel
-			  {
-					Orientation=Orientation.Vertical,
-					Width=600,
-			  };
-
-			  CheckBox CBAttemptAvoidanceMovements=new CheckBox
-			  {
-					Content="Enable Avoidance",
-					IsChecked=Bot.SettingsFunky.AttemptAvoidanceMovements,
-
-			  };
-			  CBAttemptAvoidanceMovements.Checked+=AvoidanceAttemptMovementChecked;
-			  CBAttemptAvoidanceMovements.Unchecked+=AvoidanceAttemptMovementChecked;
-
-			  CheckBox CBAdvancedProjectileTesting=new CheckBox
-			  {
-					Content="Use Advanced Avoidance Projectile Test",
-					IsChecked=Bot.SettingsFunky.UseAdvancedProjectileTesting,
-			  };
-			  CBAdvancedProjectileTesting.Checked+=UseAdvancedProjectileTestingChecked;
-			  CBAdvancedProjectileTesting.Unchecked+=UseAdvancedProjectileTestingChecked;
-			  AvoidanceCheckBoxesPanel.Children.Add(CBAttemptAvoidanceMovements);
-			  AvoidanceCheckBoxesPanel.Children.Add(CBAdvancedProjectileTesting);
-			  #endregion;
-
-
-
-
-
-			  AvoidanceOptionsStackPanel.Children.Add(Avoidance_Text_Header);
-			  AvoidanceOptionsStackPanel.Children.Add(AvoidanceCheckBoxesPanel);
-			  CombatGeneralContentListBox.Items.Add(AvoidanceOptionsStackPanel);
-
-			  #endregion
 
 			  #region Fleeing
 			  Button BtnFleeingLoadTemplate=new Button
@@ -385,6 +337,8 @@ namespace FunkyTrinity
 					Background=System.Windows.Media.Brushes.DarkSeaGreen,
 					TextAlignment=TextAlignment.Center,
 			  };
+			  HealthOptionsStackPanel.Children.Add(Health_Options_Text);
+
 			  TextBlock Health_Info_Text=new TextBlock
 			  {
 					Text="Actions will occur when life is below given value",
@@ -394,7 +348,9 @@ namespace FunkyTrinity
 					//Background = System.Windows.Media.Brushes.Crimson,
 					TextAlignment=TextAlignment.Left,
 			  };
+			  HealthOptionsStackPanel.Children.Add(Health_Info_Text);
 
+			  #region GlobeHealthPercent
 			  TextBlock HealthGlobe_Info_Text=new TextBlock
 			  {
 					Text="Globe Health Percent",
@@ -403,7 +359,7 @@ namespace FunkyTrinity
 					//Background = System.Windows.Media.Brushes.Crimson,
 					TextAlignment=TextAlignment.Left,
 			  };
-			  #region GlobeHealthPercent
+			  HealthOptionsStackPanel.Children.Add(HealthGlobe_Info_Text);
 
 			  Slider sliderGlobeHealth=new Slider
 			  {
@@ -413,13 +369,13 @@ namespace FunkyTrinity
 					TickFrequency=0.25,
 					LargeChange=0.20,
 					SmallChange=0.10,
-					Value=Bot.SettingsFunky.GlobeHealthPercent,
+					Value=Bot.SettingsFunky.Combat.GlobeHealthPercent,
 					HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 			  };
 			  sliderGlobeHealth.ValueChanged+=GlobeHealthSliderChanged;
 			  TBGlobeHealth=new TextBox
 			  {
-					Text=Bot.SettingsFunky.GlobeHealthPercent.ToString("F2", CultureInfo.InvariantCulture),
+					Text=Bot.SettingsFunky.Combat.GlobeHealthPercent.ToString("F2", CultureInfo.InvariantCulture),
 					IsReadOnly=true,
 			  };
 			  StackPanel GlobeHealthStackPanel=new StackPanel
@@ -430,8 +386,10 @@ namespace FunkyTrinity
 			  };
 			  GlobeHealthStackPanel.Children.Add(sliderGlobeHealth);
 			  GlobeHealthStackPanel.Children.Add(TBGlobeHealth);
+			  HealthOptionsStackPanel.Children.Add(GlobeHealthStackPanel);
 			  #endregion
 
+			  #region PotionHealthPercent
 			  TextBlock HealthPotion_Info_Text=new TextBlock
 			  {
 					Text="Potion Health Percent",
@@ -440,8 +398,8 @@ namespace FunkyTrinity
 					//Background = System.Windows.Media.Brushes.Crimson,
 					TextAlignment=TextAlignment.Left,
 			  };
-
-			  #region PotionHealthPercent
+			  HealthOptionsStackPanel.Children.Add(HealthPotion_Info_Text);
+			 
 
 			  Slider sliderPotionHealth=new Slider
 			  {
@@ -451,13 +409,13 @@ namespace FunkyTrinity
 					TickFrequency=0.25,
 					LargeChange=0.20,
 					SmallChange=0.10,
-					Value=Bot.SettingsFunky.PotionHealthPercent,
+					Value=Bot.SettingsFunky.Combat.PotionHealthPercent,
 					HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 			  };
 			  sliderPotionHealth.ValueChanged+=PotionHealthSliderChanged;
 			  TBPotionHealth=new TextBox
 			  {
-					Text=Bot.SettingsFunky.PotionHealthPercent.ToString("F2", CultureInfo.InvariantCulture),
+					Text=Bot.SettingsFunky.Combat.PotionHealthPercent.ToString("F2", CultureInfo.InvariantCulture),
 					IsReadOnly=true,
 			  };
 			  StackPanel PotionHealthStackPanel=new StackPanel
@@ -468,14 +426,50 @@ namespace FunkyTrinity
 			  };
 			  PotionHealthStackPanel.Children.Add(sliderPotionHealth);
 			  PotionHealthStackPanel.Children.Add(TBPotionHealth);
-			  #endregion
-			  //
-			  HealthOptionsStackPanel.Children.Add(Health_Options_Text);
-			  HealthOptionsStackPanel.Children.Add(Health_Info_Text);
-			  HealthOptionsStackPanel.Children.Add(HealthGlobe_Info_Text);
-			  HealthOptionsStackPanel.Children.Add(GlobeHealthStackPanel);
-			  HealthOptionsStackPanel.Children.Add(HealthPotion_Info_Text);
 			  HealthOptionsStackPanel.Children.Add(PotionHealthStackPanel);
+			  #endregion
+
+			  #region HealthWellhealthPercent
+			  TextBlock HealthWell_Info_Text=new TextBlock
+			  {
+					Text="Health Well Percent",
+					FontSize=12,
+					Foreground=System.Windows.Media.Brushes.GhostWhite,
+					//Background = System.Windows.Media.Brushes.Crimson,
+					TextAlignment=TextAlignment.Left,
+			  };
+			  HealthOptionsStackPanel.Children.Add(HealthWell_Info_Text);
+
+
+			  Slider sliderWellHealth=new Slider
+			  {
+					Width=100,
+					Maximum=1,
+					Minimum=0,
+					TickFrequency=0.25,
+					LargeChange=0.20,
+					SmallChange=0.10,
+					Value=Bot.SettingsFunky.Combat.HealthWellHealthPercent,
+					HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+			  };
+			  sliderWellHealth.ValueChanged+=WellHealthSliderChanged;
+			  TBWellHealth=new TextBox
+			  {
+					Text=Bot.SettingsFunky.Combat.HealthWellHealthPercent.ToString("F2", CultureInfo.InvariantCulture),
+					IsReadOnly=true,
+			  };
+			  StackPanel WellHealthStackPanel=new StackPanel
+			  {
+					Width=600,
+					Height=20,
+					Orientation=Orientation.Horizontal,
+			  };
+			  WellHealthStackPanel.Children.Add(sliderWellHealth);
+			  WellHealthStackPanel.Children.Add(TBWellHealth);
+			  HealthOptionsStackPanel.Children.Add(WellHealthStackPanel);
+			  #endregion
+			  
+
 			  CombatGeneralContentListBox.Items.Add(HealthOptionsStackPanel);
 
 			  #endregion

@@ -39,22 +39,7 @@ namespace FunkyTrinity
 		  {
 				Bot.SettingsFunky.Cluster.IgnoreClusteringWhenLowHP=!Bot.SettingsFunky.Cluster.IgnoreClusteringWhenLowHP;
 		  }
-		  private void ClusteringKillLowHPChecked(object sender, EventArgs e)
-		  {
-				Bot.SettingsFunky.Cluster.ClusterKillLowHPUnits=!Bot.SettingsFunky.Cluster.ClusterKillLowHPUnits;
-		  }
-		  private void ClusteringAllowRangedUnitsChecked(object sender, EventArgs e)
-		  {
-				Bot.SettingsFunky.Cluster.ClusteringAllowRangedUnits=!Bot.SettingsFunky.Cluster.ClusteringAllowRangedUnits;
-		  }
-		  private void ClusteringAllowSpawnerUnitsChecked(object sender, EventArgs e)
-		  {
-				Bot.SettingsFunky.Cluster.ClusteringAllowSpawnerUnits=!Bot.SettingsFunky.Cluster.ClusteringAllowSpawnerUnits;
-		  }
-		  private void ClusteringAllowSucideBombersChecked(object sender, EventArgs e)
-		  {
-				Bot.SettingsFunky.Cluster.ClusteringAllowSucideBombers=!Bot.SettingsFunky.Cluster.ClusteringAllowSucideBombers;
-		  }
+
 		  private void ClusteringLoadXMLClicked(object sender, EventArgs e)
 		  {
 				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
@@ -287,82 +272,7 @@ namespace FunkyTrinity
 
 
 
-				StackPanel spClusteringExceptions=new StackPanel
-				{
-					 Background=System.Windows.Media.Brushes.DimGray,
-				};
-				ToolTip TTClusteringExceptions=new System.Windows.Controls.ToolTip
-				{
-					 Content="Exceptions are also used to determine if object is special",
-				};
-				TextBlock ClusteringExceptions_Text_Header=new TextBlock
-				{
-					 Text="Clustering Exceptions",
-					 FontSize=12,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
-					 Background=System.Windows.Media.Brushes.OrangeRed,
-					 TextAlignment=TextAlignment.Center,
-					 ToolTip=TTClusteringExceptions,
-				};
-				spClusteringExceptions.Children.Add(ClusteringExceptions_Text_Header);
 
-				#region KillLOWHPUnits
-				CheckBox cbClusterKillLowHPUnits=new CheckBox
-				{
-					 Content="Allow Units with 25% or less HP",
-					 Width=300,
-					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.Cluster.ClusterKillLowHPUnits),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
-				};
-				cbClusterKillLowHPUnits.Checked+=ClusteringKillLowHPChecked;
-				cbClusterKillLowHPUnits.Unchecked+=ClusteringKillLowHPChecked;
-				spClusteringExceptions.Children.Add(cbClusterKillLowHPUnits);
-				#endregion
-
-				#region AllowRangedUnits
-				CheckBox cbClusteringAllowRangedUnits=new CheckBox
-				{
-					 Content="Allow Ranged Units",
-					 Width=300,
-					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.Cluster.ClusteringAllowRangedUnits),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
-				};
-				cbClusteringAllowRangedUnits.Checked+=ClusteringAllowRangedUnitsChecked;
-				cbClusteringAllowRangedUnits.Unchecked+=ClusteringAllowRangedUnitsChecked;
-				spClusteringExceptions.Children.Add(cbClusteringAllowRangedUnits);
-				#endregion
-
-				#region AllowSpawnerUnits
-				CheckBox cbClusteringAllowSpawnerUnits=new CheckBox
-				{
-					 Content="Allow Spawner Units",
-					 Width=300,
-					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.Cluster.ClusteringAllowSpawnerUnits),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
-				};
-				cbClusteringAllowSpawnerUnits.Checked+=ClusteringAllowSpawnerUnitsChecked;
-				cbClusteringAllowSpawnerUnits.Unchecked+=ClusteringAllowSpawnerUnitsChecked;
-				spClusteringExceptions.Children.Add(cbClusteringAllowSpawnerUnits);
-				#endregion
-
-				#region AllowSucideBombers
-				CheckBox cbClusteringAllowSucideBombers=new CheckBox
-				{
-					 Content="Allow Sucide Bombers",
-					 Width=300,
-					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.Cluster.ClusteringAllowSucideBombers),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
-				};
-				cbClusteringAllowSucideBombers.Checked+=ClusteringAllowSucideBombersChecked;
-				cbClusteringAllowSucideBombers.Unchecked+=ClusteringAllowSucideBombersChecked;
-				spClusteringExceptions.Children.Add(cbClusteringAllowSucideBombers);
-				#endregion
-
-				CombatClusteringContentListBox.Items.Add(spClusteringExceptions);
 				Button BtnClusteringLoadTemplate=new Button
 				{
 					 Content="Load Setup",

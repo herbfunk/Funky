@@ -59,7 +59,7 @@ namespace FunkyTrinity.Cache
 							 if (Name.StartsWith("woodwraith_sporecloud_emitter")) return AvoidanceType.TreeSpore;
 						}
 
-						return AvoidanceType.Unknown;
+						return AvoidanceType.None;
 				 }
 
 				 internal static AvoidanceType FindAvoidanceUsingSNOID(int SNOID)
@@ -111,7 +111,7 @@ namespace FunkyTrinity.Cache
 							 case 164829:
 									return AvoidanceType.SuccubusProjectile;
 						}
-						return AvoidanceType.Unknown;
+						return AvoidanceType.None;
 				 }
 
 

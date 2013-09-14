@@ -13,4 +13,8 @@
     <boolean>true</boolean>
   </UseShrineTypes>
   <UseExtendedRangeRepChest>true</UseExtendedRangeRepChest>
+  <UnitExceptionLowHP>true</UnitExceptionLowHP>
+  <UnitExceptionRangedUnits>true</UnitExceptionRangedUnits>
+  <UnitExceptionSpawnerUnits>true</UnitExceptionSpawnerUnits>
+  <UnitExceptionSucideBombers>true</UnitExceptionSucideBombers>
 </SettingTargeting>

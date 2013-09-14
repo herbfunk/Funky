@@ -47,8 +47,7 @@ namespace FunkyTrinity
 				private static void InitObjectRefresh()
 				{
 					 //Cache last target only if current target is not avoidance (Movement).
-					 if (!Bot.Target.Equals(null)&&Bot.Target.CurrentTarget.targetType.HasValue&&Bot.Target.CurrentTarget.targetType.Value!=TargetType.Avoidance)
-						  Bot.Character.LastCachedTarget=Bot.Target.CurrentTarget!=null?Bot.Target.CurrentTarget.Clone():Funky.FakeCacheObject;
+					 Bot.Character.LastCachedTarget=Bot.Target.CurrentTarget!=null?Bot.Target.CurrentTarget:Funky.FakeCacheObject;
 
 					 if (!Bot.Target.Equals(null)&&Bot.Target.CurrentTarget.targetType.HasValue&&Bot.Target.CurrentTarget.targetType.Value==TargetType.Avoidance
 						  &&!String.IsNullOrEmpty(Bot.Target.CurrentTarget.InternalName))
@@ -396,14 +395,14 @@ namespace FunkyTrinity
 									 //Do we have this cached?
 									 if (!ObjectCache.Obstacles.TryGetValue(tmp_CachedObj.RAGUID, out thisObstacle))
 									 {
-										  AvoidanceType AvoidanceType=AvoidanceType.Unknown;
+										  AvoidanceType AvoidanceType=AvoidanceType.None;
 										  if (tmp_CachedObj.IsAvoidance)
 										  {
 												AvoidanceType=CacheIDLookup.FindAvoidanceUsingSNOID(tmp_CachedObj.SNOID);
-												if (AvoidanceType==AvoidanceType.Unknown)
+												if (AvoidanceType==AvoidanceType.None)
 												{
 													 AvoidanceType=CacheIDLookup.FindAvoidanceUsingName(tmp_CachedObj.InternalName);
-													 if (AvoidanceType==AvoidanceType.Unknown) continue;
+													 if (AvoidanceType==AvoidanceType.None) continue;
 												}
 										  }
 
@@ -511,6 +510,9 @@ namespace FunkyTrinity
 										  else
 												tmp_CachedObj=new CacheDestructable(tmp_CachedObj);
 									 }
+
+									 //Update Properties
+									 tmp_CachedObj.UpdateProperties();
 								}
 
 								if (!tmp_CachedObj.UpdateData())

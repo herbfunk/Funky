@@ -8,10 +8,6 @@ namespace FunkyTrinity.Settings
 		public double ClusterDistance { get; set; }
 		public int ClusterMinimumUnitCount { get; set; }
 		public bool EnableClusteringTargetLogic { get; set; }
-		public bool ClusterKillLowHPUnits { get; set; }
-		public bool ClusteringAllowRangedUnits { get; set; }
-		public bool ClusteringAllowSpawnerUnits { get; set; }
-		public bool ClusteringAllowSucideBombers { get; set; }
 		public bool IgnoreClusteringWhenLowHP { get; set; }
 		public double IgnoreClusterLowHPValue { get; set; }
 
@@ -19,25 +15,17 @@ namespace FunkyTrinity.Settings
 		{
 			EnableClusteringTargetLogic=enabled;
 			IgnoreClusteringWhenLowHP=true;
-			ClusterKillLowHPUnits=true;
 			ClusterDistance=7d;
 			ClusterMinimumUnitCount=3;
 			IgnoreClusterLowHPValue=0.55d;
-			ClusteringAllowRangedUnits=true;
-			ClusteringAllowSpawnerUnits=true;
-			ClusteringAllowSucideBombers=true;
 		}
 		public SettingCluster()
 		{
 			EnableClusteringTargetLogic=true;
 			IgnoreClusteringWhenLowHP=true;
-			ClusterKillLowHPUnits=true;
 			ClusterDistance=10d;
 			ClusterMinimumUnitCount=2;
 			IgnoreClusterLowHPValue=0.55d;
-			ClusteringAllowRangedUnits=true;
-			ClusteringAllowSpawnerUnits=true;
-			ClusteringAllowSucideBombers=true;
 		}
 
 		private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults", "Clustering_Default.xml");

@@ -13,7 +13,10 @@ namespace FunkyTrinity
 
 			internal static float Difference(float A, float B)
 			{
-				 return Math.Abs(A-B);
+				 if (A>B) 
+					  return A-B;
+
+				 return B-A;
 			}
 
 

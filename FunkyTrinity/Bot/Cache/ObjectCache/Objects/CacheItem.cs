@@ -327,6 +327,7 @@ namespace FunkyTrinity.Cache
 									 {
 										  this.NeedsRemoved=true;
 										  this.BlacklistFlag=BlacklistType.Temporary;
+										  Bot.Character.UpdateCoinage=true;
 										  return false;
 									 }
 
@@ -339,6 +340,7 @@ namespace FunkyTrinity.Cache
 										  this.BlacklistLoops=20;
 										  return false;
 									 }
+									 Bot.Character.UpdateCoinage=true;
 								}
 								else
 								{
@@ -510,7 +512,7 @@ namespace FunkyTrinity.Cache
 									 this.GoldAmount=this.ref_DiaItem.CommonData.GetAttribute<int>(ActorAttributeType.Gold);
 								} catch (NullReferenceException) { Logger.Write(LogLevel.Execption, "Failure to get gold amount for gold pile!"); return false; }
 						  }
-
+						  Bot.Character.UpdateCoinage=true;
 						  this.NeedsUpdate=false;
 						  #endregion
 					 }

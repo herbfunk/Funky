@@ -14,7 +14,8 @@ namespace FunkyTrinity.Settings
 				 public SettingDemonBuddy Demonbuddy { get; set; }
 				 public SettingDebug Debug { get; set; }
 				 public SettingTargeting Targeting { get; set; }
-
+				 public SettingCombat Combat { get; set; }
+				 public SettingAvoidance Avoidance { get; set; }
 				 public bool StopGameOnBotLowHealth { get; set; }
 				 public double StopGameOnBotHealthPercent { get; set; }
 				 public bool StopGameOnBotEnableScreenShot { get; set; }
@@ -35,8 +36,7 @@ namespace FunkyTrinity.Settings
 
 
              //Character Related
-             public bool AttemptAvoidanceMovements { get; set; }
-             public bool UseAdvancedProjectileTesting { get; set; }
+
 
 				 public SettingFleeing Fleeing { get; set; }
 
@@ -45,8 +45,6 @@ namespace FunkyTrinity.Settings
 
 				 public SettingGrouping Grouping { get; set; }
 
-             public double GlobeHealthPercent { get; set; }
-             public double PotionHealthPercent { get; set; }
 
            
             
@@ -91,7 +89,8 @@ namespace FunkyTrinity.Settings
 					  Loot=new SettingLoot();
 					  Cluster=new SettingCluster();
 					  Targeting=new SettingTargeting();
-
+					  Combat=new SettingCombat();
+					  Avoidance=new SettingAvoidance();
 					  
 					 
                  AvoidanceRecheckMaximumRate = 3500;
@@ -110,9 +109,7 @@ namespace FunkyTrinity.Settings
                  breakTimeHour = 1.5d;
 
 
-                 GlobeHealthPercent = 0.6d;
-                 PotionHealthPercent = 0.5d;
-                
+
                 
 
                  AfterCombatDelay = 500;
@@ -134,8 +131,6 @@ namespace FunkyTrinity.Settings
 
 					 
 
-					  AttemptAvoidanceMovements=true;
-					  UseAdvancedProjectileTesting=false;
 
                  Class = new ClassSettings();
              }

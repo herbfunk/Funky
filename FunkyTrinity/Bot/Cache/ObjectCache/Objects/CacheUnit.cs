@@ -17,79 +17,53 @@ namespace FunkyTrinity.Cache
 
 		  public class CacheUnit : CacheObject
 		  {
-
-				private TargetProperties EvaluateUnitProperties(CacheUnit unit)
-				{
-					 TargetProperties properties=TargetProperties.None;
-
-
-						  if (unit.IsBoss)
-								properties|=TargetProperties.Boss;
-
-						  if (unit.IsBurrowableUnit)
-								properties|=TargetProperties.Burrowing;
-
-						  if (unit.MonsterMissileDampening)
-								properties|=TargetProperties.MissileDampening;
-
-						  if (unit.IsMissileReflecting)
-								properties|=TargetProperties.MissileReflecting;
-
-						  if (unit.MonsterShielding)
-								properties|=TargetProperties.Shielding;
-
-						  if (unit.IsStealthableUnit)
-								properties|=TargetProperties.Stealthable;
-
-						  if (unit.IsSucideBomber)
-								properties|=TargetProperties.SucideBomber;
-
-						  if (unit.IsTreasureGoblin)
-								properties|=TargetProperties.TreasureGoblin;
-
-						  if (unit.IsFast)
-								properties|=TargetProperties.Fast;
-					 
-
-
-						  if (unit.IsEliteRareUnique)
-								properties|=TargetProperties.RareElite;
-
-						  if (unit.MonsterUnique)
-								properties|=TargetProperties.Unique;
-
-						  if (unit.ObjectIsSpecial)
-								properties|=TargetProperties.IsSpecial;
-
-						  if (unit.CurrentHealthPct.HasValue&&unit.CurrentHealthPct.Value==1d)
-								properties|=TargetProperties.FullHealth;
-
-						  if (unit.UnitMaxHitPointAverageWeight<0)
-								properties|=TargetProperties.Weak;
-
-
-						  if (unit.Monstersize.HasValue&&unit.Monstersize.Value==MonsterSize.Ranged)
-								properties|=TargetProperties.Ranged;
-
-
-						  if (unit.IsTargetableAndAttackable)
-								properties|=TargetProperties.TargetableAndAttackable;
-
-
-						  if (unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
-								properties|=TargetProperties.DOTDPS;
-					 
-
-					 return properties;
-				}
 				public CacheUnit(CacheObject baseobj)
 					 : base(baseobj)
 				{
+					 //update properties
 				}
 
 				public DiaUnit ref_DiaUnit { get; set; }
 
-				public TargetProperties Properties { get { return EvaluateUnitProperties(this); } }
+				public override TargetProperties Properties
+				{
+					 get
+					 {
+						  return AbilityUsablityTests.EvaluateUnitProperties(this);
+					 }
+				}
+				public override void UpdateProperties()
+				{
+					 base.UpdateProperties();
+					 /*
+							Things we know about the object based on cached values
+					 */
+
+					 //if (this.IsBoss)
+					 //	 this.Properties|=TargetProperties.Boss;
+
+					 //if (this.IsBurrowableUnit)
+					 //	 this.Properties|=TargetProperties.Burrowing;
+
+					 //if (this.IsMissileReflecting)
+					 //	 this.Properties|=TargetProperties.MissileReflecting;
+
+					 //if (this.IsStealthableUnit)
+					 //	 this.Properties|=TargetProperties.Stealthable;
+
+					 //if (this.IsSucideBomber)
+					 //	 this.Properties|=TargetProperties.SucideBomber;
+
+					 //if (this.IsTreasureGoblin)
+					 //	 this.Properties|=TargetProperties.TreasureGoblin;
+
+					 //if (this.IsFast)
+					 //	 this.Properties|=TargetProperties.Fast;
+
+					 //if (this.Monstersize.HasValue&&this.Monstersize.Value==MonsterSize.Ranged)
+					 //	 this.Properties|=TargetProperties.Ranged;
+					 base.Properties=AbilityUsablityTests.EvaluateUnitProperties(this);
+				}
 
 
 				#region Monster Affixes Related
@@ -105,8 +79,21 @@ namespace FunkyTrinity.Cache
 
 					 if (IsEliteRareUnique)
 					 {
+						  ////Type Properties
+						  //if (this.MonsterRare||this.MonsterElite||this.MonsterMinion)
+						  //	 this.Properties|=TargetProperties.RareElite;
+
+						  //if (MonsterUnique)
+						  //	 this.Properties|=TargetProperties.Unique;
+
 						  MonsterShielding=theseaffixes.HasFlag(MonsterAffixes.Shielding);
+						  //if (MonsterShielding)
+						  //	 this.Properties|=TargetProperties.Shielding;
+
 						  MonsterMissileDampening=theseaffixes.HasFlag(MonsterAffixes.MissileDampening);
+						  //if (this.MonsterMissileDampening)
+						  //	 this.Properties|=TargetProperties.MissileDampening;
+
 						  MonsterIlluionist=theseaffixes.HasFlag(MonsterAffixes.Illusionist);
 						  MonsterExtraHealth=theseaffixes.HasFlag(MonsterAffixes.ExtraHealth);
 						  MonsterLifeLink=theseaffixes.HasFlag(MonsterAffixes.HealthLink);
@@ -153,7 +140,29 @@ namespace FunkyTrinity.Cache
 				private DateTime LastAvoidanceIgnored=DateTime.Today;
 				private bool? IsNPC { get; set; }
 				public bool ForceLeap { get; set; }
-				public bool? HasDOTdps { get; set; }
+
+				private bool? hasDOTdps_;
+			  public bool? HasDOTdps
+			  {
+					get
+					{
+						return hasDOTdps_;
+					}
+					set
+					{
+						 
+						 //update properties
+						 //if (value.Value==true&&!AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties,TargetProperties.DOTDPS))
+						 //	 this.Properties|=TargetProperties.DOTDPS;
+						 //else if (value.Value==false&&AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties,TargetProperties.DOTDPS))
+						 //	 this.Properties&=TargetProperties.DOTDPS;
+
+						hasDOTdps_=value;
+						 
+
+					}
+			  }
+
 				public bool? IsTargetable { get; set; }
 				public bool? IsAttackable { get; set; }
 				public bool IsTargetableAndAttackable
@@ -217,11 +226,11 @@ namespace FunkyTrinity.Cache
 					get
 					{
 						 return
-							  (this.IsSucideBomber&&Bot.SettingsFunky.Cluster.ClusteringAllowSucideBombers)||
+							  (this.IsSucideBomber&&Bot.SettingsFunky.Targeting.UnitExceptionSucideBombers)||
 							  (this.IsTreasureGoblin&&Bot.SettingsFunky.Ranges.TreasureGoblinRange>1)||
-							  (this.Monstersize.Value==MonsterSize.Ranged&&Bot.SettingsFunky.Cluster.ClusteringAllowRangedUnits)||
-							  (this.IsSpawnerUnit&&Bot.SettingsFunky.Cluster.ClusteringAllowSpawnerUnits)||
-							  ((Bot.SettingsFunky.Cluster.ClusterKillLowHPUnits&&((this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0)
+							  (this.Monstersize.Value==MonsterSize.Ranged&&Bot.SettingsFunky.Targeting.UnitExceptionRangedUnits)||
+							  (this.IsSpawnerUnit&&Bot.SettingsFunky.Targeting.UnitExceptionSpawnerUnits)||
+							  ((Bot.SettingsFunky.Targeting.UnitExceptionLowHP&&((this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0)
 												&&((!Bot.Class.IsMeleeClass&&this.CentreDistance<30f)||(Bot.Class.IsMeleeClass&&this.RadiusDistance<12f)))));
 					}
 			  }
@@ -254,6 +263,8 @@ namespace FunkyTrinity.Cache
 
 					 get
 					 {
+						  if (!this.MaximumHealth.HasValue) return 0;
+
 						  double averageRatio=(this.MaximumHealth.Value/ObjectCache.Objects.MaximumHitPointAverage);
 
 						  int assignedWeight;
@@ -268,6 +279,9 @@ namespace FunkyTrinity.Cache
 								assignedWeight=2;
 						  else
 								assignedWeight=1;
+
+						  //if (assignedWeight<0&&!AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties,TargetProperties.Weak))
+						  //	 this.Properties|=TargetProperties.Weak;
 
 						  return (assignedWeight);
 					 }
@@ -350,6 +364,12 @@ namespace FunkyTrinity.Cache
 					 {
 						  this.LastCurrentHealth_=this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value:0d;
 						  this.CurrentHealthPct=dCurrentHealthPct;
+
+						  //update properties
+						  //if (dCurrentHealthPct==1)
+						  //	 this.Properties|=TargetProperties.FullHealth;
+						  //else if (AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties,TargetProperties.FullHealth))
+						  //	 this.Properties&=TargetProperties.FullHealth;
 					 }
 				}
 
@@ -552,13 +572,14 @@ namespace FunkyTrinity.Cache
 					 get
 					 {
 						  float fThisHeightDifference=Funky.Difference(Bot.Character.Position.Z, this.Position.Z);
-						  if (fThisHeightDifference>=10f)
+						  if (fThisHeightDifference>12f)
 						  {
 								//raycast.. 
-								 if (!Navigation.CanRayCast(Bot.Character.Position, this.Position))
-								{
-									 return false;
-								}
+								// if (!Navigation.CanRayCast(Bot.Character.Position, this.Position))
+								//{
+								//	 return false;
+								//}
+								return false;
 						  }
 
 						  return base.IsZDifferenceValid;
@@ -919,7 +940,7 @@ namespace FunkyTrinity.Cache
 								}
 
 								//This is intial test to validate we can "see" the unit.. 
-								if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, Bot.Class.LOSconditions.RequiresServerObjectIntersection, Bot.Class.LOSconditions.NavCellFlags)) 
+								if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, Bot.Class.LOSconditions.RequiresServerObjectIntersection, Bot.Class.LOSconditions.NavCellFlags, false)) 
 								{
 									 //LOS Movement -- Check for special objects
 									 bool Valid=false;
@@ -938,7 +959,8 @@ namespace FunkyTrinity.Cache
 										  if (TargetGPRect.TryFindSafeSpot(Bot.Character.Position, out LOSV3, this.Position))
 										  {
 												this.LOSV3=LOSV3;
-												Logging.WriteVerbose("Using LOS Vector at {0} to move into LOS for Obj {1}", LOSV3.ToString(), this.InternalName);
+												if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+													 Logger.Write(LogLevel.Movement,"Using LOS Vector at {0} to move into LOS for Obj {1}", LOSV3.ToString(), this.InternalName);
 												Valid=true;
 										  }
 									 }
@@ -1199,6 +1221,20 @@ namespace FunkyTrinity.Cache
 						  try
 						  {
 								this.IsAttackable=(this.ref_DiaUnit.IsAttackable);
+
+								//update properties
+								//if (this.IsAttackable.Value&&this.IsTargetable.Value)
+								//{
+								//	 if (!AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties, TargetProperties.TargetableAndAttackable))
+								//		  this.Properties|=TargetProperties.TargetableAndAttackable;
+								//}
+								//else
+								//{
+								//	 if (AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties, TargetProperties.TargetableAndAttackable))
+								//		  this.Properties&=TargetProperties.TargetableAndAttackable;
+								//}
+								
+
 						  } catch (NullReferenceException)
 						  {
 
@@ -1458,12 +1494,12 @@ namespace FunkyTrinity.Cache
 						  if ((this.IsEliteRareUnique&&!Bot.SettingsFunky.Targeting.IgnoreAboveAverageMobs)||
 									 (this.PriorityCounter>0)||
 									 (this.IsBoss&&!Bot.SettingsFunky.Targeting.IgnoreAboveAverageMobs&&this.CurrentHealthPct<=0.99d)||
-									 (((this.IsSucideBomber&&Bot.SettingsFunky.Cluster.ClusteringAllowSucideBombers)||this.IsCorruptantGrowth)&&this.CentreDistance<45f)||
-									 (this.IsSpawnerUnit&&Bot.SettingsFunky.Cluster.ClusteringAllowSpawnerUnits)||
+									 (((this.IsSucideBomber&&Bot.SettingsFunky.Targeting.UnitExceptionSucideBombers)||this.IsCorruptantGrowth)&&this.CentreDistance<45f)||
+									 (this.IsSpawnerUnit&&Bot.SettingsFunky.Targeting.UnitExceptionSpawnerUnits)||
 									 ((this.IsTreasureGoblin&&Bot.SettingsFunky.Targeting.GoblinPriority>1))||
-									 (this.Monstersize.Value==MonsterSize.Ranged&&Bot.SettingsFunky.Cluster.ClusteringAllowRangedUnits
+									 (this.Monstersize.Value==MonsterSize.Ranged&&Bot.SettingsFunky.Targeting.UnitExceptionRangedUnits
 										  &&(!this.IsEliteRareUnique||!Bot.SettingsFunky.Targeting.IgnoreAboveAverageMobs))||
-									 ((Bot.SettingsFunky.Cluster.ClusterKillLowHPUnits&&((this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0)
+									 ((Bot.SettingsFunky.Targeting.UnitExceptionLowHP&&((this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0)
 												&&(!this.IsEliteRareUnique||!Bot.SettingsFunky.Targeting.IgnoreAboveAverageMobs)
 												&&((!Bot.Class.IsMeleeClass&&this.CentreDistance<30f)||(Bot.Class.IsMeleeClass&&this.RadiusDistance<12f))))))
 

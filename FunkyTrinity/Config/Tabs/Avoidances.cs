@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using FunkyTrinity.Cache;
 using FunkyTrinity.Enums;
 
 namespace FunkyTrinity
@@ -20,8 +21,10 @@ namespace FunkyTrinity
 				float currentValue=(int)slider_sender.Value;
 
 				TBavoidanceRadius[tb_index].Text=currentValue.ToString();
-				AvoidanceType avoidancetype=(AvoidanceType)Enum.Parse(typeof(AvoidanceType), slider_info[0]);
-				Funky.dictAvoidanceRadius[avoidancetype]=currentValue;
+				Bot.SettingsFunky.Avoidance.Avoidances[tb_index].Radius=currentValue;
+				//AvoidanceType avoidancetype=(AvoidanceType)Enum.Parse(typeof(AvoidanceType), slider_info[0]);
+				//Bot.SettingsFunky.Avoidance.AvoidanceRadiusValues[avoidancetype]=currentValue;
+				//Bot.SettingsFunky.Avoidance.RecreateAvoidances();
 		  }
 
 		  private void AvoidanceHealthSliderValueChanged(object sender, EventArgs e)
@@ -32,27 +35,10 @@ namespace FunkyTrinity
 				int tb_index=Convert.ToInt16(slider_info[2]);
 
 				TBavoidanceHealth[tb_index].Text=currentValue.ToString();
-				AvoidanceType avoidancetype=(AvoidanceType)Enum.Parse(typeof(AvoidanceType), slider_info[0]);
-
-
-				switch (Bot.ActorClass)
-				{
-					 case Zeta.Internals.Actors.ActorClass.Barbarian:
-						  Funky.dictAvoidanceHealthBarb[avoidancetype]=currentValue;
-						  break;
-					 case Zeta.Internals.Actors.ActorClass.DemonHunter:
-						  Funky.dictAvoidanceHealthDemon[avoidancetype]=currentValue;
-						  break;
-					 case Zeta.Internals.Actors.ActorClass.Monk:
-						  Funky.dictAvoidanceHealthMonk[avoidancetype]=currentValue;
-						  break;
-					 case Zeta.Internals.Actors.ActorClass.WitchDoctor:
-						  Funky.dictAvoidanceHealthWitch[avoidancetype]=currentValue;
-						  break;
-					 case Zeta.Internals.Actors.ActorClass.Wizard:
-						  Funky.dictAvoidanceHealthWizard[avoidancetype]=currentValue;
-						  break;
-				}
+				Bot.SettingsFunky.Avoidance.Avoidances[tb_index].Health=currentValue;
+				//AvoidanceType avoidancetype=(AvoidanceType)Enum.Parse(typeof(AvoidanceType), slider_info[0]);
+				//Bot.SettingsFunky.Avoidance.AvoidanceHealthValues[avoidancetype]=currentValue;
+				//Bot.SettingsFunky.Avoidance.RecreateAvoidances();
 		  }
 
 		  #endregion
@@ -76,7 +62,61 @@ namespace FunkyTrinity
 					VerticalAlignment=System.Windows.VerticalAlignment.Stretch,
 
 			  };
+			  #region Avoidances
 
+			  StackPanel AvoidanceOptionsStackPanel=new StackPanel
+			  {
+					//Orientation= System.Windows.Controls.Orientation.Vertical,
+					//HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch,
+					Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
+					Background=System.Windows.Media.Brushes.DimGray,
+			  };
+
+			  TextBlock Avoidance_Text_Header=new TextBlock
+			  {
+					Text="Avoidances",
+					FontSize=12,
+					Background=System.Windows.Media.Brushes.MediumSeaGreen,
+					TextAlignment=TextAlignment.Center,
+					HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+			  };
+
+			  #region AvoidanceCheckboxes
+
+			  StackPanel AvoidanceCheckBoxesPanel=new StackPanel
+			  {
+					Orientation=Orientation.Vertical,
+					Width=600,
+			  };
+
+			  CheckBox CBAttemptAvoidanceMovements=new CheckBox
+			  {
+					Content="Enable Avoidance",
+					IsChecked=Bot.SettingsFunky.Avoidance.AttemptAvoidanceMovements,
+
+			  };
+			  CBAttemptAvoidanceMovements.Checked+=AvoidanceAttemptMovementChecked;
+			  CBAttemptAvoidanceMovements.Unchecked+=AvoidanceAttemptMovementChecked;
+
+			  CheckBox CBAdvancedProjectileTesting=new CheckBox
+			  {
+					Content="Use Advanced Avoidance Projectile Test",
+					IsChecked=Bot.SettingsFunky.Avoidance.UseAdvancedProjectileTesting,
+			  };
+			  CBAdvancedProjectileTesting.Checked+=UseAdvancedProjectileTestingChecked;
+			  CBAdvancedProjectileTesting.Unchecked+=UseAdvancedProjectileTestingChecked;
+			  AvoidanceCheckBoxesPanel.Children.Add(CBAttemptAvoidanceMovements);
+			  AvoidanceCheckBoxesPanel.Children.Add(CBAdvancedProjectileTesting);
+			  #endregion;
+
+
+
+
+
+			  AvoidanceOptionsStackPanel.Children.Add(Avoidance_Text_Header);
+			  AvoidanceOptionsStackPanel.Children.Add(AvoidanceCheckBoxesPanel);
+			  LBcharacterAvoidance.Items.Add(AvoidanceOptionsStackPanel);
+			  #endregion
 
 
 
@@ -133,20 +173,21 @@ namespace FunkyTrinity
 			  AvoidanceLayoutGrid.Children.Add(ColumnHeader2);
 			  AvoidanceLayoutGrid.Children.Add(ColumnHeader3);
 
-			  Dictionary<AvoidanceType, double> currentDictionaryAvoidance=Funky.ReturnDictionaryUsingActorClass(Bot.ActorClass);
-			  AvoidanceType[] avoidanceTypes=currentDictionaryAvoidance.Keys.ToArray();
-			  TBavoidanceHealth=new TextBox[avoidanceTypes.Length-1];
-			  TBavoidanceRadius=new TextBox[avoidanceTypes.Length-1];
+			  //Dictionary<AvoidanceType, double> currentDictionaryAvoidance=Bot.SettingsFunky.Avoidance.AvoidanceHealthValues;
+			  AvoidanceValue[] avoidanceValues=Bot.SettingsFunky.Avoidance.Avoidances.ToArray();
+			  TBavoidanceHealth=new TextBox[avoidanceValues.Length-1];
+			  TBavoidanceRadius=new TextBox[avoidanceValues.Length-1];
 			  int alternatingColor=0;
 
-			  for (int i=0; i<avoidanceTypes.Length-1; i++)
+			  for (int i=0; i<avoidanceValues.Length-1; i++)
 			  {
 					if (alternatingColor>1) alternatingColor=0;
 
-					string avoidanceString=avoidanceTypes[i].ToString();
+					string avoidanceString=avoidanceValues[i].Type.ToString();
 
-					float defaultRadius=0f;
-					Funky.dictAvoidanceRadius.TryGetValue(avoidanceTypes[i], out defaultRadius);
+					double defaultRadius=avoidanceValues[i].Radius;
+					//Bot.SettingsFunky.Avoidance.AvoidanceRadiusValues.TryGetValue(avoidanceTypes[i], out defaultRadius);
+
 					Slider avoidanceRadius=new Slider
 					{
 						 Width=125,
@@ -171,8 +212,8 @@ namespace FunkyTrinity
 						 HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
 					};
 
-					double defaultHealth=0d;
-					Funky.ReturnDictionaryUsingActorClass(Bot.ActorClass).TryGetValue(avoidanceTypes[i], out defaultHealth);
+					double defaultHealth=avoidanceValues[i].Health;
+					//Bot.SettingsFunky.Avoidance.AvoidanceHealthValues.TryGetValue(avoidanceTypes[i], out defaultHealth);
 					Slider avoidanceHealth=new Slider
 					{
 						 Name=avoidanceString+"_health_"+i.ToString(),

@@ -11,6 +11,24 @@ namespace FunkyTrinity
 	 internal partial class FunkyWindow : Window
 	 {
 		  #region EventHandling
+		  private void UnitExceptionKillLowHPChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Targeting.UnitExceptionLowHP=!Bot.SettingsFunky.Targeting.UnitExceptionLowHP;
+		  }
+		  private void UnitExceptionAllowRangedUnitsChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Targeting.UnitExceptionRangedUnits=!Bot.SettingsFunky.Targeting.UnitExceptionRangedUnits;
+		  }
+		  private void UnitExceptionAllowSpawnerUnitsChecked(object sender, EventArgs e)
+		  {
+
+				Bot.SettingsFunky.Targeting.UnitExceptionSpawnerUnits=!Bot.SettingsFunky.Targeting.UnitExceptionSpawnerUnits;
+		  }
+		  private void UnitExceptionAllowSucideBombersChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Targeting.UnitExceptionSucideBombers=!Bot.SettingsFunky.Targeting.UnitExceptionSucideBombers;
+		  }
+
 		  private void TargetingLoadXMLClicked(object sender, EventArgs e)
 		  {
 				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
@@ -190,6 +208,84 @@ namespace FunkyTrinity
 				Targeting_General_Options_Stackpanel.Children.Add(UseExtendedRangeRepChestCB);
 				Targeting_General_Options_Stackpanel.Children.Add(GoblinPriority_StackPanel);
 				Target_General_ContentListBox.Items.Add(Targeting_General_Options_Stackpanel);
+
+
+				StackPanel spClusteringExceptions=new StackPanel
+				{
+					 Background=System.Windows.Media.Brushes.DimGray,
+				};
+				ToolTip TTClusteringExceptions=new System.Windows.Controls.ToolTip
+				{
+					 Content="Exceptions are used in clustering and also used to determine if object is special",
+				};
+				TextBlock ClusteringExceptions_Text_Header=new TextBlock
+				{
+					 Text="Unit Exceptions",
+					 FontSize=12,
+					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=System.Windows.Media.Brushes.OrangeRed,
+					 TextAlignment=TextAlignment.Center,
+					 ToolTip=TTClusteringExceptions,
+				};
+				spClusteringExceptions.Children.Add(ClusteringExceptions_Text_Header);
+
+				#region KillLOWHPUnits
+				CheckBox cbClusterKillLowHPUnits=new CheckBox
+				{
+					 Content="Allow Units with 25% or less HP",
+					 Width=300,
+					 Height=30,
+					 IsChecked=(Bot.SettingsFunky.Targeting.UnitExceptionLowHP),
+					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+				};
+				cbClusterKillLowHPUnits.Checked+=UnitExceptionKillLowHPChecked;
+				cbClusterKillLowHPUnits.Unchecked+=UnitExceptionKillLowHPChecked;
+				spClusteringExceptions.Children.Add(cbClusterKillLowHPUnits);
+				#endregion
+
+				#region AllowRangedUnits
+				CheckBox cbClusteringAllowRangedUnits=new CheckBox
+				{
+					 Content="Allow Ranged Units",
+					 Width=300,
+					 Height=30,
+					 IsChecked=(Bot.SettingsFunky.Targeting.UnitExceptionRangedUnits),
+					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+				};
+				cbClusteringAllowRangedUnits.Checked+=UnitExceptionAllowRangedUnitsChecked;
+				cbClusteringAllowRangedUnits.Unchecked+=UnitExceptionAllowRangedUnitsChecked;
+				spClusteringExceptions.Children.Add(cbClusteringAllowRangedUnits);
+				#endregion
+
+				#region AllowSpawnerUnits
+				CheckBox cbClusteringAllowSpawnerUnits=new CheckBox
+				{
+					 Content="Allow Spawner Units",
+					 Width=300,
+					 Height=30,
+					 IsChecked=(Bot.SettingsFunky.Targeting.UnitExceptionSpawnerUnits),
+					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+				};
+				cbClusteringAllowSpawnerUnits.Checked+=UnitExceptionAllowSpawnerUnitsChecked;
+				cbClusteringAllowSpawnerUnits.Unchecked+=UnitExceptionAllowSpawnerUnitsChecked;
+				spClusteringExceptions.Children.Add(cbClusteringAllowSpawnerUnits);
+				#endregion
+
+				#region AllowSucideBombers
+				CheckBox cbClusteringAllowSucideBombers=new CheckBox
+				{
+					 Content="Allow Sucide Bombers",
+					 Width=300,
+					 Height=30,
+					 IsChecked=(Bot.SettingsFunky.Targeting.UnitExceptionSucideBombers),
+					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+				};
+				cbClusteringAllowSucideBombers.Checked+=UnitExceptionAllowSucideBombersChecked;
+				cbClusteringAllowSucideBombers.Unchecked+=UnitExceptionAllowSucideBombersChecked;
+				spClusteringExceptions.Children.Add(cbClusteringAllowSucideBombers);
+				#endregion
+
+				Target_General_ContentListBox.Items.Add(spClusteringExceptions);
 
 				Button BtnTargetTemplate=new Button
 				{

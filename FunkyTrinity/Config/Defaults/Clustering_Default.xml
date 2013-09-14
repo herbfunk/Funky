@@ -3,9 +3,5 @@
   <ClusterDistance>10</ClusterDistance>
   <ClusterMinimumUnitCount>2</ClusterMinimumUnitCount>
   <EnableClusteringTargetLogic>true</EnableClusteringTargetLogic>
-  <ClusterKillLowHPUnits>false</ClusterKillLowHPUnits>
-  <ClusteringAllowRangedUnits>true</ClusteringAllowRangedUnits>
-  <ClusteringAllowSpawnerUnits>true</ClusteringAllowSpawnerUnits>
   <IgnoreClusteringWhenLowHP>true</IgnoreClusteringWhenLowHP>
-  <IgnoreClusterLowHPValue>0.50</IgnoreClusterLowHPValue>
 </SettingCluster>

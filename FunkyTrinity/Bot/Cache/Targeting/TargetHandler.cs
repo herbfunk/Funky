@@ -384,16 +384,16 @@ namespace FunkyTrinity.Targeting
 
 					 
 
-					 double HealthChangeMS=DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.LastHealthChange).TotalMilliseconds;
+					 //double HealthChangeMS=DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.LastHealthChange).TotalMilliseconds;
 
-					 if (HealthChangeMS>3000&&!CurrentTarget.ObjectIsSpecial||HealthChangeMS>6000)
-					 {
-						  Logger.Write(LogLevel.Target, "Health change has not occured within 3 seconds for unit {0}", CurrentTarget.InternalName);
-						  FunkyTrinity.Bot.Combat.bForceTargetUpdate=true;
-						  CurrentState=RunStatus.Running;
-						  CurrentTarget.BlacklistLoops=10;
-						  return false;
-					 }
+					 //if (HealthChangeMS>3000&&!CurrentTarget.ObjectIsSpecial||HealthChangeMS>6000)
+					 //{
+					 //	 Logger.Write(LogLevel.Target, "Health change has not occured within 3 seconds for unit {0}", CurrentTarget.InternalName);
+					 //	 Bot.Combat.bForceTargetUpdate=true;
+					 //	 CurrentState=RunStatus.Running;
+					 //	 CurrentTarget.BlacklistLoops=10;
+					 //	 return false;
+					 //}
 				}
 
 
@@ -410,17 +410,8 @@ namespace FunkyTrinity.Targeting
 					 FunkyTrinity.Bot.Combat.bPickNewAbilities=false;
 					 if (CurrentTarget.targetType.Value==TargetType.Unit&&CurrentTarget.AcdGuid.HasValue)
 					 {
-						  Ability nextAbility;
-						  ConditionCriteraTypes criterias=ConditionCriteraTypes.All;
-
-						  //Although the unit is a cluster exception.. we should verify it is not a clustered object.
-						  if (CurrentUnitTarget.IsClusterException&&CurrentUnitTarget.BeingIgnoredDueToClusterLogic)
-						  {
-								criterias=ConditionCriteraTypes.SingleTarget;
-						  }
-
 						  // Pick an Ability		
-						  nextAbility=FunkyTrinity.Bot.Class.AbilitySelector(criterias);
+						  Ability nextAbility=FunkyTrinity.Bot.Class.AbilitySelector(CurrentUnitTarget);
 
 						  // Did we get default attack?
 						  if (nextAbility.Equals(Bot.Class.DefaultAttack))
@@ -496,18 +487,30 @@ namespace FunkyTrinity.Targeting
 				TargetMovement.CurrentTargetLocation=CurrentTarget.Position;
 				if (CurrentTarget.LOSV3!=Vector3.Zero)
 				{
-					 //Recheck LOS every second
-					 if (CurrentTarget.LineOfSight.LastLOSCheckMS>1500)
+
+					 bool endLOSmovement=false;
+					 //Validate LOS movement
+					 if (CurrentTarget.LastLOSMoveResult.HasFlag(Zeta.Navigation.MoveResult.Failed|Zeta.Navigation.MoveResult.UnstuckAttempt|Zeta.Navigation.MoveResult.PathGenerationFailed))
 					 {
-						  if (CurrentTarget.LineOfSight.LOSTest(Bot.Character.Position, true, false, NavCellFlags.AllowWalk))
-						  {
-								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-									 Logger.Write(LogLevel.Movement, "LOS Movement Completed for Object {0}", CurrentTarget.InternalName);
-								//Los Passed!
-								CurrentTarget.LOSV3=Vector3.Zero;
-								FunkyTrinity.Bot.Combat.bWholeNewTarget=true;
-								return false;
-						  }
+						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+								Logger.Write(LogLevel.Movement, "LOS Ended Due to MoveResult {0} for Object {1}",CurrentTarget.LastLOSMoveResult.ToString(), CurrentTarget.InternalName);
+
+						  endLOSmovement=true;
+					 }
+
+					 if (CurrentTarget.LineOfSight.LOSTest(Bot.Character.Position, true, false, NavCellFlags.AllowWalk))
+					 {//Los valid
+						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+								Logger.Write(LogLevel.Movement, "LOS Movement Completed for Object {0}", CurrentTarget.InternalName);
+
+						  endLOSmovement=true;
+					 }
+
+					 if (endLOSmovement)
+					 {
+						  CurrentTarget.LOSV3=Vector3.Zero;
+						  FunkyTrinity.Bot.Combat.bWholeNewTarget=true;
+						  return false;
 					 }
 
 					 TargetMovement.CurrentTargetLocation=CurrentTarget.LOSV3;
@@ -515,7 +518,7 @@ namespace FunkyTrinity.Targeting
 					 {
 						  //CurrentState=TargetMovement.TargetMoveTo(CurrentTarget);
 						  CurrentState=RunStatus.Running;
-						  Zeta.Navigation.Navigator.MoveTo(CurrentTarget.LOSV3, "LOS Movement", true);
+						  CurrentTarget.LastLOSMoveResult=Zeta.Navigation.Navigator.MoveTo(CurrentTarget.LOSV3, "LOS Movement", true);
 						  return false;
 					 }
 				}

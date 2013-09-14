@@ -409,11 +409,15 @@ namespace FunkyTrinity.XMLTags
 				new PrioritySelector(
 					 new Decorator(ret => timeoutBreached,
 						  new Sequence(
-								new DecoratorContinue(ret => TownPortalOnTimeout&&!Bot.Character.bIsInTown,
+								new DecoratorContinue(ret => TownPortalOnTimeout&&!ZetaDia.Me.IsInTown,
 									 new Sequence(
 										  new Action(ret => Logging.WriteDiagnostic(
 												"TrinityExploreDungeon inactivity timer tripped ({0}), tag Using Town Portal!", TimeoutValue)),
-										  Zeta.CommonBot.CommonBehaviors.CreateUseTownPortal(),
+										  Zeta.CommonBot.CommonBehaviors.CreateUseTownPortal()
+									 )
+								),
+								new DecoratorContinue(ret => TownPortalOnTimeout&&ZetaDia.Me.IsInTown,
+									 new Sequence(
 										  new Action(ret => isDone=true)
 									 )
 								),

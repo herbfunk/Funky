@@ -139,6 +139,15 @@ namespace FunkyTrinity
 				return false;
 		  }
 
+		  public static Composite FunkyTownPortal()
+		  {
+				CanRunDecoratorDelegate canRunDelegateReturnToTown=new CanRunDecoratorDelegate(FunkyTPOverlord);
+				ActionDelegate actionDelegateReturnTown=new ActionDelegate(FunkyTPBehavior);
+				Sequence sequenceReturnTown=new Sequence(
+					new Zeta.TreeSharp.Action(actionDelegateReturnTown)
+					);
+				return new Zeta.TreeSharp.Decorator(canRunDelegateReturnToTown, sequenceReturnTown);
+		  }
 		  internal static bool CastAttempted=false;
 		  public static RunStatus FunkyTPBehavior(object ret)
 		  {

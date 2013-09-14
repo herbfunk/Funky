@@ -11,9 +11,10 @@ namespace FunkyTrinity.ability
 			public readonly bool IgnoreNonTargetable;
 			public readonly double DOTDPSRatio;
 			public readonly ClusterProperties ClusterFlags;
+			public readonly bool UseRadiusDistance;
 			private readonly System.Guid GUID;
 
-			public ClusterConditions(double clusterRadius, float MaxDistanceFromBot, int MinimumUnitCount, bool IgnoreNonTargetableUnits, double DotDPSRatio=0.00, ClusterProperties clusterflags=ClusterProperties.None, float minDistance=0f)
+			public ClusterConditions(double clusterRadius, float MaxDistanceFromBot, int MinimumUnitCount, bool IgnoreNonTargetableUnits, double DotDPSRatio=0.00, ClusterProperties clusterflags=ClusterProperties.None, float minDistance=0f, bool useRadiusDistance=false)
 			{
 				 ClusterDistance=clusterRadius;
 				 MaximumDistance=MaxDistanceFromBot;
@@ -22,6 +23,7 @@ namespace FunkyTrinity.ability
 				 DOTDPSRatio=DotDPSRatio;
 				 ClusterFlags=clusterflags;
 				 MinimumDistance=minDistance;
+				 UseRadiusDistance=useRadiusDistance;
 				 GUID=System.Guid.NewGuid();
 			}
 

@@ -26,5 +26,6 @@ namespace FunkyTrinity.ability
 			TargetableAndAttackable=16384,
 			Fast=32768,
 			DOTDPS=65536,
+		   CloseDistance=131072,
 	 }
 }

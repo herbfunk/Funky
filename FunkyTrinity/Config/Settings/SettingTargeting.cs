@@ -5,13 +5,17 @@ namespace FunkyTrinity.Settings
 {
 	public class SettingTargeting
 	{
-
 		 public bool IgnoreAboveAverageMobs { get; set; }
 		 public bool IgnoreCorpses { get; set; }
 		 public bool MissleDampeningEnforceCloseRange { get; set; }
 		 public int GoblinPriority { get; set; }
 		 public bool[] UseShrineTypes { get; set; }
 		 public bool UseExtendedRangeRepChest { get; set; }
+
+		 public bool UnitExceptionLowHP { get; set; }
+		 public bool UnitExceptionRangedUnits { get; set; }
+		 public bool UnitExceptionSpawnerUnits { get; set; }
+		 public bool UnitExceptionSucideBombers { get; set; }
 
 		 public SettingTargeting()
 		 {
@@ -21,6 +25,10 @@ namespace FunkyTrinity.Settings
 			  IgnoreCorpses=false;
 			  UseExtendedRangeRepChest=false;
 			  MissleDampeningEnforceCloseRange=true;
+			  UnitExceptionLowHP=true;
+			  UnitExceptionRangedUnits=true;
+			  UnitExceptionSpawnerUnits=true;
+			  UnitExceptionSucideBombers=true;
 		 }
 		 private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults", "Targeting_Default.xml");
 		 public static SettingTargeting DeserializeFromXML()

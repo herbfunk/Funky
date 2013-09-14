@@ -39,9 +39,20 @@ namespace FunkyTrinity.Targeting
 					 targetBehaviorUsed=sendingtype;
 				}
 		  }
-		  internal delegate void TargetChangeHandler(object cacheobj, TargetChangedArgs timeInformation);
+		  internal delegate void TargetChangeHandler(object cacheobj, TargetChangedArgs args);
 
 		  internal TargetChangeHandler TargetChanged;
+		  internal void OnTargetChanged(TargetChangedArgs e)
+		  {
+				TargetChangeHandler handler=TargetChanged;
+				if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+					 Logger.Write(LogLevel.Target, "Changed Object: {0}", MakeStringSingleLine(e.newObject.DebugString));
+				
+				if (handler!=null)
+				{
+					 handler(this, e);
+				}
+		  }
 
 		 ///<summary>
 		  ///Update our current object data ("Current Target")
@@ -59,17 +70,8 @@ namespace FunkyTrinity.Targeting
 					 {
 						  if (!Bot.Character.LastCachedTarget.Equals(CurrentTarget))
 						  {
-								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
-									 Logger.Write(LogLevel.Target, "Changed Object: {0}", MakeStringSingleLine(CurrentTarget.DebugString));
-
-								TargetChangedArgs TargetChangedInfo=
-									 new TargetChangedArgs(CurrentTarget, lastBehavioralType);
-
-								// if anyone has subscribed, notify them
-								if (TargetChanged!=null)
-								{
-									 TargetChanged(CurrentTarget, TargetChangedInfo);
-								}
+								TargetChangedArgs TargetChangedInfo= new TargetChangedArgs(CurrentTarget, lastBehavioralType);
+								OnTargetChanged(TargetChangedInfo);
 						  }
 
 						  lastBehavioralType=TLA.TargetBehavioralTypeType;

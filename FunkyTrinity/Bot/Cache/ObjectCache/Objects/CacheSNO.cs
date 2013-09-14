@@ -559,7 +559,7 @@ namespace FunkyTrinity.Cache
 											AvoidanceType AT=CacheIDLookup.FindAvoidanceUsingSNOID(this.SNOID);
 
 										  //Check if avoidance is enabled or if the avoidance type is set to 0
-										  if (!Bot.SettingsFunky.AttemptAvoidanceMovements||AT!=AvoidanceType.Unknown&&Bot.IgnoringAvoidanceType(AT))
+										  if (!Bot.SettingsFunky.Avoidance.AttemptAvoidanceMovements||AT!=AvoidanceType.None&&Bot.IgnoringAvoidanceType(AT))
 										  {
 												ObjectCache.AddObjectToBlacklist(raguid, BlacklistType.Temporary);
 												return false;
@@ -670,12 +670,12 @@ namespace FunkyTrinity.Cache
 													 //Use unknown since we lookup SNO ID for server prop related objects.
 													 this.targetType=TargetType.None;
 												}
-												else if (Bot.AvoidancesHealth.ContainsKey(T))
-												{
-													 Logging.WriteVerbose("Found Avoidance not recongized by SNO! Name {0} SNO {1}", TestString, this.SNOID);
-													 CacheIDLookup.hashAvoidanceSNOList.Add(this.SNOID);
-													 this.targetType=TargetType.Avoidance;
-												}
+												//else if (Bot.AvoidancesHealth.ContainsKey(T))
+												//{
+												//	 Logging.WriteVerbose("Found Avoidance not recongized by SNO! Name {0} SNO {1}", TestString, this.SNOID);
+												//	 CacheIDLookup.hashAvoidanceSNOList.Add(this.SNOID);
+												//	 this.targetType=TargetType.Avoidance;
+												//}
 												else
 												{
 													 //Blacklist all other monster affixes

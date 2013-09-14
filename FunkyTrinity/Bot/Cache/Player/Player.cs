@@ -136,7 +136,21 @@ namespace FunkyTrinity
 					 return this.HotbarPowers.Any(p => PowerCacheLookup.PrimaryAbilities.Contains(p));
 				}
 
+				///<summary>
+				///Sets criteria based on object given.
+				///</summary>
+				public virtual Ability AbilitySelector(CacheUnit obj)
+				{
+					 ConditionCriteraTypes criterias=ConditionCriteraTypes.All;
 
+					 //Although the unit is a cluster exception.. we should verify it is not a clustered object.
+					 if (obj.IsClusterException&&obj.BeingIgnoredDueToClusterLogic)
+					 {
+						  criterias=ConditionCriteraTypes.SingleTarget;
+					 }
+
+					 return this.AbilitySelector(criterias);
+				}
 				///<summary>
 				///Selects first ability that is successful in precast and combat testing.
 				///</summary>

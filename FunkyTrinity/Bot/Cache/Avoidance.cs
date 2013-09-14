@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using Zeta;
 using System.Collections.Generic;
 using FunkyTrinity.Enums;
+using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
 {
@@ -34,7 +36,7 @@ namespace FunkyTrinity
 
 
 		  // The rough radius of each avoidance thing (from centre to edge!) in feet
-		  private static readonly Dictionary<AvoidanceType, float> dictAvoidanceRadiusDefaultsType=new Dictionary<AvoidanceType, float>
+		  private static readonly Dictionary<AvoidanceType, double> dictAvoidanceRadiusDefaultsType=new Dictionary<AvoidanceType, double>
             {
 
                 {AvoidanceType.ArcaneSentry, 14},{AvoidanceType.Dececrator, 9},{AvoidanceType.MoltenCore, 20},{AvoidanceType.MoltenTrail, 6},{AvoidanceType.Frozen, 19},{AvoidanceType.PlagueCloud, 19},    
@@ -152,7 +154,7 @@ namespace FunkyTrinity
 		  // ****************************************************************
 		  #region Avoidance
 
-	    internal static Dictionary<AvoidanceType, float> dictAvoidanceRadius=new Dictionary<AvoidanceType, float>(dictAvoidanceRadiusDefaultsType);
+		 internal static Dictionary<AvoidanceType, double> dictAvoidanceRadius=new Dictionary<AvoidanceType, double>(dictAvoidanceRadiusDefaultsType);
 
 		 internal static Dictionary<AvoidanceType, double> dictAvoidanceHealthBarb=new Dictionary<AvoidanceType, double>(dictAvoidanceHealthBarbDefaultsType);
 
@@ -166,7 +168,7 @@ namespace FunkyTrinity
 
 	    internal static Dictionary<AvoidanceType, double> ReturnDictionaryUsingActorClass(Zeta.Internals.Actors.ActorClass AC)
 		  {
-				switch (Bot.ActorClass)
+				switch (AC)
 				{
 					 case Zeta.Internals.Actors.ActorClass.Barbarian:
 						  return dictAvoidanceHealthBarb;
@@ -181,7 +183,22 @@ namespace FunkyTrinity
 				}
 				return null;
 		  }
-		  
+
+		  internal static List<AvoidanceValue> CreateAvoidanceValueList(Dictionary<AvoidanceType,double> health, Dictionary<AvoidanceType,double> radius)
+		  {
+				List<AvoidanceValue> returnList=new List<AvoidanceValue>();
+				AvoidanceType[] avoidanceTypes=health.Keys.ToArray();
+
+			  foreach (var avoidanceType in avoidanceTypes)
+			  {
+					returnList.Add(new AvoidanceValue(avoidanceType, health[avoidanceType], radius[avoidanceType]));
+			  }
+
+			  return returnList;
+		  }
 		  #endregion
+
+
+
     }
 }

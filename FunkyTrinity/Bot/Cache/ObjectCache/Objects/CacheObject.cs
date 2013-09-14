@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using FunkyTrinity.ability;
 using Zeta;
 using Zeta.Common;
 using Zeta.Internals.Actors;
@@ -36,6 +37,7 @@ namespace FunkyTrinity.Cache
 					 this.PriorityCounter=0;
 					 this.losv3_=Vector3.Zero;
 					 this.HandleAsAvoidanceObject=false;
+					 this.Properties=TargetProperties.None;
 					 //Keep track of each unique RaGuid that is created and uses this SNO during each level.
 					 //if (!UsedByRaGuids.Contains(RAGUID)) UsedByRaGuids.Add(RAGUID);
 				}
@@ -82,6 +84,7 @@ namespace FunkyTrinity.Cache
 					 this.SummonerID=parent.SummonerID;
 					 this.weight_=parent.Weight;
 					 this.HandleAsAvoidanceObject=parent.HandleAsAvoidanceObject;
+					 this.Properties=parent.Properties;
 				}
 				#endregion
 
@@ -94,6 +97,31 @@ namespace FunkyTrinity.Cache
 				public virtual float Radius { get { return radius_; } set { radius_=value; } }
 
 				public bool HandleAsAvoidanceObject { get; set; }
+
+				public virtual TargetProperties Properties { get; set; }
+
+				public virtual void UpdateProperties()
+				{
+					 Properties=TargetProperties.None;
+				}
+
+				public AnimationState AnimState
+				{
+					 //Return live data.
+					 get
+					 {
+						  using (ZetaDia.Memory.AcquireFrame())
+						  {
+								try
+								{
+									 return (this.ref_DiaObject.CommonData.AnimationState);
+								} catch (NullReferenceException)
+								{
+									 return AnimationState.Invalid;
+								}
+						  }
+					 }
+				}
 
 				///<summary>
 				///Used only if the object is a summonable pet.
@@ -176,6 +204,18 @@ namespace FunkyTrinity.Cache
 						  }
 						  this.lastUpdatedPosition=DateTime.Now;
 						  this.positionUpdated=true;
+
+						  //Update Properties
+						  if (this.RadiusDistance<5f)
+						  {
+								if (!AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties,TargetProperties.CloseDistance))
+									 this.Properties|=TargetProperties.CloseDistance;
+						  }
+						  else
+						  {
+								if (AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties,TargetProperties.CloseDistance))
+									 this.Properties&=TargetProperties.CloseDistance;
+						  }
 					 }
 				}
 				///<summary>
@@ -326,13 +366,20 @@ namespace FunkyTrinity.Cache
 						  if (DateTime.Now.Subtract(losv3LastChanged).TotalSeconds>4)
 						  {
 								losv3_=Vector3.Zero;
-								//this.RequiresLOSCheck=this.IgnoresLOSCheck==false?true:false;
 						  }
 
 						  return losv3_;
 					 }
 					 set { losv3_=value; losv3LastChanged=DateTime.Now; }
 				}
+
+				private Zeta.Navigation.MoveResult lastLOSmoveresult=Zeta.Navigation.MoveResult.Moved;
+				public Zeta.Navigation.MoveResult LastLOSMoveResult
+				{
+					 get { return lastLOSmoveresult; }
+					 set { lastLOSmoveresult=value; }
+				}
+
 				public bool UsingLOSV3
 				{
 					 get
@@ -455,8 +502,8 @@ namespace FunkyTrinity.Cache
 
 					 if (this.PriorityCounter>0)
 					 {
-						  //weight variable based on number of timers prioritized.
-						  this.Weight+=(25000*this.PriorityCounter);
+						  //adjust weight -- based upon close they are
+						  this.Weight+=(25000*this.PriorityCounter)-(100*this.RadiusDistance);
 
 						  //decrease priority
 						  if (this.LastPriortized>(this.PriorityCounter*500)+2500)
@@ -561,9 +608,9 @@ namespace FunkyTrinity.Cache
 				{
 					 get
 					 {
-						  return String.Format("RAGUID {0}: \r\n {1} Distance (Centre{2} / Radius{3}) \r\n ReqLOS={4} [LOSV3: {5}] BotFacing={6} \r\n BlackListLoops[{7}]",
+						  return String.Format("RAGUID {0}: \r\n {1} Distance (Centre{2} / Radius{3}) \r\n ReqLOS={4} -- {5} -- [LOSV3: {6}] \r\n BotFacing={7} \r\n BlackListLoops[{8}]",
 								this.RAGUID.ToString(), base.DebugString, this.CentreDistance.ToString(), this.RadiusDistance.ToString(),
-								this.RequiresLOSCheck.ToString(), this.LOSV3.ToString(),
+								this.RequiresLOSCheck.ToString(), this.LineOfSight!=null?String.Format("-- {0} --",this.LineOfSight.DebugString):"", this.LOSV3.ToString(),
 								this.BotIsFacing().ToString(), this.BlacklistLoops.ToString());
 					 }
 				}

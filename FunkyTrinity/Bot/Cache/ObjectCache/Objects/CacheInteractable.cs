@@ -71,12 +71,26 @@ namespace FunkyTrinity.Cache
 
 				  if (this.RequiresLOSCheck&&!this.IgnoresLOSCheck)
 				  {
-						//Preform Test every 2500ms on normal objects, 1250ms on special objects.
+						//Get the wait time since last used LOSTest
 						double lastLOSCheckMS=base.LineOfSight.LastLOSCheckMS;
-						if (lastLOSCheckMS<1250)
+
+						//unless its in front of us.. we wait 500ms mandatory.
+						if (lastLOSCheckMS<500&&centreDistance>1f)
 							 return false;
-						else if (lastLOSCheckMS<2500&&this.CentreDistance>20f)
-							 return false;
+						else
+						{
+							 //Set the maximum wait time
+							 double ReCheckTime=3500;
+
+							 //Close Range.. we change the recheck timer based on how close
+							 if (this.CentreDistance<25f)
+								  ReCheckTime=(this.CentreDistance*125);
+							 else if (this.ObjectIsSpecial)
+								  ReCheckTime*=0.25;
+
+							 if (lastLOSCheckMS<ReCheckTime)
+								  return false;
+						}
 
 						if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, false))
 						{
@@ -138,7 +152,7 @@ namespace FunkyTrinity.Cache
 							 if (this.IsHealthWell)
 							 {
 								  //Health wells..
-								  if (Bot.Character.dCurrentHealthPct>0.50d)
+								  if (Bot.Character.dCurrentHealthPct>Bot.SettingsFunky.Combat.HealthWellHealthPercent)
 										IgnoreThis=true;
 							 }
 							 else
@@ -414,6 +428,15 @@ namespace FunkyTrinity.Cache
 
 
 			return (fRangeRequired<=0f||base.DistanceFromTarget<=fRangeRequired);
+		}
+
+		public override bool ObjectIsSpecial
+		{
+			 get
+			 {
+				  //Rep Chests
+				  return this.IsResplendantChest&&Bot.SettingsFunky.Targeting.UseExtendedRangeRepChest;
+			 }
 		}
 	}
 }

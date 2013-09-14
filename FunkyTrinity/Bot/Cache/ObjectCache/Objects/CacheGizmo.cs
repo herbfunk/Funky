@@ -33,23 +33,7 @@ namespace FunkyTrinity.Cache
 				internal bool? HandleAsObstacle { get; set; }
 
 
-				public AnimationState AnimState
-				{
-					 //Return live data.
-					 get
-					 {
-						  using (ZetaDia.Memory.AcquireFrame())
-						  {
-								try
-								{
-									 return (base.ref_DiaObject.CommonData.AnimationState);
-								} catch (NullReferenceException)
-								{
-									 return AnimationState.Invalid;
-								}
-						  }
-					 }
-				}
+
 
 				public override void UpdateWeight()
 				{

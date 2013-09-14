@@ -485,6 +485,9 @@
     <Compile Include="Bot\Cache\Ability\Abilities\WeaponInstantRanged.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Bot\Cache\AvoidanceValue.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Bot\Cache\Player\DemonHunter.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -635,7 +638,13 @@
     <Compile Include="CombatRoutine\RoutineDebug.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Config\Settings\SettingAvoidance.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Config\Settings\SettingCluster.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Config\Settings\SettingCombat.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Config\Settings\SettingDebug.cs">
@@ -1062,6 +1071,12 @@
     </Content>
     <Content Include="Bot\Cache\Ability\_About Abilities.txt" />
     <Content Include="Config\Defaults\Clustering_Default.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Defaults\Avoidance_Default.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Defaults\Combat_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Config\Defaults\Demonbuddy_Default.xml">

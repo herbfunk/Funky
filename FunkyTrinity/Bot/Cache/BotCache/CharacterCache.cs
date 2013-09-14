@@ -219,7 +219,7 @@ namespace FunkyTrinity
 										  bWaitingForReserveEnergy=true;
 
 									 //Critical Avoidance (when no avoidance is set!)
-									 if (dCurrentHealthPct<0.50d&&!Bot.SettingsFunky.AttemptAvoidanceMovements&&
+									 if (dCurrentHealthPct<0.50d&&!Bot.SettingsFunky.Avoidance.AttemptAvoidanceMovements&&
 										  !Zeta.CommonBot.PowerManager.CanCast(SNOPower.DrinkHealthPotion))
 										  Bot.Combat.CriticalAvoidance=true;
 									 else if (Bot.Combat.CriticalAvoidance&&!Funky.shouldPreformOOCItemIDing&&!Funky.FunkyTPBehaviorFlag&&dCurrentHealthPct>0.5)

@@ -83,19 +83,29 @@ namespace FunkyTrinity.Movement.Clustering
 		  public virtual void UpdateClusters()
 		  {
 				CurrentClusters.Clear();
-
 				//Get unit objects only!
-				List<CacheUnit> listObjectUnits=Bot.ValidObjects.OfType<CacheUnit>().Where(u =>
-					 Bot.Combat.UnitRAGUIDs.Contains(u.RAGUID)
-					 &&u.CentreDistance<=clusterConditions.MaximumDistance
-					 &&u.CentreDistance>=clusterConditions.MinimumDistance
-					 &&(!clusterConditions.IgnoreNonTargetable||u.IsTargetable.HasValue&&u.IsTargetable.Value)).ToList();
+				List<CacheUnit> listObjectUnits;
+
+				//(radius or centre)
+				if (!clusterConditions.UseRadiusDistance)
+					 listObjectUnits=Bot.ValidObjects.OfType<CacheUnit>().Where(u =>
+						  Bot.Combat.UnitRAGUIDs.Contains(u.RAGUID)
+						  &&u.CentreDistance<=clusterConditions.MaximumDistance
+						  &&u.CentreDistance>=clusterConditions.MinimumDistance
+						  &&(!clusterConditions.IgnoreNonTargetable||u.IsTargetable.HasValue&&u.IsTargetable.Value)).ToList();
+				else
+					 listObjectUnits=Bot.ValidObjects.OfType<CacheUnit>().Where(u =>
+								Bot.Combat.UnitRAGUIDs.Contains(u.RAGUID)
+								&&u.RadiusDistance<=clusterConditions.MaximumDistance
+								&&u.RadiusDistance>=clusterConditions.MinimumDistance
+								&&(!clusterConditions.IgnoreNonTargetable||u.IsTargetable.HasValue&&u.IsTargetable.Value)).ToList();
 
 
 				//Logging.WriteVerbose("Total Units {0}", listObjectUnits.Count.ToString());
 				if (listObjectUnits.Count>0)
 				{
-					 CurrentClusters=cluster.RunKmeans(listObjectUnits, clusterConditions.ClusterDistance).Where(c => c.Info.Properties.HasFlag(clusterConditions.ClusterFlags)&&c.ListUnits.Count>=clusterConditions.MinimumUnits&&(clusterConditions.DOTDPSRatio==0.00d||c.Info.DotDPSRatio<=clusterConditions.DOTDPSRatio)).ToList();
+					 CurrentClusters=cluster.RunKmeans(listObjectUnits, clusterConditions.ClusterDistance)
+						  .Where(c => c.Info.Properties.HasFlag(clusterConditions.ClusterFlags)&&c.ListUnits.Count>=clusterConditions.MinimumUnits&&(clusterConditions.DOTDPSRatio==0.00d||c.Info.DotDPSRatio<=clusterConditions.DOTDPSRatio)).ToList();
 
 					 //Sort by distance -- reverse to get nearest unit First
 					 if (CurrentClusters.Count>0)

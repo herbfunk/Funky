@@ -52,7 +52,7 @@ namespace FunkyTrinity.Settings
 			MinimumGoldPile=425;
 			PickupCraftTomes=true;
 			PickupCraftPlans=true;
-			PickupBlacksmithPlanSix=true;
+			PickupBlacksmithPlanSix=false;
 			PickupBlacksmithPlanFive=false;
 			PickupBlacksmithPlanFour=false;
 			PickupBlacksmithPlanRazorspikes=false;
@@ -68,7 +68,7 @@ namespace FunkyTrinity.Settings
 			PickupFollowerItems=true;
 			MiscItemLevel=59;
 			MinimumGemItemLevel=60;
-			PickupGems=new bool[] { true, true, true, true };
+			PickupGems=new bool[] { true, true, false, false };
 		}
 
 		private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults", "Loot_Default.xml");

@@ -27,7 +27,7 @@ namespace FunkyTrinity.Settings
 			EliteCombatRange=60;
 			GoldRange=45;
 			GlobeRange=40;
-			ItemRange=75;
+			ItemRange=150;
 			TreasureGoblinRange=55;
 			ShrineRange=30;
 		}

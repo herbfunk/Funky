@@ -21,12 +21,26 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 			WaitVars = new WaitLoops(0, 1, true);
 			Cost = 59;
 			Counter = 5;
-			UseageType=AbilityUseage.Anywhere;
+			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.High;
 
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckCanCast |
-			                     AbilityConditions.CheckExisitingBuff | AbilityConditions.CheckEnergy);
-			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_12, 3);
+			PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckCanCast|AbilityConditions.CheckEnergy);
+			ClusterConditions=new ability.ClusterConditions(6d, 9f, 2, false, useRadiusDistance: true);
+			Fcriteria=new Func<bool>(() =>
+			{
+
+				 double lastCast=this.LastUsedMilliseconds;
+				 int RecastMS=this.RuneIndex==1?45000:20000;
+				 bool recast=lastCast>RecastMS; //if using soul to waste -- 45ms, else 20ms.
+				 int stackCount=Bot.Class.GetBuffStacks(SNOPower.Witchdoctor_SoulHarvest);
+				 if (stackCount<5)
+					  return true;
+				 else if (recast)
+					  return true;
+				 else
+					  return false;
+				 
+			});
 		}
 
 		public override void InitCriteria()

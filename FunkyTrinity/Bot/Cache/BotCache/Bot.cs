@@ -267,42 +267,27 @@ namespace FunkyTrinity
 				{
 					 get
 					 {
-						  return Bot.SettingsFunky.PotionHealthPercent;
+						  return Bot.SettingsFunky.Combat.PotionHealthPercent;
 					 }
 				}
 				internal static double EmergencyHealthGlobeLimit
 				{
 					 get
 					 {
-						  return Bot.SettingsFunky.GlobeHealthPercent;
+						  return Bot.SettingsFunky.Combat.GlobeHealthPercent;
 					 }
 				}
 				#endregion
 
 				#region Avoidances
-				///<summary>
-				///Returns a specific dictionary according to the bots character flags.
-				///</summary>
-				internal static Dictionary<AvoidanceType, double> AvoidancesHealth
-				{
-					 get
-					 {
-						  if (Combat.CriticalAvoidance||IsInNonCombatBehavior)
-								 return Funky.dictAvoidanceHealthOOCIDBehaviorDefaults;
-						  else
-								 return Funky.ReturnDictionaryUsingActorClass(Class.AC);
-					 }
-				}
 
 				internal static bool IgnoringAvoidanceType(AvoidanceType thisAvoidance)
 				{
-					 if (!Bot.SettingsFunky.AttemptAvoidanceMovements)
+					 if (!Bot.SettingsFunky.Avoidance.AttemptAvoidanceMovements)
 						  return true;
 
-					 double dThisHealthAvoid;
-					 if (!AvoidancesHealth.TryGetValue(thisAvoidance, out dThisHealthAvoid))
-						  return true;
-					 else if (dThisHealthAvoid==0d)
+					 double dThisHealthAvoid=Bot.SettingsFunky.Avoidance.Avoidances[(int)thisAvoidance].Health;
+					 if (dThisHealthAvoid==0d)
 						  return true;
 
 					 return false;
@@ -313,9 +298,7 @@ namespace FunkyTrinity
 				///</summary>
 				internal static bool IgnoreAvoidance(AvoidanceType thisAvoidance)
 				{
-					 double dThisHealthAvoid;
-					 if (!AvoidancesHealth.TryGetValue(thisAvoidance, out dThisHealthAvoid))
-						  return true;
+					 double dThisHealthAvoid=Bot.SettingsFunky.Avoidance.Avoidances[(int)thisAvoidance].Health;
 
 					 if (!Combat.CriticalAvoidance)
 					 {//Not Critical Avoidance, should we be in total ignorance because of a buff?
