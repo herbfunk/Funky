@@ -414,7 +414,7 @@ namespace FunkyTrinity.Targeting
 						  Ability nextAbility=FunkyTrinity.Bot.Class.AbilitySelector(CurrentUnitTarget);
 
 						  // Did we get default attack?
-						  if (nextAbility.Equals(Bot.Class.DefaultAttack))
+						  if (nextAbility.Equals(Bot.Class.DefaultAttack)&&!Bot.Class.HotbarContainsAPrimaryAbility())
 						  {
 								Logger.Write(LogLevel.Ability, "Failed to find a valid ability to use -- Target: {0}", Bot.Target.CurrentTarget.InternalName);
 								FunkyTrinity.Bot.Combat.bForceTargetUpdate=true;

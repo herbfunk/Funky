@@ -28,7 +28,7 @@ namespace FunkyTrinity.Cache
 				  ActorType.AxeSymbol,
 				  ActorType.ClientEffect,
 				  ActorType.Critter,
-				  ActorType.CustomBrain,
+				 // ActorType.CustomBrain,
 				  ActorType.Invalid
 			  };
 
