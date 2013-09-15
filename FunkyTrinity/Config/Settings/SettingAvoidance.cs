@@ -12,36 +12,14 @@ namespace FunkyTrinity.Settings
 		 public bool AttemptAvoidanceMovements { get; set; }
 		 public bool UseAdvancedProjectileTesting { get; set; }
 
-		 public AvoidanceValue[] Avoidances { get; set; }
-
+		 [XmlArray]
+		 public AvoidanceValue[] Avoidances { get { return avoidances; } set { avoidances=value; } }
+		 private AvoidanceValue[] avoidances=new AvoidanceValue[Funky.AvoidancesDefault.Length-1];
 		 public SettingAvoidance()
 		 {
 			  AttemptAvoidanceMovements=true;
 			  UseAdvancedProjectileTesting=false;
-			  Avoidances=new AvoidanceValue[21]
-			  {
-				  new AvoidanceValue(AvoidanceType.ArcaneSentry, 1, 14), 
-				  new AvoidanceValue(AvoidanceType.AzmodanBodies, 1, 47),
-				  new AvoidanceValue(AvoidanceType.AzmodanFireball, 1, 16),
-				  new AvoidanceValue(AvoidanceType.AzmodanPool, 1, 54),
-				  new AvoidanceValue(AvoidanceType.BeeProjectile, 0.5, 2), 
-				  new AvoidanceValue(AvoidanceType.BelialGround, 1, 25),
-				  new AvoidanceValue(AvoidanceType.Dececrator, 1, 9),
-				  new AvoidanceValue(AvoidanceType.DiabloMetor, 0.80, 28),
-				  new AvoidanceValue(AvoidanceType.DiabloPrison, 1, 15),
-				  new AvoidanceValue(AvoidanceType.Frozen, 1, 19), 
-				  new AvoidanceValue(AvoidanceType.GrotesqueExplosion, 0.50, 20),
-				  new AvoidanceValue(AvoidanceType.LacuniBomb, 0.25, 2),
-				  new AvoidanceValue(AvoidanceType.MageFirePool, 1, 10), 
-				  new AvoidanceValue(AvoidanceType.MoltenCore, 1, 20), 
-				  new AvoidanceValue(AvoidanceType.MoltenTrail, 0.75, 6),
-				  new AvoidanceValue(AvoidanceType.PlagueCloud, 0.75, 19),
-				  new AvoidanceValue(AvoidanceType.PlagueHand, 1, 15),
-				  new AvoidanceValue(AvoidanceType.PoisonGas, 0.5, 9), 
-				  new AvoidanceValue(AvoidanceType.ShamanFireBall, 0.1, 2), 
-				  new AvoidanceValue(AvoidanceType.SuccubusProjectile, 0.25, 2),
-				  new AvoidanceValue(AvoidanceType.TreeSpore, 1, 13), 
-			  };
+			  avoidances=Funky.AvoidancesDefault;
 		 }
 
 		 private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults", "Avoidance_Default.xml");

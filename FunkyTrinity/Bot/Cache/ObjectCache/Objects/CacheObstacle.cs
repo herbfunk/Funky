@@ -310,7 +310,7 @@ namespace FunkyTrinity.Cache
 				}
 				public override bool PointInside(Vector3 V3)
 				{
-					 return base.Position.Distance2D(V3)<=this.Radius;
+					 return base.Position.Distance(V3)<=this.Radius;
 				}
 				public override bool TestIntersection(Vector3 V1, Vector3 V2, bool CollisonRadius=true)
 				{
@@ -339,7 +339,7 @@ namespace FunkyTrinity.Cache
 
 					 //Special avoidances that require additional loops before removal
 					 if ((AvoidanceType.TreeSpore|AvoidanceType.GrotesqueExplosion).HasFlag(this.AvoidanceType))
-						  this.RefreshRemovalCounter=30;
+						  this.RefreshRemovalCounter=45;
 				}
 
 				public CacheAvoidance(CacheObject parent, AvoidanceType type, Ray R, double speed)
