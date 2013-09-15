@@ -22,8 +22,14 @@ Funky Settings:
 		-Setting an avoidance health percent to zero will ignore it.
 		-All avoidances can be ignored by unchecking Attempt Avoidance Movements.
 		-Radius may need to be tweaked for best "avoidance" movement.
+		-Health value is the minimum value before avoidance is triggered.
 	-Combat:
-		-Globe and Potion percents are health percent when bot .
+		-Globe, Potion and Heathwell percents are minimum health before any action will be taken.
+	-Targeting:
+		-Unit exception settings will set qualified units as "special" -- and also excludes them from clustering logic.
+	-Grouping:
+		-Is triggered when currently in combat -- and distant clusters that are valid for targeting meet the requirements.
+		-This will engage the distant cluster with the intent to make a bigger group.
 	-Class
 		-Settings vary depending on which class is currently active.
 	-General:

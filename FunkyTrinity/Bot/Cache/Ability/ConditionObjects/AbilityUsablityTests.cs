@@ -79,14 +79,17 @@ namespace FunkyTrinity.ability
 						  {
 								bool cancast=PowerManager.CanCast(ability.Power, out ability.CanCastFlags);
 
-								//Special Ability -- Trigger Waiting For Special When Not Enough Resource to Cast.
-								if (ability.IsSpecialAbility)
+
+								if (!cancast&&ability.CanCastFlags.HasFlag(PowerManager.CanCastFlags.PowerNotEnoughResource))
 								{
-									 if (!cancast&&ability.CanCastFlags.HasFlag(PowerManager.CanCastFlags.PowerNotEnoughResource))
+									 if (ability.IsSpecialAbility)
 										  Bot.Class.bWaitingForSpecial=true;
-									 else
-										  Bot.Class.bWaitingForSpecial=false;
+
+									 if (ability.IsRanged||ability.Range>0)
+										  Bot.Class.CanUseDefaultAttack=true;
 								}
+								else if(ability.IsSpecialAbility)
+									 Bot.Class.bWaitingForSpecial=false;
 
 								return cancast;
 						  }));
@@ -100,6 +103,9 @@ namespace FunkyTrinity.ability
 									 bool energyCheck=Bot.Character.dCurrentEnergy>=ability.Cost;
 									 if (ability.IsSpecialAbility) //we trigger waiting for special here.
 										  Bot.Class.bWaitingForSpecial=!energyCheck;
+									 if (!energyCheck&&(ability.IsRanged||ability.Range>0))
+										  Bot.Class.CanUseDefaultAttack=true;
+
 									 return energyCheck;
 								}));
 						  else
@@ -108,6 +114,10 @@ namespace FunkyTrinity.ability
 									 bool energyCheck=Bot.Character.dDiscipline>=ability.Cost;
 									 if (ability.IsSpecialAbility) //we trigger waiting for special here.
 										  Bot.Class.bWaitingForSpecial=!energyCheck;
+
+									 if (!energyCheck&&(ability.IsRanged||ability.Range>0))
+										  Bot.Class.CanUseDefaultAttack=true;
+
 									 return energyCheck;
 								}));
 					 }

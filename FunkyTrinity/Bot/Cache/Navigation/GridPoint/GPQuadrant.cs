@@ -200,6 +200,27 @@ namespace FunkyTrinity.Movement
 						  float botCurrentZ=botcurpos.Z;
 							bool ZHeightCheckPass=Funky.Difference(this.AverageAreaVectorZ, botCurrentZ)<1f;
 
+							bool foundLocation=false;
+							if (kite)
+								 foundLocation=IteratePointsDescending(ZHeightCheckPass, botcurpos, kite, checkBotAvoidIntersection, LoSCheckV3!=Vector3.Zero, LoSCheckV3);
+							else
+								 foundLocation=IteratePointsAscending(ZHeightCheckPass, botcurpos, kite, checkBotAvoidIntersection, LoSCheckV3!=Vector3.Zero, LoSCheckV3);
+
+							if (foundLocation)
+							{
+								 safespot=LastSafespotFound;
+								 return true;
+							}
+
+						  LastSafespotFound=Vector3.Zero;
+						  safespot=LastSafespotFound;
+						  LastIndexUsed=kite==true?0:this.ContainedPoints.Count-1;
+						  return false;
+					 }
+
+
+					 private bool IteratePointsAscending(bool ZHeightCheckPass, Vector3 botcurpos,bool kite, bool checkBotAvoidIntersection, bool checkLOS, Vector3 LoSCheckV3)
+					 {
 						  for (int curIndex=LastIndexUsed; curIndex<ContainedPoints.Count-1; curIndex++)
 						  {
 								GridPoint point=ContainedPoints[curIndex];
@@ -251,15 +272,73 @@ namespace FunkyTrinity.Movement
 
 
 								LastSafespotFound=pointVectorReturn;
-								safespot=LastSafespotFound;
+								//safespot=LastSafespotFound;
 								LastSafeGridPointFound=point.Clone();
 								LastIndexUsed=curIndex;
 								return true;
 						  }
 
-						  LastSafespotFound=Vector3.Zero;
-						  safespot=LastSafespotFound;
-						  LastIndexUsed=this.ContainedPoints.Count-1;
+						  return false;
+					 }
+					 private bool IteratePointsDescending(bool ZHeightCheckPass, Vector3 botcurpos, bool kite, bool checkBotAvoidIntersection, bool checkLOS, Vector3 LoSCheckV3)
+					 {
+						  for (int curIndex=LastIndexUsed; curIndex>0; curIndex--)
+						  {
+								GridPoint point=ContainedPoints[curIndex];
+								//Check blacklisted points and ignored
+								if (point.Ignored) continue;
+
+								//2D Obstacle Navigation Check
+								bool ZCheck=false;
+								if (ZHeightCheckPass&&this.AreaIsFlat)
+								{
+									 if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObstacleType.Navigation.HasFlag(obj.Obstacletype.Value)&&obj.PointInside(point))) continue;
+									 ZCheck=true;
+								}
+
+								//Create Vector3
+								Vector3 pointVectorReturn=(Vector3)point;
+								Vector3 pointVector=pointVectorReturn;
+								//pointVector.Z+=Bot.Character.fCharacterRadius/2f;
+
+								//Check if we already within this "point".
+								if (botcurpos.Distance(pointVector)<2.5f) continue;
+
+								//3D Obstacle Navigation Check
+								if (!ZCheck)
+								{
+									 //Because Z Variance we need to check if we can raycast walk to the location.
+									 if (!Navigation.CanRayCast(botcurpos, pointVector, Zeta.Internals.SNO.NavCellFlags.AllowWalk)) continue;
+
+									 if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObstacleType.Navigation.HasFlag(obj.Obstacletype.Value)&&obj.PointInside(pointVector))) continue;
+								}
+
+								//LOS Check
+								if (checkLOS)
+								{
+									 if (!Navigation.CanRayCast(pointVector, LoSCheckV3)) continue;
+								}
+
+								//Avoidance Check (Any Avoidance)
+								if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(pointVector)) continue;
+
+								//Kiting Check
+								if (kite&&ObjectCache.Objects.OfType<CacheUnit>().Any(m => m.ShouldBeKited&&m.IsPositionWithinRange(pointVector, Bot.SettingsFunky.Fleeing.FleeMaxMonsterDistance))) continue;
+
+								//Avoidance Intersection Check
+								if (checkBotAvoidIntersection&&ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(botcurpos, pointVector)) continue;
+
+								//Make sure this wont intersect a navblocked point
+								//if (Bot.Navigation.LastNavigationBlockedPoints.Any(p => GridPoint.IsOnLine(CurrentLocation, point, p))) continue;
+
+
+								LastSafespotFound=pointVectorReturn;
+								//safespot=LastSafespotFound;
+								LastSafeGridPointFound=point.Clone();
+								LastIndexUsed=curIndex;
+								return true;
+						  }
+
 						  return false;
 					 }
 

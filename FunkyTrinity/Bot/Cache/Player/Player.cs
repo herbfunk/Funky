@@ -79,6 +79,11 @@ namespace FunkyTrinity
 			  }
 
 			  ///<summary>
+			  ///
+			  ///</summary>
+			  public bool CanUseDefaultAttack { get; set; }
+
+			  ///<summary>
 				///Check if Bot should generate a new ZigZag location.
 				///</summary>
 				public virtual bool ShouldGenerateNewZigZagPath()
@@ -141,6 +146,9 @@ namespace FunkyTrinity
 				///</summary>
 				public virtual Ability AbilitySelector(CacheUnit obj)
 				{
+					 //Reset default attack can use
+					 this.CanUseDefaultAttack=!this.Abilities.ContainsKey(this.DefaultAttack.Power)?false:true;
+
 					 ConditionCriteraTypes criterias=ConditionCriteraTypes.All;
 
 					 //Although the unit is a cluster exception.. we should verify it is not a clustered object.
