@@ -9,6 +9,9 @@ namespace FunkyTrinity.XMLTags
 	[XmlElement("TrinityTownRun")]
 	public class TrinityTownRunTag : ProfileBehavior
 	{
+		 [XmlAttribute("waitTime")]
+		 [XmlAttribute("wait")]
+		 public static int WaitTime { get; set; }
 		private bool m_IsDone=false;
 		public override bool IsDone
 		{
