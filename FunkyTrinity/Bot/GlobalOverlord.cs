@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.TreeSharp;
 using FunkyTrinity.Cache;
+using FunkyTrinity.PlayerClass;
 
 namespace FunkyTrinity
 {
@@ -100,7 +101,7 @@ namespace FunkyTrinity
 				}
 
 				// Recording of all the XML's in use this run
-				Bot.Stats.CheckProfile();
+				Bot.Profile.CheckProfile();
 
 
 				//Seconday Hotbar Check
@@ -112,7 +113,7 @@ namespace FunkyTrinity
 				Bot.Combat.DontMove=false;
 
 				//update current profile behavior.
-				Bot.CheckCurrentProfileBehavior();
+				Bot.Profile.CheckCurrentProfileBehavior();
 
 
 				// Should we refresh target list?
@@ -184,11 +185,11 @@ namespace FunkyTrinity
 					 return false;
 				}
 				// Pop a potion when necessary
-				if (Bot.Character.dCurrentHealthPct<=Bot.EmergencyHealthPotionLimit)
+				if (Bot.Class.HealthPotionAbility.CheckPreCastConditionMethod())
 				{
-					 if (!Bot.Character.bIsIncapacitated&&Bot.Class.AbilityUseTimer(SNOPower.DrinkHealthPotion))
+					 if (Bot.Class.HealthPotionAbility.CheckCustomCombatMethod())
 					 {
-						  Bot.AttemptToUseHealthPotion();
+						  Bot.Class.HealthPotionAbility.AttemptToUseHealthPotion();
 					 }
 				}
 
@@ -213,9 +214,9 @@ namespace FunkyTrinity
 					 myAnimationState!=AnimationState.Attacking&&myAnimationState!=AnimationState.Casting&&myAnimationState!=AnimationState.Channeling)
 				{
 					 FunkyTrinity.ability.Ability Buff;
-					 if (Bot.Class.FindBuffPower(out Buff))
+					 if (Bot.Class.FindBuffPower(out Buff, ability.AbilityUseFlags.OutOfCombat))
 					 {
-						  FunkyTrinity.ability.Ability.SetupAbilityForUse(ref Buff);
+						  ability.Ability.SetupAbilityForUse(ref Buff);
 						  Bot.Character.WaitWhileAnimating(4, true);
 						  ability.Ability.UsePower(ref Buff);
 						  Buff.SuccessfullyUsed();

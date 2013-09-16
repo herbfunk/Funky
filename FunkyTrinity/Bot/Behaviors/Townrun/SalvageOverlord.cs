@@ -53,12 +53,12 @@ namespace FunkyTrinity
 
 
 
-									 //Log("GilesTrinityScoring == "+Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring.ToString());
+									 ////Log("GilesTrinityScoring == "+Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring.ToString());
 
-									 bShouldVisitSalvage=ItemManager.Current.ShouldStashItem(thisitem.ACDItem);
+									 //bShouldVisitSalvage=ItemManager.Current.ShouldStashItem(thisitem.ACDItem);
 
-									 if (bShouldVisitSalvage)
-										  Bot.Character.BackPack.townRunCache.hashGilesCachedSalvageItems.Add(thisitem);
+									 //if (bShouldVisitSalvage)
+									 //	 Bot.Character.BackPack.townRunCache.hashGilesCachedSalvageItems.Add(thisitem);
 
 								}
 						  }

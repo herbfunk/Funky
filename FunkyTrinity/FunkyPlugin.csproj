@@ -212,6 +212,9 @@
     <Compile Include="Bot\Cache\Ability\Abilities\DemonHunter\Vault.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Bot\Cache\Ability\Abilities\DrinkHealthPotion.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Bot\Cache\Ability\Abilities\Monk\BlindingFlash.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -452,7 +455,7 @@
     <Compile Include="Bot\Cache\Ability\ConditionObjects\LOSInfo.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Ability\Enums\AbilityUsage.cs">
+    <Compile Include="Bot\Cache\Ability\Enums\AbilityUseFlags.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\Ability\IAbility.cs">
@@ -464,13 +467,13 @@
     <Compile Include="Bot\Cache\Ability\ConditionObjects\ClusterConditions.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Ability\Enums\AbilityConditions.cs">
+    <Compile Include="Bot\Cache\Ability\Enums\CastingConditionTypes.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\Ability\Enums\AbilityPriority.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Ability\Enums\AbilityUseType.cs">
+    <Compile Include="Bot\Cache\Ability\Enums\PowerExecutionTypes.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\Ability\Enums\ConditionCriteraTypes.cs">
@@ -504,6 +507,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\Navigation\GridPoint\QuadrantLocation.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\ProfileCache.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\Targeting\Behaviors\TargetBehavioralTypes.cs">
@@ -1120,7 +1126,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Version.xml" />
+    <Content Include="Version.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="XML\FunkyXMLTags.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

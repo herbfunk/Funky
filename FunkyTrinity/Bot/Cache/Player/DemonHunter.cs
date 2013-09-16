@@ -11,58 +11,11 @@ using FunkyTrinity.ability;
 using FunkyTrinity.Cache;
 using FunkyTrinity.ability.Abilities;
 using FunkyTrinity.ability.Abilities.DemonHunter;
-namespace FunkyTrinity
+namespace FunkyTrinity.PlayerClass
 {
 
 		  internal class DemonHunter : Player
 		  {
-				 enum DemonHunterActiveSkills
-				 {
-						DemonHunter_SpikeTrap=75301,
-						DemonHunter_EntanglingShot=75873,
-						DemonHunter_FanOfKnives=77546,
-						DemonHunter_BolaShot=77552,
-						DemonHunter_MoltenArrow=77601,
-						DemonHunter_Multishot=77649,
-						DemonHunter_Grenades=86610,
-						DemonHunter_Vault=111215,
-						DemonHunter_Preparation=129212,
-						DemonHunter_Chakram=129213,
-						DemonHunter_ClusterArrow=129214,
-						DemonHunter_HungeringArrow=129215,
-						DemonHunter_Caltrops=129216,
-						DemonHunter_Sentry=129217,
-						DemonHunter_SmokeScreen=130695,
-						DemonHunter_MarkedForDeath=130738,
-						DemonHunter_ShadowPower=130830,
-						DemonHunter_RainOfVengeance=130831,
-						DemonHunter_RapidFire=131192,
-						DemonHunter_ElementalArrow=131325,
-						DemonHunter_Impale=131366,
-						DemonHunter_Companion=133695,
-						DemonHunter_Strafe=134030,
-						DemonHunter_EvasiveFire=134209,
-
-				 }
-				 enum DemonHunterPassiveSkills
-				 {
-						DemonHunter_Passive_NightStalker=218350,
-						DemonHunter_Passive_TacticalAdvantage=218385,
-						DemonHunter_Passive_NumbingTraps=218398,
-						DemonHunter_Passive_Archery=209734,
-						DemonHunter_Passive_Brooding=210801,
-						DemonHunter_Passive_ThrillOfTheHunt=211225,
-						DemonHunter_Passive_Grenadier=208779,
-						DemonHunter_Passive_CustomEngineering=208610,
-						DemonHunter_Passive_SteadyAim=164363,
-						DemonHunter_Passive_Vengeance=155714,
-						DemonHunter_Passive_Sharpshooter=155715,
-						DemonHunter_Passive_CullTheWeak=155721,
-						DemonHunter_Passive_Perfectionist=155722,
-						DemonHunter_Passive_Ballistics=155723,
-						DemonHunter_Passive_HotPursuit=155725,
-
-				 }
 				//Base class for each individual class!
 				public DemonHunter(ActorClass a)
 					 : base(a)
@@ -191,7 +144,53 @@ namespace FunkyTrinity
 							return this.DefaultAttack;
 					}
 				}
+				enum DemonHunterActiveSkills
+				{
+					 DemonHunter_SpikeTrap=75301,
+					 DemonHunter_EntanglingShot=75873,
+					 DemonHunter_FanOfKnives=77546,
+					 DemonHunter_BolaShot=77552,
+					 DemonHunter_MoltenArrow=77601,
+					 DemonHunter_Multishot=77649,
+					 DemonHunter_Grenades=86610,
+					 DemonHunter_Vault=111215,
+					 DemonHunter_Preparation=129212,
+					 DemonHunter_Chakram=129213,
+					 DemonHunter_ClusterArrow=129214,
+					 DemonHunter_HungeringArrow=129215,
+					 DemonHunter_Caltrops=129216,
+					 DemonHunter_Sentry=129217,
+					 DemonHunter_SmokeScreen=130695,
+					 DemonHunter_MarkedForDeath=130738,
+					 DemonHunter_ShadowPower=130830,
+					 DemonHunter_RainOfVengeance=130831,
+					 DemonHunter_RapidFire=131192,
+					 DemonHunter_ElementalArrow=131325,
+					 DemonHunter_Impale=131366,
+					 DemonHunter_Companion=133695,
+					 DemonHunter_Strafe=134030,
+					 DemonHunter_EvasiveFire=134209,
 
+				}
+				enum DemonHunterPassiveSkills
+				{
+					 DemonHunter_Passive_NightStalker=218350,
+					 DemonHunter_Passive_TacticalAdvantage=218385,
+					 DemonHunter_Passive_NumbingTraps=218398,
+					 DemonHunter_Passive_Archery=209734,
+					 DemonHunter_Passive_Brooding=210801,
+					 DemonHunter_Passive_ThrillOfTheHunt=211225,
+					 DemonHunter_Passive_Grenadier=208779,
+					 DemonHunter_Passive_CustomEngineering=208610,
+					 DemonHunter_Passive_SteadyAim=164363,
+					 DemonHunter_Passive_Vengeance=155714,
+					 DemonHunter_Passive_Sharpshooter=155715,
+					 DemonHunter_Passive_CullTheWeak=155721,
+					 DemonHunter_Passive_Perfectionist=155722,
+					 DemonHunter_Passive_Ballistics=155723,
+					 DemonHunter_Passive_HotPursuit=155725,
+
+				}
 		  }
-	 
+
 }

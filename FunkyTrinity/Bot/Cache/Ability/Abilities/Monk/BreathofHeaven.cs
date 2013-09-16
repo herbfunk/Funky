@@ -16,22 +16,17 @@ namespace FunkyTrinity.ability.Abilities.Monk
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Buff;
+			ExecutionType = PowerExecutionTypes.Buff;
 			WaitVars = new WaitLoops(1, 1, true);
 			Cost = 25;
-			UseageType = AbilityUseage.Anywhere;
+			UseFlagsType = AbilityUseFlags.Anywhere;
 			IsBuff = true;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckCanCast |
-			                     AbilityConditions.CheckRecastTimer);
+			PreCastConditions = (CastingConditionTypes.CheckEnergy | CastingConditionTypes.CheckCanCast |
+			                     CastingConditionTypes.CheckRecastTimer);
 			Fbuff = new Func<bool>(() => { return !Bot.Class.HasBuff(SNOPower.Monk_BreathOfHeaven); });
 			Fcriteria =
 				new Func<bool>(() => { return (Bot.Character.dCurrentHealthPct<=0.5||!Bot.Class.HasBuff(SNOPower.Monk_BreathOfHeaven)); });
-		}
-
-		public override void InitCriteria()
-		{
-			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

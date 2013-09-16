@@ -17,21 +17,16 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Self;
+			ExecutionType = PowerExecutionTypes.Self;
 			WaitVars = new WaitLoops(0, 0, true);
 			Cost = 49;
-			UseageType=AbilityUseage.Anywhere;
+			UseFlagsType=AbilityUseFlags.Anywhere;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckEnergy |
-			                     AbilityConditions.CheckCanCast);
+			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated | CastingConditionTypes.CheckEnergy |
+			                     CastingConditionTypes.CheckCanCast);
 			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_12, 1);
 			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_12, 1);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 18);
-		}
-
-		public override void InitCriteria()
-		{
-			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

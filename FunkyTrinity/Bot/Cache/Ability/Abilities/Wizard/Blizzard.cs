@@ -16,23 +16,18 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.ClusterTarget | AbilityUseType.Target;
+			ExecutionType = PowerExecutionTypes.ClusterTarget | PowerExecutionTypes.Target;
 			WaitVars = new WaitLoops(1, 2, true);
 			Cost = 40;
 			Range = 50;
 			IsRanged = true;
-			UseageType=AbilityUseage.Combat;
+			UseFlagsType=AbilityUseFlags.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckEnergy |
-			                     AbilityConditions.CheckRecastTimer);
+			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated | CastingConditionTypes.CheckEnergy |
+			                     CastingConditionTypes.CheckRecastTimer);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial);
 			ClusterConditions = new ClusterConditions(5d, 50f, 2, true);
 			Fcriteria = new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
-		}
-
-		public override void InitCriteria()
-		{
-			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

@@ -63,6 +63,8 @@ namespace FunkyTrinity.Cache
 																	  typeof(Zeta.CommonBot.Profile.Common.UseObjectTag),
 																	  typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),
 																	  typeof(Zeta.CommonBot.Profile.Common.WaitTimerTag),
+																	  Zeta.CommonBot.CommonBehaviors.CreateUseTownPortal().GetType(),
+																	  Zeta.CommonBot.CommonBehaviors.TakeTownPortalBack().GetType(),
 																	};
 
 				//Common Used Profile Tags that requires backtracking during combat sessions.

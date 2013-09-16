@@ -1372,16 +1372,6 @@ namespace FunkyTrinity.Cache
 								}
 						  }
 
-						  if (Bot.Combat.powerPrime.SuccessUsed.HasValue&&Bot.Combat.powerPrime.SuccessUsed.Value)
-						  {
-								//Logging.Write(powerPrime.powerThis.ToString() + " used successfully");
-								Bot.Combat.powerLastSnoPowerUsed=Bot.Combat.powerPrime.Power;
-								Bot.Combat.powerPrime.SuccessfullyUsed();
-						  }
-						  else
-						  {
-								 PowerCacheLookup.dictAbilityLastFailed[Bot.Combat.powerPrime.Power]=DateTime.Now;
-						  }
 
 						  // Wait for animating AFTER the attack
 						  if (Bot.Combat.powerPrime.WaitWhileAnimating)
@@ -1398,8 +1388,8 @@ namespace FunkyTrinity.Cache
 								Bot.Combat.bWaitingAfterPower=true;
 						  }
 
-						  //Check health changes
-						  if (DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalMilliseconds>3000)
+						  //Check health changes -- only when we recently used an ability (so our first interaction when moving into range wont ignore it!)
+						  if (DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalMilliseconds>3000&&Bot.Class.LastUsedAbility.LastUsedMilliseconds>1000)
 						  {
 								double LastHealthChangedMS=DateTime.Now.Subtract(Bot.Combat.LastHealthChange).TotalMilliseconds;
 								if (LastHealthChangedMS>3000)
@@ -1408,6 +1398,17 @@ namespace FunkyTrinity.Cache
 									 this.BlacklistLoops=20;
 									 Bot.Combat.bForceTargetUpdate=true;
 								}
+						  }
+
+						  if (Bot.Combat.powerPrime.SuccessUsed.HasValue&&Bot.Combat.powerPrime.SuccessUsed.Value)
+						  {
+								//Logging.Write(powerPrime.powerThis.ToString() + " used successfully");
+								Bot.Combat.powerLastSnoPowerUsed=Bot.Combat.powerPrime.Power;
+								Bot.Combat.powerPrime.SuccessfullyUsed();
+						  }
+						  else
+						  {
+								PowerCacheLookup.dictAbilityLastFailed[Bot.Combat.powerPrime.Power]=DateTime.Now;
 						  }
 
 						  return RunStatus.Running;
@@ -1539,7 +1540,7 @@ namespace FunkyTrinity.Cache
 				{
 					 get
 					 {
-						  return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} -- IsMoving: {6} \r\n PriorityCounter={7}\r\nUnit Properties {8}",
+						  return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} -- IsMoving: {6} \r\n Unit Properties {7}",
 								base.DebugString,
 								this.IsBurrowed.HasValue?this.IsBurrowed.Value.ToString():"",
 								this.IsTargetable.HasValue?this.IsTargetable.Value.ToString():"",
@@ -1547,7 +1548,6 @@ namespace FunkyTrinity.Cache
 								this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value.ToString():"",
 								this.MaximumHealth.HasValue?this.MaximumHealth.Value.ToString():"",
 								this.IsMoving.ToString(),
-								this.PriorityCounter.ToString(),
 								this.Properties.ToString());
 					 }
 				}

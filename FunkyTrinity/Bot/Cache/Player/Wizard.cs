@@ -11,65 +11,11 @@ using FunkyTrinity.ability;
 using FunkyTrinity.Cache;
 using FunkyTrinity.ability.Abilities;
 using FunkyTrinity.ability.Abilities.Wizard;
-namespace FunkyTrinity
+namespace FunkyTrinity.PlayerClass
 {
 
 		  internal class Wizard : Player
 		  {
-				 enum WizardActiveSkills
-				 {
-						Wizard_Electrocute=1765,
-						Wizard_SlowTime=1769,
-						Wizard_ArcaneOrb=30668,
-						Wizard_Blizzard=30680,
-						Wizard_EnergyShield=30708,
-						Wizard_FrostNova=30718,
-						Wizard_Hydra=30725,
-						Wizard_MagicMissile=30744,
-						Wizard_ShockPulse=30783,
-						Wizard_WaveOfForce=30796,
-						Wizard_Meteor=69190,
-						Wizard_SpectralBlade=71548,
-						Wizard_IceArmor=73223,
-						Wizard_StormArmor=74499,
-						Wizard_DiamondSkin=75599,
-						Wizard_MagicWeapon=76108,
-						Wizard_EnergyTwister=77113,
-						Wizard_EnergyArmor=86991,
-						Wizard_ExplosiveBlast=87525,
-						Wizard_Disintegrate=91549,
-						Wizard_RayOfFrost=93395,
-						Wizard_MirrorImage=98027,
-						Wizard_Familiar=99120,
-						Wizard_ArcaneTorrent=134456,
-						Wizard_Archon=134872,
-						Wizard_Archon_ArcaneStrike=135166,
-						Wizard_Archon_DisintegrationWave=135238,
-						Wizard_Archon_SlowTime=135663,
-						Wizard_Archon_ArcaneBlast=167355,
-						Wizard_Archon_Teleport=167648,
-						Wizard_Teleport=168344,
-
-				 }
-				 enum WizardPassiveSkills
-				 {
-						Wizard_Passive_ColdBlooded=226301,
-						Wizard_Passive_Paralysis=226348,
-						Wizard_Passive_Conflagration=218044,
-						Wizard_Passive_CriticalMass=218153,
-						Wizard_Passive_ArcaneDynamo=208823,
-						Wizard_Passive_GalvanizingWard=208541,
-						Wizard_Passive_Illusionist=208547,
-						Wizard_Passive_Blur=208468,
-						Wizard_Passive_GlassCannon=208471,
-						Wizard_Passive_AstralPresence=208472,
-						Wizard_Passive_Evocation=208473,
-						Wizard_Passive_UnstableAnomaly=208474,
-						Wizard_Passive_TemporalFlux=208477,
-						Wizard_Passive_PowerHungry=208478,
-						Wizard_Passive_Prodigy=208493,
-
-				 }
 
 				internal bool bUsingCriticalMassPassive=false;
 
@@ -225,7 +171,60 @@ namespace FunkyTrinity
 				}
 
 
+				enum WizardActiveSkills
+				{
+					 Wizard_Electrocute=1765,
+					 Wizard_SlowTime=1769,
+					 Wizard_ArcaneOrb=30668,
+					 Wizard_Blizzard=30680,
+					 Wizard_FrostNova=30718,
+					 Wizard_Hydra=30725,
+					 Wizard_MagicMissile=30744,
+					 Wizard_ShockPulse=30783,
+					 Wizard_WaveOfForce=30796,
+					 Wizard_Meteor=69190,
+					 Wizard_SpectralBlade=71548,
+					 Wizard_IceArmor=73223,
+					 Wizard_StormArmor=74499,
+					 Wizard_DiamondSkin=75599,
+					 Wizard_MagicWeapon=76108,
+					 Wizard_EnergyTwister=77113,
+					 Wizard_EnergyArmor=86991,
+					 Wizard_ExplosiveBlast=87525,
+					 Wizard_Disintegrate=91549,
+					 Wizard_RayOfFrost=93395,
+					 Wizard_MirrorImage=98027,
+					 Wizard_Familiar=99120,
+					 Wizard_ArcaneTorrent=134456,
+					 Wizard_Archon=134872,
+					 Wizard_Archon_ArcaneStrike=135166,
+					 Wizard_Archon_DisintegrationWave=135238,
+					 Wizard_Archon_SlowTime=135663,
+					 Wizard_Archon_ArcaneBlast=167355,
+					 Wizard_Archon_Teleport=167648,
+					 Wizard_Teleport=168344,
 
+				}
+				enum WizardPassiveSkills
+				{
+					 Wizard_Passive_ColdBlooded=226301,
+					 Wizard_Passive_Paralysis=226348,
+					 Wizard_Passive_Conflagration=218044,
+					 Wizard_Passive_CriticalMass=218153,
+					 Wizard_Passive_ArcaneDynamo=208823,
+					 Wizard_Passive_GalvanizingWard=208541,
+					 Wizard_Passive_Illusionist=208547,
+					 Wizard_Passive_Blur=208468,
+					 Wizard_Passive_GlassCannon=208471,
+					 Wizard_Passive_AstralPresence=208472,
+					 Wizard_Passive_Evocation=208473,
+					 Wizard_Passive_UnstableAnomaly=208474,
+					 Wizard_Passive_TemporalFlux=208477,
+					 Wizard_Passive_PowerHungry=208478,
+					 Wizard_Passive_Prodigy=208493,
+
+				}
 		  }
-	 
+
+
 }

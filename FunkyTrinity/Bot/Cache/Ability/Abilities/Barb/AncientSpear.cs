@@ -19,15 +19,15 @@ namespace FunkyTrinity.ability.Abilities.Barb
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Target;
+			ExecutionType = PowerExecutionTypes.Target;
 			WaitVars = new WaitLoops(2, 2, true);
 			Range = 35;
 			IsRanged = true;
 			IsProjectile=true;
-			UseageType=AbilityUseage.Combat;
+			UseFlagsType=AbilityUseFlags.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (AbilityConditions.CheckRecastTimer | AbilityConditions.CheckCanCast |
-			                     AbilityConditions.CheckPlayerIncapacitated);
+			PreCastConditions = (CastingConditionTypes.CheckRecastTimer | CastingConditionTypes.CheckCanCast |
+			                     CastingConditionTypes.CheckPlayerIncapacitated);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.Ranged, 25, 0.50d);
 								
 								//TestCustomCombatConditionAlways=true,
@@ -37,10 +37,7 @@ namespace FunkyTrinity.ability.Abilities.Barb
 				       Bot.Character.dCurrentEnergyPct < 0.5d;
 			});
 		}
-		public override void InitCriteria()
-		{
-			 base.AbilityTestConditions=new AbilityUsablityTests(this);
-		}
+
 		#region IAbility
 		public override int GetHashCode()
 		{

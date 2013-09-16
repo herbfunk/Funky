@@ -6,6 +6,7 @@ using Zeta.TreeSharp;
 using Zeta.Internals.Actors;
 using System.Xml;
 using FunkyTrinity.Cache;
+using FunkyTrinity.Movement;
 
 namespace FunkyTrinity
 {
@@ -24,8 +25,7 @@ namespace FunkyTrinity
 		  {
 				Log("Preforming reset of bot data...", true);
 			  ObjectCache.ClearBlacklistCollections();
-				PowerCacheLookup.dictAbilityLastUse=new Dictionary<SNOPower, DateTime>(PowerCacheLookup.dictAbilityLastUseDefaults);
-
+			  SkipAheadCache.ClearCache();
 				PlayerMover.iTotalAntiStuckAttempts=1;
 				PlayerMover.vSafeMovementLocation=Vector3.Zero;
 				PlayerMover.vOldPosition=Vector3.Zero;
@@ -58,12 +58,13 @@ namespace FunkyTrinity
 		  }
 		  public static void ResetGame()
 		  {
+				Logger.Write(LogLevel.OutOfGame, "Reseting Game Cache");
 				ResetBot();
 
 				hashUseOnceID=new HashSet<int>();
 				dictUseOnceID=new Dictionary<int, int>();
 				dictRandomID=new Dictionary<int, int>();
-				FunkyTrinity.Movement.SkipAheadCache.ClearCache();
+				SkipAheadCache.ClearCache();
 
 				Bot.Stats.iMaxDeathsAllowed=0;
 				Bot.Stats.iDeathsThisRun=0;
@@ -72,9 +73,9 @@ namespace FunkyTrinity
 				_hashsetItemFollowersIgnored=new HashSet<int>();
 				TownRunManager._dictItemStashAttempted=new Dictionary<int, int>();
 
-				Bot.Stats.listProfilesLoaded=new List<string>();
-				Bot.Stats.sLastProfileSeen="";
-				Bot.Stats.sFirstProfileSeen="";
+				Bot.Profile.listProfilesLoaded=new List<string>();
+				Bot.Profile.LastProfileSeen="";
+				Bot.Profile.FirstProfileSeen="";
 
 		  }
 

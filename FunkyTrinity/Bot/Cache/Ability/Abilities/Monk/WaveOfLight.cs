@@ -17,16 +17,16 @@ namespace FunkyTrinity.ability.Abilities.Monk
 		public override void Initialize()
 		{
 			ExecutionType = Bot.Class.RuneIndexCache[SNOPower.Monk_WaveOfLight] == 1
-				? AbilityUseType.Self
-				: AbilityUseType.ClusterLocation | AbilityUseType.Location;
+				? PowerExecutionTypes.Self
+				: PowerExecutionTypes.ClusterLocation | PowerExecutionTypes.Location;
 			WaitVars = new WaitLoops(2, 2, true);
 			Cost=Bot.Class.RuneIndexCache[SNOPower.Monk_WaveOfLight]==3?40:75;
 			Range = 16;
 			Priority = AbilityPriority.Low;
-			UseageType=AbilityUseage.Combat;
+			UseFlagsType=AbilityUseFlags.Combat;
 
-			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckCanCast |
-			                     AbilityConditions.CheckRecastTimer | AbilityConditions.CheckPlayerIncapacitated);
+			PreCastConditions = (CastingConditionTypes.CheckEnergy | CastingConditionTypes.CheckCanCast |
+			                     CastingConditionTypes.CheckRecastTimer | CastingConditionTypes.CheckPlayerIncapacitated);
 			ClusterConditions = new ClusterConditions(6d, 35f, 3, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 20);
 
@@ -35,11 +35,6 @@ namespace FunkyTrinity.ability.Abilities.Monk
 			Fbuff=new Func<bool>(() => { return Bot.Character.dCurrentHealthPct<0.25d; });
 			IsBuff=true;
 
-		}
-
-		public override void InitCriteria()
-		{
-			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

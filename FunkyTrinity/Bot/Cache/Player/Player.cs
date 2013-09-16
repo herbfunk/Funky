@@ -9,10 +9,8 @@ using Zeta.Internals.SNO;
 using FunkyTrinity.ability;
 using FunkyTrinity.Cache;
 
-namespace FunkyTrinity
+namespace FunkyTrinity.PlayerClass
 {
-
-
 		  ///<summary>
 		  ///Used to describe the Current Player -- Class, Hotbar Abilities, Passives, etc..
 		  ///</summary>
@@ -25,7 +23,7 @@ namespace FunkyTrinity
 					 RefreshHotbar();
 					 RefreshPassives();
 					 UpdateRepeatAbilityTimes();
-
+					 LastUsedAbility=this.DefaultAttack;
 					 Logging.WriteVerbose("[Funky] Finished Creating Player Class");
 				}
 
@@ -79,9 +77,14 @@ namespace FunkyTrinity
 			  }
 
 			  ///<summary>
-			  ///
+			  ///Flag that is used to verify default attack is usable.
 			  ///</summary>
 			  public bool CanUseDefaultAttack { get; set; }
+
+			  ///<summary>
+			  ///Last successful ability used.
+			  ///</summary>
+			  public Ability LastUsedAbility { get; set; }
 
 			  ///<summary>
 				///Check if Bot should generate a new ZigZag location.
@@ -127,7 +130,9 @@ namespace FunkyTrinity
 					 return false;
 				}
 
-
+				///<summary>
+				///Derieved Classes override this to create the ability collection
+				///</summary>
 				public virtual void RecreateAbilities()
 				{
 					
@@ -160,18 +165,18 @@ namespace FunkyTrinity
 					 return this.AbilitySelector(criterias);
 				}
 				///<summary>
-				///Selects first ability that is successful in precast and combat testing.
+				///Sets Usable Conditions that can be tested during combat conditions.
 				///</summary>
-				public virtual Ability AbilitySelector(ConditionCriteraTypes criteria=ConditionCriteraTypes.All)
+				private Ability AbilitySelector(ConditionCriteraTypes criteria=ConditionCriteraTypes.All)
 				{
 					 Ability returnAbility=this.DefaultAttack;
 					 foreach (var item in this.SortedAbilities)
 					 {
 						  //Check precast conditions
-						  if (!item.AbilityTestConditions.CheckPreCastConditionMethod()) continue;
+						  if (!item.CheckPreCastConditionMethod()) continue;
 
 						  //Check Combat Conditions!
-						  if (!item.AbilityTestConditions.CheckCombatConditionMethod(criteria))
+						  if (!item.CheckCombatConditionMethod(criteria))
 						  {
 								continue;
 						  }
@@ -216,14 +221,14 @@ namespace FunkyTrinity
 									 }
 								}
 
-								if (item.AbilityTestConditions.CheckPreCastConditionMethod())
+								if (item.CheckPreCastConditionMethod())
 								{
 									 returnAbility=item;
 									 Ability.SetupAbilityForUse(ref returnAbility, true);
 									 return returnAbility;
 								}
 						  }
-						  else if (item.ExecutionType.HasFlag(ability.AbilityUseType.Target)||item.ExecutionType.HasFlag(AbilityUseType.Location))
+						  else if (item.ExecutionType.HasFlag(ability.PowerExecutionTypes.Target)||item.ExecutionType.HasFlag(PowerExecutionTypes.Location))
 						  {
 
 								//Check LOS -- Projectiles
@@ -246,7 +251,7 @@ namespace FunkyTrinity
 								}
 
 								//Add this ability to our list.. incase we cant find an offical ability to use.
-								if (item.AbilityTestConditions.CheckPreCastConditionMethod())
+								if (item.CheckPreCastConditionMethod())
 								{
 									 nonDestructibleAbilities.Add(item);
 								}
@@ -272,30 +277,12 @@ namespace FunkyTrinity
 				internal Dictionary<SNOPower, int> AbilityCooldowns=new Dictionary<SNOPower, int>();
 				internal Dictionary<int, int> CurrentBuffs=new Dictionary<int, int>();
 				internal List<int> CurrentDebuffs=new List<int>();
-				internal List<SNOPower> destructibleabilities=new List<SNOPower>();
-
 
 				internal Dictionary<SNOPower, Ability> Abilities=new Dictionary<SNOPower, Ability>();
 				internal List<Ability> SortedAbilities=new List<Ability>();
 
+				internal ability.Abilities.DrinkHealthPotion HealthPotionAbility=new ability.Abilities.DrinkHealthPotion();
 
-				///<summary>
-				///Returns a power for special movement if any are currently present in the abilities.
-				///</summary>
-				internal bool FindMovementPower(out Ability MovementAbility)
-				{
-					 MovementAbility=null;
-					 foreach (var item in this.Abilities.Keys.Where(A => PowerCacheLookup.SpecialMovementAbilities.Contains(A)))
-					 {
-
-						  if (this.Abilities[item].AbilityTestConditions.CheckPreCastConditionMethod())
-						  {
-								MovementAbility=this.Abilities[item];
-								return true;
-						  }
-					 }
-					 return false;
-				}
 				///<summary>
 				///Returns a power for special movement if any are currently present in the abilities.
 				///</summary>
@@ -305,7 +292,7 @@ namespace FunkyTrinity
 					 foreach (var item in this.Abilities.Values.Where(A => A.IsASpecialMovementPower))
 					 {
 
-						  if (item.AbilityTestConditions.CheckPreCastConditionMethod())
+						  if (item.CheckPreCastConditionMethod())
 						  {
 								MovementAbility=item;
 								return true;
@@ -317,12 +304,12 @@ namespace FunkyTrinity
 				///<summary>
 				///Returns a power for Buffing.
 				///</summary>
-				internal bool FindBuffPower(out Ability BuffAbility)
+				internal bool FindBuffPower(out Ability BuffAbility,AbilityUseFlags usage=AbilityUseFlags.Anywhere)
 				{
 					 BuffAbility=null;
-					 foreach (var item in this.Abilities.Values.Where(A => A.IsBuff))
+					 foreach (var item in this.Abilities.Values.Where(A => A.IsBuff&&A.UseFlagsType.HasFlag(usage)))
 					 {
-						  if (item.AbilityTestConditions.CheckPreCastConditionMethod())
+						  if (item.CheckPreCastConditionMethod())
 						  {
 								if (item.CheckBuffConditionMethod())
 								{
@@ -334,16 +321,6 @@ namespace FunkyTrinity
 					 return false;
 				}
 
-				///<summary>
-				///Returns a SnoPower based upon current hotbar abilities. If an ability not found than weapon melee/ranged instant is returned.
-				///</summary>
-				internal SNOPower DestructiblePower(SNOPower ignore=Zeta.Internals.Actors.SNOPower.None)
-				{
-					 if (destructibleabilities.Count>0)
-						  return destructibleabilities.First(a => a!=ignore);
-
-					 return Bot.Class.DefaultAttack.Power;
-				}
 
 				///<summary>
 				///Enumerates through the ActiveSkills and adds them to the HotbarAbilities collection.
@@ -351,7 +328,6 @@ namespace FunkyTrinity
 				internal void RefreshHotbar()
 				{
 					 HotbarPowers=new HashSet<SNOPower>();
-					 destructibleabilities=new List<SNOPower>();
 					 RuneIndexCache=new Dictionary<SNOPower, int>();
 
 					 using (ZetaDia.Memory.AcquireFrame())
@@ -367,14 +343,6 @@ namespace FunkyTrinity
 
 									 if (!this.HotbarPowers.Contains(ability))
 										  this.HotbarPowers.Add(ability);
-
-									 //Check if the SNOPower is a destructible ability
-									 if (PowerCacheLookup.AbilitiesDestructiblePriority.Contains(ability))
-									 {
-										  if (!this.destructibleabilities.Contains(ability))
-												this.destructibleabilities.Add(ability);
-									 }
-
 								}
 
 								//Cache each Rune Index
@@ -522,10 +490,10 @@ namespace FunkyTrinity
 						  }
 					 }
 				}
-				internal bool AbilityUseTimer(SNOPower thispower, bool bReCheck=false)
+				internal bool AbilityUseTimer(Ability ability, bool bReCheck=false)
 				{
-					 double lastUseMS=AbilityLastUseMS(thispower);
-					 if (lastUseMS>=this.AbilityCooldowns[thispower])
+					 double lastUseMS=ability.LastUsedMilliseconds;
+					 if (lastUseMS>=ability.Cooldown)
 						  return true;
 					 if (bReCheck&&lastUseMS>=150&&lastUseMS<=600)
 						  return true;

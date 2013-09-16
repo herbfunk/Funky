@@ -16,25 +16,21 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.ClusterTarget | AbilityUseType.Target;
+			ExecutionType = PowerExecutionTypes.ClusterTarget | PowerExecutionTypes.Target;
 			WaitVars = new WaitLoops(1, 1, true);
 			Cost = 35;
 			Range=this.UsingCriticalMass()?20:40;
 			IsRanged = true;
 			IsProjectile=true;
-			UseageType=AbilityUseage.Combat;
+			UseFlagsType=AbilityUseFlags.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckRecastTimer |
-			                     AbilityConditions.CheckEnergy);
+			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated | CastingConditionTypes.CheckRecastTimer |
+			                     CastingConditionTypes.CheckEnergy);
 			ClusterConditions=new ClusterConditions(4d, this.UsingCriticalMass()?20:40, 3, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 25, 0.5d, TargetProperties.Fast);
 			Fcriteria = new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
 		}
 
-		public override void InitCriteria()
-		{
-			base.AbilityTestConditions = new AbilityUsablityTests(this);
-		}
 		private bool UsingCriticalMass()
 		{
 			 return Bot.Class.PassivePowers.Contains(SNOPower.Wizard_Passive_CriticalMass); ;

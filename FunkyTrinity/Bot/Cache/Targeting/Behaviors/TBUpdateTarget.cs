@@ -70,7 +70,8 @@ namespace FunkyTrinity.Targeting.Behaviors
 						 }
 
 						 // Finally, a special check for waiting for wrath of the berserker cooldown before engaging Azmodan
-						 if (FunkyTrinity.Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&FunkyTrinity.Bot.SettingsFunky.Class.bWaitForWrath&&!FunkyTrinity.Bot.Class.AbilityUseTimer(SNOPower.Barbarian_WrathOfTheBerserker)&&
+						 if (FunkyTrinity.Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&FunkyTrinity.Bot.SettingsFunky.Class.bWaitForWrath&&
+							  !Bot.Class.Abilities[SNOPower.Barbarian_WrathOfTheBerserker].AbilityUseTimer()&&
 							 ZetaDia.CurrentWorldId==121214&&
 							 (Vector3.Distance(FunkyTrinity.Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(FunkyTrinity.Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						 {
@@ -80,7 +81,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 							  return true;
 						 }
 						 // And a special check for wizard archon
-						 if (FunkyTrinity.Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_Archon)&&!FunkyTrinity.Bot.Class.AbilityUseTimer(SNOPower.Wizard_Archon)&&FunkyTrinity.Bot.SettingsFunky.Class.bWaitForArchon&&ZetaDia.CurrentWorldId==121214&&
+						 if (FunkyTrinity.Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_Archon)&&!Bot.Class.Abilities[SNOPower.Wizard_Archon].AbilityUseTimer()&&FunkyTrinity.Bot.SettingsFunky.Class.bWaitForArchon&&ZetaDia.CurrentWorldId==121214&&
 							 (Vector3.Distance(FunkyTrinity.Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(FunkyTrinity.Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						 {
 							  Logging.Write("[Funky] Waiting for Wizard Archon cooldown before continuing to Azmodan.");
@@ -116,8 +117,8 @@ namespace FunkyTrinity.Targeting.Behaviors
 									foreach (var item in CurrentNearbyPath)
 									{
 										 if (lastV3==Vector3.Zero)
-											  lastV3=item;
-										 else if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(item, lastV3))
+											  lastV3=curpos; //first test we use bot position.
+										 else if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(item, lastV3)&&!SkipAheadCache.CheckPositionForSkipping(item))
 										 {
 											  obj=new CacheObject(FunkyTrinity.Bot.Character.Position, TargetType.Avoidance, 20000, "AvoidanceIntersection", 2.5f, -1);
 											  return true;

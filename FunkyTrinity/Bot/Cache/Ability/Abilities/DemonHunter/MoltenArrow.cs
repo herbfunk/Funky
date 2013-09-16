@@ -19,11 +19,6 @@ namespace FunkyTrinity.ability.Abilities.DemonHunter
 
 		}
 
-		public override void InitCriteria()
-		{
-			base.AbilityTestConditions = new AbilityUsablityTests(this);
-		}
-
 		#region IAbility
 
 		public override int RuneIndex

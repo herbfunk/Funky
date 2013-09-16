@@ -23,22 +23,19 @@ namespace FunkyTrinity.ability.Abilities.Barb
 		public override void Initialize()
 		{
 
-			ExecutionType = AbilityUseType.Buff;
+			ExecutionType = PowerExecutionTypes.Buff;
 			WaitVars = new WaitLoops(4, 4, true);
 			Cost = 0;
-			UseageType=AbilityUseage.Combat;
+			UseFlagsType=AbilityUseFlags.Combat;
 			IsSpecialAbility = true;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (AbilityConditions.CheckRecastTimer | AbilityConditions.CheckEnergy |
-			                     AbilityConditions.CheckExisitingBuff | AbilityConditions.CheckCanCast |
-			                     AbilityConditions.CheckPlayerIncapacitated);
+			PreCastConditions = (CastingConditionTypes.CheckRecastTimer | CastingConditionTypes.CheckEnergy |
+			                     CastingConditionTypes.CheckExisitingBuff | CastingConditionTypes.CheckCanCast |
+			                     CastingConditionTypes.CheckPlayerIncapacitated);
 			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 13);
 		}
-		public override void InitCriteria()
-		{
-			 base.AbilityTestConditions=new AbilityUsablityTests(this);
-		}
+
 		#region IAbility
 		public override int GetHashCode()
 		{

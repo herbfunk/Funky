@@ -16,21 +16,17 @@ namespace FunkyTrinity.ability.Abilities.DemonHunter
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.ZigZagPathing;
+			ExecutionType = PowerExecutionTypes.ZigZagPathing;
 			WaitVars = new WaitLoops(0, 0, true);
 			Cost = 15;
 			Range = 25;
-			UseageType=AbilityUseage.Combat;
+			UseFlagsType=AbilityUseFlags.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckEnergy);
+			IsASpecialMovementPower=true;
+			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated | CastingConditionTypes.CheckEnergy);
 			UnitsWithinRangeConditions=new Tuple<Enums.RangeIntervals, int>(Enums.RangeIntervals.Range_15, 2);
 			 //TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None, 15);
 
-		}
-
-		public override void InitCriteria()
-		{
-			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

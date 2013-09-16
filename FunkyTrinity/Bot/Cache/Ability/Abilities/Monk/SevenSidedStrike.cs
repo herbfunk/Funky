@@ -17,14 +17,14 @@ namespace FunkyTrinity.ability.Abilities.Monk
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Location;
+			ExecutionType = PowerExecutionTypes.Location;
 			WaitVars = new WaitLoops(2, 3, true);
 			Cost = 50;
 			Range = 16;
 			Priority = AbilityPriority.Low;
-			UseageType=AbilityUseage.Combat;
-			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckCanCast |
-			                     AbilityConditions.CheckRecastTimer | AbilityConditions.CheckPlayerIncapacitated);
+			UseFlagsType=AbilityUseFlags.Combat;
+			PreCastConditions = (CastingConditionTypes.CheckEnergy | CastingConditionTypes.CheckCanCast |
+			                     CastingConditionTypes.CheckRecastTimer | CastingConditionTypes.CheckPlayerIncapacitated);
 			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 15);
 
@@ -33,11 +33,6 @@ namespace FunkyTrinity.ability.Abilities.Monk
 			{
 				 return !Bot.Class.bWaitingForSpecial||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount;
 			});
-		}
-
-		public override void InitCriteria()
-		{
-			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

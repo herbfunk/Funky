@@ -17,13 +17,13 @@ namespace FunkyTrinity.ability.Abilities.Monk
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Buff;
+			ExecutionType = PowerExecutionTypes.Buff;
 			WaitVars = new WaitLoops(0, 1, true);
 			Cost = 10;
-			UseageType= AbilityUseage.Anywhere;
+			UseFlagsType= AbilityUseFlags.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckCanCast |
-			                     AbilityConditions.CheckRecastTimer);
+			PreCastConditions = (CastingConditionTypes.CheckEnergy | CastingConditionTypes.CheckCanCast |
+			                     CastingConditionTypes.CheckRecastTimer);
 
 			Fcriteria = new Func<bool>(() =>
 			{
@@ -48,11 +48,6 @@ namespace FunkyTrinity.ability.Abilities.Monk
 																																			 Bot.Class.HasBuff(SNOPower.Monk_SweepingWind)))||
 					 Bot.Character.dCurrentHealthPct <= 0.4);
 			});
-		}
-
-		public override void InitCriteria()
-		{
-			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

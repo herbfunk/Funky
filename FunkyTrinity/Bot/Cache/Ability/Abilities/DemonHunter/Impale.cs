@@ -16,13 +16,13 @@ namespace FunkyTrinity.ability.Abilities.DemonHunter
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Target;
+			ExecutionType = PowerExecutionTypes.Target;
 			WaitVars = new WaitLoops(0, 1, true);
 			Cost = 25;
 			Range = 12;
-			UseageType=AbilityUseage.Combat;
+			UseFlagsType=AbilityUseFlags.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckCanCast);
+			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated|CastingConditionTypes.CheckCanCast);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None, 12);
 
 
@@ -31,11 +31,6 @@ namespace FunkyTrinity.ability.Abilities.DemonHunter
 				return ((Bot.Character.dCurrentEnergy >= 25 && !Bot.Character.bWaitingForReserveEnergy) ||
 				        Bot.Character.dCurrentEnergy >= Bot.Class.iWaitingReservedAmount);
 			});
-		}
-
-		public override void InitCriteria()
-		{
-			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

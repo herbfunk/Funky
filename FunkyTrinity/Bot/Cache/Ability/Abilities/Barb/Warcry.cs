@@ -22,29 +22,26 @@ namespace FunkyTrinity.ability.Abilities.Barb
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Buff;
+			ExecutionType = PowerExecutionTypes.Buff;
 			WaitVars = new WaitLoops(1, 1, true);
 			Cost = 0;
 			Range = 0;
 			IsBuff=true;
-			UseageType = AbilityUseage.Anywhere;
+			UseFlagsType = AbilityUseFlags.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (AbilityConditions.CheckCanCast | AbilityConditions.CheckPlayerIncapacitated);
+			PreCastConditions = (CastingConditionTypes.CheckCanCast | CastingConditionTypes.CheckPlayerIncapacitated);
 			Fbuff = new Func<bool>(() => { return !Bot.Class.HasBuff(SNOPower.Barbarian_WarCry); });
 			Fcriteria = new Func<bool>(() =>
 			{
 				return (!Bot.Class.HasBuff(SNOPower.Barbarian_WarCry)
 				        ||
 				        (Bot.Class.PassivePowers.Contains(SNOPower.Barbarian_Passive_InspiringPresence) &&
-				         DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastUse[SNOPower.Barbarian_WarCry]).TotalSeconds > 59
+				         DateTime.Now.Subtract(this.LastUsed).TotalSeconds > 59
 				         || Bot.Character.dCurrentEnergyPct < 0.10));
 			});
 
 		}
-		public override void InitCriteria()
-		{
-			 base.AbilityTestConditions=new AbilityUsablityTests(this);
-		}
+
 		#region IAbility
 		public override int GetHashCode()
 		{

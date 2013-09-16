@@ -278,7 +278,7 @@ namespace FunkyTrinity.Movement
 						  bool bTooMuchZChange=((Bot.Character.Position.Z-CurrentTargetLocation.Z)>=4f);
 
 						  Ability MovementPower;
-						  if (Bot.Class.FindMovementPower(out MovementPower))
+						  if (Bot.Class.FindSpecialMovementPower(out MovementPower))
 						  {
 								double lastUsedAbilityMS=MovementPower.LastUsedMilliseconds;
 								bool foundMovementPower=false;

@@ -67,18 +67,15 @@ namespace FunkyTrinity
 													 continue;
 										  }
 									 }
-
-
-
-									 //Log("GilesTrinityScoring == "+Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring.ToString());
-
-									 bool bShouldSellThis=Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring==true?GilesSellValidation(thisitem.ThisInternalName, thisitem.ThisLevel, thisitem.ThisQuality, thisitem.ThisDBItemType, thisitem.ThisFollowerType):ItemManager.Current.ShouldSellItem(thisitem.ACDItem);
-
-									 if (bShouldSellThis)
+									 else
 									 {
-										  Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Add(thisitem);
-									 }
+										  bool bShouldSellThis=Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring==true?GilesSellValidation(thisitem.ThisInternalName, thisitem.ThisLevel, thisitem.ThisQuality, thisitem.ThisDBItemType, thisitem.ThisFollowerType):ItemManager.Current.ShouldSellItem(thisitem.ACDItem);
 
+										  if (bShouldSellThis)
+										  {
+												Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Add(thisitem);
+										  }
+									 }
 								}
 						  }
 						  else
@@ -173,7 +170,7 @@ namespace FunkyTrinity
 					 float iDistanceFromSell=Vector3.Distance(vectorPlayerPosition, vectorSellLocation);
 					 //Out-Of-Range...
 					 if (objSellNavigation==null)
-						  //!GilesCanRayCast(vectorPlayerPosition, vectorSellLocation, NavCellFlags.AllowWalk))
+					 //!GilesCanRayCast(vectorPlayerPosition, vectorSellLocation, NavCellFlags.AllowWalk))
 					 {
 						  Logging.WriteVerbose("Vendor Obj is Null or Raycast Failed.. using Navigator to move!");
 						  Navigator.PlayerMover.MoveTowards(vectorSellLocation);
@@ -192,7 +189,7 @@ namespace FunkyTrinity
 								Bot.NavigationCache.RefreshMovementCache();
 
 								//Wait until we are not moving to send click again..
-								if (Bot.NavigationCache.IsMoving) 
+								if (Bot.NavigationCache.IsMoving)
 									 return RunStatus.Running;
 
 								objSellNavigation.Interact();

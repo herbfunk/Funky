@@ -608,10 +608,11 @@ namespace FunkyTrinity.Cache
 				{
 					 get
 					 {
-						  return String.Format("RAGUID {0}: \r\n {1} Distance (Centre{2} / Radius{3}) \r\n ReqLOS={4} -- {5} -- [LOSV3: {6}] \r\n BotFacing={7} \r\n BlackListLoops[{8}]",
+						  return String.Format("RAGUID {0}: \r\n {1} Distance (Centre{2} / Radius{3}) \r\n ReqLOS={4} -- {5} -- [LOSV3: {6}] BotFacing={7} \r\n PriorityCounter=[{8}] BlackListLoops=[{9}]",
 								this.RAGUID.ToString(), base.DebugString, this.CentreDistance.ToString(), this.RadiusDistance.ToString(),
 								this.RequiresLOSCheck.ToString(), this.LineOfSight!=null?String.Format("-- {0} --",this.LineOfSight.DebugString):"", this.LOSV3.ToString(),
-								this.BotIsFacing().ToString(), this.BlacklistLoops.ToString());
+								this.BotIsFacing().ToString(),
+								this.PriorityCounter.ToString(),this.BlacklistLoops.ToString());
 					 }
 				}
 

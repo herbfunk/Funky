@@ -206,7 +206,7 @@ namespace FunkyTrinity
 						  if (ZetaDia.Me.IsInTown)
 						  {
 
-								string profile=Bot.Stats.sFirstProfileSeen;
+								string profile=Bot.Profile.FirstProfileSeen;
 
 								if (!string.IsNullOrEmpty(profile))
 								{
@@ -250,7 +250,7 @@ namespace FunkyTrinity
 					 {
 						  HadDisconnectError=true;
 						  timeLastRestartedGame=DateTime.Now;
-						  string sUseProfile=Bot.Stats.sFirstProfileSeen;
+						  string sUseProfile=Bot.Profile.FirstProfileSeen;
 						  Logging.Write("[Funky] Anti-stuck measures exiting current game.");
 						  // Load the first profile seen last run
 						  ProfileManager.Load(!string.IsNullOrEmpty(sUseProfile)
@@ -480,7 +480,7 @@ namespace FunkyTrinity
 						  bool bTooMuchZChange=((vMyCurrentPosition.Z-vMoveToTarget.Z)>=4f);
 
 						  Ability MovementPower;
-						  if (Bot.Class.FindMovementPower(out MovementPower))
+						  if (Bot.Class.FindSpecialMovementPower(out MovementPower))
 						  {
 								double lastUsedAbilityMS=MovementPower.LastUsedMilliseconds;
 								bool foundMovementPower=false;

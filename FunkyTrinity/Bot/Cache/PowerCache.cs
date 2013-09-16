@@ -16,26 +16,6 @@ namespace FunkyTrinity.Cache
 					 (int)SNOPower.Witchdoctor_SoulHarvest,
 					 (int)SNOPower.Wizard_EnergyTwister
 				};
-		  //internal static readonly HashSet<SNOPower> AbilitiesBuff=new HashSet<SNOPower>
-		  //{
-		  //	 SNOPower.Barbarian_WarCry,SNOPower.Barbarian_BattleRage,SNOPower.Barbarian_Sprint,
-		  //	 SNOPower.Monk_BreathOfHeaven, SNOPower.Monk_MantraOfEvasion, SNOPower.Monk_MantraOfConviction, SNOPower.Monk_MantraOfHealing, SNOPower.Monk_MantraOfRetribution,
-		  //	 SNOPower.Wizard_SlowTime, SNOPower.Wizard_EnergyArmor, SNOPower.Wizard_IceArmor, SNOPower.Wizard_StormArmor,SNOPower.Wizard_MagicWeapon,
-		  //};
-		  //internal static readonly HashSet<SNOPower> AbilitiesPetSummon=new HashSet<SNOPower>
-		  //{
-		  //	 SNOPower.DemonHunter_Companion,
-		  //	 SNOPower.Monk_MysticAlly,
-		  //	 SNOPower.Witchdoctor_Gargantuan, SNOPower.Witchdoctor_SummonZombieDog, 
-		  //};
-	    internal static readonly HashSet<SNOPower> AbilitiesDestructiblePriority=new HashSet<SNOPower>
-		  {
-				SNOPower.Barbarian_Frenzy, SNOPower.Barbarian_Bash,SNOPower.Barbarian_Cleave,SNOPower.Barbarian_WeaponThrow, SNOPower.Barbarian_Rend,
-				SNOPower.DemonHunter_HungeringArrow, SNOPower.DemonHunter_EntanglingShot, SNOPower.DemonHunter_BolaShot, SNOPower.DemonHunter_Grenades, SNOPower.DemonHunter_ElementalArrow, SNOPower.DemonHunter_RapidFire, SNOPower.DemonHunter_Chakram,
-				SNOPower.Monk_FistsofThunder,SNOPower.Monk_DeadlyReach,SNOPower.Monk_CripplingWave,SNOPower.Monk_WayOfTheHundredFists,
-				SNOPower.Witchdoctor_Firebomb, SNOPower.Witchdoctor_PoisonDart, SNOPower.Witchdoctor_ZombieCharger, SNOPower.Witchdoctor_CorpseSpider, SNOPower.Witchdoctor_PlagueOfToads,
-				SNOPower.Wizard_EnergyTwister, SNOPower.Wizard_MagicMissile,SNOPower.Wizard_ShockPulse,SNOPower.Wizard_SpectralBlade, SNOPower.Wizard_Electrocute, SNOPower.Wizard_Archon_DisintegrationWave,
-		  };
 
 	    internal static readonly HashSet<SNOPower> SpecialMovementAbilities=new HashSet<SNOPower>
 		  {

@@ -21,25 +21,22 @@ namespace FunkyTrinity.ability.Abilities.Barb
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.ClusterLocation | AbilityUseType.Location;
+			ExecutionType = PowerExecutionTypes.ClusterLocation | PowerExecutionTypes.Location;
 			WaitVars = new WaitLoops(2, 2, true);
 			Cost = Bot.Class.RuneIndexCache[SNOPower.Barbarian_SeismicSlam] == 3 ? 15 : 30;
 			Range = 40;
-			UseageType=AbilityUseage.Combat;
+			UseFlagsType=AbilityUseFlags.Combat;
 			Priority = AbilityPriority.Low;
 
-			PreCastConditions = (AbilityConditions.CheckRecastTimer | AbilityConditions.CheckEnergy |
-			                     AbilityConditions.CheckCanCast | AbilityConditions.CheckPlayerIncapacitated);
+			PreCastConditions = (CastingConditionTypes.CheckRecastTimer | CastingConditionTypes.CheckEnergy |
+			                     CastingConditionTypes.CheckCanCast | CastingConditionTypes.CheckPlayerIncapacitated);
 			ClusterConditions=new ClusterConditions(Bot.Class.RuneIndexCache[Power]==4?4d:6d, 40f, 2, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial,
 				falseConditionalFlags: TargetProperties.TreasureGoblin | TargetProperties.Fast);
 
 			Fcriteria=new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
 		}
-		public override void InitCriteria()
-		{
-			 base.AbilityTestConditions=new AbilityUsablityTests(this);
-		}
+
 		#region IAbility
 		public override int GetHashCode()
 		{

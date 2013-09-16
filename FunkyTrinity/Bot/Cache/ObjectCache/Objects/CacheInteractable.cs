@@ -22,11 +22,12 @@ namespace FunkyTrinity.Cache
 		{
 			get
 			{
-				return String.Format("{0}\r\n PhysSNO={1} HandleAsObstacle={2} Operated={3} \r\n Anim={4}",
+				 return String.Format("{0}\r\n PhysSNO={1} Anim={2} \r\n HandleAsObstacle={3} Operated={4} \r\n IntersectionTest=[{5}]",
 					base.DebugString, this.PhysicsSNO.HasValue?this.PhysicsSNO.Value.ToString():"NULL",
 					this.HandleAsObstacle.HasValue?this.HandleAsObstacle.Value.ToString():"NULL",
 					this.GizmoHasBeenUsed.HasValue?this.GizmoHasBeenUsed.Value.ToString():"NULL",
-					this.AnimState.ToString());
+					this.AnimState.ToString(),
+					this.lastIntersectionTestResult.ToString());
 			}
 		}
 		private double LootRadius
@@ -122,8 +123,8 @@ namespace FunkyTrinity.Cache
 								  {
 
 											 BarricadeTest=MathEx.GetPointAt(this.Position, 10f, Navigation.FindDirection(Bot.Character.Position, this.Position, true));
-											 bool intersectionTest=!MathEx.IntersectsPath(this.Position, this.CollisionRadius.Value, Bot.Character.Position, BarricadeTest);
-											 if (!intersectionTest)
+											 this.lastIntersectionTestResult=!MathEx.IntersectsPath(this.Position, this.CollisionRadius.Value, Bot.Character.Position, BarricadeTest);
+											 if (!this.lastIntersectionTestResult.Value)
 											 {
 												  return false;
 											 }

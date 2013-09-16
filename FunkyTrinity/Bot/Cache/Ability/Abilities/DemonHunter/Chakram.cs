@@ -17,13 +17,14 @@ namespace FunkyTrinity.ability.Abilities.DemonHunter
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.ClusterTarget | AbilityUseType.Target;
+			ExecutionType = PowerExecutionTypes.ClusterTarget | PowerExecutionTypes.Target;
 			WaitVars = new WaitLoops(0, 1, true);
 			Cost = 10;
 			Range = 50;
-			UseageType=AbilityUseage.Combat;
+			IsADestructiblePower=true;
+			UseFlagsType=AbilityUseFlags.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckEnergy);
+			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated | CastingConditionTypes.CheckEnergy);
 
 			ClusterConditions = new ClusterConditions(4d, 40, 2, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial);
@@ -31,14 +32,9 @@ namespace FunkyTrinity.ability.Abilities.DemonHunter
 			Fcriteria = new Func<bool>(() =>
 			{
 				return ((!Bot.Class.HotbarPowers.Contains(SNOPower.DemonHunter_ClusterArrow)) ||
-				        DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastUse[SNOPower.DemonHunter_Chakram]).TotalMilliseconds >=
+				        DateTime.Now.Subtract(this.LastUsed).TotalMilliseconds >=
 				        110000);
 			});
-		}
-
-		public override void InitCriteria()
-		{
-			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

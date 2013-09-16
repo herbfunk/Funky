@@ -413,6 +413,7 @@ namespace FunkyTrinity.XMLTags
 									 new Sequence(
 										  new Action(ret => Logging.WriteDiagnostic(
 												"TrinityExploreDungeon inactivity timer tripped ({0}), tag Using Town Portal!", TimeoutValue)),
+											new WaitContinue(1, ret => false, new Action()),
 										  Zeta.CommonBot.CommonBehaviors.CreateUseTownPortal()
 									 )
 								),

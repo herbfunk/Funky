@@ -17,14 +17,14 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Buff;
+			ExecutionType = PowerExecutionTypes.Buff;
 			WaitVars = new WaitLoops(0, 1, true);
 			Cost = 59;
 			Counter = 5;
-			UseageType=AbilityUseage.Combat;
+			UseFlagsType=AbilityUseFlags.Combat;
 			Priority = AbilityPriority.High;
 
-			PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckCanCast|AbilityConditions.CheckEnergy);
+			PreCastConditions=(CastingConditionTypes.CheckPlayerIncapacitated|CastingConditionTypes.CheckCanCast|CastingConditionTypes.CheckEnergy);
 			ClusterConditions=new ability.ClusterConditions(6d, 9f, 2, false, useRadiusDistance: true);
 			Fcriteria=new Func<bool>(() =>
 			{
@@ -41,11 +41,6 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 					  return false;
 				 
 			});
-		}
-
-		public override void InitCriteria()
-		{
-			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

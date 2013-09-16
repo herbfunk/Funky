@@ -242,10 +242,10 @@ namespace FunkyTrinity
 					 LogWriter.WriteLine("Total games (approx): "+Bot.Stats.iTotalLeaveGames.ToString()+" ["+Math.Round(Bot.Stats.iTotalLeaveGames/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
 					 if (Bot.Stats.iTotalLeaveGames==0&&Bot.Stats.iTotalJoinGames>0)
 					 {
-						  if (Bot.Stats.iTotalJoinGames==1&&Bot.Stats.iTotalProfileRecycles>1)
+						  if (Bot.Stats.iTotalJoinGames==1&&Bot.Profile.iTotalProfileRecycles>1)
 						  {
 								LogWriter.WriteLine("(a profile manager/death handler is interfering with join/leave game events, attempting to guess total runs based on profile-loops)");
-								LogWriter.WriteLine("Total full profile cycles: "+Bot.Stats.iTotalProfileRecycles.ToString()+" ["+Math.Round(Bot.Stats.iTotalProfileRecycles/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+								LogWriter.WriteLine("Total full profile cycles: "+Bot.Profile.iTotalProfileRecycles.ToString()+" ["+Math.Round(Bot.Profile.iTotalProfileRecycles/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
 						  }
 						  else
 						  {

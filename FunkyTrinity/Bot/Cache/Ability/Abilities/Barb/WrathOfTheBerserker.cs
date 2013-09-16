@@ -21,14 +21,14 @@ namespace FunkyTrinity.ability.Abilities.Barb
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Buff;
+			ExecutionType = PowerExecutionTypes.Buff;
 			WaitVars = new WaitLoops(4, 4, true);
 			Cost = 50;
-			UseageType=AbilityUseage.Anywhere;
+			UseFlagsType=AbilityUseFlags.Anywhere;
 			IsSpecialAbility = Bot.SettingsFunky.Class.bWaitForWrath;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckExisitingBuff |
-			                     AbilityConditions.CheckCanCast);
+			PreCastConditions = (CastingConditionTypes.CheckEnergy | CastingConditionTypes.CheckExisitingBuff |
+			                     CastingConditionTypes.CheckCanCast);
 			Fcriteria = new Func<bool>(() =>
 			{
 				return Bot.Combat.bAnyChampionsPresent
@@ -36,10 +36,7 @@ namespace FunkyTrinity.ability.Abilities.Barb
 				       || (Bot.SettingsFunky.Class.bGoblinWrath && Bot.Target.CurrentTarget.IsTreasureGoblin);
 			});
 		}
-		public override void InitCriteria()
-		{
-			 base.AbilityTestConditions=new AbilityUsablityTests(this);
-		}
+
 		#region IAbility
 		public override int GetHashCode()
 		{

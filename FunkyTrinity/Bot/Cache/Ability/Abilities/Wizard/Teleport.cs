@@ -16,15 +16,15 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.ClusterLocation | AbilityUseType.ZigZagPathing;
+			ExecutionType = PowerExecutionTypes.ClusterLocation | PowerExecutionTypes.ZigZagPathing;
 			WaitVars = new WaitLoops(0, 1, true);
 			Cost = 15;
 			Range = 35;
-			UseageType=AbilityUseage.Combat;
+			UseFlagsType=AbilityUseFlags.Combat;
 			//IsNavigationSpecial = true;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckCanCast |
-			                     AbilityConditions.CheckEnergy);
+			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated | CastingConditionTypes.CheckCanCast |
+			                     CastingConditionTypes.CheckEnergy);
 			ClusterConditions = new ClusterConditions(5d, 48f, 2, false);
 								//TestCustomCombatConditionAlways=true,
 			Fcriteria = new Func<bool>(() =>
@@ -37,11 +37,6 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 					         Bot.Character.PointPosition) > 15f)
 				        || (!Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP && !Bot.SettingsFunky.Class.bTeleportIntoGrouping));
 			});
-		}
-
-		public override void InitCriteria()
-		{
-			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

@@ -24,12 +24,6 @@ namespace FunkyTrinity
 
 						  iTotalJoinGames=0;
 						  iTotalLeaveGames=0;
-						  iTotalProfileRecycles=0;
-
-						  listProfilesLoaded=new List<string>();
-						  sLastProfileSeen=String.Empty;
-						  sFirstProfileSeen=String.Empty;
-						  lastProfileCheck=DateTime.Today;
 
 						  LastJoinedGame=DateTime.MinValue;
 					 }
@@ -45,55 +39,7 @@ namespace FunkyTrinity
 					 public int iTotalJoinGames { get; set; }
 					 // How many total leave games, for stat-tracking?
 					 public int iTotalLeaveGames { get; set; }
-					 public int iTotalProfileRecycles { get; set; }
 
-					 // Related to the profile reloaded when restarting games, to pick the FIRST profile.
-					 // Also storing a list of all profiles, for experimental reasons/incase I want to use them down the line
-					 public List<string> listProfilesLoaded { get; set; }
-					 public string sLastProfileSeen { get; set; }
-					 public string sFirstProfileSeen { get; set; }
-					 
-
-
-					 private DateTime lastProfileCheck { get; set; }
-					 ///<summary>
-					 ///Checks if current profile has changed and updates vars accordingly!
-					 ///</summary>
-					 public void CheckProfile()
-					 {
-						  if (DateTime.Now.Subtract(Bot.Stats.lastProfileCheck).TotalMilliseconds>1000)
-						  {
-								Bot.Stats.lastProfileCheck=DateTime.Now;
-								string sThisProfile=Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
-								if (sThisProfile!=Bot.Stats.sLastProfileSeen)
-								{
-									 //herbfunk stats
-									 Bot.BotStatistics.ProfileStats.UpdateProfileChanged();
-
-									 // See if we appear to have started a new game
-									 if (!String.IsNullOrEmpty(Bot.Stats.sFirstProfileSeen)&&sThisProfile==Bot.Stats.sFirstProfileSeen)
-									 {
-										  Bot.Stats.iTotalProfileRecycles++;
-										  if (Bot.Stats.iTotalProfileRecycles>Bot.Stats.iTotalJoinGames&&Bot.Stats.iTotalProfileRecycles>Bot.Stats.iTotalLeaveGames)
-										  {
-												Funky.Log("Reseting Game Data -- Total Profile Recycles exceedes join and leave count!");
-												Funky.ResetGame();
-										  }
-									 }
-									 Bot.Stats.listProfilesLoaded.Add(sThisProfile);
-									 Bot.Stats.sLastProfileSeen=sThisProfile;
-									 if (String.IsNullOrEmpty(Bot.Stats.sFirstProfileSeen))
-										  Bot.Stats.sFirstProfileSeen=sThisProfile;
-
-									 //Refresh Profile Target Blacklist 
-									 ObjectCache.hashProfileSNOTargetBlacklist=new HashSet<int>();
-									 foreach (var item in Zeta.CommonBot.ProfileManager.CurrentProfile.TargetBlacklists)
-									 {
-										  ObjectCache.hashProfileSNOTargetBlacklist.Add(item.ActorId);
-									 }
-								}
-						  }
-					 }
 
 
 					 public class ItemStatistics

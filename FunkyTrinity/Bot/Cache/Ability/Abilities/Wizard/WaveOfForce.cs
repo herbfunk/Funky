@@ -17,13 +17,13 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Buff;
+			ExecutionType = PowerExecutionTypes.Buff;
 			WaitVars = new WaitLoops(1, 2, true);
 			Cost = 25;
-UseageType= AbilityUseage.Anywhere;
+UseFlagsType= AbilityUseFlags.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckEnergy |
-			                     AbilityConditions.CheckCanCast | AbilityConditions.CheckRecastTimer);
+			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated | CastingConditionTypes.CheckEnergy |
+			                     CastingConditionTypes.CheckCanCast | CastingConditionTypes.CheckRecastTimer);
 
 			Fcriteria = new Func<bool>(() =>
 			{
@@ -47,10 +47,6 @@ UseageType= AbilityUseage.Anywhere;
 		private bool UsingCriticalMass()
 		{
 			 return Bot.Class.PassivePowers.Contains(SNOPower.Wizard_Passive_CriticalMass);;
-		}
-		public override void InitCriteria()
-		{
-			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

@@ -21,13 +21,14 @@ namespace FunkyTrinity.ability.Abilities.Barb
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Self;
+			ExecutionType = PowerExecutionTypes.Self;
 			WaitVars = new WaitLoops(3, 3, true);
 			Cost = 20;
-			UseageType=AbilityUseage.Combat;
+			UseFlagsType=AbilityUseFlags.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|
-													 AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated);
+			IsADestructiblePower=true;
+			PreCastConditions=(CastingConditionTypes.CheckRecastTimer|CastingConditionTypes.CheckEnergy|
+													 CastingConditionTypes.CheckCanCast|CastingConditionTypes.CheckPlayerIncapacitated);
 
 			ClusterConditions = new ClusterConditions(5d, 8, 2, true, 0.90d);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None, 10,
@@ -40,10 +41,7 @@ namespace FunkyTrinity.ability.Abilities.Barb
 									Bot.Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)&&!Bot.Class.Abilities.ContainsKey(SNOPower.Barbarian_Rend));
 			});
 		}
-		public override void InitCriteria()
-		{
-			 base.AbilityTestConditions=new AbilityUsablityTests(this);
-		}
+
 		#region IAbility
 		public override int GetHashCode()
 		{

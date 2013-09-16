@@ -20,7 +20,7 @@ namespace FunkyTrinity
 									  "{2} \r\n"+
 									  "Triggering Avoidances={3} -- RequiredAvoidance={4} -- LastAvoidAction={5} \r\n"+
 									  "Nearby Flee Triggering Units={6} -- IsFleeing={7} -- LastFleeAction={8} \r\n",
-									  Bot.CurrentProfileBehavior.GetType().ToString(), Bot.Target.lastBehavioralType.ToString(),
+									  Bot.Profile.CurrentProfileBehavior.GetType().ToString(), Bot.Target.lastBehavioralType.ToString(),
 									  Cache.ObjectCache.Objects.DumpDebugInfo(),
 									  Bot.Combat.TriggeringAvoidances.Count, Bot.Combat.RequiresAvoidance, Bot.Combat.LastAvoidanceMovement.ToString(),
 									  Bot.Combat.FleeTriggeringUnits.Count, Bot.Combat.IsFleeing, Bot.Combat.LastFleeAction.ToString());
@@ -50,7 +50,7 @@ namespace FunkyTrinity
 						  {
 								Logging.Write("[Funky] You have died too many times. Now restarting the game.");
 
-								string sUseProfile=Bot.Stats.sFirstProfileSeen;
+								string sUseProfile=Bot.Profile.FirstProfileSeen;
 								ProfileManager.Load(!string.IsNullOrEmpty(sUseProfile)
 																?sUseProfile
 																:Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile);

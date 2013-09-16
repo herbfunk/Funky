@@ -17,19 +17,14 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Target|AbilityUseType.ClusterTargetNearest;
+			ExecutionType = PowerExecutionTypes.Target|PowerExecutionTypes.ClusterTargetNearest;
 			WaitVars = new WaitLoops(1, 1, true);
 			Range = 15;
-			UseageType=AbilityUseage.Combat;
+			UseFlagsType=AbilityUseFlags.Combat;
 			Priority=AbilityPriority.None;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
+			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated);
 			ClusterConditions=new ClusterConditions(6d, 10f, 2, true);
 			TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None, 8);
-		}
-
-		public override void InitCriteria()
-		{
-			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility
