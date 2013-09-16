@@ -18,7 +18,7 @@ namespace FunkyTrinity.Settings
 			  NewGameMaxmimumWaitTime=0;
 		 }
 
-		 private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults", "Demonbuddy_Default.xml");
+		 private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.SettingsDefaultPath, "Specific", "Demonbuddy_Default.xml");
 		 public static SettingDemonBuddy DeserializeFromXML()
 		 {
 			  XmlSerializer deserializer=new XmlSerializer(typeof(SettingDemonBuddy));

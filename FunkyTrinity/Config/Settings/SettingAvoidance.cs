@@ -22,7 +22,7 @@ namespace FunkyTrinity.Settings
 			  avoidances=Funky.AvoidancesDefault;
 		 }
 
-		 private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults", "Avoidance_Default.xml");
+		 private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.SettingsDefaultPath,"Specific","Avoidance_Default.xml");
 		 public static SettingAvoidance DeserializeFromXML()
 		 {
 			  XmlSerializer deserializer=new XmlSerializer(typeof(SettingAvoidance));

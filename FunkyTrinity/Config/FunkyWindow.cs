@@ -32,6 +32,7 @@ namespace FunkyTrinity
 
 				 private ListBox LBDebug;
 
+				 private CheckBox[] CBLogLevels;
 
 				 public FunkyWindow()
 				 {
@@ -58,11 +59,23 @@ namespace FunkyTrinity
 						};
 						MenuItem Menu_Defaults=new MenuItem
 						{
-							 Header="Default",
+							 Header="Settings",
+							 Height=25,
+							 FontSize=12,
 						};
+						MenuItem Menu_Default_Open=new MenuItem
+						{
+							 Header="Open",
+							 Height=25,
+							 FontSize=12,
+						};
+						Menu_Default_Open.Click+=DefaultMenuLoadProfileClicked;
+						Menu_Defaults.Items.Add(Menu_Default_Open);
 						MenuItem Menu_Default_Leveling=new MenuItem
 						{
-							 Header="Leveling",
+							 Header="Default: Leveling",
+							 Height=25,
+							 FontSize=12,
 						};
 						Menu_Default_Leveling.Click+=DefaultMenuLevelingClicked;
 						Menu_Defaults.Items.Add(Menu_Default_Leveling);
@@ -219,23 +232,46 @@ namespace FunkyTrinity
 							 return Enum.GetName(typeof(LogLevel), s);
 					   });
 
+						CBLogLevels=new CheckBox[LogLevels.Length-2];
+					  int counter=0;
+					  bool noFlags=Bot.SettingsFunky.Debug.FunkyLogFlags.Equals(LogLevel.None);
 						foreach (var logLevel in LogLevels)
 						{
 							 LogLevel thisloglevel=(LogLevel)logLevel;
-							 if (thisloglevel.Equals(LogLevel.None)) continue;
+							 if (thisloglevel.Equals(LogLevel.None)||thisloglevel.Equals(LogLevel.All)) continue;
 
 							 string loglevelName=fRetrieveNames(logLevel);
-							 CheckBox cbLevel=new CheckBox
+							 CBLogLevels[counter]=new CheckBox
 							 {
 								  Name=loglevelName,
 								  Content=loglevelName,
-								  IsChecked=Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(thisloglevel),
+								  IsChecked=!noFlags?Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(thisloglevel):false,
 							 };
-							 cbLevel.Checked+=FunkyLogLevelChanged;
-							 cbLevel.Unchecked+=FunkyLogLevelChanged;
+							 CBLogLevels[counter].Checked+=FunkyLogLevelChanged;
+							 CBLogLevels[counter].Unchecked+=FunkyLogLevelChanged;
 
-							 panelFunkyLogFlags.Children.Add(cbLevel);
+							 panelFunkyLogFlags.Children.Add(CBLogLevels[counter]);
+							 counter++;
 						}
+
+						StackPanel StackPanelLogLevelComboBoxes=new StackPanel();
+						RadioButton cbLogLevelNone=new RadioButton
+						{
+							 Name="LogLevelNone",
+							 Content="None",
+						};
+						cbLogLevelNone.Checked+=FunkyLogLevelComboBoxSelected;
+						RadioButton cbLogLevelAll=new RadioButton
+						{
+							 Name="LogLevelAll",
+							 Content="All",
+						};
+						cbLogLevelAll.Checked+=FunkyLogLevelComboBoxSelected;
+
+						StackPanelLogLevelComboBoxes.Children.Add(cbLogLevelNone);
+						StackPanelLogLevelComboBoxes.Children.Add(cbLogLevelAll);
+						panelFunkyLogFlags.Children.Add(StackPanelLogLevelComboBoxes);
+
 						SPLoggingOptions.Children.Add(panelFunkyLogFlags);
 
 						lbAdvancedContent.Items.Add(SPLoggingOptions);

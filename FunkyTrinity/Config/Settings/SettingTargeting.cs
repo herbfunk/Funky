@@ -30,7 +30,7 @@ namespace FunkyTrinity.Settings
 			  UnitExceptionSpawnerUnits=true;
 			  UnitExceptionSucideBombers=true;
 		 }
-		 private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults", "Targeting_Default.xml");
+		 private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.SettingsDefaultPath, "Specific", "Targeting_Default.xml");
 		 public static SettingTargeting DeserializeFromXML()
 		 {
 			  XmlSerializer deserializer=new XmlSerializer(typeof(SettingTargeting));

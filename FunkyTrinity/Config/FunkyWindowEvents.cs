@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Zeta;
 using System.Windows.Controls;
@@ -18,12 +19,47 @@ namespace FunkyTrinity
          {
 				private void DefaultMenuLevelingClicked(object sender, EventArgs e)
 				{
-					 Bot.SettingsFunky.Grouping.AttemptGroupingMovements=false;
-					 Bot.SettingsFunky.Fleeing.EnableFleeingBehavior=false;
-					 Bot.SettingsFunky.Cluster.EnableClusteringTargetLogic=false;
-					 Bot.SettingsFunky.UseLevelingLogic=true;
-					 Settings_Funky.SerializeToXML(Bot.SettingsFunky);
-					 Funky.funkyConfigWindow.Close();
+					 System.Windows.MessageBoxResult confirm=System.Windows.MessageBox.Show(Funky.funkyConfigWindow, 
+						  "Are you sure you want to overwrite settings with default settings?", 
+						  "Confirm Overwrite", System.Windows.MessageBoxButton.YesNoCancel, System.Windows.MessageBoxImage.Question);
+					 if (confirm== System.Windows.MessageBoxResult.Yes)
+					 {
+						  Bot.SettingsFunky.Grouping.AttemptGroupingMovements=false;
+						  Bot.SettingsFunky.Fleeing.EnableFleeingBehavior=false;
+						  Bot.SettingsFunky.Cluster.EnableClusteringTargetLogic=false;
+						  Bot.SettingsFunky.UseLevelingLogic=true;
+						  Settings_Funky.SerializeToXML(Bot.SettingsFunky);
+						  Funky.funkyConfigWindow.Close();
+					 }
+				}
+				private void DefaultMenuLoadProfileClicked(object sender, EventArgs e)
+				{
+					 System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
+					 {
+						  InitialDirectory=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+						  RestoreDirectory=false,
+						  Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
+						  Title="Fleeing Template",
+					 };
+					 System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
+
+					 if (OFD_Result==System.Windows.Forms.DialogResult.OK)
+					 {
+						  try
+						  {
+								System.Windows.MessageBoxResult confirm=System.Windows.MessageBox.Show(Funky.funkyConfigWindow, "Are you sure you want to overwrite settings with selected profile?", "Confirm Overwrite", System.Windows.MessageBoxButton.YesNoCancel, System.Windows.MessageBoxImage.Question);
+								if (confirm==System.Windows.MessageBoxResult.Yes)
+								{
+									 Logging.Write("Creating new settings for {0} -- {1} using file {2}", Bot.CurrentAccountName, Bot.CurrentHeroName, OFD.FileName);
+									 Settings_Funky newSettings=Settings_Funky.DeserializeFromXML(OFD.FileName);
+									 Bot.SettingsFunky=newSettings;
+									 Funky.funkyConfigWindow.Close();
+								}
+						  } catch
+						  {
+
+						  }
+					 }
 				}
 
 				 private void FunkyLogLevelChanged(object sender, EventArgs e)
@@ -36,7 +72,22 @@ namespace FunkyTrinity
 					  else
 							Bot.SettingsFunky.Debug.FunkyLogFlags|=LogLevelValue;
 			    }
-
+				 private void FunkyLogLevelComboBoxSelected(object sender, EventArgs e)
+				 {
+					  //LogLevelNone
+					  //LogLevelAll
+					  RadioButton CBsender=(RadioButton)sender;
+					  if (CBsender.Name=="LogLevelNone")
+					  {
+							CBLogLevels.ForEach(cb => cb.IsChecked=false);
+							Bot.SettingsFunky.Debug.FunkyLogFlags=LogLevel.None;
+					  }
+					  else
+					  {
+							CBLogLevels.ForEach(cb => cb.IsChecked=true);
+							Bot.SettingsFunky.Debug.FunkyLogFlags=LogLevel.All;
+					  }
+				 }
              private void DebugButtonClicked(object sender, EventArgs e)
              {
                  LBDebug.Items.Clear();

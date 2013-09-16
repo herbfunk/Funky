@@ -8,6 +8,7 @@ using Zeta.Internals.Actors;
 using FunkyTrinity.Enums;
 using FunkyTrinity.ability;
 using FunkyTrinity.Cache;
+using Zeta.Navigation;
 
 namespace FunkyTrinity.Movement
 {
@@ -19,6 +20,11 @@ namespace FunkyTrinity.Movement
 				internal static Vector3 LastPlayerLocation=Vector3.Zero;
 				internal static int BlockedMovementCounter=0;
 				internal static int NonMovementCounter=0;
+
+
+				internal static Zeta.Navigation.MoveResult LastMoveResult=Zeta.Navigation.MoveResult.Failed;
+				internal static bool UpdatedNavigator=false;
+				internal static Vector3 LastNavigatorMoveTo=Vector3.Zero;
 
 				internal static DateTime LastMovementDuringCombat=DateTime.Today;
 				internal static DateTime LastMovementAttempted=DateTime.Today;
@@ -127,10 +133,10 @@ namespace FunkyTrinity.Movement
 					 Bot.NavigationCache.RefreshMovementCache();
 					 Bot.NavigationCache.ObstaclePrioritizeCheck();
 
-					 #region DistanceChecks
+					 #region Evaluate Last Action
 
 					 // Count how long we have failed to move - body block stuff etc.
-					 if (!Bot.NavigationCache.IsMoving||Bot.NavigationCache.currentMovementState.Equals(MovementState.WalkingInPlace)||Bot.NavigationCache.currentMovementState.Equals(MovementState.None))
+					 if (!Bot.NavigationCache.IsMoving||Bot.NavigationCache.currentMovementState.HasFlag(MovementState.WalkingInPlace)||Bot.NavigationCache.currentMovementState.Equals(MovementState.None))
 					 {
 						  bForceNewMovement=true;
 						  if (DateTime.Now.Subtract(LastMovementDuringCombat).TotalMilliseconds>=250)
@@ -402,7 +408,13 @@ namespace FunkyTrinity.Movement
 					 IsAlreadyMoving=true;
 					 LastMovementCommand=DateTime.Now;
 
+					 UseTargetMovement(obj, currentDistance, bForceNewMovement);
 
+					 return RunStatus.Running;
+				}
+
+				internal static void UseTargetMovement(CacheObject obj, float currentDistance, bool bForceNewMovement=false)
+				{
 					 if (DateTime.Now.Subtract(LastMovementAttempted).TotalMilliseconds>=250||currentDistance>=2f||bForceNewMovement)
 					 {
 						  if (obj.targetType.Value.Equals(TargetType.Avoidance))
@@ -440,14 +452,34 @@ namespace FunkyTrinity.Movement
 
 						  LastPlayerLocation=Bot.Character.Position;
 					 }
-
-					 return RunStatus.Running;
 				}
+
+				internal static void UseNavigationMovement(CacheObject obj)
+				{
+					 if (LastNavigatorMoveTo==Vector3.Zero||LastMoveResult.HasFlag(MoveResult.PathGenerationFailed)||LastNavigatorMoveTo!=obj.Position)
+					 {
+						  Zeta.Navigation.Navigator.Clear();
+						  LastNavigatorMoveTo=obj.Position;
+						  LastMoveResult=Zeta.Navigation.Navigator.MoveTo(LastNavigatorMoveTo, obj.InternalName, true);
+					 }
+					 else if (!LastMoveResult.HasFlag(MoveResult.ReachedDestination)&&Bot.Character.Position.Distance2D(LastNavigatorMoveTo)>7.5f)
+					 {
+						  LastMoveResult=Zeta.Navigation.Navigator.MoveTo(LastNavigatorMoveTo, obj.InternalName, true);
+					 }
+					 else
+					 {
+						  //
+					 }
+				}
+
 
 				internal static void ResetTargetMovementVars()
 				{
 					 BlockedMovementCounter=0;
 					 NonMovementCounter=0;
+					 LastNavigatorMoveTo=Vector3.Zero;
+					 LastMoveResult=Zeta.Navigation.MoveResult.Failed;
+
 					 NewTargetResetVars();
 				}
 				internal static void NewTargetResetVars()

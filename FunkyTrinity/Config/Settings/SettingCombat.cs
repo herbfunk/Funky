@@ -17,7 +17,7 @@ namespace FunkyTrinity.Settings
 			  HealthWellHealthPercent=0.75d;
 		 }
 
-		 private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults", "Combat_Default.xml");
+		 private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.SettingsDefaultPath, "Specific", "Combat_Default.xml");
 		 public static SettingCombat DeserializeFromXML()
 		 {
 			  XmlSerializer deserializer=new XmlSerializer(typeof(SettingCombat));

@@ -374,171 +374,7 @@ namespace FunkyTrinity.Cache
 				}
 
 
-				private double KillRadius
-				{
-					 get
-					 {
-						  //Set our current radius to the settings of profile.
-							double dUseKillRadius=Bot.iCurrentMaxKillRadius;
 
-
-						  // Special short-range list to ignore weakling mobs
-						  if (CacheIDLookup.hashActorSNOShortRangeOnly.Contains(this.SNOID)) dUseKillRadius=12;
-
-						  // Prevent long-range mobs beign ignored while they may be pounding on us
-						  if (dUseKillRadius<=30&&CacheIDLookup.hashActorSNORanged.Contains(this.SNOID)) dUseKillRadius=30;
-
-							if (this.CentreDistance<=Bot.NonEliteRange) Bot.Combat.bAnyMobsInCloseRange=true;
-
-
-
-						  // Bosses get extra radius
-							if (this.IsBoss)
-							{
-								 // Kulle Exception
-								 if (this.SNOID!=80509) dUseKillRadius*=1.5;
-
-								 //more if they're already injured
-								 if (this.CurrentHealthPct<=0.98) dUseKillRadius*=4;
-
-								 // And make sure we have a MINIMUM range for bosses - incase they are at screen edge etc.
-								 if (dUseKillRadius<=200)
-									  if (this.SNOID==218947||this.SNOID==256000)
-											dUseKillRadius=75;
-									  else if (this.SNOID!=80509) //Kulle Exception
-											dUseKillRadius=200;
-							}
-							// Tressure Goblins
-							else if (this.IsTreasureGoblin)
-							{
-								 //Check if this goblin is in combat and we are not to close..
-
-								 if (this.CurrentHealthPct.Value>=1d
-									  &&this.RadiusDistance>20f)
-								 {
-									  //Lets calculate if we want to bum rush this goblin by checking surrounding units.
-
-									  System.Collections.Generic.List<CacheUnit> surroundingList;
-									  ObjectCache.Objects.FindSurroundingObjects(this.Position, 50f, out surroundingList);
-									  surroundingList.RemoveAll(p => !p.IsEliteRareUnique&&!p.IsBoss);
-									  surroundingList.TrimExcess();
-
-									  if (surroundingList.Count>0)
-									  {
-											//See if any of those elites/rares/bosses are closer than the goblin but further than 20f from the goblin..
-											float distanceFromGoblin=this.RadiusDistance;
-											if (surroundingList.Any(u => u.RadiusDistance<distanceFromGoblin
-																				 &&u.Position.Distance(this.Position)>20f))
-											{
-												 return 0f;
-											}
-
-
-											//Either no above average units or they are farther than the goblin is..
-											//We will let calculations below preform instead!
-									  }
-								 }
-
-
-								 //Use a shorter range if not yet noticed..
-								 if (this.CurrentHealthPct<=0.10)
-									  dUseKillRadius+=Bot.TreasureGoblinRange+(Bot.SettingsFunky.Targeting.GoblinPriority*24);
-								 else if (this.CurrentHealthPct<=0.99)
-									  dUseKillRadius+=Bot.TreasureGoblinRange+(Bot.SettingsFunky.Targeting.GoblinPriority*16);
-								 else
-									  dUseKillRadius+=Bot.TreasureGoblinRange+(Bot.SettingsFunky.Targeting.GoblinPriority*12);
-
-								 this.ForceLeap=true;
-							}
-							// Elitey type mobs and things
-							else if ((this.IsEliteRareUnique))
-							{
-								 dUseKillRadius+=Bot.EliteRange;
-								 this.ForceLeap=true;
-							}
-							else
-								 //Not Boss, Goblin, Elite/Rare/Unique..
-								 dUseKillRadius+=Bot.NonEliteRange;
-
-
-						  // Standard 50f range when preforming OOC behaviors!
-							if (Bot.IsInNonCombatBehavior)
-								dUseKillRadius=50;
-							
-						  return dUseKillRadius;
-					 }
-				}
-
-				private void TallyTarget()
-				{
-					 bool bIsRended=false;
-					 bool bCountAsElite=false;
-
-					 bIsRended=(this.HasDOTdps.HasValue&&this.HasDOTdps.Value);
-					 bCountAsElite=(this.IsEliteRareUnique||this.IsTreasureGoblin||this.IsBoss);
-					 float RadiusDistance=this.RadiusDistance;
-
-					 if (Bot.SettingsFunky.Fleeing.EnableFleeingBehavior&&RadiusDistance<=Bot.SettingsFunky.Fleeing.FleeMaxMonsterDistance&&this.ShouldBeKited)
-							Bot.Combat.FleeTriggeringUnits.Add(this);
-
-
-					 if (RadiusDistance<=6f)
-					 {
-						  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_6]++;
-						  if (bCountAsElite)
-								 Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_6]++;
-					 }
-					 if (RadiusDistance<=12f)
-					 {
-						  //Tally close units
-						  Bot.Combat.SurroundingUnits++;
-						  //Herbfunk: non-rend count only if within 8f and is attackable..
-						  if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Barbarian&&!bIsRended&&RadiusDistance<=7f&&this.IsTargetable.Value)
-								Bot.Combat.iNonRendedTargets_6++;
-
-							Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_12]++;
-						  if (bCountAsElite)
-								 Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_12]++;
-					 }
-					 if (RadiusDistance<=15f)
-					 {
-							Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]++;
-						  if (bCountAsElite)
-								 Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_15]++;
-					 }
-					 if (RadiusDistance<=20f)
-					 {
-							Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]++;
-						  if (bCountAsElite)
-								 Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_20]++;
-					 }
-					 if (RadiusDistance<=25f)
-					 {
-						  if (!Bot.Combat.bAnyNonWWIgnoreMobsInRange&&!CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(this.SNOID))
-								Bot.Combat.bAnyNonWWIgnoreMobsInRange=true;
-							Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_25]++;
-						  if (bCountAsElite)
-								 Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_25]++;
-					 }
-					 if (RadiusDistance<=30f)
-					 {
-							Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_30]++;
-						  if (bCountAsElite)
-								 Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_30]++;
-					 }
-					 if (RadiusDistance<=40f)
-					 {
-							Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_40]++;
-						  if (bCountAsElite)
-								 Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_40]++;
-					 }
-					 if (RadiusDistance<=50f)
-					 {
-							Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_50]++;
-						  if (bCountAsElite)
-								 Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_50]++;
-					 }
-				}
 				#endregion
 
 				internal override GPRectangle GPRect
@@ -591,6 +427,172 @@ namespace FunkyTrinity.Cache
 					 get
 					 {
 						  return false;
+					 }
+				}
+
+				private double KillRadius
+				{
+					 get
+					 {
+						  //Set our current radius to the settings of profile.
+						  double dUseKillRadius=Bot.iCurrentMaxKillRadius;
+
+
+						  // Special short-range list to ignore weakling mobs
+						  if (CacheIDLookup.hashActorSNOShortRangeOnly.Contains(this.SNOID)) dUseKillRadius=12;
+
+						  // Prevent long-range mobs beign ignored while they may be pounding on us
+						  if (dUseKillRadius<=30&&CacheIDLookup.hashActorSNORanged.Contains(this.SNOID)) dUseKillRadius=30;
+
+						  if (this.CentreDistance<=Bot.NonEliteRange) Bot.Combat.bAnyMobsInCloseRange=true;
+
+
+
+						  // Bosses get extra radius
+						  if (this.IsBoss)
+						  {
+								// Kulle Exception
+								if (this.SNOID!=80509) dUseKillRadius*=1.5;
+
+								//more if they're already injured
+								if (this.CurrentHealthPct<=0.98) dUseKillRadius*=4;
+
+								// And make sure we have a MINIMUM range for bosses - incase they are at screen edge etc.
+								if (dUseKillRadius<=200)
+									 if (this.SNOID==218947||this.SNOID==256000)
+										  dUseKillRadius=75;
+									 else if (this.SNOID!=80509) //Kulle Exception
+										  dUseKillRadius=200;
+						  }
+						  // Tressure Goblins
+						  else if (this.IsTreasureGoblin)
+						  {
+								//Check if this goblin is in combat and we are not to close..
+
+								if (this.CurrentHealthPct.Value>=1d
+									 &&this.RadiusDistance>20f)
+								{
+									 //Lets calculate if we want to bum rush this goblin by checking surrounding units.
+
+									 System.Collections.Generic.List<CacheUnit> surroundingList;
+									 ObjectCache.Objects.FindSurroundingObjects(this.Position, 50f, out surroundingList);
+									 surroundingList.RemoveAll(p => !p.IsEliteRareUnique&&!p.IsBoss);
+									 surroundingList.TrimExcess();
+
+									 if (surroundingList.Count>0)
+									 {
+										  //See if any of those elites/rares/bosses are closer than the goblin but further than 20f from the goblin..
+										  float distanceFromGoblin=this.RadiusDistance;
+										  if (surroundingList.Any(u => u.RadiusDistance<distanceFromGoblin
+																				&&u.Position.Distance(this.Position)>20f))
+										  {
+												return 0f;
+										  }
+
+
+										  //Either no above average units or they are farther than the goblin is..
+										  //We will let calculations below preform instead!
+									 }
+								}
+
+
+								//Use a shorter range if not yet noticed..
+								if (this.CurrentHealthPct<=0.10)
+									 dUseKillRadius+=Bot.TreasureGoblinRange+(Bot.SettingsFunky.Targeting.GoblinPriority*24);
+								else if (this.CurrentHealthPct<=0.99)
+									 dUseKillRadius+=Bot.TreasureGoblinRange+(Bot.SettingsFunky.Targeting.GoblinPriority*16);
+								else
+									 dUseKillRadius+=Bot.TreasureGoblinRange+(Bot.SettingsFunky.Targeting.GoblinPriority*12);
+
+								this.ForceLeap=true;
+						  }
+						  // Elitey type mobs and things
+						  else if ((this.IsEliteRareUnique))
+						  {
+								dUseKillRadius+=Bot.EliteRange;
+								this.ForceLeap=true;
+						  }
+						  else
+								//Not Boss, Goblin, Elite/Rare/Unique..
+								dUseKillRadius+=Bot.NonEliteRange;
+
+
+						  // Standard 50f range when preforming OOC behaviors!
+						  if (Bot.IsInNonCombatBehavior)
+								dUseKillRadius=50;
+
+						  return dUseKillRadius;
+					 }
+				}
+
+				private void TallyTarget()
+				{
+					 bool bIsRended=false;
+					 bool bCountAsElite=false;
+
+					 bIsRended=(this.HasDOTdps.HasValue&&this.HasDOTdps.Value);
+					 bCountAsElite=(this.IsEliteRareUnique||this.IsTreasureGoblin||this.IsBoss);
+					 float RadiusDistance=this.RadiusDistance;
+
+					 if (Bot.SettingsFunky.Fleeing.EnableFleeingBehavior&&RadiusDistance<=Bot.SettingsFunky.Fleeing.FleeMaxMonsterDistance&&this.ShouldBeKited)
+						  Bot.Combat.FleeTriggeringUnits.Add(this);
+
+
+					 if (RadiusDistance<=6f)
+					 {
+						  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_6]++;
+						  if (bCountAsElite)
+								Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_6]++;
+					 }
+					 if (RadiusDistance<=12f)
+					 {
+						  //Tally close units
+						  Bot.Combat.SurroundingUnits++;
+						  //Herbfunk: non-rend count only if within 8f and is attackable..
+						  if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Barbarian&&!bIsRended&&RadiusDistance<=7f&&this.IsTargetable.Value)
+								Bot.Combat.iNonRendedTargets_6++;
+
+						  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_12]++;
+						  if (bCountAsElite)
+								Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_12]++;
+					 }
+					 if (RadiusDistance<=15f)
+					 {
+						  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]++;
+						  if (bCountAsElite)
+								Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_15]++;
+					 }
+					 if (RadiusDistance<=20f)
+					 {
+						  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]++;
+						  if (bCountAsElite)
+								Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_20]++;
+					 }
+					 if (RadiusDistance<=25f)
+					 {
+						  if (!Bot.Combat.bAnyNonWWIgnoreMobsInRange&&!CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(this.SNOID))
+								Bot.Combat.bAnyNonWWIgnoreMobsInRange=true;
+						  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_25]++;
+						  if (bCountAsElite)
+								Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_25]++;
+					 }
+					 if (RadiusDistance<=30f)
+					 {
+						  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_30]++;
+						  if (bCountAsElite)
+								Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_30]++;
+					 }
+					 if (RadiusDistance<=40f)
+					 {
+						  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_40]++;
+						  if (bCountAsElite)
+								Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_40]++;
+					 }
+					 if (RadiusDistance<=50f)
+					 {
+						  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_50]++;
+						  if (bCountAsElite)
+								Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_50]++;
 					 }
 				}
 
@@ -1394,6 +1396,18 @@ namespace FunkyTrinity.Cache
 						  {
 								//Logging.WriteDiagnostic("Force waiting AFTER ability " + powerPrime.powerThis.ToString() + "...");
 								Bot.Combat.bWaitingAfterPower=true;
+						  }
+
+						  //Check health changes
+						  if (DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalMilliseconds>3000)
+						  {
+								double LastHealthChangedMS=DateTime.Now.Subtract(Bot.Combat.LastHealthChange).TotalMilliseconds;
+								if (LastHealthChangedMS>3000)
+								{
+									 Logger.Write(LogLevel.Target, "Ignore Unit {0} due to health last changed of {1}ms", this.InternalName, LastHealthChangedMS);
+									 this.BlacklistLoops=20;
+									 Bot.Combat.bForceTargetUpdate=true;
+								}
 						  }
 
 						  return RunStatus.Running;

@@ -1,18 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Enums;
+using FunkyTrinity.Settings;
 
 namespace FunkyTrinity
 {
 	 internal partial class FunkyWindow : Window
 	 {
 		  #region EventHandling
+		  private void AvoidanceLoadSettingsButtonClicked(object sender, EventArgs e)
+		  {
 
+				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
+				{
+					 InitialDirectory=Path.Combine(Funky.FolderPaths.SettingsDefaultPath, "Specific"),
+					 RestoreDirectory=false,
+					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
+					 Title="Avoidance Template",
+				};
+				System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
+
+				if (OFD_Result==System.Windows.Forms.DialogResult.OK)
+				{
+					 try
+					 {
+						  //;
+						  SettingAvoidance newSettings=SettingAvoidance.DeserializeFromXML(OFD.FileName);
+						  Bot.SettingsFunky.Avoidance=newSettings;
+						  Funky.funkyConfigWindow.Close();
+					 } catch
+					 {
+
+					 }
+				}
+		  }
 		  private void AvoidanceRadiusSliderValueChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
@@ -51,16 +78,12 @@ namespace FunkyTrinity
 				TabItem AvoidanceTabItem=new TabItem
 				{
 					 Header="Avoidances",
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
-					 VerticalAlignment=System.Windows.VerticalAlignment.Stretch,
 				};
 				AvoidanceTabItem.Header="Avoidances";
 				CombatTabControl.Items.Add(AvoidanceTabItem);
-				ListBox LBcharacterAvoidance=new ListBox
+				StackPanel LBcharacterAvoidance=new StackPanel
 				{
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
-					 VerticalAlignment=System.Windows.VerticalAlignment.Stretch,
-
+					 Orientation= Orientation.Vertical,
 				};
 				#region Avoidances
 
@@ -79,6 +102,7 @@ namespace FunkyTrinity
 					 Background=System.Windows.Media.Brushes.MediumSeaGreen,
 					 TextAlignment=TextAlignment.Center,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+
 				};
 
 				#region AvoidanceCheckboxes
@@ -86,7 +110,6 @@ namespace FunkyTrinity
 				StackPanel AvoidanceCheckBoxesPanel=new StackPanel
 				{
 					 Orientation=Orientation.Vertical,
-					 Width=600,
 				};
 
 				CheckBox CBAttemptAvoidanceMovements=new CheckBox
@@ -115,17 +138,16 @@ namespace FunkyTrinity
 
 				AvoidanceOptionsStackPanel.Children.Add(Avoidance_Text_Header);
 				AvoidanceOptionsStackPanel.Children.Add(AvoidanceCheckBoxesPanel);
-				LBcharacterAvoidance.Items.Add(AvoidanceOptionsStackPanel);
+				LBcharacterAvoidance.Children.Add(AvoidanceOptionsStackPanel);
 				#endregion
 
 
 
 				Grid AvoidanceLayoutGrid=new Grid
 				{
-					 UseLayoutRounding=true,
 					 ShowGridLines=false,
-					 VerticalAlignment=System.Windows.VerticalAlignment.Stretch,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+					 //VerticalAlignment=System.Windows.VerticalAlignment.Stretch,
+					 //HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
 					 FlowDirection=System.Windows.FlowDirection.LeftToRight,
 					 Focusable=false,
 				};
@@ -246,9 +268,11 @@ namespace FunkyTrinity
 						  Text=avoidanceString,
 						  FontSize=12,
 						  VerticalAlignment=System.Windows.VerticalAlignment.Stretch,
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
 						  Background=alternatingColor==0?System.Windows.Media.Brushes.DarkSeaGreen:Background=System.Windows.Media.Brushes.SlateGray,
 						  Foreground=System.Windows.Media.Brushes.GhostWhite,
-						  FontStretch=FontStretches.SemiCondensed,
+						  FontStretch=FontStretches.Medium,
+						  TextAlignment= TextAlignment.Center,
 					 };
 
 					 StackPanel avoidRadiusStackPanel=new StackPanel
@@ -268,7 +292,6 @@ namespace FunkyTrinity
 						  Height=25,
 						  Orientation=Orientation.Horizontal,
 						  Background=alternatingColor==0?System.Windows.Media.Brushes.DarkSeaGreen:Background=System.Windows.Media.Brushes.SlateGray,
-
 					 };
 					 avoidHealthStackPanel.Children.Add(avoidanceHealth);
 					 avoidHealthStackPanel.Children.Add(TBavoidanceHealth[i]);
@@ -287,11 +310,34 @@ namespace FunkyTrinity
 					 AvoidanceLayoutGrid.Children.Add(avoidHealthStackPanel);
 					 alternatingColor++;
 				}
+				ScrollViewer AvoidanceGridScrollViewer=new ScrollViewer
+				{
+					 VerticalScrollBarVisibility= ScrollBarVisibility.Auto,
+				};
 
-				LBcharacterAvoidance.Items.Add(AvoidanceLayoutGrid);
 
+				LBcharacterAvoidance.Children.Add(AvoidanceLayoutGrid);
 
-				AvoidanceTabItem.Content=LBcharacterAvoidance;
+				Button BtnAvoidanceLoadTemplate=new Button
+				{
+					 Content="Load Setup",
+					 Background=System.Windows.Media.Brushes.OrangeRed,
+					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 FontStyle=FontStyles.Italic,
+					 FontSize=12,
+
+					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 VerticalAlignment=System.Windows.VerticalAlignment.Top,
+					 Width=75,
+					 Height=30,
+
+					 Margin=new Thickness(Margin.Left, Margin.Top+5, Margin.Right, Margin.Bottom+5),
+				};
+				BtnAvoidanceLoadTemplate.Click+=AvoidanceLoadSettingsButtonClicked;
+				LBcharacterAvoidance.Children.Add(BtnAvoidanceLoadTemplate);
+
+				AvoidanceGridScrollViewer.Content=LBcharacterAvoidance;
+				AvoidanceTabItem.Content=AvoidanceGridScrollViewer;
 		  }
 	 }
 }

@@ -23,7 +23,7 @@ namespace FunkyTrinity.Settings
 			  SkipAhead=true;
 		 }
 
-		 private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults", "Debug_Default.xml");
+		 private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.SettingsDefaultPath, "Specific", "Debug_Default.xml");
 		 public static SettingDebug DeserializeFromXML()
 		 {
 			  XmlSerializer deserializer=new XmlSerializer(typeof(SettingDebug));

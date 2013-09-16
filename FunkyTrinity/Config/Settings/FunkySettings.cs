@@ -194,14 +194,30 @@ namespace FunkyTrinity.Settings
 					  if (!File.Exists(sFunkyCharacterConfigFile))
 					  {
 							Funky.Log("No config file found, now creating a new config from defaults at: "+sFunkyCharacterConfigFile);
-							bool disableBehaviors=Bot.CurrentLevel<60?false:true;
-							Bot.SettingsFunky=new Settings_Funky
+
+
+							if (Bot.CurrentLevel<60)
 							{
-								 Grouping=new SettingGrouping(disableBehaviors),
-								 Cluster=new SettingCluster(disableBehaviors),
-								 Fleeing=new SettingFleeing(disableBehaviors),
-								 UseLevelingLogic=!disableBehaviors,
-							};
+								 bool disableBehaviors=true;
+								 Bot.SettingsFunky=new Settings_Funky
+								 {
+									  Grouping=new SettingGrouping(disableBehaviors),
+									  Cluster=new SettingCluster(disableBehaviors),
+									  Fleeing=new SettingFleeing(disableBehaviors),
+									  UseLevelingLogic=!disableBehaviors,
+								 };
+							}
+							else
+							{
+								 if (Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Barbarian||Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Monk)
+								 {
+									  Settings_Funky settings=Settings_Funky.DeserializeFromXML(Path.Combine(Funky.FolderPaths.SettingsDefaultPath, "InfernoMelee.xml"));
+								 }
+								 else
+								 {
+									  Settings_Funky settings=Settings_Funky.DeserializeFromXML(Path.Combine(Funky.FolderPaths.SettingsDefaultPath, "InfernoRanged.xml"));
+								 }
+							}
 
 							Settings_Funky.SerializeToXML(Bot.SettingsFunky);
 					  }
@@ -216,16 +232,20 @@ namespace FunkyTrinity.Settings
 					  serializer.Serialize(textWriter, settings);
 					  textWriter.Close();
 				 }
-				 public static Settings_Funky DeserializeFromXML()
+				 public static Settings_Funky DeserializeFromXML(string path)
 				 {
-					 // Type[] Settings=new Type[] { typeof(SettingCluster), typeof(SettingFleeing), typeof(SettingGrouping), typeof(SettingItemRules), typeof(SettingLoot), typeof(SettingRanges) };
+					  // Type[] Settings=new Type[] { typeof(SettingCluster), typeof(SettingFleeing), typeof(SettingGrouping), typeof(SettingItemRules), typeof(SettingLoot), typeof(SettingRanges) };
 					  XmlSerializer deserializer=new XmlSerializer(typeof(Settings_Funky));
-					  TextReader textReader=new StreamReader(Funky.FolderPaths.sFunkySettingsCurrentPath);
+					  TextReader textReader=new StreamReader(path);
 					  Settings_Funky settings;
 					  settings=(Settings_Funky)deserializer.Deserialize(textReader);
 					  textReader.Close();
 
 					  return settings;
+				 }
+				 public static Settings_Funky DeserializeFromXML()
+				 {
+					  return DeserializeFromXML(Funky.FolderPaths.sFunkySettingsCurrentPath);
 				 }
          }
 }

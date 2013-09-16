@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -1077,40 +1077,46 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Bot\Cache\Ability\_About Abilities.txt" />
-    <Content Include="Config\Defaults\Clustering_Default.xml">
+    <Content Include="Config\Defaults\InfernoMelee.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Config\Defaults\Avoidance_Default.xml">
+    <Content Include="Config\Defaults\InfernoRanged.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Config\Defaults\Combat_Default.xml">
+    <Content Include="Config\Defaults\Specific\Clustering_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Config\Defaults\Demonbuddy_Default.xml">
+    <Content Include="Config\Defaults\Specific\Avoidance_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Config\Defaults\Debug_Default.xml">
+    <Content Include="Config\Defaults\Specific\Combat_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Config\Defaults\Targeting_Default.xml">
+    <Content Include="Config\Defaults\Specific\Demonbuddy_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Config\Defaults\ItemRules_Default.xml">
+    <Content Include="Config\Defaults\Specific\Debug_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Config\Defaults\Range_Default.xml">
+    <Content Include="Config\Defaults\Specific\Targeting_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Config\Defaults\Loot_Default.xml">
+    <Content Include="Config\Defaults\Specific\ItemRules_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Config\Defaults\Fleeing_Default.xml">
+    <Content Include="Config\Defaults\Specific\Range_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Config\Defaults\Grouping_Default.xml">
+    <Content Include="Config\Defaults\Specific\Loot_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-     <Content Include="Treehooks.xml">
+    <Content Include="Config\Defaults\Specific\Fleeing_Default.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Defaults\Specific\Grouping_Default.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Treehooks.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
