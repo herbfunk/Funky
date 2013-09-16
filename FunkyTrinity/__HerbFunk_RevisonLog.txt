@@ -1,4 +1,21 @@
 ﻿// herbfunk revisions
+v2.4.0.0
+
+Settings:
+	Funky Settings now has option to load settings!
+		->This includes the entire settings and individual setting.
+		->Load buttons can be found at bottom of UI for valid settings.
+		->Load Menu is found at the top of the UI to load all settings.
+		->Note: Loading another settings will overwrite current.
+
+
+Misc:
+	Added Unified Trinity Profile Tag: TrinityUseTownPortal.
+	TrinityExploreDungeon resets skip ahead cache again.
+
+
+
+
 v2.2.2.0
 
 Line of Sight:

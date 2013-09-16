@@ -460,8 +460,18 @@ namespace FunkyTrinity.Cache
 						  if (this.LoopsUnseen_>0) return false;
 
 						  //Check if we are doing something important.. if so we only want to check units!
-							if (Bot.IsInNonCombatBehavior&&(!this.targetType.HasValue||!(TargetType.Unit|TargetType.Item|TargetType.Gold|TargetType.Globe).HasFlag(this.targetType.Value)))
-								return false;
+						  if (Bot.IsInNonCombatBehavior)
+						  {
+								TargetType typesValid=TargetType.Unit|TargetType.Item|TargetType.Gold|TargetType.Globe;
+								if (Bot.Profile.ProfileBehaviorIsOOCInteractive&&!Bot.Character.bIsInTown)
+								{
+									typesValid|=TargetType.Door|TargetType.Barricade;
+								}
+								if (!typesValid.HasFlag(this.targetType.Value))
+									 return false;
+
+						  }
+						 
 
 						  //Validate refrence still remains
 						  if (!this.IsStillValid())

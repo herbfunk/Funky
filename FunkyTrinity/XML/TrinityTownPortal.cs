@@ -13,7 +13,7 @@ namespace FunkyTrinity.XMLTags
 	 [XmlElement("TrinityTownPortal")]
 	 public class TrinityTownPortal : ProfileBehavior
 	 {
-		  public static int DefaultWaitTime=-1;
+		  public static int DefaultWaitTime=2000;
 
 		  [XmlAttribute("waitTime")]
 		  [XmlAttribute("wait")]
@@ -49,14 +49,10 @@ namespace FunkyTrinity.XMLTags
 				AreaClearTimer.Start();
 				//DefaultWaitTime=V.I("XmlTag.TrinityTownPortal.DefaultWaitTime");
 				//int forceWaitTime=V.I("XmlTag.TrinityTownPortal.ForceWaitTime");
-				//if (WaitTime<=0&&forceWaitTime==-1)
-				//{
-				//	 WaitTime=DefaultWaitTime;
-				//}
-				//else
-				//{
-				//	 WaitTime=forceWaitTime;
-				//}
+				if (WaitTime<=0)
+				{
+					 WaitTime=DefaultWaitTime;
+				}
 				_StartHealth=ZetaDia.Me.HitpointsCurrent;
 		  }
 
