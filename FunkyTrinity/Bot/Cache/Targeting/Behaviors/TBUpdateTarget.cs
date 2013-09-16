@@ -45,6 +45,8 @@ namespace FunkyTrinity.Targeting.Behaviors
 						 {
 							  if (FunkyTrinity.Bot.Combat.TriggeringAvoidances.Count==0)
 							  {
+									//Add optional setting to allow targeting of any valid units..
+
 									obj=new CacheObject(FunkyTrinity.Bot.Character.Position, TargetType.Avoidance, 20000, "StayPutPoint", 2.5f, -1);
 									return true;
 							  }

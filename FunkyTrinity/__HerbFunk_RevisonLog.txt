@@ -1,5 +1,5 @@
 ﻿// herbfunk revisions
-v2.4.0.0
+v2.3.4.0
 
 Settings:
 	Funky Settings now has option to load settings!
@@ -8,6 +8,36 @@ Settings:
 		->Load Menu is found at the top of the UI to load all settings.
 		->Note: Loading another settings will overwrite current.
 
+Abilities:
+	Buffs will be used during avoidance movements if ability is usable in combat.
+	LOS test for melee abilities will skip tests when target is not attackable and targetable.
+		+Raycast now use melee vector instead of center of object.
+	Refactor the class and related objects:
+		->IsADestructiblePower && IsASpecialMovementPower are settable now.
+		->Renamed Enums:
+			(AbilityUseage to AbilityUseFlags) 
+			(AbilityConditions to CastingConditionTypes)
+			(AbilityUseType to PowerExecutionTypes)
+		->Removed InitCriteria as virtual overridable method (Renamed to InitializeCriteria)
+		->AbilityUseTimer method moved from player class.
+		->AbilityUsageTests is now static and used sololy to create the conditions of the abilities.
+		->AbilityCriteria now contains all the Func Conditions and Methods to use them.
+
+Player Class:
+	Added property LastAbilityUsed -- updated after successful use.
+	Player and Derived Classes namespace changed to FunkyTrinity.PlayerClass
+
+
+Targeting:
+	Out of combat behavior now allows doors and obstacle objects when using (TownPortal/UseObject/UseWaypoint/UsePortal) tags.
+	Destructibles will now be targetable when stuck occurs. (Bypasses LOS tests)
+
+Avoidances:
+	Modified AvoidanceIntersection Wait (end of combat) so it will use Bots Position on first check.
+	Treespore and Grotesque Avoidance lifespan has been increased. (so it wont be removed early!)
+	Gold/Globe avoidance tests no longer uses modified location if pickup radius is zero.
+	AvoidanceValue, AvoidanceType namespace changed to FunkyTrinity.Avoidance
+	Added AvoidanceCache
 
 Misc:
 	Added Unified Trinity Profile Tag: TrinityUseTownPortal.

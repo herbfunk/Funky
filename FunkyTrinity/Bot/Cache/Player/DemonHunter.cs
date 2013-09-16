@@ -64,10 +64,13 @@ namespace FunkyTrinity.PlayerClass
 				{
 					 Abilities=new Dictionary<SNOPower, Ability>();
 
+
 					 //Create the abilities
 					 foreach (var item in HotbarPowers)
 					 {
-							Abilities.Add(item, this.CreateAbility(item));
+						  Ability newAbility=this.CreateAbility(item);
+						  newAbility.InitializeCriteria();
+						  Abilities.Add(item, newAbility);
 					 }
 
 					 //No default rage generation ability.. then we add the Instant Melee Ability.

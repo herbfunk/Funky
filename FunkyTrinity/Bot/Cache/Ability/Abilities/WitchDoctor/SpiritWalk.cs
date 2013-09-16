@@ -26,7 +26,7 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 			//IsNavigationSpecial = true;
 			Priority = AbilityPriority.High;
 			PreCastConditions = (CastingConditionTypes.CheckEnergy | CastingConditionTypes.CheckCanCast);
-
+			IsASpecialMovementPower=true;
 			IsBuff=true;
 			Fbuff=new Func<bool>(() =>
 			{

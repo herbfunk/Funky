@@ -47,7 +47,6 @@ namespace FunkyTrinity.ability
 			
 				
 				Initialize();
-				InitializeCriteria();
 		  }
 		  public virtual void Initialize()
 		  {

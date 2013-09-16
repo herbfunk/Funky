@@ -63,6 +63,7 @@ namespace FunkyTrinity
 					 CriticalAvoidance=false;
 					 FleeingLastTarget=false;
 					 AvoidanceLastTarget=false;
+					 AvoidanceStayPut=false;
 					 UsesDOTDPSAbility=false;
 					 TargetClusterCollection=new ClusterTargetCollection(TargetClusterConditions);
 				}
@@ -178,6 +179,7 @@ namespace FunkyTrinity
 				///</summary>
 				internal bool FleeingLastTarget { get; set; }
 				internal bool AvoidanceLastTarget { get; set; }
+				internal bool AvoidanceStayPut { get; set; }
 				//Kiting
 				internal bool IsFleeing { get; set; }
 				// Prevent spam-kiting too much - allow fighting between each kite movement

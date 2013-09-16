@@ -63,6 +63,8 @@ namespace FunkyTrinity
 						  {
 								Bot.Combat.LastAvoidanceMovement=DateTime.Now;
 								Bot.Combat.AvoidanceLastTarget=true;
+								Bot.Combat.AvoidanceStayPut=internalname.Contains("StayPutPoint");
+
 						  }
 					 }
 					 else
@@ -527,7 +529,7 @@ namespace FunkyTrinity
 
 									 if (!ObjectCache.Obstacles.TryGetValue(tmp_CachedObj.RAGUID, out thisObstacleObj))
 									 {
-										  CacheServerObject newobj =new CacheServerObject(tmp_CachedObj);
+										  CacheServerObject newobj=new CacheServerObject(tmp_CachedObj);
 										  ObjectCache.Obstacles.Add(tmp_CachedObj.RAGUID, newobj);
 
 										  //Add nearby objects to our collection (used in navblock/obstaclecheck methods to reduce queries)

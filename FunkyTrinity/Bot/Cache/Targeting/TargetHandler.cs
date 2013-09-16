@@ -497,24 +497,29 @@ namespace FunkyTrinity.Targeting
 				{
 
 					 //Validate LOS movement
-					 if (CurrentTarget.LastLOSMoveResult.HasFlag(Zeta.Navigation.MoveResult.Failed|Zeta.Navigation.MoveResult.UnstuckAttempt|Zeta.Navigation.MoveResult.PathGenerationFailed|Zeta.Navigation.MoveResult.ReachedDestination))
+					 if (TargetMovement.LastMoveResult.HasFlag(Zeta.Navigation.MoveResult.Failed|Zeta.Navigation.MoveResult.UnstuckAttempt|Zeta.Navigation.MoveResult.PathGenerationFailed|Zeta.Navigation.MoveResult.ReachedDestination))
 					 {
 						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-								Logger.Write(LogLevel.Movement, "LOS Ended Due to MoveResult {0} for Object {1}", CurrentTarget.LastLOSMoveResult.ToString(), CurrentTarget.InternalName);
+								Logger.Write(LogLevel.Movement, "LOS Ended Due to MoveResult {0} for Object {1}", TargetMovement.LastMoveResult.ToString(), Bot.NavigationCache.LOSmovementUnit.InternalName);
 
 						  //CurrentTarget.LOSV3=Vector3.Zero;
 						  Bot.NavigationCache.LOSmovementUnit=null;
 						  FunkyTrinity.Bot.Combat.bWholeNewTarget=true;
 						  return false;
 					 }
-
-					 if (CurrentTarget.LastLOSMoveResult.HasFlag(Zeta.Navigation.MoveResult.Moved))
+					 else if (Bot.NavigationCache.LOSmovementUnit.LineOfSight.LastLOSCheckMS>500
+						  &&Bot.NavigationCache.LOSmovementUnit.LineOfSight.LOSTest(Bot.Character.Position, true, Bot.Class.LOSconditions.RequiresServerObjectIntersection, Bot.Class.LOSconditions.NavCellFlags, false))
 					 {
-						  //CurrentState=TargetMovement.TargetMoveTo(CurrentTarget);
-						  CurrentState=RunStatus.Running;
-						  CurrentTarget.LastLOSMoveResult=Zeta.Navigation.Navigator.MoveTo(CurrentTarget.LOSV3, "LOS Movement", true);
+						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+								Logger.Write(LogLevel.Movement, "LOS Is now valid {0} for Object {1} -- ending behavior.", TargetMovement.LastMoveResult.ToString(), Bot.NavigationCache.LOSmovementUnit.InternalName);
+
+						  Bot.NavigationCache.LOSmovementUnit=null;
+						  FunkyTrinity.Bot.Combat.bWholeNewTarget=true;
 						  return false;
 					 }
+
+					 CurrentState=TargetMovement.TargetMoveTo(Bot.NavigationCache.LOSmovementUnit, true);
+					 return false;
 				}
 
 				// Set current destination to our current target's destination

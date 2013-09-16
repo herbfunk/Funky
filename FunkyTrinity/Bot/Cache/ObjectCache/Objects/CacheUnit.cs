@@ -921,7 +921,7 @@ namespace FunkyTrinity.Cache
 								double lastLOSCheckMS=base.LineOfSight.LastLOSCheckMS;
 
 								//unless its in front of us.. we wait 500ms mandatory.
-								if (lastLOSCheckMS<500&&centreDistance>1f)
+								if (lastLOSCheckMS<750&&centreDistance>1f)
 								{
 									 if (this.ObjectIsSpecial) Bot.Combat.LoSMovementUnits.Add(this);
 									 return false;
