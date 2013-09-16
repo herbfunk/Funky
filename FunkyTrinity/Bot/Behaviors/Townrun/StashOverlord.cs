@@ -76,8 +76,8 @@ namespace FunkyTrinity
 													 continue;
 										  }
 									 }
-									 else
-										  bShouldStashThis=(Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring==true?ShouldWeStashThis(thisitem)
+									 
+									 bShouldStashThis=(Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring==true?ShouldWeStashThis(thisitem)
 																:ItemManager.Current.ShouldStashItem(thisitem.ACDItem));
 
 

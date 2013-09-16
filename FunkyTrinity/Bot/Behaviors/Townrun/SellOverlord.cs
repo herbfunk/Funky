@@ -67,15 +67,14 @@ namespace FunkyTrinity
 													 continue;
 										  }
 									 }
-									 else
-									 {
+
 										  bool bShouldSellThis=Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring==true?GilesSellValidation(thisitem.ThisInternalName, thisitem.ThisLevel, thisitem.ThisQuality, thisitem.ThisDBItemType, thisitem.ThisFollowerType):ItemManager.Current.ShouldSellItem(thisitem.ACDItem);
 
 										  if (bShouldSellThis)
 										  {
 												Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Add(thisitem);
 										  }
-									 }
+									 
 								}
 						  }
 						  else

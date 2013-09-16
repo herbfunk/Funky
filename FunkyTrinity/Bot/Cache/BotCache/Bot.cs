@@ -12,6 +12,7 @@ using FunkyTrinity.Targeting;
 using FunkyTrinity.Settings;
 using FunkyTrinity.PlayerClass;
 using Zeta.CommonBot.Profile;
+using FunkyTrinity.Avoidance;
 
 namespace FunkyTrinity
 {

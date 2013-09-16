@@ -55,10 +55,10 @@ namespace FunkyTrinity
 
 									 ////Log("GilesTrinityScoring == "+Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring.ToString());
 
-									 //bShouldVisitSalvage=ItemManager.Current.ShouldStashItem(thisitem.ACDItem);
+									 bShouldVisitSalvage=Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring?false:ItemManager.Current.ShouldSalvageItem(thisitem.ACDItem);
 
-									 //if (bShouldVisitSalvage)
-									 //	 Bot.Character.BackPack.townRunCache.hashGilesCachedSalvageItems.Add(thisitem);
+									 if (bShouldVisitSalvage)
+										 Bot.Character.BackPack.townRunCache.hashGilesCachedSalvageItems.Add(thisitem);
 
 								}
 						  }

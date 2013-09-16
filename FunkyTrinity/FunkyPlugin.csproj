@@ -446,7 +446,7 @@
     <Compile Include="Bot\Cache\Ability\AbilityCriteria.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\Ability\ConditionObjects\AbilityUsablityTests.cs">
+    <Compile Include="Bot\Cache\Ability\ConditionObjects\AbilityLogic.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\Ability\ConditionObjects\LOSConditions.cs">
@@ -488,7 +488,10 @@
     <Compile Include="Bot\Cache\Ability\Abilities\WeaponInstantRanged.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\Cache\AvoidanceValue.cs">
+    <Compile Include="Bot\Cache\Avoidance\AvoidanceCache.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Bot\Cache\Avoidance\AvoidanceValue.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\Player\DemonHunter.cs">
@@ -713,10 +716,7 @@
     <Compile Include="Config\Tabs\Targeting.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Enums\AvoidanceType.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Enums\BlacklistType.cs">
+    <Compile Include="Bot\Cache\Avoidance\AvoidanceType.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Enums\LootIndex.cs">
@@ -985,9 +985,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\CacheIDLookup.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Bot\Cache\Avoidance.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Cache\ObjectCache\ObjectCache.cs">

@@ -413,7 +413,6 @@ namespace FunkyTrinity.XMLTags
 									 new Sequence(
 										  new Action(ret => Logging.WriteDiagnostic(
 												"TrinityExploreDungeon inactivity timer tripped ({0}), tag Using Town Portal!", TimeoutValue)),
-											new WaitContinue(1, ret => false, new Action()),
 										  Zeta.CommonBot.CommonBehaviors.CreateUseTownPortal()
 									 )
 								),
@@ -511,7 +510,7 @@ namespace FunkyTrinity.XMLTags
 						  new Sequence(
 								new Action(ret => Logging.WriteDiagnostic("Visited all nodes but objective not complete, forcing grid reset!")),
 								new Action(ret => timesForcedReset++),
-								//new Action(ret => Trinity.hashSkipAheadAreaCache.Clear()),
+								new Action(ret => FunkyTrinity.Movement.SkipAheadCache.ClearCache()),
 								new Action(ret => MiniMapMarker.KnownMarkers.Clear()),
 								new Action(ret => ForceUpdateScenes()),
 								new Action(ret => GridSegmentation.Reset()),
@@ -1141,7 +1140,7 @@ namespace FunkyTrinity.XMLTags
 				if (TimeoutValue==0)
 					 TimeoutValue=900;
 
-				//Trinity.hashSkipAheadAreaCache.Clear();
+				FunkyTrinity.Movement.SkipAheadCache.ClearCache();
 				PriorityScenesInvestigated.Clear();
 				MiniMapMarker.KnownMarkers.Clear();
 				if (PriorityScenes==null)

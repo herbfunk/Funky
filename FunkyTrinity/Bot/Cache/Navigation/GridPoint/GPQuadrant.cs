@@ -7,6 +7,7 @@ using System.Windows;
 using FunkyTrinity.Enums;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
+using FunkyTrinity.Avoidance;
 
 namespace FunkyTrinity.Movement
 {

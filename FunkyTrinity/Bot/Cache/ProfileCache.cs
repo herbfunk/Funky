@@ -22,7 +22,7 @@ namespace FunkyTrinity.Cache
 		 ///</summary>
 		 internal void CheckCurrentProfileBehavior()
 		 {
-			  if (DateTime.Now.Subtract(LastProfileBehaviorCheck).TotalMilliseconds>1000)
+			  if (DateTime.Now.Subtract(LastProfileBehaviorCheck).TotalMilliseconds>450)
 			  {
 					LastProfileBehaviorCheck=DateTime.Now;
 

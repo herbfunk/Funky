@@ -55,11 +55,11 @@ namespace FunkyTrinity.ability
 		  }
 		  public virtual void InitializeCriteria()
 		  {
-				AbilityUsablityTests.CreatePreCastConditions(ref this.Fprecast, this);
-				AbilityUsablityTests.CreateTargetConditions(ref this.FSingleTargetUnitCriteria, this);
-				AbilityUsablityTests.CreateUnitsInRangeConditions(ref this.FUnitsInRangeConditions, this);
-				AbilityUsablityTests.CreateElitesInRangeConditions(ref this.FElitesInRangeConditions, this);
-				AbilityUsablityTests.CreateClusterConditions(ref this.FClusterConditions, this);
+				AbilityLogic.CreatePreCastConditions(ref this.Fprecast, this);
+				AbilityLogic.CreateTargetConditions(ref this.FSingleTargetUnitCriteria, this);
+				AbilityLogic.CreateUnitsInRangeConditions(ref this.FUnitsInRangeConditions, this);
+				AbilityLogic.CreateElitesInRangeConditions(ref this.FElitesInRangeConditions, this);
+				AbilityLogic.CreateClusterConditions(ref this.FClusterConditions, this);
 		  }
 
 		 #region Properties
@@ -280,19 +280,19 @@ namespace FunkyTrinity.ability
 				if (ability.LastConditionPassed== ConditionCriteraTypes.Cluster)
 				{
 						 //Cluster Target -- Aims for Centeroid Unit
-					 if (ability.ExecutionType.HasFlag(PowerExecutionTypes.ClusterTarget)&&AbilityUsablityTests.CheckClusterConditions(ability.ClusterConditions)) //Cluster ACDGUID
+					 if (ability.ExecutionType.HasFlag(PowerExecutionTypes.ClusterTarget)&&AbilityLogic.CheckClusterConditions(ability.ClusterConditions)) //Cluster ACDGUID
 						 {
 							  ability.TargetRAGUID=Bot.Combat.Clusters(ability.ClusterConditions)[0].GetNearestUnitToCenteroid().AcdGuid.Value;
 							  return;
 						 }
 						 //Cluster Location -- Aims for Center of Cluster
-						 if (ability.ExecutionType.HasFlag(PowerExecutionTypes.ClusterLocation)&&AbilityUsablityTests.CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
+						 if (ability.ExecutionType.HasFlag(PowerExecutionTypes.ClusterLocation)&&AbilityLogic.CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
 						 {
 							  ability.TargetPosition=(Vector3)Bot.Combat.Clusters(ability.ClusterConditions)[0].Midpoint;
 							  return;
 						 }
 						 //Cluster Target Nearest -- Gets nearest unit in cluster as target.
-						 if (ability.ExecutionType.HasFlag(PowerExecutionTypes.ClusterTargetNearest)&&AbilityUsablityTests.CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
+						 if (ability.ExecutionType.HasFlag(PowerExecutionTypes.ClusterTargetNearest)&&AbilityLogic.CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
 						 {
 							  ability.TargetRAGUID=Bot.Combat.Clusters(ability.ClusterConditions)[0].ListUnits[0].AcdGuid.Value;
 							  return;

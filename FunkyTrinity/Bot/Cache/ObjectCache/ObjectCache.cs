@@ -16,6 +16,15 @@ using FunkyTrinity.Cache;
 
 namespace FunkyTrinity.Cache
 {
+	 ///<summary>
+	 ///Determines the type of blacklist an object should recieve. Permanent is entire game, Temporary is 60 seconds long.
+	 ///</summary>
+	 public enum BlacklistType
+	 {
+		  None,
+		  Temporary,
+		  Permanent
+	 }
 
 		  ///<summary>
 		  ///Contains Collections for all the cached objects being tracked.
@@ -63,8 +72,6 @@ namespace FunkyTrinity.Cache
 																	  typeof(Zeta.CommonBot.Profile.Common.UseObjectTag),
 																	  typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),
 																	  typeof(Zeta.CommonBot.Profile.Common.WaitTimerTag),
-																	  Zeta.CommonBot.CommonBehaviors.CreateUseTownPortal().GetType(),
-																	  Zeta.CommonBot.CommonBehaviors.TakeTownPortalBack().GetType(),
 																	};
 
 				//Common Used Profile Tags that requires backtracking during combat sessions.

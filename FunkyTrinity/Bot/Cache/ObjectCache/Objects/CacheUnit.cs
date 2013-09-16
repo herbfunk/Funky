@@ -11,6 +11,7 @@ using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
 using FunkyTrinity.ability;
 using FunkyTrinity.Movement.Clustering;
+using FunkyTrinity.Avoidance;
 
 namespace FunkyTrinity.Cache
 {
@@ -29,7 +30,7 @@ namespace FunkyTrinity.Cache
 				{
 					 get
 					 {
-						  return AbilityUsablityTests.EvaluateUnitProperties(this);
+						  return AbilityLogic.EvaluateUnitProperties(this);
 					 }
 				}
 				public override void UpdateProperties()
@@ -62,7 +63,7 @@ namespace FunkyTrinity.Cache
 
 					 //if (this.Monstersize.HasValue&&this.Monstersize.Value==MonsterSize.Ranged)
 					 //	 this.Properties|=TargetProperties.Ranged;
-					 base.Properties=AbilityUsablityTests.EvaluateUnitProperties(this);
+					 base.Properties=AbilityLogic.EvaluateUnitProperties(this);
 				}
 
 
@@ -152,9 +153,9 @@ namespace FunkyTrinity.Cache
 					{
 						 
 						 //update properties
-						 //if (value.Value==true&&!AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties,TargetProperties.DOTDPS))
+						 //if (value.Value==true&&!AbilityLogic.CheckTargetPropertyFlag(this.Properties,TargetProperties.DOTDPS))
 						 //	 this.Properties|=TargetProperties.DOTDPS;
-						 //else if (value.Value==false&&AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties,TargetProperties.DOTDPS))
+						 //else if (value.Value==false&&AbilityLogic.CheckTargetPropertyFlag(this.Properties,TargetProperties.DOTDPS))
 						 //	 this.Properties&=TargetProperties.DOTDPS;
 
 						hasDOTdps_=value;
@@ -280,7 +281,7 @@ namespace FunkyTrinity.Cache
 						  else
 								assignedWeight=1;
 
-						  //if (assignedWeight<0&&!AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties,TargetProperties.Weak))
+						  //if (assignedWeight<0&&!AbilityLogic.CheckTargetPropertyFlag(this.Properties,TargetProperties.Weak))
 						  //	 this.Properties|=TargetProperties.Weak;
 
 						  return (assignedWeight);
@@ -368,7 +369,7 @@ namespace FunkyTrinity.Cache
 						  //update properties
 						  //if (dCurrentHealthPct==1)
 						  //	 this.Properties|=TargetProperties.FullHealth;
-						  //else if (AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties,TargetProperties.FullHealth))
+						  //else if (AbilityLogic.CheckTargetPropertyFlag(this.Properties,TargetProperties.FullHealth))
 						  //	 this.Properties&=TargetProperties.FullHealth;
 					 }
 				}
@@ -1237,12 +1238,12 @@ namespace FunkyTrinity.Cache
 								//update properties
 								//if (this.IsAttackable.Value&&this.IsTargetable.Value)
 								//{
-								//	 if (!AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties, TargetProperties.TargetableAndAttackable))
+								//	 if (!AbilityLogic.CheckTargetPropertyFlag(this.Properties, TargetProperties.TargetableAndAttackable))
 								//		  this.Properties|=TargetProperties.TargetableAndAttackable;
 								//}
 								//else
 								//{
-								//	 if (AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties, TargetProperties.TargetableAndAttackable))
+								//	 if (AbilityLogic.CheckTargetPropertyFlag(this.Properties, TargetProperties.TargetableAndAttackable))
 								//		  this.Properties&=TargetProperties.TargetableAndAttackable;
 								//}
 								

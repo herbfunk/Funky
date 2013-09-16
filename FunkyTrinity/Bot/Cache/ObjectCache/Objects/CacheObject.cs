@@ -208,12 +208,12 @@ namespace FunkyTrinity.Cache
 						  //Update Properties
 						  if (this.RadiusDistance<5f)
 						  {
-								if (!AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties,TargetProperties.CloseDistance))
+								if (!AbilityLogic.CheckTargetPropertyFlag(this.Properties,TargetProperties.CloseDistance))
 									 this.Properties|=TargetProperties.CloseDistance;
 						  }
 						  else
 						  {
-								if (AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties,TargetProperties.CloseDistance))
+								if (AbilityLogic.CheckTargetPropertyFlag(this.Properties,TargetProperties.CloseDistance))
 									 this.Properties&=TargetProperties.CloseDistance;
 						  }
 					 }

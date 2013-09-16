@@ -5,6 +5,7 @@ using Zeta.Internals.Actors;
 using System.Windows;
 using FunkyTrinity.Enums;
 using FunkyTrinity.Movement;
+using FunkyTrinity.Avoidance;
 
 namespace FunkyTrinity.Cache
 {

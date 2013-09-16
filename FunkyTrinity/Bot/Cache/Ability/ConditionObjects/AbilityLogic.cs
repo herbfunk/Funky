@@ -8,13 +8,87 @@ namespace FunkyTrinity.ability
 	 ///<summary>
 	 ///Creates Funcs from a created Ability and is to be used in testing of usability.
 	 ///</summary>
-	internal static class AbilityUsablityTests
+	internal static class AbilityLogic
 	{
+		 //Quick research showed Enum.HasFlag is slower compared to the below method.
+		 internal static bool CheckTargetPropertyFlag(TargetProperties property, TargetProperties flag)
+		 {
+			  return (property&flag)!=0;
+		 }
 
-		 public static void CreateAbilityConditions(ref Ability ability)
-		{
-			
-		}
+		 internal static TargetProperties EvaluateUnitProperties(CacheUnit unit)
+		 {
+			  TargetProperties properties=TargetProperties.None;
+
+			  if (unit.IsBoss)
+					properties|=TargetProperties.Boss;
+
+			  if (unit.IsBurrowableUnit)
+					properties|=TargetProperties.Burrowing;
+
+			  if (unit.MonsterMissileDampening)
+					properties|=TargetProperties.MissileDampening;
+
+			  if (unit.IsMissileReflecting)
+					properties|=TargetProperties.MissileReflecting;
+
+			  if (unit.MonsterShielding)
+					properties|=TargetProperties.Shielding;
+
+			  if (unit.IsStealthableUnit)
+					properties|=TargetProperties.Stealthable;
+
+			  if (unit.IsSucideBomber)
+					properties|=TargetProperties.SucideBomber;
+
+			  if (unit.IsTreasureGoblin)
+					properties|=TargetProperties.TreasureGoblin;
+
+			  if (unit.IsFast)
+					properties|=TargetProperties.Fast;
+
+
+
+			  if (unit.IsEliteRareUnique)
+					properties|=TargetProperties.RareElite;
+
+			  if (unit.MonsterUnique)
+					properties|=TargetProperties.Unique;
+
+			  if (unit.ObjectIsSpecial)
+					properties|=TargetProperties.IsSpecial;
+
+			  if (unit.CurrentHealthPct.HasValue&&unit.CurrentHealthPct.Value==1d)
+					properties|=TargetProperties.FullHealth;
+
+			  if (unit.UnitMaxHitPointAverageWeight<0)
+					properties|=TargetProperties.Weak;
+
+
+			  if (unit.Monstersize.HasValue&&unit.Monstersize.Value==MonsterSize.Ranged)
+					properties|=TargetProperties.Ranged;
+
+
+			  if (unit.IsTargetableAndAttackable)
+					properties|=TargetProperties.TargetableAndAttackable;
+
+
+			  if (unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
+					properties|=TargetProperties.DOTDPS;
+
+			  if (unit.RadiusDistance<10f)
+					properties|=TargetProperties.CloseDistance;
+
+
+			  return properties;
+		 }
+
+
+		 internal static bool CheckClusterConditions(ClusterConditions CC)
+		 {
+			  return Bot.Combat.Clusters(CC).Count>0;
+		 }
+
 
 		 #region Function Creation Methods
 		 internal static void CreateClusterConditions(ref Func<bool> FClusterConditions, Ability ability)
@@ -271,81 +345,6 @@ namespace FunkyTrinity.ability
 					if (CheckTargetPropertyFlag(TargetUnitConditionFlags_.FalseConditionFlags,TargetProperties.DOTDPS))
 						 FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Target.CurrentUnitTarget.HasDOTdps.HasValue||!Bot.Target.CurrentUnitTarget.HasDOTdps.Value; });
 			  }
-		 }
-
-		 //Quick research showed Enum.HasFlag is slower compared to the below method.
-		 internal static bool CheckTargetPropertyFlag(TargetProperties property, TargetProperties flag)
-		 {
-			  return (property&flag)!=0;
-		 }
-
-		 internal static TargetProperties EvaluateUnitProperties(CacheUnit unit)
-		 {
-			  TargetProperties properties=TargetProperties.None;
-
-			  if (unit.IsBoss)
-					properties|=TargetProperties.Boss;
-
-			  if (unit.IsBurrowableUnit)
-					properties|=TargetProperties.Burrowing;
-
-			  if (unit.MonsterMissileDampening)
-					properties|=TargetProperties.MissileDampening;
-
-			  if (unit.IsMissileReflecting)
-					properties|=TargetProperties.MissileReflecting;
-
-			  if (unit.MonsterShielding)
-					properties|=TargetProperties.Shielding;
-
-			  if (unit.IsStealthableUnit)
-					properties|=TargetProperties.Stealthable;
-
-			  if (unit.IsSucideBomber)
-					properties|=TargetProperties.SucideBomber;
-
-			  if (unit.IsTreasureGoblin)
-					properties|=TargetProperties.TreasureGoblin;
-
-			  if (unit.IsFast)
-					properties|=TargetProperties.Fast;
-
-
-
-			  if (unit.IsEliteRareUnique)
-					properties|=TargetProperties.RareElite;
-
-			  if (unit.MonsterUnique)
-					properties|=TargetProperties.Unique;
-
-			  if (unit.ObjectIsSpecial)
-					properties|=TargetProperties.IsSpecial;
-
-			  if (unit.CurrentHealthPct.HasValue&&unit.CurrentHealthPct.Value==1d)
-					properties|=TargetProperties.FullHealth;
-
-			  if (unit.UnitMaxHitPointAverageWeight<0)
-					properties|=TargetProperties.Weak;
-
-
-			  if (unit.Monstersize.HasValue&&unit.Monstersize.Value==MonsterSize.Ranged)
-					properties|=TargetProperties.Ranged;
-
-
-			  if (unit.IsTargetableAndAttackable)
-					properties|=TargetProperties.TargetableAndAttackable;
-
-
-			  if (unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
-					properties|=TargetProperties.DOTDPS;
-
-
-			  return properties;
-		 }
-
-		 internal static bool CheckClusterConditions(ClusterConditions CC)
-		 {
-			  return Bot.Combat.Clusters(CC).Count>0;
 		 }
 
 		 internal static void CreateUnitsInRangeConditions(ref Func<bool> FUnitRange, Ability ability)

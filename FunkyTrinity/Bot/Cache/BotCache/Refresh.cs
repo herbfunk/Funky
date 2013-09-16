@@ -9,6 +9,7 @@ using Zeta.CommonBot;
 using FunkyTrinity.Enums;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
+using FunkyTrinity.Avoidance;
 
 namespace FunkyTrinity
 {
@@ -398,10 +399,10 @@ namespace FunkyTrinity
 										  AvoidanceType AvoidanceType=AvoidanceType.None;
 										  if (tmp_CachedObj.IsAvoidance)
 										  {
-												AvoidanceType=CacheIDLookup.FindAvoidanceUsingSNOID(tmp_CachedObj.SNOID);
+												AvoidanceType=AvoidanceCache.FindAvoidanceUsingSNOID(tmp_CachedObj.SNOID);
 												if (AvoidanceType==AvoidanceType.None)
 												{
-													 AvoidanceType=CacheIDLookup.FindAvoidanceUsingName(tmp_CachedObj.InternalName);
+													 AvoidanceType=AvoidanceCache.FindAvoidanceUsingName(tmp_CachedObj.InternalName);
 													 if (AvoidanceType==AvoidanceType.None) continue;
 												}
 										  }
