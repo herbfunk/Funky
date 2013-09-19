@@ -1,40 +1,42 @@
 ﻿// herbfunk revisions
-v2.2.2.0
+v2.4.0.0
+Refactor:
+-Moved all subfolders out of Bot into Plugin Folder. 
+-Abilities of each class are now found under Player -> "Class" Folder -> Abilities
+-Moved Refresh Code from Bot Class and into Targeting Refresh.
+-Character subclasses Pets and Backpack now extracted into seperate files.
+-Avoidance related code now found in Avoidances Folder.
+-Enums that were unorgranized have all found a home in the proper locations.
+-Ability enums have been renamed for some clearification.
 
-Line of Sight:
--Line of Sight Checking has been changed. Ranged and Projectile abilities are now more aware..
-*Extracted properties and methods from CacheObject -- into new object LOSInfo.
-*Objects are still subjected to raycast testing -- removed additional tests from the valid testing.
-*Abilities that are ranged, and returned for single target condition, will be subjected to additional LOS testing.
 
-Abilities:
--Added IsProjectile Property, this is used strictly for abilities that travel.
--Added Default Ranged and Wand to Last Used Cache.
--Destructible Ability Selector will now test non-destructible abilities as well -- and will use it if no suitable destuctible ability can be found.
+Ability:
+-IsDestructible and IsSpecialMovement are now settable.
+-AbilityCriteria now holds all func criteria and methods to test.
+-AbilityLogicConditions is now a static class that initializes the criteria conditions.
+-The intialize of conditions occurs during the recreation of abilities within each player class file.
+-LastUsed is now a property that is set after using SuccessfullyUsed
+-AbilityUseTimer is now a method of ability -- orginally found in Player Class.
 
-Monk:
--Wave of Light should now be used as a buff when health is low.
-
-Demon Hunter:
--Fixed Impale not checking if castable.
--Rapid Fire is now channeled correctly.
--Evasive Fire: Reduced UnitRange Condition of  from 20 to 15.
--MultiShot: Reduced Range from 55 to 50.
--Rapid Fire: Added Clustering  and SingleTarget Conditions.
--Strafe: Changed condition to UnitsInRange -- removed SingleTarget condition.
-
-Wizard:
--Fixed Wizard Archon Canceling Feature.
--Reduced ShockPulse range for Living Lightning Rune to 26 -- was 35.
--Removed CheckPlayerIncapacitated from Diamond Skin PreCastCheck.
 
 Misc:
--Updated TrinityLoadOnce and TrinityLoadProfile. This should fix issue with recycling used profiles.
--Stuck handler will now use Navigator more often!
--Fixed Setting ItemRules Unid Rules not saving correctly.
--Town run checks on new games will now be checked immediately.
--Added new settings for level one characters to disable Grouping/Clustering/Fleeing by default.
--Fixed Avoidance Behavior Reuse Check, and increased the wait time after finding a spot.
+-Fixed Line of Sight issues with Raycasting by changing the method used.
+-Destructibles should now  be targeted after being stuck when its radius distance is less than 10f.
+-Out of combat behavior now allows doors and obstacle objects when using (TownPortal/UseObject/UseWaypoint/UsePortal) tags.
+-Treespore and Grotesque Avoidance lifespan has been increased. (so it wont be removed early!)
+-TrinityExploreDungeon resets skip ahead cache again.
+-Added Unified Trinity Profile Tag: TrinityUseTownPortal.
+-Gold/Globe avoidance tests no longer uses modified location if pickup radius is zero.
+
+
+v2.3.4.0
+-
+-Settings:
+-  Funky Settings now has option to load settings!
+-    ->This includes the entire settings and individual setting.
+-    ->Load buttons can be found at bottom of UI for valid settings.
+-    ->Load Menu is found at the top of the UI to load all settings.
+-    ->Note: Loading another settings will overwrite current.
 
 
 v2.3.0.0

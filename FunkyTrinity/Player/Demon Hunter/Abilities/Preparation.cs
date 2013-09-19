@@ -16,12 +16,12 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Buff;
+			ExecutionType = AbilityExecuteFlags.Buff;
 			WaitVars = new WaitLoops(1, 1, true);
 			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckRecastTimer |
-			                     AbilityConditions.CheckCanCast);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckRecastTimer |
+			                     AbilityPreCastFlags.CheckCanCast);
 			Cost=Bot.Class.RuneIndexCache[SNOPower.DemonHunter_Preparation]==0?25:0;
 			Fcriteria = new Func<bool>(() =>
 			{

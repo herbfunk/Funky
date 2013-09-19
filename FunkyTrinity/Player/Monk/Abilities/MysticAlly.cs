@@ -16,7 +16,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Buff;
+			ExecutionType = AbilityExecuteFlags.Buff;
 			WaitVars = new WaitLoops(2, 2, true);
 			Cost = 25;
 			UseageType=AbilityUseage.Anywhere;
@@ -24,7 +24,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			Priority = AbilityPriority.High;
 			IsSpecialAbility = true;
 			Counter = 1;
-			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckCanCast | AbilityConditions.CheckPetCount);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast | AbilityPreCastFlags.CheckPetCount);
 		}
 
 		#region IAbility

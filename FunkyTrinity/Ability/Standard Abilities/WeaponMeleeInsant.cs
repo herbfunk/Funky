@@ -21,10 +21,10 @@ namespace FunkyTrinity.Ability.Abilities
 		{
 			Range = 8;
 			Priority = AbilityPriority.None;
-			ExecutionType = AbilityUseType.Target;
+			ExecutionType = AbilityExecuteFlags.Target;
 		
 			WaitVars = new WaitLoops(0, 0, true);
-			PreCastConditions=AbilityConditions.None;
+			PreCastPreCastFlags=AbilityPreCastFlags.None;
 			UseageType=AbilityUseage.Combat;
 		}
 

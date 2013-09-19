@@ -16,7 +16,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Target;
+			ExecutionType = AbilityExecuteFlags.Target;
 			WaitVars = new WaitLoops(0, 0, true);
 			Cost = 16;
 			Range = 40;
@@ -24,8 +24,8 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckEnergy |
-			                     AbilityConditions.CheckRecastTimer);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy |
+			                     AbilityPreCastFlags.CheckRecastTimer);
 			Fcriteria = new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
 		}
 

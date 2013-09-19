@@ -17,13 +17,13 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Self;
+			ExecutionType = AbilityExecuteFlags.Self;
 			WaitVars = new WaitLoops(0, 0, true);
 			Cost = 30;
 			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckRecastTimer |
-			                     AbilityConditions.CheckPlayerIncapacitated);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckRecastTimer |
+			                     AbilityPreCastFlags.CheckPlayerIncapacitated);
 
 			Fcriteria = new Func<bool>(() =>
 			{

@@ -36,7 +36,7 @@ namespace FunkyTrinity.Ability
 				IsRanged=false;
 				IsProjectile=false;
 				UseageType=AbilityUseage.Anywhere;
-				ExecutionType=AbilityUseType.None;
+				ExecutionType=AbilityExecuteFlags.None;
 				IsSpecialAbility=false;
 				Range=0;
 				Priority=AbilityPriority.None;
@@ -62,7 +62,7 @@ namespace FunkyTrinity.Ability
 		  ///<summary>
 		  ///This is used to determine how the ability will be used
 		  ///</summary>
-		  public AbilityUseType ExecutionType { get; set; }
+		  public AbilityExecuteFlags ExecutionType { get; set; }
 
 		  private AbilityUseage useageType;
 		  public AbilityUseage UseageType
@@ -207,7 +207,7 @@ namespace FunkyTrinity.Ability
 
 		  public static void UsePower(ref ability ability)
 		  {
-				if (!ability.ExecutionType.HasFlag(AbilityUseType.RemoveBuff))
+				if (!ability.ExecutionType.HasFlag(AbilityExecuteFlags.RemoveBuff))
 				{
 					 ability.SuccessUsed=ZetaDia.Me.UsePower(ability.Power, ability.TargetPosition, ability.WorldID, ability.TargetRAGUID);
 				}
@@ -280,30 +280,30 @@ namespace FunkyTrinity.Ability
 			  if (ability.LastConditionPassed==ConditionCriteraTypes.Cluster)
 				{
 						 //Cluster Target -- Aims for Centeroid Unit
-						 if (ability.ExecutionType.HasFlag(AbilityUseType.ClusterTarget)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster ACDGUID
+						 if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTarget)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster ACDGUID
 						 {
 							  ability.TargetRAGUID=Bot.Combat.Clusters(ability.ClusterConditions)[0].GetNearestUnitToCenteroid().AcdGuid.Value;
 							  return;
 						 }
 						 //Cluster Location -- Aims for Center of Cluster
-						 if (ability.ExecutionType.HasFlag(AbilityUseType.ClusterLocation)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
+						 if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterLocation)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
 						 {
 							  ability.TargetPosition=(Vector3)Bot.Combat.Clusters(ability.ClusterConditions)[0].Midpoint;
 							  return;
 						 }
 						 //Cluster Target Nearest -- Gets nearest unit in cluster as target.
-						 if (ability.ExecutionType.HasFlag(AbilityUseType.ClusterTargetNearest)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
+						 if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTargetNearest)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
 						 {
 							  ability.TargetRAGUID=Bot.Combat.Clusters(ability.ClusterConditions)[0].ListUnits[0].AcdGuid.Value;
 							  return;
 						 }
 				}
 
-				if (ability.ExecutionType.HasFlag(AbilityUseType.Location)) //Current Target Position
+				if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.Location)) //Current Target Position
 					 ability.TargetPosition=Bot.Target.CurrentTarget.Position;
-				else if (ability.ExecutionType.HasFlag(AbilityUseType.Self)) //Current Bot Position
+				else if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.Self)) //Current Bot Position
 					 ability.TargetPosition=Bot.Character.Position;
-				else if (ability.ExecutionType.HasFlag(AbilityUseType.ZigZagPathing)) //Zig-Zag Pathing
+				else if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ZigZagPathing)) //Zig-Zag Pathing
 				{
 					 Bot.Combat.vPositionLastZigZagCheck=Bot.Character.Position;
 					 if (Bot.Class.ShouldGenerateNewZigZagPath())
@@ -311,7 +311,7 @@ namespace FunkyTrinity.Ability
 
 					 ability.TargetPosition=Bot.Combat.vSideToSideTarget;
 				}
-				else if (ability.ExecutionType.HasFlag(AbilityUseType.Target)) //Current Target ACDGUID
+				else if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.Target)) //Current Target ACDGUID
 					 ability.TargetRAGUID=Bot.Target.CurrentTarget.AcdGuid.Value;
 		  }
 

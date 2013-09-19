@@ -17,16 +17,16 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 		public override void Initialize()
 		{
 			ExecutionType = Bot.Class.RuneIndexCache[SNOPower.Monk_WaveOfLight] == 1
-				? AbilityUseType.Self
-				: AbilityUseType.ClusterLocation | AbilityUseType.Location;
+				? AbilityExecuteFlags.Self
+				: AbilityExecuteFlags.ClusterLocation | AbilityExecuteFlags.Location;
 			WaitVars = new WaitLoops(2, 2, true);
 			Cost=Bot.Class.RuneIndexCache[SNOPower.Monk_WaveOfLight]==3?40:75;
 			Range = 16;
 			Priority = AbilityPriority.Low;
 			UseageType=AbilityUseage.Combat;
 
-			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckCanCast |
-			                     AbilityConditions.CheckRecastTimer | AbilityConditions.CheckPlayerIncapacitated);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast |
+			                     AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckPlayerIncapacitated);
 			ClusterConditions = new ClusterConditions(6d, 35f, 3, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 20);
 

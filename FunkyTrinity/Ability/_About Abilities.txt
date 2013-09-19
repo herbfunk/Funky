@@ -7,6 +7,7 @@
 		Range - Maximum Range Allowed.
 		IsRanged - Ranged Abilities
 		IsBuff - Usable as a buff.
+		IsADestructiblePower
 		IsSpecialAbility - 
 		UseageType - When to use the ability (Combat or Anywhere)
 		Priority - The order in which abilities are checked.

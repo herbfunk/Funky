@@ -16,13 +16,13 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.ClusterLocation | AbilityUseType.ZigZagPathing;
+			ExecutionType = AbilityExecuteFlags.ClusterLocation | AbilityExecuteFlags.ZigZagPathing;
 			WaitVars = new WaitLoops(1, 1, true);
 			Range = 48;
 			UseageType=AbilityUseage.Anywhere;
 			//IsNavigationSpecial = true;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckCanCast);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckCanCast);
 
 			ClusterConditions = new ClusterConditions(5d, 48f, 2, false, minDistance: 15f);
 

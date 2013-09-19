@@ -23,14 +23,14 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.ZigZagPathing;
+			ExecutionType = AbilityExecuteFlags.ZigZagPathing;
 			WaitVars = new WaitLoops(0, 0, true);
 			Cost = 10;
 			Range = 15;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
 
-			PreCastConditions=(AbilityConditions.CheckEnergy|AbilityConditions.CheckPlayerIncapacitated);
+			PreCastPreCastFlags=(AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckPlayerIncapacitated);
 			ClusterConditions = new ClusterConditions(10d, 30f, 2, true);
 
 			Fcriteria = new Func<bool>(() =>

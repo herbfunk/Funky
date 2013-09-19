@@ -17,7 +17,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Location;
+			ExecutionType = AbilityExecuteFlags.Location;
 			WaitVars = new WaitLoops(1, 2, true);
 			Cost = 8;
 			SecondaryEnergy = true;
@@ -25,8 +25,8 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
 
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckCanCast |
-			                     AbilityConditions.CheckEnergy | AbilityConditions.CheckRecastTimer);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckCanCast |
+			                     AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckRecastTimer);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None, 10);
 			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 1);
 		}

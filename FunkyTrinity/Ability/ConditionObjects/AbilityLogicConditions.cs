@@ -32,27 +32,27 @@ namespace FunkyTrinity.Ability
 
 		private static void CreatePreCastConditions(ref Func<bool> Fprecast, ability ability)
 		 {
-				AbilityConditions precastconditions_=ability.PreCastConditions;
-				if (precastconditions_.Equals(AbilityConditions.None))
+				AbilityPreCastFlags precastconditions_=ability.PreCastPreCastFlags;
+				if (precastconditions_.Equals(AbilityPreCastFlags.None))
 					 return;
 				else
 				{
-					 if (precastconditions_.HasFlag(AbilityConditions.CheckPlayerIncapacitated))
+					 if (precastconditions_.HasFlag(AbilityPreCastFlags.CheckPlayerIncapacitated))
 						  Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsIncapacitated; }));
 
-					 if (precastconditions_.HasFlag(AbilityConditions.CheckPlayerRooted))
+					 if (precastconditions_.HasFlag(AbilityPreCastFlags.CheckPlayerRooted))
 						  Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsRooted; }));
 
-					 if (precastconditions_.HasFlag(AbilityConditions.CheckExisitingBuff))
+					 if (precastconditions_.HasFlag(AbilityPreCastFlags.CheckExisitingBuff))
 						  Fprecast+=(new Func<bool>(() => { return !Bot.Class.HasBuff(ability.Power); }));
 
-					 if (precastconditions_.HasFlag(AbilityConditions.CheckPetCount))
+					 if (precastconditions_.HasFlag(AbilityPreCastFlags.CheckPetCount))
 						  Fprecast+=(new Func<bool>(() => { return Bot.Class.MainPetCount<ability.Counter; }));
 
-					 if (precastconditions_.HasFlag(AbilityConditions.CheckRecastTimer))
+					 if (precastconditions_.HasFlag(AbilityPreCastFlags.CheckRecastTimer))
 						  Fprecast+=(new Func<bool>(() => { return ability.LastUsedMilliseconds>ability.Cooldown; }));
 
-					 if (precastconditions_.HasFlag(AbilityConditions.CheckCanCast))
+					 if (precastconditions_.HasFlag(AbilityPreCastFlags.CheckCanCast))
 					 {
 						  Fprecast+=(new Func<bool>(() =>
 						  {
@@ -74,7 +74,7 @@ namespace FunkyTrinity.Ability
 						  }));
 					 }
 
-					 if (precastconditions_.HasFlag(AbilityConditions.CheckEnergy))
+					 if (precastconditions_.HasFlag(AbilityPreCastFlags.CheckEnergy))
 					 {
 						  if (!ability.SecondaryEnergy)
 								Fprecast+=(new Func<bool>(() =>
@@ -114,7 +114,7 @@ namespace FunkyTrinity.Ability
 				if (ability.TargetUnitConditionFlags==null)
 				{
 					 //No Default Conditions Set.. however if ability uses target as a execution type then we implement the LOS conditions.
-					 if (ability.ExecutionType.HasFlag(AbilityUseType.Target|AbilityUseType.ClusterTarget|AbilityUseType.ClusterTargetNearest))
+					 if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.Target|AbilityExecuteFlags.ClusterTarget|AbilityExecuteFlags.ClusterTargetNearest))
 						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return true; });
 					 else
 						  return;

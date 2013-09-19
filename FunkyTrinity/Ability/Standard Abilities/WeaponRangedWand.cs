@@ -23,9 +23,9 @@ namespace FunkyTrinity.Ability.Abilities
 			IsRanged=true;
 			IsProjectile=true;
 			Priority = AbilityPriority.None;
-			ExecutionType = AbilityUseType.Target;
+			ExecutionType = AbilityExecuteFlags.Target;
 			WaitVars = new WaitLoops(0, 0, true);
-			PreCastConditions=AbilityConditions.None;
+			PreCastPreCastFlags=AbilityPreCastFlags.None;
 			UseageType=AbilityUseage.Combat;
 		}
 

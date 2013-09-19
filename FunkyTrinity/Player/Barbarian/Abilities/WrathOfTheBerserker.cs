@@ -21,14 +21,14 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Buff;
+			ExecutionType = AbilityExecuteFlags.Buff;
 			WaitVars = new WaitLoops(4, 4, true);
 			Cost = 50;
 			UseageType=AbilityUseage.Anywhere;
 			IsSpecialAbility = Bot.SettingsFunky.Class.bWaitForWrath;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckExisitingBuff |
-			                     AbilityConditions.CheckCanCast);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckExisitingBuff |
+			                     AbilityPreCastFlags.CheckCanCast);
 			Fcriteria = new Func<bool>(() =>
 			{
 				return Bot.Combat.bAnyChampionsPresent

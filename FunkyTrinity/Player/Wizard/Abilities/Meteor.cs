@@ -16,15 +16,15 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.ClusterTarget | AbilityUseType.Target;
+			ExecutionType = AbilityExecuteFlags.ClusterTarget | AbilityExecuteFlags.Target;
 			WaitVars = new WaitLoops(1, 2, true);
 			Cost = 50;
 			Range = 50;
 			IsRanged = true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckEnergy |
-			                     AbilityConditions.CheckRecastTimer);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy |
+			                     AbilityPreCastFlags.CheckRecastTimer);
 			ClusterConditions = new ClusterConditions(4d, 50f, 2, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial,
 				falseConditionalFlags: TargetProperties.Fast);

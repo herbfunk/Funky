@@ -19,15 +19,15 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Target;
+			ExecutionType = AbilityExecuteFlags.Target;
 			WaitVars = new WaitLoops(2, 2, true);
 			Range = 35;
 			IsRanged = true;
 			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (AbilityConditions.CheckRecastTimer | AbilityConditions.CheckCanCast |
-			                     AbilityConditions.CheckPlayerIncapacitated);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckCanCast |
+			                     AbilityPreCastFlags.CheckPlayerIncapacitated);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.Ranged, 25, 0.50d);
 								
 								//TestCustomCombatConditionAlways=true,

@@ -16,7 +16,7 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.ClusterLocation | AbilityUseType.Target;
+			ExecutionType = AbilityExecuteFlags.ClusterLocation | AbilityExecuteFlags.Target;
 
 			WaitVars = new WaitLoops(1, 1, true);
 			Range = Bot.Class.RuneIndexCache[Power] == 0 ? 0 : Bot.Class.RuneIndexCache[Power] == 4 ? 14 : 25;
@@ -24,7 +24,7 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			IsProjectile=true;
 			UseageType = AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial);
 			ClusterConditions = new ClusterConditions(5d, Bot.Class.RuneIndexCache[Power] == 4 ? 12f : 20f, 1, true);
 

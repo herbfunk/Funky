@@ -16,7 +16,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.ClusterTarget | AbilityUseType.Target;
+			ExecutionType = AbilityExecuteFlags.ClusterTarget | AbilityExecuteFlags.Target;
 			WaitVars = new WaitLoops(1, 1, true);
 			Cost = 35;
 			Range=this.UsingCriticalMass()?20:40;
@@ -24,8 +24,8 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckRecastTimer |
-			                     AbilityConditions.CheckEnergy);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckRecastTimer |
+			                     AbilityPreCastFlags.CheckEnergy);
 			ClusterConditions=new ClusterConditions(4d, this.UsingCriticalMass()?20:40, 3, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 25, 0.5d, TargetProperties.Fast);
 			Fcriteria = new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });

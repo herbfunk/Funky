@@ -515,7 +515,7 @@ namespace FunkyTrinity.XMLTags
 						  new Sequence(
 								new Action(ret => Logging.WriteDiagnostic("Visited all nodes but objective not complete, forcing grid reset!")),
 								new Action(ret => timesForcedReset++),
-								//new Action(ret => Trinity.hashSkipAheadAreaCache.Clear()),
+								new Action(ret => Movement.SkipAheadCache.ClearCache()),
 								new Action(ret => MiniMapMarker.KnownMarkers.Clear()),
 								new Action(ret => ForceUpdateScenes()),
 								new Action(ret => GridSegmentation.Reset()),
@@ -1145,7 +1145,7 @@ namespace FunkyTrinity.XMLTags
 				if (TimeoutValue==0)
 					 TimeoutValue=900;
 
-				//Trinity.hashSkipAheadAreaCache.Clear();
+				Movement.SkipAheadCache.ClearCache();
 				PriorityScenesInvestigated.Clear();
 				MiniMapMarker.KnownMarkers.Clear();
 				if (PriorityScenes==null)

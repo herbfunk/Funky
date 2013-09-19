@@ -20,13 +20,13 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Buff;
+			ExecutionType = AbilityExecuteFlags.Buff;
 			WaitVars = new WaitLoops(0, 0, true);
 			Cost = 0;
 			UseageType=AbilityUseage.Anywhere;
 			IsSpecialAbility = true;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (AbilityConditions.CheckRecastTimer | AbilityConditions.CheckCanCast);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckCanCast);
 
 			Fcriteria = new Func<bool>(() => { return Bot.Character.dCurrentHealthPct <= 0.45; });
 		}

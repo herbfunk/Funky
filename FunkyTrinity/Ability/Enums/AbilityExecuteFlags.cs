@@ -6,7 +6,7 @@ namespace FunkyTrinity.Ability
 	 ///Describes how to use the ability (SNOPower)
 	 ///</summary>
 	 [Flags]
-	 public enum AbilityUseType
+	 public enum AbilityExecuteFlags
 	 {
 			None=0,
 			Buff=1,

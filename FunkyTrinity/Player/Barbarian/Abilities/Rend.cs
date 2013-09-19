@@ -21,13 +21,13 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Self;
+			ExecutionType = AbilityExecuteFlags.Self;
 			WaitVars = new WaitLoops(3, 3, true);
 			Cost = 20;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions=(AbilityConditions.CheckRecastTimer|AbilityConditions.CheckEnergy|
-													 AbilityConditions.CheckCanCast|AbilityConditions.CheckPlayerIncapacitated);
+			PreCastPreCastFlags=(AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy|
+													 AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated);
 
 			ClusterConditions = new ClusterConditions(5d, 8, 2, true, 0.90d);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None, 10,

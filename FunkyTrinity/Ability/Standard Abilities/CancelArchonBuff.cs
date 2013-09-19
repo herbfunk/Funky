@@ -32,12 +32,12 @@ namespace FunkyTrinity.Ability.Abilities
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.RemoveBuff;
+			ExecutionType = AbilityExecuteFlags.RemoveBuff;
 			WaitVars = new WaitLoops(3, 3, true);
 			IsBuff=true;
 			Priority=AbilityPriority.High;
 			UseageType=AbilityUseage.OutOfCombat;
-			PreCastConditions=AbilityConditions.None;
+			PreCastPreCastFlags=AbilityPreCastFlags.None;
 
 			Fbuff=new Func<bool>(() =>
 			{

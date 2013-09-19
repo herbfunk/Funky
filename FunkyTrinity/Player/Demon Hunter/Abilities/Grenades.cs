@@ -16,7 +16,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.ClusterTarget | AbilityUseType.Target;
+			ExecutionType = AbilityExecuteFlags.ClusterTarget | AbilityExecuteFlags.Target;
 			ClusterConditions = new ClusterConditions(6d, 40f, 1, true);
 			WaitVars = new WaitLoops(0, 1, true);
 			Cost = 0;
@@ -25,7 +25,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.None;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
 		}
 
 		#region IAbility

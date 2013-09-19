@@ -177,7 +177,7 @@ namespace FunkyTrinity.Ability
 			///<summary>
 			///Describes the pre casting conditions - when set it will create the precast method used.
 			///</summary>
-			public AbilityConditions PreCastConditions
+			public AbilityPreCastFlags PreCastPreCastFlags
 			{
 				 get
 				 {
@@ -189,7 +189,7 @@ namespace FunkyTrinity.Ability
 
 				 }
 			}
-			private AbilityConditions precastconditions_=AbilityConditions.None;
+			private AbilityPreCastFlags precastconditions_=AbilityPreCastFlags.None;
 
 			///<summary>
 			///Describes values for clustering used for target (Cdistance, DistanceFromBot, MinUnits, IgnoreNonTargetable)

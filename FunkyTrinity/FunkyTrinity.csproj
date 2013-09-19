@@ -473,13 +473,13 @@
     <Compile Include="Ability\ConditionObjects\ClusterConditions.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Ability\Enums\AbilityConditions.cs">
+    <Compile Include="Ability\Enums\AbilityPreCastFlags.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Ability\Enums\AbilityPriority.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Ability\Enums\AbilityUseType.cs">
+    <Compile Include="Ability\Enums\AbilityExecuteFlags.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Ability\Enums\ConditionCriteraTypes.cs">

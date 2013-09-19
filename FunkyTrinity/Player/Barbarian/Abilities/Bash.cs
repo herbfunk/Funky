@@ -21,14 +21,14 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 
 		  public override void Initialize()
 		  {
-			  ExecutionType = AbilityUseType.Target;
+			  ExecutionType = AbilityExecuteFlags.Target;
 			  WaitVars = new WaitLoops(0, 1, true);
 			  Cost = 0;
 			  Range = 10;
 				UseageType=AbilityUseage.Combat;
 			  Priority = AbilityPriority.None;
-			  PreCastConditions = (AbilityConditions.CheckRecastTimer | AbilityConditions.CheckCanCast |
-			                       AbilityConditions.CheckPlayerIncapacitated);
+			  PreCastPreCastFlags = (AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckCanCast |
+			                       AbilityPreCastFlags.CheckPlayerIncapacitated);
 
 		  }
 

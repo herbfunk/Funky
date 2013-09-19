@@ -17,7 +17,7 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 
 			public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.ClusterTargetNearest | AbilityUseType.Target;
+			ExecutionType = AbilityExecuteFlags.ClusterTargetNearest | AbilityExecuteFlags.Target;
 			ClusterConditions = new ClusterConditions(5d, 20f, 1, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None, 25,
 				falseConditionalFlags: TargetProperties.DOTDPS);
@@ -26,8 +26,8 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			Range = 21;
 			UseageType= AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckCanCast |
-				                     AbilityConditions.CheckEnergy);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckCanCast |
+				                     AbilityPreCastFlags.CheckEnergy);
 
 			Fprecast=new Func<bool>(() => { return !Bot.Class.HasDebuff(SNOPower.Succubus_BloodStar); });
 

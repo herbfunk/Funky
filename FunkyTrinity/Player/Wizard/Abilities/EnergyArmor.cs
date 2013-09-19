@@ -16,15 +16,15 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 
 		public override void Initialize()
 		{
-			 ExecutionType=AbilityUseType.Buff;
+			 ExecutionType=AbilityExecuteFlags.Buff;
 			 WaitVars=new WaitLoops(1, 2, true);
 			 Cost=25;
 			 Counter=1;
 			 UseageType=AbilityUseage.Anywhere;
 			 IsBuff=true;
 			 Priority=AbilityPriority.High;
-			 PreCastConditions=(AbilityConditions.CheckPlayerIncapacitated|AbilityConditions.CheckEnergy|
-														AbilityConditions.CheckExisitingBuff);
+			 PreCastPreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
+														AbilityPreCastFlags.CheckExisitingBuff);
 		}
 
 		#region IAbility

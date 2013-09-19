@@ -32,7 +32,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Target|AbilityUseType.ClusterTargetNearest;
+			ExecutionType = AbilityExecuteFlags.Target|AbilityExecuteFlags.ClusterTargetNearest;
 			WaitVars = new WaitLoops(0, 1, true);
 			Cost=this.RuneIndex==3?10:20;
 			Range = 50;
@@ -40,7 +40,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
 
 			TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 45);
 			ClusterConditions=new ClusterConditions(10d, 45f, 2, true);

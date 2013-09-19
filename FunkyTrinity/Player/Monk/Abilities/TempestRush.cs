@@ -25,12 +25,12 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.ZigZagPathing;
+			ExecutionType = AbilityExecuteFlags.ZigZagPathing;
 			WaitVars = new WaitLoops(0, 0, true);
 			Cost = 15;
 			Range = 23;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
 			UseageType=AbilityUseage.Anywhere;
 
 			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 2);

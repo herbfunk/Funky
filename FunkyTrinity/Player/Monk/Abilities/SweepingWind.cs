@@ -16,14 +16,14 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Buff;
+			ExecutionType = AbilityExecuteFlags.Buff;
 			WaitVars = new WaitLoops(0, 1, true);
 			Cost = Bot.SettingsFunky.Class.bMonkInnaSet ? 5 : 75;
 			Priority = AbilityPriority.High;
 			UseageType=AbilityUseage.Combat;
 			IsSpecialAbility = true;
 
-			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckExisitingBuff);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckExisitingBuff);
 
 			ClusterConditions = new ClusterConditions(7d, 35f, 2, false);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 25);

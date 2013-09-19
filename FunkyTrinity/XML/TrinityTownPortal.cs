@@ -13,7 +13,7 @@ namespace FunkyTrinity.XMLTags
 	 [XmlElement("TrinityTownPortal")]
 	 public class TrinityTownPortal : ProfileBehavior
 	 {
-		  public static int DefaultWaitTime=-1;
+		  public static int DefaultWaitTime=2000;
 
 		  [XmlAttribute("waitTime")]
 		  [XmlAttribute("wait")]
@@ -49,15 +49,11 @@ namespace FunkyTrinity.XMLTags
 				AreaClearTimer.Start();
 				//DefaultWaitTime=V.I("XmlTag.TrinityTownPortal.DefaultWaitTime");
 				//int forceWaitTime=V.I("XmlTag.TrinityTownPortal.ForceWaitTime");
-				//if (WaitTime<=0&&forceWaitTime==-1)
-				//{
-				//	 WaitTime=DefaultWaitTime;
-				//}
-				//else
-				//{
-				//	 WaitTime=forceWaitTime;
-				//}
-				_StartHealth=ZetaDia.Me.HitpointsCurrent;
+				if (WaitTime<=0)
+				{
+					 WaitTime=DefaultWaitTime;
+				}
+				_StartHealth=Bot.Character.dCurrentHealthPct;
 		  }
 
 		  protected override Composite CreateBehavior()
@@ -67,7 +63,7 @@ namespace FunkyTrinity.XMLTags
 					 new Decorator(ret => ZetaDia.IsLoadingWorld,
 						  new Action()
 					 ),
-					 new Decorator(ret => ZetaDia.Me.IsInTown&&ZetaDia.CurrentLevelAreaId!=55313,
+					 new Decorator(ret => Bot.Character.bIsInTown&&ZetaDia.CurrentLevelAreaId!=55313,
 						  new Action(ret =>
 						  {
 								ForceClearArea=false;
@@ -76,7 +72,7 @@ namespace FunkyTrinity.XMLTags
 								//Logger.Log("[TrinityTownPortal] In Town");
 						  })
 					 ),
-					 new Decorator(ret => !ZetaDia.Me.IsInTown&&!ZetaDia.Me.CanUseTownPortal(),
+					 new Decorator(ret => !Bot.Character.bIsInTown&&!Funky.CanCastTP(),
 						  new Action(ret =>
 						  {
 								ForceClearArea=false;
@@ -85,10 +81,10 @@ namespace FunkyTrinity.XMLTags
 								//Logger.Log("[TrinityTownPortal] Unable to use TownPortal!");
 						  })
 					 ),
-					 new Decorator(ret => ZetaDia.Me.HitpointsCurrent<_StartHealth,
+					 new Decorator(ret => Bot.Character.dCurrentHealthPct<_StartHealth,
 						  new Action(ret =>
 						  {
-								_StartHealth=ZetaDia.Me.HitpointsCurrent;
+								_StartHealth=Bot.Character.dCurrentHealthPct;
 								AreaClearTimer.Restart();
 								ForceClearArea=true;
 						  })
@@ -110,7 +106,7 @@ namespace FunkyTrinity.XMLTags
 					 ),
 					 new Decorator(ret => !ForceClearArea,
 						  new PrioritySelector(
-								new Decorator(ret => ZetaDia.Me.Movement.IsMoving,
+								new Decorator(ret => Bot.NavigationCache.IsMoving,
 									 new Sequence(
 										  Zeta.CommonBot.CommonBehaviors.MoveStop(),
 										  new Sleep(1000)
@@ -118,7 +114,7 @@ namespace FunkyTrinity.XMLTags
 								),
 								new Sequence(
 					 // Already casting, just wait
-									 new DecoratorContinue(ret => ZetaDia.Me.LoopingAnimationEndTime>0,
+									 new DecoratorContinue(ret => Funky.CastingRecall(),
 										  new Action()
 									 ),
 									 new Action(ret =>

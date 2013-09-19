@@ -234,7 +234,7 @@ namespace FunkyTrinity
 									 return returnAbility;
 								}
 						  }
-						  else if (item.ExecutionType.HasFlag(AbilityUseType.Target)||item.ExecutionType.HasFlag(AbilityUseType.Location))
+						  else if (item.ExecutionType.HasFlag(AbilityExecuteFlags.Target)||item.ExecutionType.HasFlag(AbilityExecuteFlags.Location))
 						  {
 
 								//Check LOS -- Projectiles

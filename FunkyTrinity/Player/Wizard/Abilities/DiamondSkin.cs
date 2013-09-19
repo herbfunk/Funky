@@ -17,15 +17,15 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityUseType.Buff;
+			ExecutionType = AbilityExecuteFlags.Buff;
 			WaitVars = new WaitLoops(0, 1, true);
 			Cost = 10;
 			Counter = 1;
 			Range = 0;
 			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (AbilityConditions.CheckCanCast |
-			                     AbilityConditions.CheckExisitingBuff);
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckCanCast |
+			                     AbilityPreCastFlags.CheckExisitingBuff);
 
 			Fcriteria = new Func<bool>(() =>
 			{
