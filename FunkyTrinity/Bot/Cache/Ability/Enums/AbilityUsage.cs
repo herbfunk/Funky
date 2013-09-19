@@ -3,7 +3,7 @@
 namespace FunkyTrinity.ability
 {
 	 [Flags]
-	 public enum AbilityUseFlags
+	 public enum AbilityUseage
 	 {
 			Anywhere=1,
 			OutOfCombat=2,

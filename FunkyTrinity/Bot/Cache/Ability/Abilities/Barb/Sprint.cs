@@ -21,14 +21,13 @@ namespace FunkyTrinity.ability.Abilities.Barb
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Buff;
+			ExecutionType = AbilityUseType.Buff;
 			WaitVars = new WaitLoops(1, 1, true);
 			Cost = 20;
-			IsASpecialMovementPower=true;
-			UseFlagsType=AbilityUseFlags.Anywhere;
+			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (CastingConditionTypes.CheckEnergy | CastingConditionTypes.CheckCanCast |
-			                     CastingConditionTypes.CheckPlayerIncapacitated);
+			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckCanCast |
+			                     AbilityConditions.CheckPlayerIncapacitated);
 
 			IsBuff=true;
 			Fbuff=new Func<bool>(() =>
@@ -42,7 +41,7 @@ namespace FunkyTrinity.ability.Abilities.Barb
 				       (((Bot.SettingsFunky.Class.bFuryDumpWrath && Bot.Character.dCurrentEnergyPct >= 0.95 &&
 									Bot.Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
 				         (Bot.SettingsFunky.Class.bFuryDumpAlways && Bot.Character.dCurrentEnergyPct >= 0.95) ||
-								 ((this.AbilityUseTimer()&&!Bot.Class.HasBuff(SNOPower.Barbarian_Sprint))&&
+								 ((Bot.Class.AbilityUseTimer(SNOPower.Barbarian_Sprint)&&!Bot.Class.HasBuff(SNOPower.Barbarian_Sprint))&&
 				          // Always keep up if we are whirlwinding, or if the target is a goblin
 				          (Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind) ||
 				           Bot.Target.CurrentTarget.IsTreasureGoblin))) &&
@@ -50,7 +49,10 @@ namespace FunkyTrinity.ability.Abilities.Barb
 								 (Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage)&&Bot.Class.HasBuff(SNOPower.Barbarian_BattleRage))));
 			});
 		}
-
+		public override void InitCriteria()
+		{
+			 base.AbilityTestConditions=new AbilityUsablityTests(this);
+		}
 		#region IAbility
 		public override int GetHashCode()
 		{

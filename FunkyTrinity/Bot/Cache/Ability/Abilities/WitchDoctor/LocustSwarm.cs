@@ -16,20 +16,25 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.ClusterLocation | PowerExecutionTypes.Location;
+			ExecutionType = AbilityUseType.ClusterLocation | AbilityUseType.Location;
 			ClusterConditions = new ClusterConditions(5d, 20f, 1, true, 0.25d);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None, 21, 0.5d, TargetProperties.DOTDPS);
 			WaitVars = new WaitLoops(1, 1, true);
 			Cost = 196;
 			Range = 21;
-			UseFlagsType=AbilityUseFlags.Combat;
+			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated | CastingConditionTypes.CheckCanCast |
-			                     CastingConditionTypes.CheckEnergy | CastingConditionTypes.CheckRecastTimer);
+			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckCanCast |
+			                     AbilityConditions.CheckEnergy | AbilityConditions.CheckRecastTimer);
 
 			Fprecast=new Func<bool>(() => { return !Bot.Class.HasDebuff(SNOPower.Succubus_BloodStar); });
 
 			 IsSpecialAbility = true;
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

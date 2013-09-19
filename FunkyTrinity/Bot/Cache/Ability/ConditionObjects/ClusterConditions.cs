@@ -49,7 +49,7 @@ namespace FunkyTrinity.ability
 				 }
 			}
 
-			public override string ToString()
+			public string ToString()
 			{
 				 return string.Format("ClusterDistance {0} -- MaximumDistance {1} -- MinimumUnits {2} -- IgnoreNonTargetable {3} -- DotDPSRatio {4}",
 												ClusterDistance.ToString(), MaximumDistance.ToString(), MinimumUnits.ToString(), IgnoreNonTargetable.ToString(), DOTDPSRatio.ToString());

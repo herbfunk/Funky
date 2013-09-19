@@ -7,7 +7,6 @@ using Zeta.Common;
 using Zeta.Internals.Actors.Gizmos;
 using FunkyTrinity.Enums;
 using FunkyTrinity.Cache;
-using FunkyTrinity.Avoidance;
 
 namespace FunkyTrinity.Cache
 {
@@ -557,7 +556,7 @@ namespace FunkyTrinity.Cache
 										  else
 												this.Obstacletype=ObstacleType.StaticAvoidance;
 
-											AvoidanceType AT=AvoidanceCache.FindAvoidanceUsingSNOID(this.SNOID);
+											AvoidanceType AT=CacheIDLookup.FindAvoidanceUsingSNOID(this.SNOID);
 
 										  //Check if avoidance is enabled or if the avoidance type is set to 0
 										  if (!Bot.SettingsFunky.Avoidance.AttemptAvoidanceMovements||AT!=AvoidanceType.None&&Bot.IgnoringAvoidanceType(AT))
@@ -658,7 +657,7 @@ namespace FunkyTrinity.Cache
 										  }
 										  else if (TestString.StartsWith("monsteraffix_"))
 										  {
-												 AvoidanceType T=AvoidanceCache.FindAvoidanceUsingName(TestString);
+												 AvoidanceType T=CacheIDLookup.FindAvoidanceUsingName(TestString);
 												if (T==AvoidanceType.Wall)
 												{
 													 Bot.Combat.bCheckGround=true;

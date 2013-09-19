@@ -21,19 +21,22 @@ namespace FunkyTrinity.ability.Abilities.Barb
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.ClusterTarget | PowerExecutionTypes.Target;
+			ExecutionType = AbilityUseType.ClusterTarget | AbilityUseType.Target;
 			WaitVars = new WaitLoops(1, 2, true);
 			Cost = 20;
 			Range=Bot.Class.RuneIndexCache[Power]==0?13:Bot.Class.RuneIndexCache[Power]==1?20:16;
-			UseFlagsType=AbilityUseFlags.Combat;
+			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (CastingConditionTypes.CheckRecastTimer | CastingConditionTypes.CheckEnergy |
-			                     CastingConditionTypes.CheckCanCast | CastingConditionTypes.CheckPlayerIncapacitated);
+			PreCastConditions = (AbilityConditions.CheckRecastTimer | AbilityConditions.CheckEnergy |
+			                     AbilityConditions.CheckCanCast | AbilityConditions.CheckPlayerIncapacitated);
 			ClusterConditions = new ClusterConditions(6d, 20f, 2, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 20);
 			Fcriteria=new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
 		}
-
+		public override void InitCriteria()
+		{
+			 base.AbilityTestConditions=new AbilityUsablityTests(this);
+		}
 		#region IAbility
 		public override int GetHashCode()
 		{

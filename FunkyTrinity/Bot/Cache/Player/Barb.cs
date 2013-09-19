@@ -11,11 +11,54 @@ using FunkyTrinity.ability;
 using FunkyTrinity.Cache;
 using FunkyTrinity.ability.Abilities;
 
-namespace FunkyTrinity.PlayerClass
+namespace FunkyTrinity
 {
 
 		  internal class Barbarian : Player
 		  {
+				 enum BarbarianActiveSkills
+				 {
+						Barbarian_AncientSpear=69979,
+						Barbarian_Rend=70472,
+						Barbarian_Frenzy=78548,
+						Barbarian_Sprint=78551,
+						Barbarian_BattleRage=79076,
+						Barbarian_ThreateningShout=79077,
+						Barbarian_Bash=79242,
+						Barbarian_GroundStomp=79446,
+						Barbarian_IgnorePain=79528,
+						Barbarian_WrathOfTheBerserker=79607,
+						Barbarian_HammerOfTheAncients=80028,
+						Barbarian_CallOfTheAncients=80049,
+						Barbarian_Cleave=80263,
+						Barbarian_WarCry=81612,
+						Barbarian_SeismicSlam=86989,
+						Barbarian_Leap=93409,
+						Barbarian_WeaponThrow=93885,
+						Barbarian_Whirlwind=96296,
+						Barbarian_FuriousCharge=97435,
+						Barbarian_Earthquake=98878,
+						Barbarian_Revenge=109342,
+						Barbarian_Overpower=159169,
+				 }
+				 enum BarbarianPassiveSkills
+				 {
+						Barbarian_Passive_BoonOfBulKathos=204603,
+						Barbarian_Passive_NoEscape=204725,
+						Barbarian_Passive_Brawler=205133,
+						Barbarian_Passive_Ruthless=205175,
+						Barbarian_Passive_BerserkerRage=205187,
+						Barbarian_Passive_PoundOfFlesh=205205,
+						Barbarian_Passive_Bloodthirst=205217,
+						Barbarian_Passive_Animosity=205228,
+						Barbarian_Passive_Unforgiving=205300,
+						Barbarian_Passive_Relentless=205398,
+						Barbarian_Passive_Superstition=205491,
+						Barbarian_Passive_InspiringPresence=205546,
+						Barbarian_Passive_Juggernaut=205707,
+						Barbarian_Passive_ToughAsNails=205848,
+						Barbarian_Passive_WeaponsMaster=206147,
+				 }
 				//Base class for each individual class!
 				public Barbarian(ActorClass a)
 					 : base(a)
@@ -65,13 +108,10 @@ namespace FunkyTrinity.PlayerClass
 				{
 					 Abilities=new Dictionary<SNOPower, Ability>();
 
-
 					 //Create the abilities
 					 foreach (var item in HotbarPowers)
 					 {
-						  Ability newAbility=this.CreateAbility(item);
-						  newAbility.InitializeCriteria();
-						  Abilities.Add(item, newAbility);
+						  Abilities.Add(item, this.CreateAbility(item));
 					 }
 
 					 //No default rage generation ability.. then we add the Instant Melee Ability.
@@ -146,49 +186,6 @@ namespace FunkyTrinity.PlayerClass
 
 
 				}
-				enum BarbarianActiveSkills
-				{
-					 Barbarian_AncientSpear=69979,
-					 Barbarian_Rend=70472,
-					 Barbarian_Frenzy=78548,
-					 Barbarian_Sprint=78551,
-					 Barbarian_BattleRage=79076,
-					 Barbarian_ThreateningShout=79077,
-					 Barbarian_Bash=79242,
-					 Barbarian_GroundStomp=79446,
-					 Barbarian_IgnorePain=79528,
-					 Barbarian_WrathOfTheBerserker=79607,
-					 Barbarian_HammerOfTheAncients=80028,
-					 Barbarian_CallOfTheAncients=80049,
-					 Barbarian_Cleave=80263,
-					 Barbarian_WarCry=81612,
-					 Barbarian_SeismicSlam=86989,
-					 Barbarian_Leap=93409,
-					 Barbarian_WeaponThrow=93885,
-					 Barbarian_Whirlwind=96296,
-					 Barbarian_FuriousCharge=97435,
-					 Barbarian_Earthquake=98878,
-					 Barbarian_Revenge=109342,
-					 Barbarian_Overpower=159169,
-				}
-				enum BarbarianPassiveSkills
-				{
-					 Barbarian_Passive_BoonOfBulKathos=204603,
-					 Barbarian_Passive_NoEscape=204725,
-					 Barbarian_Passive_Brawler=205133,
-					 Barbarian_Passive_Ruthless=205175,
-					 Barbarian_Passive_BerserkerRage=205187,
-					 Barbarian_Passive_PoundOfFlesh=205205,
-					 Barbarian_Passive_Bloodthirst=205217,
-					 Barbarian_Passive_Animosity=205228,
-					 Barbarian_Passive_Unforgiving=205300,
-					 Barbarian_Passive_Relentless=205398,
-					 Barbarian_Passive_Superstition=205491,
-					 Barbarian_Passive_InspiringPresence=205546,
-					 Barbarian_Passive_Juggernaut=205707,
-					 Barbarian_Passive_ToughAsNails=205848,
-					 Barbarian_Passive_WeaponsMaster=206147,
-				}
 		  }
-		 
+	 
 }

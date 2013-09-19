@@ -141,7 +141,7 @@ namespace FunkyTrinity.Movement
 					 }
 
 					 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-						  Logger.Write(LogLevel.Movement, debugstring);
+						  Logging.WriteDiagnostic(debugstring);
 				}
 
 
@@ -207,8 +207,7 @@ namespace FunkyTrinity.Movement
 						  //var SectorOccupiedLists=(from sector in Quadrant.Values
 						  //                         select sector.OccupiedObjects);
 
-						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement)) 
-								Logger.Write( LogLevel.Movement,"Updated GPC with Avoids {0} / Mobs {1} Count and total weight {2}", this.AvoidanceCount, this.MonsterCount, this.Weight);
+						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement)) Logging.WriteDiagnostic("Updated GPC with Avoids {0} / Mobs {1} Count and total weight {2}", this.AvoidanceCount, this.MonsterCount, this.Weight);
 					 }
 				}
 

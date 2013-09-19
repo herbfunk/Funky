@@ -16,13 +16,17 @@ namespace FunkyTrinity.ability.Abilities.Monk
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Target;
+			ExecutionType = AbilityUseType.Target;
 			WaitVars = new WaitLoops(0, 1, false);
 			Priority = AbilityPriority.None;
-			IsADestructiblePower=true;
 			Range = 14;
-			UseFlagsType=AbilityUseFlags.Combat;
-			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated);
+			UseageType=AbilityUseage.Combat;
+			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

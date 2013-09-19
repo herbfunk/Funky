@@ -17,12 +17,12 @@ namespace FunkyTrinity.ability.Abilities.DemonHunter
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Buff;
+			ExecutionType = AbilityUseType.Buff;
 			WaitVars = new WaitLoops(0, 1, true);
 			Cost = 28;
 			SecondaryEnergy = true;
 			Range = 0;
-			UseFlagsType=AbilityUseFlags.Anywhere;
+			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
 								//PreCastConditions=,
 
@@ -35,6 +35,11 @@ namespace FunkyTrinity.ability.Abilities.DemonHunter
 				        Bot.Combat.iElitesWithinRange[(int) RangeIntervals.Range_20] >= 1 ||
 				        Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_15] >= 3 || Bot.Character.bIsIncapacitated);
 			});
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

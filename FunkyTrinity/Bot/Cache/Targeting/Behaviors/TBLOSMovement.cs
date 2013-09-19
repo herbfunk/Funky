@@ -30,10 +30,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 					  Return Any unit set?
 					 */
 
-					 if (Bot.NavigationCache.LOSmovementUnit!=null
-								&&(!Bot.NavigationCache.LOSmovementUnit.IsStillValid()
-								||!Bot.Combat.LoSMovementUnits.Contains(Bot.NavigationCache.LOSmovementUnit)
-								||Bot.NavigationCache.LOSmovementUnit.LineOfSight.LOSTest(Bot.Character.Position, true, Bot.Class.LOSconditions.RequiresServerObjectIntersection, Bot.Class.LOSconditions.NavCellFlags,false)))
+					 if (Bot.NavigationCache.LOSmovementUnit==null||!Bot.NavigationCache.LOSmovementUnit.IsStillValid()||!Bot.Combat.LoSMovementUnits.Contains(Bot.NavigationCache.LOSmovementUnit))
 						  Bot.NavigationCache.LOSmovementUnit=null;
 
 					 if (Bot.NavigationCache.LOSmovementUnit==null)

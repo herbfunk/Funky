@@ -16,13 +16,17 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Target;
+			ExecutionType = AbilityUseType.Target;
 			WaitVars = new WaitLoops(0, 1, true);
 			Range = 14;
-			UseFlagsType=AbilityUseFlags.Combat;
+			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.None;
-			IsADestructiblePower=true;
-			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated);
+			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

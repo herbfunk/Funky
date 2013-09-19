@@ -16,17 +16,21 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Target;
+			ExecutionType = AbilityUseType.Target;
 			WaitVars = new WaitLoops(0, 1, true);
 			Range = Bot.Class.RuneIndexCache[SNOPower.Wizard_ShockPulse] == 2 ? 40
 				:Bot.Class.RuneIndexCache[SNOPower.Wizard_ShockPulse]==1?26:15;
 
 			IsRanged = true;
 			IsProjectile=true;
-			UseFlagsType=AbilityUseFlags.Combat;
+			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.None;
-			IsADestructiblePower=true;
-			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated);
+			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

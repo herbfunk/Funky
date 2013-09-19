@@ -20,17 +20,20 @@ namespace FunkyTrinity.ability.Abilities.Barb
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Buff;
+			ExecutionType = AbilityUseType.Buff;
 			WaitVars = new WaitLoops(0, 0, true);
 			Cost = 0;
-			UseFlagsType=AbilityUseFlags.Anywhere;
+			UseageType=AbilityUseage.Anywhere;
 			IsSpecialAbility = true;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (CastingConditionTypes.CheckRecastTimer | CastingConditionTypes.CheckCanCast);
+			PreCastConditions = (AbilityConditions.CheckRecastTimer | AbilityConditions.CheckCanCast);
 
 			Fcriteria = new Func<bool>(() => { return Bot.Character.dCurrentHealthPct <= 0.45; });
 		}
-
+		public override void InitCriteria()
+		{
+			 base.AbilityTestConditions=new AbilityUsablityTests(this);
+		}
 		#region IAbility
 		public override int GetHashCode()
 		{

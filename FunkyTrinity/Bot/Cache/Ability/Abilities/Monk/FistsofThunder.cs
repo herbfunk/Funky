@@ -16,17 +16,21 @@ namespace FunkyTrinity.ability.Abilities.Monk
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.ClusterTargetNearest | PowerExecutionTypes.Target;
+			ExecutionType = AbilityUseType.ClusterTargetNearest | AbilityUseType.Target;
 			WaitVars = new WaitLoops(0, 1, false);
-			UseFlagsType=AbilityUseFlags.Combat;
+			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.None;
-			IsADestructiblePower=true;
 			Range = Bot.Class.RuneIndexCache[SNOPower.Monk_FistsofThunder] == 0 ? 25 : 12;
 
-			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated);
+			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
 			ClusterConditions = new ClusterConditions(5d, 20f, 1, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None);
 
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

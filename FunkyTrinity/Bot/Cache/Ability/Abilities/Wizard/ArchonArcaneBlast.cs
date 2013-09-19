@@ -17,12 +17,12 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Buff;
+			ExecutionType = AbilityUseType.Buff;
 			WaitVars = new WaitLoops(1, 1, true);
 			Range = 15;
-			UseFlagsType=AbilityUseFlags.Combat;
+			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated | CastingConditionTypes.CheckCanCast);
+			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckCanCast);
 
 			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 2);
 			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 1);
@@ -34,6 +34,11 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 //We only want to use this if there are nearby units!
 				return Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_12] > 0;
 			});
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

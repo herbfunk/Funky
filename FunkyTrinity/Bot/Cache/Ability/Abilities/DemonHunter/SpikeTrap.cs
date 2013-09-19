@@ -17,15 +17,15 @@ namespace FunkyTrinity.ability.Abilities.DemonHunter
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Location;
+			ExecutionType = AbilityUseType.Location;
 			WaitVars = new WaitLoops(1, 1, true);
 			Cost = 30;
 			Range = 40;
-			UseFlagsType=AbilityUseFlags.Anywhere;
+			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.Low;
 
-			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated | CastingConditionTypes.CheckRecastTimer |
-			                     CastingConditionTypes.CheckEnergy);
+			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckRecastTimer |
+			                     AbilityConditions.CheckEnergy);
 			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 4);
 			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_30, 1);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 35);
@@ -36,6 +36,11 @@ namespace FunkyTrinity.ability.Abilities.DemonHunter
 				return Bot.Combat.powerLastSnoPowerUsed != SNOPower.DemonHunter_SpikeTrap;
 
 			});
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

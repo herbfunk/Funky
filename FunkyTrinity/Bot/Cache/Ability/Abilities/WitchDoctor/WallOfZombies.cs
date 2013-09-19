@@ -17,14 +17,14 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Location;
+			ExecutionType = AbilityUseType.Location;
 			WaitVars = new WaitLoops(1, 1, true);
 			Cost = 103;
 			Range = 25;
-			UseFlagsType=AbilityUseFlags.Combat;
+			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated | CastingConditionTypes.CheckEnergy |
-			                     CastingConditionTypes.CheckCanCast);
+			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckEnergy |
+			                     AbilityConditions.CheckCanCast);
 			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 3);
 			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 25);
@@ -32,6 +32,11 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 			{
 				return !Bot.Class.bWaitingForSpecial;
 			});
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

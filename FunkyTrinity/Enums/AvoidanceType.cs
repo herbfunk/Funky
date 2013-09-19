@@ -1,5 +1,5 @@
 ﻿using System.Xml.Serialization;
-namespace FunkyTrinity.Avoidance
+namespace FunkyTrinity.Enums
 {
 
 	 public enum AvoidanceType

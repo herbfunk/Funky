@@ -11,11 +11,54 @@ using FunkyTrinity.ability;
 using FunkyTrinity.ability.Abilities;
 using FunkyTrinity.ability.Abilities.Monk;
 
-namespace FunkyTrinity.PlayerClass
+namespace FunkyTrinity
 {
 
 		  internal class Monk : Player
 		  {
+				 enum MonkActiveSkills
+				 {
+						Monk_BreathOfHeaven=69130,
+						Monk_MantraOfRetribution=69484,
+						Monk_MantraOfHealing=69490,
+						Monk_MantraOfConviction=95572,
+						Monk_FistsofThunder=95940,
+						Monk_DeadlyReach=96019,
+						Monk_WaveOfLight=96033,
+						Monk_SweepingWind=96090,
+						Monk_DashingStrike=96203,
+						Monk_Serenity=96215,
+						Monk_CripplingWave=96311,
+						Monk_SevenSidedStrike=96694,
+						Monk_WayOfTheHundredFists=97110,
+						Monk_InnerSanctuary=97222,
+						Monk_ExplodingPalm=97328,
+						Monk_LashingTailKick=111676,
+						Monk_TempestRush=121442,
+						Monk_MysticAlly=123208,
+						Monk_BlindingFlash=136954,
+						Monk_MantraOfEvasion=192405,
+						Monk_CycloneStrike=223473,
+				 }
+				 enum MonkPassiveSkills
+				 {
+						Monk_Passive_CombinationStrike=218415,
+						Monk_Passive_Resolve=211581,
+						Monk_Passive_TheGuardiansPath=209812,
+						Monk_Passive_Pacifism=209813,
+						Monk_Passive_SixthSense=209622,
+						Monk_Passive_SeizeTheInitiative=209628,
+						Monk_Passive_OneWithEverything=209656,
+						Monk_Passive_Transcendence=209250,
+						Monk_Passive_BeaconOfYtar=209104,
+						Monk_Passive_ExaltedSoul=209027,
+						Monk_Passive_FleetFooted=209029,
+						Monk_Passive_ChantOfResonance=156467,
+						Monk_Passive_NearDeathExperience=156484,
+						Monk_Passive_GuidingLight=156492,
+
+				 }
+
 				//Base class for each individual class!
 				public Monk(ActorClass a)
 					 : base(a)
@@ -88,9 +131,7 @@ namespace FunkyTrinity.PlayerClass
 					 //Create the abilities
 					 foreach (var item in HotbarPowers)
 					 {
-						  Ability newAbility=this.CreateAbility(item);
-						  newAbility.InitializeCriteria();
-						  Abilities.Add(item, newAbility);
+							Abilities.Add(item, this.CreateAbility(item));
 					 }
 
 					 //No default rage generation ability.. then we add the Instant Melee Ability.
@@ -171,50 +212,6 @@ namespace FunkyTrinity.PlayerClass
 						  return Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.Monk_Female_Hobble_Run|SNOAnim.Monk_Male_HTH_Hobble_Run);
 					 }
 				}
-
-				enum MonkActiveSkills
-				{
-					 Monk_BreathOfHeaven=69130,
-					 Monk_MantraOfRetribution=69484,
-					 Monk_MantraOfHealing=69490,
-					 Monk_MantraOfConviction=95572,
-					 Monk_FistsofThunder=95940,
-					 Monk_DeadlyReach=96019,
-					 Monk_WaveOfLight=96033,
-					 Monk_SweepingWind=96090,
-					 Monk_DashingStrike=96203,
-					 Monk_Serenity=96215,
-					 Monk_CripplingWave=96311,
-					 Monk_SevenSidedStrike=96694,
-					 Monk_WayOfTheHundredFists=97110,
-					 Monk_InnerSanctuary=97222,
-					 Monk_ExplodingPalm=97328,
-					 Monk_LashingTailKick=111676,
-					 Monk_TempestRush=121442,
-					 Monk_MysticAlly=123208,
-					 Monk_BlindingFlash=136954,
-					 Monk_MantraOfEvasion=192405,
-					 Monk_CycloneStrike=223473,
-				}
-				enum MonkPassiveSkills
-				{
-					 Monk_Passive_CombinationStrike=218415,
-					 Monk_Passive_Resolve=211581,
-					 Monk_Passive_TheGuardiansPath=209812,
-					 Monk_Passive_Pacifism=209813,
-					 Monk_Passive_SixthSense=209622,
-					 Monk_Passive_SeizeTheInitiative=209628,
-					 Monk_Passive_OneWithEverything=209656,
-					 Monk_Passive_Transcendence=209250,
-					 Monk_Passive_BeaconOfYtar=209104,
-					 Monk_Passive_ExaltedSoul=209027,
-					 Monk_Passive_FleetFooted=209029,
-					 Monk_Passive_ChantOfResonance=156467,
-					 Monk_Passive_NearDeathExperience=156484,
-					 Monk_Passive_GuidingLight=156492,
-
-				}
 		  }
-
-
+	 
 }

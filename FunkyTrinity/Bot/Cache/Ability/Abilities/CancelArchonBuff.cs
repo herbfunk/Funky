@@ -32,12 +32,12 @@ namespace FunkyTrinity.ability.Abilities
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.RemoveBuff;
+			ExecutionType = AbilityUseType.RemoveBuff;
 			WaitVars = new WaitLoops(3, 3, true);
 			IsBuff=true;
 			Priority=AbilityPriority.High;
-			UseFlagsType=AbilityUseFlags.OutOfCombat;
-			PreCastConditions=CastingConditionTypes.None;
+			UseageType=AbilityUseage.OutOfCombat;
+			PreCastConditions=AbilityConditions.None;
 
 			Fbuff=new Func<bool>(() =>
 			{
@@ -46,6 +46,11 @@ namespace FunkyTrinity.ability.Abilities
 
 		   //Important!! We have to override the default return of true.. we dont want this to fire as a combat ability.
 			Fcriteria=new Func<bool>(() => { return false; });
+		}
+
+		public override void InitCriteria()
+		{
+			 base.AbilityTestConditions=new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

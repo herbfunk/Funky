@@ -21,17 +21,19 @@ namespace FunkyTrinity.ability.Abilities.Barb
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Target;
+			ExecutionType = AbilityUseType.Target;
 			WaitVars = new WaitLoops(0, 0, true);
 			Cost = 0;
 			Range = 10;
-			IsADestructiblePower=true;
-			UseFlagsType=AbilityUseFlags.Combat;
+			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.None;
-			PreCastConditions = (CastingConditionTypes.CheckRecastTimer | CastingConditionTypes.CheckCanCast |
-			                     CastingConditionTypes.CheckPlayerIncapacitated);
+			PreCastConditions = (AbilityConditions.CheckRecastTimer | AbilityConditions.CheckCanCast |
+			                     AbilityConditions.CheckPlayerIncapacitated);
 		}
-
+		public override void InitCriteria()
+		{
+			 base.AbilityTestConditions=new AbilityUsablityTests(this);
+		}
 		#region IAbility
 		public override int GetHashCode()
 		{

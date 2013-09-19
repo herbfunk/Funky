@@ -16,18 +16,23 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Self;
+			ExecutionType = AbilityUseType.Self;
 			WaitVars = new WaitLoops(0, 0, true);
 			Cost = 37;
-			UseFlagsType=AbilityUseFlags.Anywhere;
+			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated | CastingConditionTypes.CheckCanCast |
-			                     CastingConditionTypes.CheckEnergy);
+			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckCanCast |
+			                     AbilityConditions.CheckEnergy);
 
 			Fcriteria = new Func<bool>(() =>
 			{
 				return Bot.Character.dCurrentHealthPct <= 0.60;
 			});
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

@@ -17,16 +17,15 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Location;
+			ExecutionType = AbilityUseType.Location;
 			WaitVars = new WaitLoops(0, 0, true);
 			Cost = 35;
 			Range=UsingCriticalMass()?9:28;
 			IsRanged = true;
-			UseFlagsType=AbilityUseFlags.Combat;
+			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			IsADestructiblePower=true;
-			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated | CastingConditionTypes.CheckEnergy |
-			                     CastingConditionTypes.CheckCanCast);
+			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckEnergy |
+			                     AbilityConditions.CheckCanCast);
 
 			Fcriteria = new Func<bool>(() =>
 			{
@@ -49,6 +48,10 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 		private bool UsingCriticalMass()
 		{
 			 return Bot.Class.PassivePowers.Contains(SNOPower.Wizard_Passive_CriticalMass); ;
+		}
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

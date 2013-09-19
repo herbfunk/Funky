@@ -17,13 +17,13 @@ namespace FunkyTrinity.ability.Abilities.Monk
 
 		public override void Initialize()
 		{
-			 ExecutionType=PowerExecutionTypes.Buff;
+			 ExecutionType=AbilityUseType.Buff;
 			 WaitVars=new WaitLoops(0, 1, true);
 			 Cost=50;
 			 IsBuff=true;
-			 UseFlagsType=AbilityUseFlags.Anywhere;
+			 UseageType=AbilityUseage.Anywhere;
 			 Priority=AbilityPriority.High;
-			 PreCastConditions=(CastingConditionTypes.CheckEnergy);
+			 PreCastConditions=(AbilityConditions.CheckEnergy);
 			 IsSpecialAbility=true;
 			 Fbuff=new Func<bool>(() =>
 			 {
@@ -47,6 +47,11 @@ namespace FunkyTrinity.ability.Abilities.Monk
 						(!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)||
 						 (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)&&(Bot.Class.HasBuff(SNOPower.Monk_BlindingFlash))));
 			 });
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

@@ -8,120 +8,72 @@ namespace FunkyTrinity.ability
 	 ///<summary>
 	 ///Creates Funcs from a created Ability and is to be used in testing of usability.
 	 ///</summary>
-	internal static class AbilityLogic
+	public class AbilityUsablityTests
 	{
-		 //Quick research showed Enum.HasFlag is slower compared to the below method.
-		 internal static bool CheckTargetPropertyFlag(TargetProperties property, TargetProperties flag)
+
+		public AbilityUsablityTests(Ability ability)
+		{
+			 this.LastConditionPassed=ConditionCriteraTypes.None;
+			 this.Fcriteria=ability.Fcriteria;
+			 this.Fprecast=ability.Fprecast;
+			this.CreatePreCastConditions(ref Fprecast, ability);
+			this.CreateTargetConditions(ref FSingleTargetUnitCriteria, ability);
+			this.CreateUnitsInRangeConditions(ref FUnitsInRangeConditions, ability);
+			this.CreateElitesInRangeConditions(ref FElitesInRangeConditions, ability);
+			this.CreateClusterConditions(ref FClusterConditions, ability);
+		}
+
+		 public AbilityUsablityTests()
 		 {
-			  return (property&flag)!=0;
+				this.LastConditionPassed=ConditionCriteraTypes.None;
+				Fprecast=null;
+				Fcriteria=new Func<bool>(() => { return true; });
+				FClusterConditions=null;
+				FUnitsInRangeConditions=null;
+				FElitesInRangeConditions=null;
+			 FSingleTargetUnitCriteria = null;
 		 }
 
-		 internal static TargetProperties EvaluateUnitProperties(CacheUnit unit)
-		 {
-			  TargetProperties properties=TargetProperties.None;
-
-			  if (unit.IsBoss)
-					properties|=TargetProperties.Boss;
-
-			  if (unit.IsBurrowableUnit)
-					properties|=TargetProperties.Burrowing;
-
-			  if (unit.MonsterMissileDampening)
-					properties|=TargetProperties.MissileDampening;
-
-			  if (unit.IsMissileReflecting)
-					properties|=TargetProperties.MissileReflecting;
-
-			  if (unit.MonsterShielding)
-					properties|=TargetProperties.Shielding;
-
-			  if (unit.IsStealthableUnit)
-					properties|=TargetProperties.Stealthable;
-
-			  if (unit.IsSucideBomber)
-					properties|=TargetProperties.SucideBomber;
-
-			  if (unit.IsTreasureGoblin)
-					properties|=TargetProperties.TreasureGoblin;
-
-			  if (unit.IsFast)
-					properties|=TargetProperties.Fast;
-
-
-
-			  if (unit.IsEliteRareUnique)
-					properties|=TargetProperties.RareElite;
-
-			  if (unit.MonsterUnique)
-					properties|=TargetProperties.Unique;
-
-			  if (unit.ObjectIsSpecial)
-					properties|=TargetProperties.IsSpecial;
-
-			  if (unit.CurrentHealthPct.HasValue&&unit.CurrentHealthPct.Value==1d)
-					properties|=TargetProperties.FullHealth;
-
-			  if (unit.UnitMaxHitPointAverageWeight<0)
-					properties|=TargetProperties.Weak;
-
-
-			  if (unit.Monstersize.HasValue&&unit.Monstersize.Value==MonsterSize.Ranged)
-					properties|=TargetProperties.Ranged;
-
-
-			  if (unit.IsTargetableAndAttackable)
-					properties|=TargetProperties.TargetableAndAttackable;
-
-
-			  if (unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
-					properties|=TargetProperties.DOTDPS;
-
-			  if (unit.RadiusDistance<10f)
-					properties|=TargetProperties.CloseDistance;
-
-
-			  return properties;
-		 }
-
-
-		 internal static bool CheckClusterConditions(ClusterConditions CC)
-		 {
-			  return Bot.Combat.Clusters(CC).Count>0;
-		 }
+		 private Func<bool> Fprecast;
+		 private Func<bool> Fcriteria;
+		 private Func<bool> FClusterConditions;
+		 private Func<bool> FUnitsInRangeConditions;
+		 private Func<bool> FElitesInRangeConditions;
+		 private Func<bool> FSingleTargetUnitCriteria;
 
 
 		 #region Function Creation Methods
-		 internal static void CreateClusterConditions(ref Func<bool> FClusterConditions, Ability ability)
+		 private void CreateClusterConditions(ref Func<bool> FClusterConditions, Ability ability)
 		 {
 				FClusterConditions=null;
 				if (ability.ClusterConditions==null) return;
 
-				FClusterConditions=new Func<bool>(() => { return CheckClusterConditions(ability.ClusterConditions); });
+				FClusterConditions=new Func<bool>(() => { return Ability.CheckClusterConditions(ability.ClusterConditions); });
 		 }
 
-		 internal static void CreatePreCastConditions(ref Func<bool> Fprecast, Ability ability)
+		private void CreatePreCastConditions(ref Func<bool> Fprecast, Ability ability)
 		 {
-				CastingConditionTypes precastconditions_=ability.PreCastConditions;
-				if (precastconditions_.Equals(CastingConditionTypes.None))
+				AbilityConditions precastconditions_=ability.PreCastConditions;
+				if (precastconditions_.Equals(AbilityConditions.None))
 					 return;
 				else
 				{
-					 if (precastconditions_.HasFlag(CastingConditionTypes.CheckPlayerIncapacitated))
+					 if (precastconditions_.HasFlag(AbilityConditions.CheckPlayerIncapacitated))
 						  Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsIncapacitated; }));
 
-					 if (precastconditions_.HasFlag(CastingConditionTypes.CheckPlayerRooted))
+					 if (precastconditions_.HasFlag(AbilityConditions.CheckPlayerRooted))
 						  Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsRooted; }));
 
-					 if (precastconditions_.HasFlag(CastingConditionTypes.CheckExisitingBuff))
+					 if (precastconditions_.HasFlag(AbilityConditions.CheckExisitingBuff))
 						  Fprecast+=(new Func<bool>(() => { return !Bot.Class.HasBuff(ability.Power); }));
 
-					 if (precastconditions_.HasFlag(CastingConditionTypes.CheckPetCount))
+					 if (precastconditions_.HasFlag(AbilityConditions.CheckPetCount))
 						  Fprecast+=(new Func<bool>(() => { return Bot.Class.MainPetCount<ability.Counter; }));
 
-					 if (precastconditions_.HasFlag(CastingConditionTypes.CheckRecastTimer))
+					 if (precastconditions_.HasFlag(AbilityConditions.CheckRecastTimer))
 						  Fprecast+=(new Func<bool>(() => { return ability.LastUsedMilliseconds>ability.Cooldown; }));
 
-					 if (precastconditions_.HasFlag(CastingConditionTypes.CheckCanCast))
+					 if (precastconditions_.HasFlag(AbilityConditions.CheckCanCast))
 					 {
 						  Fprecast+=(new Func<bool>(() =>
 						  {
@@ -143,7 +95,7 @@ namespace FunkyTrinity.ability
 						  }));
 					 }
 
-					 if (precastconditions_.HasFlag(CastingConditionTypes.CheckEnergy))
+					 if (precastconditions_.HasFlag(AbilityConditions.CheckEnergy))
 					 {
 						  if (!ability.SecondaryEnergy)
 								Fprecast+=(new Func<bool>(() =>
@@ -173,7 +125,7 @@ namespace FunkyTrinity.ability
 
 		 }
 
-		 internal static void CreateTargetConditions(ref Func<bool> FSingleTargetUnitCriteria, Ability ability)
+		private void CreateTargetConditions(ref Func<bool> FSingleTargetUnitCriteria, Ability ability)
 		 {
 
 				FSingleTargetUnitCriteria=null;
@@ -183,7 +135,7 @@ namespace FunkyTrinity.ability
 				if (ability.TargetUnitConditionFlags==null)
 				{
 					 //No Default Conditions Set.. however if ability uses target as a execution type then we implement the LOS conditions.
-					 if (ability.ExecutionType.HasFlag(PowerExecutionTypes.Target|PowerExecutionTypes.ClusterTarget|PowerExecutionTypes.ClusterTargetNearest))
+					 if (ability.ExecutionType.HasFlag(AbilityUseType.Target|AbilityUseType.ClusterTarget|AbilityUseType.ClusterTargetNearest))
 						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return true; });
 					 else
 						  return;
@@ -226,13 +178,13 @@ namespace FunkyTrinity.ability
 						  if (!Bot.Target.CurrentUnitTarget.IgnoresLOSCheck)
 						  {
 								//Check if within interaction range..
-								if (Bot.Target.CurrentTarget.RadiusDistance>ability.Range&&Bot.Target.CurrentUnitTarget.IsTargetableAndAttackable)
+								if (Bot.Target.CurrentTarget.RadiusDistance>ability.Range)
 								{
 									 //Verify LOS walk
 									 ability.LOSInfo LOSINFO=Bot.Target.CurrentTarget.LineOfSight;
 									 if (!Bot.Character.bIsIncapacitated&&(LOSINFO.LastLOSCheckMS>2000||!LOSINFO.NavCellWalk.HasValue))
 									 {
-										  if (!LOSINFO.LOSTest(Bot.Character.Position, true, false, NavCellFlags.AllowWalk, false, true))
+										  if (!LOSINFO.LOSTest(Bot.Character.Position, true, false, NavCellFlags.AllowWalk))
 										  {
 												//Raycast failed.. reset LOS Check -- for valid checking.
 												if (!LOSINFO.RayCast.Value) 
@@ -254,7 +206,7 @@ namespace FunkyTrinity.ability
 		 }
 		
 		 //We take the enums given by UnitTargetConditions (ability property) and add any new conditions to the func for testing
-		 internal static void CreateTargetFlagConditions(ref Func<bool> FSingleTargetUnitCriteria, UnitTargetConditions TargetUnitConditionFlags_)
+		private void CreateTargetFlagConditions(ref Func<bool> FSingleTargetUnitCriteria, UnitTargetConditions TargetUnitConditionFlags_)
 		 {
 			 //Distance
 			  if (TargetUnitConditionFlags_.Distance>-1)
@@ -347,19 +299,209 @@ namespace FunkyTrinity.ability
 			  }
 		 }
 
-		 internal static void CreateUnitsInRangeConditions(ref Func<bool> FUnitRange, Ability ability)
+		 //Quick research showed Enum.HasFlag is slower compared to the below method.
+		 internal static bool CheckTargetPropertyFlag(TargetProperties property, TargetProperties flag)
+		 {
+			  return (property&flag)!=0;
+		 }
+
+		 internal static TargetProperties EvaluateUnitProperties(CacheUnit unit)
+		 {
+			  TargetProperties properties=TargetProperties.None;
+
+			  if (unit.IsBoss)
+					properties|=TargetProperties.Boss;
+
+			  if (unit.IsBurrowableUnit)
+					properties|=TargetProperties.Burrowing;
+
+			  if (unit.MonsterMissileDampening)
+					properties|=TargetProperties.MissileDampening;
+
+			  if (unit.IsMissileReflecting)
+					properties|=TargetProperties.MissileReflecting;
+
+			  if (unit.MonsterShielding)
+					properties|=TargetProperties.Shielding;
+
+			  if (unit.IsStealthableUnit)
+					properties|=TargetProperties.Stealthable;
+
+			  if (unit.IsSucideBomber)
+					properties|=TargetProperties.SucideBomber;
+
+			  if (unit.IsTreasureGoblin)
+					properties|=TargetProperties.TreasureGoblin;
+
+			  if (unit.IsFast)
+					properties|=TargetProperties.Fast;
+
+
+
+			  if (unit.IsEliteRareUnique)
+					properties|=TargetProperties.RareElite;
+
+			  if (unit.MonsterUnique)
+					properties|=TargetProperties.Unique;
+
+			  if (unit.ObjectIsSpecial)
+					properties|=TargetProperties.IsSpecial;
+
+			  if (unit.CurrentHealthPct.HasValue&&unit.CurrentHealthPct.Value==1d)
+					properties|=TargetProperties.FullHealth;
+
+			  if (unit.UnitMaxHitPointAverageWeight<0)
+					properties|=TargetProperties.Weak;
+
+
+			  if (unit.Monstersize.HasValue&&unit.Monstersize.Value==MonsterSize.Ranged)
+					properties|=TargetProperties.Ranged;
+
+
+			  if (unit.IsTargetableAndAttackable)
+					properties|=TargetProperties.TargetableAndAttackable;
+
+
+			  if (unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value)
+					properties|=TargetProperties.DOTDPS;
+
+
+			  return properties;
+		 }
+
+		private void CreateUnitsInRangeConditions(ref Func<bool> FUnitRange, Ability ability)
 		 {
 				FUnitRange=null;
 				if (ability.UnitsWithinRangeConditions!=null)
 					 FUnitRange+=new Func<bool>(() => { return Bot.Combat.iAnythingWithinRange[(int)ability.UnitsWithinRangeConditions.Item1]>=ability.UnitsWithinRangeConditions.Item2; });
 		 }
 
-		 internal static void CreateElitesInRangeConditions(ref Func<bool> FUnitRange, Ability ability)
+		private void CreateElitesInRangeConditions(ref Func<bool> FUnitRange, Ability ability)
 		 {
 				FUnitRange=null;
 				if (ability.ElitesWithinRangeConditions!=null)
 					 FUnitRange+=new Func<bool>(() => { return Bot.Combat.iElitesWithinRange[(int)ability.ElitesWithinRangeConditions.Item1]>=ability.ElitesWithinRangeConditions.Item2; });
 		 }
 		 #endregion
+
+		///<summary>
+		///Tracks last successful condition if any.
+		///</summary>
+		public ConditionCriteraTypes LastConditionPassed
+		{
+			 get { return lastConditionPassed; }
+			 set { lastConditionPassed=value; }
+		}
+		private ConditionCriteraTypes lastConditionPassed=ConditionCriteraTypes.None;
+
+		///<summary>
+		///Check Ability is valid to use.
+		///</summary>
+		public bool CheckPreCastConditionMethod()
+		  {
+				foreach (Func<bool> item in Fprecast.GetInvocationList())
+				{
+					 if (!item()) return false;
+				}
+
+				//Reset Last Condition
+				LastConditionPassed=ConditionCriteraTypes.None;
+				return true;
+		  }
+		///<summary>
+		///Check Combat
+		///</summary>
+		public bool CheckCombatConditionMethod(ConditionCriteraTypes conditions=ConditionCriteraTypes.All)
+		{
+			 //Order in which tests are conducted..
+
+			 //Units in Range (Not Cluster)
+			 //Clusters
+			 //Single Target
+
+			 //If all are null or any of them are successful, then we test Custom Conditions
+			 //Custom Condition
+
+
+			 bool TestCustomConditions=false;
+			 bool FailedCondition=false;
+
+			 if (conditions.HasFlag(ConditionCriteraTypes.ElitesInRange)&&FElitesInRangeConditions!=null)
+			 {
+					foreach (Func<bool> item in this.FElitesInRangeConditions.GetInvocationList())
+					{
+						 if (!item())
+						 {
+								FailedCondition=true;
+								break;
+						 }
+					}
+					if (!FailedCondition)
+					{
+						 TestCustomConditions=true;
+						 LastConditionPassed=ConditionCriteraTypes.ElitesInRange;
+					}
+			 }
+			 if ((!TestCustomConditions||FailedCondition)&&conditions.HasFlag(ConditionCriteraTypes.UnitsInRange)&&FUnitsInRangeConditions!=null)
+			 {
+					FailedCondition=false;
+					foreach (Func<bool> item in this.FUnitsInRangeConditions.GetInvocationList())
+					{
+						 if (!item())
+						 {
+								FailedCondition=true;
+								break;
+						 }
+					}
+					if (!FailedCondition)
+					{
+						 LastConditionPassed=ConditionCriteraTypes.UnitsInRange;
+						 TestCustomConditions=true;
+					}
+			 }
+			 if ((!TestCustomConditions||FailedCondition)&&conditions.HasFlag(ConditionCriteraTypes.Cluster)&&FClusterConditions!=null)
+			 {
+					FailedCondition=false;
+
+					if (!this.FClusterConditions.Invoke())
+					{
+						 FailedCondition=true;
+					}
+
+					if (!FailedCondition)
+					{
+						 LastConditionPassed=ConditionCriteraTypes.Cluster;
+						 TestCustomConditions=true;
+					}
+			 }
+			 if ((!TestCustomConditions||FailedCondition)&&conditions.HasFlag(ConditionCriteraTypes.SingleTarget)&&FSingleTargetUnitCriteria!=null)
+			 {
+					FailedCondition=false;
+					foreach (Func<bool> item in this.FSingleTargetUnitCriteria.GetInvocationList())
+					{
+						 if (!item())
+						 {
+								FailedCondition=true;
+								break;
+						 }
+					}
+					if (!FailedCondition)
+					{
+						 LastConditionPassed=ConditionCriteraTypes.SingleTarget;
+						 TestCustomConditions=true;
+					}
+			 }
+
+			 //If TestCustomCondtion failed, and FailedCondition is true.. then we tested a combat condition.
+			 //If FailedCondition is false, then we never tested a condition.
+			 if (!TestCustomConditions&&FailedCondition) return false;
+
+
+			 foreach (Func<bool> item in this.Fcriteria.GetInvocationList())
+					if (!item()) return false;
+
+
+			 return true;
+		}
 	}
 }

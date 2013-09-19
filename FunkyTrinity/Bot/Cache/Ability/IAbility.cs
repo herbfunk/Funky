@@ -8,7 +8,8 @@ namespace FunkyTrinity.ability
 		  int RuneIndex { get; }
 
 		 void Initialize();
-		
+		 void InitCriteria();
+
 		 bool Equals(object obj);
 		 int GetHashCode();
 	 }

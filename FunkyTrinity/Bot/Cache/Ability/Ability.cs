@@ -35,33 +35,26 @@ namespace FunkyTrinity.ability
 				WaitVars=new WaitLoops(0, 0, true);
 				IsRanged=false;
 				IsProjectile=false;
-				UseFlagsType=AbilityUseFlags.Anywhere;
-				ExecutionType=PowerExecutionTypes.None;
-				LastUsed=DateTime.Today;
+				UseageType=AbilityUseage.Anywhere;
+				ExecutionType=AbilityUseType.None;
 				IsSpecialAbility=false;
-				IsASpecialMovementPower=false;
-				IsADestructiblePower=false;
-
 				Range=0;
 				Priority=AbilityPriority.None;
 			
 				
 				Initialize();
+				InitCriteria();
 		  }
 		  public virtual void Initialize()
 		  {
 
 		  }
-		  public virtual void InitializeCriteria()
+			public virtual void InitCriteria()
 		  {
-				AbilityLogic.CreatePreCastConditions(ref this.Fprecast, this);
-				AbilityLogic.CreateTargetConditions(ref this.FSingleTargetUnitCriteria, this);
-				AbilityLogic.CreateUnitsInRangeConditions(ref this.FUnitsInRangeConditions, this);
-				AbilityLogic.CreateElitesInRangeConditions(ref this.FElitesInRangeConditions, this);
-				AbilityLogic.CreateClusterConditions(ref this.FClusterConditions, this);
+				 
 		  }
 
-		 #region Properties
+		  #region Properties
 		  public AbilityPriority Priority { get; set; }
 		  ///<summary>
 		  ///Describes variables for use of ability: PreWait Loops, PostWait Loops, Reuseable
@@ -73,18 +66,18 @@ namespace FunkyTrinity.ability
 		  ///<summary>
 		  ///This is used to determine how the ability will be used
 		  ///</summary>
-		  public PowerExecutionTypes ExecutionType { get; set; }
+		  public AbilityUseType ExecutionType { get; set; }
 
-		  private AbilityUseFlags _useFlagsType;
-		  public AbilityUseFlags UseFlagsType
+		  private AbilityUseage useageType;
+		  public AbilityUseage UseageType
 		  {
-				get { return _useFlagsType; }
-				set { _useFlagsType=value; if (value.HasFlag(AbilityUseFlags.OutOfCombat|AbilityUseFlags.Anywhere)) Fbuff=new Func<bool>(() => { return true; }); }
+				get { return useageType; }
+				set { useageType=value; if (value.HasFlag(AbilityUseage.OutOfCombat|AbilityUseage.Anywhere)) Fbuff=new Func<bool>(() => { return true; }); }
 		  }
 
 		  public virtual int RuneIndex { get { return -1; } }
-		  internal bool IsADestructiblePower { get; set; }
-		  public bool IsASpecialMovementPower { get; set; }
+		  internal bool IsADestructiblePower { get { return PowerCacheLookup.AbilitiesDestructiblePriority.Contains(this.Power); } }
+		  internal bool IsASpecialMovementPower { get { return PowerCacheLookup.SpecialMovementAbilities.Contains(this.Power); } }
 
 		  ///<summary>
 		  ///Ability will trigger WaitingForSpecial if Energy Check fails.
@@ -110,7 +103,17 @@ namespace FunkyTrinity.ability
 		  ///</summary>
 		  public bool IsProjectile { get; set; }
 
-		  internal DateTime LastUsed { get; set; }
+		  internal DateTime LastUsed
+		  {
+				get
+				{
+					 return PowerCacheLookup.dictAbilityLastUse[this.Power];
+				}
+				set
+				{
+					 PowerCacheLookup.dictAbilityLastUse[this.Power]=value;
+				}
+		  }
 		  internal double LastUsedMilliseconds
 		  {
 				get { return DateTime.Now.Subtract(LastUsed).TotalMilliseconds; }
@@ -120,15 +123,7 @@ namespace FunkyTrinity.ability
 		  {
 				get { return Bot.Class.AbilityCooldowns[this.Power]; }
 		  }
-		  internal bool AbilityUseTimer(bool bReCheck=false)
-		  {
-				double lastUseMS=this.LastUsedMilliseconds;
-				if (lastUseMS>=this.Cooldown)
-					 return true;
-				if (bReCheck&&lastUseMS>=150&&lastUseMS<=600)
-					 return true;
-				return false;
-		  }
+
 
 		  ///<summary>
 		  ///Holds int value that describes pet count or buff stacks.
@@ -144,6 +139,10 @@ namespace FunkyTrinity.ability
 
 
 
+		  internal static bool CheckClusterConditions(ClusterConditions CC)
+		  {
+				return Bot.Combat.Clusters(CC).Count>0;
+		  }
 
 
 
@@ -206,7 +205,7 @@ namespace FunkyTrinity.ability
 
 		  public static void UsePower(ref Ability ability)
 		  {
-				if (!ability.ExecutionType.HasFlag(PowerExecutionTypes.RemoveBuff))
+				if (!ability.ExecutionType.HasFlag(AbilityUseType.RemoveBuff))
 				{
 					 ability.SuccessUsed=ZetaDia.Me.UsePower(ability.Power, ability.TargetPosition, ability.WorldID, ability.TargetRAGUID);
 				}
@@ -226,7 +225,6 @@ namespace FunkyTrinity.ability
 				PowerCacheLookup.lastGlobalCooldownUse=DateTime.Now;
 				//Reset Blockcounter --
 				TargetMovement.BlockedMovementCounter=0;
-				Bot.Class.LastUsedAbility=this;
 		  }
 
 		  public static void SetupAbilityForUse(ref Ability ability, bool Destructible=false)
@@ -276,33 +274,33 @@ namespace FunkyTrinity.ability
 			  }
 
 
-				if (ability.LastConditionPassed== ConditionCriteraTypes.Cluster)
+				if (ability.AbilityTestConditions.LastConditionPassed== ConditionCriteraTypes.Cluster)
 				{
 						 //Cluster Target -- Aims for Centeroid Unit
-					 if (ability.ExecutionType.HasFlag(PowerExecutionTypes.ClusterTarget)&&AbilityLogic.CheckClusterConditions(ability.ClusterConditions)) //Cluster ACDGUID
+						 if (ability.ExecutionType.HasFlag(AbilityUseType.ClusterTarget)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster ACDGUID
 						 {
 							  ability.TargetRAGUID=Bot.Combat.Clusters(ability.ClusterConditions)[0].GetNearestUnitToCenteroid().AcdGuid.Value;
 							  return;
 						 }
 						 //Cluster Location -- Aims for Center of Cluster
-						 if (ability.ExecutionType.HasFlag(PowerExecutionTypes.ClusterLocation)&&AbilityLogic.CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
+						 if (ability.ExecutionType.HasFlag(AbilityUseType.ClusterLocation)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
 						 {
 							  ability.TargetPosition=(Vector3)Bot.Combat.Clusters(ability.ClusterConditions)[0].Midpoint;
 							  return;
 						 }
 						 //Cluster Target Nearest -- Gets nearest unit in cluster as target.
-						 if (ability.ExecutionType.HasFlag(PowerExecutionTypes.ClusterTargetNearest)&&AbilityLogic.CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
+						 if (ability.ExecutionType.HasFlag(AbilityUseType.ClusterTargetNearest)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
 						 {
 							  ability.TargetRAGUID=Bot.Combat.Clusters(ability.ClusterConditions)[0].ListUnits[0].AcdGuid.Value;
 							  return;
 						 }
 				}
 
-				if (ability.ExecutionType.HasFlag(PowerExecutionTypes.Location)) //Current Target Position
+				if (ability.ExecutionType.HasFlag(AbilityUseType.Location)) //Current Target Position
 					 ability.TargetPosition=Bot.Target.CurrentTarget.Position;
-				else if (ability.ExecutionType.HasFlag(PowerExecutionTypes.Self)) //Current Bot Position
+				else if (ability.ExecutionType.HasFlag(AbilityUseType.Self)) //Current Bot Position
 					 ability.TargetPosition=Bot.Character.Position;
-				else if (ability.ExecutionType.HasFlag(PowerExecutionTypes.ZigZagPathing)) //Zig-Zag Pathing
+				else if (ability.ExecutionType.HasFlag(AbilityUseType.ZigZagPathing)) //Zig-Zag Pathing
 				{
 					 Bot.Combat.vPositionLastZigZagCheck=Bot.Character.Position;
 					 if (Bot.Class.ShouldGenerateNewZigZagPath())
@@ -310,7 +308,7 @@ namespace FunkyTrinity.ability
 
 					 ability.TargetPosition=Bot.Combat.vSideToSideTarget;
 				}
-				else if (ability.ExecutionType.HasFlag(PowerExecutionTypes.Target)) //Current Target ACDGUID
+				else if (ability.ExecutionType.HasFlag(AbilityUseType.Target)) //Current Target ACDGUID
 					 ability.TargetRAGUID=Bot.Target.CurrentTarget.AcdGuid.Value;
 		  }
 
@@ -377,8 +375,8 @@ namespace FunkyTrinity.ability
 										  "Last Condition {7} -- Last Used {8} -- Used Successfully=[{9}]",
 																		this.Power.ToString(), this.RuneIndex.ToString(),
 																		this.Range.ToString(), this.Cooldown.ToString(), this.Priority.ToString(), this.ExecutionType.ToString(),
-																		this.UseFlagsType.ToString(),
-																		this.LastConditionPassed.ToString(), this.LastUsedMilliseconds<100000?this.LastUsedMilliseconds.ToString()+"ms":"Never",
+																		this.UseageType.ToString(),
+																		this.AbilityTestConditions.LastConditionPassed.ToString(), this.LastUsedMilliseconds<100000?this.LastUsedMilliseconds.ToString()+"ms":"Never",
 																		this.SuccessUsed.HasValue?this.SuccessUsed.Value.ToString():"NULL");
 		  }
 

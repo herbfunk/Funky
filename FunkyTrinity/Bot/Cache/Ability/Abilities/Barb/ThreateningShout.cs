@@ -22,13 +22,13 @@ namespace FunkyTrinity.ability.Abilities.Barb
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Self;
+			ExecutionType = AbilityUseType.Self;
 			WaitVars = new WaitLoops(1, 1, true);
 			Cost = 0;
-			UseFlagsType=AbilityUseFlags.Anywhere;
+			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (CastingConditionTypes.CheckRecastTimer | CastingConditionTypes.CheckEnergy |
-			                     CastingConditionTypes.CheckCanCast | CastingConditionTypes.CheckPlayerIncapacitated);
+			PreCastConditions = (AbilityConditions.CheckRecastTimer | AbilityConditions.CheckEnergy |
+			                     AbilityConditions.CheckCanCast | AbilityConditions.CheckPlayerIncapacitated);
 			Fcriteria = new Func<bool>(() =>
 			{
 				return (
@@ -41,7 +41,10 @@ namespace FunkyTrinity.ability.Abilities.Barb
 					);
 			});
 		}
-
+		public override void InitCriteria()
+		{
+			 base.AbilityTestConditions=new AbilityUsablityTests(this);
+		}
 		#region IAbility
 		public override int GetHashCode()
 		{

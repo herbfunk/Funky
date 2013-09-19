@@ -18,12 +18,12 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Buff;
+			ExecutionType = AbilityUseType.Buff;
 			WaitVars = new WaitLoops(0, 0, true);
 			Cost = 49;
-			UseFlagsType=AbilityUseFlags.Anywhere;
+			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (CastingConditionTypes.CheckCanCast | CastingConditionTypes.CheckEnergy);
+			PreCastConditions = (AbilityConditions.CheckCanCast | AbilityConditions.CheckEnergy);
 			IsBuff=true;
 			 Fbuff =
 				new Func<bool>(
@@ -37,6 +37,11 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 				return Bot.Character.PetData.ZombieDogs <
 				       (Bot.Class.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler) ? 4 : 3);
 			});
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

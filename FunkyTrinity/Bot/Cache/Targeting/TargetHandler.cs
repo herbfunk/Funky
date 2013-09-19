@@ -382,7 +382,7 @@ namespace FunkyTrinity.Targeting
 					 //Update CurrentUnitTarget Variable.
 					 if (CurrentUnitTarget==null) CurrentUnitTarget=(CacheUnit)CurrentTarget;
 
-
+					 
 
 					 //double HealthChangeMS=DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.LastHealthChange).TotalMilliseconds;
 
@@ -436,10 +436,7 @@ namespace FunkyTrinity.Targeting
 				// Note that we force a single-loop pause first, to help potion popping "go off"
 				#region PotionCheck
 				if (FunkyTrinity.Bot.Character.dCurrentHealthPct<=FunkyTrinity.Bot.EmergencyHealthPotionLimit
-					 &&!FunkyTrinity.Bot.Combat.bWaitingForPower
-					 &&!FunkyTrinity.Bot.Combat.bWaitingForPotion
-					 &&!FunkyTrinity.Bot.Character.bIsIncapacitated
-					 &&FunkyTrinity.Bot.Class.AbilityUseTimer(Bot.Class.HealthPotionAbility))
+					 &&!FunkyTrinity.Bot.Combat.bWaitingForPower&&!FunkyTrinity.Bot.Combat.bWaitingForPotion&&!FunkyTrinity.Bot.Character.bIsIncapacitated&&FunkyTrinity.Bot.Class.AbilityUseTimer(SNOPower.DrinkHealthPotion))
 				{
 					 FunkyTrinity.Bot.Combat.bWaitingForPotion=true;
 					 CurrentState=RunStatus.Running;
@@ -448,9 +445,9 @@ namespace FunkyTrinity.Targeting
 				if (FunkyTrinity.Bot.Combat.bWaitingForPotion)
 				{
 					 FunkyTrinity.Bot.Combat.bWaitingForPotion=false;
-					 if (Bot.Class.HealthPotionAbility.CheckCustomCombatMethod())
+					 if (!FunkyTrinity.Bot.Character.bIsIncapacitated&&FunkyTrinity.Bot.Class.AbilityUseTimer(SNOPower.DrinkHealthPotion))
 					 {
-						  Bot.Class.HealthPotionAbility.AttemptToUseHealthPotion();
+						  FunkyTrinity.Bot.AttemptToUseHealthPotion();
 					 }
 				}
 				#endregion
@@ -459,18 +456,12 @@ namespace FunkyTrinity.Targeting
 				#region AvoidanceSpecialAbilityCheck
 				if (TargetType.Avoidance.HasFlag(CurrentTarget.targetType.Value))
 				{
-					 Ability usableAbility;
-					 bool foundUsableAbility=false;
-
-					 //Try movement first.. then buff
-					 foundUsableAbility=Bot.Class.FindSpecialMovementPower(out usableAbility)||
-															 Bot.Class.FindBuffPower(out usableAbility, AbilityUseFlags.Combat);
-
-					 if (foundUsableAbility)
+					 Ability movement;
+					 if (FunkyTrinity.Bot.Class.FindSpecialMovementPower(out movement))
 					 {
-						  Ability.SetupAbilityForUse(ref usableAbility);
-						  Ability.UsePower(ref usableAbility);
-						  usableAbility.SuccessfullyUsed();
+						  FunkyTrinity.ability.Ability.SetupAbilityForUse(ref movement);
+						  FunkyTrinity.ability.Ability.UsePower(ref movement);
+						  movement.SuccessfullyUsed();
 					 }
 				}
 
@@ -492,34 +483,29 @@ namespace FunkyTrinity.Targeting
 
 		  public virtual bool Movement()
 		  {
-
+				
 				if (CurrentTarget.targetType.Value==TargetType.LineOfSight)
 				{
 
 					 //Validate LOS movement
-					 if (TargetMovement.LastMoveResult.HasFlag(Zeta.Navigation.MoveResult.Failed|Zeta.Navigation.MoveResult.UnstuckAttempt|Zeta.Navigation.MoveResult.PathGenerationFailed|Zeta.Navigation.MoveResult.ReachedDestination))
+					 if (CurrentTarget.LastLOSMoveResult.HasFlag(Zeta.Navigation.MoveResult.Failed|Zeta.Navigation.MoveResult.UnstuckAttempt|Zeta.Navigation.MoveResult.PathGenerationFailed|Zeta.Navigation.MoveResult.ReachedDestination))
 					 {
 						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-								Logger.Write(LogLevel.Movement, "LOS Ended Due to MoveResult {0} for Object {1}", TargetMovement.LastMoveResult.ToString(), Bot.NavigationCache.LOSmovementUnit.InternalName);
+								Logger.Write(LogLevel.Movement, "LOS Ended Due to MoveResult {0} for Object {1}",CurrentTarget.LastLOSMoveResult.ToString(), CurrentTarget.InternalName);
 
 						  //CurrentTarget.LOSV3=Vector3.Zero;
 						  Bot.NavigationCache.LOSmovementUnit=null;
 						  FunkyTrinity.Bot.Combat.bWholeNewTarget=true;
 						  return false;
 					 }
-					 else if (Bot.NavigationCache.LOSmovementUnit.LineOfSight.LastLOSCheckMS>500
-						  &&Bot.NavigationCache.LOSmovementUnit.LineOfSight.LOSTest(Bot.Character.Position, true, Bot.Class.LOSconditions.RequiresServerObjectIntersection, Bot.Class.LOSconditions.NavCellFlags, false))
-					 {
-						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-								Logger.Write(LogLevel.Movement, "LOS Is now valid {0} for Object {1} -- ending behavior.", TargetMovement.LastMoveResult.ToString(), Bot.NavigationCache.LOSmovementUnit.InternalName);
 
-						  Bot.NavigationCache.LOSmovementUnit=null;
-						  FunkyTrinity.Bot.Combat.bWholeNewTarget=true;
+					 if (CurrentTarget.LastLOSMoveResult.HasFlag(Zeta.Navigation.MoveResult.Moved))
+					 {
+						  //CurrentState=TargetMovement.TargetMoveTo(CurrentTarget);
+						  CurrentState=RunStatus.Running;
+						  CurrentTarget.LastLOSMoveResult=Zeta.Navigation.Navigator.MoveTo(CurrentTarget.LOSV3, "LOS Movement", true);
 						  return false;
 					 }
-
-					 CurrentState=TargetMovement.TargetMoveTo(Bot.NavigationCache.LOSmovementUnit, true);
-					 return false;
 				}
 
 				// Set current destination to our current target's destination

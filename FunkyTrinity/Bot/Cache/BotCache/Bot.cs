@@ -10,9 +10,6 @@ using FunkyTrinity.Movement;
 using System.Threading;
 using FunkyTrinity.Targeting;
 using FunkyTrinity.Settings;
-using FunkyTrinity.PlayerClass;
-using Zeta.CommonBot.Profile;
-using FunkyTrinity.Avoidance;
 
 namespace FunkyTrinity
 {
@@ -26,14 +23,6 @@ namespace FunkyTrinity
 				public static CharacterCache Character { get; set; }
 				public static CombatCache Combat { get; set; }
 				public static TargetHandler Target { get; set; }
-
-				private static ProfileCache profile=new ProfileCache();
-				internal static ProfileCache Profile
-				{
-					 get { return Bot.profile; }
-					 set { Bot.profile=value; }
-				}
-
 				private static BotStatistics Stats_=new BotStatistics();
 				public static BotStatistics Stats
 				{
@@ -96,9 +85,42 @@ namespace FunkyTrinity
 					 BotMain.Stop(true, "Low Health Setting Triggered!");
 				}
 
+				internal static Zeta.CommonBot.Profile.ProfileBehavior CurrentProfileBehavior { get; set; }
+				private static DateTime LastProfileBehaviorCheck=DateTime.Today;
+				///<summary>
+				///Tracks Current Profile Behavior and sets IsRunningOOCBehavior depending on the current Type of behavior.
+				///</summary>
+				internal static void CheckCurrentProfileBehavior()
+				{
+					 if (DateTime.Now.Subtract(LastProfileBehaviorCheck).TotalMilliseconds>1000)
+					 {
+						  LastProfileBehaviorCheck=DateTime.Now;
+
+						  if (Bot.CurrentProfileBehavior==null
+								||Zeta.CommonBot.ProfileManager.CurrentProfileBehavior!=null
+								&&Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior!=null
+								&&Bot.CurrentProfileBehavior.Behavior.Guid!=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior.Behavior.Guid)
+						  {
+								Bot.CurrentProfileBehavior=Zeta.CommonBot.ProfileManager.CurrentProfileBehavior;
+
+								if (ObjectCache.oocDBTags.Contains(Bot.CurrentProfileBehavior.GetType()))
+								{
+									 Logging.WriteDiagnostic("Current Profile Behavior has enabled OOC Behavior.");
+									 Bot.Character.IsRunningOOCBehavior=true;
+								}
+								else
+									 Bot.Character.IsRunningOOCBehavior=false;
 
 
-			
+								//Bot.Character.IsRunningInteractiveBehavior=ObjectCache.InteractiveTags.Contains(Bot.CurrentProfileBehavior.GetType());
+
+								//if (Bot.Character.ShouldBackTrack&&!Bot.Character.IsRunningInteractiveBehavior)
+								//{
+								//    Bot.Character.ShouldBackTrack=false;
+								//}
+						  }
+					 }
+				}
 
 
 				///<summary>
@@ -152,7 +174,6 @@ namespace FunkyTrinity
 					 
 					 // Always have a minimum kill radius, so we're never getting whacked without retaliating
 					 if (iCurrentMaxKillRadius<10||Bot.SettingsFunky.Ranges.IgnoreCombatRange) iCurrentMaxKillRadius=10;
-					 if (iCurrentMaxLootRadius<10||Bot.SettingsFunky.Ranges.IgnoreLootRange) iCurrentMaxLootRadius=10;
 
 					 //Non-Combat Behavior we set minimum kill radius
 					 if (IsInNonCombatBehavior) iCurrentMaxKillRadius=50;
@@ -291,7 +312,7 @@ namespace FunkyTrinity
 						  }// Witch doctors with spirit walk available and not currently Spirit Walking will subtly ignore ice balls, arcane, desecrator & plague cloud
 						  else if (Class.AC==ActorClass.WitchDoctor
 								&&Class.HotbarPowers.Contains(SNOPower.Witchdoctor_SpiritWalk)
-								&&(!Class.HasBuff(SNOPower.Witchdoctor_SpiritWalk)&&Class.Abilities[SNOPower.Witchdoctor_SpiritWalk].AbilityUseTimer())||Class.HasBuff(SNOPower.Witchdoctor_SpiritWalk))
+								&&(!Class.HasBuff(SNOPower.Witchdoctor_SpiritWalk)&&Class.AbilityUseTimer(SNOPower.Witchdoctor_SpiritWalk))||Class.HasBuff(SNOPower.Witchdoctor_SpiritWalk))
 						  {
 								switch (thisAvoidance)
 								{
@@ -381,7 +402,6 @@ namespace FunkyTrinity
 					 Target=new TargetHandler();
 					 NavigationCache=new Navigation();
 					 Stats=new BotStatistics();
-					
 					 shuttingDownBot=false;
 					 Funky.LeveledUpEventFired=false;
 				}

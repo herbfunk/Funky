@@ -93,7 +93,7 @@ namespace FunkyTrinity.Cache
 					 Vector3 TestPosition=this.Position;
 
 					 //Use modified Test Position for Gold/Globe
-					 if ((TargetType.Globe|TargetType.Gold).HasFlag(this.targetType.Value)&&Bot.Character.PickupRadius>0f)
+					 if ((TargetType.Globe|TargetType.Gold).HasFlag(this.targetType.Value))
 						  TestPosition=MathEx.CalculatePointFrom(Bot.Character.Position,this.Position,Math.Max(0f,this.CentreDistance-Bot.Character.PickupRadius));
 
 					 if (this.CentreDistance>=2f)

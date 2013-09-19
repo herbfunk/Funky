@@ -16,18 +16,22 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Target | PowerExecutionTypes.ClusterTarget;
-			WaitVars = new WaitLoops(0, 3, true);
+			ExecutionType = AbilityUseType.Target | AbilityUseType.ClusterTarget;
+			WaitVars = new WaitLoops(0, 1, true);
 			Range = 35;
 			IsRanged = true;
 			IsProjectile=true;
-			UseFlagsType=AbilityUseFlags.Combat;
+			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.None;
-			IsADestructiblePower=true;
-			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated);
+			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
 
 			ClusterConditions = new ClusterConditions(4d, 35, 2, true);
 			TargetUnitConditionFlags = new UnitTargetConditions();
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

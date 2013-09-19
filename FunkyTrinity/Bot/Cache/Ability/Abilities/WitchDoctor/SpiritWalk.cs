@@ -19,14 +19,14 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Buff;
+			ExecutionType = AbilityUseType.Buff;
 			WaitVars = new WaitLoops(0, 0, true);
 			Cost = 49;
-			UseFlagsType=AbilityUseFlags.Anywhere;
+			UseageType=AbilityUseage.Anywhere;
 			//IsNavigationSpecial = true;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (CastingConditionTypes.CheckEnergy | CastingConditionTypes.CheckCanCast);
-			IsASpecialMovementPower=true;
+			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckCanCast);
+
 			IsBuff=true;
 			Fbuff=new Func<bool>(() =>
 			{
@@ -41,6 +41,11 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 				        || Bot.Character.bIsIncapacitated
 				        || Bot.Character.bIsRooted);
 			});
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

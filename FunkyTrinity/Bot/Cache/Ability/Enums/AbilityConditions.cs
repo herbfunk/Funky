@@ -6,7 +6,7 @@ namespace FunkyTrinity.ability
 	 ///Conditions used to determine if ability is capable of use.
 	 ///</summary>
 	 [Flags]
-	 public enum CastingConditionTypes
+	 public enum AbilityConditions
 	 {
 			None=0,
 			CheckEnergy=1,

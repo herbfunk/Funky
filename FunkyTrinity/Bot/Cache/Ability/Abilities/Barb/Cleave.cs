@@ -21,18 +21,20 @@ namespace FunkyTrinity.ability.Abilities.Barb
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Target | PowerExecutionTypes.ClusterTargetNearest;
+			ExecutionType = AbilityUseType.Target | AbilityUseType.ClusterTargetNearest;
 			WaitVars = new WaitLoops(0, 2, true);
 			Cost = 0;
 			Range = 10;
-			IsADestructiblePower=true;
-			UseFlagsType=AbilityUseFlags.Combat;
+			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.None;
-			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated);
+			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
 			ClusterConditions = new ClusterConditions(4d, 10f, 2, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None);
 		}
-
+		public override void InitCriteria()
+		{
+			 base.AbilityTestConditions=new AbilityUsablityTests(this);
+		}
 		#region IAbility
 		public override int GetHashCode()
 		{

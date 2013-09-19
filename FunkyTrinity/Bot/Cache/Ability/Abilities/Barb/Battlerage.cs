@@ -21,13 +21,13 @@ namespace FunkyTrinity.ability.Abilities.Barb
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Buff;
+			ExecutionType = AbilityUseType.Buff;
 			WaitVars = new WaitLoops(1, 1, true);
 			Cost = 20;
 			IsBuff=true;
-			UseFlagsType = AbilityUseFlags.Anywhere;
+			UseageType = AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (CastingConditionTypes.CheckEnergy | CastingConditionTypes.CheckPlayerIncapacitated);
+			PreCastConditions = (AbilityConditions.CheckEnergy | AbilityConditions.CheckPlayerIncapacitated);
 			Fbuff = new Func<bool>(() => { return !Bot.Class.HasBuff(SNOPower.Barbarian_BattleRage); });
 			Fcriteria = new Func<bool>(() =>
 			{
@@ -39,7 +39,10 @@ namespace FunkyTrinity.ability.Abilities.Barb
 				         (Bot.SettingsFunky.Class.bFuryDumpAlways && Bot.Character.dCurrentEnergyPct >= 0.98)));
 			});
 		}
-
+		public override void InitCriteria()
+		{
+			 base.AbilityTestConditions=new AbilityUsablityTests(this);
+		}
 		#region IAbility
 		public override int GetHashCode()
 		{

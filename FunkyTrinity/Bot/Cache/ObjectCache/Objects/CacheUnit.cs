@@ -11,7 +11,6 @@ using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
 using FunkyTrinity.ability;
 using FunkyTrinity.Movement.Clustering;
-using FunkyTrinity.Avoidance;
 
 namespace FunkyTrinity.Cache
 {
@@ -30,7 +29,7 @@ namespace FunkyTrinity.Cache
 				{
 					 get
 					 {
-						  return AbilityLogic.EvaluateUnitProperties(this);
+						  return AbilityUsablityTests.EvaluateUnitProperties(this);
 					 }
 				}
 				public override void UpdateProperties()
@@ -63,7 +62,7 @@ namespace FunkyTrinity.Cache
 
 					 //if (this.Monstersize.HasValue&&this.Monstersize.Value==MonsterSize.Ranged)
 					 //	 this.Properties|=TargetProperties.Ranged;
-					 base.Properties=AbilityLogic.EvaluateUnitProperties(this);
+					 base.Properties=AbilityUsablityTests.EvaluateUnitProperties(this);
 				}
 
 
@@ -153,9 +152,9 @@ namespace FunkyTrinity.Cache
 					{
 						 
 						 //update properties
-						 //if (value.Value==true&&!AbilityLogic.CheckTargetPropertyFlag(this.Properties,TargetProperties.DOTDPS))
+						 //if (value.Value==true&&!AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties,TargetProperties.DOTDPS))
 						 //	 this.Properties|=TargetProperties.DOTDPS;
-						 //else if (value.Value==false&&AbilityLogic.CheckTargetPropertyFlag(this.Properties,TargetProperties.DOTDPS))
+						 //else if (value.Value==false&&AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties,TargetProperties.DOTDPS))
 						 //	 this.Properties&=TargetProperties.DOTDPS;
 
 						hasDOTdps_=value;
@@ -281,7 +280,7 @@ namespace FunkyTrinity.Cache
 						  else
 								assignedWeight=1;
 
-						  //if (assignedWeight<0&&!AbilityLogic.CheckTargetPropertyFlag(this.Properties,TargetProperties.Weak))
+						  //if (assignedWeight<0&&!AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties,TargetProperties.Weak))
 						  //	 this.Properties|=TargetProperties.Weak;
 
 						  return (assignedWeight);
@@ -369,7 +368,7 @@ namespace FunkyTrinity.Cache
 						  //update properties
 						  //if (dCurrentHealthPct==1)
 						  //	 this.Properties|=TargetProperties.FullHealth;
-						  //else if (AbilityLogic.CheckTargetPropertyFlag(this.Properties,TargetProperties.FullHealth))
+						  //else if (AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties,TargetProperties.FullHealth))
 						  //	 this.Properties&=TargetProperties.FullHealth;
 					 }
 				}
@@ -921,7 +920,7 @@ namespace FunkyTrinity.Cache
 								double lastLOSCheckMS=base.LineOfSight.LastLOSCheckMS;
 
 								//unless its in front of us.. we wait 500ms mandatory.
-								if (lastLOSCheckMS<750&&centreDistance>1f)
+								if (lastLOSCheckMS<500&&centreDistance>1f)
 								{
 									 if (this.ObjectIsSpecial) Bot.Combat.LoSMovementUnits.Add(this);
 									 return false;
@@ -1238,12 +1237,12 @@ namespace FunkyTrinity.Cache
 								//update properties
 								//if (this.IsAttackable.Value&&this.IsTargetable.Value)
 								//{
-								//	 if (!AbilityLogic.CheckTargetPropertyFlag(this.Properties, TargetProperties.TargetableAndAttackable))
+								//	 if (!AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties, TargetProperties.TargetableAndAttackable))
 								//		  this.Properties|=TargetProperties.TargetableAndAttackable;
 								//}
 								//else
 								//{
-								//	 if (AbilityLogic.CheckTargetPropertyFlag(this.Properties, TargetProperties.TargetableAndAttackable))
+								//	 if (AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties, TargetProperties.TargetableAndAttackable))
 								//		  this.Properties&=TargetProperties.TargetableAndAttackable;
 								//}
 								
@@ -1373,6 +1372,16 @@ namespace FunkyTrinity.Cache
 								}
 						  }
 
+						  if (Bot.Combat.powerPrime.SuccessUsed.HasValue&&Bot.Combat.powerPrime.SuccessUsed.Value)
+						  {
+								//Logging.Write(powerPrime.powerThis.ToString() + " used successfully");
+								Bot.Combat.powerLastSnoPowerUsed=Bot.Combat.powerPrime.Power;
+								Bot.Combat.powerPrime.SuccessfullyUsed();
+						  }
+						  else
+						  {
+								 PowerCacheLookup.dictAbilityLastFailed[Bot.Combat.powerPrime.Power]=DateTime.Now;
+						  }
 
 						  // Wait for animating AFTER the attack
 						  if (Bot.Combat.powerPrime.WaitWhileAnimating)
@@ -1389,8 +1398,8 @@ namespace FunkyTrinity.Cache
 								Bot.Combat.bWaitingAfterPower=true;
 						  }
 
-						  //Check health changes -- only when we recently used an ability (so our first interaction when moving into range wont ignore it!)
-						  if (DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalMilliseconds>3000&&Bot.Class.LastUsedAbility.LastUsedMilliseconds>1000)
+						  //Check health changes
+						  if (DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalMilliseconds>3000)
 						  {
 								double LastHealthChangedMS=DateTime.Now.Subtract(Bot.Combat.LastHealthChange).TotalMilliseconds;
 								if (LastHealthChangedMS>3000)
@@ -1399,17 +1408,6 @@ namespace FunkyTrinity.Cache
 									 this.BlacklistLoops=20;
 									 Bot.Combat.bForceTargetUpdate=true;
 								}
-						  }
-
-						  if (Bot.Combat.powerPrime.SuccessUsed.HasValue&&Bot.Combat.powerPrime.SuccessUsed.Value)
-						  {
-								//Logging.Write(powerPrime.powerThis.ToString() + " used successfully");
-								Bot.Combat.powerLastSnoPowerUsed=Bot.Combat.powerPrime.Power;
-								Bot.Combat.powerPrime.SuccessfullyUsed();
-						  }
-						  else
-						  {
-								PowerCacheLookup.dictAbilityLastFailed[Bot.Combat.powerPrime.Power]=DateTime.Now;
 						  }
 
 						  return RunStatus.Running;
@@ -1541,7 +1539,7 @@ namespace FunkyTrinity.Cache
 				{
 					 get
 					 {
-						  return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} -- IsMoving: {6} \r\n Unit Properties {7}",
+						  return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} -- IsMoving: {6} \r\n PriorityCounter={7}\r\nUnit Properties {8}",
 								base.DebugString,
 								this.IsBurrowed.HasValue?this.IsBurrowed.Value.ToString():"",
 								this.IsTargetable.HasValue?this.IsTargetable.Value.ToString():"",
@@ -1549,6 +1547,7 @@ namespace FunkyTrinity.Cache
 								this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value.ToString():"",
 								this.MaximumHealth.HasValue?this.MaximumHealth.Value.ToString():"",
 								this.IsMoving.ToString(),
+								this.PriorityCounter.ToString(),
 								this.Properties.ToString());
 					 }
 				}

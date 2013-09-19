@@ -22,7 +22,7 @@ namespace FunkyTrinity.Cache
 				}
 
 				public DiaGizmo ref_Gizmo { get; set; }
-				internal bool? lastIntersectionTestResult=null;
+
 				///<summary>
 				///For Shrines/Healthwells the value is set to (GizmoHasBeenOperated). For Containers the value is set to (ChestOpen).
 				///</summary>

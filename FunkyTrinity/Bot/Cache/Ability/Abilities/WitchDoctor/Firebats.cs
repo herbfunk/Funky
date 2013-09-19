@@ -16,15 +16,15 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.ClusterLocation | PowerExecutionTypes.Target;
+			ExecutionType = AbilityUseType.ClusterLocation | AbilityUseType.Target;
 
 			WaitVars = new WaitLoops(1, 1, true);
 			Range = Bot.Class.RuneIndexCache[Power] == 0 ? 0 : Bot.Class.RuneIndexCache[Power] == 4 ? 14 : 25;
 			IsRanged = true;
 			IsProjectile=true;
-			UseFlagsType = AbilityUseFlags.Combat;
+			UseageType = AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated);
+			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial);
 			ClusterConditions = new ClusterConditions(5d, Bot.Class.RuneIndexCache[Power] == 4 ? 12f : 20f, 1, true);
 
@@ -41,6 +41,11 @@ namespace FunkyTrinity.ability.Abilities.WitchDoctor
 					                                                SNOAnim.WitchDoctor_Male_1HT_Spell_Channel |
 					                                                SNOAnim.WitchDoctor_Male_HTH_Spell_Channel)));
 			});
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

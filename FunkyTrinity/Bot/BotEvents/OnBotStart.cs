@@ -34,7 +34,7 @@ namespace FunkyTrinity
 				GameEvents.OnPlayerDied+=new EventHandler<EventArgs>(FunkyOnDeath);
 				GameEvents.OnGameJoined+=new EventHandler<EventArgs>(FunkyOnJoinGame);
 				GameEvents.OnGameLeft+=new EventHandler<EventArgs>(FunkyOnLeaveGame);
-				GameEvents.OnGameChanged+=FunkyOnGameChanged;
+				GameEvents.OnGameChanged+=new EventHandler<EventArgs>(FunkyOnGameChanged);
 				GameEvents.OnLevelUp+=new EventHandler<EventArgs>(OnPlayerLevelUp);
 
 				ITargetingProvider newCombatTargetingProvider=new TrinityCombatTargetingReplacer();
@@ -58,12 +58,12 @@ namespace FunkyTrinity
 				// Recording of all the XML's in use this run
 
 					 string sThisProfile=Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
-					 if (sThisProfile!=Bot.Profile.LastProfileSeen)
+					 if (sThisProfile!=Bot.Stats.sLastProfileSeen)
 					 {
-						  Bot.Profile.listProfilesLoaded.Add(sThisProfile);
-						  Bot.Profile.LastProfileSeen=sThisProfile;
-						  if (String.IsNullOrEmpty(Bot.Profile.FirstProfileSeen))
-								Bot.Profile.FirstProfileSeen=sThisProfile;
+						  Bot.Stats.listProfilesLoaded.Add(sThisProfile);
+						  Bot.Stats.sLastProfileSeen=sThisProfile;
+						  if (String.IsNullOrEmpty(Bot.Stats.sFirstProfileSeen))
+								Bot.Stats.sFirstProfileSeen=sThisProfile;
 					 }
 
 					 //herbfunk stats

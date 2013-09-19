@@ -17,13 +17,13 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Buff;
+			ExecutionType = AbilityUseType.Buff;
 			WaitVars = new WaitLoops(1, 1, true);
 			Cost = 10;
 			Range = 48;
-			UseFlagsType=AbilityUseFlags.Combat;
+			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.High;
-			PreCastConditions = (CastingConditionTypes.CheckCanCast);
+			PreCastConditions = (AbilityConditions.CheckCanCast);
 
 			Fcriteria = new Func<bool>(() =>
 			{
@@ -31,6 +31,11 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 				        Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_30] >= 5 || Bot.Character.bIsIncapacitated ||
 				        Bot.Character.bIsRooted || Bot.Target.CurrentTarget.ObjectIsSpecial);
 			});
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

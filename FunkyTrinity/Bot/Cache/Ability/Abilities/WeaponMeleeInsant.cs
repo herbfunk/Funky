@@ -21,13 +21,16 @@ namespace FunkyTrinity.ability.Abilities
 		{
 			Range = 8;
 			Priority = AbilityPriority.None;
-			ExecutionType = PowerExecutionTypes.Target;
-			IsADestructiblePower=true;
+			ExecutionType = AbilityUseType.Target;
+		
 			WaitVars = new WaitLoops(0, 0, true);
-			PreCastConditions=CastingConditionTypes.None;
-			UseFlagsType=AbilityUseFlags.Combat;
+			PreCastConditions=AbilityConditions.None;
+			UseageType=AbilityUseage.Combat;
 		}
-
+		public override void InitCriteria()
+		{
+			 base.AbilityTestConditions=new AbilityUsablityTests(this);
+		}
 		#region IAbility
 		public override int GetHashCode()
 		{

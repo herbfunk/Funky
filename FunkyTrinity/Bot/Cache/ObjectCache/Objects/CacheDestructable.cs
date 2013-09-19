@@ -17,7 +17,7 @@ namespace FunkyTrinity.Cache
 		{
 		}
 
-		
+		private bool? lastIntersectionTestResult=null;
 
 		public override bool ObjectIsValidForTargeting
 		{
@@ -66,7 +66,7 @@ namespace FunkyTrinity.Cache
 						LOSNavFlags=NavCellFlags.AllowWalk;
 					}
 
-					if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, false, LOSNavFlags)&&Funky.PlayerMover.iTotalAntiStuckAttempts<=0)
+					if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, false, LOSNavFlags))
 					{
 						return false;
 					}

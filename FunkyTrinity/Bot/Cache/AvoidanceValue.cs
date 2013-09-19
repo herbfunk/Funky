@@ -1,6 +1,6 @@
 ﻿using FunkyTrinity.Enums;
 
-namespace FunkyTrinity.Avoidance
+namespace FunkyTrinity.Cache
 {
 	 public class AvoidanceValue
 	 {

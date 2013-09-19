@@ -25,14 +25,14 @@ namespace FunkyTrinity.ability.Abilities.Monk
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.ZigZagPathing;
+			ExecutionType = AbilityUseType.ZigZagPathing;
 			WaitVars = new WaitLoops(0, 0, true);
 			Cost = 15;
 			Range = 23;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated);
-			UseFlagsType=AbilityUseFlags.Anywhere;
-			IsASpecialMovementPower=true;
+			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
+			UseageType=AbilityUseage.Anywhere;
+
 			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 2);
 			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
 			TargetUnitConditionFlags = new UnitTargetConditions
@@ -50,6 +50,11 @@ namespace FunkyTrinity.ability.Abilities.Monk
 				return (isChanneling && Bot.Character.dCurrentEnergy > channelingCost) || (Bot.Character.dCurrentEnergy > 40)
 							 &&(!Bot.Class.bWaitingForSpecial||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount);
 			});
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

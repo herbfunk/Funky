@@ -20,17 +20,20 @@ namespace FunkyTrinity.ability.Abilities.Barb
 		}
 
 		public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
-
+		public override void InitCriteria()
+		{
+			 base.AbilityTestConditions=new AbilityUsablityTests(this);
+		}
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.ZigZagPathing;
+			ExecutionType = AbilityUseType.ZigZagPathing;
 			WaitVars = new WaitLoops(0, 0, true);
 			Cost = 10;
 			Range = 15;
-			UseFlagsType=AbilityUseFlags.Combat;
+			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
 
-			PreCastConditions=(ability.CastingConditionTypes.CheckEnergy|ability.CastingConditionTypes.CheckPlayerIncapacitated);
+			PreCastConditions=(ability.AbilityConditions.CheckEnergy|ability.AbilityConditions.CheckPlayerIncapacitated);
 			ClusterConditions = new ClusterConditions(10d, 30f, 2, true);
 
 			Fcriteria = new Func<bool>(() =>

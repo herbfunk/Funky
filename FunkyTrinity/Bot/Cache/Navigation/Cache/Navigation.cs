@@ -675,7 +675,7 @@ namespace FunkyTrinity.Movement
 																								&&obstacle.Obstacletype.HasValue
 																								&&ObstacleType.Navigation.HasFlag(obstacle.Obstacletype.Value)//only navigation/intersection blocking objects!
 																								&&obstacle.RadiusDistance<=range //Only within range..
-																								&&obstacle.BotIsFacing()||obstacle.RadiusDistance<=0f||Funky.PlayerMover.iTotalAntiStuckAttempts>0);
+																								&&obstacle.BotIsFacing()||obstacle.RadiusDistance<=0f);
 								//&&obstacle.TestIntersection(BotGridPoint, IntersectionDestinationPoint));
 
 

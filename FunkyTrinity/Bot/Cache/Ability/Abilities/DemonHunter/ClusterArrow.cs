@@ -17,21 +17,26 @@ namespace FunkyTrinity.ability.Abilities.DemonHunter
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Location | PowerExecutionTypes.ClusterLocation;
+			ExecutionType = AbilityUseType.Location | AbilityUseType.ClusterLocation;
 			WaitVars = new WaitLoops(1, 1, true);
 			Cost = 50;
 			Range = 50;
 			IsRanged = true;
 			IsProjectile=true;
-			UseFlagsType=AbilityUseFlags.Combat;
+			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated | CastingConditionTypes.CheckEnergy |
-			                     CastingConditionTypes.CheckRecastTimer);
+			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated | AbilityConditions.CheckEnergy |
+			                     AbilityConditions.CheckRecastTimer);
 
 			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_50, 3);
 			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_50, 1);
 								//TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,69),
 			ClusterConditions = new ClusterConditions(5d, 50, 1, true);
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility

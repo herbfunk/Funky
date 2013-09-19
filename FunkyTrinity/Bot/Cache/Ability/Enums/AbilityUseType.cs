@@ -6,16 +6,16 @@ namespace FunkyTrinity.ability
 	 ///Describes how to use the Ability (SNOPower)
 	 ///</summary>
 	 [Flags]
-	 public enum PowerExecutionTypes
+	 public enum AbilityUseType
 	 {
 			None=0,
-			Buff=1, //no location or target raguid
+			Buff=1,
 			Location=2,
 			Target=4,
 			ClusterTarget=8,
 			ClusterLocation=16,
 			ZigZagPathing=32,
-			Self=64, //bot location, no target raguid
+			Self=64,
 			RemoveBuff=128,
 			ClusterTargetNearest=256,
 	 }

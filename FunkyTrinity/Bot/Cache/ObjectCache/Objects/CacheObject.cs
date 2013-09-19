@@ -208,12 +208,12 @@ namespace FunkyTrinity.Cache
 						  //Update Properties
 						  if (this.RadiusDistance<5f)
 						  {
-								if (!AbilityLogic.CheckTargetPropertyFlag(this.Properties,TargetProperties.CloseDistance))
+								if (!AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties,TargetProperties.CloseDistance))
 									 this.Properties|=TargetProperties.CloseDistance;
 						  }
 						  else
 						  {
-								if (AbilityLogic.CheckTargetPropertyFlag(this.Properties,TargetProperties.CloseDistance))
+								if (AbilityUsablityTests.CheckTargetPropertyFlag(this.Properties,TargetProperties.CloseDistance))
 									 this.Properties&=TargetProperties.CloseDistance;
 						  }
 					 }
@@ -460,18 +460,8 @@ namespace FunkyTrinity.Cache
 						  if (this.LoopsUnseen_>0) return false;
 
 						  //Check if we are doing something important.. if so we only want to check units!
-						  if (Bot.IsInNonCombatBehavior)
-						  {
-								TargetType typesValid=TargetType.Unit|TargetType.Item|TargetType.Gold|TargetType.Globe;
-								if (Bot.Profile.ProfileBehaviorIsOOCInteractive&&!Bot.Character.bIsInTown)
-								{
-									typesValid|=TargetType.Door|TargetType.Barricade;
-								}
-								if (!typesValid.HasFlag(this.targetType.Value))
-									 return false;
-
-						  }
-						 
+							if (Bot.IsInNonCombatBehavior&&(!this.targetType.HasValue||!(TargetType.Unit|TargetType.Item|TargetType.Gold|TargetType.Globe).HasFlag(this.targetType.Value)))
+								return false;
 
 						  //Validate refrence still remains
 						  if (!this.IsStillValid())
@@ -618,11 +608,10 @@ namespace FunkyTrinity.Cache
 				{
 					 get
 					 {
-						  return String.Format("RAGUID {0}: \r\n {1} Distance (Centre{2} / Radius{3}) \r\n ReqLOS={4} -- {5} -- [LOSV3: {6}] BotFacing={7} \r\n PriorityCounter=[{8}] BlackListLoops=[{9}]",
+						  return String.Format("RAGUID {0}: \r\n {1} Distance (Centre{2} / Radius{3}) \r\n ReqLOS={4} -- {5} -- [LOSV3: {6}] \r\n BotFacing={7} \r\n BlackListLoops[{8}]",
 								this.RAGUID.ToString(), base.DebugString, this.CentreDistance.ToString(), this.RadiusDistance.ToString(),
 								this.RequiresLOSCheck.ToString(), this.LineOfSight!=null?String.Format("-- {0} --",this.LineOfSight.DebugString):"", this.LOSV3.ToString(),
-								this.BotIsFacing().ToString(),
-								this.PriorityCounter.ToString(),this.BlacklistLoops.ToString());
+								this.BotIsFacing().ToString(), this.BlacklistLoops.ToString());
 					 }
 				}
 

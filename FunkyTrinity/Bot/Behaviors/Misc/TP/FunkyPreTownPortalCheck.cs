@@ -2,7 +2,6 @@
 using FunkyTrinity.Enums;
 using Zeta;
 using Zeta.Common;
-using Zeta.CommonBot;
 
 
 
@@ -33,20 +32,6 @@ namespace FunkyTrinity
             {
                 return false;
             }
-
-				//check if we recently taken waypoint..
-				if (Bot.Profile.LastProfileBehavior!=null&&Bot.Profile.LastProfileBehavior.GetType()==typeof(Zeta.CommonBot.Profile.Common.UseWaypointTag))
-				{
-					//Only if it was within the last 10 seconds..
-					 if (DateTime.Now.Subtract(Bot.Profile.LastProfileBehaviorChanged).TotalSeconds<10)
-					 {
-						  Logger.Write(LogLevel.OutOfCombat, "Recently Used Waypoint, Updating Navigator with movement.");
-						 //To prevent any issues.. we should force movement -- to cache our location.
-						  Vector3 movementLoc=MathEx.GetPointAt(Bot.Character.Position, 5f, 0);
-						  Zeta.Navigation.Navigator.MoveTo(movementLoc, "NavUpdate", false);
-						  //CommonBehaviors.MoveAndStop((ValueRetriever<Vector3>)(ret=>Zeta.Navigation.Navigator.StuckHandler.GetUnstuckPos()),10f, true, "NavUpdate", Zeta.TreeSharp.RunStatus.Failure, false);// Zeta.Navigation.Navigator.StuckHandler.GetUnstuckPos()
-					 }
-				}
 
             //All checks passed.. so continue behavior!
             return true;

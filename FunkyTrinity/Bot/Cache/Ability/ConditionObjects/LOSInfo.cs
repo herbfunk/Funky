@@ -59,7 +59,7 @@ namespace FunkyTrinity.ability
 		 ///<summary>
 		 ///Runs raycasting and intersection tests to validate LOS.
 		 ///</summary>
-		 public bool LOSTest(Vector3 PositionToTestFrom, bool NavRayCast=true, bool ServerObjectIntersection=true, NavCellFlags Flags=NavCellFlags.None, bool ContinueOnFailures=true, bool UseMeleeVector=false)
+		 public bool LOSTest(Vector3 PositionToTestFrom, bool NavRayCast=true, bool ServerObjectIntersection=true, NavCellFlags Flags=NavCellFlags.None, bool ContinueOnFailures=true)
 		 {
 			  this.LastLOSCheck=DateTime.Now;
 			  bool Failed=false;
@@ -67,7 +67,7 @@ namespace FunkyTrinity.ability
 
 			  if (NavRayCast)
 			  {//This is a basic raycast test to see if we have clear view of the object.
-					RayCast=LOSRayCast(PositionToTestFrom, UseMeleeVector?Obj.BotMeleeVector:Obj.Position);
+					RayCast=!Zeta.Navigation.Navigator.Raycast(PositionToTestFrom, Obj.Position);
 					if (!RayCast.Value)
 					{
 						 Failed=true;
@@ -86,7 +86,12 @@ namespace FunkyTrinity.ability
 						 TargetTestLocation.Z=Navigation.MGP.GetHeight(TargetTestLocation.ToVector2());
 					}
 
-					ObjectIntersection=LOSObjectIntersection(PositionToTestFrom, TargetTestLocation);
+					ObjectIntersection=ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
+						 .Any(obstacle =>
+							  obstacle.RAGUID!=Obj.RAGUID&&
+							  obstacle.Obstacletype.HasValue&&
+							  obstacle.Obstacletype.Value!=ObstacleType.Monster&&
+							  obstacle.TestIntersection(PositionToTestFrom, TargetTestLocation));
 
 					if (!Failed&&ObjectIntersection.Value)
 					{
@@ -98,11 +103,11 @@ namespace FunkyTrinity.ability
 
 			  if (!Flags.Equals(NavCellFlags.None))
 			  {//Raycast test to validate it can preform the path -- walk/projectile
+					bool NavTest=Navigation.CanRayCast(PositionToTestFrom, Obj.Position, Flags);
 
-					bool? test=LOSNavCell(PositionToTestFrom, Obj.Position, Flags);
-					if (Flags.HasFlag(NavCellFlags.AllowWalk)) NavCellWalk=test;
-					if (Flags.HasFlag(NavCellFlags.AllowProjectile)) NavCellProjectile=test;
-					if (!Failed&&!test.Value)
+					if (Flags.HasFlag(NavCellFlags.AllowWalk)) NavCellWalk=NavTest;
+					if (Flags.HasFlag(NavCellFlags.AllowProjectile)) NavCellProjectile=NavTest;
+					if (!Failed&&!NavTest)
 					{
 						 Failed=true;
 					}
@@ -110,30 +115,6 @@ namespace FunkyTrinity.ability
 
 			  //this.LastVectorTested=PositionToTestFrom;
 			  return !Failed;
-		 }
-
-		 private bool? LOSRayCast(Vector3 PositionToTestFrom, Vector3 TargetLocation)
-		 {
-			  bool? RayCast;
-			  RayCast=!Zeta.Navigation.Navigator.Raycast(PositionToTestFrom, TargetLocation);
-			  return RayCast;
-		  }
-		 private bool? LOSObjectIntersection(Vector3 PositionToTestFrom, Vector3 TargetLocation)
-		 {
-			  bool? ObjectIntersection;
-			 ObjectIntersection=ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
-				  .Any(obstacle =>
-						obstacle.RAGUID!=Obj.RAGUID&&
-						obstacle.Obstacletype.HasValue&&
-						obstacle.Obstacletype.Value!=ObstacleType.Monster&&
-						obstacle.TestIntersection(PositionToTestFrom, TargetLocation));
-
-			  return ObjectIntersection;
-		 }
-		 private bool? LOSNavCell(Vector3 PositionToTestFrom, Vector3 TargetLocation, NavCellFlags Flags)
-		 {
-			  bool? RayCast=Navigation.CanRayCast(PositionToTestFrom, TargetLocation, Flags);
-			  return RayCast;
 		 }
 	}
 }

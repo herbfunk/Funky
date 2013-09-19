@@ -16,21 +16,25 @@ namespace FunkyTrinity.ability.Abilities.Wizard
 
 		public override void Initialize()
 		{
-			ExecutionType = PowerExecutionTypes.Target | PowerExecutionTypes.ClusterTarget;
+			ExecutionType = AbilityUseType.Target | AbilityUseType.ClusterTarget;
 			WaitVars = new WaitLoops(0, 0, true);
 			Range=(Bot.Class.RuneIndexCache[SNOPower.Wizard_Electrocute]==2?15:40);
 			IsRanged = true;
 			IsProjectile=true;
-			UseFlagsType=AbilityUseFlags.Combat;
+			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.None;
-			IsADestructiblePower=true;
-			PreCastConditions = (CastingConditionTypes.CheckPlayerIncapacitated);
+			PreCastConditions = (AbilityConditions.CheckPlayerIncapacitated);
 
 								//Aim for cluster with 2 units very close together.
 			ClusterConditions = new ClusterConditions(3d, Bot.Class.RuneIndexCache[SNOPower.Wizard_Electrocute] == 2 ? 15 : 40, 2,
 				true);
 								//No conditions for a single target.
 			TargetUnitConditionFlags = new UnitTargetConditions();
+		}
+
+		public override void InitCriteria()
+		{
+			base.AbilityTestConditions = new AbilityUsablityTests(this);
 		}
 
 		#region IAbility
