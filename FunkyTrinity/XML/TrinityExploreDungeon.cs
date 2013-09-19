@@ -479,9 +479,14 @@ namespace FunkyTrinity.XMLTags
 				}
 				else if (lastCoinage==Bot.Character.Coinage&&TagTimer.Elapsed.TotalSeconds>TimeoutValue)
 				{
-					 Logging.WriteDiagnostic("TrinityExploreDungeon gold inactivity timer tripped ({0}), tag finished!", TimeoutValue);
-					 timeoutBreached=true;
-					 return RunStatus.Success;
+					 if (ZetaDia.Me.Inventory.Coinage==lastCoinage)
+					 {
+						  Logging.WriteDiagnostic("TrinityExploreDungeon gold inactivity timer tripped ({0}), tag finished!", TimeoutValue);
+						  timeoutBreached=true;
+						  return RunStatus.Success;
+					 }
+					 TagTimer.Restart();
+					 return RunStatus.Failure;
 				}
 
 				return RunStatus.Failure;

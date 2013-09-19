@@ -7,7 +7,7 @@ using Zeta.Common;
 using System.Globalization;
 using System.Collections.ObjectModel;
 using Zeta.Internals.Actors;
-using FunkyTrinity.Enums;
+
 using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
 using FunkyTrinity.Settings;
@@ -266,7 +266,7 @@ namespace FunkyTrinity
 
 							}
 					  }
-					  else if (btnsender.Name=="Ability")
+					  else if (btnsender.Name=="ability")
 					  {
 							try
 							{

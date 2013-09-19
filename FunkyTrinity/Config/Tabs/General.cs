@@ -3,7 +3,8 @@ using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using FunkyTrinity.Enums;
+using FunkyTrinity.Cache.Enums;
+
 
 namespace FunkyTrinity
 {
@@ -326,7 +327,7 @@ namespace FunkyTrinity
 				#region OutOfCombatMovement
 				CheckBox cbOutOfCombatMovement=new CheckBox
 				{
-					 Content="Use Out Of Combat Ability Movements",
+					 Content="Use Out Of Combat ability Movements",
 					 Width=300,
 					 Height=30,
 					 IsChecked=(Bot.SettingsFunky.OutOfCombatMovement)

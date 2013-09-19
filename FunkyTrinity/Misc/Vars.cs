@@ -9,10 +9,11 @@ using Zeta;
 using System.Reflection;
 using Zeta.Navigation;
 using System.IO;
-using FunkyTrinity.Enums;
+
 using FunkyTrinity.Cache;
 using System.Diagnostics;
 using System.Windows;
+using FunkyTrinity.Cache.Enums;
 
 namespace FunkyTrinity
 {

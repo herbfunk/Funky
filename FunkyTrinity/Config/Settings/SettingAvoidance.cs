@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+using FunkyTrinity.Avoidances;
 using FunkyTrinity.Cache;
-using FunkyTrinity.Enums;
+
 
 namespace FunkyTrinity.Settings
 {
@@ -14,12 +15,12 @@ namespace FunkyTrinity.Settings
 
 		 [XmlArray]
 		 public AvoidanceValue[] Avoidances { get { return avoidances; } set { avoidances=value; } }
-		 private AvoidanceValue[] avoidances=new AvoidanceValue[Funky.AvoidancesDefault.Length-1];
+		 private AvoidanceValue[] avoidances=new AvoidanceValue[AvoidanceCache.AvoidancesDefault.Length-1];
 		 public SettingAvoidance()
 		 {
 			  AttemptAvoidanceMovements=true;
 			  UseAdvancedProjectileTesting=false;
-			  avoidances=Funky.AvoidancesDefault;
+			  avoidances=AvoidanceCache.AvoidancesDefault;
 		 }
 
 		 private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.SettingsDefaultPath,"Specific","Avoidance_Default.xml");

@@ -4,7 +4,7 @@ using System.IO;
 using System.Globalization;
 using Zeta.Common;
 using System.Xml.Serialization;
-using FunkyTrinity.Enums;
+
 
 namespace FunkyTrinity.Settings
 {

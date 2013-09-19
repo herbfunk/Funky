@@ -23,7 +23,7 @@ namespace FunkyTrinity
 		  public static void ResetBot()
 		  {
 				Log("Preforming reset of bot data...", true);
-			  ObjectCache.ClearBlacklistCollections();
+			  BlacklistCache.ClearBlacklistCollections();
 				PowerCacheLookup.dictAbilityLastUse=new Dictionary<SNOPower, DateTime>(PowerCacheLookup.dictAbilityLastUseDefaults);
 
 				PlayerMover.iTotalAntiStuckAttempts=1;
@@ -72,9 +72,9 @@ namespace FunkyTrinity
 				_hashsetItemFollowersIgnored=new HashSet<int>();
 				TownRunManager._dictItemStashAttempted=new Dictionary<int, int>();
 
-				Bot.Stats.listProfilesLoaded=new List<string>();
-				Bot.Stats.sLastProfileSeen="";
-				Bot.Stats.sFirstProfileSeen="";
+				Bot.Profile.listProfilesLoaded=new List<string>();
+				Bot.Profile.LastProfileSeen="";
+				Bot.Profile.FirstProfileSeen="";
 
 		  }
 

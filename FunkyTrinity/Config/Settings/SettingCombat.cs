@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
-using FunkyTrinity.Enums;
+
 namespace FunkyTrinity.Settings
 {
 	public class SettingCombat

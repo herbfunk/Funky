@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using FunkyTrinity.Enums;
+using FunkyTrinity.Cache.Enums;
 using FunkyTrinity.Settings;
 
 namespace FunkyTrinity

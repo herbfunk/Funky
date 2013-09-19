@@ -100,7 +100,7 @@ namespace FunkyTrinity
 				}
 
 				// Recording of all the XML's in use this run
-				Bot.Stats.CheckProfile();
+				Bot.Profile.CheckProfile();
 
 
 				//Seconday Hotbar Check
@@ -112,13 +112,13 @@ namespace FunkyTrinity
 				Bot.Combat.DontMove=false;
 
 				//update current profile behavior.
-				Bot.CheckCurrentProfileBehavior();
+				Bot.Profile.CheckCurrentProfileBehavior();
 
 
 				// Should we refresh target list?
-				if (Bot.Refresh.ShouldRefreshObjectList)
+				if (Bot.Target.ShouldRefreshObjectList)
 				{
-					 Bot.Refresh.RefreshDiaObjects();
+					 Bot.Target.RefreshDiaObjects();
 
 					 // We have a target, start the target handler!
 					 if (Bot.Target.CurrentTarget!=null)
@@ -183,16 +183,17 @@ namespace FunkyTrinity
 					 // Return false here means we only do all of the below OOC stuff at max once every 150ms
 					 return false;
 				}
+
 				// Pop a potion when necessary
-				if (Bot.Character.dCurrentHealthPct<=Bot.EmergencyHealthPotionLimit)
+				if (Bot.Class.HealthPotionAbility.CheckPreCastConditionMethod())
 				{
-					 if (!Bot.Character.bIsIncapacitated&&Bot.Class.AbilityUseTimer(SNOPower.DrinkHealthPotion))
+					 if (Bot.Class.HealthPotionAbility.CheckCustomCombatMethod())
 					 {
-						  Bot.AttemptToUseHealthPotion();
+						  Bot.Class.HealthPotionAbility.AttemptToUseHealthPotion();
 					 }
 				}
 
-			  ObjectCache.CheckRefreshBlacklists();
+			  BlacklistCache.CheckRefreshBlacklists();
 
 
 				if (Bot.SettingsFunky.Debug.DebugStatusBar&&bResetStatusText)
@@ -212,12 +213,12 @@ namespace FunkyTrinity
 					 !TownRunManager.bWantToTownRun&&
 					 myAnimationState!=AnimationState.Attacking&&myAnimationState!=AnimationState.Casting&&myAnimationState!=AnimationState.Channeling)
 				{
-					 FunkyTrinity.ability.Ability Buff;
+					 FunkyTrinity.Ability.ability Buff;
 					 if (Bot.Class.FindBuffPower(out Buff))
 					 {
-						  FunkyTrinity.ability.Ability.SetupAbilityForUse(ref Buff);
+						  FunkyTrinity.Ability.ability.SetupAbilityForUse(ref Buff);
 						  Bot.Character.WaitWhileAnimating(4, true);
-						  ability.Ability.UsePower(ref Buff);
+						  Ability.ability.UsePower(ref Buff);
 						  Buff.SuccessfullyUsed();
 						  Bot.Character.WaitWhileAnimating(3, true);
 					 }

@@ -193,8 +193,8 @@
     <ItemRulesUnidStashing>true</ItemRulesUnidStashing>
     <ItemRuleUseItemIDs>false</ItemRuleUseItemIDs>
     <ItemRuleDebug>false</ItemRuleDebug>
-    <ItemRuleType>Custom</ItemRuleType>
-    <ItemRuleCustomPath>C:\Users\aaron\Desktop\GnillerItemRules</ItemRuleCustomPath>
+    <ItemRuleType>Hard</ItemRuleType>
+    <ItemRuleCustomPath></ItemRuleCustomPath>
     <ItemRuleLogPickup>Rare</ItemRuleLogPickup>
     <ItemRuleLogKeep>Rare</ItemRuleLogKeep>
     <ItemRuleGilesScoring>true</ItemRuleGilesScoring>

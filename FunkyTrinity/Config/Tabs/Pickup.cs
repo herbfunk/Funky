@@ -3,11 +3,23 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using FunkyTrinity.Enums;
+
 using FunkyTrinity.Settings;
 
 namespace FunkyTrinity
 {
+	 public enum GemQuality
+	 {
+		  Chipped=14,
+		  Flawed=22,
+		  Normal=30,
+		  Flawless=36,
+		  Perfect=42,
+		  Radiant=48,
+		  Square=54,
+		  FlawlessSquare=60,
+	 }
+
 	 internal partial class FunkyWindow : Window
 	 {
 		  #region EventHandling

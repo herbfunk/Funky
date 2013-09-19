@@ -145,7 +145,7 @@ namespace FunkyTrinity
 					 case Zeta.Internals.Actors.ActorClass.Monk:
 						  CheckBox cbbMonkSpamMantra=new CheckBox
 						  {
-								Content="Spam Mantra Ability",
+								Content="Spam Mantra ability",
 								Width=300,
 								Height=30,
 								IsChecked=(Bot.SettingsFunky.Class.bMonkSpamMantra)
