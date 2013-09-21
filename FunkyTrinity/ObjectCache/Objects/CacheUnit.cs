@@ -298,10 +298,10 @@ namespace FunkyTrinity.Cache
 					 if (this==Bot.Target.CurrentTarget)
 					 {
 						  this.UpdateCurrentHitPoints();
-						  if (this.LastCurrentHealth_!=this.CurrentHealthPct)
+						  if (this.LastCurrentHealth_!=this.CurrentHealthPct.Value)
 						  {
 								 Bot.Target.LastHealthChange=DateTime.Now;
-								 Bot.Target.LastHealthDropPct=(this.LastCurrentHealth_-this.CurrentHealthPct.Value);
+								 Bot.Target.LastHealthDropPct=(this.LastCurrentHealth-this.CurrentHealthPct.Value);
 						  }
 
 						  return true;
@@ -364,7 +364,7 @@ namespace FunkyTrinity.Cache
 					 double dCurrentHealthPct=dThisCurrentHealth/this.MaximumHealth.Value;
 					 if (dCurrentHealthPct!=this.CurrentHealthPct)
 					 {
-						  this.LastCurrentHealth_=this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value:0d;
+						  this.LastCurrentHealth_=this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value:1d;
 						  this.CurrentHealthPct=dCurrentHealthPct;
 
 						  //update properties
@@ -1020,7 +1020,7 @@ namespace FunkyTrinity.Cache
 
 
 						  //Profile Blacklisted.
-						  if (BlacklistCache.hashProfileSNOTargetBlacklist.Contains(this.SNOID))
+						  if (!Bot.SettingsFunky.Ranges.IgnoreProfileBlacklists&&BlacklistCache.hashProfileSNOTargetBlacklist.Contains(this.SNOID))
 						  {
 								//Only if not prioritized..
 								if (!Bot.IsInNonCombatBehavior)
@@ -1391,62 +1391,10 @@ namespace FunkyTrinity.Cache
 									 Bot.Combat.bForceTargetUpdate=true;
 								}
 						  }
-
-						  return RunStatus.Running;
 					 }
 
 					 return RunStatus.Running;
 				}
-
-				//private void CheckInteractionLOS()
-				//{
-				//	 if (this.LastLOSCheckMS>3000)
-				//	 {
-				//		  if (!this.IgnoresLOSCheck)
-				//		  {
-				//				NavCellFlags LOSNavFlags=NavCellFlags.None;
-
-				//				if (!this.WithinInteractionRange())//ability requires movement prior to use, so we test nav flags.
-				//					 LOSNavFlags=NavCellFlags.AllowWalk;
-								
-				//				 if (Bot.Class.PowerPrime.IsRanged) //Add Projectile Testing!
-				//						LOSNavFlags|=NavCellFlags.AllowProjectile;
-
-
-				//				 if (!this.LOSTest(Bot.Character.Position, true, Bot.Class.PowerPrime.IsProjectile, LOSNavFlags))
-				//				{
-				//					 bool Valid=false;
-				//					 //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
-				//					 if (this.ObjectIsSpecial&&this.LastLOSSearchMS>2500)
-				//					 {
-				//						  this.LastLOSSearch=DateTime.Now;
-
-				//						  GPRectangle TargetGPRect=this.GPRect;
-				//						  //Expand GPRect into 5x5, 7x7 for ranged!
-				//						  TargetGPRect.FullyExpand();
-
-				//						  if (!Bot.Class.IsMeleeClass) TargetGPRect.FullyExpand();
-
-				//						  Vector3 LOSV3;
-				//						  if (TargetGPRect.TryFindSafeSpot(Bot.Character.Position, out LOSV3, this.BotMeleeVector))
-				//						  {
-				//								this.LOSV3=LOSV3;
-				//								Logging.WriteVerbose("Using LOS Vector at {0} to move to", LOSV3.ToString());
-				//								this.RequiresLOSCheck=false;
-				//								Valid=true;
-				//						  }
-				//					 }
-
-				//					 if (!Valid)
-				//					 {
-				//						  this.RequiresLOSCheck=true;
-				//					 }
-				//				}
-				//				else
-				//					 this.RequiresLOSCheck=false;
-				//		  }
-				//	 }
-				//}
 
 				public override bool CanInteract()
 				{

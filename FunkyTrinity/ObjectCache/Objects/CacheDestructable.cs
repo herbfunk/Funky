@@ -62,7 +62,7 @@ namespace FunkyTrinity.Cache
 					else if (lastLOSCheckMS<2500&&this.CentreDistance>20f)
 						return false;
 
-					if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, false)&&(Funky.PlayerMover.iTotalAntiStuckAttempts==0||this.RadiusDistance>10f))
+					if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, false)&&(Funky.PlayerMover.iTotalAntiStuckAttempts==0||this.RadiusDistance>12f))
 					{
 						return false;
 					}

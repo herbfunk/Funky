@@ -465,7 +465,6 @@ namespace FunkyTrinity.Targeting
 					 ability movement;
 					 if (Bot.Class.FindSpecialMovementPower(out movement))
 					 {
-						  ability.SetupAbilityForUse(ref movement);
 						  ability.UsePower(ref movement);
 						  movement.SuccessfullyUsed();
 					 }
@@ -475,7 +474,6 @@ namespace FunkyTrinity.Targeting
 					  ability buff;
 					 if (Bot.Class.FindBuffPower(out buff))
 					 {
-						  ability.SetupAbilityForUse(ref buff);
 						  ability.UsePower(ref buff);
 						  buff.SuccessfullyUsed();
 					 }

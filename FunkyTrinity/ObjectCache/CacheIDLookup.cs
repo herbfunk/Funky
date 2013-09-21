@@ -608,6 +608,8 @@ namespace FunkyTrinity.Cache
 					208825,
 					//a2 Tesla Cold
 					208824,
+					//a2 Tesla Lightning
+					204944,
 					//a3dun_crater_Demon_GroundTrap_GasChamber
 					120652,
 					//a3dun_battlefield_Demon_GroundTrap_GasChamber
@@ -690,7 +692,7 @@ namespace FunkyTrinity.Cache
 				public static readonly HashSet<int> hashActorSNOSucideBomberUnits=new HashSet<int>
 				{
 					 //Lunitics
-					 4093,4094,4095
+					 4093,4094,4095,231356,
 
 				};
 				public static readonly HashSet<int> hashActorSNOStealthUnits=new HashSet<int>

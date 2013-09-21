@@ -37,19 +37,21 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
 			TargetUnitConditionFlags = new UnitTargetConditions
 			{
-				TrueConditionFlags = TargetProperties.RareElite | TargetProperties.Unique,
-				Distance = 15,
+				TrueConditionFlags = TargetProperties.IsSpecial,
+				Distance = 30,
+				
 			};
-
+			
 			Fcriteria = new Func<bool>(() =>
 			{
-				bool isChanneling = (this.IsHobbling || Bot.Class.AbilityLastUseMS(SNOPower.Monk_TempestRush) < 350);
+				bool isChanneling = (this.IsHobbling || this.LastUsedMilliseconds < 500);
 				int channelingCost = Bot.Class.RuneIndexCache[Power] == 3 ? 8 : 10;
 
 				//If channeling, check if energy is greater then 10.. else only start when energy is at least -40-
 				return (isChanneling && Bot.Character.dCurrentEnergy > channelingCost) || (Bot.Character.dCurrentEnergy > 40)
 							 &&(!Bot.Class.bWaitingForSpecial||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount);
 			});
+			FMovement=Fcriteria;
 		}
 
 		#region IAbility

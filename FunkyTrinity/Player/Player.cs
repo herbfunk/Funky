@@ -318,8 +318,12 @@ namespace FunkyTrinity
 
 						  if (item.CheckPreCastConditionMethod())
 						  {
-								MovementAbility=item;
-								return true;
+								if(item.CheckMovementConditionMethod())
+								{
+									 MovementAbility=item;
+									 ability.SetupAbilityForUse(ref MovementAbility);
+									 return true;
+								}
 						  }
 					 }
 					 return false;
@@ -338,6 +342,7 @@ namespace FunkyTrinity
 								if (item.CheckBuffConditionMethod())
 								{
 									 BuffAbility=item;
+									 ability.SetupAbilityForUse(ref BuffAbility);
 									 return true;
 								}
 						  }
@@ -533,19 +538,19 @@ namespace FunkyTrinity
 						  }
 					 }
 				}
-				internal bool AbilityUseTimer(SNOPower thispower, bool bReCheck=false)
-				{
-					 double lastUseMS=AbilityLastUseMS(thispower);
-					 if (lastUseMS>=this.AbilityCooldowns[thispower])
-						  return true;
-					 if (bReCheck&&lastUseMS>=150&&lastUseMS<=600)
-						  return true;
-					 return false;
-				}
-				internal double AbilityLastUseMS(SNOPower P)
-				{
-					 return DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastUse[P]).TotalMilliseconds;
-				}
+				//internal bool AbilityUseTimer(SNOPower thispower, bool bReCheck=false)
+				//{
+				//	 double lastUseMS=AbilityLastUseMS(thispower);
+				//	 if (lastUseMS>=this.AbilityCooldowns[thispower])
+				//		  return true;
+				//	 if (bReCheck&&lastUseMS>=150&&lastUseMS<=600)
+				//		  return true;
+				//	 return false;
+				//}
+				//internal double AbilityLastUseMS(SNOPower P)
+				//{
+				//	 return DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastUse[P]).TotalMilliseconds;
+				//}
 				internal int GetBuffStacks(SNOPower thispower)
 				{
 					 int iStacks;

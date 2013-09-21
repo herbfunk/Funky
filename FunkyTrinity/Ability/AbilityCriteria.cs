@@ -13,6 +13,7 @@ namespace FunkyTrinity.Ability
 				 Fprecast=new Func<bool>(() => { return true; });
 				 Fcriteria=new Func<bool>(() => { return true; });
 				 Fbuff=new Func<bool>(() => { return true; });
+				 FMovement=new Func<bool>(() => { return true; });
 				 
 			}
 			///<summary>
@@ -37,6 +38,10 @@ namespace FunkyTrinity.Ability
 			///Custom Conditions for Buffing
 			///</summary>
 			internal Func<bool> Fbuff;
+			///<summary>
+			///Custom Conditions for Movement Abilities
+			///</summary>
+			internal Func<bool> FMovement;
 
 			internal Func<bool> FClusterConditions;
 			internal Func<bool> FUnitsInRangeConditions;
@@ -53,6 +58,18 @@ namespace FunkyTrinity.Ability
 				 foreach (Func<bool> item in Fbuff.GetInvocationList())
 				 {
 						if (!item()) return false;
+				 }
+
+				 return true;
+			}
+			///<summary>
+			///Check ability movement Conditions
+			///</summary>
+			public bool CheckMovementConditionMethod()
+			{
+				 foreach (Func<bool> item in FMovement.GetInvocationList())
+				 {
+					  if (!item()) return false;
 				 }
 
 				 return true;

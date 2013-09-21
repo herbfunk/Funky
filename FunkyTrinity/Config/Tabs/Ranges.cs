@@ -46,6 +46,10 @@ namespace FunkyTrinity
 		  {
 				Bot.SettingsFunky.Ranges.IgnoreLootRange=!Bot.SettingsFunky.Ranges.IgnoreLootRange;
 		  }
+		  private void IgnoreProfileBlacklistChecked(object sender, EventArgs e)
+		  {
+				Bot.SettingsFunky.Ranges.IgnoreProfileBlacklists=!Bot.SettingsFunky.Ranges.IgnoreProfileBlacklists;
+		  }
 		  private void EliteRangeSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
@@ -127,12 +131,23 @@ namespace FunkyTrinity
 				tcTargeting.Items.Add(RangeTabItem);
 				ListBox lbTargetRange=new ListBox();
 
+				StackPanel ProfileRelatedSettings=new StackPanel();
+
+				TextBlock Profile_Values_Text=new TextBlock
+				{
+					 Text="Profile Related Values",
+					 FontSize=13,
+					 Background=System.Windows.Media.Brushes.DarkSeaGreen,
+					 TextAlignment=TextAlignment.Center,
+					 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+				};
+				ProfileRelatedSettings.Children.Add(Profile_Values_Text);
+
 				StackPanel spIgnoreProfileValues=new StackPanel
 				{
 					 Orientation=Orientation.Horizontal,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
 				};
-
 				CheckBox cbIgnoreCombatRange=new CheckBox
 				{
 					 Content="Ignore Combat Range (Set by Profile)",
@@ -144,7 +159,6 @@ namespace FunkyTrinity
 				cbIgnoreCombatRange.Checked+=IgnoreCombatRangeChecked;
 				cbIgnoreCombatRange.Unchecked+=IgnoreCombatRangeChecked;
 				spIgnoreProfileValues.Children.Add(cbIgnoreCombatRange);
-
 				CheckBox cbIgnoreLootRange=new CheckBox
 				{
 					 Content="Ignore Loot Range (Set by Profile)",
@@ -156,8 +170,19 @@ namespace FunkyTrinity
 				cbIgnoreLootRange.Checked+=IgnoreLootRangeChecked;
 				cbIgnoreLootRange.Unchecked+=IgnoreLootRangeChecked;
 				spIgnoreProfileValues.Children.Add(cbIgnoreLootRange);
-
-				lbTargetRange.Items.Add(spIgnoreProfileValues);
+				ProfileRelatedSettings.Children.Add(spIgnoreProfileValues);
+				CheckBox cbIgnoreProfileBlacklist=new CheckBox
+				{
+					 Content="Ignore Profile Blacklisted IDs",
+					 // Width = 300,
+					 Height=30,
+					 HorizontalContentAlignment=System.Windows.HorizontalAlignment.Right,
+					 IsChecked=(Bot.SettingsFunky.Ranges.IgnoreProfileBlacklists)
+				};
+				cbIgnoreProfileBlacklist.Checked+=IgnoreProfileBlacklistChecked;
+				cbIgnoreProfileBlacklist.Unchecked+=IgnoreProfileBlacklistChecked;
+				ProfileRelatedSettings.Children.Add(cbIgnoreProfileBlacklist);
+				lbTargetRange.Items.Add(ProfileRelatedSettings);
 
 
 				TextBlock Target_Range_Text=new TextBlock

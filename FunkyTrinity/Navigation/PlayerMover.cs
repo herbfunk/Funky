@@ -118,7 +118,7 @@ namespace FunkyTrinity
 					 if (iTotalAntiStuckAttempts<=8)
 					 {
 						  //Check cache for barricades..
-						  if (ObjectCache.Objects.OfType<CacheDestructable>().Any(CO => CO.RadiusDistance<=10f))
+						  if (ObjectCache.Objects.OfType<CacheDestructable>().Any(CO => CO.RadiusDistance<=12f))
 						  {
 								Logging.Write("[Funky] Found nearby barricade, flagging barricade destruction!");
 								ShouldHandleObstacleObject=true;

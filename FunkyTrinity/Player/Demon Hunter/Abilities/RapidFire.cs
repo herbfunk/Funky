@@ -47,7 +47,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 
 			Fcriteria=new Func<bool>(() =>
 			{
-				 bool isChanneling=(this.IsFiring||Bot.Class.AbilityLastUseMS(SNOPower.DemonHunter_RapidFire)<350);
+				 bool isChanneling=(this.IsFiring||this.LastUsedMilliseconds<450);
 				 //If channeling, check if energy is greater then 10.. else only start when energy is at least -40-
 				 return (isChanneling&&Bot.Character.dCurrentEnergy>6)||(Bot.Character.dCurrentEnergy>40)
 							  &&(!Bot.Class.bWaitingForSpecial||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount);

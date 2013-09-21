@@ -135,7 +135,7 @@ namespace FunkyTrinity.Settings
                  Class = new ClassSettings();
              }
 
-
+				 //TODO:: Create Abstract Base Class and Derieved Classes for each D3 Class.
              public class ClassSettings
              {
                  //barb

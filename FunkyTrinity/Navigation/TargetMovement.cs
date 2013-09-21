@@ -410,7 +410,7 @@ namespace FunkyTrinity.Movement
 					 LastMovementCommand=DateTime.Now;
 
 					 UseTargetMovement(obj, currentDistance, bForceNewMovement);
-
+					 Bot.Target.LastHealthChange=DateTime.Now;
 					 return RunStatus.Running;
 				}
 
@@ -463,7 +463,7 @@ namespace FunkyTrinity.Movement
 						  LastNavigatorMoveTo=obj.Position;
 						  LastMoveResult=Zeta.Navigation.Navigator.MoveTo(LastNavigatorMoveTo, obj.InternalName, true);
 					 }
-					 else if (!LastMoveResult.HasFlag(MoveResult.ReachedDestination)&&Bot.Character.Position.Distance2D(LastNavigatorMoveTo)>7.5f)
+					 else if (!LastMoveResult.HasFlag(MoveResult.ReachedDestination)||Bot.Character.Position.Distance2D(LastNavigatorMoveTo)<7.5f)
 					 {
 						  LastMoveResult=Zeta.Navigation.Navigator.MoveTo(LastNavigatorMoveTo, obj.InternalName, true);
 					 }

@@ -7,6 +7,7 @@ namespace FunkyTrinity.Settings
 	{
 		public bool IgnoreCombatRange { get; set; }
 		public bool IgnoreLootRange { get; set; }
+		public bool IgnoreProfileBlacklists { get; set; }
 		public int ItemRange { get; set; }
 		public int GoldRange { get; set; }
 		public int GlobeRange { get; set; }
@@ -21,6 +22,7 @@ namespace FunkyTrinity.Settings
 		{
 			IgnoreCombatRange=false;
 			IgnoreLootRange=false;
+			IgnoreProfileBlacklists=false;
 			DestructibleRange=0;
 			ContainerOpenRange=30;
 			NonEliteCombatRange=45;
