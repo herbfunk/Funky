@@ -1380,11 +1380,13 @@ namespace FunkyTrinity.Cache
 								Bot.Combat.bWaitingAfterPower=true;
 						  }
 
-						  //Check health changes
-						  if (DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalMilliseconds>3000)
+						  //Check health changes -- only when single target or cluster with targeting is used.
+						  if ((Bot.Class.PowerPrime.LastConditionPassed.HasFlag(ConditionCriteraTypes.SingleTarget)||
+								Bot.Class.PowerPrime.LastConditionPassed.HasFlag(ConditionCriteraTypes.Cluster)&&Bot.Class.PowerPrime.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTarget|AbilityExecuteFlags.ClusterTargetNearest))&&
+								DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalMilliseconds>3000)
 						  {
 								double LastHealthChangedMS=DateTime.Now.Subtract(Bot.Target.LastHealthChange).TotalMilliseconds;
-								if (LastHealthChangedMS>3000)
+								if (LastHealthChangedMS>5000)
 								{
 									 Logger.Write(LogLevel.Target, "Ignore Unit {0} due to health last changed of {1}ms", this.InternalName, LastHealthChangedMS);
 									 this.BlacklistLoops=20;

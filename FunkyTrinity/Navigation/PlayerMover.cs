@@ -536,7 +536,7 @@ namespace FunkyTrinity
 								{
 
 									 if ((MovementPower.Power==SNOPower.Monk_TempestRush&&lastUsedAbilityMS<250)||
-										  Navigation.CanRayCast(vMyCurrentPosition, vTargetAimPoint))
+										  Navigation.CanRayCast(vMyCurrentPosition, vTargetAimPoint, NavCellFlags.AllowWalk))
 									 {
 										  ZetaDia.Me.UsePower(MovementPower.Power, vTargetAimPoint, Bot.Character.iCurrentWorldID, -1);
 										  MovementPower.SuccessfullyUsed();
