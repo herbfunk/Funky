@@ -214,7 +214,7 @@ namespace FunkyTrinity.Cache
 						  {
 								//Check if this unit is valid based on if its contained in valid clusters
 								 if (!Bot.Combat.ValidClusterUnits.Contains(this.RAGUID)
-									 &&(!this.ObjectIsSpecial&&(!Bot.Combat.AvoidanceLastTarget||this.CentreDistance>45f)))
+									 &&(!this.ObjectIsSpecial&&(!Bot.Combat.AvoidanceLastTarget||this.CentreDistance>59f)))
 								{
 									 return true;
 								}

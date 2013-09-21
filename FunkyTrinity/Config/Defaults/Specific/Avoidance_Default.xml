@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Avoidance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<SettingAvoidance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <AttemptAvoidanceMovements>true</AttemptAvoidanceMovements>
   <UseAdvancedProjectileTesting>false</UseAdvancedProjectileTesting>
   <Avoidances>
@@ -7,106 +7,133 @@
       <Type>ArcaneSentry</Type>
       <Health>1</Health>
       <Radius>14</Radius>
+      <Weight>14</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>AzmodanBodies</Type>
       <Health>1</Health>
       <Radius>47</Radius>
+      <Weight>10</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>AzmodanFireball</Type>
       <Health>1</Health>
       <Radius>16</Radius>
+      <Weight>8</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>AzmodanPool</Type>
       <Health>1</Health>
       <Radius>54</Radius>
+      <Weight>6</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>BeeProjectile</Type>
       <Health>0.5</Health>
       <Radius>2</Radius>
+      <Weight>4</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>BelialGround</Type>
       <Health>1</Health>
       <Radius>25</Radius>
+      <Weight>8</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>Dececrator</Type>
       <Health>1</Health>
       <Radius>9</Radius>
+      <Weight>12</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>DiabloMetor</Type>
       <Health>0.8</Health>
       <Radius>28</Radius>
+      <Weight>3</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>DiabloPrison</Type>
       <Health>1</Health>
       <Radius>15</Radius>
+      <Weight>5</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>Frozen</Type>
       <Health>1</Health>
       <Radius>19</Radius>
+      <Weight>20</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>GrotesqueExplosion</Type>
       <Health>0.5</Health>
       <Radius>20</Radius>
+      <Weight>20</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>LacuniBomb</Type>
       <Health>0.25</Health>
       <Radius>2</Radius>
+      <Weight>0</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>MageFirePool</Type>
       <Health>1</Health>
       <Radius>10</Radius>
+      <Weight>0</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>MoltenCore</Type>
       <Health>1</Health>
       <Radius>20</Radius>
+      <Weight>10</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>MoltenTrail</Type>
       <Health>0.75</Health>
       <Radius>6</Radius>
+      <Weight>0</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>PlagueCloud</Type>
       <Health>0.75</Health>
       <Radius>19</Radius>
+      <Weight>11</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>PlagueHand</Type>
       <Health>1</Health>
       <Radius>15</Radius>
+      <Weight>0</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>PoisonGas</Type>
       <Health>0.5</Health>
       <Radius>9</Radius>
+      <Weight>0</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>ShamanFireBall</Type>
       <Health>0.1</Health>
       <Radius>2</Radius>
+      <Weight>8</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>SuccubusProjectile</Type>
       <Health>0.25</Health>
       <Radius>2</Radius>
+      <Weight>0</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>TreeSpore</Type>
       <Health>1</Health>
-      <Radius>13</Radius>
+      <Radius>11</Radius>
+      <Weight>20</Weight>
+    </AvoidanceValue>
+    <AvoidanceValue>
+      <Type>None</Type>
+      <Health>0</Health>
+      <Radius>0</Radius>
+      <Weight>0</Weight>
     </AvoidanceValue>
   </Avoidances>
-</Avoidance>
+</SettingAvoidance>

@@ -339,8 +339,10 @@ namespace FunkyTrinity.Cache
 					 this.AvoidanceType=avoidancetype;
 					 this.AvoidanceValue=Bot.SettingsFunky.Avoidance.Avoidances[(int)avoidancetype];
 
-					 //Special avoidances that require additional loops before removal
-					 if ((AvoidanceType.TreeSpore|AvoidanceType.GrotesqueExplosion).HasFlag(this.AvoidanceType))
+					 //Special avoidances that require additional loops before removal (note: the loops are checked every 150ms, but obstacles are checked twice!)
+					 if (this.AvoidanceType.HasFlag(AvoidanceType.TreeSpore))
+						  this.RefreshRemovalCounter=120;
+					 else if (this.AvoidanceType.HasFlag(AvoidanceType.GrotesqueExplosion))
 						  this.RefreshRemovalCounter=45;
 				}
 

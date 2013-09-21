@@ -1,22 +1,28 @@
 ﻿namespace FunkyTrinity.Avoidances
 {
+	 ///<summary>
+	 ///Describes an individual avoidance properties
+	 ///</summary>
 	 public class AvoidanceValue
 	 {
 		  public AvoidanceType Type;
-		  public double Health;
-		  public double Radius;
+		  public double Health; //Minimum Health Percent
+		  public double Radius; 
+		  public int Weight; //How "Deadly"
 
-		  public AvoidanceValue(AvoidanceType type, double hp, double radius)
+		  public AvoidanceValue(AvoidanceType type, double hp, double radius, int weight)
 		  {
 				Type=type;
 				Health=hp;
 				Radius=radius;
+				Weight=weight;
 		  }
 		  public AvoidanceValue()
 		  {
 				Type=AvoidanceType.None;
 				Health=0.00d;
 				Radius=0.00d;
+				Weight=1;
 		  }
 
 		  public override int GetHashCode()

@@ -62,7 +62,7 @@ namespace FunkyTrinity.Movement
 					 // else if (millisecondsLastRecord>10000) //10 seconds.. clear cache!
 					 // SkipAheadAreaCache.Clear();
 
-					 if (SkipAheadAreaCache.Any(p => p.Position.Distance(ZetaDia.Me.Position)<=Precision))
+					 if (SkipAheadAreaCache.Any(p => p.Position.Distance2D(ZetaDia.Me.Position)<=Precision))
 						  return;
 
 					 SkipAheadAreaCache.Add(new SkipAheadNavigation(ZetaDia.Me.Position, Precision));

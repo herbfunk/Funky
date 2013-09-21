@@ -306,7 +306,7 @@ namespace FunkyTrinity
 					  {
 							try
 							{
-								 LBDebug.Items.Add(Bot.NavigationCache.CurrentPathVector.ToString());
+								 LBDebug.Items.Add(Bot.NavigationCache.currentMovementState.ToString()+ " --- " + Bot.NavigationCache.IsMoving.ToString());
 							} catch
 							{
 

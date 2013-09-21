@@ -16,6 +16,7 @@ namespace FunkyTrinity.Settings
 		 [XmlArray]
 		 public AvoidanceValue[] Avoidances { get { return avoidances; } set { avoidances=value; } }
 		 private AvoidanceValue[] avoidances=new AvoidanceValue[AvoidanceCache.AvoidancesDefault.Length-1];
+
 		 public SettingAvoidance()
 		 {
 			  AttemptAvoidanceMovements=true;

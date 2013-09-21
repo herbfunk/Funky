@@ -22,15 +22,14 @@ namespace FunkyTrinity
             //Start new current game stats
 				Bot.BotStatistics.ItemStats.CurrentGame.Reset();
 				Bot.BotStatistics.GameStats.CurrentGame.Reset();
-				ResetProfileVars();
 
 				
 
 				//Disconnect -- Starting Profile Setup.
 				if (HadDisconnectError)
 				{
-					 Logging.Write("Disconnect Error Last Game.. attempting to find starting profile.");
-					 ReloadStartingProfile();
+					 //Logging.Write("Disconnect Error Last Game.. attempting to find starting profile.");
+					 //ReloadStartingProfile();
 					 HadDisconnectError=false;
 				}
 

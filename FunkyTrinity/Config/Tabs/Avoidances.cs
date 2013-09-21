@@ -68,11 +68,25 @@ namespace FunkyTrinity
 				//Bot.SettingsFunky.Avoidance.RecreateAvoidances();
 		  }
 
+		  private void AvoidanceWeightSliderValueChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				string[] slider_info=slider_sender.Name.Split("_".ToCharArray());
+				int currentValue=Convert.ToInt16(slider_sender.Value);
+				int tb_index=Convert.ToInt16(slider_info[2]);
+
+				TBavoidanceWeight[tb_index].Text=currentValue.ToString();
+				Bot.SettingsFunky.Avoidance.Avoidances[tb_index].Weight=currentValue;
+				//AvoidanceType avoidancetype=(AvoidanceType)Enum.Parse(typeof(AvoidanceType), slider_info[0]);
+				//Bot.SettingsFunky.Avoidance.AvoidanceHealthValues[avoidancetype]=currentValue;
+				//Bot.SettingsFunky.Avoidance.RecreateAvoidances();
+		  }
+
 		  #endregion
 
 		  private TextBox[] TBavoidanceRadius;
 		  private TextBox[] TBavoidanceHealth;
-
+		  private TextBox[] TBavoidanceWeight;
 		  internal void InitAvoidanceControls()
 		  {
 				TabItem AvoidanceTabItem=new TabItem
@@ -155,9 +169,11 @@ namespace FunkyTrinity
 				ColumnDefinition colDef1=new ColumnDefinition();
 				ColumnDefinition colDef2=new ColumnDefinition();
 				ColumnDefinition colDef3=new ColumnDefinition();
+				ColumnDefinition colDef4=new ColumnDefinition();
 				AvoidanceLayoutGrid.ColumnDefinitions.Add(colDef1);
 				AvoidanceLayoutGrid.ColumnDefinitions.Add(colDef2);
 				AvoidanceLayoutGrid.ColumnDefinitions.Add(colDef3);
+				AvoidanceLayoutGrid.ColumnDefinitions.Add(colDef4);
 				RowDefinition rowDef1=new RowDefinition();
 				AvoidanceLayoutGrid.RowDefinitions.Add(rowDef1);
 
@@ -185,20 +201,33 @@ namespace FunkyTrinity
 					 Background=System.Windows.Media.Brushes.DarkRed,
 					 Foreground=System.Windows.Media.Brushes.GhostWhite,
 				};
+				TextBlock ColumnHeader4=new TextBlock
+				{
+					 Text="Weight",
+					 FontSize=12,
+					 TextAlignment=System.Windows.TextAlignment.Center,
+					 Background=System.Windows.Media.Brushes.DarkSlateBlue,
+					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+				};
 				Grid.SetColumn(ColumnHeader1, 0);
 				Grid.SetColumn(ColumnHeader2, 1);
 				Grid.SetColumn(ColumnHeader3, 2);
+				Grid.SetColumn(ColumnHeader4, 3);
 				Grid.SetRow(ColumnHeader1, 0);
 				Grid.SetRow(ColumnHeader2, 0);
 				Grid.SetRow(ColumnHeader3, 0);
+				Grid.SetRow(ColumnHeader4, 0);
 				AvoidanceLayoutGrid.Children.Add(ColumnHeader1);
 				AvoidanceLayoutGrid.Children.Add(ColumnHeader2);
 				AvoidanceLayoutGrid.Children.Add(ColumnHeader3);
+				AvoidanceLayoutGrid.Children.Add(ColumnHeader4);
 
 				//Dictionary<AvoidanceType, double> currentDictionaryAvoidance=Bot.SettingsFunky.Avoidance.AvoidanceHealthValues;
 				AvoidanceValue[] avoidanceValues=Bot.SettingsFunky.Avoidance.Avoidances.ToArray();
 				TBavoidanceHealth=new TextBox[avoidanceValues.Length-1];
 				TBavoidanceRadius=new TextBox[avoidanceValues.Length-1];
+				TBavoidanceWeight=new TextBox[avoidanceValues.Length-1];
+
 				int alternatingColor=0;
 
 				for (int i=0; i<avoidanceValues.Length-1; i++)
@@ -212,7 +241,7 @@ namespace FunkyTrinity
 
 					 Slider avoidanceRadius=new Slider
 					 {
-						  Width=125,
+						  Width=100,
 						  Name=avoidanceString+"_radius_"+i.ToString(),
 						  Maximum=30,
 						  Minimum=0,
@@ -239,7 +268,7 @@ namespace FunkyTrinity
 					 Slider avoidanceHealth=new Slider
 					 {
 						  Name=avoidanceString+"_health_"+i.ToString(),
-						  Width=125,
+						  Width=100,
 						  Maximum=1,
 						  Minimum=0,
 						  TickFrequency=0.10,
@@ -254,6 +283,30 @@ namespace FunkyTrinity
 					 TBavoidanceHealth[i]=new TextBox
 					 {
 						  Text=defaultHealth.ToString("F2", CultureInfo.InvariantCulture),
+						  IsReadOnly=true,
+						  VerticalAlignment=System.Windows.VerticalAlignment.Top,
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
+					 };
+
+					 int defaultWeight=avoidanceValues[i].Weight;
+					 Slider avoidanceWeight=new Slider
+					 {
+						  Name=avoidanceString+"_weight_"+i.ToString(),
+						  Width=100,
+						  Maximum=20,
+						  Minimum=0,
+						  TickFrequency=2,
+						  LargeChange=5,
+						  SmallChange=1,
+						  Value=defaultWeight,
+						  HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+						  VerticalAlignment=System.Windows.VerticalAlignment.Center,
+						  Margin=new Thickness(5),
+					 };
+					 avoidanceWeight.ValueChanged+=AvoidanceWeightSliderValueChanged;
+					 TBavoidanceWeight[i]=new TextBox
+					 {
+						  Text=defaultWeight.ToString("F2", CultureInfo.InvariantCulture),
 						  IsReadOnly=true,
 						  VerticalAlignment=System.Windows.VerticalAlignment.Top,
 						  HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
@@ -277,7 +330,7 @@ namespace FunkyTrinity
 
 					 StackPanel avoidRadiusStackPanel=new StackPanel
 					 {
-						  Width=175,
+						  Width=155,
 						  Height=25,
 						  Orientation=Orientation.Horizontal,
 						  Background=alternatingColor==0?System.Windows.Media.Brushes.DarkSeaGreen:Background=System.Windows.Media.Brushes.SlateGray,
@@ -288,19 +341,30 @@ namespace FunkyTrinity
 
 					 StackPanel avoidHealthStackPanel=new StackPanel
 					 {
-						  Width=175,
+						  Width=155,
 						  Height=25,
 						  Orientation=Orientation.Horizontal,
 						  Background=alternatingColor==0?System.Windows.Media.Brushes.DarkSeaGreen:Background=System.Windows.Media.Brushes.SlateGray,
 					 };
 					 avoidHealthStackPanel.Children.Add(avoidanceHealth);
 					 avoidHealthStackPanel.Children.Add(TBavoidanceHealth[i]);
+					 StackPanel avoidWeightStackPanel=new StackPanel
+					 {
+						  Width=155,
+						  Height=25,
+						  Orientation=Orientation.Horizontal,
+						  Background=alternatingColor==0?System.Windows.Media.Brushes.DarkSeaGreen:Background=System.Windows.Media.Brushes.SlateGray,
+					 };
+					 avoidWeightStackPanel.Children.Add(avoidanceWeight);
+					 avoidWeightStackPanel.Children.Add(TBavoidanceWeight[i]);
 
 					 Grid.SetColumn(txt1, 0);
 					 Grid.SetColumn(avoidRadiusStackPanel, 1);
 					 Grid.SetColumn(avoidHealthStackPanel, 2);
+					 Grid.SetColumn(avoidWeightStackPanel, 3);
 
 					 int currentIndex=AvoidanceLayoutGrid.RowDefinitions.Count-1;
+					 Grid.SetRow(avoidWeightStackPanel, currentIndex);
 					 Grid.SetRow(avoidRadiusStackPanel, currentIndex);
 					 Grid.SetRow(avoidHealthStackPanel, currentIndex);
 					 Grid.SetRow(txt1, currentIndex);
@@ -308,6 +372,8 @@ namespace FunkyTrinity
 					 AvoidanceLayoutGrid.Children.Add(txt1);
 					 AvoidanceLayoutGrid.Children.Add(avoidRadiusStackPanel);
 					 AvoidanceLayoutGrid.Children.Add(avoidHealthStackPanel);
+					 AvoidanceLayoutGrid.Children.Add(avoidWeightStackPanel);
+
 					 alternatingColor++;
 				}
 				ScrollViewer AvoidanceGridScrollViewer=new ScrollViewer

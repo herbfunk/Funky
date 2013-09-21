@@ -198,6 +198,7 @@ namespace FunkyTrinity.Settings
 
 							if (Bot.CurrentLevel<60)
 							{
+								 Funky.Log("Using Low Level Settings");
 								 bool disableBehaviors=true;
 								 Bot.SettingsFunky=new Settings_Funky
 								 {
@@ -211,10 +212,12 @@ namespace FunkyTrinity.Settings
 							{
 								 if (Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Barbarian||Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Monk)
 								 {
+									  Funky.Log("Using Melee Inferno Default Settings");
 									  Settings_Funky settings=Settings_Funky.DeserializeFromXML(Path.Combine(Funky.FolderPaths.SettingsDefaultPath, "InfernoMelee.xml"));
 								 }
 								 else
 								 {
+									  Funky.Log("Using Ranged Inferno Default Settings");
 									  Settings_Funky settings=Settings_Funky.DeserializeFromXML(Path.Combine(Funky.FolderPaths.SettingsDefaultPath, "InfernoRanged.xml"));
 								 }
 							}

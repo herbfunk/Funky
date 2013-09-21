@@ -784,10 +784,15 @@ namespace FunkyTrinity.Movement
 				///<summary>
 				///Ray Cast -- if no navcellflags parameter is given then it will use Navigator.Raycast -- else it uses ZetaDia.Physics.Raycast to test navcellflags
 				///</summary>
-				public static bool CanRayCast(Vector3 vStartLocation, Vector3 vDestination, NavCellFlags NavType=NavCellFlags.None)
+				public static bool CanRayCast(Vector3 vStartLocation, Vector3 vDestination, NavCellFlags NavType=NavCellFlags.None, bool UseSearchGridProvider=false)
 				{
 					 if (!NavType.Equals(NavCellFlags.None))
 						  return ZetaDia.Physics.Raycast(vStartLocation, vDestination, NavType); //False means nothing hit
+					 else if(UseSearchGridProvider)
+					 {
+						  Vector2 hitVector;
+						  return !Zeta.Navigation.Navigator.SearchGridProvider.Raycast(vStartLocation.ToVector2(), vDestination.ToVector2(), out hitVector);
+					 }
 					 else
 						  return !Navigator.Raycast(vStartLocation, vDestination); //True means nothing hit
 				}

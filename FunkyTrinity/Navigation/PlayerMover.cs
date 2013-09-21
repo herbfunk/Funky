@@ -111,7 +111,8 @@ namespace FunkyTrinity
 					 {
 						  Logging.Write("[Funky] You are "+Vector3.Distance(vOriginalDestination, vMyCurrentPosition).ToString()+" distance away from your destination.");
 						  Logging.Write("[Funky] This is too far for the unstucker, and is likely a sign of ending up in the wrong map zone.");
-						  ReloadCurrentProfile();
+						  Logging.Write("Reloading current profile");
+						  ProfileManager.Load(ProfileManager.CurrentProfile.Path);
 
 					 }
 					 if (iTotalAntiStuckAttempts<=8)

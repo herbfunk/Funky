@@ -31,7 +31,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_50, 3);
 			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_50, 1);
 								//TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,69),
-			ClusterConditions = new ClusterConditions(5d, 50, 1, true);
+			ClusterConditions = new ClusterConditions(4d, 45, 2, true);
 		}
 
 		#region IAbility

@@ -159,14 +159,15 @@ namespace FunkyTrinity.Movement
 										  {
 												AvoidanceType thisAvoidanceType=((CacheAvoidance)item).AvoidanceType;
 												if (AvoidanceCache.IgnoringAvoidanceType(thisAvoidanceType)) continue;
+											   AvoidanceValue AV= Bot.SettingsFunky.Avoidance.Avoidances[(int)thisAvoidanceType];
 
 												avoidcount++;
-												float BaseWeight=0f;
+												float BaseWeight=AV.Weight;
 												
-												if ((AvoidanceType.ArcaneSentry|AvoidanceType.Dececrator|AvoidanceType.MoltenCore|AvoidanceType.PlagueCloud).HasFlag(thisAvoidanceType))
-													 BaseWeight=1f;
-												else
-													 BaseWeight=0.5f;
+												//if ((AvoidanceType.ArcaneSentry|AvoidanceType.Dececrator|AvoidanceType.MoltenCore|AvoidanceType.TreeSpore).HasFlag(thisAvoidanceType))
+												//	 BaseWeight=1f;
+												//else
+												//	 BaseWeight=0.5f;
 
 												this.ThisWeight+=(BaseWeight/Bot.Character.dCurrentHealthPct);
 
@@ -257,9 +258,9 @@ namespace FunkyTrinity.Movement
 								//LOS Check
 								if (checkLOS)
 								{
-									 if (!Navigation.CanRayCast(pointVector, LoSCheckV3)) continue;
+									 if (!Navigation.CanRayCast(pointVector, LoSCheckV3, UseSearchGridProvider: true)) continue;
 								}
-
+								
 								//Avoidance Check (Any Avoidance)
 								if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(pointVector)) continue;
 
@@ -318,7 +319,7 @@ namespace FunkyTrinity.Movement
 								//LOS Check
 								if (checkLOS)
 								{
-									 if (!Navigation.CanRayCast(pointVector, LoSCheckV3)) continue;
+									 if (!Navigation.CanRayCast(pointVector, LoSCheckV3, UseSearchGridProvider: true)) continue;
 								}
 
 								//Avoidance Check (Any Avoidance)

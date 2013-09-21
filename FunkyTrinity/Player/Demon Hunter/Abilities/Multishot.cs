@@ -26,7 +26,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
 			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy);
-			ClusterConditions = new ClusterConditions(5d, 40, 3, true);
+			ClusterConditions = new ClusterConditions(10d, 40, 3, true);
 		}
 
 		#region IAbility

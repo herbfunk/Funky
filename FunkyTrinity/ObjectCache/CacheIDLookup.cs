@@ -612,6 +612,8 @@ namespace FunkyTrinity.Cache
 					120652,
 					//a3dun_battlefield_Demon_GroundTrap_GasChamber
 					171283,
+					//a1 FleshPitFlyerSpawner
+					4153,
 			  };
 
 				 // NOTE: you don't NEED interactable SNO's listed here. But if they are listed here, *THIS* is the range at which your character will try to walk to within the object 
@@ -622,7 +624,7 @@ namespace FunkyTrinity.Cache
 				 // 174900 = fire-spewers (demonic forge) in Act 3, 54908 = iron gates  58379 = a2_desolate_large_bones
 			  // 3048 = a2 zolt dungeon "sand wall" door, 200872 = a3dunRmpt_Interactives_signal_fire_A_Prop
 			  public static HashSet<int> hashSNONavigationObstacles=new HashSet<int> {
-            174900, 191459, 58379, 204168, 3341, 185391, 123325, 196211, 3048, 200872,
+            174900, 191459, 58379, 204168, 3341, 185391, 123325, 196211, 3048, 200872,60870,60671,60665 ,
         };
 				 // Destructible things that are very large and need breaking at a bigger distance - eg logstacks, large crates, carts, etc.
 				 internal static readonly Dictionary<int, int> dictSNOExtendedDestructRange=new Dictionary<int, int> { 

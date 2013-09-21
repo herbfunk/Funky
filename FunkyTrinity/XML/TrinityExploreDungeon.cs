@@ -479,12 +479,14 @@ namespace FunkyTrinity.XMLTags
 				}
 				else if (lastCoinage==Bot.Character.Coinage&&TagTimer.Elapsed.TotalSeconds>TimeoutValue)
 				{
-					 if (ZetaDia.Me.Inventory.Coinage==lastCoinage)
+					 int coinage=ZetaDia.Me.Inventory.Coinage;
+					 if (coinage==lastCoinage)
 					 {
 						  Logging.WriteDiagnostic("TrinityExploreDungeon gold inactivity timer tripped ({0}), tag finished!", TimeoutValue);
 						  timeoutBreached=true;
 						  return RunStatus.Success;
 					 }
+					 lastCoinage=coinage;
 					 TagTimer.Restart();
 					 return RunStatus.Failure;
 				}
@@ -913,7 +915,7 @@ namespace FunkyTrinity.XMLTags
 								new Action(ret => UpdateRoute())
 						  )
 					 ),
-					 new Decorator(ret => Funky.PlayerMover.iTotalAntiStuckAttempts>0&&myPos.Distance2D(CurrentNavTarget)<=50f&&!Movement.Navigation.CanRayCast(myPos, CurrentNavTarget),
+					 new Decorator(ret => Bot.NavigationCache.currentMovementState.HasFlag(MovementState.WalkingInPlace)&&myPos.Distance2D(CurrentNavTarget)<=50f&&!Movement.Navigation.CanRayCast(myPos, CurrentNavTarget),
 						  new Sequence(
 								new Action(ret => SetNodeVisited("Stuck moving to node point, marking done (in LoS and nearby!)")),
 								new Action(ret => UpdateRoute())
