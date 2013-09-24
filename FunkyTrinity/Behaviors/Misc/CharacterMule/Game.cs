@@ -36,7 +36,7 @@ namespace FunkyTrinity
 				{
 					 if (DateTime.Now.Subtract(LastActionTaken).TotalMilliseconds>RandomWaitTimeMilliseconds)
 					 {
-						  string NewGameProfile=Funky.FolderPaths.sTrinityPluginPath+@"Bot\Behaviors\Misc\CharacterMule\NewGame.xml";
+						  string NewGameProfile=Funky.FolderPaths.sTrinityPluginPath+@"Behaviors\Misc\CharacterMule\NewGame.xml";
 						  if (ProfileManager.CurrentProfile.Path!=NewGameProfile)
 						  {
 								if (System.IO.File.Exists(NewGameProfile))

@@ -1,9 +1,12 @@
 ﻿using System;
-
+using FunkyTrinity.Cache;
+using FunkyTrinity.Cache.Enums;
+using FunkyTrinity.Movement;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
+using Zeta.Internals.SNO;
 
 namespace FunkyTrinity.Ability.Abilities.Monk
 {
@@ -44,7 +47,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			
 			Fcriteria = new Func<bool>(() =>
 			{
-				bool isChanneling = (this.IsHobbling || this.LastUsedMilliseconds < 500);
+				bool isChanneling = (this.IsHobbling || this.LastUsedMilliseconds < 250);
 				int channelingCost = Bot.Class.RuneIndexCache[Power] == 3 ? 8 : 10;
 
 				//If channeling, check if energy is greater then 10.. else only start when energy is at least -40-
@@ -52,6 +55,17 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 							 &&(!Bot.Class.bWaitingForSpecial||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount);
 			});
 			FMovement=Fcriteria;
+
+			FOutOfCombatMovement=new Func<Vector3, Vector3>((v) =>
+			{
+				 Vector3 vTargetAimPoint=MathEx.CalculatePointFrom(v, Bot.Character.Position, 10f);
+
+				 if(this.FMovement.Invoke())
+						  return vTargetAimPoint;
+
+
+				 return Vector3.Zero;
+			});
 		}
 
 		#region IAbility

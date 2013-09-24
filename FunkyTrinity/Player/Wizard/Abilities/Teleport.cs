@@ -37,6 +37,20 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 					         Bot.Character.PointPosition) > 15f)
 				        || (!Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP && !Bot.SettingsFunky.Class.bTeleportIntoGrouping));
 			});
+
+			FOutOfCombatMovement=new Func<Vector3, Vector3>((v) =>
+			{
+				 float fDistanceFromTarget=Bot.Character.Position.Distance(v);
+				 if (Funky.Difference(Bot.Character.Position.Z, v.Z)<=4&&fDistanceFromTarget>=20f)
+				 {
+					  if (fDistanceFromTarget>35f)
+							return MathEx.CalculatePointFrom(v, Bot.Character.Position, 35f);
+					  else
+							return v;
+				 }
+
+				 return Vector3.Zero;
+			});
 		}
 
 		#region IAbility

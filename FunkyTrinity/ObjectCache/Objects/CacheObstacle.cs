@@ -340,10 +340,10 @@ namespace FunkyTrinity.Cache
 					 this.AvoidanceValue=Bot.SettingsFunky.Avoidance.Avoidances[(int)avoidancetype];
 
 					 //Special avoidances that require additional loops before removal (note: the loops are checked every 150ms, but obstacles are checked twice!)
-					 if (this.AvoidanceType.HasFlag(AvoidanceType.TreeSpore))
-						  this.RefreshRemovalCounter=120;
+					 if (this.AvoidanceType.HasFlag(AvoidanceType.TreeSpore)&&this.SNOID==6578)
+						  this.RefreshRemovalCounter=65;
 					 else if (this.AvoidanceType.HasFlag(AvoidanceType.GrotesqueExplosion))
-						  this.RefreshRemovalCounter=45;
+						  this.RefreshRemovalCounter=25;
 				}
 
 				public CacheAvoidance(CacheObject parent, AvoidanceType type, Ray R, double speed)

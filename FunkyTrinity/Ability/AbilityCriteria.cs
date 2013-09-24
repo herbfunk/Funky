@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
 
@@ -14,7 +14,7 @@ namespace FunkyTrinity.Ability
 				 Fcriteria=new Func<bool>(() => { return true; });
 				 Fbuff=new Func<bool>(() => { return true; });
 				 FMovement=new Func<bool>(() => { return true; });
-				 
+				 FOutOfCombatMovement=new Func<Vector3, Vector3>((v) => { return Vector3.Zero; });
 			}
 			///<summary>
 			///Tracks last successful condition if any.
@@ -47,8 +47,7 @@ namespace FunkyTrinity.Ability
 			internal Func<bool> FUnitsInRangeConditions;
 			internal Func<bool> FElitesInRangeConditions;
 			internal Func<bool> FSingleTargetUnitCriteria;
-
-
+			internal Func<Vector3, Vector3> FOutOfCombatMovement;
 
 			///<summary>
 			///Check ability Buff Conditions

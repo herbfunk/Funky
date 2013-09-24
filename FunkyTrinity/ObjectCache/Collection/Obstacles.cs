@@ -119,12 +119,7 @@ namespace FunkyTrinity.Cache
 
 						  if (found)
 						  {
-								//Removal Counter Check (Grace peroid for removal!)
-								if (this.obstacles[key].RefreshRemovalCounter>0)
-								{
-									  RemovalList.Remove(key);//we exclude this from being removed..
-									 this.obstacles[key].RefreshRemovalCounter--;
-								}	
+								RemovalList.Remove(key);//we exclude this from being removed..
 						  }
 
 						  return found;
@@ -234,8 +229,14 @@ namespace FunkyTrinity.Cache
 								foreach (int item in RemovalList)
 								{
 									 if (this.ContainsKey(item))
-										  this.Remove(item);
-
+									 {
+										  if (this.obstacles[item].RefreshRemovalCounter>0)
+										  {
+												this.obstacles[item].RefreshRemovalCounter--;
+										  }	
+										  else
+												this.Remove(item);
+									 }
 								}
 						  }
 

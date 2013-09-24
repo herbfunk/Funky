@@ -506,7 +506,7 @@ namespace FunkyTrinity.Targeting
 					 {
 						  //CurrentState=TargetMovement.TargetMoveTo(CurrentTarget);
 						  CurrentState=RunStatus.Running;
-						  CurrentTarget.LastLOSMoveResult=Navigator.MoveTo(CurrentTarget.LOSV3, "LOS Movement", true);
+						  CurrentTarget.LastLOSMoveResult=Navigator.MoveTo(CurrentTarget.Position, "LOS Movement", true);
 						  return false;
 					 }
 				}

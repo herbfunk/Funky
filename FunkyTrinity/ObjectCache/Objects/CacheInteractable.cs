@@ -373,7 +373,8 @@ namespace FunkyTrinity.Cache
 			// If we've tried interacting too many times, blacklist this for a while
 			if (this.InteractionAttempts>5)
 			{
-				this.BlacklistLoops=100;
+				this.BlacklistLoops=50;
+				this.InteractionAttempts=0;
 			}
 
 			if (!Bot.Combat.bWaitingAfterPower)

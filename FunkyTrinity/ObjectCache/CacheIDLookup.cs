@@ -615,7 +615,7 @@ namespace FunkyTrinity.Cache
 					//a3dun_battlefield_Demon_GroundTrap_GasChamber
 					171283,
 					//a1 FleshPitFlyerSpawner
-					4153,
+					4153,4154,
 			  };
 
 				 // NOTE: you don't NEED interactable SNO's listed here. But if they are listed here, *THIS* is the range at which your character will try to walk to within the object 

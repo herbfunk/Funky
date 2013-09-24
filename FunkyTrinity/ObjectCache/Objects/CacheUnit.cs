@@ -294,8 +294,8 @@ namespace FunkyTrinity.Cache
 				///</summary>
 				public bool UpdateHitPoints()
 				{
-					 //Current Target skips the counter checks
-					 if (this==Bot.Target.CurrentTarget)
+					 //Last Target skips the counter checks
+					 if (this==Bot.Combat.LastCachedTarget)
 					 {
 						  this.UpdateCurrentHitPoints();
 						  if (this.LastCurrentHealth_!=this.CurrentHealthPct.Value)
@@ -313,12 +313,8 @@ namespace FunkyTrinity.Cache
 					 if (this.HealthChecks>6)
 						  this.HealthChecks=1;
 
-					 if (this==Bot.Combat.LastCachedTarget&&this.HealthChecks>3)
-						  this.HealthChecks=1;
-
 					 if (this.HealthChecks==1)
 						  this.UpdateCurrentHitPoints();
-
 
 					 return true;
 				}

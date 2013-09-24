@@ -167,19 +167,19 @@ namespace FunkyTrinity.Avoidances
 				    return true;
 
 			    }// Witch doctors with spirit walk available and not currently Spirit Walking will subtly ignore ice balls, arcane, desecrator & plague cloud
-			    else if (Bot.Class.AC==ActorClass.WitchDoctor
-			             &&Bot.Class.HotbarPowers.Contains(SNOPower.Witchdoctor_SpiritWalk)
-							 &&(!Bot.Class.HasBuff(SNOPower.Witchdoctor_SpiritWalk)&&Bot.Class.Abilities[SNOPower.Witchdoctor_SpiritWalk].AbilityUseTimer())||Bot.Class.HasBuff(SNOPower.Witchdoctor_SpiritWalk))
-			    {
-				    switch (thisAvoidance)
-				    {
-					    case AvoidanceType.Frozen:
-					    case AvoidanceType.ArcaneSentry:
-					    case AvoidanceType.Dececrator:
-					    case AvoidanceType.PlagueCloud:
-						    return true;
-				    }
-			    }
+				 //else if (Bot.Class.AC==ActorClass.WitchDoctor
+				 //			&&Bot.Class.HotbarPowers.Contains(SNOPower.Witchdoctor_SpiritWalk)
+				 //			&&(!Bot.Class.HasBuff(SNOPower.Witchdoctor_SpiritWalk)&&Bot.Class.Abilities[SNOPower.Witchdoctor_SpiritWalk].AbilityUseTimer())||Bot.Class.HasBuff(SNOPower.Witchdoctor_SpiritWalk))
+				 //{
+				 //	switch (thisAvoidance)
+				 //	{
+				 //		case AvoidanceType.Frozen:
+				 //		case AvoidanceType.ArcaneSentry:
+				 //		case AvoidanceType.Dececrator:
+				 //		case AvoidanceType.PlagueCloud:
+				 //			return true;
+				 //	}
+				 //}
 			    else if (Bot.Class.AC==ActorClass.Barbarian&&Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&Bot.Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))
 			    {
 				    switch (thisAvoidance)

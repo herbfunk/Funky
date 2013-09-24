@@ -126,7 +126,7 @@ namespace FunkyTrinity
 
 						  Logging.Write("[Funky] Your bot got stuck! Trying to unstuck (attempt #"+iTotalAntiStuckAttempts.ToString()+" of 8 attempts)");
 						  Logging.WriteDiagnostic("(destination="+vOriginalDestination.ToString()+", which is "+Vector3.Distance(vOriginalDestination, vMyCurrentPosition).ToString()+" distance away)");
-						  
+
 						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logger.Write(LogLevel.Movement, "Stuck Flags: {0}", Bot.NavigationCache.Stuckflags.ToString());
 
@@ -353,7 +353,7 @@ namespace FunkyTrinity
 					 // Store player current position
 					 Vector3 vMyCurrentPosition=ZetaDia.Me.Position;
 					 CurrentMovementPosition=Bot.NavigationCache.CurrentPathVector;
-					 
+
 
 					 //Check GPC entry (backtracking cache) -- only when not in town!
 					 if (BackTrackCache.EnableBacktrackGPRcache&&!ZetaDia.Me.IsInTown)
@@ -470,78 +470,28 @@ namespace FunkyTrinity
 
 					 //Prioritize "blocking" objects.
 					 if (!Bot.Character.bIsInTown) Bot.NavigationCache.ObstaclePrioritizeCheck();
-					 
 
-					 
+
+
 
 
 					 #region MovementAbilities
 					 // See if we can use abilities like leap etc. for movement out of combat, but not in town and only if we can raycast.
 					 if (Bot.SettingsFunky.OutOfCombatMovement&&!ZetaDia.Me.IsInTown)
 					 {
-						  bool bTooMuchZChange=((vMyCurrentPosition.Z-vMoveToTarget.Z)>=4f);
-
 						  ability MovementPower;
 						  if (Bot.Class.FindMovementPower(out MovementPower))
 						  {
-								double lastUsedAbilityMS=MovementPower.LastUsedMilliseconds;
-								bool foundMovementPower=false;
-								bool checkShrines=false;
-								float pointDistance=0f;
-								Vector3 vTargetAimPoint=vMoveToTarget;
 
-								switch (MovementPower.Power)
-								{
-									 case SNOPower.Monk_TempestRush:
-										  vTargetAimPoint=MathEx.CalculatePointFrom(vMoveToTarget, vMyCurrentPosition, 10f);
-										  Bot.Character.UpdateAnimationState(false, true);
-										  Bot.NavigationCache.RefreshMovementCache();
+								Vector3 vTargetAimPoint=MovementPower.FOutOfCombatMovement(vMoveToTarget);
 
-										  bool isHobbling=Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.Monk_Female_Hobble_Run|SNOAnim.Monk_Male_HTH_Hobble_Run);
-
-										  foundMovementPower=(!bTooMuchZChange&&!Bot.Class.bWaitingForSpecial&&(((!isHobbling||lastUsedAbilityMS>200)&&Bot.Character.dCurrentEnergy>=50)||((isHobbling||lastUsedAbilityMS<400&&Bot.NavigationCache.IsMoving)&&Bot.Character.dCurrentEnergy>15))
-												&&!ObjectCache.Obstacles.DoesPositionIntersectAny(vTargetAimPoint, ObstacleType.ServerObject));
-
-										  break;
-									 case SNOPower.DemonHunter_Vault:
-										  foundMovementPower=(!bTooMuchZChange&&fDistanceFromTarget>=18f&&
-																	 (lastUsedAbilityMS>=Bot.SettingsFunky.Class.iDHVaultMovementDelay));
-
-
-										  pointDistance=35f;
-										  if (fDistanceFromTarget>pointDistance)
-												vTargetAimPoint=MathEx.CalculatePointFrom(vMoveToTarget, vMyCurrentPosition, pointDistance);
-
-
-
-										  break;
-
-									 case SNOPower.Barbarian_FuriousCharge:
-									 case SNOPower.Barbarian_Leap:
-									 case SNOPower.Wizard_Archon_Teleport:
-									 case SNOPower.Wizard_Teleport:
-										  foundMovementPower=(!bTooMuchZChange&&fDistanceFromTarget>20f);
-
-
-
-										  checkShrines=true;
-										  pointDistance=35f;
-										  if (fDistanceFromTarget>pointDistance)
-												vTargetAimPoint=MathEx.CalculatePointFrom(vMoveToTarget, vMyCurrentPosition, pointDistance);
-
-										  break;
-								}
-
-								if (foundMovementPower&&(!checkShrines||!ShrinesInArea(vTargetAimPoint)))
+								if (vTargetAimPoint!=Vector3.Zero)
 								{
 
-									 if ((MovementPower.Power==SNOPower.Monk_TempestRush&&lastUsedAbilityMS<250)||
-										  Navigation.CanRayCast(vMyCurrentPosition, vTargetAimPoint, NavCellFlags.AllowWalk))
-									 {
-										  ZetaDia.Me.UsePower(MovementPower.Power, vTargetAimPoint, Bot.Character.iCurrentWorldID, -1);
-										  MovementPower.SuccessfullyUsed();
-										  return;
-									 }
+									 ZetaDia.Me.UsePower(MovementPower.Power, vTargetAimPoint, Bot.Character.iCurrentWorldID, -1);
+									 MovementPower.SuccessfullyUsed();
+									 return;
+
 								}
 						  }
 					 } // Allowed to use movement powers to move out-of-combat? 
@@ -552,7 +502,7 @@ namespace FunkyTrinity
 					 ZetaDia.Me.Movement.MoveActor(vMoveToTarget);
 				}
 
-			
+
 
 				internal static MoveResult NavigateTo(Vector3 moveTarget, string destinationName="")
 				{

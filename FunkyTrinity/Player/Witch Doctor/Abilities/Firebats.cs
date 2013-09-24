@@ -12,34 +12,35 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 		{
 		}
 
-
+		 private bool IsChanneling()
+		 {
+			  Bot.Character.UpdateAnimationState(false);
+			  return Bot.Character.CurrentAnimationState==AnimationState.Channeling &&
+						Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.WitchDoctor_Female_1HT_spell_channel|
+																					SNOAnim.WitchDoctor_Female_2HT_spell_channel|
+																					SNOAnim.WitchDoctor_Female_HTH_spell_channel|
+																					SNOAnim.WitchDoctor_Male_1HT_Spell_Channel|
+																					SNOAnim.WitchDoctor_Male_HTH_Spell_Channel);
+		 }
 
 		public override void Initialize()
 		{
 			ExecutionType = AbilityExecuteFlags.ClusterLocation | AbilityExecuteFlags.Target;
-
-			WaitVars = new WaitLoops(1, 1, true);
+			WaitVars = new WaitLoops(0, 0, true);
 			Range = Bot.Class.RuneIndexCache[Power] == 0 ? 0 : Bot.Class.RuneIndexCache[Power] == 4 ? 14 : 25;
 			IsRanged = true;
 			IsProjectile=true;
 			UseageType = AbilityUseage.Combat;
-			Priority = AbilityPriority.Low;
+			Priority = AbilityPriority.High;
 			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
-			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial);
-			ClusterConditions = new ClusterConditions(5d, Bot.Class.RuneIndexCache[Power] == 4 ? 12f : 20f, 1, true);
+			//TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial);
+			ClusterConditions = new ClusterConditions(5d, Bot.Class.RuneIndexCache[Power] == 4 ? 12f : 20f, 2, true);
 
 
 
 			Fcriteria = new Func<bool>(() =>
 			{
-				return (Bot.Character.dCurrentEnergy >= 551 || (Bot.Character.dCurrentEnergy > 66
-				                                                && Bot.Character.CurrentAnimationState == AnimationState.Channeling &&
-				                                                Bot.Character.CurrentSNOAnim.HasFlag(
-					                                                SNOAnim.WitchDoctor_Female_1HT_spell_channel |
-					                                                SNOAnim.WitchDoctor_Female_2HT_spell_channel |
-					                                                SNOAnim.WitchDoctor_Female_HTH_spell_channel |
-					                                                SNOAnim.WitchDoctor_Male_1HT_Spell_Channel |
-					                                                SNOAnim.WitchDoctor_Male_HTH_Spell_Channel)));
+				return (Bot.Character.dCurrentEnergy >= 551 || (Bot.Character.dCurrentEnergy > 70  && this.IsChanneling()));
 			});
 		}
 
