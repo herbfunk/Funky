@@ -1,4 +1,20 @@
 ﻿// herbfunk revisions
+v2.4.1.0
+Avoidance:
+-Modified the weighting comparison
+-Friendly Poison Gas no longer triggers Avoidance Movement.
+-Removed Non-Threatening Spore SNOID from avoidances.
+
+Items:
+-Removed Line of Sight Checking of AllowWalk (This was causing Health Potions to be skipped often)
+
+Destructibles:
+-Obstacles will now obey the Destructible Range as well.
+
+Units:
+-Fixed Health Check! (This time I think so..)
+
+
 v2.4.0.0
 Refactor:
 -Moved all subfolders out of Bot into Plugin Folder. 
