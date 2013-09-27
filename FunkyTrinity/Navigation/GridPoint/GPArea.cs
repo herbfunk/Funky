@@ -30,15 +30,19 @@ namespace FunkyTrinity.Movement
 					 GridPoint[] SearchPoints=centerGPRect.Points.Keys.Where(gp => !gp.Ignored).ToArray();
 					 gridpointrectangles_=new List<GPRectangle>();
 					 if (SearchPoints.Length>1)
-					 {								//we should check our surrounding points to see if we can even move into any of them first!
+					 {
+						  Vector3 LastSearchVector3=Bot.NavigationCache.LastSearchVector;
+						 // LastSearchVector3.Normalize();
+
+						  //we should check our surrounding points to see if we can even move into any of them first!
 						  for (int i=1; i<SearchPoints.Length-1; i++)
 						  {
 								GridPoint curGP=SearchPoints[i];
 								Vector3 thisV3=(Vector3)curGP;
-								thisV3.Z+=(Bot.Character.fCharacterRadius/2f);
+								//thisV3.Normalize();
 
 								//Its a valid point for direction testing!
-								float DirectionDegrees=Navigation.FindDirection(Bot.NavigationCache.LastSearchVector, thisV3, false);
+								float DirectionDegrees=Navigation.FindDirection(LastSearchVector3, thisV3, false);
 								DirectionPoint P=new DirectionPoint((Vector3)curGP, DirectionDegrees, 125f);
 
 								if (P.Range>5f)
@@ -130,6 +134,11 @@ namespace FunkyTrinity.Movement
 					 }
 
 					 GPRectangle PositionRect=GetGPRectContainingPoint(CurrentPosition);
+					 if (PositionRect!=null) PositionRect.UpdateObjectCount();
+
+					 GPQuadrant PositionQuadrant=PositionRect.GetQuadrantContainingPoint(CurrentPosition);
+					 double CompareWeight=PositionQuadrant!=null?PositionQuadrant.ThisWeight:PositionRect!=null?PositionRect.Weight:0;
+
 					 safespot=Vector3.Zero;
 					 for (int i=lastGPRectIndexUsed; i<gridpointrectangles_.Count-1; i++)
 					 {
@@ -139,12 +148,8 @@ namespace FunkyTrinity.Movement
 						  
 
 						  item.UpdateObjectCount(AllGPRectsFailed);
-						  if (PositionRect!=null)
-						  {
-								if (item.Weight>PositionRect.Weight) continue;
-						  }
 
-						  if (item.TryFindSafeSpot(CurrentPosition, out safespot, LOS, kiting, false, AllGPRectsFailed))
+						  if (item.TryFindSafeSpot(CurrentPosition, out safespot, LOS, kiting, false, AllGPRectsFailed, CompareWeight))
 						  {
 								this.lastUsedGPRect=gridpointrectangles_[i];
 								return;

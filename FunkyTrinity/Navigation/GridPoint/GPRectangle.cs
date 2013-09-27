@@ -212,7 +212,7 @@ namespace FunkyTrinity.Movement
 					 }
 				}
 
-				public bool TryFindSafeSpot(Vector3 CurrentPosition, out Vector3 safespot, Vector3 los, bool kite=false, bool checkAvoidIntersection=false, bool expandOnFailure=false)
+				public bool TryFindSafeSpot(Vector3 CurrentPosition, out Vector3 safespot, Vector3 los, bool kite=false, bool checkAvoidIntersection=false, bool expandOnFailure=false, double CurrentWeight=0)
 				{
 					 lastUsedQuadrant=null;
 					 safespot=Vector3.Zero;
@@ -224,6 +224,9 @@ namespace FunkyTrinity.Movement
 					 foreach (var item in Quadrant.Values)
 					 {
 						  if (item==null) continue;
+
+						  if (item.ThisWeight>CurrentWeight)
+								continue;
 
 						  if (item.FindSafeSpot(CurrentPosition, out safespot, los, kite, checkAvoidIntersection))
 						  {
@@ -243,6 +246,19 @@ namespace FunkyTrinity.Movement
 						  this.UpdateObjectCount();
 					 }
 					 return false;
+				}
+
+				public GPQuadrant GetQuadrantContainingPoint(GridPoint Point)
+				{
+					 foreach (var item in Quadrant.Values)
+					 {
+						  if (item==null) continue;
+
+						  if (item.ContainedPoints.Contains(Point))
+								return item;
+					 }
+
+					 return null;
 				}
 
 				internal void FullyExpand()
