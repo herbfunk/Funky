@@ -23,7 +23,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckRecastTimer |
 			                     AbilityPreCastFlags.CheckCanCast);
 			Cost=Bot.Class.RuneIndexCache[SNOPower.DemonHunter_Preparation]==0?25:0;
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return Bot.Character.dDisciplinePct < 0.25d
 					//Rune: Punishment (Restores all Hatered for 25 disc)

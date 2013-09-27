@@ -31,7 +31,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.Ranged, 25, 0.50d);
 								
 								//TestCustomCombatConditionAlways=true,
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return Bot.Target.CurrentUnitTarget.Monstersize.Value == Zeta.Internals.SNO.MonsterSize.Ranged ||
 				       Bot.Character.dCurrentEnergyPct < 0.5d;

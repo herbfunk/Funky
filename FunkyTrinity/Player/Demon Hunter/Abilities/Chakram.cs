@@ -28,7 +28,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			ClusterConditions = new ClusterConditions(4d, 40, 2, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial);
 
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return ((!Bot.Class.HotbarPowers.Contains(SNOPower.DemonHunter_ClusterArrow)) ||
 				        DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastUse[SNOPower.DemonHunter_Chakram]).TotalMilliseconds >=

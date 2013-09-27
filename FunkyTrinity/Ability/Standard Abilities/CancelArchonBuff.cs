@@ -39,13 +39,13 @@ namespace FunkyTrinity.Ability.Abilities
 			UseageType=AbilityUseage.OutOfCombat;
 			PreCastPreCastFlags=AbilityPreCastFlags.None;
 
-			Fbuff=new Func<bool>(() =>
+			FcriteriaBuff=new Func<bool>(() =>
 			{
 				 return Bot.Class.HasBuff(SNOPower.Wizard_Archon)&&this.MissingBuffs();
 			});
 
 		   //Important!! We have to override the default return of true.. we dont want this to fire as a combat ability.
-			Fcriteria=new Func<bool>(() => { return false; });
+			FcriteriaCombat=new Func<bool>(() => { return false; });
 		}
 
 		#region IAbility

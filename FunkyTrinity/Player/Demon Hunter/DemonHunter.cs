@@ -102,7 +102,7 @@ namespace FunkyTrinity
 						  Bot.Combat.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, 25f, false, true);
 					 else
 						  Bot.Combat.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, 25f);
-					 Bot.Combat.powerLastSnoPowerUsed=SNOPower.None;
+					
 					 Bot.Combat.iACDGUIDLastWhirlwind=Bot.Target.CurrentTarget.AcdGuid.HasValue?Bot.Target.CurrentTarget.AcdGuid.Value:-1;
 					 Bot.Combat.lastChangedZigZag=DateTime.Now;
 				}

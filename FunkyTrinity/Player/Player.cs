@@ -214,14 +214,14 @@ namespace FunkyTrinity
 									 LOSInfo LOSINFO=Bot.Target.CurrentTarget.LineOfSight;
 									 if (LOSINFO.LastLOSCheckMS>3000||(item.IsProjectile&&!LOSINFO.ObjectIntersection.HasValue)||!LOSINFO.NavCellProjectile.HasValue)
 									 {
-										  if (!LOSINFO.LOSTest(Bot.Character.Position, true, item.IsProjectile, NavCellFlags.AllowProjectile))
+										  if (!LOSINFO.LOSTest(Bot.Character.Position, true, false, NavCellFlags.AllowProjectile))
 										  {
 												//Raycast failed.. reset LOS Check -- for valid checking.
 												if (!LOSINFO.RayCast.Value) Bot.Target.CurrentTarget.RequiresLOSCheck=true;
 												continue;
 										  }
 									 }
-									 else if ((item.IsProjectile&&LOSINFO.ObjectIntersection.Value)||!LOSINFO.NavCellProjectile.Value)
+									 else if (!LOSINFO.NavCellProjectile.Value)
 									 {
 										  continue;
 									 }

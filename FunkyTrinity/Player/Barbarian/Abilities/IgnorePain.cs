@@ -28,7 +28,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			Priority = AbilityPriority.High;
 			PreCastPreCastFlags = (AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckCanCast);
 
-			Fcriteria = new Func<bool>(() => { return Bot.Character.dCurrentHealthPct <= 0.45; });
+			FcriteriaCombat = new Func<bool>(() => { return Bot.Character.dCurrentHealthPct <= 0.45; });
 		}
 
 		#region IAbility

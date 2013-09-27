@@ -93,6 +93,16 @@ namespace FunkyTrinity
 						  //Wizards are short -- causing issues (At least Male Wizard is!)
 						  if (Bot.ActorClass==ActorClass.Wizard) Bot.Character.fCharacterRadius+=1f;
 					 }
+					 if (Bot.Character.iTeamID==0)
+					 {
+						  try
+						  {
+								Bot.Character.iTeamID=ZetaDia.Me.CommonData.GetAttribute<int>(ActorAttributeType.TeamID);
+						  } catch
+						  {
+
+						  }
+					 }
 
 					 // Game difficulty, used really for vault on DH's
 					 //if (ZetaDia.Service.CurrentHero.CurrentDifficulty!=GameDifficulty.Invalid)

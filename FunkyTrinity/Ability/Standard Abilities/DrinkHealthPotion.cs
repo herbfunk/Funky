@@ -44,7 +44,7 @@ namespace FunkyTrinity.Ability.Abilities
 				PreCastPreCastFlags=AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer;
 
 				//Important!! We have to override the default return of true.. we dont want this to fire as a combat ability.
-				Fcriteria=new Func<bool>(() => { return Bot.Character.dCurrentHealthPct<=Bot.EmergencyHealthPotionLimit; });
+				FcriteriaCombat=new Func<bool>(() => { return Bot.Character.dCurrentHealthPct<=Bot.EmergencyHealthPotionLimit; });
 
 				
 		  }

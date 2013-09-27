@@ -27,7 +27,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy |
 			                     AbilityPreCastFlags.CheckCanCast);
 
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return (!HasSignatureAbility() || Bot.Class.GetBuffStacks(SNOPower.Wizard_EnergyTwister) < 1) &&
 				       (Bot.Combat.iElitesWithinRange[(int) RangeIntervals.Range_30] >= 1 ||

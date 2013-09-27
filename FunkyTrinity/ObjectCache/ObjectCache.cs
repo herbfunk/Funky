@@ -40,6 +40,10 @@ namespace FunkyTrinity.Cache
 				///</summary>
 				public static SnoCollection cacheSnoCollection=new SnoCollection();
 
+				internal static bool CheckTargetTypeFlag(TargetType property, TargetType flag)
+				{
+					 return (property&flag)!=0;
+				}
 
 				///<summary>
 				///Adds/Updates CacheObjects inside collection by Iteration of RactorList
@@ -188,7 +192,7 @@ namespace FunkyTrinity.Cache
 								if (!tmp_CachedObj.NeedsUpdate) continue;
 
 								//Obstacles -- (Not an actual object we add to targeting.)
-								if (tmp_CachedObj.targetType.Value==TargetType.Avoidance||tmp_CachedObj.IsObstacle||tmp_CachedObj.HandleAsAvoidanceObject)
+								if (CheckTargetTypeFlag(tmp_CachedObj.targetType.Value,TargetType.Avoidance)||tmp_CachedObj.IsObstacle||tmp_CachedObj.HandleAsAvoidanceObject)
 								{
 									 #region Obstacles
 									 bool bRequireAvoidance=false;
@@ -230,6 +234,26 @@ namespace FunkyTrinity.Cache
 										  }
 										  else if (tmp_CachedObj.IsAvoidance)
 										  {
+
+												//Poison Gas Can Be Friendly...
+												if (AvoidanceType==Avoidances.AvoidanceType.PoisonGas)
+												{
+													 int TeamID=0;
+													 try
+													 {
+														  TeamID=thisObj.CommonData.GetAttribute<int>(ActorAttributeType.TeamID);
+													 } catch { Logger.Write(LogLevel.Execption, "Failed to retrieve TeamID attribute for object {0}", thisObstacle.InternalName); }
+
+													 //ID of 1 means its non-hostile!
+													 if (TeamID==1)
+													 {
+														  //Logger.Write(LogLevel.None, "Ignoring Avoidance {0} due to Friendly TeamID match!", tmp_CachedObj.InternalName);
+														  BlacklistCache.AddObjectToBlacklist(tmp_CachedObj.RAGUID, BlacklistType.Permanent);
+														  continue;
+													 }
+												}
+	
+
 												thisObstacle=new CacheAvoidance(tmp_CachedObj, AvoidanceType);
 												ObjectCache.Obstacles.Add(thisObstacle);
 										  }
@@ -309,7 +333,7 @@ namespace FunkyTrinity.Cache
 									 else if (tmp_CachedObj.Actortype.Value==ActorType.Gizmo)
 									 {
 
-										  if (TargetType.Interactables.HasFlag(tmp_CachedObj.targetType.Value))
+										  if (CheckTargetTypeFlag(tmp_CachedObj.targetType.Value,TargetType.Interactables))
 												tmp_CachedObj=new CacheInteractable(tmp_CachedObj);
 										  else
 												tmp_CachedObj=new CacheDestructable(tmp_CachedObj);
@@ -324,7 +348,7 @@ namespace FunkyTrinity.Cache
 
 								//Obstacle cache
 								if (tmp_CachedObj.Obstacletype.Value!=ObstacleType.None
-									 &&(TargetType.ServerObjects.HasFlag(tmp_CachedObj.targetType.Value)))
+									 &&(CheckTargetTypeFlag(tmp_CachedObj.targetType.Value,TargetType.ServerObjects)))
 								{
 									 CacheObstacle thisObstacleObj;
 
@@ -379,7 +403,7 @@ namespace FunkyTrinity.Cache
 						  UpdateLoopCounter=0;
 						  //Now flag any objects not seen for 5 loops. Gold/Globe only 1 loop.
 						  foreach (var item in ObjectCache.Objects.Values.Where<CacheObject>(CO => CO.LoopsUnseen>=5||
-								(CO.targetType.HasValue&&(CO.targetType.Value==TargetType.Gold||CO.targetType.Value==TargetType.Globe)&&CO.LoopsUnseen>0)))
+								(CO.targetType.HasValue&&(CheckTargetTypeFlag(CO.targetType.Value,TargetType.Gold|TargetType.Globe))&&CO.LoopsUnseen>0)))
 						  {
 								item.NeedsRemoved=true;
 						  }

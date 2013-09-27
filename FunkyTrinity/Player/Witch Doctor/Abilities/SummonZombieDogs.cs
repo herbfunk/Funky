@@ -25,14 +25,14 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			Priority = AbilityPriority.High;
 			PreCastPreCastFlags = (AbilityPreCastFlags.CheckCanCast | AbilityPreCastFlags.CheckEnergy);
 			IsBuff=true;
-			 Fbuff =
+			 FcriteriaBuff =
 				new Func<bool>(
 					() =>
 					{
 						return Bot.Character.PetData.ZombieDogs <
 						       (Bot.Class.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler) ? 4 : 3);
 					});
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return Bot.Character.PetData.ZombieDogs <
 				       (Bot.Class.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler) ? 4 : 3);

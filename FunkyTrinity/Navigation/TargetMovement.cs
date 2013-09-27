@@ -137,7 +137,7 @@ namespace FunkyTrinity.Movement
 					 #region Evaluate Last Action
 
 					 // Count how long we have failed to move - body block stuff etc.
-					 if (!Bot.NavigationCache.IsMoving||Bot.NavigationCache.currentMovementState.HasFlag(MovementState.WalkingInPlace)||Bot.NavigationCache.currentMovementState.Equals(MovementState.None))
+					 if (!Bot.NavigationCache.IsMoving||Bot.NavigationCache.currentMovementState==MovementState.WalkingInPlace||Bot.NavigationCache.currentMovementState.Equals(MovementState.None))
 					 {
 						  bForceNewMovement=true;
 						  if (DateTime.Now.Subtract(LastMovementDuringCombat).TotalMilliseconds>=250)
@@ -371,7 +371,7 @@ namespace FunkyTrinity.Movement
 									 &&Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=1
 									 &&obj.DistanceFromTarget<=12f
 									 &&(!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Sprint)||Bot.Class.HasBuff(SNOPower.Barbarian_Sprint))
-									 &&(!(TargetType.Avoidance|TargetType.Gold|TargetType.Globe).HasFlag(obj.targetType.Value)&obj.DistanceFromTarget>=6f)
+									 &&((TargetType.Avoidance|TargetType.Gold|TargetType.Globe).HasFlag(obj.targetType.Value)==false)
 									 &&(obj.targetType.Value!=TargetType.Unit
 									 ||(obj.targetType.Value==TargetType.Unit&&!obj.IsTreasureGoblin
 										  &&(!Bot.SettingsFunky.Class.bSelectiveWhirlwind
@@ -379,18 +379,16 @@ namespace FunkyTrinity.Movement
 												||!CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(obj.SNOID)))))
 								{
 									 // Special code to prevent whirlwind double-spam, this helps save fury
-									 bool bUseThisLoop=SNOPower.Barbarian_Whirlwind!=Bot.Combat.powerLastSnoPowerUsed;
+									 bool bUseThisLoop=SNOPower.Barbarian_Whirlwind!=Bot.Class.LastUsedAbility.Power;
 									 if (!bUseThisLoop)
 									 {
-										  Bot.Combat.powerLastSnoPowerUsed=SNOPower.None;
-											if (DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastUse[SNOPower.Barbarian_Whirlwind]).TotalMilliseconds>=200)
+											if (Bot.Class.Abilities[SNOPower.Barbarian_Whirlwind].LastUsedMilliseconds>=200)
 												bUseThisLoop=true;
 									 }
 									 if (bUseThisLoop)
 									 {
 										  ZetaDia.Me.UsePower(SNOPower.Barbarian_Whirlwind, CurrentTargetLocation, Bot.Character.iCurrentWorldID, -1);
-										  Bot.Combat.powerLastSnoPowerUsed=SNOPower.Barbarian_Whirlwind;
-											PowerCacheLookup.dictAbilityLastUse[SNOPower.Barbarian_Whirlwind]=DateTime.Now;
+										  Bot.Class.Abilities[SNOPower.Barbarian_Whirlwind].SuccessfullyUsed();
 									 }
 									 // Store the current destination for comparison incase of changes next loop
 									 LastTargetLocation=CurrentTargetLocation;
@@ -454,25 +452,6 @@ namespace FunkyTrinity.Movement
 						  LastPlayerLocation=Bot.Character.Position;
 					 }
 				}
-
-				internal static void UseNavigationMovement(CacheObject obj)
-				{
-					 if (LastNavigatorMoveTo==Vector3.Zero||LastMoveResult.HasFlag(MoveResult.PathGenerationFailed)||LastNavigatorMoveTo!=obj.Position)
-					 {
-						  Zeta.Navigation.Navigator.Clear();
-						  LastNavigatorMoveTo=obj.Position;
-						  LastMoveResult=Zeta.Navigation.Navigator.MoveTo(LastNavigatorMoveTo, obj.InternalName, true);
-					 }
-					 else if (!LastMoveResult.HasFlag(MoveResult.ReachedDestination)||Bot.Character.Position.Distance2D(LastNavigatorMoveTo)<7.5f)
-					 {
-						  LastMoveResult=Zeta.Navigation.Navigator.MoveTo(LastNavigatorMoveTo, obj.InternalName, true);
-					 }
-					 else
-					 {
-						  //
-					 }
-				}
-
 
 				internal static void ResetTargetMovementVars()
 				{

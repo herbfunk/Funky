@@ -298,7 +298,7 @@ namespace FunkyTrinity.Cache
 								if (this.RequiresLOSCheck)
 								{
 									 Vector3 testPosition=new Vector3(this.Position.X, this.Position.Y, this.Position.Z+1f);
-									 if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, false, NavCellFlags.AllowWalk, true))
+									 if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, false))
 									 {
 										  int blacklistloopCount=50;
 										  if (this.CentreDistance<25f)
@@ -448,7 +448,7 @@ namespace FunkyTrinity.Cache
 								try
 								{
 									 this.Itemquality=this.ref_DiaItem.CommonData.ItemQualityLevel;
-								} catch (NullReferenceException) { Logger.Write(LogLevel.Execption, "Failure to get item quality for {0}", this.InternalName); return false; }
+								} catch (Exception) { Logger.Write(LogLevel.Execption, "Failure to get item quality for {0}", this.InternalName); return false; }
 
 
 								if (!this.ItemQualityRechecked)

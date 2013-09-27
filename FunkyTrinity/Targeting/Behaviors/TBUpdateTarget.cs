@@ -100,9 +100,9 @@ namespace FunkyTrinity.Targeting.Behaviors
 
 
 						 //Check if our current path intersects avoidances. (When not in town, and not currently inside avoidance)
-						 if (!FunkyTrinity.Bot.Character.bIsInTown&&(FunkyTrinity.Bot.SettingsFunky.Avoidance.AttemptAvoidanceMovements||FunkyTrinity.Bot.Combat.CriticalAvoidance)
+						 if (!Bot.Character.bIsInTown&&(Bot.SettingsFunky.Avoidance.AttemptAvoidanceMovements||Bot.Combat.CriticalAvoidance)
 								 &&Navigation.NP.CurrentPath.Count>0
-								 &&FunkyTrinity.Bot.Combat.TriggeringAvoidances.Count==0)
+								 &&Bot.Combat.TriggeringAvoidances.Count==0)
 						 {
 							  Vector3 curpos=FunkyTrinity.Bot.Character.Position;
 							  IndexedList<Vector3> curpath=Navigation.NP.CurrentPath;
@@ -116,14 +116,15 @@ namespace FunkyTrinity.Targeting.Behaviors
 									foreach (var item in CurrentNearbyPath)
 									{
 										 if (lastV3==Vector3.Zero)
-											  lastV3=item;
-										 else if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(item, lastV3))
+											  lastV3=curpos;
+
+										 if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(item, lastV3))
 										 {
-											  obj=new CacheObject(FunkyTrinity.Bot.Character.Position, TargetType.Avoidance, 20000, "AvoidanceIntersection", 2.5f, -1);
+											  obj=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "AvoidanceIntersection", 2.5f, -1);
 											  return true;
-
-
 										 }
+
+										 lastV3=item;
 									}
 							  }
 						 }

@@ -30,12 +30,12 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			                     AbilityPreCastFlags.CheckPlayerIncapacitated);
 
 			IsBuff=true;
-			Fbuff=new Func<bool>(() =>
+			FcriteriaBuff=new Func<bool>(() =>
 				 {
 					  return Bot.SettingsFunky.OutOfCombatMovement&&!Bot.Class.HasBuff(this.Power);
 				 }
 			);
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return (!Bot.Class.HasBuff(SNOPower.Barbarian_Sprint) && Bot.SettingsFunky.OutOfCombatMovement) ||
 				       (((Bot.SettingsFunky.Class.bFuryDumpWrath && Bot.Character.dCurrentEnergyPct >= 0.95 &&

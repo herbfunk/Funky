@@ -709,7 +709,7 @@ namespace FunkyTrinity.Cache
 						  this.Obstacletype=ObstacleType.None;
 
 
-					 if (this.targetType.Value==TargetType.Unit)
+					 if (ObjectCache.CheckTargetTypeFlag(this.targetType.Value,TargetType.Unit))
 					 {
 						  SNORecordMonster monsterInfo=null;
 						  try
@@ -795,7 +795,7 @@ namespace FunkyTrinity.Cache
 						  }
 
 						  #region GizmoProperties
-						  if (this.targetType.Value==TargetType.Destructible||this.targetType.Value==TargetType.Barricade||this.targetType.Value==TargetType.Interactable)
+						  if (ObjectCache.CheckTargetTypeFlag(this.targetType.Value,TargetType.Destructible|TargetType.Interactable))
 						  {
 								//No Loot
 								if (!this.DropsNoLoot.HasValue)

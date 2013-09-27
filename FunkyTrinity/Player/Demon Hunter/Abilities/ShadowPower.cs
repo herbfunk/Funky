@@ -26,7 +26,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckRecastTimer |
 			                     AbilityPreCastFlags.CheckEnergy);
 
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return (Bot.Character.dCurrentHealthPct <= 0.99d || Bot.Character.bIsRooted ||
 				        Bot.Combat.iElitesWithinRange[(int) RangeIntervals.Range_25] >= 1 ||

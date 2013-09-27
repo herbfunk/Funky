@@ -27,7 +27,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			                     AbilityPreCastFlags.CheckEnergy);
 			ClusterConditions = new ClusterConditions(5d, 48f, 2, false);
 								//TestCustomCombatConditionAlways=true,
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return ((Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP && Bot.Character.dCurrentHealthPct < 0.5d)
 				        ||

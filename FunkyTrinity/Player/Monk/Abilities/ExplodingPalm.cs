@@ -31,7 +31,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 14);
 
 
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				 return (!Bot.Class.bWaitingForSpecial||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount);
 			});

@@ -31,9 +31,9 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 35);
 
 
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
-				return Bot.Combat.powerLastSnoPowerUsed != SNOPower.DemonHunter_SpikeTrap;
+				return Bot.Class.LastUsedAbility.Power != SNOPower.DemonHunter_SpikeTrap;
 
 			});
 		}

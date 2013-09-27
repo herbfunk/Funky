@@ -341,7 +341,7 @@ namespace FunkyTrinity.Cache
 
 					 //Special avoidances that require additional loops before removal (note: the loops are checked every 150ms, but obstacles are checked twice!)
 					 if (this.AvoidanceType.HasFlag(AvoidanceType.TreeSpore)&&this.SNOID==6578)
-						  this.RefreshRemovalCounter=65;
+						  this.RefreshRemovalCounter=70;
 					 else if (this.AvoidanceType.HasFlag(AvoidanceType.GrotesqueExplosion))
 						  this.RefreshRemovalCounter=25;
 				}

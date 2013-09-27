@@ -27,7 +27,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			PreCastPreCastFlags = (AbilityPreCastFlags.CheckCanCast |
 			                     AbilityPreCastFlags.CheckExisitingBuff);
 
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return (Bot.Combat.iElitesWithinRange[(int) RangeIntervals.Range_25] > 0 ||
 				        Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_25] > 0 ||

@@ -31,7 +31,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			                     AbilityPreCastFlags.CheckCanCast | AbilityPreCastFlags.CheckPlayerIncapacitated);
 			ClusterConditions = new ClusterConditions(6d, 20f, 2, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 20);
-			Fcriteria=new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
+			FcriteriaCombat=new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
 		}
 
 		#region IAbility

@@ -26,7 +26,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 
 			ClusterConditions = new ClusterConditions(5d, 48f, 2, false, minDistance: 15f);
 
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				 return ((Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP&&
 								(Bot.Character.dCurrentHealthPct<0.5d)||

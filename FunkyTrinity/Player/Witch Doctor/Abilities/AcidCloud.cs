@@ -27,13 +27,13 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy |
 			                     AbilityPreCastFlags.CheckCanCast | AbilityPreCastFlags.CheckRecastTimer);
 			 
-			 Fprecast = new Func<bool>(()=>{return !Bot.Class.HasDebuff(SNOPower.Succubus_BloodStar);});
+			 FcriteriaPreCast = new Func<bool>(()=>{return !Bot.Class.HasDebuff(SNOPower.Succubus_BloodStar);});
 
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial,
 				falseConditionalFlags: TargetProperties.Fast);
 			ClusterConditions=new ClusterConditions(4d, Bot.Class.RuneIndexCache[Power]==4?20f:40f, 2, true);
 
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				 return !Bot.Class.bWaitingForSpecial;
 			});

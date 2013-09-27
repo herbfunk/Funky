@@ -28,7 +28,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			ClusterConditions = new ClusterConditions(4d, 50f, 2, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial,
 				falseConditionalFlags: TargetProperties.Fast);
-			Fcriteria = new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
+			FcriteriaCombat = new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
 		}
 
 		#region IAbility

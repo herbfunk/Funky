@@ -26,7 +26,7 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 
 			PreCastPreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckEnergy);
 			ClusterConditions=new ClusterConditions(6d, 9f, 2, false, useRadiusDistance: true);
-			Fcriteria=new Func<bool>(() =>
+			FcriteriaCombat=new Func<bool>(() =>
 			{
 
 				 double lastCast=this.LastUsedMilliseconds;

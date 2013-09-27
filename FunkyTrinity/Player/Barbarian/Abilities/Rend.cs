@@ -33,7 +33,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None, 10,
 				falseConditionalFlags: TargetProperties.DOTDPS);
 
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return !Bot.Class.bWaitingForSpecial
 					 ||(Bot.SettingsFunky.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.95&&

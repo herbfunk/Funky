@@ -25,7 +25,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			Priority = AbilityPriority.High;
 			PreCastPreCastFlags = (AbilityPreCastFlags.CheckCanCast);
 
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return (Bot.Character.dCurrentHealthPct <= 0.50 ||
 				        Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_30] >= 5 || Bot.Character.bIsIncapacitated ||

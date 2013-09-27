@@ -27,10 +27,9 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			IsBuff=true;
 			UseageType = AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-			IsSpecialAbility=true;
 			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckPlayerIncapacitated);
-			Fbuff = new Func<bool>(() => { return !Bot.Class.HasBuff(SNOPower.Barbarian_BattleRage); });
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaBuff = new Func<bool>(() => { return !Bot.Class.HasBuff(SNOPower.Barbarian_BattleRage); });
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				 return !Bot.Class.HasBuff(SNOPower.Barbarian_BattleRage)||
 				       //Only if we cannot spam sprint..

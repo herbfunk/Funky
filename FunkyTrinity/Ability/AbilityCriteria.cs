@@ -10,10 +10,11 @@ namespace FunkyTrinity.Ability
 	 {
 			public AbilityCriteria()
 			{
-				 Fprecast=new Func<bool>(() => { return true; });
-				 Fcriteria=new Func<bool>(() => { return true; });
-				 Fbuff=new Func<bool>(() => { return true; });
-				 FMovement=new Func<bool>(() => { return true; });
+				 TestCustomCombatConditions=false;
+				 FcriteriaPreCast=new Func<bool>(() => { return true; });
+				 FcriteriaCombat=new Func<bool>(() => { return true; });
+				 FcriteriaBuff=new Func<bool>(() => { return true; });
+				 FcriteriaMovement=new Func<bool>(() => { return true; });
 				 FOutOfCombatMovement=new Func<Vector3, Vector3>((v) => { return Vector3.Zero; });
 			}
 			///<summary>
@@ -29,32 +30,40 @@ namespace FunkyTrinity.Ability
 			///<summary>
 			///ability precast conditions
 			///</summary>
-			internal Func<bool> Fprecast;
+			internal Func<bool> FcriteriaPreCast;
 			///<summary>
 			///Custom Conditions for Combat
 			///</summary>
-			internal Func<bool> Fcriteria;
+			internal Func<bool> FcriteriaCombat;
 			///<summary>
 			///Custom Conditions for Buffing
 			///</summary>
-			internal Func<bool> Fbuff;
+			internal Func<bool> FcriteriaBuff;
 			///<summary>
 			///Custom Conditions for Movement Abilities
 			///</summary>
-			internal Func<bool> FMovement;
+			internal Func<bool> FcriteriaMovement;
 
 			internal Func<bool> FClusterConditions;
 			internal Func<bool> FUnitsInRangeConditions;
 			internal Func<bool> FElitesInRangeConditions;
 			internal Func<bool> FSingleTargetUnitCriteria;
+
+		  //Movement
 			internal Func<Vector3, Vector3> FOutOfCombatMovement;
+		  //TODO:: Add CombatMovement Func
+
+			///<summary>
+			///Determines if an ability has none of the combat conditions set -- but has custom combat conditions. (allowing it to test the custom conditions)
+			///</summary>
+			internal bool TestCustomCombatConditions;
 
 			///<summary>
 			///Check ability Buff Conditions
 			///</summary>
 			public bool CheckBuffConditionMethod()
 			{
-				 foreach (Func<bool> item in Fbuff.GetInvocationList())
+				 foreach (Func<bool> item in FcriteriaBuff.GetInvocationList())
 				 {
 						if (!item()) return false;
 				 }
@@ -66,129 +75,131 @@ namespace FunkyTrinity.Ability
 			///</summary>
 			public bool CheckMovementConditionMethod()
 			{
-				 foreach (Func<bool> item in FMovement.GetInvocationList())
+				 foreach (Func<bool> item in FcriteriaMovement.GetInvocationList())
 				 {
 					  if (!item()) return false;
 				 }
 
 				 return true;
 			}
-		 public bool CheckCustomCombatMethod()
-		 {
-				foreach (Func<bool> item in this.Fcriteria.GetInvocationList())
-					 if (!item()) return false;
+			public bool CheckCustomCombatMethod()
+			{
+				 foreach (Func<bool> item in this.FcriteriaCombat.GetInvocationList())
+					  if (!item()) return false;
 
-				return true;
-		 }
-		 ///<summary>
-		 ///Check ability is valid to use.
-		 ///</summary>
-		 public bool CheckPreCastConditionMethod()
-		 {
-			  foreach (Func<bool> item in Fprecast.GetInvocationList())
-			  {
-					if (!item()) return false;
-			  }
-
-
-			  return true;
-		 }
-		 ///<summary>
-		 ///Check Combat
-		 ///</summary>
-		 public bool CheckCombatConditionMethod(ConditionCriteraTypes conditions=ConditionCriteraTypes.All)
-		 {
-			  //Order in which tests are conducted..
-
-			  //Units in Range (Not Cluster)
-			  //Clusters
-			  //Single Target
-
-			  //If all are null or any of them are successful, then we test Custom Conditions
-			  //Custom Condition
-
-			  //Reset Last Condition
-			  LastConditionPassed=ConditionCriteraTypes.None;
-			  bool TestCustomConditions=false;
-			  bool FailedCondition=false;
-
-			  if (conditions.HasFlag(ConditionCriteraTypes.ElitesInRange)&&FElitesInRangeConditions!=null)
-			  {
-					foreach (Func<bool> item in this.FElitesInRangeConditions.GetInvocationList())
-					{
-						 if (!item())
-						 {
-							  FailedCondition=true;
-							  break;
-						 }
-					}
-					if (!FailedCondition)
-					{
-						 TestCustomConditions=true;
-						 LastConditionPassed=ConditionCriteraTypes.ElitesInRange;
-					}
-			  }
-			  if ((!TestCustomConditions||FailedCondition)&&conditions.HasFlag(ConditionCriteraTypes.UnitsInRange)&&FUnitsInRangeConditions!=null)
-			  {
-					FailedCondition=false;
-					foreach (Func<bool> item in this.FUnitsInRangeConditions.GetInvocationList())
-					{
-						 if (!item())
-						 {
-							  FailedCondition=true;
-							  break;
-						 }
-					}
-					if (!FailedCondition)
-					{
-						 LastConditionPassed=ConditionCriteraTypes.UnitsInRange;
-						 TestCustomConditions=true;
-					}
-			  }
-			  if ((!TestCustomConditions||FailedCondition)&&conditions.HasFlag(ConditionCriteraTypes.Cluster)&&FClusterConditions!=null)
-			  {
-					FailedCondition=false;
-
-					if (!this.FClusterConditions.Invoke())
-					{
-						 FailedCondition=true;
-					}
-
-					if (!FailedCondition)
-					{
-						 LastConditionPassed=ConditionCriteraTypes.Cluster;
-						 TestCustomConditions=true;
-					}
-			  }
-			  if ((!TestCustomConditions||FailedCondition)&&conditions.HasFlag(ConditionCriteraTypes.SingleTarget)&&FSingleTargetUnitCriteria!=null)
-			  {
-					FailedCondition=false;
-					foreach (Func<bool> item in this.FSingleTargetUnitCriteria.GetInvocationList())
-					{
-						 if (!item())
-						 {
-							  FailedCondition=true;
-							  break;
-						 }
-					}
-					if (!FailedCondition)
-					{
-						 LastConditionPassed=ConditionCriteraTypes.SingleTarget;
-						 TestCustomConditions=true;
-					}
-			  }
-
-			  //If TestCustomCondtion failed, and FailedCondition is true.. then we tested a combat condition.
-			  //If FailedCondition is false, then we never tested a condition.
-			  if (!TestCustomConditions&&FailedCondition) return false;
+				 return true;
+			}
+			///<summary>
+			///Check ability is valid to use.
+			///</summary>
+			public bool CheckPreCastConditionMethod()
+			{
+				 foreach (Func<bool> item in FcriteriaPreCast.GetInvocationList())
+				 {
+					  if (!item()) return false;
+				 }
 
 
-			  foreach (Func<bool> item in this.Fcriteria.GetInvocationList())
-					if (!item()) return false;
+				 return true;
+			}
+			///<summary>
+			///Check Combat
+			///</summary>
+			public bool CheckCombatConditionMethod(ConditionCriteraTypes conditions=ConditionCriteraTypes.All)
+			{
+				 //Order in which tests are conducted..
+
+				 //Units in Range (Not Cluster)
+				 //Clusters
+				 //Single Target
+
+				 //If all are null or any of them are successful, then we test Custom Conditions
+				 //Custom Condition
+
+				 //Reset Last Condition
+				 LastConditionPassed=ConditionCriteraTypes.None;
+				 bool TestCustomConditions=false;
+				 bool FailedCondition=false;
+
+				 if (conditions.HasFlag(ConditionCriteraTypes.ElitesInRange)&&FElitesInRangeConditions!=null)
+				 {
+					  foreach (Func<bool> item in this.FElitesInRangeConditions.GetInvocationList())
+					  {
+							if (!item())
+							{
+								 FailedCondition=true;
+								 break;
+							}
+					  }
+					  if (!FailedCondition)
+					  {
+							TestCustomConditions=true;
+							LastConditionPassed=ConditionCriteraTypes.ElitesInRange;
+					  }
+				 }
+				 if ((!TestCustomConditions||FailedCondition)&&conditions.HasFlag(ConditionCriteraTypes.UnitsInRange)&&FUnitsInRangeConditions!=null)
+				 {
+					  FailedCondition=false;
+					  foreach (Func<bool> item in this.FUnitsInRangeConditions.GetInvocationList())
+					  {
+							if (!item())
+							{
+								 FailedCondition=true;
+								 break;
+							}
+					  }
+					  if (!FailedCondition)
+					  {
+							LastConditionPassed=ConditionCriteraTypes.UnitsInRange;
+							TestCustomConditions=true;
+					  }
+				 }
+				 if ((!TestCustomConditions||FailedCondition)&&conditions.HasFlag(ConditionCriteraTypes.Cluster)&&FClusterConditions!=null)
+				 {
+					  FailedCondition=false;
+
+					  if (!this.FClusterConditions.Invoke())
+					  {
+							FailedCondition=true;
+					  }
+
+					  if (!FailedCondition)
+					  {
+							LastConditionPassed=ConditionCriteraTypes.Cluster;
+							TestCustomConditions=true;
+					  }
+				 }
+				 if ((!TestCustomConditions||FailedCondition)&&conditions.HasFlag(ConditionCriteraTypes.SingleTarget)&&FSingleTargetUnitCriteria!=null)
+				 {
+					  FailedCondition=false;
+					  foreach (Func<bool> item in this.FSingleTargetUnitCriteria.GetInvocationList())
+					  {
+							if (!item())
+							{
+								 FailedCondition=true;
+								 break;
+							}
+					  }
+					  if (!FailedCondition)
+					  {
+							LastConditionPassed=ConditionCriteraTypes.SingleTarget;
+							TestCustomConditions=true;
+					  }
+				 }
+
+				 //If TestCustomCondtion failed, and FailedCondition is true.. then we tested a combat condition.
+				 //If FailedCondition is false, then we never tested a condition.
+				 if (!TestCustomConditions&&!this.TestCustomCombatConditions) return false; //&&FailedCondition
 
 
-			  return true;
-		 }
+				 foreach (Func<bool> item in this.FcriteriaCombat.GetInvocationList())
+					  if (!item()) return false;
+
+
+				 return true;
+			}
+
+
 
 			///<summary>
 			///Describes the pre casting conditions - when set it will create the precast method used.

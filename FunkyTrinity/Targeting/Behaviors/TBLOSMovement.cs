@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using FunkyTrinity.Cache;
+using FunkyTrinity.Movement;
 using FunkyTrinity.Movement.Clustering;
 using FunkyTrinity.Cache.Enums;
 namespace FunkyTrinity.Targeting.Behaviors
@@ -31,7 +32,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 					  Return Any unit set?
 					 */
 
-					 if (Bot.NavigationCache.LOSmovementUnit==null||!Bot.NavigationCache.LOSmovementUnit.IsStillValid()||!Bot.Combat.LoSMovementUnits.Contains(Bot.NavigationCache.LOSmovementUnit))
+					 if (Bot.NavigationCache.LOSmovementUnit==null||!Bot.NavigationCache.LOSmovementUnit.IsStillValid())
 						  Bot.NavigationCache.LOSmovementUnit=null;
 
 					 if (Bot.NavigationCache.LOSmovementUnit==null)
@@ -47,7 +48,9 @@ namespace FunkyTrinity.Targeting.Behaviors
 									 if (FunkyTrinity.Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 										  Logger.Write(LogLevel.Movement, "Line of Sight Started for object {0}", nearestUnit.InternalName);
 
-									 Bot.NavigationCache.LOSmovementUnit=nearestUnit;
+									 Navigation.NP.Clear();
+									 Zeta.Navigation.Navigator.SearchGridProvider.Update();
+									 Bot.NavigationCache.LOSmovementUnit=(CacheUnit)ObjectCache.Objects[nearestUnit.RAGUID];
 									 break;
 								}
 						  }

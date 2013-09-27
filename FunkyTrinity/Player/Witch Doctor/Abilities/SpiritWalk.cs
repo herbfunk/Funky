@@ -28,12 +28,12 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast);
 
 			IsBuff=true;
-			Fbuff=new Func<bool>(() =>
+			FcriteriaBuff=new Func<bool>(() =>
 			{
 				 return Bot.SettingsFunky.OutOfCombatMovement;
 			});
 
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return (Bot.Character.dCurrentHealthPct <= 0.65
 				        || (Bot.Combat.FleeTriggeringUnits.Count>0)

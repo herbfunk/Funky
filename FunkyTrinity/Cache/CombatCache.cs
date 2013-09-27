@@ -198,7 +198,7 @@ namespace FunkyTrinity.Cache
 
 
 				// Variables used to actually hold powers the power-selector has picked to use, for buffing and main power use
-			  internal SNOPower powerLastSnoPowerUsed { get; set; }
+			 // internal SNOPower powerLastSnoPowerUsed { get; set; }
 
 				//Loot Check
 				internal bool ShouldCheckItemLooted { get; set; }

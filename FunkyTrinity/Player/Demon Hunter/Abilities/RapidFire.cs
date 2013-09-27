@@ -45,7 +45,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 45);
 			ClusterConditions=new ClusterConditions(10d, 45f, 2, true);
 
-			Fcriteria=new Func<bool>(() =>
+			FcriteriaCombat=new Func<bool>(() =>
 			{
 				 bool isChanneling=(this.IsFiring||this.LastUsedMilliseconds<450);
 				 //If channeling, check if energy is greater then 10.. else only start when energy is at least -40-

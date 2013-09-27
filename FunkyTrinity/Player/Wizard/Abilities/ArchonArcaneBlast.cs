@@ -29,7 +29,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 8);
 
 
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 //We only want to use this if there are nearby units!
 				return Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_12] > 0;

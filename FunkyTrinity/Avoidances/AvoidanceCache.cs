@@ -95,7 +95,7 @@ namespace FunkyTrinity.Avoidances
 						  return AvoidanceType.ArcaneSentry;
 					 case 84608:
 						  return AvoidanceType.Dececrator;
-					 case 5482:
+					 //case 5482: (Note: This is the Spore when its not "dangerous")
 					 case 6578:
 						  return AvoidanceType.TreeSpore;
 					 case 4803:

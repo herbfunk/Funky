@@ -26,7 +26,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			Priority = AbilityPriority.High;
 								//PreCastPreCastFlags=,
 
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return (!Bot.Class.HasBuff(SNOPower.DemonHunter_ShadowPower) || Bot.Character.bIsIncapacitated)
 				       && (Bot.Character.dDiscipline >= 28 || (Bot.Character.dDiscipline >= 14 && Bot.Combat.IsFleeing))

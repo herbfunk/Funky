@@ -68,7 +68,7 @@ namespace FunkyTrinity.Ability
 		  public AbilityUseage UseageType
 		  {
 				get { return useageType; }
-				set { useageType=value; if (value.HasFlag(AbilityUseage.OutOfCombat|AbilityUseage.Anywhere)) Fbuff=new Func<bool>(() => { return true; }); }
+				set { useageType=value; if (value.HasFlag(AbilityUseage.OutOfCombat|AbilityUseage.Anywhere)) FcriteriaBuff=new Func<bool>(() => { return true; }); }
 		  }
 
 		  public virtual int RuneIndex { get { return -1; } }

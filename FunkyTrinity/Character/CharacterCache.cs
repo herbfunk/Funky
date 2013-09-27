@@ -50,6 +50,7 @@ namespace FunkyTrinity.Cache
 						  PickupRadius=1;
 						  coinage=0;
 						  fCharacterRadius=0f;
+						  iTeamID=0;
 						  ShouldBackTrack=false;
 						  BackTrackVector=Vector3.Zero;
 					 }
@@ -119,7 +120,7 @@ namespace FunkyTrinity.Cache
 						  get
 						  {
 								//Because we don't want to update this X amount of times in a single loop!
-								if (DateTime.Now.Subtract(lastPositionUpdate).TotalMilliseconds>250)
+								if (DateTime.Now.Subtract(lastPositionUpdate).TotalMilliseconds>150)
 								{
 									 try
 									 {
@@ -148,6 +149,7 @@ namespace FunkyTrinity.Cache
 					 //Female Demonhunter: Radius 6.437767
 					 internal float fCharacterRadius { get; set; }
 
+					 internal int iTeamID { get; set; }
 
 					 internal Sphere CharacterSphere
 					 {

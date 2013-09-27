@@ -26,7 +26,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None, 12);
 
 
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return ((Bot.Character.dCurrentEnergy >= 25 && !Bot.Character.bWaitingForReserveEnergy) ||
 				        Bot.Character.dCurrentEnergy >= Bot.Class.iWaitingReservedAmount);

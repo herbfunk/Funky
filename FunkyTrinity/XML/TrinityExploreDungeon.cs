@@ -915,7 +915,7 @@ namespace FunkyTrinity.XMLTags
 								new Action(ret => UpdateRoute())
 						  )
 					 ),
-					 new Decorator(ret => Bot.NavigationCache.currentMovementState.HasFlag(MovementState.WalkingInPlace)&&myPos.Distance2D(CurrentNavTarget)<=50f&&!Movement.Navigation.CanRayCast(myPos, CurrentNavTarget),
+					 new Decorator(ret => Bot.NavigationCache.currentMovementState==MovementState.WalkingInPlace&&myPos.Distance2D(CurrentNavTarget)<=50f&&!Movement.Navigation.CanRayCast(myPos, CurrentNavTarget),
 						  new Sequence(
 								new Action(ret => SetNodeVisited("Stuck moving to node point, marking done (in LoS and nearby!)")),
 								new Action(ret => UpdateRoute())

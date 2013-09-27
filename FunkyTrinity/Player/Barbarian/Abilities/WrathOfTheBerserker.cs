@@ -29,7 +29,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			Priority = AbilityPriority.High;
 			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckExisitingBuff |
 			                     AbilityPreCastFlags.CheckCanCast);
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return Bot.Combat.bAnyChampionsPresent
 				       || (Bot.SettingsFunky.Class.bBarbUseWOTBAlways && Bot.Combat.bAnyMobsInCloseRange)

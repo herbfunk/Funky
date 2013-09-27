@@ -469,7 +469,7 @@ namespace FunkyTrinity.Cache
 								 {
 									  typesValid|=TargetType.Door|TargetType.Barricade;
 								 }
-								 if (!typesValid.HasFlag(this.targetType.Value))
+								 if (!ObjectCache.CheckTargetTypeFlag(this.targetType.Value,typesValid))
 									  return false;
 							}
 

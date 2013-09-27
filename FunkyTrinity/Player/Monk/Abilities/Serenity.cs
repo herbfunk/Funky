@@ -24,7 +24,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast |
 			                     AbilityPreCastFlags.CheckRecastTimer);
 
-			Fcriteria = new Func<bool>(() => { return Bot.Character.dCurrentHealthPct <= 0.30d
+			FcriteriaCombat = new Func<bool>(() => { return Bot.Character.dCurrentHealthPct <= 0.30d
 																	&& Bot.Combat.bAnyMobsInCloseRange; });
 		}
 

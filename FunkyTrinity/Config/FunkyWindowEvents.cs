@@ -232,9 +232,11 @@ namespace FunkyTrinity
 
 								 string charString=String.Format("Character Info \r\n"+
 																			"DynamicID={0} -- WorldID={1} \r\n"+
-																			"SNOAnim={2} AnimState={3}\r\n",
+																			"SNOAnim={2} AnimState={3}\r\n"+
+																			"TeamID={4}\r\n",
 																			Bot.Character.iMyDynamicID.ToString(), Bot.Character.iCurrentWorldID.ToString(),
-																			Bot.Character.CurrentSNOAnim.ToString(), Bot.Character.CurrentAnimationState.ToString());
+																			Bot.Character.CurrentSNOAnim.ToString(), Bot.Character.CurrentAnimationState.ToString(),
+																			Bot.Character.iTeamID.ToString());
 
 
 								 LBDebug.Items.Add(charString);

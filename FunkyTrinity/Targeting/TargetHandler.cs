@@ -491,24 +491,48 @@ namespace FunkyTrinity.Targeting
 				{
 
 					 //Validate LOS movement
-					 if (CurrentTarget.LastLOSMoveResult.HasFlag(MoveResult.Failed|MoveResult.UnstuckAttempt|MoveResult.PathGenerationFailed|MoveResult.ReachedDestination))
+					 bool FinishLOSBehavior=false;
+					 if (CurrentTarget.LastLOSMoveResult==MoveResult.ReachedDestination)
 					 {
 						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logger.Write(LogLevel.Movement, "LOS Ended Due to MoveResult {0} for Object {1}",CurrentTarget.LastLOSMoveResult.ToString(), CurrentTarget.InternalName);
+						  FinishLOSBehavior=true;
+					 }
+					 else if(Bot.NavigationCache.currentMovementState==MovementState.WalkingInPlace)
+					 {
+						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+								Logger.Write(LogLevel.Movement, "LOS Ended Due to Player Walking In Place!");
 
-						  //CurrentTarget.LOSV3=Vector3.Zero;
+						  FinishLOSBehavior=true;
+					 }
+					 else
+					 {
+						  Ability.LOSInfo LOS=Bot.NavigationCache.LOSmovementUnit.LineOfSight;
+						  if (LOS.LastLOSCheckMS>3000)
+						  {
+							  if(LOS.LOSTest(Bot.Character.Position,true,false))
+							  {
+									if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+										 Logger.Write(LogLevel.Movement, "LOS Ended Due to Line Of Sight Passed for Object {0}", CurrentTarget.InternalName);
+
+									FinishLOSBehavior=true;
+							  }
+						  }
+					 }
+
+					
+					 if (FinishLOSBehavior)
+					 {
+						  CurrentTarget=Bot.NavigationCache.LOSmovementUnit;
 						  Bot.NavigationCache.LOSmovementUnit=null;
 						  Bot.Combat.bWholeNewTarget=true;
 						  return false;
 					 }
 
-					 if (CurrentTarget.LastLOSMoveResult.HasFlag(MoveResult.Moved))
-					 {
-						  //CurrentState=TargetMovement.TargetMoveTo(CurrentTarget);
-						  CurrentState=RunStatus.Running;
-						  CurrentTarget.LastLOSMoveResult=Navigator.MoveTo(CurrentTarget.Position, "LOS Movement", true);
-						  return false;
-					 }
+					 CurrentState=RunStatus.Running;
+					 
+					 CurrentTarget.LastLOSMoveResult=Navigation.NP.MoveTo(CurrentTarget.Position, "LOS Movement");
+					 return false;
 				}
 
 				// Set current destination to our current target's destination

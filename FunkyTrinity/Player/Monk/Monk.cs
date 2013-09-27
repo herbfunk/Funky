@@ -96,7 +96,7 @@ namespace FunkyTrinity
 					 float fExtraDistance=Bot.Target.CurrentTarget.CentreDistance<=20f?5f:1f;
 					 Bot.Combat.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, Bot.Target.CurrentTarget.CentreDistance+fExtraDistance);
 					 // Resetting this to ensure the "no-spam" is reset since we changed our target location
-					 Bot.Combat.powerLastSnoPowerUsed=SNOPower.None;
+				
 					 Bot.Combat.iACDGUIDLastWhirlwind=Bot.Target.CurrentTarget.AcdGuid.HasValue?Bot.Target.CurrentTarget.AcdGuid.Value:-1;
 					 Bot.Combat.lastChangedZigZag=DateTime.Now;
 				}

@@ -28,7 +28,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 10);
 
 
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return
 					// Either doesn't have sweeping wind, or does but the buff is already up

@@ -30,9 +30,9 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			ClusterConditions = new ClusterConditions(6d, 35f, 3, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 20);
 
-			Fcriteria=new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
+			FcriteriaCombat=new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
 
-			Fbuff=new Func<bool>(() => { return Bot.Character.dCurrentHealthPct<0.25d; });
+			FcriteriaBuff=new Func<bool>(() => { return Bot.Character.dCurrentHealthPct<0.25d; });
 			IsBuff=true;
 
 		}

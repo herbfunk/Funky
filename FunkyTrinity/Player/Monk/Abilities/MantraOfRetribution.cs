@@ -25,12 +25,12 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			Priority = AbilityPriority.High;
 			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy);
 			IsSpecialAbility = true;
-			Fbuff = new Func<bool>(() =>
+			FcriteriaBuff = new Func<bool>(() =>
 			{
 				return !Bot.Class.HasBuff(Power);
 			});
 
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 
 				return

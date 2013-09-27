@@ -26,7 +26,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			Priority = AbilityPriority.Low;
 			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy |
 			                     AbilityPreCastFlags.CheckRecastTimer);
-			Fcriteria = new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
+			FcriteriaCombat = new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
 		}
 
 		#region IAbility

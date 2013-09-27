@@ -115,43 +115,30 @@ namespace FunkyTrinity.Movement
 										  //Monsters should add 10% of its weight
 										  if (item.Obstacletype.HasValue&&item.Obstacletype.Value==ObstacleType.Monster)
 										  {
+												continue;
+										  //	 if (!UsedRAGUIDs.Contains(item.RAGUID))
+										  //	 {
+										  //		  if (!Bot.Combat.UnitRAGUIDs.Contains(item.RAGUID)) continue;
 
-												if (!UsedRAGUIDs.Contains(item.RAGUID))
-												{
-													 if (!Bot.Combat.UnitRAGUIDs.Contains(item.RAGUID)) continue;
+										  //		  CacheUnit thisUnitObj;
+										  //		  if (ObjectCache.Objects.TryGetValue(item.RAGUID, out thisUnitObj))
+										  //		  {
+										  //				int HealthPointAverageWeight=thisUnitObj.UnitMaxHitPointAverageWeight;
+										  //				//Monsters who have high health will give more points.
+										  //				if (HealthPointAverageWeight>0)
+										  //				{
+										  //					 this.ThisWeight+=(5*HealthPointAverageWeight);
+										  //				}
 
-													 CacheUnit thisUnitObj;
-													 if (ObjectCache.Objects.TryGetValue(item.RAGUID, out thisUnitObj))
-													 {
-														  int HealthPointAverageWeight=thisUnitObj.UnitMaxHitPointAverageWeight;
-														  //Monsters who have high health will give more points.
-														  if (HealthPointAverageWeight>0)
-														  {
-																this.ThisWeight+=(5*HealthPointAverageWeight);
-														  }
+										  //				if (thisUnitObj.IsEliteRareUnique)
+										  //					 this.ThisWeight+=5;
+										  //		  }
 
-														  if (thisUnitObj.IsEliteRareUnique)
-																this.ThisWeight+=5;
-													 }
-
-													 this.ThisWeight+=5;
-													 monstercount++;
-													 UsedRAGUIDs.Add(item.RAGUID);
-												}
+										  //		  this.ThisWeight+=5;
+										  //		  monstercount++;
+										  //		  UsedRAGUIDs.Add(item.RAGUID);
+										  //	 }
 										  }
-
-
-										  ////Since server objects occupy space, we eliminate points
-										  //foreach (var point in SectorPoints)
-										  //{
-										  //    if (item.PointInside(point))
-										  //    {
-										  //        NonNavPoints.Add(point);
-										  //    }
-										  //}
-										  //GridPoint[] NewSectorPointArray=new GridPoint[SectorPoints.Length];
-										  //SectorPoints.CopyTo(NewSectorPointArray, 0);
-										  //SectorPoints=Array.FindAll(NewSectorPointArray, P => !NonNavPoints.Contains(P));
 									 }
 									 else if (item is CacheAvoidance)
 									 {
@@ -250,8 +237,8 @@ namespace FunkyTrinity.Movement
 								if (!ZCheck)
 								{
 									 //Because Z Variance we need to check if we can raycast walk to the location.
-									 if (!Navigation.CanRayCast(botcurpos, pointVector, Zeta.Internals.SNO.NavCellFlags.AllowWalk)) continue;
-
+									 if (!Navigation.CanRayCast(botcurpos, pointVector)) continue;
+									 if (!Navigation.MGP.CanStandAt(pointVector)) continue;
 									 if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObstacleType.Navigation.HasFlag(obj.Obstacletype.Value)&&obj.PointInside(pointVector))) continue;
 								}
 

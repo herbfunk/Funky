@@ -16,7 +16,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 
 		public override void Initialize()
 		{
-			ExecutionType = AbilityExecuteFlags.ClusterTarget | AbilityExecuteFlags.Target;
+			ExecutionType = AbilityExecuteFlags.ClusterTarget;
 
 			WaitVars = new WaitLoops(1, 1, true);
 			Cost = 30;

@@ -27,9 +27,8 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			Cost = 0;
 			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.Low;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckEnergy |
-			                     AbilityPreCastFlags.CheckCanCast | AbilityPreCastFlags.CheckPlayerIncapacitated);
-			Fcriteria = new Func<bool>(() =>
+			PreCastPreCastFlags = (AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckCanCast | AbilityPreCastFlags.CheckPlayerIncapacitated);
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return (
 					Bot.Combat.iElitesWithinRange[(int) RangeIntervals.Range_20] > 1 ||

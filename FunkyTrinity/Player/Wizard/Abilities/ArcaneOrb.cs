@@ -28,7 +28,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			                     AbilityPreCastFlags.CheckEnergy);
 			ClusterConditions=new ClusterConditions(4d, this.UsingCriticalMass()?20:40, 3, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 25, 0.5d, TargetProperties.Fast);
-			Fcriteria = new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
+			FcriteriaCombat = new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
 		}
 
 		private bool UsingCriticalMass()

@@ -33,7 +33,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			PreCastPreCastFlags=(AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckPlayerIncapacitated);
 			ClusterConditions = new ClusterConditions(10d, 30f, 2, true);
 			TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 20);
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return !Bot.Class.bWaitingForSpecial &&
 				       (!Bot.SettingsFunky.Class.bSelectiveWhirlwind || Bot.Combat.bAnyNonWWIgnoreMobsInRange ||

@@ -26,7 +26,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			Priority = AbilityPriority.Low;
 			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy);
 			ClusterConditions = new ClusterConditions(4d, 40, 2, true);
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return (!Bot.Target.CurrentTarget.IsTreasureGoblin &&
 				        Bot.Target.CurrentTarget.SNOID != 5208 && Bot.Target.CurrentTarget.SNOID != 5209 &&

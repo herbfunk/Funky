@@ -45,7 +45,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 				
 			};
 			
-			Fcriteria = new Func<bool>(() =>
+			FcriteriaCombat = new Func<bool>(() =>
 			{
 				bool isChanneling = (this.IsHobbling || this.LastUsedMilliseconds < 250);
 				int channelingCost = Bot.Class.RuneIndexCache[Power] == 3 ? 8 : 10;
@@ -54,13 +54,13 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 				return (isChanneling && Bot.Character.dCurrentEnergy > channelingCost) || (Bot.Character.dCurrentEnergy > 40)
 							 &&(!Bot.Class.bWaitingForSpecial||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount);
 			});
-			FMovement=Fcriteria;
+			FcriteriaMovement=FcriteriaCombat;
 
 			FOutOfCombatMovement=new Func<Vector3, Vector3>((v) =>
 			{
 				 Vector3 vTargetAimPoint=MathEx.CalculatePointFrom(v, Bot.Character.Position, 10f);
 
-				 if(this.FMovement.Invoke())
+				 if(this.FcriteriaMovement.Invoke())
 						  return vTargetAimPoint;
 
 

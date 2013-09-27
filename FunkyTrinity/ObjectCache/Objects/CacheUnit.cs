@@ -213,8 +213,8 @@ namespace FunkyTrinity.Cache
 								&&!Bot.IsInNonCombatBehavior)
 						  {
 								//Check if this unit is valid based on if its contained in valid clusters
-								 if (!Bot.Combat.ValidClusterUnits.Contains(this.RAGUID)
-									 &&(!this.ObjectIsSpecial&&(!Bot.Combat.AvoidanceLastTarget||this.CentreDistance>59f)))
+								 if (!Bot.Combat.ValidClusterUnits.Contains(this.RAGUID))
+									 //&&(!this.ObjectIsSpecial&&(!Bot.Combat.AvoidanceLastTarget||this.CentreDistance>59f)))
 								{
 									 return true;
 								}
@@ -360,7 +360,7 @@ namespace FunkyTrinity.Cache
 					 double dCurrentHealthPct=dThisCurrentHealth/this.MaximumHealth.Value;
 					 if (dCurrentHealthPct!=this.CurrentHealthPct)
 					 {
-						  this.LastCurrentHealth_=this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value:1d;
+						  this.LastCurrentHealth=this.CurrentHealthPct.HasValue?this.CurrentHealthPct.Value:1d;
 						  this.CurrentHealthPct=dCurrentHealthPct;
 
 						  //update properties
@@ -602,6 +602,7 @@ namespace FunkyTrinity.Cache
 
 					 if (this.BeingIgnoredDueToClusterLogic
 						  &&this.PriorityCounter==0
+						  &&!this.IsClusterException
 						  &&(Bot.Target.CurrentTarget!=null
 						  ||Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_30]==0
 						  ||ObjectCache.Objects.objectsIgnoredDueToAvoidance.Count==0))
@@ -1337,7 +1338,7 @@ namespace FunkyTrinity.Cache
 						  else
 						  {
 								// Special code to prevent whirlwind double-spam, this helps save fury
-								bool bUseThisLoop=Bot.Class.PowerPrime.Power!=Bot.Combat.powerLastSnoPowerUsed;
+								bool bUseThisLoop=Bot.Class.PowerPrime.Power!=Bot.Class.LastUsedAbility.Power;
 								if (!bUseThisLoop)
 								{
 									 //powerLastSnoPowerUsed = SNOPower.None;
@@ -1353,7 +1354,6 @@ namespace FunkyTrinity.Cache
 						  if (Bot.Class.PowerPrime.SuccessUsed.HasValue&&Bot.Class.PowerPrime.SuccessUsed.Value)
 						  {
 								//Logging.Write(powerPrime.powerThis.ToString() + " used successfully");
-								Bot.Combat.powerLastSnoPowerUsed=Bot.Class.PowerPrime.Power;
 								Bot.Class.PowerPrime.SuccessfullyUsed();
 						  }
 						  else
@@ -1381,7 +1381,7 @@ namespace FunkyTrinity.Cache
 								Bot.Class.PowerPrime.LastConditionPassed.HasFlag(ConditionCriteraTypes.Cluster)&&Bot.Class.PowerPrime.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTarget|AbilityExecuteFlags.ClusterTargetNearest))&&
 								DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalMilliseconds>3000)
 						  {
-								double LastHealthChangedMS=DateTime.Now.Subtract(Bot.Target.LastHealthChange).TotalMilliseconds;
+								double LastHealthChangedMS=DateTime.Now.Subtract(this.LastHealthChange).TotalMilliseconds;
 								if (LastHealthChangedMS>5000)
 								{
 									 Logger.Write(LogLevel.Target, "Ignore Unit {0} due to health last changed of {1}ms", this.InternalName, LastHealthChangedMS);

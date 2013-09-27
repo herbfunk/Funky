@@ -110,12 +110,11 @@ namespace FunkyTrinity.Cache
 					}
 				}
 
-				if (this.targetType.Value==TargetType.Destructible&&
-					 radiusDistance>(Bot.DestructibleRange+5f))
+
+				if (radiusDistance>(Bot.DestructibleRange+5f))
 				{
 					return false;
 				}
-
 
 				return true;
 			}
@@ -194,7 +193,6 @@ namespace FunkyTrinity.Cache
 				if (Bot.Class.PowerPrime.SuccessUsed.HasValue&&Bot.Class.PowerPrime.SuccessUsed.Value)
 				{
 					//Logging.Write(powerPrime.powerThis.ToString() + " used successfully");
-					Bot.Combat.powerLastSnoPowerUsed=Bot.Class.PowerPrime.Power;
 					Bot.Class.PowerPrime.SuccessfullyUsed();
 					this.InteractionAttempts++;
 				}
@@ -226,7 +224,7 @@ namespace FunkyTrinity.Cache
 				Funky.PlayerMover.ShouldHandleObstacleObject=false;
 
 				//Blacklist all destructibles surrounding this obj
-				ObjectCache.Objects.BlacklistObjectsSurroundingObject<CacheDestructable>(this, 10f, 15);
+				//ObjectCache.Objects.BlacklistObjectsSurroundingObject<CacheDestructable>(this, 10f, 15);
 			}
 
 			return RunStatus.Running;

@@ -27,7 +27,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			                     AbilityPreCastFlags.CheckRecastTimer);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial);
 			ClusterConditions = new ClusterConditions(5d, 50f, 2, true);
-			Fcriteria = new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
+			FcriteriaCombat = new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
 		}
 
 		#region IAbility
