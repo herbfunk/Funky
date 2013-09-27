@@ -555,44 +555,44 @@ namespace FunkyTrinity.Targeting
 				#region DebugInfo
 				if (Bot.SettingsFunky.Debug.DebugStatusBar)
 				{
-					 Funky.sStatusText="[Interact- ";
+					 Bot.sStatusText="[Interact- ";
 					 switch (CurrentTarget.targetType.Value)
 					 {
 						  case TargetType.Avoidance:
-								Funky.sStatusText+="Avoid] ";
+								Bot.sStatusText+="Avoid] ";
 								break;
 						  case TargetType.Unit:
-								Funky.sStatusText+="Combat] ";
+								Bot.sStatusText+="Combat] ";
 								break;
 						  case TargetType.Item:
 						  case TargetType.Gold:
 						  case TargetType.Globe:
-								Funky.sStatusText+="Pickup] ";
+								Bot.sStatusText+="Pickup] ";
 								break;
 						  case TargetType.Interactable:
-								Funky.sStatusText+="Interact] ";
+								Bot.sStatusText+="Interact] ";
 								break;
 						  case TargetType.Container:
-								Funky.sStatusText+="Open] ";
+								Bot.sStatusText+="Open] ";
 								break;
 						  case TargetType.Destructible:
 						  case TargetType.Barricade:
-								Funky.sStatusText+="Destroy] ";
+								Bot.sStatusText+="Destroy] ";
 								break;
 						  case TargetType.Shrine:
-								Funky.sStatusText+="Click] ";
+								Bot.sStatusText+="Click] ";
 								break;
 					 }
-					 Funky.sStatusText+="Target="+CurrentTarget.InternalName+" C-Dist="+Math.Round(CurrentTarget.CentreDistance, 2).ToString()+". "+
+					 Bot.sStatusText+="Target="+CurrentTarget.InternalName+" C-Dist="+Math.Round(CurrentTarget.CentreDistance, 2).ToString()+". "+
 							 "R-Dist="+Math.Round(CurrentTarget.RadiusDistance, 2).ToString()+". ";
 
 					 if (CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Class.PowerPrime.Power!=SNOPower.None)
-						  Funky.sStatusText+="Power="+Bot.Class.PowerPrime.Power.ToString()+" (range "+Bot.Class.PowerPrime.MinimumRange.ToString()+") ";
+						  Bot.sStatusText+="Power="+Bot.Class.PowerPrime.Power.ToString()+" (range "+Bot.Class.PowerPrime.MinimumRange.ToString()+") ";
 
 
-					 Funky.sStatusText+="Weight="+CurrentTarget.Weight.ToString();
-					 BotMain.StatusText=Funky.sStatusText;
-					 Funky.bResetStatusText=true;
+					 Bot.sStatusText+="Weight="+CurrentTarget.Weight.ToString();
+					 BotMain.StatusText=Bot.sStatusText;
+					 Bot.bResetStatusText=true;
 				}
 				#endregion
 
@@ -627,17 +627,17 @@ namespace FunkyTrinity.Targeting
 
 		  internal void UpdateStatusText(string Action)
 		  {
-				Funky.sStatusText=Action+" ";
+				Bot.sStatusText=Action+" ";
 
-				Funky.sStatusText+="Target="+CurrentTarget.InternalName+" C-Dist="+Math.Round(CurrentTarget.CentreDistance, 2).ToString()+". "+
+				Bot.sStatusText+="Target="+CurrentTarget.InternalName+" C-Dist="+Math.Round(CurrentTarget.CentreDistance, 2).ToString()+". "+
 					 "R-Dist="+Math.Round(CurrentTarget.RadiusDistance, 2).ToString()+". ";
 
 				if (CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Class.PowerPrime.Power!=SNOPower.None)
-					 Funky.sStatusText+="Power="+Bot.Class.PowerPrime.Power.ToString()+" (range "+Bot.Class.PowerPrime.MinimumRange.ToString()+") ";
+					 Bot.sStatusText+="Power="+Bot.Class.PowerPrime.Power.ToString()+" (range "+Bot.Class.PowerPrime.MinimumRange.ToString()+") ";
 
-				Funky.sStatusText+="Weight="+CurrentTarget.Weight.ToString();
-				BotMain.StatusText=Funky.sStatusText;
-				Funky.bResetStatusText=true;
+				Bot.sStatusText+="Weight="+CurrentTarget.Weight.ToString();
+				BotMain.StatusText=Bot.sStatusText;
+				Bot.bResetStatusText=true;
 		  }
 
 		  public override bool Equals(object obj)

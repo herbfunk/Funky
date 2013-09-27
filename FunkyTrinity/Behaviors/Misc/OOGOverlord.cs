@@ -9,10 +9,6 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
-		  private static DateTime LastBreak=DateTime.Now;
-		  private static bool AFKBreak=false;
-		  private static double BreakMinutes=0;
-		  private static DateTime BreakStart=DateTime.Today;
 
 		  private static bool MuleBehavior=false;
 		  private static bool InitMuleBehavior=false;
@@ -23,17 +19,7 @@ namespace FunkyTrinity
 
 		  public static bool OutOfGameOverlord(object ret)
 		  {
-				//Herbfunk
-				if (Bot.SettingsFunky.EnableCoffeeBreaks&&
-					 DateTime.Now.Subtract(LastBreak).TotalHours>=Bot.SettingsFunky.breakTimeHour)
-				{
-					 Logger.Write(LogLevel.OutOfGame, "Going AFK for a break..");
-					 AFKBreak=true;
-					 BreakStart=DateTime.Now;
-					 BreakMinutes=MathEx.Random(Bot.SettingsFunky.MinBreakTime, Bot.SettingsFunky.MinBreakTime+Bot.SettingsFunky.MaxBreakTime);
-					 return true;
-				}
-				else if (MuleBehavior)
+				if (MuleBehavior)
 				{
 					 //Skip this until we create our new A1 game..
 					 if (RanProfile&&!TransferedGear)
@@ -68,20 +54,7 @@ namespace FunkyTrinity
 
 		  public static RunStatus OutOfGameBehavior(object ret)
 		  {
-				if (Bot.SettingsFunky.EnableCoffeeBreaks&&AFKBreak)
-				{
-					 if (DateTime.Now.Subtract(BreakStart).TotalMinutes>=BreakMinutes)
-					 {
-						  //Finished.
-						  Logger.Write(LogLevel.OutOfGame, "Afk Break Finished..");
-						  AFKBreak=false;
-						  LastBreak=DateTime.Now;
-						  return RunStatus.Success;
-					 }
-
-					 return RunStatus.Running;
-				}
-				else if (MuleBehavior)
+				if (MuleBehavior)
 				{
 					 if (!InitMuleBehavior)
 					 {
@@ -115,7 +88,7 @@ namespace FunkyTrinity
 						  }
 						  return RunStatus.Running;
 					 }
-					 else if(!Finished)
+					 else if (!Finished)
 					 {
 						  RunStatus FinishStatus=NewMuleGame.FinishMuleBehavior();
 						  if (FinishStatus==RunStatus.Success)

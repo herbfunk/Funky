@@ -15,16 +15,17 @@ namespace FunkyTrinity.Settings
 
 		 [XmlArray]
 		 public AvoidanceValue[] Avoidances { get { return avoidances; } set { avoidances=value; } }
-		 private AvoidanceValue[] avoidances=new AvoidanceValue[AvoidanceCache.AvoidancesDefault.Length-1];
+
+		 private AvoidanceValue[] avoidances;
 
 		 public SettingAvoidance()
 		 {
 			  AttemptAvoidanceMovements=true;
 			  UseAdvancedProjectileTesting=false;
-			  avoidances=AvoidanceCache.AvoidancesDefault;
+			  Avoidances=AvoidanceCache.AvoidancesDefault;
 		 }
 
-		 private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.SettingsDefaultPath,"Specific","Avoidance_Default.xml");
+		 private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath,"Specific","Avoidance_Default.xml");
 		 public static SettingAvoidance DeserializeFromXML()
 		 {
 			  XmlSerializer deserializer=new XmlSerializer(typeof(SettingAvoidance));

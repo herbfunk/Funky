@@ -45,7 +45,7 @@ namespace FunkyTrinity
 
 									 if (Bot.SettingsFunky.ItemRules.ItemRulesSalvaging)
 									 {
-										  if (ItemRulesEval.checkSalvageItem(thisitem.ACDItem)==Interpreter.InterpreterAction.SALVAGE)
+										  if (Bot.ItemRulesEval.checkSalvageItem(thisitem.ACDItem)==Interpreter.InterpreterAction.SALVAGE)
 										  {
 												Bot.Character.BackPack.townRunCache.hashGilesCachedSalvageItems.Add(thisitem);
 												continue;

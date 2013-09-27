@@ -36,7 +36,7 @@ namespace FunkyTrinity
 				{
 					 if (DateTime.Now.Subtract(LastActionTaken).TotalMilliseconds>RandomWaitTimeMilliseconds)
 					 {
-						  string NewGameProfile=Funky.FolderPaths.sTrinityPluginPath+@"Behaviors\Misc\CharacterMule\NewGame.xml";
+						  string NewGameProfile=FolderPaths.sTrinityPluginPath+@"Behaviors\Misc\CharacterMule\NewGame.xml";
 						  if (ProfileManager.CurrentProfile.Path!=NewGameProfile)
 						  {
 								if (System.IO.File.Exists(NewGameProfile))
@@ -137,7 +137,7 @@ namespace FunkyTrinity
 									 TransferedGear=true;
 									 Bot.UpdateCurrentAccountDetails();
 									 //Delete settings
-									 string sFunkyCharacterFolder=System.IO.Path.Combine(Funky.FolderPaths.sDemonBuddyPath, "Settings", "FunkyTrinity", Bot.CurrentAccountName);
+									 string sFunkyCharacterFolder=System.IO.Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyTrinity", Bot.CurrentAccountName);
 									 if (System.IO.Directory.Exists(sFunkyCharacterFolder))
 									 {
 										  string sFunkyCharacterConfigFile=System.IO.Path.Combine(sFunkyCharacterFolder, Bot.CurrentHeroName+".cfg");

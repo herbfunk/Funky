@@ -28,7 +28,7 @@ namespace FunkyTrinity.Settings
 			IgnoreClusterLowHPValue=0.55d;
 		}
 
-		private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.SettingsDefaultPath, "Specific", "Clustering_Default.xml");
+		private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Clustering_Default.xml");
 		public static SettingCluster DeserializeFromXML()
 		{
 			 XmlSerializer deserializer=new XmlSerializer(typeof(SettingCluster));

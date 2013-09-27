@@ -52,18 +52,6 @@ namespace FunkyTrinity
 				return UnidentifiedItems.Count()>0;
 		  }
 
-		  internal static bool ShouldRunIDBehavior()
-		  {
-				RefreshUnidList();
-
-				//Refresh list is updated during first run and everytime we confirm looted items..
-				if (UnidentifiedItems.Count()>=Bot.SettingsFunky.OOCIdentifyItemsMinimumRequired)
-					 shouldPreformOOCItemIDing=true;
-				else
-					 shouldPreformOOCItemIDing=false;
-
-				return shouldPreformOOCItemIDing;
-		  }
 
 		  private static Zeta.TreeSharp.RunStatus HandleIDBehavior()
 		  {

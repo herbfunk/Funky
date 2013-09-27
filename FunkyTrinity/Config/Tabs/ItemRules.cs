@@ -13,7 +13,7 @@ namespace FunkyTrinity
 		  {
 				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
 				{
-					 InitialDirectory=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+					 InitialDirectory=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
 					 RestoreDirectory=false,
 					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
 					 Title="ItemRules Template",
@@ -28,7 +28,7 @@ namespace FunkyTrinity
 						  SettingItemRules newSettings=SettingItemRules.DeserializeFromXML(OFD.FileName);
 						  Bot.SettingsFunky.ItemRules=newSettings;
 
-						  Funky.funkyConfigWindow.Close();
+						  FunkyWindow.funkyConfigWindow.Close();
 					 } catch
 					 {
 
@@ -127,11 +127,11 @@ namespace FunkyTrinity
 		  //UseLevelingLogic
 		  private void ItemRulesOpenFolder_Click(object sender, EventArgs e)
 		  {
-				System.Diagnostics.Process.Start(System.IO.Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "ItemRules", "Rules"));
+				System.Diagnostics.Process.Start(System.IO.Path.Combine(FolderPaths.sTrinityPluginPath, "ItemRules", "Rules"));
 		  }
 		  private void ItemRulesReload_Click(object sender, EventArgs e)
 		  {
-				if (Funky.ItemRulesEval==null)
+				if (Bot.ItemRulesEval==null)
 				{
 					 Funky.Log("Cannot reload rules until bot has started", true);
 					 return;
@@ -139,7 +139,7 @@ namespace FunkyTrinity
 
 				try
 				{
-					 Funky.ItemRulesEval.reloadFromUI();
+					 Bot.ItemRulesEval.reloadFromUI();
 				} catch (Exception ex)
 				{
 					 Funky.Log(ex.Message+"\r\n"+ex.StackTrace);

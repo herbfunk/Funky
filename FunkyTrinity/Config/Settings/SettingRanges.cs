@@ -34,7 +34,7 @@ namespace FunkyTrinity.Settings
 			ShrineRange=30;
 		}
 
-		private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.SettingsDefaultPath, "Specific", "Range_Default.xml");
+		private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Range_Default.xml");
 		public static SettingRanges DeserializeFromXML()
 		{
 			 XmlSerializer deserializer=new XmlSerializer(typeof(SettingRanges));

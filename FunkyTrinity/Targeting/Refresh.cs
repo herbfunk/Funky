@@ -126,7 +126,7 @@ namespace FunkyTrinity.Targeting
 		  private void InitObjectRefresh()
 		  {
 				//Cache last target only if current target is not avoidance (Movement).
-				LastCachedTarget=Bot.Target.CurrentTarget!=null?Bot.Target.CurrentTarget:Funky.FakeCacheObject;
+				LastCachedTarget=Bot.Target.CurrentTarget!=null?Bot.Target.CurrentTarget:ObjectCache.FakeCacheObject;
 
 				if (!Bot.Target.Equals(null)&&Bot.Target.CurrentTarget.targetType.HasValue&&Bot.Target.CurrentTarget.targetType.Value==TargetType.Avoidance
 					 &&!String.IsNullOrEmpty(Bot.Target.CurrentTarget.InternalName))

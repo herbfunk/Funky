@@ -6,6 +6,7 @@ using Zeta.Internals.Actors;
 using System.Threading;
 using Zeta.CommonBot;
 using Zeta.Navigation;
+using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
 {
@@ -23,9 +24,9 @@ namespace FunkyTrinity
             PlayerMover.iTimesReachedStuckPoint = 0;
             PlayerMover.timeLastRecordedPosition = DateTime.Today;
             PlayerMover.timeStartedUnstuckMeasure = DateTime.Today;
-            hashUseOnceID = new HashSet<int>();
-            dictUseOnceID = new Dictionary<int, int>();
-            dictRandomID = new Dictionary<int, int>();
+				ProfileCache.hashUseOnceID=new HashSet<int>();
+				ProfileCache.dictUseOnceID=new Dictionary<int, int>();
+				ProfileCache.dictRandomID=new Dictionary<int, int>();
 				Bot.Stats.iMaxDeathsAllowed=0;
 				Bot.Stats.iDeathsThisRun=0;
 				initTreeHooks=false;

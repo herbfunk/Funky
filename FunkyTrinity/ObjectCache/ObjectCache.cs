@@ -25,6 +25,8 @@ namespace FunkyTrinity.Cache
 		  ///</summary>
 		  public static partial class ObjectCache
 		  {
+				internal static CacheObject FakeCacheObject;
+
 				///<summary>
 				///Cached Objects.
 				///</summary>

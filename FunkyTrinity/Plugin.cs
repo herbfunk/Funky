@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using FunkyTrinity.Cache;
+using FunkyTrinity.Cache.Enums;
 using Zeta.Common;
 using Zeta;
 using Zeta.TreeSharp;
@@ -23,7 +25,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky : IPlugin
 	 {
-		  public Version Version { get { return new Version(2, 4, 1, 0); } }
+		  public Version Version { get { return new Version(2, 5, 0, 0); } }
 		  public string Author { get { return "Herbfunk"; } }
 		  public string Description
 		  {
@@ -199,11 +201,12 @@ namespace FunkyTrinity
 				if (initFunkyButton&&FunkyButton!=null)
 				{
 					 Logging.WriteDiagnostic("Funky Split Button Click Handler Added");
-					 FunkyButton.Click+=buttonFunkySettingDB_Click;
+					 FunkyButton.Click+=FunkyWindow.buttonFunkySettingDB_Click;
 				}
 
-				DBLogFile=Zeta.Common.Logging.LogFilePath;
-				Logger.Write(LogLevel.User, "Init Logger Completed! DB Log Path Set {0}", DBLogFile);
+				Logger.DBLogFile=Zeta.Common.Logging.LogFilePath;
+				Logger.Write(LogLevel.User, "Init Logger Completed! DB Log Path Set {0}", Logger.DBLogFile);
+				ObjectCache.FakeCacheObject=new CacheObject(Vector3.Zero, TargetType.None, 0d, "Fake Target", 1f, -1);
 				//if (BotWasRunning) BotMain.Start();
 
 
@@ -217,7 +220,7 @@ namespace FunkyTrinity
 		  {
 				try
 				{
-					 CleanLogs();
+					 Logger.CleanLogs();
 				} catch (Exception ex)
 				{
 
@@ -273,7 +276,7 @@ namespace FunkyTrinity
 
 					 CheckUpdate();
 
-					 iDemonbuddyMonsterPowerLevel=Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel;
+					 Bot.iDemonbuddyMonsterPowerLevel=Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel;
 				}
 		  }
 		  public Window DisplayWindow
@@ -286,14 +289,14 @@ namespace FunkyTrinity
 						  Directory.CreateDirectory(settingsFolder);
 					 try
 					 {
-						  funkyConfigWindow=new FunkyWindow();
+						  FunkyWindow.funkyConfigWindow=new FunkyWindow();
 
 					 } catch (Exception ex)
 					 {
 						  Logging.WriteVerbose("Failure to initilize Funky Setting Window! \r\n {0} \r\n {1} \r\n {2}", ex.Message, ex.Source, ex.StackTrace);
 					 }
 
-					 return funkyConfigWindow;
+					 return FunkyWindow.funkyConfigWindow;
 				}
 		  }
 		  public void OnDisabled()
@@ -341,7 +344,7 @@ namespace FunkyTrinity
 						  if (item.Name.Contains("Funky"))
 						  {
 								Logging.WriteDiagnostic("Funky Split Button Click Handler Removed");
-								item.Click-=buttonFunkySettingDB_Click;
+								item.Click-=FunkyWindow.buttonFunkySettingDB_Click;
 								break;
 						  }
 					 }

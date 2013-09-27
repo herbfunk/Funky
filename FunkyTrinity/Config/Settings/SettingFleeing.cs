@@ -22,7 +22,7 @@ namespace FunkyTrinity.Settings
 			FleeBotMinimumHealthPercent=0.75d;
 		}
 
-		private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.SettingsDefaultPath, "Specific", "Fleeing_Default.xml");
+		private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Fleeing_Default.xml");
 		public static SettingFleeing DeserializeFromXML()
 		{
 			 XmlSerializer deserializer=new XmlSerializer(typeof(SettingFleeing));

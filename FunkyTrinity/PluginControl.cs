@@ -2,6 +2,8 @@
 using Zeta;
 using System.Collections.Generic;
 using Zeta.Common;
+using Zeta.CommonBot;
+using Zeta.Navigation;
 using Zeta.TreeSharp;
 using Zeta.Internals.Actors;
 using System.Xml;
@@ -11,6 +13,11 @@ namespace FunkyTrinity
 {
 	 public partial class Funky
 	 {
+		  private static bool bPluginEnabled=false;
+		  private static bool initFunkyButton=false;
+		  private static bool initTreeHooks=false;
+		  private static bool bMaintainStatTracking=false;
+
 		  internal static void Log(string message, bool bIsDiagnostic=false)
 		  {
 				string totalMessage=String.Format("[Funky] {0}", message);
@@ -60,9 +67,9 @@ namespace FunkyTrinity
 		  {
 				ResetBot();
 
-				hashUseOnceID=new HashSet<int>();
-				dictUseOnceID=new Dictionary<int, int>();
-				dictRandomID=new Dictionary<int, int>();
+				ProfileCache.hashUseOnceID=new HashSet<int>();
+				ProfileCache.dictUseOnceID=new Dictionary<int, int>();
+				ProfileCache.dictRandomID=new Dictionary<int, int>();
 				FunkyTrinity.Movement.SkipAheadCache.ClearCache();
 
 				Bot.Stats.iMaxDeathsAllowed=0;
@@ -328,4 +335,48 @@ namespace FunkyTrinity
 				return RunStatus.Success;
 		  }
     }
+
+	 public class TrinityStuckHandler : IStuckHandler
+	 {
+		  public Vector3 GetUnstuckPos()
+		  {
+				return Vector3.Zero;
+		  }
+
+		  public bool IsStuck
+		  {
+				get
+				{
+					 return false;
+				}
+		  }
+	 }
+	 public class TrinityCombatTargetingReplacer : ITargetingProvider
+	 {
+		  private static readonly List<DiaObject> listEmptyList=new List<DiaObject>();
+		  public List<DiaObject> GetObjectsByWeight()
+		  {
+				if (!Bot.Combat.DontMove)
+					 return listEmptyList;
+				List<DiaObject> listFakeList=new List<DiaObject>();
+				listFakeList.Add(null);
+				return listFakeList;
+		  }
+	 }
+	 public class TrinityLootTargetingProvider : ITargetingProvider
+	 {
+		  private static readonly List<DiaObject> listEmptyList=new List<DiaObject>();
+		  public List<DiaObject> GetObjectsByWeight()
+		  {
+				return listEmptyList;
+		  }
+	 }
+	 public class TrinityObstacleTargetingProvider : ITargetingProvider
+	 {
+		  private static readonly List<DiaObject> listEmptyList=new List<DiaObject>();
+		  public List<DiaObject> GetObjectsByWeight()
+		  {
+				return listEmptyList;
+		  }
+	 }
 }

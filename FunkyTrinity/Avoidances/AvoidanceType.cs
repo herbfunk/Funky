@@ -57,6 +57,8 @@ namespace FunkyTrinity.Avoidances
 		  SuccubusProjectile,
 		  [XmlEnum(Name="TreeSpore")]
 		  TreeSpore,
+		  [XmlEnum(Name="WallOfFire")]
+		  WallOfFire,
 
 		  [XmlEnum(Name="Wall")]
 		  Wall,

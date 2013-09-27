@@ -26,7 +26,7 @@ namespace FunkyTrinity
 
 				//LoadConfiguration();
 				Settings_Funky.LoadFunkyConfiguration();
-				ItemRulesEval=new Interpreter();
+				Bot.ItemRulesEval=new Interpreter();
 
 				Navigator.PlayerMover=new PlayerMover();
 				Navigator.StuckHandler=new TrinityStuckHandler();

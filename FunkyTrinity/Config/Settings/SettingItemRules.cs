@@ -32,7 +32,7 @@ namespace FunkyTrinity.Settings
 			ItemRuleCustomPath="";
 		}
 
-		private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.SettingsDefaultPath, "Specific", "ItemRules_Default.xml");
+		private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "ItemRules_Default.xml");
 		public static SettingItemRules DeserializeFromXML()
 		{
 			 XmlSerializer deserializer=new XmlSerializer(typeof(SettingItemRules));

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using Zeta;
 using System.Windows.Controls;
 using Zeta.Common;
@@ -17,9 +18,28 @@ namespace FunkyTrinity
 
 		  internal partial class FunkyWindow
          {
+				internal static void buttonFunkySettingDB_Click(object sender, RoutedEventArgs e)
+				 {
+					  Bot.UpdateCurrentAccountDetails();
+
+					  string settingsFolder=FolderPaths.sDemonBuddyPath+@"\Settings\FunkyTrinity\"+Bot.CurrentAccountName;
+					  if (!Directory.Exists(settingsFolder)) Directory.CreateDirectory(settingsFolder);
+
+					  try
+					  {
+							funkyConfigWindow=new FunkyWindow();
+							funkyConfigWindow.Show();
+					  } catch (Exception ex)
+					  {
+							Logging.WriteVerbose("Failure to initilize Funky Setting Window! \r\n {0} \r\n {1} \r\n {2}", ex.Message, ex.Source, ex.StackTrace);
+					  }
+				 }
+
+				internal static FunkyWindow funkyConfigWindow;
+
 				private void DefaultMenuLevelingClicked(object sender, EventArgs e)
 				{
-					 System.Windows.MessageBoxResult confirm=System.Windows.MessageBox.Show(Funky.funkyConfigWindow, 
+					 System.Windows.MessageBoxResult confirm=System.Windows.MessageBox.Show(funkyConfigWindow, 
 						  "Are you sure you want to overwrite settings with default settings?", 
 						  "Confirm Overwrite", System.Windows.MessageBoxButton.YesNoCancel, System.Windows.MessageBoxImage.Question);
 					 if (confirm== System.Windows.MessageBoxResult.Yes)
@@ -29,14 +49,14 @@ namespace FunkyTrinity
 						  Bot.SettingsFunky.Cluster.EnableClusteringTargetLogic=false;
 						  Bot.SettingsFunky.UseLevelingLogic=true;
 						  Settings_Funky.SerializeToXML(Bot.SettingsFunky);
-						  Funky.funkyConfigWindow.Close();
+						  funkyConfigWindow.Close();
 					 }
 				}
 				private void DefaultMenuLoadProfileClicked(object sender, EventArgs e)
 				{
 					 System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
 					 {
-						  InitialDirectory=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+						  InitialDirectory=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
 						  RestoreDirectory=false,
 						  Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
 						  Title="Fleeing Template",
@@ -47,13 +67,13 @@ namespace FunkyTrinity
 					 {
 						  try
 						  {
-								System.Windows.MessageBoxResult confirm=System.Windows.MessageBox.Show(Funky.funkyConfigWindow, "Are you sure you want to overwrite settings with selected profile?", "Confirm Overwrite", System.Windows.MessageBoxButton.YesNoCancel, System.Windows.MessageBoxImage.Question);
+								System.Windows.MessageBoxResult confirm=System.Windows.MessageBox.Show(funkyConfigWindow, "Are you sure you want to overwrite settings with selected profile?", "Confirm Overwrite", System.Windows.MessageBoxButton.YesNoCancel, System.Windows.MessageBoxImage.Question);
 								if (confirm==System.Windows.MessageBoxResult.Yes)
 								{
 									 Logging.Write("Creating new settings for {0} -- {1} using file {2}", Bot.CurrentAccountName, Bot.CurrentHeroName, OFD.FileName);
 									 Settings_Funky newSettings=Settings_Funky.DeserializeFromXML(OFD.FileName);
 									 Bot.SettingsFunky=newSettings;
-									 Funky.funkyConfigWindow.Close();
+									 funkyConfigWindow.Close();
 								}
 						  } catch
 						  {

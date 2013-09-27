@@ -13,6 +13,51 @@ namespace FunkyTrinity
 {
     public partial class Funky
     {
+
+		  #region Constants
+		  // These constants are used for item scoring and stashing
+		  private const int DEXTERITY=0;
+		  private const int INTELLIGENCE=1;
+		  private const int STRENGTH=2;
+		  private const int VITALITY=3;
+		  private const int LIFEPERCENT=4;
+		  private const int LIFEONHIT=5;
+		  private const int LIFESTEAL=6;
+		  private const int LIFEREGEN=7;
+		  private const int MAGICFIND=8;
+		  private const int GOLDFIND=9;
+		  private const int MOVEMENTSPEED=10;
+		  private const int PICKUPRADIUS=11;
+		  private const int SOCKETS=12;
+		  private const int CRITCHANCE=13;
+		  private const int CRITDAMAGE=14;
+		  private const int ATTACKSPEED=15;
+		  private const int MINDAMAGE=16;
+		  private const int MAXDAMAGE=17;
+		  private const int BLOCKCHANCE=18;
+		  private const int THORNS=19;
+		  private const int ALLRESIST=20;
+		  private const int RANDOMRESIST=21;
+		  private const int TOTALDPS=22;
+		  private const int ARMOR=23;
+		  private const int MAXDISCIPLINE=24;
+		  private const int MAXMANA=25;
+		  private const int ARCANECRIT=26;
+		  private const int MANAREGEN=27;
+		  private const int GLOBEBONUS=28;
+		  private const int TOTALSTATS=29; // starts at 0, remember... 0-26 = 1-27!
+
+		  private const int QUALITYWHITE=0;
+		  private const int QUALITYBLUE=1;
+		  private const int QUALITYYELLOW=2;
+		  private const int QUALITYORANGE=3;
+		  private const int GEMRUBY=0;
+		  private const int GEMTOPAZ=1;
+		  private const int GEMAMETHYST=2;
+		  private const int GEMEMERALD=3;
+		  #endregion
+
+
 		  private static bool bOutputItemScores=false;
 
         // **********************************************************************************************

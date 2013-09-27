@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using FunkyTrinity.Cache;
 using Zeta.CommonBot.Profile;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
@@ -22,14 +23,14 @@ namespace FunkyTrinity.XMLTags
 			{
 				// See if we've EVER hit this ID before
 				// If so, set it disabled - if not, add it and prevent it
-				if (Funky.hashUseOnceID.Contains(ID))
+				 if (ProfileCache.hashUseOnceID.Contains(ID))
 				{
-					Funky.dictUseOnceID[ID]=-1;
+					 ProfileCache.dictUseOnceID[ID]=-1;
 				}
 				else
 				{
-					Funky.hashUseOnceID.Add(ID);
-					Funky.dictUseOnceID.Add(ID, -1);
+					 ProfileCache.hashUseOnceID.Add(ID);
+					 ProfileCache.dictUseOnceID.Add(ID, -1);
 				}
 				m_IsDone=true;
 			});

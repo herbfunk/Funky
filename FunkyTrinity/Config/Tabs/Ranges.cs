@@ -13,7 +13,7 @@ namespace FunkyTrinity
 		  {
 				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
 				{
-					 InitialDirectory=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+					 InitialDirectory=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
 					 RestoreDirectory=false,
 					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
 					 Title="Ranges Template",
@@ -28,7 +28,7 @@ namespace FunkyTrinity
 						  SettingRanges newSettings=SettingRanges.DeserializeFromXML(OFD.FileName);
 						  Bot.SettingsFunky.Ranges=newSettings;
 
-						  Funky.funkyConfigWindow.Close();
+						  FunkyWindow.funkyConfigWindow.Close();
 					 } catch
 					 {
 

@@ -9,6 +9,10 @@ namespace FunkyTrinity.Avoidances
 {
     public static class AvoidanceCache
     {
+		  //Static Avoidance Areas in Halls Of Agony:
+		  //108012 -- FirePit, 34f Radius
+		  //89578 -- Inferno Wall -- 3f Height, 20f? Width
+
 		  internal static readonly  AvoidanceValue[] AvoidancesDefault=new AvoidanceValue[]
 			  {
 				  new AvoidanceValue(AvoidanceType.ArcaneSentry, 1, 14,10), 
@@ -32,6 +36,7 @@ namespace FunkyTrinity.Avoidances
 				  new AvoidanceValue(AvoidanceType.ShamanFireBall, 0.1, 2,5), 
 				  new AvoidanceValue(AvoidanceType.SuccubusProjectile, 0.25, 2,5),
 				  new AvoidanceValue(AvoidanceType.TreeSpore, 1, 13,10),
+				  //new AvoidanceValue(AvoidanceType.WallOfFire, 0, 0, 0),
 				  //?? value never makes it when deseralized, but is seralized.
 				  new AvoidanceValue(AvoidanceType.None,0,0,0),
 			  };
@@ -45,8 +50,8 @@ namespace FunkyTrinity.Avoidances
 				  5212,            3865,         123124,      123842,        123839,       161822,        161833, 
 				  // Sha-Ball      Mol Ball      Mage Fire    Diablo Prison  Diablo Meteor Ice-trail      PoisonGas
 				  4103,            160154,       432,         168031,        214845,       260377,        4176,
-				  //lacuni bomb		Succubus Bloodstar
-				  4546,			   164829, 
+				  //lacuni bomb		Succubus Bloodstar	  Halls Of Agony: Inferno Wall
+				  4546,			   164829,						  89578,
 			  };
 
 		  // A list of SNO's that are projectiles (so constantly look for new locations while avoiding)
@@ -134,6 +139,8 @@ namespace FunkyTrinity.Avoidances
 						  return AvoidanceType.PoisonGas;
 					 case 164829:
 						  return AvoidanceType.SuccubusProjectile;
+					 case 89578:
+						  return AvoidanceType.WallOfFire;
 				}
 				return AvoidanceType.None;
 		  }

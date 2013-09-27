@@ -466,7 +466,7 @@ namespace FunkyTrinity.Cache
 						  {
 								if (Bot.SettingsFunky.ItemRules.UseItemRules)
 								{
-									 Interpreter.InterpreterAction action=Funky.ItemRulesEval.checkPickUpItem(this, ItemEvaluationType.PickUp);
+									 Interpreter.InterpreterAction action=Bot.ItemRulesEval.checkPickUpItem(this, ItemEvaluationType.PickUp);
 									 switch (action)
 									 {
 										  case Interpreter.InterpreterAction.PICKUP:

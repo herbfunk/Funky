@@ -24,7 +24,7 @@ namespace FunkyTrinity
 				Bot.BotStatistics.GameStats.CurrentGame.Reset();
 
 				if (Bot.SettingsFunky.Demonbuddy.EnableDemonBuddyCharacterSettings)
-					 Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel=iDemonbuddyMonsterPowerLevel;
+					 Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel=Bot.iDemonbuddyMonsterPowerLevel;
 
 				//Disconnect -- Starting Profile Setup.
 				if (HadDisconnectError)

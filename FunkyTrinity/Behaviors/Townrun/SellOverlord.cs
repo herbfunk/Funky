@@ -54,13 +54,13 @@ namespace FunkyTrinity
 									 }
 
 									 if (Bot.SettingsFunky.ItemRules.ItemRulesSalvaging)
-										  if (ItemRulesEval.checkSalvageItem(thisitem.ACDItem)==Interpreter.InterpreterAction.SALVAGE)
+										  if (Bot.ItemRulesEval.checkSalvageItem(thisitem.ACDItem)==Interpreter.InterpreterAction.SALVAGE)
 												continue;
 
 
 									 if (Bot.SettingsFunky.ItemRules.UseItemRules)
 									 {
-										  Interpreter.InterpreterAction action=ItemRulesEval.checkItem(thisitem.ACDItem, Zeta.CommonBot.ItemEvaluationType.Keep);
+										  Interpreter.InterpreterAction action=Bot.ItemRulesEval.checkItem(thisitem.ACDItem, Zeta.CommonBot.ItemEvaluationType.Keep);
 										  switch (action)
 										  {
 												case Interpreter.InterpreterAction.TRASH:

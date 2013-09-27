@@ -12,14 +12,20 @@
 		UseageType - When to use the ability (Combat or Anywhere)
 		Priority - The order in which abilities are checked.
 
-Structured Conditions:
+Criterias:
 	PreCastConditions - The conditions to validate the ability is usable.
+
+--Combat Criterias:
+	*These are the FOUR main combat conditions that are checked*
 	ClusterConditions - A Cluster Condition (Should be used with ExecutionTypes: ClusterTarget, ClusterLocation, ClusterTargetNearest)
 	TargetUnitConditionFlags - Single Target Conditions
 	UnitsWithinRangeConditions - Any Units within Range.
 	ElitesWithinRangeConditions - Any Above Average Units within Range.
 
+--Custom Combat Criteria:
+	FCombatCriteria - This is checked after the combat criterias, however if none of the four are set and this is set, then it will be tested.
+
+
 Custom Func Conditions:
 	Fprecast - Precast Condition
 	Fbuff - Buff Condition
-	Fcriteria - Combat Condition

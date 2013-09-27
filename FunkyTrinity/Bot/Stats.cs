@@ -343,7 +343,7 @@ namespace FunkyTrinity
 						  ItemStats.Update();
 
 
-						  string outputPath=Funky.FolderPaths.sTrinityLogPath+@"ProfileStats\";
+						  string outputPath=FolderPaths.sTrinityLogPath+@"ProfileStats\";
 						  if (!Directory.Exists(outputPath))
 								Directory.CreateDirectory(outputPath);
 						  //ddMMyyyyHHmmss

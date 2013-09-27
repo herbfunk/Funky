@@ -19,7 +19,7 @@ namespace FunkyTrinity
 
 				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
 				{
-					 InitialDirectory=Path.Combine(Funky.FolderPaths.SettingsDefaultPath, "Specific"),
+					 InitialDirectory=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific"),
 					 RestoreDirectory=false,
 					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
 					 Title="Avoidance Template",
@@ -33,7 +33,7 @@ namespace FunkyTrinity
 						  //;
 						  SettingAvoidance newSettings=SettingAvoidance.DeserializeFromXML(OFD.FileName);
 						  Bot.SettingsFunky.Avoidance=newSettings;
-						  Funky.funkyConfigWindow.Close();
+						  FunkyWindow.funkyConfigWindow.Close();
 					 } catch
 					 {
 

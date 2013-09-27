@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+using FunkyTrinity.Cache;
 using Zeta.CommonBot.Profile;
 using Zeta.CommonBot.Profile.Composites;
 using Zeta.TreeSharp;
@@ -33,7 +34,7 @@ namespace FunkyTrinity.XMLTags
 		{
 			int iOldValue;
 			// If the dictionary value doesn't even exist, FAIL!
-			if (!Funky.dictRandomID.TryGetValue(ID, out iOldValue)&&Result!=-1)
+			if (!ProfileCache.dictRandomID.TryGetValue(ID, out iOldValue)&&Result!=-1)
 				return false;
 			// Ok, do the results match up what we want? then SUCCESS!
 			if (iOldValue==Result||Result==-1)

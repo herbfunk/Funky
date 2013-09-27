@@ -28,19 +28,12 @@ namespace FunkyTrinity
 					 return false;
 				}
 
-				if (Bot.ShuttingDownBot)
-				{
-					 Logging.Write("Stopping Bot due to low health!");
-					 Bot.ShutDownBot();
-					 return false;
-				}
-
 				// World ID safety caching incase it's ever unavailable
 				if (ZetaDia.CurrentWorldDynamicId!=-1) Bot.Character.iCurrentWorldID=ZetaDia.CurrentWorldDynamicId;
 
 				//Check Low Level Logic Setting
 				if (Bot.SettingsFunky.UseLevelingLogic) LowLevelLogicPulse();
-				
+
 
 				// Store all of the player's abilities every now and then, to keep it cached and handy, also check for critical-mass timer changes etc.
 				iCombatLoops++;
@@ -103,19 +96,13 @@ namespace FunkyTrinity
 
 						  }
 					 }
-
-					 // Game difficulty, used really for vault on DH's
-					 //if (ZetaDia.Service.CurrentHero.CurrentDifficulty!=GameDifficulty.Invalid)
-					 //    Bot.Character.iCurrentGameDifficulty=ZetaDia.Service.CurrentHero.CurrentDifficulty;
 				}
 
 				// Recording of all the XML's in use this run
 				Bot.Profile.CheckProfile();
 
-
 				//Seconday Hotbar Check
 				Bot.Class.SecondaryHotbarBuffPresent();
-				
 
 				// Clear target current and reset key variables used during the target-handling function
 				Bot.Combat.ResetTargetHandling();
@@ -148,14 +135,7 @@ namespace FunkyTrinity
 				}
 				else
 				{
-					 //Check OOC ID Behavior..
-					 if (Bot.SettingsFunky.OOCIdentifyItems&&ShouldRunIDBehavior())
-					 {
-						  Logging.WriteDiagnostic("[Funky] Starting OOC ID Behavior");
-						  Bot.Combat.DontMove=true;
-						  return true;
-					 }
-					 else if (MuleBehavior)
+					 if (MuleBehavior)
 					 {
 						  if (BotMain.StatusText.Contains("Game Finished"))
 						  {
@@ -177,20 +157,6 @@ namespace FunkyTrinity
 						  // Now check the backpack
 						  CheckBackpack();
 					 }
-					 //else if (Bot.Character.ShouldBackTrack)
-					 //{
-					 //    if (Bot.Character.Position.Distance(Bot.Character.BackTrackVector)>7.5f)
-					 //    {
-					 //        Logging.WriteVerbose("BackTracking back to orginal location");
-					 //        Logging.WriteVerbose("Current Vector used {0}", Bot.Character.BackTrackVector.ToString());
-					 //        //Return to the vector set.
-					 //        Bot.Target.CurrentTarget=new CacheObject(Bot.Character.BackTrackVector, Enums.TargetType.Avoidance, 20000, "BackTrack", 5f);
-					 //        Bot.Combat.DontMove=true;
-					 //        return true;
-					 //    }
-					 //}
-
-					 // Return false here means we only do all of the below OOC stuff at max once every 150ms
 					 return false;
 				}
 
@@ -203,12 +169,12 @@ namespace FunkyTrinity
 					 }
 				}
 
-			  BlacklistCache.CheckRefreshBlacklists();
+				BlacklistCache.CheckRefreshBlacklists();
 
 
-				if (Bot.SettingsFunky.Debug.DebugStatusBar&&bResetStatusText)
+				if (Bot.SettingsFunky.Debug.DebugStatusBar&&Bot.bResetStatusText)
 				{
-					 bResetStatusText=false;
+					 Bot.bResetStatusText=false;
 					 BotMain.StatusText="[Funky] No more targets - DemonBuddy/profile management is now in control";
 				}
 

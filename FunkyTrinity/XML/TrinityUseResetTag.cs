@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using FunkyTrinity.Cache;
 using Zeta.CommonBot.Profile;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
@@ -22,10 +23,10 @@ namespace FunkyTrinity.XMLTags
 			{
 				// See if we've EVER hit this ID before
 				// If so, delete it, if not, do nothing
-				if (Funky.hashUseOnceID.Contains(ID))
+				 if (ProfileCache.hashUseOnceID.Contains(ID))
 				{
-					Funky.hashUseOnceID.Remove(ID);
-					Funky.dictUseOnceID.Remove(ID);
+					 ProfileCache.hashUseOnceID.Remove(ID);
+					 ProfileCache.dictUseOnceID.Remove(ID);
 				}
 				m_IsDone=true;
 			});

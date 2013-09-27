@@ -27,7 +27,7 @@ namespace FunkyTrinity
 		  {
 				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
 				{
-					 InitialDirectory=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+					 InitialDirectory=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
 					 RestoreDirectory=false,
 					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
 					 Title="Pickup Template",
@@ -42,7 +42,7 @@ namespace FunkyTrinity
 						  SettingLoot newSettings=SettingLoot.DeserializeFromXML(OFD.FileName);
 						  Bot.SettingsFunky.Loot=newSettings;
 
-						  Funky.funkyConfigWindow.Close();
+						  FunkyWindow.funkyConfigWindow.Close();
 					 } catch
 					 {
 

@@ -71,7 +71,7 @@
     <Compile Include="Behaviors\Misc\CharacterMule\Game.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviors\Misc\Items\LowLevelLogic.cs">
+    <Compile Include="Behaviors\Misc\LowLevel\LowLevelLogic.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Character\Backpack.cs">
@@ -500,7 +500,7 @@
     <Compile Include="ObjectCache\Blacklist\BlacklistType.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Cache\ProfileCache.cs">
+    <Compile Include="Bot\ProfileCache.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\Demon Hunter\DemonHunter.cs">
@@ -587,7 +587,7 @@
     <Compile Include="Navigation\Clustering\ClusterCollection.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Cache\CombatCache.cs">
+    <Compile Include="Bot\CombatCache.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Stats.cs">
@@ -743,22 +743,13 @@
     <Compile Include="ObjectCache\Enums\TargetType.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Misc\Logging\Logger.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Misc\ScreenCapture.cs">
+    <Compile Include="Misc\Logger.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Misc\UpdateCheck.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="XML\FunkyCastTPTag.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="XML\IfSNOInRangeTag.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="XML\RestartProfileTag.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="XML\TrinityExploreDungeon.cs">
@@ -981,9 +972,6 @@
     <Compile Include="ObjectCache\Objects\CacheObstacle.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Misc\LoggingClean.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Config\FunkyWindow.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -1020,10 +1008,10 @@
     <Compile Include="Items\ItemLogging.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviors\Misc\Items\ItemScoring.cs">
+    <Compile Include="Items\ItemScoring.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviors\Misc\Items\ItemValidation.cs">
+    <Compile Include="Items\ItemValidation.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Navigation\Clustering\Cluster.cs">
@@ -1032,25 +1020,16 @@
     <Compile Include="PluginControl.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="XML\Minimapmarkers.cs">
+    <Compile Include="Navigation\Cache\Minimapmarkers.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Plugin.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Misc\Profile.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Misc\Prowl.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Misc\Helper.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Misc\Handlers.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Misc\Vars.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
@@ -1103,9 +1082,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Version.xml" />
-    <Content Include="XML\FunkyXMLTags.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="ItemRules\Log\Empty.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

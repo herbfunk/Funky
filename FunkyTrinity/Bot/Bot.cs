@@ -47,59 +47,15 @@ namespace FunkyTrinity
 
 				public static Navigation NavigationCache { get; set; }
 
+				// Darkfriend's Looting Rule
+				internal static Interpreter ItemRulesEval;
 
+				// Status text for DB main window status
+				internal static string sStatusText="";
+				// Do we need to reset the debug bar after combat handling?
+				internal static bool bResetStatusText=false;
 
-				private static bool shuttingDownBot=false;
-				internal static bool ShuttingDownBot
-				{
-					 get { return shuttingDownBot; }
-					 set { shuttingDownBot=value; }
-				}
-
-				internal static void ShutDownBot()
-				{
-					 if (SettingsFunky.StopGameOnBotEnableScreenShot)
-					 {
-						  //Pause Game
-						  UIElements.BackgroundScreenPCButtonMenu.Click();
-
-						  //Copy orginal coords
-						  ScreenCapture.RECT OrginRECT=new ScreenCapture.RECT();
-						  ScreenCapture.GetWindowRect(Funky.D3Handle,ref OrginRECT);
-
-						  //Resize and Move
-						  ScreenCapture.MoveWindow(Funky.D3Handle, 0, 0, SettingsFunky.StopGameScreenShotWindowWidth, SettingsFunky.StopGameScreenShotWindowHeight, true);
-
-						  //Click to refresh?
-						  ScreenCapture.LeftClick(2, SettingsFunky.StopGameScreenShotWindowHeight/2);
-
-						  //Bring window to foreground
-						  ScreenCapture.SetForegroundWindow(Funky.D3Handle);
-
-						  //Sleep...
-						  Thread.Sleep(2500);
-
-						  //UnPause Game
-						  UIElements.BackgroundScreenPCButtonMenu.Click();
-
-						  //Capture Screen
-						  ScreenCapture SC=new ScreenCapture();
-						  SC.CaptureWindowToFile(Funky.D3Handle, Funky.FolderPaths.sTrinityLogScreenShotPath+"LowHealthSS_"+CurrentAccountName+"_"+DateTime.Now.ToString("MM_dd--hh-mm-ss-tt")+".Jpeg", ImageFormat.Jpeg);
-
-						  //Pause Game
-						  UIElements.BackgroundScreenPCButtonMenu.Click();
-
-						  //Return to orginal
-						  ScreenCapture.MoveWindow(Funky.D3Handle, OrginRECT.left, OrginRECT.top, OrginRECT.Width(), OrginRECT.Height(), true);
-						  
-						  //Click to refresh?
-						  ScreenCapture.LeftClick(OrginRECT.left+2, OrginRECT.Height()/2);
-					 }
-					 else
-						  UIElements.BackgroundScreenPCButtonMenu.Click();
-					
-					 BotMain.Stop(true, "Low Health Setting Triggered!");
-				}
+				internal static int iDemonbuddyMonsterPowerLevel=0;
 
 				///<summary>
 				///Usable Objects -- refresh inside Target.UpdateTarget
@@ -318,7 +274,6 @@ namespace FunkyTrinity
 					 Target=new TargetHandler();
 					 NavigationCache=new Navigation();
 					 Stats_=new BotStatistics();
-					 shuttingDownBot=false;
 					 Funky.LeveledUpEventFired=false;
 				}
 		  }

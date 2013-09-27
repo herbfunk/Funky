@@ -16,23 +16,10 @@ namespace FunkyTrinity.Settings
 				 public SettingTargeting Targeting { get; set; }
 				 public SettingCombat Combat { get; set; }
 				 public SettingAvoidance Avoidance { get; set; }
-				 public bool StopGameOnBotLowHealth { get; set; }
-				 public double StopGameOnBotHealthPercent { get; set; }
-				 public bool StopGameOnBotEnableScreenShot { get; set; }
-				 public int StopGameScreenShotWindowWidth { get; set; }
-				 public int StopGameScreenShotWindowHeight { get; set; }
-             
 
-             
-             public bool OOCIdentifyItems { get; set; }
+            
              public bool BuyPotionsDuringTownRun { get; set; }
              public bool EnableWaitAfterContainers { get; set; }
-            
-             public bool EnableCoffeeBreaks { get; set; }
-             public int MinBreakTime { get; set; }
-             public int MaxBreakTime { get; set; }
-             public int OOCIdentifyItemsMinimumRequired { get; set; }
-             public double breakTimeHour { get; set; }
 
 
              //Character Related
@@ -97,20 +84,9 @@ namespace FunkyTrinity.Settings
                  AvoidanceRecheckMinimumRate = 550;
                  KitingRecheckMaximumRate = 4500;
                  KitingRecheckMinimumRate = 1000;
-                 OOCIdentifyItems = false;
+
                  BuyPotionsDuringTownRun = false;
 					  EnableWaitAfterContainers=false;
-
-                
-					  EnableCoffeeBreaks=false;
-                 MaxBreakTime = 4;
-                 MinBreakTime = 8;
-                 OOCIdentifyItemsMinimumRequired = 10;
-                 breakTimeHour = 1.5d;
-
-
-
-                
 
                  AfterCombatDelay = 500;
                  OutOfCombatMovement = false;
@@ -118,20 +94,7 @@ namespace FunkyTrinity.Settings
 
 
                  UseLevelingLogic = false;
-                
-
-
-
-
-					  StopGameOnBotEnableScreenShot=true;
-					  StopGameOnBotLowHealth=false;
-					  StopGameOnBotHealthPercent=0.10d;
-					  StopGameScreenShotWindowWidth=1000;
-					  StopGameScreenShotWindowHeight=800;
-
-					 
-
-
+  
                  Class = new ClassSettings();
              }
 
@@ -188,7 +151,7 @@ namespace FunkyTrinity.Settings
 
 				 public static void LoadFunkyConfiguration()
 				 {
-					  string sFunkyCharacterConfigFile=Funky.FolderPaths.sFunkySettingsCurrentPath;
+					  string sFunkyCharacterConfigFile=FolderPaths.sFunkySettingsCurrentPath;
 
 					  //Check for Config file
 					  if (!File.Exists(sFunkyCharacterConfigFile))
@@ -213,12 +176,12 @@ namespace FunkyTrinity.Settings
 								 if (Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Barbarian||Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Monk)
 								 {
 									  Funky.Log("Using Melee Inferno Default Settings");
-									  Settings_Funky settings=Settings_Funky.DeserializeFromXML(Path.Combine(Funky.FolderPaths.SettingsDefaultPath, "InfernoMelee.xml"));
+									  Settings_Funky settings=Settings_Funky.DeserializeFromXML(Path.Combine(FolderPaths.SettingsDefaultPath, "InfernoMelee.xml"));
 								 }
 								 else
 								 {
 									  Funky.Log("Using Ranged Inferno Default Settings");
-									  Settings_Funky settings=Settings_Funky.DeserializeFromXML(Path.Combine(Funky.FolderPaths.SettingsDefaultPath, "InfernoRanged.xml"));
+									  Settings_Funky settings=Settings_Funky.DeserializeFromXML(Path.Combine(FolderPaths.SettingsDefaultPath, "InfernoRanged.xml"));
 								 }
 							}
 
@@ -231,7 +194,7 @@ namespace FunkyTrinity.Settings
 				 {
 					 // Type[] Settings=new Type[] {typeof(SettingCluster),typeof(SettingFleeing),typeof(SettingGrouping),typeof(SettingItemRules),typeof(SettingLoot),typeof(SettingRanges) };
 					  XmlSerializer serializer=new XmlSerializer(typeof(Settings_Funky));
-					  TextWriter textWriter=new StreamWriter(Funky.FolderPaths.sFunkySettingsCurrentPath);
+					  TextWriter textWriter=new StreamWriter(FolderPaths.sFunkySettingsCurrentPath);
 					  serializer.Serialize(textWriter, settings);
 					  textWriter.Close();
 				 }
@@ -248,7 +211,7 @@ namespace FunkyTrinity.Settings
 				 }
 				 public static Settings_Funky DeserializeFromXML()
 				 {
-					  return DeserializeFromXML(Funky.FolderPaths.sFunkySettingsCurrentPath);
+					  return DeserializeFromXML(FolderPaths.sFunkySettingsCurrentPath);
 				 }
          }
 }

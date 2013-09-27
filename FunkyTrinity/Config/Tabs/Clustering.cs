@@ -44,7 +44,7 @@ namespace FunkyTrinity
 		  {
 				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
 				{
-					 InitialDirectory=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+					 InitialDirectory=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
 					 RestoreDirectory=false,
 					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
 					 Title="Clustering Template",
@@ -58,8 +58,8 @@ namespace FunkyTrinity
 						  //;
 						  SettingCluster newSettings=SettingCluster.DeserializeFromXML(OFD.FileName);
 						  Bot.SettingsFunky.Cluster=newSettings;
-						  
-						  Funky.funkyConfigWindow.Close();
+
+						  FunkyWindow.funkyConfigWindow.Close();
 					 } catch
 					 {
 

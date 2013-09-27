@@ -71,7 +71,7 @@ namespace FunkyTrinity.Settings
 			PickupGems=new bool[] { true, true, false, false };
 		}
 
-		private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.SettingsDefaultPath, "Specific", "Loot_Default.xml");
+		private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Loot_Default.xml");
 		public static SettingLoot DeserializeFromXML()
 		{
 			 XmlSerializer deserializer=new XmlSerializer(typeof(SettingLoot));

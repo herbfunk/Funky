@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+using FunkyTrinity.Cache;
 using Zeta.CommonBot.Profile;
 using Zeta.CommonBot.Profile.Composites;
 using Zeta.TreeSharp;
@@ -33,30 +34,30 @@ namespace FunkyTrinity.XMLTags
 		public bool GetConditionExec()
 		{
 			// See if we've EVER hit this ID before
-			if (Funky.hashUseOnceID.Contains(ID))
+			 if (ProfileCache.hashUseOnceID.Contains(ID))
 			{
 				// See if we've hit it more than or equal to the max times before
-				if (Funky.dictUseOnceID[ID]>=Max||Funky.dictUseOnceID[ID]<0)
+				 if (ProfileCache.dictUseOnceID[ID]>=Max||ProfileCache.dictUseOnceID[ID]<0)
 					return false;
 				// Add 1 to our hit count, and let it run this time
-				Funky.dictUseOnceID[ID]++;
+				 ProfileCache.dictUseOnceID[ID]++;
 				return true;
 			}
 			// Never hit this before, so create the entry and let it run
 			// First see if we should disable all other ID's currently hit to prevent them ever being run again this run
 			if (DisablePrevious!=null&&DisablePrevious.ToLower()=="true")
 			{
-				foreach (int thisid in Funky.hashUseOnceID)
+				 foreach (int thisid in ProfileCache.hashUseOnceID)
 				{
 					if (thisid!=ID)
 					{
-						Funky.dictUseOnceID[thisid]=-1;
+						 ProfileCache.dictUseOnceID[thisid]=-1;
 					}
 				}
 			}
 			// Now store the fact we have hit this ID and set up the dictionary entry for it
-			Funky.hashUseOnceID.Add(ID);
-			Funky.dictUseOnceID.Add(ID, 1);
+			ProfileCache.hashUseOnceID.Add(ID);
+			ProfileCache.dictUseOnceID.Add(ID, 1);
 			return true;
 		}
 

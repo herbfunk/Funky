@@ -69,10 +69,6 @@ namespace FunkyTrinity.Cache
 						  set 
 						  { 
 								dcurrentHealthPct=value;
-								if (Bot.SettingsFunky.StopGameOnBotLowHealth&&value<=Bot.SettingsFunky.StopGameOnBotHealthPercent)
-								{
-									 Bot.ShuttingDownBot=true;
-								}
 						  }
 					 }
 					 public double dCurrentEnergy { get; set; }

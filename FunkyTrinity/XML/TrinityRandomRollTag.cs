@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Runtime.InteropServices;
+using FunkyTrinity.Cache;
 using Zeta.Common;
 using Zeta.CommonBot.Profile;
 using Zeta.TreeSharp;
@@ -30,13 +31,13 @@ namespace FunkyTrinity.XMLTags
 				Random rndNum=new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), NumberStyles.HexNumber));
 				int iNewRandomValue=(rndNum.Next((Max-Min)+1))+Min;
 				Logging.Write("[Funky] Generating RNG for profile between "+Min.ToString()+" and "+Max.ToString()+", result="+iNewRandomValue.ToString());
-				if (!Funky.dictRandomID.TryGetValue(ID, out iOldValue))
+				if (!ProfileCache.dictRandomID.TryGetValue(ID, out iOldValue))
 				{
-					Funky.dictRandomID.Add(ID, iNewRandomValue);
+					 ProfileCache.dictRandomID.Add(ID, iNewRandomValue);
 				}
 				else
 				{
-					Funky.dictRandomID[ID]=iNewRandomValue;
+					 ProfileCache.dictRandomID[ID]=iNewRandomValue;
 				}
 				m_IsDone=true;
 			});

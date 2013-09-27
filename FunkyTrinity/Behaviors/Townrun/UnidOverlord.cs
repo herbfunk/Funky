@@ -36,7 +36,7 @@ namespace FunkyTrinity
 								{
 									 if (Bot.SettingsFunky.ItemRules.ItemRulesUnidStashing)
 									 {
-										  if (ItemRulesEval.checkUnidStashItem(thisitem.ACDItem)==Interpreter.InterpreterAction.KEEP)
+										  if (Bot.ItemRulesEval.checkUnidStashItem(thisitem.ACDItem)==Interpreter.InterpreterAction.KEEP)
 										  {
 												Bot.Character.BackPack.townRunCache.hashGilesCachedUnidStashItems.Add(thisitem);
 												continue;

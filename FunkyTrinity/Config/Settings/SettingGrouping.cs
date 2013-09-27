@@ -34,7 +34,7 @@ namespace FunkyTrinity.Settings
 			GroupingMinimumBotHealth=0d;
 		}
 
-		private static string DefaultFilePath=Path.Combine(Funky.FolderPaths.SettingsDefaultPath, "Specific", "Grouping_Default.xml");
+		private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Grouping_Default.xml");
 		public static SettingGrouping DeserializeFromXML()
 		{
 			 XmlSerializer deserializer=new XmlSerializer(typeof(SettingGrouping));

@@ -33,7 +33,7 @@ namespace FunkyTrinity
 		  {
 				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
 				{
-					 InitialDirectory=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+					 InitialDirectory=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
 					 RestoreDirectory=false,
 					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
 					 Title="Targeting Template",
@@ -48,7 +48,7 @@ namespace FunkyTrinity
 						  SettingTargeting newSettings=SettingTargeting.DeserializeFromXML(OFD.FileName);
 						  Bot.SettingsFunky.Targeting=newSettings;
 
-						  Funky.funkyConfigWindow.Close();
+						  FunkyWindow.funkyConfigWindow.Close();
 					 } catch
 					 {
 

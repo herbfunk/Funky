@@ -66,7 +66,7 @@ namespace FunkyTrinity
 		  {
 				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
 				{
-					 InitialDirectory=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+					 InitialDirectory=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
 					 RestoreDirectory=false,
 					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
 					 Title="Fleeing Template",
@@ -80,8 +80,8 @@ namespace FunkyTrinity
 						  //;
 						  SettingFleeing newSettings=SettingFleeing.DeserializeFromXML(OFD.FileName);
 						  Bot.SettingsFunky.Fleeing=newSettings;
-						
-						  Funky.funkyConfigWindow.Close();
+
+						  FunkyWindow.funkyConfigWindow.Close();
 					 } catch
 					 {
 
@@ -92,7 +92,7 @@ namespace FunkyTrinity
 		  {
 				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
 				{
-					 InitialDirectory=Path.Combine(Funky.FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+					 InitialDirectory=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
 					 RestoreDirectory=false,
 					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
 					 Title="Grouping Template",
@@ -106,8 +106,8 @@ namespace FunkyTrinity
 						  //;
 						  SettingGrouping newSettings=SettingGrouping.DeserializeFromXML(OFD.FileName);
 						  Bot.SettingsFunky.Grouping=newSettings;
-						
-						  Funky.funkyConfigWindow.Close();
+
+						  FunkyWindow.funkyConfigWindow.Close();
 					 } catch
 					 {
 
