@@ -8,9 +8,9 @@
 		IsRanged - Ranged Abilities
 		IsBuff - Usable as a buff.
 		IsADestructiblePower
-		IsSpecialAbility - 
-		UseageType - When to use the ability (Combat or Anywhere)
-		Priority - The order in which abilities are checked.
+		IsSpecialAbility - Used in conjuction with WaitingForSpecial (Currently set in Custom Combat Conditions)
+		UseageType - When to use the ability (I.E. Combat)
+		Priority - The order in which abilities are checked. (Highest to Lowest)
 
 Criterias:
 	PreCastConditions - The conditions to validate the ability is usable.
@@ -18,7 +18,14 @@ Criterias:
 --Combat Criterias:
 	*These are the FOUR main combat conditions that are checked*
 	ClusterConditions - A Cluster Condition (Should be used with ExecutionTypes: ClusterTarget, ClusterLocation, ClusterTargetNearest)
+	
 	TargetUnitConditionFlags - Single Target Conditions
+		Parameters:
+		-True Target Flags -- The set flags must be true for the target! (Note: Using None will allow ANY target)
+		-Minimum Distance -- Optional distance required
+		-Minimum Health Percent -- Optional Health Percent Required
+		-False Target Flags -- Optional flags that cannot be true!
+	
 	UnitsWithinRangeConditions - Any Units within Range.
 	ElitesWithinRangeConditions - Any Above Average Units within Range.
 
@@ -29,3 +36,33 @@ Criterias:
 Custom Func Conditions:
 	Fprecast - Precast Condition
 	Fbuff - Buff Condition
+
+
+
+ExecutionType is how the ability will be used. Multiple types are allowed however Cluster Types will only be used when Cluster Condition is the passing criteria.
+Execution Types:
+    Buff -- To be casted upon the Bot.
+    Location -- Targets the position of the Current Target
+    Target -- Interaction with Current Target (use upon target)
+    ClusterTarget -- Interaction with Mid Unit
+    ClusterLocation -- Targets Position of Mid Unit
+    ZigZagPathing -- Generates a position to target (I.E. Whirlwhind..)
+    Self -- Targets the Bots Position (I.E. Sentry, Big Bad Voodoo)
+    ClusterTargetNearest -- Targets the Unit nearest the bot in the cluster
+
+
+How an ability is evaluated for Combat:
+	-->	PreCast Conditions
+
+		-These are tested in the order seen below---
+		-If one is successful then it will skip to the Custom Combat Condition----
+		-Note: If none of the conditions are set and Custom Combat Condition is set, then it will be tested still.----
+		-->	ElitesInRange Condition
+		--> UnitsInRange Condition
+		--> Cluster Condition
+		--> Single Target Condition
+
+		-Note: Custom Combat Condition is NOT required! but if set it will always be tested!-
+		--> Custom Combat Condition
+			-->Ability is valid for use
+

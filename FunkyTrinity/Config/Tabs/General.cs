@@ -64,11 +64,9 @@ namespace FunkyTrinity
 
 
 		  private TextBox tbMonsterPower;
-		  private CheckBox OOCIdentifyItems;
-		  private TextBox OOCIdentfyItemsMinCount;
 		  private CheckBox BuyPotionsDuringTownRunCB;
 		  private CheckBox EnableWaitAfterContainersCB;
-		  private TextBox TBBreakTimeHour, TBAfterCombatDelay;
+		  private TextBox  TBAfterCombatDelay;
 
 		  internal void InitGeneralControls()
 		  {
@@ -76,24 +74,6 @@ namespace FunkyTrinity
 				GeneralTab.Header="General";
 				tcGeneral.Items.Add(GeneralTab);
 				lbGeneralContent=new ListBox();
-
-				#region LevelingLogic
-				ToolTip TTLevelingLogic=new System.Windows.Controls.ToolTip
-				{
-					 Content="Enables auto-equipping of items, abilities. This overrides default item loot settings.",
-				};
-				CheckBox LevelingLogic=new CheckBox
-				{
-					 Content="Leveling Item Logic",
-					 Width=300,
-					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.UseLevelingLogic),
-					 ToolTip=TTLevelingLogic,
-				};
-				LevelingLogic.Checked+=ItemLevelingLogicChecked;
-				LevelingLogic.Unchecked+=ItemLevelingLogicChecked;
-				lbGeneralContent.Items.Add(LevelingLogic);
-				#endregion
 
 				#region PotionsDuringTownRun
 				BuyPotionsDuringTownRunCB=new CheckBox

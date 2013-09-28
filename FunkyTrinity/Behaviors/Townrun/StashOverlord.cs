@@ -51,20 +51,6 @@ namespace FunkyTrinity
 								{
 									 bool bShouldStashThis=false;
 
-									 if (Bot.SettingsFunky.UseLevelingLogic)
-									 {
-										  if (thisitem.ThisQuality>=ItemQuality.Legendary)
-												bShouldStashThis=true;
-										  else if (thisitem.Sockets>0&&thisitem.ACDItem.NumSocketsFilled>0)
-												bShouldStashThis=true;
-
-										  if (bShouldStashThis)
-										  {
-												Bot.Character.BackPack.townRunCache.hashGilesCachedKeepItems.Add(thisitem);
-												continue;
-										  }
-									 }
-
 									 if (Bot.SettingsFunky.ItemRules.UseItemRules)
 									 {
 										  Interpreter.InterpreterAction action=Bot.ItemRulesEval.checkItem(thisitem.ACDItem, Zeta.CommonBot.ItemEvaluationType.Keep);

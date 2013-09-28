@@ -365,7 +365,6 @@ namespace FunkyTrinity
 		  }
 		  internal void RemoveHandlers()
 		  {
-				GameEvents.OnLevelUp-=OnPlayerLevelUp;
 				GameEvents.OnPlayerDied-=FunkyOnDeath;
 				GameEvents.OnGameJoined-=FunkyOnJoinGame;
 				GameEvents.OnGameLeft-=FunkyOnLeaveGame;

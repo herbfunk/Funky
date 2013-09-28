@@ -340,7 +340,19 @@ namespace FunkyTrinity.Ability
 						  if (this.MinimumRange>DistanceFromTarget)
 						  {
 								float RangeNeeded=Math.Max(0f, (this.MinimumRange-DistanceFromTarget));
-								return MathEx.GetPointAt(Bot.Character.Position, RangeNeeded, Navigation.FindDirection(Bot.Character.Position, DestinationV, true));
+								Vector3 DestinationVector=MathEx.CalculatePointFrom(Bot.Character.Position, DestinationV, RangeNeeded);
+								if (!Navigation.MGP.CanStandAt(DestinationVector))
+								{
+									 Logger.Write(LogLevel.Ability, "Destination for ability {0} requires further searching!", this.Power.ToString());
+									 GPRectangle DestinationRect=new GPRectangle(DestinationVector);
+									 Vector3 NewDestinationV3;
+									 if (DestinationRect.TryFindSafeSpot(Bot.Character.Position, out NewDestinationV3, DestinationV, false, false, false))
+									 {
+										  return NewDestinationV3;
+									 }
+								}
+
+								return DestinationVector;
 						  }
 						  else
 								return Bot.Character.Position;

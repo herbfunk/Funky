@@ -181,6 +181,14 @@ namespace FunkyTrinity.Targeting.Behaviors
 						 //Set our current target to this object!
 						 CurrentTarget=ObjectCache.Objects[thisobj.RAGUID];
 
+						 if (CurrentTarget.LOSV3!=Vector3.Zero)
+						 {
+							  iHighestWeightFound=thisobj.Weight;
+							  CurrentTarget=new CacheObject(CurrentTarget.LOSV3, TargetType.Avoidance, 20000d, "LOSV3", 2.5f);
+							  continue;
+						 }
+							 
+
 						 bool resetTarget=false;
 						 //Check for Range Classes and Unit Targets
 						 if (!FunkyTrinity.Bot.Class.IsMeleeClass&&CurrentTarget.targetType.Value==TargetType.Unit&&FunkyTrinity.Bot.Combat.NearbyAvoidances.Count>0)

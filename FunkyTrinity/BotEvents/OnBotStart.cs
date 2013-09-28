@@ -35,7 +35,6 @@ namespace FunkyTrinity
 				GameEvents.OnGameJoined+=new EventHandler<EventArgs>(FunkyOnJoinGame);
 				GameEvents.OnGameLeft+=new EventHandler<EventArgs>(FunkyOnLeaveGame);
 				GameEvents.OnGameChanged+=new EventHandler<EventArgs>(FunkyOnGameChanged);
-				GameEvents.OnLevelUp+=new EventHandler<EventArgs>(OnPlayerLevelUp);
 
 				ITargetingProvider newCombatTargetingProvider=new TrinityCombatTargetingReplacer();
 				CombatTargeting.Instance.Provider=newCombatTargetingProvider;

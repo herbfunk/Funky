@@ -41,8 +41,6 @@ namespace FunkyTrinity.Settings
              public bool OutOfCombatMovement { get; set; }
 				 public bool AllowBuffingInTown { get; set; }
 
-				 public bool UseLevelingLogic { get; set; }
-				
 
 
 				 public SettingItemRules ItemRules { get; set; }
@@ -92,9 +90,6 @@ namespace FunkyTrinity.Settings
                  OutOfCombatMovement = false;
 					  AllowBuffingInTown=false;
 
-
-                 UseLevelingLogic = false;
-  
                  Class = new ClassSettings();
              }
 
@@ -168,7 +163,6 @@ namespace FunkyTrinity.Settings
 									  Grouping=new SettingGrouping(disableBehaviors),
 									  Cluster=new SettingCluster(disableBehaviors),
 									  Fleeing=new SettingFleeing(disableBehaviors),
-									  UseLevelingLogic=!disableBehaviors,
 								 };
 							}
 							else

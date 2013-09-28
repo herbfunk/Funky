@@ -485,17 +485,6 @@ namespace FunkyTrinity.Cache
 											Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring?Funky.GilesPickupItemValidation(this)
 										  :ItemManager.Current.EvaluateItem((ACDItem)this.ref_DiaItem.CommonData, Zeta.CommonBot.ItemEvaluationType.PickUp); ;
 								}
-
-								//Low Level Evaluation
-								if (Bot.SettingsFunky.UseLevelingLogic&&Bot.Character.iMyLevel<60)
-								{
-									 if (this.Itemquality.HasValue&&this.Itemquality.Value>=ItemQuality.Magic1)
-									 {
-										  //Check if we currently use this type of item.
-											if (!CacheIDLookup.RestrictedItemTypes.Contains(this.BalanceData.thisItemType))
-												this.ShouldPickup=true;
-									 }
-								}
 						  }
 						  else
 								this.NeedsUpdate=false;

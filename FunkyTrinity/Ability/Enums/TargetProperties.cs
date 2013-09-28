@@ -27,5 +27,8 @@ namespace FunkyTrinity.Ability
 			Fast=32768,
 			DOTDPS=65536,
 		   CloseDistance=131072,
+		  
+			ReflectsDamage=262144,
+
 	 }
 }

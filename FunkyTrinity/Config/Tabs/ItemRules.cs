@@ -112,10 +112,6 @@ namespace FunkyTrinity
 		  {
 				Bot.SettingsFunky.ItemRules.ItemRuleDebug=!Bot.SettingsFunky.ItemRules.ItemRuleDebug;
 		  }
-		  private void ItemLevelingLogicChecked(object sender, EventArgs e)
-		  {
-				Bot.SettingsFunky.UseLevelingLogic=!Bot.SettingsFunky.UseLevelingLogic;
-		  }
 		  private void ItemRulesSalvagingChecked(object sender, EventArgs e)
 		  {
 				Bot.SettingsFunky.ItemRules.ItemRulesSalvaging=!Bot.SettingsFunky.ItemRules.ItemRulesSalvaging;

@@ -99,6 +99,7 @@ namespace FunkyTrinity.Cache
 						  MonsterIlluionist=theseaffixes.HasFlag(MonsterAffixes.Illusionist);
 						  MonsterExtraHealth=theseaffixes.HasFlag(MonsterAffixes.ExtraHealth);
 						  MonsterLifeLink=theseaffixes.HasFlag(MonsterAffixes.HealthLink);
+						  MonsterReflectDamage=theseaffixes.HasFlag(MonsterAffixes.ReflectsDamage);
 					 }
 					 else
 					 {
@@ -107,6 +108,7 @@ namespace FunkyTrinity.Cache
 						  MonsterIlluionist=false;
 						  MonsterExtraHealth=false;
 						  MonsterLifeLink=false;
+						  MonsterReflectDamage=false;
 					 }
 
 					 CheckedMonsterAffixes_=true;
@@ -122,6 +124,7 @@ namespace FunkyTrinity.Cache
 				public bool MonsterIlluionist { get; set; }
 				public bool MonsterExtraHealth { get; set; }
 				public bool MonsterLifeLink { get; set; }
+				public bool MonsterReflectDamage { get; set; }
 
 				public bool IsEliteRareUnique
 				{
@@ -252,7 +255,6 @@ namespace FunkyTrinity.Cache
 
 				public double? CurrentHealthPct { get; set; }
 				private int HealthChecks=0;
-				private bool SIGNATURE_SPAM;
 
 				public int UnitMaxHitPointAverageWeight
 				{
@@ -920,7 +922,23 @@ namespace FunkyTrinity.Cache
 								//unless its in front of us.. we wait 500ms mandatory.
 								if (lastLOSCheckMS<500&&centreDistance>1f)
 								{
-									 if (this.ObjectIsSpecial) Bot.Combat.LoSMovementUnits.Add(this);
+									 if (this.ObjectIsSpecial)
+									 {
+										  Bot.Combat.LoSMovementUnits.Add(this);
+										  if (this.LineOfSight.ObjectIntersection.HasValue&&this.LineOfSight.ObjectIntersection.Value
+												&&(this.LineOfSight.RayCast.HasValue&&this.LineOfSight.RayCast.Value)
+												&&(this.LineOfSight.NavCellProjectile.HasValue&&this.LineOfSight.NavCellProjectile.Value)
+												||(this.LineOfSight.NavCellWalk.HasValue&&this.LineOfSight.NavCellWalk.Value))
+										  {
+												Vector3 LineOfSightMovement;
+												if (Bot.NavigationCache.AttemptFindSafeSpot(out LineOfSightMovement, this.BotMeleeVector, false))
+												{
+													 this.LOSV3=LineOfSightMovement;
+													 return true;
+												}
+										  }
+									 }
+										 
 									 return false;
 								}
 								else

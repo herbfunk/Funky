@@ -47,7 +47,6 @@ namespace FunkyTrinity
 						  Bot.SettingsFunky.Grouping.AttemptGroupingMovements=false;
 						  Bot.SettingsFunky.Fleeing.EnableFleeingBehavior=false;
 						  Bot.SettingsFunky.Cluster.EnableClusteringTargetLogic=false;
-						  Bot.SettingsFunky.UseLevelingLogic=true;
 						  Settings_Funky.SerializeToXML(Bot.SettingsFunky);
 						  funkyConfigWindow.Close();
 					 }

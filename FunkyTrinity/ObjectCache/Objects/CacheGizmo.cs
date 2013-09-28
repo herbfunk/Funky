@@ -6,8 +6,6 @@ using Zeta.Common;
 using Zeta.Internals.Actors;
 using Zeta.Internals.Actors.Gizmos;
 using Zeta.Internals.SNO;
-
-using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
 using FunkyTrinity.Cache.Enums;
 

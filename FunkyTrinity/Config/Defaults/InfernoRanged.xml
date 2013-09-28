@@ -177,19 +177,8 @@
       </AvoidanceValue>
     </Avoidances>
   </Avoidance>
-  <StopGameOnBotLowHealth>false</StopGameOnBotLowHealth>
-  <StopGameOnBotHealthPercent>0.1</StopGameOnBotHealthPercent>
-  <StopGameOnBotEnableScreenShot>true</StopGameOnBotEnableScreenShot>
-  <StopGameScreenShotWindowWidth>1000</StopGameScreenShotWindowWidth>
-  <StopGameScreenShotWindowHeight>800</StopGameScreenShotWindowHeight>
-  <OOCIdentifyItems>false</OOCIdentifyItems>
   <BuyPotionsDuringTownRun>false</BuyPotionsDuringTownRun>
   <EnableWaitAfterContainers>false</EnableWaitAfterContainers>
-  <EnableCoffeeBreaks>false</EnableCoffeeBreaks>
-  <MinBreakTime>8</MinBreakTime>
-  <MaxBreakTime>4</MaxBreakTime>
-  <OOCIdentifyItemsMinimumRequired>10</OOCIdentifyItemsMinimumRequired>
-  <breakTimeHour>1.5</breakTimeHour>
   <Fleeing>
     <EnableFleeingBehavior>true</EnableFleeingBehavior>
     <FleeBotMinimumHealthPercent>0.50</FleeBotMinimumHealthPercent>
@@ -207,7 +196,6 @@
   <AfterCombatDelay>250</AfterCombatDelay>
   <OutOfCombatMovement>false</OutOfCombatMovement>
   <AllowBuffingInTown>false</AllowBuffingInTown>
-  <UseLevelingLogic>false</UseLevelingLogic>
   <ItemRules>
     <UseItemRulesPickup>true</UseItemRulesPickup>
     <UseItemRules>true</UseItemRules>

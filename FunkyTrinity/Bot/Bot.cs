@@ -274,7 +274,6 @@ namespace FunkyTrinity
 					 Target=new TargetHandler();
 					 NavigationCache=new Navigation();
 					 Stats_=new BotStatistics();
-					 Funky.LeveledUpEventFired=false;
 				}
 		  }
 	 

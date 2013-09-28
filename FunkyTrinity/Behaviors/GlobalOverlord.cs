@@ -31,9 +31,6 @@ namespace FunkyTrinity
 				// World ID safety caching incase it's ever unavailable
 				if (ZetaDia.CurrentWorldDynamicId!=-1) Bot.Character.iCurrentWorldID=ZetaDia.CurrentWorldDynamicId;
 
-				//Check Low Level Logic Setting
-				if (Bot.SettingsFunky.UseLevelingLogic) LowLevelLogicPulse();
-
 
 				// Store all of the player's abilities every now and then, to keep it cached and handy, also check for critical-mass timer changes etc.
 				iCombatLoops++;
@@ -141,22 +138,11 @@ namespace FunkyTrinity
 						  {
 								if (ZetaDia.Actors.GetActorsOfType<Zeta.Internals.Actors.Gizmos.GizmoPlayerSharedStash>(true, true).Any())
 								{
-									 //Zeta.CommonBot.BotMain.CurrentBot.Logic.Stop(null);
 									 return true;
 								}
 						  }
 					 }
-					 // Only do something when pulsing if it's been at least 5 seconds since last pulse, to prevent spam
-					 else if (Bot.SettingsFunky.UseLevelingLogic&&Bot.Character.iMyLevel<60&&DateTime.Now.Subtract(_lastLooked).TotalSeconds>5)
-					 {
-						  // Every 5 minutes, re-check all equipped items and clear stored blacklist
-						  if (DateTime.Now.Subtract(_lastFullEvaluation).TotalSeconds>300)
-						  {
-								bNeedFullItemUpdate=true;
-						  }
-						  // Now check the backpack
-						  CheckBackpack();
-					 }
+
 					 return false;
 				}
 
