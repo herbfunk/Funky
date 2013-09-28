@@ -23,7 +23,7 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			Range = 48;
 			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.None;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckCanCast);
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckCanCast);
 			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 15);
 		}

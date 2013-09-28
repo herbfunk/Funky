@@ -26,7 +26,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			UseageType=AbilityUseage.Anywhere;
 			IsSpecialAbility = true;
 			Priority = AbilityPriority.High;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckCanCast);
+			PreCastFlags = (AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckCanCast);
 
 			FcriteriaCombat = new Func<bool>(() => { return Bot.Character.dCurrentHealthPct <= 0.45; });
 		}

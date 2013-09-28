@@ -37,7 +37,7 @@ namespace FunkyTrinity.Ability.Abilities
 			IsBuff=true;
 			Priority=AbilityPriority.High;
 			UseageType=AbilityUseage.OutOfCombat;
-			PreCastPreCastFlags=AbilityPreCastFlags.None;
+			PreCastFlags=AbilityPreCastFlags.None;
 
 			FcriteriaBuff=new Func<bool>(() =>
 			{

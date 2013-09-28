@@ -61,7 +61,6 @@ namespace FunkyTrinity.Cache
 					 TargetClusterCollection=new ClusterTargetCollection(TargetClusterConditions);
 				}
 
-				internal CacheObject LastCachedTarget { get; set; }
 				internal List<int> PrioritizedRAGUIDs=new List<int>();
 				internal List<CacheServerObject> NearbyObstacleObjects=new List<CacheServerObject>();
 				internal List<int> NearbyAvoidances=new List<int>();

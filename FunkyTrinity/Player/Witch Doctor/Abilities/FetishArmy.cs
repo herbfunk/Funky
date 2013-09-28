@@ -21,7 +21,7 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			WaitVars = new WaitLoops(1, 1, true);
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckCanCast);
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckCanCast);
 			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 16);
 		}

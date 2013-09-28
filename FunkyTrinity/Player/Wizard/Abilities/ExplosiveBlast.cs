@@ -23,7 +23,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			Range = 10;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckCanCast |
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckCanCast |
 			                     AbilityPreCastFlags.CheckEnergy);
 			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
 			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);

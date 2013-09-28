@@ -6,7 +6,6 @@ using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
-
 using FunkyTrinity.Ability;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Ability.Abilities;
@@ -16,49 +15,7 @@ namespace FunkyTrinity
 
 		  internal class Barbarian : Player
 		  {
-				 enum BarbarianActiveSkills
-				 {
-						Barbarian_AncientSpear=69979,
-						Barbarian_Rend=70472,
-						Barbarian_Frenzy=78548,
-						Barbarian_Sprint=78551,
-						Barbarian_BattleRage=79076,
-						Barbarian_ThreateningShout=79077,
-						Barbarian_Bash=79242,
-						Barbarian_GroundStomp=79446,
-						Barbarian_IgnorePain=79528,
-						Barbarian_WrathOfTheBerserker=79607,
-						Barbarian_HammerOfTheAncients=80028,
-						Barbarian_CallOfTheAncients=80049,
-						Barbarian_Cleave=80263,
-						Barbarian_WarCry=81612,
-						Barbarian_SeismicSlam=86989,
-						Barbarian_Leap=93409,
-						Barbarian_WeaponThrow=93885,
-						Barbarian_Whirlwind=96296,
-						Barbarian_FuriousCharge=97435,
-						Barbarian_Earthquake=98878,
-						Barbarian_Revenge=109342,
-						Barbarian_Overpower=159169,
-				 }
-				 enum BarbarianPassiveSkills
-				 {
-						Barbarian_Passive_BoonOfBulKathos=204603,
-						Barbarian_Passive_NoEscape=204725,
-						Barbarian_Passive_Brawler=205133,
-						Barbarian_Passive_Ruthless=205175,
-						Barbarian_Passive_BerserkerRage=205187,
-						Barbarian_Passive_PoundOfFlesh=205205,
-						Barbarian_Passive_Bloodthirst=205217,
-						Barbarian_Passive_Animosity=205228,
-						Barbarian_Passive_Unforgiving=205300,
-						Barbarian_Passive_Relentless=205398,
-						Barbarian_Passive_Superstition=205491,
-						Barbarian_Passive_InspiringPresence=205546,
-						Barbarian_Passive_Juggernaut=205707,
-						Barbarian_Passive_ToughAsNails=205848,
-						Barbarian_Passive_WeaponsMaster=206147,
-				 }
+
 				//Base class for each individual class!
 				public Barbarian(ActorClass a)
 					 : base(a)
@@ -69,12 +26,11 @@ namespace FunkyTrinity
 					 get { return new WeaponMeleeInsant(); }
 				}
 
-				private bool UsingWeaponThrowAbility=false;
 				public override bool IsMeleeClass
 				{
 					 get
 					 {
-						  return !UsingWeaponThrowAbility;
+						  return false;
 					 }
 				}
 
@@ -98,11 +54,6 @@ namespace FunkyTrinity
 					 Bot.Combat.iACDGUIDLastWhirlwind=Bot.Target.CurrentTarget.AcdGuid.HasValue?Bot.Target.CurrentTarget.AcdGuid.Value:-1;
 					 Bot.Combat.lastChangedZigZag=DateTime.Now;
 				}
-
-
-				//TODO:: Add settings to enable skills to be used to fury dump.
-				//private bool FuryDumping=false;
-
 
 				public override void RecreateAbilities()
 				{
@@ -191,6 +142,50 @@ namespace FunkyTrinity
 					}
 
 
+				}
+
+				enum BarbarianActiveSkills
+				{
+					 Barbarian_AncientSpear=69979,
+					 Barbarian_Rend=70472,
+					 Barbarian_Frenzy=78548,
+					 Barbarian_Sprint=78551,
+					 Barbarian_BattleRage=79076,
+					 Barbarian_ThreateningShout=79077,
+					 Barbarian_Bash=79242,
+					 Barbarian_GroundStomp=79446,
+					 Barbarian_IgnorePain=79528,
+					 Barbarian_WrathOfTheBerserker=79607,
+					 Barbarian_HammerOfTheAncients=80028,
+					 Barbarian_CallOfTheAncients=80049,
+					 Barbarian_Cleave=80263,
+					 Barbarian_WarCry=81612,
+					 Barbarian_SeismicSlam=86989,
+					 Barbarian_Leap=93409,
+					 Barbarian_WeaponThrow=93885,
+					 Barbarian_Whirlwind=96296,
+					 Barbarian_FuriousCharge=97435,
+					 Barbarian_Earthquake=98878,
+					 Barbarian_Revenge=109342,
+					 Barbarian_Overpower=159169,
+				}
+				enum BarbarianPassiveSkills
+				{
+					 Barbarian_Passive_BoonOfBulKathos=204603,
+					 Barbarian_Passive_NoEscape=204725,
+					 Barbarian_Passive_Brawler=205133,
+					 Barbarian_Passive_Ruthless=205175,
+					 Barbarian_Passive_BerserkerRage=205187,
+					 Barbarian_Passive_PoundOfFlesh=205205,
+					 Barbarian_Passive_Bloodthirst=205217,
+					 Barbarian_Passive_Animosity=205228,
+					 Barbarian_Passive_Unforgiving=205300,
+					 Barbarian_Passive_Relentless=205398,
+					 Barbarian_Passive_Superstition=205491,
+					 Barbarian_Passive_InspiringPresence=205546,
+					 Barbarian_Passive_Juggernaut=205707,
+					 Barbarian_Passive_ToughAsNails=205848,
+					 Barbarian_Passive_WeaponsMaster=206147,
 				}
 		  }
 	 

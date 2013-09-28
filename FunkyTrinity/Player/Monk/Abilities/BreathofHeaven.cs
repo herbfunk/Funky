@@ -22,7 +22,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			UseageType = AbilityUseage.Anywhere;
 			IsBuff = true;
 			Priority = AbilityPriority.High;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast |
+			PreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast |
 			                     AbilityPreCastFlags.CheckRecastTimer);
 			FcriteriaBuff = new Func<bool>(() => { return !Bot.Class.HasBuff(SNOPower.Monk_BreathOfHeaven); });
 			FcriteriaCombat =

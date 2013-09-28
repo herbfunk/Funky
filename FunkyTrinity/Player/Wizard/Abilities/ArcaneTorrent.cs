@@ -24,7 +24,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy |
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy |
 			                     AbilityPreCastFlags.CheckRecastTimer);
 			FcriteriaCombat = new Func<bool>(() => { return !Bot.Class.bWaitingForSpecial; });
 		}

@@ -21,7 +21,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			Range = 14;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.None;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
 		}
 
 		#region IAbility

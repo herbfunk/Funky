@@ -23,7 +23,7 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			Cost = 49;
 			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckCanCast | AbilityPreCastFlags.CheckEnergy);
+			PreCastFlags = (AbilityPreCastFlags.CheckCanCast | AbilityPreCastFlags.CheckEnergy);
 			IsBuff=true;
 			 FcriteriaBuff =
 				new Func<bool>(

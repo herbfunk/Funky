@@ -22,7 +22,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			Cost = 30;
 			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckRecastTimer |
+			PreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckRecastTimer |
 			                     AbilityPreCastFlags.CheckPlayerIncapacitated);
 
 			FcriteriaCombat = new Func<bool>(() =>

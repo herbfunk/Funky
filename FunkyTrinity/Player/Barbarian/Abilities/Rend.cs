@@ -26,7 +26,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			Cost = 20;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastPreCastFlags=(AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy|
+			PreCastFlags=(AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy|
 													 AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated);
 
 			ClusterConditions = new ClusterConditions(5d, 8, 2, true, 0.90d);

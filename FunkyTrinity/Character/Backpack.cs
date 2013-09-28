@@ -12,7 +12,6 @@ namespace FunkyTrinity.Cache
 	{
 		public Backpack()
 		{
-			oocItemCache=new OOCItemCache();
 			townRunCache=new TownRunCache();
 			BPItems=new List<CacheBPItem>();
 			CacheItemList=new Dictionary<int, CacheACDItem>();
@@ -25,8 +24,6 @@ namespace FunkyTrinity.Cache
 		public int CurrentPotionACDGUID=-1;
 
 		public TownRunCache townRunCache { get; set; }
-
-		public OOCItemCache oocItemCache { get; set; }
 
 
 		//Sets List to current backpack contents
@@ -255,18 +252,6 @@ namespace FunkyTrinity.Cache
 			return found;
 		}
 
-		//Used to hold OOC ID behavior data
-		public class OOCItemCache
-		{
-			public OOCItemCache()
-			{
-			}
-
-			//Vars used in actual town runs so we don't have to recheck.
-			public List<CacheItem> HerbfunkOOCKeepItems=new List<CacheItem>();
-			public HashSet<int> HerbfunkOOCcheckedItemDynamicIDs=new HashSet<int>();
-
-		}
 
 		//Used to hold Town Run Data
 		public class TownRunCache

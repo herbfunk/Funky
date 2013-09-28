@@ -29,7 +29,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			IsBuff=true;
 			UseageType = AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckCanCast | AbilityPreCastFlags.CheckPlayerIncapacitated);
+			PreCastFlags = (AbilityPreCastFlags.CheckCanCast | AbilityPreCastFlags.CheckPlayerIncapacitated);
 			FcriteriaBuff = new Func<bool>(() => { return !Bot.Class.HasBuff(SNOPower.Barbarian_WarCry); });
 			FcriteriaCombat = new Func<bool>(() =>
 			{

@@ -26,7 +26,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			Cost = 20;
 			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.Low;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast |
+			PreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast |
 			                     AbilityPreCastFlags.CheckPlayerIncapacitated);
 
 			IsBuff=true;

@@ -33,7 +33,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			Cost = 15;
 			Range = 23;
 			Priority = AbilityPriority.Low;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
 			UseageType=AbilityUseage.Anywhere;
 
 			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 2);

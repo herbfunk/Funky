@@ -33,48 +33,7 @@ namespace FunkyTrinity.Cache
 						}
 				 }
 
-				 
-
-
-				 internal static List<ItemType> RestrictedItemTypes
-				 {
-						get
-						{
-
-							 ItemType[] range;
-							 List<ItemType> returningList=new List<ItemType>() { ItemType.CraftingPage, ItemType.CraftingPlan, ItemType.CraftingReagent, ItemType.Gem, ItemType.Potion, ItemType.Unknown };
-							 switch (Bot.Class.AC)
-							 {
-									case ActorClass.Barbarian:
-										 range=new ItemType[] { ItemType.Bow, ItemType.CeremonialDagger, ItemType.Cloak, ItemType.Crossbow, ItemType.Daibo, ItemType.FistWeapon, ItemType.HandCrossbow, ItemType.Mojo, ItemType.Orb, ItemType.Quiver, ItemType.SpiritStone, ItemType.Staff, ItemType.VoodooMask, ItemType.Wand, ItemType.WizardHat };
-										 returningList.AddRange(range);
-										 break;
-									case ActorClass.DemonHunter:
-										 range=new ItemType[] { ItemType.Axe, ItemType.CeremonialDagger, ItemType.Dagger, ItemType.Daibo, ItemType.FistWeapon, ItemType.Mace, ItemType.MightyBelt, ItemType.MightyWeapon, ItemType.Mojo, ItemType.Orb, ItemType.Polearm, ItemType.Spear, ItemType.SpiritStone, ItemType.Staff, ItemType.Sword, ItemType.VoodooMask, ItemType.Wand, ItemType.WizardHat };
-										 returningList.AddRange(range);
-										 break;
-									case ActorClass.Monk:
-										 range=new ItemType[] { ItemType.Bow, ItemType.CeremonialDagger, ItemType.Cloak, ItemType.Crossbow, ItemType.HandCrossbow, ItemType.MightyBelt, ItemType.MightyWeapon, ItemType.Mojo, ItemType.Orb, ItemType.Quiver, ItemType.VoodooMask, ItemType.Wand, ItemType.WizardHat };
-										 returningList.AddRange(range);
-										 break;
-									case ActorClass.WitchDoctor:
-										 range=new ItemType[] { ItemType.Cloak, ItemType.Daibo, ItemType.FistWeapon, ItemType.HandCrossbow, ItemType.MightyBelt, ItemType.MightyWeapon, ItemType.Orb, ItemType.Polearm, ItemType.Quiver, ItemType.SpiritStone, ItemType.Wand, ItemType.WizardHat };
-										 returningList.AddRange(range);
-										 break;
-									case ActorClass.Wizard:
-										 range=new ItemType[] { ItemType.CeremonialDagger, ItemType.Cloak, ItemType.Daibo, ItemType.FistWeapon, ItemType.MightyBelt, ItemType.MightyWeapon, ItemType.Mojo, ItemType.Polearm, ItemType.Quiver, ItemType.SpiritStone, ItemType.VoodooMask };
-										 returningList.AddRange(range);
-										 break;
-							 }
-							 return returningList;
-						}
-
-				 }
-
-
-
-
-
+	
 			  internal static Dictionary<int, CacheBalance> dictGameBalanceCache=new Dictionary<int, CacheBalance>
 		  #region GameBalanceIDCache
         {
@@ -628,10 +587,7 @@ namespace FunkyTrinity.Cache
 			  public static HashSet<int> hashSNONavigationObstacles=new HashSet<int> {
             174900, 191459, 58379, 204168, 3341, 185391, 123325, 196211, 3048, 200872,60870,60671,60665 ,
         };
-				 // Destructible things that are very large and need breaking at a bigger distance - eg logstacks, large crates, carts, etc.
-				 internal static readonly Dictionary<int, int> dictSNOExtendedDestructRange=new Dictionary<int, int> { 
-				{195108, 25},{129031, 20}, {210418, 25},{116409, 18},{211959, 25},{197514, 18}, {218228,15},
-         };
+
 				 // Destructible things that need targeting by a location instead of an ACDGUID (stuff you can't "click on" to destroy in-game)
 			  public static readonly HashSet<int> hashDestructableLocationTarget=new HashSet<int> { 
             170657, 116409, 121586, 3016, 121586,80231,58559,58962,62562,54477,54191,53957,54446,54477,53999,54191,54025,
@@ -774,11 +730,7 @@ namespace FunkyTrinity.Cache
 				{ 
             62873, 95011, 81424, 108230, 111808, 111809, 199583, 109264,101500,
          };
-				// Chests/average-level containers that deserve a bit of extra radius (ie - they are more worthwhile to loot than "random" misc/junk containers)
-				public static readonly HashSet<int> hashSNOContainerWhitelist=new HashSet<int>
-				{ 
-            62859, 62865, 62872, 78790, 79016, 94708, 96522, 130170, 108122, 111870, 111947, 213447, 213446, 51300, 179865, 199584, 109264, 212491, 210422, 106165, 
-         };
+
 				// A list of SNO's to *FORCE* to type: Item. (BE CAREFUL WITH THIS!).
 				// 166943 = infernal key
 				public static readonly HashSet<int> hashForceSNOToItemList=new HashSet<int>

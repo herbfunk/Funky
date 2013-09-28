@@ -30,7 +30,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
 
-			PreCastPreCastFlags=(AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckPlayerIncapacitated);
+			PreCastFlags=(AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckPlayerIncapacitated);
 			ClusterConditions = new ClusterConditions(10d, 30f, 2, true);
 			TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 20);
 			FcriteriaCombat = new Func<bool>(() =>

@@ -24,7 +24,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.None;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
 
 			ClusterConditions = new ClusterConditions(5d, 49f, 2, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None, 49);

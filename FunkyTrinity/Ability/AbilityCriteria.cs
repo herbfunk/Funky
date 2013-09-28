@@ -204,7 +204,7 @@ namespace FunkyTrinity.Ability
 			///<summary>
 			///Describes the pre casting conditions - when set it will create the precast method used.
 			///</summary>
-			public AbilityPreCastFlags PreCastPreCastFlags
+			public AbilityPreCastFlags PreCastFlags
 			{
 				 get
 				 {

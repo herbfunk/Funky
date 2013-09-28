@@ -24,7 +24,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			Range = 0;
 			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckCanCast |
+			PreCastFlags = (AbilityPreCastFlags.CheckCanCast |
 			                     AbilityPreCastFlags.CheckExisitingBuff);
 
 			FcriteriaCombat = new Func<bool>(() =>

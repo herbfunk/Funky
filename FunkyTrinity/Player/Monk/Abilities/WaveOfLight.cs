@@ -25,7 +25,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			Priority = AbilityPriority.Low;
 			UseageType=AbilityUseage.Combat;
 
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast |
+			PreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast |
 			                     AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckPlayerIncapacitated);
 			ClusterConditions = new ClusterConditions(6d, 35f, 3, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 20);

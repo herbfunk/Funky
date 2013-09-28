@@ -22,7 +22,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			Priority = AbilityPriority.None;
 			Range = Bot.Class.RuneIndexCache[SNOPower.Monk_FistsofThunder] == 0 ? 25 : 12;
 
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
 			ClusterConditions = new ClusterConditions(5d, 20f, 1, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None);
 

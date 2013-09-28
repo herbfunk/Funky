@@ -76,71 +76,6 @@ namespace FunkyTrinity.Cache
 
 				public string ItemStatString { get; set; }
 
-				[System.Obsolete()]
-				public CacheACDItem(string internalname, string realname, int level, ItemQuality quality, int goldamount, int balanceid, int dynamicid, float dps,
-					 bool onehanded, DyeType dyetype, ItemType dbitemtype, FollowerType dbfollowertype, bool unidentified, int stackquantity, ItemStats thesestats, ACDItem item, int row, int col, bool ispotion, int acdguid)
-				{
-					 ThisInternalName=internalname;
-					 ThisRealName=realname;
-					 ThisLevel=level;
-					 ThisQuality=quality;
-					 ThisGoldAmount=goldamount;
-					 ThisBalanceID=balanceid;
-					 ThisDynamicID=dynamicid;
-
-					 ThisOneHanded=onehanded;
-					 ThisDyeType=dyetype;
-					 ThisDBItemType=dbitemtype;
-					 ThisFollowerType=dbfollowertype;
-					 IsUnidentified=unidentified;
-					 ThisItemStackQuantity=stackquantity;
-
-					 SpiritRegen=thesestats.SpiritRegen;
-					 ExperienceBonus=thesestats.ExperienceBonus;
-					 Dexterity=thesestats.Dexterity;
-					 Intelligence=thesestats.Intelligence;
-					 Strength=thesestats.Strength;
-					 Vitality=thesestats.Vitality;
-					 LifePercent=thesestats.LifePercent;
-					 LifeOnHit=thesestats.LifeOnHit;
-					 LifeSteal=thesestats.LifeSteal;
-					 HealthPerSecond=thesestats.HealthPerSecond;
-					 MagicFind=thesestats.MagicFind;
-					 GoldFind=thesestats.GoldFind;
-					 MovementSpeed=thesestats.MovementSpeed;
-					 PickUpRadius=thesestats.PickUpRadius;
-					 Sockets=thesestats.Sockets;
-					 CritPercent=thesestats.CritPercent;
-					 CritDamagePercent=thesestats.CritDamagePercent;
-					 AttackSpeedPercent=thesestats.AttackSpeedPercent;
-					 MinDamage=thesestats.MinDamage;
-					 MaxDamage=thesestats.MaxDamage;
-					 BlockChance=thesestats.BlockChance;
-					 Thorns=thesestats.Thorns;
-					 ResistAll=thesestats.ResistAll;
-					 ResistArcane=thesestats.ResistArcane;
-					 ResistCold=thesestats.ResistCold;
-					 ResistFire=thesestats.ResistFire;
-					 ResistHoly=thesestats.ResistHoly;
-					 ResistLightning=thesestats.ResistLightning;
-					 ResistPhysical=thesestats.ResistPhysical;
-					 ResistPoison=thesestats.ResistPoison;
-					 WeaponDamagePerSecond=thesestats.WeaponDamagePerSecond;
-					 ArmorBonus=thesestats.ArmorBonus;
-					 MaxDiscipline=thesestats.MaxDiscipline;
-					 MaxMana=thesestats.MaxMana;
-					 ArcaneOnCrit=thesestats.ArcaneOnCrit;
-					 ManaRegen=thesestats.ManaRegen;
-					 GlobeBonus=thesestats.HealthGlobeBonus;
-
-
-					 ACDItem=item;
-					 invRow=row;
-					 invCol=col;
-					 IsPotion=ispotion;
-					 ACDGUID=acdguid;
-				}
-
 				public CacheACDItem(ACDItem item)
 				{
 					 ACDItem=item;
@@ -211,20 +146,6 @@ namespace FunkyTrinity.Cache
 					 WeaponDamagePerSecond=thesestats.WeaponDamagePerSecond;
 
 				}
-				public CacheACDItem(string internalname, string realname, int level, ItemQuality quality, int balanceid, int dynamicid, bool onehanded, ItemType dbitemtype, FollowerType dbfollowertype)
-				{
-					 ThisInternalName=internalname;
-					 ThisRealName=realname;
-					 ThisLevel=level;
-					 ThisQuality=quality;
-					 ThisBalanceID=balanceid;
-					 ThisDynamicID=dynamicid;
-					 ThisOneHanded=onehanded;
-					 ThisDyeType=DyeType.None;
-					 ThisDBItemType=dbitemtype;
-					 ThisFollowerType=dbfollowertype;
-					 IsUnidentified=true;
-				}
 		  }
 
 		  //Cache Backpack Item
@@ -233,12 +154,10 @@ namespace FunkyTrinity.Cache
 		  {
 				public int ACDGUID { get; set; }
 				public ACDItem Ref_ACDItem { get; set; }
-				public int StackCount { get; set; }
 				public CacheBPItem(int Acdguid, ACDItem acditem)
 				{
 					 this.ACDGUID=Acdguid;
 					 this.Ref_ACDItem=acditem;
-					 this.StackCount=acditem.MaxStackCount;
 				}
 		  }
 	 

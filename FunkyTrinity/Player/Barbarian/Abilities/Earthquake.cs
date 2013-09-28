@@ -29,7 +29,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			UseageType=AbilityUseage.Combat;
 			IsSpecialAbility = true;
 			Priority = AbilityPriority.High;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckEnergy |
+			PreCastFlags = (AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckEnergy |
 			                     AbilityPreCastFlags.CheckExisitingBuff | AbilityPreCastFlags.CheckCanCast |
 			                     AbilityPreCastFlags.CheckPlayerIncapacitated);
 			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);

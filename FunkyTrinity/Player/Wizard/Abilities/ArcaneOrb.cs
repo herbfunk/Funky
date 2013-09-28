@@ -24,7 +24,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckRecastTimer |
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckRecastTimer |
 			                     AbilityPreCastFlags.CheckEnergy);
 			ClusterConditions=new ClusterConditions(4d, this.UsingCriticalMass()?20:40, 3, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 25, 0.5d, TargetProperties.Fast);

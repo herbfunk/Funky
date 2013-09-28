@@ -21,7 +21,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			WaitVars = new WaitLoops(0, 1, true);
 			Priority = AbilityPriority.None;
 			Range = 14;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
 		}
 
 		#region IAbility

@@ -23,7 +23,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			IsRanged = true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy |
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy |
 			                     AbilityPreCastFlags.CheckRecastTimer);
 			ClusterConditions = new ClusterConditions(4d, 50f, 2, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial,

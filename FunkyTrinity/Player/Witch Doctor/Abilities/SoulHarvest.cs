@@ -24,7 +24,7 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.High;
 
-			PreCastPreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckEnergy);
+			PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckEnergy);
 			ClusterConditions=new ClusterConditions(6d, 9f, 2, false, useRadiusDistance: true);
 			FcriteriaCombat=new Func<bool>(() =>
 			{

@@ -23,7 +23,7 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.None;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
 
 			ClusterConditions = new ClusterConditions(4d, 35, 2, true);
 			TargetUnitConditionFlags = new UnitTargetConditions();

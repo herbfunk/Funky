@@ -23,7 +23,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.None;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
 
 								//Aim for cluster with 2 units very close together.
 			ClusterConditions = new ClusterConditions(3d, Bot.Class.RuneIndexCache[SNOPower.Wizard_Electrocute] == 2 ? 15 : 40, 2,

@@ -7,7 +7,7 @@
     <NewGameMaxmimumWaitTime>0</NewGameMaxmimumWaitTime>
   </Demonbuddy>
   <Debug>
-    <DebugStatusBar>true</DebugStatusBar>
+    <DebugStatusBar>false</DebugStatusBar>
     <LogGroupingOutput>false</LogGroupingOutput>
     <FunkyLogFlags>None</FunkyLogFlags>
     <SkipAhead>true</SkipAhead>
@@ -149,7 +149,7 @@
         <Type>PoisonGas</Type>
         <Health>0.5</Health>
         <Radius>9</Radius>
-        <Weight>0</Weight>
+        <Weight>12</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>ShamanFireBall</Type>

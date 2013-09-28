@@ -20,7 +20,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			WaitVars = new WaitLoops(1, 1, true);
 			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckRecastTimer |
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckRecastTimer |
 			                     AbilityPreCastFlags.CheckCanCast);
 			Cost=Bot.Class.RuneIndexCache[SNOPower.DemonHunter_Preparation]==0?25:0;
 			FcriteriaCombat = new Func<bool>(() =>

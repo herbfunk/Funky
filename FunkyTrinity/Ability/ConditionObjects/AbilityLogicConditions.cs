@@ -42,7 +42,7 @@ namespace FunkyTrinity.Ability
 
 		  private static void CreatePreCastConditions(ref Func<bool> Fprecast, ability ability)
 		  {
-				AbilityPreCastFlags precastconditions_=ability.PreCastPreCastFlags;
+				AbilityPreCastFlags precastconditions_=ability.PreCastFlags;
 				if (precastconditions_.Equals(AbilityPreCastFlags.None))
 					 return;
 				else

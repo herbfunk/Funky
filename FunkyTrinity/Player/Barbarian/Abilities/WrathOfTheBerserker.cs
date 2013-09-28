@@ -27,7 +27,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			UseageType=AbilityUseage.Anywhere;
 			IsSpecialAbility = Bot.SettingsFunky.Class.bWaitForWrath;
 			Priority = AbilityPriority.High;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckExisitingBuff |
+			PreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckExisitingBuff |
 			                     AbilityPreCastFlags.CheckCanCast);
 			FcriteriaCombat = new Func<bool>(() =>
 			{

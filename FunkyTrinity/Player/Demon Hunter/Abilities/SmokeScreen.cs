@@ -24,7 +24,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			Range = 0;
 			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-								//PreCastPreCastFlags=,
+								//PreCastFlags=,
 
 			FcriteriaCombat = new Func<bool>(() =>
 			{

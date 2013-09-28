@@ -24,7 +24,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			Priority = AbilityPriority.High;
 			IsSpecialAbility = true;
 			Counter = 1;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast | AbilityPreCastFlags.CheckPetCount);
+			PreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast | AbilityPreCastFlags.CheckPetCount);
 		}
 
 		#region IAbility

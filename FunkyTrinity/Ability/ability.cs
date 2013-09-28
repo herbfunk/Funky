@@ -29,7 +29,7 @@ namespace FunkyTrinity.Ability
 
 
 
-		  public ability()
+		  protected ability()
 				: base()
 		  {
 				WaitVars=new WaitLoops(0, 0, true);
@@ -45,6 +45,7 @@ namespace FunkyTrinity.Ability
 				isASpecialMovementPower=PowerCacheLookup.SpecialMovementAbilities.Contains(this.Power);
 				Initialize();
 		  }
+
 		  public virtual void Initialize()
 		  {
 

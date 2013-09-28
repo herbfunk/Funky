@@ -25,7 +25,7 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			Counter = 1;
 			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckCanCast |
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckCanCast |
 			                     AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckPetCount);
 			IsBuff=true;
 			 FcriteriaBuff =

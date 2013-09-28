@@ -297,7 +297,7 @@ namespace FunkyTrinity.Cache
 				public bool UpdateHitPoints()
 				{
 					 //Last Target skips the counter checks
-					 if (this==Bot.Combat.LastCachedTarget)
+					 if (this==Bot.Target.LastCachedTarget)
 					 {
 						  this.UpdateCurrentHitPoints();
 						  return true;
@@ -382,20 +382,6 @@ namespace FunkyTrinity.Cache
 					 }
 				}
 
-				internal UnitCluster CurrentTargetCluster
-				{
-					 get
-					 {
-						  if (Bot.Combat.TargetClusterCollection.CurrentClusters.Count>0)
-						  {
-								var containedClusters=Bot.Combat.TargetClusterCollection.CurrentClusters.Where(c => c.RAGUIDS.Contains(this.RAGUID));
-								if (containedClusters.Any())
-									 return containedClusters.First();
-						  }
-
-						  return null;
-					 }
-				}
 
 				public override bool IsZDifferenceValid
 				{

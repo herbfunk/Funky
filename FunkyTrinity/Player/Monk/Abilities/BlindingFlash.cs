@@ -22,7 +22,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			Cost = 10;
 			UseageType= AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast |
+			PreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast |
 			                     AbilityPreCastFlags.CheckRecastTimer);
 
 			FcriteriaCombat = new Func<bool>(() =>

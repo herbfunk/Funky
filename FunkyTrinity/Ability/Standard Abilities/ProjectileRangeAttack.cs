@@ -25,7 +25,7 @@ namespace FunkyTrinity.Ability.Abilities
 			IsProjectile=true;
 			IsRanged=true;
 			WaitVars = new WaitLoops(0, 0, true);
-			PreCastPreCastFlags=AbilityPreCastFlags.None;
+			PreCastFlags=AbilityPreCastFlags.None;
 			UseageType=AbilityUseage.Combat;
 		}
 

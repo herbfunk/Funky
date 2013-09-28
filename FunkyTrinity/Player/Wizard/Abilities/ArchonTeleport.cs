@@ -22,7 +22,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			UseageType=AbilityUseage.Anywhere;
 			//IsNavigationSpecial = true;
 			Priority = AbilityPriority.High;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckCanCast);
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckCanCast);
 
 			ClusterConditions = new ClusterConditions(5d, 48f, 2, false, minDistance: 15f);
 

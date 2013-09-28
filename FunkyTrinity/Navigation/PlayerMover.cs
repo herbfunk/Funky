@@ -278,10 +278,6 @@ namespace FunkyTrinity
 				private static bool bLastWaypointWasTown=false;
 				private static HashSet<Vector3> hashDoneThisVector=new HashSet<Vector3>();
 				internal static DateTime LastCombatPointChecked=DateTime.Today;
-				internal static Vector3 CurrentMovementPosition=Vector3.Zero;
-				private static Vector3 vShiftedPosition=Vector3.Zero;
-				private static DateTime lastShiftedPosition=DateTime.Today;
-				private static int iShiftPositionFor=0;
 
 				public void MoveTowards(Vector3 vMoveToTarget)
 				{
@@ -342,8 +338,6 @@ namespace FunkyTrinity
 
 					 // Store player current position
 					 Vector3 vMyCurrentPosition=ZetaDia.Me.Position;
-					 CurrentMovementPosition=Bot.NavigationCache.CurrentPathVector;
-
 
 					 //Check GPC entry (backtracking cache) -- only when not in town!
 					 if (BackTrackCache.EnableBacktrackGPRcache&&!ZetaDia.Me.IsInTown)

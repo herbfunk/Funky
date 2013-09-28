@@ -22,7 +22,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			UseageType=AbilityUseage.Anywhere;
 			IsBuff=true;
 			Priority = AbilityPriority.High;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy |
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy |
 			                     AbilityPreCastFlags.CheckRecastTimer);
 
 		}

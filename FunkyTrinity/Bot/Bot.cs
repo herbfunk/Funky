@@ -121,19 +121,7 @@ namespace FunkyTrinity
 				}
 
 				#region SettingsRangeValues
-				internal static int FleeDistance
-				{
-					 get
-					 {
-						  int value=SettingsFunky.Fleeing.FleeMaxMonsterDistance;
 
-						  if (value==0&&Character.ShouldFlee)
-								value=8;
-						  
-
-						  return value;
-					 }
-				}
 				internal static int ContainerRange
 				{
 					 get
@@ -251,20 +239,6 @@ namespace FunkyTrinity
 					 Combat.iMillisecondsCancelledFleeMoveFor=(int)extraWaitTime;
 				}
 
-				internal static void AttemptToUseHealthPotion()
-				{
-					 //Update and find best potion to use.
-					 Character.BackPack.ReturnCurrentPotions();
-
-					 ACDItem thisBestPotion=Character.BackPack.BestPotionToUse;
-					 if (thisBestPotion!=null)
-					 {
-						  Character.WaitWhileAnimating(4, true);
-						  ZetaDia.Me.Inventory.UseItem((thisBestPotion.DynamicId));
-					 }
-					 PowerCacheLookup.dictAbilityLastUse[SNOPower.DrinkHealthPotion]=DateTime.Now;
-					 Character.WaitWhileAnimating(3, true);
-				}
 
 				internal static void Reset()
 				{

@@ -7,7 +7,7 @@
     <NewGameMaxmimumWaitTime>0</NewGameMaxmimumWaitTime>
   </Demonbuddy>
   <Debug>
-    <DebugStatusBar>true</DebugStatusBar>
+    <DebugStatusBar>false</DebugStatusBar>
     <LogGroupingOutput>false</LogGroupingOutput>
     <FunkyLogFlags>None</FunkyLogFlags>
     <SkipAhead>true</SkipAhead>

@@ -27,7 +27,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			  Range = 10;
 				UseageType=AbilityUseage.Combat;
 			  Priority = AbilityPriority.None;
-			  PreCastPreCastFlags = (AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckCanCast |
+			  PreCastFlags = (AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckCanCast |
 			                       AbilityPreCastFlags.CheckPlayerIncapacitated);
 
 		  }

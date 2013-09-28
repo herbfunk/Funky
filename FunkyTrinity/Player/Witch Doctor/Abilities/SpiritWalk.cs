@@ -25,7 +25,7 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			UseageType=AbilityUseage.Anywhere;
 			//IsNavigationSpecial = true;
 			Priority = AbilityPriority.High;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast);
+			PreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast);
 
 			IsBuff=true;
 			FcriteriaBuff=new Func<bool>(() =>

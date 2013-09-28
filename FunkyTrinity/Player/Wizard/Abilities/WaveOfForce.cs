@@ -22,7 +22,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			Cost = 25;
 UseageType= AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy |
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy |
 			                     AbilityPreCastFlags.CheckCanCast | AbilityPreCastFlags.CheckRecastTimer);
 
 			FcriteriaCombat = new Func<bool>(() =>

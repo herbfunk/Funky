@@ -23,7 +23,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			UseageType=AbilityUseage.Combat;
 			IsSpecialAbility = true;
 
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckExisitingBuff);
+			PreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckExisitingBuff);
 
 			ClusterConditions = new ClusterConditions(7d, 35f, 2, false);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 25);

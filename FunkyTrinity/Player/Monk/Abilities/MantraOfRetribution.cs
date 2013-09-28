@@ -23,7 +23,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			IsBuff=true;
 			UseageType=AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy);
+			PreCastFlags = (AbilityPreCastFlags.CheckEnergy);
 			IsSpecialAbility = true;
 			FcriteriaBuff = new Func<bool>(() =>
 			{

@@ -25,7 +25,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			UseageType=AbilityUseage.Anywhere;
 			IsBuff=true;
 			Priority = AbilityPriority.High;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPetCount | AbilityPreCastFlags.CheckEnergy |
+			PreCastFlags = (AbilityPreCastFlags.CheckPetCount | AbilityPreCastFlags.CheckEnergy |
 			                     AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckPlayerIncapacitated);
 		}
 

@@ -22,7 +22,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			Range = 10;
 			Priority = AbilityPriority.Low;
 			UseageType=AbilityUseage.Combat;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast |
+			PreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast |
 			                     AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckPlayerIncapacitated);
 			ClusterConditions = new ClusterConditions(4d, 18f, 3, true);
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 10);

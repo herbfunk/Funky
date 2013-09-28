@@ -24,7 +24,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			IsRanged = true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy |
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy |
 			                     AbilityPreCastFlags.CheckCanCast);
 
 			FcriteriaCombat = new Func<bool>(() =>

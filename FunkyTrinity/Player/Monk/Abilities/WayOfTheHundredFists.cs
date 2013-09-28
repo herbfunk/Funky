@@ -21,7 +21,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			Priority = AbilityPriority.None;
 			Range = 14;
 			UseageType=AbilityUseage.Combat;
-			PreCastPreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
+			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated);
 		}
 
 		#region IAbility

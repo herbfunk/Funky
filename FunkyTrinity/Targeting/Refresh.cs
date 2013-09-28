@@ -4,7 +4,6 @@ using FunkyTrinity.Ability;
 using FunkyTrinity.Avoidances;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Cache.Enums;
-
 using FunkyTrinity.Movement;
 using FunkyTrinity.Movement.Clustering;
 using Zeta;
@@ -20,8 +19,6 @@ namespace FunkyTrinity.Targeting
 {
 	 public partial class TargetHandler
 	 {
-		  //TODO:: Added Line of Sight Movement as a behavior.
-
 		  //Order is important! -- we test from start to finish.
 		  internal readonly TargetBehavior[] TargetBehaviors=new TargetBehavior[]
 		  {
@@ -73,8 +70,10 @@ namespace FunkyTrinity.Targeting
 				lastBehavioralType=TargetBehavioralTypes.None;
 				foreach (var TLA in TargetBehaviors)
 				{
+					 //Check each behavior "pre-condition"
 					 if (!TLA.BehavioralCondition) continue;
 
+					 //Now test the behavior
 					 conditionTest=TLA.Test.Invoke(ref CurrentTarget);
 					 if (conditionTest)
 					 {
@@ -117,123 +116,7 @@ namespace FunkyTrinity.Targeting
 
 
 
-		  ///<summary>
-		  ///Resets/Updates cache and misc vars
-		  ///</summary>
-		  private void InitObjectRefresh()
-		  {
-				//Cache last target only if current target is not avoidance (Movement).
-				LastCachedTarget=Bot.Target.CurrentTarget!=null?Bot.Target.CurrentTarget:ObjectCache.FakeCacheObject;
-
-				if (!Bot.Target.Equals(null)&&Bot.Target.CurrentTarget.targetType.HasValue&&Bot.Target.CurrentTarget.targetType.Value==TargetType.Avoidance
-					 &&!String.IsNullOrEmpty(Bot.Target.CurrentTarget.InternalName))
-				{
-					 string internalname=Bot.Target.CurrentTarget.InternalName;
-					 if (internalname.Contains("FleeSpot"))
-					 {
-						  Bot.Combat.LastFleeAction=DateTime.Now;
-						  Bot.Combat.FleeingLastTarget=true;
-					 }
-					 else if (internalname.Contains("AvoidanceIntersection")||internalname.Contains("StayPutPoint")||internalname.Contains("SafeAvoid")||internalname.Contains("SafeReuseAvoid"))
-					 {
-						  Bot.Combat.LastAvoidanceMovement=DateTime.Now;
-						  Bot.Combat.AvoidanceLastTarget=true;
-					 }
-				}
-				else
-				{
-					 Bot.Combat.FleeingLastTarget=false;
-					 Bot.Combat.AvoidanceLastTarget=false;
-				}
-
-				Bot.Target.CurrentTarget=null;
-				Bot.Target.CurrentUnitTarget=null;
-
-				//Kill Loot Radius Update
-				Bot.UpdateKillLootRadiusValues();
-
-				// Refresh buffs (so we can check for wrath being up to ignore ice balls and anything else like that)
-				Bot.Class.RefreshCurrentBuffs();
-				Bot.Class.RefreshCurrentDebuffs();
-
-				// Clear forcing close-range priority on mobs after XX period of time
-				if (Bot.Combat.bForceCloseRangeTarget&&DateTime.Now.Subtract(Bot.Combat.lastForcedKeepCloseRange).TotalMilliseconds>Bot.Combat.iMillisecondsForceCloseRange)
-				{
-					 Bot.Combat.bForceCloseRangeTarget=false;
-				}
-
-				// Bunch of variables used throughout
-				Bot.Character.PetData.Reset();
-				// Reset the counters for monsters at various ranges
-				Bot.Combat.Reset();
-
-
-				//Check if we should trim our SNO cache..
-				if (DateTime.Now.Subtract(ObjectCache.cacheSnoCollection.lastTrimming).TotalMinutes>3)
-					 ObjectCache.cacheSnoCollection.TrimOldUnusedEntries();
-
-
-				//Check Level ID changes and clear cache objects.
-
-
-
-				if (ZetaDia.CurrentLevelAreaId!=LastLevelID&&(!ZetaDia.Me.IsInTown))
-				{
-					 //Grace Peroid of 5 Seconds before updating.
-					 if (DateTime.Now.Subtract(LastCheckedLevelID).TotalSeconds>5)
-					 {
-						  LastCheckedLevelID=DateTime.Now;
-						  LastLevelID=ZetaDia.CurrentLevelAreaId;
-
-						  //Clear our current collection since we changed levels.
-						  ObjectCache.Objects.Clear();
-						  ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
-						  RemovalCheck=false;
-
-						  //Reset Playermover Backtrack Positions
-						  BackTrackCache.cacheMovementGPRs.Clear();
-
-						  //Reset Skip Ahead Cache
-						  SkipAheadCache.ClearCache();
-					 }
-				}
-
-				//Check Cached Object Removal flag
-				if (RemovalCheck)
-				{
-					 //Remove flagged objects
-					 var RemovalObjs=(from objs in ObjectCache.Objects.Values
-											where objs.NeedsRemoved
-											select objs.RAGUID).ToList();
-
-					 foreach (var item in RemovalObjs)
-					 {
-						  CacheObject thisObj=ObjectCache.Objects[item];
-
-						  //remove prioritized raguid
-						  if (Bot.Combat.PrioritizedRAGUIDs.Contains(item))
-								Bot.Combat.PrioritizedRAGUIDs.Remove(item);
-
-						  //Blacklist flag check
-						  if (thisObj.BlacklistFlag!=BlacklistType.None)
-								BlacklistCache.AddObjectToBlacklist(thisObj.RAGUID, thisObj.BlacklistFlag);
-
-						  ObjectCache.Objects.Remove(thisObj.RAGUID);
-					 }
-
-					 RemovalCheck=false;
-				}
-
-
-				//Increase counter, clear entries if overdue.
-				ObjectCache.Obstacles.AttemptToClearEntries();
-
-				//Non-Combat behavior we reset temp blacklist so we don't get killed by "ignored" units..
-				if (Bot.IsInNonCombatBehavior)
-				{
-					 BlacklistCache.CheckRefreshBlacklists(10);
-				}
-		  }
+		  internal CacheObject LastCachedTarget { get; set; }
 
 		  ///<summary>
 		  ///Refreshes Cache and updates current target
@@ -308,13 +191,119 @@ namespace FunkyTrinity.Targeting
 				}
 		  }
 
+		  ///<summary>
+		  ///Resets/Updates cache and misc vars
+		  ///</summary>
+		  private void InitObjectRefresh()
+		  {
+				//Cache last target only if current target is not avoidance (Movement).
+				LastCachedTarget=Bot.Target.CurrentTarget!=null?Bot.Target.CurrentTarget:ObjectCache.FakeCacheObject;
+
+				if (!Bot.Target.Equals(null)&&Bot.Target.CurrentTarget.targetType.HasValue&&Bot.Target.CurrentTarget.targetType.Value==TargetType.Avoidance
+					 &&!String.IsNullOrEmpty(Bot.Target.CurrentTarget.InternalName))
+				{
+					 string internalname=Bot.Target.CurrentTarget.InternalName;
+					 if (internalname.Contains("FleeSpot"))
+					 {
+						  Bot.Combat.LastFleeAction=DateTime.Now;
+						  Bot.Combat.FleeingLastTarget=true;
+					 }
+					 else if (internalname.Contains("AvoidanceIntersection")||internalname.Contains("StayPutPoint")||internalname.Contains("SafeAvoid")||internalname.Contains("SafeReuseAvoid"))
+					 {
+						  Bot.Combat.LastAvoidanceMovement=DateTime.Now;
+						  Bot.Combat.AvoidanceLastTarget=true;
+					 }
+				}
+				else
+				{
+					 Bot.Combat.FleeingLastTarget=false;
+					 Bot.Combat.AvoidanceLastTarget=false;
+				}
+
+				//Reset target
+				Bot.Target.CurrentTarget=null;
+				Bot.Target.CurrentUnitTarget=null;
+
+				//Kill Loot Radius Update
+				Bot.UpdateKillLootRadiusValues();
+
+				// Refresh buffs (so we can check for wrath being up to ignore ice balls and anything else like that)
+				Bot.Class.RefreshCurrentBuffs();
+				Bot.Class.RefreshCurrentDebuffs();
+
+				// Clear forcing close-range priority on mobs after XX period of time
+				if (Bot.Combat.bForceCloseRangeTarget&&DateTime.Now.Subtract(Bot.Combat.lastForcedKeepCloseRange).TotalMilliseconds>Bot.Combat.iMillisecondsForceCloseRange)
+				{
+					 Bot.Combat.bForceCloseRangeTarget=false;
+				}
+
+				// Bunch of variables used throughout
+				Bot.Character.PetData.Reset();
+				// Reset the counters for monsters at various ranges
+				Bot.Combat.Reset();
 
 
+				//Check if we should trim our SNO cache..
+				if (DateTime.Now.Subtract(ObjectCache.cacheSnoCollection.lastTrimming).TotalMinutes>3)
+					 ObjectCache.cacheSnoCollection.TrimOldUnusedEntries();
 
 
+				//Check Level ID changes and clear cache objects.
+				if (ZetaDia.CurrentLevelAreaId!=LastLevelID&&(!ZetaDia.Me.IsInTown))
+				{
+					 //Grace Peroid of 5 Seconds before updating.
+					 if (DateTime.Now.Subtract(LastCheckedLevelID).TotalSeconds>5)
+					 {
+						  LastCheckedLevelID=DateTime.Now;
+						  LastLevelID=ZetaDia.CurrentLevelAreaId;
+
+						  //Clear our current collection since we changed levels.
+						  ObjectCache.Objects.Clear();
+						  ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
+						  RemovalCheck=false;
+
+						  //Reset Playermover Backtrack Positions
+						  BackTrackCache.cacheMovementGPRs.Clear();
+
+						  //Reset Skip Ahead Cache
+						  SkipAheadCache.ClearCache();
+					 }
+				}
+
+				//Check Cached Object Removal flag
+				if (RemovalCheck)
+				{
+					 //Remove flagged objects
+					 var RemovalObjs=(from objs in ObjectCache.Objects.Values
+											where objs.NeedsRemoved
+											select objs.RAGUID).ToList();
+
+					 foreach (var item in RemovalObjs)
+					 {
+						  CacheObject thisObj=ObjectCache.Objects[item];
+
+						  //remove prioritized raguid
+						  if (Bot.Combat.PrioritizedRAGUIDs.Contains(item))
+								Bot.Combat.PrioritizedRAGUIDs.Remove(item);
+
+						  //Blacklist flag check
+						  if (thisObj.BlacklistFlag!=BlacklistType.None)
+								BlacklistCache.AddObjectToBlacklist(thisObj.RAGUID, thisObj.BlacklistFlag);
+
+						  ObjectCache.Objects.Remove(thisObj.RAGUID);
+					 }
+
+					 RemovalCheck=false;
+				}
 
 
+				//Increase counter, clear entries if overdue.
+				ObjectCache.Obstacles.AttemptToClearEntries();
 
+				//Non-Combat behavior we reset temp blacklist so we don't get killed by "ignored" units..
+				if (Bot.IsInNonCombatBehavior)
+					 BlacklistCache.CheckRefreshBlacklists(10);
+		  }
 
 
 		  private Char CHARnewLine='\x000A';
@@ -324,6 +313,6 @@ namespace FunkyTrinity.Targeting
 				return str.Replace(CHARnewLine, CHARspace);
 		  }
 
-		  internal CacheObject LastCachedTarget { get; set; }
+		 
 	 }
 }
