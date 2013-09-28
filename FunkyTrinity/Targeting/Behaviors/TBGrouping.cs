@@ -63,8 +63,6 @@ namespace FunkyTrinity.Targeting.Behaviors
 													 FunkyTrinity.Bot.NavigationCache.groupRunningBehavior=true;
 													 FunkyTrinity.Bot.NavigationCache.groupingOrginUnit=(CacheUnit)ObjectCache.Objects[obj.RAGUID];
 
-													 //Get Cluster
-													 FunkyTrinity.Bot.NavigationCache.groupingCurrentCluster=groupCluster;
 
 													 if (FunkyTrinity.Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Grouping))
 														  Logger.Write(LogLevel.Grouping, "Group Cluster Propeties {0}", groupCluster.Info.Properties.ToString());

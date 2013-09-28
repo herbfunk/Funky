@@ -80,9 +80,6 @@ namespace FunkyTrinity.Targeting
 					 {
 						  if (!LastCachedTarget.Equals(CurrentTarget))
 						  {
-								LastHealthChange=DateTime.Today;
-								LastHealthDropPct=0d;
-
 								TargetChangedArgs TargetChangedInfo= new TargetChangedArgs(CurrentTarget, lastBehavioralType);
 								OnTargetChanged(TargetChangedInfo);
 						  }
@@ -308,7 +305,6 @@ namespace FunkyTrinity.Targeting
 				if (Bot.Target.CurrentTarget!=LastCachedTarget)
 				{
 					 Bot.Combat.dateSincePickedTarget=DateTime.Now;
-					 LastHealthChange=DateTime.Now;
 				}
 		  }
 
@@ -329,7 +325,5 @@ namespace FunkyTrinity.Targeting
 		  }
 
 		  internal CacheObject LastCachedTarget { get; set; }
-		 internal DateTime LastHealthChange { get; set; }
-		 internal double LastHealthDropPct { get; set; }
 	 }
 }

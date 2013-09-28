@@ -350,16 +350,6 @@ namespace FunkyTrinity
 					 return false;
 				}
 
-				///<summary>
-				///Returns a SnoPower based upon current hotbar abilities. If an ability not found than weapon melee/ranged instant is returned.
-				///</summary>
-				internal SNOPower DestructiblePower(SNOPower ignore=SNOPower.None)
-				{
-					 if (destructibleabilities.Count>0)
-						  return destructibleabilities.First(a => a!=ignore);
-
-					 return Bot.Class.DefaultAttack.Power;
-				}
 
 				///<summary>
 				///Enumerates through the ActiveSkills and adds them to the HotbarAbilities collection.

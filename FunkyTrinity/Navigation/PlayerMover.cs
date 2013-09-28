@@ -30,16 +30,6 @@ namespace FunkyTrinity
 		  internal class PlayerMover : IPlayerMover
 		  {
 
-				private static bool ShrinesInArea(Vector3 targetpos)
-				{
-					 List<CacheInteractable> objects;
-					 ObjectCache.Objects.FindSurroundingObjects(targetpos, 10f, out objects);
-					 objects.RemoveAll(obj => obj.targetType.Value!=TargetType.Shrine);
-					 objects.TrimExcess();
-					 return objects.Count>0;
-
-				} // ShrinesInArea checker
-
 				public void MoveStop()
 				{
 					 ZetaDia.Me.UsePower(SNOPower.Walk, ZetaDia.Me.Position, Bot.Character.iCurrentWorldID, -1);

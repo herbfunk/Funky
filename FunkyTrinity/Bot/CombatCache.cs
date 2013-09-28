@@ -86,8 +86,6 @@ namespace FunkyTrinity.Cache
 
 
 				//Cache last filtered list generated
-				internal List<UnitCluster> LastClusterList=new List<UnitCluster>();
-				private DateTime lastClusterComputed=DateTime.Today;
 				internal List<UnitCluster> Clusters(ClusterConditions CC)
 				{
 					 if (!AbilityClusters.ContainsKey(CC))

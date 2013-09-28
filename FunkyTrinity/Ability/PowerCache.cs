@@ -264,17 +264,7 @@ namespace FunkyTrinity.Cache
 		  // And a "global cooldown" to prevent non-signature-spells being used too fast
 		  public static DateTime lastGlobalCooldownUse=DateTime.Today;
 
-		  // Used only for certain skills that spam the powermanager regularly, to limit their CPU hits
-		  internal static Dictionary<SNOPower, DateTime> dictAbilityLastPowerChecked=new Dictionary<SNOPower, DateTime>
-            {
-                {SNOPower.Barbarian_Revenge, DateTime.Today}, 
-                {SNOPower.Barbarian_FuriousCharge, DateTime.Today},
-                {SNOPower.Wizard_DiamondSkin, DateTime.Today},
-                {SNOPower.Wizard_FrostNova, DateTime.Today},
-                {SNOPower.Wizard_ExplosiveBlast, DateTime.Today},
-                {SNOPower.Witchdoctor_Hex, DateTime.Today},
-                {SNOPower.Witchdoctor_SoulHarvest, DateTime.Today},
-            };
+
 
     }
 }

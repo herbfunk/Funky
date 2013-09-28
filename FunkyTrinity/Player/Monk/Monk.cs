@@ -101,28 +101,6 @@ namespace FunkyTrinity
 					 Bot.Combat.lastChangedZigZag=DateTime.Now;
 				}
 
-				private bool HasMantraBuff()
-				{
-					if (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfConviction))
-					{
-						 return Bot.Class.HasBuff(SNOPower.Monk_MantraOfConviction);
-					}
-					else if (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfEvasion))
-					{
-						 return Bot.Class.HasBuff(SNOPower.Monk_MantraOfEvasion);
-					}
-					else if (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfHealing))
-					{
-						 return Bot.Class.HasBuff(SNOPower.Monk_MantraOfHealing);
-					}
-					else if (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_MantraOfRetribution))
-					{
-						 return Bot.Class.HasBuff(SNOPower.Monk_MantraOfRetribution);
-					}
-
-					 //No Mantra on Hotbar.. we return true since we cannot cast it.
-					return true;
-				}
 
 				public override void RecreateAbilities()
 				{
@@ -206,15 +184,6 @@ namespace FunkyTrinity
 					 }
 				}
 
-				
-				private bool IsHobbling
-				{
-					 get
-					 {
-						  Bot.Character.UpdateAnimationState(false);
-						  return Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.Monk_Female_Hobble_Run|SNOAnim.Monk_Male_HTH_Hobble_Run);
-					 }
-				}
 		  }
 	 
 }

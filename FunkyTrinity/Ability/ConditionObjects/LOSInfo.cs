@@ -25,7 +25,6 @@ namespace FunkyTrinity.Ability
 		 public bool? NavCellWalk { get; set; }
 		 public bool? NavCellProjectile { get; set; }
 
-		 private Vector3 LastVectorTested=Vector3.Zero;
 
 		public string DebugString
 		{

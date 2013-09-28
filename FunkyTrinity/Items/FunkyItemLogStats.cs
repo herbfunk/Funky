@@ -131,52 +131,6 @@ namespace FunkyTrinity
             }
         }
 
-        private static void ItemDroppedLog(ACDItem item)
-        {
-				if (Bot.BotStatistics.ProfileStats.CurrentProfile==null)
-                return;
-
-            //No implementation for misc items yet!
-				ItemBaseType thisType = item.ItemBaseType;
-				if (thisType != ItemBaseType.Armor && thisType != ItemBaseType.Jewelry && thisType != ItemBaseType.Weapon)
-                return;
-
-            //Keep track of ILevel and Quality!
-            int ItemLevel = item.Level;
-            int Itemquality = 0;
-            switch (item.ItemQualityLevel)
-            {
-                case ItemQuality.Inferior:
-                case ItemQuality.Invalid:
-                case ItemQuality.Normal:
-                case ItemQuality.Superior:
-                case ItemQuality.Special:
-                    Itemquality = 0;
-                    break;
-
-                case ItemQuality.Magic1:
-                case ItemQuality.Magic2:
-                case ItemQuality.Magic3:
-                    Itemquality = 1;
-                    break;
-
-                case ItemQuality.Rare4:
-                case ItemQuality.Rare5:
-                case ItemQuality.Rare6:
-                    Itemquality = 2;
-                    break;
-
-                case ItemQuality.Legendary:
-                    Itemquality = 3;
-                    break;
-            }
-
-				if (!Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.droppedItemTotals.ContainsKey(ItemLevel))
-					 Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.droppedItemTotals.Add(ItemLevel, new int[] { 0, 0, 0, 0 });
-
-				Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.droppedItemTotals[ItemLevel][Itemquality]++;
-        }
-
 
         internal static string ReturnLogOutputString()
         {

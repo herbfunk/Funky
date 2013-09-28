@@ -126,46 +126,13 @@ namespace FunkyTrinity
 		  private CheckBox CBAttemptFleeingBehavior;
 		  private Slider sliderFleeMonsterDistance, sliderFleeHealthPercent;
 		  private TextBox TBFleemonsterDistance, TBFleeMinimumHealth;
-		  private void UpdateFleeingValues()
-		  {
-				CBAttemptFleeingBehavior.IsChecked=!Bot.SettingsFunky.Fleeing.EnableFleeingBehavior;
 
-				//bool enabled=Bot.SettingsFunky.Fleeing.EnableFleeingBehavior;
-				//spFleeingOptions.IsEnabled=enabled;
-
-				sliderFleeMonsterDistance.Value=Bot.SettingsFunky.Fleeing.FleeMaxMonsterDistance;
-				sliderFleeHealthPercent.Value=Bot.SettingsFunky.Fleeing.FleeBotMinimumHealthPercent;
-				TBFleemonsterDistance.Text=Bot.SettingsFunky.Fleeing.FleeMaxMonsterDistance.ToString();
-				TBFleeMinimumHealth.Text=Bot.SettingsFunky.Fleeing.FleeBotMinimumHealthPercent.ToString();
-
-				spFleeingOptions.InvalidateVisual();
-
-		  }
 
 
 		  private CheckBox CBGroupingBehavior;
 		  private Slider sliderGroupingMinimumUnitDistance, sliderGroupingMaximumDistance, sliderGroupingMinimumUnits, sliderGroupingMinimumCluster;
 		 
-		  private void UpdateGroupingValues()
-		  {
-				CBGroupingBehavior.IsChecked=Bot.SettingsFunky.Grouping.AttemptGroupingMovements;
-
-				bool enabled=Bot.SettingsFunky.Grouping.AttemptGroupingMovements;
-				spGroupingOptions.IsEnabled=enabled;
-				spGroupingOptions.UpdateLayout();
-
-				sliderGroupingMaximumDistance.Value=Bot.SettingsFunky.Grouping.GroupingMaximumDistanceAllowed;
-				sliderGroupingMinimumUnitDistance.Value=Bot.SettingsFunky.Grouping.GroupingMinimumUnitDistance;
-				sliderGroupingMinimumUnits.Value=Bot.SettingsFunky.Grouping.GroupingMinimumUnitsInCluster;
-				sliderGroupingMinimumCluster.Value=Bot.SettingsFunky.Grouping.GroupingMinimumClusterCount;
-
-				TBGroupingMinUnitDistance.Text=Bot.SettingsFunky.Grouping.GroupingMinimumUnitDistance.ToString();
-				TBGroupingMaxDistance.Text=Bot.SettingsFunky.Grouping.GroupingMaximumDistanceAllowed.ToString();
-				TBGroupingMinimumClusterCount.Text=Bot.SettingsFunky.Grouping.GroupingMinimumClusterCount.ToString();
-				TBGroupingMinimumUnitsInCluster.Text=Bot.SettingsFunky.Grouping.GroupingMinimumUnitsInCluster.ToString();
-
-				
-		  }
+	
 
 
 		  internal void InitCombatControls()

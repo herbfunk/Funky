@@ -630,7 +630,6 @@ namespace FunkyTrinity.Movement
 				#region Grouping
 				internal bool groupRunningBehavior=false;
 				internal bool groupReturningToOrgin=false;
-				internal UnitCluster groupingCurrentCluster=null;
 				internal CacheUnit groupingCurrentUnit=null;
 				internal CacheUnit groupingOrginUnit=null;
 				internal DateTime groupingSuspendedDate=DateTime.MinValue;
@@ -640,7 +639,6 @@ namespace FunkyTrinity.Movement
 					 Bot.NavigationCache.groupRunningBehavior=false;
 					 Bot.NavigationCache.groupReturningToOrgin=false;
 					 Bot.NavigationCache.groupingCurrentUnit=null;
-					 groupingCurrentCluster=null;
 				}
 				#endregion
 
@@ -700,15 +698,6 @@ namespace FunkyTrinity.Movement
 				private IndexedList<Vector3> CachedPathFinderCurrentPath=new IndexedList<Vector3>();
 				private IndexedList<Vector3> CurrentPathFinderPath=new IndexedList<Vector3>();
 
-				internal void ResetPathing()
-				{
-					 if (CachedPathFinderCurrentPath.Count>0)
-						  NP.CurrentPath=new IndexedList<Vector3>(CachedPathFinderCurrentPath.ToArray());
-
-
-					 CachedPathFinderCurrentPath.Clear();
-					 CurrentPathFinderPath.Clear();
-				}
 				public IndexedList<Vector3> MoveToPathToLocation(Vector3 Destination)
 				{
 					 if (CurrentPathFinderPath.Count==0)

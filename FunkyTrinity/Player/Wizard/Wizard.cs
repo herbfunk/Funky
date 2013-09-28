@@ -84,8 +84,6 @@ namespace FunkyTrinity
 					 get { return new WeaponRangedWand(); }
 				}
 
-				private bool HasSignatureAbility=false;
-
 				public override void GenerateNewZigZagPath()
 				{
 					 Vector3 loc=Vector3.Zero;
@@ -111,18 +109,7 @@ namespace FunkyTrinity
 					 }
 				}
 
-				private bool MissingBuffs()
-				{
-					 HashSet<SNOPower> abilities_=this.HasBuff(SNOPower.Wizard_Archon)?this.CachedPowers:this.HotbarPowers;
 
-					 if ((abilities_.Contains(SNOPower.Wizard_EnergyArmor)&&!this.HasBuff(SNOPower.Wizard_EnergyArmor))||(abilities_.Contains(SNOPower.Wizard_IceArmor)&&!this.HasBuff(SNOPower.Wizard_IceArmor))||(abilities_.Contains(SNOPower.Wizard_StormArmor)&&!this.HasBuff(SNOPower.Wizard_StormArmor)))
-						  return true;
-
-					 if (abilities_.Contains(SNOPower.Wizard_MagicWeapon)&&!this.HasBuff(SNOPower.Wizard_MagicWeapon))
-						  return true;
-
-					 return false;
-				}
 				public override void RecreateAbilities()
 				{
 					 Abilities=new Dictionary<SNOPower, ability>();

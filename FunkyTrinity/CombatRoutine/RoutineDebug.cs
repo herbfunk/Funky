@@ -269,34 +269,6 @@ namespace GilesBlankCombatRoutine
 				iType=DumpUnitsAttributes(units, iType);
 		  }
 
-		  static void lblDebug_DumpObjects_Click(object sender, EventArgs e)
-		  {
-				if (!ZetaDia.IsInGame)
-					 return;
-
-
-				if (Zeta.CommonBot.BotMain.IsRunning)
-				{
-					 Logging.Write("Stop the bot before dumping!");
-					 return;
-				}
-
-
-				int iType=-1;
-				if (!ZetaDia.Actors.RActorList.Any()&&!ZetaDia.Actors.ACDList.Any())
-					 ZetaDia.Actors.Update();
-
-				var units=ZetaDia.Actors.GetActorsOfType<Zeta.Internals.Actors.DiaObject>(true, false)
-					  .Where(o => o.IsValid&&!o.IsEnvironmentRActor);
-				/*
-				var units = ZetaDia.Actors.GetActorsOfType<DiaGizmo>(false, false)
-					  .Where(o => o.IsValid && o.ActorSNO > 0)
-					  .OrderBy(o => o.Distance);
-				 */
-
-				iType=DumpObjects(units, iType);
-		  }
-
 
 		  private static int DumpUnits(IEnumerable<DiaUnit> units, int iType)
 		  {
@@ -344,41 +316,6 @@ namespace GilesBlankCombatRoutine
 					 }
 					 Logging.Write("[Debug] Unit ActorSNO: {0} Name: {1} Type: {2} Position: {3} ({4}) has Attributes: {5}\n",
 					  o.ActorSNO, o.Name, o.ActorInfo.GizmoType, getProfilePosition(o.Position), o.Position.ToString(), attributesFound);
-				}
-				return iType;
-		  }
-		  private static int DumpObjects(IEnumerable<DiaObject> objects, int iType)
-		  {
-				Logging.Write("[Debug] Objects found: {0}", objects.Count());
-				foreach (DiaObject o in objects)
-				{
-					 if (!o.IsValid) continue;
-
-					 //string attributesFound="";
-
-					 /*
-					 foreach (ActorAttributeType aType in Enum.GetValues(typeof(ActorAttributeType)))
-					 {
-						  iType=GetAttribute(iType, o, aType);
-						  if (iType>0)
-						  {
-								attributesFound+=aType.ToString()+"="+iType.ToString()+", ";
-						  }
-					 }
-					 */
-
-					 string movement="";
-					 if (o.Movement!=null)
-					 {
-						  try
-						  {
-								movement+="Rotation: "+o.Movement.Rotation.ToString();
-								movement+="["+o.Movement.RotationDegrees.ToString()+"°] -- Movement State: ";
-								movement+=o.Movement.MovementState.ToString();
-						  } catch{}
-					 }
-					 Logging.Write("[Debug] Object SNO: {0} Name: {1} Type: {2}  Position: {3} "+movement,
-						  o.ActorSNO.ToString(), o.Name, o.ActorType.ToString(), o.Position.ToString());
 				}
 				return iType;
 		  }

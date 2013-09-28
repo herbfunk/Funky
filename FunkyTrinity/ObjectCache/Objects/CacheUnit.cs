@@ -300,12 +300,6 @@ namespace FunkyTrinity.Cache
 					 if (this==Bot.Combat.LastCachedTarget)
 					 {
 						  this.UpdateCurrentHitPoints();
-						  if (this.LastCurrentHealth_!=this.CurrentHealthPct.Value)
-						  {
-								 Bot.Target.LastHealthChange=DateTime.Now;
-								 Bot.Target.LastHealthDropPct=(this.LastCurrentHealth-this.CurrentHealthPct.Value);
-						  }
-
 						  return true;
 					 }
 

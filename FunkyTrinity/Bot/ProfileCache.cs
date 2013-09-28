@@ -26,10 +26,7 @@ namespace FunkyTrinity.Cache
 		  internal ProfileBehavior CurrentProfileBehavior
 		  {
 				get { return currentProfileBehavior; }
-				set { LastProfileBehavior=currentProfileBehavior; currentProfileBehavior=value; LastProfileBehaviorChanged=DateTime.Now; }
 		  }
-		  internal ProfileBehavior LastProfileBehavior;
-		  internal DateTime LastProfileBehaviorChanged { get; set; }
 
 		  private DateTime LastProfileBehaviorCheck=DateTime.Today;
 		  ///<summary>
@@ -120,7 +117,6 @@ namespace FunkyTrinity.Cache
 		  }
 
 		 internal bool IsRunningOOCBehavior { get; set; }
-		 internal bool IsRunningInteractiveBehavior { get; set; }
 	 }
 }
 

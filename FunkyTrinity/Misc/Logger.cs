@@ -172,17 +172,7 @@ namespace FunkyTrinity
 		  internal static string sTrinityPluginPath=sDemonBuddyPath+@"\Plugins\FunkyTrinity\";
 		  internal static string sTrinityLogPath=sDemonBuddyPath+@"\Plugins\FunkyTrinity\Log\";
 		  internal static string SettingsDefaultPath=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults");
-		  internal static string sTrinityLogScreenShotPath
-		  {
-				get
-				{
-					 string path=Path.Combine(sTrinityLogPath, @"ScreenShots\");
-					 if (!System.IO.Directory.Exists(path))
-						  System.IO.Directory.CreateDirectory(path);
 
-					 return path;
-				}
-		  }
 
 		  internal static string sFunkySettingsPath
 		  {

@@ -42,7 +42,6 @@ namespace FunkyTrinity.Cache
 						  bWaitingForReserveEnergy=false;
 						  iMyDynamicID=0;
 						  iMyLevel=1;
-						  iMyParagonLevel=0;
 						  iSceneID=-1;
 						  iCurrentWorldID=-1;
 						  BackPack=new Backpack();
@@ -51,8 +50,6 @@ namespace FunkyTrinity.Cache
 						  coinage=0;
 						  fCharacterRadius=0f;
 						  iTeamID=0;
-						  ShouldBackTrack=false;
-						  BackTrackVector=Vector3.Zero;
 					 }
 
 					 private DateTime lastUpdatedPlayer { get; set; }
@@ -105,9 +102,6 @@ namespace FunkyTrinity.Cache
 					 public int iCurrentWorldID { get; set; }
 					 //public GameDifficulty iCurrentGameDifficulty { get; set; }
 
-					internal bool ShouldBackTrack { get; set; }
-					 internal Vector3 BackTrackVector { get; set; }
-
 					 //Returns Live Data
 					 private DateTime lastPositionUpdate=DateTime.Today;
 					 private Vector3 lastPosition=Vector3.Zero;
@@ -159,7 +153,6 @@ namespace FunkyTrinity.Cache
 					 internal bool bWaitingForReserveEnergy { get; set; }
 					 internal int iMyDynamicID { get; set; }
 					 internal int iMyLevel { get; set; }
-					 internal int iMyParagonLevel { get; set; }
 					 internal int iTotalPotions { get; set; }
 					 internal int iSceneID { get; set; }
 					 internal Pets PetData { get; set; }
@@ -243,7 +236,6 @@ namespace FunkyTrinity.Cache
 
 										  //update level if not 60 else update paragonlevel
 										  if (iMyLevel<60) iMyLevel=me.Level;
-										  else iMyParagonLevel=me.ParagonLevel;
 
 										  iMyDynamicID=me.CommonData.DynamicId;
 										  FreeBackpackSlots=me.Inventory.NumFreeBackpackSlots;

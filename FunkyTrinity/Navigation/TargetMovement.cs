@@ -23,16 +23,12 @@ namespace FunkyTrinity.Movement
 				internal static int NonMovementCounter=0;
 
 
-				internal static Zeta.Navigation.MoveResult LastMoveResult=Zeta.Navigation.MoveResult.Failed;
-				internal static bool UpdatedNavigator=false;
-				internal static Vector3 LastNavigatorMoveTo=Vector3.Zero;
 
 				internal static DateTime LastMovementDuringCombat=DateTime.Today;
 				internal static DateTime LastMovementAttempted=DateTime.Today;
 				internal static DateTime LastMovementCommand=DateTime.Today;
 
 				internal static bool IsAlreadyMoving=false;
-				internal static float LastDistanceFromTarget=-1f;
 
 				internal static Vector3 LastTargetLocation=Vector3.Zero;
 				internal static Vector3 CurrentTargetLocation=Vector3.Zero;
@@ -260,9 +256,6 @@ namespace FunkyTrinity.Movement
 					 }
 					 #endregion
 
-					 // Update the last distance stored
-					 LastDistanceFromTarget=obj.DistanceFromTarget;
-
 					 // See if we want to ACTUALLY move, or are just waiting for the last move command...
 					 if (!bForceNewMovement&&IsAlreadyMoving&&CurrentTargetLocation==LastTargetLocation&&DateTime.Now.Subtract(LastMovementCommand).TotalMilliseconds<=100)
 					 {
@@ -408,7 +401,6 @@ namespace FunkyTrinity.Movement
 					 LastMovementCommand=DateTime.Now;
 
 					 UseTargetMovement(obj, currentDistance, bForceNewMovement);
-					 Bot.Target.LastHealthChange=DateTime.Now;
 					 return RunStatus.Running;
 				}
 
@@ -457,14 +449,10 @@ namespace FunkyTrinity.Movement
 				{
 					 BlockedMovementCounter=0;
 					 NonMovementCounter=0;
-					 LastNavigatorMoveTo=Vector3.Zero;
-					 LastMoveResult=Zeta.Navigation.MoveResult.Failed;
-
 					 NewTargetResetVars();
 				}
 				internal static void NewTargetResetVars()
 				{
-					 LastDistanceFromTarget=-1f;
 					 IsAlreadyMoving=false;
 					 LastMovementCommand=DateTime.Today;
 				}
