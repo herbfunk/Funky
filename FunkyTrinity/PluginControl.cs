@@ -17,6 +17,7 @@ namespace FunkyTrinity
 		  private static bool initFunkyButton=false;
 		  private static bool initTreeHooks=false;
 		  private static bool bMaintainStatTracking=false;
+		  internal static Settings.SettingPlugin Settings=new Settings.SettingPlugin();
 
 		  internal static void Log(string message, bool bIsDiagnostic=false)
 		  {

@@ -78,6 +78,9 @@
     <Compile Include="Character\Pets.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Config\Settings\SettingPlugin.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Player\Barbarian\Abilities\AncientSpear.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

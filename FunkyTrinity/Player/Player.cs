@@ -155,7 +155,7 @@ namespace FunkyTrinity
 				///<summary>
 				///Sets criteria based on object given.
 				///</summary>
-				public virtual ability AbilitySelector(CacheUnit obj)
+				public virtual ability AbilitySelector(CacheUnit obj, bool IgnoreOutOfRange=false)
 				{
 					 //Reset default attack can use
 					 this.CanUseDefaultAttack=!this.Abilities.ContainsKey(this.DefaultAttack.Power)?false:true;
@@ -168,12 +168,12 @@ namespace FunkyTrinity
 						  criterias=ConditionCriteraTypes.SingleTarget;
 					 }
 
-					 return this.AbilitySelector(criterias);
+					 return this.AbilitySelector(criterias, IgnoreOutOfRange);
 				}
 				///<summary>
 				///Selects first ability that is successful in precast and combat testing.
 				///</summary>
-				public virtual ability AbilitySelector(ConditionCriteraTypes criteria=ConditionCriteraTypes.All)
+				public virtual ability AbilitySelector(ConditionCriteraTypes criteria=ConditionCriteraTypes.All, bool IgnoreOutOfRange=false)
 				{
 					 ability returnAbility=this.DefaultAttack;
 					 foreach (var item in this.SortedAbilities)
@@ -185,6 +185,13 @@ namespace FunkyTrinity
 						  if (!item.CheckCombatConditionMethod(criteria))
 						  {
 								continue;
+						  }
+
+						  //Check if we can execute or if it requires movement
+						  if (IgnoreOutOfRange)
+						  {
+								if (item.DestinationVector!=Bot.Character.Position)
+									 continue;
 						  }
 
 						  returnAbility=item;

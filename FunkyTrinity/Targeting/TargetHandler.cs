@@ -384,19 +384,6 @@ namespace FunkyTrinity.Targeting
 				{
 					 //Update CurrentUnitTarget Variable.
 					 if (CurrentUnitTarget==null) CurrentUnitTarget=(CacheUnit)CurrentTarget;
-
-					 
-
-					 //double HealthChangeMS=DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.LastHealthChange).TotalMilliseconds;
-
-					 //if (HealthChangeMS>3000&&!CurrentTarget.ObjectIsSpecial||HealthChangeMS>6000)
-					 //{
-					 //	 Logger.Write(LogLevel.Target, "Health change has not occured within 3 seconds for unit {0}", CurrentTarget.InternalName);
-					 //	 Bot.Combat.bForceTargetUpdate=true;
-					 //	 CurrentState=RunStatus.Running;
-					 //	 CurrentTarget.BlacklistLoops=10;
-					 //	 return false;
-					 //}
 				}
 
 

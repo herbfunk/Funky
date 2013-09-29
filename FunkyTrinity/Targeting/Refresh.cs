@@ -95,12 +95,11 @@ namespace FunkyTrinity.Targeting
 
 		  // Used to force-refresh dia objects at least once every XX milliseconds 
 		  internal DateTime lastRefreshedObjects=DateTime.Today;
-		  private int RefreshRateMilliseconds=150;
 		  public bool ShouldRefreshObjectList
 		  {
 				get
 				{
-					 return DateTime.Now.Subtract(lastRefreshedObjects).TotalMilliseconds>=RefreshRateMilliseconds;
+					 return DateTime.Now.Subtract(lastRefreshedObjects).TotalMilliseconds>=Funky.Settings.CacheObjectRefreshRate;
 				}
 		  }
 		  ///<summary>
@@ -244,7 +243,7 @@ namespace FunkyTrinity.Targeting
 
 
 				//Check if we should trim our SNO cache..
-				if (DateTime.Now.Subtract(ObjectCache.cacheSnoCollection.lastTrimming).TotalMinutes>3)
+				if (DateTime.Now.Subtract(ObjectCache.cacheSnoCollection.lastTrimming).TotalMilliseconds>Funky.Settings.UnusedSNORemovalRate)
 					 ObjectCache.cacheSnoCollection.TrimOldUnusedEntries();
 
 

@@ -23,7 +23,7 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			WaitVars = new WaitLoops(0, 0, true);
 			Cost = 49;
 			UseageType=AbilityUseage.Anywhere;
-			//IsNavigationSpecial = true;
+			IsSpecialAbility=true;
 			Priority = AbilityPriority.High;
 			PreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckCanCast);
 

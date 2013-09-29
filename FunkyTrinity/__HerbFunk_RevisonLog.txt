@@ -1,4 +1,7 @@
 ﻿// herbfunk revisions
+v2.5.0.0 (Simplified)
+Removed Features: OOC Idenify, Coffee Break, Bot Stop, Low Level Logic, 
+
 v2.4.1.0
 Avoidance:
 -Modified the weighting comparison

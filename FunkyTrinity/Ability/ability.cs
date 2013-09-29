@@ -334,10 +334,9 @@ namespace FunkyTrinity.Ability
 					 else
 						  DestinationV=TargetPosition_;
 
-
+					 float DistanceFromTarget=Vector3.Distance(Bot.Character.Position, DestinationV);
 					 if (this.IsRanged)
 					 {
-						  float DistanceFromTarget=Vector3.Distance(Bot.Character.Position, DestinationV);
 						  if (this.MinimumRange>DistanceFromTarget)
 						  {
 								float RangeNeeded=Math.Max(0f, (this.MinimumRange-DistanceFromTarget));
@@ -359,7 +358,13 @@ namespace FunkyTrinity.Ability
 								return Bot.Character.Position;
 					 }
 					 else
+					 {
+						  if (DistanceFromTarget<=this.MinimumRange)
+								return Bot.Character.Position;
+
 						  return Bot.Target.CurrentTarget.BotMeleeVector;
+					 }
+						 
 				}
 		  }
 

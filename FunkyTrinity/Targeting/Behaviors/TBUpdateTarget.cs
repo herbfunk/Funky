@@ -197,56 +197,65 @@ namespace FunkyTrinity.Targeting.Behaviors
 							  Bot.Target.CurrentUnitTarget=(CacheUnit)CurrentTarget;
 
 							  //Generate next ability..
-							  ability nextAbility=FunkyTrinity.Bot.Class.AbilitySelector(Bot.Target.CurrentUnitTarget);
+							  ability nextAbility=FunkyTrinity.Bot.Class.AbilitySelector(Bot.Target.CurrentUnitTarget, true);
 
 							  //reset unit target
 							  Bot.Target.CurrentUnitTarget=null;
 
-							  if (!thisobj.WithinInteractionRange())
+							  if (nextAbility==Bot.Class.DefaultAttack&&!Bot.Class.CanUseDefaultAttack)
 							  {
-									if (nextAbility.IsRanged)
-									{
-										 Vector3 destinationV3=nextAbility.DestinationVector;
-										 //Check if the estimated destination will also be inside avoidance zone..
-										 if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(destinationV3)
-											 ||ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(destinationV3))
-										 {
-											  //Only wait if the object is special and we are not avoiding..
-											  if (thisobj.ObjectIsSpecial)
-											  {
-													if (!FunkyTrinity.Bot.Combat.RequiresAvoidance)
-													{
-														 FunkyTrinity.Bot.Combat.bStayPutDuringAvoidance=true;
-														 resetTarget=true;
-													}
-													else if (!nextAbility.IsRanged&&nextAbility.Range>0)
-													{
-														 //Non-Ranged ability.. act like melee..
-														 //Try to find a spot
-														 ObjectCache.Objects.objectsIgnoredDueToAvoidance.Add(thisobj);
-													}
-											  }
-											  else
-													resetTarget=true;
-										 }
-
-									}
+									if (thisobj.ObjectIsSpecial)
+										 ObjectCache.Objects.objectsIgnoredDueToAvoidance.Add(thisobj);
 									else
-									{
-										 Vector3 TestPosition=thisobj.BotMeleeVector;
-										 if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
-											  resetTarget=true;
-										 else if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition)) //intersecting avoidances..
-										 {
-											  if (thisobj.ObjectIsSpecial)
-											  {//Only add this to the avoided list when its not currently inside avoidance area
-													ObjectCache.Objects.objectsIgnoredDueToAvoidance.Add(thisobj);
-											  }
-											  else
-													resetTarget=true;
-										 }
-									}
+										 resetTarget=true;
 							  }
+									
+
+							  //if (!thisobj.WithinInteractionRange())
+							  //{
+							  //	 if (nextAbility.IsRanged)
+							  //	 {
+							  //		  Vector3 destinationV3=nextAbility.DestinationVector;
+							  //		  //Check if the estimated destination will also be inside avoidance zone..
+							  //		  if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(destinationV3)
+							  //			  ||ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(destinationV3))
+							  //		  {
+							  //				//Only wait if the object is special and we are not avoiding..
+							  //				if (thisobj.ObjectIsSpecial)
+							  //				{
+							  //					 if (!FunkyTrinity.Bot.Combat.RequiresAvoidance)
+							  //					 {
+							  //						  FunkyTrinity.Bot.Combat.bStayPutDuringAvoidance=true;
+							  //						  resetTarget=true;
+							  //					 }
+							  //					 else if (!nextAbility.IsRanged&&nextAbility.Range>0)
+							  //					 {
+							  //						  //Non-Ranged ability.. act like melee..
+							  //						  //Try to find a spot
+							  //						  ObjectCache.Objects.objectsIgnoredDueToAvoidance.Add(thisobj);
+							  //					 }
+							  //				}
+							  //				else
+							  //					 resetTarget=true;
+							  //		  }
+
+							  //	 }
+							  //	 else
+							  //	 {
+							  //		  Vector3 TestPosition=thisobj.BotMeleeVector;
+							  //		  if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
+							  //				resetTarget=true;
+							  //		  else if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition)) //intersecting avoidances..
+							  //		  {
+							  //				if (thisobj.ObjectIsSpecial)
+							  //				{//Only add this to the avoided list when its not currently inside avoidance area
+							  //					 ObjectCache.Objects.objectsIgnoredDueToAvoidance.Add(thisobj);
+							  //				}
+							  //				else
+							  //					 resetTarget=true;
+							  //		  }
+							  //	 }
+							  //}
 						 }
 
 						 //Avoidance Attempt to find a location where we can attack!
@@ -261,7 +270,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 							  if (!FunkyTrinity.Bot.NavigationCache.BotIsNavigationallyBlocked)
 							  {
 									Vector3 SafeLOSMovement;
-									if (thisobj.GPRect.TryFindSafeSpot(FunkyTrinity.Bot.Character.Position, out SafeLOSMovement, Vector3.Zero, FunkyTrinity.Bot.Character.ShouldFlee, true))
+									if (thisobj.GPRect.TryFindSafeSpot(FunkyTrinity.Bot.Character.Position, out SafeLOSMovement, thisobj.Position, FunkyTrinity.Bot.Character.ShouldFlee, true))
 									{
 										 CurrentTarget=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
 										 //Reset Avoidance Timer so we don't trigger it while moving towards the target!

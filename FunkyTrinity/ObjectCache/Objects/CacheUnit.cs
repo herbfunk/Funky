@@ -619,9 +619,9 @@ namespace FunkyTrinity.Cache
 					 }
 
 					 //Range Class Ignore (Avoid/Kite last target!)
-					 if ((Bot.Combat.FleeingLastTarget&&Bot.Combat.FleeTriggeringUnits.Count>0&&Bot.Combat.FleeTriggeringUnits.Contains(this))||
-						  (Bot.Combat.AvoidanceLastTarget&&Bot.Combat.TriggeringAvoidances.Count>0))
-						  this.Weight=1;
+					 //if ((Bot.Combat.FleeingLastTarget&&Bot.Combat.FleeTriggeringUnits.Count>0&&Bot.Combat.FleeTriggeringUnits.Contains(this))||
+					 //	 (Bot.Combat.AvoidanceLastTarget&&Bot.Combat.TriggeringAvoidances.Count>0))
+					 //	 this.Weight=1;
 
 
 					 if (this.Weight!=1)
@@ -1377,6 +1377,8 @@ namespace FunkyTrinity.Cache
 						  //Check health changes -- only when single target or cluster with targeting is used.
 						  if ((Bot.Class.PowerPrime.LastConditionPassed.HasFlag(ConditionCriteraTypes.SingleTarget)||
 								Bot.Class.PowerPrime.LastConditionPassed.HasFlag(ConditionCriteraTypes.Cluster)&&Bot.Class.PowerPrime.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTarget|AbilityExecuteFlags.ClusterTargetNearest))&&
+								Bot.Target.LastCachedTarget.Equals(Bot.Target.CurrentTarget)&&
+								Bot.Class.LastUsedAbility.TargetRAGUID==Bot.Target.CurrentTarget.AcdGuid.Value&&
 								DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalMilliseconds>3000)
 						  {
 								double LastHealthChangedMS=DateTime.Now.Subtract(this.LastHealthChange).TotalMilliseconds;

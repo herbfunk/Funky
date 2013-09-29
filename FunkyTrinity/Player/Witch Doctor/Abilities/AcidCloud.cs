@@ -25,7 +25,7 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
 			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy |
-			                     AbilityPreCastFlags.CheckCanCast | AbilityPreCastFlags.CheckRecastTimer);
+			                     AbilityPreCastFlags.CheckCanCast);
 			 
 			 FcriteriaPreCast = new Func<bool>(()=>{return !Bot.Class.HasDebuff(SNOPower.Succubus_BloodStar);});
 
