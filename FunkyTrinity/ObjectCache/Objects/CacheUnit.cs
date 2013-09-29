@@ -1409,10 +1409,8 @@ namespace FunkyTrinity.Cache
 						  }
 
 						  //Check health changes -- only when single target or cluster with targeting is used.
-						  if ((Bot.Class.PowerPrime.LastConditionPassed.HasFlag(ConditionCriteraTypes.SingleTarget)||
-								Bot.Class.PowerPrime.LastConditionPassed.HasFlag(ConditionCriteraTypes.Cluster)&&Bot.Class.PowerPrime.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTarget|AbilityExecuteFlags.ClusterTargetNearest))&&
-								Bot.Target.LastCachedTarget.Equals(Bot.Target.CurrentTarget)&&
-								Bot.Class.LastUsedAbility.TargetRAGUID==Bot.Target.CurrentTarget.AcdGuid.Value&&
+						  if (Bot.Target.LastCachedTarget.Equals(this)&&
+								Bot.Class.LastUsedAbility.LastUsedMilliseconds<1000&&
 								DateTime.Now.Subtract(Bot.Target.LastChangeOfTarget).TotalMilliseconds>3000)
 						  {
 								double LastHealthChangedMS=DateTime.Now.Subtract(this.LastHealthChange).TotalMilliseconds;

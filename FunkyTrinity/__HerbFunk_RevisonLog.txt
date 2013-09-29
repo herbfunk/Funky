@@ -1,21 +1,33 @@
 ﻿// herbfunk revisions
 v2.5.0.0 (Simplified)
 
-Plugin:
--Removed the following features: OOC ID Items, Coffee Break, Bot Stop and Low Level Logic.
--Removed a lot of unused code.
-
 Settings:
 -Added LowLevel default settings.
 -Disabled fleeing for InfernoRanged default setting.
 
+Ability:
+-Renamed ability to Ability, Namespace Ability to AbilityFunky.
+-Added FCombatMovement and FOutOfCombatMovement Criterias, updated abilities that used them, and replaced old "Special Movement" code in Target Movement and Player Mover.
 
 Avoidance:
 -Modified the weighting of units for Range Classes so that it will use abilities that can be used at current position.
+-Avoidance Requirement is now ignored when bot is "moving".
+
+Barb:
+-Battlerage now checks precast CanCast. Added check of bot HP when fury dumping (>50%)
+
+Monk:
+-Removed UI Setting for Inna Set Bonus. Now checked internally.
 
 Witch Doctor:
 -Spirit walk is now "Special Ability" (meaning it will force a energy wait on other abilities if unable to cast)
 -Removed Check of Recast Timer for Acid Cloud. (Now spams it)
+
+Plugin:
+-Removed the following features: OOC ID Items, Coffee Break, Bot Stop and Low Level Logic.
+-Removed a lot of unused code.
+-Moved target related properties from Combat into Target.
+
 
 
 v2.4.1.0

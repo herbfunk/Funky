@@ -298,7 +298,7 @@ namespace FunkyTrinity
 
 
 				///<summary>
-				///
+				///Searches for any abilities that have set the OutOfCombat Movement Criteria.
 				///</summary>
 				internal Vector3 FindOutOfCombatMovementPower(out Ability MovementAbility, Vector3 Destination)
 				{
@@ -319,7 +319,7 @@ namespace FunkyTrinity
 					 return Vector3.Zero;
 				}
 				///<summary>
-				///
+				///Searches for any abilities that have set the Combat Movement Criteria.
 				///</summary>
 				internal Vector3 FindCombatMovementPower(out Ability MovementAbility,Vector3 Destination)
 				{

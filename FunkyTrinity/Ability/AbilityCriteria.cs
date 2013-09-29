@@ -43,9 +43,13 @@ namespace FunkyTrinity.AbilityFunky
 			internal Func<bool> FElitesInRangeConditions;
 			internal Func<bool> FSingleTargetUnitCriteria;
 
-		  //Movement
+			///<summary>
+			///Used during Player Movement
+			///</summary>
 			internal Func<Vector3, Vector3> FOutOfCombatMovement;
-		  //TODO:: Add CombatMovement Func
+			///<summary>
+			///Used during Target Movement
+			///</summary>
 			internal Func<Vector3, Vector3> FCombatMovement;
 
 			///<summary>
