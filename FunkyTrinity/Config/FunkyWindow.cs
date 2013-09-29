@@ -355,11 +355,11 @@ namespace FunkyTrinity
 						btnSNO_Debug.Click+=DebugButtonClicked;
 						Button btnAbility_Debug=new Button
 						{
-							 Content="ability Cache",
+							 Content="Ability Cache",
 							 FontSize=10,
 							 Width=80,
 							 Height=25,
-							 Name="ability",
+							 Name="Ability",
 						};
 						btnAbility_Debug.Click+=DebugButtonClicked;
 						Button btnMGP_Debug=new Button

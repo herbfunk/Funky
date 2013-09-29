@@ -4,9 +4,9 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities.Barb
+namespace FunkyTrinity.AbilityFunky.Abilities.Barb
 {
-	public class Cleave : ability, IAbility
+	public class Cleave : Ability, IAbility
 	{
 		public Cleave() : base()
 		{
@@ -46,7 +46,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			 }
 			 else
 			 {
-				  ability p=(ability)obj;
+				  Ability p=(Ability)obj;
 				  return this.Power==p.Power;
 			 }
 		}

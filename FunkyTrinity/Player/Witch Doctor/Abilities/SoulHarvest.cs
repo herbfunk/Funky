@@ -5,9 +5,9 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities.WitchDoctor
+namespace FunkyTrinity.AbilityFunky.Abilities.WitchDoctor
 {
-	public class SoulHarvest : ability, IAbility
+	public class SoulHarvest : Ability, IAbility
 	{
 		public SoulHarvest() : base()
 		{
@@ -64,7 +64,7 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			}
 			else
 			{
-				ability p = (ability) obj;
+				Ability p = (Ability) obj;
 				return this.Power == p.Power;
 			}
 		}

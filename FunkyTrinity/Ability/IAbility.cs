@@ -1,6 +1,6 @@
 ﻿using Zeta.Internals.Actors;
 using System;
-namespace FunkyTrinity.Ability
+namespace FunkyTrinity.AbilityFunky
 {
 	 public interface IAbility
 	 {

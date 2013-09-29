@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using FunkyTrinity.Ability;
+using FunkyTrinity.AbilityFunky;
 using FunkyTrinity.Cache;
 
 namespace FunkyTrinity.Movement.Clustering

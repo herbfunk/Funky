@@ -1,6 +1,6 @@
 ﻿using FunkyTrinity.Movement;
 using FunkyTrinity.Movement.Clustering;
-namespace FunkyTrinity.Ability
+namespace FunkyTrinity.AbilityFunky
 {
 	 public class ClusterConditions
 	 {

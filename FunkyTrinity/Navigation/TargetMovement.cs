@@ -6,7 +6,7 @@ using Zeta.Common;
 using Zeta.Internals.SNO;
 using Zeta.Internals.Actors;
 
-using FunkyTrinity.Ability;
+using FunkyTrinity.AbilityFunky;
 using FunkyTrinity.Cache;
 using Zeta.Navigation;
 using FunkyTrinity.Cache.Enums;
@@ -191,20 +191,6 @@ namespace FunkyTrinity.Movement
 												return RunStatus.Running;
 										  }
 
-										  if (obj.targetType.Value==TargetType.Avoidance)
-										  {//Avoidance Movement..
-												Bot.Combat.timeCancelledFleeMove=DateTime.Now;
-												Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
-												Bot.NavigationCache.CurrentGPArea.BlacklistLastSafespot();
-												Bot.UpdateAvoidKiteRates();
-												Bot.Combat.bForceTargetUpdate=true;
-												return RunStatus.Running;
-										  }
-
-
-
-										  break;
-									 default:
 										  if (obj.targetType.Value!=TargetType.Avoidance)
 										  {
 												//Finally try raycasting to see if navigation is possible..
@@ -284,7 +270,7 @@ namespace FunkyTrinity.Movement
 
 						  bool bTooMuchZChange=((Bot.Character.Position.Z-CurrentTargetLocation.Z)>=4f);
 
-						  ability MovementPower;
+						  Ability MovementPower;
 						  Vector3 MovementVector=Bot.Class.FindCombatMovementPower(out MovementPower, obj.Position);
 						  if (MovementVector!=Vector3.Zero)
 						  {

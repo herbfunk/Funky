@@ -6,9 +6,9 @@ using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
-using FunkyTrinity.Ability;
+using FunkyTrinity.AbilityFunky;
 using FunkyTrinity.Cache;
-using FunkyTrinity.Ability.Abilities;
+using FunkyTrinity.AbilityFunky.Abilities;
 
 namespace FunkyTrinity
 {
@@ -21,7 +21,7 @@ namespace FunkyTrinity
 					 : base(a)
 				{
 				}
-				public override ability DefaultAttack
+				public override Ability DefaultAttack
 				{
 					 get { return new WeaponMeleeInsant(); }
 				}
@@ -57,12 +57,12 @@ namespace FunkyTrinity
 
 				public override void RecreateAbilities()
 				{
-					 Abilities=new Dictionary<SNOPower, ability>();
+					 Abilities=new Dictionary<SNOPower, Ability>();
 
-					 //No default rage generation ability.. then we add the Instant Melee ability.
+					 //No default rage generation Ability.. then we add the Instant Melee Ability.
 					 if (!HotbarContainsAPrimaryAbility())
 					 {
-						  ability defaultAbility=this.DefaultAttack;
+						  Ability defaultAbility=this.DefaultAttack;
 						  AbilityLogicConditions.CreateAbilityLogicConditions(ref defaultAbility);
 						  Abilities.Add(defaultAbility.Power, defaultAbility);
 						  RuneIndexCache.Add(defaultAbility.Power, -1);
@@ -72,7 +72,7 @@ namespace FunkyTrinity
 					 //Create the abilities
 					 foreach (var item in HotbarPowers)
 					 {
-						  ability newAbility=this.CreateAbility(item);
+						  Ability newAbility=this.CreateAbility(item);
 						  AbilityLogicConditions.CreateAbilityLogicConditions(ref newAbility);
 						  Abilities.Add(item, newAbility);
 					 }
@@ -86,7 +86,7 @@ namespace FunkyTrinity
 					 base.UpdateLOSConditions();
 				}
 
-				public override ability CreateAbility(SNOPower Power)
+				public override Ability CreateAbility(SNOPower Power)
 				{
 					 BarbarianActiveSkills power=(BarbarianActiveSkills)Enum.ToObject(typeof(BarbarianActiveSkills), (int)Power);
 					
@@ -94,49 +94,49 @@ namespace FunkyTrinity
 					switch (power)
 					{
 						 case BarbarianActiveSkills.Barbarian_AncientSpear:
-								return new Ability.Abilities.Barb.AncientSpear();
+								return new AbilityFunky.Abilities.Barb.AncientSpear();
 						 case BarbarianActiveSkills.Barbarian_Rend:
-							return new Ability.Abilities.Barb.Rend();
+							return new AbilityFunky.Abilities.Barb.Rend();
 						 case BarbarianActiveSkills.Barbarian_Frenzy:
-								return new Ability.Abilities.Barb.Frenzy();
+								return new AbilityFunky.Abilities.Barb.Frenzy();
 						 case BarbarianActiveSkills.Barbarian_Sprint:
-								return new Ability.Abilities.Barb.Sprint();
+								return new AbilityFunky.Abilities.Barb.Sprint();
 						 case BarbarianActiveSkills.Barbarian_BattleRage:
-								return new Ability.Abilities.Barb.Battlerage();
+								return new AbilityFunky.Abilities.Barb.Battlerage();
 						 case BarbarianActiveSkills.Barbarian_ThreateningShout:
-								return new Ability.Abilities.Barb.ThreateningShout();
+								return new AbilityFunky.Abilities.Barb.ThreateningShout();
 						 case BarbarianActiveSkills.Barbarian_Bash:
-								return new Ability.Abilities.Barb.Bash();
+								return new AbilityFunky.Abilities.Barb.Bash();
 						 case BarbarianActiveSkills.Barbarian_GroundStomp:
-								return new Ability.Abilities.Barb.GroundStomp();
+								return new AbilityFunky.Abilities.Barb.GroundStomp();
 						 case BarbarianActiveSkills.Barbarian_IgnorePain:
-								return new Ability.Abilities.Barb.IgnorePain();
+								return new AbilityFunky.Abilities.Barb.IgnorePain();
 						 case BarbarianActiveSkills.Barbarian_WrathOfTheBerserker:
-								return new Ability.Abilities.Barb.WrathOfTheBerserker();
+								return new AbilityFunky.Abilities.Barb.WrathOfTheBerserker();
 						 case BarbarianActiveSkills.Barbarian_HammerOfTheAncients:
-								return new Ability.Abilities.Barb.HammeroftheAncients();
+								return new AbilityFunky.Abilities.Barb.HammeroftheAncients();
 						 case BarbarianActiveSkills.Barbarian_CallOfTheAncients:
-								return new Ability.Abilities.Barb.CalloftheAncients();
+								return new AbilityFunky.Abilities.Barb.CalloftheAncients();
 						 case BarbarianActiveSkills.Barbarian_Cleave:
-								return new Ability.Abilities.Barb.Cleave();
+								return new AbilityFunky.Abilities.Barb.Cleave();
 						 case BarbarianActiveSkills.Barbarian_WarCry:
-								return new Ability.Abilities.Barb.Warcry();
+								return new AbilityFunky.Abilities.Barb.Warcry();
 						 case BarbarianActiveSkills.Barbarian_SeismicSlam:
-								return new Ability.Abilities.Barb.SeismicSlam();
+								return new AbilityFunky.Abilities.Barb.SeismicSlam();
 						 case BarbarianActiveSkills.Barbarian_Leap:
-								return new Ability.Abilities.Barb.Leap();
+								return new AbilityFunky.Abilities.Barb.Leap();
 						 case BarbarianActiveSkills.Barbarian_WeaponThrow:
-								return new Ability.Abilities.Barb.WeaponThrow();
+								return new AbilityFunky.Abilities.Barb.WeaponThrow();
 						 case BarbarianActiveSkills.Barbarian_Whirlwind:
-								return new Ability.Abilities.Barb.Whirlwind();
+								return new AbilityFunky.Abilities.Barb.Whirlwind();
 						 case BarbarianActiveSkills.Barbarian_FuriousCharge:
-								return new Ability.Abilities.Barb.FuriousCharge();
+								return new AbilityFunky.Abilities.Barb.FuriousCharge();
 						 case BarbarianActiveSkills.Barbarian_Earthquake:
-								return new Ability.Abilities.Barb.Earthquake();
+								return new AbilityFunky.Abilities.Barb.Earthquake();
 						 case BarbarianActiveSkills.Barbarian_Revenge:
-								return new Ability.Abilities.Barb.Revenge();
+								return new AbilityFunky.Abilities.Barb.Revenge();
 						 case BarbarianActiveSkills.Barbarian_Overpower:
-								return new Ability.Abilities.Barb.Overpower();
+								return new AbilityFunky.Abilities.Barb.Overpower();
 						 default:
 								return this.DefaultAttack;
 					}

@@ -5,9 +5,9 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities.WitchDoctor
+namespace FunkyTrinity.AbilityFunky.Abilities.WitchDoctor
 {
-	public class SpiritWalk : ability, IAbility
+	public class SpiritWalk : Ability, IAbility
 	{
 		public SpiritWalk() : base()
 		{
@@ -60,7 +60,7 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			}
 			else
 			{
-				ability p = (ability) obj;
+				Ability p = (Ability) obj;
 				return this.Power == p.Power;
 			}
 		}

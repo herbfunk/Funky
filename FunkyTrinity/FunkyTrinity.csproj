@@ -889,7 +889,7 @@
     <Compile Include="Ability\PowerCache.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Ability\ability.cs">
+    <Compile Include="Ability\Ability.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Behaviors\ID Behavior\FunkyIDOverlord.cs">

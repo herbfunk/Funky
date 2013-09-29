@@ -5,9 +5,9 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities.Barb
+namespace FunkyTrinity.AbilityFunky.Abilities.Barb
 {
-	public class Whirlwind : ability, IAbility
+	public class Whirlwind : Ability, IAbility
 	{
 		public Whirlwind() : base()
 		{
@@ -59,7 +59,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			 }
 			 else
 			 {
-					ability p=(ability)obj;
+					Ability p=(Ability)obj;
 					return this.Power==p.Power;
 			 }
 		}

@@ -4,9 +4,9 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities.Wizard
+namespace FunkyTrinity.AbilityFunky.Abilities.Wizard
 {
-	public class IceArmor : ability, IAbility
+	public class IceArmor : Ability, IAbility
 	{
 		public IceArmor() : base()
 		{
@@ -48,7 +48,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			}
 			else
 			{
-				ability p = (ability) obj;
+				Ability p = (Ability) obj;
 				return this.Power == p.Power;
 			}
 		}

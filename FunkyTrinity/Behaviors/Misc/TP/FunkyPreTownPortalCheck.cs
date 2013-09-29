@@ -1,5 +1,5 @@
 ﻿using System;
-using FunkyTrinity.Ability;
+using FunkyTrinity.AbilityFunky;
 using Zeta;
 using Zeta.Common;
 

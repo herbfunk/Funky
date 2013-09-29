@@ -5,9 +5,9 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities.Wizard
+namespace FunkyTrinity.AbilityFunky.Abilities.Wizard
 {
-	public class MirrorImage : ability, IAbility
+	public class MirrorImage : Ability, IAbility
 	{
 		public MirrorImage() : base()
 		{
@@ -54,7 +54,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			}
 			else
 			{
-				ability p = (ability) obj;
+				Ability p = (Ability) obj;
 				return this.Power == p.Power;
 			}
 		}

@@ -5,9 +5,9 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities.Wizard
+namespace FunkyTrinity.AbilityFunky.Abilities.Wizard
 {
-	public class WaveOfForce : ability, IAbility
+	public class WaveOfForce : Ability, IAbility
 	{
 		public WaveOfForce() : base()
 		{
@@ -70,7 +70,7 @@ UseageType= AbilityUseage.Anywhere;
 			}
 			else
 			{
-				ability p = (ability) obj;
+				Ability p = (Ability) obj;
 				return this.Power == p.Power;
 			}
 		}

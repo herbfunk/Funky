@@ -12,7 +12,7 @@ using Zeta.Internals.SNO;
 using Zeta.Navigation;
 using Zeta.TreeSharp;
 
-using FunkyTrinity.Ability;
+using FunkyTrinity.AbilityFunky;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
 using FunkyTrinity.Cache.Enums;
@@ -466,7 +466,7 @@ namespace FunkyTrinity
 					 // See if we can use abilities like leap etc. for movement out of combat, but not in town and only if we can raycast.
 					 if (Bot.SettingsFunky.OutOfCombatMovement&&!ZetaDia.Me.IsInTown)
 					 {
-						  ability MovementPower;
+						  Ability MovementPower;
 						  Vector3 MovementVector=Bot.Class.FindOutOfCombatMovementPower(out MovementPower, vMoveToTarget);
 						  if (MovementVector!=Vector3.Zero)
 						  {

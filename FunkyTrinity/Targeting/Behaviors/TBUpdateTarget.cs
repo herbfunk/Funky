@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using FunkyTrinity.Ability;
+using FunkyTrinity.AbilityFunky;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Cache.Enums;
 using FunkyTrinity.Movement;
@@ -198,11 +198,11 @@ namespace FunkyTrinity.Targeting.Behaviors
 						 //Check for Range Classes and Unit Targets
 						 if (!FunkyTrinity.Bot.Class.IsMeleeClass&&CurrentTarget.targetType.Value==TargetType.Unit&&FunkyTrinity.Bot.Combat.NearbyAvoidances.Count>0)
 						 {
-							  //set unit target (for ability selector).
+							  //set unit target (for Ability selector).
 							  Bot.Target.CurrentUnitTarget=(CacheUnit)CurrentTarget;
 
-							  //Generate next ability..
-							  ability nextAbility=FunkyTrinity.Bot.Class.AbilitySelector(Bot.Target.CurrentUnitTarget, true);
+							  //Generate next Ability..
+							  Ability nextAbility=FunkyTrinity.Bot.Class.AbilitySelector(Bot.Target.CurrentUnitTarget, true);
 
 							  //reset unit target
 							  Bot.Target.CurrentUnitTarget=null;
@@ -235,7 +235,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 							  //					 }
 							  //					 else if (!nextAbility.IsRanged&&nextAbility.Range>0)
 							  //					 {
-							  //						  //Non-Ranged ability.. act like melee..
+							  //						  //Non-Ranged Ability.. act like melee..
 							  //						  //Try to find a spot
 							  //						  ObjectCache.Objects.objectsIgnoredDueToAvoidance.Add(thisobj);
 							  //					 }

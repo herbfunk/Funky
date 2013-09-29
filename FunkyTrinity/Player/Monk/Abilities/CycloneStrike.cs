@@ -5,9 +5,9 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities.Monk
+namespace FunkyTrinity.AbilityFunky.Abilities.Monk
 {
-	public class CycloneStrike : ability, IAbility
+	public class CycloneStrike : Ability, IAbility
 	{
 		public CycloneStrike() : base()
 		{
@@ -58,7 +58,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			}
 			else
 			{
-				ability p = (ability) obj;
+				Ability p = (Ability) obj;
 				return this.Power == p.Power;
 			}
 		}

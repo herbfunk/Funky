@@ -5,9 +5,9 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities.DemonHunter
+namespace FunkyTrinity.AbilityFunky.Abilities.DemonHunter
 {
-	public class EvasiveFire : ability, IAbility
+	public class EvasiveFire : Ability, IAbility
 	{
 		public EvasiveFire() : base()
 		{
@@ -48,7 +48,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			}
 			else
 			{
-				ability p = (ability) obj;
+				Ability p = (Ability) obj;
 				return this.Power == p.Power;
 			}
 		}

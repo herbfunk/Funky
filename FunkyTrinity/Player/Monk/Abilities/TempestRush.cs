@@ -8,9 +8,9 @@ using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 using Zeta.Internals.SNO;
 
-namespace FunkyTrinity.Ability.Abilities.Monk
+namespace FunkyTrinity.AbilityFunky.Abilities.Monk
 {
-	public class TempestRush : ability, IAbility
+	public class TempestRush : Ability, IAbility
 	{
 		public TempestRush() : base()
 		{
@@ -108,7 +108,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			}
 			else
 			{
-				ability p = (ability) obj;
+				Ability p = (Ability) obj;
 				return this.Power == p.Power;
 			}
 		}

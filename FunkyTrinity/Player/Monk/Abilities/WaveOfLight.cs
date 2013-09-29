@@ -4,9 +4,9 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities.Monk
+namespace FunkyTrinity.AbilityFunky.Abilities.Monk
 {
-	public class WaveOfLight : ability, IAbility
+	public class WaveOfLight : Ability, IAbility
 	{
 		public WaveOfLight() : base()
 		{
@@ -58,7 +58,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			}
 			else
 			{
-				ability p = (ability) obj;
+				Ability p = (Ability) obj;
 				return this.Power == p.Power;
 			}
 		}

@@ -91,7 +91,7 @@ namespace FunkyTrinity
 				#region OutOfCombatMovement
 				CheckBox cbOutOfCombatMovement=new CheckBox
 				{
-					 Content="Use Out Of Combat ability Movements",
+					 Content="Use Out Of Combat Ability Movements",
 					 Width=300,
 					 Height=30,
 					 IsChecked=(Bot.SettingsFunky.OutOfCombatMovement)

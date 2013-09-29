@@ -5,9 +5,9 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities.WitchDoctor
+namespace FunkyTrinity.AbilityFunky.Abilities.WitchDoctor
 {
-	public class MassConfusion : ability, IAbility
+	public class MassConfusion : Ability, IAbility
 	{
 		public MassConfusion() : base()
 		{
@@ -50,7 +50,7 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			}
 			else
 			{
-				ability p = (ability) obj;
+				Ability p = (Ability) obj;
 				return this.Power == p.Power;
 			}
 		}

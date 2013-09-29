@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
 
-using FunkyTrinity.Ability;
+using FunkyTrinity.AbilityFunky;
 using FunkyTrinity.Cache;
-using FunkyTrinity.Ability.Abilities;
-using FunkyTrinity.Ability.Abilities.DemonHunter;
+using FunkyTrinity.AbilityFunky.Abilities;
+using FunkyTrinity.AbilityFunky.Abilities.DemonHunter;
 namespace FunkyTrinity
 {
 
@@ -23,7 +23,7 @@ namespace FunkyTrinity
 				{
 
 				}
-				public override ability DefaultAttack
+				public override Ability DefaultAttack
 				{
 					 get { return new ProjectileRangeAttack(); }
 				}
@@ -63,11 +63,11 @@ namespace FunkyTrinity
 
 				public override void RecreateAbilities()
 				{
-					 Abilities=new Dictionary<SNOPower, ability>();
+					 Abilities=new Dictionary<SNOPower, Ability>();
 
 					 if (!HotbarContainsAPrimaryAbility())
 					 {
-						  ability defaultAbility=this.DefaultAttack;
+						  Ability defaultAbility=this.DefaultAttack;
 						  AbilityLogicConditions.CreateAbilityLogicConditions(ref defaultAbility);
 						  Abilities.Add(defaultAbility.Power, defaultAbility);
 						  RuneIndexCache.Add(defaultAbility.Power, -1);
@@ -75,7 +75,7 @@ namespace FunkyTrinity
 
 					 foreach (var item in HotbarPowers)
 					 {
-						  ability newAbility=this.CreateAbility(item);
+						  Ability newAbility=this.CreateAbility(item);
 						  AbilityLogicConditions.CreateAbilityLogicConditions(ref newAbility);
 						  Abilities.Add(item, newAbility);
 					 }
@@ -88,7 +88,7 @@ namespace FunkyTrinity
 
 				}
 
-				public override ability CreateAbility(SNOPower Power)
+				public override Ability CreateAbility(SNOPower Power)
 				{
 					DemonHunterActiveSkills power=(DemonHunterActiveSkills)Enum.ToObject(typeof(DemonHunterActiveSkills), (int)Power);
 

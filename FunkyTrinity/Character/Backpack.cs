@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Zeta;
@@ -251,6 +252,24 @@ namespace FunkyTrinity.Cache
 				select backpackItems).Any();
 			return found;
 		}
+
+		 public List<CacheACDItem> ReturnCurrentEquippedItems()
+		 {
+			  List<CacheACDItem> returnItems=new List<CacheACDItem>();
+			  try
+			  {
+					foreach (ACDItem item in ZetaDia.Me.Inventory.Equipped)
+					{
+						 CacheACDItem thiscacheditem=new CacheACDItem(item);
+						 returnItems.Add(thiscacheditem);
+					}
+
+			  } catch (Exception)
+			  {
+
+			  }
+			  return returnItems;
+		 }
 
 
 		//Used to hold Town Run Data

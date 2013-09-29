@@ -3,7 +3,7 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
 
-namespace FunkyTrinity.Ability
+namespace FunkyTrinity.AbilityFunky
 {
 
 	 public abstract class AbilityCriteria
@@ -26,7 +26,7 @@ namespace FunkyTrinity.Ability
 			private ConditionCriteraTypes lastConditionPassed=ConditionCriteraTypes.None;
 
 			///<summary>
-			///ability precast conditions
+			///Ability precast conditions
 			///</summary>
 			internal Func<bool> FcriteriaPreCast;
 			///<summary>
@@ -49,12 +49,12 @@ namespace FunkyTrinity.Ability
 			internal Func<Vector3, Vector3> FCombatMovement;
 
 			///<summary>
-			///Determines if an ability has none of the combat conditions set -- but has custom combat conditions. (allowing it to test the custom conditions)
+			///Determines if an Ability has none of the combat conditions set -- but has custom combat conditions. (allowing it to test the custom conditions)
 			///</summary>
 			internal bool TestCustomCombatConditions;
 
 			///<summary>
-			///Check ability Buff Conditions
+			///Check Ability Buff Conditions
 			///</summary>
 			public bool CheckBuffConditionMethod()
 			{
@@ -74,7 +74,7 @@ namespace FunkyTrinity.Ability
 				 return true;
 			}
 			///<summary>
-			///Check ability is valid to use.
+			///Check Ability is valid to use.
 			///</summary>
 			public bool CheckPreCastConditionMethod()
 			{
@@ -243,7 +243,7 @@ namespace FunkyTrinity.Ability
 			private Tuple<RangeIntervals, int> elitesWithinRangeConditions=null;
 
 			///<summary>
-			///Single Target Conditions -- Should only used if ability is offensive!
+			///Single Target Conditions -- Should only used if Ability is offensive!
 			///</summary>
 			public UnitTargetConditions TargetUnitConditionFlags
 			{

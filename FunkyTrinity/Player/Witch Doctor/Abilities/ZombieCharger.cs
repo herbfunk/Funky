@@ -4,9 +4,9 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities.WitchDoctor
+namespace FunkyTrinity.AbilityFunky.Abilities.WitchDoctor
 {
-	public class ZombieCharger : ability, IAbility
+	public class ZombieCharger : Ability, IAbility
 	{
 		public ZombieCharger() : base()
 		{
@@ -51,7 +51,7 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			}
 			else
 			{
-				ability p = (ability) obj;
+				Ability p = (Ability) obj;
 				return this.Power == p.Power;
 			}
 		}

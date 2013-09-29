@@ -13,7 +13,7 @@ using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
 using Zeta.Internals.SNO;
 using FunkyTrinity.Cache.Enums;
-using FunkyTrinity.Ability;
+using FunkyTrinity.AbilityFunky;
 
 namespace FunkyTrinity.Cache
 {
@@ -167,7 +167,7 @@ namespace FunkyTrinity.Cache
 										  //But Only when we are low in health..
 											 (Bot.Character.dCurrentHealthPct<0.25||
 										  //Or we havn't changed targets after 2.5 secs
-											 DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds>2.5))
+											 DateTime.Now.Subtract(Bot.Target.LastChangeOfTarget).TotalSeconds>2.5))
 										  this.Weight*=0.10;
 
 									 //Test if there are nearby units that will trigger kite action..
@@ -564,7 +564,7 @@ namespace FunkyTrinity.Cache
 					 // Force waiting for global cooldown timer or long-animation abilities
 					 if (Bot.Class.PowerPrime.WaitLoopsBefore>=1)
 					 {
-						  //Logging.WriteDiagnostic("Debug: Force waiting BEFORE ability " + powerPrime.powerThis.ToString() + "...");
+						  //Logging.WriteDiagnostic("Debug: Force waiting BEFORE Ability " + powerPrime.powerThis.ToString() + "...");
 						  Bot.Combat.bWaitingForPower=true;
 						  if (Bot.Class.PowerPrime.WaitLoopsBefore>=1)
 								Bot.Class.PowerPrime.WaitLoopsBefore--;

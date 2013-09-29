@@ -4,9 +4,9 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities.Wizard
+namespace FunkyTrinity.AbilityFunky.Abilities.Wizard
 {
-	public class Disintegrate : ability, IAbility
+	public class Disintegrate : Ability, IAbility
 	{
 		public Disintegrate() : base()
 		{
@@ -53,7 +53,7 @@ namespace FunkyTrinity.Ability.Abilities.Wizard
 			}
 			else
 			{
-				ability p = (ability) obj;
+				Ability p = (Ability) obj;
 				return this.Power == p.Power;
 			}
 		}

@@ -83,16 +83,6 @@ namespace FunkyTrinity
 						  //Wizards are short -- causing issues (At least Male Wizard is!)
 						  if (Bot.ActorClass==ActorClass.Wizard) Bot.Character.fCharacterRadius+=1f;
 					 }
-					 if (Bot.Character.iTeamID==0)
-					 {
-						  try
-						  {
-								Bot.Character.iTeamID=ZetaDia.Me.CommonData.GetAttribute<int>(ActorAttributeType.TeamID);
-						  } catch
-						  {
-
-						  }
-					 }
 				}
 
 				// Recording of all the XML's in use this run
@@ -175,12 +165,12 @@ namespace FunkyTrinity
 					 !TownRunManager.bWantToTownRun&&
 					 myAnimationState!=AnimationState.Attacking&&myAnimationState!=AnimationState.Casting&&myAnimationState!=AnimationState.Channeling)
 				{
-					 FunkyTrinity.Ability.ability Buff;
+					 FunkyTrinity.AbilityFunky.Ability Buff;
 					 if (Bot.Class.FindBuffPower(out Buff))
 					 {
-						  FunkyTrinity.Ability.ability.SetupAbilityForUse(ref Buff);
+						  FunkyTrinity.AbilityFunky.Ability.SetupAbilityForUse(ref Buff);
 						  Bot.Character.WaitWhileAnimating(4, true);
-						  Ability.ability.UsePower(ref Buff);
+						  AbilityFunky.Ability.UsePower(ref Buff);
 						  Buff.SuccessfullyUsed();
 						  Bot.Character.WaitWhileAnimating(3, true);
 					 }

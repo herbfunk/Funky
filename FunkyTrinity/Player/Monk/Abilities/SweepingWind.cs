@@ -4,21 +4,20 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities.Monk
+namespace FunkyTrinity.AbilityFunky.Abilities.Monk
 {
-	public class SweepingWind : ability, IAbility
+	public class SweepingWind : Ability, IAbility
 	{
 		public SweepingWind() : base()
 		{
 		}
 
 
-
 		public override void Initialize()
 		{
 			ExecutionType = AbilityExecuteFlags.Buff;
 			WaitVars = new WaitLoops(0, 1, true);
-			Cost = Bot.SettingsFunky.Class.bMonkInnaSet ? 5 : 75;
+			Cost=Bot.SettingsFunky.Class.bMonkInnaSet?5:75;
 			Priority = AbilityPriority.High;
 			UseageType=AbilityUseage.Combat;
 			IsSpecialAbility = true;
@@ -50,7 +49,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			}
 			else
 			{
-				ability p = (ability) obj;
+				Ability p = (Ability) obj;
 				return this.Power == p.Power;
 			}
 		}

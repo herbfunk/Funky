@@ -171,7 +171,7 @@ namespace FunkyTrinity.Cache
 
 		public override RunStatus Interact()
 		{
-			Ability.ability.SetupAbilityForUse(ref Bot.Class.PowerPrime, true);
+			AbilityFunky.Ability.SetupAbilityForUse(ref Bot.Class.PowerPrime, true);
 
 			if (Bot.Class.PowerPrime.Power!=SNOPower.None)
 			{
@@ -188,7 +188,7 @@ namespace FunkyTrinity.Cache
 					                        ", Range="+this.CentreDistance.ToString()+". Needed range="+Bot.Class.PowerPrime.MinimumRange.ToString()+". Radius="+
 					                        this.Radius.ToString()+". SphereRadius="+this.ActorSphereRadius.Value.ToString()+". Type="+this.targetType.ToString()+". Using power="+Bot.Class.PowerPrime.Power.ToString());
 
-				Ability.ability.UsePower(ref Bot.Class.PowerPrime);
+				AbilityFunky.Ability.UsePower(ref Bot.Class.PowerPrime);
 
 				if (Bot.Class.PowerPrime.SuccessUsed.HasValue&&Bot.Class.PowerPrime.SuccessUsed.Value)
 				{

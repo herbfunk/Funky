@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities
+namespace FunkyTrinity.AbilityFunky.Abilities
 {
-	public class CancelArchonBuff : ability, IAbility
+	public class CancelArchonBuff : Ability, IAbility
 	{
 		public CancelArchonBuff() : base()
 		{
@@ -44,7 +44,7 @@ namespace FunkyTrinity.Ability.Abilities
 				 return Bot.Class.HasBuff(SNOPower.Wizard_Archon)&&this.MissingBuffs();
 			});
 
-		   //Important!! We have to override the default return of true.. we dont want this to fire as a combat ability.
+		   //Important!! We have to override the default return of true.. we dont want this to fire as a combat Ability.
 			FcriteriaCombat=new Func<bool>(() => { return false; });
 		}
 
@@ -69,7 +69,7 @@ namespace FunkyTrinity.Ability.Abilities
 			 }
 			 else
 			 {
-				  ability p=(ability)obj;
+				  Ability p=(Ability)obj;
 				  return this.Power==p.Power;
 			 }
 		}

@@ -145,7 +145,7 @@ namespace FunkyTrinity
 					 case Zeta.Internals.Actors.ActorClass.Monk:
 						  CheckBox cbbMonkSpamMantra=new CheckBox
 						  {
-								Content="Spam Mantra ability",
+								Content="Spam Mantra Ability",
 								Width=300,
 								Height=30,
 								IsChecked=Bot.SettingsFunky.Class.bMonkSpamMantra,
@@ -153,17 +153,6 @@ namespace FunkyTrinity
 						  cbbMonkSpamMantra.Checked+=bMonkSpamMantraChecked;
 						  cbbMonkSpamMantra.Unchecked+=bMonkSpamMantraChecked;
 						  LBClass.Items.Add(cbbMonkSpamMantra);
-
-						  CheckBox cbbMonkInnaSet=new CheckBox
-						  {
-								Content="Full Inna Set Bonus",
-								Width=300,
-								Height=30,
-								IsChecked=Bot.SettingsFunky.Class.bMonkInnaSet,
-						  };
-						  cbbMonkInnaSet.Checked+=bMonkInnaSetChecked;
-						  cbbMonkInnaSet.Unchecked+=bMonkInnaSetChecked;
-						  LBClass.Items.Add(cbbMonkInnaSet);
 
 						  break;
 					 case Zeta.Internals.Actors.ActorClass.WitchDoctor:

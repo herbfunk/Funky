@@ -5,9 +5,9 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities.WitchDoctor
+namespace FunkyTrinity.AbilityFunky.Abilities.WitchDoctor
 {
-	public class FetishArmy : ability, IAbility
+	public class FetishArmy : Ability, IAbility
 	{
 		public FetishArmy() : base()
 		{
@@ -47,7 +47,7 @@ namespace FunkyTrinity.Ability.Abilities.WitchDoctor
 			}
 			else
 			{
-				ability p = (ability) obj;
+				Ability p = (Ability) obj;
 				return this.Power == p.Power;
 			}
 		}

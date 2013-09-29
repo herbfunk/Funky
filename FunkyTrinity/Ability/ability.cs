@@ -10,26 +10,16 @@ using Zeta.Internals.SNO;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
 
-namespace FunkyTrinity.Ability
+namespace FunkyTrinity.AbilityFunky
 {
 
 
 	 ///<summary>
-	 ///Cached Object that Describes an individual ability.
+	 ///Cached Object that Describes an individual Ability.
 	 ///</summary>
-	 public abstract class ability : AbilityCriteria, IAbility
+	 public abstract class Ability : AbilityCriteria, IAbility
 	 {
-
-		  //Conditional Methods which are used to determine if the power should be used.
-		  //	 -Precast Conditions
-		  //	 -Combat Criteria
-		  //		  *These are either a Tuple Type or Custom Class
-		  //		  *When set, they create the delegate func that is used to validate the conditions.
-		  //	 -Final Custom Conditional Check
-
-
-
-		  protected ability()
+		  protected Ability()
 				: base()
 		  {
 				WaitVars=new WaitLoops(0, 0, true);
@@ -54,14 +44,14 @@ namespace FunkyTrinity.Ability
 		 #region Properties
 		  public AbilityPriority Priority { get; set; }
 		  ///<summary>
-		  ///Describes variables for use of ability: PreWait Loops, PostWait Loops, Reuseable
+		  ///Describes variables for use of Ability: PreWait Loops, PostWait Loops, Reuseable
 		  ///</summary>
 		  public WaitLoops WaitVars { get; set; }
 		  public int Range { get; set; }
 		  public double Cost { get; set; }
 		  public bool SecondaryEnergy { get; set; }
 		  ///<summary>
-		  ///This is used to determine how the ability will be used
+		  ///This is used to determine how the Ability will be used
 		  ///</summary>
 		  public AbilityExecuteFlags ExecutionType { get; set; }
 
@@ -90,7 +80,7 @@ namespace FunkyTrinity.Ability
 		
 
 		  ///<summary>
-		  ///ability will trigger WaitingForSpecial if Energy Check fails.
+		  ///Ability will trigger WaitingForSpecial if Energy Check fails.
 		  ///</summary>
 		  public bool IsSpecialAbility { get; set; }
 		  public bool IsBuff { get; set; }
@@ -102,7 +92,7 @@ namespace FunkyTrinity.Ability
 		  ///</summary>
 		  public bool IsRanged { get; set; }
 		  ///<summary>
-		  ///ability is a projectile -- meaning it starts from bot position and travels to destination.
+		  ///Ability is a projectile -- meaning it starts from bot position and travels to destination.
 		  ///</summary>
 		  public bool IsProjectile { get; set; }
 
@@ -206,7 +196,7 @@ namespace FunkyTrinity.Ability
 		  #endregion
 
 
-		  public static void UsePower(ref ability ability)
+		  public static void UsePower(ref Ability ability)
 		  {
 				if (!ability.ExecutionType.HasFlag(AbilityExecuteFlags.RemoveBuff))
 				{
@@ -220,18 +210,25 @@ namespace FunkyTrinity.Ability
 		  }
 
 		  ///<summary>
-		  ///Sets values related to ability usage
+		  ///Sets values related to Ability usage
 		  ///</summary>
 		  public void SuccessfullyUsed()
 		  {
 				this.LastUsed=DateTime.Now;
 				PowerCacheLookup.lastGlobalCooldownUse=DateTime.Now;
-				//Reset Blockcounter --
-				TargetMovement.BlockedMovementCounter=0;
+
+				if (this.ExecutionType.HasFlag(AbilityExecuteFlags.ZigZagPathing))
+				{
+					 //Reset Blockcounter --
+					 TargetMovement.BlockedMovementCounter=0;
+					 TargetMovement.NonMovementCounter=0;
+					 TargetMovement.LastMovementDuringCombat=DateTime.Now;
+				}
+
 				Bot.Class.LastUsedAbility=this;
 		  }
 
-		  public static void SetupAbilityForUse(ref ability ability, bool Destructible=false)
+		  public static void SetupAbilityForUse(ref Ability ability, bool Destructible=false)
 		  {
 				ability.MinimumRange=ability.Range;
 				ability.TargetPosition_=Vector3.Zero;
@@ -344,7 +341,7 @@ namespace FunkyTrinity.Ability
 								if (!Navigation.MGP.CanStandAt(DestinationVector))
 								{
 									 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Ability))
-										  Logger.Write(LogLevel.Ability, "Destination for ability {0} requires further searching!", this.Power.ToString());
+										  Logger.Write(LogLevel.Ability, "Destination for Ability {0} requires further searching!", this.Power.ToString());
 									 GPRectangle DestinationRect=new GPRectangle(DestinationVector);
 									 Vector3 NewDestinationV3;
 									 if (DestinationRect.TryFindSafeSpot(Bot.Character.Position, out NewDestinationV3, DestinationV, false, false, false))
@@ -384,16 +381,15 @@ namespace FunkyTrinity.Ability
 				}
 				else
 				{
-					 ability p=(ability)obj;
+					 Ability p=(Ability)obj;
 					 return this.Power==p.Power;
 				}
 		  }
 
 		  public string DebugString()
 		  {
-				return String.Format("ability: {0} [RuneIndex={1}] \r\n"+
-										  "Range={2} ReuseMS={3} Priority [{4}] UseType [{5}] \r\n"+
-										  "Usage {6} \r\n"+
+				return String.Format("Ability: {0} [RuneIndex={1}] " + " Cost="+this.Cost+"\r\n"+
+										  "Range={2} ReuseMS={3} Priority [{4}] UseType [{5}] Usage {6} \r\n"+
 										  "Last Condition {7} -- Last Used {8} -- Used Successfully=[{9}]",
 																		this.Power.ToString(), this.RuneIndex.ToString(),
 																		this.Range.ToString(), this.Cooldown.ToString(), this.Priority.ToString(), this.ExecutionType.ToString(),

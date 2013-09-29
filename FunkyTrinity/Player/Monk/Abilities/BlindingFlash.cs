@@ -5,9 +5,9 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities.Monk
+namespace FunkyTrinity.AbilityFunky.Abilities.Monk
 {
-	public class BlindingFlash : ability, IAbility
+	public class BlindingFlash : Ability, IAbility
 	{
 		public BlindingFlash() : base()
 		{
@@ -71,7 +71,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			}
 			else
 			{
-				ability p = (ability) obj;
+				Ability p = (Ability) obj;
 				return this.Power == p.Power;
 			}
 		}

@@ -8,7 +8,7 @@ using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.Internals.SNO;
 using Zeta.CommonBot;
-using FunkyTrinity.Ability;
+using FunkyTrinity.AbilityFunky;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
 using FunkyTrinity.Movement.Clustering;
@@ -50,7 +50,6 @@ namespace FunkyTrinity.Cache
 					 lastHadEliteUnitInSights=DateTime.Today;
 					 lastHadContainerAsTarget=DateTime.Today;
 					 lastHadRareChestAsTarget=DateTime.Today;
-					 dateSincePickedTarget=DateTime.Today;
 					 SurroundingUnits=0;
 					 DontMove=false;
 					 CriticalAvoidance=false;
@@ -73,7 +72,7 @@ namespace FunkyTrinity.Cache
 				internal List<UnitCluster> CurrentGroupClusters=new List<UnitCluster>();
 
 				///<summary>
-				///Tracks Lists of Clusters for specific Conditions used during ability Clustering.
+				///Tracks Lists of Clusters for specific Conditions used during Ability Clustering.
 				///</summary>
 				internal Dictionary<ClusterConditions, ClusterCollection> AbilityClusters=new Dictionary<ClusterConditions, ClusterCollection>();
 
@@ -96,7 +95,7 @@ namespace FunkyTrinity.Cache
 					 else
 						  AbilityClusters[CC].RefreshClusters();
 
-					 //Logging.WriteVerbose("ability Clusters Found {0}", AbilityClusters[CC].Count.ToString());
+					 //Logging.WriteVerbose("Ability Clusters Found {0}", AbilityClusters[CC].Count.ToString());
 					 return AbilityClusters[CC].CurrentClusters;
 				}
 
@@ -202,7 +201,7 @@ namespace FunkyTrinity.Cache
 
 				// A flag to indicate whether we have a new target from the overlord (decorator) or not, in which case don't refresh targets again this first loop
 				internal bool bWholeNewTarget { get; set; }
-				// A flag to indicate if we should pick a new power/ability to use or not
+				// A flag to indicate if we should pick a new power/Ability to use or not
 				internal bool bPickNewAbilities { get; set; }
 				// Flag used to indicate if we are simply waiting for a power to go off - so don't do any new target checking or anything
 				internal bool bWaitingForPower { get; set; }
@@ -243,7 +242,7 @@ namespace FunkyTrinity.Cache
 				//When we last saw a "rare" chest
 				internal DateTime lastHadRareChestAsTarget { get; set; }
 				// Store the date-time when we *FIRST* picked this target, so we can blacklist after X period of time targeting
-				internal DateTime dateSincePickedTarget { get; set; }
+
 				internal int iTotalNumberGoblins=0;
 				internal DateTime lastGoblinTime=DateTime.Today;
 				#endregion
@@ -270,9 +269,9 @@ namespace FunkyTrinity.Cache
 				{
 					 get
 					 {
-						  string strDebug_LAST=string.Format("LastPickedTarget {0} -- LastHealthChanged {1} // HealthDrop {2}\r\n"+
+						  string strDebug_LAST=string.Format("{0}LastHealthChanged {1} // HealthDrop {2}\r\n"+
 																		  "lastHadUnitInSights {3} -- lastHadEliteUnitInSights {4} -- lastHadContainerAsTarget {5} -- lastHadRareChestAsTarget {6}",
-																		  this.dateSincePickedTarget.ToString(), "", "",
+																		  "", "", "",
 																		  this.lastHadUnitInSights.ToString(), this.lastHadEliteUnitInSights.ToString(), this.lastHadContainerAsTarget.ToString(), this.lastHadRareChestAsTarget.ToString());
 
 						  string strDebug_ClusterTarget=string.Format("LastClusterTargetLogicRefresh {0}\r\n"+
@@ -290,7 +289,7 @@ namespace FunkyTrinity.Cache
 																					 "CurrentGroupClusters Count {1} -- DistantUnits Count {2} \r\n {3}",
 																					 this.LastClusterGroupingLogicRefresh.ToString(), this.CurrentGroupClusters.Count, this.DistantUnits.Count, currentgroupclusterinfo);
 
-						  string strDebug_ClusterAbility=string.Format("Total ability UnitCluster Entries {0}", this.AbilityClusters.Keys.ToString());
+						  string strDebug_ClusterAbility=string.Format("Total Ability UnitCluster Entries {0}", this.AbilityClusters.Keys.ToString());
 
 
 

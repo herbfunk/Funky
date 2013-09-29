@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FunkyTrinity.Ability
+namespace FunkyTrinity.AbilityFunky
 {
 	 [Flags]
 	 public enum AbilityUseage

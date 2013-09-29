@@ -12,14 +12,7 @@ using FunkyTrinity.Cache.Enums;
 
 namespace FunkyTrinity.Cache
 {
-	 public enum PetTypes
-	 {
-		  MONK_MysticAlly=1,
-		  WITCHDOCTOR_Gargantuan=2,
-		  WITCHDOCTOR_ZombieDogs=4,
-		  DEMONHUNTER_Pet=8,
-		  WIZARD_Hydra=16,
-	 }
+
 
 				///<summary>
 				///Cache of all values Character related and variable.
@@ -49,7 +42,6 @@ namespace FunkyTrinity.Cache
 						  PickupRadius=1;
 						  coinage=0;
 						  fCharacterRadius=0f;
-						  iTeamID=0;
 					 }
 
 					 private DateTime lastUpdatedPlayer { get; set; }
@@ -138,8 +130,6 @@ namespace FunkyTrinity.Cache
 					 //Male Wizard: Radius 5.633342
 					 //Female Demonhunter: Radius 6.437767
 					 internal float fCharacterRadius { get; set; }
-
-					 internal int iTeamID { get; set; }
 
 					 internal Sphere CharacterSphere
 					 {
@@ -256,7 +246,7 @@ namespace FunkyTrinity.Cache
 										  if (CurrentSceneID!=Bot.Character.iSceneID)
 										  {
 												Bot.Character.iSceneID=CurrentSceneID;
-												Zeta.Navigation.Navigator.SearchGridProvider.Update();
+												//Zeta.Navigation.Navigator.SearchGridProvider.Update();
 										  }
 										  lastCheckedSceneID=DateTime.Now;
 									 }

@@ -5,9 +5,9 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities.Barb
+namespace FunkyTrinity.AbilityFunky.Abilities.Barb
 {
-	public class CalloftheAncients : ability, IAbility
+	public class CalloftheAncients : Ability, IAbility
 	{
 		public CalloftheAncients() : base()
 		{
@@ -47,7 +47,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			 }
 			 else
 			 {
-				  ability p=(ability)obj;
+				  Ability p=(Ability)obj;
 				  return this.Power==p.Power;
 			 }
 		}

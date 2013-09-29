@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
-using FunkyTrinity.Ability.Abilities;
+using FunkyTrinity.AbilityFunky.Abilities;
 using Zeta;
 using Zeta.Internals.Actors;
 using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
-using FunkyTrinity.Ability;
+using FunkyTrinity.AbilityFunky;
 using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
@@ -27,7 +27,7 @@ namespace FunkyTrinity
 					 RefreshPassives();
 					 UpdateRepeatAbilityTimes();
 
-					 ability healthPotionSkill=new DrinkHealthPotion();
+					 Ability healthPotionSkill=new DrinkHealthPotion();
 					 AbilityLogicConditions.CreateAbilityLogicConditions(ref healthPotionSkill);
 					 this.HealthPotionAbility=(DrinkHealthPotion)healthPotionSkill;
 
@@ -73,16 +73,16 @@ namespace FunkyTrinity
 				internal bool bWaitingForSpecial=false;
 				
 				///<summary>
-				///Create ability (Derieved classes override this!)
+				///Create Ability (Derieved classes override this!)
 				///</summary>
-				public virtual ability CreateAbility(SNOPower P)
+				public virtual Ability CreateAbility(SNOPower P)
 				{
 					 return this.DefaultAttack;
 				}
 
 				public DrinkHealthPotion HealthPotionAbility=new DrinkHealthPotion();
 
-				public virtual ability DefaultAttack
+				public virtual Ability DefaultAttack
 				{
 					 get { return new WeaponMeleeInsant(); }
 				}
@@ -121,7 +121,7 @@ namespace FunkyTrinity
 					 {
 						  bool ArchonBuffPresent=this.HasBuff(SNOPower.Wizard_Archon);
 
-						  //Confirm we don't have archon ability without archon buff.
+						  //Confirm we don't have archon Ability without archon buff.
 						  bool RefreshNeeded=((!ArchonBuffPresent&&Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast))
 													 ||(ArchonBuffPresent&&!Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast)));
 
@@ -155,7 +155,7 @@ namespace FunkyTrinity
 				///<summary>
 				///Sets criteria based on object given.
 				///</summary>
-				public virtual ability AbilitySelector(CacheUnit obj, bool IgnoreOutOfRange=false)
+				public virtual Ability AbilitySelector(CacheUnit obj, bool IgnoreOutOfRange=false)
 				{
 					 //Reset default attack can use
 					 this.CanUseDefaultAttack=!this.Abilities.ContainsKey(this.DefaultAttack.Power)?false:true;
@@ -171,11 +171,11 @@ namespace FunkyTrinity
 					 return this.AbilitySelector(criterias, IgnoreOutOfRange);
 				}
 				///<summary>
-				///Selects first ability that is successful in precast and combat testing.
+				///Selects first Ability that is successful in precast and combat testing.
 				///</summary>
-				public virtual ability AbilitySelector(ConditionCriteraTypes criteria=ConditionCriteraTypes.All, bool IgnoreOutOfRange=false)
+				public virtual Ability AbilitySelector(ConditionCriteraTypes criteria=ConditionCriteraTypes.All, bool IgnoreOutOfRange=false)
 				{
-					 ability returnAbility=this.DefaultAttack;
+					 Ability returnAbility=this.DefaultAttack;
 					 foreach (var item in this.SortedAbilities)
 					 {
 						  //Check precast conditions
@@ -198,18 +198,18 @@ namespace FunkyTrinity
 						  break;
 					 }
 
-					 //Setup ability (sets vars according to current cache)
-					 ability.SetupAbilityForUse(ref returnAbility);
+					 //Setup Ability (sets vars according to current cache)
+					 Ability.SetupAbilityForUse(ref returnAbility);
 					 return returnAbility;
 				}
 
 				///<summary>
-				///Returns ability used for destructibles
+				///Returns Ability used for destructibles
 				///</summary>
-				public virtual ability DestructibleAbility()
+				public virtual Ability DestructibleAbility()
 				{
-					 ability returnAbility=Bot.Class.DefaultAttack;
-					 List<ability> nonDestructibleAbilities=new List<ability>();
+					 Ability returnAbility=Bot.Class.DefaultAttack;
+					 List<Ability> nonDestructibleAbilities=new List<Ability>();
 					 foreach (var item in this.Abilities.Values)
 					 {
 						  if (item.IsADestructiblePower)
@@ -237,7 +237,7 @@ namespace FunkyTrinity
 								if (item.CheckPreCastConditionMethod())
 								{
 									 returnAbility=item;
-									 ability.SetupAbilityForUse(ref returnAbility, true);
+									 Ability.SetupAbilityForUse(ref returnAbility, true);
 									 return returnAbility;
 								}
 						  }
@@ -263,7 +263,7 @@ namespace FunkyTrinity
 									 }
 								}
 
-								//Add this ability to our list.. incase we cant find an offical ability to use.
+								//Add this Ability to our list.. incase we cant find an offical Ability to use.
 								if (item.CheckPreCastConditionMethod())
 								{
 									 nonDestructibleAbilities.Add(item);
@@ -271,11 +271,11 @@ namespace FunkyTrinity
 						  }
 					 }
 
-					 //Use non-destructible ability..
+					 //Use non-destructible Ability..
 					 if (nonDestructibleAbilities.Count>0)
 						  returnAbility=nonDestructibleAbilities[0];
 
-					 ability.SetupAbilityForUse(ref returnAbility, true);
+					 Ability.SetupAbilityForUse(ref returnAbility, true);
 					 return returnAbility;
 				}
 
@@ -293,14 +293,14 @@ namespace FunkyTrinity
 				internal List<SNOPower> destructibleabilities=new List<SNOPower>();
 
 
-				internal Dictionary<SNOPower, ability> Abilities=new Dictionary<SNOPower, ability>();
-				internal List<ability> SortedAbilities=new List<ability>();
+				internal Dictionary<SNOPower, Ability> Abilities=new Dictionary<SNOPower, Ability>();
+				internal List<Ability> SortedAbilities=new List<Ability>();
 
 
 				///<summary>
 				///
 				///</summary>
-				internal Vector3 FindOutOfCombatMovementPower(out ability MovementAbility, Vector3 Destination)
+				internal Vector3 FindOutOfCombatMovementPower(out Ability MovementAbility, Vector3 Destination)
 				{
 					 MovementAbility=null;
 					 foreach (var item in this.Abilities.Values.Where(A => A.FOutOfCombatMovement!=null))
@@ -321,7 +321,7 @@ namespace FunkyTrinity
 				///<summary>
 				///
 				///</summary>
-				internal Vector3 FindCombatMovementPower(out ability MovementAbility,Vector3 Destination)
+				internal Vector3 FindCombatMovementPower(out Ability MovementAbility,Vector3 Destination)
 				{
 					 MovementAbility=null;
 					 foreach (var item in this.Abilities.Values.Where(A => A.FCombatMovement!=null))
@@ -344,7 +344,7 @@ namespace FunkyTrinity
 				///<summary>
 				///Returns a power for Buffing.
 				///</summary>
-				internal bool FindBuffPower(out ability BuffAbility)
+				internal bool FindBuffPower(out Ability BuffAbility)
 				{
 					 BuffAbility=null;
 					 foreach (var item in this.Abilities.Values.Where(A => A.IsBuff))
@@ -354,7 +354,7 @@ namespace FunkyTrinity
 								if (item.CheckBuffConditionMethod())
 								{
 									 BuffAbility=item;
-									 ability.SetupAbilityForUse(ref BuffAbility);
+									 Ability.SetupAbilityForUse(ref BuffAbility);
 									 return true;
 								}
 						  }
@@ -386,7 +386,7 @@ namespace FunkyTrinity
 									 if (!this.HotbarPowers.Contains(ability))
 										  this.HotbarPowers.Add(ability);
 
-									 //Check if the SNOPower is a destructible ability
+									 //Check if the SNOPower is a destructible Ability
 									 if (PowerCacheLookup.AbilitiesDestructiblePriority.Contains(ability))
 									 {
 										  if (!this.destructibleabilities.Contains(ability))
@@ -442,7 +442,7 @@ namespace FunkyTrinity
 				}
 
 				///<summary>
-				///Sets each current hotbar ability repeat timer with adjustments made based upon passives.
+				///Sets each current hotbar Ability repeat timer with adjustments made based upon passives.
 				///</summary>
 				internal void UpdateRepeatAbilityTimes()
 				{
@@ -603,11 +603,11 @@ namespace FunkyTrinity
 				}
 
 				///<summary>
-				///Last successful ability used.
+				///Last successful Ability used.
 				///</summary>
-				public ability LastUsedAbility { get; set; }
+				public Ability LastUsedAbility { get; set; }
 
-				internal ability PowerPrime;
+				internal Ability PowerPrime;
 		  }
 	 
 }

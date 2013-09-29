@@ -1,6 +1,6 @@
 
 
-namespace FunkyTrinity.Ability
+namespace FunkyTrinity.AbilityFunky
 {
 	 ///<summary>
 	 ///Describes a condition for a single unit

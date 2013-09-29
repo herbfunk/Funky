@@ -2,7 +2,7 @@
 using System.Linq;
 using Zeta;
 using System.Collections.Generic;
-using FunkyTrinity.Ability;
+using FunkyTrinity.AbilityFunky;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
 

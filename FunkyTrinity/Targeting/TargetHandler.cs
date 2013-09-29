@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using FunkyTrinity.Ability;
+using FunkyTrinity.AbilityFunky;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Cache.Enums;
 using FunkyTrinity.Movement;
@@ -220,7 +220,7 @@ namespace FunkyTrinity.Targeting
 						  }
 						  #endregion
 
-						  //If we are still rechecking then use the waitAfter (powerprime ability related) to wait a few loops.
+						  //If we are still rechecking then use the waitAfter (powerprime Ability related) to wait a few loops.
 						  if (!Bot.Combat.reCheckedFinished)
 						  {
 								statusText+=" RECHECKING";
@@ -273,7 +273,7 @@ namespace FunkyTrinity.Targeting
 				return true;
 		  }
 
-		  //This is the 2nd step in handling.. we recheck target, get a new ability if needed, and check potion/special movement avoidance here.
+		  //This is the 2nd step in handling.. we recheck target, get a new Ability if needed, and check potion/special movement avoidance here.
 		  public virtual bool Refresh()
 		  {
 				// Make sure we reset unstucker stuff here
@@ -329,8 +329,8 @@ namespace FunkyTrinity.Targeting
 						  // Been trying to handle the same target for more than 30 seconds without damaging/reaching it? Blacklist it!
 						  // Note: The time since target picked updates every time the current target loses health, if it's a monster-target
 						  if (CurrentTarget.targetType.Value!=TargetType.Avoidance
-								&&((CurrentTarget.targetType.Value!=TargetType.Unit&&DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds>12)
-								||(CurrentTarget.targetType.Value==TargetType.Unit&&!CurrentTarget.IsBoss&&DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds>40)))
+								&&((CurrentTarget.targetType.Value!=TargetType.Unit&&DateTime.Now.Subtract(Bot.Target.LastChangeOfTarget).TotalSeconds>12)
+								||(CurrentTarget.targetType.Value==TargetType.Unit&&!CurrentTarget.IsBoss&&DateTime.Now.Subtract(Bot.Target.LastChangeOfTarget).TotalSeconds>40)))
 						  {
 								// NOTE: This only blacklists if it's remained the PRIMARY TARGET that we are trying to actually directly attack!
 								// So it won't blacklist a monster "on the edge of the screen" who isn't even being targetted
@@ -340,7 +340,7 @@ namespace FunkyTrinity.Targeting
 								if (CurrentTarget.targetType.Value==TargetType.Unit)
 								{
 									 if (CurrentTarget.IsTreasureGoblin&&Bot.SettingsFunky.Targeting.GoblinPriority>=3) bBlacklistThis=false;
-									 if (DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalSeconds<=120) bBlacklistThis=false;
+									 if (DateTime.Now.Subtract(Bot.Target.LastChangeOfTarget).TotalSeconds<=120) bBlacklistThis=false;
 								}
 
 								if (bBlacklistThis)
@@ -393,21 +393,21 @@ namespace FunkyTrinity.Targeting
 
 		  public virtual bool CombatLogic()
 		  {
-				// Find a valid ability if the target is a monster
+				// Find a valid Ability if the target is a monster
 				#region AbilityPick
 				if (Bot.Combat.bPickNewAbilities&&!Bot.Combat.bWaitingForPower&&!Bot.Combat.bWaitingForPotion)
 				{
 					 Bot.Combat.bPickNewAbilities=false;
 					 if (CurrentTarget.targetType.Value==TargetType.Unit&&CurrentTarget.AcdGuid.HasValue)
 					 {
-						  // Pick an ability		
-						  ability nextAbility=Bot.Class.AbilitySelector(CurrentUnitTarget);
+						  // Pick an Ability		
+						  Ability nextAbility=Bot.Class.AbilitySelector(CurrentUnitTarget);
 
 						  // Did we get default attack?
 						  if (nextAbility.Equals(Bot.Class.DefaultAttack)&&!Bot.Class.CanUseDefaultAttack)
 						  {
 								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Ability))
-									 Logger.Write(LogLevel.Ability, "Failed to find a valid ability to use -- Target: {0}", Bot.Target.CurrentTarget.InternalName);
+									 Logger.Write(LogLevel.Ability, "Failed to find a valid Ability to use -- Target: {0}", Bot.Target.CurrentTarget.InternalName);
 								Bot.Combat.bForceTargetUpdate=true;
 								CurrentState=RunStatus.Running;
 								CurrentTarget.BlacklistLoops=10;
@@ -417,7 +417,7 @@ namespace FunkyTrinity.Targeting
 						  Bot.Class.PowerPrime=nextAbility;
 					 }
 
-					 // Select an ability for destroying a destructible with in advance
+					 // Select an Ability for destroying a destructible with in advance
 					 if (CurrentTarget.targetType.Value==TargetType.Destructible||CurrentTarget.targetType==TargetType.Barricade)
 						  Bot.Class.PowerPrime=Bot.Class.DestructibleAbility();
 				}
@@ -449,10 +449,10 @@ namespace FunkyTrinity.Targeting
 				// See if we can use any special buffs etc. while in avoidance
 				if ((TargetType.Gold|TargetType.Globe|TargetType.Avoidance).HasFlag(CurrentTarget.targetType.Value))
 				{
-					  ability buff;
+					  Ability buff;
 					 if (Bot.Class.FindBuffPower(out buff))
 					 {
-						  ability.UsePower(ref buff);
+						  Ability.UsePower(ref buff);
 						  buff.SuccessfullyUsed();
 					 }
 				}
@@ -484,7 +484,7 @@ namespace FunkyTrinity.Targeting
 					 }
 					 else
 					 {
-						  Ability.LOSInfo LOS=Bot.NavigationCache.LOSmovementUnit.LineOfSight;
+						  AbilityFunky.LOSInfo LOS=Bot.NavigationCache.LOSmovementUnit.LineOfSight;
 						  if (LOS.LastLOSCheckMS>3000)
 						  {
 							  if(LOS.LOSTest(Bot.Character.Position,true,false))

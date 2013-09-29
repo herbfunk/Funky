@@ -1,14 +1,14 @@
 ﻿
 using System;
 using Zeta.Internals.Actors;
-using FunkyTrinity.Ability;
+using FunkyTrinity.AbilityFunky;
 using Zeta.CommonBot;
 using Zeta;
 using Zeta.Common;
-namespace FunkyTrinity.Ability.Abilities.Barb
+namespace FunkyTrinity.AbilityFunky.Abilities.Barb
 {
 
-	 public class Bash : ability, IAbility
+	 public class Bash : Ability, IAbility
 	 {
 		  public Bash() : base() { }
 
@@ -46,7 +46,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 				}
 				else
 				{
-					 ability p=(ability)obj;
+					 Ability p=(Ability)obj;
 					 return this.Power==p.Power;
 				}
 		  }

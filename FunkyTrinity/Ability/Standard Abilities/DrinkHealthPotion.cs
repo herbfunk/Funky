@@ -4,9 +4,9 @@ using FunkyTrinity.Cache;
 using Zeta;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities
+namespace FunkyTrinity.AbilityFunky.Abilities
 {
-	 public class DrinkHealthPotion : ability, IAbility
+	 public class DrinkHealthPotion : Ability, IAbility
 	 {
 		  public DrinkHealthPotion()
 				: base()
@@ -43,7 +43,7 @@ namespace FunkyTrinity.Ability.Abilities
 				UseageType=AbilityUseage.Anywhere;
 				PreCastFlags=AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer;
 
-				//Important!! We have to override the default return of true.. we dont want this to fire as a combat ability.
+				//Important!! We have to override the default return of true.. we dont want this to fire as a combat Ability.
 				FcriteriaCombat=new Func<bool>(() => { return Bot.Character.dCurrentHealthPct<=Bot.EmergencyHealthPotionLimit; });
 
 				
@@ -70,7 +70,7 @@ namespace FunkyTrinity.Ability.Abilities
 				}
 				else
 				{
-					 ability p=(ability)obj;
+					 Ability p=(Ability)obj;
 					 return this.Power==p.Power;
 				}
 		  }

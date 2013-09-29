@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using FunkyTrinity.Ability;
+using FunkyTrinity.AbilityFunky;
 using Zeta;
 using Zeta.Common;
 using Zeta.Internals.Actors;
@@ -33,7 +33,7 @@ namespace FunkyTrinity.Cache
 					 this.radius_=0f;
 					 this.position_=position;
 					 this.RequiresLOSCheck=!(base.IgnoresLOSCheck); //require a LOS check initally on a new object!
-					 this.lineofsight=new Ability.LOSInfo(this);
+					 this.lineofsight=new AbilityFunky.LOSInfo(this);
 					 this.LosSearchRetryMilliseconds_=1000;
 					 this.PrioritizedDate=DateTime.Today;
 					 this.PriorityCounter=0;
@@ -69,7 +69,7 @@ namespace FunkyTrinity.Cache
 					 this.BlacklistLoops_=parent.BlacklistLoops_;
 					 this.gprect_=parent.gprect_;
 					 this.InteractionAttempts=parent.InteractionAttempts;
-					 this.lineofsight=new Ability.LOSInfo(this);
+					 this.lineofsight=new AbilityFunky.LOSInfo(this);
 					 this.LoopsUnseen_=parent.LoopsUnseen_;
 					 this.losv3_=parent.losv3_;
 					 this.LosSearchRetryMilliseconds_=parent.LosSearchRetryMilliseconds_;
@@ -318,8 +318,8 @@ namespace FunkyTrinity.Cache
 					 set { requiresLOSCheck=value; }
 				}
 
-				private Ability.LOSInfo lineofsight;
-				public Ability.LOSInfo LineOfSight
+				private AbilityFunky.LOSInfo lineofsight;
+				public AbilityFunky.LOSInfo LineOfSight
 				{
 					 get { return lineofsight; }
 				}

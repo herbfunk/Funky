@@ -3,15 +3,15 @@ using FunkyTrinity.Cache;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
 
-namespace FunkyTrinity.Ability
+namespace FunkyTrinity.AbilityFunky
 {
 	 ///<summary>
-	 ///Creates Funcs from a created ability and is to be used in testing of usability.
+	 ///Creates Funcs from a created Ability and is to be used in testing of usability.
 	 ///</summary>
 	 public static class AbilityLogicConditions
 	 {
 
-		  public static void CreateAbilityLogicConditions(ref ability ability)
+		  public static void CreateAbilityLogicConditions(ref Ability ability)
 		  {
 				CreatePreCastConditions(ref ability.FcriteriaPreCast, ability);
 				CreateTargetConditions(ref ability.FSingleTargetUnitCriteria, ability);
@@ -26,12 +26,12 @@ namespace FunkyTrinity.Ability
 
 
 		  #region Function Creation Methods
-		  private static void CreateClusterConditions(ref Func<bool> FClusterConditions, ability ability)
+		  private static void CreateClusterConditions(ref Func<bool> FClusterConditions, Ability ability)
 		  {
 				FClusterConditions=null;
 				if (ability.ClusterConditions==null) return;
 
-				FClusterConditions=new Func<bool>(() => { return ability.CheckClusterConditions(ability.ClusterConditions); });
+				FClusterConditions=new Func<bool>(() => { return Ability.CheckClusterConditions(ability.ClusterConditions); });
 
 				if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTarget|AbilityExecuteFlags.ClusterTargetNearest))
 				{
@@ -40,7 +40,7 @@ namespace FunkyTrinity.Ability
 				}
 		  }
 
-		  private static void CreatePreCastConditions(ref Func<bool> Fprecast, ability ability)
+		  private static void CreatePreCastConditions(ref Func<bool> Fprecast, Ability ability)
 		  {
 				AbilityPreCastFlags precastconditions_=ability.PreCastFlags;
 				if (precastconditions_.Equals(AbilityPreCastFlags.None))
@@ -114,16 +114,16 @@ namespace FunkyTrinity.Ability
 
 		  }
 
-		  private static void CreateTargetConditions(ref Func<bool> FSingleTargetUnitCriteria, ability ability)
+		  private static void CreateTargetConditions(ref Func<bool> FSingleTargetUnitCriteria, Ability ability)
 		  {
 
 				FSingleTargetUnitCriteria=null;
 
-				//No Conditions Set by default.. (?? May have to verify ability execution can be Target)
+				//No Conditions Set by default.. (?? May have to verify Ability execution can be Target)
 				//-- Ranged Abilities that do not set any single target conditions will never be checked for LOS.
 				if (ability.TargetUnitConditionFlags==null)
 				{
-					 //No Default Conditions Set.. however if ability uses target as a execution type then we implement the LOS conditions.
+					 //No Default Conditions Set.. however if Ability uses target as a execution type then we implement the LOS conditions.
 					 if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.Target))
 						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return true; });
 					 else
@@ -136,7 +136,7 @@ namespace FunkyTrinity.Ability
 				CreateLineOfSightTargetCheck(ref FSingleTargetUnitCriteria, ability);
 		  }
 
-		  private static void CreateLineOfSightTargetCheck(ref Func<bool> CombatCriteria, ability ability)
+		  private static void CreateLineOfSightTargetCheck(ref Func<bool> CombatCriteria, Ability ability)
 		  {
 				if (ability.IsRanged)
 				{
@@ -202,7 +202,7 @@ namespace FunkyTrinity.Ability
 				}
 		  }
 
-		  //We take the enums given by UnitTargetConditions (ability property) and add any new conditions to the func for testing
+		  //We take the enums given by UnitTargetConditions (Ability property) and add any new conditions to the func for testing
 		  private static void CreateTargetFlagConditions(ref Func<bool> FSingleTargetUnitCriteria, UnitTargetConditions TargetUnitConditionFlags_)
 		  {
 				//Distance
@@ -379,14 +379,14 @@ namespace FunkyTrinity.Ability
 				return properties;
 		  }
 
-		  private static void CreateUnitsInRangeConditions(ref Func<bool> FUnitRange, ability ability)
+		  private static void CreateUnitsInRangeConditions(ref Func<bool> FUnitRange, Ability ability)
 		  {
 				FUnitRange=null;
 				if (ability.UnitsWithinRangeConditions!=null)
 					 FUnitRange+=new Func<bool>(() => { return Bot.Combat.iAnythingWithinRange[(int)ability.UnitsWithinRangeConditions.Item1]>=ability.UnitsWithinRangeConditions.Item2; });
 		  }
 
-		  private static void CreateElitesInRangeConditions(ref Func<bool> FUnitRange, ability ability)
+		  private static void CreateElitesInRangeConditions(ref Func<bool> FUnitRange, Ability ability)
 		  {
 				FUnitRange=null;
 				if (ability.ElitesWithinRangeConditions!=null)

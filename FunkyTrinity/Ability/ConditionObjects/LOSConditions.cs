@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Zeta.Internals.Actors;
 using Zeta.Internals.SNO;
-namespace FunkyTrinity.Ability
+namespace FunkyTrinity.AbilityFunky
 {
 	 ///<summary>
 	 ///Conditions used in LOS checking
@@ -12,7 +12,7 @@ namespace FunkyTrinity.Ability
 		 public bool RequiresServerObjectIntersection { get; set; }
 		 public NavCellFlags NavCellFlags { get; set; }
 
-		 public LOSConditions(Dictionary<SNOPower, ability> abilities, bool raycast=true)
+		 public LOSConditions(Dictionary<SNOPower, Ability> abilities, bool raycast=true)
 		 {
 			  //check the abilities
 			  bool objectIntersection=false;

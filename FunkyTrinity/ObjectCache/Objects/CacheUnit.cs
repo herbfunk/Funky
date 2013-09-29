@@ -10,7 +10,7 @@ using Zeta.TreeSharp;
 
 using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
-using FunkyTrinity.Ability;
+using FunkyTrinity.AbilityFunky;
 using FunkyTrinity.Movement.Clustering;
 using FunkyTrinity.Avoidances;
 
@@ -1348,7 +1348,7 @@ namespace FunkyTrinity.Cache
 						  // Force waiting for global cooldown timer or long-animation abilities
 							if (Bot.Class.PowerPrime.WaitLoopsBefore>=1||(Bot.Class.PowerPrime.WaitWhileAnimating!=false&&DateTime.Now.Subtract(PowerCacheLookup.lastGlobalCooldownUse).TotalMilliseconds<=50))
 						  {
-								//Logging.WriteDiagnostic("Debug: Force waiting BEFORE ability " + powerPrime.powerThis.ToString() + "...");
+								//Logging.WriteDiagnostic("Debug: Force waiting BEFORE Ability " + powerPrime.powerThis.ToString() + "...");
 								Bot.Combat.bWaitingForPower=true;
 								if (Bot.Class.PowerPrime.WaitLoopsBefore>=1)
 									 Bot.Class.PowerPrime.WaitLoopsBefore--;
@@ -1363,7 +1363,7 @@ namespace FunkyTrinity.Cache
 						  // Note that whirlwinds use an off-on-off-on to avoid spam
 						  if (Bot.Class.PowerPrime.Power!=SNOPower.Barbarian_Whirlwind&&Bot.Class.PowerPrime.Power!=SNOPower.DemonHunter_Strafe)
 						  {
-								ability.UsePower(ref Bot.Class.PowerPrime);
+								Ability.UsePower(ref Bot.Class.PowerPrime);
 								Bot.Combat.lastChangedZigZag=DateTime.Today;
 								Bot.Combat.vPositionLastZigZagCheck=Vector3.Zero;
 						  }
@@ -1379,7 +1379,7 @@ namespace FunkyTrinity.Cache
 								}
 								if (bUseThisLoop)
 								{
-									 ability.UsePower(ref Bot.Class.PowerPrime);
+									 Ability.UsePower(ref Bot.Class.PowerPrime);
 								}
 						  }
 
@@ -1404,7 +1404,7 @@ namespace FunkyTrinity.Cache
 						  Bot.Combat.bWaitingAfterPower=false;
 						  if (Bot.Class.PowerPrime.WaitLoopsAfter>=1)
 						  {
-								//Logging.WriteDiagnostic("Force waiting AFTER ability " + powerPrime.powerThis.ToString() + "...");
+								//Logging.WriteDiagnostic("Force waiting AFTER Ability " + powerPrime.powerThis.ToString() + "...");
 								Bot.Combat.bWaitingAfterPower=true;
 						  }
 
@@ -1413,7 +1413,7 @@ namespace FunkyTrinity.Cache
 								Bot.Class.PowerPrime.LastConditionPassed.HasFlag(ConditionCriteraTypes.Cluster)&&Bot.Class.PowerPrime.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTarget|AbilityExecuteFlags.ClusterTargetNearest))&&
 								Bot.Target.LastCachedTarget.Equals(Bot.Target.CurrentTarget)&&
 								Bot.Class.LastUsedAbility.TargetRAGUID==Bot.Target.CurrentTarget.AcdGuid.Value&&
-								DateTime.Now.Subtract(Bot.Combat.dateSincePickedTarget).TotalMilliseconds>3000)
+								DateTime.Now.Subtract(Bot.Target.LastChangeOfTarget).TotalMilliseconds>3000)
 						  {
 								double LastHealthChangedMS=DateTime.Now.Subtract(this.LastHealthChange).TotalMilliseconds;
 								if (LastHealthChangedMS>5000)

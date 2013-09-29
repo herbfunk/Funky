@@ -7,7 +7,7 @@ using Zeta.Common;
 using Zeta.Internals.SNO;
 using Zeta.Navigation;
 
-namespace FunkyTrinity.Ability
+namespace FunkyTrinity.AbilityFunky
 {
 	public class LOSInfo
 	{

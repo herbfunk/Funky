@@ -4,9 +4,9 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Ability.Abilities
+namespace FunkyTrinity.AbilityFunky.Abilities
 {
-	public class ProjectileRangeAttack : ability, IAbility
+	public class ProjectileRangeAttack : Ability, IAbility
 	{
 		public ProjectileRangeAttack() : base()
 		{
@@ -43,7 +43,7 @@ namespace FunkyTrinity.Ability.Abilities
 			 }
 			 else
 			 {
-				  ability p=(ability)obj;
+				  Ability p=(Ability)obj;
 				  return this.Power==p.Power;
 			 }
 		}

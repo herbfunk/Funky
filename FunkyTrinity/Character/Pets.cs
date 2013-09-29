@@ -2,6 +2,15 @@ using System.Collections.Generic;
 
 namespace FunkyTrinity.Cache
 {
+	 public enum PetTypes
+	 {
+		  MONK_MysticAlly=1,
+		  WITCHDOCTOR_Gargantuan=2,
+		  WITCHDOCTOR_ZombieDogs=4,
+		  DEMONHUNTER_Pet=8,
+		  WIZARD_Hydra=16,
+	 }
+
 	public class Pets
 	{
 		public Dictionary<PetTypes, int> dictPetCounter=new Dictionary<PetTypes, int>();

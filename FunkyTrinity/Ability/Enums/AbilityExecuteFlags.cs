@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace FunkyTrinity.Ability
+namespace FunkyTrinity.AbilityFunky
 {
 	 ///<summary>
-	 ///Describes how to use the ability (SNOPower)
+	 ///Describes how to use the Ability (SNOPower)
 	 ///</summary>
 	 [Flags]
 	 public enum AbilityExecuteFlags

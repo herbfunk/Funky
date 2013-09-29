@@ -251,11 +251,9 @@ namespace FunkyTrinity
 
 								 string charString=String.Format("Character Info \r\n"+
 																			"DynamicID={0} -- WorldID={1} \r\n"+
-																			"SNOAnim={2} AnimState={3}\r\n"+
-																			"TeamID={4}\r\n",
+																			"SNOAnim={2} AnimState={3}",
 																			Bot.Character.iMyDynamicID.ToString(), Bot.Character.iCurrentWorldID.ToString(),
-																			Bot.Character.CurrentSNOAnim.ToString(), Bot.Character.CurrentAnimationState.ToString(),
-																			Bot.Character.iTeamID.ToString());
+																			Bot.Character.CurrentSNOAnim.ToString(), Bot.Character.CurrentAnimationState.ToString());
 
 
 								 LBDebug.Items.Add(charString);
@@ -287,7 +285,7 @@ namespace FunkyTrinity
 
 							}
 					  }
-					  else if (btnsender.Name=="ability")
+					  else if (btnsender.Name=="Ability")
 					  {
 							try
 							{
@@ -381,10 +379,6 @@ namespace FunkyTrinity
              private void bFuryDumpAlwaysChecked(object sender, EventArgs e)
              {
                  Bot.SettingsFunky.Class.bFuryDumpAlways = !Bot.SettingsFunky.Class.bFuryDumpAlways;
-             }
-             private void bMonkInnaSetChecked(object sender, EventArgs e)
-             {
-                 Bot.SettingsFunky.Class.bMonkInnaSet = !Bot.SettingsFunky.Class.bMonkInnaSet;
              }
 				 private void bMonkSpamMantraChecked(object sender, EventArgs e)
 				 {

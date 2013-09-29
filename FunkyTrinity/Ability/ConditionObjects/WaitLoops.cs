@@ -1,7 +1,7 @@
-﻿namespace FunkyTrinity.Ability
+﻿namespace FunkyTrinity.AbilityFunky
 {
 	 /// <summary> 
-	 /// Describes Pre and Post Wait Loops for an ability.
+	 /// Describes Pre and Post Wait Loops for an Ability.
 	 /// </summary> 
 	 public struct WaitLoops
 	 {

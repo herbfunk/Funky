@@ -8,7 +8,7 @@ using Zeta.Internals.SNO;
 using Zeta.Navigation;
 using System.Globalization;
 
-using FunkyTrinity.Ability;
+using FunkyTrinity.AbilityFunky;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Movement.Clustering;
 using FunkyTrinity.Cache.Enums;
@@ -488,7 +488,8 @@ namespace FunkyTrinity.Movement
 
 					 if (useTargetBasedZigZag&&!Bot.Combat.bAnyTreasureGoblinsPresent&&Bot.Combat.UnitRAGUIDs.Count>=minTargets)
 					 {
-						  List<CacheServerObject> units_=Bot.Combat.NearbyObstacleObjects.Where(obj => Bot.Combat.UnitRAGUIDs.Contains(obj.RAGUID)).ToList();
+						  var units_=Bot.Combat.NearbyObstacleObjects.Where(obj => Bot.Combat.UnitRAGUIDs.Contains(obj.RAGUID));
+						  units_.ToList().ForEach(obj => obj.UpdateWeight());
 
 						  IEnumerable<CacheObject> zigZagTargets=
 								from u in units_

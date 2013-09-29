@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace FunkyTrinity.Ability
+namespace FunkyTrinity.AbilityFunky
 {
 	 ///<summary>
-	 ///Conditions used to determine if ability is capable of use.
+	 ///Conditions used to determine if Ability is capable of use.
 	 ///</summary>
 	 [Flags]
 	 public enum AbilityPreCastFlags

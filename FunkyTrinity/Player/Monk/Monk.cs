@@ -7,23 +7,31 @@ using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
 
-using FunkyTrinity.Ability;
-using FunkyTrinity.Ability.Abilities;
-using FunkyTrinity.Ability.Abilities.Monk;
+using FunkyTrinity.AbilityFunky;
+using FunkyTrinity.AbilityFunky.Abilities;
+using FunkyTrinity.AbilityFunky.Abilities.Monk;
 
 namespace FunkyTrinity
 {
 
 		  internal class Monk : Player
 		  {
-
 				//Base class for each individual class!
 				public Monk(ActorClass a)
 					 : base(a)
 				{
-
+					 List<Cache.CacheACDItem> equippedItems=Bot.Character.BackPack.ReturnCurrentEquippedItems();
+					 int InnaSetItemCount=equippedItems.Count(i => i.ThisRealName.Contains("Inna"));
+					 if (InnaSetItemCount>3)
+					 {
+						  Logging.Write("Monk has full inna set!");
+						  Bot.SettingsFunky.Class.bMonkInnaSet=true;
+					 }
+					 else
+						  Bot.SettingsFunky.Class.bMonkInnaSet=false;
+						 
 				}
-				public override ability DefaultAttack
+				public override Ability DefaultAttack
 				{
 					 get { return new WeaponMeleeInsant(); }
 				}
@@ -62,11 +70,11 @@ namespace FunkyTrinity
 
 				public override void RecreateAbilities()
 				{
-					 Abilities=new Dictionary<SNOPower, ability>();
+					 Abilities=new Dictionary<SNOPower, Ability>();
 
 					 if (!HotbarContainsAPrimaryAbility())
 					 {
-						  ability defaultAbility=this.DefaultAttack;
+						  Ability defaultAbility=this.DefaultAttack;
 						  AbilityLogicConditions.CreateAbilityLogicConditions(ref defaultAbility);
 						  Abilities.Add(defaultAbility.Power, defaultAbility);
 						  RuneIndexCache.Add(defaultAbility.Power, -1);
@@ -75,7 +83,7 @@ namespace FunkyTrinity
 					 //Create the abilities
 					 foreach (var item in HotbarPowers)
 					 {
-						  ability newAbility=this.CreateAbility(item);
+						  Ability newAbility=this.CreateAbility(item);
 						  AbilityLogicConditions.CreateAbilityLogicConditions(ref newAbility);
 						  Abilities.Add(item, newAbility);
 					 }
@@ -89,7 +97,7 @@ namespace FunkyTrinity
 
 				}
 
-				public override ability CreateAbility(SNOPower Power)
+				public override Ability CreateAbility(SNOPower Power)
 				{
 				  MonkActiveSkills power=(MonkActiveSkills)Enum.ToObject(typeof(MonkActiveSkills), (int)Power);
 					

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using FunkyTrinity.Ability;
+using FunkyTrinity.AbilityFunky;
 using FunkyTrinity.Avoidances;
 using FunkyTrinity.Cache;
 using FunkyTrinity.Cache.Enums;
@@ -53,6 +53,7 @@ namespace FunkyTrinity.Targeting
 				if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 					 Logger.Write(LogLevel.Target, "Changed Object: {0}", MakeStringSingleLine(e.newObject.DebugString));
 
+				this.LastChangeOfTarget=DateTime.Now;
 				TargetMovement.NewTargetResetVars();
 				
 				if (handler!=null)
@@ -120,6 +121,7 @@ namespace FunkyTrinity.Targeting
 		  internal bool AvoidanceLastTarget { get; set; }
 		  internal DateTime LastAvoidanceMovement { get; set; }
 		  internal DateTime LastFleeAction=DateTime.Today;
+		  internal DateTime LastChangeOfTarget=DateTime.Today;
 
 		  ///<summary>
 		  ///Refreshes Cache and updates current target
@@ -142,10 +144,12 @@ namespace FunkyTrinity.Targeting
 				//Check avoidance requirement still valid
 				if (Bot.Combat.RequiresAvoidance)
 				{
-					 if (DateTime.Now.Subtract(TargetMovement.LastMovementCommand).TotalMilliseconds<550) //We are moving..? 
+					 if (!this.AvoidanceLastTarget&&DateTime.Now.Subtract(TargetMovement.LastMovementCommand).TotalMilliseconds<550) //We are moving..? 
 					 {
 						  Bot.Combat.RequiresAvoidance=false;
 					 }
+					 else if (Bot.Combat.TriggeringAvoidances.Count==0)
+						  Bot.Combat.RequiresAvoidance=false;
 				}
 
 				//This is our list of objects we consider to be valid for targeting.
@@ -160,8 +164,6 @@ namespace FunkyTrinity.Targeting
 					 return;
 				}
 
-				if (!Bot.Target.CurrentTarget.Equals(LastCachedTarget))
-					 TargetMovement.NewTargetResetVars();
 
 				if (Bot.SettingsFunky.EnableWaitAfterContainers&&Bot.Target.CurrentTarget.targetType==TargetType.Container)
 				{
@@ -187,7 +189,7 @@ namespace FunkyTrinity.Targeting
 				// Record the last time our target changed etc.
 				if (Bot.Target.CurrentTarget!=LastCachedTarget)
 				{
-					 Bot.Combat.dateSincePickedTarget=DateTime.Now;
+					 this.LastChangeOfTarget=DateTime.Now;
 				}
 		  }
 
