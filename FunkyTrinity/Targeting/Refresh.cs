@@ -114,7 +114,7 @@ namespace FunkyTrinity.Targeting
 		  ///</summary>
 		  internal bool RemovalCheck=false;
 
-
+		  
 
 		  internal CacheObject LastCachedTarget { get; set; }
 		  internal bool FleeingLastTarget { get; set; }
@@ -150,6 +150,13 @@ namespace FunkyTrinity.Targeting
 					 }
 					 else if (Bot.Combat.TriggeringAvoidances.Count==0)
 						  Bot.Combat.RequiresAvoidance=false;
+				}
+
+				//Update Search Grid Provider?
+				if (Bot.NavigationCache.ShouldUpdateSearchGrid)
+				{
+					 Bot.NavigationCache.ShouldUpdateSearchGrid=false;
+					 Zeta.Navigation.Navigator.SearchGridProvider.Update();
 				}
 
 				//This is our list of objects we consider to be valid for targeting.

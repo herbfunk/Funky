@@ -110,6 +110,13 @@ namespace FunkyTrinity.Movement
 				#endregion
 
 
+				private bool shouldUpdateSearchGrid=false;
+				internal bool ShouldUpdateSearchGrid
+				{
+					 get { return shouldUpdateSearchGrid; }
+					 set { shouldUpdateSearchGrid=value; }
+				}
+
 				//GPCache
 
 				private GPRectangle CurrentLocationGPrect=null;
