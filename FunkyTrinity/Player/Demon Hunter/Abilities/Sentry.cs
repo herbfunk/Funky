@@ -28,7 +28,7 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			FcriteriaCombat = new Func<bool>(() =>
 			{
 				 return Bot.Class.LastUsedAbility.Power!=SNOPower.DemonHunter_Sentry&&
-				       (Bot.Combat.FleeingLastTarget || DateTime.Now.Subtract(Bot.Combat.LastFleeAction).TotalMilliseconds < 1000) ||
+						 (Bot.Target.FleeingLastTarget||DateTime.Now.Subtract(Bot.Target.LastFleeAction).TotalMilliseconds<1000)||
 				       (Bot.Combat.iElitesWithinRange[(int) RangeIntervals.Range_40] >= 1 ||
 				        Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_40] >= 2);
 			});

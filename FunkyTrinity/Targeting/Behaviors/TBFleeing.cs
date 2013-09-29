@@ -29,7 +29,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 								&&(FunkyTrinity.Bot.Class.AC!=ActorClass.Wizard||(FunkyTrinity.Bot.Class.AC==ActorClass.Wizard&&(!FunkyTrinity.Bot.Class.HasBuff(SNOPower.Wizard_Archon)||!FunkyTrinity.Bot.SettingsFunky.Class.bKiteOnlyArchon))))
 					 {
 						  //Resuse last safespot until timer expires!
-						  if (DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.LastFleeAction).TotalSeconds<FunkyTrinity.Bot.Combat.iSecondsFleeMoveFor)
+						  if (DateTime.Now.Subtract(Bot.Target.LastFleeAction).TotalSeconds<FunkyTrinity.Bot.Combat.iSecondsFleeMoveFor)
 						  {
 								Vector3 reuseV3=FunkyTrinity.Bot.NavigationCache.AttemptToReuseLastLocationFound();
 								if (reuseV3!=Vector3.Zero)

@@ -183,9 +183,14 @@ namespace FunkyTrinity.Targeting.Behaviors
 
 						 if (CurrentTarget.LOSV3!=Vector3.Zero)
 						 {
-							  iHighestWeightFound=thisobj.Weight;
-							  CurrentTarget=new CacheObject(CurrentTarget.LOSV3, TargetType.Avoidance, 20000d, "LOSV3", 2.5f);
-							  continue;
+							  if (CurrentTarget.LOSV3.Distance(Bot.Character.Position)<=2.5f)
+									CurrentTarget.LOSV3=Vector3.Zero;
+							  else
+							  {
+									iHighestWeightFound=thisobj.Weight;
+									CurrentTarget=new CacheObject(CurrentTarget.LOSV3, TargetType.Avoidance, 20000d, "LOSV3", 2.5f);
+									continue;
+							  }
 						 }
 							 
 

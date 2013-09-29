@@ -43,7 +43,7 @@
       <Type>Dececrator</Type>
       <Health>1</Health>
       <Radius>9</Radius>
-      <Weight>12</Weight>
+      <Weight>14</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>DiabloMetor</Type>
@@ -60,8 +60,8 @@
     <AvoidanceValue>
       <Type>Frozen</Type>
       <Health>1</Health>
-      <Radius>19</Radius>
-      <Weight>20</Weight>
+      <Radius>20</Radius>
+      <Weight>10</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>GrotesqueExplosion</Type>
@@ -107,9 +107,9 @@
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>PoisonGas</Type>
-      <Health>0.5</Health>
+      <Health>0.75</Health>
       <Radius>9</Radius>
-      <Weight>0</Weight>
+      <Weight>12</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>ShamanFireBall</Type>
@@ -126,8 +126,8 @@
     <AvoidanceValue>
       <Type>TreeSpore</Type>
       <Health>1</Health>
-      <Radius>11</Radius>
-      <Weight>20</Weight>
+      <Radius>14</Radius>
+      <Weight>14</Weight>
     </AvoidanceValue>
     <AvoidanceValue>
       <Type>None</Type>

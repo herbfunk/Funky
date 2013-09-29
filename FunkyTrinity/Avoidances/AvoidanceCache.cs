@@ -15,16 +15,16 @@ namespace FunkyTrinity.Avoidances
 
 		  internal static readonly  AvoidanceValue[] AvoidancesDefault=new AvoidanceValue[]
 			  {
-				  new AvoidanceValue(AvoidanceType.ArcaneSentry, 1, 14,10), 
+				  new AvoidanceValue(AvoidanceType.ArcaneSentry, 1, 14,15), 
 				  new AvoidanceValue(AvoidanceType.AzmodanBodies, 1, 47,5),
 				  new AvoidanceValue(AvoidanceType.AzmodanFireball, 1, 16,5),
 				  new AvoidanceValue(AvoidanceType.AzmodanPool, 1, 54,5),
 				  new AvoidanceValue(AvoidanceType.BeeProjectile, 0.5, 2,5),
 				  new AvoidanceValue(AvoidanceType.BelialGround, 1, 25,5),
-				  new AvoidanceValue(AvoidanceType.Dececrator, 1, 9,10),
+				  new AvoidanceValue(AvoidanceType.Dececrator, 1, 9,12),
 				  new AvoidanceValue(AvoidanceType.DiabloMetor, 0.80, 28,5),
 				  new AvoidanceValue(AvoidanceType.DiabloPrison, 1, 15,5),
-				  new AvoidanceValue(AvoidanceType.Frozen, 1, 19,10),
+				  new AvoidanceValue(AvoidanceType.Frozen, 1, 20,10),
 				  new AvoidanceValue(AvoidanceType.GrotesqueExplosion, 0.50, 20,5),
 				  new AvoidanceValue(AvoidanceType.LacuniBomb, 0.25, 2,5),
 				  new AvoidanceValue(AvoidanceType.MageFirePool, 1, 10,5),
@@ -35,7 +35,7 @@ namespace FunkyTrinity.Avoidances
 				  new AvoidanceValue(AvoidanceType.PoisonGas, 0.5, 9,5),
 				  new AvoidanceValue(AvoidanceType.ShamanFireBall, 0.1, 2,5), 
 				  new AvoidanceValue(AvoidanceType.SuccubusProjectile, 0.25, 2,5),
-				  new AvoidanceValue(AvoidanceType.TreeSpore, 1, 13,10),
+				  new AvoidanceValue(AvoidanceType.TreeSpore, 1, 14,10),
 				  //new AvoidanceValue(AvoidanceType.WallOfFire, 0, 0, 0),
 				  //?? value never makes it when deseralized, but is seralized.
 				  new AvoidanceValue(AvoidanceType.None,0,0,0),

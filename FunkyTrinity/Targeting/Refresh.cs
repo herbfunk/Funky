@@ -116,6 +116,10 @@ namespace FunkyTrinity.Targeting
 
 
 		  internal CacheObject LastCachedTarget { get; set; }
+		  internal bool FleeingLastTarget { get; set; }
+		  internal bool AvoidanceLastTarget { get; set; }
+		  internal DateTime LastAvoidanceMovement { get; set; }
+		  internal DateTime LastFleeAction=DateTime.Today;
 
 		  ///<summary>
 		  ///Refreshes Cache and updates current target
@@ -138,12 +142,14 @@ namespace FunkyTrinity.Targeting
 				//Check avoidance requirement still valid
 				if (Bot.Combat.RequiresAvoidance)
 				{
-					 //Nothing "Triggering".. 
-					 if (Bot.Combat.TriggeringAvoidances.Count==0)
+
+					 if (this.AvoidanceLastTarget) //Check if we used movement avoidance last loop
 					 {
-						  //No flee behavior.. check if bot has at least 25% hp..
-						  if (!Bot.SettingsFunky.Fleeing.EnableFleeingBehavior||Bot.Character.dCurrentHealthPct>0.25d)
-								Bot.Combat.RequiresAvoidance=false;
+						  if (this.LastCachedTarget.CentreDistance>2.5f) Bot.Combat.RequiresAvoidance=false;
+					 }
+					 else if (Bot.Combat.TriggeringAvoidances.Count==0) //Nothing "Triggering".. 
+					 {
+						  Bot.Combat.RequiresAvoidance=false;
 					 }
 				}
 
@@ -196,7 +202,7 @@ namespace FunkyTrinity.Targeting
 		  private void InitObjectRefresh()
 		  {
 				//Cache last target only if current target is not avoidance (Movement).
-				LastCachedTarget=Bot.Target.CurrentTarget!=null?Bot.Target.CurrentTarget:ObjectCache.FakeCacheObject;
+				LastCachedTarget=Bot.Target.CurrentTarget!=null?Bot.Target.CurrentTarget.Clone():ObjectCache.FakeCacheObject;
 
 				if (!Bot.Target.Equals(null)&&Bot.Target.CurrentTarget.targetType.HasValue&&Bot.Target.CurrentTarget.targetType.Value==TargetType.Avoidance
 					 &&!String.IsNullOrEmpty(Bot.Target.CurrentTarget.InternalName))
@@ -204,19 +210,19 @@ namespace FunkyTrinity.Targeting
 					 string internalname=Bot.Target.CurrentTarget.InternalName;
 					 if (internalname.Contains("FleeSpot"))
 					 {
-						  Bot.Combat.LastFleeAction=DateTime.Now;
-						  Bot.Combat.FleeingLastTarget=true;
+						  this.LastFleeAction=DateTime.Now;
+						  this.FleeingLastTarget=true;
 					 }
 					 else if (internalname.Contains("AvoidanceIntersection")||internalname.Contains("StayPutPoint")||internalname.Contains("SafeAvoid")||internalname.Contains("SafeReuseAvoid"))
 					 {
-						  Bot.Combat.LastAvoidanceMovement=DateTime.Now;
-						  Bot.Combat.AvoidanceLastTarget=true;
+						  this.LastAvoidanceMovement=DateTime.Now;
+						  this.AvoidanceLastTarget=true;
 					 }
 				}
 				else
 				{
-					 Bot.Combat.FleeingLastTarget=false;
-					 Bot.Combat.AvoidanceLastTarget=false;
+					 this.FleeingLastTarget=false;
+					 this.AvoidanceLastTarget=false;
 				}
 
 				//Reset target

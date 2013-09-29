@@ -406,7 +406,8 @@ namespace FunkyTrinity.Targeting
 						  // Did we get default attack?
 						  if (nextAbility.Equals(Bot.Class.DefaultAttack)&&!Bot.Class.CanUseDefaultAttack)
 						  {
-								Logger.Write(LogLevel.Ability, "Failed to find a valid ability to use -- Target: {0}", Bot.Target.CurrentTarget.InternalName);
+								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Ability))
+									 Logger.Write(LogLevel.Ability, "Failed to find a valid ability to use -- Target: {0}", Bot.Target.CurrentTarget.InternalName);
 								Bot.Combat.bForceTargetUpdate=true;
 								CurrentState=RunStatus.Running;
 								CurrentTarget.BlacklistLoops=10;

@@ -44,10 +44,10 @@ namespace FunkyTrinity
 						  "Confirm Overwrite", System.Windows.MessageBoxButton.YesNoCancel, System.Windows.MessageBoxImage.Question);
 					 if (confirm== System.Windows.MessageBoxResult.Yes)
 					 {
-						  Bot.SettingsFunky.Grouping.AttemptGroupingMovements=false;
-						  Bot.SettingsFunky.Fleeing.EnableFleeingBehavior=false;
-						  Bot.SettingsFunky.Cluster.EnableClusteringTargetLogic=false;
-						  Settings_Funky.SerializeToXML(Bot.SettingsFunky);
+						  string DefaultLeveling=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults", "LowLevel.xml");
+						  Logging.Write("Creating new settings for {0} -- {1} using file {2}", Bot.CurrentAccountName, Bot.CurrentHeroName, DefaultLeveling);
+						  Settings_Funky newSettings=Settings_Funky.DeserializeFromXML(DefaultLeveling);
+						  Bot.SettingsFunky=newSettings;
 						  funkyConfigWindow.Close();
 					 }
 				}
@@ -58,7 +58,7 @@ namespace FunkyTrinity
 						  InitialDirectory=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
 						  RestoreDirectory=false,
 						  Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
-						  Title="Fleeing Template",
+						  Title="Open Settings",
 					 };
 					 System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
 

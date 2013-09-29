@@ -336,7 +336,12 @@ namespace FunkyTrinity.Cache
 					 get { return lineofsight; }
 				}
 
-				public DateTime LastLOSSearch { get; set; }
+				private DateTime lastLOSSearch=DateTime.Today;
+				public DateTime LastLOSSearch
+				{
+					 get { return lastLOSSearch; }
+					 set { lastLOSSearch=value; }
+				}
 				///<summary>
 				///Last time we preformed a LOS vector search
 				///</summary>

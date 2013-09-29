@@ -1033,6 +1033,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Ability\_About Abilities.txt" />
+    <Content Include="Config\Defaults\LowLevel.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Config\Defaults\InfernoMelee.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

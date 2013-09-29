@@ -12,7 +12,8 @@ namespace FunkyTrinity
         private static bool SafetyCheckForTownRun()
         {
             //This is called only if we want to townrun... basically a pre-check to if we should proceede.
-				Logger.Write(LogLevel.OutOfCombat, "Precheck running for town run");
+				if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
+					 Logger.Write(LogLevel.OutOfCombat, "Precheck running for town run");
 
             //Avoidance Flag
 				Bot.Combat.CriticalAvoidance=true;

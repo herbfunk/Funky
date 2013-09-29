@@ -663,7 +663,7 @@ namespace FunkyTrinity.Cache
 									 {
 										  int RangeModifier=1200;
 										  //Increase Distance Modifier if recently kited.
-										  if (Bot.SettingsFunky.Fleeing.EnableFleeingBehavior&&DateTime.Now.Subtract(Bot.Combat.LastFleeAction).TotalMilliseconds<3000)
+										  if (Bot.SettingsFunky.Fleeing.EnableFleeingBehavior&&DateTime.Now.Subtract(Bot.Target.LastFleeAction).TotalMilliseconds<3000)
 												RangeModifier=12000;
 
 
@@ -908,8 +908,10 @@ namespace FunkyTrinity.Cache
 										  if (this.LineOfSight.ObjectIntersection.HasValue&&this.LineOfSight.ObjectIntersection.Value
 												&&(this.LineOfSight.RayCast.HasValue&&this.LineOfSight.RayCast.Value)
 												&&(this.LineOfSight.NavCellProjectile.HasValue&&this.LineOfSight.NavCellProjectile.Value)
-												||(this.LineOfSight.NavCellWalk.HasValue&&this.LineOfSight.NavCellWalk.Value))
+												||(this.LineOfSight.NavCellWalk.HasValue&&this.LineOfSight.NavCellWalk.Value)
+												&&(this.LastLOSSearchMS>1500))
 										  {
+												this.LastLOSSearch=DateTime.Now;
 												Vector3 LineOfSightMovement;
 												if (Bot.NavigationCache.AttemptFindSafeSpot(out LineOfSightMovement, this.BotMeleeVector, false))
 												{
@@ -952,6 +954,21 @@ namespace FunkyTrinity.Cache
 									 if (this.ObjectIsSpecial)
 									 {
 										  Bot.Combat.LoSMovementUnits.Add(this);
+
+										  if (this.LineOfSight.ObjectIntersection.HasValue&&this.LineOfSight.ObjectIntersection.Value
+												&&(this.LineOfSight.RayCast.HasValue&&this.LineOfSight.RayCast.Value)
+												&&(this.LineOfSight.NavCellProjectile.HasValue&&this.LineOfSight.NavCellProjectile.Value)
+												||(this.LineOfSight.NavCellWalk.HasValue&&this.LineOfSight.NavCellWalk.Value)
+												&&(this.LastLOSSearchMS>1500))
+										  {
+												this.LastLOSSearch=DateTime.Now;
+												Vector3 LineOfSightMovement;
+												if (Bot.NavigationCache.AttemptFindSafeSpot(out LineOfSightMovement, this.BotMeleeVector, false))
+												{
+													 this.LOSV3=LineOfSightMovement;
+													 Valid=true;
+												}
+										  }
 									 }
 
 									 //Valid?? Did we find a location we could move to for LOS?
@@ -1044,13 +1061,19 @@ namespace FunkyTrinity.Cache
 						  try
 						  {
 								this.ref_DiaUnit=base.ref_DiaObject as DiaUnit;
-						  } catch (NullReferenceException) { Logger.Write(LogLevel.Execption, "Failure to convert obj to DiaUnit!"); return false; }
+						  } catch (NullReferenceException)
+						  {
+								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+									 Logger.Write(LogLevel.Execption, "Failure to convert obj to DiaUnit!"); 
+								return false;
+						  }
 					 }
 
 					 ACD CommonData=base.ref_DiaObject.CommonData;
 					 if (CommonData==null)
 					 {
-						  Logger.Write(LogLevel.Execption, "Common Data Null!");
+						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+								Logger.Write(LogLevel.Execption, "Common Data Null!");
 						  return false;
 					 }
 
@@ -1074,7 +1097,8 @@ namespace FunkyTrinity.Cache
 								isNPC=this.IsNPC.Value;
 						  } catch (Exception)
 						  {
-								Logger.Write(LogLevel.Execption, "Safely Handled Getting Attribute IsNPC for object {0}", this.InternalName);
+								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+									 Logger.Write(LogLevel.Execption, "Safely Handled Getting Attribute IsNPC for object {0}", this.InternalName);
 						  }
 
 					 }
@@ -1124,7 +1148,8 @@ namespace FunkyTrinity.Cache
 								this.CheckMonsterAffixes(CommonData.MonsterAffixes);
 						  } catch (NullReferenceException)
 						  {
-								Logger.Write(LogLevel.Execption, "Failure to check monster affixes for unit {0}", base.InternalName);
+								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+									 Logger.Write(LogLevel.Execption, "Failure to check monster affixes for unit {0}", base.InternalName);
 								return false;
 						  }
 
@@ -1145,7 +1170,12 @@ namespace FunkyTrinity.Cache
 										  ObjectCache.Objects.UpdateMaximumHealthAverage();
 									 }
 								}
-						  } catch (Exception) { Logger.Write(LogLevel.Execption, "Failure to get maximum health for {0}", base.InternalName); return false; }
+						  } catch (Exception)
+						  {
+								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+									 Logger.Write(LogLevel.Execption, "Failure to get maximum health for {0}", base.InternalName); 
+								return false;
+						  }
 					 }
 
 
@@ -1198,7 +1228,8 @@ namespace FunkyTrinity.Cache
 								}
 						  } catch (Exception ex)
 						  {
-								Logger.Write(LogLevel.Execption, "[Funky] Safely handled exception getting is-targetable attribute for unit "+this.InternalName+" ["+this.SNOID.ToString()+"]");
+								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+									 Logger.Write(LogLevel.Execption, "[Funky] Safely handled exception getting is-targetable attribute for unit "+this.InternalName+" ["+this.SNOID.ToString()+"]");
 								Logging.WriteDiagnostic(ex.ToString());
 								this.IsTargetable=true;
 						  }
@@ -1384,7 +1415,8 @@ namespace FunkyTrinity.Cache
 								double LastHealthChangedMS=DateTime.Now.Subtract(this.LastHealthChange).TotalMilliseconds;
 								if (LastHealthChangedMS>5000)
 								{
-									 Logger.Write(LogLevel.Target, "Ignore Unit {0} due to health last changed of {1}ms", this.InternalName, LastHealthChangedMS);
+									 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+										  Logger.Write(LogLevel.Target, "Ignore Unit {0} due to health last changed of {1}ms", this.InternalName, LastHealthChangedMS);
 									 this.BlacklistLoops=20;
 									 Bot.Combat.bForceTargetUpdate=true;
 								}

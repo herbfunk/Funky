@@ -2,7 +2,7 @@
 <Settings_Funky xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Demonbuddy>
     <EnableDemonBuddyCharacterSettings>false</EnableDemonBuddyCharacterSettings>
-    <MonsterPower>0</MonsterPower>
+    <MonsterPower>1</MonsterPower>
     <NewGameMinimumWaitTime>0</NewGameMinimumWaitTime>
     <NewGameMaxmimumWaitTime>0</NewGameMaxmimumWaitTime>
   </Demonbuddy>
@@ -35,8 +35,8 @@
     <UnitExceptionSucideBombers>true</UnitExceptionSucideBombers>
   </Targeting>
   <Combat>
-    <GlobeHealthPercent>0.6</GlobeHealthPercent>
-    <PotionHealthPercent>0.5</PotionHealthPercent>
+    <GlobeHealthPercent>0.8</GlobeHealthPercent>
+    <PotionHealthPercent>0.7</PotionHealthPercent>
     <HealthWellHealthPercent>0.75</HealthWellHealthPercent>
   </Combat>
   <Avoidance>
@@ -46,8 +46,8 @@
       <AvoidanceValue>
         <Type>ArcaneSentry</Type>
         <Health>1</Health>
-        <Radius>14</Radius>
-        <Weight>14</Weight>
+        <Radius>12</Radius>
+        <Weight>20</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>AzmodanBodies</Type>
@@ -82,8 +82,8 @@
       <AvoidanceValue>
         <Type>Dececrator</Type>
         <Health>1</Health>
-        <Radius>9</Radius>
-        <Weight>12</Weight>
+        <Radius>10</Radius>
+        <Weight>15</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>DiabloMetor</Type>
@@ -105,7 +105,7 @@
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>GrotesqueExplosion</Type>
-        <Health>0.5</Health>
+        <Health>1</Health>
         <Radius>20</Radius>
         <Weight>20</Weight>
       </AvoidanceValue>
@@ -142,14 +142,14 @@
       <AvoidanceValue>
         <Type>PlagueHand</Type>
         <Health>1</Health>
-        <Radius>15</Radius>
+        <Radius>16</Radius>
         <Weight>0</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>PoisonGas</Type>
-        <Health>0.5</Health>
-        <Radius>9</Radius>
-        <Weight>12</Weight>
+        <Health>1</Health>
+        <Radius>11</Radius>
+        <Weight>10</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>ShamanFireBall</Type>
@@ -167,7 +167,7 @@
         <Type>TreeSpore</Type>
         <Health>1</Health>
         <Radius>11</Radius>
-        <Weight>10</Weight>
+        <Weight>20</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>None</Type>
@@ -181,17 +181,17 @@
   <EnableWaitAfterContainers>true</EnableWaitAfterContainers>
   <Fleeing>
     <EnableFleeingBehavior>false</EnableFleeingBehavior>
-    <FleeBotMinimumHealthPercent>0.50</FleeBotMinimumHealthPercent>
+    <FleeBotMinimumHealthPercent>0.5</FleeBotMinimumHealthPercent>
     <FleeMaxMonsterDistance>1</FleeMaxMonsterDistance>
   </Fleeing>
   <Grouping>
-    <AttemptGroupingMovements>true</AttemptGroupingMovements>
+    <AttemptGroupingMovements>false</AttemptGroupingMovements>
     <GroupingClusterRadiusDistance>10</GroupingClusterRadiusDistance>
     <GroupingMinimumUnitDistance>35</GroupingMinimumUnitDistance>
-    <GroupingMaximumDistanceAllowed>95</GroupingMaximumDistanceAllowed>
+    <GroupingMaximumDistanceAllowed>90</GroupingMaximumDistanceAllowed>
     <GroupingMinimumClusterCount>1</GroupingMinimumClusterCount>
-    <GroupingMinimumUnitsInCluster>3</GroupingMinimumUnitsInCluster>
-    <GroupingMinimumBotHealth>0.5</GroupingMinimumBotHealth>
+    <GroupingMinimumUnitsInCluster>4</GroupingMinimumUnitsInCluster>
+    <GroupingMinimumBotHealth>0.7</GroupingMinimumBotHealth>
   </Grouping>
   <AfterCombatDelay>500</AfterCombatDelay>
   <OutOfCombatMovement>false</OutOfCombatMovement>
@@ -203,8 +203,8 @@
     <ItemRulesUnidStashing>true</ItemRulesUnidStashing>
     <ItemRuleUseItemIDs>false</ItemRuleUseItemIDs>
     <ItemRuleDebug>false</ItemRuleDebug>
-    <ItemRuleType>Hard</ItemRuleType>
-    <ItemRuleCustomPath></ItemRuleCustomPath>
+    <ItemRuleType>Custom</ItemRuleType>
+    <ItemRuleCustomPath>C:\Users\aaron\Desktop\GnillerItemRules</ItemRuleCustomPath>
     <ItemRuleLogPickup>Rare</ItemRuleLogPickup>
     <ItemRuleLogKeep>Rare</ItemRuleLogKeep>
     <ItemRuleGilesScoring>true</ItemRuleGilesScoring>
@@ -215,19 +215,19 @@
     <GilesMinimumJeweleryScore>30000</GilesMinimumJeweleryScore>
     <MinimumWeaponItemLevel>
       <int>0</int>
-      <int>59</int>
+      <int>1</int>
     </MinimumWeaponItemLevel>
     <MinimumArmorItemLevel>
       <int>0</int>
-      <int>59</int>
+      <int>0</int>
     </MinimumArmorItemLevel>
     <MinimumJeweleryItemLevel>
       <int>0</int>
-      <int>55</int>
+      <int>1</int>
     </MinimumJeweleryItemLevel>
-    <MinimumLegendaryItemLevel>59</MinimumLegendaryItemLevel>
+    <MinimumLegendaryItemLevel>1</MinimumLegendaryItemLevel>
     <MaximumHealthPotions>100</MaximumHealthPotions>
-    <MinimumGoldPile>425</MinimumGoldPile>
+    <MinimumGoldPile>75</MinimumGoldPile>
     <PickupGems>
       <boolean>true</boolean>
       <boolean>true</boolean>
@@ -251,20 +251,21 @@
     <PickupFollowerItems>true</PickupFollowerItems>
     <PickupInfernalKeys>true</PickupInfernalKeys>
     <PickupDemonicEssence>true</PickupDemonicEssence>
-    <MiscItemLevel>59</MiscItemLevel>
+    <MiscItemLevel>1</MiscItemLevel>
   </Loot>
   <Ranges>
     <IgnoreCombatRange>false</IgnoreCombatRange>
     <IgnoreLootRange>false</IgnoreLootRange>
+    <IgnoreProfileBlacklists>false</IgnoreProfileBlacklists>
     <ItemRange>150</ItemRange>
     <GoldRange>45</GoldRange>
     <GlobeRange>40</GlobeRange>
-    <ShrineRange>50</ShrineRange>
-    <DestructibleRange>5</DestructibleRange>
+    <ShrineRange>74</ShrineRange>
+    <DestructibleRange>10</DestructibleRange>
     <ContainerOpenRange>50</ContainerOpenRange>
     <NonEliteCombatRange>45</NonEliteCombatRange>
     <EliteCombatRange>60</EliteCombatRange>
-    <TreasureGoblinRange>55</TreasureGoblinRange>
+    <TreasureGoblinRange>90</TreasureGoblinRange>
   </Ranges>
   <AvoidanceRecheckMaximumRate>3500</AvoidanceRecheckMaximumRate>
   <AvoidanceRecheckMinimumRate>550</AvoidanceRecheckMinimumRate>
@@ -273,7 +274,7 @@
   <Cluster>
     <ClusterDistance>7</ClusterDistance>
     <ClusterMinimumUnitCount>2</ClusterMinimumUnitCount>
-    <EnableClusteringTargetLogic>true</EnableClusteringTargetLogic>
+    <EnableClusteringTargetLogic>false</EnableClusteringTargetLogic>
     <IgnoreClusteringWhenLowHP>true</IgnoreClusteringWhenLowHP>
     <IgnoreClusterLowHPValue>0.75</IgnoreClusterLowHPValue>
   </Cluster>

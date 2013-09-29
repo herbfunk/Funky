@@ -207,9 +207,6 @@ namespace FunkyTrinity
 				Logger.DBLogFile=Zeta.Common.Logging.LogFilePath;
 				Logger.Write(LogLevel.User, "Init Logger Completed! DB Log Path Set {0}", Logger.DBLogFile);
 				ObjectCache.FakeCacheObject=new CacheObject(Vector3.Zero, TargetType.None, 0d, "Fake Target", 1f, -1);
-				//if (BotWasRunning) BotMain.Start();
-
-
 		  }
 
 		  public void OnPulse()
@@ -383,11 +380,6 @@ namespace FunkyTrinity
 				Zeta.CommonBot.Logic.BrainBehavior.CreateLootBehavior();
 				Zeta.CommonBot.Logic.BrainBehavior.CreateVendorBehavior();
 		  }
-
-
-
-
-
 
 	 }
 }

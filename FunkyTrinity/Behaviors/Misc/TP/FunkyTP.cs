@@ -80,7 +80,8 @@ namespace FunkyTrinity
 				
 				if (!cancast)
 				{
-					Logger.Write(LogLevel.OutOfCombat,"Cannot cast TP: "+TPcastTest);
+					 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
+						  Logger.Write(LogLevel.OutOfCombat,"Cannot cast TP: "+TPcastTest);
 					 return false;
 				}
 				return true;
@@ -282,7 +283,8 @@ namespace FunkyTrinity
 					 else if (ElapsedTime>8||!CastAttempted)
 					 {
 						  //Recast
-						  Logger.Write(LogLevel.OutOfCombat,"Casting TP..");
+						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
+								Logger.Write(LogLevel.OutOfCombat,"Casting TP..");
 						  ZetaDia.Me.UseTownPortal();
 						  CastAttempted=true;
 						  FunkyTP_LastCastAttempt=DateTime.Now;
@@ -295,7 +297,8 @@ namespace FunkyTrinity
 					 if (ElapsedTime>8)
 					 {
 						  //Void Cast?
-						  Logger.Write(LogLevel.OutOfCombat,"Attempting to void cast with movement..");
+						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
+								Logger.Write(LogLevel.OutOfCombat,"Attempting to void cast with movement..");
 						  Vector3 V3loc;
 						  bool success=Bot.NavigationCache.AttemptFindSafeSpot(out V3loc, Vector3.Zero);
 						  if (success)

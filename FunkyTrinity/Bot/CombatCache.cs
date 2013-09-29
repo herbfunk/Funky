@@ -51,12 +51,9 @@ namespace FunkyTrinity.Cache
 					 lastHadContainerAsTarget=DateTime.Today;
 					 lastHadRareChestAsTarget=DateTime.Today;
 					 dateSincePickedTarget=DateTime.Today;
-					 LastAvoidanceMovement=DateTime.Today;
 					 SurroundingUnits=0;
 					 DontMove=false;
 					 CriticalAvoidance=false;
-					 FleeingLastTarget=false;
-					 AvoidanceLastTarget=false;
 					 UsesDOTDPSAbility=false;
 					 TargetClusterCollection=new ClusterTargetCollection(TargetClusterConditions);
 				}
@@ -89,7 +86,8 @@ namespace FunkyTrinity.Cache
 				{
 					 if (!AbilityClusters.ContainsKey(CC))
 					 {
-						  Logger.Write(LogLevel.Cluster, "Creating new entry for ClusterConditions -- {0}", CC.ToString());
+						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Cluster))
+								Logger.Write(LogLevel.Cluster, "Creating new entry for ClusterConditions -- {0}", CC.ToString());
 						  AbilityClusters.Add(CC, new ClusterCollection(CC, 400,200));
 					 }
 
@@ -160,11 +158,8 @@ namespace FunkyTrinity.Cache
 
 			  #region Kite & Avoid
 
-				///<summary>
-				///Tracks if kiting was used last loop.
-				///</summary>
-				internal bool FleeingLastTarget { get; set; }
-				internal bool AvoidanceLastTarget { get; set; }
+
+
 				//Kiting
 				internal bool IsFleeing { get; set; }
 				// Prevent spam-kiting too much - allow fighting between each kite movement
@@ -173,13 +168,13 @@ namespace FunkyTrinity.Cache
 				//Duration: Seconds of the kite movement
 				internal int iSecondsFleeMoveFor=0;
 
-				internal DateTime LastFleeAction=DateTime.Today;
+				
 				//Avoidance Related
 				internal bool RequiresAvoidance { get; set; }
 				internal bool TravellingAvoidance { get; set; }
 				internal bool DontMove { get; set; }
 				internal bool CriticalAvoidance { get; set; }
-				internal DateTime LastAvoidanceMovement { get; set; }
+			
 
 				// This force-prevents avoidance for XX loops incase we get stuck trying to avoid stuff
 				internal DateTime timeCancelledEmergencyMove=DateTime.Today;
@@ -276,10 +271,9 @@ namespace FunkyTrinity.Cache
 					 get
 					 {
 						  string strDebug_LAST=string.Format("LastPickedTarget {0} -- LastHealthChanged {1} // HealthDrop {2}\r\n"+
-																		  "lastHadUnitInSights {3} -- lastHadEliteUnitInSights {4} -- lastHadContainerAsTarget {5} -- lastHadRareChestAsTarget {6}\r\n"+
-																		  "LastAvoidanceMovement {7}",
+																		  "lastHadUnitInSights {3} -- lastHadEliteUnitInSights {4} -- lastHadContainerAsTarget {5} -- lastHadRareChestAsTarget {6}",
 																		  this.dateSincePickedTarget.ToString(), "", "",
-																		  this.lastHadUnitInSights.ToString(), this.lastHadEliteUnitInSights.ToString(), this.lastHadContainerAsTarget.ToString(), this.lastHadRareChestAsTarget.ToString(), this.LastAvoidanceMovement.ToString());
+																		  this.lastHadUnitInSights.ToString(), this.lastHadEliteUnitInSights.ToString(), this.lastHadContainerAsTarget.ToString(), this.lastHadRareChestAsTarget.ToString());
 
 						  string strDebug_ClusterTarget=string.Format("LastClusterTargetLogicRefresh {0}\r\n"+
 																					 "CurrentTargetClusters Count {1} -- ValidClusterUnits Count {2}",

@@ -26,10 +26,11 @@ namespace FunkyTrinity.Targeting.Behaviors
 					  {
 							string avoidances="";
 							Bot.Combat.TriggeringAvoidances.ForEach(a => avoidances = avoidances + a.AvoidanceType.ToString() + ", ");
-							Logger.Write(LogLevel.Movement, "Avoidances Triggering: {0}", avoidances);
+							if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+								Logger.Write(LogLevel.Movement, "Avoidances Triggering: {0}", avoidances);
 					  }
 					  //Reuse the last generated safe spot...
-					  if (DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.LastAvoidanceMovement).TotalMilliseconds<FunkyTrinity.Bot.Combat.iSecondsEmergencyMoveFor)
+					  if (DateTime.Now.Subtract(FunkyTrinity.Bot.Target.LastAvoidanceMovement).TotalMilliseconds<FunkyTrinity.Bot.Combat.iSecondsEmergencyMoveFor)
 					  {
 							Vector3 reuseV3=FunkyTrinity.Bot.NavigationCache.AttemptToReuseLastLocationFound();
 							if (reuseV3!=Vector3.Zero)

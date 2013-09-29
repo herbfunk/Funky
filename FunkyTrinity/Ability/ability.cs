@@ -343,7 +343,8 @@ namespace FunkyTrinity.Ability
 								Vector3 DestinationVector=MathEx.CalculatePointFrom(Bot.Character.Position, DestinationV, RangeNeeded);
 								if (!Navigation.MGP.CanStandAt(DestinationVector))
 								{
-									 Logger.Write(LogLevel.Ability, "Destination for ability {0} requires further searching!", this.Power.ToString());
+									 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Ability))
+										  Logger.Write(LogLevel.Ability, "Destination for ability {0} requires further searching!", this.Power.ToString());
 									 GPRectangle DestinationRect=new GPRectangle(DestinationVector);
 									 Vector3 NewDestinationV3;
 									 if (DestinationRect.TryFindSafeSpot(Bot.Character.Position, out NewDestinationV3, DestinationV, false, false, false))

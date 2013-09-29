@@ -244,7 +244,11 @@ namespace FunkyTrinity.Cache
 													 try
 													 {
 														  TeamID=thisObj.CommonData.GetAttribute<int>(ActorAttributeType.TeamID);
-													 } catch { Logger.Write(LogLevel.Execption, "Failed to retrieve TeamID attribute for object {0}", thisObstacle.InternalName); }
+													 } catch
+													 {
+														  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+																Logger.Write(LogLevel.Execption, "Failed to retrieve TeamID attribute for object {0}", thisObstacle.InternalName);
+													 }
 
 													 //ID of 1 means its non-hostile!
 													 if (TeamID==1)

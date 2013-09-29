@@ -100,6 +100,18 @@ namespace FunkyTrinity.Movement
 
 						  if (obj.Actortype.HasValue&&obj.Actortype.Value.HasFlag(ActorType.Item))
 						  {
+								if (NonMovementCounter>250)
+								{
+									//Are we stuck?
+									 if (!Navigation.MGP.CanStandAt(Bot.Character.Position))
+									 {
+										  Logging.Write("Character is stuck inside non-standable location.. attempting townportal cast..");
+										  ZetaDia.Me.UseTownPortal();
+										  NonMovementCounter=0;
+										  return RunStatus.Running;
+									 }
+								}
+
 								Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
 								Bot.Combat.timeCancelledFleeMove=DateTime.Now;
 
@@ -221,7 +233,8 @@ namespace FunkyTrinity.Movement
 										  {
 												if (!Navigation.CanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
 												{
-													 Logger.Write(LogLevel.Movement, "Cannot continue with avoidance movement due to raycast failure!");
+													 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+														  Logger.Write(LogLevel.Movement, "Cannot continue with avoidance movement due to raycast failure!");
 													 BlockedMovementCounter=0;
 
 													 Bot.Combat.iMillisecondsCancelledEmergencyMoveFor/=2;
