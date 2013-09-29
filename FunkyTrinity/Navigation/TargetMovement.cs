@@ -285,88 +285,19 @@ namespace FunkyTrinity.Movement
 						  bool bTooMuchZChange=((Bot.Character.Position.Z-CurrentTargetLocation.Z)>=4f);
 
 						  ability MovementPower;
-						  if (Bot.Class.FindMovementPower(out MovementPower))
+						  Vector3 MovementVector=Bot.Class.FindCombatMovementPower(out MovementPower, obj.Position);
+						  if (MovementVector!=Vector3.Zero)
 						  {
-								double lastUsedAbilityMS=MovementPower.LastUsedMilliseconds;
-								bool foundMovementPower=false;
-								float pointDistance=0f;
-								Vector3 vTargetAimPoint=CurrentTargetLocation;
-								bool ignoreLOSTest=false;
+								ZetaDia.Me.UsePower(MovementPower.Power, MovementVector, Bot.Character.iCurrentWorldID, -1);
+								MovementPower.SuccessfullyUsed();
 
-								switch (MovementPower.Power)
-								{
-									 case SNOPower.Monk_TempestRush:
-										  vTargetAimPoint=MathEx.CalculatePointFrom(CurrentTargetLocation, Bot.Character.Position, 10f);
-										  Bot.Character.UpdateAnimationState(false, true);
-										  bool isHobbling=Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.Monk_Female_Hobble_Run|SNOAnim.Monk_Male_HTH_Hobble_Run);
-										  foundMovementPower=(!bTooMuchZChange&&!Bot.Class.bWaitingForSpecial&&currentDistance<15f&&((isHobbling||lastUsedAbilityMS<300)&&Bot.Character.dCurrentEnergy>15)
-												&&!ObjectCache.Obstacles.DoesPositionIntersectAny(vTargetAimPoint, ObstacleType.ServerObject));
+								// Store the current destination for comparison incase of changes next loop
+								LastTargetLocation=CurrentTargetLocation;
+								// Reset total body-block count, since we should have moved
+								if (DateTime.Now.Subtract(Bot.Combat.lastForcedKeepCloseRange).TotalMilliseconds>=2000)
+									 BlockedMovementCounter=0;
 
-										  break;
-									 case SNOPower.DemonHunter_Vault:
-										  foundMovementPower=(obj.targetType.Value!=TargetType.Destructible&&!bTooMuchZChange&&currentDistance>=18f&&
-																	 (lastUsedAbilityMS>=Bot.SettingsFunky.Class.iDHVaultMovementDelay));
-										  pointDistance=35f;
-										  if (currentDistance>pointDistance)
-												vTargetAimPoint=MathEx.CalculatePointFrom(CurrentTargetLocation, Bot.Character.Position, pointDistance);
-										  break;
-									 case SNOPower.Barbarian_FuriousCharge:
-										  foundMovementPower=(obj.targetType.Value!=TargetType.Destructible&&!bTooMuchZChange
-																	 &&(currentDistance>20f||obj.targetType.Value.HasFlag(TargetType.Avoidance)&&(NonMovementCounter>0||BlockedMovementCounter>0)));
-
-										  pointDistance=35f;
-										  if (currentDistance>pointDistance)
-												vTargetAimPoint=MathEx.CalculatePointFrom(CurrentTargetLocation, Bot.Character.Position, pointDistance);
-
-										  break;
-									 case SNOPower.Barbarian_Leap:
-									 case SNOPower.Wizard_Archon_Teleport:
-									 case SNOPower.Wizard_Teleport:
-										  foundMovementPower=(obj.targetType.Value!=TargetType.Destructible&&!bTooMuchZChange
-																	 &&(currentDistance>20f||obj.targetType.Value.HasFlag(TargetType.Avoidance)&&(NonMovementCounter>0||BlockedMovementCounter>0)));
-
-										  pointDistance=35f;
-										  if (currentDistance>pointDistance)
-												vTargetAimPoint=MathEx.CalculatePointFrom(CurrentTargetLocation, Bot.Character.Position, pointDistance);
-
-										  //Teleport and Leap ignores raycast testing below!
-										  ignoreLOSTest=true;
-										  break;
-									 case SNOPower.Barbarian_Whirlwind:
-										  break;
-									 default:
-										  Bot.Character.WaitWhileAnimating(3, true);
-
-										  ZetaDia.Me.UsePower(MovementPower.Power, CurrentTargetLocation, Bot.Character.iCurrentWorldID, -1);
-										  MovementPower.SuccessfullyUsed();
-
-										  Bot.Character.WaitWhileAnimating(6, true);
-										  // Store the current destination for comparison incase of changes next loop
-										  LastTargetLocation=CurrentTargetLocation;
-										  // Reset total body-block count, since we should have moved
-										  if (DateTime.Now.Subtract(Bot.Combat.lastForcedKeepCloseRange).TotalMilliseconds>=2000)
-												BlockedMovementCounter=0;
-										  return RunStatus.Running;
-								}
-
-								if (foundMovementPower)
-								{
-
-									 if ((MovementPower.Power==SNOPower.Monk_TempestRush&&lastUsedAbilityMS>500)||
-										  (ignoreLOSTest||ZetaDia.Physics.Raycast(Bot.Character.Position, vTargetAimPoint, NavCellFlags.AllowWalk)))
-									 {
-										  ZetaDia.Me.UsePower(MovementPower.Power, vTargetAimPoint, Bot.Character.iCurrentWorldID, -1);
-										  MovementPower.SuccessfullyUsed();
-
-										  // Store the current destination for comparison incase of changes next loop
-										  LastTargetLocation=CurrentTargetLocation;
-
-										  // Reset total body-block count, since we should have moved
-										  if (DateTime.Now.Subtract(Bot.Combat.lastForcedKeepCloseRange).TotalMilliseconds>=2000)
-												BlockedMovementCounter=0;
-										  return RunStatus.Running;
-									 }
-								}
+								return RunStatus.Running;
 						  }
 
 						  //Special Whirlwind Code

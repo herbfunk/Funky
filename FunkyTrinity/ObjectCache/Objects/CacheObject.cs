@@ -117,7 +117,7 @@ namespace FunkyTrinity.Cache
 								try
 								{
 									 return (this.ref_DiaObject.CommonData.AnimationState);
-								} catch (NullReferenceException)
+								} catch (Exception)
 								{
 									 return AnimationState.Invalid;
 								}
@@ -192,7 +192,7 @@ namespace FunkyTrinity.Cache
 
 				public virtual void UpdatePosition(bool force=false)
 				{
-					 if (!force&&DateTime.Now.Subtract(lastUpdatedPosition).TotalMilliseconds<300)
+					 if (!force&&DateTime.Now.Subtract(lastUpdatedPosition).TotalMilliseconds<150)
 						  return;
 
 					 using (ZetaDia.Memory.AcquireFrame())
@@ -206,18 +206,6 @@ namespace FunkyTrinity.Cache
 						  }
 						  this.lastUpdatedPosition=DateTime.Now;
 						  this.positionUpdated=true;
-
-						  //Update Properties
-						  if (this.RadiusDistance<5f)
-						  {
-								if (!AbilityLogicConditions.CheckTargetPropertyFlag(this.Properties,TargetProperties.CloseDistance))
-									 this.Properties|=TargetProperties.CloseDistance;
-						  }
-						  else
-						  {
-								if (AbilityLogicConditions.CheckTargetPropertyFlag(this.Properties,TargetProperties.CloseDistance))
-									 this.Properties&=TargetProperties.CloseDistance;
-						  }
 					 }
 				}
 				///<summary>

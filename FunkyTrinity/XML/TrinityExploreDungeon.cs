@@ -353,7 +353,7 @@ namespace FunkyTrinity.XMLTags
 					 new DecoratorContinue(ret => !IgnoreMarkers,
 						  MiniMapMarker.DetectMiniMapMarkers(ExitNameHash)
 					 ),
-					 UpdateSearchGridProvider(),
+					 //UpdateSearchGridProvider(),
 					 new Action(ret => CheckResetDungeonExplorer()),
 					 new PrioritySelector(
 						  CheckIsObjectiveFinished(),

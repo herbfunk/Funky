@@ -330,7 +330,7 @@ namespace FunkyTrinity.Cache
 				{
 					 Bot.Target.CurrentTarget=null;
 					 //Bot.NavigationCache.ResetPathing();
-					 FunkyTrinity.Movement.TargetMovement.ResetTargetMovementVars();
+					 TargetMovement.ResetTargetMovementVars();
 
 
 					 bWaitingForPower=false;

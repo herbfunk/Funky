@@ -178,14 +178,20 @@ namespace FunkyTrinity.Ability
 									 {
 										  if (!LOSINFO.LOSTest(Bot.Character.Position, true, false, NavCellFlags.AllowWalk))
 										  {
+												bool MovementException=((Bot.Target.CurrentUnitTarget.MonsterTeleport||Bot.Target.CurrentTarget.IsTransformUnit)&&Bot.Target.CurrentUnitTarget.AnimState==Zeta.Internals.Actors.AnimationState.Transform);
 												//Raycast failed.. reset LOS Check -- for valid checking.
 												if (!LOSINFO.RayCast.Value)
 													 Bot.Target.CurrentTarget.RequiresLOSCheck=true;
-												else if (!LOSINFO.NavCellWalk.Value&&radiusDistance>20f) //NavCellFlag Walk Failed -- Return False if distance is > 20f
-													 return false;
+												else if (!LOSINFO.NavCellWalk.Value) //NavCellFlag Walk Failed
+												{
+													 if (!MovementException)
+														  return false;
+													 else
+														  LOSINFO.NavCellWalk=null;
+												}
 										  }
 									 }
-									 else if (LOSINFO.NavCellWalk.HasValue&&!LOSINFO.NavCellWalk.Value&&radiusDistance>20f)
+									 else if (LOSINFO.NavCellWalk.HasValue&&!LOSINFO.NavCellWalk.Value)
 									 {
 										  return false;
 									 }

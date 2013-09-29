@@ -625,7 +625,18 @@ namespace FunkyTrinity.Cache
 				//A1 Scavenger
 				5235, 5236, 5238, 5239,
          };
-
+				//Mobs that "move" into non-walkable locations -- I.E. Teleport
+				public static readonly HashSet<int> hashActorSNOTransforms=new HashSet<int>
+				{
+					 //Succubus
+					 5508,209596,152679,152679,219673,152535,
+					 //Haulking
+					 121353,220806,133669,
+					 //Soul Ripper
+					 5436,220444,169615,222096,
+					 //A1 Ghosts
+					 370,136943,209553,218441,156353,85971,4196,4197,4198,133093,156763,157006,165602,222526,4799,
+				};
 				public static readonly HashSet<int> hashActorSNOBurrowableUnits=new HashSet<int>
 				{
 					 //worms

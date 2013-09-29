@@ -53,7 +53,7 @@ namespace FunkyTrinity.Targeting
 				if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 					 Logger.Write(LogLevel.Target, "Changed Object: {0}", MakeStringSingleLine(e.newObject.DebugString));
 
-
+				TargetMovement.NewTargetResetVars();
 				
 				if (handler!=null)
 				{
@@ -142,12 +142,7 @@ namespace FunkyTrinity.Targeting
 				//Check avoidance requirement still valid
 				if (Bot.Combat.RequiresAvoidance)
 				{
-
-					 if (this.AvoidanceLastTarget) //Check if we used movement avoidance last loop
-					 {
-						  if (this.LastCachedTarget.CentreDistance>2.5f) Bot.Combat.RequiresAvoidance=false;
-					 }
-					 else if (Bot.Combat.TriggeringAvoidances.Count==0) //Nothing "Triggering".. 
+					 if (DateTime.Now.Subtract(TargetMovement.LastMovementCommand).TotalMilliseconds<550) //We are moving..? 
 					 {
 						  Bot.Combat.RequiresAvoidance=false;
 					 }

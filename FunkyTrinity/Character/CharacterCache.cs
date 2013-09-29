@@ -256,7 +256,7 @@ namespace FunkyTrinity.Cache
 										  if (CurrentSceneID!=Bot.Character.iSceneID)
 										  {
 												Bot.Character.iSceneID=CurrentSceneID;
-												//UpdateSearchGridProvider(true);
+												Zeta.Navigation.Navigator.SearchGridProvider.Update();
 										  }
 										  lastCheckedSceneID=DateTime.Now;
 									 }

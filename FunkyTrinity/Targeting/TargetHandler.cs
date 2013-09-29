@@ -447,17 +447,7 @@ namespace FunkyTrinity.Targeting
 				#endregion
 
 				// See if we can use any special buffs etc. while in avoidance
-				#region AvoidanceSpecialAbilityCheck
-				if (TargetType.Avoidance.HasFlag(CurrentTarget.targetType.Value))
-				{
-					 ability movement;
-					 if (Bot.Class.FindSpecialMovementPower(out movement))
-					 {
-						  ability.UsePower(ref movement);
-						  movement.SuccessfullyUsed();
-					 }
-				}
-				else if ((TargetType.Gold|TargetType.Globe|TargetType.Gizmo|TargetType.Item).HasFlag(CurrentTarget.targetType.Value))
+				if ((TargetType.Gold|TargetType.Globe|TargetType.Avoidance).HasFlag(CurrentTarget.targetType.Value))
 				{
 					  ability buff;
 					 if (Bot.Class.FindBuffPower(out buff))
@@ -466,7 +456,6 @@ namespace FunkyTrinity.Targeting
 						  buff.SuccessfullyUsed();
 					 }
 				}
-				#endregion
 
 				return true;
 		  }

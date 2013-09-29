@@ -14,8 +14,6 @@ namespace FunkyTrinity.Ability
 				 FcriteriaPreCast=new Func<bool>(() => { return true; });
 				 FcriteriaCombat=new Func<bool>(() => { return true; });
 				 FcriteriaBuff=new Func<bool>(() => { return true; });
-				 FcriteriaMovement=new Func<bool>(() => { return true; });
-				 FOutOfCombatMovement=new Func<Vector3, Vector3>((v) => { return Vector3.Zero; });
 			}
 			///<summary>
 			///Tracks last successful condition if any.
@@ -39,10 +37,6 @@ namespace FunkyTrinity.Ability
 			///Custom Conditions for Buffing
 			///</summary>
 			internal Func<bool> FcriteriaBuff;
-			///<summary>
-			///Custom Conditions for Movement Abilities
-			///</summary>
-			internal Func<bool> FcriteriaMovement;
 
 			internal Func<bool> FClusterConditions;
 			internal Func<bool> FUnitsInRangeConditions;
@@ -52,6 +46,7 @@ namespace FunkyTrinity.Ability
 		  //Movement
 			internal Func<Vector3, Vector3> FOutOfCombatMovement;
 		  //TODO:: Add CombatMovement Func
+			internal Func<Vector3, Vector3> FCombatMovement;
 
 			///<summary>
 			///Determines if an ability has none of the combat conditions set -- but has custom combat conditions. (allowing it to test the custom conditions)
@@ -70,18 +65,7 @@ namespace FunkyTrinity.Ability
 
 				 return true;
 			}
-			///<summary>
-			///Check ability movement Conditions
-			///</summary>
-			public bool CheckMovementConditionMethod()
-			{
-				 foreach (Func<bool> item in FcriteriaMovement.GetInvocationList())
-				 {
-					  if (!item()) return false;
-				 }
 
-				 return true;
-			}
 			public bool CheckCustomCombatMethod()
 			{
 				 foreach (Func<bool> item in this.FcriteriaCombat.GetInvocationList())

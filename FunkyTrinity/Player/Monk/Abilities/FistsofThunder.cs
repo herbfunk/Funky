@@ -17,7 +17,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 		public override void Initialize()
 		{
 			ExecutionType = AbilityExecuteFlags.ClusterTargetNearest | AbilityExecuteFlags.Target;
-			WaitVars = new WaitLoops(0, 1, false);
+			WaitVars = new WaitLoops(0, 2, false);
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.None;
 			Range = Bot.Class.RuneIndexCache[SNOPower.Monk_FistsofThunder] == 0 ? 25 : 12;

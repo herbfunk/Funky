@@ -67,7 +67,7 @@ namespace FunkyTrinity.Ability
 
 			  if (NavRayCast)
 			  {//This is a basic raycast test to see if we have clear view of the object.
-					Navigator.SearchGridProvider.Update();
+					//Navigator.SearchGridProvider.Update();
 					Vector2 hitpos;
 					//Vector3 modifiedPosition=PositionToTestFrom;
 					//modifiedPosition.Z=Navigation.MGP.GetHeight(PositionToTestFrom.ToVector2());

@@ -31,6 +31,17 @@ namespace FunkyTrinity.Ability.Abilities.DemonHunter
 			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.None, 10);
 			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 1);
 
+			FCombatMovement=new Func<Vector3, Vector3>((v) =>
+			{
+				 float fDistanceFromTarget=Bot.Character.Position.Distance(v);
+				 if (!Bot.Class.bWaitingForSpecial&&Funky.Difference(Bot.Character.Position.Z, v.Z)<=4&&fDistanceFromTarget>=18f&&
+																					(this.LastUsedMilliseconds>=Bot.SettingsFunky.Class.iDHVaultMovementDelay))
+				 {
+					  return MathEx.CalculatePointFrom(v, Bot.Character.Position, Math.Max(fDistanceFromTarget, 35f));
+				 }
+
+				 return Vector3.Zero;
+			});
 			FOutOfCombatMovement=new Func<Vector3, Vector3>((v) =>
 			{
 				 float fDistanceFromTarget=Bot.Character.Position.Distance(v);

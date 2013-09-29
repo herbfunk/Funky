@@ -47,22 +47,41 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			
 			FcriteriaCombat = new Func<bool>(() =>
 			{
-				bool isChanneling = (this.IsHobbling || this.LastUsedMilliseconds < 250);
+				 bool isChanneling=(this.IsHobbling||this.LastUsedMilliseconds<150);
 				int channelingCost = Bot.Class.RuneIndexCache[Power] == 3 ? 8 : 10;
 
 				//If channeling, check if energy is greater then 10.. else only start when energy is at least -40-
 				return (isChanneling && Bot.Character.dCurrentEnergy > channelingCost) || (Bot.Character.dCurrentEnergy > 40)
 							 &&(!Bot.Class.bWaitingForSpecial||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount);
 			});
-			FcriteriaMovement=FcriteriaCombat;
+
+			FCombatMovement=new Func<Vector3, Vector3>((v) =>
+			{
+				 bool isChanneling=(this.IsHobbling||this.LastUsedMilliseconds<150);
+				 int channelingCost=Bot.Class.RuneIndexCache[Power]==3?8:10;
+
+				 //If channeling, check if energy is greater then 10.. else only start when energy is at least -40-
+				 if ((isChanneling&&Bot.Character.dCurrentEnergy>channelingCost)||(Bot.Character.dCurrentEnergy>15)&&!Bot.Class.bWaitingForSpecial)
+				 {
+					  if (v.Distance(Bot.Character.Position)>10f)
+							return MathEx.CalculatePointFrom(v, Bot.Character.Position, 10f);
+					  else
+							return v;
+				 }
+					  
+
+				 return Vector3.Zero;
+			});
 
 			FOutOfCombatMovement=new Func<Vector3, Vector3>((v) =>
 			{
 				 Vector3 vTargetAimPoint=MathEx.CalculatePointFrom(v, Bot.Character.Position, 10f);
+				bool isChanneling = (this.IsHobbling||this.LastUsedMilliseconds<150);
+				int channelingCost = Bot.Class.RuneIndexCache[Power] == 3 ? 8 : 10;
 
-				 if(this.FcriteriaMovement.Invoke())
-						  return vTargetAimPoint;
-
+				//If channeling, check if energy is greater then 10.. else only start when energy is at least -40-
+				if ((isChanneling && Bot.Character.dCurrentEnergy > channelingCost) || Bot.Character.dCurrentEnergyPct > 0.50d)
+					 return vTargetAimPoint;
 
 				 return Vector3.Zero;
 			});

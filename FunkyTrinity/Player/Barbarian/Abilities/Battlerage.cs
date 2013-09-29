@@ -27,7 +27,7 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 			IsBuff=true;
 			UseageType = AbilityUseage.Anywhere;
 			Priority = AbilityPriority.High;
-			PreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckPlayerIncapacitated);
+			PreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckPlayerIncapacitated| AbilityPreCastFlags.CheckCanCast);
 			FcriteriaBuff = new Func<bool>(() => { return !Bot.Class.HasBuff(SNOPower.Barbarian_BattleRage); });
 			FcriteriaCombat = new Func<bool>(() =>
 			{
@@ -35,8 +35,9 @@ namespace FunkyTrinity.Ability.Abilities.Barb
 				       //Only if we cannot spam sprint..
 							 (!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Sprint)&&
 				        ((Bot.SettingsFunky.Class.bFuryDumpWrath && Bot.Character.dCurrentEnergyPct >= 0.98 &&
-									Bot.Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
-				         (Bot.SettingsFunky.Class.bFuryDumpAlways && Bot.Character.dCurrentEnergyPct >= 0.98)));
+									Bot.Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)
+										  &&Bot.Character.dCurrentHealthPct>0.50d)||
+				         (Bot.SettingsFunky.Class.bFuryDumpAlways && Bot.Character.dCurrentEnergyPct >= 0.98&&Bot.Character.dCurrentHealthPct>0.50d)));
 			});
 		}
 

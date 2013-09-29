@@ -430,6 +430,7 @@ namespace FunkyTrinity.Cache
 				public bool IsFast { get { return CacheIDLookup.hashActorSNOFastMobs.Contains(SNOID); } }
 				public bool IsCorruptantGrowth { get { return SNOID==210120||SNOID==210268; } }
 				public bool IsSpawnerUnit { get { return CacheIDLookup.hashSpawnerUnitSNOs.Contains(SNOID); } }
+				public bool IsTransformUnit { get { return CacheIDLookup.hashActorSNOTransforms.Contains(SNOID);} }
 				#endregion
 
 				public bool ContainsNullValues()

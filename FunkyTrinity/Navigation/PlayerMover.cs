@@ -134,6 +134,9 @@ namespace FunkyTrinity
 								}
 						  }
 
+						  if (iTotalAntiStuckAttempts>1)
+								Navigator.Clear();
+
 						  // Now count up our stuck attempt generations
 						  iTotalAntiStuckAttempts++;
 
@@ -464,19 +467,12 @@ namespace FunkyTrinity
 					 if (Bot.SettingsFunky.OutOfCombatMovement&&!ZetaDia.Me.IsInTown)
 					 {
 						  ability MovementPower;
-						  if (Bot.Class.FindMovementPower(out MovementPower))
+						  Vector3 MovementVector=Bot.Class.FindOutOfCombatMovementPower(out MovementPower, vMoveToTarget);
+						  if (MovementVector!=Vector3.Zero)
 						  {
-
-								Vector3 vTargetAimPoint=MovementPower.FOutOfCombatMovement(vMoveToTarget);
-
-								if (vTargetAimPoint!=Vector3.Zero)
-								{
-
-									 ZetaDia.Me.UsePower(MovementPower.Power, vTargetAimPoint, Bot.Character.iCurrentWorldID, -1);
-									 MovementPower.SuccessfullyUsed();
-									 return;
-
-								}
+								ZetaDia.Me.UsePower(MovementPower.Power, MovementVector, Bot.Character.iCurrentWorldID, -1);
+								MovementPower.SuccessfullyUsed();
+								return;
 						  }
 					 } // Allowed to use movement powers to move out-of-combat? 
 					 #endregion

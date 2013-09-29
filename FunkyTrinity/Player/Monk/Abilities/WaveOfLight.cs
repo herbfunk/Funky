@@ -19,7 +19,7 @@ namespace FunkyTrinity.Ability.Abilities.Monk
 			ExecutionType = Bot.Class.RuneIndexCache[SNOPower.Monk_WaveOfLight] == 1
 				? AbilityExecuteFlags.Self
 				: AbilityExecuteFlags.ClusterLocation | AbilityExecuteFlags.Location;
-			WaitVars = new WaitLoops(2, 2, true);
+			WaitVars = new WaitLoops(2, 4, true);
 			Cost=Bot.Class.RuneIndexCache[SNOPower.Monk_WaveOfLight]==3?40:75;
 			Range = 16;
 			Priority = AbilityPriority.Low;

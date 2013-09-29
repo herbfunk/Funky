@@ -381,13 +381,7 @@ namespace FunkyTrinity.Movement
 					 RefreshNavigationBlocked();
 					 if (BotIsNavigationallyBlocked)
 					 {
-						  ability movementAbility;
-
-						  //Check if we can use a special movement ability to ignore blocking.
-						  if (!Bot.Class.FindSpecialMovementPower(out movementAbility))
-						  {
-								return false;
-						  }
+						  return false;
 					 }
 
 					 if (Bot.NavigationCache.CurrentLocationGPrect==null||Bot.NavigationCache.CurrentLocationGPrect.centerpoint!=Bot.Character.PointPosition)

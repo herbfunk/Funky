@@ -298,43 +298,48 @@ namespace FunkyTrinity
 
 
 				///<summary>
-				///Returns a power for special movement if any are currently present in the abilities.
+				///
 				///</summary>
-				internal bool FindMovementPower(out ability MovementAbility)
+				internal Vector3 FindOutOfCombatMovementPower(out ability MovementAbility, Vector3 Destination)
 				{
 					 MovementAbility=null;
-					 foreach (var item in this.Abilities.Keys.Where(A => PowerCacheLookup.SpecialMovementAbilities.Contains(A)))
-					 {
-
-						  if (this.Abilities[item].CheckPreCastConditionMethod())
-						  {
-								MovementAbility=this.Abilities[item];
-								return true;
-						  }
-					 }
-					 return false;
-				}
-				///<summary>
-				///Returns a power for special movement if any are currently present in the abilities.
-				///</summary>
-				internal bool FindSpecialMovementPower(out ability MovementAbility)
-				{
-					 MovementAbility=null;
-					 foreach (var item in this.Abilities.Values.Where(A => A.IsASpecialMovementPower))
+					 foreach (var item in this.Abilities.Values.Where(A => A.FOutOfCombatMovement!=null))
 					 {
 
 						  if (item.CheckPreCastConditionMethod())
 						  {
-								if(item.CheckMovementConditionMethod())
+								Vector3 AbilityTargetVector=item.FOutOfCombatMovement.Invoke(Destination);
+								if (AbilityTargetVector!=Vector3.Zero)
 								{
 									 MovementAbility=item;
-									 ability.SetupAbilityForUse(ref MovementAbility);
-									 return true;
+									 return AbilityTargetVector;
 								}
 						  }
 					 }
-					 return false;
+					 return Vector3.Zero;
 				}
+				///<summary>
+				///
+				///</summary>
+				internal Vector3 FindCombatMovementPower(out ability MovementAbility,Vector3 Destination)
+				{
+					 MovementAbility=null;
+					 foreach (var item in this.Abilities.Values.Where(A => A.FCombatMovement!=null))
+					 {
+
+						  if (item.CheckPreCastConditionMethod())
+						  {
+								Vector3 AbilityTargetVector=item.FCombatMovement.Invoke(Destination);
+								if (AbilityTargetVector!=Vector3.Zero)
+								{
+									 MovementAbility=item;
+									 return AbilityTargetVector;
+								}
+						  }
+					 }
+					 return Vector3.Zero;
+				}
+
 
 				///<summary>
 				///Returns a power for Buffing.

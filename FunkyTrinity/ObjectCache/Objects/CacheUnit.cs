@@ -100,6 +100,7 @@ namespace FunkyTrinity.Cache
 						  MonsterExtraHealth=theseaffixes.HasFlag(MonsterAffixes.ExtraHealth);
 						  MonsterLifeLink=theseaffixes.HasFlag(MonsterAffixes.HealthLink);
 						  MonsterReflectDamage=theseaffixes.HasFlag(MonsterAffixes.ReflectsDamage);
+						  MonsterTeleport=theseaffixes.HasFlag(MonsterAffixes.Teleporter);
 					 }
 					 else
 					 {
@@ -109,6 +110,7 @@ namespace FunkyTrinity.Cache
 						  MonsterExtraHealth=false;
 						  MonsterLifeLink=false;
 						  MonsterReflectDamage=false;
+						  MonsterTeleport=false;
 					 }
 
 					 CheckedMonsterAffixes_=true;
@@ -125,6 +127,7 @@ namespace FunkyTrinity.Cache
 				public bool MonsterExtraHealth { get; set; }
 				public bool MonsterLifeLink { get; set; }
 				public bool MonsterReflectDamage { get; set; }
+				public bool MonsterTeleport { get; set; }
 
 				public bool IsEliteRareUnique
 				{
@@ -1255,7 +1258,7 @@ namespace FunkyTrinity.Cache
 								//}
 								
 
-						  } catch (NullReferenceException)
+						  } catch (Exception)
 						  {
 
 						  }
@@ -1466,7 +1469,7 @@ namespace FunkyTrinity.Cache
 					 ////LOS Movement -- we require close range until LOS is OK..
 					 //if (this.LOSV3!=Vector3.Zero) fRangeRequired=10;
 
-					 base.DistanceFromTarget=base.CentreDistance-fDistanceReduction;
+					 base.DistanceFromTarget=this.RadiusDistance-fDistanceReduction;
 
 					 return (fRangeRequired<=0f||base.DistanceFromTarget<=fRangeRequired);
 				}
@@ -1499,7 +1502,7 @@ namespace FunkyTrinity.Cache
 				{
 					 get
 					 {
-						  return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} -- IsMoving: {6} \r\n PriorityCounter={7}\r\nUnit Properties {8}",
+						  return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} -- IsMoving: {6} \r\n PriorityCounter={7}\r\nUnit Properties {8}\r\nAnimState: {9}",
 								base.DebugString,
 								this.IsBurrowed.HasValue?this.IsBurrowed.Value.ToString():"",
 								this.IsTargetable.HasValue?this.IsTargetable.Value.ToString():"",
@@ -1508,7 +1511,8 @@ namespace FunkyTrinity.Cache
 								this.MaximumHealth.HasValue?this.MaximumHealth.Value.ToString():"",
 								this.IsMoving.ToString(),
 								this.PriorityCounter.ToString(),
-								this.Properties.ToString());
+								this.Properties.ToString(),
+								this.AnimState.ToString());
 					 }
 				}
 
