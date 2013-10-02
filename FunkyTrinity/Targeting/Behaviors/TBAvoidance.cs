@@ -14,7 +14,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 		  {
 				get
 				{
-					 return (FunkyTrinity.Bot.Combat.RequiresAvoidance&&(!FunkyTrinity.Bot.Combat.bAnyTreasureGoblinsPresent||FunkyTrinity.Bot.SettingsFunky.Targeting.GoblinPriority<2)
+					 return (FunkyTrinity.Bot.Combat.RequiresAvoidance&&(!FunkyTrinity.Bot.Combat.bAnyTreasureGoblinsPresent||FunkyTrinity.Bot.Settings.Targeting.GoblinPriority<2)
 							&&(DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.timeCancelledEmergencyMove).TotalMilliseconds>FunkyTrinity.Bot.Combat.iMillisecondsCancelledEmergencyMoveFor));
 				}
 		  }
@@ -22,15 +22,15 @@ namespace FunkyTrinity.Targeting.Behaviors
 		  {
 				base.Test=(ref CacheObject obj) =>
 				 {
-					  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+					  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 					  {
 							string avoidances="";
 							Bot.Combat.TriggeringAvoidances.ForEach(a => avoidances = avoidances + a.AvoidanceType.ToString() + ", ");
-							if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+							if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logger.Write(LogLevel.Movement, "Avoidances Triggering: {0}", avoidances);
 					  }
 					  //Reuse the last generated safe spot...
-					  if (DateTime.Now.Subtract(FunkyTrinity.Bot.Target.LastAvoidanceMovement).TotalMilliseconds<FunkyTrinity.Bot.Combat.iSecondsEmergencyMoveFor)
+					  if (DateTime.Now.Subtract(FunkyTrinity.Bot.Targeting.LastAvoidanceMovement).TotalMilliseconds<FunkyTrinity.Bot.Combat.iSecondsEmergencyMoveFor)
 					  {
 							Vector3 reuseV3=FunkyTrinity.Bot.NavigationCache.AttemptToReuseLastLocationFound();
 							if (reuseV3!=Vector3.Zero)
@@ -58,7 +58,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 							FunkyTrinity.Bot.Combat.iMillisecondsCancelledFleeMoveFor=((FunkyTrinity.Bot.Combat.iSecondsEmergencyMoveFor+1)*1000);
 							return true;
 					  }
-					  FunkyTrinity.Bot.UpdateAvoidKiteRates();
+					  Avoidances.AvoidanceCache.UpdateAvoidKiteRates();
 
 
 					  return false;

@@ -13,20 +13,20 @@ namespace FunkyTrinity
 		  #region EventHandling
 		  private void UnitExceptionKillLowHPChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Targeting.UnitExceptionLowHP=!Bot.SettingsFunky.Targeting.UnitExceptionLowHP;
+				Bot.Settings.Targeting.UnitExceptionLowHP=!Bot.Settings.Targeting.UnitExceptionLowHP;
 		  }
 		  private void UnitExceptionAllowRangedUnitsChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Targeting.UnitExceptionRangedUnits=!Bot.SettingsFunky.Targeting.UnitExceptionRangedUnits;
+				Bot.Settings.Targeting.UnitExceptionRangedUnits=!Bot.Settings.Targeting.UnitExceptionRangedUnits;
 		  }
 		  private void UnitExceptionAllowSpawnerUnitsChecked(object sender, EventArgs e)
 		  {
 
-				Bot.SettingsFunky.Targeting.UnitExceptionSpawnerUnits=!Bot.SettingsFunky.Targeting.UnitExceptionSpawnerUnits;
+				Bot.Settings.Targeting.UnitExceptionSpawnerUnits=!Bot.Settings.Targeting.UnitExceptionSpawnerUnits;
 		  }
 		  private void UnitExceptionAllowSucideBombersChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Targeting.UnitExceptionSucideBombers=!Bot.SettingsFunky.Targeting.UnitExceptionSucideBombers;
+				Bot.Settings.Targeting.UnitExceptionSucideBombers=!Bot.Settings.Targeting.UnitExceptionSucideBombers;
 		  }
 
 		  private void TargetingLoadXMLClicked(object sender, EventArgs e)
@@ -46,7 +46,7 @@ namespace FunkyTrinity
 					 {
 						  //;
 						  SettingTargeting newSettings=SettingTargeting.DeserializeFromXML(OFD.FileName);
-						  Bot.SettingsFunky.Targeting=newSettings;
+						  Bot.Settings.Targeting=newSettings;
 
 						  FunkyWindow.funkyConfigWindow.Close();
 					 } catch
@@ -60,21 +60,21 @@ namespace FunkyTrinity
 
 		  private void IgnoreCorpsesChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Targeting.IgnoreCorpses=!Bot.SettingsFunky.Targeting.IgnoreCorpses;
+				Bot.Settings.Targeting.IgnoreCorpses=!Bot.Settings.Targeting.IgnoreCorpses;
 		  }
 		  private void IgnoreEliteMonstersChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Targeting.IgnoreAboveAverageMobs=!Bot.SettingsFunky.Targeting.IgnoreAboveAverageMobs;
+				Bot.Settings.Targeting.IgnoreAboveAverageMobs=!Bot.Settings.Targeting.IgnoreAboveAverageMobs;
 		  }
 		  private void MissileDampeningChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Targeting.MissleDampeningEnforceCloseRange=!Bot.SettingsFunky.Targeting.MissleDampeningEnforceCloseRange;
+				Bot.Settings.Targeting.MissleDampeningEnforceCloseRange=!Bot.Settings.Targeting.MissleDampeningEnforceCloseRange;
 		  }
 		  private void UseShrineChecked(object sender, EventArgs e)
 		  {
 				CheckBox cbSender=(CheckBox)sender;
 				int index=(int)Enum.Parse(typeof(ShrineTypes), cbSender.Name);
-				Bot.SettingsFunky.Targeting.UseShrineTypes[index]=!(Bot.SettingsFunky.Targeting.UseShrineTypes[index]);
+				Bot.Settings.Targeting.UseShrineTypes[index]=!(Bot.Settings.Targeting.UseShrineTypes[index]);
 		  }
 		  class GoblinPriority : ObservableCollection<string>
 		  {
@@ -90,11 +90,11 @@ namespace FunkyTrinity
 		  private void GoblinPriorityChanged(object sender, EventArgs e)
 		  {
 				ComboBox senderCB=(ComboBox)sender;
-				Bot.SettingsFunky.Targeting.GoblinPriority=senderCB.SelectedIndex;
+				Bot.Settings.Targeting.GoblinPriority=senderCB.SelectedIndex;
 		  }
 		  private void ExtendRangeRepChestChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Targeting.UseExtendedRangeRepChest=!Bot.SettingsFunky.Targeting.UseExtendedRangeRepChest;
+				Bot.Settings.Targeting.UseExtendedRangeRepChest=!Bot.Settings.Targeting.UseExtendedRangeRepChest;
 		  }
 		  #endregion
 
@@ -134,7 +134,7 @@ namespace FunkyTrinity
 					 Content="Ignore Rare/Elite/Unique Monsters",
 					 Width=300,
 					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.Targeting.IgnoreAboveAverageMobs),
+					 IsChecked=(Bot.Settings.Targeting.IgnoreAboveAverageMobs),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				cbIgnoreElites.Checked+=IgnoreEliteMonstersChecked;
@@ -147,7 +147,7 @@ namespace FunkyTrinity
 					 Content="Ignore Looting Corpses",
 					 Width=300,
 					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.Targeting.IgnoreCorpses),
+					 IsChecked=(Bot.Settings.Targeting.IgnoreCorpses),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				cbIgnoreCorpses.Checked+=IgnoreCorpsesChecked;
@@ -164,7 +164,7 @@ namespace FunkyTrinity
 					 Content="Increased range for rare chests",
 					 Width=300,
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Targeting.UseExtendedRangeRepChest),
+					 IsChecked=(Bot.Settings.Targeting.UseExtendedRangeRepChest),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 ToolTip=TTExtendedRareChestRange,
 				};
@@ -195,7 +195,7 @@ namespace FunkyTrinity
 					 Height=25,
 					 Width=300,
 					 ItemsSource=new GoblinPriority(),
-					 SelectedIndex=Bot.SettingsFunky.Targeting.GoblinPriority,
+					 SelectedIndex=Bot.Settings.Targeting.GoblinPriority,
 					 Margin=new Thickness(4),
 				};
 				CBGoblinPriority.SelectionChanged+=GoblinPriorityChanged;
@@ -235,7 +235,7 @@ namespace FunkyTrinity
 					 Content="Allow Units with 25% or less HP",
 					 Width=300,
 					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.Targeting.UnitExceptionLowHP),
+					 IsChecked=(Bot.Settings.Targeting.UnitExceptionLowHP),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				cbClusterKillLowHPUnits.Checked+=UnitExceptionKillLowHPChecked;
@@ -249,7 +249,7 @@ namespace FunkyTrinity
 					 Content="Allow Ranged Units",
 					 Width=300,
 					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.Targeting.UnitExceptionRangedUnits),
+					 IsChecked=(Bot.Settings.Targeting.UnitExceptionRangedUnits),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				cbClusteringAllowRangedUnits.Checked+=UnitExceptionAllowRangedUnitsChecked;
@@ -263,7 +263,7 @@ namespace FunkyTrinity
 					 Content="Allow Spawner Units",
 					 Width=300,
 					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.Targeting.UnitExceptionSpawnerUnits),
+					 IsChecked=(Bot.Settings.Targeting.UnitExceptionSpawnerUnits),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				cbClusteringAllowSpawnerUnits.Checked+=UnitExceptionAllowSpawnerUnitsChecked;
@@ -277,7 +277,7 @@ namespace FunkyTrinity
 					 Content="Allow Sucide Bombers",
 					 Width=300,
 					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.Targeting.UnitExceptionSucideBombers),
+					 IsChecked=(Bot.Settings.Targeting.UnitExceptionSucideBombers),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				cbClusteringAllowSucideBombers.Checked+=UnitExceptionAllowSucideBombersChecked;

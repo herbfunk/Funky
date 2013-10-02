@@ -32,10 +32,10 @@ namespace FunkyTrinity
 				{
 					 Vector3 loc=Vector3.Zero;
 					 //Low HP -- Flee Teleport
-					 if (Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP&&Bot.Character.dCurrentHealthPct<0.5d&&(Bot.NavigationCache.AttemptFindSafeSpot(out loc, Bot.Target.CurrentTarget.Position, true)))
-						  Bot.Combat.vSideToSideTarget=loc;
+					 if (Bot.Settings.Class.bTeleportFleeWhenLowHP&&Bot.Character.dCurrentHealthPct<0.5d&&(Bot.NavigationCache.AttemptFindSafeSpot(out loc, Bot.Targeting.CurrentTarget.Position, true)))
+						  Bot.NavigationCache.vSideToSideTarget=loc;
 					 else
-						  Bot.Combat.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, Bot.Target.CurrentTarget.CentreDistance, true);
+						  Bot.NavigationCache.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.CurrentTarget.Position, Bot.Targeting.CurrentTarget.CentreDistance, true);
 				}
 				public override int MainPetCount
 				{
@@ -75,7 +75,7 @@ namespace FunkyTrinity
 					 }
 
 					 //Check for buff Archon -- and if we should add Cancel to abilities.
-					 if (Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneStrike)&&Bot.SettingsFunky.Class.bCancelArchonRebuff)
+					 if (Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneStrike)&&Bot.Settings.Class.bCancelArchonRebuff)
 					 {
 						  Abilities.Add(SNOPower.Wizard_Archon_Cancel, new CancelArchonBuff());
 					 }

@@ -32,7 +32,7 @@ namespace FunkyTrinity.AbilityFunky.Abilities.Wizard
 				return (Bot.Combat.iElitesWithinRange[(int) RangeIntervals.Range_25] > 0 ||
 				        Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_25] > 0 ||
 				        Bot.Character.dCurrentHealthPct <= 0.90 || Bot.Character.bIsIncapacitated || Bot.Character.bIsRooted ||
-				        (Bot.Target.CurrentTarget.RadiusDistance <= 40f));
+				        (Bot.Targeting.CurrentTarget.RadiusDistance <= 40f));
 			});
 		}
 

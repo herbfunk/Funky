@@ -47,7 +47,7 @@ namespace FunkyTrinity
 						  string DefaultLeveling=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults", "LowLevel.xml");
 						  Logging.Write("Creating new settings for {0} -- {1} using file {2}", Bot.CurrentAccountName, Bot.CurrentHeroName, DefaultLeveling);
 						  Settings_Funky newSettings=Settings_Funky.DeserializeFromXML(DefaultLeveling);
-						  Bot.SettingsFunky=newSettings;
+						  Bot.Settings=newSettings;
 						  funkyConfigWindow.Close();
 					 }
 				}
@@ -71,7 +71,7 @@ namespace FunkyTrinity
 								{
 									 Logging.Write("Creating new settings for {0} -- {1} using file {2}", Bot.CurrentAccountName, Bot.CurrentHeroName, OFD.FileName);
 									 Settings_Funky newSettings=Settings_Funky.DeserializeFromXML(OFD.FileName);
-									 Bot.SettingsFunky=newSettings;
+									 Bot.Settings=newSettings;
 									 funkyConfigWindow.Close();
 								}
 						  } catch
@@ -86,10 +86,10 @@ namespace FunkyTrinity
 					  CheckBox cbSender=(CheckBox)sender;
 					  LogLevel LogLevelValue= (LogLevel)Enum.Parse(typeof(LogLevel),cbSender.Name);
 
-					  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevelValue))
-							Bot.SettingsFunky.Debug.FunkyLogFlags&=LogLevelValue;
+					  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevelValue))
+							Bot.Settings.Debug.FunkyLogFlags&=LogLevelValue;
 					  else
-							Bot.SettingsFunky.Debug.FunkyLogFlags|=LogLevelValue;
+							Bot.Settings.Debug.FunkyLogFlags|=LogLevelValue;
 			    }
 				 private void FunkyLogLevelComboBoxSelected(object sender, EventArgs e)
 				 {
@@ -99,12 +99,12 @@ namespace FunkyTrinity
 					  if (CBsender.Name=="LogLevelNone")
 					  {
 							CBLogLevels.ForEach(cb => cb.IsChecked=false);
-							Bot.SettingsFunky.Debug.FunkyLogFlags=LogLevel.None;
+							Bot.Settings.Debug.FunkyLogFlags=LogLevel.None;
 					  }
 					  else
 					  {
 							CBLogLevels.ForEach(cb => cb.IsChecked=true);
-							Bot.SettingsFunky.Debug.FunkyLogFlags=LogLevel.All;
+							Bot.Settings.Debug.FunkyLogFlags=LogLevel.All;
 					  }
 				 }
              private void DebugButtonClicked(object sender, EventArgs e)
@@ -338,57 +338,57 @@ namespace FunkyTrinity
 
              private void bWaitForArchonChecked(object sender, EventArgs e)
              {
-                 Bot.SettingsFunky.Class.bWaitForArchon = !Bot.SettingsFunky.Class.bWaitForArchon;
+                 Bot.Settings.Class.bWaitForArchon = !Bot.Settings.Class.bWaitForArchon;
              }
              private void bKiteOnlyArchonChecked(object sender, EventArgs e)
              {
-                 Bot.SettingsFunky.Class.bKiteOnlyArchon = !Bot.SettingsFunky.Class.bKiteOnlyArchon;
+                 Bot.Settings.Class.bKiteOnlyArchon = !Bot.Settings.Class.bKiteOnlyArchon;
              }
 				 private void bCancelArchonRebuffChecked(object sender, EventArgs e)
 				 {
-					  Bot.SettingsFunky.Class.bCancelArchonRebuff=!Bot.SettingsFunky.Class.bCancelArchonRebuff;
+					  Bot.Settings.Class.bCancelArchonRebuff=!Bot.Settings.Class.bCancelArchonRebuff;
 				 }
 				 private void bTeleportFleeWhenLowHPChecked(object sender, EventArgs e)
 				 {
-					  Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP=!Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP;
+					  Bot.Settings.Class.bTeleportFleeWhenLowHP=!Bot.Settings.Class.bTeleportFleeWhenLowHP;
 				 }
 				 private void bTeleportIntoGroupingChecked(object sender, EventArgs e)
 				 {
-					  Bot.SettingsFunky.Class.bTeleportIntoGrouping=!Bot.SettingsFunky.Class.bTeleportIntoGrouping;
+					  Bot.Settings.Class.bTeleportIntoGrouping=!Bot.Settings.Class.bTeleportIntoGrouping;
 				 }
              private void bSelectiveWhirlwindChecked(object sender, EventArgs e)
              {
-                 Bot.SettingsFunky.Class.bSelectiveWhirlwind = !Bot.SettingsFunky.Class.bSelectiveWhirlwind;
+                 Bot.Settings.Class.bSelectiveWhirlwind = !Bot.Settings.Class.bSelectiveWhirlwind;
              }
              private void bWaitForWrathChecked(object sender, EventArgs e)
              {
-                 Bot.SettingsFunky.Class.bWaitForWrath = !Bot.SettingsFunky.Class.bWaitForWrath;
+                 Bot.Settings.Class.bWaitForWrath = !Bot.Settings.Class.bWaitForWrath;
              }
              private void bGoblinWrathChecked(object sender, EventArgs e)
              {
-                 Bot.SettingsFunky.Class.bGoblinWrath = !Bot.SettingsFunky.Class.bGoblinWrath;
+                 Bot.Settings.Class.bGoblinWrath = !Bot.Settings.Class.bGoblinWrath;
              }
 				 private void bBarbUseWOTBAlwaysChecked(object sender, EventArgs e)
 				 {
-					  Bot.SettingsFunky.Class.bBarbUseWOTBAlways=!Bot.SettingsFunky.Class.bBarbUseWOTBAlways;
+					  Bot.Settings.Class.bBarbUseWOTBAlways=!Bot.Settings.Class.bBarbUseWOTBAlways;
 				 }
              private void bFuryDumpWrathChecked(object sender, EventArgs e)
              {
-                 Bot.SettingsFunky.Class.bFuryDumpWrath = !Bot.SettingsFunky.Class.bFuryDumpWrath;
+                 Bot.Settings.Class.bFuryDumpWrath = !Bot.Settings.Class.bFuryDumpWrath;
              }
              private void bFuryDumpAlwaysChecked(object sender, EventArgs e)
              {
-                 Bot.SettingsFunky.Class.bFuryDumpAlways = !Bot.SettingsFunky.Class.bFuryDumpAlways;
+                 Bot.Settings.Class.bFuryDumpAlways = !Bot.Settings.Class.bFuryDumpAlways;
              }
 				 private void bMonkSpamMantraChecked(object sender, EventArgs e)
 				 {
-					  Bot.SettingsFunky.Class.bMonkSpamMantra=!Bot.SettingsFunky.Class.bMonkSpamMantra;
+					  Bot.Settings.Class.bMonkSpamMantra=!Bot.Settings.Class.bMonkSpamMantra;
 				 }
              private void iDHVaultMovementDelaySliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;
                  int Value = (int)slider_sender.Value;
-                 Bot.SettingsFunky.Class.iDHVaultMovementDelay = Value;
+                 Bot.Settings.Class.iDHVaultMovementDelay = Value;
                  TBiDHVaultMovementDelay.Text = Value.ToString();
              }
              #endregion
@@ -396,16 +396,16 @@ namespace FunkyTrinity
     
              private void DebugStatusBarChecked(object sender, EventArgs e)
              {
-                 Bot.SettingsFunky.Debug.DebugStatusBar = !Bot.SettingsFunky.Debug.DebugStatusBar;
+                 Bot.Settings.Debug.DebugStatusBar = !Bot.Settings.Debug.DebugStatusBar;
              }
 				 private void SkipAheadChecked(object sender, EventArgs e)
 				 {
-					  Bot.SettingsFunky.Debug.SkipAhead=!Bot.SettingsFunky.Debug.SkipAhead;
+					  Bot.Settings.Debug.SkipAhead=!Bot.Settings.Debug.SkipAhead;
 				 }
 
              protected override void OnClosed(EventArgs e)
              {
-					  Settings_Funky.SerializeToXML(Bot.SettingsFunky);
+					  Settings_Funky.SerializeToXML(Bot.Settings);
                  base.OnClosed(e);
              }
 

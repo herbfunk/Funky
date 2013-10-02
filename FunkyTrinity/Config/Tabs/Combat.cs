@@ -15,51 +15,51 @@ namespace FunkyTrinity
 
 		  private void FleeingAttemptMovementChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Fleeing.EnableFleeingBehavior=!Bot.SettingsFunky.Fleeing.EnableFleeingBehavior;
-				bool enabled=Bot.SettingsFunky.Fleeing.EnableFleeingBehavior;
+				Bot.Settings.Fleeing.EnableFleeingBehavior=!Bot.Settings.Fleeing.EnableFleeingBehavior;
+				bool enabled=Bot.Settings.Fleeing.EnableFleeingBehavior;
 				spFleeingOptions.IsEnabled=enabled;
 		  }
 		  private void FleeMonsterDistanceSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Fleeing.FleeMaxMonsterDistance=Value;
+				Bot.Settings.Fleeing.FleeMaxMonsterDistance=Value;
 				TBFleemonsterDistance.Text=Value.ToString();
 		  }
 		  private void FleeMinimumHealthSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
-				Bot.SettingsFunky.Fleeing.FleeBotMinimumHealthPercent=Value;
+				Bot.Settings.Fleeing.FleeBotMinimumHealthPercent=Value;
 				TBFleeMinimumHealth.Text=Value.ToString();
 		  }
 		  private void UseAdvancedProjectileTestingChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Avoidance.UseAdvancedProjectileTesting=!Bot.SettingsFunky.Avoidance.UseAdvancedProjectileTesting;
+				Bot.Settings.Avoidance.UseAdvancedProjectileTesting=!Bot.Settings.Avoidance.UseAdvancedProjectileTesting;
 		  }
 		  private void AvoidanceAttemptMovementChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Avoidance.AttemptAvoidanceMovements=!Bot.SettingsFunky.Avoidance.AttemptAvoidanceMovements;
+				Bot.Settings.Avoidance.AttemptAvoidanceMovements=!Bot.Settings.Avoidance.AttemptAvoidanceMovements;
 		  }
 		  private void GlobeHealthSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
-				Bot.SettingsFunky.Combat.GlobeHealthPercent=Value;
+				Bot.Settings.Combat.GlobeHealthPercent=Value;
 				TBGlobeHealth.Text=Value.ToString();
 		  }
 		  private void PotionHealthSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
-				Bot.SettingsFunky.Combat.PotionHealthPercent=Value;
+				Bot.Settings.Combat.PotionHealthPercent=Value;
 				TBPotionHealth.Text=Value.ToString();
 		  }
 		  private void WellHealthSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
-				Bot.SettingsFunky.Combat.HealthWellHealthPercent=Value;
+				Bot.Settings.Combat.HealthWellHealthPercent=Value;
 				TBWellHealth.Text=Value.ToString();
 		  }
 		  private void FleeingLoadXMLClicked(object sender, EventArgs e)
@@ -79,7 +79,7 @@ namespace FunkyTrinity
 					 {
 						  //;
 						  SettingFleeing newSettings=SettingFleeing.DeserializeFromXML(OFD.FileName);
-						  Bot.SettingsFunky.Fleeing=newSettings;
+						  Bot.Settings.Fleeing=newSettings;
 
 						  FunkyWindow.funkyConfigWindow.Close();
 					 } catch
@@ -105,7 +105,7 @@ namespace FunkyTrinity
 					 {
 						  //;
 						  SettingGrouping newSettings=SettingGrouping.DeserializeFromXML(OFD.FileName);
-						  Bot.SettingsFunky.Grouping=newSettings;
+						  Bot.Settings.Grouping=newSettings;
 
 						  FunkyWindow.funkyConfigWindow.Close();
 					 } catch
@@ -185,7 +185,7 @@ namespace FunkyTrinity
 			  CBAttemptFleeingBehavior=new CheckBox
 			  {
 					Content="Enable Fleeing",
-					IsChecked=Bot.SettingsFunky.Fleeing.EnableFleeingBehavior,
+					IsChecked=Bot.Settings.Fleeing.EnableFleeingBehavior,
 					Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
 			  };
 			  CBAttemptFleeingBehavior.Checked+=FleeingAttemptMovementChecked;
@@ -194,7 +194,7 @@ namespace FunkyTrinity
 			  spFleeingOptions=new StackPanel
 			  {
 					Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
-					IsEnabled=Bot.SettingsFunky.Fleeing.EnableFleeingBehavior,
+					IsEnabled=Bot.Settings.Fleeing.EnableFleeingBehavior,
 			  };
 			  #region Fleeing Monster Distance
 			  TextBlock Flee_MonsterDistance_Label=new TextBlock
@@ -214,13 +214,13 @@ namespace FunkyTrinity
 					TickFrequency=5,
 					LargeChange=5,
 					SmallChange=1,
-					Value=Bot.SettingsFunky.Fleeing.FleeMaxMonsterDistance,
+					Value=Bot.Settings.Fleeing.FleeMaxMonsterDistance,
 					HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 			  };
 			  sliderFleeMonsterDistance.ValueChanged+=FleeMonsterDistanceSliderChanged;
 			  TBFleemonsterDistance=new TextBox
 			  {
-					Text=Bot.SettingsFunky.Fleeing.FleeMaxMonsterDistance.ToString(),
+					Text=Bot.Settings.Fleeing.FleeMaxMonsterDistance.ToString(),
 					IsReadOnly=true,
 			  };
 			  StackPanel FleeMonsterDistanceStackPanel=new StackPanel
@@ -254,13 +254,13 @@ namespace FunkyTrinity
 					TickFrequency=0.25,
 					LargeChange=0.1,
 					SmallChange=0.05,
-					Value=Bot.SettingsFunky.Fleeing.FleeBotMinimumHealthPercent,
+					Value=Bot.Settings.Fleeing.FleeBotMinimumHealthPercent,
 					HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 			  };
 			  sliderFleeHealthPercent.ValueChanged+=FleeMinimumHealthSliderChanged;
 			  TBFleeMinimumHealth=new TextBox
 			  {
-					Text=Bot.SettingsFunky.Fleeing.FleeBotMinimumHealthPercent.ToString(),
+					Text=Bot.Settings.Fleeing.FleeBotMinimumHealthPercent.ToString(),
 					IsReadOnly=true,
 			  };
 			  StackPanel FleeMinimumHealthtackPanel=new StackPanel
@@ -336,13 +336,13 @@ namespace FunkyTrinity
 					TickFrequency=0.25,
 					LargeChange=0.20,
 					SmallChange=0.10,
-					Value=Bot.SettingsFunky.Combat.GlobeHealthPercent,
+					Value=Bot.Settings.Combat.GlobeHealthPercent,
 					HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 			  };
 			  sliderGlobeHealth.ValueChanged+=GlobeHealthSliderChanged;
 			  TBGlobeHealth=new TextBox
 			  {
-					Text=Bot.SettingsFunky.Combat.GlobeHealthPercent.ToString("F2", CultureInfo.InvariantCulture),
+					Text=Bot.Settings.Combat.GlobeHealthPercent.ToString("F2", CultureInfo.InvariantCulture),
 					IsReadOnly=true,
 			  };
 			  StackPanel GlobeHealthStackPanel=new StackPanel
@@ -376,13 +376,13 @@ namespace FunkyTrinity
 					TickFrequency=0.25,
 					LargeChange=0.20,
 					SmallChange=0.10,
-					Value=Bot.SettingsFunky.Combat.PotionHealthPercent,
+					Value=Bot.Settings.Combat.PotionHealthPercent,
 					HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 			  };
 			  sliderPotionHealth.ValueChanged+=PotionHealthSliderChanged;
 			  TBPotionHealth=new TextBox
 			  {
-					Text=Bot.SettingsFunky.Combat.PotionHealthPercent.ToString("F2", CultureInfo.InvariantCulture),
+					Text=Bot.Settings.Combat.PotionHealthPercent.ToString("F2", CultureInfo.InvariantCulture),
 					IsReadOnly=true,
 			  };
 			  StackPanel PotionHealthStackPanel=new StackPanel
@@ -416,13 +416,13 @@ namespace FunkyTrinity
 					TickFrequency=0.25,
 					LargeChange=0.20,
 					SmallChange=0.10,
-					Value=Bot.SettingsFunky.Combat.HealthWellHealthPercent,
+					Value=Bot.Settings.Combat.HealthWellHealthPercent,
 					HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 			  };
 			  sliderWellHealth.ValueChanged+=WellHealthSliderChanged;
 			  TBWellHealth=new TextBox
 			  {
-					Text=Bot.SettingsFunky.Combat.HealthWellHealthPercent.ToString("F2", CultureInfo.InvariantCulture),
+					Text=Bot.Settings.Combat.HealthWellHealthPercent.ToString("F2", CultureInfo.InvariantCulture),
 					IsReadOnly=true,
 			  };
 			  StackPanel WellHealthStackPanel=new StackPanel

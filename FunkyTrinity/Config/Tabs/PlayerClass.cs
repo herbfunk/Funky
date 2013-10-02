@@ -11,7 +11,7 @@ namespace FunkyTrinity
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Class.GoblinMinimumRange=Value;
+				Bot.Settings.Class.GoblinMinimumRange=Value;
 				TBGoblinMinRange.Text=Value.ToString();
 		  }
 		  #endregion
@@ -33,7 +33,7 @@ namespace FunkyTrinity
 								Content="Selective Whirlwind Targeting",
 								Width=300,
 								Height=30,
-								IsChecked=(Bot.SettingsFunky.Class.bSelectiveWhirlwind)
+								IsChecked=(Bot.Settings.Class.bSelectiveWhirlwind)
 						  };
 						  cbbSelectiveWhirlwind.Checked+=bSelectiveWhirlwindChecked;
 						  cbbSelectiveWhirlwind.Unchecked+=bSelectiveWhirlwindChecked;
@@ -57,7 +57,7 @@ namespace FunkyTrinity
 						  {
 								Content="Wait for Wrath",
 								Height=30,
-								IsChecked=(Bot.SettingsFunky.Class.bWaitForWrath),
+								IsChecked=(Bot.Settings.Class.bWaitForWrath),
 								Margin=new Thickness(5),
 						  };
 						  cbbWaitForWrath.Checked+=bWaitForWrathChecked;
@@ -68,7 +68,7 @@ namespace FunkyTrinity
 						  {
 								Content="Use Wrath on Goblins",
 								Height=30,
-								IsChecked=(Bot.SettingsFunky.Class.bGoblinWrath),
+								IsChecked=(Bot.Settings.Class.bGoblinWrath),
 								Margin=new Thickness(5),
 						  };
 						  cbbGoblinWrath.Checked+=bGoblinWrathChecked;
@@ -79,7 +79,7 @@ namespace FunkyTrinity
 						  {
 								Content="Use Wrath on Always",
 								Height=30,
-								IsChecked=(Bot.SettingsFunky.Class.bBarbUseWOTBAlways),
+								IsChecked=(Bot.Settings.Class.bBarbUseWOTBAlways),
 								Margin=new Thickness(5),
 						  };
 						  cbbBarbUseWOTBAlways.Checked+=bBarbUseWOTBAlwaysChecked;
@@ -94,7 +94,7 @@ namespace FunkyTrinity
 								Content="Fury Dump during Wrath",
 								Width=300,
 								Height=30,
-								IsChecked=(Bot.SettingsFunky.Class.bFuryDumpWrath)
+								IsChecked=(Bot.Settings.Class.bFuryDumpWrath)
 						  };
 						  cbbFuryDumpWrath.Checked+=bFuryDumpWrathChecked;
 						  cbbFuryDumpWrath.Unchecked+=bFuryDumpWrathChecked;
@@ -105,7 +105,7 @@ namespace FunkyTrinity
 								Content="Fury Dump Always",
 								Width=300,
 								Height=30,
-								IsChecked=(Bot.SettingsFunky.Class.bFuryDumpAlways)
+								IsChecked=(Bot.Settings.Class.bFuryDumpAlways)
 						  };
 						  cbbFuryDumpAlways.Checked+=bFuryDumpAlwaysChecked;
 						  cbbFuryDumpAlways.Unchecked+=bFuryDumpAlwaysChecked;
@@ -122,13 +122,13 @@ namespace FunkyTrinity
 								TickFrequency=5,
 								LargeChange=5,
 								SmallChange=1,
-								Value=Bot.SettingsFunky.Class.iDHVaultMovementDelay,
+								Value=Bot.Settings.Class.iDHVaultMovementDelay,
 								HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 						  };
 						  iDHVaultMovementDelayslider.ValueChanged+=iDHVaultMovementDelaySliderChanged;
 						  TBiDHVaultMovementDelay=new TextBox
 						  {
-								Text=Bot.SettingsFunky.Class.iDHVaultMovementDelay.ToString(),
+								Text=Bot.Settings.Class.iDHVaultMovementDelay.ToString(),
 								IsReadOnly=true,
 						  };
 						  StackPanel DhVaultPanel=new StackPanel
@@ -148,7 +148,7 @@ namespace FunkyTrinity
 								Content="Spam Mantra Ability",
 								Width=300,
 								Height=30,
-								IsChecked=Bot.SettingsFunky.Class.bMonkSpamMantra,
+								IsChecked=Bot.Settings.Class.bMonkSpamMantra,
 						  };
 						  cbbMonkSpamMantra.Checked+=bMonkSpamMantraChecked;
 						  cbbMonkSpamMantra.Unchecked+=bMonkSpamMantraChecked;
@@ -175,7 +175,7 @@ namespace FunkyTrinity
 									 Content="Wait for Archon",
 									 Width=300,
 									 Height=30,
-									 IsChecked=(Bot.SettingsFunky.Class.bWaitForArchon)
+									 IsChecked=(Bot.Settings.Class.bWaitForArchon)
 								};
 								cbbWaitForArchon.Checked+=bWaitForArchonChecked;
 								cbbWaitForArchon.Unchecked+=bWaitForArchonChecked;
@@ -186,7 +186,7 @@ namespace FunkyTrinity
 									 Content="Do NOT Kite During Archon",
 									 Width=300,
 									 Height=30,
-									 IsChecked=(Bot.SettingsFunky.Class.bKiteOnlyArchon)
+									 IsChecked=(Bot.Settings.Class.bKiteOnlyArchon)
 								};
 								cbbKiteOnlyArchon.Checked+=bKiteOnlyArchonChecked;
 								cbbKiteOnlyArchon.Unchecked+=bKiteOnlyArchonChecked;
@@ -196,7 +196,7 @@ namespace FunkyTrinity
 								{
 									 Content="Cancel Archon for Rebuff",
 									 Height=30,
-									 IsChecked=(Bot.SettingsFunky.Class.bCancelArchonRebuff),
+									 IsChecked=(Bot.Settings.Class.bCancelArchonRebuff),
 								};
 								cbbCancelArchonRebuff.Checked+=bCancelArchonRebuffChecked;
 								cbbCancelArchonRebuff.Unchecked+=bCancelArchonRebuffChecked;
@@ -206,7 +206,7 @@ namespace FunkyTrinity
 								{
 									 Content="Teleport: Flee When Low HP",
 									 Height=30,
-									 IsChecked=(Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP),
+									 IsChecked=(Bot.Settings.Class.bTeleportFleeWhenLowHP),
 								};
 								cbbTeleportFleeWhenLowHP.Checked+=bTeleportFleeWhenLowHPChecked;
 								cbbTeleportFleeWhenLowHP.Unchecked+=bTeleportFleeWhenLowHPChecked;
@@ -216,7 +216,7 @@ namespace FunkyTrinity
 								{
 									 Content="Teleport: Into Monster Groups",
 									 Height=30,
-									 IsChecked=(Bot.SettingsFunky.Class.bTeleportIntoGrouping),
+									 IsChecked=(Bot.Settings.Class.bTeleportIntoGrouping),
 								};
 								cbbTeleportIntoGrouping.Checked+=bTeleportIntoGroupingChecked;
 								cbbTeleportIntoGrouping.Unchecked+=bTeleportIntoGroupingChecked;
@@ -240,13 +240,13 @@ namespace FunkyTrinity
 						  TickFrequency=5,
 						  LargeChange=5,
 						  SmallChange=1,
-						  Value=Bot.SettingsFunky.Class.GoblinMinimumRange,
+						  Value=Bot.Settings.Class.GoblinMinimumRange,
 						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 };
 					 sliderGoblinMinRange.ValueChanged+=TreasureGoblinMinimumRangeSliderChanged;
 					 TBGoblinMinRange=new TextBox
 					 {
-						  Text=Bot.SettingsFunky.Class.GoblinMinimumRange.ToString(),
+						  Text=Bot.Settings.Class.GoblinMinimumRange.ToString(),
 						  IsReadOnly=true,
 					 };
 					 StackPanel GoblinMinRangeStackPanel=new StackPanel
@@ -264,7 +264,7 @@ namespace FunkyTrinity
 					 CheckBox cbMissleDampeningCloseRange=new CheckBox
 					 {
 						  Content="Close Range on Missile Dampening Monsters",
-						  IsChecked=Bot.SettingsFunky.Targeting.MissleDampeningEnforceCloseRange,
+						  IsChecked=Bot.Settings.Targeting.MissleDampeningEnforceCloseRange,
 					 };
 					 cbMissleDampeningCloseRange.Checked+=MissileDampeningChecked;
 					 cbMissleDampeningCloseRange.Unchecked+=MissileDampeningChecked;

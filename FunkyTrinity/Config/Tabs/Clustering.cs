@@ -14,30 +14,30 @@ namespace FunkyTrinity
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Cluster.ClusterDistance=Value;
+				Bot.Settings.Cluster.ClusterDistance=Value;
 				TBClusterDistance.Text=Value.ToString();
 		  }
 		  private void ClusterMinUnitSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Cluster.ClusterMinimumUnitCount=Value;
+				Bot.Settings.Cluster.ClusterMinimumUnitCount=Value;
 				TBClusterMinUnitCount.Text=Value.ToString();
 		  }
 		  private void ClusterLowHPValueSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
-				Bot.SettingsFunky.Cluster.IgnoreClusterLowHPValue=Value;
+				Bot.Settings.Cluster.IgnoreClusterLowHPValue=Value;
 				TBClusterLowHPValue.Text=Value.ToString();
 		  }
 		  private void EnableClusteringTargetLogicChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Cluster.EnableClusteringTargetLogic=!Bot.SettingsFunky.Cluster.EnableClusteringTargetLogic;
+				Bot.Settings.Cluster.EnableClusteringTargetLogic=!Bot.Settings.Cluster.EnableClusteringTargetLogic;
 		  }
 		  private void IgnoreClusteringBotLowHPisChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Cluster.IgnoreClusteringWhenLowHP=!Bot.SettingsFunky.Cluster.IgnoreClusteringWhenLowHP;
+				Bot.Settings.Cluster.IgnoreClusteringWhenLowHP=!Bot.Settings.Cluster.IgnoreClusteringWhenLowHP;
 		  }
 
 		  private void ClusteringLoadXMLClicked(object sender, EventArgs e)
@@ -57,7 +57,7 @@ namespace FunkyTrinity
 					 {
 						  //;
 						  SettingCluster newSettings=SettingCluster.DeserializeFromXML(OFD.FileName);
-						  Bot.SettingsFunky.Cluster=newSettings;
+						  Bot.Settings.Cluster=newSettings;
 
 						  FunkyWindow.funkyConfigWindow.Close();
 					 } catch
@@ -108,7 +108,7 @@ namespace FunkyTrinity
 				CheckBox cbClusterEnabled=new CheckBox
 				{
 					 Content="Enable Clustering Target Logic",
-					 IsChecked=(Bot.SettingsFunky.Cluster.EnableClusteringTargetLogic),
+					 IsChecked=(Bot.Settings.Cluster.EnableClusteringTargetLogic),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+10),
 				};
@@ -147,13 +147,13 @@ namespace FunkyTrinity
 					 TickFrequency=0.25,
 					 LargeChange=0.25,
 					 SmallChange=0.10,
-					 Value=Bot.SettingsFunky.Cluster.IgnoreClusterLowHPValue,
+					 Value=Bot.Settings.Cluster.IgnoreClusterLowHPValue,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderClusterLowHPValue.ValueChanged+=ClusterLowHPValueSliderChanged;
 				TBClusterLowHPValue=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Cluster.IgnoreClusterLowHPValue.ToString("F2", CultureInfo.InvariantCulture),
+					 Text=Bot.Settings.Cluster.IgnoreClusterLowHPValue.ToString("F2", CultureInfo.InvariantCulture),
 					 IsReadOnly=true,
 				};
 				StackPanel ClusterLowHPValueStackPanel=new StackPanel
@@ -173,7 +173,7 @@ namespace FunkyTrinity
 				CheckBox cbClusterIgnoreBotLowHP=new CheckBox
 				{
 					 Content="Cluster Logic Disable at HP %",
-					 IsChecked=(Bot.SettingsFunky.Cluster.IgnoreClusteringWhenLowHP),
+					 IsChecked=(Bot.Settings.Cluster.IgnoreClusteringWhenLowHP),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
 					 VerticalAlignment=System.Windows.VerticalAlignment.Bottom,
 					 Margin=new Thickness(Margin.Left+5, Margin.Top, Margin.Right, Margin.Bottom),
@@ -205,13 +205,13 @@ namespace FunkyTrinity
 					 TickFrequency=4,
 					 LargeChange=5,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Cluster.ClusterDistance,
+					 Value=Bot.Settings.Cluster.ClusterDistance,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderClusterDistance.ValueChanged+=ClusterDistanceSliderChanged;
 				TBClusterDistance=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Cluster.ClusterDistance.ToString(),
+					 Text=Bot.Settings.Cluster.ClusterDistance.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel ClusterDistanceStackPanel=new StackPanel
@@ -247,13 +247,13 @@ namespace FunkyTrinity
 					 TickFrequency=2,
 					 LargeChange=2,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Cluster.ClusterMinimumUnitCount,
+					 Value=Bot.Settings.Cluster.ClusterMinimumUnitCount,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderClusterMinUnitCount.ValueChanged+=ClusterMinUnitSliderChanged;
 				TBClusterMinUnitCount=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Cluster.ClusterMinimumUnitCount.ToString(),
+					 Text=Bot.Settings.Cluster.ClusterMinimumUnitCount.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel ClusterMinUnitCountStackPanel=new StackPanel

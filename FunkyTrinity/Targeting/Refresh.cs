@@ -14,24 +14,14 @@ using System.Collections.Generic;
 using FunkyTrinity.Targeting.Behaviors;
 using Zeta.Internals.SNO;
 using Zeta.Navigation;
+using Zeta.CommonBot.Settings;
 
 namespace FunkyTrinity.Targeting
 {
 	 public partial class TargetHandler
 	 {
-		  //Order is important! -- we test from start to finish.
-		  internal readonly TargetBehavior[] TargetBehaviors=new TargetBehavior[]
-		  {
-			  new TBGroupingResume(), 
-			  new TBAvoidance(), 
-			  new TBFleeing(), 
-			  new TBUpdateTarget(), 
-			  new TBGrouping(), 
-			 // new TBLOSMovement(),
-			  new TBEnd(),
-		  };
+		  #region Target Changed
 
-		  internal TargetBehavioralTypes lastBehavioralType=TargetBehavioralTypes.None;
 		  internal class TargetChangedArgs : EventArgs
 		  {
 				public CacheObject newObject { get; set; }
@@ -44,23 +34,29 @@ namespace FunkyTrinity.Targeting
 				}
 		  }
 		  internal delegate void TargetChangeHandler(object cacheobj, TargetChangedArgs args);
-
 		  internal TargetChangeHandler TargetChanged;
 		  internal void OnTargetChanged(TargetChangedArgs e)
 		  {
 				TargetChangeHandler handler=TargetChanged;
 
-				if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+				if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 					 Logger.Write(LogLevel.Target, "Changed Object: {0}", MakeStringSingleLine(e.newObject.DebugString));
 
 				this.LastChangeOfTarget=DateTime.Now;
 				TargetMovement.NewTargetResetVars();
-				
+
 				if (handler!=null)
 				{
 					 handler(this, e);
 				}
 		  }
+		  private Char CHARnewLine='\x000A';
+		  private Char CHARspace='\x0009';
+		  private string MakeStringSingleLine(string str)
+		  {
+				return str.Replace(CHARnewLine, CHARspace);
+		  }
+		  #endregion
 
 		 ///<summary>
 		  ///Update our current object data ("Current Target")
@@ -94,35 +90,6 @@ namespace FunkyTrinity.Targeting
 				return conditionTest;
 		  }
 
-		  // Used to force-refresh dia objects at least once every XX milliseconds 
-		  internal DateTime lastRefreshedObjects=DateTime.Today;
-		  public bool ShouldRefreshObjectList
-		  {
-				get
-				{
-					 return DateTime.Now.Subtract(lastRefreshedObjects).TotalMilliseconds>=Funky.Settings.CacheObjectRefreshRate;
-				}
-		  }
-		  ///<summary>
-		  ///Tracks the current Level ID
-		  ///</summary>
-		  private int LastLevelID=-1;
-		  private DateTime LastCheckedLevelID=DateTime.Today;
-
-		  ///<summary>
-		  ///Used to flag when Init should iterate and remove the objects
-		  ///</summary>
-		  internal bool RemovalCheck=false;
-
-		  
-
-		  internal CacheObject LastCachedTarget { get; set; }
-		  internal bool FleeingLastTarget { get; set; }
-		  internal bool AvoidanceLastTarget { get; set; }
-		  internal DateTime LastAvoidanceMovement { get; set; }
-		  internal DateTime LastFleeAction=DateTime.Today;
-		  internal DateTime LastChangeOfTarget=DateTime.Today;
-
 		  ///<summary>
 		  ///Refreshes Cache and updates current target
 		  ///</summary>
@@ -153,14 +120,14 @@ namespace FunkyTrinity.Targeting
 				}
 
 				//Update Search Grid Provider?
-				if (Bot.NavigationCache.ShouldUpdateSearchGrid)
+				if (Bot.NavigationCache.ShouldUpdateSearchGrid&&ObjectCache.Objects.Count>0&&!Bot.IsInNonCombatBehavior)
 				{
 					 Bot.NavigationCache.ShouldUpdateSearchGrid=false;
 					 Zeta.Navigation.Navigator.SearchGridProvider.Update();
 				}
 
 				//This is our list of objects we consider to be valid for targeting.
-				Bot.ValidObjects=ObjectCache.Objects.Values.Where(o => o.ObjectIsValidForTargeting).ToList();
+				ObjectCache.ValidObjects=ObjectCache.Objects.Values.Where(o => o.ObjectIsValidForTargeting).ToList();
 
 
 				// Still no target, let's end it all!
@@ -172,29 +139,29 @@ namespace FunkyTrinity.Targeting
 				}
 
 
-				if (Bot.SettingsFunky.EnableWaitAfterContainers&&Bot.Target.CurrentTarget.targetType==TargetType.Container)
+				if (Bot.Settings.EnableWaitAfterContainers&&Bot.Targeting.CurrentTarget.targetType==TargetType.Container)
 				{
 					 //Herbfunks delay for container loot.
-					 Bot.Combat.lastHadContainerAsTarget=DateTime.Now;
+					this.lastHadContainerAsTarget=DateTime.Now;
 
-					 if (Bot.Target.CurrentTarget.IsResplendantChest)
-						  Bot.Combat.lastHadRareChestAsTarget=DateTime.Now;
+					 if (Bot.Targeting.CurrentTarget.IsResplendantChest)
+						  this.lastHadRareChestAsTarget=DateTime.Now;
 				}
 
 				// We're sticking to the same target, so update the target's health cache to check for stucks
-				if (Bot.Target.CurrentTarget.targetType==TargetType.Unit)
+				if (Bot.Targeting.CurrentTarget.targetType==TargetType.Unit)
 				{
-					 CacheUnit thisUnitObj=(CacheUnit)Bot.Target.CurrentTarget;
+					 CacheUnit thisUnitObj=(CacheUnit)Bot.Targeting.CurrentTarget;
 					 //Used to pause after no targets found.
-					 Bot.Combat.lastHadUnitInSights=DateTime.Now;
+					 this.lastHadUnitInSights=DateTime.Now;
 
 					 // And record when we last saw any form of elite
-					 if (Bot.Target.CurrentTarget.IsBoss||thisUnitObj.IsEliteRareUnique||Bot.Target.CurrentTarget.IsTreasureGoblin)
-						  Bot.Combat.lastHadEliteUnitInSights=DateTime.Now;
+					 if (Bot.Targeting.CurrentTarget.IsBoss||thisUnitObj.IsEliteRareUnique||Bot.Targeting.CurrentTarget.IsTreasureGoblin)
+						  this.lastHadEliteUnitInSights=DateTime.Now;
 				}
 
 				// Record the last time our target changed etc.
-				if (Bot.Target.CurrentTarget!=LastCachedTarget)
+				if (Bot.Targeting.CurrentTarget!=LastCachedTarget)
 				{
 					 this.LastChangeOfTarget=DateTime.Now;
 				}
@@ -206,12 +173,12 @@ namespace FunkyTrinity.Targeting
 		  private void InitObjectRefresh()
 		  {
 				//Cache last target only if current target is not avoidance (Movement).
-				LastCachedTarget=Bot.Target.CurrentTarget!=null?Bot.Target.CurrentTarget.Clone():ObjectCache.FakeCacheObject;
+				LastCachedTarget=Bot.Targeting.CurrentTarget!=null?Bot.Targeting.CurrentTarget.Clone():ObjectCache.FakeCacheObject;
 
-				if (!Bot.Target.Equals(null)&&Bot.Target.CurrentTarget.targetType.HasValue&&Bot.Target.CurrentTarget.targetType.Value==TargetType.Avoidance
-					 &&!String.IsNullOrEmpty(Bot.Target.CurrentTarget.InternalName))
+				if (!Bot.Targeting.Equals(null)&&Bot.Targeting.CurrentTarget.targetType.HasValue&&Bot.Targeting.CurrentTarget.targetType.Value==TargetType.Avoidance
+					 &&!String.IsNullOrEmpty(Bot.Targeting.CurrentTarget.InternalName))
 				{
-					 string internalname=Bot.Target.CurrentTarget.InternalName;
+					 string internalname=Bot.Targeting.CurrentTarget.InternalName;
 					 if (internalname.Contains("FleeSpot"))
 					 {
 						  this.LastFleeAction=DateTime.Now;
@@ -230,11 +197,11 @@ namespace FunkyTrinity.Targeting
 				}
 
 				//Reset target
-				Bot.Target.CurrentTarget=null;
-				Bot.Target.CurrentUnitTarget=null;
+				Bot.Targeting.CurrentTarget=null;
+				Bot.Targeting.CurrentUnitTarget=null;
 
 				//Kill Loot Radius Update
-				Bot.UpdateKillLootRadiusValues();
+				Bot.Targeting.UpdateKillLootRadiusValues();
 
 				// Refresh buffs (so we can check for wrath being up to ignore ice balls and anything else like that)
 				Bot.Class.RefreshCurrentBuffs();
@@ -314,14 +281,5 @@ namespace FunkyTrinity.Targeting
 					 BlacklistCache.CheckRefreshBlacklists(10);
 		  }
 
-
-		  private Char CHARnewLine='\x000A';
-		  private Char CHARspace='\x0009';
-		  private string MakeStringSingleLine(string str)
-		  {
-				return str.Replace(CHARnewLine, CHARspace);
-		  }
-
-		 
 	 }
 }

@@ -32,7 +32,7 @@ namespace FunkyTrinity
 					 {
 						  //;
 						  SettingAvoidance newSettings=SettingAvoidance.DeserializeFromXML(OFD.FileName);
-						  Bot.SettingsFunky.Avoidance=newSettings;
+						  Bot.Settings.Avoidance=newSettings;
 						  FunkyWindow.funkyConfigWindow.Close();
 					 } catch
 					 {
@@ -48,7 +48,7 @@ namespace FunkyTrinity
 				float currentValue=(int)slider_sender.Value;
 
 				TBavoidanceRadius[tb_index].Text=currentValue.ToString();
-				Bot.SettingsFunky.Avoidance.Avoidances[tb_index].Radius=currentValue;
+				Bot.Settings.Avoidance.Avoidances[tb_index].Radius=currentValue;
 				//AvoidanceType avoidancetype=(AvoidanceType)Enum.Parse(typeof(AvoidanceType), slider_info[0]);
 				//Bot.SettingsFunky.Avoidance.AvoidanceRadiusValues[avoidancetype]=currentValue;
 				//Bot.SettingsFunky.Avoidance.RecreateAvoidances();
@@ -62,7 +62,7 @@ namespace FunkyTrinity
 				int tb_index=Convert.ToInt16(slider_info[2]);
 
 				TBavoidanceHealth[tb_index].Text=currentValue.ToString();
-				Bot.SettingsFunky.Avoidance.Avoidances[tb_index].Health=currentValue;
+				Bot.Settings.Avoidance.Avoidances[tb_index].Health=currentValue;
 				//AvoidanceType avoidancetype=(AvoidanceType)Enum.Parse(typeof(AvoidanceType), slider_info[0]);
 				//Bot.SettingsFunky.Avoidance.AvoidanceHealthValues[avoidancetype]=currentValue;
 				//Bot.SettingsFunky.Avoidance.RecreateAvoidances();
@@ -76,7 +76,7 @@ namespace FunkyTrinity
 				int tb_index=Convert.ToInt16(slider_info[2]);
 
 				TBavoidanceWeight[tb_index].Text=currentValue.ToString();
-				Bot.SettingsFunky.Avoidance.Avoidances[tb_index].Weight=currentValue;
+				Bot.Settings.Avoidance.Avoidances[tb_index].Weight=currentValue;
 				//AvoidanceType avoidancetype=(AvoidanceType)Enum.Parse(typeof(AvoidanceType), slider_info[0]);
 				//Bot.SettingsFunky.Avoidance.AvoidanceHealthValues[avoidancetype]=currentValue;
 				//Bot.SettingsFunky.Avoidance.RecreateAvoidances();
@@ -129,7 +129,7 @@ namespace FunkyTrinity
 				CheckBox CBAttemptAvoidanceMovements=new CheckBox
 				{
 					 Content="Enable Avoidance",
-					 IsChecked=Bot.SettingsFunky.Avoidance.AttemptAvoidanceMovements,
+					 IsChecked=Bot.Settings.Avoidance.AttemptAvoidanceMovements,
 
 				};
 				CBAttemptAvoidanceMovements.Checked+=AvoidanceAttemptMovementChecked;
@@ -138,7 +138,7 @@ namespace FunkyTrinity
 				CheckBox CBAdvancedProjectileTesting=new CheckBox
 				{
 					 Content="Use Advanced Avoidance Projectile Test",
-					 IsChecked=Bot.SettingsFunky.Avoidance.UseAdvancedProjectileTesting,
+					 IsChecked=Bot.Settings.Avoidance.UseAdvancedProjectileTesting,
 				};
 				CBAdvancedProjectileTesting.Checked+=UseAdvancedProjectileTestingChecked;
 				CBAdvancedProjectileTesting.Unchecked+=UseAdvancedProjectileTestingChecked;
@@ -223,7 +223,7 @@ namespace FunkyTrinity
 				AvoidanceLayoutGrid.Children.Add(ColumnHeader4);
 
 				//Dictionary<AvoidanceType, double> currentDictionaryAvoidance=Bot.SettingsFunky.Avoidance.AvoidanceHealthValues;
-				AvoidanceValue[] avoidanceValues=Bot.SettingsFunky.Avoidance.Avoidances.ToArray();
+				AvoidanceValue[] avoidanceValues=Bot.Settings.Avoidance.Avoidances.ToArray();
 				TBavoidanceHealth=new TextBox[avoidanceValues.Length-1];
 				TBavoidanceRadius=new TextBox[avoidanceValues.Length-1];
 				TBavoidanceWeight=new TextBox[avoidanceValues.Length-1];

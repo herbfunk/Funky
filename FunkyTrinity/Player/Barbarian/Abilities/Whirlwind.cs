@@ -36,8 +36,8 @@ namespace FunkyTrinity.AbilityFunky.Abilities.Barb
 			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return !Bot.Class.bWaitingForSpecial &&
-				       (!Bot.SettingsFunky.Class.bSelectiveWhirlwind || Bot.Combat.bAnyNonWWIgnoreMobsInRange ||
-				        !CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Target.CurrentTarget.SNOID)) &&
+				       (!Bot.Settings.Class.bSelectiveWhirlwind || Bot.Combat.bAnyNonWWIgnoreMobsInRange ||
+				        !CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Targeting.CurrentTarget.SNOID)) &&
 				       // If they have battle-rage, make sure it's up
 				       (!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage) ||
 				        (Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage) && Bot.Class.HasBuff(SNOPower.Barbarian_BattleRage)));

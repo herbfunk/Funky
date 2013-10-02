@@ -80,7 +80,7 @@ namespace FunkyTrinity
 				
 				if (!cancast)
 				{
-					 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
+					 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
 						  Logger.Write(LogLevel.OutOfCombat,"Cannot cast TP: "+TPcastTest);
 					 return false;
 				}
@@ -206,17 +206,17 @@ namespace FunkyTrinity
 				FunkyTPBehaviorFlag=true;
 
 				//Refresh?
-				if (Bot.Target.ShouldRefreshObjectList)
+				if (Bot.Targeting.ShouldRefreshObjectList)
 				{
-					 Bot.Target.RefreshDiaObjects();
+					 Bot.Targeting.RefreshDiaObjects();
 				}
 
 				//Check if we have any NEW targets to deal with.. 
 				//Note: Refresh will filter targets to units and avoidance ONLY.
-				if (Bot.Target.CurrentTarget!=null)
+				if (Bot.Targeting.CurrentTarget!=null)
 				{
 					 //Directly Handle Target..
-					 RunStatus targetHandler=Bot.Target.HandleThis();
+					 RunStatus targetHandler=Bot.Targeting.HandleThis();
 
 					 //Only return failure if handling failed..
 					 if (targetHandler==RunStatus.Failure)
@@ -283,7 +283,7 @@ namespace FunkyTrinity
 					 else if (ElapsedTime>8||!CastAttempted)
 					 {
 						  //Recast
-						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
+						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
 								Logger.Write(LogLevel.OutOfCombat,"Casting TP..");
 						  ZetaDia.Me.UseTownPortal();
 						  CastAttempted=true;
@@ -297,7 +297,7 @@ namespace FunkyTrinity
 					 if (ElapsedTime>8)
 					 {
 						  //Void Cast?
-						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
+						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
 								Logger.Write(LogLevel.OutOfCombat,"Attempting to void cast with movement..");
 						  Vector3 V3loc;
 						  bool success=Bot.NavigationCache.AttemptFindSafeSpot(out V3loc, Vector3.Zero);

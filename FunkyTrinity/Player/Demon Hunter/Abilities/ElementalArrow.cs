@@ -28,9 +28,9 @@ namespace FunkyTrinity.AbilityFunky.Abilities.DemonHunter
 			ClusterConditions = new ClusterConditions(4d, 40, 2, true);
 			FcriteriaCombat = new Func<bool>(() =>
 			{
-				return (!Bot.Target.CurrentTarget.IsTreasureGoblin &&
-				        Bot.Target.CurrentTarget.SNOID != 5208 && Bot.Target.CurrentTarget.SNOID != 5209 &&
-				        Bot.Target.CurrentTarget.SNOID != 5210);
+				return (!Bot.Targeting.CurrentTarget.IsTreasureGoblin &&
+				        Bot.Targeting.CurrentTarget.SNOID != 5208 && Bot.Targeting.CurrentTarget.SNOID != 5209 &&
+				        Bot.Targeting.CurrentTarget.SNOID != 5210);
 			});
 		}
 

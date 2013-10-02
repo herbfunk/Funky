@@ -40,7 +40,7 @@ namespace FunkyTrinity
 					 {
 						  //;
 						  SettingLoot newSettings=SettingLoot.DeserializeFromXML(OFD.FileName);
-						  Bot.SettingsFunky.Loot=newSettings;
+						  Bot.Settings.Loot=newSettings;
 
 						  FunkyWindow.funkyConfigWindow.Close();
 					 } catch
@@ -54,94 +54,94 @@ namespace FunkyTrinity
 
 		  private void PickupCraftTomesChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Loot.PickupCraftTomes=!Bot.SettingsFunky.Loot.PickupCraftTomes;
+				Bot.Settings.Loot.PickupCraftTomes=!Bot.Settings.Loot.PickupCraftTomes;
 		  }
 		  private void PickupCraftPlansChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Loot.PickupCraftPlans=!Bot.SettingsFunky.Loot.PickupCraftPlans;
-				spBlacksmithPlans.IsEnabled=Bot.SettingsFunky.Loot.PickupCraftPlans;
-				spJewelerPlans.IsEnabled=Bot.SettingsFunky.Loot.PickupCraftPlans;
+				Bot.Settings.Loot.PickupCraftPlans=!Bot.Settings.Loot.PickupCraftPlans;
+				spBlacksmithPlans.IsEnabled=Bot.Settings.Loot.PickupCraftPlans;
+				spJewelerPlans.IsEnabled=Bot.Settings.Loot.PickupCraftPlans;
 		  }
 
 		  private void PickupBlacksmithPlanSixChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Loot.PickupBlacksmithPlanSix=!Bot.SettingsFunky.Loot.PickupBlacksmithPlanSix;
+				Bot.Settings.Loot.PickupBlacksmithPlanSix=!Bot.Settings.Loot.PickupBlacksmithPlanSix;
 		  }
 		  private void PickupBlacksmithPlanFiveChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Loot.PickupBlacksmithPlanFive=!Bot.SettingsFunky.Loot.PickupBlacksmithPlanFive;
+				Bot.Settings.Loot.PickupBlacksmithPlanFive=!Bot.Settings.Loot.PickupBlacksmithPlanFive;
 		  }
 		  private void PickupBlacksmithPlanFourChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Loot.PickupBlacksmithPlanFour=!Bot.SettingsFunky.Loot.PickupBlacksmithPlanFour;
+				Bot.Settings.Loot.PickupBlacksmithPlanFour=!Bot.Settings.Loot.PickupBlacksmithPlanFour;
 		  }
 
 		  private void PickupBlacksmithPlanArchonGauntletsChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Loot.PickupBlacksmithPlanArchonGauntlets=!Bot.SettingsFunky.Loot.PickupBlacksmithPlanArchonGauntlets;
+				Bot.Settings.Loot.PickupBlacksmithPlanArchonGauntlets=!Bot.Settings.Loot.PickupBlacksmithPlanArchonGauntlets;
 		  }
 		  private void PickupBlacksmithPlanArchonSpauldersChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Loot.PickupBlacksmithPlanArchonSpaulders=!Bot.SettingsFunky.Loot.PickupBlacksmithPlanArchonSpaulders;
+				Bot.Settings.Loot.PickupBlacksmithPlanArchonSpaulders=!Bot.Settings.Loot.PickupBlacksmithPlanArchonSpaulders;
 		  }
 		  private void PickupBlacksmithPlanRazorspikesChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Loot.PickupBlacksmithPlanRazorspikes=!Bot.SettingsFunky.Loot.PickupBlacksmithPlanRazorspikes;
+				Bot.Settings.Loot.PickupBlacksmithPlanRazorspikes=!Bot.Settings.Loot.PickupBlacksmithPlanRazorspikes;
 		  }
 
 		  private void PickupJewelerDesignFlawlessStarChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Loot.PickupJewelerDesignFlawlessStar=!Bot.SettingsFunky.Loot.PickupJewelerDesignFlawlessStar;
+				Bot.Settings.Loot.PickupJewelerDesignFlawlessStar=!Bot.Settings.Loot.PickupJewelerDesignFlawlessStar;
 		  }
 		  private void PickupJewelerDesignPerfectStarChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Loot.PickupJewelerDesignPerfectStar=!Bot.SettingsFunky.Loot.PickupJewelerDesignPerfectStar;
+				Bot.Settings.Loot.PickupJewelerDesignPerfectStar=!Bot.Settings.Loot.PickupJewelerDesignPerfectStar;
 		  }
 		  private void PickupJewelerDesignRadiantStarChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Loot.PickupJewelerDesignRadiantStar=!Bot.SettingsFunky.Loot.PickupJewelerDesignRadiantStar;
+				Bot.Settings.Loot.PickupJewelerDesignRadiantStar=!Bot.Settings.Loot.PickupJewelerDesignRadiantStar;
 		  }
 		  private void PickupJewelerDesignMarquiseChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Loot.PickupJewelerDesignMarquise=!Bot.SettingsFunky.Loot.PickupJewelerDesignMarquise;
+				Bot.Settings.Loot.PickupJewelerDesignMarquise=!Bot.Settings.Loot.PickupJewelerDesignMarquise;
 		  }
 		  private void PickupJewelerDesignAmuletChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Loot.PickupJewelerDesignAmulet=!Bot.SettingsFunky.Loot.PickupJewelerDesignAmulet;
+				Bot.Settings.Loot.PickupJewelerDesignAmulet=!Bot.Settings.Loot.PickupJewelerDesignAmulet;
 		  }
 		  private void PickupInfernalKeysChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Loot.PickupInfernalKeys=!Bot.SettingsFunky.Loot.PickupInfernalKeys;
+				Bot.Settings.Loot.PickupInfernalKeys=!Bot.Settings.Loot.PickupInfernalKeys;
 		  }
 		  private void PickupDemonicEssenceChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Loot.PickupDemonicEssence=!Bot.SettingsFunky.Loot.PickupDemonicEssence;
+				Bot.Settings.Loot.PickupDemonicEssence=!Bot.Settings.Loot.PickupDemonicEssence;
 		  }
 
 		  private void PickupFollowerItemsChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Loot.PickupFollowerItems=!Bot.SettingsFunky.Loot.PickupFollowerItems;
+				Bot.Settings.Loot.PickupFollowerItems=!Bot.Settings.Loot.PickupFollowerItems;
 		  }
 		  private void GemsChecked(object sender, EventArgs e)
 		  {
 				CheckBox sender_=(CheckBox)sender;
-				if (sender_.Name=="red") Bot.SettingsFunky.Loot.PickupGems[0]=!Bot.SettingsFunky.Loot.PickupGems[0];
-				if (sender_.Name=="green") Bot.SettingsFunky.Loot.PickupGems[1]=!Bot.SettingsFunky.Loot.PickupGems[1];
-				if (sender_.Name=="purple") Bot.SettingsFunky.Loot.PickupGems[2]=!Bot.SettingsFunky.Loot.PickupGems[2];
-				if (sender_.Name=="yellow") Bot.SettingsFunky.Loot.PickupGems[3]=!Bot.SettingsFunky.Loot.PickupGems[3];
+				if (sender_.Name=="red") Bot.Settings.Loot.PickupGems[0]=!Bot.Settings.Loot.PickupGems[0];
+				if (sender_.Name=="green") Bot.Settings.Loot.PickupGems[1]=!Bot.Settings.Loot.PickupGems[1];
+				if (sender_.Name=="purple") Bot.Settings.Loot.PickupGems[2]=!Bot.Settings.Loot.PickupGems[2];
+				if (sender_.Name=="yellow") Bot.Settings.Loot.PickupGems[3]=!Bot.Settings.Loot.PickupGems[3];
 		  }
 		  private void MiscItemLevelSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Loot.MiscItemLevel=Value;
+				Bot.Settings.Loot.MiscItemLevel=Value;
 				TBMiscItemLevel.Text=Value.ToString();
 		  }
 		  private void GemQualityLevelChanged(object sender, EventArgs e)
 		  {
 				ComboBox cbSender=(ComboBox)sender;
 
-				Bot.SettingsFunky.Loot.MinimumGemItemLevel=(int)Enum.Parse(typeof(GemQuality), cbSender.Items[cbSender.SelectedIndex].ToString());
+				Bot.Settings.Loot.MinimumGemItemLevel=(int)Enum.Parse(typeof(GemQuality), cbSender.Items[cbSender.SelectedIndex].ToString());
 		  }
 		  class GemQualityTypes : ObservableCollection<string>
 		  {
@@ -158,21 +158,21 @@ namespace FunkyTrinity
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Loot.MinimumLegendaryItemLevel=Value;
+				Bot.Settings.Loot.MinimumLegendaryItemLevel=Value;
 				TBMinLegendaryLevel.Text=Value.ToString();
 		  }
 		  private void HealthPotionSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Loot.MaximumHealthPotions=Value;
+				Bot.Settings.Loot.MaximumHealthPotions=Value;
 				TBMaxHealthPots.Text=Value.ToString();
 		  }
 		  private void GoldAmountSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Loot.MinimumGoldPile=Value;
+				Bot.Settings.Loot.MinimumGoldPile=Value;
 				TBMinGoldPile.Text=Value.ToString();
 		  }
 
@@ -182,12 +182,12 @@ namespace FunkyTrinity
 				int Value=(int)slider_sender.Value;
 				if (slider_sender.Name=="Magic")
 				{
-					 Bot.SettingsFunky.Loot.MinimumWeaponItemLevel[0]=Value;
+					 Bot.Settings.Loot.MinimumWeaponItemLevel[0]=Value;
 					 TBMinimumWeaponLevel[0].Text=Value.ToString();
 				}
 				else
 				{
-					 Bot.SettingsFunky.Loot.MinimumWeaponItemLevel[1]=Value;
+					 Bot.Settings.Loot.MinimumWeaponItemLevel[1]=Value;
 					 TBMinimumWeaponLevel[1].Text=Value.ToString();
 				}
 		  }
@@ -197,12 +197,12 @@ namespace FunkyTrinity
 				int Value=(int)slider_sender.Value;
 				if (slider_sender.Name=="Magic")
 				{
-					 Bot.SettingsFunky.Loot.MinimumArmorItemLevel[0]=Value;
+					 Bot.Settings.Loot.MinimumArmorItemLevel[0]=Value;
 					 TBMinimumArmorLevel[0].Text=Value.ToString();
 				}
 				else
 				{
-					 Bot.SettingsFunky.Loot.MinimumArmorItemLevel[1]=Value;
+					 Bot.Settings.Loot.MinimumArmorItemLevel[1]=Value;
 					 TBMinimumArmorLevel[1].Text=Value.ToString();
 				}
 		  }
@@ -212,12 +212,12 @@ namespace FunkyTrinity
 				int Value=(int)slider_sender.Value;
 				if (slider_sender.Name=="Magic")
 				{
-					 Bot.SettingsFunky.Loot.MinimumJeweleryItemLevel[0]=Value;
+					 Bot.Settings.Loot.MinimumJeweleryItemLevel[0]=Value;
 					 TBMinimumJeweleryLevel[0].Text=Value.ToString();
 				}
 				else
 				{
-					 Bot.SettingsFunky.Loot.MinimumJeweleryItemLevel[1]=Value;
+					 Bot.Settings.Loot.MinimumJeweleryItemLevel[1]=Value;
 					 TBMinimumJeweleryLevel[1].Text=Value.ToString();
 				}
 		  }
@@ -281,14 +281,14 @@ namespace FunkyTrinity
 					 TickFrequency=5,
 					 LargeChange=5,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Loot.MinimumWeaponItemLevel[0],
+					 Value=Bot.Settings.Loot.MinimumWeaponItemLevel[0],
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				weaponMagicLevelSlider.ValueChanged+=WeaponItemLevelSliderChanged;
 				TBMinimumWeaponLevel[0]=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Loot.MinimumWeaponItemLevel[0].ToString(),
+					 Text=Bot.Settings.Loot.MinimumWeaponItemLevel[0].ToString(),
 					 IsReadOnly=true,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
@@ -319,14 +319,14 @@ namespace FunkyTrinity
 					 TickFrequency=5,
 					 LargeChange=5,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Loot.MinimumWeaponItemLevel[1],
+					 Value=Bot.Settings.Loot.MinimumWeaponItemLevel[1],
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				weaponRareLevelSlider.ValueChanged+=WeaponItemLevelSliderChanged;
 				TBMinimumWeaponLevel[1]=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Loot.MinimumWeaponItemLevel[1].ToString(),
+					 Text=Bot.Settings.Loot.MinimumWeaponItemLevel[1].ToString(),
 					 IsReadOnly=true,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
@@ -375,14 +375,14 @@ namespace FunkyTrinity
 					 TickFrequency=5,
 					 LargeChange=5,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Loot.MinimumArmorItemLevel[0],
+					 Value=Bot.Settings.Loot.MinimumArmorItemLevel[0],
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				armorMagicLevelSlider.ValueChanged+=ArmorItemLevelSliderChanged;
 				TBMinimumArmorLevel[0]=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Loot.MinimumArmorItemLevel[0].ToString(),
+					 Text=Bot.Settings.Loot.MinimumArmorItemLevel[0].ToString(),
 					 IsReadOnly=true,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
@@ -413,14 +413,14 @@ namespace FunkyTrinity
 					 LargeChange=5,
 					 SmallChange=1,
 					 Width=120,
-					 Value=Bot.SettingsFunky.Loot.MinimumArmorItemLevel[1],
+					 Value=Bot.Settings.Loot.MinimumArmorItemLevel[1],
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				armorRareLevelSlider.ValueChanged+=ArmorItemLevelSliderChanged;
 				TBMinimumArmorLevel[1]=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Loot.MinimumArmorItemLevel[1].ToString(),
+					 Text=Bot.Settings.Loot.MinimumArmorItemLevel[1].ToString(),
 					 IsReadOnly=true,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
@@ -468,14 +468,14 @@ namespace FunkyTrinity
 					 TickFrequency=5,
 					 LargeChange=5,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Loot.MinimumJeweleryItemLevel[0],
+					 Value=Bot.Settings.Loot.MinimumJeweleryItemLevel[0],
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				jeweleryMagicLevelSlider.ValueChanged+=JeweleryItemLevelSliderChanged;
 				TBMinimumJeweleryLevel[0]=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Loot.MinimumJeweleryItemLevel[0].ToString(),
+					 Text=Bot.Settings.Loot.MinimumJeweleryItemLevel[0].ToString(),
 					 IsReadOnly=true,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
@@ -505,14 +505,14 @@ namespace FunkyTrinity
 					 LargeChange=5,
 					 SmallChange=1,
 					 Width=120,
-					 Value=Bot.SettingsFunky.Loot.MinimumJeweleryItemLevel[1],
+					 Value=Bot.Settings.Loot.MinimumJeweleryItemLevel[1],
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				jeweleryRareLevelSlider.ValueChanged+=JeweleryItemLevelSliderChanged;
 				TBMinimumJeweleryLevel[1]=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Loot.MinimumJeweleryItemLevel[1].ToString(),
+					 Text=Bot.Settings.Loot.MinimumJeweleryItemLevel[1].ToString(),
 					 IsReadOnly=true,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
@@ -558,13 +558,13 @@ namespace FunkyTrinity
 					 TickFrequency=5,
 					 LargeChange=5,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Loot.MinimumLegendaryItemLevel,
+					 Value=Bot.Settings.Loot.MinimumLegendaryItemLevel,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderLegendaryILevel.ValueChanged+=LegendaryItemLevelSliderChanged;
 				TBMinLegendaryLevel=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Loot.MinimumLegendaryItemLevel.ToString(),
+					 Text=Bot.Settings.Loot.MinimumLegendaryItemLevel.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel LegendaryILvlStackPanel=new StackPanel
@@ -599,13 +599,13 @@ namespace FunkyTrinity
 					 TickFrequency=5,
 					 LargeChange=5,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Loot.MiscItemLevel,
+					 Value=Bot.Settings.Loot.MiscItemLevel,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				slideMinMiscItemLevel.ValueChanged+=MiscItemLevelSliderChanged;
 				TBMiscItemLevel=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Loot.MiscItemLevel.ToString(),
+					 Text=Bot.Settings.Loot.MiscItemLevel.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel MinMiscItemLevelStackPanel=new StackPanel
@@ -634,13 +634,13 @@ namespace FunkyTrinity
 					 TickFrequency=25,
 					 LargeChange=20,
 					 SmallChange=5,
-					 Value=Bot.SettingsFunky.Loot.MaximumHealthPotions,
+					 Value=Bot.Settings.Loot.MaximumHealthPotions,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderMaxHealthPots.ValueChanged+=HealthPotionSliderChanged;
 				TBMaxHealthPots=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Loot.MaximumHealthPotions.ToString(),
+					 Text=Bot.Settings.Loot.MaximumHealthPotions.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel MaxHealthPotsStackPanel=new StackPanel
@@ -673,13 +673,13 @@ namespace FunkyTrinity
 					 TickFrequency=1000,
 					 LargeChange=1000,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Loot.MinimumGoldPile,
+					 Value=Bot.Settings.Loot.MinimumGoldPile,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				slideMinGoldPile.ValueChanged+=GoldAmountSliderChanged;
 				TBMinGoldPile=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Loot.MinimumGoldPile.ToString(),
+					 Text=Bot.Settings.Loot.MinimumGoldPile.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel MinGoldPileStackPanel=new StackPanel
@@ -723,7 +723,7 @@ namespace FunkyTrinity
 				{
 					 Content="Pickup Craft Plans",
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupCraftPlans),
+					 IsChecked=(Bot.Settings.Loot.PickupCraftPlans),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
@@ -735,7 +735,7 @@ namespace FunkyTrinity
 				spBlacksmithPlans=new StackPanel
 				{
 					 Orientation=Orientation.Horizontal,
-					 IsEnabled=Bot.SettingsFunky.Loot.PickupCraftPlans,
+					 IsEnabled=Bot.Settings.Loot.PickupCraftPlans,
 				};
 				StackPanel spBlacksmithPlansProperties=new StackPanel();
 
@@ -744,7 +744,7 @@ namespace FunkyTrinity
 				{
 					 Content="Plans: Property Six",
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupBlacksmithPlanSix),
+					 IsChecked=(Bot.Settings.Loot.PickupBlacksmithPlanSix),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
@@ -758,7 +758,7 @@ namespace FunkyTrinity
 				{
 					 Content="Plans: Property Five",
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupBlacksmithPlanFive),
+					 IsChecked=(Bot.Settings.Loot.PickupBlacksmithPlanFive),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
@@ -772,7 +772,7 @@ namespace FunkyTrinity
 				{
 					 Content="Plans: Property Four",
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupBlacksmithPlanFour),
+					 IsChecked=(Bot.Settings.Loot.PickupBlacksmithPlanFour),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
@@ -790,7 +790,7 @@ namespace FunkyTrinity
 				{
 					 Content="Plans: Archon Gauntlets",
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupBlacksmithPlanArchonGauntlets),
+					 IsChecked=(Bot.Settings.Loot.PickupBlacksmithPlanArchonGauntlets),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
@@ -804,7 +804,7 @@ namespace FunkyTrinity
 				{
 					 Content="Plans: Archon Spaulders",
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupBlacksmithPlanArchonSpaulders),
+					 IsChecked=(Bot.Settings.Loot.PickupBlacksmithPlanArchonSpaulders),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
@@ -818,7 +818,7 @@ namespace FunkyTrinity
 				{
 					 Content="Plans: Razorspikes",
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupBlacksmithPlanRazorspikes),
+					 IsChecked=(Bot.Settings.Loot.PickupBlacksmithPlanRazorspikes),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
@@ -832,7 +832,7 @@ namespace FunkyTrinity
 
 				spJewelerPlans=new StackPanel
 				{
-					 IsEnabled=Bot.SettingsFunky.Loot.PickupCraftPlans,
+					 IsEnabled=Bot.Settings.Loot.PickupCraftPlans,
 				};
 
 				#region design_flawlessStar
@@ -840,7 +840,7 @@ namespace FunkyTrinity
 				{
 					 Content="Design: Flawless Star",
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupJewelerDesignFlawlessStar),
+					 IsChecked=(Bot.Settings.Loot.PickupJewelerDesignFlawlessStar),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
@@ -854,7 +854,7 @@ namespace FunkyTrinity
 				{
 					 Content="Design: Perfect Star",
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupJewelerDesignPerfectStar),
+					 IsChecked=(Bot.Settings.Loot.PickupJewelerDesignPerfectStar),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
@@ -868,7 +868,7 @@ namespace FunkyTrinity
 				{
 					 Content="Design: Radiant Star",
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupJewelerDesignRadiantStar),
+					 IsChecked=(Bot.Settings.Loot.PickupJewelerDesignRadiantStar),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
@@ -882,7 +882,7 @@ namespace FunkyTrinity
 				{
 					 Content="Design: Marquise",
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupJewelerDesignMarquise),
+					 IsChecked=(Bot.Settings.Loot.PickupJewelerDesignMarquise),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
@@ -896,7 +896,7 @@ namespace FunkyTrinity
 				{
 					 Content="Design: Amulets",
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupJewelerDesignAmulet),
+					 IsChecked=(Bot.Settings.Loot.PickupJewelerDesignAmulet),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
@@ -919,7 +919,7 @@ namespace FunkyTrinity
 				{
 					 Content="Pickup Craft Tomes",
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupCraftTomes),
+					 IsChecked=(Bot.Settings.Loot.PickupCraftTomes),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
@@ -932,7 +932,7 @@ namespace FunkyTrinity
 				{
 					 Content="Pickup Follower Items",
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupFollowerItems),
+					 IsChecked=(Bot.Settings.Loot.PickupFollowerItems),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
@@ -945,7 +945,7 @@ namespace FunkyTrinity
 				{
 					 Content="Pickup Inferno Keys",
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupInfernalKeys),
+					 IsChecked=(Bot.Settings.Loot.PickupInfernalKeys),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
@@ -958,7 +958,7 @@ namespace FunkyTrinity
 				{
 					 Content="Pickup Demonic Essences",
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupDemonicEssence),
+					 IsChecked=(Bot.Settings.Loot.PickupDemonicEssence),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
@@ -1015,7 +1015,7 @@ namespace FunkyTrinity
 				{
 					 Height=20,
 					 ItemsSource=new GemQualityTypes(),
-					 Text=Enum.GetName(typeof(GemQuality), Bot.SettingsFunky.Loot.MinimumGemItemLevel).ToString(),
+					 Text=Enum.GetName(typeof(GemQuality), Bot.Settings.Loot.MinimumGemItemLevel).ToString(),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(5),
 				};
@@ -1037,7 +1037,7 @@ namespace FunkyTrinity
 					 Name="red",
 					 Width=150,
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupGems[0])
+					 IsChecked=(Bot.Settings.Loot.PickupGems[0])
 				};
 				CBGems[0].Checked+=GemsChecked;
 				CBGems[0].Unchecked+=GemsChecked;
@@ -1050,7 +1050,7 @@ namespace FunkyTrinity
 					 Name="green",
 					 Width=150,
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupGems[1])
+					 IsChecked=(Bot.Settings.Loot.PickupGems[1])
 				};
 				CBGems[1].Checked+=GemsChecked;
 				CBGems[1].Unchecked+=GemsChecked;
@@ -1068,7 +1068,7 @@ namespace FunkyTrinity
 					 Name="purple",
 					 Width=150,
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupGems[2])
+					 IsChecked=(Bot.Settings.Loot.PickupGems[2])
 				};
 				CBGems[2].Checked+=GemsChecked;
 				CBGems[2].Unchecked+=GemsChecked;
@@ -1081,7 +1081,7 @@ namespace FunkyTrinity
 					 Name="yellow",
 					 Width=150,
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Loot.PickupGems[3])
+					 IsChecked=(Bot.Settings.Loot.PickupGems[3])
 				};
 				CBGems[3].Checked+=GemsChecked;
 				CBGems[3].Unchecked+=GemsChecked;

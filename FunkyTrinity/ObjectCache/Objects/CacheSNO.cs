@@ -524,7 +524,7 @@ namespace FunkyTrinity.Cache
 								this.InternalName=thisObj.Name;
 						  } catch (NullReferenceException)
 						  {
-								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 									 Logger.Write(LogLevel.Execption, "Failure to get internal name on object, SNO {0}", this.SNOID); return false;
 						  }
 					 }
@@ -537,7 +537,7 @@ namespace FunkyTrinity.Cache
 								this.Actortype=thisObj.ActorType;
 						  } catch (NullReferenceException)
 						  {
-								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 									 Logger.Write(LogLevel.Execption, "Failure to get actorType for object, SNO: {0}", this.SNOID); return false;
 						  }
 						  #endregion
@@ -571,7 +571,7 @@ namespace FunkyTrinity.Cache
 											AvoidanceType AT=AvoidanceCache.FindAvoidanceUsingSNOID(this.SNOID);
 
 										  //Check if avoidance is enabled or if the avoidance type is set to 0
-										  if (!Bot.SettingsFunky.Avoidance.AttemptAvoidanceMovements||AT!=AvoidanceType.None&&AvoidanceCache.IgnoringAvoidanceType(AT))
+										  if (!Bot.Settings.Avoidance.AttemptAvoidanceMovements||AT!=AvoidanceType.None&&AvoidanceCache.IgnoringAvoidanceType(AT))
 										  {
 												BlacklistCache.AddObjectToBlacklist(raguid, BlacklistType.Temporary);
 												return false;
@@ -711,7 +711,7 @@ namespace FunkyTrinity.Cache
 								}
 						  } catch (NullReferenceException)
 						  {
-								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 									 Logger.Write(LogLevel.Execption, "Failure to get actorType for object, SNO: {0}", this.SNOID); return false;
 						  }
 						  #endregion
@@ -730,7 +730,7 @@ namespace FunkyTrinity.Cache
 								monsterInfo=thisObj.CommonData.MonsterInfo;
 						  } catch (Exception)
 						  {
-								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 									 Logger.Write(LogLevel.Execption, "Safely Handled MonsterInfo Exception for Object {0}", this.InternalName);
 								return false;
 						  }
@@ -744,7 +744,7 @@ namespace FunkyTrinity.Cache
 									 this.Monstertype=monsterInfo.MonsterType;
 								} catch (NullReferenceException )
 								{
-									 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 										  Logger.Write(LogLevel.Execption, "Failure to get MonsterType for SNO: {0}", this.SNOID); failureDuringUpdate=true;
 								}
 								#endregion
@@ -757,7 +757,7 @@ namespace FunkyTrinity.Cache
 									 this.Monstersize=monsterInfo.MonsterSize;
 								} catch (NullReferenceException )
 								{
-									 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 										  Logger.Write(LogLevel.Execption, "Failure to get MonsterSize for SNO: {0}", this.SNOID); failureDuringUpdate=true;
 								}
 								#endregion
@@ -794,7 +794,7 @@ namespace FunkyTrinity.Cache
 									 this.CollisionRadius=sphereInfo.Radius;
 								} catch (NullReferenceException )
 								{
-									 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 										  Logger.Write(LogLevel.Execption, "Failure to get CollisionRadius for SNO: {0}", this.SNOID); failureDuringUpdate=true;
 								}
 								#endregion
@@ -811,7 +811,7 @@ namespace FunkyTrinity.Cache
 									 this.ActorSphereRadius=thisObj.ActorInfo.Sphere.Radius;
 								} catch (NullReferenceException )
 								{
-									 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 										  Logger.Write(LogLevel.Execption, "Safely handled getting attribute Sphere radius for gizmo {0}", this.InternalName);
 									 failureDuringUpdate=true;
 								}
@@ -830,7 +830,7 @@ namespace FunkyTrinity.Cache
 										  this.DropsNoLoot=thisObj.CommonData.GetAttribute<float>(ActorAttributeType.DropsNoLoot)<=0;
 									 } catch (NullReferenceException )
 									 {
-										  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+										  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 												Logger.Write(LogLevel.Execption, "Safely handled reading DropsNoLoot for gizmo {0}", this.InternalName);
 										  failureDuringUpdate=true;
 									 }
@@ -846,7 +846,7 @@ namespace FunkyTrinity.Cache
 										  this.GrantsNoXP=thisObj.CommonData.GetAttribute<float>(ActorAttributeType.GrantsNoXP)<=0;
 									 } catch (NullReferenceException )
 									 {
-										  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+										  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 												Logger.Write(LogLevel.Execption, "Safely handled reading GrantsNoXp for gizmo {0}", this.InternalName);
 										  failureDuringUpdate=true;
 									 }
@@ -861,7 +861,7 @@ namespace FunkyTrinity.Cache
 										  this.IsBarricade=((DiaGizmo)thisObj).IsBarricade;
 									 } catch (NullReferenceException )
 									 {
-										  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+										  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 												Logger.Write(LogLevel.Execption, "Safely handled getting attribute IsBarricade for gizmo {0}", this.InternalName);
 										  failureDuringUpdate=true;
 									 }

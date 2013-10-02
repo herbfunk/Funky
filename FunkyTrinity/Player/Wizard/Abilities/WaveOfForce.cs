@@ -35,12 +35,12 @@ UseageType= AbilityUseage.Anywhere;
 					   (Bot.Character.dCurrentHealthPct <= 0.7 &&
 					    (Bot.Combat.iElitesWithinRange[(int) RangeIntervals.Range_15] > 0 ||
 					     Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_15] > 0 ||
-					     (Bot.Target.CurrentTarget.ObjectIsSpecial && Bot.Target.CurrentTarget.RadiusDistance <= 23f)))))
+					     (Bot.Targeting.CurrentTarget.ObjectIsSpecial && Bot.Targeting.CurrentTarget.RadiusDistance <= 23f)))))
 						// Else normal wizard in which case check standard stuff
 					 ||
 					 (!UsingCriticalMass()&&Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_15]>0||
 					  Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_15] > 3 || Bot.Character.dCurrentHealthPct <= 0.7 ||
-					  (Bot.Target.CurrentTarget.ObjectIsSpecial && Bot.Target.CurrentTarget.RadiusDistance <= 23f)));
+					  (Bot.Targeting.CurrentTarget.ObjectIsSpecial && Bot.Targeting.CurrentTarget.RadiusDistance <= 23f)));
 			});
 		}
 

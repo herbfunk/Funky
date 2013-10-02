@@ -26,6 +26,10 @@ namespace FunkyTrinity.Cache
 		  public static partial class ObjectCache
 		  {
 				internal static CacheObject FakeCacheObject;
+				///<summary>
+				///Usable Objects -- refresh inside Target.UpdateTarget
+				///</summary>
+				internal static List<CacheObject> ValidObjects { get; set; }
 
 				///<summary>
 				///Cached Objects.
@@ -246,7 +250,7 @@ namespace FunkyTrinity.Cache
 														  TeamID=thisObj.CommonData.GetAttribute<int>(ActorAttributeType.TeamID);
 													 } catch
 													 {
-														  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+														  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 																Logger.Write(LogLevel.Execption, "Failed to retrieve TeamID attribute for object {0}", thisObstacle.InternalName);
 													 }
 

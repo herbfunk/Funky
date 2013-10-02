@@ -25,15 +25,15 @@ namespace FunkyTrinity.AbilityFunky.Abilities.Barb
 			WaitVars = new WaitLoops(4, 4, true);
 			Cost = 50;
 			UseageType=AbilityUseage.Anywhere;
-			IsSpecialAbility = Bot.SettingsFunky.Class.bWaitForWrath;
+			IsSpecialAbility = Bot.Settings.Class.bWaitForWrath;
 			Priority = AbilityPriority.High;
 			PreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckExisitingBuff |
 			                     AbilityPreCastFlags.CheckCanCast);
 			FcriteriaCombat = new Func<bool>(() =>
 			{
 				return Bot.Combat.bAnyChampionsPresent
-				       || (Bot.SettingsFunky.Class.bBarbUseWOTBAlways && Bot.Combat.bAnyMobsInCloseRange)
-				       || (Bot.SettingsFunky.Class.bGoblinWrath && Bot.Target.CurrentTarget.IsTreasureGoblin);
+				       || (Bot.Settings.Class.bBarbUseWOTBAlways && Bot.Combat.bAnyMobsInCloseRange)
+				       || (Bot.Settings.Class.bGoblinWrath && Bot.Targeting.CurrentTarget.IsTreasureGoblin);
 			});
 		}
 

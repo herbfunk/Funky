@@ -216,7 +216,7 @@ namespace FunkyTrinity.Movement
 						  LastObjectblockCounter.Clear();
 						  LastObjectOccupiedGridPoints.Clear();
 
-						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logging.WriteVerbose("Current Location Point has {0} usable points (NoNewObjs)", SurroundingPoints.Count);
 
 						  return (SurroundingPoints.Count==0);
@@ -255,7 +255,7 @@ namespace FunkyTrinity.Movement
 
 						  if (SurroundingPoints.Count==0)
 						  {
-								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 									 Logging.WriteVerbose("NavBlocked -- No available surrounding points.");
 
 								return true;
@@ -268,7 +268,7 @@ namespace FunkyTrinity.Movement
 					 //No new objects to test..
 					 if (NewObjects.Count==0)
 					 {
-						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logging.WriteVerbose("No new Objects Unaccounted");
 
 						  return (SurroundingPoints.Count==0);
@@ -282,7 +282,7 @@ namespace FunkyTrinity.Movement
 																						  &&(!LastObjectblockCounter.ContainsKey(Obj.RAGUID)||Math.Round(Obj.PointRadius)<LastObjectblockCounter[Obj.RAGUID])).ToArray();
 						  if (ContainedObjs.Length>0)
 						  {
-								if (ContainedObjs.Length>1&&Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+								if (ContainedObjs.Length>1&&Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 									 Logging.WriteVerbose("Multiple Objects Found Occuping Grid Point!");
 
 								CacheServerObject ThisObjBlocking=ContainedObjs[0];
@@ -311,7 +311,7 @@ namespace FunkyTrinity.Movement
 					 //Update Surrounding Points
 					 SurroundingPoints=SurroundingPoints.Except(this.LastNavigationBlockedPoints).ToList();
 
-					 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+					 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 						  Logging.WriteVerbose("Current Location Point has {0} usable points", SurroundingPoints.Count);
 
 
@@ -370,7 +370,7 @@ namespace FunkyTrinity.Movement
 					 if (!Bot.Combat.TravellingAvoidance&&DateTime.Now.Subtract(lastFoundSafeSpot).TotalMilliseconds<=800
 						&&vlastSafeSpot!=Vector3.Zero
 						&&(!ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(vlastSafeSpot))
-					   &&(!kiting||!ObjectCache.Objects.IsPointNearbyMonsters(vlastSafeSpot,Bot.SettingsFunky.Fleeing.FleeMaxMonsterDistance)))
+					   &&(!kiting||!ObjectCache.Objects.IsPointNearbyMonsters(vlastSafeSpot,Bot.Settings.Fleeing.FleeMaxMonsterDistance)))
 					 {	 //Already found a safe spot in the last 800ms
 						  return true;
 					 }
@@ -484,6 +484,11 @@ namespace FunkyTrinity.Movement
 					 }
 				}
 
+				internal int iACDGUIDLastWhirlwind=0;
+				internal Vector3 vSideToSideTarget=Vector3.Zero;
+				internal DateTime lastChangedZigZag=DateTime.Today;
+				internal Vector3 vPositionLastZigZagCheck=Vector3.Zero;
+
 				//Special Movements
 				public Vector3 FindZigZagTargetLocation(Vector3 vTargetLocation, float fDistanceOutreach, bool bRandomizeDistance=false, bool bRandomizeStart=false, bool bCheckGround=false)
 				{
@@ -500,7 +505,7 @@ namespace FunkyTrinity.Movement
 
 						  IEnumerable<CacheObject> zigZagTargets=
 								from u in units_
-								where u.CentreDistance>minDistance&&u.CentreDistance<maxDistance&&u.RAGUID!=Bot.Target.CurrentTarget.RAGUID&&
+								where u.CentreDistance>minDistance&&u.CentreDistance<maxDistance&&u.RAGUID!=Bot.Targeting.CurrentTarget.RAGUID&&
 								!ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(u.Position)&&MGP.CanStandAt(u.BotMeleeVector)
 								select u;
 
@@ -597,7 +602,7 @@ namespace FunkyTrinity.Movement
 									 if (iMultiplier==2)
 										  fThisWeight-=80f;
 
-									 if (Bot.Character.ShouldFlee&&ObjectCache.Objects.IsPointNearbyMonsters(vThisZigZag, Bot.SettingsFunky.Fleeing.FleeMaxMonsterDistance))
+									 if (Bot.Character.ShouldFlee&&ObjectCache.Objects.IsPointNearbyMonsters(vThisZigZag, Bot.Settings.Fleeing.FleeMaxMonsterDistance))
 										  continue;
 
 									 if (ObjectCache.Obstacles.Navigations.Any(obj => obj.Obstacletype.Value!=ObstacleType.Monster&&obj.TestIntersection(Bot.Character.Position, vThisZigZag, false)))

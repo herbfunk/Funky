@@ -37,7 +37,7 @@ namespace FunkyTrinity
 					 List<ACDItem> Potions=Bot.Character.BackPack.ReturnCurrentPotions();
 
 					 //Refresh item manager if we are not using item rules nor giles scoring.
-					 if (!Bot.SettingsFunky.ItemRules.UseItemRules&&!Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring)
+					 if (!Bot.Settings.ItemRules.UseItemRules&&!Bot.Settings.ItemRules.ItemRuleGilesScoring)
 						  ItemManager.Current.Refresh();
 
 					 foreach (var thisitem in Bot.Character.BackPack.CacheItemList.Values)
@@ -53,12 +53,12 @@ namespace FunkyTrinity
 										  continue;
 									 }
 
-									 if (Bot.SettingsFunky.ItemRules.ItemRulesSalvaging)
+									 if (Bot.Settings.ItemRules.ItemRulesSalvaging)
 										  if (Bot.ItemRulesEval.checkSalvageItem(thisitem.ACDItem)==Interpreter.InterpreterAction.SALVAGE)
 												continue;
 
 
-									 if (Bot.SettingsFunky.ItemRules.UseItemRules)
+									 if (Bot.Settings.ItemRules.UseItemRules)
 									 {
 										  Interpreter.InterpreterAction action=Bot.ItemRulesEval.checkItem(thisitem.ACDItem, Zeta.CommonBot.ItemEvaluationType.Keep);
 										  switch (action)
@@ -73,7 +73,7 @@ namespace FunkyTrinity
 
 									 //Log("GilesTrinityScoring == "+Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring.ToString());
 
-									 bool bShouldSellThis=Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring==true?GilesSellValidation(thisitem.ThisInternalName, thisitem.ThisLevel, thisitem.ThisQuality, thisitem.ThisDBItemType, thisitem.ThisFollowerType):ItemManager.Current.ShouldSellItem(thisitem.ACDItem);
+									 bool bShouldSellThis=Bot.Settings.ItemRules.ItemRuleGilesScoring==true?GilesSellValidation(thisitem.ThisInternalName, thisitem.ThisLevel, thisitem.ThisQuality, thisitem.ThisDBItemType, thisitem.ThisFollowerType):ItemManager.Current.ShouldSellItem(thisitem.ACDItem);
 
 									 if (bShouldSellThis)
 									 {
@@ -110,7 +110,7 @@ namespace FunkyTrinity
 
 				internal static RunStatus GilesOptimisedPreSell(object ret)
 				{
-					 if (Bot.SettingsFunky.Debug.DebugStatusBar)
+					 if (Bot.Settings.Debug.DebugStatusBar)
 						  BotMain.StatusText="Town run: Sell routine started";
 					 Log("GSDebug: Sell routine started.", true);
 					 if (ZetaDia.Actors.Me==null)
@@ -252,7 +252,7 @@ namespace FunkyTrinity
 
 					 #region BuyPotion
 					 //Check if settings for potion buy is enabled, with less than 99 potions existing!
-					 if (Bot.SettingsFunky.BuyPotionsDuringTownRun&&Bot.Character.iTotalPotions<Bot.SettingsFunky.Loot.MaximumHealthPotions&&
+					 if (Bot.Settings.BuyPotionsDuringTownRun&&Bot.Character.iTotalPotions<Bot.Settings.Loot.MaximumHealthPotions&&
 						  !PotionCheck)
 					 {
 						  //Obey the timer, so we don't buy 100 potions in 3 seconds.

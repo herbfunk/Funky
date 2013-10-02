@@ -246,7 +246,7 @@ namespace FunkyTrinity.Cache
 
 					 this.Position=newPosition;
 
-					 if (Bot.SettingsFunky.Avoidance.UseAdvancedProjectileTesting)
+					 if (Bot.Settings.Avoidance.UseAdvancedProjectileTesting)
 					 {
 						  //Do fancy checks for this fixed projectile.
 						  if (this.Ray.Intersects(Bot.Character.CharacterSphere).HasValue)
@@ -337,7 +337,7 @@ namespace FunkyTrinity.Cache
 					 : base(parent)
 				{
 					 this.AvoidanceType=avoidancetype;
-					 this.AvoidanceValue=Bot.SettingsFunky.Avoidance.Avoidances[(int)avoidancetype];
+					 this.AvoidanceValue=Bot.Settings.Avoidance.Avoidances[(int)avoidancetype];
 
 					 //Special avoidances that require additional loops before removal (note: the loops are checked every 150ms, but obstacles are checked twice!)
 					 if (this.AvoidanceType.HasFlag(AvoidanceType.TreeSpore)&&this.SNOID==6578)
@@ -350,7 +350,7 @@ namespace FunkyTrinity.Cache
 					 : base(parent)
 				{
 					 this.AvoidanceType=type;
-					 this.AvoidanceValue=Bot.SettingsFunky.Avoidance.Avoidances[(int)type];
+					 this.AvoidanceValue=Bot.Settings.Avoidance.Avoidances[(int)type];
 					 this.ray_=R;
 					 this.Speed=speed;
 					 this.projectile_startPosition=base.Position;

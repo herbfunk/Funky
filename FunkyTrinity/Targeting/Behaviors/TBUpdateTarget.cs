@@ -53,24 +53,24 @@ namespace FunkyTrinity.Targeting.Behaviors
 						 }
 
 						 // See if we should wait for milliseconds for possible loot drops before continuing run
-						 if (DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.lastHadUnitInSights).TotalMilliseconds<=FunkyTrinity.Bot.SettingsFunky.AfterCombatDelay&&DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.lastHadEliteUnitInSights).TotalMilliseconds<=10000||
+						 if (DateTime.Now.Subtract(FunkyTrinity.Bot.Targeting.lastHadUnitInSights).TotalMilliseconds<=FunkyTrinity.Bot.Settings.AfterCombatDelay&&DateTime.Now.Subtract(Bot.Targeting.lastHadEliteUnitInSights).TotalMilliseconds<=10000||
 							  //Cut the delay time in half for non-elite monsters!
-							 DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.lastHadUnitInSights).TotalMilliseconds<=FunkyTrinity.Bot.SettingsFunky.AfterCombatDelay)
+							 DateTime.Now.Subtract(FunkyTrinity.Bot.Targeting.lastHadUnitInSights).TotalMilliseconds<=FunkyTrinity.Bot.Settings.AfterCombatDelay)
 						 {
 							  obj=new CacheObject(FunkyTrinity.Bot.Character.Position, TargetType.Avoidance, 20000, "WaitForLootDrops", 2f, -1);
 							  return true;
 
 						 }
 						 //Herbfunks wait after loot containers are opened. 3s for rare chests, half the settings delay for everything else.
-						 if ((DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.lastHadRareChestAsTarget).TotalMilliseconds<=3750)||
-							 (DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.lastHadContainerAsTarget).TotalMilliseconds<=(FunkyTrinity.Bot.SettingsFunky.AfterCombatDelay*1.25)))
+						 if ((DateTime.Now.Subtract(FunkyTrinity.Bot.Targeting.lastHadRareChestAsTarget).TotalMilliseconds<=3750)||
+							 (DateTime.Now.Subtract(FunkyTrinity.Bot.Targeting.lastHadContainerAsTarget).TotalMilliseconds<=(FunkyTrinity.Bot.Settings.AfterCombatDelay*1.25)))
 						 {
 							  obj=new CacheObject(FunkyTrinity.Bot.Character.Position, TargetType.Avoidance, 20000, "ContainerLootDropsWait", 2f, -1);
 							  return true;
 						 }
 
 						 // Finally, a special check for waiting for wrath of the berserker cooldown before engaging Azmodan
-						 if (FunkyTrinity.Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&FunkyTrinity.Bot.SettingsFunky.Class.bWaitForWrath&&!FunkyTrinity.Bot.Class.Abilities[SNOPower.Barbarian_WrathOfTheBerserker].AbilityUseTimer()&&
+						 if (FunkyTrinity.Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&FunkyTrinity.Bot.Settings.Class.bWaitForWrath&&!FunkyTrinity.Bot.Class.Abilities[SNOPower.Barbarian_WrathOfTheBerserker].AbilityUseTimer()&&
 							 ZetaDia.CurrentWorldId==121214&&
 							 (Vector3.Distance(FunkyTrinity.Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(FunkyTrinity.Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						 {
@@ -80,7 +80,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 							  return true;
 						 }
 						 // And a special check for wizard archon
-						 if (FunkyTrinity.Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_Archon)&&!Bot.Class.Abilities[SNOPower.Wizard_Archon].AbilityUseTimer()&&FunkyTrinity.Bot.SettingsFunky.Class.bWaitForArchon&&ZetaDia.CurrentWorldId==121214&&
+						 if (FunkyTrinity.Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_Archon)&&!Bot.Class.Abilities[SNOPower.Wizard_Archon].AbilityUseTimer()&&FunkyTrinity.Bot.Settings.Class.bWaitForArchon&&ZetaDia.CurrentWorldId==121214&&
 							 (Vector3.Distance(FunkyTrinity.Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(FunkyTrinity.Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						 {
 							  Logging.Write("[Funky] Waiting for Wizard Archon cooldown before continuing to Azmodan.");
@@ -100,7 +100,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 
 
 						 //Check if our current path intersects avoidances. (When not in town, and not currently inside avoidance)
-						 if (!Bot.Character.bIsInTown&&(Bot.SettingsFunky.Avoidance.AttemptAvoidanceMovements||Bot.Combat.CriticalAvoidance)
+						 if (!Bot.Character.bIsInTown&&(Bot.Settings.Avoidance.AttemptAvoidanceMovements||Bot.Combat.CriticalAvoidance)
 								 &&Navigation.NP.CurrentPath.Count>0
 								 &&Bot.Combat.TriggeringAvoidances.Count==0)
 						 {
@@ -142,7 +142,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 			  // Store if we are ignoring all units this cycle or not
 			  bool bIgnoreAllUnits=!FunkyTrinity.Bot.Combat.bAnyChampionsPresent
 										  &&!FunkyTrinity.Bot.Combat.bAnyMobsInCloseRange
-										  &&((!FunkyTrinity.Bot.Combat.bAnyTreasureGoblinsPresent&&FunkyTrinity.Bot.SettingsFunky.Targeting.GoblinPriority>=2)||FunkyTrinity.Bot.SettingsFunky.Targeting.GoblinPriority<2)
+										  &&((!FunkyTrinity.Bot.Combat.bAnyTreasureGoblinsPresent&&FunkyTrinity.Bot.Settings.Targeting.GoblinPriority>=2)||FunkyTrinity.Bot.Settings.Targeting.GoblinPriority<2)
 										  &&FunkyTrinity.Bot.Character.dCurrentHealthPct>=0.85d;
 
 
@@ -151,7 +151,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 
 			  double iHighestWeightFound=0;
 
-			  foreach (CacheObject thisobj in FunkyTrinity.Bot.ValidObjects)
+			  foreach (CacheObject thisobj in ObjectCache.ValidObjects)
 			  {
 					thisobj.UpdateWeight();
 
@@ -199,13 +199,13 @@ namespace FunkyTrinity.Targeting.Behaviors
 						 if (!FunkyTrinity.Bot.Class.IsMeleeClass&&CurrentTarget.targetType.Value==TargetType.Unit&&FunkyTrinity.Bot.Combat.NearbyAvoidances.Count>0)
 						 {
 							  //set unit target (for Ability selector).
-							  Bot.Target.CurrentUnitTarget=(CacheUnit)CurrentTarget;
+							  Bot.Targeting.CurrentUnitTarget=(CacheUnit)CurrentTarget;
 
 							  //Generate next Ability..
-							  Ability nextAbility=FunkyTrinity.Bot.Class.AbilitySelector(Bot.Target.CurrentUnitTarget, true);
+							  Ability nextAbility=FunkyTrinity.Bot.Class.AbilitySelector(Bot.Targeting.CurrentUnitTarget, true);
 
 							  //reset unit target
-							  Bot.Target.CurrentUnitTarget=null;
+							  Bot.Targeting.CurrentUnitTarget=null;
 
 							  if (nextAbility==Bot.Class.DefaultAttack&&!Bot.Class.CanUseDefaultAttack)
 							  {
@@ -280,7 +280,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 										 CurrentTarget=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
 										 //Reset Avoidance Timer so we don't trigger it while moving towards the target!
 										 FunkyTrinity.Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
-										 FunkyTrinity.Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=1000+((int)(FunkyTrinity.Bot.Target.CurrentTarget.CentreDistance/25f)*1000);
+										 FunkyTrinity.Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=1000+((int)(FunkyTrinity.Bot.Targeting.CurrentTarget.CentreDistance/25f)*1000);
 									}
 									else
 									{

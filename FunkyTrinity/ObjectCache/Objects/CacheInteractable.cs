@@ -36,17 +36,17 @@ namespace FunkyTrinity.Cache
 			 get
 			 {
 				  if (this.targetType.Value==TargetType.Shrine)
-						return this.IsHealthWell?Bot.ShrineRange*2:Bot.ShrineRange;
+						return this.IsHealthWell?Bot.Settings.Ranges.ShrineRange*2:Bot.Settings.Ranges.ShrineRange;
 
 				  if (this.targetType.Value==TargetType.Container)
 				  {
-						if (this.IsResplendantChest&&Bot.SettingsFunky.Targeting.UseExtendedRangeRepChest)
-							 return Bot.ContainerRange*2;
+						if (this.IsResplendantChest&&Bot.Settings.Targeting.UseExtendedRangeRepChest)
+							 return Bot.Settings.Ranges.ContainerOpenRange*2;
 						else
-							 return Bot.ContainerRange;
+							 return Bot.Settings.Ranges.ContainerOpenRange;
 				  }
 
-				  return Bot.iCurrentMaxLootRadius;
+				  return Bot.Targeting.iCurrentMaxLootRadius;
 			 }
 		}
 
@@ -154,7 +154,7 @@ namespace FunkyTrinity.Cache
 							 if (this.IsHealthWell)
 							 {
 								  //Health wells..
-								  if (Bot.Character.dCurrentHealthPct>Bot.SettingsFunky.Combat.HealthWellHealthPercent)
+								  if (Bot.Character.dCurrentHealthPct>Bot.Settings.Combat.HealthWellHealthPercent)
 										IgnoreThis=true;
 							 }
 							 else
@@ -163,7 +163,7 @@ namespace FunkyTrinity.Cache
 
 								  //Ignore XP Shrines at MAX Paragon Level!
 								  //if (this.SNOID==176075&&Bot.Character.iMyParagonLevel==100)
-								  IgnoreThis=!Bot.SettingsFunky.Targeting.UseShrineTypes[(int)shrinetype];
+								  IgnoreThis=!Bot.Settings.Targeting.UseShrineTypes[(int)shrinetype];
 							 }
 
 							 //Ignoring..?
@@ -196,7 +196,7 @@ namespace FunkyTrinity.Cache
 								  return false;
 							 }
 
-							 if (this.IsCorpseContainer&&Bot.SettingsFunky.Targeting.IgnoreCorpses)
+							 if (this.IsCorpseContainer&&Bot.Settings.Targeting.IgnoreCorpses)
 							 {
 								  this.BlacklistLoops=-1;
 								  return false;
@@ -215,10 +215,10 @@ namespace FunkyTrinity.Cache
 							 if (this.IsResplendantChest)
 							 {
 								  //setup wait time. (Unlike Units, we blacklist right after we interact)
-								  if (Bot.Target.LastCachedTarget==this)
+								  if (Bot.Targeting.LastCachedTarget==this)
 								  {
-										Bot.Combat.lastHadContainerAsTarget=DateTime.Now;
-										Bot.Combat.lastHadRareChestAsTarget=DateTime.Now;
+										Bot.Targeting.lastHadContainerAsTarget=DateTime.Now;
+										Bot.Targeting.lastHadRareChestAsTarget=DateTime.Now;
 								  }
 							 }
 
@@ -278,7 +278,7 @@ namespace FunkyTrinity.Cache
 						if (this.Weight>0)
 						{
 							// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-							if (this==Bot.Target.LastCachedTarget&&centreDistance<=25f)
+							if (this==Bot.Targeting.LastCachedTarget&&centreDistance<=25f)
 								this.Weight+=400;
 							// Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
 							if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
@@ -294,7 +294,7 @@ namespace FunkyTrinity.Cache
 						if (centreDistance<=12f)
 							this.Weight+=800d;
 						// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-						if (this==Bot.Target.LastCachedTarget&&centreDistance<=25f)
+						if (this==Bot.Targeting.LastCachedTarget&&centreDistance<=25f)
 							this.Weight+=400;
 						// If there's a monster in the path-line to the item, reduce the weight by 50%
 						if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
@@ -305,7 +305,7 @@ namespace FunkyTrinity.Cache
 						if (centreDistance<=12f)
 							this.Weight+=600d;
 						// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-						if (this==Bot.Target.LastCachedTarget&&centreDistance<=25f)
+						if (this==Bot.Targeting.LastCachedTarget&&centreDistance<=25f)
 						{
 							this.Weight+=400;
 						}
@@ -380,9 +380,9 @@ namespace FunkyTrinity.Cache
 			if (!Bot.Combat.bWaitingAfterPower)
 			{
 				// Now tell Trinity to get a new target!
-				Bot.Combat.lastChangedZigZag=DateTime.Today;
-				Bot.Combat.vPositionLastZigZagCheck=Vector3.Zero;
-				Bot.Combat.bForceTargetUpdate=true;
+				 Bot.NavigationCache.lastChangedZigZag=DateTime.Today;
+				 Bot.NavigationCache.vPositionLastZigZagCheck=Vector3.Zero;
+				 Bot.Combat.bForceTargetUpdate=true;
 			}
 			return RunStatus.Running;
 		}
@@ -438,7 +438,7 @@ namespace FunkyTrinity.Cache
 			 get
 			 {
 				  //Rep Chests
-				  return this.IsResplendantChest&&Bot.SettingsFunky.Targeting.UseExtendedRangeRepChest;
+				  return this.IsResplendantChest&&Bot.Settings.Targeting.UseExtendedRangeRepChest;
 			 }
 		}
 	}

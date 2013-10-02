@@ -553,6 +553,24 @@ namespace FunkyTrinity.Cache
          };
 				 #endregion
 
+			  private static HashSet<int> hashActorSNOKitingIgnore_;
+			  internal static HashSet<int> HashActorSNOKitingIgnore
+			  {
+					get
+					{
+						 if (hashActorSNOKitingIgnore_==null)
+						 {
+							  hashActorSNOKitingIgnore_=new HashSet<int> { 4095, 144315 };
+							  //burrowing units
+							  hashActorSNOKitingIgnore_.UnionWith(CacheIDLookup.hashActorSNOBurrowableUnits);
+							  //grunts
+							  hashActorSNOKitingIgnore_.UnionWith(CacheIDLookup.hashActorSNOSummonedUnit);
+							  //LOS exceptions (gyser, heart of sin)
+							  hashActorSNOKitingIgnore_.UnionWith(CacheIDLookup.hashActorSNOIgnoreLOSCheck);
+						 }
+						 return hashActorSNOKitingIgnore_;
+					}
+			  }
 
 				//Spawner units: summons units, and does not move.
 			  public static readonly HashSet<int> hashSpawnerUnitSNOs=new HashSet<int>

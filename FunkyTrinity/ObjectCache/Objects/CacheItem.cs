@@ -46,7 +46,24 @@ namespace FunkyTrinity.Cache
 
 				public int? BalanceID { get; set; }
 
-
+			  private double LootRadius
+			  {
+				  get
+				  {
+					  if (this.targetType.Value== TargetType.Item)
+					  {
+							return Bot.Targeting.iCurrentMaxLootRadius+Bot.Settings.Ranges.ItemRange;
+					  }
+					  else if(this.targetType.Value== TargetType.Gold)
+					  {
+							return Bot.Targeting.iCurrentMaxLootRadius+Bot.Settings.Ranges.GoldRange;
+					  }
+					  else
+					  {
+							return Bot.Targeting.iCurrentMaxLootRadius+Bot.Settings.Ranges.GlobeRange;
+					  }
+				  }
+			  }
 
 				public CacheBalance BalanceData
 				{
@@ -137,7 +154,7 @@ namespace FunkyTrinity.Cache
 									 if (centreDistance<=12f)
 										  this.Weight+=600d;
 									 // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-									 if (this==Bot.Target.LastCachedTarget)
+									 if (this==Bot.Targeting.LastCachedTarget)
 										  this.Weight+=600;
 									 // Give yellows more weight
 									 if (this.Itemquality.Value>=ItemQuality.Rare4)
@@ -147,7 +164,7 @@ namespace FunkyTrinity.Cache
 									 {
 										  this.Weight+=10000d;
 
-										  double rangelimitRatio=this.CentreDistance/Bot.ItemRange;
+										  double rangelimitRatio=this.CentreDistance/this.LootRadius;
 										  if (rangelimitRatio>0.5d&&this.PriorityCounter==0)
 										  {
 												//prioritize!
@@ -167,20 +184,20 @@ namespace FunkyTrinity.Cache
 										  //But Only when we are low in health..
 											 (Bot.Character.dCurrentHealthPct<0.25||
 										  //Or we havn't changed targets after 2.5 secs
-											 DateTime.Now.Subtract(Bot.Target.LastChangeOfTarget).TotalSeconds>2.5))
+											 DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalSeconds>2.5))
 										  this.Weight*=0.10;
 
 									 //Test if there are nearby units that will trigger kite action..
 									 if (Bot.Character.ShouldFlee)
 									 {
-										  if (ObjectCache.Objects.OfType<CacheUnit>().Any(m=>m.ShouldBeKited&&m.IsPositionWithinRange(this.Position, Bot.SettingsFunky.Fleeing.FleeMaxMonsterDistance)))
+										  if (ObjectCache.Objects.OfType<CacheUnit>().Any(m=>m.ShouldBeKited&&m.IsPositionWithinRange(this.Position, Bot.Settings.Fleeing.FleeMaxMonsterDistance)))
 												this.Weight=1;
 									 }
 
 									 //Did we have a target last time? and if so was it a goblin?
-									 if (Bot.Target.LastCachedTarget.RAGUID!=-1)
+									 if (Bot.Targeting.LastCachedTarget.RAGUID!=-1)
 									 {
-										  if (CacheIDLookup.hashActorSNOGoblins.Contains(Bot.Target.LastCachedTarget.RAGUID))
+										  if (CacheIDLookup.hashActorSNOGoblins.Contains(Bot.Targeting.LastCachedTarget.RAGUID))
 												this.Weight=0;
 									 }
 									 break;
@@ -188,7 +205,7 @@ namespace FunkyTrinity.Cache
 									 if (this.GoldAmount>0)
 										  this.Weight=11000d-(Math.Floor(centreDistance)*200d);
 									 // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-									 if (this==Bot.Target.LastCachedTarget&&centreDistance<=25f)
+									 if (this==Bot.Targeting.LastCachedTarget&&centreDistance<=25f)
 										  this.Weight+=600;
 									 // Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
 									 if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
@@ -197,14 +214,14 @@ namespace FunkyTrinity.Cache
 									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 										  this.Weight*=0.75;
 									 //Did we have a target last time? and if so was it a goblin?
-									 if (Bot.Target.LastCachedTarget.RAGUID!=-1)
+									 if (Bot.Targeting.LastCachedTarget.RAGUID!=-1)
 									 {
-										  if (CacheIDLookup.hashActorSNOGoblins.Contains(Bot.Target.LastCachedTarget.RAGUID))
+										  if (CacheIDLookup.hashActorSNOGoblins.Contains(Bot.Targeting.LastCachedTarget.RAGUID))
 												this.Weight=0;
 									 }
 									 break;
 								case TargetType.Globe:
-									 if (Bot.Character.dCurrentHealthPct>Bot.EmergencyHealthGlobeLimit)
+									 if (Bot.Character.dCurrentHealthPct>Bot.Settings.Combat.GlobeHealthPercent)
 									 {
 										  this.Weight=0;
 									 }
@@ -222,7 +239,7 @@ namespace FunkyTrinity.Cache
 												this.Weight+=1500d;
 
 										  // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-										  if (this==Bot.Target.LastCachedTarget&&centreDistance<=25f)
+										  if (this==Bot.Targeting.LastCachedTarget&&centreDistance<=25f)
 												this.Weight+=400;
 
 										  // If there's a monster in the path-line to the item, reduce the weight
@@ -284,7 +301,7 @@ namespace FunkyTrinity.Cache
 								double dMultiplier=1d;
 								if (this.Itemquality>=ItemQuality.Rare4) dMultiplier+=0.25d;
 								if (this.Itemquality>=ItemQuality.Legendary) dMultiplier+=0.45d;
-								double lootDistance=Bot.ItemRange*dMultiplier;
+								double lootDistance=this.LootRadius*dMultiplier;
 
 								if (Bot.IsInNonCombatBehavior) lootDistance=50f;
 
@@ -326,7 +343,7 @@ namespace FunkyTrinity.Cache
 
 								if (this.targetType==TargetType.Gold)
 								{
-									 if (this.GoldAmount.Value<Bot.SettingsFunky.Loot.MinimumGoldPile)
+									 if (this.GoldAmount.Value<Bot.Settings.Loot.MinimumGoldPile)
 									 {
 										  this.NeedsRemoved=true;
 										  this.BlacklistFlag=BlacklistType.Temporary;
@@ -334,7 +351,7 @@ namespace FunkyTrinity.Cache
 										  return false;
 									 }
 
-									 float lootRange=Bot.GoldRange;
+									 double lootRange=this.LootRadius;
 
 									 if (Bot.IsInNonCombatBehavior) lootRange=50f;
 
@@ -349,9 +366,9 @@ namespace FunkyTrinity.Cache
 								{
 									 //GLOBE
 									 // Ignore it if it's not in range yet
-									 if (this.CentreDistance>Bot.iCurrentMaxLootRadius||this.CentreDistance>Bot.GlobeRange)
+									 if (this.CentreDistance>this.LootRadius)
 									 {
-										  this.BlacklistLoops=20;
+										  this.BlacklistLoops=10;
 										  return false;
 									 }
 								}
@@ -385,7 +402,7 @@ namespace FunkyTrinity.Cache
 									 this.DynamicID=base.ref_DiaObject.CommonData.DynamicId;
 								} catch (NullReferenceException ex)
 								{
-									 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 										  Logger.Write(LogLevel.Execption, "Failure to get Dynamic ID for {0} \r\n Exception: {1}", this.InternalName, ex.Message); return false;
 								}
 						  }
@@ -399,7 +416,7 @@ namespace FunkyTrinity.Cache
 									 this.BalanceID=base.ref_DiaObject.CommonData.GameBalanceId;
 								} catch (NullReferenceException)
 								{
-									 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 										  Logger.Write(LogLevel.Execption, "Failure to get gamebalance ID for item {0}", this.InternalName); return false;
 								}
 						  }
@@ -431,7 +448,7 @@ namespace FunkyTrinity.Cache
 									 thisnewGamebalance=new CacheBalance(tmp_Level, tmp_ThisType, tmp_ThisDBItemType, tmp_bThisOneHanded, tmp_bThisTwoHanded, tmp_ThisFollowerType);
 								} catch (NullReferenceException)
 								{
-									 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 										  Logger.Write(LogLevel.Execption, "Failure to add/update gamebalance data for item {0}", this.InternalName);
 									 return false;
 								}
@@ -459,7 +476,7 @@ namespace FunkyTrinity.Cache
 									 this.Itemquality=this.ref_DiaItem.CommonData.ItemQualityLevel;
 								} catch (Exception)
 								{
-									 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 										  Logger.Write(LogLevel.Execption, "Failure to get item quality for {0}", this.InternalName); 
 									 return false;
 								}
@@ -478,7 +495,7 @@ namespace FunkyTrinity.Cache
 						  #region PickupValidation
 						  if (!this.ShouldPickup.HasValue)
 						  {
-								if (Bot.SettingsFunky.ItemRules.UseItemRules)
+								if (Bot.Settings.ItemRules.UseItemRules)
 								{
 									 Interpreter.InterpreterAction action=Bot.ItemRulesEval.checkPickUpItem(this, ItemEvaluationType.PickUp);
 									 switch (action)
@@ -496,7 +513,7 @@ namespace FunkyTrinity.Cache
 								{
 									 //Use Giles Scoring or DB Weighting..
 									 this.ShouldPickup=
-											Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring?Funky.GilesPickupItemValidation(this)
+											Bot.Settings.ItemRules.ItemRuleGilesScoring?Funky.GilesPickupItemValidation(this)
 										  :ItemManager.Current.EvaluateItem((ACDItem)this.ref_DiaItem.CommonData, Zeta.CommonBot.ItemEvaluationType.PickUp); ;
 								}
 						  }
@@ -518,7 +535,7 @@ namespace FunkyTrinity.Cache
 									 this.GoldAmount=this.ref_DiaItem.CommonData.GetAttribute<int>(ActorAttributeType.Gold);
 								} catch (NullReferenceException)
 								{
-									 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 										  Logger.Write(LogLevel.Execption, "Failure to get gold amount for gold pile!"); 
 									 return false;
 								}
@@ -575,8 +592,8 @@ namespace FunkyTrinity.Cache
 					 // Pick the item up the usepower way, and "blacklist" for a couple of loops
 					 Bot.Character.WaitWhileAnimating(20, false);
 					 ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, Vector3.Zero, Bot.Character.iCurrentWorldID, this.AcdGuid.Value);
-					 Bot.Combat.lastChangedZigZag=DateTime.Today;
-					 Bot.Combat.vPositionLastZigZagCheck=Vector3.Zero;
+					 Bot.NavigationCache.lastChangedZigZag=DateTime.Today;
+					 Bot.NavigationCache.vPositionLastZigZagCheck=Vector3.Zero;
 
 
 					 Bot.Combat.ShouldCheckItemLooted=true;

@@ -87,21 +87,21 @@ namespace FunkyTrinity
 				if (!Bot.Character.bIsInTown)
 				{
 					 //Refresh?
-					 if (Bot.Target.ShouldRefreshObjectList)
+					 if (Bot.Targeting.ShouldRefreshObjectList)
 					 {
-						  Bot.Target.RefreshDiaObjects();
+						  Bot.Targeting.RefreshDiaObjects();
 					 }
 
 					 //Check if we have any NEW targets to deal with.. 
 					 //Note: Refresh will filter targets to units and avoidance ONLY.
-					 if (Bot.Target.CurrentTarget!=null)
+					 if (Bot.Targeting.CurrentTarget!=null)
 					 {
 						  //Check if we have not made a ID cast in awhile..
 						  if (DateTime.Now.Subtract(lastActionPreformed).TotalSeconds>20)
 								Bot.Character.BackPack.InventoryBackPackToggle(false);
 
 						  //Directly Handle Target..
-						  RunStatus targetHandler=Bot.Target.HandleThis();
+						  RunStatus targetHandler=Bot.Targeting.HandleThis();
 
 						  //Only return failure if handling failed..
 						  if (targetHandler==RunStatus.Failure)

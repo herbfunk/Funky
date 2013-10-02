@@ -30,7 +30,7 @@ namespace FunkyTrinity.AbilityFunky.Abilities.WitchDoctor
 			IsBuff=true;
 			FcriteriaBuff=new Func<bool>(() =>
 			{
-				 return Bot.SettingsFunky.OutOfCombatMovement;
+				 return Bot.Settings.OutOfCombatMovement;
 			});
 
 			FcriteriaCombat = new Func<bool>(() =>

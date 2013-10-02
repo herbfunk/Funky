@@ -111,7 +111,7 @@ namespace FunkyTrinity.Cache
 				}
 
 
-				if (radiusDistance>(Bot.DestructibleRange+5f))
+				if (radiusDistance>(Bot.Settings.Ranges.DestructibleRange+5f))
 				{
 					return false;
 				}
@@ -127,7 +127,7 @@ namespace FunkyTrinity.Cache
 			float centreDistance=this.CentreDistance;
 			this.Weight=12000d-(Math.Floor(centreDistance)*175d);
 			// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-			if (this==Bot.Target.LastCachedTarget&&centreDistance<=25f)
+			if (this==Bot.Targeting.LastCachedTarget&&centreDistance<=25f)
 				this.Weight+=400;
 			// Close destructibles get a weight increase
 			if (centreDistance<=16f)
@@ -218,9 +218,9 @@ namespace FunkyTrinity.Cache
 			if (currentAnimState!=AnimationState.Idle)
 			{
 				// Now tell Trinity to get a new target!
-				Bot.Combat.bForceTargetUpdate=true;
-				Bot.Combat.lastChangedZigZag=DateTime.Today;
-				Bot.Combat.vPositionLastZigZagCheck=Vector3.Zero;
+				 Bot.Combat.bForceTargetUpdate=true;
+				Bot.NavigationCache.lastChangedZigZag=DateTime.Today;
+				Bot.NavigationCache.vPositionLastZigZagCheck=Vector3.Zero;
 				Funky.PlayerMover.ShouldHandleObstacleObject=false;
 
 				//Blacklist all destructibles surrounding this obj
@@ -235,7 +235,7 @@ namespace FunkyTrinity.Cache
 			float fRangeRequired=Bot.Class.PowerPrime.MinimumRange;
 
 			float distance=this.RadiusDistance;
-			if (Bot.Target.LastCachedTarget.Equals(this))
+			if (Bot.Targeting.LastCachedTarget.Equals(this))
 			{
 				 distance+=(this.CollisionRadius.Value*0.25f);
 			}

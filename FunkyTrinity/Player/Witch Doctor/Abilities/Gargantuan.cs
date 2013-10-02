@@ -38,7 +38,7 @@ namespace FunkyTrinity.AbilityFunky.Abilities.WitchDoctor
 			{
 				 return (Bot.Class.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]==0&&
 				        (Bot.Combat.iElitesWithinRange[(int) RangeIntervals.Range_15] >= 1 ||
-				         (Bot.Target.CurrentUnitTarget.IsEliteRareUnique && Bot.Target.CurrentTarget.RadiusDistance <= 15f))
+				         (Bot.Targeting.CurrentUnitTarget.IsEliteRareUnique && Bot.Targeting.CurrentTarget.RadiusDistance <= 15f))
 								||Bot.Class.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]!=0&&Bot.Character.PetData.Gargantuan==0);
 			});
 		}

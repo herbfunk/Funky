@@ -12,41 +12,41 @@ namespace FunkyTrinity
 		  {
 				Slider slider_sender=(Slider)sender;
 				double Value=Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
-				Bot.SettingsFunky.Grouping.GroupingMinimumBotHealth=Value;
+				Bot.Settings.Grouping.GroupingMinimumBotHealth=Value;
 				TBGroupingMinimumBotHP.Text=Value.ToString();
 		  }
 		  private void GroupMinimumUnitDistanceSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Grouping.GroupingMinimumUnitDistance=Value;
+				Bot.Settings.Grouping.GroupingMinimumUnitDistance=Value;
 				TBGroupingMinUnitDistance.Text=Value.ToString();
 		  }
 		  private void GroupMaxDistanceSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Grouping.GroupingMaximumDistanceAllowed=Value;
+				Bot.Settings.Grouping.GroupingMaximumDistanceAllowed=Value;
 				TBGroupingMaxDistance.Text=Value.ToString();
 		  }
 		  private void GroupMinimumClusterCountSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Grouping.GroupingMinimumClusterCount=Value;
+				Bot.Settings.Grouping.GroupingMinimumClusterCount=Value;
 				TBGroupingMinimumClusterCount.Text=Value.ToString();
 		  }
 		  private void GroupMinimumUnitsInClusterSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Grouping.GroupingMinimumUnitsInCluster=Value;
+				Bot.Settings.Grouping.GroupingMinimumUnitsInCluster=Value;
 				TBGroupingMinimumUnitsInCluster.Text=Value.ToString();
 		  }
 		  private void GroupingBehaviorChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Grouping.AttemptGroupingMovements=!Bot.SettingsFunky.Grouping.AttemptGroupingMovements;
-				bool enabled=Bot.SettingsFunky.Grouping.AttemptGroupingMovements;
+				Bot.Settings.Grouping.AttemptGroupingMovements=!Bot.Settings.Grouping.AttemptGroupingMovements;
+				bool enabled=Bot.Settings.Grouping.AttemptGroupingMovements;
 				spGroupingOptions.IsEnabled=enabled;
 		  }
 		  #endregion
@@ -104,7 +104,7 @@ namespace FunkyTrinity
 					 Content="Enable Grouping",
 					 Height=20,
 					 HorizontalContentAlignment=HorizontalAlignment.Left,
-					 IsChecked=Bot.SettingsFunky.Grouping.AttemptGroupingMovements,
+					 IsChecked=Bot.Settings.Grouping.AttemptGroupingMovements,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
 				};
 				CBGroupingBehavior.Checked+=GroupingBehaviorChecked;
@@ -114,7 +114,7 @@ namespace FunkyTrinity
 				spGroupingOptions=new StackPanel
 				{
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
-					 IsEnabled=Bot.SettingsFunky.Grouping.AttemptGroupingMovements,
+					 IsEnabled=Bot.Settings.Grouping.AttemptGroupingMovements,
 				};
 
 				#region Grouping Minimum Distance
@@ -135,13 +135,13 @@ namespace FunkyTrinity
 					 TickFrequency=5,
 					 LargeChange=5,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Grouping.GroupingMinimumUnitDistance,
+					 Value=Bot.Settings.Grouping.GroupingMinimumUnitDistance,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderGroupingMinimumUnitDistance.ValueChanged+=GroupMinimumUnitDistanceSliderChanged;
 				TBGroupingMinUnitDistance=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Grouping.GroupingMinimumUnitDistance.ToString(),
+					 Text=Bot.Settings.Grouping.GroupingMinimumUnitDistance.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel GroupingMinUnitDistanceStackPanel=new StackPanel
@@ -181,13 +181,13 @@ namespace FunkyTrinity
 					 TickFrequency=5,
 					 LargeChange=5,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Grouping.GroupingMaximumDistanceAllowed,
+					 Value=Bot.Settings.Grouping.GroupingMaximumDistanceAllowed,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Center,
 				};
 				sliderGroupingMaximumDistance.ValueChanged+=GroupMaxDistanceSliderChanged;
 				TBGroupingMaxDistance=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Grouping.GroupingMaximumDistanceAllowed.ToString(),
+					 Text=Bot.Settings.Grouping.GroupingMaximumDistanceAllowed.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel GroupingMaxDistanceStackPanel=new StackPanel
@@ -236,13 +236,13 @@ namespace FunkyTrinity
 					 TickFrequency=1,
 					 LargeChange=1,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Grouping.GroupingMinimumClusterCount,
+					 Value=Bot.Settings.Grouping.GroupingMinimumClusterCount,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderGroupingMinimumCluster.ValueChanged+=GroupMinimumClusterCountSliderChanged;
 				TBGroupingMinimumClusterCount=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Grouping.GroupingMinimumClusterCount.ToString(),
+					 Text=Bot.Settings.Grouping.GroupingMinimumClusterCount.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel GroupingMinimumClusterCountStackPanel=new StackPanel
@@ -278,13 +278,13 @@ namespace FunkyTrinity
 					 TickFrequency=5,
 					 LargeChange=2,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Grouping.GroupingMinimumUnitsInCluster,
+					 Value=Bot.Settings.Grouping.GroupingMinimumUnitsInCluster,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderGroupingMinimumUnits.ValueChanged+=GroupMinimumUnitsInClusterSliderChanged;
 				TBGroupingMinimumUnitsInCluster=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Grouping.GroupingMinimumUnitsInCluster.ToString(),
+					 Text=Bot.Settings.Grouping.GroupingMinimumUnitsInCluster.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel GroupingMinimumUnitstStackPanel=new StackPanel
@@ -320,13 +320,13 @@ namespace FunkyTrinity
 					 TickFrequency=0.10,
 					 LargeChange=0.25,
 					 SmallChange=0.05,
-					 Value=Bot.SettingsFunky.Grouping.GroupingMinimumBotHealth,
+					 Value=Bot.Settings.Grouping.GroupingMinimumBotHealth,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderGroupingMinimumBotHP.ValueChanged+=GroupBotHealthSliderChanged;
 				TBGroupingMinimumBotHP=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Grouping.GroupingMinimumBotHealth.ToString(),
+					 Text=Bot.Settings.Grouping.GroupingMinimumBotHealth.ToString(),
 					 IsReadOnly=true,
 				};
 				ToolTip TTGroupingBotHP=new System.Windows.Controls.ToolTip

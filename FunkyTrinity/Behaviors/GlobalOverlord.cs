@@ -23,8 +23,8 @@ namespace FunkyTrinity
 				// If we aren't in the game of a world is loading, don't do anything yet
 				if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld)
 				{
-					 Bot.Combat.lastChangedZigZag=DateTime.Today;
-					 Bot.Combat.vPositionLastZigZagCheck=Vector3.Zero;
+					 Bot.NavigationCache.lastChangedZigZag=DateTime.Today;
+					 Bot.NavigationCache.vPositionLastZigZagCheck=Vector3.Zero;
 					 return false;
 				}
 
@@ -100,12 +100,12 @@ namespace FunkyTrinity
 
 
 				// Should we refresh target list?
-				if (Bot.Target.ShouldRefreshObjectList)
+				if (Bot.Targeting.ShouldRefreshObjectList)
 				{
-					 Bot.Target.RefreshDiaObjects();
+					 Bot.Targeting.RefreshDiaObjects();
 
 					 // We have a target, start the target handler!
-					 if (Bot.Target.CurrentTarget!=null)
+					 if (Bot.Targeting.CurrentTarget!=null)
 					 {
 						  //Backtracking?
 						  //if (Bot.Character.IsRunningInteractiveBehavior&&!Bot.Character.ShouldBackTrack)
@@ -148,20 +148,20 @@ namespace FunkyTrinity
 				BlacklistCache.CheckRefreshBlacklists();
 
 
-				if (Bot.SettingsFunky.Debug.DebugStatusBar&&Bot.bResetStatusText)
+				if (Bot.Settings.Debug.DebugStatusBar&&Funky.bResetStatusText)
 				{
-					 Bot.bResetStatusText=false;
+					 Funky.bResetStatusText=false;
 					 BotMain.StatusText="[Funky] No more targets - DemonBuddy/profile management is now in control";
 				}
 
 				// Nothing to do... do we have some maintenance we can do instead, like out of combat buffing?
-				Bot.Combat.lastChangedZigZag=DateTime.Today;
-				Bot.Combat.vPositionLastZigZagCheck=Vector3.Zero;
+				Bot.NavigationCache.lastChangedZigZag=DateTime.Today;
+				Bot.NavigationCache.vPositionLastZigZagCheck=Vector3.Zero;
 
 				// Out of combat buffing etc. but only if we don't want to return to town etc.
 				Bot.Character.UpdateAnimationState(true, false);
 				AnimationState myAnimationState=Bot.Character.CurrentAnimationState;
-				if ((!Bot.Character.bIsInTown||Bot.SettingsFunky.AllowBuffingInTown)&&
+				if ((!Bot.Character.bIsInTown||Bot.Settings.AllowBuffingInTown)&&
 					 !TownRunManager.bWantToTownRun&&
 					 myAnimationState!=AnimationState.Attacking&&myAnimationState!=AnimationState.Casting&&myAnimationState!=AnimationState.Channeling)
 				{
@@ -188,8 +188,8 @@ namespace FunkyTrinity
 		  {
 				if (shouldPreformOOCItemIDing)
 					 return HandleIDBehavior(); //Check if we are doing OOC ID behavior..
-				else if (Bot.Target.CurrentTarget!=null)
-					 return Bot.Target.HandleThis();  //Default Behavior: Current Target
+				else if (Bot.Targeting.CurrentTarget!=null)
+					 return Bot.Targeting.HandleThis();  //Default Behavior: Current Target
 				else if (MuleBehavior)
 				{
 					 if (!TransferedGear)

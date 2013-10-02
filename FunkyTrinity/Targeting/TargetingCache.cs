@@ -1,0 +1,86 @@
+﻿using System;
+using FunkyTrinity.Cache;
+using FunkyTrinity.Targeting.Behaviors;
+using Zeta.CommonBot;
+using Zeta.CommonBot.Settings;
+
+namespace FunkyTrinity.Targeting
+{
+	 public partial class TargetHandler
+	{
+		 //Order is important! -- we test from start to finish.
+		 internal readonly TargetBehavior[] TargetBehaviors=new TargetBehavior[]
+		  {
+			  new TBGroupingResume(), 
+			  new TBAvoidance(), 
+			  new TBFleeing(), 
+			  new TBUpdateTarget(), 
+			  new TBGrouping(), 
+			 // new TBLOSMovement(),
+			  new TBEnd(),
+		  };
+		 internal TargetBehavioralTypes lastBehavioralType=TargetBehavioralTypes.None;
+
+		 internal float iCurrentMaxKillRadius=0f;
+		 internal float iCurrentMaxLootRadius=0f;
+		 internal void UpdateKillLootRadiusValues()
+		 {
+			  iCurrentMaxKillRadius=CharacterSettings.Instance.KillRadius;
+			  iCurrentMaxLootRadius=CharacterSettings.Instance.LootRadius;
+			  // Not allowed to kill monsters due to profile/routine/combat targeting settings - just set the kill range to a third
+			  if (!ProfileManager.CurrentProfile.KillMonsters) iCurrentMaxKillRadius/=3;
+
+			  // Always have a minimum kill radius, so we're never getting whacked without retaliating
+			  if (iCurrentMaxKillRadius<10||Bot.Settings.Ranges.IgnoreCombatRange) iCurrentMaxKillRadius=10;
+
+			  //Non-Combat Behavior we set minimum kill radius
+			  if (Bot.IsInNonCombatBehavior) iCurrentMaxKillRadius=50;
+
+			  // Not allowed to loots due to profile/routine/loot targeting settings - just set range to a quarter
+			  if (!ProfileManager.CurrentProfile.PickupLoot) iCurrentMaxLootRadius/=4;
+
+
+			  //Ignore Loot Range Setting
+			  if (Bot.Settings.Ranges.IgnoreLootRange) iCurrentMaxLootRadius=10;
+		 }
+
+
+		 internal CacheObject LastCachedTarget { get; set; }
+		 internal bool FleeingLastTarget { get; set; }
+		 internal bool AvoidanceLastTarget { get; set; }
+		 internal DateTime LastAvoidanceMovement { get; set; }
+		 internal DateTime LastFleeAction=DateTime.Today;
+		 internal DateTime LastChangeOfTarget=DateTime.Today;
+		 // Last had any mob in range, for loot-waiting
+		 internal DateTime lastHadUnitInSights { get; set; }
+		 // When we last saw a boss/elite etc.
+		 internal DateTime lastHadEliteUnitInSights { get; set; }
+		 //Last time we had a container, for loot-waiting
+		 internal DateTime lastHadContainerAsTarget { get; set; }
+		 //When we last saw a "rare" chest
+		 internal DateTime lastHadRareChestAsTarget { get; set; }
+		 // Store the date-time when we *FIRST* picked this target, so we can blacklist after X period of time targeting
+
+		 internal int iTotalNumberGoblins=0;
+		 internal DateTime lastGoblinTime=DateTime.Today;
+		 ///<summary>
+		 ///Tracks the current Level ID
+		 ///</summary>
+		 private int LastLevelID=-1;
+		 private DateTime LastCheckedLevelID=DateTime.Today;
+
+		 ///<summary>
+		 ///Used to flag when Init should iterate and remove the objects
+		 ///</summary>
+		 internal bool RemovalCheck=false;
+		 // Used to force-refresh dia objects at least once every XX milliseconds 
+		 internal DateTime lastRefreshedObjects=DateTime.Today;
+		 public bool ShouldRefreshObjectList
+		 {
+			  get
+			  {
+					return DateTime.Now.Subtract(lastRefreshedObjects).TotalMilliseconds>=Funky.Settings.CacheObjectRefreshRate;
+			  }
+		 }
+	}
+}

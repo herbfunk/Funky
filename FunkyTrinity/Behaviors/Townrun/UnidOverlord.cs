@@ -34,7 +34,7 @@ namespace FunkyTrinity
 								// Find out if this item's in a protected bag slot
 								if (!ItemManager.Current.ItemIsProtected(thisitem.ACDItem))
 								{
-									 if (Bot.SettingsFunky.ItemRules.ItemRulesUnidStashing)
+									 if (Bot.Settings.ItemRules.ItemRulesUnidStashing)
 									 {
 										  if (Bot.ItemRulesEval.checkUnidStashItem(thisitem.ACDItem)==Interpreter.InterpreterAction.KEEP)
 										  {
@@ -213,7 +213,7 @@ namespace FunkyTrinity
 
 				internal static RunStatus UnidStashOptimisedPreStash(object ret)
 				{
-					 if (Bot.SettingsFunky.Debug.DebugStatusBar)
+					 if (Bot.Settings.Debug.DebugStatusBar)
 						  BotMain.StatusText="Town run: Unid Item Stash routine started";
 					 Log("GSDebug: Unid Stash routine started.", true);
 					 bLoggedAnythingThisStash=false;

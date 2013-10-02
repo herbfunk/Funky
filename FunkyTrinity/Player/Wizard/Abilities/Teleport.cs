@@ -29,13 +29,13 @@ namespace FunkyTrinity.AbilityFunky.Abilities.Wizard
 								//TestCustomCombatConditionAlways=true,
 			FcriteriaCombat = new Func<bool>(() =>
 			{
-				return ((Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP && Bot.Character.dCurrentHealthPct < 0.5d)
+				return ((Bot.Settings.Class.bTeleportFleeWhenLowHP && Bot.Character.dCurrentHealthPct < 0.5d)
 				        ||
-				        (Bot.SettingsFunky.Class.bTeleportIntoGrouping &&
+				        (Bot.Settings.Class.bTeleportIntoGrouping &&
 				         Bot.Combat.Clusters(new ClusterConditions(5d, 48f, 2, false)).Count > 0 &&
 				         Bot.Combat.Clusters(new ClusterConditions(5d, 48f, 2, false))[0].Midpoint.Distance(
 					         Bot.Character.PointPosition) > 15f)
-				        || (!Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP && !Bot.SettingsFunky.Class.bTeleportIntoGrouping));
+				        || (!Bot.Settings.Class.bTeleportFleeWhenLowHP && !Bot.Settings.Class.bTeleportIntoGrouping));
 			});
 			FCombatMovement=new Func<Vector3, Vector3>((v) =>
 			{

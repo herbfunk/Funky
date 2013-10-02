@@ -203,7 +203,7 @@ namespace FunkyTrinity
 							 Content="Enable Debug Status Bar",
 							 Width=300,
 							 Height=20,
-							 IsChecked=Bot.SettingsFunky.Debug.DebugStatusBar,
+							 IsChecked=Bot.Settings.Debug.DebugStatusBar,
 						};
 						CBDebugStatusBar.Checked+=DebugStatusBarChecked;
 						CBDebugStatusBar.Unchecked+=DebugStatusBarChecked;
@@ -234,7 +234,7 @@ namespace FunkyTrinity
 
 						CBLogLevels=new CheckBox[LogLevels.Length-2];
 					  int counter=0;
-					  bool noFlags=Bot.SettingsFunky.Debug.FunkyLogFlags.Equals(LogLevel.None);
+					  bool noFlags=Bot.Settings.Debug.FunkyLogFlags.Equals(LogLevel.None);
 						foreach (var logLevel in LogLevels)
 						{
 							 LogLevel thisloglevel=(LogLevel)logLevel;
@@ -245,7 +245,7 @@ namespace FunkyTrinity
 							 {
 								  Name=loglevelName,
 								  Content=loglevelName,
-								  IsChecked=!noFlags?Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(thisloglevel):false,
+								  IsChecked=!noFlags?Bot.Settings.Debug.FunkyLogFlags.HasFlag(thisloglevel):false,
 							 };
 							 CBLogLevels[counter].Checked+=FunkyLogLevelChanged;
 							 CBLogLevels[counter].Unchecked+=FunkyLogLevelChanged;
@@ -285,7 +285,7 @@ namespace FunkyTrinity
 							 Content="Skip Ahead Feature (TrinityMoveTo/Explore)",
 							 Width=300,
 							 Height=20,
-							 IsChecked=Bot.SettingsFunky.Debug.SkipAhead,
+							 IsChecked=Bot.Settings.Debug.SkipAhead,
 						};
 						CBSkipAhead.Checked+=SkipAheadChecked;
 						CBSkipAhead.Unchecked+=SkipAheadChecked;

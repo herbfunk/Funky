@@ -32,19 +32,19 @@ namespace FunkyTrinity.AbilityFunky.Abilities.Barb
 			IsBuff=true;
 			FcriteriaBuff=new Func<bool>(() =>
 				 {
-					  return Bot.SettingsFunky.OutOfCombatMovement&&!Bot.Class.HasBuff(this.Power);
+					  return Bot.Settings.OutOfCombatMovement&&!Bot.Class.HasBuff(this.Power);
 				 }
 			);
 			FcriteriaCombat = new Func<bool>(() =>
 			{
-				return (!Bot.Class.HasBuff(SNOPower.Barbarian_Sprint) && Bot.SettingsFunky.OutOfCombatMovement) ||
-				       (((Bot.SettingsFunky.Class.bFuryDumpWrath && Bot.Character.dCurrentEnergyPct >= 0.95 &&
+				return (!Bot.Class.HasBuff(SNOPower.Barbarian_Sprint) && Bot.Settings.OutOfCombatMovement) ||
+				       (((Bot.Settings.Class.bFuryDumpWrath && Bot.Character.dCurrentEnergyPct >= 0.95 &&
 									Bot.Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
-				         (Bot.SettingsFunky.Class.bFuryDumpAlways && Bot.Character.dCurrentEnergyPct >= 0.95) ||
+				         (Bot.Settings.Class.bFuryDumpAlways && Bot.Character.dCurrentEnergyPct >= 0.95) ||
 								 ((Bot.Class.Abilities[SNOPower.Barbarian_Sprint].AbilityUseTimer()&&!Bot.Class.HasBuff(SNOPower.Barbarian_Sprint))&&
 				          // Always keep up if we are whirlwinding, or if the target is a goblin
 				          (Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind) ||
-				           Bot.Target.CurrentTarget.IsTreasureGoblin))) &&
+				           Bot.Targeting.CurrentTarget.IsTreasureGoblin))) &&
 				        (!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage) ||
 								 (Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage)&&Bot.Class.HasBuff(SNOPower.Barbarian_BattleRage))));
 			});

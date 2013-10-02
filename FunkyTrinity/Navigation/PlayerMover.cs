@@ -117,13 +117,13 @@ namespace FunkyTrinity
 						  Logging.Write("[Funky] Your bot got stuck! Trying to unstuck (attempt #"+iTotalAntiStuckAttempts.ToString()+" of 8 attempts)");
 						  Logging.WriteDiagnostic("(destination="+vOriginalDestination.ToString()+", which is "+Vector3.Distance(vOriginalDestination, vMyCurrentPosition).ToString()+" distance away)");
 
-						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logger.Write(LogLevel.Movement, "Stuck Flags: {0}", Bot.NavigationCache.Stuckflags.ToString());
 
 						  bool FoundRandomMovementLocation=Bot.NavigationCache.AttemptFindSafeSpot(out vSafeMovementLocation, Vector3.Zero);
 
 						  // Temporarily log stuff
-						  if (iTotalAntiStuckAttempts==1&&Bot.SettingsFunky.Debug.LogStuckLocations)
+						  if (iTotalAntiStuckAttempts==1&&Bot.Settings.Debug.LogStuckLocations)
 						  {
 								string sLogFileName=LoggingPrefixString+" -- Stucks.log";
 								FileStream LogStream=File.Open(LoggingFolderPath+sLogFileName, FileMode.Append, FileAccess.Write, FileShare.Read);
@@ -241,7 +241,7 @@ namespace FunkyTrinity
 						  iTimesReachedMaxUnstucks=3;
 					 }
 					 // Exit the game and reload the profile
-					 if (Bot.SettingsFunky.Debug.RestartGameOnLongStucks&&DateTime.Now.Subtract(timeLastRestartedGame).TotalMinutes>=15)
+					 if (Bot.Settings.Debug.RestartGameOnLongStucks&&DateTime.Now.Subtract(timeLastRestartedGame).TotalMinutes>=15)
 					 {
 						  HadDisconnectError=true;
 						  timeLastRestartedGame=DateTime.Now;
@@ -301,7 +301,7 @@ namespace FunkyTrinity
 					 {
 						  vLastMoveTo=vMoveToTarget;
 
-						  if (Bot.SettingsFunky.Debug.LogStuckLocations)
+						  if (Bot.Settings.Debug.LogStuckLocations)
 						  {
 								vLastMoveTo=vMoveToTarget;
 								bLastWaypointWasTown=false;
@@ -373,14 +373,14 @@ namespace FunkyTrinity
 					 }
 
 					 //Special cache for skipping locations visited.
-					 if (Bot.SettingsFunky.Debug.SkipAhead) SkipAheadCache.RecordSkipAheadCachePoint();
+					 if (Bot.Settings.Debug.SkipAhead) SkipAheadCache.RecordSkipAheadCachePoint();
 
 					 // Store distance to current moveto target
 					 float fDistanceFromTarget;
 
 					 #region Unstucker
 					 // Do unstuckery things
-					 if (Bot.SettingsFunky.Debug.EnableUnstucker)
+					 if (Bot.Settings.Debug.EnableUnstucker)
 					 {
 						  // Store the "real" (not anti-stuck) destination
 						  vOldMoveToTarget=vMoveToTarget;
@@ -464,7 +464,7 @@ namespace FunkyTrinity
 
 					 #region MovementAbilities
 					 // See if we can use abilities like leap etc. for movement out of combat, but not in town and only if we can raycast.
-					 if (Bot.SettingsFunky.OutOfCombatMovement&&!ZetaDia.Me.IsInTown)
+					 if (Bot.Settings.OutOfCombatMovement&&!ZetaDia.Me.IsInTown&&!Bot.IsInNonCombatBehavior)
 					 {
 						  Ability MovementPower;
 						  Vector3 MovementVector=Bot.Class.FindOutOfCombatMovementPower(out MovementPower, vMoveToTarget);
@@ -495,7 +495,7 @@ namespace FunkyTrinity
 					 if (distanceToTarget<=5f||MoveTargetIsInLoS)
 					 {
 						  //Special cache for skipping locations visited.
-						  if (Bot.SettingsFunky.Debug.SkipAhead)
+						  if (Bot.Settings.Debug.SkipAhead)
 								SkipAheadCache.RecordSkipAheadCachePoint();
 
 						  Navigator.PlayerMover.MoveTowards(moveTarget);

@@ -13,26 +13,26 @@ namespace FunkyTrinity
 		  #region EventHandling
 		  private void OutOfCombatMovementChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.OutOfCombatMovement=!Bot.SettingsFunky.OutOfCombatMovement;
+				Bot.Settings.OutOfCombatMovement=!Bot.Settings.OutOfCombatMovement;
 		  }
 		  private void AllowBuffingInTownChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.AllowBuffingInTown=!Bot.SettingsFunky.AllowBuffingInTown;
+				Bot.Settings.AllowBuffingInTown=!Bot.Settings.AllowBuffingInTown;
 		  }
 		  private void AfterCombatDelaySliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.AfterCombatDelay=Value;
+				Bot.Settings.AfterCombatDelay=Value;
 				TBAfterCombatDelay.Text=Value.ToString();
 		  }
 		  private void BuyPotionsDuringTownRunChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.BuyPotionsDuringTownRun=!Bot.SettingsFunky.BuyPotionsDuringTownRun;
+				Bot.Settings.BuyPotionsDuringTownRun=!Bot.Settings.BuyPotionsDuringTownRun;
 		  }
 		  private void EnableWaitAfterContainersChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.EnableWaitAfterContainers=!Bot.SettingsFunky.EnableWaitAfterContainers;
+				Bot.Settings.EnableWaitAfterContainers=!Bot.Settings.EnableWaitAfterContainers;
 		  }
 
 
@@ -51,13 +51,13 @@ namespace FunkyTrinity
 
 		  private void EnableDemonBuddySettingsChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Demonbuddy.EnableDemonBuddyCharacterSettings=!Bot.SettingsFunky.Demonbuddy.EnableDemonBuddyCharacterSettings;
+				Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings=!Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings;
 		  }
 		  private void DemonBuddyMonsterPowerSliderChange(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Demonbuddy.MonsterPower=Value;
+				Bot.Settings.Demonbuddy.MonsterPower=Value;
 				tbMonsterPower.Text=Value.ToString();
 		  }
 		  #endregion
@@ -81,7 +81,7 @@ namespace FunkyTrinity
 					 Content="Buy Potions During Town Run (Uses Maximum Potion Count Setting)",
 					 Width=500,
 					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.BuyPotionsDuringTownRun)
+					 IsChecked=(Bot.Settings.BuyPotionsDuringTownRun)
 				};
 				BuyPotionsDuringTownRunCB.Checked+=BuyPotionsDuringTownRunChecked;
 				BuyPotionsDuringTownRunCB.Unchecked+=BuyPotionsDuringTownRunChecked;
@@ -94,7 +94,7 @@ namespace FunkyTrinity
 					 Content="Use Out Of Combat Ability Movements",
 					 Width=300,
 					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.OutOfCombatMovement)
+					 IsChecked=(Bot.Settings.OutOfCombatMovement)
 				};
 				cbOutOfCombatMovement.Checked+=OutOfCombatMovementChecked;
 				cbOutOfCombatMovement.Unchecked+=OutOfCombatMovementChecked;
@@ -107,7 +107,7 @@ namespace FunkyTrinity
 					 Content="Allow Buffing In Town",
 					 Width=300,
 					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.AllowBuffingInTown)
+					 IsChecked=(Bot.Settings.AllowBuffingInTown)
 				};
 				cbAllowBuffingInTown.Checked+=AllowBuffingInTownChecked;
 				cbAllowBuffingInTown.Unchecked+=AllowBuffingInTownChecked;
@@ -126,7 +126,7 @@ namespace FunkyTrinity
 					 TickFrequency=200,
 					 LargeChange=100,
 					 SmallChange=50,
-					 Value=Bot.SettingsFunky.AfterCombatDelay,
+					 Value=Bot.Settings.AfterCombatDelay,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
@@ -134,7 +134,7 @@ namespace FunkyTrinity
 				TBAfterCombatDelay=new TextBox
 				{
 					 Margin=new Thickness(Margin.Left+5, Margin.Top, Margin.Right, Margin.Bottom),
-					 Text=Bot.SettingsFunky.AfterCombatDelay.ToString(),
+					 Text=Bot.Settings.AfterCombatDelay.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel AfterCombatStackPanel=new StackPanel
@@ -152,7 +152,7 @@ namespace FunkyTrinity
 					 Content="Apply Delay After Opening Containers",
 					 Width=300,
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.EnableWaitAfterContainers)
+					 IsChecked=(Bot.Settings.EnableWaitAfterContainers)
 				};
 				EnableWaitAfterContainersCB.Checked+=EnableWaitAfterContainersChecked;
 				EnableWaitAfterContainersCB.Unchecked+=EnableWaitAfterContainersChecked;
@@ -196,7 +196,7 @@ namespace FunkyTrinity
 					 {
 						  Content=ShrineNames[i],
 						  Name=ShrineNames[i],
-						  IsChecked=Bot.SettingsFunky.Targeting.UseShrineTypes[i],
+						  IsChecked=Bot.Settings.Targeting.UseShrineTypes[i],
 						  Margin=new Thickness(Margin.Left+3, Margin.Top, Margin.Right, Margin.Bottom+5),
 					 };
 					 cbUseShrine[i].Checked+=UseShrineChecked;
@@ -237,7 +237,7 @@ namespace FunkyTrinity
 				{
 					 Content="Enable Demonbuddy Settings Override",
 					 Height=20,
-					 IsChecked=(Bot.SettingsFunky.Demonbuddy.EnableDemonBuddyCharacterSettings)
+					 IsChecked=(Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings)
 				};
 				CBDemonbuddy.Checked+=EnableDemonBuddySettingsChecked;
 				CBDemonbuddy.Unchecked+=EnableDemonBuddySettingsChecked;
@@ -261,7 +261,7 @@ namespace FunkyTrinity
 					 TickFrequency=1,
 					 LargeChange=1,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Demonbuddy.MonsterPower,
+					 Value=Bot.Settings.Demonbuddy.MonsterPower,
 					 HorizontalAlignment= System.Windows.HorizontalAlignment.Left,
 				};
 				sliderMonsterPower.ValueChanged+=DemonBuddyMonsterPowerSliderChange;

@@ -26,7 +26,7 @@ namespace FunkyTrinity
 					 {
 						  //;
 						  SettingItemRules newSettings=SettingItemRules.DeserializeFromXML(OFD.FileName);
-						  Bot.SettingsFunky.ItemRules=newSettings;
+						  Bot.Settings.ItemRules=newSettings;
 
 						  FunkyWindow.funkyConfigWindow.Close();
 					 } catch
@@ -59,7 +59,7 @@ namespace FunkyTrinity
 		  #region EventHandling
 		  private void ItemRulesTypeChanged(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.ItemRules.ItemRuleType=ItemRuleType.Items[ItemRuleType.SelectedIndex].ToString();
+				Bot.Settings.ItemRules.ItemRuleType=ItemRuleType.Items[ItemRuleType.SelectedIndex].ToString();
 		  }
 		  private void ItemRulesBrowse_Click(object sender, EventArgs e)
 		  {
@@ -73,8 +73,8 @@ namespace FunkyTrinity
 				{
 					 try
 					 {
-						  Bot.SettingsFunky.ItemRules.ItemRuleCustomPath=OFD.SelectedPath;
-						  tbCustomItemRulePath.Text=Bot.SettingsFunky.ItemRules.ItemRuleCustomPath;
+						  Bot.Settings.ItemRules.ItemRuleCustomPath=OFD.SelectedPath;
+						  tbCustomItemRulePath.Text=Bot.Settings.ItemRules.ItemRuleCustomPath;
 					 } catch
 					 {
 
@@ -83,42 +83,42 @@ namespace FunkyTrinity
 		  }
 		  private void ItemRulesScoringChanged(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring=ItemRuleGilesScoring.IsChecked.Value;
+				Bot.Settings.ItemRules.ItemRuleGilesScoring=ItemRuleGilesScoring.IsChecked.Value;
 		  }
 		  private void ItemRulesLogPickupChanged(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.ItemRules.ItemRuleLogPickup=ItemRuleLogPickup.Items[ItemRuleLogPickup.SelectedIndex].ToString();
+				Bot.Settings.ItemRules.ItemRuleLogPickup=ItemRuleLogPickup.Items[ItemRuleLogPickup.SelectedIndex].ToString();
 		  }
 		  private void ItemRulesLogKeepChanged(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.ItemRules.ItemRuleLogKeep=ItemRuleLogKeep.Items[ItemRuleLogKeep.SelectedIndex].ToString();
+				Bot.Settings.ItemRules.ItemRuleLogKeep=ItemRuleLogKeep.Items[ItemRuleLogKeep.SelectedIndex].ToString();
 		  }
 
 		  private void ItemRulesChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.ItemRules.UseItemRules=!Bot.SettingsFunky.ItemRules.UseItemRules;
-				ItemRuleGilesScoring.IsEnabled=!Bot.SettingsFunky.ItemRules.UseItemRules;
-				ItemRuleDBScoring.IsEnabled=!Bot.SettingsFunky.ItemRules.UseItemRules;
+				Bot.Settings.ItemRules.UseItemRules=!Bot.Settings.ItemRules.UseItemRules;
+				ItemRuleGilesScoring.IsEnabled=!Bot.Settings.ItemRules.UseItemRules;
+				ItemRuleDBScoring.IsEnabled=!Bot.Settings.ItemRules.UseItemRules;
 		  }
 		  private void ItemRulesPickupChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.ItemRules.UseItemRulesPickup=!Bot.SettingsFunky.ItemRules.UseItemRulesPickup;
+				Bot.Settings.ItemRules.UseItemRulesPickup=!Bot.Settings.ItemRules.UseItemRulesPickup;
 		  }
 		  private void ItemRulesItemIDsChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.ItemRules.ItemRuleUseItemIDs=!Bot.SettingsFunky.ItemRules.ItemRuleUseItemIDs;
+				Bot.Settings.ItemRules.ItemRuleUseItemIDs=!Bot.Settings.ItemRules.ItemRuleUseItemIDs;
 		  }
 		  private void ItemRulesDebugChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.ItemRules.ItemRuleDebug=!Bot.SettingsFunky.ItemRules.ItemRuleDebug;
+				Bot.Settings.ItemRules.ItemRuleDebug=!Bot.Settings.ItemRules.ItemRuleDebug;
 		  }
 		  private void ItemRulesSalvagingChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.ItemRules.ItemRulesSalvaging=!Bot.SettingsFunky.ItemRules.ItemRulesSalvaging;
+				Bot.Settings.ItemRules.ItemRulesSalvaging=!Bot.Settings.ItemRules.ItemRulesSalvaging;
 		  }
 		  private void ItemRulesUnidStashingChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.ItemRules.ItemRulesUnidStashing=!Bot.SettingsFunky.ItemRules.ItemRulesUnidStashing;
+				Bot.Settings.ItemRules.ItemRulesUnidStashing=!Bot.Settings.ItemRules.ItemRulesUnidStashing;
 		  }
 		  //UseLevelingLogic
 		  private void ItemRulesOpenFolder_Click(object sender, EventArgs e)
@@ -173,7 +173,7 @@ namespace FunkyTrinity
 				{
 					 Content="Enable Item Rules",
 					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.ItemRules.UseItemRules),
+					 IsChecked=(Bot.Settings.ItemRules.UseItemRules),
 					 FontSize=14,
 					 FontStyle=FontStyles.Oblique,
 
@@ -201,7 +201,7 @@ namespace FunkyTrinity
 				{
 					 Content="ItemRules Pickup",
 					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.ItemRules.UseItemRulesPickup),
+					 IsChecked=(Bot.Settings.ItemRules.UseItemRulesPickup),
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+10, Margin.Bottom),
 
 				};
@@ -214,7 +214,7 @@ namespace FunkyTrinity
 				{
 					 Content="ItemRules Salvaging",
 					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.ItemRules.ItemRulesSalvaging),
+					 IsChecked=(Bot.Settings.ItemRules.ItemRulesSalvaging),
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+10, Margin.Bottom),
 				};
 				CBItemRulesSalvaging.Checked+=ItemRulesSalvagingChecked;
@@ -226,7 +226,7 @@ namespace FunkyTrinity
 				{
 					 Content="ItemRules Unid Stashing",
 					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.ItemRules.ItemRulesUnidStashing),
+					 IsChecked=(Bot.Settings.ItemRules.ItemRulesUnidStashing),
 				};
 				CBItemRulesUnidStashing.Checked+=ItemRulesUnidStashingChecked;
 				CBItemRulesUnidStashing.Unchecked+=ItemRulesUnidStashingChecked;
@@ -256,7 +256,7 @@ namespace FunkyTrinity
 					 ItemsSource=new FunkyWindow.ItemRuleTypes(),
 					 //Text=Bot.SettingsFunky.ItemRules.ItemRuleType.ToString(),
 				};
-				ItemRuleType.SelectedIndex=Bot.SettingsFunky.ItemRules.ItemRuleType.ToLower().Contains("soft")?1:Bot.SettingsFunky.ItemRules.ItemRuleType.ToLower().Contains("hard")?2:0;
+				ItemRuleType.SelectedIndex=Bot.Settings.ItemRules.ItemRuleType.ToLower().Contains("soft")?1:Bot.Settings.ItemRules.ItemRuleType.ToLower().Contains("hard")?2:0;
 				ItemRuleType.SelectionChanged+=ItemRulesTypeChanged;
 				spItemRules_RuleSet.Children.Add(ItemRuleType);
 
@@ -264,7 +264,7 @@ namespace FunkyTrinity
 				{
 					 Height=30,
 					 Width=300,
-					 Text=Bot.SettingsFunky.ItemRules.ItemRuleCustomPath,
+					 Text=Bot.Settings.ItemRules.ItemRuleCustomPath,
 				};
 				spItemRules_RuleSet.Children.Add(tbCustomItemRulePath);
 
@@ -307,7 +307,7 @@ namespace FunkyTrinity
 					 Height=30,
 					 Width=150,
 					 ItemsSource=new FunkyWindow.ItemRuleQuality(),
-					 Text=Bot.SettingsFunky.ItemRules.ItemRuleLogKeep
+					 Text=Bot.Settings.ItemRules.ItemRuleLogKeep
 				};
 				ItemRuleLogKeep.SelectionChanged+=ItemRulesLogKeepChanged;
 				spItemRulesLoggingKeep.Children.Add(ItemRuleLogKeep);
@@ -328,7 +328,7 @@ namespace FunkyTrinity
 					 Height=30,
 					 Width=150,
 					 ItemsSource=new FunkyWindow.ItemRuleQuality(),
-					 Text=Bot.SettingsFunky.ItemRules.ItemRuleLogPickup
+					 Text=Bot.Settings.ItemRules.ItemRuleLogPickup
 				};
 				ItemRuleLogPickup.SelectionChanged+=ItemRulesLogPickupChanged;
 				spItemRulesLoggingPickup.Children.Add(ItemRuleLogPickup);
@@ -357,7 +357,7 @@ namespace FunkyTrinity
 				{
 					 Content="Use Item IDs",
 					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.ItemRules.ItemRuleUseItemIDs),
+					 IsChecked=(Bot.Settings.ItemRules.ItemRuleUseItemIDs),
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 
 				};
@@ -371,7 +371,7 @@ namespace FunkyTrinity
 				{
 					 Content="Debugging",
 					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.ItemRules.ItemRuleDebug),
+					 IsChecked=(Bot.Settings.ItemRules.ItemRuleDebug),
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom),
 
 				};
@@ -421,8 +421,8 @@ namespace FunkyTrinity
 					 Content="Giles Item Scoring",
 					 Width=300,
 					 Height=30,
-					 IsChecked=Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring,
-					 IsEnabled=!Bot.SettingsFunky.ItemRules.UseItemRules,
+					 IsChecked=Bot.Settings.ItemRules.ItemRuleGilesScoring,
+					 IsEnabled=!Bot.Settings.ItemRules.UseItemRules,
 				};
 				ItemRuleDBScoring=new RadioButton
 				{
@@ -430,8 +430,8 @@ namespace FunkyTrinity
 					 Content="DB Weight Scoring",
 					 Width=300,
 					 Height=30,
-					 IsChecked=!Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring,
-					 IsEnabled=!Bot.SettingsFunky.ItemRules.UseItemRules,
+					 IsChecked=!Bot.Settings.ItemRules.ItemRuleGilesScoring,
+					 IsEnabled=!Bot.Settings.ItemRules.UseItemRules,
 				};
 				ItemRuleGilesScoring.Checked+=ItemRulesScoringChanged;
 				ItemRuleDBScoring.Checked+=ItemRulesScoringChanged;

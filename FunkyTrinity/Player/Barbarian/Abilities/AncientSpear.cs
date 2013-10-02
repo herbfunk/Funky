@@ -33,7 +33,7 @@ namespace FunkyTrinity.AbilityFunky.Abilities.Barb
 								//TestCustomCombatConditionAlways=true,
 			FcriteriaCombat = new Func<bool>(() =>
 			{
-				return Bot.Target.CurrentUnitTarget.Monstersize.Value == Zeta.Internals.SNO.MonsterSize.Ranged ||
+				return Bot.Targeting.CurrentUnitTarget.Monstersize.Value == Zeta.Internals.SNO.MonsterSize.Ranged ||
 				       Bot.Character.dCurrentEnergyPct < 0.5d;
 			});
 		}

@@ -32,7 +32,7 @@ namespace FunkyTrinity.AbilityFunky.Abilities.Barb
 			{
 				return (
 					Bot.Combat.iElitesWithinRange[(int) RangeIntervals.Range_20] > 1 ||
-					(Bot.Target.CurrentTarget.IsBoss && Bot.Target.CurrentTarget.RadiusDistance <= 20) ||
+					(Bot.Targeting.CurrentTarget.IsBoss && Bot.Targeting.CurrentTarget.RadiusDistance <= 20) ||
 					(Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_20] > 2 && !Bot.Combat.bAnyBossesInRange &&
 					 (Bot.Combat.iElitesWithinRange[(int) RangeIntervals.Range_50] == 0 ||
 					  Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_SeismicSlam))) ||

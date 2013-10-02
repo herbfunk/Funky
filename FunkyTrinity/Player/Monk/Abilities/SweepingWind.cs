@@ -17,7 +17,7 @@ namespace FunkyTrinity.AbilityFunky.Abilities.Monk
 		{
 			ExecutionType = AbilityExecuteFlags.Buff;
 			WaitVars = new WaitLoops(0, 1, true);
-			Cost=Bot.SettingsFunky.Class.bMonkInnaSet?5:75;
+			Cost=Bot.Settings.Class.bMonkInnaSet?5:75;
 			Priority = AbilityPriority.High;
 			UseageType=AbilityUseage.Combat;
 			IsSpecialAbility = true;

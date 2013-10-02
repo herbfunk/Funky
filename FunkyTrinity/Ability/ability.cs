@@ -246,21 +246,21 @@ namespace FunkyTrinity.AbilityFunky
 					else
 						 ability.MinimumRange=30f;
 
-				  bool LocationalAttack = (CacheIDLookup.hashDestructableLocationTarget.Contains(Bot.Target.CurrentTarget.SNOID)
+				  bool LocationalAttack = (CacheIDLookup.hashDestructableLocationTarget.Contains(Bot.Targeting.CurrentTarget.SNOID)
 													||DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastFailed[ability.Power]).TotalMilliseconds<1000);
 
 				  if (LocationalAttack)
 				  {
-					  Vector3 attacklocation = Bot.Target.CurrentTarget.Position;
+					  Vector3 attacklocation = Bot.Targeting.CurrentTarget.Position;
 
 					  if (!ability.IsRanged)
 					  {
 							//attacklocation=MathEx.CalculatePointFrom(Bot.Character.Position,Bot.Target.CurrentTarget.Position, 0.25f);
-							attacklocation=MathEx.GetPointAt(Bot.Character.Position, 0.50f, Navigation.FindDirection(Bot.Character.Position, Bot.Target.CurrentTarget.Position, true));
+							attacklocation=MathEx.GetPointAt(Bot.Character.Position, 0.50f, Navigation.FindDirection(Bot.Character.Position, Bot.Targeting.CurrentTarget.Position, true));
 					  }
 					  else
 					  {
-							attacklocation=MathEx.GetPointAt(Bot.Target.CurrentTarget.Position, 1f, Navigation.FindDirection(Bot.Target.CurrentTarget.Position, Bot.Character.Position, true));
+							attacklocation=MathEx.GetPointAt(Bot.Targeting.CurrentTarget.Position, 1f, Navigation.FindDirection(Bot.Targeting.CurrentTarget.Position, Bot.Character.Position, true));
 					  }
 
 					  attacklocation.Z=Navigation.MGP.GetHeight(attacklocation.ToVector2());
@@ -268,7 +268,7 @@ namespace FunkyTrinity.AbilityFunky
 				  }
 				  else
 				  {
-						 ability.TargetRAGUID=Bot.Target.CurrentTarget.AcdGuid.Value;
+						 ability.TargetRAGUID=Bot.Targeting.CurrentTarget.AcdGuid.Value;
 				  }
 
 					return;
@@ -298,19 +298,19 @@ namespace FunkyTrinity.AbilityFunky
 				}
 
 				if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.Location)) //Current Target Position
-					 ability.TargetPosition=Bot.Target.CurrentTarget.Position;
+					 ability.TargetPosition=Bot.Targeting.CurrentTarget.Position;
 				else if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.Self)) //Current Bot Position
 					 ability.TargetPosition=Bot.Character.Position;
 				else if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ZigZagPathing)) //Zig-Zag Pathing
 				{
-					 Bot.Combat.vPositionLastZigZagCheck=Bot.Character.Position;
+					 Bot.NavigationCache.vPositionLastZigZagCheck=Bot.Character.Position;
 					 if (Bot.Class.ShouldGenerateNewZigZagPath())
 						  Bot.Class.GenerateNewZigZagPath();
 
-					 ability.TargetPosition=Bot.Combat.vSideToSideTarget;
+					 ability.TargetPosition=Bot.NavigationCache.vSideToSideTarget;
 				}
 				else if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.Target)) //Current Target ACDGUID
-					 ability.TargetRAGUID=Bot.Target.CurrentTarget.AcdGuid.Value;
+					 ability.TargetRAGUID=Bot.Targeting.CurrentTarget.AcdGuid.Value;
 		  }
 
 		  ///<summary>
@@ -323,8 +323,8 @@ namespace FunkyTrinity.AbilityFunky
 					 Vector3 DestinationV=Vector3.Zero;
 					 if (TargetPosition_==Vector3.Zero)
 					 {
-						  if (TargetRAGUID_!=-1&&Bot.Target.CurrentTarget.AcdGuid.HasValue&&TargetRAGUID_==Bot.Target.CurrentTarget.AcdGuid.Value)
-								DestinationV=Bot.Target.CurrentTarget.BotMeleeVector;
+						  if (TargetRAGUID_!=-1&&Bot.Targeting.CurrentTarget.AcdGuid.HasValue&&TargetRAGUID_==Bot.Targeting.CurrentTarget.AcdGuid.Value)
+								DestinationV=Bot.Targeting.CurrentTarget.BotMeleeVector;
 						  else
 								return Vector3.Zero;
 					 }
@@ -340,7 +340,7 @@ namespace FunkyTrinity.AbilityFunky
 								Vector3 DestinationVector=MathEx.CalculatePointFrom(Bot.Character.Position, DestinationV, RangeNeeded);
 								if (!Navigation.MGP.CanStandAt(DestinationVector))
 								{
-									 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Ability))
+									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Ability))
 										  Logger.Write(LogLevel.Ability, "Destination for Ability {0} requires further searching!", this.Power.ToString());
 									 GPRectangle DestinationRect=new GPRectangle(DestinationVector);
 									 Vector3 NewDestinationV3;
@@ -360,7 +360,7 @@ namespace FunkyTrinity.AbilityFunky
 						  if (DistanceFromTarget<=this.MinimumRange)
 								return Bot.Character.Position;
 
-						  return Bot.Target.CurrentTarget.BotMeleeVector;
+						  return Bot.Targeting.CurrentTarget.BotMeleeVector;
 					 }
 						 
 				}

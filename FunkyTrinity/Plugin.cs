@@ -25,7 +25,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky : IPlugin
 	 {
-		  public Version Version { get { return new Version(2, 5, 0, 0); } }
+		  public Version Version { get { return new Version(2, 5, 1, 0); } }
 		  public string Author { get { return "Herbfunk"; } }
 		  public string Description
 		  {
@@ -273,7 +273,7 @@ namespace FunkyTrinity
 
 					 CheckUpdate();
 
-					 Bot.iDemonbuddyMonsterPowerLevel=Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel;
+					 Funky.iDemonbuddyMonsterPowerLevel=Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel;
 				}
 		  }
 		  public Window DisplayWindow

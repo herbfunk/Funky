@@ -744,6 +744,9 @@
     <Compile Include="Misc\UpdateCheck.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Targeting\TargetingCache.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="XML\IfSNOInRangeTag.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

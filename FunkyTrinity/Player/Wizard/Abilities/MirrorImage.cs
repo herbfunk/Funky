@@ -29,7 +29,7 @@ namespace FunkyTrinity.AbilityFunky.Abilities.Wizard
 			{
 				return (Bot.Character.dCurrentHealthPct <= 0.50 ||
 				        Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_30] >= 5 || Bot.Character.bIsIncapacitated ||
-				        Bot.Character.bIsRooted || Bot.Target.CurrentTarget.ObjectIsSpecial);
+				        Bot.Character.bIsRooted || Bot.Targeting.CurrentTarget.ObjectIsSpecial);
 			});
 		}
 

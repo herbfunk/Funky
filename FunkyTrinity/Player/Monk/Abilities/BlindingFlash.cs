@@ -32,18 +32,18 @@ namespace FunkyTrinity.AbilityFunky.Abilities.Monk
 					(Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_20] >= 5 &&
 					 Bot.Combat.iElitesWithinRange[(int) RangeIntervals.Range_50] == 0) ||
 					(Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_15] >= 3 && Bot.Character.dCurrentEnergyPct <= 0.5) ||
-					(Bot.Target.CurrentTarget.IsBoss && Bot.Target.CurrentTarget.RadiusDistance <= 15f) ||
-					(Bot.SettingsFunky.Class.bMonkInnaSet && Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_15] >= 1 &&
+					(Bot.Targeting.CurrentTarget.IsBoss && Bot.Targeting.CurrentTarget.RadiusDistance <= 15f) ||
+					(Bot.Settings.Class.bMonkInnaSet && Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_15] >= 1 &&
 					 Bot.Class.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)&&!Bot.Class.HasBuff(SNOPower.Monk_SweepingWind))
 					&&
 					// Check if we don't have breath of heaven
 					(!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_BreathOfHeaven)||
-					 (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_BreathOfHeaven)&&(!Bot.SettingsFunky.Class.bMonkInnaSet||
+					 (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_BreathOfHeaven)&&(!Bot.Settings.Class.bMonkInnaSet||
 																																				 Bot.Class.HasBuff(SNOPower.Monk_BreathOfHeaven))))&&
 					// Check if either we don't have sweeping winds, or we do and it's ready to cast in a moment
 					(!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)||
 					 (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)&&(Bot.Character.dCurrentEnergy>=95||
-					                                                             (Bot.SettingsFunky.Class.bMonkInnaSet &&
+					                                                             (Bot.Settings.Class.bMonkInnaSet &&
 					                                                              Bot.Character.dCurrentEnergy >= 25) ||
 																																			 Bot.Class.HasBuff(SNOPower.Monk_SweepingWind)))||
 					 Bot.Character.dCurrentHealthPct <= 0.4);

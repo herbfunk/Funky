@@ -32,9 +32,9 @@ namespace FunkyTrinity.AbilityFunky.Abilities.Wizard
 				return (!HasSignatureAbility() || Bot.Class.GetBuffStacks(SNOPower.Wizard_EnergyTwister) < 1) &&
 				       (Bot.Combat.iElitesWithinRange[(int) RangeIntervals.Range_30] >= 1 ||
 				        Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_25] >= 1 ||
-				        Bot.Target.CurrentTarget.RadiusDistance <= 12f) &&
+				        Bot.Targeting.CurrentTarget.RadiusDistance <= 12f) &&
 				       (!Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_Electrocute) ||
-				        !FunkyTrinity.Cache.CacheIDLookup.hashActorSNOFastMobs.Contains(Bot.Target.CurrentTarget.SNOID)) &&
+				        !FunkyTrinity.Cache.CacheIDLookup.hashActorSNOFastMobs.Contains(Bot.Targeting.CurrentTarget.SNOID)) &&
 							 ((this.UsingCriticalMass()&&(!HasSignatureAbility()||Bot.Character.dCurrentEnergy>=35))||
 								(!this.UsingCriticalMass()&&Bot.Character.dCurrentEnergy>=35));
 			});

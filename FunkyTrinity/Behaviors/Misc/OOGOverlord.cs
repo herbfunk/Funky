@@ -28,7 +28,7 @@ namespace FunkyTrinity
 					 //Now we finish up..
 					 if (RanProfile&&TransferedGear&&!Finished)
 						  return true;
-					 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfGame))
+					 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfGame))
 						  Logger.Write(LogLevel.OutOfGame, "Starting Mule Behavior");
 					 CreatedCharacter=false;
 					 RanProfile=false;
@@ -36,7 +36,7 @@ namespace FunkyTrinity
 
 					 if (ZetaDia.Service.GameAccount.NumEmptyHeroSlots==0)
 					 {
-						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfGame))
+						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfGame))
 								Logger.Write(LogLevel.OutOfGame, "No Empty Hero Slots Remain, and our stash if full.. stopping the bot!");
 						  Zeta.CommonBot.BotMain.Stop(true, "Cannot stash anymore items!");
 					 }
@@ -45,9 +45,9 @@ namespace FunkyTrinity
 				}
 
 				//Change the Monster Power!
-				if (Bot.SettingsFunky.Demonbuddy.EnableDemonBuddyCharacterSettings)
+				if (Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings)
 				{
-					 Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel=Bot.SettingsFunky.Demonbuddy.MonsterPower;
+					 Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel=Bot.Settings.Demonbuddy.MonsterPower;
 				}
 
 				return false;

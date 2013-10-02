@@ -14,7 +14,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 		  {
 				get
 				{
-					 return Bot.SettingsFunky.Fleeing.EnableFleeingBehavior;
+					 return Bot.Settings.Fleeing.EnableFleeingBehavior;
 				}
 		  }
 		  public override TargetBehavioralTypes TargetBehavioralTypeType { get { return TargetBehavioralTypes.Fleeing; } }
@@ -23,13 +23,13 @@ namespace FunkyTrinity.Targeting.Behaviors
 		  {
 				this.Test=(ref CacheObject obj) =>
 				{
-					 if (FunkyTrinity.Bot.SettingsFunky.Fleeing.EnableFleeingBehavior&&FunkyTrinity.Bot.Character.dCurrentHealthPct<=FunkyTrinity.Bot.SettingsFunky.Fleeing.FleeBotMinimumHealthPercent&&FunkyTrinity.Bot.Combat.FleeTriggeringUnits.Count>0
+					 if (FunkyTrinity.Bot.Settings.Fleeing.EnableFleeingBehavior&&FunkyTrinity.Bot.Character.dCurrentHealthPct<=FunkyTrinity.Bot.Settings.Fleeing.FleeBotMinimumHealthPercent&&FunkyTrinity.Bot.Combat.FleeTriggeringUnits.Count>0
 								&&(DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.timeCancelledFleeMove).TotalMilliseconds>FunkyTrinity.Bot.Combat.iMillisecondsCancelledFleeMoveFor)
-								&&(!FunkyTrinity.Bot.Combat.bAnyTreasureGoblinsPresent||FunkyTrinity.Bot.SettingsFunky.Targeting.GoblinPriority<2)
-								&&(FunkyTrinity.Bot.Class.AC!=ActorClass.Wizard||(FunkyTrinity.Bot.Class.AC==ActorClass.Wizard&&(!FunkyTrinity.Bot.Class.HasBuff(SNOPower.Wizard_Archon)||!FunkyTrinity.Bot.SettingsFunky.Class.bKiteOnlyArchon))))
+								&&(!FunkyTrinity.Bot.Combat.bAnyTreasureGoblinsPresent||FunkyTrinity.Bot.Settings.Targeting.GoblinPriority<2)
+								&&(FunkyTrinity.Bot.Class.AC!=ActorClass.Wizard||(FunkyTrinity.Bot.Class.AC==ActorClass.Wizard&&(!FunkyTrinity.Bot.Class.HasBuff(SNOPower.Wizard_Archon)||!FunkyTrinity.Bot.Settings.Class.bKiteOnlyArchon))))
 					 {
 						  //Resuse last safespot until timer expires!
-						  if (DateTime.Now.Subtract(Bot.Target.LastFleeAction).TotalSeconds<FunkyTrinity.Bot.Combat.iSecondsFleeMoveFor)
+						  if (DateTime.Now.Subtract(Bot.Targeting.LastFleeAction).TotalSeconds<FunkyTrinity.Bot.Combat.iSecondsFleeMoveFor)
 						  {
 								Vector3 reuseV3=FunkyTrinity.Bot.NavigationCache.AttemptToReuseLastLocationFound();
 								if (reuseV3!=Vector3.Zero)
@@ -52,7 +52,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 								FunkyTrinity.Bot.Combat.iSecondsFleeMoveFor=1+(int)(Vector3.Distance(FunkyTrinity.Bot.Character.Position, vAnySafePoint)/25f);
 								return true;
 						  }
-						  FunkyTrinity.Bot.UpdateAvoidKiteRates();
+						  Avoidances.AvoidanceCache.UpdateAvoidKiteRates();
 
 					 }
 

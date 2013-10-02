@@ -39,7 +39,7 @@ namespace FunkyTrinity.Movement
 				{
 
 					 #region DebugInfo
-					 if (Bot.SettingsFunky.Debug.DebugStatusBar)
+					 if (Bot.Settings.Debug.DebugStatusBar)
 					 {
 						  string Action="[Move-";
 						  switch (obj.targetType.Value)
@@ -78,7 +78,7 @@ namespace FunkyTrinity.Movement
 									 Action+="Click] ";
 									 break;
 						  }
-						  Bot.Target.UpdateStatusText(Action);
+						  Bot.Targeting.UpdateStatusText(Action);
 					 }
 					 #endregion
 
@@ -86,7 +86,7 @@ namespace FunkyTrinity.Movement
 					 if (Bot.Character.bIsIncapacitated||Bot.Character.bIsRooted)
 						  return RunStatus.Running;
 
-					 if (Bot.SettingsFunky.Debug.SkipAhead)
+					 if (Bot.Settings.Debug.SkipAhead)
 						  SkipAheadCache.RecordSkipAheadCachePoint();
 
 					 // Some stuff to avoid spamming usepower EVERY loop, and also to detect stucks/staying in one place for too long
@@ -95,7 +95,7 @@ namespace FunkyTrinity.Movement
 					 //Herbfunk: Added this to prevent stucks attempting to move to a target blocked. (Case: 3 champs behind a wall, within range but could not engage due to being on the other side.)
 					 if (NonMovementCounter>Funky.Settings.MovementNonMovementCount)
 					 {
-						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logger.Write(LogLevel.Movement,"non movement counter reached {0}", NonMovementCounter);
 
 						  if (obj.Actortype.HasValue&&obj.Actortype.Value.HasFlag(ActorType.Item))
@@ -119,7 +119,7 @@ namespace FunkyTrinity.Movement
 								if (!Navigation.CanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
 								{
 									 obj.RequiresLOSCheck=true;
-									 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 										  Logger.Write(LogLevel.Movement, "Ignoring Item {0} -- due to AllowWalk RayCast Failure!", obj.InternalName);
 									 Bot.Combat.bForceTargetUpdate=true;
 									 return RunStatus.Running;
@@ -127,7 +127,7 @@ namespace FunkyTrinity.Movement
 						  }
 						  else
 						  {
-								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 									 Logger.Write(LogLevel.Movement, "Ignoring obj {0} ",obj.InternalName+" _ SNO:"+obj.SNOID);
 								obj.BlacklistLoops=50;
 								obj.RequiresLOSCheck=true;
@@ -182,7 +182,7 @@ namespace FunkyTrinity.Movement
 
 										  if (Bot.NavigationCache.groupRunningBehavior)
 										  {
-												if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+												if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 													 Logger.Write(LogLevel.Movement, "Grouping Behavior stopped due to blocking counter");
 
 												Bot.NavigationCache.GroupingFinishBehavior();
@@ -205,7 +205,7 @@ namespace FunkyTrinity.Movement
 														  {
 																obj.RequiresLOSCheck=true;
 																obj.BlacklistLoops=10;
-																if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+																if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 																	 Logger.Write(LogLevel.Movement, "Ignoring object "+obj.InternalName+" due to not moving and raycast failure!", true);
 																
 																Bot.Combat.bForceTargetUpdate=true;
@@ -219,7 +219,7 @@ namespace FunkyTrinity.Movement
 										  {
 												if (!Navigation.CanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
 												{
-													 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+													 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 														  Logger.Write(LogLevel.Movement, "Cannot continue with avoidance movement due to raycast failure!");
 													 BlockedMovementCounter=0;
 
@@ -297,7 +297,7 @@ namespace FunkyTrinity.Movement
 									 &&((TargetType.Avoidance|TargetType.Gold|TargetType.Globe).HasFlag(obj.targetType.Value)==false)
 									 &&(obj.targetType.Value!=TargetType.Unit
 									 ||(obj.targetType.Value==TargetType.Unit&&!obj.IsTreasureGoblin
-										  &&(!Bot.SettingsFunky.Class.bSelectiveWhirlwind
+										  &&(!Bot.Settings.Class.bSelectiveWhirlwind
 												||Bot.Combat.bAnyNonWWIgnoreMobsInRange
 												||!CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(obj.SNOID)))))
 								{

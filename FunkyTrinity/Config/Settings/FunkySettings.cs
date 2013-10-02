@@ -158,7 +158,7 @@ namespace FunkyTrinity.Settings
 							{
 								 Funky.Log("Using Low Level Settings");
 								 bool disableBehaviors=true;
-								 Bot.SettingsFunky=new Settings_Funky
+								 Bot.Settings=new Settings_Funky
 								 {
 									  Grouping=new SettingGrouping(disableBehaviors),
 									  Cluster=new SettingCluster(disableBehaviors),
@@ -179,10 +179,10 @@ namespace FunkyTrinity.Settings
 								 }
 							}
 
-							Settings_Funky.SerializeToXML(Bot.SettingsFunky);
+							Settings_Funky.SerializeToXML(Bot.Settings);
 					  }
 
-					  Bot.SettingsFunky=Settings_Funky.DeserializeFromXML();
+					  Bot.Settings=Settings_Funky.DeserializeFromXML();
 				 }
 				 public static void SerializeToXML(Settings_Funky settings)
 				 {

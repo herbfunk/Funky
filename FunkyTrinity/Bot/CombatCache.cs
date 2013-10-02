@@ -46,10 +46,6 @@ namespace FunkyTrinity.Cache
 					 RequiresAvoidance=false;
 					 TravellingAvoidance=false;
 					 bForceCloseRangeTarget=false;
-					 lastHadUnitInSights=DateTime.Today;
-					 lastHadEliteUnitInSights=DateTime.Today;
-					 lastHadContainerAsTarget=DateTime.Today;
-					 lastHadRareChestAsTarget=DateTime.Today;
 					 SurroundingUnits=0;
 					 DontMove=false;
 					 CriticalAvoidance=false;
@@ -66,7 +62,7 @@ namespace FunkyTrinity.Cache
 				internal List<int> ValidClusterUnits=new List<int>();
 				internal List<CacheUnit> DistantUnits=new List<CacheUnit>();
 				internal List<CacheUnit> LoSMovementUnits=new List<CacheUnit>();
-				private ClusterConditions TargetClusterConditions=new ClusterConditions(Bot.SettingsFunky.Cluster.ClusterDistance, 100f, Bot.SettingsFunky.Cluster.ClusterMinimumUnitCount, false);
+				private ClusterConditions TargetClusterConditions=new ClusterConditions(Bot.Settings.Cluster.ClusterDistance, 100f, Bot.Settings.Cluster.ClusterMinimumUnitCount, false);
 				internal ClusterTargetCollection TargetClusterCollection { get; set; }
 
 				internal List<UnitCluster> CurrentGroupClusters=new List<UnitCluster>();
@@ -85,7 +81,7 @@ namespace FunkyTrinity.Cache
 				{
 					 if (!AbilityClusters.ContainsKey(CC))
 					 {
-						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Cluster))
+						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cluster))
 								Logger.Write(LogLevel.Cluster, "Creating new entry for ClusterConditions -- {0}", CC.ToString());
 						  AbilityClusters.Add(CC, new ClusterCollection(CC, 400,200));
 					 }
@@ -103,7 +99,7 @@ namespace FunkyTrinity.Cache
 				internal void UpdateGroupClusteringVariables()
 				{
 					 //grouping clustering
-					 if (Bot.SettingsFunky.Grouping.AttemptGroupingMovements)
+					 if (Bot.Settings.Grouping.AttemptGroupingMovements)
 					 {
 						  if ((CurrentGroupClusters.Count==0&&DateTime.Compare(LastClusterGroupingLogicRefresh, DateTime.Now)<0)
 								||(CurrentGroupClusters.Count>0&&DateTime.Now.Subtract(LastClusterGroupingLogicRefresh).TotalMilliseconds>1250))
@@ -112,12 +108,12 @@ namespace FunkyTrinity.Cache
 								CurrentGroupClusters=new List<UnitCluster>();
 
 								//Check if there are enough units present currently..
-								if (DistantUnits.Count>Bot.SettingsFunky.Grouping.GroupingMinimumUnitsInCluster)
+								if (DistantUnits.Count>Bot.Settings.Grouping.GroupingMinimumUnitsInCluster)
 								{
 
 									 //Update UnitCluster Collection
-									 CurrentGroupClusters=UnitCluster.RunKmeans(DistantUnits, Bot.SettingsFunky.Grouping.GroupingClusterRadiusDistance)
-										  .Where(cluster => cluster.ListUnits.Count>=Bot.SettingsFunky.Grouping.GroupingMinimumUnitsInCluster&&cluster.NearestMonsterDistance<=Bot.SettingsFunky.Grouping.GroupingMaximumDistanceAllowed)
+									 CurrentGroupClusters=UnitCluster.RunKmeans(DistantUnits, Bot.Settings.Grouping.GroupingClusterRadiusDistance)
+										  .Where(cluster => cluster.ListUnits.Count>=Bot.Settings.Grouping.GroupingMinimumUnitsInCluster&&cluster.NearestMonsterDistance<=Bot.Settings.Grouping.GroupingMaximumDistanceAllowed)
 										  .OrderByDescending(cluster => cluster.NearestMonsterDistance).ToList();
 
 									 //if (Bot.SettingsFunky.LogGroupingOutput)
@@ -137,10 +133,10 @@ namespace FunkyTrinity.Cache
 				{
 					 
 					 //normal clustering
-					 if (Bot.SettingsFunky.Cluster.EnableClusteringTargetLogic&&
-						  (!Bot.SettingsFunky.Cluster.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>Bot.SettingsFunky.Cluster.IgnoreClusterLowHPValue))
+					 if (Bot.Settings.Cluster.EnableClusteringTargetLogic&&
+						  (!Bot.Settings.Cluster.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>Bot.Settings.Cluster.IgnoreClusterLowHPValue))
 					 {
-						  if (UnitRAGUIDs.Count>=Bot.SettingsFunky.Cluster.ClusterMinimumUnitCount)
+						  if (UnitRAGUIDs.Count>=Bot.Settings.Cluster.ClusterMinimumUnitCount)
 						  {
 								if (TargetClusterCollection.ShouldUpdateClusters)
 									 TargetClusterCollection.UpdateClusters();
@@ -188,9 +184,6 @@ namespace FunkyTrinity.Cache
 				#endregion
 
 
-				// Variables used to actually hold powers the power-selector has picked to use, for buffing and main power use
-			 // internal SNOPower powerLastSnoPowerUsed { get; set; }
-
 				//Loot Check
 				internal bool ShouldCheckItemLooted { get; set; }
 				internal int recheckCount { get; set; }
@@ -232,27 +225,6 @@ namespace FunkyTrinity.Cache
 				internal int SurroundingUnits { get; set; }
 
 
-				#region Last seen objects
-				// Last had any mob in range, for loot-waiting
-				internal DateTime lastHadUnitInSights { get; set; }
-				// When we last saw a boss/elite etc.
-				internal DateTime lastHadEliteUnitInSights { get; set; }
-				//Last time we had a container, for loot-waiting
-				internal DateTime lastHadContainerAsTarget { get; set; }
-				//When we last saw a "rare" chest
-				internal DateTime lastHadRareChestAsTarget { get; set; }
-				// Store the date-time when we *FIRST* picked this target, so we can blacklist after X period of time targeting
-
-				internal int iTotalNumberGoblins=0;
-				internal DateTime lastGoblinTime=DateTime.Today;
-				#endregion
-
-
-				internal int iACDGUIDLastWhirlwind=0;
-				internal Vector3 vSideToSideTarget=Vector3.Zero;
-				internal DateTime lastChangedZigZag=DateTime.Today;
-				internal Vector3 vPositionLastZigZagCheck=Vector3.Zero;
-
 				internal bool bAnyChampionsPresent { get; set; }
 				internal bool bAnyTreasureGoblinsPresent { get; set; }
 				internal bool bAnyMobsInCloseRange { get; set; }
@@ -269,10 +241,7 @@ namespace FunkyTrinity.Cache
 				{
 					 get
 					 {
-						  string strDebug_LAST=string.Format("{0}LastHealthChanged {1} // HealthDrop {2}\r\n"+
-																		  "lastHadUnitInSights {3} -- lastHadEliteUnitInSights {4} -- lastHadContainerAsTarget {5} -- lastHadRareChestAsTarget {6}",
-																		  "", "", "",
-																		  this.lastHadUnitInSights.ToString(), this.lastHadEliteUnitInSights.ToString(), this.lastHadContainerAsTarget.ToString(), this.lastHadRareChestAsTarget.ToString());
+					
 
 						  string strDebug_ClusterTarget=string.Format("LastClusterTargetLogicRefresh {0}\r\n"+
 																					 "CurrentTargetClusters Count {1} -- ValidClusterUnits Count {2}",
@@ -293,7 +262,7 @@ namespace FunkyTrinity.Cache
 
 
 
-						  return String.Format("Combat Cache\r\n {0} \r\n {1} \r\n {2} \r\n {3}", strDebug_LAST, strDebug_ClusterTarget, strDebug_ClusterGroup, strDebug_ClusterAbility);
+						  return String.Format("Combat Cache\r\n {0} \r\n {1} \r\n {2} \r\n {3}", "", strDebug_ClusterTarget, strDebug_ClusterGroup, strDebug_ClusterAbility);
 					 }
 				}
 
@@ -327,7 +296,7 @@ namespace FunkyTrinity.Cache
 				}
 				internal void ResetTargetHandling()
 				{
-					 Bot.Target.CurrentTarget=null;
+					 Bot.Targeting.CurrentTarget=null;
 					 //Bot.NavigationCache.ResetPathing();
 					 TargetMovement.ResetTargetMovementVars();
 

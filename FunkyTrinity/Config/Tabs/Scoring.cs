@@ -11,21 +11,21 @@ namespace FunkyTrinity
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Loot.GilesMinimumWeaponScore=Value;
+				Bot.Settings.Loot.GilesMinimumWeaponScore=Value;
 				TBGilesWeaponScore.Text=Value.ToString();
 		  }
 		  private void GilesArmorScoreSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Loot.GilesMinimumArmorScore=Value;
+				Bot.Settings.Loot.GilesMinimumArmorScore=Value;
 				TBGilesArmorScore.Text=Value.ToString();
 		  }
 		  private void GilesJeweleryScoreSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Loot.GilesMinimumJeweleryScore=Value;
+				Bot.Settings.Loot.GilesMinimumJeweleryScore=Value;
 				TBGilesJeweleryScore.Text=Value.ToString();
 		  }
 		  #endregion
@@ -51,13 +51,13 @@ namespace FunkyTrinity
 					 TickFrequency=1000,
 					 LargeChange=5000,
 					 SmallChange=1000,
-					 Value=Bot.SettingsFunky.Loot.GilesMinimumWeaponScore,
+					 Value=Bot.Settings.Loot.GilesMinimumWeaponScore,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderGilesWeaponScore.ValueChanged+=GilesWeaponScoreSliderChanged;
 				TBGilesWeaponScore=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Loot.GilesMinimumWeaponScore.ToString(),
+					 Text=Bot.Settings.Loot.GilesMinimumWeaponScore.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel GilesWeaponScoreStackPanel=new StackPanel
@@ -81,13 +81,13 @@ namespace FunkyTrinity
 					 TickFrequency=1000,
 					 LargeChange=5000,
 					 SmallChange=1000,
-					 Value=Bot.SettingsFunky.Loot.GilesMinimumArmorScore,
+					 Value=Bot.Settings.Loot.GilesMinimumArmorScore,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderGilesArmorScore.ValueChanged+=GilesArmorScoreSliderChanged;
 				TBGilesArmorScore=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Loot.GilesMinimumArmorScore.ToString(),
+					 Text=Bot.Settings.Loot.GilesMinimumArmorScore.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel GilesArmorScoreStackPanel=new StackPanel
@@ -111,13 +111,13 @@ namespace FunkyTrinity
 					 TickFrequency=1000,
 					 LargeChange=5000,
 					 SmallChange=1000,
-					 Value=Bot.SettingsFunky.Loot.GilesMinimumJeweleryScore,
+					 Value=Bot.Settings.Loot.GilesMinimumJeweleryScore,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderGilesJeweleryScore.ValueChanged+=GilesJeweleryScoreSliderChanged;
 				TBGilesJeweleryScore=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Loot.GilesMinimumJeweleryScore.ToString(),
+					 Text=Bot.Settings.Loot.GilesMinimumJeweleryScore.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel GilesJeweleryScoreStackPanel=new StackPanel

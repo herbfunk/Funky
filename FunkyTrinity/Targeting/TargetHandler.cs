@@ -163,7 +163,7 @@ namespace FunkyTrinity.Targeting
 					 {
 						  GameEvents.FireItemLooted(CurrentTarget.AcdGuid.Value);
 
-						  if (Bot.SettingsFunky.Debug.DebugStatusBar) BotMain.StatusText=statusText;
+						  if (Bot.Settings.Debug.DebugStatusBar) BotMain.StatusText=statusText;
 
 						  //This is where we should manipulate information of both what dropped and what was looted.
 						  Funky.LogItemInformation();
@@ -224,7 +224,7 @@ namespace FunkyTrinity.Targeting
 						  if (!Bot.Combat.reCheckedFinished)
 						  {
 								statusText+=" RECHECKING";
-								if (Bot.SettingsFunky.Debug.DebugStatusBar)
+								if (Bot.Settings.Debug.DebugStatusBar)
 								{
 									 BotMain.StatusText=statusText;
 								}
@@ -291,8 +291,8 @@ namespace FunkyTrinity.Targeting
 					 // Update targets at least once every 80 milliseconds
 					 if (Bot.Combat.bForceTargetUpdate
 						 ||Bot.Combat.TravellingAvoidance
-						 ||((DateTime.Now.Subtract(Bot.Target.lastRefreshedObjects).TotalMilliseconds>=80&&CurrentTarget.targetType.Value!=TargetType.Avoidance)
-						 ||DateTime.Now.Subtract(Bot.Target.lastRefreshedObjects).TotalMilliseconds>=1200))
+						 ||((DateTime.Now.Subtract(Bot.Targeting.lastRefreshedObjects).TotalMilliseconds>=80&&CurrentTarget.targetType.Value!=TargetType.Avoidance)
+						 ||DateTime.Now.Subtract(Bot.Targeting.lastRefreshedObjects).TotalMilliseconds>=1200))
 					 {
 						  bShouldRefreshDiaObjects=true;
 					 }
@@ -310,7 +310,7 @@ namespace FunkyTrinity.Targeting
 					 if (bShouldRefreshDiaObjects)
 					 {
 						  // Now call the function that refreshes targets
-						  Bot.Target.RefreshDiaObjects();
+						  Bot.Targeting.RefreshDiaObjects();
 
 						  // No target, return success
 						  if (CurrentTarget==null)
@@ -329,8 +329,8 @@ namespace FunkyTrinity.Targeting
 						  // Been trying to handle the same target for more than 30 seconds without damaging/reaching it? Blacklist it!
 						  // Note: The time since target picked updates every time the current target loses health, if it's a monster-target
 						  if (CurrentTarget.targetType.Value!=TargetType.Avoidance
-								&&((CurrentTarget.targetType.Value!=TargetType.Unit&&DateTime.Now.Subtract(Bot.Target.LastChangeOfTarget).TotalSeconds>12)
-								||(CurrentTarget.targetType.Value==TargetType.Unit&&!CurrentTarget.IsBoss&&DateTime.Now.Subtract(Bot.Target.LastChangeOfTarget).TotalSeconds>40)))
+								&&((CurrentTarget.targetType.Value!=TargetType.Unit&&DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalSeconds>12)
+								||(CurrentTarget.targetType.Value==TargetType.Unit&&!CurrentTarget.IsBoss&&DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalSeconds>40)))
 						  {
 								// NOTE: This only blacklists if it's remained the PRIMARY TARGET that we are trying to actually directly attack!
 								// So it won't blacklist a monster "on the edge of the screen" who isn't even being targetted
@@ -339,8 +339,8 @@ namespace FunkyTrinity.Targeting
 								// PREVENT blacklisting a monster on less than 90% health unless we haven't damaged it for more than 2 minutes
 								if (CurrentTarget.targetType.Value==TargetType.Unit)
 								{
-									 if (CurrentTarget.IsTreasureGoblin&&Bot.SettingsFunky.Targeting.GoblinPriority>=3) bBlacklistThis=false;
-									 if (DateTime.Now.Subtract(Bot.Target.LastChangeOfTarget).TotalSeconds<=120) bBlacklistThis=false;
+									 if (CurrentTarget.IsTreasureGoblin&&Bot.Settings.Targeting.GoblinPriority>=3) bBlacklistThis=false;
+									 if (DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalSeconds<=120) bBlacklistThis=false;
 								}
 
 								if (bBlacklistThis)
@@ -406,8 +406,8 @@ namespace FunkyTrinity.Targeting
 						  // Did we get default attack?
 						  if (nextAbility.Equals(Bot.Class.DefaultAttack)&&!Bot.Class.CanUseDefaultAttack)
 						  {
-								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Ability))
-									 Logger.Write(LogLevel.Ability, "Failed to find a valid Ability to use -- Target: {0}", Bot.Target.CurrentTarget.InternalName);
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Ability))
+									 Logger.Write(LogLevel.Ability, "Failed to find a valid Ability to use -- Target: {0}", Bot.Targeting.CurrentTarget.InternalName);
 								Bot.Combat.bForceTargetUpdate=true;
 								CurrentState=RunStatus.Running;
 								CurrentTarget.BlacklistLoops=10;
@@ -424,7 +424,7 @@ namespace FunkyTrinity.Targeting
 				#endregion
 
 				#region PotionCheck
-				if (Bot.Character.dCurrentHealthPct<=Bot.EmergencyHealthPotionLimit
+				if (Bot.Character.dCurrentHealthPct<=Bot.Settings.Combat.PotionHealthPercent
 					 &&!Bot.Combat.bWaitingForPower
 					 &&!Bot.Combat.bWaitingForPotion
 					 &&!Bot.Character.bIsIncapacitated
@@ -471,13 +471,13 @@ namespace FunkyTrinity.Targeting
 					 bool FinishLOSBehavior=false;
 					 if (CurrentTarget.LastLOSMoveResult==MoveResult.ReachedDestination)
 					 {
-						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logger.Write(LogLevel.Movement, "LOS Ended Due to MoveResult {0} for Object {1}",CurrentTarget.LastLOSMoveResult.ToString(), CurrentTarget.InternalName);
 						  FinishLOSBehavior=true;
 					 }
 					 else if(Bot.NavigationCache.currentMovementState==MovementState.WalkingInPlace)
 					 {
-						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logger.Write(LogLevel.Movement, "LOS Ended Due to Player Walking In Place!");
 
 						  FinishLOSBehavior=true;
@@ -489,7 +489,7 @@ namespace FunkyTrinity.Targeting
 						  {
 							  if(LOS.LOSTest(Bot.Character.Position,true,false))
 							  {
-									if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+									if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 										 Logger.Write(LogLevel.Movement, "LOS Ended Due to Line Of Sight Passed for Object {0}", CurrentTarget.InternalName);
 
 									FinishLOSBehavior=true;
@@ -530,46 +530,46 @@ namespace FunkyTrinity.Targeting
 		  {
 
 				#region DebugInfo
-				if (Bot.SettingsFunky.Debug.DebugStatusBar)
+				if (Bot.Settings.Debug.DebugStatusBar)
 				{
-					 Bot.sStatusText="[Interact- ";
+					 Funky.sStatusText="[Interact- ";
 					 switch (CurrentTarget.targetType.Value)
 					 {
 						  case TargetType.Avoidance:
-								Bot.sStatusText+="Avoid] ";
+								Funky.sStatusText+="Avoid] ";
 								break;
 						  case TargetType.Unit:
-								Bot.sStatusText+="Combat] ";
+								Funky.sStatusText+="Combat] ";
 								break;
 						  case TargetType.Item:
 						  case TargetType.Gold:
 						  case TargetType.Globe:
-								Bot.sStatusText+="Pickup] ";
+								Funky.sStatusText+="Pickup] ";
 								break;
 						  case TargetType.Interactable:
-								Bot.sStatusText+="Interact] ";
+								Funky.sStatusText+="Interact] ";
 								break;
 						  case TargetType.Container:
-								Bot.sStatusText+="Open] ";
+								Funky.sStatusText+="Open] ";
 								break;
 						  case TargetType.Destructible:
 						  case TargetType.Barricade:
-								Bot.sStatusText+="Destroy] ";
+								Funky.sStatusText+="Destroy] ";
 								break;
 						  case TargetType.Shrine:
-								Bot.sStatusText+="Click] ";
+								Funky.sStatusText+="Click] ";
 								break;
 					 }
-					 Bot.sStatusText+="Target="+CurrentTarget.InternalName+" C-Dist="+Math.Round(CurrentTarget.CentreDistance, 2).ToString()+". "+
+					 Funky.sStatusText+="Target="+CurrentTarget.InternalName+" C-Dist="+Math.Round(CurrentTarget.CentreDistance, 2).ToString()+". "+
 							 "R-Dist="+Math.Round(CurrentTarget.RadiusDistance, 2).ToString()+". ";
 
 					 if (CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Class.PowerPrime.Power!=SNOPower.None)
-						  Bot.sStatusText+="Power="+Bot.Class.PowerPrime.Power.ToString()+" (range "+Bot.Class.PowerPrime.MinimumRange.ToString()+") ";
+						  Funky.sStatusText+="Power="+Bot.Class.PowerPrime.Power.ToString()+" (range "+Bot.Class.PowerPrime.MinimumRange.ToString()+") ";
 
 
-					 Bot.sStatusText+="Weight="+CurrentTarget.Weight.ToString();
-					 BotMain.StatusText=Bot.sStatusText;
-					 Bot.bResetStatusText=true;
+					 Funky.sStatusText+="Weight="+CurrentTarget.Weight.ToString();
+					 BotMain.StatusText=Funky.sStatusText;
+					 Funky.bResetStatusText=true;
 				}
 				#endregion
 
@@ -595,8 +595,8 @@ namespace FunkyTrinity.Targeting
 				}
 
 				// Now tell Trinity to get a new target!
-				Bot.Combat.lastChangedZigZag=DateTime.Today;
-				Bot.Combat.vPositionLastZigZagCheck=Vector3.Zero;
+				Bot.NavigationCache.lastChangedZigZag=DateTime.Today;
+				Bot.NavigationCache.vPositionLastZigZagCheck=Vector3.Zero;
 				//Bot.Combat.bForceTargetUpdate=true;
 
 				return false;
@@ -604,17 +604,17 @@ namespace FunkyTrinity.Targeting
 
 		  internal void UpdateStatusText(string Action)
 		  {
-				Bot.sStatusText=Action+" ";
+				Funky.sStatusText=Action+" ";
 
-				Bot.sStatusText+="Target="+CurrentTarget.InternalName+" C-Dist="+Math.Round(CurrentTarget.CentreDistance, 2).ToString()+". "+
+				Funky.sStatusText+="Target="+CurrentTarget.InternalName+" C-Dist="+Math.Round(CurrentTarget.CentreDistance, 2).ToString()+". "+
 					 "R-Dist="+Math.Round(CurrentTarget.RadiusDistance, 2).ToString()+". ";
 
 				if (CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Class.PowerPrime.Power!=SNOPower.None)
-					 Bot.sStatusText+="Power="+Bot.Class.PowerPrime.Power.ToString()+" (range "+Bot.Class.PowerPrime.MinimumRange.ToString()+") ";
+					 Funky.sStatusText+="Power="+Bot.Class.PowerPrime.Power.ToString()+" (range "+Bot.Class.PowerPrime.MinimumRange.ToString()+") ";
 
-				Bot.sStatusText+="Weight="+CurrentTarget.Weight.ToString();
-				BotMain.StatusText=Bot.sStatusText;
-				Bot.bResetStatusText=true;
+				Funky.sStatusText+="Weight="+CurrentTarget.Weight.ToString();
+				BotMain.StatusText=Funky.sStatusText;
+				Funky.bResetStatusText=true;
 		  }
 
 		  public override bool Equals(object obj)

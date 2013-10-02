@@ -25,10 +25,10 @@ namespace FunkyTrinity
 					 if (InnaSetItemCount>3)
 					 {
 						  Logging.Write("Monk has full inna set!");
-						  Bot.SettingsFunky.Class.bMonkInnaSet=true;
+						  Bot.Settings.Class.bMonkInnaSet=true;
 					 }
 					 else
-						  Bot.SettingsFunky.Class.bMonkInnaSet=false;
+						  Bot.Settings.Class.bMonkInnaSet=false;
 						 
 				}
 				public override Ability DefaultAttack
@@ -52,19 +52,19 @@ namespace FunkyTrinity
 				}
 				public override bool ShouldGenerateNewZigZagPath()
 				{
-					 return (DateTime.Now.Subtract(Bot.Combat.lastChangedZigZag).TotalMilliseconds>=1500||
-							  (Bot.Combat.vPositionLastZigZagCheck!=Vector3.Zero&&Bot.Character.Position==Bot.Combat.vPositionLastZigZagCheck&&DateTime.Now.Subtract(Bot.Combat.lastChangedZigZag).TotalMilliseconds>=200)||
-							  Vector3.Distance(Bot.Character.Position, Bot.Combat.vSideToSideTarget)<=4f||
-							  Bot.Target.CurrentTarget!=null&&Bot.Target.CurrentTarget.AcdGuid.HasValue&&Bot.Target.CurrentTarget.AcdGuid.Value!=Bot.Combat.iACDGUIDLastWhirlwind);
+					 return (DateTime.Now.Subtract(Bot.NavigationCache.lastChangedZigZag).TotalMilliseconds>=1500||
+							  (Bot.NavigationCache.vPositionLastZigZagCheck!=Vector3.Zero&&Bot.Character.Position==Bot.NavigationCache.vPositionLastZigZagCheck&&DateTime.Now.Subtract(Bot.NavigationCache.lastChangedZigZag).TotalMilliseconds>=200)||
+							  Vector3.Distance(Bot.Character.Position, Bot.NavigationCache.vSideToSideTarget)<=4f||
+							  Bot.Targeting.CurrentTarget!=null&&Bot.Targeting.CurrentTarget.AcdGuid.HasValue&&Bot.Targeting.CurrentTarget.AcdGuid.Value!=Bot.NavigationCache.iACDGUIDLastWhirlwind);
 				}
 				public override void GenerateNewZigZagPath()
 				{
-					 float fExtraDistance=Bot.Target.CurrentTarget.CentreDistance<=20f?5f:1f;
-					 Bot.Combat.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Target.CurrentTarget.Position, Bot.Target.CurrentTarget.CentreDistance+fExtraDistance);
+					 float fExtraDistance=Bot.Targeting.CurrentTarget.CentreDistance<=20f?5f:1f;
+					 Bot.NavigationCache.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.CurrentTarget.Position, Bot.Targeting.CurrentTarget.CentreDistance+fExtraDistance);
 					 // Resetting this to ensure the "no-spam" is reset since we changed our target location
-				
-					 Bot.Combat.iACDGUIDLastWhirlwind=Bot.Target.CurrentTarget.AcdGuid.HasValue?Bot.Target.CurrentTarget.AcdGuid.Value:-1;
-					 Bot.Combat.lastChangedZigZag=DateTime.Now;
+
+					 Bot.NavigationCache.iACDGUIDLastWhirlwind=Bot.Targeting.CurrentTarget.AcdGuid.HasValue?Bot.Targeting.CurrentTarget.AcdGuid.Value:-1;
+					 Bot.NavigationCache.lastChangedZigZag=DateTime.Now;
 				}
 
 

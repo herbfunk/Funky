@@ -146,7 +146,7 @@ namespace FunkyTrinity.Movement
 										  {
 												AvoidanceType thisAvoidanceType=((CacheAvoidance)item).AvoidanceType;
 												if (AvoidanceCache.IgnoringAvoidanceType(thisAvoidanceType)) continue;
-											   AvoidanceValue AV= Bot.SettingsFunky.Avoidance.Avoidances[(int)thisAvoidanceType];
+											   AvoidanceValue AV= Bot.Settings.Avoidance.Avoidances[(int)thisAvoidanceType];
 
 												avoidcount++;
 												float BaseWeight=AV.Weight;
@@ -252,7 +252,7 @@ namespace FunkyTrinity.Movement
 								if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(pointVector)) continue;
 
 								//Kiting Check
-								if (kite&&ObjectCache.Objects.OfType<CacheUnit>().Any(m => m.ShouldBeKited&&m.IsPositionWithinRange(pointVector, Bot.SettingsFunky.Fleeing.FleeMaxMonsterDistance))) continue;
+								if (kite&&ObjectCache.Objects.OfType<CacheUnit>().Any(m => m.ShouldBeKited&&m.IsPositionWithinRange(pointVector, Bot.Settings.Fleeing.FleeMaxMonsterDistance))) continue;
 
 								//Avoidance Intersection Check
 								if (checkBotAvoidIntersection&&ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(botcurpos, pointVector)) continue;
@@ -313,7 +313,7 @@ namespace FunkyTrinity.Movement
 								if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(pointVector)) continue;
 
 								//Kiting Check
-								if (kite&&ObjectCache.Objects.OfType<CacheUnit>().Any(m => m.ShouldBeKited&&m.IsPositionWithinRange(pointVector, Bot.SettingsFunky.Fleeing.FleeMaxMonsterDistance))) continue;
+								if (kite&&ObjectCache.Objects.OfType<CacheUnit>().Any(m => m.ShouldBeKited&&m.IsPositionWithinRange(pointVector, Bot.Settings.Fleeing.FleeMaxMonsterDistance))) continue;
 
 								//Avoidance Intersection Check
 								if (checkBotAvoidIntersection&&ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(botcurpos, pointVector)) continue;

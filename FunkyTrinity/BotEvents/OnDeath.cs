@@ -16,15 +16,15 @@ namespace FunkyTrinity
 		  {
 				if(!DumpedDeathInfo)
 				{
-					 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
+					 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
 						  Logger.Write(LogLevel.User, "Death Info Dump \r\n ProfileBehavior {0} \r\n Last Target Behavior {1} \r\n"+
 									  "{2} \r\n"+
 									  "Triggering Avoidances={3} -- RequiredAvoidance={4} -- LastAvoidAction={5} \r\n"+
 									  "Nearby Flee Triggering Units={6} -- IsFleeing={7} -- LastFleeAction={8} \r\n",
-									  Bot.Profile.CurrentProfileBehavior.GetType().ToString(), Bot.Target.lastBehavioralType.ToString(),
+									  Bot.Profile.CurrentProfileBehavior.GetType().ToString(), Bot.Targeting.lastBehavioralType.ToString(),
 									  Cache.ObjectCache.Objects.DumpDebugInfo(),
-									  Bot.Combat.TriggeringAvoidances.Count, Bot.Combat.RequiresAvoidance, Bot.Target.LastAvoidanceMovement.ToString(),
-									  Bot.Combat.FleeTriggeringUnits.Count, Bot.Combat.IsFleeing, Bot.Target.LastFleeAction.ToString());
+									  Bot.Combat.TriggeringAvoidances.Count, Bot.Combat.RequiresAvoidance, Bot.Targeting.LastAvoidanceMovement.ToString(),
+									  Bot.Combat.FleeTriggeringUnits.Count, Bot.Combat.IsFleeing, Bot.Targeting.LastFleeAction.ToString());
 
 					 DumpedDeathInfo=true;
 				}

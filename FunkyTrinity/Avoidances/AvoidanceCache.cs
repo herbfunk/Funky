@@ -3,6 +3,7 @@ using System.Linq;
 using Zeta;
 using System.Collections.Generic;
 using FunkyTrinity.Cache;
+using Zeta.Common;
 using Zeta.Internals.Actors;
 
 namespace FunkyTrinity.Avoidances
@@ -12,6 +13,22 @@ namespace FunkyTrinity.Avoidances
 		  //Static Avoidance Areas in Halls Of Agony:
 		  //108012 -- FirePit, 34f Radius
 		  //89578 -- Inferno Wall -- 3f Height, 20f? Width
+		  internal static void UpdateAvoidKiteRates(bool Reset=false)
+		  {
+				if (Reset)
+				{
+					 Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=0;
+					 Bot.Combat.iMillisecondsCancelledFleeMoveFor=0;
+					 return;
+				}
+
+				double extraWaitTime=Bot.Settings.AvoidanceRecheckMaximumRate*Bot.Character.dCurrentHealthPct;
+				if (extraWaitTime<Bot.Settings.AvoidanceRecheckMinimumRate) extraWaitTime=Bot.Settings.AvoidanceRecheckMinimumRate;
+				Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=(int)extraWaitTime;
+
+				extraWaitTime=MathEx.Random(Bot.Settings.KitingRecheckMinimumRate, Bot.Settings.KitingRecheckMaximumRate)*Bot.Character.dCurrentHealthPct;
+				Bot.Combat.iMillisecondsCancelledFleeMoveFor=(int)extraWaitTime;
+		  }
 
 		  internal static readonly  AvoidanceValue[] AvoidancesDefault=new AvoidanceValue[]
 			  {
@@ -147,10 +164,10 @@ namespace FunkyTrinity.Avoidances
 
 	    internal static bool IgnoringAvoidanceType(AvoidanceType thisAvoidance)
 	    {
-		    if (!Bot.SettingsFunky.Avoidance.AttemptAvoidanceMovements)
+		    if (!Bot.Settings.Avoidance.AttemptAvoidanceMovements)
 			    return true;
 
-		    double dThisHealthAvoid=Bot.SettingsFunky.Avoidance.Avoidances[(int)thisAvoidance].Health;
+		    double dThisHealthAvoid=Bot.Settings.Avoidance.Avoidances[(int)thisAvoidance].Health;
 		    if (dThisHealthAvoid==0d)
 			    return true;
 
@@ -162,7 +179,7 @@ namespace FunkyTrinity.Avoidances
 	    ///</summary>
 	    internal static bool IgnoreAvoidance(AvoidanceType thisAvoidance)
 	    {
-		    double dThisHealthAvoid=Bot.SettingsFunky.Avoidance.Avoidances[(int)thisAvoidance].Health;
+		    double dThisHealthAvoid=Bot.Settings.Avoidance.Avoidances[(int)thisAvoidance].Health;
 
 		    if (!Bot.Combat.CriticalAvoidance)
 		    {//Not Critical Avoidance, should we be in total ignorance because of a buff?

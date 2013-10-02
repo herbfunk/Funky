@@ -84,7 +84,7 @@ namespace FunkyTrinity.Cache
 					 {
 						  get
 						  {
-								bool flee=Bot.SettingsFunky.Fleeing.EnableFleeingBehavior&&Bot.Character.dCurrentHealthPct<=Bot.SettingsFunky.Fleeing.FleeBotMinimumHealthPercent;
+								bool flee=Bot.Settings.Fleeing.EnableFleeingBehavior&&Bot.Character.dCurrentHealthPct<=Bot.Settings.Fleeing.FleeBotMinimumHealthPercent;
 								return flee;
 						  }
 					 }
@@ -198,7 +198,7 @@ namespace FunkyTrinity.Cache
 										  bWaitingForReserveEnergy=true;
 
 									 //Critical Avoidance (when no avoidance is set!)
-									 if (dCurrentHealthPct<0.50d&&!Bot.SettingsFunky.Avoidance.AttemptAvoidanceMovements&&
+									 if (dCurrentHealthPct<0.50d&&!Bot.Settings.Avoidance.AttemptAvoidanceMovements&&
 										  !Zeta.CommonBot.PowerManager.CanCast(SNOPower.DrinkHealthPotion))
 										  Bot.Combat.CriticalAvoidance=true;
 									 else if (Bot.Combat.CriticalAvoidance&&!Funky.shouldPreformOOCItemIDing&&!Funky.FunkyTPBehaviorFlag&&dCurrentHealthPct>0.5)

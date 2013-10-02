@@ -39,7 +39,7 @@ namespace FunkyTrinity
 					 Bot.Character.BackPack.Update();
 
 					 //Refresh item manager if we are not using item rules nor giles scoring.
-					 if (!Bot.SettingsFunky.ItemRules.UseItemRules&&!Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring)
+					 if (!Bot.Settings.ItemRules.UseItemRules&&!Bot.Settings.ItemRules.ItemRuleGilesScoring)
 						  ItemManager.Current.Refresh();
 
 					 foreach (var thisitem in Bot.Character.BackPack.CacheItemList.Values)
@@ -51,7 +51,7 @@ namespace FunkyTrinity
 								{
 									 bool bShouldStashThis=false;
 
-									 if (Bot.SettingsFunky.ItemRules.UseItemRules)
+									 if (Bot.Settings.ItemRules.UseItemRules)
 									 {
 										  Interpreter.InterpreterAction action=Bot.ItemRulesEval.checkItem(thisitem.ACDItem, Zeta.CommonBot.ItemEvaluationType.Keep);
 										  switch (action)
@@ -65,7 +65,7 @@ namespace FunkyTrinity
 									 }
 
 
-									 bShouldStashThis=(Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring==true?ShouldWeStashThis(thisitem)
+									 bShouldStashThis=(Bot.Settings.ItemRules.ItemRuleGilesScoring==true?ShouldWeStashThis(thisitem)
 																:ItemManager.Current.ShouldStashItem(thisitem.ACDItem));
 
 
@@ -93,7 +93,7 @@ namespace FunkyTrinity
 				// **********************************************************************************************
 				internal static RunStatus GilesOptimisedPreStash(object ret)
 				{
-					 if (Bot.SettingsFunky.Debug.DebugStatusBar)
+					 if (Bot.Settings.Debug.DebugStatusBar)
 						  BotMain.StatusText="Town run: Stash routine started";
 					 Log("GSDebug: Stash routine started.", true);
 					 bLoggedAnythingThisStash=false;

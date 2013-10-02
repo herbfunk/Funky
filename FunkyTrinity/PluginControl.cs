@@ -18,6 +18,13 @@ namespace FunkyTrinity
 		  private static bool initTreeHooks=false;
 		  private static bool bMaintainStatTracking=false;
 		  internal static Settings.SettingPlugin Settings=new Settings.SettingPlugin();
+		  internal static int iDemonbuddyMonsterPowerLevel=0;
+
+		  // Status text for DB main window status
+		  internal static string sStatusText="";
+		  // Do we need to reset the debug bar after combat handling?
+		  internal static bool bResetStatusText=false;
+
 
 		  internal static void Log(string message, bool bIsDiagnostic=false)
 		  {

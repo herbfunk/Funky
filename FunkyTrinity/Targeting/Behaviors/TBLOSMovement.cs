@@ -45,7 +45,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 								CacheUnit nearestUnit=validLosUnitCluster.GetNearestUnitToCenteroid();
 								if (nearestUnit.CurrentHealthPct.Value>0.50d&&nearestUnit.IsTargetableAndAttackable)
 								{
-									 if (FunkyTrinity.Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+									 if (FunkyTrinity.Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 										  Logger.Write(LogLevel.Movement, "Line of Sight Started for object {0}", nearestUnit.InternalName);
 
 									 Navigation.NP.Clear();

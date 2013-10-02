@@ -23,7 +23,7 @@ namespace FunkyTrinity.Movement
 				public GPArea(Vector3 startingLocation)
 				{
 					 //Creation and Cache base
-					 centerGPRect=new GPRectangle(startingLocation, 3);
+					 centerGPRect=new GPRectangle(startingLocation, 5);
 					 GPRectangle centerClone=centerGPRect.Clone();
 
 					 //Get all valid points (besides current point) from our current location GPR
@@ -94,7 +94,7 @@ namespace FunkyTrinity.Movement
 						  //If still failed to find a safe spot.. set the timer before we try again.
 						  if (safespot==Vector3.Zero)
 						  {
-								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 									 Logging.WriteVerbose("All GPCs failed to find a valid location to move!");
 
 								AllGPRectsFailed=true;
@@ -102,12 +102,12 @@ namespace FunkyTrinity.Movement
 								//Set timer here
 								if (!kiting)
 								{
-									 Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=(int)(Bot.Character.dCurrentHealthPct*Bot.SettingsFunky.AvoidanceRecheckMinimumRate)+1000;
+									 Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=(int)(Bot.Character.dCurrentHealthPct*Bot.Settings.AvoidanceRecheckMinimumRate)+1000;
 									 Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
 								}
 								else
 								{
-									 Bot.Combat.iMillisecondsCancelledFleeMoveFor=(int)(Bot.Character.dCurrentHealthPct*Bot.SettingsFunky.KitingRecheckMinimumRate)+1000;
+									 Bot.Combat.iMillisecondsCancelledFleeMoveFor=(int)(Bot.Character.dCurrentHealthPct*Bot.Settings.KitingRecheckMinimumRate)+1000;
 									 Bot.Combat.timeCancelledFleeMove=DateTime.Now;
 								}
 								return safespot;

@@ -35,7 +35,7 @@ namespace FunkyTrinity.AbilityFunky.Abilities.DemonHunter
 			{
 				 float fDistanceFromTarget=Bot.Character.Position.Distance(v);
 				 if (!Bot.Class.bWaitingForSpecial&&Funky.Difference(Bot.Character.Position.Z, v.Z)<=4&&fDistanceFromTarget>=18f&&
-																					(this.LastUsedMilliseconds>=Bot.SettingsFunky.Class.iDHVaultMovementDelay))
+																					(this.LastUsedMilliseconds>=Bot.Settings.Class.iDHVaultMovementDelay))
 				 {
 					  return MathEx.CalculatePointFrom(v, Bot.Character.Position, Math.Max(fDistanceFromTarget, 35f));
 				 }
@@ -46,7 +46,7 @@ namespace FunkyTrinity.AbilityFunky.Abilities.DemonHunter
 			{
 				 float fDistanceFromTarget=Bot.Character.Position.Distance(v);
 				 if(Funky.Difference(Bot.Character.Position.Z,v.Z)<=4&&fDistanceFromTarget>=18f&&
-																					(this.LastUsedMilliseconds>=Bot.SettingsFunky.Class.iDHVaultMovementDelay))
+																					(this.LastUsedMilliseconds>=Bot.Settings.Class.iDHVaultMovementDelay))
 				 {
 					  return MathEx.CalculatePointFrom(v, Bot.Character.Position, Math.Max(fDistanceFromTarget,35f));
 				 }

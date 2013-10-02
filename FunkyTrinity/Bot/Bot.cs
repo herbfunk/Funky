@@ -22,8 +22,9 @@ namespace FunkyTrinity
 
 		  public static partial class Bot
 		  {
-				public static Settings_Funky SettingsFunky=new Settings_Funky();
+				public static Settings_Funky Settings=new Settings_Funky();
 				public static Player Class { get; set; }
+
 				private static CharacterCache character=new CharacterCache();
 				public static CharacterCache Character
 				{
@@ -31,7 +32,8 @@ namespace FunkyTrinity
 					 set { character=value; }
 				}
 				public static CombatCache Combat { get; set; }
-				public static TargetHandler Target { get; set; }
+				public static TargetHandler Targeting { get; set; }
+
 				private static BotStatistics Stats_=new BotStatistics();
 				public static BotStatistics Stats
 				{
@@ -47,21 +49,13 @@ namespace FunkyTrinity
 
 				public static Navigation NavigationCache { get; set; }
 
+
 				// Darkfriend's Looting Rule
 				internal static Interpreter ItemRulesEval;
 
-				// Status text for DB main window status
-				internal static string sStatusText="";
-				// Do we need to reset the debug bar after combat handling?
-				internal static bool bResetStatusText=false;
 
-				internal static int iDemonbuddyMonsterPowerLevel=0;
 
-				///<summary>
-				///Usable Objects -- refresh inside Target.UpdateTarget
-				///</summary>
-				internal static List<CacheObject> ValidObjects { get; set; }
-
+				
 				internal static ActorClass ActorClass=ActorClass.Invalid;
 				internal static string CurrentAccountName;
 				internal static string CurrentHeroName;
@@ -93,151 +87,13 @@ namespace FunkyTrinity
 					 get
 					 {
 						  //OOC IDing, Town Portal Casting, Town Run
-							return (Bot.Profile.IsRunningOOCBehavior||Funky.shouldPreformOOCItemIDing||Funky.FunkyTPBehaviorFlag||Funky.TownRunManager.bWantToTownRun);
-					 }
-				}
-
-				internal static float iCurrentMaxKillRadius=0f;
-				internal static float iCurrentMaxLootRadius=0f;
-				internal static void UpdateKillLootRadiusValues()
-				{
-					 iCurrentMaxKillRadius=CharacterSettings.Instance.KillRadius;
-					 iCurrentMaxLootRadius=CharacterSettings.Instance.LootRadius;
-					 // Not allowed to kill monsters due to profile/routine/combat targeting settings - just set the kill range to a third
-					 if (!ProfileManager.CurrentProfile.KillMonsters) iCurrentMaxKillRadius/=3;
-					 
-					 // Always have a minimum kill radius, so we're never getting whacked without retaliating
-					 if (iCurrentMaxKillRadius<10||SettingsFunky.Ranges.IgnoreCombatRange) iCurrentMaxKillRadius=10;
-
-					 //Non-Combat Behavior we set minimum kill radius
-					 if (IsInNonCombatBehavior) iCurrentMaxKillRadius=50;
-
-					 // Not allowed to loots due to profile/routine/loot targeting settings - just set range to a quarter
-					 if (!ProfileManager.CurrentProfile.PickupLoot) iCurrentMaxLootRadius/=4;
-					 
-
-					 //Ignore Loot Range Setting
-					 if (SettingsFunky.Ranges.IgnoreLootRange) iCurrentMaxLootRadius=10;
-				}
-
-				#region SettingsRangeValues
-
-				internal static int ContainerRange
-				{
-					 get
-					 {
-						  return SettingsFunky.Ranges.ContainerOpenRange;
-					 }
-				}
-				internal static int NonEliteRange
-				{
-					 get
-					 {
-						  return SettingsFunky.Ranges.NonEliteCombatRange;
-					 }
-				}
-				internal static int EliteRange
-				{
-					 get
-					 {
-						  return SettingsFunky.Ranges.EliteCombatRange;
-					 }
-				}
-				internal static int GlobeRange
-				{
-					 get
-					 {
-						  return SettingsFunky.Ranges.GlobeRange;
-					 }
-				}
-				internal static double ItemRange
-				{
-					 get
-					 {
-						  return iCurrentMaxLootRadius+SettingsFunky.Ranges.ItemRange;
-					 }
-				}
-				internal static int GoldRange
-				{
-					 get
-					 {
-						  return SettingsFunky.Ranges.GoldRange;
-					 }
-				}
-				internal static int DestructibleRange
-				{
-					 get
-					 {
-						  return SettingsFunky.Ranges.DestructibleRange;
-					 }
-				}
-				internal static int TreasureGoblinRange
-				{
-					 get
-					 {
-						  return SettingsFunky.Ranges.TreasureGoblinRange;
-					 }
-				}
-				internal static int ShrineRange
-				{
-					 get
-					 {
-						  return SettingsFunky.Ranges.ShrineRange;
-					 }
-				}
-				internal static double EmergencyHealthPotionLimit
-				{
-					 get
-					 {
-						  return SettingsFunky.Combat.PotionHealthPercent;
-					 }
-				}
-				internal static double EmergencyHealthGlobeLimit
-				{
-					 get
-					 {
-						  return SettingsFunky.Combat.GlobeHealthPercent;
-					 }
-				}
-				#endregion
-
-
-				private static HashSet<int> hashActorSNOKitingIgnore_;
-				internal static HashSet<int> HashActorSNOKitingIgnore
-				{
-					 get 
-					 {
-						  if (hashActorSNOKitingIgnore_==null)
-						  {
-								hashActorSNOKitingIgnore_=new HashSet<int> { 4095, 144315 };
-								//burrowing units
-								hashActorSNOKitingIgnore_.UnionWith(CacheIDLookup.hashActorSNOBurrowableUnits);
-								//grunts
-								hashActorSNOKitingIgnore_.UnionWith(CacheIDLookup.hashActorSNOSummonedUnit);
-								//LOS exceptions (gyser, heart of sin)
-								hashActorSNOKitingIgnore_.UnionWith(CacheIDLookup.hashActorSNOIgnoreLOSCheck);
-						  }
-						  return hashActorSNOKitingIgnore_; 
+						  return (Bot.Profile.IsRunningOOCBehavior||Funky.FunkyTPBehaviorFlag||Funky.TownRunManager.bWantToTownRun);
 					 }
 				}
 
 
-				internal static void UpdateAvoidKiteRates(bool Reset=false)
-				{
-					 if (Reset)
-					 {
-						  Combat.iMillisecondsCancelledEmergencyMoveFor=0;
-						  Combat.iMillisecondsCancelledFleeMoveFor=0;
-						  return;
-					 }
 
-					 double extraWaitTime=SettingsFunky.AvoidanceRecheckMaximumRate*Character.dCurrentHealthPct;
-					 if (extraWaitTime<SettingsFunky.AvoidanceRecheckMinimumRate) extraWaitTime=SettingsFunky.AvoidanceRecheckMinimumRate;
-					 Combat.iMillisecondsCancelledEmergencyMoveFor=(int)extraWaitTime;
 
-					 extraWaitTime=MathEx.Random(SettingsFunky.KitingRecheckMinimumRate, SettingsFunky.KitingRecheckMaximumRate)*Character.dCurrentHealthPct;
-					 Combat.iMillisecondsCancelledFleeMoveFor=(int)extraWaitTime;
-				}
 
 
 				internal static void Reset()
@@ -245,7 +101,7 @@ namespace FunkyTrinity
 					 Class=null;
 					 character=new CharacterCache();
 					 Combat=new CombatCache();
-					 Target=new TargetHandler();
+					 Targeting=new TargetHandler();
 					 NavigationCache=new Navigation();
 					 Stats_=new BotStatistics();
 				}

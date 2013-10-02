@@ -394,9 +394,9 @@ namespace FunkyTrinity
 		 internal static void LogItemInformation()
 		  {
 				// Store item pickup stats
-				if (!_hashsetItemPicksLookedAt.Contains(Bot.Target.CurrentTarget.RAGUID))
+				if (!_hashsetItemPicksLookedAt.Contains(Bot.Targeting.CurrentTarget.RAGUID))
 				{
-					 CacheItem thisCacheItem=(CacheItem)Bot.Target.CurrentTarget;
+					 CacheItem thisCacheItem=(CacheItem)Bot.Targeting.CurrentTarget;
 					 GilesItemType thisgilesitemtype=DetermineItemType(thisCacheItem.InternalName, thisCacheItem.BalanceData.thisItemType, thisCacheItem.BalanceData.thisFollowerType);
 					 GilesBaseItemType thisgilesbasetype=DetermineBaseType(thisgilesitemtype);
 

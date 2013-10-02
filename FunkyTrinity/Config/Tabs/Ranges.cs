@@ -26,7 +26,7 @@ namespace FunkyTrinity
 					 {
 						  //;
 						  SettingRanges newSettings=SettingRanges.DeserializeFromXML(OFD.FileName);
-						  Bot.SettingsFunky.Ranges=newSettings;
+						  Bot.Settings.Ranges=newSettings;
 
 						  FunkyWindow.funkyConfigWindow.Close();
 					 } catch
@@ -40,49 +40,49 @@ namespace FunkyTrinity
 
 		  private void IgnoreCombatRangeChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Ranges.IgnoreCombatRange=!Bot.SettingsFunky.Ranges.IgnoreCombatRange;
+				Bot.Settings.Ranges.IgnoreCombatRange=!Bot.Settings.Ranges.IgnoreCombatRange;
 		  }
 		  private void IgnoreLootRangeChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Ranges.IgnoreLootRange=!Bot.SettingsFunky.Ranges.IgnoreLootRange;
+				Bot.Settings.Ranges.IgnoreLootRange=!Bot.Settings.Ranges.IgnoreLootRange;
 		  }
 		  private void IgnoreProfileBlacklistChecked(object sender, EventArgs e)
 		  {
-				Bot.SettingsFunky.Ranges.IgnoreProfileBlacklists=!Bot.SettingsFunky.Ranges.IgnoreProfileBlacklists;
+				Bot.Settings.Ranges.IgnoreProfileBlacklists=!Bot.Settings.Ranges.IgnoreProfileBlacklists;
 		  }
 		  private void EliteRangeSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Ranges.EliteCombatRange=Value;
+				Bot.Settings.Ranges.EliteCombatRange=Value;
 				TBEliteRange.Text=Value.ToString();
 		  }
 		  private void GoldRangeSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Ranges.GoldRange=Value;
+				Bot.Settings.Ranges.GoldRange=Value;
 				TBGoldRange.Text=Value.ToString();
 		  }
 		  private void GlobeRangeSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Ranges.GlobeRange=Value;
+				Bot.Settings.Ranges.GlobeRange=Value;
 				TBGlobeRange.Text=Value.ToString();
 		  }
 		  private void ItemRangeSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Ranges.ItemRange=Value;
+				Bot.Settings.Ranges.ItemRange=Value;
 				TBItemRange.Text=Value.ToString();
 		  }
 		  private void ShrineRangeSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Ranges.ShrineRange=Value;
+				Bot.Settings.Ranges.ShrineRange=Value;
 				TBShrineRange.Text=Value.ToString();
 		  }
 
@@ -90,28 +90,28 @@ namespace FunkyTrinity
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Ranges.ContainerOpenRange=Value;
+				Bot.Settings.Ranges.ContainerOpenRange=Value;
 				TBContainerRange.Text=Value.ToString();
 		  }
 		  private void NonEliteRangeSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Ranges.NonEliteCombatRange=Value;
+				Bot.Settings.Ranges.NonEliteCombatRange=Value;
 				TBNonEliteRange.Text=Value.ToString();
 		  }
 		  private void TreasureGoblinRangeSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Ranges.TreasureGoblinRange=Value;
+				Bot.Settings.Ranges.TreasureGoblinRange=Value;
 				TBGoblinRange.Text=Value.ToString();
 		  }
 		  private void DestructibleSliderChanged(object sender, EventArgs e)
 		  {
 				Slider slider_sender=(Slider)sender;
 				int Value=(int)slider_sender.Value;
-				Bot.SettingsFunky.Ranges.DestructibleRange=Value;
+				Bot.Settings.Ranges.DestructibleRange=Value;
 				TBDestructibleRange.Text=Value.ToString();
 		  }
 		  #endregion
@@ -154,7 +154,7 @@ namespace FunkyTrinity
 					 // Width = 300,
 					 HorizontalContentAlignment=System.Windows.HorizontalAlignment.Left,
 					 Height=30,
-					 IsChecked=(Bot.SettingsFunky.Ranges.IgnoreCombatRange)
+					 IsChecked=(Bot.Settings.Ranges.IgnoreCombatRange)
 				};
 				cbIgnoreCombatRange.Checked+=IgnoreCombatRangeChecked;
 				cbIgnoreCombatRange.Unchecked+=IgnoreCombatRangeChecked;
@@ -165,7 +165,7 @@ namespace FunkyTrinity
 					 // Width = 300,
 					 Height=30,
 					 HorizontalContentAlignment=System.Windows.HorizontalAlignment.Right,
-					 IsChecked=(Bot.SettingsFunky.Ranges.IgnoreLootRange)
+					 IsChecked=(Bot.Settings.Ranges.IgnoreLootRange)
 				};
 				cbIgnoreLootRange.Checked+=IgnoreLootRangeChecked;
 				cbIgnoreLootRange.Unchecked+=IgnoreLootRangeChecked;
@@ -177,7 +177,7 @@ namespace FunkyTrinity
 					 // Width = 300,
 					 Height=30,
 					 HorizontalContentAlignment=System.Windows.HorizontalAlignment.Right,
-					 IsChecked=(Bot.SettingsFunky.Ranges.IgnoreProfileBlacklists)
+					 IsChecked=(Bot.Settings.Ranges.IgnoreProfileBlacklists)
 				};
 				cbIgnoreProfileBlacklist.Checked+=IgnoreProfileBlacklistChecked;
 				cbIgnoreProfileBlacklist.Unchecked+=IgnoreProfileBlacklistChecked;
@@ -205,13 +205,13 @@ namespace FunkyTrinity
 					 TickFrequency=5,
 					 LargeChange=5,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Ranges.EliteCombatRange,
+					 Value=Bot.Settings.Ranges.EliteCombatRange,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderEliteRange.ValueChanged+=EliteRangeSliderChanged;
 				TBEliteRange=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Ranges.EliteCombatRange.ToString(),
+					 Text=Bot.Settings.Ranges.EliteCombatRange.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel EliteStackPanel=new StackPanel
@@ -235,13 +235,13 @@ namespace FunkyTrinity
 					 TickFrequency=5,
 					 LargeChange=5,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Ranges.NonEliteCombatRange,
+					 Value=Bot.Settings.Ranges.NonEliteCombatRange,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderNonEliteRange.ValueChanged+=NonEliteRangeSliderChanged;
 				TBNonEliteRange=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Ranges.NonEliteCombatRange.ToString(),
+					 Text=Bot.Settings.Ranges.NonEliteCombatRange.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel NonEliteStackPanel=new StackPanel
@@ -265,13 +265,13 @@ namespace FunkyTrinity
 					 TickFrequency=5,
 					 LargeChange=5,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Ranges.ShrineRange,
+					 Value=Bot.Settings.Ranges.ShrineRange,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderShrineRange.ValueChanged+=ShrineRangeSliderChanged;
 				TBShrineRange=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Ranges.ShrineRange.ToString(),
+					 Text=Bot.Settings.Ranges.ShrineRange.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel ShrineStackPanel=new StackPanel
@@ -295,13 +295,13 @@ namespace FunkyTrinity
 					 TickFrequency=5,
 					 LargeChange=5,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Ranges.ContainerOpenRange,
+					 Value=Bot.Settings.Ranges.ContainerOpenRange,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderContainerRange.ValueChanged+=ContainerRangeSliderChanged;
 				TBContainerRange=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Ranges.ContainerOpenRange.ToString(),
+					 Text=Bot.Settings.Ranges.ContainerOpenRange.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel ContainerStackPanel=new StackPanel
@@ -325,13 +325,13 @@ namespace FunkyTrinity
 					 TickFrequency=5,
 					 LargeChange=5,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Ranges.DestructibleRange,
+					 Value=Bot.Settings.Ranges.DestructibleRange,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderDestructibleRange.ValueChanged+=DestructibleSliderChanged;
 				TBDestructibleRange=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Ranges.DestructibleRange.ToString(),
+					 Text=Bot.Settings.Ranges.DestructibleRange.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel DestructibleStackPanel=new StackPanel
@@ -355,13 +355,13 @@ namespace FunkyTrinity
 					 TickFrequency=5,
 					 LargeChange=5,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Ranges.GoldRange,
+					 Value=Bot.Settings.Ranges.GoldRange,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderGoldRange.ValueChanged+=GoldRangeSliderChanged;
 				TBGoldRange=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Ranges.GoldRange.ToString(),
+					 Text=Bot.Settings.Ranges.GoldRange.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel GoldRangeStackPanel=new StackPanel
@@ -385,13 +385,13 @@ namespace FunkyTrinity
 					 TickFrequency=5,
 					 LargeChange=5,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Ranges.GlobeRange,
+					 Value=Bot.Settings.Ranges.GlobeRange,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderGlobeRange.ValueChanged+=GlobeRangeSliderChanged;
 				TBGlobeRange=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Ranges.GlobeRange.ToString(),
+					 Text=Bot.Settings.Ranges.GlobeRange.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel GlobeRangeStackPanel=new StackPanel
@@ -415,13 +415,13 @@ namespace FunkyTrinity
 					 TickFrequency=5,
 					 LargeChange=5,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Ranges.ItemRange,
+					 Value=Bot.Settings.Ranges.ItemRange,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderItemRange.ValueChanged+=ItemRangeSliderChanged;
 				TBItemRange=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Ranges.ItemRange.ToString(),
+					 Text=Bot.Settings.Ranges.ItemRange.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel ItemRangeStackPanel=new StackPanel
@@ -445,13 +445,13 @@ namespace FunkyTrinity
 					 TickFrequency=5,
 					 LargeChange=5,
 					 SmallChange=1,
-					 Value=Bot.SettingsFunky.Ranges.TreasureGoblinRange,
+					 Value=Bot.Settings.Ranges.TreasureGoblinRange,
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
 				};
 				sliderGoblinRange.ValueChanged+=TreasureGoblinRangeSliderChanged;
 				TBGoblinRange=new TextBox
 				{
-					 Text=Bot.SettingsFunky.Ranges.TreasureGoblinRange.ToString(),
+					 Text=Bot.Settings.Ranges.TreasureGoblinRange.ToString(),
 					 IsReadOnly=true,
 				};
 				StackPanel GoblinRangeStackPanel=new StackPanel

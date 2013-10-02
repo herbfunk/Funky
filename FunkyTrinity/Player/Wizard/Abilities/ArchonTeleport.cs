@@ -28,14 +28,14 @@ namespace FunkyTrinity.AbilityFunky.Abilities.Wizard
 
 			FcriteriaCombat = new Func<bool>(() =>
 			{
-				 return ((Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP&&
+				 return ((Bot.Settings.Class.bTeleportFleeWhenLowHP&&
 								(Bot.Character.dCurrentHealthPct<0.5d)||
 								(Bot.Combat.RequiresAvoidance)||
 								(Bot.Combat.IsFleeing))
 				        ||
-				        (Bot.SettingsFunky.Class.bTeleportIntoGrouping && this.LastConditionPassed==ConditionCriteraTypes.Cluster)
+				        (Bot.Settings.Class.bTeleportIntoGrouping && this.LastConditionPassed==ConditionCriteraTypes.Cluster)
 				        ||
-						  (!Bot.SettingsFunky.Class.bTeleportFleeWhenLowHP && !Bot.SettingsFunky.Class.bTeleportIntoGrouping));
+						  (!Bot.Settings.Class.bTeleportFleeWhenLowHP && !Bot.Settings.Class.bTeleportIntoGrouping));
 
 			});
 			FCombatMovement=new Func<Vector3, Vector3>((v) =>

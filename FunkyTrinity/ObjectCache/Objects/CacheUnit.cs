@@ -205,7 +205,7 @@ namespace FunkyTrinity.Cache
 					 {
 						  return ((!this.BeingIgnoredDueToClusterLogic||this.PriorityCounter>0) //not ignored because of clusters
 										&&(!this.IsBurrowed.HasValue||!this.IsBurrowed.Value) //ignore burrowed!
-										&&(!Bot.HashActorSNOKitingIgnore.Contains(base.SNOID)||this.MonsterRare||this.MonsterMinion||this.MonsterElite));
+										&&(!CacheIDLookup.HashActorSNOKitingIgnore.Contains(base.SNOID)||this.MonsterRare||this.MonsterMinion||this.MonsterElite));
 					 }
 				}
 
@@ -214,8 +214,8 @@ namespace FunkyTrinity.Cache
 					 get
 					 {
 
-							if (Bot.SettingsFunky.Cluster.EnableClusteringTargetLogic
-								&&(!Bot.SettingsFunky.Cluster.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>Bot.SettingsFunky.Cluster.IgnoreClusterLowHPValue)
+							if (Bot.Settings.Cluster.EnableClusteringTargetLogic
+								&&(!Bot.Settings.Cluster.IgnoreClusteringWhenLowHP||Bot.Character.dCurrentHealthPct>Bot.Settings.Cluster.IgnoreClusterLowHPValue)
 								&&!Bot.IsInNonCombatBehavior)
 						  {
 								//Check if this unit is valid based on if its contained in valid clusters
@@ -234,11 +234,11 @@ namespace FunkyTrinity.Cache
 					get
 					{
 						 return
-							  (this.IsSucideBomber&&Bot.SettingsFunky.Targeting.UnitExceptionSucideBombers)||
-							  (this.IsTreasureGoblin&&Bot.SettingsFunky.Ranges.TreasureGoblinRange>1)||
-							  (this.Monstersize.Value==MonsterSize.Ranged&&Bot.SettingsFunky.Targeting.UnitExceptionRangedUnits)||
-							  (this.IsSpawnerUnit&&Bot.SettingsFunky.Targeting.UnitExceptionSpawnerUnits)||
-							  ((Bot.SettingsFunky.Targeting.UnitExceptionLowHP&&((this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0)
+							  (this.IsSucideBomber&&Bot.Settings.Targeting.UnitExceptionSucideBombers)||
+							  (this.IsTreasureGoblin&&Bot.Settings.Ranges.TreasureGoblinRange>1)||
+							  (this.Monstersize.Value==MonsterSize.Ranged&&Bot.Settings.Targeting.UnitExceptionRangedUnits)||
+							  (this.IsSpawnerUnit&&Bot.Settings.Targeting.UnitExceptionSpawnerUnits)||
+							  ((Bot.Settings.Targeting.UnitExceptionLowHP&&((this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0)
 												&&((!Bot.Class.IsMeleeClass&&this.CentreDistance<30f)||(Bot.Class.IsMeleeClass&&this.RadiusDistance<12f)))));
 					}
 			  }
@@ -300,7 +300,7 @@ namespace FunkyTrinity.Cache
 				public bool UpdateHitPoints()
 				{
 					 //Last Target skips the counter checks
-					 if (this==Bot.Target.LastCachedTarget)
+					 if (this==Bot.Targeting.LastCachedTarget)
 					 {
 						  this.UpdateCurrentHitPoints();
 						  return true;
@@ -418,7 +418,7 @@ namespace FunkyTrinity.Cache
 					 get
 					 {
 						  //Set our current radius to the settings of profile.
-						  double dUseKillRadius=Bot.iCurrentMaxKillRadius;
+						  double dUseKillRadius=Bot.Targeting.iCurrentMaxKillRadius;
 
 
 						  // Special short-range list to ignore weakling mobs
@@ -427,7 +427,7 @@ namespace FunkyTrinity.Cache
 						  // Prevent long-range mobs beign ignored while they may be pounding on us
 						  if (dUseKillRadius<=30&&CacheIDLookup.hashActorSNORanged.Contains(this.SNOID)) dUseKillRadius=30;
 
-						  if (this.CentreDistance<=Bot.NonEliteRange) Bot.Combat.bAnyMobsInCloseRange=true;
+						  if (this.CentreDistance<=Bot.Settings.Ranges.NonEliteCombatRange) Bot.Combat.bAnyMobsInCloseRange=true;
 
 
 
@@ -481,23 +481,23 @@ namespace FunkyTrinity.Cache
 
 								//Use a shorter range if not yet noticed..
 								if (this.CurrentHealthPct<=0.10)
-									 dUseKillRadius+=Bot.TreasureGoblinRange+(Bot.SettingsFunky.Targeting.GoblinPriority*24);
+									 dUseKillRadius+=Bot.Settings.Ranges.TreasureGoblinRange+(Bot.Settings.Targeting.GoblinPriority*24);
 								else if (this.CurrentHealthPct<=0.99)
-									 dUseKillRadius+=Bot.TreasureGoblinRange+(Bot.SettingsFunky.Targeting.GoblinPriority*16);
+									 dUseKillRadius+=Bot.Settings.Ranges.TreasureGoblinRange+(Bot.Settings.Targeting.GoblinPriority*16);
 								else
-									 dUseKillRadius+=Bot.TreasureGoblinRange+(Bot.SettingsFunky.Targeting.GoblinPriority*12);
+									 dUseKillRadius+=Bot.Settings.Ranges.TreasureGoblinRange+(Bot.Settings.Targeting.GoblinPriority*12);
 
 								this.ForceLeap=true;
 						  }
 						  // Elitey type mobs and things
 						  else if ((this.IsEliteRareUnique))
 						  {
-								dUseKillRadius+=Bot.EliteRange;
+								dUseKillRadius+=Bot.Settings.Ranges.EliteCombatRange;
 								this.ForceLeap=true;
 						  }
 						  else
 								//Not Boss, Goblin, Elite/Rare/Unique..
-								dUseKillRadius+=Bot.NonEliteRange;
+								dUseKillRadius+=Bot.Settings.Ranges.NonEliteCombatRange;
 
 
 						  // Standard 50f range when preforming OOC behaviors!
@@ -517,7 +517,7 @@ namespace FunkyTrinity.Cache
 					 bCountAsElite=(this.IsEliteRareUnique||this.IsTreasureGoblin||this.IsBoss);
 					 float RadiusDistance=this.RadiusDistance;
 
-					 if (Bot.SettingsFunky.Fleeing.EnableFleeingBehavior&&RadiusDistance<=Bot.SettingsFunky.Fleeing.FleeMaxMonsterDistance&&this.ShouldBeKited)
+					 if (Bot.Settings.Fleeing.EnableFleeingBehavior&&RadiusDistance<=Bot.Settings.Fleeing.FleeMaxMonsterDistance&&this.ShouldBeKited)
 						  Bot.Combat.FleeTriggeringUnits.Add(this);
 
 
@@ -588,7 +588,7 @@ namespace FunkyTrinity.Cache
 					 if (this.BeingIgnoredDueToClusterLogic
 						  &&this.PriorityCounter==0
 						  &&!this.IsClusterException
-						  &&(Bot.Target.CurrentTarget!=null
+						  &&(Bot.Targeting.CurrentTarget!=null
 						  ||Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_30]==0
 						  ||ObjectCache.Objects.objectsIgnoredDueToAvoidance.Count==0))
 					 {
@@ -643,8 +643,8 @@ namespace FunkyTrinity.Cache
 								this.Weight=20000-(Math.Floor(radiusDistance)*200);
 
 								// Goblin priority KAMIKAZEEEEEEEE
-								if (this.IsTreasureGoblin&&Bot.SettingsFunky.Targeting.GoblinPriority>1)
-									 this.Weight+=10250*(Bot.SettingsFunky.Targeting.GoblinPriority-1);
+								if (this.IsTreasureGoblin&&Bot.Settings.Targeting.GoblinPriority>1)
+									 this.Weight+=10250*(Bot.Settings.Targeting.GoblinPriority-1);
 						  }
 						  else
 						  {
@@ -662,15 +662,15 @@ namespace FunkyTrinity.Cache
 
 									 // Distance as a percentage of max radius gives a value up to 1000 (1000 would be point-blank range)
 
-									 if (radiusDistance<Bot.iCurrentMaxKillRadius)
+									 if (radiusDistance<Bot.Targeting.iCurrentMaxKillRadius)
 									 {
 										  int RangeModifier=1200;
 										  //Increase Distance Modifier if recently kited.
-										  if (Bot.SettingsFunky.Fleeing.EnableFleeingBehavior&&DateTime.Now.Subtract(Bot.Target.LastFleeAction).TotalMilliseconds<3000)
+										  if (Bot.Settings.Fleeing.EnableFleeingBehavior&&DateTime.Now.Subtract(Bot.Targeting.LastFleeAction).TotalMilliseconds<3000)
 												RangeModifier=12000;
 
 
-										  this.Weight+=(RangeModifier*(1-(radiusDistance/Bot.iCurrentMaxKillRadius)));
+										  this.Weight+=(RangeModifier*(1-(radiusDistance/Bot.Targeting.iCurrentMaxKillRadius)));
 									 }
 
 									 // Give extra weight to ranged enemies
@@ -711,7 +711,7 @@ namespace FunkyTrinity.Cache
 										  this.Weight+=(1500*(1-(this.CurrentHealthPct.Value/0.45)));
 
 									 // Goblins on low health get extra priority - up to 2500
-									 if (Bot.SettingsFunky.Targeting.GoblinPriority>=2&&this.IsTreasureGoblin&&this.CurrentHealthPct<=0.98)
+									 if (Bot.Settings.Targeting.GoblinPriority>=2&&this.IsTreasureGoblin&&this.CurrentHealthPct<=0.98)
 										  this.Weight+=(3000*(1-(this.CurrentHealthPct.Value/0.85)));
 
 									 // Bonuses to priority type monsters from the dictionary/hashlist set at the top of the code
@@ -736,7 +736,7 @@ namespace FunkyTrinity.Cache
 										  this.Weight+=2000;
 
 									 // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-									 if (this==Bot.Target.LastCachedTarget&&centreDistance<=25f)
+									 if (this==Bot.Targeting.LastCachedTarget&&centreDistance<=25f)
 										  this.Weight+=400;
 
 									 //// Lower the priority for EACH AOE *BETWEEN* us and the target, NOT counting the one directly under-foot, up to a maximum of 1500 reduction
@@ -771,19 +771,19 @@ namespace FunkyTrinity.Cache
 									 if (this.IsTreasureGoblin)
 									 {
 										  // Logging goblin sightings
-										  if (Bot.Combat.lastGoblinTime==DateTime.Today)
+										  if (Bot.Targeting.lastGoblinTime==DateTime.Today)
 										  {
-												Bot.Combat.iTotalNumberGoblins++;
-												Bot.Combat.lastGoblinTime=DateTime.Now;
-												Logging.Write("[Funky] Goblin #"+Bot.Combat.iTotalNumberGoblins.ToString()+" in sight. Distance="+centreDistance);
+												Bot.Targeting.iTotalNumberGoblins++;
+												Bot.Targeting.lastGoblinTime=DateTime.Now;
+												Logging.Write("[Funky] Goblin #"+Bot.Targeting.iTotalNumberGoblins.ToString()+" in sight. Distance="+centreDistance);
 										  }
 										  else
 										  {
-												if (DateTime.Now.Subtract(Bot.Combat.lastGoblinTime).TotalMilliseconds>30000)
-													 Bot.Combat.lastGoblinTime=DateTime.Today;
+												if (DateTime.Now.Subtract(Bot.Targeting.lastGoblinTime).TotalMilliseconds>30000)
+													 Bot.Targeting.lastGoblinTime=DateTime.Today;
 										  }
 										  // Original Trinity stuff for priority handling now
-										  switch (Bot.SettingsFunky.Targeting.GoblinPriority)
+										  switch (Bot.Settings.Targeting.GoblinPriority)
 										  {
 												case 2:
 													 // Super-high priority option below... 
@@ -881,7 +881,7 @@ namespace FunkyTrinity.Cache
 						  bool distantUnit=false;
 						  bool validUnit=false;
 						  //Distant Units List
-						  if (centreDistance>=Bot.SettingsFunky.Grouping.GroupingMinimumUnitDistance&&Bot.SettingsFunky.Grouping.AttemptGroupingMovements)
+						  if (centreDistance>=Bot.Settings.Grouping.GroupingMinimumUnitDistance&&Bot.Settings.Grouping.AttemptGroupingMovements)
 						  {
 								distantUnit=true;
 						  }
@@ -996,7 +996,7 @@ namespace FunkyTrinity.Cache
 						  if (this.IsBoss||this.IsEliteRareUnique)
 						  {
 								//Ignore Setting?
-								if (Bot.SettingsFunky.Targeting.IgnoreAboveAverageMobs&&this.PriorityCounter<=1&&!Bot.IsInNonCombatBehavior&&!this.IsBoss)
+								if (Bot.Settings.Targeting.IgnoreAboveAverageMobs&&this.PriorityCounter<=1&&!Bot.IsInNonCombatBehavior&&!this.IsBoss)
 									 return false;
 
 								Bot.Combat.bAnyChampionsPresent=true;
@@ -1008,7 +1008,7 @@ namespace FunkyTrinity.Cache
 
 
 						  // Units with very high priority (1900+) allow an extra 50% on the non-elite kill slider range
-						  if (!Bot.Combat.bAnyMobsInCloseRange&&!Bot.Combat.bAnyChampionsPresent&&!Bot.Combat.bAnyTreasureGoblinsPresent&&this.CentreDistance<=(Bot.NonEliteRange*1.5))
+						  if (!Bot.Combat.bAnyMobsInCloseRange&&!Bot.Combat.bAnyChampionsPresent&&!Bot.Combat.bAnyTreasureGoblinsPresent&&this.CentreDistance<=(Bot.Settings.Ranges.NonEliteCombatRange*1.5))
 						  {
 								int iExtraPriority;
 								// Enable extended kill radius for specific unit-types
@@ -1035,7 +1035,7 @@ namespace FunkyTrinity.Cache
 
 
 						  //Profile Blacklisted.
-						  if (!Bot.SettingsFunky.Ranges.IgnoreProfileBlacklists&&BlacklistCache.hashProfileSNOTargetBlacklist.Contains(this.SNOID))
+						  if (!Bot.Settings.Ranges.IgnoreProfileBlacklists&&BlacklistCache.hashProfileSNOTargetBlacklist.Contains(this.SNOID))
 						  {
 								//Only if not prioritized..
 								if (!Bot.IsInNonCombatBehavior)
@@ -1066,7 +1066,7 @@ namespace FunkyTrinity.Cache
 								this.ref_DiaUnit=base.ref_DiaObject as DiaUnit;
 						  } catch (NullReferenceException)
 						  {
-								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 									 Logger.Write(LogLevel.Execption, "Failure to convert obj to DiaUnit!"); 
 								return false;
 						  }
@@ -1075,7 +1075,7 @@ namespace FunkyTrinity.Cache
 					 ACD CommonData=base.ref_DiaObject.CommonData;
 					 if (CommonData==null)
 					 {
-						  if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 								Logger.Write(LogLevel.Execption, "Common Data Null!");
 						  return false;
 					 }
@@ -1100,7 +1100,7 @@ namespace FunkyTrinity.Cache
 								isNPC=this.IsNPC.Value;
 						  } catch (Exception)
 						  {
-								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 									 Logger.Write(LogLevel.Execption, "Safely Handled Getting Attribute IsNPC for object {0}", this.InternalName);
 						  }
 
@@ -1151,7 +1151,7 @@ namespace FunkyTrinity.Cache
 								this.CheckMonsterAffixes(CommonData.MonsterAffixes);
 						  } catch (NullReferenceException)
 						  {
-								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 									 Logger.Write(LogLevel.Execption, "Failure to check monster affixes for unit {0}", base.InternalName);
 								return false;
 						  }
@@ -1175,7 +1175,7 @@ namespace FunkyTrinity.Cache
 								}
 						  } catch (Exception)
 						  {
-								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 									 Logger.Write(LogLevel.Execption, "Failure to get maximum health for {0}", base.InternalName); 
 								return false;
 						  }
@@ -1231,7 +1231,7 @@ namespace FunkyTrinity.Cache
 								}
 						  } catch (Exception ex)
 						  {
-								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 									 Logger.Write(LogLevel.Execption, "[Funky] Safely handled exception getting is-targetable attribute for unit "+this.InternalName+" ["+this.SNOID.ToString()+"]");
 								Logging.WriteDiagnostic(ex.ToString());
 								this.IsTargetable=true;
@@ -1364,8 +1364,8 @@ namespace FunkyTrinity.Cache
 						  if (Bot.Class.PowerPrime.Power!=SNOPower.Barbarian_Whirlwind&&Bot.Class.PowerPrime.Power!=SNOPower.DemonHunter_Strafe)
 						  {
 								Ability.UsePower(ref Bot.Class.PowerPrime);
-								Bot.Combat.lastChangedZigZag=DateTime.Today;
-								Bot.Combat.vPositionLastZigZagCheck=Vector3.Zero;
+								Bot.NavigationCache.lastChangedZigZag=DateTime.Today;
+								Bot.NavigationCache.vPositionLastZigZagCheck=Vector3.Zero;
 						  }
 						  else
 						  {
@@ -1409,14 +1409,14 @@ namespace FunkyTrinity.Cache
 						  }
 
 						  //Check health changes -- only when single target or cluster with targeting is used.
-						  if (Bot.Target.LastCachedTarget.Equals(this)&&
+						  if (Bot.Targeting.LastCachedTarget.Equals(this)&&
 								Bot.Class.LastUsedAbility.LastUsedMilliseconds<1000&&
-								DateTime.Now.Subtract(Bot.Target.LastChangeOfTarget).TotalMilliseconds>3000)
+								DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalMilliseconds>3000)
 						  {
 								double LastHealthChangedMS=DateTime.Now.Subtract(this.LastHealthChange).TotalMilliseconds;
 								if (LastHealthChangedMS>5000)
 								{
-									 if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 										  Logger.Write(LogLevel.Target, "Ignore Unit {0} due to health last changed of {1}ms", this.InternalName, LastHealthChangedMS);
 									 this.BlacklistLoops=20;
 									 Bot.Combat.bForceTargetUpdate=true;
@@ -1454,9 +1454,9 @@ namespace FunkyTrinity.Cache
 						  Bot.Class.PowerPrime.MinimumRange=15;
 					 else if (this.IsStealthableUnit&&this.IsAttackable.HasValue&&this.IsAttackable.Value==false&&this.IsEliteRareUnique)
 						  Bot.Class.PowerPrime.MinimumRange=15;
-					 else if (this.IsTreasureGoblin&&!Bot.Class.IsMeleeClass&&Bot.SettingsFunky.Class.GoblinMinimumRange>0)
-						  Bot.Class.PowerPrime.MinimumRange=Bot.SettingsFunky.Class.GoblinMinimumRange;
-					 else if (this.MonsterMissileDampening&&Bot.SettingsFunky.Targeting.MissleDampeningEnforceCloseRange)
+					 else if (this.IsTreasureGoblin&&!Bot.Class.IsMeleeClass&&Bot.Settings.Class.GoblinMinimumRange>0)
+						  Bot.Class.PowerPrime.MinimumRange=Bot.Settings.Class.GoblinMinimumRange;
+					 else if (this.MonsterMissileDampening&&Bot.Settings.Targeting.MissleDampeningEnforceCloseRange)
 						  Bot.Class.PowerPrime.MinimumRange=15;
 					 //else
 					 //	 fDistanceReduction=base.Radius;
@@ -1476,16 +1476,16 @@ namespace FunkyTrinity.Cache
 				{
 					 get
 					 {
-						  if ((this.IsEliteRareUnique&&!Bot.SettingsFunky.Targeting.IgnoreAboveAverageMobs)||
+						  if ((this.IsEliteRareUnique&&!Bot.Settings.Targeting.IgnoreAboveAverageMobs)||
 									 (this.PriorityCounter>0)||
-									 (this.IsBoss&&!Bot.SettingsFunky.Targeting.IgnoreAboveAverageMobs&&this.CurrentHealthPct<=0.99d)||
-									 (((this.IsSucideBomber&&Bot.SettingsFunky.Targeting.UnitExceptionSucideBombers)||this.IsCorruptantGrowth)&&this.CentreDistance<45f)||
-									 (this.IsSpawnerUnit&&Bot.SettingsFunky.Targeting.UnitExceptionSpawnerUnits)||
-									 ((this.IsTreasureGoblin&&Bot.SettingsFunky.Targeting.GoblinPriority>1))||
-									 (this.Monstersize.Value==MonsterSize.Ranged&&Bot.SettingsFunky.Targeting.UnitExceptionRangedUnits
-										  &&(!this.IsEliteRareUnique||!Bot.SettingsFunky.Targeting.IgnoreAboveAverageMobs))||
-									 ((Bot.SettingsFunky.Targeting.UnitExceptionLowHP&&((this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0)
-												&&(!this.IsEliteRareUnique||!Bot.SettingsFunky.Targeting.IgnoreAboveAverageMobs)
+									 (this.IsBoss&&!Bot.Settings.Targeting.IgnoreAboveAverageMobs&&this.CurrentHealthPct<=0.99d)||
+									 (((this.IsSucideBomber&&Bot.Settings.Targeting.UnitExceptionSucideBombers)||this.IsCorruptantGrowth)&&this.CentreDistance<45f)||
+									 (this.IsSpawnerUnit&&Bot.Settings.Targeting.UnitExceptionSpawnerUnits)||
+									 ((this.IsTreasureGoblin&&Bot.Settings.Targeting.GoblinPriority>1))||
+									 (this.Monstersize.Value==MonsterSize.Ranged&&Bot.Settings.Targeting.UnitExceptionRangedUnits
+										  &&(!this.IsEliteRareUnique||!Bot.Settings.Targeting.IgnoreAboveAverageMobs))||
+									 ((Bot.Settings.Targeting.UnitExceptionLowHP&&((this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0)
+												&&(!this.IsEliteRareUnique||!Bot.Settings.Targeting.IgnoreAboveAverageMobs)
 												&&((!Bot.Class.IsMeleeClass&&this.CentreDistance<30f)||(Bot.Class.IsMeleeClass&&this.RadiusDistance<12f))))))
 
 

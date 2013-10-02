@@ -115,7 +115,7 @@ namespace FunkyTrinity
 				// If it's legendary, we always want it *IF* it's level is right
 				if (item.Itemquality>=ItemQuality.Legendary)
 				{
-					 if (Bot.SettingsFunky.Loot.MinimumLegendaryItemLevel>0&&(item.BalanceData.iThisItemLevel>=Bot.SettingsFunky.Loot.MinimumLegendaryItemLevel||Bot.SettingsFunky.Loot.MinimumLegendaryItemLevel==1))
+					 if (Bot.Settings.Loot.MinimumLegendaryItemLevel>0&&(item.BalanceData.iThisItemLevel>=Bot.Settings.Loot.MinimumLegendaryItemLevel||Bot.Settings.Loot.MinimumLegendaryItemLevel==1))
 						  return true;
 
 					 return false;
@@ -144,7 +144,7 @@ namespace FunkyTrinity
 						  }
 						  if (item.Itemquality>=ItemQuality.Magic1&&item.Itemquality<ItemQuality.Rare4)
 						  {
-								if (Bot.SettingsFunky.Loot.MinimumWeaponItemLevel[0]==0||(Bot.SettingsFunky.Loot.MinimumWeaponItemLevel[0]!=0&&item.BalanceData.iThisItemLevel<Bot.SettingsFunky.Loot.MinimumWeaponItemLevel[0]))
+								if (Bot.Settings.Loot.MinimumWeaponItemLevel[0]==0||(Bot.Settings.Loot.MinimumWeaponItemLevel[0]!=0&&item.BalanceData.iThisItemLevel<Bot.Settings.Loot.MinimumWeaponItemLevel[0]))
 								{
 									 // Between magic and rare, and either we want no blues, or this level is higher than the blue level we want
 									 return false;
@@ -152,7 +152,7 @@ namespace FunkyTrinity
 						  }
 						  else
 						  {
-								if (Bot.SettingsFunky.Loot.MinimumWeaponItemLevel[1]==0||(Bot.SettingsFunky.Loot.MinimumWeaponItemLevel[1]!=0&&item.BalanceData.iThisItemLevel<Bot.SettingsFunky.Loot.MinimumWeaponItemLevel[1]))
+								if (Bot.Settings.Loot.MinimumWeaponItemLevel[1]==0||(Bot.Settings.Loot.MinimumWeaponItemLevel[1]!=0&&item.BalanceData.iThisItemLevel<Bot.Settings.Loot.MinimumWeaponItemLevel[1]))
 								{
 									 // Between magic and rare, and either we want no blues, or this level is higher than the blue level we want
 									 return false;
@@ -168,7 +168,7 @@ namespace FunkyTrinity
 						  }
 						  if (item.Itemquality>=ItemQuality.Magic1&&item.Itemquality<ItemQuality.Rare4)
 						  {
-								if (Bot.SettingsFunky.Loot.MinimumArmorItemLevel[0]==0||(Bot.SettingsFunky.Loot.MinimumArmorItemLevel[0]!=0&&item.BalanceData.iThisItemLevel<Bot.SettingsFunky.Loot.MinimumArmorItemLevel[0]))
+								if (Bot.Settings.Loot.MinimumArmorItemLevel[0]==0||(Bot.Settings.Loot.MinimumArmorItemLevel[0]!=0&&item.BalanceData.iThisItemLevel<Bot.Settings.Loot.MinimumArmorItemLevel[0]))
 								{
 									 // Between magic and rare, and either we want no blues, or this level is higher than the blue level we want
 									 return false;
@@ -176,7 +176,7 @@ namespace FunkyTrinity
 						  }
 						  else
 						  {
-								if (Bot.SettingsFunky.Loot.MinimumArmorItemLevel[1]==0||(Bot.SettingsFunky.Loot.MinimumArmorItemLevel[1]!=0&&item.BalanceData.iThisItemLevel<Bot.SettingsFunky.Loot.MinimumArmorItemLevel[1]))
+								if (Bot.Settings.Loot.MinimumArmorItemLevel[1]==0||(Bot.Settings.Loot.MinimumArmorItemLevel[1]!=0&&item.BalanceData.iThisItemLevel<Bot.Settings.Loot.MinimumArmorItemLevel[1]))
 								{
 									 // Between magic and rare, and either we want no blues, or this level is higher than the blue level we want
 									 return false;
@@ -191,7 +191,7 @@ namespace FunkyTrinity
 						  }
 						  if (item.Itemquality>=ItemQuality.Magic1&&item.Itemquality<ItemQuality.Rare4)
 						  {
-								if (Bot.SettingsFunky.Loot.MinimumJeweleryItemLevel[0]==0||(Bot.SettingsFunky.Loot.MinimumJeweleryItemLevel[0]!=0&&item.BalanceData.iThisItemLevel<Bot.SettingsFunky.Loot.MinimumJeweleryItemLevel[0]))
+								if (Bot.Settings.Loot.MinimumJeweleryItemLevel[0]==0||(Bot.Settings.Loot.MinimumJeweleryItemLevel[0]!=0&&item.BalanceData.iThisItemLevel<Bot.Settings.Loot.MinimumJeweleryItemLevel[0]))
 								{
 									 // Between magic and rare, and either we want no blues, or this level is higher than the blue level we want
 									 return false;
@@ -199,7 +199,7 @@ namespace FunkyTrinity
 						  }
 						  else
 						  {
-								if (Bot.SettingsFunky.Loot.MinimumJeweleryItemLevel[1]==0||(Bot.SettingsFunky.Loot.MinimumJeweleryItemLevel[1]!=0&&item.BalanceData.iThisItemLevel<Bot.SettingsFunky.Loot.MinimumJeweleryItemLevel[1]))
+								if (Bot.Settings.Loot.MinimumJeweleryItemLevel[1]==0||(Bot.Settings.Loot.MinimumJeweleryItemLevel[1]!=0&&item.BalanceData.iThisItemLevel<Bot.Settings.Loot.MinimumJeweleryItemLevel[1]))
 								{
 									 // Between magic and rare, and either we want no blues, or this level is higher than the blue level we want
 									 return false;
@@ -207,7 +207,7 @@ namespace FunkyTrinity
 						  }
 						  break;
 					 case GilesBaseItemType.FollowerItem:
-						  if (item.BalanceData.iThisItemLevel<60||!Bot.SettingsFunky.Loot.PickupFollowerItems||item.Itemquality<ItemQuality.Rare4)
+						  if (item.BalanceData.iThisItemLevel<60||!Bot.Settings.Loot.PickupFollowerItems||item.Itemquality<ItemQuality.Rare4)
 						  {
 								if (!_hashsetItemFollowersIgnored.Contains(item.DynamicID.Value))
 								{
@@ -218,8 +218,8 @@ namespace FunkyTrinity
 						  }
 						  break;
 					 case GilesBaseItemType.Gem:
-						  if (item.BalanceData.iThisItemLevel<Bot.SettingsFunky.Loot.MinimumGemItemLevel||(thisGilesItemType==GilesItemType.Ruby&&!Bot.SettingsFunky.Loot.PickupGems[0])||(thisGilesItemType==GilesItemType.Emerald&&!Bot.SettingsFunky.Loot.PickupGems[1])||
-								(thisGilesItemType==GilesItemType.Amethyst&&!Bot.SettingsFunky.Loot.PickupGems[2])||(thisGilesItemType==GilesItemType.Topaz&&!Bot.SettingsFunky.Loot.PickupGems[3]))
+						  if (item.BalanceData.iThisItemLevel<Bot.Settings.Loot.MinimumGemItemLevel||(thisGilesItemType==GilesItemType.Ruby&&!Bot.Settings.Loot.PickupGems[0])||(thisGilesItemType==GilesItemType.Emerald&&!Bot.Settings.Loot.PickupGems[1])||
+								(thisGilesItemType==GilesItemType.Amethyst&&!Bot.Settings.Loot.PickupGems[2])||(thisGilesItemType==GilesItemType.Topaz&&!Bot.Settings.Loot.PickupGems[3]))
 						  {
 								return false;
 						  }
@@ -228,46 +228,46 @@ namespace FunkyTrinity
 						  // Note; Infernal keys are misc, so should be picked up here - we aren't filtering them out, so should default to true at the end of this function
 						  if (thisGilesItemType==GilesItemType.CraftingMaterial)
 						  {
-								if (item.BalanceData.iThisItemLevel==63&&Bot.SettingsFunky.Loot.PickupDemonicEssence)
+								if (item.BalanceData.iThisItemLevel==63&&Bot.Settings.Loot.PickupDemonicEssence)
 									 return true;
 
-								return item.BalanceData.iThisItemLevel<Bot.SettingsFunky.Loot.MiscItemLevel;
+								return item.BalanceData.iThisItemLevel<Bot.Settings.Loot.MiscItemLevel;
 						  }
-						  if (thisGilesItemType==GilesItemType.CraftTome&&(item.BalanceData.iThisItemLevel<Bot.SettingsFunky.Loot.MiscItemLevel||!Bot.SettingsFunky.Loot.PickupCraftTomes))
+						  if (thisGilesItemType==GilesItemType.CraftTome&&(item.BalanceData.iThisItemLevel<Bot.Settings.Loot.MiscItemLevel||!Bot.Settings.Loot.PickupCraftTomes))
 						  {
 								return false;
 						  }
 						  if (thisGilesItemType==GilesItemType.CraftingPlan)
 						  {
-								if (!Bot.SettingsFunky.Loot.PickupCraftPlans) return false;
+								if (!Bot.Settings.Loot.PickupCraftPlans) return false;
 
 								int gamebalanceID=item.BalanceID.Value;
 
-								if (CacheIDLookup.HashPlansPropertiesSix.Contains(gamebalanceID)&&!Bot.SettingsFunky.Loot.PickupBlacksmithPlanSix) return false;
-								if (CacheIDLookup.HashPlansPropertiesFive.Contains(gamebalanceID)&&!Bot.SettingsFunky.Loot.PickupBlacksmithPlanFive) return false;
-								if (CacheIDLookup.HashPlansPropertiesFour.Contains(gamebalanceID)&&!Bot.SettingsFunky.Loot.PickupBlacksmithPlanFour) return false;
+								if (CacheIDLookup.HashPlansPropertiesSix.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupBlacksmithPlanSix) return false;
+								if (CacheIDLookup.HashPlansPropertiesFive.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupBlacksmithPlanFive) return false;
+								if (CacheIDLookup.HashPlansPropertiesFour.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupBlacksmithPlanFour) return false;
 
-								if (CacheIDLookup.HashPlansArchonSpaulders.Contains(gamebalanceID)&&!Bot.SettingsFunky.Loot.PickupBlacksmithPlanArchonSpaulders) return false;
-								if (CacheIDLookup.HashPlansArchonGauntlets.Contains(gamebalanceID)&&!Bot.SettingsFunky.Loot.PickupBlacksmithPlanArchonGauntlets) return false;
-								if (CacheIDLookup.HashPlansRazorspikes.Contains(gamebalanceID)&&!Bot.SettingsFunky.Loot.PickupBlacksmithPlanRazorspikes) return false;
+								if (CacheIDLookup.HashPlansArchonSpaulders.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupBlacksmithPlanArchonSpaulders) return false;
+								if (CacheIDLookup.HashPlansArchonGauntlets.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupBlacksmithPlanArchonGauntlets) return false;
+								if (CacheIDLookup.HashPlansRazorspikes.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupBlacksmithPlanRazorspikes) return false;
 
 
-								if (CacheIDLookup.HashDesignAmulet.Contains(gamebalanceID)&&!Bot.SettingsFunky.Loot.PickupJewelerDesignAmulet) return false;
-								if (CacheIDLookup.HashDesignFlawlessStarGem.Contains(gamebalanceID)&&!Bot.SettingsFunky.Loot.PickupJewelerDesignFlawlessStar) return false;
-								if (CacheIDLookup.HashDesignMarquiseGem.Contains(gamebalanceID)&&!Bot.SettingsFunky.Loot.PickupJewelerDesignMarquise) return false;
-								if (CacheIDLookup.HashDesignPerfectStarGem.Contains(gamebalanceID)&&!Bot.SettingsFunky.Loot.PickupJewelerDesignPerfectStar) return false;
-								if (CacheIDLookup.HashDesignRadiantStarGem.Contains(gamebalanceID)&&!Bot.SettingsFunky.Loot.PickupJewelerDesignRadiantStar) return false;
+								if (CacheIDLookup.HashDesignAmulet.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupJewelerDesignAmulet) return false;
+								if (CacheIDLookup.HashDesignFlawlessStarGem.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupJewelerDesignFlawlessStar) return false;
+								if (CacheIDLookup.HashDesignMarquiseGem.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupJewelerDesignMarquise) return false;
+								if (CacheIDLookup.HashDesignPerfectStarGem.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupJewelerDesignPerfectStar) return false;
+								if (CacheIDLookup.HashDesignRadiantStarGem.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupJewelerDesignRadiantStar) return false;
 
 
 						  }
 						  if (thisGilesItemType==GilesItemType.InfernalKey)
 						  {
-								if (!Bot.SettingsFunky.Loot.PickupInfernalKeys) return false;
+								if (!Bot.Settings.Loot.PickupInfernalKeys) return false;
 						  }
 						  // Potion filtering
 						  if (thisGilesItemType==GilesItemType.HealthPotion)
 						  {	
-								if (Bot.SettingsFunky.Loot.MaximumHealthPotions<=0) 
+								if (Bot.Settings.Loot.MaximumHealthPotions<=0) 
 									 return false;
 
 								var Potions = Bot.Character.BackPack.ReturnCurrentPotions();
@@ -276,7 +276,7 @@ namespace FunkyTrinity
 									 return true;
 								else if (Bot.Character.BackPack.BestPotionToUse!=null&&item.BalanceData.iThisItemLevel<Bot.Character.BackPack.BestPotionToUse.Level) 
 									 return false;
-								else if (Potions.Sum(potions => potions.ItemStackQuantity)>=Bot.SettingsFunky.Loot.MaximumHealthPotions)
+								else if (Potions.Sum(potions => potions.ItemStackQuantity)>=Bot.Settings.Loot.MaximumHealthPotions)
 									 return false;
 						  }
 						  break;

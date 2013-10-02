@@ -89,7 +89,7 @@ namespace FunkyTrinity.Cache
 								this.ref_Gizmo=(DiaGizmo)base.ref_DiaObject;
 						  } catch (NullReferenceException)
 						  {
-								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 									 Logger.Write(LogLevel.Execption, "Failure to convert obj to DiaItem!"); return false;
 						  }
 					 }
@@ -132,7 +132,7 @@ namespace FunkyTrinity.Cache
 								}
 						  } catch (AccessViolationException)
 						  {
-								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 									 Logger.Write(LogLevel.Execption, "Safely handled getting attribute GizmoHasBeenOperated gizmo {0}", this.InternalName);
 								return false;
 						  }
@@ -160,7 +160,7 @@ namespace FunkyTrinity.Cache
 								this.PhysicsSNO=base.ref_DiaObject.PhysicsSNO;
 						  } catch (NullReferenceException ex)
 						  {
-								if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 									 Logger.Write(LogLevel.Execption, "Safely handled exception getting physics SNO for object "+this.InternalName+" ["+this.SNOID.ToString()+"]\r\n"+ex.Message);
 								return false;
 						  }
