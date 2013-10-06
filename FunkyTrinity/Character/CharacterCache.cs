@@ -174,8 +174,7 @@ namespace FunkyTrinity.Cache
 						  if (!force&&
 								(combat&&lastUpdate<50||lastUpdate<150)) return;
 
-						  using (ZetaDia.Memory.AcquireFrame())
-						  {
+
 								try
 								{
 									 if (Bot.Class.AC==ActorClass.DemonHunter)
@@ -216,7 +215,14 @@ namespace FunkyTrinity.Cache
 										  if (bIsInKnockBack)
 												bIsIncapacitated=true;
 										  else
-												bIsIncapacitated=false;
+										  {
+												UpdateAnimationState(false);
+												
+												if (Bot.Class.KnockbackLandAnims.Contains(this.CurrentSNOAnim))
+													 bIsIncapacitated=true;
+												else
+													 bIsIncapacitated=false;
+										  }
 									 }
 									
 									 //Update vars that are not essential to combat (survival).
@@ -255,7 +261,7 @@ namespace FunkyTrinity.Cache
 								{
 
 								}
-						  }
+						  
 						  lastUpdatedPlayer=DateTime.Now;
 					 }
 
@@ -269,8 +275,7 @@ namespace FunkyTrinity.Cache
 								return;
 
 						  //LastUpdatedAnimationData=DateTime.Now;
-						  using (ZetaDia.Memory.AcquireFrame())
-						  {
+
 								try
 								{
 									 if (animState)
@@ -282,7 +287,7 @@ namespace FunkyTrinity.Cache
 								{
 								}
 
-						  }
+						  
 					 }
 
 					 // **********************************************************************************************
@@ -312,6 +317,42 @@ namespace FunkyTrinity.Cache
 								if (!bIsAnimating)
 									 bKeepLooping=false;
 						  }
+					 }
+					 /*
+					 						  
+					     bIsIncapacitated=false;
+						  bIsRooted=false;
+						  bIsInTown=false;
+						  dcurrentHealthPct=0d;
+						  dCurrentEnergy=0d;
+						  dCurrentEnergyPct=0d;
+						  dDiscipline=0d;
+						  dDisciplinePct=0d;
+						  //EnergyRegenerationRate=0;
+						  bWaitingForReserveEnergy=false;
+						  iMyDynamicID=0;
+						  iMyLevel=1;
+						  iSceneID=-1;
+						  iCurrentWorldID=-1;
+						  BackPack=new Backpack();
+						  PetData=new Pets();
+						  PickupRadius=1;
+						  coinage=0;
+						  fCharacterRadius=0f;
+					 */
+
+					 public string DebugString()
+					 {
+						  return String.Format("Character Info \r\n"+
+																			 "DynamicID={0} -- WorldID={1} \r\n"+
+																			 "SNOAnim={2} AnimState={3} \r\n" +
+																			 "Incapacitated={4} -- Rooted={5} \r\n" +
+																			 "Current Health={6} -- Current Energy={7}",
+																			 Bot.Character.iMyDynamicID.ToString(), Bot.Character.iCurrentWorldID.ToString(),
+																			 Bot.Character.CurrentSNOAnim.ToString(), Bot.Character.CurrentAnimationState.ToString(),
+																			 Bot.Character.bIsIncapacitated.ToString(), Bot.Character.bIsRooted.ToString(),
+																			 Bot.Character.dcurrentHealthPct.ToString(), Bot.Character.dCurrentEnergyPct.ToString());
+
 					 }
 				}
 }

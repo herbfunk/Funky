@@ -30,6 +30,7 @@ namespace FunkyTrinity.Cache
 					 bWaitingForPotion=false;
 					 bForceTargetUpdate=false;
 					 bWasRootedLastTick=false;
+					 bAnyLootableItemsNearby=false;
 
 					 ShouldCheckItemLooted=false;
 					 reCheckedFinished=false;
@@ -224,7 +225,7 @@ namespace FunkyTrinity.Cache
 				internal bool UsesDOTDPSAbility { get; set; }
 				internal int SurroundingUnits { get; set; }
 
-
+				internal bool bAnyLootableItemsNearby { get; set; }
 				internal bool bAnyChampionsPresent { get; set; }
 				internal bool bAnyTreasureGoblinsPresent { get; set; }
 				internal bool bAnyMobsInCloseRange { get; set; }
@@ -282,6 +283,7 @@ namespace FunkyTrinity.Cache
 					 bAnyMobsInCloseRange=false;
 					 bAnyNonWWIgnoreMobsInRange=false;
 					 TravellingAvoidance=false;
+					 bAnyLootableItemsNearby=false;
 					 UnitRAGUIDs=new List<int>();
 					 SurroundingUnits=0;
 					 TriggeringAvoidances.Clear();

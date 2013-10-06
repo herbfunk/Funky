@@ -18,10 +18,10 @@ using Zeta.TreeSharp;
 
 namespace FunkyTrinity.Targeting
 {
-	 public partial class TargetHandler
+	 public partial class TargetingHandler
 	 {
 		  //Constructor
-		  public TargetHandler()
+		  public TargetingHandler()
 		  {
 				CurrentState=RunStatus.Running;
 				CurrentTarget=null;
@@ -453,7 +453,7 @@ namespace FunkyTrinity.Targeting
 					 if (Bot.Class.FindBuffPower(out buff))
 					 {
 						  Ability.UsePower(ref buff);
-						  buff.SuccessfullyUsed();
+						  buff.OnSuccessfullyUsed();
 					 }
 				}
 

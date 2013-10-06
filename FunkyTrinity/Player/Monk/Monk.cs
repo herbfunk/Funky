@@ -29,7 +29,42 @@ namespace FunkyTrinity
 					 }
 					 else
 						  Bot.Settings.Class.bMonkInnaSet=false;
+
+
 						 
+				}
+				private HashSet<SNOPower> SpiritGeneratingAbilities=new HashSet<SNOPower>
+				{
+					 SNOPower.Monk_FistsofThunder,
+					 SNOPower.Monk_WayOfTheHundredFists,
+					 SNOPower.Monk_DeadlyReach,
+					 SNOPower.Monk_CripplingWave,
+				};
+
+				private HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
+				{
+					 SNOAnim.Monk_Male_HTH_knockback_land_01,
+					 SNOAnim.Monk_Female_HTH_knockback_land_01,
+					 SNOAnim.Monk_Male_STF_knockback_land,
+					 SNOAnim.Monk_Male_2HT_knockback_land,
+					 SNOAnim.Monk_Female_STF_knockback_land,
+					 SNOAnim.Monk_Male_1HS_knockback_land,
+					 SNOAnim.Monk_Female_1HS_knockback_land,
+					 SNOAnim.Monk_Female_2HT_knockback_land,
+					 SNOAnim.Monk_Male_1HF_knockback_land_01,
+					 SNOAnim.Monk_Male_DW_SF_knockback_land_01,
+					 SNOAnim.Monk_Male_DW_FF_knockback_land_01,
+					 SNOAnim.Monk_Female_DW_SS_knockback_land_01,
+					 SNOAnim.Monk_Female_DW_SF_knockback_land_01,
+					 SNOAnim.Monk_Female_DW_FF_knockback_land_01,
+					 SNOAnim.Monk_Female_1HF_knockback_land_01,
+				};
+				public override HashSet<SNOAnim> KnockbackLandAnims
+				{
+					 get
+					 {
+						  return this.knockbackanims;
+					 }
 				}
 				public override Ability DefaultAttack
 				{
@@ -80,18 +115,28 @@ namespace FunkyTrinity
 						  RuneIndexCache.Add(defaultAbility.Power, -1);
 					 }
 
+					 //Combo Strike???
+					 if (base.PassivePowers.Contains(SNOPower.Monk_Passive_CombinationStrike))
+					 {
+						  Logging.Write("Combination Strike Found!");
+						  Bot.Settings.Class.bMonkComboStrike=true;
+						  int TotalAbilities=base.HotbarPowers.Count(power => SpiritGeneratingAbilities.Contains(power));
+						  Bot.Settings.Class.iMonkComboStrikeAbilities=TotalAbilities;
+					 }
+
 					 //Create the abilities
 					 foreach (var item in HotbarPowers)
 					 {
 						  Ability newAbility=this.CreateAbility(item);
 						  AbilityLogicConditions.CreateAbilityLogicConditions(ref newAbility);
+						  newAbility.SuccessfullyUsed+=new Ability.AbilitySuccessfullyUsed(base.AbilitySuccessfullyUsed);
 						  Abilities.Add(item, newAbility);
 					 }
 
 
 					 //Sort Abilities
 					 SortedAbilities=Abilities.Values.OrderByDescending(a => a.Priority).ThenBy(a => a.Range).ToList();
-					 
+
 					 //Update LOS conditions
 					 base.UpdateLOSConditions();
 

@@ -109,6 +109,8 @@ namespace FunkyTrinity.Settings
                  //Monk
                  public bool bMonkInnaSet { get; set; }
 					  public bool bMonkSpamMantra { get; set; }
+					  public bool bMonkComboStrike { get; set; }
+					  public int iMonkComboStrikeAbilities { get; set; }
 
                  //Wiz
                  public bool bWaitForArchon { get; set; }
@@ -137,6 +139,8 @@ namespace FunkyTrinity.Settings
                      iDHVaultMovementDelay = 400;
                      bMonkInnaSet = false;
 							bMonkSpamMantra=false;
+							bMonkComboStrike=false;
+							iMonkComboStrikeAbilities=0;
                      bWaitForArchon = false;
                      bKiteOnlyArchon = true;
                      GoblinMinimumRange = 40;

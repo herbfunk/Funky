@@ -89,8 +89,7 @@ namespace FunkyTrinity.Movement
 						  LastUpdatedMovementData=DateTime.Now;
 
 						  //These vars are used to accuratly predict what the bot is doing (Melee Movement/Combat)
-						  using (ZetaDia.Memory.AcquireFrame())
-						  {
+
 								try
 								{
 									 ActorMovement botMovement=ZetaDia.Me.Movement;
@@ -103,7 +102,7 @@ namespace FunkyTrinity.Movement
 								{
 									 
 								}
-						  }
+						  
 					 }
 				}
 				
@@ -787,7 +786,10 @@ namespace FunkyTrinity.Movement
 					 else if(UseSearchGridProvider)
 					 {
 						  Vector2 hitVector;
-						  return !Zeta.Navigation.Navigator.SearchGridProvider.Raycast(vStartLocation.ToVector2(), vDestination.ToVector2(), out hitVector);
+						  if (vStartLocation.Z>=vDestination.Z)
+								return !Zeta.Navigation.Navigator.SearchGridProvider.Raycast(vStartLocation.ToVector2(), vDestination.ToVector2(), out hitVector);
+						  else
+								return !Zeta.Navigation.Navigator.SearchGridProvider.Raycast(vDestination.ToVector2(), vStartLocation.ToVector2(), out hitVector);
 					 }
 					 else
 						  return !Navigator.Raycast(vStartLocation, vDestination); //True means nothing hit

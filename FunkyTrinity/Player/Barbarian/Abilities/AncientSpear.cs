@@ -19,6 +19,7 @@ namespace FunkyTrinity.AbilityFunky.Abilities.Barb
 
 		public override void Initialize()
 		{
+			Cooldown=300;
 			ExecutionType = AbilityExecuteFlags.Target;
 			WaitVars = new WaitLoops(2, 2, true);
 			Range = 35;

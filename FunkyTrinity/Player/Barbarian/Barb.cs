@@ -33,6 +33,29 @@ namespace FunkyTrinity
 						  return false;
 					 }
 				}
+				private HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
+				{
+					 SNOAnim.Barbarian_Female_1HS_knockback_land_01, 
+					 SNOAnim.Barbarian_Female_1HT_Knockback_Land, 
+					 SNOAnim.Barbarian_Female_2HS_Knockback_Land_01, 
+					 SNOAnim.Barbarian_Female_2HT_Knockback_Land_01, 
+					 SNOAnim.Barbarian_Female_DW_Knockback_Land_01, 
+					 SNOAnim.Barbarian_Female_HTH_knockback_land, 
+					 SNOAnim.Barbarian_Female_STF_Knockback_Land_01,
+					 SNOAnim.barbarian_male_1HS_Knockback_Land_01, 
+					 SNOAnim.barbarian_male_1HT_knockback_land,
+					 SNOAnim.barbarian_male_DW_Knockback_Land_01,
+					 SNOAnim.barbarian_male_2HT_Knockback_Land_01,
+					 SNOAnim.barbarian_male_STF_Knockback_Land_01,
+					 SNOAnim.barbarian_male_2HS_Knockback_Land_01,
+				};
+				public override HashSet<SNOAnim> KnockbackLandAnims
+				{
+					 get
+					 {
+						  return this.knockbackanims;
+					 }
+				}
 
 
 				public override bool ShouldGenerateNewZigZagPath()
@@ -74,6 +97,7 @@ namespace FunkyTrinity
 					 {
 						  Ability newAbility=this.CreateAbility(item);
 						  AbilityLogicConditions.CreateAbilityLogicConditions(ref newAbility);
+						  newAbility.SuccessfullyUsed+=new Ability.AbilitySuccessfullyUsed(base.AbilitySuccessfullyUsed);
 						  Abilities.Add(item, newAbility);
 					 }
 

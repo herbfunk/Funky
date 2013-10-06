@@ -21,7 +21,10 @@ namespace FunkyTrinity.Targeting.Behaviors
 		  {
 				get
 				{
-					 return !Bot.IsInNonCombatBehavior&&Bot.Settings.Grouping.AttemptGroupingMovements&&Bot.Settings.Grouping.GroupingMinimumBotHealth<=Bot.Character.dCurrentHealthPct;
+					 return !Bot.IsInNonCombatBehavior&&
+								!Bot.Combat.bAnyLootableItemsNearby&&
+								Bot.Settings.Grouping.AttemptGroupingMovements&&
+								Bot.Settings.Grouping.GroupingMinimumBotHealth<=Bot.Character.dCurrentHealthPct;
 				}
 		  }
 		  public override void Initialize()
@@ -39,42 +42,41 @@ namespace FunkyTrinity.Targeting.Behaviors
 								//Grouping Movements
 								if (FunkyTrinity.Bot.Settings.Grouping.AttemptGroupingMovements
 									 &&unitObj.CurrentHealthPct.Value<1d //only after we engaged the target.
-									 &&!unitObj.BeingIgnoredDueToClusterLogic && !unitObj.IsClusterException //we only want a cluster target!
+									 &&!unitObj.BeingIgnoredDueToClusterLogic&&!unitObj.IsClusterException //we only want a cluster target!
 									 &&DateTime.Compare(DateTime.Now, FunkyTrinity.Bot.NavigationCache.groupingSuspendedDate)>0
-									 &&!unitObj.IsTreasureGoblin||FunkyTrinity.Bot.Settings.Targeting.GoblinPriority<2) 
+									 &&!Bot.Combat.bAnyTreasureGoblinsPresent||FunkyTrinity.Bot.Settings.Targeting.GoblinPriority<2)
 								{
 									 FunkyTrinity.Bot.Combat.UpdateGroupClusteringVariables();
 
-									 if (FunkyTrinity.Bot.Combat.CurrentGroupClusters.Count>0)
+									 if (Bot.Combat.CurrentGroupClusters.Count>0)
 									 {
-										  if (Bot.Combat.TargetClusterCollection.CurrentClusters.Count>0)
+
+										  foreach (UnitCluster cluster in Bot.Combat.CurrentGroupClusters)
 										  {
-												//Trigger for grouping..
-												if (CheckCluster(Bot.Combat.TargetClusterCollection.CurrentClusters.First()))
-												{
-													 UnitCluster groupCluster=GroupingTest(FunkyTrinity.Bot.Combat.CurrentGroupClusters);
+												//Validate the cluster is something worthy..
+												if (!CheckCluster(cluster)) continue;
 
-													 if (groupCluster==null) return false;
+												//Validate that our target will not intersect avoidances?
+												CacheUnit groupUnit=cluster.ListUnits[0];
+												if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(obj.Position)) continue;
 
-													 if (FunkyTrinity.Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Grouping))
-														  Logger.Write(LogLevel.Grouping, "Starting Grouping Behavior");
+												if (FunkyTrinity.Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Grouping))
+													 Logger.Write(LogLevel.Grouping, "Starting Grouping Behavior");
 
-													 //Activate Behavior
-													 FunkyTrinity.Bot.NavigationCache.groupRunningBehavior=true;
-													 FunkyTrinity.Bot.NavigationCache.groupingOrginUnit=(CacheUnit)ObjectCache.Objects[obj.RAGUID];
+												//Activate Behavior
+												FunkyTrinity.Bot.NavigationCache.groupRunningBehavior=true;
+												FunkyTrinity.Bot.NavigationCache.groupingOrginUnit=(CacheUnit)ObjectCache.Objects[obj.RAGUID];
 
+												if (FunkyTrinity.Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Grouping))
+													 Logger.Write(LogLevel.Grouping, "Group Cluster Propeties {0}", cluster.Info.Properties.ToString());
 
-													 if (FunkyTrinity.Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Grouping))
-														  Logger.Write(LogLevel.Grouping, "Group Cluster Propeties {0}", groupCluster.Info.Properties.ToString());
-
-													 //Find initial grouping target..
-													 obj=groupCluster.ListUnits[0];
-													 Bot.Targeting.CurrentUnitTarget=(CacheUnit)obj;
-													 FunkyTrinity.Bot.NavigationCache.groupingCurrentUnit=Bot.Targeting.CurrentUnitTarget;
-													 return true;
-
-												}
+												//Find initial grouping target..
+												obj=cluster.ListUnits[0];
+												Bot.Targeting.CurrentUnitTarget=(CacheUnit)obj;
+												FunkyTrinity.Bot.NavigationCache.groupingCurrentUnit=Bot.Targeting.CurrentUnitTarget;
+												return true;
 										  }
+
 									 }
 								}
 						  }

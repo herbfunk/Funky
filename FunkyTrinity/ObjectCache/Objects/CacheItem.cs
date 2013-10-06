@@ -195,9 +195,9 @@ namespace FunkyTrinity.Cache
 									 }
 
 									 //Did we have a target last time? and if so was it a goblin?
-									 if (Bot.Targeting.LastCachedTarget.RAGUID!=-1)
+									 if (Bot.Targeting.LastCachedTarget.RAGUID!=-1&&Bot.Settings.Targeting.GoblinPriority>1)
 									 {
-										  if (CacheIDLookup.hashActorSNOGoblins.Contains(Bot.Targeting.LastCachedTarget.RAGUID))
+										  if (Bot.Targeting.LastCachedTarget.IsTreasureGoblin)
 												this.Weight=0;
 									 }
 									 break;
@@ -329,6 +329,7 @@ namespace FunkyTrinity.Cache
 									 this.RequiresLOSCheck=false;
 								}
 
+								Bot.Combat.bAnyLootableItemsNearby=true;
 						  }
 						  else
 						  {
@@ -624,14 +625,14 @@ namespace FunkyTrinity.Cache
 						  if (targetType.Value==TargetType.Gold)
 						  {
 								fRangeRequired=Bot.Character.PickupRadius;
-								if (fRangeRequired<2f)
-									 fRangeRequired=2f;
+								if (fRangeRequired==0f)
+									 fRangeRequired=0.5f;
 						  }
 						  else
 						  {
 								fRangeRequired=Bot.Character.PickupRadius;
-								if (fRangeRequired<2f)
-									 fRangeRequired=2f;
+								if (fRangeRequired==0f)
+									 fRangeRequired=0.5f;
 								if (fRangeRequired>5f)
 									 fRangeRequired=5f;
 						  }

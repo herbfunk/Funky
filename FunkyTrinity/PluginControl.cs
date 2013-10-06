@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Windows.Controls;
 using Zeta;
 using System.Collections.Generic;
 using Zeta.Common;
@@ -8,6 +10,7 @@ using Zeta.TreeSharp;
 using Zeta.Internals.Actors;
 using System.Xml;
 using FunkyTrinity.Cache;
+using System.Windows;
 
 namespace FunkyTrinity
 {
@@ -37,6 +40,7 @@ namespace FunkyTrinity
 
 		  public static void ResetBot()
 		  {
+				
 				Log("Preforming reset of bot data...", true);
 			  BlacklistCache.ClearBlacklistCollections();
 				PowerCacheLookup.dictAbilityLastUse=new Dictionary<SNOPower, DateTime>(PowerCacheLookup.dictAbilityLastUseDefaults);
@@ -93,7 +97,39 @@ namespace FunkyTrinity
 
 		  }
 
+		  private static Demonbuddy.SplitButton FindFunkyButton()
+		  {
+				Window mainWindow=Demonbuddy.App.Current.MainWindow;
+				var tab=mainWindow.FindName("tabControlMain") as TabControl;
+				if (tab==null) return null;
+				var infoDumpTab=tab.Items[0] as TabItem;
+				if (infoDumpTab==null) return null;
+				var grid=infoDumpTab.Content as Grid;
+				if (grid==null) return null;
+				Demonbuddy.SplitButton FunkyButton=grid.FindName("Funky") as Demonbuddy.SplitButton;
+				if (FunkyButton!=null)
+				{
+					 Logging.WriteDiagnostic("Funky Button handler added");
+				}
+				else
+				{
+					 Demonbuddy.SplitButton[] splitbuttons=grid.Children.OfType<Demonbuddy.SplitButton>().ToArray();
+					 if (splitbuttons.Any())
+					 {
 
+						  foreach (var item in splitbuttons)
+						  {
+								if (item.Name.Contains("Funky"))
+								{
+									 FunkyButton=item;
+									 break;
+								}
+						  }
+					 }
+				}
+
+				return FunkyButton;
+		  }
 		  private static void HookBehaviorTree()
 		  {
 

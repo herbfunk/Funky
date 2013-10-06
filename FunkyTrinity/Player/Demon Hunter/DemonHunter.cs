@@ -23,6 +23,26 @@ namespace FunkyTrinity
 				{
 
 				}
+				private HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
+				{
+					 SNOAnim.Demonhunter_Female_HTH_knockback_land_01,
+					 SNOAnim.Demonhunter_Female_Bow_knockback_land_01,
+					 SNOAnim.Demonhunter_Female_1HS_knockback_land_01,
+					 SNOAnim.Demonhunter_Male_XBow_knockback_land_01,
+					 SNOAnim.Demonhunter_Male_HTH_knockback_land_01,
+					 SNOAnim.Demonhunter_Male_1HS_knockback_land_01,
+					 SNOAnim.Demonhunter_Male_Bow_knockback_land_01,
+					 SNOAnim.Demonhunter_Female_1HXBow_knockback_land_01,
+					 SNOAnim.Demonhunter_Male_1HXBow_knockback_land_01,
+					 SNOAnim.Demonhunter_Male_DW_XBow_knockback_land_01,
+				};
+				public override HashSet<SNOAnim> KnockbackLandAnims
+				{
+					 get
+					 {
+						  return this.knockbackanims;
+					 }
+				}
 				public override Ability DefaultAttack
 				{
 					 get { return new ProjectileRangeAttack(); }
@@ -77,6 +97,7 @@ namespace FunkyTrinity
 					 {
 						  Ability newAbility=this.CreateAbility(item);
 						  AbilityLogicConditions.CreateAbilityLogicConditions(ref newAbility);
+						  newAbility.SuccessfullyUsed+=new Ability.AbilitySuccessfullyUsed(base.AbilitySuccessfullyUsed);
 						  Abilities.Add(item, newAbility);
 					 }
 
@@ -102,8 +123,6 @@ namespace FunkyTrinity
 							return new FanOfKnives();
 						 case DemonHunterActiveSkills.DemonHunter_BolaShot:
 							return new BolaShot();
-						 case DemonHunterActiveSkills.DemonHunter_MoltenArrow:
-							return new MoltenArrow();
 						 case DemonHunterActiveSkills.DemonHunter_Multishot:
 							return new Multishot();
 						 case DemonHunterActiveSkills.DemonHunter_Grenades:

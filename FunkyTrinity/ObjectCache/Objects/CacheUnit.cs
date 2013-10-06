@@ -327,8 +327,7 @@ namespace FunkyTrinity.Cache
 					 double dThisCurrentHealth;
 
 
-					 using (ZetaDia.Memory.AcquireFrame())
-					 {
+
 						  try
 						  {
 								try
@@ -350,7 +349,7 @@ namespace FunkyTrinity.Cache
 								base.NeedsRemoved=true;
 								return;
 						  }
-					 }
+					 
 
 
 
@@ -1386,7 +1385,7 @@ namespace FunkyTrinity.Cache
 						  if (Bot.Class.PowerPrime.SuccessUsed.HasValue&&Bot.Class.PowerPrime.SuccessUsed.Value)
 						  {
 								//Logging.Write(powerPrime.powerThis.ToString() + " used successfully");
-								Bot.Class.PowerPrime.SuccessfullyUsed();
+								Bot.Class.PowerPrime.OnSuccessfullyUsed();
 						  }
 						  else
 						  {

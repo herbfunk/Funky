@@ -6,61 +6,63 @@ using Zeta.Internals.Actors;
 
 namespace FunkyTrinity.AbilityFunky.Abilities.WitchDoctor
 {
-	public class ZombieCharger : Ability, IAbility
-	{
-		public ZombieCharger() : base()
-		{
-		}
+	 public class ZombieCharger : Ability, IAbility
+	 {
+		  public ZombieCharger()
+				: base()
+		  {
+		  }
 
 
 
-		public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
+		  public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
 
-		public override void Initialize()
-		{
-			ExecutionType = AbilityExecuteFlags.ClusterTarget | AbilityExecuteFlags.Target;
+		  public override void Initialize()
+		  {
+				Cooldown=5;
+				ExecutionType=AbilityExecuteFlags.ClusterTarget|AbilityExecuteFlags.Target;
 
-			WaitVars = new WaitLoops(0, 1, true);
-			Cost = 134;
-			Range = 11;
-			UseageType=AbilityUseage.Combat;
-			Priority = AbilityPriority.Low;
+				WaitVars=new WaitLoops(0, 1, true);
+				Cost=134;
+				Range=11;
+				UseageType=AbilityUseage.Combat;
+				Priority=AbilityPriority.Low;
 
-			PreCastFlags = (AbilityPreCastFlags.CheckPlayerIncapacitated | AbilityPreCastFlags.CheckEnergy |
-			                     AbilityPreCastFlags.CheckCanCast);
+				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
+											AbilityPreCastFlags.CheckCanCast);
 
-			FcriteriaPreCast=new Func<bool>(() => { return !Bot.Class.HasDebuff(SNOPower.Succubus_BloodStar); });
+				FcriteriaPreCast=new Func<bool>(() => { return !Bot.Class.HasDebuff(SNOPower.Succubus_BloodStar); });
 
-			ClusterConditions = new ClusterConditions(5d, 20f, 2, true);
-			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.IsSpecial, 15);
-		}
+				ClusterConditions=new ClusterConditions(5d, 20f, 2, true);
+				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 15);
+		  }
 
-		#region IAbility
+		  #region IAbility
 
-		public override int GetHashCode()
-		{
-			return (int) this.Power;
-		}
+		  public override int GetHashCode()
+		  {
+				return (int)this.Power;
+		  }
 
-		public override bool Equals(object obj)
-		{
-			//Check for null and compare run-time types. 
-			if (obj == null || this.GetType() != obj.GetType())
-			{
-				return false;
-			}
-			else
-			{
-				Ability p = (Ability) obj;
-				return this.Power == p.Power;
-			}
-		}
+		  public override bool Equals(object obj)
+		  {
+				//Check for null and compare run-time types. 
+				if (obj==null||this.GetType()!=obj.GetType())
+				{
+					 return false;
+				}
+				else
+				{
+					 Ability p=(Ability)obj;
+					 return this.Power==p.Power;
+				}
+		  }
 
-		#endregion
+		  #endregion
 
-		public override SNOPower Power
-		{
-			get { return SNOPower.Witchdoctor_ZombieCharger; }
-		}
-	}
+		  public override SNOPower Power
+		  {
+				get { return SNOPower.Witchdoctor_ZombieCharger; }
+		  }
+	 }
 }

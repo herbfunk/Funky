@@ -77,8 +77,7 @@ namespace FunkyTrinity.Cache
 						  //Update RactorGUID and check blacklisting..
 						  if (BlacklistCache.IsRAGUIDBlacklisted(tmp_raGUID)) continue;
 						  CacheObject tmp_CachedObj;
-						  using (ZetaDia.Memory.AcquireFrame())
-						  {
+
 								if (!ObjectCache.Objects.TryGetValue(tmp_raGUID, out tmp_CachedObj))
 								{
 									 Vector3 tmp_position;
@@ -392,7 +391,7 @@ namespace FunkyTrinity.Cache
 									 ObjectCache.Objects.Add(tmp_CachedObj.RAGUID, tmp_CachedObj);
 
 
-						  }
+						  
 					 } //End of Loop
 
 
@@ -442,6 +441,23 @@ namespace FunkyTrinity.Cache
 				internal static Dictionary<int, bool?> dictIsBarricade=new Dictionary<int, bool?>();
 				internal static Dictionary<int, double> dictProjectileSpeed=new Dictionary<int, double>();
 				#endregion
+
+				internal static readonly HashSet<SNOAnim> KnockbackAnims=new HashSet<SNOAnim>
+				{
+
+					 /*
+
+
+
+
+
+
+
+
+
+
+					 */
+				};
 
 				//Common Used Profile Tags that should be considered Out-Of-Combat Behavior.
 				internal static readonly HashSet<Type> oocDBTags=new HashSet<Type> 

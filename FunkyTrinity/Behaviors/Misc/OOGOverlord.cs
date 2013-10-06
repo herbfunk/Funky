@@ -50,6 +50,7 @@ namespace FunkyTrinity
 					 Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel=Bot.Settings.Demonbuddy.MonsterPower;
 				}
 
+
 				return false;
 		  }
 

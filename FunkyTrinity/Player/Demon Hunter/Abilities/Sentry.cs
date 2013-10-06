@@ -7,64 +7,66 @@ using Zeta.Internals.Actors;
 
 namespace FunkyTrinity.AbilityFunky.Abilities.DemonHunter
 {
-	public class Sentry : Ability, IAbility
-	{
-		public Sentry() : base()
-		{
-		}
+	 public class Sentry : Ability, IAbility
+	 {
+		  public Sentry()
+				: base()
+		  {
+		  }
 
 
 
-		public override void Initialize()
-		{
-			ExecutionType = AbilityExecuteFlags.Self;
-			WaitVars = new WaitLoops(0, 0, true);
-			Cost = 30;
-			UseageType=AbilityUseage.Anywhere;
-			Priority = AbilityPriority.High;
-			PreCastFlags = (AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckRecastTimer |
-			                     AbilityPreCastFlags.CheckPlayerIncapacitated);
+		  public override void Initialize()
+		  {
+				Cooldown=12000;
+				ExecutionType=AbilityExecuteFlags.Self;
+				WaitVars=new WaitLoops(0, 0, true);
+				Cost=30;
+				UseageType=AbilityUseage.Anywhere;
+				Priority=AbilityPriority.High;
+				PreCastFlags=(AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckRecastTimer|
+											AbilityPreCastFlags.CheckPlayerIncapacitated);
 
-			FcriteriaCombat = new Func<bool>(() =>
-			{
-				 return Bot.Class.LastUsedAbility.Power!=SNOPower.DemonHunter_Sentry&&
-						 (Bot.Targeting.FleeingLastTarget||DateTime.Now.Subtract(Bot.Targeting.LastFleeAction).TotalMilliseconds<1000)||
-				       (Bot.Combat.iElitesWithinRange[(int) RangeIntervals.Range_40] >= 1 ||
-				        Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_40] >= 2);
-			});
-		}
+				FcriteriaCombat=new Func<bool>(() =>
+				{
+					 return Bot.Class.LastUsedAbility.Power!=SNOPower.DemonHunter_Sentry&&
+							 (Bot.Targeting.FleeingLastTarget||DateTime.Now.Subtract(Bot.Targeting.LastFleeAction).TotalMilliseconds<1000)||
+							 (Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_40]>=1||
+							  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_40]>=2);
+				});
+		  }
 
-		#region IAbility
+		  #region IAbility
 
-		public override int RuneIndex
-		{
-			get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power) ? Bot.Class.RuneIndexCache[this.Power] : -1; }
-		}
+		  public override int RuneIndex
+		  {
+				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+		  }
 
-		public override int GetHashCode()
-		{
-			return (int) this.Power;
-		}
+		  public override int GetHashCode()
+		  {
+				return (int)this.Power;
+		  }
 
-		public override bool Equals(object obj)
-		{
-			//Check for null and compare run-time types. 
-			if (obj == null || this.GetType() != obj.GetType())
-			{
-				return false;
-			}
-			else
-			{
-				Ability p = (Ability) obj;
-				return this.Power == p.Power;
-			}
-		}
+		  public override bool Equals(object obj)
+		  {
+				//Check for null and compare run-time types. 
+				if (obj==null||this.GetType()!=obj.GetType())
+				{
+					 return false;
+				}
+				else
+				{
+					 Ability p=(Ability)obj;
+					 return this.Power==p.Power;
+				}
+		  }
 
-		#endregion
+		  #endregion
 
-		public override SNOPower Power
-		{
-			get { return SNOPower.DemonHunter_Sentry; }
-		}
-	}
+		  public override SNOPower Power
+		  {
+				get { return SNOPower.DemonHunter_Sentry; }
+		  }
+	 }
 }

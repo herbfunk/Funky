@@ -34,6 +34,7 @@ namespace GilesBlankCombatRoutine
 					 Content="Funky",
 					 Name="Funky",
 				};
+				btn.Click+=lblFunky_Click;
 
 				lblDebug_OpenLog=new Label
 				{
@@ -72,16 +73,6 @@ namespace GilesBlankCombatRoutine
 
 				};
 				Recompile.MouseDown+=lblCompile_Click;
-
-				Label Testing=new Label
-				{
-					 Content="Test",
-					 Width=100,
-					 Height=25,
-					 HorizontalAlignment=HorizontalAlignment.Stretch,
-
-				};
-				Testing.MouseDown+=lblTest_Click;
 
 				lblDebug_DumpUnits=new Label
 				{
@@ -130,9 +121,17 @@ namespace GilesBlankCombatRoutine
 
 		  }
 		  //private static GridPointAreaCache.GPMap map=null;
-		  static void lblTest_Click(object sender, EventArgs e)
+		  static void lblFunky_Click(object sender, EventArgs e)
 		  {
-	
+			  try
+			  {
+					Zeta.CommonBot.BotMain.CurrentBot.ConfigWindow.Show();
+			  }
+			  catch
+			  {
+
+			  }
+				
 		  }
 		  static void lblCompile_Click(object sender, EventArgs e)
 		  {

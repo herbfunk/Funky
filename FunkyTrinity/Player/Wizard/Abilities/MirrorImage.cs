@@ -7,63 +7,65 @@ using Zeta.Internals.Actors;
 
 namespace FunkyTrinity.AbilityFunky.Abilities.Wizard
 {
-	public class MirrorImage : Ability, IAbility
-	{
-		public MirrorImage() : base()
-		{
-		}
+	 public class MirrorImage : Ability, IAbility
+	 {
+		  public MirrorImage()
+				: base()
+		  {
+		  }
 
 
 
-		public override void Initialize()
-		{
-			ExecutionType = AbilityExecuteFlags.Buff;
-			WaitVars = new WaitLoops(1, 1, true);
-			Cost = 10;
-			Range = 48;
-			UseageType=AbilityUseage.Combat;
-			Priority = AbilityPriority.High;
-			PreCastFlags = (AbilityPreCastFlags.CheckCanCast);
+		  public override void Initialize()
+		  {
+				Cooldown=5000;
+				ExecutionType=AbilityExecuteFlags.Buff;
+				WaitVars=new WaitLoops(1, 1, true);
+				Cost=10;
+				Range=48;
+				UseageType=AbilityUseage.Combat;
+				Priority=AbilityPriority.High;
+				PreCastFlags=(AbilityPreCastFlags.CheckCanCast);
 
-			FcriteriaCombat = new Func<bool>(() =>
-			{
-				return (Bot.Character.dCurrentHealthPct <= 0.50 ||
-				        Bot.Combat.iAnythingWithinRange[(int) RangeIntervals.Range_30] >= 5 || Bot.Character.bIsIncapacitated ||
-				        Bot.Character.bIsRooted || Bot.Targeting.CurrentTarget.ObjectIsSpecial);
-			});
-		}
+				FcriteriaCombat=new Func<bool>(() =>
+				{
+					 return (Bot.Character.dCurrentHealthPct<=0.50||
+								Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_30]>=5||Bot.Character.bIsIncapacitated||
+								Bot.Character.bIsRooted||Bot.Targeting.CurrentTarget.ObjectIsSpecial);
+				});
+		  }
 
-		#region IAbility
+		  #region IAbility
 
-		public override int RuneIndex
-		{
-			get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power) ? Bot.Class.RuneIndexCache[this.Power] : -1; }
-		}
+		  public override int RuneIndex
+		  {
+				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+		  }
 
-		public override int GetHashCode()
-		{
-			return (int) this.Power;
-		}
+		  public override int GetHashCode()
+		  {
+				return (int)this.Power;
+		  }
 
-		public override bool Equals(object obj)
-		{
-			//Check for null and compare run-time types. 
-			if (obj == null || this.GetType() != obj.GetType())
-			{
-				return false;
-			}
-			else
-			{
-				Ability p = (Ability) obj;
-				return this.Power == p.Power;
-			}
-		}
+		  public override bool Equals(object obj)
+		  {
+				//Check for null and compare run-time types. 
+				if (obj==null||this.GetType()!=obj.GetType())
+				{
+					 return false;
+				}
+				else
+				{
+					 Ability p=(Ability)obj;
+					 return this.Power==p.Power;
+				}
+		  }
 
-		#endregion
+		  #endregion
 
-		public override SNOPower Power
-		{
-			get { return SNOPower.Wizard_MirrorImage; }
-		}
-	}
+		  public override SNOPower Power
+		  {
+				get { return SNOPower.Wizard_MirrorImage; }
+		  }
+	 }
 }

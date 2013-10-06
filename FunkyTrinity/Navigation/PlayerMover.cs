@@ -471,7 +471,7 @@ namespace FunkyTrinity
 						  if (MovementVector!=Vector3.Zero)
 						  {
 								ZetaDia.Me.UsePower(MovementPower.Power, MovementVector, Bot.Character.iCurrentWorldID, -1);
-								MovementPower.SuccessfullyUsed();
+								MovementPower.OnSuccessfullyUsed();
 								return;
 						  }
 					 } // Allowed to use movement powers to move out-of-combat? 

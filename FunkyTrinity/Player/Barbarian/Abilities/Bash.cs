@@ -21,18 +21,19 @@ namespace FunkyTrinity.AbilityFunky.Abilities.Barb
 
 		  public override void Initialize()
 		  {
-			  ExecutionType = AbilityExecuteFlags.Target;
-			  WaitVars = new WaitLoops(0, 1, true);
-			  Cost = 0;
-			  Range = 10;
+				Cooldown=5;
+				ExecutionType=AbilityExecuteFlags.Target;
+				WaitVars=new WaitLoops(0, 1, true);
+				Cost=0;
+				Range=10;
 				UseageType=AbilityUseage.Combat;
-			  Priority = AbilityPriority.None;
-			  PreCastFlags = (AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckCanCast |
-			                       AbilityPreCastFlags.CheckPlayerIncapacitated);
+				Priority=AbilityPriority.None;
+				PreCastFlags=(AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckCanCast|
+											AbilityPreCastFlags.CheckPlayerIncapacitated);
 
 		  }
 
-		 #region IAbility
+		  #region IAbility
 		  public override int GetHashCode()
 		  {
 				return (int)this.Power;
@@ -50,7 +51,7 @@ namespace FunkyTrinity.AbilityFunky.Abilities.Barb
 					 return this.Power==p.Power;
 				}
 		  }
-	
+
 		  #endregion
 	 }
 }

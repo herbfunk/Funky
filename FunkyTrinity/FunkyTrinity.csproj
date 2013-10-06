@@ -189,9 +189,6 @@
     <Compile Include="Player\Demon Hunter\Abilities\MarkedForDeath.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Demon Hunter\Abilities\MoltenArrow.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Player\Demon Hunter\Abilities\Multishot.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

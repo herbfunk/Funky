@@ -22,7 +22,19 @@ namespace FunkyTrinity
 					 : base(a)
 				{
 				}
-
+				private HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
+				{
+					 SNOAnim.Wizard_Female_Archon_knockback_land,
+					 SNOAnim.Wizard_Male_Archon_knockback_land,
+					 SNOAnim.Wizard_Female_1HS_Orb_Knockback_Land_01,
+				};
+				public override HashSet<SNOAnim> KnockbackLandAnims
+				{
+					 get
+					 {
+						  return this.knockbackanims;
+					 }
+				}
 				public override Ability DefaultAttack
 				{
 					 get { return new WeaponRangedWand(); }
@@ -71,6 +83,7 @@ namespace FunkyTrinity
 					 {
 						  Ability newAbility=this.CreateAbility(item);
 						  AbilityLogicConditions.CreateAbilityLogicConditions(ref newAbility);
+						  newAbility.SuccessfullyUsed+=new Ability.AbilitySuccessfullyUsed(base.AbilitySuccessfullyUsed);
 						  Abilities.Add(item, newAbility);
 					 }
 

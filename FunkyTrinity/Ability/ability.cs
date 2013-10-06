@@ -104,7 +104,8 @@ namespace FunkyTrinity.AbilityFunky
 
 		  internal double Cooldown
 		  {
-				get { return Bot.Class.AbilityCooldowns[this.Power]; }
+				get;
+				set;
 		  }
 
 		  internal bool AbilityUseTimer(bool bReCheck=false)
@@ -209,10 +210,13 @@ namespace FunkyTrinity.AbilityFunky
 				}
 		  }
 
+		  public delegate void AbilitySuccessfullyUsed(Ability ability);
+		  public event AbilitySuccessfullyUsed SuccessfullyUsed;
+
 		  ///<summary>
 		  ///Sets values related to Ability usage
 		  ///</summary>
-		  public void SuccessfullyUsed()
+		  public void OnSuccessfullyUsed()
 		  {
 				this.LastUsed=DateTime.Now;
 				PowerCacheLookup.lastGlobalCooldownUse=DateTime.Now;
@@ -225,7 +229,10 @@ namespace FunkyTrinity.AbilityFunky
 					 TargetMovement.LastMovementDuringCombat=DateTime.Now;
 				}
 
-				Bot.Class.LastUsedAbility=this;
+				
+
+				if (SuccessfullyUsed!=null)
+					 SuccessfullyUsed(this);
 		  }
 
 		  public static void SetupAbilityForUse(ref Ability ability, bool Destructible=false)

@@ -145,10 +145,9 @@ namespace FunkyTrinity
 					 bool unid=true;
 					 if (currentItem.BaseAddress!=IntPtr.Zero)
 					 {
-						  using (ZetaDia.Memory.AcquireFrame())
-						  {
+
 								unid=currentItem.IsUnidentified;
-						  }
+						  
 					 }
 					 else
 					 {

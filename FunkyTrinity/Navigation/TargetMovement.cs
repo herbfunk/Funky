@@ -119,8 +119,11 @@ namespace FunkyTrinity.Movement
 								if (!Navigation.CanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
 								{
 									 obj.RequiresLOSCheck=true;
+									 obj.BlacklistLoops=50;
+
 									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 										  Logger.Write(LogLevel.Movement, "Ignoring Item {0} -- due to AllowWalk RayCast Failure!", obj.InternalName);
+
 									 Bot.Combat.bForceTargetUpdate=true;
 									 return RunStatus.Running;
 								}
@@ -275,7 +278,7 @@ namespace FunkyTrinity.Movement
 						  if (MovementVector!=Vector3.Zero)
 						  {
 								ZetaDia.Me.UsePower(MovementPower.Power, MovementVector, Bot.Character.iCurrentWorldID, -1);
-								MovementPower.SuccessfullyUsed();
+								MovementPower.OnSuccessfullyUsed();
 
 								// Store the current destination for comparison incase of changes next loop
 								LastTargetLocation=CurrentTargetLocation;
@@ -311,7 +314,7 @@ namespace FunkyTrinity.Movement
 									 if (bUseThisLoop)
 									 {
 										  ZetaDia.Me.UsePower(SNOPower.Barbarian_Whirlwind, CurrentTargetLocation, Bot.Character.iCurrentWorldID, -1);
-										  Bot.Class.Abilities[SNOPower.Barbarian_Whirlwind].SuccessfullyUsed();
+										  Bot.Class.Abilities[SNOPower.Barbarian_Whirlwind].OnSuccessfullyUsed();
 									 }
 									 // Store the current destination for comparison incase of changes next loop
 									 LastTargetLocation=CurrentTargetLocation;
@@ -384,7 +387,7 @@ namespace FunkyTrinity.Movement
 				internal static void NewTargetResetVars()
 				{
 					 IsAlreadyMoving=false;
-					 LastMovementCommand=DateTime.Today;
+					 //LastMovementCommand=DateTime.Today;
 				}
 		  }
     

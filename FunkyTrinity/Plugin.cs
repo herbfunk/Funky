@@ -25,7 +25,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky : IPlugin
 	 {
-		  public Version Version { get { return new Version(2, 5, 1, 0); } }
+		  public Version Version { get { return new Version(2, 5, 2, 0); } }
 		  public string Author { get { return "Herbfunk"; } }
 		  public string Description
 		  {
@@ -143,40 +143,12 @@ namespace FunkyTrinity
 					 {
 						  Logging.WriteDiagnostic("Setting Combat Routine to Funky");
 						  Zeta.CommonBot.RoutineManager.Current=Zeta.CommonBot.RoutineManager.Routines.First(r => r.Name=="Funky");
-						  Zeta.CommonBot.RoutineManager.SetCurrentCombatRoutine();
 
 						  #region FunkyButtonHandlerHook
 						  try
 						  {
 
-								Window mainWindow=Demonbuddy.App.Current.MainWindow;
-								var tab=mainWindow.FindName("tabControlMain") as TabControl;
-								if (tab==null) return;
-								var infoDumpTab=tab.Items[0] as TabItem;
-								if (infoDumpTab==null) return;
-								var grid=infoDumpTab.Content as Grid;
-								if (grid==null) return;
-								FunkyButton=grid.FindName("Funky") as Demonbuddy.SplitButton;
-								if (FunkyButton!=null)
-								{
-									 Logging.WriteDiagnostic("Funky Button handler added");
-								}
-								else
-								{
-									 Demonbuddy.SplitButton[] splitbuttons=grid.Children.OfType<Demonbuddy.SplitButton>().ToArray();
-									 if (splitbuttons.Any())
-									 {
-
-										  foreach (var item in splitbuttons)
-										  {
-												if (item.Name.Contains("Funky"))
-												{
-													 FunkyButton=item;
-													 break;
-												}
-										  }
-									 }
-								}
+								FunkyButton=FindFunkyButton();
 								initFunkyButton=true;
 						  } catch (Exception ex)
 						  {
@@ -256,9 +228,9 @@ namespace FunkyTrinity
 					 //  BotMain.TicksPerSecond=(int)settings.iTPSAmount;
 
 
-					 ErrorClickerThread=new Thread(ErrorClickerWorker);
-					 ErrorClickerThread.IsBackground=true;
-					 ErrorClickerThread.Start();
+					 //ErrorClickerThread=new Thread(ErrorClickerWorker);
+					 //ErrorClickerThread.IsBackground=true;
+					 //ErrorClickerThread.Start();
 					 System.IO.FileInfo PluginInfo=new FileInfo(FolderPaths.sDemonBuddyPath+@"\Plugins\FunkyTrinity\");
 					 //
 					 string CompileDateString=PluginInfo.LastWriteTime.ToString("MM/dd hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
@@ -299,13 +271,6 @@ namespace FunkyTrinity
 		  public void OnDisabled()
 		  {
 				bPluginEnabled=false;
-
-				if (ErrorClickerThread!=null&&ErrorClickerThread.ThreadState==System.Threading.ThreadState.Background)
-				{
-					 Logging.WriteDiagnostic("Error Dialog Thread Aborting..");
-					 ErrorClickerThread.Abort();
-				}
-
 				Log("DISABLED: FunkyPlugin has shut down...");
 		  }
 
@@ -315,13 +280,6 @@ namespace FunkyTrinity
 				BotMain.OnStop-=FunkyBotStop;
 				RemoveHandlers();
 				ResetTreehooks();
-
-				if (ErrorClickerThread!=null&&ErrorClickerThread.ThreadState==System.Threading.ThreadState.Background)
-				{
-					 Logging.WriteDiagnostic("Error Dialog Thread Aborting..");
-					 ErrorClickerThread.Abort();
-				}
-
 
 				#region FunkyButtonHandlerRemove
 				Window mainWindow=Demonbuddy.App.Current.MainWindow;
@@ -350,8 +308,6 @@ namespace FunkyTrinity
 
 				ResetGame();
 
-
-
 		  }
 		  internal static Window MainWindow
 		  {
@@ -366,6 +322,7 @@ namespace FunkyTrinity
 				GameEvents.OnGameJoined-=FunkyOnJoinGame;
 				GameEvents.OnGameLeft-=FunkyOnLeaveGame;
 				GameEvents.OnGameChanged-=FunkyOnGameChanged;
+				ProfileManager.OnProfileLoaded-=Bot.Profile.FunkyOnProfileChanged;
 		  }
 
 		  internal void ResetTreehooks()

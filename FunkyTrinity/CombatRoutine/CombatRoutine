@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using Zeta;
+using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 using Zeta.TreeSharp;
@@ -8,14 +10,18 @@ using System.IO;
 using System.Reflection;
 using System;
 
-namespace FunkyCombatRoutine
+namespace GilesBlankCombatRoutine
 {
 	 [System.Runtime.InteropServices.ComVisible(false)]
     public class FunkyRoutine : CombatRoutine
     {
-        private static string sDemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-        private static string sTrinityPluginPath = sDemonBuddyPath + @"\Plugins\FunkyTrinity\";
+		  private static string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+		  private static string sTrinityPluginPath=sDemonBuddyPath+@"\Plugins\FunkyTrinity\";
+
         
+
+
+
         public override void Initialize()
         {
             // Set up the pause button
@@ -23,23 +29,49 @@ namespace FunkyCombatRoutine
             new System.Action(
             () =>
             {
-					 System.Windows.Window mainWindow=System.Windows.Application.Current.MainWindow;
+					 Window mainWindow=Demonbuddy.App.Current.MainWindow;
+					 Demonbuddy.SplitButton FunkyButton;
+					 var tab=mainWindow.FindName("tabControlMain") as TabControl;
+					 if (tab!=null)
+					 {
+						  var infoDumpTab=tab.Items[0] as TabItem;
+						  if (infoDumpTab!=null)
+						  {
+								var grid=infoDumpTab.Content as Grid;
+								if (grid!=null)
+								{
+									 FunkyButton=grid.FindName("Funky") as Demonbuddy.SplitButton;
+									 if (FunkyButton!=null)
+									 {
+										  Logging.WriteDiagnostic("Funky Button handler added");
+									 }
+									 else
+									 {
+										  Demonbuddy.SplitButton[] splitbuttons=grid.Children.OfType<Demonbuddy.SplitButton>().ToArray();
+										  if (splitbuttons.Any())
+										  {
 
-                var tab = mainWindow.FindName("tabControlMain") as TabControl;
-                if (tab == null) return;
-                var infoDumpTab = tab.Items[0] as TabItem;
-                if (infoDumpTab == null) return;
-                var grid = infoDumpTab.Content as Grid;
-                if (grid == null) return;
-					 var FunkyButton=grid.FindName("Funky");
-					 
-					 Demonbuddy.SplitButton btnSplit_Funky;
-                FunkyDebug.initDebugLabels(out btnSplit_Funky);
+												foreach (var item in splitbuttons)
+												{
+													 if (item.Name.Contains("Funky"))
+													 {
+														  FunkyButton=item;
+														  break;
+													 }
+												}
+										  }
+									 }
 
-					 if (FunkyButton!=null)
-						  return;
-					 else
-						  grid.Children.Add(btnSplit_Funky);
+									 Demonbuddy.SplitButton btnSplit_Funky;
+									 FunkyDebug.initDebugLabels(out btnSplit_Funky);
+
+									 if (FunkyButton!=null)
+										  return;
+									 else
+										  grid.Children.Add(btnSplit_Funky);
+								}
+						  }
+					 }
             }));
         }
 

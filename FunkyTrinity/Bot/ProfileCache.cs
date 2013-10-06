@@ -117,6 +117,32 @@ namespace FunkyTrinity.Cache
 		  }
 
 		 internal bool IsRunningOOCBehavior { get; set; }
+
+		 internal void FunkyOnProfileChanged(object sender, EventArgs e)
+		 {
+			  string sThisProfile=GlobalSettings.Instance.LastProfile;
+
+			  //herbfunk stats
+			  Bot.BotStatistics.ProfileStats.UpdateProfileChanged();
+
+			  // See if we appear to have started a new game
+			  if (!String.IsNullOrEmpty(this.FirstProfileSeen)&&sThisProfile==this.FirstProfileSeen)
+			  {
+					this.iTotalProfileRecycles++;
+					if (this.iTotalProfileRecycles>Bot.Stats.iTotalJoinGames&&this.iTotalProfileRecycles>Bot.Stats.iTotalLeaveGames)
+					{
+						 Funky.Log("Reseting Game Data -- Total Profile Recycles exceedes join and leave count!");
+						 Funky.ResetGame();
+					}
+			  }
+			  this.listProfilesLoaded.Add(sThisProfile);
+			  this.LastProfileSeen=sThisProfile;
+			  if (String.IsNullOrEmpty(this.FirstProfileSeen))
+					this.FirstProfileSeen=sThisProfile;
+
+			  //Refresh Profile Target Blacklist 
+			  BlacklistCache.UpdateProfileBlacklist();
+		 }
 	 }
 }
 

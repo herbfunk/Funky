@@ -8,6 +8,7 @@ using Zeta.CommonBot;
 using Zeta.TreeSharp;
 using Zeta.Navigation;
 using FunkyTrinity.Settings;
+using FunkyTrinity.Cache;
 
 namespace FunkyTrinity
 {
@@ -35,6 +36,7 @@ namespace FunkyTrinity
 				GameEvents.OnGameJoined+=new EventHandler<EventArgs>(FunkyOnJoinGame);
 				GameEvents.OnGameLeft+=new EventHandler<EventArgs>(FunkyOnLeaveGame);
 				GameEvents.OnGameChanged+=new EventHandler<EventArgs>(FunkyOnGameChanged);
+				ProfileManager.OnProfileLoaded+=new EventHandler<EventArgs>(Bot.Profile.FunkyOnProfileChanged);
 
 				ITargetingProvider newCombatTargetingProvider=new TrinityCombatTargetingReplacer();
 				CombatTargeting.Instance.Provider=newCombatTargetingProvider;
@@ -96,6 +98,13 @@ namespace FunkyTrinity
 
 
 				Bot.Reset();
+
+				//Demonbuddy.SplitButton FunkyButton=FindFunkyButton();
+				//if (FunkyButton!=null)
+				//{
+				//	 Logging.WriteDiagnostic("Funky Split Button Click Handler Added");
+				//	 FunkyButton.Click+=FunkyWindow.buttonFunkySettingDB_Click;
+				//}
 		  }
     }
 }

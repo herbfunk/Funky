@@ -145,7 +145,7 @@ namespace FunkyTrinity.AbilityFunky
 						  if (!Bot.Targeting.CurrentUnitTarget.IgnoresLOSCheck)
 						  {
 								LOSInfo LOSINFO=Bot.Targeting.CurrentTarget.LineOfSight;
-								if (!Bot.Character.bIsIncapacitated&&(LOSINFO.LastLOSCheckMS>2000||!LOSINFO.NavCellProjectile.HasValue))
+								if (LOSINFO.LastLOSCheckMS>2000||!LOSINFO.NavCellProjectile.HasValue)
 								{
 									 if (!LOSINFO.LOSTest(Bot.Character.Position, true, false, NavCellFlags.AllowProjectile))
 									 {
@@ -174,7 +174,7 @@ namespace FunkyTrinity.AbilityFunky
 								{
 									 //Verify LOS walk
 									 LOSInfo LOSINFO=Bot.Targeting.CurrentTarget.LineOfSight;
-									 if (!Bot.Character.bIsIncapacitated&&(LOSINFO.LastLOSCheckMS>2000||!LOSINFO.NavCellWalk.HasValue))
+									 if (LOSINFO.LastLOSCheckMS>2000||!LOSINFO.NavCellWalk.HasValue)
 									 {
 										  if (!LOSINFO.LOSTest(Bot.Character.Position, true, false, NavCellFlags.AllowWalk))
 										  {

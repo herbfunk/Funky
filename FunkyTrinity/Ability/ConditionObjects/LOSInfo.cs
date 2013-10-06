@@ -69,10 +69,14 @@ namespace FunkyTrinity.AbilityFunky
 			  {//This is a basic raycast test to see if we have clear view of the object.
 					//Navigator.SearchGridProvider.Update();
 					Vector2 hitpos;
-					//Vector3 modifiedPosition=PositionToTestFrom;
-					//modifiedPosition.Z=Navigation.MGP.GetHeight(PositionToTestFrom.ToVector2());
-					RayCast=!Navigator.SearchGridProvider.Raycast((GridPoint)PositionToTestFrom, Obj.PointPosition, out hitpos);
-					
+					Vector3 ObjectPosition=Obj.Position;
+
+					//Must check the Z difference.. (so we don't get false-positive result)
+					if (PositionToTestFrom.Z>=ObjectPosition.Z)
+						 RayCast=!Navigator.SearchGridProvider.Raycast(PositionToTestFrom.ToVector2(), ObjectPosition.ToVector2(), out hitpos);
+					else
+						 RayCast=!Navigator.SearchGridProvider.Raycast(ObjectPosition.ToVector2(), PositionToTestFrom.ToVector2(), out hitpos);
+
 					if (!RayCast.Value)
 					{
 						 Failed=true;

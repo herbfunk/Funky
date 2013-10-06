@@ -193,7 +193,7 @@ namespace FunkyTrinity.Cache
 				if (Bot.Class.PowerPrime.SuccessUsed.HasValue&&Bot.Class.PowerPrime.SuccessUsed.Value)
 				{
 					//Logging.Write(powerPrime.powerThis.ToString() + " used successfully");
-					Bot.Class.PowerPrime.SuccessfullyUsed();
+					Bot.Class.PowerPrime.OnSuccessfullyUsed();
 					this.InteractionAttempts++;
 				}
 				else

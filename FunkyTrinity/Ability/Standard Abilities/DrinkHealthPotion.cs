@@ -24,7 +24,7 @@ namespace FunkyTrinity.AbilityFunky.Abilities
 					 Bot.Character.WaitWhileAnimating(4, true);
 					 ZetaDia.Me.Inventory.UseItem((thisBestPotion.DynamicId));
 				}
-				this.SuccessfullyUsed();
+				this.OnSuccessfullyUsed();
 				Bot.Character.WaitWhileAnimating(3, true);
 		  }
 
@@ -35,21 +35,21 @@ namespace FunkyTrinity.AbilityFunky.Abilities
 
 		  public override void Initialize()
 		  {
-
+				Cooldown=30000;
 				ExecutionType=AbilityExecuteFlags.None;
 				WaitVars=new WaitLoops(3, 3, true);
 				Priority=AbilityPriority.High;
-			
+
 				UseageType=AbilityUseage.Anywhere;
 				PreCastFlags=AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer;
 
 				//Important!! We have to override the default return of true.. we dont want this to fire as a combat Ability.
 				FcriteriaCombat=new Func<bool>(() => { return Bot.Character.dCurrentHealthPct<=Bot.Settings.Combat.PotionHealthPercent; });
 
-				
+
 		  }
 
-		 #region IAbility
+		  #region IAbility
 
 		  public override int RuneIndex
 		  {

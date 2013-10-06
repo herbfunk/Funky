@@ -32,7 +32,7 @@ namespace FunkyTrinity
 					 set { character=value; }
 				}
 				public static CombatCache Combat { get; set; }
-				public static TargetHandler Targeting { get; set; }
+				public static TargetingHandler Targeting { get; set; }
 
 				private static BotStatistics Stats_=new BotStatistics();
 				public static BotStatistics Stats
@@ -101,7 +101,7 @@ namespace FunkyTrinity
 					 Class=null;
 					 character=new CharacterCache();
 					 Combat=new CombatCache();
-					 Targeting=new TargetHandler();
+					 Targeting=new TargetingHandler();
 					 NavigationCache=new Navigation();
 					 Stats_=new BotStatistics();
 				}

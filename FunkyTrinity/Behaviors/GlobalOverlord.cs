@@ -21,12 +21,15 @@ namespace FunkyTrinity
 		  private static bool GlobalOverlord(object ret)
 		  {
 				// If we aren't in the game of a world is loading, don't do anything yet
-				if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld)
+				if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld||!ZetaDia.Me.IsValid)
 				{
 					 Bot.NavigationCache.lastChangedZigZag=DateTime.Today;
 					 Bot.NavigationCache.vPositionLastZigZagCheck=Vector3.Zero;
 					 return false;
 				}
+
+				//Error Clicker CHeck
+				ErrorClickerCheck();
 
 				// World ID safety caching incase it's ever unavailable
 				if (ZetaDia.CurrentWorldDynamicId!=-1) Bot.Character.iCurrentWorldID=ZetaDia.CurrentWorldDynamicId;
@@ -86,7 +89,7 @@ namespace FunkyTrinity
 				}
 
 				// Recording of all the XML's in use this run
-				Bot.Profile.CheckProfile();
+				//Bot.Profile.CheckProfile();
 
 				//Seconday Hotbar Check
 				Bot.Class.SecondaryHotbarBuffPresent();
@@ -171,7 +174,7 @@ namespace FunkyTrinity
 						  FunkyTrinity.AbilityFunky.Ability.SetupAbilityForUse(ref Buff);
 						  Bot.Character.WaitWhileAnimating(4, true);
 						  AbilityFunky.Ability.UsePower(ref Buff);
-						  Buff.SuccessfullyUsed();
+						  Buff.OnSuccessfullyUsed();
 						  Bot.Character.WaitWhileAnimating(3, true);
 					 }
 				}

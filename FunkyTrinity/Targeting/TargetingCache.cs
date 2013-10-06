@@ -6,7 +6,7 @@ using Zeta.CommonBot.Settings;
 
 namespace FunkyTrinity.Targeting
 {
-	 public partial class TargetHandler
+	 public partial class TargetingHandler
 	{
 		 //Order is important! -- we test from start to finish.
 		 internal readonly TargetBehavior[] TargetBehaviors=new TargetBehavior[]

@@ -249,14 +249,7 @@ namespace FunkyTrinity
 							{
 								 Zeta.Common.Logging.WriteVerbose("Dumping Character Cache");
 
-								 string charString=String.Format("Character Info \r\n"+
-																			"DynamicID={0} -- WorldID={1} \r\n"+
-																			"SNOAnim={2} AnimState={3}",
-																			Bot.Character.iMyDynamicID.ToString(), Bot.Character.iCurrentWorldID.ToString(),
-																			Bot.Character.CurrentSNOAnim.ToString(), Bot.Character.CurrentAnimationState.ToString());
-
-
-								 LBDebug.Items.Add(charString);
+								 LBDebug.Items.Add(Bot.Character.DebugString());
 
 							} catch (Exception ex)
 							{

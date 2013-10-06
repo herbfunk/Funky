@@ -23,6 +23,38 @@ namespace FunkyTrinity
 				{
 
 				}
+				private HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
+				{
+					 SNOAnim.WitchDoctor_Male_1HT_MOJO_knockback_land,
+					 SNOAnim.WitchDoctor_Female_1HT_MOJO_knockback_land,
+					 SNOAnim.WitchDoctor_Male_HTH_Knockback_Land,
+					 SNOAnim.WitchDoctor_Male_1HT_Knockback_Land,
+					 SNOAnim.WitchDoctor_Female_HTH_knockback_land,
+					 SNOAnim.WitchDoctor_Female_1HT_knockback_land,
+					 SNOAnim.WitchDoctor_Female_2HT_knockback_land,
+					 SNOAnim.WitchDoctor_Male_XBOW_Knockback_Land,
+					 SNOAnim.WitchDoctor_Female_STF_knockback_land,
+					 SNOAnim.WitchDoctor_Female_XBOW_knockback_land,
+					 SNOAnim.WitchDoctor_Female_HTH_MOJO_knockback_land,
+					 SNOAnim.WitchDoctor_Female_BOW_knockback_land,
+					 SNOAnim.WitchDoctor_Female_2HS_knockback_land,
+					 SNOAnim.WitchDoctor_Female_1HS_MOJO_knockback_land,
+					 SNOAnim.WitchDoctor_Female_1HS_Knockback_land,
+					 SNOAnim.WitchDoctor_Male_1HS_Knockback_land,
+					 SNOAnim.WitchDoctor_Male_2HS_Knockback_Land,
+					 SNOAnim.WitchDoctor_Male_2HT_Knockback_Land,
+					 SNOAnim.WitchDoctor_Male_HTH_MOJO_Knockback_Land,
+					 SNOAnim.WitchDoctor_Male_1HS_MOJO_Knockback_Land,
+					 SNOAnim.WitchDoctor_Male_BOW_Knockback_Land,
+					 SNOAnim.WitchDoctor_Male_STF_Knockback_Land,
+				};
+				public override HashSet<SNOAnim> KnockbackLandAnims
+				{
+					 get
+					 {
+						  return this.knockbackanims;
+					 }
+				}
 				public override Ability DefaultAttack
 				{
 					 get { return new WeaponMeleeInsant(); }
@@ -58,6 +90,7 @@ namespace FunkyTrinity
 					 {
 						  Ability newAbility=this.CreateAbility(item);
 						  AbilityLogicConditions.CreateAbilityLogicConditions(ref newAbility);
+						  newAbility.SuccessfullyUsed+=new Ability.AbilitySuccessfullyUsed(base.AbilitySuccessfullyUsed);
 						  Abilities.Add(item, newAbility);
 					 }
 

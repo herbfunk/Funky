@@ -110,6 +110,14 @@ namespace FunkyTrinity
 				///</summary>
 				public virtual int MainPetCount { get { return 0; } }
 
+				///<summary>
+				///Animations that determine if character has been "vortexed"
+				///</summary>
+				public virtual HashSet<SNOAnim> KnockbackLandAnims
+				{
+					 get { return null; }
+				}
+
 
 
 			  ///<summary>
@@ -372,8 +380,7 @@ namespace FunkyTrinity
 					 destructibleabilities=new List<SNOPower>();
 					 RuneIndexCache=new Dictionary<SNOPower, int>();
 
-					 using (ZetaDia.Memory.AcquireFrame())
-					 {
+
 						  if (ZetaDia.CPlayer.IsValid)
 						  {
 
@@ -417,7 +424,7 @@ namespace FunkyTrinity
 								}
 
 						  }
-					 }
+					 
 				}
 
 
@@ -428,8 +435,7 @@ namespace FunkyTrinity
 				internal void RefreshPassives()
 				{
 
-					 using (ZetaDia.Memory.AcquireFrame())
-					 {
+
 						  if (ZetaDia.CPlayer.IsValid)
 						  {
 								foreach (var item in ZetaDia.CPlayer.PassiveSkills)
@@ -437,7 +443,7 @@ namespace FunkyTrinity
 									 PassivePowers.Add(item);
 								}
 						  }
-					 }
+					 
 
 				}
 
@@ -512,8 +518,7 @@ namespace FunkyTrinity
 				internal void RefreshCurrentBuffs()
 				{
 					 CurrentBuffs=new Dictionary<int, int>();
-					 using (ZetaDia.Memory.AcquireFrame())
-					 {
+
 						  foreach (var item in ZetaDia.Me.GetAllBuffs())
 						  {
 								if (CurrentBuffs.ContainsKey(item.SNOId))
@@ -524,7 +529,7 @@ namespace FunkyTrinity
 								else
 									 CurrentBuffs.Add(item.SNOId, 1);
 						  }
-					 }
+					 
 				}
 				///<summary>
 				///
@@ -532,13 +537,12 @@ namespace FunkyTrinity
 				internal void RefreshCurrentDebuffs()
 				{
 					 CurrentDebuffs=new List<int>();
-					 using (ZetaDia.Memory.AcquireFrame())
-					 {
+	
 						  foreach (var item in ZetaDia.Me.GetAllDebuffs())
 						  {
 								CurrentDebuffs.Add(item.SNOId);
 						  }
-					 }
+					 
 				}
 				//internal bool AbilityUseTimer(SNOPower thispower, bool bReCheck=false)
 				//{
@@ -606,6 +610,12 @@ namespace FunkyTrinity
 				///Last successful Ability used.
 				///</summary>
 				public Ability LastUsedAbility { get; set; }
+
+				internal void AbilitySuccessfullyUsed(Ability ability)
+				{
+					 this.LastUsedAbility=ability;
+					 this.SortedAbilities=this.Abilities.Values.OrderByDescending(a => a.Priority).ThenByDescending(a => a.LastUsedMilliseconds).ToList();
+				}
 
 				internal Ability PowerPrime;
 		  }

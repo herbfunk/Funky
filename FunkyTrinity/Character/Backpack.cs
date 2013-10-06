@@ -37,14 +37,12 @@ namespace FunkyTrinity.Cache
 				CacheItemList=new Dictionary<int, CacheACDItem>();
 				foreach (var thisitem in ZetaDia.Me.Inventory.Backpack)
 				{
-					using (ZetaDia.Memory.AcquireFrame())
-					{
 						//CacheACDItem thiscacheditem=new CacheACDItem(thisitem.InternalName, thisitem.Name, thisitem.Level, thisitem.ItemQualityLevel, thisitem.Gold, thisitem.GameBalanceId,
 						//            thisitem.DynamicId, thisitem.Stats.WeaponDamagePerSecond, thisitem.IsOneHand, thisitem.DyeType, thisitem.ItemType, thisitem.FollowerSpecialType,
 						//            thisitem.IsUnidentified, thisitem.ItemStackQuantity, thisitem.Stats, thisitem, thisitem.InventoryRow, thisitem.InventoryColumn, thisitem.IsPotion, thisitem.ACDGuid);
 						CacheACDItem thiscacheditem=new CacheACDItem(thisitem);
 						CacheItemList.Add(thiscacheditem.ACDGUID,thiscacheditem);
-					}
+					
 				}
 			}
 
@@ -60,13 +58,11 @@ namespace FunkyTrinity.Cache
 				if (NewItems.Count()==0) return;
 
 				//Now get items that are not currently in the BPItems List.
-				using (ZetaDia.Memory.AcquireFrame())
-				{
 					foreach (var item in NewItems)
 					{
 						BPItems.Add(new CacheBPItem(item.ACDGuid, item));
 					}
-				}
+				
 			}
 		}
 
@@ -100,8 +96,7 @@ namespace FunkyTrinity.Cache
 			//Always update!
 			Update();
 			BestPotionToUse=null;
-			using (ZetaDia.Memory.AcquireFrame())
-			{
+
 				var Potions=ZetaDia.Me.Inventory.Backpack.Where<ACDItem>(i => i.IsPotion);
 				if (Potions.Count()<=0) return null;
 				Potions=Potions.OrderByDescending(i => i.HitpointsGranted).ThenByDescending(i => i.ItemStackQuantity);
@@ -112,7 +107,7 @@ namespace FunkyTrinity.Cache
 				BestPotionToUse=Potions.Where<ACDItem>(i => i.GameBalanceId==balanceID).OrderBy(i => i.ItemStackQuantity).FirstOrDefault();
 				return Potions.ToList();
 
-			}
+			
 		}
 
 		public Queue<ACDItem> ReturnUnidenifiedItems()
@@ -121,8 +116,7 @@ namespace FunkyTrinity.Cache
 
 			Update();
 
-			using (ZetaDia.Memory.AcquireFrame())
-			{
+
 				var filteredItems=ZetaDia.Me.Inventory.Backpack.Where<ACDItem>(i =>
 					i.IsValid&&!i.IsMiscItem);
 
@@ -140,7 +134,7 @@ namespace FunkyTrinity.Cache
 						}
 					}
 				}
-			}
+			
 
 			return returnQueue;
 		}
@@ -168,15 +162,14 @@ namespace FunkyTrinity.Cache
 			List<ACDItem> returnList=new List<ACDItem>();
 
 			Update();
-			using (ZetaDia.Memory.AcquireFrame())
-			{
+
 				var filteredItems=ZetaDia.Me.Inventory.Backpack.Where<ACDItem>(i =>
 					i.IsValid&&!i.IsMiscItem&&i.IsUnidentified);
 				if (Backwards)
 					return filteredItems.OrderByDescending(o => InventoryRowCombine(o.InventoryRow)).ThenByDescending(o => o.InventoryColumn).ToList();
 				else
 					return filteredItems.OrderBy(o => InventoryRowCombine(o.InventoryRow)).ThenBy(o => o.InventoryColumn).ToList();
-			}
+			
 		}
 		private int ItemBaseTypePriorty(ItemBaseType type)
 		{
@@ -230,11 +223,10 @@ namespace FunkyTrinity.Cache
 				bool ShouldRepair=false;
 				bool intown=ZetaDia.Me.IsInTown;
 				List<float> repairPct=ZetaDia.Me.Inventory.Equipped.Select(o => o.DurabilityPercent).ToList();
-				using (ZetaDia.Memory.AcquireFrame())
-				{
+
 					//Already in town? Have gear with 50% or less durability?
 					ShouldRepair=(repairPct.Any(o => o<=repairVar)||intown&&repairPct.Any(o => o<=50));
-				}
+				
 
 				return ShouldRepair;
 			} catch

@@ -18,7 +18,7 @@ using Zeta.CommonBot.Settings;
 
 namespace FunkyTrinity.Targeting
 {
-	 public partial class TargetHandler
+	 public partial class TargetingHandler
 	 {
 		  #region Target Changed
 
@@ -122,8 +122,9 @@ namespace FunkyTrinity.Targeting
 				//Update Search Grid Provider?
 				if (Bot.NavigationCache.ShouldUpdateSearchGrid&&ObjectCache.Objects.Count>0&&!Bot.IsInNonCombatBehavior)
 				{
-					 Bot.NavigationCache.ShouldUpdateSearchGrid=false;
-					 Zeta.Navigation.Navigator.SearchGridProvider.Update();
+					 //Bot.NavigationCache.ShouldUpdateSearchGrid=false;
+					 //Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
+					 //Zeta.Navigation.Navigator.SearchGridProvider.Update();
 				}
 
 				//This is our list of objects we consider to be valid for targeting.
@@ -243,6 +244,10 @@ namespace FunkyTrinity.Targeting
 
 						  //Reset Skip Ahead Cache
 						  SkipAheadCache.ClearCache();
+
+						  Bot.NavigationCache.ShouldUpdateSearchGrid=false;
+						  Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
+						  Zeta.Navigation.Navigator.SearchGridProvider.Update();
 					 }
 				}
 
