@@ -8,6 +8,7 @@ using System.Threading;
 using Zeta.CommonBot;
 using System.Windows;
 using System.Windows.Controls;
+using Zeta.Navigation;
 
 namespace FunkyTrinity
 {
@@ -15,6 +16,7 @@ namespace FunkyTrinity
     {
 		  private static void FunkyOnGameChanged(object sender, EventArgs e)
 		  {
+				Navigator.SearchGridProvider.Update();
 				ResetGame();
 		  }
     }

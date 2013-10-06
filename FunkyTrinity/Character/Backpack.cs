@@ -30,39 +30,43 @@ namespace FunkyTrinity.Cache
 		//Sets List to current backpack contents
 		public void Update()
 		{
+			 using (ZetaDia.Memory.AcquireFrame())
+			 {
+				  int CurrentItemCount=ZetaDia.Me.Inventory.Backpack.Count();
+				  if (CurrentItemCount!=CacheItemList.Count||ZetaDia.Me.Inventory.Backpack.Any(i => !CacheItemList.ContainsKey(i.ACDGuid)))
+				  {
+						CacheItemList=new Dictionary<int, CacheACDItem>();
+						foreach (var thisitem in ZetaDia.Me.Inventory.Backpack)
+						{
+							 //CacheACDItem thiscacheditem=new CacheACDItem(thisitem.InternalName, thisitem.Name, thisitem.Level, thisitem.ItemQualityLevel, thisitem.Gold, thisitem.GameBalanceId,
+							 //            thisitem.DynamicId, thisitem.Stats.WeaponDamagePerSecond, thisitem.IsOneHand, thisitem.DyeType, thisitem.ItemType, thisitem.FollowerSpecialType,
+							 //            thisitem.IsUnidentified, thisitem.ItemStackQuantity, thisitem.Stats, thisitem, thisitem.InventoryRow, thisitem.InventoryColumn, thisitem.IsPotion, thisitem.ACDGuid);
+							 CacheACDItem thiscacheditem=new CacheACDItem(thisitem);
+							 CacheItemList.Add(thiscacheditem.ACDGUID, thiscacheditem);
 
-			int CurrentItemCount=ZetaDia.Me.Inventory.Backpack.Count();
-			if (CurrentItemCount!=CacheItemList.Count||ZetaDia.Me.Inventory.Backpack.Any(i => !CacheItemList.ContainsKey(i.ACDGuid)))
-			{
-				CacheItemList=new Dictionary<int, CacheACDItem>();
-				foreach (var thisitem in ZetaDia.Me.Inventory.Backpack)
-				{
-						//CacheACDItem thiscacheditem=new CacheACDItem(thisitem.InternalName, thisitem.Name, thisitem.Level, thisitem.ItemQualityLevel, thisitem.Gold, thisitem.GameBalanceId,
-						//            thisitem.DynamicId, thisitem.Stats.WeaponDamagePerSecond, thisitem.IsOneHand, thisitem.DyeType, thisitem.ItemType, thisitem.FollowerSpecialType,
-						//            thisitem.IsUnidentified, thisitem.ItemStackQuantity, thisitem.Stats, thisitem, thisitem.InventoryRow, thisitem.InventoryColumn, thisitem.IsPotion, thisitem.ACDGuid);
-						CacheACDItem thiscacheditem=new CacheACDItem(thisitem);
-						CacheItemList.Add(thiscacheditem.ACDGUID,thiscacheditem);
-					
-				}
-			}
+						}
+				  }
+			 }
 
 
 
 			//We refresh our BPItem Cache whenever we are checking for looted items!
 			if (Bot.Combat.ShouldCheckItemLooted)
 			{
-				//Get a list of current BP Cached ACDItems
-				List<ACDItem> BPItemsACDItemList=(from backpackItems in BPItems
-					select backpackItems.Ref_ACDItem).ToList();
-				var NewItems=ZetaDia.Me.Inventory.Backpack.Where<ACDItem>(I => !BPItemsACDItemList.Contains(I));
-				if (NewItems.Count()==0) return;
+				 using (ZetaDia.Memory.AcquireFrame())
+				 {
+					  //Get a list of current BP Cached ACDItems
+					  List<ACDItem> BPItemsACDItemList=(from backpackItems in BPItems
+																	select backpackItems.Ref_ACDItem).ToList();
+					  var NewItems=ZetaDia.Me.Inventory.Backpack.Where<ACDItem>(I => !BPItemsACDItemList.Contains(I));
+					  if (NewItems.Count()==0) return;
 
-				//Now get items that are not currently in the BPItems List.
-					foreach (var item in NewItems)
-					{
-						BPItems.Add(new CacheBPItem(item.ACDGuid, item));
-					}
-				
+					  //Now get items that are not currently in the BPItems List.
+					  foreach (var item in NewItems)
+					  {
+							BPItems.Add(new CacheBPItem(item.ACDGuid, item));
+					  }
+				 }
 			}
 		}
 
@@ -96,18 +100,18 @@ namespace FunkyTrinity.Cache
 			//Always update!
 			Update();
 			BestPotionToUse=null;
-
-				var Potions=ZetaDia.Me.Inventory.Backpack.Where<ACDItem>(i => i.IsPotion);
-				if (Potions.Count()<=0) return null;
-				Potions=Potions.OrderByDescending(i => i.HitpointsGranted).ThenByDescending(i => i.ItemStackQuantity);
-				//Set Best Potion to use..
-				CurrentPotionACDGUID=Potions.FirstOrDefault().ACDGuid;
-				int balanceID=Potions.FirstOrDefault().GameBalanceId;
-				//Find best potion to use based upon stack
-				BestPotionToUse=Potions.Where<ACDItem>(i => i.GameBalanceId==balanceID).OrderBy(i => i.ItemStackQuantity).FirstOrDefault();
-				return Potions.ToList();
-
-			
+			using (ZetaDia.Memory.AcquireFrame())
+			{
+				 var Potions=ZetaDia.Me.Inventory.Backpack.Where<ACDItem>(i => i.IsPotion);
+				 if (Potions.Count()<=0) return null;
+				 Potions=Potions.OrderByDescending(i => i.HitpointsGranted).ThenByDescending(i => i.ItemStackQuantity);
+				 //Set Best Potion to use..
+				 CurrentPotionACDGUID=Potions.FirstOrDefault().ACDGuid;
+				 int balanceID=Potions.FirstOrDefault().GameBalanceId;
+				 //Find best potion to use based upon stack
+				 BestPotionToUse=Potions.Where<ACDItem>(i => i.GameBalanceId==balanceID).OrderBy(i => i.ItemStackQuantity).FirstOrDefault();
+				 return Potions.ToList();
+			}
 		}
 
 		public Queue<ACDItem> ReturnUnidenifiedItems()
@@ -221,18 +225,21 @@ namespace FunkyTrinity.Cache
 			{
 				float repairVar=CharacterSettings.Instance.RepairWhenDurabilityBelow;
 				bool ShouldRepair=false;
-				bool intown=ZetaDia.Me.IsInTown;
-				List<float> repairPct=ZetaDia.Me.Inventory.Equipped.Select(o => o.DurabilityPercent).ToList();
+				using (ZetaDia.Memory.AcquireFrame())
+				{
+					 bool intown=ZetaDia.Me.IsInTown;
+					 List<float> repairPct=ZetaDia.Me.Inventory.Equipped.Select(o => o.DurabilityPercent).ToList();
 
-					//Already in town? Have gear with 50% or less durability?
-					ShouldRepair=(repairPct.Any(o => o<=repairVar)||intown&&repairPct.Any(o => o<=50));
-				
+					 //Already in town? Have gear with 50% or less durability?
+					 ShouldRepair=(repairPct.Any(o => o<=repairVar)||intown&&repairPct.Any(o => o<=50));
+				}
 
 				return ShouldRepair;
 			} catch
 			{
 				return false;
 			}
+
 		}
 
 		public bool ContainsItem(int ACDGUID)

@@ -99,6 +99,8 @@ namespace FunkyTrinity
 
 				Bot.Reset();
 
+				Navigator.SearchGridProvider.Update();
+
 				//Demonbuddy.SplitButton FunkyButton=FindFunkyButton();
 				//if (FunkyButton!=null)
 				//{

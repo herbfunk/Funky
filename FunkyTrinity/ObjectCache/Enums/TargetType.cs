@@ -21,10 +21,13 @@ namespace FunkyTrinity.Cache.Enums
 			Avoidance=512,
 			Door=1024,
 			LineOfSight=2048,
+		   NoMovement=4096,
+		   Fleeing=8192,
 
 			All=Unit|Shrine|Interactable|Destructible|Barricade|Container|Item|Gold|Globe|Avoidance|Door,
 			Gizmo=Shrine|Interactable|Destructible|Barricade|Container|Door,
 			Interactables=Shrine|Interactable|Door|Container,
 			ServerObjects=Unit|Interactables|Destructible|Barricade,
+		   AvoidanceMovements=Avoidance|Fleeing,
 	 }
 }

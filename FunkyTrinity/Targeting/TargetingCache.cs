@@ -16,7 +16,7 @@ namespace FunkyTrinity.Targeting
 			  new TBFleeing(), 
 			  new TBUpdateTarget(), 
 			  new TBGrouping(), 
-			 // new TBLOSMovement(),
+			  //new TBLOSMovement(),
 			  new TBEnd(),
 		  };
 		 internal TargetBehavioralTypes lastBehavioralType=TargetBehavioralTypes.None;

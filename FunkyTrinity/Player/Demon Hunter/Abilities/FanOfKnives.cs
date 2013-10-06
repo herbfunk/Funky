@@ -19,7 +19,7 @@ namespace FunkyTrinity.AbilityFunky.Abilities.DemonHunter
 		  public override void Initialize()
 		  {
 				Cooldown=10000;
-				ExecutionType=AbilityExecuteFlags.Target;
+				ExecutionType=AbilityExecuteFlags.Buff;
 				WaitVars=new WaitLoops(1, 1, true);
 				Cost=20;
 				Range=0;
@@ -27,8 +27,8 @@ namespace FunkyTrinity.AbilityFunky.Abilities.DemonHunter
 				Priority=AbilityPriority.Low;
 				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|
 											AbilityPreCastFlags.CheckEnergy);
-				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 4);
-				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
+				ClusterConditions=new ClusterConditions(4d, 10f, 2, false);
+				//TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.CloseDistance);
 		  }
 
 		  #region IAbility

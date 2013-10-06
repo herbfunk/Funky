@@ -57,7 +57,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 							  //Cut the delay time in half for non-elite monsters!
 							 DateTime.Now.Subtract(FunkyTrinity.Bot.Targeting.lastHadUnitInSights).TotalMilliseconds<=FunkyTrinity.Bot.Settings.AfterCombatDelay)
 						 {
-							  obj=new CacheObject(FunkyTrinity.Bot.Character.Position, TargetType.Avoidance, 20000, "WaitForLootDrops", 2f, -1);
+							  obj=new CacheObject(FunkyTrinity.Bot.Character.Position, TargetType.NoMovement, 20000, "WaitForLootDrops", 2f, -1);
 							  return true;
 
 						 }
@@ -65,7 +65,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 						 if ((DateTime.Now.Subtract(FunkyTrinity.Bot.Targeting.lastHadRareChestAsTarget).TotalMilliseconds<=3750)||
 							 (DateTime.Now.Subtract(FunkyTrinity.Bot.Targeting.lastHadContainerAsTarget).TotalMilliseconds<=(FunkyTrinity.Bot.Settings.AfterCombatDelay*1.25)))
 						 {
-							  obj=new CacheObject(FunkyTrinity.Bot.Character.Position, TargetType.Avoidance, 20000, "ContainerLootDropsWait", 2f, -1);
+							  obj=new CacheObject(FunkyTrinity.Bot.Character.Position, TargetType.NoMovement, 20000, "ContainerLootDropsWait", 2f, -1);
 							  return true;
 						 }
 
@@ -75,7 +75,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 							 (Vector3.Distance(FunkyTrinity.Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(FunkyTrinity.Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						 {
 							  Logging.Write("[Funky] Waiting for Wrath Of The Berserker cooldown before continuing to Azmodan.");
-							  obj=new CacheObject(FunkyTrinity.Bot.Character.Position, TargetType.Avoidance, 20000, "GilesWaitForWrath", 0f, -1);
+							  obj=new CacheObject(FunkyTrinity.Bot.Character.Position, TargetType.NoMovement, 20000, "GilesWaitForWrath", 0f, -1);
 							  InactivityDetector.Reset();
 							  return true;
 						 }
@@ -84,7 +84,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 							 (Vector3.Distance(FunkyTrinity.Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(FunkyTrinity.Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						 {
 							  Logging.Write("[Funky] Waiting for Wizard Archon cooldown before continuing to Azmodan.");
-							  obj=new CacheObject(FunkyTrinity.Bot.Character.Position, TargetType.Avoidance, 20000, "GilesWaitForArchon", 0f, -1);
+							  obj=new CacheObject(FunkyTrinity.Bot.Character.Position, TargetType.NoMovement, 20000, "GilesWaitForArchon", 0f, -1);
 							  InactivityDetector.Reset();
 							  return true;
 						 }
@@ -93,7 +93,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 							 (Vector3.Distance(FunkyTrinity.Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(FunkyTrinity.Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						 {
 							  Logging.Write("[Funky] Waiting for WD BigBadVoodoo cooldown before continuing to Azmodan.");
-							  obj=new CacheObject(FunkyTrinity.Bot.Character.Position, TargetType.Avoidance, 20000, "GilesWaitForVoodooo", 0f, -1);
+							  obj=new CacheObject(FunkyTrinity.Bot.Character.Position, TargetType.NoMovement, 20000, "GilesWaitForVoodooo", 0f, -1);
 							  InactivityDetector.Reset();
 							  return true;
 						 }

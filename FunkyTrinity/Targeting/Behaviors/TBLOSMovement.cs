@@ -5,6 +5,8 @@ using FunkyTrinity.Cache;
 using FunkyTrinity.Movement;
 using FunkyTrinity.Movement.Clustering;
 using FunkyTrinity.Cache.Enums;
+using Zeta.Common;
+using Zeta.Navigation;
 namespace FunkyTrinity.Targeting.Behaviors
 {
 	 public class TBLOSMovement : TargetBehavior
@@ -32,34 +34,52 @@ namespace FunkyTrinity.Targeting.Behaviors
 					  Return Any unit set?
 					 */
 
-					 if (Bot.NavigationCache.LOSmovementUnit==null||!Bot.NavigationCache.LOSmovementUnit.IsStillValid())
-						  Bot.NavigationCache.LOSmovementUnit=null;
-
-					 if (Bot.NavigationCache.LOSmovementUnit==null)
+					 if (obj==null)
 					 {
-						  //New LOS Movement Selection.
-						  List<UnitCluster> ValidLOSUnitClusters=new List<UnitCluster>();
-						  ValidLOSUnitClusters=UnitCluster.RunKmeans(Bot.Combat.LoSMovementUnits, 20).OrderBy(cluster => cluster.NearestMonsterDistance).ToList();
-						  foreach (var validLosUnitCluster in ValidLOSUnitClusters)
+						  if (Bot.NavigationCache.LOSmovementUnit==null||!Bot.NavigationCache.LOSmovementUnit.IsStillValid())
 						  {
-								CacheUnit nearestUnit=validLosUnitCluster.GetNearestUnitToCenteroid();
-								if (nearestUnit.CurrentHealthPct.Value>0.50d&&nearestUnit.IsTargetableAndAttackable)
-								{
-									 if (FunkyTrinity.Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-										  Logger.Write(LogLevel.Movement, "Line of Sight Started for object {0}", nearestUnit.InternalName);
+								Navigation.NP.Clear();
+								Bot.NavigationCache.LOSVector=Vector3.Zero;
+								Bot.NavigationCache.LOSmovementUnit=null;
+						  }
+							
 
-									 Navigation.NP.Clear();
-									 Zeta.Navigation.Navigator.SearchGridProvider.Update();
-									 Bot.NavigationCache.LOSmovementUnit=(CacheUnit)ObjectCache.Objects[nearestUnit.RAGUID];
-									 break;
+						  if (Bot.NavigationCache.LOSmovementUnit==null)
+						  {
+								//New LOS Movement Selection.
+								List<UnitCluster> ValidLOSUnitClusters=new List<UnitCluster>();
+								ValidLOSUnitClusters=UnitCluster.RunKmeans(Bot.Combat.LoSMovementUnits, 20).OrderBy(cluster => cluster.NearestMonsterDistance).ToList();
+								foreach (var validLosUnitCluster in ValidLOSUnitClusters)
+								{
+									 foreach (var unit in validLosUnitCluster.ListUnits)
+									 {
+										  if (unit.CurrentHealthPct.Value>0.75d)
+										  {
+												if (!Navigation.NP.CanFullyClientPathTo(unit.Position)) continue;
+
+												if (FunkyTrinity.Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+													 Logger.Write(LogLevel.Movement, "Line of Sight Started for object {0}", unit.InternalName);
+
+												Bot.NavigationCache.LOSmovementUnit=(CacheUnit)ObjectCache.Objects[unit.RAGUID];
+												
+												break;
+										  }
+									 }
+									 if (Bot.NavigationCache.LOSmovementUnit!=null)
+										  break;
 								}
 						  }
-					 }
 
-					 if (Bot.NavigationCache.LOSmovementUnit!=null)
-					 {
-						  obj=new CacheObject(Bot.NavigationCache.LOSmovementUnit.Position, TargetType.LineOfSight, 20000, "LOSMovement", 10f);
-						  return true;
+						  if (Bot.NavigationCache.LOSmovementUnit!=null)
+						  {
+								CacheUnit NavUnit=Bot.NavigationCache.LOSmovementUnit;
+								if (Bot.NavigationCache.LOSVector==Vector3.Zero)
+									 Bot.NavigationCache.LOSVector=Bot.NavigationCache.LOSmovementUnit.BotMeleeVector;
+
+								obj=new CacheObject(Bot.NavigationCache.LOSVector, TargetType.LineOfSight, 1d, "Line Of Sight", 5f, NavUnit.RAGUID);
+								Navigation.NP.MoveTo(Bot.NavigationCache.LOSVector, "LineOfSight");
+								return true;
+						  }
 					 }
 
 					 return false;

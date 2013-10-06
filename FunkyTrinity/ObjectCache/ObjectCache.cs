@@ -77,7 +77,8 @@ namespace FunkyTrinity.Cache
 						  //Update RactorGUID and check blacklisting..
 						  if (BlacklistCache.IsRAGUIDBlacklisted(tmp_raGUID)) continue;
 						  CacheObject tmp_CachedObj;
-
+						  using (ZetaDia.Memory.AcquireFrame())
+						  {
 								if (!ObjectCache.Objects.TryGetValue(tmp_raGUID, out tmp_CachedObj))
 								{
 									 Vector3 tmp_position;
@@ -391,7 +392,7 @@ namespace FunkyTrinity.Cache
 									 ObjectCache.Objects.Add(tmp_CachedObj.RAGUID, tmp_CachedObj);
 
 
-						  
+						  }
 					 } //End of Loop
 
 

@@ -76,6 +76,14 @@ namespace FunkyTrinity
 				if (Bot.BotStatistics.ProfileStats.CurrentProfile==null)
                 return;
 
+				GilesItemType thisGilesItemType=DetermineItemType(i.ThisInternalName, i.ThisDBItemType, i.ThisFollowerType);
+				if (thisGilesItemType== GilesItemType.InfernalKey)
+				{
+					 Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[(int)LootIndex.Key]++;
+					 return;
+				}
+					
+
             switch (i.ACDItem.ItemType)
             {
                 case ItemType.CraftingPage:
@@ -149,6 +157,7 @@ namespace FunkyTrinity
 
             double itemPerMin = Math.Round(TotalLooted / diff1.TotalMinutes, 1);
             double totalTime = Math.Round(diff1.TotalMinutes, 1);
+				int totalDeaths=Bot.BotStatistics.GameStats.TotalDeaths;
 
             string ReturnStr = "\r\n" + "============================================" + "\r\n" +
                 "Total Looted (" + TotalLooted + ") / Stashed (" + TotalStashed + ")" + "\r\n" +
@@ -158,9 +167,12 @@ namespace FunkyTrinity
                 "Misc Looted (" + lootedCounts[0] + ") / Stashed (" + stashedCounts[0] + ")" + "\r\n" +
 					 "Gems Looted ("+lootedCounts[(int)LootIndex.Gem]+") / Stashed ("+stashedCounts[(int)LootIndex.Gem]+")"+"\r\n"+
 					 "Craft Looted ("+lootedCounts[(int)LootIndex.Crafting]+") / Stashed ("+stashedCounts[(int)LootIndex.Crafting]+")"+"\r\n"+
+					 "Keys Looted ("+lootedCounts[(int)LootIndex.Key]+") / Stashed ("+stashedCounts[(int)LootIndex.Key]+")"+"\r\n"+
 					 "Items looted per minute "+itemPerMin.ToString("F2", System.Globalization.CultureInfo.InvariantCulture) +"\r\n"+
-                "Total time running " + totalTime.ToString("F2", System.Globalization.CultureInfo.InvariantCulture) + " minutes" + "\r\n" +
-                "============================================";
+                "============================================"+"\r\n"+
+					  "Total time running "+totalTime.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)+" minutes"+"\r\n"+
+					  "Total Game Count "+Bot.BotStatistics.GameStats.TotalGames.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)+"\r\n"+
+					  "Total Death Count "+Bot.BotStatistics.GameStats.TotalDeaths.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
 
             return ReturnStr;
         }

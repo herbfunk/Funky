@@ -488,19 +488,19 @@ namespace FunkyTrinity
 				{
 					 Vector3 MyPos=ZetaDia.Me.Position;
 
-					 float distanceToTarget=moveTarget.Distance2D(ZetaDia.Me.Position);
+					 //float distanceToTarget=moveTarget.Distance2D(ZetaDia.Me.Position);
 
-					 bool MoveTargetIsInLoS=distanceToTarget<=90f&&!Navigator.Raycast(MyPos, moveTarget);
+					 //bool MoveTargetIsInLoS=distanceToTarget<=90f&&!Navigator.Raycast(MyPos, moveTarget);
 
-					 if (distanceToTarget<=5f||MoveTargetIsInLoS)
-					 {
-						  //Special cache for skipping locations visited.
-						  if (Bot.Settings.Debug.SkipAhead)
-								SkipAheadCache.RecordSkipAheadCachePoint();
+					 //if (distanceToTarget<=5f||MoveTargetIsInLoS)
+					 //{
+					 //	 //Special cache for skipping locations visited.
+					 //	 if (Bot.Settings.Debug.SkipAhead)
+					 //		  SkipAheadCache.RecordSkipAheadCachePoint();
 
-						  Navigator.PlayerMover.MoveTowards(moveTarget);
-						  return MoveResult.Moved;
-					 }
+					 //	 Navigator.PlayerMover.MoveTowards(moveTarget);
+					 //	 return MoveResult.Moved;
+					 //}
 
 					 return Navigator.MoveTo(moveTarget, destinationName, true);
 				}

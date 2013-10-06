@@ -380,7 +380,8 @@ namespace FunkyTrinity
 					 destructibleabilities=new List<SNOPower>();
 					 RuneIndexCache=new Dictionary<SNOPower, int>();
 
-
+					 using (ZetaDia.Memory.AcquireFrame())
+					 {
 						  if (ZetaDia.CPlayer.IsValid)
 						  {
 
@@ -424,7 +425,7 @@ namespace FunkyTrinity
 								}
 
 						  }
-					 
+					 }
 				}
 
 
@@ -435,7 +436,8 @@ namespace FunkyTrinity
 				internal void RefreshPassives()
 				{
 
-
+					 using (ZetaDia.Memory.AcquireFrame())
+					 {
 						  if (ZetaDia.CPlayer.IsValid)
 						  {
 								foreach (var item in ZetaDia.CPlayer.PassiveSkills)
@@ -443,8 +445,7 @@ namespace FunkyTrinity
 									 PassivePowers.Add(item);
 								}
 						  }
-					 
-
+					 }
 				}
 
 				///<summary>
@@ -518,7 +519,8 @@ namespace FunkyTrinity
 				internal void RefreshCurrentBuffs()
 				{
 					 CurrentBuffs=new Dictionary<int, int>();
-
+					 using (ZetaDia.Memory.AcquireFrame())
+					 {
 						  foreach (var item in ZetaDia.Me.GetAllBuffs())
 						  {
 								if (CurrentBuffs.ContainsKey(item.SNOId))
@@ -529,7 +531,7 @@ namespace FunkyTrinity
 								else
 									 CurrentBuffs.Add(item.SNOId, 1);
 						  }
-					 
+					 }
 				}
 				///<summary>
 				///
@@ -537,12 +539,13 @@ namespace FunkyTrinity
 				internal void RefreshCurrentDebuffs()
 				{
 					 CurrentDebuffs=new List<int>();
-	
+					 using (ZetaDia.Memory.AcquireFrame())
+					 {
 						  foreach (var item in ZetaDia.Me.GetAllDebuffs())
 						  {
 								CurrentDebuffs.Add(item.SNOId);
 						  }
-					 
+					 }
 				}
 				//internal bool AbilityUseTimer(SNOPower thispower, bool bReCheck=false)
 				//{

@@ -174,7 +174,8 @@ namespace FunkyTrinity.Cache
 						  if (!force&&
 								(combat&&lastUpdate<50||lastUpdate<150)) return;
 
-
+						  using (ZetaDia.Memory.AcquireFrame())
+						  {
 								try
 								{
 									 if (Bot.Class.AC==ActorClass.DemonHunter)
@@ -206,7 +207,7 @@ namespace FunkyTrinity.Cache
 
 									 bIsInTown=me.IsInTown;
 									 bIsRooted=me.IsRooted;
-									
+
 									 if (me.IsFeared||me.IsStunned||me.IsFrozen||me.IsBlind)
 										  bIsIncapacitated=true;
 									 else
@@ -217,14 +218,14 @@ namespace FunkyTrinity.Cache
 										  else
 										  {
 												UpdateAnimationState(false);
-												
+
 												if (Bot.Class.KnockbackLandAnims.Contains(this.CurrentSNOAnim))
 													 bIsIncapacitated=true;
 												else
 													 bIsIncapacitated=false;
 										  }
 									 }
-									
+
 									 //Update vars that are not essential to combat (survival).
 									 if (DateTime.Now.Subtract(lastUpdateNonEssentialData).TotalSeconds>30)
 									 {
@@ -261,7 +262,7 @@ namespace FunkyTrinity.Cache
 								{
 
 								}
-						  
+						  }
 						  lastUpdatedPlayer=DateTime.Now;
 					 }
 
@@ -275,7 +276,8 @@ namespace FunkyTrinity.Cache
 								return;
 
 						  //LastUpdatedAnimationData=DateTime.Now;
-
+						  using (ZetaDia.Memory.AcquireFrame())
+						  {
 								try
 								{
 									 if (animState)
@@ -287,7 +289,7 @@ namespace FunkyTrinity.Cache
 								{
 								}
 
-						  
+						  }
 					 }
 
 					 // **********************************************************************************************

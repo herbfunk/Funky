@@ -291,7 +291,7 @@ namespace FunkyTrinity.Targeting
 					 // Update targets at least once every 80 milliseconds
 					 if (Bot.Combat.bForceTargetUpdate
 						 ||Bot.Combat.TravellingAvoidance
-						 ||((DateTime.Now.Subtract(Bot.Targeting.lastRefreshedObjects).TotalMilliseconds>=80&&CurrentTarget.targetType.Value!=TargetType.Avoidance)
+						 ||((DateTime.Now.Subtract(Bot.Targeting.lastRefreshedObjects).TotalMilliseconds>=80&&!ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value, TargetType.AvoidanceMovements|TargetType.NoMovement|TargetType.LineOfSight))
 						 ||DateTime.Now.Subtract(Bot.Targeting.lastRefreshedObjects).TotalMilliseconds>=1200))
 					 {
 						  bShouldRefreshDiaObjects=true;
@@ -328,7 +328,7 @@ namespace FunkyTrinity.Targeting
 
 						  // Been trying to handle the same target for more than 30 seconds without damaging/reaching it? Blacklist it!
 						  // Note: The time since target picked updates every time the current target loses health, if it's a monster-target
-						  if (CurrentTarget.targetType.Value!=TargetType.Avoidance
+						  if (!ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value,TargetType.AvoidanceMovements| TargetType.NoMovement| TargetType.LineOfSight)
 								&&((CurrentTarget.targetType.Value!=TargetType.Unit&&DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalSeconds>12)
 								||(CurrentTarget.targetType.Value==TargetType.Unit&&!CurrentTarget.IsBoss&&DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalSeconds>40)))
 						  {
@@ -447,7 +447,7 @@ namespace FunkyTrinity.Targeting
 				#endregion
 
 				// See if we can use any special buffs etc. while in avoidance
-				if ((TargetType.Gold|TargetType.Globe|TargetType.Avoidance).HasFlag(CurrentTarget.targetType.Value))
+				if ((TargetType.Gold|TargetType.Globe|TargetType.AvoidanceMovements|TargetType.NoMovement| TargetType.LineOfSight).HasFlag(CurrentTarget.targetType.Value))
 				{
 					  Ability buff;
 					 if (Bot.Class.FindBuffPower(out buff))
@@ -463,41 +463,30 @@ namespace FunkyTrinity.Targeting
 
 		  public virtual bool Movement()
 		  {
-				
+
 				if (CurrentTarget.targetType.Value==TargetType.LineOfSight)
 				{
+					 MoveResult LOSMoveResult=Navigator.MoveTo(CurrentTarget.Position, "Line-Of-Sight");
 
 					 //Validate LOS movement
 					 bool FinishLOSBehavior=false;
-					 if (CurrentTarget.LastLOSMoveResult==MoveResult.ReachedDestination)
+					 if (LOSMoveResult==MoveResult.ReachedDestination)
 					 {
 						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-								Logger.Write(LogLevel.Movement, "LOS Ended Due to MoveResult {0} for Object {1}",CurrentTarget.LastLOSMoveResult.ToString(), CurrentTarget.InternalName);
+								Logger.Write(LogLevel.Movement, "LOS Ended Due to MoveResult {0} for Object {1}", CurrentTarget.LastLOSMoveResult.ToString(), CurrentTarget.InternalName);
 						  FinishLOSBehavior=true;
 					 }
-					 else if(Bot.NavigationCache.currentMovementState==MovementState.WalkingInPlace)
+					 else if (Bot.NavigationCache.currentMovementState==MovementState.WalkingInPlace)
 					 {
 						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logger.Write(LogLevel.Movement, "LOS Ended Due to Player Walking In Place!");
 
 						  FinishLOSBehavior=true;
 					 }
-					 else
-					 {
-						  AbilityFunky.LOSInfo LOS=Bot.NavigationCache.LOSmovementUnit.LineOfSight;
-						  if (LOS.LastLOSCheckMS>3000)
-						  {
-							  if(LOS.LOSTest(Bot.Character.Position,true,false))
-							  {
-									if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-										 Logger.Write(LogLevel.Movement, "LOS Ended Due to Line Of Sight Passed for Object {0}", CurrentTarget.InternalName);
 
-									FinishLOSBehavior=true;
-							  }
-						  }
-					 }
+					 
 
-					
+
 					 if (FinishLOSBehavior)
 					 {
 						  CurrentTarget=Bot.NavigationCache.LOSmovementUnit;
@@ -507,12 +496,9 @@ namespace FunkyTrinity.Targeting
 					 }
 
 					 CurrentState=RunStatus.Running;
-					 
-					 CurrentTarget.LastLOSMoveResult=Navigation.NP.MoveTo(CurrentTarget.Position, "LOS Movement");
 					 return false;
 				}
 
-				// Set current destination to our current target's destination
 				TargetMovement.CurrentTargetLocation=CurrentTarget.Position;
 
 				//Check if we are in range for interaction..
@@ -537,6 +523,12 @@ namespace FunkyTrinity.Targeting
 					 {
 						  case TargetType.Avoidance:
 								Funky.sStatusText+="Avoid] ";
+								break;
+						  case TargetType.Fleeing:
+								Funky.sStatusText+="Flee] ";
+								break;
+						  case TargetType.NoMovement:
+								Funky.sStatusText+="NoMovement] ";
 								break;
 						  case TargetType.Unit:
 								Funky.sStatusText+="Combat] ";
@@ -587,9 +579,13 @@ namespace FunkyTrinity.Targeting
 					 case TargetType.Barricade:
 						  CurrentState=CurrentTarget.Interact();
 						  break;
-					 case TargetType.Avoidance:
+					 case TargetType.AvoidanceMovements:
 						  Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
 						  Bot.Combat.timeCancelledFleeMove=DateTime.Now;
+						  CurrentState=RunStatus.Running;
+						  break;
+					 case TargetType.NoMovement:
+					 case TargetType.LineOfSight:
 						  CurrentState=RunStatus.Running;
 						  break;
 				}

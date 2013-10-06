@@ -327,7 +327,8 @@ namespace FunkyTrinity.Cache
 					 double dThisCurrentHealth;
 
 
-
+					 using (ZetaDia.Memory.AcquireFrame())
+					 {
 						  try
 						  {
 								try
@@ -349,8 +350,7 @@ namespace FunkyTrinity.Cache
 								base.NeedsRemoved=true;
 								return;
 						  }
-					 
-
+					 }
 
 
 
@@ -1255,13 +1255,15 @@ namespace FunkyTrinity.Cache
 								//	 if (AbilityLogicConditions.CheckTargetPropertyFlag(this.Properties, TargetProperties.TargetableAndAttackable))
 								//		  this.Properties&=TargetProperties.TargetableAndAttackable;
 								//}
-								
+
 
 						  } catch (Exception)
 						  {
 
 						  }
 					 }
+					 else
+						  this.IsAttackable=true;
 
 
 					 //Clustering Target Engaged Check

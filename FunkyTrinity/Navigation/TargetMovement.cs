@@ -47,6 +47,9 @@ namespace FunkyTrinity.Movement
 								case TargetType.Avoidance:
 									 Action+="Avoid] ";
 									 break;
+								case TargetType.Fleeing:
+									 Action+="Flee] ";
+									 break;
 
 								case TargetType.LineOfSight:
 									 Action+="LOS] ";
@@ -128,6 +131,18 @@ namespace FunkyTrinity.Movement
 									 return RunStatus.Running;
 								}
 						  }
+						  else if(obj.targetType.Value == TargetType.LineOfSight)
+						  {
+
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+									 Logger.Write(LogLevel.Movement, "Line of Sight Movement Stalled!");
+
+								Bot.NavigationCache.LOSmovementUnit=null;
+								Bot.Combat.bForceTargetUpdate=true;
+								NonMovementCounter=0;
+								// Reset the emergency loop counter and return success
+								return RunStatus.Running;
+						  }
 						  else
 						  {
 								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
@@ -194,7 +209,7 @@ namespace FunkyTrinity.Movement
 												return RunStatus.Running;
 										  }
 
-										  if (obj.targetType.Value!=TargetType.Avoidance)
+										  if (!ObjectCache.CheckTargetTypeFlag(obj.targetType.Value,TargetType.AvoidanceMovements))
 										  {
 												//Finally try raycasting to see if navigation is possible..
 												if (obj.Actortype.HasValue&&
@@ -268,7 +283,7 @@ namespace FunkyTrinity.Movement
 
 					 // If we're doing avoidance, globes or backtracking, try to use special abilities to move quicker
 					 #region SpecialMovementChecks
-					 if ((TargetType.Avoidance|TargetType.Gold|TargetType.Globe).HasFlag(obj.targetType.Value))
+					 if (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value,TargetType.AvoidanceMovements|TargetType.Gold|TargetType.Globe))
 					 {
 
 						  bool bTooMuchZChange=((Bot.Character.Position.Z-CurrentTargetLocation.Z)>=4f);
@@ -297,7 +312,7 @@ namespace FunkyTrinity.Movement
 									 &&Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=1
 									 &&obj.DistanceFromTarget<=12f
 									 &&(!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Sprint)||Bot.Class.HasBuff(SNOPower.Barbarian_Sprint))
-									 &&((TargetType.Avoidance|TargetType.Gold|TargetType.Globe).HasFlag(obj.targetType.Value)==false)
+									 &&(ObjectCache.CheckTargetTypeFlag(obj.targetType.Value,TargetType.AvoidanceMovements|TargetType.Gold|TargetType.Globe)==false)
 									 &&(obj.targetType.Value!=TargetType.Unit
 									 ||(obj.targetType.Value==TargetType.Unit&&!obj.IsTreasureGoblin
 										  &&(!Bot.Settings.Class.bSelectiveWhirlwind
@@ -341,12 +356,18 @@ namespace FunkyTrinity.Movement
 				{
 					 if (DateTime.Now.Subtract(LastMovementAttempted).TotalMilliseconds>=250||currentDistance>=2f||bForceNewMovement)
 					 {
-						  if (obj.targetType.Value.Equals(TargetType.Avoidance))
+						  if (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value,TargetType.AvoidanceMovements))
 						  {
 								if (NonMovementCounter<10||currentDistance>50f)
 									 ZetaDia.Me.Movement.MoveActor(CurrentTargetLocation);
 								else
 									 ZetaDia.Me.UsePower(SNOPower.Walk, CurrentTargetLocation, Bot.Character.iCurrentWorldID, -1);
+						  }
+						  else if(obj.targetType.Value.Equals(TargetType.LineOfSight))
+						  {
+
+								//Navigator.PlayerMover.MoveTowards(Navigation.NP.CurrentPath.Current);
+								Funky.PlayerMover.NavigateTo(CurrentTargetLocation, "Line-Of-Sight");
 						  }
 						  else
 						  {
@@ -387,7 +408,7 @@ namespace FunkyTrinity.Movement
 				internal static void NewTargetResetVars()
 				{
 					 IsAlreadyMoving=false;
-					 //LastMovementCommand=DateTime.Today;
+					 LastMovementCommand=DateTime.Today;
 				}
 		  }
     

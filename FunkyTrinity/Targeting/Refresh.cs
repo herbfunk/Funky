@@ -44,6 +44,8 @@ namespace FunkyTrinity.Targeting
 
 				this.LastChangeOfTarget=DateTime.Now;
 				TargetMovement.NewTargetResetVars();
+				Bot.Combat.bWholeNewTarget=true;
+				Bot.Combat.bPickNewAbilities=true;
 
 				if (handler!=null)
 				{
@@ -74,7 +76,7 @@ namespace FunkyTrinity.Targeting
 					 conditionTest=TLA.Test.Invoke(ref CurrentTarget);
 					 if (conditionTest)
 					 {
-						  if (!LastCachedTarget.Equals(CurrentTarget))
+						  if (!LastCachedTarget.RAGUID.Equals(CurrentTarget.RAGUID))
 						  {
 								TargetChangedArgs TargetChangedInfo= new TargetChangedArgs(CurrentTarget, lastBehavioralType);
 								OnTargetChanged(TargetChangedInfo);
@@ -117,14 +119,6 @@ namespace FunkyTrinity.Targeting
 					 }
 					 else if (Bot.Combat.TriggeringAvoidances.Count==0)
 						  Bot.Combat.RequiresAvoidance=false;
-				}
-
-				//Update Search Grid Provider?
-				if (Bot.NavigationCache.ShouldUpdateSearchGrid&&ObjectCache.Objects.Count>0&&!Bot.IsInNonCombatBehavior)
-				{
-					 //Bot.NavigationCache.ShouldUpdateSearchGrid=false;
-					 //Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
-					 //Zeta.Navigation.Navigator.SearchGridProvider.Update();
 				}
 
 				//This is our list of objects we consider to be valid for targeting.
@@ -176,16 +170,17 @@ namespace FunkyTrinity.Targeting
 				//Cache last target only if current target is not avoidance (Movement).
 				LastCachedTarget=Bot.Targeting.CurrentTarget!=null?Bot.Targeting.CurrentTarget.Clone():ObjectCache.FakeCacheObject;
 
-				if (!Bot.Targeting.Equals(null)&&Bot.Targeting.CurrentTarget.targetType.HasValue&&Bot.Targeting.CurrentTarget.targetType.Value==TargetType.Avoidance
-					 &&!String.IsNullOrEmpty(Bot.Targeting.CurrentTarget.InternalName))
+				if (!Bot.Targeting.Equals(null)&&Bot.Targeting.CurrentTarget.targetType.HasValue&&Bot.Targeting.CurrentTarget.targetType.Value.HasFlag(TargetType.AvoidanceMovements))
+					 //&&!String.IsNullOrEmpty(Bot.Targeting.CurrentTarget.InternalName))
 				{
-					 string internalname=Bot.Targeting.CurrentTarget.InternalName;
-					 if (internalname.Contains("FleeSpot"))
+					 //string internalname=Bot.Targeting.CurrentTarget.InternalName;
+					 if (Bot.Targeting.CurrentTarget.targetType.Value==TargetType.Fleeing)
 					 {
 						  this.LastFleeAction=DateTime.Now;
 						  this.FleeingLastTarget=true;
 					 }
-					 else if (internalname.Contains("AvoidanceIntersection")||internalname.Contains("StayPutPoint")||internalname.Contains("SafeAvoid")||internalname.Contains("SafeReuseAvoid"))
+					 else 
+						  //if (internalname.Contains("AvoidanceIntersection")||internalname.Contains("StayPutPoint")||internalname.Contains("SafeAvoid")||internalname.Contains("SafeReuseAvoid"))
 					 {
 						  this.LastAvoidanceMovement=DateTime.Now;
 						  this.AvoidanceLastTarget=true;

@@ -112,7 +112,8 @@ namespace FunkyTrinity.Cache
 					 //Return live data.
 					 get
 					 {
-
+						  using (ZetaDia.Memory.AcquireFrame())
+						  {
 								try
 								{
 									 return (this.ref_DiaObject.CommonData.AnimationState);
@@ -120,7 +121,7 @@ namespace FunkyTrinity.Cache
 								{
 									 return AnimationState.Invalid;
 								}
-						  
+						  }
 					 }
 				}
 
@@ -193,7 +194,8 @@ namespace FunkyTrinity.Cache
 				{
 					 if (!force&&DateTime.Now.Subtract(lastUpdatedPosition).TotalMilliseconds<150)
 						  return;
-
+					 using (ZetaDia.Memory.AcquireFrame())
+					 {
 
 						  try
 						  {
@@ -204,7 +206,8 @@ namespace FunkyTrinity.Cache
 						  }
 						  this.lastUpdatedPosition=DateTime.Now;
 						  this.positionUpdated=true;
-					 
+
+					 }
 				}
 				///<summary>
 				///Returns adjusted position using direction of current bot and radius of object to reduce distance.

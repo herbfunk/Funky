@@ -89,7 +89,8 @@ namespace FunkyTrinity.Movement
 						  LastUpdatedMovementData=DateTime.Now;
 
 						  //These vars are used to accuratly predict what the bot is doing (Melee Movement/Combat)
-
+						  using (ZetaDia.Memory.AcquireFrame())
+						  {
 								try
 								{
 									 ActorMovement botMovement=ZetaDia.Me.Movement;
@@ -100,9 +101,9 @@ namespace FunkyTrinity.Movement
 									 stuckflags=botMovement.StuckFlags;
 								} catch
 								{
-									 
+
 								}
-						  
+						  }
 					 }
 				}
 				
@@ -650,6 +651,7 @@ namespace FunkyTrinity.Movement
 
 				#region Line of Sight Movement
 				internal CacheUnit LOSmovementUnit=null;
+				internal Vector3 LOSVector=Vector3.Zero;
 				#endregion
 
 				// For "position-shifting" to navigate around obstacle SNO's
@@ -702,7 +704,7 @@ namespace FunkyTrinity.Movement
 
 
 				private IndexedList<Vector3> CachedPathFinderCurrentPath=new IndexedList<Vector3>();
-				private IndexedList<Vector3> CurrentPathFinderPath=new IndexedList<Vector3>();
+				internal IndexedList<Vector3> CurrentPathFinderPath=new IndexedList<Vector3>();
 
 				public IndexedList<Vector3> MoveToPathToLocation(Vector3 Destination)
 				{
@@ -712,8 +714,8 @@ namespace FunkyTrinity.Movement
 								CachedPathFinderCurrentPath=new IndexedList<Vector3>(NP.CurrentPath.ToArray());
 
 						  NP.Clear();
-						  NP.MoveTo(Destination, "Pathing");
-						  CurrentPathFinderPath=new IndexedList<Vector3>(NP.CurrentPath.ToArray());
+						  NP.MoveTo(Destination, "Pathing", true);
+						  CurrentPathFinderPath=new IndexedList<Vector3>(NP.CurrentPath);
 					 }
 
 					 return CurrentPathFinderPath;
@@ -727,7 +729,6 @@ namespace FunkyTrinity.Movement
 				{
 					 get
 					 {
-
 						  if (NP.CurrentPath.Count>0&&currentpathvector_!=NP.CurrentPath.Current)
 								currentpathvector_=NP.CurrentPath.Current;
 						  else if (DE.CurrentRoute!=null&&DE.CurrentRoute.Count>0&&currentpathvector_!=DE.CurrentNode.NavigableCenter)
