@@ -14,7 +14,7 @@ using UIElement=Zeta.Internals.UIElement;
 using System.Reflection;
 using Zeta.Common.Plugins;
 
-namespace GilesBlankCombatRoutine
+namespace FunkyCombatRoutine
 {
 	 public class FunkyDebug
 	 {

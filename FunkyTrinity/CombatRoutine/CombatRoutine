@@ -10,7 +10,7 @@ using System.IO;
 using System.Reflection;
 using System;
 
-namespace GilesBlankCombatRoutine
+namespace FunkyCombatRoutine
 {
 	 [System.Runtime.InteropServices.ComVisible(false)]
     public class FunkyRoutine : CombatRoutine
