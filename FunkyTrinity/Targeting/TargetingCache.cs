@@ -44,6 +44,43 @@ namespace FunkyTrinity.Targeting
 			  if (Bot.Settings.Ranges.IgnoreLootRange) iCurrentMaxLootRadius=10;
 		 }
 
+		 internal bool DontMove { get; set; }
+		 // A flag to indicate whether we have a new target from the overlord (decorator) or not, in which case don't refresh targets again this first loop
+		 internal bool bWholeNewTarget { get; set; }
+		 // A flag to indicate if we should pick a new power/Ability to use or not
+		 internal bool bPickNewAbilities { get; set; }
+		 // Flag used to indicate if we are simply waiting for a power to go off - so don't do any new target checking or anything
+		 internal bool bWaitingForPower { get; set; }
+		 // And a special post-use pause
+		 internal bool bWaitingAfterPower { get; set; }
+		 // If we are waiting before popping a potion
+		 internal bool bWaitingForPotion { get; set; }
+		 // Force a target update after certain interactions
+		 internal bool bForceTargetUpdate { get; set; }
+		 // Variable to let us force new target creations immediately after a root
+		 internal bool bWasRootedLastTick { get; set; }
+		 //Loot Check
+		 internal bool ShouldCheckItemLooted { get; set; }
+		 internal int recheckCount { get; set; }
+		 internal bool reCheckedFinished { get; set; }
+		 internal void ResetTargetHandling()
+		 {
+			  Bot.Targeting.CurrentTarget=null;
+			  //Bot.NavigationCache.ResetPathing();
+			  FunkyTrinity.Movement.TargetMovement.ResetTargetMovementVars();
+
+
+			  bWaitingForPower=false;
+			  bWaitingAfterPower=false;
+			  bWaitingForPotion=false;
+			  bWasRootedLastTick=false;
+			  recheckCount=0;
+			  reCheckedFinished=false;
+
+		 }
+		 //Avoidance Related
+		 internal bool RequiresAvoidance { get; set; }
+		 internal bool TravellingAvoidance { get; set; }
 
 		 internal CacheObject LastCachedTarget { get; set; }
 		 internal bool FleeingLastTarget { get; set; }

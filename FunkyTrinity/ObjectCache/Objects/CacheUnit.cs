@@ -636,19 +636,19 @@ namespace FunkyTrinity.Cache
 								this.Weight+=9999;
 
 						  // Force a close range target because we seem to be stuck *OR* if not ranged and currently rooted
-						  if (Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted)
-						  {
+						  //if (Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted)
+						  //{
 
-								this.Weight=20000-(Math.Floor(radiusDistance)*200);
+						  //	 this.Weight=20000-(Math.Floor(radiusDistance)*200);
 
-								// Goblin priority KAMIKAZEEEEEEEE
-								if (this.IsTreasureGoblin&&Bot.Settings.Targeting.GoblinPriority>1)
-									 this.Weight+=10250*(Bot.Settings.Targeting.GoblinPriority-1);
-						  }
-						  else
-						  {
+						  //	 // Goblin priority KAMIKAZEEEEEEEE
+						  //	 if (this.IsTreasureGoblin&&Bot.Settings.Targeting.GoblinPriority>1)
+						  //		  this.Weight+=10250*(Bot.Settings.Targeting.GoblinPriority-1);
+						  //}
+						  //else
+						  //{
 								// Not attackable, could be shielded, make super low priority
-								if (!this.IsTargetable.Value&&!this.IsWormBoss)
+								if (!this.IsAttackable.Value&&!this.IsWormBoss)
 								{
 									 // Only 500 weight helps prevent it being prioritized over an unshielded
 									 this.Weight=500;
@@ -738,33 +738,13 @@ namespace FunkyTrinity.Cache
 									 if (this==Bot.Targeting.LastCachedTarget&&centreDistance<=25f)
 										  this.Weight+=400;
 
-									 //// Lower the priority for EACH AOE *BETWEEN* us and the target, NOT counting the one directly under-foot, up to a maximum of 1500 reduction
-									 //Vector3 thisObjPosition=this.Position;
-									 //float fWeightRemoval=0;
-									 //Vector3 BotPosition=Bot.Character.Position;
-									 //foreach (CacheAvoidance tempobstacle in ObjectCache.Obstacles.Avoidances.Where(cp => cp.TestIntersection(this, BotPosition)))
-									 //{
-									 //    fWeightRemoval+=(float)tempobstacle.Weight*8;
-									 //}
-									 //if (fWeightRemoval>1500)
-									 //    fWeightRemoval=1500;
-									 //this.Weight-=fWeightRemoval;
-
-									 // Lower the priority if there is AOE *UNDER* the target, by the HIGHEST weight there only
-									 //fWeightRemoval=0;
-
-									 //foreach (CacheAvoidance tempobstacle in ObjectCache.Obstacles.Avoidances.Where(cp => cp.PointInside(this.Position)))
-									 //{
-									 //    // Up to 200 weight for a high-priority AOE - maximum 3400 weight reduction
-									 //    if (tempobstacle.Weight>fWeightRemoval)
-									 //        fWeightRemoval=(float)tempobstacle.Weight*30;
-									 //}
-									 //this.Weight-=fWeightRemoval;
 
 									 // Prevent going less than 300 yet to prevent annoyances (should only lose this much weight from priority reductions in priority list?)
 									 if (this.Weight<300)
 										  this.Weight=300;
 
+									 if (!this.IsTargetable.Value)
+										  this.Weight/=2;
 
 									 // Deal with treasure goblins - note, of priority is set to "0", then the is-a-goblin flag isn't even set for use here - the monster is ignored
 									 if (this.IsTreasureGoblin)
@@ -795,12 +775,10 @@ namespace FunkyTrinity.Cache
 												// PS: 58008 is an awesome number on any calculator.
 
 										  }
-
-										  
 									 }
 
 								} // Forcing close range target or not?
-						  } // This is an attackable unit
+
 					 }
 					 else
 					 {
@@ -829,8 +807,8 @@ namespace FunkyTrinity.Cache
 						  // Unit is already dead
 						  if (this.CurrentHealthPct.HasValue&&(this.CurrentHealthPct.Value<=0d))
 						  {
-
-								if (!base.IsRespawnable)
+								//Respawnable Units -- Only when they are not elite/rare/uniques!
+								if (!base.IsRespawnable||this.IsEliteRareUnique)
 								{
 									 this.NeedsRemoved=true;
 									 return false;
@@ -880,6 +858,22 @@ namespace FunkyTrinity.Cache
 
 
 						  float centreDistance=this.CentreDistance;
+						  bool distantUnit=false;
+						  bool validUnit=false;
+						  //Distant Units List
+						  if (Bot.Settings.Grouping.AttemptGroupingMovements&&centreDistance>=Bot.Settings.Grouping.GroupingMinimumUnitDistance)
+						  {
+								distantUnit=true;
+						  }
+
+						  if (centreDistance>this.KillRadius&&!distantUnit)
+						  {
+								//Since special objects are subject to LOS movement, we do not ignore just yet.
+								if (!this.ObjectIsSpecial)
+									 return false;
+						  }
+						  else
+								validUnit=true;
 
 						  //Line of sight pre-check
 						  if (this.RequiresLOSCheck)
@@ -948,19 +942,7 @@ namespace FunkyTrinity.Cache
 
 
 						  
-						  bool distantUnit=false;
-						  bool validUnit=false;
-						  //Distant Units List
-						  if (centreDistance>=Bot.Settings.Grouping.GroupingMinimumUnitDistance&&Bot.Settings.Grouping.AttemptGroupingMovements)
-						  {
-								distantUnit=true;
-						  }
-						  if (centreDistance>this.KillRadius&&!distantUnit)
-						  {
-								return false;
-						  }
-						  else
-								validUnit=true;
+
 
 						  #region CombatFlags
 
@@ -1322,12 +1304,12 @@ namespace FunkyTrinity.Cache
 							if (Bot.Class.PowerPrime.WaitLoopsBefore>=1||(Bot.Class.PowerPrime.WaitWhileAnimating!=false&&DateTime.Now.Subtract(PowerCacheLookup.lastGlobalCooldownUse).TotalMilliseconds<=50))
 						  {
 								//Logging.WriteDiagnostic("Debug: Force waiting BEFORE Ability " + powerPrime.powerThis.ToString() + "...");
-								Bot.Combat.bWaitingForPower=true;
+								Bot.Targeting.bWaitingForPower=true;
 								if (Bot.Class.PowerPrime.WaitLoopsBefore>=1)
 									 Bot.Class.PowerPrime.WaitLoopsBefore--;
 								return RunStatus.Running;
 						  }
-						  Bot.Combat.bWaitingForPower=false;
+						  Bot.Targeting.bWaitingForPower=false;
 
 						  // Wait while animating before an attack
 						  if (Bot.Class.PowerPrime.WaitWhileAnimating)
@@ -1370,15 +1352,15 @@ namespace FunkyTrinity.Cache
 						  if (Bot.Class.PowerPrime.WaitWhileAnimating)
 								Bot.Character.WaitWhileAnimating(3, false);
 
-						  Bot.Combat.bPickNewAbilities=true;
+						  Bot.Targeting.bPickNewAbilities=true;
 
 						  // See if we should force a long wait AFTERWARDS, too
 						  // Force waiting AFTER power use for certain abilities
-						  Bot.Combat.bWaitingAfterPower=false;
+						  Bot.Targeting.bWaitingAfterPower=false;
 						  if (Bot.Class.PowerPrime.WaitLoopsAfter>=1)
 						  {
 								//Logging.WriteDiagnostic("Force waiting AFTER Ability " + powerPrime.powerThis.ToString() + "...");
-								Bot.Combat.bWaitingAfterPower=true;
+								Bot.Targeting.bWaitingAfterPower=true;
 						  }
 
 						  //Check health changes -- only when single target or cluster with targeting is used.
@@ -1392,7 +1374,7 @@ namespace FunkyTrinity.Cache
 									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 										  Logger.Write(LogLevel.Target, "Ignore Unit {0} due to health last changed of {1}ms", this.InternalName, LastHealthChangedMS);
 									 this.BlacklistLoops=20;
-									 Bot.Combat.bForceTargetUpdate=true;
+									 Bot.Targeting.bForceTargetUpdate=true;
 								}
 						  }
 					 }
@@ -1413,10 +1395,6 @@ namespace FunkyTrinity.Cache
 					 float fRangeRequired=0f;
 					 float fDistanceReduction=0f;
 
-					 if (Bot.Combat.bForceCloseRangeTarget)
-						  fDistanceReduction-=3f;
-					 if (fDistanceReduction<=0f)
-						  fDistanceReduction=0f;
 
 					 //Check if we should mod our distance:: used for worm bosses
 					 if (base.IsWormBoss)

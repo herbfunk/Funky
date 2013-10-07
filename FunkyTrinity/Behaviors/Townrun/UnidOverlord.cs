@@ -25,28 +25,32 @@ namespace FunkyTrinity
 				// **********************************************************************************************
 				internal static bool UnidItemOverlord(object ret)
 				{
-					 Bot.Character.BackPack.townRunCache.hashGilesCachedUnidStashItems.Clear();
-					 Bot.Character.BackPack.Update();
-					 foreach (var thisitem in Bot.Character.BackPack.CacheItemList.Values.Where(i => i.IsUnidentified))
+					 if (bCheckUnidItems)
 					 {
-						  if (thisitem.ACDItem.BaseAddress!=IntPtr.Zero)
+						  Bot.Character.BackPack.townRunCache.hashGilesCachedUnidStashItems.Clear();
+						  Bot.Character.BackPack.Update();
+						  bCheckUnidItems=false;
+						  foreach (var thisitem in Bot.Character.BackPack.CacheItemList.Values.Where(i => i.IsUnidentified))
 						  {
-								// Find out if this item's in a protected bag slot
-								if (!ItemManager.Current.ItemIsProtected(thisitem.ACDItem))
+								if (thisitem.ACDItem.BaseAddress!=IntPtr.Zero)
 								{
-									 if (Bot.Settings.ItemRules.ItemRulesUnidStashing)
+									 // Find out if this item's in a protected bag slot
+									 if (!ItemManager.Current.ItemIsProtected(thisitem.ACDItem))
 									 {
-										  if (Bot.ItemRulesEval.checkUnidStashItem(thisitem.ACDItem)==Interpreter.InterpreterAction.KEEP)
+										  if (Bot.Settings.ItemRules.ItemRulesUnidStashing)
 										  {
-												Bot.Character.BackPack.townRunCache.hashGilesCachedUnidStashItems.Add(thisitem);
-												continue;
+												if (Bot.ItemRulesEval.checkUnidStashItem(thisitem.ACDItem)==Interpreter.InterpreterAction.KEEP)
+												{
+													 Bot.Character.BackPack.townRunCache.hashGilesCachedUnidStashItems.Add(thisitem);
+													 continue;
+												}
 										  }
 									 }
 								}
-						  }
-						  else
-						  {
-								Log("GSError: Diablo 3 memory read error, or item became invalid [StashOver-1]", true);
+								else
+								{
+									 Log("GSError: Diablo 3 memory read error, or item became invalid [StashOver-1]", true);
+								}
 						  }
 					 }
 

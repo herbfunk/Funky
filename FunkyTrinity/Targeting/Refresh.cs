@@ -43,9 +43,9 @@ namespace FunkyTrinity.Targeting
 					 Logger.Write(LogLevel.Target, "Changed Object: {0}", MakeStringSingleLine(e.newObject.DebugString));
 
 				this.LastChangeOfTarget=DateTime.Now;
-				TargetMovement.ResetTargetMovementVars();
-				Bot.Combat.bWholeNewTarget=true;
-				Bot.Combat.bPickNewAbilities=true;
+				TargetMovement.NewTargetResetVars();
+				Bot.Targeting.bWholeNewTarget=true;
+				Bot.Targeting.bPickNewAbilities=true;
 
 				if (handler!=null)
 				{
@@ -111,14 +111,14 @@ namespace FunkyTrinity.Targeting
 
 
 				//Check avoidance requirement still valid
-				if (Bot.Combat.RequiresAvoidance)
+				if (Bot.Targeting.RequiresAvoidance)
 				{
 					 if (!this.AvoidanceLastTarget&&DateTime.Now.Subtract(TargetMovement.LastMovementCommand).TotalMilliseconds<550) //We are moving..? 
 					 {
-						  Bot.Combat.RequiresAvoidance=false;
+						  Bot.Targeting.RequiresAvoidance=false;
 					 }
 					 else if (Bot.Combat.TriggeringAvoidances.Count==0)
-						  Bot.Combat.RequiresAvoidance=false;
+						  Bot.Targeting.RequiresAvoidance=false;
 				}
 
 				//This is our list of objects we consider to be valid for targeting.
@@ -168,19 +168,16 @@ namespace FunkyTrinity.Targeting
 		  private void InitObjectRefresh()
 		  {
 				//Cache last target only if current target is not avoidance (Movement).
-				LastCachedTarget=Bot.Targeting.CurrentTarget!=null?Bot.Targeting.CurrentTarget.Clone():ObjectCache.FakeCacheObject;
+				LastCachedTarget=this.CurrentTarget!=null?this.CurrentTarget.Clone():ObjectCache.FakeCacheObject;
 
-				if (!Bot.Targeting.Equals(null)&&Bot.Targeting.CurrentTarget.targetType.HasValue&&Bot.Targeting.CurrentTarget.targetType.Value.HasFlag(TargetType.AvoidanceMovements))
-					 //&&!String.IsNullOrEmpty(Bot.Targeting.CurrentTarget.InternalName))
+				if (!this.Equals(null)&&this.CurrentTarget.targetType.HasValue&&this.CurrentTarget.targetType.Value.HasFlag(TargetType.AvoidanceMovements))
 				{
-					 //string internalname=Bot.Targeting.CurrentTarget.InternalName;
-					 if (Bot.Targeting.CurrentTarget.targetType.Value==TargetType.Fleeing)
+					 if (this.CurrentTarget.targetType.Value==TargetType.Fleeing)
 					 {
 						  this.LastFleeAction=DateTime.Now;
 						  this.FleeingLastTarget=true;
 					 }
 					 else 
-						  //if (internalname.Contains("AvoidanceIntersection")||internalname.Contains("StayPutPoint")||internalname.Contains("SafeAvoid")||internalname.Contains("SafeReuseAvoid"))
 					 {
 						  this.LastAvoidanceMovement=DateTime.Now;
 						  this.AvoidanceLastTarget=true;
@@ -192,22 +189,20 @@ namespace FunkyTrinity.Targeting
 					 this.AvoidanceLastTarget=false;
 				}
 
+				//Traveling Flag Reset
+				this.TravellingAvoidance=false;
+
 				//Reset target
-				Bot.Targeting.CurrentTarget=null;
-				Bot.Targeting.CurrentUnitTarget=null;
+				this.CurrentTarget=null;
+				this.CurrentUnitTarget=null;
 
 				//Kill Loot Radius Update
-				Bot.Targeting.UpdateKillLootRadiusValues();
+				this.UpdateKillLootRadiusValues();
 
 				// Refresh buffs (so we can check for wrath being up to ignore ice balls and anything else like that)
 				Bot.Class.RefreshCurrentBuffs();
 				Bot.Class.RefreshCurrentDebuffs();
 
-				// Clear forcing close-range priority on mobs after XX period of time
-				if (Bot.Combat.bForceCloseRangeTarget&&DateTime.Now.Subtract(Bot.Combat.lastForcedKeepCloseRange).TotalMilliseconds>Bot.Combat.iMillisecondsForceCloseRange)
-				{
-					 Bot.Combat.bForceCloseRangeTarget=false;
-				}
 
 				// Bunch of variables used throughout
 				Bot.Character.PetData.Reset();

@@ -95,8 +95,8 @@ namespace FunkyTrinity
 				Bot.Class.SecondaryHotbarBuffPresent();
 
 				// Clear target current and reset key variables used during the target-handling function
-				Bot.Combat.ResetTargetHandling();
-				Bot.Combat.DontMove=false;
+				Bot.Targeting.ResetTargetHandling();
+				Bot.Targeting.DontMove=false;
 
 				//update current profile behavior.
 				Bot.Profile.CheckCurrentProfileBehavior();
@@ -117,9 +117,9 @@ namespace FunkyTrinity
 						  //    Bot.Character.ShouldBackTrack=true;
 						  //}
 
-						  Bot.Combat.bWholeNewTarget=true;
-						  Bot.Combat.DontMove=true;
-						  Bot.Combat.bPickNewAbilities=true;
+						  Bot.Targeting.bWholeNewTarget=true;
+						  Bot.Targeting.DontMove=true;
+						  Bot.Targeting.bPickNewAbilities=true;
 						  return true;
 					 }
 				}

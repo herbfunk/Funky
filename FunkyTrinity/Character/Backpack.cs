@@ -51,7 +51,7 @@ namespace FunkyTrinity.Cache
 
 
 			//We refresh our BPItem Cache whenever we are checking for looted items!
-			if (Bot.Combat.ShouldCheckItemLooted)
+			if (Bot.Targeting.ShouldCheckItemLooted)
 			{
 				 using (ZetaDia.Memory.AcquireFrame())
 				 {

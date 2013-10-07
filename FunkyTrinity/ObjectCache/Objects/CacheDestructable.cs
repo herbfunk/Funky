@@ -137,7 +137,7 @@ namespace FunkyTrinity.Cache
 			if (this.RadiusDistance>0f&&ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 				this.Weight*=0.5;
 			// Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
-			if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
+			if (Bot.Character.bIsRooted)
 				this.Weight=19200d-(Math.Floor(centreDistance)*200d);
 			// Very close destructibles get a final weight increase
 			if (centreDistance<=12f)
@@ -218,7 +218,7 @@ namespace FunkyTrinity.Cache
 			if (currentAnimState!=AnimationState.Idle)
 			{
 				// Now tell Trinity to get a new target!
-				 Bot.Combat.bForceTargetUpdate=true;
+				 Bot.Targeting.bForceTargetUpdate=true;
 				Bot.NavigationCache.lastChangedZigZag=DateTime.Today;
 				Bot.NavigationCache.vPositionLastZigZagCheck=Vector3.Zero;
 				Funky.PlayerMover.ShouldHandleObstacleObject=false;

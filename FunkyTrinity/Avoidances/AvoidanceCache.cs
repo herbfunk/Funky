@@ -181,7 +181,7 @@ namespace FunkyTrinity.Avoidances
 	    {
 		    double dThisHealthAvoid=Bot.Settings.Avoidance.Avoidances[(int)thisAvoidance].Health;
 
-		    if (!Bot.Combat.CriticalAvoidance)
+			 if (!Bot.Character.CriticalAvoidance)
 		    {//Not Critical Avoidance, should we be in total ignorance because of a buff?
 
 			    // Monks with Serenity up ignore all AOE's

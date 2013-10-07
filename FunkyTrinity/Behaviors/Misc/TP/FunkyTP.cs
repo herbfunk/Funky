@@ -225,7 +225,7 @@ namespace FunkyTrinity
 						  return RunStatus.Success;
 					 }
 					 else if (targetHandler==RunStatus.Success)
-						  Bot.Combat.ResetTargetHandling();
+						  Bot.Targeting.ResetTargetHandling();
 
 					 return RunStatus.Running;
 				}

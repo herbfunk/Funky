@@ -77,7 +77,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 												}
 													 
 
-												Bot.NavigationCache.LOSmovementUnit=(CacheUnit)ObjectCache.Objects[unit.RAGUID];
+												Bot.NavigationCache.LOSmovementUnit=unit;
 												
 												break;
 										  }

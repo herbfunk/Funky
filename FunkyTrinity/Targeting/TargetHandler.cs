@@ -103,10 +103,10 @@ namespace FunkyTrinity.Targeting
 
 				// Special pausing *AFTER* using certain powers
 				#region PauseCheck
-				if (Bot.Combat.bWaitingAfterPower&&Bot.Class.PowerPrime.WaitLoopsAfter>=1)
+				if (Bot.Targeting.bWaitingAfterPower&&Bot.Class.PowerPrime.WaitLoopsAfter>=1)
 				{
 					 if (Bot.Class.PowerPrime.WaitLoopsAfter>=1) Bot.Class.PowerPrime.WaitLoopsAfter--;
-					 if (Bot.Class.PowerPrime.WaitLoopsAfter<=0) Bot.Combat.bWaitingAfterPower=false;
+					 if (Bot.Class.PowerPrime.WaitLoopsAfter<=0) Bot.Targeting.bWaitingAfterPower=false;
 
 					 CurrentState=RunStatus.Running;
 					 return false;
@@ -131,12 +131,12 @@ namespace FunkyTrinity.Targeting
 				//Herbfunk
 				//Confirmation of item looted
 				#region ItemLootedConfirmationCheck
-				if (Bot.Combat.ShouldCheckItemLooted)
+				if (Bot.Targeting.ShouldCheckItemLooted)
 				{
 					 //Reset?
 					 if (CurrentTarget==null||CurrentTarget.targetType.HasValue&&CurrentTarget.targetType.Value!=TargetType.Item)
 					 {
-						  Bot.Combat.ShouldCheckItemLooted=false;
+						  Bot.Targeting.ShouldCheckItemLooted=false;
 						  return false;
 					 }
 
@@ -153,8 +153,8 @@ namespace FunkyTrinity.Targeting
 					 }
 
 					 //Count each attempt to confirm.
-					 Bot.Combat.recheckCount++;
-					 string statusText="[Item Confirmation] Current recheck count "+Bot.Combat.recheckCount;
+					 Bot.Targeting.recheckCount++;
+					 string statusText="[Item Confirmation] Current recheck count "+Bot.Targeting.recheckCount;
 					 bool LootedSuccess=Bot.Character.BackPack.ContainsItem(CurrentTarget.AcdGuid.Value);
 					 //Verify item is non-stackable!
 
@@ -169,10 +169,10 @@ namespace FunkyTrinity.Targeting
 						  Funky.LogItemInformation();
 
 						  //Reset if we reach here..
-						  Bot.Combat.reCheckedFinished=false;
-						  Bot.Combat.recheckCount=0;
-						  Bot.Combat.ShouldCheckItemLooted=false;
-						  Bot.Combat.bForceTargetUpdate=true;
+						  Bot.Targeting.reCheckedFinished=false;
+						  Bot.Targeting.recheckCount=0;
+						  Bot.Targeting.ShouldCheckItemLooted=false;
+						  Bot.Targeting.bForceTargetUpdate=true;
 					 }
 					 else
 					 {
@@ -194,16 +194,16 @@ namespace FunkyTrinity.Targeting
 								case ItemQuality.Magic3:
 									 statusText+="<=Magical]";
 									 //Non-Quality items get skipped quickly.
-									 if (Bot.Combat.recheckCount>1)
-										  Bot.Combat.reCheckedFinished=true;
+									 if (Bot.Targeting.recheckCount>1)
+										  Bot.Targeting.reCheckedFinished=true;
 									 break;
 
 								case ItemQuality.Rare4:
 								case ItemQuality.Rare5:
 								case ItemQuality.Rare6:
 									 statusText+="=Rare]";
-									 if (Bot.Combat.recheckCount>2)
-										  Bot.Combat.reCheckedFinished=true;
+									 if (Bot.Targeting.recheckCount>2)
+										  Bot.Targeting.reCheckedFinished=true;
 									 //else
 									 //bItemForcedMovement = true;
 
@@ -211,8 +211,8 @@ namespace FunkyTrinity.Targeting
 
 								case ItemQuality.Legendary:
 									 statusText+="=Legendary]";
-									 if (Bot.Combat.recheckCount>3)
-										  Bot.Combat.reCheckedFinished=true;
+									 if (Bot.Targeting.recheckCount>3)
+										  Bot.Targeting.reCheckedFinished=true;
 									 //else
 									 //bItemForcedMovement = true;
 
@@ -221,14 +221,14 @@ namespace FunkyTrinity.Targeting
 						  #endregion
 
 						  //If we are still rechecking then use the waitAfter (powerprime Ability related) to wait a few loops.
-						  if (!Bot.Combat.reCheckedFinished)
+						  if (!Bot.Targeting.reCheckedFinished)
 						  {
 								statusText+=" RECHECKING";
 								if (Bot.Settings.Debug.DebugStatusBar)
 								{
 									 BotMain.StatusText=statusText;
 								}
-								Bot.Combat.bWaitingAfterPower=true;
+								Bot.Targeting.bWaitingAfterPower=true;
 								Bot.Class.PowerPrime.WaitLoopsAfter=3;
 								CurrentState=RunStatus.Running;
 								return false;
@@ -251,24 +251,24 @@ namespace FunkyTrinity.Targeting
 								}
 
 								// Now tell Trinity to get a new target!
-								Bot.Combat.bForceTargetUpdate=true;
+								Bot.Targeting.bForceTargetUpdate=true;
 						  }
 					 }
 
 					 //Reset flag, and continue..
-					 Bot.Combat.ShouldCheckItemLooted=false;
+					 Bot.Targeting.ShouldCheckItemLooted=false;
 				}
 				#endregion
 
 
 				// See if we have been "newly rooted", to force target updates
-				if (Bot.Character.bIsRooted&&!Bot.Combat.bWasRootedLastTick)
+				if (Bot.Character.bIsRooted&&!Bot.Targeting.bWasRootedLastTick)
 				{
-					 Bot.Combat.bWasRootedLastTick=true;
-					 Bot.Combat.bForceTargetUpdate=true;
+					 Bot.Targeting.bWasRootedLastTick=true;
+					 Bot.Targeting.bForceTargetUpdate=true;
 				}
 
-				if (!Bot.Character.bIsRooted) Bot.Combat.bWasRootedLastTick=false;
+				if (!Bot.Character.bIsRooted) Bot.Targeting.bWasRootedLastTick=false;
 
 				return true;
 		  }
@@ -286,11 +286,11 @@ namespace FunkyTrinity.Targeting
 				// Whether we should refresh the target list or not
 				bool bShouldRefreshDiaObjects=false;
 
-				if (!Bot.Combat.bWholeNewTarget&&!Bot.Combat.bWaitingForPower&&!Bot.Combat.bWaitingForPotion)
+				if (!Bot.Targeting.bWholeNewTarget&&!Bot.Targeting.bWaitingForPower&&!Bot.Targeting.bWaitingForPotion)
 				{
 					 // Update targets at least once every 80 milliseconds
-					 if (Bot.Combat.bForceTargetUpdate
-						 ||Bot.Combat.TravellingAvoidance
+					 if (Bot.Targeting.bForceTargetUpdate
+						 ||Bot.Targeting.TravellingAvoidance
 						 ||((DateTime.Now.Subtract(Bot.Targeting.lastRefreshedObjects).TotalMilliseconds>=80&&!ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value, TargetType.AvoidanceMovements|TargetType.NoMovement))
 						 ||DateTime.Now.Subtract(Bot.Targeting.lastRefreshedObjects).TotalMilliseconds>=1200))
 					 {
@@ -304,7 +304,7 @@ namespace FunkyTrinity.Targeting
 				}
 
 				// So, after all that, do we actually want a new target list?
-				if (!Bot.Combat.bWholeNewTarget&&!Bot.Combat.bWaitingForPower&&!Bot.Combat.bWaitingForPotion)
+				if (!Bot.Targeting.bWholeNewTarget&&!Bot.Targeting.bWaitingForPower&&!Bot.Targeting.bWaitingForPotion)
 				{
 					 // If we *DO* want a new target list, do this... 
 					 if (bShouldRefreshDiaObjects)
@@ -322,8 +322,8 @@ namespace FunkyTrinity.Targeting
 								LastCachedTarget.RAGUID!=CurrentTarget.RAGUID&&CurrentTarget.targetType.Value==TargetType.Item)
 						  {
 								//Reset Item Vars
-								Bot.Combat.recheckCount=0;
-								Bot.Combat.reCheckedFinished=false;
+								Bot.Targeting.recheckCount=0;
+								Bot.Targeting.reCheckedFinished=false;
 						  }
 
 						  // Been trying to handle the same target for more than 30 seconds without damaging/reaching it? Blacklist it!
@@ -356,7 +356,7 @@ namespace FunkyTrinity.Targeting
 								}
 						  }
 						  // Make sure we start trying to move again should we need to!
-						  Bot.Combat.bPickNewAbilities=true;
+						  Bot.Targeting.bPickNewAbilities=true;
 
 						  TargetMovement.NewTargetResetVars();
 					 }
@@ -376,7 +376,7 @@ namespace FunkyTrinity.Targeting
 				#endregion
 
 				// This variable just prevents an instant 2-target update after coming here from the main decorator function above
-				Bot.Combat.bWholeNewTarget=false;
+				Bot.Targeting.bWholeNewTarget=false;
 
 
 				//Health Change Timer
@@ -395,9 +395,9 @@ namespace FunkyTrinity.Targeting
 		  {
 				// Find a valid Ability if the target is a monster
 				#region AbilityPick
-				if (Bot.Combat.bPickNewAbilities&&!Bot.Combat.bWaitingForPower&&!Bot.Combat.bWaitingForPotion)
+				if (Bot.Targeting.bPickNewAbilities&&!Bot.Targeting.bWaitingForPower&&!Bot.Targeting.bWaitingForPotion)
 				{
-					 Bot.Combat.bPickNewAbilities=false;
+					 Bot.Targeting.bPickNewAbilities=false;
 					 if (CurrentTarget.targetType.Value==TargetType.Unit&&CurrentTarget.AcdGuid.HasValue)
 					 {
 						  // Pick an Ability		
@@ -408,7 +408,7 @@ namespace FunkyTrinity.Targeting
 						  {
 								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Ability))
 									 Logger.Write(LogLevel.Ability, "Failed to find a valid Ability to use -- Target: {0}", Bot.Targeting.CurrentTarget.InternalName);
-								Bot.Combat.bForceTargetUpdate=true;
+								Bot.Targeting.bForceTargetUpdate=true;
 								CurrentState=RunStatus.Running;
 								CurrentTarget.BlacklistLoops=10;
 								return false;
@@ -425,18 +425,18 @@ namespace FunkyTrinity.Targeting
 
 				#region PotionCheck
 				if (Bot.Character.dCurrentHealthPct<=Bot.Settings.Combat.PotionHealthPercent
-					 &&!Bot.Combat.bWaitingForPower
-					 &&!Bot.Combat.bWaitingForPotion
+					 &&!Bot.Targeting.bWaitingForPower
+					 &&!Bot.Targeting.bWaitingForPotion
 					 &&!Bot.Character.bIsIncapacitated
 					 &&Bot.Class.HealthPotionAbility.AbilityUseTimer())
 				{
-					 Bot.Combat.bWaitingForPotion=true;
+					 Bot.Targeting.bWaitingForPotion=true;
 					 CurrentState=RunStatus.Running;
 					 return false;
 				}
-				if (Bot.Combat.bWaitingForPotion)
+				if (Bot.Targeting.bWaitingForPotion)
 				{
-					 Bot.Combat.bWaitingForPotion=false;
+					 Bot.Targeting.bWaitingForPotion=false;
 					 if (Bot.Class.HealthPotionAbility.CheckCustomCombatMethod())
 					 {
 						  Bot.Class.HealthPotionAbility.AttemptToUseHealthPotion();
@@ -469,6 +469,14 @@ namespace FunkyTrinity.Targeting
 					//Since we only update our path during target refresh.. we should check if we are within range already!
 					 if (Bot.Character.Position.Distance(Navigation.NP.CurrentPath.Current)<=Navigation.NP.PathPrecision)
 						  Navigation.NP.MoveTo(CurrentTarget.Position, "LineOfSightMoveTo", true);
+
+					 if (Navigation.NP.CurrentPath.Count==0)
+					 {
+						  Bot.NavigationCache.LOSVector=Vector3.Zero;
+						  Bot.NavigationCache.LOSmovementUnit=null;
+						  Bot.Targeting.bForceTargetUpdate=true;
+						  return false;
+					 }
 				}
 
 				TargetMovement.CurrentTargetLocation=CurrentTarget.Position;
@@ -565,7 +573,7 @@ namespace FunkyTrinity.Targeting
 				// Now tell Trinity to get a new target!
 				Bot.NavigationCache.lastChangedZigZag=DateTime.Today;
 				Bot.NavigationCache.vPositionLastZigZagCheck=Vector3.Zero;
-				//Bot.Combat.bForceTargetUpdate=true;
+				//Bot.Targeting.bForceTargetUpdate=true;
 
 				return false;
 		  }

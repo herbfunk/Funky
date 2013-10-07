@@ -201,11 +201,8 @@ namespace FunkyTrinity.Cache
 								if (CheckTargetTypeFlag(tmp_CachedObj.targetType.Value,TargetType.Avoidance)||tmp_CachedObj.IsObstacle||tmp_CachedObj.HandleAsAvoidanceObject)
 								{
 									 #region Obstacles
-									 bool bRequireAvoidance=false;
-									 bool bTravellingAvoidance=false;
 
 									 CacheObstacle thisObstacle;
-
 									 //Do we have this cached?
 									 if (!ObjectCache.Obstacles.TryGetValue(tmp_CachedObj.RAGUID, out thisObstacle))
 									 {
@@ -279,10 +276,6 @@ namespace FunkyTrinity.Cache
 									 //Test if this avoidance requires movement now.
 									 if (thisObstacle is CacheAvoidance)
 									 {
-										  //Check last time we attempted avoidance movement (Only if its been at least a second since last time we required it..)
-										  //if (DateTime.Now.Subtract(Bot.Combat.LastAvoidanceMovement).TotalMilliseconds<1000)
-										  //continue;
-
 										  CacheAvoidance thisAvoidance=thisObstacle as CacheAvoidance;
 
 										  if (AvoidanceCache.IgnoreAvoidance(thisAvoidance.AvoidanceType)) continue;
@@ -297,9 +290,13 @@ namespace FunkyTrinity.Cache
 													 thisAvoidance.BlacklistRefreshCounter--;
 												}
 
-												bRequireAvoidance=thisAvoidance.UpdateProjectileRayTest(tmp_CachedObj.Position);
 												//If we need to avoid, than enable travel avoidance flag also.
-												if (bRequireAvoidance) bTravellingAvoidance=true;
+												if (thisAvoidance.UpdateProjectileRayTest(tmp_CachedObj.Position))
+												{
+													 Bot.Combat.TriggeringAvoidances.Add((CacheAvoidance)thisObstacle);
+													 Bot.Targeting.TravellingAvoidance=true;
+												}
+													 
 										  }
 										  else
 										  {
@@ -307,19 +304,14 @@ namespace FunkyTrinity.Cache
 													 Bot.Combat.NearbyAvoidances.Add(thisObstacle.RAGUID);
 
 												if (thisAvoidance.Position.Distance(Bot.Character.Position)<=thisAvoidance.Radius)
-													 bRequireAvoidance=true;
+												{
+													 Bot.Combat.TriggeringAvoidances.Add((CacheAvoidance)thisObstacle);
+													 Bot.Targeting.RequiresAvoidance=true;
+												}
 										  }
-
-										  Bot.Combat.RequiresAvoidance=bRequireAvoidance;
-										  Bot.Combat.TravellingAvoidance=bTravellingAvoidance;
-										  if (bRequireAvoidance)
-												Bot.Combat.TriggeringAvoidances.Add((CacheAvoidance)thisObstacle);
 									 }
 									 else
 									 {
-										  //Add this server object to cell weighting in MGP
-										  //MGP.AddCellWeightingObstacle(thisObstacle.SNOID, thisObstacle.CollisionRadius.Value);
-
 										  //Add nearby objects to our collection (used in navblock/obstaclecheck methods to reduce queries)
 										  if (thisObstacle.CentreDistance<25f)
 												Bot.Combat.NearbyObstacleObjects.Add((CacheServerObject)thisObstacle);
@@ -443,22 +435,6 @@ namespace FunkyTrinity.Cache
 				internal static Dictionary<int, double> dictProjectileSpeed=new Dictionary<int, double>();
 				#endregion
 
-				internal static readonly HashSet<SNOAnim> KnockbackAnims=new HashSet<SNOAnim>
-				{
-
-					 /*
-
-
-
-
-
-
-
-
-
-
-					 */
-				};
 
 				//Common Used Profile Tags that should be considered Out-Of-Combat Behavior.
 				internal static readonly HashSet<Type> oocDBTags=new HashSet<Type> 

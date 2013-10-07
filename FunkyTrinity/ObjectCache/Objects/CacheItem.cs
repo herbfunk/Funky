@@ -174,7 +174,7 @@ namespace FunkyTrinity.Cache
 										  }
 									 }
 									 // Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
-									 if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
+									 if (Bot.Character.bIsRooted)
 										  this.Weight=18000-(Math.Floor(centreDistance)*200);
 									 // If there's a monster in the path-line to the item, reduce the weight
 									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.PointInside(this.Position)))
@@ -208,7 +208,7 @@ namespace FunkyTrinity.Cache
 									 if (this==Bot.Targeting.LastCachedTarget&&centreDistance<=25f)
 										  this.Weight+=600;
 									 // Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
-									 if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
+									 if (Bot.Character.bIsRooted)
 										  this.Weight=18000-(Math.Floor(centreDistance)*200);
 									 // If there's a monster in the path-line to the item, reduce the weight by 25%
 									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
@@ -583,12 +583,12 @@ namespace FunkyTrinity.Cache
 					 if (Bot.Class.PowerPrime.WaitLoopsBefore>=1)
 					 {
 						  //Logging.WriteDiagnostic("Debug: Force waiting BEFORE Ability " + powerPrime.powerThis.ToString() + "...");
-						  Bot.Combat.bWaitingForPower=true;
+						  Bot.Targeting.bWaitingForPower=true;
 						  if (Bot.Class.PowerPrime.WaitLoopsBefore>=1)
 								Bot.Class.PowerPrime.WaitLoopsBefore--;
 						  return Zeta.TreeSharp.RunStatus.Running;
 					 }
-					 Bot.Combat.bWaitingForPower=false;
+					 Bot.Targeting.bWaitingForPower=false;
 
 					 // Pick the item up the usepower way, and "blacklist" for a couple of loops
 					 Bot.Character.WaitWhileAnimating(20, false);
@@ -597,7 +597,7 @@ namespace FunkyTrinity.Cache
 					 Bot.NavigationCache.vPositionLastZigZagCheck=Vector3.Zero;
 
 
-					 Bot.Combat.ShouldCheckItemLooted=true;
+					 Bot.Targeting.ShouldCheckItemLooted=true;
 
 					 Bot.Character.WaitWhileAnimating(5, true);
 					 return Zeta.TreeSharp.RunStatus.Running;
@@ -612,13 +612,6 @@ namespace FunkyTrinity.Cache
 					 {
 						  fRangeRequired=5f;
 						  fDistanceReduction=0f;
-
-						  // If we're having stuck issues, try forcing us to get closer to this item
-						  if (Bot.Combat.bForceCloseRangeTarget)
-								fRangeRequired-=1f;
-
-							//if (Bot.Character.Position.Distance(TargetMovement.CurrentTargetLocation)<=1.5f)
-							//   fDistanceReduction+=1f;
 					 }
 					 else
 					 {

@@ -280,7 +280,7 @@ namespace FunkyTrinity.Cache
 							if (this==Bot.Targeting.LastCachedTarget&&centreDistance<=25f)
 								this.Weight+=400;
 							// Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
-							if ((Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted))
+							if (Bot.Character.bIsRooted)
 								this.Weight=18500d-(Math.Floor(centreDistance)*200);
 							// If there's a monster in the path-line to the item, reduce the weight by 25%
 							if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
@@ -357,7 +357,7 @@ namespace FunkyTrinity.Cache
 			if (this.InteractionAttempts==1)
 			{
 				// Force waiting AFTER power use for certain abilities
-				Bot.Combat.bWaitingAfterPower=true;
+				Bot.Targeting.bWaitingAfterPower=true;
 				Bot.Class.PowerPrime.WaitLoopsAfter=10;
 			}
 
@@ -376,12 +376,12 @@ namespace FunkyTrinity.Cache
 				this.InteractionAttempts=0;
 			}
 
-			if (!Bot.Combat.bWaitingAfterPower)
+			if (!Bot.Targeting.bWaitingAfterPower)
 			{
 				// Now tell Trinity to get a new target!
 				 Bot.NavigationCache.lastChangedZigZag=DateTime.Today;
 				 Bot.NavigationCache.vPositionLastZigZagCheck=Vector3.Zero;
-				 Bot.Combat.bForceTargetUpdate=true;
+				 Bot.Targeting.bForceTargetUpdate=true;
 			}
 			return RunStatus.Running;
 		}
@@ -397,8 +397,6 @@ namespace FunkyTrinity.Cache
 				//fDistanceReduction=ObjectData.Radius;
 				fRangeRequired=this.CollisionRadius.Value*0.75f;
 
-				if (Bot.Combat.bForceCloseRangeTarget)
-					fRangeRequired-=2f;
 				// Check if it's in our interactable range dictionary or not
 				int iTempRange;
 				if (CacheIDLookup.dictInteractableRange.TryGetValue(this.SNOID, out iTempRange))
@@ -417,8 +415,6 @@ namespace FunkyTrinity.Cache
 				fDistanceReduction=(this.Radius*0.33f);
 				fRangeRequired=8f;
 
-				if (Bot.Combat.bForceCloseRangeTarget)
-					fRangeRequired-=2f;
 
 				if (Bot.Character.Position.Distance(this.Position)<=1.5f)
 					fDistanceReduction+=1f;

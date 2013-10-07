@@ -16,7 +16,7 @@ namespace FunkyTrinity
 					 Logger.Write(LogLevel.OutOfCombat, "Precheck running for town run");
 
             //Avoidance Flag
-				Bot.Combat.CriticalAvoidance=true;
+				Bot.Character.CriticalAvoidance=true;
 
 				if (Bot.Targeting.ShouldRefreshObjectList)
             {

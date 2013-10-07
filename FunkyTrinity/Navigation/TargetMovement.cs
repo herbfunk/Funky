@@ -127,7 +127,7 @@ namespace FunkyTrinity.Movement
 									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 										  Logger.Write(LogLevel.Movement, "Ignoring Item {0} -- due to AllowWalk RayCast Failure!", obj.InternalName);
 
-									 Bot.Combat.bForceTargetUpdate=true;
+									 Bot.Targeting.bForceTargetUpdate=true;
 									 return RunStatus.Running;
 								}
 						  }
@@ -138,7 +138,7 @@ namespace FunkyTrinity.Movement
 									 Logger.Write(LogLevel.Movement, "Line of Sight Movement Stalled!");
 
 								Bot.NavigationCache.LOSmovementUnit=null;
-								Bot.Combat.bForceTargetUpdate=true;
+								Bot.Targeting.bForceTargetUpdate=true;
 								NonMovementCounter=0;
 								// Reset the emergency loop counter and return success
 								return RunStatus.Running;
@@ -149,7 +149,7 @@ namespace FunkyTrinity.Movement
 									 Logger.Write(LogLevel.Movement, "Ignoring obj {0} ",obj.InternalName+" _ SNO:"+obj.SNOID);
 								obj.BlacklistLoops=50;
 								obj.RequiresLOSCheck=true;
-								Bot.Combat.bForceTargetUpdate=true;
+								Bot.Targeting.bForceTargetUpdate=true;
 								NonMovementCounter=0;
 
 								// Reset the emergency loop counter and return success
@@ -171,8 +171,8 @@ namespace FunkyTrinity.Movement
 								LastMovementDuringCombat=DateTime.Now;
 								// We've been stuck at least 250 ms, let's go and pick new targets etc.
 								BlockedMovementCounter++;
-								Bot.Combat.bForceCloseRangeTarget=true;
-								Bot.Combat.lastForcedKeepCloseRange=DateTime.Now;
+								//Bot.Combat.bForceCloseRangeTarget=true;
+								//Bot.Combat.lastForcedKeepCloseRange=DateTime.Now;
 
 
 
@@ -205,7 +205,7 @@ namespace FunkyTrinity.Movement
 
 												Bot.NavigationCache.GroupingFinishBehavior();
 												Bot.NavigationCache.groupingSuspendedDate=DateTime.Now.AddMilliseconds(2500);
-												Bot.Combat.bForceTargetUpdate=true;
+												Bot.Targeting.bForceTargetUpdate=true;
 												return RunStatus.Running;
 										  }
 
@@ -226,7 +226,7 @@ namespace FunkyTrinity.Movement
 																if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 																	 Logger.Write(LogLevel.Movement, "Ignoring object "+obj.InternalName+" due to not moving and raycast failure!", true);
 																
-																Bot.Combat.bForceTargetUpdate=true;
+																Bot.Targeting.bForceTargetUpdate=true;
 																return RunStatus.Running;
 														  }
 													 }
@@ -248,7 +248,7 @@ namespace FunkyTrinity.Movement
 													 Bot.Combat.timeCancelledFleeMove=DateTime.Now;
 
 													 Bot.NavigationCache.CurrentGPArea.BlacklistLastSafespot();
-													 Bot.Combat.bForceTargetUpdate=true;
+													 Bot.Targeting.bForceTargetUpdate=true;
 													 return RunStatus.Running;
 												}
 										  }
@@ -260,7 +260,7 @@ namespace FunkyTrinity.Movement
 								if (obj.targetType.Value==TargetType.Item)
 								{
 									 obj.BlacklistLoops=1;
-									 Bot.Combat.bForceTargetUpdate=true;
+									 Bot.Targeting.bForceTargetUpdate=true;
 								}
 
 								return RunStatus.Running;
@@ -296,8 +296,8 @@ namespace FunkyTrinity.Movement
 								// Store the current destination for comparison incase of changes next loop
 								LastTargetLocation=CurrentTargetLocation;
 								// Reset total body-block count, since we should have moved
-								if (DateTime.Now.Subtract(Bot.Combat.lastForcedKeepCloseRange).TotalMilliseconds>=2000)
-									 BlockedMovementCounter=0;
+								//if (DateTime.Now.Subtract(Bot.Combat.lastForcedKeepCloseRange).TotalMilliseconds>=2000)
+								BlockedMovementCounter=0;
 
 								return RunStatus.Running;
 						  }
@@ -331,10 +331,7 @@ namespace FunkyTrinity.Movement
 									 }
 									 // Store the current destination for comparison incase of changes next loop
 									 LastTargetLocation=CurrentTargetLocation;
-									 // Reset total body-block count
-									 if ((!Bot.Combat.bForceCloseRangeTarget||DateTime.Now.Subtract(Bot.Combat.lastForcedKeepCloseRange).TotalMilliseconds>Bot.Combat.iMillisecondsForceCloseRange)&&
-										 DateTime.Now.Subtract(Bot.Combat.lastForcedKeepCloseRange).TotalMilliseconds>=2000)
-										  BlockedMovementCounter=0;
+									 BlockedMovementCounter=0;
 									 return RunStatus.Running;
 								}
 						  }
@@ -388,8 +385,8 @@ namespace FunkyTrinity.Movement
 						  // Store the current destination for comparison incase of changes next loop
 						  LastTargetLocation=CurrentTargetLocation;
 						  // Reset total body-block count, since we should have moved
-						  if (DateTime.Now.Subtract(Bot.Combat.lastForcedKeepCloseRange).TotalMilliseconds>=2000)
-								BlockedMovementCounter=0;
+						  //if (DateTime.Now.Subtract(Bot.Combat.lastForcedKeepCloseRange).TotalMilliseconds>=2000)
+						 BlockedMovementCounter=0;
 
 						  //Herbfunk: Quick fix for stuck occuring on above average mob who is damaged..
 						  if (LastPlayerLocation.Distance(Bot.Character.Position)<=5f)

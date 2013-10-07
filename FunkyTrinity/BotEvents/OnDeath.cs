@@ -23,7 +23,7 @@ namespace FunkyTrinity
 									  "Nearby Flee Triggering Units={6} -- IsFleeing={7} -- LastFleeAction={8} \r\n",
 									  Bot.Profile.CurrentProfileBehavior.GetType().ToString(), Bot.Targeting.lastBehavioralType.ToString(),
 									  Cache.ObjectCache.Objects.DumpDebugInfo(),
-									  Bot.Combat.TriggeringAvoidances.Count, Bot.Combat.RequiresAvoidance, Bot.Targeting.LastAvoidanceMovement.ToString(),
+									  Bot.Combat.TriggeringAvoidances.Count, Bot.Targeting.RequiresAvoidance, Bot.Targeting.LastAvoidanceMovement.ToString(),
 									  Bot.Combat.FleeTriggeringUnits.Count, Bot.Combat.IsFleeing, Bot.Targeting.LastFleeAction.ToString());
 
 					 DumpedDeathInfo=true;

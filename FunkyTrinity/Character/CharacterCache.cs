@@ -139,7 +139,7 @@ namespace FunkyTrinity.Cache
 						  }
 					 }
 
-
+					 internal bool CriticalAvoidance { get; set; }
 					 internal bool bWaitingForReserveEnergy { get; set; }
 					 internal int iMyDynamicID { get; set; }
 					 internal int iMyLevel { get; set; }
@@ -186,7 +186,7 @@ namespace FunkyTrinity.Cache
 
 									 //vCurrentPosition=me.Position;
 									 dCurrentHealthPct=me.HitpointsCurrentPct;
-									 if (this.ShouldFlee) Bot.Combat.RequiresAvoidance=true;
+									 if (this.ShouldFlee) Bot.Targeting.RequiresAvoidance=true;
 
 									 dCurrentEnergy=me.CurrentPrimaryResource;
 									 dCurrentEnergyPct=dCurrentEnergy/me.MaxPrimaryResource;
@@ -200,10 +200,10 @@ namespace FunkyTrinity.Cache
 									 //Critical Avoidance (when no avoidance is set!)
 									 if (dCurrentHealthPct<0.50d&&!Bot.Settings.Avoidance.AttemptAvoidanceMovements&&
 										  !Zeta.CommonBot.PowerManager.CanCast(SNOPower.DrinkHealthPotion))
-										  Bot.Combat.CriticalAvoidance=true;
-									 else if (Bot.Combat.CriticalAvoidance&&!Funky.shouldPreformOOCItemIDing&&!Funky.FunkyTPBehaviorFlag&&dCurrentHealthPct>0.5)
+										  this.CriticalAvoidance=true;
+									 else if (this.CriticalAvoidance&&!Funky.shouldPreformOOCItemIDing&&!Funky.FunkyTPBehaviorFlag&&dCurrentHealthPct>0.5)
 										  //Disable it when not OOC/TP/Low health still..
-										  Bot.Combat.CriticalAvoidance=false;
+										  this.CriticalAvoidance=false;
 
 									 bIsInTown=me.IsInTown;
 									 bIsRooted=me.IsRooted;

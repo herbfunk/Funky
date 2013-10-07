@@ -53,7 +53,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 						 }
 
 						 //Check if our current path intersects avoidances. (When not in town, and not currently inside avoidance)
-						 if (!Bot.Character.bIsInTown&&(Bot.Settings.Avoidance.AttemptAvoidanceMovements||Bot.Combat.CriticalAvoidance)
+						 if (!Bot.Character.bIsInTown&&(Bot.Settings.Avoidance.AttemptAvoidanceMovements||Bot.Character.CriticalAvoidance)
 								 &&Navigation.NP.CurrentPath.Count>0
 								 &&Bot.Combat.TriggeringAvoidances.Count==0)
 						 {
@@ -112,7 +112,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 					{
 						 // Force the character to stay where it is if there is nothing available that is out of avoidance stuff and we aren't already in avoidance stuff
 						 thisobj.Weight=0;
-						 if (!FunkyTrinity.Bot.Combat.RequiresAvoidance) 
+						 if (!FunkyTrinity.Bot.Targeting.RequiresAvoidance) 
 							  FunkyTrinity.Bot.Combat.bStayPutDuringAvoidance=true;
 
 						 continue;
@@ -181,7 +181,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 							  //				//Only wait if the object is special and we are not avoiding..
 							  //				if (thisobj.ObjectIsSpecial)
 							  //				{
-							  //					 if (!FunkyTrinity.Bot.Combat.RequiresAvoidance)
+							  //					 if (!FunkyTrinity.Bot.Targeting.RequiresAvoidance)
 							  //					 {
 							  //						  FunkyTrinity.Bot.Combat.bStayPutDuringAvoidance=true;
 							  //						  resetTarget=true;
@@ -220,7 +220,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 						 if (ObjectCache.Objects.objectsIgnoredDueToAvoidance.Contains(thisobj))
 						 {
 							  //Wait if no valid target found yet.. and no avoidance movement required.
-							  if (!FunkyTrinity.Bot.Combat.RequiresAvoidance)
+							  if (!FunkyTrinity.Bot.Targeting.RequiresAvoidance)
 									FunkyTrinity.Bot.Combat.bStayPutDuringAvoidance=true;
 
 							  //Check Bot Navigationally blocked

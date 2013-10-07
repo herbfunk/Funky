@@ -59,7 +59,7 @@ namespace FunkyTrinity
 				Bot.Reset();
 
 				//OOC ID Flags
-				Bot.Combat.ShouldCheckItemLooted=false;
+				Bot.Targeting.ShouldCheckItemLooted=false;
 				shouldPreformOOCItemIDing=false;
 
 				//TP Behavior Reset
@@ -400,7 +400,7 @@ namespace FunkyTrinity
 		  private static readonly List<DiaObject> listEmptyList=new List<DiaObject>();
 		  public List<DiaObject> GetObjectsByWeight()
 		  {
-				if (!Bot.Combat.DontMove)
+				if (!Bot.Targeting.DontMove)
 					 return listEmptyList;
 				List<DiaObject> listFakeList=new List<DiaObject>();
 				listFakeList.Add(null);

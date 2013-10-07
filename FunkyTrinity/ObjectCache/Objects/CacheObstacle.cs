@@ -218,7 +218,7 @@ namespace FunkyTrinity.Cache
 						  float radius=(float)this.AvoidanceValue.Radius;
 
 						  //Modify radius during critical avoidance for arcane sentry.
-						  if (Bot.Combat.CriticalAvoidance&&AvoidanceType==AvoidanceType.ArcaneSentry)
+						  if (Bot.Character.CriticalAvoidance&&AvoidanceType==AvoidanceType.ArcaneSentry)
 								radius=25f;
 
 						  return radius;

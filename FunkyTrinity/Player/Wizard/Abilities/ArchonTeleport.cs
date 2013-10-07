@@ -32,7 +32,7 @@ namespace FunkyTrinity.AbilityFunky.Abilities.Wizard
 				{
 					 return ((Bot.Settings.Class.bTeleportFleeWhenLowHP&&
 									(Bot.Character.dCurrentHealthPct<0.5d)||
-									(Bot.Combat.RequiresAvoidance)||
+									(Bot.Targeting.RequiresAvoidance)||
 									(Bot.Combat.IsFleeing))
 							  ||
 							  (Bot.Settings.Class.bTeleportIntoGrouping&&this.LastConditionPassed==ConditionCriteraTypes.Cluster)

@@ -23,18 +23,8 @@ namespace FunkyTrinity.Cache
 
 				public CombatCache()
 				{
-					 bWholeNewTarget=false;
-					 bPickNewAbilities=false;
-					 bWaitingAfterPower=false;
-					 bWaitingForPower=false;
-					 bWaitingForPotion=false;
-					 bForceTargetUpdate=false;
-					 bWasRootedLastTick=false;
 					 bAnyLootableItemsNearby=false;
 
-					 ShouldCheckItemLooted=false;
-					 reCheckedFinished=false;
-					 recheckCount=0;
 
 					 iElitesWithinRange=new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 					 iAnythingWithinRange=new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -44,12 +34,7 @@ namespace FunkyTrinity.Cache
 					 bAnyTreasureGoblinsPresent=false;
 					 bAnyMobsInCloseRange=false;
 					 bAnyNonWWIgnoreMobsInRange=false;
-					 RequiresAvoidance=false;
-					 TravellingAvoidance=false;
-					 bForceCloseRangeTarget=false;
 					 SurroundingUnits=0;
-					 DontMove=false;
-					 CriticalAvoidance=false;
 					 UsesDOTDPSAbility=false;
 					 TargetClusterCollection=new ClusterTargetCollection(TargetClusterConditions);
 				}
@@ -165,11 +150,9 @@ namespace FunkyTrinity.Cache
 				internal int iSecondsFleeMoveFor=0;
 
 				
-				//Avoidance Related
-				internal bool RequiresAvoidance { get; set; }
-				internal bool TravellingAvoidance { get; set; }
-				internal bool DontMove { get; set; }
-				internal bool CriticalAvoidance { get; set; }
+
+				
+				
 			
 
 				// This force-prevents avoidance for XX loops incase we get stuck trying to avoid stuff
@@ -185,36 +168,8 @@ namespace FunkyTrinity.Cache
 				#endregion
 
 
-				//Loot Check
-				internal bool ShouldCheckItemLooted { get; set; }
-				internal int recheckCount { get; set; }
-				internal bool reCheckedFinished { get; set; }
 
 
-				#region HandlerFlags
-
-				// A flag to indicate whether we have a new target from the overlord (decorator) or not, in which case don't refresh targets again this first loop
-				internal bool bWholeNewTarget { get; set; }
-				// A flag to indicate if we should pick a new power/Ability to use or not
-				internal bool bPickNewAbilities { get; set; }
-				// Flag used to indicate if we are simply waiting for a power to go off - so don't do any new target checking or anything
-				internal bool bWaitingForPower { get; set; }
-				// And a special post-use pause
-				internal bool bWaitingAfterPower { get; set; }
-				// If we are waiting before popping a potion
-				internal bool bWaitingForPotion { get; set; }
-				// Force a target update after certain interactions
-				internal bool bForceTargetUpdate { get; set; }
-				// Variable to let us force new target creations immediately after a root
-				internal bool bWasRootedLastTick { get; set; }
-				// This holds whether or not we want to prioritize a close-target, used when we might be body-blocked by monsters
-				internal bool bForceCloseRangeTarget { get; set; }
-				#endregion
-
-				// how long to force close-range targets for
-				internal int iMillisecondsForceCloseRange=0;
-				// Date time we were last told to stick to close range targets
-				internal DateTime lastForcedKeepCloseRange=DateTime.Today;
 
 
 				// Variables relating to quick-reference of monsters within sepcific ranges (if anyone has suggestion for similar functionality with reduced CPU use, lemme know, but this is fast atm!)
@@ -282,7 +237,6 @@ namespace FunkyTrinity.Cache
 					 bAnyTreasureGoblinsPresent=false;
 					 bAnyMobsInCloseRange=false;
 					 bAnyNonWWIgnoreMobsInRange=false;
-					 TravellingAvoidance=false;
 					 bAnyLootableItemsNearby=false;
 					 UnitRAGUIDs=new List<int>();
 					 SurroundingUnits=0;
@@ -295,21 +249,6 @@ namespace FunkyTrinity.Cache
 					 FleeTriggeringUnits.Clear();
 					 DistantUnits.Clear();
 					 LoSMovementUnits.Clear();
-				}
-				internal void ResetTargetHandling()
-				{
-					 Bot.Targeting.CurrentTarget=null;
-					 //Bot.NavigationCache.ResetPathing();
-					 TargetMovement.ResetTargetMovementVars();
-
-
-					 bWaitingForPower=false;
-					 bWaitingAfterPower=false;
-					 bWaitingForPotion=false;
-					 bWasRootedLastTick=false;
-					 recheckCount=0;
-					 reCheckedFinished=false;
-
 				}
 		  }
 

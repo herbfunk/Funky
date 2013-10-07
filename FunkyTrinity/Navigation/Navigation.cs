@@ -367,7 +367,7 @@ namespace FunkyTrinity.Movement
 				public bool AttemptFindSafeSpot(out Vector3 safespot, Vector3 LOS, bool kiting=false)
 				{
 					 safespot=vlastSafeSpot;
-					 if (!Bot.Combat.TravellingAvoidance&&DateTime.Now.Subtract(lastFoundSafeSpot).TotalMilliseconds<=800
+					 if (!Bot.Targeting.TravellingAvoidance&&DateTime.Now.Subtract(lastFoundSafeSpot).TotalMilliseconds<=800
 						&&vlastSafeSpot!=Vector3.Zero
 						&&(!ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(vlastSafeSpot))
 					   &&(!kiting||!ObjectCache.Objects.IsPointNearbyMonsters(vlastSafeSpot,Bot.Settings.Fleeing.FleeMaxMonsterDistance)))

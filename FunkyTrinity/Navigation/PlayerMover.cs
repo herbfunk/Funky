@@ -336,7 +336,7 @@ namespace FunkyTrinity
 
 
 					 // Make sure GilesTrinity doesn't want us to avoid routine-movement
-					 if (Bot.Combat.DontMove)
+					 if (Bot.Targeting.DontMove)
 						  return;
 
 					 // Store player current position

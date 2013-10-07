@@ -24,6 +24,7 @@ namespace FunkyTrinity
 				private static int iCurrentItemLoops=0;
 				internal static bool bLoggedAnythingThisStash=false;
 				private static bool bUpdatedStashMap=false;
+				private static bool bCheckUnidItems=false;
 				internal static bool bLoggedJunkThisStash=false;
 				internal static string sValueItemStatString="";
 				internal static string sJunkItemStatString="";
@@ -64,6 +65,7 @@ namespace FunkyTrinity
 								if (!bLastTownRunCheckResult)
 									 bPreStashPauseDone=false;
 
+								bCheckUnidItems=true;
 								bWantToTownRun=true;
 						  }
 					 }
