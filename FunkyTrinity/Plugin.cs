@@ -25,7 +25,7 @@ namespace FunkyTrinity
 {
 	 public partial class Funky : IPlugin
 	 {
-		  public Version Version { get { return new Version(2, 5, 2, 1); } }
+		  public Version Version { get { return new Version(2, 6, 0, 0); } }
 		  public string Author { get { return "Herbfunk"; } }
 		  public string Description
 		  {
@@ -210,27 +210,14 @@ namespace FunkyTrinity
 				{
 					 bPluginEnabled=true;
 
-					 try
-					 {
-						  MainWindow.Title="DB - "+ZetaDia.Service.CurrentHero.BattleTagName;
-					 } catch{}
-
-
 					 // Safety check incase DB "OnStart" event didn't fire properly
 					 if (BotMain.IsRunning) 
 						  FunkyBotStart(null);
 
-
-					 
-					 
 					 // Carguy's ticks-per-second feature
 					 //if (settings.bEnableTPS)
 					 //  BotMain.TicksPerSecond=(int)settings.iTPSAmount;
 
-
-					 //ErrorClickerThread=new Thread(ErrorClickerWorker);
-					 //ErrorClickerThread.IsBackground=true;
-					 //ErrorClickerThread.Start();
 					 System.IO.FileInfo PluginInfo=new FileInfo(FolderPaths.sDemonBuddyPath+@"\Plugins\FunkyTrinity\");
 					 //
 					 string CompileDateString=PluginInfo.LastWriteTime.ToString("MM/dd hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);

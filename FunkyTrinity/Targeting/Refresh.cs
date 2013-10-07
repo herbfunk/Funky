@@ -43,7 +43,7 @@ namespace FunkyTrinity.Targeting
 					 Logger.Write(LogLevel.Target, "Changed Object: {0}", MakeStringSingleLine(e.newObject.DebugString));
 
 				this.LastChangeOfTarget=DateTime.Now;
-				TargetMovement.NewTargetResetVars();
+				TargetMovement.ResetTargetMovementVars();
 				Bot.Combat.bWholeNewTarget=true;
 				Bot.Combat.bPickNewAbilities=true;
 

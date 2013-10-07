@@ -11,6 +11,20 @@ namespace FunkyTrinity.Targeting.Behaviors
 {
 	 public class TBLOSMovement : TargetBehavior
 	 {
+		  /*
+			Line of Sight Movement Behavior
+		   --Units that are "special" that fail the Line of Sight Check during ObjectIsValidForTargeting will be added to a special list of units that we check here.
+		   --We use the list of units to compute clusters
+ 		   --We iterate the units searching for any that has <=75% HP and CanFullyClientPathTo. 
+		   --Once we find a valid unit, we generate the path and let the target handler begin the movement.
+		   
+
+		   Note: This behavior only activates when no targets are found during refresh.
+				(Excluding Non-Movement targets)
+
+
+		  */
+
 		  public TBLOSMovement() : base() { }
 		  public override TargetBehavioralTypes TargetBehavioralTypeType { get { return TargetBehavioralTypes.LineOfSight; } }
 		  public override bool BehavioralCondition
@@ -18,7 +32,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 				get
 				{
 					 //Check objects added for LOS movement
-					 return Bot.Combat.LoSMovementUnits.Count>0;
+					 return Bot.Combat.LoSMovementUnits.Count>0||Bot.NavigationCache.LOSmovementUnit!=null;
 				}
 		  }
 
@@ -26,19 +40,19 @@ namespace FunkyTrinity.Targeting.Behaviors
 		  {
 				base.Test=(ref CacheObject obj) =>
 				{
-					 /*LOS Movement
-					  -->Validate last used LOS Unit (if any)
-					  -->No Previous Unit Set?
-							-->Create clusters of all units in the collection. (so we can eliminate most targets!)
-							-->Sort by distance, select closest.
-					  Return Any unit set?
-					 */
-
 					 if (obj==null)
 					 {
 						  if (Bot.NavigationCache.LOSmovementUnit==null||!Bot.NavigationCache.LOSmovementUnit.IsStillValid())
 						  {
-								Navigation.NP.Clear();
+								if (FunkyTrinity.Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+								{
+									 if (Bot.NavigationCache.LOSmovementUnit==null)
+										  Logger.Write(LogLevel.Movement, "LOS Unit is Null -- Reseting.");
+									 else
+									 	 Logger.Write(LogLevel.Movement, "LOS Unit is No Longer Valid -- Reseting.");
+								}
+									
+
 								Bot.NavigationCache.LOSVector=Vector3.Zero;
 								Bot.NavigationCache.LOSmovementUnit=null;
 						  }
@@ -58,7 +72,10 @@ namespace FunkyTrinity.Targeting.Behaviors
 												if (!Navigation.NP.CanFullyClientPathTo(unit.Position)) continue;
 
 												if (FunkyTrinity.Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-													 Logger.Write(LogLevel.Movement, "Line of Sight Started for object {0}", unit.InternalName);
+												{
+													 Logger.Write(LogLevel.Movement, "Line of Sight Started for object {0} -- with {1} vectors", unit.InternalName, Navigation.NP.CurrentPath.Count);
+												}
+													 
 
 												Bot.NavigationCache.LOSmovementUnit=(CacheUnit)ObjectCache.Objects[unit.RAGUID];
 												
@@ -74,10 +91,13 @@ namespace FunkyTrinity.Targeting.Behaviors
 						  {
 								CacheUnit NavUnit=Bot.NavigationCache.LOSmovementUnit;
 								if (Bot.NavigationCache.LOSVector==Vector3.Zero)
-									 Bot.NavigationCache.LOSVector=Bot.NavigationCache.LOSmovementUnit.BotMeleeVector;
+								{
+									 Bot.NavigationCache.LOSVector=Bot.NavigationCache.LOSmovementUnit.Position;
+								}
+								Navigation.NP.MoveTo(Bot.NavigationCache.LOSVector, "LineOfSightMoveTo", true);
+									
 
 								obj=new CacheObject(Bot.NavigationCache.LOSVector, TargetType.LineOfSight, 1d, "Line Of Sight", 5f, NavUnit.RAGUID);
-								Navigation.NP.MoveTo(Bot.NavigationCache.LOSVector, "LineOfSight");
 								return true;
 						  }
 					 }

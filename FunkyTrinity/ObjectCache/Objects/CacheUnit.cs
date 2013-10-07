@@ -875,25 +875,11 @@ namespace FunkyTrinity.Cache
 						  }
 
 
+
+
+
+
 						  float centreDistance=this.CentreDistance;
-
-						  bool distantUnit=false;
-						  bool validUnit=false;
-						  //Distant Units List
-						  if (centreDistance>=Bot.Settings.Grouping.GroupingMinimumUnitDistance&&Bot.Settings.Grouping.AttemptGroupingMovements)
-						  {
-								distantUnit=true;
-						  }
-
-
-						  if (centreDistance>this.KillRadius&&!distantUnit)
-						  {
-								return false;
-						  }
-						  else
-								validUnit=true;
-								
-
 
 						  //Line of sight pre-check
 						  if (this.RequiresLOSCheck)
@@ -907,20 +893,6 @@ namespace FunkyTrinity.Cache
 									 if (this.ObjectIsSpecial)
 									 {
 										  Bot.Combat.LoSMovementUnits.Add(this);
-										  if (this.LineOfSight.ObjectIntersection.HasValue&&this.LineOfSight.ObjectIntersection.Value
-												&&(this.LineOfSight.RayCast.HasValue&&this.LineOfSight.RayCast.Value)
-												&&(this.LineOfSight.NavCellProjectile.HasValue&&this.LineOfSight.NavCellProjectile.Value)
-												||(this.LineOfSight.NavCellWalk.HasValue&&this.LineOfSight.NavCellWalk.Value)
-												&&(this.LastLOSSearchMS>1500))
-										  {
-												this.LastLOSSearch=DateTime.Now;
-												Vector3 LineOfSightMovement;
-												if (Bot.NavigationCache.AttemptFindSafeSpot(out LineOfSightMovement, this.BotMeleeVector, false))
-												{
-													 this.LOSV3=LineOfSightMovement;
-													 return true;
-												}
-										  }
 									 }
 										 
 									 return false;
@@ -956,27 +928,12 @@ namespace FunkyTrinity.Cache
 									 if (this.ObjectIsSpecial)
 									 {
 										  Bot.Combat.LoSMovementUnits.Add(this);
-
-										  if (this.LineOfSight.ObjectIntersection.HasValue&&this.LineOfSight.ObjectIntersection.Value
-												&&(this.LineOfSight.RayCast.HasValue&&this.LineOfSight.RayCast.Value)
-												&&(this.LineOfSight.NavCellProjectile.HasValue&&this.LineOfSight.NavCellProjectile.Value)
-												||(this.LineOfSight.NavCellWalk.HasValue&&this.LineOfSight.NavCellWalk.Value)
-												&&(this.LastLOSSearchMS>1500))
-										  {
-												this.LastLOSSearch=DateTime.Now;
-												Vector3 LineOfSightMovement;
-												if (Bot.NavigationCache.AttemptFindSafeSpot(out LineOfSightMovement, this.BotMeleeVector, false))
-												{
-													 this.LOSV3=LineOfSightMovement;
-													 Valid=true;
-												}
-										  }
 									 }
 
 									 //Valid?? Did we find a location we could move to for LOS?
 									 if (!Valid)
 									 {
-										  if (!Bot.Character.bIsIncapacitated)
+										  if (!Bot.Character.bIsIncapacitated&&!this.ObjectIsSpecial)
 												this.BlacklistLoops=2;
 										  else//Incapacitated we reset check
 												base.LineOfSight.LastLOSCheck=DateTime.Today;
@@ -986,9 +943,24 @@ namespace FunkyTrinity.Cache
 								}
 
 								this.RequiresLOSCheck=false;
-						  } 
-	
+						  }
 
+
+
+						  
+						  bool distantUnit=false;
+						  bool validUnit=false;
+						  //Distant Units List
+						  if (centreDistance>=Bot.Settings.Grouping.GroupingMinimumUnitDistance&&Bot.Settings.Grouping.AttemptGroupingMovements)
+						  {
+								distantUnit=true;
+						  }
+						  if (centreDistance>this.KillRadius&&!distantUnit)
+						  {
+								return false;
+						  }
+						  else
+								validUnit=true;
 
 						  #region CombatFlags
 
@@ -1501,7 +1473,7 @@ namespace FunkyTrinity.Cache
 				{
 					 get
 					 {
-						  return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} -- IsMoving: {6} \r\n PriorityCounter={7}\r\nUnit Properties {8}\r\nAnimState: {9}",
+						  return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} -- IsMoving: {6} \r\n PriorityCounter={7}\r\nUnit Properties {8}",
 								base.DebugString,
 								this.IsBurrowed.HasValue?this.IsBurrowed.Value.ToString():"",
 								this.IsTargetable.HasValue?this.IsTargetable.Value.ToString():"",
@@ -1510,8 +1482,7 @@ namespace FunkyTrinity.Cache
 								this.MaximumHealth.HasValue?this.MaximumHealth.Value.ToString():"",
 								this.IsMoving.ToString(),
 								this.PriorityCounter.ToString(),
-								this.Properties.ToString(),
-								this.AnimState.ToString());
+								this.Properties.ToString());
 					 }
 				}
 

@@ -14,6 +14,13 @@ namespace FunkyTrinity.Targeting.Behaviors
 {
 	 public class TBGrouping : TargetBehavior
 	 {
+		  /*
+			Grouping Behavior
+			-Setting Enabled, Bot Health is at least the Minimum Set and current target is an unit.
+		   -We use a list of units we found to be out of targeting range but within grouping range.
+		   -With this list we generate clusters and then check the properties for any that has flags we desire.
+		   -
+		  */
 		  public TBGrouping() : base() { }
 
 		  public override TargetBehavioralTypes TargetBehavioralTypeType { get { return TargetBehavioralTypes.Grouping; } }
@@ -91,30 +98,32 @@ namespace FunkyTrinity.Targeting.Behaviors
 				//if (Bot.SettingsFunky.LogGroupingOutput)
 				//    Logger.Write(LogLevel.Grouping, "Current Unit Cluster Propeties [{0}]", cluster.Info.Properties.ToString());
 
-				return ((!FunkyTrinity.Bot.Settings.Targeting.IgnoreAboveAverageMobs&&(cluster.Info.Properties.HasFlag(ClusterProperties.Elites)||cluster.Info.Properties.HasFlag(ClusterProperties.Boss)))||
-																					 cluster.Info.Properties.HasFlag(ClusterProperties.Large)||
-																					 cluster.Info.Properties.HasFlag(ClusterProperties.Strong)||
-																					 cluster.Info.Properties.HasFlag(ClusterProperties.Fast));
+				return ((!FunkyTrinity.Bot.Settings.Targeting.IgnoreAboveAverageMobs
+								&&(cluster.Info.Properties.HasFlag(ClusterProperties.Elites)||
+									 cluster.Info.Properties.HasFlag(ClusterProperties.Boss)))||
+							cluster.Info.Properties.HasFlag(ClusterProperties.Large)||
+							cluster.Info.Properties.HasFlag(ClusterProperties.Strong)||
+							cluster.Info.Properties.HasFlag(ClusterProperties.Fast));
 		  };
 
-		  private delegate UnitCluster CheckGroups(List<UnitCluster> clusters);
-		  private CheckGroups GroupingTest=(List<UnitCluster> clusters) =>
-		  {
-				var PossibleGroups=clusters
-						  .Where(c =>
-								(!FunkyTrinity.Bot.Settings.Targeting.IgnoreAboveAverageMobs&&(c.Info.Properties.HasFlag(ClusterProperties.Elites))||c.Info.Properties.HasFlag(ClusterProperties.Boss))||
-								c.Info.Properties.HasFlag(ClusterProperties.Large)||
-								c.Info.Properties.HasFlag(ClusterProperties.Strong)||
-								c.Info.Properties.HasFlag(ClusterProperties.Ranged)||
-								c.Info.Properties.HasFlag(ClusterProperties.Fast));
+		  //private delegate UnitCluster CheckGroups(List<UnitCluster> clusters);
+		  //private CheckGroups GroupingTest=(List<UnitCluster> clusters) =>
+		  //{
+		  //	 var PossibleGroups=clusters
+		  //				.Where(c =>
+		  //					 (!FunkyTrinity.Bot.Settings.Targeting.IgnoreAboveAverageMobs&&(c.Info.Properties.HasFlag(ClusterProperties.Elites))||c.Info.Properties.HasFlag(ClusterProperties.Boss))||
+		  //					 c.Info.Properties.HasFlag(ClusterProperties.Large)||
+		  //					 c.Info.Properties.HasFlag(ClusterProperties.Strong)||
+		  //					 c.Info.Properties.HasFlag(ClusterProperties.Ranged)||
+		  //					 c.Info.Properties.HasFlag(ClusterProperties.Fast));
 
-				if (PossibleGroups.Any())
-				{
-					 return PossibleGroups.First();
-				}
+		  //	 if (PossibleGroups.Any())
+		  //	 {
+		  //		  return PossibleGroups.First();
+		  //	 }
 
-				return null;
-		  };
+		  //	 return null;
+		  //};
 	 }
 
 

@@ -279,8 +279,6 @@ namespace FunkyTrinity.Movement
 						  return RunStatus.Running;
 					 }
 
-					 float currentDistance=Vector3.Distance(LastTargetLocation, CurrentTargetLocation);
-
 					 // If we're doing avoidance, globes or backtracking, try to use special abilities to move quicker
 					 #region SpecialMovementChecks
 					 if (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value,TargetType.AvoidanceMovements|TargetType.Gold|TargetType.Globe))
@@ -348,13 +346,14 @@ namespace FunkyTrinity.Movement
 					 IsAlreadyMoving=true;
 					 LastMovementCommand=DateTime.Now;
 
-					 UseTargetMovement(obj, currentDistance, bForceNewMovement);
+					 UseTargetMovement(obj, bForceNewMovement);
 					 return RunStatus.Running;
 				}
 
-				internal static void UseTargetMovement(CacheObject obj, float currentDistance, bool bForceNewMovement=false)
+				internal static void UseTargetMovement(CacheObject obj, bool bForceNewMovement=false)
 				{
-					 if (DateTime.Now.Subtract(LastMovementAttempted).TotalMilliseconds>=250||currentDistance>=2f||bForceNewMovement)
+					 float currentDistance=Vector3.Distance(LastTargetLocation, CurrentTargetLocation);
+					 if (DateTime.Now.Subtract(LastMovementAttempted).TotalMilliseconds>=250||(currentDistance>=2f&&!Bot.NavigationCache.IsMoving)||bForceNewMovement)
 					 {
 						  if (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value,TargetType.AvoidanceMovements))
 						  {
@@ -365,9 +364,12 @@ namespace FunkyTrinity.Movement
 						  }
 						  else if(obj.targetType.Value.Equals(TargetType.LineOfSight))
 						  {
-
-								//Navigator.PlayerMover.MoveTowards(Navigation.NP.CurrentPath.Current);
-								Funky.PlayerMover.NavigateTo(CurrentTargetLocation, "Line-Of-Sight");
+								//MoveResult LastMovementResult=Funky.PlayerMover.NavigateTo(CurrentTargetLocation, "Line-Of-Sight");
+								//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+								//	 Logger.Write(LogLevel.Movement, "Last Line-Of-Sight Move Result=={0}", LastMovementResult.ToString());
+								if (Navigation.NP.CurrentPath.Count>0)
+									 ZetaDia.Me.UsePower(SNOPower.Walk, Navigation.NP.CurrentPath.Current, Bot.Character.iCurrentWorldID, -1);
+								
 						  }
 						  else
 						  {

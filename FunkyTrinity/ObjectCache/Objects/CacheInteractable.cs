@@ -24,11 +24,10 @@ namespace FunkyTrinity.Cache
 		{
 			get
 			{
-				return String.Format("{0}\r\n PhysSNO={1} HandleAsObstacle={2} Operated={3} \r\n Anim={4}",
+				return String.Format("{0}\r\n PhysSNO={1} HandleAsObstacle={2} Operated={3}",
 					base.DebugString, this.PhysicsSNO.HasValue?this.PhysicsSNO.Value.ToString():"NULL",
 					this.HandleAsObstacle.HasValue?this.HandleAsObstacle.Value.ToString():"NULL",
-					this.GizmoHasBeenUsed.HasValue?this.GizmoHasBeenUsed.Value.ToString():"NULL",
-					this.AnimState.ToString());
+					this.GizmoHasBeenUsed.HasValue?this.GizmoHasBeenUsed.Value.ToString():"NULL");
 			}
 		}
 		private double LootRadius

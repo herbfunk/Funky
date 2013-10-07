@@ -479,14 +479,15 @@ namespace FunkyTrinity
 
 
 					 //Send Movement Command!
-					 ZetaDia.Me.Movement.MoveActor(vMoveToTarget);
+					 //ZetaDia.Me.Movement.MoveActor(vMoveToTarget);
+					 ZetaDia.Me.UsePower(SNOPower.Walk, vMoveToTarget, Bot.Character.iCurrentWorldID, -1);
 				}
 
 
 
 				internal static MoveResult NavigateTo(Vector3 moveTarget, string destinationName="")
 				{
-					 Vector3 MyPos=ZetaDia.Me.Position;
+					 //Vector3 MyPos=ZetaDia.Me.Position;
 
 					 //float distanceToTarget=moveTarget.Distance2D(ZetaDia.Me.Position);
 

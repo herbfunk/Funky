@@ -291,7 +291,7 @@ namespace FunkyTrinity.Targeting
 					 // Update targets at least once every 80 milliseconds
 					 if (Bot.Combat.bForceTargetUpdate
 						 ||Bot.Combat.TravellingAvoidance
-						 ||((DateTime.Now.Subtract(Bot.Targeting.lastRefreshedObjects).TotalMilliseconds>=80&&!ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value, TargetType.AvoidanceMovements|TargetType.NoMovement|TargetType.LineOfSight))
+						 ||((DateTime.Now.Subtract(Bot.Targeting.lastRefreshedObjects).TotalMilliseconds>=80&&!ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value, TargetType.AvoidanceMovements|TargetType.NoMovement))
 						 ||DateTime.Now.Subtract(Bot.Targeting.lastRefreshedObjects).TotalMilliseconds>=1200))
 					 {
 						  bShouldRefreshDiaObjects=true;
@@ -447,7 +447,7 @@ namespace FunkyTrinity.Targeting
 				#endregion
 
 				// See if we can use any special buffs etc. while in avoidance
-				if ((TargetType.Gold|TargetType.Globe|TargetType.AvoidanceMovements|TargetType.NoMovement| TargetType.LineOfSight).HasFlag(CurrentTarget.targetType.Value))
+				if (ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value,TargetType.Gold|TargetType.Globe|TargetType.AvoidanceMovements|TargetType.NoMovement))
 				{
 					  Ability buff;
 					 if (Bot.Class.FindBuffPower(out buff))
@@ -466,37 +466,9 @@ namespace FunkyTrinity.Targeting
 
 				if (CurrentTarget.targetType.Value==TargetType.LineOfSight)
 				{
-					 MoveResult LOSMoveResult=Navigator.MoveTo(CurrentTarget.Position, "Line-Of-Sight");
-
-					 //Validate LOS movement
-					 bool FinishLOSBehavior=false;
-					 if (LOSMoveResult==MoveResult.ReachedDestination)
-					 {
-						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-								Logger.Write(LogLevel.Movement, "LOS Ended Due to MoveResult {0} for Object {1}", CurrentTarget.LastLOSMoveResult.ToString(), CurrentTarget.InternalName);
-						  FinishLOSBehavior=true;
-					 }
-					 else if (Bot.NavigationCache.currentMovementState==MovementState.WalkingInPlace)
-					 {
-						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-								Logger.Write(LogLevel.Movement, "LOS Ended Due to Player Walking In Place!");
-
-						  FinishLOSBehavior=true;
-					 }
-
-					 
-
-
-					 if (FinishLOSBehavior)
-					 {
-						  CurrentTarget=Bot.NavigationCache.LOSmovementUnit;
-						  Bot.NavigationCache.LOSmovementUnit=null;
-						  Bot.Combat.bWholeNewTarget=true;
-						  return false;
-					 }
-
-					 CurrentState=RunStatus.Running;
-					 return false;
+					//Since we only update our path during target refresh.. we should check if we are within range already!
+					 if (Bot.Character.Position.Distance(Navigation.NP.CurrentPath.Current)<=Navigation.NP.PathPrecision)
+						  Navigation.NP.MoveTo(CurrentTarget.Position, "LineOfSightMoveTo", true);
 				}
 
 				TargetMovement.CurrentTargetLocation=CurrentTarget.Position;
