@@ -1164,7 +1164,7 @@ namespace FunkyBot.Cache
 					 #endregion
 
 					 //Targetable
-					 if (!this.IsTargetable.HasValue||!this.IsTargetable.Value)
+					 if (!this.IsTargetable.HasValue||!this.IsTargetable.Value||this.IsStealthableUnit)
 					 {
 						  try
 						  {

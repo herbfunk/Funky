@@ -1,15 +1,26 @@
 ﻿// herbfunk revisions
 v2.6.0.0
 
+ErrorClicker Plugin:
+-Added new plugin to deal with Error Dialogs.
+
 Line of Sight Behavior:
 -New behavior that will move towards special units that have not passed Line of Sight check.
 -This behavior only activates when no target has been found.
 
 Avoidance:
--Fixed issue with trigger not properly activating required movement.
-	*Including Spores/Grotesque.
+-Fixed issue with triggering during update of objects.
+-Added trigger check for Spores/Grotesque.
 -Range Classes check against possible units with nearby avoidances has been fixed.
 
+Ability:
+-Target condition checks if unit is targetable+attackable.
+-Range ability now checks if unit is "flying/hover" when AllowProjectile fails.
+
+Misc:
+-Improved preformance of inventory cache update.
+-Improved preformance of town run behavior.
+-Added handler for OnProfileLoaded Event, replaces old check method used.
 
 
 v2.5.0.0 (Simplified)

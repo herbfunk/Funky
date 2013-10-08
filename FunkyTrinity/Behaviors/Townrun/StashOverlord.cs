@@ -30,7 +30,7 @@ namespace FunkyBot
 				{
 
 					 //Clear Cache Item List -- (This is the first to be ran so we want fresh data!)
-					 Bot.Character.BackPack.CacheItemList.Clear();
+					 //Bot.Character.BackPack.CacheItemList.Clear();
 
 					 Bot.Character.BackPack.townRunCache.hashGilesCachedKeepItems.Clear();
 
