@@ -3,10 +3,10 @@ using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using FunkyTrinity.Cache.Enums;
+using FunkyBot.Cache.Enums;
 
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 internal partial class FunkyWindow : Window
 	 {
@@ -36,18 +36,6 @@ namespace FunkyTrinity
 		  }
 
 
-		  private bool isStringFullyNumerical(String S, bool isDouble=false)
-		  {
-				if (!isDouble)
-				{
-					 return !S.Any<Char>(c => !Char.IsNumber(c));
-				}
-				else
-				{
-					 System.Text.RegularExpressions.Regex isnumber=new System.Text.RegularExpressions.Regex(@"^[0-9]+(\.[0-9]+)?$");
-					 return isnumber.IsMatch(S);
-				}
-		  }
 
 		  private void EnableDemonBuddySettingsChecked(object sender, EventArgs e)
 		  {

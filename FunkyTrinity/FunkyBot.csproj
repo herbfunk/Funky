@@ -8,8 +8,8 @@
     <ProjectGuid>{4B51B3E8-7674-455D-8478-681C08AA01E5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FunkyPlugin</RootNamespace>
-    <AssemblyName>FunkyTrinity</AssemblyName>
+    <RootNamespace>FunkyBot</RootNamespace>
+    <AssemblyName>FunkyBot</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -1027,12 +1027,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assemblies\Demonbuddy.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assemblies\GreyMagic.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Assemblies\Demonbuddy.exe" />
+    <Content Include="Assemblies\GreyMagic.dll" />
     <Content Include="Behaviors\Misc\CharacterMule\NewGame.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

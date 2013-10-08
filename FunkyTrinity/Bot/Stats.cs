@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using Zeta;
-using FunkyTrinity.Cache;
+using FunkyBot.Cache;
 using System.IO;
 using Zeta.CommonBot.Settings;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 
 	 public static partial class Bot
 	 {
-		  public class BotStatistics
+		  internal class BotStatistics
 		  {
 				public static GameStatistics GameStats=new GameStatistics();
 				public static ItemStatistics ItemStats=new ItemStatistics();

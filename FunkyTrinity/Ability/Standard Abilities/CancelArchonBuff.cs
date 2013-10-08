@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.AbilityFunky.Abilities
+namespace FunkyBot.AbilityFunky.Abilities
 {
 	 public class CancelArchonBuff : Ability, IAbility
 	 {

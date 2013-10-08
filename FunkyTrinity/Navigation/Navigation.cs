@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using FunkyBot.Cache;
+using FunkyBot.Cache.Enums;
 using Zeta;
 using Zeta.Internals.Actors;
 using Zeta.Common;
@@ -8,12 +10,10 @@ using Zeta.Internals.SNO;
 using Zeta.Navigation;
 using System.Globalization;
 
-using FunkyTrinity.AbilityFunky;
-using FunkyTrinity.Cache;
-using FunkyTrinity.Movement.Clustering;
-using FunkyTrinity.Cache.Enums;
+using FunkyBot.AbilityFunky;
+using FunkyBot.Movement.Clustering;
 
-namespace FunkyTrinity.Movement
+namespace FunkyBot.Movement
 {
 	
 
@@ -110,12 +110,7 @@ namespace FunkyTrinity.Movement
 				#endregion
 
 
-				private bool shouldUpdateSearchGrid=false;
-				internal bool ShouldUpdateSearchGrid
-				{
-					 get { return shouldUpdateSearchGrid; }
-					 set { shouldUpdateSearchGrid=value; }
-				}
+
 
 				//GPCache
 

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
-using FunkyTrinity.Targeting;
+using FunkyBot.AbilityFunky;
+using FunkyBot.Movement.Clustering;
+using FunkyBot.Targeting;
 using Zeta;
 using Zeta.Internals.Actors;
 using Zeta.Internals;
@@ -8,12 +10,10 @@ using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.Internals.SNO;
 using Zeta.CommonBot;
-using FunkyTrinity.AbilityFunky;
-using FunkyTrinity.Cache;
-using FunkyTrinity.Movement;
-using FunkyTrinity.Movement.Clustering;
+using FunkyBot.Cache;
+using FunkyBot.Movement;
 
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 		  ///<summary>
 		  ///Cache of current combat variables

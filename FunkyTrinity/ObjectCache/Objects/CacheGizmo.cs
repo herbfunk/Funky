@@ -1,15 +1,15 @@
 ﻿using System;
-using FunkyTrinity.Cache;
+using FunkyBot.Cache.Enums;
+using FunkyBot.Cache;
 using Zeta;
 using System.Windows;
 using Zeta.Common;
 using Zeta.Internals.Actors;
 using Zeta.Internals.Actors.Gizmos;
 using Zeta.Internals.SNO;
-using FunkyTrinity.Movement;
-using FunkyTrinity.Cache.Enums;
+using FunkyBot.Movement;
 
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 
 		  public class CacheGizmo : CacheObject

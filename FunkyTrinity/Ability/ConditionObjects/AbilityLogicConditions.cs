@@ -1,9 +1,9 @@
 ﻿using System;
-using FunkyTrinity.Cache;
+using FunkyBot.Cache;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
 
-namespace FunkyTrinity.AbilityFunky
+namespace FunkyBot.AbilityFunky
 {
 	 ///<summary>
 	 ///Creates Funcs from a created Ability and is to be used in testing of usability.

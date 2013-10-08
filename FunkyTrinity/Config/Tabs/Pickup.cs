@@ -3,10 +3,9 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using FunkyBot.Settings;
 
-using FunkyTrinity.Settings;
-
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 public enum GemQuality
 	 {

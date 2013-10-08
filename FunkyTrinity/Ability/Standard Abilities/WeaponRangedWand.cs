@@ -4,7 +4,7 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.AbilityFunky.Abilities
+namespace FunkyBot.AbilityFunky.Abilities
 {
 	 public class WeaponRangedWand : Ability, IAbility
 	 {

@@ -4,7 +4,7 @@ using Zeta.Internals.Actors;
 using Zeta.Internals;
 
 
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 
 

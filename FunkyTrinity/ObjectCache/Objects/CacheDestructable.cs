@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Linq;
-using FunkyTrinity.Cache.Enums;
-
-using FunkyTrinity.Movement;
-using FunkyTrinity.Targeting;
+using FunkyBot.Cache.Enums;
+using FunkyBot.Movement;
+using FunkyBot.Targeting;
 using Zeta.Common;
 using Zeta.Internals.Actors;
 using Zeta.Internals.SNO;
 using Zeta.TreeSharp;
 
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 	public class CacheDestructable : CacheGizmo
 	{

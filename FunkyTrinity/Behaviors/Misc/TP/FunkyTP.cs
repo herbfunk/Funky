@@ -24,7 +24,7 @@ using Zeta.Navigation;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 public partial class Funky
 	 {

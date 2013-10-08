@@ -5,11 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using FunkyTrinity.Avoidances;
-using FunkyTrinity.Cache;
-using FunkyTrinity.Settings;
+using FunkyBot.Avoidances;
+using FunkyBot.Settings;
+using FunkyBot.Cache;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 internal partial class FunkyWindow : Window
 	 {

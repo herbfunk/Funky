@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.IO;
+using FunkyBot.AbilityFunky;
+using FunkyBot.Cache;
+using FunkyBot.Movement;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
@@ -11,14 +14,10 @@ using Zeta.Internals.Actors;
 using Zeta.Internals.SNO;
 using Zeta.Navigation;
 using Zeta.TreeSharp;
-
-using FunkyTrinity.AbilityFunky;
-using FunkyTrinity.Cache;
-using FunkyTrinity.Movement;
-using FunkyTrinity.Cache.Enums;
+using FunkyBot.Cache.Enums;
 
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 public partial class Funky
 	 {

@@ -7,7 +7,7 @@ using Zeta.Internals.Actors;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 
-namespace FunkyTrinity.XMLTags
+namespace FunkyBot.XMLTags
 {
 	[ComVisible(false)]
 	[XmlElement("TrinityInteract")]

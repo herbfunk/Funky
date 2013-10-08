@@ -4,7 +4,7 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.AbilityFunky.Abilities.Wizard
+namespace FunkyBot.AbilityFunky.Abilities.Wizard
 {
 	 public class ArcaneTorrent : Ability, IAbility
 	 {

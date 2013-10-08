@@ -1,11 +1,11 @@
 ﻿using System;
-using FunkyTrinity.Cache;
+using FunkyBot.Cache;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.AbilityFunky.Abilities.Barb
+namespace FunkyBot.AbilityFunky.Abilities.Barb
 {
 	 public class Warcry : Ability, IAbility
 	 {

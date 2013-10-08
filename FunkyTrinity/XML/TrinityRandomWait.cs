@@ -9,7 +9,7 @@ using Action=Zeta.TreeSharp.Action;
 using System.Diagnostics;
 
 
-namespace FunkyTrinity.XMLTags
+namespace FunkyBot.XMLTags
 {
 	[XmlElement("TrinityRandomWait")]
 	 public class TrinityRandomWait : ProfileBehavior

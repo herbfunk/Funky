@@ -4,7 +4,7 @@ using Zeta;
 using Zeta.Common;
 using System.Collections.Generic;
 
-namespace FunkyTrinity.Movement
+namespace FunkyBot.Movement
 {
 
 		  public static class SkipAheadCache

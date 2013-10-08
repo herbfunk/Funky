@@ -2,7 +2,7 @@
 using Zeta;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 
 		  public class CacheBalance

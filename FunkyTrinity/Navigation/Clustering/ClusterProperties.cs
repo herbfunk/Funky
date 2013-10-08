@@ -1,6 +1,6 @@
 using System;
 
-namespace FunkyTrinity.Movement.Clustering
+namespace FunkyBot.Movement.Clustering
 {
 	[Flags]
 	public enum ClusterProperties

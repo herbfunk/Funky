@@ -1,11 +1,11 @@
 ﻿using System;
-using FunkyTrinity.Cache;
+using FunkyBot.Cache;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.AbilityFunky.Abilities.DemonHunter
+namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 {
 	 public class Chakram : Ability, IAbility
 	 {

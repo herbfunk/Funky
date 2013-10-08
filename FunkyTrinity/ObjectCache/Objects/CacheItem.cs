@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
-using FunkyTrinity.Targeting;
+using FunkyBot.AbilityFunky;
+using FunkyBot.Cache.Enums;
+using FunkyBot.Targeting;
 using Zeta;
 using System.Windows;
 using Zeta.Common;
@@ -9,13 +11,11 @@ using Zeta.CommonBot;
 using Zeta.TreeSharp;
 using System.Collections.Generic;
 
-using FunkyTrinity.Cache;
-using FunkyTrinity.Movement;
+using FunkyBot.Cache;
+using FunkyBot.Movement;
 using Zeta.Internals.SNO;
-using FunkyTrinity.Cache.Enums;
-using FunkyTrinity.AbilityFunky;
 
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 
 		  public class CacheItem : CacheObject
@@ -113,10 +113,10 @@ namespace FunkyTrinity.Cache
 					 Vector3 TestPosition=this.Position;
 
 					 //Use modified Test Position for Gold/Globe
-					 if ((TargetType.Globe|TargetType.Gold).HasFlag(this.targetType.Value)&&Bot.Character.PickupRadius>0f)
+					 if (Bot.Character.PickupRadius>0f&&ObjectCache.CheckTargetTypeFlag(this.targetType.Value, TargetType.Globe|TargetType.Gold))
 						  TestPosition=MathEx.CalculatePointFrom(Bot.Character.Position, this.Position, Math.Max(0f, this.CentreDistance-Bot.Character.PickupRadius));
 
-					 if (this.CentreDistance>=2f)
+					 if (Bot.Character.Position.Distance(TestPosition)>=2f)
 					 {
 						  //If we are already ignored this recently.. lets just assume its still being ignored!
 						  if (DateTime.Now.Subtract(LastAvoidanceIgnored).TotalMilliseconds<1000&&Bot.Combat.NearbyAvoidances.Count>0)

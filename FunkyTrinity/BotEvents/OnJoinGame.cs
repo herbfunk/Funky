@@ -7,7 +7,7 @@ using System.Threading;
 using Zeta.CommonBot;
 using System.IO;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
     public partial class Funky
     {
@@ -26,13 +26,7 @@ namespace FunkyTrinity
 				if (Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings)
 					 Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel=Funky.iDemonbuddyMonsterPowerLevel;
 
-				//Disconnect -- Starting Profile Setup.
-				if (HadDisconnectError)
-				{
-					 //Logging.Write("Disconnect Error Last Game.. attempting to find starting profile.");
-					 //ReloadStartingProfile();
-					 HadDisconnectError=false;
-				}
+
 
         }
     }

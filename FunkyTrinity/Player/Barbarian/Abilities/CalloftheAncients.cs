@@ -5,7 +5,7 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.AbilityFunky.Abilities.Barb
+namespace FunkyBot.AbilityFunky.Abilities.Barb
 {
 	 public class CalloftheAncients : Ability, IAbility
 	 {

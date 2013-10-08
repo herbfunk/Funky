@@ -1,4 +1,4 @@
-﻿namespace FunkyTrinity.Cache.Enums
+﻿namespace FunkyBot.Cache.Enums
 {
 	 public enum ShrineTypes
 	 {

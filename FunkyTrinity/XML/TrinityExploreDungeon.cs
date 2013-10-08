@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using FunkyTrinity.Cache;
+using FunkyBot.Cache;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot.Dungeons;
@@ -17,7 +17,7 @@ using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 using Action=Zeta.TreeSharp.Action;
 
-namespace FunkyTrinity.XMLTags
+namespace FunkyBot.XMLTags
 {
 	 /// <summary>
 	 /// TrinityExploreDungeon is fuly backwards compatible with the built-in Demonbuddy ExploreArea tag. It provides additional features such as:

@@ -1,4 +1,4 @@
-﻿namespace FunkyTrinity.Movement
+﻿namespace FunkyBot.Movement
 {
 	public class AreaBoundary
 	{

@@ -1,11 +1,11 @@
 ﻿
 using System;
 using Zeta.Internals.Actors;
-using FunkyTrinity.AbilityFunky;
+using FunkyBot.AbilityFunky;
 using Zeta.CommonBot;
 using Zeta;
 using Zeta.Common;
-namespace FunkyTrinity.AbilityFunky.Abilities.Barb
+namespace FunkyBot.AbilityFunky.Abilities.Barb
 {
 
 	 public class Bash : Ability, IAbility

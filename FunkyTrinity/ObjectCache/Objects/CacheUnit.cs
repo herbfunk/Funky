@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
-using FunkyTrinity.Targeting;
+using FunkyBot.AbilityFunky;
+using FunkyBot.Avoidances;
+using FunkyBot.Movement;
+using FunkyBot.Targeting;
 using Zeta;
 using System.Windows;
 using Zeta.Common;
@@ -8,13 +11,10 @@ using Zeta.Internals.Actors;
 using Zeta.Internals.SNO;
 using Zeta.TreeSharp;
 
-using FunkyTrinity.Cache;
-using FunkyTrinity.Movement;
-using FunkyTrinity.AbilityFunky;
-using FunkyTrinity.Movement.Clustering;
-using FunkyTrinity.Avoidances;
+using FunkyBot.Cache;
+using FunkyBot.Movement.Clustering;
 
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 
 		  public class CacheUnit : CacheObject
@@ -1393,9 +1393,7 @@ namespace FunkyTrinity.Cache
 				public override bool WithinInteractionRange()
 				{
 					 float fRangeRequired=0f;
-					 float fDistanceReduction=0f;
-
-
+				
 					 //Check if we should mod our distance:: used for worm bosses
 					 if (base.IsWormBoss)
 						  Bot.Class.PowerPrime.MinimumRange=Bot.Class.IsMeleeClass?14:16;
@@ -1403,22 +1401,18 @@ namespace FunkyTrinity.Cache
 						  Bot.Class.PowerPrime.MinimumRange=(int)(base.ActorSphereRadius.Value*1.5);
 					 else if (this.IsBurrowed.HasValue&&this.IsBurrowed.Value&&this.IsEliteRareUnique)//Force close range on burrowed elites!
 						  Bot.Class.PowerPrime.MinimumRange=15;
-					 else if (this.IsStealthableUnit&&this.IsAttackable.HasValue&&this.IsAttackable.Value==false&&this.IsEliteRareUnique)
+					 else if (this.IsStealthableUnit&&this.IsTargetable.HasValue&&this.IsTargetable.Value==false&&this.IsEliteRareUnique)
 						  Bot.Class.PowerPrime.MinimumRange=15;
 					 else if (this.IsTreasureGoblin&&!Bot.Class.IsMeleeClass&&Bot.Settings.Class.GoblinMinimumRange>0)
 						  Bot.Class.PowerPrime.MinimumRange=Bot.Settings.Class.GoblinMinimumRange;
 					 else if (this.MonsterMissileDampening&&Bot.Settings.Targeting.MissleDampeningEnforceCloseRange)
 						  Bot.Class.PowerPrime.MinimumRange=15;
-					 //else
-					 //	 fDistanceReduction=base.Radius;
+
 
 					 // Pick a range to try to reach
 					 fRangeRequired=Bot.Class.PowerPrime.Power==SNOPower.None?9f:Bot.Class.PowerPrime.MinimumRange;
 
-					 ////LOS Movement -- we require close range until LOS is OK..
-					 //if (this.LOSV3!=Vector3.Zero) fRangeRequired=10;
-
-					 base.DistanceFromTarget=this.RadiusDistance-fDistanceReduction;
+					 base.DistanceFromTarget=this.RadiusDistance;
 
 					 return (fRangeRequired<=0f||base.DistanceFromTarget<=fRangeRequired);
 				}

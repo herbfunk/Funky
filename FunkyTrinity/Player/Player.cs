@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Linq;
-using FunkyTrinity.AbilityFunky.Abilities;
+using FunkyBot.AbilityFunky;
+using FunkyBot.AbilityFunky.Abilities;
+using FunkyBot.Cache;
 using Zeta;
 using Zeta.Internals.Actors;
 using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
-using FunkyTrinity.AbilityFunky;
-using FunkyTrinity.Cache;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 
 
@@ -181,7 +181,7 @@ namespace FunkyTrinity
 				///<summary>
 				///Selects first Ability that is successful in precast and combat testing.
 				///</summary>
-				public virtual Ability AbilitySelector(ConditionCriteraTypes criteria=ConditionCriteraTypes.All, bool IgnoreOutOfRange=false)
+				private Ability AbilitySelector(ConditionCriteraTypes criteria=ConditionCriteraTypes.All, bool IgnoreOutOfRange=false)
 				{
 					 Ability returnAbility=this.DefaultAttack;
 					 foreach (var item in this.SortedAbilities)
@@ -209,6 +209,46 @@ namespace FunkyTrinity
 					 //Setup Ability (sets vars according to current cache)
 					 Ability.SetupAbilityForUse(ref returnAbility);
 					 return returnAbility;
+				}
+
+				public List<Ability> ReturnAllUsableAbilities(CacheUnit obj, bool IgnoreOutOfRange=false)
+				{
+					 //Reset default attack can use
+					 this.CanUseDefaultAttack=!this.Abilities.ContainsKey(this.DefaultAttack.Power)?false:true;
+
+					 ConditionCriteraTypes criterias=ConditionCriteraTypes.All;
+
+					 //Although the unit is a cluster exception.. we should verify it is not a clustered object.
+					 if (obj.IsClusterException&&obj.BeingIgnoredDueToClusterLogic)
+					 {
+						  criterias=ConditionCriteraTypes.SingleTarget;
+					 }
+
+					 List<Ability> UsableAbilities=new List<Ability>();
+					 foreach (var item in this.SortedAbilities)
+					 {
+						  //Check precast conditions
+						  if (!item.CheckPreCastConditionMethod()) continue;
+
+						  //Check Combat Conditions!
+						  if (!item.CheckCombatConditionMethod(criterias))
+						  {
+								continue;
+						  }
+
+						  //Check if we can execute or if it requires movement
+						  if (IgnoreOutOfRange)
+						  {
+								if (item.DestinationVector!=Bot.Character.Position)
+									 continue;
+						  }
+
+						  Ability ability=item;
+						  Ability.SetupAbilityForUse(ref ability);
+						  UsableAbilities.Add(ability);
+					 }
+
+					 return UsableAbilities;
 				}
 
 				///<summary>

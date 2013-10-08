@@ -9,7 +9,7 @@ using Zeta.Common;
 using Zeta.Internals.Actors;
 using System.Collections.Generic;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 public partial class Funky
 	 {

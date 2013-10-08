@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FunkyTrinity.Cache.Enums
+namespace FunkyBot.Cache.Enums
 {
 	 ///<summary>
 	 ///Used to describe the object type for target handling.

@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Drawing.Imaging;
+using FunkyBot.Cache;
+using FunkyBot.Movement;
+using FunkyBot.Settings;
+using FunkyBot.Targeting;
 using Zeta;
 using Zeta.CommonBot;
 using Zeta.Common;
@@ -7,15 +11,10 @@ using System.Collections.Generic;
 using Zeta.CommonBot.Settings;
 using Zeta.Internals;
 using Zeta.Internals.Actors;
-
-using FunkyTrinity.Cache;
-using FunkyTrinity.Movement;
 using System.Threading;
-using FunkyTrinity.Targeting;
-using FunkyTrinity.Settings;
-using FunkyTrinity.Avoidances;
+using FunkyBot.Avoidances;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 
 		  //This class is used to hold the data
@@ -35,7 +34,7 @@ namespace FunkyTrinity
 				public static TargetingHandler Targeting { get; set; }
 
 				private static BotStatistics Stats_=new BotStatistics();
-				public static BotStatistics Stats
+				internal static BotStatistics Stats
 				{
 					 get { return Stats_; }
 					 set { Stats_=value; }

@@ -6,7 +6,7 @@ using System.Text;
 using System.IO;
 using Zeta.Common;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 [Flags]
 	 public enum LogLevel

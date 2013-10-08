@@ -1,7 +1,7 @@
 ﻿using System;
-using FunkyTrinity.Cache;
+using FunkyBot.Cache;
 
-namespace FunkyTrinity.Targeting.Behaviors
+namespace FunkyBot.Targeting.Behaviors
 {
 	 /// <summary>
 	 /// Contains delegate that passes ref of current target, and describes which test was conducted.

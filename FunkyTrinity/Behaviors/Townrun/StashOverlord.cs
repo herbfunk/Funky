@@ -1,4 +1,6 @@
 ﻿using System;
+using FunkyBot.Cache;
+using FunkyBot.Cache.Enums;
 using Zeta;
 using Zeta.Common;
 using Zeta.TreeSharp;
@@ -12,10 +14,7 @@ using Zeta.Internals;
 using System.Globalization;
 using Zeta.Internals.SNO;
 
-using FunkyTrinity.Cache;
-using FunkyTrinity.Cache.Enums;
-
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 public partial class Funky
 	 {

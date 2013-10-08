@@ -5,7 +5,7 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.AbilityFunky.Abilities.Monk
+namespace FunkyBot.AbilityFunky.Abilities.Monk
 {
 	 public class CycloneStrike : Ability, IAbility
 	 {

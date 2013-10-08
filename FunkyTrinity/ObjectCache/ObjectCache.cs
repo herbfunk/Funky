@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using FunkyTrinity.Avoidances;
-using FunkyTrinity.Movement;
+using FunkyBot.Avoidances;
+using FunkyBot.Cache.Enums;
+using FunkyBot.Movement;
+using FunkyBot.XMLTags;
 using Zeta;
 using Zeta.Common;
 using Zeta.Internals.Actors;
@@ -14,10 +16,10 @@ using System.Windows;
 using System.Collections;
 using System.Collections.ObjectModel;
 
-using FunkyTrinity.Cache;
-using FunkyTrinity.Cache.Enums;
+using FunkyBot.Cache;
+using AvoidanceCache = FunkyBot.Avoidances.AvoidanceCache;
 
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 
 		  ///<summary>
@@ -278,37 +280,7 @@ namespace FunkyTrinity.Cache
 									 {
 										  CacheAvoidance thisAvoidance=thisObstacle as CacheAvoidance;
 
-										  if (AvoidanceCache.IgnoreAvoidance(thisAvoidance.AvoidanceType)) continue;
-
-										  //Only update position of Movement Avoidances!
-										  if (thisAvoidance.Obstacletype.Value==ObstacleType.MovingAvoidance)
-										  {
-												//Blacklisted updates
-												if (thisAvoidance.BlacklistRefreshCounter>0&&
-													 !thisAvoidance.CheckUpdateForProjectile)
-												{
-													 thisAvoidance.BlacklistRefreshCounter--;
-												}
-
-												//If we need to avoid, than enable travel avoidance flag also.
-												if (thisAvoidance.UpdateProjectileRayTest(tmp_CachedObj.Position))
-												{
-													 Bot.Combat.TriggeringAvoidances.Add((CacheAvoidance)thisObstacle);
-													 Bot.Targeting.TravellingAvoidance=true;
-												}
-													 
-										  }
-										  else
-										  {
-												if (thisObstacle.CentreDistance<50f)
-													 Bot.Combat.NearbyAvoidances.Add(thisObstacle.RAGUID);
-
-												if (thisAvoidance.Position.Distance(Bot.Character.Position)<=thisAvoidance.Radius)
-												{
-													 Bot.Combat.TriggeringAvoidances.Add((CacheAvoidance)thisObstacle);
-													 Bot.Targeting.RequiresAvoidance=true;
-												}
-										  }
+										  AvoidanceCache.CheckAvoidanceObject(ref thisAvoidance);
 									 }
 									 else
 									 {
@@ -443,7 +415,7 @@ namespace FunkyTrinity.Cache
 																	  typeof(Zeta.CommonBot.Profile.Common.UseObjectTag),
 																	  typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),
 																	  typeof(Zeta.CommonBot.Profile.Common.WaitTimerTag),
-																	  typeof (FunkyTrinity.XMLTags.TrinityTownPortal),
+																	  typeof (TrinityTownPortal),
 																	};
 
 				//Common Used Profile Tags that requires backtracking during combat sessions.

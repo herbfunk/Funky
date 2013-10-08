@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using FunkyTrinity.AbilityFunky;
-using FunkyTrinity.Cache;
-using FunkyTrinity.Cache.Enums;
-using FunkyTrinity.Movement;
-using FunkyTrinity.Movement.Clustering;
-using FunkyTrinity.Targeting.Behaviors;
+using FunkyBot.AbilityFunky;
+using FunkyBot.Cache;
+using FunkyBot.Cache.Enums;
+using FunkyBot.Movement;
+using FunkyBot.Movement.Clustering;
+using FunkyBot.Targeting.Behaviors;
 using JetBrains.Annotations;
 using Zeta;
 using Zeta.Common;
@@ -16,7 +16,7 @@ using Zeta.Internals.SNO;
 using Zeta.Navigation;
 using Zeta.TreeSharp;
 
-namespace FunkyTrinity.Targeting
+namespace FunkyBot.Targeting
 {
 	 public partial class TargetingHandler
 	 {
@@ -467,14 +467,14 @@ namespace FunkyTrinity.Targeting
 				if (CurrentTarget.targetType.Value==TargetType.LineOfSight)
 				{
 					//Since we only update our path during target refresh.. we should check if we are within range already!
-					 if (Bot.Character.Position.Distance(Navigation.NP.CurrentPath.Current)<=Navigation.NP.PathPrecision)
+					 if (Navigation.NP.CurrentPath.Count>0&&Bot.Character.Position.Distance(Navigation.NP.CurrentPath.Current)<=Navigation.NP.PathPrecision)
 						  Navigation.NP.MoveTo(CurrentTarget.Position, "LineOfSightMoveTo", true);
 
 					 if (Navigation.NP.CurrentPath.Count==0)
 					 {
 						  Bot.NavigationCache.LOSVector=Vector3.Zero;
 						  Bot.NavigationCache.LOSmovementUnit=null;
-						  Bot.Targeting.bForceTargetUpdate=true;
+						  this.bForceTargetUpdate=true;
 						  return false;
 					 }
 				}

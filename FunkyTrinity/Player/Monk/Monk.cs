@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Linq;
+using FunkyBot.AbilityFunky;
+using FunkyBot.AbilityFunky.Abilities;
+using FunkyBot.AbilityFunky.Abilities.Monk;
 using Zeta;
 using Zeta.Internals.Actors;
 using Zeta.Common;
@@ -7,11 +10,7 @@ using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
 
-using FunkyTrinity.AbilityFunky;
-using FunkyTrinity.AbilityFunky.Abilities;
-using FunkyTrinity.AbilityFunky.Abilities.Monk;
-
-namespace FunkyTrinity
+namespace FunkyBot
 {
 
 		  internal class Monk : Player

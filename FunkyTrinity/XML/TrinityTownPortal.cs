@@ -7,7 +7,7 @@ using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 using Action=Zeta.TreeSharp.Action;
 
-namespace FunkyTrinity.XMLTags
+namespace FunkyBot.XMLTags
 {
 	 // TrinityTownRun forces a town-run request
 	 [XmlElement("TrinityTownPortal")]

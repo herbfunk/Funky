@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 	 public enum PetTypes
 	 {

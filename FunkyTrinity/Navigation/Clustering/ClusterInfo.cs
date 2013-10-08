@@ -1,6 +1,6 @@
-using FunkyTrinity.Cache;
+using FunkyBot.Cache;
 
-namespace FunkyTrinity.Movement.Clustering
+namespace FunkyBot.Movement.Clustering
 {
 	///<summary>
 	///Describes a cluster -- tracks data to describe properties of the entire cluster.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using FunkyTrinity.Cache;
-using FunkyTrinity.Cache.Enums;
+using FunkyBot.Cache;
+using FunkyBot.Cache.Enums;
 using Zeta.Common;
 using Zeta;
 using Zeta.TreeSharp;
@@ -21,7 +21,7 @@ using System.Reflection;
 using System.Xml;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 public partial class Funky : IPlugin
 	 {

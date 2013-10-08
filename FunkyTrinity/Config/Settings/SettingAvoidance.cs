@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
-using FunkyTrinity.Avoidances;
-using FunkyTrinity.Cache;
+using FunkyBot.Avoidances;
+using FunkyBot.Cache;
 
 
-namespace FunkyTrinity.Settings
+namespace FunkyBot.Settings
 {
 	public class SettingAvoidance
 	{

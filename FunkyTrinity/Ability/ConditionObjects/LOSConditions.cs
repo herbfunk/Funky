@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Zeta.Internals.Actors;
 using Zeta.Internals.SNO;
-namespace FunkyTrinity.AbilityFunky
+namespace FunkyBot.AbilityFunky
 {
 	 ///<summary>
 	 ///Conditions used in LOS checking

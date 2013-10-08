@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Zeta;
 using Zeta.Common;
 
-namespace FunkyTrinity.Movement
+namespace FunkyBot.Movement
 {
 		  ///<summary>
 		  ///X,Y of a point. Conversions added for System Points and Vectors.

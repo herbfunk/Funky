@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
 
-namespace FunkyTrinity.Settings
+namespace FunkyBot.Settings
 {
 	public class SettingTargeting
 	{

@@ -1,11 +1,11 @@
 ﻿using System;
-using FunkyTrinity.AbilityFunky;
+using FunkyBot.AbilityFunky;
 using Zeta;
 using Zeta.Common;
 
 
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
     public partial class Funky
     {

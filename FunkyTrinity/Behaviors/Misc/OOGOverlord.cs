@@ -1,11 +1,12 @@
 ﻿using System;
-using FunkyTrinity.Settings;
+using FunkyBot.Settings;
 using Zeta;
 using Zeta.Common;
+using Zeta.CommonBot;
 using Zeta.TreeSharp;
 using Action=Zeta.TreeSharp.Action;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 public partial class Funky
 	 {
@@ -48,6 +49,15 @@ namespace FunkyTrinity
 				if (Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings)
 				{
 					 Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel=Bot.Settings.Demonbuddy.MonsterPower;
+				}
+
+				//Disconnect -- Starting Profile Setup.
+				if (HadDisconnectError)
+				{
+					 Logging.Write("[Funky] Disconnected Last Game.. Reloading Current Profile.");
+					 //ReloadStartingProfile();
+					 ProfileManager.Load(Zeta.CommonBot.ProfileManager.CurrentProfile.Path);
+					 HadDisconnectError=false;
 				}
 
 

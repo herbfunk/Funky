@@ -6,7 +6,7 @@ using System.Linq;
 using System.Collections;
 using Zeta.Internals.SNO;
 
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 
 		  public partial class ObjectCache

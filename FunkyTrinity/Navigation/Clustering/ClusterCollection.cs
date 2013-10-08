@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
+using FunkyBot.AbilityFunky;
+using FunkyBot.Cache;
 using Zeta;
 using System.Collections.Generic;
-using FunkyTrinity.AbilityFunky;
-using FunkyTrinity.Cache;
-using FunkyTrinity.Movement;
+using FunkyBot.Movement;
 
-namespace FunkyTrinity.Movement.Clustering
+namespace FunkyBot.Movement.Clustering
 {
 	 internal class ClusterCollection
 	 {

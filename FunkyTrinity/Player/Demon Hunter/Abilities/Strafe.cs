@@ -4,7 +4,7 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.AbilityFunky.Abilities.DemonHunter
+namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 {
 	 public class Strafe : Ability, IAbility
 	 {

@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyBot.Cache;
 using Zeta;
 using Zeta.Common;
 using System.Collections.Generic;
@@ -6,9 +7,8 @@ using Zeta.Internals.Actors;
 using System.Threading;
 using Zeta.CommonBot;
 using Zeta.Navigation;
-using FunkyTrinity.Cache;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
     public partial class Funky
     {

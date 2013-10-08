@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
-
-using FunkyTrinity.AbilityFunky;
+using FunkyBot.AbilityFunky;
+using FunkyBot.Cache.Enums;
+using FunkyBot.Movement;
 using Zeta;
 using Zeta.Common;
 using Zeta.Internals.Actors;
@@ -11,10 +12,7 @@ using Zeta.CommonBot;
 using Zeta.Internals.SNO;
 using System.Collections.Generic;
 
-using FunkyTrinity.Movement;
-using FunkyTrinity.Cache.Enums;
-
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 
 

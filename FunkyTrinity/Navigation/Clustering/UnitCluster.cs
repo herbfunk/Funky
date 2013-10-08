@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using FunkyTrinity.AbilityFunky;
-using FunkyTrinity.Cache;
+using FunkyBot.AbilityFunky;
+using FunkyBot.Cache;
 
-namespace FunkyTrinity.Movement.Clustering
+namespace FunkyBot.Movement.Clustering
 {
 	internal class UnitCluster:cluster
 	{

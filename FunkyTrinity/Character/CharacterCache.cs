@@ -1,16 +1,16 @@
 ﻿using System;
-using FunkyTrinity.Targeting;
+using FunkyBot.Movement;
+using FunkyBot.Targeting;
 using Zeta;
 using Zeta.Internals.Actors;
 using Zeta.Common;
 using Zeta.Internals.SNO;
 using Zeta.CommonBot;
 
-using FunkyTrinity.Cache;
-using FunkyTrinity.Movement;
-using FunkyTrinity.Cache.Enums;
+using FunkyBot.Cache;
+using FunkyBot.Cache.Enums;
 
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 
 
@@ -253,8 +253,6 @@ namespace FunkyTrinity.Cache
 										  if (CurrentSceneID!=Bot.Character.iSceneID)
 										  {
 												Bot.Character.iSceneID=CurrentSceneID;
-												Bot.NavigationCache.ShouldUpdateSearchGrid=true;
-												//Zeta.Navigation.Navigator.SearchGridProvider.Update();
 										  }
 										  lastCheckedSceneID=DateTime.Now;
 									 }

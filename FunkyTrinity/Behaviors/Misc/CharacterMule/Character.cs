@@ -4,7 +4,7 @@ using Zeta.Internals;
 using Zeta.TreeSharp;
 using System.Linq;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 public partial class Funky
 	 {

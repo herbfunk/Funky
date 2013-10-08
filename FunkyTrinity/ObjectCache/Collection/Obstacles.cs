@@ -1,4 +1,6 @@
 ﻿using System;
+using FunkyBot.Avoidances;
+using FunkyBot.Cache.Enums;
 using Zeta;
 using System.Collections.Generic;
 using Zeta.Common;
@@ -6,9 +8,7 @@ using System.Linq;
 using System.Collections;
 using System.Windows;
 
-using FunkyTrinity.Cache.Enums;
-
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 
 		  public partial class ObjectCache
@@ -233,6 +233,11 @@ namespace FunkyTrinity.Cache
 										  if (this.obstacles[item].RefreshRemovalCounter>0)
 										  {
 												this.obstacles[item].RefreshRemovalCounter--;
+												if (this.obstacles[item].IsAvoidance)
+												{
+													 CacheAvoidance avoidance=(CacheAvoidance)this.obstacles[item];
+													 AvoidanceCache.CheckAvoidanceObject(ref avoidance);
+												}
 										  }	
 										  else
 												this.Remove(item);

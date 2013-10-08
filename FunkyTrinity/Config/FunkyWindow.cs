@@ -9,12 +9,11 @@ using System.Diagnostics;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Globalization;
+using FunkyBot.Settings;
 using Zeta;
 using Zeta.Common;
 
-using FunkyTrinity.Settings;
-
-namespace FunkyTrinity
+namespace FunkyBot
 {
 
 			[System.Runtime.InteropServices.ComVisible(false)]

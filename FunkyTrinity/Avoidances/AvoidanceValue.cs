@@ -1,4 +1,4 @@
-﻿namespace FunkyTrinity.Avoidances
+﻿namespace FunkyBot.Avoidances
 {
 	 ///<summary>
 	 ///Describes an individual avoidance properties

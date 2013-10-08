@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using FunkyTrinity.Cache;
-using FunkyTrinity.Movement;
+using FunkyBot.Cache;
+using FunkyBot.Movement;
 using Zeta.Common;
 
-namespace FunkyTrinity.Movement.Clustering
+namespace FunkyBot.Movement.Clustering
 {
 	 internal abstract class cluster
 	 {

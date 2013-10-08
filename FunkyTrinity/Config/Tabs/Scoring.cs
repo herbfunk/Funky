@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 internal partial class FunkyWindow : Window
 	 {

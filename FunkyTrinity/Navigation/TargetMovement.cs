@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Linq;
+using FunkyBot.AbilityFunky;
+using FunkyBot.Cache;
+using FunkyBot.Cache.Enums;
 using Zeta;
 using Zeta.TreeSharp;
 using Zeta.Common;
 using Zeta.Internals.SNO;
 using Zeta.Internals.Actors;
-
-using FunkyTrinity.AbilityFunky;
-using FunkyTrinity.Cache;
 using Zeta.Navigation;
-using FunkyTrinity.Cache.Enums;
 
-namespace FunkyTrinity.Movement
+namespace FunkyBot.Movement
 {
 
 		  public static class TargetMovement

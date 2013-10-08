@@ -3,9 +3,9 @@ using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using FunkyTrinity.Settings;
+using FunkyBot.Settings;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 internal partial class FunkyWindow : Window
 	 {

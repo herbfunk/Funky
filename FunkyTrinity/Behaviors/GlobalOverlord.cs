@@ -1,4 +1,6 @@
 ﻿using System;
+using FunkyBot.AbilityFunky;
+using FunkyBot.Cache;
 using Zeta;
 using System.Linq;
 using Zeta.Common;
@@ -6,9 +8,8 @@ using Zeta.Internals.Actors;
 using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.TreeSharp;
-using FunkyTrinity.Cache;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 public partial class Funky
 	 {
@@ -168,10 +169,10 @@ namespace FunkyTrinity
 					 !TownRunManager.bWantToTownRun&&
 					 myAnimationState!=AnimationState.Attacking&&myAnimationState!=AnimationState.Casting&&myAnimationState!=AnimationState.Channeling)
 				{
-					 FunkyTrinity.AbilityFunky.Ability Buff;
+					 Ability Buff;
 					 if (Bot.Class.FindBuffPower(out Buff))
 					 {
-						  FunkyTrinity.AbilityFunky.Ability.SetupAbilityForUse(ref Buff);
+						  Ability.SetupAbilityForUse(ref Buff);
 						  Bot.Character.WaitWhileAnimating(4, true);
 						  AbilityFunky.Ability.UsePower(ref Buff);
 						  Buff.OnSuccessfullyUsed();

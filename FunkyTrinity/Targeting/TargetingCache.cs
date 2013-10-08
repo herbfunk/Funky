@@ -1,10 +1,11 @@
 ﻿using System;
-using FunkyTrinity.Cache;
-using FunkyTrinity.Targeting.Behaviors;
+using FunkyBot.Cache;
+using FunkyBot.Movement;
+using FunkyBot.Targeting.Behaviors;
 using Zeta.CommonBot;
 using Zeta.CommonBot.Settings;
 
-namespace FunkyTrinity.Targeting
+namespace FunkyBot.Targeting
 {
 	 public partial class TargetingHandler
 	{
@@ -67,7 +68,7 @@ namespace FunkyTrinity.Targeting
 		 {
 			  Bot.Targeting.CurrentTarget=null;
 			  //Bot.NavigationCache.ResetPathing();
-			  FunkyTrinity.Movement.TargetMovement.ResetTargetMovementVars();
+			  TargetMovement.ResetTargetMovementVars();
 
 
 			  bWaitingForPower=false;

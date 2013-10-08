@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FunkyTrinity.AbilityFunky
+namespace FunkyBot.AbilityFunky
 {
 	 ///<summary>
 	 ///Conditions used to determine if Ability is capable of use.

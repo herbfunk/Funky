@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FunkyTrinity.Cache;
-using FunkyTrinity.Cache.Enums;
-using FunkyTrinity.Movement;
-using FunkyTrinity.Movement.Clustering;
+using FunkyBot.Cache;
+using FunkyBot.Cache.Enums;
+using FunkyBot.Movement.Clustering;
+using FunkyBot.Movement;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Targeting.Behaviors
+namespace FunkyBot.Targeting.Behaviors
 {
 	 public class TBGrouping : TargetBehavior
 	 {
@@ -47,13 +47,13 @@ namespace FunkyTrinity.Targeting.Behaviors
 								CacheUnit unitObj=(CacheUnit)obj;
 
 								//Grouping Movements
-								if (FunkyTrinity.Bot.Settings.Grouping.AttemptGroupingMovements
+								if (Bot.Settings.Grouping.AttemptGroupingMovements
 									 &&unitObj.CurrentHealthPct.Value<1d //only after we engaged the target.
 									 &&!unitObj.BeingIgnoredDueToClusterLogic&&!unitObj.IsClusterException //we only want a cluster target!
-									 &&DateTime.Compare(DateTime.Now, FunkyTrinity.Bot.NavigationCache.groupingSuspendedDate)>0
-									 &&!Bot.Combat.bAnyTreasureGoblinsPresent||FunkyTrinity.Bot.Settings.Targeting.GoblinPriority<2)
+									 &&DateTime.Compare(DateTime.Now, Bot.NavigationCache.groupingSuspendedDate)>0
+									 &&!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.Settings.Targeting.GoblinPriority<2)
 								{
-									 FunkyTrinity.Bot.Combat.UpdateGroupClusteringVariables();
+									 Bot.Combat.UpdateGroupClusteringVariables();
 
 									 if (Bot.Combat.CurrentGroupClusters.Count>0)
 									 {
@@ -67,20 +67,20 @@ namespace FunkyTrinity.Targeting.Behaviors
 												CacheUnit groupUnit=cluster.ListUnits[0];
 												if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(obj.Position)) continue;
 
-												if (FunkyTrinity.Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Grouping))
+												if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Grouping))
 													 Logger.Write(LogLevel.Grouping, "Starting Grouping Behavior");
 
 												//Activate Behavior
-												FunkyTrinity.Bot.NavigationCache.groupRunningBehavior=true;
-												FunkyTrinity.Bot.NavigationCache.groupingOrginUnit=(CacheUnit)ObjectCache.Objects[obj.RAGUID];
+												Bot.NavigationCache.groupRunningBehavior=true;
+												Bot.NavigationCache.groupingOrginUnit=(CacheUnit)ObjectCache.Objects[obj.RAGUID];
 
-												if (FunkyTrinity.Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Grouping))
+												if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Grouping))
 													 Logger.Write(LogLevel.Grouping, "Group Cluster Propeties {0}", cluster.Info.Properties.ToString());
 
 												//Find initial grouping target..
 												obj=cluster.ListUnits[0];
 												Bot.Targeting.CurrentUnitTarget=(CacheUnit)obj;
-												FunkyTrinity.Bot.NavigationCache.groupingCurrentUnit=Bot.Targeting.CurrentUnitTarget;
+												Bot.NavigationCache.groupingCurrentUnit=Bot.Targeting.CurrentUnitTarget;
 												return true;
 										  }
 
@@ -98,7 +98,7 @@ namespace FunkyTrinity.Targeting.Behaviors
 				//if (Bot.SettingsFunky.LogGroupingOutput)
 				//    Logger.Write(LogLevel.Grouping, "Current Unit Cluster Propeties [{0}]", cluster.Info.Properties.ToString());
 
-				return ((!FunkyTrinity.Bot.Settings.Targeting.IgnoreAboveAverageMobs
+				return ((!Bot.Settings.Targeting.IgnoreAboveAverageMobs
 								&&(cluster.Info.Properties.HasFlag(ClusterProperties.Elites)||
 									 cluster.Info.Properties.HasFlag(ClusterProperties.Boss)))||
 							cluster.Info.Properties.HasFlag(ClusterProperties.Large)||

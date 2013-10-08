@@ -9,7 +9,7 @@ using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 using Action=Zeta.TreeSharp.Action;
 
-namespace FunkyTrinity.XMLTags
+namespace FunkyBot.XMLTags
 {
 	 // Thanks Nesox for the XML loading tricks!
 	 [XmlElement("TrinityLoadOnce")]

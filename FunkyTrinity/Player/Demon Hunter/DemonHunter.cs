@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Linq;
+using FunkyBot.AbilityFunky;
+using FunkyBot.AbilityFunky.Abilities;
+using FunkyBot.AbilityFunky.Abilities.DemonHunter;
 using Zeta;
 using Zeta.Internals.Actors;
 using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
+using FunkyBot.Cache;
 
-using FunkyTrinity.AbilityFunky;
-using FunkyTrinity.Cache;
-using FunkyTrinity.AbilityFunky.Abilities;
-using FunkyTrinity.AbilityFunky.Abilities.DemonHunter;
-namespace FunkyTrinity
+namespace FunkyBot
 {
 
 		  internal class DemonHunter : Player

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Collections;
 
 
-namespace FunkyTrinity.Movement
+namespace FunkyBot.Movement
 {
 
 
@@ -220,12 +220,13 @@ namespace FunkyTrinity.Movement
 					 //Do not continue search if all sectors failed recently.
 					 if (AllQuadrantsFailed) return false;
 
+					 bool CheckingWeight=(CurrentWeight>0);
 
 					 foreach (var item in Quadrant.Values)
 					 {
 						  if (item==null) continue;
 
-						  if (item.ThisWeight>CurrentWeight)
+						  if (CheckingWeight&&item.ThisWeight>CurrentWeight)
 								continue;
 
 						  if (item.FindSafeSpot(CurrentPosition, out safespot, los, kite, checkAvoidIntersection))

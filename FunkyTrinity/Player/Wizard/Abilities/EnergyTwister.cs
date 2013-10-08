@@ -1,11 +1,11 @@
 ﻿using System;
-
+using FunkyBot.Cache;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.AbilityFunky.Abilities.Wizard
+namespace FunkyBot.AbilityFunky.Abilities.Wizard
 {
 	 public class EnergyTwister : Ability, IAbility
 	 {
@@ -36,7 +36,7 @@ namespace FunkyTrinity.AbilityFunky.Abilities.Wizard
 								Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_25]>=1||
 								Bot.Targeting.CurrentTarget.RadiusDistance<=12f)&&
 							  (!Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_Electrocute)||
-								!FunkyTrinity.Cache.CacheIDLookup.hashActorSNOFastMobs.Contains(Bot.Targeting.CurrentTarget.SNOID))&&
+								!CacheIDLookup.hashActorSNOFastMobs.Contains(Bot.Targeting.CurrentTarget.SNOID))&&
 								  ((this.UsingCriticalMass()&&(!HasSignatureAbility()||Bot.Character.dCurrentEnergy>=35))||
 									 (!this.UsingCriticalMass()&&Bot.Character.dCurrentEnergy>=35));
 				});

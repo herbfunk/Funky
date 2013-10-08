@@ -3,7 +3,7 @@ using Zeta.CommonBot.Profile;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 
-namespace FunkyTrinity.XMLTags
+namespace FunkyBot.XMLTags
 {
 	[ComVisible(false)]
 	[XmlElement("TrinityTownRun")]

@@ -1,14 +1,14 @@
 ﻿using System;
-using FunkyTrinity.Cache;
-using FunkyTrinity.Cache.Enums;
-using FunkyTrinity.Movement;
+using FunkyBot.Cache;
+using FunkyBot.Cache.Enums;
+using FunkyBot.Movement;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 using Zeta.Internals.SNO;
 
-namespace FunkyTrinity.AbilityFunky.Abilities.Monk
+namespace FunkyBot.AbilityFunky.Abilities.Monk
 {
 	 public class TempestRush : Ability, IAbility
 	 {

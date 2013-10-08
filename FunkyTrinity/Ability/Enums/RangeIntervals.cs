@@ -1,4 +1,4 @@
-﻿namespace FunkyTrinity.AbilityFunky
+﻿namespace FunkyBot.AbilityFunky
 {
 	 //Range Values used for monster range counters
 	 public enum RangeIntervals

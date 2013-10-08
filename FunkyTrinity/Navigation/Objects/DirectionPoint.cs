@@ -2,7 +2,7 @@
 using Zeta;
 using Zeta.Common;
 
-namespace FunkyTrinity.Movement
+namespace FunkyBot.Movement
 {
 
 

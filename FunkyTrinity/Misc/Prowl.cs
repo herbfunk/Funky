@@ -4,7 +4,7 @@ using System.Net;
 using System.Web;
 
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
     public partial class Funky
     {

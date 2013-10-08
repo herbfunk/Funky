@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FunkyTrinity.AbilityFunky
+namespace FunkyBot.AbilityFunky
 {
 	 ///<summary>
 	 ///Describes how to use the Ability (SNOPower)

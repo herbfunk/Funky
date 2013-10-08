@@ -1,4 +1,4 @@
-﻿namespace FunkyTrinity.Cache.Enums
+﻿namespace FunkyBot.Cache.Enums
 {
 	 // Base types, eg "one handed weapons" "armors" etc.
 	public enum GilesBaseItemType

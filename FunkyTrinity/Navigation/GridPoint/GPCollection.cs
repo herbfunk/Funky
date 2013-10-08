@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Collections;
 
 
-namespace FunkyTrinity.Movement
+namespace FunkyBot.Movement
 {
 
 	 [Flags]

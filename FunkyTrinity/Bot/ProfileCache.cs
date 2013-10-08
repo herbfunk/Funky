@@ -5,7 +5,7 @@ using Zeta.CommonBot;
 using Zeta.CommonBot.Profile;
 using Zeta.CommonBot.Settings;
 
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 	 public class ProfileCache
 	 {

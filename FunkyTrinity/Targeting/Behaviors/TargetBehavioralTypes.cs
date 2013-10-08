@@ -1,4 +1,4 @@
-﻿namespace FunkyTrinity.Targeting.Behaviors
+﻿namespace FunkyBot.Targeting.Behaviors
 {
 	public enum TargetBehavioralTypes
 	{

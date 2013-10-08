@@ -3,15 +3,14 @@ using System.Linq;
 using System.Windows.Shapes;
 using System.Windows.Media;
 using System.Windows;
+using FunkyBot.Cache;
+using FunkyBot.Cache.Enums;
 using Zeta.Common;
 using Zeta.Internals.Actors;
 using Zeta.CommonBot;
 using Zeta;
 
-using FunkyTrinity.Cache;
-using FunkyTrinity.Cache.Enums;
-
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 public partial class Funky
 	 {

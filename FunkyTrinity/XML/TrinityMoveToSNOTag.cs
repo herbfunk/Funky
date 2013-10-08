@@ -8,7 +8,7 @@ using Zeta.Navigation;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 
-namespace FunkyTrinity.XMLTags
+namespace FunkyBot.XMLTags
 {
 	[ComVisible(false)]
 	[XmlElement("TrinityMoveToSNO")]

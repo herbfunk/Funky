@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FunkyTrinity.Movement;
+using FunkyBot.Movement;
 using Zeta;
 using Zeta.Common;
 using Zeta.Navigation;
 using Zeta.TreeSharp;
 using Action=Zeta.TreeSharp.Action;
 
-namespace FunkyTrinity.XMLTags
+namespace FunkyBot.XMLTags
 {
 	 /// <summary>
 	 /// Class to help track MiniMapMarkers during Dungeon Exploration

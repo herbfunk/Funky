@@ -3,7 +3,7 @@ using Zeta;
 using System.Collections.Generic;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
     public class PowerCacheLookup
     {

@@ -3,10 +3,10 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using FunkyTrinity.Cache.Enums;
-using FunkyTrinity.Settings;
+using FunkyBot.Cache.Enums;
+using FunkyBot.Settings;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 internal partial class FunkyWindow : Window
 	 {

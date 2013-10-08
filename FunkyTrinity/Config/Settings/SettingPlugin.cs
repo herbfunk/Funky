@@ -1,4 +1,4 @@
-﻿namespace FunkyTrinity.Settings
+﻿namespace FunkyBot.Settings
 {
 	 //To hold all plugin internal related variables (for advance tweaking!)
 	public class SettingPlugin

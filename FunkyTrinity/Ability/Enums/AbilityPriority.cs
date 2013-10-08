@@ -1,4 +1,4 @@
-﻿namespace FunkyTrinity.AbilityFunky
+﻿namespace FunkyBot.AbilityFunky
 {
 	 ///<summary>
 	 ///Priority assigned to abilities

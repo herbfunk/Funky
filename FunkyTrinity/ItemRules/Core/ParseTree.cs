@@ -380,7 +380,7 @@ namespace GilesTrinity.ItemRules.Core
                     object value;
                     //if (Interpreter.itemDic.TryGetValue(obj.ToString(), out value))
                     //    return value;
-                    if (FunkyTrinity.Interpreter.getVariableValue(obj.ToString(), out value))
+                    if (FunkyBot.Interpreter.getVariableValue(obj.ToString(), out value))
                         return value;
                     break;
 

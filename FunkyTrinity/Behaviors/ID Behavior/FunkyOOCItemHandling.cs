@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using Zeta.TreeSharp;
 
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 public partial class Funky
 	 {

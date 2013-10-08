@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
-using FunkyTrinity.Cache;
-using FunkyTrinity.Cache.Enums;
-using FunkyTrinity.Movement;
+using FunkyBot.Cache;
+using FunkyBot.Cache.Enums;
+using FunkyBot.Movement;
 using Zeta.Common;
 using Zeta.Internals.SNO;
 using Zeta.Navigation;
 
-namespace FunkyTrinity.AbilityFunky
+namespace FunkyBot.AbilityFunky
 {
 	public class LOSInfo
 	{

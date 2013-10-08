@@ -1,5 +1,6 @@
 ﻿using System;
-
+using FunkyBot.Avoidances;
+using FunkyBot.Cache.Enums;
 using Zeta;
 using Zeta.Internals.SNO;
 using Zeta.Internals.Actors;
@@ -7,11 +8,9 @@ using System.Collections.Generic;
 using Zeta.Common;
 using Zeta.Internals.Actors.Gizmos;
 
-using FunkyTrinity.Cache;
-using FunkyTrinity.Cache.Enums;
-using FunkyTrinity.Avoidances;
+using FunkyBot.Cache;
 
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 
 

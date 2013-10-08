@@ -9,7 +9,7 @@ using System.Linq;
 using System.IO;
 using System.Collections.Generic;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 public partial class Funky
 	 {

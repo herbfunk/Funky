@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
+using FunkyBot.Cache;
+using FunkyBot.Cache.Enums;
 using Zeta;
 using System.Collections.Generic;
-using FunkyTrinity.Cache;
 using Zeta.Common;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Avoidances
+namespace FunkyBot.Avoidances
 {
     public static class AvoidanceCache
     {
@@ -220,5 +221,39 @@ namespace FunkyTrinity.Avoidances
 		    //Only procedee if health percent is necessary for avoidance!
 		    return dThisHealthAvoid<Bot.Character.dCurrentHealthPct;
 	    }
+
+		  internal static void CheckAvoidanceObject(ref CacheAvoidance avoidance)
+		  {
+				if (AvoidanceCache.IgnoreAvoidance(avoidance.AvoidanceType)) return;
+
+				//Only update position of Movement Avoidances!
+				if (avoidance.Obstacletype.Value==ObstacleType.MovingAvoidance)
+				{
+					 //Blacklisted updates
+					 if (avoidance.BlacklistRefreshCounter>0&&
+						  !avoidance.CheckUpdateForProjectile)
+					 {
+						  avoidance.BlacklistRefreshCounter--;
+					 }
+
+					 //If we need to avoid, than enable travel avoidance flag also.
+					 if (avoidance.UpdateProjectileRayTest())
+					 {
+						  Bot.Combat.TriggeringAvoidances.Add(avoidance);
+						  Bot.Targeting.TravellingAvoidance=true;
+					 }
+				}
+				else
+				{
+					 if (avoidance.CentreDistance<50f)
+						  Bot.Combat.NearbyAvoidances.Add(avoidance.RAGUID);
+
+					 if (avoidance.Position.Distance(Bot.Character.Position)<=avoidance.Radius)
+					 {
+						  Bot.Combat.TriggeringAvoidances.Add(avoidance);
+						  Bot.Targeting.RequiresAvoidance=true;
+					 }
+				}
+		  }
     }
 }

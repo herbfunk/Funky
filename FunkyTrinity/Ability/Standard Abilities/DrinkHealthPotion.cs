@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using FunkyTrinity.Cache;
+using FunkyBot.Cache;
 using Zeta;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.AbilityFunky.Abilities
+namespace FunkyBot.AbilityFunky.Abilities
 {
 	 public class DrinkHealthPotion : Ability, IAbility
 	 {

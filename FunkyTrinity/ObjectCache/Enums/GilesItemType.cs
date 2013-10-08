@@ -1,4 +1,4 @@
-﻿namespace FunkyTrinity.Cache.Enums
+﻿namespace FunkyBot.Cache.Enums
 {
 	 // Primary "lowest level" item type (eg EXACTLY what kind of item it is)
 	 public enum GilesItemType

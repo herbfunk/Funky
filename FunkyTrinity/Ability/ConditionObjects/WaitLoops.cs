@@ -1,4 +1,4 @@
-﻿namespace FunkyTrinity.AbilityFunky
+﻿namespace FunkyBot.AbilityFunky
 {
 	 /// <summary> 
 	 /// Describes Pre and Post Wait Loops for an Ability.

@@ -10,7 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Zeta.Navigation;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
     public partial class Funky
     {

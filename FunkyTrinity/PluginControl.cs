@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Controls;
+using FunkyBot.Cache;
+using FunkyBot.Movement;
 using Zeta;
 using System.Collections.Generic;
 using Zeta.Common;
@@ -9,10 +11,9 @@ using Zeta.Navigation;
 using Zeta.TreeSharp;
 using Zeta.Internals.Actors;
 using System.Xml;
-using FunkyTrinity.Cache;
 using System.Windows;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 public partial class Funky
 	 {
@@ -82,7 +83,7 @@ namespace FunkyTrinity
 				ProfileCache.hashUseOnceID=new HashSet<int>();
 				ProfileCache.dictUseOnceID=new Dictionary<int, int>();
 				ProfileCache.dictRandomID=new Dictionary<int, int>();
-				FunkyTrinity.Movement.SkipAheadCache.ClearCache();
+				SkipAheadCache.ClearCache();
 
 				Bot.Stats.iMaxDeathsAllowed=0;
 				Bot.Stats.iDeathsThisRun=0;

@@ -2,6 +2,9 @@
 using System.IO;
 using System.Linq;
 using System.Windows;
+using FunkyBot.Cache;
+using FunkyBot.Movement;
+using FunkyBot.Settings;
 using Zeta;
 using System.Windows.Controls;
 using Zeta.Common;
@@ -9,11 +12,7 @@ using System.Globalization;
 using System.Collections.ObjectModel;
 using Zeta.Internals.Actors;
 
-using FunkyTrinity.Cache;
-using FunkyTrinity.Movement;
-using FunkyTrinity.Settings;
-
-namespace FunkyTrinity
+namespace FunkyBot
 {
 
 		  internal partial class FunkyWindow

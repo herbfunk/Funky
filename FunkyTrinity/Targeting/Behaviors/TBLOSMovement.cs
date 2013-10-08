@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using FunkyTrinity.Cache;
-using FunkyTrinity.Movement;
-using FunkyTrinity.Movement.Clustering;
-using FunkyTrinity.Cache.Enums;
+using FunkyBot.Cache;
+using FunkyBot.Cache.Enums;
+using FunkyBot.Movement;
+using FunkyBot.Movement.Clustering;
 using Zeta.Common;
 using Zeta.Navigation;
-namespace FunkyTrinity.Targeting.Behaviors
+namespace FunkyBot.Targeting.Behaviors
 {
 	 public class TBLOSMovement : TargetBehavior
 	 {
@@ -42,16 +42,13 @@ namespace FunkyTrinity.Targeting.Behaviors
 				{
 					 if (obj==null)
 					 {
-						  if (Bot.NavigationCache.LOSmovementUnit==null||!Bot.NavigationCache.LOSmovementUnit.IsStillValid())
-						  {
-								if (FunkyTrinity.Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+						  if (Bot.NavigationCache.LOSmovementUnit!=null&&(!Bot.NavigationCache.LOSmovementUnit.IsStillValid()||!Bot.NavigationCache.LOSmovementUnit.RequiresLOSCheck))
+						  {//Invalidated the Line of sight Unit!
+
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								{
-									 if (Bot.NavigationCache.LOSmovementUnit==null)
-										  Logger.Write(LogLevel.Movement, "LOS Unit is Null -- Reseting.");
-									 else
-									 	 Logger.Write(LogLevel.Movement, "LOS Unit is No Longer Valid -- Reseting.");
+									 Logger.Write(LogLevel.Movement, "LOS Unit is No Longer Valid -- Reseting.");
 								}
-									
 
 								Bot.NavigationCache.LOSVector=Vector3.Zero;
 								Bot.NavigationCache.LOSmovementUnit=null;
@@ -59,45 +56,54 @@ namespace FunkyTrinity.Targeting.Behaviors
 							
 
 						  if (Bot.NavigationCache.LOSmovementUnit==null)
-						  {
-								//New LOS Movement Selection.
+						  {//New LOS Movement Selection.
+								
+								//Compute Clusters using list of LOS Units
 								List<UnitCluster> ValidLOSUnitClusters=new List<UnitCluster>();
 								ValidLOSUnitClusters=UnitCluster.RunKmeans(Bot.Combat.LoSMovementUnits, 20).OrderBy(cluster => cluster.NearestMonsterDistance).ToList();
+								
 								foreach (var validLosUnitCluster in ValidLOSUnitClusters)
-								{
+								{//Iterate Clusters
+
 									 foreach (var unit in validLosUnitCluster.ListUnits)
-									 {
+									 {//Iterate Units
+
+										  //We only want units with high health!
 										  if (unit.CurrentHealthPct.Value>0.75d)
 										  {
+												//Check if we can navigate to the unit..
 												if (!Navigation.NP.CanFullyClientPathTo(unit.Position)) continue;
 
-												if (FunkyTrinity.Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+												if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 												{
 													 Logger.Write(LogLevel.Movement, "Line of Sight Started for object {0} -- with {1} vectors", unit.InternalName, Navigation.NP.CurrentPath.Count);
 												}
 													 
-
+												//Set the unit as our Line of Sight Unit
 												Bot.NavigationCache.LOSmovementUnit=unit;
-												
 												break;
 										  }
 									 }
+
+									 //Found unit yet?
 									 if (Bot.NavigationCache.LOSmovementUnit!=null)
 										  break;
 								}
 						  }
 
 						  if (Bot.NavigationCache.LOSmovementUnit!=null)
-						  {
-								CacheUnit NavUnit=Bot.NavigationCache.LOSmovementUnit;
+						  {//Line of Sight unit is valid
+
 								if (Bot.NavigationCache.LOSVector==Vector3.Zero)
-								{
+								{//Set the Vector we will be using.
 									 Bot.NavigationCache.LOSVector=Bot.NavigationCache.LOSmovementUnit.Position;
 								}
-								Navigation.NP.MoveTo(Bot.NavigationCache.LOSVector, "LineOfSightMoveTo", true);
-									
 
-								obj=new CacheObject(Bot.NavigationCache.LOSVector, TargetType.LineOfSight, 1d, "Line Of Sight", 5f, NavUnit.RAGUID);
+								//Generate the path here so we can start moving..
+								Navigation.NP.MoveTo(Bot.NavigationCache.LOSVector, "LineOfSightMoveTo", true);
+
+								//Setup a temp target that the handler will use
+								obj=new CacheObject(Bot.NavigationCache.LOSVector, TargetType.LineOfSight, 1d, "Line Of Sight", 5f, Bot.NavigationCache.LOSmovementUnit.RAGUID);
 								return true;
 						  }
 					 }

@@ -4,9 +4,9 @@ using Zeta;
 using System.Collections.Generic;
 using Zeta.Common;
 using System.Collections;
-using FunkyTrinity.Movement;
+using FunkyBot.Movement;
 
-namespace FunkyTrinity.Movement
+namespace FunkyBot.Movement
 {
 
 		  internal static class BackTrackCache

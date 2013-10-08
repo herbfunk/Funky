@@ -15,7 +15,7 @@ using Zeta.Pathfinding;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 using Action=Zeta.TreeSharp.Action;
-namespace FunkyTrinity.XMLTags
+namespace FunkyBot.XMLTags
 {
 
 

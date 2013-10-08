@@ -3,7 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using FunkyTrinity;
+using FunkyBot;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
@@ -72,7 +72,7 @@ namespace Trinity.XmlTags
 								Bot.Character.WaitWhileAnimating(5, true);
 								ZetaDia.Me.UsePower(SNOPower.UseStoneOfRecall, Bot.Character.Position, ZetaDia.Me.WorldDynamicId, -1);
 								Thread.Sleep(1000);
-								FunkyTrinity.Bot.Character.WaitWhileAnimating(1000, true);
+								FunkyBot.Bot.Character.WaitWhileAnimating(1000, true);
 								if (iSafetyLoops>5)
 									 break;
 						  }

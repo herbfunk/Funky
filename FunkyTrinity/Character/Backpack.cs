@@ -7,7 +7,7 @@ using Zeta.CommonBot.Settings;
 using Zeta.Internals;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 	internal class Backpack
 	{

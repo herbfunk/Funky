@@ -3,7 +3,7 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
 
-namespace FunkyTrinity.AbilityFunky
+namespace FunkyBot.AbilityFunky
 {
 
 	 public abstract class AbilityCriteria

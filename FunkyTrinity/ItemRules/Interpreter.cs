@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Collections;
+using FunkyBot.Cache;
 using Zeta.Internals.Actors;
 using Zeta.Common;
 using GilesTrinity.ItemRules.Core;
 using Zeta;
 using Zeta.CommonBot.Items;
 using Zeta.CommonBot;
-using FunkyTrinity.Cache;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 #region Interpreter
 

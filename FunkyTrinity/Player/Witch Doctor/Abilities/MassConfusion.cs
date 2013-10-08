@@ -5,7 +5,7 @@ using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 
-namespace FunkyTrinity.AbilityFunky.Abilities.WitchDoctor
+namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 {
 	 public class MassConfusion : Ability, IAbility
 	 {

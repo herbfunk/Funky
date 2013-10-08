@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Zeta.Common;
 using Zeta.Internals.SNO;
 
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 	 public static class BlacklistCache
 	{

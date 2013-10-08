@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using FunkyTrinity.Movement;
+using FunkyBot.Movement;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot.Profile;
@@ -8,7 +8,7 @@ using Zeta.Navigation;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 
-namespace FunkyTrinity.XMLTags
+namespace FunkyBot.XMLTags
 {
 	[ComVisible(false)]
 	[XmlElement("TrinityMoveTo")]

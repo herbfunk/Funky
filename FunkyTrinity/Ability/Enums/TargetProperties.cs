@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FunkyTrinity.AbilityFunky
+namespace FunkyBot.AbilityFunky
 {
 	 ///<summary>
 	 ///Flags that are used to test TargetConditions.

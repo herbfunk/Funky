@@ -6,7 +6,7 @@ using Zeta.Internals.Actors;
 using System.Threading;
 using Zeta.CommonBot;
 
-namespace FunkyTrinity
+namespace FunkyBot
 {
 	 public partial class Funky
 	 {

@@ -1,5 +1,5 @@
 ﻿using System.Runtime.InteropServices;
-using FunkyTrinity.Movement;
+using FunkyBot.Movement;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot.Profile;
@@ -8,7 +8,7 @@ using Zeta.Pathfinding;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 
-namespace FunkyTrinity.XMLTags
+namespace FunkyBot.XMLTags
 {
 	/// <summary>
 	/// This profile tag will move the player a a direction given by the offsets x, y. Examples:
@@ -66,7 +66,7 @@ namespace FunkyTrinity.XMLTags
 
 		private void MoveToPostion()
 		{
-			lastMoveResult=FunkyTrinity.Funky.PlayerMover.NavigateTo(Position);
+			lastMoveResult=Funky.PlayerMover.NavigateTo(Position);
 
 			if (lastMoveResult==MoveResult.PathGenerationFailed)
 			{

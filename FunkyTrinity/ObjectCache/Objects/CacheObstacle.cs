@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Linq;
+using FunkyBot.Avoidances;
+using FunkyBot.Cache.Enums;
+using FunkyBot.Movement;
 using Zeta.Common;
 using Zeta.Internals.Actors;
 using System.Windows;
 
-using FunkyTrinity.Movement;
-using FunkyTrinity.Avoidances;
-using FunkyTrinity.Cache.Enums;
-
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 
 
@@ -238,13 +237,13 @@ namespace FunkyTrinity.Cache
 				///<summary>
 				///Check if this projectile will directly impact the bot.
 				///</summary>
-				public bool UpdateProjectileRayTest(Vector3 newPosition)
+				public bool UpdateProjectileRayTest()
 				{
 
 					 //Return last value during blacklist count
 					 if (BlacklistRefreshCounter>0) return projectileraytest_;
 
-					 this.Position=newPosition;
+					 base.UpdatePosition();
 
 					 if (Bot.Settings.Avoidance.UseAdvancedProjectileTesting)
 					 {
@@ -341,7 +340,7 @@ namespace FunkyTrinity.Cache
 
 					 //Special avoidances that require additional loops before removal (note: the loops are checked every 150ms, but obstacles are checked twice!)
 					 if (this.AvoidanceType.HasFlag(AvoidanceType.TreeSpore)&&this.SNOID==6578)
-						  this.RefreshRemovalCounter=70;
+						  this.RefreshRemovalCounter=75;
 					 else if (this.AvoidanceType.HasFlag(AvoidanceType.GrotesqueExplosion))
 						  this.RefreshRemovalCounter=25;
 				}

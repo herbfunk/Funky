@@ -4,7 +4,7 @@ using System.Linq;
 using Zeta;
 using Zeta.Common;
 
-namespace FunkyTrinity.Movement
+namespace FunkyBot.Movement
 {
 
 		  //Redesign how we use the GPCache by creating it into a instance which contains the entrie area we conduct a search in.

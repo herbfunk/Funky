@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using FunkyBot.Cache;
+using FunkyBot.Movement;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
@@ -7,10 +9,8 @@ using Zeta.Internals.Actors;
 using System.Collections.Generic;
 
 using Zeta.Internals.SNO;
-using FunkyTrinity.Cache;
-using FunkyTrinity.Movement;
 
-namespace FunkyTrinity.AbilityFunky
+namespace FunkyBot.AbilityFunky
 {
 
 
@@ -161,11 +161,11 @@ namespace FunkyTrinity.AbilityFunky
 				get { return Bot.Character.iCurrentWorldID; }
 		  }
 
-		  private int TargetRAGUID_;
-		  internal int TargetRAGUID
+		  private int _targetAcdguid;
+		  internal int TargetACDGUID
 		  {
-				get { return TargetRAGUID_; }
-				set { TargetRAGUID_=value; }
+				get { return _targetAcdguid; }
+				set { _targetAcdguid=value; }
 		  }
 
 		  private int WaitLoopsBefore_;
@@ -193,6 +193,8 @@ namespace FunkyTrinity.AbilityFunky
 				set { SuccessUsed_=value; }
 		  }
 
+		  private CacheUnit Target_;
+
 		  internal PowerManager.CanCastFlags CanCastFlags;
 		  #endregion
 
@@ -201,7 +203,7 @@ namespace FunkyTrinity.AbilityFunky
 		  {
 				if (!ability.ExecutionType.HasFlag(AbilityExecuteFlags.RemoveBuff))
 				{
-					 ability.SuccessUsed=ZetaDia.Me.UsePower(ability.Power, ability.TargetPosition, ability.WorldID, ability.TargetRAGUID);
+					 ability.SuccessUsed=ZetaDia.Me.UsePower(ability.Power, ability.TargetPosition, ability.WorldID, ability.TargetACDGUID);
 				}
 				else
 				{
@@ -239,11 +241,12 @@ namespace FunkyTrinity.AbilityFunky
 		  {
 				ability.MinimumRange=ability.Range;
 				ability.TargetPosition_=Vector3.Zero;
-				ability.TargetRAGUID_=-1;
+				ability._targetAcdguid=-1;
 				ability.WaitLoopsBefore_=ability.WaitVars.PreLoops;
 				ability.WaitLoopsAfter_=ability.WaitVars.PostLoops;
 				ability.CanCastFlags=PowerManager.CanCastFlags.None;
 				ability.SuccessUsed_=null;
+				ability.Target_=null;
 
 				 //Destructible Setup
 			  if (Destructible)
@@ -275,7 +278,7 @@ namespace FunkyTrinity.AbilityFunky
 				  }
 				  else
 				  {
-						 ability.TargetRAGUID=Bot.Targeting.CurrentTarget.AcdGuid.Value;
+						 ability.TargetACDGUID=Bot.Targeting.CurrentTarget.AcdGuid.Value;
 				  }
 
 					return;
@@ -284,28 +287,36 @@ namespace FunkyTrinity.AbilityFunky
 
 			  if (ability.LastConditionPassed==ConditionCriteraTypes.Cluster)
 				{
-						 //Cluster Target -- Aims for Centeroid Unit
-						 if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTarget)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster ACDGUID
-						 {
-							  ability.TargetRAGUID=Bot.Combat.Clusters(ability.ClusterConditions)[0].GetNearestUnitToCenteroid().AcdGuid.Value;
-							  return;
-						 }
-						 //Cluster Location -- Aims for Center of Cluster
-						 if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterLocation)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
-						 {
-							  ability.TargetPosition=(Vector3)Bot.Combat.Clusters(ability.ClusterConditions)[0].Midpoint;
-							  return;
-						 }
-						 //Cluster Target Nearest -- Gets nearest unit in cluster as target.
-						 if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTargetNearest)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
-						 {
-							  ability.TargetRAGUID=Bot.Combat.Clusters(ability.ClusterConditions)[0].ListUnits[0].AcdGuid.Value;
-							  return;
-						 }
+					 CacheUnit ClusterUnit;
+					 //Cluster Target -- Aims for Centeroid Unit
+					 if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTarget)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster ACDGUID
+					 {
+						  ClusterUnit=Bot.Combat.Clusters(ability.ClusterConditions)[0].GetNearestUnitToCenteroid();
+						  ability.TargetACDGUID=ClusterUnit.AcdGuid.Value;
+						  ability.Target_=ClusterUnit;
+						  return;
+					 }
+					 //Cluster Location -- Aims for Center of Cluster
+					 if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterLocation)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
+					 {
+						  ability.TargetPosition=(Vector3)Bot.Combat.Clusters(ability.ClusterConditions)[0].Midpoint;
+						  return;
+					 }
+					 //Cluster Target Nearest -- Gets nearest unit in cluster as target.
+					 if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTargetNearest)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
+					 {
+						  ClusterUnit=Bot.Combat.Clusters(ability.ClusterConditions)[0].ListUnits[0];
+						  ability.TargetACDGUID=ClusterUnit.AcdGuid.Value;
+						  ability.Target_=ClusterUnit;
+						  return;
+					 }
 				}
 
 				if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.Location)) //Current Target Position
+				{
 					 ability.TargetPosition=Bot.Targeting.CurrentTarget.Position;
+					 ability.Target_=Bot.Targeting.CurrentUnitTarget;
+				}
 				else if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.Self)) //Current Bot Position
 					 ability.TargetPosition=Bot.Character.Position;
 				else if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ZigZagPathing)) //Zig-Zag Pathing
@@ -317,7 +328,10 @@ namespace FunkyTrinity.AbilityFunky
 					 ability.TargetPosition=Bot.NavigationCache.vSideToSideTarget;
 				}
 				else if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.Target)) //Current Target ACDGUID
-					 ability.TargetRAGUID=Bot.Targeting.CurrentTarget.AcdGuid.Value;
+				{
+					 ability.Target_=Bot.Targeting.CurrentUnitTarget;
+					 ability.TargetACDGUID=Bot.Targeting.CurrentTarget.AcdGuid.Value;
+				}
 		  }
 
 		  ///<summary>
@@ -330,8 +344,8 @@ namespace FunkyTrinity.AbilityFunky
 					 Vector3 DestinationV=Vector3.Zero;
 					 if (TargetPosition_==Vector3.Zero)
 					 {
-						  if (TargetRAGUID_!=-1&&Bot.Targeting.CurrentTarget.AcdGuid.HasValue&&TargetRAGUID_==Bot.Targeting.CurrentTarget.AcdGuid.Value)
-								DestinationV=Bot.Targeting.CurrentTarget.BotMeleeVector;
+						  if (this.Target_!=null)
+								DestinationV=this.Target_.BotMeleeVector;
 						  else
 								return Vector3.Zero;
 					 }
@@ -341,7 +355,7 @@ namespace FunkyTrinity.AbilityFunky
 					 float DistanceFromTarget=Vector3.Distance(Bot.Character.Position, DestinationV);
 					 if (this.IsRanged)
 					 {
-						  if (this.MinimumRange>DistanceFromTarget)
+						  if (this.MinimumRange<DistanceFromTarget)
 						  {
 								float RangeNeeded=Math.Max(0f, (this.MinimumRange-DistanceFromTarget));
 								Vector3 DestinationVector=MathEx.CalculatePointFrom(Bot.Character.Position, DestinationV, RangeNeeded);
@@ -351,10 +365,12 @@ namespace FunkyTrinity.AbilityFunky
 										  Logger.Write(LogLevel.Ability, "Destination for Ability {0} requires further searching!", this.Power.ToString());
 									 GPRectangle DestinationRect=new GPRectangle(DestinationVector);
 									 Vector3 NewDestinationV3;
-									 if (DestinationRect.TryFindSafeSpot(Bot.Character.Position, out NewDestinationV3, DestinationV, false, false, false))
+									 if (DestinationRect.TryFindSafeSpot(Bot.Character.Position, out NewDestinationV3, DestinationV))
 									 {
 										  return NewDestinationV3;
 									 }
+									 else
+										  return Vector3.Zero;
 								}
 
 								return DestinationVector;
@@ -367,9 +383,8 @@ namespace FunkyTrinity.AbilityFunky
 						  if (DistanceFromTarget<=this.MinimumRange)
 								return Bot.Character.Position;
 
-						  return Bot.Targeting.CurrentTarget.BotMeleeVector;
+						  return DestinationV;
 					 }
-						 
 				}
 		  }
 

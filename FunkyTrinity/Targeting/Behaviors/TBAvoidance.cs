@@ -1,9 +1,9 @@
 ﻿using System;
-using FunkyTrinity.Cache;
-using FunkyTrinity.Cache.Enums;
+using FunkyBot.Cache;
+using FunkyBot.Cache.Enums;
 using Zeta.Common;
 
-namespace FunkyTrinity.Targeting.Behaviors
+namespace FunkyBot.Targeting.Behaviors
 {
 	 public class TBAvoidance : TargetBehavior
 	 {
@@ -14,8 +14,8 @@ namespace FunkyTrinity.Targeting.Behaviors
 		  {
 				get
 				{
-					 return (Bot.Targeting.RequiresAvoidance&&(!FunkyTrinity.Bot.Combat.bAnyTreasureGoblinsPresent||FunkyTrinity.Bot.Settings.Targeting.GoblinPriority<2)
-							&&(DateTime.Now.Subtract(FunkyTrinity.Bot.Combat.timeCancelledEmergencyMove).TotalMilliseconds>FunkyTrinity.Bot.Combat.iMillisecondsCancelledEmergencyMoveFor));
+					 return (Bot.Targeting.RequiresAvoidance&&(!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.Settings.Targeting.GoblinPriority<2)
+							&&(DateTime.Now.Subtract(Bot.Combat.timeCancelledEmergencyMove).TotalMilliseconds>Bot.Combat.iMillisecondsCancelledEmergencyMoveFor));
 				}
 		  }
 		  public override void Initialize()
@@ -30,9 +30,9 @@ namespace FunkyTrinity.Targeting.Behaviors
 								Logger.Write(LogLevel.Movement, "Avoidances Triggering: {0}", avoidances);
 					  }
 					  //Reuse the last generated safe spot...
-					  if (DateTime.Now.Subtract(FunkyTrinity.Bot.Targeting.LastAvoidanceMovement).TotalMilliseconds<FunkyTrinity.Bot.Combat.iSecondsEmergencyMoveFor)
+					  if (DateTime.Now.Subtract(Bot.Targeting.LastAvoidanceMovement).TotalMilliseconds<Bot.Combat.iSecondsEmergencyMoveFor)
 					  {
-							Vector3 reuseV3=FunkyTrinity.Bot.NavigationCache.AttemptToReuseLastLocationFound();
+							Vector3 reuseV3=Bot.NavigationCache.AttemptToReuseLastLocationFound();
 							if (reuseV3!=Vector3.Zero)
 							{
 								 obj=new CacheObject(reuseV3, TargetType.Avoidance, 20000f, "SafeReuseAvoid", 2.5f, -1);
@@ -41,9 +41,9 @@ namespace FunkyTrinity.Targeting.Behaviors
 					  }
 
 					  Vector3 vAnySafePoint;
-					  if (FunkyTrinity.Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, Vector3.Zero, FunkyTrinity.Bot.Character.ShouldFlee))
+					  if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, Vector3.Zero, Bot.Character.ShouldFlee))
 					  {
-							float distance=vAnySafePoint.Distance(FunkyTrinity.Bot.Character.Position);
+							float distance=vAnySafePoint.Distance(Bot.Character.Position);
 
 							Logging.WriteDiagnostic("Avoid Movement found AT {0} with {1} Distance", vAnySafePoint.ToString(), distance);
 
@@ -51,11 +51,11 @@ namespace FunkyTrinity.Targeting.Behaviors
 							obj=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "SafeAvoid", 2.5f, -1);
 
 							//Estimate time we will be reusing this movement vector3
-							FunkyTrinity.Bot.Combat.iSecondsEmergencyMoveFor=1+(int)(distance/5f);
+							Bot.Combat.iSecondsEmergencyMoveFor=1+(int)(distance/5f);
 
 							//Avoidance takes priority over kiting..
-							FunkyTrinity.Bot.Combat.timeCancelledFleeMove=DateTime.Now;
-							FunkyTrinity.Bot.Combat.iMillisecondsCancelledFleeMoveFor=((FunkyTrinity.Bot.Combat.iSecondsEmergencyMoveFor+1)*1000);
+							Bot.Combat.timeCancelledFleeMove=DateTime.Now;
+							Bot.Combat.iMillisecondsCancelledFleeMoveFor=((Bot.Combat.iSecondsEmergencyMoveFor+1)*1000);
 							return true;
 					  }
 					  Avoidances.AvoidanceCache.UpdateAvoidKiteRates();

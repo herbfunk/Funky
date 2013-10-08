@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Linq;
-using FunkyTrinity.AbilityFunky;
-using FunkyTrinity.Avoidances;
-using FunkyTrinity.Cache;
-using FunkyTrinity.Cache.Enums;
-using FunkyTrinity.Movement;
-using FunkyTrinity.Movement.Clustering;
+using FunkyBot.Cache;
+using FunkyBot.Cache.Enums;
+using FunkyBot.Movement;
+using FunkyBot.Targeting.Behaviors;
+using FunkyBot.AbilityFunky;
+using FunkyBot.Avoidances;
+using FunkyBot.Movement.Clustering;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
 using System.Collections.Generic;
-using FunkyTrinity.Targeting.Behaviors;
 using Zeta.Internals.SNO;
 using Zeta.Navigation;
 using Zeta.CommonBot.Settings;
 
-namespace FunkyTrinity.Targeting
+namespace FunkyBot.Targeting
 {
 	 public partial class TargetingHandler
 	 {
@@ -235,7 +235,6 @@ namespace FunkyTrinity.Targeting
 						  //Reset Skip Ahead Cache
 						  SkipAheadCache.ClearCache();
 
-						  Bot.NavigationCache.ShouldUpdateSearchGrid=false;
 						  Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
 						  Zeta.Navigation.Navigator.SearchGridProvider.Update();
 					 }

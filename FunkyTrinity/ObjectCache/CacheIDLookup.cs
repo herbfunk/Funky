@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using FunkyBot.Cache.Enums;
 using Zeta;
 using System.Collections.Generic;
 using Zeta.Common;
@@ -7,9 +8,7 @@ using Zeta.Internals.SNO;
 using Zeta.Internals.Actors;
 using System.Windows;
 
-using FunkyTrinity.Cache.Enums;
-
-namespace FunkyTrinity.Cache
+namespace FunkyBot.Cache
 {
 
 		  internal static class CacheIDLookup

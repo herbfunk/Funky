@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
-using FunkyTrinity.Cache;
+using FunkyBot.Cache;
 using Zeta.CommonBot.Profile;
 using Zeta.CommonBot.Profile.Composites;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 
-namespace FunkyTrinity.XMLTags
+namespace FunkyBot.XMLTags
 {
 	[ComVisible(false)]
 	[XmlElement("TrinityUseOnce")]
