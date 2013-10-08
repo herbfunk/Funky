@@ -80,31 +80,31 @@ namespace FunkyBot.Movement
 				private DateTime LastUpdatedMovementData=DateTime.Today;
 				internal void RefreshMovementCache()
 				{
-					 // If we aren't in the game of a world is loading, don't do anything yet
-					 if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld)
+					 if (DateTime.Now.Subtract(LastUpdatedMovementData).TotalMilliseconds<150)
 						  return;
 
-					 if (DateTime.Now.Subtract(LastUpdatedMovementData).TotalMilliseconds>150)
+					 LastUpdatedMovementData=DateTime.Now;
+
+					 //These vars are used to accuratly predict what the bot is doing (Melee Movement/Combat)
+					 using (ZetaDia.Memory.AcquireFrame())
 					 {
-						  LastUpdatedMovementData=DateTime.Now;
-
-						  //These vars are used to accuratly predict what the bot is doing (Melee Movement/Combat)
-						  using (ZetaDia.Memory.AcquireFrame())
+						  // If we aren't in the game of a world is loading, don't do anything yet
+						  if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld)
+								return;
+						  try
 						  {
-								try
-								{
-									 ActorMovement botMovement=ZetaDia.Me.Movement;
-									 isMoving=botMovement.IsMoving;
-									 curSpeedXY=botMovement.SpeedXY;
-									 curRotation=botMovement.Rotation;
-									 curMoveState=botMovement.MovementState;
-									 stuckflags=botMovement.StuckFlags;
-								} catch
-								{
+								ActorMovement botMovement=ZetaDia.Me.Movement;
+								isMoving=botMovement.IsMoving;
+								curSpeedXY=botMovement.SpeedXY;
+								curRotation=botMovement.Rotation;
+								curMoveState=botMovement.MovementState;
+								stuckflags=botMovement.StuckFlags;
+						  } catch
+						  {
 
-								}
 						  }
 					 }
+
 				}
 				
 				#endregion
@@ -641,6 +641,7 @@ namespace FunkyBot.Movement
 					 Bot.NavigationCache.groupRunningBehavior=false;
 					 Bot.NavigationCache.groupReturningToOrgin=false;
 					 Bot.NavigationCache.groupingCurrentUnit=null;
+					 Bot.NavigationCache.groupingOrginUnit=null;
 				}
 				#endregion
 

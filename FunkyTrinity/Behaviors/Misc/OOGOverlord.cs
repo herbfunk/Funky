@@ -52,12 +52,12 @@ namespace FunkyBot
 				}
 
 				//Disconnect -- Starting Profile Setup.
-				if (HadDisconnectError)
+				if (FunkyErrorClicker.FunkyErrorClicker.HadDisconnectError)
 				{
 					 Logging.Write("[Funky] Disconnected Last Game.. Reloading Current Profile.");
 					 //ReloadStartingProfile();
 					 ProfileManager.Load(Zeta.CommonBot.ProfileManager.CurrentProfile.Path);
-					 HadDisconnectError=false;
+					 FunkyErrorClicker.FunkyErrorClicker.HadDisconnectError=false;
 				}
 
 

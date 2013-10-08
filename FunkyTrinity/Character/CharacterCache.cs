@@ -161,13 +161,7 @@ namespace FunkyBot.Cache
 
 					 internal void Update(bool combat=false, bool force=false)
 					 {
-						  // If we aren't in the game of a world is loading, don't do anything yet
-						  if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld)
-								return;
 
-						  var me=ZetaDia.Me;
-						  if (me==null)
-								return;
 
 						  double lastUpdate=DateTime.Now.Subtract(lastUpdatedPlayer).TotalMilliseconds;
 						  //Update only every 100ms, unless in combat than 25ms..
@@ -176,6 +170,12 @@ namespace FunkyBot.Cache
 
 						  using (ZetaDia.Memory.AcquireFrame())
 						  {
+								// If we aren't in the game of a world is loading, don't do anything yet
+								if (!ZetaDia.IsInGame||!ZetaDia.Me.IsValid||ZetaDia.IsLoadingWorld) return;
+
+								var me=ZetaDia.Me;
+								if (me==null) return;
+
 								try
 								{
 									 if (Bot.Class.AC==ActorClass.DemonHunter)
@@ -269,13 +269,15 @@ namespace FunkyBot.Cache
 					 //private DateTime LastUpdatedAnimationData=DateTime.Today;
 					 internal void UpdateAnimationState(bool animState=true, bool snoAnim=true)
 					 {
-						  // If we aren't in the game of a world is loading, don't do anything yet
-						  if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld)//||DateTime.Now.Subtract(LastUpdatedAnimationData).TotalMilliseconds<150)
-								return;
+
 
 						  //LastUpdatedAnimationData=DateTime.Now;
 						  using (ZetaDia.Memory.AcquireFrame())
 						  {
+								// If we aren't in the game of a world is loading, don't do anything yet
+								if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld)//||DateTime.Now.Subtract(LastUpdatedAnimationData).TotalMilliseconds<150)
+									 return;
+
 								try
 								{
 									 if (animState)
@@ -318,28 +320,6 @@ namespace FunkyBot.Cache
 									 bKeepLooping=false;
 						  }
 					 }
-					 /*
-					 						  
-					     bIsIncapacitated=false;
-						  bIsRooted=false;
-						  bIsInTown=false;
-						  dcurrentHealthPct=0d;
-						  dCurrentEnergy=0d;
-						  dCurrentEnergyPct=0d;
-						  dDiscipline=0d;
-						  dDisciplinePct=0d;
-						  //EnergyRegenerationRate=0;
-						  bWaitingForReserveEnergy=false;
-						  iMyDynamicID=0;
-						  iMyLevel=1;
-						  iSceneID=-1;
-						  iCurrentWorldID=-1;
-						  BackPack=new Backpack();
-						  PetData=new Pets();
-						  PickupRadius=1;
-						  coinage=0;
-						  fCharacterRadius=0f;
-					 */
 
 					 public string DebugString()
 					 {

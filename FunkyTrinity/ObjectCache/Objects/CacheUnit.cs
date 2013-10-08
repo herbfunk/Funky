@@ -810,6 +810,7 @@ namespace FunkyBot.Cache
 								//Respawnable Units -- Only when they are not elite/rare/uniques!
 								if (!base.IsRespawnable||this.IsEliteRareUnique)
 								{
+									 this.BlacklistLoops=-1;
 									 this.NeedsRemoved=true;
 									 return false;
 								}

@@ -26,7 +26,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Wizard
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.None;
 				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated);
-				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None);
+				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None, 9);
 		  }
 
 		  #region IAbility

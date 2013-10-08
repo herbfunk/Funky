@@ -78,9 +78,9 @@ namespace FunkyBot.Targeting.Behaviors
 													 Logger.Write(LogLevel.Grouping, "Group Cluster Propeties {0}", cluster.Info.Properties.ToString());
 
 												//Find initial grouping target..
+												CacheUnit unitobj=cluster.ListUnits[0];
 												obj=cluster.ListUnits[0];
-												Bot.Targeting.CurrentUnitTarget=(CacheUnit)obj;
-												Bot.NavigationCache.groupingCurrentUnit=Bot.Targeting.CurrentUnitTarget;
+												Bot.NavigationCache.groupingCurrentUnit=unitobj;
 												return true;
 										  }
 

@@ -113,7 +113,7 @@ namespace FunkyBot.Targeting
 				//Check avoidance requirement still valid
 				if (Bot.Targeting.RequiresAvoidance)
 				{
-					 if (!this.AvoidanceLastTarget&&DateTime.Now.Subtract(TargetMovement.LastMovementCommand).TotalMilliseconds<300&&Bot.Character.Position.Distance(TargetMovement.CurrentTargetLocation)>2.5f) //We are moving..? 
+					 if (!this.AvoidanceLastTarget&&DateTime.Now.Subtract(TargetMovement.LastMovementAttempted).TotalMilliseconds<300&&!ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TargetMovement.CurrentTargetLocation)) //We are moving..? 
 					 {
 						  Bot.Targeting.RequiresAvoidance=false;
 					 }

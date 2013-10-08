@@ -241,6 +241,7 @@ namespace FunkyBot.Avoidances
 					 {
 						  Bot.Combat.TriggeringAvoidances.Add(avoidance);
 						  Bot.Targeting.TravellingAvoidance=true;
+						  Bot.Targeting.RequiresAvoidance=true;
 					 }
 				}
 				else

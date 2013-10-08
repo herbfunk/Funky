@@ -142,7 +142,7 @@ namespace FunkyBot.AbilityFunky
 				{
 					 CombatCriteria+=new Func<bool>(() =>
 					 {
-						  if (!Bot.Targeting.CurrentUnitTarget.IgnoresLOSCheck)
+						  if (!Bot.Targeting.CurrentUnitTarget.IgnoresLOSCheck&&Bot.Targeting.CurrentUnitTarget.IsTargetableAndAttackable)
 						  {
 								LOSInfo LOSINFO=Bot.Targeting.CurrentTarget.LineOfSight;
 								if (LOSINFO.LastLOSCheckMS>2000||!LOSINFO.NavCellProjectile.HasValue)
@@ -150,8 +150,15 @@ namespace FunkyBot.AbilityFunky
 									 if (!LOSINFO.LOSTest(Bot.Character.Position, true, false, NavCellFlags.AllowProjectile))
 									 {
 										  //Raycast failed.. reset LOS Check -- for valid checking.
-										  if (!LOSINFO.RayCast.Value) Bot.Targeting.CurrentTarget.RequiresLOSCheck=true;
-										  return false;
+										  if (!LOSINFO.RayCast.Value) 
+												Bot.Targeting.CurrentTarget.RequiresLOSCheck=true;
+										  else if (!LOSINFO.NavCellProjectile.Value) //NavCellFlag Walk Failed
+										  {
+												if (!Bot.Targeting.CurrentTarget.IsFlyingHoverUnit)
+													 return false;
+												else
+													 LOSINFO.NavCellProjectile=true;
+										  }
 									 }
 								}
 								else if (LOSINFO.NavCellProjectile.HasValue&&!LOSINFO.NavCellProjectile.Value)
@@ -166,7 +173,7 @@ namespace FunkyBot.AbilityFunky
 				{//Melee
 					 CombatCriteria+=new Func<bool>(() =>
 					 {
-						  if (!Bot.Targeting.CurrentUnitTarget.IgnoresLOSCheck)
+						  if (!Bot.Targeting.CurrentUnitTarget.IgnoresLOSCheck&&Bot.Targeting.CurrentUnitTarget.IsTargetableAndAttackable)
 						  {
 								float radiusDistance=Bot.Targeting.CurrentTarget.RadiusDistance;
 								//Check if within interaction range..
@@ -187,7 +194,7 @@ namespace FunkyBot.AbilityFunky
 													 if (!MovementException)
 														  return false;
 													 else
-														  LOSINFO.NavCellWalk=null;
+														  LOSINFO.NavCellWalk=true;
 												}
 										  }
 									 }

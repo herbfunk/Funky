@@ -30,7 +30,7 @@ namespace FunkyBot
 				}
 
 				//Error Clicker CHeck
-				ErrorClickerCheck();
+				//ErrorClickerCheck();
 
 				// World ID safety caching incase it's ever unavailable
 				if (ZetaDia.CurrentWorldDynamicId!=-1) Bot.Character.iCurrentWorldID=ZetaDia.CurrentWorldDynamicId;

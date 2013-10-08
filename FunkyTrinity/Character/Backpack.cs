@@ -30,42 +30,38 @@ namespace FunkyBot.Cache
 		//Sets List to current backpack contents
 		public void Update()
 		{
+			 List<int> SeenACDGUIDs=new List<int>();
 			 using (ZetaDia.Memory.AcquireFrame())
 			 {
-				  int CurrentItemCount=ZetaDia.Me.Inventory.Backpack.Count();
-				  if (CurrentItemCount!=CacheItemList.Count||ZetaDia.Me.Inventory.Backpack.Any(i => !CacheItemList.ContainsKey(i.ACDGuid)))
+				  foreach (var thisitem in ZetaDia.Me.Inventory.Backpack)
 				  {
-						CacheItemList=new Dictionary<int, CacheACDItem>();
-						foreach (var thisitem in ZetaDia.Me.Inventory.Backpack)
-						{
-							 //CacheACDItem thiscacheditem=new CacheACDItem(thisitem.InternalName, thisitem.Name, thisitem.Level, thisitem.ItemQualityLevel, thisitem.Gold, thisitem.GameBalanceId,
-							 //            thisitem.DynamicId, thisitem.Stats.WeaponDamagePerSecond, thisitem.IsOneHand, thisitem.DyeType, thisitem.ItemType, thisitem.FollowerSpecialType,
-							 //            thisitem.IsUnidentified, thisitem.ItemStackQuantity, thisitem.Stats, thisitem, thisitem.InventoryRow, thisitem.InventoryColumn, thisitem.IsPotion, thisitem.ACDGuid);
-							 CacheACDItem thiscacheditem=new CacheACDItem(thisitem);
-							 CacheItemList.Add(thiscacheditem.ACDGUID, thiscacheditem);
+						int ACDGUID=thisitem.ACDGuid;
+						SeenACDGUIDs.Add(ACDGUID);
+						if (CacheItemList.ContainsKey(ACDGUID)) continue;
 
-						}
+						CacheACDItem thiscacheditem=new CacheACDItem(thisitem);
+						CacheItemList.Add(thiscacheditem.ACDGUID, thiscacheditem);
 				  }
 			 }
 
+			 List<int> UnseenACDGUIDs=CacheItemList.Keys.Where(k => !SeenACDGUIDs.Contains(k)).ToList();
+			 foreach (var unseenAcdguiD in UnseenACDGUIDs)
+			 {
+				  CacheItemList.Remove(unseenAcdguiD);
+			 }
 
 
 			//We refresh our BPItem Cache whenever we are checking for looted items!
 			if (Bot.Targeting.ShouldCheckItemLooted)
 			{
-				 using (ZetaDia.Memory.AcquireFrame())
-				 {
-					  //Get a list of current BP Cached ACDItems
-					  List<ACDItem> BPItemsACDItemList=(from backpackItems in BPItems
-																	select backpackItems.Ref_ACDItem).ToList();
-					  var NewItems=ZetaDia.Me.Inventory.Backpack.Where<ACDItem>(I => !BPItemsACDItemList.Contains(I));
-					  if (NewItems.Count()==0) return;
+				 //Get a list of current BP Cached ACDItems
+				 List<int> BPItemsACDItemList=(from backpackItems in BPItems
+														 select backpackItems.ACDGUID).ToList();
 
-					  //Now get items that are not currently in the BPItems List.
-					  foreach (var item in NewItems)
-					  {
-							BPItems.Add(new CacheBPItem(item.ACDGuid, item));
-					  }
+				 //Now get items that are not currently in the BPItems List.
+				 foreach (var item in CacheItemList.Values.Where(I => !BPItemsACDItemList.Contains(I.ACDGUID)))
+				 {
+					  BPItems.Add(new CacheBPItem(item.ACDGUID, item.ACDItem));
 				 }
 			}
 		}

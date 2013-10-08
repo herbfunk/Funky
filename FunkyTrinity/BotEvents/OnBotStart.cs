@@ -100,13 +100,6 @@ namespace FunkyBot
 				Bot.Reset();
 
 				Navigator.SearchGridProvider.Update();
-
-				//Demonbuddy.SplitButton FunkyButton=FindFunkyButton();
-				//if (FunkyButton!=null)
-				//{
-				//	 Logging.WriteDiagnostic("Funky Split Button Click Handler Added");
-				//	 FunkyButton.Click+=FunkyWindow.buttonFunkySettingDB_Click;
-				//}
 		  }
     }
 }

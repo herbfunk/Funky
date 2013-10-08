@@ -383,15 +383,16 @@ namespace FunkyBot.Movement
 						  LastMovementAttempted=DateTime.Now;
 						  // Store the current destination for comparison incase of changes next loop
 						  LastTargetLocation=CurrentTargetLocation;
-						  // Reset total body-block count, since we should have moved
-						  //if (DateTime.Now.Subtract(Bot.Combat.lastForcedKeepCloseRange).TotalMilliseconds>=2000)
-						 BlockedMovementCounter=0;
 
 						  //Herbfunk: Quick fix for stuck occuring on above average mob who is damaged..
 						  if (LastPlayerLocation.Distance(Bot.Character.Position)<=5f)
 								NonMovementCounter++;
 						  else
+						  {
 								NonMovementCounter=0;
+								BlockedMovementCounter=0;
+						  }
+								
 
 						  LastPlayerLocation=Bot.Character.Position;
 					 }

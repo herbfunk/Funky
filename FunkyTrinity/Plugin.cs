@@ -179,6 +179,8 @@ namespace FunkyBot
 				Logger.DBLogFile=Zeta.Common.Logging.LogFilePath;
 				Logger.Write(LogLevel.User, "Init Logger Completed! DB Log Path Set {0}", Logger.DBLogFile);
 				ObjectCache.FakeCacheObject=new CacheObject(Vector3.Zero, TargetType.None, 0d, "Fake Target", 1f, -1);
+
+
 		  }
 
 		  public void OnPulse()
@@ -227,12 +229,14 @@ namespace FunkyBot
 					 Log("\tModified: "+CompileDateString);
 					 Log("************************************");
 
-					 string profile=Zeta.CommonBot.ProfileManager.CurrentProfile!=null?Zeta.CommonBot.ProfileManager.CurrentProfile.Name:Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
-					 Logging.Write("Loaded Profile "+profile);
+					 //string profile=Zeta.CommonBot.ProfileManager.CurrentProfile!=null?Zeta.CommonBot.ProfileManager.CurrentProfile.Name:Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
+					 //Logging.Write("Loaded Profile "+profile);
 
 					 CheckUpdate();
 
 					 Funky.iDemonbuddyMonsterPowerLevel=Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel;
+				
+					
 				}
 		  }
 		  public Window DisplayWindow
@@ -294,7 +298,6 @@ namespace FunkyBot
 				#endregion
 
 				ResetGame();
-
 		  }
 		  internal static Window MainWindow
 		  {

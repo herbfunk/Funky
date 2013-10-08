@@ -739,6 +739,28 @@ namespace FunkyBot.Cache
 				{ 
             365, 4100, 4304, 4300, 4738, 4299, 62736, 130794, 5508, 4409, 4099, 4098,
          };
+
+				//Units that are naturally suspended off the ground.
+				public static readonly HashSet<int> hashActorSNOFlying=new HashSet<int>
+				{
+					 //Bloodhawks
+					 3384,3385,222011,222385,
+					 //Sand Wasps
+					 5208,5209,5210,
+					 //A1 Ghosts
+					 370,136943,209553,218441,156353,85971,4196,4197,4198,133093,156763,157006,165602,222526,4799,
+					 //Succubus
+					 5508,209596,152679,152679,219673,152535,
+					 //Swarm
+					 5512,5513,5514,5515,
+					 //Fleshpit Flyer
+					 4156,218314,218362,4157,81954,368,218566,4158,195747,217308,104424,
+					 //A4 Charger Guys
+
+					 //DemonFlyers
+					 //141209,62736,130794,221770,220775,134416,
+
+				};
 				// A list of bosses in the game, just to make CERTAIN they are treated as elites
 				public static readonly HashSet<int> hashBossSNO=new HashSet<int>
 				{ 

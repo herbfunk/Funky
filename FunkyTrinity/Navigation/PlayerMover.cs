@@ -242,7 +242,6 @@ namespace FunkyBot
 					 // Exit the game and reload the profile
 					 if (Bot.Settings.Debug.RestartGameOnLongStucks&&DateTime.Now.Subtract(timeLastRestartedGame).TotalMinutes>=15)
 					 {
-						  HadDisconnectError=true;
 						  timeLastRestartedGame=DateTime.Now;
 						  string sUseProfile=Bot.Profile.FirstProfileSeen;
 						  Logging.Write("[Funky] Anti-stuck measures exiting current game.");
