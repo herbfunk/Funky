@@ -227,7 +227,7 @@ namespace FunkyBot.Avoidances
 				if (AvoidanceCache.IgnoreAvoidance(avoidance.AvoidanceType)) return;
 
 				//Only update position of Movement Avoidances!
-				if (avoidance.Obstacletype.Value==ObstacleType.MovingAvoidance)
+				if (avoidance.IsProjectileAvoidance)
 				{
 					 //Blacklisted updates
 					 if (avoidance.BlacklistRefreshCounter>0&&

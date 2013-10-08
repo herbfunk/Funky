@@ -1,4 +1,17 @@
 ﻿// herbfunk revisions
+v2.6.0.0
+
+Line of Sight Behavior:
+-New behavior that will move towards special units that have not passed Line of Sight check.
+-This behavior only activates when no target has been found.
+
+Avoidance:
+-Fixed issue with trigger not properly activating required movement.
+	*Including Spores/Grotesque.
+-Range Classes check against possible units with nearby avoidances has been fixed.
+
+
+
 v2.5.0.0 (Simplified)
 
 Settings:
