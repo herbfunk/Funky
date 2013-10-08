@@ -37,11 +37,21 @@ namespace FunkyBot.Cache
 						  iMyLevel=1;
 						  iSceneID=-1;
 						  iCurrentWorldID=-1;
+						  iCurrentLevelID=-1;
 						  BackPack=new Backpack();
 						  PetData=new Pets();
 						  PickupRadius=1;
 						  coinage=0;
 						  fCharacterRadius=0f;
+					 }
+
+					 public delegate void LevelAreaIDChanged(int ID);
+					 public event LevelAreaIDChanged OnLevelAreaIDChanged;
+					 private void levelareaIDchanged(int ID)
+					 {
+						  this.iCurrentLevelID=ID;
+						  if (OnLevelAreaIDChanged!=null)
+								this.OnLevelAreaIDChanged(ID);
 					 }
 
 					 private DateTime lastUpdatedPlayer { get; set; }
@@ -92,6 +102,8 @@ namespace FunkyBot.Cache
 					 //internal int EnergyRegenerationRate { get; set; }
 					 
 					 public int iCurrentWorldID { get; set; }
+					 public int iCurrentLevelID { get; set; }
+
 					 //public GameDifficulty iCurrentGameDifficulty { get; set; }
 
 					 //Returns Live Data
@@ -184,13 +196,11 @@ namespace FunkyBot.Cache
 										  dDisciplinePct=Bot.Character.dDiscipline/me.MaxSecondaryResource;
 									 }
 
-									 //vCurrentPosition=me.Position;
 									 dCurrentHealthPct=me.HitpointsCurrentPct;
 									 if (this.ShouldFlee) Bot.Targeting.RequiresAvoidance=true;
 
 									 dCurrentEnergy=me.CurrentPrimaryResource;
 									 dCurrentEnergyPct=dCurrentEnergy/me.MaxPrimaryResource;
-									 //EnergyRegenerationRate=me.CommonData.GetAttribute<int>(ActorAttributeType.ResourceRegenPerSecond);
 
 									 if (dCurrentEnergy>=Bot.Class.iWaitingReservedAmount)
 										  bWaitingForReserveEnergy=false;
@@ -225,6 +235,13 @@ namespace FunkyBot.Cache
 													 bIsIncapacitated=false;
 										  }
 									 }
+
+									 int currentLevelAreaID=ZetaDia.CurrentLevelAreaId;
+									 if (this.iCurrentLevelID!=currentLevelAreaID)
+										  levelareaIDchanged(currentLevelAreaID);
+
+
+									 iCurrentWorldID=ZetaDia.CurrentWorldDynamicId;
 
 									 //Update vars that are not essential to combat (survival).
 									 if (DateTime.Now.Subtract(lastUpdateNonEssentialData).TotalSeconds>30)

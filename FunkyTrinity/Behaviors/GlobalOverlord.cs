@@ -32,10 +32,6 @@ namespace FunkyBot
 				//Error Clicker CHeck
 				//ErrorClickerCheck();
 
-				// World ID safety caching incase it's ever unavailable
-				if (ZetaDia.CurrentWorldDynamicId!=-1) Bot.Character.iCurrentWorldID=ZetaDia.CurrentWorldDynamicId;
-
-
 				// Store all of the player's abilities every now and then, to keep it cached and handy, also check for critical-mass timer changes etc.
 				iCombatLoops++;
 				if (Bot.Class==null||iCombatLoops>=50)

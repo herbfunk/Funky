@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using Zeta.Common;
 using Zeta.Common.Plugins;
+using Zeta.CommonBot;
 
 namespace FunkyErrorClicker
 {
-    public partial class FunkyErrorClicker:IPlugin
-    {
+	 public partial class FunkyErrorClicker : IPlugin
+	 {
 
 		  #region IPlugin Members
 
@@ -37,13 +38,14 @@ namespace FunkyErrorClicker
 
 		  public void OnDisabled()
 		  {
-				
+				BotMain.OnStart-=FunkyBotStart;
+				BotMain.OnStop-=FunkyBotStop;
 		  }
 
 		  public void OnEnabled()
 		  {
-				ErrorClickerThread.Start();
-				Logging.Write("[Funky] Error Clicking Thread Started.");
+				BotMain.OnStart+=FunkyBotStart;
+				BotMain.OnStop+=FunkyBotStop;
 		  }
 
 		  public void OnInitialize()
@@ -55,13 +57,12 @@ namespace FunkyErrorClicker
 
 		  public void OnPulse()
 		  {
-				
+
 		  }
 
 		  public void OnShutdown()
 		  {
-				ErrorClickerThread.Abort();
-				Logging.Write("[Funky] Error Clicking Thread Aborted.");
+
 		  }
 
 		  public Version Version
@@ -76,5 +77,19 @@ namespace FunkyErrorClicker
 		  public bool Equals(IPlugin other) { return (other.Name==Name)&&(other.Version==Version); }
 
 		  #endregion
+
+		  private void FunkyBotStart(IBot bot)
+		  {
+				if (!ErrorClickerThread.ThreadState.HasFlag(ThreadState.Running))
+				{
+					 ErrorClickerThread.Start();
+					 Logging.Write("[Funky] Error Clicking Thread Started.");
+				}
+		  }
+		  private void FunkyBotStop(IBot bot)
+		  {
+				ErrorClickerThread.Abort();
+				Logging.Write("[Funky] Error Clicking Thread Aborted.");
+		  }
 	 }
 }

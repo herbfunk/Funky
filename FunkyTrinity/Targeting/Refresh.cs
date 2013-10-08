@@ -216,29 +216,29 @@ namespace FunkyBot.Targeting
 
 
 				//Check Level ID changes and clear cache objects.
-				if (ZetaDia.CurrentLevelAreaId!=LastLevelID&&(!ZetaDia.Me.IsInTown))
-				{
-					 //Grace Peroid of 5 Seconds before updating.
-					 if (DateTime.Now.Subtract(LastCheckedLevelID).TotalSeconds>5)
-					 {
-						  LastCheckedLevelID=DateTime.Now;
-						  LastLevelID=ZetaDia.CurrentLevelAreaId;
+				//if (Bot.Character.iCurrentLevelID!=LastLevelID)
+				//{
+				//	 //Grace Peroid of 5 Seconds before updating.
+				//	 if (DateTime.Now.Subtract(LastCheckedLevelID).TotalSeconds>5)
+				//	 {
+				//		  LastCheckedLevelID=DateTime.Now;
+				//		  LastLevelID=Bot.Character.iCurrentLevelID;
 
-						  //Clear our current collection since we changed levels.
-						  ObjectCache.Objects.Clear();
-						  ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
-						  RemovalCheck=false;
+				//		  //Clear our current collection since we changed levels.
+				//		  ObjectCache.Objects.Clear();
+				//		  ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
+				//		  RemovalCheck=false;
 
-						  //Reset Playermover Backtrack Positions
-						  BackTrackCache.cacheMovementGPRs.Clear();
+				//		  //Reset Playermover Backtrack Positions
+				//		  BackTrackCache.cacheMovementGPRs.Clear();
 
-						  //Reset Skip Ahead Cache
-						  SkipAheadCache.ClearCache();
+				//		  //Reset Skip Ahead Cache
+				//		  SkipAheadCache.ClearCache();
 
-						  Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
-						  Zeta.Navigation.Navigator.SearchGridProvider.Update();
-					 }
-				}
+				//		  Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
+				//		  Zeta.Navigation.Navigator.SearchGridProvider.Update();
+				//	 }
+				//}
 
 				//Check Cached Object Removal flag
 				if (RemovalCheck)
@@ -273,6 +273,37 @@ namespace FunkyBot.Targeting
 				//Non-Combat behavior we reset temp blacklist so we don't get killed by "ignored" units..
 				if (Bot.IsInNonCombatBehavior)
 					 BlacklistCache.CheckRefreshBlacklists(10);
+		  }
+
+		  private bool LastLevelIDChangeWasTownRun=false;
+		  private void LevelAreaIDChangeHandler(int ID)
+		  {
+				bool SearchGridProviderRequiresPathing=Navigator.SearchGridProvider.WorldRequiresPathfinding;
+				Logging.Write("Level ID Changed... requiresPF={0}", SearchGridProviderRequiresPathing);
+				if (!Zeta.CommonBot.Logic.BrainBehavior.IsVendoring)
+				{
+					 if (!LastLevelIDChangeWasTownRun)
+					 {//Do full clear..
+						  ObjectCache.Objects.Clear();
+						  ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
+						  RemovalCheck=false;
+
+						  //Reset Playermover Backtrack Positions
+						  BackTrackCache.cacheMovementGPRs.Clear();
+
+						  //Reset Skip Ahead Cache
+						  SkipAheadCache.ClearCache();
+					 }
+
+					 Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
+					 Navigator.SearchGridProvider.Update();
+
+					 LastLevelIDChangeWasTownRun=false;
+				}
+				else if (Bot.Character.bIsInTown)
+				{
+					 LastLevelIDChangeWasTownRun=true;
+				}
 		  }
 
 	 }

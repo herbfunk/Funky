@@ -51,14 +51,14 @@ namespace FunkyBot
 					 Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel=Bot.Settings.Demonbuddy.MonsterPower;
 				}
 
-				//Disconnect -- Starting Profile Setup.
-				if (FunkyErrorClicker.FunkyErrorClicker.HadDisconnectError)
-				{
-					 Logging.Write("[Funky] Disconnected Last Game.. Reloading Current Profile.");
-					 //ReloadStartingProfile();
-					 ProfileManager.Load(Zeta.CommonBot.ProfileManager.CurrentProfile.Path);
-					 FunkyErrorClicker.FunkyErrorClicker.HadDisconnectError=false;
-				}
+				////Disconnect -- Starting Profile Setup.
+				//if (FunkyErrorClicker.FunkyErrorClicker.HadDisconnectError)
+				//{
+				//	 Logging.Write("[Funky] Disconnected Last Game.. Reloading Current Profile.");
+				//	 //ReloadStartingProfile();
+				//	 ProfileManager.Load(Zeta.CommonBot.ProfileManager.CurrentProfile.Path);
+				//	 FunkyErrorClicker.FunkyErrorClicker.HadDisconnectError=false;
+				//}
 
 
 				return false;
