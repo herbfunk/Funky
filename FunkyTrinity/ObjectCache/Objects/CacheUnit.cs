@@ -178,7 +178,8 @@ namespace FunkyBot.Cache
 					 get
 					 {
 						  return ((this.IsAttackable.HasValue&&this.IsAttackable.Value)
-									 &&(this.IsTargetable.HasValue&&this.IsTargetable.Value));
+									 &&(this.IsTargetable.HasValue&&this.IsTargetable.Value)
+									 &&(!this.IsBurrowed.HasValue||!this.IsBurrowed.Value));
 					 }
 				}
 				//public int? KillRadius { get; set; }
@@ -912,7 +913,7 @@ namespace FunkyBot.Cache
 								}
 
 								//This is intial test to validate we can "see" the unit.. 
-								if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, false, Bot.Class.LOSconditions.NavCellFlags, false)) 
+								if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, false, NavCellFlags.None, false)) 
 								{
 									 //LOS Movement -- Check for special objects
 									 bool Valid=false;

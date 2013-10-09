@@ -8,6 +8,9 @@ Line of Sight Behavior:
 -New behavior that will move towards special units that have not passed Line of Sight check.
 -This behavior only activates when no target has been found.
 
+Settings:
+-Added new setting for Prioritize Close Range Units.
+
 Avoidance:
 -Fixed issue with triggering during update of objects.
 -Added trigger check for Spores/Grotesque.
@@ -21,6 +24,12 @@ Misc:
 -Improved preformance of inventory cache update.
 -Improved preformance of town run behavior.
 -Added handler for OnProfileLoaded Event, replaces old check method used.
+-Moved Player Folder Contents into Character Folder. (Player Class and Abilities)
+-Player Class:
+	-Removed LOSConditions Property.
+	-Constructor no longer requires ActorClass as a parameter, and all dereived classes now set the AC property.
+	-Fixed Barbarian IsMelee property (was false :X)
+-Renamed the plugin to FunkyBot (since its not really a trinity plugin anymore!)
 
 
 v2.5.0.0 (Simplified)

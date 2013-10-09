@@ -107,6 +107,20 @@ namespace FunkyBot
 		  // **********************************************************************************************
 		  internal static void LogGoodItems(CacheACDItem thisgooditem, GilesBaseItemType thisgilesbaseitemtype, GilesItemType thisgilesitemtype, double ithisitemvalue)
 		  {
+
+			  try
+			  {
+				  //Update this item
+				  using (ZetaDia.Memory.AcquireFrame())
+				  {
+					  thisgooditem=new CacheACDItem(thisgooditem.ACDItem);
+				  }
+			  }
+			  catch
+			  {
+					Logging.WriteDiagnostic("Failure to update CacheACDItem during Logging");
+			  }
+
 				FileStream LogStream=null;
 				try
 				{

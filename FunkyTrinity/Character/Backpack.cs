@@ -253,11 +253,14 @@ namespace FunkyBot.Cache
 			  List<CacheACDItem> returnItems=new List<CacheACDItem>();
 			  try
 			  {
-					foreach (ACDItem item in ZetaDia.Me.Inventory.Equipped)
-					{
-						 CacheACDItem thiscacheditem=new CacheACDItem(item);
-						 returnItems.Add(thiscacheditem);
-					}
+				  using (ZetaDia.Memory.AcquireFrame())
+				  {
+					  foreach (ACDItem item in ZetaDia.Me.Inventory.Equipped)
+					  {
+						  CacheACDItem thiscacheditem=new CacheACDItem(item);
+						  returnItems.Add(thiscacheditem);
+					  }
+				  }
 
 			  } catch (Exception)
 			  {

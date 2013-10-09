@@ -19,6 +19,7 @@ namespace FunkyBot
 				public Monk()
 					 : base()
 				{
+					 //Monk Inna Full Set
 					 List<Cache.CacheACDItem> equippedItems=Bot.Character.BackPack.ReturnCurrentEquippedItems();
 					 int InnaSetItemCount=equippedItems.Count(i => i.ThisRealName.Contains("Inna"));
 					 if (InnaSetItemCount>3)
@@ -30,6 +31,14 @@ namespace FunkyBot
 						  Bot.Settings.Class.bMonkInnaSet=false;
 
 
+					 //Combo Strike???
+					 if (base.PassivePowers.Contains(SNOPower.Monk_Passive_CombinationStrike))
+					 {
+						  Logging.Write("Combination Strike Found!");
+						  Bot.Settings.Class.bMonkComboStrike=true;
+						  int TotalAbilities=base.HotbarPowers.Count(power => SpiritGeneratingAbilities.Contains(power));
+						  Bot.Settings.Class.iMonkComboStrikeAbilities=TotalAbilities;
+					 }
 						 
 				}
 				internal override ActorClass AC { get { return ActorClass.Monk; } }
@@ -105,41 +114,7 @@ namespace FunkyBot
 
 				public override void RecreateAbilities()
 				{
-					 Abilities=new Dictionary<SNOPower, Ability>();
-
-					 if (!HotbarContainsAPrimaryAbility())
-					 {
-						  Ability defaultAbility=this.DefaultAttack;
-						  AbilityLogicConditions.CreateAbilityLogicConditions(ref defaultAbility);
-						  Abilities.Add(defaultAbility.Power, defaultAbility);
-						  RuneIndexCache.Add(defaultAbility.Power, -1);
-					 }
-
-					 //Combo Strike???
-					 if (base.PassivePowers.Contains(SNOPower.Monk_Passive_CombinationStrike))
-					 {
-						  Logging.Write("Combination Strike Found!");
-						  Bot.Settings.Class.bMonkComboStrike=true;
-						  int TotalAbilities=base.HotbarPowers.Count(power => SpiritGeneratingAbilities.Contains(power));
-						  Bot.Settings.Class.iMonkComboStrikeAbilities=TotalAbilities;
-					 }
-
-					 //Create the abilities
-					 foreach (var item in HotbarPowers)
-					 {
-						  Ability newAbility=this.CreateAbility(item);
-						  AbilityLogicConditions.CreateAbilityLogicConditions(ref newAbility);
-						  newAbility.SuccessfullyUsed+=new Ability.AbilitySuccessfullyUsed(base.AbilitySuccessfullyUsed);
-						  Abilities.Add(item, newAbility);
-					 }
-
-
-					 //Sort Abilities
-					 SortedAbilities=Abilities.Values.OrderByDescending(a => a.Priority).ThenBy(a => a.Range).ToList();
-
-					 //Update LOS conditions
-					 base.UpdateLOSConditions();
-
+					 base.RecreateAbilities();
 				}
 
 				public override Ability CreateAbility(SNOPower Power)

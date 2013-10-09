@@ -74,30 +74,7 @@ namespace FunkyBot
 				}
 				public override void RecreateAbilities()
 				{
-					 Abilities=new Dictionary<SNOPower, Ability>();
-
-					 if (!HotbarContainsAPrimaryAbility())
-					 {
-						  Ability defaultAbility=this.DefaultAttack;
-						  AbilityLogicConditions.CreateAbilityLogicConditions(ref defaultAbility);
-						  Abilities.Add(defaultAbility.Power, defaultAbility);
-						  RuneIndexCache.Add(defaultAbility.Power, -1);
-					 }
-
-					 //Create the abilities
-					 foreach (var item in HotbarPowers)
-					 {
-						  Ability newAbility=this.CreateAbility(item);
-						  AbilityLogicConditions.CreateAbilityLogicConditions(ref newAbility);
-						  newAbility.SuccessfullyUsed+=new Ability.AbilitySuccessfullyUsed(base.AbilitySuccessfullyUsed);
-						  Abilities.Add(item, newAbility);
-					 }
-
-					 //Sort Abilities
-					 SortedAbilities=Abilities.Values.OrderByDescending(a => a.Priority).ThenBy(a => a.Range).ToList();
-					
-					 //Update LOS conditions
-					 base.UpdateLOSConditions();
+					 base.RecreateAbilities();
 				}
 				public override Ability CreateAbility(SNOPower Power)
 				{
