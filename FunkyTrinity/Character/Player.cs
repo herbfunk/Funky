@@ -20,9 +20,8 @@ namespace FunkyBot
 		  public abstract class Player
 		  {
 				//Base class for each individual class!
-				public Player(ActorClass a)
+				public Player()
 				{
-					 AC=a;
 					 RefreshHotbar();
 					 RefreshPassives();
 					 UpdateRepeatAbilityTimes();
@@ -40,16 +39,14 @@ namespace FunkyBot
 				///<summary>
 				///The actor class of this bot.
 				///</summary>
-				internal readonly ActorClass AC;
+				internal virtual ActorClass AC { get { return ActorClass.Invalid; } }
 
-				private bool IsMeleeClass_=false;
 				///<summary>
 				///This is used to determine things such as how we preform certain checks (I.E. Line Of Sight)
 				///</summary>
 				public virtual bool IsMeleeClass
 				{
-					 get { return IsMeleeClass_; }
-					 set { IsMeleeClass_=value; }
+					 get { return false; }
 				}
 
 				private LOSConditions losconditions;
@@ -125,24 +122,6 @@ namespace FunkyBot
 				///</summary>
 				public virtual bool SecondaryHotbarBuffPresent()
 				{
-					 if (AC==ActorClass.Wizard)
-					 {
-						  bool ArchonBuffPresent=this.HasBuff(SNOPower.Wizard_Archon);
-
-						  //Confirm we don't have archon Ability without archon buff.
-						  bool RefreshNeeded=((!ArchonBuffPresent&&Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast))
-													 ||(ArchonBuffPresent&&!Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast)));
-
-						  if (RefreshNeeded)
-						  {
-								Logging.WriteVerbose("Updating Hotbar abilities!");
-								CachedPowers=new HashSet<SNOPower>(HotbarPowers);
-								RefreshHotbar();
-								UpdateRepeatAbilityTimes();
-								RecreateAbilities();
-								return true;
-						  }
-					 }
 					 return false;
 				}
 
@@ -587,19 +566,7 @@ namespace FunkyBot
 						  }
 					 }
 				}
-				//internal bool AbilityUseTimer(SNOPower thispower, bool bReCheck=false)
-				//{
-				//	 double lastUseMS=AbilityLastUseMS(thispower);
-				//	 if (lastUseMS>=this.AbilityCooldowns[thispower])
-				//		  return true;
-				//	 if (bReCheck&&lastUseMS>=150&&lastUseMS<=600)
-				//		  return true;
-				//	 return false;
-				//}
-				//internal double AbilityLastUseMS(SNOPower P)
-				//{
-				//	 return DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastUse[P]).TotalMilliseconds;
-				//}
+
 				internal int GetBuffStacks(SNOPower thispower)
 				{
 					 int iStacks;
@@ -619,6 +586,7 @@ namespace FunkyBot
 					 int id=(int)power;
 					 return CurrentDebuffs.Contains(id);
 				}
+
 				public void DebugString()
 				{
 					 Logging.Write("Character Information\r\nRadius {0}\r\nHotBar Abilities [{1}]\r\n", Bot.Character.fCharacterRadius, HotbarPowers.Count);
@@ -634,8 +602,6 @@ namespace FunkyBot
 						  Logging.Write("Power [{0}] -- Priority {1} --", item.Power.ToString(), item.Priority, item.DebugString());
 					 }
 
-					 Bot.Character.UpdateAnimationState();
-					 Logging.Write("State: {0} -- SNOAnim {1}", Bot.Character.CurrentAnimationState.ToString(), Bot.Character.CurrentSNOAnim.ToString());
 					 Logging.Write("Current Buffs");
 					 foreach (SNOPower item in CurrentBuffs.Keys)
 					 {

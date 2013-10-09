@@ -31,8 +31,6 @@ namespace FunkyBot.Cache
 						  dCurrentEnergyPct=0d;
 						  dDiscipline=0d;
 						  dDisciplinePct=0d;
-						  //EnergyRegenerationRate=0;
-						  bWaitingForReserveEnergy=false;
 						  iMyDynamicID=0;
 						  iMyLevel=1;
 						  iSceneID=-1;
@@ -99,12 +97,9 @@ namespace FunkyBot.Cache
 						  }
 					 }
 
-					 //internal int EnergyRegenerationRate { get; set; }
-					 
 					 public int iCurrentWorldID { get; set; }
 					 public int iCurrentLevelID { get; set; }
 
-					 //public GameDifficulty iCurrentGameDifficulty { get; set; }
 
 					 //Returns Live Data
 					 private DateTime lastPositionUpdate=DateTime.Today;
@@ -114,19 +109,21 @@ namespace FunkyBot.Cache
 						  get
 						  {
 								//Because we don't want to update this X amount of times in a single loop!
-								if (DateTime.Now.Subtract(lastPositionUpdate).TotalMilliseconds>150)
+								if (DateTime.Now.Subtract(lastPositionUpdate).TotalMilliseconds<150)
+									 return lastPosition;
+
+								lastPositionUpdate=DateTime.Now;
+								try
 								{
-									 try
+									 using (ZetaDia.Memory.AcquireFrame())
 									 {
 										  lastPosition=ZetaDia.Me.Position;
-										  lastPositionUpdate=DateTime.Now;
-									 } catch (NullReferenceException)
-									 {
-										  lastPosition=Vector3.Zero;
 									 }
-
-
+								} catch (NullReferenceException)
+								{
+									 lastPosition=Vector3.Zero;
 								}
+								
 
 								return lastPosition;
 						  }
@@ -152,7 +149,7 @@ namespace FunkyBot.Cache
 					 }
 
 					 internal bool CriticalAvoidance { get; set; }
-					 internal bool bWaitingForReserveEnergy { get; set; }
+
 					 internal int iMyDynamicID { get; set; }
 					 internal int iMyLevel { get; set; }
 					 internal int iTotalPotions { get; set; }
@@ -162,8 +159,45 @@ namespace FunkyBot.Cache
 					 internal float PickupRadius { get; set; }
 					 internal int FreeBackpackSlots { get; set; }
 
-					internal AnimationState CurrentAnimationState { get; set; }
-					 internal SNOAnim CurrentSNOAnim { get; set; }
+					 private AnimationState lastAnimationState=AnimationState.Invalid;
+					internal AnimationState CurrentAnimationState
+					{
+						get
+						{
+							 try
+							 {
+								  using (ZetaDia.Memory.AcquireFrame())
+								  {
+										lastAnimationState=ZetaDia.Me.CommonData.AnimationState;
+								  }
+							 } catch (Exception)
+							 {
+
+							 }
+							 return lastAnimationState;
+						}
+					}
+
+					private SNOAnim Lastsnoanim=SNOAnim.a1dun_Cath_chest_idle;
+					internal SNOAnim CurrentSNOAnim
+					{
+						get
+						{
+
+							try
+							{
+								using (ZetaDia.Memory.AcquireFrame())
+								{
+									Lastsnoanim=ZetaDia.Me.CommonData.CurrentAnimation;
+								}
+							}
+							catch (Exception)
+							{
+
+							}
+							return Lastsnoanim;
+						}
+					}
 
 
 
@@ -202,10 +236,6 @@ namespace FunkyBot.Cache
 									 dCurrentEnergy=me.CurrentPrimaryResource;
 									 dCurrentEnergyPct=dCurrentEnergy/me.MaxPrimaryResource;
 
-									 if (dCurrentEnergy>=Bot.Class.iWaitingReservedAmount)
-										  bWaitingForReserveEnergy=false;
-									 if (dCurrentEnergy<20)
-										  bWaitingForReserveEnergy=true;
 
 									 //Critical Avoidance (when no avoidance is set!)
 									 if (dCurrentHealthPct<0.50d&&!Bot.Settings.Avoidance.AttemptAvoidanceMovements&&
@@ -227,8 +257,6 @@ namespace FunkyBot.Cache
 												bIsIncapacitated=true;
 										  else
 										  {
-												UpdateAnimationState(false);
-
 												if (Bot.Class.KnockbackLandAnims.Contains(this.CurrentSNOAnim))
 													 bIsIncapacitated=true;
 												else
@@ -238,10 +266,14 @@ namespace FunkyBot.Cache
 
 									 int currentLevelAreaID=ZetaDia.CurrentLevelAreaId;
 									 if (this.iCurrentLevelID!=currentLevelAreaID)
+									 {
 										  levelareaIDchanged(currentLevelAreaID);
+										  iCurrentWorldID=ZetaDia.CurrentWorldDynamicId;
+									 }
+										 
 
 
-									 iCurrentWorldID=ZetaDia.CurrentWorldDynamicId;
+									 
 
 									 //Update vars that are not essential to combat (survival).
 									 if (DateTime.Now.Subtract(lastUpdateNonEssentialData).TotalSeconds>30)
@@ -283,32 +315,6 @@ namespace FunkyBot.Cache
 
 
 
-					 //private DateTime LastUpdatedAnimationData=DateTime.Today;
-					 internal void UpdateAnimationState(bool animState=true, bool snoAnim=true)
-					 {
-
-
-						  //LastUpdatedAnimationData=DateTime.Now;
-						  using (ZetaDia.Memory.AcquireFrame())
-						  {
-								// If we aren't in the game of a world is loading, don't do anything yet
-								if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld)//||DateTime.Now.Subtract(LastUpdatedAnimationData).TotalMilliseconds<150)
-									 return;
-
-								try
-								{
-									 if (animState)
-										  CurrentAnimationState=ZetaDia.Me.CommonData.AnimationState;
-
-									 if (snoAnim)
-										  CurrentSNOAnim=ZetaDia.Me.CommonData.CurrentAnimation;
-								} catch (Exception)
-								{
-								}
-
-						  }
-					 }
-
 					 // **********************************************************************************************
 					 // *****      Quick and Dirty routine just to force a wait until the character is "free"    *****
 					 // **********************************************************************************************
@@ -324,10 +330,10 @@ namespace FunkyBot.Cache
 								bool bIsAnimating=false;
 								try
 								{
-									 UpdateAnimationState();
-									 if (CurrentAnimationState.HasFlag(AnimationState.Casting|AnimationState.Channeling))
+									 AnimationState currentanimstate=CurrentAnimationState;
+									 if (currentanimstate.HasFlag(AnimationState.Casting|AnimationState.Channeling))
 										  bIsAnimating=true;
-									 if (bWaitForAttacking&&(CurrentAnimationState.HasFlag(AnimationState.Attacking)))
+									 if (bWaitForAttacking&&(currentanimstate.HasFlag(AnimationState.Attacking)))
 										  bIsAnimating=true;
 								} catch (NullReferenceException)
 								{
@@ -346,7 +352,7 @@ namespace FunkyBot.Cache
 																			 "Incapacitated={4} -- Rooted={5} \r\n" +
 																			 "Current Health={6} -- Current Energy={7}",
 																			 Bot.Character.iMyDynamicID.ToString(), Bot.Character.iCurrentWorldID.ToString(),
-																			 Bot.Character.CurrentSNOAnim.ToString(), Bot.Character.CurrentAnimationState.ToString(),
+																			 this.Lastsnoanim.ToString(), this.lastAnimationState.ToString(),
 																			 Bot.Character.bIsIncapacitated.ToString(), Bot.Character.bIsRooted.ToString(),
 																			 Bot.Character.dcurrentHealthPct.ToString(), Bot.Character.dCurrentEnergyPct.ToString());
 

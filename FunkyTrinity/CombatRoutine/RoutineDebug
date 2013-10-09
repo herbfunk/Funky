@@ -169,7 +169,7 @@ namespace FunkyCombatRoutine
 				Zeta.Common.Compiler.CodeCompiler.DeleteOldAssemblies();
 
 				string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-				string sTrinityPluginPath=sDemonBuddyPath+@"\Plugins\FunkyTrinity\";
+				string sTrinityPluginPath=sDemonBuddyPath+@"\Plugins\FunkyBot\";
 
 				Zeta.Common.Compiler.CodeCompiler FunkyCode=new Zeta.Common.Compiler.CodeCompiler(sTrinityPluginPath);
 				FunkyCode.ParseFilesForCompilerOptions();
@@ -221,7 +221,7 @@ namespace FunkyCombatRoutine
 		  {
 				string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-				System.Diagnostics.Process.Start(sDemonBuddyPath + @"\Plugins\FunkyTrinity\");
+				System.Diagnostics.Process.Start(sDemonBuddyPath + @"\Plugins\FunkyBot\");
 		  }
 
 		  static void lblDebug_DumpUnits_Click(object sender, EventArgs e)

@@ -364,14 +364,7 @@ namespace FunkyBot.Targeting
 					 // Ok we didn't want a new target list, should we at least update the position of the current target, if it's a monster?
 					 else if (CurrentTarget.targetType.Value==TargetType.Unit&&CurrentTarget.IsStillValid())
 					 {
-						  try
-						  {
-								CurrentTarget.UpdatePosition();
-						  } catch
-						  {
-								// Keep going anyway if we failed to get a new position from DemonBuddy
-								Logging.WriteDiagnostic("GSDEBUG: Caught position read failure in main target handler loop.");
-						  }
+						  CurrentTarget.UpdatePosition();
 					 }
 				}
 				#endregion

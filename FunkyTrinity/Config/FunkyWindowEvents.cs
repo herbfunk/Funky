@@ -21,7 +21,7 @@ namespace FunkyBot
 				 {
 					  Bot.UpdateCurrentAccountDetails();
 
-					  string settingsFolder=FolderPaths.sDemonBuddyPath+@"\Settings\FunkyTrinity\"+Bot.CurrentAccountName;
+					  string settingsFolder=FolderPaths.sDemonBuddyPath+@"\Settings\FunkyBot\"+Bot.CurrentAccountName;
 					  if (!Directory.Exists(settingsFolder)) Directory.CreateDirectory(settingsFolder);
 
 					  try

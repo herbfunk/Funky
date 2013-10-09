@@ -80,42 +80,6 @@ namespace FunkyBot.Cache
 				set { firstProfileSeen=value; }
 		  }
 
-		  private DateTime lastProfileCheck { get; set; }
-		  ///<summary>
-		  ///Checks if current profile has changed and updates vars accordingly!
-		  ///</summary>
-		  public void CheckProfile()
-		  {
-				if (DateTime.Now.Subtract(this.lastProfileCheck).TotalMilliseconds>1000)
-				{
-					 this.lastProfileCheck=DateTime.Now;
-					 string sThisProfile=GlobalSettings.Instance.LastProfile;
-					 if (sThisProfile!=this.LastProfileSeen)
-					 {
-						  //herbfunk stats
-						  Bot.BotStatistics.ProfileStats.UpdateProfileChanged();
-
-						  // See if we appear to have started a new game
-						  if (!String.IsNullOrEmpty(this.FirstProfileSeen)&&sThisProfile==this.FirstProfileSeen)
-						  {
-								this.iTotalProfileRecycles++;
-								if (this.iTotalProfileRecycles>Bot.Stats.iTotalJoinGames&&this.iTotalProfileRecycles>Bot.Stats.iTotalLeaveGames)
-								{
-									 Funky.Log("Reseting Game Data -- Total Profile Recycles exceedes join and leave count!");
-									 Funky.ResetGame();
-								}
-						  }
-						  this.listProfilesLoaded.Add(sThisProfile);
-						  this.LastProfileSeen=sThisProfile;
-						  if (String.IsNullOrEmpty(this.FirstProfileSeen))
-								this.FirstProfileSeen=sThisProfile;
-
-						  //Refresh Profile Target Blacklist 
-						  BlacklistCache.UpdateProfileBlacklist();
-					 }
-				}
-		  }
-
 		 internal bool IsRunningOOCBehavior { get; set; }
 
 		 internal void FunkyOnProfileChanged(object sender, EventArgs e)

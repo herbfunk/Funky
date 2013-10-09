@@ -18,11 +18,12 @@ namespace FunkyBot
 		  {
 
 				//Base class for each individual class!
-				public DemonHunter(ActorClass a)
-					 : base(a)
+				public DemonHunter()
+					 : base()
 				{
-
 				}
+				internal override ActorClass AC { get { return ActorClass.DemonHunter; } }
+
 				private HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
 				{
 					 SNOAnim.Demonhunter_Female_HTH_knockback_land_01,

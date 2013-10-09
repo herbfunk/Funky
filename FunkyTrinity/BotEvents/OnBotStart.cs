@@ -16,7 +16,7 @@ namespace FunkyBot
     {
 		  private void FunkyBotStart(IBot bot)
 		  {
-				string FunkySettingsPath=System.IO.Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyTrinity");
+				string FunkySettingsPath=System.IO.Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyBot");
 				if (!System.IO.Directory.Exists(FunkySettingsPath))
 				{
 					 Logging.WriteDiagnostic("Creating Settings Folder at location {0}", FunkySettingsPath);
@@ -50,7 +50,7 @@ namespace FunkyBot
 				//MainWindow.Closing+=DBExitHandler;
 				if (!bPluginEnabled&&bot!=null)
 				{
-					 Logging.Write("WARNING: FunkyTrinity Plugin is NOT ENABLED. Bot start detected");
+					 Logging.Write("WARNING: FunkyBot Plugin is NOT ENABLED. Bot start detected");
 					 return;
 				}
 

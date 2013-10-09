@@ -118,8 +118,6 @@ namespace FunkyBot
 
 		  internal static bool CastingRecall()
 		  {
-				Bot.Character.UpdateAnimationState();
-
 				if (Bot.Character.CurrentAnimationState!=AnimationState.Idle)
 				{
 					 switch (Bot.Character.CurrentSNOAnim)

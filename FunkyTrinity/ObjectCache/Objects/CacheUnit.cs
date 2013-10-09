@@ -636,19 +636,19 @@ namespace FunkyBot.Cache
 								this.Weight+=9999;
 
 						  // Force a close range target because we seem to be stuck *OR* if not ranged and currently rooted
-						  //if (Bot.Combat.bForceCloseRangeTarget||Bot.Character.bIsRooted)
-						  //{
+						  if (Bot.Targeting.bPrioritizeCloseRangeUnits||Bot.Character.bIsRooted)
+						  {
 
-						  //	 this.Weight=20000-(Math.Floor(radiusDistance)*200);
+								this.Weight=20000-(Math.Floor(radiusDistance)*200);
 
-						  //	 // Goblin priority KAMIKAZEEEEEEEE
-						  //	 if (this.IsTreasureGoblin&&Bot.Settings.Targeting.GoblinPriority>1)
-						  //		  this.Weight+=10250*(Bot.Settings.Targeting.GoblinPriority-1);
-						  //}
-						  //else
-						  //{
+								// Goblin priority KAMIKAZEEEEEEEE
+								if (this.IsTreasureGoblin&&Bot.Settings.Targeting.GoblinPriority>1)
+									 this.Weight+=10250*(Bot.Settings.Targeting.GoblinPriority-1);
+						  }
+						  else
+						  {
 								// Not attackable, could be shielded, make super low priority
-								if (!this.IsAttackable.Value&&!this.IsWormBoss)
+								if (!this.IsTargetableAndAttackable&&!this.IsWormBoss)
 								{
 									 // Only 500 weight helps prevent it being prioritized over an unshielded
 									 this.Weight=500;
@@ -743,9 +743,6 @@ namespace FunkyBot.Cache
 									 if (this.Weight<300)
 										  this.Weight=300;
 
-									 if (!this.IsTargetable.Value)
-										  this.Weight/=2;
-
 									 // Deal with treasure goblins - note, of priority is set to "0", then the is-a-goblin flag isn't even set for use here - the monster is ignored
 									 if (this.IsTreasureGoblin)
 									 {
@@ -776,8 +773,8 @@ namespace FunkyBot.Cache
 
 										  }
 									 }
-
-								} // Forcing close range target or not?
+								}
+						  } // Forcing close range target or not?
 
 					 }
 					 else
@@ -915,7 +912,7 @@ namespace FunkyBot.Cache
 								}
 
 								//This is intial test to validate we can "see" the unit.. 
-								if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, Bot.Class.LOSconditions.RequiresServerObjectIntersection, Bot.Class.LOSconditions.NavCellFlags, false)) 
+								if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, false, Bot.Class.LOSconditions.NavCellFlags, false)) 
 								{
 									 //LOS Movement -- Check for special objects
 									 bool Valid=false;

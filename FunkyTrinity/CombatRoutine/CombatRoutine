@@ -16,7 +16,7 @@ namespace FunkyCombatRoutine
     public class FunkyRoutine : CombatRoutine
     {
 		  private static string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-		  private static string sTrinityPluginPath=sDemonBuddyPath+@"\Plugins\FunkyTrinity\";
+		  private static string sTrinityPluginPath=sDemonBuddyPath+@"\Plugins\FunkyBot\";
 
         
 

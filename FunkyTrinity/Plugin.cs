@@ -31,10 +31,10 @@ namespace FunkyBot
 		  {
 				get
 				{
-					 return "FunkyTrinity version "+Version;
+					 return "FunkyBot version "+Version;
 				}
 		  }
-		  public string Name { get { return "FunkyTrinity"; } }
+		  public string Name { get { return "FunkyBot"; } }
 		  public bool Equals(IPlugin other) { return (other.Name==Name)&&(other.Version==Version); }
 
 		 
@@ -95,7 +95,7 @@ namespace FunkyBot
 				}
 
 				string sRoutinePath=FolderPaths.sDemonBuddyPath+@"\Routines\Funky\";
-				string sPluginRoutineFolder=FolderPaths.sDemonBuddyPath+@"\Plugins\FunkyTrinity\CombatRoutine\";
+				string sPluginRoutineFolder=FolderPaths.sDemonBuddyPath+@"\Plugins\FunkyBot\CombatRoutine\";
 
 				//DateTime RoutineCombatDate=System.IO.File.GetLastWriteTime(sRoutinePath+"CombatRoutine.cs");
 				//DateTime RoutineDebugDate=System.IO.File.GetLastWriteTime(sRoutinePath+"RoutineDebug.cs");
@@ -206,7 +206,7 @@ namespace FunkyBot
 				{
 					 Log("Fatal Error - cannot enable plugin. Invalid path: "+FolderPaths.sTrinityPluginPath);
 					 Log("Please check you have installed the plugin to the correct location, and then restart DemonBuddy and re-enable the plugin.");
-					 Log(@"Plugin should be installed to \<DemonBuddyFolder>\Plugins\FunkyTrinity\");
+					 Log(@"Plugin should be installed to \<DemonBuddyFolder>\Plugins\FunkyBot\");
 				}
 				else
 				{
@@ -220,7 +220,7 @@ namespace FunkyBot
 					 //if (settings.bEnableTPS)
 					 //  BotMain.TicksPerSecond=(int)settings.iTPSAmount;
 
-					 System.IO.FileInfo PluginInfo=new FileInfo(FolderPaths.sDemonBuddyPath+@"\Plugins\FunkyTrinity\");
+					 System.IO.FileInfo PluginInfo=new FileInfo(FolderPaths.sDemonBuddyPath+@"\Plugins\FunkyBot\");
 					 //
 					 string CompileDateString=PluginInfo.LastWriteTime.ToString("MM/dd hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
 					 Log("************************************");
@@ -244,7 +244,7 @@ namespace FunkyBot
 				get
 				{
 					 Bot.UpdateCurrentAccountDetails();
-					 string settingsFolder=FolderPaths.sDemonBuddyPath+@"\Settings\FunkyTrinity\"+Bot.CurrentAccountName;
+					 string settingsFolder=FolderPaths.sDemonBuddyPath+@"\Settings\FunkyBot\"+Bot.CurrentAccountName;
 					 if (!Directory.Exists(settingsFolder))
 						  Directory.CreateDirectory(settingsFolder);
 					 try

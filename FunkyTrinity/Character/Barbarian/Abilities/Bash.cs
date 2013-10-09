@@ -30,6 +30,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Barb
 				Priority=AbilityPriority.None;
 				PreCastFlags=(AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckCanCast|
 											AbilityPreCastFlags.CheckPlayerIncapacitated);
+				
 
 		  }
 

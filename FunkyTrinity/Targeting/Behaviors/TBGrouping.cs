@@ -106,24 +106,6 @@ namespace FunkyBot.Targeting.Behaviors
 							cluster.Info.Properties.HasFlag(ClusterProperties.Fast));
 		  };
 
-		  //private delegate UnitCluster CheckGroups(List<UnitCluster> clusters);
-		  //private CheckGroups GroupingTest=(List<UnitCluster> clusters) =>
-		  //{
-		  //	 var PossibleGroups=clusters
-		  //				.Where(c =>
-		  //					 (!FunkyTrinity.Bot.Settings.Targeting.IgnoreAboveAverageMobs&&(c.Info.Properties.HasFlag(ClusterProperties.Elites))||c.Info.Properties.HasFlag(ClusterProperties.Boss))||
-		  //					 c.Info.Properties.HasFlag(ClusterProperties.Large)||
-		  //					 c.Info.Properties.HasFlag(ClusterProperties.Strong)||
-		  //					 c.Info.Properties.HasFlag(ClusterProperties.Ranged)||
-		  //					 c.Info.Properties.HasFlag(ClusterProperties.Fast));
-
-		  //	 if (PossibleGroups.Any())
-		  //	 {
-		  //		  return PossibleGroups.First();
-		  //	 }
-
-		  //	 return null;
-		  //};
 	 }
 
 

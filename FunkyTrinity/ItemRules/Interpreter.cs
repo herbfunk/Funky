@@ -59,8 +59,8 @@ namespace FunkyBot
 		  };
 
 		  // final variables
-		  readonly string logPath=@"Plugins\FunkyTrinity\ItemRules\Log\";
-		  readonly string itemrulesPath=@"Plugins\FunkyTrinity\ItemRules\";
+		  readonly string logPath=@"Plugins\FunkyBot\ItemRules\Log\";
+		  readonly string itemrulesPath=@"Plugins\FunkyBot\ItemRules\";
 		  
 		  //readonly string configFile="config.dis";
 		  readonly string pickupFile="pickup.dis";

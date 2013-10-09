@@ -44,7 +44,7 @@ namespace FunkyBot.Targeting
 			  //Ignore Loot Range Setting
 			  if (Bot.Settings.Ranges.IgnoreLootRange) iCurrentMaxLootRadius=10;
 		 }
-
+		 internal bool bPrioritizeCloseRangeUnits { get; set; }
 		 internal bool DontMove { get; set; }
 		 // A flag to indicate whether we have a new target from the overlord (decorator) or not, in which case don't refresh targets again this first loop
 		 internal bool bWholeNewTarget { get; set; }
@@ -66,10 +66,9 @@ namespace FunkyBot.Targeting
 		 internal bool reCheckedFinished { get; set; }
 		 internal void ResetTargetHandling()
 		 {
-			  Bot.Targeting.CurrentTarget=null;
-			  //Bot.NavigationCache.ResetPathing();
-			  TargetMovement.ResetTargetMovementVars();
+			  this.CurrentTarget=null;
 
+			  TargetMovement.ResetTargetMovementVars();
 
 			  bWaitingForPower=false;
 			  bWaitingAfterPower=false;
@@ -101,11 +100,6 @@ namespace FunkyBot.Targeting
 
 		 internal int iTotalNumberGoblins=0;
 		 internal DateTime lastGoblinTime=DateTime.Today;
-		 ///<summary>
-		 ///Tracks the current Level ID
-		 ///</summary>
-		 private int LastLevelID=-1;
-		 private DateTime LastCheckedLevelID=DateTime.Today;
 
 		 ///<summary>
 		 ///Used to flag when Init should iterate and remove the objects

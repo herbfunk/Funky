@@ -17,10 +17,12 @@ namespace FunkyBot
 		  {
 
 				//Base class for each individual class!
-				public Barbarian(ActorClass a)
-					 : base(a)
+				public Barbarian()
+					 : base()
 				{
 				}
+				internal override ActorClass AC { get { return ActorClass.Barbarian; } }
+
 				public override Ability DefaultAttack
 				{
 					 get { return new WeaponMeleeInsant(); }
@@ -30,7 +32,7 @@ namespace FunkyBot
 				{
 					 get
 					 {
-						  return false;
+						  return true;
 					 }
 				}
 				private HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>

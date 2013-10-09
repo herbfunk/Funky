@@ -17,11 +17,16 @@ namespace FunkyBot.Settings
 		 public bool UnitExceptionSpawnerUnits { get; set; }
 		 public bool UnitExceptionSucideBombers { get; set; }
 
+		 public bool PrioritizeCloseRangeUnits { get; set; }
+		 public int PrioritizeCloseRangeMinimumUnits { get; set; }
+
 		 public SettingTargeting()
 		 {
 			  GoblinPriority=2;
 			  UseShrineTypes=new bool[6] { true, true, true, true, true, true };
 			  IgnoreAboveAverageMobs=false;
+			  PrioritizeCloseRangeUnits=true;
+			  PrioritizeCloseRangeMinimumUnits=3;
 			  IgnoreCorpses=false;
 			  UseExtendedRangeRepChest=false;
 			  MissleDampeningEnforceCloseRange=true;

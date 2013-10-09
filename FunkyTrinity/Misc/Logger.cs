@@ -57,7 +57,7 @@ namespace FunkyBot
 					 }
 				}
 
-				string ItemRulesPath=@"\Plugins\FunkyTrinity\ItemRules\Log\Archive\";
+				string ItemRulesPath=@"\Plugins\FunkyBot\ItemRules\Log\Archive\";
 				deleteList=new List<string>();
 				try
 				{
@@ -81,7 +81,7 @@ namespace FunkyBot
 
 				} catch { Logging.WriteDiagnostic("Failure to clean log files @ path: "+ItemRulesPath); }
 
-				string ProfileLogs=@"\Plugins\FunkyTrinity\Log\ProfileStats\";
+				string ProfileLogs=@"\Plugins\FunkyBot\Log\ProfileStats\";
 				deleteList=new List<string>();
 				try
 				{
@@ -169,8 +169,8 @@ namespace FunkyBot
 	 public static class FolderPaths
 	 {
 		  internal static string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-		  internal static string sTrinityPluginPath=sDemonBuddyPath+@"\Plugins\FunkyTrinity\";
-		  internal static string sTrinityLogPath=sDemonBuddyPath+@"\Plugins\FunkyTrinity\Log\";
+		  internal static string sTrinityPluginPath=sDemonBuddyPath+@"\Plugins\FunkyBot\";
+		  internal static string sTrinityLogPath=sDemonBuddyPath+@"\Plugins\FunkyBot\Log\";
 		  internal static string SettingsDefaultPath=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults");
 
 
@@ -181,7 +181,7 @@ namespace FunkyBot
 					 if (Bot.CurrentAccountName==null)
 						  Bot.UpdateCurrentAccountDetails();
 
-					 string sFunkyCharacterFolder=Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyTrinity", Bot.CurrentAccountName);
+					 string sFunkyCharacterFolder=Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyBot", Bot.CurrentAccountName);
 					 if (!System.IO.Directory.Exists(sFunkyCharacterFolder))
 					 {
 						  Logging.WriteDiagnostic("Creating Funky Settings Folder @ {0}", sFunkyCharacterFolder);

@@ -30,8 +30,7 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 
 				FcriteriaCombat=new Func<bool>(() =>
 				{
-					 return ((Bot.Character.dCurrentEnergy>=25&&!Bot.Character.bWaitingForReserveEnergy)||
-								Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount);
+					 return (Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount);
 				});
 		  }
 

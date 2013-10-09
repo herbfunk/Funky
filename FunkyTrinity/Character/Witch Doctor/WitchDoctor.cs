@@ -17,11 +17,11 @@ namespace FunkyBot
 		  {
 
 				//Base class for each individual class!
-				public WitchDoctor(ActorClass a)
-					 : base(a)
+				public WitchDoctor()
+					 : base()
 				{
-
 				}
+				internal override ActorClass AC { get { return ActorClass.WitchDoctor; } }
 				private HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
 				{
 					 SNOAnim.WitchDoctor_Male_1HT_MOJO_knockback_land,

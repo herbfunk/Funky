@@ -17,7 +17,6 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 		  {
 				get
 				{
-					 Bot.Character.UpdateAnimationState(false);
 					 return
 						  Bot.Character.CurrentSNOAnim.HasFlag(
 							 SNOAnim.Demonhunter_Female_1HXBow_RapidFire_01|

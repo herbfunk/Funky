@@ -18,10 +18,12 @@ namespace FunkyBot
 		  {
 
 				//Base class for each individual class!
-				public Wizard(ActorClass a)
-					 : base(a)
+				public Wizard()
+					 : base()
 				{
 				}
+				internal override ActorClass AC { get { return ActorClass.Wizard; } }
+
 				private HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
 				{
 					 SNOAnim.Wizard_Female_Archon_knockback_land,
@@ -60,11 +62,34 @@ namespace FunkyBot
 				{
 					 get
 					 {
-						  //bool LastUsedCloseRangeAbility=(SNOPower.Wizard_Archon_ArcaneStrike|SNOPower.Wizard_Archon_ArcaneBlast).HasFlag(Bot.Combat.powerLastSnoPowerUsed);
 						  return false;
 					 }
 				}
 
+				///<summary>
+				///Used to check for a secondary hotbar set. Currently only used for wizards with Archon.
+				///</summary>
+				public override bool SecondaryHotbarBuffPresent()
+				{
+
+					 bool ArchonBuffPresent=this.HasBuff(SNOPower.Wizard_Archon);
+
+					 //Confirm we don't have archon Ability without archon buff.
+					 bool RefreshNeeded=((!ArchonBuffPresent&&Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast))
+												||(ArchonBuffPresent&&!Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast)));
+
+					 if (RefreshNeeded)
+					 {
+						  Logging.WriteVerbose("Updating Hotbar abilities!");
+						  CachedPowers=new HashSet<SNOPower>(HotbarPowers);
+						  RefreshHotbar();
+						  UpdateRepeatAbilityTimes();
+						  RecreateAbilities();
+						  return true;
+					 }
+					 
+					 return false;
+				}
 
 				public override void RecreateAbilities()
 				{

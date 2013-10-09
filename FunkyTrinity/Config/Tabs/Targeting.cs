@@ -10,7 +10,16 @@ namespace FunkyBot
 {
 	 internal partial class FunkyWindow : Window
 	 {
+		  TextBox TBPrioritizeCloseRangeMinimumUnits;
+
 		  #region EventHandling
+		  private void PrioritizeCloseUnitsMinimumSliderChanged(object sender, EventArgs e)
+		  {
+				Slider slider_sender=(Slider)sender;
+				int Value=(int)slider_sender.Value;
+				Bot.Settings.Targeting.PrioritizeCloseRangeMinimumUnits=Value;
+				TBPrioritizeCloseRangeMinimumUnits.Text=Value.ToString();
+		  }
 		  private void UnitExceptionKillLowHPChecked(object sender, EventArgs e)
 		  {
 				Bot.Settings.Targeting.UnitExceptionLowHP=!Bot.Settings.Targeting.UnitExceptionLowHP;
@@ -69,6 +78,10 @@ namespace FunkyBot
 		  private void MissileDampeningChecked(object sender, EventArgs e)
 		  {
 				Bot.Settings.Targeting.MissleDampeningEnforceCloseRange=!Bot.Settings.Targeting.MissleDampeningEnforceCloseRange;
+		  }
+		  private void PrioritizeCloseRangeUnitsChecked(object sender, EventArgs e)
+		  {
+				Bot.Settings.Targeting.PrioritizeCloseRangeUnits=!Bot.Settings.Targeting.PrioritizeCloseRangeUnits;
 		  }
 		  private void UseShrineChecked(object sender, EventArgs e)
 		  {
@@ -208,6 +221,91 @@ namespace FunkyBot
 				Targeting_General_Options_Stackpanel.Children.Add(UseExtendedRangeRepChestCB);
 				Targeting_General_Options_Stackpanel.Children.Add(GoblinPriority_StackPanel);
 				Target_General_ContentListBox.Items.Add(Targeting_General_Options_Stackpanel);
+
+
+
+				ToolTip TTPrioritizeCloseRange=new System.Windows.Controls.ToolTip
+				{
+					 Content="When active it will weight units based on the distance from Bot. Closer to the bot, the higher the weight given.",
+				};
+				StackPanel Targeting_PrioritizeCloseRange_Options_Stackpanel=new StackPanel
+				{
+					 Orientation=Orientation.Vertical,
+					 Focusable=false,
+					 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+					 Background=System.Windows.Media.Brushes.DimGray,
+					 ToolTip=TTPrioritizeCloseRange,
+				};
+				TextBlock Target_PrioritizeCloseRange_Text=new TextBlock
+				{
+					 Text="Prioritize Range",
+					 FontSize=13,
+					 Background=System.Windows.Media.Brushes.OrangeRed,
+					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 TextAlignment=TextAlignment.Center,
+					 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+				};
+
+				#region PrioritizeCloseRange
+				CheckBox cbPrioritizeCloseRange=new CheckBox
+				{
+					 Content="Enable Priority of Close Units",
+					 Width=300,
+					 Height=30,
+					 IsChecked=(Bot.Settings.Targeting.PrioritizeCloseRangeUnits),
+					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+				};
+				cbPrioritizeCloseRange.Checked+=PrioritizeCloseRangeUnitsChecked;
+				cbPrioritizeCloseRange.Unchecked+=PrioritizeCloseRangeUnitsChecked;
+				#endregion
+
+				#region PrioritizeCloseRangeMinimumUnits
+				TextBlock PrioritizeCloseRangeMinimumUnits_Label=new TextBlock
+				{
+					 Text="Minimum Nearby Units",
+					 FontSize=13,
+					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 //Background = System.Windows.Media.Brushes.Crimson,
+					 TextAlignment=TextAlignment.Left,
+				};
+
+				Slider sliderPrioritizeCloseRangeMinimumUnits=new Slider
+				{
+					 Width=100,
+					 Maximum=20,
+					 Minimum=0,
+					 TickFrequency=5,
+					 LargeChange=5,
+					 SmallChange=1,
+					 Value=Bot.Settings.Targeting.PrioritizeCloseRangeMinimumUnits,
+					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+				};
+				sliderPrioritizeCloseRangeMinimumUnits.ValueChanged+=PrioritizeCloseUnitsMinimumSliderChanged;
+				TBPrioritizeCloseRangeMinimumUnits=new TextBox
+				{
+					 Text=Bot.Settings.Targeting.PrioritizeCloseRangeMinimumUnits.ToString(),
+					 IsReadOnly=true,
+				};
+				StackPanel PrioritizeMinimumUnitsStackPanel=new StackPanel
+				{
+					 Height=20,
+					 Orientation=Orientation.Horizontal,
+					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+6),
+				};
+
+				PrioritizeMinimumUnitsStackPanel.Children.Add(sliderPrioritizeCloseRangeMinimumUnits);
+				PrioritizeMinimumUnitsStackPanel.Children.Add(TBPrioritizeCloseRangeMinimumUnits);
+				#endregion
+
+				Targeting_PrioritizeCloseRange_Options_Stackpanel.Children.Add(Target_PrioritizeCloseRange_Text);
+				Targeting_PrioritizeCloseRange_Options_Stackpanel.Children.Add(cbPrioritizeCloseRange);
+				Targeting_PrioritizeCloseRange_Options_Stackpanel.Children.Add(PrioritizeCloseRangeMinimumUnits_Label);
+				Targeting_PrioritizeCloseRange_Options_Stackpanel.Children.Add(PrioritizeMinimumUnitsStackPanel);
+
+				Target_General_ContentListBox.Items.Add(Targeting_PrioritizeCloseRange_Options_Stackpanel);
+
+
+
 
 
 				StackPanel spClusteringExceptions=new StackPanel

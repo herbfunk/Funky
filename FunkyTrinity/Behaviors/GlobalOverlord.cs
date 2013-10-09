@@ -53,19 +53,19 @@ namespace FunkyBot
 						  switch (tempClass)
 						  {
 								case ActorClass.Barbarian:
-									 Bot.Class=new Barbarian(tempClass);
+									 Bot.Class=new Barbarian();
 									 break;
 								case ActorClass.DemonHunter:
-									 Bot.Class=new DemonHunter(tempClass);
+									 Bot.Class=new DemonHunter();
 									 break;
 								case ActorClass.Monk:
-									 Bot.Class=new Monk(tempClass);
+									 Bot.Class=new Monk();
 									 break;
 								case ActorClass.WitchDoctor:
-									 Bot.Class=new WitchDoctor(tempClass);
+									 Bot.Class=new WitchDoctor();
 									 break;
 								case ActorClass.Wizard:
-									 Bot.Class=new Wizard(tempClass);
+									 Bot.Class=new Wizard();
 									 break;
 						  }
 
@@ -159,7 +159,6 @@ namespace FunkyBot
 				Bot.NavigationCache.vPositionLastZigZagCheck=Vector3.Zero;
 
 				// Out of combat buffing etc. but only if we don't want to return to town etc.
-				Bot.Character.UpdateAnimationState(true, false);
 				AnimationState myAnimationState=Bot.Character.CurrentAnimationState;
 				if ((!Bot.Character.bIsInTown||Bot.Settings.AllowBuffingInTown)&&
 					 !TownRunManager.bWantToTownRun&&

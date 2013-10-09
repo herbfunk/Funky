@@ -22,7 +22,6 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 		  {
 				get
 				{
-					 Bot.Character.UpdateAnimationState(false);
 					 return Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.Monk_Female_Hobble_Run|SNOAnim.Monk_Male_HTH_Hobble_Run);
 				}
 		  }

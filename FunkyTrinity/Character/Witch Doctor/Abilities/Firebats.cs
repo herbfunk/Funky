@@ -15,7 +15,6 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 
 		  private bool IsChanneling()
 		  {
-				Bot.Character.UpdateAnimationState(false);
 				return Bot.Character.CurrentAnimationState==AnimationState.Channeling&&
 						 Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.WitchDoctor_Female_1HT_spell_channel|
 																					 SNOAnim.WitchDoctor_Female_2HT_spell_channel|

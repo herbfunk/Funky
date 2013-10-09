@@ -16,8 +16,8 @@ namespace FunkyBot
 		  internal class Monk : Player
 		  {
 				//Base class for each individual class!
-				public Monk(ActorClass a)
-					 : base(a)
+				public Monk()
+					 : base()
 				{
 					 List<Cache.CacheACDItem> equippedItems=Bot.Character.BackPack.ReturnCurrentEquippedItems();
 					 int InnaSetItemCount=equippedItems.Count(i => i.ThisRealName.Contains("Inna"));
@@ -32,6 +32,7 @@ namespace FunkyBot
 
 						 
 				}
+				internal override ActorClass AC { get { return ActorClass.Monk; } }
 				private HashSet<SNOPower> SpiritGeneratingAbilities=new HashSet<SNOPower>
 				{
 					 SNOPower.Monk_FistsofThunder,

@@ -68,10 +68,13 @@ namespace FunkyBot
 
 					 try
 					 {
-						  ActorClass=ZetaDia.Service.CurrentHero.Class;
-						  CurrentAccountName=ZetaDia.Service.CurrentHero.BattleTagName;
-						  CurrentHeroName=ZetaDia.Service.CurrentHero.Name;
-						  CurrentLevel=ZetaDia.Service.CurrentHero.Level;
+						 using (ZetaDia.Memory.AcquireFrame())
+						 {
+							 ActorClass=ZetaDia.Service.CurrentHero.Class;
+							 CurrentAccountName=ZetaDia.Service.CurrentHero.BattleTagName;
+							 CurrentHeroName=ZetaDia.Service.CurrentHero.Name;
+							 CurrentLevel=ZetaDia.Service.CurrentHero.Level;
+						 }
 					 } catch (Exception)
 					 {
 						  Logging.WriteDiagnostic("[Funky] Exception Attempting to Update Current Account Details.");

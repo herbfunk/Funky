@@ -125,6 +125,10 @@ namespace FunkyBot.Targeting
 				ObjectCache.ValidObjects=ObjectCache.Objects.Values.Where(o => o.ObjectIsValidForTargeting).ToList();
 
 
+				//Update Prioritize Flag
+				this.bPrioritizeCloseRangeUnits=(Bot.Settings.Targeting.PrioritizeCloseRangeUnits&&Bot.Settings.Targeting.PrioritizeCloseRangeMinimumUnits<=Bot.Combat.SurroundingUnits);
+
+
 				// Still no target, let's end it all!
 				if (!RefreshTargetBehaviors())
 				{
@@ -215,31 +219,6 @@ namespace FunkyBot.Targeting
 					 ObjectCache.cacheSnoCollection.TrimOldUnusedEntries();
 
 
-				//Check Level ID changes and clear cache objects.
-				//if (Bot.Character.iCurrentLevelID!=LastLevelID)
-				//{
-				//	 //Grace Peroid of 5 Seconds before updating.
-				//	 if (DateTime.Now.Subtract(LastCheckedLevelID).TotalSeconds>5)
-				//	 {
-				//		  LastCheckedLevelID=DateTime.Now;
-				//		  LastLevelID=Bot.Character.iCurrentLevelID;
-
-				//		  //Clear our current collection since we changed levels.
-				//		  ObjectCache.Objects.Clear();
-				//		  ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
-				//		  RemovalCheck=false;
-
-				//		  //Reset Playermover Backtrack Positions
-				//		  BackTrackCache.cacheMovementGPRs.Clear();
-
-				//		  //Reset Skip Ahead Cache
-				//		  SkipAheadCache.ClearCache();
-
-				//		  Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
-				//		  Zeta.Navigation.Navigator.SearchGridProvider.Update();
-				//	 }
-				//}
-
 				//Check Cached Object Removal flag
 				if (RemovalCheck)
 				{
@@ -278,8 +257,6 @@ namespace FunkyBot.Targeting
 		  private bool LastLevelIDChangeWasTownRun=false;
 		  private void LevelAreaIDChangeHandler(int ID)
 		  {
-				bool SearchGridProviderRequiresPathing=Navigator.SearchGridProvider.WorldRequiresPathfinding;
-				Logging.Write("Level ID Changed... requiresPF={0}", SearchGridProviderRequiresPathing);
 				if (!Zeta.CommonBot.Logic.BrainBehavior.IsVendoring)
 				{
 					 if (!LastLevelIDChangeWasTownRun)
