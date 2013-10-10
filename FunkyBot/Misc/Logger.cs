@@ -195,8 +195,7 @@ namespace FunkyBot
 		  {
 				get
 				{
-					 if (Bot.CurrentHeroName==null)
-						  Bot.UpdateCurrentAccountDetails();
+					 Bot.UpdateCurrentAccountDetails();
 
 					 return Path.Combine(sFunkySettingsPath, Bot.CurrentHeroName+".xml");
 

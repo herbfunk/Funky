@@ -214,7 +214,7 @@ namespace FunkyBot.AbilityFunky
 		  {
 				//Distance
 				if (TargetUnitConditionFlags_.Distance>-1)
-					 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Targeting.CurrentTarget.CentreDistance<=TargetUnitConditionFlags_.Distance; });
+					 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Targeting.CurrentTarget.RadiusDistance<=TargetUnitConditionFlags_.Distance; });
 				//Health
 				if (TargetUnitConditionFlags_.HealthPercent>0d)
 					 FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Targeting.CurrentUnitTarget.CurrentHealthPct.Value<=TargetUnitConditionFlags_.HealthPercent; });

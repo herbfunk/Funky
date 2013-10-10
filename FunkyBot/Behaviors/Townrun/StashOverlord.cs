@@ -13,6 +13,7 @@ using Zeta.Internals.Actors.Gizmos;
 using Zeta.Internals;
 using System.Globalization;
 using Zeta.Internals.SNO;
+using System.Collections.Generic;
 
 namespace FunkyBot
 {
@@ -40,6 +41,17 @@ namespace FunkyBot
 					 //Refresh item manager if we are not using item rules nor giles scoring.
 					 if (!Bot.Settings.ItemRules.UseItemRules&&!Bot.Settings.ItemRules.ItemRuleGilesScoring)
 						  ItemManager.Current.Refresh();
+
+					 //Update any Unidified items that we may have..
+					 var UnidItemACDGUIDs=Bot.Character.BackPack.CacheItemList.Where(i => i.Value.IsUnidentified).Select(i => i.Key).ToList();
+					 foreach (int unidItemAcdguiD in UnidItemACDGUIDs)
+					 {
+						  using (ZetaDia.Memory.AcquireFrame())
+						  {
+								Bot.Character.BackPack.CacheItemList[unidItemAcdguiD]=new CacheACDItem(Bot.Character.BackPack.CacheItemList[unidItemAcdguiD].ACDItem);
+
+						  }
+					 }
 
 					 foreach (var thisitem in Bot.Character.BackPack.CacheItemList.Values)
 					 {
@@ -385,8 +397,8 @@ namespace FunkyBot
 						  thisGilesBaseType==GilesBaseItemType.Armor||thisGilesBaseType==GilesBaseItemType.Jewelry||thisGilesBaseType==GilesBaseItemType.Offhand||
 						  thisGilesBaseType==GilesBaseItemType.FollowerItem)
 					 {
-						  double iThisItemValue=ValueThisItem(item, OriginalGilesItemType);
-						  LogGoodItems(item, thisGilesBaseType, OriginalGilesItemType, iThisItemValue);
+
+						  LogGoodItems(item, thisGilesBaseType, OriginalGilesItemType);
 					 }
 
 					 int iPointX=-1;

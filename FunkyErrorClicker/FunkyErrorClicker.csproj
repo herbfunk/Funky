@@ -32,11 +32,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Demonbuddy">
-      <HintPath>..\FunkyTrinity\Assemblies\Demonbuddy.exe</HintPath>
+      <HintPath>Assemblies\Demonbuddy.exe</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="GreyMagic">
-      <HintPath>..\FunkyTrinity\Assemblies\GreyMagic.dll</HintPath>
+      <HintPath>Assemblies\GreyMagic.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />

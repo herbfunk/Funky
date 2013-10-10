@@ -105,7 +105,7 @@ namespace FunkyBot
 		  // **********************************************************************************************
 		  // *****                      Log the nice items we found and stashed                       *****
 		  // **********************************************************************************************
-		  internal static void LogGoodItems(CacheACDItem thisgooditem, GilesBaseItemType thisgilesbaseitemtype, GilesItemType thisgilesitemtype, double ithisitemvalue)
+		  internal static void LogGoodItems(CacheACDItem thisgooditem, GilesBaseItemType thisgilesbaseitemtype, GilesItemType thisgilesitemtype)
 		  {
 
 			  try
@@ -120,6 +120,7 @@ namespace FunkyBot
 			  {
 					Logging.WriteDiagnostic("Failure to update CacheACDItem during Logging");
 			  }
+			  double iThisItemValue=ValueThisItem(thisgooditem, thisgilesitemtype);
 
 				FileStream LogStream=null;
 				try
@@ -139,12 +140,12 @@ namespace FunkyBot
 						  {
 								if (!thisgooditem.IsUnidentified)
 								{
-									 AddNotificationToQueue(thisgooditem.ThisRealName+" ["+thisgilesitemtype.ToString()+"] (Score="+ithisitemvalue.ToString()+". "+TownRunManager.sValueItemStatString+")", ZetaDia.Service.CurrentHero.Name+" new legendary!", ProwlNotificationPriority.Emergency);
+									 AddNotificationToQueue(thisgooditem.ThisRealName+" ["+thisgilesitemtype.ToString()+"] (Score="+iThisItemValue.ToString()+". "+TownRunManager.sValueItemStatString+")", ZetaDia.Service.CurrentHero.Name+" new legendary!", ProwlNotificationPriority.Emergency);
 									 sLegendaryString=" {legendary item}";
 									 // Change made by bombastic
 									 Logging.Write("+=+=+=+=+=+=+=+=+ LEGENDARY FOUND +=+=+=+=+=+=+=+=+");
 									 Logging.Write("+  Name:       "+thisgooditem.ThisRealName+" ("+thisgilesitemtype.ToString()+")");
-									 Logging.Write("+  Score:       "+Math.Round(ithisitemvalue).ToString());
+									 Logging.Write("+  Score:       "+Math.Round(iThisItemValue).ToString());
 									 Logging.Write("+  Attributes: "+ thisgooditem.ItemStatString);
 									 Logging.Write("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+");
 								}
@@ -181,11 +182,11 @@ namespace FunkyBot
 										  break;
 								}
 								if (bShouldNotify)
-									 AddNotificationToQueue(thisgooditem.ThisRealName+" ["+thisgilesitemtype.ToString()+"] (Score="+ithisitemvalue.ToString()+". "+TownRunManager.sValueItemStatString+")", ZetaDia.Service.CurrentHero.Name+" new item!", ProwlNotificationPriority.Emergency);
+									 AddNotificationToQueue(thisgooditem.ThisRealName+" ["+thisgilesitemtype.ToString()+"] (Score="+iThisItemValue.ToString()+". "+TownRunManager.sValueItemStatString+")", ZetaDia.Service.CurrentHero.Name+" new item!", ProwlNotificationPriority.Emergency);
 						  }
 						  if (!thisgooditem.IsUnidentified)
 						  {
-								LogWriter.WriteLine(thisgilesbaseitemtype.ToString()+" - "+thisgilesitemtype.ToString()+" '"+thisgooditem.ThisRealName+"'. Score = "+Math.Round(ithisitemvalue).ToString()+sLegendaryString);
+								LogWriter.WriteLine(thisgilesbaseitemtype.ToString()+" - "+thisgilesitemtype.ToString()+" '"+thisgooditem.ThisRealName+"'. Score = "+Math.Round(iThisItemValue).ToString()+sLegendaryString);
 								LogWriter.WriteLine("  "+thisgooditem.ItemStatString);
 								LogWriter.WriteLine("");
 						  }

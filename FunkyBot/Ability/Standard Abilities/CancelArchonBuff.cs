@@ -37,7 +37,7 @@ namespace FunkyBot.AbilityFunky.Abilities
 				ExecutionType=AbilityExecuteFlags.RemoveBuff;
 				WaitVars=new WaitLoops(3, 3, true);
 				IsBuff=true;
-				Priority=AbilityPriority.High;
+				Priority=AbilityPriority.None;
 				UseageType=AbilityUseage.OutOfCombat;
 				PreCastFlags=AbilityPreCastFlags.None;
 
