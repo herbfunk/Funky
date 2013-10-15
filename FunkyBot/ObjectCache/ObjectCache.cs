@@ -161,8 +161,13 @@ namespace FunkyBot.Cache
 									 //Now modify the player data pets count..
 									 if (Bot.Class.AC==ActorClass.Monk)
 										  Bot.Character.PetData.MysticAlly++;
-									 else if (Bot.Class.AC==ActorClass.DemonHunter&&CacheIDLookup.hashDHPets.Contains(tmp_CachedObj.SNOID))
-										  Bot.Character.PetData.DemonHunterPet++;
+									 else if (Bot.Class.AC==ActorClass.DemonHunter)
+									 {
+										  if (CacheIDLookup.hashDHPets.Contains(tmp_CachedObj.SNOID))
+												Bot.Character.PetData.DemonHunterPet++;
+										  else if (CacheIDLookup.hashDHSpikeTraps.Contains(tmp_CachedObj.SNOID))
+												Bot.Character.PetData.DemonHunterSpikeTraps++;
+									 }
 									 else if (Bot.Class.AC==ActorClass.WitchDoctor)
 									 {
 										  if (CacheIDLookup.hashZombie.Contains(tmp_CachedObj.SNOID))

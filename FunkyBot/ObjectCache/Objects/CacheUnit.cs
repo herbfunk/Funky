@@ -885,7 +885,7 @@ namespace FunkyBot.Cache
 								{
 									 if (this.ObjectIsSpecial)
 									 {
-										  Bot.Combat.LoSMovementUnits.Add(this);
+										  Bot.Combat.LoSMovementObjects.Add(this);
 									 }
 										 
 									 return false;
@@ -907,7 +907,7 @@ namespace FunkyBot.Cache
 
 									 if (lastLOSCheckMS<ReCheckTime)
 									 {
-										  if (this.ObjectIsSpecial) Bot.Combat.LoSMovementUnits.Add(this);
+										  if (this.ObjectIsSpecial) Bot.Combat.LoSMovementObjects.Add(this);
 										  return false;
 									 }
 								}
@@ -920,7 +920,7 @@ namespace FunkyBot.Cache
 									 //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
 									 if (this.ObjectIsSpecial)
 									 {
-										  Bot.Combat.LoSMovementUnits.Add(this);
+										  Bot.Combat.LoSMovementObjects.Add(this);
 									 }
 
 									 //Valid?? Did we find a location we could move to for LOS?

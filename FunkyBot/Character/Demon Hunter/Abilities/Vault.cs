@@ -30,8 +30,8 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 
 				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|
 											AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckRecastTimer);
-				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None, 10);
-				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 1);
+				//TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None, 10);
+				//UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 1);
 
 				FCombatMovement=new Func<Vector3, Vector3>((v) =>
 				{

@@ -47,7 +47,7 @@ namespace FunkyBot.Cache
 				internal List<int> UnitRAGUIDs=new List<int>();
 				internal List<int> ValidClusterUnits=new List<int>();
 				internal List<CacheUnit> DistantUnits=new List<CacheUnit>();
-				internal List<CacheUnit> LoSMovementUnits=new List<CacheUnit>();
+				internal List<CacheObject> LoSMovementObjects=new List<CacheObject>();
 				private ClusterConditions TargetClusterConditions=new ClusterConditions(Bot.Settings.Cluster.ClusterDistance, 100f, Bot.Settings.Cluster.ClusterMinimumUnitCount, false);
 				internal ClusterTargetCollection TargetClusterCollection { get; set; }
 
@@ -248,7 +248,7 @@ namespace FunkyBot.Cache
 					 NearbyObstacleObjects.Clear();
 					 FleeTriggeringUnits.Clear();
 					 DistantUnits.Clear();
-					 LoSMovementUnits.Clear();
+					 LoSMovementObjects.Clear();
 				}
 		  }
 

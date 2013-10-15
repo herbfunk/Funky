@@ -646,7 +646,7 @@ namespace FunkyBot.Movement
 				#endregion
 
 				#region Line of Sight Movement
-				internal CacheUnit LOSmovementUnit=null;
+				internal CacheObject LOSmovementObject=null;
 				internal Vector3 LOSVector=Vector3.Zero;
 				internal List<int> LOSBlacklistedRAGUIDs=new List<int>();
 				#endregion

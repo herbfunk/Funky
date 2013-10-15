@@ -136,7 +136,7 @@ namespace FunkyBot.Movement
 								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 									 Logger.Write(LogLevel.Movement, "Line of Sight Movement Stalled!");
 
-								Bot.NavigationCache.LOSmovementUnit=null;
+								Bot.NavigationCache.LOSmovementObject=null;
 								Bot.Targeting.bForceTargetUpdate=true;
 								NonMovementCounter=0;
 								// Reset the emergency loop counter and return success

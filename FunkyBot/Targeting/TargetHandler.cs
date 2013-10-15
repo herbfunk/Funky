@@ -467,7 +467,7 @@ namespace FunkyBot.Targeting
 					 if (Navigation.NP.CurrentPath.Count==0)
 					 {
 						  Bot.NavigationCache.LOSVector=Vector3.Zero;
-						  Bot.NavigationCache.LOSmovementUnit=null;
+						  Bot.NavigationCache.LOSmovementObject=null;
 						  this.bForceTargetUpdate=true;
 						  return false;
 					 }

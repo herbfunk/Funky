@@ -9,6 +9,7 @@ namespace FunkyBot.Cache
 		  WITCHDOCTOR_ZombieDogs=4,
 		  DEMONHUNTER_Pet=8,
 		  WIZARD_Hydra=16,
+		  DEMONHUNTER_SpikeTrap=32,
 	 }
 
 	public class Pets
@@ -89,6 +90,23 @@ namespace FunkyBot.Cache
 					dictPetCounter[PetTypes.DEMONHUNTER_Pet]=value;
 			}
 		}
+		public int DemonHunterSpikeTraps
+		{
+			 get
+			 {
+				  if (!dictPetCounter.ContainsKey(PetTypes.DEMONHUNTER_SpikeTrap))
+						dictPetCounter.Add(PetTypes.DEMONHUNTER_SpikeTrap, 0);
+
+				  return dictPetCounter[PetTypes.DEMONHUNTER_SpikeTrap];
+			 }
+			 set
+			 {
+				  if (!dictPetCounter.ContainsKey(PetTypes.DEMONHUNTER_SpikeTrap))
+						dictPetCounter.Add(PetTypes.DEMONHUNTER_SpikeTrap, value);
+				  else
+						dictPetCounter[PetTypes.DEMONHUNTER_SpikeTrap]=value;
+			 }
+		}
 		public int WizardHydra
 		{
 			get
@@ -114,6 +132,7 @@ namespace FunkyBot.Cache
 			ZombieDogs=0;
 			DemonHunterPet=0;
 			WizardHydra=0;
+			DemonHunterSpikeTraps=0;
 		}
 
 	}

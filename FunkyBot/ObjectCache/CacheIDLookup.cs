@@ -792,6 +792,8 @@ namespace FunkyBot.Cache
 				{ 
             54908, 56686, 54850, 454, 211999, 52685, 54882, 89665, 
          };
+
+				public static readonly HashSet<int> hashDHSpikeTraps=new HashSet<int> { 158941, 111330 };
 				// Three special lists used purely for checking for the existance of a player's summoned mystic ally, gargantuan, or zombie dog
 				public static readonly HashSet<int> hashMysticAlly=new HashSet<int> { 169123, 123885, 169890, 168878, 169891, 169077, 169904, 169907, 169906, 169908, 169905, 169909 };
 				public static readonly HashSet<int> hashGargantuan=new HashSet<int> { 179780, 179778, 179772, 179779, 179776, 122305 };
@@ -805,7 +807,8 @@ namespace FunkyBot.Cache
                                                                                     179780, 179778, 179772, 179779, 179776, 122305,
                                                                                      110959, 103235, 103215, 105763, 103217, 51353,
                                                                                       178664, 173827, 133741, 159144, 181748, 159098,
-																													80745, 81515, 82111, 82972, 82109, 83959, };
+																													80745, 81515, 82111, 82972, 82109, 83959,
+																													 158941, 111330};
 		  }
 	 
 }

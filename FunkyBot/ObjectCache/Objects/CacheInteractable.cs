@@ -76,7 +76,10 @@ namespace FunkyBot.Cache
 
 						//unless its in front of us.. we wait 500ms mandatory.
 						if (lastLOSCheckMS<500&&centreDistance>1f)
+						{
+							 if (this.ObjectIsSpecial) Bot.Combat.LoSMovementObjects.Add(this);
 							 return false;
+						}
 						else
 						{
 							 //Set the maximum wait time
@@ -89,11 +92,15 @@ namespace FunkyBot.Cache
 								  ReCheckTime*=0.25;
 
 							 if (lastLOSCheckMS<ReCheckTime)
+							 {
+								  if (this.ObjectIsSpecial) Bot.Combat.LoSMovementObjects.Add(this);
 								  return false;
+							 }
 						}
 
 						if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, false))
 						{
+							 if (this.ObjectIsSpecial) Bot.Combat.LoSMovementObjects.Add(this);
 							 return false;
 						}
 

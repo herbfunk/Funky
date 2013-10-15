@@ -19,24 +19,24 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 		  public override void Initialize()
 		  {
 				Cooldown=1000;
-				ExecutionType=AbilityExecuteFlags.Location;
+				ExecutionType=AbilityExecuteFlags.Location|AbilityExecuteFlags.ClusterTargetNearest;
 				WaitVars=new WaitLoops(1, 1, true);
 				Cost=30;
 				Range=40;
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.Low;
 
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|
-											AbilityPreCastFlags.CheckEnergy);
-				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 4);
-				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_30, 1);
-				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 35);
+				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy);
 
+				//UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 4);
+				//ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_30, 1);
+
+				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial);
+				ClusterConditions=new AbilityFunky.ClusterConditions(6d, 45f, 2, true);
 
 				FcriteriaCombat=new Func<bool>(() =>
 				{
-					 return Bot.Class.LastUsedAbility.Power!=SNOPower.DemonHunter_SpikeTrap;
-
+					 return Bot.Character.PetData.DemonHunterSpikeTraps<3;
 				});
 		  }
 
