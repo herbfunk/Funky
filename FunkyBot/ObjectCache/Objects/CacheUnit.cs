@@ -883,7 +883,7 @@ namespace FunkyBot.Cache
 								//unless its in front of us.. we wait 500ms mandatory.
 								if (lastLOSCheckMS<500&&centreDistance>1f)
 								{
-									 if (this.ObjectIsSpecial)
+									 if (this.IsEliteRareUnique||this.IsTreasureGoblin)
 									 {
 										  Bot.Combat.LoSMovementObjects.Add(this);
 									 }
@@ -907,7 +907,7 @@ namespace FunkyBot.Cache
 
 									 if (lastLOSCheckMS<ReCheckTime)
 									 {
-										  if (this.ObjectIsSpecial) Bot.Combat.LoSMovementObjects.Add(this);
+										  if (this.IsEliteRareUnique||this.IsTreasureGoblin) Bot.Combat.LoSMovementObjects.Add(this);
 										  return false;
 									 }
 								}
@@ -918,7 +918,7 @@ namespace FunkyBot.Cache
 									 //LOS Movement -- Check for special objects
 									 bool Valid=false;
 									 //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
-									 if (this.ObjectIsSpecial)
+									 if (this.IsEliteRareUnique||this.IsTreasureGoblin)
 									 {
 										  Bot.Combat.LoSMovementObjects.Add(this);
 									 }

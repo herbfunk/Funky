@@ -282,6 +282,11 @@ namespace FunkyBot
 						 // TotalTimeRunning=DateTime.Now.Subtract(CurrentGame.StartTime).Add(TotalTimeRunning);
 					 }
 
+					 public int GetTotalDeaths()
+					 {
+						 return CurrentGame.Deaths+TotalDeaths;
+					 }
+
 					 public class CurrentGameStats
 					 {
 						  public CurrentGameStats() { Reset(); }

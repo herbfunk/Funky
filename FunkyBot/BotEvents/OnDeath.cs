@@ -35,7 +35,7 @@ namespace FunkyBot
 					 Bot.Stats.lastDied=DateTime.Now;
 					 Bot.Stats.iTotalDeaths++;
 					 Bot.Stats.iDeathsThisRun++;
-					 Bot.BotStatistics.GameStats.TotalDeaths++;
+					 //Bot.BotStatistics.GameStats.TotalDeaths++;
 
 					 //Herbfunk Stats
 					 Bot.BotStatistics.GameStats.CurrentGame.Deaths++;

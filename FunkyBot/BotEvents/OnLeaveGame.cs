@@ -13,8 +13,6 @@ namespace FunkyBot
         // Each time we join & leave a game, might as well clear the hashset of looked-at dropped items - just to keep it smaller
         private static void FunkyOnLeaveGame(object src, EventArgs mea)
         {
-
-				Bot.Stats.iTotalLeaveGames++;
 				//Update Game Duration..
 				Bot.BotStatistics.ProfileStats.OutputReport();
 

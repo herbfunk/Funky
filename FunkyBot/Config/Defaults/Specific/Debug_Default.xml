@@ -2,7 +2,7 @@
 <SettingDebug xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <DebugStatusBar>true</DebugStatusBar>
   <LogGroupingOutput>false</LogGroupingOutput>
-  <FunkyLogFlags>All</FunkyLogFlags>
+  <FunkyLogFlags>None</FunkyLogFlags>
   <SkipAhead>true</SkipAhead>
   <LogStuckLocations>true</LogStuckLocations>
   <EnableUnstucker>true</EnableUnstucker>

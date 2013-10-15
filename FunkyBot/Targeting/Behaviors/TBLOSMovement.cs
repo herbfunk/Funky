@@ -50,6 +50,7 @@ namespace FunkyBot.Targeting.Behaviors
 									 Logger.Write(LogLevel.Movement, "LOS Unit is No Longer Valid -- Reseting.");
 								}
 
+								Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(Bot.NavigationCache.LOSmovementObject.RAGUID);
 								Bot.NavigationCache.LOSVector=Vector3.Zero;
 								Bot.NavigationCache.LOSmovementObject=null;
 						  }

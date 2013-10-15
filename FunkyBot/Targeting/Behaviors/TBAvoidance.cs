@@ -14,8 +14,8 @@ namespace FunkyBot.Targeting.Behaviors
 		  {
 				get
 				{
-					 return (Bot.Targeting.RequiresAvoidance&&(!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.Settings.Targeting.GoblinPriority<2)
-							&&(DateTime.Now.Subtract(Bot.Combat.timeCancelledEmergencyMove).TotalMilliseconds>Bot.Combat.iMillisecondsCancelledEmergencyMoveFor));
+					 return (Bot.Targeting.RequiresAvoidance&&(!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.Settings.Targeting.GoblinPriority<2));
+							//&&(DateTime.Now.Subtract(Bot.Combat.timeCancelledEmergencyMove).TotalMilliseconds>Bot.Combat.iMillisecondsCancelledEmergencyMoveFor));
 				}
 		  }
 		  public override void Initialize()

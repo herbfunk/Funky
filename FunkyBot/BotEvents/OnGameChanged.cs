@@ -18,6 +18,7 @@ namespace FunkyBot
 		  {
 				Navigator.SearchGridProvider.Update();
 				ResetGame();
+				Bot.RefreshGameID();
 		  }
     }
 }

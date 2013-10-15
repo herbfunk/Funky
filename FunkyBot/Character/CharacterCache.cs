@@ -59,6 +59,16 @@ namespace FunkyBot.Cache
 					 public bool bIsRooted { get; set; }
 					 public bool bIsInTown { get; set; }
 
+
+
+					 public delegate void HealthValueChanged(double oldvalue, double newvalue);
+					 public event HealthValueChanged OnHealthChanged;
+					 private void healthvalueChanged(double oldvalue, double newvalue)
+					 {
+						  dCurrentHealthPct=newvalue;
+						  if (OnHealthChanged!=null)
+								this.OnHealthChanged(oldvalue, newvalue);
+					 }
 					 private double dcurrentHealthPct;
 					 public double dCurrentHealthPct
 					 {
@@ -230,7 +240,13 @@ namespace FunkyBot.Cache
 										  dDisciplinePct=Bot.Character.dDiscipline/me.MaxSecondaryResource;
 									 }
 
-									 dCurrentHealthPct=me.HitpointsCurrentPct;
+									 double curhealthpct=me.HitpointsCurrentPct;
+									 if (!this.dcurrentHealthPct.Equals(curhealthpct))
+										  healthvalueChanged(dcurrentHealthPct, curhealthpct);
+
+									 
+
+
 									 if (this.ShouldFlee) Bot.Targeting.RequiresAvoidance=true;
 
 									 dCurrentEnergy=me.CurrentPrimaryResource;

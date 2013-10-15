@@ -13,6 +13,7 @@ using Zeta.Internals;
 using Zeta.Internals.Actors;
 using System.Threading;
 using FunkyBot.Avoidances;
+using Zeta.Internals.Service;
 
 namespace FunkyBot
 {
@@ -76,6 +77,29 @@ namespace FunkyBot
 					 {
 						  Logging.WriteDiagnostic("[Funky] Exception Attempting to Update Current Account Details.");
 					 }
+				}
+
+				internal static GameId currentGameID=new GameId();
+				internal static bool RefreshGameID()
+				{
+					 GameId curgameID=currentGameID;
+					using (ZetaDia.Memory.AcquireFrame())
+					{
+						curgameID=ZetaDia.Service.CurrentGameId;
+					}
+
+					 if (!curgameID.Equals(currentGameID))
+					 {
+						  Bot.BotStatistics.GameStats.Update();
+						  //Start new current game stats
+						  Bot.BotStatistics.ItemStats.CurrentGame.Reset();
+						  Bot.BotStatistics.GameStats.CurrentGame.Reset();
+
+						  currentGameID=curgameID;
+						  return true;
+					 }
+
+					 return false;
 				}
 
 				///<summary>

@@ -631,7 +631,7 @@ namespace FunkyBot.Cache
 						  }
 					 }
 
-					 base.DistanceFromTarget=Vector3.Distance(Bot.Character.Position, this.Position)-fDistanceReduction;
+					 base.DistanceFromTarget=Bot.Character.Position.Distance2D(this.Position)-fDistanceReduction;
 					 return (fRangeRequired<=0f||base.DistanceFromTarget<=fRangeRequired);
 				}
 

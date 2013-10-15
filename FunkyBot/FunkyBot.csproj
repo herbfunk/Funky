@@ -72,6 +72,9 @@
     <Compile Include="Behaviors\Misc\CharacterMule\Game.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="BotEvents\Death.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Character\Backpack.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

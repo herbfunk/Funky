@@ -169,8 +169,8 @@ namespace FunkyBot
 					 "Items looted per minute "+itemPerMin.ToString("F2", System.Globalization.CultureInfo.InvariantCulture) +"\r\n"+
                 "============================================"+"\r\n"+
 					  "Total time running "+totalTime.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)+" minutes"+"\r\n"+
-					  "Total Game Count "+Bot.BotStatistics.GameStats.TotalGames.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)+"\r\n"+
-					  "Total Death Count "+Bot.BotStatistics.GameStats.TotalDeaths.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+					  "Total Game Count "+Bot.BotStatistics.GameStats.TotalGames.ToString()+"\r\n"+
+					  "Total Death Count "+Bot.BotStatistics.GameStats.GetTotalDeaths().ToString();
 
             return ReturnStr;
         }

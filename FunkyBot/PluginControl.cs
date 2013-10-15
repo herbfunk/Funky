@@ -12,6 +12,7 @@ using Zeta.TreeSharp;
 using Zeta.Internals.Actors;
 using System.Xml;
 using System.Windows;
+using Decorator=Zeta.TreeSharp.Decorator;
 
 namespace FunkyBot
 {
@@ -364,6 +365,34 @@ namespace FunkyBot
 						  hook.Value[0]=CompositeReplacement;
 
 						  Logging.WriteDiagnostic("Out of game tree hooked");
+					 }
+					 if (hook.Key.Contains("Death"))
+					 {
+						  Zeta.TreeSharp.PrioritySelector DeathPrioritySelector=hook.Value[0] as Zeta.TreeSharp.PrioritySelector;
+
+						  //CanRunDecoratorDelegate canRunDeathBehavior=new CanRunDecoratorDelegate(Death.DeathOverlord);
+						
+						  //Sequence sequenceDeath=new Sequence(
+						  //	 new Zeta.TreeSharp.Action(actionDelgateDeath)
+						  //);
+						  //DeathPrioritySelector.Children[0]=new Zeta.TreeSharp.Decorator(canRunDeathBehavior, sequenceDeath);
+
+						  Decorator DeathDecorator=DeathPrioritySelector.Children[0] as Decorator;
+						  Sequence DeathSequence=DeathDecorator.Children[0] as Sequence;
+						  ActionDelegate actionDelgateDeath=new ActionDelegate(Death.DeathHandler);
+						  DeathSequence.InsertChild(0, new Zeta.TreeSharp.Action(actionDelgateDeath));
+						  /*
+						   17:10:24.548 N] Zeta.TreeSharp.Action
+						  [17:10:24.548 N] Zeta.TreeSharp.DecoratorContinue
+						  [17:10:24.548 N] Zeta.TreeSharp.Action
+						  [17:10:24.548 N] Zeta.TreeSharp.Sleep
+						  [17:10:24.548 N] Zeta.TreeSharp.Action
+						  */
+						 // foreach (var item in DeathSequence.Children)
+						 //{
+						 //	 Logging.Write(item.GetType().ToString());
+						 //}
+						 
 					 }
 				}
 				#endregion
