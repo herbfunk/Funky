@@ -77,7 +77,7 @@ namespace FunkyBot
 						  //Returns a temp total of looted items.
 						  int[] tmp_LootedTotals=(int[])lootedItemTotals.Clone();
 						  int[] tmp_CurrentGameTotals=CurrentGame.temp_LootedTotals();
-						  for (int i=0; i<6; i++)
+						  for (int i=0; i<7; i++)
 						  {
 								tmp_LootedTotals[i]+=tmp_CurrentGameTotals[i];
 						  }
@@ -91,7 +91,7 @@ namespace FunkyBot
 						  int[] tmp_StashedTotals=(int[])stashedItemTotals.Clone();
 						  int[] tmp_CurrentGameTotals=CurrentGame.temp_StashedTotals();
 
-						  for (int i=0; i<6; i++)
+						  for (int i=0; i<7; i++)
 						  {
 								tmp_StashedTotals[i]+=tmp_CurrentGameTotals[i];
 						  }
@@ -125,7 +125,7 @@ namespace FunkyBot
 
 					 private void UpdateTotals()
 					 {
-						  for (int i=0; i<6; i++)
+						  for (int i=0; i<7; i++)
 						  {
 								lootedItemTotals[i]+=CurrentGame.lootedItemTotals[i];
 								stashedItemTotals[i]+=CurrentGame.stashedItemTotals[i];
@@ -138,7 +138,7 @@ namespace FunkyBot
 									 droppedItemTotals.Add(ilvl, CurrentGame.droppedItemTotals[ilvl]);
 								else
 								{
-									 for (int i=0; i<6; i++)
+									 for (int i=0; i<7; i++)
 									 {
 										  droppedItemTotals[ilvl][i]+=CurrentGame.droppedItemTotals[ilvl][i];
 									 }
@@ -174,7 +174,7 @@ namespace FunkyBot
 						  public void ProfileChanged(ProfileStatisics.ProfileStats.ProfileItemStats stats)
 						  {
 								//Update Current Game Stats using the profile stats.
-								for (int i=0; i<6; i++)
+								for (int i=0; i<7; i++)
 								{
 									 lootedItemTotals[i]+=stats.lootedItemTotals[i];
 									 stashedItemTotals[i]+=stats.stashedItemTotals[i];
@@ -187,7 +187,7 @@ namespace FunkyBot
 										  droppedItemTotals.Add(ilvl, stats.droppedItemTotals[ilvl]);
 									 else
 									 {
-										  for (int i=0; i<6; i++)
+										  for (int i=0; i<7; i++)
 										  {
 												droppedItemTotals[ilvl][i]+=stats.droppedItemTotals[ilvl][i];
 										  }
@@ -198,7 +198,7 @@ namespace FunkyBot
 						  public int LootTotal()
 						  {
 								int count=0;
-								for (int i=0; i<6; i++)
+								for (int i=0; i<7; i++)
 								{
 									 count+=lootedItemTotals[i];
 								}
@@ -209,7 +209,7 @@ namespace FunkyBot
 						  public int StashTotal()
 						  {
 								int count=0;
-								for (int i=0; i<6; i++)
+								for (int i=0; i<7; i++)
 								{
 									 count+=stashedItemTotals[i];
 								}
@@ -225,7 +225,7 @@ namespace FunkyBot
 								if (ProfileStats.CurrentProfile==null)
 									 return tmp_LootedTotals;
 
-								for (int i=0; i<6; i++)
+								for (int i=0; i<7; i++)
 								{
 									 tmp_LootedTotals[i]+=ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[i];
 								}
@@ -240,7 +240,7 @@ namespace FunkyBot
 								if (ProfileStats.CurrentProfile==null)
 									 return tmp_StashedTotals;
 
-								for (int i=0; i<6; i++)
+								for (int i=0; i<7; i++)
 								{
 									 tmp_StashedTotals[i]+=ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[i];
 								}
@@ -279,7 +279,7 @@ namespace FunkyBot
 					 {
 						  TotalGames++;
 						  TotalDeaths+=CurrentGame.Deaths;
-						  TotalTimeRunning=DateTime.Now.Subtract(CurrentGame.StartTime).Add(TotalTimeRunning);
+						 // TotalTimeRunning=DateTime.Now.Subtract(CurrentGame.StartTime).Add(TotalTimeRunning);
 					 }
 
 					 public class CurrentGameStats

@@ -303,7 +303,7 @@ namespace FunkyBot.Cache
 								if (this.Itemquality>=ItemQuality.Legendary) dMultiplier+=0.45d;
 								double lootDistance=this.LootRadius*dMultiplier;
 
-								if (Bot.IsInNonCombatBehavior) lootDistance=50f;
+								if (Bot.IsInNonCombatBehavior) lootDistance=Funky.Settings.OutofCombatMaxDistance;
 
 								float centredistance=this.CentreDistance;
 
@@ -354,7 +354,7 @@ namespace FunkyBot.Cache
 
 									 double lootRange=this.LootRadius;
 
-									 if (Bot.IsInNonCombatBehavior) lootRange=50f;
+									 if (Bot.IsInNonCombatBehavior) lootRange=Funky.Settings.OutofCombatMaxDistance;
 
 									 if (this.CentreDistance>lootRange)
 									 {

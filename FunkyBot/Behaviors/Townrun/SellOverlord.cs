@@ -89,16 +89,20 @@ namespace FunkyBot
 
 					 bool bShouldVisitVendor=Bot.Character.BackPack.townRunCache.hashGilesCachedSellItems.Count>0;
 
-					 // Check durability percentages
-					 bNeedsEquipmentRepairs=Bot.Character.BackPack.ShouldRepairItems();
-
-
 					 if (bShouldVisitVendor)
 					 {
 						  Bot.Character.BackPack.townRunCache.sortSellList();
 					 }
-
-					 if (!bShouldVisitVendor) bShouldVisitVendor=bNeedsEquipmentRepairs;
+					 else
+					 {
+						 if (!bCheckedItemDurability)
+						 {
+							  bCheckedItemDurability=true;
+							  // Check durability percentages
+							  bNeedsEquipmentRepairs=Bot.Character.BackPack.ShouldRepairItems();
+							  bShouldVisitVendor=bNeedsEquipmentRepairs;
+						 }
+					 }
 
 					 return bShouldVisitVendor;
 				}

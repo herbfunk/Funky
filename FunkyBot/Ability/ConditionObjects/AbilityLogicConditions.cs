@@ -116,6 +116,7 @@ namespace FunkyBot.AbilityFunky
 
 		  private static void CreateTargetConditions(ref Func<bool> FSingleTargetUnitCriteria, Ability ability)
 		  {
+				//TODO:: Redesign to allow multiple single target conditions to be used.
 
 				FSingleTargetUnitCriteria=null;
 
@@ -149,12 +150,14 @@ namespace FunkyBot.AbilityFunky
 								{
 									 if (!LOSINFO.LOSTest(Bot.Character.Position, true, false, NavCellFlags.AllowProjectile))
 									 {
+										  bool MovementException=((Bot.Targeting.CurrentUnitTarget.MonsterTeleport||Bot.Targeting.CurrentTarget.IsTransformUnit)&&Bot.Targeting.CurrentUnitTarget.AnimState==Zeta.Internals.Actors.AnimationState.Transform);
+
 										  //Raycast failed.. reset LOS Check -- for valid checking.
 										  if (!LOSINFO.RayCast.Value) 
 												Bot.Targeting.CurrentTarget.RequiresLOSCheck=true;
 										  else if (!LOSINFO.NavCellProjectile.Value) //NavCellFlag Walk Failed
 										  {
-												if (!Bot.Targeting.CurrentTarget.IsFlyingHoverUnit)
+												if (!Bot.Targeting.CurrentTarget.IsFlyingHoverUnit&&!MovementException)
 													 return false;
 												else
 													 LOSINFO.NavCellProjectile=true;

@@ -648,6 +648,7 @@ namespace FunkyBot.Movement
 				#region Line of Sight Movement
 				internal CacheUnit LOSmovementUnit=null;
 				internal Vector3 LOSVector=Vector3.Zero;
+				internal List<int> LOSBlacklistedRAGUIDs=new List<int>();
 				#endregion
 
 				// For "position-shifting" to navigate around obstacle SNO's

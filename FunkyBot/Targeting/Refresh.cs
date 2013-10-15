@@ -270,6 +270,8 @@ namespace FunkyBot.Targeting
 
 						  //Reset Skip Ahead Cache
 						  SkipAheadCache.ClearCache();
+
+						  Bot.NavigationCache.LOSBlacklistedRAGUIDs.Clear();
 					 }
 
 					 Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");

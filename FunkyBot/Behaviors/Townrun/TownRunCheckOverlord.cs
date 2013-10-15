@@ -25,6 +25,8 @@ namespace FunkyBot
 				internal static bool bLoggedAnythingThisStash=false;
 				private static bool bUpdatedStashMap=false;
 				private static bool bCheckUnidItems=false;
+				private static bool bCheckedItemDurability=false;
+
 				internal static bool bLoggedJunkThisStash=false;
 				internal static string sValueItemStatString="";
 				internal static string sJunkItemStatString="";
@@ -39,8 +41,6 @@ namespace FunkyBot
 				private static bool bNeedsEquipmentRepairs=false;
 				// Stash mapper - it's an array representing every slot in your stash, true or false dictating if the slot is free or not
 				private static bool[,] GilesStashSlotBlocked=new bool[7, 30];
-
-				internal static List<Cache.CacheACDItem> StashedItems=new List<Cache.CacheACDItem>();
 
 				// **********************************************************************************************
 				// *****         TownRunCheckOverlord - determine if we should do a town-run or not         *****
@@ -65,6 +65,7 @@ namespace FunkyBot
 								if (!bLastTownRunCheckResult)
 									 bPreStashPauseDone=false;
 
+								bCheckedItemDurability=false;
 								bCheckUnidItems=true;
 								bWantToTownRun=true;
 						  }

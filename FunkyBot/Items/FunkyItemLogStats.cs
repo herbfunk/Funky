@@ -148,7 +148,7 @@ namespace FunkyBot
             int TotalStashed = 0;
             int TotalLooted = 0;
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 7; i++)
             {
                 TotalStashed += stashedCounts[i];
                 TotalLooted += lootedCounts[i];
@@ -156,7 +156,6 @@ namespace FunkyBot
 
             double itemPerMin = Math.Round(TotalLooted / diff1.TotalMinutes, 1);
             double totalTime = Math.Round(diff1.TotalMinutes, 1);
-				int totalDeaths=Bot.BotStatistics.GameStats.TotalDeaths;
 
             string ReturnStr = "\r\n" + "============================================" + "\r\n" +
                 "Total Looted (" + TotalLooted + ") / Stashed (" + TotalStashed + ")" + "\r\n" +

@@ -31,9 +31,11 @@ namespace FunkyBot
 
 				if (DateTime.Now.Subtract(Bot.Stats.lastDied).TotalSeconds>10)
 				{
+					 
 					 Bot.Stats.lastDied=DateTime.Now;
 					 Bot.Stats.iTotalDeaths++;
 					 Bot.Stats.iDeathsThisRun++;
+					 Bot.BotStatistics.GameStats.TotalDeaths++;
 
 					 //Herbfunk Stats
 					 Bot.BotStatistics.GameStats.CurrentGame.Deaths++;

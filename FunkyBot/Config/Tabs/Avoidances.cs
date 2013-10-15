@@ -201,6 +201,12 @@ namespace FunkyBot
 					 Background=System.Windows.Media.Brushes.DarkRed,
 					 Foreground=System.Windows.Media.Brushes.GhostWhite,
 				};
+
+
+				ToolTip TT_AvoidanceWeight=new System.Windows.Controls.ToolTip
+				{
+					 Content="Weight compared to other avoidances (higher is deadlier)",
+				};
 				TextBlock ColumnHeader4=new TextBlock
 				{
 					 Text="Weight",
@@ -208,7 +214,9 @@ namespace FunkyBot
 					 TextAlignment=System.Windows.TextAlignment.Center,
 					 Background=System.Windows.Media.Brushes.DarkSlateBlue,
 					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 ToolTip=TT_AvoidanceWeight,
 				};
+
 				Grid.SetColumn(ColumnHeader1, 0);
 				Grid.SetColumn(ColumnHeader2, 1);
 				Grid.SetColumn(ColumnHeader3, 2);

@@ -51,9 +51,6 @@ namespace FunkyBot
 
 				// Darkfriend's Looting Rule
 				internal static Interpreter ItemRulesEval;
-
-
-
 				
 				internal static ActorClass ActorClass=ActorClass.Invalid;
 				internal static string CurrentAccountName;

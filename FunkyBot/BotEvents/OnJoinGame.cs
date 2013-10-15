@@ -18,6 +18,8 @@ namespace FunkyBot
 				Bot.Stats.iTotalJoinGames++;
 				Bot.Stats.LastJoinedGame=DateTime.Now;
 
+				Bot.BotStatistics.GameStats.Update();
+
             ResetGame();
             //Start new current game stats
 				Bot.BotStatistics.ItemStats.CurrentGame.Reset();

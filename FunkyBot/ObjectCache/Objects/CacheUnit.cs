@@ -502,7 +502,7 @@ namespace FunkyBot.Cache
 
 						  // Standard 50f range when preforming OOC behaviors!
 						  if (Bot.IsInNonCombatBehavior)
-								dUseKillRadius=50;
+								dUseKillRadius=Funky.Settings.OutofCombatMaxDistance;
 
 						  return dUseKillRadius;
 					 }

@@ -68,6 +68,8 @@ namespace FunkyBot.Targeting.Behaviors
 									 foreach (var unit in validLosUnitCluster.ListUnits)
 									 {//Iterate Units
 
+										  if (Bot.NavigationCache.LOSBlacklistedRAGUIDs.Contains(unit.RAGUID)) continue;
+
 										  //We only want units with high health!
 										  if (unit.CurrentHealthPct.Value>0.75d)
 										  {
@@ -78,6 +80,8 @@ namespace FunkyBot.Targeting.Behaviors
 												{
 													 Logger.Write(LogLevel.Movement, "Line of Sight Started for object {0} -- with {1} vectors", unit.InternalName, Navigation.NP.CurrentPath.Count);
 												}
+
+												Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(unit.RAGUID);
 													 
 												//Set the unit as our Line of Sight Unit
 												Bot.NavigationCache.LOSmovementUnit=unit;
