@@ -34,13 +34,19 @@ namespace FunkyBot.Targeting.Behaviors
 								Vector3 reuseV3=Bot.NavigationCache.AttemptToReuseLastLocationFound();
 								if (reuseV3!=Vector3.Zero)
 								{
-									 obj=new CacheObject(reuseV3, TargetType.Avoidance, 20000f, "FleeSpot", 2.5f, -1);
+									 obj=new CacheObject(reuseV3, TargetType.Fleeing, 20000f, "ReuseFleeSpot", 2.5f, -1);
 									 return true;
 								}
 						  }
 
 						  Vector3 vAnySafePoint;
-						  if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, Vector3.Zero, true))
+
+						  //Setup Line of Sight for last target if its a unit and still valid..
+						  Vector3 LineOfSight=Bot.Targeting.LastCachedTarget.targetType.Value==TargetType.Unit&&
+								Bot.Targeting.LastCachedTarget.ObjectIsValidForTargeting?Bot.Targeting.LastCachedTarget.Position:
+								Vector3.Zero;
+
+						  if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, LineOfSight, true))
 						  {
 
 								Logging.WriteDiagnostic("Flee Movement found AT {0} with {1} Distance", vAnySafePoint.ToString(), vAnySafePoint.Distance(Bot.Character.Position));
@@ -48,8 +54,8 @@ namespace FunkyBot.Targeting.Behaviors
 
 								//if (obj!=null)FunkyTrinity.Bot.Character.LastCachedTarget=obj;
 
-								obj=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "FleeSpot", 2.5f, -1);
-								Bot.Combat.iSecondsFleeMoveFor=1+(int)(Vector3.Distance(Bot.Character.Position, vAnySafePoint)/25f);
+								obj=new CacheObject(vAnySafePoint, TargetType.Fleeing, 20000f, "FleeSpot", 2.5f, -1);
+								Bot.Combat.iSecondsFleeMoveFor=1+(int)(Vector3.Distance(Bot.Character.Position, vAnySafePoint)/5f);
 								return true;
 						  }
 						  Avoidances.AvoidanceCache.UpdateAvoidKiteRates();
