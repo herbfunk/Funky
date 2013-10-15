@@ -19,7 +19,7 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 		  public override void Initialize()
 		  {
 				Cooldown=10000;
-				ExecutionType=AbilityExecuteFlags.Target;
+				ExecutionType=AbilityExecuteFlags.Target|AbilityExecuteFlags.ClusterTarget;
 				WaitVars=new WaitLoops(1, 1, true);
 				Cost=3;
 				SecondaryEnergy=true;
@@ -28,9 +28,8 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 				Priority=AbilityPriority.Low;
 				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
 											AbilityPreCastFlags.CheckRecastTimer);
-				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_40, 3);
-				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_40, 1);
-				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 40);
+				ClusterConditions=new ClusterConditions(4d, 35f, 2, true);
+				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.RareElite, 40);
 
 		  }
 

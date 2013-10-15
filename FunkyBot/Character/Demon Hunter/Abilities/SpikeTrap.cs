@@ -31,7 +31,7 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 				//UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 4);
 				//ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_30, 1);
 
-				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial);
+				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.RareElite);
 				ClusterConditions=new AbilityFunky.ClusterConditions(6d, 45f, 2, true);
 
 				FcriteriaCombat=new Func<bool>(() =>
