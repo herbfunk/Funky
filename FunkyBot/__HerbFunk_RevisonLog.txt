@@ -1,7 +1,29 @@
 ﻿// herbfunk revisions
 v2.6.1.0
 
+Ability:
 -Line of sight checking for ranged abilities should no longer ignore "transforming" units.
+-Added IsChanneling Property (this will allow buffs to be used during target handling)
+
+Line of Sight Behavior:
+-Added Blacklist of previous objects.
+-Rare chests are now capable of being used as the target. (when Increase Range for Rare Chests is enabled)
+-Units capable of being selected is now limited to Rare/Elites/Uniques/Goblins
+
+Demon Hunter:
+-Modified Spike trap criteria.
+
+Misc:
+-Added Townrun Movement hook to reduce the lag trying to travel back to the townportal.
+-Fixed Stats (Keys are now counted, Death/Game counter are now accurate)
+-Item objects now use 2D to check distance.
+-Avoidance behavior no longer checks time in the conditional property.
+
+Code:
+-Added Death treehook (BotEvents -> Death.cs). This does not override the DB behavior but is used prior to the DB behavior.
+-Character CurrentHitPointsPct event added when Value Changes.
+-Character CurrentLevelID event added when Value Changes.
+
 
 
 v2.6.0.0
