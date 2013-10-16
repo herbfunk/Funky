@@ -310,5 +310,11 @@ namespace FunkyBot
 					 return RunStatus.Running;
 				}
 		  }
+
+		  internal static RunStatus FunkyTownPortalTownRun(object ret)
+		  {
+				TownRunManager.TownrunStartedInTown=false;
+				return RunStatus.Success;
+		  }
 	 }
 }

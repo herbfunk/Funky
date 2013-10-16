@@ -118,13 +118,13 @@ namespace FunkyBot.Movement
 								Bot.Combat.timeCancelledFleeMove=DateTime.Now;
 
 								//Check if we can walk to this location from current location..
-								if (!Navigation.CanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
+								if (!Navigation.CanRayCast(Bot.Character.Position, CurrentTargetLocation, UseSearchGridProvider: true))
 								{
 									 obj.RequiresLOSCheck=true;
 									 obj.BlacklistLoops=50;
 
 									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
-										  Logger.Write(LogLevel.Movement, "Ignoring Item {0} -- due to AllowWalk RayCast Failure!", obj.InternalName);
+										  Logger.Write(LogLevel.Movement, "Ignoring Item {0} -- due to RayCast Failure!", obj.InternalName);
 
 									 Bot.Targeting.bForceTargetUpdate=true;
 									 return RunStatus.Running;

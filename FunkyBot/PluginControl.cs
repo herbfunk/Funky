@@ -208,8 +208,10 @@ namespace FunkyBot
 						  {
 								CanRunDecoratorDelegate canRunDelegateReturnToTown=new CanRunDecoratorDelegate(FunkyTPOverlord);
 								ActionDelegate actionDelegateReturnTown=new ActionDelegate(FunkyTPBehavior);
+								ActionDelegate actionDelegateTownPortalFinish=new ActionDelegate(FunkyTownPortalTownRun);
 								Sequence sequenceReturnTown=new Sequence(
-									new Zeta.TreeSharp.Action(actionDelegateReturnTown)
+									new Zeta.TreeSharp.Action(actionDelegateReturnTown),
+									new Zeta.TreeSharp.Action(actionDelegateTownPortalFinish)
 									);
 								GilesReplacement.Children[1]=new Zeta.TreeSharp.Decorator(canRunDelegateReturnToTown, sequenceReturnTown);
 								Logging.WriteDiagnostic("Town Run - Town Portal - hooked...");
@@ -305,8 +307,26 @@ namespace FunkyBot
 								Logging.WriteDiagnostic("Town Run - Salvage - hooked...");
 						  }
 
+
+						  //Decorator FinishTownRun=GilesReplacement.Children[7] as Decorator;
+						  //Decorator FinishTownRunCheck=FinishTownRun.Children[0] as Decorator;
+						  //PrioritySelector FinishTownRunPrioritySelector=FinishTownRunCheck.DecoratedChild as PrioritySelector;
+						  //Decorator FinishTownRunPrioritySelectorDecorator=FinishTownRunPrioritySelector.Children[0] as Decorator;
+						  //Zeta.TreeSharp.Action FinishTownRunAction=FinishTownRunPrioritySelectorDecorator.Children[0] as Zeta.TreeSharp.Action;
+
 						  //[7] == Return to Townportal if there is one..
-						  //CanRunDecoratorDelegate canRunDelegateUseTownPortalReturn = new CanRunDecoratorDelegate(
+
+						  //Setup our movement back to townportal
+						  CanRunDecoratorDelegate canRunDelegateUseTownPortalReturn=new CanRunDecoratorDelegate(TownRunManager.FinishTownRunOverlord);
+						  ActionDelegate actionDelegateFinishTownRun=new ActionDelegate(TownRunManager.TownRunFinishBehavior);
+						  Sequence sequenceFinishTownRun=new Sequence(
+							 new Zeta.TreeSharp.Action(actionDelegateFinishTownRun)
+						  );
+
+						  //We insert this before the demonbuddy townportal finishing behavior.. 
+						  GilesReplacement.InsertChild(7, new Zeta.TreeSharp.Decorator(canRunDelegateUseTownPortalReturn, sequenceFinishTownRun));
+
+						 
 
 						  CanRunDecoratorDelegate canRunUnidBehavior=new CanRunDecoratorDelegate(TownRunManager.UnidItemOverlord);
 						  ActionDelegate actionDelegatePreUnidStash=new ActionDelegate(TownRunManager.UnidStashOptimisedPreStash);

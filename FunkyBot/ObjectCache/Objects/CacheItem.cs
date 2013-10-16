@@ -180,7 +180,7 @@ namespace FunkyBot.Cache
 									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.PointInside(this.Position)))
 										  this.Weight*=0.25;
 									 //Finally check if we should reduce the weight when more then 2 monsters are nearby..
-									 if (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_25]>2&&
+									 if (Bot.Combat.SurroundingUnits>2&&
 										  //But Only when we are low in health..
 											 (Bot.Character.dCurrentHealthPct<0.25||
 										  //Or we havn't changed targets after 2.5 secs
@@ -205,7 +205,7 @@ namespace FunkyBot.Cache
 									 if (this.GoldAmount>0)
 										  this.Weight=11000d-(Math.Floor(centreDistance)*200d);
 									 // Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-									 if (this==Bot.Targeting.LastCachedTarget&&centreDistance<=25f)
+									 if (this==Bot.Targeting.LastCachedTarget)
 										  this.Weight+=600;
 									 // Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
 									 if (Bot.Character.bIsRooted)

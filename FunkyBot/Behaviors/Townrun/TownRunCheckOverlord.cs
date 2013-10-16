@@ -41,6 +41,7 @@ namespace FunkyBot
 				private static bool bNeedsEquipmentRepairs=false;
 				// Stash mapper - it's an array representing every slot in your stash, true or false dictating if the slot is free or not
 				private static bool[,] GilesStashSlotBlocked=new bool[7, 30];
+				internal static bool TownrunStartedInTown=true;
 
 				// **********************************************************************************************
 				// *****         TownRunCheckOverlord - determine if we should do a town-run or not         *****
@@ -52,9 +53,6 @@ namespace FunkyBot
 					 // Check if we should be forcing a town-run
 					 if (Zeta.CommonBot.Logic.BrainBehavior.IsVendoring)
 					 {
-						  if (!bLastTownRunCheckResult)
-								bPreStashPauseDone=false;
-
 						  bWantToTownRun=true;
 					 }
 					 else if (DateTime.Now.Subtract(TimeLastCheckedForTownRun).TotalSeconds>6)
@@ -62,9 +60,6 @@ namespace FunkyBot
 						  TimeLastCheckedForTownRun=DateTime.Now;
 						  if (Zeta.CommonBot.Logic.BrainBehavior.ShouldVendor||Bot.Character.BackPack.ShouldRepairItems())
 						  {
-								if (!bLastTownRunCheckResult)
-									 bPreStashPauseDone=false;
-
 								bCheckedItemDurability=false;
 								bCheckUnidItems=true;
 								bWantToTownRun=true;
@@ -74,8 +69,14 @@ namespace FunkyBot
 					 bLastTownRunCheckResult=bWantToTownRun;
 
 					 //Precheck prior to casting TP..
-					 if (bLastTownRunCheckResult&&!ZetaDia.Me.IsInTown)
-						  return SafetyCheckForTownRun();
+					 if (bLastTownRunCheckResult)
+					 {
+						  if (!ZetaDia.Me.IsInTown)
+						  {
+								bPreStashPauseDone=false;
+								return SafetyCheckForTownRun();
+						  }
+					 }
 
 					 return bWantToTownRun;
 				}

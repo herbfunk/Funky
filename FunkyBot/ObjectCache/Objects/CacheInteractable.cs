@@ -283,8 +283,8 @@ namespace FunkyBot.Cache
 						if (this.Weight>0)
 						{
 							// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-							if (this==Bot.Targeting.LastCachedTarget&&centreDistance<=25f)
-								this.Weight+=400;
+							if (this==Bot.Targeting.LastCachedTarget)
+								this.Weight+=600;
 							// Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
 							if (Bot.Character.bIsRooted)
 								this.Weight=18500d-(Math.Floor(centreDistance)*200);
