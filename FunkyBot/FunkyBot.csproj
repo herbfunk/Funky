@@ -1075,6 +1075,7 @@
     <Content Include="Config\Defaults\Specific\Grouping_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ToDo.txt" />
     <Content Include="Treehooks.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>

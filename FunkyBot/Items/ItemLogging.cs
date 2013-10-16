@@ -43,9 +43,6 @@ namespace FunkyBot
 		  {
 				get
 				{
-					 if (String.IsNullOrEmpty(Bot.CurrentAccountName)||Bot.ActorClass==ActorClass.Invalid)
-						  Bot.UpdateCurrentAccountDetails();
-
 					 return Bot.ActorClass.ToString()+" _ "+Bot.CurrentHeroName;
 				}
 		  }
@@ -53,9 +50,6 @@ namespace FunkyBot
 		  {
 				get
 				{
-					 if (String.IsNullOrEmpty(Bot.CurrentAccountName))
-						  Bot.UpdateCurrentAccountDetails();
-
 					 string folderpath =FolderPaths.sTrinityLogPath+Bot.CurrentAccountName+@"\";
 
 					 if (!System.IO.Directory.Exists(folderpath))

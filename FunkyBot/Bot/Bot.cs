@@ -63,6 +63,7 @@ namespace FunkyBot
 				///</summary>
 				internal static void UpdateCurrentAccountDetails()
 				{
+					 //TODO:: Only Update On First Initilize and only When Game ID has changed!
 
 					 try
 					 {
@@ -83,17 +84,25 @@ namespace FunkyBot
 				internal static bool RefreshGameID()
 				{
 					 GameId curgameID=currentGameID;
-					using (ZetaDia.Memory.AcquireFrame())
-					{
-						curgameID=ZetaDia.Service.CurrentGameId;
-					}
+					 using (ZetaDia.Memory.AcquireFrame())
+					 {
+						  curgameID=ZetaDia.Service.CurrentGameId;
+					 }
 
 					 if (!curgameID.Equals(currentGameID))
 					 {
-						  Bot.BotStatistics.GameStats.Update();
+						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
+						  {
+								Logger.Write(LogLevel.OutOfCombat, "New Game Started");
+						  }
+
 						  //Start new current game stats
+						  Bot.BotStatistics.GameStats.Update();
 						  Bot.BotStatistics.ItemStats.CurrentGame.Reset();
 						  Bot.BotStatistics.GameStats.CurrentGame.Reset();
+
+						  //Update Account Details
+						  Bot.UpdateCurrentAccountDetails();
 
 						  currentGameID=curgameID;
 						  return true;

@@ -32,11 +32,12 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 				ExecutionType=AbilityExecuteFlags.ZigZagPathing;
 				WaitVars=new WaitLoops(0, 0, true);
 				Cost=15;
+				IsChanneling=true;
 				Range=23;
 				Priority=AbilityPriority.Low;
 				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated);
 				UseageType=AbilityUseage.Anywhere;
-
+				
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 2);
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
 				TargetUnitConditionFlags=new UnitTargetConditions

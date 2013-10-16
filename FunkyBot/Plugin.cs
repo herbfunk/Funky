@@ -25,7 +25,7 @@ namespace FunkyBot
 {
 	 public partial class Funky : IPlugin
 	 {
-		  public Version Version { get { return new Version(2, 6, 0, 2); } }
+		  public Version Version { get { return new Version(2, 6, 1, 0); } }
 		  public string Author { get { return "Herbfunk"; } }
 		  public string Description
 		  {
@@ -176,11 +176,13 @@ namespace FunkyBot
 					 FunkyButton.Click+=FunkyWindow.buttonFunkySettingDB_Click;
 				}
 
-				Logger.DBLogFile=Zeta.Common.Logging.LogFilePath;
-				Logger.Write(LogLevel.User, "Init Logger Completed! DB Log Path Set {0}", Logger.DBLogFile);
 				ObjectCache.FakeCacheObject=new CacheObject(Vector3.Zero, TargetType.None, 0d, "Fake Target", 1f, -1);
 
+				//Update Account Details..
+				Bot.UpdateCurrentAccountDetails();
 
+				Logger.DBLogFile=Zeta.Common.Logging.LogFilePath;
+				Logger.Write(LogLevel.User, "Init Logger Completed! DB Log Path Set {0}", Logger.DBLogFile);
 		  }
 
 		  public void OnPulse()
@@ -243,7 +245,6 @@ namespace FunkyBot
 		  {
 				get
 				{
-					 Bot.UpdateCurrentAccountDetails();
 					 string settingsFolder=FolderPaths.sDemonBuddyPath+@"\Settings\FunkyBot\"+Bot.CurrentAccountName;
 					 if (!Directory.Exists(settingsFolder))
 						  Directory.CreateDirectory(settingsFolder);
@@ -312,6 +313,7 @@ namespace FunkyBot
 				GameEvents.OnGameJoined-=FunkyOnJoinGame;
 				GameEvents.OnGameLeft-=FunkyOnLeaveGame;
 				GameEvents.OnGameChanged-=FunkyOnGameChanged;
+
 				ProfileManager.OnProfileLoaded-=Bot.Profile.FunkyOnProfileChanged;
 		  }
 

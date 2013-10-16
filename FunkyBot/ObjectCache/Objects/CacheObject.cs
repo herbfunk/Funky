@@ -476,7 +476,7 @@ namespace FunkyBot.Cache
 
 
 						  //Far away object?
-						  if (this.CentreDistance>300f)
+						  if (this.CentreDistance>500f)
 						  {
 								this.NeedsRemoved=true;
 								return false;

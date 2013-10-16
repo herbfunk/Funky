@@ -261,10 +261,6 @@ namespace FunkyBot.Targeting
 				{
 					 if (!LastLevelIDChangeWasTownRun)
 					 {//Do full clear..
-						  ObjectCache.Objects.Clear();
-						  ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
-						  RemovalCheck=false;
-
 						  //Reset Playermover Backtrack Positions
 						  BackTrackCache.cacheMovementGPRs.Clear();
 
@@ -274,7 +270,14 @@ namespace FunkyBot.Targeting
 						  Bot.NavigationCache.LOSBlacklistedRAGUIDs.Clear();
 					 }
 
-					 Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
+					 //Clear the object cache!
+					 ObjectCache.Objects.Clear();
+					 ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
+					 RemovalCheck=false;
+
+					 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+						  Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
+
 					 Navigator.SearchGridProvider.Update();
 
 					 LastLevelIDChangeWasTownRun=false;

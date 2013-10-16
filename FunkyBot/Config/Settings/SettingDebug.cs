@@ -16,7 +16,7 @@ namespace FunkyBot.Settings
 		 public SettingDebug()
 		 {
 			  DebugStatusBar=true;
-			  FunkyLogFlags=LogLevel.All;
+			  FunkyLogFlags=LogLevel.None;
 			  EnableUnstucker=true;
 			  RestartGameOnLongStucks=true;
 			  LogStuckLocations=true;

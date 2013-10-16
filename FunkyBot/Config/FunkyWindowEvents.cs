@@ -19,8 +19,6 @@ namespace FunkyBot
          {
 				internal static void buttonFunkySettingDB_Click(object sender, RoutedEventArgs e)
 				 {
-					  Bot.UpdateCurrentAccountDetails();
-
 					  string settingsFolder=FolderPaths.sDemonBuddyPath+@"\Settings\FunkyBot\"+Bot.CurrentAccountName;
 					  if (!Directory.Exists(settingsFolder)) Directory.CreateDirectory(settingsFolder);
 

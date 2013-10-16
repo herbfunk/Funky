@@ -28,6 +28,7 @@ namespace FunkyBot.AbilityFunky
 				UseageType=AbilityUseage.Anywhere;
 				ExecutionType=AbilityExecuteFlags.None;
 				IsSpecialAbility=false;
+				IsChanneling=false;
 				Range=0;
 				Priority=AbilityPriority.None;
 				LastUsed=DateTime.Today;
@@ -95,6 +96,11 @@ namespace FunkyBot.AbilityFunky
 		  ///Ability is a projectile -- meaning it starts from bot position and travels to destination.
 		  ///</summary>
 		  public bool IsProjectile { get; set; }
+
+		  ///<summary>
+		  ///Ability is continously casted -- allowing other abilities to be used too.
+		  ///</summary>
+		  public bool IsChanneling { get; set; }
 
 		  private DateTime LastUsed { get; set; }
 		  internal double LastUsedMilliseconds

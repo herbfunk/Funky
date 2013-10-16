@@ -1,4 +1,9 @@
 ﻿// herbfunk revisions
+v2.6.1.0
+
+-Line of sight checking for ranged abilities should no longer ignore "transforming" units.
+
+
 v2.6.0.0
 
 ErrorClicker Plugin:

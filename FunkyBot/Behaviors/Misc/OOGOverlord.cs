@@ -22,6 +22,12 @@ namespace FunkyBot
 		  {
 				if (MuleBehavior)
 				{
+					 if (!Funky.Settings.CreateMuleOnStashFull)
+					 {
+						  Zeta.CommonBot.BotMain.Stop(true, "Cannot stash anymore items!");
+						  return false;
+					 }
+
 					 //Skip this until we create our new A1 game..
 					 if (RanProfile&&!TransferedGear)
 						  return false;

@@ -13,7 +13,7 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 		  {
 		  }
 
-		  private bool IsChanneling()
+		  private bool IsCurrentlyChanneling()
 		  {
 				return Bot.Character.CurrentAnimationState==AnimationState.Channeling&&
 						 Bot.Character.CurrentSNOAnim.HasFlag(SNOAnim.WitchDoctor_Female_1HT_spell_channel|
@@ -31,17 +31,18 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 				Range=Bot.Class.RuneIndexCache[Power]==0?0:Bot.Class.RuneIndexCache[Power]==4?14:25;
 				IsRanged=true;
 				IsProjectile=true;
+				IsChanneling=true;
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.High;
 				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated);
 				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 14);
-				ClusterConditions=new ClusterConditions(5d, Bot.Class.RuneIndexCache[Power]==4?12f:20f, 2, true);
+				ClusterConditions=new ClusterConditions(5d, Bot.Class.RuneIndexCache[Power]==4?12f:25f, 2, true);
 
 
 
 				FcriteriaCombat=new Func<bool>(() =>
 				{
-					 return (Bot.Character.dCurrentEnergy>=551||(Bot.Character.dCurrentEnergy>70&&this.IsChanneling()));
+					 return (Bot.Character.dCurrentEnergy>=551||(Bot.Character.dCurrentEnergy>70&&this.IsCurrentlyChanneling()));
 				});
 		  }
 

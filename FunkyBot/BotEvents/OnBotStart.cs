@@ -25,13 +25,14 @@ namespace FunkyBot
 
 				Logging.WriteDiagnostic("[Funky] Plugin settings location="+FunkySettingsPath);
 
-				//LoadConfiguration();
+
+				//Load Settings
 				Settings_Funky.LoadFunkyConfiguration();
 				Bot.ItemRulesEval=new Interpreter();
 
+
 				Navigator.PlayerMover=new PlayerMover();
 				Navigator.StuckHandler=new TrinityStuckHandler();
-
 				GameEvents.OnPlayerDied+=new EventHandler<EventArgs>(FunkyOnDeath);
 				GameEvents.OnGameJoined+=new EventHandler<EventArgs>(FunkyOnJoinGame);
 				GameEvents.OnGameLeft+=new EventHandler<EventArgs>(FunkyOnLeaveGame);
@@ -46,8 +47,7 @@ namespace FunkyBot
 				ObstacleTargeting.Instance.Provider=newObstacleTargetingProvider;
 
 
-				//Demonbuddy.App.Current.Exit+=DBExitHandler;
-				//MainWindow.Closing+=DBExitHandler;
+
 				if (!bPluginEnabled&&bot!=null)
 				{
 					 Logging.Write("WARNING: FunkyBot Plugin is NOT ENABLED. Bot start detected");

@@ -352,7 +352,7 @@ namespace FunkyBot
 						  if (!Directory.Exists(outputPath))
 								Directory.CreateDirectory(outputPath);
 						  //ddMMyyyyHHmmss
-						  string outputFileName=ZetaDia.Service.CurrentHero.Name+"_"+DateTime.Now.ToString("yyyy-MM-dd-HH-mm")+".txt";
+						  string outputFileName=Bot.CurrentHeroName+"_"+DateTime.Now.ToString("yyyy-MM-dd-HH-mm")+".txt";
 						  FileStream LogStream=File.Open(outputPath+outputFileName, FileMode.Create, FileAccess.Write, FileShare.Read);
 						  using (StreamWriter LogWriter=new StreamWriter(LogStream))
 						  {

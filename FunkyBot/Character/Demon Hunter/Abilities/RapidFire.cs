@@ -39,6 +39,7 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 				Range=50;
 				IsRanged=true;
 				IsProjectile=true;
+				IsChanneling=true;
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.Low;
 				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated);

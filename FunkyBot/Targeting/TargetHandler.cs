@@ -387,6 +387,17 @@ namespace FunkyBot.Targeting
 
 		  public virtual bool CombatLogic()
 		  {
+				//Check if we can cast any combat buff-type abilities while channeling
+				if (Bot.Class.LastUsedAbility.IsChanneling)
+				{
+					 Ability buff;
+					 if (Bot.Class.FindCombatBuffPower(out buff))
+					 {
+						  Ability.UsePower(ref buff);
+						  buff.OnSuccessfullyUsed();
+					 }
+				}
+
 				// Find a valid Ability if the target is a monster
 				#region AbilityPick
 				if (Bot.Targeting.bPickNewAbilities&&!Bot.Targeting.bWaitingForPower&&!Bot.Targeting.bWaitingForPotion)
@@ -450,6 +461,7 @@ namespace FunkyBot.Targeting
 						  buff.OnSuccessfullyUsed();
 					 }
 				}
+
 
 				return true;
 		  }

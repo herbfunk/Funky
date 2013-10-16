@@ -36,10 +36,10 @@ namespace FunkyBot.Targeting.Behaviors
 								obj=new CacheObject(Bot.Character.Position, TargetType.NoMovement, 20000, "ContainerLootDropsWait", 2f, -1);
 								return true;
 						  }
-
+						  
 						  // Finally, a special check for waiting for wrath of the berserker cooldown before engaging Azmodan
 						  if (Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&Bot.Settings.Class.bWaitForWrath&&!Bot.Class.Abilities[SNOPower.Barbarian_WrathOfTheBerserker].AbilityUseTimer()&&
-							  ZetaDia.CurrentWorldId==121214&&
+							  Bot.Character.iCurrentWorldID==121214&&
 							  (Vector3.Distance(Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						  {
 								Logging.Write("[Funky] Waiting for Wrath Of The Berserker cooldown before continuing to Azmodan.");

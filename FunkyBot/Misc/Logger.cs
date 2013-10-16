@@ -178,9 +178,6 @@ namespace FunkyBot
 		  {
 				get
 				{
-					 if (Bot.CurrentAccountName==null)
-						  Bot.UpdateCurrentAccountDetails();
-
 					 string sFunkyCharacterFolder=Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyBot", Bot.CurrentAccountName);
 					 if (!System.IO.Directory.Exists(sFunkyCharacterFolder))
 					 {
@@ -195,8 +192,6 @@ namespace FunkyBot
 		  {
 				get
 				{
-					 Bot.UpdateCurrentAccountDetails();
-
 					 return Path.Combine(sFunkySettingsPath, Bot.CurrentHeroName+".xml");
 
 				}

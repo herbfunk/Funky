@@ -24,6 +24,7 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 				Cost=49;
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.Low;
+				IsBuff=true;
 				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
 											AbilityPreCastFlags.CheckCanCast);
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_12, 1);

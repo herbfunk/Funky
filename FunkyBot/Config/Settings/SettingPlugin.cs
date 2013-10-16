@@ -7,13 +7,14 @@
 		 public int UnusedSNORemovalRate { get; set; }
 		 public int MovementNonMovementCount { get; set; }
 		 public int OutofCombatMaxDistance { get; set; }
-
+		 public bool CreateMuleOnStashFull { get; set; }
 		 public SettingPlugin()
 		 {
 			  CacheObjectRefreshRate=150;
 			  UnusedSNORemovalRate=180000;
 			  MovementNonMovementCount=50;
 			  OutofCombatMaxDistance=50;
+			  CreateMuleOnStashFull=true;
 		 }
 	}
 }
