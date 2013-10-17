@@ -368,7 +368,7 @@ namespace FunkyBot
 				if (sThisInternalName.StartsWith("emerald_")) return GilesItemType.Emerald;
 				if (sThisInternalName.StartsWith("topaz_")) return GilesItemType.Topaz;
 				if (sThisInternalName.StartsWith("amethyst")) return GilesItemType.Amethyst;
-				if (sThisInternalName.StartsWith("healthpotion_")) return GilesItemType.HealthPotion;
+				if (sThisInternalName.StartsWith("healthpotion")) return GilesItemType.HealthPotion;
 				if (sThisInternalName.StartsWith("followeritem_enchantress_")) return GilesItemType.FollowerEnchantress;
 				if (sThisInternalName.StartsWith("followeritem_scoundrel_")) return GilesItemType.FollowerScoundrel;
 				if (sThisInternalName.StartsWith("followeritem_templar_")) return GilesItemType.FollowerTemplar;
