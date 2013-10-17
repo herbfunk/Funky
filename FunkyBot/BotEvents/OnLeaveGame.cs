@@ -14,7 +14,7 @@ namespace FunkyBot
         private static void FunkyOnLeaveGame(object src, EventArgs mea)
         {
 				//Update Game Duration..
-				Bot.BotStatistics.ProfileStats.OutputReport();
+				//Bot.BotStatistics.ProfileStats.OutputReport();
 
             ResetGame();
 				initTreeHooks=false;

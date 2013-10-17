@@ -2,6 +2,7 @@
 using FunkyBot.Cache;
 using FunkyBot.Movement;
 using FunkyBot.Targeting.Behaviors;
+using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.CommonBot.Settings;
 
@@ -101,6 +102,8 @@ namespace FunkyBot.Targeting
 		 internal int iTotalNumberGoblins=0;
 		 internal DateTime lastGoblinTime=DateTime.Today;
 
+	    //Store the location of bot position when target handling is engaged.
+		 internal Vector3 StartingLocation=Vector3.Zero;
 		 ///<summary>
 		 ///Used to flag when Init should iterate and remove the objects
 		 ///</summary>

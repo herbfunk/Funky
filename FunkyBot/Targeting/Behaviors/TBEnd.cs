@@ -1,10 +1,12 @@
 ﻿using System;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Movement;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors;
+using Zeta.Navigation;
 
 namespace FunkyBot.Targeting.Behaviors
 {
@@ -64,6 +66,16 @@ namespace FunkyBot.Targeting.Behaviors
 								obj=new CacheObject(Bot.Character.Position, TargetType.NoMovement, 20000, "GilesWaitForVoodooo", 0f, -1);
 								InactivityDetector.Reset();
 								return true;
+						  }
+
+						  //Check if we engaged in combat.. if so lets see how far we are from our starting location.
+						  if (Bot.Targeting.LastCachedTarget!=ObjectCache.FakeCacheObject&& 
+								Bot.Character.Position.Distance(Bot.Targeting.StartingLocation)>20f&&
+								!Navigation.CanRayCast(Bot.Character.Position, Funky.PlayerMover.vLastMoveTo, UseSearchGridProvider: true))
+						  {
+								Logging.Write("Updating Navigator!");
+								Navigator.Clear();
+								Navigator.MoveTo(Funky.PlayerMover.vLastMoveTo, "original destination", true);
 						  }
 					 }
 

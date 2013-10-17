@@ -218,13 +218,13 @@ namespace FunkyBot.AbilityFunky
 				}
 		  }
 
-		  public delegate void AbilitySuccessfullyUsed(Ability ability);
+		  public delegate void AbilitySuccessfullyUsed(Ability ability, bool ReorderAbilities);
 		  public event AbilitySuccessfullyUsed SuccessfullyUsed;
 
 		  ///<summary>
 		  ///Sets values related to Ability usage
 		  ///</summary>
-		  public void OnSuccessfullyUsed()
+		  public void OnSuccessfullyUsed(bool reorderAbilities=true)
 		  {
 				this.LastUsed=DateTime.Now;
 				PowerCacheLookup.lastGlobalCooldownUse=DateTime.Now;
@@ -237,10 +237,12 @@ namespace FunkyBot.AbilityFunky
 					 TargetMovement.LastMovementDuringCombat=DateTime.Now;
 				}
 
-				
+				//Disable Reordering for Channeling Abilities!
+				if (this.IsChanneling)
+					 reorderAbilities=false;
 
 				if (SuccessfullyUsed!=null)
-					 SuccessfullyUsed(this);
+					 SuccessfullyUsed(this, reorderAbilities);
 		  }
 
 		  public static void SetupAbilityForUse(ref Ability ability, bool Destructible=false)
@@ -418,12 +420,13 @@ namespace FunkyBot.AbilityFunky
 		  {
 				return String.Format("Ability: {0} [RuneIndex={1}] " + " Cost="+this.Cost+"\r\n"+
 										  "Range={2} ReuseMS={3} Priority [{4}] UseType [{5}] Usage {6} \r\n"+
-										  "Last Condition {7} -- Last Used {8} -- Used Successfully=[{9}]",
+										  "Last Condition {7} -- Last Used {8} \r\n" + 
+										  "Used Successfully=[{9}] -- CanCastFlags={10}",
 																		this.Power.ToString(), this.RuneIndex.ToString(),
 																		this.Range.ToString(), this.Cooldown.ToString(), this.Priority.ToString(), this.ExecutionType.ToString(),
 																		this.UseageType.ToString(),
 																		this.LastConditionPassed.ToString(), this.LastUsedMilliseconds<100000?this.LastUsedMilliseconds.ToString()+"ms":"Never",
-																		this.SuccessUsed.HasValue?this.SuccessUsed.Value.ToString():"NULL");
+																		this.SuccessUsed.HasValue?this.SuccessUsed.Value.ToString():"NULL", this.CanCastFlags.ToString());
 		  }
 
 

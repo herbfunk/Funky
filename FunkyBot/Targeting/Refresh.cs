@@ -113,10 +113,15 @@ namespace FunkyBot.Targeting
 				//Check avoidance requirement still valid
 				if (Bot.Targeting.RequiresAvoidance)
 				{
-					 if (!this.AvoidanceLastTarget&&DateTime.Now.Subtract(TargetMovement.LastMovementAttempted).TotalMilliseconds<300&&!ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TargetMovement.CurrentTargetLocation)) //We are moving..? 
+					 if (!this.AvoidanceLastTarget&&
+						  DateTime.Now.Subtract(TargetMovement.LastMovementAttempted).TotalMilliseconds<300&&//We are moving..? 
+						  !ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TargetMovement.CurrentTargetLocation)&&
+						  !ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(Bot.Character.Position, TargetMovement.CurrentTargetLocation)) 
 					 {
 						  Bot.Targeting.RequiresAvoidance=false;
 					 }
+					 else if (this.AvoidanceLastTarget&&this.LastCachedTarget.CentreDistance<=2.5f)
+						  Bot.Targeting.RequiresAvoidance=false;
 					 else if (Bot.Combat.TriggeringAvoidances.Count==0)
 						  Bot.Targeting.RequiresAvoidance=false;
 				}
@@ -132,9 +137,15 @@ namespace FunkyBot.Targeting
 				// Still no target, let's end it all!
 				if (!RefreshTargetBehaviors())
 				{
-					 //clear all prioritzed objects.
+					 this.StartingLocation=Vector3.Zero;
 					 Bot.Combat.PrioritizedRAGUIDs.Clear();
 					 return;
+				}
+
+				//Store starting location
+				if (this.StartingLocation==Vector3.Zero)
+				{
+					 this.StartingLocation=Bot.Character.Position;
 				}
 
 
@@ -157,12 +168,6 @@ namespace FunkyBot.Targeting
 					 // And record when we last saw any form of elite
 					 if (Bot.Targeting.CurrentTarget.IsBoss||thisUnitObj.IsEliteRareUnique||Bot.Targeting.CurrentTarget.IsTreasureGoblin)
 						  this.lastHadEliteUnitInSights=DateTime.Now;
-				}
-
-				// Record the last time our target changed etc.
-				if (Bot.Targeting.CurrentTarget!=LastCachedTarget)
-				{
-					 this.LastChangeOfTarget=DateTime.Now;
 				}
 		  }
 

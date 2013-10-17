@@ -35,7 +35,6 @@ namespace FunkyBot
 				  {
 						WaitingForRevive=false;
 						Revived=false;
-						Bot.Character.OnHealthChanged-=OnHealthChanged;
 						Bot.BotStatistics.GameStats.CurrentGame.Deaths++;
 						Bot.BotStatistics.ProfileStats.CurrentProfile.DeathCount++;
 				  }
@@ -46,6 +45,7 @@ namespace FunkyBot
 				  }
 			  }
 
+			  Bot.Character.OnHealthChanged-=OnHealthChanged;
 			  return RunStatus.Success;
 		 }
 

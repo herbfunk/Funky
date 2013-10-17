@@ -100,6 +100,7 @@ namespace FunkyBot
 
 						  //Start new current game stats
 						  Bot.BotStatistics.GameStats.Update();
+						  Bot.BotStatistics.ItemStats.Update();
 						  Bot.BotStatistics.ItemStats.CurrentGame.Reset();
 						  Bot.BotStatistics.GameStats.CurrentGame.Reset();
 

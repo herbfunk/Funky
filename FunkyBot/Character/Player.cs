@@ -648,10 +648,13 @@ namespace FunkyBot
 				///</summary>
 				public Ability LastUsedAbility { get; set; }
 
-				internal void AbilitySuccessfullyUsed(Ability ability)
+				internal void AbilitySuccessfullyUsed(Ability ability, bool reorderAbilities)
 				{
 					 this.LastUsedAbility=ability;
-					 this.SortedAbilities=this.Abilities.Values.OrderByDescending(a => a.Priority).ThenByDescending(a => a.LastUsedMilliseconds).ToList();
+
+					 //Only Sort When Non-Channeling!
+					 if (reorderAbilities)
+						  this.SortedAbilities=this.Abilities.Values.OrderByDescending(a => a.Priority).ThenByDescending(a => a.LastUsedMilliseconds).ToList();
 				}
 
 				internal Ability PowerPrime;

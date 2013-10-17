@@ -168,12 +168,7 @@ namespace FunkyBot.Movement
 						  if (DateTime.Now.Subtract(LastMovementDuringCombat).TotalMilliseconds>=250)
 						  {
 								LastMovementDuringCombat=DateTime.Now;
-								// We've been stuck at least 250 ms, let's go and pick new targets etc.
 								BlockedMovementCounter++;
-								//Bot.Combat.bForceCloseRangeTarget=true;
-								//Bot.Combat.lastForcedKeepCloseRange=DateTime.Now;
-
-
 
 								// Tell target finder to prioritize close-combat targets incase we were bodyblocked
 								#region TargetingPriortize
@@ -230,7 +225,11 @@ namespace FunkyBot.Movement
 														  }
 													 }
 												}
-												
+												else if (obj.targetType.Value==TargetType.Item)
+												{
+													 obj.BlacklistLoops=1;
+													 Bot.Targeting.bForceTargetUpdate=true;
+												}
 										  }
 										  else
 										  {
@@ -256,11 +255,7 @@ namespace FunkyBot.Movement
 								#endregion
 
 
-								if (obj.targetType.Value==TargetType.Item)
-								{
-									 obj.BlacklistLoops=1;
-									 Bot.Targeting.bForceTargetUpdate=true;
-								}
+
 
 								return RunStatus.Running;
 						  } // Been 250 milliseconds of non-movement?

@@ -25,7 +25,8 @@ namespace FunkyBot.AbilityFunky.Abilities.Wizard
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.High;
 				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast);
-
+				IsBuff=true;
+				FcriteriaBuff=new Func<bool>(() => { return false; });
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 2);
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 1);
 				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 8);
@@ -34,7 +35,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Wizard
 				FcriteriaCombat=new Func<bool>(() =>
 				{
 					 //We only want to use this if there are nearby units!
-					 return Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_12]>0;
+					 return Bot.Combat.SurroundingUnits>1;
 				});
 		  }
 

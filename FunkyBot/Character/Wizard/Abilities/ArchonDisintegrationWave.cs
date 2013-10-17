@@ -20,9 +20,10 @@ namespace FunkyBot.AbilityFunky.Abilities.Wizard
 		  {
 				Cooldown=5;
 				ExecutionType=AbilityExecuteFlags.Target;
-				WaitVars=new WaitLoops(0, 0, true);
+				WaitVars=new WaitLoops(0, 0, false);
 				Range=48;
 				IsRanged=true;
+				IsChanneling=true;
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.None;
 				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated);

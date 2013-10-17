@@ -394,7 +394,7 @@ namespace FunkyBot.Targeting
 					 if (Bot.Class.FindCombatBuffPower(out buff))
 					 {
 						  Ability.UsePower(ref buff);
-						  buff.OnSuccessfullyUsed();
+						  buff.OnSuccessfullyUsed(false);
 					 }
 				}
 
