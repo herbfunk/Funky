@@ -111,7 +111,7 @@ namespace FunkyBot.Targeting
 		 {
 			  get
 			  {
-					return DateTime.Now.Subtract(lastRefreshedObjects).TotalMilliseconds>=Funky.Settings.CacheObjectRefreshRate;
+					return DateTime.Now.Subtract(lastRefreshedObjects).TotalMilliseconds>=Bot.Settings.Plugin.CacheObjectRefreshRate;
 			  }
 		 }
 	}

@@ -95,7 +95,7 @@ namespace FunkyBot.Movement
 					 bool bForceNewMovement=false;
 
 					 //Herbfunk: Added this to prevent stucks attempting to move to a target blocked. (Case: 3 champs behind a wall, within range but could not engage due to being on the other side.)
-					 if (NonMovementCounter>Funky.Settings.MovementNonMovementCount)
+					 if (NonMovementCounter>Bot.Settings.Plugin.MovementNonMovementCount)
 					 {
 						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logger.Write(LogLevel.Movement,"non movement counter reached {0}", NonMovementCounter);

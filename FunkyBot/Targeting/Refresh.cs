@@ -172,7 +172,7 @@ namespace FunkyBot.Targeting
 		  private void InitObjectRefresh()
 		  {
 				//Cache last target only if current target is not avoidance (Movement).
-				LastCachedTarget=this.CurrentTarget!=null?this.CurrentTarget.Clone():ObjectCache.FakeCacheObject;
+				LastCachedTarget=this.CurrentTarget!=null?this.CurrentTarget:ObjectCache.FakeCacheObject;
 
 				if (!this.Equals(null)&&this.CurrentTarget.targetType.HasValue&&this.CurrentTarget.targetType.Value.HasFlag(TargetType.AvoidanceMovements))
 				{
@@ -215,7 +215,7 @@ namespace FunkyBot.Targeting
 
 
 				//Check if we should trim our SNO cache..
-				if (DateTime.Now.Subtract(ObjectCache.cacheSnoCollection.lastTrimming).TotalMilliseconds>Funky.Settings.UnusedSNORemovalRate)
+				if (DateTime.Now.Subtract(ObjectCache.cacheSnoCollection.lastTrimming).TotalMilliseconds>Bot.Settings.Plugin.UnusedSNORemovalRate)
 					 ObjectCache.cacheSnoCollection.TrimOldUnusedEntries();
 
 

@@ -259,8 +259,9 @@ namespace FunkyBot.Cache
 														  Logger.Write(LogLevel.Execption, "Failed to retrieve TeamID attribute for object {0}", thisObstacle.InternalName);
 												}
 
-												//ID of 1 means its non-hostile!
-												if (TeamID==1)
+												//ID of 1 means its non-hostile! (-1?) 2??
+												//if (TeamID==1||TeamID==-1)
+												if (TeamID!=10)
 												{
 													 //Logger.Write(LogLevel.None, "Ignoring Avoidance {0} due to Friendly TeamID match!", tmp_CachedObj.InternalName);
 													 BlacklistCache.AddObjectToBlacklist(tmp_CachedObj.RAGUID, BlacklistType.Permanent);

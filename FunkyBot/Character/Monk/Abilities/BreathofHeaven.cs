@@ -17,6 +17,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 
 		  public override void Initialize()
 		  {
+				//Only check for buff when correct rune is set! rune==2
 				Cooldown=15200;
 				ExecutionType=AbilityExecuteFlags.Buff;
 				WaitVars=new WaitLoops(1, 1, true);
@@ -24,11 +25,15 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 				UseageType=AbilityUseage.Anywhere;
 				IsBuff=true;
 				Priority=AbilityPriority.High;
-				PreCastFlags=(AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|
-											AbilityPreCastFlags.CheckRecastTimer);
-				FcriteriaBuff=new Func<bool>(() => { return !Bot.Class.HasBuff(SNOPower.Monk_BreathOfHeaven); });
+				PreCastFlags=(AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckRecastTimer);
+				FcriteriaBuff=new Func<bool>(() => { return (this.RuneIndex==2&&!Bot.Class.HasBuff(SNOPower.Monk_BreathOfHeaven))||
+																		  Bot.Character.dCurrentHealthPct<=0.5d; });
 				FcriteriaCombat=
-					new Func<bool>(() => { return (Bot.Character.dCurrentHealthPct<=0.5||!Bot.Class.HasBuff(SNOPower.Monk_BreathOfHeaven)); });
+					new Func<bool>(() =>
+					{
+						 return (this.RuneIndex==2&&!Bot.Class.HasBuff(SNOPower.Monk_BreathOfHeaven))||
+												  Bot.Character.dCurrentHealthPct<=0.5d;
+					});
 		  }
 
 		  #region IAbility

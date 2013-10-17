@@ -22,7 +22,7 @@ namespace FunkyBot
 		  {
 				if (MuleBehavior)
 				{
-					 if (!Funky.Settings.CreateMuleOnStashFull)
+					 if (!Bot.Settings.Plugin.CreateMuleOnStashFull)
 					 {
 						  Zeta.CommonBot.BotMain.Stop(true, "Cannot stash anymore items!");
 						  return false;

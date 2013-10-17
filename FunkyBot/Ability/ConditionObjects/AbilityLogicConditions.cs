@@ -194,7 +194,7 @@ namespace FunkyBot.AbilityFunky
 													 Bot.Targeting.CurrentTarget.RequiresLOSCheck=true;
 												else if (!LOSINFO.NavCellWalk.Value) //NavCellFlag Walk Failed
 												{
-													 if (!MovementException)
+													 if (!Bot.Targeting.CurrentTarget.IsFlyingHoverUnit&&!MovementException)
 														  return false;
 													 else
 														  LOSINFO.NavCellWalk=true;

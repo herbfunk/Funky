@@ -502,7 +502,7 @@ namespace FunkyBot.Cache
 
 						  // Standard 50f range when preforming OOC behaviors!
 						  if (Bot.IsInNonCombatBehavior)
-								dUseKillRadius=Funky.Settings.OutofCombatMaxDistance;
+								dUseKillRadius=Bot.Settings.Plugin.OutofCombatMaxDistance;
 
 						  return dUseKillRadius;
 					 }
@@ -1422,13 +1422,13 @@ namespace FunkyBot.Cache
 					 {
 						  if ((this.IsEliteRareUnique&&!Bot.Settings.Targeting.IgnoreAboveAverageMobs)||
 									 (this.PriorityCounter>0)||
-									 (this.IsBoss&&!Bot.Settings.Targeting.IgnoreAboveAverageMobs&&this.CurrentHealthPct<=0.99d)||
+									 (this.IsBoss&&!Bot.Settings.Targeting.IgnoreAboveAverageMobs&&this.CurrentHealthPct.HasValue&&this.CurrentHealthPct<=0.99d)||
 									 (((this.IsSucideBomber&&Bot.Settings.Targeting.UnitExceptionSucideBombers)||this.IsCorruptantGrowth)&&this.CentreDistance<45f)||
 									 (this.IsSpawnerUnit&&Bot.Settings.Targeting.UnitExceptionSpawnerUnits)||
 									 ((this.IsTreasureGoblin&&Bot.Settings.Targeting.GoblinPriority>1))||
-									 (this.Monstersize.Value==MonsterSize.Ranged&&Bot.Settings.Targeting.UnitExceptionRangedUnits
+									 (this.Monstersize.HasValue&&this.Monstersize.Value==MonsterSize.Ranged&&Bot.Settings.Targeting.UnitExceptionRangedUnits
 										  &&(!this.IsEliteRareUnique||!Bot.Settings.Targeting.IgnoreAboveAverageMobs))||
-									 ((Bot.Settings.Targeting.UnitExceptionLowHP&&((this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0)
+									 ((Bot.Settings.Targeting.UnitExceptionLowHP&&this.CurrentHealthPct.HasValue&&((this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0)
 												&&(!this.IsEliteRareUnique||!Bot.Settings.Targeting.IgnoreAboveAverageMobs)
 												&&((!Bot.Class.IsMeleeClass&&this.CentreDistance<30f)||(Bot.Class.IsMeleeClass&&this.RadiusDistance<12f))))))
 

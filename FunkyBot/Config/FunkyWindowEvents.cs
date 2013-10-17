@@ -19,6 +19,10 @@ namespace FunkyBot
          {
 				internal static void buttonFunkySettingDB_Click(object sender, RoutedEventArgs e)
 				 {
+					 //Update Account Details when bot is not running!
+					 if (!Zeta.CommonBot.BotMain.IsRunning)
+							Bot.UpdateCurrentAccountDetails();
+
 					  string settingsFolder=FolderPaths.sDemonBuddyPath+@"\Settings\FunkyBot\"+Bot.CurrentAccountName;
 					  if (!Directory.Exists(settingsFolder)) Directory.CreateDirectory(settingsFolder);
 

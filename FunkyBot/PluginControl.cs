@@ -22,7 +22,6 @@ namespace FunkyBot
 		  private static bool initFunkyButton=false;
 		  private static bool initTreeHooks=false;
 		  private static bool bMaintainStatTracking=false;
-		  internal static Settings.SettingPlugin Settings=new Settings.SettingPlugin();
 		  internal static int iDemonbuddyMonsterPowerLevel=0;
 
 		  // Status text for DB main window status

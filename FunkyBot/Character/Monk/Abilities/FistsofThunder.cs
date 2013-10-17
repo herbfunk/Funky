@@ -18,11 +18,11 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 		  public override void Initialize()
 		  {
 				Cooldown=5;
-				ExecutionType=AbilityExecuteFlags.ClusterTargetNearest|AbilityExecuteFlags.Target;
+				ExecutionType=AbilityExecuteFlags.ClusterTarget|AbilityExecuteFlags.Target;
 				WaitVars=new WaitLoops(0, 2, false);
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.None;
-				Range=Bot.Class.RuneIndexCache[SNOPower.Monk_FistsofThunder]==0?25:12;
+				Range=this.RuneIndex==0?25:12;
 
 				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast);
 

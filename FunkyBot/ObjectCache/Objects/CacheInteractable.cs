@@ -364,7 +364,7 @@ namespace FunkyBot.Cache
 			{
 				// Force waiting AFTER power use for certain abilities
 				Bot.Targeting.bWaitingAfterPower=true;
-				Bot.Class.PowerPrime.WaitLoopsAfter=10;
+				Bot.Class.PowerPrime.WaitLoopsAfter=5;
 			}
 
 			// Interactables can have a long channeling time...
@@ -373,7 +373,7 @@ namespace FunkyBot.Cache
 				Bot.Character.WaitWhileAnimating(1500);
 			}
 
-			Bot.Character.WaitWhileAnimating(175, true);
+			Bot.Character.WaitWhileAnimating(75, true);
 
 			// If we've tried interacting too many times, blacklist this for a while
 			if (this.InteractionAttempts>5)

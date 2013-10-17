@@ -60,6 +60,8 @@ namespace FunkyBot.Settings
 
 				 public SettingCluster Cluster { get; set; }
 
+				 public SettingPlugin Plugin { get; set; }
+
              //Class Settings
              public ClassSettings Class { get; set; }
              public Settings_Funky()
@@ -76,7 +78,7 @@ namespace FunkyBot.Settings
 					  Targeting=new SettingTargeting();
 					  Combat=new SettingCombat();
 					  Avoidance=new SettingAvoidance();
-					  
+					  Plugin=new SettingPlugin();
 					 
                  AvoidanceRecheckMaximumRate = 3500;
                  AvoidanceRecheckMinimumRate = 550;

@@ -63,7 +63,9 @@ namespace FunkyBot
 				///</summary>
 				internal static void UpdateCurrentAccountDetails()
 				{
-					 //TODO:: Only Update On First Initilize and only When Game ID has changed!
+					 //Clear Cache -- (DB reuses values, even if it is incorrect!)
+					 ZetaDia.Memory.ClearCache();
+
 
 					 try
 					 {

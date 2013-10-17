@@ -108,7 +108,7 @@ namespace FunkyBot.Cache
 								{
 									 this.HandleAsObstacle=true;
 									 GizmoShrine gizmoShrine=this.ref_Gizmo as GizmoShrine;
-									 this.GizmoHasBeenUsed=gizmoShrine.HasBeenOperated;
+									 this.GizmoHasBeenUsed=gizmoShrine.GizmoState==1;
 								}
 								else if (base.Gizmotype.Value==Zeta.Internals.SNO.GizmoType.Healthwell)
 								{
