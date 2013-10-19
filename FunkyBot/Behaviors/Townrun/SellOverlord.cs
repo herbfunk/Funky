@@ -129,7 +129,8 @@ namespace FunkyBot
 					 TownRunManager.bFailedToLootLastItem=false;
 
 					 List<ACDItem> potions=Bot.Character.BackPack.ReturnCurrentPotions();
-					 Bot.Character.iTotalPotions=potions.Any()?potions.Sum(p => p.ItemStackQuantity):0;
+					 if (potions!=null) Bot.Character.iTotalPotions=potions.Any()?potions.Sum(p => p.ItemStackQuantity):0;
+
 					 return RunStatus.Success;
 				}
 

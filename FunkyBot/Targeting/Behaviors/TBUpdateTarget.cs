@@ -95,7 +95,6 @@ namespace FunkyBot.Targeting.Behaviors
 		 {
 			  // Store if we are ignoring all units this cycle or not
 			  bool bIgnoreAllUnits=!Bot.Combat.bAnyChampionsPresent
-										  &&!Bot.Combat.bAnyMobsInCloseRange
 										  &&((!Bot.Combat.bAnyTreasureGoblinsPresent&&Bot.Settings.Targeting.GoblinPriority>=2)||Bot.Settings.Targeting.GoblinPriority<2)
 										  &&Bot.Character.dCurrentHealthPct>=0.85d;
 

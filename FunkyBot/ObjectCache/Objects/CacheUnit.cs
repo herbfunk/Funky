@@ -427,9 +427,6 @@ namespace FunkyBot.Cache
 						  // Prevent long-range mobs beign ignored while they may be pounding on us
 						  if (dUseKillRadius<=30&&CacheIDLookup.hashActorSNORanged.Contains(this.SNOID)) dUseKillRadius=30;
 
-						  if (this.CentreDistance<=Bot.Settings.Ranges.NonEliteCombatRange) Bot.Combat.bAnyMobsInCloseRange=true;
-
-
 
 						  // Bosses get extra radius
 						  if (this.IsBoss)
@@ -958,24 +955,6 @@ namespace FunkyBot.Cache
 								Bot.Combat.bAnyTreasureGoblinsPresent=true;
 
 
-
-						  // Units with very high priority (1900+) allow an extra 50% on the non-elite kill slider range
-						  if (!Bot.Combat.bAnyMobsInCloseRange&&!Bot.Combat.bAnyChampionsPresent&&!Bot.Combat.bAnyTreasureGoblinsPresent&&this.CentreDistance<=(Bot.Settings.Ranges.NonEliteCombatRange*1.5))
-						  {
-								int iExtraPriority;
-								// Enable extended kill radius for specific unit-types
-								if (CacheIDLookup.hashActorSNORanged.Contains(this.SNOID))
-								{
-									 Bot.Combat.bAnyMobsInCloseRange=true;
-								}
-								if (!Bot.Combat.bAnyMobsInCloseRange&&CacheIDLookup.dictActorSNOPriority.TryGetValue(this.SNOID, out iExtraPriority))
-								{
-									 if (iExtraPriority>=1900)
-									 {
-										  Bot.Combat.bAnyMobsInCloseRange=true;
-									 }
-								}
-						  }
 
 						  // Total up monsters at various ranges
 						  if (centreDistance<=50f)

@@ -26,10 +26,11 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 				PreCastFlags=(AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|
 											AbilityPreCastFlags.CheckRecastTimer);
 
+				//TODO:: Give better conditions
 				FcriteriaCombat=new Func<bool>(() =>
 				{
-					 return Bot.Character.dCurrentHealthPct<=0.30d
-					  &&Bot.Combat.bAnyMobsInCloseRange;
+					 return Bot.Character.dCurrentHealthPct<=0.20d
+					  &&Bot.Combat.SurroundingUnits>0;
 				});
 		  }
 

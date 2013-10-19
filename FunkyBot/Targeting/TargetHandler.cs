@@ -373,7 +373,7 @@ namespace FunkyBot.Targeting
 				Bot.Targeting.bWholeNewTarget=false;
 
 
-				//Health Change Timer
+				//Update CurrentUnitTarget
 				if (CurrentTarget.targetType.Value==TargetType.Unit)
 				{
 					 //Update CurrentUnitTarget Variable.

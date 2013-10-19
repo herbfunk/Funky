@@ -37,16 +37,38 @@ namespace FunkyBot.Targeting
 		  internal TargetChangeHandler TargetChanged;
 		  internal void OnTargetChanged(TargetChangedArgs e)
 		  {
-				TargetChangeHandler handler=TargetChanged;
-
 				if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 					 Logger.Write(LogLevel.Target, "Changed Object: {0}", MakeStringSingleLine(e.newObject.DebugString));
 
+				
+
 				this.LastChangeOfTarget=DateTime.Now;
+				if (Bot.Settings.EnableWaitAfterContainers&&CurrentTarget.targetType==TargetType.Container)
+				{
+					 //Herbfunks delay for container loot.
+					 this.lastHadContainerAsTarget=DateTime.Now;
+
+					 if (CurrentTarget.IsResplendantChest)
+						  this.lastHadRareChestAsTarget=DateTime.Now;
+				}
+
+				// We're sticking to the same target, so update the target's health cache to check for stucks
+				if (CurrentTarget.targetType==TargetType.Unit)
+				{
+					 CurrentUnitTarget=(CacheUnit)CurrentTarget;
+					 //Used to pause after no targets found.
+					 this.lastHadUnitInSights=DateTime.Now;
+
+					 // And record when we last saw any form of elite
+					 if (CurrentUnitTarget.IsBoss||CurrentUnitTarget.IsEliteRareUnique||CurrentUnitTarget.IsTreasureGoblin)
+						  this.lastHadEliteUnitInSights=DateTime.Now;
+				}
+
 				TargetMovement.NewTargetResetVars();
 				Bot.Targeting.bWholeNewTarget=true;
 				Bot.Targeting.bPickNewAbilities=true;
 
+				TargetChangeHandler handler=TargetChanged;
 				if (handler!=null)
 				{
 					 handler(this, e);
@@ -149,26 +171,7 @@ namespace FunkyBot.Targeting
 				}
 
 
-				if (Bot.Settings.EnableWaitAfterContainers&&Bot.Targeting.CurrentTarget.targetType==TargetType.Container)
-				{
-					 //Herbfunks delay for container loot.
-					this.lastHadContainerAsTarget=DateTime.Now;
 
-					 if (Bot.Targeting.CurrentTarget.IsResplendantChest)
-						  this.lastHadRareChestAsTarget=DateTime.Now;
-				}
-
-				// We're sticking to the same target, so update the target's health cache to check for stucks
-				if (Bot.Targeting.CurrentTarget.targetType==TargetType.Unit)
-				{
-					 CacheUnit thisUnitObj=(CacheUnit)Bot.Targeting.CurrentTarget;
-					 //Used to pause after no targets found.
-					 this.lastHadUnitInSights=DateTime.Now;
-
-					 // And record when we last saw any form of elite
-					 if (Bot.Targeting.CurrentTarget.IsBoss||thisUnitObj.IsEliteRareUnique||Bot.Targeting.CurrentTarget.IsTreasureGoblin)
-						  this.lastHadEliteUnitInSights=DateTime.Now;
-				}
 		  }
 
 		  ///<summary>

@@ -34,7 +34,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Barb
 				FcriteriaCombat=new Func<bool>(() =>
 				{
 					 return Bot.Combat.bAnyChampionsPresent
-							  ||(Bot.Settings.Class.bBarbUseWOTBAlways&&Bot.Combat.bAnyMobsInCloseRange)
+							  ||(Bot.Settings.Class.bBarbUseWOTBAlways&&Bot.Combat.SurroundingUnits>1)
 							  ||(Bot.Settings.Class.bGoblinWrath&&Bot.Targeting.CurrentTarget.IsTreasureGoblin);
 				});
 		  }

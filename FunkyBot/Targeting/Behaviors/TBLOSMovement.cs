@@ -60,22 +60,11 @@ namespace FunkyBot.Targeting.Behaviors
 						  {//New LOS Movement Selection.
 
 								Bot.Combat.LoSMovementObjects=Bot.Combat.LoSMovementObjects.OrderBy(o => o.CentreDistance).ToList();
-								//Compute Clusters using list of LOS Units
-								//List<UnitCluster> ValidLOSUnitClusters=new List<UnitCluster>();
-								//ValidLOSUnitClusters=UnitCluster.RunKmeans(Bot.Combat.LoSMovementObjects, 20).OrderBy(cluster => cluster.NearestMonsterDistance).ToList();
-								
-								//foreach (var validLosUnitCluster in ValidLOSUnitClusters)
-								//{//Iterate Clusters
-
 								foreach (var cobj in Bot.Combat.LoSMovementObjects)
 								{//Iterate Units
 
 									 if (Bot.NavigationCache.LOSBlacklistedRAGUIDs.Contains(cobj.RAGUID)) continue;
 
-									 //We only want units with high health!
-									 //if (unit.CurrentHealthPct.Value>0.75d)
-									 //{
-									 //Check if we can navigate to the unit..
 									 if (!Navigation.NP.CanFullyClientPathTo(cobj.Position)) continue;
 
 									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
@@ -88,13 +77,8 @@ namespace FunkyBot.Targeting.Behaviors
 									 //Set the unit as our Line of Sight Unit
 									 Bot.NavigationCache.LOSmovementObject=cobj;
 									 break;
-									 //}
 								}
 
-									 //Found unit yet?
-									 //if (Bot.NavigationCache.LOSmovementUnit!=null)
-									 //	 break;
-								//}
 						  }
 
 						  if (Bot.NavigationCache.LOSmovementObject!=null)
