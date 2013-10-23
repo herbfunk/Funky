@@ -25,7 +25,7 @@ namespace FunkyBot
 {
 	 public partial class Funky : IPlugin
 	 {
-		  public Version Version { get { return new Version(2, 6, 1, 3); } }
+		  public Version Version { get { return new Version(2, 6, 1, 4); } }
 		  public string Author { get { return "Herbfunk"; } }
 		  public string Description
 		  {

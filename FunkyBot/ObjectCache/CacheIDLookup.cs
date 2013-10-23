@@ -571,7 +571,7 @@ namespace FunkyBot.Cache
 					}
 			  }
 
-				//Spawner units: summons units, and does not move.
+				//Spawner units: summons units
 			  public static readonly HashSet<int> hashSpawnerUnitSNOs=new HashSet<int>
 			  {
 					//a2 Round Spawner
@@ -592,6 +592,8 @@ namespace FunkyBot.Cache
 					171283,
 					//a1 FleshPitFlyerSpawner
 					4153,4154,
+					//a1 Female Zombies (108444,219725,229894,222606,224821,224826,224851,224931,224969,)
+					6639,6638,6640,
 			  };
 
 				 // NOTE: you don't NEED interactable SNO's listed here. But if they are listed here, *THIS* is the range at which your character will try to walk to within the object 
@@ -610,6 +612,12 @@ namespace FunkyBot.Cache
             170657, 116409, 121586, 3016, 121586,80231,58559,58962,62562,54477,54191,53957,54446,54477,53999,54191,54025,
 				98910,
          };
+
+				//Overrides the collision radius value!
+			  public static readonly Dictionary<int, float> dictFixedCollisionRadius=new Dictionary<int, float>
+			  {
+					{174900, 20f},{185391, 20f},
+			  };
 
 
 

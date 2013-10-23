@@ -1082,7 +1082,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Version.xml" />
+    <Content Include="Version.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="ItemRules\Log\Empty.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

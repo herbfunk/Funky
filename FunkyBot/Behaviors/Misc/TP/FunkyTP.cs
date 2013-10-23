@@ -181,6 +181,13 @@ namespace FunkyBot
 						  //Retry?
 						  worldtransferStarted=false;
 						  CastAttempted=false;
+						  Vector3 UnstuckPos;
+						  if (Bot.NavigationCache.AttemptFindSafeSpot(out UnstuckPos, Vector3.Zero, false))
+						  {
+								Logger.Write(LogLevel.OutOfCombat, "Generated Unstuck Position at {0}", UnstuckPos.ToString());
+								ZetaDia.Me.UsePower(SNOPower.Walk, UnstuckPos, Bot.Character.iCurrentWorldID, -1);
+						  }
+
 					 }
 
 					 return RunStatus.Running;
