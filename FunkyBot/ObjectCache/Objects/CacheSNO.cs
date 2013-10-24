@@ -799,9 +799,7 @@ namespace FunkyBot.Cache
 								}
 								#endregion
 
-								if (this.InternalName=="monsterAffix_waller_model")
-									 this.CollisionRadius/=2.5f;
-								else if(CacheIDLookup.dictFixedCollisionRadius.ContainsKey(this.SNOID))
+                                if(CacheIDLookup.dictFixedCollisionRadius.ContainsKey(this.SNOID))
 								{//Override The Default Collision Sphere Value
 									 this.CollisionRadius=CacheIDLookup.dictFixedCollisionRadius[this.SNOID];
 								}

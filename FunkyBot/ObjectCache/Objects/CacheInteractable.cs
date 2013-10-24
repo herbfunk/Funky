@@ -160,7 +160,10 @@ namespace FunkyBot.Cache
 							 {
 								  //Health wells..
 								  if (Bot.Character.dCurrentHealthPct>Bot.Settings.Combat.HealthWellHealthPercent)
-										IgnoreThis=true;
+								  {
+										this.BlacklistLoops=5;
+										return false;
+								  }
 							 }
 							 else
 							 {
@@ -203,7 +206,8 @@ namespace FunkyBot.Cache
 
 							 if (this.IsCorpseContainer&&Bot.Settings.Targeting.IgnoreCorpses)
 							 {
-								  this.BlacklistLoops=-1;
+								  this.NeedsRemoved=true;
+								  this.BlacklistFlag=BlacklistType.Permanent;
 								  return false;
 							 }
 

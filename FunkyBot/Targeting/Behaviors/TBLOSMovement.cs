@@ -32,7 +32,7 @@ namespace FunkyBot.Targeting.Behaviors
 				get
 				{
 					 //Check objects added for LOS movement
-					 return !Bot.IsInNonCombatBehavior&&(Bot.Combat.LoSMovementObjects.Count>0||Bot.NavigationCache.LOSmovementObject!=null);
+					 return Bot.Settings.Plugin.EnableLineOfSightBehavior&&!Bot.IsInNonCombatBehavior&&(Bot.Combat.LoSMovementObjects.Count>0||Bot.NavigationCache.LOSmovementObject!=null);
 				}
 		  }
 

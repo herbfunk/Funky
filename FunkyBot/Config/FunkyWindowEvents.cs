@@ -319,7 +319,7 @@ namespace FunkyBot
 					  {
 							try
 							{
-
+								
 							} catch
 							{
 
@@ -396,6 +396,10 @@ namespace FunkyBot
 				 {
 					  Bot.Settings.Debug.SkipAhead=!Bot.Settings.Debug.SkipAhead;
 				 }
+                 private void LineOfSightBehaviorChecked(object sender, EventArgs e)
+                 {
+                     Bot.Settings.Plugin.EnableLineOfSightBehavior = !Bot.Settings.Plugin.EnableLineOfSightBehavior;
+                 }
 
              protected override void OnClosed(EventArgs e)
              {

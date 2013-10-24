@@ -53,35 +53,7 @@ namespace FunkyBot.Targeting.Behaviors
 									Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=0; //reset wait time
 						 }
 
-						 //Check if our current path intersects avoidances. (When not in town, and not currently inside avoidance)
-						 if (!Bot.Character.bIsInTown&&(Bot.Settings.Avoidance.AttemptAvoidanceMovements||Bot.Character.CriticalAvoidance)
-								 &&Navigation.NP.CurrentPath.Count>0
-								 &&Bot.Combat.TriggeringAvoidances.Count==0)
-						 {
-							  Vector3 curpos=Bot.Character.Position;
-							  IndexedList<Vector3> curpath=Navigation.NP.CurrentPath;
 
-							  var CurrentNearbyPath=curpath.Where(v => curpos.Distance(v)<=40f);
-							  if (CurrentNearbyPath!=null&&CurrentNearbyPath.Any())
-							  {
-									CurrentNearbyPath.OrderBy(v => curpath.IndexOf(v));
-
-									Vector3 lastV3=Vector3.Zero;
-									foreach (var item in CurrentNearbyPath)
-									{
-										 if (lastV3==Vector3.Zero)
-											  lastV3=curpos;
-
-										 if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(item, lastV3))
-										 {
-											  obj=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "AvoidanceIntersection", 2.5f, -1);
-											  return true;
-										 }
-
-										 lastV3=item;
-									}
-							  }
-						 }
 					}
 
 					return false;

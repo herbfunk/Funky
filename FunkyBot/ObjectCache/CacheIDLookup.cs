@@ -616,7 +616,12 @@ namespace FunkyBot.Cache
 				//Overrides the collision radius value!
 			  public static readonly Dictionary<int, float> dictFixedCollisionRadius=new Dictionary<int, float>
 			  {
+                    //a3 demonic forges
 					{174900, 20f},{185391, 20f},
+                    //a3 Siege Monster
+                    {230725, 45f},
+                    //monster_affix waller
+                    {226808, 12.75f},
 			  };
 
 

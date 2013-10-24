@@ -870,6 +870,45 @@ namespace FunkyBot.Movement
 				}
 
 			  #endregion
+
+
+				//Town Scence IDs -- to verify in town!
+				private static readonly HashSet<int> TownSceneIDs=new HashSet<int>
+				{
+					 //a1
+					 33348,
+					 //a2
+					 161513,31413,
+					 //a3
+					 172876,180638,204708,
+				};
+
+				public static bool IsInTown()
+				{
+					 bool isInTown=false;
+
+					 using (ZetaDia.Memory.AcquireFrame())
+					 {
+						  isInTown=ZetaDia.Me.IsInTown;
+
+					 }
+
+					 //If true.. lets verify it with scene check!
+					 if (isInTown)
+					 {
+						  int curSceneID=-1;
+						  using (ZetaDia.Memory.AcquireFrame())
+						  {
+								curSceneID=ZetaDia.Me.CurrentScene.SceneGuid;
+						  }
+
+						  //Check the scene ID.. no match means FALSE!
+						  if (!TownSceneIDs.Contains(curSceneID))
+								isInTown=false;
+					 }
+
+					 return isInTown;
+				}
 		  }
 
 	 

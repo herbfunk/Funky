@@ -291,6 +291,17 @@ namespace FunkyBot
 						lbAdvancedContent.Items.Add(CBSkipAhead);
 
 
+                        CheckBox CBLineOfSightBehavior = new CheckBox
+                        {
+                            Content = "Enable Line-Of-Sight Behavior",
+                            Width = 300,
+                            Height = 20,
+                            IsChecked = Bot.Settings.Plugin.EnableLineOfSightBehavior,
+                        };
+                        CBLineOfSightBehavior.Checked += LineOfSightBehaviorChecked;
+                        CBLineOfSightBehavior.Unchecked += LineOfSightBehaviorChecked;
+                        lbAdvancedContent.Items.Add(CBLineOfSightBehavior);
+
 						AdvancedTabItem.Content=lbAdvancedContent;
 
 						TabItem MiscTabItem=new TabItem();

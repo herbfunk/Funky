@@ -18,13 +18,13 @@ namespace FunkyBot.AbilityFunky.Abilities.Wizard
 
 		  public override void Initialize()
 		  {
-				Cooldown=5000;
+				Cooldown=1000;
 				ExecutionType=AbilityExecuteFlags.Buff;
 				WaitVars=new WaitLoops(1, 1, true);
 				Range=15;
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.High;
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast);
+				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckCanCast);
 				IsBuff=true;
 				FcriteriaBuff=new Func<bool>(() => { return false; });
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 2);
