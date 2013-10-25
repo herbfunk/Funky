@@ -249,6 +249,43 @@ namespace FunkyBot.Movement
 					 return false;
 				}
 
+                public bool TryFindSafeSpot(Vector3 CurrentPosition, out Vector3 safespot, Vector3 los, PointCheckingFlags Flags, bool expandOnFailure = false, double CurrentWeight = 0)
+                {
+                    lastUsedQuadrant = null;
+                    safespot = Vector3.Zero;
+
+                    //Do not continue search if all sectors failed recently.
+                    if (AllQuadrantsFailed) return false;
+
+                    bool CheckingWeight = (CurrentWeight > 0);
+
+                    foreach (var item in Quadrant.Values)
+                    {
+                        if (item == null) continue;
+
+                        if (CheckingWeight && item.ThisWeight > CurrentWeight)
+                            continue;
+
+                        if (item.FindSafeSpot(CurrentPosition, out safespot, los, Flags))
+                        {
+                            lastUsedQuadrant = item;
+                            return true;
+                        }
+                    }
+
+
+                    AllQuadrantsFailed = true;
+
+                    if (expandOnFailure && CanExpandFurther)
+                    {
+                        //Logging.WriteVerbose("Expanding GPC due to failure to find a location!");
+                        this.FullyExpand();
+                        this.UpdateQuadrants();
+                        this.UpdateObjectCount();
+                    }
+                    return false;
+                }
+
 				public GPQuadrant GetQuadrantContainingPoint(GridPoint Point)
 				{
 					 foreach (var item in Quadrant.Values)

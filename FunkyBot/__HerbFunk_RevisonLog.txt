@@ -1,4 +1,28 @@
 ﻿// herbfunk revisions
+v2.6.1.6
+
+Line Of Sight Behavior:
+-Is now disabled by default! (to enable -> Funky Settings Advanced tab)
+-Fixed validation of object (should no longer get stuck!)
+-Units that are allowed is now based on IsSpecial (I.E. Targeting -> Unit Exceptions)
+
+Settings:
+-Added setting for Low HP Unit Max Distance Allowed. (used with Unit Exception Low HP <=25%)
+
+Misc:
+-New Game Event now clears TrinityLoadOnce UsedProfile List.
+-Healthwells no longer ignored due to health.
+-Added fixed collision radius values for large objects. (should help with avoidance movement)
+-Funky Townportal now generates random movements!
+-Added Female Zombies to Spawner ID Lookup.
+-Bot now recongizes Major Health Potions.
+-Fixed town run sell behavior bug where no potions existed in backpack.
+-Item Looting should no longer be hit or miss.
+-Fixed Shrines being reused when they shouldn't be.
+-Reduced the time of interaction for Interactable Gizmos.
+-Monk Breath of Light updated for non-buff versions of the skill.
+
+
 v2.6.1.0
 
 Ability:

@@ -398,6 +398,37 @@ namespace FunkyBot.Movement
 					 safespot=Bot.NavigationCache.CurrentGPArea.AttemptFindSafeSpot(BotPosition, LOS, kiting);
 					 return (safespot!=Vector3.Zero);
 				}
+                public bool AttemptFindSafeSpot(out Vector3 safespot, Vector3 LOS, PointCheckingFlags flags)
+                {
+                    safespot = vlastSafeSpot;
+
+                    Vector3 BotPosition = Bot.Character.Position;
+
+                    //Check if we should refresh..
+                    if (Bot.NavigationCache.CurrentGPArea == null || Bot.NavigationCache.CurrentGPArea.AllGPRectsFailed && !Bot.NavigationCache.CurrentGPArea.centerGPRect.Contains(BotPosition) || !Bot.NavigationCache.CurrentGPArea.GridPointContained(BotPosition))
+                        Bot.NavigationCache.CurrentGPArea = new GPArea(BotPosition);
+
+
+
+                    //Check Bot Navigationally blocked
+                    RefreshNavigationBlocked();
+                    if (BotIsNavigationallyBlocked)
+                    {
+                        return false;
+                    }
+
+                    if (Bot.NavigationCache.CurrentLocationGPrect == null || Bot.NavigationCache.CurrentLocationGPrect.centerpoint != Bot.Character.PointPosition)
+                    {
+                        Bot.NavigationCache.CurrentLocationGPrect = new GPRectangle(Bot.Character.Position);
+                        currentLocationBoundary = new AreaBoundary(Bot.NavigationCache.CurrentLocationGPrect.centerpoint);
+                        UpdateLocationsBlocked();
+                    }
+
+                    Bot.NavigationCache.CurrentLocationGPRect.UpdateObjectCount();
+
+                    safespot = Bot.NavigationCache.CurrentGPArea.AttemptFindSafeSpot(BotPosition, LOS, flags);
+                    return (safespot != Vector3.Zero);
+                }
 
 				private List<LocationFlags> blockedLocationDirections=new List<LocationFlags>();
 				public List<LocationFlags> BlockedLocationDirections
