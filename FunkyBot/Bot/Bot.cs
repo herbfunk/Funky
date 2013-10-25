@@ -107,6 +107,9 @@ namespace FunkyBot
 						  //Update Account Details
 						  Bot.UpdateCurrentAccountDetails();
 
+                          //Clear TrinityLoadOnce Used Profiles!
+                          FunkyBot.XMLTags.TrinityLoadOnce.UsedProfiles.Clear();
+
 						  currentGameID=curgameID;
 						  return true;
 					 }

@@ -10,7 +10,7 @@ namespace FunkyBot
 {
 	 internal partial class FunkyWindow : Window
 	 {
-		  TextBox TBPrioritizeCloseRangeMinimumUnits;
+		  TextBox TBPrioritizeCloseRangeMinimumUnits,TBLowHPMaxDistance;
 
 		  #region EventHandling
 		  private void PrioritizeCloseUnitsMinimumSliderChanged(object sender, EventArgs e)
@@ -24,6 +24,13 @@ namespace FunkyBot
 		  {
 				Bot.Settings.Targeting.UnitExceptionLowHP=!Bot.Settings.Targeting.UnitExceptionLowHP;
 		  }
+          private void UnitExceptionKillLowHPMaxDistanceSliderChanged(object sender, EventArgs e)
+          {
+              Slider slider_sender = (Slider)sender;
+              int Value = (int)slider_sender.Value;
+              Bot.Settings.Targeting.UnitExceptionLowHPMaximumDistance = Value;
+              TBLowHPMaxDistance.Text = Value.ToString();
+          }
 		  private void UnitExceptionAllowRangedUnitsChecked(object sender, EventArgs e)
 		  {
 				Bot.Settings.Targeting.UnitExceptionRangedUnits=!Bot.Settings.Targeting.UnitExceptionRangedUnits;
@@ -110,6 +117,7 @@ namespace FunkyBot
 				Bot.Settings.Targeting.UseExtendedRangeRepChest=!Bot.Settings.Targeting.UseExtendedRangeRepChest;
 		  }
 		  #endregion
+
 
 		  internal void InitTargetingGeneralControls()
 		  {
@@ -327,20 +335,6 @@ namespace FunkyBot
 				};
 				spClusteringExceptions.Children.Add(ClusteringExceptions_Text_Header);
 
-				#region KillLOWHPUnits
-				CheckBox cbClusterKillLowHPUnits=new CheckBox
-				{
-					 Content="Allow Units with 25% or less HP",
-					 Width=300,
-					 Height=30,
-					 IsChecked=(Bot.Settings.Targeting.UnitExceptionLowHP),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
-				};
-				cbClusterKillLowHPUnits.Checked+=UnitExceptionKillLowHPChecked;
-				cbClusterKillLowHPUnits.Unchecked+=UnitExceptionKillLowHPChecked;
-				spClusteringExceptions.Children.Add(cbClusterKillLowHPUnits);
-				#endregion
-
 				#region AllowRangedUnits
 				CheckBox cbClusteringAllowRangedUnits=new CheckBox
 				{
@@ -382,6 +376,69 @@ namespace FunkyBot
 				cbClusteringAllowSucideBombers.Unchecked+=UnitExceptionAllowSucideBombersChecked;
 				spClusteringExceptions.Children.Add(cbClusteringAllowSucideBombers);
 				#endregion
+
+
+                #region KillLOWHPUnits
+                CheckBox cbClusterKillLowHPUnits = new CheckBox
+                {
+                    Content = "Allow Units with 25% or less HP",
+                    //Width = 300,
+                    Height = 30,
+                    IsChecked = (Bot.Settings.Targeting.UnitExceptionLowHP),
+                    HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
+                    Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right + 12, Margin.Bottom),
+                };
+                cbClusterKillLowHPUnits.Checked += UnitExceptionKillLowHPChecked;
+                cbClusterKillLowHPUnits.Unchecked += UnitExceptionKillLowHPChecked;
+                //spClusteringExceptions.Children.Add(cbClusterKillLowHPUnits);
+                #endregion
+
+                #region LowHPMaximumDistance
+                TextBlock LowHPMaximumDistance_Text = new TextBlock
+                {
+                    Text = "Low HP Maximum Distance",
+                    FontSize = 12,
+                    Foreground = System.Windows.Media.Brushes.GhostWhite,
+                    TextAlignment = TextAlignment.Left,
+                };
+                Slider sliderLowHPMaxDistance = new Slider
+                {
+                    Width = 100,
+                    Maximum = 150,
+                    Minimum = 0,
+                    TickFrequency = 5,
+                    LargeChange = 5,
+                    SmallChange = 1,
+                    Value = Bot.Settings.Targeting.UnitExceptionLowHPMaximumDistance,
+                    HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
+                };
+                sliderLowHPMaxDistance.ValueChanged += UnitExceptionKillLowHPMaxDistanceSliderChanged;
+
+                TBLowHPMaxDistance = new TextBox
+                {
+                    Text = Bot.Settings.Targeting.UnitExceptionLowHPMaximumDistance.ToString(),
+                    IsReadOnly = true,
+                };
+                StackPanel LowHPMaxDistanceStackPanel = new StackPanel
+                {
+                    //Width = 600,
+                    Height = 20,
+                    Orientation = Orientation.Horizontal,
+                };
+                LowHPMaxDistanceStackPanel.Children.Add(sliderLowHPMaxDistance);
+                LowHPMaxDistanceStackPanel.Children.Add(TBLowHPMaxDistance);
+                StackPanel spLowHpMaxDistance = new StackPanel();
+                spLowHpMaxDistance.Children.Add(LowHPMaximumDistance_Text);
+                spLowHpMaxDistance.Children.Add(LowHPMaxDistanceStackPanel);
+                #endregion
+
+                StackPanel spLowHealthException = new StackPanel
+                {
+                    Orientation= Orientation.Horizontal,
+                };
+                spLowHealthException.Children.Add(cbClusterKillLowHPUnits);
+                spLowHealthException.Children.Add(spLowHpMaxDistance);
+                spClusteringExceptions.Children.Add(spLowHealthException);
 
 				Target_General_ContentListBox.Items.Add(spClusteringExceptions);
 

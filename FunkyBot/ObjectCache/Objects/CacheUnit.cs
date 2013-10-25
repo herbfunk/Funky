@@ -880,10 +880,10 @@ namespace FunkyBot.Cache
 								//unless its in front of us.. we wait 500ms mandatory.
 								if (lastLOSCheckMS<500&&centreDistance>1f)
 								{
-									 if (this.IsEliteRareUnique||this.IsTreasureGoblin)
-									 {
+									// if (this.IsEliteRareUnique||this.IsTreasureGoblin)
+                                    if (this.ObjectIsSpecial)
 										  Bot.Combat.LoSMovementObjects.Add(this);
-									 }
+									 
 										 
 									 return false;
 								}
@@ -904,7 +904,10 @@ namespace FunkyBot.Cache
 
 									 if (lastLOSCheckMS<ReCheckTime)
 									 {
-										  if (this.IsEliteRareUnique||this.IsTreasureGoblin) Bot.Combat.LoSMovementObjects.Add(this);
+										  //if (this.IsEliteRareUnique||this.IsTreasureGoblin) 
+                                         if(this.ObjectIsSpecial)
+                                              Bot.Combat.LoSMovementObjects.Add(this);
+
 										  return false;
 									 }
 								}
@@ -915,10 +918,10 @@ namespace FunkyBot.Cache
 									 //LOS Movement -- Check for special objects
 									 bool Valid=false;
 									 //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
-									 if (this.IsEliteRareUnique||this.IsTreasureGoblin)
-									 {
+									// if (this.IsEliteRareUnique||this.IsTreasureGoblin)
+                                     if (this.ObjectIsSpecial)
 										  Bot.Combat.LoSMovementObjects.Add(this);
-									 }
+									 
 
 									 //Valid?? Did we find a location we could move to for LOS?
 									 if (!Valid)
@@ -1407,9 +1410,9 @@ namespace FunkyBot.Cache
 									 ((this.IsTreasureGoblin&&Bot.Settings.Targeting.GoblinPriority>1))||
 									 (this.Monstersize.HasValue&&this.Monstersize.Value==MonsterSize.Ranged&&Bot.Settings.Targeting.UnitExceptionRangedUnits
 										  &&(!this.IsEliteRareUnique||!Bot.Settings.Targeting.IgnoreAboveAverageMobs))||
-									 ((Bot.Settings.Targeting.UnitExceptionLowHP&&this.CurrentHealthPct.HasValue&&((this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0)
-												&&(!this.IsEliteRareUnique||!Bot.Settings.Targeting.IgnoreAboveAverageMobs)
-												&&((!Bot.Class.IsMeleeClass&&this.CentreDistance<30f)||(Bot.Class.IsMeleeClass&&this.RadiusDistance<12f))))))
+                                     //Low HP (25% or Less) & Is Not Considered Weak
+									 ((Bot.Settings.Targeting.UnitExceptionLowHP&&this.CurrentHealthPct.HasValue&&((this.CurrentHealthPct<=0.25&&this.UnitMaxHitPointAverageWeight>0)
+												&&(!this.IsEliteRareUnique||!Bot.Settings.Targeting.IgnoreAboveAverageMobs)&&(this.RadiusDistance<=Bot.Settings.Targeting.UnitExceptionLowHPMaximumDistance)))))
 
 
 

@@ -42,7 +42,8 @@ namespace FunkyBot.Targeting.Behaviors
 				{
 					 if (obj==null)
 					 {
-						  if (Bot.NavigationCache.LOSmovementObject!=null&&(!Bot.NavigationCache.LOSmovementObject.IsStillValid()))
+						  if (Bot.NavigationCache.LOSmovementObject!=null&&
+                              (Bot.NavigationCache.LOSmovementObject.CentreDistance<50f&&!Bot.NavigationCache.LOSmovementObject.IsStillValid()))
 						  {//Invalidated the Line of sight Unit!
 
 								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))

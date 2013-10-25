@@ -13,6 +13,7 @@ namespace FunkyBot.Settings
 		 public bool UseExtendedRangeRepChest { get; set; }
 
 		 public bool UnitExceptionLowHP { get; set; }
+         public int UnitExceptionLowHPMaximumDistance { get; set; }
 		 public bool UnitExceptionRangedUnits { get; set; }
 		 public bool UnitExceptionSpawnerUnits { get; set; }
 		 public bool UnitExceptionSucideBombers { get; set; }
@@ -31,6 +32,7 @@ namespace FunkyBot.Settings
 			  UseExtendedRangeRepChest=false;
 			  MissleDampeningEnforceCloseRange=true;
 			  UnitExceptionLowHP=true;
+              UnitExceptionLowHPMaximumDistance = 20;
 			  UnitExceptionRangedUnits=true;
 			  UnitExceptionSpawnerUnits=true;
 			  UnitExceptionSucideBombers=true;
