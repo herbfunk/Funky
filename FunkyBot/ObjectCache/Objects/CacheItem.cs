@@ -190,7 +190,7 @@ namespace FunkyBot.Cache
 									 //Test if there are nearby units that will trigger kite action..
 									 if (Bot.Character.ShouldFlee)
 									 {
-										  if (ObjectCache.Objects.OfType<CacheUnit>().Any(m=>m.ShouldBeKited&&m.IsPositionWithinRange(this.Position, Bot.Settings.Fleeing.FleeMaxMonsterDistance)))
+										  if (ObjectCache.Objects.OfType<CacheUnit>().Any(m=>m.ShouldFlee&&m.IsPositionWithinRange(this.Position, Bot.Settings.Fleeing.FleeMaxMonsterDistance)))
 												this.Weight=1;
 									 }
 

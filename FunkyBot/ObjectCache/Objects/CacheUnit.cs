@@ -203,7 +203,7 @@ namespace FunkyBot.Cache
 					 }
 				}
 
-				public bool ShouldBeKited
+				public bool ShouldFlee
 				{
 					 get
 					 {
@@ -213,7 +213,7 @@ namespace FunkyBot.Cache
                                        (!this.IsFast || !Bot.Settings.Fleeing.FleeUnitIgnoreFast) &&
                                        ((this.IsEliteRareUnique && Bot.Settings.Fleeing.FleeUnitRareElite) || (!this.IsEliteRareUnique && Bot.Settings.Fleeing.FleeUnitNormal)) &&
                                        (!this.MonsterElectrified || Bot.Settings.Fleeing.FleeUnitElectrified) &&
-                                       (!Bot.Settings.Fleeing.FleeUnitAboveAverageHitPoints || this.UnitMaxHitPointAverageWeight <= 0) &&
+                                       (!Bot.Settings.Fleeing.FleeUnitAboveAverageHitPoints || this.UnitMaxHitPointAverageWeight > 0) &&
                                        (!this.IsSucideBomber || !Bot.Settings.Fleeing.FleeUnitIgnoreSucideBomber) &&
                                        (this.Monstersize != MonsterSize.Ranged || !Bot.Settings.Fleeing.FleeUnitIgnoreRanged));
                                         
@@ -525,7 +525,7 @@ namespace FunkyBot.Cache
 					 bCountAsElite=(this.IsEliteRareUnique||this.IsTreasureGoblin||this.IsBoss);
 					 float RadiusDistance=this.RadiusDistance;
 
-					 if (Bot.Settings.Fleeing.EnableFleeingBehavior&&RadiusDistance<=Bot.Settings.Fleeing.FleeMaxMonsterDistance&&this.ShouldBeKited)
+					 if (Bot.Settings.Fleeing.EnableFleeingBehavior&&RadiusDistance<=Bot.Settings.Fleeing.FleeMaxMonsterDistance&&this.ShouldFlee)
 						  Bot.Combat.FleeTriggeringUnits.Add(this);
 
 

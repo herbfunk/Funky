@@ -43,6 +43,11 @@ namespace FunkyBot.Cache
 								MaximumHealthAverage=TotalHealth/totalEntries;
 						  }
 					 }
+                    public void ClearHealthAverageStats()
+                     {
+                         HealthEntriesForAverageValue.Clear();
+                         MaximumHealthAverage = 0d;
+                     }
 
 					 public string DumpDebugInfo()
 					 {
@@ -114,8 +119,6 @@ namespace FunkyBot.Cache
 					 public void Clear()
 					 {
 						  this.objects.Clear();
-						  this.HealthEntriesForAverageValue.Clear();
-						  this.MaximumHealthAverage=0d;
 						  
 					 }
 
@@ -155,7 +158,7 @@ namespace FunkyBot.Cache
 
 					 public bool IsPointNearbyMonsters(Vector3 Vector, float Range=1f)
 					 {
-						  return this.Values.OfType<CacheUnit>().Any(monster => monster.ShouldBeKited&&
+						  return this.Values.OfType<CacheUnit>().Any(monster => monster.ShouldFlee&&
 								Math.Max(0f, monster.Position.Distance(Vector)-monster.Radius)<=Range);
 					 }
 

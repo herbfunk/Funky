@@ -323,7 +323,7 @@ namespace FunkyBot.Movement
                              {
                                  pointChecker += new Func<Vector3, bool>((gp) =>
                                  {
-                                     return ObjectCache.Objects.OfType<CacheUnit>().Any(m => m.ShouldBeKited && m.IsPositionWithinRange(gp, Bot.Settings.Fleeing.FleeMaxMonsterDistance));
+                                     return ObjectCache.Objects.OfType<CacheUnit>().Any(m => m.ShouldFlee && m.IsPositionWithinRange(gp, Bot.Settings.Fleeing.FleeMaxMonsterDistance));
                                  });
                              }
                              if (flags.HasFlag(PointCheckingFlags.ObstacleOverlap))
@@ -403,7 +403,7 @@ namespace FunkyBot.Movement
                          //Kiting Check
                          if (flags.HasFlag(PointCheckingFlags.MonsterOverlap))
                          {
-                             if (ObjectCache.Objects.OfType<CacheUnit>().Any(m => m.ShouldBeKited && m.IsPositionWithinRange(pointVector, Bot.Settings.Fleeing.FleeMaxMonsterDistance))) return false;
+                             if (ObjectCache.Objects.OfType<CacheUnit>().Any(m => m.ShouldFlee && m.IsPositionWithinRange(pointVector, Bot.Settings.Fleeing.FleeMaxMonsterDistance))) return false;
                          }
                       
 
@@ -415,7 +415,7 @@ namespace FunkyBot.Movement
 
                          if (flags.HasFlag(PointCheckingFlags.Raycast))
                          {
-                             if (!Navigation.CanRayCast(botcurpos, pointVector, UseSearchGridProvider: true)) return false;
+                             if (!Navigation.CanRayCast(botcurpos, pointVector)) return false;
                          }
                    
 
@@ -463,7 +463,7 @@ namespace FunkyBot.Movement
 						  if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(pointVector)) return false;
 
 						  //Kiting Check
-						  if (kite&&ObjectCache.Objects.OfType<CacheUnit>().Any(m => m.ShouldBeKited&&m.IsPositionWithinRange(pointVector, Bot.Settings.Fleeing.FleeMaxMonsterDistance))) return false;
+						  if (kite&&ObjectCache.Objects.OfType<CacheUnit>().Any(m => m.ShouldFlee&&m.IsPositionWithinRange(pointVector, Bot.Settings.Fleeing.FleeMaxMonsterDistance))) return false;
 
 						  //Avoidance Intersection Check
 						  if (checkBotAvoidIntersection&&ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(botcurpos, pointVector)) return false;

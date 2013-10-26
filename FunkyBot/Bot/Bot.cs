@@ -110,6 +110,9 @@ namespace FunkyBot
                           //Clear TrinityLoadOnce Used Profiles!
                           FunkyBot.XMLTags.TrinityLoadOnce.UsedProfiles.Clear();
 
+                         //Clear Health Average
+                          ObjectCache.Objects.ClearHealthAverageStats();
+
 						  currentGameID=curgameID;
 						  return true;
 					 }
