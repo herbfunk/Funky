@@ -99,11 +99,11 @@ namespace FunkyBot.Targeting.Behaviors
 				//    Logger.Write(LogLevel.Grouping, "Current Unit Cluster Propeties [{0}]", cluster.Info.Properties.ToString());
 
 				return ((!Bot.Settings.Targeting.IgnoreAboveAverageMobs
-								&&(cluster.Info.Properties.HasFlag(ClusterProperties.Elites)||
-									 cluster.Info.Properties.HasFlag(ClusterProperties.Boss)))||
-							cluster.Info.Properties.HasFlag(ClusterProperties.Large)||
-							cluster.Info.Properties.HasFlag(ClusterProperties.Strong)||
-							cluster.Info.Properties.HasFlag(ClusterProperties.Fast));
+                                && (Bot.Settings.Grouping.GroupingClusterProperties.HasFlag(ClusterProperties.Elites) && cluster.Info.Properties.HasFlag(ClusterProperties.Elites) ||
+								   (Bot.Settings.Grouping.GroupingClusterProperties.HasFlag(ClusterProperties.Boss)&&cluster.Info.Properties.HasFlag(ClusterProperties.Boss))))||
+                            (Bot.Settings.Grouping.GroupingClusterProperties.HasFlag(ClusterProperties.Large) && cluster.Info.Properties.HasFlag(ClusterProperties.Large)) ||
+                            (Bot.Settings.Grouping.GroupingClusterProperties.HasFlag(ClusterProperties.Strong) && cluster.Info.Properties.HasFlag(ClusterProperties.Strong)) ||
+                            (Bot.Settings.Grouping.GroupingClusterProperties.HasFlag(ClusterProperties.Fast) && cluster.Info.Properties.HasFlag(ClusterProperties.Fast)));
 		  };
 
 	 }

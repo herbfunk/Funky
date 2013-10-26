@@ -132,7 +132,6 @@ namespace FunkyBot
             {
                 Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom + 5),
                 Background = System.Windows.Media.Brushes.DimGray,
-                ToolTip = TTFleeInfo,
             };
             TextBlock Flee_Text_Header = new TextBlock
             {
@@ -185,12 +184,18 @@ namespace FunkyBot
                 Text = Bot.Settings.Fleeing.FleeMaxMonsterDistance.ToString(),
                 IsReadOnly = true,
             };
+
+            ToolTip TTFleeMonsterDistance = new System.Windows.Controls.ToolTip
+            {
+                Content = "The maximum distance allowed for units that trigger fleeing",
+            };
             StackPanel FleeMonsterDistanceStackPanel = new StackPanel
             {
                 Width = 600,
                 Height = 20,
                 Orientation = Orientation.Horizontal,
                 Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom + 6),
+                ToolTip = TTFleeMonsterDistance,
             };
 
             FleeMonsterDistanceStackPanel.Children.Add(sliderFleeMonsterDistance);
@@ -225,12 +230,17 @@ namespace FunkyBot
                 Text = Bot.Settings.Fleeing.FleeBotMinimumHealthPercent.ToString(),
                 IsReadOnly = true,
             };
+            ToolTip TTFleeMinimumHealth = new System.Windows.Controls.ToolTip
+            {
+                Content = "Minimum Health Percent before Fleeing is Allowed",
+            };
             StackPanel FleeMinimumHealthtackPanel = new StackPanel
             {
                 Width = 600,
                 Height = 20,
                 Orientation = Orientation.Horizontal,
                 Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom + 6),
+                ToolTip = TTFleeMinimumHealth,
             };
             FleeMinimumHealthtackPanel.Children.Add(sliderFleeHealthPercent);
             FleeMinimumHealthtackPanel.Children.Add(TBFleeMinimumHealth);
@@ -249,7 +259,13 @@ namespace FunkyBot
 
             #endregion
 
+            #region Flee Unit Triggers
+
             StackPanel SPFleeUnitOptions = new StackPanel();
+            ToolTip TTFleeUnitInfo = new System.Windows.Controls.ToolTip
+            {
+                Content = "This determines what units should trigger fleeing",
+            };
             TextBlock FleeUnit_Text_Header = new TextBlock
             {
                 Text = "Fleeing Unit Triggers",
@@ -257,6 +273,7 @@ namespace FunkyBot
                 Background = System.Windows.Media.Brushes.SeaGreen,
                 TextAlignment = TextAlignment.Center,
                 HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch,
+                ToolTip = TTFleeUnitInfo,
             };
             SPFleeUnitOptions.Children.Add(FleeUnit_Text_Header);
 
@@ -346,6 +363,9 @@ namespace FunkyBot
             #endregion
 
             SPFleeing.Children.Add(SPFleeUnitOptions);
+            
+            #endregion
+
             SPFleeing.Children.Add(BtnFleeingLoadTemplate);
             LBcharacterFleeingTabItem.Items.Add(SPFleeing);
             FleeingTabItem.Content = LBcharacterFleeingTabItem;

@@ -376,7 +376,7 @@ namespace FunkyBot.Movement
                          Vector3 botcurpos = Bot.Character.Position;
 
                          //Check if we already within this "point".
-                         if (botcurpos.Distance(pointVector) < 2.5f) return false;
+                         if (botcurpos.Distance2D(pointVector) < 2.5f) return false;
 
                          //3D Obstacle Navigation Check
                          if (!ZCheck)
@@ -415,7 +415,7 @@ namespace FunkyBot.Movement
 
                          if (flags.HasFlag(PointCheckingFlags.Raycast))
                          {
-                             if (!Navigation.CanRayCast(botcurpos, pointVector)) return false;
+                             if (!Navigation.CanRayCast(botcurpos, pointVector, Zeta.Internals.SNO.NavCellFlags.AllowWalk)) return false;
                          }
                    
 

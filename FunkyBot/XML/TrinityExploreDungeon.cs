@@ -303,6 +303,8 @@ namespace FunkyBot.XMLTags
 		  {
 				Logging.WriteDiagnostic("TrinityExploreDungeon OnStart() called");
 
+                FunkyBot.Bot.Character.Update();
+
 				UpdateSearchGridProvider();
 
 				CheckResetDungeonExplorer();
@@ -590,7 +592,7 @@ namespace FunkyBot.XMLTags
 								new Action(ret => isDone=true)
 						  )
 					 ),
-					 new Decorator(ret =>Bot.Character.bIsInTown,
+					 new Decorator(ret =>ZetaDia.Me.IsInTown,
 						  new Sequence(
 								new Action(ret => Logging.WriteDiagnostic("Cannot use TrinityExploreDungeon in town - tag finished!", SceneName)),
 								new Action(ret => isDone=true)

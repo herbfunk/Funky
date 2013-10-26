@@ -74,7 +74,9 @@ namespace FunkyBot.Targeting.Behaviors
 								Bot.Character.Position.Distance(Bot.Targeting.StartingLocation)>20f&&
 								!Navigation.CanRayCast(Bot.Character.Position, Funky.PlayerMover.vLastMoveTo, UseSearchGridProvider: true))
 						  {
-								Logging.Write("Updating Navigator!");
+                              if(Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+								Logger.Write( LogLevel.Movement, "Updating Navigator in Target Refresh");
+
 								Navigator.Clear();
 								Navigator.MoveTo(Funky.PlayerMover.vLastMoveTo, "original destination", true);
 						  }

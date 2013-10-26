@@ -202,7 +202,7 @@ namespace FunkyBot.Movement
 					 }
 
 					 List<int> NearbyObjectRAGUIDs=new List<int>();
-					 List<CacheServerObject> NearbyObjects=Bot.Combat.NearbyObstacleObjects.Where(obj => obj.RadiusDistance<=5f).ToList();//ObjectCache.Obstacles.Navigations.Where(obj => obj.RadiusDistance<=5f).ToList();
+					 List<CacheServerObject> NearbyObjects=Bot.Combat.NearbyObstacleObjects.Where(obj => obj.RadiusDistance<=6f).ToList();//ObjectCache.Obstacles.Navigations.Where(obj => obj.RadiusDistance<=5f).ToList();
 
 					 //no nearby objects passed distance check..
 					 if (NearbyObjects.Count==0)
@@ -417,12 +417,13 @@ namespace FunkyBot.Movement
                         return false;
                     }
 
-                    if (Bot.NavigationCache.CurrentLocationGPrect == null || Bot.NavigationCache.CurrentLocationGPrect.centerpoint != Bot.Character.PointPosition)
+                    if (Bot.NavigationCache.CurrentLocationGPrect == null || !Bot.NavigationCache.CurrentLocationGPrect.Contains(BotPosition))
                     {
-                        Bot.NavigationCache.CurrentLocationGPrect = new GPRectangle(Bot.Character.Position);
-                        currentLocationBoundary = new AreaBoundary(Bot.NavigationCache.CurrentLocationGPrect.centerpoint);
-                        UpdateLocationsBlocked();
+                        Bot.NavigationCache.CurrentLocationGPrect = new GPRectangle(BotPosition);
                     }
+
+                    currentLocationBoundary = new AreaBoundary(BotPosition);
+                    UpdateLocationsBlocked();
 
                     Bot.NavigationCache.CurrentLocationGPRect.UpdateObjectCount();
 

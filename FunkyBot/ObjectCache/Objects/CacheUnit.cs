@@ -102,9 +102,11 @@ namespace FunkyBot.Cache
 						  MonsterReflectDamage=theseaffixes.HasFlag(MonsterAffixes.ReflectsDamage);
 						  MonsterTeleport=theseaffixes.HasFlag(MonsterAffixes.Teleporter);
                           MonsterElectrified = theseaffixes.HasFlag(MonsterAffixes.Electrified);
+                          MonsterFast = theseaffixes.HasFlag(MonsterAffixes.Fast);
 					 }
 					 else
 					 {
+                          MonsterFast = false;
 						  MonsterShielding=false;
 						  MonsterMissileDampening=false;
 						  MonsterIlluionist=false;
@@ -131,6 +133,7 @@ namespace FunkyBot.Cache
 				public bool MonsterReflectDamage { get; set; }
                 public bool MonsterElectrified { get; set; }
 				public bool MonsterTeleport { get; set; }
+                public bool MonsterFast { get; set; }
 
 				public bool IsEliteRareUnique
 				{
@@ -210,10 +213,10 @@ namespace FunkyBot.Cache
                          return ((!this.BeingIgnoredDueToClusterLogic || this.PriorityCounter > 0) && //not ignored because of clusters
                                        (!this.IsBurrowed.HasValue || !this.IsBurrowed.Value) && //ignore burrowed!
                                        (!this.IsTreasureGoblin) &&
-                                       (!this.IsFast || !Bot.Settings.Fleeing.FleeUnitIgnoreFast) &&
+                                       ((!this.IsFast&&!this.MonsterFast) || !Bot.Settings.Fleeing.FleeUnitIgnoreFast) &&
                                        ((this.IsEliteRareUnique && Bot.Settings.Fleeing.FleeUnitRareElite) || (!this.IsEliteRareUnique && Bot.Settings.Fleeing.FleeUnitNormal)) &&
                                        (!this.MonsterElectrified || Bot.Settings.Fleeing.FleeUnitElectrified) &&
-                                       (!Bot.Settings.Fleeing.FleeUnitAboveAverageHitPoints || this.UnitMaxHitPointAverageWeight > 0) &&
+                                       (this.UnitMaxHitPointAverageWeight > 0 || !Bot.Settings.Fleeing.FleeUnitAboveAverageHitPoints) &&
                                        (!this.IsSucideBomber || !Bot.Settings.Fleeing.FleeUnitIgnoreSucideBomber) &&
                                        (this.Monstersize != MonsterSize.Ranged || !Bot.Settings.Fleeing.FleeUnitIgnoreRanged));
                                         

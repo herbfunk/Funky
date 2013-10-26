@@ -244,11 +244,6 @@ namespace FunkyBot.Cache
 									 if (!this.dcurrentHealthPct.Equals(curhealthpct))
 										  healthvalueChanged(dcurrentHealthPct, curhealthpct);
 
-									 
-
-
-									 if (this.ShouldFlee) Bot.Targeting.RequiresAvoidance=true;
-
 									 dCurrentEnergy=me.CurrentPrimaryResource;
 									 dCurrentEnergyPct=dCurrentEnergy/me.MaxPrimaryResource;
 

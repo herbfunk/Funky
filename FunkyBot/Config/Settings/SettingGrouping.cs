@@ -1,3 +1,4 @@
+using FunkyBot.Movement.Clustering;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -13,6 +14,8 @@ namespace FunkyBot.Settings
 		public int GroupingMinimumUnitsInCluster { get; set; }
 		public double GroupingMinimumBotHealth { get; set; }
 
+        public ClusterProperties GroupingClusterProperties { get; set; }
+
 		public SettingGrouping(bool enabled=true)
 		{
 			AttemptGroupingMovements=enabled;
@@ -22,6 +25,7 @@ namespace FunkyBot.Settings
 			GroupingMinimumClusterCount=1;
 			GroupingMinimumUnitsInCluster=3;
 			GroupingMinimumBotHealth=0d;
+            GroupingClusterProperties = ClusterProperties.Boss | ClusterProperties.Elites | ClusterProperties.Large | ClusterProperties.Strong | ClusterProperties.Fast;
 		}
 		public SettingGrouping()
 		{
@@ -32,6 +36,7 @@ namespace FunkyBot.Settings
 			GroupingMinimumClusterCount=1;
 			GroupingMinimumUnitsInCluster=3;
 			GroupingMinimumBotHealth=0d;
+            GroupingClusterProperties = ClusterProperties.Boss | ClusterProperties.Elites | ClusterProperties.Large | ClusterProperties.Strong | ClusterProperties.Fast;
 		}
 
 		private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Grouping_Default.xml");

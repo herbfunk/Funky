@@ -35,8 +35,13 @@ namespace FunkyBot.Targeting.Behaviors
                       Vector3 reuseV3 = Bot.NavigationCache.AttemptToReuseLastLocationFound();
                       if (reuseV3 != Vector3.Zero)
                       {
-                          obj = new CacheObject(reuseV3, TargetType.Fleeing, 20000f, "ReuseFleeSpot", 2.5f, -1);
-                          return true;
+                          if (!ObjectCache.Objects.IsPointNearbyMonsters(reuseV3, Bot.Settings.Fleeing.FleeMaxMonsterDistance)
+                              &&!ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(reuseV3))
+                          {
+                              obj = new CacheObject(reuseV3, TargetType.Fleeing, 20000f, "ReuseFleeSpot", 2.5f, -1);
+                              return true;
+
+                          }
                       }
                   }
 
