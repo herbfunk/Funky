@@ -566,8 +566,6 @@ namespace FunkyBot.Targeting
 						  CurrentState=CurrentTarget.Interact();
 						  break;
 					 case TargetType.AvoidanceMovements:
-						  Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
-						  Bot.Combat.timeCancelledFleeMove=DateTime.Now;
 						  CurrentState=RunStatus.Running;
 						  break;
 					 case TargetType.NoMovement:

@@ -210,20 +210,39 @@ namespace FunkyBot.Movement
                      ///<summary>
                      ///Searches through the contained GridPoints and preforms multiple tests to return a successful point for navigation.
                      ///</summary>
-                     public bool FindSafeSpot(Vector3 CurrentLocation, out Vector3 safespot, Vector3 LoSCheckV3, PointCheckingFlags Flags)
+                     public bool FindSafeSpot(Vector3 CurrentLocation, out Vector3 safespot, Vector3 LoSCheckV3, PointCheckingFlags Flags, List<GridPoint> BlacklistedPoints)
                      {
                          Func<Vector3, bool> PointChecker = CreatePointChecking(Flags,LoSCheckV3);
-
+                         bool PassedPointNonLOS = false;
+                         bool CheckingLOSV3 = LoSCheckV3 != Vector3.Zero;
                          for (int curIndex = LastIndexUsed; curIndex < ContainedPoints.Count - 1; curIndex++)
                          {
-                             Vector3 gpV3 = (Vector3)ContainedPoints[curIndex];
-                             if (!CheckPoint(gpV3, PointChecker)) continue;
+                             GridPoint gp=ContainedPoints[curIndex];
+                             if (BlacklistedPoints.Contains(gp)) continue;
+                             if (!CheckPoint(gp, LoSCheckV3, Flags)) continue;
+
+                             //LOS Check
+                             if (CheckingLOSV3)
+                             {
+                                 if (!Navigation.CanRayCast(LastSafespotFound, LoSCheckV3, UseSearchGridProvider: true))
+                                 {
+                                     LastIndexUsed = curIndex;
+                                     PassedPointNonLOS = true;
+                                     continue;
+                                 }
+                             }
+                          
 
                              //PointChecker passed!
                              LastIndexUsed = curIndex;
-                             LastSafespotFound = gpV3;
-                             LastSafeGridPointFound = ContainedPoints[curIndex];
-                             safespot = gpV3;
+                             safespot = LastSafespotFound;
+                             return true;
+                         }
+
+                         //Did we find a valid point that didn't pass LOS?
+                         if (PassedPointNonLOS)
+                         {
+                             safespot = LastSafespotFound;
                              return true;
                          }
 
@@ -274,8 +293,12 @@ namespace FunkyBot.Movement
                      {
                          Func<Vector3, bool> pointChecker = new Func<Vector3, bool>((gp) => 
                          {
-                             if (!Navigation.CanRayCast(Bot.Character.Position, gp)) return false;
-                             if (!Navigation.MGP.CanStandAt(gp)) return false;
+                             Vector3 BotPos = Bot.Character.Position;
+                             if (BotPos.Z!=gp.Z)
+                             {
+                                 if (!Navigation.CanRayCast(BotPos, gp)) return false;
+                                 //if (!Navigation.MGP.CanStandAt(gp)) return false;
+                             }
                              return true; 
                          });
 
@@ -328,6 +351,77 @@ namespace FunkyBot.Movement
                          }
 
                          return pointChecker;
+                     }
+
+                     private bool CheckPoint(GridPoint point, Vector3 LoSCheckV3, PointCheckingFlags flags)
+                     {
+                         //Check blacklisted points and ignored
+                         if (point.Ignored) return false;
+
+                         //2D Obstacle Navigation Check
+                         bool ZCheck = false;
+                         if (this.AreaIsFlat)
+                         {
+                             if (flags.HasFlag(PointCheckingFlags.ObstacleOverlap))
+                             {
+                                 if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObstacleType.Navigation.HasFlag(obj.Obstacletype.Value) && obj.PointInside(point))) return false;
+                             }
+                            
+                             ZCheck = true;
+                         }
+
+                         //Create Vector3
+                         Vector3 pointVectorReturn = (Vector3)point;
+                         Vector3 pointVector = pointVectorReturn;
+                         Vector3 botcurpos = Bot.Character.Position;
+
+                         //Check if we already within this "point".
+                         if (botcurpos.Distance(pointVector) < 2.5f) return false;
+
+                         //3D Obstacle Navigation Check
+                         if (!ZCheck)
+                         {
+                             //Because Z Variance we need to check if we can raycast walk to the location.
+                             if (!Navigation.CanRayCast(botcurpos, pointVector)) return false;
+                             if (!Navigation.MGP.CanStandAt(pointVector)) return false;
+
+                             if (flags.HasFlag(PointCheckingFlags.ObstacleOverlap))
+                             {
+                                 if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObstacleType.Navigation.HasFlag(obj.Obstacletype.Value) && obj.PointInside(pointVector))) return false;
+                             }
+                            
+                         }
+
+
+                         //Avoidance Check (Any Avoidance)
+                         if (flags.HasFlag(PointCheckingFlags.AvoidanceOverlap))
+                         {
+                             if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(pointVector)) return false;
+                         }
+                       
+
+                         //Kiting Check
+                         if (flags.HasFlag(PointCheckingFlags.MonsterOverlap))
+                         {
+                             if (ObjectCache.Objects.OfType<CacheUnit>().Any(m => m.ShouldBeKited && m.IsPositionWithinRange(pointVector, Bot.Settings.Fleeing.FleeMaxMonsterDistance))) return false;
+                         }
+                      
+
+                         //Avoidance Intersection Check
+                         if (flags.HasFlag(PointCheckingFlags.AvoidanceIntersection))
+                         {
+                             if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(botcurpos, pointVector)) return false;
+                         }
+
+                         if (flags.HasFlag(PointCheckingFlags.Raycast))
+                         {
+                             if (!Navigation.CanRayCast(botcurpos, pointVector, UseSearchGridProvider: true)) return false;
+                         }
+                   
+
+                         LastSafespotFound = pointVectorReturn;
+                         LastSafeGridPointFound = point.Clone();
+                         return true;
                      }
 
                      private bool CheckPoint(GridPoint point, bool ZHeightCheckPass, Vector3 botcurpos, bool kite, bool checkBotAvoidIntersection, bool checkLOS, Vector3 LoSCheckV3)

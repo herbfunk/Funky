@@ -11,6 +11,7 @@ namespace FunkyBot.Settings
 		 public bool CreateMuleOnStashFull { get; set; }
          public bool EnableLineOfSightBehavior { get; set; }
          public PointCheckingFlags AvoidanceFlags { get; set; }
+         public PointCheckingFlags FleeingFlags { get; set; }
 
 		 public SettingPlugin()
 		 {
@@ -20,7 +21,9 @@ namespace FunkyBot.Settings
 			  OutofCombatMaxDistance=50;
 			  CreateMuleOnStashFull=true;
               EnableLineOfSightBehavior = false;
-              AvoidanceFlags = PointCheckingFlags.AvoidanceIntersection | PointCheckingFlags.AvoidanceOverlap | PointCheckingFlags.ObstacleOverlap | PointCheckingFlags.Raycast;
-		 }
+              AvoidanceFlags = PointCheckingFlags.AvoidanceIntersection | PointCheckingFlags.AvoidanceOverlap | PointCheckingFlags.ObstacleOverlap;
+              FleeingFlags = PointCheckingFlags.AvoidanceIntersection | PointCheckingFlags.AvoidanceOverlap | PointCheckingFlags.ObstacleOverlap | PointCheckingFlags.Raycast | PointCheckingFlags.MonsterOverlap;
+
+         }
 	}
 }

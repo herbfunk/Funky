@@ -49,8 +49,6 @@ namespace FunkyBot.Targeting.Behaviors
 									obj=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "StayPutPoint", 2.5f, -1);
 									return true;
 							  }
-							  else
-									Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=0; //reset wait time
 						 }
 
 
@@ -186,9 +184,6 @@ namespace FunkyBot.Targeting.Behaviors
 									if (thisobj.GPRect.TryFindSafeSpot(Bot.Character.Position, out SafeLOSMovement, thisobj.Position, Bot.Character.ShouldFlee, true))
 									{
 										 CurrentTarget=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
-										 //Reset Avoidance Timer so we don't trigger it while moving towards the target!
-										 Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
-										 Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=1000+((int)(Bot.Targeting.CurrentTarget.CentreDistance/25f)*1000);
 									}
 									else
 									{

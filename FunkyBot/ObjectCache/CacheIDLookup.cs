@@ -621,7 +621,7 @@ namespace FunkyBot.Cache
                     //a3 Siege Monster
                     {230725, 45f},
                     //monster_affix waller
-                    {226808, 12.75f},
+                    //{226808, 12.75f},
 			  };
 
 
@@ -658,6 +658,8 @@ namespace FunkyBot.Cache
 				//Mobs that "move" into non-walkable locations -- I.E. Teleport
 				public static readonly HashSet<int> hashActorSNOTransforms=new HashSet<int>
 				{
+                     //a3 KeyWarden
+                     256015,
 					 //Succubus
 					 5508,209596,152679,152679,219673,152535,
 					 //Haulking
@@ -772,6 +774,9 @@ namespace FunkyBot.Cache
 
 					 //DemonFlyers
 					 //141209,62736,130794,221770,220775,134416,
+
+                     //a3 KeyWarden
+                     256015,
 
 				};
 				// A list of bosses in the game, just to make CERTAIN they are treated as elites

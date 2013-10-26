@@ -114,6 +114,8 @@ namespace FunkyBot
 
 					  InitAvoidanceControls();
 
+                      InitFleeingControls();
+
 					  InitPlayerClassControls();
 						
 

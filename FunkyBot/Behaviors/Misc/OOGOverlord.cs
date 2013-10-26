@@ -54,7 +54,9 @@ namespace FunkyBot
 				//Change the Monster Power!
 				if (Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings)
 				{
-					 Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel=Bot.Settings.Demonbuddy.MonsterPower;
+                    int overridePowerLevel=Bot.Settings.Demonbuddy.MonsterPower;
+                    Logging.Write("[Funky] Overriding Monster Power Level to {0}", overridePowerLevel.ToString());
+                    Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel = overridePowerLevel;
 				}
 
 				////Disconnect -- Starting Profile Setup.

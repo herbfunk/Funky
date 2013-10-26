@@ -43,6 +43,7 @@ namespace FunkyBot.Cache
 		  internal List<int> NearbyAvoidances=new List<int>();
 		  internal List<CacheUnit> FleeTriggeringUnits=new List<CacheUnit>();
 		  internal List<CacheAvoidance> TriggeringAvoidances=new List<CacheAvoidance>();
+          internal List<int> TriggeringAvoidanceRAGUIDs = new List<int>();
 
 		  internal List<int> ValidClusterUnits=new List<int>();
 		  internal List<int> UnitRAGUIDs=new List<int>();
@@ -143,21 +144,11 @@ namespace FunkyBot.Cache
 
 		  //Kiting
 		  internal bool IsFleeing { get; set; }
-		  // Prevent spam-kiting too much - allow fighting between each kite movement
-		  internal DateTime timeCancelledFleeMove=DateTime.Today;
-		  internal int iMillisecondsCancelledFleeMoveFor=0;
 		  //Duration: Seconds of the kite movement
 		  internal int iSecondsFleeMoveFor=0;
 
 
 
-
-
-
-
-		  // This force-prevents avoidance for XX loops incase we get stuck trying to avoid stuff
-		  internal DateTime timeCancelledEmergencyMove=DateTime.Today;
-		  internal int iMillisecondsCancelledEmergencyMoveFor=0;
 		  //Duration: Seconds of the avoid movement
 		  internal int iSecondsEmergencyMoveFor=0;
 
@@ -245,6 +236,7 @@ namespace FunkyBot.Cache
 				UnitRAGUIDs=new List<int>();
 				SurroundingUnits=0;
 				TriggeringAvoidances.Clear();
+                TriggeringAvoidanceRAGUIDs.Clear();
 				NearbyAvoidances.Clear();
 				NearbyObstacleObjects.Clear();
 				FleeTriggeringUnits.Clear();

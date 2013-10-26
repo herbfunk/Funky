@@ -182,7 +182,7 @@ namespace FunkyBot.Targeting
 				//Cache last target only if current target is not avoidance (Movement).
 				LastCachedTarget=this.CurrentTarget!=null?this.CurrentTarget:ObjectCache.FakeCacheObject;
 
-				if (!this.Equals(null)&&this.CurrentTarget.targetType.HasValue&&this.CurrentTarget.targetType.Value.HasFlag(TargetType.AvoidanceMovements))
+                if (this.CurrentTarget != null && this.CurrentTarget.targetType.HasValue && ObjectCache.CheckTargetTypeFlag(this.CurrentTarget.targetType.Value,TargetType.AvoidanceMovements))
 				{
 					 if (this.CurrentTarget.targetType.Value==TargetType.Fleeing)
 					 {

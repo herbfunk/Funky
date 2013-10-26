@@ -319,7 +319,9 @@ namespace FunkyBot
 					  {
 							try
 							{
-								
+                                LBDebug.Items.Add(String.Format("Last Avoidance: {0}",Bot.Targeting.LastAvoidanceMovement.ToString()));
+                                LBDebug.Items.Add(String.Format("Avoided Last Target=={0}",Bot.Targeting.AvoidanceLastTarget.ToString()));
+
 							} catch
 							{
 

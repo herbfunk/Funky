@@ -519,6 +519,9 @@
     <Compile Include="Avoidances\AvoidanceValue.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Config\Tabs\Fleeing.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Navigation\GridPoint\PointCheckingFlags.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

@@ -300,14 +300,14 @@ namespace FunkyBot.Cache
 					case TargetType.Interactable:
 					case TargetType.Door:
 						this.Weight=15000d-(Math.Floor(centreDistance)*170d);
-						if (centreDistance<=12f)
-							this.Weight+=800d;
+						if (centreDistance<=20f&&this.RadiusDistance<=5f)
+							this.Weight+=8000d;
 						// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
 						if (this==Bot.Targeting.LastCachedTarget&&centreDistance<=25f)
 							this.Weight+=400;
 						// If there's a monster in the path-line to the item, reduce the weight by 50%
-						if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
-							this.Weight*=0.5;
+                        //if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
+                        //    this.Weight*=0.5;
 						break;
 					case TargetType.Container:
 						this.Weight=11000d-(Math.Floor(centreDistance)*190d);

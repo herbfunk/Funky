@@ -282,10 +282,11 @@ namespace FunkyBot.Cache
 					 ///<summary>
 					 ///Tests Two Vectors for intersecting avoidances.
 					 ///</summary>
-					 public bool TestVectorAgainstAvoidanceZones(Vector3 startingPoint, Vector3 destinationPoint)
+					 public bool TestVectorAgainstAvoidanceZones(Vector3 startingPoint, Vector3 destinationPoint, bool IgnoreTriggeringAvoidances=true)
 					 {
-						  return this.Avoidances.Any(A => A.ShouldAvoid
-								&&MathEx.IntersectsPath(A.Position, A.Radius, startingPoint, destinationPoint));
+                         return this.Avoidances.Any(A => A.ShouldAvoid &&
+                               (!IgnoreTriggeringAvoidances || !Bot.Combat.TriggeringAvoidanceRAGUIDs.Contains(A.RAGUID)) &&
+								MathEx.IntersectsPath(A.Position, A.Radius, startingPoint, destinationPoint));
 					 }
 
 					 //public bool TestVectorAgainstActiveAvoidanceZones(Vector3 destinationPoint)

@@ -14,22 +14,7 @@ namespace FunkyBot.Avoidances
 		  //Static Avoidance Areas in Halls Of Agony:
 		  //108012 -- FirePit, 34f Radius
 		  //89578 -- Inferno Wall -- 3f Height, 20f? Width
-		  internal static void UpdateAvoidKiteRates(bool Reset=false)
-		  {
-				if (Reset)
-				{
-					 Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=0;
-					 Bot.Combat.iMillisecondsCancelledFleeMoveFor=0;
-					 return;
-				}
 
-				double extraWaitTime=Bot.Settings.AvoidanceRecheckMaximumRate*Bot.Character.dCurrentHealthPct;
-				if (extraWaitTime<Bot.Settings.AvoidanceRecheckMinimumRate) extraWaitTime=Bot.Settings.AvoidanceRecheckMinimumRate;
-				Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=(int)extraWaitTime;
-
-				extraWaitTime=MathEx.Random(Bot.Settings.KitingRecheckMinimumRate, Bot.Settings.KitingRecheckMaximumRate)*Bot.Character.dCurrentHealthPct;
-				Bot.Combat.iMillisecondsCancelledFleeMoveFor=(int)extraWaitTime;
-		  }
 
 		  internal static readonly  AvoidanceValue[] AvoidancesDefault=new AvoidanceValue[]
 			  {
@@ -240,6 +225,7 @@ namespace FunkyBot.Avoidances
 					 if (avoidance.UpdateProjectileRayTest())
 					 {
 						  Bot.Combat.TriggeringAvoidances.Add(avoidance);
+                          Bot.Combat.TriggeringAvoidanceRAGUIDs.Add(avoidance.RAGUID);
 						  Bot.Targeting.TravellingAvoidance=true;
 						  Bot.Targeting.RequiresAvoidance=true;
 					 }
@@ -252,6 +238,7 @@ namespace FunkyBot.Avoidances
 					 if (avoidance.Position.Distance(Bot.Character.Position)<=avoidance.Radius)
 					 {
 						  Bot.Combat.TriggeringAvoidances.Add(avoidance);
+                          Bot.Combat.TriggeringAvoidanceRAGUIDs.Add(avoidance.RAGUID);
 						  Bot.Targeting.RequiresAvoidance=true;
 					 }
 				}

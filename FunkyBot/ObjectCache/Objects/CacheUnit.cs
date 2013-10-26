@@ -101,6 +101,7 @@ namespace FunkyBot.Cache
 						  MonsterLifeLink=theseaffixes.HasFlag(MonsterAffixes.HealthLink);
 						  MonsterReflectDamage=theseaffixes.HasFlag(MonsterAffixes.ReflectsDamage);
 						  MonsterTeleport=theseaffixes.HasFlag(MonsterAffixes.Teleporter);
+                          MonsterElectrified = theseaffixes.HasFlag(MonsterAffixes.Electrified);
 					 }
 					 else
 					 {
@@ -111,6 +112,7 @@ namespace FunkyBot.Cache
 						  MonsterLifeLink=false;
 						  MonsterReflectDamage=false;
 						  MonsterTeleport=false;
+                          MonsterElectrified = false;
 					 }
 
 					 CheckedMonsterAffixes_=true;
@@ -127,6 +129,7 @@ namespace FunkyBot.Cache
 				public bool MonsterExtraHealth { get; set; }
 				public bool MonsterLifeLink { get; set; }
 				public bool MonsterReflectDamage { get; set; }
+                public bool MonsterElectrified { get; set; }
 				public bool MonsterTeleport { get; set; }
 
 				public bool IsEliteRareUnique
@@ -204,9 +207,17 @@ namespace FunkyBot.Cache
 				{
 					 get
 					 {
-						  return ((!this.BeingIgnoredDueToClusterLogic||this.PriorityCounter>0) //not ignored because of clusters
-										&&(!this.IsBurrowed.HasValue||!this.IsBurrowed.Value) //ignore burrowed!
-										&&(!CacheIDLookup.HashActorSNOKitingIgnore.Contains(base.SNOID)||this.MonsterRare||this.MonsterMinion||this.MonsterElite));
+                         return ((!this.BeingIgnoredDueToClusterLogic || this.PriorityCounter > 0) && //not ignored because of clusters
+                                       (!this.IsBurrowed.HasValue || !this.IsBurrowed.Value) && //ignore burrowed!
+                                       (!this.IsTreasureGoblin) &&
+                                       (!this.IsFast || !Bot.Settings.Fleeing.FleeUnitIgnoreFast) &&
+                                       ((this.IsEliteRareUnique && Bot.Settings.Fleeing.FleeUnitRareElite) || (!this.IsEliteRareUnique && Bot.Settings.Fleeing.FleeUnitNormal)) &&
+                                       (!this.MonsterElectrified || Bot.Settings.Fleeing.FleeUnitElectrified) &&
+                                       (!Bot.Settings.Fleeing.FleeUnitAboveAverageHitPoints || this.UnitMaxHitPointAverageWeight <= 0) &&
+                                       (!this.IsSucideBomber || !Bot.Settings.Fleeing.FleeUnitIgnoreSucideBomber) &&
+                                       (this.Monstersize != MonsterSize.Ranged || !Bot.Settings.Fleeing.FleeUnitIgnoreRanged));
+                                        
+                                        
 					 }
 				}
 

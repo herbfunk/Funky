@@ -60,7 +60,7 @@ namespace FunkyBot.Movement
 					 return centerGPRect.Contains(point);
 				}
 				//Blacklisted points used by movement behaviors
-				internal HashSet<GridPoint> BlacklistedGridpoints=new HashSet<GridPoint>();
+                internal List<GridPoint> BlacklistedGridpoints = new List<GridPoint>();
 				private bool BlacklistedPoint=false;
 				internal void BlacklistLastSafespot()
 				{
@@ -100,16 +100,16 @@ namespace FunkyBot.Movement
 								AllGPRectsFailed=true;
 
 								//Set timer here
-								if (!kiting)
-								{
-									 Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=(int)(Bot.Character.dCurrentHealthPct*Bot.Settings.AvoidanceRecheckMinimumRate)+1000;
-									 Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
-								}
-								else
-								{
-									 Bot.Combat.iMillisecondsCancelledFleeMoveFor=(int)(Bot.Character.dCurrentHealthPct*Bot.Settings.KitingRecheckMinimumRate)+1000;
-									 Bot.Combat.timeCancelledFleeMove=DateTime.Now;
-								}
+                                //if (!kiting)
+                                //{
+                                //     Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=(int)(Bot.Character.dCurrentHealthPct*Bot.Settings.AvoidanceRecheckMinimumRate)+1000;
+                                //     Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
+                                //}
+                                //else
+                                //{
+                                //     Bot.Combat.iMillisecondsCancelledFleeMoveFor=(int)(Bot.Character.dCurrentHealthPct*Bot.Settings.KitingRecheckMinimumRate)+1000;
+                                //     Bot.Combat.timeCancelledFleeMove=DateTime.Now;
+                                //}
 								return safespot;
 						  }
 						  else
@@ -228,7 +228,7 @@ namespace FunkyBot.Movement
 
                         item.UpdateObjectCount(AllGPRectsFailed);
 
-                        if (item.TryFindSafeSpot(CurrentPosition, out safespot, LOS, Flags, AllGPRectsFailed, CompareWeight))
+                        if (item.TryFindSafeSpot(CurrentPosition, out safespot, LOS, Flags, this.BlacklistedGridpoints, AllGPRectsFailed, CompareWeight))
                         {
                             this.lastUsedGPRect = gridpointrectangles_[i];
                             return;

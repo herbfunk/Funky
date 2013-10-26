@@ -249,7 +249,7 @@ namespace FunkyBot.Movement
 					 return false;
 				}
 
-                public bool TryFindSafeSpot(Vector3 CurrentPosition, out Vector3 safespot, Vector3 los, PointCheckingFlags Flags, bool expandOnFailure = false, double CurrentWeight = 0)
+                public bool TryFindSafeSpot(Vector3 CurrentPosition, out Vector3 safespot, Vector3 los, PointCheckingFlags Flags, List<GridPoint> BlacklistedPoints, bool expandOnFailure = false, double CurrentWeight = 0)
                 {
                     lastUsedQuadrant = null;
                     safespot = Vector3.Zero;
@@ -266,7 +266,7 @@ namespace FunkyBot.Movement
                         if (CheckingWeight && item.ThisWeight > CurrentWeight)
                             continue;
 
-                        if (item.FindSafeSpot(CurrentPosition, out safespot, los, Flags))
+                        if (item.FindSafeSpot(CurrentPosition, out safespot, los, Flags, BlacklistedPoints))
                         {
                             lastUsedQuadrant = item;
                             return true;

@@ -29,6 +29,7 @@ namespace FunkyBot.AbilityFunky
 		   CloseDistance=131072,
 		  
 			ReflectsDamage=262144,
+            Electrified = 524288,
 
 	 }
 }
