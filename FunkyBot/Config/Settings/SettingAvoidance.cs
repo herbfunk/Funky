@@ -12,6 +12,7 @@ namespace FunkyBot.Settings
 	{
 		 public bool AttemptAvoidanceMovements { get; set; }
 		 public bool UseAdvancedProjectileTesting { get; set; }
+         public int FailureRetryMilliseconds { get; set; }
 
 		 [XmlArray]
 		 public AvoidanceValue[] Avoidances { get { return avoidances; } set { avoidances=value; } }
@@ -23,6 +24,7 @@ namespace FunkyBot.Settings
 			  AttemptAvoidanceMovements=true;
 			  UseAdvancedProjectileTesting=false;
 			  Avoidances=AvoidanceCache.AvoidancesDefault;
+              FailureRetryMilliseconds = 2000;
 		 }
 
 		 private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath,"Specific","Avoidance_Default.xml");

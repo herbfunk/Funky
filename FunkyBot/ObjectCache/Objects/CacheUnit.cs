@@ -258,6 +258,20 @@ namespace FunkyBot.Cache
 					}
 			  }
 
+              public bool AllowLOSMovement
+              {
+                  get
+                  {
+                      return
+                           (this.IsSucideBomber && Bot.Settings.LOSMovement.AllowSucideBomber) ||
+                           (this.IsTreasureGoblin && Bot.Settings.LOSMovement.AllowTreasureGoblin) ||
+                           (this.IsSpawnerUnit && Bot.Settings.LOSMovement.AllowSpawnerUnits) ||
+                           ((this.MonsterRare || this.MonsterElite) && Bot.Settings.LOSMovement.AllowRareElites) ||
+                           ((this.IsBoss || this.MonsterUnique) && Bot.Settings.LOSMovement.AllowUniqueBoss) ||
+                           (this.Monstersize.Value == MonsterSize.Ranged && Bot.Settings.LOSMovement.AllowRanged);
+                  }
+              }
+
 
 				#region Health Related
 				//Monter Hitpoints
@@ -879,7 +893,7 @@ namespace FunkyBot.Cache
 						  if (centreDistance>this.KillRadius&&!distantUnit)
 						  {
 								//Since special objects are subject to LOS movement, we do not ignore just yet.
-								if (!this.ObjectIsSpecial)
+                              if (!this.AllowLOSMovement)
 									 return false;
 						  }
 						  else
@@ -895,7 +909,7 @@ namespace FunkyBot.Cache
 								if (lastLOSCheckMS<500&&centreDistance>1f)
 								{
 									// if (this.IsEliteRareUnique||this.IsTreasureGoblin)
-                                    if (this.ObjectIsSpecial)
+                                    if (this.AllowLOSMovement)
 										  Bot.Combat.LoSMovementObjects.Add(this);
 									 
 										 
@@ -919,7 +933,7 @@ namespace FunkyBot.Cache
 									 if (lastLOSCheckMS<ReCheckTime)
 									 {
 										  //if (this.IsEliteRareUnique||this.IsTreasureGoblin) 
-                                         if(this.ObjectIsSpecial)
+                                         if (this.AllowLOSMovement)
                                               Bot.Combat.LoSMovementObjects.Add(this);
 
 										  return false;
@@ -933,7 +947,7 @@ namespace FunkyBot.Cache
 									 bool Valid=false;
 									 //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
 									// if (this.IsEliteRareUnique||this.IsTreasureGoblin)
-                                     if (this.ObjectIsSpecial)
+                                     if (this.AllowLOSMovement)
 										  Bot.Combat.LoSMovementObjects.Add(this);
 									 
 

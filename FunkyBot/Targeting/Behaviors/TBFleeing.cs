@@ -8,6 +8,8 @@ namespace FunkyBot.Targeting.Behaviors
 {
 	 public class TBFleeing : TargetBehavior
 	 {
+         private DateTime FleeRetryDate = DateTime.Today;
+
 		  public TBFleeing() : base() { }
 
 		  public override bool BehavioralCondition
@@ -16,6 +18,7 @@ namespace FunkyBot.Targeting.Behaviors
 				{
 					 return 
                          Bot.Settings.Fleeing.EnableFleeingBehavior&&
+                         DateTime.Now.CompareTo(FleeRetryDate)>0&&
                          Bot.Character.dCurrentHealthPct<=Bot.Settings.Fleeing.FleeBotMinimumHealthPercent&&
                          Bot.Combat.FleeTriggeringUnits.Count>0&&
                          (!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.Settings.Targeting.GoblinPriority<2)&&
@@ -66,6 +69,13 @@ namespace FunkyBot.Targeting.Behaviors
                       obj = new CacheObject(vAnySafePoint, TargetType.Fleeing, 20000f, "FleeSpot", 2.5f, -1);
                       Bot.Combat.iSecondsFleeMoveFor = 1 + (int)(distance / 5f);
                       return true;
+                  }
+                  else
+                  {//Failed to find any location..
+
+                      //Set the future date we must wait for to retry..
+                      FleeRetryDate = DateTime.Now.AddMilliseconds(Bot.Settings.Fleeing.FailureRetryMilliseconds);
+
                   }
 
                   return false;

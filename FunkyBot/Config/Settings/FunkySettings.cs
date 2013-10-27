@@ -53,12 +53,10 @@ namespace FunkyBot.Settings
 
 
 
-             public int AvoidanceRecheckMaximumRate { get; set; }//=1250;
-             public int AvoidanceRecheckMinimumRate { get; set; }//=500;
-             public int KitingRecheckMaximumRate { get; set; }//=4000;
-             public int KitingRecheckMinimumRate { get; set; }//=2000;
 
 				 public SettingCluster Cluster { get; set; }
+
+                 public SettingLOSMovement LOSMovement { get; set; }
 
 				 public SettingPlugin Plugin { get; set; }
 
@@ -78,12 +76,9 @@ namespace FunkyBot.Settings
 					  Targeting=new SettingTargeting();
 					  Combat=new SettingCombat();
 					  Avoidance=new SettingAvoidance();
+                      LOSMovement = new SettingLOSMovement();
 					  Plugin=new SettingPlugin();
 					 
-                 AvoidanceRecheckMaximumRate = 3500;
-                 AvoidanceRecheckMinimumRate = 550;
-                 KitingRecheckMaximumRate = 4500;
-                 KitingRecheckMinimumRate = 1000;
 
                  BuyPotionsDuringTownRun = false;
 					  EnableWaitAfterContainers=false;

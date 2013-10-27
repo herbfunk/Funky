@@ -796,7 +796,7 @@ namespace FunkyBot.Cache
 				// Resplendent chest SNO list
 				public static readonly HashSet<int> hashSNOContainerResplendant=new HashSet<int>
 				{ 
-            62873, 95011, 81424, 108230, 111808, 111809, 199583, 109264,101500,
+            62873, 95011, 81424, 108230, 111808, 111809, 199583, 109264,101500,96993, 
          };
 
 				// A list of SNO's to *FORCE* to type: Item. (BE CAREFUL WITH THIS!).

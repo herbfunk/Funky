@@ -38,6 +38,17 @@ namespace FunkyBot
 
 				internal static FunkyWindow funkyConfigWindow;
 
+                private void DefaultOpenSettingsFileClicked(object sender, EventArgs e)
+                {
+                    try
+                    {
+                        System.Diagnostics.Process.Start(FolderPaths.sFunkySettingsCurrentPath);
+                    }
+                    catch
+                    {
+
+                    }
+                }
 				private void DefaultMenuLevelingClicked(object sender, EventArgs e)
 				{
 					 System.Windows.MessageBoxResult confirm=System.Windows.MessageBox.Show(funkyConfigWindow, 
@@ -398,10 +409,7 @@ namespace FunkyBot
 				 {
 					  Bot.Settings.Debug.SkipAhead=!Bot.Settings.Debug.SkipAhead;
 				 }
-                 private void LineOfSightBehaviorChecked(object sender, EventArgs e)
-                 {
-                     Bot.Settings.Plugin.EnableLineOfSightBehavior = !Bot.Settings.Plugin.EnableLineOfSightBehavior;
-                 }
+
 
              protected override void OnClosed(EventArgs e)
              {

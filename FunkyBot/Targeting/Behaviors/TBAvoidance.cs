@@ -7,6 +7,8 @@ namespace FunkyBot.Targeting.Behaviors
 {
 	 public class TBAvoidance : TargetBehavior
 	 {
+         private DateTime AvoidRetryDate = DateTime.Today;
+
 		  public TBAvoidance() : base() { }
 
 		  public override TargetBehavioralTypes TargetBehavioralTypeType { get { return TargetBehavioralTypes.Avoidance; } }
@@ -14,8 +16,10 @@ namespace FunkyBot.Targeting.Behaviors
 		  {
 				get
 				{
-					 return (Bot.Targeting.RequiresAvoidance&&(!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.Settings.Targeting.GoblinPriority<2));
-							//&&(DateTime.Now.Subtract(Bot.Combat.timeCancelledEmergencyMove).TotalMilliseconds>Bot.Combat.iMillisecondsCancelledEmergencyMoveFor));
+					 return 
+                         (Bot.Targeting.RequiresAvoidance&&
+                          DateTime.Now.CompareTo(AvoidRetryDate)>0&&
+                         (!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.Settings.Targeting.GoblinPriority<2));
 				}
 		  }
 		  public override void Initialize()
@@ -57,11 +61,12 @@ namespace FunkyBot.Targeting.Behaviors
 							Bot.Combat.iSecondsEmergencyMoveFor=1+(int)(distance/5f);
 							return true;
 					  }
-                      //else
-                      //{
-                      //    Bot.Combat.iMillisecondsCancelledEmergencyMoveFor = (int)(Bot.Character.dCurrentHealthPct * Bot.Settings.AvoidanceRecheckMinimumRate) + 1000;
-                      //    Bot.Combat.timeCancelledEmergencyMove = DateTime.Now;
-                      //}
+                      else
+                      {//Failed to find any location..
+
+                          //Set the future date we must wait for to retry..
+                          AvoidRetryDate = DateTime.Now.AddMilliseconds(Bot.Settings.Avoidance.FailureRetryMilliseconds);
+                      }
 
 					  return false;
 				 };

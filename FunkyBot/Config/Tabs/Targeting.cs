@@ -336,6 +336,10 @@ namespace FunkyBot
 				spClusteringExceptions.Children.Add(ClusteringExceptions_Text_Header);
 
 				#region AllowRangedUnits
+                ToolTip TTAllowRangedUnits = new System.Windows.Controls.ToolTip
+                {
+                    Content = "Uses the MonsterSize property from DB to determine if Ranged",
+                };
 				CheckBox cbClusteringAllowRangedUnits=new CheckBox
 				{
 					 Content="Allow Ranged Units",
@@ -343,6 +347,7 @@ namespace FunkyBot
 					 Height=30,
 					 IsChecked=(Bot.Settings.Targeting.UnitExceptionRangedUnits),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+                     ToolTip = TTAllowRangedUnits,
 				};
 				cbClusteringAllowRangedUnits.Checked+=UnitExceptionAllowRangedUnitsChecked;
 				cbClusteringAllowRangedUnits.Unchecked+=UnitExceptionAllowRangedUnitsChecked;
@@ -350,6 +355,10 @@ namespace FunkyBot
 				#endregion
 
 				#region AllowSpawnerUnits
+                ToolTip TTAllowSpawnerUnits = new System.Windows.Controls.ToolTip
+                {
+                    Content = "Spawner is an Unit that summons additional units",
+                };
 				CheckBox cbClusteringAllowSpawnerUnits=new CheckBox
 				{
 					 Content="Allow Spawner Units",
@@ -357,6 +366,7 @@ namespace FunkyBot
 					 Height=30,
 					 IsChecked=(Bot.Settings.Targeting.UnitExceptionSpawnerUnits),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+                     ToolTip = TTAllowSpawnerUnits,
 				};
 				cbClusteringAllowSpawnerUnits.Checked+=UnitExceptionAllowSpawnerUnitsChecked;
 				cbClusteringAllowSpawnerUnits.Unchecked+=UnitExceptionAllowSpawnerUnitsChecked;
@@ -364,6 +374,10 @@ namespace FunkyBot
 				#endregion
 
 				#region AllowSucideBombers
+                ToolTip TTAllowSucideBombers = new System.Windows.Controls.ToolTip
+                {
+                    Content = "Units found in Act 2 and 3 that explode and are fast!",
+                };
 				CheckBox cbClusteringAllowSucideBombers=new CheckBox
 				{
 					 Content="Allow Sucide Bombers",
@@ -371,6 +385,7 @@ namespace FunkyBot
 					 Height=30,
 					 IsChecked=(Bot.Settings.Targeting.UnitExceptionSucideBombers),
 					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+                     ToolTip = TTAllowSucideBombers,
 				};
 				cbClusteringAllowSucideBombers.Checked+=UnitExceptionAllowSucideBombersChecked;
 				cbClusteringAllowSucideBombers.Unchecked+=UnitExceptionAllowSucideBombersChecked;

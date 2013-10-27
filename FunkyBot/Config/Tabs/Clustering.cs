@@ -118,9 +118,14 @@ namespace FunkyBot
 				#endregion
 
 				#region LowHP
+                ToolTip TTClusterLowHPOption = new System.Windows.Controls.ToolTip
+                {
+                    Content = "When bots health is not greater than value set then all units are valid for targeting",
+                };
 				StackPanel spClusterLowHPOption=new StackPanel
 				{
 					 Orientation=Orientation.Horizontal,
+                     ToolTip = TTClusterLowHPOption,
 				};
 
 				#region ClusterLowHPSliderValue
@@ -185,9 +190,14 @@ namespace FunkyBot
 				#endregion
 
 				#region ClusterDistance
+                ToolTip TTClusterDistanceOptions = new System.Windows.Controls.ToolTip
+                {
+                    Content = "The max radius between each unit within a cluster",
+                };
 				StackPanel spClusterDistanceOptions=new StackPanel
 				{
 					 Orientation=Orientation.Vertical,
+                     ToolTip = TTClusterDistanceOptions,
 				};
 				TextBlock ClusterDistance_Text_Header=new TextBlock
 				{
@@ -227,9 +237,14 @@ namespace FunkyBot
 				#endregion
 
 				#region ClusterMinUnitCount
+                ToolTip TTClusterMinUnitOptions = new System.Windows.Controls.ToolTip
+                {
+                    Content = "Allow only clusters with the minimum number of units",
+                };
 				StackPanel spClusterMinUnitOptions=new StackPanel
 				{
 					 Orientation=Orientation.Vertical,
+                     ToolTip = TTClusterMinUnitOptions,
 				};
 				TextBlock ClusterMinUnitCount_Text_Header=new TextBlock
 				{

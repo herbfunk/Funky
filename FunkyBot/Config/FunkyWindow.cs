@@ -64,7 +64,7 @@ namespace FunkyBot
 						};
 						MenuItem Menu_Default_Open=new MenuItem
 						{
-							 Header="Open",
+							 Header="Open File..",
 							 Height=25,
 							 FontSize=12,
 						};
@@ -72,12 +72,20 @@ namespace FunkyBot
 						Menu_Defaults.Items.Add(Menu_Default_Open);
 						MenuItem Menu_Default_Leveling=new MenuItem
 						{
-							 Header="Default: Leveling",
+							 Header="Use Default Leveling",
 							 Height=25,
 							 FontSize=12,
 						};
 						Menu_Default_Leveling.Click+=DefaultMenuLevelingClicked;
 						Menu_Defaults.Items.Add(Menu_Default_Leveling);
+                        MenuItem Menu_ViewSettingFile = new MenuItem
+                        {
+                            Header = "Open Settings File",
+                            Height = 25,
+                            FontSize = 12,
+                        };
+                        Menu_ViewSettingFile.Click += DefaultOpenSettingsFileClicked;
+                        Menu_Defaults.Items.Add(Menu_ViewSettingFile);
 
 						Menu_Settings.Items.Add(Menu_Defaults);
 						LBWindowContent.Items.Add(Menu_Settings);
@@ -138,6 +146,7 @@ namespace FunkyBot
 
 						InitTargetingGeneralControls();
 						InitTargetRangeControls();
+                        InitLOSMovementControls();
 
 						TargetTabItem.Content=tcTargeting;
 
@@ -293,16 +302,16 @@ namespace FunkyBot
 						lbAdvancedContent.Items.Add(CBSkipAhead);
 
 
-                        CheckBox CBLineOfSightBehavior = new CheckBox
-                        {
-                            Content = "Enable Line-Of-Sight Behavior",
-                            Width = 300,
-                            Height = 20,
-                            IsChecked = Bot.Settings.Plugin.EnableLineOfSightBehavior,
-                        };
-                        CBLineOfSightBehavior.Checked += LineOfSightBehaviorChecked;
-                        CBLineOfSightBehavior.Unchecked += LineOfSightBehaviorChecked;
-                        lbAdvancedContent.Items.Add(CBLineOfSightBehavior);
+                        //CheckBox CBLineOfSightBehavior = new CheckBox
+                        //{
+                        //    Content = "Enable Line-Of-Sight Behavior",
+                        //    Width = 300,
+                        //    Height = 20,
+                        //    IsChecked = Bot.Settings.Plugin.EnableLineOfSightBehavior,
+                        //};
+                        //CBLineOfSightBehavior.Checked += LineOfSightBehaviorChecked;
+                        //CBLineOfSightBehavior.Unchecked += LineOfSightBehaviorChecked;
+                        //lbAdvancedContent.Items.Add(CBLineOfSightBehavior);
 
 						AdvancedTabItem.Content=lbAdvancedContent;
 
