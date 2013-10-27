@@ -373,7 +373,8 @@ namespace FunkyBot.AbilityFunky
 										  Logger.Write(LogLevel.Ability, "Destination for Ability {0} requires further searching!", this.Power.ToString());
 									 GPRectangle DestinationRect=new GPRectangle(DestinationVector);
 									 Vector3 NewDestinationV3;
-									 if (DestinationRect.TryFindSafeSpot(Bot.Character.Position, out NewDestinationV3, DestinationV))
+
+                                     if(Bot.NavigationCache.AttemptFindSafeSpot(out NewDestinationV3, DestinationV, Bot.Settings.Plugin.AvoidanceFlags))
 									 {
 										  return NewDestinationV3;
 									 }

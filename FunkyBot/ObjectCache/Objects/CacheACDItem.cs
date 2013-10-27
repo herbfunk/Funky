@@ -13,7 +13,7 @@ namespace FunkyBot.Cache
 		  // **********************************************************************************************
 		  // So we can make an object, read all item stats from a backpack item *ONCE*, then store it here while my behavior trees process everything
 		  // Preventing any need for calling D3 memory again after the initial read (every D3 memory read is a chance for a DB crash/item mis-read/stuck!)
-		  internal class CacheACDItem
+		  public class CacheACDItem
 		  {
 				public string ThisInternalName { get; set; }
 				public string ThisRealName { get; set; }

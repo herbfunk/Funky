@@ -143,10 +143,11 @@ namespace FunkyBot.Movement
 				///</summary>
 				internal void RefreshNavigationBlocked()
 				{
-					 //Check if bot is navigationally blocked..
-					 if (DateTime.Now.Subtract(LastNavigationBlockCheck).TotalMilliseconds>500)
+					 //Check if bot is navigationally blocked.. (if bot pos changed or 500ms elapsed then we refresh!)
+                    if (LastBotPositionChecked!=Bot.Character.Position||DateTime.Now.Subtract(LastNavigationBlockCheck).TotalMilliseconds > 500)
 					 {
 						  LastNavigationBlockCheck=DateTime.Now;
+                          LastBotPositionChecked = Bot.Character.Position;
 
 						  if (IsVectorBlocked(Bot.Character.Position))
 						  {
@@ -159,6 +160,7 @@ namespace FunkyBot.Movement
 				}
 				internal bool BotIsNavigationallyBlocked=false;
 				private DateTime LastNavigationBlockCheck=DateTime.Today;
+                private Vector3 LastBotPositionChecked = Vector3.Zero;
 
 				#region Vetor Blocking
 				//Tracks Objects that occupy surrounding navigation grid points
@@ -357,47 +359,8 @@ namespace FunkyBot.Movement
 					 return vlastSafeSpot;
 			  }
 				///<summary>
-				///Searches for a safespot!
+				///Searches for a safespot
 				///</summary>
-				public bool AttemptFindSafeSpot(out Vector3 safespot, Vector3 LOS, bool kiting=false)
-				{
-					 safespot=vlastSafeSpot;
-					 if (!Bot.Targeting.TravellingAvoidance&&DateTime.Now.Subtract(lastFoundSafeSpot).TotalMilliseconds<=800
-						&&vlastSafeSpot!=Vector3.Zero
-						&&(!ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(vlastSafeSpot))
-					   &&(!kiting||!ObjectCache.Objects.IsPointNearbyMonsters(vlastSafeSpot,Bot.Settings.Fleeing.FleeMaxMonsterDistance)))
-					 {	 //Already found a safe spot in the last 800ms
-						  return true;
-					 }
-
-
-					 Vector3 BotPosition=Bot.Character.Position;
-
-					 //Check if we should refresh..
-					 if (Bot.NavigationCache.CurrentGPArea==null||Bot.NavigationCache.CurrentGPArea.AllGPRectsFailed&&!Bot.NavigationCache.CurrentGPArea.centerGPRect.Contains(BotPosition)||!Bot.NavigationCache.CurrentGPArea.GridPointContained(BotPosition))
-						  Bot.NavigationCache.CurrentGPArea=new GPArea(BotPosition);
-
-
-
-					 //Check Bot Navigationally blocked
-					 RefreshNavigationBlocked();
-					 if (BotIsNavigationallyBlocked)
-					 {
-						  return false;
-					 }
-
-					 if (Bot.NavigationCache.CurrentLocationGPrect==null||Bot.NavigationCache.CurrentLocationGPrect.centerpoint!=Bot.Character.PointPosition)
-					 {
-						  Bot.NavigationCache.CurrentLocationGPrect=new GPRectangle(Bot.Character.Position);
-						  currentLocationBoundary=new AreaBoundary(Bot.NavigationCache.CurrentLocationGPrect.centerpoint);
-						  UpdateLocationsBlocked();
-					 }
-
-					 Bot.NavigationCache.CurrentLocationGPRect.UpdateObjectCount();
-
-					 safespot=Bot.NavigationCache.CurrentGPArea.AttemptFindSafeSpot(BotPosition, LOS, kiting);
-					 return (safespot!=Vector3.Zero);
-				}
                 public bool AttemptFindSafeSpot(out Vector3 safespot, Vector3 LOS, PointCheckingFlags flags)
                 {
                     safespot = vlastSafeSpot;
@@ -731,74 +694,6 @@ namespace FunkyBot.Movement
 
 				private IndexedList<Vector3> CachedPathFinderCurrentPath=new IndexedList<Vector3>();
 				internal IndexedList<Vector3> CurrentPathFinderPath=new IndexedList<Vector3>();
-
-				public IndexedList<Vector3> MoveToPathToLocation(Vector3 Destination)
-				{
-					 if (CurrentPathFinderPath.Count==0)
-					 {
-						  if (NP.CurrentPath.Count>0)
-								CachedPathFinderCurrentPath=new IndexedList<Vector3>(NP.CurrentPath.ToArray());
-
-						  NP.Clear();
-						  NP.MoveTo(Destination, "Pathing", true);
-						  CurrentPathFinderPath=new IndexedList<Vector3>(NP.CurrentPath);
-					 }
-
-					 return CurrentPathFinderPath;
-				}
-
-				private Vector3 currentpathvector_=Vector3.Zero;
-				///<summary>
-				///Trys to find current path by checking NavigationProvider and DungeonExplorer for any valid pathing.
-				///</summary>
-				public Vector3 CurrentPathVector
-				{
-					 get
-					 {
-						  if (NP.CurrentPath.Count>0&&currentpathvector_!=NP.CurrentPath.Current)
-								currentpathvector_=NP.CurrentPath.Current;
-						  else if (DE.CurrentRoute!=null&&DE.CurrentRoute.Count>0&&currentpathvector_!=DE.CurrentNode.NavigableCenter)
-								currentpathvector_=DE.CurrentNode.NavigableCenter;
-						  else
-								currentpathvector_=Funky.PlayerMover.vLastMoveTo;
-						  
-						  return currentpathvector_;
-					 }
-				}
-
-
-				private DateTime LastMGPUpdate=DateTime.MinValue;
-				private int LastScenceUpdateOccured=0;
-				public void UpdateSearchGridProvider(bool force=false)
-				{
-					 if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld)
-						  return;
-
-					 //Enforce a time update rule and a position check
-					 if (!force&&LastScenceUpdateOccured==Bot.Character.iSceneID)
-						  return;
-
-					 if (LastScenceUpdateOccured!=Bot.Character.iSceneID)
-						  LastScenceUpdateOccured=Bot.Character.iSceneID;
-
-
-					 if (!force&&DateTime.Now.Subtract(LastMGPUpdate).TotalMilliseconds<1000)
-						  return;
-
-
-					 Logging.WriteDiagnostic("[Funky] Updating Main Grid Provider", true);
-
-					 try
-					 {
-						  Navigation.MGP.Update();
-					 } catch
-					 {
-						  Logging.WriteDiagnostic("[Funky] MGP Update Exception Safely Handled!", true);
-						  return;
-					 }
-
-					 LastMGPUpdate=DateTime.Now;
-				}
 
 
 				//Static Methods

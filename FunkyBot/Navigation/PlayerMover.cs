@@ -119,7 +119,7 @@ namespace FunkyBot
 						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logger.Write(LogLevel.Movement, "Stuck Flags: {0}", Bot.NavigationCache.Stuckflags.ToString());
 
-						  bool FoundRandomMovementLocation=Bot.NavigationCache.AttemptFindSafeSpot(out vSafeMovementLocation, Vector3.Zero);
+                          bool FoundRandomMovementLocation = Bot.NavigationCache.AttemptFindSafeSpot(out vSafeMovementLocation, Vector3.Zero, Bot.Settings.Plugin.AvoidanceFlags);
 
 						  // Temporarily log stuff
 						  if (iTotalAntiStuckAttempts==1&&Bot.Settings.Debug.LogStuckLocations)
@@ -200,7 +200,8 @@ namespace FunkyBot
 						  if (ZetaDia.Me.IsInTown)
 						  {
 
-								string profile=Bot.Profile.FirstProfileSeen;
+                              ProfileTracking.TrackedProfile FirstProfile = ProfileTracking.TotalStats.ProfilesTracked.First();
+                              string profile = FirstProfile.ProfileName;
 
 								if (!string.IsNullOrEmpty(profile))
 								{
@@ -243,7 +244,8 @@ namespace FunkyBot
 					 if (Bot.Settings.Debug.RestartGameOnLongStucks&&DateTime.Now.Subtract(timeLastRestartedGame).TotalMinutes>=15)
 					 {
 						  timeLastRestartedGame=DateTime.Now;
-						  string sUseProfile=Bot.Profile.FirstProfileSeen;
+                          ProfileTracking.TrackedProfile FirstProfile = ProfileTracking.TotalStats.ProfilesTracked.First();
+                          string sUseProfile = FirstProfile.ProfileName;
 						  Logging.Write("[Funky] Anti-stuck measures exiting current game.");
 						  // Load the first profile seen last run
 						  ProfileManager.Load(!string.IsNullOrEmpty(sUseProfile)
@@ -426,7 +428,7 @@ namespace FunkyBot
 								// Do we want to immediately generate a 2nd waypoint to "chain" anti-stucks in an ever-increasing path-length?
 								if (iTimesReachedStuckPoint<=iTotalAntiStuckAttempts)
 								{
-									 Bot.NavigationCache.AttemptFindSafeSpot(out vSafeMovementLocation, Vector3.Zero);
+									 Bot.NavigationCache.AttemptFindSafeSpot(out vSafeMovementLocation, Vector3.Zero, Bot.Settings.Plugin.AvoidanceFlags);
 									 vMoveToTarget=vSafeMovementLocation;
 								}
 								else

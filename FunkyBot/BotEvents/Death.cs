@@ -50,8 +50,10 @@ namespace FunkyBot
                      //Don't wait for health change event..
                      WaitingForRevive = false;
                      Revived = false;
-                     Bot.BotStatistics.GameStats.CurrentGame.Deaths++;
-                     Bot.BotStatistics.ProfileStats.CurrentProfile.DeathCount++;
+
+                     ProfileTracking.TotalStats.CurrentTrackingProfile.DeathCount++;
+                     //Bot.BotStatistics.GameStats.CurrentGame.Deaths++;
+                     //Bot.BotStatistics.ProfileStats.CurrentProfile.DeathCount++;
                      Bot.Character.OnHealthChanged -= OnHealthChanged;
                      return RunStatus.Success;
                  }
@@ -63,8 +65,9 @@ namespace FunkyBot
 				  {
 						WaitingForRevive=false;
 						Revived=false;
-						Bot.BotStatistics.GameStats.CurrentGame.Deaths++;
-						Bot.BotStatistics.ProfileStats.CurrentProfile.DeathCount++;
+                        ProfileTracking.TotalStats.CurrentTrackingProfile.DeathCount++;
+                        //Bot.BotStatistics.GameStats.CurrentGame.Deaths++;
+                        //Bot.BotStatistics.ProfileStats.CurrentProfile.DeathCount++;
 				  }
 				  else
 				  {
@@ -80,7 +83,6 @@ namespace FunkyBot
 		 private static bool Revived=false;
 		 private static void OnHealthChanged(double oldvalue, double newvalue)
 		 {
-			  Logging.Write("Health Value Changed! {0} -- {1}", oldvalue, newvalue);
 			  if (newvalue>=1d)
 					Revived=true;
 		 }

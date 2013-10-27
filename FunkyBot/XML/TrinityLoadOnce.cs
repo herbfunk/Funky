@@ -143,7 +143,8 @@ namespace FunkyBot.XMLTags
 												new Sequence(
 													 new Action(ret => Logging.Write("TrinityLoadOnce: Loading next random profile: {0}", NextProfileName)),
 													 new Action(ret => UsedProfiles.Add(NextProfileName)),
-													 new Action(ret => ProfileManager.Load(NextProfilePath))
+													 new Action(ret => ProfileManager.Load(NextProfilePath)),
+                                                     new Action(ret => Funky.FunkyOnProfileChanged(null,null))
 												)
 										  ),
 										  new Action(ret => Logging.Write("TrinityLoadOnce: ERROR: Profile {0} does not exist!", NextProfilePath))

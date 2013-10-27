@@ -322,7 +322,7 @@ namespace FunkyBot
 		  // **********************************************************************************************
 		  // ***** DetermineItemType - Calculates what kind of item it is from D3 internalnames       *****
 		  // **********************************************************************************************
-		  private static GilesItemType DetermineItemType(string sThisInternalName, ItemType DBItemType, FollowerType dbFollowerType=FollowerType.None)
+          internal static GilesItemType DetermineItemType(string sThisInternalName, ItemType DBItemType, FollowerType dbFollowerType = FollowerType.None)
 		  {
 				sThisInternalName=sThisInternalName.ToLower();
 				if (sThisInternalName.StartsWith("axe_")) return GilesItemType.Axe;
@@ -430,7 +430,7 @@ namespace FunkyBot
 		  // **********************************************************************************************
 		  // *****      DetermineBaseType - Calculates a more generic, "basic" type of item           *****
 		  // **********************************************************************************************
-		  private static GilesBaseItemType DetermineBaseType(GilesItemType thisGilesItemType)
+          internal static GilesBaseItemType DetermineBaseType(GilesItemType thisGilesItemType)
 		  {
 				GilesBaseItemType thisGilesBaseType=GilesBaseItemType.Unknown;
 				if (thisGilesItemType==GilesItemType.Axe||thisGilesItemType==GilesItemType.CeremonialKnife||thisGilesItemType==GilesItemType.Dagger||
@@ -492,7 +492,7 @@ namespace FunkyBot
 		  // **********************************************************************************************
 		  // *****          DetermineIsStackable - Calculates what items can be stacked up            *****
 		  // **********************************************************************************************
-		  private static bool DetermineIsStackable(GilesItemType thisGilesItemType)
+          internal static bool DetermineIsStackable(GilesItemType thisGilesItemType)
 		  {
 				bool bIsStackable=thisGilesItemType==GilesItemType.CraftingMaterial||thisGilesItemType==GilesItemType.CraftTome||thisGilesItemType==GilesItemType.Ruby||
 										  thisGilesItemType==GilesItemType.Emerald||thisGilesItemType==GilesItemType.Topaz||thisGilesItemType==GilesItemType.Amethyst||
@@ -504,7 +504,7 @@ namespace FunkyBot
 		  // **********************************************************************************************
 		  // *****      DetermineIsTwoSlot - Tries to calculate what items take up 2 slots or 1       *****
 		  // **********************************************************************************************
-		  private static bool DetermineIsTwoSlot(GilesItemType thisGilesItemType)
+          internal static bool DetermineIsTwoSlot(GilesItemType thisGilesItemType)
 		  {
 				if (thisGilesItemType==GilesItemType.Axe||thisGilesItemType==GilesItemType.CeremonialKnife||thisGilesItemType==GilesItemType.Dagger||
 					 thisGilesItemType==GilesItemType.FistWeapon||thisGilesItemType==GilesItemType.Mace||thisGilesItemType==GilesItemType.MightyWeapon||
@@ -525,7 +525,7 @@ namespace FunkyBot
 		  // **********************************************************************************************
 		  // *****   This is for DemonBuddy error checking - see what sort of item DB THINKS it is    *****
 		  // **********************************************************************************************
-		  private static ItemType GilesToDBItemType(GilesItemType thisgilesitemtype)
+          internal static ItemType GilesToDBItemType(GilesItemType thisgilesitemtype)
 		  {
 				switch (thisgilesitemtype)
 				{

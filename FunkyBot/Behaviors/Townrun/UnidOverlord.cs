@@ -192,7 +192,7 @@ namespace FunkyBot
 								if (ZetaDia.Me.Inventory.CurrentStashPage==LastStashPage)
 								{
 									 //Herbfunk: Current Game Stats
-									 StashedItemLog(thisitem);
+                                    ProfileTracking.TotalStats.CurrentTrackingProfile.LootTracker.StashedItemLog(thisitem);
 
 									 ZetaDia.Me.Inventory.MoveItem(thisitem.ThisDynamicID, ZetaDia.Me.CommonData.DynamicId, InventorySlot.PlayerSharedStash, LastStashPoint[0], LastStashPoint[1]);
 									 LastStashPoint=new int[] { -1, -1 };

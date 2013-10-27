@@ -321,7 +321,16 @@ namespace FunkyBot
 						ListBox lbMiscContent=new ListBox();
 						try
 						{
-							 lbMiscContent.Items.Add(Funky.ReturnLogOutputString());
+                            lbMiscContent.Items.Add(String.Format("Total Stats while running\r\nGameCount: {0} DeathCount: {1} TotalTime: {2}\r\n{3}", Bot.TrackingStats.GameCount, Bot.TrackingStats.TotalDeaths, Bot.TrackingStats.TotalTimeRunning.ToString(), Bot.TrackingStats.TotalLootTracker.ToString()));
+                            if (ProfileTracking.TotalStats.ProfilesTracked.Count > 0)
+                            {
+                                lbMiscContent.Items.Add("\r\n==Current Game==");
+                                foreach (var item in ProfileTracking.TotalStats.ProfilesTracked)
+                                {
+                                    lbMiscContent.Items.Add(String.Format("{0}\r\nDeaths:{1} TotalTime:{2}\r\n{3}",item.ProfileName, item.DeathCount, item.TotalTimeSpan.ToString(), item.LootTracker.ToString()));
+                                }
+                            }
+							 
 						}
 						catch
 						{

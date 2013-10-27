@@ -85,16 +85,16 @@ namespace FunkyBot
 				ProfileCache.dictRandomID=new Dictionary<int, int>();
 				SkipAheadCache.ClearCache();
 
-				Bot.Stats.iMaxDeathsAllowed=0;
-				Bot.Stats.iDeathsThisRun=0;
+                FunkyBot.XMLTags.TrinityMaxDeathsTag.MaxDeathsAllowed = 0;
+                //Bot.Stats.iDeathsThisRun=0;
 				_hashsetItemStatsLookedAt=new HashSet<int>();
 				_hashsetItemPicksLookedAt=new HashSet<int>();
 				_hashsetItemFollowersIgnored=new HashSet<int>();
 				TownRunManager._dictItemStashAttempted=new Dictionary<int, int>();
 
-				Bot.Profile.listProfilesLoaded=new List<string>();
-				Bot.Profile.LastProfileSeen="";
-				Bot.Profile.FirstProfileSeen="";
+                //Bot.Profile.listProfilesLoaded=new List<string>();
+                //Bot.Profile.LastProfileSeen="";
+                //Bot.Profile.FirstProfileSeen="";
 
 		  }
 

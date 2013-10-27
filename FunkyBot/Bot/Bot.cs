@@ -14,6 +14,7 @@ using Zeta.Internals.Actors;
 using System.Threading;
 using FunkyBot.Avoidances;
 using Zeta.Internals.Service;
+using FunkyBot.ProfileTracking;
 
 namespace FunkyBot
 {
@@ -34,18 +35,17 @@ namespace FunkyBot
 				public static CombatCache Combat { get; set; }
 				public static TargetingHandler Targeting { get; set; }
 
-				private static BotStatistics Stats_=new BotStatistics();
-				internal static BotStatistics Stats
-				{
-					 get { return Stats_; }
-					 set { Stats_=value; }
-				}
 				private static ProfileCache profile=new ProfileCache();
 				public static ProfileCache Profile
 				{
 					 get { return profile; }
 					 set { profile=value; }
 				}
+
+                ///<summary>
+                ///Tracks the total stats while bot is running. (totals of each game)
+                ///</summary>
+                public static TotalStats TrackingStats = new TotalStats();
 
 				public static Navigation NavigationCache { get; set; }
 
@@ -98,11 +98,8 @@ namespace FunkyBot
 								Logger.Write(LogLevel.OutOfCombat, "New Game Started");
 						  }
 
-						  //Start new current game stats
-						  Bot.BotStatistics.GameStats.Update();
-						  Bot.BotStatistics.ItemStats.Update();
-						  Bot.BotStatistics.ItemStats.CurrentGame.Reset();
-						  Bot.BotStatistics.GameStats.CurrentGame.Reset();
+                          //Update our Profile Tracking of Stats
+                          Bot.TrackingStats.GameChanged();
 
 						  //Update Account Details
 						  Bot.UpdateCurrentAccountDetails();
@@ -144,7 +141,7 @@ namespace FunkyBot
 					 Combat=new CombatCache();
 					 Targeting=new TargetingHandler();
 					 NavigationCache=new Navigation();
-					 Stats_=new BotStatistics();
+                     //Stats_ = new BotStatistics();
 				}
 		  }
 	 

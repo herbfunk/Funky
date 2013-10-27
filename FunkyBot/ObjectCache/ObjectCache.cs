@@ -165,7 +165,7 @@ namespace FunkyBot.Cache
 									 {
 										  if (CacheIDLookup.hashDHPets.Contains(tmp_CachedObj.SNOID))
 												Bot.Character.PetData.DemonHunterPet++;
-										  else if (CacheIDLookup.hashDHSpikeTraps.Contains(tmp_CachedObj.SNOID))
+										  else if (CacheIDLookup.hashDHSpikeTraps.Contains(tmp_CachedObj.SNOID)&&tmp_CachedObj.CentreDistance<=50f)
 												Bot.Character.PetData.DemonHunterSpikeTraps++;
 									 }
 									 else if (Bot.Class.AC==ActorClass.WitchDoctor)

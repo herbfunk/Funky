@@ -235,166 +235,166 @@ namespace FunkyBot
 		  // **********************************************************************************************
 		  // *****                              Full Output Of Item Stats                             *****
 		  // **********************************************************************************************
-		  private static void OutputReport()
-		  {
-				TimeSpan TotalRunningTime=DateTime.Now.Subtract(ItemStatsWhenStartedBot);
-				string sLogFileName=LoggingPrefixString+" -- Stats.log";
+          //private static void OutputReport()
+          //{
+          //      TimeSpan TotalRunningTime=DateTime.Now.Subtract(ItemStatsWhenStartedBot);
+          //      string sLogFileName=LoggingPrefixString+" -- Stats.log";
 
-				// Create whole new file
-				FileStream LogStream=File.Open(LoggingFolderPath+sLogFileName, FileMode.Create, FileAccess.Write, FileShare.Read);
-				using (StreamWriter LogWriter=new StreamWriter(LogStream))
-				{
-					 LogWriter.WriteLine("===== Misc Statistics =====");
-					 LogWriter.WriteLine("Total tracking time: "+TotalRunningTime.Hours.ToString()+"h "+TotalRunningTime.Minutes.ToString()+
-						  "m "+TotalRunningTime.Seconds.ToString()+"s");
-					 LogWriter.WriteLine("Total deaths: "+Bot.Stats.iTotalDeaths.ToString()+" ["+Math.Round(Bot.Stats.iTotalDeaths/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
-					 LogWriter.WriteLine("Total games (approx): "+Bot.Stats.iTotalLeaveGames.ToString()+" ["+Math.Round(Bot.Stats.iTotalLeaveGames/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
-					 if (Bot.Stats.iTotalLeaveGames==0&&Bot.Stats.iTotalJoinGames>0)
-					 {
-						  if (Bot.Stats.iTotalJoinGames==1&&Bot.Profile.iTotalProfileRecycles>1)
-						  {
-								LogWriter.WriteLine("(a profile manager/death handler is interfering with join/leave game events, attempting to guess total runs based on profile-loops)");
-								LogWriter.WriteLine("Total full profile cycles: "+Bot.Profile.iTotalProfileRecycles.ToString()+" ["+Math.Round(Bot.Profile.iTotalProfileRecycles/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
-						  }
-						  else
-						  {
-								LogWriter.WriteLine("(your games left value may be bugged @ 0 due to profile managers/routines etc., now showing games joined instead:)");
-								LogWriter.WriteLine("Total games joined: "+Bot.Stats.iTotalJoinGames.ToString()+" ["+Math.Round(Bot.Stats.iTotalJoinGames/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
-						  }
-					 }
-					 LogWriter.WriteLine("");
+          //      // Create whole new file
+          //      FileStream LogStream=File.Open(LoggingFolderPath+sLogFileName, FileMode.Create, FileAccess.Write, FileShare.Read);
+          //      using (StreamWriter LogWriter=new StreamWriter(LogStream))
+          //      {
+          //           LogWriter.WriteLine("===== Misc Statistics =====");
+          //           LogWriter.WriteLine("Total tracking time: "+TotalRunningTime.Hours.ToString()+"h "+TotalRunningTime.Minutes.ToString()+
+          //                "m "+TotalRunningTime.Seconds.ToString()+"s");
+          //           LogWriter.WriteLine("Total deaths: "+Bot.Stats.iTotalDeaths.ToString()+" ["+Math.Round(Bot.Stats.iTotalDeaths/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+          //           LogWriter.WriteLine("Total games (approx): "+Bot.Stats.iTotalLeaveGames.ToString()+" ["+Math.Round(Bot.Stats.iTotalLeaveGames/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+          //           if (Bot.Stats.iTotalLeaveGames==0&&Bot.Stats.iTotalJoinGames>0)
+          //           {
+          //                if (Bot.Stats.iTotalJoinGames==1&&Bot.Profile.iTotalProfileRecycles>1)
+          //                {
+          //                      LogWriter.WriteLine("(a profile manager/death handler is interfering with join/leave game events, attempting to guess total runs based on profile-loops)");
+          //                      LogWriter.WriteLine("Total full profile cycles: "+Bot.Profile.iTotalProfileRecycles.ToString()+" ["+Math.Round(Bot.Profile.iTotalProfileRecycles/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+          //                }
+          //                else
+          //                {
+          //                      LogWriter.WriteLine("(your games left value may be bugged @ 0 due to profile managers/routines etc., now showing games joined instead:)");
+          //                      LogWriter.WriteLine("Total games joined: "+Bot.Stats.iTotalJoinGames.ToString()+" ["+Math.Round(Bot.Stats.iTotalJoinGames/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+          //                }
+          //           }
+          //           LogWriter.WriteLine("");
 
-					 LogWriter.WriteLine("===== Item DROP Statistics =====");
-					 // Item stats
-					 if (ItemsDroppedStats.iTotal>0)
-					 {
-						  LogWriter.WriteLine("Items:");
-						  LogWriter.WriteLine("Total items dropped: "+ItemsDroppedStats.iTotal.ToString()+" ["+
-								Math.Round(ItemsDroppedStats.iTotal/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+          //           LogWriter.WriteLine("===== Item DROP Statistics =====");
+          //           // Item stats
+          //           if (ItemsDroppedStats.iTotal>0)
+          //           {
+          //                LogWriter.WriteLine("Items:");
+          //                LogWriter.WriteLine("Total items dropped: "+ItemsDroppedStats.iTotal.ToString()+" ["+
+          //                      Math.Round(ItemsDroppedStats.iTotal/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
 
-						  LogWriter.WriteLine("Items dropped by ilvl: ");
-						  for (int iThisLevel=1; iThisLevel<=63; iThisLevel++)
-								if (ItemsDroppedStats.iTotalPerLevel[iThisLevel]>0)
-									 LogWriter.WriteLine("- ilvl"+iThisLevel.ToString()+": "+ItemsDroppedStats.iTotalPerLevel[iThisLevel].ToString()+" ["+
-										  Math.Round(ItemsDroppedStats.iTotalPerLevel[iThisLevel]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+
-										  Math.Round((ItemsDroppedStats.iTotalPerLevel[iThisLevel]/ItemsDroppedStats.iTotal)*100, 2).ToString()+" %}");
+          //                LogWriter.WriteLine("Items dropped by ilvl: ");
+          //                for (int iThisLevel=1; iThisLevel<=63; iThisLevel++)
+          //                      if (ItemsDroppedStats.iTotalPerLevel[iThisLevel]>0)
+          //                           LogWriter.WriteLine("- ilvl"+iThisLevel.ToString()+": "+ItemsDroppedStats.iTotalPerLevel[iThisLevel].ToString()+" ["+
+          //                                Math.Round(ItemsDroppedStats.iTotalPerLevel[iThisLevel]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+
+          //                                Math.Round((ItemsDroppedStats.iTotalPerLevel[iThisLevel]/ItemsDroppedStats.iTotal)*100, 2).ToString()+" %}");
 
-						  LogWriter.WriteLine("");
+          //                LogWriter.WriteLine("");
 
-						  LogWriter.WriteLine("Items dropped by quality: ");
-						  for (int iThisQuality=0; iThisQuality<=3; iThisQuality++)
-						  {
-								if (ItemsDroppedStats.iTotalPerQuality[iThisQuality]>0)
-								{
-									 LogWriter.WriteLine("- "+sQualityString[iThisQuality]+": "+ItemsDroppedStats.iTotalPerQuality[iThisQuality].ToString()+" ["+Math.Round(ItemsDroppedStats.iTotalPerQuality[iThisQuality]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsDroppedStats.iTotalPerQuality[iThisQuality]/ItemsDroppedStats.iTotal)*100, 2).ToString()+" %}");
-									 for (int iThisLevel=1; iThisLevel<=63; iThisLevel++)
-										  if (ItemsDroppedStats.iTotalPerQPerL[iThisQuality, iThisLevel]>0)
-												LogWriter.WriteLine("--- ilvl "+iThisLevel.ToString()+" "+sQualityString[iThisQuality]+": "+ItemsDroppedStats.iTotalPerQPerL[iThisQuality, iThisLevel].ToString()+" ["+Math.Round(ItemsDroppedStats.iTotalPerQPerL[iThisQuality, iThisLevel]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsDroppedStats.iTotalPerQPerL[iThisQuality, iThisLevel]/ItemsDroppedStats.iTotal)*100, 2).ToString()+" %}");
-								} // Any at all this quality?
-						  } // For loop on quality
-						  LogWriter.WriteLine("");
-
-
-					 } // End of item stats
-					 // Potion stats
-					 if (ItemsDroppedStats.iTotalPotions>0)
-					 {
-						  LogWriter.WriteLine("Potion Drops:");
-						  LogWriter.WriteLine("Total potions: "+ItemsDroppedStats.iTotalPotions.ToString()+" ["+Math.Round(ItemsDroppedStats.iTotalPotions/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
-						  for (int iThisLevel=1; iThisLevel<=63; iThisLevel++) if (ItemsDroppedStats.iPotionsPerLevel[iThisLevel]>0)
-									 LogWriter.WriteLine("- ilvl "+iThisLevel.ToString()+": "+ItemsDroppedStats.iPotionsPerLevel[iThisLevel].ToString()+" ["+Math.Round(ItemsDroppedStats.iPotionsPerLevel[iThisLevel]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsDroppedStats.iPotionsPerLevel[iThisLevel]/ItemsDroppedStats.iTotalPotions)*100, 2).ToString()+" %}");
-						  LogWriter.WriteLine("");
-					 } // End of potion stats
-					 // Gem stats
-					 if (ItemsDroppedStats.iTotalGems>0)
-					 {
-						  LogWriter.WriteLine("Gem Drops:");
-						  LogWriter.WriteLine("Total gems: "+ItemsDroppedStats.iTotalGems.ToString()+" ["+Math.Round(ItemsDroppedStats.iTotalGems/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
-						  for (int iThisGemType=0; iThisGemType<=3; iThisGemType++)
-						  {
-								if (ItemsDroppedStats.iGemsPerType[iThisGemType]>0)
-								{
-									 LogWriter.WriteLine("- "+sGemString[iThisGemType]+": "+ItemsDroppedStats.iGemsPerType[iThisGemType].ToString()+" ["+Math.Round(ItemsDroppedStats.iGemsPerType[iThisGemType]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsDroppedStats.iGemsPerType[iThisGemType]/ItemsDroppedStats.iTotalGems)*100, 2).ToString()+" %}");
-									 for (int iThisLevel=1; iThisLevel<=63; iThisLevel++)
-										  if (ItemsDroppedStats.iGemsPerTPerL[iThisGemType, iThisLevel]>0)
-												LogWriter.WriteLine("--- ilvl "+iThisLevel.ToString()+" "+sGemString[iThisGemType]+": "+ItemsDroppedStats.iGemsPerTPerL[iThisGemType, iThisLevel].ToString()+" ["+Math.Round(ItemsDroppedStats.iGemsPerTPerL[iThisGemType, iThisLevel]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsDroppedStats.iGemsPerTPerL[iThisGemType, iThisLevel]/ItemsDroppedStats.iTotalGems)*100, 2).ToString()+" %}");
-								} // Any at all this quality?
-						  } // For loop on quality
-					 } // End of gem stats
-					 // Key stats
-					 if (ItemsDroppedStats.iTotalInfernalKeys>0)
-					 {
-						  LogWriter.WriteLine("Infernal Key Drops:");
-						  LogWriter.WriteLine("Total Keys: "+ItemsDroppedStats.iTotalInfernalKeys.ToString()+" ["+Math.Round(ItemsDroppedStats.iTotalInfernalKeys/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
-					 } // End of key stats
-					 LogWriter.WriteLine("");
-					 LogWriter.WriteLine("");
-					 LogWriter.WriteLine("===== Item PICKUP Statistics =====");
-					 // Item stats
-					 if (ItemsPickedStats.iTotal>0)
-					 {
-						  LogWriter.WriteLine("Items:");
-						  LogWriter.WriteLine("Total items picked up: "+ItemsPickedStats.iTotal.ToString()+" ["+Math.Round(ItemsPickedStats.iTotal/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+          //                LogWriter.WriteLine("Items dropped by quality: ");
+          //                for (int iThisQuality=0; iThisQuality<=3; iThisQuality++)
+          //                {
+          //                      if (ItemsDroppedStats.iTotalPerQuality[iThisQuality]>0)
+          //                      {
+          //                           LogWriter.WriteLine("- "+sQualityString[iThisQuality]+": "+ItemsDroppedStats.iTotalPerQuality[iThisQuality].ToString()+" ["+Math.Round(ItemsDroppedStats.iTotalPerQuality[iThisQuality]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsDroppedStats.iTotalPerQuality[iThisQuality]/ItemsDroppedStats.iTotal)*100, 2).ToString()+" %}");
+          //                           for (int iThisLevel=1; iThisLevel<=63; iThisLevel++)
+          //                                if (ItemsDroppedStats.iTotalPerQPerL[iThisQuality, iThisLevel]>0)
+          //                                      LogWriter.WriteLine("--- ilvl "+iThisLevel.ToString()+" "+sQualityString[iThisQuality]+": "+ItemsDroppedStats.iTotalPerQPerL[iThisQuality, iThisLevel].ToString()+" ["+Math.Round(ItemsDroppedStats.iTotalPerQPerL[iThisQuality, iThisLevel]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsDroppedStats.iTotalPerQPerL[iThisQuality, iThisLevel]/ItemsDroppedStats.iTotal)*100, 2).ToString()+" %}");
+          //                      } // Any at all this quality?
+          //                } // For loop on quality
+          //                LogWriter.WriteLine("");
 
 
-						  LogWriter.WriteLine("Item picked up by ilvl: ");
-						  for (int iThisLevel=1; iThisLevel<=63; iThisLevel++)
-								if (ItemsPickedStats.iTotalPerLevel[iThisLevel]>0)
-									 LogWriter.WriteLine("- ilvl"+iThisLevel.ToString()+": "+ItemsPickedStats.iTotalPerLevel[iThisLevel].ToString()+" ["+Math.Round(ItemsPickedStats.iTotalPerLevel[iThisLevel]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsPickedStats.iTotalPerLevel[iThisLevel]/ItemsPickedStats.iTotal)*100, 2).ToString()+" %}");
-						  LogWriter.WriteLine("");
+          //           } // End of item stats
+          //           // Potion stats
+          //           if (ItemsDroppedStats.iTotalPotions>0)
+          //           {
+          //                LogWriter.WriteLine("Potion Drops:");
+          //                LogWriter.WriteLine("Total potions: "+ItemsDroppedStats.iTotalPotions.ToString()+" ["+Math.Round(ItemsDroppedStats.iTotalPotions/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+          //                for (int iThisLevel=1; iThisLevel<=63; iThisLevel++) if (ItemsDroppedStats.iPotionsPerLevel[iThisLevel]>0)
+          //                           LogWriter.WriteLine("- ilvl "+iThisLevel.ToString()+": "+ItemsDroppedStats.iPotionsPerLevel[iThisLevel].ToString()+" ["+Math.Round(ItemsDroppedStats.iPotionsPerLevel[iThisLevel]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsDroppedStats.iPotionsPerLevel[iThisLevel]/ItemsDroppedStats.iTotalPotions)*100, 2).ToString()+" %}");
+          //                LogWriter.WriteLine("");
+          //           } // End of potion stats
+          //           // Gem stats
+          //           if (ItemsDroppedStats.iTotalGems>0)
+          //           {
+          //                LogWriter.WriteLine("Gem Drops:");
+          //                LogWriter.WriteLine("Total gems: "+ItemsDroppedStats.iTotalGems.ToString()+" ["+Math.Round(ItemsDroppedStats.iTotalGems/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+          //                for (int iThisGemType=0; iThisGemType<=3; iThisGemType++)
+          //                {
+          //                      if (ItemsDroppedStats.iGemsPerType[iThisGemType]>0)
+          //                      {
+          //                           LogWriter.WriteLine("- "+sGemString[iThisGemType]+": "+ItemsDroppedStats.iGemsPerType[iThisGemType].ToString()+" ["+Math.Round(ItemsDroppedStats.iGemsPerType[iThisGemType]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsDroppedStats.iGemsPerType[iThisGemType]/ItemsDroppedStats.iTotalGems)*100, 2).ToString()+" %}");
+          //                           for (int iThisLevel=1; iThisLevel<=63; iThisLevel++)
+          //                                if (ItemsDroppedStats.iGemsPerTPerL[iThisGemType, iThisLevel]>0)
+          //                                      LogWriter.WriteLine("--- ilvl "+iThisLevel.ToString()+" "+sGemString[iThisGemType]+": "+ItemsDroppedStats.iGemsPerTPerL[iThisGemType, iThisLevel].ToString()+" ["+Math.Round(ItemsDroppedStats.iGemsPerTPerL[iThisGemType, iThisLevel]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsDroppedStats.iGemsPerTPerL[iThisGemType, iThisLevel]/ItemsDroppedStats.iTotalGems)*100, 2).ToString()+" %}");
+          //                      } // Any at all this quality?
+          //                } // For loop on quality
+          //           } // End of gem stats
+          //           // Key stats
+          //           if (ItemsDroppedStats.iTotalInfernalKeys>0)
+          //           {
+          //                LogWriter.WriteLine("Infernal Key Drops:");
+          //                LogWriter.WriteLine("Total Keys: "+ItemsDroppedStats.iTotalInfernalKeys.ToString()+" ["+Math.Round(ItemsDroppedStats.iTotalInfernalKeys/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+          //           } // End of key stats
+          //           LogWriter.WriteLine("");
+          //           LogWriter.WriteLine("");
+          //           LogWriter.WriteLine("===== Item PICKUP Statistics =====");
+          //           // Item stats
+          //           if (ItemsPickedStats.iTotal>0)
+          //           {
+          //                LogWriter.WriteLine("Items:");
+          //                LogWriter.WriteLine("Total items picked up: "+ItemsPickedStats.iTotal.ToString()+" ["+Math.Round(ItemsPickedStats.iTotal/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
 
-						  LogWriter.WriteLine("Items picked up by quality: ");
-						  for (int iThisQuality=0; iThisQuality<=3; iThisQuality++)
-						  {
-								if (ItemsPickedStats.iTotalPerQuality[iThisQuality]>0)
-								{
-									 LogWriter.WriteLine("- "+sQualityString[iThisQuality]+": "+ItemsPickedStats.iTotalPerQuality[iThisQuality].ToString()+" ["+Math.Round(ItemsPickedStats.iTotalPerQuality[iThisQuality]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsPickedStats.iTotalPerQuality[iThisQuality]/ItemsPickedStats.iTotal)*100, 2).ToString()+" %}");
-									 for (int iThisLevel=1; iThisLevel<=63; iThisLevel++)
-										  if (ItemsPickedStats.iTotalPerQPerL[iThisQuality, iThisLevel]>0)
-												LogWriter.WriteLine("--- ilvl "+iThisLevel.ToString()+" "+sQualityString[iThisQuality]+": "+ItemsPickedStats.iTotalPerQPerL[iThisQuality, iThisLevel].ToString()+" ["+Math.Round(ItemsPickedStats.iTotalPerQPerL[iThisQuality, iThisLevel]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsPickedStats.iTotalPerQPerL[iThisQuality, iThisLevel]/ItemsPickedStats.iTotal)*100, 2).ToString()+" %}");
-								} // Any at all this quality?
-						  } // For loop on quality
-						  LogWriter.WriteLine("");
-						  if (iTotalFollowerItemsIgnored>0)
-						  {
-								LogWriter.WriteLine("  (note: "+iTotalFollowerItemsIgnored.ToString()+" follower items ignored for being ilvl <60 or blue)");
-						  }
 
-					 } // End of item stats
-					 // Potion stats
-					 if (ItemsPickedStats.iTotalPotions>0)
-					 {
-						  LogWriter.WriteLine("Potion Pickups:");
-						  LogWriter.WriteLine("Total potions: "+ItemsPickedStats.iTotalPotions.ToString()+" ["+Math.Round(ItemsPickedStats.iTotalPotions/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
-						  for (int iThisLevel=1; iThisLevel<=63; iThisLevel++) if (ItemsPickedStats.iPotionsPerLevel[iThisLevel]>0)
-									 LogWriter.WriteLine("- ilvl "+iThisLevel.ToString()+": "+ItemsPickedStats.iPotionsPerLevel[iThisLevel].ToString()+" ["+Math.Round(ItemsPickedStats.iPotionsPerLevel[iThisLevel]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsPickedStats.iPotionsPerLevel[iThisLevel]/ItemsPickedStats.iTotalPotions)*100, 2).ToString()+" %}");
-						  LogWriter.WriteLine("");
-					 } // End of potion stats
-					 // Gem stats
-					 if (ItemsPickedStats.iTotalGems>0)
-					 {
-						  LogWriter.WriteLine("Gem Pickups:");
-						  LogWriter.WriteLine("Total gems: "+ItemsPickedStats.iTotalGems.ToString()+" ["+Math.Round(ItemsPickedStats.iTotalGems/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
-						  for (int iThisGemType=0; iThisGemType<=3; iThisGemType++)
-						  {
-								if (ItemsPickedStats.iGemsPerType[iThisGemType]>0)
-								{
-									 LogWriter.WriteLine("- "+sGemString[iThisGemType]+": "+ItemsPickedStats.iGemsPerType[iThisGemType].ToString()+" ["+Math.Round(ItemsPickedStats.iGemsPerType[iThisGemType]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsPickedStats.iGemsPerType[iThisGemType]/ItemsPickedStats.iTotalGems)*100, 2).ToString()+" %}");
-									 for (int iThisLevel=1; iThisLevel<=63; iThisLevel++)
-										  if (ItemsPickedStats.iGemsPerTPerL[iThisGemType, iThisLevel]>0)
-												LogWriter.WriteLine("--- ilvl "+iThisLevel.ToString()+" "+sGemString[iThisGemType]+": "+ItemsPickedStats.iGemsPerTPerL[iThisGemType, iThisLevel].ToString()+" ["+Math.Round(ItemsPickedStats.iGemsPerTPerL[iThisGemType, iThisLevel]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsPickedStats.iGemsPerTPerL[iThisGemType, iThisLevel]/ItemsPickedStats.iTotalGems)*100, 2).ToString()+" %}");
-								} // Any at all this quality?
-						  } // For loop on quality
-					 } // End of gem stats
-					 // Key stats
-					 if (ItemsPickedStats.iTotalInfernalKeys>0)
-					 {
-						  LogWriter.WriteLine("Infernal Key Pickups:");
-						  LogWriter.WriteLine("Total Keys: "+ItemsPickedStats.iTotalInfernalKeys.ToString()+" ["+Math.Round(ItemsPickedStats.iTotalInfernalKeys/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
-					 } // End of key stats
-					 LogWriter.WriteLine("===== End Of Report =====");
-				}
-		  }
+          //                LogWriter.WriteLine("Item picked up by ilvl: ");
+          //                for (int iThisLevel=1; iThisLevel<=63; iThisLevel++)
+          //                      if (ItemsPickedStats.iTotalPerLevel[iThisLevel]>0)
+          //                           LogWriter.WriteLine("- ilvl"+iThisLevel.ToString()+": "+ItemsPickedStats.iTotalPerLevel[iThisLevel].ToString()+" ["+Math.Round(ItemsPickedStats.iTotalPerLevel[iThisLevel]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsPickedStats.iTotalPerLevel[iThisLevel]/ItemsPickedStats.iTotal)*100, 2).ToString()+" %}");
+          //                LogWriter.WriteLine("");
+
+          //                LogWriter.WriteLine("Items picked up by quality: ");
+          //                for (int iThisQuality=0; iThisQuality<=3; iThisQuality++)
+          //                {
+          //                      if (ItemsPickedStats.iTotalPerQuality[iThisQuality]>0)
+          //                      {
+          //                           LogWriter.WriteLine("- "+sQualityString[iThisQuality]+": "+ItemsPickedStats.iTotalPerQuality[iThisQuality].ToString()+" ["+Math.Round(ItemsPickedStats.iTotalPerQuality[iThisQuality]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsPickedStats.iTotalPerQuality[iThisQuality]/ItemsPickedStats.iTotal)*100, 2).ToString()+" %}");
+          //                           for (int iThisLevel=1; iThisLevel<=63; iThisLevel++)
+          //                                if (ItemsPickedStats.iTotalPerQPerL[iThisQuality, iThisLevel]>0)
+          //                                      LogWriter.WriteLine("--- ilvl "+iThisLevel.ToString()+" "+sQualityString[iThisQuality]+": "+ItemsPickedStats.iTotalPerQPerL[iThisQuality, iThisLevel].ToString()+" ["+Math.Round(ItemsPickedStats.iTotalPerQPerL[iThisQuality, iThisLevel]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsPickedStats.iTotalPerQPerL[iThisQuality, iThisLevel]/ItemsPickedStats.iTotal)*100, 2).ToString()+" %}");
+          //                      } // Any at all this quality?
+          //                } // For loop on quality
+          //                LogWriter.WriteLine("");
+          //                if (iTotalFollowerItemsIgnored>0)
+          //                {
+          //                      LogWriter.WriteLine("  (note: "+iTotalFollowerItemsIgnored.ToString()+" follower items ignored for being ilvl <60 or blue)");
+          //                }
+
+          //           } // End of item stats
+          //           // Potion stats
+          //           if (ItemsPickedStats.iTotalPotions>0)
+          //           {
+          //                LogWriter.WriteLine("Potion Pickups:");
+          //                LogWriter.WriteLine("Total potions: "+ItemsPickedStats.iTotalPotions.ToString()+" ["+Math.Round(ItemsPickedStats.iTotalPotions/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+          //                for (int iThisLevel=1; iThisLevel<=63; iThisLevel++) if (ItemsPickedStats.iPotionsPerLevel[iThisLevel]>0)
+          //                           LogWriter.WriteLine("- ilvl "+iThisLevel.ToString()+": "+ItemsPickedStats.iPotionsPerLevel[iThisLevel].ToString()+" ["+Math.Round(ItemsPickedStats.iPotionsPerLevel[iThisLevel]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsPickedStats.iPotionsPerLevel[iThisLevel]/ItemsPickedStats.iTotalPotions)*100, 2).ToString()+" %}");
+          //                LogWriter.WriteLine("");
+          //           } // End of potion stats
+          //           // Gem stats
+          //           if (ItemsPickedStats.iTotalGems>0)
+          //           {
+          //                LogWriter.WriteLine("Gem Pickups:");
+          //                LogWriter.WriteLine("Total gems: "+ItemsPickedStats.iTotalGems.ToString()+" ["+Math.Round(ItemsPickedStats.iTotalGems/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+          //                for (int iThisGemType=0; iThisGemType<=3; iThisGemType++)
+          //                {
+          //                      if (ItemsPickedStats.iGemsPerType[iThisGemType]>0)
+          //                      {
+          //                           LogWriter.WriteLine("- "+sGemString[iThisGemType]+": "+ItemsPickedStats.iGemsPerType[iThisGemType].ToString()+" ["+Math.Round(ItemsPickedStats.iGemsPerType[iThisGemType]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsPickedStats.iGemsPerType[iThisGemType]/ItemsPickedStats.iTotalGems)*100, 2).ToString()+" %}");
+          //                           for (int iThisLevel=1; iThisLevel<=63; iThisLevel++)
+          //                                if (ItemsPickedStats.iGemsPerTPerL[iThisGemType, iThisLevel]>0)
+          //                                      LogWriter.WriteLine("--- ilvl "+iThisLevel.ToString()+" "+sGemString[iThisGemType]+": "+ItemsPickedStats.iGemsPerTPerL[iThisGemType, iThisLevel].ToString()+" ["+Math.Round(ItemsPickedStats.iGemsPerTPerL[iThisGemType, iThisLevel]/TotalRunningTime.TotalHours, 2).ToString()+" per hour] {"+Math.Round((ItemsPickedStats.iGemsPerTPerL[iThisGemType, iThisLevel]/ItemsPickedStats.iTotalGems)*100, 2).ToString()+" %}");
+          //                      } // Any at all this quality?
+          //                } // For loop on quality
+          //           } // End of gem stats
+          //           // Key stats
+          //           if (ItemsPickedStats.iTotalInfernalKeys>0)
+          //           {
+          //                LogWriter.WriteLine("Infernal Key Pickups:");
+          //                LogWriter.WriteLine("Total Keys: "+ItemsPickedStats.iTotalInfernalKeys.ToString()+" ["+Math.Round(ItemsPickedStats.iTotalInfernalKeys/TotalRunningTime.TotalHours, 2).ToString()+" per hour]");
+          //           } // End of key stats
+          //           LogWriter.WriteLine("===== End Of Report =====");
+          //      }
+          //}
 
 
 
@@ -408,59 +408,8 @@ namespace FunkyBot
 					 GilesItemType thisgilesitemtype=DetermineItemType(thisCacheItem.InternalName, thisCacheItem.BalanceData.thisItemType, thisCacheItem.BalanceData.thisFollowerType);
 					 GilesBaseItemType thisgilesbasetype=DetermineBaseType(thisgilesitemtype);
 
-					 if (thisgilesbasetype==GilesBaseItemType.Armor||thisgilesbasetype==GilesBaseItemType.WeaponOneHand||thisgilesbasetype==GilesBaseItemType.WeaponTwoHand||
-						  thisgilesbasetype==GilesBaseItemType.WeaponRange||thisgilesbasetype==GilesBaseItemType.Jewelry||thisgilesbasetype==GilesBaseItemType.FollowerItem||
-						  thisgilesbasetype==GilesBaseItemType.Offhand)
-					 {
-						  int iQuality;
-						  ItemsPickedStats.iTotal++;
-						  if (thisCacheItem.Itemquality.Value>=ItemQuality.Legendary)
-								iQuality=QUALITYORANGE;
-						  else if (thisCacheItem.Itemquality.Value>=ItemQuality.Rare4)
-								iQuality=QUALITYYELLOW;
-						  else if (thisCacheItem.Itemquality.Value>=ItemQuality.Magic1)
-								iQuality=QUALITYBLUE;
-						  else
-								iQuality=QUALITYWHITE;
-						  ItemsPickedStats.iTotalPerQuality[iQuality]++;
-						  ItemsPickedStats.iTotalPerLevel[thisCacheItem.BalanceData.iThisItemLevel]++;
-						  ItemsPickedStats.iTotalPerQPerL[iQuality, thisCacheItem.BalanceData.iThisItemLevel]++;
-					 }
-					 else if (thisgilesbasetype==GilesBaseItemType.Gem)
-					 {
-						  int iGemType=0;
-						  ItemsPickedStats.iTotalGems++;
-						  if (thisgilesitemtype==GilesItemType.Topaz)
-								iGemType=GEMTOPAZ;
-						  if (thisgilesitemtype==GilesItemType.Ruby)
-								iGemType=GEMRUBY;
-						  if (thisgilesitemtype==GilesItemType.Emerald)
-								iGemType=GEMEMERALD;
-						  if (thisgilesitemtype==GilesItemType.Amethyst)
-								iGemType=GEMAMETHYST;
-
-						  ItemsPickedStats.iGemsPerType[iGemType]++;
-						  ItemsPickedStats.iGemsPerLevel[thisCacheItem.BalanceData.iThisItemLevel]++;
-						  ItemsPickedStats.iGemsPerTPerL[iGemType, thisCacheItem.BalanceData.iThisItemLevel]++;
-					 }
-					 else if (thisgilesitemtype==GilesItemType.HealthPotion)
-					 {
-						  ItemsPickedStats.iTotalPotions++;
-						  ItemsPickedStats.iPotionsPerLevel[thisCacheItem.BalanceData.iThisItemLevel]++;
-					 }
-					 else if (thisgilesitemtype==GilesItemType.InfernalKey)
-					 {
-						  ItemsPickedStats.iTotalInfernalKeys++;
-					 }
-					 // See if we should update the stats file
-					 if (DateTime.Now.Subtract(ItemStatsLastPostedReport).TotalSeconds>10)
-					 {
-						  ItemStatsLastPostedReport=DateTime.Now;
-						  OutputReport();
-					 }
-
 					 //Herbfunk -- Live loot stats keeping.
-					 LootedItemLog(thisgilesitemtype, thisgilesbasetype, thisCacheItem.Itemquality.Value);
+					 ProfileTracking.TotalStats.CurrentTrackingProfile.LootTracker.LootedItemLog(thisgilesitemtype, thisgilesbasetype, thisCacheItem.Itemquality.Value);
 				}
 		  }
 

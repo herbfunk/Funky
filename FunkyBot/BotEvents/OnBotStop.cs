@@ -16,7 +16,7 @@ namespace FunkyBot
         private void FunkyBotStop(IBot bot)
         {
             // Issue final reports
-            OutputReport();
+            //OutputReport();
 
             PlayerMover.iTotalAntiStuckAttempts = 1;
             PlayerMover.vSafeMovementLocation = Vector3.Zero;
@@ -27,13 +27,13 @@ namespace FunkyBot
 				ProfileCache.hashUseOnceID=new HashSet<int>();
 				ProfileCache.dictUseOnceID=new Dictionary<int, int>();
 				ProfileCache.dictRandomID=new Dictionary<int, int>();
-				Bot.Stats.iMaxDeathsAllowed=0;
-				Bot.Stats.iDeathsThisRun=0;
+                //Bot.Stats.iMaxDeathsAllowed=0;
+                //Bot.Stats.iDeathsThisRun=0;
 				initTreeHooks=false;
             //Total Stats
-				Bot.BotStatistics.ItemStats.Update();
-				Bot.BotStatistics.GameStats.Update();
-				Bot.BotStatistics.ProfileStats.OutputReport();
+                //Bot.BotStatistics.ItemStats.Update();
+                //Bot.BotStatistics.GameStats.Update();
+                //Bot.BotStatistics.ProfileStats.OutputReport();
 
 				RemoveHandlers();
 				ResetTreehooks();

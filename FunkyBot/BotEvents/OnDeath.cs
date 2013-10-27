@@ -1,10 +1,12 @@
 ﻿using System;
 using Zeta;
+using System.Linq;
 using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.Internals.Actors;
 using System.Threading;
 using Zeta.CommonBot;
+using FunkyBot.XMLTags;
 
 namespace FunkyBot
 {
@@ -29,25 +31,27 @@ namespace FunkyBot
 					 DumpedDeathInfo=true;
 				}
 
-				if (DateTime.Now.Subtract(Bot.Stats.lastDied).TotalSeconds>10)
-				{
+                //if (DateTime.Now.Subtract(Bot.Stats.lastDied).TotalSeconds>10)
+                //{
 					 
-					 Bot.Stats.lastDied=DateTime.Now;
-					 Bot.Stats.iTotalDeaths++;
-					 Bot.Stats.iDeathsThisRun++;
+                     //Bot.Stats.lastDied=DateTime.Now;
+                     //Bot.Stats.iTotalDeaths++;
+                     //Bot.Stats.iDeathsThisRun++;
 					 //Bot.BotStatistics.GameStats.TotalDeaths++;
 
 					 ResetBot();
 
 					 
 					 // Does Trinity need to handle deaths?
-					 if (Bot.Stats.iMaxDeathsAllowed>0)
+                     if (TrinityMaxDeathsTag.MaxDeathsAllowed > 0)
 					 {
-						  if (Bot.Stats.iDeathsThisRun>=Bot.Stats.iMaxDeathsAllowed)
+                         if (ProfileTracking.TotalStats.CurrentTrackingProfile.DeathCount > TrinityMaxDeathsTag.MaxDeathsAllowed)
 						  {
 								Logging.Write("[Funky] You have died too many times. Now restarting the game.");
 
-								string sUseProfile=Bot.Profile.FirstProfileSeen;
+                                ProfileTracking.TrackedProfile FirstProfile = ProfileTracking.TotalStats.ProfilesTracked.OrderBy(p => p.DateStartedProfile).First();
+
+                                string sUseProfile = FirstProfile.ProfileName;
 								ProfileManager.Load(!string.IsNullOrEmpty(sUseProfile)
 																?sUseProfile
 																:Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile);
@@ -64,7 +68,7 @@ namespace FunkyBot
 						  }
 					 }
 
-				}
+                //}
 		  }
 	 }
 }

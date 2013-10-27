@@ -25,7 +25,7 @@ namespace FunkyBot
 {
 	 public partial class Funky : IPlugin
 	 {
-		  public Version Version { get { return new Version(2, 6, 2, 1); } }
+		  public Version Version { get { return new Version(2, 6, 2, 2); } }
 		  public string Author { get { return "Herbfunk"; } }
 		  public string Description
 		  {
@@ -313,8 +313,7 @@ namespace FunkyBot
 				GameEvents.OnGameJoined-=FunkyOnJoinGame;
 				GameEvents.OnGameLeft-=FunkyOnLeaveGame;
 				GameEvents.OnGameChanged-=FunkyOnGameChanged;
-
-				ProfileManager.OnProfileLoaded-=Bot.Profile.FunkyOnProfileChanged;
+				ProfileManager.OnProfileLoaded-=FunkyOnProfileChanged;
 		  }
 
 		  internal void ResetTreehooks()

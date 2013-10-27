@@ -37,7 +37,7 @@ namespace FunkyBot
 				GameEvents.OnGameJoined+=new EventHandler<EventArgs>(FunkyOnJoinGame);
 				GameEvents.OnGameLeft+=new EventHandler<EventArgs>(FunkyOnLeaveGame);
 				GameEvents.OnGameChanged+=new EventHandler<EventArgs>(FunkyOnGameChanged);
-				ProfileManager.OnProfileLoaded+=new EventHandler<EventArgs>(Bot.Profile.FunkyOnProfileChanged);
+				ProfileManager.OnProfileLoaded+=FunkyOnProfileChanged;
 
 				ITargetingProvider newCombatTargetingProvider=new TrinityCombatTargetingReplacer();
 				CombatTargeting.Instance.Provider=newCombatTargetingProvider;
@@ -58,17 +58,17 @@ namespace FunkyBot
 
 				// Recording of all the XML's in use this run
 
-					 string sThisProfile=Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
-					 if (sThisProfile!=Bot.Profile.LastProfileSeen)
-					 {
-						  Bot.Profile.listProfilesLoaded.Add(sThisProfile);
-						  Bot.Profile.LastProfileSeen=sThisProfile;
-						  if (String.IsNullOrEmpty(Bot.Profile.LastProfileSeen))
-								Bot.Profile.LastProfileSeen=sThisProfile;
-					 }
+                //string sThisProfile = Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
+                //if (sThisProfile != Bot.Profile.LastProfileSeen)
+                //{
+                //    Bot.Profile.listProfilesLoaded.Add(sThisProfile);
+                //    Bot.Profile.LastProfileSeen = sThisProfile;
+                //    if (String.IsNullOrEmpty(Bot.Profile.LastProfileSeen))
+                //        Bot.Profile.LastProfileSeen = sThisProfile;
+                //}
 
 					 //herbfunk stats
-					 Bot.BotStatistics.ProfileStats.CurrentProfile=new Bot.BotStatistics.ProfileStatisics.ProfileStats(sThisProfile);
+                     //Bot.BotStatistics.ProfileStats.CurrentProfile=new Bot.BotStatistics.ProfileStatisics.ProfileStats(sThisProfile);
 
 
 

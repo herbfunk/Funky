@@ -245,6 +245,7 @@ namespace FunkyBot
 									 double iNeededValue=ScoreNeeded(OriginalGilesItemType);
 									 LogJunkItems(thisitem, thisGilesBaseType, OriginalGilesItemType, iThisItemValue);
 								}
+                                ProfileTracking.TotalStats.CurrentTrackingProfile.LootTracker.VendoredItemLog(thisitem);
 								ZetaDia.Me.Inventory.SellItem(thisitem.ACDItem);
 						  }
 						  if (thisitem!=null)

@@ -148,7 +148,7 @@ namespace FunkyBot.Targeting.Behaviors
 							  if (!Bot.NavigationCache.BotIsNavigationallyBlocked)
 							  {
 									Vector3 SafeLOSMovement;
-									if (thisobj.GPRect.TryFindSafeSpot(Bot.Character.Position, out SafeLOSMovement, thisobj.Position, Bot.Character.ShouldFlee, true))
+									if (Bot.NavigationCache.AttemptFindSafeSpot(out SafeLOSMovement, thisobj.Position, Bot.Settings.Plugin.AvoidanceFlags))
 									{
 										 CurrentTarget=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
 									}

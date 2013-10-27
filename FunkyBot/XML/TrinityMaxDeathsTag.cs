@@ -10,6 +10,7 @@ namespace FunkyBot.XMLTags
 	[XmlElement("TrinityMaxDeaths")]
 	public class TrinityMaxDeathsTag : ProfileBehavior
 	{
+        public static int MaxDeathsAllowed = 0;
 		private bool m_IsDone=false;
 		private int iMaxDeaths;
 		private string sReset;
@@ -22,12 +23,12 @@ namespace FunkyBot.XMLTags
 		{
 			return new Zeta.TreeSharp.Action(ret =>
 			{
-				if (MaxDeaths!=Bot.Stats.iMaxDeathsAllowed)
+                if (MaxDeaths != TrinityMaxDeathsTag.MaxDeathsAllowed)
 					Logging.Write("[Funky] Max deaths set by profile. Trinity now handling deaths, and will restart the game after "+MaxDeaths.ToString());
 
-				Bot.Stats.iMaxDeathsAllowed=MaxDeaths;
-				if (Reset!=null&&Reset.ToLower()=="true")
-					Bot.Stats.iDeathsThisRun=0;
+                TrinityMaxDeathsTag.MaxDeathsAllowed = MaxDeaths;
+                //if (Reset!=null&&Reset.ToLower()=="true")
+                //    Bot.Stats.iDeathsThisRun=0;
 				m_IsDone=true;
 			});
 		}

@@ -75,53 +75,6 @@ namespace FunkyBot.Movement
 				///<summary>
 				///Searches for a safespot!
 				///</summary>
-				public Vector3 AttemptFindSafeSpot(Vector3 CurrentPosition, Vector3 LOS, bool kiting=false)
-				{
-					 if (AllGPRectsFailed&&Bot.NavigationCache.CurrentGPArea.BlacklistedGridpoints.Count>0)
-					 {
-						  //Reset all blacklist to retry again.
-						  AllGPRectsFailed=false;
-						  //Clear Blacklisted
-						  Bot.NavigationCache.CurrentGPArea.BlacklistedGridpoints.Clear();
-					 }
-
-
-					 Vector3 safespot=Vector3.Zero;
-					 //Check if we actually created any surrounding GPCs..
-					 if (gridpointrectangles_.Count>0)
-					 {
-						  iterateGPRectsSafeSpot(CurrentPosition, out safespot, LOS, kiting);
-						  //If still failed to find a safe spot.. set the timer before we try again.
-						  if (safespot==Vector3.Zero)
-						  {
-								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-									 Logging.WriteVerbose("All GPCs failed to find a valid location to move!");
-
-								AllGPRectsFailed=true;
-
-								//Set timer here
-                                //if (!kiting)
-                                //{
-                                //     Bot.Combat.iMillisecondsCancelledEmergencyMoveFor=(int)(Bot.Character.dCurrentHealthPct*Bot.Settings.AvoidanceRecheckMinimumRate)+1000;
-                                //     Bot.Combat.timeCancelledEmergencyMove=DateTime.Now;
-                                //}
-                                //else
-                                //{
-                                //     Bot.Combat.iMillisecondsCancelledFleeMoveFor=(int)(Bot.Character.dCurrentHealthPct*Bot.Settings.KitingRecheckMinimumRate)+1000;
-                                //     Bot.Combat.timeCancelledFleeMove=DateTime.Now;
-                                //}
-								return safespot;
-						  }
-						  else
-						  {
-								//Cache it and set timer
-								Bot.NavigationCache.lastFoundSafeSpot=DateTime.Now;
-								Bot.NavigationCache.vlastSafeSpot=safespot;
-						  }
-					 }
-					 //Logging.WriteVerbose("Safespot location {0} distance from {1} is {2}", safespot.ToString(), LastSearchVector.ToString(), safespot.Distance2D(LastSearchVector));
-					 return Bot.NavigationCache.vlastSafeSpot;
-				}
               	public Vector3 AttemptFindSafeSpot(Vector3 CurrentPosition, Vector3 LOS, PointCheckingFlags Flags)
                 {
                     if (AllGPRectsFailed && Bot.NavigationCache.CurrentGPArea.BlacklistedGridpoints.Count > 0)
@@ -145,17 +98,6 @@ namespace FunkyBot.Movement
                                 Logging.WriteVerbose("All GPCs failed to find a valid location to move!");
 
                             AllGPRectsFailed = true;
-                            //Set timer here
-                            //if (!kiting)
-                            //{
-                            //    Bot.Combat.iMillisecondsCancelledEmergencyMoveFor = (int)(Bot.Character.dCurrentHealthPct * Bot.Settings.AvoidanceRecheckMinimumRate) + 1000;
-                            //    Bot.Combat.timeCancelledEmergencyMove = DateTime.Now;
-                            //}
-                            //else
-                            //{
-                            //    Bot.Combat.iMillisecondsCancelledFleeMoveFor = (int)(Bot.Character.dCurrentHealthPct * Bot.Settings.KitingRecheckMinimumRate) + 1000;
-                            //    Bot.Combat.timeCancelledFleeMove = DateTime.Now;
-                            //}
                             return safespot;
                         }
                         else
@@ -170,39 +112,6 @@ namespace FunkyBot.Movement
                 }
 
 				private int lastGPRectIndexUsed=0;
-				private void iterateGPRectsSafeSpot(Vector3 CurrentPosition, out Vector3 safespot, Vector3 LOS, bool kiting=false)
-				{
-					 //blacklisted a point?.. we advance to next index!
-					 if (BlacklistedPoint)
-					 {
-						  lastGPRectIndexUsed++;
-						  BlacklistedPoint=false;
-					 }
-
-					 GPRectangle PositionRect=GetGPRectContainingPoint(CurrentPosition);
-					 if (PositionRect!=null) PositionRect.UpdateObjectCount();
-
-					 GPQuadrant PositionQuadrant=PositionRect.GetQuadrantContainingPoint(CurrentPosition);
-					 double CompareWeight=PositionQuadrant!=null?PositionQuadrant.ThisWeight:PositionRect!=null?PositionRect.Weight:0;
-
-					 safespot=Vector3.Zero;
-					 for (int i=lastGPRectIndexUsed; i<gridpointrectangles_.Count-1; i++)
-					 {
-						  GPRectangle item=gridpointrectangles_[i];
-						  if (Bot.NavigationCache.CheckPointAgainstBlockedDirection(item.centerpoint))
-								continue;
-						  
-
-						  item.UpdateObjectCount(AllGPRectsFailed);
-
-						  if (item.TryFindSafeSpot(CurrentPosition, out safespot, LOS, kiting, false, AllGPRectsFailed, CompareWeight))
-						  {
-								this.lastUsedGPRect=gridpointrectangles_[i];
-								return;
-						  }
-					 }
-					 lastGPRectIndexUsed=0;
-				}
                 private void iterateGPRectsSafeSpot(Vector3 CurrentPosition, out Vector3 safespot, Vector3 LOS, PointCheckingFlags Flags)
                 {
                     //blacklisted a point?.. we advance to next index!
@@ -233,7 +142,6 @@ namespace FunkyBot.Movement
                     }
                     lastGPRectIndexUsed = 0;
                 }
-
 				private GPRectangle GetGPRectContainingPoint(GridPoint Point)
 				{
 					 foreach (var item in this.gridpointrectangles_)

@@ -15,6 +15,9 @@ namespace FunkyBot.Cache
 		  // For the random ID tag
 		  internal static Dictionary<int, int> dictRandomID=new Dictionary<int, int>();
 
+
+
+
 		  private bool profileBehaviorIsOOCInteractive=false;
 		  internal bool ProfileBehaviorIsOOCInteractive
 		  {
@@ -59,54 +62,9 @@ namespace FunkyBot.Cache
 
 				}
 		  }
-
-
-		  public int iTotalProfileRecycles { get; set; }
-		  // Related to the profile reloaded when restarting games, to pick the FIRST profile.
-		  // Also storing a list of all profiles, for experimental reasons/incase I want to use them down the line
-		  public List<string> listProfilesLoaded=new List<string>();
-
-		  private string slastProfileSeen=String.Empty;
-		  public string LastProfileSeen
-		  {
-				get { return slastProfileSeen; }
-				set { slastProfileSeen=value; }
-		  }
-
-		  private string firstProfileSeen=String.Empty;
-		  public string FirstProfileSeen
-		  {
-				get { return firstProfileSeen; }
-				set { firstProfileSeen=value; }
-		  }
-
 		 internal bool IsRunningOOCBehavior { get; set; }
 
-		 internal void FunkyOnProfileChanged(object sender, EventArgs e)
-		 {
-			  string sThisProfile=GlobalSettings.Instance.LastProfile;
 
-			  //herbfunk stats
-			  Bot.BotStatistics.ProfileStats.UpdateProfileChanged();
-
-			  // See if we appear to have started a new game
-			  if (!String.IsNullOrEmpty(this.FirstProfileSeen)&&sThisProfile==this.FirstProfileSeen)
-			  {
-					this.iTotalProfileRecycles++;
-					if (this.iTotalProfileRecycles>Bot.Stats.iTotalJoinGames&&this.iTotalProfileRecycles>Bot.Stats.iTotalLeaveGames)
-					{
-						 Funky.Log("Reseting Game Data -- Total Profile Recycles exceedes join and leave count!");
-						 Funky.ResetGame();
-					}
-			  }
-			  this.listProfilesLoaded.Add(sThisProfile);
-			  this.LastProfileSeen=sThisProfile;
-			  if (String.IsNullOrEmpty(this.FirstProfileSeen))
-					this.FirstProfileSeen=sThisProfile;
-
-			  //Refresh Profile Target Blacklist 
-			  BlacklistCache.UpdateProfileBlacklist();
-		 }
 	 }
 }
 

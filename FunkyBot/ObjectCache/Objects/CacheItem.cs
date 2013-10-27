@@ -494,33 +494,37 @@ namespace FunkyBot.Cache
 						  //Pickup?
 						  // Now see if we actually want it
 						  #region PickupValidation
-						  if (!this.ShouldPickup.HasValue)
-						  {
-								if (Bot.Settings.ItemRules.UseItemRules)
-								{
-									 Interpreter.InterpreterAction action=Bot.ItemRulesEval.checkPickUpItem(this, ItemEvaluationType.PickUp);
-									 switch (action)
-									 {
-										  case Interpreter.InterpreterAction.PICKUP:
-												this.ShouldPickup=true;
-												break;
-										  case Interpreter.InterpreterAction.IGNORE:
-												this.ShouldPickup=false;
-												break;
-									 }
-								}
+                          if (!this.ShouldPickup.HasValue)
+                          {
+                              //Log Dropped Items Here!!
+                              ProfileTracking.TotalStats.CurrentTrackingProfile.LootTracker.DroppedItemLog(this);
 
-								if (!this.ShouldPickup.HasValue)
-								{
-									 //Use Giles Scoring or DB Weighting..
-									 this.ShouldPickup=
-											Bot.Settings.ItemRules.ItemRuleGilesScoring?Funky.GilesPickupItemValidation(this)
-										  :ItemManager.Current.EvaluateItem((ACDItem)this.ref_DiaItem.CommonData, Zeta.CommonBot.ItemEvaluationType.PickUp); ;
-								}
-						  }
-						  else
-								this.NeedsUpdate=false;
+                              if (Bot.Settings.ItemRules.UseItemRules)
+                              {
+                                  Interpreter.InterpreterAction action = Bot.ItemRulesEval.checkPickUpItem(this, ItemEvaluationType.PickUp);
+                                  switch (action)
+                                  {
+                                      case Interpreter.InterpreterAction.PICKUP:
+                                          this.ShouldPickup = true;
+                                          break;
+                                      case Interpreter.InterpreterAction.IGNORE:
+                                          this.ShouldPickup = false;
+                                          break;
+                                  }
+                              }
 
+                              if (!this.ShouldPickup.HasValue)
+                              {
+                                  //Use Giles Scoring or DB Weighting..
+                                  this.ShouldPickup =
+                                         Bot.Settings.ItemRules.ItemRuleGilesScoring ? Funky.GilesPickupItemValidation(this)
+                                       : ItemManager.Current.EvaluateItem((ACDItem)this.ref_DiaItem.CommonData, Zeta.CommonBot.ItemEvaluationType.PickUp); ;
+                              }
+                          }
+                          else
+                          {
+                              this.NeedsUpdate = false;
+                          }
 						  #endregion
 
 						  #endregion

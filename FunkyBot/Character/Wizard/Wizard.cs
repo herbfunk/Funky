@@ -46,7 +46,7 @@ namespace FunkyBot
 				{
 					 Vector3 loc=Vector3.Zero;
 					 //Low HP -- Flee Teleport
-					 if (Bot.Settings.Class.bTeleportFleeWhenLowHP&&Bot.Character.dCurrentHealthPct<0.5d&&(Bot.NavigationCache.AttemptFindSafeSpot(out loc, Bot.Targeting.CurrentTarget.Position, true)))
+					 if (Bot.Settings.Class.bTeleportFleeWhenLowHP&&Bot.Character.dCurrentHealthPct<0.5d&&(Bot.NavigationCache.AttemptFindSafeSpot(out loc, Bot.Targeting.CurrentTarget.Position, Bot.Settings.Plugin.FleeingFlags)))
 						  Bot.NavigationCache.vSideToSideTarget=loc;
 					 else
 						  Bot.NavigationCache.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.CurrentTarget.Position, Bot.Targeting.CurrentTarget.CentreDistance, true);

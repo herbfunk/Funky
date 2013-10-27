@@ -182,7 +182,7 @@ namespace FunkyBot
 						  worldtransferStarted=false;
 						  CastAttempted=false;
 						  Vector3 UnstuckPos;
-						  if (Bot.NavigationCache.AttemptFindSafeSpot(out UnstuckPos, Vector3.Zero, false))
+                          if (Bot.NavigationCache.AttemptFindSafeSpot(out UnstuckPos, Vector3.Zero, Bot.Settings.Plugin.AvoidanceFlags))
 						  {
 								Logger.Write(LogLevel.OutOfCombat, "Generated Unstuck Position at {0}", UnstuckPos.ToString());
 								ZetaDia.Me.UsePower(SNOPower.Walk, UnstuckPos, Bot.Character.iCurrentWorldID, -1);
@@ -305,7 +305,7 @@ namespace FunkyBot
 						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
 								Logger.Write(LogLevel.OutOfCombat,"Attempting to void cast with movement..");
 						  Vector3 V3loc;
-						  bool success=Bot.NavigationCache.AttemptFindSafeSpot(out V3loc, Vector3.Zero);
+                          bool success = Bot.NavigationCache.AttemptFindSafeSpot(out V3loc, Vector3.Zero, Bot.Settings.Plugin.AvoidanceFlags);
 						  if (success)
 						  {
 								Zeta.Navigation.Navigator.MoveTo(V3loc, "Void Cast Movement", false);
