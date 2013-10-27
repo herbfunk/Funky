@@ -404,7 +404,7 @@ namespace FunkyBot.Movement
 
                     Vector3 BotPosition = Bot.Character.Position;
 
-                    //Check if we should refresh..
+                    //Recreate the entire area?
                     if (Bot.NavigationCache.CurrentGPArea == null || Bot.NavigationCache.CurrentGPArea.AllGPRectsFailed && !Bot.NavigationCache.CurrentGPArea.centerGPRect.Contains(BotPosition) || !Bot.NavigationCache.CurrentGPArea.GridPointContained(BotPosition))
                         Bot.NavigationCache.CurrentGPArea = new GPArea(BotPosition);
 
@@ -417,26 +417,23 @@ namespace FunkyBot.Movement
                         return false;
                     }
 
-                    if (Bot.NavigationCache.CurrentLocationGPrect == null || !Bot.NavigationCache.CurrentLocationGPrect.Contains(BotPosition))
+                    //Recreate Bot Current rect?
+                    if (Bot.NavigationCache.CurrentLocationGPrect == null || Bot.NavigationCache.CurrentLocationGPrect.centerpoint!=Bot.Character.PointPosition)
                     {
                         Bot.NavigationCache.CurrentLocationGPrect = new GPRectangle(BotPosition);
+                        //Refresh boundary (blocked directions)
+                        currentLocationBoundary = new AreaBoundary(BotPosition);
+                        UpdateLocationsBlocked();
                     }
 
-                    currentLocationBoundary = new AreaBoundary(BotPosition);
-                    UpdateLocationsBlocked();
-
-                    Bot.NavigationCache.CurrentLocationGPRect.UpdateObjectCount();
+                   // Bot.NavigationCache.CurrentLocationGPRect.UpdateObjectCount();
 
                     safespot = Bot.NavigationCache.CurrentGPArea.AttemptFindSafeSpot(BotPosition, LOS, flags);
                     return (safespot != Vector3.Zero);
                 }
 
+
 				private List<LocationFlags> blockedLocationDirections=new List<LocationFlags>();
-				public List<LocationFlags> BlockedLocationDirections
-				{
-					 get { return blockedLocationDirections; }
-					 set { blockedLocationDirections=value; }
-				}
 				public bool CheckPointAgainstBlockedDirection(GridPoint point)
 				{
 					 if (blockedLocationDirections.Count>0)

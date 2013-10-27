@@ -303,8 +303,6 @@ namespace FunkyBot.XMLTags
 		  {
 				Logging.WriteDiagnostic("TrinityExploreDungeon OnStart() called");
 
-                FunkyBot.Bot.Character.Update();
-
 				UpdateSearchGridProvider();
 
 				CheckResetDungeonExplorer();

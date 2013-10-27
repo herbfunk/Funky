@@ -48,9 +48,11 @@ namespace FunkyBot.Targeting.Behaviors
                   Vector3 vAnySafePoint;
 
                   //Setup Line of Sight for last target if its a unit and still valid..
-                  Vector3 LineOfSight = Bot.Targeting.LastCachedTarget.targetType.Value == TargetType.Unit &&
-                        Bot.Targeting.LastCachedTarget.ObjectIsValidForTargeting ? Bot.Targeting.LastCachedTarget.Position :
-                        Vector3.Zero;
+                  Vector3 LineOfSight = 
+                        Bot.Targeting.LastCachedTarget.targetType.HasValue &&
+                        Bot.Targeting.LastCachedTarget.targetType.Value == TargetType.Unit &&
+                        Bot.Targeting.LastCachedTarget.ObjectIsValidForTargeting ? Bot.Targeting.LastCachedTarget.Position 
+                                                                                 : Vector3.Zero;
 
                   if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, LineOfSight, Bot.Settings.Plugin.FleeingFlags))
                   {
@@ -61,27 +63,10 @@ namespace FunkyBot.Targeting.Behaviors
                       
                       Bot.Combat.IsFleeing = true;
 
-                      //if (obj!=null)FunkyTrinity.Bot.Character.LastCachedTarget=obj;
-
                       obj = new CacheObject(vAnySafePoint, TargetType.Fleeing, 20000f, "FleeSpot", 2.5f, -1);
                       Bot.Combat.iSecondsFleeMoveFor = 1 + (int)(distance / 5f);
                       return true;
                   }
-                  //Avoidances.AvoidanceCache.UpdateAvoidKiteRates();
-
-
-
-                  ////If we have a cached kite target.. and no current target, lets swap back!
-                  //if (FunkyTrinity.Bot.Combat.FleeingLastTarget&&obj==null
-                  //			 &&FunkyTrinity.Bot.Character.LastCachedTarget!=null
-                  //			 &&ObjectCache.Objects.ContainsKey(FunkyTrinity.Bot.Character.LastCachedTarget.RAGUID))
-                  //{
-                  //	 //Swap back to our orginal "kite" target
-                  //	 obj=ObjectCache.Objects[FunkyTrinity.Bot.Character.LastCachedTarget.RAGUID];
-                  //	 Logging.WriteVerbose("Swapping back to unit {0} after fleeing", obj.InternalName);
-                  //	 return true;
-
-                  //}
 
                   return false;
               };

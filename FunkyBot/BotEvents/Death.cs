@@ -1,5 +1,6 @@
 ﻿using Zeta;
 using Zeta.Common;
+using Zeta.Internals;
 using Zeta.TreeSharp;
 namespace FunkyBot
 {
@@ -19,15 +20,42 @@ namespace FunkyBot
 		 private static bool WaitingForRevive=false;
 		 public static RunStatus DeathHandler(object ret)
 		 {
-			  //TODO:: Add Safety Exit-Game for Broken Equipped Items 
-			  if (Zeta.Internals.UIElements.ReviveAtLastCheckpointButton.IsVisible&&Zeta.Internals.UIElements.ReviveAtLastCheckpointButton.IsEnabled)
-			  {
-					Logging.Write("Clicking Revive Button!");
-					Zeta.Internals.UIElements.ReviveAtLastCheckpointButton.Click();
-					WaitingForRevive=true;
-					Bot.Character.OnHealthChanged+=OnHealthChanged;
-					return RunStatus.Running;
-			  }
+             UIElement ReviveAtLastCheckpointButton=null;
+             try
+             {
+                 ReviveAtLastCheckpointButton = UIElements.ReviveAtLastCheckpointButton;
+             }
+             catch
+             {
+                 Logging.Write("Revive Button Exception Handled");
+             }
+
+             if (ReviveAtLastCheckpointButton != null)
+             {
+                 //TODO:: Add Safety Exit-Game for Broken Equipped Items 
+                 if (Zeta.Internals.UIElements.ReviveAtLastCheckpointButton.IsVisible && Zeta.Internals.UIElements.ReviveAtLastCheckpointButton.IsEnabled)
+                 {
+                     Logging.Write("Clicking Revive Button!");
+                     Zeta.Internals.UIElements.ReviveAtLastCheckpointButton.Click();
+                     WaitingForRevive = true;
+                     Bot.Character.OnHealthChanged += OnHealthChanged;
+                     return RunStatus.Running;
+                 }
+             }
+             else
+             {
+                 //No revive button?? lets check if we are alive..?
+                 if (!ZetaDia.Me.IsDead)
+                 {
+                     //Don't wait for health change event..
+                     WaitingForRevive = false;
+                     Revived = false;
+                     Bot.BotStatistics.GameStats.CurrentGame.Deaths++;
+                     Bot.BotStatistics.ProfileStats.CurrentProfile.DeathCount++;
+                     Bot.Character.OnHealthChanged -= OnHealthChanged;
+                     return RunStatus.Success;
+                 }
+             }
 
 			  if (WaitingForRevive)
 			  {

@@ -415,9 +415,16 @@ namespace FunkyBot.Movement
 
                          if (flags.HasFlag(PointCheckingFlags.Raycast))
                          {
+                             if (!Navigation.CanRayCast(botcurpos, pointVector)) return false;
+                         }
+                         if (flags.HasFlag(PointCheckingFlags.RaycastWalkable))
+                         {
                              if (!Navigation.CanRayCast(botcurpos, pointVector, Zeta.Internals.SNO.NavCellFlags.AllowWalk)) return false;
                          }
-                   
+                         if (flags.HasFlag(PointCheckingFlags.RaycastNavProvider))
+                         {
+                             if (!Navigation.CanRayCast(botcurpos, pointVector, UseSearchGridProvider: true )) return false;
+                         }
 
                          LastSafespotFound = pointVectorReturn;
                          LastSafeGridPointFound = point.Clone();
