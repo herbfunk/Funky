@@ -154,6 +154,20 @@ namespace FunkyBot
 						  cbbMonkSpamMantra.Unchecked+=bMonkSpamMantraChecked;
 						  LBClass.Items.Add(cbbMonkSpamMantra);
 
+
+                          CheckBox cbbMonkMaintainSweepingWind = new CheckBox
+						  {
+								Content="Maintain Sweeping Wind",
+								Width=300,
+								Height=30,
+								IsChecked=Bot.Settings.Class.bMonkMaintainSweepingWind,
+						  };
+                          cbbMonkMaintainSweepingWind.Checked += bMonkMaintainSweepingWindChecked;
+                          cbbMonkMaintainSweepingWind.Unchecked += bMonkMaintainSweepingWindChecked;
+                          LBClass.Items.Add(cbbMonkMaintainSweepingWind);
+
+                          //
+
 						  break;
 					 case Zeta.Internals.Actors.ActorClass.WitchDoctor:
 					 case Zeta.Internals.Actors.ActorClass.Wizard:

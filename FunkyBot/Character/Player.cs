@@ -131,6 +131,11 @@ namespace FunkyBot
 						  Ability newAbility=Bot.Class.CreateAbility(item);
 						  AbilityLogicConditions.CreateAbilityLogicConditions(ref newAbility);
 						  newAbility.SuccessfullyUsed+=new Ability.AbilitySuccessfullyUsed(this.AbilitySuccessfullyUsed);
+                         
+                         //combat ability set property
+                          if ((AbilityExecuteFlags.ClusterLocation | AbilityExecuteFlags.ClusterTarget | AbilityExecuteFlags.ClusterTargetNearest | AbilityExecuteFlags.Location | AbilityExecuteFlags.Target).HasFlag(newAbility.ExecutionType))
+                              newAbility.IsCombat = true;
+
 						  Abilities.Add(item, newAbility);
 					 }
 
@@ -647,10 +652,17 @@ namespace FunkyBot
 				///Last successful Ability used.
 				///</summary>
 				public Ability LastUsedAbility { get; set; }
+                public DateTime LastUsedACombatAbility { get; set; }
 
 				internal void AbilitySuccessfullyUsed(Ability ability, bool reorderAbilities)
 				{
-					 this.LastUsedAbility=ability;
+					if (ability.IsCombat)
+                    {
+                        this.LastUsedACombatAbility = DateTime.Now;
+                    }
+
+                    this.LastUsedAbility=ability;
+
 
 					 //Only Sort When Non-Channeling!
 					 if (reorderAbilities)

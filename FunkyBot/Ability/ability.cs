@@ -29,6 +29,7 @@ namespace FunkyBot.AbilityFunky
 				ExecutionType=AbilityExecuteFlags.None;
 				IsSpecialAbility=false;
 				IsChanneling=false;
+                IsCombat = false;
 				Range=0;
 				Priority=AbilityPriority.None;
 				LastUsed=DateTime.Today;
@@ -130,6 +131,7 @@ namespace FunkyBot.AbilityFunky
 		  ///</summary>
 		  public int Counter { get; set; }
 
+          public bool IsCombat { get; set; }
 
 		  #endregion
 

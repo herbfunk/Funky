@@ -20,7 +20,7 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 		  public override void Initialize()
 		  {
 				Cooldown=400;
-				ExecutionType=AbilityExecuteFlags.Location;
+				ExecutionType=AbilityExecuteFlags.ZigZagPathing;
 				WaitVars=new WaitLoops(1, 2, true);
 				Cost=8;
 				SecondaryEnergy=true;

@@ -185,26 +185,26 @@ namespace FunkyBot.AbilityFunky
 								{
 									 //Verify LOS walk
 									 LOSInfo LOSINFO=Bot.Targeting.CurrentTarget.LineOfSight;
-									 if (LOSINFO.LastLOSCheckMS>2000||!LOSINFO.NavCellWalk.HasValue)
+									 if (LOSINFO.LastLOSCheckMS>2000)//||!LOSINFO.NavCellWalk.HasValue)
 									 {
-										  if (!LOSINFO.LOSTest(Bot.Character.Position, true, false, NavCellFlags.AllowWalk))
+										  if (!LOSINFO.LOSTest(Bot.Character.Position, true, false))
 										  {
                                                 //bool MovementException=((Bot.Targeting.CurrentUnitTarget.MonsterTeleport||Bot.Targeting.CurrentTarget.IsTransformUnit)&&Bot.Targeting.CurrentUnitTarget.AnimState==Zeta.Internals.Actors.AnimationState.Transform);
 												//Raycast failed.. reset LOS Check -- for valid checking.
 												if (!LOSINFO.RayCast.Value)
 													 Bot.Targeting.CurrentTarget.RequiresLOSCheck=true;
-												else if (!LOSINFO.NavCellWalk.Value) //NavCellFlag Walk Failed
-												{
-                                                    bool MovementException = ((Bot.Targeting.CurrentUnitTarget.MonsterTeleport || Bot.Targeting.CurrentTarget.IsTransformUnit) && Bot.Targeting.CurrentUnitTarget.AnimState == Zeta.Internals.Actors.AnimationState.Transform);
-                                                    if (!MovementException)
-                                                        return false;
-												}
+                                                //else if (!LOSINFO.NavCellWalk.Value) //NavCellFlag Walk Failed
+                                                //{
+                                                //    bool MovementException = ((Bot.Targeting.CurrentUnitTarget.MonsterTeleport || Bot.Targeting.CurrentTarget.IsTransformUnit) && Bot.Targeting.CurrentUnitTarget.AnimState == Zeta.Internals.Actors.AnimationState.Transform);
+                                                //    if (!MovementException)
+                                                //        return false;
+                                                //}
 										  }
 									 }
-									 else if (LOSINFO.NavCellWalk.HasValue&&!LOSINFO.NavCellWalk.Value)
-									 {
-										  return false;
-									 }
+                                     //else if (LOSINFO.NavCellWalk.HasValue&&!LOSINFO.NavCellWalk.Value)
+                                     //{
+                                     //     return false;
+                                     //}
 								}
 						  }
 						  return true;

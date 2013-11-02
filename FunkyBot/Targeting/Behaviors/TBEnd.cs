@@ -69,18 +69,31 @@ namespace FunkyBot.Targeting.Behaviors
 								return true;
 						  }
 
-						  //Check if we engaged in combat.. if so lets see how far we are from our starting location.
-						  if (Bot.Targeting.LastCachedTarget!=ObjectCache.FakeCacheObject&& 
-								Bot.Character.Position.Distance(Bot.Targeting.StartingLocation)>20f&&
-								!Navigation.CanRayCast(Bot.Character.Position, Funky.PlayerMover.vLastMoveTo, UseSearchGridProvider: true))
+						  //Check if we engaged in combat..
+						  if (Bot.Targeting.LastCachedTarget != ObjectCache.FakeCacheObject)
 						  {
-                              if(Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-								Logger.Write( LogLevel.Movement, "Updating Navigator in Target Refresh");
+							  //Currently preforming an interactive profile behavior
+							  if (Bot.Profile.IsRunningOOCBehavior && Bot.Profile.ProfileBehaviorIsOOCInteractive && Bot.Profile.OOCBehaviorStartVector.Distance2D(Bot.Character.Position) > 10f)
+							  {
+								  //Generate the path here so we can start moving..
+								  Navigation.NP.MoveTo(Bot.Profile.OOCBehaviorStartVector, "ReturnToOOCLoc", true);
 
-								Navigator.Clear();
-								Navigator.MoveTo(Funky.PlayerMover.vLastMoveTo, "original destination", true);
+								  //Setup a temp target that the handler will use
+								  obj = new CacheObject(Bot.Profile.OOCBehaviorStartVector, TargetType.LineOfSight, 1d, "ReturnToOOCLoc", 10f);
+								  return true;
+							  }
+							  //lets see how far we are from our starting location.
+							  else if (Bot.Character.Position.Distance(Bot.Targeting.StartingLocation) > 20f &&
+									!Navigation.CanRayCast(Bot.Character.Position, Funky.PlayerMover.vLastMoveTo, UseSearchGridProvider: true))
+							  {
+								  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+									  Logger.Write(LogLevel.Movement, "Updating Navigator in Target Refresh");
+
+								  SkipAheadCache.ClearCache();
+								  Navigator.Clear();
+								  Navigator.MoveTo(Funky.PlayerMover.vLastMoveTo, "original destination", true);
+							  }
 						  }
-
 
 						  //Check if our current path intersects avoidances. (When not in town, and not currently inside avoidance)
                           if (!Bot.Character.bIsInTown && (Bot.Settings.Avoidance.AttemptAvoidanceMovements || Bot.Character.CriticalAvoidance)

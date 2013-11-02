@@ -352,8 +352,12 @@ namespace FunkyBot.Movement
 								//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								//	 Logger.Write(LogLevel.Movement, "Last Line-Of-Sight Move Result=={0}", LastMovementResult.ToString());
 								if (Navigation.NP.CurrentPath.Count>0)
-									 ZetaDia.Me.UsePower(SNOPower.Walk, Navigation.NP.CurrentPath.Current, Bot.Character.iCurrentWorldID, -1);
-								
+								{
+									//Navigation.NP.CurrentPath.Current
+									ZetaDia.Me.Movement.MoveActor(Navigation.NP.CurrentPath.Current);
+									//ZetaDia.Me.UsePower(SNOPower.Walk, Navigation.NP.CurrentPath.Current, Bot.Character.iCurrentWorldID, -1);
+								}
+									
 						  }
 						  else
 						  {

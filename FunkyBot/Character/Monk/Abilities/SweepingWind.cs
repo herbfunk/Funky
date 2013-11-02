@@ -24,10 +24,32 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 				UseageType=AbilityUseage.Combat;
 				IsSpecialAbility=true;
 
-				PreCastFlags=(AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckExisitingBuff);
+				PreCastFlags=(AbilityPreCastFlags.CheckEnergy);
 
 				ClusterConditions=new ClusterConditions(7d, 35f, 2, false);
 				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 25);
+                IsBuff = true;
+                FcriteriaBuff = new Func<bool>(() =>
+                {
+                    //Rune index of 4 increases duration of buff to 20 seconds..
+                    int buffDuration = this.RuneIndex == 4 ? 17500 : 4500;
+
+                    if (Bot.Settings.Class.bMonkMaintainSweepingWind &&  //Maintaining Sweeping Wind (Must already have buff.. and has not used combat ability within 2000ms!)
+                        DateTime.Now.Subtract(Bot.Class.LastUsedACombatAbility).TotalMilliseconds > 2000 &&
+                        this.LastUsedMilliseconds > buffDuration)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                });
+                FcriteriaCombat = new Func<bool>(() =>
+                {
+                    if (!Bot.Class.CurrentBuffs.ContainsKey((int)SNOPower.Monk_SweepingWind))
+                        return true;
+
+                    return false;
+                });
 		  }
 
 		  #region IAbility

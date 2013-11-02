@@ -89,13 +89,15 @@ namespace FunkyBot.XMLTags
 				{
 					Logging.WriteDiagnostic("Finished Path {0} earlier due to SkipAreaCache find!", Position.ToString());
 					skippingAhead=true;
+                    return RunStatus.Success;
 				}
 
-				if (skippingAhead)
-				{
-					return RunStatus.Success;
-				}
+                SkipAheadCache.ClearCache();
 			}
+            else
+            {
+                SkipAheadCache.ClearCache();
+            }
 
 			// Now use Trinity movement to try a direct movement towards that location
 			Vector3 NavTarget=Position;

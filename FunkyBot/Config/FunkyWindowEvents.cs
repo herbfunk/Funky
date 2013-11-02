@@ -387,10 +387,14 @@ namespace FunkyBot
              {
                  Bot.Settings.Class.bFuryDumpAlways = !Bot.Settings.Class.bFuryDumpAlways;
              }
-				 private void bMonkSpamMantraChecked(object sender, EventArgs e)
-				 {
-					  Bot.Settings.Class.bMonkSpamMantra=!Bot.Settings.Class.bMonkSpamMantra;
-				 }
+             private void bMonkMaintainSweepingWindChecked(object sender, EventArgs e)
+             {
+                 Bot.Settings.Class.bMonkMaintainSweepingWind = !Bot.Settings.Class.bMonkMaintainSweepingWind;
+             }
+             private void bMonkSpamMantraChecked(object sender, EventArgs e)
+             {
+                 Bot.Settings.Class.bMonkSpamMantra = !Bot.Settings.Class.bMonkSpamMantra;
+             }
              private void iDHVaultMovementDelaySliderChanged(object sender, EventArgs e)
              {
                  Slider slider_sender = (Slider)sender;

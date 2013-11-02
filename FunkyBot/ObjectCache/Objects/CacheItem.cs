@@ -178,7 +178,7 @@ namespace FunkyBot.Cache
 										  this.Weight=18000-(Math.Floor(centreDistance)*200);
 									 // If there's a monster in the path-line to the item, reduce the weight
 									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.PointInside(this.Position)))
-										  this.Weight*=0.25;
+										  this.Weight*=0.75;
 									 //Finally check if we should reduce the weight when more then 2 monsters are nearby..
                                      //if (Bot.Combat.SurroundingUnits>2&&
                                      //     //But Only when we are low in health..
