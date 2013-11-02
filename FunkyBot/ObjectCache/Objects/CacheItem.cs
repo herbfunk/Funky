@@ -180,12 +180,12 @@ namespace FunkyBot.Cache
 									 if (ObjectCache.Obstacles.Monsters.Any(cp => cp.PointInside(this.Position)))
 										  this.Weight*=0.25;
 									 //Finally check if we should reduce the weight when more then 2 monsters are nearby..
-									 if (Bot.Combat.SurroundingUnits>2&&
-										  //But Only when we are low in health..
-											 (Bot.Character.dCurrentHealthPct<0.25||
-										  //Or we havn't changed targets after 2.5 secs
-											 DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalSeconds>2.5))
-										  this.Weight*=0.10;
+                                     //if (Bot.Combat.SurroundingUnits>2&&
+                                     //     //But Only when we are low in health..
+                                     //        (Bot.Character.dCurrentHealthPct<0.25||
+                                     //     //Or we havn't changed targets after 2.5 secs
+                                     //        DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalSeconds>2.5))
+                                     //     this.Weight*=0.10;
 
 									 //Test if there are nearby units that will trigger kite action..
 									 if (Bot.Character.ShouldFlee)

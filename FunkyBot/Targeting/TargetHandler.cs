@@ -381,9 +381,18 @@ namespace FunkyBot.Targeting
 				}
 
 
+                //Make sure we are not incapacitated..
+              if (Bot.Character.bIsIncapacitated)
+              {
+                  CurrentState = RunStatus.Running;
+                  return false;
+              }
+
 				//We are ready for the specific object type interaction
 				return true;
 		  }
+
+         //TODO:: Add wait during Incapitated!
 
 		  public virtual bool CombatLogic()
 		  {
