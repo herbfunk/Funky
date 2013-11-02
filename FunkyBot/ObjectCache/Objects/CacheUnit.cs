@@ -206,6 +206,21 @@ namespace FunkyBot.Cache
 					 }
 				}
 
+			  public bool IsRanged
+				{
+					get
+					{
+						return (CacheIDLookup.hashActorSNORanged.Contains(this.SNOID) || (this.Monstersize.HasValue&&this.Monstersize.Value == MonsterSize.Ranged));
+					}
+				}
+			  public bool IsFast 
+			  { 
+				  get 
+				  { 
+					  return (CacheIDLookup.hashActorSNOFastMobs.Contains(SNOID)||this.MonsterFast); 
+				  } 
+			  }
+
 				public bool ShouldFlee
 				{
 					 get
@@ -213,12 +228,12 @@ namespace FunkyBot.Cache
                          return ((!this.BeingIgnoredDueToClusterLogic || this.PriorityCounter > 0) && //not ignored because of clusters
                                        (!this.IsBurrowed.HasValue || !this.IsBurrowed.Value) && //ignore burrowed!
                                        (!this.IsTreasureGoblin) &&
-                                       ((!this.IsFast&&!this.MonsterFast) || !Bot.Settings.Fleeing.FleeUnitIgnoreFast) &&
+                                       (!this.IsFast || !Bot.Settings.Fleeing.FleeUnitIgnoreFast) &&
                                        ((this.IsEliteRareUnique && Bot.Settings.Fleeing.FleeUnitRareElite) || (!this.IsEliteRareUnique && Bot.Settings.Fleeing.FleeUnitNormal)) &&
                                        (!this.MonsterElectrified || Bot.Settings.Fleeing.FleeUnitElectrified) &&
                                        (this.UnitMaxHitPointAverageWeight > 0 || !Bot.Settings.Fleeing.FleeUnitAboveAverageHitPoints) &&
                                        (!this.IsSucideBomber || !Bot.Settings.Fleeing.FleeUnitIgnoreSucideBomber) &&
-                                       (this.Monstersize != MonsterSize.Ranged || !Bot.Settings.Fleeing.FleeUnitIgnoreRanged));
+									   (!this.IsRanged || !Bot.Settings.Fleeing.FleeUnitIgnoreRanged));
                                         
                                         
 					 }
@@ -251,7 +266,7 @@ namespace FunkyBot.Cache
 						 return
 							  (this.IsSucideBomber&&Bot.Settings.Targeting.UnitExceptionSucideBombers)||
 							  (this.IsTreasureGoblin&&Bot.Settings.Ranges.TreasureGoblinRange>1)||
-							  (this.Monstersize.Value==MonsterSize.Ranged&&Bot.Settings.Targeting.UnitExceptionRangedUnits)||
+							  (this.IsRanged && Bot.Settings.Targeting.UnitExceptionRangedUnits) ||
 							  (this.IsSpawnerUnit&&Bot.Settings.Targeting.UnitExceptionSpawnerUnits)||
 							  ((Bot.Settings.Targeting.UnitExceptionLowHP&&((this.CurrentHealthPct<0.25&&this.UnitMaxHitPointAverageWeight>0)
 												&&((!Bot.Class.IsMeleeClass&&this.CentreDistance<30f)||(Bot.Class.IsMeleeClass&&this.RadiusDistance<12f)))));
@@ -268,7 +283,7 @@ namespace FunkyBot.Cache
                            (this.IsSpawnerUnit && Bot.Settings.LOSMovement.AllowSpawnerUnits) ||
                            ((this.MonsterRare || this.MonsterElite) && Bot.Settings.LOSMovement.AllowRareElites) ||
                            ((this.IsBoss || this.MonsterUnique) && Bot.Settings.LOSMovement.AllowUniqueBoss) ||
-                           (this.Monstersize.Value == MonsterSize.Ranged && Bot.Settings.LOSMovement.AllowRanged);
+						   (this.IsRanged && Bot.Settings.LOSMovement.AllowRanged);
                   }
               }
 
@@ -699,8 +714,7 @@ namespace FunkyBot.Cache
 									 }
 
 									 // Give extra weight to ranged enemies
-									 if ((Bot.Class.IsMeleeClass)&&
-										 (this.Monstersize==MonsterSize.Ranged||CacheIDLookup.hashActorSNORanged.Contains(this.SNOID)))
+									 if (Bot.Class.IsMeleeClass&&this.IsRanged)
 									 {
 										  this.Weight+=1100;
 										  this.ForceLeap=true;
@@ -1436,7 +1450,7 @@ namespace FunkyBot.Cache
 									 (((this.IsSucideBomber&&Bot.Settings.Targeting.UnitExceptionSucideBombers)||this.IsCorruptantGrowth)&&this.CentreDistance<45f)||
 									 (this.IsSpawnerUnit&&Bot.Settings.Targeting.UnitExceptionSpawnerUnits)||
 									 ((this.IsTreasureGoblin&&Bot.Settings.Targeting.GoblinPriority>1))||
-									 (this.Monstersize.HasValue&&this.Monstersize.Value==MonsterSize.Ranged&&Bot.Settings.Targeting.UnitExceptionRangedUnits
+									 (this.IsRanged && Bot.Settings.Targeting.UnitExceptionRangedUnits
 										  &&(!this.IsEliteRareUnique||!Bot.Settings.Targeting.IgnoreAboveAverageMobs))||
                                      //Low HP (25% or Less) & Is Not Considered Weak
 									 ((Bot.Settings.Targeting.UnitExceptionLowHP&&this.CurrentHealthPct.HasValue&&((this.CurrentHealthPct<=0.25&&this.UnitMaxHitPointAverageWeight>0)

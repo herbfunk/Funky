@@ -16,7 +16,7 @@ namespace FunkyBot
 				//Update Game Duration..
 				//Bot.BotStatistics.ProfileStats.OutputReport();
             //UpdateTotalTimeSpan();
-            ProfileTracking.TotalStats.CurrentTrackingProfile.UpdateTotalTimeSpan();
+            ProfileTracking.TotalStats.CurrentTrackingProfile.UpdateRangeVariables();
             ResetGame();
 			initTreeHooks=false;
         }

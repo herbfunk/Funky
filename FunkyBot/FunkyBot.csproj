@@ -1096,6 +1096,9 @@
     <Content Include="Config\Defaults\Specific\Grouping_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Log\ProfileStats\Empty.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Treehooks.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -1118,7 +1121,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ItemRules\Log\Archive\" />
-    <Folder Include="Log\ProfileStats\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

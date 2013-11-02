@@ -54,37 +54,6 @@ namespace FunkyBot
 					 return;
 				}
 
-				
-
-				// Recording of all the XML's in use this run
-
-                //string sThisProfile = Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
-                //if (sThisProfile != Bot.Profile.LastProfileSeen)
-                //{
-                //    Bot.Profile.listProfilesLoaded.Add(sThisProfile);
-                //    Bot.Profile.LastProfileSeen = sThisProfile;
-                //    if (String.IsNullOrEmpty(Bot.Profile.LastProfileSeen))
-                //        Bot.Profile.LastProfileSeen = sThisProfile;
-                //}
-
-					 //herbfunk stats
-                     //Bot.BotStatistics.ProfileStats.CurrentProfile=new Bot.BotStatistics.ProfileStatisics.ProfileStats(sThisProfile);
-
-
-
-				if (!bMaintainStatTracking)
-				{
-					 ItemStatsWhenStartedBot=DateTime.Now;
-					 ItemStatsLastPostedReport=DateTime.Now;
-					 bMaintainStatTracking=true;
-				}
-				else
-				{
-					 Log("Note: Maintaining item stats from previous run. To reset stats fully, please restart DB.");
-				}
-
-
-
 				if (!initTreeHooks)
 				{
 					 HookBehaviorTree();

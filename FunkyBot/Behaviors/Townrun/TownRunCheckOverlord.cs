@@ -53,17 +53,21 @@ namespace FunkyBot
 					 // Check if we should be forcing a town-run
 					 if (Zeta.CommonBot.Logic.BrainBehavior.IsVendoring)
 					 {
-						  bWantToTownRun=true;
+						 bWantToTownRun = true;
 					 }
-					 else if (DateTime.Now.Subtract(TimeLastCheckedForTownRun).TotalSeconds>6)
+					 else
 					 {
-						  TimeLastCheckedForTownRun=DateTime.Now;
-						  if (Zeta.CommonBot.Logic.BrainBehavior.ShouldVendor||Bot.Character.BackPack.ShouldRepairItems())
-						  {
-								bCheckedItemDurability=false;
-								bCheckUnidItems=true;
-								bWantToTownRun=true;
-						  }
+						 int recheckDelay = Bot.Character.bIsInTown ? 1 : 6;
+						 if (DateTime.Now.Subtract(TimeLastCheckedForTownRun).TotalSeconds > recheckDelay)
+						 {
+							 TimeLastCheckedForTownRun = DateTime.Now;
+							 if (Zeta.CommonBot.Logic.BrainBehavior.ShouldVendor || Bot.Character.BackPack.ShouldRepairItems())
+							 {
+								 bCheckedItemDurability = false;
+								 bCheckUnidItems = true;
+								 bWantToTownRun = true;
+							 }
+						 }
 					 }
 
 					 bLastTownRunCheckResult=bWantToTownRun;

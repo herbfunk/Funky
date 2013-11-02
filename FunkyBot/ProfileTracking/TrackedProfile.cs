@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Zeta;
 
 namespace FunkyBot.ProfileTracking
 {
@@ -9,24 +10,37 @@ namespace FunkyBot.ProfileTracking
     {
         public string ProfileName { get; set; }
 
-        public DateTime DateStartedProfile;
+        private DateTime DateStartedProfile;
         public TimeSpan TotalTimeSpan { get; set; }
+
         public int DeathCount { get; set; }
         public LootTracking LootTracker { get; set; }
+
+		public int TotalXP { get; set; }
+		private int StartingXP;
 
         public TrackedProfile(string name)
         {
             DeathCount = 0;
+			TotalXP = 0;
+			StartingXP = Bot.Character.CurrentExp;
             ProfileName = name;
             DateStartedProfile = DateTime.Now;
             LootTracker = new LootTracking();
             TotalTimeSpan = new TimeSpan();
         }
 
-        public void UpdateTotalTimeSpan()
+		
+        public void UpdateRangeVariables()
         {
             TotalTimeSpan=TotalTimeSpan.Add(DateTime.Now.Subtract(DateStartedProfile));
+			TotalXP += (Bot.Character.CurrentExp - StartingXP);
         }
+		public void RestartRangeVariables()
+		{
+			DateStartedProfile = DateTime.Now;
+			StartingXP = Bot.Character.CurrentExp;
+		}
 
         public override bool Equals(object obj)
         {

@@ -255,7 +255,7 @@ namespace FunkyBot.AbilityFunky
 					 if (CheckTargetPropertyFlag(TargetUnitConditionFlags_.TrueConditionFlags, TargetProperties.Unique))
 						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Targeting.CurrentUnitTarget.MonsterUnique; });
 					 if (CheckTargetPropertyFlag(TargetUnitConditionFlags_.TrueConditionFlags, TargetProperties.Ranged))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Targeting.CurrentUnitTarget.Monstersize.Value==MonsterSize.Ranged; });
+						 FSingleTargetUnitCriteria += new Func<bool>(() => { return Bot.Targeting.CurrentUnitTarget.IsRanged; });
 					 if (CheckTargetPropertyFlag(TargetUnitConditionFlags_.TrueConditionFlags, TargetProperties.TargetableAndAttackable))
 						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Targeting.CurrentUnitTarget.IsTargetableAndAttackable; });
 					 if (CheckTargetPropertyFlag(TargetUnitConditionFlags_.TrueConditionFlags, TargetProperties.Fast))
@@ -302,7 +302,7 @@ namespace FunkyBot.AbilityFunky
 					 if (CheckTargetPropertyFlag(TargetUnitConditionFlags_.FalseConditionFlags, TargetProperties.Unique))
 						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Targeting.CurrentUnitTarget.MonsterUnique; });
 					 if (CheckTargetPropertyFlag(TargetUnitConditionFlags_.FalseConditionFlags, TargetProperties.Ranged))
-						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return Bot.Targeting.CurrentUnitTarget.Monstersize.Value!=MonsterSize.Ranged; });
+						 FSingleTargetUnitCriteria += new Func<bool>(() => { return !Bot.Targeting.CurrentUnitTarget.IsRanged; });
 					 if (CheckTargetPropertyFlag(TargetUnitConditionFlags_.FalseConditionFlags, TargetProperties.TargetableAndAttackable))
 						  FSingleTargetUnitCriteria+=new Func<bool>(() => { return !Bot.Targeting.CurrentUnitTarget.IsTargetableAndAttackable; });
 					 if (CheckTargetPropertyFlag(TargetUnitConditionFlags_.FalseConditionFlags, TargetProperties.Fast))
@@ -373,7 +373,7 @@ namespace FunkyBot.AbilityFunky
 					 properties|=TargetProperties.Weak;
 
 
-				if (unit.Monstersize.HasValue&&unit.Monstersize.Value==MonsterSize.Ranged)
+				if (unit.IsRanged)
 					 properties|=TargetProperties.Ranged;
 
 

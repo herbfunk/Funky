@@ -208,11 +208,6 @@ namespace FunkyBot
 					 case GilesBaseItemType.FollowerItem:
 						  if (item.BalanceData.iThisItemLevel<60||!Bot.Settings.Loot.PickupFollowerItems||item.Itemquality<ItemQuality.Rare4)
 						  {
-								if (!_hashsetItemFollowersIgnored.Contains(item.DynamicID.Value))
-								{
-									 _hashsetItemFollowersIgnored.Add(item.DynamicID.Value);
-									 iTotalFollowerItemsIgnored++;
-								}
 								return false;
 						  }
 						  break;
@@ -242,20 +237,20 @@ namespace FunkyBot
 
 								int gamebalanceID=item.BalanceID.Value;
 
-								if (CacheIDLookup.HashPlansPropertiesSix.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupBlacksmithPlanSix) return false;
-								if (CacheIDLookup.HashPlansPropertiesFive.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupBlacksmithPlanFive) return false;
-								if (CacheIDLookup.HashPlansPropertiesFour.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupBlacksmithPlanFour) return false;
+								if (item.BalanceData.IsBlacksmithPlanSixProperties&& !Bot.Settings.Loot.PickupBlacksmithPlanSix) return false;
+								if (item.BalanceData.IsBlacksmithPlanFiveProperties&& !Bot.Settings.Loot.PickupBlacksmithPlanFive) return false;
+								if (item.BalanceData.IsBlacksmithPlanFourProperties&& !Bot.Settings.Loot.PickupBlacksmithPlanFour) return false;
 
-								if (CacheIDLookup.HashPlansArchonSpaulders.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupBlacksmithPlanArchonSpaulders) return false;
-								if (CacheIDLookup.HashPlansArchonGauntlets.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupBlacksmithPlanArchonGauntlets) return false;
-								if (CacheIDLookup.HashPlansRazorspikes.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupBlacksmithPlanRazorspikes) return false;
+								if (item.BalanceData.IsBlacksmithPlanArchonSpaulders&& !Bot.Settings.Loot.PickupBlacksmithPlanArchonSpaulders) return false;
+								if (item.BalanceData.IsBlacksmithPlanArchonGauntlets&& !Bot.Settings.Loot.PickupBlacksmithPlanArchonGauntlets) return false;
+								if (item.BalanceData.IsBlacksmithPlanRazorspikes && !Bot.Settings.Loot.PickupBlacksmithPlanRazorspikes) return false;
 
 
-								if (CacheIDLookup.HashDesignAmulet.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupJewelerDesignAmulet) return false;
-								if (CacheIDLookup.HashDesignFlawlessStarGem.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupJewelerDesignFlawlessStar) return false;
-								if (CacheIDLookup.HashDesignMarquiseGem.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupJewelerDesignMarquise) return false;
-								if (CacheIDLookup.HashDesignPerfectStarGem.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupJewelerDesignPerfectStar) return false;
-								if (CacheIDLookup.HashDesignRadiantStarGem.Contains(gamebalanceID)&&!Bot.Settings.Loot.PickupJewelerDesignRadiantStar) return false;
+								if (item.BalanceData.IsJewelcraftDesignAmulet&& !Bot.Settings.Loot.PickupJewelerDesignAmulet) return false;
+								if (item.BalanceData.IsJewelcraftDesignFlawlessStarGem && !Bot.Settings.Loot.PickupJewelerDesignFlawlessStar) return false;
+								if (item.BalanceData.IsJewelcraftDesignMarquiseGem && !Bot.Settings.Loot.PickupJewelerDesignMarquise) return false;
+								if (item.BalanceData.IsJewelcraftDesignPerfectStarGem && !Bot.Settings.Loot.PickupJewelerDesignPerfectStar) return false;
+								if (item.BalanceData.IsJewelcraftDesignRadiantStarGem && !Bot.Settings.Loot.PickupJewelerDesignRadiantStar) return false;
 
 
 						  }

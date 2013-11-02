@@ -24,7 +24,6 @@ namespace FunkyBot
 				private static bool FoundTownPortal=false;
 				private static DiaGizmo TownPortalObj=null;
 				private static Vector3 TownportalMovementVector3=Vector3.Zero;
-				private static DateTime LastTownPortalInteraction=DateTime.Today;
 
 				internal static bool FinishTownRunOverlord(object ret)
 				{//Should we preform town run finishing behavior?

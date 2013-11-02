@@ -107,6 +107,27 @@ namespace FunkyBot
 
 		  }
 
+		 internal static void WriteProfileTrackerOutput()
+		  {
+			  string output = String.Format("Total Stats while running\r\nGameCount: {0} DeathCount: {1} TotalTime: {2} TotalXP:{3}\r\n{4}",
+				  Bot.TrackingStats.GameCount, Bot.TrackingStats.TotalDeaths, Bot.TrackingStats.TotalTimeRunning.ToString(@"dd\ \d\ hh\ \h\ mm\ \m\ ss\ \s"), Bot.TrackingStats.TotalXP, Bot.TrackingStats.TotalLootTracker.ToString());
+
+			  string outputPath = Path.Combine(FolderPaths.sTrinityLogPath, "ProfileStats", "Stats - " + LoggingStamp);
+
+			  try
+			  {
+
+				  StreamWriter Writer = new StreamWriter(outputPath, false, Encoding.UTF8);
+				  if (!String.IsNullOrEmpty(output)) Writer.WriteLine(output);
+				  Writer.Flush();
+				  Writer.Close();
+			  }
+			  catch
+			  {
+
+			  }
+		  }
+
 		  private static string dbLogFile;
 		  internal static string DBLogFile
 		  {
@@ -120,6 +141,8 @@ namespace FunkyBot
 
 		  internal static readonly string FileNamePrefix="FunkyLog - ";
 
+		  internal static string LoggingStamp;
+
 		  private static string filename;
 		  public static string FunkyLogFilename
 		  {
@@ -130,7 +153,8 @@ namespace FunkyBot
 		  public static void Init()
 		  {
 				FilePath=Path.GetFileName(DBLogFile).Split(Char.Parse(" "));
-				filename=Path.Combine(FolderPaths.sDemonBuddyPath, "Logs", FileNamePrefix+FilePath[1]+" "+FilePath[2]);
+				LoggingStamp = FilePath[1] + " " + FilePath[2];
+				filename = Path.Combine(FolderPaths.sDemonBuddyPath, "Logs", FileNamePrefix + LoggingStamp);
 		  }
 		  public static void Write(LogLevel level, string Message,bool WriteToMainLog, params object[] args)
 		  {

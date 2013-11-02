@@ -426,7 +426,6 @@ namespace FunkyBot.Cache
 				public bool IsBurrowableUnit { get { return CacheIDLookup.hashActorSNOBurrowableUnits.Contains(SNOID); } }
 				public bool IsSucideBomber { get { return CacheIDLookup.hashActorSNOSucideBomberUnits.Contains(SNOID); } }
 				public bool IsGrotesqueActor { get { return CacheIDLookup.hashActorSNOCorpulent.Contains(SNOID); } }
-				public bool IsFast { get { return CacheIDLookup.hashActorSNOFastMobs.Contains(SNOID); } }
 				public bool IsCorruptantGrowth { get { return SNOID==210120||SNOID==210268; } }
 				public bool IsSpawnerUnit { get { return CacheIDLookup.hashSpawnerUnitSNOs.Contains(SNOID); } }
 				public bool IsTransformUnit { get { return CacheIDLookup.hashActorSNOTransforms.Contains(SNOID);} }

@@ -433,6 +433,7 @@ namespace FunkyBot.Cache
 
 								try
 								{
+									 int balanceid = this.BalanceID.Value;
 									 int tmp_Level=this.ref_DiaItem.CommonData.Level;
 									 ItemType tmp_ThisType=this.ref_DiaItem.CommonData.ItemType;
 									 ItemBaseType tmp_ThisDBItemType=this.ref_DiaItem.CommonData.ItemBaseType;
@@ -446,7 +447,7 @@ namespace FunkyBot.Cache
 										  tmp_bThisTwoHanded=this.ref_DiaItem.CommonData.IsTwoHand;
 									 }
 
-									 thisnewGamebalance=new CacheBalance(tmp_Level, tmp_ThisType, tmp_ThisDBItemType, tmp_bThisOneHanded, tmp_bThisTwoHanded, tmp_ThisFollowerType);
+									 thisnewGamebalance = new CacheBalance(balanceid,itemlevel: tmp_Level, itemtype: tmp_ThisType, itembasetype: tmp_ThisDBItemType, onehand: tmp_bThisOneHanded, twohand: tmp_bThisTwoHanded, followertype: tmp_ThisFollowerType);
 								} catch (NullReferenceException)
 								{
 									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))

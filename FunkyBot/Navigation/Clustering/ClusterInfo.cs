@@ -66,7 +66,7 @@ namespace FunkyBot.Movement.Clustering
 			if (unit.IsEliteRareUnique) ElitesCounter++; else if (unit.IsBoss) BossCounter++;
 
 			if (unit.IsFast) FastCounter++;
-			if (unit.Monstersize.Value==Zeta.Internals.SNO.MonsterSize.Ranged) RangedCounter++;
+			if (unit.IsRanged) RangedCounter++;
 
 			if (Bot.Combat.UsesDOTDPSAbility&&unit.HasDOTdps.HasValue&&unit.HasDOTdps.Value) DOTDPSCounter++;
 

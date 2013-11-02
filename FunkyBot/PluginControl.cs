@@ -21,7 +21,6 @@ namespace FunkyBot
 		  private static bool bPluginEnabled=false;
 		  private static bool initFunkyButton=false;
 		  private static bool initTreeHooks=false;
-		  private static bool bMaintainStatTracking=false;
 		  internal static int iDemonbuddyMonsterPowerLevel=0;
 
 		  // Status text for DB main window status
@@ -88,9 +87,8 @@ namespace FunkyBot
 
                 FunkyBot.XMLTags.TrinityMaxDeathsTag.MaxDeathsAllowed = 0;
                 //Bot.Stats.iDeathsThisRun=0;
-				_hashsetItemStatsLookedAt=new HashSet<int>();
-				_hashsetItemPicksLookedAt=new HashSet<int>();
-				_hashsetItemFollowersIgnored=new HashSet<int>();
+				//_hashsetItemPicksLookedAt=new HashSet<int>();
+				//_hashsetItemFollowersIgnored=new HashSet<int>();
 				TownRunManager._dictItemStashAttempted=new Dictionary<int, int>();
 
                 //Bot.Profile.listProfilesLoaded=new List<string>();

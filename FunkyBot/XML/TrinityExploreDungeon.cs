@@ -584,7 +584,7 @@ namespace FunkyBot.XMLTags
 								new Action(ret => isDone=true)
 						  )
 					 ),
-					 new Decorator(ret => EndType==TrinityExploreEndType.SceneFound&&SceneName.Trim()!=String.Empty&&ZetaDia.Me.CurrentScene.Name.ToLower().Contains(SceneName.ToLower()),
+					 new Decorator(ret => EndType==TrinityExploreEndType.SceneFound&&!String.IsNullOrEmpty(SceneName.Trim())&&ZetaDia.Me.CurrentScene.Name.ToLower().Contains(SceneName.ToLower()),
 						  new Sequence(
 								new Action(ret => Logging.WriteDiagnostic("Found SceneName {0}!", SceneName)),
 								new Action(ret => isDone=true)
@@ -711,7 +711,7 @@ namespace FunkyBot.XMLTags
 					 .Where(s => PriorityScenes.Any(ps => ps.SceneId!=-1&&s.SceneInfo.SNOId==ps.SceneId)).ToList();
 
 				PScenes.AddRange(ZetaDia.Scenes.GetScenes()
-					  .Where(s => PriorityScenes.Any(ps => ps.SceneName.Trim()!=String.Empty&&ps.SceneId==-1&&s.Name.ToLower().Contains(ps.SceneName.ToLower()))).ToList());
+					  .Where(s => PriorityScenes.Any(ps => !String.IsNullOrEmpty(ps.SceneName.Trim())&&ps.SceneId==-1&&s.Name.ToLower().Contains(ps.SceneName.ToLower()))).ToList());
 
 				List<Scene> foundPriorityScenes=new List<Scene>();
 				Dictionary<int, Vector3> foundPrioritySceneIndex=new Dictionary<int, Vector3>();
@@ -848,9 +848,9 @@ namespace FunkyBot.XMLTags
 		  private bool PositionInsideIgnoredScene(Vector3 position)
 		  {
 				List<Scene> ignoredScenes=ZetaDia.Scenes.GetScenes()
-					 .Where(scn => scn.IsValid&&(IgnoreScenes.Any(igscn => igscn.SceneName!=String.Empty&&scn.Name.ToLower().Contains(igscn.SceneName.ToLower()))||
+					 .Where(scn => scn.IsValid&&(IgnoreScenes.Any(igscn => !String.IsNullOrEmpty(igscn.SceneName)&&scn.Name.ToLower().Contains(igscn.SceneName.ToLower()))||
 						  IgnoreScenes.Any(igscn => scn.SceneInfo.SNOId==igscn.SceneId)&&
-						  !PriorityScenes.Any(psc => psc.SceneName.Trim()!=String.Empty&&scn.Name.ToLower().Contains(psc.SceneName))&&
+						  !PriorityScenes.Any(psc => !String.IsNullOrEmpty(psc.SceneName.Trim())&&scn.Name.ToLower().Contains(psc.SceneName))&&
 						  !PriorityScenes.Any(psc => psc.SceneId!=-1&&scn.SceneInfo.SNOId!=psc.SceneId))).ToList();
 
 				foreach (Scene scene in ignoredScenes)

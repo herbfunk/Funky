@@ -69,7 +69,7 @@ namespace FunkyBot.XMLTags
         {
             m_IsDone = true;
 
-            if (reason != string.Empty)
+            if (!String.IsNullOrEmpty(reason))
             {
                 Logging.WriteDiagnostic("[TrinityMoveTo] tag finished: {0} {1}", reason, getPosition());
             }

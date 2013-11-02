@@ -14,9 +14,6 @@ namespace FunkyBot
 {
 	 public partial class Funky
 	 {
-		  private static readonly string[] sQualityString=new string[4] { "White", "Magic", "Rare", "Legendary" };
-		  private static readonly string[] sGemString=new string[4] { "Ruby", "Topaz", "Amethyst", "Emerald" };
-
 		  // Readable names of the above stats that get output into the trash/stash log files
 		  private static readonly string[] StatNames=new string[29] { 
             "Dexterity", "Intelligence", "Strength", "Vitality", 
@@ -25,19 +22,7 @@ namespace FunkyBot
             "Crit Chance %", "Crit Damage %", "Attack Speed %", "+Min Damage", "+Max Damage",
             "Total Block %", "Thorns", "+All Resist", "+Highest Single Resist", "DPS", "Armor", "Max Disc.", "Max Mana", "Arcane-On-Crit", "Mana Regen", "Globe Bonus"};
 
-		  // Store items already logged by item-stats, to make sure no stats get doubled up by accident
-		  private static HashSet<int> _hashsetItemStatsLookedAt=new HashSet<int>();
-		  private static HashSet<int> _hashsetItemPicksLookedAt=new HashSet<int>();
-		  private static HashSet<int> _hashsetItemFollowersIgnored=new HashSet<int>();
 
-		  private static DateTime ItemStatsLastPostedReport=DateTime.Now;
-		  private static DateTime ItemStatsWhenStartedBot=DateTime.Now;
-
-		  // These objects are instances of my stats class above, holding identical types of data for two different things - one holds item DROP stats, one holds item PICKUP stats
-		  private static GilesItemStats ItemsDroppedStats=new GilesItemStats(0, new double[4], new double[64], new double[4, 64], 0, new double[64], 0, new double[4], new double[64], new double[4, 64], 0);
-		  private static GilesItemStats ItemsPickedStats=new GilesItemStats(0, new double[4], new double[64], new double[4, 64], 0, new double[64], 0, new double[4], new double[64], new double[4, 64], 0);
-		  // How many follower items were ignored, purely for item stat tracking
-		  private static int iTotalFollowerItemsIgnored=0;
 
 		  internal static string LoggingPrefixString
 		  {
@@ -62,39 +47,6 @@ namespace FunkyBot
 				}
 		  }
 
-		  // **********************************************************************************************
-		  // *****    Item Stats Class and Variables - for the detailed item drop/pickup etc. stats   *****
-		  // **********************************************************************************************
-		  private class GilesItemStats
-		  {
-				public double iTotal { get; set; }
-				public double[] iTotalPerQuality { get; set; }
-				public double[] iTotalPerLevel { get; set; }
-				public double[,] iTotalPerQPerL { get; set; }
-				public double iTotalPotions { get; set; }
-				public double[] iPotionsPerLevel { get; set; }
-				public double iTotalGems { get; set; }
-				public double[] iGemsPerType { get; set; }
-				public double[] iGemsPerLevel { get; set; }
-				public double[,] iGemsPerTPerL { get; set; }
-				public double iTotalInfernalKeys { get; set; }
-
-				public GilesItemStats(double total, double[] totalperq, double[] totalperl, double[,] totalperqperl, double totalpotions, double[] potionsperlevel, double totalgems,
-					 double[] gemspertype, double[] gemsperlevel, double[,] gemspertperl, double totalkeys)
-				{
-					 iTotal=total;
-					 iTotalPerQuality=totalperq;
-					 iTotalPerLevel=totalperl;
-					 iTotalPerQPerL=totalperqperl;
-					 iTotalPotions=totalpotions;
-					 iPotionsPerLevel=potionsperlevel;
-					 iTotalGems=totalgems;
-					 iGemsPerType=gemspertype;
-					 iGemsPerLevel=gemsperlevel;
-					 iGemsPerTPerL=gemspertperl;
-					 iTotalInfernalKeys=totalkeys;
-				}
-		  }
 
 		  // **********************************************************************************************
 		  // *****                      Log the nice items we found and stashed                       *****
@@ -402,15 +354,15 @@ namespace FunkyBot
 		 internal static void LogItemInformation()
 		  {
 				// Store item pickup stats
-				if (!_hashsetItemPicksLookedAt.Contains(Bot.Targeting.CurrentTarget.RAGUID))
-				{
+				//if (!_hashsetItemPicksLookedAt.Contains(Bot.Targeting.CurrentTarget.RAGUID))
+				//{
 					 CacheItem thisCacheItem=(CacheItem)Bot.Targeting.CurrentTarget;
 					 GilesItemType thisgilesitemtype=DetermineItemType(thisCacheItem.InternalName, thisCacheItem.BalanceData.thisItemType, thisCacheItem.BalanceData.thisFollowerType);
 					 GilesBaseItemType thisgilesbasetype=DetermineBaseType(thisgilesitemtype);
 
 					 //Herbfunk -- Live loot stats keeping.
 					 ProfileTracking.TotalStats.CurrentTrackingProfile.LootTracker.LootedItemLog(thisgilesitemtype, thisgilesbasetype, thisCacheItem.Itemquality.Value);
-				}
+				//}
 		  }
 
 	 }

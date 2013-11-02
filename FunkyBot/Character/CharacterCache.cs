@@ -41,6 +41,7 @@ namespace FunkyBot.Cache
 						  PickupRadius=1;
 						  coinage=0;
 						  fCharacterRadius=0f;
+						  CurrentExp = 0;
 					 }
 
 					 public delegate void LevelAreaIDChanged(int ID);
@@ -168,6 +169,7 @@ namespace FunkyBot.Cache
 					 internal Backpack BackPack { get; set; }
 					 internal float PickupRadius { get; set; }
 					 internal int FreeBackpackSlots { get; set; }
+					 internal int CurrentExp { get; set; }
 
 					 private AnimationState lastAnimationState=AnimationState.Invalid;
 					internal AnimationState CurrentAnimationState
@@ -281,9 +283,11 @@ namespace FunkyBot.Cache
 										  levelareaIDchanged(currentLevelAreaID);
 										  iCurrentWorldID=ZetaDia.CurrentWorldDynamicId;
 									 }
-										 
 
-
+									if (Bot.CurrentLevel==60)
+										CurrentExp = me.ParagonCurrentExperience;
+									else
+										CurrentExp = me.CurrentExperience;
 									 
 
 									 //Update vars that are not essential to combat (survival).

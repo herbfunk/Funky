@@ -49,7 +49,7 @@ namespace FunkyBot
 						  {
 								Logging.Write("[Funky] You have died too many times. Now restarting the game.");
 
-                                ProfileTracking.TrackedProfile FirstProfile = ProfileTracking.TotalStats.ProfilesTracked.OrderBy(p => p.DateStartedProfile).First();
+                                ProfileTracking.TrackedProfile FirstProfile = ProfileTracking.TotalStats.ProfilesTracked.First();
 
                                 string sUseProfile = FirstProfile.ProfileName;
 								ProfileManager.Load(!string.IsNullOrEmpty(sUseProfile)

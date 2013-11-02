@@ -321,13 +321,15 @@ namespace FunkyBot
 						ListBox lbMiscContent=new ListBox();
 						try
 						{
-                            lbMiscContent.Items.Add(String.Format("Total Stats while running\r\nGameCount: {0} DeathCount: {1} TotalTime: {2}\r\n{3}", Bot.TrackingStats.GameCount, Bot.TrackingStats.TotalDeaths, Bot.TrackingStats.TotalTimeRunning.ToString(), Bot.TrackingStats.TotalLootTracker.ToString()));
+                            lbMiscContent.Items.Add(String.Format("Total Stats while running\r\nGameCount: {0} DeathCount: {1} TotalTime: {2} TotalXP:{3}\r\n{4}",
+								Bot.TrackingStats.GameCount, Bot.TrackingStats.TotalDeaths, Bot.TrackingStats.TotalTimeRunning.ToString(@"dd\ \d\ hh\ \h\ mm\ \m\ ss\ \s"), Bot.TrackingStats.TotalXP, Bot.TrackingStats.TotalLootTracker.ToString()));
                             if (ProfileTracking.TotalStats.ProfilesTracked.Count > 0)
                             {
                                 lbMiscContent.Items.Add("\r\n==Current Game==");
                                 foreach (var item in ProfileTracking.TotalStats.ProfilesTracked)
                                 {
-                                    lbMiscContent.Items.Add(String.Format("{0}\r\nDeaths:{1} TotalTime:{2}\r\n{3}",item.ProfileName, item.DeathCount, item.TotalTimeSpan.ToString(), item.LootTracker.ToString()));
+									lbMiscContent.Items.Add(String.Format("{0}\r\nDeaths:{1} TotalTime:{2} TotalXP:{3}\r\n{4}",
+										item.ProfileName, item.DeathCount, item.TotalTimeSpan.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), item.TotalXP, item.LootTracker.ToString()));
                                 }
                             }
 							 

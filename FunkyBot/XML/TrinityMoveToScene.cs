@@ -64,7 +64,7 @@ namespace FunkyBot.XMLTags
 				if (PathPrecision==0)
 					 PathPrecision=15f;
 
-				if (SceneId==0&&SceneName.Trim()==String.Empty)
+				if (SceneId==0&&String.IsNullOrEmpty(SceneName.Trim()))
 				{
 					 Logging.WriteDiagnostic("TrinityMoveToScene: No sceneId or sceneName specified!");
 					 isDone=true;
@@ -90,7 +90,7 @@ namespace FunkyBot.XMLTags
 		  private Composite PrioritySceneCheck()
 		  {
 				return
-				new Decorator(ret => !(SceneId==0&&SceneName.Trim()==String.Empty),
+				new Decorator(ret => !(SceneId==0&&String.IsNullOrEmpty(SceneName.Trim())),
 					 new Sequence(
 						  new DecoratorContinue(ret => DateTime.Now.Subtract(lastCheckedScenes).TotalMilliseconds>1000,
 								new Sequence(
@@ -171,7 +171,7 @@ namespace FunkyBot.XMLTags
 		  /// </summary>
 		  private void FindPrioritySceneTarget()
 		  {
-				if (SceneId==0&&SceneName==String.Empty)
+				if (SceneId==0&&String.IsNullOrEmpty(SceneName))
 					 return;
 
 				//gp.Update();
@@ -187,7 +187,7 @@ namespace FunkyBot.XMLTags
 					 .Where(s => s.SceneInfo.SNOId==SceneId).ToList();
 
 				PScenes.AddRange(ZetaDia.Scenes.GetScenes()
-					  .Where(s => SceneName.Trim()!=String.Empty&&s.Name.ToLower().Contains(SceneName.ToLower())).ToList());
+					  .Where(s => !String.IsNullOrEmpty(SceneName.Trim())&&s.Name.ToLower().Contains(SceneName.ToLower())).ToList());
 
 				List<Scene> foundPriorityScenes=new List<Scene>();
 				Dictionary<int, Vector3> foundPrioritySceneIndex=new Dictionary<int, Vector3>();

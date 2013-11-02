@@ -416,69 +416,6 @@ namespace FunkyBot.Cache
         };
 			#endregion
 
-			  #region Craft Plans - Game Balance IDs
-
-			  internal static readonly HashSet<int> HashPlansPropertiesSix=new HashSet<int>
-		  {
-				-1051150313,-93021373,-1660666893,-638006107,-1690232948,-2015049106,
-				-364008976, -576445430, 972140825, 1108898772, -275669100, 531375006,
-				2129978460, 364927531, -1661852814, -1162323497, 82340210, 1134806017,
-				-636820186, 255305006, 368302888, 623242822, 844895418, -1689047027,
-				1288600123, 435695963, 1110084693, 543691116, -1205502139, 1717766204,
-				-115137848, 1784279615, 398631475, -807237752
-		  };
-			  internal static readonly HashSet<int> HashPlansPropertiesFive=new HashSet<int>
-		  {
-				82340209, -1661852815, 364927530, 2129978459, -275669101, 1108898771,
-				-576445431, -2015049107, -364008977, -1690232949, -638006108, -1660666894,
-				-1051150314, -1205502140, 435695962, 543691115, 1288600122, 1717766203,
- 				-1689047028, 1110084692, 844895417, 368302887, 623242821, 255305005,
-				1134806016, -636820187, -807237753, 398631474, -115137849
-		  };
-			  internal static readonly HashSet<int> HashPlansPropertiesFour=new HashSet<int>
-		  {
-				-364008978, -1690232950, -638006109, -1660666895, -275669102, 1108898770,
-				-576445432, -2015049108, 255305004, 1134806015, -636820188, 82340208,
-				-1661852816, 364927529, -807237754, 398631473, -115137850, 543691114,
-				1288600121, -1689047029, 1110084691, 844895416, 368302886, 623242820
-		  };
-
-			  internal static readonly HashSet<int> HashPlansArchonGauntlets=new HashSet<int>
-		  {
-				-1427340245,-1427345983,-1427326253,-1427329159
-		  };
-			  internal static readonly HashSet<int> HashPlansArchonSpaulders=new HashSet<int>
-		  {
-				1194999700,1195013692,1194993962,1195010786
-		  };
-			  internal static readonly HashSet<int> HashPlansRazorspikes=new HashSet<int>
-		  {
-				-1656008187,-1656011093,-1656022179,-1656027917
-		  };
-
-			  internal static readonly HashSet<int> HashDesignFlawlessStarGem=new HashSet<int>
-		  {
-				-1171649812,872611723,521743063,2147129183
-		  };
-			  internal static readonly HashSet<int> HashDesignPerfectStarGem=new HashSet<int>
-		  {
-				-1171613874, 872647661, 521779001, 2147165121
-		  };
-			  internal static readonly HashSet<int> HashDesignRadiantStarGem=new HashSet<int>
-		  {
-				-1171577936, 872683599, 521814939, 2147201059
-		  };
-			  internal static readonly HashSet<int> HashDesignMarquiseGem=new HashSet<int>
-		  {
-				-1171541998, 872719537, 521850877, 2147236997
-		  };
-			  internal static readonly HashSet<int> HashDesignAmulet=new HashSet<int>
-		  {
-				2110615435,2110601443,2110612529,2110595705
-		  };
-			  
-			  #endregion
-
 				 #region SNO Priority Values
 				 // Dictionary for priorities, like the skeleton summoner cos it keeps bringing new stuff
 			  public static readonly Dictionary<int, int> dictActorSNOPriority=new Dictionary<int, int> { 
@@ -552,24 +489,6 @@ namespace FunkyBot.Cache
          };
 				 #endregion
 
-			  private static HashSet<int> hashActorSNOKitingIgnore_;
-			  internal static HashSet<int> HashActorSNOKitingIgnore
-			  {
-					get
-					{
-						 if (hashActorSNOKitingIgnore_==null)
-						 {
-							  hashActorSNOKitingIgnore_=new HashSet<int> { 4095, 144315 };
-							  //burrowing units
-							  hashActorSNOKitingIgnore_.UnionWith(CacheIDLookup.hashActorSNOBurrowableUnits);
-							  //grunts
-							  hashActorSNOKitingIgnore_.UnionWith(CacheIDLookup.hashActorSNOSummonedUnit);
-							  //LOS exceptions (gyser, heart of sin)
-							  hashActorSNOKitingIgnore_.UnionWith(CacheIDLookup.hashActorSNOIgnoreLOSCheck);
-						 }
-						 return hashActorSNOKitingIgnore_;
-					}
-			  }
 
 				//Spawner units: summons units
 			  public static readonly HashSet<int> hashSpawnerUnitSNOs=new HashSet<int>
@@ -594,6 +513,8 @@ namespace FunkyBot.Cache
 					4153,4154,
 					//a1 Female Zombies (108444,219725,229894,222606,224821,224826,224851,224931,224969,)
 					6639,6638,6640,
+					//a1 Skeleton Summoner
+					5387,5388,5389,182279,
 			  };
 
 				 // NOTE: you don't NEED interactable SNO's listed here. But if they are listed here, *THIS* is the range at which your character will try to walk to within the object 
@@ -752,7 +673,12 @@ namespace FunkyBot.Cache
 				//365, 4100 = fallen; 4300, 4304 = goat shaman; 4738 = pestilence; 4299 = goat ranged; 62736, 130794 = demon flyer; 5508 = succubus
 				public static readonly HashSet<int> hashActorSNORanged=new HashSet<int>
 				{ 
-            365, 4100, 4304, 4300, 4738, 4299, 62736, 130794, 5508, 4409, 4099, 4098,
+            365, 4100, 4738, 62736, 130794, 5508, 4409, 4099, 4098,
+
+			//a1 goatshaman
+			4290,4303,4304,375,
+			//a1 goatranged
+			4286,4287,4299,4300,
          };
 
 				//Units that are naturally suspended off the ground.
@@ -796,7 +722,10 @@ namespace FunkyBot.Cache
 				// Resplendent chest SNO list
 				public static readonly HashSet<int> hashSNOContainerResplendant=new HashSet<int>
 				{ 
-            62873, 95011, 81424, 108230, 111808, 111809, 199583, 109264,101500,96993, 
+            62873, 95011, 81424, 108230, 111808, 111809, 199583, 109264,101500,96993, 62866,
+			108230, 211861, 62860, 96993,
+            // Magi
+			112182,
          };
 
 				// A list of SNO's to *FORCE* to type: Item. (BE CAREFUL WITH THIS!).

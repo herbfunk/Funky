@@ -690,12 +690,6 @@ namespace FunkyBot.Movement
 
 
 
-
-
-				private IndexedList<Vector3> CachedPathFinderCurrentPath=new IndexedList<Vector3>();
-				internal IndexedList<Vector3> CurrentPathFinderPath=new IndexedList<Vector3>();
-
-
 				//Static Methods
 				#region Static Movement Methods
 				///<summary>
