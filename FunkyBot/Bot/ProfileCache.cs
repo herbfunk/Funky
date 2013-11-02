@@ -50,15 +50,16 @@ namespace FunkyBot.Cache
 
 						  if (ObjectCache.oocDBTags.Contains(currentProfileBehavior.GetType()))
 						  {
-								ProfileBehaviorIsOOCInteractive=ObjectCache.InteractiveTags.Contains(currentProfileBehavior.GetType());
-								Logging.WriteDiagnostic("Current Profile Behavior has enabled OOC Behavior.");
-								IsRunningOOCBehavior=true;
-								OOCBehaviorStartVector = Bot.Character.Position;
+							  ProfileBehaviorIsOOCInteractive = ObjectCache.InteractiveTags.Contains(currentProfileBehavior.GetType());
+							  Logging.WriteDiagnostic("Current Profile Behavior has enabled OOC Behavior.");
+							  IsRunningOOCBehavior = true;
+							  OOCBehaviorStartVector = Bot.Character.Position;
 						  }
 						  else
-								IsRunningOOCBehavior=false;
-
-
+						  {
+							  IsRunningOOCBehavior = false;
+							  OOCBehaviorStartVector = Vector3.Zero;
+						  }
 					 }
 
 				}

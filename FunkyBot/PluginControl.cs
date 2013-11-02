@@ -84,6 +84,7 @@ namespace FunkyBot
 				ProfileCache.dictUseOnceID=new Dictionary<int, int>();
 				ProfileCache.dictRandomID=new Dictionary<int, int>();
 				SkipAheadCache.ClearCache();
+				TownRunManager.TownrunStartedInTown = true;
 
                 FunkyBot.XMLTags.TrinityMaxDeathsTag.MaxDeathsAllowed = 0;
                 //Bot.Stats.iDeathsThisRun=0;

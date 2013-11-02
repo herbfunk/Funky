@@ -75,6 +75,9 @@ namespace FunkyBot.Targeting.Behaviors
 							  //Currently preforming an interactive profile behavior
 							  if (Bot.Profile.IsRunningOOCBehavior && Bot.Profile.ProfileBehaviorIsOOCInteractive && Bot.Profile.OOCBehaviorStartVector.Distance2D(Bot.Character.Position) > 10f)
 							  {
+								  if (Bot.Targeting.LastCachedTarget.Position != Bot.Profile.OOCBehaviorStartVector)
+									  Navigator.Clear();
+
 								  //Generate the path here so we can start moving..
 								  Navigation.NP.MoveTo(Bot.Profile.OOCBehaviorStartVector, "ReturnToOOCLoc", true);
 

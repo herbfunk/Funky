@@ -431,7 +431,7 @@ namespace FunkyBot.Cache
 																	{ 
 																	  typeof(Zeta.CommonBot.Profile.Common.UseWaypointTag), 
 																	  typeof(Zeta.CommonBot.Profile.Common.UseObjectTag),
-																	  typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),
+																	  //typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),
 																	  typeof(Zeta.CommonBot.Profile.Common.UsePortalTag),
 																	};
 	 }
