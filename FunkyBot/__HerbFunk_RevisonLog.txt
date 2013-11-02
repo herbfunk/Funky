@@ -1,4 +1,24 @@
 ﻿// herbfunk revisions
+v2.6.2.3
+
+Profile Stats:
+-Complete overhaul to the stat tracking code.
+-Item stats now include Dropped/Looted/Stashed/Vendored/Salvaged
+
+Avoid & Flee:
+-Behavior for both avoidance and fleeing has been improved.
+
+Settings:
+-New settings tab for Fleeing now available in the Combat Tab.
+-New settings tab for Line of Sight Behavior now available in the Targeting Tab.
+-Added Monk Class Setting -- Maintain Sweeping Winds.
+
+Misc:
+-Out of Combat Profile Behaviors that are intractive will move back if combat movement occured.
+-Incapacitated Bot will now wait during Target Handler! (Fixes the ignorance of units)
+-Fixed TrinityMoveTo and TrinityExploreDungeon XML Tags!
+
+
 v2.6.1.6
 
 Line Of Sight Behavior:
