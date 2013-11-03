@@ -78,6 +78,8 @@ namespace FunkyBot
 						  if (!ZetaDia.Me.IsInTown)
 						  {
 								bPreStashPauseDone=false;
+								Bot.NavigationCache.LOSmovementObject = null;
+								Bot.NavigationCache.LOSVector = Vector3.Zero;
 								return SafetyCheckForTownRun();
 						  }
 					 }

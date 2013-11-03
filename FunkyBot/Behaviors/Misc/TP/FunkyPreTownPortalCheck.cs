@@ -19,17 +19,17 @@ namespace FunkyBot
 				Bot.Character.CriticalAvoidance=true;
 
 				if (Bot.Targeting.ShouldRefreshObjectList)
-            {
-					 Bot.Targeting.RefreshDiaObjects();
-					 // Check for death / player being dead
-					 if (Bot.Character.dCurrentHealthPct<=0)
-					 {
-						  return false;
-					 }
-            }
+				{
+					Bot.Targeting.RefreshDiaObjects();
+					// Check for death / player being dead
+					if (Bot.Character.dCurrentHealthPct <= 0)
+					{
+						return false;
+					}
+				}
 
             //Checks
-            if (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_40] > 0 || Bot.Targeting.CurrentTarget != null)
+            if (Bot.Targeting.CurrentTarget != null)
             {
                 return false;
             }

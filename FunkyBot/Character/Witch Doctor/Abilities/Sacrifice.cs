@@ -24,10 +24,17 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 				Cost=10;
 				Range=48;
 				UseageType=AbilityUseage.Anywhere;
-				Priority=AbilityPriority.None;
+				Priority=AbilityPriority.High;
 				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast);
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
 				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 15);
+				FcriteriaCombat = new Func<bool>(() =>
+				{
+					if (this.LastUsedMilliseconds > 27000 || Bot.Class.Abilities[SNOPower.Witchdoctor_SummonZombieDog].CheckPreCastConditionMethod())
+						return true;
+
+					return false;
+				});
 		  }
 
 		  #region IAbility

@@ -22,12 +22,16 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 				WaitVars=new WaitLoops(0, 0, true);
 				Cost=37;
 				UseageType=AbilityUseage.Anywhere;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.High;
 				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|
 											AbilityPreCastFlags.CheckEnergy);
 
 				FcriteriaCombat=new Func<bool>(() =>
 				{
+					//maintain armor buff..
+					if (this.RuneIndex == 0 && this.LastUsedMilliseconds > 7800)
+						return true;
+
 					 return Bot.Character.dCurrentHealthPct<=0.60;
 				});
 		  }

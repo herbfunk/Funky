@@ -48,6 +48,8 @@ namespace FunkyBot.Cache
 					 {
 						  currentProfileBehavior=ProfileManager.CurrentProfileBehavior;
 
+						  Logger.Write(LogLevel.User, "Profile Behavior Changed To {0}", currentProfileBehavior.GetType().ToString());
+
 						  if (ObjectCache.oocDBTags.Contains(currentProfileBehavior.GetType()))
 						  {
 							  ProfileBehaviorIsOOCInteractive = ObjectCache.InteractiveTags.Contains(currentProfileBehavior.GetType());
