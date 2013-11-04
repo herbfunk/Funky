@@ -32,7 +32,7 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 
 				FcriteriaCombat=new Func<bool>(() =>
 				{
-					 return ((!Bot.Class.HotbarPowers.Contains(SNOPower.DemonHunter_ClusterArrow))||
+					 return ((!Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.DemonHunter_ClusterArrow))||
 								DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastUse[SNOPower.DemonHunter_Chakram]).TotalMilliseconds>=
 								110000);
 				});
@@ -42,7 +42,7 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

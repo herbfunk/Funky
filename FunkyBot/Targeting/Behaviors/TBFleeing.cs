@@ -9,6 +9,7 @@ namespace FunkyBot.Targeting.Behaviors
 	 public class TBFleeing : TargetBehavior
 	 {
          private DateTime FleeRetryDate = DateTime.Today;
+		 private int iSecondsFleeMoveFor = 0;
 
 		  public TBFleeing() : base() { }
 
@@ -20,9 +21,9 @@ namespace FunkyBot.Targeting.Behaviors
                          Bot.Settings.Fleeing.EnableFleeingBehavior&&
                          DateTime.Now.CompareTo(FleeRetryDate)>0&&
                          Bot.Character.dCurrentHealthPct<=Bot.Settings.Fleeing.FleeBotMinimumHealthPercent&&
-                         Bot.Combat.FleeTriggeringUnits.Count>0&&
-                         (!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.Settings.Targeting.GoblinPriority<2)&&
-                         (Bot.Class.AC!=ActorClass.Wizard||(!Bot.Class.HasBuff(SNOPower.Wizard_Archon)||!Bot.Settings.Class.bKiteOnlyArchon));
+                         Bot.Targeting.Environment.FleeTriggeringUnits.Count>0&&
+                         (!Bot.Targeting.Environment.bAnyTreasureGoblinsPresent||Bot.Settings.Targeting.GoblinPriority<2)&&
+                         (Bot.Class.AC!=ActorClass.Wizard||(!Bot.Class.HotBar.HasBuff(SNOPower.Wizard_Archon)||!Bot.Settings.Class.bKiteOnlyArchon));
 				}
 		  }
 		  public override TargetBehavioralTypes TargetBehavioralTypeType { get { return TargetBehavioralTypes.Fleeing; } }
@@ -33,7 +34,7 @@ namespace FunkyBot.Targeting.Behaviors
               {
 
                   //Resuse last safespot until timer expires!
-                  if (DateTime.Now.Subtract(Bot.Targeting.LastFleeAction).TotalSeconds < Bot.Combat.iSecondsFleeMoveFor)
+                  if (DateTime.Now.Subtract(Bot.Targeting.LastFleeAction).TotalSeconds < this.iSecondsFleeMoveFor)
                   {
                       Vector3 reuseV3 = Bot.NavigationCache.AttemptToReuseLastLocationFound();
                       if (reuseV3 != Vector3.Zero)
@@ -64,10 +65,9 @@ namespace FunkyBot.Targeting.Behaviors
                       if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
                         Logging.WriteDiagnostic("Flee Movement found AT {0} with {1} Distance", vAnySafePoint.ToString(), distance.ToString());
                       
-                      Bot.Combat.IsFleeing = true;
 
                       obj = new CacheObject(vAnySafePoint, TargetType.Fleeing, 20000f, "FleeSpot", 2.5f, -1);
-                      Bot.Combat.iSecondsFleeMoveFor = 1 + (int)(distance / 5f);
+					  this.iSecondsFleeMoveFor = 1 + (int)(distance / 5f);
                       return true;
                   }
                   else

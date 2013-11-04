@@ -10,7 +10,7 @@ using Zeta.CommonBot;
 using Zeta.Internals.SNO;
 using FunkyBot.Cache;
 
-namespace FunkyBot
+namespace FunkyBot.Character
 {
 
 		  internal class Barbarian : Player
@@ -69,9 +69,7 @@ namespace FunkyBot
 				}
 				public override void GenerateNewZigZagPath()
 				{
-					 if (Bot.Combat.bCheckGround)
-						  Bot.NavigationCache.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.CurrentTarget.Position, 25f, false, true, true);
-					 else if (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_30]>=6||Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_30]>=3)
+					 if (Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_30]>=6||Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_30]>=3)
 						  Bot.NavigationCache.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.CurrentTarget.Position, 25f, false, true);
 					 else
 						  Bot.NavigationCache.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.CurrentTarget.Position, 25f);

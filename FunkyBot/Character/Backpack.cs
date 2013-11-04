@@ -1,3 +1,4 @@
+using FunkyBot.Cache;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using Zeta.CommonBot.Settings;
 using Zeta.Internals;
 using Zeta.Internals.Actors;
 
-namespace FunkyBot.Cache
+namespace FunkyBot.Character
 {
 	internal class Backpack
 	{

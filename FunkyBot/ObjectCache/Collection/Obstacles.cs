@@ -235,8 +235,7 @@ namespace FunkyBot.Cache
 												this.obstacles[item].RefreshRemovalCounter--;
 												if (this.obstacles[item].IsAvoidance)
 												{
-													 CacheAvoidance avoidance=(CacheAvoidance)this.obstacles[item];
-													 AvoidanceCache.CheckAvoidanceObject(ref avoidance);
+													this.obstacles[item].RefreshObject();
 												}
 										  }	
 										  else
@@ -285,7 +284,7 @@ namespace FunkyBot.Cache
 					 public bool TestVectorAgainstAvoidanceZones(Vector3 startingPoint, Vector3 destinationPoint, bool IgnoreTriggeringAvoidances=true)
 					 {
                          return this.Avoidances.Any(A => A.ShouldAvoid &&
-                               (!IgnoreTriggeringAvoidances || !Bot.Combat.TriggeringAvoidanceRAGUIDs.Contains(A.RAGUID)) &&
+                               (!IgnoreTriggeringAvoidances || !Bot.Targeting.Environment.TriggeringAvoidanceRAGUIDs.Contains(A.RAGUID)) &&
 								MathEx.IntersectsPath(A.Position, A.Radius, startingPoint, destinationPoint));
 					 }
 

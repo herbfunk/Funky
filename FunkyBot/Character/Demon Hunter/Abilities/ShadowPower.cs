@@ -31,8 +31,8 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 				FcriteriaCombat=new Func<bool>(() =>
 				{
 					 return (Bot.Character.dCurrentHealthPct<=0.99d||Bot.Character.bIsRooted||
-								Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_25]>=1||
-								Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3);
+								Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]>=1||
+								Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3);
 
 				});
 		  }
@@ -41,7 +41,7 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

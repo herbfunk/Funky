@@ -282,9 +282,7 @@ namespace FunkyBot
 					  {
 							try
 							{
-								 string debugString=Bot.Combat.DebugString;
-								 Logging.WriteDiagnostic(debugString);
-								 LBDebug.Items.Add(debugString);
+
 							} catch
 							{
 
@@ -309,7 +307,7 @@ namespace FunkyBot
 								 }
 
 								 LBDebug.Items.Add("==Cached HotBar Abilities==");
-								 foreach (var item in Bot.Class.CachedPowers)
+								 foreach (var item in Bot.Class.HotBar.CachedPowers)
 								 {
 									  try
 									  {

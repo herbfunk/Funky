@@ -19,7 +19,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Barb
 				get { return SNOPower.Barbarian_WarCry; }
 		  }
 
-		  public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
+		  public override int RuneIndex { get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; } }
 
 		  public override void Initialize()
 		  {
@@ -32,12 +32,12 @@ namespace FunkyBot.AbilityFunky.Abilities.Barb
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.High;
 				PreCastFlags=(AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated);
-				FcriteriaBuff=new Func<bool>(() => { return !Bot.Class.HasBuff(SNOPower.Barbarian_WarCry); });
+				FcriteriaBuff=new Func<bool>(() => { return !Bot.Class.HotBar.HasBuff(SNOPower.Barbarian_WarCry); });
 				FcriteriaCombat=new Func<bool>(() =>
 				{
-					 return (!Bot.Class.HasBuff(SNOPower.Barbarian_WarCry)
+					 return (!Bot.Class.HotBar.HasBuff(SNOPower.Barbarian_WarCry)
 								||
-								(Bot.Class.PassivePowers.Contains(SNOPower.Barbarian_Passive_InspiringPresence)&&
+								(Bot.Class.HotBar.PassivePowers.Contains(SNOPower.Barbarian_Passive_InspiringPresence)&&
 								 DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastUse[SNOPower.Barbarian_WarCry]).TotalSeconds>59
 								 ||Bot.Character.dCurrentEnergyPct<0.10));
 				});

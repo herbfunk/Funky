@@ -131,6 +131,8 @@ namespace FunkyBot.Targeting
 				//Update last Refresh Time
 				lastRefreshedObjects=DateTime.Now;
 
+			    //Refresh Obstacles
+				ObjectCache.Obstacles.Values.ForEach(obj => obj.RefreshObject());
 
 				//Check avoidance requirement still valid
 				if (Bot.Targeting.RequiresAvoidance)
@@ -140,27 +142,27 @@ namespace FunkyBot.Targeting
 						  !ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TargetMovement.CurrentTargetLocation)&&
 						  !ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(Bot.Character.Position, TargetMovement.CurrentTargetLocation)) 
 					 {
-						  Bot.Targeting.RequiresAvoidance=false;
+						  this.RequiresAvoidance=false;
 					 }
 					 else if (this.AvoidanceLastTarget&&this.LastCachedTarget.CentreDistance<=2.5f)
-						  Bot.Targeting.RequiresAvoidance=false;
-					 else if (Bot.Combat.TriggeringAvoidances.Count==0)
-						  Bot.Targeting.RequiresAvoidance=false;
+						 this.RequiresAvoidance = false;
+					 else if (this.Environment.TriggeringAvoidances.Count == 0)
+						 this.RequiresAvoidance = false;
 				}
 
 				//This is our list of objects we consider to be valid for targeting.
-				ObjectCache.ValidObjects=ObjectCache.Objects.Values.Where(o => o.ObjectIsValidForTargeting).ToList();
+				this.ValidObjects=ObjectCache.Objects.Values.Where(o => o.ObjectIsValidForTargeting).ToList();
 
 
 				//Update Prioritize Flag
-				this.bPrioritizeCloseRangeUnits=(Bot.Settings.Targeting.PrioritizeCloseRangeUnits&&Bot.Settings.Targeting.PrioritizeCloseRangeMinimumUnits<=Bot.Combat.SurroundingUnits);
+				this.bPrioritizeCloseRangeUnits = (Bot.Settings.Targeting.PrioritizeCloseRangeUnits && Bot.Settings.Targeting.PrioritizeCloseRangeMinimumUnits <= this.Environment.SurroundingUnits);
 
 
 				// Still no target, let's end it all!
 				if (!RefreshTargetBehaviors())
 				{
 					 this.StartingLocation=Vector3.Zero;
-					 Bot.Combat.PrioritizedRAGUIDs.Clear();
+					 Bot.NavigationCache.PrioritizedRAGUIDs.Clear();
 					 return;
 				}
 
@@ -212,14 +214,14 @@ namespace FunkyBot.Targeting
 				this.UpdateKillLootRadiusValues();
 
 				// Refresh buffs (so we can check for wrath being up to ignore ice balls and anything else like that)
-				Bot.Class.RefreshCurrentBuffs();
-				Bot.Class.RefreshCurrentDebuffs();
+				Bot.Class.HotBar.RefreshHotbarBuffs();
 
 
 				// Bunch of variables used throughout
 				Bot.Character.PetData.Reset();
 				// Reset the counters for monsters at various ranges
-				Bot.Combat.Reset();
+				this.Environment.Reset();
+			
 
 
 				//Check if we should trim our SNO cache..
@@ -240,8 +242,8 @@ namespace FunkyBot.Targeting
 						  CacheObject thisObj=ObjectCache.Objects[item];
 
 						  //remove prioritized raguid
-						  if (Bot.Combat.PrioritizedRAGUIDs.Contains(item))
-								Bot.Combat.PrioritizedRAGUIDs.Remove(item);
+						  if (Bot.NavigationCache.PrioritizedRAGUIDs.Contains(item))
+							  Bot.NavigationCache.PrioritizedRAGUIDs.Remove(item);
 
 						  //Blacklist flag check
 						  if (thisObj.BlacklistFlag!=BlacklistType.None)
@@ -282,6 +284,8 @@ namespace FunkyBot.Targeting
 					 ObjectCache.Objects.Clear();
 					 ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
 					 RemovalCheck=false;
+
+					 Bot.Character.UpdateCoinage = true;
 
 					 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 						  Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");

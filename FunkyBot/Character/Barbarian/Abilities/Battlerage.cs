@@ -18,7 +18,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Barb
 				get { return SNOPower.Barbarian_BattleRage; }
 		  }
 
-		  public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
+		  public override int RuneIndex { get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; } }
 
 		  public override void Initialize()
 		  {
@@ -30,14 +30,14 @@ namespace FunkyBot.AbilityFunky.Abilities.Barb
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.High;
 				PreCastFlags=(AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast);
-				FcriteriaBuff=new Func<bool>(() => { return !Bot.Class.HasBuff(SNOPower.Barbarian_BattleRage); });
+				FcriteriaBuff=new Func<bool>(() => { return !Bot.Class.HotBar.HasBuff(SNOPower.Barbarian_BattleRage); });
 				FcriteriaCombat=new Func<bool>(() =>
 				{
-					 return !Bot.Class.HasBuff(SNOPower.Barbarian_BattleRage)||
+					 return !Bot.Class.HotBar.HasBuff(SNOPower.Barbarian_BattleRage)||
 						  //Only if we cannot spam sprint..
-								 (!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Sprint)&&
+								 (!Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_Sprint)&&
 							  ((Bot.Settings.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.98&&
-										Bot.Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)
+										Bot.Class.HotBar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)
 											  &&Bot.Character.dCurrentHealthPct>0.50d)||
 								(Bot.Settings.Class.bFuryDumpAlways&&Bot.Character.dCurrentEnergyPct>=0.98&&Bot.Character.dCurrentHealthPct>0.50d)));
 				});

@@ -29,7 +29,7 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|
 											AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckRecastTimer);
 
-				FcriteriaPreCast=new Func<bool>(() => { return !Bot.Class.HasDebuff(SNOPower.Succubus_BloodStar); });
+				FcriteriaPreCast=new Func<bool>(() => { return !Bot.Class.HotBar.HasDebuff(SNOPower.Succubus_BloodStar); });
 
 				IsSpecialAbility=true;
 		  }
@@ -38,7 +38,7 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

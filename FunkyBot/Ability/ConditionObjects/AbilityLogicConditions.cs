@@ -54,7 +54,7 @@ namespace FunkyBot.AbilityFunky
 						  Fprecast+=(new Func<bool>(() => { return !Bot.Character.bIsRooted; }));
 
 					 if (precastconditions_.HasFlag(AbilityPreCastFlags.CheckExisitingBuff))
-						  Fprecast+=(new Func<bool>(() => { return !Bot.Class.HasBuff(ability.Power); }));
+						  Fprecast+=(new Func<bool>(() => { return !Bot.Class.HotBar.HasBuff(ability.Power); }));
 
 					 if (precastconditions_.HasFlag(AbilityPreCastFlags.CheckPetCount))
 						  Fprecast+=(new Func<bool>(() => { return Bot.Class.MainPetCount<ability.Counter; }));
@@ -400,14 +400,14 @@ namespace FunkyBot.AbilityFunky
 		  {
 				FUnitRange=null;
 				if (ability.UnitsWithinRangeConditions!=null)
-					 FUnitRange+=new Func<bool>(() => { return Bot.Combat.iAnythingWithinRange[(int)ability.UnitsWithinRangeConditions.Item1]>=ability.UnitsWithinRangeConditions.Item2; });
+					 FUnitRange+=new Func<bool>(() => { return Bot.Targeting.Environment.iAnythingWithinRange[(int)ability.UnitsWithinRangeConditions.Item1]>=ability.UnitsWithinRangeConditions.Item2; });
 		  }
 
 		  private static void CreateElitesInRangeConditions(ref Func<bool> FUnitRange, Ability ability)
 		  {
 				FUnitRange=null;
 				if (ability.ElitesWithinRangeConditions!=null)
-					 FUnitRange+=new Func<bool>(() => { return Bot.Combat.iElitesWithinRange[(int)ability.ElitesWithinRangeConditions.Item1]>=ability.ElitesWithinRangeConditions.Item2; });
+					 FUnitRange+=new Func<bool>(() => { return Bot.Targeting.Environment.iElitesWithinRange[(int)ability.ElitesWithinRangeConditions.Item1]>=ability.ElitesWithinRangeConditions.Item2; });
 		  }
 		  #endregion
 

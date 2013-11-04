@@ -18,11 +18,6 @@ namespace FunkyBot.Cache
 				{
 					 private Dictionary<int, CacheObject> objects=new Dictionary<int, CacheObject>();
 
-					 ///<summary>
-					 ///Adds the specific object to a list due to the object being avoided due to avoidance.
-					 ///</summary>
-					 public List<CacheObject> objectsIgnoredDueToAvoidance=new List<CacheObject>();
-
 					 internal Dictionary<int, double> HealthEntriesForAverageValue=new Dictionary<int, double>();
 					 private double MaximumHealthAverage { get; set; }
 					 internal double MaximumHitPointAverage

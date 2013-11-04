@@ -15,6 +15,7 @@ using System.Threading;
 using FunkyBot.Avoidances;
 using Zeta.Internals.Service;
 using FunkyBot.ProfileTracking;
+using FunkyBot.Character;
 
 namespace FunkyBot
 {
@@ -32,7 +33,7 @@ namespace FunkyBot
 					 get { return character; }
 					 set { character=value; }
 				}
-				public static CombatCache Combat { get; set; }
+			
 				public static TargetingHandler Targeting { get; set; }
 
 				private static ProfileCache profile=new ProfileCache();
@@ -138,7 +139,6 @@ namespace FunkyBot
 				{
 					 Class=null;
 					 character=new CharacterCache();
-					 Combat=new CombatCache();
 					 Targeting=new TargetingHandler();
 					 NavigationCache=new Navigation();
                      //Stats_ = new BotStatistics();

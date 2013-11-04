@@ -30,24 +30,24 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 				FcriteriaCombat=new Func<bool>(() =>
 				{
 					 return
-						 Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_15]>=1||Bot.Character.dCurrentHealthPct<=0.4||
-						 (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=5&&
-						  Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_50]==0)||
-						 (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3&&Bot.Character.dCurrentEnergyPct<=0.5)||
+						 Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15]>=1||Bot.Character.dCurrentHealthPct<=0.4||
+						 (Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=5&&
+						  Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_50]==0)||
+						 (Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3&&Bot.Character.dCurrentEnergyPct<=0.5)||
 						 (Bot.Targeting.CurrentTarget.IsBoss&&Bot.Targeting.CurrentTarget.RadiusDistance<=15f)||
-						 (Bot.Settings.Class.bMonkInnaSet&&Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=1&&
-						  Bot.Class.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)&&!Bot.Class.HasBuff(SNOPower.Monk_SweepingWind))
+						 (Bot.Settings.Class.bMonkInnaSet&&Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=1&&
+						  Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)&&!Bot.Class.HotBar.HasBuff(SNOPower.Monk_SweepingWind))
 						 &&
 						  // Check if we don't have breath of heaven
-						 (!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_BreathOfHeaven)||
-						  (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_BreathOfHeaven)&&(!Bot.Settings.Class.bMonkInnaSet||
-																																					  Bot.Class.HasBuff(SNOPower.Monk_BreathOfHeaven))))&&
+						 (!Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_BreathOfHeaven)||
+						  (Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_BreathOfHeaven)&&(!Bot.Settings.Class.bMonkInnaSet||
+																																					  Bot.Class.HotBar.HasBuff(SNOPower.Monk_BreathOfHeaven))))&&
 						  // Check if either we don't have sweeping winds, or we do and it's ready to cast in a moment
-						 (!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)||
-						  (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)&&(Bot.Character.dCurrentEnergy>=95||
+						 (!Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)||
+						  (Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)&&(Bot.Character.dCurrentEnergy>=95||
 																										  (Bot.Settings.Class.bMonkInnaSet&&
 																											Bot.Character.dCurrentEnergy>=25)||
-																																				  Bot.Class.HasBuff(SNOPower.Monk_SweepingWind)))||
+																																				  Bot.Class.HotBar.HasBuff(SNOPower.Monk_SweepingWind)))||
 						  Bot.Character.dCurrentHealthPct<=0.4);
 				});
 		  }
@@ -56,7 +56,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

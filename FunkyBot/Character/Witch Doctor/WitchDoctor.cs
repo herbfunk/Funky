@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
 
-namespace FunkyBot
+namespace FunkyBot.Character
 {
 
 		  internal class WitchDoctor : Player

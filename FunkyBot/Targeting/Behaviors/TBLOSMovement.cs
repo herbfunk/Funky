@@ -32,7 +32,7 @@ namespace FunkyBot.Targeting.Behaviors
 				get
 				{
 					 //Check objects added for LOS movement
-					 return Bot.Settings.LOSMovement.EnableLOSMovementBehavior&&!Bot.IsInNonCombatBehavior&&(Bot.Combat.LoSMovementObjects.Count>0||Bot.NavigationCache.LOSmovementObject!=null);
+					 return Bot.Settings.LOSMovement.EnableLOSMovementBehavior&&!Bot.IsInNonCombatBehavior&&(Bot.Targeting.Environment.LoSMovementObjects.Count>0||Bot.NavigationCache.LOSmovementObject!=null);
 				}
 		  }
 
@@ -60,8 +60,8 @@ namespace FunkyBot.Targeting.Behaviors
 						  if (Bot.NavigationCache.LOSmovementObject==null)
 						  {//New LOS Movement Selection.
 
-								Bot.Combat.LoSMovementObjects=Bot.Combat.LoSMovementObjects.OrderBy(o => o.CentreDistance).ToList();
-								foreach (var cobj in Bot.Combat.LoSMovementObjects)
+								Bot.Targeting.Environment.LoSMovementObjects=Bot.Targeting.Environment.LoSMovementObjects.OrderBy(o => o.CentreDistance).ToList();
+								foreach (var cobj in Bot.Targeting.Environment.LoSMovementObjects)
 								{//Iterate Units
 
 									 if (Bot.NavigationCache.LOSBlacklistedRAGUIDs.Contains(cobj.RAGUID)) continue;

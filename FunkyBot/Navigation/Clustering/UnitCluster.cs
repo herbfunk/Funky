@@ -135,7 +135,7 @@ namespace FunkyBot.Movement.Clustering
 		{
 			bool l_bSuccess=base.AddObject(obj);
 
-			if (l_bSuccess)//&&Bot.Combat.UnitRAGUIDs.Contains(unit.RAGUID))
+			if (l_bSuccess)//&&Bot.Targeting.Environment.UnitRAGUIDs.Contains(unit.RAGUID))
 			{
 					 CacheUnit unitobj=(CacheUnit)obj;
 					 ListUnits.Add(unitobj);

@@ -77,7 +77,7 @@ namespace FunkyBot.Cache
 						//unless its in front of us.. we wait 500ms mandatory.
 						if (lastLOSCheckMS<500&&centreDistance>1f)
 						{
-							 if (this.IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer) Bot.Combat.LoSMovementObjects.Add(this);
+							 if (this.IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer) Bot.Targeting.Environment.LoSMovementObjects.Add(this);
 							 return false;
 						}
 						else
@@ -93,14 +93,14 @@ namespace FunkyBot.Cache
 
 							 if (lastLOSCheckMS<ReCheckTime)
 							 {
-                                 if (this.IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer) Bot.Combat.LoSMovementObjects.Add(this);
+                                 if (this.IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer) Bot.Targeting.Environment.LoSMovementObjects.Add(this);
 								  return false;
 							 }
 						}
 
 						if (!base.LineOfSight.LOSTest(Bot.Character.Position, true, false))
 						{
-                            if (this.IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer) Bot.Combat.LoSMovementObjects.Add(this);
+                            if (this.IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer) Bot.Targeting.Environment.LoSMovementObjects.Add(this);
 							 return false;
 						}
 
@@ -253,7 +253,7 @@ namespace FunkyBot.Cache
 		{
 			base.UpdateWeight();
 
-			if (this.CentreDistance>=4f&&Bot.Combat.NearbyAvoidances.Count>0)
+			if (this.CentreDistance>=4f&&Bot.Targeting.Environment.NearbyAvoidances.Count>0)
 			{
 				Vector3 TestPosition=this.Position;
 				if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))

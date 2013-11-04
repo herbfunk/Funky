@@ -249,8 +249,8 @@ namespace FunkyBot.Cache
 								&&!Bot.IsInNonCombatBehavior)
 						  {
 								//Check if this unit is valid based on if its contained in valid clusters
-								 if (!Bot.Combat.ValidClusterUnits.Contains(this.RAGUID))
-									 //&&(!this.ObjectIsSpecial&&(!Bot.Combat.AvoidanceLastTarget||this.CentreDistance>59f)))
+								if (!Bot.Targeting.Clusters.ValidClusterUnits.Contains(this.RAGUID))
+									 //&&(!this.ObjectIsSpecial&&(!Bot.Targeting.Environment.AvoidanceLastTarget||this.CentreDistance>59f)))
 								{
 									 return true;
 								}
@@ -558,64 +558,64 @@ namespace FunkyBot.Cache
 					 float RadiusDistance=this.RadiusDistance;
 
 					 if (Bot.Settings.Fleeing.EnableFleeingBehavior&&RadiusDistance<=Bot.Settings.Fleeing.FleeMaxMonsterDistance&&this.ShouldFlee)
-						  Bot.Combat.FleeTriggeringUnits.Add(this);
+						  Bot.Targeting.Environment.FleeTriggeringUnits.Add(this);
 
 
 					 if (RadiusDistance<=6f)
 					 {
-						  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_6]++;
+						  Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_6]++;
 						  if (bCountAsElite)
-								Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_6]++;
+								Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_6]++;
 					 }
 					 if (RadiusDistance<=12f)
 					 {
 						  //Tally close units
-						  Bot.Combat.SurroundingUnits++;
+						  Bot.Targeting.Environment.SurroundingUnits++;
 						  //Herbfunk: non-rend count only if within 8f and is attackable..
 						  if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Barbarian&&!bIsRended&&RadiusDistance<=7f&&this.IsTargetable.Value)
-								Bot.Combat.iNonRendedTargets_6++;
+								Bot.Targeting.Environment.iNonRendedTargets_6++;
 
-						  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_12]++;
+						  Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_12]++;
 						  if (bCountAsElite)
-								Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_12]++;
+								Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_12]++;
 					 }
 					 if (RadiusDistance<=15f)
 					 {
-						  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]++;
+						  Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]++;
 						  if (bCountAsElite)
-								Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_15]++;
+								Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15]++;
 					 }
 					 if (RadiusDistance<=20f)
 					 {
-						  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]++;
+						  Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]++;
 						  if (bCountAsElite)
-								Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_20]++;
+								Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_20]++;
 					 }
 					 if (RadiusDistance<=25f)
 					 {
-						  if (!Bot.Combat.bAnyNonWWIgnoreMobsInRange&&!CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(this.SNOID))
-								Bot.Combat.bAnyNonWWIgnoreMobsInRange=true;
-						  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_25]++;
+						  if (!Bot.Targeting.Environment.bAnyNonWWIgnoreMobsInRange&&!CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(this.SNOID))
+								Bot.Targeting.Environment.bAnyNonWWIgnoreMobsInRange=true;
+						  Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25]++;
 						  if (bCountAsElite)
-								Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_25]++;
+								Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]++;
 					 }
 					 if (RadiusDistance<=30f)
 					 {
-						  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_30]++;
+						  Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_30]++;
 						  if (bCountAsElite)
-								Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_30]++;
+								Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_30]++;
 					 }
 					 if (RadiusDistance<=40f)
 					 {
-						  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_40]++;
+						  Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_40]++;
 						  if (bCountAsElite)
-								Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_40]++;
+								Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_40]++;
 					 }
 					 if (RadiusDistance<=50f)
 					 {
-						  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_50]++;
+						  Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_50]++;
 						  if (bCountAsElite)
-								Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_50]++;
+								Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_50]++;
 					 }
 				}
 
@@ -629,8 +629,8 @@ namespace FunkyBot.Cache
 						  &&this.PriorityCounter==0
 						  &&!this.IsClusterException
 						  &&(Bot.Targeting.CurrentTarget!=null
-						  ||Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_30]==0
-						  ||ObjectCache.Objects.objectsIgnoredDueToAvoidance.Count==0))
+						  ||Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_30]==0
+						  ||Bot.Targeting.objectsIgnoredDueToAvoidance.Count==0))
 					 {
 						  this.Weight=0;
 						  return;
@@ -638,7 +638,7 @@ namespace FunkyBot.Cache
 
 					 if (this.RadiusDistance>=5f&&Bot.Class.IsMeleeClass)
 					 {
-						  if (DateTime.Now.Subtract(LastAvoidanceIgnored).TotalMilliseconds<1000&&Bot.Combat.NearbyAvoidances.Count>0)
+						  if (DateTime.Now.Subtract(LastAvoidanceIgnored).TotalMilliseconds<1000&&Bot.Targeting.Environment.NearbyAvoidances.Count>0)
 						  {
 								this.Weight=1;
 						  }
@@ -653,7 +653,7 @@ namespace FunkyBot.Cache
 								{
 									 if (this.Weight!=1&&this.ObjectIsSpecial)
 									 {//Only add this to the avoided list when its not currently inside avoidance area
-										  ObjectCache.Objects.objectsIgnoredDueToAvoidance.Add(this);
+										 Bot.Targeting.objectsIgnoredDueToAvoidance.Add(this);
 									 }
 									 else
 										  this.Weight=1;
@@ -662,8 +662,8 @@ namespace FunkyBot.Cache
 					 }
 
 					 //Range Class Ignore (Avoid/Kite last target!)
-					 //if ((Bot.Combat.FleeingLastTarget&&Bot.Combat.FleeTriggeringUnits.Count>0&&Bot.Combat.FleeTriggeringUnits.Contains(this))||
-					 //	 (Bot.Combat.AvoidanceLastTarget&&Bot.Combat.TriggeringAvoidances.Count>0))
+					 //if ((Bot.Targeting.Environment.FleeingLastTarget&&Bot.Targeting.Environment.FleeTriggeringUnits.Count>0&&Bot.Targeting.Environment.FleeTriggeringUnits.Contains(this))||
+					 //	 (Bot.Targeting.Environment.AvoidanceLastTarget&&Bot.Targeting.Environment.TriggeringAvoidances.Count>0))
 					 //	 this.Weight=1;
 
 
@@ -729,7 +729,7 @@ namespace FunkyBot.Cache
 										  this.Weight+=4000;
 
 									 // Barbarians with wrath of the berserker up should prioritize elites more
-									 if (Bot.Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)&&(this.IsEliteRareUnique||this.IsTreasureGoblin||this.IsBoss))
+									 if (Bot.Class.HotBar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)&&(this.IsEliteRareUnique||this.IsTreasureGoblin||this.IsBoss))
 										  this.Weight+=2000;
 
 
@@ -767,7 +767,7 @@ namespace FunkyBot.Cache
 										  // Extra bonus for point-blank range
 										  //iUnitsSurrounding++;
 										  // Give special "surrounded" weight to each unit
-										  this.Weight+=(200*Bot.Combat.SurroundingUnits);
+										  this.Weight+=(200*Bot.Targeting.Environment.SurroundingUnits);
 									 }
 
 									 // Special additional weight for corrupt growths in act 4 ONLY if they are at close range (not a standard priority thing)
@@ -924,7 +924,7 @@ namespace FunkyBot.Cache
 								{
 									// if (this.IsEliteRareUnique||this.IsTreasureGoblin)
                                     if (this.AllowLOSMovement)
-										  Bot.Combat.LoSMovementObjects.Add(this);
+										  Bot.Targeting.Environment.LoSMovementObjects.Add(this);
 									 
 										 
 									 return false;
@@ -948,7 +948,7 @@ namespace FunkyBot.Cache
 									 {
 										  //if (this.IsEliteRareUnique||this.IsTreasureGoblin) 
                                          if (this.AllowLOSMovement)
-                                              Bot.Combat.LoSMovementObjects.Add(this);
+                                              Bot.Targeting.Environment.LoSMovementObjects.Add(this);
 
 										  return false;
 									 }
@@ -962,7 +962,7 @@ namespace FunkyBot.Cache
 									 //LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
 									// if (this.IsEliteRareUnique||this.IsTreasureGoblin)
                                      if (this.AllowLOSMovement)
-										  Bot.Combat.LoSMovementObjects.Add(this);
+										  Bot.Targeting.Environment.LoSMovementObjects.Add(this);
 									 
 
 									 //Valid?? Did we find a location we could move to for LOS?
@@ -993,11 +993,11 @@ namespace FunkyBot.Cache
 								if (Bot.Settings.Targeting.IgnoreAboveAverageMobs&&this.PriorityCounter<=1&&!Bot.IsInNonCombatBehavior&&!this.IsBoss)
 									 return false;
 
-								Bot.Combat.bAnyChampionsPresent=true;
+								Bot.Targeting.Environment.bAnyChampionsPresent=true;
 						  }
 
 						  if (this.IsTreasureGoblin)
-								Bot.Combat.bAnyTreasureGoblinsPresent=true;
+								Bot.Targeting.Environment.bAnyTreasureGoblinsPresent=true;
 
 
 
@@ -1019,9 +1019,9 @@ namespace FunkyBot.Cache
 						  }
 
 						  if (distantUnit)
-								Bot.Combat.DistantUnits.Add(this); //Add this valid unit to Distant List.
+								Bot.Targeting.Environment.DistantUnits.Add(this); //Add this valid unit to Distant List.
 						  if (validUnit) //Add this valid unit RAGUID to list
-								Bot.Combat.UnitRAGUIDs.Add(this.RAGUID);
+								Bot.Targeting.Environment.UnitRAGUIDs.Add(this.RAGUID);
 
 
 
@@ -1260,7 +1260,7 @@ namespace FunkyBot.Cache
 					 if (Bot.Class.AC==ActorClass.Barbarian)
 					 {
 						  //Rend DotDPS update
-							if (Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Rend))
+							if (Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_Rend))
 						  {
 								try
 								{
@@ -1271,9 +1271,9 @@ namespace FunkyBot.Cache
 					 else if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.WitchDoctor)
 					 {
 						  //Haunted DotDPS update
-							if (Bot.Class.HotbarPowers.Contains(SNOPower.Witchdoctor_Haunt)||Bot.Class.HotbarPowers.Contains(SNOPower.Witchdoctor_Locust_Swarm))
+							if (Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_Haunt)||Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_Locust_Swarm))
 						  {
-								Bot.Combat.UsesDOTDPSAbility=true;
+								Bot.Targeting.Environment.UsesDOTDPSAbility=true;
 								try
 								{
 									 //Haunted units always have buff visual effect!

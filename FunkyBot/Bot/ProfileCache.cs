@@ -50,9 +50,9 @@ namespace FunkyBot.Cache
 
 						  Logger.Write(LogLevel.User, "Profile Behavior Changed To {0}", currentProfileBehavior.GetType().ToString());
 
-						  if (ObjectCache.oocDBTags.Contains(currentProfileBehavior.GetType()))
+						  if (oocDBTags.Contains(currentProfileBehavior.GetType()))
 						  {
-							  ProfileBehaviorIsOOCInteractive = ObjectCache.InteractiveTags.Contains(currentProfileBehavior.GetType());
+							  ProfileBehaviorIsOOCInteractive = InteractiveTags.Contains(currentProfileBehavior.GetType());
 							  Logging.WriteDiagnostic("Current Profile Behavior has enabled OOC Behavior.");
 							  IsRunningOOCBehavior = true;
 							  OOCBehaviorStartVector = Bot.Character.Position;
@@ -75,7 +75,24 @@ namespace FunkyBot.Cache
 			 set { OOCbehaviorstartvector = value; }
 		 }
 
+		 //Common Used Profile Tags that should be considered Out-Of-Combat Behavior.
+		 private static readonly HashSet<Type> oocDBTags = new HashSet<Type> 
+																	{ 
+																	  typeof(Zeta.CommonBot.Profile.Common.UseWaypointTag), 
+																	  typeof(Zeta.CommonBot.Profile.Common.UseObjectTag),
+																	  typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),
+																	  typeof(Zeta.CommonBot.Profile.Common.WaitTimerTag),
+																	  typeof (FunkyBot.XMLTags.TrinityTownPortal),
+																	};
 
+		 //Common Used Profile Tags that requires backtracking during combat sessions.
+		 private static readonly HashSet<Type> InteractiveTags = new HashSet<Type> 
+																	{ 
+																	  typeof(Zeta.CommonBot.Profile.Common.UseWaypointTag), 
+																	  typeof(Zeta.CommonBot.Profile.Common.UseObjectTag),
+																	  //typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),
+																	  typeof(Zeta.CommonBot.Profile.Common.UsePortalTag),
+																	};
 	 }
 }
 

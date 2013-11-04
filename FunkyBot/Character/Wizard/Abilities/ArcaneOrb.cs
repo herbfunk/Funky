@@ -35,13 +35,13 @@ namespace FunkyBot.AbilityFunky.Abilities.Wizard
 
 		  private bool UsingCriticalMass()
 		  {
-				return Bot.Class.PassivePowers.Contains(SNOPower.Wizard_Passive_CriticalMass); ;
+				return Bot.Class.HotBar.PassivePowers.Contains(SNOPower.Wizard_Passive_CriticalMass); ;
 		  }
 		  #region IAbility
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

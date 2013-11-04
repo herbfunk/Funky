@@ -43,12 +43,12 @@ namespace FunkyBot.AbilityFunky.Abilities.Wizard
 
 		  private bool MissingBuffs()
 		  {
-				HashSet<SNOPower> abilities_=Bot.Class.HasBuff(SNOPower.Wizard_Archon)?Bot.Class.CachedPowers:Bot.Class.HotbarPowers;
+				HashSet<SNOPower> abilities_=Bot.Class.HotBar.HasBuff(SNOPower.Wizard_Archon)?Bot.Class.HotBar.CachedPowers:Bot.Class.HotBar.HotbarPowers;
 
-				if ((abilities_.Contains(SNOPower.Wizard_EnergyArmor)&&!Bot.Class.HasBuff(SNOPower.Wizard_EnergyArmor))||(abilities_.Contains(SNOPower.Wizard_IceArmor)&&!Bot.Class.HasBuff(SNOPower.Wizard_IceArmor))||(abilities_.Contains(SNOPower.Wizard_StormArmor)&&!Bot.Class.HasBuff(SNOPower.Wizard_StormArmor)))
+				if ((abilities_.Contains(SNOPower.Wizard_EnergyArmor)&&!Bot.Class.HotBar.HasBuff(SNOPower.Wizard_EnergyArmor))||(abilities_.Contains(SNOPower.Wizard_IceArmor)&&!Bot.Class.HotBar.HasBuff(SNOPower.Wizard_IceArmor))||(abilities_.Contains(SNOPower.Wizard_StormArmor)&&!Bot.Class.HotBar.HasBuff(SNOPower.Wizard_StormArmor)))
 					 return true;
 
-				if (abilities_.Contains(SNOPower.Wizard_MagicWeapon)&&!Bot.Class.HasBuff(SNOPower.Wizard_MagicWeapon))
+				if (abilities_.Contains(SNOPower.Wizard_MagicWeapon)&&!Bot.Class.HotBar.HasBuff(SNOPower.Wizard_MagicWeapon))
 					 return true;
 
 				return false;
@@ -59,7 +59,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Wizard
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

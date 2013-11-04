@@ -21,7 +21,7 @@ namespace FunkyBot.Targeting.Behaviors
 				{
 					 if (!Bot.NavigationCache.groupReturningToOrgin)
 					 {
-						  Bot.Combat.UpdateGroupClusteringVariables();
+						 Bot.Targeting.Clusters.UpdateGroupClusteringVariables();
 
 						  bool EndBehavior=false;
 						  if (!Bot.NavigationCache.groupingCurrentUnit.ObjectIsValidForTargeting)

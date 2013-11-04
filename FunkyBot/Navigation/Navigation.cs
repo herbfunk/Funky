@@ -204,7 +204,7 @@ namespace FunkyBot.Movement
 					 }
 
 					 List<int> NearbyObjectRAGUIDs=new List<int>();
-					 List<CacheServerObject> NearbyObjects=Bot.Combat.NearbyObstacleObjects.Where(obj => obj.RadiusDistance<=6f).ToList();//ObjectCache.Obstacles.Navigations.Where(obj => obj.RadiusDistance<=5f).ToList();
+					 List<CacheServerObject> NearbyObjects=Bot.Targeting.Environment.NearbyObstacleObjects.Where(obj => obj.RadiusDistance<=6f).ToList();//ObjectCache.Obstacles.Navigations.Where(obj => obj.RadiusDistance<=5f).ToList();
 
 					 //no nearby objects passed distance check..
 					 if (NearbyObjects.Count==0)
@@ -477,7 +477,7 @@ namespace FunkyBot.Movement
 				internal Vector3 vPositionLastZigZagCheck=Vector3.Zero;
 
 				//Special Movements
-				public Vector3 FindZigZagTargetLocation(Vector3 vTargetLocation, float fDistanceOutreach, bool bRandomizeDistance=false, bool bRandomizeStart=false, bool bCheckGround=false)
+				public Vector3 FindZigZagTargetLocation(Vector3 vTargetLocation, float fDistanceOutreach, bool bRandomizeDistance=false, bool bRandomizeStart=false)
 				{
 					 Vector3 vThisZigZag=Vector3.Zero;
 					 bool useTargetBasedZigZag=false;
@@ -485,9 +485,9 @@ namespace FunkyBot.Movement
 					 float maxDistance=16f;
 					 int minTargets=2;
 
-					 if (useTargetBasedZigZag&&!Bot.Combat.bAnyTreasureGoblinsPresent&&Bot.Combat.UnitRAGUIDs.Count>=minTargets)
+					 if (useTargetBasedZigZag&&!Bot.Targeting.Environment.bAnyTreasureGoblinsPresent&&Bot.Targeting.Environment.UnitRAGUIDs.Count>=minTargets)
 					 {
-						  var units_=Bot.Combat.NearbyObstacleObjects.Where(obj => Bot.Combat.UnitRAGUIDs.Contains(obj.RAGUID));
+						  var units_=Bot.Targeting.Environment.NearbyObstacleObjects.Where(obj => Bot.Targeting.Environment.UnitRAGUIDs.Contains(obj.RAGUID));
 						  units_.ToList().ForEach(obj => obj.UpdateWeight());
 
 						  IEnumerable<CacheObject> zigZagTargets=
@@ -645,6 +645,8 @@ namespace FunkyBot.Movement
 
 				// For "position-shifting" to navigate around obstacle SNO's
 				private DateTime LastObstacleIntersectionTest=DateTime.Today;
+				//Prioritized IDs due to blocking
+				internal List<int> PrioritizedRAGUIDs = new List<int>();
 				///<summary>
 				///Checks bots movement flags then prioritizes all objects that are considered to be blocking.
 				///</summary>
@@ -665,9 +667,9 @@ namespace FunkyBot.Movement
 								if (Funky.PlayerMover.iTotalAntiStuckAttempts>0) range+=(Funky.PlayerMover.iTotalAntiStuckAttempts*5f);
 
 								//get collection of objects that pass the tests.
-								var intersectingObstacles=Bot.Combat.NearbyObstacleObjects //ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
+								var intersectingObstacles=Bot.Targeting.Environment.NearbyObstacleObjects //ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
 																						  .Where(obstacle =>
-																								!Bot.Combat.PrioritizedRAGUIDs.Contains(obstacle.RAGUID)//Only objects not already prioritized
+																								!this.PrioritizedRAGUIDs.Contains(obstacle.RAGUID)//Only objects not already prioritized
 																								&&obstacle.Obstacletype.HasValue
 																								&&ObstacleType.Navigation.HasFlag(obstacle.Obstacletype.Value)//only navigation/intersection blocking objects!
 																								&&obstacle.RadiusDistance<=range //Only within range..
@@ -681,7 +683,7 @@ namespace FunkyBot.Movement
 									 var intersectingObjectRAGUIDs=(from objs in intersectingObstacles
 																			  select objs.RAGUID);
 
-									 Bot.Combat.PrioritizedRAGUIDs.AddRange(intersectingObjectRAGUIDs);
+									 this.PrioritizedRAGUIDs.AddRange(intersectingObjectRAGUIDs);
 								}
 						  }
 					 }

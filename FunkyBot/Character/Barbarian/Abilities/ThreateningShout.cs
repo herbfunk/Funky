@@ -19,7 +19,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Barb
 				get { return SNOPower.Barbarian_ThreateningShout; }
 		  }
 
-		  public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
+		  public override int RuneIndex { get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; } }
 
 		  public override void Initialize()
 		  {
@@ -33,11 +33,11 @@ namespace FunkyBot.AbilityFunky.Abilities.Barb
 				FcriteriaCombat=new Func<bool>(() =>
 				{
 					 return (
-						 Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_20]>1||
+						 Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_20]>1||
 						 (Bot.Targeting.CurrentTarget.IsBoss&&Bot.Targeting.CurrentTarget.RadiusDistance<=20)||
-						 (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]>2&&!Bot.Combat.bAnyBossesInRange&&
-						  (Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_50]==0||
-							Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_SeismicSlam)))||
+						 (Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>2&&!Bot.Targeting.Environment.bAnyBossesInRange&&
+						  (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_50]==0||
+							Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_SeismicSlam)))||
 						 Bot.Character.dCurrentHealthPct<=0.75
 						 );
 				});

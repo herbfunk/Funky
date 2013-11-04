@@ -35,6 +35,9 @@ namespace FunkyBot.Cache
 						  return Math.Max(0f, base.CentreDistance-this.Radius);
 					 }
 				}
+
+				public virtual void RefreshObject() { }
+
 				public new string DebugString
 				{
 					 get
@@ -224,6 +227,43 @@ namespace FunkyBot.Cache
 					 }
 				}
 
+				public override void RefreshObject()
+				{
+					if (AvoidanceCache.IgnoreAvoidance(this.AvoidanceType)) return;
+
+					//Only update position of Movement Avoidances!
+					if (this.IsProjectileAvoidance)
+					{
+						//Blacklisted updates
+						if (this.BlacklistRefreshCounter > 0 &&
+							 !this.CheckUpdateForProjectile)
+						{
+							this.BlacklistRefreshCounter--;
+						}
+
+						//If we need to avoid, than enable travel avoidance flag also.
+						if (this.UpdateProjectileRayTest())
+						{
+							Bot.Targeting.Environment.TriggeringAvoidances.Add(this);
+							Bot.Targeting.Environment.TriggeringAvoidanceRAGUIDs.Add(this.RAGUID);
+							Bot.Targeting.TravellingAvoidance = true;
+							Bot.Targeting.RequiresAvoidance = true;
+						}
+					}
+					else
+					{
+						if (this.CentreDistance < 50f)
+							Bot.Targeting.Environment.NearbyAvoidances.Add(this.RAGUID);
+
+						if (this.Position.Distance(Bot.Character.Position) <= this.Radius)
+						{
+							Bot.Targeting.Environment.TriggeringAvoidances.Add(this);
+							Bot.Targeting.Environment.TriggeringAvoidanceRAGUIDs.Add(this.RAGUID);
+							Bot.Targeting.RequiresAvoidance = true;
+						}
+					}
+				}
+
 				public bool CheckUpdateForProjectile
 				{
 					 get
@@ -365,6 +405,13 @@ namespace FunkyBot.Cache
 				public CacheServerObject(CacheObject parent)
 					 : base(parent)
 				{
+				}
+
+			  	public override void RefreshObject()
+				{
+					//Add nearby objects to our collection (used in navblock/obstaclecheck methods to reduce queries)
+					if (this.CentreDistance < 25f)
+						Bot.Targeting.Environment.NearbyObstacleObjects.Add(this);
 				}
 		  }
 	 

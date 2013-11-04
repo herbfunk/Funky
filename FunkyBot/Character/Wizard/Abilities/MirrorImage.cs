@@ -30,7 +30,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Wizard
 				FcriteriaCombat=new Func<bool>(() =>
 				{
 					 return (Bot.Character.dCurrentHealthPct<=0.50||
-								Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_30]>=5||Bot.Character.bIsIncapacitated||
+								Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_30]>=5||Bot.Character.bIsIncapacitated||
 								Bot.Character.bIsRooted||Bot.Targeting.CurrentTarget.ObjectIsSpecial);
 				});
 		  }
@@ -39,7 +39,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Wizard
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

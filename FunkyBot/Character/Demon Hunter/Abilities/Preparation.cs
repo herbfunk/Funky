@@ -24,12 +24,12 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 				Priority=AbilityPriority.High;
 				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|
 											AbilityPreCastFlags.CheckCanCast);
-				Cost=Bot.Class.RuneIndexCache[SNOPower.DemonHunter_Preparation]==0?25:0;
+				Cost=Bot.Class.HotBar.RuneIndexCache[SNOPower.DemonHunter_Preparation]==0?25:0;
 				FcriteriaCombat=new Func<bool>(() =>
 				{
 					 return Bot.Character.dDisciplinePct<0.25d
 						  //Rune: Punishment (Restores all Hatered for 25 disc)
-							  ||(Bot.Class.RuneIndexCache[Power]==0&&Bot.Character.dCurrentEnergyPct<0.20d);
+							  ||(Bot.Class.HotBar.RuneIndexCache[Power]==0&&Bot.Character.dCurrentEnergyPct<0.20d);
 				});
 
 		  }
@@ -38,7 +38,7 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

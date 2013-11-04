@@ -31,11 +31,11 @@ namespace FunkyBot.AbilityFunky.Abilities.Wizard
 
 				FcriteriaCombat=new Func<bool>(() =>
 				{
-					 return (!HasSignatureAbility()||Bot.Class.GetBuffStacks(SNOPower.Wizard_EnergyTwister)<1)&&
-							  (Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_30]>=1||
-								Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_25]>=1||
+					 return (!HasSignatureAbility()||Bot.Class.HotBar.GetBuffStacks(SNOPower.Wizard_EnergyTwister)<1)&&
+							  (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_30]>=1||
+								Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25]>=1||
 								Bot.Targeting.CurrentTarget.RadiusDistance<=12f)&&
-							  (!Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_Electrocute)||
+							  (!Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_Electrocute)||
 								!CacheIDLookup.hashActorSNOFastMobs.Contains(Bot.Targeting.CurrentTarget.SNOID))&&
 								  ((this.UsingCriticalMass()&&(!HasSignatureAbility()||Bot.Character.dCurrentEnergy>=35))||
 									 (!this.UsingCriticalMass()&&Bot.Character.dCurrentEnergy>=35));
@@ -44,19 +44,19 @@ namespace FunkyBot.AbilityFunky.Abilities.Wizard
 
 		  private bool HasSignatureAbility()
 		  {
-				return (Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_MagicMissile)||Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_ShockPulse)||
-										Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_SpectralBlade)||Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_Electrocute));
+				return (Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_MagicMissile)||Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_ShockPulse)||
+										Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_SpectralBlade)||Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_Electrocute));
 		  }
 		  private bool UsingCriticalMass()
 		  {
-				return Bot.Class.PassivePowers.Contains(SNOPower.Wizard_Passive_CriticalMass); ;
+				return Bot.Class.HotBar.PassivePowers.Contains(SNOPower.Wizard_Passive_CriticalMass); ;
 		  }
 
 		  #region IAbility
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

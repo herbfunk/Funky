@@ -18,7 +18,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Barb
 				get { return SNOPower.Barbarian_Rend; }
 		  }
 
-		  public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
+		  public override int RuneIndex { get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; } }
 
 		  public override void Initialize()
 		  {
@@ -39,7 +39,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Barb
 				{
 					 return !Bot.Class.bWaitingForSpecial
 						  ||(Bot.Settings.Class.bFuryDumpWrath&&Bot.Character.dCurrentEnergyPct>=0.95&&
-										 Bot.Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)&&!Bot.Class.Abilities.ContainsKey(SNOPower.Barbarian_Rend));
+										 Bot.Class.HotBar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)&&!Bot.Class.Abilities.ContainsKey(SNOPower.Barbarian_Rend));
 				});
 		  }
 

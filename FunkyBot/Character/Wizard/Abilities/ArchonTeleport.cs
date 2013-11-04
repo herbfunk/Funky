@@ -32,8 +32,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Wizard
 				{
 					 return ((Bot.Settings.Class.bTeleportFleeWhenLowHP&&
 									(Bot.Character.dCurrentHealthPct<0.5d)||
-									(Bot.Targeting.RequiresAvoidance)||
-									(Bot.Combat.IsFleeing))
+									(Bot.Targeting.RequiresAvoidance))
 							  ||
 							  (Bot.Settings.Class.bTeleportIntoGrouping&&this.LastConditionPassed==ConditionCriteraTypes.Cluster)
 							  ||
@@ -72,7 +71,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Wizard
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

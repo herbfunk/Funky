@@ -47,7 +47,7 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
                     
 					 return 
                          Bot.Character.PetData.DemonHunterSpikeTraps< 
-                         (Bot.Class.PassivePowers.Contains(SNOPower.DemonHunter_Passive_CustomEngineering)?6:3); //Passive increases traps to 6
+                         (Bot.Class.HotBar.PassivePowers.Contains(SNOPower.DemonHunter_Passive_CustomEngineering)?6:3); //Passive increases traps to 6
 				});
 		  }
 
@@ -55,7 +55,7 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

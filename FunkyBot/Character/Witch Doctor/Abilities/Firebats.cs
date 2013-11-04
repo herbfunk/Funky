@@ -28,7 +28,7 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 				Cooldown=5;
 				ExecutionType=AbilityExecuteFlags.ClusterLocation|AbilityExecuteFlags.Target;
 				WaitVars=new WaitLoops(0, 0, true);
-				Range=Bot.Class.RuneIndexCache[Power]==0?0:Bot.Class.RuneIndexCache[Power]==4?14:25;
+				Range=Bot.Class.HotBar.RuneIndexCache[Power]==0?0:Bot.Class.HotBar.RuneIndexCache[Power]==4?14:25;
 				IsRanged=true;
 				IsProjectile=true;
 				IsChanneling=true;
@@ -36,7 +36,7 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 				Priority=AbilityPriority.High;
 				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated);
 				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 14);
-				ClusterConditions=new ClusterConditions(5d, Bot.Class.RuneIndexCache[Power]==4?12f:25f, 2, true);
+				ClusterConditions=new ClusterConditions(5d, Bot.Class.HotBar.RuneIndexCache[Power]==4?12f:25f, 2, true);
 
 
 
@@ -50,7 +50,7 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

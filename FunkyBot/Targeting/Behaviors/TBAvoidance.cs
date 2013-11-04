@@ -8,7 +8,7 @@ namespace FunkyBot.Targeting.Behaviors
 	 public class TBAvoidance : TargetBehavior
 	 {
          private DateTime AvoidRetryDate = DateTime.Today;
-
+		 private int iSecondsAvoidMoveFor = 0;
 		  public TBAvoidance() : base() { }
 
 		  public override TargetBehavioralTypes TargetBehavioralTypeType { get { return TargetBehavioralTypes.Avoidance; } }
@@ -19,7 +19,7 @@ namespace FunkyBot.Targeting.Behaviors
 					 return 
                          (Bot.Targeting.RequiresAvoidance&&
                           DateTime.Now.CompareTo(AvoidRetryDate)>0&&
-                         (!Bot.Combat.bAnyTreasureGoblinsPresent||Bot.Settings.Targeting.GoblinPriority<2));
+                         (!Bot.Targeting.Environment.bAnyTreasureGoblinsPresent||Bot.Settings.Targeting.GoblinPriority<2));
 				}
 		  }
 		  public override void Initialize()
@@ -29,12 +29,12 @@ namespace FunkyBot.Targeting.Behaviors
 					  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 					  {
 							string avoidances="";
-							Bot.Combat.TriggeringAvoidances.ForEach(a => avoidances = avoidances + a.AvoidanceType.ToString() + ", ");
+							Bot.Targeting.Environment.TriggeringAvoidances.ForEach(a => avoidances = avoidances + a.AvoidanceType.ToString() + ", ");
 							if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logger.Write(LogLevel.Movement, "Avoidances Triggering: {0}", avoidances);
 					  }
 					  //Reuse the last generated safe spot...
-					  if (DateTime.Now.Subtract(Bot.Targeting.LastAvoidanceMovement).TotalSeconds<Bot.Combat.iSecondsEmergencyMoveFor)
+					  if (DateTime.Now.Subtract(Bot.Targeting.LastAvoidanceMovement).TotalSeconds<this.iSecondsAvoidMoveFor)
 					  {
 							Vector3 reuseV3=Bot.NavigationCache.AttemptToReuseLastLocationFound();
 							if (reuseV3!=Vector3.Zero)
@@ -58,7 +58,7 @@ namespace FunkyBot.Targeting.Behaviors
 							obj=new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "SafeAvoid", 2.5f, -1);
 
 							//Estimate time we will be reusing this movement vector3
-							Bot.Combat.iSecondsEmergencyMoveFor=1+(int)(distance/5f);
+							this.iSecondsAvoidMoveFor = 1 + (int)(distance / 5f);
 							return true;
 					  }
                       else

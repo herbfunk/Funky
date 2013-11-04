@@ -29,25 +29,25 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 				IsSpecialAbility=true;
 				FcriteriaBuff=new Func<bool>(() =>
 				{
-					 return !Bot.Class.HasBuff(Power);
+					 return !Bot.Class.HotBar.HasBuff(Power);
 				});
 
 				FcriteriaCombat=new Func<bool>(() =>
 				{
 
 					 return
-						 !Bot.Class.HasBuff(Power)
+						 !Bot.Class.HotBar.HasBuff(Power)
 						 ||
 						 Bot.Settings.Class.bMonkSpamMantra&&Bot.Targeting.CurrentTarget!=null&&
-						 (Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_25]>0||
-						  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=2||
-						  (Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=1&&Bot.Settings.Class.bMonkInnaSet)||
+						 (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]>0||
+						  Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=2||
+						  (Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=1&&Bot.Settings.Class.bMonkInnaSet)||
 						  (Bot.Targeting.CurrentUnitTarget.IsEliteRareUnique||Bot.Targeting.CurrentTarget.IsBoss)&&
 						  Bot.Targeting.CurrentTarget.RadiusDistance<=25f)&&
 						  // Check if either we don't have blinding flash, or we do and it's been cast in the last 6000ms
 						  //DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Monk_BlindingFlash]).TotalMilliseconds <= 6000)) &&
-						 (!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)||
-						  (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)&&(Bot.Class.HasBuff(SNOPower.Monk_BlindingFlash))));
+						 (!Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)||
+						  (Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)&&(Bot.Class.HotBar.HasBuff(SNOPower.Monk_BlindingFlash))));
 				});
 		  }
 
@@ -55,7 +55,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

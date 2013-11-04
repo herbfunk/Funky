@@ -18,7 +18,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Barb
 				get { return SNOPower.Barbarian_HammerOfTheAncients; }
 		  }
 
-		  public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
+		  public override int RuneIndex { get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; } }
 
 		  public override void Initialize()
 		  {
@@ -26,7 +26,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Barb
 				ExecutionType=AbilityExecuteFlags.ClusterTarget|AbilityExecuteFlags.Target;
 				WaitVars=new WaitLoops(1, 2, true);
 				Cost=20;
-				Range=Bot.Class.RuneIndexCache[Power]==0?13:Bot.Class.RuneIndexCache[Power]==1?20:16;
+				Range=Bot.Class.HotBar.RuneIndexCache[Power]==0?13:Bot.Class.HotBar.RuneIndexCache[Power]==1?20:16;
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.Low;
 				PreCastFlags=(AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy|

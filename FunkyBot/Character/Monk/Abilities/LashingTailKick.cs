@@ -34,8 +34,8 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 				{
 					 return
 						  // Either doesn't have sweeping wind, or does but the buff is already up
-						 (!Bot.Class.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)||
-						  (Bot.Class.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)&&Bot.Class.HasBuff(SNOPower.Monk_SweepingWind)))&&
+						 (!Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)||
+						  (Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)&&Bot.Class.HotBar.HasBuff(SNOPower.Monk_SweepingWind)))&&
 						 (!Bot.Class.bWaitingForSpecial||Bot.Character.dCurrentEnergy>=Bot.Class.iWaitingReservedAmount);
 				});
 		  }
@@ -44,7 +44,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

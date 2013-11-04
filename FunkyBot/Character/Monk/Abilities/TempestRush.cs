@@ -50,7 +50,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 				FcriteriaCombat=new Func<bool>(() =>
 				{
 					 bool isChanneling=(this.IsHobbling||this.LastUsedMilliseconds<150);
-					 int channelingCost=Bot.Class.RuneIndexCache[Power]==3?8:10;
+					 int channelingCost=Bot.Class.HotBar.RuneIndexCache[Power]==3?8:10;
 
 					 //If channeling, check if energy is greater then 10.. else only start when energy is at least -40-
 					 return (isChanneling&&Bot.Character.dCurrentEnergy>channelingCost)||(Bot.Character.dCurrentEnergy>40)
@@ -60,7 +60,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 				FCombatMovement=new Func<Vector3, Vector3>((v) =>
 				{
 					 bool isChanneling=(this.IsHobbling||this.LastUsedMilliseconds<150);
-					 int channelingCost=Bot.Class.RuneIndexCache[Power]==3?8:10;
+					 int channelingCost=Bot.Class.HotBar.RuneIndexCache[Power]==3?8:10;
 
 					 //If channeling, check if energy is greater then 10.. else only start when energy is at least -40-
 					 if ((isChanneling&&Bot.Character.dCurrentEnergy>channelingCost)||(Bot.Character.dCurrentEnergy>15)&&!Bot.Class.bWaitingForSpecial)
@@ -79,7 +79,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 				{
 					 Vector3 vTargetAimPoint=MathEx.CalculatePointFrom(v, Bot.Character.Position, 10f);
 					 bool isChanneling=(this.IsHobbling||this.LastUsedMilliseconds<150);
-					 int channelingCost=Bot.Class.RuneIndexCache[Power]==3?8:10;
+					 int channelingCost=Bot.Class.HotBar.RuneIndexCache[Power]==3?8:10;
 
 					 //If channeling, check if energy is greater then 10.. else only start when energy is at least -40-
 					 if ((isChanneling&&Bot.Character.dCurrentEnergy>channelingCost)||Bot.Character.dCurrentEnergyPct>0.50d)
@@ -93,7 +93,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

@@ -18,7 +18,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Barb
 				get { return SNOPower.Barbarian_WrathOfTheBerserker; }
 		  }
 
-		  public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
+		  public override int RuneIndex { get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; } }
 
 		  public override void Initialize()
 		  {
@@ -33,8 +33,8 @@ namespace FunkyBot.AbilityFunky.Abilities.Barb
 											AbilityPreCastFlags.CheckCanCast);
 				FcriteriaCombat=new Func<bool>(() =>
 				{
-					 return Bot.Combat.bAnyChampionsPresent
-							  ||(Bot.Settings.Class.bBarbUseWOTBAlways&&Bot.Combat.SurroundingUnits>1)
+					 return Bot.Targeting.Environment.bAnyChampionsPresent
+							  ||(Bot.Settings.Class.bBarbUseWOTBAlways&&Bot.Targeting.Environment.SurroundingUnits>1)
 							  ||(Bot.Settings.Class.bGoblinWrath&&Bot.Targeting.CurrentTarget.IsTreasureGoblin);
 				});
 		  }

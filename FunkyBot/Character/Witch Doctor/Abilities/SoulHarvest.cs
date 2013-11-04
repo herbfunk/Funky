@@ -34,7 +34,7 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 					 double lastCast=this.LastUsedMilliseconds;
 					 int RecastMS=this.RuneIndex==1?45000:20000;
 					 bool recast=lastCast>RecastMS; //if using soul to waste -- 45ms, else 20ms.
-					 int stackCount=Bot.Class.GetBuffStacks(SNOPower.Witchdoctor_SoulHarvest);
+					 int stackCount=Bot.Class.HotBar.GetBuffStacks(SNOPower.Witchdoctor_SoulHarvest);
 					 if (stackCount<5)
 						  return true;
 					 else if (recast)
@@ -49,7 +49,7 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

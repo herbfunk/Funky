@@ -31,8 +31,8 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 				{
 					 return Bot.Class.LastUsedAbility.Power!=SNOPower.DemonHunter_Sentry&&
 							 (Bot.Targeting.FleeingLastTarget||DateTime.Now.Subtract(Bot.Targeting.LastFleeAction).TotalMilliseconds<1000)||
-							 (Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_40]>=1||
-							  Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_40]>=2);
+							 (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_40]>=1||
+							  Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_40]>=2);
 				});
 		  }
 
@@ -40,7 +40,7 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

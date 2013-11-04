@@ -671,7 +671,6 @@ namespace FunkyBot.Cache
 												 AvoidanceType T=AvoidanceCache.FindAvoidanceUsingName(TestString);
 												if (T==AvoidanceType.Wall)
 												{
-													 Bot.Combat.bCheckGround=true;
 													 //Add this to the obstacle navigation cache
 													 if (!this.IsObstacle)
 															CacheIDLookup.hashSNONavigationObstacles.Add(this.SNOID);

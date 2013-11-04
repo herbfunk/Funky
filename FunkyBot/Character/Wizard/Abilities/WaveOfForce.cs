@@ -32,30 +32,30 @@ namespace FunkyBot.AbilityFunky.Abilities.Wizard
 					 return
 						  // Check this isn't a critical mass wizard, cos they won't want to use this except for low health unless they don't have nova/blast in which case go for it
 						 ((UsingCriticalMass()&&
-							((!Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_FrostNova)&&
-							  !Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_ExplosiveBlast))||
+							((!Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_FrostNova)&&
+							  !Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_ExplosiveBlast))||
 							 (Bot.Character.dCurrentHealthPct<=0.7&&
-							  (Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_15]>0||
-								Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>0||
+							  (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15]>0||
+								Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>0||
 								(Bot.Targeting.CurrentTarget.ObjectIsSpecial&&Bot.Targeting.CurrentTarget.RadiusDistance<=23f)))))
 						  // Else normal wizard in which case check standard stuff
 						  ||
-						  (!UsingCriticalMass()&&Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_15]>0||
-							Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>3||Bot.Character.dCurrentHealthPct<=0.7||
+						  (!UsingCriticalMass()&&Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15]>0||
+							Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>3||Bot.Character.dCurrentHealthPct<=0.7||
 							(Bot.Targeting.CurrentTarget.ObjectIsSpecial&&Bot.Targeting.CurrentTarget.RadiusDistance<=23f)));
 				});
 		  }
 
 		  private bool UsingCriticalMass()
 		  {
-				return Bot.Class.PassivePowers.Contains(SNOPower.Wizard_Passive_CriticalMass); ;
+				return Bot.Class.HotBar.PassivePowers.Contains(SNOPower.Wizard_Passive_CriticalMass); ;
 		  }
 
 		  #region IAbility
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

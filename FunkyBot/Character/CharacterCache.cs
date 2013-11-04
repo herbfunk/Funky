@@ -10,7 +10,7 @@ using Zeta.CommonBot;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 
-namespace FunkyBot.Cache
+namespace FunkyBot.Character
 {
 
 
@@ -44,32 +44,33 @@ namespace FunkyBot.Cache
 						  CurrentExp = 0;
 					 }
 
+					 #region Events
+
 					 public delegate void LevelAreaIDChanged(int ID);
 					 public event LevelAreaIDChanged OnLevelAreaIDChanged;
 					 private void levelareaIDchanged(int ID)
 					 {
-						  this.iCurrentLevelID=ID;
-						  if (OnLevelAreaIDChanged!=null)
-								this.OnLevelAreaIDChanged(ID);
+						 this.iCurrentLevelID = ID;
+						 if (OnLevelAreaIDChanged != null)
+							 this.OnLevelAreaIDChanged(ID);
 					 }
-
-					 private DateTime lastUpdatedPlayer { get; set; }
-					 internal DateTime lastPreformedNonCombatAction { get; set; }
-
-					 public bool bIsIncapacitated { get; set; }
-					 public bool bIsRooted { get; set; }
-					 public bool bIsInTown { get; set; }
-
-
 
 					 public delegate void HealthValueChanged(double oldvalue, double newvalue);
 					 public event HealthValueChanged OnHealthChanged;
 					 private void healthvalueChanged(double oldvalue, double newvalue)
 					 {
-						  dCurrentHealthPct=newvalue;
-						  if (OnHealthChanged!=null)
-								this.OnHealthChanged(oldvalue, newvalue);
+						 dCurrentHealthPct = newvalue;
+						 if (OnHealthChanged != null)
+							 this.OnHealthChanged(oldvalue, newvalue);
 					 }
+					 
+					 #endregion
+
+					 private DateTime lastUpdatedPlayer { get; set; }
+					 internal DateTime lastPreformedNonCombatAction { get; set; }
+					 public bool bIsIncapacitated { get; set; }
+					 public bool bIsRooted { get; set; }
+					 public bool bIsInTown { get; set; }
 					 private double dcurrentHealthPct;
 					 public double dCurrentHealthPct
 					 {
@@ -83,6 +84,24 @@ namespace FunkyBot.Cache
 					 public double dCurrentEnergyPct { get; set; }
 					 public double dDiscipline { get; set; }
 					 public double dDisciplinePct { get; set; }
+					 internal float fCharacterRadius { get; set; }
+					 internal Sphere CharacterSphere
+					 {
+						 get
+						 {
+							 return new Sphere(Position, fCharacterRadius);
+						 }
+					 }
+					 internal bool CriticalAvoidance { get; set; }
+					 internal int iMyDynamicID { get; set; }
+					 internal int iMyLevel { get; set; }
+					 internal int iTotalPotions { get; set; }
+					 internal int iSceneID { get; set; }
+					 internal Pets PetData { get; set; }
+					 internal Backpack BackPack { get; set; }
+					 internal float PickupRadius { get; set; }
+					 internal int FreeBackpackSlots { get; set; }
+					 internal int CurrentExp { get; set; }
 
 					 private int coinage;
 					 public int Coinage 
@@ -147,31 +166,9 @@ namespace FunkyBot.Cache
 						  }
 					 }
 
-					 //Male Wizard: Radius 5.633342
-					 //Female Demonhunter: Radius 6.437767
-					 internal float fCharacterRadius { get; set; }
 
-					 internal Sphere CharacterSphere
-					 {
-						  get
-						  {
-								return new Sphere(Position, fCharacterRadius);
-						  }
-					 }
 
-					 internal bool CriticalAvoidance { get; set; }
-
-					 internal int iMyDynamicID { get; set; }
-					 internal int iMyLevel { get; set; }
-					 internal int iTotalPotions { get; set; }
-					 internal int iSceneID { get; set; }
-					 internal Pets PetData { get; set; }
-					 internal Backpack BackPack { get; set; }
-					 internal float PickupRadius { get; set; }
-					 internal int FreeBackpackSlots { get; set; }
-					 internal int CurrentExp { get; set; }
-
-					 private AnimationState lastAnimationState=AnimationState.Invalid;
+					private AnimationState lastAnimationState=AnimationState.Invalid;
 					internal AnimationState CurrentAnimationState
 					{
 						get

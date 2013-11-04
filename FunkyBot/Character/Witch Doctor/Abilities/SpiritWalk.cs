@@ -15,7 +15,7 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 		  }
 
 
-		  public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
+		  public override int RuneIndex { get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; } }
 
 
 		  public override void Initialize()
@@ -38,10 +38,11 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 				FcriteriaCombat=new Func<bool>(() =>
 				{
 					 return (Bot.Character.dCurrentHealthPct<=0.65
-								||(Bot.Combat.FleeTriggeringUnits.Count>0)
-								||(Bot.Combat.TriggeringAvoidances.Count>0)
+								||(Bot.Targeting.Environment.FleeTriggeringUnits.Count>0)
+								||(Bot.Targeting.Environment.TriggeringAvoidances.Count>0)
 								||Bot.Character.bIsIncapacitated
-								||Bot.Character.bIsRooted);
+								||Bot.Character.bIsRooted
+								||this.RuneIndex==3&&Bot.Character.dCurrentEnergyPct<0.25d);
 				});
 		  }
 

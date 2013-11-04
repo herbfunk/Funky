@@ -26,12 +26,12 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 				IsBuff=true;
 				Priority=AbilityPriority.High;
 				PreCastFlags=(AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckRecastTimer);
-				FcriteriaBuff=new Func<bool>(() => { return (this.RuneIndex==2&&!Bot.Class.HasBuff(SNOPower.Monk_BreathOfHeaven))||
+				FcriteriaBuff=new Func<bool>(() => { return (this.RuneIndex==2&&!Bot.Class.HotBar.HasBuff(SNOPower.Monk_BreathOfHeaven))||
 																		  Bot.Character.dCurrentHealthPct<=0.5d; });
 				FcriteriaCombat=
 					new Func<bool>(() =>
 					{
-						 return (this.RuneIndex==2&&!Bot.Class.HasBuff(SNOPower.Monk_BreathOfHeaven))||
+						 return (this.RuneIndex==2&&!Bot.Class.HotBar.HasBuff(SNOPower.Monk_BreathOfHeaven))||
 												  Bot.Character.dCurrentHealthPct<=0.5d;
 					});
 		  }
@@ -40,7 +40,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Monk
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

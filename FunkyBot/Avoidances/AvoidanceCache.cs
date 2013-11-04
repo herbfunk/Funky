@@ -171,15 +171,15 @@ namespace FunkyBot.Avoidances
 		    {//Not Critical Avoidance, should we be in total ignorance because of a buff?
 
 			    // Monks with Serenity up ignore all AOE's
-			    if (Bot.Class.AC==ActorClass.Monk&&Bot.Class.HotbarPowers.Contains(SNOPower.Monk_Serenity)&&Bot.Class.HasBuff(SNOPower.Monk_Serenity))
+			    if (Bot.Class.AC==ActorClass.Monk&&Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_Serenity)&&Bot.Class.HotBar.HasBuff(SNOPower.Monk_Serenity))
 			    {
 				    // Monks with serenity are immune
 				    return true;
 
 			    }// Witch doctors with spirit walk available and not currently Spirit Walking will subtly ignore ice balls, arcane, desecrator & plague cloud
 				 //else if (Bot.Class.AC==ActorClass.WitchDoctor
-				 //			&&Bot.Class.HotbarPowers.Contains(SNOPower.Witchdoctor_SpiritWalk)
-				 //			&&(!Bot.Class.HasBuff(SNOPower.Witchdoctor_SpiritWalk)&&Bot.Class.Abilities[SNOPower.Witchdoctor_SpiritWalk].AbilityUseTimer())||Bot.Class.HasBuff(SNOPower.Witchdoctor_SpiritWalk))
+				 //			&&Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_SpiritWalk)
+				 //			&&(!Bot.Class.HotBar.HasBuff(SNOPower.Witchdoctor_SpiritWalk)&&Bot.Class.Abilities[SNOPower.Witchdoctor_SpiritWalk].AbilityUseTimer())||Bot.Class.HotBar.HasBuff(SNOPower.Witchdoctor_SpiritWalk))
 				 //{
 				 //	switch (thisAvoidance)
 				 //	{
@@ -190,7 +190,7 @@ namespace FunkyBot.Avoidances
 				 //			return true;
 				 //	}
 				 //}
-			    else if (Bot.Class.AC==ActorClass.Barbarian&&Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&Bot.Class.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))
+			    else if (Bot.Class.AC==ActorClass.Barbarian&&Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&Bot.Class.HotBar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))
 			    {
 				    switch (thisAvoidance)
 				    {
@@ -207,41 +207,5 @@ namespace FunkyBot.Avoidances
 		    return dThisHealthAvoid<Bot.Character.dCurrentHealthPct;
 	    }
 
-		  internal static void CheckAvoidanceObject(ref CacheAvoidance avoidance)
-		  {
-				if (AvoidanceCache.IgnoreAvoidance(avoidance.AvoidanceType)) return;
-
-				//Only update position of Movement Avoidances!
-				if (avoidance.IsProjectileAvoidance)
-				{
-					 //Blacklisted updates
-					 if (avoidance.BlacklistRefreshCounter>0&&
-						  !avoidance.CheckUpdateForProjectile)
-					 {
-						  avoidance.BlacklistRefreshCounter--;
-					 }
-
-					 //If we need to avoid, than enable travel avoidance flag also.
-					 if (avoidance.UpdateProjectileRayTest())
-					 {
-						  Bot.Combat.TriggeringAvoidances.Add(avoidance);
-                          Bot.Combat.TriggeringAvoidanceRAGUIDs.Add(avoidance.RAGUID);
-						  Bot.Targeting.TravellingAvoidance=true;
-						  Bot.Targeting.RequiresAvoidance=true;
-					 }
-				}
-				else
-				{
-					 if (avoidance.CentreDistance<50f)
-						  Bot.Combat.NearbyAvoidances.Add(avoidance.RAGUID);
-
-					 if (avoidance.Position.Distance(Bot.Character.Position)<=avoidance.Radius)
-					 {
-						  Bot.Combat.TriggeringAvoidances.Add(avoidance);
-                          Bot.Combat.TriggeringAvoidanceRAGUIDs.Add(avoidance.RAGUID);
-						  Bot.Targeting.RequiresAvoidance=true;
-					 }
-				}
-		  }
     }
 }

@@ -41,7 +41,7 @@ namespace FunkyBot.Targeting.Behaviors
 						  }
 						  
 						  // Finally, a special check for waiting for wrath of the berserker cooldown before engaging Azmodan
-						  if (Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&Bot.Settings.Class.bWaitForWrath&&!Bot.Class.Abilities[SNOPower.Barbarian_WrathOfTheBerserker].AbilityUseTimer()&&
+						  if (Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker)&&Bot.Settings.Class.bWaitForWrath&&!Bot.Class.Abilities[SNOPower.Barbarian_WrathOfTheBerserker].AbilityUseTimer()&&
 							  Bot.Character.iCurrentWorldID==121214&&
 							  (Vector3.Distance(Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						  {
@@ -51,7 +51,7 @@ namespace FunkyBot.Targeting.Behaviors
 								return true;
 						  }
 						  // And a special check for wizard archon
-						  if (Bot.Class.HotbarPowers.Contains(SNOPower.Wizard_Archon)&&!Bot.Class.Abilities[SNOPower.Wizard_Archon].AbilityUseTimer()&&Bot.Settings.Class.bWaitForArchon&&ZetaDia.CurrentWorldId==121214&&
+						  if (Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_Archon)&&!Bot.Class.Abilities[SNOPower.Wizard_Archon].AbilityUseTimer()&&Bot.Settings.Class.bWaitForArchon&&ZetaDia.CurrentWorldId==121214&&
 							  (Vector3.Distance(Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						  {
 								Logging.Write("[Funky] Waiting for Wizard Archon cooldown before continuing to Azmodan.");
@@ -60,7 +60,7 @@ namespace FunkyBot.Targeting.Behaviors
 								return true;
 						  }
 						  // And a very sexy special check for WD BigBadVoodoo
-						  if (Bot.Class.HotbarPowers.Contains(SNOPower.Witchdoctor_BigBadVoodoo)&&!PowerManager.CanCast(SNOPower.Witchdoctor_BigBadVoodoo)&&ZetaDia.CurrentWorldId==121214&&
+						  if (Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_BigBadVoodoo)&&!PowerManager.CanCast(SNOPower.Witchdoctor_BigBadVoodoo)&&ZetaDia.CurrentWorldId==121214&&
 							  (Vector3.Distance(Bot.Character.Position, new Vector3(711.25f, 716.25f, 80.13903f))<=40f||Vector3.Distance(Bot.Character.Position, new Vector3(546.8467f, 551.7733f, 1.576313f))<=40f))
 						  {
 								Logging.Write("[Funky] Waiting for WD BigBadVoodoo cooldown before continuing to Azmodan.");
@@ -101,7 +101,7 @@ namespace FunkyBot.Targeting.Behaviors
 						  //Check if our current path intersects avoidances. (When not in town, and not currently inside avoidance)
                           if (!Bot.Character.bIsInTown && (Bot.Settings.Avoidance.AttemptAvoidanceMovements || Bot.Character.CriticalAvoidance)
                                   && Navigation.NP.CurrentPath.Count > 0
-                                  && Bot.Combat.TriggeringAvoidances.Count == 0)
+                                  && Bot.Targeting.Environment.TriggeringAvoidances.Count == 0)
                           {
                               //Vector3 curpos=Bot.Character.Position;
                               //IndexedList<Vector3> curpath=Navigation.NP.CurrentPath;

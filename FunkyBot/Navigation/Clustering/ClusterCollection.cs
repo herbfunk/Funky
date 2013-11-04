@@ -88,14 +88,14 @@ namespace FunkyBot.Movement.Clustering
 
 				//(radius or centre)
 				if (!clusterConditions.UseRadiusDistance)
-					 listObjectUnits=ObjectCache.ValidObjects.OfType<CacheUnit>().Where(u =>
-						  Bot.Combat.UnitRAGUIDs.Contains(u.RAGUID)
+					 listObjectUnits=Bot.Targeting.ValidObjects.OfType<CacheUnit>().Where(u =>
+						  Bot.Targeting.Environment.UnitRAGUIDs.Contains(u.RAGUID)
 						  &&u.CentreDistance<=clusterConditions.MaximumDistance
 						  &&u.CentreDistance>=clusterConditions.MinimumDistance
 						  &&(!clusterConditions.IgnoreNonTargetable||u.IsTargetable.HasValue&&u.IsTargetable.Value)).ToList();
 				else
-					 listObjectUnits=ObjectCache.ValidObjects.OfType<CacheUnit>().Where(u =>
-								Bot.Combat.UnitRAGUIDs.Contains(u.RAGUID)
+					listObjectUnits = Bot.Targeting.ValidObjects.OfType<CacheUnit>().Where(u =>
+								Bot.Targeting.Environment.UnitRAGUIDs.Contains(u.RAGUID)
 								&&u.RadiusDistance<=clusterConditions.MaximumDistance
 								&&u.RadiusDistance>=clusterConditions.MinimumDistance
 								&&(!clusterConditions.IgnoreNonTargetable||u.IsTargetable.HasValue&&u.IsTargetable.Value)).ToList();
@@ -170,8 +170,8 @@ namespace FunkyBot.Movement.Clustering
 				CurrentClusters.Clear();
 
 				//Get unit objects only!
-				List<CacheUnit> listObjectUnits=ObjectCache.ValidObjects.OfType<CacheUnit>().Where(u =>
-					 Bot.Combat.UnitRAGUIDs.Contains(u.RAGUID)
+				List<CacheUnit> listObjectUnits = Bot.Targeting.ValidObjects.OfType<CacheUnit>().Where(u =>
+					 Bot.Targeting.Environment.UnitRAGUIDs.Contains(u.RAGUID)
 					 &&u.CentreDistance<=this.clusterConditions.MaximumDistance
 					 &&(!this.clusterConditions.IgnoreNonTargetable||u.IsTargetable.HasValue&&u.IsTargetable.Value)).ToList();
 

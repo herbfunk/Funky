@@ -18,14 +18,14 @@ namespace FunkyBot.AbilityFunky.Abilities
 
 		  private bool MissingBuffs()
 		  {
-				HashSet<SNOPower> abilities_=Bot.Class.CachedPowers;
+				HashSet<SNOPower> abilities_=Bot.Class.HotBar.CachedPowers;
 
-				if ((abilities_.Contains(SNOPower.Wizard_EnergyArmor)&&!Bot.Class.HasBuff(SNOPower.Wizard_EnergyArmor))||
-					 (abilities_.Contains(SNOPower.Wizard_IceArmor)&&!Bot.Class.HasBuff(SNOPower.Wizard_IceArmor))||
-					 (abilities_.Contains(SNOPower.Wizard_StormArmor)&&!Bot.Class.HasBuff(SNOPower.Wizard_StormArmor)))
+				if ((abilities_.Contains(SNOPower.Wizard_EnergyArmor)&&!Bot.Class.HotBar.HasBuff(SNOPower.Wizard_EnergyArmor))||
+					 (abilities_.Contains(SNOPower.Wizard_IceArmor)&&!Bot.Class.HotBar.HasBuff(SNOPower.Wizard_IceArmor))||
+					 (abilities_.Contains(SNOPower.Wizard_StormArmor)&&!Bot.Class.HotBar.HasBuff(SNOPower.Wizard_StormArmor)))
 					 return true;
 
-				if (abilities_.Contains(SNOPower.Wizard_MagicWeapon)&&!Bot.Class.HasBuff(SNOPower.Wizard_MagicWeapon))
+				if (abilities_.Contains(SNOPower.Wizard_MagicWeapon)&&!Bot.Class.HotBar.HasBuff(SNOPower.Wizard_MagicWeapon))
 					 return true;
 
 				return false;
@@ -43,7 +43,7 @@ namespace FunkyBot.AbilityFunky.Abilities
 
 				FcriteriaBuff=new Func<bool>(() =>
 				{
-					 return Bot.Class.HasBuff(SNOPower.Wizard_Archon)&&this.MissingBuffs();
+					 return Bot.Class.HotBar.HasBuff(SNOPower.Wizard_Archon)&&this.MissingBuffs();
 				});
 
 				//Important!! We have to override the default return of true.. we dont want this to fire as a combat Ability.

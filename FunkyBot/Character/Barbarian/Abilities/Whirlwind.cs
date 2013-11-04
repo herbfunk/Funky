@@ -20,7 +20,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Barb
 				get { return SNOPower.Barbarian_Whirlwind; }
 		  }
 
-		  public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
+		  public override int RuneIndex { get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; } }
 
 		  public override void Initialize()
 		  {
@@ -38,11 +38,11 @@ namespace FunkyBot.AbilityFunky.Abilities.Barb
 				FcriteriaCombat=new Func<bool>(() =>
 				{
 					 return !Bot.Class.bWaitingForSpecial&&
-							  (!Bot.Settings.Class.bSelectiveWhirlwind||Bot.Combat.bAnyNonWWIgnoreMobsInRange||
+							  (!Bot.Settings.Class.bSelectiveWhirlwind||Bot.Targeting.Environment.bAnyNonWWIgnoreMobsInRange||
 								!CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Targeting.CurrentTarget.SNOID))&&
 						  // If they have battle-rage, make sure it's up
-							  (!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage)||
-								(Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage)&&Bot.Class.HasBuff(SNOPower.Barbarian_BattleRage)));
+							  (!Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage)||
+								(Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage)&&Bot.Class.HotBar.HasBuff(SNOPower.Barbarian_BattleRage)));
 				});
 
 

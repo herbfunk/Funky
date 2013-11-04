@@ -155,7 +155,7 @@ namespace FunkyBot.Movement
 					 }
 
 					 Bot.NavigationCache.RefreshMovementCache();
-					 Bot.NavigationCache.ObstaclePrioritizeCheck();
+					 Bot.NavigationCache.ObstaclePrioritizeCheck(15f);
 
 					 #region Evaluate Last Action
 
@@ -175,20 +175,20 @@ namespace FunkyBot.Movement
 									 case 2:
 									 case 3:
 
-										  var intersectingObstacles=Bot.Combat.NearbyObstacleObjects //ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
-																					.Where(obstacle =>
-																						 !Bot.Combat.PrioritizedRAGUIDs.Contains(obstacle.RAGUID)//Only objects not already prioritized
-																						 &&obstacle.Obstacletype.HasValue
-																						 &&ObstacleType.Navigation.HasFlag(obstacle.Obstacletype.Value)//only navigation/intersection blocking objects!
-																						 &&obstacle.RadiusDistance<=10f);
+										  //var intersectingObstacles=Bot.Targeting.Environment.NearbyObstacleObjects //ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
+										  //										  .Where(obstacle =>
+										  //											   !Bot.Targeting.Environment.PrioritizedRAGUIDs.Contains(obstacle.RAGUID)//Only objects not already prioritized
+										  //											   &&obstacle.Obstacletype.HasValue
+										  //											   &&ObstacleType.Navigation.HasFlag(obstacle.Obstacletype.Value)//only navigation/intersection blocking objects!
+										  //											   &&obstacle.RadiusDistance<=10f);
 
-										  if (intersectingObstacles.Any())
-										  {
-												var intersectingObjectRAGUIDs=(from objs in intersectingObstacles
-																						 select objs.RAGUID);
+										  //if (intersectingObstacles.Any())
+										  //{
+										  //	  var intersectingObjectRAGUIDs=(from objs in intersectingObstacles
+										  //											   select objs.RAGUID);
 
-												Bot.Combat.PrioritizedRAGUIDs.AddRange(intersectingObjectRAGUIDs);
-										  }
+										  //	  Bot.Targeting.Environment.PrioritizedRAGUIDs.AddRange(intersectingObjectRAGUIDs);
+										  //}
 
 										  if (Bot.NavigationCache.groupRunningBehavior)
 										  {
@@ -283,25 +283,25 @@ namespace FunkyBot.Movement
 								// Store the current destination for comparison incase of changes next loop
 								LastTargetLocation=CurrentTargetLocation;
 								// Reset total body-block count, since we should have moved
-								//if (DateTime.Now.Subtract(Bot.Combat.lastForcedKeepCloseRange).TotalMilliseconds>=2000)
+								//if (DateTime.Now.Subtract(Bot.Targeting.Environment.lastForcedKeepCloseRange).TotalMilliseconds>=2000)
 								BlockedMovementCounter=0;
 
 								return RunStatus.Running;
 						  }
 
 						  //Special Whirlwind Code
-							if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Barbarian&&Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind))
+							if (Bot.Class.AC==Zeta.Internals.Actors.ActorClass.Barbarian&&Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind))
 						  {
 								// Whirlwind against everything within range (except backtrack points)
 								if (Bot.Character.dCurrentEnergy>=10
-									 &&Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=1
+									 &&Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=1
 									 &&obj.DistanceFromTarget<=12f
-									 &&(!Bot.Class.HotbarPowers.Contains(SNOPower.Barbarian_Sprint)||Bot.Class.HasBuff(SNOPower.Barbarian_Sprint))
+									 &&(!Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_Sprint)||Bot.Class.HotBar.HasBuff(SNOPower.Barbarian_Sprint))
 									 &&(ObjectCache.CheckTargetTypeFlag(obj.targetType.Value,TargetType.AvoidanceMovements|TargetType.Gold|TargetType.Globe)==false)
 									 &&(obj.targetType.Value!=TargetType.Unit
 									 ||(obj.targetType.Value==TargetType.Unit&&!obj.IsTreasureGoblin
 										  &&(!Bot.Settings.Class.bSelectiveWhirlwind
-												||Bot.Combat.bAnyNonWWIgnoreMobsInRange
+												||Bot.Targeting.Environment.bAnyNonWWIgnoreMobsInRange
 												||!CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(obj.SNOID)))))
 								{
 									 // Special code to prevent whirlwind double-spam, this helps save fury

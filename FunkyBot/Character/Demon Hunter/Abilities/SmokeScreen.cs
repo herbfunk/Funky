@@ -30,12 +30,12 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 
 				FcriteriaCombat=new Func<bool>(() =>
 				{
-					 return (!Bot.Class.HasBuff(SNOPower.DemonHunter_ShadowPower)||Bot.Character.bIsIncapacitated)
-							  &&(Bot.Character.dDiscipline>=28||(Bot.Character.dDiscipline>=14&&Bot.Combat.IsFleeing))
+					 return (!Bot.Class.HotBar.HasBuff(SNOPower.DemonHunter_ShadowPower)||Bot.Character.bIsIncapacitated)
+							  &&(Bot.Character.dDiscipline>=28)
 							  &&
 							  (Bot.Character.dCurrentHealthPct<=0.90||Bot.Character.bIsRooted||
-								Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_20]>=1||
-								Bot.Combat.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3||Bot.Character.bIsIncapacitated);
+								Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_20]>=1||
+								Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3||Bot.Character.bIsIncapacitated);
 				});
 		  }
 
@@ -43,7 +43,7 @@ namespace FunkyBot.AbilityFunky.Abilities.DemonHunter
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

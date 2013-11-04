@@ -14,7 +14,7 @@ namespace FunkyBot.Targeting.Behaviors
 {
 	public class TBUpdateTarget:TargetBehavior
 	{
-
+		 private bool bStayPutDuringAvoidance = false;
 		 public TBUpdateTarget() : base() { }
 
 
@@ -29,10 +29,10 @@ namespace FunkyBot.Targeting.Behaviors
 		 {
 			  base.Test=(ref Cache.CacheObject obj) =>
 			  {
-					Bot.Combat.bStayPutDuringAvoidance=false;
+					this.bStayPutDuringAvoidance=false;
 
 					//cluster update
-					Bot.Combat.UpdateTargetClusteringVariables();
+					Bot.Targeting.Clusters.UpdateTargetClusteringVariables();
 
 					//Standard weighting of valid objects -- updates current target.
 					this.WeightEvaluationObjList(ref obj);
@@ -42,9 +42,9 @@ namespace FunkyBot.Targeting.Behaviors
 					if (obj==null)
 					{
 						 // No valid targets but we were told to stay put?
-						 if (Bot.Combat.bStayPutDuringAvoidance)
+						 if (this.bStayPutDuringAvoidance)
 						 {
-							  //if (Bot.Combat.TriggeringAvoidances.Count==0)
+							  //if (Bot.Targeting.Environment.TriggeringAvoidances.Count==0)
 							  //{
 									obj=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "StayPutPoint", 2.5f, -1);
 									return true;
@@ -64,17 +64,17 @@ namespace FunkyBot.Targeting.Behaviors
 		 private void WeightEvaluationObjList(ref CacheObject CurrentTarget)
 		 {
 			  // Store if we are ignoring all units this cycle or not
-			  bool bIgnoreAllUnits=!Bot.Combat.bAnyChampionsPresent
-										  &&((!Bot.Combat.bAnyTreasureGoblinsPresent&&Bot.Settings.Targeting.GoblinPriority>=2)||Bot.Settings.Targeting.GoblinPriority<2)
+			  bool bIgnoreAllUnits=!Bot.Targeting.Environment.bAnyChampionsPresent
+										  &&((!Bot.Targeting.Environment.bAnyTreasureGoblinsPresent&&Bot.Settings.Targeting.GoblinPriority>=2)||Bot.Settings.Targeting.GoblinPriority<2)
 										  &&Bot.Character.dCurrentHealthPct>=0.85d;
 
 
 			  //clear our last "avoid" list..
-			  ObjectCache.Objects.objectsIgnoredDueToAvoidance.Clear();
+			  Bot.Targeting.objectsIgnoredDueToAvoidance.Clear();
 
 			  double iHighestWeightFound=0;
 
-			  foreach (CacheObject thisobj in ObjectCache.ValidObjects)
+			  foreach (CacheObject thisobj in Bot.Targeting.ValidObjects)
 			  {
 					thisobj.UpdateWeight();
 
@@ -83,7 +83,7 @@ namespace FunkyBot.Targeting.Behaviors
 						 // Force the character to stay where it is if there is nothing available that is out of avoidance stuff and we aren't already in avoidance stuff
 						 thisobj.Weight=0;
 						 if (!Bot.Targeting.RequiresAvoidance) 
-							  Bot.Combat.bStayPutDuringAvoidance=true;
+							 this.bStayPutDuringAvoidance=true;
 
 						 continue;
 					}
@@ -107,7 +107,7 @@ namespace FunkyBot.Targeting.Behaviors
 						 bool resetTarget=false;
 
 						
-						 if (!Bot.Class.IsMeleeClass&&CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Combat.NearbyAvoidances.Count>0)
+						 if (!Bot.Class.IsMeleeClass&&CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Targeting.Environment.NearbyAvoidances.Count>0)
 						 {//Ranged Class -- Unit -- with Nearby Avoidances..
 
 							  //We are checking if this target is valid and will not cause avoidance triggering due to movement.
@@ -120,28 +120,39 @@ namespace FunkyBot.Targeting.Behaviors
 							 Ability nextAbility=Bot.Class.AbilitySelector(Bot.Targeting.CurrentUnitTarget, true);
 
 
-							  if (nextAbility==Bot.Class.DefaultAttack&&!Bot.Class.CanUseDefaultAttack)
-							  {//No valid ability found
+							 if (nextAbility == Bot.Class.DefaultAttack && !Bot.Class.CanUseDefaultAttack)
+							 {//No valid ability found
 
-                                  Logger.Write(LogLevel.Target, "Could not find a valid ability for unit {0}", thisobj.InternalName);
+								 Logger.Write(LogLevel.Target, "Could not find a valid ability for unit {0}", thisobj.InternalName);
 
-                                    //if (thisobj.ObjectIsSpecial)
-                                    //     ObjectCache.Objects.objectsIgnoredDueToAvoidance.Add(thisobj);
-                                    //else
-										 resetTarget=true;
+								 //if (thisobj.ObjectIsSpecial)
+								 //     ObjectCache.Objects.objectsIgnoredDueToAvoidance.Add(thisobj);
+								 //else
+								 resetTarget = true;
 
-							  }
+							 }
+							 else
+							 {
+								 Vector3 destination = nextAbility.DestinationVector;
+								 if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(Bot.Character.Position, destination))
+								 {
+									 if (!thisobj.ObjectIsSpecial)
+										 resetTarget = true;
+									 else
+										 Bot.Targeting.objectsIgnoredDueToAvoidance.Add(thisobj);
+								 }
+							 }
 
 							  //reset unit target
 							  Bot.Targeting.CurrentUnitTarget=null;
 						 }
 
 						 //Avoidance Attempt to find a location where we can attack!
-						 if (ObjectCache.Objects.objectsIgnoredDueToAvoidance.Contains(thisobj))
+						 if (Bot.Targeting.objectsIgnoredDueToAvoidance.Contains(thisobj))
 						 {
 							  //Wait if no valid target found yet.. and no avoidance movement required.
 							  if (!Bot.Targeting.RequiresAvoidance)
-									Bot.Combat.bStayPutDuringAvoidance=true;
+								  this.bStayPutDuringAvoidance = true;
 
 							  //Check Bot Navigationally blocked
 							  Bot.NavigationCache.RefreshNavigationBlocked();

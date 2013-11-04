@@ -117,7 +117,7 @@ namespace FunkyBot.Movement
 												continue;
 										  //	 if (!UsedRAGUIDs.Contains(item.RAGUID))
 										  //	 {
-										  //		  if (!Bot.Combat.UnitRAGUIDs.Contains(item.RAGUID)) continue;
+										  //		  if (!Bot.Targeting.Environment.UnitRAGUIDs.Contains(item.RAGUID)) continue;
 
 										  //		  CacheUnit thisUnitObj;
 										  //		  if (ObjectCache.Objects.TryGetValue(item.RAGUID, out thisUnitObj))

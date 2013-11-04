@@ -16,7 +16,7 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 
 
 
-		  public override int RuneIndex { get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; } }
+		  public override int RuneIndex { get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; } }
 
 		  public override void Initialize()
 		  {
@@ -34,14 +34,14 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 				  new Func<bool>(
 					  () =>
 					  {
-							return Bot.Class.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]!=0&&Bot.Character.PetData.Gargantuan==0;
+							return Bot.Class.HotBar.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]!=0&&Bot.Character.PetData.Gargantuan==0;
 					  });
 				FcriteriaCombat=new Func<bool>(() =>
 				{
-					 return (Bot.Class.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]==0&&
-							  (Bot.Combat.iElitesWithinRange[(int)RangeIntervals.Range_15]>=1||
+					 return (Bot.Class.HotBar.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]==0&&
+							  (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15]>=1||
 								(Bot.Targeting.CurrentUnitTarget.IsEliteRareUnique&&Bot.Targeting.CurrentTarget.RadiusDistance<=15f))
-									||Bot.Class.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]!=0&&Bot.Character.PetData.Gargantuan==0);
+									||Bot.Class.HotBar.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]!=0&&Bot.Character.PetData.Gargantuan==0);
 				});
 		  }
 

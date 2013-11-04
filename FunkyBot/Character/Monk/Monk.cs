@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.Internals.SNO;
 
-namespace FunkyBot
+namespace FunkyBot.Character
 {
 
 		  internal class Monk : Player
@@ -32,11 +32,11 @@ namespace FunkyBot
 
 
 					 //Combo Strike???
-					 if (base.PassivePowers.Contains(SNOPower.Monk_Passive_CombinationStrike))
+					 if (base.HotBar.PassivePowers.Contains(SNOPower.Monk_Passive_CombinationStrike))
 					 {
 						  Logging.Write("Combination Strike Found!");
 						  Bot.Settings.Class.bMonkComboStrike=true;
-						  int TotalAbilities=base.HotbarPowers.Count(power => SpiritGeneratingAbilities.Contains(power));
+						  int TotalAbilities = base.HotBar.HotbarPowers.Count(power => SpiritGeneratingAbilities.Contains(power));
 						  Bot.Settings.Class.iMonkComboStrikeAbilities=TotalAbilities;
 					 }
 						 

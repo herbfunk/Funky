@@ -5,6 +5,7 @@ using FunkyBot.Targeting.Behaviors;
 using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.CommonBot.Settings;
+using System.Collections.Generic;
 
 namespace FunkyBot.Targeting
 {
@@ -22,7 +23,8 @@ namespace FunkyBot.Targeting
 			  new TBEnd(),
 		  };
 		 internal TargetBehavioralTypes lastBehavioralType=TargetBehavioralTypes.None;
-
+		 internal Clustering Clusters = new Clustering();
+		 internal Environment Environment = new Environment();
 		 internal float iCurrentMaxKillRadius=0f;
 		 internal float iCurrentMaxLootRadius=0f;
 		 internal void UpdateKillLootRadiusValues()
@@ -82,6 +84,14 @@ namespace FunkyBot.Targeting
 		 //Avoidance Related
 		 internal bool RequiresAvoidance { get; set; }
 		 internal bool TravellingAvoidance { get; set; }
+		 ///<summary>
+		 ///Usable Objects -- refresh inside Target.UpdateTarget
+		 ///</summary>
+		 internal List<CacheObject> ValidObjects = new List<CacheObject>();
+		 ///<summary>
+		 ///Adds the specific object to a list due to the object being avoided due to avoidance.
+		 ///</summary>
+		 internal List<CacheObject> objectsIgnoredDueToAvoidance = new List<CacheObject>();
 
 		 internal CacheObject LastCachedTarget { get; set; }
 		 internal bool FleeingLastTarget { get; set; }

@@ -28,10 +28,6 @@ namespace FunkyBot.Cache
 	 public static partial class ObjectCache
 	 {
 		  internal static CacheObject FakeCacheObject;
-		  ///<summary>
-		  ///Usable Objects -- refresh inside Target.UpdateTarget
-		  ///</summary>
-		  internal static List<CacheObject> ValidObjects { get; set; }
 
 		  ///<summary>
 		  ///Cached Objects.
@@ -278,22 +274,7 @@ namespace FunkyBot.Cache
 										  //Obstacles.
 										  thisObstacle=new CacheServerObject(tmp_CachedObj);
 										  Obstacles.Add(thisObstacle);
-										  continue;
 									 }
-								}
-
-								//Test if this avoidance requires movement now.
-								if (thisObstacle is CacheAvoidance)
-								{
-									 CacheAvoidance thisAvoidance=thisObstacle as CacheAvoidance;
-
-									 AvoidanceCache.CheckAvoidanceObject(ref thisAvoidance);
-								}
-								else
-								{
-									 //Add nearby objects to our collection (used in navblock/obstaclecheck methods to reduce queries)
-									 if (thisObstacle.CentreDistance<25f)
-										  Bot.Combat.NearbyObstacleObjects.Add((CacheServerObject)thisObstacle);
 								}
 
 								continue;
@@ -350,10 +331,7 @@ namespace FunkyBot.Cache
 										  thisObstacleObj.Position=tmp_CachedObj.Position;
 										  Obstacles[tmp_CachedObj.RAGUID]=thisObstacleObj;
 									 }
-									 if (thisObstacleObj.CentreDistance<=25f)
-										  Bot.Combat.NearbyObstacleObjects.Add((CacheServerObject)thisObstacleObj);
 								}
-
 						  }
 
 						  //cache it
@@ -416,24 +394,7 @@ namespace FunkyBot.Cache
 		  #endregion
 
 
-		  //Common Used Profile Tags that should be considered Out-Of-Combat Behavior.
-		  internal static readonly HashSet<Type> oocDBTags=new HashSet<Type> 
-																	{ 
-																	  typeof(Zeta.CommonBot.Profile.Common.UseWaypointTag), 
-																	  typeof(Zeta.CommonBot.Profile.Common.UseObjectTag),
-																	  typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),
-																	  typeof(Zeta.CommonBot.Profile.Common.WaitTimerTag),
-																	  typeof (TrinityTownPortal),
-																	};
 
-		  //Common Used Profile Tags that requires backtracking during combat sessions.
-		  internal static readonly HashSet<Type> InteractiveTags=new HashSet<Type> 
-																	{ 
-																	  typeof(Zeta.CommonBot.Profile.Common.UseWaypointTag), 
-																	  typeof(Zeta.CommonBot.Profile.Common.UseObjectTag),
-																	  //typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),
-																	  typeof(Zeta.CommonBot.Profile.Common.UsePortalTag),
-																	};
 	 }
 
 }

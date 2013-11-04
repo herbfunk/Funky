@@ -20,8 +20,8 @@ namespace FunkyBot.AbilityFunky.Abilities.Wizard
 				Cooldown=5;
 				ExecutionType=AbilityExecuteFlags.Target;
 				WaitVars=new WaitLoops(0, 1, true);
-				Range=Bot.Class.RuneIndexCache[SNOPower.Wizard_ShockPulse]==2?40
-					:Bot.Class.RuneIndexCache[SNOPower.Wizard_ShockPulse]==1?26:15;
+				Range=Bot.Class.HotBar.RuneIndexCache[SNOPower.Wizard_ShockPulse]==2?40
+					:Bot.Class.HotBar.RuneIndexCache[SNOPower.Wizard_ShockPulse]==1?26:15;
 
 				IsRanged=true;
 				IsProjectile=true;
@@ -34,7 +34,7 @@ namespace FunkyBot.AbilityFunky.Abilities.Wizard
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

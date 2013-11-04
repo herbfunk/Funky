@@ -143,7 +143,7 @@ namespace FunkyBot.AbilityFunky
 
 		  internal static bool CheckClusterConditions(ClusterConditions CC)
 		  {
-				return Bot.Combat.Clusters(CC).Count>0;
+			  return Bot.Targeting.Clusters.AbilityClusterCache(CC).Count > 0;
 		  }
 
 
@@ -301,7 +301,7 @@ namespace FunkyBot.AbilityFunky
 					 //Cluster Target -- Aims for Centeroid Unit
 					 if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTarget)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster ACDGUID
 					 {
-						  ClusterUnit=Bot.Combat.Clusters(ability.ClusterConditions)[0].GetNearestUnitToCenteroid();
+						 ClusterUnit = Bot.Targeting.Clusters.AbilityClusterCache(ability.ClusterConditions)[0].GetNearestUnitToCenteroid();
 						  ability.TargetACDGUID=ClusterUnit.AcdGuid.Value;
 						  ability.Target_=ClusterUnit;
 						  return;
@@ -309,13 +309,13 @@ namespace FunkyBot.AbilityFunky
 					 //Cluster Location -- Aims for Center of Cluster
 					 if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterLocation)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
 					 {
-						  ability.TargetPosition=(Vector3)Bot.Combat.Clusters(ability.ClusterConditions)[0].Midpoint;
+						 ability.TargetPosition = (Vector3)Bot.Targeting.Clusters.AbilityClusterCache(ability.ClusterConditions)[0].Midpoint;
 						  return;
 					 }
 					 //Cluster Target Nearest -- Gets nearest unit in cluster as target.
 					 if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTargetNearest)&&CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
 					 {
-						  ClusterUnit=Bot.Combat.Clusters(ability.ClusterConditions)[0].ListUnits[0];
+						 ClusterUnit = Bot.Targeting.Clusters.AbilityClusterCache(ability.ClusterConditions)[0].ListUnits[0];
 						  ability.TargetACDGUID=ClusterUnit.AcdGuid.Value;
 						  ability.Target_=ClusterUnit;
 						  return;

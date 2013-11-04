@@ -11,7 +11,7 @@ using Zeta.CommonBot;
 using Zeta.Internals.SNO;
 using FunkyBot.Cache;
 
-namespace FunkyBot
+namespace FunkyBot.Character
 {
 
 		  internal class Wizard : Player
@@ -72,7 +72,7 @@ namespace FunkyBot
 				public override bool SecondaryHotbarBuffPresent()
 				{
 
-					 bool ArchonBuffPresent=this.HasBuff(SNOPower.Wizard_Archon);
+					bool ArchonBuffPresent = this.HotBar.HasBuff(SNOPower.Wizard_Archon);
 
 					 //Confirm we don't have archon Ability without archon buff.
 					 bool RefreshNeeded=((!ArchonBuffPresent&&Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast))
@@ -81,9 +81,9 @@ namespace FunkyBot
 					 if (RefreshNeeded)
 					 {
 						  Logging.WriteVerbose("Updating Hotbar abilities!");
-						  CachedPowers=new HashSet<SNOPower>(HotbarPowers);
-						  RefreshHotbar();
-						  UpdateRepeatAbilityTimes();
+						  HotBar.CachedPowers = new HashSet<SNOPower>(HotBar.HotbarPowers);
+						  HotBar.RefreshHotbar();
+						  HotBar.UpdateRepeatAbilityTimes();
 						  RecreateAbilities();
 						  return true;
 					 }

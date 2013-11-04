@@ -22,18 +22,18 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 
 				WaitVars=new WaitLoops(1, 1, true);
 				Cost=250;
-				Range=Bot.Class.RuneIndexCache[Power]==4?20:40;
+				Range=Bot.Class.HotBar.RuneIndexCache[Power]==4?20:40;
 				IsRanged=true;
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.Low;
 				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
 											AbilityPreCastFlags.CheckCanCast);
 
-				FcriteriaPreCast=new Func<bool>(() => { return !Bot.Class.HasDebuff(SNOPower.Succubus_BloodStar); });
+				FcriteriaPreCast=new Func<bool>(() => { return !Bot.Class.HotBar.HasDebuff(SNOPower.Succubus_BloodStar); });
 
 				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial,
 					falseConditionalFlags: TargetProperties.Fast);
-				ClusterConditions=new ClusterConditions(4d, Bot.Class.RuneIndexCache[Power]==4?20f:40f, 2, true);
+				ClusterConditions=new ClusterConditions(4d, Bot.Class.HotBar.RuneIndexCache[Power]==4?20f:40f, 2, true);
 
 				FcriteriaCombat=new Func<bool>(() =>
 				{
@@ -45,7 +45,7 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 
 		  public override int RuneIndex
 		  {
-				get { return Bot.Class.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.RuneIndexCache[this.Power]:-1; }
+				get { return Bot.Class.HotBar.RuneIndexCache.ContainsKey(this.Power)?Bot.Class.HotBar.RuneIndexCache[this.Power]:-1; }
 		  }
 
 		  public override int GetHashCode()

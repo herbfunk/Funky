@@ -8,6 +8,7 @@ using Zeta.Internals.Actors;
 using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.TreeSharp;
+using FunkyBot.Character;
 
 namespace FunkyBot
 {
