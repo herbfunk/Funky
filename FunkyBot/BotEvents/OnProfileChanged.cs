@@ -7,7 +7,6 @@ using System.Threading;
 using Zeta.CommonBot;
 using Zeta.CommonBot.Settings;
 using FunkyBot.Cache;
-using FunkyBot.ProfileTracking;
 
 namespace FunkyBot
 {
@@ -22,7 +21,7 @@ namespace FunkyBot
                 Logger.Write(LogLevel.User, "Profile Changed to {0}", sThisProfile);
 
             //Update Tracker
-            Bot.TrackingStats.ProfileChanged(sThisProfile);
+            Bot.Game.TrackingStats.ProfileChanged(sThisProfile);
         }
     }
 }

@@ -14,8 +14,8 @@ using Zeta.Internals.Actors;
 using System.Threading;
 using FunkyBot.Avoidances;
 using Zeta.Internals.Service;
-using FunkyBot.ProfileTracking;
 using FunkyBot.Character;
+using FunkyBot.Game;
 
 namespace FunkyBot
 {
@@ -36,17 +36,10 @@ namespace FunkyBot
 			
 				public static TargetingHandler Targeting { get; set; }
 
-				private static ProfileCache profile=new ProfileCache();
-				public static ProfileCache Profile
-				{
-					 get { return profile; }
-					 set { profile=value; }
-				}
-
                 ///<summary>
-                ///Tracks the total stats while bot is running. (totals of each game)
+                ///
                 ///</summary>
-                public static TotalStats TrackingStats = new TotalStats();
+				public static GameCache Game = new GameCache();
 
 				public static Navigation NavigationCache { get; set; }
 
@@ -54,69 +47,7 @@ namespace FunkyBot
 				// Darkfriend's Looting Rule
 				internal static Interpreter ItemRulesEval;
 				
-				internal static ActorClass ActorClass=ActorClass.Invalid;
-				internal static string CurrentAccountName;
-				internal static string CurrentHeroName;
-				internal static int CurrentLevel;
-
-				///<summary>
-				///Updates Account Name, Current Hero Name and Class Variables
-				///</summary>
-				internal static void UpdateCurrentAccountDetails()
-				{
-					 //Clear Cache -- (DB reuses values, even if it is incorrect!)
-					 ZetaDia.Memory.ClearCache();
-
-
-					 try
-					 {
-						 using (ZetaDia.Memory.AcquireFrame())
-						 {
-							 ActorClass=ZetaDia.Service.CurrentHero.Class;
-							 CurrentAccountName=ZetaDia.Service.CurrentHero.BattleTagName;
-							 CurrentHeroName=ZetaDia.Service.CurrentHero.Name;
-							 CurrentLevel=ZetaDia.Service.CurrentHero.Level;
-						 }
-					 } catch (Exception)
-					 {
-						  Logging.WriteDiagnostic("[Funky] Exception Attempting to Update Current Account Details.");
-					 }
-				}
-
-				internal static GameId currentGameID=new GameId();
-				internal static bool RefreshGameID()
-				{
-					 GameId curgameID=currentGameID;
-					 using (ZetaDia.Memory.AcquireFrame())
-					 {
-						  curgameID=ZetaDia.Service.CurrentGameId;
-					 }
-
-					 if (!curgameID.Equals(currentGameID))
-					 {
-						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
-						  {
-								Logger.Write(LogLevel.OutOfCombat, "New Game Started");
-						  }
-
-                          //Update our Profile Tracking of Stats
-                          Bot.TrackingStats.GameChanged();
-
-						  //Update Account Details
-						  Bot.UpdateCurrentAccountDetails();
-
-                          //Clear TrinityLoadOnce Used Profiles!
-                          FunkyBot.XMLTags.TrinityLoadOnce.UsedProfiles.Clear();
-
-                         //Clear Health Average
-                          ObjectCache.Objects.ClearHealthAverageStats();
-
-						  currentGameID=curgameID;
-						  return true;
-					 }
-
-					 return false;
-				}
+	
 
 				///<summary>
 				///Checks behavioral flags that are considered OOC/Non-Combat
@@ -126,7 +57,7 @@ namespace FunkyBot
 					 get
 					 {
 						  //OOC IDing, Town Portal Casting, Town Run
-						  return (Bot.Profile.IsRunningOOCBehavior||Funky.FunkyTPBehaviorFlag||Funky.TownRunManager.bWantToTownRun);
+						 return (Bot.Game.Profile.IsRunningOOCBehavior || Funky.FunkyTPBehaviorFlag || Funky.TownRunManager.bWantToTownRun);
 					 }
 				}
 
@@ -141,7 +72,6 @@ namespace FunkyBot
 					 character=new CharacterCache();
 					 Targeting=new TargetingHandler();
 					 NavigationCache=new Navigation();
-                     //Stats_ = new BotStatistics();
 				}
 		  }
 	 

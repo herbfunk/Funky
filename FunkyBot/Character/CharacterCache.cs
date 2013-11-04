@@ -246,7 +246,6 @@ namespace FunkyBot.Character
 									 dCurrentEnergy=me.CurrentPrimaryResource;
 									 dCurrentEnergyPct=dCurrentEnergy/me.MaxPrimaryResource;
 
-
 									 //Critical Avoidance (when no avoidance is set!)
 									 if (dCurrentHealthPct<0.50d&&!Bot.Settings.Avoidance.AttemptAvoidanceMovements&&
 										  !Zeta.CommonBot.PowerManager.CanCast(SNOPower.DrinkHealthPotion))
@@ -281,7 +280,7 @@ namespace FunkyBot.Character
 										  iCurrentWorldID=ZetaDia.CurrentWorldDynamicId;
 									 }
 
-									if (Bot.CurrentLevel==60)
+									 if (Bot.Game.CurrentLevel == 60)
 										CurrentExp = me.ParagonCurrentExperience;
 									else
 										CurrentExp = me.CurrentExperience;

@@ -135,12 +135,12 @@ namespace FunkyBot
 									 SortedStashItems.Clear();
 									 LastActionTaken=DateTime.Today;
 									 TransferedGear=true;
-									 Bot.UpdateCurrentAccountDetails();
+									 Bot.Game.UpdateCurrentAccountDetails();
 									 //Delete settings
-									 string sFunkyCharacterFolder=System.IO.Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyBot", Bot.CurrentAccountName);
+									 string sFunkyCharacterFolder = System.IO.Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyBot", Bot.Game.CurrentAccountName);
 									 if (System.IO.Directory.Exists(sFunkyCharacterFolder))
 									 {
-										  string sFunkyCharacterConfigFile=System.IO.Path.Combine(sFunkyCharacterFolder, Bot.CurrentHeroName+".cfg");
+										 string sFunkyCharacterConfigFile = System.IO.Path.Combine(sFunkyCharacterFolder, Bot.Game.CurrentHeroName + ".cfg");
 										  if (System.IO.File.Exists(sFunkyCharacterConfigFile))
 												System.IO.File.Delete(sFunkyCharacterConfigFile);
 									 }

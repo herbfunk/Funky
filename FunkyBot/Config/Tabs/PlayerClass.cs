@@ -25,7 +25,7 @@ namespace FunkyBot
 				CombatTabControl.Items.Add(ClassTabItem);
 				ListBox LBClass=new ListBox();
 
-				switch (Bot.ActorClass)
+				switch (Bot.Game.ActorClass)
 				{
 					 case Zeta.Internals.Actors.ActorClass.Barbarian:
 						  CheckBox cbbSelectiveWhirlwind=new CheckBox
@@ -182,7 +182,7 @@ namespace FunkyBot
 						  //cbbEnableCriticalMass.Unchecked += bEnableCriticalMassChecked;
 						  //LBClass.Items.Add(cbbEnableCriticalMass);
 
-						  if (Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Wizard)
+						  if (Bot.Game.ActorClass == Zeta.Internals.Actors.ActorClass.Wizard)
 						  {
 								CheckBox cbbWaitForArchon=new CheckBox
 								{
@@ -241,7 +241,7 @@ namespace FunkyBot
 
 						  break;
 				}
-				if (Bot.ActorClass==Zeta.Internals.Actors.ActorClass.DemonHunter||Bot.ActorClass==Zeta.Internals.Actors.ActorClass.WitchDoctor||Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Wizard)
+				if (Bot.Game.ActorClass == Zeta.Internals.Actors.ActorClass.DemonHunter || Bot.Game.ActorClass == Zeta.Internals.Actors.ActorClass.WitchDoctor || Bot.Game.ActorClass == Zeta.Internals.Actors.ActorClass.Wizard)
 				{
 
 					 #region GoblinMinimumRange

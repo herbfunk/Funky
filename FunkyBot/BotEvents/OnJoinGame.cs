@@ -16,7 +16,7 @@ namespace FunkyBot
         private static void FunkyOnJoinGame(object src, EventArgs mea)
         {
             ResetGame();
-				Bot.RefreshGameID();
+			Bot.Game.RefreshGameID();
 
 				if (Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings)
 					 Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel=Funky.iDemonbuddyMonsterPowerLevel;

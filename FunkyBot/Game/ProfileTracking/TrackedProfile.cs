@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Zeta;
 
-namespace FunkyBot.ProfileTracking
+namespace FunkyBot.Game
 {
     public class TrackedProfile
     {

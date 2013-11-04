@@ -157,7 +157,7 @@ namespace FunkyBot.Settings
 							Funky.Log("No config file found, now creating a new config from defaults at: "+sFunkyCharacterConfigFile);
 
 
-							if (Bot.CurrentLevel<60)
+							if (Bot.Game.CurrentLevel < 60)
 							{
 								 Funky.Log("Using Low Level Settings");
 								 bool disableBehaviors=true;
@@ -170,7 +170,7 @@ namespace FunkyBot.Settings
 							}
 							else
 							{
-								 if (Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Barbarian||Bot.ActorClass==Zeta.Internals.Actors.ActorClass.Monk)
+								if (Bot.Game.ActorClass == Zeta.Internals.Actors.ActorClass.Barbarian || Bot.Game.ActorClass == Zeta.Internals.Actors.ActorClass.Monk)
 								 {
 									  Funky.Log("Using Melee Inferno Default Settings");
 									  Settings_Funky settings=Settings_Funky.DeserializeFromXML(Path.Combine(FolderPaths.SettingsDefaultPath, "InfernoMelee.xml"));

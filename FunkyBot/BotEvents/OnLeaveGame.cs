@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Zeta.Internals.Actors;
 using System.Threading;
 using Zeta.CommonBot;
+using FunkyBot.Game;
 
 namespace FunkyBot
 {
@@ -16,7 +17,7 @@ namespace FunkyBot
 				//Update Game Duration..
 				//Bot.BotStatistics.ProfileStats.OutputReport();
             //UpdateTotalTimeSpan();
-            ProfileTracking.TotalStats.CurrentTrackingProfile.UpdateRangeVariables();
+            TotalStats.CurrentTrackingProfile.UpdateRangeVariables();
             ResetGame();
 			initTreeHooks=false;
         }

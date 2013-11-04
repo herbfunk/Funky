@@ -13,6 +13,7 @@ using Zeta.Internals.Actors;
 using System.Xml;
 using System.Windows;
 using Decorator=Zeta.TreeSharp.Decorator;
+using FunkyBot.Game;
 
 namespace FunkyBot
 {

@@ -457,7 +457,7 @@ namespace FunkyBot.Cache
 							if (Bot.IsInNonCombatBehavior)
 							{
 								 TargetType typesValid=TargetType.Unit|TargetType.Item|TargetType.Gold|TargetType.Globe;
-								 if (Bot.Profile.ProfileBehaviorIsOOCInteractive&&!Bot.Character.bIsInTown)
+								 if (Bot.Game.Profile.ProfileBehaviorIsOOCInteractive && !Bot.Character.bIsInTown)
 								 {
 									  typesValid|=TargetType.Door|TargetType.Barricade;
 								 }

@@ -5,7 +5,7 @@ using Zeta.CommonBot;
 using Zeta.CommonBot.Profile;
 using Zeta.CommonBot.Settings;
 
-namespace FunkyBot.Cache
+namespace FunkyBot.Game
 {
 	 public class ProfileCache
 	 {
@@ -14,7 +14,7 @@ namespace FunkyBot.Cache
 		  internal static Dictionary<int, int> dictUseOnceID=new Dictionary<int, int>();
 		  // For the random ID tag
 		  internal static Dictionary<int, int> dictRandomID=new Dictionary<int, int>();
-
+		
 
 
 

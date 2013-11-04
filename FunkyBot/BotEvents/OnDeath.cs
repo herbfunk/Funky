@@ -7,6 +7,7 @@ using Zeta.Internals.Actors;
 using System.Threading;
 using Zeta.CommonBot;
 using FunkyBot.XMLTags;
+using FunkyBot.Game;
 
 namespace FunkyBot
 {
@@ -23,7 +24,7 @@ namespace FunkyBot
 									  "{2} \r\n"+
 									  "Triggering Avoidances={3} -- RequiredAvoidance={4} -- LastAvoidAction={5} \r\n"+
 									  "Nearby Flee Triggering Units={6} -- LastFleeAction={7} \r\n",
-									  Bot.Profile.CurrentProfileBehavior.GetType().ToString(), Bot.Targeting.lastBehavioralType.ToString(),
+									  Bot.Game.Profile.CurrentProfileBehavior.GetType().ToString(), Bot.Targeting.lastBehavioralType.ToString(),
 									  Cache.ObjectCache.Objects.DumpDebugInfo(),
 									  Bot.Targeting.Environment.TriggeringAvoidances.Count, Bot.Targeting.RequiresAvoidance, Bot.Targeting.LastAvoidanceMovement.ToString(),
 									  Bot.Targeting.Environment.FleeTriggeringUnits.Count, Bot.Targeting.LastFleeAction.ToString());
@@ -45,11 +46,11 @@ namespace FunkyBot
 					 // Does Trinity need to handle deaths?
                      if (TrinityMaxDeathsTag.MaxDeathsAllowed > 0)
 					 {
-                         if (ProfileTracking.TotalStats.CurrentTrackingProfile.DeathCount > TrinityMaxDeathsTag.MaxDeathsAllowed)
+                         if (TotalStats.CurrentTrackingProfile.DeathCount > TrinityMaxDeathsTag.MaxDeathsAllowed)
 						  {
 								Logging.Write("[Funky] You have died too many times. Now restarting the game.");
 
-                                ProfileTracking.TrackedProfile FirstProfile = ProfileTracking.TotalStats.ProfilesTracked.First();
+                                TrackedProfile FirstProfile = TotalStats.ProfilesTracked.First();
 
                                 string sUseProfile = FirstProfile.ProfileName;
 								ProfileManager.Load(!string.IsNullOrEmpty(sUseProfile)

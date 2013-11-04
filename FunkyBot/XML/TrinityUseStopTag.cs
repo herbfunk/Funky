@@ -3,6 +3,7 @@ using FunkyBot.Cache;
 using Zeta.CommonBot.Profile;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
+using FunkyBot.Game;
 
 namespace FunkyBot.XMLTags
 {
@@ -23,7 +24,7 @@ namespace FunkyBot.XMLTags
 			{
 				// See if we've EVER hit this ID before
 				// If so, set it disabled - if not, add it and prevent it
-				 if (ProfileCache.hashUseOnceID.Contains(ID))
+				if (ProfileCache.hashUseOnceID.Contains(ID))
 				{
 					 ProfileCache.dictUseOnceID[ID]=-1;
 				}

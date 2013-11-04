@@ -73,16 +73,16 @@ namespace FunkyBot.Targeting.Behaviors
 						  if (Bot.Targeting.LastCachedTarget != ObjectCache.FakeCacheObject)
 						  {
 							  //Currently preforming an interactive profile behavior
-							  if (Bot.Profile.IsRunningOOCBehavior && Bot.Profile.ProfileBehaviorIsOOCInteractive && Bot.Profile.OOCBehaviorStartVector.Distance2D(Bot.Character.Position) > 10f)
+							  if (Bot.Game.Profile.IsRunningOOCBehavior && Bot.Game.Profile.ProfileBehaviorIsOOCInteractive && Bot.Game.Profile.OOCBehaviorStartVector.Distance2D(Bot.Character.Position) > 10f)
 							  {
-								  if (Bot.Targeting.LastCachedTarget.Position != Bot.Profile.OOCBehaviorStartVector)
+								  if (Bot.Targeting.LastCachedTarget.Position != Bot.Game.Profile.OOCBehaviorStartVector)
 									  Navigator.Clear();
 
 								  //Generate the path here so we can start moving..
-								  Navigation.NP.MoveTo(Bot.Profile.OOCBehaviorStartVector, "ReturnToOOCLoc", true);
+								  Navigation.NP.MoveTo(Bot.Game.Profile.OOCBehaviorStartVector, "ReturnToOOCLoc", true);
 
 								  //Setup a temp target that the handler will use
-								  obj = new CacheObject(Bot.Profile.OOCBehaviorStartVector, TargetType.LineOfSight, 1d, "ReturnToOOCLoc", 10f);
+								  obj = new CacheObject(Bot.Game.Profile.OOCBehaviorStartVector, TargetType.LineOfSight, 1d, "ReturnToOOCLoc", 10f);
 								  return true;
 							  }
 							  //lets see how far we are from our starting location.

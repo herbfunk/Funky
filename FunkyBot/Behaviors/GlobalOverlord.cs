@@ -82,7 +82,7 @@ namespace FunkyBot
 						  Bot.Character.fCharacterRadius=ZetaDia.Me.ActorInfo.Sphere.Radius;
 
 						  //Wizards are short -- causing issues (At least Male Wizard is!)
-						  if (Bot.ActorClass==ActorClass.Wizard) Bot.Character.fCharacterRadius+=1f;
+						  if (Bot.Game.ActorClass == ActorClass.Wizard) Bot.Character.fCharacterRadius += 1f;
 					 }
 				}
 
@@ -97,7 +97,7 @@ namespace FunkyBot
 				Bot.Targeting.DontMove=false;
 
 				//update current profile behavior.
-				Bot.Profile.CheckCurrentProfileBehavior();
+				Bot.Game.Profile.CheckCurrentProfileBehavior();
 
 
 				// Should we refresh target list?

@@ -9,6 +9,7 @@ using Zeta.Internals.Actors;
 using Zeta.CommonBot;
 using System.Linq;
 using System.IO;
+using FunkyBot.Game;
 
 
 namespace FunkyBot
@@ -187,7 +188,7 @@ namespace FunkyBot
 									 double iThisItemValue=ValueThisItem(thisitem, OriginalGilesItemType);
 									 LogJunkItems(thisitem, thisGilesBaseType, OriginalGilesItemType, iThisItemValue);
 								}
-                                ProfileTracking.TotalStats.CurrentTrackingProfile.LootTracker.SalvagedItemLog(thisitem);
+                                TotalStats.CurrentTrackingProfile.LootTracker.SalvagedItemLog(thisitem);
 								ZetaDia.Me.Inventory.SalvageItem(thisitem.ThisDynamicID);
 
 						  }

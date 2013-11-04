@@ -1,4 +1,5 @@
-﻿using Zeta;
+﻿using FunkyBot.Game;
+using Zeta;
 using Zeta.Common;
 using Zeta.Internals;
 using Zeta.TreeSharp;
@@ -51,7 +52,7 @@ namespace FunkyBot
                      WaitingForRevive = false;
                      Revived = false;
 
-                     ProfileTracking.TotalStats.CurrentTrackingProfile.DeathCount++;
+                     TotalStats.CurrentTrackingProfile.DeathCount++;
                      //Bot.BotStatistics.GameStats.CurrentGame.Deaths++;
                      //Bot.BotStatistics.ProfileStats.CurrentProfile.DeathCount++;
                      Bot.Character.OnHealthChanged -= OnHealthChanged;
@@ -65,7 +66,7 @@ namespace FunkyBot
 				  {
 						WaitingForRevive=false;
 						Revived=false;
-                        ProfileTracking.TotalStats.CurrentTrackingProfile.DeathCount++;
+                        TotalStats.CurrentTrackingProfile.DeathCount++;
                         //Bot.BotStatistics.GameStats.CurrentGame.Deaths++;
                         //Bot.BotStatistics.ProfileStats.CurrentProfile.DeathCount++;
 				  }

@@ -1426,7 +1426,7 @@ namespace FunkyBot.Cache
 						  Bot.Class.PowerPrime.MinimumRange=15;
 					 else if (this.IsStealthableUnit&&this.IsTargetable.HasValue&&this.IsTargetable.Value==false&&this.IsEliteRareUnique)
 						  Bot.Class.PowerPrime.MinimumRange=15;
-					 else if (this.IsTreasureGoblin&&!Bot.Class.IsMeleeClass&&Bot.Settings.Class.GoblinMinimumRange>0)
+					 else if (this.IsTreasureGoblin&&!Bot.Class.IsMeleeClass&&Bot.Settings.Class.GoblinMinimumRange>0&&Bot.Class.PowerPrime.MinimumRange>Bot.Settings.Class.GoblinMinimumRange)
 						  Bot.Class.PowerPrime.MinimumRange=Bot.Settings.Class.GoblinMinimumRange;
 					 else if (this.MonsterMissileDampening&&Bot.Settings.Targeting.MissleDampeningEnforceCloseRange)
 						  Bot.Class.PowerPrime.MinimumRange=15;

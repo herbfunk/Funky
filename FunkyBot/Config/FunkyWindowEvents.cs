@@ -21,9 +21,9 @@ namespace FunkyBot
 				 {
 					 //Update Account Details when bot is not running!
 					 if (!Zeta.CommonBot.BotMain.IsRunning)
-							Bot.UpdateCurrentAccountDetails();
+						 Bot.Game.UpdateCurrentAccountDetails();
 
-					  string settingsFolder=FolderPaths.sDemonBuddyPath+@"\Settings\FunkyBot\"+Bot.CurrentAccountName;
+					 string settingsFolder = FolderPaths.sDemonBuddyPath + @"\Settings\FunkyBot\" + Bot.Game.CurrentAccountName;
 					  if (!Directory.Exists(settingsFolder)) Directory.CreateDirectory(settingsFolder);
 
 					  try
@@ -57,7 +57,7 @@ namespace FunkyBot
 					 if (confirm== System.Windows.MessageBoxResult.Yes)
 					 {
 						  string DefaultLeveling=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults", "LowLevel.xml");
-						  Logging.Write("Creating new settings for {0} -- {1} using file {2}", Bot.CurrentAccountName, Bot.CurrentHeroName, DefaultLeveling);
+						  Logging.Write("Creating new settings for {0} -- {1} using file {2}", Bot.Game.CurrentAccountName, Bot.Game.CurrentHeroName, DefaultLeveling);
 						  Settings_Funky newSettings=Settings_Funky.DeserializeFromXML(DefaultLeveling);
 						  Bot.Settings=newSettings;
 						  funkyConfigWindow.Close();
@@ -81,7 +81,7 @@ namespace FunkyBot
 								System.Windows.MessageBoxResult confirm=System.Windows.MessageBox.Show(funkyConfigWindow, "Are you sure you want to overwrite settings with selected profile?", "Confirm Overwrite", System.Windows.MessageBoxButton.YesNoCancel, System.Windows.MessageBoxImage.Question);
 								if (confirm==System.Windows.MessageBoxResult.Yes)
 								{
-									 Logging.Write("Creating new settings for {0} -- {1} using file {2}", Bot.CurrentAccountName, Bot.CurrentHeroName, OFD.FileName);
+									Logging.Write("Creating new settings for {0} -- {1} using file {2}", Bot.Game.CurrentAccountName, Bot.Game.CurrentHeroName, OFD.FileName);
 									 Settings_Funky newSettings=Settings_Funky.DeserializeFromXML(OFD.FileName);
 									 Bot.Settings=newSettings;
 									 funkyConfigWindow.Close();

@@ -9,6 +9,7 @@ using Zeta.Internals.Actors;
 using System.IO;
 using Zeta;
 using System.Collections.Generic;
+using FunkyBot.Game;
 
 namespace FunkyBot
 {
@@ -28,14 +29,14 @@ namespace FunkyBot
 		  {
 				get
 				{
-					 return Bot.ActorClass.ToString()+" _ "+Bot.CurrentHeroName;
+					return Bot.Game.ActorClass.ToString() + " _ " + Bot.Game.CurrentHeroName;
 				}
 		  }
 		  internal static string LoggingFolderPath
 		  {
 				get
 				{
-					 string folderpath =FolderPaths.sTrinityLogPath+Bot.CurrentAccountName+@"\";
+					string folderpath = FolderPaths.sTrinityLogPath + Bot.Game.CurrentAccountName + @"\";
 
 					 if (!System.IO.Directory.Exists(folderpath))
 					 {
@@ -361,7 +362,7 @@ namespace FunkyBot
 					 GilesBaseItemType thisgilesbasetype=DetermineBaseType(thisgilesitemtype);
 
 					 //Herbfunk -- Live loot stats keeping.
-					 ProfileTracking.TotalStats.CurrentTrackingProfile.LootTracker.LootedItemLog(thisgilesitemtype, thisgilesbasetype, thisCacheItem.Itemquality.Value);
+					 TotalStats.CurrentTrackingProfile.LootTracker.LootedItemLog(thisgilesitemtype, thisgilesbasetype, thisCacheItem.Itemquality.Value);
 				//}
 		  }
 

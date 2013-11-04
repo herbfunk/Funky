@@ -37,12 +37,11 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 
 				FcriteriaCombat=new Func<bool>(() =>
 				{
-					 return (Bot.Character.dCurrentHealthPct<=0.65
-								||(Bot.Targeting.Environment.FleeTriggeringUnits.Count>0)
-								||(Bot.Targeting.Environment.TriggeringAvoidances.Count>0)
-								||Bot.Character.bIsIncapacitated
-								||Bot.Character.bIsRooted
-								||this.RuneIndex==3&&Bot.Character.dCurrentEnergyPct<0.25d);
+					return (    (Bot.Character.dCurrentHealthPct <= 0.65) ||
+								(this.RuneIndex==3&&Bot.Character.dCurrentEnergy<=150)||
+								(Bot.Targeting.Environment.FleeTriggeringUnits.Count > 0) ||
+								(Bot.Targeting.Environment.TriggeringAvoidances.Count > 0) ||
+								(Bot.Character.bIsIncapacitated || Bot.Character.bIsRooted));
 				});
 		  }
 

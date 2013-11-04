@@ -93,7 +93,7 @@ namespace FunkyBot
 						  {
 								CreatedCharacter=true;
 								//Setup Settings
-								Bot.UpdateCurrentAccountDetails();
+								Bot.Game.UpdateCurrentAccountDetails();
 								Settings_Funky.LoadFunkyConfiguration();
 						  }
 						  return RunStatus.Running;
@@ -119,7 +119,7 @@ namespace FunkyBot
 								InitMuleBehavior=false;
 								MuleBehavior=false;
 								//Load Settings
-								Bot.UpdateCurrentAccountDetails();
+								Bot.Game.UpdateCurrentAccountDetails();
 								Settings_Funky.LoadFunkyConfiguration();
 
 								return RunStatus.Success;

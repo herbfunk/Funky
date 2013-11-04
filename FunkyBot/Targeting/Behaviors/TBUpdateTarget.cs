@@ -154,20 +154,22 @@ namespace FunkyBot.Targeting.Behaviors
 							  if (!Bot.Targeting.RequiresAvoidance)
 								  this.bStayPutDuringAvoidance = true;
 
-							  //Check Bot Navigationally blocked
-							  Bot.NavigationCache.RefreshNavigationBlocked();
-							  if (!Bot.NavigationCache.BotIsNavigationallyBlocked)
-							  {
-									Vector3 SafeLOSMovement;
-									if (Bot.NavigationCache.AttemptFindSafeSpot(out SafeLOSMovement, thisobj.Position, Bot.Settings.Plugin.AvoidanceFlags))
-									{
-										 CurrentTarget=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
-									}
-									else
-									{
-										 resetTarget=true;
-									}
-							  }
+							  resetTarget = true;
+
+							  ////Check Bot Navigationally blocked
+							  //Bot.NavigationCache.RefreshNavigationBlocked();
+							  //if (!Bot.NavigationCache.BotIsNavigationallyBlocked)
+							  //{
+							  //	  Vector3 SafeLOSMovement;
+							  //	  if (Bot.NavigationCache.AttemptFindSafeSpot(out SafeLOSMovement, thisobj.Position, Bot.Settings.Plugin.AvoidanceFlags))
+							  //	  {
+							  //		   CurrentTarget=new CacheObject(SafeLOSMovement, TargetType.Avoidance, 20000, "SafetyMovement", 2.5f, -1);
+							  //	  }
+							  //	  else
+							  //	  {
+							  //		   resetTarget=true;
+							  //	  }
+							  //}
 						 }
 
 						 if (resetTarget)

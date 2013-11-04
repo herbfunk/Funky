@@ -7,6 +7,7 @@ using Zeta.Internals.Actors;
 using System.Threading;
 using Zeta.CommonBot;
 using Zeta.Navigation;
+using FunkyBot.Game;
 
 namespace FunkyBot
 {

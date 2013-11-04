@@ -15,6 +15,7 @@ using Zeta.Internals.SNO;
 using Zeta.Navigation;
 using Zeta.TreeSharp;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Game;
 
 
 namespace FunkyBot
@@ -200,7 +201,7 @@ namespace FunkyBot
 						  if (ZetaDia.Me.IsInTown)
 						  {
 
-                              ProfileTracking.TrackedProfile FirstProfile = ProfileTracking.TotalStats.ProfilesTracked.First();
+                              TrackedProfile FirstProfile = TotalStats.ProfilesTracked.First();
                               string profile = FirstProfile.ProfileName;
 
 								if (!string.IsNullOrEmpty(profile))
@@ -244,7 +245,7 @@ namespace FunkyBot
 					 if (Bot.Settings.Debug.RestartGameOnLongStucks&&DateTime.Now.Subtract(timeLastRestartedGame).TotalMinutes>=15)
 					 {
 						  timeLastRestartedGame=DateTime.Now;
-                          ProfileTracking.TrackedProfile FirstProfile = ProfileTracking.TotalStats.ProfilesTracked.First();
+                          TrackedProfile FirstProfile = TotalStats.ProfilesTracked.First();
                           string sUseProfile = FirstProfile.ProfileName;
 						  Logging.Write("[Funky] Anti-stuck measures exiting current game.");
 						  // Load the first profile seen last run

@@ -534,25 +534,28 @@
     <Compile Include="Config\Tabs\LOSMovement.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Game\Game.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Navigation\GridPoint\PointCheckingFlags.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ObjectCache\Blacklist\BlacklistType.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\ProfileCache.cs">
+    <Compile Include="Game\ProfileCache.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Navigation\GridPoint\QuadrantLocation.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="ProfileTracking\LootStats.cs">
+    <Compile Include="Game\ProfileTracking\LootStats.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="ProfileTracking\TotalStats.cs">
+    <Compile Include="Game\ProfileTracking\TotalStats.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="ProfileTracking\TrackedProfile.cs">
+    <Compile Include="Game\ProfileTracking\TrackedProfile.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Targeting\Behaviors\TargetBehavioralTypes.cs">

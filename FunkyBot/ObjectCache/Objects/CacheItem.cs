@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using FunkyBot.Cache;
 using FunkyBot.Movement;
 using Zeta.Internals.SNO;
+using FunkyBot.Game;
 
 namespace FunkyBot.Cache
 {
@@ -498,7 +499,7 @@ namespace FunkyBot.Cache
                           if (!this.ShouldPickup.HasValue)
                           {
                               //Log Dropped Items Here!!
-                              ProfileTracking.TotalStats.CurrentTrackingProfile.LootTracker.DroppedItemLog(this);
+                              TotalStats.CurrentTrackingProfile.LootTracker.DroppedItemLog(this);
 
                               if (Bot.Settings.ItemRules.UseItemRules)
                               {
@@ -539,7 +540,7 @@ namespace FunkyBot.Cache
 								try
 								{
 									 this.GoldAmount=this.ref_DiaItem.CommonData.GetAttribute<int>(ActorAttributeType.Gold);
-								} catch (NullReferenceException)
+								} catch (Exception)
 								{
 									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 										  Logger.Write(LogLevel.Execption, "Failure to get gold amount for gold pile!"); 
