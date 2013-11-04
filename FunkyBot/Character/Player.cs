@@ -157,7 +157,9 @@ namespace FunkyBot
 				public virtual Ability AbilitySelector(CacheUnit obj, bool IgnoreOutOfRange=false)
 				{
 					 //Reset default attack can use
-					 this.CanUseDefaultAttack=!this.Abilities.ContainsKey(this.DefaultAttack.Power)?false:true;
+					 this.CanUseDefaultAttack=!this.HotbarPowers.Contains(this.DefaultAttack.Power)?false:true;
+					 //Reset waiting for special!
+					 this.bWaitingForSpecial = false;
 
 					 ConditionCriteraTypes criterias=ConditionCriteraTypes.All;
 

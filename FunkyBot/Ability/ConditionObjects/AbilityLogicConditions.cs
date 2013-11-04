@@ -77,8 +77,8 @@ namespace FunkyBot.AbilityFunky
 									 if (ability.IsRanged||ability.Range>0)
 										  Bot.Class.CanUseDefaultAttack=true;
 								}
-								else if (ability.IsSpecialAbility)
-									 Bot.Class.bWaitingForSpecial=false;
+								//else if (ability.IsSpecialAbility)
+								//	 Bot.Class.bWaitingForSpecial=false;
 
 								return cancast;
 						  }));
@@ -90,8 +90,8 @@ namespace FunkyBot.AbilityFunky
 								Fprecast+=(new Func<bool>(() =>
 								{
 									 bool energyCheck=Bot.Character.dCurrentEnergy>=ability.Cost;
-									 if (ability.IsSpecialAbility) //we trigger waiting for special here.
-										  Bot.Class.bWaitingForSpecial=!energyCheck;
+									 if (ability.IsSpecialAbility&&!energyCheck) //we trigger waiting for special here.
+										  Bot.Class.bWaitingForSpecial=true;
 									 if (!energyCheck&&(ability.IsRanged||ability.Range>0))
 										  Bot.Class.CanUseDefaultAttack=true;
 
@@ -101,8 +101,8 @@ namespace FunkyBot.AbilityFunky
 								Fprecast+=(new Func<bool>(() =>
 								{
 									 bool energyCheck=Bot.Character.dDiscipline>=ability.Cost;
-									 if (ability.IsSpecialAbility) //we trigger waiting for special here.
-										  Bot.Class.bWaitingForSpecial=!energyCheck;
+									 if (ability.IsSpecialAbility&&!energyCheck) //we trigger waiting for special here.
+										  Bot.Class.bWaitingForSpecial=true;
 
 									 if (!energyCheck&&(ability.IsRanged||ability.Range>0))
 										  Bot.Class.CanUseDefaultAttack=true;

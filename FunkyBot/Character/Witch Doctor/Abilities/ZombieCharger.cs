@@ -31,10 +31,10 @@ namespace FunkyBot.AbilityFunky.Abilities.WitchDoctor
 				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
 											AbilityPreCastFlags.CheckCanCast);
 
-				FcriteriaPreCast=new Func<bool>(() => { return !Bot.Class.HasDebuff(SNOPower.Succubus_BloodStar); });
+				//FcriteriaPreCast=new Func<bool>(() => { return !Bot.Class.HasDebuff(SNOPower.Succubus_BloodStar); });
 
 				ClusterConditions=new ClusterConditions(5d, 20f, 2, true);
-				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 15);
+				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None);
 		  }
 
 		  #region IAbility

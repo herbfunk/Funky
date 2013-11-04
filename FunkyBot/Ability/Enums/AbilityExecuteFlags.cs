@@ -18,5 +18,7 @@ namespace FunkyBot.AbilityFunky
 			Self=64,
 			RemoveBuff=128,
 			ClusterTargetNearest=256,
+
+		   // UsesTarget=Target|ClusterTarget|ClusterTargetNearest,
 	 }
 }
