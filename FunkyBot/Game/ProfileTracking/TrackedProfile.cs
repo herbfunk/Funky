@@ -38,26 +38,8 @@ namespace FunkyBot.Game
 		public void UpdateRangeVariables()
 		{
 			TotalTimeSpan = TotalTimeSpan.Add(DateTime.Now.Subtract(DateStartedProfile));
-
-			if (StartingXP > 0)
-				TotalXP += (Bot.Character.CurrentExp - StartingXP);
-			else
-				StartingXP = Bot.Character.CurrentExp;
-
-			if (StartingGold > 0)
-				TotalGold += (Bot.Character.Coinage - StartingGold);
-			else
-			{
-				try
-				{
-					StartingGold = ZetaDia.Me.Inventory.Coinage;
-				}
-				catch (Exception)
-				{
-					Logger.Write(LogLevel.Execption, "Failed to get current coinage for tracked profile!");
-					StartingGold = Bot.Character.Coinage;
-				}
-			}
+			TotalXP += (Bot.Character.CurrentExp - StartingXP);
+			TotalGold += (Bot.Character.Coinage - StartingGold);
 		}
 		public void RestartRangeVariables()
 		{

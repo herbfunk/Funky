@@ -459,6 +459,34 @@ namespace FunkyBot.Character
 				}
 
 				internal Ability PowerPrime;
+
+				internal static void CreateBotClass()
+				{
+					if (Bot.Game != null && Bot.Game.ActorClass != ActorClass.Invalid)
+					{
+						//Create Specific Player Class
+						switch (Bot.Game.ActorClass)
+						{
+							case ActorClass.Barbarian:
+								Bot.Class = new Barbarian();
+								break;
+							case ActorClass.DemonHunter:
+								Bot.Class = new DemonHunter();
+								break;
+							case ActorClass.Monk:
+								Bot.Class = new Monk();
+								break;
+							case ActorClass.WitchDoctor:
+								Bot.Class = new WitchDoctor();
+								break;
+							case ActorClass.Wizard:
+								Bot.Class = new Wizard();
+								break;
+						}
+
+						Bot.Class.RecreateAbilities();
+					}
+				}
 		  }
 	 
 }

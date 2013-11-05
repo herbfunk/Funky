@@ -268,47 +268,50 @@ namespace FunkyBot.Targeting
 		  private bool LastLevelIDChangeWasTownRun=false;
 		  private void LevelAreaIDChangeHandler(int ID)
 		  {
-				if (!Zeta.CommonBot.Logic.BrainBehavior.IsVendoring)
-				{
-					//Check for World ID change!
-					if (Bot.Character.iCurrentWorldID!=LastWorldID)
-					{
-						if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
-							Logger.Write(LogLevel.OutOfCombat, "World ID changed.. clearing Profile Interactable Cache.");
-						LastWorldID = Bot.Character.iCurrentWorldID;
-						Bot.Game.Profile.InteractableObjectCache.Clear();
-						Navigator.SearchGridProvider.Update();
-					}
+			  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Event))
+				  Logger.Write(LogLevel.Event, "Level Area ID has Changed");
 
-					 if (!LastLevelIDChangeWasTownRun)
-					 {//Do full clear..
-						  //Reset Playermover Backtrack Positions
-						  BackTrackCache.cacheMovementGPRs.Clear();
-						  Bot.NavigationCache.LOSBlacklistedRAGUIDs.Clear();
-						  Bot.Game.Profile.InteractableCachedObject = null;
-					 }
+			  if (!Zeta.CommonBot.Logic.BrainBehavior.IsVendoring)
+			  {
+				  //Check for World ID change!
+				  if (Bot.Character.iCurrentWorldID != LastWorldID)
+				  {
+					  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Event))
+						  Logger.Write(LogLevel.Event, "World ID changed.. clearing Profile Interactable Cache.");
+					  LastWorldID = Bot.Character.iCurrentWorldID;
+					  Bot.Game.Profile.InteractableObjectCache.Clear();
+					  Navigator.SearchGridProvider.Update();
+				  }
 
-					 //Clear the object cache!
-					 ObjectCache.Objects.Clear();
-					 ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
-					 RemovalCheck=false;
+				  if (!LastLevelIDChangeWasTownRun)
+				  {//Do full clear..
+					  //Reset Playermover Backtrack Positions
+					  BackTrackCache.cacheMovementGPRs.Clear();
+					  Bot.NavigationCache.LOSBlacklistedRAGUIDs.Clear();
+					  Bot.Game.Profile.InteractableCachedObject = null;
+				  }
 
-					 //Reset Skip Ahead Cache
-					 SkipAheadCache.ClearCache();
+				  //Clear the object cache!
+				  ObjectCache.Objects.Clear();
+				  ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
+				  RemovalCheck = false;
 
-					 Bot.Character.UpdateCoinage = true;
+				  //Reset Skip Ahead Cache
+				  SkipAheadCache.ClearCache();
 
-					 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-						  Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
+				  Bot.Character.UpdateCoinage = true;
 
-					 Navigator.SearchGridProvider.Update();
+				  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+					  Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
 
-					 LastLevelIDChangeWasTownRun=false;
-				}
-				else if (Bot.Character.bIsInTown)
-				{
-					 LastLevelIDChangeWasTownRun=true;
-				}
+				  Navigator.SearchGridProvider.Update();
+
+				  LastLevelIDChangeWasTownRun = false;
+			  }
+			  else if (Bot.Character.bIsInTown)
+			  {
+				  LastLevelIDChangeWasTownRun = true;
+			  }
 		  }
 
 	 }

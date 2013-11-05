@@ -22,8 +22,9 @@ namespace FunkyBot
 		  Items=128,
 		  OutOfGame=256,
 		  OutOfCombat=512,
+		  Event=1024,
 
-		  All=User|Execption|Cluster|Grouping|Movement|Ability|Target|Items|OutOfGame|OutOfCombat,
+		  All=User|Execption|Cluster|Grouping|Movement|Ability|Target|Items|OutOfGame|OutOfCombat|Event,
 	 }
 	 public static class Logger
 	 {

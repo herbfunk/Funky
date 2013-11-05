@@ -14,12 +14,6 @@ namespace FunkyBot
 {
 	 public partial class Funky
 	 {
-
-
-		  // Total main loops so we can update things every XX loops
-		  private static int iCombatLoops=0;
-
-
 		  private static bool GlobalOverlord(object ret)
 		  {
 				// If we aren't in the game of a world is loading, don't do anything yet
@@ -29,65 +23,6 @@ namespace FunkyBot
 					 Bot.NavigationCache.vPositionLastZigZagCheck=Vector3.Zero;
 					 return false;
 				}
-
-				//Error Clicker CHeck
-				//ErrorClickerCheck();
-
-				// Store all of the player's abilities every now and then, to keep it cached and handy, also check for critical-mass timer changes etc.
-				iCombatLoops++;
-				if (Bot.Class==null||iCombatLoops>=50)
-				{
-					 // Update the cached player's cache
-					 ActorClass tempClass=ActorClass.Invalid;
-					 try
-					 {
-						  tempClass=ZetaDia.Actors.Me.ActorClass;
-					 } catch (NullReferenceException)
-					 {
-						  Logging.WriteDiagnostic("[Funky] Safely handled exception trying to get character class.");
-					 }
-
-
-					 if (tempClass!=ActorClass.Invalid&&Bot.Class==null)
-					 {
-						  //Create Specific Player Class
-						  switch (tempClass)
-						  {
-								case ActorClass.Barbarian:
-									 Bot.Class=new Barbarian();
-									 break;
-								case ActorClass.DemonHunter:
-									 Bot.Class=new DemonHunter();
-									 break;
-								case ActorClass.Monk:
-									 Bot.Class=new Monk();
-									 break;
-								case ActorClass.WitchDoctor:
-									 Bot.Class=new WitchDoctor();
-									 break;
-								case ActorClass.Wizard:
-									 Bot.Class=new Wizard();
-									 break;
-						  }
-
-						  Bot.Class.RecreateAbilities();
-
-					 }
-
-					 iCombatLoops=0;
-
-					 //Set Character Radius?
-					 if (Bot.Character.fCharacterRadius==0f)
-					 {
-						  Bot.Character.fCharacterRadius=ZetaDia.Me.ActorInfo.Sphere.Radius;
-
-						  //Wizards are short -- causing issues (At least Male Wizard is!)
-						  if (Bot.Game.ActorClass == ActorClass.Wizard) Bot.Character.fCharacterRadius += 1f;
-					 }
-				}
-
-				// Recording of all the XML's in use this run
-				//Bot.Profile.CheckProfile();
 
 				//Seconday Hotbar Check
 				Bot.Class.SecondaryHotbarBuffPresent();
@@ -108,13 +43,6 @@ namespace FunkyBot
 					 // We have a target, start the target handler!
 					 if (Bot.Targeting.CurrentTarget!=null)
 					 {
-						  //Backtracking?
-						  //if (Bot.Character.IsRunningInteractiveBehavior&&!Bot.Character.ShouldBackTrack)
-						  //{
-						  //    Bot.Character.BackTrackVector=Bot.Character.Position;
-						  //    Bot.Character.ShouldBackTrack=true;
-						  //}
-
 						  Bot.Targeting.bWholeNewTarget=true;
 						  Bot.Targeting.DontMove=true;
 						  Bot.Targeting.bPickNewAbilities=true;

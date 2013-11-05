@@ -284,6 +284,15 @@ namespace FunkyBot.Character
 										CurrentExp = me.ParagonCurrentExperience;
 									else
 										CurrentExp = me.CurrentExperience;
+
+									 //Set Character Radius?
+									 if (this.fCharacterRadius == 0f)
+									 {
+										 this.fCharacterRadius = me.ActorInfo.Sphere.Radius;
+
+										 //Wizards are short -- causing issues (At least Male Wizard is!)
+										 //if (Bot.Game.ActorClass == ActorClass.Wizard) this.fCharacterRadius += 1f;
+									 }
 									 
 
 									 //Update vars that are not essential to combat (survival).

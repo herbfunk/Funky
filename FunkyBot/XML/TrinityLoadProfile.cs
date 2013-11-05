@@ -78,7 +78,7 @@ namespace Trinity.XmlTags
 						  }
 						  Thread.Sleep(1000);
 						  ZetaDia.Service.Party.LeaveGame();
-						  Funky.ResetGame();
+						  Funky.FunkyOnLeaveGame(null, null);
 
 						  // Wait for 10 second log out timer if not in town, else wait for 3 seconds instead
 						  Thread.Sleep(!Bot.Character.bIsInTown?10000:3000);

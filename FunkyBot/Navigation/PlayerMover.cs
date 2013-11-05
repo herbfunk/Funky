@@ -224,7 +224,7 @@ namespace FunkyBot
 									 Thread.Sleep(1000);
 									 ZetaDia.Service.Party.LeaveGame();
 									 //ZetaDia.Service.Games.LeaveGame();
-									 Funky.ResetGame();
+									 Funky.FunkyOnLeaveGame(null, null);
 									 // Wait for 10 second log out timer if not in town, else wait for 3 seconds instead
 									 Thread.Sleep(!ZetaDia.Me.IsInTown?10000:3000);
 								}
@@ -253,8 +253,8 @@ namespace FunkyBot
 														  ?sUseProfile
 														  :Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile);
 						  Thread.Sleep(1000);
-						  Funky.ResetGame();
 						  ZetaDia.Service.Party.LeaveGame();
+						  Funky.FunkyOnLeaveGame(null, null);
 						  // Wait for 10 second log out timer if not in town
 						  if (!ZetaDia.Me.IsInTown)
 						  {

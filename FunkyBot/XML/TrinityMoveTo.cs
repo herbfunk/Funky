@@ -55,6 +55,7 @@ namespace FunkyBot.XMLTags
 
 				if (skippingAhead)
 				{
+					m_IsDone = true;
 					return RunStatus.Success;
 				}
 			}

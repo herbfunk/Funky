@@ -41,61 +41,53 @@ namespace FunkyBot
 
 		  public static void ResetBot()
 		  {
-				
-				Log("Preforming reset of bot data...", true);
+
+			  Log("Preforming reset of bot data...", true);
 			  BlacklistCache.ClearBlacklistCollections();
-				PowerCacheLookup.dictAbilityLastUse=new Dictionary<SNOPower, DateTime>(PowerCacheLookup.dictAbilityLastUseDefaults);
+			  PowerCacheLookup.dictAbilityLastUse = new Dictionary<SNOPower, DateTime>(PowerCacheLookup.dictAbilityLastUseDefaults);
 
-				PlayerMover.iTotalAntiStuckAttempts=1;
-				PlayerMover.vSafeMovementLocation=Vector3.Zero;
-				PlayerMover.vOldPosition=Vector3.Zero;
-				PlayerMover.iTimesReachedStuckPoint=0;
-				PlayerMover.timeLastRecordedPosition=DateTime.Today;
-				PlayerMover.timeStartedUnstuckMeasure=DateTime.Today;
-				PlayerMover.iTimesReachedMaxUnstucks=0;
-				PlayerMover.iCancelUnstuckerForSeconds=0;
-				PlayerMover.timeCancelledUnstuckerFor=DateTime.Today;
+			  PlayerMover.iTotalAntiStuckAttempts = 1;
+			  PlayerMover.vSafeMovementLocation = Vector3.Zero;
+			  PlayerMover.vOldPosition = Vector3.Zero;
+			  PlayerMover.iTimesReachedStuckPoint = 0;
+			  PlayerMover.timeLastRecordedPosition = DateTime.Today;
+			  PlayerMover.timeStartedUnstuckMeasure = DateTime.Today;
+			  PlayerMover.iTimesReachedMaxUnstucks = 0;
+			  PlayerMover.iCancelUnstuckerForSeconds = 0;
+			  PlayerMover.timeCancelledUnstuckerFor = DateTime.Today;
 
-				//Reset all data with bot (Playerdata, Combat Data)
-				Bot.Reset();
+			  //Reset all data with bot (Playerdata, Combat Data)
+			  Bot.Reset();
+			  FunkyBot.Character.Player.CreateBotClass();
+			  //Update character info!
+			  Bot.Character.Update();
 
-				//OOC ID Flags
-				Bot.Targeting.ShouldCheckItemLooted=false;
-				shouldPreformOOCItemIDing=false;
+			  //OOC ID Flags
+			  Bot.Targeting.ShouldCheckItemLooted = false;
+			  shouldPreformOOCItemIDing = false;
 
-				//TP Behavior Reset
-				ResetTPBehavior();
+			  //TP Behavior Reset
+			  ResetTPBehavior();
 
-				//Sno Trim Timer Reset
-				ObjectCache.cacheSnoCollection.ResetTrimTimer();
-				//clear obstacles
-				ObjectCache.Obstacles.Clear();
-				ObjectCache.Objects.Clear();
+			  //Sno Trim Timer Reset
+			  ObjectCache.cacheSnoCollection.ResetTrimTimer();
+			  //clear obstacles
+			  ObjectCache.Obstacles.Clear();
+			  ObjectCache.Objects.Clear();
 
-				//Bot.NavigationCache.UpdateSearchGridProvider();
+			  //Bot.NavigationCache.UpdateSearchGridProvider();
 
-				DumpedDeathInfo=false;
+			  DumpedDeathInfo = false;
 		  }
 		  public static void ResetGame()
 		  {
-				ResetBot();
-
-				ProfileCache.hashUseOnceID=new HashSet<int>();
-				ProfileCache.dictUseOnceID=new Dictionary<int, int>();
-				ProfileCache.dictRandomID=new Dictionary<int, int>();
-				SkipAheadCache.ClearCache();
-				TownRunManager.TownrunStartedInTown = true;
-
-                FunkyBot.XMLTags.TrinityMaxDeathsTag.MaxDeathsAllowed = 0;
-                //Bot.Stats.iDeathsThisRun=0;
-				//_hashsetItemPicksLookedAt=new HashSet<int>();
-				//_hashsetItemFollowersIgnored=new HashSet<int>();
-				TownRunManager._dictItemStashAttempted=new Dictionary<int, int>();
-
-                //Bot.Profile.listProfilesLoaded=new List<string>();
-                //Bot.Profile.LastProfileSeen="";
-                //Bot.Profile.FirstProfileSeen="";
-
+			  ProfileCache.hashUseOnceID = new HashSet<int>();
+			  ProfileCache.dictUseOnceID = new Dictionary<int, int>();
+			  ProfileCache.dictRandomID = new Dictionary<int, int>();
+			  SkipAheadCache.ClearCache();
+			  TownRunManager.TownrunStartedInTown = true;
+			  FunkyBot.XMLTags.TrinityMaxDeathsTag.MaxDeathsAllowed = 0;
+			  TownRunManager._dictItemStashAttempted = new Dictionary<int, int>();
 		  }
 
 		  private static Demonbuddy.SplitButton FindFunkyButton()

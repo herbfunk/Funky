@@ -44,14 +44,12 @@ namespace FunkyBot.Targeting.Behaviors
 						 // No valid targets but we were told to stay put?
 						 if (this.bStayPutDuringAvoidance)
 						 {
-							  //if (Bot.Targeting.Environment.TriggeringAvoidances.Count==0)
-							  //{
+							 if (Bot.Targeting.Environment.TriggeringAvoidances.Count == 0)
+							 {
 									obj=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "StayPutPoint", 2.5f, -1);
 									return true;
-							  //}
+							  }
 						 }
-
-
 					}
 
 					return false;

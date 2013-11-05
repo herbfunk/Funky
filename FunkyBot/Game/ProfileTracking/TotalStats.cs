@@ -85,7 +85,7 @@ namespace FunkyBot.Game
                     this.TotalLootTracker.Merge(item.LootTracker);
                 }
             }
-            ProfilesTracked = new HashSet<TrackedProfile>();
+			ProfilesTracked.Clear();
 			Logger.WriteProfileTrackerOutput();
         }
     }

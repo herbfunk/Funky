@@ -79,6 +79,9 @@ namespace FunkyBot.Game
 				//Clear Health Average
 				ObjectCache.Objects.ClearHealthAverageStats();
 
+				//Renew bot
+				Funky.ResetBot();
+
 				currentGameID = curgameID;
 				return true;
 			}
