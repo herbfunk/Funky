@@ -899,7 +899,7 @@ namespace FunkyBot.Cache
 						  bool distantUnit=false;
 						  bool validUnit=false;
 						  //Distant Units List
-						  if (Bot.Settings.Grouping.AttemptGroupingMovements&&centreDistance>=Bot.Settings.Grouping.GroupingMinimumUnitDistance)
+						  if (!Bot.IsInNonCombatBehavior&&Bot.Settings.Grouping.AttemptGroupingMovements&&centreDistance>=Bot.Settings.Grouping.GroupingMinimumUnitDistance)
 						  {
 								distantUnit=true;
 						  }

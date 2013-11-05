@@ -15,6 +15,8 @@ namespace FunkyBot
         // Each time we join & leave a game, might as well clear the hashset of looked-at dropped items - just to keep it smaller
         private static void FunkyOnJoinGame(object src, EventArgs mea)
         {
+			if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfGame))
+				Logger.Write(LogLevel.OutOfGame, "OnJoinGame Event");
             ResetGame();
 			Bot.Game.RefreshGameID();
 

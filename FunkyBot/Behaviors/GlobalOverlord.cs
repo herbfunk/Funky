@@ -23,7 +23,7 @@ namespace FunkyBot
 		  private static bool GlobalOverlord(object ret)
 		  {
 				// If we aren't in the game of a world is loading, don't do anything yet
-				if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld||!ZetaDia.Me.IsValid)
+				if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld||ZetaDia.Me==null||ZetaDia.Me.CommonData==null)
 				{
 					 Bot.NavigationCache.lastChangedZigZag=DateTime.Today;
 					 Bot.NavigationCache.vPositionLastZigZagCheck=Vector3.Zero;

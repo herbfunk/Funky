@@ -16,6 +16,8 @@ namespace FunkyBot
     {
 		  private static void FunkyOnGameChanged(object sender, EventArgs e)
 		  {
+			  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfGame))
+				Logger.Write(LogLevel.OutOfGame, "OnGameChanged Event");
 				Navigator.SearchGridProvider.Update();
 				ResetGame();
 				Bot.Game.RefreshGameID();

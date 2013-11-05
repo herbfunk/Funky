@@ -25,7 +25,7 @@ namespace FunkyBot.Targeting
 		  {
 				CurrentState=RunStatus.Running;
 				CurrentTarget=null;
-				Bot.Character.OnLevelAreaIDChanged+=this.LevelAreaIDChangeHandler;
+				Bot.Character.OnLevelAreaIDChanged+=new Character.CharacterCache.LevelAreaIDChanged(this.LevelAreaIDChangeHandler);
 		  }
 
 

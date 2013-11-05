@@ -23,6 +23,7 @@ namespace FunkyBot.Cache.Enums
 			LineOfSight=2048,
 		   NoMovement=4096,
 		   Fleeing=8192,
+		   ServerInteractable=16384,
 
 			All=Unit|Shrine|Interactable|Destructible|Barricade|Container|Item|Gold|Globe|Avoidance|Door,
 			Gizmo=Shrine|Interactable|Destructible|Barricade|Container|Door,

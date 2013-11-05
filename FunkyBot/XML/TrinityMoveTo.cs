@@ -7,7 +7,6 @@ using Zeta.CommonBot.Profile;
 using Zeta.Navigation;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
-using Action = Zeta.TreeSharp.Action;
 
 namespace FunkyBot.XMLTags
 {
@@ -25,89 +24,50 @@ namespace FunkyBot.XMLTags
 		private string sNoSkip;
 		private string useNavigator;
 		private Vector3? vMainVector;
-		private bool skippingAhead=false;
-        private MoveResult lastMoveResult = MoveResult.Moved;
-        public override void OnStart()
-        {
-            lastMoveResult = MoveResult.Moved;
+		private bool skippingAhead = false;
 
-           Logging.WriteDiagnostic("[TrinityMoveTo] Started Tag; {0} name=\"{1}\" questId=\"{2}\" stepId=\"{3}\" worldId=\"{4}\" levelAreaId=\"{5}\"",
-                getPosition(), this.Name, this.QuestId, this.StepId, ZetaDia.CurrentWorldId, ZetaDia.CurrentLevelAreaId);
-        }
 		protected override Composite CreateBehavior()
 		{
 			//Funky.hashSkipAheadAreaCache=new HashSet<Funky.SkipAheadNavigation>();
-            //Composite[] children=new Composite[2];
-            //Composite[] compositeArray=new Composite[2];
-            //compositeArray[0]=new Zeta.TreeSharp.Action(new ActionSucceedDelegate(FlagTagAsCompleted));
-            //children[0]=new Zeta.TreeSharp.Decorator(new CanRunDecoratorDelegate(CheckDistanceWithinPathPrecision), new Sequence(compositeArray));
-            //ActionDelegate actionDelegateMove=new ActionDelegate(GilesMoveToLocation);
-            //Sequence sequenceblank=new Sequence(
-            //    new Zeta.TreeSharp.Action(actionDelegateMove)
-            //    );
-            //children[1]=sequenceblank;
-            //return new PrioritySelector(children);
-            return
-            new PrioritySelector(
-                new Decorator(ret => lastMoveResult == MoveResult.ReachedDestination,
-                    new Sequence(
-                        new Action(ret => SetTagDone("Reached Destination"))
-                    )
-                ),
-                new Decorator(ret => lastMoveResult != MoveResult.Moved,
-                    new Sequence(
-                        new Action(ret => SetTagDone("Movement failed"))
-                    )
-                ),
-                new Decorator(ret => CheckDistanceWithinPathPrecision(),
-                    new Action(ret => SetTagDone("Within path precision"))
-                ),
-                new Action(ret => GilesMoveToLocation())
-            );
+			Composite[] children = new Composite[2];
+			Composite[] compositeArray = new Composite[2];
+			compositeArray[0] = new Zeta.TreeSharp.Action(new ActionSucceedDelegate(FlagTagAsCompleted));
+			children[0] = new Zeta.TreeSharp.Decorator(new CanRunDecoratorDelegate(CheckDistanceWithinPathPrecision), new Sequence(compositeArray));
+			ActionDelegate actionDelegateMove = new ActionDelegate(GilesMoveToLocation);
+			Sequence sequenceblank = new Sequence(
+				new Zeta.TreeSharp.Action(actionDelegateMove)
+				);
+			children[1] = sequenceblank;
+			return new PrioritySelector(children);
 		}
-        private void SetTagDone(string reason = "")
-        {
-            m_IsDone = true;
 
-            if (!String.IsNullOrEmpty(reason))
-            {
-                Logging.WriteDiagnostic("[TrinityMoveTo] tag finished: {0} {1}", reason, getPosition());
-            }
-
-        }
-        private string getPosition()
-        {
-            return String.Format("x=\"{0}\" y=\"{1}\" z=\"{2}\" ", this.X, this.Y, this.Z);
-        }
-		private RunStatus GilesMoveToLocation()
+		private RunStatus GilesMoveToLocation(object ret)
 		{
 
 			// First check if we can skip ahead because we recently moved here
-			if (NoSkip==null||NoSkip.ToLower()!="true")
+			if (NoSkip == null || NoSkip.ToLower() != "true")
 			{
 				if (SkipAheadCache.CheckPositionForSkipping(Position))
 				{
 					Logging.WriteDiagnostic("Finished Path {0} earlier due to SkipAreaCache find!", Position.ToString());
-					skippingAhead=true;
-                    return RunStatus.Success;
+					skippingAhead = true;
 				}
 
-                SkipAheadCache.ClearCache();
+				if (skippingAhead)
+				{
+					return RunStatus.Success;
+				}
 			}
-            else
-            {
-                SkipAheadCache.ClearCache();
-            }
 
 			// Now use Trinity movement to try a direct movement towards that location
-			Vector3 NavTarget=Position;
-			Vector3 MyPos=Bot.Character.Position;
-			if (!ZetaDia.WorldInfo.IsGenerated&&Vector3.Distance(MyPos, NavTarget)>250)
+			Vector3 NavTarget = Position;
+			Vector3 MyPos = Bot.Character.Position;
+			if (!ZetaDia.WorldInfo.IsGenerated && Vector3.Distance(MyPos, NavTarget) > 250)
 			{
-				NavTarget=MathEx.CalculatePointFrom(MyPos, NavTarget, Vector3.Distance(MyPos, NavTarget)-250);
+				NavTarget = MathEx.CalculatePointFrom(MyPos, NavTarget, Vector3.Distance(MyPos, NavTarget) - 250);
 			}
 
-			if (useNavigator!=null&&useNavigator.ToLower()=="false")
+			if (useNavigator != null && useNavigator.ToLower() == "false")
 			{
 				Navigator.PlayerMover.MoveTowards(NavTarget);
 			}
@@ -117,34 +77,34 @@ namespace FunkyBot.XMLTags
 				if (Bot.Settings.Debug.SkipAhead)
 					SkipAheadCache.RecordSkipAheadCachePoint(PathPrecision);
 
-				Navigator.NavigationProvider.MoveTo(NavTarget, Name, true);
+				Navigator.MoveTo(NavTarget);
 			}
 
 			return RunStatus.Success;
 		}
 
-		private bool CheckDistanceWithinPathPrecision()
+		private bool CheckDistanceWithinPathPrecision(object object_0)
 		{
 
 			// First see if we should skip ahead one move because we were already at that location
 			if (skippingAhead)
 			{
-				skippingAhead=false;
+				skippingAhead = false;
 				return true;
 			}
 
 			// Ok not skipping, now see if we are already within pathprecision range of that location
-			return (ZetaDia.Me.Position.Distance(Position)<=Math.Max(PathPrecision, Navigator.PathPrecision));
+			return (ZetaDia.Me.Position.Distance(Position) <= Math.Max(PathPrecision, Navigator.PathPrecision));
 		}
 
 		private void FlagTagAsCompleted(object object_0)
 		{
-			m_IsDone=true;
+			m_IsDone = true;
 		}
 
 		public override void ResetCachedDone()
 		{
-			m_IsDone=false;
+			m_IsDone = false;
 			base.ResetCachedDone();
 		}
 
@@ -169,7 +129,7 @@ namespace FunkyBot.XMLTags
 			}
 			set
 			{
-				useNavigator=value;
+				useNavigator = value;
 			}
 		}
 
@@ -182,7 +142,7 @@ namespace FunkyBot.XMLTags
 			}
 			set
 			{
-				sNoSkip=value;
+				sNoSkip = value;
 			}
 		}
 
@@ -195,7 +155,7 @@ namespace FunkyBot.XMLTags
 			}
 			set
 			{
-				sDestinationName=value;
+				sDestinationName = value;
 			}
 		}
 
@@ -208,7 +168,7 @@ namespace FunkyBot.XMLTags
 			}
 			set
 			{
-				fPathPrecision=value;
+				fPathPrecision = value;
 			}
 		}
 
@@ -218,14 +178,14 @@ namespace FunkyBot.XMLTags
 			{
 				if (!vMainVector.HasValue)
 				{
-					if (UnsafeRandomDistance==0f)
+					if (UnsafeRandomDistance == 0f)
 					{
-						vMainVector=new Vector3(X, Y, Z);
+						vMainVector = new Vector3(X, Y, Z);
 					}
 					else
 					{
-						float degrees=new Random().Next(0, 360);
-						vMainVector=new Vector3?(MathEx.GetPointAt(new Vector3(X, Y, Z), (float)(new Random().NextDouble()*UnsafeRandomDistance), MathEx.ToRadians(degrees)));
+						float degrees = new Random().Next(0, 360);
+						vMainVector = new Vector3?(MathEx.GetPointAt(new Vector3(X, Y, Z), (float)(new Random().NextDouble() * UnsafeRandomDistance), MathEx.ToRadians(degrees)));
 					}
 				}
 				return vMainVector.Value;
@@ -241,7 +201,7 @@ namespace FunkyBot.XMLTags
 			}
 			set
 			{
-				fRandomizedDistance=value;
+				fRandomizedDistance = value;
 			}
 		}
 
@@ -254,7 +214,7 @@ namespace FunkyBot.XMLTags
 			}
 			set
 			{
-				fPosX=value;
+				fPosX = value;
 			}
 		}
 
@@ -267,7 +227,7 @@ namespace FunkyBot.XMLTags
 			}
 			set
 			{
-				fPosY=value;
+				fPosY = value;
 			}
 		}
 
@@ -280,7 +240,7 @@ namespace FunkyBot.XMLTags
 			}
 			set
 			{
-				fPosZ=value;
+				fPosZ = value;
 			}
 		}
 

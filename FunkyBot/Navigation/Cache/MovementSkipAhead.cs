@@ -17,6 +17,8 @@ namespace FunkyBot.Movement
 
 				internal static void ClearCache()
 				{
+					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+						Logger.Write(LogLevel.Movement, "Clearing Skipahead Cache");
 					 SkipAheadAreaCache.Clear();
 					 UsedSkipAheadAreaCache.Clear();
 					 lastRecordedSkipAheadCache=DateTime.Now;
@@ -25,7 +27,7 @@ namespace FunkyBot.Movement
 				{
 					 foreach (var v in UsedSkipAheadAreaCache)
 					 {
-						  if (Position.Distance2D(v.Position)<=v.Radius)
+						  if (Position.Distance(v.Position)<=v.Radius)
 								return true;
 					 }
 
@@ -36,7 +38,7 @@ namespace FunkyBot.Movement
 						  for (int i=0; i<SkipAheadAreaCache.Count-1; i++)
 						  {
 								SkipAheadNavigation v=SkipAheadAreaCache[i];
-								if (Position.Distance2D(v.Position)<=v.Radius)
+								if (Position.Distance(v.Position)<=v.Radius)
 								{
 									 validIndex=i;
 									 valid=true;
@@ -62,7 +64,7 @@ namespace FunkyBot.Movement
 					 // else if (millisecondsLastRecord>10000) //10 seconds.. clear cache!
 					 // SkipAheadAreaCache.Clear();
 
-					 if (SkipAheadAreaCache.Any(p => p.Position.Distance2D(ZetaDia.Me.Position)<=Precision))
+					 if (SkipAheadAreaCache.Any(p => p.Position.Distance(ZetaDia.Me.Position)<=Precision))
 						  return;
 
 					 SkipAheadAreaCache.Add(new SkipAheadNavigation(ZetaDia.Me.Position, Precision));

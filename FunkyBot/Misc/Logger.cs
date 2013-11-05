@@ -109,8 +109,13 @@ namespace FunkyBot
 
 		 internal static void WriteProfileTrackerOutput()
 		  {
-			  string output = String.Format("Total Stats while running\r\nGameCount: {0} DeathCount: {1} TotalTime: {2} TotalXP:{3}\r\n{4}",
-				  Bot.Game.TrackingStats.GameCount, Bot.Game.TrackingStats.TotalDeaths, Bot.Game.TrackingStats.TotalTimeRunning.ToString(@"dd\ \d\ hh\ \h\ mm\ \m\ ss\ \s"), Bot.Game.TrackingStats.TotalXP, Bot.Game.TrackingStats.TotalLootTracker.ToString());
+			  string output = String.Format("Total Stats while running\r\nGameCount: {0} DeathCount: {1} TotalGold:{2} TotalXP:{3} TotalTime: {4} \r\n{5}",
+				  Bot.Game.TrackingStats.GameCount, 
+				  Bot.Game.TrackingStats.TotalDeaths,
+				  Bot.Game.TrackingStats.TotalGold,
+				  Bot.Game.TrackingStats.TotalXP, 
+				  Bot.Game.TrackingStats.TotalTimeRunning.ToString(@"dd\ \d\ hh\ \h\ mm\ \m\ ss\ \s"), 
+				  Bot.Game.TrackingStats.TotalLootTracker.ToString());
 
 			  string outputPath = Path.Combine(FolderPaths.sTrinityLogPath, "ProfileStats", "Stats - " + LoggingStamp);
 

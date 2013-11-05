@@ -88,7 +88,7 @@ namespace FunkyBot.Movement
 					 if (Bot.Character.bIsIncapacitated||Bot.Character.bIsRooted)
 						  return RunStatus.Running;
 
-					 if (Bot.Settings.Debug.SkipAhead)
+					 if (Bot.Settings.Debug.SkipAhead&&obj.targetType.Value!=TargetType.LineOfSight)
 						  SkipAheadCache.RecordSkipAheadCachePoint();
 
 					 // Some stuff to avoid spamming usepower EVERY loop, and also to detect stucks/staying in one place for too long

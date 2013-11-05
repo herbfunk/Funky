@@ -69,24 +69,28 @@ namespace FunkyBot.Targeting.Behaviors
 								return true;
 						  }
 
-						  //Check if we engaged in combat..
-						  if (Bot.Targeting.LastCachedTarget != ObjectCache.FakeCacheObject)
+						  //Currently preforming an interactive profile behavior
+						  if (Bot.Game.Profile.IsRunningOOCBehavior && Bot.Game.Profile.ProfileBehaviorIsOOCInteractive && Bot.Game.Profile.InteractableCachedObject != null)
 						  {
-							  //Currently preforming an interactive profile behavior
-							  if (Bot.Game.Profile.IsRunningOOCBehavior && Bot.Game.Profile.ProfileBehaviorIsOOCInteractive && Bot.Game.Profile.OOCBehaviorStartVector.Distance2D(Bot.Character.Position) > 10f)
+							  if (Bot.Game.Profile.InteractableCachedObject.Position.Distance(Bot.Character.Position) > 50f)
 							  {
-								  if (Bot.Targeting.LastCachedTarget.Position != Bot.Game.Profile.OOCBehaviorStartVector)
+								  if (Bot.Targeting.LastCachedTarget.Position != Bot.Game.Profile.InteractableCachedObject.Position)
 									  Navigator.Clear();
 
 								  //Generate the path here so we can start moving..
-								  Navigation.NP.MoveTo(Bot.Game.Profile.OOCBehaviorStartVector, "ReturnToOOCLoc", true);
+								  Navigation.NP.MoveTo(Bot.Game.Profile.InteractableCachedObject.Position, "ReturnToOOCLoc", true);
 
 								  //Setup a temp target that the handler will use
-								  obj = new CacheObject(Bot.Game.Profile.OOCBehaviorStartVector, TargetType.LineOfSight, 1d, "ReturnToOOCLoc", 10f);
+								  obj = new CacheObject(Bot.Game.Profile.InteractableCachedObject.Position, TargetType.LineOfSight, 1d, "ReturnToOOCLoc", 10f, Bot.Game.Profile.InteractableCachedObject.RAGUID);
 								  return true;
 							  }
+						  }
+
+						  //Check if we engaged in combat..
+						  if (Bot.Targeting.LastCachedTarget != ObjectCache.FakeCacheObject)
+						  {
 							  //lets see how far we are from our starting location.
-							  else if (Bot.Character.Position.Distance(Bot.Targeting.StartingLocation) > 20f &&
+							  if (Bot.Character.Position.Distance(Bot.Targeting.StartingLocation) > 20f &&
 									!Navigation.CanRayCast(Bot.Character.Position, Funky.PlayerMover.vLastMoveTo, UseSearchGridProvider: true))
 							  {
 								  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))

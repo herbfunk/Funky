@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.CommonBot.Profile;
 using Zeta.CommonBot.Settings;
+using Zeta.CommonBot.Profile.Common;
+using FunkyBot.Cache;
 
 namespace FunkyBot.Game
 {
@@ -14,16 +17,18 @@ namespace FunkyBot.Game
 		  internal static Dictionary<int, int> dictUseOnceID=new Dictionary<int, int>();
 		  // For the random ID tag
 		  internal static Dictionary<int, int> dictRandomID=new Dictionary<int, int>();
-		
 
 
 
+		  internal Dictionary<int, Cache.CacheObject> InteractableObjectCache = new Dictionary<int, Cache.CacheObject>();
 		  private bool profileBehaviorIsOOCInteractive=false;
 		  internal bool ProfileBehaviorIsOOCInteractive
 		  {
 				get { return profileBehaviorIsOOCInteractive; }
 				set { profileBehaviorIsOOCInteractive=value; }
 		  }
+
+		  internal CacheObject InteractableCachedObject = null;
 
 		  private ProfileBehavior currentProfileBehavior;
 		  internal ProfileBehavior CurrentProfileBehavior
@@ -49,18 +54,33 @@ namespace FunkyBot.Game
 						  currentProfileBehavior=ProfileManager.CurrentProfileBehavior;
 
 						  Logger.Write(LogLevel.User, "Profile Behavior Changed To {0}", currentProfileBehavior.GetType().ToString());
-
-						  if (oocDBTags.Contains(currentProfileBehavior.GetType()))
+						  Type profileTagType=currentProfileBehavior.GetType();
+						  if (oocDBTags.Contains(profileTagType))
 						  {
-							  ProfileBehaviorIsOOCInteractive = InteractiveTags.Contains(currentProfileBehavior.GetType());
+							  if (InteractiveTags.Contains(profileTagType))
+							  {
+								  ProfileBehaviorIsOOCInteractive = true;
+								  Logging.WriteDiagnostic("Interactable Profile Tag!");
+
+								  InteractableCachedObject = ProfileCache.GetInteractiveCachedObject(currentProfileBehavior);
+								  if (InteractableCachedObject != null)
+									  Logging.WriteDiagnostic("Found Cached Interactable Server Object");
+								  
+							  }
+							  else
+							  {
+								  ProfileBehaviorIsOOCInteractive = false;
+								  InteractableCachedObject = null;
+							  }
+
 							  Logging.WriteDiagnostic("Current Profile Behavior has enabled OOC Behavior.");
 							  IsRunningOOCBehavior = true;
-							  OOCBehaviorStartVector = Bot.Character.Position;
 						  }
 						  else
 						  {
+							  ProfileBehaviorIsOOCInteractive = false;
+							  InteractableCachedObject = null;
 							  IsRunningOOCBehavior = false;
-							  OOCBehaviorStartVector = Vector3.Zero;
 						  }
 					 }
 
@@ -68,11 +88,74 @@ namespace FunkyBot.Game
 		  }
 		 internal bool IsRunningOOCBehavior { get; set; }
 
-		 private Vector3 OOCbehaviorstartvector = Vector3.Zero;
-		 internal Vector3 OOCBehaviorStartVector
+		 internal static CacheObject GetInteractiveCachedObject(ProfileBehavior tag)
 		 {
-			 get { return OOCbehaviorstartvector; }
-			 set { OOCbehaviorstartvector = value; }
+			 Type TagType = tag.GetType();
+			 if (InteractiveTags.Contains(TagType))
+			 {
+				 if (TagType == typeof(UseWaypointTag))
+				 {
+					 UseWaypointTag tagWP = (UseWaypointTag)tag;
+					 var WaypointObjects=Bot.Game.Profile.InteractableObjectCache.Values.Where(obj => obj.SNOID==6442);
+					 foreach (CacheObject item in WaypointObjects)
+					 {
+						 if (item.Position.Distance(tagWP.Position)<100f)
+						 {
+							 //Found matching waypoint object!
+							 return item;
+						 }
+					 }
+				 }
+				 else if (TagType == typeof(UseObjectTag))
+				 {
+					 UseObjectTag tagUseObj = (UseObjectTag)tag;
+					 if (tagUseObj.ActorId>0)
+					 {//Using SNOID..
+						 var Objects = Bot.Game.Profile.InteractableObjectCache.Values.Where(obj => obj.SNOID == tagUseObj.ActorId);
+						 foreach (CacheObject item in Objects.OrderBy(obj => obj.Position.Distance(Bot.Character.Position)))
+						 {
+							 //Found matching object!
+							 return item;
+						 }
+
+					 }else
+					 {//use position to match object
+						 Vector3 tagPosition=tagUseObj.Position;
+						 var Objects = Bot.Game.Profile.InteractableObjectCache.Values.Where(obj => obj.Position.Distance(tagPosition)<=100f);
+						 foreach (CacheObject item in Objects)
+						 {
+							 //Found matching object!
+							 return item;
+						 }
+					 }
+				 }
+				 else if (TagType == typeof(UsePortalTag))
+				 {
+					  UsePortalTag tagUsePortal = (UsePortalTag)tag;
+					  if (tagUsePortal.ActorId > 0)
+					  {//Using SNOID..
+						  var Objects = Bot.Game.Profile.InteractableObjectCache.Values.Where(obj => obj.SNOID == tagUsePortal.ActorId);
+						  foreach (CacheObject item in Objects.OrderBy(obj => obj.Position.Distance(Bot.Character.Position)))
+						  {
+							  //Found matching object!
+							  return item;
+						  }
+
+					  }
+					  else
+					  {//use position to match object
+						  Vector3 tagPosition = tagUsePortal.Position;
+						  var Objects = Bot.Game.Profile.InteractableObjectCache.Values.Where(obj => obj.Position.Distance(tagPosition) <= 100f);
+						  foreach (CacheObject item in Objects.OrderBy(obj => obj.Position.Distance(Bot.Character.Position)))
+						  {
+							  //Found matching object!
+							  return item;
+						  }
+					  }
+				 }
+			 }
+
+			 return null;
 		 }
 
 		 //Common Used Profile Tags that should be considered Out-Of-Combat Behavior.
@@ -81,7 +164,7 @@ namespace FunkyBot.Game
 																	  typeof(Zeta.CommonBot.Profile.Common.UseWaypointTag), 
 																	  typeof(Zeta.CommonBot.Profile.Common.UseObjectTag),
 																	  typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),
-																	  typeof(Zeta.CommonBot.Profile.Common.WaitTimerTag),
+																	  //typeof(Zeta.CommonBot.Profile.Common.WaitTimerTag),
 																	  typeof (FunkyBot.XMLTags.TrinityTownPortal),
 																	};
 

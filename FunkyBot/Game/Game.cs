@@ -73,6 +73,9 @@ namespace FunkyBot.Game
 				//Clear TrinityLoadOnce Used Profiles!
 				FunkyBot.XMLTags.TrinityLoadOnce.UsedProfiles.Clear();
 
+				//Clear Interactable Cache
+				Bot.Game.Profile.InteractableObjectCache.Clear();
+
 				//Clear Health Average
 				ObjectCache.Objects.ClearHealthAverageStats();
 

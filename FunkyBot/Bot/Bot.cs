@@ -27,12 +27,7 @@ namespace FunkyBot
 				public static Settings_Funky Settings=new Settings_Funky();
 				public static Player Class { get; set; }
 
-				private static CharacterCache character=new CharacterCache();
-				public static CharacterCache Character
-				{
-					 get { return character; }
-					 set { character=value; }
-				}
+				public static CharacterCache Character = new CharacterCache();
 			
 				public static TargetingHandler Targeting { get; set; }
 
@@ -68,10 +63,10 @@ namespace FunkyBot
 
 				internal static void Reset()
 				{
-					 Class=null;
-					 character=new CharacterCache();
+					Character = new CharacterCache();
 					 Targeting=new TargetingHandler();
 					 NavigationCache=new Navigation();
+					 Class = null;
 				}
 		  }
 	 

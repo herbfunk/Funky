@@ -354,18 +354,37 @@ namespace FunkyBot.Character
 									 bKeepLooping=false;
 						  }
 					 }
-
+					/*
+					 * 						  lastUpdatedPlayer=DateTime.Today;
+						  lastPreformedNonCombatAction=DateTime.Today;
+						  bIsIncapacitated=false;
+						  bIsRooted=false;
+						  bIsInTown=false;
+						  dcurrentHealthPct=0d;
+						  dCurrentEnergy=0d;
+						  dCurrentEnergyPct=0d;
+						  dDiscipline=0d;
+						  dDisciplinePct=0d;
+						  iMyDynamicID=0;
+						  iMyLevel=1;
+						  BackPack=new Backpack();
+						  PetData=new Pets();
+						  PickupRadius=1;
+						  fCharacterRadius=0f;
+					 */
 					 public string DebugString()
 					 {
 						  return String.Format("Character Info \r\n"+
-																			 "DynamicID={0} -- WorldID={1} \r\n"+
-																			 "SNOAnim={2} AnimState={3} \r\n" +
-																			 "Incapacitated={4} -- Rooted={5} \r\n" +
-																			 "Current Health={6} -- Current Energy={7}",
-																			 Bot.Character.iMyDynamicID.ToString(), Bot.Character.iCurrentWorldID.ToString(),
+																			 "CurrentLevelID={0} -- WorldID={1} -- SceneID={2} \r\n" +
+																			 "SNOAnim={3} AnimState={4} \r\n" +
+																			 "Incapacitated={5} -- Rooted={6} \r\n" +
+																			 "Current Health={7} -- Current Energy={8}[{9}%] \r\n"+
+																		     "Current Coin={10} -- CurrentXP={11}",
+																			 this.iCurrentLevelID, this.iCurrentWorldID, this.iSceneID,
 																			 this.Lastsnoanim.ToString(), this.lastAnimationState.ToString(),
 																			 Bot.Character.bIsIncapacitated.ToString(), Bot.Character.bIsRooted.ToString(),
-																			 Bot.Character.dcurrentHealthPct.ToString(), Bot.Character.dCurrentEnergyPct.ToString());
+																			 this.dCurrentHealthPct,this.dCurrentEnergy,this.dCurrentEnergyPct,
+																			 this.Coinage,this.CurrentExp);
 
 					 }
 				}

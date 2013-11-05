@@ -632,6 +632,10 @@ namespace FunkyBot.Cache
 												this.targetType=TargetType.Barricade;
 										  else if (thisGizmoType==GizmoType.Door)
 												this.targetType=TargetType.Door;
+										  else if(thisGizmoType== GizmoType.Waypoint||thisGizmoType== GizmoType.Portal || thisGizmoType== GizmoType.DungeonStonePortal ||thisGizmoType== GizmoType.BossPortal)
+										  {//Special Interactive Object -- Add to special cache!
+											  this.targetType = TargetType.ServerInteractable;
+										  }
 										  else
 										  {//All other gizmos should be ignored!
 												BlacklistCache.IgnoreThisObject(this, raguid, true, true);
@@ -777,7 +781,7 @@ namespace FunkyBot.Cache
 
 
 					 if (this.Actortype.HasValue&&this.targetType.HasValue&&
-						  (this.Actortype.Value!=ActorType.Item&&this.targetType.Value!=TargetType.Avoidance))
+						  (this.Actortype.Value != ActorType.Item && this.targetType.Value != TargetType.Avoidance && this.targetType.Value != TargetType.ServerInteractable))
 					 {
 						  //Validate sphere info
 						  Sphere sphereInfo=thisObj.CollisionSphere;

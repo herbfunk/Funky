@@ -264,26 +264,37 @@ namespace FunkyBot.Targeting
 					 BlacklistCache.CheckRefreshBlacklists(10);
 		  }
 
+		  private int LastWorldID = -1;
 		  private bool LastLevelIDChangeWasTownRun=false;
 		  private void LevelAreaIDChangeHandler(int ID)
 		  {
 				if (!Zeta.CommonBot.Logic.BrainBehavior.IsVendoring)
 				{
+					//Check for World ID change!
+					if (Bot.Character.iCurrentWorldID!=LastWorldID)
+					{
+						if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
+							Logger.Write(LogLevel.OutOfCombat, "World ID changed.. clearing Profile Interactable Cache.");
+						LastWorldID = Bot.Character.iCurrentWorldID;
+						Bot.Game.Profile.InteractableObjectCache.Clear();
+						Navigator.SearchGridProvider.Update();
+					}
+
 					 if (!LastLevelIDChangeWasTownRun)
 					 {//Do full clear..
 						  //Reset Playermover Backtrack Positions
 						  BackTrackCache.cacheMovementGPRs.Clear();
-
-						  //Reset Skip Ahead Cache
-						  SkipAheadCache.ClearCache();
-
 						  Bot.NavigationCache.LOSBlacklistedRAGUIDs.Clear();
+						  Bot.Game.Profile.InteractableCachedObject = null;
 					 }
 
 					 //Clear the object cache!
 					 ObjectCache.Objects.Clear();
 					 ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
 					 RemovalCheck=false;
+
+					 //Reset Skip Ahead Cache
+					 SkipAheadCache.ClearCache();
 
 					 Bot.Character.UpdateCoinage = true;
 

@@ -12,6 +12,7 @@ namespace FunkyBot.Game
         //Current profile being used
         public static TrackedProfile CurrentTrackingProfile = new TrackedProfile("null");
 
+		public int TotalGold { get; set; }
 		public int TotalXP { get; set; }
         public int GameCount { get; set; }
         public int TotalDeaths { get; set; }
@@ -24,6 +25,7 @@ namespace FunkyBot.Game
 
         public TotalStats()
         {
+			TotalGold = 0;
 			TotalXP = 0;
             GameCount = 0;
             TotalDeaths = 0;
@@ -76,6 +78,7 @@ namespace FunkyBot.Game
             {
                 foreach (var item in ProfilesTracked)
                 {
+					this.TotalGold += item.TotalGold;
 					this.TotalXP += item.TotalXP;
                     this.TotalDeaths += item.DeathCount;
                     this.TotalTimeRunning = this.TotalTimeRunning.Add(item.TotalTimeSpan);

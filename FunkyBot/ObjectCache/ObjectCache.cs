@@ -198,6 +198,18 @@ namespace FunkyBot.Cache
 						  }
 						  #endregion
 
+						 //Special Cache for Interactable Server Objects
+						 if (CheckTargetTypeFlag(tmp_CachedObj.targetType.Value, TargetType.ServerInteractable))
+						 {
+							 if (!Bot.Game.Profile.InteractableObjectCache.ContainsKey(tmp_CachedObj.RAGUID))
+							 {
+								 Bot.Game.Profile.InteractableObjectCache.Add(tmp_CachedObj.RAGUID, tmp_CachedObj);
+							 }
+
+							 //Do not add to main cache!
+							 continue;
+						 }
+
 						  //Objects with static positions already cached don't need to be updated here.
 						  if (!tmp_CachedObj.NeedsUpdate) continue;
 
