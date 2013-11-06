@@ -9,6 +9,14 @@ using FunkyBot.Game;
 
 namespace FunkyBot.Game
 {
+	public enum LootStatTypes
+	{
+		Looted,
+		Stashed,
+		Salvaged,
+		Vendored,
+		Dropped
+	}
     public class LootStats
     {
         public int Looted { get; set; }
@@ -36,8 +44,8 @@ namespace FunkyBot.Game
         }
 
         public override string ToString()
-        {
-            return String.Format("Dropped {0} / Looted {1} / Stashed {2} / Vendored {3} / Salvaged {4}", 
+		{
+			return String.Format("{0} \t {1} \t {2} \t {3} \t {4}", 
                 this.Dropped, this.Looted, this.Stashed, this.Vendored, this.Salvaged);
         }
     }
@@ -69,6 +77,25 @@ namespace FunkyBot.Game
             Crafting.Merge(other.Crafting);
             Keys.Merge(other.Keys);
         }
+
+		public int GetTotalLootStatCount(LootStatTypes statType)
+		{
+			switch (statType)
+			{
+				case LootStatTypes.Looted:
+					return this.Magical.Looted + this.Rare.Looted + this.Legendary.Looted + this.Crafting.Looted + this.Keys.Looted + this.Gems.Looted;
+				case LootStatTypes.Stashed:
+					return this.Magical.Stashed + this.Rare.Stashed + this.Legendary.Stashed + this.Crafting.Stashed + this.Keys.Stashed + this.Gems.Stashed;
+				case LootStatTypes.Salvaged:
+					return this.Magical.Salvaged + this.Rare.Salvaged + this.Legendary.Salvaged + this.Crafting.Salvaged + this.Keys.Salvaged + this.Gems.Salvaged;
+				case LootStatTypes.Vendored:
+					return this.Magical.Vendored + this.Rare.Vendored + this.Legendary.Vendored + this.Crafting.Vendored + this.Keys.Vendored + this.Gems.Vendored;
+				case LootStatTypes.Dropped:
+					return this.Magical.Dropped + this.Rare.Dropped + this.Legendary.Dropped + this.Crafting.Dropped + this.Keys.Dropped + this.Gems.Dropped;
+			}
+
+			return 0;
+		}
 
         public void LootedItemLog(GilesItemType thisgilesitemtype, GilesBaseItemType thisgilesbasetype, ItemQuality itemQuality)
         {
@@ -382,7 +409,8 @@ namespace FunkyBot.Game
 
         public override string ToString()
         {
-            return String.Format("Magical:    \t {0} \r\n" +
+			return String.Format("Type       \t Drop \t Loot \t Stash \t Sold \t Salvaged\r\n" +
+								 "Magical:    \t {0} \r\n" +
                                  "Rare:      \t {1} \r\n" +
                                  "Legendary: \t {2} \r\n" +
                                  "Gems:      \t {3} \r\n" +

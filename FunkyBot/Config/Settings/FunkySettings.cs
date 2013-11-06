@@ -122,6 +122,8 @@ namespace FunkyBot.Settings
 
                  //Range Class
                  public int GoblinMinimumRange { get; set; }
+				 //Combat All Class
+				 public bool AllowDefaultAttackAlways { get; set; }
 
                  public ClassSettings()
                  {
@@ -143,6 +145,7 @@ namespace FunkyBot.Settings
                      bWaitForArchon = false;
                      bKiteOnlyArchon = true;
                      GoblinMinimumRange = 40;
+					 AllowDefaultAttackAlways = false;
                  }
              }
 

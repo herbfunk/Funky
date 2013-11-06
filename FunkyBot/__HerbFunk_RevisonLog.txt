@@ -1,4 +1,18 @@
 ﻿// herbfunk revisions
+v2.6.3.0
+
+-Reverted back to old TrinityMoveTo.
+-Added cache for tracking server interactable objects such as portals.
+-Interactive Behavior Tags such as UseObject will now attempt to move to the object using the cache.
+
+Witch Doctor:
+-Updated Sacrifice to use every 27 seconds or whenever zombie dogs is castable.
+-Horrify with Armor Buff rune will now maintain it when able.
+
+Abilities:
+-Added Setting Allow Default Attack Always -- this will ignore the fact that it shouldn't use default attack.
+
+
 v2.6.2.3
 
 Profile Stats:

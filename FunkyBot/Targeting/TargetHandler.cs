@@ -418,10 +418,10 @@ namespace FunkyBot.Targeting
 						  Ability nextAbility=Bot.Class.AbilitySelector(CurrentUnitTarget);
 
 						  // Did we get default attack?
-						  if (nextAbility.Equals(Bot.Class.DefaultAttack)&&!Bot.Class.CanUseDefaultAttack)
-						  {
+						  if (nextAbility.Equals(Bot.Class.DefaultAttack)&&!Bot.Class.CanUseDefaultAttack&&!Bot.Settings.Class.AllowDefaultAttackAlways)
+						  {//TODO:: Fix issue when nothing keeps returning (possibly due to bad ability setup)
 								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Ability))
-									 Logger.Write(LogLevel.Ability, "Failed to find a valid Ability to use -- Target: {0}", Bot.Targeting.CurrentTarget.InternalName);
+									 Logger.Write(LogLevel.Ability, "Default Attack not usable -- Failed to find a valid Ability to use -- Target: {0}", Bot.Targeting.CurrentTarget.InternalName);
 								Bot.Targeting.bForceTargetUpdate=true;
 								CurrentState=RunStatus.Running;
 								CurrentTarget.BlacklistLoops=10;

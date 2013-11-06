@@ -86,6 +86,10 @@ namespace FunkyBot
 		  {
 				Bot.Settings.Targeting.MissleDampeningEnforceCloseRange=!Bot.Settings.Targeting.MissleDampeningEnforceCloseRange;
 		  }
+		  private void AllowDefaultAttackAlwaysChecked(object sender, EventArgs e)
+		  {
+			  Bot.Settings.Class.AllowDefaultAttackAlways = !Bot.Settings.Class.AllowDefaultAttackAlways;
+		  }
 		  private void PrioritizeCloseRangeUnitsChecked(object sender, EventArgs e)
 		  {
 				Bot.Settings.Targeting.PrioritizeCloseRangeUnits=!Bot.Settings.Targeting.PrioritizeCloseRangeUnits;

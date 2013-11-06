@@ -64,7 +64,7 @@ namespace FunkyBot.Game
 					Logger.Write(LogLevel.OutOfCombat, "New Game Started");
 				}
 
-				//Update our Profile Tracking of Stats
+				//Update our Profile Tracking Stats (records last game)
 				this.TrackingStats.GameChanged();
 
 				//Update Account Details

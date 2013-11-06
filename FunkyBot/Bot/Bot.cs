@@ -22,18 +22,13 @@ namespace FunkyBot
 
 		  //This class is used to hold the data
 
-		  public static partial class Bot
+		  public static class Bot
 		  {
 				public static Settings_Funky Settings=new Settings_Funky();
 				public static Player Class { get; set; }
-
 				public static CharacterCache Character = new CharacterCache();
-			
 				public static TargetingHandler Targeting { get; set; }
 
-                ///<summary>
-                ///
-                ///</summary>
 				public static GameCache Game = new GameCache();
 
 				public static Navigation NavigationCache { get; set; }
@@ -56,17 +51,12 @@ namespace FunkyBot
 					 }
 				}
 
-
-
-
-
-
 				internal static void Reset()
 				{
 					Character = new CharacterCache();
-					 Targeting=new TargetingHandler();
-					 NavigationCache=new Navigation();
-					 Class = null;
+					Targeting = new TargetingHandler();
+					NavigationCache = new Navigation();
+					Class = null;
 				}
 		  }
 	 

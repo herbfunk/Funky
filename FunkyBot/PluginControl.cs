@@ -74,9 +74,6 @@ namespace FunkyBot
 			  //clear obstacles
 			  ObjectCache.Obstacles.Clear();
 			  ObjectCache.Objects.Clear();
-
-			  //Bot.NavigationCache.UpdateSearchGridProvider();
-
 			  DumpedDeathInfo = false;
 		  }
 		  public static void ResetGame()

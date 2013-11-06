@@ -24,6 +24,10 @@ namespace FunkyBot
 					 return false;
 				}
 
+			  //check if we initialized the bot..
+				if (Bot.Class == null)
+					Player.CreateBotClass();
+
 				//Seconday Hotbar Check
 				Bot.Class.SecondaryHotbarBuffPresent();
 

@@ -283,8 +283,18 @@ namespace FunkyBot
 					 cbMissleDampeningCloseRange.Checked+=MissileDampeningChecked;
 					 cbMissleDampeningCloseRange.Unchecked+=MissileDampeningChecked;
 					 LBClass.Items.Add(cbMissleDampeningCloseRange);
-
 				}
+
+				CheckBox cbAllowDefaultAttackAlways = new CheckBox
+				{
+					Content = "Allow Default Attack Always",
+					IsChecked = Bot.Settings.Class.AllowDefaultAttackAlways,
+				};
+				cbAllowDefaultAttackAlways.Checked += AllowDefaultAttackAlwaysChecked;
+				cbAllowDefaultAttackAlways.Unchecked += AllowDefaultAttackAlwaysChecked;
+				LBClass.Items.Add(cbAllowDefaultAttackAlways);
+
+
 				ClassTabItem.Content=LBClass;
 		  }
 	}
