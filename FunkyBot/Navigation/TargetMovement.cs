@@ -406,6 +406,7 @@ namespace FunkyBot.Movement
 		internal void RestartTracking()
 		{
 			Bot.Character.OnPositionChanged += this.positionChangedHandler;
+			lastPositionChange = DateTime.Now;
 		}
 		internal void ResetTargetMovementVars()
 		{

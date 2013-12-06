@@ -1388,7 +1388,7 @@ namespace FunkyBot.Cache
 
 						  //Check health changes -- only when single target or cluster with targeting is used.
 						  if (Bot.Targeting.LastCachedTarget.Equals(this)&&
-								Bot.Class.LastUsedAbility.LastUsedMilliseconds<1000&&
+								DateTime.Now.Subtract(Bot.Class.LastUsedACombatAbility).TotalMilliseconds<2500&&
 								DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalMilliseconds>3000)
 						  {
 								double LastHealthChangedMS=DateTime.Now.Subtract(this.LastHealthChange).TotalMilliseconds;
