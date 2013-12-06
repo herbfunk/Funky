@@ -112,7 +112,7 @@ namespace FunkyBot.Movement
 									 {
 
 										  //Monsters should add 10% of its weight
-										  if (item.Obstacletype.HasValue&&item.Obstacletype.Value==ObstacleType.Monster)
+										  if (item.Obstacletype.Value==ObstacleType.Monster)
 										  {
 												continue;
 										  //	 if (!UsedRAGUIDs.Contains(item.RAGUID))
@@ -137,6 +137,11 @@ namespace FunkyBot.Movement
 										  //		  monstercount++;
 										  //		  UsedRAGUIDs.Add(item.RAGUID);
 										  //	 }
+										  }
+										  else if(item.Obstacletype.Value == ObstacleType.ServerObject)
+										  {
+											  //give +1 to weight
+											  this.ThisWeight++;
 										  }
 									 }
 									 else if (item is CacheAvoidance)

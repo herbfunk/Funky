@@ -197,6 +197,10 @@ namespace FunkyBot
 
 				GeneralTab.Content=lbGeneralContent;
 
+
+				InitBacktrackingControls();
+
+
 				#region Demonbuddy
 				TabItem DemonbuddyTab=new TabItem();
 				DemonbuddyTab.Header="DemonBuddy";
