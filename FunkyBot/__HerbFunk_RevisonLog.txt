@@ -1,4 +1,13 @@
 ﻿// herbfunk revisions
+v2.6.4.0
+
+-Added Position Changed Event to Character Class. (Target Movement Subscribes)
+-TargetMovement Class is no longer static -- added property TargetMover into Targeting Class.
+-Added Backtracking Settings
+	*Where combat began,
+	*Items not looted yet will be added to LOS movement list.
+	*Settings can be changed via Character Settings File.
+
 v2.6.3.0
 
 -Reverted back to old TrinityMoveTo.

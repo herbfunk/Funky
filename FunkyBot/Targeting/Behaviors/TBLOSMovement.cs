@@ -32,7 +32,9 @@ namespace FunkyBot.Targeting.Behaviors
 				get
 				{
 					 //Check objects added for LOS movement
-					 return Bot.Settings.LOSMovement.EnableLOSMovementBehavior&&!Bot.IsInNonCombatBehavior&&(Bot.Targeting.Environment.LoSMovementObjects.Count>0||Bot.NavigationCache.LOSmovementObject!=null);
+					 return Bot.Settings.LOSMovement.EnableLOSMovementBehavior&&
+						 !Bot.IsInNonCombatBehavior&&
+						 (Bot.Targeting.Environment.LoSMovementObjects.Count>0||Bot.NavigationCache.LOSmovementObject!=null);
 				}
 		  }
 
@@ -44,11 +46,11 @@ namespace FunkyBot.Targeting.Behaviors
 					 {
 						  if (Bot.NavigationCache.LOSmovementObject!=null&&
                               (Bot.NavigationCache.LOSmovementObject.CentreDistance<50f&&!Bot.NavigationCache.LOSmovementObject.IsStillValid()))
-						  {//Invalidated the Line of sight Unit!
+						  {//Invalidated the Line of sight obj!
 
 								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								{
-									 Logger.Write(LogLevel.Movement, "LOS Unit is No Longer Valid -- Reseting.");
+									 Logger.Write(LogLevel.Movement, "LOS Object is No Longer Valid -- Reseting.");
 								}
 
 								Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(Bot.NavigationCache.LOSmovementObject.RAGUID);
@@ -75,7 +77,7 @@ namespace FunkyBot.Targeting.Behaviors
 
 									 Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(cobj.RAGUID);
 
-									 //Set the unit as our Line of Sight Unit
+									 //Set the object
 									 Bot.NavigationCache.LOSmovementObject=cobj;
 									 break;
 								}

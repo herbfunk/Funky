@@ -47,9 +47,11 @@ namespace FunkyBot
 					 // We have a target, start the target handler!
 					 if (Bot.Targeting.CurrentTarget!=null)
 					 {
+						  Bot.Targeting.TargetMover.RestartTracking();
 						  Bot.Targeting.bWholeNewTarget=true;
 						  Bot.Targeting.DontMove=true;
 						  Bot.Targeting.bPickNewAbilities=true;
+						  //Bot.Targeting.StartingLocation = Bot.Character.Position;
 						  return true;
 					 }
 				}

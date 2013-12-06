@@ -87,10 +87,14 @@ namespace FunkyBot.Targeting.Behaviors
 						  }
 
 						  //Check if we engaged in combat..
-						  if (Bot.Targeting.LastCachedTarget != ObjectCache.FakeCacheObject)
+						  bool EngagedInCombat = false;
+						 float distanceFromStart=0f;
+						 if (Bot.Targeting.LastCachedTarget != ObjectCache.FakeCacheObject && !Bot.Targeting.Backtracking && Bot.Targeting.StartingLocation!= Vector3.Zero)
 						  {
+							  EngagedInCombat = true;
+							  distanceFromStart=Bot.Character.Position.Distance(Bot.Targeting.StartingLocation);
 							  //lets see how far we are from our starting location.
-							  if (Bot.Character.Position.Distance(Bot.Targeting.StartingLocation) > 20f &&
+							  if (distanceFromStart > 20f &&
 									!Navigation.CanRayCast(Bot.Character.Position, Funky.PlayerMover.vLastMoveTo, UseSearchGridProvider: true))
 							  {
 								  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
@@ -98,7 +102,7 @@ namespace FunkyBot.Targeting.Behaviors
 
 								  SkipAheadCache.ClearCache();
 								  Navigator.Clear();
-								  Navigator.MoveTo(Funky.PlayerMover.vLastMoveTo, "original destination", true);
+								  //Navigator.MoveTo(Funky.PlayerMover.vLastMoveTo, "original destination", true);
 							  }
 						  }
 
@@ -107,28 +111,20 @@ namespace FunkyBot.Targeting.Behaviors
                                   && Navigation.NP.CurrentPath.Count > 0
                                   && Bot.Targeting.Environment.TriggeringAvoidances.Count == 0)
                           {
-                              //Vector3 curpos=Bot.Character.Position;
-                              //IndexedList<Vector3> curpath=Navigation.NP.CurrentPath;
-
-                              //var CurrentNearbyPath=curpath.Where(v => curpos.Distance(v)<=40f);
-                              //if (CurrentNearbyPath!=null&&CurrentNearbyPath.Any())
-                              //{
-                              //Vector3 lastV3=Vector3.Zero;
-                              //foreach (var item in CurrentNearbyPath.OrderBy(v => curpath.IndexOf(v)))
-                              //{
-                              //if (lastV3==Vector3.Zero)
-                              //lastV3=curpos;
-
                               if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(Bot.Character.Position, Navigation.NP.CurrentPath.Current))
                               {
                                   obj = new CacheObject(Bot.Character.Position, TargetType.NoMovement, 20000, "AvoidanceIntersection", 2.5f, -1);
                                   return true;
                               }
-
-                              //lastV3=item;
-                              //}
-                              //}
                           }
+
+						 //Backtracking Check..
+						 if(EngagedInCombat && Bot.Settings.Backtracking.EnableBacktracking && distanceFromStart>=Bot.Settings.Backtracking.MinimumDistanceFromStart)
+						 {
+							 Bot.Targeting.Backtracking = true;
+							 obj = new CacheObject(Bot.Targeting.StartingLocation, TargetType.Backtrack, 20000, "Backtracking", 2.5f);
+							 return true;
+						 }
 					 }
 
 					 return obj!=null;

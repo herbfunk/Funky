@@ -231,12 +231,16 @@ namespace FunkyBot.AbilityFunky
 				this.LastUsed=DateTime.Now;
 				PowerCacheLookup.lastGlobalCooldownUse=DateTime.Now;
 
+			    //Chart our starting combat location.. 
+				if (Bot.Settings.Backtracking.EnableBacktracking && Bot.Settings.Backtracking.TrackStartOfCombatEngagment && Bot.Targeting.StartingLocation.Equals(Vector3.Zero))
+					Bot.Targeting.StartingLocation = Bot.Character.Position;
+
 				if (this.ExecutionType.HasFlag(AbilityExecuteFlags.ZigZagPathing))
 				{
 					 //Reset Blockcounter --
-					 TargetMovement.BlockedMovementCounter=0;
-					 TargetMovement.NonMovementCounter=0;
-					 TargetMovement.LastMovementDuringCombat=DateTime.Now;
+					Bot.Targeting.TargetMover.BlockedMovementCounter = 0;
+					Bot.Targeting.TargetMover.NonMovementCounter = 0;
+					Bot.Targeting.TargetMover.LastMovementDuringCombat = DateTime.Now;
 				}
 
 				//Disable Reordering for Channeling Abilities!

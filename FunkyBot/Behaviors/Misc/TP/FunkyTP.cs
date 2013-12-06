@@ -220,6 +220,8 @@ namespace FunkyBot
 				//Note: Refresh will filter targets to units and avoidance ONLY.
 				if (Bot.Targeting.CurrentTarget!=null)
 				{
+					Bot.Targeting.TargetMover.RestartTracking();
+
 					 //Directly Handle Target..
 					 RunStatus targetHandler=Bot.Targeting.HandleThis();
 
@@ -229,8 +231,10 @@ namespace FunkyBot
 						  ResetTPBehavior();
 						  return RunStatus.Success;
 					 }
-					 else if (targetHandler==RunStatus.Success)
-						  Bot.Targeting.ResetTargetHandling();
+					 else if (targetHandler == RunStatus.Success)
+					 {
+						 Bot.Targeting.ResetTargetHandling();
+					 }
 
 					 return RunStatus.Running;
 				}

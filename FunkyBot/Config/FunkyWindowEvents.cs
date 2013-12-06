@@ -272,7 +272,7 @@ namespace FunkyBot
                  {
 							try
 							{
-								 Logging.Write("TargetMovement: BlockedCounter{0} -- NonMovementCounter{1}", TargetMovement.BlockedMovementCounter, TargetMovement.NonMovementCounter);
+								Logging.Write("TargetMovement: BlockedCounter{0} -- NonMovementCounter{1}", Bot.Targeting.TargetMover.BlockedMovementCounter, Bot.Targeting.TargetMover.NonMovementCounter);
 							} catch 
 							{
 								 

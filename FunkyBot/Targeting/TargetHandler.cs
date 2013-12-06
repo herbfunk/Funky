@@ -174,6 +174,9 @@ namespace FunkyBot.Targeting
 						  Bot.Targeting.recheckCount=0;
 						  Bot.Targeting.ShouldCheckItemLooted=false;
 						  Bot.Targeting.bForceTargetUpdate=true;
+
+						 //Remove..
+						  CurrentTarget.NeedsRemoved = true;
 					 }
 					 else
 					 {
@@ -329,7 +332,7 @@ namespace FunkyBot.Targeting
 
 						  // Been trying to handle the same target for more than 30 seconds without damaging/reaching it? Blacklist it!
 						  // Note: The time since target picked updates every time the current target loses health, if it's a monster-target
-						  if (!ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value,TargetType.AvoidanceMovements| TargetType.NoMovement| TargetType.LineOfSight)
+						  if (!ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value,TargetType.AvoidanceMovements| TargetType.NoMovement| TargetType.LineOfSight | TargetType.Backtrack)
 								&&((CurrentTarget.targetType.Value!=TargetType.Unit&&DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalSeconds>12)
 								||(CurrentTarget.targetType.Value==TargetType.Unit&&!CurrentTarget.IsBoss&&DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalSeconds>40)))
 						  {
@@ -359,7 +362,7 @@ namespace FunkyBot.Targeting
 						  // Make sure we start trying to move again should we need to!
 						  Bot.Targeting.bPickNewAbilities=true;
 
-						  TargetMovement.NewTargetResetVars();
+						  Bot.Targeting.TargetMover.NewTargetResetVars();
 					 }
 					 // Ok we didn't want a new target list, should we at least update the position of the current target, if it's a monster?
 					 else if (CurrentTarget.targetType.Value==TargetType.Unit&&CurrentTarget.IsStillValid())
@@ -381,19 +384,16 @@ namespace FunkyBot.Targeting
 				}
 
 
-                //Make sure we are not incapacitated..
-              if (Bot.Character.bIsIncapacitated)
-              {
-                  CurrentState = RunStatus.Running;
-                  return false;
-              }
+				//Make sure we are not incapacitated..
+				if (Bot.Character.bIsIncapacitated)
+				{
+					CurrentState = RunStatus.Running;
+					return false;
+				}
 
 				//We are ready for the specific object type interaction
 				return true;
 		  }
-
-         //TODO:: Add wait during Incapitated!
-
 		  public virtual bool CombatLogic()
 		  {
 				//Check if we can cast any combat buff-type abilities while channeling
@@ -478,30 +478,51 @@ namespace FunkyBot.Targeting
 
 		  public virtual bool Movement()
 		  {
+			  //Set the target location for the Target Movement class..
+			  Bot.Targeting.TargetMover.CurrentTargetLocation = CurrentTarget.Position;
 
-				if (CurrentTarget.targetType.Value==TargetType.LineOfSight)
+
+			  //Instead of using target position we use the navigator pathing as CurrentTargetLocation
+			  if (ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value , TargetType.LineOfSight| TargetType.Backtrack))
 				{
 					//Since we only update our path during target refresh.. we should check if we are within range already!
 					 if (Navigation.NP.CurrentPath.Count>0&&Bot.Character.Position.Distance(Navigation.NP.CurrentPath.Current)<=Navigation.NP.PathPrecision)
 						  Navigation.NP.MoveTo(CurrentTarget.Position, "LineOfSightMoveTo", true);
 
-					 if (Navigation.NP.CurrentPath.Count==0)
+					//No more points to navigate..
+					 if (Navigation.NP.CurrentPath.Count == 0)
 					 {
-						  Bot.NavigationCache.LOSVector=Vector3.Zero;
-						  Bot.NavigationCache.LOSmovementObject=null;
-						  this.bForceTargetUpdate=true;
-						  return false;
+						 if (CurrentTarget.targetType.Value == TargetType.LineOfSight)
+						 {
+							 Bot.NavigationCache.LOSVector = Vector3.Zero;
+							 Bot.NavigationCache.LOSmovementObject = null;
+							 this.bForceTargetUpdate = true;
+							 return false;
+						 }
+						 else
+						 {
+							 //Ending backtracking behavior!
+							 this.Backtracking = false;
+							 this.StartingLocation = Vector3.Zero;
+							 this.bForceTargetUpdate = true;
+							 return false;
+						 }
+					 }
+					 else
+					 {
+						 //Set target movement location to navigation current 
+						 Bot.Targeting.TargetMover.CurrentTargetLocation = Navigation.NP.CurrentPath.Current;
 					 }
 				}
 
-				TargetMovement.CurrentTargetLocation=CurrentTarget.Position;
+				
 
 				//Check if we are in range for interaction..
 				if (CurrentTarget.WithinInteractionRange())
 					 return true;
 				else
 				{//Movement required..
-					 CurrentState=TargetMovement.TargetMoveTo(CurrentTarget);
+					CurrentState = Bot.Targeting.TargetMover.TargetMoveTo(CurrentTarget);
 					 return false;
 				}
 		  }
@@ -577,6 +598,7 @@ namespace FunkyBot.Targeting
 					 case TargetType.AvoidanceMovements:
 						  CurrentState=RunStatus.Running;
 						  break;
+					 case TargetType.Backtrack:
 					 case TargetType.NoMovement:
 					 case TargetType.LineOfSight:
 						  CurrentState=RunStatus.Running;

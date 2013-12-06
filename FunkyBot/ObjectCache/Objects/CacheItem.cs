@@ -293,6 +293,12 @@ namespace FunkyBot.Cache
 									 this.BlacklistFlag=BlacklistType.Temporary;
 									 return false;
 								}
+								else
+								{
+									//reset loops unseen (regardless.. since we want to loot it!)
+									if (Bot.Settings.Backtracking.TrackLootableItems)
+										this.LoopsUnseen = 0;
+								}
 
 								//Attempted to loot previously but failed due to inventory full.
 								if (Bot.IsInNonCombatBehavior&&Funky.TownRunManager.bFailedToLootLastItem) return false;
@@ -308,9 +314,14 @@ namespace FunkyBot.Cache
 
 								float centredistance=this.CentreDistance;
 
-								if (centredistance>lootDistance) 
-									 return false;
+								if (centredistance > lootDistance)
+								{
+									//Add to LOS Movement..
+									if (Bot.Settings.Backtracking.TrackLootableItems)
+										Bot.Targeting.Environment.LoSMovementObjects.Add(this);
 
+									return false;
+								}
 
 								//Check if we require LOS
 								if (this.RequiresLOSCheck)

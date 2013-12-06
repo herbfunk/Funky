@@ -20,6 +20,7 @@ namespace FunkyBot.Targeting
 			  new TBUpdateTarget(), 
 			  new TBGrouping(), 
 			  new TBLOSMovement(),
+			  new TBBacktrack(),
 			  new TBEnd(),
 		  };
 		 internal TargetBehavioralTypes lastBehavioralType=TargetBehavioralTypes.None;
@@ -48,6 +49,7 @@ namespace FunkyBot.Targeting
 			  if (Bot.Settings.Ranges.IgnoreLootRange) iCurrentMaxLootRadius=10;
 		 }
 		 internal bool bPrioritizeCloseRangeUnits { get; set; }
+		 internal bool Backtracking { get; set; }
 		 internal bool DontMove { get; set; }
 		 // A flag to indicate whether we have a new target from the overlord (decorator) or not, in which case don't refresh targets again this first loop
 		 internal bool bWholeNewTarget { get; set; }
@@ -67,19 +69,22 @@ namespace FunkyBot.Targeting
 		 internal bool ShouldCheckItemLooted { get; set; }
 		 internal int recheckCount { get; set; }
 		 internal bool reCheckedFinished { get; set; }
+
+		 private TargetMovement targetmover = new TargetMovement();
+		 internal TargetMovement TargetMover { get { return targetmover; } }
 		 internal void ResetTargetHandling()
 		 {
 			  this.CurrentTarget=null;
 
-			  TargetMovement.ResetTargetMovementVars();
-
+			  targetmover.ResetTargetMovementVars();
+			  StartingLocation = Vector3.Zero;
 			  bWaitingForPower=false;
 			  bWaitingAfterPower=false;
 			  bWaitingForPotion=false;
 			  bWasRootedLastTick=false;
 			  recheckCount=0;
 			  reCheckedFinished=false;
-
+			  Backtracking = false;
 		 }
 		 //Avoidance Related
 		 internal bool RequiresAvoidance { get; set; }

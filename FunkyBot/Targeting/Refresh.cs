@@ -64,7 +64,7 @@ namespace FunkyBot.Targeting
 						  this.lastHadEliteUnitInSights=DateTime.Now;
 				}
 
-				TargetMovement.NewTargetResetVars();
+				Bot.Targeting.TargetMover.NewTargetResetVars();
 				Bot.Targeting.bWholeNewTarget=true;
 				Bot.Targeting.bPickNewAbilities=true;
 
@@ -138,9 +138,9 @@ namespace FunkyBot.Targeting
 				if (Bot.Targeting.RequiresAvoidance)
 				{
 					 if (!this.AvoidanceLastTarget&&
-						  DateTime.Now.Subtract(TargetMovement.LastMovementAttempted).TotalMilliseconds<300&&//We are moving..? 
-						  !ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TargetMovement.CurrentTargetLocation)&&
-						  !ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(Bot.Character.Position, TargetMovement.CurrentTargetLocation)) 
+						  DateTime.Now.Subtract(Bot.Targeting.TargetMover.LastMovementAttempted).TotalMilliseconds < 300 &&//We are moving..? 
+						  !ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(Bot.Targeting.TargetMover.CurrentTargetLocation) &&
+						  !ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(Bot.Character.Position, Bot.Targeting.TargetMover.CurrentTargetLocation)) 
 					 {
 						  this.RequiresAvoidance=false;
 					 }
@@ -165,15 +165,6 @@ namespace FunkyBot.Targeting
 					 Bot.NavigationCache.PrioritizedRAGUIDs.Clear();
 					 return;
 				}
-
-				//Store starting location
-				if (this.StartingLocation==Vector3.Zero)
-				{
-					 this.StartingLocation=Bot.Character.Position;
-				}
-
-
-
 		  }
 
 		  ///<summary>

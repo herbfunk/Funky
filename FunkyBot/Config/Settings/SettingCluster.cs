@@ -10,6 +10,7 @@ namespace FunkyBot.Settings
 		public bool EnableClusteringTargetLogic { get; set; }
 		public bool IgnoreClusteringWhenLowHP { get; set; }
 		public double IgnoreClusterLowHPValue { get; set; }
+		public float ClusterMaxDistance { get; set; }
 
 		public SettingCluster(bool enabled=true)
 		{
@@ -18,6 +19,7 @@ namespace FunkyBot.Settings
 			ClusterDistance=7d;
 			ClusterMinimumUnitCount=3;
 			IgnoreClusterLowHPValue=0.55d;
+			ClusterMaxDistance = 100;
 		}
 		public SettingCluster()
 		{
@@ -26,6 +28,7 @@ namespace FunkyBot.Settings
 			ClusterDistance=10d;
 			ClusterMinimumUnitCount=2;
 			IgnoreClusterLowHPValue=0.55d;
+			ClusterMaxDistance = 100;
 		}
 
 		private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Clustering_Default.xml");

@@ -16,6 +16,7 @@ namespace FunkyBot.Settings
 				 public SettingTargeting Targeting { get; set; }
 				 public SettingCombat Combat { get; set; }
 				 public SettingAvoidance Avoidance { get; set; }
+				 public SettingBacktrack Backtracking { get; set; }
 
             
              public bool BuyPotionsDuringTownRun { get; set; }
@@ -78,16 +79,17 @@ namespace FunkyBot.Settings
 					  Avoidance=new SettingAvoidance();
                       LOSMovement = new SettingLOSMovement();
 					  Plugin=new SettingPlugin();
-					 
+					  Backtracking = new SettingBacktrack();
 
-                 BuyPotionsDuringTownRun = false;
-					  EnableWaitAfterContainers=false;
 
-                 AfterCombatDelay = 500;
-                 OutOfCombatMovement = false;
-					  AllowBuffingInTown=false;
+					  BuyPotionsDuringTownRun = false;
+					  EnableWaitAfterContainers = false;
 
-                 Class = new ClassSettings();
+					  AfterCombatDelay = 500;
+					  OutOfCombatMovement = false;
+					  AllowBuffingInTown = false;
+
+					  Class = new ClassSettings();
              }
 
 				 //TODO:: Create Abstract Base Class and Derieved Classes for each D3 Class.

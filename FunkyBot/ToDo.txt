@@ -1,3 +1,7 @@
-﻿Melee Line of Sight check against Hovering Units (should check distance before allowing)
+﻿Backtracking:
+	-Either simple return to start of combat location ,
+		-or a queue of multiple locations.
 
-Profile Recycle should be setup to either end game or restart profile.
+	-Queues: Track CacheItems removed that had ShouldLoot flagged.
+			 
+	

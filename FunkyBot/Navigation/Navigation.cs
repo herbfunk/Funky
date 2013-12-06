@@ -24,6 +24,7 @@ namespace FunkyBot.Movement
 		  {
 				public Navigation() { }
 
+
 				#region Bot (Character) Properties
 				private bool isMoving=false;
 				///<summary>
@@ -657,7 +658,7 @@ namespace FunkyBot.Movement
 					 {
 						  this.RefreshMovementCache();
 
-						  if (!this.IsMoving||this.currentMovementState.Equals(MovementState.WalkingInPlace)||this.currentMovementState.Equals(MovementState.None)||TargetMovement.BlockedMovementCounter>0)
+						  if (!this.IsMoving || this.currentMovementState.Equals(MovementState.WalkingInPlace) || this.currentMovementState.Equals(MovementState.None) || Bot.Targeting.TargetMover.BlockedMovementCounter > 0)
 						  {
 								LastObstacleIntersectionTest=DateTime.Now;
 

@@ -63,7 +63,18 @@ namespace FunkyBot.Character
 						 if (OnHealthChanged != null)
 							 this.OnHealthChanged(oldvalue, newvalue);
 					 }
-					 
+
+					 public delegate void PositionChanged(Vector3 NewPosition);
+					 public event PositionChanged OnPositionChanged;
+					 private void positionChangedHandler(Vector3 position)
+					 {
+						 //update reference
+						 this.currentPosition = position;
+
+						 //raise event
+						 if (OnPositionChanged != null)
+							 this.OnPositionChanged(position);
+					 }
 					 #endregion
 
 					 private DateTime lastUpdatedPlayer { get; set; }
@@ -133,29 +144,35 @@ namespace FunkyBot.Character
 
 					 //Returns Live Data
 					 private DateTime lastPositionUpdate=DateTime.Today;
-					 private Vector3 lastPosition=Vector3.Zero;
+					 private Vector3 currentPosition=Vector3.Zero;
 					 public Vector3 Position
 					 {
 						  get
 						  {
 								//Because we don't want to update this X amount of times in a single loop!
 								if (DateTime.Now.Subtract(lastPositionUpdate).TotalMilliseconds<150)
-									 return lastPosition;
+									 return currentPosition;
 
 								lastPositionUpdate=DateTime.Now;
+								Vector3 updatedPosition = currentPosition;
 								try
 								{
 									 using (ZetaDia.Memory.AcquireFrame())
 									 {
-										  lastPosition=ZetaDia.Me.Position;
+										 updatedPosition = ZetaDia.Me.Position;
 									 }
 								} catch (NullReferenceException)
 								{
-									 lastPosition=Vector3.Zero;
+									 //lastPosition=Vector3.Zero;
 								}
 								
+							  //Position Change Check.
+							  if (!updatedPosition.Equals(currentPosition))
+							  {
+								  positionChangedHandler(updatedPosition);
+							  }
 
-								return lastPosition;
+								return currentPosition;
 						  }
 					 }
 					 internal GridPoint PointPosition

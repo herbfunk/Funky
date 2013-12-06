@@ -8,5 +8,6 @@
 		Fleeing=4,
 		Target=8,
 		LineOfSight=16,
+		Backtrack=32,
 	}
 }

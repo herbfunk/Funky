@@ -66,7 +66,7 @@ namespace FunkyBot
 				}
 
 
-				Bot.Reset();
+				
 
 				Navigator.SearchGridProvider.Update();
 		  }

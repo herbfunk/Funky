@@ -374,8 +374,9 @@ namespace FunkyBot.Cache
 				{
 					 UpdateLoopCounter=0;
 					 //Now flag any objects not seen for 5 loops. Gold/Globe only 1 loop.
-					 foreach (var item in ObjectCache.Objects.Values.Where<CacheObject>(CO => CO.LoopsUnseen>=5||
-						  (CO.targetType.HasValue&&(CheckTargetTypeFlag(CO.targetType.Value, TargetType.Gold|TargetType.Globe))&&CO.LoopsUnseen>0)))
+					 foreach (var item in ObjectCache.Objects.Values.Where<CacheObject>(CO => 
+						 (CO.LoopsUnseen >= 5 || //5 loops max.. 
+						 (CO.targetType.HasValue && (CheckTargetTypeFlag(CO.targetType.Value, TargetType.Gold | TargetType.Globe)) && CO.LoopsUnseen > 0)))) //gold/globe only 1 loop!
 					 {
 						  item.NeedsRemoved=true;
 					 }

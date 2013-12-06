@@ -16,7 +16,7 @@ namespace FunkyBot.Targeting
 		}
 
 
-		private ClusterConditions TargetClusterConditions = new ClusterConditions(Bot.Settings.Cluster.ClusterDistance, 100f, Bot.Settings.Cluster.ClusterMinimumUnitCount, false);
+		private ClusterConditions TargetClusterConditions = new ClusterConditions(Bot.Settings.Cluster.ClusterDistance, Bot.Settings.Cluster.ClusterMaxDistance, Bot.Settings.Cluster.ClusterMinimumUnitCount, false);
 		private ClusterTargetCollection TargetClusterCollection;
 		internal List<int> ValidClusterUnits = new List<int>();
 		internal List<UnitCluster> CurrentGroupClusters = new List<UnitCluster>();
