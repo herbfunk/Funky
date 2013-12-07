@@ -25,12 +25,28 @@ namespace FunkyBot
 		  public static class Bot
 		  {
 				public static Settings_Funky Settings=new Settings_Funky();
+
+				///<summary>
+				///Skills, Hotbar, Buffs and Combat Stats of Current Character
+				///</summary>
 				public static Player Class { get; set; }
+				///<summary>
+				///Values of the Current Character
+				///</summary>
 				public static CharacterCache Character = new CharacterCache();
+				//TODO:: Create base Class to contain Player and CharacterCache classes
+
 				public static TargetingHandler Targeting { get; set; }
 
+				///<summary>
+				///Game Stats and Values of Current Character
+				///</summary>
 				public static GameCache Game = new GameCache();
+				//Initalized once for total stats tracking
 
+				///<summary>
+				///Contains movement related properties and methods pretaining to the Bot itself.
+				///</summary>
 				public static Navigation NavigationCache { get; set; }
 
 
@@ -51,11 +67,15 @@ namespace FunkyBot
 					 }
 				}
 
+				//Recreate Bot Classes
 				internal static void Reset()
 				{
+					
 					Character = new CharacterCache();
 					Targeting = new TargetingHandler();
 					NavigationCache = new Navigation();
+
+					//Nullify to be updated inside  GlobalOverlord method
 					Class = null;
 				}
 		  }

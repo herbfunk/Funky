@@ -56,7 +56,7 @@ namespace FunkyBot.Cache
 		  internal static bool UpdateCacheObjectCollection()
 		  {
 				HashSet<int> hashDoneThisRactor=new HashSet<int>();
-				using (ZetaDia.Memory.AcquireFrame())
+				using (ZetaDia.Memory.AcquireFrame(true))
 				{
 					 if (!ZetaDia.IsInGame||ZetaDia.IsLoadingWorld||!ZetaDia.Me.IsValid) return false;
 

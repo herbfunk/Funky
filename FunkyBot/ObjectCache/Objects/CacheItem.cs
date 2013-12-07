@@ -510,7 +510,7 @@ namespace FunkyBot.Cache
                           if (!this.ShouldPickup.HasValue)
                           {
                               //Log Dropped Items Here!!
-                              TotalStats.CurrentTrackingProfile.LootTracker.DroppedItemLog(this);
+                              Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.DroppedItemLog(this);
 
                               if (Bot.Settings.ItemRules.UseItemRules)
                               {

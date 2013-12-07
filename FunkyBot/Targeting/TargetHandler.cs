@@ -486,26 +486,22 @@ namespace FunkyBot.Targeting
 			  if (ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value , TargetType.LineOfSight| TargetType.Backtrack))
 				{
 					//Since we only update our path during target refresh.. we should check if we are within range already!
-					 if (Navigation.NP.CurrentPath.Count>0&&Bot.Character.Position.Distance(Navigation.NP.CurrentPath.Current)<=Navigation.NP.PathPrecision)
+					 if (Navigation.NP.CurrentPath.Count>0&&Bot.Character.Position.Distance(Navigation.NP.CurrentPath.Current)<=CurrentTarget.Radius)
 						  Navigation.NP.MoveTo(CurrentTarget.Position, "LineOfSightMoveTo", true);
 
 					//No more points to navigate..
-					 if (Navigation.NP.CurrentPath.Count == 0)
+					 if (Navigation.NP.CurrentPath.Count <= 1)
 					 {
 						 if (CurrentTarget.targetType.Value == TargetType.LineOfSight)
 						 {
 							 Bot.NavigationCache.LOSVector = Vector3.Zero;
 							 Bot.NavigationCache.LOSmovementObject = null;
-							 this.bForceTargetUpdate = true;
-							 return false;
 						 }
 						 else
 						 {
 							 //Ending backtracking behavior!
 							 this.Backtracking = false;
 							 this.StartingLocation = Vector3.Zero;
-							 this.bForceTargetUpdate = true;
-							 return false;
 						 }
 					 }
 					 else
@@ -599,9 +595,25 @@ namespace FunkyBot.Targeting
 						  CurrentState=RunStatus.Running;
 						  break;
 					 case TargetType.Backtrack:
+						  //Last position.. since we are interacting, we are within range.
+						  if (Navigation.NP.CurrentPath.Count <= 1)
+						  {
+							  this.Backtracking = false;
+							  this.StartingLocation = Vector3.Zero;
+						  }
+						  CurrentState = RunStatus.Running;
+						  break;
 					 case TargetType.NoMovement:
+						  CurrentState = RunStatus.Running;
+						  break;
 					 case TargetType.LineOfSight:
-						  CurrentState=RunStatus.Running;
+						  //Last position.. since we are interacting, we are within range.
+						  if (Navigation.NP.CurrentPath.Count <= 1)
+						  {
+							  Bot.NavigationCache.LOSVector = Vector3.Zero;
+							  Bot.NavigationCache.LOSmovementObject = null;
+						  }
+						  CurrentState = RunStatus.Running;
 						  break;
 				}
 

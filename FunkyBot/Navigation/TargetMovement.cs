@@ -374,10 +374,8 @@ namespace FunkyBot.Movement
 				}
 				else if (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.LineOfSight | TargetType.Backtrack))
 				{
-					//if (Navigation.NP.CurrentPath.Count > 0)
-					//{
+					if (currentDistance>30f)
 						UsePowerMovement=false;
-					//}
 				}
 				else
 				{

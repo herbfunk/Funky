@@ -14,9 +14,16 @@ namespace FunkyBot.Game
 	public class GameCache
 	{
 		///<summary>
-		///Tracks the total stats while bot is running. (totals of each game)
+		///Tracking of All Game Stats 
 		///</summary>
 		internal TotalStats TrackingStats = new TotalStats();
+
+		///<summary>
+		///Tracking of current Game Stats
+		///</summary>
+		internal GameStats CurrentGameStats = new GameStats();
+
+
 		internal ProfileCache Profile = new ProfileCache();
 
 		internal ActorClass ActorClass = ActorClass.Invalid;
@@ -48,7 +55,7 @@ namespace FunkyBot.Game
 			}
 		}
 
-		internal GameId currentGameID = new GameId();
+		private GameId currentGameID = new GameId();
 		internal bool RefreshGameID()
 		{
 			GameId curgameID = currentGameID;
@@ -64,8 +71,11 @@ namespace FunkyBot.Game
 					Logger.Write(LogLevel.OutOfCombat, "New Game Started");
 				}
 
-				//Update our Profile Tracking Stats (records last game)
-				this.TrackingStats.GameChanged();
+				//Merge last GameStats with the Total
+				this.TrackingStats.GameChanged(ref this.CurrentGameStats);
+
+				//Create new GameStats
+				this.CurrentGameStats = new GameStats();
 
 				//Update Account Details
 				this.UpdateCurrentAccountDetails();
@@ -74,7 +84,7 @@ namespace FunkyBot.Game
 				FunkyBot.XMLTags.TrinityLoadOnce.UsedProfiles.Clear();
 
 				//Clear Interactable Cache
-				Bot.Game.Profile.InteractableObjectCache.Clear();
+				this.Profile.InteractableObjectCache.Clear();
 
 				//Clear Health Average
 				ObjectCache.Objects.ClearHealthAverageStats();

@@ -362,7 +362,7 @@ namespace FunkyBot
 					 GilesBaseItemType thisgilesbasetype=DetermineBaseType(thisgilesitemtype);
 
 					 //Herbfunk -- Live loot stats keeping.
-					 TotalStats.CurrentTrackingProfile.LootTracker.LootedItemLog(thisgilesitemtype, thisgilesbasetype, thisCacheItem.Itemquality.Value);
+					 Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.LootedItemLog(thisgilesitemtype, thisgilesbasetype, thisCacheItem.Itemquality.Value);
 				//}
 		  }
 

@@ -284,7 +284,7 @@ namespace FunkyBot.Targeting
 
 				  //Clear the object cache!
 				  ObjectCache.Objects.Clear();
-				  ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
+				  //ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
 				  RemovalCheck = false;
 
 				  //Reset Skip Ahead Cache

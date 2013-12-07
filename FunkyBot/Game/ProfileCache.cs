@@ -19,6 +19,13 @@ namespace FunkyBot.Game
 		  internal static Dictionary<int, int> dictRandomID=new Dictionary<int, int>();
 
 
+		  internal bool PreformingInteractiveBehavior
+		  {
+			  get
+			  {
+				  return this.IsRunningOOCBehavior && this.ProfileBehaviorIsOOCInteractive && this.InteractableCachedObject != null;
+			  }
+		  }
 
 		  internal Dictionary<int, Cache.CacheObject> InteractableObjectCache = new Dictionary<int, Cache.CacheObject>();
 		  private bool profileBehaviorIsOOCInteractive=false;

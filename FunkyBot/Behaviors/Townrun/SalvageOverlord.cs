@@ -188,7 +188,7 @@ namespace FunkyBot
 									 double iThisItemValue=ValueThisItem(thisitem, OriginalGilesItemType);
 									 LogJunkItems(thisitem, thisGilesBaseType, OriginalGilesItemType, iThisItemValue);
 								}
-                                TotalStats.CurrentTrackingProfile.LootTracker.SalvagedItemLog(thisitem);
+                                Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.SalvagedItemLog(thisitem);
 								ZetaDia.Me.Inventory.SalvageItem(thisitem.ThisDynamicID);
 
 						  }

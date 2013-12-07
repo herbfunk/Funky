@@ -17,7 +17,7 @@ namespace FunkyBot
 			if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Event))
 				Logger.Write(LogLevel.Event, "OnLeaveGame Event");
 
-            TotalStats.CurrentTrackingProfile.UpdateRangeVariables();
+			Bot.Game.CurrentGameStats.CurrentProfile.UpdateRangeVariables();
             ResetGame();
 			initTreeHooks=false;
         }

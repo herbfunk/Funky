@@ -21,7 +21,7 @@ namespace FunkyBot
 				Logger.Write(LogLevel.Event, "Profile Changed to {0}", sThisProfile);
 
             //Update Tracker
-            Bot.Game.TrackingStats.ProfileChanged(sThisProfile);
+            Bot.Game.CurrentGameStats.ProfileChanged(sThisProfile);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace FunkyBot.Targeting.Behaviors
 					Navigation.NP.MoveTo(Bot.Targeting.StartingLocation, "Backtracking", true);
 
 					//Setup a temp target that the handler will use
-					obj = new CacheObject(Bot.Targeting.StartingLocation, TargetType.Backtrack, 20000, "Backtracking", 2.5f);
+					obj = new CacheObject(Bot.Targeting.StartingLocation, TargetType.Backtrack, 20000, "Backtracking", Bot.Settings.Backtracking.MinimumDistanceFromStart);
 					return true;
 				}
 

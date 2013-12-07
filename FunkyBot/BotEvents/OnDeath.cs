@@ -46,16 +46,16 @@ namespace FunkyBot
 					 // Does Trinity need to handle deaths?
                      if (TrinityMaxDeathsTag.MaxDeathsAllowed > 0)
 					 {
-                         if (TotalStats.CurrentTrackingProfile.DeathCount > TrinityMaxDeathsTag.MaxDeathsAllowed)
+                         if (Bot.Game.CurrentGameStats.TotalDeaths > TrinityMaxDeathsTag.MaxDeathsAllowed)
 						  {
 								Logging.Write("[Funky] You have died too many times. Now restarting the game.");
 
-                                TrackedProfile FirstProfile = TotalStats.ProfilesTracked.First();
+							    string profile=Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
 
-                                string sUseProfile = FirstProfile.ProfileName;
-								ProfileManager.Load(!string.IsNullOrEmpty(sUseProfile)
-																?sUseProfile
-																:Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile);
+                                if (Bot.Game.CurrentGameStats.Profiles.Count>0)
+									profile=Bot.Game.CurrentGameStats.Profiles.First().ProfileName;
+
+								ProfileManager.Load(profile);
 								Thread.Sleep(1000);
 								ResetGame();
 								ZetaDia.Service.Party.LeaveGame();

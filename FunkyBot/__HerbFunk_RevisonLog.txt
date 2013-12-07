@@ -7,6 +7,7 @@ v2.6.4.0
 	*Where combat began,
 	*Items not looted yet will be added to LOS movement list.
 	*Settings can be changed via Character Settings File.
+-Stat Tracking should be working now!
 
 v2.6.3.0
 

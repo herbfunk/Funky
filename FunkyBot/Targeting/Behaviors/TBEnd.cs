@@ -70,7 +70,7 @@ namespace FunkyBot.Targeting.Behaviors
 						  }
 
 						  //Currently preforming an interactive profile behavior
-						  if (Bot.Game.Profile.IsRunningOOCBehavior && Bot.Game.Profile.ProfileBehaviorIsOOCInteractive && Bot.Game.Profile.InteractableCachedObject != null)
+						  if (Bot.Game.Profile.PreformingInteractiveBehavior)
 						  {
 							  if (Bot.Game.Profile.InteractableCachedObject.Position.Distance(Bot.Character.Position) > 50f)
 							  {
