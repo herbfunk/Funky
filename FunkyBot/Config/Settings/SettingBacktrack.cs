@@ -11,9 +11,9 @@ namespace FunkyBot.Settings
 		public SettingBacktrack()
 		{
 			MinimumDistanceFromStart = 20;
-			EnableBacktracking = true;
+			EnableBacktracking = false;
 			TrackLootableItems = true;
-			TrackStartOfCombatEngagment = true;
+			TrackStartOfCombatEngagment = false;
 		}
 	}
 }

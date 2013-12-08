@@ -51,7 +51,8 @@ namespace FunkyBot
 				Content = "Enable Backtracking",
 				Width = 500,
 				Height = 30,
-				IsChecked = (Bot.Settings.Backtracking.EnableBacktracking)
+				IsChecked = (Bot.Settings.Backtracking.EnableBacktracking),
+				IsEnabled=false, //Disabled Until Further Developement!
 			};
 			cbEnableBacktracking.Checked += BacktrackingEnableChecked;
 			cbEnableBacktracking.Unchecked += BacktrackingEnableChecked;
@@ -71,6 +72,7 @@ namespace FunkyBot
 				Height = 30,
 				IsChecked = (Bot.Settings.Backtracking.TrackStartOfCombatEngagment),
 				ToolTip = backtrackStartCombat,
+				IsEnabled=false, //Disabled Until Further Developement!
 			};
 			cbBacktrackStartOfCombat.Checked += BacktrackingCombatStartChecked;
 			cbBacktrackStartOfCombat.Unchecked += BacktrackingCombatStartChecked;
@@ -127,6 +129,7 @@ namespace FunkyBot
 				HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch,
 				Orientation = Orientation.Horizontal,
 				Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right + 5, Margin.Bottom),
+				IsEnabled=false, //Disabled Until Further Developement!
 			};
 			SPBacktrackRange.Children.Add(BacktrackingRange_Text);
 			SPBacktrackRange.Children.Add(sliderBacktrackingRange);
