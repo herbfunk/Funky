@@ -2,7 +2,15 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
+using System.Windows.Media;
 using FunkyBot.Settings;
+using Button = System.Windows.Controls.Button;
+using CheckBox = System.Windows.Controls.CheckBox;
+using HorizontalAlignment = System.Windows.HorizontalAlignment;
+using ListBox = System.Windows.Controls.ListBox;
+using Orientation = System.Windows.Controls.Orientation;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace FunkyBot
 {
@@ -11,14 +19,14 @@ namespace FunkyBot
 		  #region EventHandling
 		  private void RangeLoadXMLClicked(object sender, EventArgs e)
 		  {
-				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
+				OpenFileDialog OFD=new OpenFileDialog
 				{
 					 InitialDirectory=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
 					 RestoreDirectory=false,
 					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
 					 Title="Ranges Template",
 				};
-				System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
+				DialogResult OFD_Result=OFD.ShowDialog();
 
 				if (OFD_Result==System.Windows.Forms.DialogResult.OK)
 				{
@@ -28,7 +36,7 @@ namespace FunkyBot
 						  SettingRanges newSettings=SettingRanges.DeserializeFromXML(OFD.FileName);
 						  Bot.Settings.Ranges=newSettings;
 
-						  FunkyWindow.funkyConfigWindow.Close();
+						  funkyConfigWindow.Close();
 					 } catch
 					 {
 
@@ -137,22 +145,22 @@ namespace FunkyBot
 				{
 					 Text="Profile Related Values",
 					 FontSize=13,
-					 Background=System.Windows.Media.Brushes.DarkSeaGreen,
+					 Background=Brushes.DarkSeaGreen,
 					 TextAlignment=TextAlignment.Center,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+					 HorizontalAlignment=HorizontalAlignment.Stretch,
 				};
 				ProfileRelatedSettings.Children.Add(Profile_Values_Text);
 
 				StackPanel spIgnoreProfileValues=new StackPanel
 				{
 					 Orientation=Orientation.Horizontal,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+					 HorizontalAlignment=HorizontalAlignment.Stretch,
 				};
 				CheckBox cbIgnoreCombatRange=new CheckBox
 				{
 					 Content="Ignore Combat Range (Set by Profile)",
 					 // Width = 300,
-					 HorizontalContentAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalContentAlignment=HorizontalAlignment.Left,
 					 Height=30,
 					 IsChecked=(Bot.Settings.Ranges.IgnoreCombatRange)
 				};
@@ -164,7 +172,7 @@ namespace FunkyBot
 					 Content="Ignore Loot Range (Set by Profile)",
 					 // Width = 300,
 					 Height=30,
-					 HorizontalContentAlignment=System.Windows.HorizontalAlignment.Right,
+					 HorizontalContentAlignment=HorizontalAlignment.Right,
 					 IsChecked=(Bot.Settings.Ranges.IgnoreLootRange)
 				};
 				cbIgnoreLootRange.Checked+=IgnoreLootRangeChecked;
@@ -176,7 +184,7 @@ namespace FunkyBot
 					 Content="Ignore Profile Blacklisted IDs",
 					 // Width = 300,
 					 Height=30,
-					 HorizontalContentAlignment=System.Windows.HorizontalAlignment.Right,
+					 HorizontalContentAlignment=HorizontalAlignment.Right,
 					 IsChecked=(Bot.Settings.Ranges.IgnoreProfileBlacklists)
 				};
 				cbIgnoreProfileBlacklist.Checked+=IgnoreProfileBlacklistChecked;
@@ -189,9 +197,9 @@ namespace FunkyBot
 				{
 					 Text="Targeting Extended Range Values",
 					 FontSize=13,
-					 Background=System.Windows.Media.Brushes.DarkSeaGreen,
+					 Background=Brushes.DarkSeaGreen,
 					 TextAlignment=TextAlignment.Center,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+					 HorizontalAlignment=HorizontalAlignment.Stretch,
 				};
 				lbTargetRange.Items.Add(Target_Range_Text);
 
@@ -206,7 +214,7 @@ namespace FunkyBot
 					 LargeChange=5,
 					 SmallChange=1,
 					 Value=Bot.Settings.Ranges.EliteCombatRange,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderEliteRange.ValueChanged+=EliteRangeSliderChanged;
 				TBEliteRange=new TextBox
@@ -236,7 +244,7 @@ namespace FunkyBot
 					 LargeChange=5,
 					 SmallChange=1,
 					 Value=Bot.Settings.Ranges.NonEliteCombatRange,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderNonEliteRange.ValueChanged+=NonEliteRangeSliderChanged;
 				TBNonEliteRange=new TextBox
@@ -266,7 +274,7 @@ namespace FunkyBot
 					 LargeChange=5,
 					 SmallChange=1,
 					 Value=Bot.Settings.Ranges.ShrineRange,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderShrineRange.ValueChanged+=ShrineRangeSliderChanged;
 				TBShrineRange=new TextBox
@@ -296,7 +304,7 @@ namespace FunkyBot
 					 LargeChange=5,
 					 SmallChange=1,
 					 Value=Bot.Settings.Ranges.ContainerOpenRange,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderContainerRange.ValueChanged+=ContainerRangeSliderChanged;
 				TBContainerRange=new TextBox
@@ -326,7 +334,7 @@ namespace FunkyBot
 					 LargeChange=5,
 					 SmallChange=1,
 					 Value=Bot.Settings.Ranges.DestructibleRange,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderDestructibleRange.ValueChanged+=DestructibleSliderChanged;
 				TBDestructibleRange=new TextBox
@@ -356,7 +364,7 @@ namespace FunkyBot
 					 LargeChange=5,
 					 SmallChange=1,
 					 Value=Bot.Settings.Ranges.GoldRange,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderGoldRange.ValueChanged+=GoldRangeSliderChanged;
 				TBGoldRange=new TextBox
@@ -386,7 +394,7 @@ namespace FunkyBot
 					 LargeChange=5,
 					 SmallChange=1,
 					 Value=Bot.Settings.Ranges.GlobeRange,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderGlobeRange.ValueChanged+=GlobeRangeSliderChanged;
 				TBGlobeRange=new TextBox
@@ -416,7 +424,7 @@ namespace FunkyBot
 					 LargeChange=5,
 					 SmallChange=1,
 					 Value=Bot.Settings.Ranges.ItemRange,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderItemRange.ValueChanged+=ItemRangeSliderChanged;
 				TBItemRange=new TextBox
@@ -446,7 +454,7 @@ namespace FunkyBot
 					 LargeChange=5,
 					 SmallChange=1,
 					 Value=Bot.Settings.Ranges.TreasureGoblinRange,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderGoblinRange.ValueChanged+=TreasureGoblinRangeSliderChanged;
 				TBGoblinRange=new TextBox
@@ -468,13 +476,13 @@ namespace FunkyBot
 				Button BtnRangeTemplate=new Button
 				{
 					 Content="Load Setup",
-					 Background=System.Windows.Media.Brushes.OrangeRed,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.OrangeRed,
+					 Foreground=Brushes.GhostWhite,
 					 FontStyle=FontStyles.Italic,
 					 FontSize=12,
 
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
-					 VerticalAlignment=System.Windows.VerticalAlignment.Top,
+					 HorizontalAlignment=HorizontalAlignment.Left,
+					 VerticalAlignment=VerticalAlignment.Top,
 					 Width=75,
 					 Height=30,
 

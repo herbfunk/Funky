@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Globalization;
+using System.Runtime.InteropServices;
 using Zeta.Common;
 using Zeta.CommonBot.Profile;
 using Zeta.TreeSharp;
@@ -11,9 +12,8 @@ namespace FunkyBot.XMLTags
 	public class TrinityMaxDeathsTag : ProfileBehavior
 	{
         public static int MaxDeathsAllowed = 0;
-		private bool m_IsDone=false;
-		private int iMaxDeaths;
-		private string sReset;
+		private bool m_IsDone;
+
 		public override bool IsDone
 		{
 			get { return m_IsDone; }
@@ -21,12 +21,12 @@ namespace FunkyBot.XMLTags
 
 		protected override Composite CreateBehavior()
 		{
-			return new Zeta.TreeSharp.Action(ret =>
+			return new Action(ret =>
 			{
-                if (MaxDeaths != TrinityMaxDeathsTag.MaxDeathsAllowed)
-					Logging.Write("[Funky] Max deaths set by profile. Trinity now handling deaths, and will restart the game after "+MaxDeaths.ToString());
+                if (MaxDeaths != MaxDeathsAllowed)
+					Logging.Write("[Funky] Max deaths set by profile. Trinity now handling deaths, and will restart the game after "+MaxDeaths.ToString(CultureInfo.InvariantCulture));
 
-                TrinityMaxDeathsTag.MaxDeathsAllowed = MaxDeaths;
+                MaxDeathsAllowed = MaxDeaths;
                 //if (Reset!=null&&Reset.ToLower()=="true")
                 //    Bot.Stats.iDeathsThisRun=0;
 				m_IsDone=true;
@@ -35,30 +35,10 @@ namespace FunkyBot.XMLTags
 
 
 		[XmlAttribute("reset")]
-		public string Reset
-		{
-			get
-			{
-				return sReset;
-			}
-			set
-			{
-				sReset=value;
-			}
-		}
+		public string Reset { get; set; }
 
 		[XmlAttribute("max")]
-		public int MaxDeaths
-		{
-			get
-			{
-				return iMaxDeaths;
-			}
-			set
-			{
-				iMaxDeaths=value;
-			}
-		}
+		public int MaxDeaths { get; set; }
 
 		public override void ResetCachedDone()
 		{

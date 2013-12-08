@@ -1,14 +1,13 @@
 ﻿using System;
-using FunkyBot.AbilityFunky;
+using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using Zeta;
 using System.Linq;
 using Zeta.Common;
 using Zeta.Internals.Actors;
-using System.Collections.Generic;
 using Zeta.CommonBot;
 using Zeta.TreeSharp;
-using FunkyBot.Character;
+using FunkyBot.Player.Class;
 
 namespace FunkyBot
 {
@@ -25,11 +24,11 @@ namespace FunkyBot
 				}
 
 			  //check if we initialized the bot..
-				if (Bot.Class == null)
-					Player.CreateBotClass();
+				if (Bot.Character.Class == null)
+					PlayerClass.CreateBotClass();
 
 				//Seconday Hotbar Check
-				Bot.Class.SecondaryHotbarBuffPresent();
+				Bot.Character.Class.SecondaryHotbarBuffPresent();
 
 				// Clear target current and reset key variables used during the target-handling function
 				Bot.Targeting.ResetTargetHandling();
@@ -51,7 +50,7 @@ namespace FunkyBot
 						  Bot.Targeting.bWholeNewTarget=true;
 						  Bot.Targeting.DontMove=true;
 						  Bot.Targeting.bPickNewAbilities=true;
-						  //Bot.Targeting.StartingLocation = Bot.Character.Position;
+						  //Bot.Targeting.StartingLocation = Bot.Character_.Data.Position;
 						  return true;
 					 }
 				}
@@ -72,20 +71,20 @@ namespace FunkyBot
 				}
 
 				// Pop a potion when necessary
-				if (Bot.Class.HealthPotionAbility.CheckPreCastConditionMethod())
+				if (Bot.Character.Class.HealthPotionAbility.CheckPreCastConditionMethod())
 				{
-					 if (Bot.Class.HealthPotionAbility.CheckCustomCombatMethod())
+					 if (Bot.Character.Class.HealthPotionAbility.CheckCustomCombatMethod())
 					 {
-						  Bot.Class.HealthPotionAbility.AttemptToUseHealthPotion();
+						  Bot.Character.Class.HealthPotionAbility.AttemptToUseHealthPotion();
 					 }
 				}
 
 				BlacklistCache.CheckRefreshBlacklists();
 
 
-				if (Bot.Settings.Debug.DebugStatusBar&&Funky.bResetStatusText)
+				if (Bot.Settings.Debug.DebugStatusBar&&bResetStatusText)
 				{
-					 Funky.bResetStatusText=false;
+					 bResetStatusText=false;
 					 BotMain.StatusText="[Funky] No more targets - DemonBuddy/profile management is now in control";
 				}
 
@@ -94,19 +93,19 @@ namespace FunkyBot
 				Bot.NavigationCache.vPositionLastZigZagCheck=Vector3.Zero;
 
 				// Out of combat buffing etc. but only if we don't want to return to town etc.
-				AnimationState myAnimationState=Bot.Character.CurrentAnimationState;
-				if ((!Bot.Character.bIsInTown||Bot.Settings.AllowBuffingInTown)&&
+				AnimationState myAnimationState=Bot.Character.Data.CurrentAnimationState;
+				if ((!Bot.Character.Data.bIsInTown||Bot.Settings.AllowBuffingInTown)&&
 					 !TownRunManager.bWantToTownRun&&
 					 myAnimationState!=AnimationState.Attacking&&myAnimationState!=AnimationState.Casting&&myAnimationState!=AnimationState.Channeling)
 				{
-					 Ability Buff;
-					 if (Bot.Class.FindBuffPower(out Buff))
+					 Skill Buff;
+					 if (Bot.Character.Class.FindBuffPower(out Buff))
 					 {
-						  Ability.SetupAbilityForUse(ref Buff);
-						  Bot.Character.WaitWhileAnimating(4, true);
-						  AbilityFunky.Ability.UsePower(ref Buff);
+						  Skill.SetupAbilityForUse(ref Buff);
+						  Bot.Character.Data.WaitWhileAnimating(4, true);
+						  Skill.UsePower(ref Buff);
 						  Buff.OnSuccessfullyUsed();
-						  Bot.Character.WaitWhileAnimating(3, true);
+						  Bot.Character.Data.WaitWhileAnimating(3, true);
 					 }
 				}
 
@@ -122,15 +121,16 @@ namespace FunkyBot
 		  {
 				if (shouldPreformOOCItemIDing)
 					 return HandleIDBehavior(); //Check if we are doing OOC ID behavior..
-				else if (Bot.Targeting.CurrentTarget!=null)
+				if (Bot.Targeting.CurrentTarget!=null)
 					 return Bot.Targeting.HandleThis();  //Default Behavior: Current Target
-				else if (MuleBehavior)
+
+				if (MuleBehavior)
 				{
 					 if (!TransferedGear)
 					 {
 						  return NewMuleGame.StashTransfer();
 					 }
-					 else if (!Finished)
+					 if (!Finished)
 					 {
 						  return NewMuleGame.FinishMuleBehavior();
 					 }

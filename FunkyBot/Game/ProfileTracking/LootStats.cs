@@ -1,11 +1,8 @@
 ﻿using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Zeta.Internals.Actors;
-using FunkyBot.Game;
+using FunkyBot.Player;
 
 namespace FunkyBot.Game
 {
@@ -42,17 +39,17 @@ namespace FunkyBot.Game
 
         public void Merge(LootStats other)
         {
-            this.Looted += other.Looted;
-            this.Stashed += other.Stashed;
-            this.Salvaged += other.Salvaged;
-            this.Vendored += other.Vendored;
-            this.Dropped += other.Dropped;
+            Looted += other.Looted;
+            Stashed += other.Stashed;
+            Salvaged += other.Salvaged;
+            Vendored += other.Vendored;
+            Dropped += other.Dropped;
         }
 
         public override string ToString()
 		{
 			return String.Format("{0} \t {1} \t {2} \t {3} \t {4}", 
-                this.Dropped, this.Looted, this.Stashed, this.Vendored, this.Salvaged);
+                Dropped, Looted, Stashed, Vendored, Salvaged);
         }
     }
 
@@ -93,15 +90,15 @@ namespace FunkyBot.Game
 			switch (statType)
 			{
 				case LootStatTypes.Looted:
-					return this.Magical.Looted + this.Rare.Looted + this.Legendary.Looted + this.Crafting.Looted + this.Keys.Looted + this.Gems.Looted;
+					return Magical.Looted + Rare.Looted + Legendary.Looted + Crafting.Looted + Keys.Looted + Gems.Looted;
 				case LootStatTypes.Stashed:
-					return this.Magical.Stashed + this.Rare.Stashed + this.Legendary.Stashed + this.Crafting.Stashed + this.Keys.Stashed + this.Gems.Stashed;
+					return Magical.Stashed + Rare.Stashed + Legendary.Stashed + Crafting.Stashed + Keys.Stashed + Gems.Stashed;
 				case LootStatTypes.Salvaged:
-					return this.Magical.Salvaged + this.Rare.Salvaged + this.Legendary.Salvaged + this.Crafting.Salvaged + this.Keys.Salvaged + this.Gems.Salvaged;
+					return Magical.Salvaged + Rare.Salvaged + Legendary.Salvaged + Crafting.Salvaged + Keys.Salvaged + Gems.Salvaged;
 				case LootStatTypes.Vendored:
-					return this.Magical.Vendored + this.Rare.Vendored + this.Legendary.Vendored + this.Crafting.Vendored + this.Keys.Vendored + this.Gems.Vendored;
+					return Magical.Vendored + Rare.Vendored + Legendary.Vendored + Crafting.Vendored + Keys.Vendored + Gems.Vendored;
 				case LootStatTypes.Dropped:
-					return this.Magical.Dropped + this.Rare.Dropped + this.Legendary.Dropped + this.Crafting.Dropped + this.Keys.Dropped + this.Gems.Dropped;
+					return Magical.Dropped + Rare.Dropped + Legendary.Dropped + Crafting.Dropped + Keys.Dropped + Gems.Dropped;
 			}
 
 			return 0;
@@ -155,11 +152,7 @@ namespace FunkyBot.Game
                         // Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[(int)LootIndex.Key]++;
                         Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Keys.Looted++;
                     }
-                    else
-                    {
-                        // Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[0]++;
-                    }
-                    break;
+		            break;
                 case GilesBaseItemType.Gem:
                     // Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[(int)LootIndex.Gem]++;
                     Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Gems.Looted++;
@@ -174,7 +167,7 @@ namespace FunkyBot.Game
             //if (Bot.BotStatistics.ProfileStats.CurrentProfile==null)
             //return;
 
-            GilesItemType thisGilesItemType = Funky.DetermineItemType(i.ThisInternalName, i.ThisDBItemType, i.ThisFollowerType);
+			GilesItemType thisGilesItemType = Backpack.DetermineItemType(i.ThisInternalName, i.ThisDBItemType, i.ThisFollowerType);
             if (thisGilesItemType == GilesItemType.InfernalKey)
             {
                 Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Keys.Stashed++;
@@ -266,7 +259,6 @@ namespace FunkyBot.Game
                 //  Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[1]++;
                 Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Magical.Salvaged++;
             }
-            return;
         }
 
         public void VendoredItemLog(CacheACDItem i)
@@ -343,7 +335,7 @@ namespace FunkyBot.Game
         public void DroppedItemLog(CacheItem i)
         {
             CacheBalance thisBalanceData = i.BalanceData;
-            GilesItemType thisGilesItemType = Funky.DetermineItemType(i.InternalName, thisBalanceData.thisItemType, thisBalanceData.thisFollowerType);
+			GilesItemType thisGilesItemType = Backpack.DetermineItemType(i.InternalName, thisBalanceData.thisItemType, thisBalanceData.thisFollowerType);
             if (thisGilesItemType == GilesItemType.InfernalKey)
             {
                 Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Keys.Dropped++;
@@ -426,7 +418,7 @@ namespace FunkyBot.Game
                                  "Gems:      \t {3} \r\n" +
                                  "Crafting: \t {4} \r\n" +
                                  "Keys:      \t {5} \r\n",
-                                 this.Magical.ToString(), this.Rare.ToString(), this.Legendary.ToString(), this.Gems.ToString(), this.Crafting.ToString(), this.Keys.ToString());
+                                 Magical, Rare, Legendary, Gems, Crafting, Keys);
         }
     }
 }

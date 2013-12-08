@@ -1,18 +1,20 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
-using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Controls;
 using System.IO;
+using Demonbuddy;
 using Zeta.Common;
+using Zeta.Common.Compiler;
+using Zeta.Common.Plugins;
+using Zeta.CommonBot;
+using Zeta.CommonBot.Logic;
 using Zeta.Internals.Actors;
 using System.Collections.Generic;
 using Zeta;
-using Zeta.Internals.Actors.Gizmos;
-using Zeta.Internals;
 using System.Windows;
-using UIElement=Zeta.Internals.UIElement;
 using System.Reflection;
-using Zeta.Common.Plugins;
 
 namespace GilesBlankCombatRoutine
 {
@@ -21,9 +23,9 @@ namespace GilesBlankCombatRoutine
 		  private static Label lblDebug_DumpUnits, lblDebug_OpenLog, lblDebug_DumpUnitAttributes, lblDebug_DumpObjects, lblDebug_FunkyLog;
 		  private static MenuItem menuItem_Debug, menuItem_Debug_Units;
 
-		  public static void initDebugLabels(out Demonbuddy.SplitButton btn)
+		  public static void initDebugLabels(out SplitButton btn)
 		  {
-				btn=new Demonbuddy.SplitButton
+				btn=new SplitButton
 				{
 					 Width=125,
 					 Height=20,
@@ -125,7 +127,7 @@ namespace GilesBlankCombatRoutine
 		  {
 			  try
 			  {
-					Zeta.CommonBot.BotMain.CurrentBot.ConfigWindow.Show();
+					BotMain.CurrentBot.ConfigWindow.Show();
 			  }
 			  catch
 			  {
@@ -137,62 +139,62 @@ namespace GilesBlankCombatRoutine
 		  {
 				RecompilePlugins();
 				//ZetaDia.Actors.Update();
-				//Bot.Character.IsSurrounded();
+				//Bot.Character_.Data.IsSurrounded();
 		  }
 
 		  private static void RecompilePlugins()
 		  {
-				if (Zeta.CommonBot.BotMain.IsRunning)
+				if (BotMain.IsRunning)
 				{
-					 Zeta.CommonBot.BotMain.Stop(false, "Recompiling Plugin!");
-					 while (Zeta.CommonBot.BotMain.BotThread.IsAlive)
-						  System.Threading.Thread.Sleep(0);
+					 BotMain.Stop(false, "Recompiling Plugin!");
+					 while (BotMain.BotThread.IsAlive)
+						  Thread.Sleep(0);
 				}
 
-				var EnabledPlugins=Zeta.Common.Plugins.PluginManager.GetEnabledPlugins().ToArray();
+				var EnabledPlugins=PluginManager.GetEnabledPlugins().ToArray();
 
-				Zeta.Common.Plugins.PluginManager.ShutdownAllPlugins();
+				PluginManager.ShutdownAllPlugins();
 
 				Logging.WriteDiagnostic("Removing Funky from plugins");
-				while (Zeta.Common.Plugins.PluginManager.Plugins.Any(p => p.Plugin.Name=="Funky"))
+				while (PluginManager.Plugins.Any(p => p.Plugin.Name=="Funky"))
 				{
-					 Zeta.Common.Plugins.PluginManager.Plugins.Remove(Zeta.Common.Plugins.PluginManager.Plugins.First(p => p.Plugin.Name=="Funky"));
+					 PluginManager.Plugins.Remove(PluginManager.Plugins.First(p => p.Plugin.Name=="Funky"));
 				}
 
 				Logging.WriteDiagnostic("Clearing all treehooks");
-				Zeta.Common.TreeHooks.Instance.ClearAll();
+				TreeHooks.Instance.ClearAll();
 
 				Logging.WriteDiagnostic("Disposing of current bot");
-				Zeta.CommonBot.BotMain.CurrentBot.Dispose();
+				BotMain.CurrentBot.Dispose();
 
 				Logging.WriteDiagnostic("Removing old Assemblies");
-				Zeta.Common.Compiler.CodeCompiler.DeleteOldAssemblies();
+				CodeCompiler.DeleteOldAssemblies();
 
 				string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 				string sTrinityPluginPath=sDemonBuddyPath+@"\Plugins\FunkyBot\";
 
-				Zeta.Common.Compiler.CodeCompiler FunkyCode=new Zeta.Common.Compiler.CodeCompiler(sTrinityPluginPath);
+				CodeCompiler FunkyCode=new CodeCompiler(sTrinityPluginPath);
 				FunkyCode.ParseFilesForCompilerOptions();
-				Zeta.Common.Logging.WriteDiagnostic("Recompiling Funky Plugin");
+				Logging.WriteDiagnostic("Recompiling Funky Plugin");
 				FunkyCode.Compile();
-				Zeta.Common.Logging.WriteDiagnostic(FunkyCode.CompiledToLocation);
+				Logging.WriteDiagnostic(FunkyCode.CompiledToLocation);
 
 
 
-				Zeta.Common.TreeHooks.Instance.ClearAll();
-				Zeta.CommonBot.Logic.BrainBehavior.CreateBrain();
+				TreeHooks.Instance.ClearAll();
+				BrainBehavior.CreateBrain();
 
-				Zeta.Common.Logging.WriteDiagnostic("Reloading Plugins");
-				Zeta.Common.Plugins.PluginManager.ReloadAllPlugins(sDemonBuddyPath+@"\Plugins\");
+				Logging.WriteDiagnostic("Reloading Plugins");
+				PluginManager.ReloadAllPlugins(sDemonBuddyPath+@"\Plugins\");
 
-				Zeta.Common.Logging.WriteDiagnostic("Enabling Plugins");
-				Zeta.Common.Plugins.PluginManager.SetEnabledPlugins(EnabledPlugins);
+				Logging.WriteDiagnostic("Enabling Plugins");
+				PluginManager.SetEnabledPlugins(EnabledPlugins);
 		  }
 		  static void lblDebug_OpenDBLog(object sender, EventArgs e)
 		  {
 				try
 				{
-					 System.Diagnostics.Process.Start(Zeta.Common.Logging.LogFilePath);
+					 Process.Start(Logging.LogFilePath);
 
 				} catch (Exception)
 				{
@@ -203,14 +205,14 @@ namespace GilesBlankCombatRoutine
 		  {
 				//string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 				
-				FileInfo demonbuddyLogFolder=new FileInfo(Zeta.Common.Logging.LogFilePath);
+				FileInfo demonbuddyLogFolder=new FileInfo(Logging.LogFilePath);
 				if (!demonbuddyLogFolder.Directory.GetFiles().Any())
 					 return;
 
 				var newestfile=demonbuddyLogFolder.Directory.GetFiles().Where(f=>f.Name.Contains("FunkyLog")).OrderByDescending(file => file.LastWriteTime).First();
 				try
 				{
-					 System.Diagnostics.Process.Start(newestfile.FullName);
+					 Process.Start(newestfile.FullName);
 				} catch (Exception)
 				{
 
@@ -221,7 +223,7 @@ namespace GilesBlankCombatRoutine
 		  {
 				string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-				System.Diagnostics.Process.Start(sDemonBuddyPath+@"\Plugins\FunkyBot\");
+				Process.Start(sDemonBuddyPath+@"\Plugins\FunkyBot\");
 		  }
 
 		  static void lblDebug_DumpUnits_Click(object sender, EventArgs e)
@@ -230,7 +232,7 @@ namespace GilesBlankCombatRoutine
 					 return;
 
 
-				if (Zeta.CommonBot.BotMain.IsRunning)
+				if (BotMain.IsRunning)
 				{
 					 Logging.Write("Stop the bot before dumping!");
 					 return;
@@ -252,7 +254,7 @@ namespace GilesBlankCombatRoutine
 					 return;
 
 
-				if (Zeta.CommonBot.BotMain.IsRunning)
+				if (BotMain.IsRunning)
 				{
 					 Logging.Write("Stop the bot before dumping!");
 					 return;

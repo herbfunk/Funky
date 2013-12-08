@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.IO;
-using FunkyBot.AbilityFunky;
+using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Movement;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
-using Zeta.Internals;
 using Zeta.Internals.Actors;
-using Zeta.Internals.SNO;
 using Zeta.Navigation;
-using Zeta.TreeSharp;
-using FunkyBot.Cache.Enums;
-using FunkyBot.Game;
 
 
 namespace FunkyBot
@@ -32,7 +28,7 @@ namespace FunkyBot
 
 				public void MoveStop()
 				{
-					 ZetaDia.Me.UsePower(SNOPower.Walk, ZetaDia.Me.Position, Bot.Character.iCurrentWorldID, -1);
+					 ZetaDia.Me.UsePower(SNOPower.Walk, ZetaDia.Me.Position, Bot.Character.Data.iCurrentWorldID);
 				}
 				// Anti-stuck variables
 				private static Vector3 vOldMoveToTarget=Vector3.Zero;
@@ -99,7 +95,7 @@ namespace FunkyBot
 					 // Only try an unstuck 10 times maximum in XXX period of time
 					 if (Vector3.Distance(vOriginalDestination, vMyCurrentPosition)>=700f)
 					 {
-						  Logging.Write("[Funky] You are "+Vector3.Distance(vOriginalDestination, vMyCurrentPosition).ToString()+" distance away from your destination.");
+						  Logging.Write("[Funky] You are "+Vector3.Distance(vOriginalDestination, vMyCurrentPosition).ToString(CultureInfo.InvariantCulture)+" distance away from your destination.");
 						  Logging.Write("[Funky] This is too far for the unstucker, and is likely a sign of ending up in the wrong map zone.");
 						  Logging.Write("Reloading current profile");
 						  ProfileManager.Load(ProfileManager.CurrentProfile.Path);
@@ -114,8 +110,8 @@ namespace FunkyBot
 								ShouldHandleObstacleObject=true;
 						  }
 
-						  Logging.Write("[Funky] Your bot got stuck! Trying to unstuck (attempt #"+iTotalAntiStuckAttempts.ToString()+" of 8 attempts)");
-						  Logging.WriteDiagnostic("(destination="+vOriginalDestination.ToString()+", which is "+Vector3.Distance(vOriginalDestination, vMyCurrentPosition).ToString()+" distance away)");
+						  Logging.Write("[Funky] Your bot got stuck! Trying to unstuck (attempt #"+iTotalAntiStuckAttempts.ToString(CultureInfo.InvariantCulture)+" of 8 attempts)");
+						  Logging.WriteDiagnostic("(destination="+vOriginalDestination.ToString()+", which is "+Vector3.Distance(vOriginalDestination, vMyCurrentPosition).ToString(CultureInfo.InvariantCulture)+" distance away)");
 
 						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logger.Write(LogLevel.Movement, "Stuck Flags: {0}", Bot.NavigationCache.Stuckflags.ToString());
@@ -125,11 +121,11 @@ namespace FunkyBot
 						  // Temporarily log stuff
 						  if (iTotalAntiStuckAttempts==1&&Bot.Settings.Debug.LogStuckLocations)
 						  {
-								string sLogFileName=LoggingPrefixString+" -- Stucks.log";
-								FileStream LogStream=File.Open(LoggingFolderPath+sLogFileName, FileMode.Append, FileAccess.Write, FileShare.Read);
+							  string sLogFileName = Logger.LoggingPrefixString + " -- Stucks.log";
+							  FileStream LogStream = File.Open(Logger.LoggingFolderPath + sLogFileName, FileMode.Append, FileAccess.Write, FileShare.Read);
 								using (StreamWriter LogWriter=new StreamWriter(LogStream))
 								{
-									 LogWriter.WriteLine(DateTime.Now.ToString()+": Original Destination="+vOldMoveToTarget.ToString()+". Current player position when stuck="+vMyCurrentPosition.ToString());
+									 LogWriter.WriteLine(DateTime.Now.ToString(CultureInfo.InvariantCulture)+": Original Destination="+vOldMoveToTarget.ToString()+". Current player position when stuck="+vMyCurrentPosition.ToString());
 									 LogWriter.WriteLine("Profile Name="+ProfileManager.CurrentProfile.Name);
 								}
 						  }
@@ -144,14 +140,11 @@ namespace FunkyBot
 						  {
 								return vSafeMovementLocation;
 						  }
-						  else
-						  {
-								Navigator.Clear();
-								Navigator.MoveTo(vOriginalDestination, "original destination", false);
-								iCancelUnstuckerForSeconds=40;
-								timeCancelledUnstuckerFor=DateTime.Now;
-								return Vector3.Zero;
-						  }
+						 Navigator.Clear();
+						 Navigator.MoveTo(vOriginalDestination, "original destination", false);
+						 iCancelUnstuckerForSeconds=40;
+						 timeCancelledUnstuckerFor=DateTime.Now;
+						 return Vector3.Zero;
 					 }
 
 					 iTimesReachedMaxUnstucks++;
@@ -189,10 +182,10 @@ namespace FunkyBot
 						  while (!ZetaDia.Me.IsInTown)
 						  {
 								iSafetyLoops++;
-								Bot.Character.WaitWhileAnimating(5, true);
-								ZetaDia.Me.UsePower(SNOPower.UseStoneOfRecall, ZetaDia.Me.Position, ZetaDia.Me.WorldDynamicId, -1);
+								Bot.Character.Data.WaitWhileAnimating(5, true);
+								ZetaDia.Me.UsePower(SNOPower.UseStoneOfRecall, ZetaDia.Me.Position, ZetaDia.Me.WorldDynamicId);
 								Thread.Sleep(1000);
-								Bot.Character.WaitWhileAnimating(1000, true);
+								Bot.Character.Data.WaitWhileAnimating(1000, true);
 								if (iSafetyLoops>5)
 									 break;
 						  }
@@ -216,17 +209,17 @@ namespace FunkyBot
 									 while (!ZetaDia.Me.IsInTown)
 									 {
 										  iSafetyLoops++;
-										  Bot.Character.WaitWhileAnimating(5, true);
-										  ZetaDia.Me.UsePower(SNOPower.UseStoneOfRecall, ZetaDia.Me.Position, ZetaDia.Me.WorldDynamicId, -1);
+										  Bot.Character.Data.WaitWhileAnimating(5, true);
+										  ZetaDia.Me.UsePower(SNOPower.UseStoneOfRecall, ZetaDia.Me.Position, ZetaDia.Me.WorldDynamicId);
 										  Thread.Sleep(1000);
-										  Bot.Character.WaitWhileAnimating(1000, true);
+										  Bot.Character.Data.WaitWhileAnimating(1000, true);
 										  if (iSafetyLoops>5)
 												break;
 									 }
 									 Thread.Sleep(1000);
 									 ZetaDia.Service.Party.LeaveGame();
 									 //ZetaDia.Service.Games.LeaveGame();
-									 Funky.FunkyOnLeaveGame(null, null);
+									 FunkyOnLeaveGame(null, null);
 									 // Wait for 10 second log out timer if not in town, else wait for 3 seconds instead
 									 Thread.Sleep(!ZetaDia.Me.IsInTown?10000:3000);
 								}
@@ -257,7 +250,7 @@ namespace FunkyBot
 						  ProfileManager.Load(profile);
 						  Thread.Sleep(1000);
 						  ZetaDia.Service.Party.LeaveGame();
-						  Funky.FunkyOnLeaveGame(null, null);
+						  FunkyOnLeaveGame(null, null);
 						  // Wait for 10 second log out timer if not in town
 						  if (!ZetaDia.Me.IsInTown)
 						  {
@@ -282,13 +275,13 @@ namespace FunkyBot
 				// **********************************************************************************************
 				// This replaces DemonBuddy's own built-in "Basic movement handler" with a custom one
 				internal static Vector3 vLastMoveTo=Vector3.Zero;
-				private static bool bLastWaypointWasTown=false;
+				private static bool bLastWaypointWasTown;
 				private static HashSet<Vector3> hashDoneThisVector=new HashSet<Vector3>();
 				internal static DateTime LastCombatPointChecked=DateTime.Today;
 
 				public void MoveTowards(Vector3 vMoveToTarget)
 				{
-					 if (Bot.Class==null)
+					 if (Bot.Character.Class==null)
 					 {
 						  Logging.Write("Bot did not properly initilize, stopping bot!");
 						  BotMain.Stop(false, "Bot Init Failure");
@@ -311,19 +304,19 @@ namespace FunkyBot
 								bLastWaypointWasTown=false;
 
 								float fDistance=Vector3.Distance(vMoveToTarget, vLastMoveTo);
-								// Log if not in town, last waypoint wasn't FROM town, and the distance is >200 but <2000 (cos 2000+ probably means we changed map zones!)
+								// Logging.Write if not in town, last waypoint wasn't FROM town, and the distance is >200 but <2000 (cos 2000+ probably means we changed map zones!)
 								if (!ZetaDia.Me.IsInTown&&!bLastWaypointWasTown&&fDistance>=200&fDistance<=2000)
 								{
 									 if (!hashDoneThisVector.Contains(vMoveToTarget))
 									 {
-										  // Log it
-										  string sLogFileName=LoggingPrefixString+" -- LongPaths.log";
-										  FileStream LogStream=File.Open(LoggingFolderPath+sLogFileName, FileMode.Append, FileAccess.Write, FileShare.Read);
+										  // Logging.Write it
+										 string sLogFileName = Logger.LoggingPrefixString + " -- LongPaths.log";
+										 FileStream LogStream = File.Open(Logger.LoggingFolderPath + sLogFileName, FileMode.Append, FileAccess.Write, FileShare.Read);
 										  using (StreamWriter LogWriter=new StreamWriter(LogStream))
 										  {
-												LogWriter.WriteLine(DateTime.Now.ToString()+":");
+												LogWriter.WriteLine(DateTime.Now.ToString(CultureInfo.InvariantCulture)+":");
 												LogWriter.WriteLine("Profile Name="+ProfileManager.CurrentProfile.Name);
-												LogWriter.WriteLine("'From' Waypoint="+vLastMoveTo.ToString()+". 'To' Waypoint="+vMoveToTarget.ToString()+". Distance="+fDistance.ToString());
+												LogWriter.WriteLine("'From' Waypoint="+vLastMoveTo+". 'To' Waypoint="+vMoveToTarget+". Distance="+fDistance.ToString(CultureInfo.InvariantCulture));
 										  }
 										  //LogStream.Close();
 										  hashDoneThisVector.Add(vMoveToTarget);
@@ -460,7 +453,7 @@ namespace FunkyBot
 
 
 					 //Prioritize "blocking" objects.
-					 if (!Bot.Character.bIsInTown) Bot.NavigationCache.ObstaclePrioritizeCheck();
+					 if (!Bot.Character.Data.bIsInTown) Bot.NavigationCache.ObstaclePrioritizeCheck();
 
 
 
@@ -470,11 +463,11 @@ namespace FunkyBot
 					 // See if we can use abilities like leap etc. for movement out of combat, but not in town and only if we can raycast.
 					 if (Bot.Settings.OutOfCombatMovement&&!ZetaDia.Me.IsInTown&&!Bot.IsInNonCombatBehavior)
 					 {
-						  Ability MovementPower;
-						  Vector3 MovementVector=Bot.Class.FindOutOfCombatMovementPower(out MovementPower, vMoveToTarget);
+						  Skill MovementPower;
+						  Vector3 MovementVector=Bot.Character.Class.FindOutOfCombatMovementPower(out MovementPower, vMoveToTarget);
 						  if (MovementVector!=Vector3.Zero)
 						  {
-								ZetaDia.Me.UsePower(MovementPower.Power, MovementVector, Bot.Character.iCurrentWorldID, -1);
+								ZetaDia.Me.UsePower(MovementPower.Power, MovementVector, Bot.Character.Data.iCurrentWorldID);
 								MovementPower.OnSuccessfullyUsed();
 								return;
 						  }
@@ -484,7 +477,7 @@ namespace FunkyBot
 
 					 //Send Movement Command!
 					 //ZetaDia.Me.Movement.MoveActor(vMoveToTarget);
-					 ZetaDia.Me.UsePower(SNOPower.Walk, vMoveToTarget, Bot.Character.iCurrentWorldID, -1);
+					 ZetaDia.Me.UsePower(SNOPower.Walk, vMoveToTarget, Bot.Character.Data.iCurrentWorldID);
 				}
 
 
@@ -507,7 +500,7 @@ namespace FunkyBot
 					 //	 return MoveResult.Moved;
 					 //}
 
-					 return Navigator.MoveTo(moveTarget, destinationName, true);
+					 return Navigator.MoveTo(moveTarget, destinationName);
 				}
 		  }
 

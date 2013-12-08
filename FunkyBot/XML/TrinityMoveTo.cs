@@ -7,6 +7,7 @@ using Zeta.CommonBot.Profile;
 using Zeta.Navigation;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
+using Action = Zeta.TreeSharp.Action;
 
 namespace FunkyBot.XMLTags
 {
@@ -15,27 +16,20 @@ namespace FunkyBot.XMLTags
 	public class TrinityMoveTo : ProfileBehavior
 	{
 		private bool m_IsDone;
-		private float fPosX;
-		private float fPosY;
-		private float fPosZ;
-		private float fPathPrecision;
-		private float fRandomizedDistance;
-		private string sDestinationName;
-		private string sNoSkip;
 		private string useNavigator;
 		private Vector3? vMainVector;
-		private bool skippingAhead = false;
+		private bool skippingAhead;
 
 		protected override Composite CreateBehavior()
 		{
 			//Funky.hashSkipAheadAreaCache=new HashSet<Funky.SkipAheadNavigation>();
-			Composite[] children = new Composite[2];
-			Composite[] compositeArray = new Composite[2];
-			compositeArray[0] = new Zeta.TreeSharp.Action(new ActionSucceedDelegate(FlagTagAsCompleted));
-			children[0] = new Zeta.TreeSharp.Decorator(new CanRunDecoratorDelegate(CheckDistanceWithinPathPrecision), new Sequence(compositeArray));
-			ActionDelegate actionDelegateMove = new ActionDelegate(GilesMoveToLocation);
-			Sequence sequenceblank = new Sequence(
-				new Zeta.TreeSharp.Action(actionDelegateMove)
+			var children = new Composite[2];
+			var compositeArray = new Composite[2];
+			compositeArray[0] = new Action(new ActionSucceedDelegate(FlagTagAsCompleted));
+			children[0] = new Decorator(CheckDistanceWithinPathPrecision, new Sequence(compositeArray));
+			ActionDelegate actionDelegateMove = GilesMoveToLocation;
+			var sequenceblank = new Sequence(
+				new Action(actionDelegateMove)
 				);
 			children[1] = sequenceblank;
 			return new PrioritySelector(children);
@@ -61,8 +55,8 @@ namespace FunkyBot.XMLTags
 			}
 
 			// Now use Trinity movement to try a direct movement towards that location
-			Vector3 NavTarget = Position;
-			Vector3 MyPos = Bot.Character.Position;
+			var NavTarget = Position;
+			var MyPos = Bot.Character.Data.Position;
 			if (!ZetaDia.WorldInfo.IsGenerated && Vector3.Distance(MyPos, NavTarget) > 250)
 			{
 				NavTarget = MathEx.CalculatePointFrom(MyPos, NavTarget, Vector3.Distance(MyPos, NavTarget) - 250);
@@ -135,43 +129,13 @@ namespace FunkyBot.XMLTags
 		}
 
 		[XmlAttribute("noskip")]
-		public string NoSkip
-		{
-			get
-			{
-				return sNoSkip;
-			}
-			set
-			{
-				sNoSkip = value;
-			}
-		}
+		public string NoSkip { get; set; }
 
 		[XmlAttribute("name")]
-		public string Name
-		{
-			get
-			{
-				return sDestinationName;
-			}
-			set
-			{
-				sDestinationName = value;
-			}
-		}
+		public string Name { get; set; }
 
 		[XmlAttribute("pathPrecision")]
-		public float PathPrecision
-		{
-			get
-			{
-				return fPathPrecision;
-			}
-			set
-			{
-				fPathPrecision = value;
-			}
-		}
+		public float PathPrecision { get; set; }
 
 		public Vector3 Position
 		{
@@ -186,7 +150,7 @@ namespace FunkyBot.XMLTags
 					else
 					{
 						float degrees = new Random().Next(0, 360);
-						vMainVector = new Vector3?(MathEx.GetPointAt(new Vector3(X, Y, Z), (float)(new Random().NextDouble() * UnsafeRandomDistance), MathEx.ToRadians(degrees)));
+						vMainVector = MathEx.GetPointAt(new Vector3(X, Y, Z), (float)(new Random().NextDouble() * UnsafeRandomDistance), MathEx.ToRadians(degrees));
 					}
 				}
 				return vMainVector.Value;
@@ -194,57 +158,15 @@ namespace FunkyBot.XMLTags
 		}
 
 		[XmlAttribute("unsafeRandomDistance")]
-		public float UnsafeRandomDistance
-		{
-			get
-			{
-				return fRandomizedDistance;
-			}
-			set
-			{
-				fRandomizedDistance = value;
-			}
-		}
+		public float UnsafeRandomDistance { get; set; }
 
 		[XmlAttribute("x")]
-		public float X
-		{
-			get
-			{
-				return fPosX;
-			}
-			set
-			{
-				fPosX = value;
-			}
-		}
+		public float X { get; set; }
 
 		[XmlAttribute("y")]
-		public float Y
-		{
-			get
-			{
-				return fPosY;
-			}
-			set
-			{
-				fPosY = value;
-			}
-		}
+		public float Y { get; set; }
 
 		[XmlAttribute("z")]
-		public float Z
-		{
-			get
-			{
-				return fPosZ;
-			}
-			set
-			{
-				fPosZ = value;
-			}
-		}
-
-
+		public float Z { get; set; }
 	}
 }

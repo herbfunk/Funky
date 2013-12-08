@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Zeta;
 using Zeta.Common;
 
 namespace FunkyBot.Movement
@@ -42,7 +41,7 @@ namespace FunkyBot.Movement
 								//thisV3.Normalize();
 
 								//Its a valid point for direction testing!
-								float DirectionDegrees=Navigation.FindDirection(LastSearchVector3, thisV3, false);
+								float DirectionDegrees=Navigation.FindDirection(LastSearchVector3, thisV3);
 								DirectionPoint P=new DirectionPoint((Vector3)curGP, DirectionDegrees, 125f);
 
 								if (P.Range>5f)
@@ -61,12 +60,12 @@ namespace FunkyBot.Movement
 				}
 				//Blacklisted points used by movement behaviors
                 internal List<GridPoint> BlacklistedGridpoints = new List<GridPoint>();
-				private bool BlacklistedPoint=false;
+				private bool BlacklistedPoint;
 				internal void BlacklistLastSafespot()
 				{
 					 if (lastUsedGPRect!=null)
 					 {
-						  this.BlacklistedGridpoints.Add(lastUsedGPRect.LastFoundSafeSpot);
+						  BlacklistedGridpoints.Add(lastUsedGPRect.LastFoundSafeSpot);
 						  BlacklistedPoint=true;
 					 }
 
@@ -86,7 +85,7 @@ namespace FunkyBot.Movement
                     }
 
 
-                    Vector3 safespot = Vector3.Zero;
+                    Vector3 safespot;
                     //Check if we actually created any surrounding GPCs..
                     if (gridpointrectangles_.Count > 0)
                     {
@@ -100,18 +99,15 @@ namespace FunkyBot.Movement
                             AllGPRectsFailed = true;
                             return safespot;
                         }
-                        else
-                        {
-                            //Cache it and set timer
-                            Bot.NavigationCache.lastFoundSafeSpot = DateTime.Now;
-                            Bot.NavigationCache.vlastSafeSpot = safespot;
-                        }
+	                    //Cache it and set timer
+	                    Bot.NavigationCache.lastFoundSafeSpot = DateTime.Now;
+	                    Bot.NavigationCache.vlastSafeSpot = safespot;
                     }
                     //Logging.WriteVerbose("Safespot location {0} distance from {1} is {2}", safespot.ToString(), LastSearchVector.ToString(), safespot.Distance2D(LastSearchVector));
                     return Bot.NavigationCache.vlastSafeSpot;
                 }
 
-				private int lastGPRectIndexUsed=0;
+				private int lastGPRectIndexUsed;
                 private void iterateGPRectsSafeSpot(Vector3 CurrentPosition, out Vector3 safespot, Vector3 LOS, PointCheckingFlags Flags)
                 {
                     //blacklisted a point?.. we advance to next index!
@@ -134,9 +130,9 @@ namespace FunkyBot.Movement
 
                         item.UpdateObjectCount(AllGPRectsFailed);
 
-                        if (item.TryFindSafeSpot(CurrentPosition, out safespot, LOS, Flags, this.BlacklistedGridpoints, AllGPRectsFailed, CompareWeight))
+                        if (item.TryFindSafeSpot(CurrentPosition, out safespot, LOS, Flags, BlacklistedGridpoints, AllGPRectsFailed, CompareWeight))
                         {
-                            this.lastUsedGPRect = gridpointrectangles_[i];
+                            lastUsedGPRect = gridpointrectangles_[i];
                             return;
                         }
                     }
@@ -144,7 +140,7 @@ namespace FunkyBot.Movement
                 }
 				private GPRectangle GetGPRectContainingPoint(GridPoint Point)
 				{
-					 foreach (var item in this.gridpointrectangles_)
+					 foreach (var item in gridpointrectangles_)
 					 {
 						  if (item.Contains(Point))
 								return item;

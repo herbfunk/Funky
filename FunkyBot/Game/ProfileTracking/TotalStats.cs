@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 
 namespace FunkyBot.Game
 {
@@ -16,17 +13,17 @@ namespace FunkyBot.Game
         {
 			if (lastGame.Profiles.Count > 0)
 			{
-				this.GameCount++;
+				GameCount++;
 				lastGame.Profiles.Last().UpdateRangeVariables();
 				foreach (var item in lastGame.Profiles)
 				{
-					if (!this.Profiles.Contains(item))
+					if (!Profiles.Contains(item))
 					{
-						this.Profiles.Add(item);
+						Profiles.Add(item);
 					}
 					else
 					{
-						this.Profiles[this.Profiles.IndexOf(item)].MergeStats(item);
+						Profiles[Profiles.IndexOf(item)].MergeStats(item);
 					}
 				}
 			}

@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using FunkyBot.Avoidances;
-using FunkyBot.Settings;
-using FunkyBot.Cache;
+using System.Windows.Media;
 
 namespace FunkyBot
 {
@@ -58,7 +52,7 @@ namespace FunkyBot
 
             StackPanel SPTargetLOS = new StackPanel
             {
-                Background = System.Windows.Media.Brushes.DimGray,
+                Background = Brushes.DimGray,
                 Width = tcTargeting.Width,
             };
 
@@ -67,10 +61,10 @@ namespace FunkyBot
             {
                 Text = "Line of Sight Behavior Options",
                 FontSize = 12,
-                Foreground = System.Windows.Media.Brushes.GhostWhite,
-                Background = System.Windows.Media.Brushes.DarkGreen,
+                Foreground = Brushes.GhostWhite,
+                Background = Brushes.DarkGreen,
                 TextAlignment = TextAlignment.Center,
-                HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch,
+                HorizontalAlignment= HorizontalAlignment.Stretch,
             };
             SPTargetLOS.Children.Add(LOSMovement_Text_Header);
 

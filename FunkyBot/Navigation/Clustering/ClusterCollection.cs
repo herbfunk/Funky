@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Linq;
-using FunkyBot.AbilityFunky;
 using FunkyBot.Cache;
-using Zeta;
 using System.Collections.Generic;
-using FunkyBot.Movement;
 
 namespace FunkyBot.Movement.Clustering
 {

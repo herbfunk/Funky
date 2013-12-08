@@ -51,8 +51,8 @@ namespace FunkyBot.XMLTags
 		  string CurrentProfilePath=String.Empty;
 		  string CurrentProfileName=String.Empty;
 		  Random rand=new Random();
-		  bool initialized=false;
-		  private bool isDone=false;
+		  bool initialized;
+		  private bool isDone;
 
 		  public override bool IsDone
 		  {
@@ -110,11 +110,11 @@ namespace FunkyBot.XMLTags
 		  public void RealignFileNames()
 		  {
 				// Seed random generator with same INT until new game
-				Random rand2=new Random(lastUpdate);
+				var rand2=new Random(lastUpdate);
 
-				for (int i=0; i<Profiles.Count; i++)
+				for (var i=0; i<Profiles.Count; i++)
 				{
-					 string[] profilesArray=Profiles[i].FileName.Split(';');
+					 var profilesArray=Profiles[i].FileName.Split(';');
 					 Profiles[i].FileName=profilesArray[rand2.Next(0, profilesArray.Length)];
 				}
 		  }
@@ -129,7 +129,7 @@ namespace FunkyBot.XMLTags
 					 new PrioritySelector(
 						  new Decorator(ret => AvailableProfiles.Length==0,
 								new Sequence(
-									 new Action(ret => Logging.Write("TrinityLoadOnce: All available profiles have been used!", true)),
+									 new Action(ret => Logging.Write("TrinityLoadOnce: All available profiles have been used!")),
 									 new Action(ret => lastUpdate=DateTime.Now.Ticks.GetHashCode()),
 									 new Action(ret => isDone=true)
 								)
@@ -151,7 +151,7 @@ namespace FunkyBot.XMLTags
 									 )
 								)
 						  ),
-						  new Action(ret => Logging.Write("TrinityLoadOnce: Unkown error", true))
+						  new Action(ret => Logging.Write("TrinityLoadOnce: Unkown error"))
 					 )
 			  );
 		  }
@@ -175,7 +175,7 @@ namespace FunkyBot.XMLTags
 
 		  public LoadProfileOnce(string filename)
 		  {
-				this.FileName=filename;
+				FileName=filename;
 		  }
 
 		  public LoadProfileOnce()

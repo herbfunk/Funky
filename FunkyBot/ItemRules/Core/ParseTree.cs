@@ -141,7 +141,7 @@ namespace GilesTrinity.ItemRules.Core
         protected object GetValue(ParseTree tree, TokenType type, ref int index)
         {
             object o = null;
-            if (index < 0) return o;
+            if (index < 0) return null;
 
             // left to right
             foreach (ParseNode node in nodes)

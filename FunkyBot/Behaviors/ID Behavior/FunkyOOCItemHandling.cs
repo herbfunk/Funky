@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Zeta;
-using Zeta.Common;
+using Zeta.CommonBot.Logic;
+using Zeta.Internals;
 using Zeta.Internals.Actors;
-using Zeta.CommonBot;
 using System.Collections.Generic;
 using Zeta.TreeSharp;
 
@@ -28,10 +28,10 @@ namespace FunkyBot
 				try
 				{
 					 if (!behaviorRefresh)
-						  UnidentifiedItems=Bot.Character.BackPack.ReturnUnidenifiedItems();
+						  UnidentifiedItems=Bot.Character.Data.BackPack.ReturnUnidenifiedItems();
 					 else
 						  //Used during IDing
-						  UnidentifiedItems=Bot.Character.BackPack.ReturnUnidifiedItemsRandomizedSorted();
+						  UnidentifiedItems=Bot.Character.Data.BackPack.ReturnUnidifiedItemsRandomizedSorted();
 				} catch
 				{
 					 Logger.Write(LogLevel.Items, "Exception occured during refresh of inventory");
@@ -44,7 +44,7 @@ namespace FunkyBot
 				//Question: Do we want to run ID Behavior?
 
 				//ONLY RUN IF VENDOR BEHAVIOR...
-				if (!Zeta.CommonBot.Logic.BrainBehavior.ShouldVendor)
+				if (!BrainBehavior.ShouldVendor)
 					 return false;
 
 				RefreshUnidList();
@@ -53,7 +53,7 @@ namespace FunkyBot
 		  }
 
 
-		  private static Zeta.TreeSharp.RunStatus HandleIDBehavior()
+		  private static RunStatus HandleIDBehavior()
 		  {
 				//Exit this?
 				if (ZetaDia.Me.IsDead||!ZetaDia.IsInGame)
@@ -74,17 +74,16 @@ namespace FunkyBot
 
 					 if (finishPauseDone)
 					 {
-						  Bot.Character.lastPreformedNonCombatAction=DateTime.Now;
+						  Bot.Character.Data.lastPreformedNonCombatAction=DateTime.Now;
 						  finishPauseDone=false;
-						  return Zeta.TreeSharp.RunStatus.Success;
+						  return RunStatus.Success;
 					 }
-					 else
-						  return Zeta.TreeSharp.RunStatus.Running;
+					return RunStatus.Running;
 				}
 
 
 				//Refresh Combat if NOT VENDOR RUN..
-				if (!Bot.Character.bIsInTown)
+				if (!Bot.Character.Data.bIsInTown)
 				{
 					 //Refresh?
 					 if (Bot.Targeting.ShouldRefreshObjectList)
@@ -98,7 +97,7 @@ namespace FunkyBot
 					 {
 						  //Check if we have not made a ID cast in awhile..
 						  if (DateTime.Now.Subtract(lastActionPreformed).TotalSeconds>20)
-								Bot.Character.BackPack.InventoryBackPackToggle(false);
+								Bot.Character.Data.BackPack.InventoryBackPackToggle(false);
 
 						  //Directly Handle Target..
 						  RunStatus targetHandler=Bot.Targeting.HandleThis();
@@ -106,10 +105,10 @@ namespace FunkyBot
 						  //Only return failure if handling failed..
 						  if (targetHandler==RunStatus.Failure)
 								return RunStatus.Success;
-						  else if (targetHandler==RunStatus.Success)
-								Bot.Targeting.ResetTargetHandling();
+						 if (targetHandler==RunStatus.Success)
+							 Bot.Targeting.ResetTargetHandling();
 
-						  return RunStatus.Running;
+						 return RunStatus.Running;
 					 }
 				}
 
@@ -124,7 +123,7 @@ namespace FunkyBot
 					 {
 						 Logger.Write(LogLevel.Items,"Quiting OOC Behavior due to too many failures");
 						  FinishBehavior();
-						  return Zeta.TreeSharp.RunStatus.Success;
+						  return RunStatus.Success;
 					 }
 
 					 //Reset our current Item to next in our unid queue.
@@ -138,11 +137,11 @@ namespace FunkyBot
 
 
 					 //Attempt live update of current item only if vendoring
-					 //if (Bot.Character.bIsInTown)
+					 //if (Bot.Character_.Data.bIsInTown)
 					 //UpdateCurrentItem();
 
 					 //Get Unid, handle exception if any.. exit if failure to update.
-					 bool unid=true;
+					 bool unid;
 					 if (currentItem.BaseAddress!=IntPtr.Zero)
 					 {
 
@@ -164,11 +163,11 @@ namespace FunkyBot
 					 {
 						  castAttempt=true;
 						  lastCastTime=DateTime.Now; //Just to prevent another cast from occuring..
-						  waitTime=RandomWaitTime(false);
+						  waitTime=RandomWaitTime();
 						  currentItem=null;
 
 						  //Update ID items only if we are not vendoring..
-						  if (!Bot.Character.bIsInTown)
+						  if (!Bot.Character.Data.bIsInTown)
 								IdentifiedItems.Add(UnidentifiedItems.Dequeue());
 						  else
 						  {
@@ -183,7 +182,7 @@ namespace FunkyBot
 						  else if (totalFailures>0)
 								totalFailures--;
 
-						  return Zeta.TreeSharp.RunStatus.Running;
+						  return RunStatus.Running;
 					 }
 
 					 //Checks for pre-casting.
@@ -200,14 +199,11 @@ namespace FunkyBot
 						  lastActionPreformed=DateTime.Now;
 					 }
 
-					 return Zeta.TreeSharp.RunStatus.Running;
+					 return RunStatus.Running;
 				}
-				else
-				{
-					 //No Items Remain.. Start finshing behavior.
-					 isFinishingBahavior=true;
-					 return Zeta.TreeSharp.RunStatus.Running;
-				}
+			  //No Items Remain.. Start finshing behavior.
+			  isFinishingBahavior=true;
+			  return RunStatus.Running;
 		  }
 
 		  internal static DateTime lastCastTime=DateTime.MinValue;
@@ -252,8 +248,8 @@ namespace FunkyBot
 				isFinishingBahavior=false;
 
 				//close inv only if we are not wanting to town run!
-				if (Bot.Character.BackPack.InventoryBackpackVisible()&&!Zeta.CommonBot.Logic.BrainBehavior.ShouldVendor)
-					 Bot.Character.BackPack.InventoryBackPackToggle(false);
+				if (Bot.Character.Data.BackPack.InventoryBackpackVisible()&&!BrainBehavior.ShouldVendor)
+					 Bot.Character.Data.BackPack.InventoryBackPackToggle(false);
 		  }
 
 
@@ -262,8 +258,7 @@ namespace FunkyBot
 				Random R=new Random(DateTime.Now.Millisecond);
 				if (!cast)
 					 return R.Next(550, 909);
-				else
-					 return R.Next(999, 2550);
+			  return R.Next(999, 2550);
 		  }
 
 		  internal static bool preIdentifyCastChecks()
@@ -285,7 +280,7 @@ namespace FunkyBot
 				//Check for inventory window visibility first.
 				try
 				{
-					 if (!Bot.Character.BackPack.InventoryBackpackVisible())
+					if (!Bot.Character.Data.BackPack.InventoryBackpackVisible())
 					 {
 						  //Init a wait before opening..
 						  if (!preWaitBeforeOpenInv)
@@ -297,17 +292,17 @@ namespace FunkyBot
 						  else if (totalMSlastAction>waitTime)
 						  {
 								//Open inventory and wait..
-								Bot.Character.BackPack.InventoryBackPackToggle(true);
+								Bot.Character.Data.BackPack.InventoryBackPackToggle(true);
 								preWaitBeforeOpenInv=false;
-								waitTime=RandomWaitTime(false);
+								waitTime=RandomWaitTime();
 								lastCastTime=DateTime.Now;
 						  }
 						  return false;
 					 }//Wait after opening..
-					 else if (totalMSlastAction<waitTime)
-						  return false;
-
-				} catch
+					if (totalMSlastAction<waitTime)
+						return false;
+				}
+				catch
 				{
 					 return false;
 				}
@@ -315,9 +310,9 @@ namespace FunkyBot
 				//Cannot ID when stash window is visible.
 				try
 				{
-					 if (Zeta.Internals.UIElements.StashWindow.IsVisible)
+					 if (UIElements.StashWindow.IsVisible)
 					 {
-						  Zeta.Internals.UIElement.FromHash(0x5CF7230E045FF4DF).Click();
+						  UIElement.FromHash(0x5CF7230E045FF4DF).Click();
 						  return false;
 					 }
 				} catch
@@ -328,13 +323,13 @@ namespace FunkyBot
 				if (castAttempt)
 				{
 					 //Get AnimState
-					 bool bCasting=false;
+					 bool bCasting;
 					 try
 					 {
 						  bCasting=(ZetaDia.Me.CommonData.AnimationState==AnimationState.Casting);
 					 } catch
 					 {
-						  RandomWaitTime(false);
+						  RandomWaitTime();
 						  return false;
 					 }
 
@@ -344,11 +339,9 @@ namespace FunkyBot
 						  castAttempt=false;
 						  return true;
 					 }
-					 else
-						  return false;
+					return false;
 				}
-				else
-					 return true;
+			  return true;
 		  }
 
 

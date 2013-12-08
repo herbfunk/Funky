@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Zeta;
-using Zeta.Common;
 using System.Collections.Generic;
 using System.Collections;
 
@@ -36,8 +34,8 @@ namespace FunkyBot.Movement
 				internal Dictionary<GridPoint, QuadrantLocation> Points=new Dictionary<GridPoint, QuadrantLocation>();
 				private List<GridPoint> BasePoints=new List<GridPoint>();
 
-				public Dictionary<QuadrantLocation, GridPoint> CornerPoints=new Dictionary<QuadrantLocation, GridPoint>()
-					 {
+				public Dictionary<QuadrantLocation, GridPoint> CornerPoints=new Dictionary<QuadrantLocation, GridPoint>
+				{
 						  {QuadrantLocation.BottomRight, null},	 {QuadrantLocation.BottomLeft, null},
 						  {QuadrantLocation.TopRight, null},		 {QuadrantLocation.TopLeft, null}, 
 					 };
@@ -86,21 +84,18 @@ namespace FunkyBot.Movement
 				public GridPoint[] QuadrantPoints(QuadrantLocation SectorCode, out GridPoint EndPoint)
 				{
 					 GridPoint[] containedPoints=
-					 (from p in this.Points
+					 (from p in Points
 					  where p.Value==SectorCode
 					  select p.Key).ToArray();
 
 					 EndPoint=CornerPoints[SectorCode];
 
-					 if (containedPoints==null) return null;
-
-					 GridPoint[] SortedPoints=containedPoints.OrderBy(p => !p.Ignored).ToArray();
+					GridPoint[] SortedPoints=containedPoints.OrderBy(p => !p.Ignored).ToArray();
 
 
 					 if (!SortedPoints.Any(p => !p.Ignored))
 						  return null;
-					 else
-						  return SortedPoints;
+					return SortedPoints;
 				}
 
 				public void Update(GridPoint point, QuadrantLocation SectorCode)
@@ -133,7 +128,7 @@ namespace FunkyBot.Movement
 					 //this.br=clone.br;
 					 //this.tl=clone.tl;
 					 //this.tr=clone.tr;
-					 this.BasePoints=clone.Points.Keys.ToList();
+					 BasePoints=clone.Points.Keys.ToList();
 					 //this.CornerPoints=clone.CornerPoints;
 					 //this.centerpoint_=clone.centerpoint_;
 				}
@@ -144,28 +139,28 @@ namespace FunkyBot.Movement
 				public void Add(GridPoint item)
 				{
 					 QuadrantLocation code_=(QuadrantLocation)ComputeOutCode(item.X, item.Y);
-					 this.Add(item, code_);
+					 Add(item, code_);
 				}
 
 				public void Clear()
 				{
 					 //this.OutCodes.Clear();
-					 this.Points.Clear();
+					 Points.Clear();
 				}
 
 				public bool Contains(GridPoint item)
 				{
-					 return (this.Points.Keys.Contains(item)||this.BasePoints.Contains(item));
+					 return (Points.Keys.Contains(item)||BasePoints.Contains(item));
 				}
 
 				public void CopyTo(GridPoint[] array, int arrayIndex)
 				{
-					 this.Points.Keys.CopyTo(array, arrayIndex);
+					 Points.Keys.CopyTo(array, arrayIndex);
 				}
 
 				public int Count
 				{
-					 get { return this.Points.Count; }
+					 get { return Points.Count; }
 				}
 
 				public bool IsReadOnly
@@ -175,7 +170,7 @@ namespace FunkyBot.Movement
 
 				public void Remove(GridPoint item)
 				{
-					 this.Points.Remove(item);
+					 Points.Remove(item);
 				}
 
 				#endregion
@@ -186,18 +181,18 @@ namespace FunkyBot.Movement
 
 				public void Add(GridPoint key, QuadrantLocation value)
 				{
-					 this.Points.Add(key, value);
+					 Points.Add(key, value);
 					 Update(key, value);
 				}
 
 				public bool ContainsKey(GridPoint key)
 				{
-					 return this.Points.ContainsKey(key);
+					 return Points.ContainsKey(key);
 				}
 
 				public ICollection<GridPoint> Keys
 				{
-					 get { return this.Points.Keys; }
+					 get { return Points.Keys; }
 				}
 
 				bool IDictionary<GridPoint, QuadrantLocation>.Remove(GridPoint key)
@@ -207,23 +202,23 @@ namespace FunkyBot.Movement
 
 				public bool TryGetValue(GridPoint key, out QuadrantLocation value)
 				{
-					 return this.Points.TryGetValue(key, out value);
+					 return Points.TryGetValue(key, out value);
 				}
 
 				public ICollection<QuadrantLocation> Values
 				{
-					 get { return this.Points.Values; }
+					 get { return Points.Values; }
 				}
 
 				public QuadrantLocation this[GridPoint key]
 				{
 					 get
 					 {
-						  return this.Points[key];
+						  return Points[key];
 					 }
 					 set
 					 {
-						  this.Points[key]=value;
+						  Points[key]=value;
 					 }
 				}
 
@@ -257,7 +252,7 @@ namespace FunkyBot.Movement
 
 				public IEnumerator<KeyValuePair<GridPoint, QuadrantLocation>> GetEnumerator()
 				{
-					 return this.Points.GetEnumerator();
+					 return Points.GetEnumerator();
 				}
 
 				#endregion
@@ -266,7 +261,7 @@ namespace FunkyBot.Movement
 
 				IEnumerator IEnumerable.GetEnumerator()
 				{
-					 return this.Points.GetEnumerator();
+					 return Points.GetEnumerator();
 				}
 
 				#endregion

@@ -3,7 +3,14 @@ using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
+using System.Windows.Media;
 using FunkyBot.Settings;
+using CheckBox = System.Windows.Controls.CheckBox;
+using HorizontalAlignment = System.Windows.HorizontalAlignment;
+using ListBox = System.Windows.Controls.ListBox;
+using Orientation = System.Windows.Controls.Orientation;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace FunkyBot
 {
@@ -46,14 +53,14 @@ namespace FunkyBot
 
 		  private void GroupingLoadXMLClicked(object sender, EventArgs e)
 		  {
-				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
+				OpenFileDialog OFD=new OpenFileDialog
 				{
 					 InitialDirectory=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
 					 RestoreDirectory=false,
 					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
 					 Title="Grouping Template",
 				};
-				System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
+				DialogResult OFD_Result=OFD.ShowDialog();
 
 				if (OFD_Result==System.Windows.Forms.DialogResult.OK)
 				{
@@ -63,7 +70,7 @@ namespace FunkyBot
 						  SettingGrouping newSettings=SettingGrouping.DeserializeFromXML(OFD.FileName);
 						  Bot.Settings.Grouping=newSettings;
 
-						  FunkyWindow.funkyConfigWindow.Close();
+						  funkyConfigWindow.Close();
 					 } catch
 					 {
 
@@ -105,13 +112,13 @@ namespace FunkyBot
 			  StackPanel HealthOptionsStackPanel=new StackPanel
 			  {
 					Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
-					Background=System.Windows.Media.Brushes.DimGray,
+					Background=Brushes.DimGray,
 			  };
 			  TextBlock Health_Options_Text=new TextBlock
 			  {
 					Text="Health",
 					FontSize=13,
-					Background=System.Windows.Media.Brushes.DarkSeaGreen,
+					Background=Brushes.DarkSeaGreen,
 					TextAlignment=TextAlignment.Center,
 			  };
 			  HealthOptionsStackPanel.Children.Add(Health_Options_Text);
@@ -120,7 +127,7 @@ namespace FunkyBot
 			  {
 					Text="Actions will occur when life is below given value",
 					FontSize=12,
-					Foreground=System.Windows.Media.Brushes.GhostWhite,
+					Foreground=Brushes.GhostWhite,
 					FontStyle=FontStyles.Italic,
 					//Background = System.Windows.Media.Brushes.Crimson,
 					TextAlignment=TextAlignment.Left,
@@ -132,7 +139,7 @@ namespace FunkyBot
 			  {
 					Text="Globe Health Percent",
 					FontSize=12,
-					Foreground=System.Windows.Media.Brushes.GhostWhite,
+					Foreground=Brushes.GhostWhite,
 					//Background = System.Windows.Media.Brushes.Crimson,
 					TextAlignment=TextAlignment.Left,
 			  };
@@ -147,7 +154,7 @@ namespace FunkyBot
 					LargeChange=0.20,
 					SmallChange=0.10,
 					Value=Bot.Settings.Combat.GlobeHealthPercent,
-					HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					HorizontalAlignment=HorizontalAlignment.Left,
 			  };
 			  sliderGlobeHealth.ValueChanged+=GlobeHealthSliderChanged;
 			  TBGlobeHealth=new TextBox
@@ -171,7 +178,7 @@ namespace FunkyBot
 			  {
 					Text="Potion Health Percent",
 					FontSize=12,
-					Foreground=System.Windows.Media.Brushes.GhostWhite,
+					Foreground=Brushes.GhostWhite,
 					//Background = System.Windows.Media.Brushes.Crimson,
 					TextAlignment=TextAlignment.Left,
 			  };
@@ -187,7 +194,7 @@ namespace FunkyBot
 					LargeChange=0.20,
 					SmallChange=0.10,
 					Value=Bot.Settings.Combat.PotionHealthPercent,
-					HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					HorizontalAlignment=HorizontalAlignment.Left,
 			  };
 			  sliderPotionHealth.ValueChanged+=PotionHealthSliderChanged;
 			  TBPotionHealth=new TextBox
@@ -211,7 +218,7 @@ namespace FunkyBot
 			  {
 					Text="Health Well Percent",
 					FontSize=12,
-					Foreground=System.Windows.Media.Brushes.GhostWhite,
+					Foreground=Brushes.GhostWhite,
 					//Background = System.Windows.Media.Brushes.Crimson,
 					TextAlignment=TextAlignment.Left,
 			  };
@@ -227,7 +234,7 @@ namespace FunkyBot
 					LargeChange=0.20,
 					SmallChange=0.10,
 					Value=Bot.Settings.Combat.HealthWellHealthPercent,
-					HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					HorizontalAlignment=HorizontalAlignment.Left,
 			  };
 			  sliderWellHealth.ValueChanged+=WellHealthSliderChanged;
 			  TBWellHealth=new TextBox

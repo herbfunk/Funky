@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FunkyBot.Targeting.Behaviors
+﻿namespace FunkyBot.Targeting.Behaviors
 {
 	 public class TBGroupingResume : TargetBehavior
 	 {
@@ -20,7 +18,8 @@ namespace FunkyBot.Targeting.Behaviors
 				base.Test=(ref Cache.CacheObject obj) =>
 				{
 					 if (!Bot.NavigationCache.groupReturningToOrgin)
-					 {
+					 {//Not returning to Orgin Target
+
 						 Bot.Targeting.Clusters.UpdateGroupClusteringVariables();
 
 						  bool EndBehavior=false;
@@ -54,10 +53,8 @@ namespace FunkyBot.Targeting.Behaviors
 
 					 }
 					 else
-					 {
+					 {//Returning to Orgin Unit..
 						  bool endBehavior=false;
-
-						  //Returning to Orgin Unit..
 						  if (!Bot.NavigationCache.groupingOrginUnit.ObjectIsValidForTargeting)
 						  {
 								endBehavior=true;
@@ -65,21 +62,23 @@ namespace FunkyBot.Targeting.Behaviors
 								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Grouping))
 									 Logger.Write(LogLevel.Grouping, "Orgin Target is no longer valid for targeting.");
 						  }
-						  else if (Bot.NavigationCache.groupingOrginUnit.CentreDistance<(Bot.Class.IsMeleeClass?25f:45f))
+						  else if (Bot.NavigationCache.groupingOrginUnit.CentreDistance<(Bot.Character.Class.IsMeleeClass?25f:45f))
 						  {
 								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Grouping))
-									 Logger.Write(LogLevel.Grouping, "Orgin Target is within {0}f of the bot.", (Bot.Class.IsMeleeClass?25f:45f).ToString());
+									 Logger.Write(LogLevel.Grouping, "Orgin Target is within {0}f of the bot.", (Bot.Character.Class.IsMeleeClass?25f:45f).ToString());
 
 								endBehavior=true;
 						  }
 
 						  if (!endBehavior)
 						  {
-								obj=Bot.NavigationCache.groupingOrginUnit;
-								return true;
+							  obj = Bot.NavigationCache.groupingOrginUnit;
+							  return true;
 						  }
 						  else
-								Bot.NavigationCache.GroupingFinishBehavior();
+						  {
+							  Bot.NavigationCache.GroupingFinishBehavior();
+						  }
 					 }
 
 

@@ -3,15 +3,16 @@ using System.Linq;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using Zeta;
+using Zeta.CommonBot.Dungeons;
+using Zeta.CommonBot.Logic;
 using Zeta.Internals.Actors;
 using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.Internals.SNO;
 using Zeta.Navigation;
 using System.Globalization;
-
-using FunkyBot.AbilityFunky;
 using FunkyBot.Movement.Clustering;
+using Zeta.Pathfinding;
 
 namespace FunkyBot.Movement
 {
@@ -22,11 +23,8 @@ namespace FunkyBot.Movement
 		  ///</summary>
 		  public class Navigation
 		  {
-				public Navigation() { }
-
-
-				#region Bot (Character) Properties
-				private bool isMoving=false;
+			  #region Bot (Character) Properties
+				private bool isMoving;
 				///<summary>
 				///Cached Value of ZetaDia.Me.IsMoving
 				///</summary>
@@ -49,7 +47,7 @@ namespace FunkyBot.Movement
 					 }
 				}
 
-				private float curRotation=0f;
+				private float curRotation;
 				public float currentRotation
 				{
 					 get
@@ -58,7 +56,7 @@ namespace FunkyBot.Movement
 					 }
 				}
 
-				private double curSpeedXY=0d;
+				private double curSpeedXY;
 				public double currentSpeedXY
 				{
 					 get
@@ -115,7 +113,7 @@ namespace FunkyBot.Movement
 
 				//GPCache
 
-				private GPRectangle CurrentLocationGPrect=null;
+				private GPRectangle CurrentLocationGPrect;
 				///<summary>
 				///Current Bots Position Rectangle
 				///</summary>
@@ -125,7 +123,7 @@ namespace FunkyBot.Movement
 					 set { CurrentLocationGPrect=value; }
 				}
 
-				private AreaBoundary currentLocationBoundary=null;
+				private AreaBoundary currentLocationBoundary;
 				public AreaBoundary CurrentLocationBoundary
 				{
 					 get { return currentLocationBoundary; }
@@ -145,12 +143,12 @@ namespace FunkyBot.Movement
 				internal void RefreshNavigationBlocked()
 				{
 					 //Check if bot is navigationally blocked.. (if bot pos changed or 500ms elapsed then we refresh!)
-                    if (LastBotPositionChecked!=Bot.Character.Position||DateTime.Now.Subtract(LastNavigationBlockCheck).TotalMilliseconds > 500)
+                    if (LastBotPositionChecked!=Bot.Character.Data.Position||DateTime.Now.Subtract(LastNavigationBlockCheck).TotalMilliseconds > 500)
 					 {
 						  LastNavigationBlockCheck=DateTime.Now;
-                          LastBotPositionChecked = Bot.Character.Position;
+                          LastBotPositionChecked = Bot.Character.Data.Position;
 
-						  if (IsVectorBlocked(Bot.Character.Position))
+						  if (IsVectorBlocked(Bot.Character.Data.Position))
 						  {
 								Logging.WriteVerbose("[Funky] Current Position is Navigationally Blocked");
 								BotIsNavigationallyBlocked=true;
@@ -175,33 +173,33 @@ namespace FunkyBot.Movement
 				private bool IsVectorBlocked(Vector3 location)
 				{
 					 //Reset Navigationally Blocked GPs
-					 this.LastNavigationBlockedPoints=new List<GridPoint>();
+					 LastNavigationBlockedPoints=new List<GridPoint>();
 
 					 //Create Local GPRect!
-					 if (this.LastUsedBlockCheckGPRect==null||this.LastUsedBlockCheckGPRect.centerpoint!=(GridPoint)location)
+					 if (LastUsedBlockCheckGPRect==null||LastUsedBlockCheckGPRect.centerpoint!=(GridPoint)location)
 					 {
 						  //Clear lists
 						  LastObjectblockCounter.Clear();
 						  LastObjectOccupiedGridPoints.Clear();
-						  this.LastUsedBlockCheckGPRect=new GPRectangle(location);
+						  LastUsedBlockCheckGPRect=new GPRectangle(location);
 					 }
 
-					 if (this.LastUsedBlockCheckGPRect.Count==0)
+					 if (LastUsedBlockCheckGPRect.Count==0)
 					 {
 						  Logging.WriteDiagnostic("Current Location GP Rect has no valid Grid Points!");
 						  return false;
 					 }
 
-					 GridPoint[] CurrentLocationGridPoints=this.LastUsedBlockCheckGPRect.Keys.ToArray();
+					 GridPoint[] CurrentLocationGridPoints=LastUsedBlockCheckGPRect.Keys.ToArray();
 					 List<GridPoint> SurroundingPoints=new List<GridPoint>();
-					 int SurroundingMaxCount=this.LastUsedBlockCheckGPRect.Count>=8?8:this.LastUsedBlockCheckGPRect.Count;
+					 int SurroundingMaxCount=LastUsedBlockCheckGPRect.Count>=8?8:LastUsedBlockCheckGPRect.Count;
 					 for (int i=0; i<SurroundingMaxCount; i++)
 					 {
 						  GridPoint gp=CurrentLocationGridPoints[i];
 						  if (!gp.Ignored)
 								SurroundingPoints.Add(gp);
 						  else
-								this.LastNavigationBlockedPoints.Add(gp);
+								LastNavigationBlockedPoints.Add(gp);
 					 }
 
 					 List<int> NearbyObjectRAGUIDs=new List<int>();
@@ -245,11 +243,11 @@ namespace FunkyBot.Movement
 					 {
 						  foreach (var item in LastObjectOccupiedGridPoints.Values)
 						  {
-								this.LastNavigationBlockedPoints.AddRange(item);
+								LastNavigationBlockedPoints.AddRange(item);
 						  }
 
 						  //Update Surrounding Points
-						  SurroundingPoints=SurroundingPoints.Except(this.LastNavigationBlockedPoints).ToList();
+						  SurroundingPoints=SurroundingPoints.Except(LastNavigationBlockedPoints).ToList();
 
 						  if (SurroundingPoints.Count==0)
 						  {
@@ -302,12 +300,12 @@ namespace FunkyBot.Movement
 									 LastObjectOccupiedGridPoints.Add(ObjRAGUID, NewArrayGP);
 								}
 
-								this.LastNavigationBlockedPoints.Add(item);
+								LastNavigationBlockedPoints.Add(item);
 						  }
 					 }
 
 					 //Update Surrounding Points
-					 SurroundingPoints=SurroundingPoints.Except(this.LastNavigationBlockedPoints).ToList();
+					 SurroundingPoints=SurroundingPoints.Except(LastNavigationBlockedPoints).ToList();
 
 					 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 						  Logging.WriteVerbose("Current Location Point has {0} usable points", SurroundingPoints.Count);
@@ -320,7 +318,7 @@ namespace FunkyBot.Movement
 
 
 
-				private GPArea CurrentGParea=null;
+				private GPArea CurrentGParea;
 				///<summary>
 				///Area used to search for movement locations.
 				///</summary>
@@ -351,7 +349,7 @@ namespace FunkyBot.Movement
 					 if (vlastSafeSpot!=Vector3.Zero)
 					 {
 							//Check how close we are..
-							if (Bot.Character.Position.Distance2D(vlastSafeSpot)<2.5f)
+							if (Bot.Character.Data.Position.Distance2D(vlastSafeSpot)<2.5f)
 							{
 								 vlastSafeSpot=Vector3.Zero;
 								
@@ -366,7 +364,7 @@ namespace FunkyBot.Movement
                 {
                     safespot = vlastSafeSpot;
 
-                    Vector3 BotPosition = Bot.Character.Position;
+                    Vector3 BotPosition = Bot.Character.Data.Position;
 
                     //Recreate the entire area?
                     if (Bot.NavigationCache.CurrentGPArea == null || Bot.NavigationCache.CurrentGPArea.AllGPRectsFailed && !Bot.NavigationCache.CurrentGPArea.centerGPRect.Contains(BotPosition) || !Bot.NavigationCache.CurrentGPArea.GridPointContained(BotPosition))
@@ -382,7 +380,7 @@ namespace FunkyBot.Movement
                     }
 
                     //Recreate Bot Current rect?
-                    if (Bot.NavigationCache.CurrentLocationGPrect == null || Bot.NavigationCache.CurrentLocationGPrect.centerpoint!=Bot.Character.PointPosition)
+                    if (Bot.NavigationCache.CurrentLocationGPrect == null || Bot.NavigationCache.CurrentLocationGPrect.centerpoint!=Bot.Character.Data.PointPosition)
                     {
                         Bot.NavigationCache.CurrentLocationGPrect = new GPRectangle(BotPosition);
                         //Refresh boundary (blocked directions)
@@ -403,7 +401,7 @@ namespace FunkyBot.Movement
 					 if (blockedLocationDirections.Count>0)
 					 {
 						  LocationFlags pointFlags=CurrentLocationBoundary.ComputeOutCode(point.X, point.Y);
-						  return this.blockedLocationDirections.Contains(pointFlags);
+						  return blockedLocationDirections.Contains(pointFlags);
 					 }
 					 return false;
 				}
@@ -411,15 +409,11 @@ namespace FunkyBot.Movement
 				{
 					 blockedLocationDirections.Clear();
 
-					 if (this.LastNavigationBlockedPoints.Count>0)
+					 if (LastNavigationBlockedPoints.Count>0)
 					 {
-						  List<LocationFlags> Locations=new List<LocationFlags>();
-						  foreach (var item in this.LastNavigationBlockedPoints)
-						  {
-								Locations.Add(CurrentLocationBoundary.ComputeOutCode(item.X,item.Y));
-						  }
+						  var Locations= LastNavigationBlockedPoints.Select(item => CurrentLocationBoundary.ComputeOutCode(item.X, item.Y)).ToList();
 
-						  if (Locations.Count>2)
+						 if (Locations.Count>2)
 						  {
 								//TOP
 								if (Locations.Count(p => p.HasFlag(LocationFlags.Top))>2)
@@ -480,45 +474,17 @@ namespace FunkyBot.Movement
 				//Special Movements
 				public Vector3 FindZigZagTargetLocation(Vector3 vTargetLocation, float fDistanceOutreach, bool bRandomizeDistance=false, bool bRandomizeStart=false)
 				{
-					 Vector3 vThisZigZag=Vector3.Zero;
-					 bool useTargetBasedZigZag=false;
-					 float minDistance=6f;
-					 float maxDistance=16f;
-					 int minTargets=2;
-
-					 if (useTargetBasedZigZag&&!Bot.Targeting.Environment.bAnyTreasureGoblinsPresent&&Bot.Targeting.Environment.UnitRAGUIDs.Count>=minTargets)
-					 {
-						  var units_=Bot.Targeting.Environment.NearbyObstacleObjects.Where(obj => Bot.Targeting.Environment.UnitRAGUIDs.Contains(obj.RAGUID));
-						  units_.ToList().ForEach(obj => obj.UpdateWeight());
-
-						  IEnumerable<CacheObject> zigZagTargets=
-								from u in units_
-								where u.CentreDistance>minDistance&&u.CentreDistance<maxDistance&&u.RAGUID!=Bot.Targeting.CurrentTarget.RAGUID&&
-								!ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(u.Position)&&MGP.CanStandAt(u.BotMeleeVector)
-								select u;
-
-						  if (zigZagTargets.Count()>=minTargets)
-						  {
-								CacheObject unit=zigZagTargets.OrderByDescending(u => u.Weight).FirstOrDefault();
-								vThisZigZag=unit.Position;
-								return vThisZigZag;
-						  }
-					 }
-
-					 Random rndNum=new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), NumberStyles.HexNumber));
-					 bool bCanRayCast;
-					 float iFakeStart=0;
+					var rndNum=new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), NumberStyles.HexNumber));
+					float iFakeStart=0;
 					 //K: bRandomizeStart is for boss and elite, they usually jump around, make obstacles, let you Incapacitated. 
 					 //   you usually have to move back and forth to hit them
 					 if (bRandomizeStart)
 						  iFakeStart=rndNum.Next(18)*5;
 					 if (bRandomizeDistance)
 						  fDistanceOutreach+=rndNum.Next(18);
-					 float fDirectionToTarget=Navigation.FindDirection(Bot.Character.Position, vTargetLocation);
+					 float fDirectionToTarget=FindDirection(Bot.Character.Data.Position, vTargetLocation);
 
-					 float fPointToTarget;
-
-					 float fHighestWeight=float.NegativeInfinity;
+					float fHighestWeight=float.NegativeInfinity;
 					 Vector3 vBestLocation=Vector3.Zero;
 
 					 bool bFoundSafeSpotsFirstLoop=false;
@@ -548,7 +514,7 @@ namespace FunkyBot.Movement
 									 iPosition-=15f;
 								else
 									 iPosition=15f-iPosition;
-								fPointToTarget=iPosition;
+								float fPointToTarget = iPosition;
 
 								iPosition+=fDirectionToTarget;
 								if (iPosition<0)
@@ -556,7 +522,7 @@ namespace FunkyBot.Movement
 								if (iPosition>=360f)
 									 iPosition=iPosition-360f;
 
-								vThisZigZag=MathEx.GetPointAt(Bot.Character.Position, fRunDistance, MathEx.ToRadians(iPosition));
+								Vector3 vThisZigZag = MathEx.GetPointAt(Bot.Character.Data.Position, fRunDistance, MathEx.ToRadians(iPosition));
 
 								if (fPointToTarget<=30f||fPointToTarget>=330f)
 								{
@@ -566,7 +532,7 @@ namespace FunkyBot.Movement
 								{
 									 //K: we are trying to find position that we can circle around the target
 									 //   but we shouldn't run too far away from target
-									 vThisZigZag.Z=(vTargetLocation.Z+Bot.Character.Position.Z)/2;
+									 vThisZigZag.Z=(vTargetLocation.Z+Bot.Character.Data.Position.Z)/2;
 									 fRunDistance=fDistanceOutreach-5f;
 								}
 								else
@@ -576,28 +542,27 @@ namespace FunkyBot.Movement
 									 fRunDistance=8f;
 								}
 
-								bCanRayCast=MGP.CanStandAt(vThisZigZag);
+								bool bCanRayCast = MGP.CanStandAt(vThisZigZag);
 
 
 
 								// Give weight to each zigzag point, so we can find the best one to aim for
 								if (bCanRayCast)
 								{
-									 bool bAnyAvoidance=false;
+									 const bool bAnyAvoidance = false;
 
 									 // Starting weight is 1000f
 									 float fThisWeight=1000f;
 									 if (iMultiplier==2)
 										  fThisWeight-=80f;
 
-									 if (Bot.Character.ShouldFlee&&ObjectCache.Objects.IsPointNearbyMonsters(vThisZigZag, Bot.Settings.Fleeing.FleeMaxMonsterDistance))
+									 if (Bot.Character.Data.ShouldFlee&&ObjectCache.Objects.IsPointNearbyMonsters(vThisZigZag, Bot.Settings.Fleeing.FleeMaxMonsterDistance))
 										  continue;
 
-									 if (ObjectCache.Obstacles.Navigations.Any(obj => obj.Obstacletype.Value!=ObstacleType.Monster&&obj.TestIntersection(Bot.Character.Position, vThisZigZag, false)))
+									 if (ObjectCache.Obstacles.Navigations.Any(obj => obj.Obstacletype.Value!=ObstacleType.Monster&&obj.TestIntersection(Bot.Character.Data.Position, vThisZigZag, false)))
 										  continue;
 
-									 float distanceToPoint=vThisZigZag.Distance2D(Bot.Character.Position);
-									 float distanceToTarget=vTargetLocation.Distance2D(Bot.Character.Position);
+									 float distanceToTarget=vTargetLocation.Distance2D(Bot.Character.Data.Position);
 
 									 fThisWeight+=(distanceToTarget*10f);
 
@@ -628,6 +593,7 @@ namespace FunkyBot.Movement
 				internal CacheUnit groupingCurrentUnit=null;
 				internal CacheUnit groupingOrginUnit=null;
 				internal DateTime groupingSuspendedDate=DateTime.MinValue;
+				internal UnitCluster groupingUnitCluster = null;
 
 				internal void GroupingFinishBehavior()
 				{
@@ -635,6 +601,8 @@ namespace FunkyBot.Movement
 					 Bot.NavigationCache.groupReturningToOrgin=false;
 					 Bot.NavigationCache.groupingCurrentUnit=null;
 					 Bot.NavigationCache.groupingOrginUnit=null;
+					 Bot.NavigationCache.groupingUnitCluster = null;
+					 Bot.NavigationCache.groupingSuspendedDate = DateTime.Now.AddMilliseconds(2500);
 				}
 				#endregion
 
@@ -656,21 +624,19 @@ namespace FunkyBot.Movement
 
 					 if (DateTime.Now.Subtract(LastObstacleIntersectionTest).TotalMilliseconds>1500)
 					 {
-						  this.RefreshMovementCache();
+						  RefreshMovementCache();
 
-						  if (!this.IsMoving || this.currentMovementState.Equals(MovementState.WalkingInPlace) || this.currentMovementState.Equals(MovementState.None) || Bot.Targeting.TargetMover.BlockedMovementCounter > 0)
+						  if (!IsMoving || currentMovementState.Equals(MovementState.WalkingInPlace) || currentMovementState.Equals(MovementState.None) || Bot.Targeting.TargetMover.BlockedMovementCounter > 0)
 						  {
 								LastObstacleIntersectionTest=DateTime.Now;
 
-								Vector3 CurrentPosition=Bot.Character.Position;
-
-								//modify range based upon # of stucks
+							  //modify range based upon # of stucks
 								if (Funky.PlayerMover.iTotalAntiStuckAttempts>0) range+=(Funky.PlayerMover.iTotalAntiStuckAttempts*5f);
 
 								//get collection of objects that pass the tests.
 								var intersectingObstacles=Bot.Targeting.Environment.NearbyObstacleObjects //ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
 																						  .Where(obstacle =>
-																								!this.PrioritizedRAGUIDs.Contains(obstacle.RAGUID)//Only objects not already prioritized
+																								!PrioritizedRAGUIDs.Contains(obstacle.RAGUID)//Only objects not already prioritized
 																								&&obstacle.Obstacletype.HasValue
 																								&&ObstacleType.Navigation.HasFlag(obstacle.Obstacletype.Value)//only navigation/intersection blocking objects!
 																								&&obstacle.RadiusDistance<=range //Only within range..
@@ -684,7 +650,7 @@ namespace FunkyBot.Movement
 									 var intersectingObjectRAGUIDs=(from objs in intersectingObstacles
 																			  select objs.RAGUID);
 
-									 this.PrioritizedRAGUIDs.AddRange(intersectingObjectRAGUIDs);
+									 PrioritizedRAGUIDs.AddRange(intersectingObjectRAGUIDs);
 								}
 						  }
 					 }
@@ -700,21 +666,19 @@ namespace FunkyBot.Movement
 				///</summary>
 				public static bool CanRayCast(Vector3 vStartLocation, Vector3 vDestination, NavCellFlags NavType=NavCellFlags.None, bool UseSearchGridProvider=false)
 				{
-					 if (!NavType.Equals(NavCellFlags.None))
+					if (!NavType.Equals(NavCellFlags.None))
 						  return ZetaDia.Physics.Raycast(vStartLocation, vDestination, NavType); //False means nothing hit
-					 else if(UseSearchGridProvider)
-					 {
-						  Vector2 hitVector;
-						  if (vStartLocation.Z>=vDestination.Z)
-								return !Zeta.Navigation.Navigator.SearchGridProvider.Raycast(vStartLocation.ToVector2(), vDestination.ToVector2(), out hitVector);
-						  else
-								return !Zeta.Navigation.Navigator.SearchGridProvider.Raycast(vDestination.ToVector2(), vStartLocation.ToVector2(), out hitVector);
-					 }
-					 else
-						  return !Navigator.Raycast(vStartLocation, vDestination); //True means nothing hit
+					if(UseSearchGridProvider)
+					{
+						Vector2 hitVector;
+						if (vStartLocation.Z>=vDestination.Z)
+							return !Navigator.SearchGridProvider.Raycast(vStartLocation.ToVector2(), vDestination.ToVector2(), out hitVector);
+						return !Navigator.SearchGridProvider.Raycast(vDestination.ToVector2(), vStartLocation.ToVector2(), out hitVector);
+					}
+					return !Navigator.Raycast(vStartLocation, vDestination); //True means nothing hit
 				}
 
-				// Quickly calculate the direction a vector is from ourselves, and return it as a float
+			  // Quickly calculate the direction a vector is from ourselves, and return it as a float
 				public static float FindDirection(Vector3 vStartLocation, Vector3 vTargetLocation, bool inRadian=false)
 				{
 					 Vector3 startNormalized=vStartLocation;
@@ -729,8 +693,7 @@ namespace FunkyBot.Movement
 
 					 if (inRadian)
 						  return angle;
-					 else
-						  return MathEx.ToDegrees(angle);
+					return MathEx.ToDegrees(angle);
 				}
 				public static float NormalizeRadian(float radian)
 				{
@@ -752,11 +715,11 @@ namespace FunkyBot.Movement
 				/// <summary>
 				/// PathFinder
 				/// </summary>
-				public static Zeta.Pathfinding.PathFinder PathFinder
+				public static PathFinder PathFinder
 				{
 					 get
 					 {
-						  return (Navigator.SearchGridProvider as Zeta.Pathfinding.PathFinder);
+						  return (Navigator.SearchGridProvider as PathFinder);
 					 }
 				}
 				/// <summary>
@@ -772,11 +735,11 @@ namespace FunkyBot.Movement
 				/// <summary>
 				/// DungeonExplorer
 				/// </summary>
-				public static Zeta.CommonBot.Dungeons.DungeonExplorer DE
+				public static DungeonExplorer DE
 				{
 					 get
 					 {
-						  return (Zeta.CommonBot.Logic.BrainBehavior.DungeonExplorer);
+						  return (BrainBehavior.DungeonExplorer);
 					 }
 				}
 				///<summary>
@@ -806,7 +769,7 @@ namespace FunkyBot.Movement
 
 				public static bool IsInTown()
 				{
-					 bool isInTown=false;
+					 bool isInTown;
 
 					 using (ZetaDia.Memory.AcquireFrame())
 					 {
@@ -817,7 +780,7 @@ namespace FunkyBot.Movement
 					 //If true.. lets verify it with scene check!
 					 if (isInTown)
 					 {
-						  int curSceneID=-1;
+						  int curSceneID;
 						  using (ZetaDia.Memory.AcquireFrame())
 						  {
 								curSceneID=ZetaDia.Me.CurrentScene.SceneGuid;

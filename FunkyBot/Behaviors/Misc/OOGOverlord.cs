@@ -1,17 +1,14 @@
-﻿using System;
-using FunkyBot.Settings;
+﻿using FunkyBot.Settings;
 using Zeta;
 using Zeta.Common;
-using Zeta.CommonBot;
 using Zeta.TreeSharp;
-using Action=Zeta.TreeSharp.Action;
 
 namespace FunkyBot
 {
 	 public partial class Funky
 	 {
 
-		  private static bool MuleBehavior=false;
+		  internal static bool MuleBehavior=false;
 		  private static bool InitMuleBehavior=false;
 		  private static bool CreatedCharacter=false;
 		  private static bool RanProfile=false;
@@ -93,7 +90,7 @@ namespace FunkyBot
 						  {
 								CreatedCharacter=true;
 								//Setup Settings
-								Bot.Game.UpdateCurrentAccountDetails();
+								Bot.Character.Account.UpdateCurrentAccountDetails();
 								Settings_Funky.LoadFunkyConfiguration();
 						  }
 						  return RunStatus.Running;
@@ -119,7 +116,7 @@ namespace FunkyBot
 								InitMuleBehavior=false;
 								MuleBehavior=false;
 								//Load Settings
-								Bot.Game.UpdateCurrentAccountDetails();
+								Bot.Character.Account.UpdateCurrentAccountDetails();
 								Settings_Funky.LoadFunkyConfiguration();
 
 								return RunStatus.Success;

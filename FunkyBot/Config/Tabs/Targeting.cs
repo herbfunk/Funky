@@ -3,8 +3,18 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
+using System.Windows.Media;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Settings;
+using Button = System.Windows.Controls.Button;
+using CheckBox = System.Windows.Controls.CheckBox;
+using ComboBox = System.Windows.Controls.ComboBox;
+using HorizontalAlignment = System.Windows.HorizontalAlignment;
+using ListBox = System.Windows.Controls.ListBox;
+using Orientation = System.Windows.Controls.Orientation;
+using TextBox = System.Windows.Controls.TextBox;
+using ToolTip = System.Windows.Controls.ToolTip;
 
 namespace FunkyBot
 {
@@ -47,14 +57,14 @@ namespace FunkyBot
 
 		  private void TargetingLoadXMLClicked(object sender, EventArgs e)
 		  {
-				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
+				OpenFileDialog OFD=new OpenFileDialog
 				{
 					 InitialDirectory=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
 					 RestoreDirectory=false,
 					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
 					 Title="Targeting Template",
 				};
-				System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
+				DialogResult OFD_Result=OFD.ShowDialog();
 
 				if (OFD_Result==System.Windows.Forms.DialogResult.OK)
 				{
@@ -64,7 +74,7 @@ namespace FunkyBot
 						  SettingTargeting newSettings=SettingTargeting.DeserializeFromXML(OFD.FileName);
 						  Bot.Settings.Targeting=newSettings;
 
-						  FunkyWindow.funkyConfigWindow.Close();
+						  funkyConfigWindow.Close();
 					 } catch
 					 {
 
@@ -138,17 +148,17 @@ namespace FunkyBot
 				{
 					 Orientation=Orientation.Vertical,
 					 Focusable=false,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
-					 Background=System.Windows.Media.Brushes.DimGray,
+					 HorizontalAlignment=HorizontalAlignment.Stretch,
+					 Background=Brushes.DimGray,
 				};
 				TextBlock Target_General_Text=new TextBlock
 				{
 					 Text="General Targeting Options",
 					 FontSize=13,
-					 Background=System.Windows.Media.Brushes.OrangeRed,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.OrangeRed,
+					 Foreground=Brushes.GhostWhite,
 					 TextAlignment=TextAlignment.Center,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+					 HorizontalAlignment=HorizontalAlignment.Stretch,
 				};
 
 
@@ -160,7 +170,7 @@ namespace FunkyBot
 					 Width=300,
 					 Height=30,
 					 IsChecked=(Bot.Settings.Targeting.IgnoreAboveAverageMobs),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				cbIgnoreElites.Checked+=IgnoreEliteMonstersChecked;
 				cbIgnoreElites.Unchecked+=IgnoreEliteMonstersChecked;
@@ -173,14 +183,14 @@ namespace FunkyBot
 					 Width=300,
 					 Height=30,
 					 IsChecked=(Bot.Settings.Targeting.IgnoreCorpses),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				cbIgnoreCorpses.Checked+=IgnoreCorpsesChecked;
 				cbIgnoreCorpses.Unchecked+=IgnoreCorpsesChecked;
 				#endregion
 
 				#region ExtendedRepChestRange
-				ToolTip TTExtendedRareChestRange=new System.Windows.Controls.ToolTip
+				ToolTip TTExtendedRareChestRange=new ToolTip
 				{
 					 Content="This will use double the Container Range Setting for all rare chests.",
 				};
@@ -190,7 +200,7 @@ namespace FunkyBot
 					 Width=300,
 					 Height=20,
 					 IsChecked=(Bot.Settings.Targeting.UseExtendedRangeRepChest),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 ToolTip=TTExtendedRareChestRange,
 				};
 				UseExtendedRangeRepChestCB.Checked+=ExtendRangeRepChestChecked;
@@ -198,7 +208,7 @@ namespace FunkyBot
 				#endregion
 
 				#region GoblinPriority
-				ToolTip TTGoblinPriority=new System.Windows.Controls.ToolTip
+				ToolTip TTGoblinPriority=new ToolTip
 				{
 					 Content="Note: Priority above normal will consider goblins as special objects",
 				};
@@ -211,7 +221,7 @@ namespace FunkyBot
 				{
 					 Text="Goblin Priority",
 					 FontSize=12,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(4),
 				};
 				GoblinPriority_StackPanel.Children.Add(Target_GoblinPriority_Text);
@@ -236,7 +246,7 @@ namespace FunkyBot
 
 
 
-				ToolTip TTPrioritizeCloseRange=new System.Windows.Controls.ToolTip
+				ToolTip TTPrioritizeCloseRange=new ToolTip
 				{
 					 Content="When active it will weight units based on the distance from Bot. Closer to the bot, the higher the weight given.",
 				};
@@ -244,18 +254,18 @@ namespace FunkyBot
 				{
 					 Orientation=Orientation.Vertical,
 					 Focusable=false,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
-					 Background=System.Windows.Media.Brushes.DimGray,
+					 HorizontalAlignment=HorizontalAlignment.Stretch,
+					 Background=Brushes.DimGray,
 					 ToolTip=TTPrioritizeCloseRange,
 				};
 				TextBlock Target_PrioritizeCloseRange_Text=new TextBlock
 				{
 					 Text="Prioritize Range",
 					 FontSize=13,
-					 Background=System.Windows.Media.Brushes.OrangeRed,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.OrangeRed,
+					 Foreground=Brushes.GhostWhite,
 					 TextAlignment=TextAlignment.Center,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+					 HorizontalAlignment=HorizontalAlignment.Stretch,
 				};
 
 				#region PrioritizeCloseRange
@@ -265,7 +275,7 @@ namespace FunkyBot
 					 Width=300,
 					 Height=30,
 					 IsChecked=(Bot.Settings.Targeting.PrioritizeCloseRangeUnits),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				cbPrioritizeCloseRange.Checked+=PrioritizeCloseRangeUnitsChecked;
 				cbPrioritizeCloseRange.Unchecked+=PrioritizeCloseRangeUnitsChecked;
@@ -276,7 +286,7 @@ namespace FunkyBot
 				{
 					 Text="Minimum Nearby Units",
 					 FontSize=13,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Foreground=Brushes.GhostWhite,
 					 //Background = System.Windows.Media.Brushes.Crimson,
 					 TextAlignment=TextAlignment.Left,
 				};
@@ -290,7 +300,7 @@ namespace FunkyBot
 					 LargeChange=5,
 					 SmallChange=1,
 					 Value=Bot.Settings.Targeting.PrioritizeCloseRangeMinimumUnits,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderPrioritizeCloseRangeMinimumUnits.ValueChanged+=PrioritizeCloseUnitsMinimumSliderChanged;
 				TBPrioritizeCloseRangeMinimumUnits=new TextBox
@@ -322,9 +332,9 @@ namespace FunkyBot
 
 				StackPanel spClusteringExceptions=new StackPanel
 				{
-					 Background=System.Windows.Media.Brushes.DimGray,
+					 Background=Brushes.DimGray,
 				};
-				ToolTip TTClusteringExceptions=new System.Windows.Controls.ToolTip
+				ToolTip TTClusteringExceptions=new ToolTip
 				{
 					 Content="Exceptions are used in clustering and also used to determine if object is special",
 				};
@@ -332,15 +342,15 @@ namespace FunkyBot
 				{
 					 Text="Unit Exceptions",
 					 FontSize=12,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
-					 Background=System.Windows.Media.Brushes.OrangeRed,
+					 Foreground=Brushes.GhostWhite,
+					 Background=Brushes.OrangeRed,
 					 TextAlignment=TextAlignment.Center,
 					 ToolTip=TTClusteringExceptions,
 				};
 				spClusteringExceptions.Children.Add(ClusteringExceptions_Text_Header);
 
 				#region AllowRangedUnits
-                ToolTip TTAllowRangedUnits = new System.Windows.Controls.ToolTip
+                ToolTip TTAllowRangedUnits = new ToolTip
                 {
                     Content = "Uses the MonsterSize property from DB to determine if Ranged",
                 };
@@ -350,7 +360,7 @@ namespace FunkyBot
 					 Width=300,
 					 Height=30,
 					 IsChecked=(Bot.Settings.Targeting.UnitExceptionRangedUnits),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
                      ToolTip = TTAllowRangedUnits,
 				};
 				cbClusteringAllowRangedUnits.Checked+=UnitExceptionAllowRangedUnitsChecked;
@@ -359,7 +369,7 @@ namespace FunkyBot
 				#endregion
 
 				#region AllowSpawnerUnits
-                ToolTip TTAllowSpawnerUnits = new System.Windows.Controls.ToolTip
+                ToolTip TTAllowSpawnerUnits = new ToolTip
                 {
                     Content = "Spawner is an Unit that summons additional units",
                 };
@@ -369,7 +379,7 @@ namespace FunkyBot
 					 Width=300,
 					 Height=30,
 					 IsChecked=(Bot.Settings.Targeting.UnitExceptionSpawnerUnits),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
                      ToolTip = TTAllowSpawnerUnits,
 				};
 				cbClusteringAllowSpawnerUnits.Checked+=UnitExceptionAllowSpawnerUnitsChecked;
@@ -378,7 +388,7 @@ namespace FunkyBot
 				#endregion
 
 				#region AllowSucideBombers
-                ToolTip TTAllowSucideBombers = new System.Windows.Controls.ToolTip
+                ToolTip TTAllowSucideBombers = new ToolTip
                 {
                     Content = "Units found in Act 2 and 3 that explode and are fast!",
                 };
@@ -388,7 +398,7 @@ namespace FunkyBot
 					 Width=300,
 					 Height=30,
 					 IsChecked=(Bot.Settings.Targeting.UnitExceptionSucideBombers),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
                      ToolTip = TTAllowSucideBombers,
 				};
 				cbClusteringAllowSucideBombers.Checked+=UnitExceptionAllowSucideBombersChecked;
@@ -404,7 +414,7 @@ namespace FunkyBot
                     //Width = 300,
                     Height = 30,
                     IsChecked = (Bot.Settings.Targeting.UnitExceptionLowHP),
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
+                    HorizontalAlignment = HorizontalAlignment.Left,
                     Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right + 12, Margin.Bottom),
                 };
                 cbClusterKillLowHPUnits.Checked += UnitExceptionKillLowHPChecked;
@@ -417,7 +427,7 @@ namespace FunkyBot
                 {
                     Text = "Low HP Maximum Distance",
                     FontSize = 12,
-                    Foreground = System.Windows.Media.Brushes.GhostWhite,
+                    Foreground = Brushes.GhostWhite,
                     TextAlignment = TextAlignment.Left,
                 };
                 Slider sliderLowHPMaxDistance = new Slider
@@ -429,7 +439,7 @@ namespace FunkyBot
                     LargeChange = 5,
                     SmallChange = 1,
                     Value = Bot.Settings.Targeting.UnitExceptionLowHPMaximumDistance,
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
+                    HorizontalAlignment = HorizontalAlignment.Left,
                 };
                 sliderLowHPMaxDistance.ValueChanged += UnitExceptionKillLowHPMaxDistanceSliderChanged;
 
@@ -464,13 +474,13 @@ namespace FunkyBot
 				Button BtnTargetTemplate=new Button
 				{
 					 Content="Load Setup",
-					 Background=System.Windows.Media.Brushes.OrangeRed,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.OrangeRed,
+					 Foreground=Brushes.GhostWhite,
 					 FontStyle=FontStyles.Italic,
 					 FontSize=12,
 
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
-					 VerticalAlignment=System.Windows.VerticalAlignment.Top,
+					 HorizontalAlignment=HorizontalAlignment.Left,
+					 VerticalAlignment=VerticalAlignment.Top,
 					 Width=75,
 					 Height=30,
 

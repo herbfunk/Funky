@@ -1,5 +1,4 @@
-﻿using System;
-using FunkyBot.Cache;
+﻿using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using Zeta.Common;
 using FunkyBot.Movement;
@@ -23,7 +22,7 @@ namespace FunkyBot.Targeting.Behaviors
 		{
 			base.Test = (ref CacheObject obj) =>
 			{
-				if (Bot.Character.Position.Distance(Bot.Targeting.StartingLocation) > Bot.Settings.Backtracking.MinimumDistanceFromStart)
+				if (Bot.Character.Data.Position.Distance(Bot.Targeting.StartingLocation) > Bot.Settings.Backtracking.MinimumDistanceFromStart)
 				{
 					//Generate the path here so we can start moving..
 					Navigation.NP.MoveTo(Bot.Targeting.StartingLocation, "Backtracking", true);

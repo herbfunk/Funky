@@ -1,12 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
+﻿using System.Linq;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
-using FunkyBot.Movement.Clustering;
 using Zeta.Common;
-using Zeta.Navigation;
+
 namespace FunkyBot.Targeting.Behaviors
 {
 	 public class TBLOSMovement : TargetBehavior
@@ -45,7 +42,8 @@ namespace FunkyBot.Targeting.Behaviors
 					 if (obj==null)
 					 {
 						  if (Bot.NavigationCache.LOSmovementObject!=null&&
-                              (Bot.NavigationCache.LOSmovementObject.CentreDistance<50f&&!Bot.NavigationCache.LOSmovementObject.IsStillValid()))
+							  ((Bot.Targeting.LastCachedTarget!=null&&Bot.Targeting.LastCachedTarget.Equals(Bot.NavigationCache.LOSmovementObject))||
+                              (Bot.NavigationCache.LOSmovementObject.CentreDistance<50f&&!Bot.NavigationCache.LOSmovementObject.IsStillValid())))
 						  {//Invalidated the Line of sight obj!
 
 								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))

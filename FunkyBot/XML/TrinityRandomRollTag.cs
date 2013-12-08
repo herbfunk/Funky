@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Globalization;
 using System.Runtime.InteropServices;
-using FunkyBot.Cache;
 using Zeta.Common;
 using Zeta.CommonBot.Profile;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 using FunkyBot.Game;
+using Action = Zeta.TreeSharp.Action;
 
 namespace FunkyBot.XMLTags
 {
@@ -14,10 +14,8 @@ namespace FunkyBot.XMLTags
 	[XmlElement("TrinityRandomRoll")]
 	public class TrinityRandomRollTag : ProfileBehavior
 	{
-		private bool m_IsDone=false;
-		private int iID;
-		private int iMin;
-		private int iMax;
+		private bool m_IsDone;
+
 		public override bool IsDone
 		{
 			get { return m_IsDone; }
@@ -25,13 +23,13 @@ namespace FunkyBot.XMLTags
 
 		protected override Composite CreateBehavior()
 		{
-			return new Zeta.TreeSharp.Action(ret =>
+			return new Action(ret =>
 			{
 				// Generate a random value between the selected min-max range, and assign it to our dictionary of random values
 				int iOldValue;
-				Random rndNum=new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), NumberStyles.HexNumber));
-				int iNewRandomValue=(rndNum.Next((Max-Min)+1))+Min;
-				Logging.Write("[Funky] Generating RNG for profile between "+Min.ToString()+" and "+Max.ToString()+", result="+iNewRandomValue.ToString());
+				var rndNum=new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), NumberStyles.HexNumber));
+				var iNewRandomValue=(rndNum.Next((Max-Min)+1))+Min;
+				Logging.Write("[Funky] Generating RNG for profile between "+Min.ToString(CultureInfo.InvariantCulture)+" and "+Max.ToString(CultureInfo.InvariantCulture)+", result="+iNewRandomValue.ToString(CultureInfo.InvariantCulture));
 				if (!ProfileCache.dictRandomID.TryGetValue(ID, out iOldValue))
 				{
 					 ProfileCache.dictRandomID.Add(ID, iNewRandomValue);
@@ -46,41 +44,13 @@ namespace FunkyBot.XMLTags
 
 
 		[XmlAttribute("id")]
-		public int ID
-		{
-			get
-			{
-				return iID;
-			}
-			set
-			{
-				iID=value;
-			}
-		}
+		public int ID { get; set; }
+
 		[XmlAttribute("min")]
-		public int Min
-		{
-			get
-			{
-				return iMin;
-			}
-			set
-			{
-				iMin=value;
-			}
-		}
+		public int Min { get; set; }
+
 		[XmlAttribute("max")]
-		public int Max
-		{
-			get
-			{
-				return iMax;
-			}
-			set
-			{
-				iMax=value;
-			}
-		}
+		public int Max { get; set; }
 
 		public override void ResetCachedDone()
 		{

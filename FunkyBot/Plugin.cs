@@ -1,31 +1,26 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
+using Demonbuddy;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using Zeta.Common;
-using Zeta;
-using Zeta.TreeSharp;
 using System.Windows;
 using System.Windows.Controls;
-using System.Collections.Generic;
+using Zeta.CommonBot.Logic;
+using Zeta.CommonBot.Settings;
 using Zeta.Navigation;
-using Zeta.Pathfinding;
 using Zeta.CommonBot;
 using Zeta.Common.Plugins;
 using System.IO;
-using System.Threading;
-using Decorator=Zeta.TreeSharp.Decorator;
-using Action=Zeta.TreeSharp.Action;
 using System.Diagnostics;
 using System.Reflection;
-using System.Xml;
-using Zeta.Internals.Actors;
 
 namespace FunkyBot
 {
 	 public partial class Funky : IPlugin
 	 {
-		  public Version Version { get { return new Version(2, 6, 4, 0); } }
+		  public Version Version { get { return new Version(2, 7, 0, 0); } }
 		  public string Author { get { return "Herbfunk"; } }
 		  public string Description
 		  {
@@ -36,20 +31,19 @@ namespace FunkyBot
 		  }
 		  public string Name { get { return "FunkyBot"; } }
 		  public bool Equals(IPlugin other) { return (other.Name==Name)&&(other.Version==Version); }
-
 		 
 		  public void OnInitialize()
 		  {
 				bool BotWasRunning=BotMain.IsRunning;
-				Demonbuddy.SplitButton FunkyButton=null;
+				SplitButton FunkyButton=null;
 
 
-				BotMain.OnStop+=new BotEvent(FunkyBotStop);
-				BotMain.OnStart+=new BotEvent(FunkyBotStart);
+				BotMain.OnStop+=FunkyBotStop;
+				BotMain.OnStart+=FunkyBotStart;
 
 
-				bool FunkyCombatRoutineCurrent=Zeta.CommonBot.RoutineManager.Current!=null&&
-					 !String.IsNullOrEmpty(Zeta.CommonBot.RoutineManager.Current.Name)&&Zeta.CommonBot.RoutineManager.Current.Name=="Funky";
+				bool FunkyCombatRoutineCurrent=RoutineManager.Current!=null&&
+					 !String.IsNullOrEmpty(RoutineManager.Current.Name)&&RoutineManager.Current.Name=="Funky";
 
 				if (FunkyCombatRoutineCurrent)
 				{
@@ -57,21 +51,21 @@ namespace FunkyBot
 					 try
 					 {
 
-						  Window mainWindow=Demonbuddy.App.Current.MainWindow;
+						  Window mainWindow=App.Current.MainWindow;
 						  var tab=mainWindow.FindName("tabControlMain") as TabControl;
 						  if (tab==null) return;
 						  var infoDumpTab=tab.Items[0] as TabItem;
 						  if (infoDumpTab==null) return;
 						  var grid=infoDumpTab.Content as Grid;
 						  if (grid==null) return;
-						  FunkyButton=grid.FindName("Funky") as Demonbuddy.SplitButton;
+						  FunkyButton=grid.FindName("Funky") as SplitButton;
 						  if (FunkyButton!=null)
 						  {
 								Logging.WriteDiagnostic("Funky Button handler added");
 						  }
 						  else
 						  {
-								Demonbuddy.SplitButton[] splitbuttons=grid.Children.OfType<Demonbuddy.SplitButton>().ToArray();
+								SplitButton[] splitbuttons=grid.Children.OfType<SplitButton>().ToArray();
 								if (splitbuttons.Any())
 								{
 
@@ -115,12 +109,12 @@ namespace FunkyBot
 					 Logging.WriteDiagnostic("Reloading combat routine..");
 
 					 //Create Folder
-					 if (!System.IO.Directory.Exists(sRoutinePath))
-						  System.IO.Directory.CreateDirectory(sRoutinePath);
+					 if (!Directory.Exists(sRoutinePath))
+						  Directory.CreateDirectory(sRoutinePath);
 
 					 //Copy Files
-					 System.IO.File.Copy(sPluginRoutineFolder+"CombatRoutine", sRoutinePath+"CombatRoutine.cs", true);
-					 System.IO.File.Copy(sPluginRoutineFolder+"RoutineDebug", sRoutinePath+"RoutineDebug.cs", true);
+					 File.Copy(sPluginRoutineFolder+"CombatRoutine", sRoutinePath+"CombatRoutine.cs", true);
+					 File.Copy(sPluginRoutineFolder+"RoutineDebug", sRoutinePath+"RoutineDebug.cs", true);
 
 
 					 //Recompile Routine
@@ -130,19 +124,19 @@ namespace FunkyBot
 					 //Logging.WriteDiagnostic(FunkyRoutineCode.CompiledToLocation);
 
 					 //Reload Routines
-					 Zeta.CommonBot.RoutineManager.Reload();
+					 RoutineManager.Reload();
 
 					 //remove
-					 System.IO.File.Delete(sRoutinePath+"RoutineDebug.cs");
-					 System.IO.File.Delete(sRoutinePath+"CombatRoutine.cs");
-					 System.IO.Directory.Delete(sRoutinePath);
+					 File.Delete(sRoutinePath+"RoutineDebug.cs");
+					 File.Delete(sRoutinePath+"CombatRoutine.cs");
+					 Directory.Delete(sRoutinePath);
 
 					 //Search again..
-					 bool funkyRoutine=Zeta.CommonBot.RoutineManager.Routines.Any(r => r.Name=="Funky");
+					 bool funkyRoutine=RoutineManager.Routines.Any(r => r.Name=="Funky");
 					 if (funkyRoutine)
 					 {
 						  Logging.WriteDiagnostic("Setting Combat Routine to Funky");
-						  Zeta.CommonBot.RoutineManager.Current=Zeta.CommonBot.RoutineManager.Routines.First(r => r.Name=="Funky");
+						  RoutineManager.Current=RoutineManager.Routines.First(r => r.Name=="Funky");
 
 						  #region FunkyButtonHandlerHook
 						  try
@@ -176,13 +170,13 @@ namespace FunkyBot
 					 FunkyButton.Click+=FunkyWindow.buttonFunkySettingDB_Click;
 				}
 
-				ObjectCache.FakeCacheObject=new CacheObject(Vector3.Zero, TargetType.None, 0d, "Fake Target", 1f, -1);
+				ObjectCache.FakeCacheObject=new CacheObject(Vector3.Zero, TargetType.None, 0d, "Fake Target", 1f);
 
 				//Update Account Details..
-				Bot.Game.UpdateCurrentAccountDetails();
+				Bot.Character.Account.UpdateCurrentAccountDetails();
 
-				Logger.DBLogFile=Zeta.Common.Logging.LogFilePath;
-				Logger.Write(LogLevel.User, "Init Logger Completed! DB Log Path Set {0}", Logger.DBLogFile);
+				Logger.DBLogFile=Logging.LogFilePath;
+				Logger.Write(LogLevel.User, "Init Logger Completed! DB Logging.Write Path Set {0}", Logger.DBLogFile);
 		  }
 
 		  public void OnPulse()
@@ -206,9 +200,9 @@ namespace FunkyBot
 
 				if (!Directory.Exists(FolderPaths.sTrinityPluginPath))
 				{
-					 Log("Fatal Error - cannot enable plugin. Invalid path: "+FolderPaths.sTrinityPluginPath);
-					 Log("Please check you have installed the plugin to the correct location, and then restart DemonBuddy and re-enable the plugin.");
-					 Log(@"Plugin should be installed to \<DemonBuddyFolder>\Plugins\FunkyBot\");
+					 Logging.Write("Fatal Error - cannot enable plugin. Invalid path: "+FolderPaths.sTrinityPluginPath);
+					 Logging.Write("Please check you have installed the plugin to the correct location, and then restart DemonBuddy and re-enable the plugin.");
+					 Logging.Write(@"Plugin should be installed to \<DemonBuddyFolder>\Plugins\FunkyBot\");
 				}
 				else
 				{
@@ -222,21 +216,21 @@ namespace FunkyBot
 					 //if (settings.bEnableTPS)
 					 //  BotMain.TicksPerSecond=(int)settings.iTPSAmount;
 
-					 System.IO.FileInfo PluginInfo=new FileInfo(FolderPaths.sDemonBuddyPath+@"\Plugins\FunkyBot\");
+					 FileInfo PluginInfo=new FileInfo(FolderPaths.sDemonBuddyPath+@"\Plugins\FunkyBot\");
 					 //
-					 string CompileDateString=PluginInfo.LastWriteTime.ToString("MM/dd hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
-					 Log("************************************");
-					 Log("ENABLED: Funky Trinity Plugin");
-					 Log(" -- Version -- "+Version);
-					 Log("\tModified: "+CompileDateString);
-					 Log("************************************");
+					 string CompileDateString=PluginInfo.LastWriteTime.ToString("MM/dd hh:mm:ss tt", CultureInfo.InvariantCulture);
+					 Logging.Write("************************************");
+					 Logging.Write("ENABLED: Funky Trinity Plugin");
+					 Logging.Write(" -- Version -- "+Version);
+					 Logging.Write("\tModified: "+CompileDateString);
+					 Logging.Write("************************************");
 
 					 //string profile=Zeta.CommonBot.ProfileManager.CurrentProfile!=null?Zeta.CommonBot.ProfileManager.CurrentProfile.Name:Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
 					 //Logging.Write("Loaded Profile "+profile);
 
 					 CheckUpdate();
 
-					 Funky.iDemonbuddyMonsterPowerLevel=Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel;
+					 iDemonbuddyMonsterPowerLevel=CharacterSettings.Instance.MonsterPowerLevel;
 				
 					
 				}
@@ -245,7 +239,7 @@ namespace FunkyBot
 		  {
 				get
 				{
-					string settingsFolder = FolderPaths.sDemonBuddyPath + @"\Settings\FunkyBot\" + Bot.Game.CurrentAccountName;
+					string settingsFolder = FolderPaths.sDemonBuddyPath + @"\Settings\FunkyBot\" + Bot.Character.Account.CurrentAccountName;
 					 if (!Directory.Exists(settingsFolder))
 						  Directory.CreateDirectory(settingsFolder);
 					 try
@@ -263,7 +257,7 @@ namespace FunkyBot
 		  public void OnDisabled()
 		  {
 				bPluginEnabled=false;
-				Log("DISABLED: FunkyPlugin has shut down...");
+				Logging.Write("DISABLED: FunkyPlugin has shut down...");
 		  }
 
 		  public void OnShutdown()
@@ -274,7 +268,7 @@ namespace FunkyBot
 				ResetTreehooks();
 
 				#region FunkyButtonHandlerRemove
-				Window mainWindow=Demonbuddy.App.Current.MainWindow;
+				Window mainWindow=App.Current.MainWindow;
 				var tab=mainWindow.FindName("tabControlMain") as TabControl;
 				if (tab==null) return;
 				var infoDumpTab=tab.Items[0] as TabItem;
@@ -282,7 +276,7 @@ namespace FunkyBot
 				var grid=infoDumpTab.Content as Grid;
 				if (grid==null) return;
 
-				Demonbuddy.SplitButton[] splitbuttons=grid.Children.OfType<Demonbuddy.SplitButton>().ToArray();
+				SplitButton[] splitbuttons=grid.Children.OfType<SplitButton>().ToArray();
 				if (splitbuttons.Any())
 				{
 
@@ -304,7 +298,7 @@ namespace FunkyBot
 		  {
 				get
 				{
-					 return System.Windows.Application.Current.MainWindow;
+					 return Application.Current.MainWindow;
 				}
 		  }
 		  internal void RemoveHandlers()
@@ -324,9 +318,9 @@ namespace FunkyBot
 				LootTargeting.Instance.Provider=new DefaultLootTargetingProvider();
 				ObstacleTargeting.Instance.Provider=new DefaultObstacleTargetingProvider();
 
-				Zeta.CommonBot.Logic.BrainBehavior.CreateCombatLogic();
-				Zeta.CommonBot.Logic.BrainBehavior.CreateLootBehavior();
-				Zeta.CommonBot.Logic.BrainBehavior.CreateVendorBehavior();
+				BrainBehavior.CreateCombatLogic();
+				BrainBehavior.CreateLootBehavior();
+				BrainBehavior.CreateVendorBehavior();
 		  }
 
 	 }

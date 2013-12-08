@@ -1,5 +1,4 @@
-﻿using System;
-using Zeta.TreeSharp;
+﻿using Zeta.TreeSharp;
 
 namespace FunkyBot
 {

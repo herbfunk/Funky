@@ -1,9 +1,21 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
+using System.Windows.Media;
 using FunkyBot.Settings;
+using Zeta.Common;
+using Button = System.Windows.Controls.Button;
+using CheckBox = System.Windows.Controls.CheckBox;
+using ComboBox = System.Windows.Controls.ComboBox;
+using HorizontalAlignment = System.Windows.HorizontalAlignment;
+using ListBox = System.Windows.Controls.ListBox;
+using Orientation = System.Windows.Controls.Orientation;
+using RadioButton = System.Windows.Controls.RadioButton;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace FunkyBot
 {
@@ -11,14 +23,14 @@ namespace FunkyBot
 	 {
 		  private void ItemRulesLoadXMLClicked(object sender, EventArgs e)
 		  {
-				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
+				OpenFileDialog OFD=new OpenFileDialog
 				{
 					 InitialDirectory=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
 					 RestoreDirectory=false,
 					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
 					 Title="ItemRules Template",
 				};
-				System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
+				DialogResult OFD_Result=OFD.ShowDialog();
 
 				if (OFD_Result==System.Windows.Forms.DialogResult.OK)
 				{
@@ -28,7 +40,7 @@ namespace FunkyBot
 						  SettingItemRules newSettings=SettingItemRules.DeserializeFromXML(OFD.FileName);
 						  Bot.Settings.ItemRules=newSettings;
 
-						  FunkyWindow.funkyConfigWindow.Close();
+						  funkyConfigWindow.Close();
 					 } catch
 					 {
 
@@ -63,11 +75,11 @@ namespace FunkyBot
 		  }
 		  private void ItemRulesBrowse_Click(object sender, EventArgs e)
 		  {
-				System.Windows.Forms.FolderBrowserDialog OFD=new System.Windows.Forms.FolderBrowserDialog
+				FolderBrowserDialog OFD=new FolderBrowserDialog
 				{
 
 				};
-				System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
+				DialogResult OFD_Result=OFD.ShowDialog();
 
 				if (OFD_Result==System.Windows.Forms.DialogResult.OK)
 				{
@@ -123,13 +135,13 @@ namespace FunkyBot
 		  //UseLevelingLogic
 		  private void ItemRulesOpenFolder_Click(object sender, EventArgs e)
 		  {
-				System.Diagnostics.Process.Start(System.IO.Path.Combine(FolderPaths.sTrinityPluginPath, "ItemRules", "Rules"));
+				Process.Start(Path.Combine(FolderPaths.sTrinityPluginPath, "ItemRules", "Rules"));
 		  }
 		  private void ItemRulesReload_Click(object sender, EventArgs e)
 		  {
 				if (Bot.ItemRulesEval==null)
 				{
-					 Funky.Log("Cannot reload rules until bot has started", true);
+					 Logging.Write("Cannot reload rules until bot has started", true);
 					 return;
 				}
 
@@ -138,7 +150,7 @@ namespace FunkyBot
 					 Bot.ItemRulesEval.reloadFromUI();
 				} catch (Exception ex)
 				{
-					 Funky.Log(ex.Message+"\r\n"+ex.StackTrace);
+					 Logging.Write(ex.Message+"\r\n"+ex.StackTrace);
 				}
 
 		  }
@@ -166,7 +178,7 @@ namespace FunkyBot
 
 				StackPanel spItemRules=new StackPanel
 				{
-					 Background=System.Windows.Media.Brushes.DimGray,
+					 Background=Brushes.DimGray,
 				};
 				#region ItemRules Checkbox
 				ItemRules=new CheckBox
@@ -186,8 +198,8 @@ namespace FunkyBot
 				{
 					 Text="Additional Rules",
 					 FontSize=12,
-					 Background=System.Windows.Media.Brushes.DarkSlateGray,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.DarkSlateGray,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				spItemRules.Children.Add(txt_ItemRulesOptions);
@@ -238,8 +250,8 @@ namespace FunkyBot
 				{
 					 Text="Rule Set",
 					 FontSize=12,
-					 Background=System.Windows.Media.Brushes.DarkSlateGray,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.DarkSlateGray,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				spItemRules.Children.Add(txt_ItemRulesRule);
@@ -253,7 +265,7 @@ namespace FunkyBot
 				{
 					 Height=30,
 					 Width=150,
-					 ItemsSource=new FunkyWindow.ItemRuleTypes(),
+					 ItemsSource=new ItemRuleTypes(),
 					 //Text=Bot.SettingsFunky.ItemRules.ItemRuleType.ToString(),
 				};
 				ItemRuleType.SelectedIndex=Bot.Settings.ItemRules.ItemRuleType.ToLower().Contains("soft")?1:Bot.Settings.ItemRules.ItemRuleType.ToLower().Contains("hard")?2:0;
@@ -283,8 +295,8 @@ namespace FunkyBot
 				{
 					 Text="Logging",
 					 FontSize=12,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
-					 Background=System.Windows.Media.Brushes.DarkSlateGray,
+					 Foreground=Brushes.GhostWhite,
+					 Background=Brushes.DarkSlateGray,
 					 Margin=new Thickness(Margin.Left, Margin.Top+10, Margin.Right, Margin.Bottom+5),
 				};
 				spItemRules.Children.Add(txt_Header_ItemRulesLogging);
@@ -293,20 +305,20 @@ namespace FunkyBot
 				{
 					 Orientation=Orientation.Horizontal,
 				};
-				#region Log Items Stashed
+				#region Logging.Write Items Stashed
 				StackPanel spItemRulesLoggingKeep=new StackPanel();
 				TextBlock txt_LogItemKeep=new TextBlock
 				{
 					 Text="Items Stashed",
 					 FontSize=11,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Foreground=Brushes.GhostWhite,
 				};
 				spItemRulesLoggingKeep.Children.Add(txt_LogItemKeep);
 				ItemRuleLogKeep=new ComboBox
 				{
 					 Height=30,
 					 Width=150,
-					 ItemsSource=new FunkyWindow.ItemRuleQuality(),
+					 ItemsSource=new ItemRuleQuality(),
 					 Text=Bot.Settings.ItemRules.ItemRuleLogKeep
 				};
 				ItemRuleLogKeep.SelectionChanged+=ItemRulesLogKeepChanged;
@@ -314,20 +326,20 @@ namespace FunkyBot
 				spItemRulesLogging.Children.Add(spItemRulesLoggingKeep);
 				#endregion
 
-				#region Log Items Pickup
+				#region Logging.Write Items Pickup
 				StackPanel spItemRulesLoggingPickup=new StackPanel();
 				TextBlock txt_LogItemPickup=new TextBlock
 				{
 					 Text="Items Pickup",
 					 FontSize=11,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Foreground=Brushes.GhostWhite,
 				};
 				spItemRulesLoggingPickup.Children.Add(txt_LogItemPickup);
 				ItemRuleLogPickup=new ComboBox
 				{
 					 Height=30,
 					 Width=150,
-					 ItemsSource=new FunkyWindow.ItemRuleQuality(),
+					 ItemsSource=new ItemRuleQuality(),
 					 Text=Bot.Settings.ItemRules.ItemRuleLogPickup
 				};
 				ItemRuleLogPickup.SelectionChanged+=ItemRulesLogPickupChanged;
@@ -342,8 +354,8 @@ namespace FunkyBot
 				{
 					 Text="Misc",
 					 FontSize=12,
-					 Background=System.Windows.Media.Brushes.DarkSlateGray,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.DarkSlateGray,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(Margin.Left, Margin.Top+10, Margin.Right, Margin.Bottom+5),
 				};
 				spItemRules.Children.Add(txt_ItemRulesMisc);
@@ -410,7 +422,7 @@ namespace FunkyBot
 				{
 					 Text="Default Scoring Option",
 					 FontSize=12,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
 					 TextAlignment=TextAlignment.Left,
 				};
@@ -442,13 +454,13 @@ namespace FunkyBot
 				Button BtnItemRulesLoadTemplate=new Button
 				{
 					 Content="Load Setup",
-					 Background=System.Windows.Media.Brushes.OrangeRed,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.OrangeRed,
+					 Foreground=Brushes.GhostWhite,
 					 FontStyle=FontStyles.Italic,
 					 FontSize=12,
 
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
-					 VerticalAlignment=System.Windows.VerticalAlignment.Top,
+					 HorizontalAlignment=HorizontalAlignment.Left,
+					 VerticalAlignment=VerticalAlignment.Top,
 					 Width=75,
 					 Height=30,
 

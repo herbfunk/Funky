@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using Zeta.Internals.Actors;
 
 namespace FunkyBot
 {
@@ -25,9 +27,9 @@ namespace FunkyBot
 				CombatTabControl.Items.Add(ClassTabItem);
 				ListBox LBClass=new ListBox();
 
-				switch (Bot.Game.ActorClass)
+				switch (Bot.Character.Account.ActorClass)
 				{
-					 case Zeta.Internals.Actors.ActorClass.Barbarian:
+					 case ActorClass.Barbarian:
 						  CheckBox cbbSelectiveWhirlwind=new CheckBox
 						  {
 								Content="Selective Whirlwind Targeting",
@@ -43,7 +45,7 @@ namespace FunkyBot
 						  {
 								Text="Wrath of the Berserker Options",
 								FontStyle=FontStyles.Oblique,
-								Foreground=System.Windows.Media.Brushes.GhostWhite,
+								Foreground=Brushes.GhostWhite,
 								FontSize=11,
 								TextAlignment=TextAlignment.Left,
 						  };
@@ -112,7 +114,7 @@ namespace FunkyBot
 						  LBClass.Items.Add(cbbFuryDumpAlways);
 
 						  break;
-					 case Zeta.Internals.Actors.ActorClass.DemonHunter:
+					 case ActorClass.DemonHunter:
 						  LBClass.Items.Add("Reuse Vault Delay");
 						  Slider iDHVaultMovementDelayslider=new Slider
 						  {
@@ -123,7 +125,7 @@ namespace FunkyBot
 								LargeChange=5,
 								SmallChange=1,
 								Value=Bot.Settings.Class.iDHVaultMovementDelay,
-								HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+								HorizontalAlignment=HorizontalAlignment.Left,
 						  };
 						  iDHVaultMovementDelayslider.ValueChanged+=iDHVaultMovementDelaySliderChanged;
 						  TBiDHVaultMovementDelay=new TextBox
@@ -142,7 +144,7 @@ namespace FunkyBot
 						  LBClass.Items.Add(DhVaultPanel);
 
 						  break;
-					 case Zeta.Internals.Actors.ActorClass.Monk:
+					 case ActorClass.Monk:
 						  CheckBox cbbMonkSpamMantra=new CheckBox
 						  {
 								Content="Spam Mantra Ability",
@@ -169,8 +171,8 @@ namespace FunkyBot
                           //
 
 						  break;
-					 case Zeta.Internals.Actors.ActorClass.WitchDoctor:
-					 case Zeta.Internals.Actors.ActorClass.Wizard:
+					 case ActorClass.WitchDoctor:
+					 case ActorClass.Wizard:
 						  //CheckBox cbbEnableCriticalMass = new CheckBox
 						  //{
 						  //    Content = "Critical Mass",
@@ -182,7 +184,7 @@ namespace FunkyBot
 						  //cbbEnableCriticalMass.Unchecked += bEnableCriticalMassChecked;
 						  //LBClass.Items.Add(cbbEnableCriticalMass);
 
-						  if (Bot.Game.ActorClass == Zeta.Internals.Actors.ActorClass.Wizard)
+						  if (Bot.Character.Account.ActorClass == ActorClass.Wizard)
 						  {
 								CheckBox cbbWaitForArchon=new CheckBox
 								{
@@ -241,7 +243,7 @@ namespace FunkyBot
 
 						  break;
 				}
-				if (Bot.Game.ActorClass == Zeta.Internals.Actors.ActorClass.DemonHunter || Bot.Game.ActorClass == Zeta.Internals.Actors.ActorClass.WitchDoctor || Bot.Game.ActorClass == Zeta.Internals.Actors.ActorClass.Wizard)
+				if (Bot.Character.Account.ActorClass == ActorClass.DemonHunter || Bot.Character.Account.ActorClass == ActorClass.WitchDoctor || Bot.Character.Account.ActorClass == ActorClass.Wizard)
 				{
 
 					 #region GoblinMinimumRange
@@ -255,7 +257,7 @@ namespace FunkyBot
 						  LargeChange=5,
 						  SmallChange=1,
 						  Value=Bot.Settings.Class.GoblinMinimumRange,
-						  HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+						  HorizontalAlignment=HorizontalAlignment.Left,
 					 };
 					 sliderGoblinMinRange.ValueChanged+=TreasureGoblinMinimumRangeSliderChanged;
 					 TBGoblinMinRange=new TextBox

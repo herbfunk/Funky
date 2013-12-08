@@ -3,6 +3,7 @@ using Zeta;
 using Zeta.Internals;
 using Zeta.TreeSharp;
 using System.Linq;
+using Zeta.Common;
 
 namespace FunkyBot
 {
@@ -197,7 +198,7 @@ namespace FunkyBot
 						  .Select(s => s[random.Next(s.Length)])
 						  .ToArray());
 
-					 Log("Generated Name "+result);
+					 Logging.Write("Generated Name "+result);
 					 return result;
 				}
 		  }

@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Linq;
-using FunkyBot.AbilityFunky;
+using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
-using FunkyBot.Movement.Clustering;
-using FunkyBot.Targeting.Behaviors;
-using JetBrains.Annotations;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.CommonBot.Logic;
 using Zeta.Internals.Actors;
-using Zeta.Internals.SNO;
-using Zeta.Navigation;
 using Zeta.TreeSharp;
 
 namespace FunkyBot.Targeting
@@ -25,7 +19,7 @@ namespace FunkyBot.Targeting
 		  {
 				CurrentState=RunStatus.Running;
 				CurrentTarget=null;
-				Bot.Character.OnLevelAreaIDChanged+=new Character.CharacterCache.LevelAreaIDChanged(this.LevelAreaIDChangeHandler);
+				Bot.Character.Data.OnLevelAreaIDChanged+=LevelAreaIDChangeHandler;
 		  }
 
 
@@ -42,32 +36,28 @@ namespace FunkyBot.Targeting
 				//Refresh
 				if (!Continue)
 					 return CurrentState;
-				else
-					 Continue=Refresh();
+			  Continue=Refresh();
 
 
-				//Combat logic
+			  //Combat logic
 				if (!Continue)
 					 return CurrentState;
-				else
-					 Continue=CombatLogic();
+			  Continue=CombatLogic();
 
 
-				//Movement
+			  //Movement
 				if (!Continue)
 					 return CurrentState;
-				else
-					 Continue=Movement();
+			  Continue=Movement();
 
 
-				//Interaction
+			  //Interaction
 				if (!Continue)
 					 return CurrentState;
-				else
-					 Continue=ObjectInteraction();
+			  ObjectInteraction();
 
 
-				//Return status
+			  //Return status
 				return CurrentState;
 		  }
 
@@ -99,15 +89,15 @@ namespace FunkyBot.Targeting
 				}
 
 				// See if we should update hotbar abilities
-				Bot.Class.SecondaryHotbarBuffPresent();
+				Bot.Character.Class.SecondaryHotbarBuffPresent();
 
 
 				// Special pausing *AFTER* using certain powers
 				#region PauseCheck
-				if (Bot.Targeting.bWaitingAfterPower&&Bot.Class.PowerPrime.WaitLoopsAfter>=1)
+				if (Bot.Targeting.bWaitingAfterPower&&Bot.Character.Class.PowerPrime.WaitLoopsAfter>=1)
 				{
-					 if (Bot.Class.PowerPrime.WaitLoopsAfter>=1) Bot.Class.PowerPrime.WaitLoopsAfter--;
-					 if (Bot.Class.PowerPrime.WaitLoopsAfter<=0) Bot.Targeting.bWaitingAfterPower=false;
+					 if (Bot.Character.Class.PowerPrime.WaitLoopsAfter>=1) Bot.Character.Class.PowerPrime.WaitLoopsAfter--;
+					 if (Bot.Character.Class.PowerPrime.WaitLoopsAfter<=0) Bot.Targeting.bWaitingAfterPower=false;
 
 					 CurrentState=RunStatus.Running;
 					 return false;
@@ -115,11 +105,11 @@ namespace FunkyBot.Targeting
 				#endregion
 
 				// Update player-data cache -- Special combat call
-				Bot.Character.Update(true);
+				Bot.Character.Data.Update(true);
 
 				// Check for death / player being dead
 				#region DeadCheck
-				if (Bot.Character.dCurrentHealthPct<=0)
+				if (Bot.Character.Data.dCurrentHealthPct<=0)
 				{
 					 //Disable OOC IDing behavior if dead!
 					 if (Funky.shouldPreformOOCItemIDing) Funky.shouldPreformOOCItemIDing=false;
@@ -147,16 +137,16 @@ namespace FunkyBot.Targeting
 						  CurrentState=RunStatus.Success;
 						  return false;
 					 }
-					 else if (Bot.Character.bIsIncapacitated)
-					 {
-						  CurrentState=RunStatus.Running;
-						  return false;
-					 }
+					if (Bot.Character.Data.bIsIncapacitated)
+					{
+						CurrentState=RunStatus.Running;
+						return false;
+					}
 
-					 //Count each attempt to confirm.
+					//Count each attempt to confirm.
 					 Bot.Targeting.recheckCount++;
 					 string statusText="[Item Confirmation] Current recheck count "+Bot.Targeting.recheckCount;
-					 bool LootedSuccess=Bot.Character.BackPack.ContainsItem(CurrentTarget.AcdGuid.Value);
+					 bool LootedSuccess=Bot.Character.Data.BackPack.ContainsItem(CurrentTarget.AcdGuid.Value);
 					 //Verify item is non-stackable!
 
 					 statusText+=" [ItemFound="+LootedSuccess+"]";
@@ -167,7 +157,7 @@ namespace FunkyBot.Targeting
 						  if (Bot.Settings.Debug.DebugStatusBar) BotMain.StatusText=statusText;
 
 						  //This is where we should manipulate information of both what dropped and what was looted.
-						  Funky.LogItemInformation();
+						  Logger.LogItemInformation();
 
 						  //Reset if we reach here..
 						  Bot.Targeting.reCheckedFinished=false;
@@ -233,30 +223,27 @@ namespace FunkyBot.Targeting
 									 BotMain.StatusText=statusText;
 								}
 								Bot.Targeting.bWaitingAfterPower=true;
-								Bot.Class.PowerPrime.WaitLoopsAfter=3;
+								Bot.Character.Class.PowerPrime.WaitLoopsAfter=3;
 								CurrentState=RunStatus.Running;
 								return false;
 						  }
-						  else
-						  {
-								//We Rechecked Max Confirmation Checking Count, now we check if we want to retry confirmation, or simply try once more then ignore for a few.
-								bool stackableItem=(ItemType.Potion|ItemType.CraftingPage|ItemType.CraftingPlan|ItemType.CraftingReagent).HasFlag(thisObjItem.BalanceData.thisItemType);
-								if (thisObjItem.Itemquality.Value>ItemQuality.Magic3||stackableItem)
-								{
-									 //Items above rare quality don't get blacklisted, just ignored for a few loops.
-									 //This will force a movement if stuck.. but 5 loops is only 750ms
-									 CurrentTarget.BlacklistLoops=5;
-								}
-								else
-								{
-									 //Blacklist items below rare quality!
-									 CurrentTarget.BlacklistFlag=BlacklistType.Temporary;
-									 CurrentTarget.NeedsRemoved=true;
-								}
+						 //We Rechecked Max Confirmation Checking Count, now we check if we want to retry confirmation, or simply try once more then ignore for a few.
+						 bool stackableItem=(ItemType.Potion|ItemType.CraftingPage|ItemType.CraftingPlan|ItemType.CraftingReagent).HasFlag(thisObjItem.BalanceData.thisItemType);
+						 if (thisObjItem.Itemquality.Value>ItemQuality.Magic3||stackableItem)
+						 {
+							 //Items above rare quality don't get blacklisted, just ignored for a few loops.
+							 //This will force a movement if stuck.. but 5 loops is only 750ms
+							 CurrentTarget.BlacklistLoops=5;
+						 }
+						 else
+						 {
+							 //Blacklist items below rare quality!
+							 CurrentTarget.BlacklistFlag=BlacklistType.Temporary;
+							 CurrentTarget.NeedsRemoved=true;
+						 }
 
-								// Now tell Trinity to get a new target!
-								Bot.Targeting.bForceTargetUpdate=true;
-						  }
+						 // Now tell Trinity to get a new target!
+						 Bot.Targeting.bForceTargetUpdate=true;
 					 }
 
 					 //Reset flag, and continue..
@@ -266,13 +253,13 @@ namespace FunkyBot.Targeting
 
 
 				// See if we have been "newly rooted", to force target updates
-				if (Bot.Character.bIsRooted&&!Bot.Targeting.bWasRootedLastTick)
+				if (Bot.Character.Data.bIsRooted&&!Bot.Targeting.bWasRootedLastTick)
 				{
 					 Bot.Targeting.bWasRootedLastTick=true;
 					 Bot.Targeting.bForceTargetUpdate=true;
 				}
 
-				if (!Bot.Character.bIsRooted) Bot.Targeting.bWasRootedLastTick=false;
+				if (!Bot.Character.Data.bIsRooted) Bot.Targeting.bWasRootedLastTick=false;
 
 				return true;
 		  }
@@ -385,7 +372,7 @@ namespace FunkyBot.Targeting
 
 
 				//Make sure we are not incapacitated..
-				if (Bot.Character.bIsIncapacitated)
+				if (Bot.Character.Data.bIsIncapacitated)
 				{
 					CurrentState = RunStatus.Running;
 					return false;
@@ -397,12 +384,12 @@ namespace FunkyBot.Targeting
 		  public virtual bool CombatLogic()
 		  {
 				//Check if we can cast any combat buff-type abilities while channeling
-				if (Bot.Class.LastUsedAbility.IsChanneling)
+				if (Bot.Character.Class.LastUsedAbility.IsChanneling)
 				{
-					 Ability buff;
-					 if (Bot.Class.FindCombatBuffPower(out buff))
+					 Skill buff;
+					 if (Bot.Character.Class.FindCombatBuffPower(out buff))
 					 {
-						  Ability.UsePower(ref buff);
+						  Skill.UsePower(ref buff);
 						  buff.OnSuccessfullyUsed(false);
 					 }
 				}
@@ -415,10 +402,10 @@ namespace FunkyBot.Targeting
 					 if (CurrentTarget.targetType.Value==TargetType.Unit&&CurrentTarget.AcdGuid.HasValue)
 					 {
 						  // Pick an Ability		
-						  Ability nextAbility=Bot.Class.AbilitySelector(CurrentUnitTarget);
+						  Skill nextAbility=Bot.Character.Class.AbilitySelector(CurrentUnitTarget);
 
 						  // Did we get default attack?
-						  if (nextAbility.Equals(Bot.Class.DefaultAttack)&&!Bot.Class.CanUseDefaultAttack&&!Bot.Settings.Class.AllowDefaultAttackAlways)
+						  if (nextAbility.Equals(Bot.Character.Class.DefaultAttack)&&!Bot.Character.Class.CanUseDefaultAttack&&!Bot.Settings.Class.AllowDefaultAttackAlways)
 						  {//TODO:: Fix issue when nothing keeps returning (possibly due to bad ability setup)
 								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Ability))
 									 Logger.Write(LogLevel.Ability, "Default Attack not usable -- Failed to find a valid Ability to use -- Target: {0}", Bot.Targeting.CurrentTarget.InternalName);
@@ -428,21 +415,21 @@ namespace FunkyBot.Targeting
 								return false;
 						  }
 
-						  Bot.Class.PowerPrime=nextAbility;
+						  Bot.Character.Class.PowerPrime=nextAbility;
 					 }
 
 					 // Select an Ability for destroying a destructible with in advance
 					 if (CurrentTarget.targetType.Value==TargetType.Destructible||CurrentTarget.targetType==TargetType.Barricade)
-						  Bot.Class.PowerPrime=Bot.Class.DestructibleAbility();
+						  Bot.Character.Class.PowerPrime=Bot.Character.Class.DestructibleAbility();
 				}
 				#endregion
 
 				#region PotionCheck
-				if (Bot.Character.dCurrentHealthPct<=Bot.Settings.Combat.PotionHealthPercent
+				if (Bot.Character.Data.dCurrentHealthPct<=Bot.Settings.Combat.PotionHealthPercent
 					 &&!Bot.Targeting.bWaitingForPower
 					 &&!Bot.Targeting.bWaitingForPotion
-					 &&!Bot.Character.bIsIncapacitated
-					 &&Bot.Class.HealthPotionAbility.AbilityUseTimer())
+					 &&!Bot.Character.Data.bIsIncapacitated
+					 &&Bot.Character.Class.HealthPotionAbility.AbilityUseTimer())
 				{
 					 Bot.Targeting.bWaitingForPotion=true;
 					 CurrentState=RunStatus.Running;
@@ -451,9 +438,9 @@ namespace FunkyBot.Targeting
 				if (Bot.Targeting.bWaitingForPotion)
 				{
 					 Bot.Targeting.bWaitingForPotion=false;
-					 if (Bot.Class.HealthPotionAbility.CheckCustomCombatMethod())
+					 if (Bot.Character.Class.HealthPotionAbility.CheckCustomCombatMethod())
 					 {
-						  Bot.Class.HealthPotionAbility.AttemptToUseHealthPotion();
+						  Bot.Character.Class.HealthPotionAbility.AttemptToUseHealthPotion();
 						  CurrentState=RunStatus.Running;
 						  return false;
 					 }
@@ -463,10 +450,10 @@ namespace FunkyBot.Targeting
 				// See if we can use any special buffs etc. while in avoidance
 				if (ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value,TargetType.Gold|TargetType.Globe|TargetType.AvoidanceMovements|TargetType.NoMovement))
 				{
-					  Ability buff;
-					 if (Bot.Class.FindBuffPower(out buff))
+					  Skill buff;
+					 if (Bot.Character.Class.FindBuffPower(out buff))
 					 {
-						  Ability.UsePower(ref buff);
+						  Skill.UsePower(ref buff);
 						  buff.OnSuccessfullyUsed();
 					 }
 				}
@@ -486,7 +473,7 @@ namespace FunkyBot.Targeting
 			  if (ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value , TargetType.LineOfSight| TargetType.Backtrack))
 				{
 					//Since we only update our path during target refresh.. we should check if we are within range already!
-					 if (Navigation.NP.CurrentPath.Count>0&&Bot.Character.Position.Distance(Navigation.NP.CurrentPath.Current)<=CurrentTarget.Radius)
+					 if (Navigation.NP.CurrentPath.Count>0&&Bot.Character.Data.Position.Distance(Navigation.NP.CurrentPath.Current)<=CurrentTarget.Radius)
 						  Navigation.NP.MoveTo(CurrentTarget.Position, "LineOfSightMoveTo", true);
 
 					//No more points to navigate..
@@ -500,8 +487,8 @@ namespace FunkyBot.Targeting
 						 else
 						 {
 							 //Ending backtracking behavior!
-							 this.Backtracking = false;
-							 this.StartingLocation = Vector3.Zero;
+							 Backtracking = false;
+							 StartingLocation = Vector3.Zero;
 						 }
 					 }
 					 else
@@ -516,11 +503,9 @@ namespace FunkyBot.Targeting
 				//Check if we are in range for interaction..
 				if (CurrentTarget.WithinInteractionRange())
 					 return true;
-				else
-				{//Movement required..
-					CurrentState = Bot.Targeting.TargetMover.TargetMoveTo(CurrentTarget);
-					 return false;
-				}
+			  //Movement required..
+			  CurrentState = Bot.Targeting.TargetMover.TargetMoveTo(CurrentTarget);
+			  return false;
 		  }
 
 		  //This is the final step in handling.. here we actually switch to a specific method based upon the target object we are handling.
@@ -564,14 +549,14 @@ namespace FunkyBot.Targeting
 								Funky.sStatusText+="Click] ";
 								break;
 					 }
-					 Funky.sStatusText+="Target="+CurrentTarget.InternalName+" C-Dist="+Math.Round(CurrentTarget.CentreDistance, 2).ToString()+". "+
-							 "R-Dist="+Math.Round(CurrentTarget.RadiusDistance, 2).ToString()+". ";
+					 Funky.sStatusText+="Target="+CurrentTarget.InternalName+" C-Dist="+Math.Round(CurrentTarget.CentreDistance, 2)+". "+
+							 "R-Dist="+Math.Round(CurrentTarget.RadiusDistance, 2)+". ";
 
-					 if (CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Class.PowerPrime.Power!=SNOPower.None)
-						  Funky.sStatusText+="Power="+Bot.Class.PowerPrime.Power.ToString()+" (range "+Bot.Class.PowerPrime.MinimumRange.ToString()+") ";
+					 if (CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Character.Class.PowerPrime.Power!=SNOPower.None)
+						  Funky.sStatusText+="Power="+Bot.Character.Class.PowerPrime.Power+" (range "+Bot.Character.Class.PowerPrime.MinimumRange+") ";
 
 
-					 Funky.sStatusText+="Weight="+CurrentTarget.Weight.ToString();
+					 Funky.sStatusText+="Weight="+CurrentTarget.Weight;
 					 BotMain.StatusText=Funky.sStatusText;
 					 Funky.bResetStatusText=true;
 				}
@@ -629,13 +614,13 @@ namespace FunkyBot.Targeting
 		  {
 				Funky.sStatusText=Action+" ";
 
-				Funky.sStatusText+="Target="+CurrentTarget.InternalName+" C-Dist="+Math.Round(CurrentTarget.CentreDistance, 2).ToString()+". "+
-					 "R-Dist="+Math.Round(CurrentTarget.RadiusDistance, 2).ToString()+". ";
+				Funky.sStatusText+="Target="+CurrentTarget.InternalName+" C-Dist="+Math.Round(CurrentTarget.CentreDistance, 2)+". "+
+					 "R-Dist="+Math.Round(CurrentTarget.RadiusDistance, 2)+". ";
 
-				if (CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Class.PowerPrime.Power!=SNOPower.None)
-					 Funky.sStatusText+="Power="+Bot.Class.PowerPrime.Power.ToString()+" (range "+Bot.Class.PowerPrime.MinimumRange.ToString()+") ";
+				if (CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Character.Class.PowerPrime.Power!=SNOPower.None)
+					 Funky.sStatusText+="Power="+Bot.Character.Class.PowerPrime.Power+" (range "+Bot.Character.Class.PowerPrime.MinimumRange+") ";
 
-				Funky.sStatusText+="Weight="+CurrentTarget.Weight.ToString();
+				Funky.sStatusText+="Weight="+CurrentTarget.Weight;
 				BotMain.StatusText=Funky.sStatusText;
 				Funky.bResetStatusText=true;
 		  }
@@ -645,27 +630,22 @@ namespace FunkyBot.Targeting
 				//Check for null and compare run-time types. 
 				if (obj==null)
 				{
-					 if (this.CurrentTarget!=null)
+					if (CurrentTarget!=null)
 						  return false;
-					 else
-						  return true;
+					return true;
 				}
-				else
-				{
-					 Type ta=obj.GetType();
-					 Type tb=this.CurrentTarget!=null?this.CurrentTarget.GetType():this.GetType();
+			  Type ta=obj.GetType();
+			  Type tb=CurrentTarget!=null?CurrentTarget.GetType():GetType();
 
-					 if (ta.Equals(tb))
-					 {
-						  return ((CacheObject)obj)==(this.CurrentTarget);
-					 }
-					 else
-						  return false;
-				}
+			  if (ta.Equals(tb))
+			  {
+				  return ((CacheObject)obj)==(CurrentTarget);
+			  }
+			  return false;
 		  }
 		  public override int GetHashCode()
 		  {
-				return this.CurrentTarget!=null?this.CurrentTarget.GetHashCode():base.GetHashCode();
+				return CurrentTarget!=null?CurrentTarget.GetHashCode():base.GetHashCode();
 		  }
 
 		

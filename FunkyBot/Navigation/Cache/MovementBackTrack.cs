@@ -1,10 +1,5 @@
-﻿using System;
-using System.Linq;
-using Zeta;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Zeta.Common;
-using System.Collections;
-using FunkyBot.Movement;
 
 namespace FunkyBot.Movement
 {

@@ -1,8 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Zeta;
+using Zeta.CommonBot.Settings;
+using Zeta.Internals;
+using Zeta.Navigation;
 using Zeta.TreeSharp;
-using Zeta.CommonBot.Profile;
 using Zeta.CommonBot;
 using Zeta.Internals.Actors.Gizmos;
 using Zeta.Common;
@@ -39,11 +42,11 @@ namespace FunkyBot
 						  string NewGameProfile=FolderPaths.sTrinityPluginPath+@"Behaviors\Misc\CharacterMule\NewGame.xml";
 						  if (ProfileManager.CurrentProfile.Path!=NewGameProfile)
 						  {
-								if (System.IO.File.Exists(NewGameProfile))
+								if (File.Exists(NewGameProfile))
 								{
 									 Logger.Write(LogLevel.OutOfGame, "Loading NewGame profile");
 									 ProfileManager.Load(NewGameProfile, true);
-									 Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel=0;
+									 CharacterSettings.Instance.MonsterPowerLevel=0;
 								}
 						  }
 						  else
@@ -73,11 +76,11 @@ namespace FunkyBot
 						  }
 						  else
 						  {
-								Log("Failed to find stash.. Moving To Stash Vector");
-								Zeta.Navigation.Navigator.MoveTo(StashV3, "Stash");
+								Logging.Write("Failed to find stash.. Moving To Stash Vector");
+								Navigator.MoveTo(StashV3, "Stash");
 						  }
 					 }
-					 else if (!Zeta.Internals.UIElements.StashWindow.IsVisible)
+					 else if (!UIElements.StashWindow.IsVisible)
 					 {
 						  if (CurrentStashObject.Distance>7.5f)
 						  {
@@ -135,14 +138,14 @@ namespace FunkyBot
 									 SortedStashItems.Clear();
 									 LastActionTaken=DateTime.Today;
 									 TransferedGear=true;
-									 Bot.Game.UpdateCurrentAccountDetails();
+									 Bot.Character.Account.UpdateCurrentAccountDetails();
 									 //Delete settings
-									 string sFunkyCharacterFolder = System.IO.Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyBot", Bot.Game.CurrentAccountName);
-									 if (System.IO.Directory.Exists(sFunkyCharacterFolder))
+									 string sFunkyCharacterFolder = Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyBot", Bot.Character.Account.CurrentAccountName);
+									 if (Directory.Exists(sFunkyCharacterFolder))
 									 {
-										 string sFunkyCharacterConfigFile = System.IO.Path.Combine(sFunkyCharacterFolder, Bot.Game.CurrentHeroName + ".cfg");
-										  if (System.IO.File.Exists(sFunkyCharacterConfigFile))
-												System.IO.File.Delete(sFunkyCharacterConfigFile);
+										 string sFunkyCharacterConfigFile = Path.Combine(sFunkyCharacterFolder, Bot.Character.Account.CurrentHeroName + ".cfg");
+										  if (File.Exists(sFunkyCharacterConfigFile))
+												File.Delete(sFunkyCharacterConfigFile);
 									 }
 
 									 D3Character.NewCharacterName=null;
@@ -174,11 +177,11 @@ namespace FunkyBot
 								RandomizeWaitTime(true);
 								BotHeroIndex++;
 						  }
-						  else if (Zeta.CommonBot.ProfileManager.CurrentProfile.Path!=LastProfile)
+						  else if (ProfileManager.CurrentProfile.Path!=LastProfile)
 						  {
-								Zeta.CommonBot.ProfileManager.Load(LastProfile);
+								ProfileManager.Load(LastProfile);
 								RandomizeWaitTime();
-								Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel=NewMuleGame.LastHandicap;
+								CharacterSettings.Instance.MonsterPowerLevel=LastHandicap;
 						  }
 						  else
 						  {
