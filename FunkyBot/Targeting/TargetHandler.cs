@@ -485,10 +485,6 @@ namespace FunkyBot.Targeting
 			  //Instead of using target position we use the navigator pathing as CurrentTargetLocation
 			  if (ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value , TargetType.LineOfSight| TargetType.Backtrack))
 				{
-					//Since we only update our path during target refresh.. we should check if we are within range already!
-					 if (Navigation.NP.CurrentPath.Count>0&&Bot.Character.Position.Distance(Navigation.NP.CurrentPath.Current)<=CurrentTarget.Radius)
-						  Navigation.NP.MoveTo(CurrentTarget.Position, "LineOfSightMoveTo", true);
-
 					//No more points to navigate..
 					 if (Navigation.NP.CurrentPath.Count <= 1)
 					 {
@@ -506,8 +502,11 @@ namespace FunkyBot.Targeting
 					 }
 					 else
 					 {
-						 //Set target movement location to navigation current 
-						 Bot.Targeting.TargetMover.CurrentTargetLocation = Navigation.NP.CurrentPath.Current;
+						 //Since we only update our path during target refresh.. we should check if we are within range already!
+						 if (Navigation.NP.CurrentPath.Count > 1 && Bot.Character.Position.Distance(Navigation.NP.CurrentPath.Current) <= CurrentTarget.Radius)
+							 Bot.Targeting.TargetMover.CurrentTargetLocation = Navigation.NP.CurrentPath[Navigation.NP.CurrentPath.Index + 1];
+						 else
+							 Bot.Targeting.TargetMover.CurrentTargetLocation = Navigation.NP.CurrentPath.Current;
 					 }
 				}
 

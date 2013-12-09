@@ -209,7 +209,7 @@ namespace FunkyBot.Movement
 									Logger.Write(LogLevel.Movement, "Grouping Behavior stopped due to blocking counter");
 
 								Bot.NavigationCache.GroupingFinishBehavior();
-								Bot.NavigationCache.groupingSuspendedDate = DateTime.Now.AddMilliseconds(2500);
+								Bot.NavigationCache.groupingSuspendedDate = DateTime.Now.AddMilliseconds(4000);
 								Bot.Targeting.bForceTargetUpdate = true;
 								return RunStatus.Running;
 							}

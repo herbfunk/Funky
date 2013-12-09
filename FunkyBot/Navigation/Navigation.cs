@@ -635,6 +635,7 @@ namespace FunkyBot.Movement
 					 Bot.NavigationCache.groupReturningToOrgin=false;
 					 Bot.NavigationCache.groupingCurrentUnit=null;
 					 Bot.NavigationCache.groupingOrginUnit=null;
+					 Bot.NavigationCache.groupingSuspendedDate = DateTime.Now.AddMilliseconds(3500);
 				}
 				#endregion
 

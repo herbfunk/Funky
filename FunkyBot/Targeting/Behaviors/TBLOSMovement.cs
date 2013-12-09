@@ -44,19 +44,20 @@ namespace FunkyBot.Targeting.Behaviors
 				{
 					 if (obj==null)
 					 {
-						  if (Bot.NavigationCache.LOSmovementObject!=null&&
-                              (Bot.NavigationCache.LOSmovementObject.CentreDistance<50f&&!Bot.NavigationCache.LOSmovementObject.IsStillValid()))
-						  {//Invalidated the Line of sight obj!
+						 if (Bot.NavigationCache.LOSmovementObject != null &&
+								   ((Bot.Targeting.LastCachedTarget != null && Bot.Targeting.LastCachedTarget.Equals(Bot.NavigationCache.LOSmovementObject)) ||
+									(Bot.NavigationCache.LOSmovementObject.CentreDistance < 50f && !Bot.NavigationCache.LOSmovementObject.IsStillValid())))
+						 {//Invalidated the Line of sight obj!
 
-								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-								{
-									 Logger.Write(LogLevel.Movement, "LOS Object is No Longer Valid -- Reseting.");
-								}
+							 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+							 {
+								 Logger.Write(LogLevel.Movement, "LOS Object is No Longer Valid -- Reseting.");
+							 }
 
-								Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(Bot.NavigationCache.LOSmovementObject.RAGUID);
-								Bot.NavigationCache.LOSVector=Vector3.Zero;
-								Bot.NavigationCache.LOSmovementObject=null;
-						  }
+							 Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(Bot.NavigationCache.LOSmovementObject.RAGUID);
+							 Bot.NavigationCache.LOSVector = Vector3.Zero;
+							 Bot.NavigationCache.LOSmovementObject = null;
+						 }
 							
 
 						  if (Bot.NavigationCache.LOSmovementObject==null)
