@@ -28,7 +28,7 @@ namespace FunkyBot.Game
 				}
 			}
 
-			//Logger.WriteProfileTrackerOutput();
+			Logger.WriteProfileTrackerOutput();
         }
     }
 }

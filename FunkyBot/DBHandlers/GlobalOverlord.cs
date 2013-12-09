@@ -56,7 +56,7 @@ namespace FunkyBot
 				}
 				else
 				{
-					 if (MuleBehavior)
+					if (Funky.MuleBehavior)
 					 {
 						  if (BotMain.StatusText.Contains("Game Finished"))
 						  {
@@ -124,13 +124,13 @@ namespace FunkyBot
 				if (Bot.Targeting.CurrentTarget!=null)
 					 return Bot.Targeting.HandleThis();  //Default Behavior: Current Target
 
-				if (MuleBehavior)
+				if (Funky.MuleBehavior)
 				{
-					 if (!TransferedGear)
+					if (!Funky.TransferedGear)
 					 {
 						  return NewMuleGame.StashTransfer();
 					 }
-					 if (!Finished)
+					if (!Funky.Finished)
 					 {
 						  return NewMuleGame.FinishMuleBehavior();
 					 }

@@ -72,7 +72,7 @@ namespace FunkyBot.XMLTags
 								//Logger.Logging.Write("[TrinityTownPortal] In Town");
 						  })
 					 ),
-					 new Decorator(ret => !Bot.Character.Data.bIsInTown&&!Funky.CanCastTP(),
+					 new Decorator(ret => !Bot.Character.Data.bIsInTown && !Funky.CanCastTP(),
 						  new Action(ret =>
 						  {
 								ForceClearArea=false;

@@ -71,7 +71,7 @@ namespace FunkyBot
 			  shouldPreformOOCItemIDing = false;
 
 			  //TP Behavior Reset
-			  ResetTPBehavior();
+			  Funky.ResetTPBehavior();
 
 			  //Sno Trim Timer Reset
 			  ObjectCache.cacheSnoCollection.ResetTrimTimer();
@@ -198,9 +198,9 @@ namespace FunkyBot
 						  //[1] == Return to town
 						  if (townportal)
 						  {
-								CanRunDecoratorDelegate canRunDelegateReturnToTown=FunkyTPOverlord;
-								ActionDelegate actionDelegateReturnTown=FunkyTPBehavior;
-								ActionDelegate actionDelegateTownPortalFinish=FunkyTownPortalTownRun;
+							  CanRunDecoratorDelegate canRunDelegateReturnToTown = Funky.FunkyTPOverlord;
+							  ActionDelegate actionDelegateReturnTown = Funky.FunkyTPBehavior;
+							  ActionDelegate actionDelegateTownPortalFinish = Funky.FunkyTownPortalTownRun;
 								Sequence sequenceReturnTown=new Sequence(
 									new Action(actionDelegateReturnTown),
 									new Action(actionDelegateTownPortalFinish)
@@ -364,8 +364,8 @@ namespace FunkyBot
 					 {
 						  PrioritySelector CompositeReplacement=hook.Value[0] as PrioritySelector;
 
-						  CanRunDecoratorDelegate shouldPreformOutOfGameBehavior=OutOfGameOverlord;
-						  ActionDelegate actionDelgateOOGBehavior=OutOfGameBehavior;
+						  CanRunDecoratorDelegate shouldPreformOutOfGameBehavior = Funky.OutOfGameOverlord;
+						  ActionDelegate actionDelgateOOGBehavior = Funky.OutOfGameBehavior;
 						  Sequence sequenceOOG=new Sequence(
 								  new Action(actionDelgateOOGBehavior)
 						  );

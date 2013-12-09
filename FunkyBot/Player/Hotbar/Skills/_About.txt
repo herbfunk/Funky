@@ -1,4 +1,8 @@
-﻿Properties:
+﻿Skill Class is used to declare how and when skills should be used.
+
+
+
+Properties:
 		ExecutionType - How the ability should be setup for use. (accepts multiple values)
 		Cost - The Resource Required To Cast.
 		Cooldown - Used in conjuction with precast flag: CheckRecastTimer.

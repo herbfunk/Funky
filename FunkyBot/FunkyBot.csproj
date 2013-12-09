@@ -63,6 +63,12 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DBHandlers\ID Behavior\FunkyIDOverlord.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DBHandlers\ID Behavior\FunkyOOCItemHandling.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Player\Character.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -72,13 +78,13 @@
     <Compile Include="Player\Hotbar\Skills\Skill Objects\DrinkHealthPotion.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviors\Misc\CharacterMule\Character.cs">
+    <Compile Include="DBHandlers\Misc\CharacterMule\Character.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviors\Misc\CharacterMule\Game.cs">
+    <Compile Include="DBHandlers\Misc\CharacterMule\Game.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviors\Townrun\FinishOverlord.cs">
+    <Compile Include="DBHandlers\Townrun\FinishOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\EventHandlers\Death.cs">
@@ -624,7 +630,7 @@
     <Compile Include="Navigation\Navigation.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviors\Townrun\UnidOverlord.cs">
+    <Compile Include="DBHandlers\Townrun\UnidOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\EventHandlers\OnBotStart.cs">
@@ -941,19 +947,13 @@
     <Compile Include="Player\Hotbar\Skills\Skill.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviors\ID Behavior\FunkyIDOverlord.cs">
+    <Compile Include="DBHandlers\Misc\TP\FunkyPreTownPortalCheck.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviors\ID Behavior\FunkyOOCItemHandling.cs">
+    <Compile Include="DBHandlers\Misc\TP\FunkyTP.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviors\Misc\TP\FunkyPreTownPortalCheck.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Behaviors\Misc\TP\FunkyTP.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Behaviors\Misc\OOGOverlord.cs">
+    <Compile Include="DBHandlers\Misc\OOGOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Navigation\PlayerMover.cs">
@@ -965,16 +965,16 @@
     <Compile Include="Navigation\Objects\GridPoint.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviors\Townrun\SalvageOverlord.cs">
+    <Compile Include="DBHandlers\Townrun\SalvageOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviors\Townrun\SellOverlord.cs">
+    <Compile Include="DBHandlers\Townrun\SellOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviors\Townrun\StashOverlord.cs">
+    <Compile Include="DBHandlers\Townrun\StashOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviors\Townrun\TownRunCheckOverlord.cs">
+    <Compile Include="DBHandlers\Townrun\TownRunCheckOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Bot\Bot.cs">
@@ -992,7 +992,7 @@
     <Compile Include="Bot\EventHandlers\OnBotStop.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Behaviors\GlobalOverlord.cs">
+    <Compile Include="DBHandlers\GlobalOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\CharacterCache.cs">
@@ -1065,7 +1065,7 @@
   <ItemGroup>
     <Content Include="Assemblies\Demonbuddy.exe" />
     <Content Include="Assemblies\GreyMagic.dll" />
-    <Content Include="Behaviors\Misc\CharacterMule\NewGame.xml">
+    <Content Include="DBHandlers\Misc\CharacterMule\NewGame.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Player\Hotbar\Skills\_About.txt" />

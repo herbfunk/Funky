@@ -13,7 +13,7 @@ namespace FunkyBot
         {
             // Issue final reports
             //OutputReport();
-
+			Logger.WriteProfileTrackerOutput();
             PlayerMover.iTotalAntiStuckAttempts = 1;
             PlayerMover.vSafeMovementLocation = Vector3.Zero;
             PlayerMover.vOldPosition = Vector3.Zero;
