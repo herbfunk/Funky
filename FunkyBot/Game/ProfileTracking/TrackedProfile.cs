@@ -64,6 +64,20 @@ namespace FunkyBot.Game
 			LootTracker.Merge(other.LootTracker);
 		}
 
+		public string GenerateOutput()
+		{
+			return String.Format("{0} TotalTime:{2} \r\nDeaths:{1} ({6} dph) TotalGold:{3} ({8} gph) TotalXP:{4} ({7} xph)\r\n{5}",
+								ProfileName, 
+								DeathCount, 
+								TotalTimeSpan.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), 
+								TotalGold, 
+								TotalXP, 
+								LootTracker,
+								(DeathCount * TotalTimeSpan.TotalHours).ToString("#.##"),
+								(TotalXP * TotalTimeSpan.TotalHours).ToString("#.##"),
+								(TotalGold * TotalTimeSpan.TotalHours).ToString("#.##"));
+		}
+
         public override bool Equals(object obj)
         {
             //Check for null and compare run-time types. 

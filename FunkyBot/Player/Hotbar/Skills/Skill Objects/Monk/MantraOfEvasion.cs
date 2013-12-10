@@ -1,4 +1,5 @@
-﻿using Zeta.Internals.Actors;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Monk
 {
@@ -13,7 +14,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				IsBuff=true;
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.High;
-				PreCastFlags=(AbilityPreCastFlags.CheckEnergy);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy));
 				IsSpecialAbility=true;
 				FcriteriaBuff=() => !Bot.Character.Class.HotBar.HasBuff(Power);
 

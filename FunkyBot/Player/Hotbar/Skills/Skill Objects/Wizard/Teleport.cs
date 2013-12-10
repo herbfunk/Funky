@@ -1,4 +1,5 @@
 ﻿using FunkyBot.Movement.Clustering;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Common;
 using Zeta.Internals.Actors;
 
@@ -16,8 +17,8 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				UseageType=AbilityUseage.Combat;
 				//IsNavigationSpecial = true;
 				Priority=AbilityPriority.High;
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|
-											AbilityPreCastFlags.CheckEnergy);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|
+				                          AbilityPreCastFlags.CheckEnergy));
 				ClusterConditions=new ClusterConditions(5d, 48f, 2, false);
 				//TestCustomCombatConditionAlways=true,
 				FcriteriaCombat=() => ((Bot.Settings.Class.bTeleportFleeWhenLowHP&&Bot.Character.Data.dCurrentHealthPct<0.5d)

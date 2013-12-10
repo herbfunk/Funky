@@ -1,4 +1,5 @@
-﻿using Zeta.Internals.Actors;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Wizard
 {
@@ -12,8 +13,8 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				Cost=25;
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.High;
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
-											AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckRecastTimer);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
+				                          AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckRecastTimer));
 
 				FcriteriaCombat=() => ((UsingCriticalMass()&&
 				                        ((!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_FrostNova)&&

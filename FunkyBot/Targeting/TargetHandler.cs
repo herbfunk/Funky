@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyBot.DBHandlers;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
@@ -112,7 +113,7 @@ namespace FunkyBot.Targeting
 				if (Bot.Character.Data.dCurrentHealthPct<=0)
 				{
 					 //Disable OOC IDing behavior if dead!
-					 if (Funky.shouldPreformOOCItemIDing) Funky.shouldPreformOOCItemIDing=false;
+					if (ItemIdentifyBehavior.shouldPreformOOCItemIDing) ItemIdentifyBehavior.shouldPreformOOCItemIDing = false;
 
 					 CurrentState=RunStatus.Success;
 					 return false;
@@ -146,7 +147,7 @@ namespace FunkyBot.Targeting
 					//Count each attempt to confirm.
 					 Bot.Targeting.recheckCount++;
 					 string statusText="[Item Confirmation] Current recheck count "+Bot.Targeting.recheckCount;
-					 bool LootedSuccess=Bot.Character.Data.BackPack.ContainsItem(CurrentTarget.AcdGuid.Value);
+					 bool LootedSuccess=Bot.Character.Data.BackPack.ContainsItem(CurrentTarget.AcdGuid.Value, Bot.Targeting.CheckItemLootStackCount);
 					 //Verify item is non-stackable!
 
 					 statusText+=" [ItemFound="+LootedSuccess+"]";
@@ -162,6 +163,7 @@ namespace FunkyBot.Targeting
 						  //Reset if we reach here..
 						  Bot.Targeting.reCheckedFinished=false;
 						  Bot.Targeting.recheckCount=0;
+						  Bot.Targeting.CheckItemLootStackCount = 0;
 						  Bot.Targeting.ShouldCheckItemLooted=false;
 						  Bot.Targeting.bForceTargetUpdate=true;
 
@@ -315,6 +317,7 @@ namespace FunkyBot.Targeting
 								//Reset Item Vars
 								Bot.Targeting.recheckCount=0;
 								Bot.Targeting.reCheckedFinished=false;
+								Bot.Targeting.CheckItemLootStackCount = 0;
 						  }
 
 						  // Been trying to handle the same target for more than 30 seconds without damaging/reaching it? Blacklist it!
@@ -473,30 +476,34 @@ namespace FunkyBot.Targeting
 			  if (ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value , TargetType.LineOfSight| TargetType.Backtrack))
 				{
 
+					//Navigation.NP.MoveTo(Bot.NavigationCache.LOSmovementObject.Position, "02 LOS:" + Bot.NavigationCache.LOSmovementObject.InternalName, true);
 
-					//No more points to navigate..
-					 if (Navigation.NP.CurrentPath.Count <= 1)
-					 {
-						 if (CurrentTarget.targetType.Value == TargetType.LineOfSight)
-						 {
-							 Bot.NavigationCache.LOSVector = Vector3.Zero;
-							 Bot.NavigationCache.LOSmovementObject = null;
-						 }
-						 else
-						 {
-							 //Ending backtracking behavior!
-							 Backtracking = false;
-							 StartingLocation = Vector3.Zero;
-						 }
-					 }
-					 else
-					 {
-						 //Since we only update our path during target refresh.. we should check if we are within range already!
-						 if (Navigation.NP.CurrentPath.Count > 1 && Bot.Character.Data.Position.Distance(Navigation.NP.CurrentPath.Current) <= CurrentTarget.Radius)
-							 Bot.Targeting.TargetMover.CurrentTargetLocation = Navigation.NP.CurrentPath[Navigation.NP.CurrentPath.Index + 1];
-						 else
+					if (Navigation.NP.CurrentPath.Count > 0)
+					{
+						//No more points to navigate..
+						if (Navigation.NP.CurrentPath.Count==1&& Bot.Character.Data.Position.Distance(Navigation.NP.CurrentPath.Current) <= CurrentTarget.Radius)
+						{
+							Logger.Write(LogLevel.Movement, "Ending Line of Sight Movement");
+							if (CurrentTarget.targetType.Value == TargetType.LineOfSight)
+							{
+								Bot.NavigationCache.LOSVector = Vector3.Zero;
+								Bot.NavigationCache.LOSmovementObject = null;
+							}
+							else
+							{
+								//Ending backtracking behavior!
+								Backtracking = false;
+								StartingLocation = Vector3.Zero;
+							}
+						}
+						else
+						{
 							Bot.Targeting.TargetMover.CurrentTargetLocation = Navigation.NP.CurrentPath.Current;
-					 }
+						}
+
+						CurrentState = Bot.Targeting.TargetMover.TargetMoveTo(CurrentTarget);
+						return false;
+					}
 				}
 
 				
@@ -549,6 +556,9 @@ namespace FunkyBot.Targeting
 						  case TargetType.Shrine:
 								Funky.sStatusText+="Click] ";
 								break;
+						  case TargetType.LineOfSight:
+								Funky.sStatusText += "LOS] ";
+								break;
 					 }
 					 Funky.sStatusText+="Target="+CurrentTarget.InternalName+" C-Dist="+Math.Round(CurrentTarget.CentreDistance, 2)+". "+
 							 "R-Dist="+Math.Round(CurrentTarget.RadiusDistance, 2)+". ";
@@ -594,11 +604,13 @@ namespace FunkyBot.Targeting
 						  break;
 					 case TargetType.LineOfSight:
 						  //Last position.. since we are interacting, we are within range.
-						  if (Navigation.NP.CurrentPath.Count <= 1)
-						  {
-							  Bot.NavigationCache.LOSVector = Vector3.Zero;
-							  Bot.NavigationCache.LOSmovementObject = null;
-						  }
+						  //if (Navigation.NP.CurrentPath.Count <= 1)
+						  //{
+						 Logging.Write("Ending LOS Movement from Interaction");
+						  Navigation.NP.Clear();
+						  Bot.NavigationCache.LOSVector = Vector3.Zero;
+						  Bot.NavigationCache.LOSmovementObject = null;
+						  //}
 						  CurrentState = RunStatus.Running;
 						  break;
 				}

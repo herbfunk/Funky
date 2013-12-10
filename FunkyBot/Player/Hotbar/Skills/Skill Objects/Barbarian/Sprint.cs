@@ -1,4 +1,5 @@
-﻿using Zeta.Internals.Actors;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Barb
 {
@@ -19,8 +20,8 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				Cost=20;
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.Low;
-				PreCastFlags=(AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|
-											AbilityPreCastFlags.CheckPlayerIncapacitated);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|
+				                          AbilityPreCastFlags.CheckPlayerIncapacitated));
 
 				IsBuff=true;
 				FcriteriaBuff=() =>

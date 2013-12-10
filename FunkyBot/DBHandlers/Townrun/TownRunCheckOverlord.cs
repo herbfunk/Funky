@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyBot.DBHandlers;
 using Zeta;
 using Zeta.Common;
 using Zeta.Internals.Actors;
@@ -86,7 +87,7 @@ namespace FunkyBot
 					bPreStashPauseDone = false;
 					Bot.NavigationCache.LOSmovementObject = null;
 					Bot.NavigationCache.LOSVector = Vector3.Zero;
-					return Funky.SafetyCheckForTownRun();
+					return TownPortalBehavior.SafetyCheckForTownRun();
 				}
 			}
 

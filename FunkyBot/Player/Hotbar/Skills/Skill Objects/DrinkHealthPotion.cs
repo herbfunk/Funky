@@ -1,4 +1,5 @@
-﻿using Zeta;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills
@@ -33,7 +34,7 @@ namespace FunkyBot.Player.HotBar.Skills
 				Priority=AbilityPriority.High;
 
 				UseageType=AbilityUseage.Anywhere;
-				PreCastFlags=AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer;
+				PreCast=new SkillPreCast(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer);
 
 				//Important!! We have to override the default return of true.. we dont want this to fire as a combat Ability.
 				FcriteriaCombat=() => { return Bot.Character.Data.dCurrentHealthPct<=Bot.Settings.Combat.PotionHealthPercent; };

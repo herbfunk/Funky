@@ -21,9 +21,9 @@ namespace FunkyBot.Cache
             215103, 132951, 217508, 199998, 199997, 114527, 245910, 169123, 123885, 169890, 168878, 169891, 169077, 169904, 169907, 
             169906, 169908, 169905, 169909, 179780, 179778, 179772, 179779, 179776, 122305, 110959, 103235, 103215, 105763, 103217, 51353, 80140, 
             178664, 173827, 133741, 159144, 181748, 159098, 206569, 200706, 5895, 5896, 5897, 5899, 4686, 87037, 85843, 103919, 249338, 
-            251416, 249192, 80812, 196899,196900,196903,223333,220636,218951,206559,208543,166133,114304,212231,
+            251416, 249192, 80812, 196899,196900,196903,223333,220636,218951,206559,166133,114304,212231,
             181563,181857,181858,5215,175482,3901,152126,80447,425,3609,58568, 210087, 164057,220160, 87534, 144405, 181176, 181177,62522,220114,
-				108882,210419,60108,245919,5898,5901,5582,146502,
+				108882,210419,60108,245919,5898,5901,5582,146502,2120941707,2033647664,2033975334,2033975334,-1443233779, 
         };
 
 		 // IGNORE LIST / BLACKLIST - for world objects
@@ -150,7 +150,8 @@ namespace FunkyBot.Cache
 					 //Clear SNO cache entries..
 					 ObjectCache.cacheSnoCollection.Remove(snoObj.SNOID);
 					 //Clear previous cache entries..
-					 ObjectCache.Objects.Remove(RAGUID);
+					 if (ObjectCache.Objects.ContainsKey(raguid))
+						 ObjectCache.Objects.Remove(raguid);
 				}
 
 
@@ -174,8 +175,9 @@ namespace FunkyBot.Cache
 				{
 					 //Clear SNO cache entries..
 					 ObjectCache.cacheSnoCollection.Remove(sno);
-					 //Clear previous cache entries..
-					 ObjectCache.Objects.Remove(raguid);
+
+					 if (ObjectCache.Objects.ContainsKey(raguid))
+						ObjectCache.Objects.Remove(raguid);
 
 
 				}

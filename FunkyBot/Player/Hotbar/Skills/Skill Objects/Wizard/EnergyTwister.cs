@@ -1,4 +1,5 @@
 ﻿using FunkyBot.Cache;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Wizard
@@ -15,8 +16,8 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				IsRanged=true;
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.Low;
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
-											AbilityPreCastFlags.CheckCanCast);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
+				                          AbilityPreCastFlags.CheckCanCast));
 
 				FcriteriaCombat=() => (!HasSignatureAbility()||Bot.Character.Class.HotBar.GetBuffStacks(SNOPower.Wizard_EnergyTwister)<1)&&
 				                      (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_30]>=1||

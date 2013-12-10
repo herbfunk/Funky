@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Wizard
@@ -15,11 +16,11 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				UseageType=AbilityUseage.Combat;
 				IsSpecialAbility=true;
 				Priority=AbilityPriority.High;
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|
-											AbilityPreCastFlags.CheckEnergy);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|
+				                          AbilityPreCastFlags.CheckEnergy));
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_30, 1);
-				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 30);
+				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 30);
 				FcriteriaCombat=() =>
 				{
 					bool missingBuffs=MissingBuffs();

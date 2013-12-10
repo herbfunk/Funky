@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Wizard
@@ -13,12 +14,12 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				Range=15;
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.High;
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckCanCast);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckCanCast));
 				IsBuff=true;
 				FcriteriaBuff=() => { return false; };
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 2);
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 1);
-				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 8);
+				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 8);
 
 
 				FcriteriaCombat=() =>

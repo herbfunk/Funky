@@ -1,4 +1,5 @@
 ﻿using FunkyBot.Movement.Clustering;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
@@ -10,17 +11,17 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				Cooldown=15000;
 				ExecutionType=AbilityExecuteFlags.ClusterTargetNearest|AbilityExecuteFlags.Target;
 				ClusterConditions=new ClusterConditions(5d, 20f, 1, true);
-				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None, 25,
+				SingleUnitCondition=new UnitTargetConditions(TargetProperties.None, 25,
 					falseConditionalFlags: TargetProperties.DOTDPS);
 				WaitVars=new WaitLoops(1, 1, true);
 				Cost=108;
 				Range=21;
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.Low;
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|
-												AbilityPreCastFlags.CheckEnergy);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|
+				                          AbilityPreCastFlags.CheckEnergy));
 
-				FcriteriaPreCast=() => !Bot.Character.Class.HotBar.HasDebuff(SNOPower.Succubus_BloodStar);
+				PreCast.Criteria += (s) => !Bot.Character.Class.HotBar.HasDebuff(SNOPower.Succubus_BloodStar);
 
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
 		  }

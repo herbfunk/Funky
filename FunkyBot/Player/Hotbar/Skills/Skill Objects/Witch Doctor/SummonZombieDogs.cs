@@ -1,4 +1,5 @@
-﻿using Zeta.Internals.Actors;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 {
@@ -15,7 +16,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				Cost=49;
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.High;
-				PreCastFlags=(AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckEnergy);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckEnergy));
 				IsBuff=true;
 				FcriteriaBuff=
 				  () => Bot.Character.Data.PetData.ZombieDogs<

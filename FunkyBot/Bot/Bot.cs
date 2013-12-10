@@ -1,4 +1,5 @@
-﻿using FunkyBot.Movement;
+﻿using FunkyBot.DBHandlers;
+using FunkyBot.Movement;
 using FunkyBot.Settings;
 using FunkyBot.Targeting;
 using FunkyBot.Player;
@@ -44,7 +45,7 @@ namespace FunkyBot
 					 get
 					 {
 						  //OOC IDing, Town Portal Casting, Town Run
-						 return (Game.Profile.IsRunningOOCBehavior || Funky.FunkyTPBehaviorFlag || TownRunManager.bWantToTownRun);
+						 return (Game.Profile.IsRunningOOCBehavior || TownPortalBehavior.FunkyTPBehaviorFlag || TownRunManager.bWantToTownRun);
 					 }
 				}
 

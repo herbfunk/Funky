@@ -1,4 +1,5 @@
-﻿using Zeta.Internals.Actors;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Monk
 {
@@ -14,7 +15,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				UseageType=AbilityUseage.Anywhere;
 				IsBuff=true;
 				Priority=AbilityPriority.High;
-				PreCastFlags=(AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckRecastTimer);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckRecastTimer));
 				FcriteriaBuff=() => (RuneIndex==2&&!Bot.Character.Class.HotBar.HasBuff(SNOPower.Monk_BreathOfHeaven))||
 				                    Bot.Character.Data.dCurrentHealthPct<=0.5d;
 				FcriteriaCombat=

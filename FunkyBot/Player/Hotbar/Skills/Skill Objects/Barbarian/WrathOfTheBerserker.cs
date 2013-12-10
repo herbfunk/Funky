@@ -1,4 +1,5 @@
-﻿using Zeta.Internals.Actors;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Barb
 {
@@ -20,8 +21,8 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				UseageType=AbilityUseage.Anywhere;
 				IsSpecialAbility=Bot.Settings.Class.bWaitForWrath;
 				Priority=AbilityPriority.High;
-				PreCastFlags=(AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckExisitingBuff|
-											AbilityPreCastFlags.CheckCanCast);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckExisitingBuff|
+				                          AbilityPreCastFlags.CheckCanCast));
 				FcriteriaCombat=() =>
 				{
 					return Bot.Targeting.Environment.bAnyChampionsPresent

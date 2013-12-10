@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Barb
@@ -21,11 +22,11 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				UseageType=AbilityUseage.Combat;
 				IsSpecialAbility=true;
 				Priority=AbilityPriority.High;
-				PreCastFlags=(AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy|
-											AbilityPreCastFlags.CheckExisitingBuff|AbilityPreCastFlags.CheckCanCast|
-											AbilityPreCastFlags.CheckPlayerIncapacitated);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy|
+				                          AbilityPreCastFlags.CheckExisitingBuff|AbilityPreCastFlags.CheckCanCast|
+				                          AbilityPreCastFlags.CheckPlayerIncapacitated));
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
-				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 13);
+				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 13);
 		  }
 
 		  #region IAbility

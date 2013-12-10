@@ -8,10 +8,15 @@ using System.Collections.Generic;
 using Zeta.TreeSharp;
 
 
-namespace FunkyBot
+namespace FunkyBot.DBHandlers
 {
-	 public partial class Funky
+	 public static class ItemIdentifyBehavior
 	 {
+		 internal static RunStatus FunkyIDBehavior(object ret)
+		 {
+			 return HandleIDBehavior();
+		 }
+
 		  internal static Queue<ACDItem> UnidentifiedItems=new Queue<ACDItem>();
 		  internal static ACDItem currentItem;
 		  internal static bool RefreshDone=false;
@@ -39,7 +44,7 @@ namespace FunkyBot
 		  }
 
 		  //Implementation into Town Run behavior!
-		  private static bool FunkyIDOverlord(object ret)
+		  internal static bool FunkyIDOverlord(object ret)
 		  {
 				//Question: Do we want to run ID Behavior?
 
@@ -53,7 +58,7 @@ namespace FunkyBot
 		  }
 
 
-		  private static RunStatus HandleIDBehavior()
+		  internal static RunStatus HandleIDBehavior()
 		  {
 				//Exit this?
 				if (ZetaDia.Me.IsDead||!ZetaDia.IsInGame)

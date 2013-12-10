@@ -1,6 +1,7 @@
 ﻿using System;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
+using FunkyBot.DBHandlers;
 using Zeta;
 using Zeta.Common;
 using Zeta.TreeSharp;
@@ -268,7 +269,7 @@ namespace FunkyBot
 					if (!bDidStashSucceed)
 					{
 						Logging.WriteDiagnostic("There was an unknown error stashing an item.");
-						if (Funky.MuleBehavior)
+						if (OutOfGame.MuleBehavior)
 							return RunStatus.Success;
 					}
 					else
@@ -521,7 +522,7 @@ namespace FunkyBot
 				Logging.WriteDiagnostic("Fatal Error: No valid stash location found for '" + sOriginalItemName + "' [" + sOriginalInternalName + " - " + OriginalGilesItemType.ToString() + "]");
 				Logging.Write("***************************");
 				Logging.Write("GSError: Emergency Stop: You need to stash an item but no valid space could be found. Stash is full? Stopping the bot to prevent infinite town-run loop.");
-				Funky.MuleBehavior = true;
+				OutOfGame.MuleBehavior = true;
 				ZetaDia.Service.Party.LeaveGame();
 				return false;
 			}

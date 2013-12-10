@@ -1,4 +1,25 @@
 ﻿// herbfunk revisions
+v2.7.0.0
+
+-Item loot confirmation now checks stack quanity when neccessary.
+-Target Property IsMissileReflecting now checks target Animation State.
+
+
+Bugs:
+	-Townruns will no longer sell potions on new bot start.
+	-Added null check when removing object from cache during update.
+
+
+Misc:
+	*Refactor
+		-Added namespace DBHandlers
+		-Player namespace now contains all related game character classes.
+	
+	*Skills
+		-Abilities renamed to Skills and moved under HotBar namespace.
+		-Precast and Target conditions now create criteria inside class constructor.
+		-Added additional constructor to Precast and Target condition to allow custom criteria.
+
 v2.6.4.0
 
 -Added Position Changed Event to Character Class. (Target Movement Subscribes)

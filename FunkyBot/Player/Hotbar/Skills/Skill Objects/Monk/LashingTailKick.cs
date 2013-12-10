@@ -1,4 +1,5 @@
 ﻿using FunkyBot.Movement.Clustering;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Monk
@@ -14,10 +15,10 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				Range=10;
 				Priority=AbilityPriority.Low;
 				UseageType=AbilityUseage.Combat;
-				PreCastFlags=(AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|
-											AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckPlayerIncapacitated);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|
+				                          AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckPlayerIncapacitated));
 				ClusterConditions=new ClusterConditions(4d, 18f, 3, true);
-				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 10);
+				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 10);
 
 
 				FcriteriaCombat=() => (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)||

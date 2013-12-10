@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using FunkyBot.Cache;
 using FunkyBot.Movement;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
@@ -14,7 +16,7 @@ namespace FunkyBot.Player.HotBar.Skills
 	 ///<summary>
 	 ///Cached Object that Describes an individual Ability.
 	 ///</summary>
-	 public class Skill : SkillCriteria, ISkill
+	 public class Skill : SkillCriteria
 	 {
 		 public Skill()
 		  {
@@ -123,7 +125,133 @@ namespace FunkyBot.Player.HotBar.Skills
 
 
 
+		  #region Test Methods
+		  ///<summary>
+		  ///Check Ability Buff Conditions
+		  ///</summary>
+		  public bool CheckBuffConditionMethod()
+		  {
+			  foreach (Func<bool> item in FcriteriaBuff.GetInvocationList())
+			  {
+				  if (!item()) return false;
+			  }
 
+			  return true;
+		  }
+
+		  public bool CheckCustomCombatMethod()
+		  {
+			  foreach (Func<bool> item in FcriteriaCombat.GetInvocationList())
+				  if (!item()) return false;
+
+			  return true;
+		  }
+		  ///<summary>
+		  ///Check Ability is valid to use.
+		  ///</summary>
+		  public bool CheckPreCastConditionMethod()
+		  {
+			  return PreCast.Criteria.GetInvocationList().Cast<Func<Skill,bool>>().All(item => item(this));
+		  }
+
+		  ///<summary>
+		  ///Check Combat
+		  ///</summary>
+		  public bool CheckCombatConditionMethod(ConditionCriteraTypes conditions = ConditionCriteraTypes.All)
+		  {
+			  //Order in which tests are conducted..
+
+			  //Units in Range (Not Cluster)
+			  //Clusters
+			  //Single Target
+
+			  //If all are null or any of them are successful, then we test Custom Conditions
+			  //Custom Condition
+
+			  //Reset Last Condition
+			  LastConditionPassed = ConditionCriteraTypes.None;
+			  bool TestCustomConditions = false;
+			  bool FailedCondition = false;
+
+			  if (conditions.HasFlag(ConditionCriteraTypes.ElitesInRange) && FElitesInRangeConditions != null)
+			  {
+				  foreach (Func<bool> item in FElitesInRangeConditions.GetInvocationList())
+				  {
+					  if (!item())
+					  {
+						  FailedCondition = true;
+						  break;
+					  }
+				  }
+				  if (!FailedCondition)
+				  {
+					  TestCustomConditions = true;
+					  LastConditionPassed = ConditionCriteraTypes.ElitesInRange;
+				  }
+			  }
+			  if ((!TestCustomConditions || FailedCondition) && conditions.HasFlag(ConditionCriteraTypes.UnitsInRange) && FUnitsInRangeConditions != null)
+			  {
+				  FailedCondition = false;
+				  foreach (Func<bool> item in FUnitsInRangeConditions.GetInvocationList())
+				  {
+					  if (!item())
+					  {
+						  FailedCondition = true;
+						  break;
+					  }
+				  }
+				  if (!FailedCondition)
+				  {
+					  LastConditionPassed = ConditionCriteraTypes.UnitsInRange;
+					  TestCustomConditions = true;
+				  }
+			  }
+			  if ((!TestCustomConditions || FailedCondition) && conditions.HasFlag(ConditionCriteraTypes.Cluster) && FClusterConditions != null)
+			  {
+				  FailedCondition = false;
+
+				  if (!FClusterConditions.Invoke())
+				  {
+					  FailedCondition = true;
+				  }
+
+				  if (!FailedCondition)
+				  {
+					  LastConditionPassed = ConditionCriteraTypes.Cluster;
+					  TestCustomConditions = true;
+				  }
+			  }
+			  if ((!TestCustomConditions || FailedCondition) && conditions.HasFlag(ConditionCriteraTypes.SingleTarget) && FSingleTargetUnitCriteria != null)
+			  {
+				  FailedCondition = false;
+				  foreach (Func<bool> item in FSingleTargetUnitCriteria.GetInvocationList())
+				  {
+					  if (!item())
+					  {
+						  FailedCondition = true;
+						  break;
+					  }
+				  }
+				  if (!FailedCondition)
+				  {
+					  LastConditionPassed = ConditionCriteraTypes.SingleTarget;
+					  TestCustomConditions = true;
+				  }
+			  }
+
+			  //If TestCustomCondtion failed, and FailedCondition is true.. then we tested a combat condition.
+			  //If FailedCondition is false, then we never tested a condition.
+			  if (!TestCustomConditions && !TestCustomCombatConditions) return false; //&&FailedCondition
+
+
+			  foreach (Func<bool> item in FcriteriaCombat.GetInvocationList())
+				  if (!item()) return false;
+
+
+			  return true;
+		  }
+
+		  #endregion
 
 
 

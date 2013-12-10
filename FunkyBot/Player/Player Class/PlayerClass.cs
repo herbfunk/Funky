@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta;
 using Zeta.Internals.Actors;
 using Zeta.Common;
@@ -20,7 +21,7 @@ namespace FunkyBot.Player.Class
 		  public abstract class PlayerClass
 		  {
 				//Base class for each individual class!
-				public PlayerClass()
+			  protected PlayerClass()
 				{
 					 HotBar.RefreshHotbar();
 					 HotBar.RefreshPassives();

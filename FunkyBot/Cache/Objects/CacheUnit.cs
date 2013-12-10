@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Movement;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta;
 using Zeta.Common;
 using Zeta.Internals.Actors;
@@ -153,6 +154,17 @@ namespace FunkyBot.Cache
 		private bool? IsNPC { get; set; }
 		public bool ForceLeap { get; set; }
 
+		///<summary>
+		///Check of Certain Properties that refreshes the SNOAnim during Update method.
+		///</summary>
+		public bool ShouldUpdateSNOAnim
+		{
+			get
+			{
+				return IsMissileReflecting || MonsterTeleport|| IsTransformUnit;
+			}
+		}
+
 		private bool? hasDOTdps_;
 		public bool? HasDOTdps
 		{
@@ -276,12 +288,14 @@ namespace FunkyBot.Cache
 			get
 			{
 				return
-					 (IsSucideBomber && Bot.Settings.LOSMovement.AllowSucideBomber) ||
+					 ((IsSucideBomber && Bot.Settings.LOSMovement.AllowSucideBomber) ||
 					 (IsTreasureGoblin && Bot.Settings.LOSMovement.AllowTreasureGoblin) ||
 					 (IsSpawnerUnit && Bot.Settings.LOSMovement.AllowSpawnerUnits) ||
 					 ((MonsterRare || MonsterElite) && Bot.Settings.LOSMovement.AllowRareElites) ||
 					 ((IsBoss || MonsterUnique) && Bot.Settings.LOSMovement.AllowUniqueBoss) ||
-					 (IsRanged && Bot.Settings.LOSMovement.AllowRanged);
+					 (IsRanged && Bot.Settings.LOSMovement.AllowRanged)
+					 &&//Enforce A Maximum Range
+					 CentreDistance <= Bot.Settings.LOSMovement.MaximumRange);
 			}
 		}
 
@@ -922,8 +936,11 @@ namespace FunkyBot.Cache
 					{
 						// if (this.IsEliteRareUnique||this.IsTreasureGoblin)
 						if (AllowLOSMovement)
+						{
+							if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+								Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
 							Bot.Targeting.Environment.LoSMovementObjects.Add(this);
-
+						}
 
 						return false;
 					}
@@ -944,8 +961,11 @@ namespace FunkyBot.Cache
 					{
 						//if (this.IsEliteRareUnique||this.IsTreasureGoblin) 
 						if (AllowLOSMovement)
+						{
+							if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+								Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
 							Bot.Targeting.Environment.LoSMovementObjects.Add(this);
-
+						}
 						return false;
 					}
 
@@ -956,8 +976,11 @@ namespace FunkyBot.Cache
 						//LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
 						// if (this.IsEliteRareUnique||this.IsTreasureGoblin)
 						if (AllowLOSMovement)
+						{
+							if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+								Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
 							Bot.Targeting.Environment.LoSMovementObjects.Add(this);
-
+						}
 
 						//Valid?? Did we find a location we could move to for LOS?
 						if (!Bot.Character.Data.bIsIncapacitated && !ObjectIsSpecial)
@@ -1240,19 +1263,6 @@ namespace FunkyBot.Cache
 			else
 				IsAttackable = true;
 
-
-			//Clustering Target Engaged Check
-			//if (Bot.SettingsFunky.Grouping.AttemptGroupingMovements)
-			//{
-			//    try
-			//    {
-			//        this.IsMoving=this.ref_DiaObject.Movement.IsMoving;
-			//    } catch
-			//    {
-			//        Logging.WriteVerbose("[Funky] Safely handled exception getting LastACDAttackedBy attribute for unit "+this.InternalName+" ["+this.SNOID.ToString()+"]");
-			//    }
-			//}
-
 			#region Class DOT DPS Check
 			//Barb specific updates
 			if (Bot.Character.Class.AC == ActorClass.Barbarian)
@@ -1302,6 +1312,19 @@ namespace FunkyBot.Cache
 				}
 			}
 			#endregion
+
+			//Update SNOAnim?
+			if (ShouldUpdateSNOAnim)
+			{
+				try
+				{
+					AnimState = (base.ref_DiaObject.CommonData.AnimationState);
+				}
+				catch (Exception)
+				{
+					AnimState = AnimationState.Invalid;
+				}
+			}
 
 			return true;
 		}

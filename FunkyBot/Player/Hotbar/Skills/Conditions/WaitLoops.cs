@@ -1,4 +1,4 @@
-﻿namespace FunkyBot.Player.HotBar.Skills
+﻿namespace FunkyBot.Player.HotBar.Skills.Conditions
 {
 	 /// <summary> 
 	 /// Describes Pre and Post Wait Loops for an Ability.

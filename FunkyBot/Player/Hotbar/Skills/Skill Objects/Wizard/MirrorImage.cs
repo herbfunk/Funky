@@ -1,4 +1,5 @@
-﻿using Zeta.Internals.Actors;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Wizard
 {
@@ -13,7 +14,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				Range=48;
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.High;
-				PreCastFlags=(AbilityPreCastFlags.CheckCanCast);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckCanCast));
 
 				FcriteriaCombat=() => (Bot.Character.Data.dCurrentHealthPct<=0.50||
 				                       Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_30]>=5||Bot.Character.Data.bIsIncapacitated||

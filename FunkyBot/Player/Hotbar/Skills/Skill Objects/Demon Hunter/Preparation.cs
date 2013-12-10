@@ -1,4 +1,5 @@
-﻿using Zeta.Internals.Actors;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 {
@@ -11,8 +12,8 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				WaitVars=new WaitLoops(1, 1, true);
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.High;
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|
-											AbilityPreCastFlags.CheckCanCast);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|
+				                          AbilityPreCastFlags.CheckCanCast));
 				Cost=Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.DemonHunter_Preparation]==0?25:0;
 				FcriteriaCombat=() => Bot.Character.Data.dDisciplinePct<0.25d
 					//Rune: Punishment (Restores all Hatered for 25 disc)

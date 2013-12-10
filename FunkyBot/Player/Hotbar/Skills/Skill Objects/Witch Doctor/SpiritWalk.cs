@@ -1,4 +1,5 @@
-﻿using Zeta.Internals.Actors;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 {
@@ -16,7 +17,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				UseageType=AbilityUseage.Anywhere;
 				IsSpecialAbility=true;
 				Priority=AbilityPriority.High;
-				PreCastFlags=(AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast));
 
 				IsBuff=true;
 				FcriteriaBuff=() => Bot.Settings.OutOfCombatMovement;

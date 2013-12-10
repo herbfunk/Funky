@@ -45,9 +45,14 @@ namespace FunkyBot
 					// Find out if this item's in a protected bag slot
 					if (!ItemManager.Current.ItemIsProtected(thisitem.ACDItem))
 					{
-						if (thisitem.IsPotion && thisitem.ACDGUID != Bot.Character.Data.BackPack.CurrentPotionACDGUID)
+						if (thisitem.IsPotion)
 						{
-							Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSellItems.Add(thisitem);
+							
+							if (thisitem.ACDGUID != Bot.Character.Data.BackPack.CurrentPotionACDGUID && Bot.Character.Data.BackPack.CurrentPotionACDGUID!=-1)
+							{
+								Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSellItems.Add(thisitem);
+								Logging.Write("Selling Potion -- Current PotionACDGUID=={0}", Bot.Character.Data.BackPack.CurrentPotionACDGUID);
+							}
 							continue;
 						}
 
@@ -123,12 +128,13 @@ namespace FunkyBot
 			bLoggedJunkThisStash = false;
 			bCurrentlyMoving = false;
 			PotionCheck = false;
+
 			iCurrentItemLoops = 0;
 			RandomizeTheTimer();
 			bFailedToLootLastItem = false;
 
-			List<ACDItem> potions = Bot.Character.Data.BackPack.ReturnCurrentPotions();
-			if (potions != null) Bot.Character.Data.iTotalPotions = potions.Any() ? potions.Sum(p => p.ItemStackQuantity) : 0;
+			List<CacheACDItem> potions = Bot.Character.Data.BackPack.ReturnCurrentPotions();
+			if (potions != null) Bot.Character.Data.iTotalPotions = potions.Any() ? potions.Sum(p => p.ThisItemStackQuantity) : 0;
 
 			return RunStatus.Success;
 		}

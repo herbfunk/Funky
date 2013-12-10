@@ -1,4 +1,5 @@
-﻿using Zeta.Internals.Actors;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Monk
 {
@@ -15,7 +16,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				Priority=AbilityPriority.High;
 				IsSpecialAbility=true;
 				Counter=1;
-				PreCastFlags=(AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPetCount);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPetCount));
 		  }
 
 		  #region IAbility

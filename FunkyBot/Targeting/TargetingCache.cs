@@ -27,10 +27,12 @@ namespace FunkyBot.Targeting
 		 internal bool bForceTargetUpdate { get; set; }
 		 // Variable to let us force new target creations immediately after a root
 		 internal bool bWasRootedLastTick { get; set; }
+
 		 //Loot Check
 		 internal bool ShouldCheckItemLooted { get; set; }
 		 internal int recheckCount { get; set; }
 		 internal bool reCheckedFinished { get; set; }
+		 internal int CheckItemLootStackCount { get; set; }
 
 
 		 //Order is important! -- we test from start to finish.
@@ -91,6 +93,7 @@ namespace FunkyBot.Targeting
 			  bWasRootedLastTick=false;
 			  recheckCount=0;
 			  reCheckedFinished=false;
+			  CheckItemLootStackCount = 0;
 			  Backtracking = false;
 		 }
 		 //Avoidance Related

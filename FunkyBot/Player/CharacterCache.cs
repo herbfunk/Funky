@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyBot.DBHandlers;
 using FunkyBot.Movement;
 using Zeta;
 using Zeta.CommonBot;
@@ -260,7 +261,7 @@ namespace FunkyBot.Player
 					if (dCurrentHealthPct < 0.50d && !Bot.Settings.Avoidance.AttemptAvoidanceMovements &&
 						 !PowerManager.CanCast(SNOPower.DrinkHealthPotion))
 						CriticalAvoidance = true;
-					else if (CriticalAvoidance && !Funky.shouldPreformOOCItemIDing && !Funky.FunkyTPBehaviorFlag && dCurrentHealthPct > 0.5)
+					else if (CriticalAvoidance && !ItemIdentifyBehavior.shouldPreformOOCItemIDing && !TownPortalBehavior.FunkyTPBehaviorFlag && dCurrentHealthPct > 0.5)
 						//Disable it when not OOC/TP/Low health still..
 						CriticalAvoidance = false;
 

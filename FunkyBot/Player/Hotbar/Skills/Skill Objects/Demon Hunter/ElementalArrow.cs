@@ -1,4 +1,5 @@
 ﻿using FunkyBot.Movement.Clustering;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.DemonHunter
@@ -16,7 +17,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				IsProjectile=true;
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.Low;
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy));
 				ClusterConditions=new ClusterConditions(4d, 40, 2, true);
 				FcriteriaCombat=() => (!Bot.Targeting.CurrentTarget.IsTreasureGoblin&&
 				                       Bot.Targeting.CurrentTarget.SNOID!=5208&&Bot.Targeting.CurrentTarget.SNOID!=5209&&

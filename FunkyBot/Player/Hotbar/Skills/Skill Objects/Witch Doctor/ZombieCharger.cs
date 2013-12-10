@@ -1,4 +1,5 @@
 ﻿using FunkyBot.Movement.Clustering;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
@@ -18,13 +19,13 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.Low;
 
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
-											AbilityPreCastFlags.CheckCanCast);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
+				                          AbilityPreCastFlags.CheckCanCast));
 
 				//FcriteriaPreCast=new Func<bool>(() => { return !Bot.Character_.Class.HotBar.HasDebuff(SNOPower.Succubus_BloodStar); });
 
 				ClusterConditions=new ClusterConditions(5d, 20f, 2, true);
-				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None);
+				SingleUnitCondition=new UnitTargetConditions(TargetProperties.None);
 		  }
 
 		  #region IAbility

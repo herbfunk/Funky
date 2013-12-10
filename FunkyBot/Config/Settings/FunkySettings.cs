@@ -164,9 +164,9 @@ namespace FunkyBot.Settings
 								 Logging.Write("Using Low Level Settings");
 								Bot.Settings=new Settings_Funky
 								 {
-									  Grouping=new SettingGrouping(true),
-									  Cluster=new SettingCluster(true),
-									  Fleeing=new SettingFleeing(true),
+									  Grouping=new SettingGrouping(false),
+									  Cluster = new SettingCluster(false),
+									  Fleeing = new SettingFleeing(false),
 								 };
 							}
 							else

@@ -1,4 +1,5 @@
-﻿using Zeta.Internals.Actors;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Barb
 {
@@ -21,8 +22,8 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				Range=10;
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.None;
-				PreCastFlags=(AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckCanCast|
-											AbilityPreCastFlags.CheckPlayerIncapacitated);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckCanCast|
+				                          AbilityPreCastFlags.CheckPlayerIncapacitated));
 				
 
 		  }

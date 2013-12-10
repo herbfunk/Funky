@@ -1,4 +1,5 @@
-﻿using Zeta.Internals.Actors;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Internals.Actors;
 namespace FunkyBot.Player.HotBar.Skills.Barb
 {
 	 public class IgnorePain : Skill
@@ -19,7 +20,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				UseageType=AbilityUseage.Anywhere;
 				IsSpecialAbility=true;
 				Priority=AbilityPriority.High;
-				PreCastFlags=(AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckCanCast);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckCanCast));
 
 				FcriteriaCombat=() => { return Bot.Character.Data.dCurrentHealthPct<=0.45; };
 		  }

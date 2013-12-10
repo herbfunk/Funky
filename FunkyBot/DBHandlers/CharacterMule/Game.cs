@@ -12,10 +12,9 @@ using Zeta.Common;
 using Zeta.Internals.Actors;
 using System.Collections.Generic;
 
-namespace FunkyBot
+namespace FunkyBot.DBHandlers
 {
-	 public partial class Funky
-	 {
+
 		  public static class NewMuleGame
 		  {
 				private static DateTime LastActionTaken=DateTime.Today;
@@ -39,7 +38,7 @@ namespace FunkyBot
 				{
 					 if (DateTime.Now.Subtract(LastActionTaken).TotalMilliseconds>RandomWaitTimeMilliseconds)
 					 {
-						  string NewGameProfile=FolderPaths.sTrinityPluginPath+@"DBHandlers\Misc\CharacterMule\NewGame.xml";
+						  string NewGameProfile=FolderPaths.sTrinityPluginPath+@"DBHandlers\CharacterMule\NewGame.xml";
 						  if (ProfileManager.CurrentProfile.Path!=NewGameProfile)
 						  {
 								if (File.Exists(NewGameProfile))
@@ -129,7 +128,7 @@ namespace FunkyBot
 										  // ACDItem currentItem=SortedStashItems[0];
 										  ZetaDia.Me.Inventory.QuickWithdraw(SortedStashItems.Dequeue());
 										  LastActionTaken=DateTime.Now;
-										  RandomWaitTime();
+										  RandomizeWaitTime();
 									 }
 								}
 								else
@@ -137,7 +136,7 @@ namespace FunkyBot
 									 CurrentStashObject=null;
 									 SortedStashItems.Clear();
 									 LastActionTaken=DateTime.Today;
-									 TransferedGear=true;
+									 OutOfGame.TransferedGear=true;
 									 Bot.Character.Account.UpdateCurrentAccountDetails();
 									 //Delete settings
 									 string sFunkyCharacterFolder = Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyBot", Bot.Character.Account.CurrentAccountName);
@@ -148,7 +147,7 @@ namespace FunkyBot
 												File.Delete(sFunkyCharacterConfigFile);
 									 }
 
-									 D3Character.NewCharacterName=null;
+									 OutOfGame.D3Character.NewCharacterName=null;
 
 									 ZetaDia.Service.Party.LeaveGame(true);
 									 return RunStatus.Running;
@@ -194,5 +193,5 @@ namespace FunkyBot
 					 return RunStatus.Running;
 				}
 		  }
-	 }
+	 
 }

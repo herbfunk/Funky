@@ -1,4 +1,5 @@
-﻿using Zeta.Internals.Actors;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Monk
 {
@@ -16,9 +17,12 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				WaitVars=new WaitLoops(1, 4, true);
 				Priority=Bot.Settings.Class.bMonkComboStrike?AbilityPriority.Low:AbilityPriority.None;
 				Range=16;
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated);
+				var precastflags = AbilityPreCastFlags.CheckPlayerIncapacitated;
+				//Combot Strike? lets enforce recast timer and cast check
 				if (Bot.Settings.Class.bMonkComboStrike)
-					 PreCastFlags|=AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckCanCast;
+					precastflags |= AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckCanCast;
+
+				PreCast = new SkillPreCast(precastflags);
 		  }
 
 		  #region IAbility

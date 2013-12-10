@@ -63,10 +63,7 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DBHandlers\ID Behavior\FunkyIDOverlord.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="DBHandlers\ID Behavior\FunkyOOCItemHandling.cs">
+    <Compile Include="DBHandlers\ItemIDOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\Character.cs">
@@ -75,13 +72,13 @@
     <Compile Include="Player\Account.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Player\Hotbar\Skills\Conditions\SkillPreCast.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Player\Hotbar\Skills\Skill Objects\DrinkHealthPotion.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="DBHandlers\Misc\CharacterMule\Character.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="DBHandlers\Misc\CharacterMule\Game.cs">
+    <Compile Include="DBHandlers\CharacterMule\Game.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DBHandlers\Townrun\FinishOverlord.cs">
@@ -495,22 +492,16 @@
     <Compile Include="Player\Hotbar\Skills\SkillCriteria.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\ConditionObjects\AbilityLogicConditions.cs">
+    <Compile Include="Player\Hotbar\Skills\Conditions\AbilityLogicConditions.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\ConditionObjects\LOSConditions.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Player\Hotbar\Skills\ConditionObjects\LOSInfo.cs">
+    <Compile Include="Player\Hotbar\Skills\Conditions\LOSInfo.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\Hotbar\Skills\Enums\AbilityUsage.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\ISkill.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Player\Hotbar\Skills\ConditionObjects\WaitLoops.cs">
+    <Compile Include="Player\Hotbar\Skills\Conditions\WaitLoops.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Navigation\Clustering\ClusterConditions.cs">
@@ -531,7 +522,7 @@
     <Compile Include="Player\Hotbar\Skills\Enums\TargetProperties.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\ConditionObjects\UnitTargetConditions.cs">
+    <Compile Include="Player\Hotbar\Skills\Conditions\UnitTargetConditions.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\Hotbar\Skills\Skill Objects\WeaponInstantRanged.cs">
@@ -947,13 +938,10 @@
     <Compile Include="Player\Hotbar\Skills\Skill.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="DBHandlers\Misc\TP\FunkyPreTownPortalCheck.cs">
+    <Compile Include="DBHandlers\TownPortalOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="DBHandlers\Misc\TP\FunkyTP.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="DBHandlers\Misc\OOGOverlord.cs">
+    <Compile Include="DBHandlers\OOGOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Navigation\PlayerMover.cs">
@@ -1065,7 +1053,7 @@
   <ItemGroup>
     <Content Include="Assemblies\Demonbuddy.exe" />
     <Content Include="Assemblies\GreyMagic.dll" />
-    <Content Include="DBHandlers\Misc\CharacterMule\NewGame.xml">
+    <Content Include="DBHandlers\CharacterMule\NewGame.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Player\Hotbar\Skills\_About.txt" />

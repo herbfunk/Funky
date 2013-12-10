@@ -1,4 +1,5 @@
 ﻿using FunkyBot.Movement.Clustering;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.DemonHunter
@@ -21,12 +22,12 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.Low;
 
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy));
 
                 if (RuneIndex==2) //sticky trap on weak non-full HP units!
-				    TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.Weak, falseConditionalFlags: TargetProperties.FullHealth);
+				    SingleUnitCondition=new UnitTargetConditions(TargetProperties.Weak, falseConditionalFlags: TargetProperties.FullHealth);
                 else
-                    TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.RareElite);
+                    SingleUnitCondition = new UnitTargetConditions(TargetProperties.RareElite);
 
 
 				ClusterConditions=new ClusterConditions(6d, 45f, 2, true);

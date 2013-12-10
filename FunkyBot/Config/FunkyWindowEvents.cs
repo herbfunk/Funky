@@ -103,7 +103,7 @@ namespace FunkyBot
 					  LogLevel LogLevelValue= (LogLevel)Enum.Parse(typeof(LogLevel),cbSender.Name);
 
 					  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevelValue))
-							Bot.Settings.Debug.FunkyLogFlags&=LogLevelValue;
+							Bot.Settings.Debug.FunkyLogFlags&= ~LogLevelValue;
 					  else
 							Bot.Settings.Debug.FunkyLogFlags|=LogLevelValue;
 			    }

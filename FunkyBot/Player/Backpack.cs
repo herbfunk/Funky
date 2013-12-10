@@ -120,7 +120,7 @@ namespace FunkyBot.Player
 			ItemType gilesDBItemType = GilesToDBItemType(thisGilesItemType);
 			if (gilesDBItemType != item.BalanceData.thisItemType)
 			{
-				Logging.Write("GSError: Item type mis-match detected: Item Internal=" + item.InternalName + ". DemonBuddy ItemType thinks item type is=" + item.BalanceData.thisItemBaseType + ". Giles thinks item type is=" +
+				Logging.Write("GSError: Item type mis-match detected: Item Internal=" + item.InternalName + ". DemonBuddy ItemType thinks item type is=" + item.BalanceData.thisItemType + ". Giles thinks item type is=" +
 					 gilesDBItemType + ". [pickup]", true);
 			}
 
@@ -264,9 +264,12 @@ namespace FunkyBot.Player
 							return true;
 						if (Bot.Character.Data.BackPack.BestPotionToUse != null && item.BalanceData.iThisItemLevel < Bot.Character.Data.BackPack.BestPotionToUse.Level)
 							return false;
-						if (Potions.Sum(potions => potions.ItemStackQuantity) >= Bot.Settings.Loot.MaximumHealthPotions)
+						if (Potions.Sum(potions => potions.ThisItemStackQuantity) >= Bot.Settings.Loot.MaximumHealthPotions)
 							return false;
 					}
+					if (thisGilesItemType == GilesItemType.MiscBook && item.BalanceData.iThisItemLevel < Bot.Settings.Loot.MiscItemLevel)
+						return false;
+
 					break;
 				case GilesBaseItemType.HealthGlobe:
 					return false;
@@ -301,9 +304,7 @@ namespace FunkyBot.Player
 				case GilesBaseItemType.Misc:
 				case GilesBaseItemType.Unknown:
 					//Sell any plans not already stashed.
-					if (thisdbitemtype == ItemType.CraftingPlan)
-						return true;
-					return false;
+					return thisdbitemtype == ItemType.CraftingPlan;
 			} // Switch giles base item type
 			return false;
 		}
@@ -350,7 +351,7 @@ namespace FunkyBot.Player
 			if (sThisInternalName.StartsWith("spiritstone_")) return GilesItemType.SpiritStone;
 			if (sThisInternalName.StartsWith("voodoomask_")) return GilesItemType.VoodooMask;
 			if (sThisInternalName.StartsWith("wizardhat_")) return GilesItemType.WizardHat;
-			if (sThisInternalName.StartsWith("lore_book_")) return GilesItemType.CraftTome;
+			if (sThisInternalName.StartsWith("lore_book_")) return GilesItemType.MiscBook;
 			if (sThisInternalName.StartsWith("page_of_")) return GilesItemType.CraftTome;
 			if (sThisInternalName.StartsWith("blacksmithstome")) return GilesItemType.CraftTome;
 			if (sThisInternalName.StartsWith("ruby_")) return GilesItemType.Ruby;
@@ -460,7 +461,7 @@ namespace FunkyBot.Player
 			{
 				thisGilesBaseType = GilesBaseItemType.FollowerItem;
 			}
-			else if (thisGilesItemType == GilesItemType.CraftingMaterial || thisGilesItemType == GilesItemType.CraftTome ||
+			else if (thisGilesItemType == GilesItemType.CraftingMaterial || thisGilesItemType == GilesItemType.CraftTome || thisGilesItemType== GilesItemType.MiscBook ||
 				 thisGilesItemType == GilesItemType.SpecialItem || thisGilesItemType == GilesItemType.CraftingPlan || thisGilesItemType == GilesItemType.HealthPotion ||
 				 thisGilesItemType == GilesItemType.Dye || thisGilesItemType == GilesItemType.StaffOfHerding || thisGilesItemType == GilesItemType.InfernalKey)
 			{
@@ -483,6 +484,15 @@ namespace FunkyBot.Player
 		// **********************************************************************************************
 		internal static bool DetermineIsStackable(GilesItemType thisGilesItemType)
 		{
+			bool bIsStackable = thisGilesItemType == GilesItemType.CraftingMaterial || thisGilesItemType == GilesItemType.CraftTome || thisGilesItemType == GilesItemType.Ruby ||
+									  thisGilesItemType == GilesItemType.Emerald || thisGilesItemType == GilesItemType.Topaz || thisGilesItemType == GilesItemType.Amethyst ||
+									  thisGilesItemType == GilesItemType.HealthPotion || thisGilesItemType == GilesItemType.CraftingPlan || thisGilesItemType == GilesItemType.Dye ||
+									  thisGilesItemType == GilesItemType.InfernalKey;
+			return bIsStackable;
+		}
+		internal static bool DetermineIsStackable(CacheACDItem item)
+		{
+			GilesItemType thisGilesItemType = DetermineItemType(item.ThisInternalName, item.ThisDBItemType, item.ThisFollowerType);
 			bool bIsStackable = thisGilesItemType == GilesItemType.CraftingMaterial || thisGilesItemType == GilesItemType.CraftTome || thisGilesItemType == GilesItemType.Ruby ||
 									  thisGilesItemType == GilesItemType.Emerald || thisGilesItemType == GilesItemType.Topaz || thisGilesItemType == GilesItemType.Amethyst ||
 									  thisGilesItemType == GilesItemType.HealthPotion || thisGilesItemType == GilesItemType.CraftingPlan || thisGilesItemType == GilesItemType.Dye ||
@@ -571,6 +581,7 @@ namespace FunkyBot.Player
 				case GilesItemType.HealthPotion: return ItemType.Potion;
 				case GilesItemType.Dye: return ItemType.Unknown;
 				case GilesItemType.InfernalKey: return ItemType.Unknown;
+				case GilesItemType.MiscBook: return ItemType.CraftingPage;
 			}
 			return ItemType.Unknown;
 		}
@@ -1995,11 +2006,11 @@ namespace FunkyBot.Player
 		internal class BackpackItem
 		{
 			public int ACDGUID { get; set; }
-			public ACDItem Ref_ACDItem { get; set; }
-			public BackpackItem(int Acdguid, ACDItem acditem)
+			public CacheACDItem Item { get; set; }
+			public BackpackItem(CacheACDItem item)
 			{
-				ACDGUID = Acdguid;
-				Ref_ACDItem = acditem;
+				ACDGUID = item.ACDGUID;
+				Item = item;
 			}
 		}
 
@@ -2024,13 +2035,18 @@ namespace FunkyBot.Player
 		public void Update()
 		{
 			List<int> SeenACDGUIDs = new List<int>();
-			using (ZetaDia.Memory.AcquireFrame())
+			using (ZetaDia.Memory.AcquireFrame(true))
 			{
 				foreach (var thisitem in ZetaDia.Me.Inventory.Backpack)
 				{
 					int ACDGUID = thisitem.ACDGuid;
 					SeenACDGUIDs.Add(ACDGUID);
-					if (CacheItemList.ContainsKey(ACDGUID)) continue;
+					if (CacheItemList.ContainsKey(ACDGUID))
+					{
+						if (CacheItemList[ACDGUID].IsStackableItem&&CacheItemList[ACDGUID].ThisItemStackQuantity!=thisitem.ItemStackQuantity)
+							CacheItemList[ACDGUID]=new CacheACDItem(thisitem);
+						continue;
+					}
 
 					CacheACDItem thiscacheditem = new CacheACDItem(thisitem);
 					CacheItemList.Add(thiscacheditem.ACDGUID, thiscacheditem);
@@ -2054,7 +2070,7 @@ namespace FunkyBot.Player
 				//Now get items that are not currently in the BPItems List.
 				foreach (var item in CacheItemList.Values.Where(I => !BPItemsACDItemList.Contains(I.ACDGUID)))
 				{
-					BPItems.Add(new BackpackItem(item.ACDGUID, item.ACDItem));
+					BPItems.Add(new BackpackItem(item));
 				}
 			}
 		}
@@ -2085,23 +2101,33 @@ namespace FunkyBot.Player
 				UIElements.BackgroundScreenPCButtonInventory.Click();
 		}
 
-		public List<ACDItem> ReturnCurrentPotions()
+		public List<CacheACDItem> ReturnCurrentPotions()
 		{
 			//Always update!
 			Update();
 			BestPotionToUse = null;
-			using (ZetaDia.Memory.AcquireFrame())
-			{
-				var Potions = ZetaDia.Me.Inventory.Backpack.Where(i => i.IsPotion);
-				if (!Potions.Any()) return null;
-				Potions = Potions.OrderByDescending(i => i.HitpointsGranted).ThenByDescending(i => i.ItemStackQuantity);
-				//Set Best Potion to use..
-				CurrentPotionACDGUID = Potions.FirstOrDefault().ACDGuid;
-				int balanceID = Potions.FirstOrDefault().GameBalanceId;
-				//Find best potion to use based upon stack
-				BestPotionToUse = Potions.Where(i => i.GameBalanceId == balanceID).OrderBy(i => i.ItemStackQuantity).FirstOrDefault();
-				return Potions.ToList();
-			}
+
+
+			var Potions = CacheItemList.Values.Where(i => i.IsPotion);
+			if (!Potions.Any()) return null;
+			Potions = Potions.OrderByDescending(i => i.ThisLevel).ThenByDescending(i => i.ThisItemStackQuantity);
+			//Set Best Potion to use..
+			CurrentPotionACDGUID = Potions.FirstOrDefault().ACDGUID;
+			int balanceID = Potions.FirstOrDefault().ThisBalanceID;
+			//Find best potion to use based upon stack
+			BestPotionToUse = Potions.Where(i => i.ThisBalanceID == balanceID).OrderBy(i => i.ThisItemStackQuantity).FirstOrDefault().ACDItem;
+			return Potions.ToList();
+
+				//var Potions = ZetaDia.Me.Inventory.Backpack.Where(i => i.IsPotion);
+				//if (!Potions.Any()) return null;
+				//Potions = Potions.OrderByDescending(i => i.HitpointsGranted).ThenByDescending(i => i.ItemStackQuantity);
+				////Set Best Potion to use..
+				//CurrentPotionACDGUID = Potions.FirstOrDefault().ACDGuid;
+				//int balanceID = Potions.FirstOrDefault().GameBalanceId;
+				////Find best potion to use based upon stack
+				//BestPotionToUse = Potions.Where(i => i.GameBalanceId == balanceID).OrderBy(i => i.ItemStackQuantity).FirstOrDefault();
+				//return Potions.ToList();
+			
 		}
 
 		public Queue<ACDItem> ReturnUnidenifiedItems()
@@ -2230,13 +2256,11 @@ namespace FunkyBot.Player
 
 		}
 
-		public bool ContainsItem(int ACDGUID)
+		public bool ContainsItem(int ACDGUID, int prevstackcount=0)
 		{
 			//Update Item List
 			Update();
-			bool found = (from backpackItems in BPItems
-						  where backpackItems.ACDGUID == ACDGUID
-						  select backpackItems).Any();
+			bool found = CacheItemList.ContainsKey(ACDGUID) && (prevstackcount==0||CacheItemList[ACDGUID].ThisItemStackQuantity>prevstackcount);
 			return found;
 		}
 

@@ -283,7 +283,7 @@ namespace FunkyBot
 
 		 internal static void WriteProfileTrackerOutput()
 		  {
-			  string outputPath = Path.Combine(FolderPaths.sTrinityLogPath, "ProfileStats", "Stats - " + LoggingStamp);
+			  string outputPath = Path.Combine(FolderPaths.sTrinityLogPath, "ProfileStats", Bot.Character.Account.CurrentHeroName + " - " + LoggingStamp);
 
 			  try
 			  {
@@ -295,14 +295,17 @@ namespace FunkyBot
 						  LogWriter.WriteLine("== TOTAL SUMMARY ==");
 
 						  TotalStats all = Bot.Game.TrackingStats;
-						  LogWriter.WriteLine("Total Games:{0} -- Total Unique Profiles:{1}\r\nDeaths:{2} TotalTime:{3} TotalGold:{4} TotalXP:{5}\r\n{6}",
-							  all.GameCount, all.Profiles.Count, all.TotalDeaths, all.TotalTimeRunning.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), all.TotalGold, all.TotalXP, all.TotalLootTracker);
+						  LogWriter.WriteLine(all.GenerateOutputString());
+						  //LogWriter.WriteLine("Total Games:{0} -- Total Unique Profiles:{1}\r\nDeaths:{2} TotalTime:{3} TotalGold:{4} TotalXP:{5}\r\n{6}",
+						  //	all.GameCount, all.Profiles.Count, all.TotalDeaths, all.TotalTimeRunning.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), all.TotalGold, all.TotalXP, all.TotalLootTracker);
+						  
 						  LogWriter.WriteLine("====================");
 						  LogWriter.WriteLine("== PROFILE SUMMARY ==");
 						  foreach (var item in all.Profiles)
 						  {
-							  LogWriter.WriteLine("{0}\r\nDeaths:{1} TotalTime:{2} TotalGold:{3} TotalXP:{4}\r\n{5}",
-								  item.ProfileName, item.DeathCount, item.TotalTimeSpan.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), item.TotalGold, item.TotalXP, item.LootTracker);
+							  LogWriter.WriteLine(item.GenerateOutput());
+							  //LogWriter.WriteLine("{0}\r\nDeaths:{1} TotalTime:{2} TotalGold:{3} TotalXP:{4}\r\n{5}",
+							  //	item.ProfileName, item.DeathCount, item.TotalTimeSpan.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), item.TotalGold, item.TotalXP, item.LootTracker);
 						  }
 					  }
 

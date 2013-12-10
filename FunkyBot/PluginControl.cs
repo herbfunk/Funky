@@ -18,6 +18,7 @@ using System.Windows;
 using Decorator=Zeta.TreeSharp.Decorator;
 using FunkyBot.Game;
 using Action = Zeta.TreeSharp.Action;
+using FunkyBot.DBHandlers;
 
 namespace FunkyBot
 {
@@ -68,10 +69,11 @@ namespace FunkyBot
 
 			  //OOC ID Flags
 			  Bot.Targeting.ShouldCheckItemLooted = false;
-			  shouldPreformOOCItemIDing = false;
+			  Bot.Targeting.CheckItemLootStackCount = 0;
+			  ItemIdentifyBehavior.shouldPreformOOCItemIDing = false;
 
 			  //TP Behavior Reset
-			  Funky.ResetTPBehavior();
+			  TownPortalBehavior.ResetTPBehavior();
 
 			  //Sno Trim Timer Reset
 			  ObjectCache.cacheSnoCollection.ResetTrimTimer();
@@ -198,9 +200,9 @@ namespace FunkyBot
 						  //[1] == Return to town
 						  if (townportal)
 						  {
-							  CanRunDecoratorDelegate canRunDelegateReturnToTown = Funky.FunkyTPOverlord;
-							  ActionDelegate actionDelegateReturnTown = Funky.FunkyTPBehavior;
-							  ActionDelegate actionDelegateTownPortalFinish = Funky.FunkyTownPortalTownRun;
+							  CanRunDecoratorDelegate canRunDelegateReturnToTown = TownPortalBehavior.FunkyTPOverlord;
+							  ActionDelegate actionDelegateReturnTown = TownPortalBehavior.FunkyTPBehavior;
+							  ActionDelegate actionDelegateTownPortalFinish = TownPortalBehavior.FunkyTownPortalTownRun;
 								Sequence sequenceReturnTown=new Sequence(
 									new Action(actionDelegateReturnTown),
 									new Action(actionDelegateTownPortalFinish)
@@ -215,8 +217,8 @@ namespace FunkyBot
 						  if (idenify)
 						  {
 								//[2] == IDing items in inventory
-								CanRunDecoratorDelegate canRunDelegateFunkyIDBehavior=FunkyIDOverlord;
-								ActionDelegate actionDelegateID=FunkyIDBehavior;
+								CanRunDecoratorDelegate canRunDelegateFunkyIDBehavior=ItemIdentifyBehavior.FunkyIDOverlord;
+								ActionDelegate actionDelegateID=ItemIdentifyBehavior.FunkyIDBehavior;
 								Sequence sequenceIDItems=new Sequence(
 										new Action(actionDelegateID),
 										new Sequence(
@@ -364,8 +366,8 @@ namespace FunkyBot
 					 {
 						  PrioritySelector CompositeReplacement=hook.Value[0] as PrioritySelector;
 
-						  CanRunDecoratorDelegate shouldPreformOutOfGameBehavior = Funky.OutOfGameOverlord;
-						  ActionDelegate actionDelgateOOGBehavior = Funky.OutOfGameBehavior;
+						  CanRunDecoratorDelegate shouldPreformOutOfGameBehavior = OutOfGame.OutOfGameOverlord;
+						  ActionDelegate actionDelgateOOGBehavior = OutOfGame.OutOfGameBehavior;
 						  Sequence sequenceOOG=new Sequence(
 								  new Action(actionDelgateOOGBehavior)
 						  );

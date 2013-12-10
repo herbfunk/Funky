@@ -161,6 +161,19 @@ namespace FunkyBot.Cache
 						  }
 					 }
 
+					//Update SNOAnim
+					if (targetType.Value==TargetType.Destructible)
+					{
+						try
+						{
+							AnimState=(base.ref_DiaObject.CommonData.AnimationState);
+						}
+						catch (Exception)
+						{
+							AnimState=AnimationState.Invalid;
+						}
+					}
+
 					 if (this.targetType.Value==TargetType.Destructible||this.targetType.Value==TargetType.Barricade||this.targetType.Value==TargetType.Interactable)
 					 {
 						  if (this.IsBarricade.HasValue&&this.IsBarricade.Value&&!this.targetType.Value.HasFlag(TargetType.Barricade))

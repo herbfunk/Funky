@@ -75,7 +75,12 @@ namespace FunkyBot.Cache
 						//unless its in front of us.. we wait 500ms mandatory.
 						if (lastLOSCheckMS<500&&centreDistance>1f)
 						{
-							 if (IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer) Bot.Targeting.Environment.LoSMovementObjects.Add(this);
+							if (IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer)
+							{
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+									Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
+								Bot.Targeting.Environment.LoSMovementObjects.Add(this);
+							}
 							 return false;
 						}
 						else
@@ -91,14 +96,24 @@ namespace FunkyBot.Cache
 
 							 if (lastLOSCheckMS<ReCheckTime)
 							 {
-                                 if (IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer) Bot.Targeting.Environment.LoSMovementObjects.Add(this);
+								 if (IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer)
+								 {
+									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+										Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
+									 Bot.Targeting.Environment.LoSMovementObjects.Add(this);
+								 }
 								  return false;
 							 }
 						}
 
 						if (!base.LineOfSight.LOSTest(Bot.Character.Data.Position, true, false))
 						{
-                            if (IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer) Bot.Targeting.Environment.LoSMovementObjects.Add(this);
+							if (IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer)
+							{
+								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+									Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
+								Bot.Targeting.Environment.LoSMovementObjects.Add(this);
+							}
 							 return false;
 						}
 

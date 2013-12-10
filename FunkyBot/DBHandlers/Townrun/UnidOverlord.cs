@@ -2,6 +2,7 @@
 using System.Globalization;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
+using FunkyBot.DBHandlers;
 using Zeta;
 using Zeta.Common;
 using Zeta.TreeSharp;
@@ -173,7 +174,7 @@ namespace FunkyBot
 					if (!bDidStashSucceed)
 					{
 						Logging.WriteDiagnostic("There was an unknown error stashing an item.");
-						if (Funky.MuleBehavior)
+						if (OutOfGame.MuleBehavior)
 							return RunStatus.Success;
 					}
 					else

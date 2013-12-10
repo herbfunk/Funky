@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using FunkyBot.DBHandlers;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
@@ -72,7 +73,7 @@ namespace FunkyBot.XMLTags
 								//Logger.Logging.Write("[TrinityTownPortal] In Town");
 						  })
 					 ),
-					 new Decorator(ret => !Bot.Character.Data.bIsInTown && !Funky.CanCastTP(),
+					 new Decorator(ret => !Bot.Character.Data.bIsInTown && !TownPortalBehavior.CanCastTP(),
 						  new Action(ret =>
 						  {
 								ForceClearArea=false;
@@ -114,7 +115,7 @@ namespace FunkyBot.XMLTags
 								),
 								new Sequence(
 					 // Already casting, just wait
-									 new DecoratorContinue(ret => Funky.CastingRecall(),
+									 new DecoratorContinue(ret => TownPortalBehavior.CastingRecall(),
 										  new Action()
 									 ),
 									 new Action(ret =>

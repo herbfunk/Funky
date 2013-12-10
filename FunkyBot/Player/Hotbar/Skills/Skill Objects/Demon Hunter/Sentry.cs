@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.DemonHunter
@@ -13,8 +14,8 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				Cost=30;
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.High;
-				PreCastFlags=(AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckRecastTimer|
-											AbilityPreCastFlags.CheckPlayerIncapacitated);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckRecastTimer|
+				                          AbilityPreCastFlags.CheckPlayerIncapacitated));
 
 				FcriteriaCombat=() => Bot.Character.Class.LastUsedAbility.Power!=SNOPower.DemonHunter_Sentry&&
 				                      (Bot.Targeting.FleeingLastTarget||DateTime.Now.Subtract(Bot.Targeting.LastFleeAction).TotalMilliseconds<1000)||

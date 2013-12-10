@@ -1,4 +1,5 @@
-﻿using Zeta.Internals.Actors;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Wizard
 {
@@ -14,8 +15,8 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				IsChanneling=true;
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.None;
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated);
-				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated));
+				SingleUnitCondition=new UnitTargetConditions(TargetProperties.None);
 		  }
 
 		  #region IAbility

@@ -10,6 +10,7 @@
         public bool AllowSucideBomber { get; set; }
         public bool AllowSpawnerUnits { get; set; }
         public bool AllowRareLootContainer { get; set; }
+		public int MaximumRange { get; set; }
 
 
         public SettingLOSMovement()
@@ -22,6 +23,7 @@
             AllowRareLootContainer = true;
             AllowSucideBomber = true;
             AllowSpawnerUnits = true;
+			MaximumRange = 500;
         }
     }
 }

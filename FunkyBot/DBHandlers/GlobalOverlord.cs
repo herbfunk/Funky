@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyBot.DBHandlers;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using Zeta;
@@ -56,7 +57,7 @@ namespace FunkyBot
 				}
 				else
 				{
-					if (Funky.MuleBehavior)
+					if (OutOfGame.MuleBehavior)
 					 {
 						  if (BotMain.StatusText.Contains("Game Finished"))
 						  {
@@ -119,21 +120,19 @@ namespace FunkyBot
 		  //Used when we actually want to handle a target!
 		  public static RunStatus HandleTarget(object ret)
 		  {
-				if (shouldPreformOOCItemIDing)
-					 return HandleIDBehavior(); //Check if we are doing OOC ID behavior..
+				if (ItemIdentifyBehavior.shouldPreformOOCItemIDing)
+					return ItemIdentifyBehavior.HandleIDBehavior(); //Check if we are doing OOC ID behavior..
 				if (Bot.Targeting.CurrentTarget!=null)
 					 return Bot.Targeting.HandleThis();  //Default Behavior: Current Target
 
-				if (Funky.MuleBehavior)
+				if (OutOfGame.MuleBehavior)
 				{
-					if (!Funky.TransferedGear)
+					if (!OutOfGame.TransferedGear)
 					 {
 						  return NewMuleGame.StashTransfer();
 					 }
-					if (!Funky.Finished)
-					 {
-						  return NewMuleGame.FinishMuleBehavior();
-					 }
+
+					return NewMuleGame.FinishMuleBehavior();
 				}
 
 				return RunStatus.Success;

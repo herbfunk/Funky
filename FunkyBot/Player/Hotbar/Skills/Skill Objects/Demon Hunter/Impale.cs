@@ -1,4 +1,5 @@
-﻿using Zeta.Internals.Actors;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 {
@@ -13,8 +14,8 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				Range=12;
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.Low;
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast);
-				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None, 12);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast));
+				SingleUnitCondition=new UnitTargetConditions(TargetProperties.None, 12);
 
 
 				FcriteriaCombat=() =>

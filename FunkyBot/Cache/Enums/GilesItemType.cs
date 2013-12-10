@@ -58,5 +58,6 @@
 			Dye,
 			HealthGlobe,
 			InfernalKey,
+		    MiscBook,
 	 }
 }

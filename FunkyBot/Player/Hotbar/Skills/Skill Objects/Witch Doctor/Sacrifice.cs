@@ -1,4 +1,5 @@
-﻿using Zeta.Internals.Actors;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 {
@@ -13,9 +14,9 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				Range=48;
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.High;
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast));
 				//ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
-				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.None, falseConditionalFlags: TargetProperties.FullHealth);
+				SingleUnitCondition=new UnitTargetConditions(TargetProperties.None, falseConditionalFlags: TargetProperties.FullHealth);
 				FcriteriaCombat = () =>
 				{
 					if (LastUsedMilliseconds > 27000 || Bot.Character.Class.Abilities[SNOPower.Witchdoctor_SummonZombieDog].CheckPreCastConditionMethod())

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills
@@ -33,8 +34,8 @@ namespace FunkyBot.Player.HotBar.Skills
 				IsBuff=true;
 				Priority=AbilityPriority.None;
 				UseageType=AbilityUseage.OutOfCombat;
-				PreCastFlags=AbilityPreCastFlags.None;
-
+				PreCast=new SkillPreCast(AbilityPreCastFlags.None);
+			  
 				FcriteriaBuff=() => Bot.Character.Class.HotBar.HasBuff(SNOPower.Wizard_Archon)&&MissingBuffs();
 
 				//Important!! We have to override the default return of true.. we dont want this to fire as a combat Ability.

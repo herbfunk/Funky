@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Globalization;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta;
 using Zeta.Common;
 using Zeta.Internals.Actors;
@@ -101,23 +103,27 @@ namespace FunkyBot.Cache
 					 Properties=TargetProperties.None;
 				}
 
-				public AnimationState AnimState
-				{
-					 //Return live data.
-					 get
-					 {
-						  using (ZetaDia.Memory.AcquireFrame())
-						  {
-								try
-								{
-									 return (ref_DiaObject.CommonData.AnimationState);
-								} catch (Exception)
-								{
-									 return AnimationState.Invalid;
-								}
-						  }
-					 }
-				}
+				private AnimationState _animationState = AnimationState.Invalid;
+				public AnimationState AnimState { get { return _animationState; } set { _animationState = value; } }
+
+				private SNOAnim _snoAnim = SNOAnim.Invalid;
+				public SNOAnim SnoAnim { get { return _snoAnim; } set { _snoAnim = value; } }
+				//{
+				//	 //Return live data.
+				//	 get
+				//	 {
+				//		  using (ZetaDia.Memory.AcquireFrame())
+				//		  {
+				//				try
+				//				{
+				//					 return (ref_DiaObject.CommonData.AnimationState);
+				//				} catch (Exception)
+				//				{
+				//					 return AnimationState.Invalid;
+				//				}
+				//		  }
+				//	 }
+				//}
 
 				///<summary>
 				///Used only if the object is a summonable pet.
@@ -606,10 +612,10 @@ namespace FunkyBot.Cache
 				{
 					 get
 					 {
-						  return String.Format("RAGUID {0}: \r\n {1} Distance (Centre{2} / Radius{3}) \r\n ReqLOS={4} -- {5} -- [LOSV3: {6}] \r\n BotFacing={7} \r\n BlackListLoops[{8}]",
-								RAGUID.ToString(), base.DebugString, CentreDistance.ToString(), RadiusDistance.ToString(),
-								RequiresLOSCheck.ToString(), LineOfSight!=null?String.Format("-- {0} --",LineOfSight.DebugString):"", LOSV3.ToString(),
-								BotIsFacing().ToString(), BlacklistLoops.ToString());
+						  return String.Format("RAGUID {0}: \r\n {1} Distance (Centre{2} / Radius{3}) \r\n SnoAnim={9} \r\n ReqLOS={4} -- {5} -- [LOSV3: {6}] \r\n BotFacing={7} \r\n BlackListLoops[{8}]",
+								RAGUID.ToString(CultureInfo.InvariantCulture), base.DebugString, CentreDistance.ToString(CultureInfo.InvariantCulture), RadiusDistance.ToString(CultureInfo.InvariantCulture),
+								RequiresLOSCheck, LineOfSight!=null?String.Format("-- {0} --",LineOfSight.DebugString):"", LOSV3,
+								BotIsFacing(), BlacklistLoops.ToString(CultureInfo.InvariantCulture), AnimState);
 					 }
 				}
 

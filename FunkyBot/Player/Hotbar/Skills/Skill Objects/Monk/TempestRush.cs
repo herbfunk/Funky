@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta;
 using Zeta.Common;
 using Zeta.Internals.Actors;
@@ -24,12 +25,12 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				IsChanneling=true;
 				Range=23;
 				Priority=AbilityPriority.Low;
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated));
 				UseageType=AbilityUseage.Anywhere;
 				
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 2);
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
-				TargetUnitConditionFlags=new UnitTargetConditions
+				SingleUnitCondition=new UnitTargetConditions
 				{
 					 TrueConditionFlags=TargetProperties.IsSpecial,
 					 Distance=30,

@@ -1,4 +1,5 @@
-﻿using Zeta.Internals.Actors;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills
 {
@@ -18,7 +19,7 @@ namespace FunkyBot.Player.HotBar.Skills
 				IsProjectile=true;
 				IsRanged=true;
 				WaitVars=new WaitLoops(0, 0, true);
-				PreCastFlags=AbilityPreCastFlags.None;
+				PreCast=new SkillPreCast(AbilityPreCastFlags.None);
 				UseageType=AbilityUseage.Combat;
 		  }
 

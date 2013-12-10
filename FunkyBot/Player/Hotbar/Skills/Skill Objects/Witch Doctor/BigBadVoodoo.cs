@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
@@ -12,10 +13,10 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				WaitVars=new WaitLoops(0, 0, true);
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.Low;
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast));
 
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 1);
-				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.IsSpecial, 12);
+				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 12);
 		  }
 
 		  #region IAbility

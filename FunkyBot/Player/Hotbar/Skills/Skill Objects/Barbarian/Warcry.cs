@@ -1,5 +1,6 @@
 ﻿using System;
 using FunkyBot.Cache;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Barb
@@ -23,7 +24,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				IsBuff=true;
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.High;
-				PreCastFlags=(AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated));
 				FcriteriaBuff=() => { return !Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WarCry); };
 				FcriteriaCombat=() =>
 				{

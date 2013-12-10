@@ -278,11 +278,8 @@ namespace FunkyBot.Cache
 									 BlacklistFlag=BlacklistType.Temporary;
 									 return false;
 								}
-							  //reset loops unseen (regardless.. since we want to loot it!)
-							  if (Bot.Settings.Backtracking.TrackLootableItems)
-								  LoopsUnseen = 0;
 
-							  //Attempted to loot previously but failed due to inventory full.
+								//Attempted to loot previously but failed due to inventory full.
 								if (Bot.IsInNonCombatBehavior&&TownRunManager.bFailedToLootLastItem) return false;
 
 
@@ -299,8 +296,12 @@ namespace FunkyBot.Cache
 								if (centredistance > lootDistance)
 								{
 									//Add to LOS Movement..
-									if (Bot.Settings.Backtracking.TrackLootableItems)
+									if (Bot.Settings.Backtracking.TrackLootableItems&&this.CentreDistance<=Bot.Settings.LOSMovement.MaximumRange)
+									{
+										LoopsUnseen = 0;
+										Logger.Write(LogLevel.Items, "Adding Item {0} to LOS Movement Objects", InternalName);
 										Bot.Targeting.Environment.LoSMovementObjects.Add(this);
+									}
 
 									return false;
 								}
@@ -580,6 +581,16 @@ namespace FunkyBot.Cache
 					 }
 					 Bot.Targeting.bWaitingForPower=false;
 
+					 if (!Bot.Targeting.ShouldCheckItemLooted)
+					 {
+						 Bot.Targeting.ShouldCheckItemLooted = true;
+						 Bot.Character.Data.BackPack.Update();
+						 if (Bot.Character.Data.BackPack.CacheItemList.ContainsKey(AcdGuid.Value))
+						 {
+							 Bot.Targeting.CheckItemLootStackCount = Bot.Character.Data.BackPack.CacheItemList[AcdGuid.Value].ThisItemStackQuantity;
+						 }
+					 }
+
 					 // Pick the item up the usepower way, and "blacklist" for a couple of loops
 					 Bot.Character.Data.WaitWhileAnimating(20);
 					 ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, Vector3.Zero, Bot.Character.Data.iCurrentWorldID, AcdGuid.Value);
@@ -587,7 +598,7 @@ namespace FunkyBot.Cache
 					 Bot.NavigationCache.vPositionLastZigZagCheck=Vector3.Zero;
 
 
-					 Bot.Targeting.ShouldCheckItemLooted=true;
+					
 
 					 Bot.Character.Data.WaitWhileAnimating(5, true);
 					 return RunStatus.Running;

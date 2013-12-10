@@ -73,6 +73,7 @@ namespace FunkyBot.Cache
 				public int invCol { get; set; }
 
 				public string ItemStatString { get; set; }
+				public bool IsStackableItem { get; set; }
 
 				public CacheACDItem(ACDItem item)
 				{
@@ -142,6 +143,8 @@ namespace FunkyBot.Cache
 					 Strength=thesestats.Strength;
 					 Vitality=thesestats.Vitality;
 					 WeaponDamagePerSecond=thesestats.WeaponDamagePerSecond;
+
+					 IsStackableItem = Player.Backpack.DetermineIsStackable(this);
 
 				}
 		  }

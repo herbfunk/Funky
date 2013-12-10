@@ -1,4 +1,5 @@
-﻿using Zeta.Internals.Actors;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Barb
 {
@@ -19,9 +20,9 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 			IsProjectile=true;
 			UseageType=AbilityUseage.Combat;
 			Priority = AbilityPriority.Low;
-			PreCastFlags = (AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckCanCast |
-			                     AbilityPreCastFlags.CheckPlayerIncapacitated);
-			TargetUnitConditionFlags = new UnitTargetConditions(TargetProperties.Ranged, 25, 0.50d);
+			PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckCanCast |
+			                          AbilityPreCastFlags.CheckPlayerIncapacitated));
+			SingleUnitCondition = new UnitTargetConditions(TargetProperties.Ranged, 25, 0.50d);
 								
 								//TestCustomCombatConditionAlways=true,
 			FcriteriaCombat = () => Bot.Targeting.CurrentUnitTarget.IsRanged ||

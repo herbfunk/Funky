@@ -1,4 +1,5 @@
 ﻿using FunkyBot.Movement.Clustering;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.DemonHunter
@@ -15,10 +16,10 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				Range=40;
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.Low;
-				PreCastFlags=(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
-											AbilityPreCastFlags.CheckRecastTimer);
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
+				                          AbilityPreCastFlags.CheckRecastTimer));
 				ClusterConditions=new ClusterConditions(4d, 35f, 2, true);
-				TargetUnitConditionFlags=new UnitTargetConditions(TargetProperties.RareElite, 40);
+				SingleUnitCondition=new UnitTargetConditions(TargetProperties.RareElite, 40);
 
 		  }
 
