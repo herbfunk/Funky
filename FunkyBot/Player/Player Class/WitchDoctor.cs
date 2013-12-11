@@ -13,7 +13,7 @@ namespace FunkyBot.Player.Class
 
 				//Base class for each individual class!
 		internal override ActorClass AC { get { return ActorClass.WitchDoctor; } }
-				private HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
+				private readonly HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
 				{
 					 SNOAnim.WitchDoctor_Male_1HT_MOJO_knockback_land,
 					 SNOAnim.WitchDoctor_Female_1HT_MOJO_knockback_land,
@@ -144,25 +144,25 @@ namespace FunkyBot.Player.Class
 					 Witchdoctor_WallOfZombies=134837,
 					 Witchdoctor_PoisonDart=103181,
 				}
-				enum WitchDoctorPassiveSkills
-				{
-					 Witchdoctor_Passive_SpiritVessel=218501,
-					 Witchdoctor_Passive_FetishSycophants=218588,
-					 Witchdoctor_Passive_GraveInjustice=218191,
-					 Witchdoctor_Passive_BadMedicine=217826,
-					 Witchdoctor_Passive_JungleFortitude=217968,
-					 Witchdoctor_Passive_VisionQuest=209041,
-					 Witchdoctor_Passive_PierceTheVeil=208628,
-					 Witchdoctor_Passive_FierceLoyalty=208639,
-					 Witchdoctor_Passive_ZombieHandler=208563,
-					 Witchdoctor_Passive_RushOfEssence=208565,
-					 Witchdoctor_Passive_BloodRitual=208568,
-					 Witchdoctor_Passive_SpiritualAttunement=208569,
-					 Witchdoctor_Passive_CircleOfLife=208571,
-					 Witchdoctor_Passive_GruesomeFeast=208594,
-					 Witchdoctor_Passive_TribalRites=208601,
+				//enum WitchDoctorPassiveSkills
+				//{
+				//	 Witchdoctor_Passive_SpiritVessel=218501,
+				//	 Witchdoctor_Passive_FetishSycophants=218588,
+				//	 Witchdoctor_Passive_GraveInjustice=218191,
+				//	 Witchdoctor_Passive_BadMedicine=217826,
+				//	 Witchdoctor_Passive_JungleFortitude=217968,
+				//	 Witchdoctor_Passive_VisionQuest=209041,
+				//	 Witchdoctor_Passive_PierceTheVeil=208628,
+				//	 Witchdoctor_Passive_FierceLoyalty=208639,
+				//	 Witchdoctor_Passive_ZombieHandler=208563,
+				//	 Witchdoctor_Passive_RushOfEssence=208565,
+				//	 Witchdoctor_Passive_BloodRitual=208568,
+				//	 Witchdoctor_Passive_SpiritualAttunement=208569,
+				//	 Witchdoctor_Passive_CircleOfLife=208571,
+				//	 Witchdoctor_Passive_GruesomeFeast=208594,
+				//	 Witchdoctor_Passive_TribalRites=208601,
 
-				}
+				//}
 
 		  }
 	 

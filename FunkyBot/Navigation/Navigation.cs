@@ -2,6 +2,7 @@
 using System.Linq;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Cache.Objects;
 using Zeta;
 using Zeta.CommonBot.Dungeons;
 using Zeta.CommonBot.Logic;
@@ -13,7 +14,6 @@ using Zeta.Navigation;
 using System.Globalization;
 using FunkyBot.Movement.Clustering;
 using Zeta.Pathfinding;
-
 namespace FunkyBot.Movement
 {
 	

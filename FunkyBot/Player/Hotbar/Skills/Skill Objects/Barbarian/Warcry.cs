@@ -1,6 +1,4 @@
-﻿using System;
-using FunkyBot.Cache;
-using FunkyBot.Player.HotBar.Skills.Conditions;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Barb
@@ -25,15 +23,12 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.High;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated));
-				FcriteriaBuff=() => { return !Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WarCry); };
-				FcriteriaCombat=() =>
-				{
-					return (!Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WarCry)
-					        ||
-					        (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Barbarian_Passive_InspiringPresence)&&
-					         DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastUse[SNOPower.Barbarian_WarCry]).TotalSeconds>59
-					         ||Bot.Character.Data.dCurrentEnergyPct<0.10));
-				};
+				FcriteriaBuff=() => !Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WarCry);
+				FcriteriaCombat=() => (!Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WarCry)
+				                       ||
+				                       (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Barbarian_Passive_InspiringPresence)&&
+				                        LastUsedMilliseconds>59
+				                        ||Bot.Character.Data.dCurrentEnergyPct<0.10));
 
 		  }
 

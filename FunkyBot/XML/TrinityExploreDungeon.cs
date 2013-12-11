@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using FunkyBot.Cache;
+using FunkyBot.Cache.Objects;
 using FunkyBot.Movement;
 using Zeta;
 using Zeta.Common;

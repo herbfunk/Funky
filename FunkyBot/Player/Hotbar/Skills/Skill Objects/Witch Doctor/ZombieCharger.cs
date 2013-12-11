@@ -1,5 +1,4 @@
-﻿using FunkyBot.Movement.Clustering;
-using FunkyBot.Player.HotBar.Skills.Conditions;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
@@ -24,7 +23,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 
 				//FcriteriaPreCast=new Func<bool>(() => { return !Bot.Character_.Class.HotBar.HasDebuff(SNOPower.Succubus_BloodStar); });
 
-				ClusterConditions=new ClusterConditions(5d, 20f, 2, true);
+				ClusterConditions=new SkillClusterConditions(5d, 20f, 2, true);
 				SingleUnitCondition=new UnitTargetConditions(TargetProperties.None);
 		  }
 

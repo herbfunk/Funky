@@ -1,7 +1,6 @@
 ﻿using FunkyBot.Cache;
 using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
-using FunkyBot.Movement.Clustering;
 
 namespace FunkyBot.Player.HotBar.Skills.Barb
 {
@@ -25,17 +24,14 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				Priority=AbilityPriority.Low;
 
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckPlayerIncapacitated));
-				ClusterConditions=new ClusterConditions(10d, 30f, 2, true);
+				ClusterConditions=new SkillClusterConditions(10d, 30f, 2, true);
 				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 20);
-				FcriteriaCombat=() =>
-				{
-					return !Bot.Character.Class.bWaitingForSpecial&&
-					       (!Bot.Settings.Class.bSelectiveWhirlwind||Bot.Targeting.Environment.bAnyNonWWIgnoreMobsInRange||
-					        !CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Targeting.CurrentTarget.SNOID))&&
-					       // If they have battle-rage, make sure it's up
-					       (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage)||
-					        (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage)&&Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_BattleRage)));
-				};
+				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial&&
+				                      (!Bot.Settings.Class.bSelectiveWhirlwind||Bot.Targeting.Environment.bAnyNonWWIgnoreMobsInRange||
+				                       !CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Targeting.CurrentTarget.SNOID))&&
+				                      // If they have battle-rage, make sure it's up
+				                      (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage)||
+				                       (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage)&&Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_BattleRage)));
 
 
 		  }

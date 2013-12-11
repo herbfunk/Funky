@@ -20,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\..\Desktop\DB_DebugCopy\Plugins\FunkyBot\</OutputPath>
+    <OutputPath>..\..\..\..\Desktop\New folder %284%29\Plugins\FunkyBot\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>none</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -72,10 +72,13 @@
     <Compile Include="Player\Account.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Conditions\SkillPreCast.cs">
+    <Compile Include="Player\HotBar\Skills\Conditions\SkillClusterConditions.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\DrinkHealthPotion.cs">
+    <Compile Include="Player\HotBar\Skills\Conditions\SkillPreCast.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\DrinkHealthPotion.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DBHandlers\CharacterMule\Game.cs">
@@ -84,220 +87,220 @@
     <Compile Include="DBHandlers\Townrun\FinishOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\EventHandlers\Death.cs">
+    <Compile Include="EventHandlers\Death.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\EventHandlers\OnProfileChanged.cs">
+    <Compile Include="EventHandlers\OnProfileChanged.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\Backpack.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\AncientSpear.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\AncientSpear.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\Bash.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\Bash.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\Battlerage.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\Battlerage.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\CalloftheAncients.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\CalloftheAncients.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\Cleave.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\Cleave.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\Earthquake.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\Earthquake.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\Frenzy.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\Frenzy.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\FuriousCharge.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\FuriousCharge.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\GroundStomp.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\GroundStomp.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\HammeroftheAncients.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\HammeroftheAncients.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\IgnorePain.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\IgnorePain.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\Leap.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\Leap.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\Overpower.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\Overpower.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\Rend.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\Rend.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\Revenge.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\Revenge.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\SeismicSlam.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\SeismicSlam.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\Sprint.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\Sprint.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\ThreateningShout.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\ThreateningShout.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\Warcry.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\Warcry.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\WeaponThrow.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\WeaponThrow.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\Whirlwind.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\Whirlwind.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Barbarian\WrathOfTheBerserker.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\WrathOfTheBerserker.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\Player Class\Barb.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\BolaShot.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\BolaShot.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\Caltrops.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\Caltrops.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\Chakram.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\Chakram.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\ClusterArrow.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\ClusterArrow.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\Companion.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\Companion.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\ElementalArrow.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\ElementalArrow.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\EntanglingShot.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\EntanglingShot.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\EvasiveFire.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\EvasiveFire.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\FanOfKnives.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\FanOfKnives.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\Grenades.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\Grenades.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\HungeringArrow.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\HungeringArrow.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\Impale.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\Impale.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\MarkedForDeath.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\MarkedForDeath.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\Multishot.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\Multishot.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\Preparation.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\Preparation.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\RainOfVengeance.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\RainOfVengeance.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\RapidFire.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\RapidFire.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\Sentry.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\Sentry.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\ShadowPower.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\ShadowPower.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\SmokeScreen.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\SmokeScreen.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\SpikeTrap.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\SpikeTrap.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\Strafe.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\Strafe.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Demon Hunter\Vault.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\Vault.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\Player Class\DemonHunter.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Hotbar.cs">
+    <Compile Include="Player\HotBar\Hotbar.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\BlindingFlash.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\BlindingFlash.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\BreathofHeaven.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\BreathofHeaven.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\CripplingWave.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\CripplingWave.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\CycloneStrike.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\CycloneStrike.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\DashingStrike.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\DashingStrike.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\DeadlyReach.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\DeadlyReach.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\ExplodingPalm.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\ExplodingPalm.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\FistsofThunder.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\FistsofThunder.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\InnerSanctuary.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\InnerSanctuary.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\LashingTailKick.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\LashingTailKick.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\MantraOfConviction.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\MantraOfConviction.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\MantraOfEvasion.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\MantraOfEvasion.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\MantraOfHealing.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\MantraOfHealing.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\MantraOfRetribution.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\MantraOfRetribution.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\MysticAlly.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\MysticAlly.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\Serenity.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\Serenity.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\SevenSidedStrike.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\SevenSidedStrike.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\SweepingWind.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\SweepingWind.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\TempestRush.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\TempestRush.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\WaveOfLight.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\WaveOfLight.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Monk\WayOfTheHundredFists.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\WayOfTheHundredFists.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\Player Class\Monk.cs">
@@ -306,163 +309,163 @@
     <Compile Include="Player\Player Class\PlayerClass.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\AcidCloud.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\AcidCloud.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\BigBadVoodoo.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\BigBadVoodoo.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\CorpseSpider.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\CorpseSpider.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\FetishArmy.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\FetishArmy.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\Firebats.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\Firebats.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\Firebomb.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\Firebomb.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\Gargantuan.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\Gargantuan.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\GraspOfTheDead.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\GraspOfTheDead.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\Haunt.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\Haunt.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\Hex.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\Hex.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\Horrify.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\Horrify.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\LocustSwarm.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\LocustSwarm.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\MassConfusion.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\MassConfusion.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\PlagueOfToads.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\PlagueOfToads.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\PoisonDart.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\PoisonDart.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\Sacrifice.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\Sacrifice.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\SoulHarvest.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\SoulHarvest.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\SpiritBarrage.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\SpiritBarrage.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\SpiritWalk.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\SpiritWalk.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\SummonZombieDogs.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\SummonZombieDogs.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\WallOfZombies.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\WallOfZombies.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Witch Doctor\ZombieCharger.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\ZombieCharger.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\Player Class\WitchDoctor.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\ArcaneOrb.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\ArcaneOrb.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\ArcaneTorrent.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\ArcaneTorrent.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\Archon.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\Archon.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\ArchonArcaneBlast.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\ArchonArcaneBlast.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\ArchonArcaneStrike.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\ArchonArcaneStrike.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\ArchonDisintegrationWave.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\ArchonDisintegrationWave.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\ArchonSlowTime.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\ArchonSlowTime.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\ArchonTeleport.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\ArchonTeleport.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\Blizzard.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\Blizzard.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\DiamondSkin.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\DiamondSkin.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\Disintegrate.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\Disintegrate.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\Electrocute.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\Electrocute.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\EnergyArmor.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\EnergyArmor.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\EnergyTwister.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\EnergyTwister.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\ExplosiveBlast.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\ExplosiveBlast.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\Familiar.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\Familiar.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\FrostNova.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\FrostNova.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\Hydra.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\Hydra.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\IceArmor.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\IceArmor.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\MagicMissile.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\MagicMissile.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\MagicWeapon.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\MagicWeapon.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\Meteor.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\Meteor.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\MirrorImage.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\MirrorImage.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\RayOfFrost.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\RayOfFrost.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\ShockPulse.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\ShockPulse.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\SlowTime.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\SlowTime.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\SpectralBlade.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\SpectralBlade.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\StormArmor.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\StormArmor.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\Teleport.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\Teleport.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\Wizard\WaveOfForce.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\WaveOfForce.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\Player Class\Wizard.cs">
@@ -477,55 +480,55 @@
     <Compile Include="Config\Settings\SettingPlugin.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\CancelArchonBuff.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\CancelArchonBuff.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\ProjectileRangeAttack.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\ProjectileRangeAttack.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\WeaponMeleeInsant.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\WeaponMeleeInsant.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\WeaponRangedWand.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\WeaponRangedWand.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\SkillCriteria.cs">
+    <Compile Include="Player\HotBar\Skills\SkillCriteria.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Conditions\AbilityLogicConditions.cs">
+    <Compile Include="Player\HotBar\Skills\Conditions\AbilityLogicConditions.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Conditions\LOSInfo.cs">
+    <Compile Include="Player\HotBar\Skills\Conditions\LOSInfo.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Enums\AbilityUsage.cs">
+    <Compile Include="Player\HotBar\Skills\Enums\AbilityUsage.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Conditions\WaitLoops.cs">
+    <Compile Include="Player\HotBar\Skills\Conditions\WaitLoops.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Navigation\Clustering\ClusterConditions.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Enums\AbilityPreCastFlags.cs">
+    <Compile Include="Player\HotBar\Skills\Enums\AbilityPreCastFlags.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Enums\AbilityPriority.cs">
+    <Compile Include="Player\HotBar\Skills\Enums\AbilityPriority.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Enums\AbilityExecuteFlags.cs">
+    <Compile Include="Player\HotBar\Skills\Enums\AbilityExecuteFlags.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Enums\ConditionCriteraTypes.cs">
+    <Compile Include="Player\HotBar\Skills\Enums\ConditionCriteraTypes.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Enums\TargetProperties.cs">
+    <Compile Include="Player\HotBar\Skills\Enums\TargetProperties.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Conditions\UnitTargetConditions.cs">
+    <Compile Include="Player\HotBar\Skills\Conditions\UnitTargetConditions.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill Objects\WeaponInstantRanged.cs">
+    <Compile Include="Player\HotBar\Skills\Skill Objects\WeaponInstantRanged.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Cache\Avoidances\AvoidanceValue.cs">
@@ -624,10 +627,10 @@
     <Compile Include="DBHandlers\Townrun\UnidOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\EventHandlers\OnBotStart.cs">
+    <Compile Include="EventHandlers\OnBotStart.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\EventHandlers\OnGameChanged.cs">
+    <Compile Include="EventHandlers\OnGameChanged.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Navigation\Clustering\ClusterCollection.cs">
@@ -636,13 +639,13 @@
     <Compile Include="Cache\Blacklist\Blacklisting.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Cache\Collection\Objects.cs">
+    <Compile Include="Cache\Collections\Objects.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Cache\Collection\Obstacles.cs">
+    <Compile Include="Cache\Collections\Obstacles.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Cache\Collection\SNO.cs">
+    <Compile Include="Cache\Collections\SNO.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Cache\Objects\CacheACDItem.cs">
@@ -774,7 +777,7 @@
     <Compile Include="Cache\Enums\ObstacleType.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Enums\RangeIntervals.cs">
+    <Compile Include="Player\HotBar\Skills\Enums\RangeIntervals.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Cache\Enums\ShrineTypes.cs">
@@ -932,10 +935,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Player\Hotbar\Skills\PowerCache.cs">
+    <Compile Include="Player\HotBar\Skills\PowerCache.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\Hotbar\Skills\Skill.cs">
+    <Compile Include="Player\HotBar\Skills\Skill.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DBHandlers\TownPortalOverlord.cs">
@@ -968,16 +971,16 @@
     <Compile Include="Bot\Bot.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\EventHandlers\OnDeath.cs">
+    <Compile Include="EventHandlers\OnDeath.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\EventHandlers\OnJoinGame.cs">
+    <Compile Include="EventHandlers\OnJoinGame.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\EventHandlers\OnLeaveGame.cs">
+    <Compile Include="EventHandlers\OnLeaveGame.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bot\EventHandlers\OnBotStop.cs">
+    <Compile Include="EventHandlers\OnBotStop.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DBHandlers\GlobalOverlord.cs">
@@ -1056,7 +1059,7 @@
     <Content Include="DBHandlers\CharacterMule\NewGame.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Player\Hotbar\Skills\_About.txt" />
+    <Content Include="Player\HotBar\Skills\_About.txt" />
     <Content Include="Config\Defaults\LowLevel.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

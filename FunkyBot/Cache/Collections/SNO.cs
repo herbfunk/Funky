@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using Zeta.Common;
-using System.Linq;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using FunkyBot.Cache.Objects;
+using Zeta.Common;
 
-namespace FunkyBot.Cache
+namespace FunkyBot.Cache.Collections
 {
 
-		  public partial class ObjectCache
-		  {
+
 				///<summary>
 				///Used to contain the cached sno entries. 
 				///</summary>
@@ -26,36 +26,36 @@ namespace FunkyBot.Cache
 					 private void CreateDictionaryEntries(int key)
 					 {
 						  //create cached ID in collections
-						  if (!dictActorType.ContainsKey(key)) dictActorType.Add(key, null);
-						  if (!dictTargetType.ContainsKey(key)) dictTargetType.Add(key, null);
-						  if (!dictMonstersize.ContainsKey(key)) dictMonstersize.Add(key, null);
-						  if (!dictMonstertype.ContainsKey(key)) dictMonstertype.Add(key, null);
-						  if (!dictCollisionRadius.ContainsKey(key)) dictCollisionRadius.Add(key, null);
-						  if (!dictInternalName.ContainsKey(key)) dictInternalName.Add(key, null);
-						  if (!dictCanBurrow.ContainsKey(key)) dictCanBurrow.Add(key, null);
-						  if (!dictDropsNoLoot.ContainsKey(key)) dictDropsNoLoot.Add(key, null);
-						  if (!dictGrantsNoXp.ContainsKey(key)) dictGrantsNoXp.Add(key, null);
-						  if (!dictIsBarricade.ContainsKey(key)) dictIsBarricade.Add(key, null);
-						  if (!dictObstacleType.ContainsKey(key)) dictObstacleType.Add(key, null);
-						  if (!dictActorSphereRadius.ContainsKey(key)) dictActorSphereRadius.Add(key, null);
-						  if (!dictGizmoType.ContainsKey(key)) dictGizmoType.Add(key, null);
+						  if (!ObjectCache.dictActorType.ContainsKey(key)) ObjectCache.dictActorType.Add(key, null);
+						  if (!ObjectCache.dictTargetType.ContainsKey(key)) ObjectCache.dictTargetType.Add(key, null);
+						  if (!ObjectCache.dictMonstersize.ContainsKey(key)) ObjectCache.dictMonstersize.Add(key, null);
+						  if (!ObjectCache.dictMonstertype.ContainsKey(key)) ObjectCache.dictMonstertype.Add(key, null);
+						  if (!ObjectCache.dictCollisionRadius.ContainsKey(key)) ObjectCache.dictCollisionRadius.Add(key, null);
+						  if (!ObjectCache.dictInternalName.ContainsKey(key)) ObjectCache.dictInternalName.Add(key, null);
+						  if (!ObjectCache.dictCanBurrow.ContainsKey(key)) ObjectCache.dictCanBurrow.Add(key, null);
+						  if (!ObjectCache.dictDropsNoLoot.ContainsKey(key)) ObjectCache.dictDropsNoLoot.Add(key, null);
+						  if (!ObjectCache.dictGrantsNoXp.ContainsKey(key)) ObjectCache.dictGrantsNoXp.Add(key, null);
+						  if (!ObjectCache.dictIsBarricade.ContainsKey(key)) ObjectCache.dictIsBarricade.Add(key, null);
+						  if (!ObjectCache.dictObstacleType.ContainsKey(key)) ObjectCache.dictObstacleType.Add(key, null);
+						  if (!ObjectCache.dictActorSphereRadius.ContainsKey(key)) ObjectCache.dictActorSphereRadius.Add(key, null);
+						  if (!ObjectCache.dictGizmoType.ContainsKey(key)) ObjectCache.dictGizmoType.Add(key, null);
 					 }
 					 private void RemoveDictionaryEntries(int key)
 					 {
 						  //Clear out cache
-						  dictActorType.Remove(key);
-						  dictTargetType.Remove(key);
-						  dictMonstersize.Remove(key);
-						  dictMonstertype.Remove(key);
-						  dictCollisionRadius.Remove(key);
-						  dictInternalName.Remove(key);
-						  dictCanBurrow.Remove(key);
-						  dictDropsNoLoot.Remove(key);
-						  dictGrantsNoXp.Remove(key);
-						  dictIsBarricade.Remove(key);
-						  dictObstacleType.Remove(key);
-						  dictActorSphereRadius.Remove(key);
-						  dictGizmoType.Remove(key);
+						  ObjectCache.dictActorType.Remove(key);
+						  ObjectCache.dictTargetType.Remove(key);
+						  ObjectCache.dictMonstersize.Remove(key);
+						  ObjectCache.dictMonstertype.Remove(key);
+						  ObjectCache.dictCollisionRadius.Remove(key);
+						  ObjectCache.dictInternalName.Remove(key);
+						  ObjectCache.dictCanBurrow.Remove(key);
+						  ObjectCache.dictDropsNoLoot.Remove(key);
+						  ObjectCache.dictGrantsNoXp.Remove(key);
+						  ObjectCache.dictIsBarricade.Remove(key);
+						  ObjectCache.dictObstacleType.Remove(key);
+						  ObjectCache.dictActorSphereRadius.Remove(key);
+						  ObjectCache.dictGizmoType.Remove(key);
 					 }
 
 					 #region IDictionary<int,CacheSNO> Members
@@ -278,6 +278,6 @@ namespace FunkyBot.Cache
 
 					 #endregion
 				}
-		  }
+		  
     
 }

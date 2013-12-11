@@ -1,5 +1,4 @@
-﻿using FunkyBot.Movement.Clustering;
-using FunkyBot.Player.HotBar.Skills.Conditions;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Barb
@@ -24,7 +23,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				Priority=AbilityPriority.Low;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy|
 				                          AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated));
-				ClusterConditions=new ClusterConditions(6d, 20f, 2, true);
+				ClusterConditions=new SkillClusterConditions(6d, 20f, 2, true);
 				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 20);
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
 		  }

@@ -69,7 +69,7 @@ namespace FunkyBot.Player.HotBar.Skills
 		 ///<value>
 		 ///Clustering Distance, Distance From Bot, Minimum Unit Count, Ignore Non-Targetables
 		 ///</value>
-		 public ClusterConditions ClusterConditions { get; set; }
+		 public SkillClusterConditions ClusterConditions { get; set; }
 
 
 		 ///<summary>

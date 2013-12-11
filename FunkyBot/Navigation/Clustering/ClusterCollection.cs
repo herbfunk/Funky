@@ -2,6 +2,7 @@
 using System.Linq;
 using FunkyBot.Cache;
 using System.Collections.Generic;
+using FunkyBot.Cache.Objects;
 
 namespace FunkyBot.Movement.Clustering
 {

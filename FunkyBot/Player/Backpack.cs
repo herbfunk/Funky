@@ -1,5 +1,7 @@
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Cache.Objects;
+using FunkyBot.DBHandlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

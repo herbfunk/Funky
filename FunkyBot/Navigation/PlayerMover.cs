@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.IO;
+using FunkyBot.Cache.Objects;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Movement;
@@ -219,7 +220,7 @@ namespace FunkyBot
 									 Thread.Sleep(1000);
 									 ZetaDia.Service.Party.LeaveGame();
 									 //ZetaDia.Service.Games.LeaveGame();
-									 FunkyOnLeaveGame(null, null);
+									 EventHandlers.FunkyOnLeaveGame(null, null);
 									 // Wait for 10 second log out timer if not in town, else wait for 3 seconds instead
 									 Thread.Sleep(!ZetaDia.Me.IsInTown?10000:3000);
 								}
@@ -250,7 +251,7 @@ namespace FunkyBot
 						  ProfileManager.Load(profile);
 						  Thread.Sleep(1000);
 						  ZetaDia.Service.Party.LeaveGame();
-						  FunkyOnLeaveGame(null, null);
+						  EventHandlers.FunkyOnLeaveGame(null, null);
 						  // Wait for 10 second log out timer if not in town
 						  if (!ZetaDia.Me.IsInTown)
 						  {

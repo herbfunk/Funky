@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using System.IO;
+using FunkyBot.Cache.Objects;
+using FunkyBot.DBHandlers;
 using FunkyBot.Game;
 using Zeta.Common;
 using FunkyBot.Cache;
@@ -274,7 +276,7 @@ namespace FunkyBot
 						  {
 								File.Delete(item);
 						  }
-						  Logging.WriteDiagnostic("Total item rule logs deleted "+deleteList.Count);
+						  Logging.WriteDiagnostic("Total game stat logs deleted "+deleteList.Count);
 					 }
 
 				} catch { Logging.WriteDiagnostic("Failure to clean log files @ path: "+ProfileLogs); }

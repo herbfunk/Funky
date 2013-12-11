@@ -1,15 +1,15 @@
 ﻿using System;
-using FunkyBot.Cache.Enums;
-using System.Collections.Generic;
-using Zeta.Common;
-using System.Linq;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using FunkyBot.Cache.Enums;
+using FunkyBot.Cache.Objects;
+using Zeta.Common;
 
-namespace FunkyBot.Cache
+namespace FunkyBot.Cache.Collections
 {
 
-		  public partial class ObjectCache
-		  {
+
 				///<summary>
 				///Holds all "obstacle" related objects including Navigational and Avoidance related.
 				///</summary>
@@ -322,6 +322,6 @@ namespace FunkyBot.Cache
 				}
 
 
-		  }
+		  
     
 }

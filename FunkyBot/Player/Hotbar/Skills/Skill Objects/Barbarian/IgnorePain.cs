@@ -22,7 +22,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				Priority=AbilityPriority.High;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckCanCast));
 
-				FcriteriaCombat=() => { return Bot.Character.Data.dCurrentHealthPct<=0.45; };
+				FcriteriaCombat=() => Bot.Character.Data.dCurrentHealthPct<=0.45;
 		  }
 
 		  #region IAbility

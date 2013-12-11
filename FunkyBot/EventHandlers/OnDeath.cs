@@ -6,14 +6,15 @@ using Zeta.Common;
 using System.Threading;
 using Zeta.CommonBot;
 using FunkyBot.XMLTags;
+using FunkyBot.Cache;
 
 namespace FunkyBot
 {
-	 public partial class Funky
+	public partial class EventHandlers
 	 {
-		  private static bool DumpedDeathInfo;
+		  internal static bool DumpedDeathInfo=false;
 
-		  private void FunkyOnDeath(object src, EventArgs mea)
+		  internal static void FunkyOnDeath(object src, EventArgs mea)
 		  {
 				if(!DumpedDeathInfo)
 				{
@@ -23,7 +24,7 @@ namespace FunkyBot
 									  "Triggering Avoidances={3} -- RequiredAvoidance={4} -- LastAvoidAction={5} \r\n"+
 									  "Nearby Flee Triggering Units={6} -- LastFleeAction={7} \r\n",
 									  Bot.Game.Profile.CurrentProfileBehavior.GetType().ToString(), Bot.Targeting.lastBehavioralType.ToString(),
-									  Cache.ObjectCache.Objects.DumpDebugInfo(),
+									  ObjectCache.Objects.DumpDebugInfo(),
 									  Bot.Targeting.Environment.TriggeringAvoidances.Count, Bot.Targeting.RequiresAvoidance, Bot.Targeting.LastAvoidanceMovement.ToString(CultureInfo.InvariantCulture),
 									  Bot.Targeting.Environment.FleeTriggeringUnits.Count, Bot.Targeting.LastFleeAction.ToString(CultureInfo.InvariantCulture));
 
@@ -38,7 +39,7 @@ namespace FunkyBot
                      //Bot.Stats.iDeathsThisRun++;
 					 //Bot.BotStatistics.GameStats.TotalDeaths++;
 
-					 ResetBot();
+					 Funky.ResetBot();
 
 					 
 					 // Does Trinity need to handle deaths?
@@ -55,7 +56,7 @@ namespace FunkyBot
 
 								ProfileManager.Load(profile);
 								Thread.Sleep(1000);
-								ResetGame();
+								Funky.ResetGame();
 								ZetaDia.Service.Party.LeaveGame();
 								Thread.Sleep(10000);
 						  }

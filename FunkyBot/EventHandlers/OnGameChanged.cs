@@ -3,15 +3,15 @@ using Zeta.Navigation;
 
 namespace FunkyBot
 {
-    public partial class Funky
+	public partial class EventHandlers
     {
-		  private static void FunkyOnGameChanged(object sender, EventArgs e)
+		  internal static void FunkyOnGameChanged(object sender, EventArgs e)
 		  {
 			  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Event))
 				  Logger.Write(LogLevel.Event, "OnGameChanged Event");
 
 			  Navigator.SearchGridProvider.Update();
-			  ResetGame();
+			  Funky.ResetGame();
 			  Bot.Game.RefreshGameId();
 		  }
     }

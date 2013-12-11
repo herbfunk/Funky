@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using FunkyBot.Cache.Objects;
 using FunkyBot.XMLTags;
 using Zeta.Common;
 using Zeta.CommonBot;

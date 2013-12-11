@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using FunkyBot.Cache;
+using FunkyBot.Cache.Objects;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.Monk;
 using Zeta;
@@ -39,7 +40,7 @@ namespace FunkyBot.Player.Class
 						 
 				}
 				internal override ActorClass AC { get { return ActorClass.Monk; } }
-				private HashSet<SNOPower> SpiritGeneratingAbilities=new HashSet<SNOPower>
+				private readonly HashSet<SNOPower> SpiritGeneratingAbilities=new HashSet<SNOPower>
 				{
 					 SNOPower.Monk_FistsofThunder,
 					 SNOPower.Monk_WayOfTheHundredFists,
@@ -47,7 +48,7 @@ namespace FunkyBot.Player.Class
 					 SNOPower.Monk_CripplingWave,
 				};
 
-				private HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
+				private readonly HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
 				{
 					 SNOAnim.Monk_Male_HTH_knockback_land_01,
 					 SNOAnim.Monk_Female_HTH_knockback_land_01,

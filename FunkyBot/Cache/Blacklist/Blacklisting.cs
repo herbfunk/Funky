@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FunkyBot.Cache.Objects;
 using Zeta.Common;
 using Zeta.Internals.SNO;
 
@@ -35,7 +36,7 @@ namespace FunkyBot.Cache
             108490, 52833, 3341, 4482, 188129, 188127, 55259, 54693, 3689, 131494, 3609, 225589, 171635, 3948,5739, 185949, 182697, 200371,
 				75023,54972,73260,172810,225567,225565, 225566, 
 				206461,61459,63114,53853,54331,53957,54379,199337,5900,5744,5902,85690,
-				182526,460,108266,56598,
+				182526,460,108266,56598,89503,
          };
 
 		 // When did we last clear the temporary blacklist?

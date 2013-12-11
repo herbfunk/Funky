@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Globalization;
+using System.Windows;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
 using Zeta.Common;
-using System.Windows;
 
-namespace FunkyBot.Cache
+namespace FunkyBot.Cache.Objects
 {
 
 

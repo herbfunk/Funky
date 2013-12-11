@@ -1,5 +1,4 @@
-﻿using FunkyBot.Movement.Clustering;
-using FunkyBot.Player.HotBar.Skills.Conditions;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Common;
 using Zeta.Internals.Actors;
 
@@ -24,7 +23,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				UseageType=AbilityUseage.Combat;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|
 				                          AbilityPreCastFlags.CheckCanCast));
-				ClusterConditions=new ClusterConditions(5d, 30, 2, true);
+				ClusterConditions=new SkillClusterConditions(5d, 30, 2, true);
 				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial,
 					falseConditionalFlags: TargetProperties.Fast, MinimumDistance: 30);
 

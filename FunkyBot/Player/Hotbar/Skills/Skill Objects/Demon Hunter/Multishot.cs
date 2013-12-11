@@ -1,5 +1,4 @@
-﻿using FunkyBot.Movement.Clustering;
-using FunkyBot.Player.HotBar.Skills.Conditions;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.DemonHunter
@@ -19,7 +18,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.Low;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy));
-				ClusterConditions=new ClusterConditions(10d, 40, 3, true);
+				ClusterConditions=new SkillClusterConditions(10d, 40, 3, true);
 		  }
 
 		  #region IAbility

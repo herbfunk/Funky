@@ -1,5 +1,4 @@
-﻿using FunkyBot.Movement.Clustering;
-using FunkyBot.Player.HotBar.Skills.Conditions;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
@@ -18,7 +17,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				Priority=AbilityPriority.None;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated));
 
-				ClusterConditions=new ClusterConditions(4d, 35, 2, true);
+				ClusterConditions=new SkillClusterConditions(4d, 35, 2, true);
 				SingleUnitCondition=new UnitTargetConditions();
 		  }
 

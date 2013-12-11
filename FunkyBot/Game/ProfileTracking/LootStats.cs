@@ -1,6 +1,7 @@
 ﻿using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using System;
+using FunkyBot.Cache.Objects;
 using Zeta.Internals.Actors;
 using FunkyBot.Player;
 

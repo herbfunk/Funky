@@ -256,8 +256,6 @@ namespace FunkyBot.Cache
                 {SNOPower.DemonHunter_ClusterArrow, DateTime.Today},{SNOPower.DemonHunter_RainOfVengeance, DateTime.Today},
 	            #endregion
             };
-		  // This is the ACTUAL dictionary used now (the above are used to quickly reset all timers back to defaults on death etc.)
-		  public static Dictionary<SNOPower, DateTime> dictAbilityLastUse=new Dictionary<SNOPower, DateTime>(dictAbilityLastUseDefaults);
 		  // And this is to avoid using certain long-cooldown skills immediately after a fail
 		  public static Dictionary<SNOPower, DateTime> dictAbilityLastFailed=new Dictionary<SNOPower, DateTime>(dictAbilityLastUseDefaults);
 		  // And a "global cooldown" to prevent non-signature-spells being used too fast

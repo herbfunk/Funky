@@ -7,7 +7,7 @@ using Zeta.Internals.Actors;
 using Zeta.Internals.SNO;
 using Zeta.TreeSharp;
 
-namespace FunkyBot.Cache
+namespace FunkyBot.Cache.Objects
 {
 	public class CacheDestructable : CacheGizmo
 	{

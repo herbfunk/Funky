@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Collections;
 using FunkyBot.Cache;
+using FunkyBot.Cache.Objects;
 using Zeta.Internals.Actors;
 using Zeta.Common;
 using GilesTrinity.ItemRules.Core;

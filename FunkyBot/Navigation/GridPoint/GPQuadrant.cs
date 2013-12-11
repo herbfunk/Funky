@@ -3,6 +3,7 @@ using System.Linq;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using System.Collections.Generic;
+using FunkyBot.Cache.Objects;
 using Zeta.Common;
 
 namespace FunkyBot.Movement

@@ -7,6 +7,8 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 {
 	 public class Teleport : Skill
 	 {
+		 private readonly ClusterConditions combatClusterCondition=new ClusterConditions(5d,48f,2,false);
+
 		 public override void Initialize()
 		  {
 				Cooldown=16000;
@@ -19,13 +21,13 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				Priority=AbilityPriority.High;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|
 				                          AbilityPreCastFlags.CheckEnergy));
-				ClusterConditions=new ClusterConditions(5d, 48f, 2, false);
+				ClusterConditions=new SkillClusterConditions(5d, 48f, 2, false);
 				//TestCustomCombatConditionAlways=true,
 				FcriteriaCombat=() => ((Bot.Settings.Class.bTeleportFleeWhenLowHP&&Bot.Character.Data.dCurrentHealthPct<0.5d)
 				                       ||
 				                       (Bot.Settings.Class.bTeleportIntoGrouping&&
-				                        Bot.Targeting.Clusters.AbilityClusterCache(new ClusterConditions(5d, 48f, 2, false)).Count>0&&
-				                        Bot.Targeting.Clusters.AbilityClusterCache(new ClusterConditions(5d, 48f, 2, false))[0].Midpoint.Distance(
+										Bot.Targeting.Clusters.AbilityClusterCache(combatClusterCondition).Count > 0 &&
+										Bot.Targeting.Clusters.AbilityClusterCache(combatClusterCondition)[0].Midpoint.Distance(
 					                        Bot.Character.Data.PointPosition)>15f)
 				                       ||(!Bot.Settings.Class.bTeleportFleeWhenLowHP&&!Bot.Settings.Class.bTeleportIntoGrouping));
 				FCombatMovement=v =>

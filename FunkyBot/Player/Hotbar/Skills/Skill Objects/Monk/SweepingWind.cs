@@ -1,5 +1,4 @@
-﻿using FunkyBot.Movement.Clustering;
-using System;
+﻿using System;
 using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
@@ -19,7 +18,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy));
 
-				ClusterConditions=new ClusterConditions(7d, 35f, 2, false);
+				ClusterConditions=new SkillClusterConditions(7d, 35f, 2, false);
 				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 25);
                 IsBuff = true;
                 FcriteriaBuff = () =>

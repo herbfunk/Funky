@@ -4,6 +4,7 @@ using System.Linq;
 using Demonbuddy;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Cache.Objects;
 using Zeta.Common;
 using System.Windows;
 using System.Windows.Controls;
@@ -38,8 +39,8 @@ namespace FunkyBot
 				SplitButton FunkyButton=null;
 
 
-				BotMain.OnStop+=FunkyBotStop;
-				BotMain.OnStart+=FunkyBotStart;
+				BotMain.OnStop += EventHandlers.FunkyBotStop;
+				BotMain.OnStart += EventHandlers.FunkyBotStart;
 
 
 				bool FunkyCombatRoutineCurrent=RoutineManager.Current!=null&&
@@ -210,7 +211,7 @@ namespace FunkyBot
 
 					 // Safety check incase DB "OnStart" event didn't fire properly
 					 if (BotMain.IsRunning) 
-						  FunkyBotStart(null);
+						  EventHandlers.FunkyBotStart(null);
 
 					 // Carguy's ticks-per-second feature
 					 //if (settings.bEnableTPS)
@@ -220,7 +221,7 @@ namespace FunkyBot
 					 //
 					 string CompileDateString=PluginInfo.LastWriteTime.ToString("MM/dd hh:mm:ss tt", CultureInfo.InvariantCulture);
 					 Logging.Write("************************************");
-					 Logging.Write("ENABLED: Funky Trinity Plugin");
+					 Logging.Write("ENABLED: Funky Bot Plugin");
 					 Logging.Write(" -- Version -- "+Version);
 					 Logging.Write("\tModified: "+CompileDateString);
 					 Logging.Write("************************************");
@@ -262,8 +263,8 @@ namespace FunkyBot
 
 		  public void OnShutdown()
 		  {
-				BotMain.OnStart-=FunkyBotStart;
-				BotMain.OnStop-=FunkyBotStop;
+			   BotMain.OnStart -= EventHandlers.FunkyBotStart;
+				BotMain.OnStop -= EventHandlers.FunkyBotStop;
 				RemoveHandlers();
 				ResetTreehooks();
 
@@ -301,16 +302,16 @@ namespace FunkyBot
 					 return Application.Current.MainWindow;
 				}
 		  }
-		  internal void RemoveHandlers()
+		  internal static void RemoveHandlers()
 		  {
-				GameEvents.OnPlayerDied-=FunkyOnDeath;
-				GameEvents.OnGameJoined-=FunkyOnJoinGame;
-				GameEvents.OnGameLeft-=FunkyOnLeaveGame;
-				GameEvents.OnGameChanged-=FunkyOnGameChanged;
-				ProfileManager.OnProfileLoaded-=FunkyOnProfileChanged;
+			  GameEvents.OnPlayerDied -= EventHandlers.FunkyOnDeath;
+				GameEvents.OnGameJoined -= EventHandlers.FunkyOnJoinGame;
+				GameEvents.OnGameLeft -= EventHandlers.FunkyOnLeaveGame;
+				GameEvents.OnGameChanged -= EventHandlers.FunkyOnGameChanged;
+				ProfileManager.OnProfileLoaded -= EventHandlers.FunkyOnProfileChanged;
 		  }
 
-		  internal void ResetTreehooks()
+		  internal static void ResetTreehooks()
 		  {
 				Navigator.PlayerMover=new DefaultPlayerMover();
 				Navigator.StuckHandler=new DefaultStuckHandler();

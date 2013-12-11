@@ -6,9 +6,9 @@ using Zeta.Navigation;
 
 namespace FunkyBot
 {
-    public partial class Funky
+	public partial class EventHandlers
     {
-		  private void FunkyBotStart(IBot bot)
+		  internal static void FunkyBotStart(IBot bot)
 		  {
 				string FunkySettingsPath=System.IO.Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyBot");
 				if (!System.IO.Directory.Exists(FunkySettingsPath))
@@ -25,13 +25,13 @@ namespace FunkyBot
 				Bot.ItemRulesEval=new Interpreter();
 
 
-				Navigator.PlayerMover=new PlayerMover();
+				Navigator.PlayerMover=new Funky.PlayerMover();
 				Navigator.StuckHandler=new TrinityStuckHandler();
-				GameEvents.OnPlayerDied+=FunkyOnDeath;
-				GameEvents.OnGameJoined+=FunkyOnJoinGame;
-				GameEvents.OnGameLeft+=FunkyOnLeaveGame;
-				GameEvents.OnGameChanged+=FunkyOnGameChanged;
-				ProfileManager.OnProfileLoaded+=FunkyOnProfileChanged;
+				GameEvents.OnPlayerDied += EventHandlers.FunkyOnDeath;
+				GameEvents.OnGameJoined += EventHandlers.FunkyOnJoinGame;
+				GameEvents.OnGameLeft += EventHandlers.FunkyOnLeaveGame;
+				GameEvents.OnGameChanged += EventHandlers.FunkyOnGameChanged;
+				ProfileManager.OnProfileLoaded += EventHandlers.FunkyOnProfileChanged;
 
 				ITargetingProvider newCombatTargetingProvider=new TrinityCombatTargetingReplacer();
 				CombatTargeting.Instance.Provider=newCombatTargetingProvider;
@@ -42,21 +42,21 @@ namespace FunkyBot
 
 
 
-				if (!bPluginEnabled&&bot!=null)
+				if (!Funky.bPluginEnabled&&bot!=null)
 				{
 					 Logging.Write("WARNING: FunkyBot Plugin is NOT ENABLED. Bot start detected");
 					 return;
 				}
 
-				if (!initTreeHooks)
+				if (!Funky.initTreeHooks)
 				{
-					 HookBehaviorTree();
+					Funky.HookBehaviorTree();
 				}
 			
 				bool isingame=ZetaDia.IsInGame;
 				if (isingame&&!BotMain.IsRunning)
 				{
-					 FunkyOnGameChanged(null, null);
+					EventHandlers.FunkyOnGameChanged(null, null);
 				}
 
 

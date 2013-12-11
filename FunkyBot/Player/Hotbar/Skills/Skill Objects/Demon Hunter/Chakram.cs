@@ -1,8 +1,5 @@
-﻿using System;
-using FunkyBot.Cache;
-using FunkyBot.Player.HotBar.Skills.Conditions;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
-using FunkyBot.Movement.Clustering;
 
 namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 {
@@ -19,14 +16,13 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				Priority=AbilityPriority.Low;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy));
 
-				ClusterConditions=new ClusterConditions(4d, 40, 2, true);
+				ClusterConditions=new SkillClusterConditions(4d, 40, 2, true);
 				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial);
 
 				FcriteriaCombat=() =>
 				{
 					return ((!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.DemonHunter_ClusterArrow))||
-					        DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastUse[SNOPower.DemonHunter_Chakram]).TotalMilliseconds>=
-					        110000);
+					        LastUsedMilliseconds>=110000);
 				};
 		  }
 

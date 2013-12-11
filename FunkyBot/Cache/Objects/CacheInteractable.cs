@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using FunkyBot.Cache.Enums;
+using FunkyBot.DBHandlers;
 using FunkyBot.Movement;
 using Zeta;
 using Zeta.Common;
@@ -8,7 +9,7 @@ using Zeta.CommonBot.Settings;
 using Zeta.Internals.Actors;
 using Zeta.TreeSharp;
 
-namespace FunkyBot.Cache
+namespace FunkyBot.Cache.Objects
 {
 	public class CacheInteractable : CacheGizmo
 	{
@@ -77,8 +78,8 @@ namespace FunkyBot.Cache
 						{
 							if (IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer)
 							{
-								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
-									Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
+								//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+								//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
 								Bot.Targeting.Environment.LoSMovementObjects.Add(this);
 							}
 							 return false;
@@ -98,8 +99,8 @@ namespace FunkyBot.Cache
 							 {
 								 if (IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer)
 								 {
-									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
-										Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
+									 //if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+									 //   Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
 									 Bot.Targeting.Environment.LoSMovementObjects.Add(this);
 								 }
 								  return false;
@@ -110,8 +111,8 @@ namespace FunkyBot.Cache
 						{
 							if (IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer)
 							{
-								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
-									Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
+								//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+								//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
 								Bot.Targeting.Environment.LoSMovementObjects.Add(this);
 							}
 							 return false;

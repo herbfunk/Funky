@@ -1,5 +1,4 @@
-﻿using FunkyBot.Movement.Clustering;
-using FunkyBot.Player.HotBar.Skills.Conditions;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Barb
@@ -25,11 +24,11 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy|
 				                          AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated));
-				ClusterConditions=new ClusterConditions(Bot.Character.Class.HotBar.RuneIndexCache[Power]==4?4d:6d, 40f, 2, true);
+				ClusterConditions=new SkillClusterConditions(Bot.Character.Class.HotBar.RuneIndexCache[Power]==4?4d:6d, 40f, 2, true);
 				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial,
 					falseConditionalFlags: TargetProperties.TreasureGoblin|TargetProperties.Fast);
 
-				FcriteriaCombat=() => { return !Bot.Character.Class.bWaitingForSpecial; };
+				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
 		  }
 
 		  #region IAbility

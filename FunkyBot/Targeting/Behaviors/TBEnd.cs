@@ -1,6 +1,7 @@
 ﻿using System;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Cache.Objects;
 using FunkyBot.Movement;
 using Zeta;
 using Zeta.Common;
@@ -68,8 +69,8 @@ namespace FunkyBot.Targeting.Behaviors
 								return true;
 						  }
 
-						  //Currently preforming an interactive profile behavior
-						  if (Bot.Game.Profile.PreformingInteractiveBehavior)
+						  //Currently preforming an interactive profile behavior (check if in town and not vendoring)
+						  if (Bot.Game.Profile.PreformingInteractiveBehavior && (!Bot.Character.Data.bIsInTown||!Zeta.CommonBot.Logic.BrainBehavior.IsVendoring))
 						  {
 							  if (Bot.Game.Profile.InteractableCachedObject.Position.Distance(Bot.Character.Data.Position) > 50f)
 							  {

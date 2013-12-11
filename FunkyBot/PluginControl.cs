@@ -24,9 +24,9 @@ namespace FunkyBot
 {
 	 public partial class Funky
 	 {
-		  private static bool bPluginEnabled;
+		  internal static bool bPluginEnabled;
 		  private static bool initFunkyButton;
-		  private static bool initTreeHooks;
+		  internal static bool initTreeHooks;
 		  internal static int iDemonbuddyMonsterPowerLevel=0;
 
 		  // Status text for DB main window status
@@ -35,21 +35,11 @@ namespace FunkyBot
 		  internal static bool bResetStatusText=false;
 
 
-		  internal static void Log(string message, bool bIsDiagnostic=false)
-		  {
-				string totalMessage=String.Format("[Funky] {0}", message);
-				if (!bIsDiagnostic)
-					 Logging.Write(totalMessage);
-				else
-					 Logging.WriteDiagnostic(totalMessage);
-		  }
-
 		  public static void ResetBot()
 		  {
 
 			  Logging.Write("Preforming reset of bot data...");
 			  BlacklistCache.ClearBlacklistCollections();
-			  PowerCacheLookup.dictAbilityLastUse = new Dictionary<SNOPower, DateTime>(PowerCacheLookup.dictAbilityLastUseDefaults);
 
 			  PlayerMover.iTotalAntiStuckAttempts = 1;
 			  PlayerMover.vSafeMovementLocation = Vector3.Zero;
@@ -80,7 +70,7 @@ namespace FunkyBot
 			  //clear obstacles
 			  ObjectCache.Obstacles.Clear();
 			  ObjectCache.Objects.Clear();
-			  DumpedDeathInfo = false;
+			  EventHandlers.DumpedDeathInfo = false;
 		  }
 		  public static void ResetGame()
 		  {
@@ -126,7 +116,7 @@ namespace FunkyBot
 
 				return FunkyButton;
 		  }
-		  private static void HookBehaviorTree()
+		  internal static void HookBehaviorTree()
 		  {
 
 				bool townportal=false, idenify=false, stash=false, vendor=false, salvage=false, looting=true, combat=true;
@@ -389,7 +379,7 @@ namespace FunkyBot
 
 						  Decorator DeathDecorator=DeathPrioritySelector.Children[0] as Decorator;
 						  Sequence DeathSequence=DeathDecorator.Children[0] as Sequence;
-						  ActionDelegate actionDelgateDeath=Death.DeathHandler;
+						  ActionDelegate actionDelgateDeath=EventHandlers.DeathHandler;
 						  DeathSequence.InsertChild(0, new Action(actionDelgateDeath));
 						  /*
 						   17:10:24.548 N] Zeta.TreeSharp.Action

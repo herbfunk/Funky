@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Globalization;
 using FunkyBot.Cache.Enums;
-using Zeta.Internals.SNO;
-using Zeta.Internals.Actors;
 using Zeta.Common;
+using Zeta.Internals.Actors;
+using Zeta.Internals.SNO;
 
-namespace FunkyBot.Cache
+namespace FunkyBot.Cache.Objects
 {
 
 

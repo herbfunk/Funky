@@ -27,7 +27,7 @@ namespace FunkyBot.Player.Class
 						  return true;
 					 }
 				}
-				private HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
+				private readonly HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
 				{
 					 SNOAnim.Barbarian_Female_1HS_knockback_land_01, 
 					 SNOAnim.Barbarian_Female_1HT_Knockback_Land, 

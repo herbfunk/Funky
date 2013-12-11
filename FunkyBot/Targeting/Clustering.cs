@@ -1,4 +1,5 @@
 ﻿using FunkyBot.Cache;
+using FunkyBot.Cache.Objects;
 using FunkyBot.Movement.Clustering;
 using System;
 using System.Collections.Generic;

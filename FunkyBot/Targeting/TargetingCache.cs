@@ -1,5 +1,6 @@
 ﻿using System;
 using FunkyBot.Cache;
+using FunkyBot.Cache.Objects;
 using FunkyBot.Movement;
 using FunkyBot.Targeting.Behaviors;
 using Zeta.Common;

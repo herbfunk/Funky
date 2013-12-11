@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyBot.Cache.Objects;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;

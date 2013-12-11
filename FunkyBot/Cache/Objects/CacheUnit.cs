@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using FunkyBot.Player.HotBar.Skills;
+using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
+using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta;
 using Zeta.Common;
 using Zeta.Internals.Actors;
 using Zeta.Internals.SNO;
 using Zeta.TreeSharp;
-using FunkyBot.Cache.Enums;
 
-namespace FunkyBot.Cache
+namespace FunkyBot.Cache.Objects
 {
 
 	public class CacheUnit : CacheObject
@@ -937,8 +937,8 @@ namespace FunkyBot.Cache
 						// if (this.IsEliteRareUnique||this.IsTreasureGoblin)
 						if (AllowLOSMovement)
 						{
-							if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
-								Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
+							//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+							//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
 							Bot.Targeting.Environment.LoSMovementObjects.Add(this);
 						}
 
@@ -962,8 +962,8 @@ namespace FunkyBot.Cache
 						//if (this.IsEliteRareUnique||this.IsTreasureGoblin) 
 						if (AllowLOSMovement)
 						{
-							if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
-								Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
+							//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+							//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
 							Bot.Targeting.Environment.LoSMovementObjects.Add(this);
 						}
 						return false;
@@ -1055,7 +1055,7 @@ namespace FunkyBot.Cache
 				{
 					ref_DiaUnit = ref_DiaObject as DiaUnit;
 				}
-				catch (NullReferenceException)
+				catch
 				{
 					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 						Logger.Write(LogLevel.Execption, "Failure to convert obj to DiaUnit!");
@@ -1375,7 +1375,7 @@ namespace FunkyBot.Cache
 					if (!bUseThisLoop)
 					{
 						//powerLastSnoPowerUsed = SNOPower.None;
-						if (DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastUse[Bot.Character.Class.PowerPrime.Power]).TotalMilliseconds >= 200)
+						if (Bot.Character.Class.PowerPrime.LastUsedMilliseconds >= 200)
 							bUseThisLoop = true;
 					}
 					if (bUseThisLoop)

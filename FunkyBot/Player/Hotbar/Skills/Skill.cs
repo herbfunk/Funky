@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using FunkyBot.Cache;
+using FunkyBot.Cache.Objects;
 using FunkyBot.Movement;
 using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta;
@@ -255,7 +256,7 @@ namespace FunkyBot.Player.HotBar.Skills
 
 
 
-		  internal static bool CheckClusterConditions(ClusterConditions CC)
+		  internal static bool CheckClusterConditions(SkillClusterConditions CC)
 		  {
 			  return Bot.Targeting.Clusters.AbilityClusterCache(CC).Count > 0;
 		  }

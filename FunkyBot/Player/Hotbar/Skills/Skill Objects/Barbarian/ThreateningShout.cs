@@ -21,17 +21,14 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.Low;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated));
-				FcriteriaCombat=() =>
-				{
-					return (
-						Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_20]>1||
-						(Bot.Targeting.CurrentTarget.IsBoss&&Bot.Targeting.CurrentTarget.RadiusDistance<=20)||
-						(Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>2&&!Bot.Targeting.Environment.bAnyBossesInRange&&
-						 (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_50]==0||
-						  Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_SeismicSlam)))||
-						Bot.Character.Data.dCurrentHealthPct<=0.75
-						);
-				};
+				FcriteriaCombat=() => (
+					Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_20]>1||
+					(Bot.Targeting.CurrentTarget.IsBoss&&Bot.Targeting.CurrentTarget.RadiusDistance<=20)||
+					(Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>2&&!Bot.Targeting.Environment.bAnyBossesInRange&&
+					 (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_50]==0||
+					  Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_SeismicSlam)))||
+					Bot.Character.Data.dCurrentHealthPct<=0.75
+					);
 		  }
 
 		  #region IAbility

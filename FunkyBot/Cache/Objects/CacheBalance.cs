@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Zeta.Internals.Actors;
 
-namespace FunkyBot.Cache
+namespace FunkyBot.Cache.Objects
 {
 
 		  public class CacheBalance

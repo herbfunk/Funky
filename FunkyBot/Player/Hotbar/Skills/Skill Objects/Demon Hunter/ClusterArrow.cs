@@ -1,5 +1,4 @@
-﻿using FunkyBot.Movement.Clustering;
-using System;
+﻿using System;
 using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
@@ -24,7 +23,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_50, 3);
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_50, 1);
 				//SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial,69),
-				ClusterConditions=new ClusterConditions(4d, 45, 2, true);
+				ClusterConditions=new SkillClusterConditions(4d, 45, 2, true);
 		  }
 
 		  #region IAbility

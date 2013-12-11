@@ -1,5 +1,6 @@
 ﻿using System;
 using FunkyBot.Cache;
+using FunkyBot.Cache.Objects;
 using Zeta.Internals.SNO;
 
 namespace FunkyBot.Player.HotBar.Skills.Conditions
@@ -27,10 +28,12 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 		  #region Function Creation Methods
 		  private static void CreateClusterConditions(out Func<bool> FClusterConditions, Skill ability)
 		  {
-				FClusterConditions=null;
-				if (ability.ClusterConditions==null) return;
+			  FClusterConditions = null;
 
-				FClusterConditions=() => Skill.CheckClusterConditions(ability.ClusterConditions);
+			  if (ability.ClusterConditions == null)
+				  return;
+
+				FClusterConditions=ability.ClusterConditions.Criteria;
 
 				if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTarget|AbilityExecuteFlags.ClusterTargetNearest))
 				{

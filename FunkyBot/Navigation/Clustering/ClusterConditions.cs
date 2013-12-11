@@ -27,7 +27,7 @@
 
 			public override int GetHashCode()
 			{
-				 return this.GUID.GetHashCode();
+				 return GUID.GetHashCode();
 			}
 			public override bool Equals(object obj)
 			{
@@ -36,15 +36,12 @@
 				 {
 					  return false;
 				 }
-				 else
-				 {
-					  ClusterConditions p=(ClusterConditions)obj;
-					  return ClusterDistance==p.ClusterDistance
-								&&MaximumDistance==p.MaximumDistance
-								&&MinimumUnits==p.MinimumUnits
-								&&IgnoreNonTargetable==p.IgnoreNonTargetable
-								&&DOTDPSRatio==p.DOTDPSRatio;
-				 }
+				ClusterConditions p=(ClusterConditions)obj;
+				return ClusterDistance==p.ClusterDistance
+				       &&MaximumDistance==p.MaximumDistance
+				       &&MinimumUnits==p.MinimumUnits
+				       &&IgnoreNonTargetable==p.IgnoreNonTargetable
+				       &&DOTDPSRatio==p.DOTDPSRatio;
 			}
 
 			public string ToString()

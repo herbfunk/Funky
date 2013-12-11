@@ -1,6 +1,7 @@
 ﻿using System;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Cache.Objects;
 using Zeta.Common;
 
 namespace FunkyBot.Targeting.Behaviors

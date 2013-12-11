@@ -2,15 +2,16 @@
 using System.Diagnostics;
 using System.Linq;
 using FunkyBot.Cache.Enums;
+using FunkyBot.DBHandlers;
+using FunkyBot.Player;
 using Zeta;
 using Zeta.Common;
+using Zeta.CommonBot;
 using Zeta.CommonBot.Logic;
 using Zeta.Internals.Actors;
-using Zeta.CommonBot;
 using Zeta.TreeSharp;
-using FunkyBot.Player;
 
-namespace FunkyBot.Cache
+namespace FunkyBot.Cache.Objects
 {
 
 		  public class CacheItem : CacheObject
@@ -377,7 +378,7 @@ namespace FunkyBot.Cache
 						  try
 						  {
 								ref_DiaItem=(DiaItem)ref_DiaObject;
-						  } catch (NullReferenceException) { Logging.WriteVerbose("Failure to convert obj to DiaItem!"); return false; }
+						  } catch { Logging.WriteVerbose("Failure to convert obj to DiaItem!"); return false; }
 					 }
 
 					 if (targetType.Value==TargetType.Item)

@@ -4,19 +4,8 @@ using Zeta.Internals;
 using Zeta.TreeSharp;
 namespace FunkyBot
 {
-	public class Death
+	public partial class EventHandlers
 	{
-		 public static bool DeathOverlord(object ret)
-		 {
-			 using (ZetaDia.Memory.AcquireFrame())
-			 {
-				 if (ZetaDia.Me.IsDead)
-					 return true;
-			 }
-
-			  return false;
-		 }
-
 		 private static bool WaitingForRevive;
 		 public static RunStatus DeathHandler(object ret)
 		 {

@@ -3,11 +3,13 @@ using System.Globalization;
 using System.Linq;
 using System.Collections.Generic;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Cache.Objects;
 using FunkyBot.Movement;
 using Zeta;
 using Zeta.Common;
 using Zeta.Internals.Actors;
 using Zeta.Internals.SNO;
+using FunkyBot.Cache.Collections;
 
 namespace FunkyBot.Cache
 {
@@ -15,24 +17,24 @@ namespace FunkyBot.Cache
 	 ///<summary>
 	 ///Contains Collections for all the cached objects being tracked.
 	 ///</summary>
-	 public static partial class ObjectCache
+	 public static class ObjectCache
 	 {
 		  internal static CacheObject FakeCacheObject;
 
 		  ///<summary>
 		  ///Cached Objects.
 		  ///</summary>
-		  public static ObjectCollection Objects=new ObjectCollection();
+		  public static ObjectCollection Objects = new ObjectCollection();
 
 		  ///<summary>
 		  ///Obstacles related to either avoidances or navigational blocks.
 		  ///</summary>
-		  public static ObstacleCollection Obstacles=new ObstacleCollection();
+		  public static ObstacleCollection Obstacles = new ObstacleCollection();
 
 		  ///<summary>
 		  ///Cached Sno Data.
 		  ///</summary>
-		  public static SnoCollection cacheSnoCollection=new SnoCollection();
+		  public static SnoCollection cacheSnoCollection = new SnoCollection();
 
 		  internal static bool CheckTargetTypeFlag(TargetType property, TargetType flag)
 		  {

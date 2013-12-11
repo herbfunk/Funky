@@ -1,6 +1,7 @@
 ﻿using System;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Cache.Objects;
 using Zeta;
 using Zeta.Common;
 using Zeta.Internals;
@@ -13,7 +14,7 @@ using System.IO;
 using FunkyBot.Player;
 
 
-namespace FunkyBot
+namespace FunkyBot.DBHandlers
 {
 
 	internal static partial class TownRunManager

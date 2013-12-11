@@ -5,7 +5,7 @@ using Zeta.TreeSharp;
 using Zeta.Internals.Actors;
 
 
-namespace FunkyBot
+namespace FunkyBot.DBHandlers
 {
 
 	internal static partial class TownRunManager
@@ -80,20 +80,17 @@ namespace FunkyBot
 				Navigation.NP.Clear();
 				return RunStatus.Success;
 			}
-			else
-			{
-				if (Navigation.NP.CurrentPath.Count > 0 && vectorPlayerPosition.Distance(Navigation.NP.CurrentPath.Current) <= Navigation.NP.PathPrecision)
-					Navigation.NP.MoveTo(TownportalMovementVector3, "TownPortal", true);
+			if (Navigation.NP.CurrentPath.Count > 0 && vectorPlayerPosition.Distance(Navigation.NP.CurrentPath.Current) <= Navigation.NP.PathPrecision)
+				Navigation.NP.MoveTo(TownportalMovementVector3, "TownPortal", true);
 
-				//Use our click movement
-				Bot.NavigationCache.RefreshMovementCache();
+			//Use our click movement
+			Bot.NavigationCache.RefreshMovementCache();
 
-				//Wait until we are not moving to send click again..
-				if (Bot.NavigationCache.IsMoving)
-					return RunStatus.Running;
+			//Wait until we are not moving to send click again..
+			if (Bot.NavigationCache.IsMoving)
+				return RunStatus.Running;
 
-				ZetaDia.Me.UsePower(SNOPower.Walk, Navigation.NP.CurrentPath.Current, Bot.Character.Data.iCurrentWorldID, -1);
-			}
+			ZetaDia.Me.UsePower(SNOPower.Walk, Navigation.NP.CurrentPath.Current, Bot.Character.Data.iCurrentWorldID);
 
 			return RunStatus.Success;
 		}

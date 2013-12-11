@@ -41,11 +41,8 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 			 {
 				  return false;
 			 }
-			 else
-			 {
-				  Skill p=(Skill)obj;
-				  return Power==p.Power;
-			 }
+			Skill p=(Skill)obj;
+			return Power==p.Power;
 		}
 
 		#endregion

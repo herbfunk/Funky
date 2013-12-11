@@ -44,7 +44,7 @@ namespace FunkyBot.DBHandlers
 								if (File.Exists(NewGameProfile))
 								{
 									 Logger.Write(LogLevel.OutOfGame, "Loading NewGame profile");
-									 ProfileManager.Load(NewGameProfile, true);
+									 ProfileManager.Load(NewGameProfile);
 									 CharacterSettings.Instance.MonsterPowerLevel=0;
 								}
 						  }
@@ -57,7 +57,7 @@ namespace FunkyBot.DBHandlers
 					 return RunStatus.Running;
 				}
 
-				private static GizmoPlayerSharedStash CurrentStashObject=null;
+				private static GizmoPlayerSharedStash CurrentStashObject;
 				private static Vector3 StashV3=new Vector3(2971.285f, 2798.801f, 24.04533f);
 				private static Queue<ACDItem> SortedStashItems=new Queue<ACDItem>();
 

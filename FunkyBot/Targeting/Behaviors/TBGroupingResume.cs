@@ -1,4 +1,6 @@
-﻿namespace FunkyBot.Targeting.Behaviors
+﻿using FunkyBot.Cache.Objects;
+
+namespace FunkyBot.Targeting.Behaviors
 {
 	 public class TBGroupingResume : TargetBehavior
 	 {
@@ -15,7 +17,7 @@
 		  }
 		  public override void Initialize()
 		  {
-				base.Test=(ref Cache.CacheObject obj) =>
+				base.Test=(ref CacheObject obj) =>
 				{
 					 if (!Bot.NavigationCache.groupReturningToOrgin)
 					 {//Not returning to Orgin Target

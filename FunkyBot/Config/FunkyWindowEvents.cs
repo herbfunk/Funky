@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
 using FunkyBot.Cache;
+using FunkyBot.Cache.Objects;
 using FunkyBot.Settings;
 using System.Windows.Controls;
 using Zeta.Common;

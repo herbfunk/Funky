@@ -1,5 +1,4 @@
-﻿using FunkyBot.Movement.Clustering;
-using FunkyBot.Player.HotBar.Skills.Conditions;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
@@ -24,7 +23,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 
 				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial,
 					falseConditionalFlags: TargetProperties.Fast);
-				ClusterConditions=new ClusterConditions(4d, Bot.Character.Class.HotBar.RuneIndexCache[Power]==4?20f:40f, 2, true);
+				ClusterConditions=new SkillClusterConditions(4d, Bot.Character.Class.HotBar.RuneIndexCache[Power]==4?20f:40f, 2, true);
 
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
 		  }

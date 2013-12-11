@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FunkyBot.Cache.Objects;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
@@ -24,7 +25,7 @@ namespace FunkyBot.Targeting.Behaviors
 		 }
 		 public override void Initialize()
 		 {
-			  base.Test=(ref Cache.CacheObject obj) =>
+			  base.Test=(ref CacheObject obj) =>
 			  {
 					this.bStayPutDuringAvoidance=false;
 

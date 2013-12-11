@@ -1,5 +1,4 @@
-﻿using FunkyBot.Movement.Clustering;
-using FunkyBot.Player.HotBar.Skills.Conditions;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Wizard
@@ -19,7 +18,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated));
 
 				//Aim for cluster with 2 units very close together.
-				ClusterConditions=new ClusterConditions(3d, Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Wizard_Electrocute]==2?15:40, 2,
+				ClusterConditions=new SkillClusterConditions(3d, Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Wizard_Electrocute]==2?15:40, 2,
 					true);
 				//No conditions for a single target.
 				SingleUnitCondition=new UnitTargetConditions();

@@ -4,7 +4,7 @@ using Zeta.Common;
 using Zeta.Internals.Actors;
 using Zeta.Internals.Actors.Gizmos;
 
-namespace FunkyBot.Cache
+namespace FunkyBot.Cache.Objects
 {
 
 		  public class CacheGizmo : CacheObject
@@ -82,7 +82,7 @@ namespace FunkyBot.Cache
 						  try
 						  {
 								this.ref_Gizmo=(DiaGizmo)base.ref_DiaObject;
-						  } catch (NullReferenceException)
+						  } catch
 						  {
 								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 									 Logger.Write(LogLevel.Execption, "Failure to convert obj to DiaItem!"); return false;
@@ -90,9 +90,14 @@ namespace FunkyBot.Cache
 					 }
 
 					 //Destructibles are not important unless they are close.. 40f is minimum range!
-					 if ((this.targetType.Value==TargetType.Destructible||this.targetType.Value==TargetType.Barricade)
-						  &&this.CentreDistance>40f)
-						  return false;
+					 if ((this.targetType.Value == TargetType.Destructible || this.targetType.Value == TargetType.Barricade) && this.CentreDistance > 40f)
+					 {
+						 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+							Logger.Write(LogLevel.Target, "Removing Destructible/Barricade {0} out of range!", InternalName);
+
+						 this.BlacklistLoops = 12;
+						 return false;
+					 }
 
 					 if ((TargetType.Interactables.HasFlag(base.targetType.Value))
 						  &&(!this.GizmoHasBeenUsed.HasValue||!this.GizmoHasBeenUsed.Value))
@@ -135,6 +140,9 @@ namespace FunkyBot.Cache
 						  //Blacklist used gizmos.
 						  if (this.GizmoHasBeenUsed.HasValue&&this.GizmoHasBeenUsed.Value)
 						  {
+							  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
+								  Logger.Write(LogLevel.Target, "Removing {0} Has Been Used!", InternalName);
+
 								this.BlacklistFlag=BlacklistType.Permanent;
 								this.NeedsRemoved=true;
 								return false;

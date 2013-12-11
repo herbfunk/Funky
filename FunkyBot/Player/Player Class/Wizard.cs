@@ -15,7 +15,7 @@ namespace FunkyBot.Player.Class
 				//Base class for each individual class!
 			  internal override ActorClass AC { get { return ActorClass.Wizard; } }
 
-				private HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
+				private readonly HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
 				{
 					 SNOAnim.Wizard_Female_Archon_knockback_land,
 					 SNOAnim.Wizard_Male_Archon_knockback_land,

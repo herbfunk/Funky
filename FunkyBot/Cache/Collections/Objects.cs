@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using Zeta.Common;
-using System.Linq;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using FunkyBot.Cache.Objects;
+using Zeta.Common;
 
-namespace FunkyBot.Cache
+namespace FunkyBot.Cache.Collections
 {
 
-		  public partial class ObjectCache
-		  {
+
 				///<summary>
 				///Collection which is used to hold cached objects.
 				///</summary>
@@ -215,6 +215,6 @@ namespace FunkyBot.Cache
 
 					 #endregion
 				}
-		  }
+		  
 	 
 }
