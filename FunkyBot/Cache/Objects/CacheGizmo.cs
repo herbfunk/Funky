@@ -85,7 +85,11 @@ namespace FunkyBot.Cache.Objects
 						  } catch
 						  {
 								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
-									 Logger.Write(LogLevel.Execption, "Failure to convert obj to DiaItem!"); return false;
+									 Logger.Write(LogLevel.Execption, "Failure to convert obj to DiaItem!");
+
+
+								NeedsRemoved = true;
+							  return false;
 						  }
 					 }
 
@@ -130,7 +134,7 @@ namespace FunkyBot.Cache.Objects
 									 GizmoLootContainer gizmoContainer=this.ref_Gizmo as GizmoLootContainer;
 									 this.GizmoHasBeenUsed=gizmoContainer.IsOpen;
 								}
-						  } catch (AccessViolationException)
+						  } catch
 						  {
 								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 									 Logger.Write(LogLevel.Execption, "Safely handled getting attribute GizmoHasBeenOperated gizmo {0}", this.InternalName);
@@ -161,10 +165,10 @@ namespace FunkyBot.Cache.Objects
 						  try
 						  {
 								this.PhysicsSNO=base.ref_DiaObject.PhysicsSNO;
-						  } catch (NullReferenceException ex)
+						  } catch
 						  {
 								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
-									 Logger.Write(LogLevel.Execption, "Safely handled exception getting physics SNO for object "+this.InternalName+" ["+this.SNOID.ToString()+"]\r\n"+ex.Message);
+									 Logger.Write(LogLevel.Execption, "Safely handled exception getting physics SNO for object "+this.InternalName+" ["+this.SNOID+"]");
 								return false;
 						  }
 					 }
@@ -176,7 +180,7 @@ namespace FunkyBot.Cache.Objects
 						{
 							AnimState=(base.ref_DiaObject.CommonData.AnimationState);
 						}
-						catch (Exception)
+						catch
 						{
 							AnimState=AnimationState.Invalid;
 						}

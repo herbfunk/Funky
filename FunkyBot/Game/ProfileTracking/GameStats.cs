@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using FunkyBot.Cache;
-using FunkyBot.DBHandlers;
-using Zeta;
 using Zeta.CommonBot.Settings;
 
 namespace FunkyBot.Game
@@ -41,7 +39,7 @@ namespace FunkyBot.Game
 				var total = new TimeSpan();
 				foreach (var P in Profiles)
 				{
-					if (P==CurrentProfile)
+					if (P.Equals(CurrentProfile))
 					{//Current Profile requires Live Data
 						P.UpdateRangeVariables();
 						P.RestartRangeVariables();
@@ -62,7 +60,7 @@ namespace FunkyBot.Game
 				var total = new LootTracking();
 				foreach (var P in Profiles)
 				{
-					if (P == CurrentProfile)
+					if (P.Equals(CurrentProfile))
 					{//Current Profile requires Live Data
 						P.UpdateRangeVariables();
 						P.RestartRangeVariables();

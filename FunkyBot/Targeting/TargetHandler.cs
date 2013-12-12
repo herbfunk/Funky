@@ -30,7 +30,6 @@ namespace FunkyBot.Targeting
 		  ///</summary>
 		  public RunStatus HandleThis()
 		  {
-
 				//Prechecks
 				bool Continue=PreChecks();
 

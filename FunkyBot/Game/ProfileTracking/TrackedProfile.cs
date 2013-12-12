@@ -73,9 +73,9 @@ namespace FunkyBot.Game
 								TotalGold, 
 								TotalXP, 
 								LootTracker,
-								(DeathCount * TotalTimeSpan.TotalHours).ToString("#.##"),
-								(TotalXP * TotalTimeSpan.TotalHours).ToString("#.##"),
-								(TotalGold * TotalTimeSpan.TotalHours).ToString("#.##"));
+								(DeathCount / TotalTimeSpan.TotalHours).ToString("#.##"),
+								(TotalXP / TotalTimeSpan.TotalHours).ToString("#.##"),
+								(TotalGold / TotalTimeSpan.TotalHours).ToString("#.##"));
 		}
 
         public override bool Equals(object obj)

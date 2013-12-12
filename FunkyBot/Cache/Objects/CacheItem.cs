@@ -378,7 +378,13 @@ namespace FunkyBot.Cache.Objects
 						  try
 						  {
 								ref_DiaItem=(DiaItem)ref_DiaObject;
-						  } catch { Logging.WriteVerbose("Failure to convert obj to DiaItem!"); return false; }
+						  } catch 
+						  {
+							  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+								  Logger.Write(LogLevel.Execption, "Failure to convert obj {0} to DiaItem!", InternalName);
+							  NeedsRemoved = true;
+							  return false;
+						  }
 					 }
 
 					 if (targetType.Value==TargetType.Item)
@@ -390,10 +396,12 @@ namespace FunkyBot.Cache.Objects
 								try
 								{
 									 DynamicID=ref_DiaObject.CommonData.DynamicId;
-								} catch (NullReferenceException ex)
+								} catch
 								{
 									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
-										  Logger.Write(LogLevel.Execption, "Failure to get Dynamic ID for {0} \r\n Exception: {1}", InternalName, ex.Message); return false;
+										  Logger.Write(LogLevel.Execption, "Failure to get Dynamic ID for {0}", InternalName);
+									
+									return false;
 								}
 						  }
 						  #endregion
@@ -404,10 +412,11 @@ namespace FunkyBot.Cache.Objects
 								try
 								{
 									 BalanceID=ref_DiaObject.CommonData.GameBalanceId;
-								} catch (NullReferenceException)
+								} catch
 								{
 									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
-										  Logger.Write(LogLevel.Execption, "Failure to get gamebalance ID for item {0}", InternalName); return false;
+										  Logger.Write(LogLevel.Execption, "Failure to get gamebalance ID for item {0}", InternalName); 
+									return false;
 								}
 						  }
 
@@ -435,7 +444,7 @@ namespace FunkyBot.Cache.Objects
 									 }
 
 									 thisnewGamebalance = new CacheBalance(balanceid,itemlevel: tmp_Level, itemtype: tmp_ThisType, itembasetype: tmp_ThisDBItemType, onehand: tmp_bThisOneHanded, twohand: tmp_bThisTwoHanded, followertype: tmp_ThisFollowerType);
-								} catch (NullReferenceException)
+								} catch
 								{
 									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 										  Logger.Write(LogLevel.Execption, "Failure to add/update gamebalance data for item {0}", InternalName);
@@ -463,7 +472,7 @@ namespace FunkyBot.Cache.Objects
 								try
 								{
 									 Itemquality=ref_DiaItem.CommonData.ItemQualityLevel;
-								} catch (Exception)
+								} catch
 								{
 									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 										  Logger.Write(LogLevel.Execption, "Failure to get item quality for {0}", InternalName); 
@@ -526,7 +535,7 @@ namespace FunkyBot.Cache.Objects
 								try
 								{
 									 GoldAmount=ref_DiaItem.CommonData.GetAttribute<int>(ActorAttributeType.Gold);
-								} catch (Exception)
+								} catch
 								{
 									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 										  Logger.Write(LogLevel.Execption, "Failure to get gold amount for gold pile!"); 

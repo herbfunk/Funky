@@ -1059,6 +1059,8 @@ namespace FunkyBot.Cache.Objects
 				{
 					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 						Logger.Write(LogLevel.Execption, "Failure to convert obj to DiaUnit!");
+
+					NeedsRemoved = true;
 					return false;
 				}
 			}
@@ -1142,7 +1144,7 @@ namespace FunkyBot.Cache.Objects
 				{
 					CheckMonsterAffixes(CommonData.MonsterAffixes);
 				}
-				catch (NullReferenceException)
+				catch
 				{
 					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 						Logger.Write(LogLevel.Execption, "Failure to check monster affixes for unit {0}", InternalName);
@@ -1167,7 +1169,7 @@ namespace FunkyBot.Cache.Objects
 						}
 					}
 				}
-				catch (Exception)
+				catch
 				{
 					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 						Logger.Write(LogLevel.Execption, "Failure to get maximum health for {0}", InternalName);

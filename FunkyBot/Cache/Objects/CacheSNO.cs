@@ -514,10 +514,12 @@ namespace FunkyBot.Cache.Objects
 						  try
 						  {
 								InternalName=thisObj.Name;
-						  } catch (NullReferenceException)
+						  } catch
 						  {
 								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
-									 Logger.Write(LogLevel.Execption, "Failure to get internal name on object, SNO {0}", SNOID); return false;
+									 Logger.Write(LogLevel.Execption, "Failure to get internal name on object, SNO {0}", SNOID); 
+							  
+							  return false;
 						  }
 					 }
 
@@ -527,10 +529,12 @@ namespace FunkyBot.Cache.Objects
 						  try
 						  {
 								Actortype=thisObj.ActorType;
-						  } catch (NullReferenceException)
+						  } catch
 						  {
 								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
-									 Logger.Write(LogLevel.Execption, "Failure to get actorType for object, SNO: {0}", SNOID); return false;
+									 Logger.Write(LogLevel.Execption, "Failure to get actorType for object, SNO: {0}", SNOID); 
+							  
+							  return false;
 						  }
 						  #endregion
 					 }
@@ -610,7 +614,12 @@ namespace FunkyBot.Cache.Objects
 										  try
 										  {
 												thisGizmoType=thisObj.ActorInfo.GizmoType;
-										  } catch (NullReferenceException) { Logger.Write(LogLevel.Execption, "Failure to get actor Gizmo Type!"); return false; }
+										  } catch
+										  {
+											  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
+												Logger.Write(LogLevel.Execption, "Failure to get actor Gizmo Type!");
+											  return false; 
+										  }
 
 
 										  if (thisGizmoType==GizmoType.DestructibleLootContainer||thisGizmoType==GizmoType.Destructible)
@@ -704,10 +713,11 @@ namespace FunkyBot.Cache.Objects
 										  return false;
 									 }
 								}
-						  } catch (NullReferenceException)
+						  } catch
 						  {
 								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
-									 Logger.Write(LogLevel.Execption, "Failure to get actorType for object, SNO: {0}", SNOID); return false;
+									 Logger.Write(LogLevel.Execption, "Failure to get actorType for object, SNO: {0}", SNOID); 
+							  return false;
 						  }
 						  #endregion
 					 }
@@ -723,7 +733,7 @@ namespace FunkyBot.Cache.Objects
 						  try
 						  {
 								monsterInfo=thisObj.CommonData.MonsterInfo;
-						  } catch (Exception)
+						  } catch
 						  {
 								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 									 Logger.Write(LogLevel.Execption, "Safely Handled MonsterInfo Exception for Object {0}", InternalName);
@@ -737,10 +747,12 @@ namespace FunkyBot.Cache.Objects
 								try
 								{
 									 Monstertype=monsterInfo.MonsterType;
-								} catch (NullReferenceException )
+								} catch
 								{
 									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
-										  Logger.Write(LogLevel.Execption, "Failure to get MonsterType for SNO: {0}", SNOID); failureDuringUpdate=true;
+										  Logger.Write(LogLevel.Execption, "Failure to get MonsterType for SNO: {0}", SNOID); 
+									
+									failureDuringUpdate=true;
 								}
 								#endregion
 						  }
@@ -750,26 +762,15 @@ namespace FunkyBot.Cache.Objects
 								try
 								{
 									 Monstersize=monsterInfo.MonsterSize;
-								} catch (NullReferenceException )
+								} catch
 								{
 									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
-										  Logger.Write(LogLevel.Execption, "Failure to get MonsterSize for SNO: {0}", SNOID); failureDuringUpdate=true;
+										  Logger.Write(LogLevel.Execption, "Failure to get MonsterSize for SNO: {0}", SNOID); 
+									
+									failureDuringUpdate=true;
 								}
 								#endregion
 						  }
-
-						  /*
-						  if (!this.RunningRate.HasValue)
-						  {
-								#region RunningRate
-								try
-								{
-									 this.RunningRate=thisObj.CommonData.GetAttribute<double>(ActorAttributeType.);
-								} catch
-								{ Logging.WriteVerbose("Failure to get RunningRate for SNO: {0}", this.SNOID); return false; }
-								#endregion
-						  }
-						  */
 					 }
 
 
@@ -785,10 +786,12 @@ namespace FunkyBot.Cache.Objects
 								try
 								{
 									 CollisionRadius=sphereInfo.Radius;
-								} catch (NullReferenceException )
+								} catch
 								{
 									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
-										  Logger.Write(LogLevel.Execption, "Failure to get CollisionRadius for SNO: {0}", SNOID); failureDuringUpdate=true;
+										  Logger.Write(LogLevel.Execption, "Failure to get CollisionRadius for SNO: {0}", SNOID); 
+									
+									failureDuringUpdate=true;
 								}
 								#endregion
 
@@ -804,7 +807,7 @@ namespace FunkyBot.Cache.Objects
 								try
 								{
 									 ActorSphereRadius=thisObj.ActorInfo.Sphere.Radius;
-								} catch (NullReferenceException )
+								} catch
 								{
 									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 										  Logger.Write(LogLevel.Execption, "Safely handled getting attribute Sphere radius for gizmo {0}", InternalName);
@@ -823,7 +826,7 @@ namespace FunkyBot.Cache.Objects
 									 try
 									 {
 										  DropsNoLoot=thisObj.CommonData.GetAttribute<float>(ActorAttributeType.DropsNoLoot)<=0;
-									 } catch (NullReferenceException )
+									 } catch
 									 {
 										  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 												Logger.Write(LogLevel.Execption, "Safely handled reading DropsNoLoot for gizmo {0}", InternalName);
@@ -839,7 +842,7 @@ namespace FunkyBot.Cache.Objects
 									 {
 
 										  GrantsNoXP=thisObj.CommonData.GetAttribute<float>(ActorAttributeType.GrantsNoXP)<=0;
-									 } catch (NullReferenceException )
+									 } catch
 									 {
 										  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 												Logger.Write(LogLevel.Execption, "Safely handled reading GrantsNoXp for gizmo {0}", InternalName);
@@ -854,7 +857,7 @@ namespace FunkyBot.Cache.Objects
 									 try
 									 {
 										  IsBarricade=((DiaGizmo)thisObj).IsBarricade;
-									 } catch (NullReferenceException )
+									 } catch
 									 {
 										  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
 												Logger.Write(LogLevel.Execption, "Safely handled getting attribute IsBarricade for gizmo {0}", InternalName);
@@ -867,11 +870,7 @@ namespace FunkyBot.Cache.Objects
 					 }
 
 
-					 if (failureDuringUpdate)
-						  return false;
-
-
-					 return true;
+					 return !failureDuringUpdate;
 				}
 
 				public override int GetHashCode()
