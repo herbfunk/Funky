@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-
-
 namespace GilesTrinity.ItemRules.Core
 {
     #region Parser

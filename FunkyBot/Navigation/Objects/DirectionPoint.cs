@@ -1,6 +1,4 @@
-﻿using System;
-using Zeta;
-using Zeta.Common;
+﻿using Zeta.Common;
 
 namespace FunkyBot.Movement
 {

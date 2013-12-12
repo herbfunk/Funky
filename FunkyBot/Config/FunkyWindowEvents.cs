@@ -1,16 +1,21 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Forms;
+using System.Windows.Media;
 using FunkyBot.Cache;
-using FunkyBot.Movement;
+using FunkyBot.Cache.Objects;
 using FunkyBot.Settings;
-using Zeta;
 using System.Windows.Controls;
 using Zeta.Common;
-using System.Globalization;
-using System.Collections.ObjectModel;
-using Zeta.Internals.Actors;
+using Zeta.CommonBot;
+using Button = System.Windows.Controls.Button;
+using CheckBox = System.Windows.Controls.CheckBox;
+using MessageBox = System.Windows.MessageBox;
+using Orientation = System.Windows.Controls.Orientation;
+using RadioButton = System.Windows.Controls.RadioButton;
 
 namespace FunkyBot
 {
@@ -20,10 +25,10 @@ namespace FunkyBot
 				internal static void buttonFunkySettingDB_Click(object sender, RoutedEventArgs e)
 				 {
 					 //Update Account Details when bot is not running!
-					 if (!Zeta.CommonBot.BotMain.IsRunning)
-						 Bot.Game.UpdateCurrentAccountDetails();
+					 if (!BotMain.IsRunning)
+						 Bot.Character.Account.UpdateCurrentAccountDetails();
 
-					 string settingsFolder = FolderPaths.sDemonBuddyPath + @"\Settings\FunkyBot\" + Bot.Game.CurrentAccountName;
+					 string settingsFolder = FolderPaths.sDemonBuddyPath + @"\Settings\FunkyBot\" + Bot.Character.Account.CurrentAccountName;
 					  if (!Directory.Exists(settingsFolder)) Directory.CreateDirectory(settingsFolder);
 
 					  try
@@ -42,7 +47,7 @@ namespace FunkyBot
                 {
                     try
                     {
-                        System.Diagnostics.Process.Start(FolderPaths.sFunkySettingsCurrentPath);
+                        Process.Start(FolderPaths.sFunkySettingsCurrentPath);
                     }
                     catch
                     {
@@ -51,13 +56,13 @@ namespace FunkyBot
                 }
 				private void DefaultMenuLevelingClicked(object sender, EventArgs e)
 				{
-					 System.Windows.MessageBoxResult confirm=System.Windows.MessageBox.Show(funkyConfigWindow, 
+					 var confirm=MessageBox.Show(funkyConfigWindow, 
 						  "Are you sure you want to overwrite settings with default settings?", 
-						  "Confirm Overwrite", System.Windows.MessageBoxButton.YesNoCancel, System.Windows.MessageBoxImage.Question);
-					 if (confirm== System.Windows.MessageBoxResult.Yes)
+						  "Confirm Overwrite", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+					 if (confirm== MessageBoxResult.Yes)
 					 {
 						  string DefaultLeveling=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults", "LowLevel.xml");
-						  Logging.Write("Creating new settings for {0} -- {1} using file {2}", Bot.Game.CurrentAccountName, Bot.Game.CurrentHeroName, DefaultLeveling);
+						  Logging.Write("Creating new settings for {0} -- {1} using file {2}", Bot.Character.Account.CurrentAccountName, Bot.Character.Account.CurrentHeroName, DefaultLeveling);
 						  Settings_Funky newSettings=Settings_Funky.DeserializeFromXML(DefaultLeveling);
 						  Bot.Settings=newSettings;
 						  funkyConfigWindow.Close();
@@ -65,23 +70,23 @@ namespace FunkyBot
 				}
 				private void DefaultMenuLoadProfileClicked(object sender, EventArgs e)
 				{
-					 System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
+					 var OFD=new OpenFileDialog
 					 {
 						  InitialDirectory=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
 						  RestoreDirectory=false,
 						  Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
 						  Title="Open Settings",
 					 };
-					 System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
+					 DialogResult OFD_Result=OFD.ShowDialog();
 
 					 if (OFD_Result==System.Windows.Forms.DialogResult.OK)
 					 {
 						  try
 						  {
-								System.Windows.MessageBoxResult confirm=System.Windows.MessageBox.Show(funkyConfigWindow, "Are you sure you want to overwrite settings with selected profile?", "Confirm Overwrite", System.Windows.MessageBoxButton.YesNoCancel, System.Windows.MessageBoxImage.Question);
-								if (confirm==System.Windows.MessageBoxResult.Yes)
+								MessageBoxResult confirm=MessageBox.Show(funkyConfigWindow, "Are you sure you want to overwrite settings with selected profile?", "Confirm Overwrite", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+								if (confirm==MessageBoxResult.Yes)
 								{
-									Logging.Write("Creating new settings for {0} -- {1} using file {2}", Bot.Game.CurrentAccountName, Bot.Game.CurrentHeroName, OFD.FileName);
+									Logging.Write("Creating new settings for {0} -- {1} using file {2}", Bot.Character.Account.CurrentAccountName, Bot.Character.Account.CurrentHeroName, OFD.FileName);
 									 Settings_Funky newSettings=Settings_Funky.DeserializeFromXML(OFD.FileName);
 									 Bot.Settings=newSettings;
 									 funkyConfigWindow.Close();
@@ -99,7 +104,7 @@ namespace FunkyBot
 					  LogLevel LogLevelValue= (LogLevel)Enum.Parse(typeof(LogLevel),cbSender.Name);
 
 					  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevelValue))
-							Bot.Settings.Debug.FunkyLogFlags&=LogLevelValue;
+							Bot.Settings.Debug.FunkyLogFlags&= ~LogLevelValue;
 					  else
 							Bot.Settings.Debug.FunkyLogFlags|=LogLevelValue;
 			    }
@@ -140,35 +145,35 @@ namespace FunkyBot
 							};
 							CheckBox cbMonsterID=new CheckBox
 							{
-								 Background=System.Windows.Media.Brushes.MediumSeaGreen,
+								 Background=Brushes.MediumSeaGreen,
 								 FontSize=11,
 								 Content="Unit",
-								 Foreground=System.Windows.Media.Brushes.GhostWhite,
-								 Margin=new System.Windows.Thickness(5),
+								 Foreground=Brushes.GhostWhite,
+								 Margin=new Thickness(5),
 							};
 							CheckBox cbItemID=new CheckBox
 							{
-								 Background=System.Windows.Media.Brushes.Gold,
+								 Background=Brushes.Gold,
 								 FontSize=11,
 								 Content="Item",
-								 Foreground=System.Windows.Media.Brushes.GhostWhite,
-								 Margin=new System.Windows.Thickness(5),
+								 Foreground=Brushes.GhostWhite,
+								 Margin=new Thickness(5),
 							};
 							CheckBox cbDestructibleID=new CheckBox
 							{
-								 Background=System.Windows.Media.Brushes.DarkSlateGray,
+								 Background=Brushes.DarkSlateGray,
 								 FontSize=11,
 								 Content="Destructible",
-								 Foreground=System.Windows.Media.Brushes.GhostWhite,
-								 Margin=new System.Windows.Thickness(5),
+								 Foreground=Brushes.GhostWhite,
+								 Margin=new Thickness(5),
 							};
 							CheckBox cbInteractableID=new CheckBox
 							{
-								 Background=System.Windows.Media.Brushes.DimGray,
+								 Background=Brushes.DimGray,
 								 FontSize=11,
 								 Content="Interactable",
-								 Foreground=System.Windows.Media.Brushes.GhostWhite,
-								 Margin=new System.Windows.Thickness(5),
+								 Foreground=Brushes.GhostWhite,
+								 Margin=new Thickness(5),
 							};
 							spColorIndexs.Children.Add(cbMonsterID);
 							spColorIndexs.Children.Add(cbItemID);
@@ -178,7 +183,7 @@ namespace FunkyBot
 							
 							#endregion
 
-                     Zeta.Common.Logging.WriteVerbose("Dumping Object Cache");
+                     Logging.WriteVerbose("Dumping Object Cache");
 
 							OutPut+="\r\n";
                      try
@@ -192,14 +197,14 @@ namespace FunkyBot
 									  TextBlock objDebug=new TextBlock
 									  {
 											Text=objDebugStr,
-											TextAlignment= System.Windows.TextAlignment.Left,
+											TextAlignment= TextAlignment.Left,
 											FontSize=11,
-											Foreground=(item is CacheItem)?System.Windows.Media.Brushes.Black:System.Windows.Media.Brushes.GhostWhite,
-											Background=(item is CacheDestructable)?System.Windows.Media.Brushes.DarkSlateGray
-											:(item is CacheUnit)?System.Windows.Media.Brushes.MediumSeaGreen
-											:(item is CacheItem)?System.Windows.Media.Brushes.Gold
-											:(item is CacheInteractable)?System.Windows.Media.Brushes.DimGray
-											:System.Windows.Media.Brushes.Gray,
+											Foreground=(item is CacheItem)?Brushes.Black:Brushes.GhostWhite,
+											Background=(item is CacheDestructable)?Brushes.DarkSlateGray
+											:(item is CacheUnit)?Brushes.MediumSeaGreen
+											:(item is CacheItem)?Brushes.Gold
+											:(item is CacheInteractable)?Brushes.DimGray
+											:Brushes.Gray,
 									  };
 									  LBDebug.Items.Add(objDebug);
                          }
@@ -217,7 +222,7 @@ namespace FunkyBot
                  {
                      LBDebug.Items.Add(ObjectCache.Obstacles.DumpDebugInfo());
 
-                     Zeta.Common.Logging.WriteVerbose("Dumping Obstacle Cache");
+                     Logging.WriteVerbose("Dumping Obstacle Cache");
 
                      try
                      {
@@ -239,11 +244,10 @@ namespace FunkyBot
 
                      LBDebug.Items.Add(ObjectCache.cacheSnoCollection.DumpDebugInfo());
 
-                     Zeta.Common.Logging.WriteVerbose("Dumping SNO Cache");
+                     Logging.WriteVerbose("Dumping SNO Cache");
                      try
                      {
-								 var SortedValues=ObjectCache.cacheSnoCollection.Values.OrderBy(obj => obj.SNOID);
-                         foreach (var item in ObjectCache.cacheSnoCollection)
+	                     foreach (var item in ObjectCache.cacheSnoCollection)
                          {
                              LBDebug.Items.Add(item.Value.DebugString);
                          }
@@ -259,9 +263,9 @@ namespace FunkyBot
                  {
 							try
 							{
-								 Zeta.Common.Logging.WriteVerbose("Dumping Character Cache");
+								 Logging.WriteVerbose("Dumping Character Cache");
 
-								 LBDebug.Items.Add(Bot.Character.DebugString());
+								 LBDebug.Items.Add(Bot.Character.Data.DebugString());
 
 							} catch (Exception ex)
 							{
@@ -292,10 +296,10 @@ namespace FunkyBot
 					  {
 							try
 							{
-								 if (Bot.Class==null) return;
+								 if (Bot.Character.Class==null) return;
 
 								 LBDebug.Items.Add("==Current HotBar Abilities==");
-								 foreach (var item in Bot.Class.Abilities.Values)
+								 foreach (var item in Bot.Character.Class.Abilities.Values)
 								 {
 									  try
 									  {
@@ -307,7 +311,7 @@ namespace FunkyBot
 								 }
 
 								 LBDebug.Items.Add("==Cached HotBar Abilities==");
-								 foreach (var item in Bot.Class.HotBar.CachedPowers)
+								 foreach (var item in Bot.Character.Class.HotBar.CachedPowers)
 								 {
 									  try
 									  {

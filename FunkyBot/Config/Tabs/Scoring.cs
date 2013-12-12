@@ -52,7 +52,7 @@ namespace FunkyBot
 					 LargeChange=5000,
 					 SmallChange=1000,
 					 Value=Bot.Settings.Loot.GilesMinimumWeaponScore,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderGilesWeaponScore.ValueChanged+=GilesWeaponScoreSliderChanged;
 				TBGilesWeaponScore=new TextBox
@@ -82,7 +82,7 @@ namespace FunkyBot
 					 LargeChange=5000,
 					 SmallChange=1000,
 					 Value=Bot.Settings.Loot.GilesMinimumArmorScore,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderGilesArmorScore.ValueChanged+=GilesArmorScoreSliderChanged;
 				TBGilesArmorScore=new TextBox
@@ -112,7 +112,7 @@ namespace FunkyBot
 					 LargeChange=5000,
 					 SmallChange=1000,
 					 Value=Bot.Settings.Loot.GilesMinimumJeweleryScore,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderGilesJeweleryScore.ValueChanged+=GilesJeweleryScoreSliderChanged;
 				TBGilesJeweleryScore=new TextBox

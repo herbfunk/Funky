@@ -1,23 +1,16 @@
 ﻿using System;
-using System.Linq;
-using System.Text.RegularExpressions;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.IO;
-using System.Windows.Markup;
-using System.Diagnostics;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using System.Globalization;
+using System.Windows.Media;
+using Demonbuddy;
 using FunkyBot.Settings;
-using Zeta;
-using Zeta.Common;
 using FunkyBot.Game;
 
 namespace FunkyBot
 {
 
-			[System.Runtime.InteropServices.ComVisible(false)]
+			[ComVisible(false)]
 			internal partial class FunkyWindow : Window
 			{
 				 private TabControl tcItems;
@@ -38,24 +31,24 @@ namespace FunkyBot
 				 {
 						Settings_Funky.LoadFunkyConfiguration();
 
-						this.Owner=Demonbuddy.App.Current.MainWindow;
-						this.Title = "Funky Settings -- " + Bot.Game.CurrentHeroName;
-						this.SizeToContent=System.Windows.SizeToContent.WidthAndHeight;
-						this.ResizeMode=System.Windows.ResizeMode.CanMinimize;
-						this.Background=System.Windows.Media.Brushes.Black;
-						this.Foreground=System.Windows.Media.Brushes.PaleGoldenrod;
+						Owner=App.Current.MainWindow;
+						Title = "Funky Settings -- " + Bot.Character.Account.CurrentHeroName;
+						SizeToContent=SizeToContent.WidthAndHeight;
+						ResizeMode=ResizeMode.CanMinimize;
+						Background=Brushes.Black;
+						Foreground=Brushes.PaleGoldenrod;
 						//this.Width=600;
 						//this.Height=600;
 
 						ListBox LBWindowContent=new ListBox
 						{
-							 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
-							 VerticalAlignment=System.Windows.VerticalAlignment.Stretch,
+							 HorizontalAlignment=HorizontalAlignment.Stretch,
+							 VerticalAlignment=VerticalAlignment.Stretch,
 						};
 
 						Menu Menu_Settings=new Menu
 						{
-							 HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch,
+							 HorizontalAlignment= HorizontalAlignment.Stretch,
 						};
 						MenuItem Menu_Defaults=new MenuItem
 						{
@@ -95,10 +88,10 @@ namespace FunkyBot
 						{
 							 Width=600,
 							 Height=600,
-							 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
-							 VerticalAlignment=System.Windows.VerticalAlignment.Stretch,
-							 VerticalContentAlignment=System.Windows.VerticalAlignment.Stretch,
-							 HorizontalContentAlignment=System.Windows.HorizontalAlignment.Stretch,
+							 HorizontalAlignment=HorizontalAlignment.Stretch,
+							 VerticalAlignment=VerticalAlignment.Stretch,
+							 VerticalContentAlignment=VerticalAlignment.Stretch,
+							 HorizontalContentAlignment=HorizontalAlignment.Stretch,
 							 FontSize=12,
 						};
 						LBWindowContent.Items.Add(tabControl1);
@@ -112,7 +105,7 @@ namespace FunkyBot
 						CombatTabControl=new TabControl
 						{
 							 HorizontalAlignment=HorizontalAlignment.Stretch,
-							 VerticalAlignment=System.Windows.VerticalAlignment.Stretch,
+							 VerticalAlignment=VerticalAlignment.Stretch,
 						};
 
 					  InitCombatControls();
@@ -203,9 +196,9 @@ namespace FunkyBot
 						{
 							 Text="Debug Output Options",
 							 FontSize=12,
-							 Background=System.Windows.Media.Brushes.LightSeaGreen,
+							 Background=Brushes.LightSeaGreen,
 							 TextAlignment=TextAlignment.Center,
-							 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+							 HorizontalAlignment=HorizontalAlignment.Stretch,
 						};
 						SPLoggingOptions.Children.Add(Logging_Text_Header);
 
@@ -225,23 +218,20 @@ namespace FunkyBot
 						{
 							 Text="Funky Logging Options",
 							 FontSize=12,
-							 Background=System.Windows.Media.Brushes.MediumSeaGreen,
+							 Background=Brushes.MediumSeaGreen,
 							 TextAlignment=TextAlignment.Center,
-							 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+							 HorizontalAlignment=HorizontalAlignment.Stretch,
 						};
 
 						StackPanel panelFunkyLogFlags=new StackPanel
 						{
-							 Orientation= System.Windows.Controls.Orientation.Vertical,
-							 VerticalAlignment= System.Windows.VerticalAlignment.Stretch,
+							 Orientation= Orientation.Vertical,
+							 VerticalAlignment= VerticalAlignment.Stretch,
 						};
 						panelFunkyLogFlags.Children.Add(Logging_FunkyLogLevels_Header);
 
 						var LogLevels=Enum.GetValues(typeof(LogLevel));
-					   Logger.GetLogLevelName fRetrieveNames=new Logger.GetLogLevelName((s)=>
-					   {
-							 return Enum.GetName(typeof(LogLevel), s);
-					   });
+					   Logger.GetLogLevelName fRetrieveNames=s=> Enum.GetName(typeof(LogLevel), s);
 
 						CBLogLevels=new CheckBox[LogLevels.Length-2];
 					  int counter=0;
@@ -360,14 +350,14 @@ namespace FunkyBot
 						TabItem DebuggingTabItem=new TabItem
 						{
 							 Header="Debug",
-							 VerticalContentAlignment=System.Windows.VerticalAlignment.Stretch,
-							 VerticalAlignment=System.Windows.VerticalAlignment.Stretch,
+							 VerticalContentAlignment=VerticalAlignment.Stretch,
+							 VerticalAlignment=VerticalAlignment.Stretch,
 						};
 						tabControl1.Items.Add(DebuggingTabItem);
 						DockPanel DockPanel_Debug=new DockPanel
 						{
 							 LastChildFill=true,
-							 FlowDirection=System.Windows.FlowDirection.LeftToRight,
+							 FlowDirection=FlowDirection.LeftToRight,
 
 						};
 
@@ -455,10 +445,10 @@ namespace FunkyBot
 						StackPanel StackPanel_DebugButtons=new StackPanel
 						{
 							 Height=40,
-							 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
-							 FlowDirection=System.Windows.FlowDirection.LeftToRight,
+							 HorizontalAlignment=HorizontalAlignment.Stretch,
+							 FlowDirection=FlowDirection.LeftToRight,
 							 Orientation=Orientation.Horizontal,
-							 VerticalAlignment=System.Windows.VerticalAlignment.Top,
+							 VerticalAlignment=VerticalAlignment.Top,
 
 						};
 						StackPanel_DebugButtons.Children.Add(btnObjects_Debug);
@@ -477,14 +467,14 @@ namespace FunkyBot
 						LBDebug=new ListBox
 						{
 							 SelectionMode=SelectionMode.Extended,
-							 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
-							 VerticalAlignment=System.Windows.VerticalAlignment.Stretch,
-							 VerticalContentAlignment=System.Windows.VerticalAlignment.Stretch,
-							 HorizontalContentAlignment=System.Windows.HorizontalAlignment.Stretch,
+							 HorizontalAlignment=HorizontalAlignment.Stretch,
+							 VerticalAlignment=VerticalAlignment.Stretch,
+							 VerticalContentAlignment=VerticalAlignment.Stretch,
+							 HorizontalContentAlignment=HorizontalAlignment.Stretch,
 							 FontSize=10,
 							 FontStretch=FontStretches.SemiCondensed,
-							 Background=System.Windows.Media.Brushes.Black,
-							 Foreground=System.Windows.Media.Brushes.GhostWhite,
+							 Background=Brushes.Black,
+							 Foreground=Brushes.GhostWhite,
 						};
 
 						DockPanel_Debug.Children.Add(LBDebug);
@@ -492,7 +482,7 @@ namespace FunkyBot
 						DebuggingTabItem.Content=DockPanel_Debug;
 
 
-						this.AddChild(LBWindowContent);
+						AddChild(LBWindowContent);
 				 }
 
 			}

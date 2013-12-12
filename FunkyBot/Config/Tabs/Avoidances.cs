@@ -1,13 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using FunkyBot.Avoidances;
-using FunkyBot.Settings;
+using System.Windows.Forms;
+using System.Windows.Media;
 using FunkyBot.Cache;
+using FunkyBot.Settings;
+using Button = System.Windows.Controls.Button;
+using CheckBox = System.Windows.Controls.CheckBox;
+using FlowDirection = System.Windows.FlowDirection;
+using HorizontalAlignment = System.Windows.HorizontalAlignment;
+using Orientation = System.Windows.Controls.Orientation;
+using TextBox = System.Windows.Controls.TextBox;
+using ToolTip = System.Windows.Controls.ToolTip;
 
 namespace FunkyBot
 {
@@ -17,14 +24,14 @@ namespace FunkyBot
 		  private void AvoidanceLoadSettingsButtonClicked(object sender, EventArgs e)
 		  {
 
-				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
+				OpenFileDialog OFD=new OpenFileDialog
 				{
 					 InitialDirectory=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific"),
 					 RestoreDirectory=false,
 					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
 					 Title="Avoidance Template",
 				};
-				System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
+				DialogResult OFD_Result=OFD.ShowDialog();
 
 				if (OFD_Result==System.Windows.Forms.DialogResult.OK)
 				{
@@ -33,7 +40,7 @@ namespace FunkyBot
 						  //;
 						  SettingAvoidance newSettings=SettingAvoidance.DeserializeFromXML(OFD.FileName);
 						  Bot.Settings.Avoidance=newSettings;
-						  FunkyWindow.funkyConfigWindow.Close();
+						  funkyConfigWindow.Close();
 					 } catch
 					 {
 
@@ -106,16 +113,16 @@ namespace FunkyBot
 					 //Orientation= System.Windows.Controls.Orientation.Vertical,
 					 //HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
-					 Background=System.Windows.Media.Brushes.DimGray,
+					 Background=Brushes.DimGray,
 				};
 
 				TextBlock Avoidance_Text_Header=new TextBlock
 				{
 					 Text="Avoidances",
 					 FontSize=12,
-					 Background=System.Windows.Media.Brushes.MediumSeaGreen,
+					 Background=Brushes.MediumSeaGreen,
 					 TextAlignment=TextAlignment.Center,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+					 HorizontalAlignment=HorizontalAlignment.Stretch,
 
 				};
 
@@ -162,7 +169,7 @@ namespace FunkyBot
 					 ShowGridLines=false,
 					 //VerticalAlignment=System.Windows.VerticalAlignment.Stretch,
 					 //HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
-					 FlowDirection=System.Windows.FlowDirection.LeftToRight,
+					 FlowDirection=FlowDirection.LeftToRight,
 					 Focusable=false,
 				};
 
@@ -181,29 +188,29 @@ namespace FunkyBot
 				{
 					 Text="Type",
 					 FontSize=12,
-					 TextAlignment=System.Windows.TextAlignment.Center,
-					 Background=System.Windows.Media.Brushes.DarkTurquoise,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 TextAlignment=TextAlignment.Center,
+					 Background=Brushes.DarkTurquoise,
+					 Foreground=Brushes.GhostWhite,
 				};
 				TextBlock ColumnHeader2=new TextBlock
 				{
 					 Text="Radius",
 					 FontSize=12,
-					 TextAlignment=System.Windows.TextAlignment.Center,
-					 Background=System.Windows.Media.Brushes.DarkGoldenrod,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 TextAlignment=TextAlignment.Center,
+					 Background=Brushes.DarkGoldenrod,
+					 Foreground=Brushes.GhostWhite,
 				};
 				TextBlock ColumnHeader3=new TextBlock
 				{
 					 Text="Health",
 					 FontSize=12,
-					 TextAlignment=System.Windows.TextAlignment.Center,
-					 Background=System.Windows.Media.Brushes.DarkRed,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 TextAlignment=TextAlignment.Center,
+					 Background=Brushes.DarkRed,
+					 Foreground=Brushes.GhostWhite,
 				};
 
 
-				ToolTip TT_AvoidanceWeight=new System.Windows.Controls.ToolTip
+				ToolTip TT_AvoidanceWeight=new ToolTip
 				{
 					 Content="Weight compared to other avoidances (higher is deadlier)",
 				};
@@ -211,9 +218,9 @@ namespace FunkyBot
 				{
 					 Text="Weight",
 					 FontSize=12,
-					 TextAlignment=System.Windows.TextAlignment.Center,
-					 Background=System.Windows.Media.Brushes.DarkSlateBlue,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 TextAlignment=TextAlignment.Center,
+					 Background=Brushes.DarkSlateBlue,
+					 Foreground=Brushes.GhostWhite,
 					 ToolTip=TT_AvoidanceWeight,
 				};
 
@@ -257,8 +264,8 @@ namespace FunkyBot
 						  LargeChange=5,
 						  SmallChange=1,
 						  Value=defaultRadius,
-						  HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
-						  VerticalAlignment=System.Windows.VerticalAlignment.Center,
+						  HorizontalAlignment=HorizontalAlignment.Stretch,
+						  VerticalAlignment=VerticalAlignment.Center,
 						  //Padding=new Thickness(2),
 						  Margin=new Thickness(5),
 					 };
@@ -267,8 +274,8 @@ namespace FunkyBot
 					 {
 						  Text=defaultRadius.ToString(),
 						  IsReadOnly=true,
-						  VerticalAlignment=System.Windows.VerticalAlignment.Top,
-						  HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
+						  VerticalAlignment=VerticalAlignment.Top,
+						  HorizontalAlignment=HorizontalAlignment.Right,
 					 };
 
 					 double defaultHealth=avoidanceValues[i].Health;
@@ -283,8 +290,8 @@ namespace FunkyBot
 						  LargeChange=0.10,
 						  SmallChange=0.05,
 						  Value=defaultHealth,
-						  HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
-						  VerticalAlignment=System.Windows.VerticalAlignment.Center,
+						  HorizontalAlignment=HorizontalAlignment.Stretch,
+						  VerticalAlignment=VerticalAlignment.Center,
 						  Margin=new Thickness(5),
 					 };
 					 avoidanceHealth.ValueChanged+=AvoidanceHealthSliderValueChanged;
@@ -292,8 +299,8 @@ namespace FunkyBot
 					 {
 						  Text=defaultHealth.ToString("F2", CultureInfo.InvariantCulture),
 						  IsReadOnly=true,
-						  VerticalAlignment=System.Windows.VerticalAlignment.Top,
-						  HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
+						  VerticalAlignment=VerticalAlignment.Top,
+						  HorizontalAlignment=HorizontalAlignment.Right,
 					 };
 
 					 int defaultWeight=avoidanceValues[i].Weight;
@@ -307,8 +314,8 @@ namespace FunkyBot
 						  LargeChange=5,
 						  SmallChange=1,
 						  Value=defaultWeight,
-						  HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
-						  VerticalAlignment=System.Windows.VerticalAlignment.Center,
+						  HorizontalAlignment=HorizontalAlignment.Stretch,
+						  VerticalAlignment=VerticalAlignment.Center,
 						  Margin=new Thickness(5),
 					 };
 					 avoidanceWeight.ValueChanged+=AvoidanceWeightSliderValueChanged;
@@ -316,8 +323,8 @@ namespace FunkyBot
 					 {
 						  Text=defaultWeight.ToString("F2", CultureInfo.InvariantCulture),
 						  IsReadOnly=true,
-						  VerticalAlignment=System.Windows.VerticalAlignment.Top,
-						  HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
+						  VerticalAlignment=VerticalAlignment.Top,
+						  HorizontalAlignment=HorizontalAlignment.Right,
 					 };
 
 					 RowDefinition newRow=new RowDefinition();
@@ -328,10 +335,10 @@ namespace FunkyBot
 					 {
 						  Text=avoidanceString,
 						  FontSize=12,
-						  VerticalAlignment=System.Windows.VerticalAlignment.Stretch,
-						  HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
-						  Background=alternatingColor==0?System.Windows.Media.Brushes.DarkSeaGreen:Background=System.Windows.Media.Brushes.SlateGray,
-						  Foreground=System.Windows.Media.Brushes.GhostWhite,
+						  VerticalAlignment=VerticalAlignment.Stretch,
+						  HorizontalAlignment=HorizontalAlignment.Stretch,
+						  Background=alternatingColor==0?Brushes.DarkSeaGreen:Background=Brushes.SlateGray,
+						  Foreground=Brushes.GhostWhite,
 						  FontStretch=FontStretches.Medium,
 						  TextAlignment= TextAlignment.Center,
 					 };
@@ -341,7 +348,7 @@ namespace FunkyBot
 						  Width=155,
 						  Height=25,
 						  Orientation=Orientation.Horizontal,
-						  Background=alternatingColor==0?System.Windows.Media.Brushes.DarkSeaGreen:Background=System.Windows.Media.Brushes.SlateGray,
+						  Background=alternatingColor==0?Brushes.DarkSeaGreen:Background=Brushes.SlateGray,
 
 					 };
 					 avoidRadiusStackPanel.Children.Add(avoidanceRadius);
@@ -352,7 +359,7 @@ namespace FunkyBot
 						  Width=155,
 						  Height=25,
 						  Orientation=Orientation.Horizontal,
-						  Background=alternatingColor==0?System.Windows.Media.Brushes.DarkSeaGreen:Background=System.Windows.Media.Brushes.SlateGray,
+						  Background=alternatingColor==0?Brushes.DarkSeaGreen:Background=Brushes.SlateGray,
 					 };
 					 avoidHealthStackPanel.Children.Add(avoidanceHealth);
 					 avoidHealthStackPanel.Children.Add(TBavoidanceHealth[i]);
@@ -361,7 +368,7 @@ namespace FunkyBot
 						  Width=155,
 						  Height=25,
 						  Orientation=Orientation.Horizontal,
-						  Background=alternatingColor==0?System.Windows.Media.Brushes.DarkSeaGreen:Background=System.Windows.Media.Brushes.SlateGray,
+						  Background=alternatingColor==0?Brushes.DarkSeaGreen:Background=Brushes.SlateGray,
 					 };
 					 avoidWeightStackPanel.Children.Add(avoidanceWeight);
 					 avoidWeightStackPanel.Children.Add(TBavoidanceWeight[i]);
@@ -395,13 +402,13 @@ namespace FunkyBot
 				Button BtnAvoidanceLoadTemplate=new Button
 				{
 					 Content="Load Setup",
-					 Background=System.Windows.Media.Brushes.OrangeRed,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.OrangeRed,
+					 Foreground=Brushes.GhostWhite,
 					 FontStyle=FontStyles.Italic,
 					 FontSize=12,
 
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
-					 VerticalAlignment=System.Windows.VerticalAlignment.Top,
+					 HorizontalAlignment=HorizontalAlignment.Left,
+					 VerticalAlignment=VerticalAlignment.Top,
 					 Width=75,
 					 Height=30,
 

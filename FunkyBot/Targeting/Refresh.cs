@@ -2,19 +2,12 @@
 using System.Linq;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Cache.Objects;
 using FunkyBot.Movement;
 using FunkyBot.Targeting.Behaviors;
-using FunkyBot.AbilityFunky;
-using FunkyBot.Avoidances;
-using FunkyBot.Movement.Clustering;
-using Zeta;
 using Zeta.Common;
-using Zeta.CommonBot;
-using Zeta.Internals.Actors;
-using System.Collections.Generic;
-using Zeta.Internals.SNO;
+using Zeta.CommonBot.Logic;
 using Zeta.Navigation;
-using Zeta.CommonBot.Settings;
 
 namespace FunkyBot.Targeting
 {
@@ -42,14 +35,14 @@ namespace FunkyBot.Targeting
 
 				
 
-				this.LastChangeOfTarget=DateTime.Now;
+				LastChangeOfTarget=DateTime.Now;
 				if (Bot.Settings.EnableWaitAfterContainers&&CurrentTarget.targetType==TargetType.Container)
 				{
 					 //Herbfunks delay for container loot.
-					 this.lastHadContainerAsTarget=DateTime.Now;
+					 lastHadContainerAsTarget=DateTime.Now;
 
 					 if (CurrentTarget.IsResplendantChest)
-						  this.lastHadRareChestAsTarget=DateTime.Now;
+						  lastHadRareChestAsTarget=DateTime.Now;
 				}
 
 				// We're sticking to the same target, so update the target's health cache to check for stucks
@@ -57,11 +50,11 @@ namespace FunkyBot.Targeting
 				{
 					 CurrentUnitTarget=(CacheUnit)CurrentTarget;
 					 //Used to pause after no targets found.
-					 this.lastHadUnitInSights=DateTime.Now;
+					 lastHadUnitInSights=DateTime.Now;
 
 					 // And record when we last saw any form of elite
 					 if (CurrentUnitTarget.IsBoss||CurrentUnitTarget.IsEliteRareUnique||CurrentUnitTarget.IsTreasureGoblin)
-						  this.lastHadEliteUnitInSights=DateTime.Now;
+						  lastHadEliteUnitInSights=DateTime.Now;
 				}
 
 				Bot.Targeting.TargetMover.NewTargetResetVars();
@@ -120,7 +113,7 @@ namespace FunkyBot.Targeting
 		  public void RefreshDiaObjects()
 		  {
 				//Update Character (just incase it wasnt called before..)
-				Bot.Character.Update(false, true);
+				Bot.Character.Data.Update(false, true);
 
 				//Reset key targeting vars always!
 				InitObjectRefresh();
@@ -137,33 +130,32 @@ namespace FunkyBot.Targeting
 				//Check avoidance requirement still valid
 				if (Bot.Targeting.RequiresAvoidance)
 				{
-					 if (!this.AvoidanceLastTarget&&
+					 if (!AvoidanceLastTarget&&
 						  DateTime.Now.Subtract(Bot.Targeting.TargetMover.LastMovementAttempted).TotalMilliseconds < 300 &&//We are moving..? 
 						  !ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(Bot.Targeting.TargetMover.CurrentTargetLocation) &&
-						  !ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(Bot.Character.Position, Bot.Targeting.TargetMover.CurrentTargetLocation)) 
+						  !ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(Bot.Character.Data.Position, Bot.Targeting.TargetMover.CurrentTargetLocation)) 
 					 {
-						  this.RequiresAvoidance=false;
+						  RequiresAvoidance=false;
 					 }
-					 else if (this.AvoidanceLastTarget&&this.LastCachedTarget.CentreDistance<=2.5f)
-						 this.RequiresAvoidance = false;
-					 else if (this.Environment.TriggeringAvoidances.Count == 0)
-						 this.RequiresAvoidance = false;
+					 else if (AvoidanceLastTarget&&LastCachedTarget.CentreDistance<=2.5f)
+						 RequiresAvoidance = false;
+					 else if (Environment.TriggeringAvoidances.Count == 0)
+						 RequiresAvoidance = false;
 				}
 
 				//This is our list of objects we consider to be valid for targeting.
-				this.ValidObjects=ObjectCache.Objects.Values.Where(o => o.ObjectIsValidForTargeting).ToList();
+				ValidObjects=ObjectCache.Objects.Values.Where(o => o.ObjectIsValidForTargeting).ToList();
 
 
 				//Update Prioritize Flag
-				this.bPrioritizeCloseRangeUnits = (Bot.Settings.Targeting.PrioritizeCloseRangeUnits && Bot.Settings.Targeting.PrioritizeCloseRangeMinimumUnits <= this.Environment.SurroundingUnits);
+				bPrioritizeCloseRangeUnits = (Bot.Settings.Targeting.PrioritizeCloseRangeUnits && Bot.Settings.Targeting.PrioritizeCloseRangeMinimumUnits <= Environment.SurroundingUnits);
 
 
 				// Still no target, let's end it all!
 				if (!RefreshTargetBehaviors())
 				{
-					 this.StartingLocation=Vector3.Zero;
+					 StartingLocation=Vector3.Zero;
 					 Bot.NavigationCache.PrioritizedRAGUIDs.Clear();
-					 return;
 				}
 		  }
 
@@ -173,45 +165,45 @@ namespace FunkyBot.Targeting
 		  private void InitObjectRefresh()
 		  {
 				//Cache last target only if current target is not avoidance (Movement).
-				LastCachedTarget=this.CurrentTarget!=null?this.CurrentTarget:ObjectCache.FakeCacheObject;
+				LastCachedTarget=CurrentTarget!=null?CurrentTarget:ObjectCache.FakeCacheObject;
 
-                if (this.CurrentTarget != null && this.CurrentTarget.targetType.HasValue && ObjectCache.CheckTargetTypeFlag(this.CurrentTarget.targetType.Value,TargetType.AvoidanceMovements))
+                if (CurrentTarget != null && CurrentTarget.targetType.HasValue && ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value,TargetType.AvoidanceMovements))
 				{
-					 if (this.CurrentTarget.targetType.Value==TargetType.Fleeing)
+					 if (CurrentTarget.targetType.Value==TargetType.Fleeing)
 					 {
-						  this.LastFleeAction=DateTime.Now;
-						  this.FleeingLastTarget=true;
+						  LastFleeAction=DateTime.Now;
+						  FleeingLastTarget=true;
 					 }
 					 else 
 					 {
-						  this.LastAvoidanceMovement=DateTime.Now;
-						  this.AvoidanceLastTarget=true;
+						  LastAvoidanceMovement=DateTime.Now;
+						  AvoidanceLastTarget=true;
 					 }
 				}
 				else
 				{
-					 this.FleeingLastTarget=false;
-					 this.AvoidanceLastTarget=false;
+					 FleeingLastTarget=false;
+					 AvoidanceLastTarget=false;
 				}
 
 				//Traveling Flag Reset
-				this.TravellingAvoidance=false;
+				TravellingAvoidance=false;
 
 				//Reset target
-				this.CurrentTarget=null;
-				this.CurrentUnitTarget=null;
+				CurrentTarget=null;
+				CurrentUnitTarget=null;
 
 				//Kill Loot Radius Update
-				this.UpdateKillLootRadiusValues();
+				UpdateKillLootRadiusValues();
 
 				// Refresh buffs (so we can check for wrath being up to ignore ice balls and anything else like that)
-				Bot.Class.HotBar.RefreshHotbarBuffs();
+				Bot.Character.Class.HotBar.RefreshHotbarBuffs();
 
 
 				// Bunch of variables used throughout
-				Bot.Character.PetData.Reset();
+				Bot.Character.Data.PetData.Reset();
 				// Reset the counters for monsters at various ranges
-				this.Environment.Reset();
+				Environment.Reset();
 			
 
 
@@ -256,20 +248,20 @@ namespace FunkyBot.Targeting
 		  }
 
 		  private int LastWorldID = -1;
-		  private bool LastLevelIDChangeWasTownRun=false;
+		  private bool LastLevelIDChangeWasTownRun;
 		  private void LevelAreaIDChangeHandler(int ID)
 		  {
 			  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Event))
 				  Logger.Write(LogLevel.Event, "Level Area ID has Changed");
 
-			  if (!Zeta.CommonBot.Logic.BrainBehavior.IsVendoring)
+			  if (!BrainBehavior.IsVendoring)
 			  {
 				  //Check for World ID change!
-				  if (Bot.Character.iCurrentWorldID != LastWorldID)
+				  if (Bot.Character.Data.iCurrentWorldID != LastWorldID)
 				  {
 					  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Event))
 						  Logger.Write(LogLevel.Event, "World ID changed.. clearing Profile Interactable Cache.");
-					  LastWorldID = Bot.Character.iCurrentWorldID;
+					  LastWorldID = Bot.Character.Data.iCurrentWorldID;
 					  Bot.Game.Profile.InteractableObjectCache.Clear();
 					  Navigator.SearchGridProvider.Update();
 				  }
@@ -290,7 +282,7 @@ namespace FunkyBot.Targeting
 				  //Reset Skip Ahead Cache
 				  SkipAheadCache.ClearCache();
 
-				  Bot.Character.UpdateCoinage = true;
+				  Bot.Character.Data.UpdateCoinage = true;
 
 				  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 					  Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
@@ -299,7 +291,7 @@ namespace FunkyBot.Targeting
 
 				  LastLevelIDChangeWasTownRun = false;
 			  }
-			  else if (Bot.Character.bIsInTown)
+			  else if (Bot.Character.Data.bIsInTown)
 			  {
 				  LastLevelIDChangeWasTownRun = true;
 			  }

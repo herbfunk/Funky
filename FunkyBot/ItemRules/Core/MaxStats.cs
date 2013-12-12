@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Zeta;
+﻿using System.Collections.Generic;
 using Zeta.Internals.Actors;
-using Zeta.Internals;
 
 namespace GilesTrinity.ItemRules.Core
 {

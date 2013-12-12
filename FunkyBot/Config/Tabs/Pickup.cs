@@ -3,7 +3,16 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
+using System.Windows.Media;
 using FunkyBot.Settings;
+using Button = System.Windows.Controls.Button;
+using CheckBox = System.Windows.Controls.CheckBox;
+using ComboBox = System.Windows.Controls.ComboBox;
+using HorizontalAlignment = System.Windows.HorizontalAlignment;
+using ListBox = System.Windows.Controls.ListBox;
+using Orientation = System.Windows.Controls.Orientation;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace FunkyBot
 {
@@ -24,14 +33,14 @@ namespace FunkyBot
 		  #region EventHandling
 		  private void PickUpLoadXMLClicked(object sender, EventArgs e)
 		  {
-				System.Windows.Forms.OpenFileDialog OFD=new System.Windows.Forms.OpenFileDialog
+				OpenFileDialog OFD=new OpenFileDialog
 				{
 					 InitialDirectory=Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
 					 RestoreDirectory=false,
 					 Filter="xml files (*.xml)|*.xml|All files (*.*)|*.*",
 					 Title="Pickup Template",
 				};
-				System.Windows.Forms.DialogResult OFD_Result=OFD.ShowDialog();
+				DialogResult OFD_Result=OFD.ShowDialog();
 
 				if (OFD_Result==System.Windows.Forms.DialogResult.OK)
 				{
@@ -41,7 +50,7 @@ namespace FunkyBot
 						  SettingLoot newSettings=SettingLoot.DeserializeFromXML(OFD.FileName);
 						  Bot.Settings.Loot=newSettings;
 
-						  FunkyWindow.funkyConfigWindow.Close();
+						  funkyConfigWindow.Close();
 					 } catch
 					 {
 
@@ -252,8 +261,8 @@ namespace FunkyBot
 				{
 					 Text="Weapons",
 					 FontSize=12,
-					 Background=System.Windows.Media.Brushes.DarkSlateGray,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.DarkSlateGray,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				spWeaponPickupLevel.Children.Add(txt_weaponIlvl);
@@ -266,8 +275,8 @@ namespace FunkyBot
 				{
 					 Text="Magic",
 					 FontSize=12,
-					 Background=System.Windows.Media.Brushes.DarkBlue,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.DarkBlue,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				TBMinimumWeaponLevel=new TextBox[2];
@@ -281,7 +290,7 @@ namespace FunkyBot
 					 LargeChange=5,
 					 SmallChange=1,
 					 Value=Bot.Settings.Loot.MinimumWeaponItemLevel[0],
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				weaponMagicLevelSlider.ValueChanged+=WeaponItemLevelSliderChanged;
@@ -305,8 +314,8 @@ namespace FunkyBot
 				{
 					 Text="Rare",
 					 FontSize=12,
-					 Foreground=System.Windows.Media.Brushes.Black,
-					 Background=System.Windows.Media.Brushes.Gold,
+					 Foreground=Brushes.Black,
+					 Background=Brushes.Gold,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				Slider weaponRareLevelSlider=new Slider
@@ -319,7 +328,7 @@ namespace FunkyBot
 					 LargeChange=5,
 					 SmallChange=1,
 					 Value=Bot.Settings.Loot.MinimumWeaponItemLevel[1],
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
+					 HorizontalAlignment=HorizontalAlignment.Right,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				weaponRareLevelSlider.ValueChanged+=WeaponItemLevelSliderChanged;
@@ -347,8 +356,8 @@ namespace FunkyBot
 				{
 					 Text="Armor",
 					 FontSize=12,
-					 Background=System.Windows.Media.Brushes.DarkSlateGray,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.DarkSlateGray,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				spArmorPickupLevel.Children.Add(txt_armorIlvl);
@@ -361,8 +370,8 @@ namespace FunkyBot
 				{
 					 Text="Magic",
 					 FontSize=12,
-					 Background=System.Windows.Media.Brushes.DarkBlue,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.DarkBlue,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				Slider armorMagicLevelSlider=new Slider
@@ -375,7 +384,7 @@ namespace FunkyBot
 					 LargeChange=5,
 					 SmallChange=1,
 					 Value=Bot.Settings.Loot.MinimumArmorItemLevel[0],
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				armorMagicLevelSlider.ValueChanged+=ArmorItemLevelSliderChanged;
@@ -399,8 +408,8 @@ namespace FunkyBot
 				{
 					 Text="Rare",
 					 FontSize=12,
-					 Foreground=System.Windows.Media.Brushes.Black,
-					 Background=System.Windows.Media.Brushes.Gold,
+					 Foreground=Brushes.Black,
+					 Background=Brushes.Gold,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				Slider armorRareLevelSlider=new Slider
@@ -413,7 +422,7 @@ namespace FunkyBot
 					 SmallChange=1,
 					 Width=120,
 					 Value=Bot.Settings.Loot.MinimumArmorItemLevel[1],
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
+					 HorizontalAlignment=HorizontalAlignment.Right,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				armorRareLevelSlider.ValueChanged+=ArmorItemLevelSliderChanged;
@@ -436,8 +445,8 @@ namespace FunkyBot
 				{
 					 Text="Jewelery",
 					 FontSize=12,
-					 Background=System.Windows.Media.Brushes.DarkSlateGray,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.DarkSlateGray,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				StackPanel spJeweleryPickupLevel=new StackPanel
@@ -454,8 +463,8 @@ namespace FunkyBot
 				{
 					 Text="Magic",
 					 FontSize=12,
-					 Background=System.Windows.Media.Brushes.DarkBlue,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.DarkBlue,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				Slider jeweleryMagicLevelSlider=new Slider
@@ -468,7 +477,7 @@ namespace FunkyBot
 					 LargeChange=5,
 					 SmallChange=1,
 					 Value=Bot.Settings.Loot.MinimumJeweleryItemLevel[0],
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				jeweleryMagicLevelSlider.ValueChanged+=JeweleryItemLevelSliderChanged;
@@ -491,8 +500,8 @@ namespace FunkyBot
 				{
 					 Text="Rare",
 					 FontSize=12,
-					 Foreground=System.Windows.Media.Brushes.Black,
-					 Background=System.Windows.Media.Brushes.Gold,
+					 Foreground=Brushes.Black,
+					 Background=Brushes.Gold,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				Slider jeweleryRareLevelSlider=new Slider
@@ -505,7 +514,7 @@ namespace FunkyBot
 					 SmallChange=1,
 					 Width=120,
 					 Value=Bot.Settings.Loot.MinimumJeweleryItemLevel[1],
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
+					 HorizontalAlignment=HorizontalAlignment.Right,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				jeweleryRareLevelSlider.ValueChanged+=JeweleryItemLevelSliderChanged;
@@ -524,14 +533,14 @@ namespace FunkyBot
 
 				StackPanel spItemPickup=new StackPanel
 				{
-					 Background=System.Windows.Media.Brushes.DimGray,
+					 Background=Brushes.DimGray,
 				};
 				TextBlock Text_Header_ItemPickup=new TextBlock
 				{
 					 Text="Item Level Pickup",
 					 FontSize=14,
-					 Background=System.Windows.Media.Brushes.DimGray,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.DimGray,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
 					 TextAlignment=TextAlignment.Center,
 				};
@@ -544,7 +553,7 @@ namespace FunkyBot
 					 Text="Legendary Items",
 					 FontSize=12,
 					 //Background=System.Windows.Media.Brushes.DarkGreen,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
 					 TextAlignment=TextAlignment.Left,
 				};
@@ -558,7 +567,7 @@ namespace FunkyBot
 					 LargeChange=5,
 					 SmallChange=1,
 					 Value=Bot.Settings.Loot.MinimumLegendaryItemLevel,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderLegendaryILevel.ValueChanged+=LegendaryItemLevelSliderChanged;
 				TBMinLegendaryLevel=new TextBox
@@ -585,7 +594,7 @@ namespace FunkyBot
 					 Text="Misc Item",
 					 FontSize=12,
 					 //Background=System.Windows.Media.Brushes.DarkGreen,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
 					 TextAlignment=TextAlignment.Left,
 				};
@@ -599,7 +608,7 @@ namespace FunkyBot
 					 LargeChange=5,
 					 SmallChange=1,
 					 Value=Bot.Settings.Loot.MiscItemLevel,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				slideMinMiscItemLevel.ValueChanged+=MiscItemLevelSliderChanged;
 				TBMiscItemLevel=new TextBox
@@ -634,7 +643,7 @@ namespace FunkyBot
 					 LargeChange=20,
 					 SmallChange=5,
 					 Value=Bot.Settings.Loot.MaximumHealthPotions,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderMaxHealthPots.ValueChanged+=HealthPotionSliderChanged;
 				TBMaxHealthPots=new TextBox
@@ -656,7 +665,7 @@ namespace FunkyBot
 				{
 					 Text="Health Potions",
 					 FontSize=12,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				spHealthPotions.Children.Add(txt_HealthPotions);
@@ -673,7 +682,7 @@ namespace FunkyBot
 					 LargeChange=1000,
 					 SmallChange=1,
 					 Value=Bot.Settings.Loot.MinimumGoldPile,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				slideMinGoldPile.ValueChanged+=GoldAmountSliderChanged;
 				TBMinGoldPile=new TextBox
@@ -695,7 +704,7 @@ namespace FunkyBot
 				{
 					 Text="Minimum Gold Pile",
 					 FontSize=12,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				spMinimumGold.Children.Add(txt_MinimumGold);
@@ -705,14 +714,14 @@ namespace FunkyBot
 
 				StackPanel spCraftPlans=new StackPanel
 				{
-					 Background=System.Windows.Media.Brushes.DimGray,
+					 Background=Brushes.DimGray,
 				};
 				TextBlock txt_CraftPlansPickup=new TextBlock
 				{
 					 Text="Craft Plan Options",
 					 FontSize=12,
-					 Background=System.Windows.Media.Brushes.DarkSlateGray,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.DarkSlateGray,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				spCraftPlans.Children.Add(txt_CraftPlansPickup);
@@ -723,7 +732,7 @@ namespace FunkyBot
 					 Content="Pickup Craft Plans",
 					 Height=20,
 					 IsChecked=(Bot.Settings.Loot.PickupCraftPlans),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
 				cbPickupCraftPlans.Checked+=PickupCraftPlansChecked;
@@ -744,7 +753,7 @@ namespace FunkyBot
 					 Content="Plans: Property Six",
 					 Height=20,
 					 IsChecked=(Bot.Settings.Loot.PickupBlacksmithPlanSix),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
 				cbBlacksmithPropertySix.Checked+=PickupBlacksmithPlanSixChecked;
@@ -758,7 +767,7 @@ namespace FunkyBot
 					 Content="Plans: Property Five",
 					 Height=20,
 					 IsChecked=(Bot.Settings.Loot.PickupBlacksmithPlanFive),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
 				cbBlacksmithPropertyFive.Checked+=PickupBlacksmithPlanFiveChecked;
@@ -772,7 +781,7 @@ namespace FunkyBot
 					 Content="Plans: Property Four",
 					 Height=20,
 					 IsChecked=(Bot.Settings.Loot.PickupBlacksmithPlanFour),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
 				cbBlacksmithPropertyFive.Checked+=PickupBlacksmithPlanFourChecked;
@@ -790,7 +799,7 @@ namespace FunkyBot
 					 Content="Plans: Archon Gauntlets",
 					 Height=20,
 					 IsChecked=(Bot.Settings.Loot.PickupBlacksmithPlanArchonGauntlets),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
 				cbBlacksmithArchonGauntlets.Checked+=PickupBlacksmithPlanArchonGauntletsChecked;
@@ -804,7 +813,7 @@ namespace FunkyBot
 					 Content="Plans: Archon Spaulders",
 					 Height=20,
 					 IsChecked=(Bot.Settings.Loot.PickupBlacksmithPlanArchonSpaulders),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
 				cbBlacksmithArchonSpaulders.Checked+=PickupBlacksmithPlanArchonSpauldersChecked;
@@ -818,7 +827,7 @@ namespace FunkyBot
 					 Content="Plans: Razorspikes",
 					 Height=20,
 					 IsChecked=(Bot.Settings.Loot.PickupBlacksmithPlanRazorspikes),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
 				cbBlacksmithRazorSpikes.Checked+=PickupBlacksmithPlanRazorspikesChecked;
@@ -840,7 +849,7 @@ namespace FunkyBot
 					 Content="Design: Flawless Star",
 					 Height=20,
 					 IsChecked=(Bot.Settings.Loot.PickupJewelerDesignFlawlessStar),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
 				cbJewelerFlawlessStar.Checked+=PickupJewelerDesignFlawlessStarChecked;
@@ -854,7 +863,7 @@ namespace FunkyBot
 					 Content="Design: Perfect Star",
 					 Height=20,
 					 IsChecked=(Bot.Settings.Loot.PickupJewelerDesignPerfectStar),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
 				cbJewelerPerfectStar.Checked+=PickupJewelerDesignPerfectStarChecked;
@@ -868,7 +877,7 @@ namespace FunkyBot
 					 Content="Design: Radiant Star",
 					 Height=20,
 					 IsChecked=(Bot.Settings.Loot.PickupJewelerDesignRadiantStar),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
 				cbJewelerRadiantStar.Checked+=PickupJewelerDesignRadiantStarChecked;
@@ -882,7 +891,7 @@ namespace FunkyBot
 					 Content="Design: Marquise",
 					 Height=20,
 					 IsChecked=(Bot.Settings.Loot.PickupJewelerDesignMarquise),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
 				cbJewelerMarquise.Checked+=PickupJewelerDesignMarquiseChecked;
@@ -896,7 +905,7 @@ namespace FunkyBot
 					 Content="Design: Amulets",
 					 Height=20,
 					 IsChecked=(Bot.Settings.Loot.PickupJewelerDesignAmulet),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
 				cbJewelerAmulets.Checked+=PickupJewelerDesignAmuletChecked;
@@ -919,7 +928,7 @@ namespace FunkyBot
 					 Content="Pickup Craft Tomes",
 					 Height=20,
 					 IsChecked=(Bot.Settings.Loot.PickupCraftTomes),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
 				cbPickupCraftTomes.Checked+=PickupCraftTomesChecked;
@@ -932,7 +941,7 @@ namespace FunkyBot
 					 Content="Pickup Follower Items",
 					 Height=20,
 					 IsChecked=(Bot.Settings.Loot.PickupFollowerItems),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
+					 HorizontalAlignment=HorizontalAlignment.Right,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
 				cbPickupFollowerItems.Checked+=PickupFollowerItemsChecked;
@@ -945,7 +954,7 @@ namespace FunkyBot
 					 Content="Pickup Inferno Keys",
 					 Height=20,
 					 IsChecked=(Bot.Settings.Loot.PickupInfernalKeys),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
+					 HorizontalAlignment=HorizontalAlignment.Right,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
 				cbPickupInfernalKeys.Checked+=PickupInfernalKeysChecked;
@@ -958,7 +967,7 @@ namespace FunkyBot
 					 Content="Pickup Demonic Essences",
 					 Height=20,
 					 IsChecked=(Bot.Settings.Loot.PickupDemonicEssence),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Right,
+					 HorizontalAlignment=HorizontalAlignment.Right,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
 				cbPickupDemonicEssence.Checked+=PickupDemonicEssenceChecked;
@@ -970,13 +979,13 @@ namespace FunkyBot
 				{
 					 Text="Misc Pickup Options",
 					 FontSize=12,
-					 Background=System.Windows.Media.Brushes.DarkSlateGray,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.DarkSlateGray,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+4, Margin.Bottom+4),
 				};
 				StackPanel spMiscItemPickup=new StackPanel
 				{
-					 Background=System.Windows.Media.Brushes.DimGray,
+					 Background=Brushes.DimGray,
 				};
 				spMiscItemPickup.Children.Add(txt_miscPickup);
 				spMiscItemPickup.Children.Add(spMiscItemPickupOptions);
@@ -990,14 +999,14 @@ namespace FunkyBot
 				StackPanel spGemOptions=new StackPanel
 				{
 					 Orientation=Orientation.Vertical,
-					 Background=System.Windows.Media.Brushes.DimGray,
+					 Background=Brushes.DimGray,
 				};
 				TextBlock Text_GemOptions=new TextBlock
 				{
 					 Text="Gems",
 					 FontSize=12,
-					 Foreground=System.Windows.Media.Brushes.Black,
-					 Background=System.Windows.Media.Brushes.Gold,
+					 Foreground=Brushes.Black,
+					 Background=Brushes.Gold,
 					 TextAlignment=TextAlignment.Left,
 				};
 				spGemOptions.Children.Add(Text_GemOptions);
@@ -1007,7 +1016,7 @@ namespace FunkyBot
 				{
 					 Text="Minimum Gem Quality",
 					 FontSize=11,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Foreground=Brushes.GhostWhite,
 					 TextAlignment=TextAlignment.Left,
 				};
 				ComboBox CBGemQualityLevel=new ComboBox
@@ -1015,7 +1024,7 @@ namespace FunkyBot
 					 Height=20,
 					 ItemsSource=new GemQualityTypes(),
 					 Text=Enum.GetName(typeof(GemQuality), Bot.Settings.Loot.MinimumGemItemLevel).ToString(),
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 Margin=new Thickness(5),
 				};
 				CBGemQualityLevel.SelectionChanged+=GemQualityLevelChanged;
@@ -1100,13 +1109,13 @@ namespace FunkyBot
 				Button BtnPickUpLoadTemplate=new Button
 				{
 					 Content="Load Setup",
-					 Background=System.Windows.Media.Brushes.OrangeRed,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.OrangeRed,
+					 Foreground=Brushes.GhostWhite,
 					 FontStyle=FontStyles.Italic,
 					 FontSize=12,
 
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
-					 VerticalAlignment=System.Windows.VerticalAlignment.Top,
+					 HorizontalAlignment=HorizontalAlignment.Left,
+					 VerticalAlignment=VerticalAlignment.Top,
 					 Width=75,
 					 Height=30,
 

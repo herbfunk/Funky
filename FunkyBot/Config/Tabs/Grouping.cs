@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace FunkyBot
 {
@@ -65,13 +66,13 @@ namespace FunkyBot
 				Button BtnGroupingLoadTemplate=new Button
 				{
 					 Content="Load Setup",
-					 Background=System.Windows.Media.Brushes.OrangeRed,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Background=Brushes.OrangeRed,
+					 Foreground=Brushes.GhostWhite,
 					 FontStyle=FontStyles.Italic,
 					 FontSize=12,
 
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
-					 VerticalAlignment=System.Windows.VerticalAlignment.Top,
+					 HorizontalAlignment=HorizontalAlignment.Left,
+					 VerticalAlignment=VerticalAlignment.Top,
 					 Width=75,
 					 Height=30,
 
@@ -79,23 +80,23 @@ namespace FunkyBot
 				};
 				BtnGroupingLoadTemplate.Click+=GroupingLoadXMLClicked;
 
-				ToolTip TTGrouping=new System.Windows.Controls.ToolTip
+				ToolTip TTGrouping=new ToolTip
 				{
 					 Content="Attempts to engage additional nearby monster groups",
 				};
 				StackPanel GroupingOptionsStackPanel=new StackPanel
 				{
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
-					 Background=System.Windows.Media.Brushes.DimGray,
+					 Background=Brushes.DimGray,
 					 ToolTip=TTGrouping,
 				};
 				TextBlock Grouping_Text_Header=new TextBlock
 				{
 					 Text="Grouping",
 					 FontSize=12,
-					 Background=System.Windows.Media.Brushes.LightSeaGreen,
+					 Background=Brushes.LightSeaGreen,
 					 TextAlignment=TextAlignment.Center,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Stretch,
+					 HorizontalAlignment=HorizontalAlignment.Stretch,
 					 ToolTip=TTGrouping,
 				};
 				GroupingOptionsStackPanel.Children.Add(Grouping_Text_Header);
@@ -122,7 +123,7 @@ namespace FunkyBot
 				{
 					 Text="Unit Min Distance",
 					 FontSize=13,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Foreground=Brushes.GhostWhite,
 					 //Background = System.Windows.Media.Brushes.Crimson,
 					 TextAlignment=TextAlignment.Left,
 				};
@@ -136,7 +137,7 @@ namespace FunkyBot
 					 LargeChange=5,
 					 SmallChange=1,
 					 Value=Bot.Settings.Grouping.GroupingMinimumUnitDistance,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderGroupingMinimumUnitDistance.ValueChanged+=GroupMinimumUnitDistanceSliderChanged;
 				TBGroupingMinUnitDistance=new TextBox
@@ -168,7 +169,7 @@ namespace FunkyBot
 				{
 					 Text="Group Max Distance",
 					 FontSize=13,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Foreground=Brushes.GhostWhite,
 					 //Background = System.Windows.Media.Brushes.Crimson,
 					 TextAlignment=TextAlignment.Left,
 				};
@@ -182,7 +183,7 @@ namespace FunkyBot
 					 LargeChange=5,
 					 SmallChange=1,
 					 Value=Bot.Settings.Grouping.GroupingMaximumDistanceAllowed,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Center,
+					 HorizontalAlignment=HorizontalAlignment.Center,
 				};
 				sliderGroupingMaximumDistance.ValueChanged+=GroupMaxDistanceSliderChanged;
 				TBGroupingMaxDistance=new TextBox
@@ -223,7 +224,7 @@ namespace FunkyBot
 				{
 					 Text="Minimum Cluster Count",
 					 FontSize=13,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Foreground=Brushes.GhostWhite,
 					 //Background = System.Windows.Media.Brushes.Crimson,
 					 TextAlignment=TextAlignment.Left,
 				};
@@ -237,7 +238,7 @@ namespace FunkyBot
 					 LargeChange=1,
 					 SmallChange=1,
 					 Value=Bot.Settings.Grouping.GroupingMinimumClusterCount,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderGroupingMinimumCluster.ValueChanged+=GroupMinimumClusterCountSliderChanged;
 				TBGroupingMinimumClusterCount=new TextBox
@@ -265,7 +266,7 @@ namespace FunkyBot
 				{
 					 Text="Minimum Units In Cluster",
 					 FontSize=13,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Foreground=Brushes.GhostWhite,
 					 //Background = System.Windows.Media.Brushes.Crimson,
 					 TextAlignment=TextAlignment.Left,
 				};
@@ -279,7 +280,7 @@ namespace FunkyBot
 					 LargeChange=2,
 					 SmallChange=1,
 					 Value=Bot.Settings.Grouping.GroupingMinimumUnitsInCluster,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderGroupingMinimumUnits.ValueChanged+=GroupMinimumUnitsInClusterSliderChanged;
 				TBGroupingMinimumUnitsInCluster=new TextBox
@@ -307,7 +308,7 @@ namespace FunkyBot
 				{
 					 Text="Minimum Bot HP To Engage",
 					 FontSize=13,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Foreground=Brushes.GhostWhite,
 					 //Background = System.Windows.Media.Brushes.Crimson,
 					 TextAlignment=TextAlignment.Left,
 				};
@@ -321,7 +322,7 @@ namespace FunkyBot
 					 LargeChange=0.25,
 					 SmallChange=0.05,
 					 Value=Bot.Settings.Grouping.GroupingMinimumBotHealth,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 				};
 				sliderGroupingMinimumBotHP.ValueChanged+=GroupBotHealthSliderChanged;
 				TBGroupingMinimumBotHP=new TextBox
@@ -329,7 +330,7 @@ namespace FunkyBot
 					 Text=Bot.Settings.Grouping.GroupingMinimumBotHealth.ToString(),
 					 IsReadOnly=true,
 				};
-				ToolTip TTGroupingBotHP=new System.Windows.Controls.ToolTip
+				ToolTip TTGroupingBotHP=new ToolTip
 				{
 					 Content="Minimum Bot Health Percent Allowed To Start Grouping Behavior",
 				};

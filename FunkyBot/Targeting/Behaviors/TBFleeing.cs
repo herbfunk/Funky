@@ -1,6 +1,7 @@
 ﻿using System;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Cache.Objects;
 using Zeta.Common;
 using Zeta.Internals.Actors;
 
@@ -20,10 +21,10 @@ namespace FunkyBot.Targeting.Behaviors
 					 return 
                          Bot.Settings.Fleeing.EnableFleeingBehavior&&
                          DateTime.Now.CompareTo(FleeRetryDate)>0&&
-                         Bot.Character.dCurrentHealthPct<=Bot.Settings.Fleeing.FleeBotMinimumHealthPercent&&
+                         Bot.Character.Data.dCurrentHealthPct<=Bot.Settings.Fleeing.FleeBotMinimumHealthPercent&&
                          Bot.Targeting.Environment.FleeTriggeringUnits.Count>0&&
                          (!Bot.Targeting.Environment.bAnyTreasureGoblinsPresent||Bot.Settings.Targeting.GoblinPriority<2)&&
-                         (Bot.Class.AC!=ActorClass.Wizard||(!Bot.Class.HotBar.HasBuff(SNOPower.Wizard_Archon)||!Bot.Settings.Class.bKiteOnlyArchon));
+                         (Bot.Character.Class.AC!=ActorClass.Wizard||(!Bot.Character.Class.HotBar.HasBuff(SNOPower.Wizard_Archon)||!Bot.Settings.Class.bKiteOnlyArchon));
 				}
 		  }
 		  public override TargetBehavioralTypes TargetBehavioralTypeType { get { return TargetBehavioralTypes.Fleeing; } }
@@ -60,7 +61,7 @@ namespace FunkyBot.Targeting.Behaviors
 
                   if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, LineOfSight, Bot.Settings.Plugin.FleeingFlags))
                   {
-                      float distance = vAnySafePoint.Distance(Bot.Character.Position);
+                      float distance = vAnySafePoint.Distance(Bot.Character.Data.Position);
 
                       if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
                         Logging.WriteDiagnostic("Flee Movement found AT {0} with {1} Distance", vAnySafePoint.ToString(), distance.ToString());

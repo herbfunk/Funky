@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FunkyBot.Cache;
-using FunkyBot.Movement;
-using Zeta.Common;
+using FunkyBot.Cache.Objects;
 
 namespace FunkyBot.Movement.Clustering
 {
@@ -62,14 +60,13 @@ namespace FunkyBot.Movement.Clustering
 		  }
 
 
-		  /// <summary>
-		  /// Adds point to this cluster only if it is "reachable"
-		  /// (if point is inside a circle of radius Dist of any cluster's points )
-		  /// </summary>
-		  /// <param name="p_Point">The point to be added to this cluster</param>
-		  /// <returns>false if point can't be added (that is either already in cluster
-		  /// or it is unreachable from any of the cluster's points)</returns>
-		  internal virtual bool AddObject(CacheObject obj)
+		 /// <summary>
+		 /// Adds point to this cluster only if it is "reachable"
+		 /// (if point is inside a circle of radius Dist of any cluster's points )
+		 /// </summary>
+		 /// <returns>false if point can't be added (that is either already in cluster
+		 /// or it is unreachable from any of the cluster's points)</returns>
+		 internal virtual bool AddObject(CacheObject obj)
 		  {
 				bool l_bSuccess=true;
 
@@ -108,11 +105,10 @@ namespace FunkyBot.Movement.Clustering
 		  /// <returns>true always</returns>
 		  public virtual bool AnnexCluster(cluster p_Cluster)
 		  {
-				bool l_bSuccess=true;
-				MidPoint+=p_Cluster.MidPoint;
+			  MidPoint+=p_Cluster.MidPoint;
 				ListPoints.AddRange(p_Cluster.ListPoints);
 				RAGUIDS.AddRange(p_Cluster.RAGUIDS);
-				return l_bSuccess;
+				return true;
 
 		  }  // of AnnexCluster()
 
@@ -128,47 +124,44 @@ namespace FunkyBot.Movement.Clustering
 		  public override bool Equals(object obj)
 		  {
 				//Check for null and compare run-time types. 
-				if (obj==null||this.GetType()!=obj.GetType())
+				if (obj==null||GetType()!=obj.GetType())
 				{
 					 return false;
 				}
-				else
-				{
-					 cluster p=(cluster)obj;
-					 return this.Midpoint.Equals(p.Midpoint);
-				}
+			  cluster p=(cluster)obj;
+			  return Midpoint.Equals(p.Midpoint);
 		  }
 		  public override int GetHashCode()
 		  {
-				return this.Midpoint.GetHashCode();
+				return Midpoint.GetHashCode();
 		  }
 
 		  public CacheObject GetNearestObjectToCenteroid()
 		  {
 				double minimumDistance=0.0;
 				int nearestPointIndex=-1;
-				GridPoint centeroid=this.Midpoint;
+				GridPoint centeroid=Midpoint;
 
-				foreach (GridPoint p in this.ListPoints)
+				foreach (GridPoint p in ListPoints)
 				{
 					 double distance=GridPoint.GetDistanceBetweenPoints(p, centeroid);
 
-					 if (this.ListPoints.IndexOf(p)==0)
+					 if (ListPoints.IndexOf(p)==0)
 					 {
 						  minimumDistance=distance;
-						  nearestPointIndex=this.ListPoints.IndexOf(p);
+						  nearestPointIndex=ListPoints.IndexOf(p);
 					 }
 					 else
 					 {
 						  if (minimumDistance>distance)
 						  {
 								minimumDistance=distance;
-								nearestPointIndex=this.ListPoints.IndexOf(p);
+								nearestPointIndex=ListPoints.IndexOf(p);
 						  }
 					 }
 				}
 
-				return (this.ListCacheObjects[nearestPointIndex]);
+				return (ListCacheObjects[nearestPointIndex]);
 		  }
 
 		  public static List<UnitCluster> RunKmeans<T>(List<T> objList, double distance) where T : CacheObject
@@ -206,7 +199,7 @@ namespace FunkyBot.Movement.Clustering
 					 // merge point's "reachable" clusters
 					 if (l_ListAttainableClusters.Count>0)
 						  l_c.AnnexCluster(l_ListAttainableClusters.Aggregate((c, x) =>
-							c=cluster.MergeClusters(x, c)));
+							c=MergeClusters(x, c)));
 					 LC_.Add(l_c);
 					 //Logging.WriteVerbose("Cluster Found: Total Points {0} with Centeroid {1}", l_c.ListPoints.Count, l_c.Centeroid.ToString());
 					 l_ListAttainableClusters=null;

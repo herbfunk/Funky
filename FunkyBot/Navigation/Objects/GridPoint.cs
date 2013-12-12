@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Zeta;
+using System.Windows;
 using Zeta.Common;
 
 namespace FunkyBot.Movement
@@ -52,13 +52,13 @@ namespace FunkyBot.Movement
 				}
 
 				#region Windows.Point.Conversions
-				public static implicit operator GridPoint(System.Windows.Point P)
+				public static implicit operator GridPoint(Point P)
 				{
 					 return new GridPoint((float)P.X, (float)P.Y);
 				}
-				public static implicit operator System.Windows.Point(GridPoint P)
+				public static implicit operator Point(GridPoint P)
 				{
-					 return new System.Windows.Point(P.X, P.Y);
+					 return new Point(P.X, P.Y);
 				}
 				#endregion
 
@@ -133,7 +133,7 @@ namespace FunkyBot.Movement
 				//	 System.Drawing.Point testPoint=new System.Drawing.Point((int)test.X, (int)test.Y);
 				//	 return LineIntersectsLine(Astart, Aend, System.Drawing.Point.Add(testPoint, offsetSize), System.Drawing.Point.Subtract(testPoint, offsetSize));
 				//}
-				public static bool LineIntersectsRect(GridPoint p1, GridPoint p2, System.Windows.Rect r)
+				public static bool LineIntersectsRect(GridPoint p1, GridPoint p2, Rect r)
 				{
 					 return LineIntersectsLine(p1, p2, new GridPoint(r.X, r.Y), new GridPoint(r.X+r.Width, r.Y))||
 							  LineIntersectsLine(p1, p2, new GridPoint(r.X+r.Width, r.Y), new GridPoint(r.X+r.Width, r.Y+r.Height))||
@@ -191,7 +191,7 @@ namespace FunkyBot.Movement
 				//}
 				public double Distance(GridPoint p)
 				{
-					 GridPoint q=this.Clone();
+					 GridPoint q=Clone();
 					 if (q<p)
 					 {
 						  GridPoint switchPoint=q.Clone();
@@ -208,22 +208,22 @@ namespace FunkyBot.Movement
 
 				public GridPoint(float x, float y, float z=0f, bool ignored=false)
 				{
-					 this.x_=x;
-					 this.y_=y;
-					 this.z_=z;
-					 this.Ignored=ignored;
+					 x_=x;
+					 y_=y;
+					 z_=z;
+					 Ignored=ignored;
 				}
 				public GridPoint(double x, double y, float z=0f, bool ignored=false)
 				{
-					 this.x_=(float)x;
-					 this.y_=(float)y;
-					 this.z_=z;
-					 this.Ignored=ignored;
+					 x_=(float)x;
+					 y_=(float)y;
+					 z_=z;
+					 Ignored=ignored;
 				}
 
 				public GridPoint Clone()
 				{
-					 return new GridPoint(this.X, this.Y, this.Z, this.Ignored);
+					 return new GridPoint(X, Y, Z, Ignored);
 				}
 
 				public override string ToString()
@@ -234,7 +234,7 @@ namespace FunkyBot.Movement
 				public override bool Equals(object obj)
 				{
 					 //Check for null and compare run-time types. 
-					 if (obj==null||this.GetType()!=obj.GetType())
+					 if (obj==null||GetType()!=obj.GetType())
 					 {
 						  return false;
 					 }
@@ -254,7 +254,7 @@ namespace FunkyBot.Movement
 				{
 					 int l_v;
 
-					 double l_d=GridPoint.GetDistanceBetweenPoints(x, y);
+					 double l_d=GetDistanceBetweenPoints(x, y);
 
 					 if (l_d==0)
 						  l_v=0;

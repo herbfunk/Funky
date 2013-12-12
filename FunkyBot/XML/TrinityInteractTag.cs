@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Globalization;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Zeta;
 using Zeta.Common;
@@ -13,8 +14,8 @@ namespace FunkyBot.XMLTags
 	[XmlElement("TrinityInteract")]
 	public class TrinityInteractTag : ProfileBehavior
 	{
-		private bool m_IsDone=false;
-		private int iSNOID;
+		private bool m_IsDone;
+
 		public override bool IsDone
 		{
 			get { return m_IsDone; }
@@ -22,12 +23,12 @@ namespace FunkyBot.XMLTags
 
 		protected override Composite CreateBehavior()
 		{
-			return new Zeta.TreeSharp.Action(ret =>
+			return new Action(ret =>
 			{
 				float fClosestRange=-1;
-				int iACDGuid=-1;
-				Vector3 vMyLocation=ZetaDia.Me.Position;
-				foreach (DiaObject thisobject in ZetaDia.Actors.GetActorsOfType<DiaObject>(true, false).Where<DiaObject>(a => a.ActorSNO==SNOID))
+				var iACDGuid=-1;
+				var vMyLocation=ZetaDia.Me.Position;
+				foreach (var thisobject in ZetaDia.Actors.GetActorsOfType<DiaObject>(true).Where<DiaObject>(a => a.ActorSNO==SNOID))
 				{
 					if (fClosestRange==-1||thisobject.Position.Distance(vMyLocation)<=fClosestRange)
 					{
@@ -43,7 +44,7 @@ namespace FunkyBot.XMLTags
 						ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, Vector3.Zero, 0, iACDGuid);
 					} catch
 					{
-						Logging.WriteDiagnostic("[Funky] There was a memory/DB failure trying to follow the TrinityInteract XML tag on SNO "+SNOID.ToString());
+						Logging.WriteDiagnostic("[Funky] There was a memory/DB failure trying to follow the TrinityInteract XML tag on SNO "+SNOID.ToString(CultureInfo.InvariantCulture));
 					}
 				}
 				m_IsDone=true;
@@ -52,17 +53,7 @@ namespace FunkyBot.XMLTags
 
 
 		[XmlAttribute("snoid")]
-		public int SNOID
-		{
-			get
-			{
-				return iSNOID;
-			}
-			set
-			{
-				iSNOID=value;
-			}
-		}
+		public int SNOID { get; set; }
 
 		public override void ResetCachedDone()
 		{

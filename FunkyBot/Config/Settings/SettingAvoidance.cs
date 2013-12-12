@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Xml.Serialization;
-using FunkyBot.Avoidances;
 using FunkyBot.Cache;
 
 

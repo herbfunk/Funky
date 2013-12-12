@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Controls;
+using Demonbuddy;
 using FunkyBot.Cache;
 using FunkyBot.Movement;
-using Zeta;
 using System.Collections.Generic;
+using FunkyBot.Player.Class;
+using FunkyBot.XMLTags;
 using Zeta.Common;
 using Zeta.CommonBot;
+using Zeta.CommonBot.Logic;
 using Zeta.Navigation;
 using Zeta.TreeSharp;
 using Zeta.Internals.Actors;
@@ -14,14 +17,16 @@ using System.Xml;
 using System.Windows;
 using Decorator=Zeta.TreeSharp.Decorator;
 using FunkyBot.Game;
+using Action = Zeta.TreeSharp.Action;
+using FunkyBot.DBHandlers;
 
 namespace FunkyBot
 {
 	 public partial class Funky
 	 {
-		  private static bool bPluginEnabled=false;
-		  private static bool initFunkyButton=false;
-		  private static bool initTreeHooks=false;
+		  internal static bool bPluginEnabled;
+		  private static bool initFunkyButton;
+		  internal static bool initTreeHooks;
 		  internal static int iDemonbuddyMonsterPowerLevel=0;
 
 		  // Status text for DB main window status
@@ -30,21 +35,11 @@ namespace FunkyBot
 		  internal static bool bResetStatusText=false;
 
 
-		  internal static void Log(string message, bool bIsDiagnostic=false)
-		  {
-				string totalMessage=String.Format("[Funky] {0}", message);
-				if (!bIsDiagnostic)
-					 Logging.Write(totalMessage);
-				else
-					 Logging.WriteDiagnostic(totalMessage);
-		  }
-
 		  public static void ResetBot()
 		  {
 
-			  Log("Preforming reset of bot data...", true);
+			  Logging.Write("Preforming reset of bot data...");
 			  BlacklistCache.ClearBlacklistCollections();
-			  PowerCacheLookup.dictAbilityLastUse = new Dictionary<SNOPower, DateTime>(PowerCacheLookup.dictAbilityLastUseDefaults);
 
 			  PlayerMover.iTotalAntiStuckAttempts = 1;
 			  PlayerMover.vSafeMovementLocation = Vector3.Zero;
@@ -58,23 +53,24 @@ namespace FunkyBot
 
 			  //Reset all data with bot (Playerdata, Combat Data)
 			  Bot.Reset();
-			  FunkyBot.Character.Player.CreateBotClass();
+			  PlayerClass.CreateBotClass();
 			  //Update character info!
-			  Bot.Character.Update();
+			  Bot.Character.Data.Update();
 
 			  //OOC ID Flags
 			  Bot.Targeting.ShouldCheckItemLooted = false;
-			  shouldPreformOOCItemIDing = false;
+			  Bot.Targeting.CheckItemLootStackCount = 0;
+			  ItemIdentifyBehavior.shouldPreformOOCItemIDing = false;
 
 			  //TP Behavior Reset
-			  ResetTPBehavior();
+			  TownPortalBehavior.ResetTPBehavior();
 
 			  //Sno Trim Timer Reset
 			  ObjectCache.cacheSnoCollection.ResetTrimTimer();
 			  //clear obstacles
 			  ObjectCache.Obstacles.Clear();
 			  ObjectCache.Objects.Clear();
-			  DumpedDeathInfo = false;
+			  EventHandlers.DumpedDeathInfo = false;
 		  }
 		  public static void ResetGame()
 		  {
@@ -83,27 +79,27 @@ namespace FunkyBot
 			  ProfileCache.dictRandomID = new Dictionary<int, int>();
 			  SkipAheadCache.ClearCache();
 			  TownRunManager.TownrunStartedInTown = true;
-			  FunkyBot.XMLTags.TrinityMaxDeathsTag.MaxDeathsAllowed = 0;
+			  TrinityMaxDeathsTag.MaxDeathsAllowed = 0;
 			  TownRunManager._dictItemStashAttempted = new Dictionary<int, int>();
 		  }
 
-		  private static Demonbuddy.SplitButton FindFunkyButton()
+		  private static SplitButton FindFunkyButton()
 		  {
-				Window mainWindow=Demonbuddy.App.Current.MainWindow;
+				Window mainWindow=App.Current.MainWindow;
 				var tab=mainWindow.FindName("tabControlMain") as TabControl;
 				if (tab==null) return null;
 				var infoDumpTab=tab.Items[0] as TabItem;
 				if (infoDumpTab==null) return null;
 				var grid=infoDumpTab.Content as Grid;
 				if (grid==null) return null;
-				Demonbuddy.SplitButton FunkyButton=grid.FindName("Funky") as Demonbuddy.SplitButton;
+				SplitButton FunkyButton=grid.FindName("Funky") as SplitButton;
 				if (FunkyButton!=null)
 				{
 					 Logging.WriteDiagnostic("Funky Button handler added");
 				}
 				else
 				{
-					 Demonbuddy.SplitButton[] splitbuttons=grid.Children.OfType<Demonbuddy.SplitButton>().ToArray();
+					 SplitButton[] splitbuttons=grid.Children.OfType<SplitButton>().ToArray();
 					 if (splitbuttons.Any())
 					 {
 
@@ -120,7 +116,7 @@ namespace FunkyBot
 
 				return FunkyButton;
 		  }
-		  private static void HookBehaviorTree()
+		  internal static void HookBehaviorTree()
 		  {
 
 				bool townportal=false, idenify=false, stash=false, vendor=false, salvage=false, looting=true, combat=true;
@@ -174,12 +170,12 @@ namespace FunkyBot
 						  if (combat)
 						  {
 								// Replace the pause just after identify stuff to ensure we wait before trying to run to vendor etc.
-								CanRunDecoratorDelegate canRunDelegateCombatTargetCheck=new CanRunDecoratorDelegate(GlobalOverlord);
-								ActionDelegate actionDelegateCoreTarget=new ActionDelegate(HandleTarget);
+								CanRunDecoratorDelegate canRunDelegateCombatTargetCheck=GlobalOverlord;
+								ActionDelegate actionDelegateCoreTarget=HandleTarget;
 								Sequence sequencecombat=new Sequence(
-										new Zeta.TreeSharp.Action(actionDelegateCoreTarget)
+										new Action(actionDelegateCoreTarget)
 										);
-								hook.Value[0]=new Zeta.TreeSharp.Decorator(canRunDelegateCombatTargetCheck, sequencecombat);
+								hook.Value[0]=new Decorator(canRunDelegateCombatTargetCheck, sequencecombat);
 								Logging.WriteDiagnostic("Combat Tree replaced...");
 						  }
 
@@ -187,111 +183,111 @@ namespace FunkyBot
 					 // Wipe the vendorrun and loot behavior trees, since we no longer want them
 					 if (hook.Key.Contains("VendorRun"))
 					 {
-						  Zeta.TreeSharp.Decorator GilesDecorator=hook.Value[0] as Zeta.TreeSharp.Decorator;
+						  Decorator GilesDecorator=hook.Value[0] as Decorator;
 						  //PrioritySelector GilesReplacement = GilesDecorator.Children[0] as PrioritySelector;
 						  PrioritySelector GilesReplacement=GilesDecorator.Children[0] as PrioritySelector;
 
 						  //[1] == Return to town
 						  if (townportal)
 						  {
-								CanRunDecoratorDelegate canRunDelegateReturnToTown=new CanRunDecoratorDelegate(FunkyTPOverlord);
-								ActionDelegate actionDelegateReturnTown=new ActionDelegate(FunkyTPBehavior);
-								ActionDelegate actionDelegateTownPortalFinish=new ActionDelegate(FunkyTownPortalTownRun);
+							  CanRunDecoratorDelegate canRunDelegateReturnToTown = TownPortalBehavior.FunkyTPOverlord;
+							  ActionDelegate actionDelegateReturnTown = TownPortalBehavior.FunkyTPBehavior;
+							  ActionDelegate actionDelegateTownPortalFinish = TownPortalBehavior.FunkyTownPortalTownRun;
 								Sequence sequenceReturnTown=new Sequence(
-									new Zeta.TreeSharp.Action(actionDelegateReturnTown),
-									new Zeta.TreeSharp.Action(actionDelegateTownPortalFinish)
+									new Action(actionDelegateReturnTown),
+									new Action(actionDelegateTownPortalFinish)
 									);
-								GilesReplacement.Children[1]=new Zeta.TreeSharp.Decorator(canRunDelegateReturnToTown, sequenceReturnTown);
+								GilesReplacement.Children[1]=new Decorator(canRunDelegateReturnToTown, sequenceReturnTown);
 								Logging.WriteDiagnostic("Town Run - Town Portal - hooked...");
 						  }
 
-						  ActionDelegate actionDelegatePrePause=new ActionDelegate(TownRunManager.GilesStashPrePause);
-						  ActionDelegate actionDelegatePause=new ActionDelegate(TownRunManager.GilesStashPause);
+						  ActionDelegate actionDelegatePrePause=TownRunManager.GilesStashPrePause;
+						  ActionDelegate actionDelegatePause=TownRunManager.GilesStashPause;
 
 						  if (idenify)
 						  {
 								//[2] == IDing items in inventory
-								CanRunDecoratorDelegate canRunDelegateFunkyIDBehavior=new CanRunDecoratorDelegate(FunkyIDOverlord);
-								ActionDelegate actionDelegateID=new ActionDelegate(FunkyIDBehavior);
+								CanRunDecoratorDelegate canRunDelegateFunkyIDBehavior=ItemIdentifyBehavior.FunkyIDOverlord;
+								ActionDelegate actionDelegateID=ItemIdentifyBehavior.FunkyIDBehavior;
 								Sequence sequenceIDItems=new Sequence(
-										new Zeta.TreeSharp.Action(actionDelegateID),
+										new Action(actionDelegateID),
 										new Sequence(
-										new Zeta.TreeSharp.Action(actionDelegatePrePause),
-										new Zeta.TreeSharp.Action(actionDelegatePause)
+										new Action(actionDelegatePrePause),
+										new Action(actionDelegatePause)
 										)
 										);
-								GilesReplacement.Children[2]=new Zeta.TreeSharp.Decorator(canRunDelegateFunkyIDBehavior, sequenceIDItems);
+								GilesReplacement.Children[2]=new Decorator(canRunDelegateFunkyIDBehavior, sequenceIDItems);
 								Logging.WriteDiagnostic("Town Run - Idenify Items - hooked...");
 						  }
 
 
 						  // Replace the pause just after identify stuff to ensure we wait before trying to run to vendor etc.
-						  CanRunDecoratorDelegate canRunDelegateStashGilesPreStashPause=new CanRunDecoratorDelegate(TownRunManager.GilesPreStashPauseOverlord);
+						  CanRunDecoratorDelegate canRunDelegateStashGilesPreStashPause=TownRunManager.GilesPreStashPauseOverlord;
 						  Sequence sequencepause=new Sequence(
-								  new Zeta.TreeSharp.Action(actionDelegatePrePause),
-								  new Zeta.TreeSharp.Action(actionDelegatePause)
+								  new Action(actionDelegatePrePause),
+								  new Action(actionDelegatePause)
 								  );
 
-						  GilesReplacement.Children[3]=new Zeta.TreeSharp.Decorator(canRunDelegateStashGilesPreStashPause, sequencepause);
+						  GilesReplacement.Children[3]=new Decorator(canRunDelegateStashGilesPreStashPause, sequencepause);
 
 
 						  if (stash)
 						  {
 								// Replace DB stashing behavior tree with my optimized version with loot rule replacement
-								CanRunDecoratorDelegate canRunDelegateStashGilesOverlord=new CanRunDecoratorDelegate(TownRunManager.GilesStashOverlord);
-								ActionDelegate actionDelegatePreStash=new ActionDelegate(TownRunManager.GilesOptimisedPreStash);
-								ActionDelegate actionDelegateStashing=new ActionDelegate(TownRunManager.GilesOptimisedStash);
-								ActionDelegate actionDelegatePostStash=new ActionDelegate(TownRunManager.GilesOptimisedPostStash);
+								CanRunDecoratorDelegate canRunDelegateStashGilesOverlord=TownRunManager.GilesStashOverlord;
+								ActionDelegate actionDelegatePreStash=TownRunManager.GilesOptimisedPreStash;
+								ActionDelegate actionDelegateStashing=TownRunManager.GilesOptimisedStash;
+								ActionDelegate actionDelegatePostStash=TownRunManager.GilesOptimisedPostStash;
 								Sequence sequencestash=new Sequence(
-										new Zeta.TreeSharp.Action(actionDelegatePreStash),
-										new Zeta.TreeSharp.Action(actionDelegateStashing),
-										new Zeta.TreeSharp.Action(actionDelegatePostStash),
+										new Action(actionDelegatePreStash),
+										new Action(actionDelegateStashing),
+										new Action(actionDelegatePostStash),
 										new Sequence(
-										new Zeta.TreeSharp.Action(actionDelegatePrePause),
-										new Zeta.TreeSharp.Action(actionDelegatePause)
+										new Action(actionDelegatePrePause),
+										new Action(actionDelegatePause)
 										)
 										);
-								GilesReplacement.Children[4]=new Zeta.TreeSharp.Decorator(canRunDelegateStashGilesOverlord, sequencestash);
+								GilesReplacement.Children[4]=new Decorator(canRunDelegateStashGilesOverlord, sequencestash);
 								Logging.WriteDiagnostic("Town Run - Stash - hooked...");
 						  }
 
 						  if (vendor)
 						  {
 								// Replace DB vendoring behavior tree with my optimized & "one-at-a-time" version
-								CanRunDecoratorDelegate canRunDelegateSellGilesOverlord=new CanRunDecoratorDelegate(TownRunManager.GilesSellOverlord);
-								ActionDelegate actionDelegatePreSell=new ActionDelegate(TownRunManager.GilesOptimisedPreSell);
-								ActionDelegate actionDelegateSell=new ActionDelegate(TownRunManager.GilesOptimisedSell);
-								ActionDelegate actionDelegatePostSell=new ActionDelegate(TownRunManager.GilesOptimisedPostSell);
+								CanRunDecoratorDelegate canRunDelegateSellGilesOverlord=TownRunManager.GilesSellOverlord;
+								ActionDelegate actionDelegatePreSell=TownRunManager.GilesOptimisedPreSell;
+								ActionDelegate actionDelegateSell=TownRunManager.GilesOptimisedSell;
+								ActionDelegate actionDelegatePostSell=TownRunManager.GilesOptimisedPostSell;
 								Sequence sequenceSell=new Sequence(
-										new Zeta.TreeSharp.Action(actionDelegatePreSell),
-										new Zeta.TreeSharp.Action(actionDelegateSell),
-										new Zeta.TreeSharp.Action(actionDelegatePostSell),
+										new Action(actionDelegatePreSell),
+										new Action(actionDelegateSell),
+										new Action(actionDelegatePostSell),
 										new Sequence(
-										new Zeta.TreeSharp.Action(actionDelegatePrePause),
-										new Zeta.TreeSharp.Action(actionDelegatePause)
+										new Action(actionDelegatePrePause),
+										new Action(actionDelegatePause)
 										)
 										);
-								GilesReplacement.Children[5]=new Zeta.TreeSharp.Decorator(canRunDelegateSellGilesOverlord, sequenceSell);
+								GilesReplacement.Children[5]=new Decorator(canRunDelegateSellGilesOverlord, sequenceSell);
 								Logging.WriteDiagnostic("Town Run - Vendor - hooked...");
 						  }
 
 						  if (salvage)
 						  {
 								// Replace DB salvaging behavior tree with my optimized & "one-at-a-time" version
-								CanRunDecoratorDelegate canRunDelegateSalvageGilesOverlord=new CanRunDecoratorDelegate(TownRunManager.GilesSalvageOverlord);
-								ActionDelegate actionDelegatePreSalvage=new ActionDelegate(TownRunManager.GilesOptimisedPreSalvage);
-								ActionDelegate actionDelegateSalvage=new ActionDelegate(TownRunManager.GilesOptimisedSalvage);
-								ActionDelegate actionDelegatePostSalvage=new ActionDelegate(TownRunManager.GilesOptimisedPostSalvage);
+								CanRunDecoratorDelegate canRunDelegateSalvageGilesOverlord=TownRunManager.GilesSalvageOverlord;
+								ActionDelegate actionDelegatePreSalvage=TownRunManager.GilesOptimisedPreSalvage;
+								ActionDelegate actionDelegateSalvage=TownRunManager.GilesOptimisedSalvage;
+								ActionDelegate actionDelegatePostSalvage=TownRunManager.GilesOptimisedPostSalvage;
 								Sequence sequenceSalvage=new Sequence(
-										new Zeta.TreeSharp.Action(actionDelegatePreSalvage),
-										new Zeta.TreeSharp.Action(actionDelegateSalvage),
-										new Zeta.TreeSharp.Action(actionDelegatePostSalvage),
+										new Action(actionDelegatePreSalvage),
+										new Action(actionDelegateSalvage),
+										new Action(actionDelegatePostSalvage),
 										new Sequence(
-										new Zeta.TreeSharp.Action(actionDelegatePrePause),
-										new Zeta.TreeSharp.Action(actionDelegatePause)
+										new Action(actionDelegatePrePause),
+										new Action(actionDelegatePause)
 										)
 										);
-								GilesReplacement.Children[6]=new Zeta.TreeSharp.Decorator(canRunDelegateSalvageGilesOverlord, sequenceSalvage);
+								GilesReplacement.Children[6]=new Decorator(canRunDelegateSalvageGilesOverlord, sequenceSalvage);
 								Logging.WriteDiagnostic("Town Run - Salvage - hooked...");
 						  }
 
@@ -305,35 +301,35 @@ namespace FunkyBot
 						  //[7] == Return to Townportal if there is one..
 
 						  //Setup our movement back to townportal
-						  CanRunDecoratorDelegate canRunDelegateUseTownPortalReturn=new CanRunDecoratorDelegate(TownRunManager.FinishTownRunOverlord);
-						  ActionDelegate actionDelegateFinishTownRun=new ActionDelegate(TownRunManager.TownRunFinishBehavior);
+						  CanRunDecoratorDelegate canRunDelegateUseTownPortalReturn=TownRunManager.FinishTownRunOverlord;
+						  ActionDelegate actionDelegateFinishTownRun=TownRunManager.TownRunFinishBehavior;
 						  Sequence sequenceFinishTownRun=new Sequence(
-							 new Zeta.TreeSharp.Action(actionDelegateFinishTownRun)
+							 new Action(actionDelegateFinishTownRun)
 						  );
 
 						  //We insert this before the demonbuddy townportal finishing behavior.. 
-						  GilesReplacement.InsertChild(7, new Zeta.TreeSharp.Decorator(canRunDelegateUseTownPortalReturn, sequenceFinishTownRun));
+						  GilesReplacement.InsertChild(7, new Decorator(canRunDelegateUseTownPortalReturn, sequenceFinishTownRun));
 
 						 
 
-						  CanRunDecoratorDelegate canRunUnidBehavior=new CanRunDecoratorDelegate(TownRunManager.UnidItemOverlord);
-						  ActionDelegate actionDelegatePreUnidStash=new ActionDelegate(TownRunManager.UnidStashOptimisedPreStash);
-						  ActionDelegate actionDelegatePostUnidStash=new ActionDelegate(TownRunManager.UnidStashOptimisedPostStash);
-						  ActionDelegate actionDelegateUnidBehavior=new ActionDelegate(TownRunManager.UnidStashBehavior);
+						  CanRunDecoratorDelegate canRunUnidBehavior=TownRunManager.UnidItemOverlord;
+						  ActionDelegate actionDelegatePreUnidStash=TownRunManager.UnidStashOptimisedPreStash;
+						  ActionDelegate actionDelegatePostUnidStash=TownRunManager.UnidStashOptimisedPostStash;
+						  ActionDelegate actionDelegateUnidBehavior=TownRunManager.UnidStashBehavior;
 						  Sequence sequenceUnidStash=new Sequence(
-								  new Zeta.TreeSharp.Action(actionDelegatePreUnidStash),
-								  new Zeta.TreeSharp.Action(actionDelegateUnidBehavior),
-								  new Zeta.TreeSharp.Action(actionDelegatePostUnidStash),
+								  new Action(actionDelegatePreUnidStash),
+								  new Action(actionDelegateUnidBehavior),
+								  new Action(actionDelegatePostUnidStash),
 								  new Sequence(
-								  new Zeta.TreeSharp.Action(actionDelegatePrePause),
-								  new Zeta.TreeSharp.Action(actionDelegatePause)
+								  new Action(actionDelegatePrePause),
+								  new Action(actionDelegatePause)
 								  )
 								);
-						  GilesReplacement.InsertChild(2, new Zeta.TreeSharp.Decorator(canRunUnidBehavior, sequenceUnidStash));
+						  GilesReplacement.InsertChild(2, new Decorator(canRunUnidBehavior, sequenceUnidStash));
 
 
-						  CanRunDecoratorDelegate canRunDelegateGilesTownRunCheck=new CanRunDecoratorDelegate(TownRunManager.GilesTownRunCheckOverlord);
-						  hook.Value[0]=new Zeta.TreeSharp.Decorator(canRunDelegateGilesTownRunCheck, new PrioritySelector(GilesReplacement));
+						  CanRunDecoratorDelegate canRunDelegateGilesTownRunCheck=TownRunManager.GilesTownRunCheckOverlord;
+						  hook.Value[0]=new Decorator(canRunDelegateGilesTownRunCheck, new PrioritySelector(GilesReplacement));
 
 						  Logging.WriteDiagnostic("Vendor Run tree hooked...");
 					 } // Vendor run hook
@@ -342,41 +338,37 @@ namespace FunkyBot
 						  if (looting)
 						  {
 								// Replace the loot behavior tree with a blank one, as we no longer need it
-								CanRunDecoratorDelegate canRunDelegateBlank=new CanRunDecoratorDelegate(BlankDecorator);
-								ActionDelegate actionDelegateBlank=new ActionDelegate(BlankAction);
+								CanRunDecoratorDelegate canRunDelegateBlank=BlankDecorator;
+								ActionDelegate actionDelegateBlank=BlankAction;
 								Sequence sequenceblank=new Sequence(
-										new Zeta.TreeSharp.Action(actionDelegateBlank)
+										new Action(actionDelegateBlank)
 										);
-								hook.Value[0]=new Zeta.TreeSharp.Decorator(canRunDelegateBlank, sequenceblank);
+								hook.Value[0]=new Decorator(canRunDelegateBlank, sequenceblank);
 								Logging.WriteDiagnostic("Loot tree replaced...");
 						  }
 						  else
 						  {
-								CanRunDecoratorDelegate canRunDelegateBlank=new CanRunDecoratorDelegate(BlankDecorator);
-								ActionDelegate actionDelegateBlank=new ActionDelegate(BlankAction);
-								Sequence sequenceblank=new Sequence(
-										new Zeta.TreeSharp.Action(actionDelegateBlank)
-										);
-								hook.Value[0]=new Zeta.TreeSharp.Decorator(canRunDelegateBlank, Zeta.CommonBot.Logic.BrainBehavior.CreateLootBehavior());
+								CanRunDecoratorDelegate canRunDelegateBlank=BlankDecorator;
+								hook.Value[0]=new Decorator(canRunDelegateBlank, BrainBehavior.CreateLootBehavior());
 						  }
 					 } // Vendor run hook
 					 if (hook.Key.Contains("OutOfGame"))
 					 {
-						  Zeta.TreeSharp.PrioritySelector CompositeReplacement=hook.Value[0] as Zeta.TreeSharp.PrioritySelector;
+						  PrioritySelector CompositeReplacement=hook.Value[0] as PrioritySelector;
 
-						  CanRunDecoratorDelegate shouldPreformOutOfGameBehavior=new CanRunDecoratorDelegate(OutOfGameOverlord);
-						  ActionDelegate actionDelgateOOGBehavior=new ActionDelegate(OutOfGameBehavior);
+						  CanRunDecoratorDelegate shouldPreformOutOfGameBehavior = OutOfGame.OutOfGameOverlord;
+						  ActionDelegate actionDelgateOOGBehavior = OutOfGame.OutOfGameBehavior;
 						  Sequence sequenceOOG=new Sequence(
-								  new Zeta.TreeSharp.Action(actionDelgateOOGBehavior)
+								  new Action(actionDelgateOOGBehavior)
 						  );
-						  CompositeReplacement.Children.Insert(0, new Zeta.TreeSharp.Decorator(shouldPreformOutOfGameBehavior, sequenceOOG));
+						  CompositeReplacement.Children.Insert(0, new Decorator(shouldPreformOutOfGameBehavior, sequenceOOG));
 						  hook.Value[0]=CompositeReplacement;
 
 						  Logging.WriteDiagnostic("Out of game tree hooked");
 					 }
 					 if (hook.Key.Contains("Death"))
 					 {
-						  Zeta.TreeSharp.PrioritySelector DeathPrioritySelector=hook.Value[0] as Zeta.TreeSharp.PrioritySelector;
+						  PrioritySelector DeathPrioritySelector=hook.Value[0] as PrioritySelector;
 
 						  //CanRunDecoratorDelegate canRunDeathBehavior=new CanRunDecoratorDelegate(Death.DeathOverlord);
 						
@@ -387,8 +379,8 @@ namespace FunkyBot
 
 						  Decorator DeathDecorator=DeathPrioritySelector.Children[0] as Decorator;
 						  Sequence DeathSequence=DeathDecorator.Children[0] as Sequence;
-						  ActionDelegate actionDelgateDeath=new ActionDelegate(Death.DeathHandler);
-						  DeathSequence.InsertChild(0, new Zeta.TreeSharp.Action(actionDelgateDeath));
+						  ActionDelegate actionDelgateDeath=EventHandlers.DeathHandler;
+						  DeathSequence.InsertChild(0, new Action(actionDelgateDeath));
 						  /*
 						   17:10:24.548 N] Zeta.TreeSharp.Action
 						  [17:10:24.548 N] Zeta.TreeSharp.DecoratorContinue

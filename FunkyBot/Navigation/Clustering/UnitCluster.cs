@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using FunkyBot.AbilityFunky;
 using FunkyBot.Cache;
+using FunkyBot.Cache.Objects;
 
 namespace FunkyBot.Movement.Clustering
 {
@@ -139,12 +139,12 @@ namespace FunkyBot.Movement.Clustering
 			{
 					 CacheUnit unitobj=(CacheUnit)obj;
 					 ListUnits.Add(unitobj);
-					 this.UpdateProperties(unitobj);
+					 UpdateProperties(unitobj);
 				}
 				else
-					l_bSuccess=false;
+					return l_bSuccess=false;
 
-			return l_bSuccess;
+			return true;
 
 		}  // of AddPoint()
 

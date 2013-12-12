@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Zeta;
 using Zeta.Common;
-using Zeta.CommonBot.Dungeons;
-using Zeta.CommonBot.Logic;
 using Zeta.CommonBot.Profile;
 using Zeta.Internals;
-using Zeta.Internals.Actors;
 using Zeta.Internals.SNO;
 using Zeta.Navigation;
-using Zeta.Pathfinding;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 using Action=Zeta.TreeSharp.Action;
@@ -43,7 +38,7 @@ namespace FunkyBot.XMLTags
 		  /// <summary>
 		  /// The current player position
 		  /// </summary>
-		  private Vector3 myPos { get { return Bot.Character.Position; } }
+		  private Vector3 myPos { get { return Bot.Character.Data.Position; } }
 
 		  /// <summary>
 		  /// The last scene SNOId we entered
@@ -121,7 +116,7 @@ namespace FunkyBot.XMLTags
 				Logging.WriteDiagnostic("Moving to Priority Scene {0} - {1} Center {2} Distance {3:0}",
 					 CurrentPriorityScene.Name, CurrentPriorityScene.SceneInfo.SNOId, PrioritySceneTarget, PrioritySceneTarget.Distance2D(myPos));
 
-				MoveResult moveResult=Funky.PlayerMover.NavigateTo(PrioritySceneTarget);
+				var moveResult=Funky.PlayerMover.NavigateTo(PrioritySceneTarget);
 
 				if (moveResult==MoveResult.PathGenerationFailed)
 				{
@@ -149,9 +144,9 @@ namespace FunkyBot.XMLTags
 		  private Composite UpdateSearchGridProvider()
 		  {
 				return
-				new DecoratorContinue(ret => mySceneId!=Bot.Character.iSceneID||Vector3.Distance(myPos, GPUpdatePosition)>150,
+				new DecoratorContinue(ret => mySceneId!=Bot.Character.Data.iSceneID||Vector3.Distance(myPos, GPUpdatePosition)>150,
 					 new Sequence(
-						  new Action(ret => mySceneId=Bot.Character.iSceneID),
+						  new Action(ret => mySceneId=Bot.Character.Data.iSceneID),
 						  new Action(ret => GPUpdatePosition=myPos),
 						  new Action(ret => MiniMapMarker.UpdateFailedMarkers())
 					 )
@@ -159,7 +154,7 @@ namespace FunkyBot.XMLTags
 		  }
 		  private Vector3 PrioritySceneTarget=Vector3.Zero;
 		  private int PrioritySceneSNOId=-1;
-		  private Scene CurrentPriorityScene=null;
+		  private Scene CurrentPriorityScene;
 		  /// <summary>
 		  /// A list of Scene SNOId's that have already been investigated
 		  /// </summary>
@@ -179,40 +174,37 @@ namespace FunkyBot.XMLTags
 				if (PrioritySceneTarget!=Vector3.Zero)
 					 return;
 
-				bool foundPriorityScene=false;
+				var foundPriorityScene=false;
 
 				// find any matching priority scenes in scene manager - match by name or SNOId
 
-				List<Scene> PScenes=ZetaDia.Scenes.GetScenes()
+				var PScenes=ZetaDia.Scenes.GetScenes()
 					 .Where(s => s.SceneInfo.SNOId==SceneId).ToList();
 
 				PScenes.AddRange(ZetaDia.Scenes.GetScenes()
 					  .Where(s => !String.IsNullOrEmpty(SceneName.Trim())&&s.Name.ToLower().Contains(SceneName.ToLower())).ToList());
 
-				List<Scene> foundPriorityScenes=new List<Scene>();
-				Dictionary<int, Vector3> foundPrioritySceneIndex=new Dictionary<int, Vector3>();
+				var foundPriorityScenes=new List<Scene>();
+				var foundPrioritySceneIndex=new Dictionary<int, Vector3>();
 
-				foreach (Scene scene in PScenes)
+				foreach (var scene in PScenes)
 				{
 					 if (PriorityScenesInvestigated.Contains(scene.SceneInfo.SNOId))
 						  continue;
 
 					 foundPriorityScene=true;
 
-					 NavZone navZone=scene.Mesh.Zone;
-					 NavZoneDef zoneDef=navZone.NavZoneDef;
+					 var navZone=scene.Mesh.Zone;
+					 var zoneDef=navZone.NavZoneDef;
 
-					 Vector2 zoneMin=navZone.ZoneMin;
-					 Vector2 zoneMax=navZone.ZoneMax;
+					var zoneCenter=GetNavZoneCenter(navZone);
 
-					 Vector3 zoneCenter=GetNavZoneCenter(navZone);
-
-					 List<NavCell> NavCells=zoneDef.NavCells.Where(c => c.Flags.HasFlag(NavCellFlags.AllowWalk)).ToList();
+					 var NavCells=zoneDef.NavCells.Where(c => c.Flags.HasFlag(NavCellFlags.AllowWalk)).ToList();
 
 					 if (!NavCells.Any())
 						  continue;
 
-					 NavCell bestCell=NavCells.OrderBy(c => GetNavCellCenter(c.Min, c.Max, navZone).Distance2D(zoneCenter)).FirstOrDefault();
+					 var bestCell=NavCells.OrderBy(c => GetNavCellCenter(c.Min, c.Max, navZone).Distance2D(zoneCenter)).FirstOrDefault();
 
 					 if (bestCell!=null)
 					 {
@@ -227,7 +219,7 @@ namespace FunkyBot.XMLTags
 
 				if (foundPrioritySceneIndex.Any())
 				{
-					 KeyValuePair<int, Vector3> nearestPriorityScene=foundPrioritySceneIndex.OrderBy(s => s.Value.Distance2D(myPos)).FirstOrDefault();
+					 var nearestPriorityScene=foundPrioritySceneIndex.OrderBy(s => s.Value.Distance2D(myPos)).FirstOrDefault();
 
 					 PrioritySceneSNOId=nearestPriorityScene.Key;
 					 PrioritySceneTarget=nearestPriorityScene.Value;
@@ -250,8 +242,8 @@ namespace FunkyBot.XMLTags
 		  /// <returns></returns>
 		  private Vector3 GetNavZoneCenter(NavZone zone)
 		  {
-				float X=zone.ZoneMin.X+((zone.ZoneMax.X-zone.ZoneMin.X)/2);
-				float Y=zone.ZoneMin.Y+((zone.ZoneMax.Y-zone.ZoneMin.Y)/2);
+				var X=zone.ZoneMin.X+((zone.ZoneMax.X-zone.ZoneMin.X)/2);
+				var Y=zone.ZoneMin.Y+((zone.ZoneMax.Y-zone.ZoneMin.Y)/2);
 
 				return new Vector3(X, Y, 0);
 		  }
@@ -276,14 +268,14 @@ namespace FunkyBot.XMLTags
 		  /// <returns></returns>
 		  private Vector3 GetNavCellCenter(Vector3 min, Vector3 max, NavZone zone)
 		  {
-				float X=zone.ZoneMin.X+min.X+((max.X-min.X)/2);
-				float Y=zone.ZoneMin.Y+min.Y+((max.Y-min.Y)/2);
-				float Z=min.Z+((max.Z-min.Z)/2);
+				var X=zone.ZoneMin.X+min.X+((max.X-min.X)/2);
+				var Y=zone.ZoneMin.Y+min.Y+((max.Y-min.Y)/2);
+				var Z=min.Z+((max.Z-min.Z)/2);
 
 				return new Vector3(X, Y, Z);
 		  }
 
-		  private bool isDone=false;
+		  private bool isDone;
 		  /// <summary>
 		  /// When true, the next profile tag is used
 		  /// </summary>

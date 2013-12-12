@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using FunkyBot.AbilityFunky;
+using FunkyBot.Cache.Objects;
+using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
-using Zeta;
 using Zeta.Common;
-using Zeta.CommonBot;
-using Zeta.Internals.Actors;
 
 namespace FunkyBot.Targeting.Behaviors
 {
 	public class TBUpdateTarget:TargetBehavior
 	{
+		 private DateTime lastAvoidanceConnectSearch=DateTime.Today;
 		 private bool bStayPutDuringAvoidance = false;
 		 public TBUpdateTarget() : base() { }
 
@@ -27,7 +25,7 @@ namespace FunkyBot.Targeting.Behaviors
 		 }
 		 public override void Initialize()
 		 {
-			  base.Test=(ref Cache.CacheObject obj) =>
+			  base.Test=(ref CacheObject obj) =>
 			  {
 					this.bStayPutDuringAvoidance=false;
 
@@ -44,9 +42,29 @@ namespace FunkyBot.Targeting.Behaviors
 						 // No valid targets but we were told to stay put?
 						 if (this.bStayPutDuringAvoidance)
 						 {
+							 //Lets check our avoidance object list
+							 if (Bot.Targeting.objectsIgnoredDueToAvoidance.Count > 0 && DateTime.Now.Subtract(lastAvoidanceConnectSearch).TotalMilliseconds>4000)
+							 {
+								 Logging.Write("Preforming Avoidance Connection Search on Potential Objects");
+								 lastAvoidanceConnectSearch=DateTime.Now;
+
+								 //Update or Create Bot Postion GPRect
+								 GPRectangle botrect=new GPRectangle(Bot.Character.Data.Position);
+								 Vector3 connectVector3;
+								 foreach(CacheObject testobj in Bot.Targeting.objectsIgnoredDueToAvoidance)
+								 {
+									if(botrect.TryFindSafeSpot(Bot.Character.Data.Position, out connectVector3, testobj.Position, PointCheckingFlags.AvoidanceOverlap | PointCheckingFlags.BlockedDirection | PointCheckingFlags.MonsterOverlap | PointCheckingFlags.ObstacleOverlap | PointCheckingFlags.RaycastWalkable, new List<GridPoint>()))
+									{
+										obj = new CacheObject(connectVector3, TargetType.Avoidance, 20000, "Avoid Connection", 2.5f, -1);
+										return true;
+									}
+								 }
+								// 
+							 }
+
 							 if (Bot.Targeting.Environment.TriggeringAvoidances.Count == 0)
 							 {
-									obj=new CacheObject(Bot.Character.Position, TargetType.Avoidance, 20000, "StayPutPoint", 2.5f, -1);
+									obj=new CacheObject(Bot.Character.Data.Position, TargetType.Avoidance, 20000, "StayPutPoint", 2.5f, -1);
 									return true;
 							  }
 						 }
@@ -64,7 +82,7 @@ namespace FunkyBot.Targeting.Behaviors
 			  // Store if we are ignoring all units this cycle or not
 			  bool bIgnoreAllUnits=!Bot.Targeting.Environment.bAnyChampionsPresent
 										  &&((!Bot.Targeting.Environment.bAnyTreasureGoblinsPresent&&Bot.Settings.Targeting.GoblinPriority>=2)||Bot.Settings.Targeting.GoblinPriority<2)
-										  &&Bot.Character.dCurrentHealthPct>=0.85d;
+										  &&Bot.Character.Data.dCurrentHealthPct>=0.85d;
 
 
 			  //clear our last "avoid" list..
@@ -105,7 +123,7 @@ namespace FunkyBot.Targeting.Behaviors
 						 bool resetTarget=false;
 
 						
-						 if (!Bot.Class.IsMeleeClass&&CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Targeting.Environment.NearbyAvoidances.Count>0)
+						 if (!Bot.Character.Class.IsMeleeClass&&CurrentTarget.targetType.Value==TargetType.Unit&&Bot.Targeting.Environment.NearbyAvoidances.Count>0)
 						 {//Ranged Class -- Unit -- with Nearby Avoidances..
 
 							  //We are checking if this target is valid and will not cause avoidance triggering due to movement.
@@ -115,10 +133,10 @@ namespace FunkyBot.Targeting.Behaviors
 							  Bot.Targeting.CurrentUnitTarget=(CacheUnit)CurrentTarget;
 
 							 //Generate next Ability..
-							 Ability nextAbility=Bot.Class.AbilitySelector(Bot.Targeting.CurrentUnitTarget, true);
+							 Skill nextAbility=Bot.Character.Class.AbilitySelector(Bot.Targeting.CurrentUnitTarget, true);
 
 
-							 if (nextAbility == Bot.Class.DefaultAttack && !Bot.Class.CanUseDefaultAttack)
+							 if (nextAbility == Bot.Character.Class.DefaultAttack && !Bot.Character.Class.CanUseDefaultAttack)
 							 {//No valid ability found
 
 								 Logger.Write(LogLevel.Target, "Could not find a valid ability for unit {0}", thisobj.InternalName);
@@ -132,7 +150,7 @@ namespace FunkyBot.Targeting.Behaviors
 							 else
 							 {
 								 Vector3 destination = nextAbility.DestinationVector;
-								 if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(Bot.Character.Position, destination))
+								 if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(Bot.Character.Data.Position, destination))
 								 {
 									 if (!thisobj.ObjectIsSpecial)
 										 resetTarget = true;

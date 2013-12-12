@@ -5,10 +5,10 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Collections;
 using FunkyBot.Cache;
+using FunkyBot.Cache.Objects;
 using Zeta.Internals.Actors;
 using Zeta.Common;
 using GilesTrinity.ItemRules.Core;
-using Zeta;
 using Zeta.CommonBot.Items;
 using Zeta.CommonBot;
 
@@ -177,7 +177,7 @@ namespace FunkyBot
 					 string[] strArrray=str.Split(';');
 					 nameToBalanceId[strArrray[1].Replace(" ", "")]=strArrray[0];
 				}
-				//DbHelper.Log(TrinityLogLevel.Normal, LogCategory.UserInformation, "... loaded: {0} ITEMID translations", nameToBalanceId.Count);
+				//DbHelper.Logging.Write(TrinityLogLevel.Normal, LogCategory.UserInformation, "... loaded: {0} ITEMID translations", nameToBalanceId.Count);
 
 				// parse pickup file
 				pickUpRuleSet=readLinesToArray(new StreamReader(Path.Combine(rulesPath, pickupFile)), pickUpRuleSet);
@@ -232,7 +232,7 @@ namespace FunkyBot
 
 					 if (match.Success)
 					 {
-						  //DbHelper.Log(TrinityLogLevel.Normal, LogCategory.UserInformation, " macro added: {0} := {1}", match.Groups[1].Value, match.Groups[2].Value);
+						  //DbHelper.Logging.Write(TrinityLogLevel.Normal, LogCategory.UserInformation, " macro added: {0} := {1}", match.Groups[1].Value, match.Groups[2].Value);
 						  macroDic.Add(match.Groups[1].Value, match.Groups[2].Value);
 						  continue;
 					 }
@@ -507,10 +507,9 @@ namespace FunkyBot
 		  private TrinityItemQuality getTrinityItemQualityFromString(object quality)
 		  {
 				TrinityItemQuality trinityItemQuality;
-				if (Enum.TryParse<TrinityItemQuality>(quality.ToString(), true, out trinityItemQuality))
+				if (Enum.TryParse(quality.ToString(), true, out trinityItemQuality))
 					 return trinityItemQuality;
-				else
-					 return TrinityItemQuality.Common;
+			  return TrinityItemQuality.Common;
 		  }
 
 
@@ -524,7 +523,7 @@ namespace FunkyBot
 		  private bool evaluate(string str, out ParseErrors parseErrors)
 		  {
 				bool result=false;
-				GilesTrinity.ItemRules.Core.ParseTree tree=parser.Parse(str);
+				ParseTree tree=parser.Parse(str);
 				parseErrors=tree.Errors;
 				object obj=tree.Eval(null);
 
@@ -542,7 +541,7 @@ namespace FunkyBot
 		  /// <returns></returns>
 		  private object evaluateExpr(string str, out ParseErrors parseErrors)
 		  {
-				GilesTrinity.ItemRules.Core.ParseTree tree=parser.Parse(str);
+				var tree=parser.Parse(str);
 				parseErrors=tree.Errors;
 				return tree.Eval(null);
 
@@ -631,7 +630,7 @@ namespace FunkyBot
 
 				string[] strArray=key.Split('.');
 
-				if (Interpreter.itemDic.TryGetValue(strArray[0], out obj)&&strArray.Count()>1)
+				if (itemDic.TryGetValue(strArray[0], out obj)&&strArray.Count()>1)
 				{
 					 switch (strArray[1])
 					 {
@@ -643,8 +642,8 @@ namespace FunkyBot
 								object itemType, twoHand;
 								double result;
 								if (obj is float
-									 &&Interpreter.itemDic.TryGetValue("[TYPE]", out itemType)
-									 &&Interpreter.itemDic.TryGetValue("[TWOHAND]", out twoHand)
+									 &&itemDic.TryGetValue("[TYPE]", out itemType)
+									 &&itemDic.TryGetValue("[TWOHAND]", out twoHand)
 									 &&MaxStats.maxItemStats.TryGetValue(itemType.ToString()+twoHand.ToString()+strArray[0], out result)
 									 &&result>0)
 									 obj=(float)obj/(float)result;

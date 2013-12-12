@@ -81,13 +81,13 @@ namespace FunkyBot.Movement
 
 				public SkipAheadNavigation(Vector3 pos, float radius)
 				{
-					 this.Position=pos;
-					 this.Radius=radius;
+					 Position=pos;
+					 Radius=radius;
 				}
 
 				public SkipAheadNavigation Clone()
 				{
-					 return (SkipAheadNavigation)this.MemberwiseClone();
+					 return (SkipAheadNavigation)MemberwiseClone();
 				}
 		  }
     

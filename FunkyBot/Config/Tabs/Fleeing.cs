@@ -1,13 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using FunkyBot.Avoidances;
+using System.Windows.Forms;
+using System.Windows.Media;
 using FunkyBot.Settings;
-using FunkyBot.Cache;
 using System;
+using Button = System.Windows.Controls.Button;
+using CheckBox = System.Windows.Controls.CheckBox;
+using HorizontalAlignment = System.Windows.HorizontalAlignment;
+using ListBox = System.Windows.Controls.ListBox;
+using Orientation = System.Windows.Controls.Orientation;
+using TextBox = System.Windows.Controls.TextBox;
+using ToolTip = System.Windows.Controls.ToolTip;
 
 namespace FunkyBot
 {
@@ -69,14 +74,14 @@ namespace FunkyBot
         }
         private void FleeingLoadXMLClicked(object sender, EventArgs e)
         {
-            System.Windows.Forms.OpenFileDialog OFD = new System.Windows.Forms.OpenFileDialog
+            OpenFileDialog OFD = new OpenFileDialog
             {
                 InitialDirectory = Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
                 RestoreDirectory = false,
                 Filter = "xml files (*.xml)|*.xml|All files (*.*)|*.*",
                 Title = "Fleeing Template",
             };
-            System.Windows.Forms.DialogResult OFD_Result = OFD.ShowDialog();
+            DialogResult OFD_Result = OFD.ShowDialog();
 
             if (OFD_Result == System.Windows.Forms.DialogResult.OK)
             {
@@ -86,7 +91,7 @@ namespace FunkyBot
                     SettingFleeing newSettings = SettingFleeing.DeserializeFromXML(OFD.FileName);
                     Bot.Settings.Fleeing = newSettings;
 
-                    FunkyWindow.funkyConfigWindow.Close();
+                    funkyConfigWindow.Close();
                 }
                 catch
                 {
@@ -110,13 +115,13 @@ namespace FunkyBot
             Button BtnFleeingLoadTemplate = new Button
             {
                 Content = "Load Setup",
-                Background = System.Windows.Media.Brushes.OrangeRed,
-                Foreground = System.Windows.Media.Brushes.GhostWhite,
+                Background = Brushes.OrangeRed,
+                Foreground = Brushes.GhostWhite,
                 FontStyle = FontStyles.Italic,
                 FontSize = 12,
 
-                HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
-                VerticalAlignment = System.Windows.VerticalAlignment.Top,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top,
                 Width = 75,
                 Height = 30,
 
@@ -124,22 +129,22 @@ namespace FunkyBot
             };
             BtnFleeingLoadTemplate.Click += FleeingLoadXMLClicked;
 
-            ToolTip TTFleeInfo = new System.Windows.Controls.ToolTip
+            ToolTip TTFleeInfo = new ToolTip
             {
                 Content = "Trys to move away from any monsters that are within the distance set",
             };
             SPFleeing = new StackPanel
             {
                 Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom + 5),
-                Background = System.Windows.Media.Brushes.DimGray,
+                Background = Brushes.DimGray,
             };
             TextBlock Flee_Text_Header = new TextBlock
             {
                 Text = "Fleeing",
                 FontSize = 12,
-                Background = System.Windows.Media.Brushes.SeaGreen,
+                Background = Brushes.SeaGreen,
                 TextAlignment = TextAlignment.Center,
-                HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
                 ToolTip = TTFleeInfo,
             };
 
@@ -162,7 +167,7 @@ namespace FunkyBot
             {
                 Text = "Maximum Monster Distance",
                 FontSize = 13,
-                Foreground = System.Windows.Media.Brushes.GhostWhite,
+                Foreground = Brushes.GhostWhite,
                 //Background = System.Windows.Media.Brushes.Crimson,
                 TextAlignment = TextAlignment.Left,
             };
@@ -176,7 +181,7 @@ namespace FunkyBot
                 LargeChange = 5,
                 SmallChange = 1,
                 Value = Bot.Settings.Fleeing.FleeMaxMonsterDistance,
-                HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
+                HorizontalAlignment = HorizontalAlignment.Left,
             };
             sliderFleeMonsterDistance.ValueChanged += FleeMonsterDistanceSliderChanged;
             TBFleemonsterDistance = new TextBox
@@ -185,7 +190,7 @@ namespace FunkyBot
                 IsReadOnly = true,
             };
 
-            ToolTip TTFleeMonsterDistance = new System.Windows.Controls.ToolTip
+            ToolTip TTFleeMonsterDistance = new ToolTip
             {
                 Content = "The maximum distance allowed for units that trigger fleeing",
             };
@@ -207,7 +212,7 @@ namespace FunkyBot
             {
                 Text = "Bot Min Health Percent",
                 FontSize = 13,
-                Foreground = System.Windows.Media.Brushes.GhostWhite,
+                Foreground = Brushes.GhostWhite,
                 //Background = System.Windows.Media.Brushes.Crimson,
                 TextAlignment = TextAlignment.Left,
             };
@@ -222,7 +227,7 @@ namespace FunkyBot
                 LargeChange = 0.1,
                 SmallChange = 0.05,
                 Value = Bot.Settings.Fleeing.FleeBotMinimumHealthPercent,
-                HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
+                HorizontalAlignment = HorizontalAlignment.Left,
             };
             sliderFleeHealthPercent.ValueChanged += FleeMinimumHealthSliderChanged;
             TBFleeMinimumHealth = new TextBox
@@ -230,7 +235,7 @@ namespace FunkyBot
                 Text = Bot.Settings.Fleeing.FleeBotMinimumHealthPercent.ToString(),
                 IsReadOnly = true,
             };
-            ToolTip TTFleeMinimumHealth = new System.Windows.Controls.ToolTip
+            ToolTip TTFleeMinimumHealth = new ToolTip
             {
                 Content = "Minimum Health Percent before Fleeing is Allowed",
             };
@@ -262,7 +267,7 @@ namespace FunkyBot
             #region Flee Unit Triggers
 
             StackPanel SPFleeUnitOptions = new StackPanel();
-            ToolTip TTFleeUnitInfo = new System.Windows.Controls.ToolTip
+            ToolTip TTFleeUnitInfo = new ToolTip
             {
                 Content = "This determines what units should trigger fleeing",
             };
@@ -270,9 +275,9 @@ namespace FunkyBot
             {
                 Text = "Fleeing Unit Triggers",
                 FontSize = 12,
-                Background = System.Windows.Media.Brushes.SeaGreen,
+                Background = Brushes.SeaGreen,
                 TextAlignment = TextAlignment.Center,
-                HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
                 ToolTip = TTFleeUnitInfo,
             };
             SPFleeUnitOptions.Children.Add(FleeUnit_Text_Header);

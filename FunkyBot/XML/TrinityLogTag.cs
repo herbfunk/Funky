@@ -10,9 +10,8 @@ namespace FunkyBot.XMLTags
 	[XmlElement("TrinityLog")]
 	public class TrinityLogTag : ProfileBehavior
 	{
-		private bool m_IsDone=false;
-		private string sLogOutput;
-		private string sLogLevel;
+		private bool m_IsDone;
+
 		public override bool IsDone
 		{
 			get { return m_IsDone; }
@@ -20,7 +19,7 @@ namespace FunkyBot.XMLTags
 
 		protected override Composite CreateBehavior()
 		{
-			return new Zeta.TreeSharp.Action(ret =>
+			return new Action(ret =>
 			{
 				if (Level!=null&&Level.ToLower()=="diagnostic")
 					Logging.WriteDiagnostic(Output);
@@ -30,31 +29,11 @@ namespace FunkyBot.XMLTags
 			});
 		}
 
-		[XmlAttribute("level", true)]
-		public string Level
-		{
-			get
-			{
-				return sLogLevel;
-			}
-			set
-			{
-				sLogLevel=value;
-			}
-		}
+		[XmlAttribute("level")]
+		public string Level { get; set; }
 
-		[XmlAttribute("output", true)]
-		public string Output
-		{
-			get
-			{
-				return sLogOutput;
-			}
-			set
-			{
-				sLogOutput=value;
-			}
-		}
+		[XmlAttribute("output")]
+		public string Output { get; set; }
 
 		public override void ResetCachedDone()
 		{

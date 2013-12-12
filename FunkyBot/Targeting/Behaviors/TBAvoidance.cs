@@ -1,6 +1,7 @@
 ﻿using System;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Cache.Objects;
 using Zeta.Common;
 
 namespace FunkyBot.Targeting.Behaviors
@@ -50,7 +51,7 @@ namespace FunkyBot.Targeting.Behaviors
 					  Vector3 vAnySafePoint;
 					  if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, Vector3.Zero, Bot.Settings.Plugin.AvoidanceFlags))
 					  {
-							float distance=vAnySafePoint.Distance(Bot.Character.Position);
+							float distance=vAnySafePoint.Distance(Bot.Character.Data.Position);
 
 							Logging.WriteDiagnostic("Avoid Movement found AT {0} with {1} Distance", vAnySafePoint.ToString(), distance);
 

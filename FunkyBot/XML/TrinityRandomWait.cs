@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Windows.Markup;
-using Zeta.Common.Plugins;
 using Zeta.CommonBot;
 using Zeta.CommonBot.Profile;
 using Zeta.TreeSharp;
@@ -14,7 +12,7 @@ namespace FunkyBot.XMLTags
 	[XmlElement("TrinityRandomWait")]
 	 public class TrinityRandomWait : ProfileBehavior
 	 {
-		  private bool isDone=false;
+		  private bool isDone;
 		  private int minDelay;
 		  private int maxDelay;
 		  private int delay;
@@ -28,37 +26,34 @@ namespace FunkyBot.XMLTags
 
 		  protected override Composite CreateBehavior()
 		  {
-				Sequence RandomWaitSequence=new Sequence(
+				var RandomWaitSequence=new Sequence(
 					 new Action(ret => delay=new Random().Next(minDelay, maxDelay)),
 					 new Action(ret => statusText=String.Format("[XML Tag] Trinity Random Wait - Taking a break for {0:3} seconds.", delay)),
 					 new Action(ret => BotMain.StatusText=statusText),
-					 new Action(ctx => DoRandomWait(ctx)),
+					 new Action(ctx => DoRandomWait()),
 					 new Action(ret => isDone=true)
 				);
 
 				return RandomWaitSequence;
 		  }
 
-		  private RunStatus DoRandomWait(object ctx)
+		  private RunStatus DoRandomWait()
 		  {
-				if (!timer.IsRunning)
+			  if (!timer.IsRunning)
 				{
 					 timer.Start();
 					 return RunStatus.Running;
 				}
-				else if (timer.IsRunning&&timer.ElapsedMilliseconds<delay)
-				{
-					 return RunStatus.Running;
-				}
-				else
-				{
-					 timer.Reset();
-					 return RunStatus.Success;
-				}
+			  if (timer.IsRunning&&timer.ElapsedMilliseconds<delay)
+			  {
+				  return RunStatus.Running;
+			  }
+			  timer.Reset();
+			  return RunStatus.Success;
 		  }
 
 
-		  [XmlAttribute("min")]
+		[XmlAttribute("min")]
 		  public int min
 		  {
 				get

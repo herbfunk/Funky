@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
-using FunkyBot.AbilityFunky;
+using FunkyBot.Cache.Objects;
+using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using Zeta;
@@ -8,7 +8,6 @@ using Zeta.TreeSharp;
 using Zeta.Common;
 using Zeta.Internals.SNO;
 using Zeta.Internals.Actors;
-using Zeta.Navigation;
 
 namespace FunkyBot.Movement
 {
@@ -30,7 +29,7 @@ namespace FunkyBot.Movement
 			CurrentTargetLocation = Vector3.Zero;
 
 			//Add handler for position update
-			Bot.Character.OnPositionChanged += positionChangedHandler;
+			Bot.Character.Data.OnPositionChanged += positionChangedHandler;
 		}
 
 		private void positionChangedHandler(Vector3 position)
@@ -49,7 +48,7 @@ namespace FunkyBot.Movement
 		private Vector3 LastTargetLocation = Vector3.Zero;
 		private DateTime lastPositionChange = DateTime.Today;
 		private Vector3 LastPlayerLocation = Vector3.Zero;
-		private bool IsAlreadyMoving = false;
+		private bool IsAlreadyMoving;
 
 
 		internal RunStatus TargetMoveTo(CacheObject obj)
@@ -107,7 +106,7 @@ namespace FunkyBot.Movement
 			#endregion
 
 			// Are we currently incapacitated? If so then wait...
-			if (Bot.Character.bIsIncapacitated || Bot.Character.bIsRooted)
+			if (Bot.Character.Data.bIsIncapacitated || Bot.Character.Data.bIsRooted)
 				return RunStatus.Running;
 
 			//Ignore skip ahead cache for LOS movements..
@@ -129,7 +128,7 @@ namespace FunkyBot.Movement
 					if (NonMovementCounter > 250)
 					{
 						//Are we stuck?
-						if (!Navigation.MGP.CanStandAt(Bot.Character.Position))
+						if (!Navigation.MGP.CanStandAt(Bot.Character.Data.Position))
 						{
 							Logging.Write("Character is stuck inside non-standable location.. attempting townportal cast..");
 							ZetaDia.Me.UseTownPortal();
@@ -140,7 +139,7 @@ namespace FunkyBot.Movement
 
 
 					//Check if we can walk to this location from current location..
-					if (!Navigation.CanRayCast(Bot.Character.Position, CurrentTargetLocation, UseSearchGridProvider: true))
+					if (!Navigation.CanRayCast(Bot.Character.Data.Position, CurrentTargetLocation, UseSearchGridProvider: true))
 					{
 						obj.RequiresLOSCheck = true;
 						obj.BlacklistLoops = 50;
@@ -222,7 +221,7 @@ namespace FunkyBot.Movement
 								{
 									Vector3 hitTest;
 									// No raycast available, try and force-ignore this for a little while, and blacklist for a few seconds
-									if (Zeta.Navigation.Navigator.Raycast(Bot.Character.Position, obj.Position, out hitTest))
+									if (Zeta.Navigation.Navigator.Raycast(Bot.Character.Data.Position, obj.Position, out hitTest))
 									{
 										if (hitTest != Vector3.Zero)
 										{
@@ -244,7 +243,7 @@ namespace FunkyBot.Movement
 							}
 							else
 							{
-								if (!Navigation.CanRayCast(Bot.Character.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
+								if (!Navigation.CanRayCast(Bot.Character.Data.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
 								{
 									if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 										Logger.Write(LogLevel.Movement, "Cannot continue with avoidance movement due to raycast failure!");
@@ -280,14 +279,11 @@ namespace FunkyBot.Movement
 			#region SpecialMovementChecks
 			if (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.AvoidanceMovements | TargetType.Gold | TargetType.Globe))
 			{
-
-				bool bTooMuchZChange = ((Bot.Character.Position.Z - CurrentTargetLocation.Z) >= 4f);
-
-				Ability MovementPower;
-				Vector3 MovementVector = Bot.Class.FindCombatMovementPower(out MovementPower, obj.Position);
+				Skill MovementPower;
+				Vector3 MovementVector = Bot.Character.Class.FindCombatMovementPower(out MovementPower, obj.Position);
 				if (MovementVector != Vector3.Zero)
 				{
-					ZetaDia.Me.UsePower(MovementPower.Power, MovementVector, Bot.Character.iCurrentWorldID, -1);
+					ZetaDia.Me.UsePower(MovementPower.Power, MovementVector, Bot.Character.Data.iCurrentWorldID, -1);
 					MovementPower.OnSuccessfullyUsed();
 
 					// Store the current destination for comparison incase of changes next loop
@@ -300,13 +296,13 @@ namespace FunkyBot.Movement
 				}
 
 				//Special Whirlwind Code
-				if (Bot.Class.AC == Zeta.Internals.Actors.ActorClass.Barbarian && Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind))
+				if (Bot.Character.Class.AC == ActorClass.Barbarian && Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind))
 				{
 					// Whirlwind against everything within range (except backtrack points)
-					if (Bot.Character.dCurrentEnergy >= 10
+					if (Bot.Character.Data.dCurrentEnergy >= 10
 						 && Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20] >= 1
 						 && obj.DistanceFromTarget <= 12f
-						 && (!Bot.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_Sprint) || Bot.Class.HotBar.HasBuff(SNOPower.Barbarian_Sprint))
+						 && (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_Sprint) || Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_Sprint))
 						 && (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.AvoidanceMovements | TargetType.Gold | TargetType.Globe) == false)
 						 && (obj.targetType.Value != TargetType.Unit
 						 || (obj.targetType.Value == TargetType.Unit && !obj.IsTreasureGoblin
@@ -315,16 +311,16 @@ namespace FunkyBot.Movement
 									|| !CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(obj.SNOID)))))
 					{
 						// Special code to prevent whirlwind double-spam, this helps save fury
-						bool bUseThisLoop = SNOPower.Barbarian_Whirlwind != Bot.Class.LastUsedAbility.Power;
+						bool bUseThisLoop = SNOPower.Barbarian_Whirlwind != Bot.Character.Class.LastUsedAbility.Power;
 						if (!bUseThisLoop)
 						{
-							if (Bot.Class.Abilities[SNOPower.Barbarian_Whirlwind].LastUsedMilliseconds >= 200)
+							if (Bot.Character.Class.Abilities[SNOPower.Barbarian_Whirlwind].LastUsedMilliseconds >= 200)
 								bUseThisLoop = true;
 						}
 						if (bUseThisLoop)
 						{
-							ZetaDia.Me.UsePower(SNOPower.Barbarian_Whirlwind, CurrentTargetLocation, Bot.Character.iCurrentWorldID, -1);
-							Bot.Class.Abilities[SNOPower.Barbarian_Whirlwind].OnSuccessfullyUsed();
+							ZetaDia.Me.UsePower(SNOPower.Barbarian_Whirlwind, CurrentTargetLocation, Bot.Character.Data.iCurrentWorldID);
+							Bot.Character.Class.Abilities[SNOPower.Barbarian_Whirlwind].OnSuccessfullyUsed();
 						}
 						// Store the current destination for comparison incase of changes next loop
 						LastTargetLocation = CurrentTargetLocation;
@@ -345,7 +341,7 @@ namespace FunkyBot.Movement
 			LastTargetLocation = CurrentTargetLocation;
 
 			//Check if we moved at least 5f..
-			if (LastPlayerLocation.Distance(Bot.Character.Position) <= 5f)
+			if (LastPlayerLocation.Distance(Bot.Character.Data.Position) <= 5f)
 				NonMovementCounter++;
 			else
 			{
@@ -354,7 +350,7 @@ namespace FunkyBot.Movement
 			}
 
 			//store player location
-			LastPlayerLocation = Bot.Character.Position;
+			LastPlayerLocation = Bot.Character.Data.Position;
 
 			return RunStatus.Running;
 		}
@@ -394,7 +390,7 @@ namespace FunkyBot.Movement
 				if (!UsePowerMovement)
 					ZetaDia.Me.Movement.MoveActor(CurrentTargetLocation);
 				else
-					ZetaDia.Me.UsePower(SNOPower.Walk, CurrentTargetLocation, Bot.Character.iCurrentWorldID, -1);
+					ZetaDia.Me.UsePower(SNOPower.Walk, CurrentTargetLocation, Bot.Character.Data.iCurrentWorldID);
 
 				//and record when we sent the movement..
 				LastMovementCommand = DateTime.Now;
@@ -403,12 +399,12 @@ namespace FunkyBot.Movement
 
 		internal void RestartTracking()
 		{
-			Bot.Character.OnPositionChanged += this.positionChangedHandler;
+			Bot.Character.Data.OnPositionChanged += positionChangedHandler;
 			lastPositionChange = DateTime.Now;
 		}
 		internal void ResetTargetMovementVars()
 		{
-			Bot.Character.OnPositionChanged -= this.positionChangedHandler;
+			Bot.Character.Data.OnPositionChanged -= positionChangedHandler;
 			BlockedMovementCounter = 0;
 			NonMovementCounter = 0;
 			NewTargetResetVars();

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using FunkyBot.Cache;
+using Zeta.CommonBot.Settings;
 
 namespace FunkyBot.Game
 {
@@ -14,46 +15,31 @@ namespace FunkyBot.Game
 		{
 			get
 			{
-				int total = 0;
-				foreach(var P in Profiles)
-				{
-					total += P.TotalGold;
-				}
-				return total;
+				return Profiles.Sum(P => P.TotalGold);
 			}
 		}
 		public int TotalXP
 		{
 			get
 			{
-				int total = 0;
-				foreach (var P in Profiles)
-				{
-					total += P.TotalXP;
-				}
-				return total;
+				return Profiles.Sum(P => P.TotalXP);
 			}
 		}
 		public int TotalDeaths
 		{
 			get
 			{
-				int total = 0;
-				foreach (var P in Profiles)
-				{
-					total += P.DeathCount;
-				}
-				return total;
+				return Profiles.Sum(P => P.DeathCount);
 			}
 		}
 		public TimeSpan TotalTimeRunning
 		{
 			get
 			{
-				TimeSpan total = new TimeSpan();
+				var total = new TimeSpan();
 				foreach (var P in Profiles)
 				{
-					if (P==CurrentProfile)
+					if (P.Equals(CurrentProfile))
 					{//Current Profile requires Live Data
 						P.UpdateRangeVariables();
 						P.RestartRangeVariables();
@@ -71,10 +57,10 @@ namespace FunkyBot.Game
 		{
 			get
 			{
-				LootTracking total = new LootTracking();
+				var total = new LootTracking();
 				foreach (var P in Profiles)
 				{
-					if (P == CurrentProfile)
+					if (P.Equals(CurrentProfile))
 					{//Current Profile requires Live Data
 						P.UpdateRangeVariables();
 						P.RestartRangeVariables();
@@ -84,39 +70,40 @@ namespace FunkyBot.Game
 				return total;
 			}
 		}
+		public readonly int MonsterPower;
 		public GameStats()
 		{
 			Profiles = new List<TrackedProfile>();
-
+			MonsterPower = Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings?Bot.Settings.Demonbuddy.MonsterPower:Funky.iDemonbuddyMonsterPowerLevel;
 			//note: this will change on first ProfileChanged call!
-			currentprofile = new TrackedProfile(Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile);
+			currentprofile = new TrackedProfile(GlobalSettings.Instance.LastProfile);
 		}
 
 		public void ProfileChanged(string sThisProfile)
 		{
 			//fresh profile?
-			if (this.Profiles.Count == 0)
+			if (Profiles.Count == 0)
 			{
 				//Lets create a new profile
-				this.Profiles.Add(new TrackedProfile(sThisProfile));
+				Profiles.Add(new TrackedProfile(sThisProfile));
 
 				//Reference it to the Collection
-				this.currentprofile = this.Profiles[this.Profiles.Count - 1];
+				currentprofile = Profiles[Profiles.Count - 1];
 			}
 
 			//Did we really change profiles?
-			if (this.Profiles.Count > 0 && this.Profiles.Last().ProfileName != sThisProfile)
+			if (Profiles.Count > 0 && Profiles.Last().ProfileName != sThisProfile)
 			{
 				//Refresh Profile Target Blacklist 
-				FunkyBot.Cache.BlacklistCache.UpdateProfileBlacklist();
+				BlacklistCache.UpdateProfileBlacklist();
 
 				//Set the "end" date for current profile
-				this.Profiles.Last().UpdateRangeVariables();
+				Profiles.Last().UpdateRangeVariables();
 
 
 
 				bool foundPreviousEntry = false;
-				foreach (TrackedProfile item in this.Profiles)
+				foreach (TrackedProfile item in Profiles)
 				{
 					//Found the profile so lets use that instead!
 					if (item.ProfileName == sThisProfile)
@@ -125,7 +112,7 @@ namespace FunkyBot.Game
 						item.RestartRangeVariables();//reset Starting variables
 
 						//Reference it to the Collection
-						this.currentprofile = item;
+						currentprofile = item;
 						break;
 					}
 				}
@@ -135,32 +122,32 @@ namespace FunkyBot.Game
 				if (!foundPreviousEntry)
 				{
 					//Lets create a new profile
-					this.Profiles.Add(new TrackedProfile(sThisProfile));
+					Profiles.Add(new TrackedProfile(sThisProfile));
 					//Reference it to the Collection
-					this.currentprofile = this.Profiles[this.Profiles.Count - 1];
+					currentprofile = Profiles[Profiles.Count - 1];
 				}
 			}
 		}
 
 
-		public string GenerateOutputString()
-		{
-			string output = String.Format("Total Stats while running\r\nGames:{0} Deaths:{1} Gold:{2} Exp:{3}\r\nTotalTime: {4}\r\n{5}",
-				Bot.Game.TrackingStats.GameCount,
-				Bot.Game.TrackingStats.TotalDeaths,
-				Bot.Game.TrackingStats.TotalGold,
-				Bot.Game.TrackingStats.TotalXP,
-				Bot.Game.TrackingStats.TotalTimeRunning.ToString(@"dd\ \d\ hh\ \h\ mm\ \m\ ss\ \s"),
-				Bot.Game.TrackingStats.TotalLootTracker.ToString());
+		//public string GenerateOutputString()
+		//{
+		//	string output = String.Format("Total Stats while running\r\nGames:{0} Deaths:{1} Gold:{2} Exp:{3}\r\nTotalTime: {4}\r\n{5}",
+		//		Bot.Game.TrackingStats.GameCount,
+		//		Bot.Game.TrackingStats.TotalDeaths,
+		//		Bot.Game.TrackingStats.TotalGold,
+		//		Bot.Game.TrackingStats.TotalXP,
+		//		Bot.Game.TrackingStats.TotalTimeRunning.ToString(@"dd\ \d\ hh\ \h\ mm\ \m\ ss\ \s"),
+		//		Bot.Game.TrackingStats.TotalLootTracker);
 
-			double itemLootPerMin = Math.Round(TotalLootTracker.GetTotalLootStatCount(LootStatTypes.Looted) / TotalTimeRunning.TotalMinutes, 3);
-			double itemDropPerMin = Math.Round(TotalLootTracker.GetTotalLootStatCount(LootStatTypes.Dropped) / TotalTimeRunning.TotalMinutes, 3);
-			string PerHour = String.Format("~-~-~-~-~-~-~-~-~-~-~-~-~-~-\r\n" +
-										  "Drops Per Minute: {0}\r\n" +
-										  "Loot Per Minute: {1}",
-										  itemDropPerMin.ToString(),
-										  itemLootPerMin.ToString());
-			return String.Format("{0}{1}", output, PerHour);
-		}
+		//	double itemLootPerMin = Math.Round(TotalLootTracker.GetTotalLootStatCount(LootStatTypes.Looted) / TotalTimeRunning.TotalMinutes, 3);
+		//	double itemDropPerMin = Math.Round(TotalLootTracker.GetTotalLootStatCount(LootStatTypes.Dropped) / TotalTimeRunning.TotalMinutes, 3);
+		//	string PerHour = String.Format("~-~-~-~-~-~-~-~-~-~-~-~-~-~-\r\n" +
+		//								  "Drops Per Minute: {0}\r\n" +
+		//								  "Loot Per Minute: {1}",
+		//								  itemDropPerMin,
+		//								  itemLootPerMin);
+		//	return String.Format("{0}{1}", output, PerHour);
+		//}
 	}
 }

@@ -1,11 +1,6 @@
 ﻿using FunkyBot.Cache;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using FunkyBot.XMLTags;
 using Zeta;
-using Zeta.Common;
-using Zeta.Internals.Actors;
 using Zeta.Internals.Service;
 
 namespace FunkyBot.Game
@@ -26,45 +21,16 @@ namespace FunkyBot.Game
 
 		internal ProfileCache Profile = new ProfileCache();
 
-		internal ActorClass ActorClass = ActorClass.Invalid;
-		internal string CurrentAccountName;
-		internal string CurrentHeroName;
-		internal int CurrentLevel;
-		///<summary>
-		///Updates Account Name, Current Hero Name and Class Variables
-		///</summary>
-		internal void UpdateCurrentAccountDetails()
+		private GameId _currentGameId = new GameId();
+		internal bool RefreshGameId()
 		{
-			//Clear Cache -- (DB reuses values, even if it is incorrect!)
-			ZetaDia.Memory.ClearCache();
-
-
-			try
-			{
-				using (ZetaDia.Memory.AcquireFrame())
-				{
-					ActorClass = ZetaDia.Service.CurrentHero.Class;
-					CurrentAccountName = ZetaDia.Service.CurrentHero.BattleTagName;
-					CurrentHeroName = ZetaDia.Service.CurrentHero.Name;
-					CurrentLevel = ZetaDia.Service.CurrentHero.Level;
-				}
-			}
-			catch (Exception)
-			{
-				Logging.WriteDiagnostic("[Funky] Exception Attempting to Update Current Account Details.");
-			}
-		}
-
-		private GameId currentGameID = new GameId();
-		internal bool RefreshGameID()
-		{
-			GameId curgameID = currentGameID;
+			GameId curgameID = _currentGameId;
 			using (ZetaDia.Memory.AcquireFrame())
 			{
 				curgameID = ZetaDia.Service.CurrentGameId;
 			}
 
-			if (!curgameID.Equals(currentGameID))
+			if (!curgameID.Equals(_currentGameId))
 			{
 				if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
 				{
@@ -72,19 +38,19 @@ namespace FunkyBot.Game
 				}
 
 				//Merge last GameStats with the Total
-				this.TrackingStats.GameChanged(ref this.CurrentGameStats);
+				TrackingStats.GameChanged(ref CurrentGameStats);
 
 				//Create new GameStats
-				this.CurrentGameStats = new GameStats();
+				CurrentGameStats = new GameStats();
 
 				//Update Account Details
-				this.UpdateCurrentAccountDetails();
+				Bot.Character.Account.UpdateCurrentAccountDetails();
 
 				//Clear TrinityLoadOnce Used Profiles!
-				FunkyBot.XMLTags.TrinityLoadOnce.UsedProfiles.Clear();
+				TrinityLoadOnce.UsedProfiles.Clear();
 
 				//Clear Interactable Cache
-				this.Profile.InteractableObjectCache.Clear();
+				Profile.InteractableObjectCache.Clear();
 
 				//Clear Health Average
 				ObjectCache.Objects.ClearHealthAverageStats();
@@ -92,7 +58,7 @@ namespace FunkyBot.Game
 				//Renew bot
 				Funky.ResetBot();
 
-				currentGameID = curgameID;
+				_currentGameId = curgameID;
 				return true;
 			}
 
