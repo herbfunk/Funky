@@ -213,10 +213,10 @@ namespace GilesTrinity.ItemRules.Core
             ClearUndo();
 
             //Tree = Parser.Parse(Textbox.Text);
-            Textbox.TextChanged += new EventHandler(Textbox_TextChanged);
-            textbox.KeyDown += new KeyEventHandler(textbox_KeyDown);
-            Textbox.SelectionChanged += new EventHandler(Textbox_SelectionChanged);
-            Textbox.Disposed += new EventHandler(Textbox_Disposed);
+            Textbox.TextChanged += Textbox_TextChanged;
+            textbox.KeyDown += textbox_KeyDown;
+            Textbox.SelectionChanged += Textbox_SelectionChanged;
+            Textbox.Disposed += Textbox_Disposed;
 
             SwitchContext = null;
             currentContext = Tree;

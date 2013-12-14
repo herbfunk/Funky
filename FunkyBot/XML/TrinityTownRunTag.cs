@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using Zeta.CommonBot.Logic;
 using Zeta.CommonBot.Profile;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
@@ -12,7 +13,7 @@ namespace FunkyBot.XMLTags
 		 [XmlAttribute("waitTime")]
 		 [XmlAttribute("wait")]
 		 public static int WaitTime { get; set; }
-		private bool m_IsDone=false;
+		private bool m_IsDone;
 		public override bool IsDone
 		{
 			get { return m_IsDone; }
@@ -20,9 +21,9 @@ namespace FunkyBot.XMLTags
 
 		protected override Composite CreateBehavior()
 		{
-			return new Zeta.TreeSharp.Action(ret =>
+			return new Action(ret =>
 			{
-				Zeta.CommonBot.Logic.BrainBehavior.ForceTownrun("Town-run request received, will town-run at next possible moment.");
+				BrainBehavior.ForceTownrun("Town-run request received, will town-run at next possible moment.");
 				m_IsDone=true;
 			});
 		}

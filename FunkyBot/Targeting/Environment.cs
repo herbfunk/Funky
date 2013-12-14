@@ -1,8 +1,6 @@
 ﻿using FunkyBot.Cache;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using FunkyBot.Cache.Objects;
 
 namespace FunkyBot.Targeting
 {
@@ -12,8 +10,8 @@ namespace FunkyBot.Targeting
 		public Environment()
 		  {
 				bAnyLootableItemsNearby=false;
-				iElitesWithinRange=new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
-				iAnythingWithinRange=new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+				iElitesWithinRange=new[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+				iAnythingWithinRange=new[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 				iNonRendedTargets_6=0;
 				bAnyBossesInRange=false;
 				bAnyChampionsPresent=false;
@@ -63,8 +61,8 @@ namespace FunkyBot.Targeting
 
 		  internal void Reset()
 		  {
-				iElitesWithinRange=new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
-				iAnythingWithinRange=new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+				iElitesWithinRange=new[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+				iAnythingWithinRange=new[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 				iNonRendedTargets_6=0;
 
 				bAnyBossesInRange=false;

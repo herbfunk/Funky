@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Globalization;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using FunkyBot.Cache.Enums;
+using System.Windows.Media;
 
 
 namespace FunkyBot
@@ -60,7 +58,7 @@ namespace FunkyBot
 			#endregion
 
 			#region BacktrackStartOfCombat
-			ToolTip backtrackStartCombat = new System.Windows.Controls.ToolTip
+			ToolTip backtrackStartCombat = new ToolTip
 			{
 				Content="This will set the return position where combat first begins, otherwise it uses the last non-combat position.",
 			};
@@ -80,7 +78,7 @@ namespace FunkyBot
 			#endregion
 
 			#region Enable Item Backtracking
-			ToolTip ItemBacktrackingToolTip = new System.Windows.Controls.ToolTip
+			ToolTip ItemBacktrackingToolTip = new ToolTip
 			{
 				Content = "Items will be added to Line of Sight Movement list",
 			};
@@ -102,7 +100,7 @@ namespace FunkyBot
 			{
 				Text = " Backtracking Range",
 				FontSize = 13,
-				Foreground = System.Windows.Media.Brushes.GhostWhite,
+				Foreground = Brushes.GhostWhite,
 				TextAlignment = TextAlignment.Center,
 				Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right + 5, Margin.Bottom),
 			};
@@ -115,7 +113,7 @@ namespace FunkyBot
 				LargeChange = 25,
 				SmallChange = 2.5,
 				Value = Bot.Settings.Backtracking.MinimumDistanceFromStart,
-				HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
+				HorizontalAlignment = HorizontalAlignment.Left,
 			};
 			sliderBacktrackingRange.ValueChanged += BacktrackingRangeSliderChange;
 			tbBacktrackRange = new TextBox
@@ -126,7 +124,7 @@ namespace FunkyBot
 			StackPanel SPBacktrackRange = new StackPanel
 			{
 				Height = 30,
-				HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch,
+				HorizontalAlignment = HorizontalAlignment.Stretch,
 				Orientation = Orientation.Horizontal,
 				Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right + 5, Margin.Bottom),
 				IsEnabled=false, //Disabled Until Further Developement!

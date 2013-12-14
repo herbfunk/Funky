@@ -1,7 +1,4 @@
-﻿using System;
-
-
-namespace FunkyBot
+﻿namespace FunkyBot
 {
 	 public partial class Funky
 	 {

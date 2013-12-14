@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Xml.Serialization;
+using FunkyBot.Cache.Enums;
 
 namespace FunkyBot.Settings
 {
@@ -10,11 +10,15 @@ namespace FunkyBot.Settings
 		 public double PotionHealthPercent { get; set; }
 		 public double HealthWellHealthPercent { get; set; }
 
+		 public TargetType CombatMovementTargetTypes { get; set; }
+
 		 public SettingCombat()
 		 {
 			  GlobeHealthPercent=0.6d;
 			  PotionHealthPercent=0.5d;
 			  HealthWellHealthPercent=0.75d;
+			  CombatMovementTargetTypes = TargetType.Globe | TargetType.Avoidance | TargetType.Fleeing | TargetType.Gold | TargetType.Item;
+
 		 }
 
 		 private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Combat_Default.xml");

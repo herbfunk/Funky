@@ -81,8 +81,8 @@ namespace FunkyBot.XMLTags
 
 		public override void OnStart()
 		{
-			float x=MyPos.X+OffsetX;
-			float y=MyPos.Y+OffsetY;
+			var x=MyPos.X+OffsetX;
+			var y=MyPos.Y+OffsetY;
 
 			Position=new Vector3(x, y, gp.GetHeight(new Vector2(x, y)));
 

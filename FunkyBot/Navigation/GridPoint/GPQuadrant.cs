@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Linq;
-using FunkyBot.Avoidances;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
-using Zeta;
 using System.Collections.Generic;
+using FunkyBot.Cache.Objects;
 using Zeta.Common;
-using System.Windows;
-using FunkyBot.Movement;
 
 namespace FunkyBot.Movement
 {
@@ -112,33 +109,15 @@ namespace FunkyBot.Movement
 									 {
 
 										  //Monsters should add 10% of its weight
-										  if (item.Obstacletype.Value==ObstacleType.Monster)
-										  {
-												continue;
-										  //	 if (!UsedRAGUIDs.Contains(item.RAGUID))
-										  //	 {
-										  //		  if (!Bot.Targeting.Environment.UnitRAGUIDs.Contains(item.RAGUID)) continue;
+										  //if (item.Obstacletype.Value==ObstacleType.Monster)
+										  //{
+										  //	if (Bot.Settings.Fleeing.EnableFleeingBehavior&& Bot.Targeting.Environment.FleeTrigeringRAGUIDs.Contains(item.RAGUID))
+										  //	{
 
-										  //		  CacheUnit thisUnitObj;
-										  //		  if (ObjectCache.Objects.TryGetValue(item.RAGUID, out thisUnitObj))
-										  //		  {
-										  //				int HealthPointAverageWeight=thisUnitObj.UnitMaxHitPointAverageWeight;
-										  //				//Monsters who have high health will give more points.
-										  //				if (HealthPointAverageWeight>0)
-										  //				{
-										  //					 this.ThisWeight+=(5*HealthPointAverageWeight);
-										  //				}
-
-										  //				if (thisUnitObj.IsEliteRareUnique)
-										  //					 this.ThisWeight+=5;
-										  //		  }
-
-										  //		  this.ThisWeight+=5;
-										  //		  monstercount++;
-										  //		  UsedRAGUIDs.Add(item.RAGUID);
-										  //	 }
-										  }
-										  else if(item.Obstacletype.Value == ObstacleType.ServerObject)
+										  //	}
+												 
+										  //}
+										  if(item.Obstacletype.Value == ObstacleType.ServerObject)
 										  {
 											  //give +1 to weight
 											  this.ThisWeight++;
@@ -160,7 +139,7 @@ namespace FunkyBot.Movement
 												//else
 												//	 BaseWeight=0.5f;
 
-												this.ThisWeight+=(BaseWeight/Bot.Character.dCurrentHealthPct);
+												this.ThisWeight+=(BaseWeight/Bot.Character.Data.dCurrentHealthPct);
 
 												UsedRAGUIDs.Add(item.RAGUID);
 										  }
@@ -253,7 +232,7 @@ namespace FunkyBot.Movement
                          //Create Vector3
                          Vector3 pointVectorReturn = (Vector3)point;
                          Vector3 pointVector = pointVectorReturn;
-                         Vector3 botcurpos = Bot.Character.Position;
+                         Vector3 botcurpos = Bot.Character.Data.Position;
 
                          //Check if we already within this "point".
                          if (botcurpos.Distance2D(pointVector) < 2.5f) return false;

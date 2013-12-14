@@ -9,7 +9,7 @@ namespace FunkyBot.XMLTags
 	[XmlElement("TrinityResetAll")]
 	public class TrinityResetAllTag : ProfileBehavior
 	{
-		private bool m_IsDone=false;
+		private bool m_IsDone;
 		public override bool IsDone
 		{
 			get { return m_IsDone; }
@@ -17,7 +17,7 @@ namespace FunkyBot.XMLTags
 
 		protected override Composite CreateBehavior()
 		{
-			return new Zeta.TreeSharp.Action(ret =>
+			return new Action(ret =>
 			{
 				Funky.ResetGame();
 

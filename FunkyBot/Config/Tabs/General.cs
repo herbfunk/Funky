@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Globalization;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using FunkyBot.Cache.Enums;
 
 
@@ -76,18 +75,7 @@ namespace FunkyBot
 				lbGeneralContent.Items.Add(BuyPotionsDuringTownRunCB);
 				#endregion
 
-				#region OutOfCombatMovement
-				CheckBox cbOutOfCombatMovement=new CheckBox
-				{
-					 Content="Use Out Of Combat Ability Movements",
-					 Width=300,
-					 Height=30,
-					 IsChecked=(Bot.Settings.OutOfCombatMovement)
-				};
-				cbOutOfCombatMovement.Checked+=OutOfCombatMovementChecked;
-				cbOutOfCombatMovement.Unchecked+=OutOfCombatMovementChecked;
-				lbGeneralContent.Items.Add(cbOutOfCombatMovement);
-				#endregion
+
 
 				#region AllowBuffingInTown
 				CheckBox cbAllowBuffingInTown=new CheckBox
@@ -115,7 +103,7 @@ namespace FunkyBot
 					 LargeChange=100,
 					 SmallChange=50,
 					 Value=Bot.Settings.AfterCombatDelay,
-					 HorizontalAlignment=System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment=HorizontalAlignment.Left,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
 				sliderAfterCombatDelay.ValueChanged+=AfterCombatDelaySliderChanged;
@@ -151,7 +139,7 @@ namespace FunkyBot
 				{
 					 Text="End of Combat Delay Timer",
 					 FontSize=11,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Foreground=Brushes.GhostWhite,
 					 TextAlignment=TextAlignment.Left,
 				};
 				AfterCombatDelayStackPanel.Children.Add(CombatLootDelay_Text_Info);
@@ -167,7 +155,7 @@ namespace FunkyBot
 				{
 					 Text="Shrines",
 					 FontSize=13,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Foreground=Brushes.GhostWhite,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
 					 TextAlignment=TextAlignment.Left,
 				};
@@ -211,15 +199,15 @@ namespace FunkyBot
 				{
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
 					 Orientation=Orientation.Vertical,
-					 HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch,
+					 HorizontalAlignment= HorizontalAlignment.Stretch,
 				};
 				TextBlock Demonbuddy_Header_Text=new TextBlock
 				{
 					 Text="DemonBuddy Settings",
 					 FontSize=13,
-					 Background=System.Windows.Media.Brushes.LightSeaGreen,
+					 Background=Brushes.LightSeaGreen,
 					 TextAlignment=TextAlignment.Center,
-					 HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch,
+					 HorizontalAlignment= HorizontalAlignment.Stretch,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom+5),
 				};
 				DemonbuddyStackPanel.Children.Add(Demonbuddy_Header_Text);
@@ -241,7 +229,7 @@ namespace FunkyBot
 				{
 					 Text="Monster Power",
 					 FontSize=13,
-					 Foreground=System.Windows.Media.Brushes.GhostWhite,
+					 Foreground=Brushes.GhostWhite,
 					 TextAlignment=TextAlignment.Center,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};
@@ -254,7 +242,7 @@ namespace FunkyBot
 					 LargeChange=1,
 					 SmallChange=1,
 					 Value=Bot.Settings.Demonbuddy.MonsterPower,
-					 HorizontalAlignment= System.Windows.HorizontalAlignment.Left,
+					 HorizontalAlignment= HorizontalAlignment.Left,
 				};
 				sliderMonsterPower.ValueChanged+=DemonBuddyMonsterPowerSliderChange;
 				tbMonsterPower=new TextBox
@@ -265,7 +253,7 @@ namespace FunkyBot
 				StackPanel SPMonsterPower=new StackPanel
 				{
 					 Height=30,
-					 HorizontalAlignment= System.Windows.HorizontalAlignment.Stretch,
+					 HorizontalAlignment= HorizontalAlignment.Stretch,
 					 Orientation=Orientation.Horizontal,
 					 Margin=new Thickness(Margin.Left, Margin.Top, Margin.Right+5, Margin.Bottom),
 				};

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using FunkyBot.DBHandlers;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
@@ -24,7 +25,7 @@ namespace FunkyBot.XMLTags
 
 		  private double _StartHealth=-1;
 
-		  private bool _IsDone=false;
+		  private bool _IsDone;
 
 		  public override bool IsDone
 		  {
@@ -53,7 +54,7 @@ namespace FunkyBot.XMLTags
 				{
 					 WaitTime=DefaultWaitTime;
 				}
-				_StartHealth=Bot.Character.dCurrentHealthPct;
+				_StartHealth=Bot.Character.Data.dCurrentHealthPct;
 		  }
 
 		  protected override Composite CreateBehavior()
@@ -63,28 +64,28 @@ namespace FunkyBot.XMLTags
 					 new Decorator(ret => ZetaDia.IsLoadingWorld,
 						  new Action()
 					 ),
-					 new Decorator(ret => Bot.Character.bIsInTown&&ZetaDia.CurrentLevelAreaId!=55313,
+					 new Decorator(ret => Bot.Character.Data.bIsInTown&&ZetaDia.CurrentLevelAreaId!=55313,
 						  new Action(ret =>
 						  {
 								ForceClearArea=false;
 								AreaClearTimer.Reset();
 								_IsDone=true;
-								//Logger.Log("[TrinityTownPortal] In Town");
+								//Logger.Logging.Write("[TrinityTownPortal] In Town");
 						  })
 					 ),
-					 new Decorator(ret => !Bot.Character.bIsInTown&&!Funky.CanCastTP(),
+					 new Decorator(ret => !Bot.Character.Data.bIsInTown && !TownPortalBehavior.CanCastTP(),
 						  new Action(ret =>
 						  {
 								ForceClearArea=false;
 								AreaClearTimer.Reset();
 								_IsDone=true;
-								//Logger.Log("[TrinityTownPortal] Unable to use TownPortal!");
+								//Logger.Logging.Write("[TrinityTownPortal] Unable to use TownPortal!");
 						  })
 					 ),
-					 new Decorator(ret => Bot.Character.dCurrentHealthPct<_StartHealth,
+					 new Decorator(ret => Bot.Character.Data.dCurrentHealthPct<_StartHealth,
 						  new Action(ret =>
 						  {
-								_StartHealth=Bot.Character.dCurrentHealthPct;
+								_StartHealth=Bot.Character.Data.dCurrentHealthPct;
 								AreaClearTimer.Restart();
 								ForceClearArea=true;
 						  })
@@ -108,13 +109,13 @@ namespace FunkyBot.XMLTags
 						  new PrioritySelector(
 								new Decorator(ret => Bot.NavigationCache.IsMoving,
 									 new Sequence(
-										  Zeta.CommonBot.CommonBehaviors.MoveStop(),
+										  CommonBehaviors.MoveStop(),
 										  new Sleep(1000)
 									 )
 								),
 								new Sequence(
 					 // Already casting, just wait
-									 new DecoratorContinue(ret => Funky.CastingRecall(),
+									 new DecoratorContinue(ret => TownPortalBehavior.CastingRecall(),
 										  new Action()
 									 ),
 									 new Action(ret =>

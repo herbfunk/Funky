@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
-using FunkyBot.Cache;
 using Zeta.CommonBot.Profile;
 using Zeta.CommonBot.Profile.Composites;
 using Zeta.TreeSharp;
@@ -16,19 +15,16 @@ namespace FunkyBot.XMLTags
 	{
 		private bool? bComplexDoneCheck;
 		private bool? bAlreadyCompleted;
-		private Func<bool> funcConditionalProcess;
 		private static Func<ProfileBehavior, bool> funcBehaviorProcess;
-		private int iID;
-		private int iResult;
 
 		protected override Composite CreateBehavior()
 		{
-			PrioritySelector decorated=new PrioritySelector(new Composite[0]);
-			foreach (ProfileBehavior behavior in base.GetNodes())
+			var decorated=new PrioritySelector(new Composite[0]);
+			foreach (var behavior in base.GetNodes())
 			{
 				decorated.AddChild(behavior.Behavior);
 			}
-			return new Zeta.TreeSharp.Decorator(new CanRunDecoratorDelegate(CheckNotAlreadyDone), decorated);
+			return new Decorator(CheckNotAlreadyDone, decorated);
 		}
 
 		public bool GetConditionExec()
@@ -51,7 +47,7 @@ namespace FunkyBot.XMLTags
 
 		public override void ResetCachedDone()
 		{
-			foreach (ProfileBehavior behavior in Body)
+			foreach (var behavior in Body)
 			{
 				behavior.ResetCachedDone();
 			}
@@ -64,42 +60,12 @@ namespace FunkyBot.XMLTags
 		}
 
 		[XmlAttribute("id")]
-		public int ID
-		{
-			get
-			{
-				return iID;
-			}
-			set
-			{
-				iID=value;
-			}
-		}
+		public int ID { get; set; }
 
 		[XmlAttribute("result")]
-		public int Result
-		{
-			get
-			{
-				return iResult;
-			}
-			set
-			{
-				iResult=value;
-			}
-		}
+		public int Result { get; set; }
 
-		public Func<bool> Conditional
-		{
-			get
-			{
-				return funcConditionalProcess;
-			}
-			set
-			{
-				funcConditionalProcess=value;
-			}
-		}
+		public Func<bool> Conditional { get; set; }
 
 		public override bool IsDone
 		{
@@ -112,7 +78,7 @@ namespace FunkyBot.XMLTags
 				}
 				if (!bComplexDoneCheck.HasValue)
 				{
-					bComplexDoneCheck=new bool?(GetConditionExec());
+					bComplexDoneCheck=GetConditionExec();
 				}
 				if (bComplexDoneCheck==false)
 				{
@@ -120,9 +86,9 @@ namespace FunkyBot.XMLTags
 				}
 				if (funcBehaviorProcess==null)
 				{
-					funcBehaviorProcess=new Func<ProfileBehavior, bool>(CheckBehaviorIsDone);
+					funcBehaviorProcess=CheckBehaviorIsDone;
 				}
-				bool bAllChildrenDone=Body.All<ProfileBehavior>(funcBehaviorProcess);
+				var bAllChildrenDone=Body.All(funcBehaviorProcess);
 				if (bAllChildrenDone)
 				{
 					bAlreadyCompleted=true;

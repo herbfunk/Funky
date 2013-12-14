@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using Zeta;
-using Zeta.Common;
 using Zeta.CommonBot.Profile;
 using Zeta.CommonBot.Profile.Composites;
 using Zeta.Internals.Actors;
@@ -17,30 +16,27 @@ namespace FunkyBot.XMLTags
 	{
 		private bool? bComplexDoneCheck;
 		private bool? bAlreadyCompleted;
-		private Func<bool> funcConditionalProcess;
 		private static Func<ProfileBehavior, bool> funcBehaviorProcess;
-		private int iSNOID;
-		private float fRadius;
 		private string sType;
 
 		protected override Composite CreateBehavior()
 		{
-			PrioritySelector decorated=new PrioritySelector(new Composite[0]);
-			foreach (ProfileBehavior behavior in base.GetNodes())
+			var decorated=new PrioritySelector(new Composite[0]);
+			foreach (var behavior in base.GetNodes())
 			{
 				decorated.AddChild(behavior.Behavior);
 			}
-			return new Zeta.TreeSharp.Decorator(new CanRunDecoratorDelegate(CheckNotAlreadyDone), decorated);
+			return new Decorator(CheckNotAlreadyDone, decorated);
 		}
 
 		public bool GetConditionExec()
 		{
 			bool flag;
-			Vector3 vMyLocation=ZetaDia.Me.Position;
+			var vMyLocation=ZetaDia.Me.Position;
 			if (sType!=null&&sType=="reverse")
-				flag=ZetaDia.Actors.GetActorsOfType<DiaObject>(true, false).FirstOrDefault<DiaObject>(a => a.ActorSNO==SNOID&&a.Position.Distance(vMyLocation)<=Range)==null;
+				flag=ZetaDia.Actors.GetActorsOfType<DiaObject>(true).FirstOrDefault<DiaObject>(a => a.ActorSNO==SNOID&&a.Position.Distance(vMyLocation)<=Range)==null;
 			else
-				flag=(ZetaDia.Actors.GetActorsOfType<DiaObject>(true, false).FirstOrDefault<DiaObject>(a => a.ActorSNO==SNOID&&a.Position.Distance(vMyLocation)<=Range)!=null);
+				flag=(ZetaDia.Actors.GetActorsOfType<DiaObject>(true).FirstOrDefault<DiaObject>(a => a.ActorSNO==SNOID&&a.Position.Distance(vMyLocation)<=Range)!=null);
 			return flag;
 		}
 
@@ -51,7 +47,7 @@ namespace FunkyBot.XMLTags
 
 		public override void ResetCachedDone()
 		{
-			foreach (ProfileBehavior behavior in Body)
+			foreach (var behavior in Body)
 			{
 				behavior.ResetCachedDone();
 			}
@@ -64,30 +60,10 @@ namespace FunkyBot.XMLTags
 		}
 
 		[XmlAttribute("snoid")]
-		public int SNOID
-		{
-			get
-			{
-				return iSNOID;
-			}
-			set
-			{
-				iSNOID=value;
-			}
-		}
+		public int SNOID { get; set; }
 
 		[XmlAttribute("range")]
-		public float Range
-		{
-			get
-			{
-				return fRadius;
-			}
-			set
-			{
-				fRadius=value;
-			}
-		}
+		public float Range { get; set; }
 
 		[XmlAttribute("type")]
 		public string Type
@@ -102,17 +78,7 @@ namespace FunkyBot.XMLTags
 			}
 		}
 
-		public Func<bool> Conditional
-		{
-			get
-			{
-				return funcConditionalProcess;
-			}
-			set
-			{
-				funcConditionalProcess=value;
-			}
-		}
+		public Func<bool> Conditional { get; set; }
 
 		public override bool IsDone
 		{
@@ -125,7 +91,7 @@ namespace FunkyBot.XMLTags
 				}
 				if (!bComplexDoneCheck.HasValue)
 				{
-					bComplexDoneCheck=new bool?(GetConditionExec());
+					bComplexDoneCheck=GetConditionExec();
 				}
 				if (bComplexDoneCheck==false)
 				{
@@ -133,9 +99,9 @@ namespace FunkyBot.XMLTags
 				}
 				if (funcBehaviorProcess==null)
 				{
-					funcBehaviorProcess=new Func<ProfileBehavior, bool>(CheckBehaviorIsDone);
+					funcBehaviorProcess=CheckBehaviorIsDone;
 				}
-				bool bAllChildrenDone=Body.All<ProfileBehavior>(funcBehaviorProcess);
+				var bAllChildrenDone=Body.All(funcBehaviorProcess);
 				if (bAllChildrenDone)
 				{
 					bAlreadyCompleted=true;

@@ -137,7 +137,7 @@ namespace FunkyCombatRoutine
 		  {
 				RecompilePlugins();
 				//ZetaDia.Actors.Update();
-				//Bot.Character.IsSurrounded();
+				//Bot.Character_.Data.IsSurrounded();
 		  }
 
 		  private static void RecompilePlugins()

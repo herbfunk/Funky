@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace FunkyBot.Settings
+﻿namespace FunkyBot.Settings
 {
     public class SettingLOSMovement
     {
@@ -15,6 +10,7 @@ namespace FunkyBot.Settings
         public bool AllowSucideBomber { get; set; }
         public bool AllowSpawnerUnits { get; set; }
         public bool AllowRareLootContainer { get; set; }
+		public int MaximumRange { get; set; }
 
 
         public SettingLOSMovement()
@@ -27,6 +23,7 @@ namespace FunkyBot.Settings
             AllowRareLootContainer = true;
             AllowSucideBomber = true;
             AllowSpawnerUnits = true;
+			MaximumRange = 500;
         }
     }
 }

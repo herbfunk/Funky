@@ -8,9 +8,11 @@ using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
 using Zeta.CommonBot.Profile;
+using Zeta.CommonBot.Settings;
 using Zeta.Internals.Actors;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
+using Action = Zeta.TreeSharp.Action;
 
 namespace Trinity.XmlTags
 {
@@ -18,38 +20,35 @@ namespace Trinity.XmlTags
 	 [XmlElement("TrinityLoadProfile")]
 	 public class TrinityLoadProfile : ProfileBehavior
 	 {
-		  private bool m_IsDone=false;
-		  private string sFileName;
-		  private string sExitString;
-		  private string sNoDelay;
+		  private bool m_IsDone;
 
-		  public override bool IsDone
+		 public override bool IsDone
 		  {
 				get { return m_IsDone; }
 		  }
 
 		  protected override Composite CreateBehavior()
 		  {
-				return new Zeta.TreeSharp.Action(ret =>
+				return new Action(ret =>
 				{
-					 bool bExitGame=Exit!=null&&Exit.ToLower()=="true";
-					 string sThisProfileString=File;
+					 var bExitGame=Exit!=null&&Exit.ToLower()=="true";
+					 var sThisProfileString=File;
 
 					 // See if there are multiple profile choices, if so split them up and pick a random one
 					 if (sThisProfileString.Contains("!"))
 					 {
 						  string[] sProfileChoices;
-						  sProfileChoices=sThisProfileString.Split(new string[] { "!" }, StringSplitOptions.None);
-						  Random rndNum=new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), NumberStyles.HexNumber));
-						  int iChooseProfile=rndNum.Next(sProfileChoices.Count());
+						  sProfileChoices=sThisProfileString.Split(new[] { "!" }, StringSplitOptions.None);
+						  var rndNum=new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), NumberStyles.HexNumber));
+						  var iChooseProfile=rndNum.Next(sProfileChoices.Count());
 						  sThisProfileString=sProfileChoices[iChooseProfile];
 					 }
 
 					 // Now calculate our current path by checking the currently loaded profile
-					 string sCurrentProfilePath=Path.GetDirectoryName(Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile);
+					 var sCurrentProfilePath=Path.GetDirectoryName(GlobalSettings.Instance.LastProfile);
 
 					 // And prepare a full string of the path, and the new .xml file name
-					 string sNextProfile=sCurrentProfilePath+@"\"+sThisProfileString;
+					 var sNextProfile=sCurrentProfilePath+@"\"+sThisProfileString;
 					 Logging.Write("Loading new profile.");
 					 ProfileManager.Load(sNextProfile);
 
@@ -65,23 +64,23 @@ namespace Trinity.XmlTags
 						  Logging.Write("Exiting game to continue with next profile.");
 
 						  // Attempt to teleport to town first for a quicker exit
-						  int iSafetyLoops=0;
+						  var iSafetyLoops=0;
 						  while (!ZetaDia.Me.IsInTown)
 						  {
 								iSafetyLoops++;
-								Bot.Character.WaitWhileAnimating(5, true);
-								ZetaDia.Me.UsePower(SNOPower.UseStoneOfRecall, Bot.Character.Position, ZetaDia.Me.WorldDynamicId, -1);
+								Bot.Character.Data.WaitWhileAnimating(5, true);
+								ZetaDia.Me.UsePower(SNOPower.UseStoneOfRecall, Bot.Character.Data.Position, ZetaDia.Me.WorldDynamicId);
 								Thread.Sleep(1000);
-								FunkyBot.Bot.Character.WaitWhileAnimating(1000, true);
+								Bot.Character.Data.WaitWhileAnimating(1000, true);
 								if (iSafetyLoops>5)
 									 break;
 						  }
 						  Thread.Sleep(1000);
 						  ZetaDia.Service.Party.LeaveGame();
-						  Funky.FunkyOnLeaveGame(null, null);
+						  EventHandlers.FunkyOnLeaveGame(null, null);
 
 						  // Wait for 10 second log out timer if not in town, else wait for 3 seconds instead
-						  Thread.Sleep(!Bot.Character.bIsInTown?10000:3000);
+						  Thread.Sleep(!Bot.Character.Data.bIsInTown?10000:3000);
 					 }
 
 					 // Check if we want to restart the game
@@ -89,46 +88,16 @@ namespace Trinity.XmlTags
 				});
 		  }
 
-		  [XmlAttribute("exit")]
-		  public string Exit
-		  {
-				get
-				{
-					 return sExitString;
-				}
-				set
-				{
-					 sExitString=value;
-				}
-		  }
+		 [XmlAttribute("exit")]
+		 public string Exit { get; set; }
 
-		  [XmlAttribute("nodelay")]
-		  public string NoDelay
-		  {
-				get
-				{
-					 return sNoDelay;
-				}
-				set
-				{
-					 sNoDelay=value;
-				}
-		  }
+		 [XmlAttribute("nodelay")]
+		 public string NoDelay { get; set; }
 
-		  [XmlAttribute("file")]
-		  public string File
-		  {
-				get
-				{
-					 return sFileName;
-				}
-				set
-				{
-					 sFileName=value;
-				}
-		  }
+		 [XmlAttribute("file")]
+		 public string File { get; set; }
 
-		  public override void ResetCachedDone()
+		 public override void ResetCachedDone()
 		  {
 				m_IsDone=false;
 				base.ResetCachedDone();

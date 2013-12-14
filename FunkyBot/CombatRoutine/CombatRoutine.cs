@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
+using Demonbuddy;
 using Zeta;
 using Zeta.Common;
 using Zeta.CommonBot;
@@ -8,11 +11,11 @@ using Zeta.TreeSharp;
 using System.Windows.Controls;
 using System.IO;
 using System.Reflection;
-using System;
+using Action = System.Action;
 
 namespace GilesBlankCombatRoutine
 {
-	 [System.Runtime.InteropServices.ComVisible(false)]
+	 [ComVisible(false)]
     public class FunkyRoutine : CombatRoutine
     {
 		  private static string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
@@ -25,12 +28,12 @@ namespace GilesBlankCombatRoutine
         public override void Initialize()
         {
             // Set up the pause button
-            System.Windows.Application.Current.Dispatcher.Invoke(
-            new System.Action(
+            Application.Current.Dispatcher.Invoke(
+            new Action(
             () =>
             {
-					 Window mainWindow=Demonbuddy.App.Current.MainWindow;
-					 Demonbuddy.SplitButton FunkyButton;
+					 Window mainWindow=App.Current.MainWindow;
+					 SplitButton FunkyButton;
 					 var tab=mainWindow.FindName("tabControlMain") as TabControl;
 					 if (tab!=null)
 					 {
@@ -40,14 +43,14 @@ namespace GilesBlankCombatRoutine
 								var grid=infoDumpTab.Content as Grid;
 								if (grid!=null)
 								{
-									 FunkyButton=grid.FindName("Funky") as Demonbuddy.SplitButton;
+									 FunkyButton=grid.FindName("Funky") as SplitButton;
 									 if (FunkyButton!=null)
 									 {
 										  Logging.WriteDiagnostic("Funky Button handler added");
 									 }
 									 else
 									 {
-										  Demonbuddy.SplitButton[] splitbuttons=grid.Children.OfType<Demonbuddy.SplitButton>().ToArray();
+										  SplitButton[] splitbuttons=grid.Children.OfType<SplitButton>().ToArray();
 										  if (splitbuttons.Any())
 										  {
 
@@ -62,7 +65,7 @@ namespace GilesBlankCombatRoutine
 										  }
 									 }
 
-									 Demonbuddy.SplitButton btnSplit_Funky;
+									 SplitButton btnSplit_Funky;
 									 FunkyDebug.initDebugLabels(out btnSplit_Funky);
 
 									 if (FunkyButton!=null)
@@ -79,23 +82,23 @@ namespace GilesBlankCombatRoutine
         public sealed override void Dispose()
         {
 				// Set up the pause button
-				System.Windows.Application.Current.Dispatcher.Invoke(
-				new System.Action(
+				Application.Current.Dispatcher.Invoke(
+				new Action(
 				() =>
 				{
-					 Window mainWindow=System.Windows.Application.Current.MainWindow;
+					 Window mainWindow=Application.Current.MainWindow;
 					 var tab=mainWindow.FindName("tabControlMain") as TabControl;
 					 if (tab==null) return;
 					 var infoDumpTab=tab.Items[0] as TabItem;
 					 if (infoDumpTab==null) return;
 					 var grid=infoDumpTab.Content as Grid;
 					 if (grid==null) return;
-					 Demonbuddy.SplitButton btnfunky = grid.FindName("Funky") as Demonbuddy.SplitButton;
+					 SplitButton btnfunky = grid.FindName("Funky") as SplitButton;
 					 if (btnfunky==null) return;
 					 grid.Children.Remove(btnfunky);
 				}));
 				
-				System.GC.SuppressFinalize(this);
+				GC.SuppressFinalize(this);
 				return;
         }
 

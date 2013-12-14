@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Zeta;
 using Zeta.Common;
 using System.Collections.Generic;
-using System.Collections;
 
 
 namespace FunkyBot.Movement

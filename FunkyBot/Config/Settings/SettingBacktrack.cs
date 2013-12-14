@@ -1,5 +1,4 @@
-﻿using FunkyBot.Movement;
-namespace FunkyBot.Settings
+﻿namespace FunkyBot.Settings
 {
 	public class SettingBacktrack
 	{

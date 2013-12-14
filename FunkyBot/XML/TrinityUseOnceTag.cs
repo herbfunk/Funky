@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
-using FunkyBot.Cache;
 using Zeta.CommonBot.Profile;
 using Zeta.CommonBot.Profile.Composites;
 using Zeta.TreeSharp;
@@ -16,20 +15,16 @@ namespace FunkyBot.XMLTags
 	{
 		private bool? bComplexDoneCheck;
 		private bool? bAlreadyCompleted;
-		private Func<bool> funcConditionalProcess;
 		private static Func<ProfileBehavior, bool> funcBehaviorProcess;
-		private int iUniqueID;
-		private int iMaxRedo;
-		private string sDisablePrevious;
 
 		protected override Composite CreateBehavior()
 		{
-			PrioritySelector decorated=new PrioritySelector(new Composite[0]);
-			foreach (ProfileBehavior behavior in base.GetNodes())
+			var decorated=new PrioritySelector(new Composite[0]);
+			foreach (var behavior in base.GetNodes())
 			{
 				decorated.AddChild(behavior.Behavior);
 			}
-			return new Zeta.TreeSharp.Decorator(new CanRunDecoratorDelegate(CheckNotAlreadyDone), decorated);
+			return new Decorator(CheckNotAlreadyDone, decorated);
 		}
 
 		public bool GetConditionExec()
@@ -48,7 +43,7 @@ namespace FunkyBot.XMLTags
 			// First see if we should disable all other ID's currently hit to prevent them ever being run again this run
 			if (DisablePrevious!=null&&DisablePrevious.ToLower()=="true")
 			{
-				 foreach (int thisid in ProfileCache.hashUseOnceID)
+				 foreach (var thisid in ProfileCache.hashUseOnceID)
 				{
 					if (thisid!=ID)
 					{
@@ -69,7 +64,7 @@ namespace FunkyBot.XMLTags
 
 		public override void ResetCachedDone()
 		{
-			foreach (ProfileBehavior behavior in Body)
+			foreach (var behavior in Body)
 			{
 				behavior.ResetCachedDone();
 			}
@@ -82,55 +77,15 @@ namespace FunkyBot.XMLTags
 		}
 
 		[XmlAttribute("id")]
-		public int ID
-		{
-			get
-			{
-				return iUniqueID;
-			}
-			set
-			{
-				iUniqueID=value;
-			}
-		}
+		public int ID { get; set; }
 
 		[XmlAttribute("disableprevious")]
-		public string DisablePrevious
-		{
-			get
-			{
-				return sDisablePrevious;
-			}
-			set
-			{
-				sDisablePrevious=value;
-			}
-		}
+		public string DisablePrevious { get; set; }
 
 		[XmlAttribute("max")]
-		public int Max
-		{
-			get
-			{
-				return iMaxRedo;
-			}
-			set
-			{
-				iMaxRedo=value;
-			}
-		}
+		public int Max { get; set; }
 
-		public Func<bool> Conditional
-		{
-			get
-			{
-				return funcConditionalProcess;
-			}
-			set
-			{
-				funcConditionalProcess=value;
-			}
-		}
+		public Func<bool> Conditional { get; set; }
 
 		public override bool IsDone
 		{
@@ -143,7 +98,7 @@ namespace FunkyBot.XMLTags
 				}
 				if (!bComplexDoneCheck.HasValue)
 				{
-					bComplexDoneCheck=new bool?(GetConditionExec());
+					bComplexDoneCheck=GetConditionExec();
 				}
 				if (bComplexDoneCheck==false)
 				{
@@ -151,9 +106,9 @@ namespace FunkyBot.XMLTags
 				}
 				if (funcBehaviorProcess==null)
 				{
-					funcBehaviorProcess=new Func<ProfileBehavior, bool>(CheckBehaviorIsDone);
+					funcBehaviorProcess=CheckBehaviorIsDone;
 				}
-				bool bAllChildrenDone=Body.All<ProfileBehavior>(funcBehaviorProcess);
+				var bAllChildrenDone=Body.All(funcBehaviorProcess);
 				if (bAllChildrenDone)
 				{
 					bAlreadyCompleted=true;

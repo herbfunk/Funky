@@ -1,5 +1,4 @@
 ﻿using System.Runtime.InteropServices;
-using FunkyBot.Cache;
 using Zeta.CommonBot.Profile;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
@@ -11,8 +10,8 @@ namespace FunkyBot.XMLTags
 	[XmlElement("TrinityUseReset")]
 	public class TrinityUseResetTag : ProfileBehavior
 	{
-		private bool m_IsDone=false;
-		private int iID;
+		private bool m_IsDone;
+
 		public override bool IsDone
 		{
 			get { return m_IsDone; }
@@ -20,7 +19,7 @@ namespace FunkyBot.XMLTags
 
 		protected override Composite CreateBehavior()
 		{
-			return new Zeta.TreeSharp.Action(ret =>
+			return new Action(ret =>
 			{
 				// See if we've EVER hit this ID before
 				// If so, delete it, if not, do nothing
@@ -35,17 +34,7 @@ namespace FunkyBot.XMLTags
 
 
 		[XmlAttribute("id")]
-		public int ID
-		{
-			get
-			{
-				return iID;
-			}
-			set
-			{
-				iID=value;
-			}
-		}
+		public int ID { get; set; }
 
 		public override void ResetCachedDone()
 		{
