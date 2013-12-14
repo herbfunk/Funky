@@ -22,7 +22,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				Cost=20;
 				Range=35;
 				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy|
 				                          AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated));
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);

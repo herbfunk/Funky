@@ -13,7 +13,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				WaitVars=new WaitLoops(2, 3, true);
 				Cost=50;
 				Range=16;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 				UseageType=AbilityUseage.Combat;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|
 				                          AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckPlayerIncapacitated));

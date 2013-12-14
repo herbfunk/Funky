@@ -16,7 +16,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				IsRanged=true;
 				IsProjectile=true;
 				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.None;
+				Priority=AbilityPriority.Low;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated));
 		  }
 

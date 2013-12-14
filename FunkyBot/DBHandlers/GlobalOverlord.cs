@@ -51,6 +51,7 @@ namespace FunkyBot
 						  Bot.Targeting.bWholeNewTarget=true;
 						  Bot.Targeting.DontMove=true;
 						  Bot.Targeting.bPickNewAbilities=true;
+						  Bot.RunningTargetingBehavior = true;
 						  //Bot.Targeting.StartingLocation = Bot.Character_.Data.Position;
 						  return true;
 					 }
@@ -89,6 +90,7 @@ namespace FunkyBot
 					 BotMain.StatusText="[Funky] No more targets - DemonBuddy/profile management is now in control";
 				}
 
+				Bot.RunningTargetingBehavior = false;
 				// Nothing to do... do we have some maintenance we can do instead, like out of combat buffing?
 				Bot.NavigationCache.lastChangedZigZag=DateTime.Today;
 				Bot.NavigationCache.vPositionLastZigZagCheck=Vector3.Zero;

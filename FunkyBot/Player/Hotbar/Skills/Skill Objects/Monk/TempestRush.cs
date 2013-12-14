@@ -24,7 +24,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				Cost=15;
 				IsChanneling=true;
 				Range=23;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated));
 				UseageType=AbilityUseage.Anywhere;
 				

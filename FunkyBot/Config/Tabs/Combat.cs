@@ -5,12 +5,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
+using FunkyBot.Cache.Enums;
 using FunkyBot.Settings;
 using CheckBox = System.Windows.Controls.CheckBox;
 using HorizontalAlignment = System.Windows.HorizontalAlignment;
 using ListBox = System.Windows.Controls.ListBox;
 using Orientation = System.Windows.Controls.Orientation;
 using TextBox = System.Windows.Controls.TextBox;
+using ToolTip = System.Windows.Controls.ToolTip;
 
 namespace FunkyBot
 {
@@ -19,7 +21,28 @@ namespace FunkyBot
 		  #region EventHandling
 		  //
 
+		 private void MovementTargetGlobeChecked(object sender, EventArgs e)
+		 {
+			 if (Bot.Settings.Combat.CombatMovementTargetTypes.HasFlag(TargetType.Globe))
+				 Bot.Settings.Combat.CombatMovementTargetTypes&= ~TargetType.Globe;
+			 else
+				 Bot.Settings.Combat.CombatMovementTargetTypes|=TargetType.Globe;
+		 }
+		 private void MovementTargetGoldChecked(object sender, EventArgs e)
+		 {
+			 if (Bot.Settings.Combat.CombatMovementTargetTypes.HasFlag(TargetType.Gold))
+				 Bot.Settings.Combat.CombatMovementTargetTypes &= ~TargetType.Gold;
+			 else
+				 Bot.Settings.Combat.CombatMovementTargetTypes |= TargetType.Gold;
+		 }
 
+		 private void MovementTargetItemChecked(object sender, EventArgs e)
+		 {
+			 if (Bot.Settings.Combat.CombatMovementTargetTypes.HasFlag(TargetType.Item))
+				 Bot.Settings.Combat.CombatMovementTargetTypes &= ~TargetType.Item;
+			 else
+				 Bot.Settings.Combat.CombatMovementTargetTypes |= TargetType.Item;
+		 }
 		 
 		  private void UseAdvancedProjectileTestingChecked(object sender, EventArgs e)
 		  {
@@ -256,6 +279,127 @@ namespace FunkyBot
 
 			  CombatGeneralContentListBox.Items.Add(HealthOptionsStackPanel);
 
+			  #endregion
+
+			  #region Skills
+			  StackPanel SkillsOptionsStackPanel = new StackPanel
+			  {
+				  Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom + 5),
+				  Background = Brushes.DimGray,
+				  VerticalAlignment =  VerticalAlignment.Stretch,
+				  Width=600,
+			  };
+			  TextBlock Skills_Options_Text = new TextBlock
+			  {
+				  Text = "Skills",
+				  FontSize = 13,
+				  Background = Brushes.DarkSeaGreen,
+				  TextAlignment = TextAlignment.Center,
+			  };
+			  SkillsOptionsStackPanel.Children.Add(Skills_Options_Text);
+
+			  #region Skill Movement Options
+
+			  StackPanel SkillsMovementStackPanel = new StackPanel
+			  {
+				  Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom + 5),
+				  Background = Brushes.DimGray,
+			  };
+			  SkillsOptionsStackPanel.Children.Add(SkillsMovementStackPanel);
+			  ToolTip ttSkillMovementOptions = new ToolTip
+			  {
+				  Content = "Enables additional targets allowed for special skill movement usage.",
+			  };
+			  TextBlock SkillsMovement_Options_Text = new TextBlock
+			  {
+				  Text = "Combat Movement Valid Targets",
+				  FontSize = 13,
+				  Background = Brushes.Gray,
+				  Foreground = Brushes.GhostWhite,
+				  TextAlignment = TextAlignment.Left,
+				  //FontStyle = FontStyles.Oblique,
+				  FontWeight = FontWeights.Bold,
+				  ToolTip = ttSkillMovementOptions,
+			  };
+			  SkillsMovementStackPanel.Children.Add(SkillsMovement_Options_Text);
+
+			  CheckBox cbMovementGold = new CheckBox
+			  {
+				  Content = "Gold",
+				  IsChecked = Bot.Settings.Combat.CombatMovementTargetTypes.HasFlag(TargetType.Gold),
+			  };
+			  cbMovementGold.Unchecked += MovementTargetGoldChecked;
+			  cbMovementGold.Checked += MovementTargetGoldChecked;
+			  SkillsMovementStackPanel.Children.Add(cbMovementGold);
+
+			  CheckBox cbMovementGlobes = new CheckBox
+			  {
+				  Content = "Globes",
+				  IsChecked = Bot.Settings.Combat.CombatMovementTargetTypes.HasFlag(TargetType.Globe),
+			  };
+			  cbMovementGlobes.Checked += MovementTargetGlobeChecked;
+			  cbMovementGlobes.Unchecked += MovementTargetGlobeChecked;
+			  SkillsMovementStackPanel.Children.Add(cbMovementGlobes);
+
+			  CheckBox cbMovementItems = new CheckBox
+			  {
+				  Content = "Items",
+				  IsChecked = Bot.Settings.Combat.CombatMovementTargetTypes.HasFlag(TargetType.Item),
+			  };
+			  cbMovementItems.Checked += MovementTargetItemChecked;
+			  cbMovementItems.Unchecked += MovementTargetItemChecked;
+			  SkillsMovementStackPanel.Children.Add(cbMovementItems);
+			  
+			  #endregion
+
+			  #region Skills Misc Options
+			  StackPanel SkillsMiscOptionsStackPanel = new StackPanel
+			  {
+				  Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom + 5),
+				  Background = Brushes.DimGray,
+			  };
+			  SkillsOptionsStackPanel.Children.Add(SkillsMiscOptionsStackPanel);
+			  TextBlock SkillsMisc_Options_Text = new TextBlock
+			  {
+				  Text = "Misc",
+				  FontSize = 13,
+				  Background = Brushes.Gray,
+				  Foreground = Brushes.GhostWhite,
+				  TextAlignment = TextAlignment.Left,
+				  FontWeight = FontWeights.Bold,
+			  };
+			  SkillsMiscOptionsStackPanel.Children.Add(SkillsMisc_Options_Text);
+
+			  #region Default Attack
+			  ToolTip ttSkillAllowDefaultAttack = new ToolTip
+			  {
+				  Content = "Allows Default Attack to be Used When Its Not Suppose to be usable.",
+			  };
+			  CheckBox cbAllowDefaultAttackAlways = new CheckBox
+			  {
+				  Content = "Allow Default Attack Always",
+				  IsChecked = Bot.Settings.Class.AllowDefaultAttackAlways,
+				  ToolTip = ttSkillAllowDefaultAttack,
+			  };
+			  cbAllowDefaultAttackAlways.Checked += AllowDefaultAttackAlwaysChecked;
+			  cbAllowDefaultAttackAlways.Unchecked += AllowDefaultAttackAlwaysChecked;
+			  SkillsMiscOptionsStackPanel.Children.Add(cbAllowDefaultAttackAlways); 
+			  #endregion
+
+			  #region OutOfCombatMovement
+			  CheckBox cbOutOfCombatMovement = new CheckBox
+			  {
+				  Content = "Allow Out Of Combat Skill Movements",
+				  IsChecked = (Bot.Settings.OutOfCombatMovement)
+			  };
+			  cbOutOfCombatMovement.Checked += OutOfCombatMovementChecked;
+			  cbOutOfCombatMovement.Unchecked += OutOfCombatMovementChecked;
+			  SkillsMiscOptionsStackPanel.Children.Add(cbOutOfCombatMovement);
+			  #endregion
+			  #endregion
+
+
+			  CombatGeneralContentListBox.Items.Add(SkillsOptionsStackPanel);
 			  #endregion
 
 			  CombatGeneralTabItem.Content=CombatGeneralContentListBox;

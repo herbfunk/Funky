@@ -16,7 +16,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				Cost=134;
 				Range=11;
 				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
 				                          AbilityPreCastFlags.CheckCanCast));

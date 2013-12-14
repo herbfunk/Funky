@@ -2,6 +2,7 @@
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
+using FunkyBot.Movement;
 using Zeta.Common;
 using Zeta.Internals.Actors;
 
@@ -58,8 +59,11 @@ namespace FunkyBot.Targeting.Behaviors
                         Bot.Targeting.LastCachedTarget.targetType.Value == TargetType.Unit &&
                         Bot.Targeting.LastCachedTarget.ObjectIsValidForTargeting ? Bot.Targeting.LastCachedTarget.Position 
                                                                                  : Vector3.Zero;
+				  PointCheckingFlags flags = Bot.Settings.Plugin.FleeingFlags;
+				  if (Bot.Character.Class.HasCastableMovementAbility())
+					  flags &= ~(PointCheckingFlags.AvoidanceIntersection | PointCheckingFlags.BlockedDirection);
 
-                  if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, LineOfSight, Bot.Settings.Plugin.FleeingFlags))
+				  if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, LineOfSight, flags))
                   {
                       float distance = vAnySafePoint.Distance(Bot.Character.Data.Position);
 

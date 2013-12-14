@@ -14,7 +14,7 @@ namespace FunkyBot.Player.HotBar.Skills
 		  {
 				Cooldown=5;
 				Range=8;
-				Priority=AbilityPriority.None;
+				Priority = AbilityPriority.None;
 				ExecutionType=AbilityExecuteFlags.Target;
 
 				WaitVars=new WaitLoops(0, 0, true);

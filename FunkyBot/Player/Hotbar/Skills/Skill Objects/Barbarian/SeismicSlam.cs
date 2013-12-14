@@ -20,7 +20,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				Cost=Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Barbarian_SeismicSlam]==3?15:30;
 				Range=40;
 				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy|
 				                          AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated));

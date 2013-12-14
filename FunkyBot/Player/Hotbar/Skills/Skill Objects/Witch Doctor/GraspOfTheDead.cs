@@ -9,7 +9,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 
 		  public override void Initialize()
 		  {
-				Cooldown=6000;
+				Cooldown=8000;
 				ExecutionType=AbilityExecuteFlags.ClusterTarget|AbilityExecuteFlags.Target;
 
 				WaitVars=new WaitLoops(0, 3, true);

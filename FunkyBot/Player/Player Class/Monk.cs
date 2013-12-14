@@ -39,7 +39,7 @@ namespace FunkyBot.Player.Class
 					 }
 						 
 				}
-				internal override ActorClass AC { get { return ActorClass.Monk; } }
+				public override ActorClass AC { get { return ActorClass.Monk; } }
 				private readonly HashSet<SNOPower> SpiritGeneratingAbilities=new HashSet<SNOPower>
 				{
 					 SNOPower.Monk_FistsofThunder,
@@ -66,40 +66,40 @@ namespace FunkyBot.Player.Class
 					 SNOAnim.Monk_Female_DW_FF_knockback_land_01,
 					 SNOAnim.Monk_Female_1HF_knockback_land_01,
 				};
-				public override HashSet<SNOAnim> KnockbackLandAnims
+				internal override HashSet<SNOAnim> KnockbackLandAnims
 				{
 					 get
 					 {
 						  return knockbackanims;
 					 }
 				}
-				public override Skill DefaultAttack
+				internal override Skill DefaultAttack
 				{
 					 get { return new WeaponMeleeInsant(); }
 				}
 
-				public override int MainPetCount
+				internal override int MainPetCount
 				{
 					 get
 					 {
 						  return Bot.Character.Data.PetData.MysticAlly;
 					 }
 				}
-				public override bool IsMeleeClass
+				internal override bool IsMeleeClass
 				{
 					 get
 					 {
 						  return true;
 					 }
 				}
-				public override bool ShouldGenerateNewZigZagPath()
+				internal override bool ShouldGenerateNewZigZagPath()
 				{
 					 return (DateTime.Now.Subtract(Bot.NavigationCache.lastChangedZigZag).TotalMilliseconds>=1500||
 							  (Bot.NavigationCache.vPositionLastZigZagCheck!=Vector3.Zero&&Bot.Character.Data.Position==Bot.NavigationCache.vPositionLastZigZagCheck&&DateTime.Now.Subtract(Bot.NavigationCache.lastChangedZigZag).TotalMilliseconds>=200)||
 							  Vector3.Distance(Bot.Character.Data.Position, Bot.NavigationCache.vSideToSideTarget)<=4f||
 							  Bot.Targeting.CurrentTarget!=null&&Bot.Targeting.CurrentTarget.AcdGuid.HasValue&&Bot.Targeting.CurrentTarget.AcdGuid.Value!=Bot.NavigationCache.iACDGUIDLastWhirlwind);
 				}
-				public override void GenerateNewZigZagPath()
+				internal override void GenerateNewZigZagPath()
 				{
 					 float fExtraDistance=Bot.Targeting.CurrentTarget.CentreDistance<=20f?5f:1f;
 					 Bot.NavigationCache.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.CurrentTarget.Position, Bot.Targeting.CurrentTarget.CentreDistance+fExtraDistance);
@@ -110,7 +110,7 @@ namespace FunkyBot.Player.Class
 				}
 
 
-		public override Skill CreateAbility(SNOPower Power)
+				internal override Skill CreateAbility(SNOPower Power)
 				{
 				  MonkActiveSkills power=(MonkActiveSkills)Enum.ToObject(typeof(MonkActiveSkills), (int)Power);
 					

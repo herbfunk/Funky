@@ -13,7 +13,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				WaitVars=new WaitLoops(1, 1, true);
 				Cost=0;
 				UseageType=AbilityUseage.Anywhere;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|
 				                          AbilityPreCastFlags.CheckCanCast));

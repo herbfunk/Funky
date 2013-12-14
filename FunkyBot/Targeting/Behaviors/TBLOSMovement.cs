@@ -55,6 +55,9 @@ namespace FunkyBot.Targeting.Behaviors
 								Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(Bot.NavigationCache.LOSmovementObject.RAGUID);
 								Bot.NavigationCache.LOSVector=Vector3.Zero;
 								Bot.NavigationCache.LOSmovementObject=null;
+
+							  if (Bot.Targeting.LastCachedTarget.targetType.Value==TargetType.LineOfSight)
+								  Navigation.NP.Clear();
 						  }
 							
 
@@ -89,6 +92,7 @@ namespace FunkyBot.Targeting.Behaviors
 
 							  //Generate the path here so we can start moving..
 							  //if (Navigation.NP.CurrentPath.Count == 0)
+							  Navigation.NP.Clear();
 							  Navigation.NP.MoveTo(Bot.NavigationCache.LOSVector, "01 LOS:" + Bot.NavigationCache.LOSmovementObject.InternalName, true);
 
 							  if (Navigation.NP.CurrentPath.Count > 0)

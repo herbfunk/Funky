@@ -13,7 +13,7 @@ namespace FunkyBot.Player.Class
 		  {
 
 				//Base class for each individual class!
-			  internal override ActorClass AC { get { return ActorClass.Wizard; } }
+			  public override ActorClass AC { get { return ActorClass.Wizard; } }
 
 				private readonly HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
 				{
@@ -21,19 +21,19 @@ namespace FunkyBot.Player.Class
 					 SNOAnim.Wizard_Male_Archon_knockback_land,
 					 SNOAnim.Wizard_Female_1HS_Orb_Knockback_Land_01,
 				};
-				public override HashSet<SNOAnim> KnockbackLandAnims
+				internal override HashSet<SNOAnim> KnockbackLandAnims
 				{
 					 get
 					 {
 						  return knockbackanims;
 					 }
 				}
-				public override Skill DefaultAttack
+				internal override Skill DefaultAttack
 				{
 					 get { return new WeaponRangedWand(); }
 				}
 
-				public override void GenerateNewZigZagPath()
+				internal override void GenerateNewZigZagPath()
 				{
 					 Vector3 loc;
 					 //Low HP -- Flee Teleport
@@ -42,14 +42,14 @@ namespace FunkyBot.Player.Class
 					 else
 						  Bot.NavigationCache.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.CurrentTarget.Position, Bot.Targeting.CurrentTarget.CentreDistance, true);
 				}
-				public override int MainPetCount
+				internal override int MainPetCount
 				{
 					 get
 					 {
 						  return Bot.Character.Data.PetData.WizardHydra;
 					 }
 				}
-				public override bool IsMeleeClass
+				internal override bool IsMeleeClass
 				{
 					 get
 					 {
@@ -60,7 +60,7 @@ namespace FunkyBot.Player.Class
 				///<summary>
 				///Used to check for a secondary hotbar set. Currently only used for wizards with Archon.
 				///</summary>
-				public override bool SecondaryHotbarBuffPresent()
+				internal override bool SecondaryHotbarBuffPresent()
 				{
 
 					bool ArchonBuffPresent = HotBar.HasBuff(SNOPower.Wizard_Archon);
@@ -82,7 +82,7 @@ namespace FunkyBot.Player.Class
 					 return false;
 				}
 
-				public override void RecreateAbilities()
+				internal override void RecreateAbilities()
 				{
 					 base.RecreateAbilities();
 
@@ -92,7 +92,7 @@ namespace FunkyBot.Player.Class
 						  Abilities.Add(SNOPower.Wizard_Archon_Cancel, new CancelArchonBuff());
 					 }
 				}
-				public override Skill CreateAbility(SNOPower Power)
+				internal override Skill CreateAbility(SNOPower Power)
 				{
 					 WizardActiveSkills power=(WizardActiveSkills)Enum.ToObject(typeof(WizardActiveSkills), (int)Power);
 					 switch (power)

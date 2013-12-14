@@ -666,7 +666,7 @@ namespace FunkyBot.Cache.Objects
 					//intersecting avoidances..
 					if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition))
 					{
-						if (Weight != 1 && ObjectIsSpecial)
+						if (Weight != 1) //&& ObjectIsSpecial)
 						{//Only add this to the avoided list when its not currently inside avoidance area
 							Bot.Targeting.objectsIgnoredDueToAvoidance.Add(this);
 						}
@@ -1057,8 +1057,8 @@ namespace FunkyBot.Cache.Objects
 				}
 				catch
 				{
-					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
-						Logger.Write(LogLevel.Execption, "Failure to convert obj to DiaUnit!");
+					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
+						Logger.Write(LogLevel.Cache, "Failure to convert obj to DiaUnit!");
 
 					NeedsRemoved = true;
 					return false;
@@ -1068,8 +1068,8 @@ namespace FunkyBot.Cache.Objects
 			ACD CommonData = ref_DiaObject.CommonData;
 			if (CommonData == null)
 			{
-				if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
-					Logger.Write(LogLevel.Execption, "Common Data Null!");
+				if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
+					Logger.Write(LogLevel.Cache, "Common Data Null!");
 				return false;
 			}
 
@@ -1089,13 +1089,13 @@ namespace FunkyBot.Cache.Objects
 			{
 				try
 				{
-					IsNPC = (ref_DiaObject.CommonData.GetAttribute<float>(ActorAttributeType.IsNPC) > 0);
+					IsNPC = (ref_DiaUnit.CommonData.GetAttribute<float>(ActorAttributeType.IsNPC) > 0);
 					isNPC = IsNPC.Value;
 				}
 				catch (Exception)
 				{
-					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
-						Logger.Write(LogLevel.Execption, "Safely Handled Getting Attribute IsNPC for object {0}", InternalName);
+					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
+						Logger.Write(LogLevel.Cache, "Safely Handled Getting Attribute IsNPC for object {0}", InternalName);
 				}
 
 			}
@@ -1146,8 +1146,8 @@ namespace FunkyBot.Cache.Objects
 				}
 				catch
 				{
-					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
-						Logger.Write(LogLevel.Execption, "Failure to check monster affixes for unit {0}", InternalName);
+					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
+						Logger.Write(LogLevel.Cache, "Failure to check monster affixes for unit {0}", InternalName);
 					return false;
 				}
 
@@ -1171,8 +1171,8 @@ namespace FunkyBot.Cache.Objects
 				}
 				catch
 				{
-					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
-						Logger.Write(LogLevel.Execption, "Failure to get maximum health for {0}", InternalName);
+					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
+						Logger.Write(LogLevel.Cache, "Failure to get maximum health for {0}", InternalName);
 					return false;
 				}
 			}
@@ -1196,7 +1196,7 @@ namespace FunkyBot.Cache.Objects
 				try
 				{
 					//this.IsBurrowed=this.ref_DiaUnit.IsBurrowed;
-					IsBurrowed = ref_DiaObject.CommonData.GetAttribute<float>(ActorAttributeType.Burrowed) > 0;
+					IsBurrowed = ref_DiaUnit.CommonData.GetAttribute<float>(ActorAttributeType.Burrowed) > 0;
 
 					//ignore units who are stealthed completly (exception when object is special!)
 					//if (this.IsBurrowed.Value&&!this.ObjectIsSpecial)
@@ -1229,9 +1229,9 @@ namespace FunkyBot.Cache.Objects
 				}
 				catch (Exception ex)
 				{
-					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Execption))
-						Logger.Write(LogLevel.Execption, "[Funky] Safely handled exception getting is-targetable attribute for unit " + InternalName + " [" + SNOID.ToString(CultureInfo.InvariantCulture) + "]");
-					Logging.WriteDiagnostic(ex.ToString());
+					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
+						Logger.Write(LogLevel.Cache, "[Funky] Safely handled exception getting is-targetable attribute for unit " + InternalName + " [" + SNOID.ToString(CultureInfo.InvariantCulture) + "]");
+					//Logging.WriteDiagnostic(ex.ToString());
 					IsTargetable = true;
 				}
 			}
@@ -1276,7 +1276,9 @@ namespace FunkyBot.Cache.Objects
 					{
 						HasDOTdps = (ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.Bleeding) > 0 && ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.DOTDPS) > 0);
 					}
-					catch (AccessViolationException) { }
+					catch 
+					{
+					}
 				}
 			}
 			else if (Bot.Character.Class.AC == ActorClass.WitchDoctor)
@@ -1310,7 +1312,9 @@ namespace FunkyBot.Cache.Objects
 						//lotus swarm
 						//1178820608 1197301760 1182662656
 					}
-					catch (AccessViolationException) { }
+					catch
+					{
+					}
 				}
 			}
 			#endregion

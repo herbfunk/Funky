@@ -14,7 +14,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 
 				ExecutionType=AbilityExecuteFlags.Target;
 				WaitVars=new WaitLoops(0, 1, false);
-				Priority=Bot.Settings.Class.bMonkComboStrike?AbilityPriority.Low:AbilityPriority.None;
+				Priority=Bot.Settings.Class.bMonkComboStrike?AbilityPriority.Medium:AbilityPriority.Low;
 				Range=14;
 				UseageType=AbilityUseage.Combat;
 				var precastflags = AbilityPreCastFlags.CheckPlayerIncapacitated;

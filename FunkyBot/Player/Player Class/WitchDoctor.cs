@@ -12,7 +12,7 @@ namespace FunkyBot.Player.Class
 		  {
 
 				//Base class for each individual class!
-		internal override ActorClass AC { get { return ActorClass.WitchDoctor; } }
+		public override ActorClass AC { get { return ActorClass.WitchDoctor; } }
 				private readonly HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
 				{
 					 SNOAnim.WitchDoctor_Male_1HT_MOJO_knockback_land,
@@ -38,25 +38,25 @@ namespace FunkyBot.Player.Class
 					 SNOAnim.WitchDoctor_Male_BOW_Knockback_Land,
 					 SNOAnim.WitchDoctor_Male_STF_Knockback_Land,
 				};
-				public override HashSet<SNOAnim> KnockbackLandAnims
+				internal override HashSet<SNOAnim> KnockbackLandAnims
 				{
 					 get
 					 {
 						  return knockbackanims;
 					 }
 				}
-				public override Skill DefaultAttack
+				internal override Skill DefaultAttack
 				{
 					 get { return new WeaponMeleeInsant(); }
 				}
-				public override int MainPetCount
+				internal override int MainPetCount
 				{
 					 get
 					 {
 						  return Bot.Character.Data.PetData.Gargantuan;
 					 }
 				}
-				public override bool IsMeleeClass
+				internal override bool IsMeleeClass
 				{
 					 get
 					 {
@@ -64,7 +64,7 @@ namespace FunkyBot.Player.Class
 					 }
 				}
 
-		public override Skill CreateAbility(SNOPower Power)
+				internal override Skill CreateAbility(SNOPower Power)
 				{
 					 WitchDoctorActiveSkills power=(WitchDoctorActiveSkills)Enum.ToObject(typeof(WitchDoctorActiveSkills), (int)Power);
 					

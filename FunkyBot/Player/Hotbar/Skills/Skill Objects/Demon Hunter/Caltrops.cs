@@ -15,7 +15,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				SecondaryEnergy=true;
 				Range=0;
 				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
 				                          AbilityPreCastFlags.CheckRecastTimer));
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_30, 2);

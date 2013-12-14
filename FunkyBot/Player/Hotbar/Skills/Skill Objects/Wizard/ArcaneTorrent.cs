@@ -15,7 +15,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				IsRanged=true;
 				IsProjectile=true;
 				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
 				                          AbilityPreCastFlags.CheckRecastTimer));
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;

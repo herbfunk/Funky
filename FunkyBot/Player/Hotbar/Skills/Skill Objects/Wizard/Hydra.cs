@@ -15,7 +15,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				Range=50;
 				IsRanged=true;
 				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
 				                          AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckPetCount));
 				ClusterConditions=new SkillClusterConditions(7d, 50f, 2, true);

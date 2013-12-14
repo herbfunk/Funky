@@ -19,7 +19,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				Cost=30;
 				Range=40;
 				UseageType=AbilityUseage.Anywhere;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy));
 

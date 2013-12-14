@@ -21,7 +21,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				Cost=10;
 				Range=15;
 				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckPlayerIncapacitated));
 				ClusterConditions=new SkillClusterConditions(10d, 30f, 2, true);

@@ -12,7 +12,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				ExecutionType=AbilityExecuteFlags.Self;
 				WaitVars=new WaitLoops(0, 0, true);
 				UseageType=AbilityUseage.Anywhere;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast));
 
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 1);

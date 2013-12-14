@@ -19,8 +19,9 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				WaitVars=new WaitLoops(2, 2, true);
 				ExecutionType=AbilityExecuteFlags.ClusterLocation|AbilityExecuteFlags.Location;
 				Range=35;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 				UseageType=AbilityUseage.Combat;
+				IsASpecialMovementPower = true;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|
 				                          AbilityPreCastFlags.CheckCanCast));
 				ClusterConditions=new SkillClusterConditions(5d, 30, 2, true);

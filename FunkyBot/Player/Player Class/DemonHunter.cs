@@ -13,7 +13,7 @@ namespace FunkyBot.Player.Class
 		  {
 
 				//Base class for each individual class!
-		internal override ActorClass AC { get { return ActorClass.DemonHunter; } }
+		public override ActorClass AC { get { return ActorClass.DemonHunter; } }
 
 				private readonly HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
 				{
@@ -28,39 +28,39 @@ namespace FunkyBot.Player.Class
 					 SNOAnim.Demonhunter_Male_1HXBow_knockback_land_01,
 					 SNOAnim.Demonhunter_Male_DW_XBow_knockback_land_01,
 				};
-				public override HashSet<SNOAnim> KnockbackLandAnims
+				internal override HashSet<SNOAnim> KnockbackLandAnims
 				{
 					 get
 					 {
 						  return knockbackanims;
 					 }
 				}
-				public override Skill DefaultAttack
+				internal override Skill DefaultAttack
 				{
 					 get { return new ProjectileRangeAttack(); }
 				}
-				public override int MainPetCount
+				internal override int MainPetCount
 				{
 					 get
 					 {
 						  return Bot.Character.Data.PetData.DemonHunterPet;
 					 }
 				}
-				public override bool IsMeleeClass
+				internal override bool IsMeleeClass
 				{
 					 get
 					 {
 						  return false;
 					 }
 				}
-				public override bool ShouldGenerateNewZigZagPath()
+				internal override bool ShouldGenerateNewZigZagPath()
 				{
 					 return (DateTime.Now.Subtract(Bot.NavigationCache.lastChangedZigZag).TotalMilliseconds>=1500f||
 								(Bot.NavigationCache.vPositionLastZigZagCheck!=Vector3.Zero&&Bot.Character.Data.Position==Bot.NavigationCache.vPositionLastZigZagCheck&&DateTime.Now.Subtract(Bot.NavigationCache.lastChangedZigZag).TotalMilliseconds>=1200)||
 								Vector3.Distance(Bot.Character.Data.Position, Bot.NavigationCache.vSideToSideTarget)<=6f||
 								Bot.Targeting.CurrentTarget!=null&&Bot.Targeting.CurrentTarget.AcdGuid.HasValue&&Bot.Targeting.CurrentTarget.AcdGuid.Value!=Bot.NavigationCache.iACDGUIDLastWhirlwind);
 				}
-				public override void GenerateNewZigZagPath()
+				internal override void GenerateNewZigZagPath()
 				{
 					if (Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_30]>=6||Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_30]>=3)
 						  Bot.NavigationCache.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.CurrentTarget.Position, 25f, false, true);
@@ -71,7 +71,7 @@ namespace FunkyBot.Player.Class
 					 Bot.NavigationCache.lastChangedZigZag=DateTime.Now;
 				}
 
-		public override Skill CreateAbility(SNOPower Power)
+				internal override Skill CreateAbility(SNOPower Power)
 				{
 					DemonHunterActiveSkills power=(DemonHunterActiveSkills)Enum.ToObject(typeof(DemonHunterActiveSkills), (int)Power);
 

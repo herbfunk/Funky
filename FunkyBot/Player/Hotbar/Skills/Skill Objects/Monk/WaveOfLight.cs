@@ -14,7 +14,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				WaitVars=new WaitLoops(2, 4, true);
 				Cost=Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Monk_WaveOfLight]==3?40:75;
 				Range=16;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 				UseageType=AbilityUseage.Combat;
 
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|

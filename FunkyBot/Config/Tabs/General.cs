@@ -75,18 +75,7 @@ namespace FunkyBot
 				lbGeneralContent.Items.Add(BuyPotionsDuringTownRunCB);
 				#endregion
 
-				#region OutOfCombatMovement
-				CheckBox cbOutOfCombatMovement=new CheckBox
-				{
-					 Content="Use Out Of Combat Ability Movements",
-					 Width=300,
-					 Height=30,
-					 IsChecked=(Bot.Settings.OutOfCombatMovement)
-				};
-				cbOutOfCombatMovement.Checked+=OutOfCombatMovementChecked;
-				cbOutOfCombatMovement.Unchecked+=OutOfCombatMovementChecked;
-				lbGeneralContent.Items.Add(cbOutOfCombatMovement);
-				#endregion
+
 
 				#region AllowBuffingInTown
 				CheckBox cbAllowBuffingInTown=new CheckBox

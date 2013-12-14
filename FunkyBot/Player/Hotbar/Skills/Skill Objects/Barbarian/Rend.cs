@@ -19,14 +19,14 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 			WaitVars = new WaitLoops(3, 3, true);
 			Cost = 20;
 			UseageType = AbilityUseage.Combat;
-			Priority = AbilityPriority.Low;
+			Priority = AbilityPriority.Medium;
 			PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckEnergy |
 			                          AbilityPreCastFlags.CheckCanCast | AbilityPreCastFlags.CheckPlayerIncapacitated));
 
 			ClusterConditions = new SkillClusterConditions(5d, 8, 2, true, 0.90d);
 
 			SingleUnitCondition = new UnitTargetConditions(TargetProperties.None, 10,
-				falseConditionalFlags: TargetProperties.DOTDPS);
+				falseConditionalFlags: TargetProperties.DOTDPS | TargetProperties.SucideBomber);
 
 			FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial
 								  || (Bot.Settings.Class.bFuryDumpWrath && Bot.Character.Data.dCurrentEnergyPct >= 0.95 &&

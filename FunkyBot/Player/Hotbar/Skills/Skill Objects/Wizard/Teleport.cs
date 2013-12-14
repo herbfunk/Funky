@@ -17,7 +17,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				Cost=15;
 				Range=35;
 				UseageType=AbilityUseage.Combat;
-				//IsNavigationSpecial = true;
+				IsASpecialMovementPower = true;
 				Priority=AbilityPriority.High;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|
 				                          AbilityPreCastFlags.CheckEnergy));

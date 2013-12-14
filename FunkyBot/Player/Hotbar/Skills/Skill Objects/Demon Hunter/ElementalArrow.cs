@@ -15,7 +15,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				IsRanged=true;
 				IsProjectile=true;
 				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy));
 				ClusterConditions=new SkillClusterConditions(4d, 40, 2, true);
 				FcriteriaCombat=() => (!Bot.Targeting.CurrentTarget.IsTreasureGoblin&&

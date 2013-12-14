@@ -2037,7 +2037,7 @@ namespace FunkyBot.Player
 		public void Update()
 		{
 			List<int> SeenACDGUIDs = new List<int>();
-			using (ZetaDia.Memory.AcquireFrame(true))
+			using (ZetaDia.Memory.AcquireFrame())
 			{
 				foreach (var thisitem in ZetaDia.Me.Inventory.Backpack)
 				{

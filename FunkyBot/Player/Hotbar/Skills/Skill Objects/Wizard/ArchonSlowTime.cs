@@ -13,7 +13,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				WaitVars=new WaitLoops(1, 1, true);
 				Range=48;
 				UseageType=AbilityUseage.Anywhere;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|
 				                          AbilityPreCastFlags.CheckCanCast));
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 2);

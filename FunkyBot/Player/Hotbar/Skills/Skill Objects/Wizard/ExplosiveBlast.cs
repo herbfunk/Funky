@@ -14,7 +14,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				Cost=20;
 				Range=10;
 				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|
 				                          AbilityPreCastFlags.CheckEnergy));
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);

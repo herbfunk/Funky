@@ -277,7 +277,7 @@ namespace FunkyBot.Movement
 
 			// If we're doing avoidance, globes or backtracking, try to use special abilities to move quicker
 			#region SpecialMovementChecks
-			if (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.AvoidanceMovements | TargetType.Gold | TargetType.Globe))
+			if (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, Bot.Settings.Combat.CombatMovementTargetTypes))
 			{
 				Skill MovementPower;
 				Vector3 MovementVector = Bot.Character.Class.FindCombatMovementPower(out MovementPower, obj.Position);

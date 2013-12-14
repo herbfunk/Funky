@@ -2,6 +2,8 @@
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
+using FunkyBot.Movement;
+using FunkyBot.Player.HotBar.Skills;
 using Zeta.Common;
 
 namespace FunkyBot.Targeting.Behaviors
@@ -49,7 +51,13 @@ namespace FunkyBot.Targeting.Behaviors
 					  }
 
 					  Vector3 vAnySafePoint;
-					  if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, Vector3.Zero, Bot.Settings.Plugin.AvoidanceFlags))
+
+					  //Check if we have any movement abilities we can cast.. if so lets not check avoidance intersections.
+					  PointCheckingFlags flags=Bot.Settings.Plugin.AvoidanceFlags;
+					  if (Bot.Character.Class.HasCastableMovementAbility())
+						  flags &= ~(PointCheckingFlags.AvoidanceIntersection|PointCheckingFlags.BlockedDirection);
+
+					  if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, Vector3.Zero, flags))
 					  {
 							float distance=vAnySafePoint.Distance(Bot.Character.Data.Position);
 

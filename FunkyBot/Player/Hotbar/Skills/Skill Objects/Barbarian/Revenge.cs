@@ -20,7 +20,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				WaitVars=new WaitLoops(4, 4, true);
 				Cost=0;
 				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy|
 				                          AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated));
 

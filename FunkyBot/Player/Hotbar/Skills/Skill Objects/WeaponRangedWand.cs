@@ -16,7 +16,7 @@ namespace FunkyBot.Player.HotBar.Skills
 				Range=25;
 				IsRanged=true;
 				IsProjectile=true;
-				Priority=AbilityPriority.None;
+				Priority = AbilityPriority.None;
 				ExecutionType=AbilityExecuteFlags.Target;
 				WaitVars=new WaitLoops(0, 0, true);
 				PreCast=new SkillPreCast(AbilityPreCastFlags.None);

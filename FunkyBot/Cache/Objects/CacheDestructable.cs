@@ -25,31 +25,45 @@ namespace FunkyBot.Cache.Objects
 			{
 				if (!base.ObjectIsValidForTargeting) return false;
 
-				//Get current animation state! (Idle = Untouched, Dead = Destroyed)
-				AnimationState currentAnimState=this.AnimState;
-				if (currentAnimState!=AnimationState.Idle)
-				{
-					this.NeedsRemoved=true;
-					this.BlacklistFlag=BlacklistType.Permanent;
-					return false;
-				}
+				//Update SNOAnim
+				//if (this.Gizmotype.Value == GizmoType.Destructible)
+				//{
+				//	try
+				//	{
+				//		Logging.Write("Updating Animation");
+				//		AnimState = (this.ref_Gizmo.CommonData.AnimationInfo.State);
+				//		SnoAnim = (this.ref_Gizmo.CommonData.CurrentAnimation);
+				//	}
+				//	catch
+				//	{
+				//		if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
+				//			Logger.Write(LogLevel.Cache, "Exception occured attempting to update AnimState for object {0}", InternalName);
+				//		//AnimState=AnimationState.Invalid;
+				//	}
+				//}
 
-				// No physics mesh? Ignore this destructible altogether
-				if (this.PhysicsSNO.HasValue&&this.PhysicsSNO.Value<=0)
-				{
-					// No physics mesh on a destructible, probably bugged
-					this.NeedsRemoved=true;
-					this.BlacklistFlag=BlacklistType.Permanent;
-					return false;
-				}
+				////Get current animation state! (Idle = Untouched, Dead = Destroyed)
+				//AnimationState currentAnimState = AnimState;
+				//if (currentAnimState != AnimationState.Idle || !SnoAnim.ToString().ToLower().Contains("idle"))
+				//{
+				//	this.NeedsRemoved = true;
+				//	this.BlacklistFlag = BlacklistType.Permanent;
+				//	if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
+				//		Logger.Write(LogLevel.Cache, "Removing destructible {0} due to invalid AnimationState of {1} -- SNOAnim {2}", InternalName, currentAnimState.ToString(), SnoAnim.ToString());
+				//	return false;
+				//}
 
-				//We don't cache unless its 40f, so if its out of range we remove it!
-				if (base.CentreDistance>75f)
-				{
-					this.NeedsRemoved=true;
-					return false;
-				}
+				//// No physics mesh? Ignore this destructible altogether
+				//if (this.PhysicsSNO.HasValue&&this.PhysicsSNO.Value<=0)
+				//{
+				//	if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
+				//		Logger.Write(LogLevel.Cache, "Removing destructible {0} due to invalid PhysicsSNO", InternalName);
 
+				//	// No physics mesh on a destructible, probably bugged
+				//	this.NeedsRemoved=true;
+				//	this.BlacklistFlag=BlacklistType.Permanent;
+				//	return false;
+				//}
 
 				if (this.RequiresLOSCheck&&!this.IgnoresLOSCheck)
 				{
@@ -201,9 +215,9 @@ namespace FunkyBot.Cache.Objects
 
 						 
 				// If we've tried interacting too many times, blacklist this for a while
-				if (this.InteractionAttempts>5)
+				if (this.InteractionAttempts>1)
 				{
-					this.BlacklistLoops=20;
+					this.BlacklistLoops = 10;
 					this.InteractionAttempts=0;
 				}
 
@@ -212,8 +226,9 @@ namespace FunkyBot.Cache.Objects
 			}
 
 			//Get current animation state! (Idle = Untouched, Dead = Destroyed)
+			UpdateAnimationState();
 			AnimationState currentAnimState=this.AnimState;
-			if (currentAnimState!=AnimationState.Idle)
+			if (currentAnimState!=AnimationState.Idle || !IsStillValid())
 			{
 				// Now tell Trinity to get a new target!
 				 Bot.Targeting.bForceTargetUpdate=true;
@@ -235,7 +250,7 @@ namespace FunkyBot.Cache.Objects
 			float distance=this.RadiusDistance;
 			if (Bot.Targeting.LastCachedTarget.Equals(this))
 			{
-				 distance+=(this.CollisionRadius.Value*0.25f);
+				// distance+=(this.CollisionRadius.Value*0.25f);
 			}
 
 			base.DistanceFromTarget=distance;

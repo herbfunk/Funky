@@ -41,13 +41,13 @@ namespace FunkyBot.Player.Class
 				///<summary>
 				///The actor class of this bot.
 				///</summary>
-				internal virtual ActorClass AC { get { return ActorClass.Invalid; } }
+				public virtual ActorClass AC { get { return ActorClass.Invalid; } }
 				internal Hotbar HotBar = new Hotbar();
 
 				///<summary>
 				///This is used to determine things such as how we preform certain checks (I.E. Line Of Sight)
 				///</summary>
-				public virtual bool IsMeleeClass
+				internal virtual bool IsMeleeClass
 				{
 					 get { return false; }
 				}
@@ -60,14 +60,14 @@ namespace FunkyBot.Player.Class
 				///<summary>
 				///Create Ability (Derieved classes override this!)
 				///</summary>
-				public virtual Skill CreateAbility(SNOPower P)
+				internal virtual Skill CreateAbility(SNOPower P)
 				{
 					 return DefaultAttack;
 				}
 
-				public DrinkHealthPotion HealthPotionAbility=new DrinkHealthPotion();
+				internal DrinkHealthPotion HealthPotionAbility = new DrinkHealthPotion();
 
-				public virtual Skill DefaultAttack
+				internal virtual Skill DefaultAttack
 				{
 					 get { return new WeaponMeleeInsant(); }
 				}
@@ -75,12 +75,12 @@ namespace FunkyBot.Player.Class
 			  ///<summary>
 			  ///
 			  ///</summary>
-			  public bool CanUseDefaultAttack { get; set; }
+				internal bool CanUseDefaultAttack { get; set; }
 
 			  ///<summary>
 				///Check if Bot should generate a new ZigZag location.
 				///</summary>
-				public virtual bool ShouldGenerateNewZigZagPath()
+				internal virtual bool ShouldGenerateNewZigZagPath()
 				{
 					 return true;
 				}
@@ -88,17 +88,17 @@ namespace FunkyBot.Player.Class
 				///<summary>
 				///Generates a new ZigZag location.
 				///</summary>
-				public virtual void GenerateNewZigZagPath() { }
+				internal virtual void GenerateNewZigZagPath() { }
 
 				///<summary>
 				///
 				///</summary>
-				public virtual int MainPetCount { get { return 0; } }
+				internal virtual int MainPetCount { get { return 0; } }
 
 				///<summary>
 				///Animations that determine if character has been "vortexed"
 				///</summary>
-				public virtual HashSet<SNOAnim> KnockbackLandAnims
+				internal virtual HashSet<SNOAnim> KnockbackLandAnims
 				{
 					 get { return null; }
 				}
@@ -108,13 +108,13 @@ namespace FunkyBot.Player.Class
 			  ///<summary>
 				///Used to check for a secondary hotbar set. Currently only used for wizards with Archon.
 				///</summary>
-				public virtual bool SecondaryHotbarBuffPresent()
+				internal virtual bool SecondaryHotbarBuffPresent()
 				{
 					 return false;
 				}
 
 
-				public virtual void RecreateAbilities()
+				internal virtual void RecreateAbilities()
 				{
 					 Abilities=new Dictionary<SNOPower, Skill>();
 
@@ -151,7 +151,7 @@ namespace FunkyBot.Player.Class
 				///<summary>
 				///Sets criteria based on object given.
 				///</summary>
-				public virtual Skill AbilitySelector(CacheUnit obj, bool IgnoreOutOfRange=false)
+				internal virtual Skill AbilitySelector(CacheUnit obj, bool IgnoreOutOfRange = false)
 				{
 					 //Reset default attack can use
 					 CanUseDefaultAttack=!HotBar.HotbarPowers.Contains(DefaultAttack.Power)?false:true;
@@ -201,7 +201,7 @@ namespace FunkyBot.Player.Class
 					 return returnAbility;
 				}
 
-				public List<Skill> ReturnAllUsableAbilities(CacheUnit obj, bool IgnoreOutOfRange=false)
+				internal List<Skill> ReturnAllUsableAbilities(CacheUnit obj, bool IgnoreOutOfRange = false)
 				{
 					 //Reset default attack can use
 					 CanUseDefaultAttack=!Abilities.ContainsKey(DefaultAttack.Power)?false:true;
@@ -244,7 +244,7 @@ namespace FunkyBot.Player.Class
 				///<summary>
 				///Returns Ability used for destructibles
 				///</summary>
-				public virtual Skill DestructibleAbility()
+				internal virtual Skill DestructibleAbility()
 				{
 					 Skill returnAbility=Bot.Character.Class.DefaultAttack;
 					 List<Skill> nonDestructibleAbilities=new List<Skill>();
@@ -367,6 +367,20 @@ namespace FunkyBot.Player.Class
 					 return Vector3.Zero;
 				}
 
+				internal bool HasCastableMovementAbility(bool combatOnly = true)
+				{
+					foreach (var item in Abilities.Values.Where(A => A.FCombatMovement != null && A.IsASpecialMovementPower))
+					{
+
+						if (item.CheckPreCastConditionMethod())
+						{
+							return true;
+						}
+					}
+
+					return false;
+				}
+
 
 				///<summary>
 				///Returns a power for Buffing.
@@ -411,7 +425,7 @@ namespace FunkyBot.Player.Class
 				}
 
 
-				public void DebugString()
+				internal void DebugString()
 				{
 					Logging.Write("Character Information\r\nRadius {0}\r\nHotBar Abilities [{1}]\r\n", Bot.Character.Data.fCharacterRadius, HotBar.HotbarPowers.Count);
 
@@ -442,8 +456,8 @@ namespace FunkyBot.Player.Class
 				///<summary>
 				///Last successful Ability used.
 				///</summary>
-				public Skill LastUsedAbility { get; set; }
-                public DateTime LastUsedACombatAbility { get; set; }
+				internal Skill LastUsedAbility { get; set; }
+				internal DateTime LastUsedACombatAbility { get; set; }
 
 				internal void AbilitySuccessfullyUsed(Skill ability, bool reorderAbilities)
 				{

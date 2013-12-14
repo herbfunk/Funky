@@ -32,7 +32,7 @@ namespace FunkyBot.Player.HotBar.Skills
 				ExecutionType=AbilityExecuteFlags.RemoveBuff;
 				WaitVars=new WaitLoops(3, 3, true);
 				IsBuff=true;
-				Priority=AbilityPriority.None;
+				Priority = AbilityPriority.None;
 				UseageType=AbilityUseage.OutOfCombat;
 				PreCast=new SkillPreCast(AbilityPreCastFlags.None);
 			  

@@ -30,7 +30,7 @@ namespace FunkyBot.Player.HotBar.Skills
 				IsChanneling=false;
                 IsCombat = false;
 				Range=0;
-				Priority=AbilityPriority.None;
+				Priority=AbilityPriority.Low;
 				LastUsed=DateTime.Today;
 				IsADestructiblePower=PowerCacheLookup.AbilitiesDestructiblePriority.Contains(Power);
 				IsASpecialMovementPower=PowerCacheLookup.SpecialMovementAbilities.Contains(Power);
@@ -67,6 +67,9 @@ namespace FunkyBot.Player.HotBar.Skills
 
 		 internal bool IsADestructiblePower { get; set; }
 
+		 ///<summary>
+		 ///Teleport, Leap, etc.. skills that transport the character.
+		 ///</summary>
 		 internal bool IsASpecialMovementPower { get; set; }
 
 

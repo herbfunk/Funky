@@ -4,6 +4,7 @@ using FunkyBot.Settings;
 using FunkyBot.Targeting;
 using FunkyBot.Player;
 using FunkyBot.Game;
+using Zeta.Common;
 
 
 namespace FunkyBot
@@ -34,9 +35,9 @@ namespace FunkyBot
 
 				// Darkfriend's Looting Rule
 				internal static Interpreter ItemRulesEval;
-				
-	
 
+
+				public static bool RunningTargetingBehavior = false;
 				///<summary>
 				///Checks behavioral flags that are considered OOC/Non-Combat
 				///</summary>
@@ -50,8 +51,9 @@ namespace FunkyBot
 				}
 
 				//Recreate Bot Classes
-				internal static void Reset()
+				public static void Reset()
 				{
+					Logging.Write("Funky Reseting Bot");
 					Character.Reset();
 					Targeting = new TargetingHandler();
 					NavigationCache = new Navigation();

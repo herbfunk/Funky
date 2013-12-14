@@ -13,14 +13,14 @@ namespace FunkyBot.Player.Class
 		  {
 
 				//Base class for each individual class!
-			  internal override ActorClass AC { get { return ActorClass.Barbarian; } }
+			  public override ActorClass AC { get { return ActorClass.Barbarian; } }
 
-				public override Skill DefaultAttack
+			  internal override Skill DefaultAttack
 				{
 					 get { return new WeaponMeleeInsant(); }
 				}
 
-				public override bool IsMeleeClass
+				internal override bool IsMeleeClass
 				{
 					 get
 					 {
@@ -43,7 +43,7 @@ namespace FunkyBot.Player.Class
 					 SNOAnim.barbarian_male_STF_Knockback_Land_01,
 					 SNOAnim.barbarian_male_2HS_Knockback_Land_01,
 				};
-				public override HashSet<SNOAnim> KnockbackLandAnims
+				internal override HashSet<SNOAnim> KnockbackLandAnims
 				{
 					 get
 					 {
@@ -52,14 +52,14 @@ namespace FunkyBot.Player.Class
 				}
 
 
-				public override bool ShouldGenerateNewZigZagPath()
+				internal override bool ShouldGenerateNewZigZagPath()
 				{
 					 return (DateTime.Now.Subtract(Bot.NavigationCache.lastChangedZigZag).TotalMilliseconds>=2000f||
 								(Bot.NavigationCache.vPositionLastZigZagCheck!=Vector3.Zero&&Bot.Character.Data.Position==Bot.NavigationCache.vPositionLastZigZagCheck&&DateTime.Now.Subtract(Bot.NavigationCache.lastChangedZigZag).TotalMilliseconds>=1200)||
 								Vector3.Distance(Bot.Character.Data.Position, Bot.NavigationCache.vSideToSideTarget)<=5f||
 								Bot.Targeting.CurrentTarget!=null&&Bot.Targeting.CurrentTarget.AcdGuid.HasValue&&Bot.Targeting.CurrentTarget.AcdGuid.Value!=Bot.NavigationCache.iACDGUIDLastWhirlwind);
 				}
-				public override void GenerateNewZigZagPath()
+				internal override void GenerateNewZigZagPath()
 				{
 					 if (Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_30]>=6||Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_30]>=3)
 						  Bot.NavigationCache.vSideToSideTarget=Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.CurrentTarget.Position, 25f, false, true);
@@ -70,7 +70,7 @@ namespace FunkyBot.Player.Class
 					 Bot.NavigationCache.lastChangedZigZag=DateTime.Now;
 				}
 
-			  public override Skill CreateAbility(SNOPower Power)
+				internal override Skill CreateAbility(SNOPower Power)
 				{
 					 BarbarianActiveSkills power=(BarbarianActiveSkills)Enum.ToObject(typeof(BarbarianActiveSkills), (int)Power);
 					

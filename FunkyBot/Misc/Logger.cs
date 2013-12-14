@@ -30,6 +30,7 @@ namespace FunkyBot
 		  OutOfGame=256,
 		  OutOfCombat=512,
 		  Event=1024,
+		  Cache=2048,
 
 		  All=User|Execption|Cluster|Grouping|Movement|Ability|Target|Items|OutOfGame|OutOfCombat|Event,
 	 }

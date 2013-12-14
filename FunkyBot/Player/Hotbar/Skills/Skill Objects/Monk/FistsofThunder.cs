@@ -11,7 +11,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				ExecutionType=AbilityExecuteFlags.ClusterTarget|AbilityExecuteFlags.Target;
 				WaitVars=new WaitLoops(0, 2, false);
 				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.None;
+				Priority=AbilityPriority.Low;
 				Range=RuneIndex==0?25:12;
 
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast));

@@ -121,18 +121,23 @@ namespace FunkyBot.Cache.Objects
 						RequiresLOSCheck=false;
 				  }
 
+				  if (GizmoHasBeenUsed.HasValue && GizmoHasBeenUsed.Value == true)
+				  {
+					  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
+						  Logger.Write(LogLevel.Cache, "Removing interactable {0} due to positive HasBeenUsed value", InternalName);
+
+					  NeedsRemoved = true;
+					  BlacklistFlag = BlacklistType.Permanent;
+					  return false;
+				  }
+
 				  // Now for the specifics
 				  switch (targetType.Value)
 				  {
 						#region Interactable
 						case TargetType.Interactable:
 						case TargetType.Door:
-							 if (GizmoHasBeenUsed.HasValue&&GizmoHasBeenUsed.Value==true)
-							 {
-								  NeedsRemoved=true;
-								  BlacklistFlag=BlacklistType.Permanent;
-								  return false;
-							 }
+
 
 							 if (targetType.Value==TargetType.Door
 									&&PriorityCounter==0
@@ -162,12 +167,7 @@ namespace FunkyBot.Cache.Objects
 						#endregion
 						#region Shrine
 						case TargetType.Shrine:
-							 if (GizmoHasBeenUsed.HasValue&&GizmoHasBeenUsed.Value==true)
-							 {
-								  NeedsRemoved=true;
-								  BlacklistFlag=BlacklistType.Permanent;
-								  return false;
-							 }
+
 
 							 bool IgnoreThis=false;
 							 if (IsHealthWell)
@@ -202,12 +202,6 @@ namespace FunkyBot.Cache.Objects
 						#endregion
 						#region Container
 						case TargetType.Container:
-							 if (GizmoHasBeenUsed.HasValue&&GizmoHasBeenUsed.Value==true)
-							 {
-								  NeedsRemoved=true;
-								  BlacklistFlag=BlacklistType.Permanent;
-								  return false;
-							 }
 
 							 //Vendor Run and DB Settings check
 							 if (TownRunManager.bWantToTownRun

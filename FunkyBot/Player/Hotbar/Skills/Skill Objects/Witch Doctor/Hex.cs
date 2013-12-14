@@ -13,7 +13,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				WaitVars=new WaitLoops(0, 0, true);
 				Cost=49;
 				UseageType=AbilityUseage.Anywhere;
-				Priority=AbilityPriority.Low;
+				Priority=AbilityPriority.Medium;
 				IsBuff=true;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
 				                          AbilityPreCastFlags.CheckCanCast));
