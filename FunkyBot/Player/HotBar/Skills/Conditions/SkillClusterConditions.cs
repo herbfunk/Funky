@@ -1,6 +1,6 @@
 ﻿using System;
 using FunkyBot.Movement.Clustering;
-//
+
 namespace FunkyBot.Player.HotBar.Skills.Conditions
 {
 	public class SkillClusterConditions : ClusterConditions
