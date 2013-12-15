@@ -627,10 +627,10 @@ namespace FunkyBot.Cache.Objects
 				{
 					 get
 					 {
-						  return String.Format("RAGUID {0}: \r\n {1} Distance (Centre{2} / Radius{3}) \r\n SnoAnim={9} \r\n ReqLOS={4} -- {5} -- [LOSV3: {6}] \r\n BotFacing={7} \r\n BlackListLoops[{8}]",
+						  return String.Format("RAGUID {0}: \r\n {1} Distance (Centre{2} / Radius{3}) \r\n SnoAnim={9} -- AnimState={10} \r\n ReqLOS={4} -- {5} -- [LOSV3: {6}] \r\n BotFacing={7} \r\n BlackListLoops[{8}]",
 								RAGUID.ToString(CultureInfo.InvariantCulture), base.DebugString, CentreDistance.ToString(CultureInfo.InvariantCulture), RadiusDistance.ToString(CultureInfo.InvariantCulture),
 								RequiresLOSCheck, LineOfSight!=null?String.Format("-- {0} --",LineOfSight.DebugString):"", LOSV3,
-								BotIsFacing(), BlacklistLoops.ToString(CultureInfo.InvariantCulture), AnimState);
+								BotIsFacing(), BlacklistLoops.ToString(CultureInfo.InvariantCulture), SnoAnim, AnimState);
 					 }
 				}
 

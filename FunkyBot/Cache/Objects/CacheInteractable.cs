@@ -380,7 +380,7 @@ namespace FunkyBot.Cache.Objects
 			}
 
 			// Interactables can have a long channeling time...
-			if (targetType.Value.HasFlag(TargetType.Interactable))
+			if (ObjectCache.CheckTargetTypeFlag(targetType.Value,TargetType.Interactable))
 			{
 				Bot.Character.Data.WaitWhileAnimating(1500);
 			}

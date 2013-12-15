@@ -103,7 +103,7 @@ namespace FunkyBot.Cache.Objects
 					 //	return false;
 					 //}
 
-					 if ((TargetType.Interactables.HasFlag(base.targetType.Value))
+					 if ((ObjectCache.CheckTargetTypeFlag(targetType.Value,TargetType.Interactables))
 						  &&(!this.GizmoHasBeenUsed.HasValue||!this.GizmoHasBeenUsed.Value))
 					 {
 						  try
@@ -160,7 +160,7 @@ namespace FunkyBot.Cache.Objects
 						  base.Obstacletype=ObstacleType.ServerObject;
 
 					 //PhysicsSNO -- (continiously updated) excluding shrines/interactables
-					 if (base.targetType.Value==TargetType.Destructible||base.targetType.Value==TargetType.Barricade||base.targetType.Value==TargetType.Container)
+					 if (ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Destructible | TargetType.Barricade |TargetType.Container))
 					 {
 						  try
 						  {
@@ -174,22 +174,22 @@ namespace FunkyBot.Cache.Objects
 					 }
 
 					////Update SNOAnim
-					//if (targetType.Value==TargetType.Destructible)
-					//{
-					//	try
-					//	{
-					//		AnimState=(this.ref_Gizmo.CommonData.AnimationInfo.State);
-					//		SnoAnim = (this.ref_Gizmo.CommonData.CurrentAnimation);
-					//	}
-					//	catch
-					//	{
-					//		if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
-					//			Logger.Write(LogLevel.Cache, "Exception occured attempting to update AnimState for object {0}", InternalName);
-					//		//AnimState=AnimationState.Invalid;
-					//	}
-					//}
+					 if (ObjectCache.CheckTargetTypeFlag(targetType.Value,TargetType.Destructible| TargetType.Barricade))
+					 {
+						 try
+						 {
+							 UpdateAnimationState();
+							 UpdateSNOAnim();
+						 }
+						 catch
+						 {
+							 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
+								 Logger.Write(LogLevel.Cache, "Exception occured attempting to update AnimState for object {0}", InternalName);
+							 //AnimState=AnimationState.Invalid;
+						 }
+					 }
 
-					 if (this.targetType.Value==TargetType.Destructible||this.targetType.Value==TargetType.Barricade||this.targetType.Value==TargetType.Interactable)
+					 if (ObjectCache.CheckTargetTypeFlag(targetType.Value,TargetType.Destructible|TargetType.Barricade|TargetType.Interactable))
 					 {
 						  if (this.IsBarricade.HasValue&&this.IsBarricade.Value&&!this.targetType.Value.HasFlag(TargetType.Barricade))
 						  {

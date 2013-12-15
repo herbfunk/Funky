@@ -9,6 +9,7 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 			:base(clusterRadius,MaxDistanceFromBot,MinimumUnitCount,IgnoreNonTargetableUnits,DotDPSRatio,clusterflags, minDistance, useRadiusDistance)
 		{
 			CreateCriteria();
+
 		}
 
 		public Func<bool> Criteria { get; set; } 
