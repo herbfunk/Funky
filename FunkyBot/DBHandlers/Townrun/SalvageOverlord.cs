@@ -44,7 +44,7 @@ namespace FunkyBot.DBHandlers
 
 						if (Bot.Settings.ItemRules.ItemRulesSalvaging)
 						{
-							if (Bot.ItemRulesEval.checkSalvageItem(thisitem.ACDItem) == Interpreter.InterpreterAction.SALVAGE)
+							if (Bot.Character.ItemRulesEval.checkSalvageItem(thisitem.ACDItem) == Interpreter.InterpreterAction.SALVAGE)
 							{
 								Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSalvageItems.Add(thisitem);
 								continue;

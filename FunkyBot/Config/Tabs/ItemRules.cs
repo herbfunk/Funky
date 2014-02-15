@@ -139,7 +139,7 @@ namespace FunkyBot
 		  }
 		  private void ItemRulesReload_Click(object sender, EventArgs e)
 		  {
-				if (Bot.ItemRulesEval==null)
+			  if (Bot.Character.ItemRulesEval == null)
 				{
 					 Logging.Write("Cannot reload rules until bot has started", true);
 					 return;
@@ -147,7 +147,7 @@ namespace FunkyBot
 
 				try
 				{
-					 Bot.ItemRulesEval.reloadFromUI();
+					Bot.Character.ItemRulesEval.reloadFromUI();
 				} catch (Exception ex)
 				{
 					 Logging.Write(ex.Message+"\r\n"+ex.StackTrace);

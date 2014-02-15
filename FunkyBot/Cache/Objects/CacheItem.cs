@@ -495,28 +495,28 @@ namespace FunkyBot.Cache.Objects
                           {
                               //Logging.Write Dropped Items Here!!
                               Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.DroppedItemLog(this);
+							  Bot.Character.ItemPickupEval(this);
+							  //if (Bot.Settings.ItemRules.UseItemRules)
+							  //{
+							  //	Interpreter.InterpreterAction action = Bot.ItemRulesEval.checkPickUpItem(this, ItemEvaluationType.PickUp);
+							  //	switch (action)
+							  //	{
+							  //		case Interpreter.InterpreterAction.PICKUP:
+							  //			ShouldPickup = true;
+							  //			break;
+							  //		case Interpreter.InterpreterAction.IGNORE:
+							  //			ShouldPickup = false;
+							  //			break;
+							  //	}
+							  //}
 
-                              if (Bot.Settings.ItemRules.UseItemRules)
-                              {
-                                  Interpreter.InterpreterAction action = Bot.ItemRulesEval.checkPickUpItem(this, ItemEvaluationType.PickUp);
-                                  switch (action)
-                                  {
-                                      case Interpreter.InterpreterAction.PICKUP:
-                                          ShouldPickup = true;
-                                          break;
-                                      case Interpreter.InterpreterAction.IGNORE:
-                                          ShouldPickup = false;
-                                          break;
-                                  }
-                              }
-
-                              if (!ShouldPickup.HasValue)
-                              {
-                                  //Use Giles Scoring or DB Weighting..
-                                  ShouldPickup =
-                                         Bot.Settings.ItemRules.ItemRuleGilesScoring ? Backpack.GilesPickupItemValidation(this)
-                                       : ItemManager.Current.EvaluateItem(ref_DiaItem.CommonData, ItemEvaluationType.PickUp); ;
-                              }
+							  //if (!ShouldPickup.HasValue)
+							  //{
+							  //	//Use Giles Scoring or DB Weighting..
+							  //	ShouldPickup =
+							  //		   Bot.Settings.ItemRules.ItemRuleGilesScoring ? Backpack.GilesPickupItemValidation(this)
+							  //		 : ItemManager.Current.EvaluateItem(ref_DiaItem.CommonData, ItemEvaluationType.PickUp); ;
+							  //}
                           }
                           else
                           {

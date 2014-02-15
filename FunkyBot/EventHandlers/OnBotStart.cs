@@ -22,7 +22,7 @@ namespace FunkyBot
 
 				//Load Settings
 				Settings_Funky.LoadFunkyConfiguration();
-				Bot.ItemRulesEval=new Interpreter();
+				Bot.Character.ItemRulesEval = new Interpreter();
 
 
 				Navigator.PlayerMover=new Funky.PlayerMover();

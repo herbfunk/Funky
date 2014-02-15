@@ -33,9 +33,9 @@ namespace FunkyBot.Targeting.Behaviors
 					  {
 							string avoidances="";
 							Bot.Targeting.Environment.TriggeringAvoidances.ForEach(a => avoidances = avoidances + a.AvoidanceType.ToString() + ", ");
-							if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-								Logger.Write(LogLevel.Movement, "Avoidances Triggering: {0}", avoidances);
+							Logger.Write(LogLevel.Movement, "Avoidances Triggering: {0}", avoidances);
 					  }
+
 					  //Reuse the last generated safe spot...
 					  if (DateTime.Now.Subtract(Bot.Targeting.LastAvoidanceMovement).TotalSeconds<this.iSecondsAvoidMoveFor)
 					  {

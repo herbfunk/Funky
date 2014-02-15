@@ -38,7 +38,7 @@ namespace FunkyBot.DBHandlers
 						{
 							if (Bot.Settings.ItemRules.ItemRulesUnidStashing)
 							{
-								if (Bot.ItemRulesEval.checkUnidStashItem(thisitem.ACDItem) == Interpreter.InterpreterAction.KEEP)
+								if (Bot.Character.ItemRulesEval.checkUnidStashItem(thisitem.ACDItem) == Interpreter.InterpreterAction.KEEP)
 								{
 									Bot.Character.Data.BackPack.townRunCache.hashGilesCachedUnidStashItems.Add(thisitem);
 								}

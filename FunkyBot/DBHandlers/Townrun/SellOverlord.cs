@@ -58,13 +58,13 @@ namespace FunkyBot.DBHandlers
 						}
 
 						if (Bot.Settings.ItemRules.ItemRulesSalvaging)
-							if (Bot.ItemRulesEval.checkSalvageItem(thisitem.ACDItem) == Interpreter.InterpreterAction.SALVAGE)
+							if (Bot.Character.ItemRulesEval.checkSalvageItem(thisitem.ACDItem) == Interpreter.InterpreterAction.SALVAGE)
 								continue;
 
 
 						if (Bot.Settings.ItemRules.UseItemRules)
 						{
-							Interpreter.InterpreterAction action = Bot.ItemRulesEval.checkItem(thisitem.ACDItem, ItemEvaluationType.Keep);
+							Interpreter.InterpreterAction action = Bot.Character.ItemRulesEval.checkItem(thisitem.ACDItem, ItemEvaluationType.Keep);
 							switch (action)
 							{
 								case Interpreter.InterpreterAction.TRASH:

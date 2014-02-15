@@ -59,7 +59,7 @@ namespace FunkyBot.DBHandlers
 					{
 						if (Bot.Settings.ItemRules.UseItemRules)
 						{
-							Interpreter.InterpreterAction action = Bot.ItemRulesEval.checkItem(thisitem.ACDItem, ItemEvaluationType.Keep);
+							Interpreter.InterpreterAction action = Bot.Character.ItemRulesEval.checkItem(thisitem.ACDItem, ItemEvaluationType.Keep);
 							switch (action)
 							{
 								case Interpreter.InterpreterAction.KEEP:

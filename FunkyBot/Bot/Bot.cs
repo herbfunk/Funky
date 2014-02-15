@@ -1,10 +1,12 @@
-﻿using FunkyBot.DBHandlers;
+﻿using FunkyBot.Cache.Objects;
+using FunkyBot.DBHandlers;
 using FunkyBot.Movement;
 using FunkyBot.Settings;
 using FunkyBot.Targeting;
 using FunkyBot.Player;
 using FunkyBot.Game;
 using Zeta.Common;
+using Zeta.CommonBot;
 
 
 namespace FunkyBot
@@ -33,8 +35,7 @@ namespace FunkyBot
 				public static Navigation NavigationCache { get; set; }
 
 
-				// Darkfriend's Looting Rule
-				internal static Interpreter ItemRulesEval;
+
 
 
 				public static bool RunningTargetingBehavior = false;
@@ -58,6 +59,7 @@ namespace FunkyBot
 					Targeting = new TargetingHandler();
 					NavigationCache = new Navigation();
 				}
+
 		  }
 	 
 }
