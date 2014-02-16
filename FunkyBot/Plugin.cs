@@ -21,7 +21,7 @@ namespace FunkyBot
 {
 	 public partial class Funky : IPlugin
 	 {
-		  public Version Version { get { return new Version(2, 7, 0, 1); } }
+		  public Version Version { get { return new Version(2, 7, 1, 0); } }
 		  public string Author { get { return "Herbfunk"; } }
 		  public string Description
 		  {
@@ -322,6 +322,13 @@ namespace FunkyBot
 				BrainBehavior.CreateCombatLogic();
 				BrainBehavior.CreateLootBehavior();
 				BrainBehavior.CreateVendorBehavior();
+		  }
+		  internal static float Difference(float A, float B)
+		  {
+			  if (A > B)
+				  return A - B;
+
+			  return B - A;
 		  }
 
 	 }

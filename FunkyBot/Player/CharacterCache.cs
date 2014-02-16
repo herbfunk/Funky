@@ -119,6 +119,12 @@ namespace FunkyBot.Player
 			}
 			set
 			{
+				if (coinage!=value)
+				{
+					//Gold Inactivity
+					Bot.Game.GoldTimeoutChecker.LastCoinageUpdate = DateTime.Now;
+				}
+
 				coinage = value;
 				UpdateCoinage = false;
 			}

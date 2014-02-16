@@ -1,4 +1,5 @@
-﻿using FunkyBot.Cache;
+﻿using System;
+using FunkyBot.Cache;
 using FunkyBot.XMLTags;
 using Zeta;
 using Zeta.Internals.Service;
@@ -17,6 +18,8 @@ namespace FunkyBot.Game
 		///Tracking of current Game Stats
 		///</summary>
 		internal GameStats CurrentGameStats = new GameStats();
+
+		internal GoldInactivity GoldTimeoutChecker=new GoldInactivity();
 
 
 		internal ProfileCache Profile = new ProfileCache();
@@ -57,6 +60,9 @@ namespace FunkyBot.Game
 
 				//Renew bot
 				Funky.ResetBot();
+
+				//Gold Inactivity
+				GoldTimeoutChecker.LastCoinageUpdate=DateTime.Now;
 
 				_currentGameId = curgameID;
 				return true;

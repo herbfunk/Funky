@@ -11,6 +11,7 @@ using FunkyBot.Settings;
 using System.Windows.Controls;
 using Zeta.Common;
 using Zeta.CommonBot;
+using Zeta.Internals.Actors;
 using Button = System.Windows.Controls.Button;
 using CheckBox = System.Windows.Controls.CheckBox;
 using MessageBox = System.Windows.MessageBox;
@@ -322,6 +323,21 @@ namespace FunkyBot
 									  }
 								 }
 
+								 LBDebug.Items.Add("==Buffs==");
+								foreach (var item in Bot.Character.Class.HotBar.CurrentBuffs.Keys)
+								{
+									
+									string Power = Enum.GetName(typeof(SNOPower), item);
+									try
+									{
+										LBDebug.Items.Add(Power);
+									}
+									catch (Exception ex)
+									{
+										Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
+									}
+								}
+
 							} catch (Exception ex)
 							{
 								 Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
@@ -332,8 +348,8 @@ namespace FunkyBot
 					  {
 							try
 							{
-                                LBDebug.Items.Add(String.Format("Last Avoidance: {0}",Bot.Targeting.LastAvoidanceMovement.ToString()));
-                                LBDebug.Items.Add(String.Format("Avoided Last Target=={0}",Bot.Targeting.AvoidanceLastTarget.ToString()));
+								LBDebug.Items.Add(DateTime.Now.Subtract(Bot.Game.GoldTimeoutChecker.LastCoinageUpdate).TotalMilliseconds.ToString());
+								LBDebug.Items.Add(Bot.Game.GoldTimeoutChecker.TimeoutTripped.ToString());
 
 							} catch
 							{

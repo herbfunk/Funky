@@ -157,6 +157,27 @@ namespace FunkyBot.Targeting
 					 StartingLocation=Vector3.Zero;
 					 Bot.NavigationCache.PrioritizedRAGUIDs.Clear();
 				}
+				else
+				{
+					Bot.Game.GoldTimeoutChecker.CheckTimeoutTripped();
+					if (Bot.Game.GoldTimeoutChecker.TimeoutTripped)
+					{
+						//Have not started exit behavior.. global overlord will begin so lets exit!
+						if (!Bot.Game.GoldTimeoutChecker.BehaviorEngaged)
+						{
+							CurrentTarget = null;
+						}
+						else
+						{
+							//if (DateTime.Now.Subtract(LastChangeOfTarget).TotalSeconds>10)
+							//{
+							//	Logging.Write("Blacklisting Current Target {0}", CurrentTarget.InternalName);
+							//	CurrentTarget.BlacklistLoops = 100;
+							//	CurrentTarget = null;
+							//}
+						}
+					}
+				}
 		  }
 
 		  ///<summary>
@@ -192,6 +213,8 @@ namespace FunkyBot.Targeting
 				//Reset target
 				CurrentTarget=null;
 				CurrentUnitTarget=null;
+
+				
 
 				//Kill Loot Radius Update
 				UpdateKillLootRadiusValues();
@@ -254,6 +277,8 @@ namespace FunkyBot.Targeting
 			  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Event))
 				  Logger.Write(LogLevel.Event, "Level Area ID has Changed");
 
+
+
 			  if (!BrainBehavior.IsVendoring)
 			  {
 				  //Check for World ID change!
@@ -264,6 +289,9 @@ namespace FunkyBot.Targeting
 					  LastWorldID = Bot.Character.Data.iCurrentWorldID;
 					  Bot.Game.Profile.InteractableObjectCache.Clear();
 					  Navigator.SearchGridProvider.Update();
+
+					  //Gold Inactivity
+					  Bot.Game.GoldTimeoutChecker.LastCoinageUpdate = DateTime.Now;
 				  }
 
 				  if (!LastLevelIDChangeWasTownRun)
@@ -272,6 +300,11 @@ namespace FunkyBot.Targeting
 					  BackTrackCache.cacheMovementGPRs.Clear();
 					  Bot.NavigationCache.LOSBlacklistedRAGUIDs.Clear();
 					  Bot.Game.Profile.InteractableCachedObject = null;
+				  }
+				  else
+				  {
+					  //Gold Inactivity
+					  Bot.Game.GoldTimeoutChecker.LastCoinageUpdate = DateTime.Now;
 				  }
 
 				  //Clear the object cache!

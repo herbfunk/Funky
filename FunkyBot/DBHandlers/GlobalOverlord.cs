@@ -68,6 +68,11 @@ namespace FunkyBot
 								}
 						  }
 					 }
+					else if(Bot.Game.GoldTimeoutChecker.TimeoutTripped)
+					{
+						Bot.Game.GoldTimeoutChecker.BehaviorEngaged = true;
+						return true;
+					}
 
 					 return false;
 				}
@@ -122,8 +127,9 @@ namespace FunkyBot
 		  //Used when we actually want to handle a target!
 		  public static RunStatus HandleTarget(object ret)
 		  {
-				if (ItemIdentifyBehavior.shouldPreformOOCItemIDing)
-					return ItemIdentifyBehavior.HandleIDBehavior(); //Check if we are doing OOC ID behavior..
+				//if (ItemIdentifyBehavior.shouldPreformOOCItemIDing)
+					//return ItemIdentifyBehavior.HandleIDBehavior(); //Check if we are doing OOC ID behavior..
+
 				if (Bot.Targeting.CurrentTarget!=null)
 					 return Bot.Targeting.HandleThis();  //Default Behavior: Current Target
 
@@ -135,6 +141,12 @@ namespace FunkyBot
 					 }
 
 					return NewMuleGame.FinishMuleBehavior();
+				}
+
+			    //Exit Game!!
+				if (Bot.Game.GoldTimeoutChecker.BehaviorEngaged)
+				{
+					return Bot.Game.GoldTimeoutChecker.ExitGame();
 				}
 
 				return RunStatus.Success;

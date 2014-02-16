@@ -31,6 +31,8 @@ namespace FunkyBot
 				{
 					 ZetaDia.Me.UsePower(SNOPower.Walk, ZetaDia.Me.Position, Bot.Character.Data.iCurrentWorldID);
 				}
+
+
 				// Anti-stuck variables
 				private static Vector3 vOldMoveToTarget=Vector3.Zero;
 				internal static int iTimesReachedStuckPoint=0;
@@ -73,35 +75,15 @@ namespace FunkyBot
 					 // Update the last time we generated a path
 					 timeStartedUnstuckMeasure=DateTime.Now;
 
-
-
-					 // If we got stuck on a 2nd/3rd/4th "chained" anti-stuck route, then return the old move to target to keep movement of some kind going
-					 if (iTimesReachedStuckPoint>0)
-					 {
-						  vSafeMovementLocation=Vector3.Zero;
-						  iTimesReachedStuckPoint++;
-						  // Reset the path and allow a whole "New" unstuck generation next cycle
-						  iTimesReachedStuckPoint=0;
-						  // And cancel unstucking for 9 seconds so DB can try to navigate
-						  iCancelUnstuckerForSeconds=(9*iTotalAntiStuckAttempts);
-						  if (iCancelUnstuckerForSeconds<20)
-								iCancelUnstuckerForSeconds=20;
-						  timeCancelledUnstuckerFor=DateTime.Now;
-						  Navigator.Clear();
-						  Logging.WriteDiagnostic("[Funky] Clearing old route and trying new path find to: "+vOldMoveToTarget.ToString());
-						  Navigator.MoveTo(vOldMoveToTarget, "original destination", false);
-						  return vSafeMovementLocation;
-					 }
-
-					 // Only try an unstuck 10 times maximum in XXX period of time
 					 if (Vector3.Distance(vOriginalDestination, vMyCurrentPosition)>=700f)
 					 {
 						  Logging.Write("[Funky] You are "+Vector3.Distance(vOriginalDestination, vMyCurrentPosition).ToString(CultureInfo.InvariantCulture)+" distance away from your destination.");
 						  Logging.Write("[Funky] This is too far for the unstucker, and is likely a sign of ending up in the wrong map zone.");
 						  Logging.Write("Reloading current profile");
 						  ProfileManager.Load(ProfileManager.CurrentProfile.Path);
-
 					 }
+
+
 					 if (iTotalAntiStuckAttempts<=8)
 					 {
 						  //Check cache for barricades..
@@ -152,7 +134,7 @@ namespace FunkyBot
 					 iTotalAntiStuckAttempts=1;
 					 vSafeMovementLocation=Vector3.Zero;
 					 vOldPosition=Vector3.Zero;
-					 iTimesReachedStuckPoint=0;
+					 iTimesReachedStuckPoint = 0;
 					 timeLastRecordedPosition=DateTime.Today;
 					 timeStartedUnstuckMeasure=DateTime.Today;
 					 int iSafetyLoops=0;
@@ -387,7 +369,7 @@ namespace FunkyBot
 						  if (iTotalAntiStuckAttempts>1&&DateTime.Now.Subtract(timeStartedUnstuckMeasure).TotalSeconds>=120)
 						  {
 								iTotalAntiStuckAttempts=1;
-								iTimesReachedStuckPoint=0;
+								iTimesReachedStuckPoint = 0;
 								vSafeMovementLocation=Vector3.Zero;
 						  }
 

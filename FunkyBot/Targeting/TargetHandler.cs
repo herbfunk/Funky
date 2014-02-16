@@ -270,7 +270,7 @@ namespace FunkyBot.Targeting
 		  public virtual bool Refresh()
 		  {
 				// Make sure we reset unstucker stuff here
-				Funky.PlayerMover.iTimesReachedStuckPoint=0;
+			    Funky.PlayerMover.iTimesReachedStuckPoint = 0;
 				Funky.PlayerMover.vSafeMovementLocation=Vector3.Zero;
 				Funky.PlayerMover.timeLastRecordedPosition=DateTime.Now;
 

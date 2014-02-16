@@ -12,7 +12,8 @@ namespace FunkyBot.Movement
 				public static bool bSkipAheadAGo=false;
 
 				private static List<SkipAheadNavigation> SkipAheadAreaCache=new List<SkipAheadNavigation>();
-				private static DateTime lastRecordedSkipAheadCache=DateTime.Today;
+				internal static DateTime lastRecordedSkipAheadCache=DateTime.Today;
+			  internal static Vector3 lastRecordedSkipAheadLocation=Vector3.Zero;
 				private static List<SkipAheadNavigation> UsedSkipAheadAreaCache=new List<SkipAheadNavigation>();
 
 				internal static void ClearCache()
@@ -66,8 +67,8 @@ namespace FunkyBot.Movement
 
 					 if (SkipAheadAreaCache.Any(p => p.Position.Distance(ZetaDia.Me.Position)<=Precision))
 						  return;
-
-					 SkipAheadAreaCache.Add(new SkipAheadNavigation(ZetaDia.Me.Position, Precision));
+					 lastRecordedSkipAheadLocation = ZetaDia.Me.Position;
+					 SkipAheadAreaCache.Add(new SkipAheadNavigation(lastRecordedSkipAheadLocation, Precision));
 
 					 lastRecordedSkipAheadCache=DateTime.Now;
 				}
