@@ -119,7 +119,7 @@ namespace FunkyBot.Player
 			}
 			set
 			{
-				if (coinage!=value)
+				if (coinage != value)
 				{
 					//Gold Inactivity
 					Bot.Game.GoldTimeoutChecker.LastCoinageUpdate = DateTime.Now;
@@ -227,7 +227,7 @@ namespace FunkyBot.Player
 		internal DateTime lastUpdateNonEssentialData = DateTime.Today;
 		internal DateTime lastCheckedSceneID = DateTime.Today;
 
-		
+
 		#endregion
 		#region Methods
 
@@ -388,7 +388,7 @@ namespace FunkyBot.Player
 
 		}
 
-		
+
 		#endregion
 
 		internal class Pets
@@ -527,6 +527,6 @@ namespace FunkyBot.Player
 		}
 	}
 
-	
+
 
 }

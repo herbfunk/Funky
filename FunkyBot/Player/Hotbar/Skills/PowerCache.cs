@@ -4,15 +4,15 @@ using Zeta.Internals.Actors;
 
 namespace FunkyBot.Cache
 {
-    public class PowerCacheLookup
-    {
-		  internal static readonly HashSet<int> PowerStackImportant=new HashSet<int>
+	public class PowerCacheLookup
+	{
+		internal static readonly HashSet<int> PowerStackImportant = new HashSet<int>
 				{
 					 (int)SNOPower.Witchdoctor_SoulHarvest,
 					 (int)SNOPower.Wizard_EnergyTwister
 				};
 
-	    internal static readonly HashSet<SNOPower> AbilitiesDestructiblePriority=new HashSet<SNOPower>
+		internal static readonly HashSet<SNOPower> AbilitiesDestructiblePriority = new HashSet<SNOPower>
 		  {
 				SNOPower.Barbarian_Frenzy, SNOPower.Barbarian_Bash,SNOPower.Barbarian_Cleave,SNOPower.Barbarian_WeaponThrow, SNOPower.Barbarian_Rend,
 				SNOPower.DemonHunter_HungeringArrow, SNOPower.DemonHunter_EntanglingShot, SNOPower.DemonHunter_BolaShot, SNOPower.DemonHunter_Grenades, SNOPower.DemonHunter_ElementalArrow, SNOPower.DemonHunter_RapidFire, SNOPower.DemonHunter_Chakram,
@@ -21,14 +21,14 @@ namespace FunkyBot.Cache
 				SNOPower.Wizard_EnergyTwister, SNOPower.Wizard_MagicMissile,SNOPower.Wizard_ShockPulse,SNOPower.Wizard_SpectralBlade, SNOPower.Wizard_Electrocute, SNOPower.Wizard_Archon_DisintegrationWave,
 		  };
 
-	    internal static readonly HashSet<SNOPower> SpecialMovementAbilities=new HashSet<SNOPower>
+		internal static readonly HashSet<SNOPower> SpecialMovementAbilities = new HashSet<SNOPower>
 		  {
 				SNOPower.Barbarian_FuriousCharge,SNOPower.Barbarian_Sprint,SNOPower.Barbarian_Whirlwind,
 				SNOPower.DemonHunter_Vault,SNOPower.DemonHunter_Strafe,
 				SNOPower.Monk_TempestRush,
 		  };
 
-			internal static readonly HashSet<SNOPower> PrimaryAbilities=new HashSet<SNOPower>
+		internal static readonly HashSet<SNOPower> PrimaryAbilities = new HashSet<SNOPower>
 		  {
 				 SNOPower.Barbarian_Bash,SNOPower.Barbarian_Cleave,SNOPower.Barbarian_WeaponThrow,SNOPower.Barbarian_Frenzy,
 				 SNOPower.DemonHunter_HungeringArrow,SNOPower.DemonHunter_EntanglingShot,SNOPower.DemonHunter_BolaShot,SNOPower.DemonHunter_Grenades,
@@ -37,7 +37,7 @@ namespace FunkyBot.Cache
 				 SNOPower.Wizard_MagicMissile,SNOPower.Wizard_ShockPulse,SNOPower.Wizard_SpectralBlade,SNOPower.Wizard_Electrocute,SNOPower.Wizard_Archon_DisintegrationWave,
 		  };
 
-		  internal static readonly HashSet<SNOPower> PassiveAbiltiesReduceRepeatTime=new HashSet<SNOPower>
+		internal static readonly HashSet<SNOPower> PassiveAbiltiesReduceRepeatTime = new HashSet<SNOPower>
 		  {
 				//barb
 				SNOPower.Barbarian_Passive_BoonOfBulKathos,
@@ -48,7 +48,7 @@ namespace FunkyBot.Cache
 				SNOPower.Wizard_Passive_Evocation,
 				SNOPower.Wizard_Passive_CriticalMass,
 		  };
-		  internal static readonly Dictionary<SNOPower, int> dictAbilityRepeatDefaults=new Dictionary<SNOPower, int>
+		internal static readonly Dictionary<SNOPower, int> dictAbilityRepeatDefaults = new Dictionary<SNOPower, int>
             {
                 #region Barb
 		{SNOPower.DrinkHealthPotion, 30000}, 
@@ -187,11 +187,11 @@ namespace FunkyBot.Cache
 	#endregion
             };
 
-		  public static Dictionary<SNOPower, int> dictAbilityRepeatDelay=new Dictionary<SNOPower, int>(dictAbilityRepeatDefaults);
-		  // Last used-timers for all abilities to prevent spamming D3 memory for cancast checks too often
-		  // These should NEVER need manually editing
-		  // But you do need to make sure every skill used by Trinity is listed in here once!
-		  internal static Dictionary<SNOPower, DateTime> dictAbilityLastUseDefaults=new Dictionary<SNOPower, DateTime>
+		public static Dictionary<SNOPower, int> dictAbilityRepeatDelay = new Dictionary<SNOPower, int>(dictAbilityRepeatDefaults);
+		// Last used-timers for all abilities to prevent spamming D3 memory for cancast checks too often
+		// These should NEVER need manually editing
+		// But you do need to make sure every skill used by Trinity is listed in here once!
+		internal static Dictionary<SNOPower, DateTime> dictAbilityLastUseDefaults = new Dictionary<SNOPower, DateTime>
             {
                 {SNOPower.None, DateTime.Today},{SNOPower.DrinkHealthPotion, DateTime.Today},
 
@@ -256,12 +256,12 @@ namespace FunkyBot.Cache
                 {SNOPower.DemonHunter_ClusterArrow, DateTime.Today},{SNOPower.DemonHunter_RainOfVengeance, DateTime.Today},
 	            #endregion
             };
-		  // And this is to avoid using certain long-cooldown skills immediately after a fail
-		  public static Dictionary<SNOPower, DateTime> dictAbilityLastFailed=new Dictionary<SNOPower, DateTime>(dictAbilityLastUseDefaults);
-		  // And a "global cooldown" to prevent non-signature-spells being used too fast
-		  public static DateTime lastGlobalCooldownUse=DateTime.Today;
+		// And this is to avoid using certain long-cooldown skills immediately after a fail
+		public static Dictionary<SNOPower, DateTime> dictAbilityLastFailed = new Dictionary<SNOPower, DateTime>(dictAbilityLastUseDefaults);
+		// And a "global cooldown" to prevent non-signature-spells being used too fast
+		public static DateTime lastGlobalCooldownUse = DateTime.Today;
 
 
 
-    }
+	}
 }
