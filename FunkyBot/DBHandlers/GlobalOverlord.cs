@@ -70,7 +70,7 @@ namespace FunkyBot
 					 }
 					else if(Bot.Game.GoldTimeoutChecker.TimeoutTripped)
 					{
-						Bot.Game.GoldTimeoutChecker.BehaviorEngaged = true;
+						ExitGame.BehaviorEngaged = true;
 						return true;
 					}
 
@@ -144,9 +144,9 @@ namespace FunkyBot
 				}
 
 			    //Exit Game!!
-				if (Bot.Game.GoldTimeoutChecker.BehaviorEngaged)
+				if (ExitGame.BehaviorEngaged)
 				{
-					return Bot.Game.GoldTimeoutChecker.ExitGame();
+					return ExitGame.Behavior();
 				}
 
 				return RunStatus.Success;

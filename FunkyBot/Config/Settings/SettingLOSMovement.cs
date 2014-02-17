@@ -15,7 +15,7 @@
 
         public SettingLOSMovement()
         {
-            EnableLOSMovementBehavior = true;
+            EnableLOSMovementBehavior = false;
             AllowTreasureGoblin = true;
             AllowRareElites = true;
             AllowUniqueBoss = true;

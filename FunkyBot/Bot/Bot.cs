@@ -47,7 +47,7 @@ namespace FunkyBot
 					 get
 					 {
 						  //OOC IDing, Town Portal Casting, Town Run
-						 return (Game.Profile.IsRunningOOCBehavior || Game.GoldTimeoutChecker.TimeoutTripped || TownPortalBehavior.FunkyTPBehaviorFlag || TownRunManager.bWantToTownRun);
+						 return (Game.Profile.IsRunningOOCBehavior || ExitGame.BehaviorEngaged || TownPortalBehavior.FunkyTPBehaviorFlag || TownRunManager.bWantToTownRun);
 					 }
 				}
 

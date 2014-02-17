@@ -1,4 +1,11 @@
 ﻿// herbfunk revisions
+v2.7.1.0
+
+-Added Gold Inactivity check that restarts game after 3 mintues of no change.
+-Item Pickup Evaluation is now an event that can be hooked with custom code.
+-Destructibles once again check animation for valid targeting.
+
+
 v2.7.0.0
 
 -Item loot confirmation now checks stack quanity when neccessary.

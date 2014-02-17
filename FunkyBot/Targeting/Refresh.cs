@@ -3,6 +3,7 @@ using System.Linq;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
+using FunkyBot.DBHandlers;
 using FunkyBot.Movement;
 using FunkyBot.Targeting.Behaviors;
 using Zeta.Common;
@@ -163,18 +164,14 @@ namespace FunkyBot.Targeting
 					if (Bot.Game.GoldTimeoutChecker.TimeoutTripped)
 					{
 						//Have not started exit behavior.. global overlord will begin so lets exit!
-						if (!Bot.Game.GoldTimeoutChecker.BehaviorEngaged)
+						if (!ExitGame.BehaviorEngaged)
 						{
 							CurrentTarget = null;
 						}
-						else
-						{
-							//if (DateTime.Now.Subtract(LastChangeOfTarget).TotalSeconds>10)
-							//{
-							//	Logging.Write("Blacklisting Current Target {0}", CurrentTarget.InternalName);
-							//	CurrentTarget.BlacklistLoops = 100;
-							//	CurrentTarget = null;
-							//}
+						else if(DateTime.Now.Subtract(ExitGame.BehaviorEngagedTime).TotalSeconds>60)
+						{//We started behavior over a minute ago.. lets just exit already!!
+							Logging.Write("[Funky] Forcing Exiting behavior after one minute!");
+							CurrentTarget = null;
 						}
 					}
 				}

@@ -11,6 +11,10 @@ namespace FunkyBot.Player.Class
 
 	internal class DemonHunter : PlayerClass
 		  {
+		public DemonHunter()
+		{
+			Logging.WriteDiagnostic("[Funky] Using DemonHunter Player Class");
+		}
 
 				//Base class for each individual class!
 		public override ActorClass AC { get { return ActorClass.DemonHunter; } }

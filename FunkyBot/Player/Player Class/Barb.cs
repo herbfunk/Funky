@@ -11,7 +11,10 @@ namespace FunkyBot.Player.Class
 
 		  internal class Barbarian : PlayerClass
 		  {
-
+			  public Barbarian()
+			  {
+				  Logging.WriteDiagnostic("[Funky] Using Barbarian Player Class");
+			  }
 				//Base class for each individual class!
 			  public override ActorClass AC { get { return ActorClass.Barbarian; } }
 

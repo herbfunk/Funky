@@ -11,6 +11,10 @@ namespace FunkyBot.Player.Class
 
 		  internal class Wizard : PlayerClass
 		  {
+			  public Wizard()
+			  {
+				  Logging.WriteDiagnostic("[Funky] Using Wizard Player Class");
+			  }
 
 				//Base class for each individual class!
 			  public override ActorClass AC { get { return ActorClass.Wizard; } }

@@ -125,6 +125,7 @@ namespace FunkyBot.Player.Class
 						  AbilityLogicConditions.CreateAbilityLogicConditions(ref defaultAbility);
 						  Abilities.Add(defaultAbility.Power, defaultAbility);
 						  HotBar.RuneIndexCache.Add(defaultAbility.Power, -1);
+						  Logging.WriteDiagnostic("[Funky] Added Skill {0}", defaultAbility.Power);
 					 }
 
 
@@ -140,6 +141,8 @@ namespace FunkyBot.Player.Class
                               newAbility.IsCombat = true;
 
 						  Abilities.Add(item, newAbility);
+
+						  Logging.WriteDiagnostic("[Funky] Added Skill {0} using RuneIndex {1}", newAbility.Power, newAbility.RuneIndex);
 					 }
 
 					 //Sort Abilities

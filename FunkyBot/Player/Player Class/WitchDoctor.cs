@@ -2,6 +2,7 @@
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.WitchDoctor;
 using Zeta;
+using Zeta.Common;
 using Zeta.Internals.Actors;
 using System.Collections.Generic;
 
@@ -10,7 +11,10 @@ namespace FunkyBot.Player.Class
 
 	internal class WitchDoctor : PlayerClass
 		  {
-
+		public WitchDoctor()
+		{
+			Logging.WriteDiagnostic("[Funky] Using WitchDoctor Player Class");
+		}
 				//Base class for each individual class!
 		public override ActorClass AC { get { return ActorClass.WitchDoctor; } }
 				private readonly HashSet<SNOAnim> knockbackanims=new HashSet<SNOAnim>
