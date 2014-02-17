@@ -31,7 +31,6 @@ namespace FunkyBot.Targeting
 		  internal TargetChangeHandler TargetChanged;
 		  internal void OnTargetChanged(TargetChangedArgs e)
 		  {
-				if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 					 Logger.Write(LogLevel.Target, "Changed Object: {0}", MakeStringSingleLine(e.newObject.DebugString));
 
 				
@@ -160,8 +159,8 @@ namespace FunkyBot.Targeting
 				}
 				else
 				{
-					Bot.Game.GoldTimeoutChecker.CheckTimeoutTripped();
-					if (Bot.Game.GoldTimeoutChecker.TimeoutTripped)
+					
+					if (ExitGame.ShouldExitGame)
 					{
 						//Have not started exit behavior.. global overlord will begin so lets exit!
 						if (!ExitGame.BehaviorEngaged)
@@ -265,13 +264,15 @@ namespace FunkyBot.Targeting
 				//Non-Combat behavior we reset temp blacklist so we don't get killed by "ignored" units..
 				if (Bot.IsInNonCombatBehavior)
 					 BlacklistCache.CheckRefreshBlacklists(10);
+
+			    //Check Gold Inactivity
+				Bot.Game.GoldTimeoutChecker.CheckTimeoutTripped();
 		  }
 
 		  private int LastWorldID = -1;
 		  private bool LastLevelIDChangeWasTownRun;
 		  private void LevelAreaIDChangeHandler(int ID)
 		  {
-			  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Event))
 				  Logger.Write(LogLevel.Event, "Level Area ID has Changed");
 
 
@@ -281,7 +282,6 @@ namespace FunkyBot.Targeting
 				  //Check for World ID change!
 				  if (Bot.Character.Data.iCurrentWorldID != LastWorldID)
 				  {
-					  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Event))
 						  Logger.Write(LogLevel.Event, "World ID changed.. clearing Profile Interactable Cache.");
 					  LastWorldID = Bot.Character.Data.iCurrentWorldID;
 					  Bot.Game.Profile.InteractableObjectCache.Clear();
@@ -314,7 +314,6 @@ namespace FunkyBot.Targeting
 
 				  Bot.Character.Data.UpdateCoinage = true;
 
-				  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 					  Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
 
 				  Navigator.SearchGridProvider.Update();

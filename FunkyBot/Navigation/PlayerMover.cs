@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.IO;
 using FunkyBot.Cache.Objects;
+using FunkyBot.DBHandlers;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Movement;
@@ -114,7 +115,6 @@ namespace FunkyBot
 					Logging.Write("[Funky] Your bot got stuck! Trying to unstuck (attempt #" + iTotalAntiStuckAttempts.ToString(CultureInfo.InvariantCulture) + " of 8 attempts)");
 					Logging.WriteDiagnostic("(destination=" + vOriginalDestination.ToString() + ", which is " + Vector3.Distance(vOriginalDestination, vMyCurrentPosition).ToString(CultureInfo.InvariantCulture) + " distance away)");
 
-					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 						Logger.Write(LogLevel.Movement, "Stuck Flags: {0}", Bot.NavigationCache.Stuckflags.ToString());
 
 					bool FoundRandomMovementLocation = Bot.NavigationCache.AttemptFindSafeSpot(out vSafeMovementLocation, Vector3.Zero, Bot.Settings.Plugin.AvoidanceFlags);
@@ -179,84 +179,13 @@ namespace FunkyBot
 				if (iTimesReachedMaxUnstucks == 2)
 				{
 					Logging.Write("[Funky] Anti-stuck measures failed. Now attempting to reload current profile.");
-					// First see if we need to, and can, teleport to town
-					while (!ZetaDia.Me.IsInTown)
-					{
-						iSafetyLoops++;
-						Bot.Character.Data.WaitWhileAnimating(5, true);
-						ZetaDia.Me.UsePower(SNOPower.UseStoneOfRecall, ZetaDia.Me.Position, ZetaDia.Me.WorldDynamicId);
-						Thread.Sleep(1000);
-						Bot.Character.Data.WaitWhileAnimating(1000, true);
-						if (iSafetyLoops > 5)
-							break;
-					}
-					Thread.Sleep(1000);
-					// As long as we successfully reached town, reload the profile
-					if (ZetaDia.Me.IsInTown)
-					{
-
-						string profile = Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
-
-						if (Bot.Game.CurrentGameStats.Profiles.Count > 0)
-							profile = Bot.Game.CurrentGameStats.Profiles.First().ProfileName;
-
-						if (!string.IsNullOrEmpty(profile))
-						{
-							ProfileManager.Load(profile);
-
-							Logging.Write("[Funky] Exiting game to continue with next profile.");
-							// Attempt to teleport to town first for a quicker exit
-							iSafetyLoops = 0;
-							while (!ZetaDia.Me.IsInTown)
-							{
-								iSafetyLoops++;
-								Bot.Character.Data.WaitWhileAnimating(5, true);
-								ZetaDia.Me.UsePower(SNOPower.UseStoneOfRecall, ZetaDia.Me.Position, ZetaDia.Me.WorldDynamicId);
-								Thread.Sleep(1000);
-								Bot.Character.Data.WaitWhileAnimating(1000, true);
-								if (iSafetyLoops > 5)
-									break;
-							}
-							Thread.Sleep(1000);
-							ZetaDia.Service.Party.LeaveGame();
-							//ZetaDia.Service.Games.LeaveGame();
-							EventHandlers.FunkyOnLeaveGame(null, null);
-							// Wait for 10 second log out timer if not in town, else wait for 3 seconds instead
-							Thread.Sleep(!ZetaDia.Me.IsInTown ? 10000 : 3000);
-						}
-						else
-						{
-							ProfileManager.Load(Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile);
-						}
-
-
-						Logging.Write("[Funky] Anti-stuck successfully reloaded current profile, DemonBuddy now navigating again.");
-						Thread.Sleep(3000);
-						return vSafeMovementLocation;
-					}
-					// Didn't make it to town, so skip instantly to the exit game system
-					iTimesReachedMaxUnstucks = 3;
+					ExitGame.ShouldExitGame = true;
 				}
 				// Exit the game and reload the profile
 				if (Bot.Settings.Debug.RestartGameOnLongStucks && DateTime.Now.Subtract(timeLastRestartedGame).TotalMinutes >= 15)
 				{
 					timeLastRestartedGame = DateTime.Now;
-					string profile = Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
-
-					if (Bot.Game.CurrentGameStats.Profiles.Count > 0)
-						profile = Bot.Game.CurrentGameStats.Profiles.First().ProfileName;
-
-					Logging.Write("[Funky] Anti-stuck measures exiting current game.");
-					// Load the first profile seen last run
-					ProfileManager.Load(profile);
-					Thread.Sleep(1000);
-					ZetaDia.Service.Party.LeaveGame();
-					EventHandlers.FunkyOnLeaveGame(null, null);
-					// Wait for 10 second log out timer if not in town
-					if (!ZetaDia.Me.IsInTown)
-					{
-						Thread.Sleep(10000);
-					}
+					ExitGame.ShouldExitGame = true;
 				}
 				else
 				{
@@ -269,7 +198,7 @@ namespace FunkyBot
 			}
 
 
-
+			internal static bool ShouldRestartGame = false;
 
 			// **********************************************************************************************
 			// *****               Handle moveto requests from the current routine/profile              *****
@@ -485,22 +414,6 @@ namespace FunkyBot
 
 			internal static MoveResult NavigateTo(Vector3 moveTarget, string destinationName = "")
 			{
-				//Vector3 MyPos=ZetaDia.Me.Position;
-
-				//float distanceToTarget=moveTarget.Distance2D(ZetaDia.Me.Position);
-
-				//bool MoveTargetIsInLoS=distanceToTarget<=90f&&!Navigator.Raycast(MyPos, moveTarget);
-
-				//if (distanceToTarget<=5f||MoveTargetIsInLoS)
-				//{
-				//	 //Special cache for skipping locations visited.
-				//	 if (Bot.Settings.Debug.SkipAhead)
-				//		  SkipAheadCache.RecordSkipAheadCachePoint();
-
-				//	 Navigator.PlayerMover.MoveTowards(moveTarget);
-				//	 return MoveResult.Moved;
-				//}
-
 				return Navigator.MoveTo(moveTarget, destinationName);
 			}
 		}

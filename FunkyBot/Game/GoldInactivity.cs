@@ -38,10 +38,7 @@ namespace FunkyBot.Game
 				lastCheckedTimeout=DateTime.Now;
 				double lastCoinageChange = DateTime.Now.Subtract(LastCoinageUpdate).TotalMilliseconds;
 				TimeoutTripped = lastCoinageChange >= Bot.Settings.Plugin.GoldInactivityTimeoutMilliseconds;
-				//if (TimeoutTripped)
-				//{
-				//	Logging.Write("Gold Inactivity Timer has exceede the maximum value allowed!");
-				//}
+				if (TimeoutTripped) ExitGame.ShouldExitGame = true;
 			}
 		}
 	}
