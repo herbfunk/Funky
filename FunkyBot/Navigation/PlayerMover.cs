@@ -115,7 +115,7 @@ namespace FunkyBot
 					Logging.Write("[Funky] Your bot got stuck! Trying to unstuck (attempt #" + iTotalAntiStuckAttempts.ToString(CultureInfo.InvariantCulture) + " of 8 attempts)");
 					Logging.WriteDiagnostic("(destination=" + vOriginalDestination.ToString() + ", which is " + Vector3.Distance(vOriginalDestination, vMyCurrentPosition).ToString(CultureInfo.InvariantCulture) + " distance away)");
 
-						Logger.Write(LogLevel.Movement, "Stuck Flags: {0}", Bot.NavigationCache.Stuckflags.ToString());
+					Logger.Write(LogLevel.Movement, "Stuck Flags: {0}", Bot.NavigationCache.Stuckflags.ToString());
 
 					bool FoundRandomMovementLocation = Bot.NavigationCache.AttemptFindSafeSpot(out vSafeMovementLocation, Vector3.Zero, Bot.Settings.Plugin.AvoidanceFlags);
 

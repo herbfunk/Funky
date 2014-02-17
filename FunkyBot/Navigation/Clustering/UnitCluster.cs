@@ -4,7 +4,7 @@ using FunkyBot.Cache.Objects;
 
 namespace FunkyBot.Movement.Clustering
 {
-	internal class UnitCluster:cluster
+	internal class UnitCluster : cluster
 	{
 		public List<CacheUnit> ListUnits { get; protected set; }
 		public ClusterInfo Info { get; set; }
@@ -23,17 +23,17 @@ namespace FunkyBot.Movement.Clustering
 
 		public void UpdateUnitPointLists(ClusterConditions CC)
 		{
-			 if (ListUnits.Count==0) return;
+			if (ListUnits.Count == 0) return;
 
-			List<int> RemovalIndexList=new List<int>();
-			bool changeOccured=false;
+			List<int> RemovalIndexList = new List<int>();
+			bool changeOccured = false;
 			foreach (var item in ListUnits)
 			{
-				if (!item.IsStillValid()||(!CC.IgnoreNonTargetable||!item.IsTargetable.Value))
+				if (!item.IsStillValid() || (!CC.IgnoreNonTargetable || !item.IsTargetable.Value))
 				{
 					RemovalIndexList.Add(ListUnits.IndexOf(item));
 					RAGUIDS.Remove(item.RAGUID);
-					changeOccured=true;
+					changeOccured = true;
 				}
 			}
 
@@ -49,25 +49,25 @@ namespace FunkyBot.Movement.Clustering
 					ListPoints.RemoveAt(item);
 				}
 
-				if (ListUnits.Count>1)
+				if (ListUnits.Count > 1)
 				{
 					//Logging.WriteVerbose("Updating Cluster");
 
 					//Reset Vars
-					Info=new ClusterInfo();
+					Info = new ClusterInfo();
 
-					NearestMonsterDistance=-1f;
+					NearestMonsterDistance = -1f;
 
 					//Set default using First Unit
-					CacheUnit firstUnit=ListUnits[0];
-					MidPoint=firstUnit.PointPosition;
+					CacheUnit firstUnit = ListUnits[0];
+					MidPoint = firstUnit.PointPosition;
 					RAGUIDS.Add(firstUnit.RAGUID);
-					NearestMonsterDistance=firstUnit.CentreDistance;
+					NearestMonsterDistance = firstUnit.CentreDistance;
 					Info.Update(ref firstUnit);
 
 
 					//Iterate thru the remaining
-					for (int i=1; i<ListUnits.Count-1; i++)
+					for (int i = 1; i < ListUnits.Count - 1; i++)
 					{
 						this.UpdateProperties(ListUnits[i]);
 					}
@@ -78,48 +78,49 @@ namespace FunkyBot.Movement.Clustering
 
 
 
-		protected UnitCluster():base()
+		protected UnitCluster()
+			: base()
 		{
-			ListUnits=new List<CacheUnit>();
+			ListUnits = new List<CacheUnit>();
 			//UnitMobileCounter=0;
-			NearestMonsterDistance=-1f;
-			Info=new ClusterInfo();
+			NearestMonsterDistance = -1f;
+			Info = new ClusterInfo();
 
 		}  // of parameterless constructor
 
 		protected UnitCluster(double p_Dist)
 			: base(p_Dist)
 		{
-			Dist=p_Dist;
+			Dist = p_Dist;
 
 		}  // of overloaded constructor
 
 		public UnitCluster(double p_Dist, CacheUnit unit)
 			: base(p_Dist, unit)
 		{
-			ListUnits=new List<CacheUnit>();
+			ListUnits = new List<CacheUnit>();
 			ListUnits.Add(unit);
-			NearestMonsterDistance=unit.CentreDistance;
-			Info=new ClusterInfo();
+			NearestMonsterDistance = unit.CentreDistance;
+			Info = new ClusterInfo();
 			Info.Update(ref unit);
 
 		}  // of overloaded constructor
 
 		private bool ContainsUnit(CacheUnit unit)
 		{
-			bool u_Exists=false;
+			bool u_Exists = false;
 
 			if (base.RAGUIDS.Contains(unit.RAGUID))
-				u_Exists=true;
+				u_Exists = true;
 
 			return u_Exists;
 		}
 
 		private void UpdateProperties(CacheUnit unit)
 		{
-			float distance=unit.CentreDistance;
-			if (distance<this.NearestMonsterDistance)
-				this.NearestMonsterDistance=distance;
+			float distance = unit.CentreDistance;
+			if (distance < this.NearestMonsterDistance)
+				this.NearestMonsterDistance = distance;
 
 			Info.Update(ref unit, true);
 		}
@@ -131,18 +132,18 @@ namespace FunkyBot.Movement.Clustering
 		/// <param name="p_Point">The point to be added to this cluster</param>
 		/// <returns>false if point can't be added (that is either already in cluster
 		/// or it is unreachable from any of the cluster's points)</returns>
-		internal override bool  AddObject(CacheObject obj)
+		internal override bool AddObject(CacheObject obj)
 		{
-			bool l_bSuccess=base.AddObject(obj);
+			bool l_bSuccess = base.AddObject(obj);
 
 			if (l_bSuccess)//&&Bot.Targeting.Environment.UnitRAGUIDs.Contains(unit.RAGUID))
 			{
-					 CacheUnit unitobj=(CacheUnit)obj;
-					 ListUnits.Add(unitobj);
-					 UpdateProperties(unitobj);
-				}
-				else
-					return l_bSuccess=false;
+				CacheUnit unitobj = (CacheUnit)obj;
+				ListUnits.Add(unitobj);
+				UpdateProperties(unitobj);
+			}
+			else
+				return l_bSuccess = false;
 
 			return true;
 
@@ -159,10 +160,10 @@ namespace FunkyBot.Movement.Clustering
 			base.AnnexCluster(p_Cluster);
 
 			//Unit specific
-			UnitCluster u_Cluster=(UnitCluster)p_Cluster;
+			UnitCluster u_Cluster = (UnitCluster)p_Cluster;
 			ListUnits.AddRange(u_Cluster.ListUnits);
-			if (this.NearestMonsterDistance>u_Cluster.NearestMonsterDistance)
-				this.NearestMonsterDistance=u_Cluster.NearestMonsterDistance;
+			if (this.NearestMonsterDistance > u_Cluster.NearestMonsterDistance)
+				this.NearestMonsterDistance = u_Cluster.NearestMonsterDistance;
 			Info.Merge(u_Cluster.Info);
 
 
@@ -172,25 +173,25 @@ namespace FunkyBot.Movement.Clustering
 
 		public CacheUnit GetNearestUnitToCenteroid()
 		{
-			double minimumDistance=0.0;
-			int nearestPointIndex=-1;
-			GridPoint centeroid=this.Midpoint;
+			double minimumDistance = 0.0;
+			int nearestPointIndex = -1;
+			GridPoint centeroid = this.Midpoint;
 
 			foreach (GridPoint p in this.ListPoints)
 			{
-				double distance=GridPoint.GetDistanceBetweenPoints(p, centeroid);
+				double distance = GridPoint.GetDistanceBetweenPoints(p, centeroid);
 
-				if (this.ListPoints.IndexOf(p)==0)
+				if (this.ListPoints.IndexOf(p) == 0)
 				{
-					minimumDistance=distance;
-					nearestPointIndex=this.ListPoints.IndexOf(p);
+					minimumDistance = distance;
+					nearestPointIndex = this.ListPoints.IndexOf(p);
 				}
 				else
 				{
-					if (minimumDistance>distance)
+					if (minimumDistance > distance)
 					{
-						minimumDistance=distance;
-						nearestPointIndex=this.ListPoints.IndexOf(p);
+						minimumDistance = distance;
+						nearestPointIndex = this.ListPoints.IndexOf(p);
 					}
 				}
 			}
@@ -198,44 +199,44 @@ namespace FunkyBot.Movement.Clustering
 			return (this.ListUnits[nearestPointIndex]);
 		}
 
-		 public CacheUnit GetClosestUnitToPosition(GridPoint loc)
-		 {
-			  double minimumDistance=0.0;
-			  int nearestPointIndex=-1;
-			
-			  foreach (GridPoint p in this.ListPoints)
-			  {
-					double distance=GridPoint.GetDistanceBetweenPoints(p, loc);
+		public CacheUnit GetClosestUnitToPosition(GridPoint loc)
+		{
+			double minimumDistance = 0.0;
+			int nearestPointIndex = -1;
 
-					if (this.ListPoints.IndexOf(p)==0)
-					{
-						 minimumDistance=distance;
-						 nearestPointIndex=this.ListPoints.IndexOf(p);
-					}
-					else
-					{
-						 if (minimumDistance>distance)
-						 {
-							  minimumDistance=distance;
-							  nearestPointIndex=this.ListPoints.IndexOf(p);
-						 }
-					}
-			  }
+			foreach (GridPoint p in this.ListPoints)
+			{
+				double distance = GridPoint.GetDistanceBetweenPoints(p, loc);
 
-			  return (this.ListUnits[nearestPointIndex]);
-		 }
+				if (this.ListPoints.IndexOf(p) == 0)
+				{
+					minimumDistance = distance;
+					nearestPointIndex = this.ListPoints.IndexOf(p);
+				}
+				else
+				{
+					if (minimumDistance > distance)
+					{
+						minimumDistance = distance;
+						nearestPointIndex = this.ListPoints.IndexOf(p);
+					}
+				}
+			}
+
+			return (this.ListUnits[nearestPointIndex]);
+		}
 
 
 		public override bool Equals(object obj)
 		{
 			//Check for null and compare run-time types. 
-			if (obj==null||this.GetType()!=obj.GetType())
+			if (obj == null || this.GetType() != obj.GetType())
 			{
 				return false;
 			}
 			else
 			{
-				UnitCluster p=(UnitCluster)obj;
+				UnitCluster p = (UnitCluster)obj;
 				return this.Midpoint.Equals(p.Midpoint);
 			}
 		}
