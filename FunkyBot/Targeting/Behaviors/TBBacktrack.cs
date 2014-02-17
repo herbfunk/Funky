@@ -16,7 +16,7 @@ namespace FunkyBot.Targeting.Behaviors
 			get
 			{
 				return
-					(Bot.Targeting.Backtracking && Bot.Targeting.StartingLocation!=Vector3.Zero);
+					(Bot.Targeting.Backtracking && Bot.Targeting.StartingLocation != Vector3.Zero);
 			}
 		}
 		public override void Initialize()

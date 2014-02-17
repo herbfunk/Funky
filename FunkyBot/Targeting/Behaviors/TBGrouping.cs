@@ -66,7 +66,7 @@ namespace FunkyBot.Targeting.Behaviors
 										if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(groupUnit.Position)) continue;
 									}
 
-									
+
 									Logger.Write(LogLevel.Grouping, "Starting Grouping Behavior");
 
 									//Activate Behavior
