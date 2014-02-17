@@ -977,7 +977,6 @@ namespace FunkyBot.Cache.Objects
 						// if (this.IsEliteRareUnique||this.IsTreasureGoblin)
 						if (AllowLOSMovement)
 						{
-							if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 								Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
 							Bot.Targeting.Environment.LoSMovementObjects.Add(this);
 						}
@@ -1057,7 +1056,6 @@ namespace FunkyBot.Cache.Objects
 				}
 				catch
 				{
-					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 						Logger.Write(LogLevel.Cache, "Failure to convert obj to DiaUnit!");
 
 					NeedsRemoved = true;
@@ -1068,7 +1066,6 @@ namespace FunkyBot.Cache.Objects
 			ACD CommonData = ref_DiaObject.CommonData;
 			if (CommonData == null)
 			{
-				if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 					Logger.Write(LogLevel.Cache, "Common Data Null!");
 				return false;
 			}
@@ -1094,7 +1091,6 @@ namespace FunkyBot.Cache.Objects
 				}
 				catch (Exception)
 				{
-					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 						Logger.Write(LogLevel.Cache, "Safely Handled Getting Attribute IsNPC for object {0}", InternalName);
 				}
 
@@ -1146,7 +1142,6 @@ namespace FunkyBot.Cache.Objects
 				}
 				catch
 				{
-					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 						Logger.Write(LogLevel.Cache, "Failure to check monster affixes for unit {0}", InternalName);
 					return false;
 				}
@@ -1171,7 +1166,6 @@ namespace FunkyBot.Cache.Objects
 				}
 				catch
 				{
-					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 						Logger.Write(LogLevel.Cache, "Failure to get maximum health for {0}", InternalName);
 					return false;
 				}
@@ -1229,7 +1223,6 @@ namespace FunkyBot.Cache.Objects
 				}
 				catch (Exception ex)
 				{
-					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 						Logger.Write(LogLevel.Cache, "[Funky] Safely handled exception getting is-targetable attribute for unit " + InternalName + " [" + SNOID.ToString(CultureInfo.InvariantCulture) + "]");
 					//Logging.WriteDiagnostic(ex.ToString());
 					IsTargetable = true;
@@ -1423,7 +1416,6 @@ namespace FunkyBot.Cache.Objects
 					double LastHealthChangedMS = DateTime.Now.Subtract(LastHealthChange).TotalMilliseconds;
 					if (LastHealthChangedMS > 5000)
 					{
-						if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 							Logger.Write(LogLevel.Target, "Ignore Unit {0} due to health last changed of {1}ms", InternalName, LastHealthChangedMS);
 						BlacklistLoops = 20;
 						Bot.Targeting.bForceTargetUpdate = true;

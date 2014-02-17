@@ -47,10 +47,9 @@ namespace FunkyBot.Targeting.Behaviors
                               (Bot.NavigationCache.LOSmovementObject.CentreDistance<50f&&!Bot.NavigationCache.LOSmovementObject.IsStillValid()))
 						  {//Invalidated the Line of sight obj!
 
-								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-								{
+								
 									 Logger.Write(LogLevel.Movement, "LOS Object is No Longer Valid -- Reseting.");
-								}
+								
 
 								Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(Bot.NavigationCache.LOSmovementObject.RAGUID);
 								Bot.NavigationCache.LOSVector=Vector3.Zero;
@@ -72,10 +71,8 @@ namespace FunkyBot.Targeting.Behaviors
 
 									 if (!Navigation.NP.CanFullyClientPathTo(cobj.Position)) continue;
 
-									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-									 {
 										  Logger.Write(LogLevel.Movement, "Line of Sight Started for object {0} -- with {1} vectors", cobj.InternalName, Navigation.NP.CurrentPath.Count);
-									 }
+									 
 
 									 Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(cobj.RAGUID);
 

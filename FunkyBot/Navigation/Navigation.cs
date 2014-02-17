@@ -212,7 +212,6 @@ namespace FunkyBot.Movement
 						  LastObjectblockCounter.Clear();
 						  LastObjectOccupiedGridPoints.Clear();
 
-						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logging.WriteVerbose("Current Location Point has {0} usable points (NoNewObjs)", SurroundingPoints.Count);
 
 						  return (SurroundingPoints.Count==0);
@@ -251,7 +250,6 @@ namespace FunkyBot.Movement
 
 						  if (SurroundingPoints.Count==0)
 						  {
-								if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 									 Logging.WriteVerbose("NavBlocked -- No available surrounding points.");
 
 								return true;
@@ -264,7 +262,6 @@ namespace FunkyBot.Movement
 					 //No new objects to test..
 					 if (NewObjects.Count==0)
 					 {
-						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 								Logging.WriteVerbose("No new Objects Unaccounted");
 
 						  return (SurroundingPoints.Count==0);
@@ -307,7 +304,6 @@ namespace FunkyBot.Movement
 					 //Update Surrounding Points
 					 SurroundingPoints=SurroundingPoints.Except(LastNavigationBlockedPoints).ToList();
 
-					 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 						  Logging.WriteVerbose("Current Location Point has {0} usable points", SurroundingPoints.Count);
 
 

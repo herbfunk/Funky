@@ -68,7 +68,7 @@ namespace FunkyBot
 								}
 						  }
 					 }
-					else if(Bot.Game.GoldTimeoutChecker.TimeoutTripped)
+					else if(ExitGame.ShouldExitGame)
 					{
 						ExitGame.BehaviorEngaged = true;
 						return true;

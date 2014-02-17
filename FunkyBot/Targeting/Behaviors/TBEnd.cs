@@ -97,7 +97,6 @@ namespace FunkyBot.Targeting.Behaviors
 							  if (distanceFromStart > 20f &&
 									!Navigation.CanRayCast(Bot.Character.Data.Position, Funky.PlayerMover.vLastMoveTo, UseSearchGridProvider: true))
 							  {
-								  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 									  Logger.Write(LogLevel.Movement, "Updating Navigator in Target Refresh");
 
 								  SkipAheadCache.ClearCache();

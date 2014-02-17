@@ -67,13 +67,13 @@ namespace FunkyBot.Targeting.Behaviors
 									}
 
 									
-									if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Grouping)) Logger.Write(LogLevel.Grouping, "Starting Grouping Behavior");
+									Logger.Write(LogLevel.Grouping, "Starting Grouping Behavior");
 
 									//Activate Behavior
 									Bot.NavigationCache.groupRunningBehavior = true;
 									Bot.NavigationCache.groupingOrginUnit = (CacheUnit)ObjectCache.Objects[obj.RAGUID];
 
-									if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Grouping)) Logger.Write(LogLevel.Grouping, "Group Cluster Propeties {0}", cluster.Info.Properties.ToString());
+									Logger.Write(LogLevel.Grouping, "Group Cluster Propeties {0}", cluster.Info.Properties.ToString());
 
 									//Find initial grouping target..
 									obj = groupUnit;

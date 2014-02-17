@@ -35,10 +35,9 @@ namespace FunkyBot.Game
 
 			if (!curgameID.Equals(_currentGameId))
 			{
-				if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfCombat))
-				{
+
 					Logger.Write(LogLevel.OutOfCombat, "New Game Started");
-				}
+				
 
 				//Merge last GameStats with the Total
 				TrackingStats.GameChanged(ref CurrentGameStats);

@@ -55,7 +55,6 @@ namespace FunkyBot.Game
 						  &&currentProfileBehavior.Behavior.Guid!=ProfileManager.CurrentProfileBehavior.Behavior.Guid)
 					 {
 						  currentProfileBehavior=ProfileManager.CurrentProfileBehavior;
-						  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Event))
 							  Logger.Write(LogLevel.Event, "Profile Behavior Changed To {0}", currentProfileBehavior.GetType().ToString());
 
 						  Type profileTagType=currentProfileBehavior.GetType();

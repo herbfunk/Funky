@@ -354,6 +354,7 @@ namespace FunkyBot
 		  }
 		  public static void Write(LogLevel level, string Message,bool WriteToMainLog, params object[] args)
 		  {
+			  if (!LogLevelEnabled(level)) return;
 				string prefix="["+DateTime.Now.ToString("hh:mm:ss.fff")+" "+level.ToString()+"]";
 				string message=String.Format(Message, args);
 				WriteLine(String.Format("{0} {1}", prefix, message), true);
@@ -362,6 +363,7 @@ namespace FunkyBot
 		  }
 		  public static void Write(LogLevel level, string Message, params object[] args)
 		  {
+			  if (!LogLevelEnabled(level)) return;
 				string prefix="["+DateTime.Now.ToString("hh:mm:ss.fff")+" "+level.ToString()+"]";
 				string message=String.Format(Message, args);
 				WriteLine(String.Format("{0} {1}", prefix, message), true);
@@ -381,6 +383,10 @@ namespace FunkyBot
 				{
 					 throw;
 				}
+		  }
+		 private static bool LogLevelEnabled(LogLevel level)
+		  {
+			  return (Bot.Settings.Debug.FunkyLogFlags & level) != 0;
 		  }
 	 }
 

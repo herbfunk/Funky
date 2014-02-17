@@ -18,7 +18,6 @@ namespace FunkyBot.Movement
 
 				internal static void ClearCache()
 				{
-					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 						Logger.Write(LogLevel.Movement, "Clearing Skipahead Cache");
 					 SkipAheadAreaCache.Clear();
 					 UsedSkipAheadAreaCache.Clear();

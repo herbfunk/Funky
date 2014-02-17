@@ -10,7 +10,6 @@ namespace FunkyBot
         {
             string sThisProfile = ProfileManager.CurrentProfile.Path;
 
-			if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Event))
 				Logger.Write(LogLevel.Event, "Profile Changed to {0}", sThisProfile);
 
             //Update Tracker

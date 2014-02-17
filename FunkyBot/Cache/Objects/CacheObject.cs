@@ -216,7 +216,6 @@ namespace FunkyBot.Cache.Objects
 								Position=ref_DiaObject.Position;
 						  } catch (NullReferenceException)
 						  {
-							  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 								Logger.Write(LogLevel.Cache, "Safely Handled Updating Position for Object {0}", InternalName);
 						  }
 						  lastUpdatedPosition=DateTime.Now;

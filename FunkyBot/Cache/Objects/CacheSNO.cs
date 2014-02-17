@@ -516,7 +516,6 @@ namespace FunkyBot.Cache.Objects
 								InternalName=thisObj.Name;
 						  } catch
 						  {
-							  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 								  Logger.Write(LogLevel.Cache, "Failure to get internal name on object, SNO {0}", SNOID); 
 							  
 							  return false;
@@ -531,7 +530,7 @@ namespace FunkyBot.Cache.Objects
 								Actortype=thisObj.ActorType;
 						  } catch
 						  {
-							  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
+							  
 								  Logger.Write(LogLevel.Cache, "Failure to get actorType for object, SNO: {0}", SNOID); 
 							  
 							  return false;
@@ -616,7 +615,7 @@ namespace FunkyBot.Cache.Objects
 												thisGizmoType=thisObj.ActorInfo.GizmoType;
 										  } catch
 										  {
-											  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
+											  
 												  Logger.Write(LogLevel.Cache, "Failure to get actor Gizmo Type!");
 											  return false; 
 										  }
@@ -715,7 +714,6 @@ namespace FunkyBot.Cache.Objects
 								}
 						  } catch
 						  {
-							  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 								  Logger.Write(LogLevel.Cache, "Failure to get actorType for object, SNO: {0}", SNOID); 
 							  return false;
 						  }
@@ -735,7 +733,6 @@ namespace FunkyBot.Cache.Objects
 								monsterInfo=thisObj.CommonData.MonsterInfo;
 						  } catch
 						  {
-							  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 								  Logger.Write(LogLevel.Cache, "Safely Handled MonsterInfo Exception for Object {0}", InternalName);
 								return false;
 						  }
@@ -749,7 +746,6 @@ namespace FunkyBot.Cache.Objects
 									 Monstertype=monsterInfo.MonsterType;
 								} catch
 								{
-									if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 										Logger.Write(LogLevel.Cache, "Failure to get MonsterType for SNO: {0}", SNOID); 
 									
 									failureDuringUpdate=true;
@@ -764,7 +760,6 @@ namespace FunkyBot.Cache.Objects
 									 Monstersize=monsterInfo.MonsterSize;
 								} catch
 								{
-									if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 										Logger.Write(LogLevel.Cache, "Failure to get MonsterSize for SNO: {0}", SNOID); 
 									
 									failureDuringUpdate=true;
@@ -788,7 +783,6 @@ namespace FunkyBot.Cache.Objects
 									 CollisionRadius=sphereInfo.Radius;
 								} catch
 								{
-									if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 										Logger.Write(LogLevel.Cache, "Failure to get CollisionRadius for SNO: {0}", SNOID); 
 									
 									failureDuringUpdate=true;
@@ -809,7 +803,6 @@ namespace FunkyBot.Cache.Objects
 									 ActorSphereRadius=thisObj.ActorInfo.Sphere.Radius;
 								} catch
 								{
-									if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 										Logger.Write(LogLevel.Cache, "Safely handled getting attribute Sphere radius for gizmo {0}", InternalName);
 									 failureDuringUpdate=true;
 								}
@@ -828,7 +821,6 @@ namespace FunkyBot.Cache.Objects
 										  DropsNoLoot=thisObj.CommonData.GetAttribute<float>(ActorAttributeType.DropsNoLoot)<=0;
 									 } catch
 									 {
-										 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 											 Logger.Write(LogLevel.Cache, "Safely handled reading DropsNoLoot for gizmo {0}", InternalName);
 										  failureDuringUpdate=true;
 									 }
@@ -844,7 +836,6 @@ namespace FunkyBot.Cache.Objects
 										  GrantsNoXP=thisObj.CommonData.GetAttribute<float>(ActorAttributeType.GrantsNoXP)<=0;
 									 } catch
 									 {
-										 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 											 Logger.Write(LogLevel.Cache, "Safely handled reading GrantsNoXp for gizmo {0}", InternalName);
 										  failureDuringUpdate=true;
 									 }
@@ -859,7 +850,6 @@ namespace FunkyBot.Cache.Objects
 										  IsBarricade=((DiaGizmo)thisObj).IsBarricade;
 									 } catch
 									 {
-										 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 											 Logger.Write(LogLevel.Cache, "Safely handled getting attribute IsBarricade for gizmo {0}", InternalName);
 										  failureDuringUpdate=true;
 									 }

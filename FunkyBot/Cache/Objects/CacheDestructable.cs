@@ -49,7 +49,6 @@ namespace FunkyBot.Cache.Objects
 				{
 					this.NeedsRemoved = true;
 					this.BlacklistFlag = BlacklistType.Permanent;
-					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 						Logger.Write(LogLevel.Cache, "Removing destructible {0} due to invalid AnimationState of {1} -- SNOAnim {2}", InternalName, currentAnimState.ToString(), SnoAnim.ToString());
 					return false;
 				}
@@ -57,7 +56,6 @@ namespace FunkyBot.Cache.Objects
 				// No physics mesh? Ignore this destructible altogether
 				if (this.PhysicsSNO.HasValue && this.PhysicsSNO.Value <= 0)
 				{
-					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 						Logger.Write(LogLevel.Cache, "Removing destructible {0} due to invalid PhysicsSNO", InternalName);
 
 					// No physics mesh on a destructible, probably bugged

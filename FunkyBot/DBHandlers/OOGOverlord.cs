@@ -36,7 +36,6 @@ namespace FunkyBot.DBHandlers
 				//Now we finish up..
 				if (RanProfile && TransferedGear && !Finished)
 					return true;
-				if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfGame))
 					Logger.Write(LogLevel.OutOfGame, "Starting Mule Behavior");
 				CreatedCharacter = false;
 				RanProfile = false;
@@ -44,7 +43,6 @@ namespace FunkyBot.DBHandlers
 
 				if (ZetaDia.Service.GameAccount.NumEmptyHeroSlots == 0)
 				{
-					if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.OutOfGame))
 						Logger.Write(LogLevel.OutOfGame, "No Empty Hero Slots Remain, and our stash if full.. stopping the bot!");
 					Zeta.CommonBot.BotMain.Stop(true, "Cannot stash anymore items!");
 				}

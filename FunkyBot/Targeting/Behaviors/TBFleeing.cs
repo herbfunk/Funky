@@ -67,7 +67,6 @@ namespace FunkyBot.Targeting.Behaviors
                   {
                       float distance = vAnySafePoint.Distance(Bot.Character.Data.Position);
 
-                      if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
                         Logging.WriteDiagnostic("Flee Movement found AT {0} with {1} Distance", vAnySafePoint.ToString(), distance.ToString());
                       
 

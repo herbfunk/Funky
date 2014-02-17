@@ -493,7 +493,6 @@ namespace FunkyBot.Player.HotBar.Skills
 								Vector3 destinationVector=MathEx.CalculatePointFrom(Bot.Character.Data.Position, destinationV, RangeNeeded);
 								if (!Navigation.MGP.CanStandAt(destinationVector))
 								{
-									 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Ability))
 										  Logger.Write(LogLevel.Ability, "Destination for Ability {0} requires further searching!", Power.ToString());
 
 

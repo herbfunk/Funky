@@ -84,7 +84,6 @@ namespace FunkyBot.Cache.Objects
 								this.ref_Gizmo=(DiaGizmo)base.ref_DiaObject;
 						  } catch
 						  {
-							  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 								  Logger.Write(LogLevel.Cache, "Failure to convert obj to DiaItem!");
 
 
@@ -136,7 +135,6 @@ namespace FunkyBot.Cache.Objects
 								}
 						  } catch
 						  {
-							  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 								  Logger.Write(LogLevel.Cache, "Safely handled getting attribute GizmoHasBeenOperated gizmo {0}", this.InternalName);
 								return false;
 						  }
@@ -144,7 +142,6 @@ namespace FunkyBot.Cache.Objects
 						  //Blacklist used gizmos.
 						  if (this.GizmoHasBeenUsed.HasValue&&this.GizmoHasBeenUsed.Value)
 						  {
-							  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 								  Logger.Write(LogLevel.Cache, "Removing {0} Has Been Used!", InternalName);
 
 								this.BlacklistFlag=BlacklistType.Permanent;
@@ -167,7 +164,6 @@ namespace FunkyBot.Cache.Objects
 								this.PhysicsSNO=base.ref_DiaObject.PhysicsSNO;
 						  } catch
 						  {
-							  if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 								  Logger.Write(LogLevel.Cache, "Safely handled exception getting physics SNO for object " + this.InternalName + " [" + this.SNOID + "]");
 								return false;
 						  }
@@ -183,7 +179,6 @@ namespace FunkyBot.Cache.Objects
 						 }
 						 catch
 						 {
-							 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
 								 Logger.Write(LogLevel.Cache, "Exception occured attempting to update AnimState for object {0}", InternalName);
 							 //AnimState=AnimationState.Invalid;
 						 }
