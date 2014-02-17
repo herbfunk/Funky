@@ -74,7 +74,7 @@ namespace FunkyBot.Game
 		public GameStats()
 		{
 			Profiles = new List<TrackedProfile>();
-			MonsterPower = Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings?Bot.Settings.Demonbuddy.MonsterPower:Funky.iDemonbuddyMonsterPowerLevel;
+			MonsterPower = Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings ? Bot.Settings.Demonbuddy.MonsterPower : Funky.iDemonbuddyMonsterPowerLevel;
 			//note: this will change on first ProfileChanged call!
 			currentprofile = new TrackedProfile(GlobalSettings.Instance.LastProfile);
 		}

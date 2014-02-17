@@ -15,10 +15,10 @@ namespace FunkyBot.Game
 		public bool TimeoutTripped { get; set; }
 		public DateTime LastCoinageUpdate
 		{
-			get { return _lastcoinageupdate;}
-			set 
-			{ 
-				_lastcoinageupdate=value;
+			get { return _lastcoinageupdate; }
+			set
+			{
+				_lastcoinageupdate = value;
 				TimeoutTripped = false;
 			}
 		}
@@ -30,12 +30,12 @@ namespace FunkyBot.Game
 			TimeoutTripped = false;
 		}
 
-		private DateTime lastCheckedTimeout=DateTime.MinValue;
+		private DateTime lastCheckedTimeout = DateTime.MinValue;
 		public void CheckTimeoutTripped()
 		{
 			if (DateTime.Now.Subtract(lastCheckedTimeout).TotalMilliseconds > 5000)
 			{
-				lastCheckedTimeout=DateTime.Now;
+				lastCheckedTimeout = DateTime.Now;
 				double lastCoinageChange = DateTime.Now.Subtract(LastCoinageUpdate).TotalMilliseconds;
 				TimeoutTripped = lastCoinageChange >= Bot.Settings.Plugin.GoldInactivityTimeoutMilliseconds;
 				if (TimeoutTripped) ExitGame.ShouldExitGame = true;

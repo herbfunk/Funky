@@ -6,12 +6,12 @@ namespace FunkyBot.Game
 	///<summary>
 	///Extended GameStats to merge stats as Container
 	///</summary>
-    public class TotalStats : GameStats
-    {
-        public int GameCount { get; set; }
+	public class TotalStats : GameStats
+	{
+		public int GameCount { get; set; }
 
-        public void GameChanged(ref GameStats lastGame)
-        {
+		public void GameChanged(ref GameStats lastGame)
+		{
 			if (lastGame.Profiles.Count > 0)
 			{
 				GameCount++;
@@ -19,7 +19,7 @@ namespace FunkyBot.Game
 			}
 
 			Logger.WriteProfileTrackerOutput();
-        }
+		}
 		public void GameStopped(ref GameStats lastGame)
 		{
 			if (lastGame.Profiles.Count > 0)
@@ -66,5 +66,5 @@ namespace FunkyBot.Game
 							 (totalloottracker.GetTotalLootStatCount(LootStatTypes.Vendored) / TotalTimeRunning.TotalHours).ToString("#.##"),
 							 (totalloottracker.GetTotalLootStatCount(LootStatTypes.Salvaged) / TotalTimeRunning.TotalHours).ToString("#.##"));
 		}
-    }
+	}
 }
