@@ -13,7 +13,7 @@ namespace FunkyBot.DBHandlers
 		internal static bool SafetyCheckForTownRun()
 		{
 			//This is called only if we want to townrun... basically a pre-check to if we should proceede.
-				Logger.Write(LogLevel.OutOfCombat, "Precheck running for town run");
+			Logger.Write(LogLevel.OutOfCombat, "Precheck running for town run");
 
 			//Avoidance Flag
 			Bot.Character.Data.CriticalAvoidance = true;
@@ -91,7 +91,7 @@ namespace FunkyBot.DBHandlers
 
 			if (!cancast)
 			{
-					Logger.Write(LogLevel.OutOfCombat, "Cannot cast TP: " + TPcastTest);
+				Logger.Write(LogLevel.OutOfCombat, "Cannot cast TP: " + TPcastTest);
 				return false;
 			}
 			return true;
@@ -300,7 +300,7 @@ namespace FunkyBot.DBHandlers
 				if (ElapsedTime > 8 || !CastAttempted)
 				{
 					//Recast
-						Logger.Write(LogLevel.OutOfCombat, "Casting TP..");
+					Logger.Write(LogLevel.OutOfCombat, "Casting TP..");
 					ZetaDia.Me.UseTownPortal();
 					CastAttempted = true;
 					FunkyTP_LastCastAttempt = DateTime.Now;
@@ -311,7 +311,7 @@ namespace FunkyBot.DBHandlers
 			if (ElapsedTime > 8)
 			{
 				//Void Cast?
-					Logger.Write(LogLevel.OutOfCombat, "Attempting to void cast with movement..");
+				Logger.Write(LogLevel.OutOfCombat, "Attempting to void cast with movement..");
 				Vector3 V3loc;
 				bool success = Bot.NavigationCache.AttemptFindSafeSpot(out V3loc, Vector3.Zero, Bot.Settings.Plugin.AvoidanceFlags);
 				if (success)

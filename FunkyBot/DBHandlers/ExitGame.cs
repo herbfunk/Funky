@@ -17,12 +17,12 @@ namespace FunkyBot.DBHandlers
 			get { return _behaviorEngaged; }
 			set
 			{
-				_behaviorEngaged = value; 
+				_behaviorEngaged = value;
 				//true we reset behavior starting time
 				BehaviorEngagedTime = value ? DateTime.Now : DateTime.MaxValue;
 			}
 		}
-		public static DateTime BehaviorEngagedTime=DateTime.MaxValue;
+		public static DateTime BehaviorEngagedTime = DateTime.MaxValue;
 
 		///<summary>
 		///Exiting Game Behavior
@@ -40,11 +40,11 @@ namespace FunkyBot.DBHandlers
 			//Exit Game..
 			if (ZetaDia.IsInGame)
 			{
-				if (DateTime.Now.Subtract(_lastExitAttempt).TotalSeconds>4)
+				if (DateTime.Now.Subtract(_lastExitAttempt).TotalSeconds > 4)
 				{
 					Logging.Write("[Funky] Exiting game..");
 					ZetaDia.Service.Party.LeaveGame();
-					_lastExitAttempt=DateTime.Now;
+					_lastExitAttempt = DateTime.Now;
 				}
 				return RunStatus.Running;
 			}
@@ -63,6 +63,6 @@ namespace FunkyBot.DBHandlers
 
 			return RunStatus.Success;
 		}
-		private static DateTime _lastExitAttempt=DateTime.MinValue;
+		private static DateTime _lastExitAttempt = DateTime.MinValue;
 	}
 }

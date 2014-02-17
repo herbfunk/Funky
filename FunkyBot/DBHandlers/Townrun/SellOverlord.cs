@@ -33,7 +33,7 @@ namespace FunkyBot.DBHandlers
 			//Get new list of current backpack
 			Bot.Character.Data.BackPack.Update();
 			//Setup any extra potions to sell.
-		
+
 
 			//Refresh item manager if we are not using item rules nor giles scoring.
 			if (!Bot.Settings.ItemRules.UseItemRules && !Bot.Settings.ItemRules.ItemRuleGilesScoring)
@@ -48,8 +48,8 @@ namespace FunkyBot.DBHandlers
 					{
 						if (thisitem.IsPotion)
 						{
-							
-							if (thisitem.ACDGUID != Bot.Character.Data.BackPack.CurrentPotionACDGUID && Bot.Character.Data.BackPack.CurrentPotionACDGUID!=-1)
+
+							if (thisitem.ACDGUID != Bot.Character.Data.BackPack.CurrentPotionACDGUID && Bot.Character.Data.BackPack.CurrentPotionACDGUID != -1)
 							{
 								Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSellItems.Add(thisitem);
 								Logging.Write("Selling Potion -- Current PotionACDGUID=={0}", Bot.Character.Data.BackPack.CurrentPotionACDGUID);
