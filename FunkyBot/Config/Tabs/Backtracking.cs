@@ -50,7 +50,7 @@ namespace FunkyBot
 				Width = 500,
 				Height = 30,
 				IsChecked = (Bot.Settings.Backtracking.EnableBacktracking),
-				IsEnabled=false, //Disabled Until Further Developement!
+				IsEnabled = false, //Disabled Until Further Developement!
 			};
 			cbEnableBacktracking.Checked += BacktrackingEnableChecked;
 			cbEnableBacktracking.Unchecked += BacktrackingEnableChecked;
@@ -60,7 +60,7 @@ namespace FunkyBot
 			#region BacktrackStartOfCombat
 			ToolTip backtrackStartCombat = new ToolTip
 			{
-				Content="This will set the return position where combat first begins, otherwise it uses the last non-combat position.",
+				Content = "This will set the return position where combat first begins, otherwise it uses the last non-combat position.",
 			};
 
 			CheckBox cbBacktrackStartOfCombat = new CheckBox
@@ -70,7 +70,7 @@ namespace FunkyBot
 				Height = 30,
 				IsChecked = (Bot.Settings.Backtracking.TrackStartOfCombatEngagment),
 				ToolTip = backtrackStartCombat,
-				IsEnabled=false, //Disabled Until Further Developement!
+				IsEnabled = false, //Disabled Until Further Developement!
 			};
 			cbBacktrackStartOfCombat.Checked += BacktrackingCombatStartChecked;
 			cbBacktrackStartOfCombat.Unchecked += BacktrackingCombatStartChecked;
@@ -127,7 +127,7 @@ namespace FunkyBot
 				HorizontalAlignment = HorizontalAlignment.Stretch,
 				Orientation = Orientation.Horizontal,
 				Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right + 5, Margin.Bottom),
-				IsEnabled=false, //Disabled Until Further Developement!
+				IsEnabled = false, //Disabled Until Further Developement!
 			};
 			SPBacktrackRange.Children.Add(BacktrackingRange_Text);
 			SPBacktrackRange.Children.Add(sliderBacktrackingRange);
