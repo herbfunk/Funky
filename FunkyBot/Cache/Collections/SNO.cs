@@ -97,10 +97,6 @@ namespace FunkyBot.Cache.Collections
 				//add to static cache
 				snoEntries.Add(key, new CachedSNOEntry(key, true));
 			}
-			else
-			{
-				this[key].LastUsed=DateTime.Now;
-			}
 		}
 
 		public bool ContainsKey(int key)
@@ -169,12 +165,14 @@ namespace FunkyBot.Cache.Collections
 
 			if (UnusedEntries.Count > 0)
 			{
-				Logging.WriteVerbose("Removing Old Unused SNO Entries that have not been used in over 5 mins. Total {0}", UnusedEntries.Count);
+				
 				for (int i = 0; i < UnusedEntries.Count; i++)
 				{
 					Remove(UnusedEntries[i]);
 				}
 			}
+
+			Logging.WriteVerbose("Removing Old Unused SNO Entries that have not been used in over 5 mins. Total {0} / Removed {1}",snoEntries.Values.Count, UnusedEntries.Count);
 			lastTrimming = DateTime.Now;
 		}
 
@@ -186,7 +184,7 @@ namespace FunkyBot.Cache.Collections
 			CachedSNOEntry thisSNOdata = this[sno];
 
 			//Take the value, recreate it using finalized constructor
-			CachedSNOEntry thisNewData = new CachedSNOEntry(thisSNOdata.SNOID, thisSNOdata.InternalName, thisSNOdata.SnoProperties, thisSNOdata.Actortype, thisSNOdata.targetType, thisSNOdata.Monstertype, thisSNOdata.Monstersize, thisSNOdata.CollisionRadius, thisSNOdata.CanBurrow, thisSNOdata.GrantsNoXP, thisSNOdata.DropsNoLoot, thisSNOdata.IsBarricade, thisSNOdata.Obstacletype, thisSNOdata.ActorSphereRadius, thisSNOdata.Gizmotype);
+			CachedSNOEntry thisNewData = new CachedSNOEntry(thisSNOdata.SNOID, thisSNOdata.InternalName, thisSNOdata.Actortype, thisSNOdata.targetType, thisSNOdata.Monstertype, thisSNOdata.Monstersize, thisSNOdata.CollisionRadius, thisSNOdata.CanBurrow, thisSNOdata.GrantsNoXP, thisSNOdata.DropsNoLoot, thisSNOdata.IsBarricade, thisSNOdata.Obstacletype, thisSNOdata.ActorSphereRadius, thisSNOdata.Gizmotype);
 
 			//Now clone the data and set it as the value
 			snoEntries[sno] = (CachedSNOEntry)thisNewData.Clone();

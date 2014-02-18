@@ -230,7 +230,7 @@ namespace FunkyBot.Cache.Collections
 						if (obstacles[item].RefreshRemovalCounter > 0)
 						{
 							obstacles[item].RefreshRemovalCounter--;
-							if (obstacles[item].SnoProperties.IsAvoidance)
+							if (obstacles[item].IsAvoidance)
 							{
 								obstacles[item].RefreshObject();
 							}

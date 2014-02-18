@@ -880,7 +880,6 @@
       <SubType>Code</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <None Include="ClassDiagram1.cd" />
     <None Include="CombatRoutine\CombatRoutine">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

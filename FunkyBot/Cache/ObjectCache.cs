@@ -132,7 +132,7 @@ namespace FunkyBot.Cache
 
 					//Check if this object is a summoned unit by a player...
 					#region SummonedUnits
-					if (tmp_CachedObj.SnoProperties.IsSummonedPet)
+					if (tmp_CachedObj.IsSummonedPet)
 					{
 						// Get the summoned-by info, cached if possible
 						if (!tmp_CachedObj.SummonerID.HasValue)
@@ -212,7 +212,7 @@ namespace FunkyBot.Cache
 					if (!tmp_CachedObj.NeedsUpdate) continue;
 
 					//Obstacles -- (Not an actual object we add to targeting.)
-					if (CheckTargetTypeFlag(tmp_CachedObj.targetType.Value, TargetType.Avoidance) || tmp_CachedObj.SnoProperties.IsObstacle || tmp_CachedObj.HandleAsAvoidanceObject)
+					if (CheckTargetTypeFlag(tmp_CachedObj.targetType.Value, TargetType.Avoidance) || tmp_CachedObj.IsObstacle || tmp_CachedObj.HandleAsAvoidanceObject)
 					{
 						#region Obstacles
 
@@ -221,7 +221,7 @@ namespace FunkyBot.Cache
 						if (!Obstacles.TryGetValue(tmp_CachedObj.RAGUID, out thisObstacle))
 						{
 							AvoidanceType AvoidanceType = AvoidanceType.None;
-							if (tmp_CachedObj.SnoProperties.IsAvoidance)
+							if (tmp_CachedObj.IsAvoidance)
 							{
 								AvoidanceType = AvoidanceCache.FindAvoidanceUsingSNOID(tmp_CachedObj.SNOID);
 								if (AvoidanceType == AvoidanceType.None)
@@ -231,7 +231,7 @@ namespace FunkyBot.Cache
 								}
 							}
 
-							if (tmp_CachedObj.SnoProperties.IsAvoidance && tmp_CachedObj.SnoProperties.IsProjectileAvoidance)
+							if (tmp_CachedObj.IsAvoidance && tmp_CachedObj.IsProjectileAvoidance)
 							{//Ranged Projectiles require more than simple bounding points.. so we create it as avoidance zone to cache it with properties.
 								//Check for intersection..
 								try
@@ -256,7 +256,7 @@ namespace FunkyBot.Cache
 										Logger.Write(LogLevel.Cache, "Failed to create projectile avoidance with rotation and speed. {0}", tmp_CachedObj.InternalName);
 								}
 							}
-							else if (tmp_CachedObj.SnoProperties.IsAvoidance)
+							else if (tmp_CachedObj.IsAvoidance)
 							{
 								//Poison Gas Can Be Friendly...
 								if (AvoidanceType == AvoidanceType.PoisonGas)

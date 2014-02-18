@@ -35,8 +35,8 @@ namespace FunkyBot
 
 			try
 			{
-				var settingsForm = new SettingsForm();
-				settingsForm.ShowDialog();
+				//var settingsForm = new SettingsForm();
+				//settingsForm.ShowDialog();
 
 				funkyConfigWindow = new FunkyWindow();
 				funkyConfigWindow.Show();

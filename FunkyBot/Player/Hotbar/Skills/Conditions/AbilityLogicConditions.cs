@@ -72,7 +72,7 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 				{
 					 CombatCriteria+=() =>
 					 {
-						 if (!Bot.Targeting.CurrentUnitTarget.SnoProperties.IgnoresLosCheck && Bot.Targeting.CurrentUnitTarget.IsTargetableAndAttackable)
+						 if (!Bot.Targeting.CurrentUnitTarget.IgnoresLOSCheck && Bot.Targeting.CurrentUnitTarget.IsTargetableAndAttackable)
 						 {
 							 LOSInfo LOSINFO=Bot.Targeting.CurrentTarget.LineOfSight;
 							 if (LOSINFO.LastLOSCheckMS>2000||!LOSINFO.NavCellProjectile.HasValue)
@@ -86,7 +86,7 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 										 Bot.Targeting.CurrentTarget.RequiresLOSCheck=true;
 									 else if (!LOSINFO.NavCellProjectile.Value) //NavCellFlag Walk Failed
 									 {
-										 bool MovementException = ((Bot.Targeting.CurrentUnitTarget.MonsterTeleport || Bot.Targeting.CurrentTarget.SnoProperties.IsTransformUnit) && Bot.Targeting.CurrentUnitTarget.AnimState == Zeta.Internals.Actors.AnimationState.Transform);
+										 bool MovementException = ((Bot.Targeting.CurrentUnitTarget.MonsterTeleport || Bot.Targeting.CurrentTarget.IsTransformUnit) && Bot.Targeting.CurrentUnitTarget.AnimState == Zeta.Internals.Actors.AnimationState.Transform);
 										 if (!MovementException)
 											 return false;
 										 //else
@@ -106,7 +106,7 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 				{//Melee
 					 CombatCriteria+=() =>
 					 {
-						 if (!Bot.Targeting.CurrentUnitTarget.SnoProperties.IgnoresLosCheck && Bot.Targeting.CurrentUnitTarget.IsTargetableAndAttackable)
+						 if (!Bot.Targeting.CurrentUnitTarget.IgnoresLOSCheck && Bot.Targeting.CurrentUnitTarget.IsTargetableAndAttackable)
 						 {
 							 float radiusDistance=Bot.Targeting.CurrentTarget.RadiusDistance;
 							 //Check if within interaction range..
@@ -151,28 +151,28 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 		  {
 				TargetProperties properties=TargetProperties.None;
 
-				if (unit.SnoProperties.IsBoss)
+				if (unit.IsBoss)
 					 properties|=TargetProperties.Boss;
 
-				if (unit.SnoProperties.IsBurrowableUnit)
+				if (unit.IsBurrowableUnit)
 					 properties|=TargetProperties.Burrowing;
 
 				if (unit.MonsterMissileDampening)
 					 properties|=TargetProperties.MissileDampening;
 
-				if (unit.SnoProperties.IsMissileReflecting)
+				if (unit.IsMissileReflecting)
 					 properties|=TargetProperties.MissileReflecting;
 
 				if (unit.MonsterShielding)
 					 properties|=TargetProperties.Shielding;
 
-				if (unit.SnoProperties.IsStealthableUnit)
+				if (unit.IsStealthableUnit)
 					 properties|=TargetProperties.Stealthable;
 
-				if (unit.SnoProperties.IsSucideBomber)
+				if (unit.IsSucideBomber)
 					 properties|=TargetProperties.SucideBomber;
 
-				if (unit.SnoProperties.IsTreasureGoblin)
+				if (unit.IsTreasureGoblin)
 					 properties|=TargetProperties.TreasureGoblin;
 
 				if (unit.IsFast)

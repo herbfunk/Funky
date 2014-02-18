@@ -57,9 +57,9 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 			else
 			{
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Boss))
-					Criteria += () => Bot.Targeting.CurrentTarget.SnoProperties.IsBoss;
+					Criteria += () => Bot.Targeting.CurrentTarget.IsBoss;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Burrowing))
-					Criteria += () => Bot.Targeting.CurrentTarget.SnoProperties.IsBurrowableUnit;
+					Criteria += () => Bot.Targeting.CurrentTarget.IsBurrowableUnit;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.FullHealth))
 					Criteria += () => Bot.Targeting.CurrentUnitTarget.CurrentHealthPct.Value == 1d;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.IsSpecial))
@@ -71,15 +71,15 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.RareElite))
 					Criteria += () => Bot.Targeting.CurrentUnitTarget.IsEliteRareUnique;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.MissileReflecting))
-					Criteria += () => Bot.Targeting.CurrentTarget.SnoProperties.IsMissileReflecting && Bot.Targeting.CurrentTarget.AnimState == AnimationState.Transform;
+					Criteria += () => Bot.Targeting.CurrentTarget.IsMissileReflecting && Bot.Targeting.CurrentTarget.AnimState == AnimationState.Transform;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Shielding))
 					Criteria += () => Bot.Targeting.CurrentUnitTarget.MonsterShielding;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Stealthable))
-					Criteria += () => Bot.Targeting.CurrentTarget.SnoProperties.IsStealthableUnit;
+					Criteria += () => Bot.Targeting.CurrentTarget.IsStealthableUnit;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.SucideBomber))
-					Criteria += () => Bot.Targeting.CurrentTarget.SnoProperties.IsSucideBomber;
+					Criteria += () => Bot.Targeting.CurrentTarget.IsSucideBomber;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.TreasureGoblin))
-					Criteria += () => Bot.Targeting.CurrentTarget.SnoProperties.IsTreasureGoblin;
+					Criteria += () => Bot.Targeting.CurrentTarget.IsTreasureGoblin;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Unique))
 					Criteria += () => Bot.Targeting.CurrentUnitTarget.MonsterUnique;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Ranged))
@@ -104,9 +104,9 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 			else
 			{
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Boss))
-					Criteria += () => !Bot.Targeting.CurrentTarget.SnoProperties.IsBoss;
+					Criteria += () => !Bot.Targeting.CurrentTarget.IsBoss;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Burrowing))
-					Criteria += () => !Bot.Targeting.CurrentTarget.SnoProperties.IsBurrowableUnit;
+					Criteria += () => !Bot.Targeting.CurrentTarget.IsBurrowableUnit;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.FullHealth))
 					Criteria += () => Bot.Targeting.CurrentUnitTarget.CurrentHealthPct.Value != 1d;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.IsSpecial))
@@ -118,15 +118,15 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.RareElite))
 					Criteria += () => !Bot.Targeting.CurrentUnitTarget.IsEliteRareUnique;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.MissileReflecting))
-					Criteria += () => !Bot.Targeting.CurrentTarget.SnoProperties.IsMissileReflecting || Bot.Targeting.CurrentTarget.AnimState != AnimationState.Transform;
+					Criteria += () => !Bot.Targeting.CurrentTarget.IsMissileReflecting || Bot.Targeting.CurrentTarget.AnimState != AnimationState.Transform;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Shielding))
 					Criteria += () => !Bot.Targeting.CurrentUnitTarget.MonsterShielding;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Stealthable))
-					Criteria += () => !Bot.Targeting.CurrentTarget.SnoProperties.IsStealthableUnit;
+					Criteria += () => !Bot.Targeting.CurrentTarget.IsStealthableUnit;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.SucideBomber))
-					Criteria += () => !Bot.Targeting.CurrentTarget.SnoProperties.IsSucideBomber;
+					Criteria += () => !Bot.Targeting.CurrentTarget.IsSucideBomber;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.TreasureGoblin))
-					Criteria += () => !Bot.Targeting.CurrentTarget.SnoProperties.IsTreasureGoblin;
+					Criteria += () => !Bot.Targeting.CurrentTarget.IsTreasureGoblin;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Unique))
 					Criteria += () => !Bot.Targeting.CurrentUnitTarget.MonsterUnique;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Ranged))

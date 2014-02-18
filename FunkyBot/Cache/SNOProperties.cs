@@ -212,5 +212,11 @@ namespace FunkyBot.Cache
 			get { return _isFlyingHoverUnit; }
 			set { _isFlyingHoverUnit = value; }
 		}
+
+
+		public SNOProperties Clone()
+		{
+			return (SNOProperties)MemberwiseClone();
+		}
 	}
 }

@@ -128,7 +128,7 @@ namespace FunkyBot.Cache.Objects
 					}
 					else if (base.Gizmotype.Value == Zeta.Internals.SNO.GizmoType.LootContainer)
 					{
-						if (this.SnoProperties.IsChestContainer)
+						if (this.IsChestContainer)
 							this.HandleAsObstacle = true;
 
 						GizmoLootContainer gizmoContainer = this.ref_Gizmo as GizmoLootContainer;

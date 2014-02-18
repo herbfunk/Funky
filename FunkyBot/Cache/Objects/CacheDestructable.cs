@@ -64,7 +64,7 @@ namespace FunkyBot.Cache.Objects
 				//	return false;
 				//}
 
-				if (this.RequiresLOSCheck && !this.SnoProperties.IgnoresLosCheck)
+				if (this.RequiresLOSCheck && !this.IgnoresLOSCheck)
 				{
 					//Preform Test every 2500ms on normal objects, 1250ms on special objects.
 					double lastLOSCheckMS = base.LineOfSight.LastLOSCheckMS;

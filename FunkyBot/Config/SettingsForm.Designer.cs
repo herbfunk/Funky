@@ -61,10 +61,20 @@
 			this.tabPage14 = new System.Windows.Forms.TabPage();
 			this.tabPage15 = new System.Windows.Forms.TabPage();
 			this.tabPage16 = new System.Windows.Forms.TabPage();
+			this.panel4 = new System.Windows.Forms.Panel();
+			this.label4 = new System.Windows.Forms.Label();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.checkBox2 = new System.Windows.Forms.CheckBox();
+			this.checkBox3 = new System.Windows.Forms.CheckBox();
+			this.panel5 = new System.Windows.Forms.Panel();
+			this.label5 = new System.Windows.Forms.Label();
+			this.checkBox4 = new System.Windows.Forms.CheckBox();
+			this.checkBox5 = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabControl2.SuspendLayout();
 			this.tabPage3.SuspendLayout();
+			this.groupBox2.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.panel3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tb_WellHealth)).BeginInit();
@@ -74,6 +84,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.tb_GlobeHealth)).BeginInit();
 			this.tabPage2.SuspendLayout();
 			this.tabControl3.SuspendLayout();
+			this.panel4.SuspendLayout();
+			this.panel5.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -132,10 +144,12 @@
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.panel5);
+			this.groupBox2.Controls.Add(this.panel4);
 			this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
 			this.groupBox2.Location = new System.Drawing.Point(3, 184);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(596, 173);
+			this.groupBox2.Size = new System.Drawing.Size(596, 197);
 			this.groupBox2.TabIndex = 3;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Skills";
@@ -423,6 +437,100 @@
 			this.tabPage16.Text = "Debug";
 			this.tabPage16.UseVisualStyleBackColor = true;
 			// 
+			// panel4
+			// 
+			this.panel4.Controls.Add(this.checkBox3);
+			this.panel4.Controls.Add(this.checkBox2);
+			this.panel4.Controls.Add(this.checkBox1);
+			this.panel4.Controls.Add(this.label4);
+			this.panel4.Location = new System.Drawing.Point(12, 19);
+			this.panel4.Name = "panel4";
+			this.panel4.Size = new System.Drawing.Size(200, 73);
+			this.panel4.TabIndex = 0;
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(3, 0);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(135, 13);
+			this.label4.TabIndex = 0;
+			this.label4.Text = "Combat Movement Targets";
+			// 
+			// checkBox1
+			// 
+			this.checkBox1.AutoSize = true;
+			this.checkBox1.Location = new System.Drawing.Point(6, 50);
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.Size = new System.Drawing.Size(51, 17);
+			this.checkBox1.TabIndex = 1;
+			this.checkBox1.Text = "Items";
+			this.checkBox1.UseVisualStyleBackColor = true;
+			this.checkBox1.CheckStateChanged += new System.EventHandler(this.MovementTargetItemChecked);
+			// 
+			// checkBox2
+			// 
+			this.checkBox2.AutoSize = true;
+			this.checkBox2.Location = new System.Drawing.Point(6, 33);
+			this.checkBox2.Name = "checkBox2";
+			this.checkBox2.Size = new System.Drawing.Size(59, 17);
+			this.checkBox2.TabIndex = 2;
+			this.checkBox2.Text = "Globes";
+			this.checkBox2.UseVisualStyleBackColor = true;
+			this.checkBox2.CheckedChanged += new System.EventHandler(this.MovementTargetGlobeChecked);
+			// 
+			// checkBox3
+			// 
+			this.checkBox3.AutoSize = true;
+			this.checkBox3.Location = new System.Drawing.Point(6, 16);
+			this.checkBox3.Name = "checkBox3";
+			this.checkBox3.Size = new System.Drawing.Size(48, 17);
+			this.checkBox3.TabIndex = 3;
+			this.checkBox3.Text = "Gold";
+			this.checkBox3.UseVisualStyleBackColor = true;
+			this.checkBox3.CheckedChanged += new System.EventHandler(this.MovementTargetGoldChecked);
+			// 
+			// panel5
+			// 
+			this.panel5.Controls.Add(this.checkBox5);
+			this.panel5.Controls.Add(this.checkBox4);
+			this.panel5.Controls.Add(this.label5);
+			this.panel5.Location = new System.Drawing.Point(9, 98);
+			this.panel5.Name = "panel5";
+			this.panel5.Size = new System.Drawing.Size(214, 93);
+			this.panel5.TabIndex = 1;
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(3, 0);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(29, 13);
+			this.label5.TabIndex = 0;
+			this.label5.Text = "Misc";
+			// 
+			// checkBox4
+			// 
+			this.checkBox4.AutoSize = true;
+			this.checkBox4.Location = new System.Drawing.Point(9, 16);
+			this.checkBox4.Name = "checkBox4";
+			this.checkBox4.Size = new System.Drawing.Size(158, 17);
+			this.checkBox4.TabIndex = 1;
+			this.checkBox4.Text = "Allow Default Attack Always";
+			this.checkBox4.UseVisualStyleBackColor = true;
+			this.checkBox4.CheckStateChanged += new System.EventHandler(this.AllowDefaultAttackAlwaysChecked);
+			// 
+			// checkBox5
+			// 
+			this.checkBox5.AutoSize = true;
+			this.checkBox5.Location = new System.Drawing.Point(9, 39);
+			this.checkBox5.Name = "checkBox5";
+			this.checkBox5.Size = new System.Drawing.Size(199, 17);
+			this.checkBox5.TabIndex = 2;
+			this.checkBox5.Text = "Allow Out Of Combat Skill Movement";
+			this.checkBox5.UseVisualStyleBackColor = true;
+			this.checkBox5.CheckStateChanged += new System.EventHandler(this.OutOfCombatMovementChecked);
+			// 
 			// SettingsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -443,6 +551,7 @@
 			this.tabPage1.ResumeLayout(false);
 			this.tabControl2.ResumeLayout(false);
 			this.tabPage3.ResumeLayout(false);
+			this.groupBox2.ResumeLayout(false);
 			this.groupBox1.ResumeLayout(false);
 			this.panel3.ResumeLayout(false);
 			this.panel3.PerformLayout();
@@ -455,6 +564,10 @@
 			((System.ComponentModel.ISupportInitialize)(this.tb_GlobeHealth)).EndInit();
 			this.tabPage2.ResumeLayout(false);
 			this.tabControl3.ResumeLayout(false);
+			this.panel4.ResumeLayout(false);
+			this.panel4.PerformLayout();
+			this.panel5.ResumeLayout(false);
+			this.panel5.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -494,5 +607,14 @@
 		private System.Windows.Forms.TrackBar tb_GlobeHealth;
 		private System.Windows.Forms.TextBox txt_GlobeHealth;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Panel panel5;
+		private System.Windows.Forms.CheckBox checkBox5;
+		private System.Windows.Forms.CheckBox checkBox4;
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Panel panel4;
+		private System.Windows.Forms.CheckBox checkBox3;
+		private System.Windows.Forms.CheckBox checkBox2;
+		private System.Windows.Forms.CheckBox checkBox1;
+		private System.Windows.Forms.Label label4;
 	}
 }

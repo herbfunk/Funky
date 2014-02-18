@@ -64,7 +64,7 @@ namespace FunkyBot.Movement.Clustering
 
 			if (unit.UnitMaxHitPointAverageWeight < 0) WeakCounter++; else if (unit.UnitMaxHitPointAverageWeight > 0) StrongCounter++;
 
-			if (unit.IsEliteRareUnique) ElitesCounter++; else if (unit.SnoProperties.IsBoss) BossCounter++;
+			if (unit.IsEliteRareUnique) ElitesCounter++; else if (unit.IsBoss) BossCounter++;
 
 			if (unit.IsFast) FastCounter++;
 			if (unit.IsRanged) RangedCounter++;

@@ -25,7 +25,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				                          AbilityPreCastFlags.CheckCanCast));
 				FcriteriaCombat=() => Bot.Targeting.Environment.bAnyChampionsPresent
 				                      ||(Bot.Settings.Class.bBarbUseWOTBAlways&&Bot.Targeting.Environment.SurroundingUnits>1)
-									  || (Bot.Settings.Class.bGoblinWrath && Bot.Targeting.CurrentTarget.SnoProperties.IsTreasureGoblin);
+									  || (Bot.Settings.Class.bGoblinWrath && Bot.Targeting.CurrentTarget.IsTreasureGoblin);
 		  }
 
 		  #region IAbility

@@ -20,7 +20,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				                      (Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=5&&
 				                       Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_50]==0)||
 				                      (Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3&&Bot.Character.Data.dCurrentEnergyPct<=0.5)||
-									  (Bot.Targeting.CurrentTarget.SnoProperties.IsBoss && Bot.Targeting.CurrentTarget.RadiusDistance <= 15f) ||
+									  (Bot.Targeting.CurrentTarget.IsBoss && Bot.Targeting.CurrentTarget.RadiusDistance <= 15f) ||
 				                      (Bot.Settings.Class.bMonkInnaSet&&Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=1&&
 				                       Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)&&!Bot.Character.Class.HotBar.HasBuff(SNOPower.Monk_SweepingWind))
 				                      &&

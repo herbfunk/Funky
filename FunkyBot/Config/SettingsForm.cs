@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using FunkyBot.Cache.Enums;
 using FunkyBot.Settings;
 
 namespace FunkyBot.Config
@@ -62,6 +63,33 @@ namespace FunkyBot.Config
 		private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
 
+		}
+		private void MovementTargetGlobeChecked(object sender, EventArgs e)
+		{
+
+		}
+		private void MovementTargetGoldChecked(object sender, EventArgs e)
+		{
+			if (Bot.Settings.Combat.CombatMovementTargetTypes.HasFlag(TargetType.Gold))
+				Bot.Settings.Combat.CombatMovementTargetTypes &= ~TargetType.Gold;
+			else
+				Bot.Settings.Combat.CombatMovementTargetTypes |= TargetType.Gold;
+		}
+
+		private void MovementTargetItemChecked(object sender, EventArgs e)
+		{
+			if (Bot.Settings.Combat.CombatMovementTargetTypes.HasFlag(TargetType.Item))
+				Bot.Settings.Combat.CombatMovementTargetTypes &= ~TargetType.Item;
+			else
+				Bot.Settings.Combat.CombatMovementTargetTypes |= TargetType.Item;
+		}
+		private void AllowDefaultAttackAlwaysChecked(object sender, EventArgs e)
+		{
+			Bot.Settings.Class.AllowDefaultAttackAlways = !Bot.Settings.Class.AllowDefaultAttackAlways;
+		}
+		private void OutOfCombatMovementChecked(object sender, EventArgs e)
+		{
+			Bot.Settings.OutOfCombatMovement = !Bot.Settings.OutOfCombatMovement;
 		}
 	}
 }
