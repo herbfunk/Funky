@@ -159,18 +159,18 @@ namespace FunkyBot.Cache.Objects
 				base.Obstacletype = ObstacleType.ServerObject;
 
 			//PhysicsSNO -- (continiously updated) excluding shrines/interactables
-			if (ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Destructible | TargetType.Barricade | TargetType.Container))
-			{
-				try
-				{
-					this.PhysicsSNO = base.ref_DiaObject.PhysicsSNO;
-				}
-				catch
-				{
-					Logger.Write(LogLevel.Cache, "Safely handled exception getting physics SNO for object " + this.InternalName + " [" + this.SNOID + "]");
-					return false;
-				}
-			}
+			//if (ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Destructible | TargetType.Barricade | TargetType.Container))
+			//{
+			//	try
+			//	{
+			//		this.PhysicsSNO = base.ref_DiaObject.PhysicsSNO;
+			//	}
+			//	catch
+			//	{
+			//		Logger.Write(LogLevel.Cache, "Safely handled exception getting physics SNO for object " + this.InternalName + " [" + this.SNOID + "]");
+			//		return false;
+			//	}
+			//}
 
 			////Update SNOAnim
 			if (ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Destructible | TargetType.Barricade))

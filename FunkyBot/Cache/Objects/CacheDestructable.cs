@@ -54,15 +54,15 @@ namespace FunkyBot.Cache.Objects
 				}
 
 				// No physics mesh? Ignore this destructible altogether
-				if (this.PhysicsSNO.HasValue && this.PhysicsSNO.Value <= 0)
-				{
-					Logger.Write(LogLevel.Cache, "Removing destructible {0} due to invalid PhysicsSNO", InternalName);
+				//if (this.PhysicsSNO.HasValue && this.PhysicsSNO.Value <= 0)
+				//{
+				//	Logger.Write(LogLevel.Cache, "Removing destructible {0} due to invalid PhysicsSNO", InternalName);
 
-					// No physics mesh on a destructible, probably bugged
-					this.NeedsRemoved = true;
-					this.BlacklistFlag = BlacklistType.Permanent;
-					return false;
-				}
+				//	// No physics mesh on a destructible, probably bugged
+				//	this.NeedsRemoved = true;
+				//	this.BlacklistFlag = BlacklistType.Permanent;
+				//	return false;
+				//}
 
 				if (this.RequiresLOSCheck && !this.IgnoresLOSCheck)
 				{

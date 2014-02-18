@@ -220,11 +220,11 @@ namespace FunkyBot.Cache.Objects
 
 
 						// Any physics mesh? Give a minimum distance of 5 feet
-						if (PhysicsSNO.HasValue && PhysicsSNO <= 0)
-						{
-							NeedsRemoved = true;
-							return false;
-						}
+						//if (PhysicsSNO.HasValue && PhysicsSNO <= 0)
+						//{
+						//	NeedsRemoved = true;
+						//	return false;
+						//}
 
 
 						// Superlist for rare chests etc.
