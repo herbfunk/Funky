@@ -257,7 +257,6 @@ namespace FunkyBot.Cache
 							}
 							else if (tmp_CachedObj.IsAvoidance)
 							{
-							 thisObj.CommonData.
 								//Poison Gas Can Be Friendly...
 								if (AvoidanceType == AvoidanceType.PoisonGas)
 								{
