@@ -41,7 +41,7 @@ namespace FunkyBot.Targeting
 				//Herbfunks delay for container loot.
 				lastHadContainerAsTarget = DateTime.Now;
 
-				if (CurrentTarget.IsResplendantChest)
+				if (CurrentTarget.SnoProperties.IsResplendantChest)
 					lastHadRareChestAsTarget = DateTime.Now;
 			}
 
@@ -53,7 +53,7 @@ namespace FunkyBot.Targeting
 				lastHadUnitInSights = DateTime.Now;
 
 				// And record when we last saw any form of elite
-				if (CurrentUnitTarget.IsBoss || CurrentUnitTarget.IsEliteRareUnique || CurrentUnitTarget.IsTreasureGoblin)
+				if (CurrentUnitTarget.SnoProperties.IsBoss || CurrentUnitTarget.IsEliteRareUnique || CurrentUnitTarget.SnoProperties.IsTreasureGoblin)
 					lastHadEliteUnitInSights = DateTime.Now;
 			}
 

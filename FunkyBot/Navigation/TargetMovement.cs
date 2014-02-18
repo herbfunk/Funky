@@ -298,7 +298,7 @@ namespace FunkyBot.Movement
 						 && (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_Sprint) || Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_Sprint))
 						 && (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.AvoidanceMovements | TargetType.Gold | TargetType.Globe) == false)
 						 && (obj.targetType.Value != TargetType.Unit
-						 || (obj.targetType.Value == TargetType.Unit && !obj.IsTreasureGoblin
+						 || (obj.targetType.Value == TargetType.Unit && !obj.SnoProperties.IsTreasureGoblin
 							  && (!Bot.Settings.Class.bSelectiveWhirlwind
 									|| Bot.Targeting.Environment.bAnyNonWWIgnoreMobsInRange
 									|| !CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(obj.SNOID)))))
@@ -371,7 +371,7 @@ namespace FunkyBot.Movement
 					//Use Walk Power when not using LOS Movement, target is not an item and target does not ignore LOS.
 					if (!(NonMovementCounter < 10 &&
 						!obj.UsingLOSV3 &&
-						!obj.IgnoresLOSCheck &&
+						!obj.SnoProperties.IgnoresLosCheck &&
 						 obj.targetType.Value != TargetType.Item &&
 						 obj.targetType.Value != TargetType.Interactable))
 					{

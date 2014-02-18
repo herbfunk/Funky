@@ -173,8 +173,9 @@ namespace FunkyBot
 				FunkyButton.Click += FunkyWindow.buttonFunkySettingDB_Click;
 			}
 
+			ObjectCache.SnoUnitPropertyCache = CacheUnitIDs.DeserializeFromXML();
 			ObjectCache.FakeCacheObject = new CacheObject(Vector3.Zero, TargetType.None, 0d, "Fake Target", 1f);
-
+			
 			//Update Account Details..
 			Bot.Character.Account.UpdateCurrentAccountDetails();
 

@@ -43,11 +43,12 @@ namespace FunkyBot.Cache.Objects
 				_internalname = thisEntry.InternalName;
 				_obstacletype = thisEntry.Obstacletype;
 				_gizmotype = thisEntry.Gizmotype;
+				_snoProperties = thisEntry.SnoProperties;
 				//this._RunningRate=thisEntry.RunningRate;
 				IsFinalized = thisEntry.IsFinalized;
 			}
 		}
-		public SNO(int sno, String internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gimzotype = null)
+		public SNO(int sno, String internalname, SNOProperties properties, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gimzotype = null)
 		{
 			//Creates the perm data
 			SNOID = sno;
@@ -64,7 +65,7 @@ namespace FunkyBot.Cache.Objects
 			_obstacletype = obstacletype;
 			_actorsphereradius = actorsphereradius;
 			_gizmotype = gimzotype;
-			//_RunningRate=runningrate;
+			_snoProperties = properties;
 			IsFinalized = true;
 		}
 		public SNO(SNO sno)
@@ -83,6 +84,7 @@ namespace FunkyBot.Cache.Objects
 			_internalname = sno.InternalName;
 			_obstacletype = sno.Obstacletype;
 			_gizmotype = sno.Gizmotype;
+			_snoProperties = sno.SnoProperties;
 			//this._RunningRate=sno.RunningRate;
 			IsFinalized = sno.IsFinalized;
 		}
@@ -94,6 +96,27 @@ namespace FunkyBot.Cache.Objects
 		public DateTime LastUsed = DateTime.Now;
 
 		#region SNO Properties
+		private SNOProperties _snoProperties;
+		public SNOProperties SnoProperties
+		{
+			get
+			{
+				if (IsFinalized)
+					return _snoProperties;
+
+				if (ObjectCache.dictSnoProperties.ContainsKey(SNOID))
+					return ObjectCache.dictSnoProperties[SNOID];
+				return null;
+			}
+			set
+			{
+				if (!IsFinalized)
+					ObjectCache.dictSnoProperties[SNOID] = value;
+				else
+					_snoProperties = value;
+			}
+		}
+
 		private bool? _CanBurrow;
 		public bool? CanBurrow
 		{
@@ -402,28 +425,28 @@ namespace FunkyBot.Cache.Objects
 
 
 		#region Cache Lookup Properties
-		public bool IsObstacle { get { return CacheIDLookup.hashSNONavigationObstacles.Contains(SNOID); } }
-		public bool IsHealthWell { get { return SNOID == 138989; } }
-		public bool IsTreasureGoblin { get { return CacheIDLookup.hashActorSNOGoblins.Contains(SNOID); } }
-		public bool IsBoss { get { return CacheIDLookup.hashBossSNO.Contains(SNOID); } }
-		public bool IsWormBoss { get { return (SNOID == 218947 || SNOID == 144400); } }
-		public bool IsResplendantChest { get { return CacheIDLookup.hashSNOContainerResplendant.Contains(SNOID); } }
-		public bool IsAvoidance { get { return AvoidanceCache.hashAvoidanceSNOList.Contains(SNOID); } }
-		public bool IsSummonedPet { get { return CacheIDLookup.hashSummonedPets.Contains(SNOID); } }
-		public bool IsRespawnable { get { return CacheIDLookup.hashActorSNOSummonedUnit.Contains(SNOID); } }
-		public bool IsProjectileAvoidance { get { return AvoidanceCache.hashAvoidanceSNOProjectiles.Contains(SNOID); } }
-		public bool IsCorpseContainer { get { return (internalNameLower.Contains("loottype") || internalNameLower.Contains("corpse")); } }
-		public bool IsChestContainer { get { return (internalNameLower.Contains("chest")); } }
-		public bool IgnoresLOSCheck { get { return CacheIDLookup.hashActorSNOIgnoreLOSCheck.Contains(SNOID); } }
-		public bool IsMissileReflecting { get { return CacheIDLookup.hashActorSNOReflectiveMissleUnits.Contains(SNOID); } }
-		public bool IsStealthableUnit { get { return CacheIDLookup.hashActorSNOStealthUnits.Contains(SNOID); } }
-		public bool IsBurrowableUnit { get { return CacheIDLookup.hashActorSNOBurrowableUnits.Contains(SNOID); } }
-		public bool IsSucideBomber { get { return CacheIDLookup.hashActorSNOSucideBomberUnits.Contains(SNOID); } }
-		public bool IsGrotesqueActor { get { return CacheIDLookup.hashActorSNOCorpulent.Contains(SNOID); } }
-		public bool IsCorruptantGrowth { get { return SNOID == 210120 || SNOID == 210268; } }
-		public bool IsSpawnerUnit { get { return CacheIDLookup.hashSpawnerUnitSNOs.Contains(SNOID); } }
-		public bool IsTransformUnit { get { return CacheIDLookup.hashActorSNOTransforms.Contains(SNOID); } }
-		public bool IsFlyingHoverUnit { get { return CacheIDLookup.hashActorSNOFlying.Contains(SNOID); } }
+		//public bool IsObstacle { get { return CacheIDLookup.hashSNONavigationObstacles.Contains(SNOID); } }
+		//public bool IsHealthWell { get { return SNOID == 138989; } }
+		//public bool IsTreasureGoblin { get { return CacheIDLookup.hashActorSNOGoblins.Contains(SNOID); } }
+		//public bool IsBoss { get { return CacheIDLookup.hashBossSNO.Contains(SNOID); } }
+		//public bool IsWormBoss { get { return (SNOID == 218947 || SNOID == 144400); } }
+		//public bool IsResplendantChest { get { return CacheIDLookup.hashSNOContainerResplendant.Contains(SNOID); } }
+		//public bool IsAvoidance { get { return AvoidanceCache.hashAvoidanceSNOList.Contains(SNOID); } }
+		//public bool IsSummonedPet { get { return CacheIDLookup.hashSummonedPets.Contains(SNOID); } }
+		//public bool IsRespawnable { get { return CacheIDLookup.hashActorSNOSummonedUnit.Contains(SNOID); } }
+		//public bool IsProjectileAvoidance { get { return AvoidanceCache.hashAvoidanceSNOProjectiles.Contains(SNOID); } }
+		//public bool IsCorpseContainer { get { return (internalNameLower.Contains("loottype") || internalNameLower.Contains("corpse")); } }
+		//public bool IsChestContainer { get { return (internalNameLower.Contains("chest")); } }
+		//public bool IgnoresLOSCheck { get { return CacheIDLookup.hashActorSNOIgnoreLOSCheck.Contains(SNOID); } }
+		//public bool IsMissileReflecting { get { return CacheIDLookup.hashActorSNOReflectiveMissleUnits.Contains(SNOID); } }
+		//public bool IsStealthableUnit { get { return CacheIDLookup.hashActorSNOStealthUnits.Contains(SNOID); } }
+		//public bool IsBurrowableUnit { get { return CacheIDLookup.hashActorSNOBurrowableUnits.Contains(SNOID); } }
+		//public bool IsSucideBomber { get { return CacheIDLookup.hashActorSNOSucideBomberUnits.Contains(SNOID); } }
+		//public bool IsGrotesqueActor { get { return CacheIDLookup.hashActorSNOCorpulent.Contains(SNOID); } }
+		//public bool IsCorruptantGrowth { get { return SNOID == 210120 || SNOID == 210268; } }
+		//public bool IsSpawnerUnit { get { return CacheIDLookup.hashSpawnerUnitSNOs.Contains(SNOID); } }
+		//public bool IsTransformUnit { get { return CacheIDLookup.hashActorSNOTransforms.Contains(SNOID); } }
+		//public bool IsFlyingHoverUnit { get { return CacheIDLookup.hashActorSNOFlying.Contains(SNOID); } }
 		#endregion
 
 		public bool ContainsNullValues()
@@ -462,8 +485,8 @@ namespace FunkyBot.Cache.Objects
 	public class CachedSNOEntry : SNO
 	{
 
-		public CachedSNOEntry(int sno, String internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gizmotype = null)
-			: base(sno, internalname, actortype, targettype, monstertype, monstersize, collisionradius, canburrow, grantsnoxp, dropsnoloot, isbarricade, obstacletype, actorsphereradius, gizmotype)
+		public CachedSNOEntry(int sno, String internalname, SNOProperties properties, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gizmotype = null)
+			: base(sno, internalname, properties, actortype, targettype, monstertype, monstersize, collisionradius, canburrow, grantsnoxp, dropsnoloot, isbarricade, obstacletype, actorsphereradius, gizmotype)
 		{
 		}
 
@@ -514,6 +537,7 @@ namespace FunkyBot.Cache.Objects
 				try
 				{
 					InternalName = thisObj.Name;
+					SnoProperties = new SNOProperties(SNOID, InternalName);
 				}
 				catch
 				{
@@ -554,13 +578,13 @@ namespace FunkyBot.Cache.Objects
 				{
 					//Evaluate Target Type..
 					// See if it's an avoidance first from the SNO
-					if (IsAvoidance || IsObstacle)
+					if (SnoProperties.IsAvoidance || SnoProperties.IsObstacle)
 					{
 						targetType = TargetType.None;
 
-						if (IsAvoidance)
+						if (SnoProperties.IsAvoidance)
 						{
-							if (IsProjectileAvoidance)
+							if (SnoProperties.IsProjectileAvoidance)
 								Obstacletype = ObstacleType.MovingAvoidance;
 							else
 								Obstacletype = ObstacleType.StaticAvoidance;
@@ -650,7 +674,7 @@ namespace FunkyBot.Cache.Objects
 							{
 								if (targetType.Value == TargetType.Destructible || targetType.Value == TargetType.Barricade || targetType.Value == TargetType.Door)
 									Obstacletype = ObstacleType.Destructable;
-								else if (targetType.Value == TargetType.Shrine || IsChestContainer)
+								else if (targetType.Value == TargetType.Shrine || SnoProperties.IsChestContainer)
 									Obstacletype = ObstacleType.ServerObject;
 							}
 
@@ -666,7 +690,7 @@ namespace FunkyBot.Cache.Objects
 							if (TestString.Contains("base") || TestString.Contains("fence"))
 							{
 								//Add this to the obstacle navigation cache
-								if (!IsObstacle)
+								if (!SnoProperties.IsObstacle)
 									CacheIDLookup.hashSNONavigationObstacles.Add(SNOID);
 
 								Obstacletype = ObstacleType.ServerObject;
@@ -680,7 +704,7 @@ namespace FunkyBot.Cache.Objects
 								if (T == AvoidanceType.Wall)
 								{
 									//Add this to the obstacle navigation cache
-									if (!IsObstacle)
+									if (!SnoProperties.IsObstacle)
 										CacheIDLookup.hashSNONavigationObstacles.Add(SNOID);
 
 									Obstacletype = ObstacleType.ServerObject;

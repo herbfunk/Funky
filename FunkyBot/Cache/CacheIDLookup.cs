@@ -479,38 +479,9 @@ namespace FunkyBot.Cache
             {5397, -201},
             //Weak Archer Skeletons
             {5349, -101},
-				//A2 Slime Gyser
-				//{218228, 
          };
 		#endregion
 
-
-		//Spawner units: summons units
-		public static readonly HashSet<int> hashSpawnerUnitSNOs = new HashSet<int>
-			  {
-					//a2 Round Spawner
-					3037,
-					//a2 Tesla Tower
-					204509,
-					//a2 Tesla Poison
-					208826,
-					//a2 Tesla Fire
-					208825,
-					//a2 Tesla Cold
-					208824,
-					//a2 Tesla Lightning
-					204944,
-					//a3dun_crater_Demon_GroundTrap_GasChamber
-					120652,
-					//a3dun_battlefield_Demon_GroundTrap_GasChamber
-					171283,
-					//a1 FleshPitFlyerSpawner
-					4153,4154,
-					//a1 Female Zombies (108444,219725,229894,222606,224821,224826,224851,224931,224969,)
-					6639,6638,6640,
-					//a1 Skeleton Summoner
-					5387,5388,5389,182279,
-			  };
 
 		// NOTE: you don't NEED interactable SNO's listed here. But if they are listed here, *THIS* is the range at which your character will try to walk to within the object 
 		// BEFORE trying to actually "click it". Certain objects need you to get very close, so it's worth having them listed with low interact ranges
@@ -549,28 +520,6 @@ namespace FunkyBot.Cache
             4304, 5984, 5985, 5987, 5988,
          };
 
-		// Very fast moving mobs (eg wasps), for special skill-selection decisions
-		// 5212 = act 2 wasps
-		public static readonly HashSet<int> hashActorSNOFastMobs = new HashSet<int>
-				{ 
-            5212,5208,5209,5210,
-            //a2 little grunts
-            4085,4084,4083,4080,
-				//Lunitics
-				4093,4094,4095,
-				//sand imps
-				5189,5188,5187,
-				//Succubus
-				5508, 152679, 
-				//Soul ripper
-				5436, 169615,
-				//A2 Fast Mummy (Betrayed)
-				4104, 4105, 4106,
-				//A1 Ghosts
-				370, 4196, 4197, 4198,
-				//A1 Scavenger
-				5235, 5236, 5238, 5239,
-         };
 		//Mobs that "move" into non-walkable locations -- I.E. Teleport
 		public static readonly HashSet<int> hashActorSNOTransforms = new HashSet<int>
 				{
@@ -585,49 +534,6 @@ namespace FunkyBot.Cache
 					 //A1 Ghosts
 					 370,136943,209553,218441,156353,85971,4196,4197,4198,133093,156763,157006,165602,222526,4799,
 				};
-		public static readonly HashSet<int> hashActorSNOBurrowableUnits = new HashSet<int>
-				{
-					 //worms
-					 5088,5090,144400,203048,
-					 //a2 birds
-					 3384,3385,
-					 //Sand shark (normal and uniques)
-					 5199,221402,156738,
-					 //a2 sand imps
-					 5189,5188,5187,
-					 //a2 sand dwellers (big guys who can reflect range missles)
-					 5191, 5192, 5193, 5194,
-				};
-		public static readonly HashSet<int> hashActorSNOCorpulent = new HashSet<int>
-				{
-					 //grotesque Exploding Guys
-					 3847,3848,3849,3850,218308,218405,113994,195639,
-
-				};
-		public static readonly HashSet<int> hashActorSNOSucideBomberUnits = new HashSet<int>
-				{
-					 //Lunitics
-					 4093,4094,4095,231356,
-
-				};
-		public static readonly HashSet<int> hashActorSNOStealthUnits = new HashSet<int>
-				{
-					 //A2 Snakemen
-					 5432,5433,5434,
-					 //A4 Terror Demons
-					 106714,
-
-				};
-		public static readonly HashSet<int> hashActorSNOReflectiveMissleUnits = new HashSet<int>
-				{
-					 //a2 Keywarden
-					 256000,
-					 //a2 Dune Dervish
-					 3981,3980,3982,
-					 //a2 Sand Monster
-					 5191, 5192, 5193, 5194,
-				};
-
 		// A list of crappy "summoned mobs" we should always ignore unless they are very close to us, eg "grunts", summoned skeletons etc.
 		public static readonly HashSet<int> hashActorSNOShortRangeOnly = new HashSet<int>
 				{ 
@@ -653,67 +559,7 @@ namespace FunkyBot.Cache
              // Uber_ZoltunKulle, Uber_SkeletonKingRed,  Uber_SiegebreakerDemon, Uber_Maghda, Uber_Despair, Uber_Gluttony
             256508, 255929, 256187, 256189, 256711, 256709,
 				};
-		//Special list of "fallen" which is used to skip blacklisting
-		public static readonly HashSet<int> hashActorSNOSummonedUnit = new HashSet<int>
-				{
-            4084, 4083, 4080, 4085,
-        };
 
-		// A list of all known SNO's of treasure goblins/bandits etc.
-		public static readonly HashSet<int> hashActorSNOGoblins = new HashSet<int>
-				{ 
-            5984, 5985, 5987, 5988
-         };
-		// A list of ranged mobs that should be attacked even if they are outside of the routines current kill radius
-		//365, 4100 = fallen; 4300, 4304 = goat shaman; 4738 = pestilence; 4299 = goat ranged; 62736, 130794 = demon flyer; 5508 = succubus
-		public static readonly HashSet<int> hashActorSNORanged = new HashSet<int>
-				{ 
-            365, 4100, 4738, 62736, 130794, 5508, 4409, 4099, 4098,
-
-			//a1 goatshaman
-			4290,4303,4304,375,
-			//a1 goatranged
-			4286,4287,4299,4300,
-         };
-
-		//Units that are naturally suspended off the ground.
-		public static readonly HashSet<int> hashActorSNOFlying = new HashSet<int>
-				{
-					 //Bloodhawks
-					 3384,3385,222011,222385,
-					 //Sand Wasps
-					 5208,5209,5210,
-					 //A1 Ghosts
-					 370,136943,209553,218441,156353,85971,4196,4197,4198,133093,156763,157006,165602,222526,4799,
-					 //Succubus
-					 5508,209596,152679,152679,219673,152535,
-					 //Swarm
-					 5512,5513,5514,5515,
-					 //Fleshpit Flyer
-					 4156,218314,218362,4157,81954,368,218566,4158,195747,217308,104424,
-					 //A4 Charger Guys
-
-					 //DemonFlyers
-					 //141209,62736,130794,221770,220775,134416,
-
-                     //a3 KeyWarden
-                     256015,
-
-				};
-		// A list of bosses in the game, just to make CERTAIN they are treated as elites
-		public static readonly HashSet<int> hashBossSNO = new HashSet<int>
-				{ 
-            // Siegebreaker (96192), Azmodan (89690), Cydea (95250), Heart-thing (193077), Kulle (80509), Small Belial (220160), Big Belial (3349), Diablo 1 (114917), terror Diablo (133562), burrowed horrow worm (219847)
-            96192, 89690, 95250, 193077, 80509, 220160, 3349, 114917, 133562, 218947,
-            // Diablo shadow clones (needs all of them, there is a male & female version of each class!)
-            144001, 144003, 143996, 143994, 
-            // Jondar (act 1 dungeons)
-            86624, 
-             // Uber_ZoltunKulle, Uber_SkeletonKingRed,  Uber_SiegebreakerDemon, Uber_Maghda, Uber_Despair, Uber_Gluttony
-            256508, 255929, 256187, 256189, 256711, 256709,
-            //A2 KeyWarden,
-            256000,
-         };
 		// Resplendent chest SNO list
 		public static readonly HashSet<int> hashSNOContainerResplendant = new HashSet<int>
 				{ 
@@ -734,6 +580,25 @@ namespace FunkyBot.Cache
 				{ 
             54908, 56686, 54850, 454, 211999, 52685, 54882, 89665, 
          };
+
+
+
+
+
+
+
+		
+
+
+
+
+		//Units that are naturally suspended off the ground.
+		public static readonly HashSet<int> hashActorSNOFlying = new HashSet<int>
+				{
+					 //Bloodhawks
+					 3384,3385,222011,222385,5208,5209,5210,370,136943,209553,218441,156353,85971,4196,4197,4198,133093,156763,157006,165602,222526,4799,5508,209596,152679,152679,219673,152535, 5512,5513,5514,5515,4156,218314,218362,4157,81954,368,218566,4158,195747,217308,104424,256015,
+
+				};
 
 		public static readonly HashSet<int> hashDHSpikeTraps = new HashSet<int> { 158941, 111330 };
 		// Three special lists used purely for checking for the existance of a player's summoned mystic ally, gargantuan, or zombie dog

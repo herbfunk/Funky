@@ -222,7 +222,7 @@ namespace FunkyBot.Cache.Objects
 			if (AvoidanceCache.IgnoreAvoidance(AvoidanceType)) return;
 
 			//Only update position of Movement Avoidances!
-			if (IsProjectileAvoidance)
+			if (SnoProperties.IsProjectileAvoidance)
 			{
 				//Blacklisted updates
 				if (BlacklistRefreshCounter > 0 &&

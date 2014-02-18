@@ -56,7 +56,7 @@ namespace FunkyBot.Cache.Objects
 				// No physics mesh? Ignore this destructible altogether
 				if (this.PhysicsSNO.HasValue && this.PhysicsSNO.Value <= 0)
 				{
-					Logger.Write(LogLevel.Cache, "Removing destructible {0} due to invalid PhysicsSNO", InternalName);
+					Logger.Write(LogLevel.Cache, "Removing destructible {0} due to invalid PhysicsSNO {1}", InternalName, this.PhysicsSNO.Value);
 
 					// No physics mesh on a destructible, probably bugged
 					this.NeedsRemoved = true;
@@ -64,7 +64,7 @@ namespace FunkyBot.Cache.Objects
 					return false;
 				}
 
-				if (this.RequiresLOSCheck && !this.IgnoresLOSCheck)
+				if (this.RequiresLOSCheck && !this.SnoProperties.IgnoresLosCheck)
 				{
 					//Preform Test every 2500ms on normal objects, 1250ms on special objects.
 					double lastLOSCheckMS = base.LineOfSight.LastLOSCheckMS;

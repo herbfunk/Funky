@@ -257,7 +257,7 @@ namespace FunkyBot.Player.Class
 				{
 
 					//Check LOS -- Projectiles
-					if (item.IsRanged && !Bot.Targeting.CurrentTarget.IgnoresLOSCheck)
+					if (item.IsRanged && !Bot.Targeting.CurrentTarget.SnoProperties.IgnoresLosCheck)
 					{
 						LOSInfo LOSINFO = Bot.Targeting.CurrentTarget.LineOfSight;
 						if (LOSINFO.LastLOSCheckMS > 3000 || (item.IsProjectile && !LOSINFO.ObjectIntersection.HasValue) || !LOSINFO.NavCellProjectile.HasValue)
@@ -286,7 +286,7 @@ namespace FunkyBot.Player.Class
 				{
 
 					//Check LOS -- Projectiles
-					if (item.IsRanged && !Bot.Targeting.CurrentTarget.IgnoresLOSCheck)
+					if (item.IsRanged && !Bot.Targeting.CurrentTarget.SnoProperties.IgnoresLosCheck)
 					{
 						LOSInfo LOSINFO = Bot.Targeting.CurrentTarget.LineOfSight;
 						if (LOSINFO.LastLOSCheckMS > 3000 || (item.IsProjectile && !LOSINFO.ObjectIntersection.HasValue) || !LOSINFO.NavCellProjectile.HasValue)

@@ -39,6 +39,7 @@ namespace FunkyBot.Cache.Collections
 			if (!ObjectCache.dictObstacleType.ContainsKey(key)) ObjectCache.dictObstacleType.Add(key, null);
 			if (!ObjectCache.dictActorSphereRadius.ContainsKey(key)) ObjectCache.dictActorSphereRadius.Add(key, null);
 			if (!ObjectCache.dictGizmoType.ContainsKey(key)) ObjectCache.dictGizmoType.Add(key, null);
+			if (!ObjectCache.dictSnoProperties.ContainsKey(key)) ObjectCache.dictSnoProperties.Add(key, new SNOProperties(key));
 		}
 		private void RemoveDictionaryEntries(int key)
 		{
@@ -56,6 +57,7 @@ namespace FunkyBot.Cache.Collections
 			ObjectCache.dictObstacleType.Remove(key);
 			ObjectCache.dictActorSphereRadius.Remove(key);
 			ObjectCache.dictGizmoType.Remove(key);
+			ObjectCache.dictSnoProperties.Remove(key);
 		}
 
 		#region IDictionary<int,CacheSNO> Members
@@ -94,6 +96,10 @@ namespace FunkyBot.Cache.Collections
 				CreateDictionaryEntries(key);
 				//add to static cache
 				snoEntries.Add(key, new CachedSNOEntry(key, true));
+			}
+			else
+			{
+				this[key].LastUsed=DateTime.Now;
 			}
 		}
 
@@ -180,7 +186,7 @@ namespace FunkyBot.Cache.Collections
 			CachedSNOEntry thisSNOdata = this[sno];
 
 			//Take the value, recreate it using finalized constructor
-			CachedSNOEntry thisNewData = new CachedSNOEntry(thisSNOdata.SNOID, thisSNOdata.InternalName, thisSNOdata.Actortype, thisSNOdata.targetType, thisSNOdata.Monstertype, thisSNOdata.Monstersize, thisSNOdata.CollisionRadius, thisSNOdata.CanBurrow, thisSNOdata.GrantsNoXP, thisSNOdata.DropsNoLoot, thisSNOdata.IsBarricade, thisSNOdata.Obstacletype, thisSNOdata.ActorSphereRadius, thisSNOdata.Gizmotype);
+			CachedSNOEntry thisNewData = new CachedSNOEntry(thisSNOdata.SNOID, thisSNOdata.InternalName, thisSNOdata.SnoProperties, thisSNOdata.Actortype, thisSNOdata.targetType, thisSNOdata.Monstertype, thisSNOdata.Monstersize, thisSNOdata.CollisionRadius, thisSNOdata.CanBurrow, thisSNOdata.GrantsNoXP, thisSNOdata.DropsNoLoot, thisSNOdata.IsBarricade, thisSNOdata.Obstacletype, thisSNOdata.ActorSphereRadius, thisSNOdata.Gizmotype);
 
 			//Now clone the data and set it as the value
 			snoEntries[sno] = (CachedSNOEntry)thisNewData.Clone();

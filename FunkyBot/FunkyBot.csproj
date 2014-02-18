@@ -63,6 +63,20 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Cache\CacheUnitIDs.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Cache\SNOProperties.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Config\SettingsForm.cs">
+      <SubType>Form</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Config\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="DBHandlers\ExitGame.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -866,6 +880,7 @@
       <SubType>Code</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <None Include="ClassDiagram1.cd" />
     <None Include="CombatRoutine\CombatRoutine">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -932,6 +947,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
     <Reference Include="System.Web" />
@@ -1059,6 +1075,9 @@
   <ItemGroup>
     <Content Include="Assemblies\Demonbuddy.exe" />
     <Content Include="Assemblies\GreyMagic.dll" />
+    <Content Include="Cache\Dictionaries\SNOId_Cache_Units.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="DBHandlers\CharacterMule\NewGame.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1130,6 +1149,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ItemRules\Log\Archive\" />
+    <Folder Include="Player\HotBar\Skills\Skill Objects\Crusader\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Config\SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

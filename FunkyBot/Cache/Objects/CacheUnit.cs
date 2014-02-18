@@ -40,7 +40,7 @@ namespace FunkyBot.Cache.Objects
 				   Things we know about the object based on cached values
 			*/
 
-			//if (this.IsBoss)
+			//if (this.SnoProperties.IsBoss)
 			//	 this.Properties|=TargetProperties.Boss;
 
 			//if (this.IsBurrowableUnit)
@@ -55,7 +55,7 @@ namespace FunkyBot.Cache.Objects
 			//if (this.IsSucideBomber)
 			//	 this.Properties|=TargetProperties.SucideBomber;
 
-			//if (this.IsTreasureGoblin)
+			//if (this.SnoProperties.IsTreasureGoblin)
 			//	 this.Properties|=TargetProperties.TreasureGoblin;
 
 			//if (this.IsFast)
@@ -161,7 +161,7 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
-				return IsMissileReflecting || MonsterTeleport || IsTransformUnit;
+				return SnoProperties.IsMissileReflecting || MonsterTeleport || SnoProperties.IsTransformUnit;
 			}
 		}
 
@@ -220,14 +220,14 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
-				return (CacheIDLookup.hashActorSNORanged.Contains(SNOID) || (Monstersize.HasValue && Monstersize.Value == MonsterSize.Ranged));
+				return (ObjectCache.SnoUnitPropertyCache.RangedUnits.Contains(SNOID) || (Monstersize.HasValue && Monstersize.Value == MonsterSize.Ranged));
 			}
 		}
 		public bool IsFast
 		{
 			get
 			{
-				return (CacheIDLookup.hashActorSNOFastMobs.Contains(SNOID) || MonsterFast);
+				return (ObjectCache.SnoUnitPropertyCache.FastUnits.Contains(SNOID) || MonsterFast);
 			}
 		}
 
@@ -237,12 +237,12 @@ namespace FunkyBot.Cache.Objects
 			{
 				return ((!BeingIgnoredDueToClusterLogic || PriorityCounter > 0) && //not ignored because of clusters
 							  (!IsBurrowed.HasValue || !IsBurrowed.Value) && //ignore burrowed!
-							  (!IsTreasureGoblin) &&
+							  (!SnoProperties.IsTreasureGoblin) &&
 							  (!IsFast || !Bot.Settings.Fleeing.FleeUnitIgnoreFast) &&
 							  ((IsEliteRareUnique && Bot.Settings.Fleeing.FleeUnitRareElite) || (!IsEliteRareUnique && Bot.Settings.Fleeing.FleeUnitNormal)) &&
 							  (!MonsterElectrified || Bot.Settings.Fleeing.FleeUnitElectrified) &&
 							  (UnitMaxHitPointAverageWeight > 0 || !Bot.Settings.Fleeing.FleeUnitAboveAverageHitPoints) &&
-							  (!IsSucideBomber || !Bot.Settings.Fleeing.FleeUnitIgnoreSucideBomber) &&
+							  (!SnoProperties.IsSucideBomber || !Bot.Settings.Fleeing.FleeUnitIgnoreSucideBomber) &&
 							  (!IsRanged || !Bot.Settings.Fleeing.FleeUnitIgnoreRanged));
 
 
@@ -274,10 +274,10 @@ namespace FunkyBot.Cache.Objects
 			get
 			{
 				return
-					 (IsSucideBomber && Bot.Settings.Targeting.UnitExceptionSucideBombers) ||
-					 (IsTreasureGoblin && Bot.Settings.Ranges.TreasureGoblinRange > 1) ||
+					 (SnoProperties.IsSucideBomber && Bot.Settings.Targeting.UnitExceptionSucideBombers) ||
+					 (SnoProperties.IsTreasureGoblin && Bot.Settings.Ranges.TreasureGoblinRange > 1) ||
 					 (IsRanged && Bot.Settings.Targeting.UnitExceptionRangedUnits) ||
-					 (IsSpawnerUnit && Bot.Settings.Targeting.UnitExceptionSpawnerUnits) ||
+					 (SnoProperties.IsSpawnerUnit && Bot.Settings.Targeting.UnitExceptionSpawnerUnits) ||
 					 ((Bot.Settings.Targeting.UnitExceptionLowHP && ((CurrentHealthPct < 0.25 && UnitMaxHitPointAverageWeight > 0)
 									   && ((!Bot.Character.Class.IsMeleeClass && CentreDistance < 30f) || (Bot.Character.Class.IsMeleeClass && RadiusDistance < 12f)))));
 			}
@@ -288,11 +288,11 @@ namespace FunkyBot.Cache.Objects
 			get
 			{
 				return
-					 ((IsSucideBomber && Bot.Settings.LOSMovement.AllowSucideBomber) ||
-					 (IsTreasureGoblin && Bot.Settings.LOSMovement.AllowTreasureGoblin) ||
-					 (IsSpawnerUnit && Bot.Settings.LOSMovement.AllowSpawnerUnits) ||
+					 ((SnoProperties.IsSucideBomber && Bot.Settings.LOSMovement.AllowSucideBomber) ||
+					 (SnoProperties.IsTreasureGoblin && Bot.Settings.LOSMovement.AllowTreasureGoblin) ||
+					 (SnoProperties.IsSpawnerUnit && Bot.Settings.LOSMovement.AllowSpawnerUnits) ||
 					 ((MonsterRare || MonsterElite) && Bot.Settings.LOSMovement.AllowRareElites) ||
-					 ((IsBoss || MonsterUnique) && Bot.Settings.LOSMovement.AllowUniqueBoss) ||
+					 ((SnoProperties.IsBoss || MonsterUnique) && Bot.Settings.LOSMovement.AllowUniqueBoss) ||
 					 (IsRanged && Bot.Settings.LOSMovement.AllowRanged)
 					 &&//Enforce A Maximum Range
 					 CentreDistance <= Bot.Settings.LOSMovement.MaximumRange);
@@ -482,11 +482,11 @@ namespace FunkyBot.Cache.Objects
 				if (CacheIDLookup.hashActorSNOShortRangeOnly.Contains(SNOID)) dUseKillRadius = 12;
 
 				// Prevent long-range mobs beign ignored while they may be pounding on us
-				if (dUseKillRadius <= 30 && CacheIDLookup.hashActorSNORanged.Contains(SNOID)) dUseKillRadius = 30;
+				if (dUseKillRadius <= 30 && ObjectCache.SnoUnitPropertyCache.RangedUnits.Contains(SNOID)) dUseKillRadius = 30;
 
 
 				// Bosses get extra radius
-				if (IsBoss)
+				if (SnoProperties.IsBoss)
 				{
 					// Kulle Exception
 					if (SNOID != 80509) dUseKillRadius *= 1.5;
@@ -502,7 +502,7 @@ namespace FunkyBot.Cache.Objects
 							dUseKillRadius = 200;
 				}
 				// Tressure Goblins
-				else if (IsTreasureGoblin)
+				else if (SnoProperties.IsTreasureGoblin)
 				{
 					//Check if this goblin is in combat and we are not to close..
 
@@ -513,7 +513,7 @@ namespace FunkyBot.Cache.Objects
 
 						List<CacheUnit> surroundingList;
 						ObjectCache.Objects.FindSurroundingObjects(Position, 50f, out surroundingList);
-						surroundingList.RemoveAll(p => !p.IsEliteRareUnique && !p.IsBoss);
+						surroundingList.RemoveAll(p => !p.IsEliteRareUnique && !p.SnoProperties.IsBoss);
 						surroundingList.TrimExcess();
 
 						if (surroundingList.Count > 0)
@@ -568,7 +568,7 @@ namespace FunkyBot.Cache.Objects
 			bool bCountAsElite;
 
 			bIsRended = (HasDOTdps.HasValue && HasDOTdps.Value);
-			bCountAsElite = (IsEliteRareUnique || IsTreasureGoblin || IsBoss);
+			bCountAsElite = (IsEliteRareUnique || SnoProperties.IsTreasureGoblin || SnoProperties.IsBoss);
 			float RadiusDistance = this.RadiusDistance;
 
 			if (Bot.Settings.Fleeing.EnableFleeingBehavior && RadiusDistance <= Bot.Settings.Fleeing.FleeMaxMonsterDistance && ShouldFlee)
@@ -688,7 +688,7 @@ namespace FunkyBot.Cache.Objects
 				float radiusDistance = RadiusDistance;
 
 				// Flag up any bosses in range
-				if (IsBoss && centreDistance <= 50f)
+				if (SnoProperties.IsBoss && centreDistance <= 50f)
 					Weight += 9999;
 
 				// Force a close range target because we seem to be stuck *OR* if not ranged and currently rooted
@@ -698,13 +698,13 @@ namespace FunkyBot.Cache.Objects
 					Weight = 20000 - (Math.Floor(radiusDistance) * 200);
 
 					// Goblin priority KAMIKAZEEEEEEEE
-					if (IsTreasureGoblin && Bot.Settings.Targeting.GoblinPriority > 1)
+					if (SnoProperties.IsTreasureGoblin && Bot.Settings.Targeting.GoblinPriority > 1)
 						Weight += 10250 * (Bot.Settings.Targeting.GoblinPriority - 1);
 				}
 				else
 				{
 					// Not attackable, could be shielded, make super low priority
-					if (!IsTargetableAndAttackable && !IsWormBoss)
+					if (!IsTargetableAndAttackable && !SnoProperties.IsWormBoss)
 					{
 						// Only 500 weight helps prevent it being prioritized over an unshielded
 						Weight = 500;
@@ -740,11 +740,11 @@ namespace FunkyBot.Cache.Objects
 							Weight += 2000;
 
 						// Give more weight to bosses
-						if (IsBoss)
+						if (SnoProperties.IsBoss)
 							Weight += 4000;
 
 						// Barbarians with wrath of the berserker up should prioritize elites more
-						if (Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker) && (IsEliteRareUnique || IsTreasureGoblin || IsBoss))
+						if (Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker) && (IsEliteRareUnique || SnoProperties.IsTreasureGoblin || SnoProperties.IsBoss))
 							Weight += 2000;
 
 
@@ -761,11 +761,11 @@ namespace FunkyBot.Cache.Objects
 							Weight += (300 * (1 - (CurrentHealthPct.Value / 0.5)));
 
 						// Elites on low health get extra priority - up to 1500
-						if ((IsEliteRareUnique || IsTreasureGoblin) && CurrentHealthPct < 0.20)
+						if ((IsEliteRareUnique || SnoProperties.IsTreasureGoblin) && CurrentHealthPct < 0.20)
 							Weight += (1500 * (1 - (CurrentHealthPct.Value / 0.45)));
 
 						// Goblins on low health get extra priority - up to 2500
-						if (Bot.Settings.Targeting.GoblinPriority >= 2 && IsTreasureGoblin && CurrentHealthPct <= 0.98)
+						if (Bot.Settings.Targeting.GoblinPriority >= 2 && SnoProperties.IsTreasureGoblin && CurrentHealthPct <= 0.98)
 							Weight += (3000 * (1 - (CurrentHealthPct.Value / 0.85)));
 
 						// Bonuses to priority type monsters from the dictionary/hashlist set at the top of the code
@@ -799,7 +799,7 @@ namespace FunkyBot.Cache.Objects
 							Weight = 300;
 
 						// Deal with treasure goblins - note, of priority is set to "0", then the is-a-goblin flag isn't even set for use here - the monster is ignored
-						if (IsTreasureGoblin)
+						if (SnoProperties.IsTreasureGoblin)
 						{
 							// Logging goblin sightings
 							if (Bot.Targeting.lastGoblinTime == DateTime.Today)
@@ -860,7 +860,7 @@ namespace FunkyBot.Cache.Objects
 				if (CurrentHealthPct.HasValue && (CurrentHealthPct.Value <= 0d))
 				{
 					//Respawnable Units -- Only when they are not elite/rare/uniques!
-					if (!IsRespawnable || IsEliteRareUnique)
+					if (!SnoProperties.IsRespawnable || IsEliteRareUnique)
 					{
 						BlacklistLoops = -1;
 						NeedsRemoved = true;
@@ -878,9 +878,9 @@ namespace FunkyBot.Cache.Objects
 					  (IsAttackable.HasValue && IsAttackable.Value == false))
 				{
 					//We skip all but worm bosses in A2 and monsters who can shield.
-					if (!IsWormBoss && !MonsterShielding && (!IsEliteRareUnique || IsGrotesqueActor))
+					if (!SnoProperties.IsWormBoss && !MonsterShielding && (!IsEliteRareUnique || SnoProperties.IsGrotesqueActor))
 					{
-						if (IsGrotesqueActor)
+						if (SnoProperties.IsGrotesqueActor)
 						{
 							//Setup this as an avoidance object now!
 							HandleAsAvoidanceObject = true;
@@ -891,9 +891,9 @@ namespace FunkyBot.Cache.Objects
 						}
 
 						//Stealthable units -- low blacklist counter
-						if (IsStealthableUnit)
+						if (SnoProperties.IsStealthableUnit)
 							BlacklistLoops = 2;
-						else if (IsBurrowableUnit)
+						else if (SnoProperties.IsBurrowableUnit)
 							BlacklistLoops = 5;
 						else
 							BlacklistLoops = 10;
@@ -934,7 +934,7 @@ namespace FunkyBot.Cache.Objects
 					//unless its in front of us.. we wait 500ms mandatory.
 					if (lastLOSCheckMS < 500 && centreDistance > 1f)
 					{
-						// if (this.IsEliteRareUnique||this.IsTreasureGoblin)
+						// if (this.IsEliteRareUnique||this.SnoProperties.IsTreasureGoblin)
 						if (AllowLOSMovement)
 						{
 							//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
@@ -959,7 +959,7 @@ namespace FunkyBot.Cache.Objects
 
 					if (lastLOSCheckMS < ReCheckTime)
 					{
-						//if (this.IsEliteRareUnique||this.IsTreasureGoblin) 
+						//if (this.IsEliteRareUnique||this.SnoProperties.IsTreasureGoblin) 
 						if (AllowLOSMovement)
 						{
 							//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
@@ -974,7 +974,7 @@ namespace FunkyBot.Cache.Objects
 					{
 						//LOS Movement -- Check for special objects
 						//LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
-						// if (this.IsEliteRareUnique||this.IsTreasureGoblin)
+						// if (this.IsEliteRareUnique||this.SnoProperties.IsTreasureGoblin)
 						if (AllowLOSMovement)
 						{
 							Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
@@ -1000,16 +1000,16 @@ namespace FunkyBot.Cache.Objects
 
 				#region CombatFlags
 
-				if (IsBoss || IsEliteRareUnique)
+				if (SnoProperties.IsBoss || IsEliteRareUnique)
 				{
 					//Ignore Setting?
-					if (Bot.Settings.Targeting.IgnoreAboveAverageMobs && PriorityCounter <= 1 && !Bot.IsInNonCombatBehavior && !IsBoss)
+					if (Bot.Settings.Targeting.IgnoreAboveAverageMobs && PriorityCounter <= 1 && !Bot.IsInNonCombatBehavior && !SnoProperties.IsBoss)
 						return false;
 
 					Bot.Targeting.Environment.bAnyChampionsPresent = true;
 				}
 
-				if (IsTreasureGoblin)
+				if (SnoProperties.IsTreasureGoblin)
 					Bot.Targeting.Environment.bAnyTreasureGoblinsPresent = true;
 
 
@@ -1110,7 +1110,7 @@ namespace FunkyBot.Cache.Objects
 					return false;
 				}
 
-				if (isNPC || !IsBoss)
+				if (isNPC || !SnoProperties.IsBoss)
 					return false;
 			}
 
@@ -1155,7 +1155,7 @@ namespace FunkyBot.Cache.Objects
 				{
 					MaximumHealth = ref_DiaUnit.HitpointsMaxTotal;
 
-					if (!IsEliteRareUnique || !IsBoss)
+					if (!IsEliteRareUnique || !SnoProperties.IsBoss)
 					{
 						if (!ObjectCache.Objects.HealthEntriesForAverageValue.ContainsKey(RAGUID))
 						{
@@ -1185,7 +1185,7 @@ namespace FunkyBot.Cache.Objects
 
 			//Burrowing?
 			#region Burrowed?
-			if ((CurrentHealthPct.HasValue && CurrentHealthPct.Value >= 1d || CacheIDLookup.hashActorSNOBurrowableUnits.Contains(SNOID) || (!IsBurrowed.HasValue || IsBurrowed.Value)))
+			if ((CurrentHealthPct.HasValue && CurrentHealthPct.Value >= 1d || this.SnoProperties.IsBurrowableUnit || (!IsBurrowed.HasValue || IsBurrowed.Value)))
 			{
 				try
 				{
@@ -1201,14 +1201,14 @@ namespace FunkyBot.Cache.Objects
 			#endregion
 
 			//Targetable
-			if (!IsTargetable.HasValue || !IsTargetable.Value || IsStealthableUnit)
+			if (!IsTargetable.HasValue || !IsTargetable.Value || SnoProperties.IsStealthableUnit)
 			{
 				try
 				{
 					//this.IsAttackable=this.ref_DiaUnit.IsAttackable;
 					bool stealthed = false;
 					//Special units who can stealth
-					if (IsStealthableUnit)
+					if (SnoProperties.IsStealthableUnit)
 						stealthed = (ref_DiaUnit.CommonData.GetAttribute<float>(ActorAttributeType.Stealthed) <= 0);
 
 					if (!stealthed)
@@ -1230,7 +1230,7 @@ namespace FunkyBot.Cache.Objects
 			}
 
 			//Attackable
-			if (MonsterShielding || (IsGrotesqueActor && CurrentHealthPct.HasValue && (CurrentHealthPct.Value < 1d || CurrentHealthPct.Value > 1d)))
+			if (MonsterShielding || (SnoProperties.IsGrotesqueActor && CurrentHealthPct.HasValue && (CurrentHealthPct.Value < 1d || CurrentHealthPct.Value > 1d)))
 			{
 				try
 				{
@@ -1439,15 +1439,15 @@ namespace FunkyBot.Cache.Objects
 			float fRangeRequired;
 
 			//Check if we should mod our distance:: used for worm bosses
-			if (IsWormBoss)
+			if (SnoProperties.IsWormBoss)
 				Bot.Character.Class.PowerPrime.MinimumRange = Bot.Character.Class.IsMeleeClass ? 14 : 16;
-			else if (IgnoresLOSCheck)
+			else if (SnoProperties.IgnoresLosCheck)
 				Bot.Character.Class.PowerPrime.MinimumRange = (int)(ActorSphereRadius.Value * 1.5);
 			else if (IsBurrowed.HasValue && IsBurrowed.Value && IsEliteRareUnique)//Force close range on burrowed elites!
 				Bot.Character.Class.PowerPrime.MinimumRange = 15;
-			else if (IsStealthableUnit && IsTargetable.HasValue && IsTargetable.Value == false && IsEliteRareUnique)
+			else if (SnoProperties.IsStealthableUnit && IsTargetable.HasValue && IsTargetable.Value == false && IsEliteRareUnique)
 				Bot.Character.Class.PowerPrime.MinimumRange = 15;
-			else if (IsTreasureGoblin && !Bot.Character.Class.IsMeleeClass && Bot.Settings.Class.GoblinMinimumRange > 0 && Bot.Character.Class.PowerPrime.MinimumRange > Bot.Settings.Class.GoblinMinimumRange)
+			else if (SnoProperties.IsTreasureGoblin && !Bot.Character.Class.IsMeleeClass && Bot.Settings.Class.GoblinMinimumRange > 0 && Bot.Character.Class.PowerPrime.MinimumRange > Bot.Settings.Class.GoblinMinimumRange)
 				Bot.Character.Class.PowerPrime.MinimumRange = Bot.Settings.Class.GoblinMinimumRange;
 			else if (MonsterMissileDampening && Bot.Settings.Targeting.MissleDampeningEnforceCloseRange)
 				Bot.Character.Class.PowerPrime.MinimumRange = 15;
@@ -1467,10 +1467,10 @@ namespace FunkyBot.Cache.Objects
 			{
 				if ((IsEliteRareUnique && !Bot.Settings.Targeting.IgnoreAboveAverageMobs) ||
 						   (PriorityCounter > 0) ||
-						   (IsBoss && !Bot.Settings.Targeting.IgnoreAboveAverageMobs && CurrentHealthPct.HasValue && CurrentHealthPct <= 0.99d) ||
-						   (((IsSucideBomber && Bot.Settings.Targeting.UnitExceptionSucideBombers) || IsCorruptantGrowth) && CentreDistance < 45f) ||
-						   (IsSpawnerUnit && Bot.Settings.Targeting.UnitExceptionSpawnerUnits) ||
-						   ((IsTreasureGoblin && Bot.Settings.Targeting.GoblinPriority > 1)) ||
+						   (SnoProperties.IsBoss && !Bot.Settings.Targeting.IgnoreAboveAverageMobs && CurrentHealthPct.HasValue && CurrentHealthPct <= 0.99d) ||
+						   (((SnoProperties.IsSucideBomber && Bot.Settings.Targeting.UnitExceptionSucideBombers) || SnoProperties.IsCorruptantGrowth) && CentreDistance < 45f) ||
+						   (SnoProperties.IsSpawnerUnit && Bot.Settings.Targeting.UnitExceptionSpawnerUnits) ||
+						   ((SnoProperties.IsTreasureGoblin && Bot.Settings.Targeting.GoblinPriority > 1)) ||
 						   (IsRanged && Bot.Settings.Targeting.UnitExceptionRangedUnits
 								&& (!IsEliteRareUnique || !Bot.Settings.Targeting.IgnoreAboveAverageMobs)) ||
 					//Low HP (25% or Less) & Is Not Considered Weak

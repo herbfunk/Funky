@@ -28,7 +28,7 @@ namespace FunkyBot.Cache.Objects
 			AcdGuid = acdguid;
 			radius_ = 0f;
 			position_ = position;
-			RequiresLOSCheck = !(base.IgnoresLOSCheck); //require a LOS check initally on a new object!
+			RequiresLOSCheck = !(base.SnoProperties.IgnoresLosCheck); //require a LOS check initally on a new object!
 			lineofsight = new LOSInfo(this);
 			LosSearchRetryMilliseconds_ = 1000;
 			PrioritizedDate = DateTime.Today;

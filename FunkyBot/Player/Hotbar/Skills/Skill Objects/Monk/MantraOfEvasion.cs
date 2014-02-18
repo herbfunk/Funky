@@ -24,7 +24,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				                      (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]>0||
 				                       Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=2||
 				                       (Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=1&&Bot.Settings.Class.bMonkInnaSet)||
-				                       (Bot.Targeting.CurrentUnitTarget.IsEliteRareUnique||Bot.Targeting.CurrentTarget.IsBoss)&&
+									   (Bot.Targeting.CurrentUnitTarget.IsEliteRareUnique || Bot.Targeting.CurrentTarget.SnoProperties.IsBoss) &&
 				                       Bot.Targeting.CurrentTarget.RadiusDistance<=25f)&&
 				                      // Check if either we don't have blinding flash, or we do and it's been cast in the last 6000ms
 				                      //DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Monk_BlindingFlash]).TotalMilliseconds <= 6000)) &&

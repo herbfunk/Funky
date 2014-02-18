@@ -23,7 +23,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated));
 				FcriteriaCombat=() => (
 					Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_20]>1||
-					(Bot.Targeting.CurrentTarget.IsBoss&&Bot.Targeting.CurrentTarget.RadiusDistance<=20)||
+					(Bot.Targeting.CurrentTarget.SnoProperties.IsBoss && Bot.Targeting.CurrentTarget.RadiusDistance <= 20) ||
 					(Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>2&&!Bot.Targeting.Environment.bAnyBossesInRange&&
 					 (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_50]==0||
 					  Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_SeismicSlam)))||

@@ -24,7 +24,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				                       Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25]>=1||
 				                       Bot.Targeting.CurrentTarget.RadiusDistance<=12f)&&
 				                      (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_Electrocute)||
-				                       !CacheIDLookup.hashActorSNOFastMobs.Contains(Bot.Targeting.CurrentTarget.SNOID))&&
+				                       !Bot.Targeting.CurrentUnitTarget.IsFast)&&
 				                      ((UsingCriticalMass()&&(!HasSignatureAbility()||Bot.Character.Data.dCurrentEnergy>=35))||
 				                       (!UsingCriticalMass()&&Bot.Character.Data.dCurrentEnergy>=35));
 		  }

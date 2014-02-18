@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Windows.Media;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Objects;
+using FunkyBot.Config;
 using FunkyBot.Settings;
 using System.Windows.Controls;
 using Zeta.Common;
@@ -34,6 +35,9 @@ namespace FunkyBot
 
 			try
 			{
+				var settingsForm = new SettingsForm();
+				settingsForm.ShowDialog();
+
 				funkyConfigWindow = new FunkyWindow();
 				funkyConfigWindow.Show();
 			}
@@ -356,13 +360,12 @@ namespace FunkyBot
 			{
 				try
 				{
-					LBDebug.Items.Add(DateTime.Now.Subtract(Bot.Game.GoldTimeoutChecker.LastCoinageUpdate).TotalMilliseconds.ToString());
-					LBDebug.Items.Add(Bot.Game.GoldTimeoutChecker.TimeoutTripped.ToString());
+					CacheUnitIDs.SerializeToXML(new CacheUnitIDs());
 
 				}
-				catch
+				catch(Exception ex)
 				{
-
+					Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
 				}
 			}
 			LBDebug.Items.Refresh();

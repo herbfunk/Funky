@@ -324,7 +324,7 @@ namespace FunkyBot.Targeting
 					// Note: The time since target picked updates every time the current target loses health, if it's a monster-target
 					if (!ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value, TargetType.AvoidanceMovements | TargetType.NoMovement | TargetType.LineOfSight | TargetType.Backtrack)
 						  && ((CurrentTarget.targetType.Value != TargetType.Unit && DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalSeconds > 12)
-						  || (CurrentTarget.targetType.Value == TargetType.Unit && !CurrentTarget.IsBoss && DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalSeconds > 40)))
+						  || (CurrentTarget.targetType.Value == TargetType.Unit && !CurrentTarget.SnoProperties.IsBoss && DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalSeconds > 40)))
 					{
 						// NOTE: This only blacklists if it's remained the PRIMARY TARGET that we are trying to actually directly attack!
 						// So it won't blacklist a monster "on the edge of the screen" who isn't even being targetted
@@ -333,7 +333,7 @@ namespace FunkyBot.Targeting
 						// PREVENT blacklisting a monster on less than 90% health unless we haven't damaged it for more than 2 minutes
 						if (CurrentTarget.targetType.Value == TargetType.Unit)
 						{
-							if (CurrentTarget.IsTreasureGoblin && Bot.Settings.Targeting.GoblinPriority >= 3) bBlacklistThis = false;
+							if (CurrentTarget.SnoProperties.IsTreasureGoblin && Bot.Settings.Targeting.GoblinPriority >= 3) bBlacklistThis = false;
 							if (DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalSeconds <= 120) bBlacklistThis = false;
 						}
 

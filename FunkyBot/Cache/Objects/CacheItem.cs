@@ -184,7 +184,7 @@ namespace FunkyBot.Cache.Objects
 						//Did we have a target last time? and if so was it a goblin?
 						if (Bot.Targeting.LastCachedTarget.RAGUID != -1 && Bot.Settings.Targeting.GoblinPriority > 1)
 						{
-							if (Bot.Targeting.LastCachedTarget.IsTreasureGoblin)
+							if (Bot.Targeting.LastCachedTarget.SnoProperties.IsTreasureGoblin)
 								Weight = 0;
 						}
 						break;
@@ -203,7 +203,7 @@ namespace FunkyBot.Cache.Objects
 						//Did we have a target last time? and if so was it a goblin?
 						if (Bot.Targeting.LastCachedTarget.RAGUID != -1)
 						{
-							if (CacheIDLookup.hashActorSNOGoblins.Contains(Bot.Targeting.LastCachedTarget.RAGUID))
+							if (Bot.Targeting.LastCachedTarget.SnoProperties.IsTreasureGoblin)
 								Weight = 0;
 						}
 						break;

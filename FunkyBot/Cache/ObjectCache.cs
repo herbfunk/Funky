@@ -20,6 +20,7 @@ namespace FunkyBot.Cache
 	public static class ObjectCache
 	{
 		internal static CacheObject FakeCacheObject;
+		internal static CacheUnitIDs SnoUnitPropertyCache;
 
 		///<summary>
 		///Cached Objects.
@@ -131,7 +132,7 @@ namespace FunkyBot.Cache
 
 					//Check if this object is a summoned unit by a player...
 					#region SummonedUnits
-					if (tmp_CachedObj.IsSummonedPet)
+					if (tmp_CachedObj.SnoProperties.IsSummonedPet)
 					{
 						// Get the summoned-by info, cached if possible
 						if (!tmp_CachedObj.SummonerID.HasValue)
@@ -211,7 +212,7 @@ namespace FunkyBot.Cache
 					if (!tmp_CachedObj.NeedsUpdate) continue;
 
 					//Obstacles -- (Not an actual object we add to targeting.)
-					if (CheckTargetTypeFlag(tmp_CachedObj.targetType.Value, TargetType.Avoidance) || tmp_CachedObj.IsObstacle || tmp_CachedObj.HandleAsAvoidanceObject)
+					if (CheckTargetTypeFlag(tmp_CachedObj.targetType.Value, TargetType.Avoidance) || tmp_CachedObj.SnoProperties.IsObstacle || tmp_CachedObj.HandleAsAvoidanceObject)
 					{
 						#region Obstacles
 
@@ -220,7 +221,7 @@ namespace FunkyBot.Cache
 						if (!Obstacles.TryGetValue(tmp_CachedObj.RAGUID, out thisObstacle))
 						{
 							AvoidanceType AvoidanceType = AvoidanceType.None;
-							if (tmp_CachedObj.IsAvoidance)
+							if (tmp_CachedObj.SnoProperties.IsAvoidance)
 							{
 								AvoidanceType = AvoidanceCache.FindAvoidanceUsingSNOID(tmp_CachedObj.SNOID);
 								if (AvoidanceType == AvoidanceType.None)
@@ -230,7 +231,7 @@ namespace FunkyBot.Cache
 								}
 							}
 
-							if (tmp_CachedObj.IsAvoidance && tmp_CachedObj.IsProjectileAvoidance)
+							if (tmp_CachedObj.SnoProperties.IsAvoidance && tmp_CachedObj.SnoProperties.IsProjectileAvoidance)
 							{//Ranged Projectiles require more than simple bounding points.. so we create it as avoidance zone to cache it with properties.
 								//Check for intersection..
 								try
@@ -255,7 +256,7 @@ namespace FunkyBot.Cache
 										Logger.Write(LogLevel.Cache, "Failed to create projectile avoidance with rotation and speed. {0}", tmp_CachedObj.InternalName);
 								}
 							}
-							else if (tmp_CachedObj.IsAvoidance)
+							else if (tmp_CachedObj.SnoProperties.IsAvoidance)
 							{
 								//Poison Gas Can Be Friendly...
 								if (AvoidanceType == AvoidanceType.PoisonGas)
@@ -413,6 +414,7 @@ namespace FunkyBot.Cache
 		internal static Dictionary<int, GizmoType?> dictGizmoType = new Dictionary<int, GizmoType?>();
 		internal static Dictionary<int, bool?> dictIsBarricade = new Dictionary<int, bool?>();
 		internal static Dictionary<int, double> dictProjectileSpeed = new Dictionary<int, double>();
+		internal static Dictionary<int,SNOProperties> dictSnoProperties=new Dictionary<int, SNOProperties>(); 
 		#endregion
 
 

@@ -33,11 +33,11 @@ namespace FunkyBot.Cache.Objects
 			get
 			{
 				if (targetType.Value == TargetType.Shrine)
-					return IsHealthWell ? Bot.Settings.Ranges.ShrineRange * 2 : Bot.Settings.Ranges.ShrineRange;
+					return SnoProperties.IsHealthWell ? Bot.Settings.Ranges.ShrineRange * 2 : Bot.Settings.Ranges.ShrineRange;
 
 				if (targetType.Value == TargetType.Container)
 				{
-					if (IsResplendantChest && Bot.Settings.Targeting.UseExtendedRangeRepChest)
+					if (SnoProperties.IsResplendantChest && Bot.Settings.Targeting.UseExtendedRangeRepChest)
 						return Bot.Settings.Ranges.ContainerOpenRange * 2;
 					else
 						return Bot.Settings.Ranges.ContainerOpenRange;
@@ -68,7 +68,7 @@ namespace FunkyBot.Cache.Objects
 					return false;
 				}
 
-				if (RequiresLOSCheck && !IgnoresLOSCheck)
+				if (RequiresLOSCheck && !SnoProperties.IgnoresLosCheck)
 				{
 					//Get the wait time since last used LOSTest
 					double lastLOSCheckMS = base.LineOfSight.LastLOSCheckMS;
@@ -76,7 +76,7 @@ namespace FunkyBot.Cache.Objects
 					//unless its in front of us.. we wait 500ms mandatory.
 					if (lastLOSCheckMS < 500 && centreDistance > 1f)
 					{
-						if (IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer)
+						if (SnoProperties.IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer)
 						{
 							//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 							//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
@@ -97,7 +97,7 @@ namespace FunkyBot.Cache.Objects
 
 						if (lastLOSCheckMS < ReCheckTime)
 						{
-							if (IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer)
+							if (SnoProperties.IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer)
 							{
 								//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 								//   Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
@@ -109,7 +109,7 @@ namespace FunkyBot.Cache.Objects
 
 					if (!base.LineOfSight.LOSTest(Bot.Character.Data.Position, true, false))
 					{
-						if (IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer)
+						if (SnoProperties.IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer)
 						{
 							//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 							//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
@@ -169,7 +169,7 @@ namespace FunkyBot.Cache.Objects
 
 
 						bool IgnoreThis = false;
-						if (IsHealthWell)
+						if (SnoProperties.IsHealthWell)
 						{
 							//Health wells..
 							if (Bot.Character.Data.dCurrentHealthPct > Bot.Settings.Combat.HealthWellHealthPercent)
@@ -204,14 +204,14 @@ namespace FunkyBot.Cache.Objects
 
 						//Vendor Run and DB Settings check
 						if (TownRunManager.bWantToTownRun
-							 || !IsChestContainer && !CharacterSettings.Instance.OpenLootContainers
-							 || IsChestContainer && !CharacterSettings.Instance.OpenChests)
+							 || !SnoProperties.IsChestContainer && !CharacterSettings.Instance.OpenLootContainers
+							 || SnoProperties.IsChestContainer && !CharacterSettings.Instance.OpenChests)
 						{
 							BlacklistLoops = 25;
 							return false;
 						}
 
-						if (IsCorpseContainer && Bot.Settings.Targeting.IgnoreCorpses)
+						if (SnoProperties.IsCorpseContainer && Bot.Settings.Targeting.IgnoreCorpses)
 						{
 							NeedsRemoved = true;
 							BlacklistFlag = BlacklistType.Permanent;
@@ -228,7 +228,7 @@ namespace FunkyBot.Cache.Objects
 
 
 						// Superlist for rare chests etc.
-						if (IsResplendantChest)
+						if (SnoProperties.IsResplendantChest)
 						{
 							//setup wait time. (Unlike Units, we blacklist right after we interact)
 							if (Bot.Targeting.LastCachedTarget == this)
@@ -239,7 +239,7 @@ namespace FunkyBot.Cache.Objects
 						}
 
 						// Bag it!
-						if (IsChestContainer)
+						if (SnoProperties.IsChestContainer)
 							Radius = 5.1f;
 						else
 							Radius = 4f;
@@ -282,7 +282,7 @@ namespace FunkyBot.Cache.Objects
 							Weight += 1000d;
 
 						// health pool
-						if (base.IsHealthWell)
+						if (base.SnoProperties.IsHealthWell)
 						{
 							if (Bot.Character.Data.dCurrentHealthPct > 0.75d)
 								Weight = 0;
@@ -330,7 +330,7 @@ namespace FunkyBot.Cache.Objects
 						{
 							Weight *= 0.5;
 						}
-						if (IsResplendantChest)
+						if (SnoProperties.IsResplendantChest)
 							Weight += 1500;
 
 						break;
@@ -450,7 +450,7 @@ namespace FunkyBot.Cache.Objects
 			get
 			{
 				//Rep Chests
-				return IsResplendantChest && Bot.Settings.Targeting.UseExtendedRangeRepChest;
+				return SnoProperties.IsResplendantChest && Bot.Settings.Targeting.UseExtendedRangeRepChest;
 			}
 		}
 	}
