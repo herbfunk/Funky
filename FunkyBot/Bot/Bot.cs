@@ -1,12 +1,9 @@
-﻿using FunkyBot.Cache.Objects;
-using FunkyBot.DBHandlers;
+﻿using FunkyBot.DBHandlers;
 using FunkyBot.Movement;
 using FunkyBot.Settings;
 using FunkyBot.Targeting;
 using FunkyBot.Player;
 using FunkyBot.Game;
-using Zeta.Common;
-using Zeta.CommonBot;
 
 
 namespace FunkyBot
@@ -54,7 +51,7 @@ namespace FunkyBot
 		//Recreate Bot Classes
 		public static void Reset()
 		{
-			Logging.Write("Funky Reseting Bot");
+			Logger.DBLog.InfoFormat("Funky Reseting Bot");
 			Character.Reset();
 			Targeting = new TargetingHandler();
 			NavigationCache = new Navigation();

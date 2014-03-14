@@ -1,6 +1,6 @@
 ﻿using FunkyBot.Cache.Objects;
 using FunkyBot.Player.Class;
-using Zeta.CommonBot;
+using Zeta.Bot;
 
 namespace FunkyBot.Player
 {

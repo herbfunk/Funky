@@ -4,10 +4,10 @@ using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.Conditions;
-using Zeta;
+using Zeta.Bot.Navigation;
 using Zeta.Common;
-using Zeta.Internals.Actors;
-using Zeta.Navigation;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
 
 namespace FunkyBot.Cache.Objects

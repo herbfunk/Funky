@@ -1,8 +1,8 @@
 ﻿using FunkyBot.Movement;
-using Zeta;
 using Zeta.Common;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
-using Zeta.Internals.Actors;
 
 
 namespace FunkyBot.DBHandlers
@@ -38,7 +38,7 @@ namespace FunkyBot.DBHandlers
 				{
 					if (portalObject.IsTownPortal)
 					{
-						Logging.Write("Found Townportal Object");
+						Logger.DBLog.InfoFormat("Found Townportal Object");
 						TownPortalObj = portalObject;
 						FoundTownPortal = true;
 						break;

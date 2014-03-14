@@ -3,7 +3,6 @@ using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Movement;
-using FunkyBot.Player.HotBar.Skills;
 using Zeta.Common;
 
 namespace FunkyBot.Targeting.Behaviors
@@ -61,7 +60,7 @@ namespace FunkyBot.Targeting.Behaviors
 				 {
 					 float distance = vAnySafePoint.Distance(Bot.Character.Data.Position);
 
-					 Logging.WriteDiagnostic("Avoid Movement found AT {0} with {1} Distance", vAnySafePoint.ToString(), distance);
+					 Logger.DBLog.DebugFormat("Avoid Movement found AT {0} with {1} Distance", vAnySafePoint.ToString(), distance);
 
 					 //setup avoidance target
 					 obj = new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "SafeAvoid", 2.5f, -1);

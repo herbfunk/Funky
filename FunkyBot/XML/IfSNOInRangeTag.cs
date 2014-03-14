@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
-using Zeta;
-using Zeta.CommonBot.Profile;
-using Zeta.CommonBot.Profile.Composites;
-using Zeta.Internals.Actors;
+using Zeta.Bot.Profile;
+using Zeta.Bot.Profile.Composites;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 

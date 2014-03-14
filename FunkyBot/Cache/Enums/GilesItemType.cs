@@ -52,6 +52,7 @@
 			Emerald,
 			Topaz,
 			Amethyst,
+			Diamond,
 			SpecialItem,
 			CraftingPlan,
 			HealthPotion,

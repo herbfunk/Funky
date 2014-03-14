@@ -1,8 +1,8 @@
 ﻿using System;
 using FunkyBot.Cache.Enums;
-using Zeta.Common;
-using Zeta.Internals.Actors;
-using Zeta.Internals.Actors.Gizmos;
+using Zeta.Game.Internals.Actors;
+using Zeta.Game.Internals.Actors.Gizmos;
+using Zeta.Game.Internals.SNO;
 
 namespace FunkyBot.Cache.Objects
 {
@@ -108,25 +108,25 @@ namespace FunkyBot.Cache.Objects
 			{
 				try
 				{
-					if (base.Gizmotype.Value == Zeta.Internals.SNO.GizmoType.Shrine)
+					if (base.Gizmotype.Value == GizmoType.PowerUp)
 					{
 						this.HandleAsObstacle = true;
 						GizmoShrine gizmoShrine = this.ref_Gizmo as GizmoShrine;
 						this.GizmoHasBeenUsed = gizmoShrine.GizmoState == 1;
 					}
-					else if (base.Gizmotype.Value == Zeta.Internals.SNO.GizmoType.Healthwell)
+					else if (base.Gizmotype.Value == GizmoType.HealingWell)
 					{
 						this.HandleAsObstacle = true;
 						GizmoHealthwell gizmoHealthWell = this.ref_Gizmo as GizmoHealthwell;
 						this.GizmoHasBeenUsed = gizmoHealthWell.HasBeenOperated;
 					}
-					else if (base.Gizmotype.Value == Zeta.Internals.SNO.GizmoType.Door)
+					else if (base.Gizmotype.Value == GizmoType.Door)
 					{
 						GizmoDoor gizmoDoor = this.ref_Gizmo as GizmoDoor;
 						this.GizmoHasBeenUsed = gizmoDoor.HasBeenOperated;
 						this.HandleAsObstacle = true;
 					}
-					else if (base.Gizmotype.Value == Zeta.Internals.SNO.GizmoType.LootContainer)
+					else if (base.Gizmotype.Value == GizmoType.Chest)
 					{
 						if (this.IsChestContainer)
 							this.HandleAsObstacle = true;
@@ -191,7 +191,8 @@ namespace FunkyBot.Cache.Objects
 			{
 				if (this.IsBarricade.HasValue && this.IsBarricade.Value && !this.targetType.Value.HasFlag(TargetType.Barricade))
 				{
-					Logging.WriteVerbose("Changing Gizmo {0} target type from {1} to Barricade!", this.InternalName, this.targetType.Value.ToString());
+				
+					//Logger.DBLog.InfoFormat("Changing Gizmo {0} target type from {1} to Barricade!", this.InternalName, this.targetType.Value.ToString());
 					//Change "barricade" attribute gizmos into barricade targeting!
 					this.targetType = TargetType.Barricade;
 				}

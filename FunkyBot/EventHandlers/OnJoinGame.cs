@@ -1,4 +1,5 @@
 ﻿using System;
+using Zeta.Bot.Settings;
 
 namespace FunkyBot
 {
@@ -13,7 +14,7 @@ namespace FunkyBot
 			Bot.Game.RefreshGameId();
 
 			if (Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings)
-				Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel = Funky.iDemonbuddyMonsterPowerLevel;
+				CharacterSettings.Instance.MonsterPowerLevel = Funky.iDemonbuddyMonsterPowerLevel;
 		}
 	}
 }

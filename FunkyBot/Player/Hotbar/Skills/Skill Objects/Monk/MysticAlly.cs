@@ -1,5 +1,5 @@
 ﻿using FunkyBot.Player.HotBar.Skills.Conditions;
-using Zeta.Internals.Actors;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Monk
 {
@@ -46,7 +46,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 
 		  public override SNOPower Power
 		  {
-				get { return SNOPower.Monk_MysticAlly; }
+				get { return SNOPower.X1_Monk_MysticAlly_v2; }
 		  }
 	 }
 }

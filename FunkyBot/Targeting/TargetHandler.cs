@@ -5,11 +5,11 @@ using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
-using Zeta;
+using Zeta.Bot;
+using Zeta.Bot.Logic;
 using Zeta.Common;
-using Zeta.CommonBot;
-using Zeta.CommonBot.Logic;
-using Zeta.Internals.Actors;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
 
 namespace FunkyBot.Targeting
@@ -341,7 +341,7 @@ namespace FunkyBot.Targeting
 						{
 							if (CurrentTarget.targetType.Value == TargetType.Unit)
 							{
-								//Logging.WriteDiagnostic("[Funky] Blacklisting a monster because of possible stuck issues. Monster="+ObjectData.InternalName+" {"+
+								//Logger.DBLog.DebugFormat("[Funky] Blacklisting a monster because of possible stuck issues. Monster="+ObjectData.InternalName+" {"+
 								//ObjectData.SNOID.ToString()+"}. Range="+ObjectData.CentreDistance.ToString()+", health %="+ObjectData.CurrentHealthPct.ToString());
 							}
 
@@ -605,7 +605,7 @@ namespace FunkyBot.Targeting
 					//Last position.. since we are interacting, we are within range.
 					//if (Navigation.NP.CurrentPath.Count <= 1)
 					//{
-					Logging.Write("Ending LOS Movement from Interaction");
+					Logger.DBLog.InfoFormat("Ending LOS Movement from Interaction");
 					Navigation.NP.Clear();
 					Bot.NavigationCache.LOSVector = Vector3.Zero;
 					Bot.NavigationCache.LOSmovementObject = null;

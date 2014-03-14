@@ -1,10 +1,10 @@
 ﻿using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
-using Zeta;
+using Zeta.Bot.Profile;
 using Zeta.Common;
-using Zeta.CommonBot.Profile;
-using Zeta.Internals.Actors;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 
@@ -44,7 +44,7 @@ namespace FunkyBot.XMLTags
 						ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, Vector3.Zero, 0, iACDGuid);
 					} catch
 					{
-						Logging.WriteDiagnostic("[Funky] There was a memory/DB failure trying to follow the TrinityInteract XML tag on SNO "+SNOID.ToString(CultureInfo.InvariantCulture));
+						Logger.DBLog.DebugFormat("[Funky] There was a memory/DB failure trying to follow the TrinityInteract XML tag on SNO "+SNOID.ToString(CultureInfo.InvariantCulture));
 					}
 				}
 				m_IsDone=true;

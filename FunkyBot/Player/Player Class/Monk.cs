@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Linq;
-using FunkyBot.Cache;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.Monk;
-using Zeta;
-using Zeta.Internals.Actors;
 using Zeta.Common;
 using System.Collections.Generic;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.Class
 {
@@ -22,7 +21,7 @@ namespace FunkyBot.Player.Class
 			int InnaSetItemCount = equippedItems.Count(i => i.ThisRealName.Contains("Inna"));
 			if (InnaSetItemCount > 3)
 			{
-				Logging.Write("Monk has full inna set!");
+				Logger.DBLog.InfoFormat("Monk has full inna set!");
 				Bot.Settings.Class.bMonkInnaSet = true;
 			}
 			else
@@ -32,13 +31,13 @@ namespace FunkyBot.Player.Class
 			//Combo Strike???
 			if (HotBar.PassivePowers.Contains(SNOPower.Monk_Passive_CombinationStrike))
 			{
-				Logging.Write("Combination Strike Found!");
+				Logger.DBLog.InfoFormat("Combination Strike Found!");
 				Bot.Settings.Class.bMonkComboStrike = true;
 				int TotalAbilities = HotBar.HotbarPowers.Count(power => SpiritGeneratingAbilities.Contains(power));
 				Bot.Settings.Class.iMonkComboStrikeAbilities = TotalAbilities;
 			}
 
-			Logging.WriteDiagnostic("[Funky] Using Monk Player Class");
+			Logger.DBLog.DebugFormat("[Funky] Using Monk Player Class");
 
 		}
 		public override ActorClass AC { get { return ActorClass.Monk; } }

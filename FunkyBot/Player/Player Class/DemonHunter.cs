@@ -1,10 +1,10 @@
 ﻿using System;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.DemonHunter;
-using Zeta;
-using Zeta.Internals.Actors;
 using Zeta.Common;
 using System.Collections.Generic;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.Class
 {
@@ -13,7 +13,7 @@ namespace FunkyBot.Player.Class
 	{
 		public DemonHunter()
 		{
-			Logging.WriteDiagnostic("[Funky] Using DemonHunter Player Class");
+			Logger.DBLog.DebugFormat("[Funky] Using DemonHunter Player Class");
 		}
 
 		//Base class for each individual class!

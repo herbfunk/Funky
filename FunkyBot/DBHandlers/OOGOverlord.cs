@@ -2,9 +2,10 @@
 using System.Globalization;
 using System.Linq;
 using FunkyBot.Settings;
-using Zeta;
-using Zeta.Common;
-using Zeta.Internals;
+using Zeta.Bot;
+using Zeta.Bot.Settings;
+using Zeta.Game;
+using Zeta.Game.Internals;
 using Zeta.TreeSharp;
 
 namespace FunkyBot.DBHandlers
@@ -25,7 +26,7 @@ namespace FunkyBot.DBHandlers
 			{
 				if (!Bot.Settings.Plugin.CreateMuleOnStashFull)
 				{
-					Zeta.CommonBot.BotMain.Stop(true, "Cannot stash anymore items!");
+					BotMain.Stop(true, "Cannot stash anymore items!");
 					return false;
 				}
 
@@ -44,7 +45,7 @@ namespace FunkyBot.DBHandlers
 				if (ZetaDia.Service.GameAccount.NumEmptyHeroSlots == 0)
 				{
 					Logger.Write(LogLevel.OutOfGame, "No Empty Hero Slots Remain, and our stash if full.. stopping the bot!");
-					Zeta.CommonBot.BotMain.Stop(true, "Cannot stash anymore items!");
+					BotMain.Stop(true, "Cannot stash anymore items!");
 				}
 				else
 					return true;
@@ -54,14 +55,14 @@ namespace FunkyBot.DBHandlers
 			if (Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings)
 			{
 				int overridePowerLevel = Bot.Settings.Demonbuddy.MonsterPower;
-				Logging.Write("[Funky] Overriding Monster Power Level to {0}", overridePowerLevel.ToString(CultureInfo.InvariantCulture));
-				Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel = overridePowerLevel;
+				Logger.DBLog.InfoFormat("[Funky] Overriding Monster Power Level to {0}", overridePowerLevel.ToString(CultureInfo.InvariantCulture));
+				CharacterSettings.Instance.MonsterPowerLevel = overridePowerLevel;
 			}
 
 			////Disconnect -- Starting Profile Setup.
 			//if (FunkyErrorClicker.FunkyErrorClicker.HadDisconnectError)
 			//{
-			//	 Logging.Write("[Funky] Disconnected Last Game.. Reloading Current Profile.");
+			//	 Logger.DBLog.InfoFormat("[Funky] Disconnected Last Game.. Reloading Current Profile.");
 			//	 //ReloadStartingProfile();
 			//	 ProfileManager.Load(Zeta.CommonBot.ProfileManager.CurrentProfile.Path);
 			//	 FunkyErrorClicker.FunkyErrorClicker.HadDisconnectError=false;
@@ -79,10 +80,10 @@ namespace FunkyBot.DBHandlers
 				{
 					Finished = false;
 					InitMuleBehavior = true;
-					NewMuleGame.BotHeroName = ZetaDia.Service.CurrentHero.Name;
+					NewMuleGame.BotHeroName = ZetaDia.Service.Hero.Name;
 					NewMuleGame.BotHeroIndex = 0;
-					NewMuleGame.LastProfile = Zeta.CommonBot.ProfileManager.CurrentProfile.Path;
-					NewMuleGame.LastHandicap = Zeta.CommonBot.Settings.CharacterSettings.Instance.MonsterPowerLevel;
+					NewMuleGame.LastProfile = ProfileManager.CurrentProfile.Path;
+					NewMuleGame.LastHandicap = CharacterSettings.Instance.MonsterPowerLevel;
 				}
 
 				if (!CreatedCharacter)
@@ -178,24 +179,24 @@ namespace FunkyBot.DBHandlers
 				}
 			}
 
-			private static UIElement SelectHeroType(Zeta.Internals.Actors.ActorClass type)
+			private static UIElement SelectHeroType(ActorClass type)
 			{
 				UIElement thisClassButton = null;
 				switch (type)
 				{
-					case Zeta.Internals.Actors.ActorClass.Barbarian:
+					case ActorClass.Barbarian:
 						thisClassButton = UIElement.FromHash(0x98976D3F43BBF74);
 						break;
-					case Zeta.Internals.Actors.ActorClass.DemonHunter:
+					case ActorClass.DemonHunter:
 						thisClassButton = UIElement.FromHash(0x98976D3F43BBF74);
 						break;
-					case Zeta.Internals.Actors.ActorClass.Monk:
+					case ActorClass.Monk:
 						thisClassButton = UIElement.FromHash(0x7733072C07DABF11);
 						break;
-					case Zeta.Internals.Actors.ActorClass.WitchDoctor:
+					case ActorClass.Witchdoctor:
 						thisClassButton = UIElement.FromHash(0x1A2DB1F47C26A8C2);
 						break;
-					case Zeta.Internals.Actors.ActorClass.Wizard:
+					case ActorClass.Wizard:
 						thisClassButton = UIElement.FromHash(0xBC3AA6A915972065);
 						break;
 				}
@@ -247,7 +248,7 @@ namespace FunkyBot.DBHandlers
 							SwitchHeroButton.Click();
 							SwitchHeroButton_ = null;
 						}
-						else if (ZetaDia.Service.CurrentHero.Name == NewCharacterName)
+						else if (ZetaDia.Service.Hero.Name == NewCharacterName)
 						{
 							//
 							Logger.Write(LogLevel.OutOfGame, "Successfully Created New Character");
@@ -262,7 +263,7 @@ namespace FunkyBot.DBHandlers
 					{
 						if (!SelectedClass)
 						{
-							UIElement thisClassButton = SelectHeroType(Zeta.Internals.Actors.ActorClass.DemonHunter);
+							UIElement thisClassButton = SelectHeroType(ActorClass.DemonHunter);
 							if (thisClassButton != null && thisClassButton.IsValid && thisClassButton.IsEnabled && thisClassButton.IsVisible)
 							{
 								thisClassButton.Click();
@@ -274,7 +275,7 @@ namespace FunkyBot.DBHandlers
 							if (NewCharacterName == null)
 								NewCharacterName = GenerateRandomText();
 
-							if (HeroNameText.TextObject.IsValid)
+							if (HeroNameText.IsValid)
 							{
 								Logger.Write(LogLevel.OutOfGame, "Valid TextObject for character name UI");
 							}
@@ -285,9 +286,9 @@ namespace FunkyBot.DBHandlers
 							}
 							else
 							{
-								if (HeroNameText.TextObject.Text != NewCharacterName)
+								if (HeroNameText.Text != NewCharacterName)
 								{
-									HeroNameText.SetText(NewCharacterName.Substring(0, HeroNameText.TextObject.TextLength + 1));
+									HeroNameText.SetText(NewCharacterName.Substring(0, HeroNameText.Text.Length + 1));
 								}
 								else if (CreateNewHeroButton != null && CreateNewHeroButton.IsVisible && CreateNewHeroButton.IsEnabled)
 								{
@@ -314,7 +315,7 @@ namespace FunkyBot.DBHandlers
 					 .Select(s => s[random.Next(s.Length)])
 					 .ToArray());
 
-				Logging.Write("Generated Name " + result);
+				Logger.DBLog.InfoFormat("Generated Name " + result);
 				return result;
 			}
 		}

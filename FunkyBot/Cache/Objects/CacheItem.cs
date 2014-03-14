@@ -3,12 +3,10 @@ using System.Diagnostics;
 using System.Linq;
 using FunkyBot.Cache.Enums;
 using FunkyBot.DBHandlers;
-using FunkyBot.Player;
-using Zeta;
+using Zeta.Bot.Logic;
 using Zeta.Common;
-using Zeta.CommonBot;
-using Zeta.CommonBot.Logic;
-using Zeta.Internals.Actors;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
 
 namespace FunkyBot.Cache.Objects
@@ -395,6 +393,7 @@ namespace FunkyBot.Cache.Objects
 				{
 					try
 					{
+						
 						DynamicID = ref_DiaObject.CommonData.DynamicId;
 					}
 					catch
@@ -493,7 +492,7 @@ namespace FunkyBot.Cache.Objects
 				#region PickupValidation
 				if (!ShouldPickup.HasValue)
 				{
-					//Logging.Write Dropped Items Here!!
+					//Logger.DBLog.InfoFormat Dropped Items Here!!
 					Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.DroppedItemLog(this);
 					Bot.Character.ItemPickupEval(this);
 					//if (Bot.Settings.ItemRules.UseItemRules)
@@ -583,7 +582,7 @@ namespace FunkyBot.Cache.Objects
 			// Force waiting for global cooldown timer or long-animation abilities
 			if (Bot.Character.Class.PowerPrime.WaitLoopsBefore >= 1)
 			{
-				//Logging.WriteDiagnostic("Debug: Force waiting BEFORE Ability " + powerPrime.powerThis.ToString() + "...");
+				//Logger.DBLog.DebugFormat("Debug: Force waiting BEFORE Ability " + powerPrime.powerThis.ToString() + "...");
 				Bot.Targeting.bWaitingForPower = true;
 				if (Bot.Character.Class.PowerPrime.WaitLoopsBefore >= 1)
 					Bot.Character.Class.PowerPrime.WaitLoopsBefore--;

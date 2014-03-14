@@ -5,6 +5,7 @@ using FunkyBot.Cache.Enums;
 using System.Collections.Generic;
 using FunkyBot.Cache.Objects;
 using Zeta.Common;
+using Zeta.Game.Internals.SNO;
 
 namespace FunkyBot.Movement
 {
@@ -152,7 +153,7 @@ namespace FunkyBot.Movement
 				//this.ThisWeight+=25-(RemainingPoints*PointMultiplier);
 
 
-				//Logging.WriteVerbose("Weight assigned to this sector {0}. \r\n"
+				//Logger.DBLog.InfoFormat("Weight assigned to this sector {0}. \r\n"
 				//+"Total Points {1} with {2} Remaining points Valid!", this.ThisWeight, this.ContainedPoints.Count, SectorPoints.Length);
 			}
 
@@ -278,7 +279,7 @@ namespace FunkyBot.Movement
 			}
 			if (flags.HasFlag(PointCheckingFlags.RaycastWalkable))
 			{
-				if (!Navigation.CanRayCast(botcurpos, pointVector, Zeta.Internals.SNO.NavCellFlags.AllowWalk)) return false;
+				if (!Navigation.CanRayCast(botcurpos, pointVector, NavCellFlags.AllowWalk)) return false;
 			}
 			if (flags.HasFlag(PointCheckingFlags.RaycastNavProvider))
 			{

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using FunkyBot.Movement;
-using Zeta;
+using Zeta.Bot.Navigation;
 using Zeta.Common;
-using Zeta.Internals;
-using Zeta.Navigation;
+using Zeta.Game;
+using Zeta.Game.Internals;
 using Zeta.TreeSharp;
 using Action = Zeta.TreeSharp.Action;
 
@@ -37,7 +37,7 @@ namespace FunkyBot.XMLTags
 			{
 				foreach (MiniMapMarker marker in KnownMarkers.Where(m => m.Equals(nearestMarker) && near.Distance2D(m.Position) <= pathPrecision))
 				{
-					//DbHelper.Logging.Write(TrinityLogLevel.Normal, LogCategory.ProfileTag, "Setting MiniMapMarker {0} as Visited, within PathPrecision {1:0}", marker.MarkerNameHash, pathPrecision);
+					//DbHelper.Logger.DBLog.InfoFormat(TrinityLogLevel.Normal, LogCategory.ProfileTag, "Setting MiniMapMarker {0} as Visited, within PathPrecision {1:0}", marker.MarkerNameHash, pathPrecision);
 					marker.Visited = true;
 					lastMoveResult = MoveResult.Moved;
 				}
@@ -47,7 +47,7 @@ namespace FunkyBot.XMLTags
 				{
 					foreach (MiniMapMarker marker in KnownMarkers.Where(m => m.Equals(nearestMarker)))
 					{
-						//DbHelper.Logging.Write(TrinityLogLevel.Normal, LogCategory.ProfileTag, "Setting MiniMapMarker {0} as Visited, MoveResult=ReachedDestination", marker.MarkerNameHash);
+						//DbHelper.Logger.DBLog.InfoFormat(TrinityLogLevel.Normal, LogCategory.ProfileTag, "Setting MiniMapMarker {0} as Visited, MoveResult=ReachedDestination", marker.MarkerNameHash);
 						marker.Visited = true;
 						lastMoveResult = MoveResult.Moved;
 					}
@@ -57,7 +57,7 @@ namespace FunkyBot.XMLTags
 				{
 					foreach (MiniMapMarker marker in KnownMarkers.Where(m => m.Equals(nearestMarker)))
 					{
-						//DbHelper.Logging.Write(TrinityLogLevel.Normal, LogCategory.ProfileTag, "Unable to navigate to marker, setting MiniMapMarker {0} at {1} as failed", marker.MarkerNameHash, marker.Position);
+						//DbHelper.Logger.DBLog.InfoFormat(TrinityLogLevel.Normal, LogCategory.ProfileTag, "Unable to navigate to marker, setting MiniMapMarker {0} at {1} as failed", marker.MarkerNameHash, marker.Position);
 						marker.Failed = true;
 						lastMoveResult = MoveResult.Moved;
 					}
@@ -100,7 +100,7 @@ namespace FunkyBot.XMLTags
 					Visited = false
 				};
 
-				//DbHelper.Logging.Write(TrinityLogLevel.Normal, LogCategory.ProfileTag, "Adding MiniMapMarker {0} at {1} to KnownMarkers", mmm.MarkerNameHash, mmm.Position);
+				//DbHelper.Logger.DBLog.InfoFormat(TrinityLogLevel.Normal, LogCategory.ProfileTag, "Adding MiniMapMarker {0} at {1} to KnownMarkers", mmm.MarkerNameHash, mmm.Position);
 
 				KnownMarkers.Add(mmm);
 			}
@@ -142,7 +142,7 @@ namespace FunkyBot.XMLTags
 
 			lastMoveResult = Navigator.MoveTo(GetNearestUnvisitedMarker(near).Position);
 
-			//DbHelper.Logging.Write(TrinityLogLevel.Normal, LogCategory.ProfileTag, "Moving to inspect nameHash {0} at {1} distance {2:0} mr: {3}",
+			//DbHelper.Logger.DBLog.InfoFormat(TrinityLogLevel.Normal, LogCategory.ProfileTag, "Moving to inspect nameHash {0} at {1} distance {2:0} mr: {3}",
 			//m.MarkerNameHash, m.Position, ZetaDia.Me.Position.Distance2D(m.Position), lastMoveResult);
 
 

@@ -1,5 +1,5 @@
 ﻿using FunkyBot.Player.HotBar.Skills.Conditions;
-using Zeta.Internals.Actors;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Wizard
 {
@@ -16,24 +16,12 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
 				                          AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckRecastTimer));
 
-				FcriteriaCombat=() => ((UsingCriticalMass()&&
-				                        ((!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_FrostNova)&&
-				                          !Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_ExplosiveBlast))||
-				                         (Bot.Character.Data.dCurrentHealthPct<=0.7&&
-				                          (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15]>0||
-				                           Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>0||
-				                           (Bot.Targeting.CurrentTarget.ObjectIsSpecial&&Bot.Targeting.CurrentTarget.RadiusDistance<=23f)))))
-					// Else normal wizard in which case check standard stuff
-				                       ||
-				                       (!UsingCriticalMass()&&Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15]>0||
+				FcriteriaCombat=() => (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15]>0||
 				                        Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>3||Bot.Character.Data.dCurrentHealthPct<=0.7||
-				                        (Bot.Targeting.CurrentTarget.ObjectIsSpecial&&Bot.Targeting.CurrentTarget.RadiusDistance<=23f)));
+				                        (Bot.Targeting.CurrentTarget.ObjectIsSpecial&&Bot.Targeting.CurrentTarget.RadiusDistance<=23f));
 		  }
 
-		  private bool UsingCriticalMass()
-		  {
-				return Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Wizard_Passive_CriticalMass); ;
-		  }
+
 
 		  #region IAbility
 

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Globalization;
-using Zeta;
 using System.Linq;
-using Zeta.Common;
 using System.Threading;
-using Zeta.CommonBot;
 using FunkyBot.XMLTags;
 using FunkyBot.Cache;
+using Zeta.Bot;
+using Zeta.Bot.Settings;
+using Zeta.Game;
 
 namespace FunkyBot
 {
@@ -46,9 +46,9 @@ namespace FunkyBot
 			{
 				if (Bot.Game.CurrentGameStats.TotalDeaths > TrinityMaxDeathsTag.MaxDeathsAllowed)
 				{
-					Logging.Write("[Funky] You have died too many times. Now restarting the game.");
+					Logger.DBLog.InfoFormat("[Funky] You have died too many times. Now restarting the game.");
 
-					string profile = Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
+					string profile = GlobalSettings.Instance.LastProfile;
 
 					if (Bot.Game.CurrentGameStats.Profiles.Count > 0)
 						profile = Bot.Game.CurrentGameStats.Profiles.First().ProfileName;
@@ -61,8 +61,8 @@ namespace FunkyBot
 				}
 				else
 				{
-					Logging.Write("[Funky] I'm sorry, but I seem to have let you die :( Now restarting the current profile.");
-					ProfileManager.Load(Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile);
+					Logger.DBLog.InfoFormat("[Funky] I'm sorry, but I seem to have let you die :( Now restarting the current profile.");
+					ProfileManager.Load(GlobalSettings.Instance.LastProfile);
 					Thread.Sleep(3500);
 				}
 			}

@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Globalization;
-using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
-using Zeta;
+using Zeta.Bot;
+using Zeta.Bot.Navigation;
+using Zeta.Bot.Settings;
 using Zeta.Common;
+using Zeta.Game;
+using Zeta.Game.Internals;
+using Zeta.Game.Internals.Actors;
+using Zeta.Game.Internals.Actors.Gizmos;
 using Zeta.TreeSharp;
-using Zeta.Navigation;
-using Zeta.Internals.Actors;
-using Zeta.CommonBot;
 using System.Linq;
-using Zeta.Internals;
-using Zeta.Internals.Actors.Gizmos;
 using FunkyBot.Player;
 
 namespace FunkyBot.DBHandlers
@@ -47,7 +47,7 @@ namespace FunkyBot.DBHandlers
 					}
 					else
 					{
-						Logging.Write("GSError: Diablo 3 memory read error, or item became invalid [StashOver-1]");
+						Logger.DBLog.InfoFormat("GSError: Diablo 3 memory read error, or item became invalid [StashOver-1]");
 					}
 				}
 			}
@@ -59,7 +59,7 @@ namespace FunkyBot.DBHandlers
 		{
 			if (ZetaDia.Actors.Me == null)
 			{
-				Logging.WriteDiagnostic("GSError: Diablo 3 memory read error, or item became invalid [CoreStash-1]");
+				Logger.DBLog.DebugFormat("GSError: Diablo 3 memory read error, or item became invalid [CoreStash-1]");
 				return RunStatus.Failure;
 			}
 			Vector3 vectorPlayerPosition = ZetaDia.Me.Position;
@@ -125,7 +125,7 @@ namespace FunkyBot.DBHandlers
 					for (int iColumn = 0; iColumn <= 6; iColumn++)
 						GilesStashSlotBlocked[iColumn, iRow] = false;
 				// Block off the entire of any "protected stash pages"
-				foreach (int iProtPage in Zeta.CommonBot.Settings.CharacterSettings.Instance.ProtectedStashPages)
+				foreach (int iProtPage in CharacterSettings.Instance.ProtectedStashPages)
 					for (int iProtRow = 0; iProtRow <= 9; iProtRow++)
 						for (int iProtColumn = 0; iProtColumn <= 6; iProtColumn++)
 							GilesStashSlotBlocked[iProtColumn, iProtRow + (iProtPage * 10)] = true;
@@ -150,7 +150,7 @@ namespace FunkyBot.DBHandlers
 						}
 						else if (Backpack.DetermineIsTwoSlot(tempItemType) && (inventoryRow == 19 || inventoryRow == 9 || inventoryRow == 29))
 						{
-							Logging.WriteDiagnostic("GSError: DemonBuddy thinks this item is 2 slot even though it's at bottom row of a stash page: " + tempitem.Name + " [" + tempitem.InternalName +
+							Logger.DBLog.DebugFormat("GSError: DemonBuddy thinks this item is 2 slot even though it's at bottom row of a stash page: " + tempitem.Name + " [" + tempitem.InternalName +
 								  "] type=" + tempItemType.ToString() + " @ slot " + (inventoryRow + 1).ToString(CultureInfo.InvariantCulture) + "/" +
 								  (inventoryColumn + 1).ToString(CultureInfo.InvariantCulture));
 						}
@@ -173,7 +173,7 @@ namespace FunkyBot.DBHandlers
 					bool bDidStashSucceed = GilesStashAttempt(thisitem, out LastStashPoint, out LastStashPage);
 					if (!bDidStashSucceed)
 					{
-						Logging.WriteDiagnostic("There was an unknown error stashing an item.");
+						Logger.DBLog.DebugFormat("There was an unknown error stashing an item.");
 						if (OutOfGame.MuleBehavior)
 							return RunStatus.Success;
 					}
@@ -188,7 +188,7 @@ namespace FunkyBot.DBHandlers
 						//Herbfunk: Current Game Stats
 						Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.StashedItemLog(thisitem);
 
-						ZetaDia.Me.Inventory.MoveItem(thisitem.ThisDynamicID, ZetaDia.Me.CommonData.DynamicId, InventorySlot.PlayerSharedStash, LastStashPoint[0], LastStashPoint[1]);
+						ZetaDia.Me.Inventory.MoveItem(thisitem.ThisDynamicID, ZetaDia.Me.CommonData.DynamicId, InventorySlot.SharedStash, LastStashPoint[0], LastStashPoint[1]);
 						LastStashPoint = new[] { -1, -1 };
 						LastStashPage = -1;
 
@@ -212,7 +212,7 @@ namespace FunkyBot.DBHandlers
 		{
 			if (Bot.Settings.Debug.DebugStatusBar)
 				BotMain.StatusText = "Town run: Unid Item Stash routine started";
-			Logging.WriteDiagnostic("GSDebug: Unid Stash routine started.");
+			Logger.DBLog.DebugFormat("GSDebug: Unid Stash routine started.");
 			bLoggedAnythingThisStash = false;
 			bUpdatedStashMap = false;
 			iCurrentItemLoops = 0;
@@ -226,7 +226,7 @@ namespace FunkyBot.DBHandlers
 		// **********************************************************************************************
 		internal static RunStatus UnidStashOptimisedPostStash(object ret)
 		{
-			Logging.WriteDiagnostic("GSDebug: Unid Stash routine ending sequence...");
+			Logger.DBLog.DebugFormat("GSDebug: Unid Stash routine ending sequence...");
 			// See if there's any legendary items we should send Prowl notifications about
 			while (Funky.pushQueue.Count > 0) { Funky.SendNotification(Funky.pushQueue.Dequeue()); }
 			/*
@@ -242,7 +242,7 @@ namespace FunkyBot.DBHandlers
 				   }
 				   catch (IOException)
 				   {
-						Logging.Write("Fatal Error: File access error for signing off the stash log file.");
+						Logger.DBLog.InfoFormat("Fatal Error: File access error for signing off the stash log file.");
 						if (LogStream != null)
 							 LogStream.Close();
 				   }
@@ -252,7 +252,7 @@ namespace FunkyBot.DBHandlers
 			Bot.Character.Data.lastPreformedNonCombatAction = DateTime.Now;
 
 
-			Logging.WriteDiagnostic("GSDebug: Unid Stash routine finished.");
+			Logger.DBLog.DebugFormat("GSDebug: Unid Stash routine finished.");
 			return RunStatus.Success;
 		}
 	}

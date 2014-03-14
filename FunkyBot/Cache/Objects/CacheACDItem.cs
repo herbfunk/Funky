@@ -1,5 +1,5 @@
-﻿using Zeta.Internals;
-using Zeta.Internals.Actors;
+﻿using Zeta.Game.Internals;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Cache.Objects
 {

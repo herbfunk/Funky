@@ -1,5 +1,5 @@
 ﻿using FunkyBot.Player.HotBar.Skills.Conditions;
-using Zeta.Internals.Actors;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Wizard
 {
@@ -11,7 +11,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				ExecutionType=AbilityExecuteFlags.Target;
 				WaitVars=new WaitLoops(0, 0, true);
 				Cost=20;
-				Range=UsingCriticalMass()?20:35;
+				Range=35;
 				IsRanged=true;
 				IsProjectile=true;
 				UseageType=AbilityUseage.Combat;
@@ -19,10 +19,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy));
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
 		  }
-		  private bool UsingCriticalMass()
-		  {
-				return Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Wizard_Passive_CriticalMass); ;
-		  }
+
 
 		  #region IAbility
 

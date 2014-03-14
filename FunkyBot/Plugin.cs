@@ -5,13 +5,13 @@ using Demonbuddy;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
+using Zeta.Bot;
+using Zeta.Bot.Logic;
+using Zeta.Bot.Navigation;
+using Zeta.Bot.Settings;
 using Zeta.Common;
 using System.Windows;
 using System.Windows.Controls;
-using Zeta.CommonBot.Logic;
-using Zeta.CommonBot.Settings;
-using Zeta.Navigation;
-using Zeta.CommonBot;
 using Zeta.Common.Plugins;
 using System.IO;
 using System.Diagnostics;
@@ -62,7 +62,7 @@ namespace FunkyBot
 					FunkyButton = grid.FindName("Funky") as SplitButton;
 					if (FunkyButton != null)
 					{
-						Logging.WriteDiagnostic("Funky Button handler added");
+						Logger.DBLog.DebugFormat("Funky Button handler added");
 					}
 					else
 					{
@@ -84,7 +84,7 @@ namespace FunkyBot
 				}
 				catch
 				{
-					Logging.Write("Could not find Funky Button! Safely handled exception.");
+					Logger.DBLog.InfoFormat("Could not find Funky Button! Safely handled exception.");
 					initFunkyButton = false;
 				}
 				#endregion
@@ -108,7 +108,7 @@ namespace FunkyBot
 
 				FunkyButton = null;
 				FolderPaths.sDemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-				Logging.WriteDiagnostic("Reloading combat routine..");
+				Logger.DBLog.DebugFormat("Reloading combat routine..");
 
 				//Create Folder
 				if (!Directory.Exists(sRoutinePath))
@@ -123,7 +123,7 @@ namespace FunkyBot
 				//Zeta.Common.Compiler.CodeCompiler FunkyRoutineCode=new Zeta.Common.Compiler.CodeCompiler(sRoutinePath);
 				//FunkyRoutineCode.ParseFilesForCompilerOptions();
 				//FunkyRoutineCode.Compile();
-				//Logging.WriteDiagnostic(FunkyRoutineCode.CompiledToLocation);
+				//Logger.DBLog.DebugFormat(FunkyRoutineCode.CompiledToLocation);
 
 				//Reload Routines
 				RoutineManager.Reload();
@@ -137,7 +137,7 @@ namespace FunkyBot
 				bool funkyRoutine = RoutineManager.Routines.Any(r => r.Name == "Funky");
 				if (funkyRoutine)
 				{
-					Logging.WriteDiagnostic("Setting Combat Routine to Funky");
+					Logger.DBLog.DebugFormat("Setting Combat Routine to Funky");
 					RoutineManager.Current = RoutineManager.Routines.First(r => r.Name == "Funky");
 
 					#region FunkyButtonHandlerHook
@@ -149,9 +149,9 @@ namespace FunkyBot
 					}
 					catch (Exception ex)
 					{
-						Logging.Write("Could not find Funky Button! Safely handled exception.");
+						Logger.DBLog.InfoFormat("Could not find Funky Button! Safely handled exception.");
 						initFunkyButton = false;
-						Logging.WriteVerbose(ex.Message + "\r\n" + ex.StackTrace + "\r\n" + ex.Source);
+						Logger.DBLog.InfoFormat(ex.Message + "\r\n" + ex.StackTrace + "\r\n" + ex.Source);
 					}
 					#endregion
 
@@ -159,7 +159,7 @@ namespace FunkyBot
 				else
 				{
 					//Failed to find the routine..
-					Logging.Write("Failure to set Funky Routine because Routines cannot be reloaded again! Closing Demonbuddy...");
+					Logger.DBLog.InfoFormat("Failure to set Funky Routine because Routines cannot be reloaded again! Closing Demonbuddy...");
 					Process.GetCurrentProcess().CloseMainWindow();
 					return;
 				}
@@ -169,7 +169,7 @@ namespace FunkyBot
 
 			if (initFunkyButton && FunkyButton != null)
 			{
-				Logging.WriteDiagnostic("Funky Split Button Click Handler Added");
+				Logger.DBLog.DebugFormat("Funky Split Button Click Handler Added");
 				FunkyButton.Click += FunkyWindow.buttonFunkySettingDB_Click;
 			}
 
@@ -178,9 +178,8 @@ namespace FunkyBot
 			
 			//Update Account Details..
 			Bot.Character.Account.UpdateCurrentAccountDetails();
-
-			Logger.DBLogFile = Logging.LogFilePath;
-			Logger.Write(LogLevel.User, "Init Logger Completed! DB Logging.Write Path Set {0}", Logger.DBLogFile);
+			Logger.DBLogFile = "0000 " + DateTime.Today.ToShortTimeString() + " 00.00";
+			Logger.Write(LogLevel.User, "Init Logger Completed! DB Logger.DBLog.InfoFormat Path Set {0}", Logger.DBLogFile);
 		}
 
 		public void OnPulse()
@@ -196,7 +195,7 @@ namespace FunkyBot
 			catch (Exception ex)
 			{
 
-				Logging.Write("failure to clean logs! __ " + ex.Message + "\r" +
+				Logger.DBLog.InfoFormat("failure to clean logs! __ " + ex.Message + "\r" +
 					   ex.StackTrace);
 			}
 
@@ -205,9 +204,9 @@ namespace FunkyBot
 
 			if (!Directory.Exists(FolderPaths.sTrinityPluginPath))
 			{
-				Logging.Write("Fatal Error - cannot enable plugin. Invalid path: " + FolderPaths.sTrinityPluginPath);
-				Logging.Write("Please check you have installed the plugin to the correct location, and then restart DemonBuddy and re-enable the plugin.");
-				Logging.Write(@"Plugin should be installed to \<DemonBuddyFolder>\Plugins\FunkyBot\");
+				Logger.DBLog.InfoFormat("Fatal Error - cannot enable plugin. Invalid path: " + FolderPaths.sTrinityPluginPath);
+				Logger.DBLog.InfoFormat("Please check you have installed the plugin to the correct location, and then restart DemonBuddy and re-enable the plugin.");
+				Logger.DBLog.InfoFormat(@"Plugin should be installed to \<DemonBuddyFolder>\Plugins\FunkyBot\");
 			}
 			else
 			{
@@ -224,14 +223,14 @@ namespace FunkyBot
 				FileInfo PluginInfo = new FileInfo(FolderPaths.sDemonBuddyPath + @"\Plugins\FunkyBot\");
 				//
 				string CompileDateString = PluginInfo.LastWriteTime.ToString("MM/dd hh:mm:ss tt", CultureInfo.InvariantCulture);
-				Logging.Write("************************************");
-				Logging.Write("ENABLED: Funky Bot Plugin");
-				Logging.Write(" -- Version -- " + Version);
-				Logging.Write("\tModified: " + CompileDateString);
-				Logging.Write("************************************");
+				Logger.DBLog.InfoFormat("************************************");
+				Logger.DBLog.InfoFormat("ENABLED: Funky Bot Plugin");
+				Logger.DBLog.InfoFormat(" -- Version -- " + Version);
+				Logger.DBLog.InfoFormat("\tModified: " + CompileDateString);
+				Logger.DBLog.InfoFormat("************************************");
 
 				//string profile=Zeta.CommonBot.ProfileManager.CurrentProfile!=null?Zeta.CommonBot.ProfileManager.CurrentProfile.Name:Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
-				//Logging.Write("Loaded Profile "+profile);
+				//Logger.DBLog.InfoFormat("Loaded Profile "+profile);
 
 				CheckUpdate();
 
@@ -254,7 +253,7 @@ namespace FunkyBot
 				}
 				catch (Exception ex)
 				{
-					Logging.WriteVerbose("Failure to initilize Funky Setting Window! \r\n {0} \r\n {1} \r\n {2}", ex.Message, ex.Source, ex.StackTrace);
+					Logger.DBLog.InfoFormat("Failure to initilize Funky Setting Window! \r\n {0} \r\n {1} \r\n {2}", ex.Message, ex.Source, ex.StackTrace);
 				}
 
 				return FunkyWindow.funkyConfigWindow;
@@ -263,7 +262,7 @@ namespace FunkyBot
 		public void OnDisabled()
 		{
 			bPluginEnabled = false;
-			Logging.Write("DISABLED: FunkyPlugin has shut down...");
+			Logger.DBLog.InfoFormat("DISABLED: FunkyPlugin has shut down...");
 		}
 
 		public void OnShutdown()
@@ -290,7 +289,7 @@ namespace FunkyBot
 				{
 					if (item.Name.Contains("Funky"))
 					{
-						Logging.WriteDiagnostic("Funky Split Button Click Handler Removed");
+						Logger.DBLog.DebugFormat("Funky Split Button Click Handler Removed");
 						item.Click -= FunkyWindow.buttonFunkySettingDB_Click;
 						break;
 					}

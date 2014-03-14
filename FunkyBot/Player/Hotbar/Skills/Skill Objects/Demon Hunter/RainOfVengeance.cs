@@ -1,6 +1,6 @@
 ﻿using System;
 using FunkyBot.Player.HotBar.Skills.Conditions;
-using Zeta.Internals.Actors;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 {

@@ -1,15 +1,15 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using Zeta;
-using Zeta.CommonBot.Settings;
-using Zeta.Internals;
-using Zeta.Navigation;
+using Zeta.Bot;
+using Zeta.Bot.Navigation;
+using Zeta.Bot.Settings;
+using Zeta.Game;
+using Zeta.Game.Internals;
+using Zeta.Game.Internals.Actors;
+using Zeta.Game.Internals.Actors.Gizmos;
 using Zeta.TreeSharp;
-using Zeta.CommonBot;
-using Zeta.Internals.Actors.Gizmos;
 using Zeta.Common;
-using Zeta.Internals.Actors;
 using System.Collections.Generic;
 
 namespace FunkyBot.DBHandlers
@@ -75,7 +75,7 @@ namespace FunkyBot.DBHandlers
 				}
 				else
 				{
-					Logging.Write("Failed to find stash.. Moving To Stash Vector");
+					Logger.DBLog.InfoFormat("Failed to find stash.. Moving To Stash Vector");
 					Navigator.MoveTo(StashV3, "Stash");
 				}
 			}
@@ -170,7 +170,7 @@ namespace FunkyBot.DBHandlers
 					ZetaDia.Service.Party.LeaveGame(true);
 					RandomizeWaitTime(true);
 				}
-				else if (ZetaDia.Service.CurrentHero.Name != BotHeroName)
+				else if (ZetaDia.Service.Hero.Name != BotHeroName)
 				{
 					ZetaDia.Service.GameAccount.SwitchHero(BotHeroIndex);
 					RandomizeWaitTime(true);

@@ -1,6 +1,5 @@
-﻿using Zeta;
-using Zeta.Common;
-using Zeta.Internals;
+﻿using Zeta.Game;
+using Zeta.Game.Internals;
 using Zeta.TreeSharp;
 namespace FunkyBot
 {
@@ -16,7 +15,7 @@ namespace FunkyBot
 			}
 			catch
 			{
-				Logging.Write("Revive Button Exception Handled");
+				Logger.DBLog.InfoFormat("Revive Button Exception Handled");
 			}
 
 			if (ReviveAtLastCheckpointButton != null)
@@ -24,7 +23,7 @@ namespace FunkyBot
 				//TODO:: Add Safety Exit-Game for Broken Equipped Items 
 				if (UIElements.ReviveAtLastCheckpointButton.IsVisible && UIElements.ReviveAtLastCheckpointButton.IsEnabled)
 				{
-					Logging.Write("Clicking Revive Button!");
+					Logger.DBLog.InfoFormat("Clicking Revive Button!");
 					UIElements.ReviveAtLastCheckpointButton.Click();
 					WaitingForRevive = true;
 					Bot.Character.Data.OnHealthChanged += OnHealthChanged;

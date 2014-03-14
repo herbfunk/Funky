@@ -3,11 +3,12 @@ using FunkyBot.Cache.Objects;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
-using Zeta;
+using Zeta.Bot.Navigation;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
+using Zeta.Game.Internals.SNO;
 using Zeta.TreeSharp;
 using Zeta.Common;
-using Zeta.Internals.SNO;
-using Zeta.Internals.Actors;
 
 namespace FunkyBot.Movement
 {
@@ -129,7 +130,7 @@ namespace FunkyBot.Movement
 						//Are we stuck?
 						if (!Navigation.MGP.CanStandAt(Bot.Character.Data.Position))
 						{
-							Logging.Write("Character is stuck inside non-standable location.. attempting townportal cast..");
+							Logger.DBLog.InfoFormat("Character is stuck inside non-standable location.. attempting townportal cast..");
 							ZetaDia.Me.UseTownPortal();
 							NonMovementCounter = 0;
 							return RunStatus.Running;
@@ -212,11 +213,11 @@ namespace FunkyBot.Movement
 							{
 								//Finally try raycasting to see if navigation is possible..
 								if (obj.Actortype.HasValue &&
-									 (obj.Actortype.Value == ActorType.Gizmo || obj.Actortype.Value == ActorType.Unit))
+									 (obj.Actortype.Value == ActorType.Gizmo || obj.Actortype.Value == ActorType.Monster))
 								{
 									Vector3 hitTest;
 									// No raycast available, try and force-ignore this for a little while, and blacklist for a few seconds
-									if (Zeta.Navigation.Navigator.Raycast(Bot.Character.Data.Position, obj.Position, out hitTest))
+									if (Navigator.Raycast(Bot.Character.Data.Position, obj.Position, out hitTest))
 									{
 										if (hitTest != Vector3.Zero)
 										{

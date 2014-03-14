@@ -7,12 +7,11 @@ using System.Windows.Forms;
 using System.Windows.Media;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Objects;
-using FunkyBot.Config;
 using FunkyBot.Settings;
 using System.Windows.Controls;
+using Zeta.Bot;
 using Zeta.Common;
-using Zeta.CommonBot;
-using Zeta.Internals.Actors;
+using Zeta.Game.Internals.Actors;
 using Button = System.Windows.Controls.Button;
 using CheckBox = System.Windows.Controls.CheckBox;
 using MessageBox = System.Windows.MessageBox;
@@ -43,7 +42,7 @@ namespace FunkyBot
 			}
 			catch (Exception ex)
 			{
-				Logging.WriteVerbose("Failure to initilize Funky Setting Window! \r\n {0} \r\n {1} \r\n {2}", ex.Message, ex.Source, ex.StackTrace);
+				Logger.DBLog.InfoFormat("Failure to initilize Funky Setting Window! \r\n {0} \r\n {1} \r\n {2}", ex.Message, ex.Source, ex.StackTrace);
 			}
 		}
 
@@ -68,7 +67,7 @@ namespace FunkyBot
 			if (confirm == MessageBoxResult.Yes)
 			{
 				string DefaultLeveling = Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults", "LowLevel.xml");
-				Logging.Write("Creating new settings for {0} -- {1} using file {2}", Bot.Character.Account.CurrentAccountName, Bot.Character.Account.CurrentHeroName, DefaultLeveling);
+				Logger.DBLog.InfoFormat("Creating new settings for {0} -- {1} using file {2}", Bot.Character.Account.CurrentAccountName, Bot.Character.Account.CurrentHeroName, DefaultLeveling);
 				Settings_Funky newSettings = Settings_Funky.DeserializeFromXML(DefaultLeveling);
 				Bot.Settings = newSettings;
 				funkyConfigWindow.Close();
@@ -92,7 +91,7 @@ namespace FunkyBot
 					MessageBoxResult confirm = MessageBox.Show(funkyConfigWindow, "Are you sure you want to overwrite settings with selected profile?", "Confirm Overwrite", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
 					if (confirm == MessageBoxResult.Yes)
 					{
-						Logging.Write("Creating new settings for {0} -- {1} using file {2}", Bot.Character.Account.CurrentAccountName, Bot.Character.Account.CurrentHeroName, OFD.FileName);
+						Logger.DBLog.InfoFormat("Creating new settings for {0} -- {1} using file {2}", Bot.Character.Account.CurrentAccountName, Bot.Character.Account.CurrentHeroName, OFD.FileName);
 						Settings_Funky newSettings = Settings_Funky.DeserializeFromXML(OFD.FileName);
 						Bot.Settings = newSettings;
 						funkyConfigWindow.Close();
@@ -190,7 +189,7 @@ namespace FunkyBot
 
 				#endregion
 
-				Logging.WriteVerbose("Dumping Object Cache");
+				Logger.DBLog.InfoFormat("Dumping Object Cache");
 
 				OutPut += "\r\n";
 				try
@@ -222,14 +221,14 @@ namespace FunkyBot
 					return;
 				}
 
-				Logging.WriteDiagnostic(OutPut);
+				Logger.DBLog.DebugFormat(OutPut);
 
 			}
 			else if (btnsender.Name == "Obstacles")
 			{
 				LBDebug.Items.Add(ObjectCache.Obstacles.DumpDebugInfo());
-
-				Logging.WriteVerbose("Dumping Obstacle Cache");
+				
+				Logger.DBLog.InfoFormat("Dumping Obstacle Cache");
 
 				try
 				{
@@ -251,7 +250,7 @@ namespace FunkyBot
 
 				LBDebug.Items.Add(ObjectCache.cacheSnoCollection.DumpDebugInfo());
 
-				Logging.WriteVerbose("Dumping SNO Cache");
+				Logger.DBLog.InfoFormat("Dumping SNO Cache");
 				try
 				{
 					foreach (var item in ObjectCache.cacheSnoCollection)
@@ -270,21 +269,21 @@ namespace FunkyBot
 			{
 				try
 				{
-					Logging.WriteVerbose("Dumping Character Cache");
+					Logger.DBLog.InfoFormat("Dumping Character Cache");
 
 					LBDebug.Items.Add(Bot.Character.Data.DebugString());
 
 				}
 				catch (Exception ex)
 				{
-					Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
+					Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
 				}
 			}
 			else if (btnsender.Name == "TargetMove")
 			{
 				try
 				{
-					Logging.Write("TargetMovement: BlockedCounter{0} -- NonMovementCounter{1}", Bot.Targeting.TargetMover.BlockedMovementCounter, Bot.Targeting.TargetMover.NonMovementCounter);
+					Logger.DBLog.InfoFormat("TargetMovement: BlockedCounter{0} -- NonMovementCounter{1}", Bot.Targeting.TargetMover.BlockedMovementCounter, Bot.Targeting.TargetMover.NonMovementCounter);
 				}
 				catch
 				{
@@ -317,7 +316,7 @@ namespace FunkyBot
 						}
 						catch (Exception ex)
 						{
-							Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
+							Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
 						}
 					}
 
@@ -330,7 +329,7 @@ namespace FunkyBot
 						}
 						catch (Exception ex)
 						{
-							Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
+							Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
 						}
 					}
 
@@ -345,14 +344,14 @@ namespace FunkyBot
 						}
 						catch (Exception ex)
 						{
-							Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
+							Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
 						}
 					}
 
 				}
 				catch (Exception ex)
 				{
-					Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
+					Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
 				}
 
 			}
@@ -360,12 +359,17 @@ namespace FunkyBot
 			{
 				try
 				{
-					CacheUnitIDs.SerializeToXML(new CacheUnitIDs());
+					foreach (var item in Bot.Character.Data.BackPack.ReturnCurrentBackpackItems())
+					{
+						string s = String.Format("{0} -- ACD: {1} -- Level: {2} -- DbType: {3}", 
+							item.ThisInternalName, item.ACDGUID, item.ThisLevel, item.ThisDBItemType);
+						LBDebug.Items.Add(s);
+					}
 
 				}
 				catch(Exception ex)
 				{
-					Logging.WriteVerbose("Safely Handled Exception {0}", ex.Message);
+					Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
 				}
 			}
 			LBDebug.Items.Refresh();

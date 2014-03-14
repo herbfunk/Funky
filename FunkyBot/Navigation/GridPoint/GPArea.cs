@@ -93,7 +93,7 @@ namespace FunkyBot.Movement
 				//If still failed to find a safe spot.. set the timer before we try again.
 				if (safespot == Vector3.Zero)
 				{
-					Logging.WriteVerbose("All GPCs failed to find a valid location to move!");
+					Logger.DBLog.InfoFormat("All GPCs failed to find a valid location to move!");
 
 					AllGPRectsFailed = true;
 					return safespot;
@@ -102,7 +102,7 @@ namespace FunkyBot.Movement
 				Bot.NavigationCache.lastFoundSafeSpot = DateTime.Now;
 				Bot.NavigationCache.vlastSafeSpot = safespot;
 			}
-			//Logging.WriteVerbose("Safespot location {0} distance from {1} is {2}", safespot.ToString(), LastSearchVector.ToString(), safespot.Distance2D(LastSearchVector));
+			//Logger.DBLog.InfoFormat("Safespot location {0} distance from {1} is {2}", safespot.ToString(), LastSearchVector.ToString(), safespot.Distance2D(LastSearchVector));
 			return Bot.NavigationCache.vlastSafeSpot;
 		}
 

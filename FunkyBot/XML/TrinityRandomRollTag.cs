@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Runtime.InteropServices;
-using Zeta.Common;
-using Zeta.CommonBot.Profile;
+using Zeta.Bot.Profile;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 using FunkyBot.Game;
@@ -29,7 +28,7 @@ namespace FunkyBot.XMLTags
 				int iOldValue;
 				var rndNum=new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), NumberStyles.HexNumber));
 				var iNewRandomValue=(rndNum.Next((Max-Min)+1))+Min;
-				Logging.Write("[Funky] Generating RNG for profile between "+Min.ToString(CultureInfo.InvariantCulture)+" and "+Max.ToString(CultureInfo.InvariantCulture)+", result="+iNewRandomValue.ToString(CultureInfo.InvariantCulture));
+				Logger.DBLog.InfoFormat("[Funky] Generating RNG for profile between "+Min.ToString(CultureInfo.InvariantCulture)+" and "+Max.ToString(CultureInfo.InvariantCulture)+", result="+iNewRandomValue.ToString(CultureInfo.InvariantCulture));
 				if (!ProfileCache.dictRandomID.TryGetValue(ID, out iOldValue))
 				{
 					 ProfileCache.dictRandomID.Add(ID, iNewRandomValue);

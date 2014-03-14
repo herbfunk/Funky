@@ -32,7 +32,7 @@
 // | structure of ItemRules:
 // |
 // | Plugin\GilesTrinity\ItemRules
-// |  +- Logging.Write
+// |  +- Logger.DBLog.InfoFormat
 // |     +- actualLog.txt
 // |  +- Core
 // |  +- Rules

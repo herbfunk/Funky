@@ -1,15 +1,14 @@
-using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.DBHandlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Zeta;
+using Zeta.Bot.Settings;
 using Zeta.Common;
-using Zeta.CommonBot.Settings;
-using Zeta.Internals;
-using Zeta.Internals.Actors;
+using Zeta.Game;
+using Zeta.Game.Internals;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player
 {
@@ -25,7 +24,7 @@ namespace FunkyBot.Player
 			// Stash all unidentified items - assume we want to keep them since we are using an identifier over-ride
 			if (thisitem.IsUnidentified)
 			{
-				if (bOutputItemScores) Logging.Write(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] = (autokeep unidentified items)");
+				if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] = (autokeep unidentified items)");
 				return true;
 			}
 			// Now look for Misc items we might want to keep
@@ -33,65 +32,65 @@ namespace FunkyBot.Player
 
 			if (TrueItemType == GilesItemType.StaffOfHerding)
 			{
-				if (bOutputItemScores) Logging.Write(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep staff of herding)");
+				if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep staff of herding)");
 				return true;
 			}
 			if (TrueItemType == GilesItemType.CraftingMaterial)
 			{
-				if (bOutputItemScores) Logging.Write(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep craft materials)");
+				if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep craft materials)");
 				return true;
 			}
 			if (TrueItemType == GilesItemType.CraftingPlan)
 			{
-				if (bOutputItemScores) Logging.Write(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep plans)");
+				if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep plans)");
 				return true;
 			}
 			if (TrueItemType == GilesItemType.Emerald)
 			{
-				if (bOutputItemScores) Logging.Write(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep gems)");
+				if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep gems)");
 				return true;
 			}
 			if (TrueItemType == GilesItemType.Amethyst)
 			{
-				if (bOutputItemScores) Logging.Write(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep gems)");
+				if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep gems)");
 				return true;
 			}
 			if (TrueItemType == GilesItemType.Topaz)
 			{
-				if (bOutputItemScores) Logging.Write(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep gems)");
+				if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep gems)");
 				return true;
 			}
 			if (TrueItemType == GilesItemType.Ruby)
 			{
-				if (bOutputItemScores) Logging.Write(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep gems)");
+				if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep gems)");
 				return true;
 			}
 			if (TrueItemType == GilesItemType.CraftTome)
 			{
-				if (bOutputItemScores) Logging.Write(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep tomes)");
+				if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep tomes)");
 				return true;
 			}
 			if (TrueItemType == GilesItemType.InfernalKey)
 			{
-				if (bOutputItemScores) Logging.Write(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep infernal key)");
+				if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep infernal key)");
 				return true;
 			}
 			if (TrueItemType == GilesItemType.HealthPotion)
 			{
-				if (bOutputItemScores) Logging.Write(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (ignoring potions)");
+				if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (ignoring potions)");
 				return false;
 			}
 
 			if (thisitem.ThisQuality >= ItemQuality.Legendary)
 			{
-				if (bOutputItemScores) Logging.Write(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep legendaries)");
+				if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep legendaries)");
 				return true;
 			}
 
 			// Ok now try to do some decent item scoring based on item types
 			double iNeedScore = ScoreNeeded(TrueItemType);
 			double iMyScore = ValueThisItem(thisitem, TrueItemType);
-			if (bOutputItemScores) Logging.Write(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = " + iMyScore);
+			if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = " + iMyScore);
 			if (iMyScore >= iNeedScore) return true;
 
 			// If we reached this point, then we found no reason to keep the item!
@@ -122,7 +121,7 @@ namespace FunkyBot.Player
 			ItemType gilesDBItemType = GilesToDBItemType(thisGilesItemType);
 			if (gilesDBItemType != item.BalanceData.thisItemType)
 			{
-				Logging.Write("GSError: Item type mis-match detected: Item Internal=" + item.InternalName + ". DemonBuddy ItemType thinks item type is=" + item.BalanceData.thisItemType + ". Giles thinks item type is=" +
+				Logger.DBLog.InfoFormat("GSError: Item type mis-match detected: Item Internal=" + item.InternalName + ". DemonBuddy ItemType thinks item type is=" + item.BalanceData.thisItemType + ". Giles thinks item type is=" +
 					 gilesDBItemType + ". [pickup]", true);
 			}
 
@@ -360,6 +359,7 @@ namespace FunkyBot.Player
 			if (sThisInternalName.StartsWith("emerald_")) return GilesItemType.Emerald;
 			if (sThisInternalName.StartsWith("topaz_")) return GilesItemType.Topaz;
 			if (sThisInternalName.StartsWith("amethyst")) return GilesItemType.Amethyst;
+			if (sThisInternalName.StartsWith("diamond_")) return GilesItemType.Diamond;
 			if (sThisInternalName.StartsWith("healthpotion")) return GilesItemType.HealthPotion;
 			if (sThisInternalName.StartsWith("followeritem_enchantress_")) return GilesItemType.FollowerEnchantress;
 			if (sThisInternalName.StartsWith("followeritem_scoundrel_")) return GilesItemType.FollowerScoundrel;
@@ -578,6 +578,7 @@ namespace FunkyBot.Player
 				case GilesItemType.Emerald: return ItemType.Gem;
 				case GilesItemType.Topaz: return ItemType.Gem;
 				case GilesItemType.Amethyst: return ItemType.Gem;
+				case GilesItemType.Diamond: return ItemType.Gem;
 				case GilesItemType.SpecialItem: return ItemType.Unknown;
 				case GilesItemType.CraftingPlan: return ItemType.CraftingPlan;
 				case GilesItemType.HealthPotion: return ItemType.Potion;
@@ -2153,7 +2154,7 @@ namespace FunkyBot.Player
 					}
 					catch
 					{
-						Logging.WriteDiagnostic("[Funky] Safetly Handled Exception: occured checking of item unidentified flag");
+						Logger.DBLog.DebugFormat("[Funky] Safetly Handled Exception: occured checking of item unidentified flag");
 					}
 				}
 			}
@@ -2274,6 +2275,27 @@ namespace FunkyBot.Player
 				using (ZetaDia.Memory.AcquireFrame())
 				{
 					foreach (ACDItem item in ZetaDia.Me.Inventory.Equipped)
+					{
+						CacheACDItem thiscacheditem = new CacheACDItem(item);
+						returnItems.Add(thiscacheditem);
+					}
+				}
+
+			}
+			catch (Exception)
+			{
+
+			}
+			return returnItems;
+		}
+		public List<CacheACDItem> ReturnCurrentBackpackItems()
+		{
+			List<CacheACDItem> returnItems = new List<CacheACDItem>();
+			try
+			{
+				using (ZetaDia.Memory.AcquireFrame())
+				{
+					foreach (ACDItem item in ZetaDia.Me.Inventory.Backpack)
 					{
 						CacheACDItem thiscacheditem = new CacheACDItem(item);
 						returnItems.Add(thiscacheditem);

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Zeta;
+using Zeta.Bot.Navigation;
+using Zeta.Bot.Profile;
 using Zeta.Common;
-using Zeta.CommonBot.Profile;
-using Zeta.Internals;
-using Zeta.Internals.SNO;
-using Zeta.Navigation;
+using Zeta.Game;
+using Zeta.Game.Internals;
+using Zeta.Game.Internals.SNO;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 using Action=Zeta.TreeSharp.Action;
@@ -54,14 +54,14 @@ namespace FunkyBot.XMLTags
 		  /// </summary>
 		  public override void OnStart()
 		  {
-				Logging.WriteDiagnostic("TrinityMoveToScene OnStart() called");
+				Logger.DBLog.DebugFormat("TrinityMoveToScene OnStart() called");
 
 				if (PathPrecision==0)
 					 PathPrecision=15f;
 
 				if (SceneId==0&&String.IsNullOrEmpty(SceneName.Trim()))
 				{
-					 Logging.WriteDiagnostic("TrinityMoveToScene: No sceneId or sceneName specified!");
+					 Logger.DBLog.DebugFormat("TrinityMoveToScene: No sceneId or sceneName specified!");
 					 isDone=true;
 				}
 
@@ -97,7 +97,7 @@ namespace FunkyBot.XMLTags
 								new PrioritySelector(
 									 new Decorator(ret => PrioritySceneTarget.Distance2D(myPos)<=PathPrecision,
 										  new Sequence(
-												new Action(ret => Logging.WriteDiagnostic("Successfully navigated to priority scene {0} {1} center {2} Distance {3:0}",
+												new Action(ret => Logger.DBLog.DebugFormat("Successfully navigated to priority scene {0} {1} center {2} Distance {3:0}",
 													 CurrentPriorityScene.Name, CurrentPriorityScene.SceneInfo.SNOId, PrioritySceneTarget, PrioritySceneTarget.Distance2D(myPos))),
 												new Action(ret => isDone=true)
 										  )
@@ -113,14 +113,14 @@ namespace FunkyBot.XMLTags
 		  /// </summary>
 		  private void MoveToPriorityScene()
 		  {
-				Logging.WriteDiagnostic("Moving to Priority Scene {0} - {1} Center {2} Distance {3:0}",
+				Logger.DBLog.DebugFormat("Moving to Priority Scene {0} - {1} Center {2} Distance {3:0}",
 					 CurrentPriorityScene.Name, CurrentPriorityScene.SceneInfo.SNOId, PrioritySceneTarget, PrioritySceneTarget.Distance2D(myPos));
 
 				var moveResult=Funky.PlayerMover.NavigateTo(PrioritySceneTarget);
 
 				if (moveResult==MoveResult.PathGenerationFailed)
 				{
-					 Logging.WriteDiagnostic("Unable to navigate to Scene {0} - {1} Center {2} Distance {3:0}, cancelling!",
+					 Logger.DBLog.DebugFormat("Unable to navigate to Scene {0} - {1} Center {2} Distance {3:0}, cancelling!",
 						  CurrentPriorityScene.Name, CurrentPriorityScene.SceneInfo.SNOId, PrioritySceneTarget, PrioritySceneTarget.Distance2D(myPos));
 					 PrioritySceneMoveToFinished();
 				}
@@ -213,7 +213,7 @@ namespace FunkyBot.XMLTags
 					 }
 					 else
 					 {
-						  Logging.WriteDiagnostic("Found Priority Scene but could not find a navigable point!");
+						  Logger.DBLog.DebugFormat("Found Priority Scene but could not find a navigable point!");
 					 }
 				}
 
@@ -225,7 +225,7 @@ namespace FunkyBot.XMLTags
 					 PrioritySceneTarget=nearestPriorityScene.Value;
 					 CurrentPriorityScene=foundPriorityScenes.FirstOrDefault(s => s.SceneInfo.SNOId==PrioritySceneSNOId);
 
-					 Logging.WriteDiagnostic("Found Priority Scene {0} - {1} Center {2} Distance {3:0}",
+					 Logger.DBLog.DebugFormat("Found Priority Scene {0} - {1} Center {2} Distance {3:0}",
 						  CurrentPriorityScene.Name, CurrentPriorityScene.SceneInfo.SNOId, PrioritySceneTarget, PrioritySceneTarget.Distance2D(myPos));
 				}
 

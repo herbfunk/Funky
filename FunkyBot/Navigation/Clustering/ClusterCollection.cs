@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using FunkyBot.Cache;
 using System.Collections.Generic;
 using FunkyBot.Cache.Objects;
 
@@ -99,7 +98,7 @@ namespace FunkyBot.Movement.Clustering
 							&& (!clusterConditions.IgnoreNonTargetable || u.IsTargetable.HasValue && u.IsTargetable.Value)).ToList();
 
 
-			//Logging.WriteVerbose("Total Units {0}", listObjectUnits.Count.ToString());
+			//Logger.DBLog.InfoFormat("Total Units {0}", listObjectUnits.Count.ToString());
 			if (listObjectUnits.Count > 0)
 			{
 				CurrentClusters = cluster.RunKmeans(listObjectUnits, clusterConditions.ClusterDistance)
@@ -174,7 +173,7 @@ namespace FunkyBot.Movement.Clustering
 				 && (!this.clusterConditions.IgnoreNonTargetable || u.IsTargetable.HasValue && u.IsTargetable.Value)).ToList();
 
 
-			//Logging.WriteVerbose("Total Units {0}", listObjectUnits.Count.ToString());
+			//Logger.DBLog.InfoFormat("Total Units {0}", listObjectUnits.Count.ToString());
 			if (listObjectUnits.Count > 0)
 			{
 				CurrentClusters = cluster.RunKmeans(listObjectUnits, this.clusterConditions.ClusterDistance).Where(c => c.ListUnits.Count >= this.clusterConditions.MinimumUnits && (this.clusterConditions.DOTDPSRatio == 0.00d || c.Info.DotDPSRatio <= this.clusterConditions.DOTDPSRatio)).ToList();

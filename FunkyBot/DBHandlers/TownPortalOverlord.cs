@@ -1,8 +1,8 @@
 ﻿using System;
-using Zeta;
+using Zeta.Bot.Navigation;
 using Zeta.Common;
-using Zeta.Internals.Actors;
-using Zeta.Navigation;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
 using Action = Zeta.TreeSharp.Action;
 
@@ -263,14 +263,14 @@ namespace FunkyBot.DBHandlers
 
 					if (DistanceFromStart > 15f && DistanceFromStart < 50f)
 					{
-						//Logging.WriteVerbose("[FunkyTP] Backtracking!");
+						//Logger.DBLog.InfoFormat("[FunkyTP] Backtracking!");
 						//Move back to starting position..
 						//ZetaDia.Me.UsePower(SNOPower.Walk, StartingPosition);
 						//return RunStatus.Running;
 					}
 					else if (DistanceFromStart >= 50f)
 					{
-						//Logging.WriteVerbose("[FunkyTP] Range from our starting position is {0}. Now using Navigator to move.", DistanceFromStart);
+						//Logger.DBLog.InfoFormat("[FunkyTP] Range from our starting position is {0}. Now using Navigator to move.", DistanceFromStart);
 						//Navigator.MoveTo(StartingPosition, "Backtracking to Orginal Position", true);
 					}
 				}

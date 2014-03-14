@@ -1,5 +1,5 @@
 ﻿using FunkyBot.Player.HotBar.Skills.Conditions;
-using Zeta.Internals.Actors;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Barb
 {
@@ -7,7 +7,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 	 {
 		 public override SNOPower Power
 		  {
-				get { return SNOPower.Barbarian_WarCry; }
+				get { return SNOPower.X1_Barbarian_WarCry_v2; }
 		  }
 
 		  public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; } }
@@ -23,8 +23,8 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.High;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated));
-				FcriteriaBuff=() => !Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WarCry);
-				FcriteriaCombat=() => (!Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WarCry)
+				FcriteriaBuff=() => !Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Barbarian_WarCry_v2);
+				FcriteriaCombat = () => (!Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Barbarian_WarCry_v2)
 				                       ||
 				                       (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Barbarian_Passive_InspiringPresence)&&
 				                        LastUsedMilliseconds>59

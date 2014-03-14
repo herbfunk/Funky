@@ -20,7 +20,7 @@ namespace FunkyBot.Cache.Collections
 		public string DumpDebugInfo()
 		{
 			string s = "[Obstacle Cache] Total: [" + Count + "] - Avoidances [" + Values.OfType<CacheAvoidance>().Count() + "] Monster [" + Monsters.Count + "]" + " Navigational [" + Navigations.Count + "]";
-			Logging.WriteVerbose(s);
+			//Logger.DBLog.InfoFormat(s);
 			return s;
 		}
 

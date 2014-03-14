@@ -38,7 +38,7 @@ namespace FunkyBot.Movement
 
 			this.UpdateQuadrants();
 
-			// Logging.WriteVerbose(debugstr);
+			// Logger.DBLog.InfoFormat(debugstr);
 			UpdateObjectCount();
 			lastRefreshedObjectContents = DateTime.Now;
 		}
@@ -49,7 +49,7 @@ namespace FunkyBot.Movement
 		public GPRectangle(DirectionPoint Direction)
 			: base()
 		{
-			// Logging.WriteVerbose("StartPoint: {0} EndPoint {1} Range: {2}", Direction.StartingPoint.ToString(), Direction.EndingPoint.ToString(), Direction.Range);
+			// Logger.DBLog.InfoFormat("StartPoint: {0} EndPoint {1} Range: {2}", Direction.StartingPoint.ToString(), Direction.EndingPoint.ToString(), Direction.Range);
 
 			CreationVector = (Vector3)Direction.Center;
 			GridPoint center_ = Direction.Center;
@@ -59,7 +59,7 @@ namespace FunkyBot.Movement
 
 
 			int expansion = (int)(Math.Round(Math.Sqrt(Direction.Range), MidpointRounding.AwayFromZero)); //Get the radius value and square it to get # of expansions we want..
-			//Logging.WriteVerbose("Expansion count == {0}, Diameter == {1}", expansion, Diameter);
+			//Logger.DBLog.InfoFormat("Expansion count == {0}, Diameter == {1}", expansion, Diameter);
 
 			//This will expand by finding new surrounding points
 			for (int i = 0; i < expansion; i++)
@@ -81,7 +81,7 @@ namespace FunkyBot.Movement
 		public GPRectangle(DirectionPoint Direction, PointCollection baseCache)
 			: base(baseCache)
 		{
-			// Logging.WriteVerbose("StartPoint: {0} EndPoint {1} Range: {2}", Direction.StartingPoint.ToString(), Direction.EndingPoint.ToString(), Direction.Range);
+			// Logger.DBLog.InfoFormat("StartPoint: {0} EndPoint {1} Range: {2}", Direction.StartingPoint.ToString(), Direction.EndingPoint.ToString(), Direction.Range);
 
 			CreationVector = (Vector3)Direction.Center;
 			GridPoint center_ = Direction.Center;
@@ -91,7 +91,7 @@ namespace FunkyBot.Movement
 
 
 			int expansion = (int)(Math.Round(Math.Sqrt(Direction.Range), MidpointRounding.AwayFromZero)); //Get the radius value and square it to get # of expansions we want..
-			//Logging.WriteVerbose("Expansion count == {0}, Diameter == {1}", expansion, Diameter);
+			//Logger.DBLog.InfoFormat("Expansion count == {0}, Diameter == {1}", expansion, Diameter);
 
 			//This will expand by finding new surrounding points
 			for (int i = 0; i < expansion; i++)
@@ -131,7 +131,7 @@ namespace FunkyBot.Movement
 					this.Quadrant[item] = null;
 					continue;
 				}
-				//Logging.WriteVerbose("Sectorpoints Count {0}", sectorpoints.Length);
+				//Logger.DBLog.InfoFormat("Sectorpoints Count {0}", sectorpoints.Length);
 				Quadrant[item] = new GPQuadrant(sectorpoints, CreationVector, cornerPoint);
 
 				//item = new Sector(Points.SectorPoints(item.SectorCode, true));
@@ -139,7 +139,7 @@ namespace FunkyBot.Movement
 			}
 
 			//if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-			//	 Logging.WriteDiagnostic(debugstring);
+			//	 Logger.DBLog.DebugFormat(debugstring);
 		}
 
 
@@ -206,7 +206,7 @@ namespace FunkyBot.Movement
 				//                         select sector.OccupiedObjects);
 
 				//if (Bot.SettingsFunky.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement)) 
-				//	 Logging.WriteDiagnostic("Updated GPC with Avoids {0} / Mobs {1} Count and total weight {2}", this.AvoidanceCount, this.MonsterCount, this.Weight);
+				//	 Logger.DBLog.DebugFormat("Updated GPC with Avoids {0} / Mobs {1} Count and total weight {2}", this.AvoidanceCount, this.MonsterCount, this.Weight);
 			}
 		}
 
@@ -239,7 +239,7 @@ namespace FunkyBot.Movement
 
 			if (expandOnFailure && CanExpandFurther)
 			{
-				//Logging.WriteVerbose("Expanding GPC due to failure to find a location!");
+				//Logger.DBLog.InfoFormat("Expanding GPC due to failure to find a location!");
 				this.FullyExpand();
 				this.UpdateQuadrants();
 				this.UpdateObjectCount();

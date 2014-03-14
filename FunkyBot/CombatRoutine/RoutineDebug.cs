@@ -5,16 +5,16 @@ using System.Threading;
 using System.Windows.Controls;
 using System.IO;
 using Demonbuddy;
+using Zeta.Bot;
+using Zeta.Bot.Logic;
 using Zeta.Common;
 using Zeta.Common.Compiler;
 using Zeta.Common.Plugins;
-using Zeta.CommonBot;
-using Zeta.CommonBot.Logic;
-using Zeta.Internals.Actors;
 using System.Collections.Generic;
-using Zeta;
 using System.Windows;
 using System.Reflection;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 
 namespace GilesBlankCombatRoutine
 {
@@ -22,7 +22,7 @@ namespace GilesBlankCombatRoutine
 	{
 		private static Label lblDebug_DumpUnits, lblDebug_OpenLog, lblDebug_DumpUnitAttributes, lblDebug_DumpObjects, lblDebug_FunkyLog;
 		private static MenuItem menuItem_Debug, menuItem_Debug_Units;
-
+		private static readonly log4net.ILog DBLog = Zeta.Common.Logger.GetLoggerInstanceForType();
 		public static void initDebugLabels(out SplitButton btn)
 		{
 			btn = new SplitButton
@@ -155,19 +155,19 @@ namespace GilesBlankCombatRoutine
 
 			PluginManager.ShutdownAllPlugins();
 
-			Logging.WriteDiagnostic("Removing Funky from plugins");
+			DBLog.DebugFormat("Removing Funky from plugins");
 			while (PluginManager.Plugins.Any(p => p.Plugin.Name == "Funky"))
 			{
 				PluginManager.Plugins.Remove(PluginManager.Plugins.First(p => p.Plugin.Name == "Funky"));
 			}
 
-			Logging.WriteDiagnostic("Clearing all treehooks");
+			DBLog.DebugFormat("Clearing all treehooks");
 			TreeHooks.Instance.ClearAll();
 
-			Logging.WriteDiagnostic("Disposing of current bot");
+			DBLog.DebugFormat("Disposing of current bot");
 			BotMain.CurrentBot.Dispose();
 
-			Logging.WriteDiagnostic("Removing old Assemblies");
+			DBLog.DebugFormat("Removing old Assemblies");
 			CodeCompiler.DeleteOldAssemblies();
 
 			string sDemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
@@ -175,26 +175,26 @@ namespace GilesBlankCombatRoutine
 
 			CodeCompiler FunkyCode = new CodeCompiler(sTrinityPluginPath);
 			FunkyCode.ParseFilesForCompilerOptions();
-			Logging.WriteDiagnostic("Recompiling Funky Plugin");
+			DBLog.DebugFormat("Recompiling Funky Plugin");
 			FunkyCode.Compile();
-			Logging.WriteDiagnostic(FunkyCode.CompiledToLocation);
+			DBLog.DebugFormat(FunkyCode.CompiledToLocation);
 
 
 
 			TreeHooks.Instance.ClearAll();
 			BrainBehavior.CreateBrain();
 
-			Logging.WriteDiagnostic("Reloading Plugins");
+			DBLog.DebugFormat("Reloading Plugins");
 			PluginManager.ReloadAllPlugins(sDemonBuddyPath + @"\Plugins\");
 
-			Logging.WriteDiagnostic("Enabling Plugins");
+			DBLog.DebugFormat("Enabling Plugins");
 			PluginManager.SetEnabledPlugins(EnabledPlugins);
 		}
 		static void lblDebug_OpenDBLog(object sender, EventArgs e)
 		{
 			try
 			{
-				Process.Start(Logging.LogFilePath);
+				//Process.Start(Logging.LogFilePath);
 
 			}
 			catch (Exception)
@@ -206,19 +206,19 @@ namespace GilesBlankCombatRoutine
 		{
 			//string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-			FileInfo demonbuddyLogFolder = new FileInfo(Logging.LogFilePath);
-			if (!demonbuddyLogFolder.Directory.GetFiles().Any())
-				return;
+			//FileInfo demonbuddyLogFolder = new FileInfo(Logging.LogFilePath);
+			//if (!demonbuddyLogFolder.Directory.GetFiles().Any())
+			//	return;
 
-			var newestfile = demonbuddyLogFolder.Directory.GetFiles().Where(f => f.Name.Contains("FunkyLog")).OrderByDescending(file => file.LastWriteTime).First();
-			try
-			{
-				Process.Start(newestfile.FullName);
-			}
-			catch (Exception)
-			{
+			//var newestfile = demonbuddyLogFolder.Directory.GetFiles().Where(f => f.Name.Contains("FunkyLog")).OrderByDescending(file => file.LastWriteTime).First();
+			//try
+			//{
+			//	Process.Start(newestfile.FullName);
+			//}
+			//catch (Exception)
+			//{
 
-			}
+			//}
 		}
 
 		static void lblDebug_OpenTrinityFolder(object sender, EventArgs e)
@@ -236,7 +236,7 @@ namespace GilesBlankCombatRoutine
 
 			if (BotMain.IsRunning)
 			{
-				Logging.Write("Stop the bot before dumping!");
+				DBLog.InfoFormat("Stop the bot before dumping!");
 				return;
 			}
 
@@ -258,7 +258,7 @@ namespace GilesBlankCombatRoutine
 
 			if (BotMain.IsRunning)
 			{
-				Logging.Write("Stop the bot before dumping!");
+				DBLog.InfoFormat("Stop the bot before dumping!");
 				return;
 			}
 
@@ -275,7 +275,7 @@ namespace GilesBlankCombatRoutine
 
 		private static int DumpUnits(IEnumerable<DiaUnit> units, int iType)
 		{
-			Logging.Write("[QuestTools] Units found: {0}", units.Count());
+			DBLog.InfoFormat("[QuestTools] Units found: {0}", units.Count());
 			foreach (DiaUnit o in units)
 			{
 				if (!o.IsValid)
@@ -291,17 +291,17 @@ namespace GilesBlankCombatRoutine
 						attributesFound += aType.ToString() + "=" + iType.ToString() + ", ";
 					}
 				}
-				//Logging.Write("[QuestTools] Unit ActorSNO: {0} Name: {1} Type: {2} Position: {3} ({4}) has Attributes: {5}\n",
+				//Logger.DBLog.InfoFormat("[QuestTools] Unit ActorSNO: {0} Name: {1} Type: {2} Position: {3} ({4}) has Attributes: {5}\n",
 				// o.ActorSNO, o.Name, o.ActorInfo.GizmoType, getProfilePosition(o.Position), o.Position.ToString(), attributesFound);
 
-				Logging.Write("[Debug] Unit SNO: {0} Name: {1} Type: {2} Position {3} Distance {4} Radius {5}",
+				DBLog.InfoFormat("[Debug] Unit SNO: {0} Name: {1} Type: {2} Position {3} Distance {4} Radius {5}",
 					   o.ActorSNO, o.Name, o.ActorType.ToString(), o.Position.ToString(), o.Distance, o.CollisionSphere.Radius);
 			}
 			return iType;
 		}
 		private static int DumpUnitsAttributes(IEnumerable<DiaUnit> units, int iType)
 		{
-			Logging.Write("[Debug] Units found: {0}", units.Count());
+			DBLog.InfoFormat("[Debug] Units found: {0}", units.Count());
 			foreach (DiaUnit o in units)
 			{
 				if (!o.IsValid)
@@ -317,7 +317,7 @@ namespace GilesBlankCombatRoutine
 						attributesFound += aType.ToString() + "=" + iType.ToString() + ", ";
 					}
 				}
-				Logging.Write("[Debug] Unit ActorSNO: {0} Name: {1} Type: {2} Position: {3} ({4}) has Attributes: {5}\n",
+				DBLog.InfoFormat("[Debug] Unit ActorSNO: {0} Name: {1} Type: {2} Position: {3} ({4}) has Attributes: {5}\n",
 				 o.ActorSNO, o.Name, o.ActorInfo.GizmoType, getProfilePosition(o.Position), o.Position.ToString(), attributesFound);
 			}
 			return iType;

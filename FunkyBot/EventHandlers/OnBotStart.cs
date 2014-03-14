@@ -1,8 +1,7 @@
 ﻿using FunkyBot.Settings;
-using Zeta;
-using Zeta.Common;
-using Zeta.CommonBot;
-using Zeta.Navigation;
+using Zeta.Bot;
+using Zeta.Bot.Navigation;
+using Zeta.Game;
 
 namespace FunkyBot
 {
@@ -13,11 +12,11 @@ namespace FunkyBot
 			string FunkySettingsPath = System.IO.Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyBot");
 			if (!System.IO.Directory.Exists(FunkySettingsPath))
 			{
-				Logging.WriteDiagnostic("Creating Settings Folder at location {0}", FunkySettingsPath);
+				Logger.DBLog.DebugFormat("Creating Settings Folder at location {0}", FunkySettingsPath);
 				System.IO.Directory.CreateDirectory(FunkySettingsPath);
 			}
 
-			Logging.WriteDiagnostic("[Funky] Plugin settings location=" + FunkySettingsPath);
+			Logger.DBLog.DebugFormat("[Funky] Plugin settings location=" + FunkySettingsPath);
 
 
 			//Load Settings
@@ -44,7 +43,7 @@ namespace FunkyBot
 
 			if (!Funky.bPluginEnabled && bot != null)
 			{
-				Logging.Write("WARNING: FunkyBot Plugin is NOT ENABLED. Bot start detected");
+				Logger.DBLog.InfoFormat("WARNING: FunkyBot Plugin is NOT ENABLED. Bot start detected");
 				return;
 			}
 

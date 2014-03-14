@@ -1,10 +1,10 @@
 ﻿using System.Runtime.InteropServices;
 using FunkyBot.Movement;
-using Zeta;
+using Zeta.Bot.Navigation;
+using Zeta.Bot.Pathfinding;
+using Zeta.Bot.Profile;
 using Zeta.Common;
-using Zeta.CommonBot.Profile;
-using Zeta.Navigation;
-using Zeta.Pathfinding;
+using Zeta.Game;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 

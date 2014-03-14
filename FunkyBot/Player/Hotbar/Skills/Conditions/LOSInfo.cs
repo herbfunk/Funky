@@ -4,9 +4,9 @@ using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Movement;
+using Zeta.Bot.Navigation;
 using Zeta.Common;
-using Zeta.Internals.SNO;
-using Zeta.Navigation;
+using Zeta.Game.Internals.SNO;
 
 namespace FunkyBot.Player.HotBar.Skills.Conditions
 {

@@ -1,8 +1,9 @@
 ﻿using System;
-using Zeta;
+using Zeta.Bot.Logic;
 using Zeta.Common;
-using Zeta.Internals.Actors;
 using System.Collections.Generic;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.DBHandlers
 {
@@ -57,7 +58,7 @@ namespace FunkyBot.DBHandlers
 			bWantToTownRun = false;
 
 			// Check if we should be forcing a town-run
-			if (Zeta.CommonBot.Logic.BrainBehavior.IsVendoring)
+			if (BrainBehavior.IsVendoring)
 			{
 				bWantToTownRun = true;
 			}
@@ -67,7 +68,7 @@ namespace FunkyBot.DBHandlers
 				if (DateTime.Now.Subtract(TimeLastCheckedForTownRun).TotalSeconds > recheckDelay)
 				{
 					TimeLastCheckedForTownRun = DateTime.Now;
-					if (Zeta.CommonBot.Logic.BrainBehavior.ShouldVendor || Bot.Character.Data.BackPack.ShouldRepairItems())
+					if (BrainBehavior.ShouldVendor || Bot.Character.Data.BackPack.ShouldRepairItems())
 					{
 						bCheckedItemDurability = false;
 						bCheckUnidItems = true;

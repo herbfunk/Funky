@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Threading;
 using System.IO;
 using FunkyBot.Cache.Objects;
 using FunkyBot.DBHandlers;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Movement;
-using Zeta;
+using Zeta.Bot;
+using Zeta.Bot.Navigation;
 using Zeta.Common;
-using Zeta.CommonBot;
-using Zeta.Internals.Actors;
-using Zeta.Navigation;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 
 
 namespace FunkyBot
@@ -89,7 +88,7 @@ namespace FunkyBot
 						iCancelUnstuckerForSeconds = 20;
 					timeCancelledUnstuckerFor = DateTime.Now;
 					Navigator.Clear();
-					Logging.WriteDiagnostic("[Funky] Clearing old route and trying new path find to: " + vOldMoveToTarget.ToString());
+					Logger.DBLog.DebugFormat("[Funky] Clearing old route and trying new path find to: " + vOldMoveToTarget.ToString());
 					Navigator.MoveTo(vOldMoveToTarget, "original destination", false);
 					return vSafeMovementLocation;
 				}
@@ -97,9 +96,9 @@ namespace FunkyBot
 				// Only try an unstuck 10 times maximum in XXX period of time
 				if (Vector3.Distance(vOriginalDestination, vMyCurrentPosition) >= 700f)
 				{
-					Logging.Write("[Funky] You are " + Vector3.Distance(vOriginalDestination, vMyCurrentPosition).ToString(CultureInfo.InvariantCulture) + " distance away from your destination.");
-					Logging.Write("[Funky] This is too far for the unstucker, and is likely a sign of ending up in the wrong map zone.");
-					Logging.Write("Reloading current profile");
+					Logger.DBLog.InfoFormat("[Funky] You are " + Vector3.Distance(vOriginalDestination, vMyCurrentPosition).ToString(CultureInfo.InvariantCulture) + " distance away from your destination.");
+					Logger.DBLog.InfoFormat("[Funky] This is too far for the unstucker, and is likely a sign of ending up in the wrong map zone.");
+					Logger.DBLog.InfoFormat("Reloading current profile");
 					ProfileManager.Load(ProfileManager.CurrentProfile.Path);
 
 				}
@@ -108,12 +107,12 @@ namespace FunkyBot
 					//Check cache for barricades..
 					if (ObjectCache.Objects.OfType<CacheDestructable>().Any(CO => CO.RadiusDistance <= 12f))
 					{
-						Logging.Write("[Funky] Found nearby barricade, flagging barricade destruction!");
+						Logger.DBLog.InfoFormat("[Funky] Found nearby barricade, flagging barricade destruction!");
 						ShouldHandleObstacleObject = true;
 					}
 
-					Logging.Write("[Funky] Your bot got stuck! Trying to unstuck (attempt #" + iTotalAntiStuckAttempts.ToString(CultureInfo.InvariantCulture) + " of 8 attempts)");
-					Logging.WriteDiagnostic("(destination=" + vOriginalDestination.ToString() + ", which is " + Vector3.Distance(vOriginalDestination, vMyCurrentPosition).ToString(CultureInfo.InvariantCulture) + " distance away)");
+					Logger.DBLog.InfoFormat("[Funky] Your bot got stuck! Trying to unstuck (attempt #" + iTotalAntiStuckAttempts.ToString(CultureInfo.InvariantCulture) + " of 8 attempts)");
+					Logger.DBLog.DebugFormat("(destination=" + vOriginalDestination.ToString() + ", which is " + Vector3.Distance(vOriginalDestination, vMyCurrentPosition).ToString(CultureInfo.InvariantCulture) + " distance away)");
 
 					Logger.Write(LogLevel.Movement, "Stuck Flags: {0}", Bot.NavigationCache.Stuckflags.ToString());
 
@@ -161,7 +160,7 @@ namespace FunkyBot
 				{
 					Navigator.Clear();
 
-					Logging.Write("[Funky] Anti-stuck measures now attempting to kickstart DB's path-finder into action.");
+					Logger.DBLog.InfoFormat("[Funky] Anti-stuck measures now attempting to kickstart DB's path-finder into action.");
 					if (Vector3.Distance(vOriginalDestination, vMyCurrentPosition) >= 200f)
 					{
 						iTimesReachedMaxUnstucks++;
@@ -178,7 +177,7 @@ namespace FunkyBot
 
 				if (iTimesReachedMaxUnstucks == 2)
 				{
-					Logging.Write("[Funky] Anti-stuck measures failed. Now attempting to reload current profile.");
+					Logger.DBLog.InfoFormat("[Funky] Anti-stuck measures failed. Now attempting to reload current profile.");
 					ExitGame.ShouldExitGame = true;
 				}
 				// Exit the game and reload the profile
@@ -189,7 +188,7 @@ namespace FunkyBot
 				}
 				else
 				{
-					Logging.Write("[Funky] Unstucking measures failed. Now stopping Trinity unstucker for 12 minutes to inactivity timers to kick in or DB to auto-fix.");
+					Logger.DBLog.InfoFormat("[Funky] Unstucking measures failed. Now stopping Trinity unstucker for 12 minutes to inactivity timers to kick in or DB to auto-fix.");
 					iCancelUnstuckerForSeconds = 720;
 					timeCancelledUnstuckerFor = DateTime.Now;
 					return vSafeMovementLocation;
@@ -213,7 +212,7 @@ namespace FunkyBot
 			{
 				if (Bot.Character.Class == null)
 				{
-					Logging.Write("Bot did not properly initilize, stopping bot!");
+					Logger.DBLog.InfoFormat("Bot did not properly initilize, stopping bot!");
 					BotMain.Stop(false, "Bot Init Failure");
 					return;
 				}
@@ -234,12 +233,12 @@ namespace FunkyBot
 						bLastWaypointWasTown = false;
 
 						float fDistance = Vector3.Distance(vMoveToTarget, vLastMoveTo);
-						// Logging.Write if not in town, last waypoint wasn't FROM town, and the distance is >200 but <2000 (cos 2000+ probably means we changed map zones!)
+						// Logger.DBLog.InfoFormat if not in town, last waypoint wasn't FROM town, and the distance is >200 but <2000 (cos 2000+ probably means we changed map zones!)
 						if (!ZetaDia.Me.IsInTown && !bLastWaypointWasTown && fDistance >= 200 & fDistance <= 2000)
 						{
 							if (!hashDoneThisVector.Contains(vMoveToTarget))
 							{
-								// Logging.Write it
+								// Logger.DBLog.InfoFormat it
 								string sLogFileName = Logger.LoggingPrefixString + " -- LongPaths.log";
 								FileStream LogStream = File.Open(Logger.LoggingFolderPath + sLogFileName, FileMode.Append, FileAccess.Write, FileShare.Read);
 								using (StreamWriter LogWriter = new StreamWriter(LogStream))
@@ -360,7 +359,7 @@ namespace FunkyBot
 						}
 						else
 						{
-							Logging.WriteDiagnostic("[Funky] Clearing old route and trying new path find to: " + vOldMoveToTarget.ToString());
+							Logger.DBLog.DebugFormat("[Funky] Clearing old route and trying new path find to: " + vOldMoveToTarget.ToString());
 							// Reset the path and allow a whole "New" unstuck generation next cycle
 							iTimesReachedStuckPoint = 0;
 							// And cancel unstucking for 9 seconds so DB can try to navigate

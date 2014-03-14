@@ -1,8 +1,8 @@
 ﻿using System;
 using FunkyBot.Cache;
 using FunkyBot.XMLTags;
-using Zeta;
-using Zeta.Internals.Service;
+using Zeta.Game;
+using Zeta.Game.Internals.Service;
 
 namespace FunkyBot.Game
 {

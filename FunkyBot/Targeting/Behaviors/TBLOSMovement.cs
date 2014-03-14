@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Movement;

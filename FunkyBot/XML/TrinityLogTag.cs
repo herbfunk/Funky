@@ -1,6 +1,5 @@
 ﻿using System.Runtime.InteropServices;
-using Zeta.Common;
-using Zeta.CommonBot.Profile;
+using Zeta.Bot.Profile;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 
@@ -22,9 +21,9 @@ namespace FunkyBot.XMLTags
 			return new Action(ret =>
 			{
 				if (Level!=null&&Level.ToLower()=="diagnostic")
-					Logging.WriteDiagnostic(Output);
+					Logger.DBLog.DebugFormat(Output);
 				else
-					Logging.Write(Output);
+					Logger.DBLog.InfoFormat(Output);
 				m_IsDone=true;
 			});
 		}

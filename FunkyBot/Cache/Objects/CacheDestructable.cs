@@ -2,9 +2,10 @@
 using System.Linq;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
+using Zeta.Bot.Settings;
 using Zeta.Common;
-using Zeta.Internals.Actors;
-using Zeta.Internals.SNO;
+using Zeta.Game.Internals.Actors;
+using Zeta.Game.Internals.SNO;
 using Zeta.TreeSharp;
 
 namespace FunkyBot.Cache.Objects
@@ -30,7 +31,7 @@ namespace FunkyBot.Cache.Objects
 				//{
 				//	try
 				//	{
-				//		Logging.Write("Updating Animation");
+				//		Logger.DBLog.InfoFormat("Updating Animation");
 				//		AnimState = (this.ref_Gizmo.CommonData.AnimationInfo.State);
 				//		SnoAnim = (this.ref_Gizmo.CommonData.CurrentAnimation);
 				//	}
@@ -82,8 +83,8 @@ namespace FunkyBot.Cache.Objects
 				}
 
 				//Ignore Destructibles Setting
-				if (!Zeta.CommonBot.Settings.CharacterSettings.Instance.DestroyEnvironment
-					&& this.Gizmotype.Value == GizmoType.Destructible
+				if (!CharacterSettings.Instance.DestroyEnvironment
+					&& this.Gizmotype.Value == GizmoType.DestroyableObject
 					&& this.PriorityCounter == 0
 					&& !this.IsBarricade.Value)
 				{
@@ -191,11 +192,11 @@ namespace FunkyBot.Cache.Objects
 					Bot.Character.Data.WaitWhileAnimating(9);
 
 				if (this.targetType.Value == TargetType.Barricade)
-					Logging.WriteDiagnostic("[Funky] Barricade: Name=" + this.InternalName + ". SNO=" + this.SNOID.ToString() +
+					Logger.DBLog.DebugFormat("[Funky] Barricade: Name=" + this.InternalName + ". SNO=" + this.SNOID.ToString() +
 											", Range=" + this.CentreDistance.ToString() + ". Needed range=" + Bot.Character.Class.PowerPrime.MinimumRange.ToString() + ". Radius=" +
 											this.Radius.ToString() + ". SphereRadius=" + this.ActorSphereRadius.Value.ToString() + ". Type=" + this.targetType.ToString() + ". Using power=" + Bot.Character.Class.PowerPrime.Power.ToString());
 				else
-					Logging.WriteDiagnostic("[Funky] Destructible: Name=" + this.InternalName + ". SNO=" + this.SNOID.ToString() +
+					Logger.DBLog.DebugFormat("[Funky] Destructible: Name=" + this.InternalName + ". SNO=" + this.SNOID.ToString() +
 											", Range=" + this.CentreDistance.ToString() + ". Needed range=" + Bot.Character.Class.PowerPrime.MinimumRange.ToString() + ". Radius=" +
 											this.Radius.ToString() + ". SphereRadius=" + this.ActorSphereRadius.Value.ToString() + ". Type=" + this.targetType.ToString() + ". Using power=" + Bot.Character.Class.PowerPrime.Power.ToString());
 
@@ -203,7 +204,7 @@ namespace FunkyBot.Cache.Objects
 
 				if (Bot.Character.Class.PowerPrime.SuccessUsed.HasValue && Bot.Character.Class.PowerPrime.SuccessUsed.Value)
 				{
-					//Logging.Write(powerPrime.powerThis.ToString() + " used successfully");
+					//Logger.DBLog.InfoFormat(powerPrime.powerThis.ToString() + " used successfully");
 					Bot.Character.Class.PowerPrime.OnSuccessfullyUsed();
 					this.InteractionAttempts++;
 				}

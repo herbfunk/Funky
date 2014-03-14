@@ -1,9 +1,8 @@
 ﻿using System.Diagnostics;
 using FunkyBot.DBHandlers;
-using Zeta;
-using Zeta.Common;
-using Zeta.CommonBot;
-using Zeta.CommonBot.Profile;
+using Zeta.Bot;
+using Zeta.Bot.Profile;
+using Zeta.Game;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 using Action=Zeta.TreeSharp.Action;
@@ -45,7 +44,7 @@ namespace FunkyBot.XMLTags
 					 return;
 				}
 
-				Logging.WriteDiagnostic("TrinityTownPortal started - clearing area");
+				Logger.DBLog.DebugFormat("TrinityTownPortal started - clearing area");
 				ForceClearArea=true;
 				AreaClearTimer.Start();
 				//DefaultWaitTime=V.I("XmlTag.TrinityTownPortal.DefaultWaitTime");
@@ -70,7 +69,7 @@ namespace FunkyBot.XMLTags
 								ForceClearArea=false;
 								AreaClearTimer.Reset();
 								_IsDone=true;
-								//Logger.Logging.Write("[TrinityTownPortal] In Town");
+								//Logger.Logger.DBLog.InfoFormat("[TrinityTownPortal] In Town");
 						  })
 					 ),
 					 new Decorator(ret => !Bot.Character.Data.bIsInTown && !TownPortalBehavior.CanCastTP(),
@@ -79,7 +78,7 @@ namespace FunkyBot.XMLTags
 								ForceClearArea=false;
 								AreaClearTimer.Reset();
 								_IsDone=true;
-								//Logger.Logging.Write("[TrinityTownPortal] Unable to use TownPortal!");
+								//Logger.Logger.DBLog.InfoFormat("[TrinityTownPortal] Unable to use TownPortal!");
 						  })
 					 ),
 					 new Decorator(ret => Bot.Character.Data.dCurrentHealthPct<_StartHealth,
@@ -98,7 +97,7 @@ namespace FunkyBot.XMLTags
 								new Decorator(ret => AreaClearTimer.ElapsedMilliseconds>WaitTime,
 									 new Action(ret =>
 									 {
-										  Logging.WriteDiagnostic("TownRun timer finished");
+										  Logger.DBLog.DebugFormat("TownRun timer finished");
 										  ForceClearArea=false;
 										  AreaClearTimer.Reset();
 									 })

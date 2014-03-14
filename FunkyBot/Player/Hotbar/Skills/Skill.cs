@@ -4,11 +4,10 @@ using FunkyBot.Cache;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Movement;
 using FunkyBot.Player.HotBar.Skills.Conditions;
-using Zeta;
+using Zeta.Bot;
 using Zeta.Common;
-using Zeta.CommonBot;
-using Zeta.Internals.Actors;
-using FunkyBot.Movement.Clustering;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills
 {

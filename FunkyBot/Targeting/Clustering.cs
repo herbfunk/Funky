@@ -1,5 +1,4 @@
-﻿using FunkyBot.Cache;
-using FunkyBot.Cache.Objects;
+﻿using FunkyBot.Cache.Objects;
 using FunkyBot.Movement.Clustering;
 using System;
 using System.Collections.Generic;
@@ -42,7 +41,7 @@ namespace FunkyBot.Targeting
 			else
 				AbilityClusters[CC].RefreshClusters();
 
-			//Logging.WriteVerbose("Ability Clusters Found {0}", AbilityClusters[CC].Count.ToString());
+			//Logger.DBLog.InfoFormat("Ability Clusters Found {0}", AbilityClusters[CC].Count.ToString());
 			return AbilityClusters[CC].CurrentClusters;
 		}
 

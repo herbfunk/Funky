@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
-using Zeta.CommonBot.Profile;
-using Zeta.CommonBot.Profile.Composites;
+using Zeta.Bot.Profile;
+using Zeta.Bot.Profile.Composites;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 using FunkyBot.Game;

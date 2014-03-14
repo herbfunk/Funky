@@ -1,10 +1,10 @@
 ﻿using System;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.Barb;
-using Zeta;
-using Zeta.Internals.Actors;
 using Zeta.Common;
 using System.Collections.Generic;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.Class
 {
@@ -13,7 +13,7 @@ namespace FunkyBot.Player.Class
 	{
 		public Barbarian()
 		{
-			Logging.WriteDiagnostic("[Funky] Using Barbarian Player Class");
+			Logger.DBLog.DebugFormat("[Funky] Using Barbarian Player Class");
 		}
 		//Base class for each individual class!
 		public override ActorClass AC { get { return ActorClass.Barbarian; } }

@@ -1,6 +1,7 @@
 ﻿using FunkyBot.Cache.Enums;
 using System.Collections.Generic;
-using Zeta.Internals.Actors;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Cache
 {

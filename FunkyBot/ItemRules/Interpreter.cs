@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Collections;
-using FunkyBot.Cache;
 using FunkyBot.Cache.Objects;
-using Zeta.Internals.Actors;
-using Zeta.Common;
 using GilesTrinity.ItemRules.Core;
-using Zeta.CommonBot.Items;
-using Zeta.CommonBot;
+using Zeta.Bot;
+using Zeta.Bot.Items;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot
 {
@@ -105,9 +103,9 @@ namespace FunkyBot
 
 				// read configuration file and item files now
 				readConfiguration();
-				Logging.Write(" _______________________________________");
-				Logging.Write(" ___-|: Darkfriend's Item Rules 2 :|-___");
-				Logging.Write(" ___________________Rel.-v {0}_______", version);
+				Logger.DBLog.InfoFormat(" _______________________________________");
+				Logger.DBLog.InfoFormat(" ___-|: Darkfriend's Item Rules 2 :|-___");
+				Logger.DBLog.InfoFormat(" ___________________Rel.-v {0}_______", version);
 		  }
 
 		  public void reset()
@@ -151,12 +149,12 @@ namespace FunkyBot
 
 				// use giles setting
 				if (Bot.Settings.ItemRules.ItemRuleDebug)
-					 Logging.Write("ItemRules is running in debug mode!", logPickQuality);
-				Logging.Write("ItemRules is using the {0} rule set.", Bot.Settings.ItemRules.ItemRuleType.ToString().ToLower());
+					 Logger.DBLog.InfoFormat("ItemRules is running in debug mode!", logPickQuality);
+				Logger.DBLog.InfoFormat("ItemRules is using the {0} rule set.", Bot.Settings.ItemRules.ItemRuleType.ToString().ToLower());
 				logPickQuality=getTrinityItemQualityFromString(Bot.Settings.ItemRules.ItemRuleLogPickup.ToString());
-				Logging.Write("PICKLOG = {0} ", logPickQuality);
+				Logger.DBLog.InfoFormat("PICKLOG = {0} ", logPickQuality);
 				logKeepQuality=getTrinityItemQualityFromString(Bot.Settings.ItemRules.ItemRuleLogKeep.ToString());
-				Logging.Write("KEEPLOG = {0} ", logKeepQuality);
+				Logger.DBLog.InfoFormat("KEEPLOG = {0} ", logKeepQuality);
 
 				string rulesPath;
 				if (Bot.Settings.ItemRules.ItemRuleType.Equals("Custom"))
@@ -166,7 +164,7 @@ namespace FunkyBot
 				else
 					 rulesPath=Path.Combine(itemrulesPath, "Rules", Bot.Settings.ItemRules.ItemRuleType.ToString().ToLower());
 
-				Logging.Write("RULEPATH = {0} ", rulesPath);
+				Logger.DBLog.InfoFormat("RULEPATH = {0} ", rulesPath);
 
 				// fill translation dictionary
 				nameToBalanceId=new Dictionary<string, string>();
@@ -177,19 +175,19 @@ namespace FunkyBot
 					 string[] strArrray=str.Split(';');
 					 nameToBalanceId[strArrray[1].Replace(" ", "")]=strArrray[0];
 				}
-				//DbHelper.Logging.Write(TrinityLogLevel.Normal, LogCategory.UserInformation, "... loaded: {0} ITEMID translations", nameToBalanceId.Count);
+				//DbHelper.Logger.DBLog.InfoFormat(TrinityLogLevel.Normal, LogCategory.UserInformation, "... loaded: {0} ITEMID translations", nameToBalanceId.Count);
 
 				// parse pickup file
 				pickUpRuleSet=readLinesToArray(new StreamReader(Path.Combine(rulesPath, pickupFile)), pickUpRuleSet);
-				Logging.Write("... loaded: {0} Pickup rules", pickUpRuleSet.Count);
+				Logger.DBLog.InfoFormat("... loaded: {0} Pickup rules", pickUpRuleSet.Count);
 
 				//parse savlage file
 				salvageRuleSet=readLinesToArray(new StreamReader(Path.Combine(itemrulesPath, "Rules", salvageFile)), salvageRuleSet);
-				Logging.Write("... loaded: {0} Salvage rules", salvageRuleSet.Count);
+				Logger.DBLog.InfoFormat("... loaded: {0} Salvage rules", salvageRuleSet.Count);
 
 				//parse unid keep file
 				unidKeepRuleSet=readLinesToArray(new StreamReader(Path.Combine(itemrulesPath, "Rules", unidFile)), unidKeepRuleSet);
-				Logging.Write("... loaded: {0} Unid Keep rules", unidKeepRuleSet.Count);
+				Logger.DBLog.InfoFormat("... loaded: {0} Unid Keep rules", unidKeepRuleSet.Count);
 
 				// parse all item files
 				foreach (TrinityItemQuality itemQuality in Enum.GetValues(typeof(TrinityItemQuality)))
@@ -200,12 +198,12 @@ namespace FunkyBot
 					 if (File.Exists(filePath))
 					 {
 						  ruleSet=readLinesToArray(new StreamReader(filePath), ruleSet);
-						  Logging.Write("... loaded: {0} {1} rules", (ruleSet.Count-oldValue), itemQuality.ToString());
+						  Logger.DBLog.InfoFormat("... loaded: {0} {1} rules", (ruleSet.Count-oldValue), itemQuality.ToString());
 					 }
 				}
 
-				Logging.Write("... loaded: {0} Macros", macroDic.Count);
-				Logging.Write("ItemRules loaded a total of {0} {1} rules!", ruleSet.Count, Bot.Settings.ItemRules.ItemRuleType.ToString());
+				Logger.DBLog.InfoFormat("... loaded: {0} Macros", macroDic.Count);
+				Logger.DBLog.InfoFormat("ItemRules loaded a total of {0} {1} rules!", ruleSet.Count, Bot.Settings.ItemRules.ItemRuleType.ToString());
 		  }
 
 		  /// <summary>
@@ -232,7 +230,7 @@ namespace FunkyBot
 
 					 if (match.Success)
 					 {
-						  //DbHelper.Logging.Write(TrinityLogLevel.Normal, LogCategory.UserInformation, " macro added: {0} := {1}", match.Groups[1].Value, match.Groups[2].Value);
+						  //DbHelper.Logger.DBLog.InfoFormat(TrinityLogLevel.Normal, LogCategory.UserInformation, " macro added: {0} := {1}", match.Groups[1].Value, match.Groups[2].Value);
 						  macroDic.Add(match.Groups[1].Value, match.Groups[2].Value);
 						  continue;
 					 }
@@ -253,7 +251,7 @@ namespace FunkyBot
 								}
 						  }
 						  if (!foundTranslation&&Bot.Settings.ItemRules.ItemRuleDebug)
-								Logging.Write("No translation found for rule: {0}", str);
+								Logger.DBLog.InfoFormat("No translation found for rule: {0}", str);
 					 }
 
 					 array.Add(str);
@@ -705,7 +703,7 @@ namespace FunkyBot
 				/// TODO remove this check if it isnt necessary anymore
 				if (item.BalanceData.thisItemType==ItemType.Unknown&&(item.InternalName.Contains("Plan")||item.InternalName.Contains("Design")))
 				{
-					 Logging.Write("There are still buggy itemType infos for craftingPlan around {0} has itemType = {1}", item.InternalName, item.BalanceData.thisItemType);
+					 Logger.DBLog.InfoFormat("There are still buggy itemType infos for craftingPlan around {0} has itemType = {1}", item.InternalName, item.BalanceData.thisItemType);
 					 result=ItemType.CraftingPlan.ToString();
 				}
 				else result=item.BalanceData.thisItemType.ToString();
@@ -764,7 +762,7 @@ namespace FunkyBot
 				/// TODO remove this check if it isnt necessary anymore
 				if (item.ItemType==ItemType.Unknown&&item.Name.Contains("Plan"))
 				{
-					 Logging.Write("There are still buggy itemType infos for craftingPlan around {0} has itemType = {1}", item.Name, item.ItemType);
+					 Logger.DBLog.InfoFormat("There are still buggy itemType infos for craftingPlan around {0} has itemType = {1}", item.Name, item.ItemType);
 					 result=ItemType.CraftingPlan.ToString();
 				}
 				else result=item.ItemType.ToString();
@@ -825,12 +823,12 @@ namespace FunkyBot
 				itemDic.Add("[RESARCANE]", item.Stats.ResistArcane);
 				itemDic.Add("[RESCOLD]", item.Stats.ResistCold);
 				itemDic.Add("[RESPOISON]", item.Stats.ResistPoison);
-				itemDic.Add("[FIREDMG%]", item.Stats.FireDamagePercent);
-				itemDic.Add("[LIGHTNINGDMG%]", item.Stats.LightningDamagePercent);
-				itemDic.Add("[COLDDMG%]", item.Stats.ColdDamagePercent);
-				itemDic.Add("[POISONDMG%]", item.Stats.PoisonDamagePercent);
-				itemDic.Add("[ARCANEDMG%]", item.Stats.ArcaneDamagePercent);
-				itemDic.Add("[HOLYDMG%]", item.Stats.HolyDamagePercent);
+				//itemDic.Add("[FIREDMG%]", item.Stats.FireDamagePercent);
+				//itemDic.Add("[LIGHTNINGDMG%]", item.Stats.LightningDamagePercent);
+				//itemDic.Add("[COLDDMG%]", item.Stats.ColdDamagePercent);
+				//itemDic.Add("[POISONDMG%]", item.Stats.PoisonDamagePercent);
+				//itemDic.Add("[ARCANEDMG%]", item.Stats.ArcaneDamagePercent);
+				//itemDic.Add("[HOLYDMG%]", item.Stats.HolyDamagePercent);
 				itemDic.Add("[ARMOR]", item.Stats.Armor);
 				itemDic.Add("[ARMORBONUS]", item.Stats.ArmorBonus);
 				itemDic.Add("[ARMORTOT]", item.Stats.ArmorTotal);
@@ -928,7 +926,7 @@ namespace FunkyBot
 				string balanceIDstr;
 				if (!nameToBalanceId.TryGetValue(item.Name.Replace(" ", ""), out balanceIDstr)&&!nameToBalanceId.ContainsValue(item.GameBalanceId.ToString()))
 				{
-					 Logging.Write("Translation: Missing: "+item.GameBalanceId.ToString()+";"+item.Name+" (ID is missing report)");
+					 Logger.DBLog.InfoFormat("Translation: Missing: "+item.GameBalanceId.ToString()+";"+item.Name+" (ID is missing report)");
 					 // not found missing name
 					 StreamWriter transFix=new StreamWriter(Path.Combine(logPath, transFixFile), true);
 					 transFix.WriteLine("Missing: "+item.GameBalanceId.ToString()+";"+item.Name);
@@ -936,7 +934,7 @@ namespace FunkyBot
 				}
 				else if (balanceIDstr!=item.GameBalanceId.ToString())
 				{
-					 Logging.Write("Translation: Wrong("+balanceIDstr+"): "+item.GameBalanceId.ToString()+";"+item.Name);
+					 Logger.DBLog.InfoFormat("Translation: Wrong("+balanceIDstr+"): "+item.GameBalanceId.ToString()+";"+item.Name);
 					 // wrong reference
 					 StreamWriter transFix=new StreamWriter(Path.Combine(logPath, transFixFile), true);
 					 transFix.WriteLine("Wrong("+balanceIDstr+"): "+item.GameBalanceId.ToString()+";"+item.Name);

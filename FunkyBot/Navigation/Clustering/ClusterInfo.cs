@@ -1,4 +1,3 @@
-using FunkyBot.Cache;
 using FunkyBot.Cache.Objects;
 
 namespace FunkyBot.Movement.Clustering

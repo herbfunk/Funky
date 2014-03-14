@@ -7,10 +7,10 @@ using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.Conditions;
-using Zeta;
 using Zeta.Common;
-using Zeta.Internals.Actors;
-using Zeta.Internals.SNO;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
+using Zeta.Game.Internals.SNO;
 using Zeta.TreeSharp;
 
 namespace FunkyBot.Cache.Objects
@@ -403,7 +403,7 @@ namespace FunkyBot.Cache.Objects
 				catch (AccessViolationException)
 				{
 					// This happens so frequently in DB/D3 that this fails, let's not even bother logging it anymore
-					//Logging.WriteDiagnostic("[GilesTrinity] Safely handled exception getting current health for unit " + tmp_sThisInternalName + " [" + tmp_iThisActorSNO.ToString() + "]");
+					//Logger.DBLog.DebugFormat("[GilesTrinity] Safely handled exception getting current health for unit " + tmp_sThisInternalName + " [" + tmp_iThisActorSNO.ToString() + "]");
 					// Add this monster to our very short-term ignore list
 					NeedsRemoved = true;
 					return;
@@ -806,7 +806,7 @@ namespace FunkyBot.Cache.Objects
 							{
 								Bot.Targeting.iTotalNumberGoblins++;
 								Bot.Targeting.lastGoblinTime = DateTime.Now;
-								Logging.Write("[Funky] Goblin #" + Bot.Targeting.iTotalNumberGoblins.ToString(CultureInfo.InvariantCulture) + " in sight. Distance=" + centreDistance);
+								Logger.DBLog.InfoFormat("[Funky] Goblin #" + Bot.Targeting.iTotalNumberGoblins.ToString(CultureInfo.InvariantCulture) + " in sight. Distance=" + centreDistance);
 							}
 							else
 							{
@@ -1224,7 +1224,7 @@ namespace FunkyBot.Cache.Objects
 				catch (Exception ex)
 				{
 					Logger.Write(LogLevel.Cache, "[Funky] Safely handled exception getting is-targetable attribute for unit " + InternalName + " [" + SNOID.ToString(CultureInfo.InvariantCulture) + "]");
-					//Logging.WriteDiagnostic(ex.ToString());
+					//Logger.DBLog.DebugFormat(ex.ToString());
 					IsTargetable = true;
 				}
 			}
@@ -1274,7 +1274,7 @@ namespace FunkyBot.Cache.Objects
 					}
 				}
 			}
-			else if (Bot.Character.Class.AC == ActorClass.WitchDoctor)
+			else if (Bot.Character.Class.AC == ActorClass.Witchdoctor)
 			{
 				//Haunted DotDPS update
 				if (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_Haunt) || Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_Locust_Swarm))
@@ -1348,7 +1348,7 @@ namespace FunkyBot.Cache.Objects
 				// Force waiting for global cooldown timer or long-animation abilities
 				if (Bot.Character.Class.PowerPrime.WaitLoopsBefore >= 1 || (Bot.Character.Class.PowerPrime.WaitWhileAnimating && DateTime.Now.Subtract(PowerCacheLookup.lastGlobalCooldownUse).TotalMilliseconds <= 50))
 				{
-					//Logging.WriteDiagnostic("Debug: Force waiting BEFORE Ability " + powerPrime.powerThis.ToString() + "...");
+					//Logger.DBLog.DebugFormat("Debug: Force waiting BEFORE Ability " + powerPrime.powerThis.ToString() + "...");
 					Bot.Targeting.bWaitingForPower = true;
 					if (Bot.Character.Class.PowerPrime.WaitLoopsBefore >= 1)
 						Bot.Character.Class.PowerPrime.WaitLoopsBefore--;
@@ -1385,7 +1385,7 @@ namespace FunkyBot.Cache.Objects
 
 				if (Bot.Character.Class.PowerPrime.SuccessUsed.HasValue && Bot.Character.Class.PowerPrime.SuccessUsed.Value)
 				{
-					//Logging.Write(powerPrime.powerThis.ToString() + " used successfully");
+					//Logger.DBLog.InfoFormat(powerPrime.powerThis.ToString() + " used successfully");
 					Bot.Character.Class.PowerPrime.OnSuccessfullyUsed();
 				}
 				else
@@ -1404,7 +1404,7 @@ namespace FunkyBot.Cache.Objects
 				Bot.Targeting.bWaitingAfterPower = false;
 				if (Bot.Character.Class.PowerPrime.WaitLoopsAfter >= 1)
 				{
-					//Logging.WriteDiagnostic("Force waiting AFTER Ability " + powerPrime.powerThis.ToString() + "...");
+					//Logger.DBLog.DebugFormat("Force waiting AFTER Ability " + powerPrime.powerThis.ToString() + "...");
 					Bot.Targeting.bWaitingAfterPower = true;
 				}
 

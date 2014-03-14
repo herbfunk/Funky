@@ -3,11 +3,12 @@ using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Movement;
-using Zeta;
+using Zeta.Bot;
+using Zeta.Bot.Logic;
+using Zeta.Bot.Navigation;
 using Zeta.Common;
-using Zeta.CommonBot;
-using Zeta.Internals.Actors;
-using Zeta.Navigation;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Targeting.Behaviors
 {
@@ -45,7 +46,7 @@ namespace FunkyBot.Targeting.Behaviors
 						Bot.Character.Data.iCurrentWorldID == 121214 &&
 						(Vector3.Distance(Bot.Character.Data.Position, new Vector3(711.25f, 716.25f, 80.13903f)) <= 40f || Vector3.Distance(Bot.Character.Data.Position, new Vector3(546.8467f, 551.7733f, 1.576313f)) <= 40f))
 					{
-						Logging.Write("[Funky] Waiting for Wrath Of The Berserker cooldown before continuing to Azmodan.");
+						Logger.DBLog.InfoFormat("[Funky] Waiting for Wrath Of The Berserker cooldown before continuing to Azmodan.");
 						obj = new CacheObject(Bot.Character.Data.Position, TargetType.NoMovement, 20000, "GilesWaitForWrath", 0f, -1);
 						InactivityDetector.Reset();
 						return true;
@@ -54,7 +55,7 @@ namespace FunkyBot.Targeting.Behaviors
 					if (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_Archon) && !Bot.Character.Class.Abilities[SNOPower.Wizard_Archon].AbilityUseTimer() && Bot.Settings.Class.bWaitForArchon && ZetaDia.CurrentWorldId == 121214 &&
 						(Vector3.Distance(Bot.Character.Data.Position, new Vector3(711.25f, 716.25f, 80.13903f)) <= 40f || Vector3.Distance(Bot.Character.Data.Position, new Vector3(546.8467f, 551.7733f, 1.576313f)) <= 40f))
 					{
-						Logging.Write("[Funky] Waiting for Wizard Archon cooldown before continuing to Azmodan.");
+						Logger.DBLog.InfoFormat("[Funky] Waiting for Wizard Archon cooldown before continuing to Azmodan.");
 						obj = new CacheObject(Bot.Character.Data.Position, TargetType.NoMovement, 20000, "GilesWaitForArchon", 0f, -1);
 						InactivityDetector.Reset();
 						return true;
@@ -63,14 +64,14 @@ namespace FunkyBot.Targeting.Behaviors
 					if (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_BigBadVoodoo) && !PowerManager.CanCast(SNOPower.Witchdoctor_BigBadVoodoo) && ZetaDia.CurrentWorldId == 121214 &&
 						(Vector3.Distance(Bot.Character.Data.Position, new Vector3(711.25f, 716.25f, 80.13903f)) <= 40f || Vector3.Distance(Bot.Character.Data.Position, new Vector3(546.8467f, 551.7733f, 1.576313f)) <= 40f))
 					{
-						Logging.Write("[Funky] Waiting for WD BigBadVoodoo cooldown before continuing to Azmodan.");
+						Logger.DBLog.InfoFormat("[Funky] Waiting for WD BigBadVoodoo cooldown before continuing to Azmodan.");
 						obj = new CacheObject(Bot.Character.Data.Position, TargetType.NoMovement, 20000, "GilesWaitForVoodooo", 0f, -1);
 						InactivityDetector.Reset();
 						return true;
 					}
 
 					//Currently preforming an interactive profile behavior (check if in town and not vendoring)
-					if (Bot.Game.Profile.PreformingInteractiveBehavior && (!Bot.Character.Data.bIsInTown || !Zeta.CommonBot.Logic.BrainBehavior.IsVendoring))
+					if (Bot.Game.Profile.PreformingInteractiveBehavior && (!Bot.Character.Data.bIsInTown || !BrainBehavior.IsVendoring))
 					{
 						if (Bot.Game.Profile.InteractableCachedObject.Position.Distance(Bot.Character.Data.Position) > 50f)
 						{

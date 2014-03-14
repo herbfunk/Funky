@@ -933,13 +933,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Demonbuddy, Version=1.0.1583.325, Culture=neutral, PublicKeyToken=eff32ccf253d66d4, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Demonbuddy">
       <HintPath>Assemblies\Demonbuddy.exe</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="GreyMagic, Version=1.0.1583.325, Culture=neutral, PublicKeyToken=260525fa2b0e778a, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="GreyMagic">
       <HintPath>Assemblies\GreyMagic.dll</HintPath>
       <Private>False</Private>
     </Reference>
@@ -1072,8 +1070,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assemblies\Demonbuddy.exe" />
-    <Content Include="Assemblies\GreyMagic.dll" />
     <Content Include="Cache\Dictionaries\SNOId_Cache_Units.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1147,6 +1143,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Assemblies\" />
     <Folder Include="ItemRules\Log\Archive\" />
     <Folder Include="Player\HotBar\Skills\Skill Objects\Crusader\" />
   </ItemGroup>

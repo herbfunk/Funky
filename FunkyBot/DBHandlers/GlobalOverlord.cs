@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Linq;
 using FunkyBot.DBHandlers;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
-using Zeta;
-using System.Linq;
+using Zeta.Bot;
 using Zeta.Common;
-using Zeta.Internals.Actors;
-using Zeta.CommonBot;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
+using Zeta.Game.Internals.Actors.Gizmos;
 using Zeta.TreeSharp;
 using FunkyBot.Player.Class;
 
@@ -62,7 +63,7 @@ namespace FunkyBot
 				{
 					if (BotMain.StatusText.Contains("Game Finished"))
 					{
-						if (ZetaDia.Actors.GetActorsOfType<Zeta.Internals.Actors.Gizmos.GizmoPlayerSharedStash>(true, true).Any())
+						if (ZetaDia.Actors.GetActorsOfType<GizmoPlayerSharedStash>(true, true).Any())
 						{
 							return true;
 						}

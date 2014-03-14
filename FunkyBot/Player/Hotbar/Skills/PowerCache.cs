@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Zeta.Internals.Actors;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Cache
 {
@@ -14,8 +14,8 @@ namespace FunkyBot.Cache
 
 		internal static readonly HashSet<SNOPower> AbilitiesDestructiblePriority = new HashSet<SNOPower>
 		  {
-				SNOPower.Barbarian_Frenzy, SNOPower.Barbarian_Bash,SNOPower.Barbarian_Cleave,SNOPower.Barbarian_WeaponThrow, SNOPower.Barbarian_Rend,
-				SNOPower.DemonHunter_HungeringArrow, SNOPower.DemonHunter_EntanglingShot, SNOPower.DemonHunter_BolaShot, SNOPower.DemonHunter_Grenades, SNOPower.DemonHunter_ElementalArrow, SNOPower.DemonHunter_RapidFire, SNOPower.DemonHunter_Chakram,
+				SNOPower.Barbarian_Frenzy, SNOPower.Barbarian_Bash,SNOPower.Barbarian_Cleave,SNOPower.X1_Barbarian_WeaponThrow, SNOPower.Barbarian_Rend,
+				SNOPower.DemonHunter_HungeringArrow, SNOPower.X1_DemonHunter_EntanglingShot, SNOPower.DemonHunter_Bolas, SNOPower.DemonHunter_Grenades, SNOPower.DemonHunter_ElementalArrow, SNOPower.DemonHunter_RapidFire, SNOPower.DemonHunter_Chakram,
 				SNOPower.Monk_FistsofThunder,SNOPower.Monk_DeadlyReach,SNOPower.Monk_CripplingWave,SNOPower.Monk_WayOfTheHundredFists,
 				SNOPower.Witchdoctor_Firebomb, SNOPower.Witchdoctor_PoisonDart, SNOPower.Witchdoctor_ZombieCharger, SNOPower.Witchdoctor_CorpseSpider, SNOPower.Witchdoctor_PlagueOfToads,
 				SNOPower.Wizard_EnergyTwister, SNOPower.Wizard_MagicMissile,SNOPower.Wizard_ShockPulse,SNOPower.Wizard_SpectralBlade, SNOPower.Wizard_Electrocute, SNOPower.Wizard_Archon_DisintegrationWave,
@@ -30,8 +30,8 @@ namespace FunkyBot.Cache
 
 		internal static readonly HashSet<SNOPower> PrimaryAbilities = new HashSet<SNOPower>
 		  {
-				 SNOPower.Barbarian_Bash,SNOPower.Barbarian_Cleave,SNOPower.Barbarian_WeaponThrow,SNOPower.Barbarian_Frenzy,
-				 SNOPower.DemonHunter_HungeringArrow,SNOPower.DemonHunter_EntanglingShot,SNOPower.DemonHunter_BolaShot,SNOPower.DemonHunter_Grenades,
+				 SNOPower.Barbarian_Bash,SNOPower.Barbarian_Cleave,SNOPower.X1_Barbarian_WeaponThrow,SNOPower.Barbarian_Frenzy,
+				 SNOPower.DemonHunter_HungeringArrow,SNOPower.X1_DemonHunter_EntanglingShot,SNOPower.DemonHunter_Bolas,SNOPower.DemonHunter_Grenades,
 				 SNOPower.Monk_FistsofThunder,SNOPower.Monk_DeadlyReach,SNOPower.Monk_CripplingWave,SNOPower.Monk_WayOfTheHundredFists,
 				 SNOPower.Witchdoctor_PoisonDart,SNOPower.Witchdoctor_CorpseSpider,SNOPower.Witchdoctor_PlagueOfToads,SNOPower.Witchdoctor_Firebomb,
 				 SNOPower.Wizard_MagicMissile,SNOPower.Wizard_ShockPulse,SNOPower.Wizard_SpectralBlade,SNOPower.Wizard_Electrocute,SNOPower.Wizard_Archon_DisintegrationWave,
@@ -46,7 +46,6 @@ namespace FunkyBot.Cache
 				SNOPower.Witchdoctor_Passive_TribalRites,
 				SNOPower.Witchdoctor_Passive_GraveInjustice,
 				SNOPower.Wizard_Passive_Evocation,
-				SNOPower.Wizard_Passive_CriticalMass,
 		  };
 		internal static readonly Dictionary<SNOPower, int> dictAbilityRepeatDefaults = new Dictionary<SNOPower, int>
             {
@@ -65,14 +64,14 @@ namespace FunkyBot.Cache
                 {SNOPower.Barbarian_Leap, 10200}, 
                 {SNOPower.Barbarian_Sprint, 2900}, 
                 {SNOPower.Barbarian_IgnorePain, 30200},
-                {SNOPower.Barbarian_AncientSpear, 300}, // Has a rune that resets cooldown from 10 seconds to 0 on crit
+                {SNOPower.X1_Barbarian_AncientSpear, 300}, // Has a rune that resets cooldown from 10 seconds to 0 on crit
                 {SNOPower.Barbarian_Revenge, 600}, 
                 {SNOPower.Barbarian_FuriousCharge, 500}, // Need to be able to check skill-rune for the dynamic cooldown - set to 10 always except for the skill rune :(
                 {SNOPower.Barbarian_Overpower, 200}, 
-                {SNOPower.Barbarian_WeaponThrow, 5}, 
+                {SNOPower.X1_Barbarian_WeaponThrow, 5}, 
                 {SNOPower.Barbarian_ThreateningShout, 10200}, 
                 {SNOPower.Barbarian_BattleRage, 118000}, 
-                {SNOPower.Barbarian_WarCry, 20500}, 
+                {SNOPower.X1_Barbarian_WarCry_v2, 20500}, 
                 {SNOPower.Barbarian_Earthquake, 120500},  // Need to be able to check skill-run for dynamic cooldown, and passive for extra cooldown
                 {SNOPower.Barbarian_CallOfTheAncients, 120500}, // Need to be able to check passive for cooldown
                 {SNOPower.Barbarian_WrathOfTheBerserker, 120500}, // Need to be able to check passive for cooldown 
@@ -89,17 +88,17 @@ namespace FunkyBot.Cache
                 {SNOPower.Monk_BlindingFlash, 15200}, 
                 {SNOPower.Monk_BreathOfHeaven, 15200}, 
                 {SNOPower.Monk_Serenity, 20200}, 
-                {SNOPower.Monk_InnerSanctuary, 20200}, 
+                {SNOPower.X1_Monk_InnerSanctuary, 20200}, 
                 {SNOPower.Monk_DashingStrike, 1000}, 
                 {SNOPower.Monk_ExplodingPalm, 5000}, 
                 {SNOPower.Monk_SweepingWind, 6000}, 
                 {SNOPower.Monk_CycloneStrike, 10000}, 
                 {SNOPower.Monk_SevenSidedStrike, 30200}, 
-                {SNOPower.Monk_MysticAlly, 30000}, 
-                {SNOPower.Monk_MantraOfEvasion, 3300}, 
-                {SNOPower.Monk_MantraOfRetribution, 3300},
-                {SNOPower.Monk_MantraOfHealing, 3300},  
-                {SNOPower.Monk_MantraOfConviction, 3300},  
+                {SNOPower.X1_Monk_MysticAlly_v2, 30000}, 
+                {SNOPower.X1_Monk_MantraOfEvasion_v2, 3300}, 
+                {SNOPower.X1_Monk_MantraOfRetribution_v2, 3300},
+                {SNOPower.X1_Monk_MantraOfHealing_v2, 3300},  
+                {SNOPower.X1_Monk_MantraOfConviction_v2, 3300},  
 	#endregion
                 #region Wizard
 		// Wizard skills
@@ -162,8 +161,8 @@ namespace FunkyBot.Cache
                 #region DemonHunter
 		// Demon Hunter skills
                 {SNOPower.DemonHunter_HungeringArrow, 5},
-                {SNOPower.DemonHunter_EntanglingShot, 5},
-                {SNOPower.DemonHunter_BolaShot, 5},
+                {SNOPower.X1_DemonHunter_EntanglingShot, 5},
+                {SNOPower.DemonHunter_Bolas, 5},
                 {SNOPower.DemonHunter_Grenades, 5},	
 				{SNOPower.DemonHunter_Impale, 5},
                 {SNOPower.DemonHunter_RapidFire, 5},
@@ -174,9 +173,9 @@ namespace FunkyBot.Cache
                 {SNOPower.DemonHunter_ShadowPower, 5000},
                 {SNOPower.DemonHunter_Vault, 400},
                 {SNOPower.DemonHunter_Preparation, 5000},	
-                {SNOPower.DemonHunter_Companion, 30000},	
+                {SNOPower.X1_DemonHunter_Companion, 30000},	
                 {SNOPower.DemonHunter_MarkedForDeath, 10000},		
-                {SNOPower.DemonHunter_EvasiveFire, 1500},	
+                {SNOPower.X1_DemonHunter_EvasiveFire, 1500},	
                 {SNOPower.DemonHunter_FanOfKnives, 10000},
 				{SNOPower.DemonHunter_SpikeTrap, 1000},		
                 {SNOPower.DemonHunter_Sentry, 12000},
@@ -203,10 +202,10 @@ namespace FunkyBot.Cache
 		        {SNOPower.Barbarian_Bash, DateTime.Today},{SNOPower.Barbarian_Cleave, DateTime.Today},{SNOPower.Barbarian_Frenzy, DateTime.Today}, 
                 {SNOPower.Barbarian_HammerOfTheAncients, DateTime.Today},{SNOPower.Barbarian_Rend, DateTime.Today},{SNOPower.Barbarian_SeismicSlam, DateTime.Today}, 
                 {SNOPower.Barbarian_Whirlwind, DateTime.Today},{SNOPower.Barbarian_GroundStomp, DateTime.Today},{SNOPower.Barbarian_Leap, DateTime.Today}, 
-                {SNOPower.Barbarian_Sprint, DateTime.Today},{SNOPower.Barbarian_IgnorePain, DateTime.Today},{SNOPower.Barbarian_AncientSpear, DateTime.Today},
+                {SNOPower.Barbarian_Sprint, DateTime.Today},{SNOPower.Barbarian_IgnorePain, DateTime.Today},{SNOPower.X1_Barbarian_AncientSpear, DateTime.Today},
                 {SNOPower.Barbarian_Revenge, DateTime.Today},{SNOPower.Barbarian_FuriousCharge, DateTime.Today},{SNOPower.Barbarian_Overpower, DateTime.Today}, 
-                {SNOPower.Barbarian_WeaponThrow, DateTime.Today},{SNOPower.Barbarian_ThreateningShout, DateTime.Today},{SNOPower.Barbarian_BattleRage, DateTime.Today},
-                {SNOPower.Barbarian_WarCry, DateTime.Today},{SNOPower.Barbarian_Earthquake, DateTime.Today},{SNOPower.Barbarian_CallOfTheAncients, DateTime.Today}, 
+                {SNOPower.X1_Barbarian_WeaponThrow, DateTime.Today},{SNOPower.Barbarian_ThreateningShout, DateTime.Today},{SNOPower.Barbarian_BattleRage, DateTime.Today},
+                {SNOPower.X1_Barbarian_WarCry_v2, DateTime.Today},{SNOPower.Barbarian_Earthquake, DateTime.Today},{SNOPower.Barbarian_CallOfTheAncients, DateTime.Today}, 
                 {SNOPower.Barbarian_WrathOfTheBerserker, DateTime.Today }, 
 	            #endregion 
                 // Monk last-used timers
@@ -214,10 +213,10 @@ namespace FunkyBot.Cache
 		        {SNOPower.Monk_FistsofThunder, DateTime.Today},{SNOPower.Monk_DeadlyReach, DateTime.Today},{SNOPower.Monk_CripplingWave, DateTime.Today},
                 {SNOPower.Monk_WayOfTheHundredFists, DateTime.Today},{SNOPower.Monk_LashingTailKick, DateTime.Today},{SNOPower.Monk_TempestRush, DateTime.Today},
                 {SNOPower.Monk_WaveOfLight, DateTime.Today},{SNOPower.Monk_BlindingFlash, DateTime.Today},{SNOPower.Monk_BreathOfHeaven, DateTime.Today}, 
-                {SNOPower.Monk_Serenity, DateTime.Today}, {SNOPower.Monk_InnerSanctuary, DateTime.Today},{SNOPower.Monk_DashingStrike, DateTime.Today}, 
+                {SNOPower.Monk_Serenity, DateTime.Today}, {SNOPower.X1_Monk_InnerSanctuary, DateTime.Today},{SNOPower.Monk_DashingStrike, DateTime.Today}, 
                 {SNOPower.Monk_ExplodingPalm, DateTime.Today},{SNOPower.Monk_SweepingWind, DateTime.Today},{SNOPower.Monk_CycloneStrike, DateTime.Today}, 
-                {SNOPower.Monk_SevenSidedStrike, DateTime.Today},{SNOPower.Monk_MysticAlly, DateTime.Today},{SNOPower.Monk_MantraOfEvasion, DateTime.Today}, 
-                {SNOPower.Monk_MantraOfRetribution, DateTime.Today},{SNOPower.Monk_MantraOfHealing, DateTime.Today}, {SNOPower.Monk_MantraOfConviction, DateTime.Today}, 
+                {SNOPower.Monk_SevenSidedStrike, DateTime.Today},{SNOPower.X1_Monk_MysticAlly_v2, DateTime.Today},{SNOPower.X1_Monk_MantraOfEvasion_v2, DateTime.Today}, 
+                {SNOPower.X1_Monk_MantraOfRetribution_v2, DateTime.Today},{SNOPower.X1_Monk_MantraOfHealing_v2, DateTime.Today}, {SNOPower.X1_Monk_MantraOfConviction_v2, DateTime.Today}, 
 	            #endregion
                 // Wizard last-used timers
                 #region Wizard
@@ -246,12 +245,12 @@ namespace FunkyBot.Cache
 	            #endregion
                 // Demon Hunter last-used timers 
                 #region DemonHunter
-		        {SNOPower.DemonHunter_HungeringArrow, DateTime.Today},{SNOPower.DemonHunter_EntanglingShot, DateTime.Today},{SNOPower.DemonHunter_BolaShot, DateTime.Today},
+		        {SNOPower.DemonHunter_HungeringArrow, DateTime.Today},{SNOPower.X1_DemonHunter_EntanglingShot, DateTime.Today},{SNOPower.DemonHunter_Bolas, DateTime.Today},
                 {SNOPower.DemonHunter_Grenades, DateTime.Today},{SNOPower.DemonHunter_Impale, DateTime.Today},{SNOPower.DemonHunter_RapidFire, DateTime.Today},
                 {SNOPower.DemonHunter_Chakram, DateTime.Today},{SNOPower.DemonHunter_ElementalArrow, DateTime.Today},{SNOPower.DemonHunter_Caltrops, DateTime.Today},
                 {SNOPower.DemonHunter_SmokeScreen, DateTime.Today},{SNOPower.DemonHunter_ShadowPower, DateTime.Today},{SNOPower.DemonHunter_Vault, DateTime.Today},
-                {SNOPower.DemonHunter_Preparation, DateTime.Today},{SNOPower.DemonHunter_Companion, DateTime.Today},{SNOPower.DemonHunter_MarkedForDeath, DateTime.Today},		
-                {SNOPower.DemonHunter_EvasiveFire, DateTime.Today},{SNOPower.DemonHunter_FanOfKnives, DateTime.Today},{SNOPower.DemonHunter_SpikeTrap, DateTime.Today},		
+                {SNOPower.DemonHunter_Preparation, DateTime.Today},{SNOPower.X1_DemonHunter_Companion, DateTime.Today},{SNOPower.DemonHunter_MarkedForDeath, DateTime.Today},		
+                {SNOPower.X1_DemonHunter_EvasiveFire, DateTime.Today},{SNOPower.DemonHunter_FanOfKnives, DateTime.Today},{SNOPower.DemonHunter_SpikeTrap, DateTime.Today},		
                 {SNOPower.DemonHunter_Sentry, DateTime.Today},{SNOPower.DemonHunter_Strafe, DateTime.Today},{SNOPower.DemonHunter_Multishot, DateTime.Today},
                 {SNOPower.DemonHunter_ClusterArrow, DateTime.Today},{SNOPower.DemonHunter_RainOfVengeance, DateTime.Today},
 	            #endregion

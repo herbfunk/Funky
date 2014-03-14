@@ -1,5 +1,5 @@
 ﻿using System.Runtime.InteropServices;
-using Zeta.CommonBot.Profile;
+using Zeta.Bot.Profile;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 using FunkyBot.Game;

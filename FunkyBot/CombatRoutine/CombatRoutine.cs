@@ -3,10 +3,10 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using Demonbuddy;
-using Zeta;
+using Zeta.Bot;
 using Zeta.Common;
-using Zeta.CommonBot;
-using Zeta.Internals.Actors;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
 using System.Windows.Controls;
 using System.IO;
@@ -20,7 +20,7 @@ namespace GilesBlankCombatRoutine
 	{
 		private static string sDemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 		private static string sTrinityPluginPath = sDemonBuddyPath + @"\Plugins\FunkyBot\";
-
+		private static readonly log4net.ILog DBLog = Zeta.Common.Logger.GetLoggerInstanceForType();
 
 
 
@@ -46,7 +46,7 @@ namespace GilesBlankCombatRoutine
 							FunkyButton = grid.FindName("Funky") as SplitButton;
 							if (FunkyButton != null)
 							{
-								Logging.WriteDiagnostic("Funky Button handler added");
+								DBLog.DebugFormat("Funky Button handler added");
 							}
 							else
 							{

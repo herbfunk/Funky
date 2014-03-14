@@ -1,5 +1,4 @@
-﻿using FunkyBot.Cache;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FunkyBot.Cache.Objects;
 
 namespace FunkyBot.Targeting

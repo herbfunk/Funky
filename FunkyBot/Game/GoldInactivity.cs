@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BuddyMonitor.Common;
 using FunkyBot.DBHandlers;
-using Zeta;
-using Zeta.CommonBot;
-using Zeta.TreeSharp;
 
 namespace FunkyBot.Game
 {

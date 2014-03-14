@@ -1,10 +1,10 @@
 ﻿using System;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.Wizard;
-using Zeta;
-using Zeta.Internals.Actors;
+using Zeta.Game;
 using Zeta.Common;
 using System.Collections.Generic;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.Class
 {
@@ -13,7 +13,7 @@ namespace FunkyBot.Player.Class
 	{
 		public Wizard()
 		{
-			Logging.WriteDiagnostic("[Funky] Using Wizard Player Class");
+			Logger.DBLog.DebugFormat("[Funky] Using Wizard Player Class");
 		}
 
 		//Base class for each individual class!
@@ -75,7 +75,7 @@ namespace FunkyBot.Player.Class
 
 			if (RefreshNeeded)
 			{
-				Logging.WriteVerbose("Updating Hotbar abilities!");
+				Logger.DBLog.InfoFormat("Updating Hotbar abilities!");
 				HotBar.CachedPowers = new HashSet<SNOPower>(HotBar.HotbarPowers);
 				HotBar.RefreshHotbar();
 				HotBar.UpdateRepeatAbilityTimes();

@@ -1,6 +1,6 @@
 ﻿using System;
-using Zeta.CommonBot;
-using Zeta.CommonBot.Profile;
+using Zeta.Bot;
+using Zeta.Bot.Profile;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 using Action=Zeta.TreeSharp.Action;

@@ -3,8 +3,8 @@ using System.Globalization;
 using System.Linq;
 using FunkyBot.Cache.Enums;
 using Zeta.Common;
-using Zeta.Internals.Actors;
-using Zeta.Internals.SNO;
+using Zeta.Game.Internals.Actors;
+using Zeta.Game.Internals.SNO;
 
 namespace FunkyBot.Cache.Objects
 {
@@ -585,7 +585,7 @@ namespace FunkyBot.Cache.Objects
 					else
 					{
 						// Calculate the object type of this object
-						if (Actortype.Value == ActorType.Unit ||
+						if (Actortype.Value == ActorType.Monster ||
 							 CacheIDLookup.hashActorSNOForceTargetUnit.Contains(SNOID))
 						{
 							targetType = TargetType.Unit;
@@ -594,7 +594,7 @@ namespace FunkyBot.Cache.Objects
 							if (CacheIDLookup.hashActorSNOForceTargetUnit.Contains(SNOID))
 							{
 								//Fill in monster data?
-								Actortype = ActorType.Unit;
+								Actortype = ActorType.Monster;
 							}
 						}
 						else if (Actortype.Value == ActorType.Item ||
@@ -624,21 +624,20 @@ namespace FunkyBot.Cache.Objects
 								Logger.Write(LogLevel.Cache, "Failure to get actor Gizmo Type!");
 								return false;
 							}
-
-
-							if (thisGizmoType == GizmoType.DestructibleLootContainer || thisGizmoType == GizmoType.Destructible)
+							
+							if (thisGizmoType == GizmoType.DestroyableObject)
 								targetType = TargetType.Destructible;
-							else if (thisGizmoType == GizmoType.Shrine || thisGizmoType == GizmoType.Healthwell)
+							else if (thisGizmoType == GizmoType.PowerUp || thisGizmoType == GizmoType.HealingWell)
 							{
 								targetType = TargetType.Shrine;
 							}
-							else if (thisGizmoType == GizmoType.LootContainer)
+							else if (thisGizmoType == GizmoType.Chest)
 								targetType = TargetType.Container;
-							else if (thisGizmoType == GizmoType.Barricade)
+							else if (thisGizmoType == GizmoType.DestroyableObject)
 								targetType = TargetType.Barricade;
 							else if (thisGizmoType == GizmoType.Door)
 								targetType = TargetType.Door;
-							else if (thisGizmoType == GizmoType.Waypoint || thisGizmoType == GizmoType.Portal || thisGizmoType == GizmoType.DungeonStonePortal || thisGizmoType == GizmoType.BossPortal)
+							else if (thisGizmoType == GizmoType.Waypoint || thisGizmoType == GizmoType.Portal || thisGizmoType == GizmoType.DungeonPortal || thisGizmoType == GizmoType.BossPortal)
 							{//Special Interactive Object -- Add to special cache!
 								targetType = TargetType.ServerInteractable;
 							}
@@ -692,7 +691,7 @@ namespace FunkyBot.Cache.Objects
 								}
 								//else if (Bot.AvoidancesHealth.ContainsKey(T))
 								//{
-								//	 Logging.WriteVerbose("Found Avoidance not recongized by SNO! Name {0} SNO {1}", TestString, this.SNOID);
+								//	 Logger.DBLog.InfoFormat("Found Avoidance not recongized by SNO! Name {0} SNO {1}", TestString, this.SNOID);
 								//	 CacheIDLookup.hashAvoidanceSNOList.Add(this.SNOID);
 								//	 this.targetType=TargetType.Avoidance;
 								//}

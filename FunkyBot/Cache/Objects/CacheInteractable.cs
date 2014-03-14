@@ -3,10 +3,10 @@ using System.Linq;
 using FunkyBot.Cache.Enums;
 using FunkyBot.DBHandlers;
 using FunkyBot.Movement;
-using Zeta;
+using Zeta.Bot.Settings;
 using Zeta.Common;
-using Zeta.CommonBot.Settings;
-using Zeta.Internals.Actors;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
 
 namespace FunkyBot.Cache.Objects

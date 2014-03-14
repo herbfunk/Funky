@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using BuddyMonitor.Common;
-using Zeta;
-using Zeta.CommonBot;
+using Zeta.Bot;
+using Zeta.Bot.Settings;
+using Zeta.Game;
 using Zeta.TreeSharp;
 
 namespace FunkyBot.DBHandlers
@@ -42,7 +42,7 @@ namespace FunkyBot.DBHandlers
 			{
 				if (DateTime.Now.Subtract(_lastExitAttempt).TotalSeconds > 4)
 				{
-					Logging.Write("[Funky] Exiting game..");
+					Logger.DBLog.InfoFormat("[Funky] Exiting game..");
 					ZetaDia.Service.Party.LeaveGame();
 					_lastExitAttempt = DateTime.Now;
 				}
@@ -51,7 +51,7 @@ namespace FunkyBot.DBHandlers
 
 			//Get First or Last Used Profile..
 			string profile = Bot.Game.CurrentGameStats.Profiles.Count > 0 ? Bot.Game.CurrentGameStats.Profiles.First().ProfileName :
-							Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
+							GlobalSettings.Instance.LastProfile;
 
 			//Load Profile and Fire our left game handler
 			ProfileManager.Load(profile);

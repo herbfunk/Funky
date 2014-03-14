@@ -1,13 +1,13 @@
 ﻿using System;
-using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
-using Zeta;
+using Zeta.Bot;
+using Zeta.Bot.Navigation;
 using Zeta.Common;
+using Zeta.Game;
+using Zeta.Game.Internals;
+using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
-using Zeta.Navigation;
-using Zeta.Internals.Actors;
-using Zeta.CommonBot;
 using System.Linq;
 using System.IO;
 using System.Collections.Generic;
@@ -52,7 +52,7 @@ namespace FunkyBot.DBHandlers
 							if (thisitem.ACDGUID != Bot.Character.Data.BackPack.CurrentPotionACDGUID && Bot.Character.Data.BackPack.CurrentPotionACDGUID != -1)
 							{
 								Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSellItems.Add(thisitem);
-								Logging.Write("Selling Potion -- Current PotionACDGUID=={0}", Bot.Character.Data.BackPack.CurrentPotionACDGUID);
+								Logger.DBLog.InfoFormat("Selling Potion -- Current PotionACDGUID=={0}", Bot.Character.Data.BackPack.CurrentPotionACDGUID);
 							}
 							continue;
 						}
@@ -75,7 +75,7 @@ namespace FunkyBot.DBHandlers
 
 
 
-						//Logging.Write("GilesTrinityScoring == "+Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring.ToString());
+						//Logger.DBLog.InfoFormat("GilesTrinityScoring == "+Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring.ToString());
 
 						bool bShouldSellThis = Bot.Settings.ItemRules.ItemRuleGilesScoring ? Backpack.GilesSellValidation(thisitem.ThisInternalName, thisitem.ThisLevel, thisitem.ThisQuality, thisitem.ThisDBItemType, thisitem.ThisFollowerType) : ItemManager.Current.ShouldSellItem(thisitem.ACDItem);
 
@@ -88,7 +88,7 @@ namespace FunkyBot.DBHandlers
 				}
 				else
 				{
-					Logging.WriteDiagnostic("GSError: Diablo 3 memory read error, or item became invalid [StashOver-1]");
+					Logger.DBLog.DebugFormat("GSError: Diablo 3 memory read error, or item became invalid [StashOver-1]");
 				}
 			}
 
@@ -120,10 +120,10 @@ namespace FunkyBot.DBHandlers
 		{
 			if (Bot.Settings.Debug.DebugStatusBar)
 				BotMain.StatusText = "Town run: Sell routine started";
-			Logging.WriteDiagnostic("GSDebug: Sell routine started.");
+			Logger.DBLog.DebugFormat("GSDebug: Sell routine started.");
 			if (ZetaDia.Actors.Me == null)
 			{
-				Logging.WriteDiagnostic("GSError: Diablo 3 memory read error, or item became invalid [PreSell-1]");
+				Logger.DBLog.DebugFormat("GSError: Diablo 3 memory read error, or item became invalid [PreSell-1]");
 				return RunStatus.Failure;
 			}
 			bLoggedJunkThisStash = false;
@@ -186,7 +186,7 @@ namespace FunkyBot.DBHandlers
 			if (objSellNavigation == null)
 			//!GilesCanRayCast(vectorPlayerPosition, vectorSellLocation, NavCellFlags.AllowWalk))
 			{
-				Logging.WriteVerbose("Vendor Obj is Null or Raycast Failed.. using Navigator to move!");
+				Logger.DBLog.InfoFormat("Vendor Obj is Null or Raycast Failed.. using Navigator to move!");
 				Navigator.PlayerMover.MoveTowards(vectorSellLocation);
 				return RunStatus.Running;
 			}
@@ -195,7 +195,7 @@ namespace FunkyBot.DBHandlers
 				ZetaDia.Me.UsePower(SNOPower.Walk, vectorSellLocation, ZetaDia.Me.WorldDynamicId);
 				return RunStatus.Running;
 			}
-			if (iDistanceFromSell > 7.5f && !Zeta.Internals.UIElements.VendorWindow.IsValid)
+			if (iDistanceFromSell > 7.5f && !UIElements.VendorWindow.IsValid)
 			{
 				//Use our click movement
 				Bot.NavigationCache.RefreshMovementCache();
@@ -209,13 +209,13 @@ namespace FunkyBot.DBHandlers
 				return RunStatus.Running;
 			}
 
-			if (!Zeta.Internals.UIElements.VendorWindow.IsVisible)
+			if (!UIElements.VendorWindow.IsVisible)
 			{
 				objSellNavigation.Interact();
 				return RunStatus.Running;
 			}
 
-			if (!Zeta.Internals.UIElements.InventoryWindow.IsVisible)
+			if (!UIElements.InventoryWindow.IsVisible)
 			{
 				Bot.Character.Data.BackPack.InventoryBackPackToggle(true);
 				return RunStatus.Running;
@@ -302,7 +302,7 @@ namespace FunkyBot.DBHandlers
 
 				if (ZetaDia.Me.Inventory.Coinage < 40000)
 				{
-					Logging.Write("Emergency Stop: You need repairs but don't have enough money. Stopping the bot to prevent infinite death loop.");
+					Logger.DBLog.InfoFormat("Emergency Stop: You need repairs but don't have enough money. Stopping the bot to prevent infinite death loop.");
 					BotMain.Stop(false, "Not enough gold to repair item(s)!");
 				}
 
@@ -328,7 +328,7 @@ namespace FunkyBot.DBHandlers
 			if (iCurrentItemLoops < iItemDelayLoopLimit)
 				return RunStatus.Running;
 
-			Logging.WriteDiagnostic("GSDebug: Sell routine ending sequence...");
+			Logger.DBLog.DebugFormat("GSDebug: Sell routine ending sequence...");
 
 
 			if (bLoggedJunkThisStash)
@@ -344,17 +344,17 @@ namespace FunkyBot.DBHandlers
 				}
 				catch (IOException)
 				{
-					Logging.WriteDiagnostic("Fatal Error: File access error for signing off the junk log file.");
+					Logger.DBLog.DebugFormat("Fatal Error: File access error for signing off the junk log file.");
 				}
 				bLoggedJunkThisStash = false;
 			}
 
 			// See if we can close the inventory window
-			if (Zeta.Internals.UIElement.IsValidElement(0x368FF8C552241695))
+			if (UIElement.IsValidElement(0x368FF8C552241695))
 			{
 				try
 				{
-					var el = Zeta.Internals.UIElement.FromHash(0x368FF8C552241695);
+					var el = UIElement.FromHash(0x368FF8C552241695);
 					if (el != null && el.IsValid && el.IsVisible && el.IsEnabled)
 						el.Click();
 				}
@@ -367,7 +367,7 @@ namespace FunkyBot.DBHandlers
 			iLastDistance = 0f;
 			iCurrentItemLoops = 0;
 			RandomizeTheTimer();
-			Logging.WriteDiagnostic("GSDebug: Sell routine finished.");
+			Logger.DBLog.DebugFormat("GSDebug: Sell routine finished.");
 			Bot.Character.Data.lastPreformedNonCombatAction = DateTime.Now;
 			return RunStatus.Success;
 		}

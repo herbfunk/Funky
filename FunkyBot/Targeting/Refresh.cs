@@ -6,9 +6,9 @@ using FunkyBot.Cache.Objects;
 using FunkyBot.DBHandlers;
 using FunkyBot.Movement;
 using FunkyBot.Targeting.Behaviors;
+using Zeta.Bot.Logic;
+using Zeta.Bot.Navigation;
 using Zeta.Common;
-using Zeta.CommonBot.Logic;
-using Zeta.Navigation;
 
 namespace FunkyBot.Targeting
 {
@@ -169,7 +169,7 @@ namespace FunkyBot.Targeting
 					}
 					else if (DateTime.Now.Subtract(ExitGame.BehaviorEngagedTime).TotalSeconds > 60)
 					{//We started behavior over a minute ago.. lets just exit already!!
-						Logging.Write("[Funky] Forcing Exiting behavior after one minute!");
+						Logger.DBLog.InfoFormat("[Funky] Forcing Exiting behavior after one minute!");
 						CurrentTarget = null;
 					}
 				}

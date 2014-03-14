@@ -1,11 +1,10 @@
 ﻿using System;
-using FunkyBot.Cache;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Movement;
 using FunkyBot.Targeting.Behaviors;
+using Zeta.Bot;
+using Zeta.Bot.Settings;
 using Zeta.Common;
-using Zeta.CommonBot;
-using Zeta.CommonBot.Settings;
 using System.Collections.Generic;
 
 namespace FunkyBot.Targeting

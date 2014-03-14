@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
-using Zeta.CommonBot.Logic;
-using Zeta.CommonBot.Profile;
+using Zeta.Bot.Logic;
+using Zeta.Bot.Profile;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 

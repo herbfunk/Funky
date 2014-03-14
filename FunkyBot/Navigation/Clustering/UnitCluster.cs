@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using FunkyBot.Cache;
 using FunkyBot.Cache.Objects;
 
 namespace FunkyBot.Movement.Clustering
@@ -51,7 +50,7 @@ namespace FunkyBot.Movement.Clustering
 
 				if (ListUnits.Count > 1)
 				{
-					//Logging.WriteVerbose("Updating Cluster");
+					//Logger.DBLog.InfoFormat("Updating Cluster");
 
 					//Reset Vars
 					Info = new ClusterInfo();

@@ -2,12 +2,15 @@
 
 
 //Legendaries with no reduced level.
-[QUALITY] == "Legendary" && ([LEVEL] > 60) && ([REDUCEDLEVEL] <= 0)
+[QUALITY] == "Legendary" && ([LEVEL] > 55)
 
 
 //Rares that are level 60 required only!
-[QUALITY] == "Rare" && ([LEVEL] > 60) && ([REDUCEDLEVEL] <= 0)
+[QUALITY] == "Rare" && ([LEVEL] > 55)
 
 
 //Magic that are level 60 requried only!
-//[QUALITY] == "Magic" && ([LEVEL] > 60) && ([REDUCEDLEVEL] <= 0)
+[QUALITY] == "Magic" && ([LEVEL] > 55)
+
+//White Items
+[QUALITY] == "Common" && ([LEVEL] > 55)

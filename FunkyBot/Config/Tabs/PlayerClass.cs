@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Zeta.Internals.Actors;
+using Zeta.Game;
 
 namespace FunkyBot
 {
@@ -171,7 +171,7 @@ namespace FunkyBot
 					//
 
 					break;
-				case ActorClass.WitchDoctor:
+				case ActorClass.Witchdoctor:
 				case ActorClass.Wizard:
 					//CheckBox cbbEnableCriticalMass = new CheckBox
 					//{
@@ -243,7 +243,7 @@ namespace FunkyBot
 
 					break;
 			}
-			if (Bot.Character.Account.ActorClass == ActorClass.DemonHunter || Bot.Character.Account.ActorClass == ActorClass.WitchDoctor || Bot.Character.Account.ActorClass == ActorClass.Wizard)
+			if (Bot.Character.Account.ActorClass == ActorClass.DemonHunter || Bot.Character.Account.ActorClass == ActorClass.Witchdoctor || Bot.Character.Account.ActorClass == ActorClass.Wizard)
 			{
 
 				#region GoblinMinimumRange

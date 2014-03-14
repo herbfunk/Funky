@@ -80,8 +80,8 @@ namespace FunkyBot
 				// compare the versions
 				if (this.Version.CompareTo(newVersion)<0)
 				{
-					 Zeta.Common.Logging.Write("New Version Available!");
-					 Zeta.Common.Logging.Write("https://github.com/herbfunk/Funky/archive/master.zip");
+					 Logger.DBLog.InfoFormat("New Version Available!");
+					 Logger.DBLog.InfoFormat("https://github.com/herbfunk/Funky/archive/master.zip");
 				}
 		  }
 

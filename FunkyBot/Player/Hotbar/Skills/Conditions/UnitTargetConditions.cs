@@ -1,7 +1,7 @@
 
 
 using System;
-using Zeta.Internals.Actors;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Conditions
 {

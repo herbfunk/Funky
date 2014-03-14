@@ -1,5 +1,4 @@
-﻿using FunkyBot.Cache;
-using FunkyBot.Cache.Enums;
+﻿using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using Zeta.Common;
 using FunkyBot.Movement;

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Zeta.Bot;
+using Zeta.Bot.Profile;
+using Zeta.Bot.Profile.Composites;
 using Zeta.Common;
-using Zeta.CommonBot;
-using Zeta.CommonBot.Profile;
-using Zeta.CommonBot.Profile.Composites;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 
@@ -46,7 +46,7 @@ namespace FunkyBot.XMLTags
 				flag=Conditional();
 			} catch (Exception exception)
 			{
-				Logging.WriteDiagnostic(ScriptManager.FormatSyntaxErrorException(exception));
+				Logger.DBLog.DebugFormat(ScriptManager.FormatSyntaxErrorException(exception));
 				BotMain.Stop();
 				throw;
 			}

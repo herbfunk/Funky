@@ -1,7 +1,7 @@
 ﻿using System;
-using FunkyBot.Cache;
 using FunkyBot.Cache.Objects;
-using Zeta.Internals.SNO;
+using Zeta.Game.Internals.Actors;
+using Zeta.Game.Internals.SNO;
 
 namespace FunkyBot.Player.HotBar.Skills.Conditions
 {
@@ -86,7 +86,7 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 										 Bot.Targeting.CurrentTarget.RequiresLOSCheck=true;
 									 else if (!LOSINFO.NavCellProjectile.Value) //NavCellFlag Walk Failed
 									 {
-										 bool MovementException = ((Bot.Targeting.CurrentUnitTarget.MonsterTeleport || Bot.Targeting.CurrentTarget.IsTransformUnit) && Bot.Targeting.CurrentUnitTarget.AnimState == Zeta.Internals.Actors.AnimationState.Transform);
+										 bool MovementException = ((Bot.Targeting.CurrentUnitTarget.MonsterTeleport || Bot.Targeting.CurrentTarget.IsTransformUnit) && Bot.Targeting.CurrentUnitTarget.AnimState == AnimationState.Transform);
 										 if (!MovementException)
 											 return false;
 										 //else

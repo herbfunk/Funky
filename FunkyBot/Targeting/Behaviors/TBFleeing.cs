@@ -4,7 +4,8 @@ using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Movement;
 using Zeta.Common;
-using Zeta.Internals.Actors;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Targeting.Behaviors
 {
@@ -67,7 +68,7 @@ namespace FunkyBot.Targeting.Behaviors
 				{
 					float distance = vAnySafePoint.Distance(Bot.Character.Data.Position);
 
-					Logging.WriteDiagnostic("Flee Movement found AT {0} with {1} Distance", vAnySafePoint.ToString(), distance.ToString());
+					Logger.DBLog.DebugFormat("Flee Movement found AT {0} with {1} Distance", vAnySafePoint.ToString(), distance.ToString());
 
 
 					obj = new CacheObject(vAnySafePoint, TargetType.Fleeing, 20000f, "FleeSpot", 2.5f, -1);

@@ -5,6 +5,7 @@ using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
+using Zeta.Bot.Settings;
 using Zeta.Common;
 
 namespace FunkyBot.Targeting.Behaviors
@@ -45,7 +46,7 @@ namespace FunkyBot.Targeting.Behaviors
 						//Lets check our avoidance object list
 						if (Bot.Targeting.objectsIgnoredDueToAvoidance.Count > 0 && DateTime.Now.Subtract(lastAvoidanceConnectSearch).TotalMilliseconds > 4000)
 						{
-							Logging.Write("Preforming Avoidance Connection Search on Potential Objects");
+							Logger.DBLog.InfoFormat("Preforming Avoidance Connection Search on Potential Objects");
 							lastAvoidanceConnectSearch = DateTime.Now;
 
 							//Update or Create Bot Postion GPRect
@@ -110,7 +111,7 @@ namespace FunkyBot.Targeting.Behaviors
 					//Check combat looting (Demonbuddy Setting)
 					if (iHighestWeightFound > 0
 										 && thisobj.targetType.Value == TargetType.Item
-										 && !Zeta.CommonBot.Settings.CharacterSettings.Instance.CombatLooting
+										 && !CharacterSettings.Instance.CombatLooting
 										 && CurrentTarget.targetType.Value == TargetType.Unit) continue;
 
 

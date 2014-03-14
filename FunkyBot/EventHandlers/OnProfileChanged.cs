@@ -1,5 +1,5 @@
 ﻿using System;
-using Zeta.CommonBot;
+using Zeta.Bot;
 
 namespace FunkyBot
 {

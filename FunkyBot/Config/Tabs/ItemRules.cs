@@ -7,7 +7,6 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 using FunkyBot.Settings;
-using Zeta.Common;
 using Button = System.Windows.Controls.Button;
 using CheckBox = System.Windows.Controls.CheckBox;
 using ComboBox = System.Windows.Controls.ComboBox;
@@ -143,7 +142,7 @@ namespace FunkyBot
 		{
 			if (Bot.Character.ItemRulesEval == null)
 			{
-				Logging.Write("Cannot reload rules until bot has started", true);
+				Logger.DBLog.InfoFormat("Cannot reload rules until bot has started", true);
 				return;
 			}
 
@@ -153,7 +152,7 @@ namespace FunkyBot
 			}
 			catch (Exception ex)
 			{
-				Logging.Write(ex.Message + "\r\n" + ex.StackTrace);
+				Logger.DBLog.InfoFormat(ex.Message + "\r\n" + ex.StackTrace);
 			}
 
 		}
@@ -308,7 +307,7 @@ namespace FunkyBot
 			{
 				Orientation = Orientation.Horizontal,
 			};
-			#region Logging.Write Items Stashed
+			#region Logger.DBLog.InfoFormat Items Stashed
 			StackPanel spItemRulesLoggingKeep = new StackPanel();
 			TextBlock txt_LogItemKeep = new TextBlock
 			{
@@ -329,7 +328,7 @@ namespace FunkyBot
 			spItemRulesLogging.Children.Add(spItemRulesLoggingKeep);
 			#endregion
 
-			#region Logging.Write Items Pickup
+			#region Logger.DBLog.InfoFormat Items Pickup
 			StackPanel spItemRulesLoggingPickup = new StackPanel();
 			TextBlock txt_LogItemPickup = new TextBlock
 			{

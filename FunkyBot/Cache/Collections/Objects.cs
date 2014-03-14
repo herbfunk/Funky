@@ -47,7 +47,7 @@ namespace FunkyBot.Cache.Collections
 			string s = "[Object Cache] Total: [" + Count + "] - Units [" + Values.OfType<CacheUnit>().Count() + "] Items [" + Values.OfType<CacheItem>().Count() + "]" + " Gizmos [" + Values.OfType<CacheGizmo>().Count() + "]\r\n";
 			s += "Maximum Health Average: " + MaximumHitPointAverage + "  using " + HealthEntriesForAverageValue.Count + " entries";
 
-			Logging.WriteVerbose(s);
+			//Logger.DBLog.InfoFormat(s);
 			return s;
 		}
 

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using FunkyBot.Cache;
 using FunkyBot.Cache.Objects;
 
 namespace FunkyBot.Movement.Clustering
@@ -201,7 +200,7 @@ namespace FunkyBot.Movement.Clustering
 					l_c.AnnexCluster(l_ListAttainableClusters.Aggregate((c, x) =>
 					  c = MergeClusters(x, c)));
 				LC_.Add(l_c);
-				//Logging.WriteVerbose("Cluster Found: Total Points {0} with Centeroid {1}", l_c.ListPoints.Count, l_c.Centeroid.ToString());
+				//Logger.DBLog.InfoFormat("Cluster Found: Total Points {0} with Centeroid {1}", l_c.ListPoints.Count, l_c.Centeroid.ToString());
 				l_ListAttainableClusters = null;
 				l_c = null;
 			}  // of loop over candidate points

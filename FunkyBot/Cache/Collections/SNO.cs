@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using FunkyBot.Cache.Objects;
-using Zeta.Common;
 
 namespace FunkyBot.Cache.Collections
 {
@@ -17,7 +16,7 @@ namespace FunkyBot.Cache.Collections
 		public string DumpDebugInfo()
 		{
 			string s = "[SNO Cache] Total: [" + snoEntries.Count + "]";
-			Logging.WriteVerbose(s);
+			//Logger.DBLog.InfoFormat(s);
 			return s;
 		}
 
@@ -172,7 +171,7 @@ namespace FunkyBot.Cache.Collections
 				}
 			}
 
-			Logging.WriteVerbose("Removing Old Unused SNO Entries that have not been used in over 5 mins. Total {0} / Removed {1}",snoEntries.Values.Count, UnusedEntries.Count);
+			//Logger.DBLog.InfoFormat("Removing Old Unused SNO Entries that have not been used in over 5 mins. Total {0} / Removed {1}",snoEntries.Values.Count, UnusedEntries.Count);
 			lastTrimming = DateTime.Now;
 		}
 
@@ -201,7 +200,7 @@ namespace FunkyBot.Cache.Collections
 		{
 			if (DictionaryEntriesNeedingCleared.Count > 0)
 			{
-				Logging.WriteVerbose("Deleting SNO Dictionary Entries, Total Count {0}", DictionaryEntriesNeedingCleared.Count);
+				//Logger.DBLog.InfoFormat("Deleting SNO Dictionary Entries, Total Count {0}", DictionaryEntriesNeedingCleared.Count);
 				foreach (var item in DictionaryEntriesNeedingCleared)
 				{
 					RemoveDictionaryEntries(item);

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using FunkyBot.Cache.Objects;
-using Zeta.Common;
-using Zeta.Internals.SNO;
+using Zeta.Bot;
+using Zeta.Game.Internals.SNO;
 
 namespace FunkyBot.Cache
 {
@@ -52,7 +52,7 @@ namespace FunkyBot.Cache
 		{
 			//Refresh Profile Target Blacklist 
 			hashProfileSNOTargetBlacklist = new HashSet<int>();
-			foreach (var item in Zeta.CommonBot.ProfileManager.CurrentProfile.TargetBlacklists)
+			foreach (var item in ProfileManager.CurrentProfile.TargetBlacklists)
 			{
 				hashProfileSNOTargetBlacklist.Add(item.ActorId);
 			}
@@ -133,7 +133,7 @@ namespace FunkyBot.Cache
 
 		internal static void IgnoreThisObject(CachedSNOEntry snoObj, int RAGUID, bool removal = true, bool blacklistSNOID = true)
 		{
-			Logging.WriteVerbose("[Blacklist] -- RAGUID {0} SNOID {1} ({2})", snoObj.SNOID, RAGUID, snoObj.InternalName);
+			//Logger.DBLog.InfoFormat("[Blacklist] -- RAGUID {0} SNOID {1} ({2})", snoObj.SNOID, RAGUID, snoObj.InternalName);
 
 			int sno, raguid;
 			sno = snoObj.SNOID;
@@ -159,7 +159,7 @@ namespace FunkyBot.Cache
 		}
 		internal static void IgnoreThisObject(CacheObject thisobj, bool removal = true, bool blacklistSNOID = true)
 		{
-			Logging.WriteVerbose("[Blacklist] Obj RAGUID {0} SNOID {1} ({2})", thisobj.RAGUID, thisobj.SNOID, thisobj.InternalName);
+			//Logger.DBLog.InfoFormat("[Blacklist] Obj RAGUID {0} SNOID {1} ({2})", thisobj.RAGUID, thisobj.SNOID, thisobj.InternalName);
 
 			int sno, raguid;
 			sno = thisobj.SNOID;

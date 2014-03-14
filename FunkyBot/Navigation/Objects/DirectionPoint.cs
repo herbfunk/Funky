@@ -1,4 +1,5 @@
 ﻿using Zeta.Common;
+using Zeta.Game.Internals.SNO;
 
 namespace FunkyBot.Movement
 {
@@ -31,7 +32,7 @@ namespace FunkyBot.Movement
 			{
 
 				//just because raycast set our max range, we need to see if we can use that cell as a walking point!
-				if (!Navigation.CanRayCast(startV3, MaxRangeTestVector3, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
+				if (!Navigation.CanRayCast(startV3, MaxRangeTestVector3, NavCellFlags.AllowWalk))
 				{
 					//loop to find a walkable range.
 					float currentRange = Range - 2.5f;
@@ -42,7 +43,7 @@ namespace FunkyBot.Movement
 					{
 						Vector3 newtestPoint = MathEx.GetPointAt(MaxRangeTestVector3, currentRange, directionRadianFlipped);
 						newtestPoint.Z = Navigation.MGP.GetHeight(newtestPoint.ToVector2());//update Z
-						if (Navigation.CanRayCast(startV3, newtestPoint, Zeta.Internals.SNO.NavCellFlags.AllowWalk))
+						if (Navigation.CanRayCast(startV3, newtestPoint, NavCellFlags.AllowWalk))
 						{
 							MaxRangeTestVector3 = newtestPoint;
 							break;

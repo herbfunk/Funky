@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Zeta.Internals.Actors;
+using Zeta.Game.Internals.Actors;
 
 namespace GilesTrinity.ItemRules.Core
 {

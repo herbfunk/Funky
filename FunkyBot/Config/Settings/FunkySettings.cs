@@ -1,6 +1,6 @@
 ﻿using System.IO;
-using Zeta.Common;
 using System.Xml.Serialization;
+using Zeta.Game;
 
 
 namespace FunkyBot.Settings
@@ -156,12 +156,12 @@ namespace FunkyBot.Settings
 			//Check for Config file
 			if (!File.Exists(sFunkyCharacterConfigFile))
 			{
-				Logging.Write("No config file found, now creating a new config from defaults at: " + sFunkyCharacterConfigFile);
+				Logger.DBLog.InfoFormat("No config file found, now creating a new config from defaults at: " + sFunkyCharacterConfigFile);
 
 
 				if (Bot.Character.Account.CurrentLevel < 60)
 				{
-					Logging.Write("Using Low Level Settings");
+					Logger.DBLog.InfoFormat("Using Low Level Settings");
 					Bot.Settings = new Settings_Funky
 					 {
 						 Grouping = new SettingGrouping(false),
@@ -171,14 +171,14 @@ namespace FunkyBot.Settings
 				}
 				else
 				{
-					if (Bot.Character.Account.ActorClass == Zeta.Internals.Actors.ActorClass.Barbarian || Bot.Character.Account.ActorClass == Zeta.Internals.Actors.ActorClass.Monk)
+					if (Bot.Character.Account.ActorClass == ActorClass.Barbarian || Bot.Character.Account.ActorClass == ActorClass.Monk)
 					{
-						Logging.Write("Using Melee Inferno Default Settings");
+						Logger.DBLog.InfoFormat("Using Melee Inferno Default Settings");
 						DeserializeFromXML(Path.Combine(FolderPaths.SettingsDefaultPath, "InfernoMelee.xml"));
 					}
 					else
 					{
-						Logging.Write("Using Ranged Inferno Default Settings");
+						Logger.DBLog.InfoFormat("Using Ranged Inferno Default Settings");
 						DeserializeFromXML(Path.Combine(FolderPaths.SettingsDefaultPath, "InfernoRanged.xml"));
 					}
 				}

@@ -5,16 +5,17 @@ using System.Linq;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Movement;
-using Zeta;
+using Zeta.Bot;
+using Zeta.Bot.Dungeons;
+using Zeta.Bot.Logic;
+using Zeta.Bot.Navigation;
+using Zeta.Bot.Pathfinding;
+using Zeta.Bot.Profile;
 using Zeta.Common;
-using Zeta.CommonBot.Dungeons;
-using Zeta.CommonBot.Logic;
-using Zeta.CommonBot.Profile;
-using Zeta.Internals;
-using Zeta.Internals.Actors;
-using Zeta.Internals.SNO;
-using Zeta.Navigation;
-using Zeta.Pathfinding;
+using Zeta.Game;
+using Zeta.Game.Internals;
+using Zeta.Game.Internals.Actors;
+using Zeta.Game.Internals.SNO;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 using Action = Zeta.TreeSharp.Action;
@@ -151,7 +152,7 @@ namespace FunkyBot.XMLTags
 					? new Area(new Vector2(float.MinValue, float.MinValue), new Vector2(float.MaxValue, float.MaxValue))
 					: new Area(scn.Mesh.Zone.ZoneMin, scn.Mesh.Zone.ZoneMax))
 					.ToList();
-			Logging.WriteDiagnostic("Returning {0} ignored areas", ignoredScenes.Count());
+			Logger.DBLog.DebugFormat("Returning {0} ignored areas", ignoredScenes.Count());
 			return ignoredScenes;
 		}
 
@@ -365,16 +366,16 @@ namespace FunkyBot.XMLTags
 		/// </summary>
 		public override void OnStart()
 		{
-			Logging.WriteDiagnostic("TrinityExploreDungeon OnStart() called");
+			Logger.DBLog.DebugFormat("TrinityExploreDungeon OnStart() called");
 
 			if (SetNodesExploredAutomatically)
 			{
-				Logging.WriteDiagnostic("Minimap Explored Nodes Enabled");
+				Logger.DBLog.DebugFormat("Minimap Explored Nodes Enabled");
 				BrainBehavior.DungeonExplorer.SetNodesExploredAutomatically = true;
 			}
 			else
 			{
-				Logging.WriteDiagnostic("Minimap Explored Nodes Disabled");
+				Logger.DBLog.DebugFormat("Minimap Explored Nodes Disabled");
 				BrainBehavior.DungeonExplorer.SetNodesExploredAutomatically = false;
 			}
 
@@ -404,7 +405,7 @@ namespace FunkyBot.XMLTags
 			// I added this because GridSegmentation may (rarely) reset itself without us doing it to 15/.55.
 			if ((BoxSize != 0 && BoxTolerance != 0) && (GridSegmentation.BoxSize != BoxSize || GridSegmentation.BoxTolerance != BoxTolerance) || (GetGridSegmentationNodeCount() == 0))
 			{
-				Logging.WriteDiagnostic("Box Size or Tolerance has been changed! {0}/{1}", GridSegmentation.BoxSize, GridSegmentation.BoxTolerance);
+				Logger.DBLog.DebugFormat("Box Size or Tolerance has been changed! {0}/{1}", GridSegmentation.BoxSize, GridSegmentation.BoxTolerance);
 
 				BrainBehavior.DungeonExplorer.Reset();
 				PrintNodeCounts("BrainBehavior.DungeonExplorer.Reset");
@@ -455,7 +456,7 @@ namespace FunkyBot.XMLTags
 							)
 						)
 					),
-					new Action(ret => Logging.WriteDiagnostic("Error 1: Unknown error occured!"))
+					new Action(ret => Logger.DBLog.DebugFormat("Error 1: Unknown error occured!"))
 				)
 			);
 		}
@@ -538,9 +539,9 @@ namespace FunkyBot.XMLTags
 					new Sequence(
 						new DecoratorContinue(ret => TownPortalOnTimeout && !Bot.Character.Data.bIsInTown,
 							new Sequence(
-								new Action(ret => Logging.WriteDiagnostic(
+								new Action(ret => Logger.DBLog.DebugFormat(
 									"TrinityExploreDungeon inactivity timer tripped ({0}), tag Using Town Portal!", TimeoutValue)),
-								Zeta.CommonBot.CommonBehaviors.CreateUseTownPortal(),
+								CommonBehaviors.CreateUseTownPortal(),
 								new Action(ret => isDone = true)
 							)
 						),
@@ -574,7 +575,7 @@ namespace FunkyBot.XMLTags
 			}
 			if (ExploreTimeoutType == TimeoutType.Timer && TagTimer.Elapsed.TotalSeconds > TimeoutValue)
 			{
-				Logging.WriteDiagnostic("TrinityExploreDungeon timer ended ({0}), tag finished!", TimeoutValue);
+				Logger.DBLog.DebugFormat("TrinityExploreDungeon timer ended ({0}), tag finished!", TimeoutValue);
 				timeoutBreached = true;
 				return RunStatus.Success;
 			}
@@ -602,7 +603,7 @@ namespace FunkyBot.XMLTags
 			}
 			else if (lastCoinage == Bot.Character.Data.Coinage && TagTimer.Elapsed.TotalSeconds > TimeoutValue)
 			{
-				Logging.WriteDiagnostic("TrinityExploreDungeon gold inactivity timer tripped ({0}), tag finished!", TimeoutValue);
+				Logger.DBLog.DebugFormat("TrinityExploreDungeon gold inactivity timer tripped ({0}), tag finished!", TimeoutValue);
 				timeoutBreached = true;
 				return RunStatus.Success;
 			}
@@ -624,14 +625,14 @@ namespace FunkyBot.XMLTags
 				CheckIsObjectiveFinished(),
 				new Decorator(ret => GetRouteUnvisitedNodeCount() == 0 && timesForcedReset > timesForceResetMax,
 					new Sequence(
-						new Action(ret => Logging.WriteDiagnostic(
+						new Action(ret => Logger.DBLog.DebugFormat(
 							"Visited all nodes but objective not complete, forced reset more than {0} times, finished!", timesForceResetMax)),
 						new Action(ret => isDone = true)
 					)
 				),
 				new Decorator(ret => GetRouteUnvisitedNodeCount() == 0,
 					new Sequence(
-						new Action(ret => Logging.WriteDiagnostic("Visited all nodes but objective not complete, forcing grid reset!")),
+						new Action(ret => Logger.DBLog.DebugFormat("Visited all nodes but objective not complete, forcing grid reset!")),
 						new Action(ret => timesForcedReset++),
 						new Action(ret => SkipAheadCache.ClearCache()),
 						new Action(ret => MiniMapMarker.KnownMarkers.Clear()),
@@ -665,50 +666,50 @@ namespace FunkyBot.XMLTags
 				TimeoutCheck(),
 				new Decorator(ret => EndType == TrinityExploreEndType.FullyExplored && IgnoreLastNodes > 0 && GetRouteUnvisitedNodeCount() <= IgnoreLastNodes && GetGridSegmentationVisistedNodeCount() >= MinVisistedNodes,
 					new Sequence(
-						new Action(ret => Logging.WriteDiagnostic("Fully explored area! Ignoring {0} nodes. Tag Finished.", IgnoreLastNodes)),
+						new Action(ret => Logger.DBLog.DebugFormat("Fully explored area! Ignoring {0} nodes. Tag Finished.", IgnoreLastNodes)),
 						new Action(ret => isDone = true)
 					)
 				),
 				new Decorator(ret => EndType == TrinityExploreEndType.FullyExplored && GetRouteUnvisitedNodeCount() == 0,
 					new Sequence(
-						new Action(ret => Logging.WriteDiagnostic("Fully explored area! Tag Finished.", 0)),
+						new Action(ret => Logger.DBLog.DebugFormat("Fully explored area! Tag Finished.", 0)),
 						new Action(ret => isDone = true)
 					)
 				),
 				new Decorator(ret => EndType == TrinityExploreEndType.ExitFound && ExitNameHash != 0 && IsExitNameHashVisible(),
 					new Sequence(
-						new Action(ret => Logging.WriteDiagnostic("Found exitNameHash {0}!", ExitNameHash)),
+						new Action(ret => Logger.DBLog.DebugFormat("Found exitNameHash {0}!", ExitNameHash)),
 						new Action(ret => isDone = true)
 					)
 				),
 				new Decorator(ret => EndType == TrinityExploreEndType.ObjectFound && ActorId != 0 && ZetaDia.Actors.GetActorsOfType<DiaObject>(true, false)
 					.Any(a => a.ActorSNO == ActorId && a.Distance <= ObjectDistance),
 					new Sequence(
-						new Action(ret => Logging.WriteDiagnostic("Found Object {0}!", ActorId)),
+						new Action(ret => Logger.DBLog.DebugFormat("Found Object {0}!", ActorId)),
 						new Action(ret => isDone = true)
 					)
 				),
 				new Decorator(ret => EndType == TrinityExploreEndType.ObjectFound && AlternateActorsFound(),
 					new Sequence(
-						new Action(ret => Logging.WriteDiagnostic("Found Alternate Object {0}!", GetAlternateActor().ActorSNO)),
+						new Action(ret => Logger.DBLog.DebugFormat("Found Alternate Object {0}!", GetAlternateActor().ActorSNO)),
 						new Action(ret => isDone = true)
 					)
 				),
 				new Decorator(ret => EndType == TrinityExploreEndType.SceneFound && Bot.Character.Data.iSceneID == SceneId,
 					new Sequence(
-						new Action(ret => Logging.WriteDiagnostic("Found SceneId {0}!", SceneId)),
+						new Action(ret => Logger.DBLog.DebugFormat("Found SceneId {0}!", SceneId)),
 						new Action(ret => isDone = true)
 					)
 				),
 				new Decorator(ret => EndType == TrinityExploreEndType.SceneFound && !string.IsNullOrWhiteSpace(SceneName) && ZetaDia.Me.CurrentScene.Name.ToLower().Contains(SceneName.ToLower()),
 					new Sequence(
-						new Action(ret => Logging.WriteDiagnostic("Found SceneName {0}!", SceneName)),
+						new Action(ret => Logger.DBLog.DebugFormat("Found SceneName {0}!", SceneName)),
 						new Action(ret => isDone = true)
 					)
 				),
 				new Decorator(ret => Bot.Character.Data.bIsInTown,
 					new Sequence(
-						new Action(ret => Logging.WriteDiagnostic("Cannot use TrinityExploreDungeon in town - tag finished!", SceneName)),
+						new Action(ret => Logger.DBLog.DebugFormat("Cannot use TrinityExploreDungeon in town - tag finished!", SceneName)),
 						new Action(ret => isDone = true)
 					)
 				)
@@ -765,7 +766,7 @@ namespace FunkyBot.XMLTags
 						new PrioritySelector(
 							new Decorator(ret => PrioritySceneTarget.Distance2D(myPos) <= PriorityScenePathPrecision,
 								new Sequence(
-									new Action(ret => Logging.WriteDiagnostic("Successfully navigated to priority scene {0} {1} center {2} Distance {3:0}",
+									new Action(ret => Logger.DBLog.DebugFormat("Successfully navigated to priority scene {0} {1} center {2} Distance {3:0}",
 										CurrentPriorityScene.Name, CurrentPriorityScene.SceneInfo.SNOId, PrioritySceneTarget, PrioritySceneTarget.Distance2D(myPos))),
 									new Action(ret => PrioritySceneMoveToFinished())
 								)
@@ -782,14 +783,14 @@ namespace FunkyBot.XMLTags
 		/// </summary>
 		private void MoveToPriorityScene()
 		{
-			Logging.WriteDiagnostic("Moving to Priority Scene {0} - {1} Center {2} Distance {3:0}",
+			Logger.DBLog.DebugFormat("Moving to Priority Scene {0} - {1} Center {2} Distance {3:0}",
 				CurrentPriorityScene.Name, CurrentPriorityScene.SceneInfo.SNOId, PrioritySceneTarget, PrioritySceneTarget.Distance2D(myPos));
 
 			MoveResult moveResult = Funky.PlayerMover.NavigateTo(PrioritySceneTarget);
 
 			if (moveResult == MoveResult.PathGenerationFailed || moveResult == MoveResult.ReachedDestination)
 			{
-				Logging.WriteDiagnostic("Unable to navigate to Scene {0} - {1} Center {2} Distance {3:0}, cancelling!",
+				Logger.DBLog.DebugFormat("Unable to navigate to Scene {0} - {1} Center {2} Distance {3:0}, cancelling!",
 					CurrentPriorityScene.Name, CurrentPriorityScene.SceneInfo.SNOId, PrioritySceneTarget, PrioritySceneTarget.Distance2D(myPos));
 				PrioritySceneMoveToFinished();
 			}
@@ -870,7 +871,7 @@ namespace FunkyBot.XMLTags
 				}
 				else
 				{
-					Logging.WriteDiagnostic("Found Priority Scene but could not find a navigable point!", true);
+					Logger.DBLog.DebugFormat("Found Priority Scene but could not find a navigable point!", true);
 				}
 			}
 
@@ -883,7 +884,7 @@ namespace FunkyBot.XMLTags
 				CurrentPriorityScene = foundPriorityScenes.FirstOrDefault(s => s.SceneInfo.SNOId == PrioritySceneSNOId);
 				PriorityScenePathPrecision = GetPriorityScenePathPrecision(PScenes.FirstOrDefault(s => s.SceneInfo.SNOId == nearestPriorityScene.Key));
 
-				Logging.WriteDiagnostic("Found Priority Scene {0} - {1} Center {2} Distance {3:0}",
+				Logger.DBLog.DebugFormat("Found Priority Scene {0} - {1} Center {2} Distance {3:0}",
 					CurrentPriorityScene.Name, CurrentPriorityScene.SceneInfo.SNOId, PrioritySceneTarget, PrioritySceneTarget.Distance2D(myPos));
 			}
 
@@ -1007,14 +1008,14 @@ namespace FunkyBot.XMLTags
 				),
 				new Decorator(ret => BrainBehavior.DungeonExplorer.CurrentNode.Visited,
 					new Sequence(
-						new Action(ret => Logging.WriteDiagnostic("Current node was already marked as visited!")),
+						new Action(ret => Logger.DBLog.DebugFormat("Current node was already marked as visited!")),
 						new Action(ret => BrainBehavior.DungeonExplorer.CurrentRoute.Dequeue()),
 						new Action(ret => UpdateRoute())
 					)
 				),
 				new Decorator(ret => GetRouteUnvisitedNodeCount() == 0 || !BrainBehavior.DungeonExplorer.CurrentRoute.Any(),
 					new Sequence(
-						new Action(ret => Logging.WriteDiagnostic("Error - CheckIsNodeFinished() called while Route is empty!")),
+						new Action(ret => Logger.DBLog.DebugFormat("Error - CheckIsNodeFinished() called while Route is empty!")),
 						new Action(ret => UpdateRoute())
 					)
 				),
@@ -1073,7 +1074,7 @@ namespace FunkyBot.XMLTags
 		/// <param name="reason"></param>
 		private void SetNodeVisited(string reason = "")
 		{
-			Logging.WriteDiagnostic("Dequeueing current node {0} - {1}", BrainBehavior.DungeonExplorer.CurrentNode.NavigableCenter, reason);
+			Logger.DBLog.DebugFormat("Dequeueing current node {0} - {1}", BrainBehavior.DungeonExplorer.CurrentNode.NavigableCenter, reason);
 			BrainBehavior.DungeonExplorer.CurrentNode.Visited = true;
 			BrainBehavior.DungeonExplorer.CurrentRoute.Dequeue();
 
@@ -1091,7 +1092,7 @@ namespace FunkyBot.XMLTags
 				{
 					node.Visited = true;
 					string reason2 = String.Format("Node {0} is within path precision {1:0}/{2:0}", node.NavigableCenter, distance, PathPrecision);
-					Logging.WriteDiagnostic("Marking unvisited nearby node as visited - {0}", reason2);
+					Logger.DBLog.DebugFormat("Marking unvisited nearby node as visited - {0}", reason2);
 				}
 			}
 		}
@@ -1144,7 +1145,7 @@ namespace FunkyBot.XMLTags
 			//		Math.Abs(myPos.Z - CurrentNavTarget.Z)
 			//		);
 
-			//	Logging.WriteDiagnostic(log);
+			//	Logger.DBLog.DebugFormat(log);
 			//}
 		}
 
@@ -1288,7 +1289,7 @@ namespace FunkyBot.XMLTags
 
 			if (!forced)
 			{
-				Logging.WriteDiagnostic(
+				Logger.DBLog.DebugFormat(
 					"Initialized TrinityExploreDungeon: boxSize={0} boxTolerance={1:0.00} endType={2} timeoutType={3} timeoutValue={4} pathPrecision={5:0} sceneId={6} actorId={7} objectDistance={8} markerDistance={9} exitNameHash={10}",
 					GridSegmentation.BoxSize, GridSegmentation.BoxTolerance, EndType, ExploreTimeoutType, TimeoutValue, PathPrecision, SceneId, ActorId, ObjectDistance, MarkerDistance, ExitNameHash);
 			}

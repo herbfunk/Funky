@@ -1,8 +1,8 @@
 ﻿using System;
 using FunkyBot.Player.HotBar.Skills.Conditions;
-using Zeta;
 using Zeta.Common;
-using Zeta.Internals.Actors;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Monk
 {

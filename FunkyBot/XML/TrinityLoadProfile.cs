@@ -4,12 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using FunkyBot;
-using Zeta;
-using Zeta.Common;
-using Zeta.CommonBot;
-using Zeta.CommonBot.Profile;
-using Zeta.CommonBot.Settings;
-using Zeta.Internals.Actors;
+using Zeta.Bot;
+using Zeta.Bot.Profile;
+using Zeta.Bot.Settings;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 using Action = Zeta.TreeSharp.Action;
@@ -49,7 +48,7 @@ namespace Trinity.XmlTags
 
 					 // And prepare a full string of the path, and the new .xml file name
 					 var sNextProfile=sCurrentProfilePath+@"\"+sThisProfileString;
-					 Logging.Write("Loading new profile.");
+					 Logger.DBLog.InfoFormat("Loading new profile.");
 					 ProfileManager.Load(sNextProfile);
 
 					 // A quick nap-time helps prevent some funny issues
@@ -61,7 +60,7 @@ namespace Trinity.XmlTags
 					 // See if the XML tag requested we exit the game after loading this profile or not
 					 if (bExitGame)
 					 {
-						  Logging.Write("Exiting game to continue with next profile.");
+						  Logger.DBLog.InfoFormat("Exiting game to continue with next profile.");
 
 						  // Attempt to teleport to town first for a quicker exit
 						  var iSafetyLoops=0;

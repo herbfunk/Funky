@@ -1,5 +1,5 @@
 ﻿using FunkyBot.Player.HotBar.Skills.Conditions;
-using Zeta.Internals.Actors;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Wizard
 {
@@ -11,22 +11,19 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				ExecutionType=AbilityExecuteFlags.ClusterTarget|AbilityExecuteFlags.Target;
 				WaitVars=new WaitLoops(1, 1, true);
 				Cost=35;
-				Range=UsingCriticalMass()?20:40;
+				Range=40;
 				IsRanged=true;
 				IsProjectile=true;
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.Medium;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|
 				                          AbilityPreCastFlags.CheckEnergy));
-				ClusterConditions=new SkillClusterConditions(4d, UsingCriticalMass()?20:40, 3, true);
+				ClusterConditions=new SkillClusterConditions(4d, 40, 3, true);
 				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 25, 0.5d, TargetProperties.Fast);
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
 		  }
 
-		  private bool UsingCriticalMass()
-		  {
-				return Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Wizard_Passive_CriticalMass); ;
-		  }
+
 		  #region IAbility
 
 		  public override int RuneIndex

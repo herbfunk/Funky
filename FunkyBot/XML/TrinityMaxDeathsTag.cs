@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using System.Runtime.InteropServices;
-using Zeta.Common;
-using Zeta.CommonBot.Profile;
+using Zeta.Bot.Profile;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 
@@ -24,7 +23,7 @@ namespace FunkyBot.XMLTags
 			return new Action(ret =>
 			{
                 if (MaxDeaths != MaxDeathsAllowed)
-					Logging.Write("[Funky] Max deaths set by profile. Trinity now handling deaths, and will restart the game after "+MaxDeaths.ToString(CultureInfo.InvariantCulture));
+					Logger.DBLog.InfoFormat("[Funky] Max deaths set by profile. Trinity now handling deaths, and will restart the game after "+MaxDeaths.ToString(CultureInfo.InvariantCulture));
 
                 MaxDeathsAllowed = MaxDeaths;
                 //if (Reset!=null&&Reset.ToLower()=="true")

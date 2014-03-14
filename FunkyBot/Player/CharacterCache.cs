@@ -1,11 +1,11 @@
 ﻿using System;
 using FunkyBot.DBHandlers;
 using FunkyBot.Movement;
-using Zeta;
-using Zeta.CommonBot;
-using Zeta.Internals.Actors;
+using Zeta.Bot;
 using Zeta.Common;
 using System.Collections.Generic;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player
 {

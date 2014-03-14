@@ -6,12 +6,10 @@ using System.IO;
 using FunkyBot.Cache.Objects;
 using FunkyBot.DBHandlers;
 using FunkyBot.Game;
-using Zeta.Common;
-using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Player;
-using Zeta.Internals.Actors;
-using Zeta;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot
 {
@@ -36,6 +34,8 @@ namespace FunkyBot
 	 }
 	 public static class Logger
 	 {
+		 internal static readonly log4net.ILog DBLog = Zeta.Common.Logger.GetLoggerInstanceForType();
+
 		 internal static string LoggingPrefixString
 		 {
 			 get
@@ -51,7 +51,7 @@ namespace FunkyBot
 
 				 if (!Directory.Exists(folderpath))
 				 {
-					 Logging.WriteDiagnostic("Creating Logging.Write Folder @ {0}", folderpath);
+					 DBLog.DebugFormat("Creating Logging Folder @ {0}", folderpath);
 					 Directory.CreateDirectory(folderpath);
 				 }
 
@@ -72,7 +72,7 @@ namespace FunkyBot
 			 }
 			 catch
 			 {
-				 Logging.WriteDiagnostic("Failure to update CacheACDItem during Logging");
+				 DBLog.DebugFormat("Failure to update CacheACDItem during Logging");
 			 }
 			 double iThisItemValue = Backpack.ValueThisItem(thisgooditem, thisgilesitemtype);
 
@@ -94,21 +94,21 @@ namespace FunkyBot
 					 {
 						 if (!thisgooditem.IsUnidentified)
 						 {
-							 Funky.AddNotificationToQueue(thisgooditem.ThisRealName + " [" + thisgilesitemtype.ToString() + "] (Score=" + iThisItemValue.ToString() + ". " + TownRunManager.sValueItemStatString + ")", ZetaDia.Service.CurrentHero.Name + " new legendary!", Funky.ProwlNotificationPriority.Emergency);
+							 Funky.AddNotificationToQueue(thisgooditem.ThisRealName + " [" + thisgilesitemtype.ToString() + "] (Score=" + iThisItemValue.ToString() + ". " + TownRunManager.sValueItemStatString + ")", ZetaDia.Service.Hero.Name + " new legendary!", Funky.ProwlNotificationPriority.Emergency);
 							 sLegendaryString = " {legendary item}";
 							 // Change made by bombastic
-							 Logging.Write("+=+=+=+=+=+=+=+=+ LEGENDARY FOUND +=+=+=+=+=+=+=+=+");
-							 Logging.Write("+  Name:       " + thisgooditem.ThisRealName + " (" + thisgilesitemtype.ToString() + ")");
-							 Logging.Write("+  Score:       " + Math.Round(iThisItemValue).ToString());
-							 Logging.Write("+  Attributes: " + thisgooditem.ItemStatString);
-							 Logging.Write("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+");
+							 DBLog.Info("+=+=+=+=+=+=+=+=+ LEGENDARY FOUND +=+=+=+=+=+=+=+=+");
+							 DBLog.Info("+  Name:       " + thisgooditem.ThisRealName + " (" + thisgilesitemtype.ToString() + ")");
+							 DBLog.Info("+  Score:       " + Math.Round(iThisItemValue).ToString());
+							 DBLog.Info("+  Attributes: " + thisgooditem.ItemStatString);
+							 DBLog.Info("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+");
 						 }
 						 else
 						 {
-							 Logging.Write("+=+=+=+=+=+=+=+=+ LEGENDARY FOUND +=+=+=+=+=+=+=+=+");
-							 Logging.Write("+  Unid:       " + thisgilesitemtype.ToString());
-							 Logging.Write("+  Level:       " + thisgooditem.ThisLevel.ToString());
-							 Logging.Write("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+");
+							 DBLog.Info("+=+=+=+=+=+=+=+=+ LEGENDARY FOUND +=+=+=+=+=+=+=+=+");
+							 DBLog.Info("+  Unid:       " + thisgilesitemtype.ToString());
+							 DBLog.Info("+  Level:       " + thisgooditem.ThisLevel.ToString());
+							 DBLog.Info("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+");
 						 }
 
 
@@ -136,7 +136,7 @@ namespace FunkyBot
 								 break;
 						 }
 						 if (bShouldNotify)
-							 Funky.AddNotificationToQueue(thisgooditem.ThisRealName + " [" + thisgilesitemtype.ToString() + "] (Score=" + iThisItemValue.ToString() + ". " + TownRunManager.sValueItemStatString + ")", ZetaDia.Service.CurrentHero.Name + " new item!", Funky.ProwlNotificationPriority.Emergency);
+							 Funky.AddNotificationToQueue(thisgooditem.ThisRealName + " [" + thisgilesitemtype.ToString() + "] (Score=" + iThisItemValue.ToString() + ". " + TownRunManager.sValueItemStatString + ")", ZetaDia.Service.Hero.Name + " new item!", Funky.ProwlNotificationPriority.Emergency);
 					 }
 					 if (!thisgooditem.IsUnidentified)
 					 {
@@ -155,7 +155,7 @@ namespace FunkyBot
 			 }
 			 catch (IOException)
 			 {
-				 Logging.Write("Fatal Error: File access error for stash log file.");
+				 DBLog.Info("Fatal Error: File access error for stash log file.");
 			 }
 		 }
 
@@ -187,7 +187,7 @@ namespace FunkyBot
 			 }
 			 catch (IOException)
 			 {
-				 Logging.Write("Fatal Error: File access error for junk log file.");
+				 DBLog.Info("Fatal Error: File access error for junk log file.");
 			 }
 		 }
 
@@ -210,7 +210,7 @@ namespace FunkyBot
 				List<string> deleteList=new List<string>();
 				if (string.IsNullOrEmpty(FolderPaths.sDemonBuddyPath))
 				{
-					 Logging.Write("Failure to reconigze demon buddy path!");
+					DBLog.Info("Failure to reconigze demon buddy path!");
 
 				}
 				else
@@ -230,7 +230,7 @@ namespace FunkyBot
 						  {
 								File.Delete(item);
 						  }
-						  Logging.WriteDiagnostic("Total DB logs deleted "+deleteList.Count);
+						  DBLog.DebugFormat("Total DB logs deleted "+deleteList.Count);
 					 }
 				}
 
@@ -253,10 +253,11 @@ namespace FunkyBot
 						  {
 								File.Delete(item);
 						  }
-						  Logging.WriteDiagnostic("Total item rule logs deleted "+deleteList.Count);
+
+						  DBLog.DebugFormat("Total item rule logs deleted " + deleteList.Count);
 					 }
 
-				} catch { Logging.WriteDiagnostic("Failure to clean log files @ path: "+ItemRulesPath); }
+				} catch { DBLog.DebugFormat("Failure to clean log files @ path: "+ItemRulesPath); }
 
 				string ProfileLogs=@"\Plugins\FunkyBot\Log\ProfileStats\";
 				deleteList=new List<string>();
@@ -277,10 +278,10 @@ namespace FunkyBot
 						  {
 								File.Delete(item);
 						  }
-						  Logging.WriteDiagnostic("Total game stat logs deleted "+deleteList.Count);
+						  DBLog.DebugFormat("Total game stat logs deleted "+deleteList.Count);
 					 }
 
-				} catch { Logging.WriteDiagnostic("Failure to clean log files @ path: "+ProfileLogs); }
+				} catch { DBLog.DebugFormat("Failure to clean log files @ path: "+ProfileLogs); }
 
 		  }
 
@@ -315,7 +316,7 @@ namespace FunkyBot
 				  }
 				  catch (IOException)
 				  {
-					  Logging.Write("Fatal Error: File access error for junk log file.");
+					  DBLog.Info("Fatal Error: File access error for junk log file.");
 				  }
 			  }
 			  catch
@@ -359,7 +360,7 @@ namespace FunkyBot
 				string message=String.Format(Message, args);
 				WriteLine(String.Format("{0} {1}", prefix, message), true);
 				if (WriteToMainLog)
-					 Logging.Write("{0} {1}","[Funky]", message);
+					DBLog.InfoFormat("{0} {1}", "[Funky]", message);
 		  }
 		  public static void Write(LogLevel level, string Message, params object[] args)
 		  {
@@ -407,7 +408,7 @@ namespace FunkyBot
 					string sFunkyCharacterFolder = Path.Combine(sDemonBuddyPath, "Settings", "FunkyBot", Bot.Character.Account.CurrentAccountName);
 					 if (!Directory.Exists(sFunkyCharacterFolder))
 					 {
-						  Logging.WriteDiagnostic("Creating Funky Settings Folder @ {0}", sFunkyCharacterFolder);
+						  Logger.DBLog.DebugFormat("Creating Funky Settings Folder @ {0}", sFunkyCharacterFolder);
 						  Directory.CreateDirectory(sFunkyCharacterFolder);
 					 }
 

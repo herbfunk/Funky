@@ -34,23 +34,23 @@
 // | |      <       |      <    ___|
 // | |___|__|___|___|___|__|_______|                     
 // +--------------------------------------------------------------------------------------+
-[QUALITY] == "Rare"  && [LEVEL] > 58  && [BASETYPE] == "Weapon"
+//[QUALITY] == "Rare"  && [LEVEL] > 58  && [BASETYPE] == "Weapon"
 //ignore rule
-[QUALITY] == "Rare"  && [LEVEL] <= 58 && [BASETYPE] == "Weapon" -> [IGNORE]
+//[QUALITY] == "Rare"  && [LEVEL] <= 58 && [BASETYPE] == "Weapon" -> [IGNORE]
 
-[QUALITY] == "Rare"  && [LEVEL] > 59  && [BASETYPE] == "Armor"
-[QUALITY] == "Rare"  && [LEVEL] > 57  && [BASETYPE] == "Armor" && [TYPE] == "Gloves"
+//[QUALITY] == "Rare"  && [LEVEL] > 59  && [BASETYPE] == "Armor"
+//[QUALITY] == "Rare"  && [LEVEL] > 57  && [BASETYPE] == "Armor" && [TYPE] == "Gloves"
 //ignore rule
-[QUALITY] == "Rare"  && [LEVEL] <= 59 && [BASETYPE] == "Armor"  -> [IGNORE]
+//[QUALITY] == "Rare"  && [LEVEL] <= 59 && [BASETYPE] == "Armor"  -> [IGNORE]
 
-[QUALITY] == "Rare"  && [LEVEL] > 54 && [BASETYPE] == "Jewelry"
+//[QUALITY] == "Rare"  && [LEVEL] > 54 && [BASETYPE] == "Jewelry"
 //ignore rule
-[QUALITY] == "Rare"  && [LEVEL] <= 54 && [BASETYPE] == "Jewelry"-> [IGNORE]
+//[QUALITY] == "Rare"  && [LEVEL] <= 54 && [BASETYPE] == "Jewelry"-> [IGNORE]
 
 // bugged rare misc items like followerspecial and polearm
-[QUALITY] == "Rare"  && [LEVEL] > 59 && [BASETYPE] == "Misc"
+//[QUALITY] == "Rare"  && [LEVEL] > 59 && [BASETYPE] == "Misc"
 //ignore rule
-[QUALITY] == "Rare"  && [LEVEL] <= 59 && [BASETYPE] == "Misc" -> [IGNORE]
+//[QUALITY] == "Rare"  && [LEVEL] <= 59 && [BASETYPE] == "Misc" -> [IGNORE]
 
 // +---------------------------------------------------------------------------+
 // |  _______ _______ _______ _______ ______ 
@@ -59,4 +59,6 @@
 // | |__|_|__|___|___|_______|_______|______|                                                                                                   
 // +---------------------------------------------------------------------------+
 //ignore rule
-[QUALITY] == "Magic" -> [IGNORE]
+[QUALITY] == "Magic"
+[QUALITY] == "Common"
+[QUALITY] == "Rare"

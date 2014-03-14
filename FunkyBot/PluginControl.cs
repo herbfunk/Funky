@@ -7,12 +7,12 @@ using FunkyBot.Movement;
 using System.Collections.Generic;
 using FunkyBot.Player.Class;
 using FunkyBot.XMLTags;
+using Zeta.Bot;
+using Zeta.Bot.Logic;
+using Zeta.Bot.Navigation;
 using Zeta.Common;
-using Zeta.CommonBot;
-using Zeta.CommonBot.Logic;
-using Zeta.Navigation;
+using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
-using Zeta.Internals.Actors;
 using System.Xml;
 using System.Windows;
 using Decorator = Zeta.TreeSharp.Decorator;
@@ -38,7 +38,7 @@ namespace FunkyBot
 		public static void ResetBot()
 		{
 
-			Logging.Write("Preforming reset of bot data...");
+			Logger.DBLog.InfoFormat("Preforming reset of bot data...");
 			BlacklistCache.ClearBlacklistCollections();
 
 			PlayerMover.iTotalAntiStuckAttempts = 1;
@@ -95,7 +95,7 @@ namespace FunkyBot
 			SplitButton FunkyButton = grid.FindName("Funky") as SplitButton;
 			if (FunkyButton != null)
 			{
-				Logging.WriteDiagnostic("Funky Button handler added");
+				Logger.DBLog.DebugFormat("Funky Button handler added");
 			}
 			else
 			{
@@ -160,7 +160,7 @@ namespace FunkyBot
 				}
 			}
 
-			Logging.WriteVerbose("[Funky] Replacing Treehooks..");
+			Logger.DBLog.InfoFormat("[Funky] Replacing Treehooks..");
 			#region TreeHooks
 			foreach (var hook in TreeHooks.Instance.Hooks)
 			{
@@ -176,7 +176,7 @@ namespace FunkyBot
 								new Action(actionDelegateCoreTarget)
 								);
 						hook.Value[0] = new Decorator(canRunDelegateCombatTargetCheck, sequencecombat);
-						Logging.WriteDiagnostic("Combat Tree replaced...");
+						Logger.DBLog.DebugFormat("Combat Tree replaced...");
 					}
 
 				} // Vendor run hook
@@ -198,7 +198,7 @@ namespace FunkyBot
 							new Action(actionDelegateTownPortalFinish)
 							);
 						GilesReplacement.Children[1] = new Decorator(canRunDelegateReturnToTown, sequenceReturnTown);
-						Logging.WriteDiagnostic("Town Run - Town Portal - hooked...");
+						Logger.DBLog.DebugFormat("Town Run - Town Portal - hooked...");
 					}
 
 					ActionDelegate actionDelegatePrePause = TownRunManager.GilesStashPrePause;
@@ -217,7 +217,7 @@ namespace FunkyBot
 								)
 								);
 						GilesReplacement.Children[2] = new Decorator(canRunDelegateFunkyIDBehavior, sequenceIDItems);
-						Logging.WriteDiagnostic("Town Run - Idenify Items - hooked...");
+						Logger.DBLog.DebugFormat("Town Run - Idenify Items - hooked...");
 					}
 
 
@@ -248,7 +248,7 @@ namespace FunkyBot
 								)
 								);
 						GilesReplacement.Children[4] = new Decorator(canRunDelegateStashGilesOverlord, sequencestash);
-						Logging.WriteDiagnostic("Town Run - Stash - hooked...");
+						Logger.DBLog.DebugFormat("Town Run - Stash - hooked...");
 					}
 
 					if (vendor)
@@ -268,7 +268,7 @@ namespace FunkyBot
 								)
 								);
 						GilesReplacement.Children[5] = new Decorator(canRunDelegateSellGilesOverlord, sequenceSell);
-						Logging.WriteDiagnostic("Town Run - Vendor - hooked...");
+						Logger.DBLog.DebugFormat("Town Run - Vendor - hooked...");
 					}
 
 					if (salvage)
@@ -288,7 +288,7 @@ namespace FunkyBot
 								)
 								);
 						GilesReplacement.Children[6] = new Decorator(canRunDelegateSalvageGilesOverlord, sequenceSalvage);
-						Logging.WriteDiagnostic("Town Run - Salvage - hooked...");
+						Logger.DBLog.DebugFormat("Town Run - Salvage - hooked...");
 					}
 
 
@@ -331,7 +331,7 @@ namespace FunkyBot
 					CanRunDecoratorDelegate canRunDelegateGilesTownRunCheck = TownRunManager.GilesTownRunCheckOverlord;
 					hook.Value[0] = new Decorator(canRunDelegateGilesTownRunCheck, new PrioritySelector(GilesReplacement));
 
-					Logging.WriteDiagnostic("Vendor Run tree hooked...");
+					Logger.DBLog.DebugFormat("Vendor Run tree hooked...");
 				} // Vendor run hook
 				if (hook.Key.Contains("Loot"))
 				{
@@ -344,7 +344,7 @@ namespace FunkyBot
 								new Action(actionDelegateBlank)
 								);
 						hook.Value[0] = new Decorator(canRunDelegateBlank, sequenceblank);
-						Logging.WriteDiagnostic("Loot tree replaced...");
+						Logger.DBLog.DebugFormat("Loot tree replaced...");
 					}
 					else
 					{
@@ -364,7 +364,7 @@ namespace FunkyBot
 					CompositeReplacement.Children.Insert(0, new Decorator(shouldPreformOutOfGameBehavior, sequenceOOG));
 					hook.Value[0] = CompositeReplacement;
 
-					Logging.WriteDiagnostic("Out of game tree hooked");
+					Logger.DBLog.DebugFormat("Out of game tree hooked");
 				}
 				if (hook.Key.Contains("Death"))
 				{
@@ -390,7 +390,7 @@ namespace FunkyBot
 					*/
 					// foreach (var item in DeathSequence.Children)
 					//{
-					//	 Logging.Write(item.GetType().ToString());
+					//	 Logger.DBLog.InfoFormat(item.GetType().ToString());
 					//}
 
 				}

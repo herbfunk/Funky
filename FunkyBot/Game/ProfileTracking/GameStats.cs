@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FunkyBot.Cache;
-using Zeta.CommonBot.Settings;
+using Zeta.Bot.Settings;
 
 namespace FunkyBot.Game
 {

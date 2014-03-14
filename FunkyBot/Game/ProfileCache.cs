@@ -3,11 +3,10 @@ using System.Linq;
 using System.Collections.Generic;
 using FunkyBot.Cache.Objects;
 using FunkyBot.XMLTags;
+using Zeta.Bot;
+using Zeta.Bot.Profile;
+using Zeta.Bot.Profile.Common;
 using Zeta.Common;
-using Zeta.CommonBot;
-using Zeta.CommonBot.Profile;
-using Zeta.CommonBot.Profile.Common;
-using FunkyBot.Cache;
 
 namespace FunkyBot.Game
 {
@@ -63,11 +62,11 @@ namespace FunkyBot.Game
 						if (InteractiveTags.Contains(profileTagType))
 						{
 							ProfileBehaviorIsOOCInteractive = true;
-							Logging.WriteDiagnostic("Interactable Profile Tag!");
+							Logger.DBLog.DebugFormat("Interactable Profile Tag!");
 
 							InteractableCachedObject = GetInteractiveCachedObject(currentProfileBehavior);
 							if (InteractableCachedObject != null)
-								Logging.WriteDiagnostic("Found Cached Interactable Server Object");
+								Logger.DBLog.DebugFormat("Found Cached Interactable Server Object");
 
 						}
 						else
@@ -76,7 +75,7 @@ namespace FunkyBot.Game
 							InteractableCachedObject = null;
 						}
 
-						Logging.WriteDiagnostic("Current Profile Behavior has enabled OOC Behavior.");
+						Logger.DBLog.DebugFormat("Current Profile Behavior has enabled OOC Behavior.");
 						IsRunningOOCBehavior = true;
 					}
 					else

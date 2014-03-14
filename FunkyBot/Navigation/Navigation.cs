@@ -3,17 +3,18 @@ using System.Linq;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
-using Zeta;
-using Zeta.CommonBot.Dungeons;
-using Zeta.CommonBot.Logic;
-using Zeta.Internals.Actors;
+using Zeta.Bot.Dungeons;
+using Zeta.Bot.Logic;
+using Zeta.Bot.Navigation;
+using Zeta.Bot.Pathfinding;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
+using Zeta.Game.Internals.SNO;
 using Zeta.Common;
 using System.Collections.Generic;
-using Zeta.Internals.SNO;
-using Zeta.Navigation;
 using System.Globalization;
 using FunkyBot.Movement.Clustering;
-using Zeta.Pathfinding;
+
 namespace FunkyBot.Movement
 {
 
@@ -151,7 +152,7 @@ namespace FunkyBot.Movement
 
 				if (IsVectorBlocked(Bot.Character.Data.Position))
 				{
-					Logging.WriteVerbose("[Funky] Current Position is Navigationally Blocked");
+					//Logger.DBLog.InfoFormat("[Funky] Current Position is Navigationally Blocked");
 					BotIsNavigationallyBlocked = true;
 				}
 				else
@@ -187,7 +188,7 @@ namespace FunkyBot.Movement
 
 			if (LastUsedBlockCheckGPRect.Count == 0)
 			{
-				Logging.WriteDiagnostic("Current Location GP Rect has no valid Grid Points!");
+				//Logger.DBLog.DebugFormat("Current Location GP Rect has no valid Grid Points!");
 				return false;
 			}
 
@@ -213,7 +214,7 @@ namespace FunkyBot.Movement
 				LastObjectblockCounter.Clear();
 				LastObjectOccupiedGridPoints.Clear();
 
-				Logging.WriteVerbose("Current Location Point has {0} usable points (NoNewObjs)", SurroundingPoints.Count);
+				//Logger.DBLog.InfoFormat("Current Location Point has {0} usable points (NoNewObjs)", SurroundingPoints.Count);
 
 				return (SurroundingPoints.Count == 0);
 			}
@@ -251,7 +252,7 @@ namespace FunkyBot.Movement
 
 				if (SurroundingPoints.Count == 0)
 				{
-					Logging.WriteVerbose("NavBlocked -- No available surrounding points.");
+					//Logger.DBLog.InfoFormat("NavBlocked -- No available surrounding points.");
 
 					return true;
 				}
@@ -263,7 +264,7 @@ namespace FunkyBot.Movement
 			//No new objects to test..
 			if (NewObjects.Count == 0)
 			{
-				Logging.WriteVerbose("No new Objects Unaccounted");
+				//Logger.DBLog.InfoFormat("No new Objects Unaccounted");
 
 				return (SurroundingPoints.Count == 0);
 			}
@@ -276,8 +277,8 @@ namespace FunkyBot.Movement
 																				&& (!LastObjectblockCounter.ContainsKey(Obj.RAGUID) || Math.Round(Obj.PointRadius) < LastObjectblockCounter[Obj.RAGUID])).ToArray();
 				if (ContainedObjs.Length > 0)
 				{
-					if (ContainedObjs.Length > 1 && Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
-						Logging.WriteVerbose("Multiple Objects Found Occuping Grid Point!");
+					//if (ContainedObjs.Length > 1 && Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+						//Logger.DBLog.InfoFormat("Multiple Objects Found Occuping Grid Point!");
 
 					CacheServerObject ThisObjBlocking = ContainedObjs[0];
 					int ObjRAGUID = ThisObjBlocking.RAGUID;
@@ -305,7 +306,7 @@ namespace FunkyBot.Movement
 			//Update Surrounding Points
 			SurroundingPoints = SurroundingPoints.Except(LastNavigationBlockedPoints).ToList();
 
-			Logging.WriteVerbose("Current Location Point has {0} usable points", SurroundingPoints.Count);
+			//Logger.DBLog.InfoFormat("Current Location Point has {0} usable points", SurroundingPoints.Count);
 
 
 			return (SurroundingPoints.Count == 0);
@@ -458,7 +459,7 @@ namespace FunkyBot.Movement
 					}
 				}
 
-				Logging.WriteDiagnostic("Blocked Directions Count == [{0}]", blockedLocationDirections.Count.ToString());
+				//Logger.DBLog.DebugFormat("Blocked Directions Count == [{0}]", blockedLocationDirections.Count.ToString());
 
 			}
 		}

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Zeta.Common;
-using Zeta.CommonBot;
-using Zeta.CommonBot.Profile;
+using Zeta.Bot;
+using Zeta.Bot.Profile;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 using Action=Zeta.TreeSharp.Action;
@@ -124,12 +123,12 @@ namespace FunkyBot.XMLTags
 				return new Sequence(
 					 new Action(ret => Initialize()),
 					 new Action(ret => RealignFileNames()),
-					 new Action(ret => Logging.Write("TrinityLoadOnce: Found {0} Total Profiles, {1} Used Profiles, {2} Unused Profiles",
+					 new Action(ret => Logger.DBLog.InfoFormat("TrinityLoadOnce: Found {0} Total Profiles, {1} Used Profiles, {2} Unused Profiles",
 						  Profiles.Count(), UsedProfileCount, UnusedProfileCount)),
 					 new PrioritySelector(
 						  new Decorator(ret => AvailableProfiles.Length==0,
 								new Sequence(
-									 new Action(ret => Logging.Write("TrinityLoadOnce: All available profiles have been used!")),
+									 new Action(ret => Logger.DBLog.InfoFormat("TrinityLoadOnce: All available profiles have been used!")),
 									 new Action(ret => lastUpdate=DateTime.Now.Ticks.GetHashCode()),
 									 new Action(ret => isDone=true)
 								)
@@ -141,17 +140,17 @@ namespace FunkyBot.XMLTags
 									 new PrioritySelector(
 										  new Decorator(ret => File.Exists(NextProfilePath),
 												new Sequence(
-													 new Action(ret => Logging.Write("TrinityLoadOnce: Loading next random profile: {0}", NextProfileName)),
+													 new Action(ret => Logger.DBLog.InfoFormat("TrinityLoadOnce: Loading next random profile: {0}", NextProfileName)),
 													 new Action(ret => UsedProfiles.Add(NextProfileName)),
 													 new Action(ret => ProfileManager.Load(NextProfilePath)),
 													 new Action(ret => EventHandlers.FunkyOnProfileChanged(null, null))
 												)
 										  ),
-										  new Action(ret => Logging.Write("TrinityLoadOnce: ERROR: Profile {0} does not exist!", NextProfilePath))
+										  new Action(ret => Logger.DBLog.InfoFormat("TrinityLoadOnce: ERROR: Profile {0} does not exist!", NextProfilePath))
 									 )
 								)
 						  ),
-						  new Action(ret => Logging.Write("TrinityLoadOnce: Unkown error"))
+						  new Action(ret => Logger.DBLog.InfoFormat("TrinityLoadOnce: Unkown error"))
 					 )
 			  );
 		  }

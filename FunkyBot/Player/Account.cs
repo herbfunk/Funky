@@ -1,7 +1,5 @@
 ﻿using System;
-using Zeta;
-using Zeta.Common;
-using Zeta.Internals.Actors;
+using Zeta.Game;
 
 namespace FunkyBot.Player
 {
@@ -33,15 +31,16 @@ namespace FunkyBot.Player
 			{
 				using (ZetaDia.Memory.AcquireFrame())
 				{
-					ActorClass = ZetaDia.Service.CurrentHero.Class;
-					CurrentAccountName = ZetaDia.Service.CurrentHero.BattleTagName;
-					CurrentHeroName = ZetaDia.Service.CurrentHero.Name;
-					CurrentLevel = ZetaDia.Service.CurrentHero.Level;
+					
+					ActorClass = ZetaDia.Service.Hero.Class;
+					CurrentAccountName = ZetaDia.Service.Hero.BattleTagName;
+					CurrentHeroName = ZetaDia.Service.Hero.Name;
+					CurrentLevel = ZetaDia.Service.Hero.Level;
 				}
 			}
 			catch (Exception)
 			{
-				Logging.WriteDiagnostic("[Funky] Exception Attempting to Update Current Account Details.");
+				Logger.DBLog.DebugFormat("[Funky] Exception Attempting to Update Current Account Details.");
 			}
 		}
 	}

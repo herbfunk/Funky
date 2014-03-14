@@ -3,14 +3,13 @@ using System.Globalization;
 using System.Linq;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Player.HotBar.Skills;
-using FunkyBot.Cache;
 using FunkyBot.Player.HotBar.Skills.Conditions;
-using Zeta;
-using Zeta.Internals.Actors;
+using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 using Zeta.Common;
 using System.Collections.Generic;
-using Zeta.Internals.SNO;
 using FunkyBot.Player.HotBar;
+using Zeta.Game.Internals.SNO;
 
 namespace FunkyBot.Player.Class
 {
@@ -34,7 +33,7 @@ namespace FunkyBot.Player.Class
 
 			LastUsedAbility = DefaultAttack;
 			PowerPrime = DefaultAttack;
-			Logging.WriteVerbose("[Funky] Finished Creating Player Class");
+			Logger.DBLog.InfoFormat("[Funky] Finished Creating Player Class");
 		}
 
 
@@ -125,7 +124,7 @@ namespace FunkyBot.Player.Class
 				AbilityLogicConditions.CreateAbilityLogicConditions(ref defaultAbility);
 				Abilities.Add(defaultAbility.Power, defaultAbility);
 				HotBar.RuneIndexCache.Add(defaultAbility.Power, -1);
-				Logging.WriteDiagnostic("[Funky] Added Skill {0}", defaultAbility.Power);
+				Logger.DBLog.DebugFormat("[Funky] Added Skill {0}", defaultAbility.Power);
 			}
 
 
@@ -142,7 +141,7 @@ namespace FunkyBot.Player.Class
 
 				Abilities.Add(item, newAbility);
 
-				Logging.WriteDiagnostic("[Funky] Added Skill {0} using RuneIndex {1}", newAbility.Power, newAbility.RuneIndex);
+				Logger.DBLog.DebugFormat("[Funky] Added Skill {0} using RuneIndex {1}", newAbility.Power, newAbility.RuneIndex);
 			}
 
 			//Sort Abilities
@@ -430,28 +429,28 @@ namespace FunkyBot.Player.Class
 
 		internal void DebugString()
 		{
-			Logging.Write("Character Information\r\nRadius {0}\r\nHotBar Abilities [{1}]\r\n", Bot.Character.Data.fCharacterRadius, HotBar.HotbarPowers.Count);
+			Logger.DBLog.InfoFormat("Character Information\r\nRadius {0}\r\nHotBar Abilities [{1}]\r\n", Bot.Character.Data.fCharacterRadius, HotBar.HotbarPowers.Count);
 
 			foreach (SNOPower item in Bot.Character.Class.HotBar.HotbarPowers)
 			{
-				Logging.Write("{0} with current rune index {1}", item.ToString(), HotBar.RuneIndexCache.ContainsKey(item) ? HotBar.RuneIndexCache[item].ToString(CultureInfo.InvariantCulture) : "none");
+				Logger.DBLog.InfoFormat("{0} with current rune index {1}", item.ToString(), HotBar.RuneIndexCache.ContainsKey(item) ? HotBar.RuneIndexCache[item].ToString(CultureInfo.InvariantCulture) : "none");
 			}
 
-			Logging.Write("Created Abilities [{0}]", Abilities.Count);
+			Logger.DBLog.InfoFormat("Created Abilities [{0}]", Abilities.Count);
 			foreach (var item in Abilities.Values)
 			{
-				Logging.Write("Power [{0}] -- Priority {1} --", item.Power.ToString(), item.Priority);
+				Logger.DBLog.InfoFormat("Power [{0}] -- Priority {1} --", item.Power.ToString(), item.Priority);
 			}
 
-			Logging.Write("Current Buffs");
+			Logger.DBLog.InfoFormat("Current Buffs");
 			foreach (SNOPower item in HotBar.CurrentBuffs.Keys)
 			{
-				Logging.Write("Buff: {0}", Enum.GetName(typeof(SNOPower), item));
+				Logger.DBLog.InfoFormat("Buff: {0}", Enum.GetName(typeof(SNOPower), item));
 			}
-			Logging.Write("Current Debuffs");
+			Logger.DBLog.InfoFormat("Current Debuffs");
 			foreach (SNOPower item in HotBar.CurrentDebuffs)
 			{
-				Logging.Write("Debuff: {0}", Enum.GetName(typeof(SNOPower), item));
+				Logger.DBLog.InfoFormat("Debuff: {0}", Enum.GetName(typeof(SNOPower), item));
 			}
 
 		}
@@ -495,7 +494,7 @@ namespace FunkyBot.Player.Class
 					case ActorClass.Monk:
 						Bot.Character.Class = new Monk();
 						break;
-					case ActorClass.WitchDoctor:
+					case ActorClass.Witchdoctor:
 						Bot.Character.Class = new WitchDoctor();
 						break;
 					case ActorClass.Wizard:

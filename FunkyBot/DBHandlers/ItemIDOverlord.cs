@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using Zeta;
-using Zeta.CommonBot.Logic;
-using Zeta.Internals;
-using Zeta.Internals.Actors;
 using System.Collections.Generic;
+using Zeta.Bot.Logic;
+using Zeta.Game;
+using Zeta.Game.Internals;
+using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
 
 
