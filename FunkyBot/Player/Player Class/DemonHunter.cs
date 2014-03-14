@@ -135,7 +135,7 @@ namespace FunkyBot.Player.Class
 		enum DemonHunterActiveSkills
 		{
 			DemonHunter_SpikeTrap = 75301,
-			DemonHunter_EntanglingShot = 75873,
+			DemonHunter_EntanglingShot = 361936,
 			DemonHunter_FanOfKnives = 77546,
 			DemonHunter_BolaShot = 77552,
 			/*
@@ -157,9 +157,9 @@ namespace FunkyBot.Player.Class
 			DemonHunter_RapidFire = 131192,
 			DemonHunter_ElementalArrow = 131325,
 			DemonHunter_Impale = 131366,
-			DemonHunter_Companion = 133695,
+			DemonHunter_Companion = 365311,
 			DemonHunter_Strafe = 134030,
-			DemonHunter_EvasiveFire = 134209,
+			DemonHunter_EvasiveFire = 377450,
 
 		}
 		/*

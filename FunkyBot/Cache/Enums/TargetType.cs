@@ -25,8 +25,9 @@ namespace FunkyBot.Cache.Enums
 		 Fleeing = 8192,
 		 ServerInteractable = 16384,
 		 Backtrack = 32768,
+		 PowerGlobe = 65536,
 
-		 All = Unit | Shrine | Interactable | Destructible | Barricade | Container | Item | Gold | Globe | Avoidance | Door,
+		 All = Unit | Shrine | Interactable | Destructible | Barricade | Container | Item | Gold | Globe | Avoidance | Door | PowerGlobe,
 		 Gizmo = Shrine | Interactable | Destructible | Barricade | Container | Door,
 		 Interactables = Shrine | Interactable | Door | Container,
 		 ServerObjects = Unit | Interactables | Destructible | Barricade,

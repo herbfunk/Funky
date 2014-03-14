@@ -36,6 +36,8 @@ namespace FunkyBot.DBHandlers
 						// Find out if this item's in a protected bag slot
 						if (!ItemManager.Current.ItemIsProtected(thisitem.ACDItem))
 						{
+							if (thisitem.ThisDBItemType == ItemType.Potion) continue;
+
 							if (Bot.Settings.ItemRules.ItemRulesUnidStashing)
 							{
 								if (Bot.Character.ItemRulesEval.checkUnidStashItem(thisitem.ACDItem) == Interpreter.InterpreterAction.KEEP)

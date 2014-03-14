@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Treehooks>
   <Townportal>True</Townportal>
-  <Identification>False</Identification>
+  <Identification>True</Identification>
   <Stash>True</Stash>
   <Vendor>True</Vendor>
   <Salvage>True</Salvage>

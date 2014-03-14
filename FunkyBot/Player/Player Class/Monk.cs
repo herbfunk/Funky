@@ -167,9 +167,9 @@ namespace FunkyBot.Player.Class
 		enum MonkActiveSkills
 		{
 			Monk_BreathOfHeaven = 69130,
-			Monk_MantraOfRetribution = 69484,
-			Monk_MantraOfHealing = 69490,
-			Monk_MantraOfConviction = 95572,
+			Monk_MantraOfRetribution = 375082,
+			Monk_MantraOfHealing = 373143,
+			Monk_MantraOfConviction = 375088,
 			Monk_FistsofThunder = 95940,
 			Monk_DeadlyReach = 96019,
 			Monk_WaveOfLight = 96033,
@@ -179,13 +179,13 @@ namespace FunkyBot.Player.Class
 			Monk_CripplingWave = 96311,
 			Monk_SevenSidedStrike = 96694,
 			Monk_WayOfTheHundredFists = 97110,
-			Monk_InnerSanctuary = 97222,
+			Monk_InnerSanctuary = 317076,
 			Monk_ExplodingPalm = 97328,
 			Monk_LashingTailKick = 111676,
 			Monk_TempestRush = 121442,
-			Monk_MysticAlly = 123208,
+			Monk_MysticAlly = 362102,
 			Monk_BlindingFlash = 136954,
-			Monk_MantraOfEvasion = 192405,
+			Monk_MantraOfEvasion = 375049,
 			Monk_CycloneStrike = 223473,
 		}
 		/*

@@ -365,6 +365,9 @@ namespace FunkyBot
 							item.ThisInternalName, item.ACDGUID, item.ThisLevel, item.ThisDBItemType);
 						LBDebug.Items.Add(s);
 					}
+					Bot.Character.Data.BackPack.ReturnCurrentPotions();
+					LBDebug.Items.Add(Bot.Character.Data.BackPack.BestPotionToUse.ItemStackQuantity);
+					
 
 				}
 				catch(Exception ex)

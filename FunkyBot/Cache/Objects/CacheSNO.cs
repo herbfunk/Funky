@@ -606,6 +606,8 @@ namespace FunkyBot.Cache.Objects
 								targetType = TargetType.Gold;
 							else if (testname.StartsWith("healthglobe"))
 								targetType = TargetType.Globe;
+							else if (testname.StartsWith("console_powerglobe"))
+								targetType = TargetType.PowerGlobe;
 							else
 								targetType = TargetType.Item;
 							//Gold/Globe?
@@ -627,7 +629,7 @@ namespace FunkyBot.Cache.Objects
 							
 							if (thisGizmoType == GizmoType.DestroyableObject)
 								targetType = TargetType.Destructible;
-							else if (thisGizmoType == GizmoType.PowerUp || thisGizmoType == GizmoType.HealingWell)
+							else if (thisGizmoType == GizmoType.PowerUp || thisGizmoType == GizmoType.HealingWell || thisGizmoType == GizmoType.PoolOfReflection)
 							{
 								targetType = TargetType.Shrine;
 							}

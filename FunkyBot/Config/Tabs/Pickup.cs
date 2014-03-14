@@ -138,6 +138,7 @@ namespace FunkyBot
 			if (sender_.Name == "green") Bot.Settings.Loot.PickupGems[1] = !Bot.Settings.Loot.PickupGems[1];
 			if (sender_.Name == "purple") Bot.Settings.Loot.PickupGems[2] = !Bot.Settings.Loot.PickupGems[2];
 			if (sender_.Name == "yellow") Bot.Settings.Loot.PickupGems[3] = !Bot.Settings.Loot.PickupGems[3];
+			if (sender_.Name == "white") Bot.Settings.Loot.PickupGems[4] = !Bot.Settings.Loot.PickupGems[4];
 		}
 		private void MiscItemLevelSliderChanged(object sender, EventArgs e)
 		{
@@ -1033,7 +1034,7 @@ namespace FunkyBot
 			spGemOptions.Children.Add(CBGemQualityLevel);
 			#endregion
 
-			CBGems = new CheckBox[4];
+			CBGems = new CheckBox[5];
 
 			StackPanel spGemColorsREDGREEN = new StackPanel
 			{
@@ -1096,12 +1097,31 @@ namespace FunkyBot
 			CBGems[3].Unchecked += GemsChecked;
 			spGemColorsPurpleYellow.Children.Add(CBGems[3]);
 			#endregion
+
+			StackPanel spGemColorsWhite = new StackPanel
+			{
+				Orientation = Orientation.Vertical,
+			};
+			#region PickupGemsWhite
+			CBGems[4] = new CheckBox
+			{
+				Content = "Pickup Gem White",
+				Name = "white",
+				Width = 150,
+				Height = 20,
+				IsChecked = (Bot.Settings.Loot.PickupGems[4])
+			};
+			CBGems[4].Checked += GemsChecked;
+			CBGems[4].Unchecked += GemsChecked;
+			spGemColorsWhite.Children.Add(CBGems[4]);
+			#endregion
 			StackPanel spGemColorPanels = new StackPanel
 			{
 				Orientation = Orientation.Horizontal,
 			};
 			spGemColorPanels.Children.Add(spGemColorsREDGREEN);
 			spGemColorPanels.Children.Add(spGemColorsPurpleYellow);
+			spGemColorPanels.Children.Add(spGemColorsWhite);
 
 			spGemOptions.Children.Add(spGemColorPanels);
 			lbGilesContent.Items.Add(spGemOptions);

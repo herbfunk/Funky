@@ -7,6 +7,7 @@ using Zeta.Bot.Settings;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
+using Zeta.Game.Internals.SNO;
 using Zeta.TreeSharp;
 
 namespace FunkyBot.Cache.Objects
@@ -178,6 +179,10 @@ namespace FunkyBot.Cache.Objects
 								return false;
 							}
 						}
+						else if(Gizmotype== GizmoType.PoolOfReflection)
+						{
+
+						}
 						else
 						{
 							ShrineTypes shrinetype = CacheIDLookup.FindShrineType(SNOID);
@@ -231,7 +236,7 @@ namespace FunkyBot.Cache.Objects
 						if (IsResplendantChest)
 						{
 							//setup wait time. (Unlike Units, we blacklist right after we interact)
-							if (Bot.Targeting.LastCachedTarget == this)
+							if (Bot.Targeting.LastCachedTarget.Equals(this))
 							{
 								Bot.Targeting.lastHadContainerAsTarget = DateTime.Now;
 								Bot.Targeting.lastHadRareChestAsTarget = DateTime.Now;

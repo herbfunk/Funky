@@ -18,7 +18,7 @@ namespace FunkyBot.Settings
 		public int MaximumHealthPotions { get; set; }
 		public int MinimumGoldPile { get; set; }
 
-		//red, green, purple, yellow
+		//red, green, purple, yellow, white
 		public bool[] PickupGems { get; set; }
 		public int MinimumGemItemLevel { get; set; }
 		public bool PickupCraftTomes { get; set; }
@@ -68,7 +68,7 @@ namespace FunkyBot.Settings
 			PickupFollowerItems=true;
 			MiscItemLevel=59;
 			MinimumGemItemLevel=60;
-			PickupGems=new bool[] { true, true, false, false };
+			PickupGems=new bool[] { true, true, false, false, true };
 		}
 
 		private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Loot_Default.xml");

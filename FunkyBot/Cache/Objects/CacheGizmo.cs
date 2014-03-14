@@ -108,6 +108,7 @@ namespace FunkyBot.Cache.Objects
 			{
 				try
 				{
+					
 					if (base.Gizmotype.Value == GizmoType.PowerUp)
 					{
 						this.HandleAsObstacle = true;

@@ -60,5 +60,6 @@
 // +---------------------------------------------------------------------------+
 //ignore rule
 [QUALITY] == "Magic"
-[QUALITY] == "Common"
+[QUALITY] == "Normal"
+[QUALITY] == "Superior"
 [QUALITY] == "Rare"

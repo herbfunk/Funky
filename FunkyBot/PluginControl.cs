@@ -301,14 +301,14 @@ namespace FunkyBot
 					//[7] == Return to Townportal if there is one..
 
 					//Setup our movement back to townportal
-					CanRunDecoratorDelegate canRunDelegateUseTownPortalReturn = TownRunManager.FinishTownRunOverlord;
-					ActionDelegate actionDelegateFinishTownRun = TownRunManager.TownRunFinishBehavior;
-					Sequence sequenceFinishTownRun = new Sequence(
-					   new Action(actionDelegateFinishTownRun)
-					);
+					//CanRunDecoratorDelegate canRunDelegateUseTownPortalReturn = TownRunManager.FinishTownRunOverlord;
+					//ActionDelegate actionDelegateFinishTownRun = TownRunManager.TownRunFinishBehavior;
+					//Sequence sequenceFinishTownRun = new Sequence(
+					//   new Action(actionDelegateFinishTownRun)
+					//);
 
 					//We insert this before the demonbuddy townportal finishing behavior.. 
-					GilesReplacement.InsertChild(7, new Decorator(canRunDelegateUseTownPortalReturn, sequenceFinishTownRun));
+					//GilesReplacement.InsertChild(7, new Decorator(canRunDelegateUseTownPortalReturn, sequenceFinishTownRun));
 
 
 

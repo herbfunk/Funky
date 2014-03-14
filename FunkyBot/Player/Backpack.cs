@@ -207,8 +207,12 @@ namespace FunkyBot.Player
 					}
 					break;
 				case GilesBaseItemType.Gem:
-					if (item.BalanceData.iThisItemLevel < Bot.Settings.Loot.MinimumGemItemLevel || (thisGilesItemType == GilesItemType.Ruby && !Bot.Settings.Loot.PickupGems[0]) || (thisGilesItemType == GilesItemType.Emerald && !Bot.Settings.Loot.PickupGems[1]) ||
-						  (thisGilesItemType == GilesItemType.Amethyst && !Bot.Settings.Loot.PickupGems[2]) || (thisGilesItemType == GilesItemType.Topaz && !Bot.Settings.Loot.PickupGems[3]))
+					if (item.BalanceData.iThisItemLevel < Bot.Settings.Loot.MinimumGemItemLevel || 
+						(thisGilesItemType == GilesItemType.Ruby && !Bot.Settings.Loot.PickupGems[0]) || 
+						(thisGilesItemType == GilesItemType.Emerald && !Bot.Settings.Loot.PickupGems[1]) ||
+						(thisGilesItemType == GilesItemType.Amethyst && !Bot.Settings.Loot.PickupGems[2]) || 
+						(thisGilesItemType == GilesItemType.Topaz && !Bot.Settings.Loot.PickupGems[3]) ||
+						(thisGilesItemType == GilesItemType.Diamond && !Bot.Settings.Loot.PickupGems[4]))
 					{
 						return false;
 					}
@@ -2111,14 +2115,18 @@ namespace FunkyBot.Player
 			BestPotionToUse = null;
 
 
-			var Potions = CacheItemList.Values.Where(i => i.IsPotion);
-			if (!Potions.Any()) return null;
+			var Potions = CacheItemList.Values.Where(i => i.ThisDBItemType== ItemType.Potion);
+			if (!Potions.Any())
+			{
+				Logger.DBLog.InfoFormat("No Potions Found In Backpack. Total Items Enumerated {0}", CacheItemList.Count);
+				return null;
+			}
+
 			Potions = Potions.OrderByDescending(i => i.ThisLevel).ThenByDescending(i => i.ThisItemStackQuantity);
 			//Set Best Potion to use..
 			CurrentPotionACDGUID = Potions.FirstOrDefault().ACDGUID;
-			int balanceID = Potions.FirstOrDefault().ThisBalanceID;
 			//Find best potion to use based upon stack
-			BestPotionToUse = Potions.Where(i => i.ThisBalanceID == balanceID).OrderBy(i => i.ThisItemStackQuantity).FirstOrDefault().ACDItem;
+			BestPotionToUse = Potions.OrderBy(i => i.ThisItemStackQuantity).FirstOrDefault().ACDItem;
 			return Potions.ToList();
 
 			//var Potions = ZetaDia.Me.Inventory.Backpack.Where(i => i.IsPotion);

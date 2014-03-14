@@ -13,4 +13,5 @@
 [QUALITY] == "Magic" && ([LEVEL] > 55)
 
 //White Items
-[QUALITY] == "Common" && ([LEVEL] > 55)
+[QUALITY] == "Normal" && ([LEVEL] > 55)
+[QUALITY] == "Superior"

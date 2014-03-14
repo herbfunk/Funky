@@ -206,7 +206,8 @@ namespace FunkyBot.Cache.Objects
 						}
 						break;
 					case TargetType.Globe:
-						if (Bot.Character.Data.dCurrentHealthPct > Bot.Settings.Combat.GlobeHealthPercent)
+					case TargetType.PowerGlobe:
+						if (targetType.Equals(TargetType.Globe) && Bot.Character.Data.dCurrentHealthPct > Bot.Settings.Combat.GlobeHealthPercent)
 						{
 							Weight = 0;
 						}
@@ -222,6 +223,9 @@ namespace FunkyBot.Cache.Objects
 							// Close items get a weight increase
 							if (centreDistance <= 60f)
 								Weight += 1500d;
+
+							if (targetType == TargetType.PowerGlobe)
+								Weight += 5000d;
 
 							// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
 							if (this == Bot.Targeting.LastCachedTarget && centreDistance <= 25f)
@@ -356,7 +360,10 @@ namespace FunkyBot.Cache.Objects
 						// Ignore it if it's not in range yet
 						if (CentreDistance > LootRadius)
 						{
-							BlacklistLoops = 10;
+							//Blacklist Health Globes 10 loops
+							if (targetType!=TargetType.PowerGlobe)
+								BlacklistLoops = 10;
+
 							return false;
 						}
 					}

@@ -133,7 +133,7 @@ namespace FunkyBot.Player.Class
 
 		enum BarbarianActiveSkills
 		{
-			Barbarian_AncientSpear = 69979,
+			Barbarian_AncientSpear = 377453,
 			Barbarian_Rend = 70472,
 			Barbarian_Frenzy = 78548,
 			Barbarian_Sprint = 78551,
@@ -146,10 +146,10 @@ namespace FunkyBot.Player.Class
 			Barbarian_HammerOfTheAncients = 80028,
 			Barbarian_CallOfTheAncients = 80049,
 			Barbarian_Cleave = 80263,
-			Barbarian_WarCry = 81612,
+			Barbarian_WarCry = 375483,
 			Barbarian_SeismicSlam = 86989,
 			Barbarian_Leap = 93409,
-			Barbarian_WeaponThrow = 93885,
+			Barbarian_WeaponThrow = 377452,
 			Barbarian_Whirlwind = 96296,
 			Barbarian_FuriousCharge = 97435,
 			Barbarian_Earthquake = 98878,

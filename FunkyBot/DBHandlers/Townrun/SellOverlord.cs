@@ -46,7 +46,7 @@ namespace FunkyBot.DBHandlers
 					// Find out if this item's in a protected bag slot
 					if (!ItemManager.Current.ItemIsProtected(thisitem.ACDItem))
 					{
-						if (thisitem.IsPotion)
+						if (thisitem.ThisDBItemType == ItemType.Potion)
 						{
 
 							if (thisitem.ACDGUID != Bot.Character.Data.BackPack.CurrentPotionACDGUID && Bot.Character.Data.BackPack.CurrentPotionACDGUID != -1)
@@ -271,7 +271,7 @@ namespace FunkyBot.DBHandlers
 				int LastHPValue = 0;
 				foreach (ACDItem item in ZetaDia.Me.Inventory.MerchantItems)
 				{
-					if (item.IsPotion && item.HitpointsGranted > LastHPValue
+					if (item.ItemType == ItemType.Potion && item.HitpointsGranted > LastHPValue
 						 && item.RequiredLevel <= Bot.Character.Data.iMyLevel
 						 && item.Gold < ZetaDia.Me.Inventory.Coinage)
 					{
