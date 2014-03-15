@@ -50,7 +50,7 @@ namespace FunkyBot.DBHandlers
 			if (TPActionIsValid())
 			{
 				//If not already in town, check if we can cast..
-				if (!ZetaDia.Me.IsInTown)
+				if (!ZetaDia.IsInTown)
 				{
 					return CanCastTP();
 				}
@@ -176,14 +176,14 @@ namespace FunkyBot.DBHandlers
 				{
 					//Logger.Write(LogLevel.OutOfCombat,"Waiting for world change!");
 
-					if (!ZetaDia.Me.IsInTown)
+					if (!ZetaDia.IsInTown)
 						return RunStatus.Running;
 					Logger.Write(LogLevel.OutOfCombat, "Casting Behavior Finished, we are in town!", true);
 					ResetTPBehavior();
 					//UpdateSearchGridProvider(true);
 					return RunStatus.Success;
 				}
-				if (ElapsedTime >= 10 && !ZetaDia.Me.IsInTown)
+				if (ElapsedTime >= 10 && !ZetaDia.IsInTown)
 				{
 					//Retry?
 					worldtransferStarted = false;

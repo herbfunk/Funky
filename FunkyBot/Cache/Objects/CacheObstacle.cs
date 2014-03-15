@@ -4,6 +4,7 @@ using System.Windows;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
 using Zeta.Common;
+using Zeta.Game;
 
 namespace FunkyBot.Cache.Objects
 {
@@ -41,7 +42,7 @@ namespace FunkyBot.Cache.Objects
 			get
 			{
 				string debugstring = base.DebugString + "\r\n";
-				debugstring += "Type: " + Obstacletype.Value + "\r\n";
+				debugstring += "Type: " + Obstacletype.Value + "\r\n" + "Rotation: " + Rotation + " IsFacingBot: " + IsFacingBot(); 
 				return debugstring;
 			}
 		}
@@ -373,6 +374,8 @@ namespace FunkyBot.Cache.Objects
 				RefreshRemovalCounter = 75;
 			else if (AvoidanceType.HasFlag(AvoidanceType.GrotesqueExplosion))
 				RefreshRemovalCounter = 25;
+			else if (AvoidanceType.HasFlag(AvoidanceType.DemonicForge))
+				RefreshRemovalCounter = 10;
 		}
 
 		public CacheAvoidance(CacheObject parent, AvoidanceType type, Ray R, double speed)
@@ -392,17 +395,51 @@ namespace FunkyBot.Cache.Objects
 	///</summary>
 	public class CacheServerObject : CacheObstacle
 	{
+
+
 		public CacheServerObject(CacheObject parent)
 			: base(parent)
 		{
+			//if (IsDemonicForge)
+			//{
+			//	UpdateRotation();
+			//	FacingStartVector3 = MathEx.GetPointAt(Position, 15f, Rotation);
+			//	FacingEndVector3 = MathEx.GetPointAt(FacingStartVector3, 30f, Rotation);
+			//}
+			
 		}
 
 		public override void RefreshObject()
 		{
+			float centredistance=CentreDistance;
 			//Add nearby objects to our collection (used in navblock/obstaclecheck methods to reduce queries)
-			if (CentreDistance < 25f)
+			if (centredistance < 25f)
 				Bot.Targeting.Environment.NearbyObstacleObjects.Add(this);
+
+			
+			//Demonic Forges
+			//if (IsDemonicForge && RadiusDistance <= 30f)
+			//{//Check if avoidance is necessary..
+
+			//	bool IntersectionTest = MathEx.IntersectsPath(Bot.Character.Data.Position, 12f, FacingStartVector3, FacingEndVector3);
+			//	if (IntersectionTest)
+			//	{//Intersection of fire may occur..
+
+			//		UpdateSNOAnim();
+			//		if (SnoAnim.Equals(SNOAnim.a3dun_crater_st_demonic_forge_Atacking_2))
+			//		{//Animation is attacking.. lets avoid this!
+			//			Logger.DBLog.Info("Demonic Forge is triggering Avoidance Movement!");
+			//			Bot.Targeting.Environment.TriggeringAvoidances.Add(new CacheAvoidance(this, AvoidanceType.DemonicForge));
+			//			Bot.Targeting.Environment.TriggeringAvoidanceRAGUIDs.Add(RAGUID);
+			//			Bot.Targeting.RequiresAvoidance = true;
+			//		}
+			//	}
+			//	BlacklistLoops = 5;
+			//}
 		}
+
+		//private Vector3 FacingStartVector3 { get; set; }
+		//private Vector3 FacingEndVector3 { get; set; }
 	}
 
 }

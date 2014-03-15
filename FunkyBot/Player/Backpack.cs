@@ -2251,7 +2251,7 @@ namespace FunkyBot.Player
 				bool ShouldRepair = false;
 				using (ZetaDia.Memory.AcquireFrame())
 				{
-					bool intown = ZetaDia.Me.IsInTown;
+					bool intown = ZetaDia.IsInTown;
 					List<float> repairPct = ZetaDia.Me.Inventory.Equipped.Select(o => o.DurabilityPercent).ToList();
 
 					//Already in town? Have gear with 50% or less durability?

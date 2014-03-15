@@ -17,6 +17,7 @@ using CheckBox = System.Windows.Controls.CheckBox;
 using MessageBox = System.Windows.MessageBox;
 using Orientation = System.Windows.Controls.Orientation;
 using RadioButton = System.Windows.Controls.RadioButton;
+using UIElement = Zeta.Game.Internals.UIElement;
 
 namespace FunkyBot
 {
@@ -359,15 +360,34 @@ namespace FunkyBot
 			{
 				try
 				{
-					foreach (var item in Bot.Character.Data.BackPack.ReturnCurrentBackpackItems())
+
+					UIElement A = UIElement.FromHash(0x29A8F728B6DDF322);
+					A.Click();
+					//LBDebug.Items.Add("Dumping 0x244BD04C84DF92F1");
+					//foreach (var ui in UIElement.GetChildren(A))
+					//{
+					//	string s = String.Format("Hash: {0}\r\nIsEnabled:{1} IsValid:{2} IsVisible:{3}\r\nName:{4}\r\nHasText{5} Text: {6}",
+					//		ui.Hash.ToString("X"),
+					//		ui.IsEnabled, ui.IsValid, ui.IsVisible,
+					//		ui.Name,
+					//		ui.HasText, ui.Text);
+
+					//	Logger.DBLog.Info(s);
+					//	LBDebug.Items.Add(s);
+					//}
+
+					UIElement B = UIElement.FromHash(0x64EB7B789CFD48EB);
+					LBDebug.Items.Add("Dumping 0x64EB7B789CFD48EB");
+					foreach (var ui in UIElement.GetChildren(B))
 					{
-						string s = String.Format("{0} -- ACD: {1} -- Level: {2} -- DbType: {3}", 
-							item.ThisInternalName, item.ACDGUID, item.ThisLevel, item.ThisDBItemType);
+						string s = String.Format("Hash: {0}\r\nIsEnabled:{1} IsValid:{2} IsVisible:{3}\r\nName:{4}\r\nHasText{5} Text: {6}",
+							ui.Hash.ToString("X"),
+							ui.IsEnabled, ui.IsValid, ui.IsVisible,
+							ui.Name,
+							ui.HasText, ui.Text);
+						Logger.DBLog.Info(s);
 						LBDebug.Items.Add(s);
 					}
-					Bot.Character.Data.BackPack.ReturnCurrentPotions();
-					LBDebug.Items.Add(Bot.Character.Data.BackPack.BestPotionToUse.ItemStackQuantity);
-					
 
 				}
 				catch(Exception ex)

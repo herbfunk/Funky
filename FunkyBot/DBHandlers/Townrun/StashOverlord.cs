@@ -163,7 +163,7 @@ namespace FunkyBot.DBHandlers
 			DiaObject objPlayStash = ZetaDia.Actors.GetActorsOfType<GizmoPlayerSharedStash>(true).FirstOrDefault<GizmoPlayerSharedStash>();
 			if (objPlayStash != null)
 				vectorStashLocation = objPlayStash.Position;
-			else if (!ZetaDia.Me.IsInTown)
+			else if (!ZetaDia.IsInTown)
 				return RunStatus.Failure;
 			else
 			{

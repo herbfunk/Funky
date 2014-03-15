@@ -82,7 +82,7 @@ namespace FunkyBot.DBHandlers
 			//Precheck prior to casting TP..
 			if (bLastTownRunCheckResult)
 			{
-				if (!ZetaDia.Me.IsInTown)
+				if (!ZetaDia.IsInTown)
 				{
 					bPreStashPauseDone = false;
 					Bot.NavigationCache.LOSmovementObject = null;

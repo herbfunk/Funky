@@ -64,7 +64,7 @@ namespace Trinity.XmlTags
 
 						  // Attempt to teleport to town first for a quicker exit
 						  var iSafetyLoops=0;
-						  while (!ZetaDia.Me.IsInTown)
+						  while (!ZetaDia.IsInTown)
 						  {
 								iSafetyLoops++;
 								Bot.Character.Data.WaitWhileAnimating(5, true);

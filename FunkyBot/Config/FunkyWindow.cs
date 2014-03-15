@@ -442,6 +442,9 @@ namespace FunkyBot
 				Name = "TEST",
 			};
 			btnTEST_Debug.Click += DebugButtonClicked;
+
+
+
 			StackPanel StackPanel_DebugButtons = new StackPanel
 			{
 				Height = 40,

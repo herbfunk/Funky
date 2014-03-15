@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using Zeta.Common;
+using Zeta.Bot;
 using Zeta.Common.Plugins;
-using Zeta.CommonBot;
 
 namespace FunkyErrorClicker
 {
 	 public partial class FunkyErrorClicker : IPlugin
 	 {
+		 internal static readonly log4net.ILog DBLog = Zeta.Common.Logger.GetLoggerInstanceForType();
 
 		  #region IPlugin Members
 
@@ -52,7 +48,7 @@ namespace FunkyErrorClicker
 		  {
 				ErrorClickerThread=new Thread(ErrorClickerWorker);
 				ErrorClickerThread.IsBackground=true;
-				Logging.Write("[Funky] Error Clicking Thread Created.");
+				DBLog.Info("[Funky] Error Clicking Thread Created.");
 		  }
 
 		  public void OnPulse()
@@ -83,13 +79,13 @@ namespace FunkyErrorClicker
 				if (!ErrorClickerThread.ThreadState.HasFlag(ThreadState.Running))
 				{
 					 ErrorClickerThread.Start();
-					 Logging.Write("[Funky] Error Clicking Thread Started.");
+					 DBLog.Info("[Funky] Error Clicking Thread Started.");
 				}
 		  }
 		  private void FunkyBotStop(IBot bot)
 		  {
 				ErrorClickerThread.Abort();
-				Logging.Write("[Funky] Error Clicking Thread Aborted.");
+				DBLog.Info("[Funky] Error Clicking Thread Aborted.");
 		  }
 	 }
 }

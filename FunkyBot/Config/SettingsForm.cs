@@ -52,6 +52,18 @@ namespace FunkyBot.Config
 			tb_GlobeHealth.Value = (int)(Bot.Settings.Combat.GlobeHealthPercent * 100);
 			tb_PotionHealth.Value = (int)(Bot.Settings.Combat.PotionHealthPercent * 100);
 			tb_WellHealth.Value = (int)(Bot.Settings.Combat.HealthWellHealthPercent * 100);
+			cb_CombatMovementGlobes.Checked = Bot.Settings.Combat.CombatMovementTargetTypes.HasFlag(TargetType.Globe);
+			cb_CombatMovementGold.Checked = Bot.Settings.Combat.CombatMovementTargetTypes.HasFlag(TargetType.Gold);
+			cb_CombatMovementItems.Checked = Bot.Settings.Combat.CombatMovementTargetTypes.HasFlag(TargetType.Item);
+			
+			cb_ClusterTargetLogic.Checked = Bot.Settings.Cluster.EnableClusteringTargetLogic;
+			cb_ClusterLogicDisableHealth.Checked = Bot.Settings.Cluster.IgnoreClusteringWhenLowHP;
+			txt_ClusterLogicDisableHealth.Text = Bot.Settings.Cluster.IgnoreClusterLowHPValue.ToString("F2", CultureInfo.InvariantCulture);
+			txt_ClusterLogicDistance.Text = Bot.Settings.Cluster.ClusterDistance.ToString("F2", CultureInfo.InvariantCulture);
+			txt_ClusterLogicMinimumUnits.Text = Bot.Settings.Cluster.ClusterMinimumUnitCount.ToString("F2", CultureInfo.InvariantCulture);
+			tb_ClusterLogicDisableHealth.Value = (int)(Bot.Settings.Cluster.IgnoreClusterLowHPValue * 100);
+			tb_ClusterLogicDistance.Value = (int)(Bot.Settings.Cluster.ClusterDistance);
+			tb_ClusterLogicMinimumUnits.Value = (int)(Bot.Settings.Cluster.ClusterMinimumUnitCount);
 		}
 
 		private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -84,6 +96,40 @@ namespace FunkyBot.Config
 		private void OutOfCombatMovementChecked(object sender, EventArgs e)
 		{
 			Bot.Settings.OutOfCombatMovement = !Bot.Settings.OutOfCombatMovement;
+		}
+
+		private void cb_ClusterTargetLogic_CheckedChanged(object sender, EventArgs e)
+		{
+			Bot.Settings.Cluster.EnableClusteringTargetLogic = !Bot.Settings.Cluster.EnableClusteringTargetLogic;
+		}
+
+		private void cb_ClusterLogicDisableHealth_CheckedChanged(object sender, EventArgs e)
+		{
+			Bot.Settings.Cluster.IgnoreClusteringWhenLowHP = !Bot.Settings.Cluster.IgnoreClusteringWhenLowHP;
+		}
+
+		private void tb_ClusterLogicDisableHealth_ValueChanged(object sender, EventArgs e)
+		{
+			TrackBar slider_sender = (TrackBar)sender;
+			double Value = Convert.ToDouble(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture)) / 100;
+			Bot.Settings.Cluster.IgnoreClusterLowHPValue = Value;
+			txt_ClusterLogicDisableHealth.Text = Value.ToString();
+		}
+
+		private void tb_ClusterLogicDistance_ValueChanged(object sender, EventArgs e)
+		{
+			TrackBar slider_sender = (TrackBar)sender;
+			int Value = Convert.ToInt32(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
+			Bot.Settings.Cluster.ClusterDistance = Value;
+			txt_ClusterLogicDistance.Text = Value.ToString();
+		}
+
+		private void tb_ClusterLogicMinimumUnits_ValueChanged(object sender, EventArgs e)
+		{
+			TrackBar slider_sender = (TrackBar)sender;
+			int Value = Convert.ToInt32(slider_sender.Value.ToString("F2", CultureInfo.InvariantCulture));
+			Bot.Settings.Cluster.ClusterMinimumUnitCount = Value;
+			txt_WellHealth.Text = Value.ToString();
 		}
 	}
 }

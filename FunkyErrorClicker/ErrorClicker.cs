@@ -1,9 +1,8 @@
 ﻿using System;
-using Zeta;
-using Zeta.CommonBot;
 using System.Threading;
-using Zeta.Common;
-using Zeta.Internals;
+using Zeta.Bot;
+using Zeta.Game;
+using Zeta.Game.Internals;
 
 namespace FunkyErrorClicker
 {
@@ -31,7 +30,7 @@ namespace FunkyErrorClicker
 						 }
 					 } catch (Exception)
 					 {
-						  Logging.WriteDiagnostic("[ErrorClicker] Safely Handled IsInGame Exception!");
+						 DBLog.Debug("[ErrorClicker] Safely Handled IsInGame Exception!");
 					 }
 
 					 if (InGame)
@@ -46,7 +45,7 @@ namespace FunkyErrorClicker
 									  if (ErrorDialog.ErrorCode==-1)
 										  HadDisconnectError=true;
 
-									  Logging.Write("[ErrorClicker] Closing error "+ErrorDialog.ErrorCode.ToString());
+									  DBLog.Debug("[ErrorClicker] Closing error " + ErrorDialog.ErrorCode.ToString());
 									  ErrorDialog.Click();
 								  }
 								  else if(BotMain.ExecutionStateAvailable)
@@ -56,7 +55,7 @@ namespace FunkyErrorClicker
 									  {
 										  if (OkButton.IsValid&&OkButton.IsVisible&&OkButton.IsEnabled)
 										  {
-											  Logging.Write("[ErrorClicker] Closing unhandled error");
+											  DBLog.Info("[ErrorClicker] Closing unhandled error");
 											  OkButton.Click();
 										  }
 									  }

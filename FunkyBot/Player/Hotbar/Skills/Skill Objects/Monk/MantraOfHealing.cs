@@ -16,9 +16,9 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				Priority=AbilityPriority.High;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy));
 				IsSpecialAbility=true;
-				FcriteriaBuff=() => !Bot.Character.Class.HotBar.HasBuff(Power);
+				FcriteriaBuff=() => !Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Monk_MantraOfHealing_v2_Passive);
 
-				FcriteriaCombat=() => !Bot.Character.Class.HotBar.HasBuff(Power)
+				FcriteriaCombat = () => !Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Monk_MantraOfHealing_v2_Passive)
 				                      ||
 				                      Bot.Settings.Class.bMonkSpamMantra&&Bot.Targeting.CurrentTarget!=null&&
 				                      (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]>0||

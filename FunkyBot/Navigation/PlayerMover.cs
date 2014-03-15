@@ -234,7 +234,7 @@ namespace FunkyBot
 
 						float fDistance = Vector3.Distance(vMoveToTarget, vLastMoveTo);
 						// Logger.DBLog.InfoFormat if not in town, last waypoint wasn't FROM town, and the distance is >200 but <2000 (cos 2000+ probably means we changed map zones!)
-						if (!ZetaDia.Me.IsInTown && !bLastWaypointWasTown && fDistance >= 200 & fDistance <= 2000)
+						if (!ZetaDia.IsInTown && !bLastWaypointWasTown && fDistance >= 200 & fDistance <= 2000)
 						{
 							if (!hashDoneThisVector.Contains(vMoveToTarget))
 							{
@@ -253,7 +253,7 @@ namespace FunkyBot
 						}
 					}
 
-					if (ZetaDia.Me.IsInTown)
+					if (ZetaDia.IsInTown)
 						bLastWaypointWasTown = true;
 				}
 
@@ -269,7 +269,7 @@ namespace FunkyBot
 				Vector3 vMyCurrentPosition = ZetaDia.Me.Position;
 
 				//Check GPC entry (backtracking cache) -- only when not in town!
-				if (BackTrackCache.EnableBacktrackGPRcache && !ZetaDia.Me.IsInTown)
+				if (BackTrackCache.EnableBacktrackGPRcache && !ZetaDia.IsInTown)
 				{
 					if (DateTime.Now.Subtract(LastCombatPointChecked).TotalMilliseconds > 1250)
 					{
@@ -390,7 +390,7 @@ namespace FunkyBot
 
 				#region MovementAbilities
 				// See if we can use abilities like leap etc. for movement out of combat, but not in town and only if we can raycast.
-				if (Bot.Settings.OutOfCombatMovement && !ZetaDia.Me.IsInTown && !Bot.IsInNonCombatBehavior)
+				if (Bot.Settings.OutOfCombatMovement && !ZetaDia.IsInTown && !Bot.IsInNonCombatBehavior)
 				{
 					Skill MovementPower;
 					Vector3 MovementVector = Bot.Character.Class.FindOutOfCombatMovementPower(out MovementPower, vMoveToTarget);

@@ -771,7 +771,7 @@ namespace FunkyBot.Movement
 
 			using (ZetaDia.Memory.AcquireFrame())
 			{
-				isInTown = ZetaDia.Me.IsInTown;
+				isInTown = ZetaDia.IsInTown;
 
 			}
 

@@ -1,17 +1,33 @@
-﻿Backtracking:
-	-Either simple return to start of combat location ,
-		-or a queue of multiple locations.
+﻿
 
-	-Queues: Track CacheItems removed that had ShouldLoot flagged.
-			 
-	
-Drop Tracking not reliable
+Type: Projectile Name: x1_MonsterAffix_CorpseBomber_projectile-5289 ActorSNO: 316389, Distance: 4.040692
+Type: ServerProp Name: X1_MonsterAffix_Orbiter_FocalPoint-5204 ActorSNO: 343582, Distance: 13.59655
 
 
-Overhaul inventory of character:
+Avoid the flames produced by the demonic forge in Act 3!
+Unit ActorSNO: 185391 Name: a3_crater_st_demonic_forge-3416 Type: Door Radius: 75.58 Position: x="985" y="1208" z="-29"  (985, 1208, -29) Animation: a3dun_crater_st_demonic_forge_idle has Attributes: Level=60, TeamID=10, HitpointsCur=1265421794, HitpointsMax=1265421794, HitpointsMaxTotal=1265421794, EnchantRangeMax=255, ProjectileReflectDamageScalar=1065353216, ScreenAttackRadiusConstant=1114636288, TurnRateScalar=1065353216, TurnAccelScalar=1065353216, TurnDeccelScalar=1065353216, UnequippedTime=1, CoreAttributesFromItemBonusMultiplier=1065353216, IsTemporaryLure=1, PowerPrimaryResourceCostOverride=2139095039, PowerSecondaryResourceCostOverride=2139095039, PowerChannelCostOverride=2139095039, 
 
--Peroidically updated from Character method
-	*Should be flagged when item becomes target and removed after change event occurs
--Improve Looting Confirmation
-	*events to confirm flags using cross-reference to what we were attempting prior to change occured.
 
+Gem Crafting UIElements:
+
+Hash: 818540278F81F6EE
+IsEnabled:False IsValid:True IsVisible:True
+Name:Root.NormalLayer.vendor_dialog_mainPage.gemcombine_dialog
+HasTextFalse Text: 
+
+Hash: 64EB7B789CFD48EB
+IsEnabled:True IsValid:True IsVisible:True
+Name:Root.NormalLayer.vendor_dialog_mainPage.gemcombine_dialog.recipe_list
+HasTextTrue Text: g.tab_stack_panel.tabs
+
+Hash: 55FE0C0AB6DE0757
+IsEnabled:True IsValid:True IsVisible:True
+Name:Root.NormalLayer.vendor_dialog_mainPage.gemcombine_dialog.craft_button
+
+Hash: E168E0CCFBB57694
+IsEnabled:True IsValid:True IsVisible:True
+Name:Root.NormalLayer.vendor_dialog_mainPage.gemcombine_dialog.countIncrease_button
+
+Hash: 5674549C5C464FC
+IsEnabled:False IsValid:True IsVisible:True
+Name:Root.NormalLayer.vendor_dialog_mainPage.gemcombine_dialog.countDecrease_button

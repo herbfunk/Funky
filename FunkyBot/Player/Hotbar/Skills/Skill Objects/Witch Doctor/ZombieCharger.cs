@@ -14,7 +14,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 
 				WaitVars=new WaitLoops(0, 1, true);
 				Cost=134;
-				Range=11;
+				Range=15;
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.Medium;
 

@@ -426,6 +426,7 @@ namespace FunkyBot.Cache.Objects
 		public bool IsSpawnerUnit { get { return ObjectCache.SnoUnitPropertyCache.SpawnerUnits.Contains(SNOID); } }
 		public bool IsTransformUnit { get { return CacheIDLookup.hashActorSNOTransforms.Contains(SNOID); } }
 		public bool IsFlyingHoverUnit { get { return CacheIDLookup.hashActorSNOFlying.Contains(SNOID); } }
+		public bool IsDemonicForge { get { return SNOID == 174900 || SNOID == 185391; } }
 		#endregion
 
 		public bool ContainsNullValues()
@@ -627,7 +628,7 @@ namespace FunkyBot.Cache.Objects
 								return false;
 							}
 							
-							if (thisGizmoType == GizmoType.DestroyableObject)
+							if (thisGizmoType == GizmoType.DestroyableObject || thisGizmoType == GizmoType.BreakableChest)
 								targetType = TargetType.Destructible;
 							else if (thisGizmoType == GizmoType.PowerUp || thisGizmoType == GizmoType.HealingWell || thisGizmoType == GizmoType.PoolOfReflection)
 							{
@@ -635,7 +636,7 @@ namespace FunkyBot.Cache.Objects
 							}
 							else if (thisGizmoType == GizmoType.Chest)
 								targetType = TargetType.Container;
-							else if (thisGizmoType == GizmoType.DestroyableObject)
+							else if (thisGizmoType == GizmoType.BreakableDoor)
 								targetType = TargetType.Barricade;
 							else if (thisGizmoType == GizmoType.Door)
 								targetType = TargetType.Door;

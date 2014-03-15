@@ -23,6 +23,9 @@ namespace FunkyBot.Cache.Enums
 		  [XmlEnum(Name="Dececrator")]
 		  Dececrator,
 
+		  [XmlEnum(Name = "DemonicForge")]
+		  DemonicForge,
+
 		  [XmlEnum(Name="DiabloMetor")]
 		  DiabloMetor,
 		  [XmlEnum(Name="DiabloPrison")]
@@ -30,6 +33,9 @@ namespace FunkyBot.Cache.Enums
 
 		  [XmlEnum(Name="Frozen")]
 		  Frozen,
+
+		  [XmlEnum(Name = "FrozenPulse")]
+		  FrozenPulse,
 
 		  [XmlEnum(Name="GrotesqueExplosion")]
 		  GrotesqueExplosion,
@@ -45,6 +51,13 @@ namespace FunkyBot.Cache.Enums
 
 		  [XmlEnum(Name="MoltenTrail")]
 		  MoltenTrail,
+
+		  [XmlEnum(Name = "OrbitProjectile")]
+		  OrbitProjectile,
+
+		  [XmlEnum(Name = "OrbitFocalPoint")]
+		  OrbitFocalPoint,
+
 		  [XmlEnum(Name="PlagueCloud")]
 		  PlagueCloud,
 		  [XmlEnum(Name="PlagueHand")]

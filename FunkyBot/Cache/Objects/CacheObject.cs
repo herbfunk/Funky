@@ -252,6 +252,28 @@ namespace FunkyBot.Cache.Objects
 			}
 			set { gprect_ = value; }
 		}
+
+		private float rotation_;
+		internal virtual float Rotation
+		{
+			get { return rotation_; }
+			set { rotation_ = value; }
+		}
+		internal void UpdateRotation()
+		{
+			using (ZetaDia.Memory.AcquireFrame())
+			{
+
+				try
+				{
+					Rotation = ref_DiaObject.Movement.Rotation;
+				}
+				catch (Exception)
+				{
+					Logger.Write(LogLevel.Cache, "Safely Handled Updating Rotation for Object {0}", InternalName);
+				}
+			}
+		}
 		#endregion
 
 
@@ -426,6 +448,19 @@ namespace FunkyBot.Cache.Objects
 			NormalizedBotDestination.Z = 0f;
 
 			float angleDegrees = Vector3.AngleBetween(NormalizedVector, NormalizedBotDestination);
+			return (angleDegrees <= 0.0045 || angleDegrees > 0.0315);
+		}
+		public bool IsFacingBot()
+		{
+			Vector3 NormalizedVector = Vector3.NormalizedDirection(Position, MathEx.GetPointAt(Position, 10f, Rotation)); 
+			NormalizedVector.Z = 0f;
+			NormalizedVector.Normalize();
+
+			Vector3 BotPositionNormalized = Bot.Character.Data.Position;
+			BotPositionNormalized.Z = 0f;
+			BotPositionNormalized.Normalize();
+
+			float angleDegrees = Vector3.AngleBetween(NormalizedVector, BotPositionNormalized);
 			return (angleDegrees <= 0.0045 || angleDegrees > 0.0315);
 		}
 		///<summary>

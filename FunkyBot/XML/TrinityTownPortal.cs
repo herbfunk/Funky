@@ -38,7 +38,7 @@ namespace FunkyBot.XMLTags
 
 		  public override void OnStart()
 		  {
-				if (ZetaDia.Me.IsInTown)
+				if (ZetaDia.IsInTown)
 				{
 					 _IsDone=true;
 					 return;

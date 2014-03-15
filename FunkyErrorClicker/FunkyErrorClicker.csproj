@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\Desktop\DB_DebugCopy\Plugins\FunkyErrorClicker\</OutputPath>
+    <OutputPath>..\..\..\..\Desktop\New folder %284%29\Plugins\FunkyErrorClicker\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,12 +32,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Demonbuddy">
-      <HintPath>Assemblies\Demonbuddy.exe</HintPath>
-      <Private>False</Private>
+      <HintPath>..\FunkyBot\Assemblies\Demonbuddy.exe</HintPath>
     </Reference>
     <Reference Include="GreyMagic">
-      <HintPath>Assemblies\GreyMagic.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\FunkyBot\Assemblies\GreyMagic.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

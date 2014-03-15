@@ -21,14 +21,18 @@ namespace FunkyBot.Cache
 			  new AvoidanceValue(AvoidanceType.BeeProjectile, 0.5, 2,5),
 			  new AvoidanceValue(AvoidanceType.BelialGround, 1, 25,5),
 			  new AvoidanceValue(AvoidanceType.Dececrator, 1, 9,12),
+			  new AvoidanceValue(AvoidanceType.DemonicForge, 1, 25,12),
 			  new AvoidanceValue(AvoidanceType.DiabloMetor, 0.80, 28,5),
 			  new AvoidanceValue(AvoidanceType.DiabloPrison, 1, 15,5),
 			  new AvoidanceValue(AvoidanceType.Frozen, 1, 20,10),
+			  new AvoidanceValue(AvoidanceType.FrozenPulse, 1, 15,10),
 			  new AvoidanceValue(AvoidanceType.GrotesqueExplosion, 0.50, 20,5),
 			  new AvoidanceValue(AvoidanceType.LacuniBomb, 0.25, 2,5),
 			  new AvoidanceValue(AvoidanceType.MageFirePool, 1, 10,5),
 			  new AvoidanceValue(AvoidanceType.MoltenCore, 1, 20,5),
 			  new AvoidanceValue(AvoidanceType.MoltenTrail, 0.75, 6,5),
+			  new AvoidanceValue(AvoidanceType.OrbitFocalPoint, 0.75, 10,5),
+			  new AvoidanceValue(AvoidanceType.OrbitProjectile, 0.75, 7,5),
 			  new AvoidanceValue(AvoidanceType.PlagueCloud, 0.75, 19,5),
 			  new AvoidanceValue(AvoidanceType.PlagueHand, 1, 15,5),
 			  new AvoidanceValue(AvoidanceType.PoisonGas, 0.5, 9,5),
@@ -51,6 +55,10 @@ namespace FunkyBot.Cache
 				  4103,            160154,       432,         168031,        214845,       260377,        4176,
 				  //lacuni bomb		Succubus Bloodstar	  Halls Of Agony: Inferno Wall
 				  4546,			   164829,						  89578,
+				  //Lightning Orbiter Projectile		Lightning Orbiter Focal Point
+				  343539,								343582,
+				  //Frozen Pulse
+				  349774,
 			  };
 
 		// A list of SNO's that are projectiles (so constantly look for new locations while avoiding)
@@ -141,6 +149,12 @@ namespace FunkyBot.Cache
 					return AvoidanceType.SuccubusProjectile;
 				case 89578:
 					return AvoidanceType.WallOfFire;
+				case 343539:
+					return AvoidanceType.OrbitProjectile;
+				case 343582:
+					return AvoidanceType.OrbitFocalPoint;
+				case 349774:
+					return AvoidanceType.FrozenPulse;
 			}
 			return AvoidanceType.None;
 		}
