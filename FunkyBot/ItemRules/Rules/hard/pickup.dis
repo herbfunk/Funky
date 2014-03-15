@@ -52,14 +52,10 @@
 //ignore rule
 //[QUALITY] == "Rare"  && [LEVEL] <= 59 && [BASETYPE] == "Misc" -> [IGNORE]
 
-// +---------------------------------------------------------------------------+
-// |  _______ _______ _______ _______ ______ 
-// | |   |   |   _   |     __|_     _|      |
-// | |       |       |    |  |_|   |_|   ---|
-// | |__|_|__|___|___|_______|_______|______|                                                                                                   
-// +---------------------------------------------------------------------------+
-//ignore rule
-[QUALITY] == "Magic"
-[QUALITY] == "Normal"
+
+[QUALITY] == "Normal" && [BASETYPE] == "Weapon"
+[QUALITY] == "Normal" && [BASETYPE] == "Armor"
+[QUALITY] == "Magic" 
+[QUALITY] == "Inferior"
 [QUALITY] == "Superior"
 [QUALITY] == "Rare"

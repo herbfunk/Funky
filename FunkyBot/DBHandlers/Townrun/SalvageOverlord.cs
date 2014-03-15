@@ -115,7 +115,7 @@ namespace FunkyBot.DBHandlers
 				switch (ZetaDia.CurrentAct)
 				{
 					case Act.A1:
-						vectorSalvageLocation = new Vector3(2949.626f, 2815.065f, 24.04389f); break;
+						vectorSalvageLocation = new Vector3(2958.418f, 2823.037f, 24.04533f); break;
 					case Act.A2:
 						vectorSalvageLocation = new Vector3(289.6358f, 232.1146f, 0.1f); break;
 					case Act.A3:
