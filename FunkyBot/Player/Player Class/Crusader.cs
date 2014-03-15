@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using FunkyBot.Player.HotBar.Skills;
-using Zeta;
-using Zeta.Internals.Actors;
+using Zeta.Game;
 
 namespace FunkyBot.Player.Class
 {
 	internal class Crusader : PlayerClass
 	{
-		public override ActorClass AC { get { return ActorClass.Invalid; } }
+		public override ActorClass AC { get { return ActorClass.Crusader; } }
 
 		internal override Skill DefaultAttack
 		{

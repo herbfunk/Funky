@@ -132,7 +132,6 @@ namespace FunkyBot.DBHandlers
 
 			iCurrentItemLoops = 0;
 			RandomizeTheTimer();
-			bFailedToLootLastItem = false;
 
 			List<CacheACDItem> potions = Bot.Character.Data.BackPack.ReturnCurrentPotions();
 			if (potions != null) Bot.Character.Data.iTotalPotions = potions.Any() ? potions.Sum(p => p.ThisItemStackQuantity) : 0;
@@ -169,7 +168,7 @@ namespace FunkyBot.DBHandlers
 				switch (ZetaDia.CurrentAct)
 				{
 					case Act.A1:
-						vectorSellLocation = new Vector3(2912.775f, 2803.896f, 24.04533f); break;
+						vectorSellLocation = new Vector3(2901.399f, 2809.826f, 24.04533f); break;
 					case Act.A2:
 						vectorSellLocation = new Vector3(295.2101f, 265.1436f, 0.1000002f); break;
 					case Act.A3:
@@ -192,7 +191,8 @@ namespace FunkyBot.DBHandlers
 			}
 			if (iDistanceFromSell > 40f)
 			{
-				ZetaDia.Me.UsePower(SNOPower.Walk, vectorSellLocation, ZetaDia.Me.WorldDynamicId);
+				Navigator.MoveTo(vectorSellLocation, "Vendor", true);
+				//ZetaDia.Me.UsePower(SNOPower.Walk, vectorSellLocation, ZetaDia.Me.WorldDynamicId);
 				return RunStatus.Running;
 			}
 			if (iDistanceFromSell > 7.5f && !UIElements.VendorWindow.IsValid)
@@ -367,6 +367,7 @@ namespace FunkyBot.DBHandlers
 			iLastDistance = 0f;
 			iCurrentItemLoops = 0;
 			RandomizeTheTimer();
+			bFailedToLootLastItem = false;
 			Logger.DBLog.DebugFormat("GSDebug: Sell routine finished.");
 			Bot.Character.Data.lastPreformedNonCombatAction = DateTime.Now;
 			return RunStatus.Success;

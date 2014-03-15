@@ -206,16 +206,16 @@ namespace FunkyBot.Cache.Objects
 				{
 					//Logger.DBLog.InfoFormat(powerPrime.powerThis.ToString() + " used successfully");
 					Bot.Character.Class.PowerPrime.OnSuccessfullyUsed();
-					this.InteractionAttempts++;
+					this.BlacklistLoops = 10;
 				}
 				else
 				{
 					PowerCacheLookup.dictAbilityLastFailed[Bot.Character.Class.PowerPrime.Power] = DateTime.Now;
 				}
 
-
+				this.InteractionAttempts++;
 				// If we've tried interacting too many times, blacklist this for a while
-				if (this.InteractionAttempts > 1)
+				if (this.InteractionAttempts > 2)
 				{
 					this.BlacklistLoops = 10;
 					this.InteractionAttempts = 0;

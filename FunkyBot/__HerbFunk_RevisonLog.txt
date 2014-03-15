@@ -7,9 +7,15 @@ Updated code and namespaces to be compatable with new Demonbuddy and Diablo chan
 Cache:
 -Updated Gizmos to recongize Pool of Reflection and Power Globes.
 -Diamond Gems are now recongized, new setting added.
+-Added bIsInBossEncounter to Character Cache (Bosses no longer ignored due to clustering)
+-Fixed incorrect reference for IsBoss Cache lookup.
+-Bosses will continue to update Targetable property now.
+-Destructible Interaction will blacklist regardless of success of skill use.
+-Added Orbiter, Frozen Pulse, Thunderstorm to Avoidances.
 
 Town Runs:
 -Adjusted the salvage location for Act 1 to avoid getting stuck on the little chest!
+-Changed vendor movement to use Navigator instead of Playermover.
 -Re-Enabled Custom ID behavior, Removed Finish Behavior.
 
 Item Rules:

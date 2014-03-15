@@ -109,7 +109,7 @@ namespace FunkyBot.DBHandlers
 			bUpdatedStashMap = false;
 			iCurrentItemLoops = 0;
 			RandomizeTheTimer();
-			bFailedToLootLastItem = false;
+
 			return RunStatus.Success;
 		}
 
@@ -142,7 +142,7 @@ namespace FunkyBot.DBHandlers
 			 }
 			   */
 			Bot.Character.Data.lastPreformedNonCombatAction = DateTime.Now;
-
+			bFailedToLootLastItem = false;
 
 			Logger.DBLog.DebugFormat("GSDebug: Stash routine finished.");
 			return RunStatus.Success;
@@ -171,7 +171,7 @@ namespace FunkyBot.DBHandlers
 				switch (ZetaDia.CurrentAct)
 				{
 					case Act.A1:
-						vectorStashLocation = new Vector3(2971.285f, 2798.801f, 24.04533f); break;
+						vectorStashLocation = new Vector3(2967.146f, 2799.459f, 24.04533f); break;
 					case Act.A2:
 						vectorStashLocation = new Vector3(323.4543f, 228.5806f, 0.1f); break;
 					case Act.A3:

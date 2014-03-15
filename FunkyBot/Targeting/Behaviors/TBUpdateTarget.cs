@@ -134,7 +134,7 @@ namespace FunkyBot.Targeting.Behaviors
 						Bot.Targeting.CurrentUnitTarget = (CacheUnit)CurrentTarget;
 
 						//Generate next Ability..
-						Skill nextAbility = Bot.Character.Class.AbilitySelector(Bot.Targeting.CurrentUnitTarget, true);
+						Skill nextAbility = Bot.Character.Class.AbilitySelector(Bot.Targeting.CurrentUnitTarget);
 
 
 						if (nextAbility == Bot.Character.Class.DefaultAttack && !Bot.Character.Class.CanUseDefaultAttack)

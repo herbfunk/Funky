@@ -68,8 +68,13 @@ namespace FunkyBot.Cache.Enums
 		  ShamanFireBall,
 		  [XmlEnum(Name="SuccubusProjectile")]
 		  SuccubusProjectile,
+
+		  [XmlEnum(Name = "Thunderstorm")]
+		  Thunderstorm,
+
 		  [XmlEnum(Name="TreeSpore")]
 		  TreeSpore,
+
 		  [XmlEnum(Name="WallOfFire")]
 		  WallOfFire,
 

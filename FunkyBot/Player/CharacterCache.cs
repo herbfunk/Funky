@@ -21,6 +21,7 @@ namespace FunkyBot.Player
 			bIsIncapacitated = false;
 			bIsRooted = false;
 			bIsInTown = false;
+			bIsInBossEncounter = false;
 			dcurrentHealthPct = 0d;
 			dCurrentEnergy = 0d;
 			dCurrentEnergyPct = 0d;
@@ -78,6 +79,7 @@ namespace FunkyBot.Player
 		public bool bIsIncapacitated { get; set; }
 		public bool bIsRooted { get; set; }
 		public bool bIsInTown { get; set; }
+		public bool bIsInBossEncounter { get; set; }
 		private double dcurrentHealthPct;
 		public double dCurrentHealthPct
 		{
@@ -259,7 +261,7 @@ namespace FunkyBot.Player
 					double curhealthpct = me.HitpointsCurrentPct;
 					if (!dcurrentHealthPct.Equals(curhealthpct))
 						healthvalueChanged(dcurrentHealthPct, curhealthpct);
-
+					
 					dCurrentEnergy = me.CurrentPrimaryResource;
 					dCurrentEnergyPct = dCurrentEnergy / me.MaxPrimaryResource;
 
@@ -271,7 +273,8 @@ namespace FunkyBot.Player
 						//Disable it when not OOC/TP/Low health still..
 						CriticalAvoidance = false;
 
-					bIsInTown = me.IsInTown;
+					bIsInBossEncounter = me.IsInBossEncounter;
+					bIsInTown = ZetaDia.IsInTown;
 					bIsRooted = me.IsRooted;
 
 					if (me.IsFeared || me.IsStunned || me.IsFrozen || me.IsBlind)
@@ -379,12 +382,14 @@ namespace FunkyBot.Player
 															   "SNOAnim={3} AnimState={4} \r\n" +
 															   "Incapacitated={5} -- Rooted={6} \r\n" +
 															   "Current Health={7} -- Current Energy={8}[{9}%] \r\n" +
-															   "Current Coin={10} -- CurrentXP={11}",
+															   "Current Coin={10} -- CurrentXP={11} \r\n" +
+															   "Is In Boss Encounter={12}",
 															   iCurrentLevelID, iCurrentWorldID, iSceneID,
 															   Lastsnoanim.ToString(), lastAnimationState.ToString(),
 															   Bot.Character.Data.bIsIncapacitated.ToString(), Bot.Character.Data.bIsRooted.ToString(),
 															   dCurrentHealthPct, dCurrentEnergy, dCurrentEnergyPct,
-															   Coinage, CurrentExp);
+															   Coinage, CurrentExp,
+															   bIsInBossEncounter);
 
 		}
 

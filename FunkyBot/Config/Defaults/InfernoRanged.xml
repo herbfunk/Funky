@@ -7,7 +7,7 @@
     <NewGameMaxmimumWaitTime>0</NewGameMaxmimumWaitTime>
   </Demonbuddy>
   <Debug>
-    <DebugStatusBar>false</DebugStatusBar>
+    <DebugStatusBar>true</DebugStatusBar>
     <LogGroupingOutput>false</LogGroupingOutput>
     <FunkyLogFlags>None</FunkyLogFlags>
     <SkipAhead>true</SkipAhead>
@@ -18,7 +18,7 @@
   <Targeting>
     <IgnoreAboveAverageMobs>false</IgnoreAboveAverageMobs>
     <IgnoreCorpses>false</IgnoreCorpses>
-    <MissleDampeningEnforceCloseRange>false</MissleDampeningEnforceCloseRange>
+    <MissleDampeningEnforceCloseRange>true</MissleDampeningEnforceCloseRange>
     <GoblinPriority>2</GoblinPriority>
     <UseShrineTypes>
       <boolean>true</boolean>
@@ -28,56 +28,61 @@
       <boolean>true</boolean>
       <boolean>true</boolean>
     </UseShrineTypes>
-    <UseExtendedRangeRepChest>true</UseExtendedRangeRepChest>
+    <UseExtendedRangeRepChest>false</UseExtendedRangeRepChest>
     <UnitExceptionLowHP>true</UnitExceptionLowHP>
+    <UnitExceptionLowHPMaximumDistance>20</UnitExceptionLowHPMaximumDistance>
     <UnitExceptionRangedUnits>true</UnitExceptionRangedUnits>
     <UnitExceptionSpawnerUnits>true</UnitExceptionSpawnerUnits>
     <UnitExceptionSucideBombers>true</UnitExceptionSucideBombers>
+    <PrioritizeCloseRangeUnits>true</PrioritizeCloseRangeUnits>
+    <PrioritizeCloseRangeMinimumUnits>3</PrioritizeCloseRangeMinimumUnits>
   </Targeting>
   <Combat>
     <GlobeHealthPercent>0.6</GlobeHealthPercent>
     <PotionHealthPercent>0.5</PotionHealthPercent>
     <HealthWellHealthPercent>0.75</HealthWellHealthPercent>
+    <CombatMovementTargetTypes>Item Gold Globe Avoidance Fleeing</CombatMovementTargetTypes>
   </Combat>
   <Avoidance>
     <AttemptAvoidanceMovements>true</AttemptAvoidanceMovements>
     <UseAdvancedProjectileTesting>false</UseAdvancedProjectileTesting>
+    <FailureRetryMilliseconds>2000</FailureRetryMilliseconds>
     <Avoidances>
       <AvoidanceValue>
         <Type>ArcaneSentry</Type>
         <Health>1</Health>
         <Radius>14</Radius>
-        <Weight>14</Weight>
+        <Weight>15</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>AzmodanBodies</Type>
         <Health>1</Health>
         <Radius>47</Radius>
-        <Weight>10</Weight>
+        <Weight>5</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>AzmodanFireball</Type>
         <Health>1</Health>
         <Radius>16</Radius>
-        <Weight>8</Weight>
+        <Weight>5</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>AzmodanPool</Type>
         <Health>1</Health>
         <Radius>54</Radius>
-        <Weight>6</Weight>
+        <Weight>5</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>BeeProjectile</Type>
         <Health>0.5</Health>
         <Radius>2</Radius>
-        <Weight>4</Weight>
+        <Weight>5</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>BelialGround</Type>
         <Health>1</Health>
         <Radius>25</Radius>
-        <Weight>8</Weight>
+        <Weight>5</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>Dececrator</Type>
@@ -86,10 +91,16 @@
         <Weight>12</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
+        <Type>DemonicForge</Type>
+        <Health>0.5</Health>
+        <Radius>25</Radius>
+        <Weight>12</Weight>
+      </AvoidanceValue>
+      <AvoidanceValue>
         <Type>DiabloMetor</Type>
         <Health>0.8</Health>
         <Radius>28</Radius>
-        <Weight>3</Weight>
+        <Weight>5</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>DiabloPrison</Type>
@@ -104,69 +115,87 @@
         <Weight>10</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
+        <Type>FrozenPulse</Type>
+        <Health>1</Health>
+        <Radius>15</Radius>
+        <Weight>10</Weight>
+      </AvoidanceValue>
+      <AvoidanceValue>
         <Type>GrotesqueExplosion</Type>
         <Health>0.5</Health>
         <Radius>20</Radius>
-        <Weight>20</Weight>
+        <Weight>5</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>LacuniBomb</Type>
         <Health>0.25</Health>
         <Radius>2</Radius>
-        <Weight>0</Weight>
+        <Weight>5</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>MageFirePool</Type>
         <Health>1</Health>
         <Radius>10</Radius>
-        <Weight>0</Weight>
+        <Weight>5</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>MoltenCore</Type>
         <Health>1</Health>
         <Radius>20</Radius>
-        <Weight>10</Weight>
+        <Weight>5</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>MoltenTrail</Type>
         <Health>0.75</Health>
         <Radius>6</Radius>
-        <Weight>0</Weight>
+        <Weight>5</Weight>
+      </AvoidanceValue>
+      <AvoidanceValue>
+        <Type>OrbitFocalPoint</Type>
+        <Health>0.75</Health>
+        <Radius>10</Radius>
+        <Weight>5</Weight>
+      </AvoidanceValue>
+      <AvoidanceValue>
+        <Type>OrbitProjectile</Type>
+        <Health>0.75</Health>
+        <Radius>7</Radius>
+        <Weight>5</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>PlagueCloud</Type>
         <Health>0.75</Health>
         <Radius>19</Radius>
-        <Weight>11</Weight>
+        <Weight>5</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>PlagueHand</Type>
         <Health>1</Health>
         <Radius>15</Radius>
-        <Weight>0</Weight>
+        <Weight>5</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>PoisonGas</Type>
         <Health>0.5</Health>
         <Radius>9</Radius>
-        <Weight>12</Weight>
+        <Weight>5</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>ShamanFireBall</Type>
         <Health>0.1</Health>
         <Radius>2</Radius>
-        <Weight>8</Weight>
+        <Weight>5</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>SuccubusProjectile</Type>
         <Health>0.25</Health>
         <Radius>2</Radius>
-        <Weight>0</Weight>
+        <Weight>5</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>TreeSpore</Type>
         <Health>1</Health>
-        <Radius>11</Radius>
+        <Radius>14</Radius>
         <Weight>10</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
@@ -177,21 +206,36 @@
       </AvoidanceValue>
     </Avoidances>
   </Avoidance>
+  <Backtracking>
+    <TrackStartOfCombatEngagment>false</TrackStartOfCombatEngagment>
+    <MinimumDistanceFromStart>20</MinimumDistanceFromStart>
+    <EnableBacktracking>false</EnableBacktracking>
+    <TrackLootableItems>true</TrackLootableItems>
+  </Backtracking>
   <BuyPotionsDuringTownRun>false</BuyPotionsDuringTownRun>
-  <EnableWaitAfterContainers>true</EnableWaitAfterContainers>
+  <EnableWaitAfterContainers>false</EnableWaitAfterContainers>
   <Fleeing>
     <EnableFleeingBehavior>false</EnableFleeingBehavior>
-    <FleeBotMinimumHealthPercent>0.50</FleeBotMinimumHealthPercent>
-    <FleeMaxMonsterDistance>1</FleeMaxMonsterDistance>
+    <FailureRetryMilliseconds>2000</FailureRetryMilliseconds>
+    <FleeBotMinimumHealthPercent>0.75</FleeBotMinimumHealthPercent>
+    <FleeMaxMonsterDistance>3</FleeMaxMonsterDistance>
+    <FleeUnitElectrified>true</FleeUnitElectrified>
+    <FleeUnitRareElite>true</FleeUnitRareElite>
+    <FleeUnitNormal>true</FleeUnitNormal>
+    <FleeUnitAboveAverageHitPoints>true</FleeUnitAboveAverageHitPoints>
+    <FleeUnitIgnoreFast>true</FleeUnitIgnoreFast>
+    <FleeUnitIgnoreSucideBomber>true</FleeUnitIgnoreSucideBomber>
+    <FleeUnitIgnoreRanged>true</FleeUnitIgnoreRanged>
   </Fleeing>
   <Grouping>
     <AttemptGroupingMovements>true</AttemptGroupingMovements>
     <GroupingClusterRadiusDistance>10</GroupingClusterRadiusDistance>
     <GroupingMinimumUnitDistance>35</GroupingMinimumUnitDistance>
-    <GroupingMaximumDistanceAllowed>95</GroupingMaximumDistanceAllowed>
+    <GroupingMaximumDistanceAllowed>110</GroupingMaximumDistanceAllowed>
     <GroupingMinimumClusterCount>1</GroupingMinimumClusterCount>
     <GroupingMinimumUnitsInCluster>3</GroupingMinimumUnitsInCluster>
-    <GroupingMinimumBotHealth>0.5</GroupingMinimumBotHealth>
+    <GroupingMinimumBotHealth>0</GroupingMinimumBotHealth>
+    <GroupingClusterProperties>Strong Large Elites Boss Fast</GroupingClusterProperties>
   </Grouping>
   <AfterCombatDelay>500</AfterCombatDelay>
   <OutOfCombatMovement>false</OutOfCombatMovement>
@@ -203,10 +247,10 @@
     <ItemRulesUnidStashing>true</ItemRulesUnidStashing>
     <ItemRuleUseItemIDs>false</ItemRuleUseItemIDs>
     <ItemRuleDebug>false</ItemRuleDebug>
-    <ItemRuleType>Hard</ItemRuleType>
-    <ItemRuleCustomPath></ItemRuleCustomPath>
-    <ItemRuleLogPickup>Rare</ItemRuleLogPickup>
-    <ItemRuleLogKeep>Rare</ItemRuleLogKeep>
+    <ItemRuleType>hard</ItemRuleType>
+    <ItemRuleCustomPath />
+    <ItemRuleLogPickup>Common</ItemRuleLogPickup>
+    <ItemRuleLogKeep>Common</ItemRuleLogKeep>
     <ItemRuleGilesScoring>true</ItemRuleGilesScoring>
   </ItemRules>
   <Loot>
@@ -231,13 +275,15 @@
     <PickupGems>
       <boolean>true</boolean>
       <boolean>true</boolean>
-      <boolean>false</boolean>
-      <boolean>false</boolean>
+      <boolean>true</boolean>
+      <boolean>true</boolean>
+      <boolean>true</boolean>
     </PickupGems>
+    <PickupGemDiamond>true</PickupGemDiamond>
     <MinimumGemItemLevel>60</MinimumGemItemLevel>
     <PickupCraftTomes>true</PickupCraftTomes>
     <PickupCraftPlans>true</PickupCraftPlans>
-    <PickupBlacksmithPlanSix>false</PickupBlacksmithPlanSix>
+    <PickupBlacksmithPlanSix>true</PickupBlacksmithPlanSix>
     <PickupBlacksmithPlanFive>false</PickupBlacksmithPlanFive>
     <PickupBlacksmithPlanFour>false</PickupBlacksmithPlanFour>
     <PickupBlacksmithPlanArchonGauntlets>false</PickupBlacksmithPlanArchonGauntlets>
@@ -251,32 +297,51 @@
     <PickupFollowerItems>true</PickupFollowerItems>
     <PickupInfernalKeys>true</PickupInfernalKeys>
     <PickupDemonicEssence>true</PickupDemonicEssence>
-    <MiscItemLevel>59</MiscItemLevel>
+    <MiscItemLevel>63</MiscItemLevel>
   </Loot>
   <Ranges>
     <IgnoreCombatRange>false</IgnoreCombatRange>
     <IgnoreLootRange>false</IgnoreLootRange>
+    <IgnoreProfileBlacklists>false</IgnoreProfileBlacklists>
     <ItemRange>150</ItemRange>
-    <GoldRange>45</GoldRange>
-    <GlobeRange>40</GlobeRange>
-    <ShrineRange>50</ShrineRange>
+    <GoldRange>60</GoldRange>
+    <GlobeRange>55</GlobeRange>
+    <ShrineRange>60</ShrineRange>
     <DestructibleRange>5</DestructibleRange>
     <ContainerOpenRange>50</ContainerOpenRange>
     <NonEliteCombatRange>45</NonEliteCombatRange>
     <EliteCombatRange>60</EliteCombatRange>
-    <TreasureGoblinRange>55</TreasureGoblinRange>
+    <TreasureGoblinRange>150</TreasureGoblinRange>
   </Ranges>
-  <AvoidanceRecheckMaximumRate>3500</AvoidanceRecheckMaximumRate>
-  <AvoidanceRecheckMinimumRate>550</AvoidanceRecheckMinimumRate>
-  <KitingRecheckMaximumRate>4500</KitingRecheckMaximumRate>
-  <KitingRecheckMinimumRate>1000</KitingRecheckMinimumRate>
   <Cluster>
-    <ClusterDistance>7</ClusterDistance>
-    <ClusterMinimumUnitCount>2</ClusterMinimumUnitCount>
-    <EnableClusteringTargetLogic>true</EnableClusteringTargetLogic>
+    <ClusterDistance>10</ClusterDistance>
+    <ClusterMinimumUnitCount>4</ClusterMinimumUnitCount>
+    <EnableClusteringTargetLogic>false</EnableClusteringTargetLogic>
     <IgnoreClusteringWhenLowHP>true</IgnoreClusteringWhenLowHP>
-    <IgnoreClusterLowHPValue>0.75</IgnoreClusterLowHPValue>
+    <IgnoreClusterLowHPValue>0.55</IgnoreClusterLowHPValue>
+    <ClusterMaxDistance>100</ClusterMaxDistance>
   </Cluster>
+  <LOSMovement>
+    <EnableLOSMovementBehavior>false</EnableLOSMovementBehavior>
+    <AllowTreasureGoblin>true</AllowTreasureGoblin>
+    <AllowRareElites>true</AllowRareElites>
+    <AllowUniqueBoss>true</AllowUniqueBoss>
+    <AllowRanged>true</AllowRanged>
+    <AllowSucideBomber>true</AllowSucideBomber>
+    <AllowSpawnerUnits>true</AllowSpawnerUnits>
+    <AllowRareLootContainer>true</AllowRareLootContainer>
+    <MaximumRange>500</MaximumRange>
+  </LOSMovement>
+  <Plugin>
+    <GoldInactivityTimeoutMilliseconds>180000</GoldInactivityTimeoutMilliseconds>
+    <CacheObjectRefreshRate>150</CacheObjectRefreshRate>
+    <UnusedSNORemovalRate>180000</UnusedSNORemovalRate>
+    <MovementNonMovementCount>50</MovementNonMovementCount>
+    <OutofCombatMaxDistance>50</OutofCombatMaxDistance>
+    <CreateMuleOnStashFull>true</CreateMuleOnStashFull>
+    <AvoidanceFlags>AvoidanceOverlap ObstacleOverlap AvoidanceIntersection BlockedDirection</AvoidanceFlags>
+    <FleeingFlags>AvoidanceOverlap ObstacleOverlap MonsterOverlap AvoidanceIntersection Raycast BlockedDirection</FleeingFlags>
+  </Plugin>
   <Class>
     <bSelectiveWhirlwind>false</bSelectiveWhirlwind>
     <bWaitForWrath>false</bWaitForWrath>
@@ -287,11 +352,15 @@
     <iDHVaultMovementDelay>400</iDHVaultMovementDelay>
     <bMonkInnaSet>false</bMonkInnaSet>
     <bMonkSpamMantra>false</bMonkSpamMantra>
+    <bMonkComboStrike>false</bMonkComboStrike>
+    <iMonkComboStrikeAbilities>0</iMonkComboStrikeAbilities>
+    <bMonkMaintainSweepingWind>false</bMonkMaintainSweepingWind>
     <bWaitForArchon>false</bWaitForArchon>
     <bKiteOnlyArchon>true</bKiteOnlyArchon>
     <bCancelArchonRebuff>false</bCancelArchonRebuff>
     <bTeleportIntoGrouping>false</bTeleportIntoGrouping>
     <bTeleportFleeWhenLowHP>true</bTeleportFleeWhenLowHP>
     <GoblinMinimumRange>40</GoblinMinimumRange>
+    <AllowDefaultAttackAlways>true</AllowDefaultAttackAlways>
   </Class>
 </Settings_Funky>

@@ -256,7 +256,7 @@ namespace FunkyBot.Cache.Objects
 
 				if (Bot.Settings.Cluster.EnableClusteringTargetLogic
 					&& (!Bot.Settings.Cluster.IgnoreClusteringWhenLowHP || Bot.Character.Data.dCurrentHealthPct > Bot.Settings.Cluster.IgnoreClusterLowHPValue)
-					&& !Bot.IsInNonCombatBehavior)
+					&& !Bot.IsInNonCombatBehavior && !Bot.Character.Data.bIsInBossEncounter)
 				{
 					//Check if this unit is valid based on if its contained in valid clusters
 					if (!Bot.Targeting.Clusters.ValidClusterUnits.Contains(RAGUID))
@@ -1201,7 +1201,7 @@ namespace FunkyBot.Cache.Objects
 			#endregion
 
 			//Targetable
-			if (!IsTargetable.HasValue || !IsTargetable.Value || IsStealthableUnit)
+			if (!IsTargetable.HasValue || !IsTargetable.Value || IsStealthableUnit || IsBoss)
 			{
 				try
 				{
@@ -1411,7 +1411,8 @@ namespace FunkyBot.Cache.Objects
 				//Check health changes -- only when single target or cluster with targeting is used.
 				if (Bot.Targeting.LastCachedTarget.Equals(this) &&
 					  DateTime.Now.Subtract(Bot.Character.Class.LastUsedACombatAbility).TotalMilliseconds < 2500 &&
-					  DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalMilliseconds > 3000)
+					  DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalMilliseconds > 3000 &&
+					 !Bot.Character.Data.bIsInBossEncounter)
 				{
 					double LastHealthChangedMS = DateTime.Now.Subtract(LastHealthChange).TotalMilliseconds;
 					if (LastHealthChangedMS > 5000)

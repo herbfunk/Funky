@@ -219,7 +219,7 @@ namespace FunkyBot.DBHandlers
 			bUpdatedStashMap = false;
 			iCurrentItemLoops = 0;
 			RandomizeTheTimer();
-			bFailedToLootLastItem = false;
+
 			return RunStatus.Success;
 		}
 
@@ -252,7 +252,7 @@ namespace FunkyBot.DBHandlers
 			 }
 			   */
 			Bot.Character.Data.lastPreformedNonCombatAction = DateTime.Now;
-
+			bFailedToLootLastItem = false;
 
 			Logger.DBLog.DebugFormat("GSDebug: Unid Stash routine finished.");
 			return RunStatus.Success;

@@ -93,7 +93,6 @@ namespace FunkyBot.DBHandlers
 				return RunStatus.Failure;
 			}
 
-			bFailedToLootLastItem = false;
 			bLoggedJunkThisStash = false;
 			bCurrentlyMoving = false;
 			iCurrentItemLoops = 0;
@@ -262,7 +261,7 @@ namespace FunkyBot.DBHandlers
 				bCurrentlyMoving = false;
 				bReachedSafety = true;
 			}
-
+			bFailedToLootLastItem = false;
 			iLastDistance = 0f;
 			Logger.DBLog.DebugFormat("GSDebug: Salvage routine finished.");
 			return RunStatus.Success;
