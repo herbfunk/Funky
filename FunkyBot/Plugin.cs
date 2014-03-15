@@ -178,8 +178,8 @@ namespace FunkyBot
 			
 			//Update Account Details..
 			Bot.Character.Account.UpdateCurrentAccountDetails();
-			Logger.DBLogFile = "0000 " + DateTime.Today.ToShortTimeString() + " 00.00";
-			Logger.Write(LogLevel.User, "Init Logger Completed! DB Logger.DBLog.InfoFormat Path Set {0}", Logger.DBLogFile);
+			Logger.DBLogFile = DateTime.Now.ToString("yyyy-MM-dd hh.mm") + ".txt";
+			Logger.Write(LogLevel.User, "Init Logger Completed!");
 		}
 
 		public void OnPulse()

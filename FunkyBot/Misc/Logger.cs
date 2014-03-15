@@ -334,8 +334,6 @@ namespace FunkyBot
 
 		  internal delegate string GetLogLevelName(object obj);
 
-		  private static string[] FilePath;
-
 		  internal static readonly string FileNamePrefix="FunkyLog - ";
 
 		  internal static string LoggingStamp;
@@ -349,9 +347,8 @@ namespace FunkyBot
 
 		  public static void Init()
 		  {
-				FilePath=Path.GetFileName(DBLogFile).Split(Char.Parse(" "));
-				LoggingStamp = FilePath[1] + " " + FilePath[2];
-				filename = Path.Combine(FolderPaths.sDemonBuddyPath, "Logs", FileNamePrefix + LoggingStamp);
+			  LoggingStamp = DBLogFile;
+			  filename = Path.Combine(FolderPaths.sDemonBuddyPath, "Logs", FileNamePrefix + DBLogFile);
 		  }
 		  public static void Write(LogLevel level, string Message,bool WriteToMainLog, params object[] args)
 		  {

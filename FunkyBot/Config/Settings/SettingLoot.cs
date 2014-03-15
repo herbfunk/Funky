@@ -20,6 +20,7 @@ namespace FunkyBot.Settings
 
 		//red, green, purple, yellow, white
 		public bool[] PickupGems { get; set; }
+		public bool PickupGemDiamond { get; set; }
 		public int MinimumGemItemLevel { get; set; }
 		public bool PickupCraftTomes { get; set; }
 		public bool PickupCraftPlans { get; set; }
@@ -69,6 +70,7 @@ namespace FunkyBot.Settings
 			MiscItemLevel=59;
 			MinimumGemItemLevel=60;
 			PickupGems=new bool[] { true, true, false, false, true };
+			PickupGemDiamond = true;
 		}
 
 		private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Loot_Default.xml");

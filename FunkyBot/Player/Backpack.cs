@@ -212,7 +212,7 @@ namespace FunkyBot.Player
 						(thisGilesItemType == GilesItemType.Emerald && !Bot.Settings.Loot.PickupGems[1]) ||
 						(thisGilesItemType == GilesItemType.Amethyst && !Bot.Settings.Loot.PickupGems[2]) || 
 						(thisGilesItemType == GilesItemType.Topaz && !Bot.Settings.Loot.PickupGems[3]) ||
-						(thisGilesItemType == GilesItemType.Diamond && !Bot.Settings.Loot.PickupGems[4]))
+						(thisGilesItemType == GilesItemType.Diamond && !Bot.Settings.Loot.PickupGemDiamond))
 					{
 						return false;
 					}
