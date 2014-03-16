@@ -67,6 +67,12 @@ namespace FunkyBot.XMLTags
 		public bool LeaveWhenExplored { get; set; }
 
 		/// <summary>
+		/// 
+		/// </summary>
+		[XmlAttribute("ignoreExploredAreas", true)]
+		public bool IgnoreExploredAreas { get; set; }
+
+		/// <summary>
 		/// The distance the bot must be from an actor before marking the tag as complete, when used with until="ObjectFound"
 		/// </summary>
 		[XmlAttribute("objectDistance", true)]
@@ -1050,6 +1056,12 @@ namespace FunkyBot.XMLTags
 						new Action(ret => UpdateRoute())
 					)
 				),
+				new Decorator(ret => !IgnoreExploredAreas && ZetaDia.Minimap.IsExplored(CurrentNavTarget, iWorldID),
+					new Sequence(
+						new Action(ret => SetNodeVisited("Found node in Explored Area using Minimap")),
+						new Action(ret => UpdateRoute())
+					)
+				),
 				CheckIgnoredScenes()
 			);
 		}
@@ -1246,12 +1258,14 @@ namespace FunkyBot.XMLTags
 			LastMoveResult = Navigator.MoveTo(CurrentNavTarget);
 		}
 
-
+		private int iWorldID;
 		/// <summary>
 		/// Initizializes the profile tag and sets defaults as needed
 		/// </summary>
 		private void Init(bool forced = false)
 		{
+			iWorldID = ZetaDia.Me.WorldDynamicId;
+
 			if (BoxSize == 0)
 				BoxSize = 15;
 
