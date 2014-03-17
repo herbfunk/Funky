@@ -1,12 +1,15 @@
 //[QUALITY] == "Legendary" && [LEVEL] > 61 && [BASETYPE] == "Jewelry"
 
-[QUALITY] == "Legendary" && [LEVEL] == 63 && [TYPE] == "Helm"
-[QUALITY] == "Legendary" && [LEVEL] == 63 && [TYPE] == "Belt"
-[QUALITY] == "Legendary" && [LEVEL] == 63 && [TYPE] == "Legs"
-[QUALITY] == "Legendary" && [LEVEL] == 63 && [TYPE] == "Boots"
+//[QUALITY] == "Legendary" && [LEVEL] == 63 && [TYPE] == "Helm"
+//[QUALITY] == "Legendary" && [LEVEL] == 63 && [TYPE] == "Belt"
+//[QUALITY] == "Legendary" && [LEVEL] == 63 && [TYPE] == "Legs"
+//[QUALITY] == "Legendary" && [LEVEL] == 63 && [TYPE] == "Boots"
 
 //Echo Fury
-[QUALITY] == "Legendary" && [LEVEL] == 62 && [TYPE] == "Mace" && [ONEHAND] == true
+//[QUALITY] == "Legendary" && [LEVEL] == 62 && [TYPE] == "Mace" && [ONEHAND] == true
 
 //Skorn
-[QUALITY] == "Legendary" && [LEVEL] == 63 && [TYPE] == "Axe" && [TWOHAND] == true
+//[QUALITY] == "Legendary" && [LEVEL] == 63 && [TYPE] == "Axe" && [TWOHAND] == true
+
+//Stash all!
+[QUALITY] == "Legendary"

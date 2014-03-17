@@ -8,19 +8,19 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 		 public override void Initialize()
 		  {
 				//Only check for buff when correct rune is set! rune==2
-				Cooldown=15200;
+				Cooldown=15000;
 				ExecutionType=AbilityExecuteFlags.Buff;
 				WaitVars=new WaitLoops(1, 1, true);
-				Cost=25;
 				UseageType=AbilityUseage.Anywhere;
 				IsBuff=true;
 				Priority=AbilityPriority.High;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckRecastTimer));
-				FcriteriaBuff=() => (RuneIndex==2&&!Bot.Character.Class.HotBar.HasBuff(SNOPower.Monk_BreathOfHeaven))||
-				                    Bot.Character.Data.dCurrentHealthPct<=0.5d;
-				FcriteriaCombat=
-					() => (RuneIndex==2&&!Bot.Character.Class.HotBar.HasBuff(SNOPower.Monk_BreathOfHeaven))||
-					      Bot.Character.Data.dCurrentHealthPct<=0.5d;
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckRecastTimer));
+				FcriteriaBuff=() => Bot.Character.Data.dCurrentHealthPct<=0.5d;
+
+				FcriteriaCombat=() => Bot.Character.Data.dCurrentHealthPct<=0.5d ||
+									   Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]>0|| //with elites nearby..
+				                       Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25]>3;
+
 		  }
 
 		  #region IAbility

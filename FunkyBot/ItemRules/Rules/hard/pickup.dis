@@ -55,7 +55,7 @@
 
 [QUALITY] == "Normal" && [BASETYPE] == "Weapon"
 [QUALITY] == "Normal" && [BASETYPE] == "Armor"
-[QUALITY] == "Magic" 
+[QUALITY] == "Magic" -> [IGNORE]
 [QUALITY] == "Inferior"
 [QUALITY] == "Superior"
-[QUALITY] == "Rare"
+[QUALITY] == "Rare" -> [IGNORE]

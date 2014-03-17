@@ -474,7 +474,7 @@ namespace FunkyBot.Player
 				thisGilesBaseType = GilesBaseItemType.Misc;
 			}
 			else if (thisGilesItemType == GilesItemType.Ruby || thisGilesItemType == GilesItemType.Emerald || thisGilesItemType == GilesItemType.Topaz ||
-				 thisGilesItemType == GilesItemType.Amethyst)
+				 thisGilesItemType == GilesItemType.Amethyst || thisGilesItemType == GilesItemType.Diamond)
 			{
 				thisGilesBaseType = GilesBaseItemType.Gem;
 			}
@@ -491,7 +491,7 @@ namespace FunkyBot.Player
 		internal static bool DetermineIsStackable(GilesItemType thisGilesItemType)
 		{
 			bool bIsStackable = thisGilesItemType == GilesItemType.CraftingMaterial || thisGilesItemType == GilesItemType.CraftTome || thisGilesItemType == GilesItemType.Ruby ||
-									  thisGilesItemType == GilesItemType.Emerald || thisGilesItemType == GilesItemType.Topaz || thisGilesItemType == GilesItemType.Amethyst ||
+									  thisGilesItemType == GilesItemType.Diamond || thisGilesItemType == GilesItemType.Emerald || thisGilesItemType == GilesItemType.Topaz || thisGilesItemType == GilesItemType.Amethyst ||
 									  thisGilesItemType == GilesItemType.HealthPotion || thisGilesItemType == GilesItemType.CraftingPlan || thisGilesItemType == GilesItemType.Dye ||
 									  thisGilesItemType == GilesItemType.InfernalKey;
 			return bIsStackable;
@@ -500,7 +500,7 @@ namespace FunkyBot.Player
 		{
 			GilesItemType thisGilesItemType = DetermineItemType(item.ThisInternalName, item.ThisDBItemType, item.ThisFollowerType);
 			bool bIsStackable = thisGilesItemType == GilesItemType.CraftingMaterial || thisGilesItemType == GilesItemType.CraftTome || thisGilesItemType == GilesItemType.Ruby ||
-									  thisGilesItemType == GilesItemType.Emerald || thisGilesItemType == GilesItemType.Topaz || thisGilesItemType == GilesItemType.Amethyst ||
+									  thisGilesItemType == GilesItemType.Diamond || thisGilesItemType == GilesItemType.Emerald || thisGilesItemType == GilesItemType.Topaz || thisGilesItemType == GilesItemType.Amethyst ||
 									  thisGilesItemType == GilesItemType.HealthPotion || thisGilesItemType == GilesItemType.CraftingPlan || thisGilesItemType == GilesItemType.Dye ||
 									  thisGilesItemType == GilesItemType.InfernalKey;
 			return bIsStackable;

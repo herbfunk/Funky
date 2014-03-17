@@ -7,16 +7,26 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 	 {
 		 public override void Initialize()
 		  {
-				Cooldown=30000;
+			 //RuneIndex 2, 1, 0 == Damaging Attack
+			 //RuneIndex 3 == Restore Spirit
+			 //RuneIndex 4 == Sacrifice for 100% Heal
+
+				Cooldown=RuneIndex==4?50000:30000; //Restore Health increases cooldown to 50s
 				ExecutionType=AbilityExecuteFlags.Buff;
 				WaitVars=new WaitLoops(2, 2, true);
-				Cost=25;
 				UseageType=AbilityUseage.Anywhere;
 				IsBuff=true;
 				Priority=AbilityPriority.High;
 				IsSpecialAbility=true;
-				Counter=1;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPetCount));
+				PreCast=new SkillPreCast(AbilityPreCastFlags.CheckCanCast);
+				FcriteriaBuff = () => Bot.Character.Data.PetData.MysticAlly == 0;
+				FcriteriaCombat = () => ((this.RuneIndex == 1 || this.RuneIndex==0 || this.RuneIndex==2) && //Damaging Attack
+									   (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15] > 0 ||
+				                       Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>2)) ||
+										//Restore Spirit
+									   (this.RuneIndex == 3 && Bot.Character.Data.dCurrentEnergy < 30) || 
+									   //Restore Health
+									   this.RuneIndex == 4 && Bot.Character.Data.dCurrentHealthPct < 0.4d;
 		  }
 
 		  #region IAbility

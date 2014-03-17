@@ -86,6 +86,9 @@
     <Compile Include="Game\GoldInactivity.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Misc\Updater.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Player\Character.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -910,24 +913,6 @@
     <None Include="ItemRules\Rules\UnidStash.dis">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ItemRules\Rules\soft\common.dis">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="ItemRules\Rules\soft\legendary.dis">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="ItemRules\Rules\soft\magic.dis">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="ItemRules\Rules\soft\pickup.dis">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="ItemRules\Rules\soft\rare.dis">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="ItemRules\Rules\soft\set.dis">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="ItemRules\Rules\translation.dis">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -1128,6 +1113,7 @@
     </Content>
     <Content Include="Version.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ItemRules\Log\Empty.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

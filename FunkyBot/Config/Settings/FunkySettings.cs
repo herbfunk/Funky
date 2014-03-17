@@ -185,6 +185,22 @@ namespace FunkyBot.Settings
 
 				SerializeToXML(Bot.Settings);
 			}
+			else
+			{
+				//When new properties are added to exisiting classes.. a check should be done here to append those new settings with old file.
+
+				Settings_Funky testSettings = DeserializeFromXML();
+
+				//Avoidance Check
+				if (testSettings.Avoidance.Avoidances.Length != Cache.AvoidanceCache.AvoidancesDefault.Length)
+				{
+					Logger.DBLog.Info("[Funky] Settings found missing Avoidances.. reseting avoidance settings to default!");
+					testSettings.Avoidance = new SettingAvoidance();
+					SerializeToXML(testSettings);
+				}
+			}
+
+
 
 			Bot.Settings = DeserializeFromXML();
 		}
@@ -212,4 +228,5 @@ namespace FunkyBot.Settings
 			return DeserializeFromXML(FolderPaths.sFunkySettingsCurrentPath);
 		}
 	}
+
 }

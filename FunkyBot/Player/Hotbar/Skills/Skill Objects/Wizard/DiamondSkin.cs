@@ -10,18 +10,15 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				Cooldown=15000;
 				ExecutionType=AbilityExecuteFlags.Buff;
 				WaitVars=new WaitLoops(0, 1, true);
-				Cost=10;
-				Counter=1;
-				Range=0;
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.High;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckCanCast|
-				                          AbilityPreCastFlags.CheckExisitingBuff));
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckCanCast));
 
-				FcriteriaCombat=() => (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]>0||
-				                       Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25]>0||
-				                       Bot.Character.Data.dCurrentHealthPct<=0.90||Bot.Character.Data.bIsIncapacitated||Bot.Character.Data.bIsRooted||
-				                       (Bot.Targeting.CurrentTarget.RadiusDistance<=40f));
+				FcriteriaCombat=() => (Bot.Character.Data.dCurrentHealthPct<=0.45d && //less than 45% of HP
+									   Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]>0|| //with elites nearby..
+				                       (Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25]>0&& //or with anything nearby while incapacitated
+				                       (Bot.Character.Data.bIsIncapacitated||Bot.Character.Data.bIsRooted)) ||
+									   Bot.Targeting.RequiresAvoidance); //or requires avoidance
 		  }
 
 		  #region IAbility

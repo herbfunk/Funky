@@ -314,9 +314,9 @@ namespace FunkyBot.Targeting
 
 				Bot.Character.Data.UpdateCoinage = true;
 
-				Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
+				//Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
 
-				Navigator.SearchGridProvider.Update();
+				//Navigator.SearchGridProvider.Update();
 
 				LastLevelIDChangeWasTownRun = false;
 			}

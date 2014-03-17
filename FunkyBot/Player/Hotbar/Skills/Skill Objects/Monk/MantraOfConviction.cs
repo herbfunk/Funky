@@ -7,14 +7,15 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 	 {
 		 public override void Initialize()
 		  {
+			 
 				Cooldown=3300;
 				ExecutionType=AbilityExecuteFlags.Buff;
 				WaitVars=new WaitLoops(0, 1, true);
-				Cost=50;
+				Cost=Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Monk_Passive_ChantOfResonance)?25:50;
 				IsBuff=true;
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.High;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy));
+				PreCast = new SkillPreCast((AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckRecastTimer));
 				IsSpecialAbility=true;
 				FcriteriaBuff=() => !Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Monk_MantraOfConviction_v2_Passive);
 
