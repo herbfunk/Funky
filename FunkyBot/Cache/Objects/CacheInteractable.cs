@@ -44,7 +44,7 @@ namespace FunkyBot.Cache.Objects
 						return Bot.Settings.Ranges.ContainerOpenRange;
 				}
 
-				return Bot.Targeting.iCurrentMaxLootRadius;
+				return Bot.Targeting.Cache.iCurrentMaxLootRadius;
 			}
 		}
 
@@ -81,7 +81,7 @@ namespace FunkyBot.Cache.Objects
 						{
 							//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 							//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
-							Bot.Targeting.Environment.LoSMovementObjects.Add(this);
+							Bot.Targeting.Cache.Environment.LoSMovementObjects.Add(this);
 						}
 						return false;
 					}
@@ -102,7 +102,7 @@ namespace FunkyBot.Cache.Objects
 							{
 								//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 								//   Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
-								Bot.Targeting.Environment.LoSMovementObjects.Add(this);
+								Bot.Targeting.Cache.Environment.LoSMovementObjects.Add(this);
 							}
 							return false;
 						}
@@ -114,7 +114,7 @@ namespace FunkyBot.Cache.Objects
 						{
 							//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 							//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
-							Bot.Targeting.Environment.LoSMovementObjects.Add(this);
+							Bot.Targeting.Cache.Environment.LoSMovementObjects.Add(this);
 						}
 						return false;
 					}
@@ -124,10 +124,12 @@ namespace FunkyBot.Cache.Objects
 
 				if (GizmoHasBeenUsed.HasValue && GizmoHasBeenUsed.Value == true)
 				{
-					Logger.Write(LogLevel.Cache, "Removing interactable {0} due to positive HasBeenUsed value", InternalName);
-
-					NeedsRemoved = true;
-					BlacklistFlag = BlacklistType.Permanent;
+					if (!HandleAsAvoidanceObject)
+					{
+						Logger.Write(LogLevel.Cache, "Removing interactable {0} due to positive HasBeenUsed value", InternalName);
+						NeedsRemoved = true;
+						BlacklistFlag = BlacklistType.Permanent;
+					}
 					return false;
 				}
 
@@ -236,10 +238,10 @@ namespace FunkyBot.Cache.Objects
 						if (IsResplendantChest)
 						{
 							//setup wait time. (Unlike Units, we blacklist right after we interact)
-							if (Bot.Targeting.LastCachedTarget.Equals(this))
+							if (Bot.Targeting.Cache.LastCachedTarget.Equals(this))
 							{
-								Bot.Targeting.lastHadContainerAsTarget = DateTime.Now;
-								Bot.Targeting.lastHadRareChestAsTarget = DateTime.Now;
+								Bot.Targeting.Cache.lastHadContainerAsTarget = DateTime.Now;
+								Bot.Targeting.Cache.lastHadRareChestAsTarget = DateTime.Now;
 							}
 						}
 
@@ -265,7 +267,7 @@ namespace FunkyBot.Cache.Objects
 		{
 			base.UpdateWeight();
 
-			if (CentreDistance >= 4f && Bot.Targeting.Environment.NearbyAvoidances.Count > 0)
+			if (CentreDistance >= 4f && Bot.Targeting.Cache.Environment.NearbyAvoidances.Count > 0)
 			{
 				Vector3 TestPosition = Position;
 				if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
@@ -299,7 +301,7 @@ namespace FunkyBot.Cache.Objects
 						if (Weight > 0)
 						{
 							// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-							if (this == Bot.Targeting.LastCachedTarget)
+							if (this == Bot.Targeting.Cache.LastCachedTarget)
 								Weight += 600;
 							// Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
 							if (Bot.Character.Data.bIsRooted)
@@ -315,7 +317,7 @@ namespace FunkyBot.Cache.Objects
 						if (centreDistance <= 20f && RadiusDistance <= 5f)
 							Weight += 8000d;
 						// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-						if (this == Bot.Targeting.LastCachedTarget && centreDistance <= 25f)
+						if (this == Bot.Targeting.Cache.LastCachedTarget && centreDistance <= 25f)
 							Weight += 400;
 						// If there's a monster in the path-line to the item, reduce the weight by 50%
 						//if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
@@ -326,7 +328,7 @@ namespace FunkyBot.Cache.Objects
 						if (centreDistance <= 12f)
 							Weight += 600d;
 						// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-						if (this == Bot.Targeting.LastCachedTarget && centreDistance <= 25f)
+						if (this == Bot.Targeting.Cache.LastCachedTarget && centreDistance <= 25f)
 						{
 							Weight += 400;
 						}
@@ -379,7 +381,7 @@ namespace FunkyBot.Cache.Objects
 			if (InteractionAttempts == 1)
 			{
 				// Force waiting AFTER power use for certain abilities
-				Bot.Targeting.bWaitingAfterPower = true;
+				Bot.Targeting.Cache.bWaitingAfterPower = true;
 				Bot.Character.Class.PowerPrime.WaitLoopsAfter = 5;
 			}
 
@@ -398,12 +400,12 @@ namespace FunkyBot.Cache.Objects
 				InteractionAttempts = 0;
 			}
 
-			if (!Bot.Targeting.bWaitingAfterPower)
+			if (!Bot.Targeting.Cache.bWaitingAfterPower)
 			{
 				// Now tell Trinity to get a new target!
 				Bot.NavigationCache.lastChangedZigZag = DateTime.Today;
 				Bot.NavigationCache.vPositionLastZigZagCheck = Vector3.Zero;
-				Bot.Targeting.bForceTargetUpdate = true;
+				Bot.Targeting.Cache.bForceTargetUpdate = true;
 			}
 			return RunStatus.Running;
 		}

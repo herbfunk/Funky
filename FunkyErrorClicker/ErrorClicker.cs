@@ -48,8 +48,8 @@ namespace FunkyErrorClicker
 									  DBLog.Debug("[ErrorClicker] Closing error " + ErrorDialog.ErrorCode.ToString());
 									  ErrorDialog.Click();
 								  }
-								  else if(BotMain.ExecutionStateAvailable)
-								  {
+								  //else if(BotMain.ExecutionStateAvailable)
+								  //{
 									  UIElement OkButton;
 									  if (UIElement.IsValidElement(0xB4433DA3F648A992)&&(OkButton=UIElement.FromHash(0xB4433DA3F648A992))!=null)
 									  {
@@ -59,7 +59,7 @@ namespace FunkyErrorClicker
 											  OkButton.Click();
 										  }
 									  }
-								  }
+								  //}
 								  
 							  }
 

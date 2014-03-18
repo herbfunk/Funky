@@ -60,16 +60,16 @@ namespace FunkyBot.Player.Class
 			return (DateTime.Now.Subtract(Bot.NavigationCache.lastChangedZigZag).TotalMilliseconds >= 2000f ||
 					   (Bot.NavigationCache.vPositionLastZigZagCheck != Vector3.Zero && Bot.Character.Data.Position == Bot.NavigationCache.vPositionLastZigZagCheck && DateTime.Now.Subtract(Bot.NavigationCache.lastChangedZigZag).TotalMilliseconds >= 1200) ||
 					   Vector3.Distance(Bot.Character.Data.Position, Bot.NavigationCache.vSideToSideTarget) <= 5f ||
-					   Bot.Targeting.CurrentTarget != null && Bot.Targeting.CurrentTarget.AcdGuid.HasValue && Bot.Targeting.CurrentTarget.AcdGuid.Value != Bot.NavigationCache.iACDGUIDLastWhirlwind);
+					   Bot.Targeting.Cache.CurrentTarget != null && Bot.Targeting.Cache.CurrentTarget.AcdGuid.HasValue && Bot.Targeting.Cache.CurrentTarget.AcdGuid.Value != Bot.NavigationCache.iACDGUIDLastWhirlwind);
 		}
 		internal override void GenerateNewZigZagPath()
 		{
-			if (Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_30] >= 6 || Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_30] >= 3)
-				Bot.NavigationCache.vSideToSideTarget = Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.CurrentTarget.Position, 25f, false, true);
+			if (Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_30] >= 6 || Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_30] >= 3)
+				Bot.NavigationCache.vSideToSideTarget = Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.Cache.CurrentTarget.Position, 25f, false, true);
 			else
-				Bot.NavigationCache.vSideToSideTarget = Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.CurrentTarget.Position, 25f);
+				Bot.NavigationCache.vSideToSideTarget = Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.Cache.CurrentTarget.Position, 25f);
 
-			Bot.NavigationCache.iACDGUIDLastWhirlwind = Bot.Targeting.CurrentTarget.AcdGuid.HasValue ? Bot.Targeting.CurrentTarget.AcdGuid.Value : -1;
+			Bot.NavigationCache.iACDGUIDLastWhirlwind = Bot.Targeting.Cache.CurrentTarget.AcdGuid.HasValue ? Bot.Targeting.Cache.CurrentTarget.AcdGuid.Value : -1;
 			Bot.NavigationCache.lastChangedZigZag = DateTime.Now;
 		}
 

@@ -22,6 +22,7 @@ namespace FunkyBot.Movement
 		RaycastWalkable = 32,
 		RaycastNavProvider = 64,
 		BlockedDirection = 128,
+		ObstacleIntersection = 256,
 	}
 
 }

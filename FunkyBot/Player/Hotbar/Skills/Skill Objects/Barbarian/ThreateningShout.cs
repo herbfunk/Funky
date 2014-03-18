@@ -22,10 +22,10 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				Priority=AbilityPriority.Medium;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated));
 				FcriteriaCombat=() => (
-					Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_20]>1||
-					(Bot.Targeting.CurrentTarget.IsBoss && Bot.Targeting.CurrentTarget.RadiusDistance <= 20) ||
-					(Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>2&&!Bot.Targeting.Environment.bAnyBossesInRange&&
-					 (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_50]==0||
+					Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_20]>1||
+					(Bot.Targeting.Cache.CurrentTarget.IsBoss && Bot.Targeting.Cache.CurrentTarget.RadiusDistance <= 20) ||
+					(Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>2&&!Bot.Targeting.Cache.Environment.bAnyBossesInRange&&
+					 (Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_50]==0||
 					  Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_SeismicSlam)))||
 					Bot.Character.Data.dCurrentHealthPct<=0.75
 					);

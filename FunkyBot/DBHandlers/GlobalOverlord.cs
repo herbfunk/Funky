@@ -34,26 +34,26 @@ namespace FunkyBot
 
 			// Clear target current and reset key variables used during the target-handling function
 			Bot.Targeting.ResetTargetHandling();
-			Bot.Targeting.DontMove = false;
+			Bot.Targeting.Cache.DontMove = false;
 
 			//update current profile behavior.
 			Bot.Game.Profile.CheckCurrentProfileBehavior();
 
 
 			// Should we refresh target list?
-			if (Bot.Targeting.ShouldRefreshObjectList)
+			if (Bot.Targeting.Cache.ShouldRefreshObjectList)
 			{
-				Bot.Targeting.RefreshDiaObjects();
+				Bot.Targeting.Cache.Refresh();
 
 				// We have a target, start the target handler!
-				if (Bot.Targeting.CurrentTarget != null)
+				if (Bot.Targeting.Cache.CurrentTarget != null)
 				{
-					Bot.Targeting.TargetMover.RestartTracking();
-					Bot.Targeting.bWholeNewTarget = true;
-					Bot.Targeting.DontMove = true;
-					Bot.Targeting.bPickNewAbilities = true;
+					Bot.Targeting.Movement.RestartTracking();
+					Bot.Targeting.Cache.bWholeNewTarget = true;
+					Bot.Targeting.Cache.DontMove = true;
+					Bot.Targeting.Cache.bPickNewAbilities = true;
 					Bot.RunningTargetingBehavior = true;
-					//Bot.Targeting.StartingLocation = Bot.Character_.Data.Position;
+					//Bot.Targeting.Cache.StartingLocation = Bot.Character_.Data.Position;
 					return true;
 				}
 			}
@@ -131,8 +131,8 @@ namespace FunkyBot
 			//if (ItemIdentifyBehavior.shouldPreformOOCItemIDing)
 			//return ItemIdentifyBehavior.HandleIDBehavior(); //Check if we are doing OOC ID behavior..
 
-			if (Bot.Targeting.CurrentTarget != null)
-				return Bot.Targeting.HandleThis();  //Default Behavior: Current Target
+			if (Bot.Targeting.Cache.CurrentTarget != null)
+				return Bot.Targeting.Handler.HandleThis();  //Default Behavior: Current Target
 
 			if (OutOfGame.MuleBehavior)
 			{

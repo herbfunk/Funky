@@ -98,15 +98,15 @@ namespace FunkyBot.Player.Class
 			return (DateTime.Now.Subtract(Bot.NavigationCache.lastChangedZigZag).TotalMilliseconds >= 1500 ||
 					 (Bot.NavigationCache.vPositionLastZigZagCheck != Vector3.Zero && Bot.Character.Data.Position == Bot.NavigationCache.vPositionLastZigZagCheck && DateTime.Now.Subtract(Bot.NavigationCache.lastChangedZigZag).TotalMilliseconds >= 200) ||
 					 Vector3.Distance(Bot.Character.Data.Position, Bot.NavigationCache.vSideToSideTarget) <= 4f ||
-					 Bot.Targeting.CurrentTarget != null && Bot.Targeting.CurrentTarget.AcdGuid.HasValue && Bot.Targeting.CurrentTarget.AcdGuid.Value != Bot.NavigationCache.iACDGUIDLastWhirlwind);
+					 Bot.Targeting.Cache.CurrentTarget != null && Bot.Targeting.Cache.CurrentTarget.AcdGuid.HasValue && Bot.Targeting.Cache.CurrentTarget.AcdGuid.Value != Bot.NavigationCache.iACDGUIDLastWhirlwind);
 		}
 		internal override void GenerateNewZigZagPath()
 		{
-			float fExtraDistance = Bot.Targeting.CurrentTarget.CentreDistance <= 20f ? 5f : 1f;
-			Bot.NavigationCache.vSideToSideTarget = Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.CurrentTarget.Position, Bot.Targeting.CurrentTarget.CentreDistance + fExtraDistance);
+			float fExtraDistance = Bot.Targeting.Cache.CurrentTarget.CentreDistance <= 20f ? 5f : 1f;
+			Bot.NavigationCache.vSideToSideTarget = Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.Cache.CurrentTarget.Position, Bot.Targeting.Cache.CurrentTarget.CentreDistance + fExtraDistance);
 			// Resetting this to ensure the "no-spam" is reset since we changed our target location
 
-			Bot.NavigationCache.iACDGUIDLastWhirlwind = Bot.Targeting.CurrentTarget.AcdGuid.HasValue ? Bot.Targeting.CurrentTarget.AcdGuid.Value : -1;
+			Bot.NavigationCache.iACDGUIDLastWhirlwind = Bot.Targeting.Cache.CurrentTarget.AcdGuid.HasValue ? Bot.Targeting.Cache.CurrentTarget.AcdGuid.Value : -1;
 			Bot.NavigationCache.lastChangedZigZag = DateTime.Now;
 		}
 

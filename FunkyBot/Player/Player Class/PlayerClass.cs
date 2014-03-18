@@ -256,15 +256,15 @@ namespace FunkyBot.Player.Class
 				{
 
 					//Check LOS -- Projectiles
-					if (item.IsRanged && !Bot.Targeting.CurrentTarget.IgnoresLOSCheck)
+					if (item.IsRanged && !Bot.Targeting.Cache.CurrentTarget.IgnoresLOSCheck)
 					{
-						LOSInfo LOSINFO = Bot.Targeting.CurrentTarget.LineOfSight;
+						LOSInfo LOSINFO = Bot.Targeting.Cache.CurrentTarget.LineOfSight;
 						if (LOSINFO.LastLOSCheckMS > 3000 || (item.IsProjectile && !LOSINFO.ObjectIntersection.HasValue) || !LOSINFO.NavCellProjectile.HasValue)
 						{
 							if (!LOSINFO.LOSTest(Bot.Character.Data.Position, true, false, NavCellFlags.AllowProjectile))
 							{
 								//Raycast failed.. reset LOS Check -- for valid checking.
-								if (!LOSINFO.RayCast.Value) Bot.Targeting.CurrentTarget.RequiresLOSCheck = true;
+								if (!LOSINFO.RayCast.Value) Bot.Targeting.Cache.CurrentTarget.RequiresLOSCheck = true;
 								continue;
 							}
 						}
@@ -285,15 +285,15 @@ namespace FunkyBot.Player.Class
 				{
 
 					//Check LOS -- Projectiles
-					if (item.IsRanged && !Bot.Targeting.CurrentTarget.IgnoresLOSCheck)
+					if (item.IsRanged && !Bot.Targeting.Cache.CurrentTarget.IgnoresLOSCheck)
 					{
-						LOSInfo LOSINFO = Bot.Targeting.CurrentTarget.LineOfSight;
+						LOSInfo LOSINFO = Bot.Targeting.Cache.CurrentTarget.LineOfSight;
 						if (LOSINFO.LastLOSCheckMS > 3000 || (item.IsProjectile && !LOSINFO.ObjectIntersection.HasValue) || !LOSINFO.NavCellProjectile.HasValue)
 						{
 							if (!LOSINFO.LOSTest(Bot.Character.Data.Position, true, item.IsProjectile, NavCellFlags.AllowProjectile))
 							{
 								//Raycast failed.. reset LOS Check -- for valid checking.
-								if (!LOSINFO.RayCast.Value) Bot.Targeting.CurrentTarget.RequiresLOSCheck = true;
+								if (!LOSINFO.RayCast.Value) Bot.Targeting.Cache.CurrentTarget.RequiresLOSCheck = true;
 								continue;
 							}
 						}

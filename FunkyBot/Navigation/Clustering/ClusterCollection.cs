@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using FunkyBot.Cache.Objects;
+using FunkyBot.Game;
 
 namespace FunkyBot.Movement.Clustering
 {
@@ -85,14 +86,14 @@ namespace FunkyBot.Movement.Clustering
 
 			//(radius or centre)
 			if (!clusterConditions.UseRadiusDistance)
-				listObjectUnits = Bot.Targeting.ValidObjects.OfType<CacheUnit>().Where(u =>
-					 Bot.Targeting.Environment.UnitRAGUIDs.Contains(u.RAGUID)
+				listObjectUnits = Bot.Targeting.Cache.ValidObjects.OfType<CacheUnit>().Where(u =>
+					 Bot.Targeting.Cache.Environment.UnitRAGUIDs.Contains(u.RAGUID)
 					 && u.CentreDistance <= clusterConditions.MaximumDistance
 					 && u.CentreDistance >= clusterConditions.MinimumDistance
 					 && (!clusterConditions.IgnoreNonTargetable || u.IsTargetable.HasValue && u.IsTargetable.Value)).ToList();
 			else
-				listObjectUnits = Bot.Targeting.ValidObjects.OfType<CacheUnit>().Where(u =>
-							Bot.Targeting.Environment.UnitRAGUIDs.Contains(u.RAGUID)
+				listObjectUnits = Bot.Targeting.Cache.ValidObjects.OfType<CacheUnit>().Where(u =>
+							Bot.Targeting.Cache.Environment.UnitRAGUIDs.Contains(u.RAGUID)
 							&& u.RadiusDistance <= clusterConditions.MaximumDistance
 							&& u.RadiusDistance >= clusterConditions.MinimumDistance
 							&& (!clusterConditions.IgnoreNonTargetable || u.IsTargetable.HasValue && u.IsTargetable.Value)).ToList();
@@ -136,7 +137,7 @@ namespace FunkyBot.Movement.Clustering
 		{
 			get
 			{
-				return new ClusterConditions(Bot.Settings.Cluster.ClusterDistance, 125f, Bot.Settings.Cluster.ClusterMinimumUnitCount, false);
+				return new ClusterConditions(ProfileCache.ClusterSettingsTag.ClusterDistance, 125f, ProfileCache.ClusterSettingsTag.ClusterMinimumUnitCount, false);
 			}
 			set
 			{
@@ -167,8 +168,8 @@ namespace FunkyBot.Movement.Clustering
 			CurrentClusters.Clear();
 
 			//Get unit objects only!
-			List<CacheUnit> listObjectUnits = Bot.Targeting.ValidObjects.OfType<CacheUnit>().Where(u =>
-				 Bot.Targeting.Environment.UnitRAGUIDs.Contains(u.RAGUID)
+			List<CacheUnit> listObjectUnits = Bot.Targeting.Cache.ValidObjects.OfType<CacheUnit>().Where(u =>
+				 Bot.Targeting.Cache.Environment.UnitRAGUIDs.Contains(u.RAGUID)
 				 && u.CentreDistance <= this.clusterConditions.MaximumDistance
 				 && (!this.clusterConditions.IgnoreNonTargetable || u.IsTargetable.HasValue && u.IsTargetable.Value)).ToList();
 

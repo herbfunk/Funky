@@ -25,7 +25,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				FcriteriaCombat=() =>
 				{
 					//We only want to use this if there are nearby units!
-					return Bot.Targeting.Environment.SurroundingUnits>1;
+					return Bot.Targeting.Cache.Environment.SurroundingUnits>1;
 				};
 		  }
 

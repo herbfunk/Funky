@@ -72,9 +72,9 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 				{
 					 CombatCriteria+=() =>
 					 {
-						 if (!Bot.Targeting.CurrentUnitTarget.IgnoresLOSCheck && Bot.Targeting.CurrentUnitTarget.IsTargetableAndAttackable)
+						 if (!Bot.Targeting.Cache.CurrentUnitTarget.IgnoresLOSCheck && Bot.Targeting.Cache.CurrentUnitTarget.IsTargetableAndAttackable)
 						 {
-							 LOSInfo LOSINFO=Bot.Targeting.CurrentTarget.LineOfSight;
+							 LOSInfo LOSINFO=Bot.Targeting.Cache.CurrentTarget.LineOfSight;
 							 if (LOSINFO.LastLOSCheckMS>2000||!LOSINFO.NavCellProjectile.HasValue)
 							 {
 								 if (!LOSINFO.LOSTest(Bot.Character.Data.Position, true, false, NavCellFlags.AllowProjectile))
@@ -83,10 +83,10 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 
 									 //Raycast failed.. reset LOS Check -- for valid checking.
 									 if (!LOSINFO.RayCast.Value) 
-										 Bot.Targeting.CurrentTarget.RequiresLOSCheck=true;
+										 Bot.Targeting.Cache.CurrentTarget.RequiresLOSCheck=true;
 									 else if (!LOSINFO.NavCellProjectile.Value) //NavCellFlag Walk Failed
 									 {
-										 bool MovementException = ((Bot.Targeting.CurrentUnitTarget.MonsterTeleport || Bot.Targeting.CurrentTarget.IsTransformUnit) && Bot.Targeting.CurrentUnitTarget.AnimState == AnimationState.Transform);
+										 bool MovementException = ((Bot.Targeting.Cache.CurrentUnitTarget.MonsterTeleport || Bot.Targeting.Cache.CurrentTarget.IsTransformUnit) && Bot.Targeting.Cache.CurrentUnitTarget.AnimState == AnimationState.Transform);
 										 if (!MovementException)
 											 return false;
 										 //else
@@ -106,25 +106,25 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 				{//Melee
 					 CombatCriteria+=() =>
 					 {
-						 if (!Bot.Targeting.CurrentUnitTarget.IgnoresLOSCheck && Bot.Targeting.CurrentUnitTarget.IsTargetableAndAttackable)
+						 if (!Bot.Targeting.Cache.CurrentUnitTarget.IgnoresLOSCheck && Bot.Targeting.Cache.CurrentUnitTarget.IsTargetableAndAttackable)
 						 {
-							 float radiusDistance=Bot.Targeting.CurrentTarget.RadiusDistance;
+							 float radiusDistance=Bot.Targeting.Cache.CurrentTarget.RadiusDistance;
 							 //Check if within interaction range..
 							 if (radiusDistance>ability.Range)
 							 {
 								 //Verify LOS walk
-								 LOSInfo LOSINFO=Bot.Targeting.CurrentTarget.LineOfSight;
+								 LOSInfo LOSINFO=Bot.Targeting.Cache.CurrentTarget.LineOfSight;
 								 if (LOSINFO.LastLOSCheckMS>2000)//||!LOSINFO.NavCellWalk.HasValue)
 								 {
 									 if (!LOSINFO.LOSTest(Bot.Character.Data.Position, true, false))
 									 {
-										 //bool MovementException=((Bot.Targeting.CurrentUnitTarget.MonsterTeleport||Bot.Targeting.CurrentTarget.IsTransformUnit)&&Bot.Targeting.CurrentUnitTarget.AnimState==Zeta.Internals.Actors.AnimationState.Transform);
+										 //bool MovementException=((Bot.Targeting.Cache.CurrentUnitTarget.MonsterTeleport||Bot.Targeting.Cache.CurrentTarget.IsTransformUnit)&&Bot.Targeting.Cache.CurrentUnitTarget.AnimState==Zeta.Internals.Actors.AnimationState.Transform);
 										 //Raycast failed.. reset LOS Check -- for valid checking.
 										 if (!LOSINFO.RayCast.Value)
-											 Bot.Targeting.CurrentTarget.RequiresLOSCheck=true;
+											 Bot.Targeting.Cache.CurrentTarget.RequiresLOSCheck=true;
 										 //else if (!LOSINFO.NavCellWalk.Value) //NavCellFlag Walk Failed
 										 //{
-										 //    bool MovementException = ((Bot.Targeting.CurrentUnitTarget.MonsterTeleport || Bot.Targeting.CurrentTarget.IsTransformUnit) && Bot.Targeting.CurrentUnitTarget.AnimState == Zeta.Internals.Actors.AnimationState.Transform);
+										 //    bool MovementException = ((Bot.Targeting.Cache.CurrentUnitTarget.MonsterTeleport || Bot.Targeting.Cache.CurrentTarget.IsTransformUnit) && Bot.Targeting.Cache.CurrentUnitTarget.AnimState == Zeta.Internals.Actors.AnimationState.Transform);
 										 //    if (!MovementException)
 										 //        return false;
 										 //}
@@ -223,14 +223,14 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 		  {
 				FUnitRange=null;
 				if (ability.UnitsWithinRangeConditions!=null)
-					 FUnitRange+=() => Bot.Targeting.Environment.iAnythingWithinRange[(int)ability.UnitsWithinRangeConditions.Item1]>=ability.UnitsWithinRangeConditions.Item2;
+					 FUnitRange+=() => Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)ability.UnitsWithinRangeConditions.Item1]>=ability.UnitsWithinRangeConditions.Item2;
 		  }
 
 		  private static void CreateElitesInRangeConditions(out Func<bool> FUnitRange, Skill ability)
 		  {
 				FUnitRange=null;
 				if (ability.ElitesWithinRangeConditions!=null)
-					 FUnitRange+=() => Bot.Targeting.Environment.iElitesWithinRange[(int)ability.ElitesWithinRangeConditions.Item1]>=ability.ElitesWithinRangeConditions.Item2;
+					 FUnitRange+=() => Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)ability.ElitesWithinRangeConditions.Item1]>=ability.ElitesWithinRangeConditions.Item2;
 		  }
 		  #endregion
 

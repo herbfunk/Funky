@@ -111,13 +111,13 @@ namespace FunkyBot.Cache.Objects
 					
 					if (base.Gizmotype.Value == GizmoType.PowerUp)
 					{
-						this.HandleAsObstacle = true;
+						this.HandleAsAvoidanceObject = true;
 						GizmoShrine gizmoShrine = this.ref_Gizmo as GizmoShrine;
 						this.GizmoHasBeenUsed = gizmoShrine.GizmoState == 1;
 					}
 					else if (base.Gizmotype.Value == GizmoType.HealingWell)
 					{
-						this.HandleAsObstacle = true;
+						this.HandleAsAvoidanceObject = true;
 						GizmoHealthwell gizmoHealthWell = this.ref_Gizmo as GizmoHealthwell;
 						this.GizmoHasBeenUsed = gizmoHealthWell.HasBeenOperated;
 					}
@@ -125,15 +125,19 @@ namespace FunkyBot.Cache.Objects
 					{
 						GizmoDoor gizmoDoor = this.ref_Gizmo as GizmoDoor;
 						this.GizmoHasBeenUsed = gizmoDoor.HasBeenOperated;
-						this.HandleAsObstacle = true;
+						this.HandleAsAvoidanceObject = true;
 					}
 					else if (base.Gizmotype.Value == GizmoType.Chest)
 					{
-						if (this.IsChestContainer)
-							this.HandleAsObstacle = true;
+						//if (this.IsChestContainer)
+						this.HandleAsAvoidanceObject = true;
 
 						GizmoLootContainer gizmoContainer = this.ref_Gizmo as GizmoLootContainer;
 						this.GizmoHasBeenUsed = gizmoContainer.IsOpen;
+					}
+					else if(Gizmotype.Value == GizmoType.Switch)
+					{
+						this.GizmoHasBeenUsed = this.ref_Gizmo.HasBeenOperated;
 					}
 				}
 				catch
@@ -143,20 +147,18 @@ namespace FunkyBot.Cache.Objects
 				}
 
 				//Blacklist used gizmos.
-				if (this.GizmoHasBeenUsed.HasValue && this.GizmoHasBeenUsed.Value)
-				{
-					Logger.Write(LogLevel.Cache, "Removing {0} Has Been Used!", InternalName);
+				//if (this.GizmoHasBeenUsed.HasValue && this.GizmoHasBeenUsed.Value)
+				//{
+				//	Logger.Write(LogLevel.Cache, "Removing {0} Has Been Used!", InternalName);
 
-					this.BlacklistFlag = BlacklistType.Permanent;
-					this.NeedsRemoved = true;
-					return false;
-				}
+				//	this.BlacklistFlag = BlacklistType.Permanent;
+				//	this.NeedsRemoved = true;
+				//	return false;
+				//}
 			}
 
 			//only shrines and "chests" would have set this value true.. so if no value than we set it false!
-			if (!this.HandleAsObstacle.HasValue)
-				this.HandleAsObstacle = false;
-			else if (this.HandleAsObstacle.Value)
+			if (this.HandleAsAvoidanceObject)
 				base.Obstacletype = ObstacleType.ServerObject;
 
 			//PhysicsSNO -- (continiously updated) excluding shrines/interactables

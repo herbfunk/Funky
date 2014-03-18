@@ -15,10 +15,10 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckCanCast));
 
 				FcriteriaCombat=() => (Bot.Character.Data.dCurrentHealthPct<=0.45d && //less than 45% of HP
-									   Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]>0|| //with elites nearby..
-				                       (Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25]>0&& //or with anything nearby while incapacitated
+									   Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]>0|| //with elites nearby..
+				                       (Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25]>0&& //or with anything nearby while incapacitated
 				                       (Bot.Character.Data.bIsIncapacitated||Bot.Character.Data.bIsRooted)) ||
-									   Bot.Targeting.RequiresAvoidance); //or requires avoidance
+									   Bot.Targeting.Cache.RequiresAvoidance); //or requires avoidance
 		  }
 
 		  #region IAbility

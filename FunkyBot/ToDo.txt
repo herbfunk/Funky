@@ -1,4 +1,4 @@
-﻿
+﻿GizmoType: Switch Name: x1_Event_CursedShrine-5196 ActorSNO: 364601 Distance: 7.2112 Position: <1278.5, 1068, 0.8455811> Barracade: False Radius: 10.04086
 
 Type: Projectile Name: x1_MonsterAffix_CorpseBomber_projectile-5289 ActorSNO: 316389, Distance: 4.040692
 Type: ServerProp Name: X1_MonsterAffix_Orbiter_FocalPoint-5204 ActorSNO: 343582, Distance: 13.59655

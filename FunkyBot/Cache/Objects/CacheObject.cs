@@ -315,7 +315,7 @@ namespace FunkyBot.Cache.Objects
 			{
 				removal_ = value;
 				//This helps reduce code by flagging this here instead of after everytime we flag removal of an object!
-				if (value == true) Bot.Targeting.RemovalCheck = true;
+				if (value == true) Bot.Targeting.Cache.RemovalCheck = true;
 			}
 		}
 		internal bool removal_;

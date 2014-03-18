@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Game;
 using FunkyBot.Movement;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.Conditions;
@@ -254,13 +255,13 @@ namespace FunkyBot.Cache.Objects
 			get
 			{
 
-				if (Bot.Settings.Cluster.EnableClusteringTargetLogic
-					&& (!Bot.Settings.Cluster.IgnoreClusteringWhenLowHP || Bot.Character.Data.dCurrentHealthPct > Bot.Settings.Cluster.IgnoreClusterLowHPValue)
+				if (ProfileCache.ClusterSettingsTag.EnableClusteringTargetLogic
+					&& (!ProfileCache.ClusterSettingsTag.IgnoreClusteringWhenLowHP || Bot.Character.Data.dCurrentHealthPct > ProfileCache.ClusterSettingsTag.IgnoreClusterLowHPValue)
 					&& !Bot.IsInNonCombatBehavior && !Bot.Character.Data.bIsInBossEncounter)
 				{
 					//Check if this unit is valid based on if its contained in valid clusters
-					if (!Bot.Targeting.Clusters.ValidClusterUnits.Contains(RAGUID))
-					//&&(!this.ObjectIsSpecial&&(!Bot.Targeting.Environment.AvoidanceLastTarget||this.CentreDistance>59f)))
+					if (!Bot.Targeting.Cache.Clusters.ValidClusterUnits.Contains(RAGUID))
+					//&&(!this.ObjectIsSpecial&&(!Bot.Targeting.Cache.Environment.AvoidanceLastTarget||this.CentreDistance>59f)))
 					{
 						return true;
 					}
@@ -356,7 +357,7 @@ namespace FunkyBot.Cache.Objects
 		public bool UpdateHitPoints()
 		{
 			//Last Target skips the counter checks
-			if (this == Bot.Targeting.LastCachedTarget)
+			if (this == Bot.Targeting.Cache.LastCachedTarget)
 			{
 				UpdateCurrentHitPoints();
 				return true;
@@ -475,7 +476,7 @@ namespace FunkyBot.Cache.Objects
 			get
 			{
 				//Set our current radius to the settings of profile.
-				double dUseKillRadius = Bot.Targeting.iCurrentMaxKillRadius;
+				double dUseKillRadius = Bot.Targeting.Cache.iCurrentMaxKillRadius;
 
 
 				// Special short-range list to ignore weakling mobs
@@ -573,64 +574,64 @@ namespace FunkyBot.Cache.Objects
 
 			if (Bot.Settings.Fleeing.EnableFleeingBehavior && RadiusDistance <= Bot.Settings.Fleeing.FleeMaxMonsterDistance && ShouldFlee)
 			{
-				Bot.Targeting.Environment.FleeTriggeringUnits.Add(this);
+				Bot.Targeting.Cache.Environment.FleeTriggeringUnits.Add(this);
 			}
 
 			if (RadiusDistance <= 6f)
 			{
-				Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_6]++;
+				Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_6]++;
 				if (bCountAsElite)
-					Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_6]++;
+					Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_6]++;
 			}
 			if (RadiusDistance <= 12f)
 			{
 				//Tally close units
-				Bot.Targeting.Environment.SurroundingUnits++;
+				Bot.Targeting.Cache.Environment.SurroundingUnits++;
 				//Herbfunk: non-rend count only if within 8f and is attackable..
 				if (Bot.Character.Class.AC == ActorClass.Barbarian && !bIsRended && RadiusDistance <= 7f && IsTargetable.Value)
-					Bot.Targeting.Environment.iNonRendedTargets_6++;
+					Bot.Targeting.Cache.Environment.iNonRendedTargets_6++;
 
-				Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_12]++;
+				Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_12]++;
 				if (bCountAsElite)
-					Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_12]++;
+					Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_12]++;
 			}
 			if (RadiusDistance <= 15f)
 			{
-				Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]++;
+				Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]++;
 				if (bCountAsElite)
-					Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15]++;
+					Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15]++;
 			}
 			if (RadiusDistance <= 20f)
 			{
-				Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]++;
+				Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]++;
 				if (bCountAsElite)
-					Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_20]++;
+					Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_20]++;
 			}
 			if (RadiusDistance <= 25f)
 			{
-				if (!Bot.Targeting.Environment.bAnyNonWWIgnoreMobsInRange && !CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(SNOID))
-					Bot.Targeting.Environment.bAnyNonWWIgnoreMobsInRange = true;
-				Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25]++;
+				if (!Bot.Targeting.Cache.Environment.bAnyNonWWIgnoreMobsInRange && !CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(SNOID))
+					Bot.Targeting.Cache.Environment.bAnyNonWWIgnoreMobsInRange = true;
+				Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25]++;
 				if (bCountAsElite)
-					Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]++;
+					Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]++;
 			}
 			if (RadiusDistance <= 30f)
 			{
-				Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_30]++;
+				Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_30]++;
 				if (bCountAsElite)
-					Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_30]++;
+					Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_30]++;
 			}
 			if (RadiusDistance <= 40f)
 			{
-				Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_40]++;
+				Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_40]++;
 				if (bCountAsElite)
-					Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_40]++;
+					Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_40]++;
 			}
 			if (RadiusDistance <= 50f)
 			{
-				Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_50]++;
+				Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_50]++;
 				if (bCountAsElite)
-					Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_50]++;
+					Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_50]++;
 			}
 		}
 
@@ -643,9 +644,9 @@ namespace FunkyBot.Cache.Objects
 			if (BeingIgnoredDueToClusterLogic
 				 && PriorityCounter == 0
 				 && !IsClusterException
-				 && (Bot.Targeting.CurrentTarget != null
-				 || Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_30] == 0
-				 || Bot.Targeting.objectsIgnoredDueToAvoidance.Count == 0))
+				 && (Bot.Targeting.Cache.CurrentTarget != null
+				 || Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_30] == 0
+				 || Bot.Targeting.Cache.objectsIgnoredDueToAvoidance.Count == 0))
 			{
 				Weight = 0;
 				return;
@@ -653,7 +654,7 @@ namespace FunkyBot.Cache.Objects
 
 			if (RadiusDistance >= 5f && Bot.Character.Class.IsMeleeClass)
 			{
-				if (DateTime.Now.Subtract(LastAvoidanceIgnored).TotalMilliseconds < 1000 && Bot.Targeting.Environment.NearbyAvoidances.Count > 0)
+				if (DateTime.Now.Subtract(LastAvoidanceIgnored).TotalMilliseconds < 1000 && Bot.Targeting.Cache.Environment.NearbyAvoidances.Count > 0)
 				{
 					Weight = 1;
 				}
@@ -668,7 +669,7 @@ namespace FunkyBot.Cache.Objects
 					{
 						if (Weight != 1) //&& ObjectIsSpecial)
 						{//Only add this to the avoided list when its not currently inside avoidance area
-							Bot.Targeting.objectsIgnoredDueToAvoidance.Add(this);
+							Bot.Targeting.Cache.objectsIgnoredDueToAvoidance.Add(this);
 						}
 						else
 							Weight = 1;
@@ -677,8 +678,8 @@ namespace FunkyBot.Cache.Objects
 			}
 
 			//Range Class Ignore (Avoid/Kite last target!)
-			//if ((Bot.Targeting.Environment.FleeingLastTarget&&Bot.Targeting.Environment.FleeTriggeringUnits.Count>0&&Bot.Targeting.Environment.FleeTriggeringUnits.Contains(this))||
-			//	 (Bot.Targeting.Environment.AvoidanceLastTarget&&Bot.Targeting.Environment.TriggeringAvoidances.Count>0))
+			//if ((Bot.Targeting.Cache.Environment.FleeingLastTarget&&Bot.Targeting.Cache.Environment.FleeTriggeringUnits.Count>0&&Bot.Targeting.Cache.Environment.FleeTriggeringUnits.Contains(this))||
+			//	 (Bot.Targeting.Cache.Environment.AvoidanceLastTarget&&Bot.Targeting.Cache.Environment.TriggeringAvoidances.Count>0))
 			//	 this.Weight=1;
 
 
@@ -692,7 +693,7 @@ namespace FunkyBot.Cache.Objects
 					Weight += 9999;
 
 				// Force a close range target because we seem to be stuck *OR* if not ranged and currently rooted
-				if (Bot.Targeting.bPrioritizeCloseRangeUnits || Bot.Character.Data.bIsRooted)
+				if (Bot.Targeting.Cache.bPrioritizeCloseRangeUnits || Bot.Character.Data.bIsRooted)
 				{
 
 					Weight = 20000 - (Math.Floor(radiusDistance) * 200);
@@ -717,15 +718,15 @@ namespace FunkyBot.Cache.Objects
 
 						// Distance as a percentage of max radius gives a value up to 1000 (1000 would be point-blank range)
 
-						if (radiusDistance < Bot.Targeting.iCurrentMaxKillRadius)
+						if (radiusDistance < Bot.Targeting.Cache.iCurrentMaxKillRadius)
 						{
 							int RangeModifier = 1200;
 							//Increase Distance Modifier if recently kited.
-							if (Bot.Settings.Fleeing.EnableFleeingBehavior && DateTime.Now.Subtract(Bot.Targeting.LastFleeAction).TotalMilliseconds < 3000)
+							if (Bot.Settings.Fleeing.EnableFleeingBehavior && DateTime.Now.Subtract(Bot.Targeting.Cache.LastFleeAction).TotalMilliseconds < 3000)
 								RangeModifier = 12000;
 
 
-							Weight += (RangeModifier * (1 - (radiusDistance / Bot.Targeting.iCurrentMaxKillRadius)));
+							Weight += (RangeModifier * (1 - (radiusDistance / Bot.Targeting.Cache.iCurrentMaxKillRadius)));
 						}
 
 						// Give extra weight to ranged enemies
@@ -782,7 +783,7 @@ namespace FunkyBot.Cache.Objects
 							// Extra bonus for point-blank range
 							//iUnitsSurrounding++;
 							// Give special "surrounded" weight to each unit
-							Weight += (200 * Bot.Targeting.Environment.SurroundingUnits);
+							Weight += (200 * Bot.Targeting.Cache.Environment.SurroundingUnits);
 						}
 
 						// Special additional weight for corrupt growths in act 4 ONLY if they are at close range (not a standard priority thing)
@@ -790,7 +791,7 @@ namespace FunkyBot.Cache.Objects
 							Weight += 2000;
 
 						// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-						if (this == Bot.Targeting.LastCachedTarget && centreDistance <= 25f)
+						if (this == Bot.Targeting.Cache.LastCachedTarget && centreDistance <= 25f)
 							Weight += 400;
 
 
@@ -802,16 +803,16 @@ namespace FunkyBot.Cache.Objects
 						if (IsTreasureGoblin)
 						{
 							// Logging goblin sightings
-							if (Bot.Targeting.lastGoblinTime == DateTime.Today)
+							if (Bot.Targeting.Cache.lastGoblinTime == DateTime.Today)
 							{
-								Bot.Targeting.iTotalNumberGoblins++;
-								Bot.Targeting.lastGoblinTime = DateTime.Now;
-								Logger.DBLog.InfoFormat("[Funky] Goblin #" + Bot.Targeting.iTotalNumberGoblins.ToString(CultureInfo.InvariantCulture) + " in sight. Distance=" + centreDistance);
+								Bot.Targeting.Cache.iTotalNumberGoblins++;
+								Bot.Targeting.Cache.lastGoblinTime = DateTime.Now;
+								Logger.DBLog.InfoFormat("[Funky] Goblin #" + Bot.Targeting.Cache.iTotalNumberGoblins.ToString(CultureInfo.InvariantCulture) + " in sight. Distance=" + centreDistance);
 							}
 							else
 							{
-								if (DateTime.Now.Subtract(Bot.Targeting.lastGoblinTime).TotalMilliseconds > 30000)
-									Bot.Targeting.lastGoblinTime = DateTime.Today;
+								if (DateTime.Now.Subtract(Bot.Targeting.Cache.lastGoblinTime).TotalMilliseconds > 30000)
+									Bot.Targeting.Cache.lastGoblinTime = DateTime.Today;
 							}
 							// Original Trinity stuff for priority handling now
 							switch (Bot.Settings.Targeting.GoblinPriority)
@@ -939,7 +940,7 @@ namespace FunkyBot.Cache.Objects
 						{
 							//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 							//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
-							Bot.Targeting.Environment.LoSMovementObjects.Add(this);
+							Bot.Targeting.Cache.Environment.LoSMovementObjects.Add(this);
 						}
 
 						return false;
@@ -964,7 +965,7 @@ namespace FunkyBot.Cache.Objects
 						{
 							//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 							//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
-							Bot.Targeting.Environment.LoSMovementObjects.Add(this);
+							Bot.Targeting.Cache.Environment.LoSMovementObjects.Add(this);
 						}
 						return false;
 					}
@@ -978,7 +979,7 @@ namespace FunkyBot.Cache.Objects
 						if (AllowLOSMovement)
 						{
 							Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
-							Bot.Targeting.Environment.LoSMovementObjects.Add(this);
+							Bot.Targeting.Cache.Environment.LoSMovementObjects.Add(this);
 						}
 
 						//Valid?? Did we find a location we could move to for LOS?
@@ -1006,11 +1007,11 @@ namespace FunkyBot.Cache.Objects
 					if (Bot.Settings.Targeting.IgnoreAboveAverageMobs && PriorityCounter <= 1 && !Bot.IsInNonCombatBehavior && !IsBoss)
 						return false;
 
-					Bot.Targeting.Environment.bAnyChampionsPresent = true;
+					Bot.Targeting.Cache.Environment.bAnyChampionsPresent = true;
 				}
 
 				if (IsTreasureGoblin)
-					Bot.Targeting.Environment.bAnyTreasureGoblinsPresent = true;
+					Bot.Targeting.Cache.Environment.bAnyTreasureGoblinsPresent = true;
 
 
 
@@ -1032,9 +1033,9 @@ namespace FunkyBot.Cache.Objects
 				}
 
 				if (distantUnit)
-					Bot.Targeting.Environment.DistantUnits.Add(this); //Add this valid unit to Distant List.
+					Bot.Targeting.Cache.Environment.DistantUnits.Add(this); //Add this valid unit to Distant List.
 				if (validUnit) //Add this valid unit RAGUID to list
-					Bot.Targeting.Environment.UnitRAGUIDs.Add(RAGUID);
+					Bot.Targeting.Cache.Environment.UnitRAGUIDs.Add(RAGUID);
 
 
 
@@ -1279,7 +1280,7 @@ namespace FunkyBot.Cache.Objects
 				//Haunted DotDPS update
 				if (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_Haunt) || Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_Locust_Swarm))
 				{
-					Bot.Targeting.Environment.UsesDOTDPSAbility = true;
+					Bot.Targeting.Cache.Environment.UsesDOTDPSAbility = true;
 					try
 					{
 						//Haunted units always have buff visual effect!
@@ -1345,73 +1346,13 @@ namespace FunkyBot.Cache.Objects
 		{
 			if (Bot.Character.Class.PowerPrime.Power != SNOPower.None)
 			{
-				// Force waiting for global cooldown timer or long-animation abilities
-				if (Bot.Character.Class.PowerPrime.WaitLoopsBefore >= 1 || (Bot.Character.Class.PowerPrime.WaitWhileAnimating && DateTime.Now.Subtract(PowerCacheLookup.lastGlobalCooldownUse).TotalMilliseconds <= 50))
-				{
-					//Logger.DBLog.DebugFormat("Debug: Force waiting BEFORE Ability " + powerPrime.powerThis.ToString() + "...");
-					Bot.Targeting.bWaitingForPower = true;
-					if (Bot.Character.Class.PowerPrime.WaitLoopsBefore >= 1)
-						Bot.Character.Class.PowerPrime.WaitLoopsBefore--;
+				if (!Bot.Character.Class.PowerPrime.ActivateSkill())
 					return RunStatus.Running;
-				}
-				Bot.Targeting.bWaitingForPower = false;
-
-				// Wait while animating before an attack
-				if (Bot.Character.Class.PowerPrime.WaitWhileAnimating)
-					Bot.Character.Data.WaitWhileAnimating(5);
-
-				// Note that whirlwinds use an off-on-off-on to avoid spam
-				if (Bot.Character.Class.PowerPrime.Power != SNOPower.Barbarian_Whirlwind && Bot.Character.Class.PowerPrime.Power != SNOPower.DemonHunter_Strafe)
-				{
-					Skill.UsePower(ref Bot.Character.Class.PowerPrime);
-					Bot.NavigationCache.lastChangedZigZag = DateTime.Today;
-					Bot.NavigationCache.vPositionLastZigZagCheck = Vector3.Zero;
-				}
-				else
-				{
-					// Special code to prevent whirlwind double-spam, this helps save fury
-					bool bUseThisLoop = Bot.Character.Class.PowerPrime.Power != Bot.Character.Class.LastUsedAbility.Power;
-					if (!bUseThisLoop)
-					{
-						//powerLastSnoPowerUsed = SNOPower.None;
-						if (Bot.Character.Class.PowerPrime.LastUsedMilliseconds >= 200)
-							bUseThisLoop = true;
-					}
-					if (bUseThisLoop)
-					{
-						Skill.UsePower(ref Bot.Character.Class.PowerPrime);
-					}
-				}
-
-				if (Bot.Character.Class.PowerPrime.SuccessUsed.HasValue && Bot.Character.Class.PowerPrime.SuccessUsed.Value)
-				{
-					//Logger.DBLog.InfoFormat(powerPrime.powerThis.ToString() + " used successfully");
-					Bot.Character.Class.PowerPrime.OnSuccessfullyUsed();
-				}
-				else
-				{
-					PowerCacheLookup.dictAbilityLastFailed[Bot.Character.Class.PowerPrime.Power] = DateTime.Now;
-				}
-
-				// Wait for animating AFTER the attack
-				if (Bot.Character.Class.PowerPrime.WaitWhileAnimating)
-					Bot.Character.Data.WaitWhileAnimating(3);
-
-				Bot.Targeting.bPickNewAbilities = true;
-
-				// See if we should force a long wait AFTERWARDS, too
-				// Force waiting AFTER power use for certain abilities
-				Bot.Targeting.bWaitingAfterPower = false;
-				if (Bot.Character.Class.PowerPrime.WaitLoopsAfter >= 1)
-				{
-					//Logger.DBLog.DebugFormat("Force waiting AFTER Ability " + powerPrime.powerThis.ToString() + "...");
-					Bot.Targeting.bWaitingAfterPower = true;
-				}
 
 				//Check health changes -- only when single target or cluster with targeting is used.
-				if (Bot.Targeting.LastCachedTarget.Equals(this) &&
+				if (Bot.Targeting.Cache.LastCachedTarget.Equals(this) &&
 					  DateTime.Now.Subtract(Bot.Character.Class.LastUsedACombatAbility).TotalMilliseconds < 2500 &&
-					  DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalMilliseconds > 3000 &&
+					  DateTime.Now.Subtract(Bot.Targeting.Cache.LastChangeOfTarget).TotalMilliseconds > 3000 &&
 					 !Bot.Character.Data.bIsInBossEncounter)
 				{
 					double LastHealthChangedMS = DateTime.Now.Subtract(LastHealthChange).TotalMilliseconds;
@@ -1419,7 +1360,7 @@ namespace FunkyBot.Cache.Objects
 					{
 						Logger.Write(LogLevel.Target, "Ignore Unit {0} due to health last changed of {1}ms", InternalName, LastHealthChangedMS);
 						BlacklistLoops = 20;
-						Bot.Targeting.bForceTargetUpdate = true;
+						Bot.Targeting.Cache.bForceTargetUpdate = true;
 					}
 				}
 			}

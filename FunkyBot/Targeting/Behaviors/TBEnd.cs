@@ -25,17 +25,17 @@ namespace FunkyBot.Targeting.Behaviors
 				if (obj == null)
 				{
 					// See if we should wait for milliseconds for possible loot drops before continuing run
-					if (DateTime.Now.Subtract(Bot.Targeting.lastHadUnitInSights).TotalMilliseconds <= Bot.Settings.AfterCombatDelay && DateTime.Now.Subtract(Bot.Targeting.lastHadEliteUnitInSights).TotalMilliseconds <= 10000 ||
+					if (DateTime.Now.Subtract(Bot.Targeting.Cache.lastHadUnitInSights).TotalMilliseconds <= Bot.Settings.AfterCombatDelay && DateTime.Now.Subtract(Bot.Targeting.Cache.lastHadEliteUnitInSights).TotalMilliseconds <= 10000 ||
 						//Cut the delay time in half for non-elite monsters!
-						DateTime.Now.Subtract(Bot.Targeting.lastHadUnitInSights).TotalMilliseconds <= Bot.Settings.AfterCombatDelay)
+						DateTime.Now.Subtract(Bot.Targeting.Cache.lastHadUnitInSights).TotalMilliseconds <= Bot.Settings.AfterCombatDelay)
 					{
 						obj = new CacheObject(Bot.Character.Data.Position, TargetType.NoMovement, 20000, "WaitForLootDrops", 2f, -1);
 						return true;
 
 					}
 					//Herbfunks wait after loot containers are opened. 3s for rare chests, half the settings delay for everything else.
-					if ((DateTime.Now.Subtract(Bot.Targeting.lastHadRareChestAsTarget).TotalMilliseconds <= 3750) ||
-						(DateTime.Now.Subtract(Bot.Targeting.lastHadContainerAsTarget).TotalMilliseconds <= (Bot.Settings.AfterCombatDelay * 1.25)))
+					if ((DateTime.Now.Subtract(Bot.Targeting.Cache.lastHadRareChestAsTarget).TotalMilliseconds <= 3750) ||
+						(DateTime.Now.Subtract(Bot.Targeting.Cache.lastHadContainerAsTarget).TotalMilliseconds <= (Bot.Settings.AfterCombatDelay * 1.25)))
 					{
 						obj = new CacheObject(Bot.Character.Data.Position, TargetType.NoMovement, 20000, "ContainerLootDropsWait", 2f, -1);
 						return true;
@@ -75,7 +75,7 @@ namespace FunkyBot.Targeting.Behaviors
 					{
 						if (Bot.Game.Profile.InteractableCachedObject.Position.Distance(Bot.Character.Data.Position) > 50f)
 						{
-							if (Bot.Targeting.LastCachedTarget.Position != Bot.Game.Profile.InteractableCachedObject.Position)
+							if (Bot.Targeting.Cache.LastCachedTarget.Position != Bot.Game.Profile.InteractableCachedObject.Position)
 								Navigator.Clear();
 
 							//Generate the path here so we can start moving..
@@ -90,10 +90,10 @@ namespace FunkyBot.Targeting.Behaviors
 					//Check if we engaged in combat..
 					bool EngagedInCombat = false;
 					float distanceFromStart = 0f;
-					if (Bot.Targeting.LastCachedTarget != ObjectCache.FakeCacheObject && !Bot.Targeting.Backtracking && Bot.Targeting.StartingLocation != Vector3.Zero)
+					if (Bot.Targeting.Cache.LastCachedTarget != ObjectCache.FakeCacheObject && !Bot.Targeting.Cache.Backtracking && Bot.Targeting.Cache.StartingLocation != Vector3.Zero)
 					{
 						EngagedInCombat = true;
-						distanceFromStart = Bot.Character.Data.Position.Distance(Bot.Targeting.StartingLocation);
+						distanceFromStart = Bot.Character.Data.Position.Distance(Bot.Targeting.Cache.StartingLocation);
 						//lets see how far we are from our starting location.
 						if (distanceFromStart > 20f &&
 							  !Navigation.CanRayCast(Bot.Character.Data.Position, Funky.PlayerMover.vLastMoveTo, UseSearchGridProvider: true))
@@ -109,7 +109,7 @@ namespace FunkyBot.Targeting.Behaviors
 					//Check if our current path intersects avoidances. (When not in town, and not currently inside avoidance)
 					if (!Bot.Character.Data.bIsInTown && (Bot.Settings.Avoidance.AttemptAvoidanceMovements || Bot.Character.Data.CriticalAvoidance)
 							&& Navigation.NP.CurrentPath.Count > 0
-							&& Bot.Targeting.Environment.TriggeringAvoidances.Count == 0)
+							&& Bot.Targeting.Cache.Environment.TriggeringAvoidances.Count == 0)
 					{
 						if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(Bot.Character.Data.Position, Navigation.NP.CurrentPath.Current))
 						{
@@ -121,8 +121,8 @@ namespace FunkyBot.Targeting.Behaviors
 					//Backtracking Check..
 					if (EngagedInCombat && Bot.Settings.Backtracking.EnableBacktracking && distanceFromStart >= Bot.Settings.Backtracking.MinimumDistanceFromStart)
 					{
-						Bot.Targeting.Backtracking = true;
-						obj = new CacheObject(Bot.Targeting.StartingLocation, TargetType.Backtrack, 20000, "Backtracking", 2.5f);
+						Bot.Targeting.Cache.Backtracking = true;
+						obj = new CacheObject(Bot.Targeting.Cache.StartingLocation, TargetType.Backtrack, 20000, "Backtracking", 2.5f);
 						return true;
 					}
 				}

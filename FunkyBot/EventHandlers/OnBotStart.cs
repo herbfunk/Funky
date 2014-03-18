@@ -21,6 +21,7 @@ namespace FunkyBot
 
 			//Load Settings
 			Settings_Funky.LoadFunkyConfiguration();
+			Bot.Character.Reset();
 			Bot.Character.ItemRulesEval = new Interpreter();
 
 

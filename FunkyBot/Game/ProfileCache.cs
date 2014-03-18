@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using FunkyBot.Cache.Objects;
+using FunkyBot.Settings;
 using FunkyBot.XMLTags;
 using Zeta.Bot;
 using Zeta.Bot.Profile;
@@ -18,6 +19,12 @@ namespace FunkyBot.Game
 		// For the random ID tag
 		internal static Dictionary<int, int> dictRandomID = new Dictionary<int, int>();
 
+		private static SettingCluster clusterSettingsTag=new SettingCluster();
+		internal static SettingCluster ClusterSettingsTag
+		{
+			get { return clusterSettingsTag; }
+			set { clusterSettingsTag = value; }
+		}
 
 		internal bool PreformingInteractiveBehavior
 		{
@@ -89,6 +96,8 @@ namespace FunkyBot.Game
 			}
 		}
 		internal bool IsRunningOOCBehavior { get; set; }
+
+
 
 		internal static CacheObject GetInteractiveCachedObject(ProfileBehavior tag)
 		{

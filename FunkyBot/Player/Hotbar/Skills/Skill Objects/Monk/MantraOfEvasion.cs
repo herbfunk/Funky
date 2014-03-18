@@ -20,12 +20,12 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 
 				FcriteriaCombat = () => !Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Monk_MantraOfEvasion_v2_Passive)
 				                      ||
-				                      Bot.Settings.Class.bMonkSpamMantra&&Bot.Targeting.CurrentTarget!=null&&
-				                      (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]>0||
-				                       Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=2||
-				                       (Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=1&&Bot.Settings.Class.bMonkInnaSet)||
-									   (Bot.Targeting.CurrentUnitTarget.IsEliteRareUnique || Bot.Targeting.CurrentTarget.IsBoss) &&
-				                       Bot.Targeting.CurrentTarget.RadiusDistance<=25f)&&
+				                      Bot.Settings.Class.bMonkSpamMantra&&Bot.Targeting.Cache.CurrentTarget!=null&&
+				                      (Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]>0||
+				                       Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=2||
+				                       (Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=1&&Bot.Settings.Class.bMonkInnaSet)||
+									   (Bot.Targeting.Cache.CurrentUnitTarget.IsEliteRareUnique || Bot.Targeting.Cache.CurrentTarget.IsBoss) &&
+				                       Bot.Targeting.Cache.CurrentTarget.RadiusDistance<=25f)&&
 				                      // Check if either we don't have blinding flash, or we do and it's been cast in the last 6000ms
 				                      //DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Monk_BlindingFlash]).TotalMilliseconds <= 6000)) &&
 				                      (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)||

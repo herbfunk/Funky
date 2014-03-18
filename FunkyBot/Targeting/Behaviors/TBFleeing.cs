@@ -24,8 +24,8 @@ namespace FunkyBot.Targeting.Behaviors
 					Bot.Settings.Fleeing.EnableFleeingBehavior &&
 					DateTime.Now.CompareTo(FleeRetryDate) > 0 &&
 					Bot.Character.Data.dCurrentHealthPct <= Bot.Settings.Fleeing.FleeBotMinimumHealthPercent &&
-					Bot.Targeting.Environment.FleeTriggeringUnits.Count > 0 &&
-					(!Bot.Targeting.Environment.bAnyTreasureGoblinsPresent || Bot.Settings.Targeting.GoblinPriority < 2) &&
+					Bot.Targeting.Cache.Environment.FleeTriggeringUnits.Count > 0 &&
+					(!Bot.Targeting.Cache.Environment.bAnyTreasureGoblinsPresent || Bot.Settings.Targeting.GoblinPriority < 2) &&
 					(Bot.Character.Class.AC != ActorClass.Wizard || (!Bot.Character.Class.HotBar.HasBuff(SNOPower.Wizard_Archon) || !Bot.Settings.Class.bKiteOnlyArchon));
 			}
 		}
@@ -37,7 +37,7 @@ namespace FunkyBot.Targeting.Behaviors
 			{
 
 				//Resuse last safespot until timer expires!
-				if (DateTime.Now.Subtract(Bot.Targeting.LastFleeAction).TotalSeconds < this.iSecondsFleeMoveFor)
+				if (DateTime.Now.Subtract(Bot.Targeting.Cache.LastFleeAction).TotalSeconds < this.iSecondsFleeMoveFor)
 				{
 					Vector3 reuseV3 = Bot.NavigationCache.AttemptToReuseLastLocationFound();
 					if (reuseV3 != Vector3.Zero)
@@ -56,9 +56,9 @@ namespace FunkyBot.Targeting.Behaviors
 
 				//Setup Line of Sight for last target if its a unit and still valid..
 				Vector3 LineOfSight =
-					  Bot.Targeting.LastCachedTarget.targetType.HasValue &&
-					  Bot.Targeting.LastCachedTarget.targetType.Value == TargetType.Unit &&
-					  Bot.Targeting.LastCachedTarget.ObjectIsValidForTargeting ? Bot.Targeting.LastCachedTarget.Position
+					  Bot.Targeting.Cache.LastCachedTarget.targetType.HasValue &&
+					  Bot.Targeting.Cache.LastCachedTarget.targetType.Value == TargetType.Unit &&
+					  Bot.Targeting.Cache.LastCachedTarget.ObjectIsValidForTargeting ? Bot.Targeting.Cache.LastCachedTarget.Position
 																			   : Vector3.Zero;
 				PointCheckingFlags flags = Bot.Settings.Plugin.FleeingFlags;
 				if (Bot.Character.Class.HasCastableMovementAbility())

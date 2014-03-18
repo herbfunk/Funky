@@ -372,6 +372,7 @@ namespace FunkyBot.Player
 			if (sThisInternalName.StartsWith("dye_")) return GilesItemType.Dye;
 			if (sThisInternalName.StartsWith("a1_")) return GilesItemType.SpecialItem;
 			if (sThisInternalName.StartsWith("healthglobe")) return GilesItemType.HealthGlobe;
+			if (sThisInternalName.StartsWith("craftingreagent")) return GilesItemType.CraftingMaterial;
 
 			// Follower item types
 			if (sThisInternalName.StartsWith("jewelbox_") || DBItemType == ItemType.FollowerSpecial)
@@ -2068,7 +2069,7 @@ namespace FunkyBot.Player
 
 
 			//We refresh our BPItem Cache whenever we are checking for looted items!
-			if (Bot.Targeting.ShouldCheckItemLooted)
+			if (Bot.Targeting.Cache.ShouldCheckItemLooted)
 			{
 				//Get a list of current BP Cached ACDItems
 				List<int> BPItemsACDItemList = (from backpackItems in BPItems

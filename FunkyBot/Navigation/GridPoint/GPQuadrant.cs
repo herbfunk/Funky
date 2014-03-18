@@ -218,6 +218,11 @@ namespace FunkyBot.Movement
 				if (Bot.NavigationCache.CheckPointAgainstBlockedDirection(point)) return false;
 			}
 
+			//Create Vector3
+			Vector3 pointVectorReturn = (Vector3)point;
+			Vector3 pointVector = pointVectorReturn;
+			Vector3 botcurpos = Bot.Character.Data.Position;
+
 			//2D Obstacle Navigation Check
 			bool ZCheck = false;
 			if (this.AreaIsFlat)
@@ -227,13 +232,15 @@ namespace FunkyBot.Movement
 					if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObstacleType.Navigation.HasFlag(obj.Obstacletype.Value) && obj.PointInside(point))) return false;
 				}
 
+				if (flags.HasFlag(PointCheckingFlags.ObstacleIntersection))
+				{
+					if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObstacleType.Navigation.HasFlag(obj.Obstacletype.Value) && obj.TestIntersection(botcurpos, point))) return false;
+				}
+
 				ZCheck = true;
 			}
 
-			//Create Vector3
-			Vector3 pointVectorReturn = (Vector3)point;
-			Vector3 pointVector = pointVectorReturn;
-			Vector3 botcurpos = Bot.Character.Data.Position;
+
 
 			//Check if we already within this "point".
 			if (botcurpos.Distance2D(pointVector) < 2.5f) return false;
@@ -249,7 +256,10 @@ namespace FunkyBot.Movement
 				{
 					if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObstacleType.Navigation.HasFlag(obj.Obstacletype.Value) && obj.PointInside(pointVector))) return false;
 				}
-
+				if (flags.HasFlag(PointCheckingFlags.ObstacleIntersection))
+				{
+					if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObstacleType.Navigation.HasFlag(obj.Obstacletype.Value) && obj.TestIntersection(botcurpos, pointVector))) return false;
+				}
 			}
 
 
@@ -270,7 +280,7 @@ namespace FunkyBot.Movement
 			//Avoidance Intersection Check
 			if (flags.HasFlag(PointCheckingFlags.AvoidanceIntersection))
 			{
-				if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(botcurpos, pointVector)) return false;
+				//if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(botcurpos, pointVector)) return false;
 			}
 
 			if (flags.HasFlag(PointCheckingFlags.Raycast))

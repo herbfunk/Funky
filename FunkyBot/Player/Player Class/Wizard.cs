@@ -41,10 +41,10 @@ namespace FunkyBot.Player.Class
 		{
 			Vector3 loc;
 			//Low HP -- Flee Teleport
-			if (Bot.Settings.Class.bTeleportFleeWhenLowHP && Bot.Character.Data.dCurrentHealthPct < 0.5d && (Bot.NavigationCache.AttemptFindSafeSpot(out loc, Bot.Targeting.CurrentTarget.Position, Bot.Settings.Plugin.FleeingFlags)))
+			if (Bot.Settings.Class.bTeleportFleeWhenLowHP && Bot.Character.Data.dCurrentHealthPct < 0.5d && (Bot.NavigationCache.AttemptFindSafeSpot(out loc, Bot.Targeting.Cache.CurrentTarget.Position, Bot.Settings.Plugin.FleeingFlags)))
 				Bot.NavigationCache.vSideToSideTarget = loc;
 			else
-				Bot.NavigationCache.vSideToSideTarget = Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.CurrentTarget.Position, Bot.Targeting.CurrentTarget.CentreDistance, true);
+				Bot.NavigationCache.vSideToSideTarget = Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.Cache.CurrentTarget.Position, Bot.Targeting.Cache.CurrentTarget.CentreDistance, true);
 		}
 		internal override int MainPetCount
 		{

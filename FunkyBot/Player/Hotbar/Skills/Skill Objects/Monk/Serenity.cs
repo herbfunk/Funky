@@ -10,15 +10,13 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				Cooldown=20200;
 				ExecutionType=AbilityExecuteFlags.Buff;
 				WaitVars=new WaitLoops(1, 1, true);
-				Cost=10;
 				UseageType=AbilityUseage.Anywhere;
 				Priority=AbilityPriority.High;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|
-				                          AbilityPreCastFlags.CheckRecastTimer));
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer));
 
 				//TODO:: Give better conditions
-				FcriteriaCombat=() => Bot.Character.Data.dCurrentHealthPct<=0.20d
-				                      &&Bot.Targeting.Environment.SurroundingUnits>0;
+				FcriteriaCombat = () => Bot.Character.Data.dCurrentHealthPct <= 0.45d
+				                      &&Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>0;
 		  }
 
 		  #region IAbility

@@ -22,10 +22,10 @@ namespace FunkyBot
 							"{2} \r\n" +
 							"Triggering Avoidances={3} -- RequiredAvoidance={4} -- LastAvoidAction={5} \r\n" +
 							"Nearby Flee Triggering Units={6} -- LastFleeAction={7} \r\n",
-							Bot.Game.Profile.CurrentProfileBehavior.GetType().ToString(), Bot.Targeting.lastBehavioralType.ToString(),
+							Bot.Game.Profile.CurrentProfileBehavior.GetType().ToString(), Bot.Targeting.Cache.lastBehavioralType.ToString(),
 							ObjectCache.Objects.DumpDebugInfo(),
-							Bot.Targeting.Environment.TriggeringAvoidances.Count, Bot.Targeting.RequiresAvoidance, Bot.Targeting.LastAvoidanceMovement.ToString(CultureInfo.InvariantCulture),
-							Bot.Targeting.Environment.FleeTriggeringUnits.Count, Bot.Targeting.LastFleeAction.ToString(CultureInfo.InvariantCulture));
+							Bot.Targeting.Cache.Environment.TriggeringAvoidances.Count, Bot.Targeting.Cache.RequiresAvoidance, Bot.Targeting.Cache.LastAvoidanceMovement.ToString(CultureInfo.InvariantCulture),
+							Bot.Targeting.Cache.Environment.FleeTriggeringUnits.Count, Bot.Targeting.Cache.LastFleeAction.ToString(CultureInfo.InvariantCulture));
 
 				DumpedDeathInfo = true;
 			}

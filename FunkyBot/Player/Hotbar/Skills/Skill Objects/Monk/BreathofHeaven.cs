@@ -18,8 +18,8 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				FcriteriaBuff=() => Bot.Character.Data.dCurrentHealthPct<=0.5d;
 
 				FcriteriaCombat=() => Bot.Character.Data.dCurrentHealthPct<=0.5d ||
-									   Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]>0|| //with elites nearby..
-				                       Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25]>3;
+									   Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]>0|| //with elites nearby..
+				                       Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25]>3;
 
 		  }
 

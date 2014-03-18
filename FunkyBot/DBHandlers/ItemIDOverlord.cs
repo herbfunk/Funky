@@ -92,21 +92,21 @@ namespace FunkyBot.DBHandlers
 			if (!Bot.Character.Data.bIsInTown)
 			{
 				//Refresh?
-				if (Bot.Targeting.ShouldRefreshObjectList)
+				if (Bot.Targeting.Cache.ShouldRefreshObjectList)
 				{
-					Bot.Targeting.RefreshDiaObjects();
+					Bot.Targeting.Cache.Refresh();
 				}
 
 				//Check if we have any NEW targets to deal with.. 
 				//Note: Refresh will filter targets to units and avoidance ONLY.
-				if (Bot.Targeting.CurrentTarget != null)
+				if (Bot.Targeting.Cache.CurrentTarget != null)
 				{
 					//Check if we have not made a ID cast in awhile..
 					if (DateTime.Now.Subtract(lastActionPreformed).TotalSeconds > 20)
 						Bot.Character.Data.BackPack.InventoryBackPackToggle(false);
 
 					//Directly Handle Target..
-					RunStatus targetHandler = Bot.Targeting.HandleThis();
+					RunStatus targetHandler = Bot.Targeting.Handler.HandleThis();
 
 					//Only return failure if handling failed..
 					if (targetHandler == RunStatus.Failure)

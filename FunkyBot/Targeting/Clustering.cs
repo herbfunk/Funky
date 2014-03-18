@@ -1,4 +1,5 @@
 ﻿using FunkyBot.Cache.Objects;
+using FunkyBot.Game;
 using FunkyBot.Movement.Clustering;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,8 @@ namespace FunkyBot.Targeting
 		}
 
 
-		private ClusterConditions TargetClusterConditions = new ClusterConditions(Bot.Settings.Cluster.ClusterDistance, Bot.Settings.Cluster.ClusterMaxDistance, Bot.Settings.Cluster.ClusterMinimumUnitCount, false);
-		private ClusterTargetCollection TargetClusterCollection;
+		private readonly ClusterConditions TargetClusterConditions = new ClusterConditions(ProfileCache.ClusterSettingsTag.ClusterDistance, ProfileCache.ClusterSettingsTag.ClusterMaxDistance, ProfileCache.ClusterSettingsTag.ClusterMinimumUnitCount, false);
+		private readonly ClusterTargetCollection TargetClusterCollection;
 		internal List<int> ValidClusterUnits = new List<int>();
 		internal List<UnitCluster> CurrentGroupClusters = new List<UnitCluster>();
 
@@ -58,11 +59,11 @@ namespace FunkyBot.Targeting
 					CurrentGroupClusters = new List<UnitCluster>();
 
 					//Check if there are enough units present currently..
-					if (Bot.Targeting.Environment.DistantUnits.Count > Bot.Settings.Grouping.GroupingMinimumUnitsInCluster)
+					if (Bot.Targeting.Cache.Environment.DistantUnits.Count > Bot.Settings.Grouping.GroupingMinimumUnitsInCluster)
 					{
 
 						//Update UnitCluster Collection
-						CurrentGroupClusters = UnitCluster.RunKmeans(Bot.Targeting.Environment.DistantUnits, Bot.Settings.Grouping.GroupingClusterRadiusDistance)
+						CurrentGroupClusters = UnitCluster.RunKmeans(Bot.Targeting.Cache.Environment.DistantUnits, Bot.Settings.Grouping.GroupingClusterRadiusDistance)
 							 .Where(cluster => cluster.ListUnits.Count >= Bot.Settings.Grouping.GroupingMinimumUnitsInCluster && cluster.NearestMonsterDistance <= Bot.Settings.Grouping.GroupingMaximumDistanceAllowed)
 							 .OrderByDescending(cluster => cluster.NearestMonsterDistance).ToList();
 
@@ -86,7 +87,7 @@ namespace FunkyBot.Targeting
 			if (Bot.Settings.Cluster.EnableClusteringTargetLogic &&
 				 (!Bot.Settings.Cluster.IgnoreClusteringWhenLowHP || Bot.Character.Data.dCurrentHealthPct > Bot.Settings.Cluster.IgnoreClusterLowHPValue))
 			{
-				if (Bot.Targeting.Environment.UnitRAGUIDs.Count >= Bot.Settings.Cluster.ClusterMinimumUnitCount)
+				if (Bot.Targeting.Cache.Environment.UnitRAGUIDs.Count >= Bot.Settings.Cluster.ClusterMinimumUnitCount)
 				{
 					if (TargetClusterCollection.ShouldUpdateClusters)
 						TargetClusterCollection.UpdateClusters();

@@ -7,6 +7,7 @@ using Zeta.Bot.Logic;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
+using Zeta.Game.Internals.SNO;
 using Zeta.TreeSharp;
 
 namespace FunkyBot.Cache.Objects
@@ -41,13 +42,13 @@ namespace FunkyBot.Cache.Objects
 			{
 				if (targetType.Value == TargetType.Item)
 				{
-					return Bot.Targeting.iCurrentMaxLootRadius + Bot.Settings.Ranges.ItemRange;
+					return Bot.Targeting.Cache.iCurrentMaxLootRadius + Bot.Settings.Ranges.ItemRange;
 				}
 				if (targetType.Value == TargetType.Gold)
 				{
-					return Bot.Targeting.iCurrentMaxLootRadius + Bot.Settings.Ranges.GoldRange;
+					return Bot.Targeting.Cache.iCurrentMaxLootRadius + Bot.Settings.Ranges.GoldRange;
 				}
-				return Bot.Targeting.iCurrentMaxLootRadius + Bot.Settings.Ranges.GlobeRange;
+				return Bot.Targeting.Cache.iCurrentMaxLootRadius + Bot.Settings.Ranges.GlobeRange;
 			}
 		}
 
@@ -104,7 +105,7 @@ namespace FunkyBot.Cache.Objects
 			if (Bot.Character.Data.Position.Distance(TestPosition) >= 2f)
 			{
 				//If we are already ignored this recently.. lets just assume its still being ignored!
-				if (DateTime.Now.Subtract(LastAvoidanceIgnored).TotalMilliseconds < 1000 && Bot.Targeting.Environment.NearbyAvoidances.Count > 0)
+				if (DateTime.Now.Subtract(LastAvoidanceIgnored).TotalMilliseconds < 1000 && Bot.Targeting.Cache.Environment.NearbyAvoidances.Count > 0)
 				{
 					Weight = 1;
 				}
@@ -139,7 +140,7 @@ namespace FunkyBot.Cache.Objects
 						if (centreDistance <= 12f)
 							Weight += 600d;
 						// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-						if (this == Bot.Targeting.LastCachedTarget)
+						if (this == Bot.Targeting.Cache.LastCachedTarget)
 							Weight += 600;
 						// Give yellows more weight
 						if (Itemquality.Value >= ItemQuality.Rare4)
@@ -165,11 +166,11 @@ namespace FunkyBot.Cache.Objects
 						if (ObjectCache.Obstacles.Monsters.Any(cp => cp.PointInside(Position)))
 							Weight *= 0.75;
 						//Finally check if we should reduce the weight when more then 2 monsters are nearby..
-						//if (Bot.Targeting.Environment.SurroundingUnits>2&&
+						//if (Bot.Targeting.Cache.Environment.SurroundingUnits>2&&
 						//     //But Only when we are low in health..
 						//        (Bot.Character_.Data.dCurrentHealthPct<0.25||
 						//     //Or we havn't changed targets after 2.5 secs
-						//        DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalSeconds>2.5))
+						//        DateTime.Now.Subtract(Bot.Targeting.Cache.LastChangeOfTarget).TotalSeconds>2.5))
 						//     this.Weight*=0.10;
 
 						//Test if there are nearby units that will trigger kite action..
@@ -180,9 +181,9 @@ namespace FunkyBot.Cache.Objects
 						}
 
 						//Did we have a target last time? and if so was it a goblin?
-						if (Bot.Targeting.LastCachedTarget.RAGUID != -1 && Bot.Settings.Targeting.GoblinPriority > 1)
+						if (Bot.Targeting.Cache.LastCachedTarget.RAGUID != -1 && Bot.Settings.Targeting.GoblinPriority > 1)
 						{
-							if (Bot.Targeting.LastCachedTarget.IsTreasureGoblin)
+							if (Bot.Targeting.Cache.LastCachedTarget.IsTreasureGoblin)
 								Weight = 0;
 						}
 						break;
@@ -190,7 +191,7 @@ namespace FunkyBot.Cache.Objects
 						if (GoldAmount > 0)
 							Weight = 11000d - (Math.Floor(centreDistance) * 200d);
 						// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-						if (this == Bot.Targeting.LastCachedTarget)
+						if (this == Bot.Targeting.Cache.LastCachedTarget)
 							Weight += 600;
 						// Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
 						if (Bot.Character.Data.bIsRooted)
@@ -199,9 +200,9 @@ namespace FunkyBot.Cache.Objects
 						if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 							Weight *= 0.75;
 						//Did we have a target last time? and if so was it a goblin?
-						if (Bot.Targeting.LastCachedTarget.RAGUID != -1)
+						if (Bot.Targeting.Cache.LastCachedTarget.RAGUID != -1)
 						{
-							if (Bot.Targeting.LastCachedTarget.IsTreasureGoblin)
+							if (Bot.Targeting.Cache.LastCachedTarget.IsTreasureGoblin)
 								Weight = 0;
 						}
 						break;
@@ -228,7 +229,7 @@ namespace FunkyBot.Cache.Objects
 								Weight += 5000d;
 
 							// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-							if (this == Bot.Targeting.LastCachedTarget && centreDistance <= 25f)
+							if (this == Bot.Targeting.Cache.LastCachedTarget && centreDistance <= 25f)
 								Weight += 400;
 
 							// If there's a monster in the path-line to the item, reduce the weight
@@ -303,7 +304,7 @@ namespace FunkyBot.Cache.Objects
 						{
 							LoopsUnseen = 0;
 							Logger.Write(LogLevel.Items, "Adding Item {0} to LOS Movement Objects", InternalName);
-							Bot.Targeting.Environment.LoSMovementObjects.Add(this);
+							Bot.Targeting.Cache.Environment.LoSMovementObjects.Add(this);
 						}
 
 						return false;
@@ -312,15 +313,17 @@ namespace FunkyBot.Cache.Objects
 					//Check if we require LOS
 					if (RequiresLOSCheck)
 					{
-						if (!LineOfSight.LOSTest(Bot.Character.Data.Position, true, false))
+						if (!LineOfSight.LOSTest(Bot.Character.Data.Position, true, true, NavCellFlags.AllowWalk))
 						{
-							return false;
+							//AllowWalk failure does not mean we should ignore it!
+							if (LineOfSight.RayCast.HasValue && !LineOfSight.RayCast.Value || LineOfSight.ObjectIntersection.HasValue && LineOfSight.ObjectIntersection.Value)
+								return false;
 						}
 
 						RequiresLOSCheck = false;
 					}
 
-					Bot.Targeting.Environment.bAnyLootableItemsNearby = true;
+					Bot.Targeting.Cache.Environment.bAnyLootableItemsNearby = true;
 				}
 				else
 				{
@@ -590,20 +593,20 @@ namespace FunkyBot.Cache.Objects
 			if (Bot.Character.Class.PowerPrime.WaitLoopsBefore >= 1)
 			{
 				//Logger.DBLog.DebugFormat("Debug: Force waiting BEFORE Ability " + powerPrime.powerThis.ToString() + "...");
-				Bot.Targeting.bWaitingForPower = true;
+				Bot.Targeting.Cache.bWaitingForPower = true;
 				if (Bot.Character.Class.PowerPrime.WaitLoopsBefore >= 1)
 					Bot.Character.Class.PowerPrime.WaitLoopsBefore--;
 				return RunStatus.Running;
 			}
-			Bot.Targeting.bWaitingForPower = false;
+			Bot.Targeting.Cache.bWaitingForPower = false;
 
-			if (!Bot.Targeting.ShouldCheckItemLooted)
+			if (!Bot.Targeting.Cache.ShouldCheckItemLooted)
 			{
-				Bot.Targeting.ShouldCheckItemLooted = true;
+				Bot.Targeting.Cache.ShouldCheckItemLooted = true;
 				Bot.Character.Data.BackPack.Update();
 				if (Bot.Character.Data.BackPack.CacheItemList.ContainsKey(AcdGuid.Value))
 				{
-					Bot.Targeting.CheckItemLootStackCount = Bot.Character.Data.BackPack.CacheItemList[AcdGuid.Value].ThisItemStackQuantity;
+					Bot.Targeting.Cache.CheckItemLootStackCount = Bot.Character.Data.BackPack.CacheItemList[AcdGuid.Value].ThisItemStackQuantity;
 				}
 			}
 

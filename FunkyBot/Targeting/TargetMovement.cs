@@ -1,5 +1,6 @@
 ﻿using System;
 using FunkyBot.Cache.Objects;
+using FunkyBot.Movement;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
@@ -10,7 +11,7 @@ using Zeta.Game.Internals.SNO;
 using Zeta.TreeSharp;
 using Zeta.Common;
 
-namespace FunkyBot.Movement
+namespace FunkyBot.Targeting
 {
 
 	public class TargetMovement
@@ -37,7 +38,11 @@ namespace FunkyBot.Movement
 		{
 			lastPositionChange = DateTime.Now;
 		}
+		internal void OnTargetChanged(object cacheobj, TargetingCache.TargetChangedArgs args)
+		{
+			NewTargetResetVars();
 
+		}
 
 		internal int BlockedMovementCounter = 0;
 		internal int NonMovementCounter = 0;
@@ -102,7 +107,7 @@ namespace FunkyBot.Movement
 						Action += "Click] ";
 						break;
 				}
-				Bot.Targeting.UpdateStatusText(Action);
+				Bot.Targeting.Handler.UpdateStatusText(Action);
 			}
 			#endregion
 
@@ -146,7 +151,7 @@ namespace FunkyBot.Movement
 
 						Logger.Write(LogLevel.Movement, "Ignoring Item {0} -- due to RayCast Failure!", obj.InternalName);
 
-						Bot.Targeting.bForceTargetUpdate = true;
+						Bot.Targeting.Cache.bForceTargetUpdate = true;
 						return RunStatus.Running;
 					}
 				}
@@ -156,7 +161,7 @@ namespace FunkyBot.Movement
 					Logger.Write(LogLevel.Movement, "Line of Sight Movement Stalled!");
 
 					Bot.NavigationCache.LOSmovementObject = null;
-					Bot.Targeting.bForceTargetUpdate = true;
+					Bot.Targeting.Cache.bForceTargetUpdate = true;
 					NonMovementCounter = 0;
 					// Reset the emergency loop counter and return success
 					return RunStatus.Running;
@@ -166,7 +171,7 @@ namespace FunkyBot.Movement
 					Logger.Write(LogLevel.Movement, "Ignoring obj {0} ", obj.InternalName + " _ SNO:" + obj.SNOID);
 					obj.BlacklistLoops = 50;
 					obj.RequiresLOSCheck = true;
-					Bot.Targeting.bForceTargetUpdate = true;
+					Bot.Targeting.Cache.bForceTargetUpdate = true;
 					NonMovementCounter = 0;
 
 					// Reset the emergency loop counter and return success
@@ -205,7 +210,7 @@ namespace FunkyBot.Movement
 
 								Bot.NavigationCache.GroupingFinishBehavior();
 								Bot.NavigationCache.groupingSuspendedDate = DateTime.Now.AddMilliseconds(4000);
-								Bot.Targeting.bForceTargetUpdate = true;
+								Bot.Targeting.Cache.bForceTargetUpdate = true;
 								return RunStatus.Running;
 							}
 
@@ -225,7 +230,7 @@ namespace FunkyBot.Movement
 											obj.BlacklistLoops = 10;
 											Logger.Write(LogLevel.Movement, "Ignoring object " + obj.InternalName + " due to not moving and raycast failure!", true);
 
-											Bot.Targeting.bForceTargetUpdate = true;
+											Bot.Targeting.Cache.bForceTargetUpdate = true;
 											return RunStatus.Running;
 										}
 									}
@@ -233,7 +238,7 @@ namespace FunkyBot.Movement
 								else if (obj.targetType.Value == TargetType.Item)
 								{
 									obj.BlacklistLoops = 1;
-									Bot.Targeting.bForceTargetUpdate = true;
+									Bot.Targeting.Cache.bForceTargetUpdate = true;
 								}
 							}
 							else
@@ -245,7 +250,7 @@ namespace FunkyBot.Movement
 
 									Bot.NavigationCache.CurrentGPArea.BlacklistLastSafespot();
 									Bot.NavigationCache.vlastSafeSpot = Vector3.Zero;
-									Bot.Targeting.bForceTargetUpdate = true;
+									Bot.Targeting.Cache.bForceTargetUpdate = true;
 									return RunStatus.Running;
 								}
 							}
@@ -283,7 +288,7 @@ namespace FunkyBot.Movement
 					// Store the current destination for comparison incase of changes next loop
 					LastTargetLocation = CurrentTargetLocation;
 					// Reset total body-block count, since we should have moved
-					//if (DateTime.Now.Subtract(Bot.Targeting.Environment.lastForcedKeepCloseRange).TotalMilliseconds>=2000)
+					//if (DateTime.Now.Subtract(Bot.Targeting.Cache.Environment.lastForcedKeepCloseRange).TotalMilliseconds>=2000)
 					BlockedMovementCounter = 0;
 
 					return RunStatus.Running;
@@ -294,14 +299,14 @@ namespace FunkyBot.Movement
 				{
 					// Whirlwind against everything within range (except backtrack points)
 					if (Bot.Character.Data.dCurrentEnergy >= 10
-						 && Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20] >= 1
+						 && Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20] >= 1
 						 && obj.DistanceFromTarget <= 12f
 						 && (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_Sprint) || Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_Sprint))
 						 && (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.AvoidanceMovements | TargetType.Gold | TargetType.Globe) == false)
 						 && (obj.targetType.Value != TargetType.Unit
 						 || (obj.targetType.Value == TargetType.Unit && !obj.IsTreasureGoblin
 							  && (!Bot.Settings.Class.bSelectiveWhirlwind
-									|| Bot.Targeting.Environment.bAnyNonWWIgnoreMobsInRange
+									|| Bot.Targeting.Cache.Environment.bAnyNonWWIgnoreMobsInRange
 									|| !CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(obj.SNOID)))))
 					{
 						// Special code to prevent whirlwind double-spam, this helps save fury
@@ -373,7 +378,7 @@ namespace FunkyBot.Movement
 					if (!(NonMovementCounter < 10 &&
 						!obj.UsingLOSV3 &&
 						!obj.IgnoresLOSCheck &&
-						 obj.targetType.Value != TargetType.Item &&
+						 (obj.targetType.Value != TargetType.Item) &&
 						 obj.targetType.Value != TargetType.Interactable))
 					{
 						UsePowerMovement = false;

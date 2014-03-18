@@ -21,8 +21,8 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				                      &&(Bot.Character.Data.dDiscipline>=28)
 				                      &&
 				                      (Bot.Character.Data.dCurrentHealthPct<=0.90||Bot.Character.Data.bIsRooted||
-				                       Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_20]>=1||
-				                       Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3||Bot.Character.Data.bIsIncapacitated);
+				                       Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_20]>=1||
+				                       Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3||Bot.Character.Data.bIsIncapacitated);
 		  }
 
 		  #region IAbility

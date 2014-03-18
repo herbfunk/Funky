@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyBot.Game;
 using Zeta.Bot;
 
 namespace FunkyBot
@@ -11,6 +12,9 @@ namespace FunkyBot
 			string sThisProfile = ProfileManager.CurrentProfile.Path;
 
 			Logger.Write(LogLevel.Event, "Profile Changed to {0}", sThisProfile);
+
+			//Clear Custom Cluster Settings
+			ProfileCache.ClusterSettingsTag = Bot.Settings.Cluster;
 
 			//Update Tracker
 			Bot.Game.CurrentGameStats.ProfileChanged(sThisProfile);

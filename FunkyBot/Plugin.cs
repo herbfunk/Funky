@@ -224,9 +224,9 @@ namespace FunkyBot
 				//
 				string CompileDateString = PluginInfo.LastWriteTime.ToString("MM/dd hh:mm:ss tt", CultureInfo.InvariantCulture);
 				Logger.DBLog.InfoFormat("************************************");
-				Logger.DBLog.InfoFormat("ENABLED: Funky Bot Plugin");
+				Logger.DBLog.InfoFormat("Funky Bot Plugin -- Enabled!");
 				Logger.DBLog.InfoFormat(" -- Version -- " + Version);
-				Logger.DBLog.InfoFormat("\tModified: " + CompileDateString);
+				Logger.DBLog.InfoFormat("Modified: " + CompileDateString);
 				Logger.DBLog.InfoFormat("************************************");
 
 				//string profile=Zeta.CommonBot.ProfileManager.CurrentProfile!=null?Zeta.CommonBot.ProfileManager.CurrentProfile.Name:Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;

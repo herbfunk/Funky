@@ -18,8 +18,8 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				                          AbilityPreCastFlags.CheckEnergy));
 
 				FcriteriaCombat=() => (Bot.Character.Data.dCurrentHealthPct<=0.99d||Bot.Character.Data.bIsRooted||
-				                       Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]>=1||
-				                       Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3);
+				                       Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]>=1||
+				                       Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3);
 		  }
 
 		  #region IAbility

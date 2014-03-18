@@ -1,5 +1,6 @@
 ﻿using System;
 using Zeta.Bot.Navigation;
+using Zeta.Game;
 
 namespace FunkyBot
 {
@@ -9,6 +10,7 @@ namespace FunkyBot
 		{
 			Logger.Write(LogLevel.Event, "OnGameChanged Event");
 
+			ZetaDia.Memory.ClearCache();
 			Navigator.SearchGridProvider.Update();
 			Funky.ResetGame();
 			Bot.Game.RefreshGameId();

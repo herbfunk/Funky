@@ -235,22 +235,22 @@ namespace FunkyBot.Cache.Objects
 				//If we need to avoid, than enable travel avoidance flag also.
 				if (UpdateProjectileRayTest())
 				{
-					Bot.Targeting.Environment.TriggeringAvoidances.Add(this);
-					Bot.Targeting.Environment.TriggeringAvoidanceRAGUIDs.Add(RAGUID);
-					Bot.Targeting.TravellingAvoidance = true;
-					Bot.Targeting.RequiresAvoidance = true;
+					Bot.Targeting.Cache.Environment.TriggeringAvoidances.Add(this);
+					Bot.Targeting.Cache.Environment.TriggeringAvoidanceRAGUIDs.Add(RAGUID);
+					Bot.Targeting.Cache.TravellingAvoidance = true;
+					Bot.Targeting.Cache.RequiresAvoidance = true;
 				}
 			}
 			else
 			{
 				if (CentreDistance < 50f)
-					Bot.Targeting.Environment.NearbyAvoidances.Add(RAGUID);
+					Bot.Targeting.Cache.Environment.NearbyAvoidances.Add(RAGUID);
 
 				if (Position.Distance(Bot.Character.Data.Position) <= Radius)
 				{
-					Bot.Targeting.Environment.TriggeringAvoidances.Add(this);
-					Bot.Targeting.Environment.TriggeringAvoidanceRAGUIDs.Add(RAGUID);
-					Bot.Targeting.RequiresAvoidance = true;
+					Bot.Targeting.Cache.Environment.TriggeringAvoidances.Add(this);
+					Bot.Targeting.Cache.Environment.TriggeringAvoidanceRAGUIDs.Add(RAGUID);
+					Bot.Targeting.Cache.RequiresAvoidance = true;
 				}
 			}
 		}
@@ -414,7 +414,7 @@ namespace FunkyBot.Cache.Objects
 			float centredistance=CentreDistance;
 			//Add nearby objects to our collection (used in navblock/obstaclecheck methods to reduce queries)
 			if (centredistance < 25f)
-				Bot.Targeting.Environment.NearbyObstacleObjects.Add(this);
+				Bot.Targeting.Cache.Environment.NearbyObstacleObjects.Add(this);
 
 			
 			//Demonic Forges

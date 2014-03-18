@@ -68,7 +68,7 @@ namespace FunkyBot.Movement.Clustering
 			if (unit.IsFast) FastCounter++;
 			if (unit.IsRanged) RangedCounter++;
 
-			if (Bot.Targeting.Environment.UsesDOTDPSAbility && unit.HasDOTdps.HasValue && unit.HasDOTdps.Value) DOTDPSCounter++;
+			if (Bot.Targeting.Cache.Environment.UsesDOTDPSAbility && unit.HasDOTdps.HasValue && unit.HasDOTdps.Value) DOTDPSCounter++;
 
 			if (refreshproperties) UpdateProperties();
 		}

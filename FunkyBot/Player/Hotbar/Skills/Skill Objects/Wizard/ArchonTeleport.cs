@@ -23,7 +23,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				{
 					return ((Bot.Settings.Class.bTeleportFleeWhenLowHP&&
 					         (Bot.Character.Data.dCurrentHealthPct<0.5d)||
-					         (Bot.Targeting.RequiresAvoidance))
+					         (Bot.Targeting.Cache.RequiresAvoidance))
 					        ||
 					        (Bot.Settings.Class.bTeleportIntoGrouping&&LastConditionPassed==ConditionCriteraTypes.Cluster)
 					        ||

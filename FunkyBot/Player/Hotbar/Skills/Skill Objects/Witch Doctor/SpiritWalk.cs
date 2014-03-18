@@ -38,8 +38,8 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				};
 				FcriteriaCombat=() => (    (Bot.Character.Data.dCurrentHealthPct <= 0.35d) ||
 				                           (RuneIndex==3&&Bot.Character.Data.dCurrentEnergyPct<0.25d)||
-				                           (Bot.Targeting.Environment.FleeTriggeringUnits.Count > 0) ||
-				                           (Bot.Targeting.Environment.TriggeringAvoidances.Count > 0) ||
+				                           (Bot.Targeting.Cache.Environment.FleeTriggeringUnits.Count > 0) ||
+				                           (Bot.Targeting.Cache.Environment.TriggeringAvoidances.Count > 0) ||
 				                           (Bot.Character.Data.bIsIncapacitated || Bot.Character.Data.bIsRooted));
 		  }
 

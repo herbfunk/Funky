@@ -22,8 +22,8 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				FcriteriaBuff=
 				  () => Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]!=0&&Bot.Character.Data.PetData.Gargantuan==0;
 				FcriteriaCombat=() => (Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]==0&&
-				                       (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15]>=1||
-				                        (Bot.Targeting.CurrentUnitTarget.IsEliteRareUnique&&Bot.Targeting.CurrentTarget.RadiusDistance<=15f))
+				                       (Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15]>=1||
+				                        (Bot.Targeting.Cache.CurrentUnitTarget.IsEliteRareUnique&&Bot.Targeting.Cache.CurrentTarget.RadiusDistance<=15f))
 				                       ||Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]!=0&&Bot.Character.Data.PetData.Gargantuan==0);
 		  }
 

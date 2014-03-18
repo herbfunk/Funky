@@ -18,9 +18,9 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				                          AbilityPreCastFlags.CheckPlayerIncapacitated));
 
 				FcriteriaCombat=() => Bot.Character.Class.LastUsedAbility.Power!=SNOPower.DemonHunter_Sentry&&
-				                      (Bot.Targeting.FleeingLastTarget||DateTime.Now.Subtract(Bot.Targeting.LastFleeAction).TotalMilliseconds<1000)||
-				                      (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_40]>=1||
-				                       Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_40]>=2);
+				                      (Bot.Targeting.Cache.FleeingLastTarget||DateTime.Now.Subtract(Bot.Targeting.Cache.LastFleeAction).TotalMilliseconds<1000)||
+				                      (Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_40]>=1||
+				                       Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_40]>=2);
 		  }
 
 		  #region IAbility

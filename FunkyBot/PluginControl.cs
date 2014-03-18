@@ -58,8 +58,8 @@ namespace FunkyBot
 			Bot.Character.Data.Update();
 
 			//OOC ID Flags
-			Bot.Targeting.ShouldCheckItemLooted = false;
-			Bot.Targeting.CheckItemLootStackCount = 0;
+			Bot.Targeting.Cache.ShouldCheckItemLooted = false;
+			Bot.Targeting.Cache.CheckItemLootStackCount = 0;
 			ItemIdentifyBehavior.shouldPreformOOCItemIDing = false;
 
 			//TP Behavior Reset
@@ -430,7 +430,7 @@ namespace FunkyBot
 		private static readonly List<DiaObject> listEmptyList = new List<DiaObject>();
 		public List<DiaObject> GetObjectsByWeight()
 		{
-			if (!Bot.Targeting.DontMove)
+			if (!Bot.Targeting.Cache.DontMove)
 				return listEmptyList;
 			List<DiaObject> listFakeList = new List<DiaObject>();
 			listFakeList.Add(null);

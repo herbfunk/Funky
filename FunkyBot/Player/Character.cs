@@ -1,6 +1,11 @@
-﻿using FunkyBot.Cache.Objects;
+﻿using System;
+using FunkyBot.Cache;
+using FunkyBot.Cache.Objects;
+using FunkyBot.Movement;
 using FunkyBot.Player.Class;
 using Zeta.Bot;
+using Zeta.Bot.Logic;
+using Zeta.Bot.Navigation;
 
 namespace FunkyBot.Player
 {
@@ -64,9 +69,66 @@ namespace FunkyBot.Player
 			}
 		}
 
+		private int LastWorldID = -1;
+		private bool LastLevelIDChangeWasTownRun;
+		private void LevelAreaIDChangeHandler(int ID)
+		{
+			Logger.Write(LogLevel.Event, "Level Area ID has Changed");
+
+
+
+			if (!BrainBehavior.IsVendoring)
+			{
+				//Check for World ID change!
+				if (Bot.Character.Data.iCurrentWorldID != LastWorldID)
+				{
+					Logger.Write(LogLevel.Event, "World ID changed.. clearing Profile Interactable Cache.");
+					LastWorldID = Bot.Character.Data.iCurrentWorldID;
+					Bot.Game.Profile.InteractableObjectCache.Clear();
+					Navigator.SearchGridProvider.Update();
+
+					//Gold Inactivity
+					Bot.Game.GoldTimeoutChecker.LastCoinageUpdate = DateTime.Now;
+				}
+
+				if (!LastLevelIDChangeWasTownRun)
+				{//Do full clear..
+					//Reset Playermover Backtrack Positions
+					BackTrackCache.cacheMovementGPRs.Clear();
+					Bot.NavigationCache.LOSBlacklistedRAGUIDs.Clear();
+					Bot.Game.Profile.InteractableCachedObject = null;
+				}
+				else
+				{
+					//Gold Inactivity
+					Bot.Game.GoldTimeoutChecker.LastCoinageUpdate = DateTime.Now;
+				}
+
+				//Clear the object cache!
+				ObjectCache.Objects.Clear();
+				//ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
+				Bot.Targeting.Cache.RemovalCheck = false;
+
+				//Reset Skip Ahead Cache
+				SkipAheadCache.ClearCache();
+
+				Bot.Character.Data.UpdateCoinage = true;
+
+				Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
+				Navigator.SearchGridProvider.Update();
+
+				LastLevelIDChangeWasTownRun = false;
+			}
+			else if (Bot.Character.Data.bIsInTown)
+			{
+				LastLevelIDChangeWasTownRun = true;
+			}
+		}
+
 		internal void Reset()
 		{
 			Data = new CharacterCache();
+			Data.OnLevelAreaIDChanged += LevelAreaIDChangeHandler;
 			Class = null;
 		}
 

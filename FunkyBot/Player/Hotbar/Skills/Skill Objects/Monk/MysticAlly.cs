@@ -21,8 +21,8 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				PreCast=new SkillPreCast(AbilityPreCastFlags.CheckCanCast);
 				FcriteriaBuff = () => Bot.Character.Data.PetData.MysticAlly == 0;
 				FcriteriaCombat = () => ((this.RuneIndex == 1 || this.RuneIndex==0 || this.RuneIndex==2) && //Damaging Attack
-									   (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15] > 0 ||
-				                       Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>2)) ||
+									   (Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15] > 0 ||
+				                       Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>2)) ||
 										//Restore Spirit
 									   (this.RuneIndex == 3 && Bot.Character.Data.dCurrentEnergy < 30) || 
 									   //Restore Health

@@ -281,7 +281,7 @@ namespace FunkyBot.Cache.Collections
 		public bool TestVectorAgainstAvoidanceZones(Vector3 startingPoint, Vector3 destinationPoint, bool IgnoreTriggeringAvoidances = true)
 		{
 			return Avoidances.Any(A => A.ShouldAvoid &&
-				  (!IgnoreTriggeringAvoidances || !Bot.Targeting.Environment.TriggeringAvoidanceRAGUIDs.Contains(A.RAGUID)) &&
+				  (!IgnoreTriggeringAvoidances || !Bot.Targeting.Cache.Environment.TriggeringAvoidanceRAGUIDs.Contains(A.RAGUID)) &&
 				   MathEx.IntersectsPath(A.Position, A.Radius, startingPoint, destinationPoint));
 		}
 

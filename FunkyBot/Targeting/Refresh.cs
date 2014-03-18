@@ -75,37 +75,7 @@ namespace FunkyBot.Targeting
 		}
 		#endregion
 
-		///<summary>
-		///Update our current object data ("Current Target")
-		///</summary>
-		private bool RefreshTargetBehaviors()
-		{
-			bool conditionTest = false;
-			lastBehavioralType = TargetBehavioralTypes.None;
-			foreach (var TLA in TargetBehaviors)
-			{
-				//Check each behavior "pre-condition"
-				if (!TLA.BehavioralCondition) continue;
 
-				//Now test the behavior
-				conditionTest = TLA.Test.Invoke(ref CurrentTarget);
-				if (conditionTest)
-				{
-					if (!LastCachedTarget.RAGUID.Equals(CurrentTarget.RAGUID))
-					{
-						TargetChangedArgs TargetChangedInfo = new TargetChangedArgs(CurrentTarget, lastBehavioralType);
-						OnTargetChanged(TargetChangedInfo);
-					}
-
-					lastBehavioralType = TLA.TargetBehavioralTypeType;
-					break;
-				}
-			}
-
-
-
-			return conditionTest;
-		}
 
 		///<summary>
 		///Refreshes Cache and updates current target
@@ -269,6 +239,39 @@ namespace FunkyBot.Targeting
 			Bot.Game.GoldTimeoutChecker.CheckTimeoutTripped();
 		}
 
+		///<summary>
+		///Update our current object data ("Current Target")
+		///</summary>
+		private bool RefreshTargetBehaviors()
+		{
+			bool conditionTest = false;
+			lastBehavioralType = TargetBehavioralTypes.None;
+			foreach (var TLA in TargetBehaviors)
+			{
+				//Check each behavior "pre-condition"
+				if (!TLA.BehavioralCondition) continue;
+
+				//Now test the behavior
+				conditionTest = TLA.Test.Invoke(ref CurrentTarget);
+				if (conditionTest)
+				{
+					if (!LastCachedTarget.RAGUID.Equals(CurrentTarget.RAGUID))
+					{
+						TargetChangedArgs TargetChangedInfo = new TargetChangedArgs(CurrentTarget, lastBehavioralType);
+						OnTargetChanged(TargetChangedInfo);
+					}
+
+					lastBehavioralType = TLA.TargetBehavioralTypeType;
+					break;
+				}
+			}
+
+
+
+			return conditionTest;
+		}
+
+
 		private int LastWorldID = -1;
 		private bool LastLevelIDChangeWasTownRun;
 		private void LevelAreaIDChangeHandler(int ID)
@@ -314,9 +317,8 @@ namespace FunkyBot.Targeting
 
 				Bot.Character.Data.UpdateCoinage = true;
 
-				//Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
-
-				//Navigator.SearchGridProvider.Update();
+				Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
+				Navigator.SearchGridProvider.Update();
 
 				LastLevelIDChangeWasTownRun = false;
 			}

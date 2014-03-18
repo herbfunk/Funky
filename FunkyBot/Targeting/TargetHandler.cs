@@ -14,14 +14,12 @@ using Zeta.TreeSharp;
 
 namespace FunkyBot.Targeting
 {
-	public partial class TargetingHandler
+	public class TargetingHandler
 	{
 		//Constructor
 		public TargetingHandler()
 		{
 			CurrentState = RunStatus.Running;
-			CurrentTarget = null;
-			Bot.Character.Data.OnLevelAreaIDChanged += LevelAreaIDChangeHandler;
 		}
 
 
@@ -65,17 +63,7 @@ namespace FunkyBot.Targeting
 		//The current state which is used to return from the handler
 		public RunStatus CurrentState { get; set; }
 
-		//This is the object that is our target which is the data used in methods.
-		//This data is continiously updated by RefreshDiaObjects.
-		///<summary>
-		///This should reference Cached Data.
-		///Used throughout the code as the Bot.CurrentTarget data.
-		///This must be set to a valid cacheobject in order to properly handle it.
-		///</summary>
-		public CacheObject CurrentTarget;
 
-		//Used to reduce additional unboxing when target is an unit.
-		internal CacheUnit CurrentUnitTarget;
 
 
 
@@ -95,10 +83,10 @@ namespace FunkyBot.Targeting
 
 			// Special pausing *AFTER* using certain powers
 			#region PauseCheck
-			if (Bot.Targeting.bWaitingAfterPower && Bot.Character.Class.PowerPrime.WaitLoopsAfter >= 1)
+			if (Bot.Targeting.Cache.bWaitingAfterPower && Bot.Character.Class.PowerPrime.WaitLoopsAfter >= 1)
 			{
 				if (Bot.Character.Class.PowerPrime.WaitLoopsAfter >= 1) Bot.Character.Class.PowerPrime.WaitLoopsAfter--;
-				if (Bot.Character.Class.PowerPrime.WaitLoopsAfter <= 0) Bot.Targeting.bWaitingAfterPower = false;
+				if (Bot.Character.Class.PowerPrime.WaitLoopsAfter <= 0) Bot.Targeting.Cache.bWaitingAfterPower = false;
 
 				CurrentState = RunStatus.Running;
 				return false;
@@ -123,12 +111,12 @@ namespace FunkyBot.Targeting
 			//Herbfunk
 			//Confirmation of item looted
 			#region ItemLootedConfirmationCheck
-			if (Bot.Targeting.ShouldCheckItemLooted)
+			if (Bot.Targeting.Cache.ShouldCheckItemLooted)
 			{
 				//Reset?
-				if (CurrentTarget == null || CurrentTarget.targetType.HasValue && CurrentTarget.targetType.Value != TargetType.Item)
+				if (Bot.Targeting.Cache.CurrentTarget == null || Bot.Targeting.Cache.CurrentTarget.targetType.HasValue && Bot.Targeting.Cache.CurrentTarget.targetType.Value != TargetType.Item)
 				{
-					Bot.Targeting.ShouldCheckItemLooted = false;
+					Bot.Targeting.Cache.ShouldCheckItemLooted = false;
 					return false;
 				}
 
@@ -145,15 +133,15 @@ namespace FunkyBot.Targeting
 				}
 
 				//Count each attempt to confirm.
-				Bot.Targeting.recheckCount++;
-				string statusText = "[Item Confirmation] Current recheck count " + Bot.Targeting.recheckCount;
-				bool LootedSuccess = Bot.Character.Data.BackPack.ContainsItem(CurrentTarget.AcdGuid.Value, Bot.Targeting.CheckItemLootStackCount);
+				Bot.Targeting.Cache.recheckCount++;
+				string statusText = "[Item Confirmation] Current recheck count " + Bot.Targeting.Cache.recheckCount;
+				bool LootedSuccess = Bot.Character.Data.BackPack.ContainsItem(Bot.Targeting.Cache.CurrentTarget.AcdGuid.Value, Bot.Targeting.Cache.CheckItemLootStackCount);
 				//Verify item is non-stackable!
 
 				statusText += " [ItemFound=" + LootedSuccess + "]";
 				if (LootedSuccess)
 				{
-					GameEvents.FireItemLooted(CurrentTarget.AcdGuid.Value);
+					GameEvents.FireItemLooted(Bot.Targeting.Cache.CurrentTarget.AcdGuid.Value);
 
 					if (Bot.Settings.Debug.DebugStatusBar) BotMain.StatusText = statusText;
 
@@ -161,18 +149,18 @@ namespace FunkyBot.Targeting
 					Logger.LogItemInformation();
 
 					//Reset if we reach here..
-					Bot.Targeting.reCheckedFinished = false;
-					Bot.Targeting.recheckCount = 0;
-					Bot.Targeting.CheckItemLootStackCount = 0;
-					Bot.Targeting.ShouldCheckItemLooted = false;
-					Bot.Targeting.bForceTargetUpdate = true;
+					Bot.Targeting.Cache.reCheckedFinished = false;
+					Bot.Targeting.Cache.recheckCount = 0;
+					Bot.Targeting.Cache.CheckItemLootStackCount = 0;
+					Bot.Targeting.Cache.ShouldCheckItemLooted = false;
+					Bot.Targeting.Cache.bForceTargetUpdate = true;
 
 					//Remove..
-					CurrentTarget.NeedsRemoved = true;
+					Bot.Targeting.Cache.CurrentTarget.NeedsRemoved = true;
 				}
 				else
 				{
-					CacheItem thisObjItem = (CacheItem)CurrentTarget;
+					CacheItem thisObjItem = (CacheItem)Bot.Targeting.Cache.CurrentTarget;
 
 					statusText += " [Quality";
 					//Quality of the item determines the recheck attempts.
@@ -190,16 +178,16 @@ namespace FunkyBot.Targeting
 						case ItemQuality.Magic3:
 							statusText += "<=Magical]";
 							//Non-Quality items get skipped quickly.
-							if (Bot.Targeting.recheckCount > 1)
-								Bot.Targeting.reCheckedFinished = true;
+							if (Bot.Targeting.Cache.recheckCount > 1)
+								Bot.Targeting.Cache.reCheckedFinished = true;
 							break;
 
 						case ItemQuality.Rare4:
 						case ItemQuality.Rare5:
 						case ItemQuality.Rare6:
 							statusText += "=Rare]";
-							if (Bot.Targeting.recheckCount > 2)
-								Bot.Targeting.reCheckedFinished = true;
+							if (Bot.Targeting.Cache.recheckCount > 2)
+								Bot.Targeting.Cache.reCheckedFinished = true;
 							//else
 							//bItemForcedMovement = true;
 
@@ -207,8 +195,8 @@ namespace FunkyBot.Targeting
 
 						case ItemQuality.Legendary:
 							statusText += "=Legendary]";
-							if (Bot.Targeting.recheckCount > 3)
-								Bot.Targeting.reCheckedFinished = true;
+							if (Bot.Targeting.Cache.recheckCount > 3)
+								Bot.Targeting.Cache.reCheckedFinished = true;
 							//else
 							//bItemForcedMovement = true;
 
@@ -217,14 +205,14 @@ namespace FunkyBot.Targeting
 					#endregion
 
 					//If we are still rechecking then use the waitAfter (powerprime Ability related) to wait a few loops.
-					if (!Bot.Targeting.reCheckedFinished)
+					if (!Bot.Targeting.Cache.reCheckedFinished)
 					{
 						statusText += " RECHECKING";
 						if (Bot.Settings.Debug.DebugStatusBar)
 						{
 							BotMain.StatusText = statusText;
 						}
-						Bot.Targeting.bWaitingAfterPower = true;
+						Bot.Targeting.Cache.bWaitingAfterPower = true;
 						Bot.Character.Class.PowerPrime.WaitLoopsAfter = 3;
 						CurrentState = RunStatus.Running;
 						return false;
@@ -235,33 +223,33 @@ namespace FunkyBot.Targeting
 					{
 						//Items above rare quality don't get blacklisted, just ignored for a few loops.
 						//This will force a movement if stuck.. but 5 loops is only 750ms
-						CurrentTarget.BlacklistLoops = 5;
+						Bot.Targeting.Cache.CurrentTarget.BlacklistLoops = 5;
 					}
 					else
 					{
 						//Blacklist items below rare quality!
-						CurrentTarget.BlacklistFlag = BlacklistType.Temporary;
-						CurrentTarget.NeedsRemoved = true;
+						Bot.Targeting.Cache.CurrentTarget.BlacklistFlag = BlacklistType.Temporary;
+						Bot.Targeting.Cache.CurrentTarget.NeedsRemoved = true;
 					}
 
 					// Now tell Trinity to get a new target!
-					Bot.Targeting.bForceTargetUpdate = true;
+					Bot.Targeting.Cache.bForceTargetUpdate = true;
 				}
 
 				//Reset flag, and continue..
-				Bot.Targeting.ShouldCheckItemLooted = false;
+				Bot.Targeting.Cache.ShouldCheckItemLooted = false;
 			}
 			#endregion
 
 
 			// See if we have been "newly rooted", to force target updates
-			if (Bot.Character.Data.bIsRooted && !Bot.Targeting.bWasRootedLastTick)
+			if (Bot.Character.Data.bIsRooted && !Bot.Targeting.Cache.bWasRootedLastTick)
 			{
-				Bot.Targeting.bWasRootedLastTick = true;
-				Bot.Targeting.bForceTargetUpdate = true;
+				Bot.Targeting.Cache.bWasRootedLastTick = true;
+				Bot.Targeting.Cache.bForceTargetUpdate = true;
 			}
 
-			if (!Bot.Character.Data.bIsRooted) Bot.Targeting.bWasRootedLastTick = false;
+			if (!Bot.Character.Data.bIsRooted) Bot.Targeting.Cache.bWasRootedLastTick = false;
 
 			return true;
 		}
@@ -279,98 +267,98 @@ namespace FunkyBot.Targeting
 			// Whether we should refresh the target list or not
 			bool bShouldRefreshDiaObjects = false;
 
-			if (!Bot.Targeting.bWholeNewTarget && !Bot.Targeting.bWaitingForPower && !Bot.Targeting.bWaitingForPotion)
+			if (!Bot.Targeting.Cache.bWholeNewTarget && !Bot.Targeting.Cache.bWaitingForPower && !Bot.Targeting.Cache.bWaitingForPotion)
 			{
 				// Update targets at least once every 80 milliseconds
-				if (Bot.Targeting.bForceTargetUpdate
-					|| Bot.Targeting.TravellingAvoidance
-					|| ((DateTime.Now.Subtract(Bot.Targeting.lastRefreshedObjects).TotalMilliseconds >= 80 && !ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value, TargetType.AvoidanceMovements | TargetType.NoMovement))
-					|| DateTime.Now.Subtract(Bot.Targeting.lastRefreshedObjects).TotalMilliseconds >= 1200))
+				if (Bot.Targeting.Cache.bForceTargetUpdate
+					|| Bot.Targeting.Cache.TravellingAvoidance
+					|| ((DateTime.Now.Subtract(Bot.Targeting.Cache.lastRefreshedObjects).TotalMilliseconds >= 80 && !ObjectCache.CheckTargetTypeFlag(Bot.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.AvoidanceMovements | TargetType.NoMovement))
+					|| DateTime.Now.Subtract(Bot.Targeting.Cache.lastRefreshedObjects).TotalMilliseconds >= 1200))
 				{
 					bShouldRefreshDiaObjects = true;
 				}
 
 				// If we AREN'T getting new targets - find out if we SHOULD because the current unit has died etc.
-				if (!bShouldRefreshDiaObjects && CurrentTarget.targetType.Value == TargetType.Unit && !CurrentTarget.IsStillValid())
+				if (!bShouldRefreshDiaObjects && Bot.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit && !Bot.Targeting.Cache.CurrentTarget.IsStillValid())
 					bShouldRefreshDiaObjects = true;
 
 			}
 
 			// So, after all that, do we actually want a new target list?
-			if (!Bot.Targeting.bWholeNewTarget && !Bot.Targeting.bWaitingForPower && !Bot.Targeting.bWaitingForPotion)
+			if (!Bot.Targeting.Cache.bWholeNewTarget && !Bot.Targeting.Cache.bWaitingForPower && !Bot.Targeting.Cache.bWaitingForPotion)
 			{
 				// If we *DO* want a new target list, do this... 
 				if (bShouldRefreshDiaObjects)
 				{
 					// Now call the function that refreshes targets
-					Bot.Targeting.RefreshDiaObjects();
+					Bot.Targeting.Cache.Refresh();
 
 					// No target, return success
-					if (CurrentTarget == null)
+					if (Bot.Targeting.Cache.CurrentTarget == null)
 					{
 						CurrentState = RunStatus.Success;
 						return false;
 					}
-					else if (LastCachedTarget != null &&
-						  LastCachedTarget.RAGUID != CurrentTarget.RAGUID && CurrentTarget.targetType.Value == TargetType.Item)
+					else if (Bot.Targeting.Cache.LastCachedTarget != null &&
+						  Bot.Targeting.Cache.LastCachedTarget.RAGUID != Bot.Targeting.Cache.CurrentTarget.RAGUID && Bot.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Item)
 					{
 						//Reset Item Vars
-						Bot.Targeting.recheckCount = 0;
-						Bot.Targeting.reCheckedFinished = false;
-						Bot.Targeting.CheckItemLootStackCount = 0;
+						Bot.Targeting.Cache.recheckCount = 0;
+						Bot.Targeting.Cache.reCheckedFinished = false;
+						Bot.Targeting.Cache.CheckItemLootStackCount = 0;
 					}
 
 					// Been trying to handle the same target for more than 30 seconds without damaging/reaching it? Blacklist it!
 					// Note: The time since target picked updates every time the current target loses health, if it's a monster-target
-					if (!ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value, TargetType.AvoidanceMovements | TargetType.NoMovement | TargetType.LineOfSight | TargetType.Backtrack)
-						  && ((CurrentTarget.targetType.Value != TargetType.Unit && DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalSeconds > 12)
-						  || (CurrentTarget.targetType.Value == TargetType.Unit && !CurrentTarget.IsBoss && DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalSeconds > 40)))
+					if (!ObjectCache.CheckTargetTypeFlag(Bot.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.AvoidanceMovements | TargetType.NoMovement | TargetType.LineOfSight | TargetType.Backtrack)
+						  && ((Bot.Targeting.Cache.CurrentTarget.targetType.Value != TargetType.Unit && DateTime.Now.Subtract(Bot.Targeting.Cache.LastChangeOfTarget).TotalSeconds > 12)
+						  || (Bot.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit && !Bot.Targeting.Cache.CurrentTarget.IsBoss && DateTime.Now.Subtract(Bot.Targeting.Cache.LastChangeOfTarget).TotalSeconds > 40)))
 					{
 						// NOTE: This only blacklists if it's remained the PRIMARY TARGET that we are trying to actually directly attack!
 						// So it won't blacklist a monster "on the edge of the screen" who isn't even being targetted
 						// Don't blacklist monsters on <= 50% health though, as they can't be in a stuck location... can they!? Maybe give them some extra time!
 						bool bBlacklistThis = true;
 						// PREVENT blacklisting a monster on less than 90% health unless we haven't damaged it for more than 2 minutes
-						if (CurrentTarget.targetType.Value == TargetType.Unit)
+						if (Bot.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit)
 						{
-							if (CurrentTarget.IsTreasureGoblin && Bot.Settings.Targeting.GoblinPriority >= 3) bBlacklistThis = false;
-							if (DateTime.Now.Subtract(Bot.Targeting.LastChangeOfTarget).TotalSeconds <= 120) bBlacklistThis = false;
+							if (Bot.Targeting.Cache.CurrentTarget.IsTreasureGoblin && Bot.Settings.Targeting.GoblinPriority >= 3) bBlacklistThis = false;
+							if (DateTime.Now.Subtract(Bot.Targeting.Cache.LastChangeOfTarget).TotalSeconds <= 120) bBlacklistThis = false;
 						}
 
 						if (bBlacklistThis)
 						{
-							if (CurrentTarget.targetType.Value == TargetType.Unit)
+							if (Bot.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit)
 							{
 								//Logger.DBLog.DebugFormat("[Funky] Blacklisting a monster because of possible stuck issues. Monster="+ObjectData.InternalName+" {"+
 								//ObjectData.SNOID.ToString()+"}. Range="+ObjectData.CentreDistance.ToString()+", health %="+ObjectData.CurrentHealthPct.ToString());
 							}
 
-							CurrentTarget.NeedsRemoved = true;
-							CurrentTarget.BlacklistFlag = BlacklistType.Temporary;
+							Bot.Targeting.Cache.CurrentTarget.NeedsRemoved = true;
+							Bot.Targeting.Cache.CurrentTarget.BlacklistFlag = BlacklistType.Temporary;
 						}
 					}
 					// Make sure we start trying to move again should we need to!
-					Bot.Targeting.bPickNewAbilities = true;
+					Bot.Targeting.Cache.bPickNewAbilities = true;
 
-					Bot.Targeting.TargetMover.NewTargetResetVars();
+					Bot.Targeting.Movement.NewTargetResetVars();
 				}
 				// Ok we didn't want a new target list, should we at least update the position of the current target, if it's a monster?
-				else if (CurrentTarget.targetType.Value == TargetType.Unit && CurrentTarget.IsStillValid())
+				else if (Bot.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit && Bot.Targeting.Cache.CurrentTarget.IsStillValid())
 				{
-					CurrentTarget.UpdatePosition();
+					Bot.Targeting.Cache.CurrentTarget.UpdatePosition();
 				}
 			}
 			#endregion
 
 			// This variable just prevents an instant 2-target update after coming here from the main decorator function above
-			Bot.Targeting.bWholeNewTarget = false;
+			Bot.Targeting.Cache.bWholeNewTarget = false;
 
 
 			//Update CurrentUnitTarget
-			if (CurrentTarget.targetType.Value == TargetType.Unit)
+			if (Bot.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit)
 			{
 				//Update CurrentUnitTarget Variable.
-				if (CurrentUnitTarget == null) CurrentUnitTarget = (CacheUnit)CurrentTarget;
+				if (Bot.Targeting.Cache.CurrentUnitTarget == null) Bot.Targeting.Cache.CurrentUnitTarget = (CacheUnit)Bot.Targeting.Cache.CurrentTarget;
 			}
 
 
@@ -399,21 +387,21 @@ namespace FunkyBot.Targeting
 
 			// Find a valid Ability if the target is a monster
 			#region AbilityPick
-			if (Bot.Targeting.bPickNewAbilities && !Bot.Targeting.bWaitingForPower && !Bot.Targeting.bWaitingForPotion)
+			if (Bot.Targeting.Cache.bPickNewAbilities && !Bot.Targeting.Cache.bWaitingForPower && !Bot.Targeting.Cache.bWaitingForPotion)
 			{
-				Bot.Targeting.bPickNewAbilities = false;
-				if (CurrentTarget.targetType.Value == TargetType.Unit && CurrentTarget.AcdGuid.HasValue)
+				Bot.Targeting.Cache.bPickNewAbilities = false;
+				if (Bot.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit && Bot.Targeting.Cache.CurrentTarget.AcdGuid.HasValue)
 				{
 					// Pick an Ability		
-					Skill nextAbility = Bot.Character.Class.AbilitySelector(CurrentUnitTarget);
+					Skill nextAbility = Bot.Character.Class.AbilitySelector(Bot.Targeting.Cache.CurrentUnitTarget);
 
 					// Did we get default attack?
 					if (nextAbility.Equals(Bot.Character.Class.DefaultAttack) && !Bot.Character.Class.CanUseDefaultAttack && !Bot.Settings.Class.AllowDefaultAttackAlways)
 					{//TODO:: Fix issue when nothing keeps returning (possibly due to bad ability setup)
-						Logger.Write(LogLevel.Ability, "Default Attack not usable -- Failed to find a valid Ability to use -- Target: {0}", Bot.Targeting.CurrentTarget.InternalName);
-						Bot.Targeting.bForceTargetUpdate = true;
+						Logger.Write(LogLevel.Ability, "Default Attack not usable -- Failed to find a valid Ability to use -- Target: {0}", Bot.Targeting.Cache.CurrentTarget.InternalName);
+						Bot.Targeting.Cache.bForceTargetUpdate = true;
 						CurrentState = RunStatus.Running;
-						CurrentTarget.BlacklistLoops = 10;
+						Bot.Targeting.Cache.CurrentTarget.BlacklistLoops = 10;
 						return false;
 					}
 
@@ -421,25 +409,25 @@ namespace FunkyBot.Targeting
 				}
 
 				// Select an Ability for destroying a destructible with in advance
-				if (CurrentTarget.targetType.Value == TargetType.Destructible || CurrentTarget.targetType == TargetType.Barricade)
+				if (Bot.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Destructible || Bot.Targeting.Cache.CurrentTarget.targetType == TargetType.Barricade)
 					Bot.Character.Class.PowerPrime = Bot.Character.Class.DestructibleAbility();
 			}
 			#endregion
 
 			#region PotionCheck
 			if (Bot.Character.Data.dCurrentHealthPct <= Bot.Settings.Combat.PotionHealthPercent
-				 && !Bot.Targeting.bWaitingForPower
-				 && !Bot.Targeting.bWaitingForPotion
+				 && !Bot.Targeting.Cache.bWaitingForPower
+				 && !Bot.Targeting.Cache.bWaitingForPotion
 				 && !Bot.Character.Data.bIsIncapacitated
 				 && Bot.Character.Class.HealthPotionAbility.AbilityUseTimer())
 			{
-				Bot.Targeting.bWaitingForPotion = true;
+				Bot.Targeting.Cache.bWaitingForPotion = true;
 				CurrentState = RunStatus.Running;
 				return false;
 			}
-			if (Bot.Targeting.bWaitingForPotion)
+			if (Bot.Targeting.Cache.bWaitingForPotion)
 			{
-				Bot.Targeting.bWaitingForPotion = false;
+				Bot.Targeting.Cache.bWaitingForPotion = false;
 				if (Bot.Character.Class.HealthPotionAbility.CheckCustomCombatMethod())
 				{
 					Bot.Character.Class.HealthPotionAbility.AttemptToUseHealthPotion();
@@ -450,7 +438,7 @@ namespace FunkyBot.Targeting
 			#endregion
 
 			// See if we can use any special buffs etc. while in avoidance
-			if (ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value, TargetType.Gold | TargetType.Globe | TargetType.AvoidanceMovements | TargetType.NoMovement))
+			if (ObjectCache.CheckTargetTypeFlag(Bot.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.Gold | TargetType.Globe | TargetType.AvoidanceMovements | TargetType.NoMovement))
 			{
 				Skill buff;
 				if (Bot.Character.Class.FindBuffPower(out buff))
@@ -468,11 +456,11 @@ namespace FunkyBot.Targeting
 		public virtual bool Movement()
 		{
 			//Set the target location for the Target Movement class..
-			Bot.Targeting.TargetMover.CurrentTargetLocation = CurrentTarget.Position;
+			Bot.Targeting.Movement.CurrentTargetLocation = Bot.Targeting.Cache.CurrentTarget.Position;
 
 
 			//Instead of using target position we use the navigator pathing as CurrentTargetLocation
-			if (ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value, TargetType.LineOfSight | TargetType.Backtrack))
+			if (ObjectCache.CheckTargetTypeFlag(Bot.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.LineOfSight | TargetType.Backtrack))
 			{
 
 				//Navigation.NP.MoveTo(Bot.NavigationCache.LOSmovementObject.Position, "02 LOS:" + Bot.NavigationCache.LOSmovementObject.InternalName, true);
@@ -480,10 +468,10 @@ namespace FunkyBot.Targeting
 				if (Navigation.NP.CurrentPath.Count > 0)
 				{
 					//No more points to navigate..
-					if (Navigation.NP.CurrentPath.Count == 1 && Bot.Character.Data.Position.Distance(Navigation.NP.CurrentPath.Current) <= CurrentTarget.Radius)
+					if (Navigation.NP.CurrentPath.Count == 1 && Bot.Character.Data.Position.Distance(Navigation.NP.CurrentPath.Current) <= Bot.Targeting.Cache.CurrentTarget.Radius)
 					{
 						Logger.Write(LogLevel.Movement, "Ending Line of Sight Movement");
-						if (CurrentTarget.targetType.Value == TargetType.LineOfSight)
+						if (Bot.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.LineOfSight)
 						{
 							Bot.NavigationCache.LOSVector = Vector3.Zero;
 							Bot.NavigationCache.LOSmovementObject = null;
@@ -491,16 +479,16 @@ namespace FunkyBot.Targeting
 						else
 						{
 							//Ending backtracking behavior!
-							Backtracking = false;
-							StartingLocation = Vector3.Zero;
+							Bot.Targeting.Cache.Backtracking = false;
+							Bot.Targeting.Cache.StartingLocation = Vector3.Zero;
 						}
 					}
 					else
 					{
-						Bot.Targeting.TargetMover.CurrentTargetLocation = Navigation.NP.CurrentPath.Current;
+						Bot.Targeting.Movement.CurrentTargetLocation = Navigation.NP.CurrentPath.Current;
 					}
 
-					CurrentState = Bot.Targeting.TargetMover.TargetMoveTo(CurrentTarget);
+					CurrentState = Bot.Targeting.Movement.TargetMoveTo(Bot.Targeting.Cache.CurrentTarget);
 					return false;
 				}
 			}
@@ -508,10 +496,10 @@ namespace FunkyBot.Targeting
 
 
 			//Check if we are in range for interaction..
-			if (CurrentTarget.WithinInteractionRange())
+			if (Bot.Targeting.Cache.CurrentTarget.WithinInteractionRange())
 				return true;
 			//Movement required..
-			CurrentState = Bot.Targeting.TargetMover.TargetMoveTo(CurrentTarget);
+			CurrentState = Bot.Targeting.Movement.TargetMoveTo(Bot.Targeting.Cache.CurrentTarget);
 			return false;
 		}
 
@@ -523,7 +511,7 @@ namespace FunkyBot.Targeting
 			if (Bot.Settings.Debug.DebugStatusBar)
 			{
 				Funky.sStatusText = "[Interact- ";
-				switch (CurrentTarget.targetType.Value)
+				switch (Bot.Targeting.Cache.CurrentTarget.targetType.Value)
 				{
 					case TargetType.Avoidance:
 						Funky.sStatusText += "Avoid] ";
@@ -559,20 +547,20 @@ namespace FunkyBot.Targeting
 						Funky.sStatusText += "LOS] ";
 						break;
 				}
-				Funky.sStatusText += "Target=" + CurrentTarget.InternalName + " C-Dist=" + Math.Round(CurrentTarget.CentreDistance, 2) + ". " +
-						"R-Dist=" + Math.Round(CurrentTarget.RadiusDistance, 2) + ". ";
+				Funky.sStatusText += "Target=" + Bot.Targeting.Cache.CurrentTarget.InternalName + " C-Dist=" + Math.Round(Bot.Targeting.Cache.CurrentTarget.CentreDistance, 2) + ". " +
+						"R-Dist=" + Math.Round(Bot.Targeting.Cache.CurrentTarget.RadiusDistance, 2) + ". ";
 
-				if (CurrentTarget.targetType.Value == TargetType.Unit && Bot.Character.Class.PowerPrime.Power != SNOPower.None)
+				if (Bot.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit && Bot.Character.Class.PowerPrime.Power != SNOPower.None)
 					Funky.sStatusText += "Power=" + Bot.Character.Class.PowerPrime.Power + " (range " + Bot.Character.Class.PowerPrime.MinimumRange + ") ";
 
 
-				Funky.sStatusText += "Weight=" + CurrentTarget.Weight;
+				Funky.sStatusText += "Weight=" + Bot.Targeting.Cache.CurrentTarget.Weight;
 				BotMain.StatusText = Funky.sStatusText;
 				Funky.bResetStatusText = true;
 			}
 			#endregion
 
-			switch (CurrentTarget.targetType.Value)
+			switch (Bot.Targeting.Cache.CurrentTarget.targetType.Value)
 			{
 				case TargetType.Unit:
 				case TargetType.Item:
@@ -584,7 +572,7 @@ namespace FunkyBot.Targeting
 				case TargetType.Door:
 				case TargetType.Destructible:
 				case TargetType.Barricade:
-					CurrentState = CurrentTarget.Interact();
+					CurrentState = Bot.Targeting.Cache.CurrentTarget.Interact();
 					break;
 				case TargetType.AvoidanceMovements:
 					CurrentState = RunStatus.Running;
@@ -593,8 +581,8 @@ namespace FunkyBot.Targeting
 					//Last position.. since we are interacting, we are within range.
 					if (Navigation.NP.CurrentPath.Count <= 1)
 					{
-						this.Backtracking = false;
-						this.StartingLocation = Vector3.Zero;
+						Bot.Targeting.Cache.Backtracking = false;
+						Bot.Targeting.Cache.StartingLocation = Vector3.Zero;
 					}
 					CurrentState = RunStatus.Running;
 					break;
@@ -626,13 +614,13 @@ namespace FunkyBot.Targeting
 		{
 			Funky.sStatusText = Action + " ";
 
-			Funky.sStatusText += "Target=" + CurrentTarget.InternalName + " C-Dist=" + Math.Round(CurrentTarget.CentreDistance, 2) + ". " +
-				 "R-Dist=" + Math.Round(CurrentTarget.RadiusDistance, 2) + ". ";
+			Funky.sStatusText += "Target=" + Bot.Targeting.Cache.CurrentTarget.InternalName + " C-Dist=" + Math.Round(Bot.Targeting.Cache.CurrentTarget.CentreDistance, 2) + ". " +
+				 "R-Dist=" + Math.Round(Bot.Targeting.Cache.CurrentTarget.RadiusDistance, 2) + ". ";
 
-			if (CurrentTarget.targetType.Value == TargetType.Unit && Bot.Character.Class.PowerPrime.Power != SNOPower.None)
+			if (Bot.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit && Bot.Character.Class.PowerPrime.Power != SNOPower.None)
 				Funky.sStatusText += "Power=" + Bot.Character.Class.PowerPrime.Power + " (range " + Bot.Character.Class.PowerPrime.MinimumRange + ") ";
 
-			Funky.sStatusText += "Weight=" + CurrentTarget.Weight;
+			Funky.sStatusText += "Weight=" + Bot.Targeting.Cache.CurrentTarget.Weight;
 			BotMain.StatusText = Funky.sStatusText;
 			Funky.bResetStatusText = true;
 		}
@@ -642,22 +630,22 @@ namespace FunkyBot.Targeting
 			//Check for null and compare run-time types. 
 			if (obj == null)
 			{
-				if (CurrentTarget != null)
+				if (Bot.Targeting.Cache.CurrentTarget != null)
 					return false;
 				return true;
 			}
 			Type ta = obj.GetType();
-			Type tb = CurrentTarget != null ? CurrentTarget.GetType() : GetType();
+			Type tb = Bot.Targeting.Cache.CurrentTarget != null ? Bot.Targeting.Cache.CurrentTarget.GetType() : GetType();
 
 			if (ta.Equals(tb))
 			{
-				return ((CacheObject)obj) == (CurrentTarget);
+				return ((CacheObject)obj) == (Bot.Targeting.Cache.CurrentTarget);
 			}
 			return false;
 		}
 		public override int GetHashCode()
 		{
-			return CurrentTarget != null ? CurrentTarget.GetHashCode() : base.GetHashCode();
+			return Bot.Targeting.Cache.CurrentTarget != null ? Bot.Targeting.Cache.CurrentTarget.GetHashCode() : base.GetHashCode();
 		}
 
 

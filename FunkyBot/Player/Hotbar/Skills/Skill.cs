@@ -41,6 +41,124 @@ namespace FunkyBot.Player.HotBar.Skills
 
 		}
 
+		private bool preActivationFinished = false;
+		internal virtual bool PreActivation()
+		{
+			// Force waiting for global cooldown timer or long-animation abilities
+			if (WaitLoopsBefore >= 1 || (WaitWhileAnimating && DateTime.Now.Subtract(PowerCacheLookup.lastGlobalCooldownUse).TotalMilliseconds <= 50))
+			{
+				//Logger.DBLog.DebugFormat("Debug: Force waiting BEFORE Ability " + powerPrime.powerThis.ToString() + "...");
+				Bot.Targeting.Cache.bWaitingForPower = true;
+				if (WaitLoopsBefore >= 1)
+					WaitLoopsBefore--;
+				return false;
+			}
+			Bot.Targeting.Cache.bWaitingForPower = false;
+
+			// Wait while animating before an attack
+			if (WaitWhileAnimating)
+				Bot.Character.Data.WaitWhileAnimating(5);
+
+			preActivationFinished = true;
+			return true;
+		}
+
+		private bool ActivationFinished = false;
+		internal virtual bool Activation()
+		{
+			if (Power != SNOPower.Barbarian_Whirlwind && Power != SNOPower.DemonHunter_Strafe)
+			{
+				UsePower();
+				Bot.NavigationCache.lastChangedZigZag = DateTime.Today;
+				Bot.NavigationCache.vPositionLastZigZagCheck = Vector3.Zero;
+			}
+			else
+			{
+				// Special code to prevent whirlwind double-spam, this helps save fury
+				bool bUseThisLoop = Power != Bot.Character.Class.LastUsedAbility.Power;
+				if (!bUseThisLoop)
+				{
+					//powerLastSnoPowerUsed = SNOPower.None;
+					if (LastUsedMilliseconds >= 200)
+						bUseThisLoop = true;
+				}
+				if (bUseThisLoop)
+				{
+					UsePower();
+				}
+			}
+
+			if (SuccessUsed.HasValue && SuccessUsed.Value)
+			{
+				OnSuccessfullyUsed();
+			}
+			else
+			{
+				PowerCacheLookup.dictAbilityLastFailed[Power] = DateTime.Now;
+			}
+
+			ActivationFinished = true;
+			return true;
+		}
+
+		private bool postActivationFinished = false;
+		internal virtual bool PostActivation()
+		{
+			// Wait for animating AFTER the attack
+			if (Bot.Character.Class.PowerPrime.WaitWhileAnimating)
+				Bot.Character.Data.WaitWhileAnimating(3);
+
+			Bot.Targeting.Cache.bPickNewAbilities = true;
+
+			// See if we should force a long wait AFTERWARDS, too
+			// Force waiting AFTER power use for certain abilities
+			Bot.Targeting.Cache.bWaitingAfterPower = false;
+			if (Bot.Character.Class.PowerPrime.WaitLoopsAfter >= 1)
+			{
+				//Logger.DBLog.DebugFormat("Force waiting AFTER Ability " + powerPrime.powerThis.ToString() + "...");
+				Bot.Targeting.Cache.bWaitingAfterPower = true;
+			}
+
+			postActivationFinished = true;
+			return true;
+		}
+
+		public bool ActivateSkill()
+		{
+			if (!preActivationFinished)
+			{
+				if (!PreActivation())
+					return false;
+			}
+
+			if (!ActivationFinished)
+			{
+				if (!Activation())
+					return false;
+			}
+
+			if (!postActivationFinished)
+			{
+				if (!PostActivation())
+					return false;
+			}
+
+			return true;
+		}
+
+		private void UsePower()
+		{
+			if (!ExecutionType.HasFlag(AbilityExecuteFlags.RemoveBuff))
+			{
+				SuccessUsed = ZetaDia.Me.UsePower(Power, TargetPosition, WorldID, TargetACDGUID);
+			}
+			else
+			{
+				ZetaDia.Me.GetBuff(Power).Cancel();
+				SuccessUsed = true;
+			}
+		}
+
 		#region Properties
 		public AbilityPriority Priority { get; set; }
 		///<summary>
@@ -260,7 +378,7 @@ namespace FunkyBot.Player.HotBar.Skills
 
 		internal static bool CheckClusterConditions(SkillClusterConditions CC)
 		{
-			return Bot.Targeting.Clusters.AbilityClusterCache(CC).Count > 0;
+			return Bot.Targeting.Cache.Clusters.AbilityClusterCache(CC).Count > 0;
 		}
 
 
@@ -349,15 +467,15 @@ namespace FunkyBot.Player.HotBar.Skills
 			PowerCacheLookup.lastGlobalCooldownUse = DateTime.Now;
 
 			//Chart our starting combat location.. 
-			if (Bot.Settings.Backtracking.EnableBacktracking && Bot.Settings.Backtracking.TrackStartOfCombatEngagment && Bot.Targeting.StartingLocation.Equals(Vector3.Zero))
-				Bot.Targeting.StartingLocation = Bot.Character.Data.Position;
+			if (Bot.Settings.Backtracking.EnableBacktracking && Bot.Settings.Backtracking.TrackStartOfCombatEngagment && Bot.Targeting.Cache.StartingLocation.Equals(Vector3.Zero))
+				Bot.Targeting.Cache.StartingLocation = Bot.Character.Data.Position;
 
 			if (ExecutionType.HasFlag(AbilityExecuteFlags.ZigZagPathing))
 			{
 				//Reset Blockcounter --
-				Bot.Targeting.TargetMover.BlockedMovementCounter = 0;
-				Bot.Targeting.TargetMover.NonMovementCounter = 0;
-				Bot.Targeting.TargetMover.LastMovementDuringCombat = DateTime.Now;
+				Bot.Targeting.Movement.BlockedMovementCounter = 0;
+				Bot.Targeting.Movement.NonMovementCounter = 0;
+				Bot.Targeting.Movement.LastMovementDuringCombat = DateTime.Now;
 			}
 
 			//Disable Reordering for Channeling Abilities!
@@ -378,6 +496,9 @@ namespace FunkyBot.Player.HotBar.Skills
 			ability.CanCastFlags = PowerManager.CanCastFlags.None;
 			ability.SuccessUsed_ = null;
 			ability.Target_ = null;
+			ability.preActivationFinished = false;
+			ability.ActivationFinished = false;
+			ability.postActivationFinished = false;
 
 			//Destructible Setup
 			if (Destructible)
@@ -387,21 +508,21 @@ namespace FunkyBot.Player.HotBar.Skills
 				else
 					ability.MinimumRange = 30f;
 
-				bool LocationalAttack = (CacheIDLookup.hashDestructableLocationTarget.Contains(Bot.Targeting.CurrentTarget.SNOID)
+				bool LocationalAttack = (CacheIDLookup.hashDestructableLocationTarget.Contains(Bot.Targeting.Cache.CurrentTarget.SNOID)
 												  || DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastFailed[ability.Power]).TotalMilliseconds < 1000);
 
 				if (LocationalAttack)
 				{
-					Vector3 attacklocation = Bot.Targeting.CurrentTarget.Position;
+					Vector3 attacklocation = Bot.Targeting.Cache.CurrentTarget.Position;
 
 					if (!ability.IsRanged)
 					{
 						//attacklocation=MathEx.CalculatePointFrom(Bot.Character_.Data.Position,Bot.Target.CurrentTarget.Position, 0.25f);
-						attacklocation = MathEx.GetPointAt(Bot.Character.Data.Position, 0.50f, Navigation.FindDirection(Bot.Character.Data.Position, Bot.Targeting.CurrentTarget.Position, true));
+						attacklocation = MathEx.GetPointAt(Bot.Character.Data.Position, 0.50f, Navigation.FindDirection(Bot.Character.Data.Position, Bot.Targeting.Cache.CurrentTarget.Position, true));
 					}
 					else
 					{
-						attacklocation = MathEx.GetPointAt(Bot.Targeting.CurrentTarget.Position, 1f, Navigation.FindDirection(Bot.Targeting.CurrentTarget.Position, Bot.Character.Data.Position, true));
+						attacklocation = MathEx.GetPointAt(Bot.Targeting.Cache.CurrentTarget.Position, 1f, Navigation.FindDirection(Bot.Targeting.Cache.CurrentTarget.Position, Bot.Character.Data.Position, true));
 					}
 
 					attacklocation.Z = Navigation.MGP.GetHeight(attacklocation.ToVector2());
@@ -409,7 +530,7 @@ namespace FunkyBot.Player.HotBar.Skills
 				}
 				else
 				{
-					ability.TargetACDGUID = Bot.Targeting.CurrentTarget.AcdGuid.Value;
+					ability.TargetACDGUID = Bot.Targeting.Cache.CurrentTarget.AcdGuid.Value;
 				}
 
 				return;
@@ -422,7 +543,7 @@ namespace FunkyBot.Player.HotBar.Skills
 				//Cluster Target -- Aims for Centeroid Unit
 				if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTarget) && CheckClusterConditions(ability.ClusterConditions)) //Cluster ACDGUID
 				{
-					ClusterUnit = Bot.Targeting.Clusters.AbilityClusterCache(ability.ClusterConditions)[0].GetNearestUnitToCenteroid();
+					ClusterUnit = Bot.Targeting.Cache.Clusters.AbilityClusterCache(ability.ClusterConditions)[0].GetNearestUnitToCenteroid();
 					ability.TargetACDGUID = ClusterUnit.AcdGuid.Value;
 					ability.Target_ = ClusterUnit;
 					return;
@@ -430,13 +551,13 @@ namespace FunkyBot.Player.HotBar.Skills
 				//Cluster Location -- Aims for Center of Cluster
 				if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterLocation) && CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
 				{
-					ability.TargetPosition = (Vector3)Bot.Targeting.Clusters.AbilityClusterCache(ability.ClusterConditions)[0].Midpoint;
+					ability.TargetPosition = (Vector3)Bot.Targeting.Cache.Clusters.AbilityClusterCache(ability.ClusterConditions)[0].Midpoint;
 					return;
 				}
 				//Cluster Target Nearest -- Gets nearest unit in cluster as target.
 				if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTargetNearest) && CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
 				{
-					ClusterUnit = Bot.Targeting.Clusters.AbilityClusterCache(ability.ClusterConditions)[0].ListUnits[0];
+					ClusterUnit = Bot.Targeting.Cache.Clusters.AbilityClusterCache(ability.ClusterConditions)[0].ListUnits[0];
 					ability.TargetACDGUID = ClusterUnit.AcdGuid.Value;
 					ability.Target_ = ClusterUnit;
 					return;
@@ -445,8 +566,8 @@ namespace FunkyBot.Player.HotBar.Skills
 
 			if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.Location)) //Current Target Position
 			{
-				ability.TargetPosition = Bot.Targeting.CurrentTarget.Position;
-				ability.Target_ = Bot.Targeting.CurrentUnitTarget;
+				ability.TargetPosition = Bot.Targeting.Cache.CurrentTarget.Position;
+				ability.Target_ = Bot.Targeting.Cache.CurrentUnitTarget;
 			}
 			else if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.Self)) //Current Bot Position
 				ability.TargetPosition = Bot.Character.Data.Position;
@@ -460,8 +581,8 @@ namespace FunkyBot.Player.HotBar.Skills
 			}
 			else if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.Target)) //Current Target ACDGUID
 			{
-				ability.Target_ = Bot.Targeting.CurrentUnitTarget;
-				ability.TargetACDGUID = Bot.Targeting.CurrentTarget.AcdGuid.Value;
+				ability.Target_ = Bot.Targeting.Cache.CurrentUnitTarget;
+				ability.TargetACDGUID = Bot.Targeting.Cache.CurrentTarget.AcdGuid.Value;
 			}
 		}
 

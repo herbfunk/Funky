@@ -611,9 +611,6 @@
     <Compile Include="Targeting\TargetHandler.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Targeting\Refresh.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Navigation\Clustering\ClusterInfo.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -641,7 +638,7 @@
     <Compile Include="Navigation\GridPoint\GPRectangle.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Navigation\TargetMovement.cs">
+    <Compile Include="Targeting\TargetMovement.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Navigation\Navigation.cs">
@@ -818,6 +815,9 @@
     <Compile Include="Targeting\TargetingCache.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Targeting\TargetingClass.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="XML\IfSNOInRangeTag.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -858,6 +858,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="XML\TrinityRandomRollTag.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="XML\FunkyClusterTag.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="XML\TrinityResetAllTag.cs">

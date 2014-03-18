@@ -19,9 +19,9 @@ namespace FunkyBot.Targeting.Behaviors
 			get
 			{
 				return
-					(Bot.Targeting.RequiresAvoidance &&
+					(Bot.Targeting.Cache.RequiresAvoidance &&
 					 DateTime.Now.CompareTo(AvoidRetryDate) > 0 &&
-					(!Bot.Targeting.Environment.bAnyTreasureGoblinsPresent || Bot.Settings.Targeting.GoblinPriority < 2));
+					(!Bot.Targeting.Cache.Environment.bAnyTreasureGoblinsPresent || Bot.Settings.Targeting.GoblinPriority < 2));
 			}
 		}
 		public override void Initialize()
@@ -31,12 +31,12 @@ namespace FunkyBot.Targeting.Behaviors
 				 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
 				 {
 					 string avoidances = "";
-					 Bot.Targeting.Environment.TriggeringAvoidances.ForEach(a => avoidances = avoidances + a.AvoidanceType.ToString() + ", ");
+					 Bot.Targeting.Cache.Environment.TriggeringAvoidances.ForEach(a => avoidances = avoidances + a.AvoidanceType.ToString() + ", ");
 					 Logger.Write(LogLevel.Movement, "Avoidances Triggering: {0}", avoidances);
 				 }
 
 				 //Reuse the last generated safe spot...
-				 if (DateTime.Now.Subtract(Bot.Targeting.LastAvoidanceMovement).TotalSeconds < this.iSecondsAvoidMoveFor)
+				 if (DateTime.Now.Subtract(Bot.Targeting.Cache.LastAvoidanceMovement).TotalSeconds < this.iSecondsAvoidMoveFor)
 				 {
 					 Vector3 reuseV3 = Bot.NavigationCache.AttemptToReuseLastLocationFound();
 					 if (reuseV3 != Vector3.Zero)

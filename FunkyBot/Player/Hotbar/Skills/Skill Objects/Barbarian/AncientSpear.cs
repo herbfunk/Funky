@@ -25,7 +25,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 			SingleUnitCondition = new UnitTargetConditions(TargetProperties.Ranged, 25, 0.50d);
 								
 								//TestCustomCombatConditionAlways=true,
-			FcriteriaCombat = () => Bot.Targeting.CurrentUnitTarget.IsRanged ||
+			FcriteriaCombat = () => Bot.Targeting.Cache.CurrentUnitTarget.IsRanged ||
 			                        Bot.Character.Data.dCurrentEnergyPct < 0.5d;
 		}
 

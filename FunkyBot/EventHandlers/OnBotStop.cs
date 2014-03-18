@@ -27,7 +27,7 @@ namespace FunkyBot
 			Funky.initTreeHooks = false;
 			Funky.RemoveHandlers();
 			Funky.ResetTreehooks();
-			Bot.Reset();
+			//Bot.Reset();
 
 		}
 	}

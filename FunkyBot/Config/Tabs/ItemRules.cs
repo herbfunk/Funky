@@ -53,7 +53,6 @@ namespace FunkyBot
 			{
 
 				Add("Custom");
-				Add("Soft");
 				Add("Hard");
 			}
 		}
@@ -270,7 +269,7 @@ namespace FunkyBot
 				ItemsSource = new ItemRuleTypes(),
 				//Text=Bot.SettingsFunky.ItemRules.ItemRuleType.ToString(),
 			};
-			ItemRuleType.SelectedIndex = Bot.Settings.ItemRules.ItemRuleType.ToLower().Contains("soft") ? 1 : Bot.Settings.ItemRules.ItemRuleType.ToLower().Contains("hard") ? 2 : 0;
+			ItemRuleType.SelectedIndex = Bot.Settings.ItemRules.ItemRuleType.ToLower().Contains("hard") ? 1 : 0;
 			ItemRuleType.SelectionChanged += ItemRulesTypeChanged;
 			spItemRules_RuleSet.Children.Add(ItemRuleType);
 

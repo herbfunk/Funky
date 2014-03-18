@@ -116,7 +116,7 @@ namespace FunkyBot
 
 					Logger.Write(LogLevel.Movement, "Stuck Flags: {0}", Bot.NavigationCache.Stuckflags.ToString());
 
-					bool FoundRandomMovementLocation = Bot.NavigationCache.AttemptFindSafeSpot(out vSafeMovementLocation, Vector3.Zero, Bot.Settings.Plugin.AvoidanceFlags);
+					bool FoundRandomMovementLocation = Bot.NavigationCache.AttemptFindSafeSpot(out vSafeMovementLocation, Vector3.Zero, PointCheckingFlags.RaycastWalkable);
 
 					// Temporarily log stuff
 					if (iTotalAntiStuckAttempts == 1 && Bot.Settings.Debug.LogStuckLocations)
@@ -130,8 +130,13 @@ namespace FunkyBot
 						}
 					}
 
-					if (iTotalAntiStuckAttempts > 1)
-						Navigator.Clear();
+					if (iTotalAntiStuckAttempts == 2)
+					{
+						//Navigator.Clear();
+						Logger.DBLog.InfoFormat("Using Navigator StuckHandler To Generate Vector3");
+						vSafeMovementLocation = Navigator.StuckHandler.GetUnstuckPos();
+						FoundRandomMovementLocation = true;
+					}
 
 					// Now count up our stuck attempt generations
 					iTotalAntiStuckAttempts++;
@@ -262,7 +267,7 @@ namespace FunkyBot
 
 
 				// Make sure GilesTrinity doesn't want us to avoid routine-movement
-				if (Bot.Targeting.DontMove)
+				if (Bot.Targeting.Cache.DontMove)
 					return;
 
 				// Store player current position

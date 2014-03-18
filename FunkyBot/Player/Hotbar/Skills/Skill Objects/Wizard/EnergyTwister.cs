@@ -19,11 +19,11 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				                          AbilityPreCastFlags.CheckCanCast));
 
 				FcriteriaCombat=() => (!HasSignatureAbility()||Bot.Character.Class.HotBar.GetBuffStacks(SNOPower.Wizard_EnergyTwister)<1)&&
-				                      (Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_30]>=1||
-				                       Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25]>=1||
-				                       Bot.Targeting.CurrentTarget.RadiusDistance<=12f)&&
+				                      (Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_30]>=1||
+				                       Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25]>=1||
+				                       Bot.Targeting.Cache.CurrentTarget.RadiusDistance<=12f)&&
 				                      (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_Electrocute)||
-				                       !Bot.Targeting.CurrentUnitTarget.IsFast)&&
+				                       !Bot.Targeting.Cache.CurrentUnitTarget.IsFast)&&
 				                      (Bot.Character.Data.dCurrentEnergy>=35);
 		  }
 

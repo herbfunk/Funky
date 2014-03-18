@@ -644,6 +644,10 @@ namespace FunkyBot.Cache.Objects
 							{//Special Interactive Object -- Add to special cache!
 								targetType = TargetType.ServerInteractable;
 							}
+							else if (thisGizmoType == GizmoType.Switch)
+							{
+								targetType = TargetType.CursedShrine;
+							}
 							else
 							{//All other gizmos should be ignored!
 								BlacklistCache.IgnoreThisObject(this, raguid);

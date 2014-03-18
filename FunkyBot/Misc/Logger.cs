@@ -194,9 +194,9 @@ namespace FunkyBot
 		 internal static void LogItemInformation()
 		 {
 			 // Store item pickup stats
-			 //if (!_hashsetItemPicksLookedAt.Contains(Bot.Targeting.CurrentTarget.RAGUID))
+			 //if (!_hashsetItemPicksLookedAt.Contains(Bot.Targeting.Cache.CurrentTarget.RAGUID))
 			 //{
-			 CacheItem thisCacheItem = (CacheItem)Bot.Targeting.CurrentTarget;
+			 CacheItem thisCacheItem = (CacheItem)Bot.Targeting.Cache.CurrentTarget;
 			 GilesItemType thisgilesitemtype = Backpack.DetermineItemType(thisCacheItem.InternalName, thisCacheItem.BalanceData.thisItemType, thisCacheItem.BalanceData.thisFollowerType);
 			 GilesBaseItemType thisgilesbasetype = Backpack.DetermineBaseType(thisgilesitemtype);
 

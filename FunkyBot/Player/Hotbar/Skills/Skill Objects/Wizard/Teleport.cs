@@ -26,8 +26,8 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				FcriteriaCombat=() => ((Bot.Settings.Class.bTeleportFleeWhenLowHP&&Bot.Character.Data.dCurrentHealthPct<0.5d)
 				                       ||
 				                       (Bot.Settings.Class.bTeleportIntoGrouping&&
-										Bot.Targeting.Clusters.AbilityClusterCache(combatClusterCondition).Count > 0 &&
-										Bot.Targeting.Clusters.AbilityClusterCache(combatClusterCondition)[0].Midpoint.Distance(
+										Bot.Targeting.Cache.Clusters.AbilityClusterCache(combatClusterCondition).Count > 0 &&
+										Bot.Targeting.Cache.Clusters.AbilityClusterCache(combatClusterCondition)[0].Midpoint.Distance(
 					                        Bot.Character.Data.PointPosition)>15f)
 				                       ||(!Bot.Settings.Class.bTeleportFleeWhenLowHP&&!Bot.Settings.Class.bTeleportIntoGrouping));
 				FCombatMovement=v =>

@@ -27,8 +27,8 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				ClusterConditions=new SkillClusterConditions(10d, 30f, 2, true);
 				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 20);
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial&&
-				                      (!Bot.Settings.Class.bSelectiveWhirlwind||Bot.Targeting.Environment.bAnyNonWWIgnoreMobsInRange||
-				                       !CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Targeting.CurrentTarget.SNOID))&&
+				                      (!Bot.Settings.Class.bSelectiveWhirlwind||Bot.Targeting.Cache.Environment.bAnyNonWWIgnoreMobsInRange||
+				                       !CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Targeting.Cache.CurrentTarget.SNOID))&&
 				                      // If they have battle-rage, make sure it's up
 				                      (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage)||
 				                       (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage)&&Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_BattleRage)));

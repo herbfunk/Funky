@@ -16,12 +16,12 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|
 				                          AbilityPreCastFlags.CheckRecastTimer));
 
-				FcriteriaCombat=() => Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15]>=1||Bot.Character.Data.dCurrentHealthPct<=0.4||
-				                      (Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=5&&
-				                       Bot.Targeting.Environment.iElitesWithinRange[(int)RangeIntervals.Range_50]==0)||
-				                      (Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3&&Bot.Character.Data.dCurrentEnergyPct<=0.5)||
-									  (Bot.Targeting.CurrentTarget.IsBoss && Bot.Targeting.CurrentTarget.RadiusDistance <= 15f) ||
-				                      (Bot.Settings.Class.bMonkInnaSet&&Bot.Targeting.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=1&&
+				FcriteriaCombat=() => Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15]>=1||Bot.Character.Data.dCurrentHealthPct<=0.4||
+				                      (Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>=5&&
+				                       Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_50]==0)||
+				                      (Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3&&Bot.Character.Data.dCurrentEnergyPct<=0.5)||
+									  (Bot.Targeting.Cache.CurrentTarget.IsBoss && Bot.Targeting.Cache.CurrentTarget.RadiusDistance <= 15f) ||
+				                      (Bot.Settings.Class.bMonkInnaSet&&Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=1&&
 				                       Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)&&!Bot.Character.Class.HotBar.HasBuff(SNOPower.Monk_SweepingWind))
 				                      &&
 				                      // Check if we don't have breath of heaven

@@ -18,9 +18,9 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				Priority=AbilityPriority.Medium;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy));
 				ClusterConditions=new SkillClusterConditions(4d, 40, 2, true);
-				FcriteriaCombat = () => (!Bot.Targeting.CurrentTarget.IsTreasureGoblin &&
-				                       Bot.Targeting.CurrentTarget.SNOID!=5208&&Bot.Targeting.CurrentTarget.SNOID!=5209&&
-				                       Bot.Targeting.CurrentTarget.SNOID!=5210);
+				FcriteriaCombat = () => (!Bot.Targeting.Cache.CurrentTarget.IsTreasureGoblin &&
+				                       Bot.Targeting.Cache.CurrentTarget.SNOID!=5208&&Bot.Targeting.Cache.CurrentTarget.SNOID!=5209&&
+				                       Bot.Targeting.Cache.CurrentTarget.SNOID!=5210);
 		  }
 
 		  #region IAbility

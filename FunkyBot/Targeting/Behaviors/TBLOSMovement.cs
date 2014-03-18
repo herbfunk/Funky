@@ -31,7 +31,7 @@ namespace FunkyBot.Targeting.Behaviors
 				//Check objects added for LOS movement
 				return Bot.Settings.LOSMovement.EnableLOSMovementBehavior &&
 					!Bot.IsInNonCombatBehavior &&
-					(Bot.Targeting.Environment.LoSMovementObjects.Count > 0 || Bot.NavigationCache.LOSmovementObject != null);
+					(Bot.Targeting.Cache.Environment.LoSMovementObjects.Count > 0 || Bot.NavigationCache.LOSmovementObject != null);
 			}
 		}
 
@@ -42,7 +42,7 @@ namespace FunkyBot.Targeting.Behaviors
 				if (obj == null)
 				{
 					if (Bot.NavigationCache.LOSmovementObject != null &&
-						//((Bot.Targeting.LastCachedTarget!=null&&Bot.Targeting.LastCachedTarget.Equals(Bot.NavigationCache.LOSmovementObject))||
+						//((Bot.Targeting.Cache.LastCachedTarget!=null&&Bot.Targeting.Cache.LastCachedTarget.Equals(Bot.NavigationCache.LOSmovementObject))||
 						(Bot.NavigationCache.LOSmovementObject.CentreDistance < 50f && !Bot.NavigationCache.LOSmovementObject.IsStillValid()))
 					{//Invalidated the Line of sight obj!
 
@@ -54,7 +54,7 @@ namespace FunkyBot.Targeting.Behaviors
 						Bot.NavigationCache.LOSVector = Vector3.Zero;
 						Bot.NavigationCache.LOSmovementObject = null;
 
-						if (Bot.Targeting.LastCachedTarget.targetType.Value == TargetType.LineOfSight)
+						if (Bot.Targeting.Cache.LastCachedTarget.targetType.Value == TargetType.LineOfSight)
 							Navigation.NP.Clear();
 					}
 
@@ -62,8 +62,8 @@ namespace FunkyBot.Targeting.Behaviors
 					if (Bot.NavigationCache.LOSmovementObject == null)
 					{//New LOS Movement Selection.
 
-						Bot.Targeting.Environment.LoSMovementObjects = Bot.Targeting.Environment.LoSMovementObjects.OrderBy(o => o.CentreDistance).ToList();
-						foreach (var cobj in Bot.Targeting.Environment.LoSMovementObjects)
+						Bot.Targeting.Cache.Environment.LoSMovementObjects = Bot.Targeting.Cache.Environment.LoSMovementObjects.OrderBy(o => o.CentreDistance).ToList();
+						foreach (var cobj in Bot.Targeting.Cache.Environment.LoSMovementObjects)
 						{//Iterate Units
 
 							if (Bot.NavigationCache.LOSBlacklistedRAGUIDs.Contains(cobj.RAGUID)) continue;

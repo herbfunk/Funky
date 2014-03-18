@@ -18,7 +18,7 @@ namespace FunkyBot
 		private static readonly Character character = new Character();
 		public static Character Character { get { return character; } }
 
-		public static TargetingHandler Targeting { get; set; }
+		public static TargetingClass Targeting { get; set; }
 
 		///<summary>
 		///Game Stats and Values of Current Character
@@ -53,7 +53,7 @@ namespace FunkyBot
 		{
 			Logger.DBLog.InfoFormat("Funky Reseting Bot");
 			Character.Reset();
-			Targeting = new TargetingHandler();
+			Targeting = new TargetingClass();
 			NavigationCache = new Navigation();
 		}
 

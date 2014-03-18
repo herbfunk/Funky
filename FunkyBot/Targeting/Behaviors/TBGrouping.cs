@@ -23,7 +23,7 @@ namespace FunkyBot.Targeting.Behaviors
 			get
 			{
 				return !Bot.IsInNonCombatBehavior &&
-						   !Bot.Targeting.Environment.bAnyLootableItemsNearby &&
+						   !Bot.Targeting.Cache.Environment.bAnyLootableItemsNearby &&
 						   Bot.Settings.Grouping.AttemptGroupingMovements &&
 						   Bot.Settings.Grouping.GroupingMinimumBotHealth <= Bot.Character.Data.dCurrentHealthPct;
 			}
@@ -45,14 +45,14 @@ namespace FunkyBot.Targeting.Behaviors
 							 && unitObj.CurrentHealthPct.Value < 1d //only after we engaged the target.
 							 && !unitObj.BeingIgnoredDueToClusterLogic && !unitObj.IsClusterException //we only want a cluster target!
 							 && DateTime.Compare(DateTime.Now, Bot.NavigationCache.groupingSuspendedDate) > 0
-							 && !Bot.Targeting.Environment.bAnyTreasureGoblinsPresent || Bot.Settings.Targeting.GoblinPriority < 2)
+							 && !Bot.Targeting.Cache.Environment.bAnyTreasureGoblinsPresent || Bot.Settings.Targeting.GoblinPriority < 2)
 						{
-							Bot.Targeting.Clusters.UpdateGroupClusteringVariables();
+							Bot.Targeting.Cache.Clusters.UpdateGroupClusteringVariables();
 
-							if (Bot.Targeting.Clusters.CurrentGroupClusters.Count > 0)
+							if (Bot.Targeting.Cache.Clusters.CurrentGroupClusters.Count > 0)
 							{
 
-								foreach (UnitCluster cluster in Bot.Targeting.Clusters.CurrentGroupClusters)
+								foreach (UnitCluster cluster in Bot.Targeting.Cache.Clusters.CurrentGroupClusters)
 								{
 									//Validate the cluster is something worthy..
 									if (!CheckCluster(cluster)) continue;

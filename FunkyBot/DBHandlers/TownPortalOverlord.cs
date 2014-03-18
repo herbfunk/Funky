@@ -18,9 +18,9 @@ namespace FunkyBot.DBHandlers
 			//Avoidance Flag
 			Bot.Character.Data.CriticalAvoidance = true;
 
-			if (Bot.Targeting.ShouldRefreshObjectList)
+			if (Bot.Targeting.Cache.ShouldRefreshObjectList)
 			{
-				Bot.Targeting.RefreshDiaObjects();
+				Bot.Targeting.Cache.Refresh();
 				// Check for death / player being dead
 				if (Bot.Character.Data.dCurrentHealthPct <= 0)
 				{
@@ -29,7 +29,7 @@ namespace FunkyBot.DBHandlers
 			}
 
 			//Checks
-			if (Bot.Targeting.CurrentTarget != null)
+			if (Bot.Targeting.Cache.CurrentTarget != null)
 			{
 				return false;
 			}
@@ -218,19 +218,19 @@ namespace FunkyBot.DBHandlers
 			FunkyTPBehaviorFlag = true;
 
 			//Refresh?
-			if (Bot.Targeting.ShouldRefreshObjectList)
+			if (Bot.Targeting.Cache.ShouldRefreshObjectList)
 			{
-				Bot.Targeting.RefreshDiaObjects();
+				Bot.Targeting.Cache.Refresh();
 			}
 
 			//Check if we have any NEW targets to deal with.. 
 			//Note: Refresh will filter targets to units and avoidance ONLY.
-			if (Bot.Targeting.CurrentTarget != null)
+			if (Bot.Targeting.Cache.CurrentTarget != null)
 			{
-				Bot.Targeting.TargetMover.RestartTracking();
+				Bot.Targeting.Movement.RestartTracking();
 
 				//Directly Handle Target..
-				RunStatus targetHandler = Bot.Targeting.HandleThis();
+				RunStatus targetHandler = Bot.Targeting.Handler.HandleThis();
 
 				//Only return failure if handling failed..
 				if (targetHandler == RunStatus.Failure)

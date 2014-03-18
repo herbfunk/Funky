@@ -15,24 +15,24 @@ namespace FunkyBot.Targeting.Behaviors
 			get
 			{
 				return
-					(Bot.Targeting.Backtracking && Bot.Targeting.StartingLocation != Vector3.Zero);
+					(Bot.Targeting.Cache.Backtracking && Bot.Targeting.Cache.StartingLocation != Vector3.Zero);
 			}
 		}
 		public override void Initialize()
 		{
 			base.Test = (ref CacheObject obj) =>
 			{
-				if (Bot.Character.Data.Position.Distance(Bot.Targeting.StartingLocation) > Bot.Settings.Backtracking.MinimumDistanceFromStart)
+				if (Bot.Character.Data.Position.Distance(Bot.Targeting.Cache.StartingLocation) > Bot.Settings.Backtracking.MinimumDistanceFromStart)
 				{
 					//Generate the path here so we can start moving..
-					Navigation.NP.MoveTo(Bot.Targeting.StartingLocation, "Backtracking", true);
+					Navigation.NP.MoveTo(Bot.Targeting.Cache.StartingLocation, "Backtracking", true);
 
 					//Setup a temp target that the handler will use
-					obj = new CacheObject(Bot.Targeting.StartingLocation, TargetType.Backtrack, 20000, "Backtracking", Bot.Settings.Backtracking.MinimumDistanceFromStart);
+					obj = new CacheObject(Bot.Targeting.Cache.StartingLocation, TargetType.Backtrack, 20000, "Backtracking", Bot.Settings.Backtracking.MinimumDistanceFromStart);
 					return true;
 				}
 
-				Bot.Targeting.Backtracking = false;
+				Bot.Targeting.Cache.Backtracking = false;
 				return false;
 
 			};
