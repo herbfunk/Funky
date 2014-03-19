@@ -1,4 +1,36 @@
 ﻿// herbfunk revisions
+v2.8.1.0
+
+PlayerMover:
+Stuck Count of 2 will use navigator to find unstuck pos
+
+Avoidance:
+Added Meteor Impact to Avoidances.
+Modified default radius/health for Thunderstorm, Frozen Pulse.
+
+Interactables:
+Cursed Shrines support added.
+
+Line of Sight:
+Enabled by default now.
+
+Units:
+Added TargetProperty Normal.
+
+Items:
+Added new setting for Crafting Material Pickup.
+
+Monk:
+Support for Exploding Palm, Cyclone Strike, and Seven Sided Strike added.
+
+Misc:
+Added Temp Summon Portal (arreat crater) to blacklist.
+Added a3 NPC to blacklist.
+ItemRules now pickup Magical and Rare items.
+Removed Soft Rules from ItemRules.
+
+
+
 v2.8.0.2
 
 Updated code and namespaces to be compatable with new Demonbuddy and Diablo changes.
