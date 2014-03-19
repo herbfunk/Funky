@@ -198,6 +198,14 @@ namespace FunkyBot.Settings
 					testSettings.Avoidance = new SettingAvoidance();
 					SerializeToXML(testSettings);
 				}
+
+				//LOS Check
+				if (!testSettings.LOSMovement.EnableLOSMovementBehavior)
+				{
+					Logger.DBLog.Info("[Funky] Settings found disabled LOS Movement -- reseting to default values!");
+					testSettings.LOSMovement = new SettingLOSMovement();
+					SerializeToXML(testSettings);
+				}
 			}
 
 

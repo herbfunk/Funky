@@ -19,13 +19,18 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|
 				                          AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckPlayerIncapacitated));
 
-				//UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 4);
+				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 7);
 				//ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 3);
 				SingleUnitCondition=new UnitTargetConditions(TargetProperties.Fast|TargetProperties.IsSpecial, 23);
 				ClusterConditions = new SkillClusterConditions(8d, 20f, 4, false, 0, ClusterProperties.Large, 10f, false);
 				FcriteriaCombat = () =>
 				{
 					if (LastConditionPassed == ConditionCriteraTypes.SingleTarget) return true; //special and fast..
+
+					//Use every 5.5s when 7+ units are within 25f.
+					if (LastConditionPassed == ConditionCriteraTypes.UnitsInRange && LastUsedMilliseconds > 5500 && !Bot.Character.Class.bWaitingForSpecial)
+						return true;
+
 					if (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_ExplodingPalm)) return true; //Non Exploding Palm Check
 
 					if ((Bot.Targeting.Cache.CurrentUnitTarget.HasDOTdps.HasValue && Bot.Targeting.Cache.CurrentUnitTarget.HasDOTdps.Value)

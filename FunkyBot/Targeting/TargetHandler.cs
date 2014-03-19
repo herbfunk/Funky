@@ -473,7 +473,6 @@ namespace FunkyBot.Targeting
 						Logger.Write(LogLevel.Movement, "Ending Line of Sight Movement");
 						if (Bot.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.LineOfSight)
 						{
-							Bot.NavigationCache.LOSVector = Vector3.Zero;
 							Bot.NavigationCache.LOSmovementObject = null;
 						}
 						else
@@ -572,6 +571,7 @@ namespace FunkyBot.Targeting
 				case TargetType.Door:
 				case TargetType.Destructible:
 				case TargetType.Barricade:
+				case TargetType.CursedShrine:
 					CurrentState = Bot.Targeting.Cache.CurrentTarget.Interact();
 					break;
 				case TargetType.AvoidanceMovements:
@@ -595,7 +595,6 @@ namespace FunkyBot.Targeting
 					//{
 					Logger.DBLog.InfoFormat("Ending LOS Movement from Interaction");
 					Navigation.NP.Clear();
-					Bot.NavigationCache.LOSVector = Vector3.Zero;
 					Bot.NavigationCache.LOSmovementObject = null;
 					//}
 					CurrentState = RunStatus.Running;

@@ -7,18 +7,38 @@ using Zeta.Common;
 
 namespace FunkyBot.Cache.Objects
 {
-	public class CacheLineOfSight : CacheObject
+	public class CacheLineOfSight
 	{
-		public CacheLineOfSight(int sno, int raguid, int acdguid, Vector3 position, string Name = null) : base(sno, raguid, acdguid, position, Name)
+		public CacheObject OrginCacheObject { get; set; }
+		public readonly int OrginCacheObjectRAGUID;
+		public bool CacheContainsOrginObject()
 		{
+			return ObjectCache.Objects.ContainsKey(OrginCacheObjectRAGUID);
+		}
+		public void UpdateOrginObject()
+		{
+			if (CacheContainsOrginObject())
+			{
+				OrginCacheObject = ObjectCache.Objects[OrginCacheObjectRAGUID];
+				Position = OrginCacheObject.Position;
+			}
 		}
 
-		public CacheLineOfSight(Vector3 thisposition, TargetType thisobjecttype = TargetType.None, double thisweight = 0, string name = null, float thisradius = 0, int thisractorguid = -1, int thissno = 0) : base(thisposition, thisobjecttype, thisweight, name, thisradius, thisractorguid, thissno)
+		public Vector3 Position { get; set; }
+		public float CentreDistance
 		{
+			get
+			{
+				return Bot.Character.Data.Position.Distance(Position);
+			}
 		}
 
-		public CacheLineOfSight(CacheObject parent) : base(parent)
+		public CacheLineOfSight(CacheObject obj, Vector3 pos)
 		{
+			OrginCacheObject = obj;
+			OrginCacheObjectRAGUID=obj.RAGUID;
+			Position = pos;
 		}
+
 	}
 }

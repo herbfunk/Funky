@@ -73,7 +73,8 @@ namespace FunkyBot
 			{
 				Content = "Enable Line of Sight Behavior",
 				Height = 30,
-				IsChecked = (Bot.Settings.LOSMovement.EnableLOSMovementBehavior)
+				IsChecked = (Bot.Settings.LOSMovement.EnableLOSMovementBehavior),
+				IsEnabled = false,
 			};
 			cbLOSEnableBehavior.Checked += LineOfSightBehaviorChecked;
 			cbLOSEnableBehavior.Unchecked += LineOfSightBehaviorChecked;

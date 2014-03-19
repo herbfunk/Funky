@@ -224,9 +224,9 @@ namespace FunkyBot.Player
 						if (item.BalanceData.iThisItemLevel == 63 && Bot.Settings.Loot.PickupDemonicEssence)
 							return true;
 
-						return item.BalanceData.iThisItemLevel < Bot.Settings.Loot.MiscItemLevel;
+						return Bot.Settings.Loot.PickupCraftMaterials;
 					}
-					if (thisGilesItemType == GilesItemType.CraftTome && (item.BalanceData.iThisItemLevel < Bot.Settings.Loot.MiscItemLevel || !Bot.Settings.Loot.PickupCraftTomes))
+					if (thisGilesItemType == GilesItemType.CraftTome && !Bot.Settings.Loot.PickupCraftTomes)
 					{
 						return false;
 					}

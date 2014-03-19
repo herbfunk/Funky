@@ -15,14 +15,14 @@
 
         public SettingLOSMovement()
         {
-            EnableLOSMovementBehavior = false;
+            EnableLOSMovementBehavior = true;
             AllowTreasureGoblin = true;
             AllowRareElites = true;
             AllowUniqueBoss = true;
-            AllowRanged = true;
+            AllowRanged = false;
             AllowRareLootContainer = true;
-            AllowSucideBomber = true;
-            AllowSpawnerUnits = true;
+			AllowSucideBomber = false;
+			AllowSpawnerUnits = false;
 			MaximumRange = 500;
         }
     }

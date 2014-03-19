@@ -96,6 +96,8 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.MonsterReflectDamage;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Electrified))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.MonsterElectrified;
+				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Normal))
+					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.MonsterNormal;
 			}
 
 			//FALSE CONDITIONS
@@ -143,6 +145,8 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 					Criteria += () => !Bot.Targeting.Cache.CurrentUnitTarget.MonsterReflectDamage;
 				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Electrified))
 					Criteria += () => !Bot.Targeting.Cache.CurrentUnitTarget.MonsterElectrified;
+				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Normal))
+					Criteria += () => !Bot.Targeting.Cache.CurrentUnitTarget.MonsterNormal;
 			}
 		}
 	}

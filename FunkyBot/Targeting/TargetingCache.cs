@@ -389,6 +389,10 @@ namespace FunkyBot.Targeting
 		internal DateTime lastHadEliteUnitInSights { get; set; }
 		//Last time we had a container, for loot-waiting
 		internal DateTime lastHadContainerAsTarget { get; set; }
+		//Cursed Shrine Used but still valid
+		internal DateTime lastSeenCursedShrine { get; set; }
+		//Update QuestMonster property on units
+		internal bool UpdateQuestMonsterProperty { get; set; }
 		//When we last saw a "rare" chest
 		internal DateTime lastHadRareChestAsTarget { get; set; }
 		// Store the date-time when we *FIRST* picked this target, so we can blacklist after X period of time targeting

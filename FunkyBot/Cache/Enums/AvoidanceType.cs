@@ -46,6 +46,9 @@ namespace FunkyBot.Cache.Enums
 		  [XmlEnum(Name="MageFirePool")]
 		  MageFirePool,
 
+		  [XmlEnum(Name = "MeteorImpact")]
+		  MeteorImpact,
+
 		  [XmlEnum(Name="MoltenCore")]
 		  MoltenCore,
 

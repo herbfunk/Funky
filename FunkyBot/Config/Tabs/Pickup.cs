@@ -65,6 +65,10 @@ namespace FunkyBot
 		{
 			Bot.Settings.Loot.PickupCraftTomes = !Bot.Settings.Loot.PickupCraftTomes;
 		}
+		private void PickupCraftMaterialsChecked(object sender, EventArgs e)
+		{
+			Bot.Settings.Loot.PickupCraftMaterials = !Bot.Settings.Loot.PickupCraftMaterials;
+		}
 		private void PickupCraftPlansChecked(object sender, EventArgs e)
 		{
 			Bot.Settings.Loot.PickupCraftPlans = !Bot.Settings.Loot.PickupCraftPlans;
@@ -922,8 +926,21 @@ namespace FunkyBot
 
 			StackPanel spMiscItemPickupOptions = new StackPanel
 			{
-				Orientation = Orientation.Horizontal,
+				Orientation = Orientation.Vertical,
 			};
+			#region PickupCraftMaterials
+			CheckBox cbPickupCraftMaterials = new CheckBox
+			{
+				Content = "Pickup Craft Materials",
+				Height = 20,
+				IsChecked = (Bot.Settings.Loot.PickupCraftMaterials),
+				HorizontalAlignment = HorizontalAlignment.Left,
+				Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right + 5, Margin.Bottom),
+			};
+			cbPickupCraftMaterials.Checked += PickupCraftMaterialsChecked;
+			cbPickupCraftMaterials.Unchecked += PickupCraftMaterialsChecked;
+			spMiscItemPickupOptions.Children.Add(cbPickupCraftMaterials);
+			#endregion
 			#region PickupCraftTomes
 			CheckBox cbPickupCraftTomes = new CheckBox
 			{
@@ -943,7 +960,7 @@ namespace FunkyBot
 				Content = "Pickup Follower Items",
 				Height = 20,
 				IsChecked = (Bot.Settings.Loot.PickupFollowerItems),
-				HorizontalAlignment = HorizontalAlignment.Right,
+				HorizontalAlignment = HorizontalAlignment.Left,
 				Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right + 5, Margin.Bottom),
 			};
 			cbPickupFollowerItems.Checked += PickupFollowerItemsChecked;
@@ -956,7 +973,7 @@ namespace FunkyBot
 				Content = "Pickup Inferno Keys",
 				Height = 20,
 				IsChecked = (Bot.Settings.Loot.PickupInfernalKeys),
-				HorizontalAlignment = HorizontalAlignment.Right,
+				HorizontalAlignment = HorizontalAlignment.Left,
 				Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right + 5, Margin.Bottom),
 			};
 			cbPickupInfernalKeys.Checked += PickupInfernalKeysChecked;
@@ -969,7 +986,7 @@ namespace FunkyBot
 				Content = "Pickup Demonic Essences",
 				Height = 20,
 				IsChecked = (Bot.Settings.Loot.PickupDemonicEssence),
-				HorizontalAlignment = HorizontalAlignment.Right,
+				HorizontalAlignment = HorizontalAlignment.Left,
 				Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right + 5, Margin.Bottom),
 			};
 			cbPickupDemonicEssence.Checked += PickupDemonicEssenceChecked;

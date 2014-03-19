@@ -216,6 +216,9 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
                 if (unit.MonsterElectrified)
                     properties |= TargetProperties.Electrified;
 
+			    if (unit.MonsterNormal)
+					properties |= TargetProperties.Normal;
+
 				return properties;
 		  }
 

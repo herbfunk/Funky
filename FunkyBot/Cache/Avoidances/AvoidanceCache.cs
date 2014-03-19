@@ -25,10 +25,11 @@ namespace FunkyBot.Cache
 			  new AvoidanceValue(AvoidanceType.DiabloMetor, 0.80, 28,5),
 			  new AvoidanceValue(AvoidanceType.DiabloPrison, 1, 15,5),
 			  new AvoidanceValue(AvoidanceType.Frozen, 1, 20,10),
-			  new AvoidanceValue(AvoidanceType.FrozenPulse, 1, 5,10),
+			  new AvoidanceValue(AvoidanceType.FrozenPulse, 0.75, 9,10),
 			  new AvoidanceValue(AvoidanceType.GrotesqueExplosion, 0.50, 20,5),
 			  new AvoidanceValue(AvoidanceType.LacuniBomb, 0.25, 2,5),
 			  new AvoidanceValue(AvoidanceType.MageFirePool, 1, 10,5),
+			  new AvoidanceValue(AvoidanceType.MeteorImpact, 1, 10,5),
 			  new AvoidanceValue(AvoidanceType.MoltenCore, 1, 20,5),
 			  new AvoidanceValue(AvoidanceType.MoltenTrail, 0.75, 6,5),
 			  new AvoidanceValue(AvoidanceType.OrbitFocalPoint, 0.75, 8,5),
@@ -38,7 +39,7 @@ namespace FunkyBot.Cache
 			  new AvoidanceValue(AvoidanceType.PoisonGas, 0.5, 9,5),
 			  new AvoidanceValue(AvoidanceType.ShamanFireBall, 0.1, 2,5), 
 			  new AvoidanceValue(AvoidanceType.SuccubusProjectile, 0.25, 2,5),
-			  new AvoidanceValue(AvoidanceType.Thunderstorm, 1, 5,10),
+			  new AvoidanceValue(AvoidanceType.Thunderstorm, 1, 9,10),
 			  new AvoidanceValue(AvoidanceType.TreeSpore, 1, 14,10),
 			  //new AvoidanceValue(AvoidanceType.WallOfFire, 0, 0, 0),
 			  //?? value never makes it when deseralized, but is seralized.
@@ -62,6 +63,8 @@ namespace FunkyBot.Cache
 				  349774,
 				  //Thunderstorm
 				  341512,
+				  //Meteor Impact
+				  185366,
 			  };
 
 		// A list of SNO's that are projectiles (so constantly look for new locations while avoiding)
@@ -160,6 +163,8 @@ namespace FunkyBot.Cache
 					return AvoidanceType.FrozenPulse;
 				case 341512:
 					return AvoidanceType.Thunderstorm;
+				case 185366:
+					return AvoidanceType.MeteorImpact;
 			}
 			return AvoidanceType.None;
 		}

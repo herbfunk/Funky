@@ -44,6 +44,11 @@ namespace FunkyBot.Cache.Objects
 						return Bot.Settings.Ranges.ContainerOpenRange;
 				}
 
+				if (targetType.Value == TargetType.CursedShrine)
+				{
+					return 150d;
+				}
+
 				return Bot.Targeting.Cache.iCurrentMaxLootRadius;
 			}
 		}
@@ -124,12 +129,10 @@ namespace FunkyBot.Cache.Objects
 
 				if (GizmoHasBeenUsed.HasValue && GizmoHasBeenUsed.Value == true)
 				{
-					//if (!HandleAsAvoidanceObject)
-					//{
-					//	Logger.Write(LogLevel.Cache, "Removing interactable {0} due to positive HasBeenUsed value", InternalName);
-					//	NeedsRemoved = true;
-					//	BlacklistFlag = BlacklistType.Permanent;
-					//}
+					if (targetType.Value == TargetType.CursedShrine)
+					{
+						Bot.Targeting.Cache.lastSeenCursedShrine=DateTime.Now;
+					}
 					return false;
 				}
 
@@ -340,6 +343,9 @@ namespace FunkyBot.Cache.Objects
 						if (IsResplendantChest)
 							Weight += 1500;
 
+						break;
+					case TargetType.CursedShrine:
+						Weight = 11000d - (Math.Floor(centreDistance) * 190d);
 						break;
 				}
 			}

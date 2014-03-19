@@ -86,7 +86,6 @@ namespace FunkyBot.DBHandlers
 				{
 					bPreStashPauseDone = false;
 					Bot.NavigationCache.LOSmovementObject = null;
-					Bot.NavigationCache.LOSVector = Vector3.Zero;
 					return TownPortalBehavior.SafetyCheckForTownRun();
 				}
 			}

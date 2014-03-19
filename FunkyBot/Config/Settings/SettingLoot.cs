@@ -38,6 +38,7 @@ namespace FunkyBot.Settings
 		public bool PickupFollowerItems { get; set; }
 		public bool PickupInfernalKeys { get; set; }
 		public bool PickupDemonicEssence { get; set; }
+		public bool PickupCraftMaterials { get; set; }
 		public int MiscItemLevel { get; set; }
 
 		public SettingLoot()
@@ -67,6 +68,7 @@ namespace FunkyBot.Settings
 			PickupInfernalKeys=true;
 			PickupDemonicEssence=true;
 			PickupFollowerItems=true;
+			PickupCraftMaterials=true;
 			MiscItemLevel=59;
 			MinimumGemItemLevel=60;
 			PickupGems=new bool[] { true, true, false, false, true };

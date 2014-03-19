@@ -19,7 +19,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 
 				UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 6);
 			    ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 3);
-				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 15);
+				SingleUnitCondition=new UnitTargetConditions(TargetProperties.None, 15, falseConditionalFlags: TargetProperties.Normal); //any non-normal unit!
 
 
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial||Bot.Character.Data.dCurrentEnergy>=Bot.Character.Class.iWaitingReservedAmount;

@@ -103,6 +103,7 @@ namespace FunkyBot.Cache.Objects
 				MonsterTeleport = theseaffixes.HasFlag(MonsterAffixes.Teleporter);
 				MonsterElectrified = theseaffixes.HasFlag(MonsterAffixes.Electrified);
 				MonsterFast = theseaffixes.HasFlag(MonsterAffixes.Fast);
+				MonsterNormal = false;
 			}
 			else
 			{
@@ -115,6 +116,7 @@ namespace FunkyBot.Cache.Objects
 				MonsterReflectDamage = false;
 				MonsterTeleport = false;
 				MonsterElectrified = false;
+				MonsterNormal = !IsBoss && !IsTreasureGoblin;
 			}
 
 			CheckedMonsterAffixes_ = true;
@@ -123,7 +125,7 @@ namespace FunkyBot.Cache.Objects
 		public bool MonsterUnique { get; set; }
 		public bool MonsterElite { get; set; }
 		public bool MonsterMinion { get; set; }
-
+		public bool MonsterNormal { get; set; }
 
 		public bool MonsterShielding { get; set; }
 		public bool MonsterMissileDampening { get; set; }
@@ -187,7 +189,7 @@ namespace FunkyBot.Cache.Objects
 
 			}
 		}
-
+		public bool QuestMonster { get; set; }
 		public bool? IsTargetable { get; set; }
 		public bool? IsAttackable { get; set; }
 		public bool IsTargetableAndAttackable
@@ -275,6 +277,7 @@ namespace FunkyBot.Cache.Objects
 			get
 			{
 				return
+					 (QuestMonster) ||
 					 (IsSucideBomber && Bot.Settings.Targeting.UnitExceptionSucideBombers) ||
 					 (IsTreasureGoblin && Bot.Settings.Ranges.TreasureGoblinRange > 1) ||
 					 (IsRanged && Bot.Settings.Targeting.UnitExceptionRangedUnits) ||
@@ -1360,6 +1363,19 @@ namespace FunkyBot.Cache.Objects
 				catch (Exception)
 				{
 					AnimState = AnimationState.Invalid;
+				}
+			}
+
+			//Update Quest Monster?
+			if (Bot.Targeting.Cache.UpdateQuestMonsterProperty)
+			{
+				try
+				{
+					QuestMonster = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.QuestMonster) != 0;
+				}
+				catch (Exception)
+				{
+					QuestMonster = false;
 				}
 			}
 

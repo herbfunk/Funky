@@ -144,6 +144,7 @@ namespace FunkyBot
 			{
 				Focusable = false,
 			};
+			#region General Targeting Options
 
 			StackPanel Targeting_General_Options_Stackpanel = new StackPanel
 			{
@@ -229,7 +230,7 @@ namespace FunkyBot
 			ComboBox CBGoblinPriority = new ComboBox
 			{
 				Height = 25,
-				Width = 300,
+				Width = 150,
 				ItemsSource = new GoblinPriority(),
 				SelectedIndex = Bot.Settings.Targeting.GoblinPriority,
 				Margin = new Thickness(4),
@@ -242,7 +243,8 @@ namespace FunkyBot
 			Targeting_General_Options_Stackpanel.Children.Add(cbIgnoreElites);
 			Targeting_General_Options_Stackpanel.Children.Add(cbIgnoreCorpses);
 			Targeting_General_Options_Stackpanel.Children.Add(UseExtendedRangeRepChestCB);
-			Targeting_General_Options_Stackpanel.Children.Add(GoblinPriority_StackPanel);
+			Targeting_General_Options_Stackpanel.Children.Add(GoblinPriority_StackPanel); 
+			#endregion
 			Target_General_ContentListBox.Items.Add(Targeting_General_Options_Stackpanel);
 
 

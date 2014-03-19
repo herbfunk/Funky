@@ -26,10 +26,9 @@ namespace FunkyBot.Player.HotBar.Skills
 			TargetableAndAttackable=16384,
 			Fast=32768,
 			DOTDPS=65536,
-		   CloseDistance=131072,
-		  
+		    CloseDistance=131072,
 			ReflectsDamage=262144,
             Electrified = 524288,
-
+		    Normal = 1048576,
 	 }
 }

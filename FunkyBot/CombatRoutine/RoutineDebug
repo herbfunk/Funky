@@ -204,21 +204,21 @@ namespace GilesBlankCombatRoutine
 		}
 		static void lblDebug_OpenFunkyLog(object sender, EventArgs e)
 		{
-			//string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+			string sDemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-			//FileInfo demonbuddyLogFolder = new FileInfo(Logging.LogFilePath);
-			//if (!demonbuddyLogFolder.Directory.GetFiles().Any())
-			//	return;
+			FileInfo demonbuddyLogFolder = new FileInfo(sDemonBuddyPath + @"\Logs\");
+			if (demonbuddyLogFolder.Directory != null && !demonbuddyLogFolder.Directory.GetFiles().Any())
+				return;
 
-			//var newestfile = demonbuddyLogFolder.Directory.GetFiles().Where(f => f.Name.Contains("FunkyLog")).OrderByDescending(file => file.LastWriteTime).First();
-			//try
-			//{
-			//	Process.Start(newestfile.FullName);
-			//}
-			//catch (Exception)
-			//{
+			var newestfile = demonbuddyLogFolder.Directory.GetFiles().Where(f => f.Name.Contains("FunkyLog")).OrderByDescending(file => file.LastWriteTime).First();
+			try
+			{
+				Process.Start(newestfile.FullName);
+			}
+			catch (Exception)
+			{
 
-			//}
+			}
 		}
 
 		static void lblDebug_OpenTrinityFolder(object sender, EventArgs e)

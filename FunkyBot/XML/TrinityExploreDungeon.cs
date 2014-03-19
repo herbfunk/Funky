@@ -1120,6 +1120,23 @@ namespace FunkyBot.XMLTags
 			}
 		}
 
+		private bool CheckNodeInMiniMap(Vector3 position)
+		{
+			bool returnValue = false;
+			try
+			{
+				if (ZetaDia.Minimap.IsValid)
+				{
+					returnValue = ZetaDia.Minimap.IsExplored(position, iWorldID);
+				}
+			}
+			catch (Exception)
+			{
+
+			}
+			return returnValue;
+		}
+
 		/// <summary>
 		/// Prints a plethora of useful information about the Dungeon Exploration process
 		/// </summary>
