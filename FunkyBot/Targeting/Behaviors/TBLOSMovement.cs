@@ -88,7 +88,8 @@ namespace FunkyBot.Targeting.Behaviors
 
 						//Generate the path here so we can start moving..
 						//if (Navigation.NP.CurrentPath.Count == 0)
-						Navigation.NP.Clear();
+						//Logger.DBLog.Info("Nav Provider Cleared and Updated.");
+						//Navigation.NP.Clear();
 						Navigation.NP.MoveTo(Bot.NavigationCache.LOSVector, "01 LOS:" + Bot.NavigationCache.LOSmovementObject.InternalName, true);
 
 						if (Navigation.NP.CurrentPath.Count > 0)

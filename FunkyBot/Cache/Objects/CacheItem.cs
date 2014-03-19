@@ -313,10 +313,10 @@ namespace FunkyBot.Cache.Objects
 					//Check if we require LOS
 					if (RequiresLOSCheck)
 					{
-						if (!LineOfSight.LOSTest(Bot.Character.Data.Position, true, true, NavCellFlags.AllowWalk))
+						if (!LineOfSight.LOSTest(Bot.Character.Data.Position, true, false))
 						{
 							//AllowWalk failure does not mean we should ignore it!
-							if (LineOfSight.RayCast.HasValue && !LineOfSight.RayCast.Value || LineOfSight.ObjectIntersection.HasValue && LineOfSight.ObjectIntersection.Value)
+							//if (LineOfSight.RayCast.HasValue && !LineOfSight.RayCast.Value)
 								return false;
 						}
 

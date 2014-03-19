@@ -114,8 +114,8 @@ namespace FunkyBot.Player
 
 				Bot.Character.Data.UpdateCoinage = true;
 
-				Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
-				Navigator.SearchGridProvider.Update();
+				//Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
+				//Navigator.SearchGridProvider.Update();
 
 				LastLevelIDChangeWasTownRun = false;
 			}

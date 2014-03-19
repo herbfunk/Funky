@@ -237,7 +237,7 @@ namespace FunkyBot.Targeting
 								}
 								else if (obj.targetType.Value == TargetType.Item)
 								{
-									obj.BlacklistLoops = 1;
+									obj.BlacklistLoops = 10;
 									Bot.Targeting.Cache.bForceTargetUpdate = true;
 								}
 							}

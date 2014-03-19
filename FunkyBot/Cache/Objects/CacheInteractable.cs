@@ -124,12 +124,12 @@ namespace FunkyBot.Cache.Objects
 
 				if (GizmoHasBeenUsed.HasValue && GizmoHasBeenUsed.Value == true)
 				{
-					if (!HandleAsAvoidanceObject)
-					{
-						Logger.Write(LogLevel.Cache, "Removing interactable {0} due to positive HasBeenUsed value", InternalName);
-						NeedsRemoved = true;
-						BlacklistFlag = BlacklistType.Permanent;
-					}
+					//if (!HandleAsAvoidanceObject)
+					//{
+					//	Logger.Write(LogLevel.Cache, "Removing interactable {0} due to positive HasBeenUsed value", InternalName);
+					//	NeedsRemoved = true;
+					//	BlacklistFlag = BlacklistType.Permanent;
+					//}
 					return false;
 				}
 

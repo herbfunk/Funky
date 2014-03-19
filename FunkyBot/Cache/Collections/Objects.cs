@@ -71,8 +71,8 @@ namespace FunkyBot.Cache.Collections
 
 		public void Remove(int key)
 		{
-			if (Bot.NavigationCache.LOSmovementObject != null && Bot.NavigationCache.LOSmovementObject.RAGUID.Equals(key))
-				Bot.NavigationCache.LOSmovementObject = null;
+			//if (Bot.NavigationCache.LOSmovementObject != null && Bot.NavigationCache.LOSmovementObject.RAGUID.Equals(key))
+			//	Bot.NavigationCache.LOSmovementObject = null;
 
 			objects.Remove(key);
 		}

@@ -111,13 +111,13 @@ namespace FunkyBot.Cache.Objects
 					
 					if (base.Gizmotype.Value == GizmoType.PowerUp)
 					{
-						this.HandleAsAvoidanceObject = true;
+						//this.HandleAsAvoidanceObject = true;
 						GizmoShrine gizmoShrine = this.ref_Gizmo as GizmoShrine;
 						this.GizmoHasBeenUsed = gizmoShrine.GizmoState == 1;
 					}
 					else if (base.Gizmotype.Value == GizmoType.HealingWell)
 					{
-						this.HandleAsAvoidanceObject = true;
+						//this.HandleAsAvoidanceObject = true;
 						GizmoHealthwell gizmoHealthWell = this.ref_Gizmo as GizmoHealthwell;
 						this.GizmoHasBeenUsed = gizmoHealthWell.HasBeenOperated;
 					}
@@ -125,12 +125,12 @@ namespace FunkyBot.Cache.Objects
 					{
 						GizmoDoor gizmoDoor = this.ref_Gizmo as GizmoDoor;
 						this.GizmoHasBeenUsed = gizmoDoor.HasBeenOperated;
-						this.HandleAsAvoidanceObject = true;
+						//this.HandleAsAvoidanceObject = true;
 					}
 					else if (base.Gizmotype.Value == GizmoType.Chest)
 					{
 						//if (this.IsChestContainer)
-						this.HandleAsAvoidanceObject = true;
+						//this.HandleAsAvoidanceObject = true;
 
 						GizmoLootContainer gizmoContainer = this.ref_Gizmo as GizmoLootContainer;
 						this.GizmoHasBeenUsed = gizmoContainer.IsOpen;
@@ -158,8 +158,7 @@ namespace FunkyBot.Cache.Objects
 			}
 
 			//only shrines and "chests" would have set this value true.. so if no value than we set it false!
-			if (this.HandleAsAvoidanceObject)
-				base.Obstacletype = ObstacleType.ServerObject;
+			//if (this.HandleAsAvoidanceObject) base.Obstacletype = ObstacleType.ServerObject;
 
 			//PhysicsSNO -- (continiously updated) excluding shrines/interactables
 			//if (ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Destructible | TargetType.Barricade | TargetType.Container))

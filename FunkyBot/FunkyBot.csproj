@@ -66,6 +66,7 @@
     <Compile Include="Cache\CacheUnitIDs.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Cache\Objects\CacheLineOfSight.cs" />
     <Compile Include="Cache\SNOProperties.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
