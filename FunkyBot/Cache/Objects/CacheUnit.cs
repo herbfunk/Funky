@@ -748,6 +748,21 @@ namespace FunkyBot.Cache.Objects
 						if (Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker) && (IsEliteRareUnique || IsTreasureGoblin || IsBoss))
 							Weight += 2000;
 
+						// Exploding Palm Bleeding Prioritize
+						if (Bot.Character.Class.AC == ActorClass.Monk 
+							&& Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_ExplodingPalm))
+						{
+							if (HasDOTdps.HasValue && HasDOTdps.Value) //Exploding Palm -- Bleeding Already!
+							{
+								Weight += 500;
+							}
+							else if(CurrentHealthPct<0.15d) //Exploding Palm -- Low HP, Not Bleeding!
+							{
+								Weight += 1000;
+							}
+						}
+														
+
 
 						// Swarmers/boss-likes get more weight
 						if (Monstersize == MonsterSize.Swarm || Monstersize == MonsterSize.Boss)
@@ -1269,6 +1284,28 @@ namespace FunkyBot.Cache.Objects
 					try
 					{
 						HasDOTdps = (ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.Bleeding) > 0 && ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.DOTDPS) > 0);
+					}
+					catch
+					{
+					}
+				}
+			}
+			else if (Bot.Character.Class.AC == ActorClass.Monk)
+			{
+				//1195139072
+				if (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_ExplodingPalm))
+				{
+					Bot.Targeting.Cache.Environment.UsesDOTDPSAbility = true;
+					try
+					{
+						int dotDPS = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.DOTDPS);
+						int visualBuff = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.Bleeding);
+						HasDOTdps = (dotDPS > 0 && visualBuff > 0);
+
+						//DotDPS values
+						//dotDPS==1195139072
+						//1215532915 || 1215532915
+
 					}
 					catch
 					{

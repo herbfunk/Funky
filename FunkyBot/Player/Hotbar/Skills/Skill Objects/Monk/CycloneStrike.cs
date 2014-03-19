@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyBot.Movement.Clustering;
 using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Game.Internals.Actors;
 
@@ -8,22 +9,33 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 	 {
 		 public override void Initialize()
 		  {
-				Cooldown=10000;
+				Cooldown=1000;
 				ExecutionType=AbilityExecuteFlags.Buff;
 				UseageType=AbilityUseage.Combat;
 				WaitVars=new WaitLoops(2, 2, true);
 				Cost=50;
-				Priority=AbilityPriority.Medium;
+				Priority=AbilityPriority.High;
 
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|
 				                          AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckPlayerIncapacitated));
 
-				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 2);
-				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 1);
-				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 18);
+				//UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 4);
+				//ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 3);
+				SingleUnitCondition=new UnitTargetConditions(TargetProperties.Fast|TargetProperties.IsSpecial, 23);
+				ClusterConditions = new SkillClusterConditions(8d, 20f, 4, false, 0, ClusterProperties.Large, 10f, false);
+				FcriteriaCombat = () =>
+				{
+					if (LastConditionPassed == ConditionCriteraTypes.SingleTarget) return true; //special and fast..
+					if (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_ExplodingPalm)) return true; //Non Exploding Palm Check
 
+					if ((Bot.Targeting.Cache.CurrentUnitTarget.HasDOTdps.HasValue && Bot.Targeting.Cache.CurrentUnitTarget.HasDOTdps.Value)
+						&& Bot.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct<0.10d)
+					{
+						return true;
+					}
 
-				FcriteriaCombat=() => (!Bot.Character.Class.bWaitingForSpecial||Bot.Character.Data.dCurrentEnergy>=Bot.Character.Class.iWaitingReservedAmount);
+					return false;
+				};
 		  }
 
 		  #region IAbility

@@ -36,6 +36,11 @@ namespace FunkyBot.Player.Class
 				int TotalAbilities = HotBar.HotbarPowers.Count(power => SpiritGeneratingAbilities.Contains(power));
 				Bot.Settings.Class.iMonkComboStrikeAbilities = TotalAbilities;
 			}
+			else
+			{
+				Bot.Settings.Class.bMonkComboStrike = false;
+				Bot.Settings.Class.iMonkComboStrikeAbilities = 0;
+			}
 
 			Logger.DBLog.DebugFormat("[Funky] Using Monk Player Class");
 

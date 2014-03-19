@@ -16,7 +16,9 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				Priority=AbilityPriority.Medium;
 				UseageType=AbilityUseage.Combat;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated));
-				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
+
+				UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 6);
+			    ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 3);
 				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 15);
 
 
