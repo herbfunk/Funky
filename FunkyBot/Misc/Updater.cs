@@ -12,6 +12,27 @@ namespace FunkyBot.Misc
 	{
 		private static readonly string GitHubUrl = "https://raw.github.com/herbfunk/Funky/master/";
 		private static readonly string GitHubProjectUrl = "https://raw.github.com/herbfunk/Funky/master/FunkyBot/FunkyBot.csproj";
+		private static readonly string GitHubChecksumUrl = "https://raw.githubusercontent.com/herbfunk/Funky/master/FunkyBot/checksum.xml";
+
+		internal static bool UpdateAvailable()
+		{
+			Dictionary<string, string> GithubChecksumDict = GenerateDictionaryFromChecksumXML(GitHubChecksumUrl);
+			Dictionary<string, string> LocalChecksumDict = GenerateDictionaryFromChecksumXML(FolderPaths.sTrinityPluginPath + @"\checksum.xml");
+
+			List<string> FilesNeededUpdated = new List<string>();
+			foreach (var f in LocalChecksumDict)
+			{
+				if (f.Key.Contains("checksum")) continue;
+
+				if (GithubChecksumDict[f.Key] != f.Value)
+				{
+					FilesNeededUpdated.Add(f.Key);
+				}
+			}
+
+			Logger.DBLog.Info("Files Needed Updated: " + FilesNeededUpdated.Count);
+			return false;
+		}
 
 		//This returns all Files that are included in the plugin folder from GitHub.
 		internal static List<string> ReturnGitHubContentFiles()
@@ -61,25 +82,74 @@ namespace FunkyBot.Misc
 
 			return returnValues;
 		}
-
-		internal static bool Test(string file)
+		internal static Dictionary<string, string> ReturnGitHubChecksumDictionary()
 		{
-			string localFileString = ReadFileContent(System.IO.File.OpenRead(FolderPaths.sTrinityPluginPath + file));
-			WebClient client = new WebClient();
-			string gitHubFileString=ReadFileContent(client.OpenRead(GitHubUrl + file));
-			bool result = String.Equals(localFileString, gitHubFileString, StringComparison.Ordinal);
-			return result;
-		}
+			Dictionary<string, string> returnValues = new Dictionary<string, string>();
 
-		private static String ReadFileContent(Stream S)
-		{
-			if (S != null)
+			try
 			{
-				StreamReader reader = new StreamReader(S);
-				return reader.ReadToEnd();
+				using (XmlTextReader reader = new XmlTextReader(GitHubProjectUrl))
+				{
+					// simply (and easily) skip the junk at the beginning
+					reader.MoveToContent();
+					//reader.ReadToDescendant("FileList");
+
+
+
+					while (reader.Read())
+					{
+						if ((reader.NodeType == XmlNodeType.Element) &&
+							  (reader.IsStartElement()) &&
+								reader.HasAttributes)
+						{
+							string fileName = reader.GetAttribute(0);
+							string fileHash = reader.GetAttribute(1);
+							returnValues.Add(fileName, fileHash);
+						}
+
+					}
+				}
+			}
+			catch (Exception)
+			{
+
 			}
 
-			return String.Empty;
+			return returnValues;
+		}
+
+		internal static Dictionary<string, string> GenerateDictionaryFromChecksumXML(string path)
+		{
+			Dictionary<string, string> returnValues = new Dictionary<string, string>();
+
+			try
+			{
+				using (XmlTextReader reader = new XmlTextReader(path))
+				{
+					// simply (and easily) skip the junk at the beginning
+					reader.MoveToContent();
+					//reader.ReadToDescendant("FileList");
+
+					while (reader.Read())
+					{
+						if ((reader.NodeType == XmlNodeType.Element) &&
+							  (reader.IsStartElement()) &&
+								reader.HasAttributes)
+						{
+							string fileName = reader.GetAttribute(0);
+							string fileHash = reader.GetAttribute(1);
+							returnValues.Add(fileName, fileHash);
+						}
+
+					}
+				}
+			}
+			catch (Exception)
+			{
+
+			}
+
+			return returnValues;
 		}
 
 		//private static List<File> ReturnPluginFiles 

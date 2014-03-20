@@ -5,6 +5,7 @@ using Demonbuddy;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
+using FunkyBot.Misc;
 using Zeta.Bot;
 using Zeta.Bot.Logic;
 using Zeta.Bot.Navigation;
@@ -180,6 +181,10 @@ namespace FunkyBot
 			Bot.Character.Account.UpdateCurrentAccountDetails();
 			Logger.DBLogFile = DateTime.Now.ToString("yyyy-MM-dd hh.mm") + ".txt";
 			Logger.Write(LogLevel.User, "Init Logger Completed!");
+
+			//Generate Checksum for Update Check
+			Process.Start(FolderPaths.sTrinityPluginPath + @"\CheckSum.exe");
+			Updater.UpdateAvailable();
 		}
 
 		public void OnPulse()
