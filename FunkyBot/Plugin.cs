@@ -184,7 +184,14 @@ namespace FunkyBot
 
 			//Generate Checksum for Update Check
 			Process.Start(FolderPaths.sTrinityPluginPath + @"\CheckSum.exe");
-			Updater.UpdateAvailable();
+			if (Updater.UpdateAvailable())
+			{
+				string dbPathString = Assembly.GetEntryAssembly().Location;
+				string dbExePath = Path.GetFullPath(dbPathString);
+				Process.GetCurrentProcess().CloseMainWindow();
+				Process.Start(dbExePath);
+				return;
+			}
 
 			//test
 		}

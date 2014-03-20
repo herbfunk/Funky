@@ -4,13 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Windows;
 using System.Xml;
 
 namespace FunkyBot.Misc
 {
 	internal static class Updater
 	{
-		private static readonly string GitHubUrl = "https://raw.github.com/herbfunk/Funky/master/";
+		private static readonly string GitHubUrl = "https://raw.github.com/herbfunk/Funky/master/FunkyBot";
 		private static readonly string GitHubProjectUrl = "https://raw.github.com/herbfunk/Funky/master/FunkyBot/FunkyBot.csproj";
 		private static readonly string GitHubChecksumUrl = "https://raw.githubusercontent.com/herbfunk/Funky/master/FunkyBot/checksum.xml";
 
@@ -31,6 +32,26 @@ namespace FunkyBot.Misc
 			}
 
 			Logger.DBLog.Info("Files Needed Updated: " + FilesNeededUpdated.Count);
+			if (FilesNeededUpdated.Count>0)
+			{
+				MessageBoxResult result=MessageBox.Show(Application.Current.MainWindow,"Funky Bot Update Available", "Do you wish to update Funky Bot now?", MessageBoxButton.YesNo);
+				if (result==MessageBoxResult.Yes)
+				{
+					foreach (var f in FilesNeededUpdated)
+					{
+						string FullPath = Path.GetFullPath(FolderPaths.sTrinityPluginPath + f);
+						// Create a new WebClient instance.
+						using (WebClient myWebClient = new WebClient())
+						{
+							myWebClient.DownloadFile(GitHubUrl + f.Replace("//", "/"), FullPath);
+						}
+					}
+
+					return true;
+				}
+			}
+
+			
 			return false;
 		}
 

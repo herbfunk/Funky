@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FileList>
-  <File Name="\checksum.xml" MD5="893c3badf9e3abbec593e14ca0f09fd5" />
-  <File Name="\Plugin.cs" MD5="b5f7af31048009d41cfb560ed77d6007" />
+  <File Name="\checksum.xml" MD5="8812dced790c23789bad536625202cb0" />
+  <File Name="\Plugin.cs" MD5="cfeacf6f27bed43fbe9d8e8ed9f7f8fe" />
   <File Name="\PluginControl.cs" MD5="96abcf7cc554e192b50c2ab2e4904bb1" />
   <File Name="\Treehooks.xml" MD5="5dd2b587418ae11860197b1045b08d8b" />
   <File Name="\Version.xml" MD5="52b625f778973c3e3f9fbe42917a2cab" />
@@ -136,7 +136,7 @@
   <File Name="\Misc\Logger.cs" MD5="032e225c88d4e9e72a4335626a1871a3" />
   <File Name="\Misc\Prowl.cs" MD5="4109e59d5e4397213e3b2e3455d2026d" />
   <File Name="\Misc\UpdateCheck.cs" MD5="35cc4f87b0f6c4ba91d32600b2790471" />
-  <File Name="\Misc\Updater.cs" MD5="139a1661590e4c7e6f3a81c3e22d5a7d" />
+  <File Name="\Misc\Updater.cs" MD5="12a0ea9955098d29bddbb619ce2a91e3" />
   <File Name="\Navigation\Navigation.cs" MD5="2bf9e9ff7a94aee63c203ea549cacc38" />
   <File Name="\Navigation\PlayerMover.cs" MD5="43a53c1f1206313fbf37f034b3eac3ff" />
   <File Name="\Navigation\Cache\Minimapmarkers.cs" MD5="3f0f53cf7d33fc4463aef9924aebb566" />
@@ -160,7 +160,7 @@
   <File Name="\obj\x86\Debug\DesignTimeResolveAssemblyReferencesInput.cache" MD5="8a59be126affee037950d4c0b1c53766" />
   <File Name="\obj\x86\Debug\FunkyBot.Config.SettingsForm.resources" MD5="cd7dbc7abeda9893ce25793744443958" />
   <File Name="\obj\x86\Debug\FunkyBot.csproj.GenerateResource.Cache" MD5="0ef3271eeda116a9a44914dedc0df12d" />
-  <File Name="\obj\x86\Debug\FunkyBot.pdb" MD5="a5b29a3c1b2641637bffb418e0b619df" />
+  <File Name="\obj\x86\Debug\FunkyBot.pdb" MD5="9f26fec99fc3795a1769b24c9723913e" />
   <File Name="\Player\Account.cs" MD5="fc83294de98c1519f79a628e1504d32c" />
   <File Name="\Player\Backpack.cs" MD5="6c96109be69af999fa32c93ba0197b33" />
   <File Name="\Player\Character.cs" MD5="26fdf2ea917db56384fe206335b33a5d" />
