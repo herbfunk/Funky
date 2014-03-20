@@ -1139,6 +1139,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assemblies\" />
+    <Folder Include="Bot\Test\" />
     <Folder Include="ItemRules\Log\Archive\" />
   </ItemGroup>
   <ItemGroup>

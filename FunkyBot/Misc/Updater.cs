@@ -21,6 +21,19 @@ namespace FunkyBot.Misc
 			Dictionary<string, string> LocalChecksumDict = GenerateDictionaryFromChecksumXML(FolderPaths.sTrinityPluginPath + @"\checksum.xml");
 
 			List<string> FilesNeededUpdated = new List<string>();
+
+			//GitHub Files (see if we are missing any!)
+			foreach (var f in GithubChecksumDict)
+			{
+				if (f.Key.Contains("checksum")) continue;
+
+				if (!LocalChecksumDict.ContainsKey(f.Key))
+				{
+					FilesNeededUpdated.Add(f.Key);
+				}
+			}
+
+			//Local Files
 			foreach (var f in LocalChecksumDict)
 			{
 				if (f.Key.Contains("checksum")) continue;
@@ -39,6 +52,12 @@ namespace FunkyBot.Misc
 				{
 					foreach (var f in FilesNeededUpdated)
 					{
+						string FullDirectoryPath = Path.GetFullPath(FolderPaths.sTrinityPluginPath + f.Substring(0, f.LastIndexOf(Convert.ToChar(@"\"))));
+						if (!Directory.Exists(FullDirectoryPath))
+						{
+							Directory.CreateDirectory(FullDirectoryPath);
+						}
+
 						string FullPath = Path.GetFullPath(FolderPaths.sTrinityPluginPath + f);
 						// Create a new WebClient instance.
 						using (WebClient myWebClient = new WebClient())
