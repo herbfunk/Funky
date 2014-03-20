@@ -24,7 +24,7 @@ namespace FunkyBot.Misc
 			{
 				if (f.Key.Contains("checksum")) continue;
 
-				if (GithubChecksumDict[f.Key] != f.Value)
+				if (GithubChecksumDict.ContainsKey(f.Key) && GithubChecksumDict[f.Key] != f.Value)
 				{
 					FilesNeededUpdated.Add(f.Key);
 				}

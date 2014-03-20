@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FileList>
-  <File Name="\checksum.xml" MD5="d457e4373fb7b5f83ec4274d578cf107" />
-  <File Name="\Plugin.cs" MD5="c9fc651f9517b6fdb5a92e28e840fdab" />
+  <File Name="\checksum.xml" MD5="893c3badf9e3abbec593e14ca0f09fd5" />
+  <File Name="\Plugin.cs" MD5="b5f7af31048009d41cfb560ed77d6007" />
   <File Name="\PluginControl.cs" MD5="96abcf7cc554e192b50c2ab2e4904bb1" />
   <File Name="\Treehooks.xml" MD5="5dd2b587418ae11860197b1045b08d8b" />
   <File Name="\Version.xml" MD5="52b625f778973c3e3f9fbe42917a2cab" />
@@ -99,18 +99,6 @@
   <File Name="\Config\Tabs\Ranges.cs" MD5="2ee26b5a15b1ff768b0d6054ee00c5dd" />
   <File Name="\Config\Tabs\Scoring.cs" MD5="981e2145c4cf4f05165068b69569d724" />
   <File Name="\Config\Tabs\Targeting.cs" MD5="00e2dc966c98e53a8ad543124e0a066c" />
-  <File Name="\ConsoleApplication1\App.config" MD5="0d242abaaac47f571a6abbcc03382c9e" />
-  <File Name="\ConsoleApplication1\Program.cs" MD5="db9b333d00a03fad92e6ee95e1f6a5f6" />
-  <File Name="\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config" MD5="0d242abaaac47f571a6abbcc03382c9e" />
-  <File Name="\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb" MD5="781644d7d3c82ff239ca24973848f6b7" />
-  <File Name="\ConsoleApplication1\bin\Debug\ConsoleApplication1.vshost.exe.config" MD5="0d242abaaac47f571a6abbcc03382c9e" />
-  <File Name="\ConsoleApplication1\bin\Debug\ConsoleApplication1.vshost.exe.manifest" MD5="a19a2658ba69030c6ac9d11fd7d7e3c1" />
-  <File Name="\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb" MD5="781644d7d3c82ff239ca24973848f6b7" />
-  <File Name="\ConsoleApplication1\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" MD5="c82bd3d36168c777f87183c6c85158b1" />
-  <File Name="\ConsoleApplication1\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" MD5="d41d8cd98f00b204e9800998ecf8427e" />
-  <File Name="\ConsoleApplication1\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" MD5="d41d8cd98f00b204e9800998ecf8427e" />
-  <File Name="\ConsoleApplication1\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" MD5="d41d8cd98f00b204e9800998ecf8427e" />
-  <File Name="\ConsoleApplication1\Properties\AssemblyInfo.cs" MD5="b6e46ef789ea1288d70e15e2c835cb06" />
   <File Name="\DBHandlers\ExitGame.cs" MD5="d90841d3dbd8d33bdb729af8a3e18512" />
   <File Name="\DBHandlers\GlobalOverlord.cs" MD5="27385c943841e6bb3313a3079336ddae" />
   <File Name="\DBHandlers\ItemIDOverlord.cs" MD5="80f48620c0b89259fa93d86e0453027a" />
@@ -148,7 +136,7 @@
   <File Name="\Misc\Logger.cs" MD5="032e225c88d4e9e72a4335626a1871a3" />
   <File Name="\Misc\Prowl.cs" MD5="4109e59d5e4397213e3b2e3455d2026d" />
   <File Name="\Misc\UpdateCheck.cs" MD5="35cc4f87b0f6c4ba91d32600b2790471" />
-  <File Name="\Misc\Updater.cs" MD5="a48533a3a212c53f2e67bad4ed337969" />
+  <File Name="\Misc\Updater.cs" MD5="139a1661590e4c7e6f3a81c3e22d5a7d" />
   <File Name="\Navigation\Navigation.cs" MD5="2bf9e9ff7a94aee63c203ea549cacc38" />
   <File Name="\Navigation\PlayerMover.cs" MD5="43a53c1f1206313fbf37f034b3eac3ff" />
   <File Name="\Navigation\Cache\Minimapmarkers.cs" MD5="3f0f53cf7d33fc4463aef9924aebb566" />
@@ -172,7 +160,7 @@
   <File Name="\obj\x86\Debug\DesignTimeResolveAssemblyReferencesInput.cache" MD5="8a59be126affee037950d4c0b1c53766" />
   <File Name="\obj\x86\Debug\FunkyBot.Config.SettingsForm.resources" MD5="cd7dbc7abeda9893ce25793744443958" />
   <File Name="\obj\x86\Debug\FunkyBot.csproj.GenerateResource.Cache" MD5="0ef3271eeda116a9a44914dedc0df12d" />
-  <File Name="\obj\x86\Debug\FunkyBot.pdb" MD5="393e4da2af164ac05897a3f9b60ab1a4" />
+  <File Name="\obj\x86\Debug\FunkyBot.pdb" MD5="a5b29a3c1b2641637bffb418e0b619df" />
   <File Name="\Player\Account.cs" MD5="fc83294de98c1519f79a628e1504d32c" />
   <File Name="\Player\Backpack.cs" MD5="6c96109be69af999fa32c93ba0197b33" />
   <File Name="\Player\Character.cs" MD5="26fdf2ea917db56384fe206335b33a5d" />

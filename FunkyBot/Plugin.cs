@@ -185,6 +185,8 @@ namespace FunkyBot
 			//Generate Checksum for Update Check
 			Process.Start(FolderPaths.sTrinityPluginPath + @"\CheckSum.exe");
 			Updater.UpdateAvailable();
+
+			//test
 		}
 
 		public void OnPulse()
