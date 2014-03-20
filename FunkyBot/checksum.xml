@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FileList>
+  <File Name="\CheckSum.exe" MD5="f35ced03452f849355329c7da1f48a5b" />
+  <File Name="\checksum.xml" MD5="7d79146a15a3993b96e3308cba17d651" />
+  <File Name="\FunkyBot.csproj" MD5="33530430fcf968ce4f214895dab295fb" />
+  <File Name="\FunkyBot.csproj.user" MD5="b3d7ae1e5744ccf536d027bd4f74e258" />
+  <File Name="\FunkyPlugin.sln" MD5="3739c00ee82b930e8fb33b9cf1465578" />
+  <File Name="\FunkyPlugin.v12.suo" MD5="8e639d74de503c0cba5f847013a7b296" />
+  <File Name="\Plugin.cs" MD5="d8e1cc72f8221dc4517fb1332f7824e0" />
+  <File Name="\PluginControl.cs" MD5="96abcf7cc554e192b50c2ab2e4904bb1" />
+  <File Name="\Treehooks.xml" MD5="5dd2b587418ae11860197b1045b08d8b" />
+  <File Name="\Version.xml" MD5="52b625f778973c3e3f9fbe42917a2cab" />
+  <File Name="\Assemblies\Demonbuddy.exe" MD5="dc1e632069bc3713b705d49ba92a677a" />
+  <File Name="\Assemblies\GreyMagic.dll" MD5="cd39e93e0b222548e608a5c23e3fc099" />
+  <File Name="\Bot\Bot.cs" MD5="f6ae44db109dbd733210310f9d3af14c" />
+  <File Name="\Cache\CacheIDLookup.cs" MD5="4b5feaf15709f17f3579ecd3531a1c0d" />
+  <File Name="\Cache\CacheUnitIDs.cs" MD5="e7bff8734c2a4b5ac716e2e4bf772544" />
+  <File Name="\Cache\ObjectCache.cs" MD5="02cd71728c92e696c8fe4ccaeb40c5d6" />
+  <File Name="\Cache\SNOProperties.cs" MD5="5670297897c25a501c635256200680ab" />
+  <File Name="\Cache\Avoidances\AvoidanceCache.cs" MD5="2468e64853c3706396a3d1e788bf632b" />
+  <File Name="\Cache\Avoidances\AvoidanceValue.cs" MD5="0c8e4242fbd238b0f2c9dcb00d1548ba" />
+  <File Name="\Cache\Blacklist\Blacklisting.cs" MD5="3e80cd3e3176c88e2f3f87bc11c212c5" />
+  <File Name="\Cache\Blacklist\BlacklistType.cs" MD5="a4b7e173e9551d38ed0514e6c7fb4a5a" />
+  <File Name="\Cache\Collections\Objects.cs" MD5="809b258afb2df58d19c3956095a6cbf0" />
+  <File Name="\Cache\Collections\Obstacles.cs" MD5="bde0b0f9af027bfcef298bec994c2691" />
+  <File Name="\Cache\Collections\SNO.cs" MD5="3beaaeb3a4220ba85f99e22faf01f7cf" />
+  <File Name="\Cache\Dictionaries\SNOId_Cache_Units.xml" MD5="fbe18a3aa16576b18642bb12d9eeb064" />
+  <File Name="\Cache\Enums\AvoidanceType.cs" MD5="75876d9d29ab0f8a6a3191026458b72f" />
+  <File Name="\Cache\Enums\GilesBaseItemType.cs" MD5="14265653a64aefc668c254d337e72ac6" />
+  <File Name="\Cache\Enums\GilesItemType.cs" MD5="a931287317280ce76eb70fe0c9d6f3b7" />
+  <File Name="\Cache\Enums\ObstacleType.cs" MD5="14c46939ad695f000694e129fab044a8" />
+  <File Name="\Cache\Enums\ShrineTypes.cs" MD5="9964409a3dce68cd89a1997f1aa7b870" />
+  <File Name="\Cache\Enums\TargetType.cs" MD5="7edf103b05dfd4603e27bd051b4e9827" />
+  <File Name="\Cache\Objects\CacheACDItem.cs" MD5="12d592ed2a853a65df36a4c23066d645" />
+  <File Name="\Cache\Objects\CacheBalance.cs" MD5="6a4d3231a4cf0bca21bee4a99e05d7c4" />
+  <File Name="\Cache\Objects\CacheDestructable.cs" MD5="d02fe8690be854b2bdc956875910f180" />
+  <File Name="\Cache\Objects\CacheGizmo.cs" MD5="8723bb4ebba013726786525cd43865d0" />
+  <File Name="\Cache\Objects\CacheInteractable.cs" MD5="baef71935e2fcc932c642cf73abf0f51" />
+  <File Name="\Cache\Objects\CacheItem.cs" MD5="2a4501164c19608aa942cb2585142ef8" />
+  <File Name="\Cache\Objects\CacheLineOfSight.cs" MD5="bccab316a6df959c33fe49256e964bd9" />
+  <File Name="\Cache\Objects\CacheObject.cs" MD5="c33af6bc616da97fb6aa2c29bd54cc0c" />
+  <File Name="\Cache\Objects\CacheObstacle.cs" MD5="cc31e5aa4f6438ba19d644a57e7c6001" />
+  <File Name="\Cache\Objects\CacheSNO.cs" MD5="4f615cc137d298d5a7060ff3584b04bb" />
+  <File Name="\Cache\Objects\CacheUnit.cs" MD5="2255b643cf29f65bee22569f071f4087" />
+  <File Name="\CheckSum\App.config" MD5="0d242abaaac47f571a6abbcc03382c9e" />
+  <File Name="\CheckSum\CheckSum.csproj" MD5="2cdeb5fdf94a50c8b2f8202708d61811" />
+  <File Name="\CheckSum\Program.cs" MD5="7a8391dcd3666bd97ae188275f3b08dc" />
+  <File Name="\CheckSum\bin\Debug\CheckSum.exe" MD5="f35ced03452f849355329c7da1f48a5b" />
+  <File Name="\CheckSum\bin\Debug\CheckSum.exe.config" MD5="0d242abaaac47f571a6abbcc03382c9e" />
+  <File Name="\CheckSum\bin\Debug\CheckSum.pdb" MD5="e99bfb663cf940b4017a0462855ca19b" />
+  <File Name="\CheckSum\bin\Debug\CheckSum.vshost.exe" MD5="dbd8bc6438e1011ca1b796c7a9c78d78" />
+  <File Name="\CheckSum\bin\Debug\CheckSum.vshost.exe.config" MD5="0d242abaaac47f571a6abbcc03382c9e" />
+  <File Name="\CheckSum\bin\Debug\CheckSum.vshost.exe.manifest" MD5="a19a2658ba69030c6ac9d11fd7d7e3c1" />
+  <File Name="\CheckSum\obj\Debug\CheckSum.exe" MD5="f35ced03452f849355329c7da1f48a5b" />
+  <File Name="\CheckSum\obj\Debug\CheckSum.pdb" MD5="e99bfb663cf940b4017a0462855ca19b" />
+  <File Name="\CheckSum\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" MD5="368b896672cac13f82288cff3df50b87" />
+  <File Name="\CheckSum\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" MD5="d41d8cd98f00b204e9800998ecf8427e" />
+  <File Name="\CheckSum\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" MD5="d41d8cd98f00b204e9800998ecf8427e" />
+  <File Name="\CheckSum\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" MD5="d41d8cd98f00b204e9800998ecf8427e" />
+  <File Name="\CheckSum\Properties\AssemblyInfo.cs" MD5="634d8fc2066fa4602870c8ed88075aaf" />
+  <File Name="\CombatRoutine\CombatRoutine" MD5="99fa3d83e0b336fa168ec33d665d2759" />
+  <File Name="\CombatRoutine\CombatRoutine.cs" MD5="99fa3d83e0b336fa168ec33d665d2759" />
+  <File Name="\CombatRoutine\RoutineDebug" MD5="a732e3c0b8e21e51d26b074b9c2aa149" />
+  <File Name="\CombatRoutine\RoutineDebug.cs" MD5="a732e3c0b8e21e51d26b074b9c2aa149" />
+  <File Name="\Config\FunkyWindow.cs" MD5="13b2a18530c7aeef9a694ce8a873afdd" />
+  <File Name="\Config\FunkyWindowEvents.cs" MD5="a3b1d9424464ff4d4f62c53be152a9cf" />
+  <File Name="\Config\SettingsForm.cs" MD5="5c4088302417f81c4973b51dab0951a0" />
+  <File Name="\Config\SettingsForm.Designer.cs" MD5="6a1161a166da2828bbf5328a4df4b2e1" />
+  <File Name="\Config\SettingsForm.resx" MD5="4eb5913a0e5aa842250f7419538fa230" />
+  <File Name="\Config\Defaults\InfernoMelee.xml" MD5="8b17f098cab77c51bb6f025e3fc703f4" />
+  <File Name="\Config\Defaults\InfernoRanged.xml" MD5="6cdd2868b93692c8509fe600a789216a" />
+  <File Name="\Config\Defaults\LowLevel.xml" MD5="4adde7358f5679ce885743268c15f88a" />
+  <File Name="\Config\Defaults\Specific\Avoidance_Default.xml" MD5="9c9056bc8279a478954da252923f3333" />
+  <File Name="\Config\Defaults\Specific\Clustering_Default.xml" MD5="dc424258e0e83aba9484434fc9b9eb74" />
+  <File Name="\Config\Defaults\Specific\Combat_Default.xml" MD5="ac911946c40a42edd06885cdf609015f" />
+  <File Name="\Config\Defaults\Specific\Debug_Default.xml" MD5="b9e34b90eef740e35607f2b9aeacb6e5" />
+  <File Name="\Config\Defaults\Specific\Demonbuddy_Default.xml" MD5="f7c4790a9be9190f412906727c85ecf1" />
+  <File Name="\Config\Defaults\Specific\Fleeing_Default.xml" MD5="c51f53273b7d58ff13deed7e02bc255b" />
+  <File Name="\Config\Defaults\Specific\Grouping_Default.xml" MD5="de505f0feee2a31db3f2fd663553e694" />
+  <File Name="\Config\Defaults\Specific\ItemRules_Default.xml" MD5="77f17aede2139c5be4fc3ecc4ace3fc0" />
+  <File Name="\Config\Defaults\Specific\Loot_Default.xml" MD5="d79ee9dbada238beb08090564a13e2cc" />
+  <File Name="\Config\Defaults\Specific\Range_Default.xml" MD5="0d6872c8e93e31728e1e36e2132ad4c8" />
+  <File Name="\Config\Defaults\Specific\Targeting_Default.xml" MD5="ab2e9c51ac7e28cc9e79ca806e12ad8f" />
+  <File Name="\Config\Settings\FunkySettings.cs" MD5="c5c81ef95fb37ebcf5fcd6b86d70b9b6" />
+  <File Name="\Config\Settings\SettingAvoidance.cs" MD5="4fc1b98ff7c5b94a799900f959b50ca7" />
+  <File Name="\Config\Settings\SettingBacktrack.cs" MD5="dbd78181fe60e3a7c8355b6d4b1fa35d" />
+  <File Name="\Config\Settings\SettingCluster.cs" MD5="ca7056ddb9af506a6012d9ed5b44ad1b" />
+  <File Name="\Config\Settings\SettingCombat.cs" MD5="67f89bdf0b14be42c8620acef575842b" />
+  <File Name="\Config\Settings\SettingDebug.cs" MD5="bd1e7e3cfa684b178007b3d92ece6288" />
+  <File Name="\Config\Settings\SettingDemonBuddy.cs" MD5="9250f8469a854f93b7a22a46c8bbcc53" />
+  <File Name="\Config\Settings\SettingFleeing.cs" MD5="3d5d2666fbb9099ef5056902735a6734" />
+  <File Name="\Config\Settings\SettingGrouping.cs" MD5="70fdf218f6c43830a5bd450883bdf9f4" />
+  <File Name="\Config\Settings\SettingItemRules.cs" MD5="67f3b4b32096fa6c7455fecdb886fa75" />
+  <File Name="\Config\Settings\SettingLoot.cs" MD5="3f51886a92b7f23fd85e70e70abc3738" />
+  <File Name="\Config\Settings\SettingLOSMovement.cs" MD5="a950710e7fe46fc1fcba56ee646d9e95" />
+  <File Name="\Config\Settings\SettingPlugin.cs" MD5="5900cabc3906ae8b2310f50cda19d983" />
+  <File Name="\Config\Settings\SettingRanges.cs" MD5="41188c1c23a2dd4bcd124e572c566223" />
+  <File Name="\Config\Settings\SettingTargeting.cs" MD5="cef837c315b96f1bb28598a6e2d8fb37" />
+  <File Name="\Config\Tabs\Avoidances.cs" MD5="9fccb051d82471dfb79f355509a0f051" />
+  <File Name="\Config\Tabs\Backtracking.cs" MD5="2b221cd8a37f75b8a156b1bfa65c2d3d" />
+  <File Name="\Config\Tabs\Clustering.cs" MD5="3743c356cba21bb8f99c1999ad70de8a" />
+  <File Name="\Config\Tabs\Combat.cs" MD5="5650ce011e0a4b47ba250c36c0b6e032" />
+  <File Name="\Config\Tabs\Fleeing.cs" MD5="88bcc94bb2b81d15447ca4fc1045d3d2" />
+  <File Name="\Config\Tabs\General.cs" MD5="733336c66c79568522cfc9a13984f7e6" />
+  <File Name="\Config\Tabs\Grouping.cs" MD5="22c5b7b907ac246275976e1521f463b8" />
+  <File Name="\Config\Tabs\ItemRules.cs" MD5="7682f2fd13c0e581a6ab14cadf6cccc3" />
+  <File Name="\Config\Tabs\LOSMovement.cs" MD5="5652a8d0db814d05e2911fe28be73cd9" />
+  <File Name="\Config\Tabs\Pickup.cs" MD5="cee3e69571d13a67296848407b6f8320" />
+  <File Name="\Config\Tabs\PlayerClass.cs" MD5="2494578cf8e9428df104380cde238f1e" />
+  <File Name="\Config\Tabs\Ranges.cs" MD5="2ee26b5a15b1ff768b0d6054ee00c5dd" />
+  <File Name="\Config\Tabs\Scoring.cs" MD5="981e2145c4cf4f05165068b69569d724" />
+  <File Name="\Config\Tabs\Targeting.cs" MD5="00e2dc966c98e53a8ad543124e0a066c" />
+  <File Name="\DBHandlers\ExitGame.cs" MD5="d90841d3dbd8d33bdb729af8a3e18512" />
+  <File Name="\DBHandlers\GlobalOverlord.cs" MD5="27385c943841e6bb3313a3079336ddae" />
+  <File Name="\DBHandlers\ItemIDOverlord.cs" MD5="80f48620c0b89259fa93d86e0453027a" />
+  <File Name="\DBHandlers\OOGOverlord.cs" MD5="8f4a8a3f921cc4f319abc0d733d57cba" />
+  <File Name="\DBHandlers\TownPortalOverlord.cs" MD5="eb20c132503d2c779d6836753a2d9b93" />
+  <File Name="\DBHandlers\CharacterMule\Game.cs" MD5="80e0e7d33577c849b8b5ba76ab62c310" />
+  <File Name="\DBHandlers\CharacterMule\NewGame.xml" MD5="fb96efabc51027580099d7b1fc8c22be" />
+  <File Name="\DBHandlers\Townrun\FinishOverlord.cs" MD5="f698a9e5a40128e7ecb8ff61808b117d" />
+  <File Name="\DBHandlers\Townrun\SalvageOverlord.cs" MD5="23179eaccd0b0e2829fefa94d74930ee" />
+  <File Name="\DBHandlers\Townrun\SellOverlord.cs" MD5="b6de8a4e3159b21c78391a01e90515ee" />
+  <File Name="\DBHandlers\Townrun\StashOverlord.cs" MD5="0e9908bc258cafca2704dc59dbc81c13" />
+  <File Name="\DBHandlers\Townrun\TownRunCheckOverlord.cs" MD5="cf40e8ce4b6d7c06a2c0e8d96bb40ea8" />
+  <File Name="\DBHandlers\Townrun\UnidOverlord.cs" MD5="5da11427529e5a28922be218f5b1c728" />
+  <File Name="\EventHandlers\Death.cs" MD5="05a7248367e9360216421243c9592de5" />
+  <File Name="\EventHandlers\OnBotStart.cs" MD5="7119e5da6e463e5b96b202c3de3eed80" />
+  <File Name="\EventHandlers\OnBotStop.cs" MD5="7f58c751055b1de599cbae480cce504f" />
+  <File Name="\EventHandlers\OnDeath.cs" MD5="70e76a7c68128d1303dfa7fb94b91de0" />
+  <File Name="\EventHandlers\OnGameChanged.cs" MD5="cb3346f73178e7e4d01b4cc35086c0a2" />
+  <File Name="\EventHandlers\OnJoinGame.cs" MD5="fdaa8e2869ffb305d4d940031099540c" />
+  <File Name="\EventHandlers\OnLeaveGame.cs" MD5="2e4cb36d58ecbfb4d001fecb9d7fe6df" />
+  <File Name="\EventHandlers\OnProfileChanged.cs" MD5="c47b7bd94ce2a2c409214e971613249c" />
+  <File Name="\Game\Game.cs" MD5="c13a91120034a08a67978dbed2f83477" />
+  <File Name="\Game\GoldInactivity.cs" MD5="0fc5b71e9cb4ab2d9c5fe6b5c6f135cf" />
+  <File Name="\Game\ProfileCache.cs" MD5="3ab3a502710d393361af0f465a723ab5" />
+  <File Name="\Game\ProfileTracking\GameStats.cs" MD5="73aef3ce02923151e9622b310aa0ceef" />
+  <File Name="\Game\ProfileTracking\LootStats.cs" MD5="4238a86e97edf175446cefa7cd283f12" />
+  <File Name="\Game\ProfileTracking\TotalStats.cs" MD5="6f4702874d50f5a240b816c44e1c1c6b" />
+  <File Name="\Game\ProfileTracking\TrackedProfile.cs" MD5="cc43158f0e138954afce0d95d9202714" />
+  <File Name="\ItemRules\Interpreter.cs" MD5="ddf36acb41e3a651d4d53dd88331677e" />
+  <File Name="\ItemRules\Core\MaxStats.cs" MD5="40e3774cb4e9cb9a2fcdd946b49d97d2" />
+  <File Name="\ItemRules\Core\Parser.cs" MD5="dffa6573eacd1ef50f4d8c1da8b59442" />
+  <File Name="\ItemRules\Core\ParseTree.cs" MD5="3c64d1ae3d734d1f0966b68e985e54ee" />
+  <File Name="\ItemRules\Core\Scanner.cs" MD5="72809b02b156269341894b57e62014f9" />
+  <File Name="\ItemRules\Core\TextHighlighter.cs" MD5="e41a3a231b0e1b69a4a1e9402011f5f5" />
+  <File Name="\Misc\Logger.cs" MD5="032e225c88d4e9e72a4335626a1871a3" />
+  <File Name="\Misc\Prowl.cs" MD5="4109e59d5e4397213e3b2e3455d2026d" />
+  <File Name="\Misc\UpdateCheck.cs" MD5="35cc4f87b0f6c4ba91d32600b2790471" />
+  <File Name="\Misc\Updater.cs" MD5="62b665cd7a16d5944bd206bcbcdb4d87" />
+  <File Name="\Navigation\Navigation.cs" MD5="2bf9e9ff7a94aee63c203ea549cacc38" />
+  <File Name="\Navigation\PlayerMover.cs" MD5="43a53c1f1206313fbf37f034b3eac3ff" />
+  <File Name="\Navigation\Cache\Minimapmarkers.cs" MD5="3f0f53cf7d33fc4463aef9924aebb566" />
+  <File Name="\Navigation\Cache\MovementBackTrack.cs" MD5="2fe41843454601b5e0eec7ac2b437cbf" />
+  <File Name="\Navigation\Cache\MovementSkipAhead.cs" MD5="09cb69081938e03f41d89db0c8f40a3b" />
+  <File Name="\Navigation\Clustering\Cluster.cs" MD5="3fb9e46e0f1ab0ec843df65cbf7a77fd" />
+  <File Name="\Navigation\Clustering\ClusterCollection.cs" MD5="01706d824d9929eab4f209a0555291a3" />
+  <File Name="\Navigation\Clustering\ClusterConditions.cs" MD5="a90a31774c28a16ed900f4c9cb060471" />
+  <File Name="\Navigation\Clustering\ClusterInfo.cs" MD5="309cfbc86a855b8604c656eade62f470" />
+  <File Name="\Navigation\Clustering\ClusterProperties.cs" MD5="c5ec65b5afac37915c51f081b70ff003" />
+  <File Name="\Navigation\Clustering\UnitCluster.cs" MD5="c903a5a45f25e1acf7b575a85e3fbe55" />
+  <File Name="\Navigation\GridPoint\GPArea.cs" MD5="05b13da93f789df9525572852a7a665d" />
+  <File Name="\Navigation\GridPoint\GPCollection.cs" MD5="40b2ba7ee125f24c5573297479b61451" />
+  <File Name="\Navigation\GridPoint\GPQuadrant.cs" MD5="cb94adcf2f85b3856a4d956cf8bca710" />
+  <File Name="\Navigation\GridPoint\GPRectangle.cs" MD5="aa578f6ab006ad640e066c03481b42a1" />
+  <File Name="\Navigation\GridPoint\PointCheckingFlags.cs" MD5="3fc5690c01d81cf7b8ba2d95ab37e998" />
+  <File Name="\Navigation\GridPoint\QuadrantLocation.cs" MD5="c980473fd3985cd1fa90bad7bbad5abb" />
+  <File Name="\Navigation\Objects\AreaBoundary.cs" MD5="42e4c7628240eff8006fa54fd25299d1" />
+  <File Name="\Navigation\Objects\DirectionPoint.cs" MD5="434a4fa03b9e3a04d7e00ad7a9565fd4" />
+  <File Name="\Navigation\Objects\GridPoint.cs" MD5="af862351396ef4ffe81d00c1255c9b7d" />
+  <File Name="\obj\x86\Debug\DesignTimeResolveAssemblyReferencesInput.cache" MD5="8a59be126affee037950d4c0b1c53766" />
+  <File Name="\obj\x86\Debug\FunkyBot.Config.SettingsForm.resources" MD5="cd7dbc7abeda9893ce25793744443958" />
+  <File Name="\obj\x86\Debug\FunkyBot.csproj.GenerateResource.Cache" MD5="0ef3271eeda116a9a44914dedc0df12d" />
+  <File Name="\obj\x86\Debug\FunkyBot.dll" MD5="cbcbf5fb1fd17db0e441ba082905984f" />
+  <File Name="\obj\x86\Debug\FunkyBot.pdb" MD5="c0c4ca3cb36623262b797a798e4e9c3c" />
+  <File Name="\Player\Account.cs" MD5="fc83294de98c1519f79a628e1504d32c" />
+  <File Name="\Player\Backpack.cs" MD5="6c96109be69af999fa32c93ba0197b33" />
+  <File Name="\Player\Character.cs" MD5="26fdf2ea917db56384fe206335b33a5d" />
+  <File Name="\Player\CharacterCache.cs" MD5="4c3f95fc02796d4d7133efcbda5059cf" />
+  <File Name="\Player\HotBar\Hotbar.cs" MD5="4e66e24f8ede30ed30ae42e7094cabee" />
+  <File Name="\Player\HotBar\Skills\PowerCache.cs" MD5="7104c8286311558be8e2433f98ec01a6" />
+  <File Name="\Player\HotBar\Skills\Skill.cs" MD5="d40859f46bee1074931c050c5a148122" />
+  <File Name="\Player\HotBar\Skills\SkillCriteria.cs" MD5="c52bd26e6a498cc2a18d9b05011f8281" />
+  <File Name="\Player\HotBar\Skills\Conditions\AbilityLogicConditions.cs" MD5="fda5feda513661510942e23b1d421c31" />
+  <File Name="\Player\HotBar\Skills\Conditions\LOSInfo.cs" MD5="95784a97bb2a5082fefe32564d89866d" />
+  <File Name="\Player\HotBar\Skills\Conditions\SkillClusterConditions.cs" MD5="a899302d0a943d5d609cfaaf194d3b7a" />
+  <File Name="\Player\HotBar\Skills\Conditions\SkillPreCast.cs" MD5="8e0fe5439c98880ff50438905da43b54" />
+  <File Name="\Player\HotBar\Skills\Conditions\UnitTargetConditions.cs" MD5="2b36c975e3c51ebb506a0ec2456610ef" />
+  <File Name="\Player\HotBar\Skills\Conditions\WaitLoops.cs" MD5="885a302f72a2500f1af6730bd0e743ee" />
+  <File Name="\Player\HotBar\Skills\Enums\AbilityExecuteFlags.cs" MD5="05b54b16afff966145264776bc619422" />
+  <File Name="\Player\HotBar\Skills\Enums\AbilityPreCastFlags.cs" MD5="3f7d5eaad0de839b582b81d6638dbd65" />
+  <File Name="\Player\HotBar\Skills\Enums\AbilityPriority.cs" MD5="626d8f7812d0d6bf31ca54fba5b8aa0d" />
+  <File Name="\Player\HotBar\Skills\Enums\AbilityUsage.cs" MD5="2848cccdd4406a59a8d1a01f8606a740" />
+  <File Name="\Player\HotBar\Skills\Enums\ConditionCriteraTypes.cs" MD5="51042042fe6434a861ada8b5a11d448b" />
+  <File Name="\Player\HotBar\Skills\Enums\RangeIntervals.cs" MD5="9117c1f7b274a521f92c426c19741fee" />
+  <File Name="\Player\HotBar\Skills\Enums\TargetProperties.cs" MD5="62bb8414f89c330f6c7d639b8eb81896" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\CancelArchonBuff.cs" MD5="9400a55309c694012665b7d2d3f79a05" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\DrinkHealthPotion.cs" MD5="1cfab851e65019292a243c15f1e0b6b1" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\ProjectileRangeAttack.cs" MD5="af5a9b351cc5100fffb63201d1cc50ec" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\WeaponInstantRanged.cs" MD5="79692fd897375f2080800c91c99fa624" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\WeaponMeleeInsant.cs" MD5="6200be7fdf4ab117c1917072d4e24068" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\WeaponRangedWand.cs" MD5="1f2862da799a46813efde0250f3203c6" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\AncientSpear.cs" MD5="140e277d13736ea3034cff1e503fee76" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\Bash.cs" MD5="e402b6913f0ca9b32e0858d6be18bd4d" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\Battlerage.cs" MD5="a669d2e5909b19dd633c8934940cb124" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\CalloftheAncients.cs" MD5="040239cf3355f65c53c82f5569935571" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\Cleave.cs" MD5="dcda0c25320e918450946470ccb78e81" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\Earthquake.cs" MD5="3624d38e8bf27fe2d17cf4d7dfd84c27" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\Frenzy.cs" MD5="cfe412c8db69b2dc1c588ba8548887ba" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\FuriousCharge.cs" MD5="9d28425591827126aaef787e8193d58d" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\GroundStomp.cs" MD5="7cfbfe48e8c21dd73bef321c71e5b4c2" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\HammeroftheAncients.cs" MD5="8f8a62316318e5469a69995e572219d8" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\IgnorePain.cs" MD5="d1843d958dbcdbe4b169a5c6a4d30859" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\Leap.cs" MD5="da1ee0faee92caf6ff75e974c49a3686" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\Overpower.cs" MD5="bdc0f3317fdfba710f5321e256189801" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\Rend.cs" MD5="25d3f35f8e40bd0da28f339214a3738b" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\Revenge.cs" MD5="22ebb60edd1113e73723c4c5f710608d" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\SeismicSlam.cs" MD5="981bd7db020d77c85d22216c5702dec7" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\Sprint.cs" MD5="93da8790e5c85c9659c36f2099e79c38" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\ThreateningShout.cs" MD5="86220ac994778f29c6e93f7614e2cee1" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\Warcry.cs" MD5="79f273830df1bc582ea3a3d3db9370b6" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\WeaponThrow.cs" MD5="89d61cee7e3156196fb60354ed59dfc9" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\Whirlwind.cs" MD5="3b78f320892df1043e68a91708b33a81" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Barbarian\WrathOfTheBerserker.cs" MD5="4487a697e6b985cda565461ef4c1a2ba" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\BolaShot.cs" MD5="20929635c6aa6cbf656db2b034d47f2d" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\Caltrops.cs" MD5="3f1e7ed98546eb5d58d1628f8f3399ae" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\Chakram.cs" MD5="ee0d7d5d2cbfc77a448a0a1402c92014" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\ClusterArrow.cs" MD5="6e85dfc78ab21b6b117ef2b89281a062" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\Companion.cs" MD5="5a44662771e3381bff39891f4f9862ee" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\ElementalArrow.cs" MD5="dbc3a9ca075595c1c4a7f1269be668ec" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\EntanglingShot.cs" MD5="b40320411266b172264f13c2077a9082" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\EvasiveFire.cs" MD5="3dbc450cd3ee28028715da7b87c75b2f" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\FanOfKnives.cs" MD5="a3dccf92e86cd98e8d3c95569c47aca9" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\Grenades.cs" MD5="34aaf3096c11397ddd97b8addf38b1c7" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\HungeringArrow.cs" MD5="c05cfa3af152afefffa965d69ac4136e" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\Impale.cs" MD5="feee36b75223c0e90979037cf84506f6" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\MarkedForDeath.cs" MD5="48a7da79cd58c210a862e5f8f96188f9" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\Multishot.cs" MD5="ca7acfe0da46d630a6a8a6be317856b8" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\Preparation.cs" MD5="ec2334372bbeb34e54ccc123715af063" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\RainOfVengeance.cs" MD5="ef7db9ebb4273ab6cd679005647ea2ce" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\RapidFire.cs" MD5="b6fce223e483b2afb77ba79ef5bf5aac" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\Sentry.cs" MD5="2e90aa04f508260e75be50d3d7961e6f" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\ShadowPower.cs" MD5="383ec4c0033e963d35ae56c396e5c376" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\SmokeScreen.cs" MD5="b189f335052597988f466a0bed0a9398" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\SpikeTrap.cs" MD5="cfd6098db3a29361f0c76eea24913be9" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\Strafe.cs" MD5="a426ec580370bb824a407c76dbf3577c" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Demon Hunter\Vault.cs" MD5="43bd3f860cc22964cab7a681da51ce72" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\BlindingFlash.cs" MD5="872aa2b8aaec3f5d441bc05526ebf9d6" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\BreathofHeaven.cs" MD5="ea2b646a81e8b5e15b76fb53fcaa01e8" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\CripplingWave.cs" MD5="1a3584856387fbaaac4b3fb59d336cb5" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\CycloneStrike.cs" MD5="27d8e7e5ed11c4448b89fda1e7b4dc10" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\DashingStrike.cs" MD5="be0a54ddd9dac5fa08499077b9d23143" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\DeadlyReach.cs" MD5="ff0edf0a3b79dba80f43f11c309be654" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\ExplodingPalm.cs" MD5="e73c9609dfac8af3a49134908e3ae9c0" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\FistsofThunder.cs" MD5="52768e4f3e05df7f903111a8539265eb" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\InnerSanctuary.cs" MD5="ad263d704cfacc16a00ac6a7eee947b8" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\LashingTailKick.cs" MD5="cfc67eec6cf22048feb7d0bf75935474" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\MantraOfConviction.cs" MD5="c8b51ccb6bef60c3b655d6f61320f988" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\MantraOfEvasion.cs" MD5="b1a93e86910ab4070cee83a3bf5f9d8b" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\MantraOfHealing.cs" MD5="3d9c640d22ecaaa3ea8b984e0a988801" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\MantraOfRetribution.cs" MD5="46163054219f357332071938a731ba9f" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\MysticAlly.cs" MD5="430d5210e179e02ff7091d3cb5ae7edd" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\Serenity.cs" MD5="032d30cf7ffd5618037fbefe5251e956" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\SevenSidedStrike.cs" MD5="f644a4440217c081793c211a9bf49611" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\SweepingWind.cs" MD5="627de1f000a3286ee62464fd669652ad" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\TempestRush.cs" MD5="51402c6b16001af41076618284aa094a" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\WaveOfLight.cs" MD5="58fe3eae1d3eef9fdf71782afda1e8e3" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Monk\WayOfTheHundredFists.cs" MD5="a6a50968945b00e7ff8ef61077ae7273" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\AcidCloud.cs" MD5="d004217c6a288640ec4f8ef8f1a181fa" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\BigBadVoodoo.cs" MD5="cde678a97256d5e2fd20fa1ac871ad98" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\CorpseSpider.cs" MD5="51b1effcadafef6e32c2e5b5b453f02e" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\FetishArmy.cs" MD5="c752c7277293c38a0e3c14607ee38d17" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\Firebats.cs" MD5="2329b06e5d48e70c027fd7565ba22f7a" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\Firebomb.cs" MD5="6aa8bb5c2b3c15d4321cf98071a4e4cc" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\Gargantuan.cs" MD5="229ae1085794348ee7dd43c82d4220c9" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\GraspOfTheDead.cs" MD5="6629bb75c1cbd3a67e0beaf9eeaf8a0f" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\Haunt.cs" MD5="560bd9d361030b423c16a655da7c726c" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\Hex.cs" MD5="4b2443905dfeaff81b84704525d75424" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\Horrify.cs" MD5="899f2f5e4c0bd37ba1d472315348eba9" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\LocustSwarm.cs" MD5="36c5dfcbd13aaa35152861db5f787f0d" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\MassConfusion.cs" MD5="cd57c7c9741e10df8dcec1305c525ea6" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\PlagueOfToads.cs" MD5="9febbe8cbd42def17a9ad19375c2c2c5" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\PoisonDart.cs" MD5="90b6f28a32d9c6a3f13f79debe64cf6b" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\Sacrifice.cs" MD5="d71ccdf82fcfa9f4bd2fbe305e01b093" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\SoulHarvest.cs" MD5="6b1fecaea38dbb56ba15e18a22e636b6" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\SpiritBarrage.cs" MD5="0bc6e77e578cce8a5ba2209843395e82" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\SpiritWalk.cs" MD5="c138b520c951f69d88c47194ec374d4e" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\SummonZombieDogs.cs" MD5="745cf3dcf6b6863ad1db5d919d31df57" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\WallOfZombies.cs" MD5="689a3a0b9b8b55ef6d349a1cfb15b62a" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Witch Doctor\ZombieCharger.cs" MD5="e4f1eb34a5f676e3fb3ecb9c92163c92" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\ArcaneOrb.cs" MD5="7b041569cedcf71ccb7200780f69db09" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\ArcaneTorrent.cs" MD5="3cbb5396bb591bc50998a976a32c1891" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\Archon.cs" MD5="86491b798eefb54b661722ff0e6564f8" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\ArchonArcaneBlast.cs" MD5="ea51df9122a375b3d252b8e1fab0b866" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\ArchonArcaneStrike.cs" MD5="ea868f260dd93d64101aa79bc8f79fed" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\ArchonDisintegrationWave.cs" MD5="2a9ace70e618e96160c0f4cc38e579fb" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\ArchonSlowTime.cs" MD5="b3560e73e798ae6c7de051cbd36fa2a2" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\ArchonTeleport.cs" MD5="aa0450d5fb643e1331d920750985cdce" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\Blizzard.cs" MD5="35430b3d8498df157d922bb90cc513ed" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\DiamondSkin.cs" MD5="c4196a725a4dde044f74b5272a01b46e" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\Disintegrate.cs" MD5="7f9bbddd5e51fbd4ee38d2f088496530" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\Electrocute.cs" MD5="85b8ef0d1c01fa5be674e5fe36b4deca" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\EnergyArmor.cs" MD5="31f5ae48d96292d33c9c55a5e4bfb94e" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\EnergyTwister.cs" MD5="7c45f5686ec2459d5c4920a1336586b6" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\ExplosiveBlast.cs" MD5="04b3ed7f08d11f4226f90e64726b4d4c" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\Familiar.cs" MD5="2a695039ada541948057b0d02062e865" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\FrostNova.cs" MD5="1e7d358f990d76f9f738b548b90b887b" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\Hydra.cs" MD5="de81955cbde31cfc90019f2e0a908d2e" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\IceArmor.cs" MD5="08fb21491ecb1f4fb7e185dfce8fc2b8" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\MagicMissile.cs" MD5="c4e267dbf3b6373f686c1fcba3f3ad17" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\MagicWeapon.cs" MD5="9289b6f9992a7f081c62db1ad03788c3" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\Meteor.cs" MD5="d2333c086523b2bfac75fed7129f43db" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\MirrorImage.cs" MD5="36715946b07baeef3d733538bedc9fef" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\RayOfFrost.cs" MD5="52e81d2928c1ee236f3200f85bb4a6e9" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\ShockPulse.cs" MD5="4b57c4ae3fd909b708ab180607f6ef57" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\SlowTime.cs" MD5="d21b799c776227544042c7a1eb3311c2" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\SpectralBlade.cs" MD5="a51397e2a7bd80870b78ebc2950e5838" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\StormArmor.cs" MD5="77dc794df4287f9669eff8a200f7151c" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\Teleport.cs" MD5="498298742c164d3708dbad1fc3dd16dd" />
+  <File Name="\Player\HotBar\Skills\Skill Objects\Wizard\WaveOfForce.cs" MD5="494eb99e5b9e972edd1dd037f377528e" />
+  <File Name="\Player\Player Class\Barb.cs" MD5="1292b378714acee27cd87e90b83e8b9c" />
+  <File Name="\Player\Player Class\DemonHunter.cs" MD5="4e7d76b4947eb3daaf8ae9772c9657e2" />
+  <File Name="\Player\Player Class\Monk.cs" MD5="0d9bf1c29207815b553aeaf0ecc593f6" />
+  <File Name="\Player\Player Class\PlayerClass.cs" MD5="85a96854bbb33c51e12e07a02307ba6b" />
+  <File Name="\Player\Player Class\WitchDoctor.cs" MD5="99fd5869de61ec8898eb7fcee77959d7" />
+  <File Name="\Player\Player Class\Wizard.cs" MD5="f425758fb54dc4e4c3f45ca96db81c72" />
+  <File Name="\Targeting\Clustering.cs" MD5="63a4e9118c06c0253340359063b31fc8" />
+  <File Name="\Targeting\Environment.cs" MD5="e12a814561891bd1a755afb4af630d74" />
+  <File Name="\Targeting\TargetHandler.cs" MD5="8ee58187f6dc0f8afd9c6818b67b7144" />
+  <File Name="\Targeting\TargetingCache.cs" MD5="d13f3eff22b919836ba79dbf095879c4" />
+  <File Name="\Targeting\TargetingClass.cs" MD5="6819af58a0030d2cecf4446927f2b43c" />
+  <File Name="\Targeting\TargetMovement.cs" MD5="60da809f63c69afecffbd89c182be672" />
+  <File Name="\Targeting\Behaviors\TargetBehavior.cs" MD5="9fae510a545f73be9da6bb3dc8f8f3c4" />
+  <File Name="\Targeting\Behaviors\TargetBehavioralTypes.cs" MD5="4ccc4abab2dc35f4356652ff29e94406" />
+  <File Name="\Targeting\Behaviors\TBAvoidance.cs" MD5="9a1cce3f67d74aaaf5b522526a6c1efb" />
+  <File Name="\Targeting\Behaviors\TBBacktrack.cs" MD5="bf83a390e31779f5b8405db12c618049" />
+  <File Name="\Targeting\Behaviors\TBEnd.cs" MD5="8447b4bf3e68984d62b668fe8fe90340" />
+  <File Name="\Targeting\Behaviors\TBFleeing.cs" MD5="30aba78a6356642e6829b69af3c18b06" />
+  <File Name="\Targeting\Behaviors\TBGrouping.cs" MD5="f90f2f49c69e57ae8a8f549fc4773961" />
+  <File Name="\Targeting\Behaviors\TBGroupingResume.cs" MD5="ffc7d8f8072d518a6b08cc87bfdbe36c" />
+  <File Name="\Targeting\Behaviors\TBLOSMovement.cs" MD5="6bb52887fad0bc54b3f58132c993db70" />
+  <File Name="\Targeting\Behaviors\TBUpdateTarget.cs" MD5="1d74e9e73d91019dce243c94c89511d1" />
+  <File Name="\XML\FunkyClusterTag.cs" MD5="4222a725a0503e87ab7df75b3667b0e9" />
+  <File Name="\XML\IfSNOInRangeTag.cs" MD5="ae9c4a65bf32f1b813aebfa771f72c6d" />
+  <File Name="\XML\TrinityExploreDungeon.cs" MD5="2b5049168cad8b35034379c09b581f35" />
+  <File Name="\XML\TrinityIfRandomTag.cs" MD5="ab7dd508686469bbcaeb4f9d5236bda0" />
+  <File Name="\XML\TrinityIfTag.cs" MD5="ecb0bf37e6a86a3cfd2b2298d931e63d" />
+  <File Name="\XML\TrinityInteractTag.cs" MD5="55cae437b336012106d5f85db89885e3" />
+  <File Name="\XML\TrinityLoadOnce.cs" MD5="cb9393aa2d18fb7de08590c8a928fb90" />
+  <File Name="\XML\TrinityLoadProfile.cs" MD5="1e3bdefe77f15866947f8d5d1fef5602" />
+  <File Name="\XML\TrinityLogTag.cs" MD5="2a6c7644f48d638861e74777a98475fb" />
+  <File Name="\XML\TrinityMaxDeathsTag.cs" MD5="9d222c6bc2515734dad3d4c4e8078035" />
+  <File Name="\XML\TrinityMoveTo.cs" MD5="6265cdbc60b90232bebf3e7157cfdc12" />
+  <File Name="\XML\TrinityMoveToScene.cs" MD5="1a5d86912a764c8593d398b1b848c7bb" />
+  <File Name="\XML\TrinityMoveToSNOTag.cs" MD5="c61a9ab12d44f9817aa16dae58ae943d" />
+  <File Name="\XML\TrinityOffsetMove.cs" MD5="1c794326e56f08a3d7fb99f8c79cf2ab" />
+  <File Name="\XML\TrinityRandomRollTag.cs" MD5="b599e1aecdab98e06802ed1a61d1ee3a" />
+  <File Name="\XML\TrinityRandomWait.cs" MD5="8a4e54b3c4369f07f82b2fc32969e0ef" />
+  <File Name="\XML\TrinityResetAllTag.cs" MD5="1ad9686f074bd1a12ff0b18ea8064a2f" />
+  <File Name="\XML\TrinityTownPortal.cs" MD5="279a53504cb45a796f486c2a91186be5" />
+  <File Name="\XML\TrinityTownRunTag.cs" MD5="7757c293dadab45b66b7c40feb7afe16" />
+  <File Name="\XML\TrinityUseOnceTag.cs" MD5="d39511c0a75dc9edc315df72701423cf" />
+  <File Name="\XML\TrinityUseResetTag.cs" MD5="483232e9f262c2bec88289dd622f87dc" />
+  <File Name="\XML\TrinityUseStopTag.cs" MD5="b2c70332081530d62c5dca79b6b5d79a" />
+</FileList>

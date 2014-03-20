@@ -1056,7 +1056,7 @@ namespace FunkyBot.XMLTags
 						new Action(ret => UpdateRoute())
 					)
 				),
-				new Decorator(ret => !IgnoreExploredAreas && ZetaDia.Minimap.IsExplored(CurrentNavTarget, iWorldID),
+				new Decorator(ret => !IgnoreExploredAreas && CheckNodeInMiniMap(CurrentNavTarget),
 					new Sequence(
 						new Action(ret => SetNodeVisited("Found node in Explored Area using Minimap")),
 						new Action(ret => UpdateRoute())
