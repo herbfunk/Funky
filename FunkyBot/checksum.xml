@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FileList>
-  <File Name="\checksum.xml" MD5="ba762b9e4d1e42a976846950a54db99d" />
+  <File Name="\checksum.xml" MD5="b8f6e83ebd1c88c3f748e6c6a849a9fe" />
   <File Name="\Plugin.cs" MD5="cfeacf6f27bed43fbe9d8e8ed9f7f8fe" />
   <File Name="\PluginControl.cs" MD5="96abcf7cc554e192b50c2ab2e4904bb1" />
   <File Name="\Treehooks.xml" MD5="5dd2b587418ae11860197b1045b08d8b" />
@@ -36,18 +36,6 @@
   <File Name="\Cache\Objects\CacheObstacle.cs" MD5="cc31e5aa4f6438ba19d644a57e7c6001" />
   <File Name="\Cache\Objects\CacheSNO.cs" MD5="4f615cc137d298d5a7060ff3584b04bb" />
   <File Name="\Cache\Objects\CacheUnit.cs" MD5="2255b643cf29f65bee22569f071f4087" />
-  <File Name="\CheckSum\App.config" MD5="0d242abaaac47f571a6abbcc03382c9e" />
-  <File Name="\CheckSum\Program.cs" MD5="e4fd91bb880360190cba1ddbb40bce47" />
-  <File Name="\CheckSum\bin\Debug\CheckSum.exe.config" MD5="0d242abaaac47f571a6abbcc03382c9e" />
-  <File Name="\CheckSum\bin\Debug\CheckSum.vshost.exe.config" MD5="0d242abaaac47f571a6abbcc03382c9e" />
-  <File Name="\CheckSum\bin\Debug\CheckSum.vshost.exe.manifest" MD5="a19a2658ba69030c6ac9d11fd7d7e3c1" />
-  <File Name="\CheckSum\bin\Debug\checksum.xml" MD5="f81b1b602c29e18a0ef2fb191b998ed0" />
-  <File Name="\CheckSum\obj\Debug\CheckSum.csprojResolveAssemblyReference.cache" MD5="185bd9ec0195ee0e1aa5641d84211667" />
-  <File Name="\CheckSum\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" MD5="368b896672cac13f82288cff3df50b87" />
-  <File Name="\CheckSum\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" MD5="d41d8cd98f00b204e9800998ecf8427e" />
-  <File Name="\CheckSum\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" MD5="d41d8cd98f00b204e9800998ecf8427e" />
-  <File Name="\CheckSum\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" MD5="d41d8cd98f00b204e9800998ecf8427e" />
-  <File Name="\CheckSum\Properties\AssemblyInfo.cs" MD5="634d8fc2066fa4602870c8ed88075aaf" />
   <File Name="\CombatRoutine\CombatRoutine" MD5="99fa3d83e0b336fa168ec33d665d2759" />
   <File Name="\CombatRoutine\CombatRoutine.cs" MD5="99fa3d83e0b336fa168ec33d665d2759" />
   <File Name="\CombatRoutine\RoutineDebug" MD5="a732e3c0b8e21e51d26b074b9c2aa149" />
@@ -161,6 +149,7 @@
   <File Name="\obj\x86\Debug\DesignTimeResolveAssemblyReferencesInput.cache" MD5="8a59be126affee037950d4c0b1c53766" />
   <File Name="\obj\x86\Debug\FunkyBot.Config.SettingsForm.resources" MD5="cd7dbc7abeda9893ce25793744443958" />
   <File Name="\obj\x86\Debug\FunkyBot.csproj.GenerateResource.Cache" MD5="0ef3271eeda116a9a44914dedc0df12d" />
+  <File Name="\obj\x86\Debug\FunkyBot.pdb" MD5="c4a08a448df37cf36704a5d0de2afa26" />
   <File Name="\Player\Account.cs" MD5="fc83294de98c1519f79a628e1504d32c" />
   <File Name="\Player\Backpack.cs" MD5="6c96109be69af999fa32c93ba0197b33" />
   <File Name="\Player\Character.cs" MD5="26fdf2ea917db56384fe206335b33a5d" />
