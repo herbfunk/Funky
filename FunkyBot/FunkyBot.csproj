@@ -718,9 +718,11 @@
     </Compile>
     <Compile Include="CombatRoutine\CombatRoutine.cs">
       <SubType>Code</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="CombatRoutine\RoutineDebug.cs">
       <SubType>Code</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Config\Settings\SettingAvoidance.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1070,7 +1072,6 @@
     <Content Include="DBHandlers\CharacterMule\NewGame.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Player\HotBar\Skills\_About.txt" />
     <Content Include="Config\Defaults\LowLevel.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
