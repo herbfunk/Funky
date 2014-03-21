@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FileList>
-  <File Name="\checksum.xml" MD5="7a2e11f626d1b81b625c60215f11d3f3" />
+  <File Name="\checksum.xml" MD5="74ad4cf1b950c3ce04f152f6a2a6abc1" />
   <File Name="\Plugin.cs" MD5="cfeacf6f27bed43fbe9d8e8ed9f7f8fe" />
   <File Name="\PluginControl.cs" MD5="96abcf7cc554e192b50c2ab2e4904bb1" />
   <File Name="\Treehooks.xml" MD5="5dd2b587418ae11860197b1045b08d8b" />
@@ -125,7 +125,7 @@
   <File Name="\Misc\Logger.cs" MD5="032e225c88d4e9e72a4335626a1871a3" />
   <File Name="\Misc\Prowl.cs" MD5="4109e59d5e4397213e3b2e3455d2026d" />
   <File Name="\Misc\UpdateCheck.cs" MD5="35cc4f87b0f6c4ba91d32600b2790471" />
-  <File Name="\Misc\Updater.cs" MD5="7c72eb74e2d63ac6e2f1860dfad548fe" />
+  <File Name="\Misc\Updater.cs" MD5="146809183fcbf3d91d90c5842464d641" />
   <File Name="\Navigation\Navigation.cs" MD5="2bf9e9ff7a94aee63c203ea549cacc38" />
   <File Name="\Navigation\PlayerMover.cs" MD5="43a53c1f1206313fbf37f034b3eac3ff" />
   <File Name="\Navigation\Cache\Minimapmarkers.cs" MD5="3f0f53cf7d33fc4463aef9924aebb566" />

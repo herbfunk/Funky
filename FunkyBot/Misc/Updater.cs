@@ -11,7 +11,7 @@ namespace FunkyBot.Misc
 {
 	internal static class Updater
 	{
-		private static readonly string GitHubUrl = "https://raw.github.com/herbfunk/Funky/master/FunkyBot";
+		private static readonly string GitHubUrl = "https://raw.githubusercontent.com/herbfunk/Funky/master/FunkyBot";
 		private static readonly string GitHubProjectUrl = "https://raw.github.com/herbfunk/Funky/master/FunkyBot/FunkyBot.csproj";
 		private static readonly string GitHubChecksumUrl = "https://raw.githubusercontent.com/herbfunk/Funky/master/FunkyBot/checksum.xml";
 
@@ -19,50 +19,58 @@ namespace FunkyBot.Misc
 		{
 			Dictionary<string, string> GithubChecksumDict = GenerateDictionaryFromChecksumXML(GitHubChecksumUrl);
 			Dictionary<string, string> LocalChecksumDict = GenerateDictionaryFromChecksumXML(FolderPaths.sTrinityPluginPath + @"\checksum.xml");
+			List<string> GithubFileList = ReturnGitHubContentFiles();
 
 			List<string> FilesNeededUpdated = new List<string>();
 
-			//GitHub Files (see if we are missing any!)
-			foreach (var f in GithubChecksumDict)
+			//find any new or missing files..
+			foreach (var f in GithubFileList)
 			{
-				if (f.Key.Contains("checksum")) continue;
-
-				if (!LocalChecksumDict.ContainsKey(f.Key))
+				if (!LocalChecksumDict.ContainsKey(f))
 				{
-					FilesNeededUpdated.Add(f.Key);
+					FilesNeededUpdated.Add(f);
 				}
+				else if (!GithubChecksumDict.ContainsKey(f))
+				{
+					Console.WriteLine("Github Checksum failed for file {0}", f);
+				}
+				else if (GithubChecksumDict[f] != LocalChecksumDict[f])
+				{
+					FilesNeededUpdated.Add(f);
+				}
+
 			}
 
-			//Local Files
-			foreach (var f in LocalChecksumDict)
+			Console.WriteLine("Files Needed Updated: " + FilesNeededUpdated.Count);
+			if (FilesNeededUpdated.Count > 0)
 			{
-				if (f.Key.Contains("checksum")) continue;
-
-				if (GithubChecksumDict.ContainsKey(f.Key) && GithubChecksumDict[f.Key] != f.Value)
-				{
-					FilesNeededUpdated.Add(f.Key);
-				}
-			}
-
-			Logger.DBLog.Info("Files Needed Updated: " + FilesNeededUpdated.Count);
-			if (FilesNeededUpdated.Count>0)
-			{
-				MessageBoxResult result=MessageBox.Show(Application.Current.MainWindow,"Funky Bot Update Available", "Do you wish to update Funky Bot now?", MessageBoxButton.YesNo);
-				if (result==MessageBoxResult.Yes)
+				MessageBoxResult result = MessageBox.Show(Application.Current.MainWindow, "Funkybot Update Available!", "Do you wish to update files now?", MessageBoxButton.YesNo);
+				if (result == MessageBoxResult.Yes)
 				{
 					foreach (var f in FilesNeededUpdated)
 					{
-						string FullDirectoryPath = Path.GetFullPath(FolderPaths.sTrinityPluginPath + f.Substring(0, f.LastIndexOf(Convert.ToChar(@"\"))));
+						string FullDirectoryPath = Path.GetFullPath(FolderPaths.sTrinityPluginPath + f.Substring(0, f.LastIndexOf(Convert.ToChar("/"))));
 						if (!Directory.Exists(FullDirectoryPath))
 						{
 							Directory.CreateDirectory(FullDirectoryPath);
+							Console.Write("Creating new dictionary {0}", FullDirectoryPath);
 						}
 
 						string FullPath = Path.GetFullPath(FolderPaths.sTrinityPluginPath + f);
+						string GitHubUrlFullPath = GitHubUrl + f;
+
 						// Create a new WebClient instance.
 						using (WebClient myWebClient = new WebClient())
 						{
-							myWebClient.DownloadFile(GitHubUrl + f.Replace("//", "/"), FullPath);
+							try
+							{
+								myWebClient.DownloadFile(GitHubUrlFullPath, FullPath);
+								Console.WriteLine("Downloaded file {0} to location {1}", GitHubUrlFullPath, FullPath);
+							}
+							catch (Exception ex)
+							{
+								Console.WriteLine("Error updating file {0} at location {1}", f, GitHubUrlFullPath);
+							}
 						}
 					}
 
@@ -70,11 +78,9 @@ namespace FunkyBot.Misc
 				}
 			}
 
-			
+
 			return false;
 		}
-
-		//This returns all Files that are included in the plugin folder from GitHub.
 		internal static List<string> ReturnGitHubContentFiles()
 		{
 			List<string> returnValues = new List<string>();
@@ -103,12 +109,11 @@ namespace FunkyBot.Misc
 									case "Content":
 									case "None":
 									case "Compile":
-										string s = reader.GetAttribute(0);
-										returnValues.Add(s);
+										string s = "/" + reader.GetAttribute(0);
+										returnValues.Add(s.Replace(@"\", "/"));
 										break;
 								}
 							}
-
 						}
 					}
 				}
@@ -122,42 +127,6 @@ namespace FunkyBot.Misc
 
 			return returnValues;
 		}
-		internal static Dictionary<string, string> ReturnGitHubChecksumDictionary()
-		{
-			Dictionary<string, string> returnValues = new Dictionary<string, string>();
-
-			try
-			{
-				using (XmlTextReader reader = new XmlTextReader(GitHubProjectUrl))
-				{
-					// simply (and easily) skip the junk at the beginning
-					reader.MoveToContent();
-					//reader.ReadToDescendant("FileList");
-
-
-
-					while (reader.Read())
-					{
-						if ((reader.NodeType == XmlNodeType.Element) &&
-							  (reader.IsStartElement()) &&
-								reader.HasAttributes)
-						{
-							string fileName = reader.GetAttribute(0);
-							string fileHash = reader.GetAttribute(1);
-							returnValues.Add(fileName, fileHash);
-						}
-
-					}
-				}
-			}
-			catch (Exception)
-			{
-
-			}
-
-			return returnValues;
-		}
-
 		internal static Dictionary<string, string> GenerateDictionaryFromChecksumXML(string path)
 		{
 			Dictionary<string, string> returnValues = new Dictionary<string, string>();
@@ -178,7 +147,7 @@ namespace FunkyBot.Misc
 						{
 							string fileName = reader.GetAttribute(0);
 							string fileHash = reader.GetAttribute(1);
-							returnValues.Add(fileName, fileHash);
+							returnValues.Add(fileName.Replace(@"\", "/"), fileHash);
 						}
 
 					}
@@ -191,7 +160,5 @@ namespace FunkyBot.Misc
 
 			return returnValues;
 		}
-
-		//private static List<File> ReturnPluginFiles 
 	}
 }
