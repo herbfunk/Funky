@@ -32,7 +32,7 @@ namespace FunkyBot.Misc
 				}
 				else if (!GithubChecksumDict.ContainsKey(f))
 				{
-					Console.WriteLine("Github Checksum failed for file {0}", f);
+					Logger.DBLog.InfoFormat("Github Checksum failed for file {0}", f);
 				}
 				else if (GithubChecksumDict[f] != LocalChecksumDict[f])
 				{
@@ -41,7 +41,8 @@ namespace FunkyBot.Misc
 
 			}
 
-			Console.WriteLine("Files Needed Updated: " + FilesNeededUpdated.Count);
+			Logger.DBLog.InfoFormat("Files Needed Updated: " + FilesNeededUpdated.Count);
+		
 			if (FilesNeededUpdated.Count > 0)
 			{
 				MessageBoxResult result = MessageBox.Show(Application.Current.MainWindow, "Funkybot Update Available!", "Do you wish to update files now?", MessageBoxButton.YesNo);
@@ -49,11 +50,12 @@ namespace FunkyBot.Misc
 				{
 					foreach (var f in FilesNeededUpdated)
 					{
+						Logger.DBLog.InfoFormat("File: " + f);
 						string FullDirectoryPath = Path.GetFullPath(FolderPaths.sTrinityPluginPath + f.Substring(0, f.LastIndexOf(Convert.ToChar("/"))));
 						if (!Directory.Exists(FullDirectoryPath))
 						{
 							Directory.CreateDirectory(FullDirectoryPath);
-							Console.Write("Creating new dictionary {0}", FullDirectoryPath);
+							Logger.DBLog.InfoFormat("Creating new dictionary {0}", FullDirectoryPath);
 						}
 
 						string FullPath = Path.GetFullPath(FolderPaths.sTrinityPluginPath + f);
@@ -65,11 +67,11 @@ namespace FunkyBot.Misc
 							try
 							{
 								myWebClient.DownloadFile(GitHubUrlFullPath, FullPath);
-								Console.WriteLine("Downloaded file {0} to location {1}", GitHubUrlFullPath, FullPath);
+								Logger.DBLog.InfoFormat("Downloaded file {0} to location {1}", GitHubUrlFullPath, FullPath);
 							}
 							catch (Exception ex)
 							{
-								Console.WriteLine("Error updating file {0} at location {1}", f, GitHubUrlFullPath);
+								Logger.DBLog.InfoFormat("Error updating file {0} at location {1}", f, GitHubUrlFullPath);
 							}
 						}
 					}
