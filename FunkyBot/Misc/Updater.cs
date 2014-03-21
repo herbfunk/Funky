@@ -41,6 +41,8 @@ namespace FunkyBot.Misc
 
 			}
 
+			if (FilesNeededUpdated.Count == 1 && FilesNeededUpdated[0].Contains("CheckSum")) return false;
+
 			Logger.DBLog.InfoFormat("Files Needed Updated: " + FilesNeededUpdated.Count);
 		
 			if (FilesNeededUpdated.Count > 0)

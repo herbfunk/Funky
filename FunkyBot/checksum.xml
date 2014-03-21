@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FileList>
   <File Name="\CheckSum.exe" MD5="a372ff8abb4008e2cbe45093f158b4ad" />
-  <File Name="\checksum.xml" MD5="31d5870e5832b1d010579fc0ca2fe877" />
+  <File Name="\checksum.xml" MD5="24801bf96cbd28c2595a5e3bf178f3b6" />
   <File Name="\Plugin.cs" MD5="cfeacf6f27bed43fbe9d8e8ed9f7f8fe" />
   <File Name="\PluginControl.cs" MD5="96abcf7cc554e192b50c2ab2e4904bb1" />
   <File Name="\ToDo.txt" MD5="7285ec60686dd97df2c92c9ed363dd7d" />
@@ -93,19 +93,6 @@
   <File Name="\Config\Tabs\Ranges.cs" MD5="2ee26b5a15b1ff768b0d6054ee00c5dd" />
   <File Name="\Config\Tabs\Scoring.cs" MD5="981e2145c4cf4f05165068b69569d724" />
   <File Name="\Config\Tabs\Targeting.cs" MD5="00e2dc966c98e53a8ad543124e0a066c" />
-  <File Name="\ConsoleApplication1\App.config" MD5="0d242abaaac47f571a6abbcc03382c9e" />
-  <File Name="\ConsoleApplication1\Program.cs" MD5="8ec538add4429c4602e119c6d5183c81" />
-  <File Name="\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe" MD5="3b782f5004c53d3b0e25dcd5b0286ddd" />
-  <File Name="\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config" MD5="0d242abaaac47f571a6abbcc03382c9e" />
-  <File Name="\ConsoleApplication1\bin\Debug\ConsoleApplication1.vshost.exe" MD5="dbd8bc6438e1011ca1b796c7a9c78d78" />
-  <File Name="\ConsoleApplication1\bin\Debug\ConsoleApplication1.vshost.exe.config" MD5="0d242abaaac47f571a6abbcc03382c9e" />
-  <File Name="\ConsoleApplication1\bin\Debug\ConsoleApplication1.vshost.exe.manifest" MD5="a19a2658ba69030c6ac9d11fd7d7e3c1" />
-  <File Name="\ConsoleApplication1\obj\Debug\ConsoleApplication1.csproj.FileListAbsolute.txt" MD5="1665184c950c8065b2767f170437b951" />
-  <File Name="\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe" MD5="3b782f5004c53d3b0e25dcd5b0286ddd" />
-  <File Name="\ConsoleApplication1\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" MD5="d41d8cd98f00b204e9800998ecf8427e" />
-  <File Name="\ConsoleApplication1\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" MD5="d41d8cd98f00b204e9800998ecf8427e" />
-  <File Name="\ConsoleApplication1\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" MD5="d41d8cd98f00b204e9800998ecf8427e" />
-  <File Name="\ConsoleApplication1\Properties\AssemblyInfo.cs" MD5="1f2124239032f6e1031dce30b21bad88" />
   <File Name="\DBHandlers\ExitGame.cs" MD5="d90841d3dbd8d33bdb729af8a3e18512" />
   <File Name="\DBHandlers\GlobalOverlord.cs" MD5="27385c943841e6bb3313a3079336ddae" />
   <File Name="\DBHandlers\ItemIDOverlord.cs" MD5="80f48620c0b89259fa93d86e0453027a" />
@@ -156,7 +143,7 @@
   <File Name="\Misc\Logger.cs" MD5="032e225c88d4e9e72a4335626a1871a3" />
   <File Name="\Misc\Prowl.cs" MD5="4109e59d5e4397213e3b2e3455d2026d" />
   <File Name="\Misc\UpdateCheck.cs" MD5="35cc4f87b0f6c4ba91d32600b2790471" />
-  <File Name="\Misc\Updater.cs" MD5="71cb70e82aaf68208f51e4011a857315" />
+  <File Name="\Misc\Updater.cs" MD5="e661ede6c88a6f4ed09a76cec740bdb0" />
   <File Name="\Navigation\Navigation.cs" MD5="2bf9e9ff7a94aee63c203ea549cacc38" />
   <File Name="\Navigation\PlayerMover.cs" MD5="43a53c1f1206313fbf37f034b3eac3ff" />
   <File Name="\Navigation\Cache\Minimapmarkers.cs" MD5="3f0f53cf7d33fc4463aef9924aebb566" />
@@ -186,7 +173,6 @@
   <File Name="\Player\HotBar\Skills\PowerCache.cs" MD5="7104c8286311558be8e2433f98ec01a6" />
   <File Name="\Player\HotBar\Skills\Skill.cs" MD5="d40859f46bee1074931c050c5a148122" />
   <File Name="\Player\HotBar\Skills\SkillCriteria.cs" MD5="c52bd26e6a498cc2a18d9b05011f8281" />
-  <File Name="\Player\HotBar\Skills\_About.txt" MD5="3ab3ca7cff1d4e635a3e0d67795852d7" />
   <File Name="\Player\HotBar\Skills\Conditions\AbilityLogicConditions.cs" MD5="fda5feda513661510942e23b1d421c31" />
   <File Name="\Player\HotBar\Skills\Conditions\LOSInfo.cs" MD5="95784a97bb2a5082fefe32564d89866d" />
   <File Name="\Player\HotBar\Skills\Conditions\SkillClusterConditions.cs" MD5="a899302d0a943d5d609cfaaf194d3b7a" />
