@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FileList>
   <File Name="\CheckSum.exe" MD5="a372ff8abb4008e2cbe45093f158b4ad" />
-  <File Name="\checksum.xml" MD5="24801bf96cbd28c2595a5e3bf178f3b6" />
-  <File Name="\Plugin.cs" MD5="cfeacf6f27bed43fbe9d8e8ed9f7f8fe" />
+  <File Name="\checksum.xml" MD5="690d7b0e993ce0b0145afb8df31702ea" />
+  <File Name="\Plugin.cs" MD5="1e304e86e002912f55ecc7d32c0301cb" />
   <File Name="\PluginControl.cs" MD5="96abcf7cc554e192b50c2ab2e4904bb1" />
   <File Name="\ToDo.txt" MD5="7285ec60686dd97df2c92c9ed363dd7d" />
   <File Name="\Treehooks.xml" MD5="5dd2b587418ae11860197b1045b08d8b" />

@@ -183,17 +183,15 @@ namespace FunkyBot
 			Logger.Write(LogLevel.User, "Init Logger Completed!");
 
 			//Generate Checksum for Update Check
-			Process.Start(FolderPaths.sTrinityPluginPath + @"\CheckSum.exe");
-			if (Updater.UpdateAvailable())
-			{
-				string dbPathString = Assembly.GetEntryAssembly().Location;
-				string dbExePath = Path.GetFullPath(dbPathString);
-				Process.GetCurrentProcess().CloseMainWindow();
-				Process.Start(dbExePath);
-				return;
-			}
-
-			//test
+			//Process.Start(FolderPaths.sTrinityPluginPath + @"\CheckSum.exe");
+			//if (Updater.UpdateAvailable())
+			//{
+			//	string dbPathString = Assembly.GetEntryAssembly().Location;
+			//	string dbExePath = Path.GetFullPath(dbPathString);
+			//	Process.GetCurrentProcess().CloseMainWindow();
+			//	Process.Start(dbExePath);
+			//	return;
+			//}
 		}
 
 		public void OnPulse()
