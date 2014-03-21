@@ -1,10 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FileList>
-  <File Name="\checksum.xml" MD5="e0bc67560631be4bae62618226c1f58b" />
+  <File Name="\checksum.xml" MD5="bd967d07d68e0de6c6bd5b328ca8b49d" />
   <File Name="\Plugin.cs" MD5="cfeacf6f27bed43fbe9d8e8ed9f7f8fe" />
   <File Name="\PluginControl.cs" MD5="96abcf7cc554e192b50c2ab2e4904bb1" />
+  <File Name="\ToDo.txt" MD5="7285ec60686dd97df2c92c9ed363dd7d" />
   <File Name="\Treehooks.xml" MD5="5dd2b587418ae11860197b1045b08d8b" />
   <File Name="\Version.xml" MD5="52b625f778973c3e3f9fbe42917a2cab" />
+  <File Name="\_ReadMe_Settings.txt" MD5="f09eda1e219d63d5412186da32400e7f" />
+  <File Name="\__HerbFunk_RevisonLog.txt" MD5="0e6b3dcd339130f442c2f2f080143c9f" />
   <File Name="\Bot\Bot.cs" MD5="f6ae44db109dbd733210310f9d3af14c" />
   <File Name="\Bot\Test\Test.xml" MD5="7285ec60686dd97df2c92c9ed363dd7d" />
   <File Name="\Cache\CacheIDLookup.cs" MD5="4b5feaf15709f17f3579ecd3531a1c0d" />
@@ -122,6 +125,19 @@
   <File Name="\ItemRules\Core\ParseTree.cs" MD5="3c64d1ae3d734d1f0966b68e985e54ee" />
   <File Name="\ItemRules\Core\Scanner.cs" MD5="72809b02b156269341894b57e62014f9" />
   <File Name="\ItemRules\Core\TextHighlighter.cs" MD5="e41a3a231b0e1b69a4a1e9402011f5f5" />
+  <File Name="\ItemRules\Log\Empty.txt" MD5="ecaa88f7fa0bf610a5a26cf545dcd3aa" />
+  <File Name="\ItemRules\Rules\ItemRules2.txt" MD5="a4b0b31f116c6420280885f939477a49" />
+  <File Name="\ItemRules\Rules\salvage.dis" MD5="1175fc06531f17aceea731b5240c90f3" />
+  <File Name="\ItemRules\Rules\translation.dis" MD5="9e2217f2227da464d1d142b19c01d1d7" />
+  <File Name="\ItemRules\Rules\UnidStash.dis" MD5="6923a7c8a906eeeea1778318f5254bd2" />
+  <File Name="\ItemRules\Rules\hard\common.dis" MD5="76a766934495d60bcf8b83ed4a6b2dfb" />
+  <File Name="\ItemRules\Rules\hard\legendary.dis" MD5="978ad86c8b031e43e855035a2ebdfc6c" />
+  <File Name="\ItemRules\Rules\hard\magic.dis" MD5="1dc6c6c5fa97e4d783f2bef2e398abba" />
+  <File Name="\ItemRules\Rules\hard\pickup.dis" MD5="26c1715a13ff1c75c909fbf0d1493f2c" />
+  <File Name="\ItemRules\Rules\hard\rare.dis" MD5="826c29ee3ba2498f1ddc0796de9a89c8" />
+  <File Name="\ItemRules\Rules\hard\set.dis" MD5="d41d8cd98f00b204e9800998ecf8427e" />
+  <File Name="\Log\Empty.txt" MD5="ecaa88f7fa0bf610a5a26cf545dcd3aa" />
+  <File Name="\Log\ProfileStats\Empty.txt" MD5="ecaa88f7fa0bf610a5a26cf545dcd3aa" />
   <File Name="\Misc\Logger.cs" MD5="032e225c88d4e9e72a4335626a1871a3" />
   <File Name="\Misc\Prowl.cs" MD5="4109e59d5e4397213e3b2e3455d2026d" />
   <File Name="\Misc\UpdateCheck.cs" MD5="35cc4f87b0f6c4ba91d32600b2790471" />
@@ -146,6 +162,7 @@
   <File Name="\Navigation\Objects\AreaBoundary.cs" MD5="42e4c7628240eff8006fa54fd25299d1" />
   <File Name="\Navigation\Objects\DirectionPoint.cs" MD5="434a4fa03b9e3a04d7e00ad7a9565fd4" />
   <File Name="\Navigation\Objects\GridPoint.cs" MD5="af862351396ef4ffe81d00c1255c9b7d" />
+  <File Name="\obj\x86\Debug\FunkyBot.csproj.FileListAbsolute.txt" MD5="2061939081ed4a7eabb05cbf35feea55" />
   <File Name="\Player\Account.cs" MD5="fc83294de98c1519f79a628e1504d32c" />
   <File Name="\Player\Backpack.cs" MD5="6c96109be69af999fa32c93ba0197b33" />
   <File Name="\Player\Character.cs" MD5="26fdf2ea917db56384fe206335b33a5d" />
@@ -154,6 +171,7 @@
   <File Name="\Player\HotBar\Skills\PowerCache.cs" MD5="7104c8286311558be8e2433f98ec01a6" />
   <File Name="\Player\HotBar\Skills\Skill.cs" MD5="d40859f46bee1074931c050c5a148122" />
   <File Name="\Player\HotBar\Skills\SkillCriteria.cs" MD5="c52bd26e6a498cc2a18d9b05011f8281" />
+  <File Name="\Player\HotBar\Skills\_About.txt" MD5="3ab3ca7cff1d4e635a3e0d67795852d7" />
   <File Name="\Player\HotBar\Skills\Conditions\AbilityLogicConditions.cs" MD5="fda5feda513661510942e23b1d421c31" />
   <File Name="\Player\HotBar\Skills\Conditions\LOSInfo.cs" MD5="95784a97bb2a5082fefe32564d89866d" />
   <File Name="\Player\HotBar\Skills\Conditions\SkillClusterConditions.cs" MD5="a899302d0a943d5d609cfaaf194d3b7a" />

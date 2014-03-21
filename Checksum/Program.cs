@@ -79,7 +79,7 @@ namespace CheckSum
 		{
 			foreach (var fileInfo in files)
 			{
-				if (fileInfo.Extension==".dis" || fileInfo.Extension==".txt" || fileInfo.Extension==".log" ||
+				if (fileInfo.Extension==".log" ||
 					fileInfo.Extension ==".exe" || fileInfo.Extension==".dll" || fileInfo.Extension==".csproj" || 
 					fileInfo.Extension==".suo" || fileInfo.Extension==".sln" || fileInfo.Extension==".user"||
 					fileInfo.Extension == ".pdb" || fileInfo.Extension == ".Cache" || fileInfo.Extension == ".cache"  || fileInfo.Extension == ".resources") continue;
