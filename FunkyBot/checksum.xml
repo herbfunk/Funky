@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FileList>
-  <File Name="\CheckSum.exe" MD5="a2c3e2b3ab3369146c23b7404f113af0" />
-  <File Name="\checksum.xml" MD5="72bca60d14e52dfb7f492cedf4e5ea2c" />
+  <File Name="\CheckSum.exe" MD5="a372ff8abb4008e2cbe45093f158b4ad" />
+  <File Name="\checksum.xml" MD5="104ef62a9ee53cb0f6732090288a95d6" />
   <File Name="\Plugin.cs" MD5="cfeacf6f27bed43fbe9d8e8ed9f7f8fe" />
   <File Name="\PluginControl.cs" MD5="96abcf7cc554e192b50c2ab2e4904bb1" />
   <File Name="\ToDo.txt" MD5="7285ec60686dd97df2c92c9ed363dd7d" />
