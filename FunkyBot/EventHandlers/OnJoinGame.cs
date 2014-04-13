@@ -13,8 +13,8 @@ namespace FunkyBot
 			Funky.ResetGame();
 			Bot.Game.RefreshGameId();
 
-			if (Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings)
-				CharacterSettings.Instance.MonsterPowerLevel = Funky.iDemonbuddyMonsterPowerLevel;
+			//if (Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings)
+			//	CharacterSettings.Instance.MonsterPowerLevel = Funky.iDemonbuddyMonsterPowerLevel;
 		}
 	}
 }

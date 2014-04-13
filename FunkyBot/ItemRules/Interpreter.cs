@@ -387,7 +387,7 @@ namespace FunkyBot
 					 }
 				}
 
-				//logOut(ItemEvaluationType.Salvage, validRule, action);
+				logOut(ItemEvaluationType.Keep, validRule, action);
 
 				return action;
 		  }

@@ -30,5 +30,6 @@ namespace FunkyBot.Player.HotBar.Skills
 			ReflectsDamage=262144,
             Electrified = 524288,
 		    Normal = 1048576,
+			LowHealth=2097152,
 	 }
 }

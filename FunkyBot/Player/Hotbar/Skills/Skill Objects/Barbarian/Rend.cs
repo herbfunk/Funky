@@ -29,7 +29,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				falseConditionalFlags: TargetProperties.DOTDPS | TargetProperties.SucideBomber);
 
 			FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial
-								  || (Bot.Settings.Class.bFuryDumpWrath && Bot.Character.Data.dCurrentEnergyPct >= 0.95 &&
+								  || (Bot.Settings.Barbarian.bFuryDumpWrath && Bot.Character.Data.dCurrentEnergyPct >= 0.95 &&
 									 Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker) && !Bot.Character.Class.Abilities.ContainsKey(SNOPower.Barbarian_Rend));
 		}
 

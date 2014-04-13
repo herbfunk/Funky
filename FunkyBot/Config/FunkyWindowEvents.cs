@@ -366,6 +366,20 @@ namespace FunkyBot
 					Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
 				}
 			}
+			else if (btnsender.Name == "CombatMovement")
+			{
+				try
+				{
+					string debugStr = Bot.Targeting.Movement.DebugString();
+					LBDebug.Items.Add(debugStr);
+					Logger.DBLog.InfoFormat("Movement Info: \r\n {0}", debugStr);
+				}
+				catch (Exception ex)
+				{
+					Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
+				}
+			}
+			//
 			LBDebug.Items.Refresh();
 		}
 
@@ -373,61 +387,61 @@ namespace FunkyBot
 
 		private void bWaitForArchonChecked(object sender, EventArgs e)
 		{
-			Bot.Settings.Class.bWaitForArchon = !Bot.Settings.Class.bWaitForArchon;
+			Bot.Settings.Wizard.bWaitForArchon = !Bot.Settings.Wizard.bWaitForArchon;
 		}
 		private void bKiteOnlyArchonChecked(object sender, EventArgs e)
 		{
-			Bot.Settings.Class.bKiteOnlyArchon = !Bot.Settings.Class.bKiteOnlyArchon;
+			Bot.Settings.Wizard.bKiteOnlyArchon = !Bot.Settings.Wizard.bKiteOnlyArchon;
 		}
 		private void bCancelArchonRebuffChecked(object sender, EventArgs e)
 		{
-			Bot.Settings.Class.bCancelArchonRebuff = !Bot.Settings.Class.bCancelArchonRebuff;
+			Bot.Settings.Wizard.bCancelArchonRebuff = !Bot.Settings.Wizard.bCancelArchonRebuff;
 		}
 		private void bTeleportFleeWhenLowHPChecked(object sender, EventArgs e)
 		{
-			Bot.Settings.Class.bTeleportFleeWhenLowHP = !Bot.Settings.Class.bTeleportFleeWhenLowHP;
+			Bot.Settings.Wizard.bTeleportFleeWhenLowHP = !Bot.Settings.Wizard.bTeleportFleeWhenLowHP;
 		}
 		private void bTeleportIntoGroupingChecked(object sender, EventArgs e)
 		{
-			Bot.Settings.Class.bTeleportIntoGrouping = !Bot.Settings.Class.bTeleportIntoGrouping;
+			Bot.Settings.Wizard.bTeleportIntoGrouping = !Bot.Settings.Wizard.bTeleportIntoGrouping;
 		}
 		private void bSelectiveWhirlwindChecked(object sender, EventArgs e)
 		{
-			Bot.Settings.Class.bSelectiveWhirlwind = !Bot.Settings.Class.bSelectiveWhirlwind;
+			Bot.Settings.Barbarian.bSelectiveWhirlwind = !Bot.Settings.Barbarian.bSelectiveWhirlwind;
 		}
 		private void bWaitForWrathChecked(object sender, EventArgs e)
 		{
-			Bot.Settings.Class.bWaitForWrath = !Bot.Settings.Class.bWaitForWrath;
+			Bot.Settings.Barbarian.bWaitForWrath = !Bot.Settings.Barbarian.bWaitForWrath;
 		}
 		private void bGoblinWrathChecked(object sender, EventArgs e)
 		{
-			Bot.Settings.Class.bGoblinWrath = !Bot.Settings.Class.bGoblinWrath;
+			Bot.Settings.Barbarian.bGoblinWrath = !Bot.Settings.Barbarian.bGoblinWrath;
 		}
 		private void bBarbUseWOTBAlwaysChecked(object sender, EventArgs e)
 		{
-			Bot.Settings.Class.bBarbUseWOTBAlways = !Bot.Settings.Class.bBarbUseWOTBAlways;
+			Bot.Settings.Barbarian.bBarbUseWOTBAlways = !Bot.Settings.Barbarian.bBarbUseWOTBAlways;
 		}
 		private void bFuryDumpWrathChecked(object sender, EventArgs e)
 		{
-			Bot.Settings.Class.bFuryDumpWrath = !Bot.Settings.Class.bFuryDumpWrath;
+			Bot.Settings.Barbarian.bFuryDumpWrath = !Bot.Settings.Barbarian.bFuryDumpWrath;
 		}
 		private void bFuryDumpAlwaysChecked(object sender, EventArgs e)
 		{
-			Bot.Settings.Class.bFuryDumpAlways = !Bot.Settings.Class.bFuryDumpAlways;
+			Bot.Settings.Barbarian.bFuryDumpAlways = !Bot.Settings.Barbarian.bFuryDumpAlways;
 		}
 		private void bMonkMaintainSweepingWindChecked(object sender, EventArgs e)
 		{
-			Bot.Settings.Class.bMonkMaintainSweepingWind = !Bot.Settings.Class.bMonkMaintainSweepingWind;
+			Bot.Settings.Monk.bMonkMaintainSweepingWind = !Bot.Settings.Monk.bMonkMaintainSweepingWind;
 		}
 		private void bMonkSpamMantraChecked(object sender, EventArgs e)
 		{
-			Bot.Settings.Class.bMonkSpamMantra = !Bot.Settings.Class.bMonkSpamMantra;
+			Bot.Settings.Monk.bMonkSpamMantra = !Bot.Settings.Monk.bMonkSpamMantra;
 		}
 		private void iDHVaultMovementDelaySliderChanged(object sender, EventArgs e)
 		{
 			Slider slider_sender = (Slider)sender;
 			int Value = (int)slider_sender.Value;
-			Bot.Settings.Class.iDHVaultMovementDelay = Value;
+			Bot.Settings.DemonHunter.iDHVaultMovementDelay = Value;
 			TBiDHVaultMovementDelay.Text = Value.ToString();
 		}
 		#endregion

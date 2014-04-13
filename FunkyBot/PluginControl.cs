@@ -119,7 +119,7 @@ namespace FunkyBot
 		internal static void HookBehaviorTree()
 		{
 
-			bool townportal = false, idenify = false, stash = false, vendor = false, salvage = false, looting = true, combat = true;
+			bool townportal = false, idenify = false, unidfystash = false, stash = false, vendor = false, salvage = false, looting = true, combat = true;
 
 			using (XmlReader reader = XmlReader.Create(FolderPaths.sTrinityPluginPath + "Treehooks.xml"))
 			{
@@ -135,6 +135,9 @@ namespace FunkyBot
 					{
 						case "Townportal":
 							townportal = Convert.ToBoolean(reader.ReadInnerXml());
+							break;
+						case "UnidentifiedStash":
+							unidfystash = Convert.ToBoolean(reader.ReadInnerXml());
 							break;
 						case "Identification":
 							idenify = Convert.ToBoolean(reader.ReadInnerXml());
@@ -160,13 +163,17 @@ namespace FunkyBot
 				}
 			}
 
-			Logger.DBLog.InfoFormat("[Funky] Replacing Treehooks..");
+			Logger.DBLog.InfoFormat("[Funky] Treehooks..");
 			#region TreeHooks
 			foreach (var hook in TreeHooks.Instance.Hooks)
 			{
+				#region Combat
+
 				// Replace the combat behavior tree, as that happens first and so gets done quicker!
 				if (hook.Key.Contains("Combat"))
 				{
+					Logger.DBLog.DebugFormat("Combat...");
+
 					if (combat)
 					{
 						// Replace the pause just after identify stuff to ensure we wait before trying to run to vendor etc.
@@ -179,13 +186,23 @@ namespace FunkyBot
 						Logger.DBLog.DebugFormat("Combat Tree replaced...");
 					}
 
-				} // Vendor run hook
+				}
+				
+				#endregion
+
+				#region VendorRun
+
 				// Wipe the vendorrun and loot behavior trees, since we no longer want them
 				if (hook.Key.Contains("VendorRun"))
 				{
+					Logger.DBLog.DebugFormat("VendorRun...");
+
 					Decorator GilesDecorator = hook.Value[0] as Decorator;
 					//PrioritySelector GilesReplacement = GilesDecorator.Children[0] as PrioritySelector;
 					PrioritySelector GilesReplacement = GilesDecorator.Children[0] as PrioritySelector;
+
+
+					#region TownPortal
 
 					//[1] == Return to town
 					if (townportal)
@@ -201,8 +218,14 @@ namespace FunkyBot
 						Logger.DBLog.DebugFormat("Town Run - Town Portal - hooked...");
 					}
 
+					
+					#endregion
+
 					ActionDelegate actionDelegatePrePause = TownRunManager.GilesStashPrePause;
 					ActionDelegate actionDelegatePause = TownRunManager.GilesStashPause;
+
+					#region Idenify
+
 
 					if (idenify)
 					{
@@ -220,6 +243,8 @@ namespace FunkyBot
 						Logger.DBLog.DebugFormat("Town Run - Idenify Items - hooked...");
 					}
 
+					
+					#endregion
 
 					// Replace the pause just after identify stuff to ensure we wait before trying to run to vendor etc.
 					CanRunDecoratorDelegate canRunDelegateStashGilesPreStashPause = TownRunManager.GilesPreStashPauseOverlord;
@@ -231,16 +256,23 @@ namespace FunkyBot
 					GilesReplacement.Children[3] = new Decorator(canRunDelegateStashGilesPreStashPause, sequencepause);
 
 
+					#region Stash
 					if (stash)
 					{
 						// Replace DB stashing behavior tree with my optimized version with loot rule replacement
-						CanRunDecoratorDelegate canRunDelegateStashGilesOverlord = TownRunManager.GilesStashOverlord;
-						ActionDelegate actionDelegatePreStash = TownRunManager.GilesOptimisedPreStash;
-						ActionDelegate actionDelegateStashing = TownRunManager.GilesOptimisedStash;
-						ActionDelegate actionDelegatePostStash = TownRunManager.GilesOptimisedPostStash;
+						CanRunDecoratorDelegate canRunDelegateStashGilesOverlord = TownRunManager.StashOverlord;
+						ActionDelegate actionDelegatePreStash = TownRunManager.PreStash;
+						ActionDelegate actionDelegatePostStash = TownRunManager.PostStash;
+
+						ActionDelegate actionDelegateStashMovement = TownRunManager.StashMovement;
+						ActionDelegate actionDelegateStashUpdate = TownRunManager.StashUpdate;
+						ActionDelegate actionDelegateStashItems = TownRunManager.StashItems;
+
 						Sequence sequencestash = new Sequence(
 								new Action(actionDelegatePreStash),
-								new Action(actionDelegateStashing),
+								new Action(actionDelegateStashMovement),
+								new Action(actionDelegateStashUpdate),
+								new Action(actionDelegateStashItems),
 								new Action(actionDelegatePostStash),
 								new Sequence(
 								new Action(actionDelegatePrePause),
@@ -250,7 +282,9 @@ namespace FunkyBot
 						GilesReplacement.Children[4] = new Decorator(canRunDelegateStashGilesOverlord, sequencestash);
 						Logger.DBLog.DebugFormat("Town Run - Stash - hooked...");
 					}
+					#endregion
 
+					#region Vendor
 					if (vendor)
 					{
 						// Replace DB vendoring behavior tree with my optimized & "one-at-a-time" version
@@ -270,7 +304,10 @@ namespace FunkyBot
 						GilesReplacement.Children[5] = new Decorator(canRunDelegateSellGilesOverlord, sequenceSell);
 						Logger.DBLog.DebugFormat("Town Run - Vendor - hooked...");
 					}
+					
+					#endregion
 
+					#region Salvage
 					if (salvage)
 					{
 						// Replace DB salvaging behavior tree with my optimized & "one-at-a-time" version
@@ -290,42 +327,41 @@ namespace FunkyBot
 						GilesReplacement.Children[6] = new Decorator(canRunDelegateSalvageGilesOverlord, sequenceSalvage);
 						Logger.DBLog.DebugFormat("Town Run - Salvage - hooked...");
 					}
+					
+					#endregion
 
+					#region UnidfyStash
 
-					//Decorator FinishTownRun=GilesReplacement.Children[7] as Decorator;
-					//Decorator FinishTownRunCheck=FinishTownRun.Children[0] as Decorator;
-					//PrioritySelector FinishTownRunPrioritySelector=FinishTownRunCheck.DecoratedChild as PrioritySelector;
-					//Decorator FinishTownRunPrioritySelectorDecorator=FinishTownRunPrioritySelector.Children[0] as Decorator;
-					//Zeta.TreeSharp.Action FinishTownRunAction=FinishTownRunPrioritySelectorDecorator.Children[0] as Zeta.TreeSharp.Action;
+					if (unidfystash)
+					{
+						CanRunDecoratorDelegate canRunUnidBehavior = TownRunManager.UnidItemOverlord;
+						ActionDelegate actionDelegatePreUnidStash = TownRunManager.PreStash;
+						ActionDelegate actionDelegatePostUnidStash = TownRunManager.PostStash;
 
-					//[7] == Return to Townportal if there is one..
+						ActionDelegate actionDelegateStashMovement = TownRunManager.StashMovement;
+						ActionDelegate actionDelegateStashUpdate = TownRunManager.StashUpdate;
+						ActionDelegate actionDelegateStashItems = TownRunManager.StashItems;
 
-					//Setup our movement back to townportal
-					//CanRunDecoratorDelegate canRunDelegateUseTownPortalReturn = TownRunManager.FinishTownRunOverlord;
-					//ActionDelegate actionDelegateFinishTownRun = TownRunManager.TownRunFinishBehavior;
-					//Sequence sequenceFinishTownRun = new Sequence(
-					//   new Action(actionDelegateFinishTownRun)
-					//);
+						Sequence sequenceUnidStash = new Sequence(
+								new Action(actionDelegatePreUnidStash),
+								new Action(actionDelegateStashMovement),
+								new Action(actionDelegateStashUpdate),
+								new Action(actionDelegateStashItems),
+								new Action(actionDelegatePostUnidStash),
+								new Sequence(
+								new Action(actionDelegatePrePause),
+								new Action(actionDelegatePause)
+								)
+							  );
 
-					//We insert this before the demonbuddy townportal finishing behavior.. 
-					//GilesReplacement.InsertChild(7, new Decorator(canRunDelegateUseTownPortalReturn, sequenceFinishTownRun));
+						//Insert Before Item ID Step
+						GilesReplacement.InsertChild(2, new Decorator(canRunUnidBehavior, sequenceUnidStash));
+						Logger.DBLog.DebugFormat("Town Run - Undify Stash - inserted...");
+					}
 
+					
+					#endregion
 
-
-					CanRunDecoratorDelegate canRunUnidBehavior = TownRunManager.UnidItemOverlord;
-					ActionDelegate actionDelegatePreUnidStash = TownRunManager.UnidStashOptimisedPreStash;
-					ActionDelegate actionDelegatePostUnidStash = TownRunManager.UnidStashOptimisedPostStash;
-					ActionDelegate actionDelegateUnidBehavior = TownRunManager.UnidStashBehavior;
-					Sequence sequenceUnidStash = new Sequence(
-							new Action(actionDelegatePreUnidStash),
-							new Action(actionDelegateUnidBehavior),
-							new Action(actionDelegatePostUnidStash),
-							new Sequence(
-							new Action(actionDelegatePrePause),
-							new Action(actionDelegatePause)
-							)
-						  );
-					GilesReplacement.InsertChild(2, new Decorator(canRunUnidBehavior, sequenceUnidStash));
 
 
 					CanRunDecoratorDelegate canRunDelegateGilesTownRunCheck = TownRunManager.GilesTownRunCheckOverlord;
@@ -333,8 +369,16 @@ namespace FunkyBot
 
 					Logger.DBLog.DebugFormat("Vendor Run tree hooked...");
 				} // Vendor run hook
+
+				
+				#endregion
+
+				#region Loot
+
 				if (hook.Key.Contains("Loot"))
 				{
+					Logger.DBLog.DebugFormat("Loot...");
+
 					if (looting)
 					{
 						// Replace the loot behavior tree with a blank one, as we no longer need it
@@ -351,9 +395,17 @@ namespace FunkyBot
 						CanRunDecoratorDelegate canRunDelegateBlank = BlankDecorator;
 						hook.Value[0] = new Decorator(canRunDelegateBlank, BrainBehavior.CreateLootBehavior());
 					}
-				} // Vendor run hook
+				}
+				
+				#endregion
+
+				#region OutOfGame
+
+
 				if (hook.Key.Contains("OutOfGame"))
 				{
+					Logger.DBLog.DebugFormat("OutOfGame...");
+
 					PrioritySelector CompositeReplacement = hook.Value[0] as PrioritySelector;
 
 					CanRunDecoratorDelegate shouldPreformOutOfGameBehavior = OutOfGame.OutOfGameOverlord;
@@ -366,34 +418,56 @@ namespace FunkyBot
 
 					Logger.DBLog.DebugFormat("Out of game tree hooked");
 				}
+				
+				#endregion
+
+				#region Death
+
+
 				if (hook.Key.Contains("Death"))
 				{
-					PrioritySelector DeathPrioritySelector = hook.Value[0] as PrioritySelector;
+					Logger.DBLog.DebugFormat("Death...");
 
-					//CanRunDecoratorDelegate canRunDeathBehavior=new CanRunDecoratorDelegate(Death.DeathOverlord);
 
-					//Sequence sequenceDeath=new Sequence(
-					//	 new Zeta.TreeSharp.Action(actionDelgateDeath)
-					//);
-					//DeathPrioritySelector.Children[0]=new Zeta.TreeSharp.Decorator(canRunDeathBehavior, sequenceDeath);
+					Decorator deathDecorator = hook.Value[0] as Decorator;
 
-					Decorator DeathDecorator = DeathPrioritySelector.Children[0] as Decorator;
-					Sequence DeathSequence = DeathDecorator.Children[0] as Sequence;
-					ActionDelegate actionDelgateDeath = EventHandlers.DeathHandler;
-					DeathSequence.InsertChild(0, new Action(actionDelgateDeath));
-					/*
-					 17:10:24.548 N] Zeta.TreeSharp.Action
-					[17:10:24.548 N] Zeta.TreeSharp.DecoratorContinue
-					[17:10:24.548 N] Zeta.TreeSharp.Action
-					[17:10:24.548 N] Zeta.TreeSharp.Sleep
-					[17:10:24.548 N] Zeta.TreeSharp.Action
-					*/
-					// foreach (var item in DeathSequence.Children)
+					PrioritySelector DeathPrioritySelector = deathDecorator.Children[0] as PrioritySelector;
+
+					//Insert Death Tally Counter At Beginning!
+					CanRunDecoratorDelegate deathTallyDecoratorDelegate = EventHandlers.TallyDeathCanRunDecorator;
+					ActionDelegate actionDelegatedeathTallyAction = EventHandlers.TallyDeathAction;
+					Action deathTallyAction = new Action(actionDelegatedeathTallyAction);
+					Decorator deathTallyDecorator = new Decorator(deathTallyDecoratorDelegate, deathTallyAction);
+					DeathPrioritySelector.InsertChild(0, deathTallyDecorator);
+
+					//Insert Death Tally Reset at End!
+					Action deathTallyActionReset = new Action(ret => EventHandlers.TallyedDeathCounter = false);
+					DeathPrioritySelector.InsertChild(7, deathTallyActionReset);
+
+					Logger.DBLog.DebugFormat("Death tree hooked");
+
+					//foreach (var item in DeathPrioritySelector.Children)
 					//{
-					//	 Logger.DBLog.InfoFormat(item.GetType().ToString());
+					//	Logger.DBLog.InfoFormat(item.GetType().ToString());
 					//}
 
+
+					/*
+					 *  Zeta.TreeSharp.Decorator
+						Zeta.TreeSharp.Decorator
+						Zeta.TreeSharp.Decorator
+						Zeta.TreeSharp.Decorator
+						Zeta.TreeSharp.Decorator
+						Zeta.TreeSharp.Decorator
+						Zeta.TreeSharp.Action
+					 * 
+					*/
+
+
 				}
+
+				
+				#endregion
 			}
 			#endregion
 			initTreeHooks = true;

@@ -29,7 +29,7 @@ namespace FunkyBot.Cache
 			  new AvoidanceValue(AvoidanceType.GrotesqueExplosion, 0.50, 20,5),
 			  new AvoidanceValue(AvoidanceType.LacuniBomb, 0.25, 2,5),
 			  new AvoidanceValue(AvoidanceType.MageFirePool, 1, 10,5),
-			  new AvoidanceValue(AvoidanceType.MeteorImpact, 1, 10,5),
+			  new AvoidanceValue(AvoidanceType.MeteorImpact, 1, 14,5),
 			  new AvoidanceValue(AvoidanceType.MoltenCore, 1, 20,5),
 			  new AvoidanceValue(AvoidanceType.MoltenTrail, 0.75, 6,5),
 			  new AvoidanceValue(AvoidanceType.OrbitFocalPoint, 0.75, 8,5),

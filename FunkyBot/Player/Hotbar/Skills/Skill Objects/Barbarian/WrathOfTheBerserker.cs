@@ -19,13 +19,13 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				WaitVars=new WaitLoops(4, 4, true);
 				Cost=50;
 				UseageType=AbilityUseage.Anywhere;
-				IsSpecialAbility=Bot.Settings.Class.bWaitForWrath;
+				IsSpecialAbility=Bot.Settings.Barbarian.bWaitForWrath;
 				Priority=AbilityPriority.High;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckExisitingBuff|
 				                          AbilityPreCastFlags.CheckCanCast));
 				FcriteriaCombat=() => Bot.Targeting.Cache.Environment.bAnyChampionsPresent
-				                      ||(Bot.Settings.Class.bBarbUseWOTBAlways&&Bot.Targeting.Cache.Environment.SurroundingUnits>1)
-									  || (Bot.Settings.Class.bGoblinWrath && Bot.Targeting.Cache.CurrentTarget.IsTreasureGoblin);
+				                      ||(Bot.Settings.Barbarian.bBarbUseWOTBAlways&&Bot.Targeting.Cache.Environment.SurroundingUnits>1)
+									  || (Bot.Settings.Barbarian.bGoblinWrath && Bot.Targeting.Cache.CurrentTarget.IsTreasureGoblin);
 		  }
 
 		  #region IAbility

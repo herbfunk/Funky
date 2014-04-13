@@ -53,7 +53,7 @@ namespace FunkyBot.Targeting.Behaviors
 					}
 
 					// Finally, a special check for waiting for wrath of the berserker cooldown before engaging Azmodan
-					if (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker) && Bot.Settings.Class.bWaitForWrath && !Bot.Character.Class.Abilities[SNOPower.Barbarian_WrathOfTheBerserker].AbilityUseTimer() &&
+					if (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker) && Bot.Settings.Barbarian.bWaitForWrath && !Bot.Character.Class.Abilities[SNOPower.Barbarian_WrathOfTheBerserker].AbilityUseTimer() &&
 						Bot.Character.Data.iCurrentWorldID == 121214 &&
 						(Vector3.Distance(Bot.Character.Data.Position, new Vector3(711.25f, 716.25f, 80.13903f)) <= 40f || Vector3.Distance(Bot.Character.Data.Position, new Vector3(546.8467f, 551.7733f, 1.576313f)) <= 40f))
 					{
@@ -63,7 +63,7 @@ namespace FunkyBot.Targeting.Behaviors
 						return true;
 					}
 					// And a special check for wizard archon
-					if (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_Archon) && !Bot.Character.Class.Abilities[SNOPower.Wizard_Archon].AbilityUseTimer() && Bot.Settings.Class.bWaitForArchon && ZetaDia.CurrentWorldId == 121214 &&
+					if (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_Archon) && !Bot.Character.Class.Abilities[SNOPower.Wizard_Archon].AbilityUseTimer() && Bot.Settings.Wizard.bWaitForArchon && ZetaDia.CurrentWorldId == 121214 &&
 						(Vector3.Distance(Bot.Character.Data.Position, new Vector3(711.25f, 716.25f, 80.13903f)) <= 40f || Vector3.Distance(Bot.Character.Data.Position, new Vector3(546.8467f, 551.7733f, 1.576313f)) <= 40f))
 					{
 						Logger.DBLog.InfoFormat("[Funky] Waiting for Wizard Archon cooldown before continuing to Azmodan.");
@@ -86,8 +86,8 @@ namespace FunkyBot.Targeting.Behaviors
 					{
 						if (Bot.Game.Profile.InteractableCachedObject.Position.Distance(Bot.Character.Data.Position) > 50f)
 						{
-							if (Bot.Targeting.Cache.LastCachedTarget.Position != Bot.Game.Profile.InteractableCachedObject.Position)
-								Navigator.Clear();
+							//if (Bot.Targeting.Cache.LastCachedTarget.Position != Bot.Game.Profile.InteractableCachedObject.Position)
+							//	Navigator.Clear();
 
 							//Generate the path here so we can start moving..
 							Navigation.NP.MoveTo(Bot.Game.Profile.InteractableCachedObject.Position, "ReturnToOOCLoc", true);

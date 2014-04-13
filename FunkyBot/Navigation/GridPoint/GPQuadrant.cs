@@ -178,7 +178,8 @@ namespace FunkyBot.Movement
 				//LOS Check
 				if (CheckingLOSV3)
 				{
-					if (!Navigation.CanRayCast(LastSafespotFound, LoSCheckV3, UseSearchGridProvider: true))
+
+					if (!Navigation.CheckVectorFlags((Vector3)gp, LoSCheckV3, PointCheckingFlags.AvoidanceOverlap | PointCheckingFlags.RaycastNavProvider))
 					{
 						LastIndexUsed = curIndex;
 						PassedPointNonLOS = true;
@@ -262,44 +263,13 @@ namespace FunkyBot.Movement
 				}
 			}
 
-
-			//Avoidance Check (Any Avoidance)
-			if (flags.HasFlag(PointCheckingFlags.AvoidanceOverlap))
-			{
-				if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(pointVector)) return false;
-			}
-
-
-			//Kiting Check
-			if (flags.HasFlag(PointCheckingFlags.MonsterOverlap))
-			{
-				if (ObjectCache.Objects.OfType<CacheUnit>().Any(m => m.ShouldFlee && m.IsPositionWithinRange(pointVector, Bot.Settings.Fleeing.FleeMaxMonsterDistance))) return false;
-			}
-
-
-			//Avoidance Intersection Check
-			if (flags.HasFlag(PointCheckingFlags.AvoidanceIntersection))
-			{
-				//if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(botcurpos, pointVector)) return false;
-			}
-
-			if (flags.HasFlag(PointCheckingFlags.Raycast))
-			{
-				if (!Navigation.CanRayCast(botcurpos, pointVector)) return false;
-			}
-			if (flags.HasFlag(PointCheckingFlags.RaycastWalkable))
-			{
-				if (!Navigation.CanRayCast(botcurpos, pointVector, NavCellFlags.AllowWalk)) return false;
-			}
-			if (flags.HasFlag(PointCheckingFlags.RaycastNavProvider))
-			{
-				if (!Navigation.CanRayCast(botcurpos, pointVector, UseSearchGridProvider: true)) return false;
-			}
+			if (!Navigation.CheckVectorFlags(botcurpos, pointVector, flags)) return false;
 
 			LastSafespotFound = pointVectorReturn;
 			LastSafeGridPointFound = point.Clone();
 			return true;
 		}
+
 	}
 
 

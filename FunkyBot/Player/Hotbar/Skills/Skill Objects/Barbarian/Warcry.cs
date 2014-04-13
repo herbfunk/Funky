@@ -24,11 +24,9 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				Priority=AbilityPriority.High;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated));
 				FcriteriaBuff=() => !Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Barbarian_WarCry_v2);
-				FcriteriaCombat = () => (!Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Barbarian_WarCry_v2)
-				                       ||
-				                       (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Barbarian_Passive_InspiringPresence)&&
-				                        LastUsedMilliseconds>59
-				                        ||Bot.Character.Data.dCurrentEnergyPct<0.10));
+				FcriteriaCombat = () => (!Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Barbarian_WarCry_v2)||
+				                       (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Barbarian_Passive_InspiringPresence)&&LastUsedMilliseconds>59)||
+				                        Bot.Character.Data.dCurrentEnergyPct<0.10);
 
 		  }
 

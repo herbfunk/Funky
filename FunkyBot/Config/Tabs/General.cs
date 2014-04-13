@@ -36,17 +36,8 @@ namespace FunkyBot
 
 
 
-		private void EnableDemonBuddySettingsChecked(object sender, EventArgs e)
-		{
-			Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings = !Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings;
-		}
-		private void DemonBuddyMonsterPowerSliderChange(object sender, EventArgs e)
-		{
-			Slider slider_sender = (Slider)sender;
-			int Value = (int)slider_sender.Value;
-			Bot.Settings.Demonbuddy.MonsterPower = Value;
-			tbMonsterPower.Text = Value.ToString();
-		}
+
+
 		#endregion
 
 
@@ -187,86 +178,6 @@ namespace FunkyBot
 
 
 			InitBacktrackingControls();
-
-
-			#region Demonbuddy
-			TabItem DemonbuddyTab = new TabItem();
-			DemonbuddyTab.Header = "DemonBuddy";
-			tcGeneral.Items.Add(DemonbuddyTab);
-			ListBox LBDemonbuddy = new ListBox();
-
-			StackPanel DemonbuddyStackPanel = new StackPanel
-			{
-				Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom + 5),
-				Orientation = Orientation.Vertical,
-				HorizontalAlignment = HorizontalAlignment.Stretch,
-			};
-			TextBlock Demonbuddy_Header_Text = new TextBlock
-			{
-				Text = "DemonBuddy Settings",
-				FontSize = 13,
-				Background = Brushes.LightSeaGreen,
-				TextAlignment = TextAlignment.Center,
-				HorizontalAlignment = HorizontalAlignment.Stretch,
-				Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right, Margin.Bottom + 5),
-			};
-			DemonbuddyStackPanel.Children.Add(Demonbuddy_Header_Text);
-
-			#region DemonbuddyCheckBox
-			CheckBox CBDemonbuddy = new CheckBox
-			{
-				Content = "Enable Demonbuddy Settings Override",
-				Height = 20,
-				IsChecked = (Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings)
-			};
-			CBDemonbuddy.Checked += EnableDemonBuddySettingsChecked;
-			CBDemonbuddy.Unchecked += EnableDemonBuddySettingsChecked;
-			DemonbuddyStackPanel.Children.Add(CBDemonbuddy);
-			#endregion
-
-			#region Demonbuddy Monsterpower
-			TextBlock Demonbuddy_MonsterPower_Text = new TextBlock
-			{
-				Text = "Monster Power",
-				FontSize = 13,
-				Foreground = Brushes.GhostWhite,
-				TextAlignment = TextAlignment.Center,
-				Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right + 5, Margin.Bottom),
-			};
-			Slider sliderMonsterPower = new Slider
-			{
-				Width = 100,
-				Maximum = 10,
-				Minimum = 0,
-				TickFrequency = 1,
-				LargeChange = 1,
-				SmallChange = 1,
-				Value = Bot.Settings.Demonbuddy.MonsterPower,
-				HorizontalAlignment = HorizontalAlignment.Left,
-			};
-			sliderMonsterPower.ValueChanged += DemonBuddyMonsterPowerSliderChange;
-			tbMonsterPower = new TextBox
-			{
-				Text = sliderMonsterPower.Value.ToString(),
-				IsReadOnly = true,
-			};
-			StackPanel SPMonsterPower = new StackPanel
-			{
-				Height = 30,
-				HorizontalAlignment = HorizontalAlignment.Stretch,
-				Orientation = Orientation.Horizontal,
-				Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right + 5, Margin.Bottom),
-			};
-			SPMonsterPower.Children.Add(Demonbuddy_MonsterPower_Text);
-			SPMonsterPower.Children.Add(sliderMonsterPower);
-			SPMonsterPower.Children.Add(tbMonsterPower);
-			DemonbuddyStackPanel.Children.Add(SPMonsterPower);
-			#endregion
-
-			LBDemonbuddy.Items.Add(DemonbuddyStackPanel);
-			DemonbuddyTab.Content = LBDemonbuddy;
-
-			#endregion
 		}
 	}
 }

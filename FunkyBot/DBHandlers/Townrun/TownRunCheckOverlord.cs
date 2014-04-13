@@ -47,7 +47,7 @@ namespace FunkyBot.DBHandlers
 		private static bool bCurrentlyMoving;
 		private static bool bNeedsEquipmentRepairs;
 		// Stash mapper - it's an array representing every slot in your stash, true or false dictating if the slot is free or not
-		private static bool[,] GilesStashSlotBlocked = new bool[7, 30];
+		private static readonly bool[,] GilesStashSlotBlocked = new bool[7, 40];
 		internal static bool TownrunStartedInTown = true;
 
 		// **********************************************************************************************
@@ -71,7 +71,6 @@ namespace FunkyBot.DBHandlers
 					if (BrainBehavior.ShouldVendor || Bot.Character.Data.BackPack.ShouldRepairItems())
 					{
 						bCheckedItemDurability = false;
-						bCheckUnidItems = true;
 						bWantToTownRun = true;
 					}
 				}
@@ -88,6 +87,9 @@ namespace FunkyBot.DBHandlers
 					Bot.NavigationCache.LOSmovementObject = null;
 					return TownPortalBehavior.SafetyCheckForTownRun();
 				}
+
+				//Should we check Unidentified Items?
+				bCheckUnidItems = Bot.Settings.ItemRules.ItemRulesUnidStashing;
 			}
 
 			return bWantToTownRun;

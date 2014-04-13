@@ -300,6 +300,10 @@ namespace FunkyBot.Cache.Objects
 								//Give weight based upon current health percent.
 								Weight += 1000d / (Bot.Character.Data.dCurrentHealthPct);
 						}
+						else if (this.Gizmotype.Value == GizmoType.PoolOfReflection)
+						{
+							Weight += 1000;
+						}
 
 						if (Weight > 0)
 						{

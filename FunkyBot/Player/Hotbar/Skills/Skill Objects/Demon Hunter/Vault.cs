@@ -27,7 +27,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				{
 					float fDistanceFromTarget=Bot.Character.Data.Position.Distance(v);
 					if (!Bot.Character.Class.bWaitingForSpecial&&Funky.Difference(Bot.Character.Data.Position.Z, v.Z)<=4&&fDistanceFromTarget>=18f&&
-					    (LastUsedMilliseconds>=Bot.Settings.Class.iDHVaultMovementDelay))
+					    (LastUsedMilliseconds>=Bot.Settings.DemonHunter.iDHVaultMovementDelay))
 					{
 						return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, Math.Max(fDistanceFromTarget, 35f));
 					}
@@ -38,7 +38,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				{
 					float fDistanceFromTarget=Bot.Character.Data.Position.Distance(v);
 					if (Funky.Difference(Bot.Character.Data.Position.Z, v.Z)<=4&&fDistanceFromTarget>=18f&&
-					    (LastUsedMilliseconds>=Bot.Settings.Class.iDHVaultMovementDelay))
+					    (LastUsedMilliseconds>=Bot.Settings.DemonHunter.iDHVaultMovementDelay))
 					{
 						return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, Math.Max(fDistanceFromTarget, 35f));
 					}

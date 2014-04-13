@@ -658,6 +658,44 @@ namespace FunkyBot.Movement
 
 		//Static Methods
 		#region Static Movement Methods
+		public static bool CheckVectorFlags(Vector3 currentPos, Vector3 targetPos, PointCheckingFlags flags)
+		{
+			//Avoidance Check (Any Avoidance)
+			if (flags.HasFlag(PointCheckingFlags.AvoidanceOverlap))
+			{
+				if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(targetPos)) return false;
+			}
+
+
+			//Kiting Check
+			if (flags.HasFlag(PointCheckingFlags.MonsterOverlap))
+			{
+				if (ObjectCache.Objects.OfType<CacheUnit>().Any(m => m.ShouldFlee && m.IsPositionWithinRange(targetPos, Bot.Settings.Fleeing.FleeMaxMonsterDistance))) return false;
+			}
+
+
+			//Avoidance Intersection Check
+			if (flags.HasFlag(PointCheckingFlags.AvoidanceIntersection))
+			{
+				if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(currentPos, targetPos)) return false;
+			}
+
+			Vector3 botcurpos = Bot.Character.Data.Position;
+			if (flags.HasFlag(PointCheckingFlags.Raycast))
+			{
+				if (!Navigation.CanRayCast(currentPos, targetPos)) return false;
+			}
+			if (flags.HasFlag(PointCheckingFlags.RaycastWalkable))
+			{
+				if (!Navigation.CanRayCast(currentPos, targetPos, NavCellFlags.AllowWalk)) return false;
+			}
+			if (flags.HasFlag(PointCheckingFlags.RaycastNavProvider))
+			{
+				if (!Navigation.CanRayCast(currentPos, targetPos, UseSearchGridProvider: true)) return false;
+			}
+
+			return true;
+		}
 		///<summary>
 		///Ray Cast -- if no navcellflags parameter is given then it will use Navigator.Raycast -- else it uses ZetaDia.Physics.Raycast to test navcellflags
 		///</summary>

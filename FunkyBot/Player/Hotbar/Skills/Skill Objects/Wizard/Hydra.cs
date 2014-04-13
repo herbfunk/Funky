@@ -10,7 +10,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				Cooldown=1500;
 				ExecutionType=AbilityExecuteFlags.ClusterLocation|AbilityExecuteFlags.Location;
 				WaitVars=new WaitLoops(1, 2, true);
-				Counter=1;
+				Counter = Bot.Settings.Wizard.SerpentSparker?2:1;
 				Cost=15;
 				Range=50;
 				IsRanged=true;

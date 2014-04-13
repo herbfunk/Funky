@@ -99,7 +99,7 @@ namespace FunkyBot
 		}
 		private void AllowDefaultAttackAlwaysChecked(object sender, EventArgs e)
 		{
-			Bot.Settings.Class.AllowDefaultAttackAlways = !Bot.Settings.Class.AllowDefaultAttackAlways;
+			Bot.Settings.Combat.AllowDefaultAttackAlways = !Bot.Settings.Combat.AllowDefaultAttackAlways;
 		}
 		private void PrioritizeCloseRangeUnitsChecked(object sender, EventArgs e)
 		{

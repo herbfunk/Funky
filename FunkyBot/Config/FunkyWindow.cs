@@ -433,6 +433,15 @@ namespace FunkyBot
 				Name = "CombatCache",
 			};
 			btnCombatCache_Debug.Click += DebugButtonClicked;
+			Button btnCombatMovement_Debug = new Button
+			{
+				Content = "Movement",
+				FontSize = 10,
+				Width = 80,
+				Height = 25,
+				Name = "CombatMovement",
+			};
+			btnCombatMovement_Debug.Click += DebugButtonClicked;
 			Button btnTEST_Debug = new Button
 			{
 				Content = "Test",
@@ -460,7 +469,7 @@ namespace FunkyBot
 			StackPanel_DebugButtons.Children.Add(btnAbility_Debug);
 			StackPanel_DebugButtons.Children.Add(btnCharacterCache_Debug);
 			StackPanel_DebugButtons.Children.Add(btnCombatCache_Debug);
-			StackPanel_DebugButtons.Children.Add(btnTEST_Debug);
+			StackPanel_DebugButtons.Children.Add(btnCombatMovement_Debug);
 
 			//StackPanel_DebugButtons.Children.Add(btnGPC_Debug);
 

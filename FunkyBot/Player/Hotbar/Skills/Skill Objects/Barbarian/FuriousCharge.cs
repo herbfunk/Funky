@@ -25,14 +25,14 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				Priority=AbilityPriority.Medium;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy|
 				                          AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated));
-				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
-				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 3);
-				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 15);
+				
+				ClusterConditions = new SkillClusterConditions(7d, 35f, 4, false, minDistance: 15f, useRadiusDistance: true);
+				SingleUnitCondition=new UnitTargetConditions(TargetProperties.None, 30, falseConditionalFlags: TargetProperties.Normal);
 
 				FCombatMovement=v =>
 				{
 					float fDistanceFromTarget=Bot.Character.Data.Position.Distance(v);
-					if (!Bot.Character.Class.bWaitingForSpecial&&Funky.Difference(Bot.Character.Data.Position.Z, v.Z)<=4&&fDistanceFromTarget>=20f)
+					if (Bot.Settings.OutOfCombatMovement && !Bot.Character.Class.bWaitingForSpecial&&Funky.Difference(Bot.Character.Data.Position.Z, v.Z)<=4&&fDistanceFromTarget>=20f)
 					{
 						if (fDistanceFromTarget>35f)
 							return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 35f);

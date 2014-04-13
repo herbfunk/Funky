@@ -26,7 +26,7 @@ namespace FunkyBot.Targeting.Behaviors
 					Bot.Character.Data.dCurrentHealthPct <= Bot.Settings.Fleeing.FleeBotMinimumHealthPercent &&
 					Bot.Targeting.Cache.Environment.FleeTriggeringUnits.Count > 0 &&
 					(!Bot.Targeting.Cache.Environment.bAnyTreasureGoblinsPresent || Bot.Settings.Targeting.GoblinPriority < 2) &&
-					(Bot.Character.Class.AC != ActorClass.Wizard || (!Bot.Character.Class.HotBar.HasBuff(SNOPower.Wizard_Archon) || !Bot.Settings.Class.bKiteOnlyArchon));
+					(Bot.Character.Class.AC != ActorClass.Wizard || (!Bot.Character.Class.HotBar.HasBuff(SNOPower.Wizard_Archon) || !Bot.Settings.Wizard.bKiteOnlyArchon));
 			}
 		}
 		public override TargetBehavioralTypes TargetBehavioralTypeType { get { return TargetBehavioralTypes.Fleeing; } }

@@ -8,7 +8,6 @@ namespace FunkyBot.Settings
 
 	public class Settings_Funky
 	{
-		public SettingDemonBuddy Demonbuddy { get; set; }
 		public SettingDebug Debug { get; set; }
 		public SettingTargeting Targeting { get; set; }
 		public SettingCombat Combat { get; set; }
@@ -58,12 +57,15 @@ namespace FunkyBot.Settings
 
 		public SettingPlugin Plugin { get; set; }
 
-		//Class Settings
-		public ClassSettings Class { get; set; }
+
+		public SettingBarbarian Barbarian { get; set; }
+		public SettingDemonHunter DemonHunter { get; set; }
+		public SettingMonk Monk { get; set; }
+		public SettingWitchDoctor WitchDoctor { get; set; }
+		public SettingWizard Wizard { get; set; }
+
 		public Settings_Funky()
 		{
-
-			Demonbuddy = new SettingDemonBuddy();
 			Debug = new SettingDebug();
 			Grouping = new SettingGrouping();
 			Fleeing = new SettingFleeing();
@@ -86,7 +88,38 @@ namespace FunkyBot.Settings
 			OutOfCombatMovement = false;
 			AllowBuffingInTown = false;
 
-			Class = new ClassSettings();
+			
+			CreateClassSettings();
+
+		}
+
+		public void CreateClassSettings()
+		{
+			if (Bot.Character == null || Bot.Character.Account == null) return;
+
+			if (Bot.Character.Account.ActorClass != ActorClass.Invalid)
+			{
+				switch (Bot.Character.Account.ActorClass)
+				{
+					case ActorClass.Barbarian:
+						Barbarian = new SettingBarbarian();
+						break;
+					case ActorClass.Crusader:
+						break;
+					case ActorClass.DemonHunter:
+						DemonHunter = new SettingDemonHunter();
+						break;
+					case ActorClass.Monk:
+						Monk = new SettingMonk();
+						break;
+					case ActorClass.Witchdoctor:
+						WitchDoctor = new SettingWitchDoctor();
+						break;
+					case ActorClass.Wizard:
+						Wizard = new SettingWizard();
+						break;
+				}
+			}
 		}
 
 		//TODO:: Create Abstract Base Class and Derieved Classes for each D3 Class.

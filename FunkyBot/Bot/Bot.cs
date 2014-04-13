@@ -13,7 +13,7 @@ namespace FunkyBot
 
 	public static class Bot
 	{
-		public static Settings_Funky Settings = new Settings_Funky();
+		public static Settings_Funky Settings { get; set; }
 
 		private static readonly Character character = new Character();
 		public static Character Character { get { return character; } }

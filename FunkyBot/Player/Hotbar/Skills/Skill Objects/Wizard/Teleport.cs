@@ -15,7 +15,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				ExecutionType=AbilityExecuteFlags.ClusterLocation|AbilityExecuteFlags.ZigZagPathing;
 				WaitVars=new WaitLoops(0, 1, true);
 				Cost=15;
-				Range=35;
+				Range=50;
 				UseageType=AbilityUseage.Combat;
 				IsASpecialMovementPower = true;
 				Priority=AbilityPriority.High;
@@ -23,20 +23,20 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				                          AbilityPreCastFlags.CheckEnergy));
 				ClusterConditions=new SkillClusterConditions(5d, 48f, 2, false);
 				//TestCustomCombatConditionAlways=true,
-				FcriteriaCombat=() => ((Bot.Settings.Class.bTeleportFleeWhenLowHP&&Bot.Character.Data.dCurrentHealthPct<0.5d)
+				FcriteriaCombat=() => ((Bot.Settings.Wizard.bTeleportFleeWhenLowHP&&Bot.Character.Data.dCurrentHealthPct<0.5d)
 				                       ||
-				                       (Bot.Settings.Class.bTeleportIntoGrouping&&
+				                       (Bot.Settings.Wizard.bTeleportIntoGrouping&&
 										Bot.Targeting.Cache.Clusters.AbilityClusterCache(combatClusterCondition).Count > 0 &&
 										Bot.Targeting.Cache.Clusters.AbilityClusterCache(combatClusterCondition)[0].Midpoint.Distance(
 					                        Bot.Character.Data.PointPosition)>15f)
-				                       ||(!Bot.Settings.Class.bTeleportFleeWhenLowHP&&!Bot.Settings.Class.bTeleportIntoGrouping));
+				                       ||(!Bot.Settings.Wizard.bTeleportFleeWhenLowHP&&!Bot.Settings.Wizard.bTeleportIntoGrouping));
 				FCombatMovement=v =>
 				{
 					float fDistanceFromTarget=Bot.Character.Data.Position.Distance(v);
-					if (!Bot.Character.Class.bWaitingForSpecial&&Funky.Difference(Bot.Character.Data.Position.Z, v.Z)<=4&&fDistanceFromTarget>=20f)
+					if (!Bot.Character.Class.bWaitingForSpecial&&Funky.Difference(Bot.Character.Data.Position.Z, v.Z)<=4&&fDistanceFromTarget>=25f)
 					{
-						if (fDistanceFromTarget>35f)
-							return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 35f);
+						if (fDistanceFromTarget>50f)
+							return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 50f);
 						return v;
 					}
 
@@ -45,10 +45,10 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				FOutOfCombatMovement=v =>
 				{
 					float fDistanceFromTarget=Bot.Character.Data.Position.Distance(v);
-					if (Funky.Difference(Bot.Character.Data.Position.Z, v.Z)<=4&&fDistanceFromTarget>=20f)
+					if (Funky.Difference(Bot.Character.Data.Position.Z, v.Z)<=4&&fDistanceFromTarget>=10f)
 					{
-						if (fDistanceFromTarget>35f)
-							return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 35f);
+						if (fDistanceFromTarget>50f)
+							return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 50f);
 						return v;
 					}
 

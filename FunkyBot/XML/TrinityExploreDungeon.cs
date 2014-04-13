@@ -388,6 +388,9 @@ namespace FunkyBot.XMLTags
 			UpdateSearchGridProvider();
 
 			CheckResetDungeonExplorer();
+			GridSegmentation.Reset();
+			BrainBehavior.DungeonExplorer.Reset();
+			MiniMapMarker.KnownMarkers.Clear();
 
 			if (!InitDone)
 			{
@@ -486,7 +489,7 @@ namespace FunkyBot.XMLTags
 				var actor = ZetaDia.Actors.GetActorsOfType<DiaObject>(true, false).FirstOrDefault(a => a.ActorSNO == ActorId);
 
 				if (actor != null && actor.IsValid && actor.Position.Distance2D(myPos) >= ObjectDistance)
-					Navigator.MoveTo(actor.Position);
+					Funky.PlayerMover.NavigateTo(actor.Position);
 			});
 		}
 
@@ -499,7 +502,7 @@ namespace FunkyBot.XMLTags
 				return false;
 
 			var actors = ZetaDia.Actors.GetActorsOfType<DiaObject>(true, false)
-				.Where(a => !SkipAheadCache.CheckPositionForSkipping(a.Position));
+				.Where(a => a.ActorSNO == ActorId && !SkipAheadCache.CheckPositionForSkipping(a.Position));
 
 			if (actors == null)
 				return false;
@@ -1056,12 +1059,12 @@ namespace FunkyBot.XMLTags
 						new Action(ret => UpdateRoute())
 					)
 				),
-				new Decorator(ret => !IgnoreExploredAreas && CheckNodeInMiniMap(CurrentNavTarget),
-					new Sequence(
-						new Action(ret => SetNodeVisited("Found node in Explored Area using Minimap")),
-						new Action(ret => UpdateRoute())
-					)
-				),
+				//new Decorator(ret => !IgnoreExploredAreas && CheckNodeInMiniMap(CurrentNavTarget),
+				//	new Sequence(
+				//		new Action(ret => SetNodeVisited("Found node in Explored Area using Minimap")),
+				//		new Action(ret => UpdateRoute())
+				//	)
+				//),
 				CheckIgnoredScenes()
 			);
 		}
@@ -1272,7 +1275,7 @@ namespace FunkyBot.XMLTags
 
 			SkipAheadCache.RecordSkipAheadCachePoint(PathPrecision);
 
-			LastMoveResult = Navigator.MoveTo(CurrentNavTarget);
+			LastMoveResult = Funky.PlayerMover.NavigateTo(CurrentNavTarget);
 		}
 
 		private int iWorldID;

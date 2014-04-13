@@ -13,7 +13,7 @@ namespace FunkyBot
 		{
 			Slider slider_sender = (Slider)sender;
 			int Value = (int)slider_sender.Value;
-			Bot.Settings.Class.GoblinMinimumRange = Value;
+			Bot.Settings.Combat.GoblinMinimumRange = Value;
 			TBGoblinMinRange.Text = Value.ToString();
 		}
 		#endregion
@@ -35,7 +35,7 @@ namespace FunkyBot
 						Content = "Selective Whirlwind Targeting",
 						Width = 300,
 						Height = 30,
-						IsChecked = (Bot.Settings.Class.bSelectiveWhirlwind)
+						IsChecked = (Bot.Settings.Barbarian.bSelectiveWhirlwind)
 					};
 					cbbSelectiveWhirlwind.Checked += bSelectiveWhirlwindChecked;
 					cbbSelectiveWhirlwind.Unchecked += bSelectiveWhirlwindChecked;
@@ -59,7 +59,7 @@ namespace FunkyBot
 					{
 						Content = "Wait for Wrath",
 						Height = 30,
-						IsChecked = (Bot.Settings.Class.bWaitForWrath),
+						IsChecked = (Bot.Settings.Barbarian.bWaitForWrath),
 						Margin = new Thickness(5),
 					};
 					cbbWaitForWrath.Checked += bWaitForWrathChecked;
@@ -70,7 +70,7 @@ namespace FunkyBot
 					{
 						Content = "Use Wrath on Goblins",
 						Height = 30,
-						IsChecked = (Bot.Settings.Class.bGoblinWrath),
+						IsChecked = (Bot.Settings.Barbarian.bGoblinWrath),
 						Margin = new Thickness(5),
 					};
 					cbbGoblinWrath.Checked += bGoblinWrathChecked;
@@ -81,7 +81,7 @@ namespace FunkyBot
 					{
 						Content = "Use Wrath on Always",
 						Height = 30,
-						IsChecked = (Bot.Settings.Class.bBarbUseWOTBAlways),
+						IsChecked = (Bot.Settings.Barbarian.bBarbUseWOTBAlways),
 						Margin = new Thickness(5),
 					};
 					cbbBarbUseWOTBAlways.Checked += bBarbUseWOTBAlwaysChecked;
@@ -96,7 +96,7 @@ namespace FunkyBot
 						Content = "Fury Dump during Wrath",
 						Width = 300,
 						Height = 30,
-						IsChecked = (Bot.Settings.Class.bFuryDumpWrath)
+						IsChecked = (Bot.Settings.Barbarian.bFuryDumpWrath)
 					};
 					cbbFuryDumpWrath.Checked += bFuryDumpWrathChecked;
 					cbbFuryDumpWrath.Unchecked += bFuryDumpWrathChecked;
@@ -107,7 +107,7 @@ namespace FunkyBot
 						Content = "Fury Dump Always",
 						Width = 300,
 						Height = 30,
-						IsChecked = (Bot.Settings.Class.bFuryDumpAlways)
+						IsChecked = (Bot.Settings.Barbarian.bFuryDumpAlways)
 					};
 					cbbFuryDumpAlways.Checked += bFuryDumpAlwaysChecked;
 					cbbFuryDumpAlways.Unchecked += bFuryDumpAlwaysChecked;
@@ -124,13 +124,13 @@ namespace FunkyBot
 						TickFrequency = 5,
 						LargeChange = 5,
 						SmallChange = 1,
-						Value = Bot.Settings.Class.iDHVaultMovementDelay,
+						Value = Bot.Settings.DemonHunter.iDHVaultMovementDelay,
 						HorizontalAlignment = HorizontalAlignment.Left,
 					};
 					iDHVaultMovementDelayslider.ValueChanged += iDHVaultMovementDelaySliderChanged;
 					TBiDHVaultMovementDelay = new TextBox
 					{
-						Text = Bot.Settings.Class.iDHVaultMovementDelay.ToString(),
+						Text = Bot.Settings.DemonHunter.iDHVaultMovementDelay.ToString(),
 						IsReadOnly = true,
 					};
 					StackPanel DhVaultPanel = new StackPanel
@@ -150,7 +150,7 @@ namespace FunkyBot
 						Content = "Spam Mantra Ability",
 						Width = 300,
 						Height = 30,
-						IsChecked = Bot.Settings.Class.bMonkSpamMantra,
+						IsChecked = Bot.Settings.Monk.bMonkSpamMantra,
 					};
 					cbbMonkSpamMantra.Checked += bMonkSpamMantraChecked;
 					cbbMonkSpamMantra.Unchecked += bMonkSpamMantraChecked;
@@ -162,7 +162,7 @@ namespace FunkyBot
 						Content = "Maintain Sweeping Wind",
 						Width = 300,
 						Height = 30,
-						IsChecked = Bot.Settings.Class.bMonkMaintainSweepingWind,
+						IsChecked = Bot.Settings.Monk.bMonkMaintainSweepingWind,
 					};
 					cbbMonkMaintainSweepingWind.Checked += bMonkMaintainSweepingWindChecked;
 					cbbMonkMaintainSweepingWind.Unchecked += bMonkMaintainSweepingWindChecked;
@@ -191,7 +191,7 @@ namespace FunkyBot
 							Content = "Wait for Archon",
 							Width = 300,
 							Height = 30,
-							IsChecked = (Bot.Settings.Class.bWaitForArchon)
+							IsChecked = (Bot.Settings.Wizard.bWaitForArchon)
 						};
 						cbbWaitForArchon.Checked += bWaitForArchonChecked;
 						cbbWaitForArchon.Unchecked += bWaitForArchonChecked;
@@ -202,7 +202,7 @@ namespace FunkyBot
 							Content = "Do NOT Kite During Archon",
 							Width = 300,
 							Height = 30,
-							IsChecked = (Bot.Settings.Class.bKiteOnlyArchon)
+							IsChecked = (Bot.Settings.Wizard.bKiteOnlyArchon)
 						};
 						cbbKiteOnlyArchon.Checked += bKiteOnlyArchonChecked;
 						cbbKiteOnlyArchon.Unchecked += bKiteOnlyArchonChecked;
@@ -212,7 +212,7 @@ namespace FunkyBot
 						{
 							Content = "Cancel Archon for Rebuff",
 							Height = 30,
-							IsChecked = (Bot.Settings.Class.bCancelArchonRebuff),
+							IsChecked = (Bot.Settings.Wizard.bCancelArchonRebuff),
 						};
 						cbbCancelArchonRebuff.Checked += bCancelArchonRebuffChecked;
 						cbbCancelArchonRebuff.Unchecked += bCancelArchonRebuffChecked;
@@ -222,7 +222,7 @@ namespace FunkyBot
 						{
 							Content = "Teleport: Flee When Low HP",
 							Height = 30,
-							IsChecked = (Bot.Settings.Class.bTeleportFleeWhenLowHP),
+							IsChecked = (Bot.Settings.Wizard.bTeleportFleeWhenLowHP),
 						};
 						cbbTeleportFleeWhenLowHP.Checked += bTeleportFleeWhenLowHPChecked;
 						cbbTeleportFleeWhenLowHP.Unchecked += bTeleportFleeWhenLowHPChecked;
@@ -232,7 +232,7 @@ namespace FunkyBot
 						{
 							Content = "Teleport: Into Monster Groups",
 							Height = 30,
-							IsChecked = (Bot.Settings.Class.bTeleportIntoGrouping),
+							IsChecked = (Bot.Settings.Wizard.bTeleportIntoGrouping),
 						};
 						cbbTeleportIntoGrouping.Checked += bTeleportIntoGroupingChecked;
 						cbbTeleportIntoGrouping.Unchecked += bTeleportIntoGroupingChecked;
@@ -256,13 +256,13 @@ namespace FunkyBot
 					TickFrequency = 5,
 					LargeChange = 5,
 					SmallChange = 1,
-					Value = Bot.Settings.Class.GoblinMinimumRange,
+					Value = Bot.Settings.Combat.GoblinMinimumRange,
 					HorizontalAlignment = HorizontalAlignment.Left,
 				};
 				sliderGoblinMinRange.ValueChanged += TreasureGoblinMinimumRangeSliderChanged;
 				TBGoblinMinRange = new TextBox
 				{
-					Text = Bot.Settings.Class.GoblinMinimumRange.ToString(),
+					Text = Bot.Settings.Combat.GoblinMinimumRange.ToString(),
 					IsReadOnly = true,
 				};
 				StackPanel GoblinMinRangeStackPanel = new StackPanel

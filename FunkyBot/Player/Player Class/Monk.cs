@@ -22,24 +22,24 @@ namespace FunkyBot.Player.Class
 			if (InnaSetItemCount > 3)
 			{
 				Logger.DBLog.InfoFormat("Monk has full inna set!");
-				Bot.Settings.Class.bMonkInnaSet = true;
+				Bot.Settings.Monk.bMonkInnaSet = true;
 			}
 			else
-				Bot.Settings.Class.bMonkInnaSet = false;
+				Bot.Settings.Monk.bMonkInnaSet = false;
 
 
 			//Combo Strike???
 			if (HotBar.PassivePowers.Contains(SNOPower.Monk_Passive_CombinationStrike))
 			{
 				Logger.DBLog.InfoFormat("Combination Strike Found!");
-				Bot.Settings.Class.bMonkComboStrike = true;
+				Bot.Settings.Monk.bMonkComboStrike = true;
 				int TotalAbilities = HotBar.HotbarPowers.Count(power => SpiritGeneratingAbilities.Contains(power));
-				Bot.Settings.Class.iMonkComboStrikeAbilities = TotalAbilities;
+				Bot.Settings.Monk.iMonkComboStrikeAbilities = TotalAbilities;
 			}
 			else
 			{
-				Bot.Settings.Class.bMonkComboStrike = false;
-				Bot.Settings.Class.iMonkComboStrikeAbilities = 0;
+				Bot.Settings.Monk.bMonkComboStrike = false;
+				Bot.Settings.Monk.iMonkComboStrikeAbilities = 0;
 			}
 
 			Logger.DBLog.DebugFormat("[Funky] Using Monk Player Class");

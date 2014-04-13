@@ -34,6 +34,27 @@ namespace FunkyBot.Targeting
 			Bot.Character.Data.OnPositionChanged += positionChangedHandler;
 		}
 
+		internal string DebugString()
+		{
+			return String.Format("LastPlayerPOS: {0} \r\n " +
+			                     "LastTargetPOS: {1} \r\n " +
+			                     "CurrentTargetPOS: {2} \r\n" +
+								 "BlockedMovementCount: {3} --- NonMovementCount: {4} \r\n" +
+								 "IsAlreadyMoving: {5} \r\n" +
+								 "LastMovementDuringCombat: {6} \r\n" +
+								 "LastMovementAttempted: {7} \r\n" +
+								 "LastMovementCommand: {8}",
+								 LastPlayerLocation.ToString(), 
+								 LastTargetLocation.ToString(), 
+								 CurrentTargetLocation.ToString(), 
+								 BlockedMovementCounter, 
+								 NonMovementCounter,
+								 IsAlreadyMoving,
+								 LastMovementDuringCombat.ToString(),
+								 LastMovementAttempted.ToString(),
+								 LastMovementCommand.ToString());
+		}
+
 		private void positionChangedHandler(Vector3 position)
 		{
 			lastPositionChange = DateTime.Now;
@@ -291,6 +312,8 @@ namespace FunkyBot.Targeting
 					//if (DateTime.Now.Subtract(Bot.Targeting.Cache.Environment.lastForcedKeepCloseRange).TotalMilliseconds>=2000)
 					BlockedMovementCounter = 0;
 
+					Bot.Character.Class.PowerPrime.WaitLoopsBefore = 5;
+
 					return RunStatus.Running;
 				}
 
@@ -305,7 +328,7 @@ namespace FunkyBot.Targeting
 						 && (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.AvoidanceMovements | TargetType.Gold | TargetType.Globe) == false)
 						 && (obj.targetType.Value != TargetType.Unit
 						 || (obj.targetType.Value == TargetType.Unit && !obj.IsTreasureGoblin
-							  && (!Bot.Settings.Class.bSelectiveWhirlwind
+							  && (!Bot.Settings.Barbarian.bSelectiveWhirlwind
 									|| Bot.Targeting.Cache.Environment.bAnyNonWWIgnoreMobsInRange
 									|| !CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(obj.SNOID)))))
 					{
@@ -381,7 +404,7 @@ namespace FunkyBot.Targeting
 						 (obj.targetType.Value != TargetType.Item) &&
 						 obj.targetType.Value != TargetType.Interactable))
 					{
-						UsePowerMovement = false;
+						UsePowerMovement = true;
 					}
 				}
 

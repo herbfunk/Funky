@@ -139,6 +139,10 @@ namespace FunkyBot.Cache.Objects
 					{
 						this.GizmoHasBeenUsed = this.ref_Gizmo.HasBeenOperated;
 					}
+					else if (Gizmotype.Value == GizmoType.PoolOfReflection)
+					{
+						this.GizmoHasBeenUsed = this.ref_Gizmo.HasBeenOperated;
+					}
 				}
 				catch
 				{

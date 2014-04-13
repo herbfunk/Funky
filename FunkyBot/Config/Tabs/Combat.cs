@@ -379,7 +379,7 @@ namespace FunkyBot
 			CheckBox cbAllowDefaultAttackAlways = new CheckBox
 			{
 				Content = "Allow Default Attack Always",
-				IsChecked = Bot.Settings.Class.AllowDefaultAttackAlways,
+				IsChecked = Bot.Settings.Combat.AllowDefaultAttackAlways,
 				ToolTip = ttSkillAllowDefaultAttack,
 			};
 			cbAllowDefaultAttackAlways.Checked += AllowDefaultAttackAlwaysChecked;

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using Demonbuddy;
+using FunkyBot;
 using Zeta.Bot;
 using Zeta.Common.Plugins;
 
@@ -12,7 +13,7 @@ namespace FunkyDebug
 	 public partial class FunkyDebugger : IPlugin
 	 {
 		 internal static readonly log4net.ILog DBLog = Zeta.Common.Logger.GetLoggerInstanceForType();
-
+		 internal static readonly Interpreter ItemRules = new Interpreter();
 		  #region IPlugin Members
 
 		  public string Author

@@ -27,9 +27,9 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				FcriteriaBuff=() => Bot.Settings.OutOfCombatMovement&&!Bot.Character.Class.HotBar.HasBuff(Power);
 
 				FcriteriaCombat=() => (!Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_Sprint)&&Bot.Settings.OutOfCombatMovement)||
-				                      (((Bot.Settings.Class.bFuryDumpWrath&&Bot.Character.Data.dCurrentEnergyPct>=0.95&&
+				                      (((Bot.Settings.Barbarian.bFuryDumpWrath&&Bot.Character.Data.dCurrentEnergyPct>=0.95&&
 				                         Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
-				                        (Bot.Settings.Class.bFuryDumpAlways&&Bot.Character.Data.dCurrentEnergyPct>=0.95)||
+				                        (Bot.Settings.Barbarian.bFuryDumpAlways&&Bot.Character.Data.dCurrentEnergyPct>=0.95)||
 				                        ((Bot.Character.Class.Abilities[SNOPower.Barbarian_Sprint].AbilityUseTimer()&&!Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_Sprint))&&
 				                         // Always keep up if we are whirlwinding, or if the target is a goblin
 				                         (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind)||

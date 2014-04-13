@@ -219,6 +219,9 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 			    if (unit.MonsterNormal)
 					properties |= TargetProperties.Normal;
 
+				if (unit.CurrentHealthPct.HasValue && unit.CurrentHealthPct.Value < 0.25d)
+					properties |= TargetProperties.LowHealth;
+
 				return properties;
 		  }
 

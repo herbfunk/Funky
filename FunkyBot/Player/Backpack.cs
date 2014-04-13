@@ -320,62 +320,87 @@ namespace FunkyBot.Player
 		internal static GilesItemType DetermineItemType(string sThisInternalName, ItemType DBItemType, FollowerType dbFollowerType = FollowerType.None)
 		{
 			sThisInternalName = sThisInternalName.ToLower();
-			if (sThisInternalName.StartsWith("axe_")) return GilesItemType.Axe;
-			if (sThisInternalName.StartsWith("ceremonialdagger_")) return GilesItemType.CeremonialKnife;
-			if (sThisInternalName.StartsWith("handxbow_")) return GilesItemType.HandCrossbow;
-			if (sThisInternalName.StartsWith("dagger_")) return GilesItemType.Dagger;
-			if (sThisInternalName.StartsWith("fistweapon_")) return GilesItemType.FistWeapon;
-			if (sThisInternalName.StartsWith("mace_")) return GilesItemType.Mace;
-			if (sThisInternalName.StartsWith("mightyweapon_1h_")) return GilesItemType.MightyWeapon;
-			if (sThisInternalName.StartsWith("spear_")) return GilesItemType.Spear;
-			if (sThisInternalName.StartsWith("sword_")) return GilesItemType.Sword;
-			if (sThisInternalName.StartsWith("wand_")) return GilesItemType.Wand;
-			if (sThisInternalName.StartsWith("twohandedaxe_")) return GilesItemType.TwoHandAxe;
-			if (sThisInternalName.StartsWith("bow_")) return GilesItemType.TwoHandBow;
-			if (sThisInternalName.StartsWith("combatstaff_")) return GilesItemType.TwoHandDaibo;
-			if (sThisInternalName.StartsWith("xbow_")) return GilesItemType.TwoHandCrossbow;
-			if (sThisInternalName.StartsWith("twohandedmace_")) return GilesItemType.TwoHandMace;
-			if (sThisInternalName.StartsWith("mightyweapon_2h_")) return GilesItemType.TwoHandMighty;
-			if (sThisInternalName.StartsWith("polearm_")) return GilesItemType.TwoHandPolearm;
-			if (sThisInternalName.StartsWith("staff_")) return GilesItemType.TwoHandStaff;
-			if (sThisInternalName.StartsWith("twohandedsword_")) return GilesItemType.TwoHandSword;
-			if (sThisInternalName.StartsWith("staffofcow")) return GilesItemType.StaffOfHerding;
-			if (sThisInternalName.StartsWith("mojo_")) return GilesItemType.Mojo;
-			if (sThisInternalName.StartsWith("orb_")) return GilesItemType.Source;
-			if (sThisInternalName.StartsWith("quiver_")) return GilesItemType.Quiver;
-			if (sThisInternalName.StartsWith("shield_")) return GilesItemType.Shield;
-			if (sThisInternalName.StartsWith("amulet_")) return GilesItemType.Amulet;
-			if (sThisInternalName.StartsWith("ring_")) return GilesItemType.Ring;
-			if (sThisInternalName.StartsWith("boots_")) return GilesItemType.Boots;
-			if (sThisInternalName.StartsWith("bracers_")) return GilesItemType.Bracers;
-			if (sThisInternalName.StartsWith("cloak_")) return GilesItemType.Cloak;
-			if (sThisInternalName.StartsWith("gloves_")) return GilesItemType.Gloves;
-			if (sThisInternalName.StartsWith("pants_")) return GilesItemType.Pants;
-			if (sThisInternalName.StartsWith("barbbelt_")) return GilesItemType.MightyBelt;
-			if (sThisInternalName.StartsWith("shoulderpads_")) return GilesItemType.Shoulders;
-			if (sThisInternalName.StartsWith("spiritstone_")) return GilesItemType.SpiritStone;
-			if (sThisInternalName.StartsWith("voodoomask_")) return GilesItemType.VoodooMask;
-			if (sThisInternalName.StartsWith("wizardhat_")) return GilesItemType.WizardHat;
-			if (sThisInternalName.StartsWith("lore_book_")) return GilesItemType.MiscBook;
-			if (sThisInternalName.StartsWith("page_of_")) return GilesItemType.CraftTome;
-			if (sThisInternalName.StartsWith("blacksmithstome")) return GilesItemType.CraftTome;
-			if (sThisInternalName.StartsWith("ruby_")) return GilesItemType.Ruby;
-			if (sThisInternalName.StartsWith("emerald_")) return GilesItemType.Emerald;
-			if (sThisInternalName.StartsWith("topaz_")) return GilesItemType.Topaz;
-			if (sThisInternalName.StartsWith("amethyst")) return GilesItemType.Amethyst;
-			if (sThisInternalName.StartsWith("diamond_")) return GilesItemType.Diamond;
-			if (sThisInternalName.StartsWith("healthpotion")) return GilesItemType.HealthPotion;
-			if (sThisInternalName.StartsWith("followeritem_enchantress_")) return GilesItemType.FollowerEnchantress;
-			if (sThisInternalName.StartsWith("followeritem_scoundrel_")) return GilesItemType.FollowerScoundrel;
-			if (sThisInternalName.StartsWith("followeritem_templar_")) return GilesItemType.FollowerTemplar;
-			if (sThisInternalName.StartsWith("craftingplan_")) return GilesItemType.CraftingPlan;
-			if (sThisInternalName.StartsWith("dye_")) return GilesItemType.Dye;
-			if (sThisInternalName.StartsWith("a1_")) return GilesItemType.SpecialItem;
-			if (sThisInternalName.StartsWith("healthglobe")) return GilesItemType.HealthGlobe;
-			if (sThisInternalName.StartsWith("craftingreagent")) return GilesItemType.CraftingMaterial;
+
+			if (sThisInternalName.Contains("craftingreagent")) return GilesItemType.CraftingMaterial;
+
+			// Fall back on some partial DB item type checking 
+			if (sThisInternalName.Contains("crafting_") || sThisInternalName.Contains("craftingmaterials_"))
+			{
+				if (DBItemType == ItemType.CraftingPage) return GilesItemType.CraftTome;
+				return GilesItemType.CraftingMaterial;
+			}
+
+			if (sThisInternalName.Contains("flail1h_")) return GilesItemType.Flail;
+			//TODO:: Update With Proper Name!
+			if (sThisInternalName.Contains("flail")) return GilesItemType.TwoHandFlail;
+
+			if (sThisInternalName.Contains("twohandedaxe_")) return GilesItemType.TwoHandAxe;
+			if (sThisInternalName.Contains("axe_")) return GilesItemType.Axe;
+
+			if (sThisInternalName.Contains("ceremonialdagger_")) return GilesItemType.CeremonialKnife;
+			if (sThisInternalName.Contains("handxbow_")) return GilesItemType.HandCrossbow;
+			if (sThisInternalName.Contains("dagger_")) return GilesItemType.Dagger;
+			if (sThisInternalName.Contains("fistweapon_")) return GilesItemType.FistWeapon;
+
+			if (sThisInternalName.Contains("twohandedmace_")) return GilesItemType.TwoHandMace;
+			if (sThisInternalName.Contains("mace_")) return GilesItemType.Mace;
+
+			if (sThisInternalName.Contains("mightyweapon_1h_")) return GilesItemType.MightyWeapon;
+			if (sThisInternalName.Contains("spear_")) return GilesItemType.Spear;
+
+			if (sThisInternalName.Contains("twohandedsword_")) return GilesItemType.TwoHandSword;
+			if (sThisInternalName.Contains("sword_")) return GilesItemType.Sword;
+
+			if (sThisInternalName.Contains("wand_")) return GilesItemType.Wand;
+			
+			if (sThisInternalName.Contains("bow_")) return GilesItemType.TwoHandBow;
+			if (sThisInternalName.Contains("combatstaff_")) return GilesItemType.TwoHandDaibo;
+			if (sThisInternalName.Contains("xbow_")) return GilesItemType.TwoHandCrossbow;
+			
+			if (sThisInternalName.Contains("mightyweapon_2h_")) return GilesItemType.TwoHandMighty;
+			if (sThisInternalName.Contains("polearm_")) return GilesItemType.TwoHandPolearm;
+			if (sThisInternalName.Contains("staff_")) return GilesItemType.TwoHandStaff;
+			
+			if (sThisInternalName.Contains("staffofcow")) return GilesItemType.StaffOfHerding;
+			if (sThisInternalName.Contains("mojo_")) return GilesItemType.Mojo;
+			if (sThisInternalName.Contains("orb_")) return GilesItemType.Source;
+			if (sThisInternalName.Contains("quiver_")) return GilesItemType.Quiver;
+
+			if (sThisInternalName.Contains("crushield_")) return GilesItemType.CrusaderShield;
+			if (sThisInternalName.Contains("shield_")) return GilesItemType.Shield;
+			
+			if (sThisInternalName.Contains("amulet_")) return GilesItemType.Amulet;
+			if (sThisInternalName.Contains("ring_")) return GilesItemType.Ring;
+			if (sThisInternalName.Contains("boots_")) return GilesItemType.Boots;
+			if (sThisInternalName.Contains("bracers_")) return GilesItemType.Bracers;
+			if (sThisInternalName.Contains("cloak_")) return GilesItemType.Cloak;
+			if (sThisInternalName.Contains("gloves_")) return GilesItemType.Gloves;
+			if (sThisInternalName.Contains("pants_")) return GilesItemType.Pants;
+			if (sThisInternalName.Contains("barbbelt_")) return GilesItemType.MightyBelt;
+			if (sThisInternalName.Contains("shoulderpads_")) return GilesItemType.Shoulders;
+			if (sThisInternalName.Contains("spiritstone_")) return GilesItemType.SpiritStone;
+			if (sThisInternalName.Contains("voodoomask_")) return GilesItemType.VoodooMask;
+			if (sThisInternalName.Contains("wizardhat_")) return GilesItemType.WizardHat;
+			if (sThisInternalName.Contains("lore_book_")) return GilesItemType.MiscBook;
+			if (sThisInternalName.Contains("page_of_")) return GilesItemType.CraftTome;
+			if (sThisInternalName.Contains("blacksmithstome")) return GilesItemType.CraftTome;
+			if (sThisInternalName.Contains("ruby_")) return GilesItemType.Ruby;
+			if (sThisInternalName.Contains("emerald_")) return GilesItemType.Emerald;
+			if (sThisInternalName.Contains("topaz_")) return GilesItemType.Topaz;
+			if (sThisInternalName.Contains("amethyst")) return GilesItemType.Amethyst;
+			if (sThisInternalName.Contains("diamond_")) return GilesItemType.Diamond;
+			if (sThisInternalName.Contains("healthpotion")) return GilesItemType.HealthPotion;
+			if (sThisInternalName.Contains("followeritem_enchantress_")) return GilesItemType.FollowerEnchantress;
+			if (sThisInternalName.Contains("followeritem_scoundrel_")) return GilesItemType.FollowerScoundrel;
+			if (sThisInternalName.Contains("followeritem_templar_")) return GilesItemType.FollowerTemplar;
+			if (sThisInternalName.Contains("craftingplan_")) return GilesItemType.CraftingPlan;
+			if (sThisInternalName.Contains("dye_")) return GilesItemType.Dye;
+			if (sThisInternalName.Contains("a1_")) return GilesItemType.SpecialItem;
+			if (sThisInternalName.Contains("healthglobe")) return GilesItemType.HealthGlobe;
+			
 
 			// Follower item types
-			if (sThisInternalName.StartsWith("jewelbox_") || DBItemType == ItemType.FollowerSpecial)
+			if (sThisInternalName.Contains("jewelbox_") || DBItemType == ItemType.FollowerSpecial)
 			{
 				if (dbFollowerType == FollowerType.Scoundrel)
 					return GilesItemType.FollowerScoundrel;
@@ -385,38 +410,31 @@ namespace FunkyBot.Player
 					return GilesItemType.FollowerEnchantress;
 			}
 
-			// Fall back on some partial DB item type checking 
-			if (sThisInternalName.StartsWith("crafting_") || sThisInternalName.StartsWith("craftingmaterials_"))
-			{
-				if (DBItemType == ItemType.CraftingPage) return GilesItemType.CraftTome;
-				return GilesItemType.CraftingMaterial;
-			}
-
-			if (sThisInternalName.StartsWith("chestarmor_"))
+			if (sThisInternalName.Contains("chestarmor_"))
 			{
 				if (DBItemType == ItemType.Cloak) return GilesItemType.Cloak;
 				return GilesItemType.Chest;
 			}
-			if (sThisInternalName.StartsWith("helm_"))
+			if (sThisInternalName.Contains("helm_"))
 			{
 				if (DBItemType == ItemType.SpiritStone) return GilesItemType.SpiritStone;
 				if (DBItemType == ItemType.VoodooMask) return GilesItemType.VoodooMask;
 				if (DBItemType == ItemType.WizardHat) return GilesItemType.WizardHat;
 				return GilesItemType.Helm;
 			}
-			if (sThisInternalName.StartsWith("helmcloth_"))
+			if (sThisInternalName.Contains("helmcloth_"))
 			{
 				if (DBItemType == ItemType.SpiritStone) return GilesItemType.SpiritStone;
 				if (DBItemType == ItemType.VoodooMask) return GilesItemType.VoodooMask;
 				if (DBItemType == ItemType.WizardHat) return GilesItemType.WizardHat;
 				return GilesItemType.Helm;
 			}
-			if (sThisInternalName.StartsWith("belt_"))
+			if (sThisInternalName.Contains("belt_"))
 			{
 				if (DBItemType == ItemType.MightyBelt) return GilesItemType.MightyBelt;
 				return GilesItemType.Belt;
 			}
-			if (sThisInternalName.StartsWith("demonkey_") || sThisInternalName.StartsWith("demontrebuchetkey"))
+			if (sThisInternalName.Contains("demonkey_") || sThisInternalName.Contains("demontrebuchetkey"))
 			{
 				return GilesItemType.InfernalKey;
 			}
@@ -432,13 +450,13 @@ namespace FunkyBot.Player
 			GilesBaseItemType thisGilesBaseType = GilesBaseItemType.Unknown;
 			if (thisGilesItemType == GilesItemType.Axe || thisGilesItemType == GilesItemType.CeremonialKnife || thisGilesItemType == GilesItemType.Dagger ||
 				 thisGilesItemType == GilesItemType.FistWeapon || thisGilesItemType == GilesItemType.Mace || thisGilesItemType == GilesItemType.MightyWeapon ||
-				 thisGilesItemType == GilesItemType.Spear || thisGilesItemType == GilesItemType.Sword || thisGilesItemType == GilesItemType.Wand)
+				 thisGilesItemType == GilesItemType.Spear || thisGilesItemType == GilesItemType.Sword || thisGilesItemType == GilesItemType.Wand || thisGilesItemType == GilesItemType.Flail)
 			{
 				thisGilesBaseType = GilesBaseItemType.WeaponOneHand;
 			}
 			else if (thisGilesItemType == GilesItemType.TwoHandDaibo || thisGilesItemType == GilesItemType.TwoHandMace ||
 				 thisGilesItemType == GilesItemType.TwoHandMighty || thisGilesItemType == GilesItemType.TwoHandPolearm || thisGilesItemType == GilesItemType.TwoHandStaff ||
-				 thisGilesItemType == GilesItemType.TwoHandSword || thisGilesItemType == GilesItemType.TwoHandAxe)
+				 thisGilesItemType == GilesItemType.TwoHandSword || thisGilesItemType == GilesItemType.TwoHandAxe || thisGilesItemType == GilesItemType.TwoHandFlail)
 			{
 				thisGilesBaseType = GilesBaseItemType.WeaponTwoHand;
 			}
@@ -447,7 +465,7 @@ namespace FunkyBot.Player
 				thisGilesBaseType = GilesBaseItemType.WeaponRange;
 			}
 			else if (thisGilesItemType == GilesItemType.Mojo || thisGilesItemType == GilesItemType.Source ||
-				 thisGilesItemType == GilesItemType.Quiver || thisGilesItemType == GilesItemType.Shield)
+				 thisGilesItemType == GilesItemType.Quiver || thisGilesItemType == GilesItemType.Shield || thisGilesItemType == GilesItemType.CrusaderShield)
 			{
 				thisGilesBaseType = GilesBaseItemType.Offhand;
 			}
@@ -523,7 +541,8 @@ namespace FunkyBot.Player
 				 thisGilesItemType == GilesItemType.Bracers || thisGilesItemType == GilesItemType.Chest || thisGilesItemType == GilesItemType.Cloak ||
 				 thisGilesItemType == GilesItemType.Gloves || thisGilesItemType == GilesItemType.Helm || thisGilesItemType == GilesItemType.Pants ||
 				 thisGilesItemType == GilesItemType.Shoulders || thisGilesItemType == GilesItemType.SpiritStone ||
-				 thisGilesItemType == GilesItemType.VoodooMask || thisGilesItemType == GilesItemType.WizardHat || thisGilesItemType == GilesItemType.StaffOfHerding)
+				 thisGilesItemType == GilesItemType.VoodooMask || thisGilesItemType == GilesItemType.WizardHat || thisGilesItemType == GilesItemType.StaffOfHerding ||
+				 thisGilesItemType == GilesItemType.Flail || thisGilesItemType == GilesItemType.TwoHandFlail || thisGilesItemType == GilesItemType.CrusaderShield)
 				return true;
 			return false;
 		}
@@ -540,6 +559,11 @@ namespace FunkyBot.Player
 				case GilesItemType.HandCrossbow: return ItemType.HandCrossbow;
 				case GilesItemType.Dagger: return ItemType.Dagger;
 				case GilesItemType.FistWeapon: return ItemType.FistWeapon;
+
+				case GilesItemType.Flail: return ItemType.Flail;
+				case GilesItemType.TwoHandFlail: return ItemType.Flail;
+				case GilesItemType.CrusaderShield: return ItemType.CrusaderShield;
+
 				case GilesItemType.Mace: return ItemType.Mace;
 				case GilesItemType.MightyWeapon: return ItemType.MightyWeapon;
 				case GilesItemType.Spear: return ItemType.Spear;
@@ -652,7 +676,8 @@ namespace FunkyBot.Player
 				 thisGilesItemType == GilesItemType.Spear || thisGilesItemType == GilesItemType.Sword || thisGilesItemType == GilesItemType.Wand ||
 				 thisGilesItemType == GilesItemType.TwoHandDaibo || thisGilesItemType == GilesItemType.TwoHandCrossbow || thisGilesItemType == GilesItemType.TwoHandMace ||
 				 thisGilesItemType == GilesItemType.TwoHandMighty || thisGilesItemType == GilesItemType.TwoHandPolearm || thisGilesItemType == GilesItemType.TwoHandStaff ||
-				 thisGilesItemType == GilesItemType.TwoHandSword || thisGilesItemType == GilesItemType.TwoHandAxe || thisGilesItemType == GilesItemType.HandCrossbow || thisGilesItemType == GilesItemType.TwoHandBow)
+				 thisGilesItemType == GilesItemType.TwoHandSword || thisGilesItemType == GilesItemType.TwoHandAxe || thisGilesItemType == GilesItemType.HandCrossbow || thisGilesItemType == GilesItemType.TwoHandBow ||
+				 thisGilesItemType == GilesItemType.Flail || thisGilesItemType == GilesItemType.TwoHandFlail)
 				iThisNeedScore = Bot.Settings.Loot.GilesMinimumWeaponScore;
 			// Jewelry
 			if (thisGilesItemType == GilesItemType.Ring || thisGilesItemType == GilesItemType.Amulet || thisGilesItemType == GilesItemType.FollowerEnchantress ||
@@ -665,7 +690,7 @@ namespace FunkyBot.Player
 				 thisGilesItemType == GilesItemType.Bracers || thisGilesItemType == GilesItemType.Chest || thisGilesItemType == GilesItemType.Cloak ||
 				 thisGilesItemType == GilesItemType.Gloves || thisGilesItemType == GilesItemType.Helm || thisGilesItemType == GilesItemType.Pants ||
 				 thisGilesItemType == GilesItemType.MightyBelt || thisGilesItemType == GilesItemType.Shoulders || thisGilesItemType == GilesItemType.SpiritStone ||
-				 thisGilesItemType == GilesItemType.VoodooMask || thisGilesItemType == GilesItemType.WizardHat)
+				 thisGilesItemType == GilesItemType.VoodooMask || thisGilesItemType == GilesItemType.WizardHat || thisGilesItemType == GilesItemType.CrusaderShield)
 				iThisNeedScore = Bot.Settings.Loot.GilesMinimumArmorScore;
 			return Math.Round(iThisNeedScore);
 		}

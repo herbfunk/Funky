@@ -753,7 +753,8 @@ namespace FunkyBot.Cache.Objects
 
 						// Exploding Palm Bleeding Prioritize
 						if (Bot.Character.Class.AC == ActorClass.Monk 
-							&& Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_ExplodingPalm))
+							&& Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_ExplodingPalm)
+							&& centreDistance < 20f)
 						{
 							if (HasDOTdps.HasValue && HasDOTdps.Value) //Exploding Palm -- Bleeding Already!
 							{
@@ -1298,20 +1299,23 @@ namespace FunkyBot.Cache.Objects
 				//1195139072
 				if (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_ExplodingPalm))
 				{
-					Bot.Targeting.Cache.Environment.UsesDOTDPSAbility = true;
-					try
+					if (CentreDistance < 30f)
 					{
-						int dotDPS = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.DOTDPS);
-						int visualBuff = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.Bleeding);
-						HasDOTdps = (dotDPS > 0 && visualBuff > 0);
+						Bot.Targeting.Cache.Environment.UsesDOTDPSAbility = true;
+						try
+						{
+							int dotDPS = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.DOTDPS);
+							int visualBuff = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.Bleeding);
+							HasDOTdps = (dotDPS > 0 && visualBuff > 0);
 
-						//DotDPS values
-						//dotDPS==1195139072
-						//1215532915 || 1215532915
-
-					}
-					catch
-					{
+							//DotDPS values
+							//dotDPS==1195139072
+							//1215532915 || 1215532915
+							//1209914057 || 1220659971
+						}
+						catch
+						{
+						}
 					}
 				}
 			}
@@ -1442,8 +1446,8 @@ namespace FunkyBot.Cache.Objects
 				Bot.Character.Class.PowerPrime.MinimumRange = 15;
 			else if (IsStealthableUnit && IsTargetable.HasValue && IsTargetable.Value == false && IsEliteRareUnique)
 				Bot.Character.Class.PowerPrime.MinimumRange = 15;
-			else if (IsTreasureGoblin && !Bot.Character.Class.IsMeleeClass && Bot.Settings.Class.GoblinMinimumRange > 0 && Bot.Character.Class.PowerPrime.MinimumRange > Bot.Settings.Class.GoblinMinimumRange)
-				Bot.Character.Class.PowerPrime.MinimumRange = Bot.Settings.Class.GoblinMinimumRange;
+			else if (IsTreasureGoblin && !Bot.Character.Class.IsMeleeClass && Bot.Settings.Combat.GoblinMinimumRange > 0 && Bot.Character.Class.PowerPrime.MinimumRange > Bot.Settings.Combat.GoblinMinimumRange)
+				Bot.Character.Class.PowerPrime.MinimumRange = Bot.Settings.Combat.GoblinMinimumRange;
 			else if (MonsterMissileDampening && Bot.Settings.Targeting.MissleDampeningEnforceCloseRange)
 				Bot.Character.Class.PowerPrime.MinimumRange = 15;
 

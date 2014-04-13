@@ -56,7 +56,13 @@ namespace FunkyBot.Targeting.Behaviors
 				 if (Bot.Character.Class.HasCastableMovementAbility())
 					 flags &= ~(PointCheckingFlags.AvoidanceIntersection | PointCheckingFlags.BlockedDirection);
 
-				 if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, Vector3.Zero, flags))
+				 Vector3 losVector3=Vector3.Zero;
+				 if (Bot.Targeting.Cache.LastCachedTarget.targetType != null && Bot.Targeting.Cache.LastCachedTarget.targetType.Value == TargetType.Unit)
+				 {
+					 losVector3=Bot.Targeting.Cache.LastCachedTarget.Position;
+				 }
+
+				 if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, losVector3, flags))
 				 {
 					 float distance = vAnySafePoint.Distance(Bot.Character.Data.Position);
 

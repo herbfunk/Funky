@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using FunkyBot.Cache.Objects;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.Wizard;
 using Zeta.Game;
@@ -13,6 +15,12 @@ namespace FunkyBot.Player.Class
 	{
 		public Wizard()
 		{
+			List<CacheACDItem> equippedItems = Bot.Character.Data.BackPack.ReturnCurrentEquippedItems();
+			if (equippedItems.Any(i => i.ThisRealName.Contains("Serpent's Sparker")))
+			{
+				Bot.Settings.Wizard.SerpentSparker = true;
+				Logger.DBLog.DebugFormat("Wizard Can Cast Two Hydras!");
+			}
 			Logger.DBLog.DebugFormat("[Funky] Using Wizard Player Class");
 		}
 
@@ -41,7 +49,7 @@ namespace FunkyBot.Player.Class
 		{
 			Vector3 loc;
 			//Low HP -- Flee Teleport
-			if (Bot.Settings.Class.bTeleportFleeWhenLowHP && Bot.Character.Data.dCurrentHealthPct < 0.5d && (Bot.NavigationCache.AttemptFindSafeSpot(out loc, Bot.Targeting.Cache.CurrentTarget.Position, Bot.Settings.Plugin.FleeingFlags)))
+			if (Bot.Settings.Wizard.bTeleportFleeWhenLowHP && Bot.Character.Data.dCurrentHealthPct < 0.5d && (Bot.NavigationCache.AttemptFindSafeSpot(out loc, Bot.Targeting.Cache.CurrentTarget.Position, Bot.Settings.Plugin.FleeingFlags)))
 				Bot.NavigationCache.vSideToSideTarget = loc;
 			else
 				Bot.NavigationCache.vSideToSideTarget = Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.Cache.CurrentTarget.Position, Bot.Targeting.Cache.CurrentTarget.CentreDistance, true);
@@ -91,7 +99,7 @@ namespace FunkyBot.Player.Class
 			base.RecreateAbilities();
 
 			//Check for buff Archon -- and if we should add Cancel to abilities.
-			if (Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneStrike) && Bot.Settings.Class.bCancelArchonRebuff)
+			if (Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneStrike) && Bot.Settings.Wizard.bCancelArchonRebuff)
 			{
 				Abilities.Add(SNOPower.Wizard_Archon_Cancel, new CancelArchonBuff());
 			}
@@ -161,6 +169,8 @@ namespace FunkyBot.Player.Class
 					return new ArchonTeleport();
 				case WizardActiveSkills.Wizard_Teleport:
 					return new Teleport();
+				case WizardActiveSkills.Wizard_BlackHole:
+					return new BlackHole();
 				default:
 					return DefaultAttack;
 			}
@@ -203,7 +213,7 @@ namespace FunkyBot.Player.Class
 			Wizard_Archon_ArcaneBlast = 167355,
 			Wizard_Archon_Teleport = 167648,
 			Wizard_Teleport = 168344,
-
+			Wizard_BlackHole = 243141,
 		}
 		/*
 						enum WizardPassiveSkills

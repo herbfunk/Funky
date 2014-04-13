@@ -51,15 +51,14 @@ namespace FunkyBot.DBHandlers
 					switch (ZetaDia.CurrentAct)
 					{
 						case Act.A1:
-							TownportalMovementVector3 = new Vector3(2984.8f, 2794.428f, 24.04532f);
-							break;
+							TownportalMovementVector3 = new Vector3(2984.8f, 2794.428f, 24.04532f); break;
 						case Act.A2:
-							TownportalMovementVector3 = new Vector3(308.9394f, 274.3232f, 0.1000006f);
-							break;
+							TownportalMovementVector3 = new Vector3(308.9394f, 274.3232f, 0.1000006f); break;
 						case Act.A3:
 						case Act.A4:
-							TownportalMovementVector3 = new Vector3(376.0297f, 390.4622f, 0.4707576f);
-							break;
+							TownportalMovementVector3 = new Vector3(376.0297f, 390.4622f, 0.4707576f); break;
+						case Act.A5:
+							TownportalMovementVector3 = new Vector3(558.8658f,507.6245f,2.796464f);	break;
 					}
 				}
 				else

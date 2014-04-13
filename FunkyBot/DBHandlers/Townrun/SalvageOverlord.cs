@@ -120,6 +120,8 @@ namespace FunkyBot.DBHandlers
 					case Act.A3:
 					case Act.A4:
 						vectorSalvageLocation = new Vector3(379.6096f, 415.6198f, 0.3321424f); break;
+					case Act.A5:
+						vectorSalvageLocation = new Vector3(560.1434f, 501.5706f, 2.685907f); break;
 				}
 			}
 			else

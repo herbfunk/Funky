@@ -7,20 +7,75 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Input;
 using Zeta.Bot;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
+using Color = System.Drawing.Color;
 
 namespace FunkyDebug
 {
 	public partial class FormDebug : Form
 	{
+		private static ItemWindow ItemWindowBrowser;
+
 		public FormDebug()
 		{
 			InitializeComponent();
+			//FontFamily fontFamily = new FontFamily("Arial");
+
+			//Font f = new Font(fontFamily, 10, FontStyle.Regular);
+			//Label entry = new Label
+			//{
+			//	AutoEllipsis = false,
+			//	AutoSize = true,
+			//	Dock = DockStyle.Top,
+			//	BorderStyle = BorderStyle.FixedSingle,
+			//	BackColor = Color.Black,
+			//	ForeColor = Color.Green,
+			//	Text = "Testing Item 11",
+			//	Font = f,
+			//};
+			//entry.MouseEnter += entryMouseEnter;
+			//entry.MouseLeave += entryMouseLeave;
+
+			//this.panelCharacterInventory.Controls.Add(entry);
+			//this.panelCharacterInventory.Controls.Add(entry);
+			//this.panelCharacterInventory.Controls.Add(entry);
+			//this.panelCharacterInventory.Controls.Add(entry);
+			//this.Text = "test";
 		}
+		private void entryMouseEnter(object sender, EventArgs e)
+		{
 
+			Label entrySender = (Label)sender;
 
+			CacheACDItem item;
+			int itemACDGUID;
+			try
+			{
+				itemACDGUID = Convert.ToInt32(entrySender.Name);
+			}
+			catch
+			{
+				return;
+			}
+
+			if (!cacheItems.ContainsKey(itemACDGUID))
+				return;
+
+			item = cacheItems[itemACDGUID];
+
+			Point screenPoint = this.PointToScreen(entrySender.Location);//this.PointToClient(MousePosition);
+			screenPoint.Offset(this.Width,0);
+			ItemWindowBrowser = new ItemWindow(item);
+			ItemWindowBrowser.Location = screenPoint;
+			ItemWindowBrowser.Show(this);
+		}
+		private void entryMouseLeave(object sender, EventArgs e)
+		{
+			ItemWindowBrowser.Dispose();
+		}
 
 		private void btnRefreshObjects_Click(object sender, EventArgs e)
 		{
@@ -404,13 +459,15 @@ namespace FunkyDebug
 			}
 		}
 
+		private Dictionary<int, CacheACDItem> cacheItems = new Dictionary<int, CacheACDItem>();
+
 		private void btnRefreshCharacterInventory_Click(object sender, EventArgs e)
 		{
 			if (BotMain.IsRunning)
 			{
 				return;
 			}
-
+			cacheItems.Clear();
 			panelCharacterInventory.Controls.Clear();
 
 			try
@@ -430,87 +487,80 @@ namespace FunkyDebug
 							AutoSize = true,
 							Dock = DockStyle.Top,
 							BorderStyle = BorderStyle.FixedSingle,
+							BackColor=Color.Black,
 						};
 						entry.DoubleClick += entryDoubleClick;
 						try
 						{
-							entry.Text = String.Format("InvItem - Name: {1} Row: {32} Column: {33} ActorSNO: {0} ACDGuid: {30} DynamicID: {31}  ItemType: {2} ItemBaseType: {3}\r\n" +
-													"Position: {29}" +
-													"IsArmor: {4} IsCrafted: {5} IsCraftingPage: {6} IsCraftingReagent: {7}\r\n" +
-													"IsElite: {8} IsEquipped: {9} IsGem: {10} IsMiscItem: {11} \r\n" +
-													"IsOneHand: {12} IsPotion: {13} IsRare: {14} IsTwoHand: {15} \r\n" +
-													"IsTwoSquareItem: {16} IsUnidentified: {17} IsUnique: {18} IsVendorBought: {19} \r\n" +
-													"Level: {20} RequiredLevel: {21} ItemLevelRequirementReduction: {22} \r\n" +
-													"ItemQuality: {23} GemQuality: {24} \r\n" +
-													"MaxStackCount: {25} MaxDurability: {26} NumSockets: {27} \r\n" +
-													"Stats: {28}\n",
-													o.ActorSNO, o.Name,
-													o.ItemType, o.ItemBaseType,
-													o.IsArmor, o.IsCrafted, o.IsCraftingPage, o.IsCraftingReagent,
-													o.IsElite, o.IsEquipped, o.IsGem, o.IsMiscItem,
-													o.IsOneHand, o.IsPotion, o.IsRare, o.IsTwoHand,
-													o.IsTwoSquareItem, o.IsUnidentified, o.IsUnique, o.IsVendorBought,
-													o.Level, o.RequiredLevel, o.ItemLevelRequirementReduction,
-													o.ItemQualityLevel, o.GemQuality,
-													o.MaxStackCount, o.MaxDurability, o.NumSockets,
-													o.Stats,
-													o.Position, o.ACDGuid, o.DynamicId,
-													o.InventoryRow, o.InventoryColumn);
+							CacheACDItem newCacheAcdItem = new CacheACDItem(o);
+							cacheItems.Add(o.ACDGuid, newCacheAcdItem);
 
+							entry.Text = String.Format(newCacheAcdItem.Name + "({0})", newCacheAcdItem.InternalName);
+							entry.ForeColor=newCacheAcdItem.ItemQualityLevel== ItemQuality.Legendary?Color.Orange:
+								newCacheAcdItem.ItemQualityLevel == ItemQuality.Inferior ? Color.Gray :
+								newCacheAcdItem.ItemQualityLevel < ItemQuality.Magic1 ? Color.White :
+								newCacheAcdItem.ItemQualityLevel<=ItemQuality.Magic3?Color.Blue:
+								newCacheAcdItem.ItemQualityLevel<=ItemQuality.Rare6?Color.Yellow:
+								Color.White;
+							entry.Name=newCacheAcdItem.ACDGUID.ToString();
+							entry.MouseEnter += entryMouseEnter;
+							entry.MouseLeave += entryMouseLeave;
+
+							panelCharacterInventory.Controls.Add(entry);
 						}
 						catch (Exception)
 						{
 
 						}
-						panelCharacterInventory.Controls.Add(entry);
+						
 					}
 					#endregion
 
-					#region Character Equipped Items
-					foreach (var o in ZetaDia.Me.Inventory.Equipped)
-					{
+					//#region Character Equipped Items
+					//foreach (var o in ZetaDia.Me.Inventory.Equipped)
+					//{
 
-						Label entry = new Label
-						{
-							AutoEllipsis = true,
-							AutoSize = true,
-							Dock = DockStyle.Top,
-							BorderStyle = BorderStyle.FixedSingle,
-						};
-						entry.DoubleClick += entryDoubleClick;
-						try
-						{
-							entry.Text = String.Format("Item - Name: {1} Row: {32} Column: {33} ActorSNO: {0} ACDGuid: {30} DynamicID: {31}  ItemType: {2} ItemBaseType: {3}\r\n" +
-													"Position: {29}" +
-													"IsArmor: {4} IsCrafted: {5} IsCraftingPage: {6} IsCraftingReagent: {7}\r\n" +
-													"IsElite: {8} IsEquipped: {9} IsGem: {10} IsMiscItem: {11}\r\n" +
-													"IsOneHand: {12} IsPotion: {13} IsRare: {14} IsTwoHand: {15}\r\n" +
-													"IsTwoSquareItem: {16} IsUnidentified: {17} IsUnique: {18} IsVendorBought: {19}\r\n" +
-													"Level: {20} RequiredLevel: {21} ItemLevelRequirementReduction: {22} \r\n" +
-													"ItemQuality: {23} GemQuality: {24} \r\n" +
-													"MaxStackCount: {25} MaxDurability: {26} NumSockets: {27} \r\n" +
-													"Stats: {28}\n",
-													o.ActorSNO, o.Name,
-													o.ItemType, o.ItemBaseType,
-													o.IsArmor, o.IsCrafted, o.IsCraftingPage, o.IsCraftingReagent,
-													o.IsElite, o.IsEquipped, o.IsGem, o.IsMiscItem,
-													o.IsOneHand, o.IsPotion, o.IsRare, o.IsTwoHand,
-													o.IsTwoSquareItem, o.IsUnidentified, o.IsUnique, o.IsVendorBought,
-													o.Level, o.RequiredLevel, o.ItemLevelRequirementReduction,
-													o.ItemQualityLevel, o.GemQuality,
-													o.MaxStackCount, o.MaxDurability, o.NumSockets,
-													o.Stats,
-													o.Position, o.ACDGuid, o.DynamicId,
-													o.InventoryRow, o.InventoryColumn);
+					//	Label entry = new Label
+					//	{
+					//		AutoEllipsis = true,
+					//		AutoSize = true,
+					//		Dock = DockStyle.Top,
+					//		BorderStyle = BorderStyle.FixedSingle,
+					//	};
+					//	entry.DoubleClick += entryDoubleClick;
+					//	try
+					//	{
+					//		entry.Text = String.Format("Item - Name: {1} Row: {32} Column: {33} ActorSNO: {0} ACDGuid: {30} DynamicID: {31}  ItemType: {2} ItemBaseType: {3}\r\n" +
+					//								"Position: {29}" +
+					//								"IsArmor: {4} IsCrafted: {5} IsCraftingPage: {6} IsCraftingReagent: {7}\r\n" +
+					//								"IsElite: {8} IsEquipped: {9} IsGem: {10} IsMiscItem: {11}\r\n" +
+					//								"IsOneHand: {12} IsPotion: {13} IsRare: {14} IsTwoHand: {15}\r\n" +
+					//								"IsTwoSquareItem: {16} IsUnidentified: {17} IsUnique: {18} IsVendorBought: {19}\r\n" +
+					//								"Level: {20} RequiredLevel: {21} ItemLevelRequirementReduction: {22} \r\n" +
+					//								"ItemQuality: {23} GemQuality: {24} \r\n" +
+					//								"MaxStackCount: {25} MaxDurability: {26} NumSockets: {27} \r\n" +
+					//								"Stats: {28}\n",
+					//								o.ActorSNO, o.Name,
+					//								o.ItemType, o.ItemBaseType,
+					//								o.IsArmor, o.IsCrafted, o.IsCraftingPage, o.IsCraftingReagent,
+					//								o.IsElite, o.IsEquipped, o.IsGem, o.IsMiscItem,
+					//								o.IsOneHand, o.IsPotion, o.IsRare, o.IsTwoHand,
+					//								o.IsTwoSquareItem, o.IsUnidentified, o.IsUnique, o.IsVendorBought,
+					//								o.Level, o.RequiredLevel, o.ItemLevelRequirementReduction,
+					//								o.ItemQualityLevel, o.GemQuality,
+					//								o.MaxStackCount, o.MaxDurability, o.NumSockets,
+					//								o.Stats,
+					//								o.Position, o.ACDGuid, o.DynamicId,
+					//								o.InventoryRow, o.InventoryColumn);
 
-						}
-						catch (Exception ex)
-						{
-							entry.Text = ex.Message;
-						}
-						panelCharacterEquipped.Controls.Add(entry);
-					}
-					#endregion
+					//	}
+					//	catch (Exception ex)
+					//	{
+					//		entry.Text = ex.Message;
+					//	}
+					//	panelCharacterEquipped.Controls.Add(entry);
+					//}
+					//#endregion
 
 				}
 			}
@@ -519,5 +569,13 @@ namespace FunkyDebug
 
 			}
 		}
+
+		private void FormDebug_Load(object sender, EventArgs e)
+		{
+
+
+		}
+
+
 	}
 }

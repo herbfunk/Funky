@@ -263,8 +263,8 @@
 			// 
 			// tabPage6
 			// 
-			this.tabPage6.Controls.Add(this.panel3);
 			this.tabPage6.Controls.Add(this.panelCharacterInventory);
+			this.tabPage6.Controls.Add(this.panel3);
 			this.tabPage6.Location = new System.Drawing.Point(4, 22);
 			this.tabPage6.Name = "tabPage6";
 			this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
@@ -297,9 +297,9 @@
 			this.panelCharacterInventory.AutoScroll = true;
 			this.panelCharacterInventory.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.panelCharacterInventory.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panelCharacterInventory.Location = new System.Drawing.Point(3, 3);
+			this.panelCharacterInventory.Location = new System.Drawing.Point(3, 45);
 			this.panelCharacterInventory.Name = "panelCharacterInventory";
-			this.panelCharacterInventory.Size = new System.Drawing.Size(547, 457);
+			this.panelCharacterInventory.Size = new System.Drawing.Size(547, 415);
 			this.panelCharacterInventory.TabIndex = 3;
 			// 
 			// tabPage7
@@ -334,6 +334,7 @@
 			this.MinimizeBox = false;
 			this.Name = "FormDebug";
 			this.Text = "FormDebug";
+			this.Load += new System.EventHandler(this.FormDebug_Load);
 			this.tabControl1.ResumeLayout(false);
 			this.tabPageObjects.ResumeLayout(false);
 			this.tabControl2.ResumeLayout(false);

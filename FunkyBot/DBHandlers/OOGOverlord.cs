@@ -52,12 +52,12 @@ namespace FunkyBot.DBHandlers
 			}
 
 			//Change the Monster Power!
-			if (Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings)
-			{
-				int overridePowerLevel = Bot.Settings.Demonbuddy.MonsterPower;
-				Logger.DBLog.InfoFormat("[Funky] Overriding Monster Power Level to {0}", overridePowerLevel.ToString(CultureInfo.InvariantCulture));
-				CharacterSettings.Instance.MonsterPowerLevel = overridePowerLevel;
-			}
+			//if (Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings)
+			//{
+			//	int overridePowerLevel = Bot.Settings.Demonbuddy.MonsterPower;
+			//	Logger.DBLog.InfoFormat("[Funky] Overriding Monster Power Level to {0}", overridePowerLevel.ToString(CultureInfo.InvariantCulture));
+			//	CharacterSettings.Instance.MonsterPowerLevel = overridePowerLevel;
+			//}
 
 			////Disconnect -- Starting Profile Setup.
 			//if (FunkyErrorClicker.FunkyErrorClicker.HadDisconnectError)

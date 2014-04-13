@@ -5,6 +5,18 @@ namespace FunkyBot
 {
 	public partial class EventHandlers
 	{
+		internal static bool TallyedDeathCounter = false;
+		internal static bool TallyDeathCanRunDecorator(object ret)
+		{
+			return !TallyedDeathCounter;
+		}
+		internal static RunStatus TallyDeathAction(object ret)
+		{
+			Bot.Game.CurrentGameStats.CurrentProfile.DeathCount++;
+			TallyedDeathCounter = true;
+			return RunStatus.Success;
+		}
+
 		private static bool WaitingForRevive;
 		public static RunStatus DeathHandler(object ret)
 		{

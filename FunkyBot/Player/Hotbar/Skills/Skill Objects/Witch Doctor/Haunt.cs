@@ -12,7 +12,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				SingleUnitCondition=new UnitTargetConditions(TargetProperties.None, 24,
 					falseConditionalFlags: TargetProperties.DOTDPS);
 				WaitVars=new WaitLoops(1, 1, true);
-				Cost=98;
+				Cost=50;
 				Range=21;
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.Medium;

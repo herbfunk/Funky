@@ -156,6 +156,8 @@ namespace FunkyBot.DBHandlers
 					sVendorName = "a3_uniquevendor_collector"; break;
 				case Act.A4:
 					sVendorName = "a4_uniquevendor_collector"; break;
+				case Act.A5:
+					sVendorName = "x1_a5_uniquevendor_collector"; break;
 			}
 
 			#region Navigation
@@ -174,6 +176,8 @@ namespace FunkyBot.DBHandlers
 					case Act.A3:
 					case Act.A4:
 						vectorSellLocation = new Vector3(410.6073f, 355.8762f, 0.1000005f); break;
+					case Act.A5:
+						vectorSellLocation = new Vector3(560.1434f,501.5706f,2.685907f); break;
 				}
 			}
 			else

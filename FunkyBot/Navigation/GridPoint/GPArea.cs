@@ -54,6 +54,20 @@ namespace FunkyBot.Movement
 			}
 		}
 
+		public List<Vector3> LastFoundSafeSpots
+		{
+			get { return lastfoundsafespots; }
+			set { lastfoundsafespots = value; }
+		}
+		private List<Vector3> lastfoundsafespots=new List<Vector3>();
+
+		private DateTime datesearchsafespots=DateTime.Today;
+		public DateTime DateSearchSafeSpots
+		{
+			get { return datesearchsafespots; }
+			set { datesearchsafespots = value; }
+		}
+
 		public bool GridPointContained(GridPoint point)
 		{
 			return centerGPRect.Contains(point);
@@ -70,6 +84,8 @@ namespace FunkyBot.Movement
 			}
 
 		}
+
+		
 
 		///<summary>
 		///Searches for a safespot!
@@ -90,6 +106,7 @@ namespace FunkyBot.Movement
 			if (gridpointrectangles_.Count > 0)
 			{
 				iterateGPRectsSafeSpot(CurrentPosition, out safespot, LOS, Flags);
+				DateSearchSafeSpots=DateTime.Now;
 				//If still failed to find a safe spot.. set the timer before we try again.
 				if (safespot == Vector3.Zero)
 				{
@@ -123,18 +140,34 @@ namespace FunkyBot.Movement
 			double CompareWeight = PositionQuadrant != null ? PositionQuadrant.ThisWeight : PositionRect != null ? PositionRect.Weight : 0;
 
 			safespot = Vector3.Zero;
+			Dictionary<Vector3, int> safespotsFound = new Dictionary<Vector3, int>();
 			for (int i = lastGPRectIndexUsed; i < gridpointrectangles_.Count - 1; i++)
 			{
 				GPRectangle item = gridpointrectangles_[i];
 
 				item.UpdateObjectCount(AllGPRectsFailed);
-
-				if (item.TryFindSafeSpot(CurrentPosition, out safespot, LOS, Flags, BlacklistedGridpoints, AllGPRectsFailed, CompareWeight))
+				Vector3 safespotRect;
+				if (item.TryFindSafeSpot(CurrentPosition, out safespotRect, LOS, Flags, BlacklistedGridpoints, AllGPRectsFailed, CompareWeight))
 				{
-					lastUsedGPRect = gridpointrectangles_[i];
-					return;
+					safespotsFound.Add(safespotRect, i);
+					BlacklistedGridpoints.Add(safespotRect);
 				}
 			}
+
+			if (safespotsFound.Count>0)
+			{
+				lastfoundsafespots.Clear();
+				Logger.DBLog.InfoFormat("Found a total of {0} possible safe spots!", safespotsFound.Count);
+				
+				List<Vector3> safeVectors=new List<Vector3>(safespotsFound.Keys.OrderBy(o => o.Distance(Bot.Character.Data.Position)).ToList());
+				lastfoundsafespots.AddRange(safeVectors);
+
+				safespot = lastfoundsafespots.First();
+				lastUsedGPRect = gridpointrectangles_[safespotsFound[safespot]];
+			}
+
+			
+
 			lastGPRectIndexUsed = 0;
 		}
 		private GPRectangle GetGPRectContainingPoint(GridPoint Point)

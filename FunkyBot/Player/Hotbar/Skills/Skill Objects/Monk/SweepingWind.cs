@@ -11,7 +11,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				Cooldown=6000;
 				ExecutionType=AbilityExecuteFlags.Buff;
 				WaitVars=new WaitLoops(0, 1, true);
-				Cost=Bot.Settings.Class.bMonkInnaSet?5:75;
+				Cost=Bot.Settings.Monk.bMonkInnaSet?5:75;
 				Priority=AbilityPriority.High;
 				UseageType=AbilityUseage.Combat;
 				IsSpecialAbility=true;
@@ -26,7 +26,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 	                //Rune index of 4 increases duration of buff to 20 seconds..
 	                int buffDuration = RuneIndex == 4 ? 17500 : 4500;
 
-	                if (Bot.Settings.Class.bMonkMaintainSweepingWind &&  //Maintaining Sweeping Wind (Must already have buff.. and has not used combat ability within 2000ms!)
+	                if (Bot.Settings.Monk.bMonkMaintainSweepingWind &&  //Maintaining Sweeping Wind (Must already have buff.. and has not used combat ability within 2000ms!)
 	                    DateTime.Now.Subtract(Bot.Character.Class.LastUsedACombatAbility).TotalMilliseconds > 2000 &&
 	                    LastUsedMilliseconds > buffDuration)
 	                {

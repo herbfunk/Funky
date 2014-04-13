@@ -17,7 +17,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|
 				                          AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckPlayerIncapacitated));
 				ClusterConditions=new SkillClusterConditions(4d, 18f, 3, true);
-				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 10);
+				SingleUnitCondition=new UnitTargetConditions(TargetProperties.None, 10, falseConditionalFlags: TargetProperties.Normal);
 
 
 				FcriteriaCombat=() => (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)||

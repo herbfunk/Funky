@@ -85,7 +85,7 @@ namespace FunkyBot.Targeting.Behaviors
 					{//Line of Sight unit is valid
 
 						//See if the orgin object is still valid..
-						if (Bot.NavigationCache.LOSmovementObject.CentreDistance<75f)
+						if (Bot.NavigationCache.LOSmovementObject.CentreDistance<45f)
 						{
 							if (!Bot.NavigationCache.LOSmovementObject.CacheContainsOrginObject())
 							{

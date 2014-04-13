@@ -49,18 +49,39 @@ namespace FunkyBot.Targeting.Behaviors
 							Logger.DBLog.InfoFormat("Preforming Avoidance Connection Search on Potential Objects");
 							lastAvoidanceConnectSearch = DateTime.Now;
 
-							//Update or Create Bot Postion GPRect
-							GPRectangle botrect = new GPRectangle(Bot.Character.Data.Position);
-							Vector3 connectVector3;
-							foreach (CacheObject testobj in Bot.Targeting.Cache.objectsIgnoredDueToAvoidance)
+
+							
+							if (Bot.NavigationCache.CurrentGPArea != null &&
+								Bot.NavigationCache.CurrentGPArea.LastFoundSafeSpots.Count>0 &&
+								DateTime.Now.Subtract(Bot.NavigationCache.CurrentGPArea.DateSearchSafeSpots).TotalMilliseconds<2000 )
 							{
-								if (botrect.TryFindSafeSpot(Bot.Character.Data.Position, out connectVector3, testobj.Position, PointCheckingFlags.AvoidanceOverlap | PointCheckingFlags.BlockedDirection | PointCheckingFlags.MonsterOverlap | PointCheckingFlags.ObstacleOverlap | PointCheckingFlags.RaycastWalkable, new List<GridPoint>()))
+								Logger.DBLog.Info("Using exisiting Safe Spots!");
+								foreach (var v in Bot.NavigationCache.CurrentGPArea.LastFoundSafeSpots)
 								{
-									obj = new CacheObject(connectVector3, TargetType.Avoidance, 20000, "Avoid Connection", 2.5f, -1);
-									return true;
+									foreach (CacheObject testobj in Bot.Targeting.Cache.objectsIgnoredDueToAvoidance)
+									{
+										if (Navigation.CheckVectorFlags(v, testobj.Position, PointCheckingFlags.AvoidanceOverlap | PointCheckingFlags.RaycastNavProvider))
+										{
+											obj = new CacheObject(v, TargetType.Avoidance, 20000, "Avoid Connection", 2.5f, -1);
+											return true;
+										}
+									}
 								}
 							}
-							// 
+							else
+							{
+								//Update or Create Bot Postion GPRect
+								GPRectangle botrect = new GPRectangle(Bot.Character.Data.Position);
+								Vector3 connectVector3;
+								foreach (CacheObject testobj in Bot.Targeting.Cache.objectsIgnoredDueToAvoidance)
+								{
+									if (botrect.TryFindSafeSpot(Bot.Character.Data.Position,out connectVector3, testobj.Position, PointCheckingFlags.AvoidanceOverlap | PointCheckingFlags.BlockedDirection | PointCheckingFlags.MonsterOverlap | PointCheckingFlags.ObstacleOverlap | PointCheckingFlags.RaycastWalkable, new List<GridPoint>(), false))
+									{
+										obj = new CacheObject(connectVector3, TargetType.Avoidance, 20000, "Avoid Connection", 2.5f, -1);
+										return true;
+									}
+								}
+							}
 						}
 
 						if (Bot.Targeting.Cache.Environment.TriggeringAvoidances.Count == 0)

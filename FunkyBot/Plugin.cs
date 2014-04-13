@@ -6,6 +6,7 @@ using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Misc;
+using FunkyBot.Settings;
 using Zeta.Bot;
 using Zeta.Bot.Logic;
 using Zeta.Bot.Navigation;
@@ -22,7 +23,7 @@ namespace FunkyBot
 {
 	public partial class Funky : IPlugin
 	{
-		public Version Version { get { return new Version(2, 8, 1, 0); } }
+		public Version Version { get { return new Version(2, 8, 2, 0); } }
 		public string Author { get { return "Herbfunk"; } }
 		public string Description
 		{
@@ -179,6 +180,8 @@ namespace FunkyBot
 			
 			//Update Account Details..
 			Bot.Character.Account.UpdateCurrentAccountDetails();
+			Bot.Settings = new Settings_Funky();
+
 			Logger.DBLogFile = DateTime.Now.ToString("yyyy-MM-dd hh.mm") + ".txt";
 			Logger.Write(LogLevel.User, "Init Logger Completed!");
 

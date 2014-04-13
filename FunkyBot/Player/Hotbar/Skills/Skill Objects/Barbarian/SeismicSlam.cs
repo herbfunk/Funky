@@ -25,8 +25,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy|
 				                          AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated));
 				ClusterConditions=new SkillClusterConditions(Bot.Character.Class.HotBar.RuneIndexCache[Power]==4?4d:6d, 40f, 2, true);
-				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial,
-					falseConditionalFlags: TargetProperties.TreasureGoblin|TargetProperties.Fast);
+				SingleUnitCondition=new UnitTargetConditions(TargetProperties.LowHealth,falseConditionalFlags: TargetProperties.Normal);
 
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
 		  }

@@ -9,6 +9,8 @@ namespace FunkyBot.Settings
 		 public double GlobeHealthPercent { get; set; }
 		 public double PotionHealthPercent { get; set; }
 		 public double HealthWellHealthPercent { get; set; }
+		 public int GoblinMinimumRange { get; set; }
+		 public bool AllowDefaultAttackAlways { get; set; }
 
 		 public TargetType CombatMovementTargetTypes { get; set; }
 
@@ -18,7 +20,8 @@ namespace FunkyBot.Settings
 			  PotionHealthPercent=0.5d;
 			  HealthWellHealthPercent=0.75d;
 			  CombatMovementTargetTypes = TargetType.Globe | TargetType.Avoidance | TargetType.Fleeing | TargetType.Gold | TargetType.Item;
-
+			  GoblinMinimumRange = 40;
+			  AllowDefaultAttackAlways = false;
 		 }
 
 		 private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Combat_Default.xml");
