@@ -17,8 +17,8 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				Priority=AbilityPriority.Medium;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
 				                          AbilityPreCastFlags.CheckRecastTimer));
-				ClusterConditions=new SkillClusterConditions(4d, 35f, 2, true);
-				SingleUnitCondition=new UnitTargetConditions(TargetProperties.RareElite, 40);
+				ClusterConditions.Add(new SkillClusterConditions(4d, 35f, 2, true));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.RareElite, 40));
 
 		  }
 

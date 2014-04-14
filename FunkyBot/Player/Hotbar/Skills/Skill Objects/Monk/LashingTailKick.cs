@@ -16,8 +16,8 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				UseageType=AbilityUseage.Combat;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|
 				                          AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckPlayerIncapacitated));
-				ClusterConditions=new SkillClusterConditions(4d, 18f, 3, true);
-				SingleUnitCondition=new UnitTargetConditions(TargetProperties.None, 10, falseConditionalFlags: TargetProperties.Normal);
+				ClusterConditions.Add(new SkillClusterConditions(4d, 18f, 3, true));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 10, falseConditionalFlags: TargetProperties.Normal));
 
 
 				FcriteriaCombat=() => (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_SweepingWind)||

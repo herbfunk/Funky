@@ -470,7 +470,7 @@ namespace FunkyBot
 			StackPanel_DebugButtons.Children.Add(btnCharacterCache_Debug);
 			StackPanel_DebugButtons.Children.Add(btnCombatCache_Debug);
 			StackPanel_DebugButtons.Children.Add(btnCombatMovement_Debug);
-
+			StackPanel_DebugButtons.Children.Add(btnTEST_Debug);
 			//StackPanel_DebugButtons.Children.Add(btnGPC_Debug);
 
 			DockPanel.SetDock(StackPanel_DebugButtons, Dock.Top);

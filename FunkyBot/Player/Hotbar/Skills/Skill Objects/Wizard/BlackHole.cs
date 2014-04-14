@@ -8,7 +8,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 		 public override void Initialize()
 		  {
 				Cooldown=20000;
-				ExecutionType = AbilityExecuteFlags.ClusterLocation;
+				ExecutionType = AbilityExecuteFlags.ClusterLocation| AbilityExecuteFlags.Location;
 				WaitVars=new WaitLoops(1, 2, true);
 				Cost=20;
 				Range=50;
@@ -18,7 +18,8 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				Priority=AbilityPriority.High;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
 				                          AbilityPreCastFlags.CheckRecastTimer));
-				ClusterConditions=new SkillClusterConditions(6d, 50f, 5, true);
+				ClusterConditions.Add(new SkillClusterConditions(7d, 50f, 5, true));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 40, falseConditionalFlags: TargetProperties.Fast));
 		  }
 
 		  #region IAbility

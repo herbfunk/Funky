@@ -327,36 +327,53 @@ namespace FunkyBot.Player.HotBar.Skills
 					TestCustomConditions = true;
 				}
 			}
-			if ((!TestCustomConditions || FailedCondition) && conditions.HasFlag(ConditionCriteraTypes.Cluster) && FClusterConditions != null)
+			if ((!TestCustomConditions || FailedCondition) && conditions.HasFlag(ConditionCriteraTypes.Cluster) && ClusterConditions.Count > 0)
 			{
 				FailedCondition = false;
-
-				if (!FClusterConditions.Invoke())
+				foreach (var condition in ClusterConditions)
 				{
-					FailedCondition = true;
-				}
-
-				if (!FailedCondition)
-				{
-					LastConditionPassed = ConditionCriteraTypes.Cluster;
-					TestCustomConditions = true;
-				}
-			}
-			if ((!TestCustomConditions || FailedCondition) && conditions.HasFlag(ConditionCriteraTypes.SingleTarget) && FSingleTargetUnitCriteria != null)
-			{
-				FailedCondition = false;
-				foreach (Func<bool> item in FSingleTargetUnitCriteria.GetInvocationList())
-				{
-					if (!item())
+					foreach (Func<bool> item in condition.Criteria.GetInvocationList())
 					{
-						FailedCondition = true;
+						if (!item())
+						{
+							FailedCondition = true;
+							break;
+						}
+					}
+
+					//Last Condition did not fail.. (Success!)
+					if (!FailedCondition)
+					{
+						LastConditionPassed = ConditionCriteraTypes.Cluster;
+						LastClusterConditionSuccessful=condition;
+						TestCustomConditions = true;
 						break;
 					}
 				}
-				if (!FailedCondition)
+			}
+			if ((!TestCustomConditions || FailedCondition) && conditions.HasFlag(ConditionCriteraTypes.SingleTarget) && SingleUnitCondition.Count > 0)
+			{
+				FailedCondition = false;
+				
+				//We iterate each condition in the list and test the criteria.
+				foreach (var condition in SingleUnitCondition)
 				{
-					LastConditionPassed = ConditionCriteraTypes.SingleTarget;
-					TestCustomConditions = true;
+					foreach (Func<bool> item in condition.Criteria.GetInvocationList())
+					{
+						if (!item())
+						{
+							FailedCondition = true;
+							break;
+						}
+					}
+
+					//Last Condition did not fail.. (Success!)
+					if (!FailedCondition)
+					{
+						LastConditionPassed = ConditionCriteraTypes.SingleTarget;
+						TestCustomConditions = true;
+						break;
+					}
 				}
 			}
 
@@ -541,23 +558,23 @@ namespace FunkyBot.Player.HotBar.Skills
 			{
 				CacheUnit ClusterUnit;
 				//Cluster Target -- Aims for Centeroid Unit
-				if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTarget) && CheckClusterConditions(ability.ClusterConditions)) //Cluster ACDGUID
+				if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTarget) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster ACDGUID
 				{
-					ClusterUnit = Bot.Targeting.Cache.Clusters.AbilityClusterCache(ability.ClusterConditions)[0].GetNearestUnitToCenteroid();
+					ClusterUnit = Bot.Targeting.Cache.Clusters.AbilityClusterCache(ability.LastClusterConditionSuccessful)[0].GetNearestUnitToCenteroid();
 					ability.TargetACDGUID = ClusterUnit.AcdGuid.Value;
 					ability.Target_ = ClusterUnit;
 					return;
 				}
 				//Cluster Location -- Aims for Center of Cluster
-				if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterLocation) && CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
+				if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterLocation) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster Target Position
 				{
-					ability.TargetPosition = (Vector3)Bot.Targeting.Cache.Clusters.AbilityClusterCache(ability.ClusterConditions)[0].Midpoint;
+					ability.TargetPosition = (Vector3)Bot.Targeting.Cache.Clusters.AbilityClusterCache(ability.LastClusterConditionSuccessful)[0].Midpoint;
 					return;
 				}
 				//Cluster Target Nearest -- Gets nearest unit in cluster as target.
-				if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTargetNearest) && CheckClusterConditions(ability.ClusterConditions)) //Cluster Target Position
+				if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTargetNearest) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster Target Position
 				{
-					ClusterUnit = Bot.Targeting.Cache.Clusters.AbilityClusterCache(ability.ClusterConditions)[0].ListUnits[0];
+					ClusterUnit = Bot.Targeting.Cache.Clusters.AbilityClusterCache(ability.LastClusterConditionSuccessful)[0].ListUnits[0];
 					ability.TargetACDGUID = ClusterUnit.AcdGuid.Value;
 					ability.Target_ = ClusterUnit;
 					return;
@@ -605,6 +622,7 @@ namespace FunkyBot.Player.HotBar.Skills
 					destinationV = TargetPosition_;
 
 				float DistanceFromTarget = Vector3.Distance(Bot.Character.Data.Position, destinationV);
+
 				if (IsRanged)
 				{
 					if (MinimumRange < DistanceFromTarget)

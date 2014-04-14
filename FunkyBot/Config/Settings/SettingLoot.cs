@@ -71,7 +71,7 @@ namespace FunkyBot.Settings
 			PickupCraftMaterials=true;
 			MiscItemLevel=59;
 			MinimumGemItemLevel=60;
-			PickupGems=new bool[] { true, true, false, false, true };
+			PickupGems = new bool[] { true, true, true, true, true };
 			PickupGemDiamond = true;
 		}
 

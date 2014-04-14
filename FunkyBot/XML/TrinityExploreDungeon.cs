@@ -86,7 +86,8 @@ namespace FunkyBot.XMLTags
 			FullyExplored = 0,
 			ObjectFound,
 			ExitFound,
-			SceneFound
+			SceneFound,
+			BountyCompleted,
 		}
 
 		[XmlAttribute("endType", true)]
@@ -240,6 +241,24 @@ namespace FunkyBot.XMLTags
 			}
 		}
 
+		[XmlElement("PrioritizeActors")]
+		public List<AlternateActor> PriorityActors { get; set; }
+
+		[XmlElement("PrioritizeActor")]
+		public class PrioritizeActor
+		{
+			[XmlAttribute("actorId")]
+			public int ActorId { get; set; }
+			[XmlAttribute("objectDistance")]
+			public float ObjectDistance { get; set; }
+
+			public PrioritizeActor()
+			{
+				ActorId = -1;
+				ObjectDistance = 60f;
+			}
+		}
+
 		/// <summary>
 		/// The Scene SNOId, used with ExploreUntil="SceneFound"
 		/// </summary>
@@ -251,6 +270,9 @@ namespace FunkyBot.XMLTags
 		/// </summary>
 		[XmlAttribute("sceneName")]
 		public string SceneName { get; set; }
+
+		[XmlAttribute("bountyId")]
+		public int BountyID { get; set; }
 
 		/// <summary>
 		/// The distance the bot will mark dungeon nodes as "visited" (default is 1/2 of box size, minimum 10)
@@ -444,6 +466,7 @@ namespace FunkyBot.XMLTags
 				new PrioritySelector(
 					CheckIsObjectiveFinished(),
 					PrioritySceneCheck(),
+					PriorityActorsCheck(),
 					new Decorator(ret => !IgnoreMarkers,
 						MiniMapMarker.VisitMiniMapMarkers(myPos, MarkerDistance)
 					),
@@ -570,6 +593,7 @@ namespace FunkyBot.XMLTags
 
 		bool timeoutBreached = false;
 		Stopwatch TagTimer = new Stopwatch();
+		private DateTime lastHadUnitTime = DateTime.Today;
 		/// <summary>
 		/// Will start the timer if needed, and end the tag if the timer has exceeded the TimeoutValue
 		/// </summary>
@@ -580,14 +604,24 @@ namespace FunkyBot.XMLTags
 			if (!TagTimer.IsRunning)
 			{
 				TagTimer.Start();
+				lastHadUnitTime = Bot.Targeting.Cache.lastHadUnitInSights;
 				return RunStatus.Failure;
 			}
-			if (ExploreTimeoutType == TimeoutType.Timer && TagTimer.Elapsed.TotalSeconds > TimeoutValue)
+
+			if (lastHadUnitTime != Bot.Targeting.Cache.lastHadUnitInSights)
+			{
+				lastHadUnitTime = Bot.Targeting.Cache.lastHadUnitInSights;
+				TagTimer.Restart();
+				return RunStatus.Failure;
+			}
+
+			if (TagTimer.Elapsed.TotalSeconds > TimeoutValue)
 			{
 				Logger.DBLog.DebugFormat("TrinityExploreDungeon timer ended ({0}), tag finished!", TimeoutValue);
 				timeoutBreached = true;
 				return RunStatus.Success;
 			}
+
 			return RunStatus.Failure;
 		}
 
@@ -599,18 +633,21 @@ namespace FunkyBot.XMLTags
 		/// <returns></returns>
 		private RunStatus CheckSetGoldInactive(object ctx)
 		{
-			CheckSetTimer(ctx);
-			if (lastCoinage == -1)
+			if (!TagTimer.IsRunning)
 			{
+				TagTimer.Start();
 				lastCoinage = Bot.Character.Data.Coinage;
 				return RunStatus.Failure;
 			}
-			else if (lastCoinage != Bot.Character.Data.Coinage)
+
+			if (lastCoinage != Bot.Character.Data.Coinage)
 			{
+				lastCoinage = Bot.Character.Data.Coinage;
 				TagTimer.Restart();
 				return RunStatus.Failure;
 			}
-			else if (lastCoinage == Bot.Character.Data.Coinage && TagTimer.Elapsed.TotalSeconds > TimeoutValue)
+
+			if (TagTimer.Elapsed.TotalSeconds > TimeoutValue)
 			{
 				Logger.DBLog.DebugFormat("TrinityExploreDungeon gold inactivity timer tripped ({0}), tag finished!", TimeoutValue);
 				timeoutBreached = true;
@@ -716,6 +753,12 @@ namespace FunkyBot.XMLTags
 						new Action(ret => isDone = true)
 					)
 				),
+				new Decorator(ret => EndType == TrinityExploreEndType.BountyCompleted && IsBountyCompleted(),
+					new Sequence(
+						new Action(ret => Logger.DBLog.DebugFormat("Bounty Completed {0}!", BountyID)),
+						new Action(ret => isDone = true)
+					)
+				),
 				new Decorator(ret => Bot.Character.Data.bIsInTown,
 					new Sequence(
 						new Action(ret => Logger.DBLog.DebugFormat("Cannot use TrinityExploreDungeon in town - tag finished!", SceneName)),
@@ -723,6 +766,11 @@ namespace FunkyBot.XMLTags
 					)
 				)
 			);
+		}
+
+		private bool IsBountyCompleted()
+		{
+			return ZetaDia.ActInfo.Bounties.Any(b => b.Info.QuestSNO == BountyID && b.Info.State == QuestState.Completed);
 		}
 
 		private bool AlternateActorsFound()
@@ -787,6 +835,39 @@ namespace FunkyBot.XMLTags
 			);
 		}
 
+		private DateTime lastCheckedActors = DateTime.MinValue;
+		private Vector3 PriorityActorTarget = Vector3.Zero;
+		private int PriorityActorSNOId = -1;
+		private DiaObject CurrentPriorityActor = null;
+		private float PriorityActorPathPrecision = -1f;
+		private List<int> PriorityActorsInvestigated = new List<int>();
+		private Composite PriorityActorsCheck()
+		{
+			return
+			new Decorator(ret => PriorityActors != null && PriorityActors.Any(),
+				new Sequence(
+					new DecoratorContinue(ret => DateTime.Now.Subtract(lastCheckedActors).TotalMilliseconds > 1000,
+						new Sequence(
+							new Action(ret => lastCheckedActors = DateTime.Now),
+							new Action(ret => FindPriorityActorTarget())
+						)
+					),
+					new Decorator(ret => PriorityActorTarget != Vector3.Zero,
+						new PrioritySelector(
+							new Decorator(ret => PriorityActorTarget.Distance2D(myPos) <= PriorityActorPathPrecision,
+								new Sequence(
+									new Action(ret => Logger.DBLog.DebugFormat("Successfully navigated to priority actor {0} {1} center {2} Distance {3:0}",
+										CurrentPriorityActor.Name, PriorityActorSNOId, PriorityActorTarget, PriorityActorTarget.Distance2D(myPos))),
+									new Action(ret => PriorityActorMoveToFinished())
+								)
+							),
+							new Action(ret => MoveToPriorityActor())
+						)
+					)
+				)
+			);
+		}
+
 		/// <summary>
 		/// Handles actual movement to the Priority Scene
 		/// </summary>
@@ -799,9 +880,26 @@ namespace FunkyBot.XMLTags
 
 			if (moveResult == MoveResult.PathGenerationFailed || moveResult == MoveResult.ReachedDestination)
 			{
-				Logger.DBLog.DebugFormat("Unable to navigate to Scene {0} - {1} Center {2} Distance {3:0}, cancelling!",
-					CurrentPriorityScene.Name, CurrentPriorityScene.SceneInfo.SNOId, PrioritySceneTarget, PrioritySceneTarget.Distance2D(myPos));
+				Logger.DBLog.DebugFormat("Result {4} Unable to navigate to Scene -- {0} - {1} Center {2} Distance {3:0}, cancelling!",
+					CurrentPriorityScene.Name, CurrentPriorityScene.SceneInfo.SNOId, PrioritySceneTarget, PrioritySceneTarget.Distance2D(myPos), moveResult);
+
+
 				PrioritySceneMoveToFinished();
+			}
+		}
+
+		private void MoveToPriorityActor()
+		{
+			Logger.DBLog.DebugFormat("Moving to Priority Actor {0} - {1} Center {2} Distance {3:0}",
+				CurrentPriorityActor.Name, CurrentPriorityActor.ActorSNO, PriorityActorTarget, PriorityActorTarget.Distance2D(myPos));
+
+			MoveResult moveResult = Funky.PlayerMover.NavigateTo(PriorityActorTarget);
+
+			if (moveResult == MoveResult.PathGenerationFailed || moveResult == MoveResult.ReachedDestination)
+			{
+				Logger.DBLog.DebugFormat("Unable to navigate to Actor {0} - {1} Center {2} Distance {3:0}, cancelling!",
+					CurrentPriorityActor.Name, CurrentPriorityActor.ActorSNO, PriorityActorTarget, PriorityActorTarget.Distance2D(myPos));
+				PriorityActorMoveToFinished();
 			}
 		}
 
@@ -813,6 +911,17 @@ namespace FunkyBot.XMLTags
 			PriorityScenesInvestigated.Add(PrioritySceneSNOId);
 			PrioritySceneSNOId = -1;
 			PrioritySceneTarget = Vector3.Zero;
+			UpdateRoute();
+		}
+
+		/// <summary>
+		/// Sets a priority scene as finished
+		/// </summary>
+		private void PriorityActorMoveToFinished()
+		{
+			PriorityActorsInvestigated.Add(PriorityActorSNOId);
+			PriorityActorSNOId = -1;
+			PriorityActorTarget = Vector3.Zero;
 			UpdateRoute();
 		}
 
@@ -909,6 +1018,38 @@ namespace FunkyBot.XMLTags
 		}
 
 		/// <summary>
+		/// Finds a navigable point in a priority actor
+		/// </summary>
+		private void FindPriorityActorTarget()
+		{
+			if (!PriorityScenes.Any())
+				return;
+
+			//gp.Update();
+
+			if (PrioritySceneTarget != Vector3.Zero)
+				return;
+
+			bool foundPriorityScene = false;
+
+			List<DiaObject> PActors = ZetaDia.Actors.GetActorsOfType<DiaObject>()
+				.Where(s => PriorityActors.Any(ps => ps.ActorId != -1 && s.ActorSNO == ps.ActorId && !PriorityActorsInvestigated.Contains(ps.ActorId))).ToList();
+
+			if (PActors.Any())
+			{
+				DiaObject priortyDiaObject= PActors.FirstOrDefault();
+				PriorityActorSNOId = priortyDiaObject.ActorSNO;
+				PriorityActorTarget = priortyDiaObject.Position;
+				CurrentPriorityActor = priortyDiaObject;
+				PriorityActorPathPrecision = PriorityActors[PriorityActorSNOId].ObjectDistance;
+			}
+			else
+				PriorityActorTarget=Vector3.Zero;
+
+
+		}
+
+		/// <summary>
 		/// Gets the center of a given Navigation Zone
 		/// </summary>
 		/// <param name="zone"></param>
@@ -943,7 +1084,7 @@ namespace FunkyBot.XMLTags
 		{
 			float X = zone.ZoneMin.X + min.X + ((max.X - min.X) / 2);
 			float Y = zone.ZoneMin.Y + min.Y + ((max.Y - min.Y) / 2);
-			float Z = min.Z + ((max.Z - min.Z) / 2);
+			float Z = zone.ZoneMin.ToVector3().Z + min.Z + ((max.Z - min.Z) / 2);
 
 			return new Vector3(X, Y, Z);
 		}

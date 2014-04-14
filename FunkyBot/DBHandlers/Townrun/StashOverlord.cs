@@ -336,8 +336,10 @@ namespace FunkyBot.DBHandlers
 				return RunStatus.Failure;
 			else
 			{
+				Act curAct = ZetaDia.CurrentAct;
+
 				//Setup vector for movement
-				switch (ZetaDia.CurrentAct)
+				switch (curAct)
 				{
 					case Act.A1:
 						vectorStashLocation = new Vector3(2967.146f, 2799.459f, 24.04533f); break;
@@ -348,6 +350,23 @@ namespace FunkyBot.DBHandlers
 						vectorStashLocation = new Vector3(389.3798f, 390.7143f, 0.3321428f); break;
 					case Act.A5:
 						vectorStashLocation = new Vector3(510.6552f, 502.1889f, 2.620764f); break;
+				}
+
+				if (curAct == Act.Invalid || curAct == Act.OpenWorld || curAct == Act.Test)
+				{
+					curAct = Character.FindActByLevelID(Bot.Character.Data.iCurrentLevelID);
+					switch (curAct)
+					{
+						case Act.A1:
+							vectorStashLocation = new Vector3(386.8494f,524.2585f,24.04533f); break;
+						case Act.A2:
+							vectorStashLocation = new Vector3(323.4543f, 228.5806f, 0.1f); break;
+						case Act.A3:
+						case Act.A4:
+							vectorStashLocation = new Vector3(389.3798f, 390.7143f, 0.3321428f); break;
+						case Act.A5:
+							vectorStashLocation = new Vector3(510.6552f, 502.1889f, 2.620764f); break;
+					}
 				}
 			}
 

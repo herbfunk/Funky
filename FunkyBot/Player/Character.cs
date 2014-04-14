@@ -6,6 +6,7 @@ using FunkyBot.Player.Class;
 using Zeta.Bot;
 using Zeta.Bot.Logic;
 using Zeta.Bot.Navigation;
+using Zeta.Game;
 
 namespace FunkyBot.Player
 {
@@ -130,6 +131,26 @@ namespace FunkyBot.Player
 			Data = new CharacterCache();
 			Data.OnLevelAreaIDChanged += LevelAreaIDChangeHandler;
 			Class = null;
+		}
+
+		///<summary>
+		///To Find Town Areas
+		///</summary>
+		public static Act FindActByLevelID(int ID)
+		{
+			switch (ID)
+			{
+				case 332339:
+					return Act.A1;
+				case 168314:
+					return Act.A2;
+				case 92945:
+					return Act.A3;
+				case 270011:
+					return Act.A5;
+			}
+
+			return Act.Invalid;
 		}
 
 	}

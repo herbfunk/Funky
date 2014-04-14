@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using Zeta.Bot;
 using Zeta.Game;
+using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
 using Color = System.Drawing.Color;
 
@@ -67,7 +68,7 @@ namespace FunkyDebug
 			item = cacheItems[itemACDGUID];
 
 			Point screenPoint = this.PointToScreen(entrySender.Location);//this.PointToClient(MousePosition);
-			screenPoint.Offset(this.Width,0);
+			screenPoint.Offset(this.Width, 0);
 			ItemWindowBrowser = new ItemWindow(item);
 			ItemWindowBrowser.Location = screenPoint;
 			ItemWindowBrowser.Show(this);
@@ -487,7 +488,7 @@ namespace FunkyDebug
 							AutoSize = true,
 							Dock = DockStyle.Top,
 							BorderStyle = BorderStyle.FixedSingle,
-							BackColor=Color.Black,
+							BackColor = Color.Black,
 						};
 						entry.DoubleClick += entryDoubleClick;
 						try
@@ -496,13 +497,13 @@ namespace FunkyDebug
 							cacheItems.Add(o.ACDGuid, newCacheAcdItem);
 
 							entry.Text = String.Format(newCacheAcdItem.Name + "({0})", newCacheAcdItem.InternalName);
-							entry.ForeColor=newCacheAcdItem.ItemQualityLevel== ItemQuality.Legendary?Color.Orange:
+							entry.ForeColor = newCacheAcdItem.ItemQualityLevel == ItemQuality.Legendary ? Color.Orange :
 								newCacheAcdItem.ItemQualityLevel == ItemQuality.Inferior ? Color.Gray :
 								newCacheAcdItem.ItemQualityLevel < ItemQuality.Magic1 ? Color.White :
-								newCacheAcdItem.ItemQualityLevel<=ItemQuality.Magic3?Color.Blue:
-								newCacheAcdItem.ItemQualityLevel<=ItemQuality.Rare6?Color.Yellow:
+								newCacheAcdItem.ItemQualityLevel <= ItemQuality.Magic3 ? Color.Blue :
+								newCacheAcdItem.ItemQualityLevel <= ItemQuality.Rare6 ? Color.Yellow :
 								Color.White;
-							entry.Name=newCacheAcdItem.ACDGUID.ToString();
+							entry.Name = newCacheAcdItem.ACDGUID.ToString();
 							entry.MouseEnter += entryMouseEnter;
 							entry.MouseLeave += entryMouseLeave;
 
@@ -512,7 +513,7 @@ namespace FunkyDebug
 						{
 
 						}
-						
+
 					}
 					#endregion
 
@@ -574,6 +575,83 @@ namespace FunkyDebug
 		{
 
 
+		}
+
+		private static HashSet<UIElement> UiElements = new HashSet<UIElement> { 
+			UIElements.BackgroundScreenPCButtonAchievements,
+			UIElements.BackgroundScreenPCButtonInventory,
+			UIElements.BackgroundScreenPCButtonMenu,
+			UIElements.BackgroundScreenPCButtonQuests,
+			UIElements.BackgroundScreenPCButtonRecall,
+			UIElements.BackgroundScreenPCButtonSkills,
+			UIElements.BnetAccountNameTextbox,
+			UIElements.BnetAccountPasswordTextbox,
+			UIElements.BnetLoginAuthenticatorInput,
+			UIElements.ConfirmationDialog,
+			UIElements.ConfirmationDialogCancelButton,
+			UIElements.ConfirmationDialogOkButton,
+			UIElements.ConversationDialogMain,
+			UIElements.ConversationDialogMainButtonClose,
+			UIElements.DeathMenuDialogMain,
+			UIElements.FloatingBubbleText,
+			UIElements.InventoryWindow,
+			UIElements.LoginButton,
+			UIElements.ReviveAtCorpseButton,
+			UIElements.ReviveAtLastCheckpointButton,
+			UIElements.ReviveInTownButton,
+			UIElements.SalvageWindow,
+			UIElements.ShopDialogRepairWindow,
+			UIElements.StashDialogMainPageTab1,
+			UIElements.StashDialogMainPageTab2,
+			UIElements.StashDialogMainPageTab3,
+			UIElements.StashDialogMainPageTab4,
+			UIElements.StashWindow,
+			UIElements.VendorWindow,
+			UIElements.WaypointMap,
+		};
+
+		private void btn_dumpUIs_Click(object sender, EventArgs e)
+		{
+			if (BotMain.IsRunning)
+			{
+				return;
+			}
+
+			panel_UI.Controls.Clear();
+
+			try
+			{
+				ZetaDia.Memory.ClearCache();
+
+				using (ZetaDia.Memory.SaveCacheState())
+				{
+					ZetaDia.Memory.DisableCache();
+					ZetaDia.Actors.Update();
+
+					foreach (var uiElement in UiElements)
+					{
+						if (!uiElement.IsValid) continue;
+
+						Label entry = new Label
+						{
+							AutoEllipsis = true,
+							AutoSize = true,
+							Dock = DockStyle.Top,
+							BorderStyle = BorderStyle.FixedSingle,
+							BackColor = Color.Black,
+							ForeColor = Color.White,
+						};
+
+						entry.Text = string.Format("Name: {0} Visible: {1} Text: {2}", uiElement.Name, uiElement.IsVisible, uiElement.Text);
+						panel_UI.Controls.Add(entry);
+					}
+
+				}
+			}
+			catch
+			{
+
+			}
 		}
 
 

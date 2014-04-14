@@ -22,7 +22,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 			Priority = AbilityPriority.Medium;
 			PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckCanCast |
 			                          AbilityPreCastFlags.CheckPlayerIncapacitated));
-			SingleUnitCondition = new UnitTargetConditions(TargetProperties.Ranged, 25, 0.50d);
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Ranged, 25, 0.50d));
 								
 								//TestCustomCombatConditionAlways=true,
 			FcriteriaCombat = () => Bot.Targeting.Cache.CurrentUnitTarget.IsRanged ||

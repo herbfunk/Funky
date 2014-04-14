@@ -16,7 +16,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast));
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 2);
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
-				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 35);
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 35));
 		  }
 
 		  #region IAbility

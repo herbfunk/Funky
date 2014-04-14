@@ -22,8 +22,8 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_50, 3);
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_50, 1);
-				//SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial,69),
-				ClusterConditions=new SkillClusterConditions(4d, 45, 2, true);
+				//SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial,69),
+				ClusterConditions.Add(new SkillClusterConditions(4d, 45, 2, true));
 		  }
 
 		  #region IAbility

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Windows.Documents;
 using FunkyBot.Cache;
 using FunkyBot.XMLTags;
 using Zeta.Game;
+using Zeta.Game.Internals;
 using Zeta.Game.Internals.Service;
 
 namespace FunkyBot.Game
@@ -21,8 +24,9 @@ namespace FunkyBot.Game
 
 		internal GoldInactivity GoldTimeoutChecker = new GoldInactivity();
 
-
 		internal ProfileCache Profile = new ProfileCache();
+
+		public Dictionary<int,QuestState> Bounties=new Dictionary<int, QuestState>();
 
 		private GameId _currentGameId = new GameId();
 		internal bool RefreshGameId()
@@ -37,7 +41,6 @@ namespace FunkyBot.Game
 			{
 
 				Logger.Write(LogLevel.OutOfCombat, "New Game Started");
-
 
 				//Merge last GameStats with the Total
 				TrackingStats.GameChanged(ref CurrentGameStats);
@@ -68,6 +71,32 @@ namespace FunkyBot.Game
 			}
 
 			return false;
+		}
+		public static UIElement BountyCompleteContinue
+		{
+			get
+			{
+				try { return UIElement.FromHash(0x278249110947CA00); }
+				catch { return null; }
+			}
+		}
+		//
+		internal void CheckUI()
+		{
+			if (BountyCompleteContinue != null && BountyCompleteContinue.IsValid && BountyCompleteContinue.IsVisible)
+			{
+				Logger.DBLog.Info("Funky Clicking Bounty Dialog!");
+				BountyCompleteContinue.Click();
+			}
+		}
+
+		public void UpdateBountyInfo()
+		{
+			Bounties.Clear();
+			foreach (var bounty in ZetaDia.ActInfo.Bounties)
+			{
+				Bounties.Add(bounty.Info.QuestSNO, bounty.Info.State);
+			}
 		}
 	}
 }

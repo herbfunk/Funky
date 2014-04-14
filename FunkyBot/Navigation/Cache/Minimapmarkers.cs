@@ -78,6 +78,7 @@ namespace FunkyBot.XMLTags
 			if (NavProvider == null)
 				NavProvider = new DefaultNavigationProvider();
 
+
 			foreach (MiniMapMarker marker in KnownMarkers.Where(m => m.Failed))
 			{
 				if (NavProvider.CanPathWithinDistance(marker.Position, 10f))

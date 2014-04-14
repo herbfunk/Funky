@@ -30,12 +30,12 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 2);
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
-				SingleUnitCondition=new UnitTargetConditions
+				SingleUnitCondition.Add(new UnitTargetConditions
 				{
-					 TrueConditionFlags=TargetProperties.IsSpecial,
-					 Distance=30,
+					TrueConditionFlags = TargetProperties.IsSpecial,
+					Distance = 30,
 
-				};
+				});
 
 				FcriteriaCombat=() =>
 				{

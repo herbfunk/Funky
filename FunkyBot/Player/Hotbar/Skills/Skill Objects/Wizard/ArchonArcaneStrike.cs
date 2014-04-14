@@ -14,8 +14,8 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				UseageType=AbilityUseage.Combat;
 				Priority=AbilityPriority.Low;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated));
-				ClusterConditions=new SkillClusterConditions(6d, 10f, 2, true);
-				SingleUnitCondition=new UnitTargetConditions(TargetProperties.None, 8);
+				ClusterConditions.Add(new SkillClusterConditions(6d, 10f, 2, true));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 8));
 		  }
 
 		  #region IAbility

@@ -55,10 +55,8 @@ namespace FunkyBot.Game
 			{
 				LastProfileBehaviorCheck = DateTime.Now;
 
-				if (currentProfileBehavior == null
-					 || ProfileManager.CurrentProfileBehavior != null
-					 && ProfileManager.CurrentProfileBehavior.Behavior != null
-					 && currentProfileBehavior.Behavior.Guid != ProfileManager.CurrentProfileBehavior.Behavior.Guid)
+				if ((currentProfileBehavior == null && ProfileManager.CurrentProfileBehavior != null && ProfileManager.CurrentProfileBehavior.Behavior != null)
+					 || (ProfileManager.CurrentProfileBehavior != null && ProfileManager.CurrentProfileBehavior.Behavior != null && currentProfileBehavior != null && currentProfileBehavior.Behavior.Guid != ProfileManager.CurrentProfileBehavior.Behavior.Guid))
 				{
 					currentProfileBehavior = ProfileManager.CurrentProfileBehavior;
 					Logger.Write(LogLevel.Event, "Profile Behavior Changed To {0}", currentProfileBehavior.GetType().ToString());
@@ -178,6 +176,7 @@ namespace FunkyBot.Game
 																	  typeof(UseTownPortalTag),
 																	  //typeof(Zeta.CommonBot.Profile.Common.WaitTimerTag),
 																	  typeof (TrinityTownPortal),
+																	  typeof (FunkyWaypoint),
 																	};
 
 		//Common Used Profile Tags that requires backtracking during combat sessions.

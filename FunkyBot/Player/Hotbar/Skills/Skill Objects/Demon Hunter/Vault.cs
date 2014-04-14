@@ -20,7 +20,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				IsASpecialMovementPower = true;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|
 				                          AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckRecastTimer));
-				//SingleUnitCondition=new UnitTargetConditions(TargetProperties.None, 10);
+				//SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 10);
 				//UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 1);
 
 				FCombatMovement=v =>

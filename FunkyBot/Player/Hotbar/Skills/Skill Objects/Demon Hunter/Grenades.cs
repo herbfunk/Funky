@@ -9,7 +9,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 		  {
 				Cooldown=5;
 				ExecutionType=AbilityExecuteFlags.ClusterTarget|AbilityExecuteFlags.Target;
-				ClusterConditions=new SkillClusterConditions(6d, 40f, 1, true);
+				ClusterConditions.Add(new SkillClusterConditions(6d, 40f, 1, true));
 				WaitVars=new WaitLoops(0, 1, true);
 				Cost=0;
 				Range=40;

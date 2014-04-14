@@ -47,11 +47,15 @@
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.btnRefreshCharacter = new System.Windows.Forms.Button();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
+			this.panelCharacterInventory = new System.Windows.Forms.Panel();
 			this.panel3 = new System.Windows.Forms.Panel();
 			this.btnRefreshCharacterInventory = new System.Windows.Forms.Button();
-			this.panelCharacterInventory = new System.Windows.Forms.Panel();
 			this.tabPage7 = new System.Windows.Forms.TabPage();
 			this.panelCharacterEquipped = new System.Windows.Forms.Panel();
+			this.tabPage8 = new System.Windows.Forms.TabPage();
+			this.panel_UI = new System.Windows.Forms.Panel();
+			this.panel4 = new System.Windows.Forms.Panel();
+			this.btn_dumpUIs = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPageObjects.SuspendLayout();
 			this.tabControl2.SuspendLayout();
@@ -66,12 +70,15 @@
 			this.tabPage6.SuspendLayout();
 			this.panel3.SuspendLayout();
 			this.tabPage7.SuspendLayout();
+			this.tabPage8.SuspendLayout();
+			this.panel4.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
 			// 
 			this.tabControl1.Controls.Add(this.tabPageObjects);
 			this.tabControl1.Controls.Add(this.tabPageCharacter);
+			this.tabControl1.Controls.Add(this.tabPage8);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
@@ -273,6 +280,16 @@
 			this.tabPage6.Text = "Inventory";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
+			// panelCharacterInventory
+			// 
+			this.panelCharacterInventory.AutoScroll = true;
+			this.panelCharacterInventory.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.panelCharacterInventory.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panelCharacterInventory.Location = new System.Drawing.Point(3, 45);
+			this.panelCharacterInventory.Name = "panelCharacterInventory";
+			this.panelCharacterInventory.Size = new System.Drawing.Size(547, 415);
+			this.panelCharacterInventory.TabIndex = 3;
+			// 
 			// panel3
 			// 
 			this.panel3.Controls.Add(this.btnRefreshCharacterInventory);
@@ -291,16 +308,6 @@
 			this.btnRefreshCharacterInventory.Text = "Refresh";
 			this.btnRefreshCharacterInventory.UseVisualStyleBackColor = true;
 			this.btnRefreshCharacterInventory.Click += new System.EventHandler(this.btnRefreshCharacterInventory_Click);
-			// 
-			// panelCharacterInventory
-			// 
-			this.panelCharacterInventory.AutoScroll = true;
-			this.panelCharacterInventory.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.panelCharacterInventory.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panelCharacterInventory.Location = new System.Drawing.Point(3, 45);
-			this.panelCharacterInventory.Name = "panelCharacterInventory";
-			this.panelCharacterInventory.Size = new System.Drawing.Size(547, 415);
-			this.panelCharacterInventory.TabIndex = 3;
 			// 
 			// tabPage7
 			// 
@@ -322,6 +329,47 @@
 			this.panelCharacterEquipped.Name = "panelCharacterEquipped";
 			this.panelCharacterEquipped.Size = new System.Drawing.Size(547, 457);
 			this.panelCharacterEquipped.TabIndex = 4;
+			// 
+			// tabPage8
+			// 
+			this.tabPage8.Controls.Add(this.panel_UI);
+			this.tabPage8.Controls.Add(this.panel4);
+			this.tabPage8.Location = new System.Drawing.Point(4, 22);
+			this.tabPage8.Name = "tabPage8";
+			this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage8.Size = new System.Drawing.Size(567, 495);
+			this.tabPage8.TabIndex = 2;
+			this.tabPage8.Text = "UI";
+			this.tabPage8.UseVisualStyleBackColor = true;
+			// 
+			// panel_UI
+			// 
+			this.panel_UI.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.panel_UI.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panel_UI.Location = new System.Drawing.Point(3, 56);
+			this.panel_UI.Name = "panel_UI";
+			this.panel_UI.Size = new System.Drawing.Size(561, 436);
+			this.panel_UI.TabIndex = 1;
+			// 
+			// panel4
+			// 
+			this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel4.Controls.Add(this.btn_dumpUIs);
+			this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel4.Location = new System.Drawing.Point(3, 3);
+			this.panel4.Name = "panel4";
+			this.panel4.Size = new System.Drawing.Size(561, 53);
+			this.panel4.TabIndex = 0;
+			// 
+			// btn_dumpUIs
+			// 
+			this.btn_dumpUIs.Location = new System.Drawing.Point(5, 3);
+			this.btn_dumpUIs.Name = "btn_dumpUIs";
+			this.btn_dumpUIs.Size = new System.Drawing.Size(75, 23);
+			this.btn_dumpUIs.TabIndex = 0;
+			this.btn_dumpUIs.Text = "Dump";
+			this.btn_dumpUIs.UseVisualStyleBackColor = true;
+			this.btn_dumpUIs.Click += new System.EventHandler(this.btn_dumpUIs_Click);
 			// 
 			// FormDebug
 			// 
@@ -350,6 +398,8 @@
 			this.tabPage6.ResumeLayout(false);
 			this.panel3.ResumeLayout(false);
 			this.tabPage7.ResumeLayout(false);
+			this.tabPage8.ResumeLayout(false);
+			this.panel4.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -380,5 +430,9 @@
 		private System.Windows.Forms.Panel panelCharacterEquipped;
 		private System.Windows.Forms.Panel panel3;
 		private System.Windows.Forms.Button btnRefreshCharacterInventory;
+		private System.Windows.Forms.TabPage tabPage8;
+		private System.Windows.Forms.Panel panel_UI;
+		private System.Windows.Forms.Panel panel4;
+		private System.Windows.Forms.Button btn_dumpUIs;
 	}
 }

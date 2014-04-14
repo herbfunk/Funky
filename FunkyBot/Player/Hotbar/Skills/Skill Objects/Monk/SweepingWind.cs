@@ -18,8 +18,8 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy));
 
-				ClusterConditions=new SkillClusterConditions(7d, 35f, 2, false);
-				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 25);
+				ClusterConditions.Add(new SkillClusterConditions(7d, 35f, 2, false));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 25));
                 IsBuff = true;
                 FcriteriaBuff = () =>
                 {

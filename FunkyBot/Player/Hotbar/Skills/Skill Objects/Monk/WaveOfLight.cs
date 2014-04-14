@@ -19,8 +19,8 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|
 				                          AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckPlayerIncapacitated));
-				ClusterConditions=new SkillClusterConditions(6d, 35f, 3, true);
-				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 20, falseConditionalFlags: TargetProperties.MissileReflecting);
+				ClusterConditions.Add(new SkillClusterConditions(6d, 35f, 3, true));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 20, falseConditionalFlags: TargetProperties.MissileReflecting));
 
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
 

@@ -644,7 +644,7 @@ namespace FunkyBot.Cache.Objects
 							{//Special Interactive Object -- Add to special cache!
 								targetType = TargetType.ServerInteractable;
 							}
-							else if (thisGizmoType == GizmoType.Switch)
+							else if (thisGizmoType == GizmoType.Switch && InternalName.StartsWith("x1_Event"))
 							{
 								targetType = TargetType.CursedShrine;
 							}

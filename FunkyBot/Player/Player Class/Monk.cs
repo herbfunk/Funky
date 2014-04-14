@@ -164,6 +164,8 @@ namespace FunkyBot.Player.Class
 					return new MantraOfEvasion();
 				case MonkActiveSkills.Monk_CycloneStrike:
 					return new CycloneStrike();
+				case MonkActiveSkills.Monk_Epiphany:
+					return new Epiphany();
 				default:
 					return DefaultAttack;
 			}
@@ -192,6 +194,7 @@ namespace FunkyBot.Player.Class
 			Monk_BlindingFlash = 136954,
 			Monk_MantraOfEvasion = 375049,
 			Monk_CycloneStrike = 223473,
+			Monk_Epiphany = 312307,
 		}
 		/*
 						enum MonkPassiveSkills

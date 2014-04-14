@@ -39,6 +39,8 @@ namespace FunkyBot
 			//update current profile behavior.
 			Bot.Game.Profile.CheckCurrentProfileBehavior();
 
+			//UI?
+			Bot.Game.CheckUI();
 
 			// Should we refresh target list?
 			if (Bot.Targeting.Cache.ShouldRefreshObjectList)
@@ -104,7 +106,7 @@ namespace FunkyBot
 			// Out of combat buffing etc. but only if we don't want to return to town etc.
 			AnimationState myAnimationState = Bot.Character.Data.CurrentAnimationState;
 			if ((!Bot.Character.Data.bIsInTown || Bot.Settings.AllowBuffingInTown) &&
-				 !TownRunManager.bWantToTownRun &&
+				 !TownRunManager.bWantToTownRun && !Bot.Game.Profile.IsRunningOOCBehavior &&
 				 myAnimationState != AnimationState.Attacking && myAnimationState != AnimationState.Casting && myAnimationState != AnimationState.Channeling)
 			{
 				Skill Buff;

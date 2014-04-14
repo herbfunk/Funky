@@ -74,10 +74,12 @@ namespace FunkyBot.XMLTags
 
 		private void MoveToPostion()
 		{
-			Logger.DBLog.InfoFormat("Moving to offset x={0} y={1} distance={2:0} position={3}",
+			Logger.DBLog.DebugFormat("Moving to offset x={0} y={1} distance={2:0} position={3}",
 						OffsetX, OffsetY, Position.Distance2D(MyPos), Position);
 
 			lastMoveResult = Funky.PlayerMover.NavigateTo(Position);
+
+			SkipAheadCache.RecordSkipAheadCachePoint(PathPrecision);
 
 			if (lastMoveResult == MoveResult.PathGenerationFailed)
 			{
@@ -96,6 +98,8 @@ namespace FunkyBot.XMLTags
 
 			float x = MyPos.X + OffsetX;
 			float y = MyPos.Y + OffsetY;
+
+			MainGridProvider.Update();
 
 			Position = new Vector3(x, y, MainGridProvider.GetHeight(new Vector2(x, y)));
 

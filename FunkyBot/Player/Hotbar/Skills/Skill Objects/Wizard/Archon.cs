@@ -20,7 +20,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				                          AbilityPreCastFlags.CheckEnergy));
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_30, 1);
-				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 30);
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 30));
 				FcriteriaCombat=() =>
 				{
 					bool missingBuffs=MissingBuffs();

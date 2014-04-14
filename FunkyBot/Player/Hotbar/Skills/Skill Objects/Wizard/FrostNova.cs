@@ -16,10 +16,10 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				Priority=AbilityPriority.Medium;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast));
 
-				ClusterConditions = new SkillClusterConditions(7d, 20f, 2, false);
+				ClusterConditions.Add(new SkillClusterConditions(7d, 20f, 2, false));
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 1);
 				ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 1);
-				//SingleUnitCondition=new UnitTargetConditions(TargetProperties.None, 12);
+				//SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 12);
 		  }
 
 		  #region IAbility

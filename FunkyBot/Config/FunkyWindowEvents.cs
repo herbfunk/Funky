@@ -11,6 +11,7 @@ using FunkyBot.Settings;
 using System.Windows.Controls;
 using Zeta.Bot;
 using Zeta.Common;
+using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Button = System.Windows.Controls.Button;
 using CheckBox = System.Windows.Controls.CheckBox;
@@ -294,11 +295,11 @@ namespace FunkyBot
 			{
 				try
 				{
-
+					LBDebug.Items.Add(Bot.Targeting.Cache.DebugString());
 				}
-				catch
+				catch (Exception ex)
 				{
-
+					Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
 				}
 			}
 			else if (btnsender.Name == "Ability")
@@ -359,7 +360,10 @@ namespace FunkyBot
 			{
 				try
 				{
-
+					foreach (var mmm in ZetaDia.Minimap.Markers.CurrentWorldMarkers)
+					{
+						LBDebug.Items.Add(string.Format("IsPointOfIntrest: {0} " + mmm.ToString(), mmm.IsPointOfInterest));
+					}
 				}
 				catch(Exception ex)
 				{

@@ -16,7 +16,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				Priority=AbilityPriority.High;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast));
 				//ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
-				SingleUnitCondition=new UnitTargetConditions(TargetProperties.None, falseConditionalFlags: TargetProperties.FullHealth);
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, falseConditionalFlags: TargetProperties.FullHealth));
 				FcriteriaCombat = () =>
 				{
 					if (LastUsedMilliseconds > 27000 || Bot.Character.Class.Abilities[SNOPower.Witchdoctor_SummonZombieDog].CheckPreCastConditionMethod())

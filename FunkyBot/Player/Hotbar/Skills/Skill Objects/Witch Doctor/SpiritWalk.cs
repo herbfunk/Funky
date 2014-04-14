@@ -39,7 +39,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				};
 
 				Range = 6;
-			    ClusterConditions=new SkillClusterConditions(7d, 30f, 4, false, 0, ClusterProperties.None, 10f, true);
+			    ClusterConditions.Add(new SkillClusterConditions(7d, 30f, 4, false, 0, ClusterProperties.None, 10f, true));
 				FcriteriaCombat=() => (	   (LastConditionPassed== ConditionCriteraTypes.Cluster) ||   
 										   (Bot.Character.Data.dCurrentHealthPct <= 0.35d) ||
 				                           (RuneIndex==3&&Bot.Character.Data.dCurrentEnergyPct<0.25d)||

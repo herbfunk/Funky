@@ -17,7 +17,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				Priority=AbilityPriority.High;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast));
 
-				ClusterConditions=new SkillClusterConditions(5d, 48f, 2, false, minDistance: 15f);
+				ClusterConditions.Add(new SkillClusterConditions(5d, 48f, 2, false, minDistance: 15f));
 
 				FcriteriaCombat=() =>
 				{

@@ -23,7 +23,7 @@ namespace FunkyBot
 {
 	public partial class Funky : IPlugin
 	{
-		public Version Version { get { return new Version(2, 8, 2, 0); } }
+		public Version Version { get { return new Version(2, 9, 0, 0); } }
 		public string Author { get { return "Herbfunk"; } }
 		public string Description
 		{
@@ -94,7 +94,7 @@ namespace FunkyBot
 
 			string sRoutinePath = FolderPaths.sDemonBuddyPath + @"\Routines\Funky\";
 			string sPluginRoutineFolder = FolderPaths.sDemonBuddyPath + @"\Plugins\FunkyBot\CombatRoutine\";
-
+		
 			//DateTime RoutineCombatDate=System.IO.File.GetLastWriteTime(sRoutinePath+"CombatRoutine.cs");
 			//DateTime RoutineDebugDate=System.IO.File.GetLastWriteTime(sRoutinePath+"RoutineDebug.cs");
 			//DateTime PluginCombatDate=System.IO.File.GetLastWriteTime(sPluginRoutineFolder+"CombatRoutine");

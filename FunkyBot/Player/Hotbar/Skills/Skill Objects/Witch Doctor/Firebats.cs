@@ -49,8 +49,8 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 			UseageType = AbilityUseage.Combat;
 			Priority = AbilityPriority.High;
 			PreCast = new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated));
-			SingleUnitCondition = new UnitTargetConditions(TargetProperties.None, range);
-			ClusterConditions = new SkillClusterConditions(5d, range, 2, true);
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, range));
+			ClusterConditions.Add(new SkillClusterConditions(5d, range, 2, true));
 
 
 

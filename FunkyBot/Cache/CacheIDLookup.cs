@@ -567,6 +567,8 @@ namespace FunkyBot.Cache
 			108230, 211861, 62860, 96993,
             // Magi
 			112182,
+			//GlobalChest
+			363725,
          };
 
 		// A list of SNO's to *FORCE* to type: Item. (BE CAREFUL WITH THIS!).

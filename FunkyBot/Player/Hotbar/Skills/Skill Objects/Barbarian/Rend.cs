@@ -23,10 +23,10 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 			PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckEnergy |
 			                          AbilityPreCastFlags.CheckCanCast | AbilityPreCastFlags.CheckPlayerIncapacitated));
 
-			ClusterConditions = new SkillClusterConditions(5d, 8, 2, true, 0.90d);
+			ClusterConditions.Add(new SkillClusterConditions(5d, 8, 2, true, 0.90d));
 
-			SingleUnitCondition = new UnitTargetConditions(TargetProperties.None, 10,
-				falseConditionalFlags: TargetProperties.DOTDPS | TargetProperties.SucideBomber);
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 10,
+				falseConditionalFlags: TargetProperties.DOTDPS | TargetProperties.SucideBomber));
 
 			FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial
 								  || (Bot.Settings.Barbarian.bFuryDumpWrath && Bot.Character.Data.dCurrentEnergyPct >= 0.95 &&

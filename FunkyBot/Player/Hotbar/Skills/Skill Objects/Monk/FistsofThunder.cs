@@ -16,8 +16,8 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast));
 
-				ClusterConditions=new SkillClusterConditions(5d, 20f, 1, true);
-				SingleUnitCondition=new UnitTargetConditions(TargetProperties.None);
+				ClusterConditions.Add(new SkillClusterConditions(5d, 20f, 1, true));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None));
 
 		  }
 

@@ -82,6 +82,9 @@ namespace FunkyBot.Targeting
 		///</summary>
 		public void Refresh()
 		{
+			//Profile Behavior
+			Bot.Game.Profile.CheckCurrentProfileBehavior();
+
 			//Update Character (just incase it wasnt called before..)
 			Bot.Character.Data.Update(false, true);
 
@@ -313,6 +316,9 @@ namespace FunkyBot.Targeting
 		internal Environment Environment = new Environment();
 		internal float iCurrentMaxKillRadius = 0f;
 		internal float iCurrentMaxLootRadius = 0f;
+		internal bool bPrioritizeCloseRangeUnits { get; set; }
+		internal bool DontMove { get; set; }
+
 		internal void UpdateKillLootRadiusValues()
 		{
 			iCurrentMaxKillRadius = CharacterSettings.Instance.KillRadius;
@@ -333,9 +339,7 @@ namespace FunkyBot.Targeting
 			//Ignore Loot Range Setting
 			if (Bot.Settings.Ranges.IgnoreLootRange) iCurrentMaxLootRadius = 10;
 		}
-		internal bool bPrioritizeCloseRangeUnits { get; set; }
 
-		internal bool DontMove { get; set; }
 
 
 
@@ -380,21 +384,21 @@ namespace FunkyBot.Targeting
 		internal CacheObject LastCachedTarget { get; set; }
 		internal bool FleeingLastTarget { get; set; }
 		internal bool AvoidanceLastTarget { get; set; }
-		internal DateTime LastAvoidanceMovement { get; set; }
+		internal DateTime LastAvoidanceMovement = DateTime.Today;
 		internal DateTime LastFleeAction = DateTime.Today;
 		internal DateTime LastChangeOfTarget = DateTime.Today;
 		// Last had any mob in range, for loot-waiting
-		internal DateTime lastHadUnitInSights { get; set; }
+		internal DateTime lastHadUnitInSights = DateTime.Today;
 		// When we last saw a boss/elite etc.
-		internal DateTime lastHadEliteUnitInSights { get; set; }
+		internal DateTime lastHadEliteUnitInSights = DateTime.Today;
 		//Last time we had a container, for loot-waiting
-		internal DateTime lastHadContainerAsTarget { get; set; }
+		internal DateTime lastHadContainerAsTarget = DateTime.Today;
 		//Cursed Shrine Used but still valid
-		internal DateTime lastSeenCursedShrine { get; set; }
+		internal DateTime lastSeenCursedShrine = DateTime.Today;
 		//Update QuestMonster property on units
 		internal bool UpdateQuestMonsterProperty { get; set; }
 		//When we last saw a "rare" chest
-		internal DateTime lastHadRareChestAsTarget { get; set; }
+		internal DateTime lastHadRareChestAsTarget = DateTime.Today;
 		// Store the date-time when we *FIRST* picked this target, so we can blacklist after X period of time targeting
 
 		internal int iTotalNumberGoblins = 0;
@@ -414,6 +418,53 @@ namespace FunkyBot.Targeting
 			{
 				return DateTime.Now.Subtract(lastRefreshedObjects).TotalMilliseconds >= Bot.Settings.Plugin.CacheObjectRefreshRate;
 			}
+		}
+
+		public string DebugString()
+		{
+			return string.Format("CurrentTarget: {32}" +
+			                     "LastTarget: {33}" +
+			                     "Backtracking: {0} \r\n" +
+								 "bWholeNewTarget: {1} \r\n" +
+								 "bPickNewAbilities: {2} \r\n" +
+								 "bWaitingForPower: {3} \r\n" +
+								 "bWaitingAfterPower: {4} \r\n" +
+								 "bWaitingForPotion: {5} \r\n" +
+								 "bForceTargetUpdate: {6} \r\n" +
+								 "bWasRootedLastTick: {7} \r\n" +
+								 "ShouldCheckItemLooted: {8} \r\n" +
+								 "recheckCount: {9} \r\n" +
+								 "reCheckedFinished: {10} \r\n" +
+								 "CheckItemLootStackCount: {11} \r\n" +
+								 "lastBehavioralType: {12} \r\n" +
+								 "iCurrentMaxKillRadius: {13} \r\n" +
+								 "iCurrentMaxLootRadius: {14} \r\n" +
+								 "bPrioritizeCloseRangeUnits: {15} \r\n" +
+								 "bPrioritizeCloseRangeUnits: {15} \r\n" +
+								 "DontMove: {16} \r\n" +
+								 "RequiresAvoidance: {17} \r\n" +
+								 "TravellingAvoidance: {18} \r\n" +
+								 "FleeingLastTarget: {19} \r\n" +
+								 "AvoidanceLastTarget: {20} \r\n" +
+								 "LastAvoidanceMovement: {21} \r\n" +
+								 "LastFleeAction: {22} \r\n" +
+								 "LastChangeOfTarget: {23} \r\n" +
+								 "lastHadUnitInSights: {24} \r\n" +
+								 "lastHadEliteUnitInSights: {25} \r\n" +
+								 "lastHadContainerAsTarget: {26} \r\n" +
+								 "lastSeenCursedShrine: {27} \r\n" +
+								 "UpdateQuestMonsterProperty: {28} \r\n" +
+								 "lastHadRareChestAsTarget: {29} \r\n" +
+								 "iTotalNumberGoblins: {30} \r\n" +
+								 "lastGoblinTime: {31} \r\n",
+								 Backtracking, bWholeNewTarget, bPickNewAbilities, bWaitingForPower, bWaitingAfterPower, bWaitingForPotion, bForceTargetUpdate,
+								 bWasRootedLastTick, ShouldCheckItemLooted, recheckCount, reCheckedFinished, CheckItemLootStackCount, lastBehavioralType,
+								 iCurrentMaxKillRadius, iCurrentMaxLootRadius, bPrioritizeCloseRangeUnits, DontMove, RequiresAvoidance, TravellingAvoidance,
+								 FleeingLastTarget, AvoidanceLastTarget, LastAvoidanceMovement, LastFleeAction, LastChangeOfTarget, lastHadUnitInSights,
+								 lastHadEliteUnitInSights, lastHadContainerAsTarget, lastSeenCursedShrine, UpdateQuestMonsterProperty, lastHadRareChestAsTarget,
+								 iTotalNumberGoblins, lastGoblinTime, 
+								 CurrentTarget!=null?CurrentTarget.InternalName:"NONE!",
+								 LastCachedTarget!=null?LastCachedTarget.InternalName:"NONE!");
 		}
 	}
 }

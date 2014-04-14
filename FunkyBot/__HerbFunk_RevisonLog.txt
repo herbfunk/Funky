@@ -1,4 +1,60 @@
 ﻿// herbfunk revisions
+v2.9.0.0
+
+Skill:
+Changed both Single and Cluster conditions to Lists allowing multiple criterias to be tested.
+
+
+Bounty Support:
+	New Tags:
+		FunkyBountyLoad (Bounty ID match that is not yet completed and loads a profile)
+		FunkyBountyRefresh (Refreshes Bounty Cache)
+		FunkyWaypoint (Uses waypoint non-gizmo Map Style)
+
+	Tags:
+		TrinityExploreDungeon
+			-Added PrioritizeActors (same as Scenes but for actors)
+			-Added new until option: BountyCompleted (args: bountyId)
+		Added HaveBounty tag from Trinity.
+
+Profiles:
+Act 1 Bounty Profiles Added. (Found FunkyBot Folder!)
+
+
+Monk:
+Epiphany Support Added. (Cluster of 13+ units)
+
+Misc:
+Fixed Act 1 Town Runs during Adventure Mode
+
+
+
+
+v2.8.2.0
+Wizard Black Hole Support Added
+
+Town Run:
+Support for Act 5 added.
+Unidentify Stashing Works Again.
+Cleaned up Stashing Code a bit.
+
+Items:
+Support for Flails and Crusader Shields
+Item rules modified for rares, legendaries are stashed unidentified, and everything else is salvaged
+
+Settings:
+Removed Demonbuddy Powerlevel Override Settings.
+Seperated Diablo Class Settings into new files.
+Settings Initalization moved to Plugin Initilization.
+
+XML Tags:
+Explore Dungeon Gold Timeout has been fixed. (was always timing out!)
+Explore Dungeon Default Timeout now uses Targeting Last Had Unit Date to check for timeout.
+
+Misc:
+Fixed Death Treehook throwing exception on start.
+
+
 v2.8.1.0
 
 PlayerMover:

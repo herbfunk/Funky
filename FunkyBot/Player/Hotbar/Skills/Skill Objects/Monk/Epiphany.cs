@@ -1,23 +1,25 @@
-﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+﻿using FunkyBot.Movement.Clustering;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Game.Internals.Actors;
 
-namespace FunkyBot.Player.HotBar.Skills.DemonHunter
+namespace FunkyBot.Player.HotBar.Skills.Monk
 {
-	 public class FanOfKnives : Skill
+	public class Epiphany : Skill
 	 {
 		 public override void Initialize()
 		  {
-				Cooldown=10000;
+				//Only check for buff when correct rune is set! rune==2
+				Cooldown=60000;
 				ExecutionType=AbilityExecuteFlags.Buff;
 				WaitVars=new WaitLoops(1, 1, true);
-				Cost=20;
-				Range=0;
 				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.Medium;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|
-				                          AbilityPreCastFlags.CheckEnergy));
-				ClusterConditions.Add(new SkillClusterConditions(4d, 10f, 2, false));
-				//SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.CloseDistance);
+
+				Priority=AbilityPriority.High;
+				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckRecastTimer));
+				
+				ClusterConditions.Add(new SkillClusterConditions(10d, 50f, 13, false));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 45, 0.75d));
+
 		  }
 
 		  #region IAbility
@@ -39,18 +41,15 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				{
 					 return false;
 				}
-				else
-				{
-					 Skill p=(Skill)obj;
-					 return Power==p.Power;
-				}
+			  Skill p=(Skill)obj;
+			  return Power==p.Power;
 		  }
 
 		  #endregion
 
 		  public override SNOPower Power
 		  {
-				get { return SNOPower.DemonHunter_FanOfKnives; }
+				get { return SNOPower.X1_Monk_Epiphany; }
 		  }
 	 }
 }

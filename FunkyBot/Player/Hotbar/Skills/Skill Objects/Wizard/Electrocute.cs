@@ -18,10 +18,9 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated));
 
 				//Aim for cluster with 2 units very close together.
-				ClusterConditions=new SkillClusterConditions(3d, Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Wizard_Electrocute]==2?15:40, 2,
-					true);
+				ClusterConditions.Add(new SkillClusterConditions(3d, Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Wizard_Electrocute]==2?15:40, 2,true));
 				//No conditions for a single target.
-				SingleUnitCondition=new UnitTargetConditions();
+				SingleUnitCondition.Add(new UnitTargetConditions());
 		  }
 
 		  #region IAbility

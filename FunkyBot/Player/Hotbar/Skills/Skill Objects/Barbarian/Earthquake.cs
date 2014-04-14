@@ -26,7 +26,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				                          AbilityPreCastFlags.CheckExisitingBuff|AbilityPreCastFlags.CheckCanCast|
 				                          AbilityPreCastFlags.CheckPlayerIncapacitated));
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
-				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 13);
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 13));
 		  }
 
 		  #region IAbility

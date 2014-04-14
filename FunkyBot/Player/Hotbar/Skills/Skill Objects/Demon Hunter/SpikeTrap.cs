@@ -24,12 +24,12 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy));
 
                 if (RuneIndex==2) //sticky trap on weak non-full HP units!
-				    SingleUnitCondition=new UnitTargetConditions(TargetProperties.Weak, falseConditionalFlags: TargetProperties.FullHealth);
+				    SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Weak, falseConditionalFlags: TargetProperties.FullHealth));
                 else
-                    SingleUnitCondition = new UnitTargetConditions(TargetProperties.RareElite);
+                    SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.RareElite));
 
 
-				ClusterConditions=new SkillClusterConditions(6d, 45f, 2, true);
+				ClusterConditions.Add(new SkillClusterConditions(6d, 45f, 2, true));
 
 				FcriteriaCombat=() => Bot.Character.Data.PetData.DemonHunterSpikeTraps< 
 				                      (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.DemonHunter_Passive_CustomEngineering)?6:3);

@@ -74,6 +74,15 @@ namespace FunkyBot.Cache.Objects
 					return false;
 				}
 
+				if (GizmoHasBeenUsed.HasValue && GizmoHasBeenUsed.Value)
+				{
+					if (targetType.Value == TargetType.CursedShrine)
+					{
+						Bot.Targeting.Cache.lastSeenCursedShrine = DateTime.Now;
+					}
+					return false;
+				}
+
 				if (RequiresLOSCheck && !IgnoresLOSCheck)
 				{
 					//Get the wait time since last used LOSTest
@@ -127,14 +136,7 @@ namespace FunkyBot.Cache.Objects
 					RequiresLOSCheck = false;
 				}
 
-				if (GizmoHasBeenUsed.HasValue && GizmoHasBeenUsed.Value == true)
-				{
-					if (targetType.Value == TargetType.CursedShrine)
-					{
-						Bot.Targeting.Cache.lastSeenCursedShrine=DateTime.Now;
-					}
-					return false;
-				}
+
 
 				// Now for the specifics
 				switch (targetType.Value)

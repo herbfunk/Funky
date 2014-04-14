@@ -16,7 +16,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				Priority=AbilityPriority.High;
 
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckEnergy));
-				ClusterConditions=new SkillClusterConditions(6d, 9f, 2, false, useRadiusDistance: true);
+				ClusterConditions.Add(new SkillClusterConditions(6d, 9f, 2, false, useRadiusDistance: true));
 				FcriteriaCombat=() =>
 				{
 

@@ -5,8 +5,10 @@ using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
+using Zeta.Bot.Profile.Common;
 using Zeta.Bot.Settings;
 using Zeta.Common;
+using Zeta.Game;
 
 namespace FunkyBot.Targeting.Behaviors
 {
@@ -157,8 +159,8 @@ namespace FunkyBot.Targeting.Behaviors
 						//Generate next Ability..
 						Skill nextAbility = Bot.Character.Class.AbilitySelector(Bot.Targeting.Cache.CurrentUnitTarget, Bot.Targeting.Cache.LastCachedTarget.targetType == TargetType.NoMovement);
 
-
-						if (nextAbility == Bot.Character.Class.DefaultAttack && !Bot.Character.Class.CanUseDefaultAttack)
+					
+						if (nextAbility.Equals(Bot.Character.Class.DefaultAttack) && !Bot.Character.Class.CanUseDefaultAttack)
 						{//No valid ability found
 
 							Logger.Write(LogLevel.Target, "Could not find a valid ability for unit {0}", thisobj.InternalName);

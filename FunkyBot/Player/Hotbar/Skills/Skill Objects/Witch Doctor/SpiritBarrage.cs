@@ -9,9 +9,9 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 		  {
 				Cooldown=15000;
 				ExecutionType=AbilityExecuteFlags.ClusterTargetNearest|AbilityExecuteFlags.Target;
-				ClusterConditions=new SkillClusterConditions(5d, 20f, 1, true);
-				SingleUnitCondition=new UnitTargetConditions(TargetProperties.None, 25,
-					falseConditionalFlags: TargetProperties.DOTDPS);
+				ClusterConditions.Add(new SkillClusterConditions(5d, 20f, 1, true));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 25,
+					falseConditionalFlags: TargetProperties.DOTDPS));
 				WaitVars=new WaitLoops(1, 1, true);
 				Cost=108;
 				Range=21;

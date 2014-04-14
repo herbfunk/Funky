@@ -24,9 +24,9 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 
 				PreCast.Criteria += (s) => !Bot.Character.Class.HotBar.HasDebuff(SNOPower.Succubus_BloodStar);
 
-				ClusterConditions=new SkillClusterConditions(4d, 45f, 2, true);
-				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 45,
-					falseConditionalFlags: TargetProperties.Fast|TargetProperties.Weak);
+				ClusterConditions.Add(new SkillClusterConditions(4d, 45f, 2, true));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 45,
+					falseConditionalFlags: TargetProperties.Fast|TargetProperties.Weak));
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
 		  }
 

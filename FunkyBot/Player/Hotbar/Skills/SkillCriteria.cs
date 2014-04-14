@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Common;
 
@@ -9,10 +10,10 @@ namespace FunkyBot.Player.HotBar.Skills
 	{
 		protected SkillCriteria()
 		{
-			SingleUnitCondition = null;
+			SingleUnitCondition = new List<UnitTargetConditions>();
 			ElitesWithinRangeConditions = null;
 			UnitsWithinRangeConditions = null;
-			ClusterConditions = null;
+			ClusterConditions = new List<SkillClusterConditions>();
 			TestCustomCombatConditions = false;
 			FcriteriaCombat = () => true;
 			FcriteriaBuff = () => true;
@@ -41,10 +42,8 @@ namespace FunkyBot.Player.HotBar.Skills
 		///</summary>
 		internal Func<bool> FcriteriaBuff;
 
-		internal Func<bool> FClusterConditions;
 		internal Func<bool> FUnitsInRangeConditions;
 		internal Func<bool> FElitesInRangeConditions;
-		internal Func<bool> FSingleTargetUnitCriteria;
 
 		///<summary>
 		///Used during Player Movement
@@ -67,8 +66,8 @@ namespace FunkyBot.Player.HotBar.Skills
 		///<value>
 		///Clustering Distance, Distance From Bot, Minimum Unit Count, Ignore Non-Targetables
 		///</value>
-		public SkillClusterConditions ClusterConditions { get; set; }
-
+		public List<SkillClusterConditions> ClusterConditions { get; set; }
+		internal SkillClusterConditions LastClusterConditionSuccessful { get; set; }
 
 		///<summary>
 		///Units within Range Conditions
@@ -83,7 +82,7 @@ namespace FunkyBot.Player.HotBar.Skills
 		///<summary>
 		///Single Target Conditions -- Should only used if Ability is offensive!
 		///</summary>
-		public UnitTargetConditions SingleUnitCondition { get; set; }
+		public List<UnitTargetConditions> SingleUnitCondition { get; set; }
 	}
 
 }

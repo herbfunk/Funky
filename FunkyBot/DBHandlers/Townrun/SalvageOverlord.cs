@@ -109,9 +109,12 @@ namespace FunkyBot.DBHandlers
 			Vector3 vectorPlayerPosition = ZetaDia.Me.Position;
 			Vector3 vectorSalvageLocation = new Vector3(0f, 0f, 0f);
 
-			if (objBlacksmith == null || objBlacksmith.Distance > 20f)
+			if (objBlacksmith == null || objBlacksmith.Distance > 50f)
 			{
-				switch (ZetaDia.CurrentAct)
+
+				Act curAct = ZetaDia.CurrentAct;
+
+				switch (curAct)
 				{
 					case Act.A1:
 						vectorSalvageLocation = new Vector3(2958.418f, 2823.037f, 24.04533f); break;
@@ -123,10 +126,30 @@ namespace FunkyBot.DBHandlers
 					case Act.A5:
 						vectorSalvageLocation = new Vector3(560.1434f, 501.5706f, 2.685907f); break;
 				}
+
+				if (curAct == Act.Invalid || curAct == Act.OpenWorld || curAct == Act.Test)
+				{
+					curAct = Character.FindActByLevelID(Bot.Character.Data.iCurrentLevelID);
+					switch (curAct)
+					{
+						case Act.A1:
+							vectorSalvageLocation = new Vector3(375.5075f,563.1337f,24.04533f); break;
+						case Act.A2:
+							vectorSalvageLocation = new Vector3(289.6358f, 232.1146f, 0.1f); break;
+						case Act.A3:
+						case Act.A4:
+							vectorSalvageLocation = new Vector3(379.6096f, 415.6198f, 0.3321424f); break;
+						case Act.A5:
+							vectorSalvageLocation = new Vector3(560.1434f, 501.5706f, 2.685907f); break;
+					}
+
+				}
 			}
 			else
 				vectorSalvageLocation = objBlacksmith.Position;
 
+			if (vectorSalvageLocation == Vector3.Zero)
+				Character.FindActByLevelID(Bot.Character.Data.iCurrentWorldID);
 
 			Bot.NavigationCache.RefreshMovementCache();
 			//Wait until we are not moving

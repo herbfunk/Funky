@@ -21,7 +21,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				Priority=AbilityPriority.High;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|
 				                          AbilityPreCastFlags.CheckEnergy));
-				ClusterConditions=new SkillClusterConditions(5d, 48f, 2, false);
+				ClusterConditions.Add(new SkillClusterConditions(5d, 48f, 2, false));
 				//TestCustomCombatConditionAlways=true,
 				FcriteriaCombat=() => ((Bot.Settings.Wizard.bTeleportFleeWhenLowHP&&Bot.Character.Data.dCurrentHealthPct<0.5d)
 				                       ||

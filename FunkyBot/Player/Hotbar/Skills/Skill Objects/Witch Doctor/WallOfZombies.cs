@@ -19,7 +19,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				                          AbilityPreCastFlags.CheckCanCast));
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 3);
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
-				SingleUnitCondition=new UnitTargetConditions(TargetProperties.IsSpecial, 25);
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 25));
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
 		  }
 
