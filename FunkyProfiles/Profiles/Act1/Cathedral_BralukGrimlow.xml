@@ -1,5 +1,5 @@
 ﻿<Profile>
-  <Name>Bounty A1 Cathedral GlideWing</Name>
+  <Name>Bounty A1 Cathedral Braluk Grimlow</Name>
   <KillMonsters>True</KillMonsters>
   <PickupLoot>True</PickupLoot>
   <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1"  />
@@ -14,7 +14,7 @@
       <FunkyClustering enabled="false" />
       
       <If condition="CurrentLevelAreaId == 19780">
-        <TrinityExploreDungeon questId="312429" stepId="2" boxTolerance="0.70" boxSize="10" until="BountyCompleted" bountyId="361331"/>
+        <TrinityExploreDungeon questId="312429" stepId="2" boxTolerance="0.70" boxSize="10" until="BountyCompleted" bountyId="361327"/>
       </If>
       
       <LoadProfile profile="Act1BountyLoader.xml" />

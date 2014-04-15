@@ -20,9 +20,16 @@
       <FunkyClustering enabled="false" />
 
       <While condition="ActorExistsAt(365097, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)">
-        <MoveToActor questId="312429" stepId="2" actorId="364601" interactRange="8" />
+        <MoveToActor questId="312429" stepId="2" actorId="365097" interactRange="8" />
         <WaitTimer questId="312429" stepId="2" waitTime="10000" />
       </While>
+
+      <While condition="ActorExistsAt(364559, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)">
+        <MoveToActor questId="312429" stepId="2" actorId="364559" />
+        <WaitTimer questId="312429" stepId="2" waitTime="10000" />
+      </While>
+      
+      <!-- Turns Into  -->
       <!-- 357331 -->
 
       <LoadProfile profile="Act1BountyLoader.xml" />

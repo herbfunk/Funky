@@ -63,5 +63,6 @@
 			HealthGlobe,
 			InfernalKey,
 		    MiscBook,
+		    KeyStone,
 	 }
 }

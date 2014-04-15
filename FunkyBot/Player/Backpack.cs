@@ -29,7 +29,11 @@ namespace FunkyBot.Player
 			}
 			// Now look for Misc items we might want to keep
 			GilesItemType TrueItemType = DetermineItemType(thisitem.ThisInternalName, thisitem.ThisDBItemType, thisitem.ThisFollowerType);
-
+			if (TrueItemType == GilesItemType.KeyStone)
+			{
+				if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep keystone fragments)");
+				return true;
+			}
 			if (TrueItemType == GilesItemType.StaffOfHerding)
 			{
 				if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep staff of herding)");
@@ -257,6 +261,12 @@ namespace FunkyBot.Player
 					{
 						if (!Bot.Settings.Loot.PickupInfernalKeys) return false;
 					}
+
+					if (thisGilesItemType == GilesItemType.KeyStone)
+					{
+						return true;
+					}
+
 					// Potion filtering
 					if (thisGilesItemType == GilesItemType.HealthPotion)
 					{
@@ -322,6 +332,7 @@ namespace FunkyBot.Player
 			sThisInternalName = sThisInternalName.ToLower();
 
 			if (sThisInternalName.Contains("craftingreagent")) return GilesItemType.CraftingMaterial;
+			if (sThisInternalName.Contains("lootrunkey")) return GilesItemType.KeyStone;
 
 			// Fall back on some partial DB item type checking 
 			if (sThisInternalName.Contains("crafting_") || sThisInternalName.Contains("craftingmaterials_"))
@@ -488,7 +499,7 @@ namespace FunkyBot.Player
 			}
 			else if (thisGilesItemType == GilesItemType.CraftingMaterial || thisGilesItemType == GilesItemType.CraftTome || thisGilesItemType == GilesItemType.MiscBook ||
 				 thisGilesItemType == GilesItemType.SpecialItem || thisGilesItemType == GilesItemType.CraftingPlan || thisGilesItemType == GilesItemType.HealthPotion ||
-				 thisGilesItemType == GilesItemType.Dye || thisGilesItemType == GilesItemType.StaffOfHerding || thisGilesItemType == GilesItemType.InfernalKey)
+				 thisGilesItemType == GilesItemType.Dye || thisGilesItemType == GilesItemType.StaffOfHerding || thisGilesItemType == GilesItemType.InfernalKey || thisGilesItemType == GilesItemType.KeyStone)
 			{
 				thisGilesBaseType = GilesBaseItemType.Misc;
 			}
@@ -512,7 +523,7 @@ namespace FunkyBot.Player
 			bool bIsStackable = thisGilesItemType == GilesItemType.CraftingMaterial || thisGilesItemType == GilesItemType.CraftTome || thisGilesItemType == GilesItemType.Ruby ||
 									  thisGilesItemType == GilesItemType.Diamond || thisGilesItemType == GilesItemType.Emerald || thisGilesItemType == GilesItemType.Topaz || thisGilesItemType == GilesItemType.Amethyst ||
 									  thisGilesItemType == GilesItemType.HealthPotion || thisGilesItemType == GilesItemType.CraftingPlan || thisGilesItemType == GilesItemType.Dye ||
-									  thisGilesItemType == GilesItemType.InfernalKey;
+									  thisGilesItemType == GilesItemType.InfernalKey || thisGilesItemType == GilesItemType.KeyStone;
 			return bIsStackable;
 		}
 		internal static bool DetermineIsStackable(CacheACDItem item)
@@ -521,7 +532,7 @@ namespace FunkyBot.Player
 			bool bIsStackable = thisGilesItemType == GilesItemType.CraftingMaterial || thisGilesItemType == GilesItemType.CraftTome || thisGilesItemType == GilesItemType.Ruby ||
 									  thisGilesItemType == GilesItemType.Diamond || thisGilesItemType == GilesItemType.Emerald || thisGilesItemType == GilesItemType.Topaz || thisGilesItemType == GilesItemType.Amethyst ||
 									  thisGilesItemType == GilesItemType.HealthPotion || thisGilesItemType == GilesItemType.CraftingPlan || thisGilesItemType == GilesItemType.Dye ||
-									  thisGilesItemType == GilesItemType.InfernalKey;
+									  thisGilesItemType == GilesItemType.InfernalKey || thisGilesItemType == GilesItemType.KeyStone;
 			return bIsStackable;
 		}
 
@@ -614,6 +625,7 @@ namespace FunkyBot.Player
 				case GilesItemType.Dye: return ItemType.Unknown;
 				case GilesItemType.InfernalKey: return ItemType.Unknown;
 				case GilesItemType.MiscBook: return ItemType.CraftingPage;
+				case GilesItemType.KeyStone: return ItemType.KeystoneFragment;
 			}
 			return ItemType.Unknown;
 		}

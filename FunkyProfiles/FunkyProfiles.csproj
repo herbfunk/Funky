@@ -45,13 +45,13 @@
     <Content Include="Profiles\Act1\Cemetery_DiggerODell.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\Act1\Cathedral_GlideWing.xml">
+    <Content Include="Profiles\Act1\Cathedral_BralukGrimlow.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\Act1\Fields_KhazraDen.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\Act1\Cathedral_Grimlow.xml">
+    <Content Include="Profiles\Act1\Cathedral_GlideWing.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\Act1\Fields_Rathe.xml">

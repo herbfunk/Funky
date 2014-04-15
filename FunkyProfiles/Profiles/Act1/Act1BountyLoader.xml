@@ -10,9 +10,9 @@
       
       <FunkyBountyLoad ID="361343" Profile="Cathedral_Killian.xml" />
       <FunkyBountyLoad ID="361234" Profile="Cathedral_SkeletonKing.xml" />
-       <!--<FunkyBountyLoad ID="375191" Profile="Cathedral_Cursed.xml" />-->
+      <FunkyBountyLoad ID="375191" Profile="Cathedral_Cursed.xml" />
       <FunkyBountyLoad ID="369251" Profile="Festering_Galush.xml" />
-      <FunkyBountyLoad ID="369944" Profile="OldTristram_DeathCellar.xml" />
+      <!--<FunkyBountyLoad ID="369944" Profile="OldTristram_DeathCellar.xml" />-->
       <FunkyBountyLoad ID="369253" Profile="Highlands_Reggrel.xml" />
       <FunkyBountyLoad ID="344547" Profile="Highlands_MoonCave.xml" />
       <FunkyBountyLoad ID="347032" Profile="Agony_Butcher.xml" />
@@ -20,7 +20,7 @@
       <FunkyBountyLoad ID="347099" Profile="Weeping_Eamon.xml" />
       <FunkyBountyLoad ID="349026" Profile="Agony_Sotnob.xml" />
       <FunkyBountyLoad ID="347058" Profile="Fields_Rathe.xml" />
-      <FunkyBountyLoad ID="361327" Profile="Cathedral_Grimlow.xml" />
+      <FunkyBountyLoad ID="361327" Profile="Cathedral_BralukGrimlow.xml" />
       <FunkyBountyLoad ID="369273" Profile="Highlands_Percepeus.xml" />
       <FunkyBountyLoad ID="369763" Profile="Highlands_CursedCamp.xml" />
       <FunkyBountyLoad ID="347065" Profile="Fields_KhazraDen.xml" />
