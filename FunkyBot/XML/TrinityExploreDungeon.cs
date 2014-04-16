@@ -337,6 +337,17 @@ namespace FunkyBot.XMLTags
 		[XmlAttribute("SetNodesExploredAutomatically")]
 		public bool SetNodesExploredAutomatically { get; set; }
 
+		[XmlAttribute("minObjectOccurances")]
+		public int MinOccurances { get; set; }
+
+		[XmlAttribute("interactWithObject")]
+		public bool InteractWithObject { get; set; }
+
+		[XmlAttribute("interactRange")]
+		public float ObjectInteractRange { get; set; }
+
+		[XmlAttribute("stayAfterBounty", true)]
+		public bool StayAfterBounty { get; set; }
 		/// <summary>
 		/// The Position of the CurrentNode NavigableCenter
 		/// </summary>
@@ -753,7 +764,7 @@ namespace FunkyBot.XMLTags
 						new Action(ret => isDone = true)
 					)
 				),
-				new Decorator(ret => EndType == TrinityExploreEndType.BountyCompleted && IsBountyCompleted(),
+				new Decorator(ret => (EndType == TrinityExploreEndType.BountyCompleted || !StayAfterBounty) && IsBountyCompleted(),
 					new Sequence(
 						new Action(ret => Logger.DBLog.DebugFormat("Bounty Completed {0}!", BountyID)),
 						new Action(ret => isDone = true)
@@ -770,6 +781,11 @@ namespace FunkyBot.XMLTags
 
 		private bool IsBountyCompleted()
 		{
+			if (Bot.Game.Bounty.CurrentBountyID!=0 && Bot.Game.Bounty.CurrentBounties.ContainsKey(Bot.Game.Bounty.CurrentBountyID))
+			{
+				return Bot.Game.Bounty.CurrentBounties[Bot.Game.Bounty.CurrentBountyID].State==QuestState.Completed;
+			}
+
 			return ZetaDia.ActInfo.Bounties.Any(b => b.Info.QuestSNO == BountyID && b.Info.State == QuestState.Completed);
 		}
 

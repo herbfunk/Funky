@@ -360,10 +360,8 @@ namespace FunkyBot
 			{
 				try
 				{
-					foreach (var mmm in ZetaDia.Minimap.Markers.CurrentWorldMarkers)
-					{
-						LBDebug.Items.Add(string.Format("IsPointOfIntrest: {0} " + mmm.ToString(), mmm.IsPointOfInterest));
-					}
+					LBDebug.Items.Add(ZetaDia.CurrentQuest.QuestSNO);
+
 				}
 				catch(Exception ex)
 				{

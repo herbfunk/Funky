@@ -1,0 +1,44 @@
+<!--  -->
+<Profile>
+<Name>Clear Warriors Rest</Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>true</PickupLoot>
+<Order>
+
+	<FunkyWaypoint waypointNumber="10" questId="1"/>	
+	<WaitTimer questId="1" stepId="2" waitTime="2000" />	
+	<HaveBounty questId="345520">
+	
+		<If condition="CurrentLevelAreaId == 19953">
+
+			<!--  Warriors Rest #1 -->
+			<If condition="CurrentLevelAreaId == 19953">
+				<MoveToActor questId="1" stepId="2" actorId="176008" isPortal="True" destinationWorldId="60393" x="404" y="678" z="15" maxSearchDistance="50" />
+				<WaitTimer questId="1" stepId="2" waitTime="2000" />
+			</If>
+
+			<!-- Warrior's Rest #2 -->
+			<If condition="CurrentLevelAreaId == 19953">
+				<MoveToActor questId="1" stepId="2" actorId="176008" isPortal="True" destinationWorldId="60393" x="522" y="665" z="15" maxSearchDistance="50" />
+				<WaitTimer questId="1" stepId="2" waitTime="2000" />
+			</If>
+
+			<!-- Warrior's Rest #3 -->
+			<If condition="CurrentLevelAreaId == 19953">
+				<MoveToActor questId="1" stepId="2" actorId="176008" isPortal="True" destinationWorldId="60393" x="282" y="665" z="15" maxSearchDistance="50" />
+				<WaitTimer questId="1" stepId="2" waitTime="2000" />
+			</If>
+			
+			<!-- Explore the dungeon.-->
+			<HaveBounty questId="345520">
+				<LogMessage quest="1" step="1" output="Clearing." />
+				<TrinityExploreDungeon questId="1" stepId="2" until="FullyExplored" boxTolerance="0.10" boxSize="15" stayAfterBounty="False"/>
+			</HaveBounty>
+			<MoveToActor questId="345520" stepId="2" actorId="176003" />
+		</If>
+		
+	</HaveBounty>
+	 <LoadProfile profile="_Act1BountyLoader.xml" />
+	
+</Order>
+</Profile>

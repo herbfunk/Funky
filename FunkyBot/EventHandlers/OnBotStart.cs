@@ -9,20 +9,25 @@ namespace FunkyBot
 	{
 		internal static void FunkyBotStart(IBot bot)
 		{
+			if (!Funky.bPluginEnabled && bot != null)
+			{
+				Logger.DBLog.InfoFormat("WARNING: FunkyBot Plugin is NOT ENABLED. Bot start detected");
+				return;
+			}
+
 			string FunkySettingsPath = System.IO.Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyBot");
 			if (!System.IO.Directory.Exists(FunkySettingsPath))
 			{
 				Logger.DBLog.DebugFormat("Creating Settings Folder at location {0}", FunkySettingsPath);
 				System.IO.Directory.CreateDirectory(FunkySettingsPath);
 			}
-
 			Logger.DBLog.DebugFormat("[Funky] Plugin settings location=" + FunkySettingsPath);
 
 
 			//Load Settings
 			Settings_Funky.LoadFunkyConfiguration();
-			Bot.Character.Reset();
-			Bot.Character.ItemRulesEval = new Interpreter();
+			Bot.Reset();
+			
 
 
 			Navigator.PlayerMover = new Funky.PlayerMover();
@@ -42,11 +47,7 @@ namespace FunkyBot
 
 
 
-			if (!Funky.bPluginEnabled && bot != null)
-			{
-				Logger.DBLog.InfoFormat("WARNING: FunkyBot Plugin is NOT ENABLED. Bot start detected");
-				return;
-			}
+
 
 			if (!Funky.initTreeHooks)
 			{

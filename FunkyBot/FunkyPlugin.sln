@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyErrorClicker", "..\Fun
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyDebug", "..\FunkyDebug\FunkyDebug.csproj", "{2D41D60B-069C-4240-869D-08DCF7FF0E26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyProfiles", "..\..\FunkyProfiles\FunkyProfiles.csproj", "{209771F0-0CC4-4F23-8480-7283F3D4CA54}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyProfiles", "..\FunkyProfiles\FunkyProfiles.csproj", "{209771F0-0CC4-4F23-8480-7283F3D4CA54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

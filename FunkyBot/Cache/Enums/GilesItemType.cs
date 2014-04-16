@@ -64,5 +64,6 @@
 			InfernalKey,
 		    MiscBook,
 		    KeyStone,
+			HoradricCache,
 	 }
 }

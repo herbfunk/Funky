@@ -1,0 +1,21 @@
+<!-- X1_Bounty_A1_Cathedral_Kill_CaptainCage (361341) -->
+<Profile>
+<Name>Kill Captain Cage (361341)</Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>true</PickupLoot>
+<GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+<Order>
+
+  <FunkyWaypoint waypointNumber="4" questId="1"/>
+	<WaitTimer questId="1" stepId="2" waitTime="2000" />
+	<HaveBounty questId="361341">
+
+		<!-- Look for him -->
+		<LogMessage quest="1" step="2" output="meep! meep! entering assassination mode..." />
+		<TrinityExploreDungeon questId="1" stepId="2" until="FullyExplored" pathPrecision="20" boxTolerance="0.20" boxSize="25" stayAfterBounty="False"/>
+
+	</HaveBounty>
+	 <LoadProfile profile="_Act1BountyLoader.xml" />
+	
+</Order>
+</Profile>

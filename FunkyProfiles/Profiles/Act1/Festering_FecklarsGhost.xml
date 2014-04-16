@@ -1,5 +1,5 @@
 ﻿<Profile>
-  <Name>Bounty Festering Woods Fecklars Ghost</Name>
+  <Name>Bounty A1 Festering Woods Fecklars Ghost</Name>
   <KillMonsters>True</KillMonsters>
   <PickupLoot>True</PickupLoot>
   <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1"  />
@@ -11,18 +11,21 @@
         <FunkyWaypoint ID="10" />
       </If>
       
-      <FunkyClustering enabled="false" />
       
-      <TrinityExploreDungeon questId="312429" stepId="2" boxTolerance="0.15" boxSize="25" until="BountyCompleted" bountyId="347056">
-        <PrioritizeActors>
-          <PrioritizeActor actorId="209553" objectDistance="15" />
-        </PrioritizeActors>
-        <IgnoreScenes>
-          <IgnoreScene sceneName="Entrance" />
-        </IgnoreScenes>
-      </TrinityExploreDungeon>
+      <If condition="CurrentLevelAreaId == 19953">
+        <FunkyClustering enabled="false" />
+        
+        <TrinityExploreDungeon questId="312429" stepId="2" boxTolerance="0.15" boxSize="25" until="BountyCompleted" bountyId="347056">
+          <PrioritizeActors>
+            <PrioritizeActor actorId="209553" objectDistance="15" />
+          </PrioritizeActors>
+          <IgnoreScenes>
+            <IgnoreScene sceneName="Entrance" />
+          </IgnoreScenes>
+        </TrinityExploreDungeon>
+      </If>
       
-      <LoadProfile profile="Act1BountyLoader.xml" />
+      <LoadProfile profile="_Act1BountyLoader.xml" />
    </Order>
 
 </Profile>

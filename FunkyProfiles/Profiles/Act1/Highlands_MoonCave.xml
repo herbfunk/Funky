@@ -47,7 +47,7 @@
         <TrinityExploreDungeon questId="312429" stepId="2" boxTolerance="0.50" boxSize="11" until="BountyCompleted" bountyId="344547" />
       </If>
 
-      <LoadProfile profile="Act1BountyLoader.xml" />
+      <LoadProfile profile="_Act1BountyLoader.xml" />
     </Order>
 
 </Profile>

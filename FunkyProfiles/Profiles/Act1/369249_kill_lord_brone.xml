@@ -1,0 +1,44 @@
+<!--  -->
+<Profile>
+<Name>Kill Lord Brone (369249)</Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>true</PickupLoot>
+<GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+<Order>
+	
+	<FunkyWaypoint waypointNumber="10" questId="1"/>	
+	<WaitTimer questId="1" stepId="2" waitTime="2000" />	
+	<HaveBounty questId="369249">	
+	
+		<!-- Try to find him quickly with waypoints, and avoid going lost in the fields of misery -->
+		<SafeMoveTo questId="312429" stepId="2" x="635" y="616" z="20" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		<SafeMoveTo questId="312429" stepId="2" x="421" y="602" z="20" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		<SafeMoveTo questId="312429" stepId="2" x="464" y="980" z="20" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		<SafeMoveTo questId="312429" stepId="2" x="618" y="977" z="20" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		<SafeMoveTo questId="312429" stepId="2" x="727" y="855" z="20" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		<HaveBounty questId="369249">			
+			<SafeMoveTo questId="312429" stepId="2" x="211" y="821" z="20" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		</HaveBounty>		
+		<HaveBounty questId="369249">			
+			<SafeMoveTo questId="312429" stepId="2" x="293" y="977" z="20" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		</HaveBounty>		
+		<HaveBounty questId="369249">			
+			<SafeMoveTo questId="312429" stepId="2" x="372" y="910" z="20" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		</HaveBounty>		
+		<HaveBounty questId="369249">			
+			<SafeMoveTo questId="312429" stepId="2" x="233" y="655" z="20" pathPrecision="5" pathPointLimit="250" statusText="" />
+		</HaveBounty>
+		<HaveBounty questId="369249">			
+			<SafeMoveTo questId="312429" stepId="2" x="310" y="545" z="20" pathPrecision="5" pathPointLimit="250" statusText="" /> 		
+		</HaveBounty>
+		
+		<!-- Search Everywhere -->
+		<HaveBounty questId="369249">			
+			<TrinityExploreDungeon questId="1" stepId="2" until="FullyExplored" boxTolerance="0.10" boxSize="15" stayAfterBounty="False"/>	
+		</HaveBounty>
+	
+	</HaveBounty>
+	 <LoadProfile profile="_Act1BountyLoader.xml" />
+	
+</Order>
+</Profile>

@@ -54,7 +54,7 @@
         <MoveToActor questId="312429" stepId="2" actorId="76907" interactRange="8" />
       </If>
 
-      <LoadProfile profile="Act1BountyLoader.xml" />
+      <LoadProfile profile="_Act1BountyLoader.xml" />
 
     </Order>
 

@@ -32,7 +32,7 @@
       <!-- Turns Into  -->
       <!-- 357331 -->
 
-      <LoadProfile profile="Act1BountyLoader.xml" />
+      <LoadProfile profile="_Act1BountyLoader.xml" />
       
    </Order>
 

@@ -22,6 +22,9 @@ namespace FunkyBot.XMLTags
 
 		public override bool GetConditionExec()
 		{
+			if (Bot.Game.Bounty.CurrentBounties.ContainsKey(QuestId)) 
+				return Bot.Game.Bounty.CurrentBounties[QuestId].State != QuestState.Completed;
+
 			return ZetaDia.ActInfo.Bounties.Where(bounty => bounty.Info.QuestSNO == QuestId && bounty.Info.State != QuestState.Completed).FirstOrDefault() != null;
 		}
 

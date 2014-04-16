@@ -1,4 +1,23 @@
 ﻿// herbfunk revisions
+v2.9.0.1
+
+Game:
+	Added Horadric Cache support.
+	Stats now include key fragments and horadric cache.
+	Added Bounty Cache.
+
+
+Tags:
+	TrinityExploreDungeon support for stayAfterBounty.
+	FunkyBountyLoad now sets Current Bounty SNO ID when successful.
+	FunkyBountyRefresh now has optional reset parameter to set Current Bounty SNO ID to 0.
+
+
+Misc:
+	Barbarian Avalanche skill added.
+	Act 1 Town Runs should work properly again!
+
+
 v2.9.0.0
 
 Skill:

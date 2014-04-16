@@ -11,6 +11,8 @@ namespace FunkyBot.XMLTags
 	[XmlElement("FunkyBountyRefresh")]
 	class FunkyBountyRefresh : ProfileBehavior
 	{
+		[XmlAttribute("reset")]
+		public bool Reset { get; set; }
 
 		private bool m_IsDone;
 		public override bool IsDone
@@ -22,7 +24,9 @@ namespace FunkyBot.XMLTags
 		{
 			return new Action(ret =>
 			{
-				Bot.Game.UpdateBountyInfo();
+				Bot.Game.Bounty.RefreshBountyInfo();
+				if (Reset) Bot.Game.Bounty.CurrentBountyID = 0;
+
 				m_IsDone = true;
 			});
 		}

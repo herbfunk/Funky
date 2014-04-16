@@ -22,7 +22,7 @@
         </IgnoreScenes>
       </TrinityExploreDungeon>
       
-      <LoadProfile profile="Act1BountyLoader.xml" />
+      <LoadProfile profile="_Act1BountyLoader.xml" />
    </Order>
 
 </Profile>

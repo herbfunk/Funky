@@ -26,21 +26,30 @@ namespace FunkyBot.Game
 
 		internal ProfileCache Profile = new ProfileCache();
 
-		public Dictionary<int,QuestState> Bounties=new Dictionary<int, QuestState>();
+		internal BountyCache Bounty = new BountyCache();
+
+		public bool AdventureMode { get { return _adventureMode; } }
+		private bool _adventureMode = false;
 
 		private GameId _currentGameId = new GameId();
 		internal bool RefreshGameId()
 		{
 			GameId curgameID = _currentGameId;
+			int questId = 0;
 			using (ZetaDia.Memory.AcquireFrame())
 			{
 				curgameID = ZetaDia.Service.CurrentGameId;
+				questId = ZetaDia.CurrentQuest.QuestSNO;
 			}
 
 			if (!curgameID.Equals(_currentGameId))
 			{
 
 				Logger.Write(LogLevel.OutOfCombat, "New Game Started");
+
+				//Adventure Mode (QuestID == 312429)
+				_adventureMode = questId == 312429;
+				if (AdventureMode) Bounty.UpdateBounties();
 
 				//Merge last GameStats with the Total
 				TrackingStats.GameChanged(ref CurrentGameStats);
@@ -87,15 +96,6 @@ namespace FunkyBot.Game
 			{
 				Logger.DBLog.Info("Funky Clicking Bounty Dialog!");
 				BountyCompleteContinue.Click();
-			}
-		}
-
-		public void UpdateBountyInfo()
-		{
-			Bounties.Clear();
-			foreach (var bounty in ZetaDia.ActInfo.Bounties)
-			{
-				Bounties.Add(bounty.Info.QuestSNO, bounty.Info.State);
 			}
 		}
 	}

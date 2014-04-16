@@ -1,0 +1,35 @@
+<!-- FesteringWoods -->
+<Profile>
+<Name>Clear the Crypt of the Ancients</Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>true</PickupLoot>
+<GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+<Order>
+
+	<FunkyWaypoint waypointNumber="10" questId="1"/>	
+	<WaitTimer questId="1" stepId="2" waitTime="2000" />	
+	<HaveBounty questId="345517">
+	
+		<!-- needs to use waypoints or scene ignores to stop running down into fields of misery -->
+		
+		<!-- Known Locations -->
+		<SafeMoveTo questId="312429" stepId="2" x="444" y="883" z="18" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		<MoveToMapMarker questId="312429" stepId="2" markerNameHash="976523526" actorId="176008" interactRange="20" pathPrecision="5" pathPointLimit="250" isPortal="True" destinationWorldId="60394" statusText="" /> 
+		
+		<!-- Legacy Search -->
+		<If condition="CurrentWorldId == 71150">
+			<TrinityExploreDungeon questId="1" stepId="2" boxTolerance="0.18" boxSize="20" until="ExitFound" exitNameHash="976523526" ignoreMarkers="False"/>
+			<MoveToMapMarker questId="1" stepId="2" exitNameHash="976523526" destinationWorldId="60394" interactRange="20"  />
+			<WaitTimer questId="1" stepId="2" waitTime="2000" />
+		</If>
+		
+		<!-- Clear out the crypt -->
+		<If condition="CurrentWorldId == 60394">
+			<TrinityExploreDungeon questId="1" stepId="2" until="FullyExplored" boxTolerance="0.10" boxSize="10" stayAfterBounty="False"/>
+		</If>
+
+	</HaveBounty>
+	 <LoadProfile profile="_Act1BountyLoader.xml" />
+	
+</Order>
+</Profile>

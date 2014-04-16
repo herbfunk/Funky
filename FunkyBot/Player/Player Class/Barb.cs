@@ -124,6 +124,8 @@ namespace FunkyBot.Player.Class
 					return new Revenge();
 				case BarbarianActiveSkills.Barbarian_Overpower:
 					return new Overpower();
+				case BarbarianActiveSkills.Barbarian_Avalanche:
+					return new Avalanche();
 				default:
 					return DefaultAttack;
 			}
@@ -155,7 +157,9 @@ namespace FunkyBot.Player.Class
 			Barbarian_Earthquake = 98878,
 			Barbarian_Revenge = 109342,
 			Barbarian_Overpower = 159169,
+			Barbarian_Avalanche = 353447,
 		}
+		//353447
 		/*
 						enum BarbarianPassiveSkills
 						{

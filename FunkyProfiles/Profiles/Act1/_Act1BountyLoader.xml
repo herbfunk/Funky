@@ -1,0 +1,128 @@
+﻿<Profile>
+  <Name>Bounty Act 1</Name>
+  <KillMonsters>True</KillMonsters>
+  <PickupLoot>True</PickupLoot>
+  <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1"  />
+  
+    <Order>
+      <ToggleTargeting combat="True" killRadius="100" looting="True" lootRadius="100" />
+      
+      <TrinityRandomWait min="1000" max="6500" />
+      
+      <!-- Refresh -->
+      <FunkyBountyRefresh reset="True" />
+      <TrinityUseReset all="True" />
+      
+      
+      <FunkyBountyLoad ID="361343" Profile="Cathedral_Killian.xml" />
+      <FunkyBountyLoad ID="361234" Profile="Cathedral_SkeletonKing.xml" />
+      <!--<FunkyBountyLoad ID="375191" Profile="Cathedral_Cursed.xml" />-->
+      <FunkyBountyLoad ID="369251" Profile="Festering_Galush.xml" />
+      <!--<FunkyBountyLoad ID="369944" Profile="OldTristram_DeathCellar.xml" />-->
+      <FunkyBountyLoad ID="369253" Profile="Highlands_Reggrel.xml" />
+      <FunkyBountyLoad ID="344547" Profile="Highlands_MoonCave.xml" />
+      <FunkyBountyLoad ID="347032" Profile="Agony_Butcher.xml" />
+      <FunkyBountyLoad ID="347056" Profile="Festering_FecklarsGhost.xml" />
+      <FunkyBountyLoad ID="347099" Profile="Weeping_Eamon.xml" />
+      <FunkyBountyLoad ID="349026" Profile="Agony_Sotnob.xml" />
+      <FunkyBountyLoad ID="347058" Profile="Fields_Rathe.xml" />
+      <FunkyBountyLoad ID="361327" Profile="Cathedral_BralukGrimlow.xml" />
+      <FunkyBountyLoad ID="369273" Profile="Highlands_Percepeus.xml" />
+      <!--<FunkyBountyLoad ID="369763" Profile="Highlands_CursedCamp.xml" />-->
+      <FunkyBountyLoad ID="347065" Profile="Fields_KhazraDen.xml" />
+      <FunkyBountyLoad ID="361331" Profile="Cathedral_GlideWing.xml" />
+      <FunkyBountyLoad ID="345528" Profile="QueenAraneae.xml" />
+      <FunkyBountyLoad ID="347023" Profile="Agony_Boneslag.xml" />
+      <FunkyBountyLoad ID="345546" Profile="Agony_StrangerInNeed.xml" />
+      <FunkyBountyLoad ID="344497" Profile="Highlands_Logrut.xml" />
+      <FunkyBountyLoad ID="345488" Profile="Weeping_DenOfTheFallen.xml" />
+      <FunkyBountyLoad ID="345496" Profile="Fields_ScavengerDen.xml" />
+      <FunkyBountyLoad ID="361334" Profile="Cathedral_Merrium.xml" />
+      <FunkyBountyLoad ID="350529" Profile="Highlands_Apothecary.xml" />
+      <FunkyBountyLoad ID="347054" Profile="Festering_HawthorneGable.xml" />
+      <FunkyBountyLoad ID="344482" Profile="Highlands_CrumblingTower.xml" />
+
+      <FunkyBountyLoad ID="361320" Profile="Cathedral_RagusGrimlow.xml" />
+      <FunkyBountyLoad ID="361339" Profile="Cathedral_Firestarter.xml" />
+      <FunkyBountyLoad ID="361336" Profile="Cathedral_Cudgelarm.xml" />
+
+      <FunkyBountyLoad ID="361345" Profile="Cathedral_Bellybloat.xml" />
+      <FunkyBountyLoad ID="361341" Profile="Cathedral_CaptainCage.xml" />
+
+
+      <FunkyBountyLoad ID="347020" Profile="Agony_Treefist.xml" />
+      <FunkyBountyLoad ID="347027" Profile="Agony_Garrach.xml" />
+
+
+      <FunkyBountyLoad ID="344486" Profile="344486_revenge_of_gharbad" />
+      <FunkyBountyLoad ID="344488" Profile="344488_Vendor_Armorer" />
+      <FunkyBountyLoad ID="344490" Profile="344490_kill_cadhul" />
+      <FunkyBountyLoad ID="344501" Profile="344501_Kill_Lorzak" />
+      <FunkyBountyLoad ID="345490" Profile="345490_kill_mange" />
+      <FunkyBountyLoad ID="345496" Profile="345496_clear_the_scavengers_den" />
+      <FunkyBountyLoad ID="345498" Profile="345498_kill_melmak" />
+      <FunkyBountyLoad ID="345500" Profile="345500_carrion_farm" />
+      <FunkyBountyLoad ID="345502" Profile="345502_last_stand_of_the_ancients" />
+      <FunkyBountyLoad ID="345505" Profile="345505_eternal_war" />
+      <FunkyBountyLoad ID="345507" Profile="345507_kill_grimshack" />
+      <FunkyBountyLoad ID="345517" Profile="345517_crypt_of_the_ancients" />
+      <FunkyBountyLoad ID="345520" Profile="345520_clear_warriors_rest" />
+      <FunkyBountyLoad ID="347030" Profile="347030_kill_the_warden" />
+      <FunkyBountyLoad ID="347060" Profile="347060_the_precious_ores" />
+      <FunkyBountyLoad ID="347062" Profile="347062_farm_besieged" />
+      <FunkyBountyLoad ID="347070" Profile="347070_kill_charger" />
+      <FunkyBountyLoad ID="347073" Profile="347073_kill_dreadclaw" />
+      <FunkyBountyLoad ID="369243" Profile="369243_kill_growler" />
+      <FunkyBountyLoad ID="347095" Profile="347095_kill_the_dataminer" />
+      <FunkyBountyLoad ID="347097" Profile="347097_kill_diggerodell" />
+      <FunkyBountyLoad ID="349016" Profile="349016_jar_of_souls" />
+      <FunkyBountyLoad ID="349020" Profile="349020_matriarchs_bones" />
+      <FunkyBountyLoad ID="361341" Profile="361341_kill_captain_cage" />
+      <FunkyBountyLoad ID="365381" Profile="365381_the_cursed_grove" />
+      <FunkyBountyLoad ID="365401" Profile="365401_the_cursed_mill" />
+      <FunkyBountyLoad ID="367559" Profile="367559_kill_krailen" />
+      <FunkyBountyLoad ID="367561" Profile="367561_kill_jezeb" />
+      <FunkyBountyLoad ID="369249" Profile="369249_kill_lord_brone" />
+      <FunkyBountyLoad ID="369257" Profile="369257_kill_hrugowl" />
+      <FunkyBountyLoad ID="369271" Profile="369271_Kill_Theodyn" />
+      <FunkyBountyLoad ID="369399" Profile="369399_kill_horrus" />
+      <FunkyBountyLoad ID="369763" Profile="369763_the_cursed_camp" />
+      <FunkyBountyLoad ID="369789" Profile="369789_deathfire" />
+      <FunkyBountyLoad ID="369944" Profile="369944_the_cursed_cellar" />
+      <FunkyBountyLoad ID="375191" Profile="375191_cursed_court" />
+      <FunkyBountyLoad ID="375198" Profile="375198_cursed_chamber_of_bone" />
+      <FunkyBountyLoad ID="375201" Profile="375201_cursed_hatchery" />
+
+      
+      
+      <!--<FunkyBountyLoad ID="347097" Profile="Cemetery_DiggerODell.xml" />-->
+      <!--<FunkyBountyLoad ID="365401" Profile="Fields_CursedMill.xml" />-->
+      
+      <ActBountiesComplete act="A1">
+        <LogMessage quest="1" step="1" output="Seems like we have 5 complete" />
+        <If condition="Me.IsInTown==False">
+          <LogMessage quest="1" step="1" output="Going back to town to turn it in." />
+          <TrinityTownPortal questId="1" />
+        </If>
+        <WaitTimer questId="1" stepId="1" waitTime="1000"/>
+        <LogMessage quest="1" step="1" output="Lets make sure we are actually in the right town" />
+        <While condition="CurrentWorldId != 332336">
+          <LogMessage quest="1" step="1" output="Doesn't look like we are! using the waypoint" />
+          <UseWaypoint waypointNumber="0" questId="1"/>
+          <WaitTimer questId="1" stepId="1" waitTime="7500"/>
+        </While>
+
+        <!-- Currently DB has issues with picking up cache loot in town if bags are already full, force town run to try and avoid this situation -->
+        <ForceTownRun questId="1"/>
+        <WaitTimer questId="1" stepId="1" waitTime="1000"/>
+
+        <LogMessage quest="1" step="1" output="Attempting to interact with Tyrael" />
+        <MoveToActor questId="1" stepId="1" x="419" y="531" z="24" actorId="114622" interactRange="8" name="Tyrael_Heaven-34594"  pathPrecision="5" pathPointLimit="250" statusText="" />
+
+      </ActBountiesComplete>
+      
+      <WaitTimer questId="312429" stepId="2" waitTime="10000" />
+      <LeaveGame questId="312429" stepId="2" reason="All profiles have been loaded! Nothing left to do." stayInParty="True" />
+    </Order>
+
+</Profile>

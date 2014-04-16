@@ -1,0 +1,53 @@
+<!-- X1_Bounty_A1_Highlands_Northern_Kill_Theodyn (369271) -->
+<Profile>
+<Name>Kill Theodyn (369271)</Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>true</PickupLoot>
+<GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+<TargetBlacklists>
+</TargetBlacklists>
+<Order>
+
+  <FunkyWaypoint waypointNumber="14" questId="1"/>
+	<WaitTimer questId="1" stepId="2" waitTime="2000" />		
+	<HaveBounty questId="369271">	
+	
+		<!-- Attempt to find him efficiently -->
+		<SafeMoveTo questId="312429" stepId="2" x="1725" y="3855" z="40" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		<SafeMoveTo questId="312429" stepId="2" x="1702" y="4059" z="40" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		<SafeMoveTo questId="312429" stepId="2" x="1616" y="4112" z="40" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		<SafeMoveTo questId="312429" stepId="2" x="1550" y="3960" z="40" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		<SafeMoveTo questId="312429" stepId="2" x="1438" y="4054" z="40" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		<SafeMoveTo questId="312429" stepId="2" x="1334" y="3958" z="61" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		<HaveBounty questId="369271">		
+			<SafeMoveTo questId="312429" stepId="2" x="1274" y="3887" z="78" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		</HaveBounty>	
+		<HaveBounty questId="369271">				
+			<SafeMoveTo questId="312429" stepId="2" x="1124" y="3716" z="80" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		</HaveBounty>			
+		<HaveBounty questId="369271">			
+			<SafeMoveTo questId="312429" stepId="2" x="1041" y="3865" z="80" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		</HaveBounty>	
+		<HaveBounty questId="369271">			
+			<SafeMoveTo questId="312429" stepId="2" x="1147" y="3843" z="80" pathPrecision="5" pathPointLimit="250" statusText="" />
+		</HaveBounty>		
+		<HaveBounty questId="369271">
+			<SafeMoveTo questId="312429" stepId="2" x="1226" y="3958" z="80" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		</HaveBounty>	
+		<HaveBounty questId="369271">
+			<SafeMoveTo questId="312429" stepId="2" x="1156" y="3960" z="80" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		</HaveBounty>		
+		
+		<!-- Search Everywhere -->
+		<TrinityExploreDungeon questId="1" stepId="1" until="FullyExplored" boxTolerance="0.10" boxSize="15" stayAfterBounty="False">			
+			<IgnoreScenes>        
+				<IgnoreScene sceneName="_N01" /><!-- Southern Highlands--> 	
+			</IgnoreScenes>
+		</TrinityExploreDungeon>			
+
+		
+	</HaveBounty>
+	 <LoadProfile profile="_Act1BountyLoader.xml" />
+	
+</Order>
+</Profile>

@@ -1,0 +1,63 @@
+<!-- X1_Bounty_A1_FesteringWoods_Event_Last_Stand (345502) -->
+<Profile>
+<Name>Last Stand of the Ancients</Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>true</PickupLoot>
+<GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+<Order>
+
+  <FunkyWaypoint waypointNumber="10" questId="1"/>
+	<WaitTimer questId="1" stepId="2" waitTime="2000" />
+	<HaveBounty questId="345502">
+
+		<!--  Check Known Locations -->
+		<SafeMoveTo questId="312429" stepId="2" x="315" y="782" z="43" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+		<If condition="ActorExistsAt(102008, Me.Position.X, Me.Position.Y, Me.Position.Z, 120)">
+			<MoveToActor questId="312429" stepId="2" actorId="102008" interactRange="11" name="Temp_Story_Trigger_Enabled-15878"  pathPrecision="5" pathPointLimit="250" statusText="" /> 			
+		</If>
+		
+		<!-- Look Everywhere -->
+		<If condition="not ActorExistsAt(102008, Me.Position.X, Me.Position.Y, Me.Position.Z, 120)">				
+			<TrinityExploreDungeon questId="1" stepId="1" until="ObjectFound" actorId="102008" boxSize="25" boxTolerance="0.10" pathPrecision="15" objectDistance="50">
+				<PriorityScenes>
+					<PriorityScene sceneId="82668" />
+				</PriorityScenes>			 			
+				<IgnoreScenes>
+					<IgnoreScene sceneId="58974" /><!-- Path to Drowned Temple -->
+					<IgnoreScene sceneId="60702" /><!-- Drowned Temple -->
+				</IgnoreScenes>				
+			</TrinityExploreDungeon>			
+			<MoveToActor questId="312429" stepId="2" actorId="102008" interactRange="11" name="Temp_Story_Trigger_Enabled-15878"  pathPrecision="5" pathPointLimit="250" statusText="" /> 			
+		</If>
+
+		<!-- Look for stuff to kill -->
+		<WaitTimer questId="1" stepId="1" waitTime="20000" />				
+		
+		<!-- Try to find the stragglers - move to column at base -->
+		<HaveBounty questId="345502">			
+			<TrinityExploreDungeon questId="1" stepId="1" until="ObjectFound" actorId="105303" pathPrecision="5" boxTolerance="0.05" boxSize="10"  />			
+			<WaitTimer questId="1" stepId="1" waitTime="1000" />	
+		</HaveBounty>	
+		
+		<!-- Try to find remaining ghouls and ghosts -->	
+		<HaveBounty questId="345502">
+			<TrinityExploreDungeon questId="1" stepId="1" until="ObjectFound" actorId="4201" pathPrecision="40" boxTolerance="0.05" boxSize="20">				
+				<AlternateActors>
+					<AlternateActor actorId="136943" objectDistance="20" />
+				</AlternateActors>				
+			</TrinityExploreDungeon>
+			<WaitTimer questId="1" stepId="1" waitTime="2000" />
+		</HaveBounty>	
+		
+		<!-- Hack to make sure we found it -->
+		<HaveBounty questId="345502">
+			<TrinityExploreDungeon questId="1" stepId="1" until="FullyExplored" boxTolerance="0.10" boxSize="5" stayAfterBounty="False"/>
+			<MoveToActor questId="1" stepId="2" actorId="188119" />
+		</HaveBounty>		
+			
+		
+	</HaveBounty>
+	 <LoadProfile profile="_Act1BountyLoader.xml" />
+	
+</Order>
+</Profile>

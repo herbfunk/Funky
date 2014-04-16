@@ -34,6 +34,11 @@ namespace FunkyBot.Player
 				if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep keystone fragments)");
 				return true;
 			}
+			if (TrueItemType == GilesItemType.HoradricCache)
+			{
+				if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep cache)");
+				return true;
+			}
 			if (TrueItemType == GilesItemType.StaffOfHerding)
 			{
 				if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep staff of herding)");
@@ -331,6 +336,7 @@ namespace FunkyBot.Player
 		{
 			sThisInternalName = sThisInternalName.ToLower();
 
+			if (sThisInternalName.Contains("horadiccache")) return GilesItemType.HoradricCache;
 			if (sThisInternalName.Contains("craftingreagent")) return GilesItemType.CraftingMaterial;
 			if (sThisInternalName.Contains("lootrunkey")) return GilesItemType.KeyStone;
 
@@ -499,7 +505,7 @@ namespace FunkyBot.Player
 			}
 			else if (thisGilesItemType == GilesItemType.CraftingMaterial || thisGilesItemType == GilesItemType.CraftTome || thisGilesItemType == GilesItemType.MiscBook ||
 				 thisGilesItemType == GilesItemType.SpecialItem || thisGilesItemType == GilesItemType.CraftingPlan || thisGilesItemType == GilesItemType.HealthPotion ||
-				 thisGilesItemType == GilesItemType.Dye || thisGilesItemType == GilesItemType.StaffOfHerding || thisGilesItemType == GilesItemType.InfernalKey || thisGilesItemType == GilesItemType.KeyStone)
+				 thisGilesItemType == GilesItemType.Dye || thisGilesItemType == GilesItemType.StaffOfHerding || thisGilesItemType == GilesItemType.InfernalKey || thisGilesItemType == GilesItemType.KeyStone || thisGilesItemType == GilesItemType.HoradricCache)
 			{
 				thisGilesBaseType = GilesBaseItemType.Misc;
 			}
@@ -553,7 +559,7 @@ namespace FunkyBot.Player
 				 thisGilesItemType == GilesItemType.Gloves || thisGilesItemType == GilesItemType.Helm || thisGilesItemType == GilesItemType.Pants ||
 				 thisGilesItemType == GilesItemType.Shoulders || thisGilesItemType == GilesItemType.SpiritStone ||
 				 thisGilesItemType == GilesItemType.VoodooMask || thisGilesItemType == GilesItemType.WizardHat || thisGilesItemType == GilesItemType.StaffOfHerding ||
-				 thisGilesItemType == GilesItemType.Flail || thisGilesItemType == GilesItemType.TwoHandFlail || thisGilesItemType == GilesItemType.CrusaderShield)
+				 thisGilesItemType == GilesItemType.Flail || thisGilesItemType == GilesItemType.TwoHandFlail || thisGilesItemType == GilesItemType.CrusaderShield || thisGilesItemType == GilesItemType.HoradricCache)
 				return true;
 			return false;
 		}
@@ -626,6 +632,7 @@ namespace FunkyBot.Player
 				case GilesItemType.InfernalKey: return ItemType.Unknown;
 				case GilesItemType.MiscBook: return ItemType.CraftingPage;
 				case GilesItemType.KeyStone: return ItemType.KeystoneFragment;
+				case GilesItemType.HoradricCache: return ItemType.HoradricCache;
 			}
 			return ItemType.Unknown;
 		}

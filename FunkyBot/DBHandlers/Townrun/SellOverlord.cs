@@ -145,8 +145,12 @@ namespace FunkyBot.DBHandlers
 
 		internal static RunStatus GilesOptimisedSell(object ret)
 		{
-			string sVendorName = "";
-			switch (ZetaDia.CurrentAct)
+			Act curAct = ZetaDia.CurrentAct;
+			if (curAct == Act.Invalid || curAct == Act.OpenWorld || curAct == Act.Test)
+				curAct = Character.FindActByLevelID(Bot.Character.Data.iCurrentLevelID);
+
+			string sVendorName = "UNKNOWN";
+			switch (curAct)
 			{
 				case Act.A1:
 					sVendorName = "a1_uniquevendor_miner"; break;
@@ -167,37 +171,7 @@ namespace FunkyBot.DBHandlers
 
 			if (objSellNavigation == null)
 			{
-				Act curAct = ZetaDia.CurrentAct;
-
-				switch (curAct)
-				{
-					case Act.A1:
-						vectorSellLocation = new Vector3(2901.399f, 2809.826f, 24.04533f); break;
-					case Act.A2:
-						vectorSellLocation = new Vector3(295.2101f, 265.1436f, 0.1000002f); break;
-					case Act.A3:
-					case Act.A4:
-						vectorSellLocation = new Vector3(410.6073f, 355.8762f, 0.1000005f); break;
-					case Act.A5:
-						vectorSellLocation = new Vector3(560.1434f,501.5706f,2.685907f); break;
-				}
-
-				if (curAct == Act.Invalid || curAct == Act.OpenWorld || curAct == Act.Test)
-				{
-					curAct = Character.FindActByLevelID(Bot.Character.Data.iCurrentLevelID);
-					switch (curAct)
-					{
-						case Act.A1:
-							vectorSellLocation = new Vector3(320.8555f,524.6776f,24.04532f); break;
-						case Act.A2://x="295.6181" y="275.1258" z="0.1" (new Vector3(295.6181f,275.1258f,0.1f))
-							vectorSellLocation = new Vector3(295.2101f, 265.1436f, 0.1000002f); break;
-						case Act.A3:
-						case Act.A4:
-							vectorSellLocation = new Vector3(410.6073f, 355.8762f, 0.1000005f); break;
-						case Act.A5:
-							vectorSellLocation = new Vector3(560.1434f, 501.5706f, 2.685907f); break;
-					}
-				}
+				vectorSellLocation = TownRunManager.ReturnMovementVector(TownRunBehavior.Sell, curAct);
 			}
 			else
 				vectorSellLocation = objSellNavigation.Position;

@@ -26,7 +26,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				                          AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckPlayerIncapacitated));
 				ClusterConditions.Add(new SkillClusterConditions(Bot.Character.Class.HotBar.RuneIndexCache[Power]==4?4d:6d, 40f, 2, true));
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.LowHealth,falseConditionalFlags: TargetProperties.Normal));
-
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss));
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
 		  }
 

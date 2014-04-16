@@ -65,6 +65,9 @@ namespace FunkyBot.Game
 		public LootStats Crafting { get; set; }
 		public LootStats Keys { get; set; }
 
+		public LootStats KeyStoneFragments { get; set; }
+		public LootStats HoradricCache { get; set; }
+
 		public LootTracking()
 		{
 			Magical = new LootStats();
@@ -73,6 +76,8 @@ namespace FunkyBot.Game
 			Gems = new LootStats();
 			Crafting = new LootStats();
 			Keys = new LootStats();
+			KeyStoneFragments = new LootStats();
+			HoradricCache = new LootStats();
 		}
 
 		public void Merge(LootTracking other)
@@ -83,6 +88,8 @@ namespace FunkyBot.Game
 			Gems.Merge(other.Gems);
 			Crafting.Merge(other.Crafting);
 			Keys.Merge(other.Keys);
+			KeyStoneFragments.Merge(other.KeyStoneFragments);
+			HoradricCache.Merge(other.HoradricCache);
 		}
 
 		public int GetTotalLootStatCount(LootStatTypes statType)
@@ -90,15 +97,15 @@ namespace FunkyBot.Game
 			switch (statType)
 			{
 				case LootStatTypes.Looted:
-					return Magical.Looted + Rare.Looted + Legendary.Looted + Crafting.Looted + Keys.Looted + Gems.Looted;
+					return Magical.Looted + Rare.Looted + Legendary.Looted + Crafting.Looted + Keys.Looted + Gems.Looted + KeyStoneFragments.Looted + HoradricCache.Looted;
 				case LootStatTypes.Stashed:
-					return Magical.Stashed + Rare.Stashed + Legendary.Stashed + Crafting.Stashed + Keys.Stashed + Gems.Stashed;
+					return Magical.Stashed + Rare.Stashed + Legendary.Stashed + Crafting.Stashed + Keys.Stashed + Gems.Stashed + KeyStoneFragments.Stashed + HoradricCache.Stashed;
 				case LootStatTypes.Salvaged:
-					return Magical.Salvaged + Rare.Salvaged + Legendary.Salvaged + Crafting.Salvaged + Keys.Salvaged + Gems.Salvaged;
+					return Magical.Salvaged + Rare.Salvaged + Legendary.Salvaged + Crafting.Salvaged + Keys.Salvaged + Gems.Salvaged + KeyStoneFragments.Salvaged + HoradricCache.Salvaged;
 				case LootStatTypes.Vendored:
-					return Magical.Vendored + Rare.Vendored + Legendary.Vendored + Crafting.Vendored + Keys.Vendored + Gems.Vendored;
+					return Magical.Vendored + Rare.Vendored + Legendary.Vendored + Crafting.Vendored + Keys.Vendored + Gems.Vendored + KeyStoneFragments.Vendored + HoradricCache.Vendored;
 				case LootStatTypes.Dropped:
-					return Magical.Dropped + Rare.Dropped + Legendary.Dropped + Crafting.Dropped + Keys.Dropped + Gems.Dropped;
+					return Magical.Dropped + Rare.Dropped + Legendary.Dropped + Crafting.Dropped + Keys.Dropped + Gems.Dropped + KeyStoneFragments.Dropped + HoradricCache.Dropped;
 			}
 
 			return 0;
@@ -152,6 +159,10 @@ namespace FunkyBot.Game
 						// Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[(int)LootIndex.Key]++;
 						Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Keys.Looted++;
 					}
+					else if(thisgilesitemtype == GilesItemType.KeyStone)
+					{
+						Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.KeyStoneFragments.Looted++;
+					}
 					break;
 				case GilesBaseItemType.Gem:
 					// Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[(int)LootIndex.Gem]++;
@@ -174,7 +185,14 @@ namespace FunkyBot.Game
 				//	 Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[(int)LootIndex.Key]++;
 				return;
 			}
-
+			if (thisGilesItemType == GilesItemType.HoradricCache)
+			{
+				Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.HoradricCache.Stashed++;
+			}
+			if (thisGilesItemType == GilesItemType.KeyStone)
+			{
+				Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.KeyStoneFragments.Stashed++;
+			}
 
 			switch (i.ACDItem.ItemType)
 			{
@@ -202,6 +220,8 @@ namespace FunkyBot.Game
 				case ItemType.Daibo:
 				case ItemType.FistWeapon:
 				case ItemType.FollowerSpecial:
+				case ItemType.Flail:
+				case ItemType.CrusaderShield:
 				case ItemType.Gloves:
 				case ItemType.HandCrossbow:
 				case ItemType.Helm:
@@ -417,8 +437,10 @@ namespace FunkyBot.Game
 								 "Legendary: \t {2} \r\n" +
 								 "Gems:      \t {3} \r\n" +
 								 "Crafting: \t {4} \r\n" +
-								 "Keys:      \t {5} \r\n",
-								 Magical, Rare, Legendary, Gems, Crafting, Keys);
+								 "Keys:      \t {5} \r\n" +
+								 "KeyFrags: \t {6} \r\n" +
+								 "Cache:     \t {7} \r\n",
+								 Magical, Rare, Legendary, Gems, Crafting, Keys, KeyStoneFragments, HoradricCache);
 		}
 	}
 }

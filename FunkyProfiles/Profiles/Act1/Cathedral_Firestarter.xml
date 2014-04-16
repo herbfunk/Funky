@@ -1,0 +1,22 @@
+﻿<Profile>
+  <Name>Bounty A1 Cathedral Firestarter (361339)</Name>
+  <KillMonsters>True</KillMonsters>
+  <PickupLoot>True</PickupLoot>
+  <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1"  />
+  
+    <Order>
+      <ToggleTargeting combat="True" killRadius="100" looting="True" lootRadius="100" />
+
+      <If condition="CurrentLevelAreaId != 19783">
+        <FunkyWaypoint ID="3" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 19783">
+        <FunkyClustering enabled="false" />
+        <TrinityExploreDungeon questId="312429" stepId="2" boxTolerance="0.70" boxSize="10" until="BountyCompleted" bountyId="361339"/>
+      </If>
+
+      <LoadProfile profile="_Act1BountyLoader.xml" />
+   </Order>
+
+</Profile>

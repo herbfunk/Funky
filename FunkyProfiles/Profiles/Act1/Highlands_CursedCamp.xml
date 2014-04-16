@@ -12,9 +12,15 @@
       </If>
 
       <If condition="CurrentLevelAreaId == 93632">
-        <SafeMoveTo questId="312429" stepId="2" x="2384" y="4828" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
-        <SafeMoveTo questId="312429" stepId="2" x="2387" y="4649" z="2" pathPrecision="5" pathPointLimit="250" statusText="" />
-        <SafeMoveTo questId="312429" stepId="2" x="2398" y="4519" z="-2" pathPrecision="5" pathPointLimit="250" statusText="" />
+        <TrinityUseOnce id="1">
+          <SafeMoveTo questId="312429" stepId="2" x="2384" y="4828" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+        <TrinityUseOnce id="2">
+          <SafeMoveTo questId="312429" stepId="2" x="2387" y="4649" z="2" pathPrecision="5" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+        <TrinityUseOnce id="3">
+          <SafeMoveTo questId="312429" stepId="2" x="2398" y="4519" z="-2" pathPrecision="5" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
       </If>
       
       <!-- Ignored Scenes: , -->
@@ -46,7 +52,7 @@
       </If>
       
 
-      <LoadProfile profile="Act1BountyLoader.xml" />
+      <LoadProfile profile="_Act1BountyLoader.xml" />
     </Order>
 
 </Profile>

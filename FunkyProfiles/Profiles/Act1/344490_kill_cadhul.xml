@@ -1,0 +1,36 @@
+<!-- X1_Bounty_A1_Highlands_Kill_Cadhul (344490) -->
+<Profile>
+<Name>Kill Cadhul the Deathcaller (344490)</Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>true</PickupLoot>
+<GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+<Order>
+
+  <If condition="CurrentWorldId != 71150">
+    <FunkyWaypoint ID="13" />
+  </If>
+  
+	<WaitTimer questId="1" stepId="2" waitTime="2000" />	
+	<HaveBounty questId="344490">
+	
+		<If condition="CurrentWorldId == 71150">
+		
+			<!-- Check known locations first -->
+			<SafeMoveTo questId="1" stepId="2" x="2099.974" y="4309.199" z="9.91527" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+			<WaitTimer questId="1" stepId="2" waitTime="2000" />
+			
+			<!-- Search Everywhere -->
+			<TrinityExploreDungeon questId="1" stepId="2" until="FullyExplored" boxTolerance="0.10" boxSize="15" stayAfterBounty="False">
+				<IgnoreScenes>
+					 <IgnoreScene sceneName="_Chokepoint_" />
+				</IgnoreScenes>
+			</TrinityExploreDungeon>
+		
+			
+		</If>
+		
+	</HaveBounty>
+	 <LoadProfile profile="_Act1BountyLoader.xml" />
+	
+</Order>
+</Profile>

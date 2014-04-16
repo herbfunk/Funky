@@ -1,0 +1,39 @@
+<!-- X1_Bounty_A1_Highlands_Northern_Kill_Jezeb (367561) -->
+<Profile>
+<Name>Kill Jezeb the Conjuror</Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>true</PickupLoot>
+<GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+<Order>
+
+  <FunkyWaypoint waypointNumber="14" questId="1"/>
+	<WaitTimer questId="1" stepId="2" waitTime="2000" />	
+	<HaveBounty questId="367561">
+	
+		<!--  Northern Highlands & Leorics Hunting Grounds -->
+		<If condition="CurrentWorldId == 71150">
+			<TrinityExploreDungeon stayAfterBounty="False" questId="1" stepId="2" boxTolerance="0.01" boxSize="25" until="ExitFound" exitNameHash="-1019926638" ignoreMarkers="False">
+				<PrioritizeScenes>
+					<PriorityScene sceneName="_LeoricManor_" />
+				</PrioritizeScenes>
+				<IgnoreScenes>
+					  <IgnoreScene sceneName="_Chokepoint_" />
+					  <IgnoreScene sceneName="_N01" />
+				</IgnoreScenes>
+			</TrinityExploreDungeon>				
+			<MoveToMapMarker questId="1" stepId="2" exitNameHash="-1019926638" destinationWorldId="75049" interactRange="20"  />			
+		</If>	
+	
+		<!-- Look for him -->
+		<If condition="CurrentLevelAreaId == 100854">
+			<LogMessage quest="1" step="2" output="Swiggity swooty, we're roaming for that booty..." />
+			<TrinityExploreDungeon questId="1" stepId="2" until="FullyExplored" boxTolerance="0.10" boxSize="15" stayAfterBounty="False"/>
+		</If>				
+				
+	</HaveBounty>
+	 <LoadProfile profile="_Act1BountyLoader.xml" />
+	
+</Order>
+</Profile>
+	
+	

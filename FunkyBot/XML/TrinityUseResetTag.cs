@@ -21,18 +21,30 @@ namespace FunkyBot.XMLTags
 		{
 			return new Action(ret =>
 			{
-				// See if we've EVER hit this ID before
-				// If so, delete it, if not, do nothing
-				 if (ProfileCache.hashUseOnceID.Contains(ID))
+				if (All == true)
 				{
-					 ProfileCache.hashUseOnceID.Remove(ID);
-					 ProfileCache.dictUseOnceID.Remove(ID);
+					ProfileCache.hashUseOnceID.Clear();
+					ProfileCache.dictUseOnceID.Clear();
+				}
+				else
+				{
+					// See if we've EVER hit this ID before
+					// If so, delete it, if not, do nothing
+					if (ProfileCache.hashUseOnceID.Contains(ID))
+					{
+						ProfileCache.hashUseOnceID.Remove(ID);
+						ProfileCache.dictUseOnceID.Remove(ID);
+					}
 				}
 				m_IsDone=true;
 			});
 		}
 
+		[XmlAttribute("All")]
+		[XmlAttribute("all")]
+		public bool All { get; set; }
 
+		[XmlAttribute("ID")]
 		[XmlAttribute("id")]
 		public int ID { get; set; }
 

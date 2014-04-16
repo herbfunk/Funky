@@ -35,8 +35,14 @@ namespace FunkyBot.XMLTags
 		{
 			return new Action(ret =>
 			{
-				if (Bot.Game.Bounties.ContainsKey(SNO) && Bot.Game.Bounties[SNO]!= QuestState.Completed)
+				if (Bot.Game.Bounty.BountyQuestStates.ContainsKey(SNO) && Bot.Game.Bounty.BountyQuestStates[SNO] != QuestState.Completed)
 				{
+					//Set Current Bounty ID
+					Bot.Game.Bounty.CurrentBountyID = SNO;
+
+					if (!Profile.ToLower().EndsWith(".xml"))
+						Profile = Profile + ".xml";
+
 					Logger.DBLog.InfoFormat("Loading Bounty Profile {0}", Profile);
 					// Now calculate our current path by checking the currently loaded profile
 					var sCurrentProfilePath = Path.GetDirectoryName(GlobalSettings.Instance.LastProfile);

@@ -25,7 +25,7 @@
       <WaitTimer questId="312429" stepId="2" waitTime="15000" />
     </If>
 
-    <LoadProfile profile="Act1BountyLoader.xml" />
+    <LoadProfile profile="_Act1BountyLoader.xml" />
 
   </Order>
 

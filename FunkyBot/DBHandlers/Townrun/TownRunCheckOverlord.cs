@@ -1,4 +1,5 @@
 ﻿using System;
+using Zeta.Bot;
 using Zeta.Bot.Logic;
 using Zeta.Common;
 using System.Collections.Generic;
@@ -94,6 +95,74 @@ namespace FunkyBot.DBHandlers
 
 			return bWantToTownRun;
 		}
+
+		enum TownRunBehavior
+		{
+			Stash,
+			Sell,
+			Salvage
+		}
+
+		private static Vector3 ReturnMovementVector(TownRunBehavior type, Act act)
+		{
+			switch (type)
+			{
+				case TownRunBehavior.Salvage:
+					switch (act)
+					{
+						case Act.A1:
+							if (!Bot.Game.AdventureMode)
+								return new Vector3(2958.418f, 2823.037f, 24.04533f);
+							else
+								return new Vector3(375.5075f, 563.1337f, 24.04533f);
+						case Act.A2:
+							return new Vector3(289.6358f, 232.1146f, 0.1f);
+						case Act.A3:
+						case Act.A4:
+							return new Vector3(379.6096f, 415.6198f, 0.3321424f);
+						case Act.A5:
+							return new Vector3(560.1434f, 501.5706f, 2.685907f);
+					}
+					break;
+				case TownRunBehavior.Sell:
+					switch (act)
+					{
+						case Act.A1:
+							if (!Bot.Game.AdventureMode)
+								return new Vector3(2901.399f, 2809.826f, 24.04533f);
+							else
+								return new Vector3(320.8555f, 524.6776f, 24.04532f);
+						case Act.A2:
+							return new Vector3(295.2101f, 265.1436f, 0.1000002f);
+						case Act.A3:
+						case Act.A4:
+							return new Vector3(410.6073f, 355.8762f, 0.1000005f);
+						case Act.A5:
+							return new Vector3(560.1434f, 501.5706f, 2.685907f);
+					}
+					break;
+				case TownRunBehavior.Stash:
+					switch (act)
+					{
+						case Act.A1:
+							if (!Bot.Game.AdventureMode)
+								return new Vector3(2967.146f, 2799.459f, 24.04533f);
+							else
+								return new Vector3(386.8494f, 524.2585f, 24.04533f);
+						case Act.A2:
+							return new Vector3(323.4543f, 228.5806f, 0.1f);
+						case Act.A3:
+						case Act.A4:
+							return new Vector3(389.3798f, 390.7143f, 0.3321428f);
+						case Act.A5:
+							return new Vector3(510.6552f, 502.1889f, 2.620764f);
+					}
+					break;
+			}
+
+			return Vector3.Zero;
+		}
+
 
 	}
 

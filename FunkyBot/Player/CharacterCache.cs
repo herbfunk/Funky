@@ -292,7 +292,7 @@ namespace FunkyBot.Player
 						iCurrentWorldID = ZetaDia.CurrentWorldDynamicId;
 					}
 
-					if (Bot.Character.Account.CurrentLevel == 60)
+					if (Bot.Character.Account.CurrentLevel == 70)
 						CurrentExp = me.ParagonCurrentExperience;
 					else
 						CurrentExp = me.CurrentExperience;

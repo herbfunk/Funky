@@ -1,0 +1,47 @@
+<!-- X1_Bounty_A1_Fields_Event_FarmBesieged (347062)   -->
+<Profile>
+<Name>Farm Besieged (347062)</Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>true</PickupLoot>
+<GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+<Order>
+
+  <FunkyWaypoint waypointNumber="8" questId="1"/>
+	<WaitTimer questId="1" stepId="2" waitTime="2000" />	
+	<HaveBounty questId="347062">
+
+		<!-- Search Priority Locations First -->
+		<If condition="CurrentWorldId == 71150">		
+		<SafeMoveTo questId="312429" stepId="2" x="2278" y="820" z="0" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+			<If condition="ActorExistsAt(3341, 2278, 820, 0, 80)">			
+				<MoveToActor questId="312429" stepId="2" actorId="3341" interactRange="14" name="Beast_Corpse_A_02-3298"  pathPrecision="5" pathPointLimit="250" statusText="" /> 			
+				<WaitTimer questId="1" stepId="2" waitTime="4000" />
+			</If>			
+		</If>
+		<If condition="CurrentWorldId == 71150">
+			<SafeMoveTo questId="312429" stepId="2" x="1799" y="560" z="0" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+			<If condition="ActorExistsAt(3341, 1799, 560, 0, 80)">			
+				<MoveToActor questId="312429" stepId="2" actorId="3341" interactRange="14" name="Beast_Corpse_A_02-3298"  pathPrecision="5" pathPointLimit="250" statusText="" /> 			
+				<WaitTimer questId="1" stepId="2" waitTime="4000" />
+			</If>				
+		</If>
+		<If condition="CurrentWorldId == 71150">
+			<SafeMoveTo questId="312429" stepId="2" x="2268" y="1047" z="0" pathPrecision="5" pathPointLimit="250" statusText="" /> 
+			<If condition="ActorExistsAt(3341, 2268, 1047, 0, 80)">
+				<MoveToActor questId="312429" stepId="2" actorId="3341" interactRange="14" name="Beast_Corpse_A_02-3298"  pathPrecision="5" pathPointLimit="250" statusText="" /> 						
+				<WaitTimer questId="1" stepId="2" waitTime="4000" />
+			</If>
+		</If>		
+	
+		<!-- Search Everywhere -->
+		<HaveBounty questId="347062">		
+			<TrinityExploreDungeon questId="1" stepId="1" until="ObjectFound" actorId="3341" pathPrecision="15" boxSize="15" boxTolerance="0.10" objectDistance="40" />
+			<MoveToActor questId="1" stepId="1" actorId="3341" interactRange="6" name="Beast_Corpse_A_02-3298"  pathPrecision="5" pathPointLimit="250" statusText="" />	
+			<WaitTimer questId="1" stepId="2" waitTime="4000" />
+		</HaveBounty>			
+		
+	</HaveBounty>
+	 <LoadProfile profile="_Act1BountyLoader.xml" />
+	
+</Order>
+</Profile>

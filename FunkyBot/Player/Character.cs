@@ -131,6 +131,7 @@ namespace FunkyBot.Player
 			Data = new CharacterCache();
 			Data.OnLevelAreaIDChanged += LevelAreaIDChangeHandler;
 			Class = null;
+			ItemRulesEval = new Interpreter();
 		}
 
 		///<summary>

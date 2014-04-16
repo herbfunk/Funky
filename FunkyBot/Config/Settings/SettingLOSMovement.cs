@@ -20,7 +20,7 @@
             AllowRareElites = true;
             AllowUniqueBoss = true;
             AllowRanged = false;
-            AllowRareLootContainer = true;
+			AllowRareLootContainer = false;
 			AllowSucideBomber = false;
 			AllowSpawnerUnits = false;
 			MaximumRange = 500;

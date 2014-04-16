@@ -1,0 +1,27 @@
+<!-- X1_Bounty_A1_SpiderCaves_Event_SpiderTrap (375201) -->
+<Profile>
+<Name>The Cursed Hatchery / Spider Trap </Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>true</PickupLoot>
+<GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+<Order>
+
+  <FunkyWaypoint waypointNumber="12" questId="1"/>
+	<WaitTimer questId="1" stepId="2" waitTime="2000" />	
+	<HaveBounty questId="375201">
+
+		<!-- Move to known chest location 
+		<SafeMoveTo questId="1" stepId="2" x="536" y="1102" z="0" />  
+		<MoveToActor questId="1" stepId="2" actorId="365097" interactRange="10" name="x1_Global_Chest_CursedChest_B-20337"  pathPrecision="5" pathPointLimit="250" statusText="" /> 	
+		<WaitTimer questId="1" stepId="2" waitTime="3000" />-->
+		
+		<!-- Look for the chest -->
+		<TrinityExploreDungeon questId="1" stepId="1" until="ObjectFound" actorId="365097" pathPrecision="20" boxSize="15" boxTolerance="0.10" objectDistance="25" />
+		<MoveToActor questId="1" stepId="2" actorId="365097" interactRange="10" name="x1_Global_Chest_CursedChest_B-20337"  pathPrecision="5" pathPointLimit="250" statusText="" /> 	
+		<WaitTimer questId="1" stepId="1" waitTime="15000" />	
+	
+	</HaveBounty>
+	 <LoadProfile profile="_Act1BountyLoader.xml" />
+	
+</Order>
+</Profile>

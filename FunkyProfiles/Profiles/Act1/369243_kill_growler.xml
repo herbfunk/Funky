@@ -1,0 +1,25 @@
+<!-- X1_Bounty_A1_Fields_Kill_Growler (369243) -->
+<Profile>
+<Name>Kill Growler (369243)</Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>true</PickupLoot>
+<GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+<Order>
+
+  <FunkyWaypoint waypointNumber="8" questId="1"/>
+	<WaitTimer questId="1" stepId="2" waitTime="2000" />
+	<HaveBounty questId="369243">	
+	
+		<!-- Look for him -->
+		<LogMessage quest="1" step="2" output="We're roaming for the Growly monster..." />
+		<TrinityExploreDungeon questId="1" stepId="2" until="FullyExplored" boxTolerance="0.10" boxSize="15" stayAfterBounty="False">
+			<IgnoreScenes>
+			  <IgnoreScene sceneName="_S01" />
+			</IgnoreScenes>
+		</TrinityExploreDungeon>
+	
+	</HaveBounty>
+	 <LoadProfile profile="_Act1BountyLoader.xml" />
+	
+</Order>
+</Profile>

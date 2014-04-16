@@ -36,7 +36,7 @@ namespace FunkyBot.XMLTags
 				 new Decorator(ret => !InitDone,
 					  new Action(ret => Init())
 				 ),
-				 new Decorator(ret => Bot.Targeting.Cache.ShouldRefreshObjectList,
+				 new Decorator(ret => Bot.Targeting.Cache.ShouldRefreshObjectList && !ShouldAttemptInteraction(),
 					  new Action(ret => Bot.Targeting.Cache.Refresh())
 				 ),
 				 new Decorator(ret => Bot.Targeting.Cache.CurrentTarget != null,

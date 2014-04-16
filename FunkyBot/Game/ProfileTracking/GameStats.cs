@@ -32,6 +32,7 @@ namespace FunkyBot.Game
 				return Profiles.Sum(P => P.DeathCount);
 			}
 		}
+
 		public TimeSpan TotalTimeRunning
 		{
 			get
