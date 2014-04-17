@@ -46,10 +46,10 @@ namespace FunkyBot.Settings
 			GilesMinimumWeaponScore=75000;
 			GilesMinimumArmorScore=30000;
 			GilesMinimumJeweleryScore=30000;
-			MinimumWeaponItemLevel=new int[] { 0, 59 };
-			MinimumArmorItemLevel=new int[] { 0, 59 };
-			MinimumJeweleryItemLevel=new int[] { 0, 55 };
-			MinimumLegendaryItemLevel=59;
+			MinimumWeaponItemLevel=new int[] { 0, 61 };
+			MinimumArmorItemLevel=new int[] { 0, 61 };
+			MinimumJeweleryItemLevel=new int[] { 0, 61 };
+			MinimumLegendaryItemLevel=1;
 			MaximumHealthPotions=100;
 			MinimumGoldPile=425;
 			PickupCraftTomes=true;
@@ -69,8 +69,8 @@ namespace FunkyBot.Settings
 			PickupDemonicEssence=true;
 			PickupFollowerItems=true;
 			PickupCraftMaterials=true;
-			MiscItemLevel=59;
-			MinimumGemItemLevel=60;
+			MiscItemLevel=0;
+			MinimumGemItemLevel=67;
 			PickupGems = new bool[] { true, true, true, true, true };
 			PickupGemDiamond = true;
 		}

@@ -26,11 +26,15 @@ namespace FunkyBot.Game
 
 		public void CheckTimeoutTripped()
 		{
-			double lastCoinageChange = DateTime.Now.Subtract(LastCoinageUpdate).TotalMilliseconds;
-			if (lastCoinageChange > 5000)
+			double lastCoinageChange = DateTime.Now.Subtract(LastCoinageUpdate).TotalSeconds;
+			if (lastCoinageChange > 5)
 			{
-				TimeoutTripped = lastCoinageChange >= Bot.Settings.Plugin.GoldInactivityTimeoutMilliseconds;
-				if (TimeoutTripped) ExitGame.ShouldExitGame = true;
+				TimeoutTripped = lastCoinageChange >= Bot.Settings.Plugin.GoldInactivityTimeoutSeconds;
+				if (TimeoutTripped)
+				{
+					Logger.DBLog.Info("[Funky] Gold Timeout Breached.. enabling exit behavior!");
+					ExitGame.ShouldExitGame = true;
+				}
 			}
 		}
 	}

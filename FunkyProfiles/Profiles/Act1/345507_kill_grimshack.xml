@@ -5,8 +5,9 @@
 <PickupLoot>true</PickupLoot>
 <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
 <Order>
-	
-	<FunkyWaypoint waypointNumber="10" questId="1"/>	
+  <If condition="CurrentLevelAreaId != 19953">
+    <FunkyWaypoint waypointNumber="10" questId="1"/>
+  </If>
 	<WaitTimer questId="1" stepId="2" waitTime="2000" />	
 	<HaveBounty questId="345507">	
 	

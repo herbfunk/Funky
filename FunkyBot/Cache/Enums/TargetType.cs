@@ -27,10 +27,11 @@ namespace FunkyBot.Cache.Enums
 		 Backtrack = 32768,
 		 PowerGlobe = 65536,
 		 CursedShrine = 131072,
+		 CursedChest = 262144,
 
-		 All = Unit | Shrine | Interactable | Destructible | Barricade | Container | Item | Gold | Globe | Avoidance | Door | PowerGlobe | CursedShrine,
-		 Gizmo = Shrine | Interactable | Destructible | Barricade | Container | Door | CursedShrine,
-		 Interactables = Shrine | Interactable | Door | Container | CursedShrine,
+		 All = Unit | Shrine | Interactable | Destructible | Barricade | Container | Item | Gold | Globe | Avoidance | Door | PowerGlobe | CursedShrine | CursedChest,
+		 Gizmo = Shrine | Interactable | Destructible | Barricade | Container | Door | CursedShrine | CursedChest,
+		 Interactables = Shrine | Interactable | Door | Container | CursedShrine | CursedChest,
 		 ServerObjects = Unit | Interactables | Destructible | Barricade,
 		 AvoidanceMovements = Avoidance | Fleeing,
 	 }

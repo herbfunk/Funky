@@ -25,7 +25,7 @@
       <FunkyBountyLoad ID="347056" Profile="Festering_FecklarsGhost.xml" />
       <FunkyBountyLoad ID="347099" Profile="Weeping_Eamon.xml" />
       <FunkyBountyLoad ID="349026" Profile="Agony_Sotnob.xml" />
-      <FunkyBountyLoad ID="347058" Profile="Fields_Rathe.xml" />
+      <!-- <FunkyBountyLoad ID="347058" Profile="Fields_Rathe.xml" /> -->
       <FunkyBountyLoad ID="361327" Profile="Cathedral_BralukGrimlow.xml" />
       <FunkyBountyLoad ID="369273" Profile="Highlands_Percepeus.xml" />
       <!--<FunkyBountyLoad ID="369763" Profile="Highlands_CursedCamp.xml" />-->
@@ -41,7 +41,8 @@
       <FunkyBountyLoad ID="350529" Profile="Highlands_Apothecary.xml" />
       <FunkyBountyLoad ID="347054" Profile="Festering_HawthorneGable.xml" />
       <FunkyBountyLoad ID="344482" Profile="Highlands_CrumblingTower.xml" />
-
+      <FunkyBountyLoad ID="345522" Profile="Araneae_Zhelobb.xml" />
+      //
       <FunkyBountyLoad ID="361320" Profile="Cathedral_RagusGrimlow.xml" />
       <FunkyBountyLoad ID="361339" Profile="Cathedral_Firestarter.xml" />
       <FunkyBountyLoad ID="361336" Profile="Cathedral_Cudgelarm.xml" />
@@ -52,6 +53,8 @@
 
       <FunkyBountyLoad ID="347020" Profile="Agony_Treefist.xml" />
       <FunkyBountyLoad ID="347027" Profile="Agony_Garrach.xml" />
+      <FunkyBountyLoad ID="369789" Profile="Agony_CursedBellows.xml" />
+      <FunkyBountyLoad ID="345542" Profile="Agony_Crassus.xml" />
 
 
       <FunkyBountyLoad ID="344486" Profile="344486_revenge_of_gharbad" />
@@ -87,7 +90,7 @@
       <FunkyBountyLoad ID="369271" Profile="369271_Kill_Theodyn" />
       <FunkyBountyLoad ID="369399" Profile="369399_kill_horrus" />
       <FunkyBountyLoad ID="369763" Profile="369763_the_cursed_camp" />
-      <FunkyBountyLoad ID="369789" Profile="369789_deathfire" />
+     
       <FunkyBountyLoad ID="369944" Profile="369944_the_cursed_cellar" />
       <FunkyBountyLoad ID="375191" Profile="375191_cursed_court" />
       <FunkyBountyLoad ID="375198" Profile="375198_cursed_chamber_of_bone" />

@@ -13,7 +13,7 @@
 
       <If condition="CurrentLevelAreaId == 19776">
         <FunkyClustering enabled="false" />
-
+        <!-- Triune_Berserker_A_Unique_03-13693 ActorSNO: 218678 -->
         <TrinityExploreDungeon questId="312429" stepId="2" boxTolerance="0.70" boxSize="10" until="BountyCompleted" bountyId="347020">
           <IgnoreScenes>
             <IgnoreScene sceneName="_ButcherLair_" />

@@ -12,9 +12,9 @@
     </If>
 
     <If condition="CurrentLevelAreaId == 19776">
-      <TrinityExploreDungeon questId="312429" stepId="2" until="ObjectFound" exitNameHash="356899046" actorId="158944" pathPrecision="25" boxSize="25" boxTolerance="0.01" objectDistance="100">
+      <TrinityExploreDungeon questId="312429" stepId="2" until="ObjectFound" exitNameHash="356899046" actorId="158944" pathPrecision="25" boxSize="20" boxTolerance="0.30" objectDistance="100">
         <PriorityScenes>
-          <PriorityScene sceneName="_ButcherLair_" />
+          <PriorityScene sceneName="_ButcherLair_" minDistance="125" />
         </PriorityScenes>
       </TrinityExploreDungeon>
 

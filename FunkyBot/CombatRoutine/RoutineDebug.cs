@@ -194,8 +194,21 @@ namespace GilesBlankCombatRoutine
 		{
 			try
 			{
-				//Process.Start(Logging.LogFilePath);
+				string sDemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+				
+				FileInfo demonbuddyLogFolder = new FileInfo(sDemonBuddyPath + @"\Logs\");
+				if (demonbuddyLogFolder.Directory != null && !demonbuddyLogFolder.Directory.GetFiles().Any())
+					return;
+				int pid = Process.GetCurrentProcess().Id;
+				var newestfile = demonbuddyLogFolder.Directory.GetFiles().First(f => f.Name.Contains(pid.ToString()));
+				try
+				{
+					Process.Start(newestfile.FullName);
+				}
+				catch (Exception)
+				{
 
+				}
 			}
 			catch (Exception)
 			{

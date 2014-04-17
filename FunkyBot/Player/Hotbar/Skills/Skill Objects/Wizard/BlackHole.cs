@@ -1,4 +1,5 @@
-﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+﻿using System;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Wizard
@@ -18,8 +19,10 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				Priority=AbilityPriority.High;
 				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
 				                          AbilityPreCastFlags.CheckRecastTimer));
+
 				ClusterConditions.Add(new SkillClusterConditions(7d, 50f, 5, true));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 40, falseConditionalFlags: TargetProperties.Fast));
+			    SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 40, 0.95d));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 40, falseConditionalFlags: TargetProperties.LowHealth));
 		  }
 
 		  #region IAbility

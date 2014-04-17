@@ -124,6 +124,8 @@ namespace FunkyBot.Player
 				return false;
 			}
 
+			if (thisGilesItemType == GilesItemType.MiscBook)
+				return item.BalanceData.iThisItemLevel >= Bot.Settings.Loot.MiscItemLevel;
 
 
 			// Error logging for DemonBuddy item mis-reading
@@ -287,8 +289,7 @@ namespace FunkyBot.Player
 						if (Potions.Sum(potions => potions.ThisItemStackQuantity) >= Bot.Settings.Loot.MaximumHealthPotions)
 							return false;
 					}
-					if (thisGilesItemType == GilesItemType.MiscBook && item.BalanceData.iThisItemLevel < Bot.Settings.Loot.MiscItemLevel)
-						return false;
+
 
 					break;
 				case GilesBaseItemType.HealthGlobe:
@@ -336,7 +337,7 @@ namespace FunkyBot.Player
 		{
 			sThisInternalName = sThisInternalName.ToLower();
 
-			if (sThisInternalName.Contains("horadiccache")) return GilesItemType.HoradricCache;
+			if (sThisInternalName.Contains("horadriccache")) return GilesItemType.HoradricCache;
 			if (sThisInternalName.Contains("craftingreagent")) return GilesItemType.CraftingMaterial;
 			if (sThisInternalName.Contains("lootrunkey")) return GilesItemType.KeyStone;
 
@@ -369,10 +370,11 @@ namespace FunkyBot.Player
 			if (sThisInternalName.Contains("sword_")) return GilesItemType.Sword;
 
 			if (sThisInternalName.Contains("wand_")) return GilesItemType.Wand;
-			
+
+			if (sThisInternalName.Contains("xbow_")) return GilesItemType.TwoHandCrossbow;
 			if (sThisInternalName.Contains("bow_")) return GilesItemType.TwoHandBow;
 			if (sThisInternalName.Contains("combatstaff_")) return GilesItemType.TwoHandDaibo;
-			if (sThisInternalName.Contains("xbow_")) return GilesItemType.TwoHandCrossbow;
+			
 			
 			if (sThisInternalName.Contains("mightyweapon_2h_")) return GilesItemType.TwoHandMighty;
 			if (sThisInternalName.Contains("polearm_")) return GilesItemType.TwoHandPolearm;
@@ -505,7 +507,8 @@ namespace FunkyBot.Player
 			}
 			else if (thisGilesItemType == GilesItemType.CraftingMaterial || thisGilesItemType == GilesItemType.CraftTome || thisGilesItemType == GilesItemType.MiscBook ||
 				 thisGilesItemType == GilesItemType.SpecialItem || thisGilesItemType == GilesItemType.CraftingPlan || thisGilesItemType == GilesItemType.HealthPotion ||
-				 thisGilesItemType == GilesItemType.Dye || thisGilesItemType == GilesItemType.StaffOfHerding || thisGilesItemType == GilesItemType.InfernalKey || thisGilesItemType == GilesItemType.KeyStone || thisGilesItemType == GilesItemType.HoradricCache)
+				 thisGilesItemType == GilesItemType.Dye || thisGilesItemType == GilesItemType.StaffOfHerding || thisGilesItemType == GilesItemType.InfernalKey || 
+				thisGilesItemType == GilesItemType.KeyStone || thisGilesItemType == GilesItemType.HoradricCache)
 			{
 				thisGilesBaseType = GilesBaseItemType.Misc;
 			}

@@ -129,7 +129,7 @@
     <Content Include="Profiles\Act1\369763_the_cursed_camp.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\Act1\369789_deathfire.xml">
+    <Content Include="Profiles\Act1\Agony_CursedBellows.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\Act1\369944_the_cursed_cellar.xml">
@@ -228,7 +228,7 @@
     <Content Include="Profiles\Act1\Highlands_Apothecary.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\Act1\Festering_HawthorneGable .xml">
+    <Content Include="Profiles\Act1\Festering_HawthorneGable.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\Act1\Highlands_CrumblingTower.xml">
@@ -238,6 +238,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\Act1\Agony_Garrach.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\Act1\Agony_Crassus.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\Test.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\Blank.xml">
@@ -256,6 +262,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\Act1\Cathedral_CaptainCage.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\Act1\Araneae_Zhelobb.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

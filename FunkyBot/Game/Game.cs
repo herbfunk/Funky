@@ -28,6 +28,7 @@ namespace FunkyBot.Game
 
 		internal BountyCache Bounty = new BountyCache();
 
+
 		public bool AdventureMode { get { return _adventureMode; } }
 		private bool _adventureMode = false;
 

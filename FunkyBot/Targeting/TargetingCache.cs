@@ -34,10 +34,12 @@ namespace FunkyBot.Targeting
 		{
 			Logger.Write(LogLevel.Target, "Changed Object: {0}", MakeStringSingleLine(e.newObject.DebugString));
 
-
-
 			LastChangeOfTarget = DateTime.Now;
-			if (Bot.Settings.EnableWaitAfterContainers && CurrentTarget.targetType == TargetType.Container)
+
+			FleeingLastTarget = false;
+			AvoidanceLastTarget = false;
+
+			if (CurrentTarget.targetType == TargetType.Container && Bot.Settings.EnableWaitAfterContainers)
 			{
 				//Herbfunks delay for container loot.
 				lastHadContainerAsTarget = DateTime.Now;
@@ -45,9 +47,7 @@ namespace FunkyBot.Targeting
 				if (CurrentTarget.IsResplendantChest)
 					lastHadRareChestAsTarget = DateTime.Now;
 			}
-
-			// We're sticking to the same target, so update the target's health cache to check for stucks
-			if (CurrentTarget.targetType == TargetType.Unit)
+			else if (CurrentTarget.targetType == TargetType.Unit)
 			{
 				CurrentUnitTarget = (CacheUnit)CurrentTarget;
 				//Used to pause after no targets found.
@@ -56,6 +56,16 @@ namespace FunkyBot.Targeting
 				// And record when we last saw any form of elite
 				if (CurrentUnitTarget.IsBoss || CurrentUnitTarget.IsEliteRareUnique || CurrentUnitTarget.IsTreasureGoblin)
 					lastHadEliteUnitInSights = DateTime.Now;
+			}
+			else if (CurrentTarget.targetType == TargetType.Avoidance)
+			{
+				LastAvoidanceMovement=DateTime.Now;
+				AvoidanceLastTarget = true;
+			}
+			else if (CurrentTarget.targetType.Value == TargetType.Fleeing)
+			{
+				LastFleeAction = DateTime.Now;
+				FleeingLastTarget = true;
 			}
 
 			bWholeNewTarget = true;
@@ -156,25 +166,6 @@ namespace FunkyBot.Targeting
 		{
 			//Cache last target only if current target is not avoidance (Movement).
 			LastCachedTarget = CurrentTarget != null ? CurrentTarget : ObjectCache.FakeCacheObject;
-
-			if (CurrentTarget != null && CurrentTarget.targetType.HasValue && ObjectCache.CheckTargetTypeFlag(CurrentTarget.targetType.Value, TargetType.AvoidanceMovements))
-			{
-				if (CurrentTarget.targetType.Value == TargetType.Fleeing)
-				{
-					LastFleeAction = DateTime.Now;
-					FleeingLastTarget = true;
-				}
-				else
-				{
-					LastAvoidanceMovement = DateTime.Now;
-					AvoidanceLastTarget = true;
-				}
-			}
-			else
-			{
-				FleeingLastTarget = false;
-				AvoidanceLastTarget = false;
-			}
 
 			//Traveling Flag Reset
 			TravellingAvoidance = false;

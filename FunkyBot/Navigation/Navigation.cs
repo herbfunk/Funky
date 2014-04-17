@@ -342,6 +342,12 @@ namespace FunkyBot.Movement
 			set { lastsearchvector = value; }
 		}
 
+		public bool CurrentAreaValid()
+		{
+			return (Bot.NavigationCache.CurrentGPArea != null && !Bot.NavigationCache.CurrentGPArea.AllGPRectsFailed
+				&& (Bot.NavigationCache.CurrentGPArea.StartingLocation == Bot.Character.Data.Position || Bot.NavigationCache.CurrentGPArea.centerGPRect.Contains(Bot.Character.Data.Position)));
+		}
+
 		public Vector3 AttemptToReuseLastLocationFound()
 		{
 			if (vlastSafeSpot != Vector3.Zero)
@@ -365,8 +371,8 @@ namespace FunkyBot.Movement
 			Vector3 BotPosition = Bot.Character.Data.Position;
 
 			//Recreate the entire area?
-			if (Bot.NavigationCache.CurrentGPArea == null || Bot.NavigationCache.CurrentGPArea.AllGPRectsFailed && !Bot.NavigationCache.CurrentGPArea.centerGPRect.Contains(BotPosition) || !Bot.NavigationCache.CurrentGPArea.GridPointContained(BotPosition))
-				Bot.NavigationCache.CurrentGPArea = new GPArea(BotPosition);
+			if (!CurrentAreaValid())
+				CurrentGPArea = new GPArea(BotPosition);
 
 
 
@@ -378,17 +384,17 @@ namespace FunkyBot.Movement
 			}
 
 			//Recreate Bot Current rect?
-			if (Bot.NavigationCache.CurrentLocationGPrect == null || Bot.NavigationCache.CurrentLocationGPrect.centerpoint != Bot.Character.Data.PointPosition)
-			{
-				Bot.NavigationCache.CurrentLocationGPrect = new GPRectangle(BotPosition);
-				//Refresh boundary (blocked directions)
-				currentLocationBoundary = new AreaBoundary(BotPosition);
-				UpdateLocationsBlocked();
-			}
+			//if (CurrentLocationGPrect == null || CurrentLocationGPrect.centerpoint != Bot.Character.Data.PointPosition)
+			//{
+			//	Bot.NavigationCache.CurrentLocationGPrect = new GPRectangle(BotPosition);
+			//	//Refresh boundary (blocked directions)
+			//	currentLocationBoundary = new AreaBoundary(BotPosition);
+			//	UpdateLocationsBlocked();
+			//}
 
 			// Bot.NavigationCache.CurrentLocationGPRect.UpdateObjectCount();
 
-			safespot = Bot.NavigationCache.CurrentGPArea.AttemptFindSafeSpot(BotPosition, LOS, flags);
+			safespot = CurrentGPArea.AttemptFindSafeSpot(BotPosition, LOS, flags);
 			return (safespot != Vector3.Zero);
 		}
 
@@ -660,6 +666,7 @@ namespace FunkyBot.Movement
 		#region Static Movement Methods
 		public static bool CheckVectorFlags(Vector3 currentPos, Vector3 targetPos, PointCheckingFlags flags)
 		{
+
 			//Avoidance Check (Any Avoidance)
 			if (flags.HasFlag(PointCheckingFlags.AvoidanceOverlap))
 			{

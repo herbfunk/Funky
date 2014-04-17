@@ -50,6 +50,9 @@ namespace FunkyBot.XMLTags
 							new Decorator(ret => !ZetaDia.IsLoadingWorld,
 								 new Action(ret => m_IsDone = true)))
 				 ),
+				 //Toggle Waypoint Map!
+				 new Decorator(ret => !UIElements.WaypointMap.IsVisible,
+					 new Action(ret => UIManager.ToggleWaypointMap())),
 				//Check if in range and interaction should occur again!
 				 new Decorator(ret => ShouldAttemptInteraction() && !LevelAreaChanged(),
 					  new Action(ret => UseWaypoint())

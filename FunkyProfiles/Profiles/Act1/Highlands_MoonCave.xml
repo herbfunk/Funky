@@ -38,7 +38,12 @@
       </If>
       
       <If condition="CurrentLevelAreaId == 82566">
-        <TrinityExploreDungeon questId="312429" stepId="2" until="ExitFound" exitNameHash="-1187439573" actorId="0" pathPrecision="25" boxSize="12" boxTolerance="0.35" objectDistance="25" />
+        <TrinityExploreDungeon questId="312429" stepId="2" until="ExitFound" exitNameHash="-1187439573" actorId="0" pathPrecision="25" boxSize="14" boxTolerance="0.15" objectDistance="25">
+          <PrioritizeScenes>
+            <PriorityScene sceneName="Exit" />
+          </PrioritizeScenes>
+        </TrinityExploreDungeon>
+        
         <MoveToActor questId="312429" stepId="2" actorId="176038" interactRange="8" isPortal="True" destinationWorldId="82511" />
       </If>
 

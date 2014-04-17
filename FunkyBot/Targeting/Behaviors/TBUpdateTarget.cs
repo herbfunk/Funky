@@ -46,42 +46,18 @@ namespace FunkyBot.Targeting.Behaviors
 					if (this.bStayPutDuringAvoidance)
 					{
 						//Lets check our avoidance object list
-						if (Bot.Targeting.Cache.objectsIgnoredDueToAvoidance.Count > 0 && DateTime.Now.Subtract(lastAvoidanceConnectSearch).TotalMilliseconds > 4000)
+						if (Bot.Targeting.Cache.objectsIgnoredDueToAvoidance.Count > 0 && DateTime.Now.Subtract(lastAvoidanceConnectSearch).TotalMilliseconds > 2000)
 						{
 							Logger.DBLog.InfoFormat("Preforming Avoidance Connection Search on Potential Objects");
 							lastAvoidanceConnectSearch = DateTime.Now;
 
-
-							
-							if (Bot.NavigationCache.CurrentGPArea != null &&
-								Bot.NavigationCache.CurrentGPArea.LastFoundSafeSpots.Count>0 &&
-								DateTime.Now.Subtract(Bot.NavigationCache.CurrentGPArea.DateSearchSafeSpots).TotalMilliseconds<2000 )
+							foreach (var o in Bot.Targeting.Cache.objectsIgnoredDueToAvoidance)
 							{
-								Logger.DBLog.Info("Using exisiting Safe Spots!");
-								foreach (var v in Bot.NavigationCache.CurrentGPArea.LastFoundSafeSpots)
+								Vector3 safespot;
+								if (Bot.NavigationCache.AttemptFindSafeSpot(out safespot, o.BotMeleeVector, Bot.Settings.Plugin.AvoidanceFlags))
 								{
-									foreach (CacheObject testobj in Bot.Targeting.Cache.objectsIgnoredDueToAvoidance)
-									{
-										if (Navigation.CheckVectorFlags(v, testobj.Position, PointCheckingFlags.AvoidanceOverlap | PointCheckingFlags.RaycastNavProvider))
-										{
-											obj = new CacheObject(v, TargetType.Avoidance, 20000, "Avoid Connection", 2.5f, -1);
-											return true;
-										}
-									}
-								}
-							}
-							else
-							{
-								//Update or Create Bot Postion GPRect
-								GPRectangle botrect = new GPRectangle(Bot.Character.Data.Position);
-								Vector3 connectVector3;
-								foreach (CacheObject testobj in Bot.Targeting.Cache.objectsIgnoredDueToAvoidance)
-								{
-									if (botrect.TryFindSafeSpot(Bot.Character.Data.Position,out connectVector3, testobj.Position, PointCheckingFlags.AvoidanceOverlap | PointCheckingFlags.BlockedDirection | PointCheckingFlags.MonsterOverlap | PointCheckingFlags.ObstacleOverlap | PointCheckingFlags.RaycastWalkable, new List<GridPoint>(), false))
-									{
-										obj = new CacheObject(connectVector3, TargetType.Avoidance, 20000, "Avoid Connection", 2.5f, -1);
-										return true;
-									}
+									obj = new CacheObject(safespot, TargetType.Avoidance, 20000, "AvoidConnection", 2.5f, -1);
+									return true;
 								}
 							}
 						}
@@ -147,9 +123,8 @@ namespace FunkyBot.Targeting.Behaviors
 					bool resetTarget = false;
 
 
-					if (!Bot.Character.Class.IsMeleeClass && CurrentTarget.targetType.Value == TargetType.Unit && Bot.Targeting.Cache.Environment.NearbyAvoidances.Count > 0)
-					{//Ranged Class -- Unit -- with Nearby Avoidances..
-
+					if (CurrentTarget.targetType.Value == TargetType.Unit && Bot.Targeting.Cache.Environment.NearbyAvoidances.Count > 0)
+					{
 						//We are checking if this target is valid and will not cause avoidance triggering due to movement.
 
 
@@ -157,7 +132,7 @@ namespace FunkyBot.Targeting.Behaviors
 						Bot.Targeting.Cache.CurrentUnitTarget = (CacheUnit)CurrentTarget;
 
 						//Generate next Ability..
-						Skill nextAbility = Bot.Character.Class.AbilitySelector(Bot.Targeting.Cache.CurrentUnitTarget, Bot.Targeting.Cache.LastCachedTarget.targetType == TargetType.NoMovement);
+						Skill nextAbility = Bot.Character.Class.AbilitySelector(Bot.Targeting.Cache.CurrentUnitTarget, Bot.Targeting.Cache.LastCachedTarget.targetType == TargetType.Avoidance);
 
 					
 						if (nextAbility.Equals(Bot.Character.Class.DefaultAttack) && !Bot.Character.Class.CanUseDefaultAttack)

@@ -34,7 +34,12 @@ namespace FunkyBot.Cache.Objects
 			get
 			{
 				if (targetType.Value == TargetType.Shrine)
+				{
+					if (Gizmotype == GizmoType.PoolOfReflection)
+						return Bot.Settings.Ranges.PoolsOfReflectionRange;
+
 					return IsHealthWell ? Bot.Settings.Ranges.ShrineRange * 2 : Bot.Settings.Ranges.ShrineRange;
+				}
 
 				if (targetType.Value == TargetType.Container)
 				{
@@ -46,8 +51,10 @@ namespace FunkyBot.Cache.Objects
 
 				if (targetType.Value == TargetType.CursedShrine)
 				{
-					return 150d;
+					return Bot.Settings.Ranges.CursedShrineRange;
 				}
+				if (targetType.Value == TargetType.CursedChest)
+					return Bot.Settings.Ranges.CursedChestRange;
 
 				return Bot.Targeting.Cache.iCurrentMaxLootRadius;
 			}
@@ -76,7 +83,7 @@ namespace FunkyBot.Cache.Objects
 
 				if (GizmoHasBeenUsed.HasValue && GizmoHasBeenUsed.Value)
 				{
-					if (targetType.Value == TargetType.CursedShrine)
+					if (targetType.Value == TargetType.CursedShrine || targetType.Value == TargetType.CursedChest)
 					{
 						Bot.Targeting.Cache.lastSeenCursedShrine = DateTime.Now;
 					}
@@ -351,6 +358,7 @@ namespace FunkyBot.Cache.Objects
 
 						break;
 					case TargetType.CursedShrine:
+					case TargetType.CursedChest:
 						Weight = 11000d - (Math.Floor(centreDistance) * 190d);
 						break;
 				}

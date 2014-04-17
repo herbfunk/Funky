@@ -23,7 +23,7 @@ namespace FunkyBot
 {
 	public partial class Funky : IPlugin
 	{
-		public Version Version { get { return new Version(2, 9, 0, 0); } }
+		public Version Version { get { return new Version(2, 9, 1, 0); } }
 		public string Author { get { return "Herbfunk"; } }
 		public string Description
 		{
@@ -39,10 +39,6 @@ namespace FunkyBot
 		{
 			bool BotWasRunning = BotMain.IsRunning;
 			SplitButton FunkyButton = null;
-
-
-			BotMain.OnStop += EventHandlers.FunkyBotStop;
-			BotMain.OnStart += EventHandlers.FunkyBotStart;
 
 
 			bool FunkyCombatRoutineCurrent = RoutineManager.Current != null &&
@@ -247,10 +243,11 @@ namespace FunkyBot
 				//string profile=Zeta.CommonBot.ProfileManager.CurrentProfile!=null?Zeta.CommonBot.ProfileManager.CurrentProfile.Name:Zeta.CommonBot.Settings.GlobalSettings.Instance.LastProfile;
 				//Logger.DBLog.InfoFormat("Loaded Profile "+profile);
 
-				CheckUpdate();
+				//CheckUpdate();
 
 				iDemonbuddyMonsterPowerLevel = CharacterSettings.Instance.MonsterPowerLevel;
-
+				BotMain.OnStop += EventHandlers.FunkyBotStop;
+				BotMain.OnStart += EventHandlers.FunkyBotStart;
 
 			}
 		}
@@ -277,6 +274,39 @@ namespace FunkyBot
 		public void OnDisabled()
 		{
 			bPluginEnabled = false;
+			BotMain.OnStop -= EventHandlers.FunkyBotStop;
+			BotMain.OnStart -= EventHandlers.FunkyBotStart;
+			RemoveHandlers();
+
+			if (Funky.initTreeHooks) ResetTreehooks();
+
+			#region FunkyButtonHandlerRemove
+			Window mainWindow = App.Current.MainWindow;
+			var tab = mainWindow.FindName("tabControlMain") as TabControl;
+			if (tab == null) return;
+			var infoDumpTab = tab.Items[0] as TabItem;
+			if (infoDumpTab == null) return;
+			var grid = infoDumpTab.Content as Grid;
+			if (grid == null) return;
+
+			SplitButton[] splitbuttons = grid.Children.OfType<SplitButton>().ToArray();
+			if (splitbuttons.Any())
+			{
+
+				foreach (var item in splitbuttons)
+				{
+					if (item.Name.Contains("Funky"))
+					{
+						Logger.DBLog.DebugFormat("Funky Split Button Click Handler Removed");
+						item.Click -= FunkyWindow.buttonFunkySettingDB_Click;
+						break;
+					}
+				}
+			}
+			#endregion
+
+			ResetGame();
+
 			Logger.DBLog.InfoFormat("DISABLED: FunkyPlugin has shut down...");
 		}
 

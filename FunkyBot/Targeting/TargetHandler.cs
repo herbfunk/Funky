@@ -572,6 +572,7 @@ namespace FunkyBot.Targeting
 				case TargetType.Destructible:
 				case TargetType.Barricade:
 				case TargetType.CursedShrine:
+				case TargetType.CursedChest:
 					CurrentState = Bot.Targeting.Cache.CurrentTarget.Interact();
 					break;
 				case TargetType.AvoidanceMovements:

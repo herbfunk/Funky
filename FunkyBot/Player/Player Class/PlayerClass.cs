@@ -4,6 +4,7 @@ using System.Linq;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Bot;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Zeta.Common;
@@ -499,6 +500,12 @@ namespace FunkyBot.Player.Class
 						break;
 					case ActorClass.Wizard:
 						Bot.Character.Class = new Wizard();
+						break;
+					case ActorClass.Crusader:
+						//Logger.DBLog.Fatal("Crusader Class is not supported yet!");
+						//BotMain.Stop(true, "Crusader Class not supported by FunkyBot");
+						//return;
+						Bot.Character.Class = new Crusader();
 						break;
 				}
 

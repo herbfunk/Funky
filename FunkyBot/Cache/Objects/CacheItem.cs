@@ -42,6 +42,9 @@ namespace FunkyBot.Cache.Objects
 			{
 				if (targetType.Value == TargetType.Item)
 				{
+					if (BalanceData.thisItemType == ItemType.Potion)
+						return Bot.Targeting.Cache.iCurrentMaxLootRadius + Bot.Settings.Ranges.PotionRange;
+
 					return Bot.Targeting.Cache.iCurrentMaxLootRadius + Bot.Settings.Ranges.ItemRange;
 				}
 				if (targetType.Value == TargetType.Gold)
@@ -118,9 +121,6 @@ namespace FunkyBot.Cache.Objects
 					//Test intersection of avoidances
 					else if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition))
 						Weight = 1;
-
-
-
 				}
 			}
 

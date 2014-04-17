@@ -14,16 +14,11 @@
 
     <!-- Dungeon Lid: 78572-->
     <If condition="CurrentLevelAreaId == 78572">
-      <TrinityExploreDungeon questId="312429" stepId="2" until="ExitFound" exitNameHash="1317387500" actorId="183032" pathPrecision="25" boxSize="25" boxTolerance="0.01" objectDistance="45">
+   
+      <TrinityExploreDungeon questId="312429" stepId="2" until="ExitFound" exitNameHash="1317387500" actorId="183032" pathPrecision="25" boxSize="20" boxTolerance="0.25" objectDistance="45">
         <PriorityScenes>
           <PriorityScene sceneName="Exit" />
         </PriorityScenes>
-        <IgnoreScenes>
-          <IgnoreScene sceneName="_N_" />
-          <IgnoreScene sceneName="_S_" />
-          <IgnoreScene sceneName="_E_" />
-          <IgnoreScene sceneName="_W_" />
-        </IgnoreScenes>
       </TrinityExploreDungeon>
 
       <MoveToActor questId="312429" stepId="2" x="917" y="610" z="15" actorId="183032" interactRange="14" name="Boss_Portal_SpiderQueen-6297" isPortal="True" destinationWorldId="182976" pathPrecision="5" pathPointLimit="250" statusText="" />

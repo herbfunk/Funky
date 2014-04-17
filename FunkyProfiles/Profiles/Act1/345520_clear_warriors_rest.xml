@@ -4,9 +4,11 @@
 <KillMonsters>True</KillMonsters>
 <PickupLoot>true</PickupLoot>
 <Order>
+  <If condition="CurrentLevelAreaId != 19953 and CurrentWorldId !=60393">
+    <FunkyWaypoint waypointNumber="10" questId="1"/>
+  </If>
 
-	<FunkyWaypoint waypointNumber="10" questId="1"/>	
-	<WaitTimer questId="1" stepId="2" waitTime="2000" />	
+  <WaitTimer questId="1" stepId="2" waitTime="2000" />	
 	<HaveBounty questId="345520">
 	
 		<If condition="CurrentLevelAreaId == 19953">

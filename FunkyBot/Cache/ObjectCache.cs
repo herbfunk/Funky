@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
+using FunkyBot.Game;
 using FunkyBot.Movement;
 using Zeta.Common;
 using FunkyBot.Cache.Collections;
@@ -35,6 +36,8 @@ namespace FunkyBot.Cache
 		///Cached Sno Data.
 		///</summary>
 		public static SnoCollection cacheSnoCollection = new SnoCollection();
+
+	
 
 		internal static bool CheckTargetTypeFlag(TargetType property, TargetType flag)
 		{
@@ -82,8 +85,9 @@ namespace FunkyBot.Cache
 						{
 							tmp_SNOID = thisObj.ActorSNO;
 						}
-						catch (NullReferenceException) 
-						{ 
+						catch (Exception ex) 
+						{
+							Logger.Write(LogLevel.Cache, "Safely handled getting SNO for {0}", tmp_raGUID);
 							//Logger.DBLog.InfoFormat("Failure to get SNO from object! RaGUID: {0}", tmp_raGUID); 
 							continue;
 						}
@@ -91,7 +95,9 @@ namespace FunkyBot.Cache
 
 
 						//check our SNO blacklist
-						if (BlacklistCache.IsSNOIDBlacklisted(tmp_SNOID) && !CacheIDLookup.hashSummonedPets.Contains(tmp_SNOID)) continue;
+						if (BlacklistCache.IsSNOIDBlacklisted(tmp_SNOID) 
+							&& !CacheIDLookup.hashSummonedPets.Contains(tmp_SNOID)
+							&& !ProfileCache.PrioritizedObjects.Contains(tmp_SNOID)) continue;
 
 
 						#region Position
@@ -99,9 +105,9 @@ namespace FunkyBot.Cache
 						{
 							tmp_position = thisObj.Position;
 						}
-						catch (NullReferenceException) 
-						{ 
-							//Logger.DBLog.InfoFormat("Failure to get position vector for RAGUID {0}", tmp_raGUID); 
+						catch (Exception ex) 
+						{
+							Logger.Write(LogLevel.Cache, "Safely handled getting Position for {0}", tmp_raGUID);
 							continue;
 						}
 
@@ -112,9 +118,9 @@ namespace FunkyBot.Cache
 						{
 							tmp_acdguid = thisObj.ACDGuid;
 						}
-						catch (NullReferenceException) 
-						{ 
-							//Logger.DBLog.InfoFormat("Failure to get ACDGUID for RAGUID {0}", tmp_raGUID); 
+						catch (Exception ex) 
+						{
+							Logger.Write(LogLevel.Cache, "Safely handled getting ACDGuid for {0}", tmp_raGUID);
 							continue;
 						}
 
@@ -134,7 +140,7 @@ namespace FunkyBot.Cache
 					{
 						if (thisObj.CommonData == null || thisObj.CommonData.ACDGuid != thisObj.ACDGuid) continue;
 					}
-					catch (NullReferenceException)
+					catch (Exception ex)
 					{
 						continue;
 					}

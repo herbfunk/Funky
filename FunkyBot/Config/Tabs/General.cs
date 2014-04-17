@@ -25,6 +25,13 @@ namespace FunkyBot
 			Bot.Settings.AfterCombatDelay = Value;
 			TBAfterCombatDelay.Text = Value.ToString();
 		}
+		private void GoldTimeoutValueSliderChanged(object sender, EventArgs e)
+		{
+			Slider slider_sender = (Slider)sender;
+			int Value = (int)slider_sender.Value;
+			Bot.Settings.Plugin.GoldInactivityTimeoutSeconds = Value;
+			TBGoldInactivityTimeout.Text = Value.ToString();
+		}
 		private void BuyPotionsDuringTownRunChecked(object sender, EventArgs e)
 		{
 			Bot.Settings.BuyPotionsDuringTownRun = !Bot.Settings.BuyPotionsDuringTownRun;
@@ -45,6 +52,7 @@ namespace FunkyBot
 		private CheckBox BuyPotionsDuringTownRunCB;
 		private CheckBox EnableWaitAfterContainersCB;
 		private TextBox TBAfterCombatDelay;
+		private TextBox TBGoldInactivityTimeout;
 
 		internal void InitGeneralControls()
 		{
@@ -52,6 +60,49 @@ namespace FunkyBot
 			GeneralTab.Header = "General";
 			tcGeneral.Items.Add(GeneralTab);
 			lbGeneralContent = new ListBox();
+
+			#region Gold Inactivity Timeout
+			TextBlock TextBlock_GoldTimeoutValue = new TextBlock
+			{
+				Text = "Gold Inactivity Seconds",
+				FontSize = 12,
+				Foreground = Brushes.GhostWhite,
+				TextAlignment = TextAlignment.Left,
+			};
+			Slider sliderGoldTimeoutValue = new Slider
+			{
+				Width = 100,
+				Maximum = 900,
+				Minimum = 0,
+				TickFrequency = 60,
+				LargeChange = 30,
+				SmallChange = 5,
+				Value = Bot.Settings.Plugin.GoldInactivityTimeoutSeconds,
+				HorizontalAlignment = HorizontalAlignment.Left,
+			};
+			sliderGoldTimeoutValue.ValueChanged += GoldTimeoutValueSliderChanged;
+			TBGoldInactivityTimeout = new TextBox
+			{
+				Text = Bot.Settings.Plugin.GoldInactivityTimeoutSeconds.ToString(),
+				IsReadOnly = true,
+			};
+			StackPanel GoldTimeoutValueControlStackPanel = new StackPanel
+			{
+				Orientation = Orientation.Horizontal,
+			};
+			GoldTimeoutValueControlStackPanel.Children.Add(sliderGoldTimeoutValue);
+			GoldTimeoutValueControlStackPanel.Children.Add(TBGoldInactivityTimeout);
+
+			StackPanel GoldTimeoutValueStackPanel = new StackPanel
+			{
+				Height = 40,
+				Orientation = Orientation.Vertical,
+				Margin = new Thickness(Margin.Left, Margin.Top, Margin.Right + 15, Margin.Bottom),
+			};
+			GoldTimeoutValueStackPanel.Children.Add(TextBlock_GoldTimeoutValue);
+			GoldTimeoutValueStackPanel.Children.Add(GoldTimeoutValueControlStackPanel);
+			lbGeneralContent.Items.Add(GoldTimeoutValueStackPanel);
+			#endregion
 
 			#region PotionsDuringTownRun
 			BuyPotionsDuringTownRunCB = new CheckBox

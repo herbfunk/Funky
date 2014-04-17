@@ -5,46 +5,71 @@
   <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1"  />
   
     <Order>
-      <WaitTimer waitTime="30000" />
-      
       <While condition="CurrentWorldId != 50585 and CurrentWorldId != 73261">
         <FunkyWaypoint ID="5" />
       </While>
 
-      <If condition="IsActiveQuest(312429) and IsActiveQuestStep(2) and CurrentWorldId==50585 and CurrentLevelAreaId==19787">
-        -->
-        <SafeMoveTo questId="312429" stepId="2" x="627" y="571" z="0" useNavigator="True" />
-        <!-- The Royal Crypts -->
-        <!-- Pillars -->
-        <SafeMoveTo questId="312429" stepId="2" x="628" y="573" z="0" useNavigator="True" />
-        <!-- force move to door, ignore skeletons 
-      [00:35:06.332 N] [37ED776C] GizmoType: Door Name: trDun_Cath_Gate_D-2243 ActorSNO: 5767 Distance: 14.3267 Position: <550.1918, 536.5969, 0.2680054> Barracade: False Radius: 12.9823 -->
-        <MoveToActor questId="312429" stepId="2" interactRange="15" x="548" y="541" z="0" actorId="5767" endAnimation="trDun_Cath_Gate_D_Open" useNavigator="True" />
-        <SafeMoveTo questId="312429" stepId="2" pathPrecision="10" x="530" y="485" z="6" />
-        <MoveToActor questId="312429" stepId="2" interactRange="15" x="505" y="533" z="0" actorId="5767" endAnimation="trDun_Cath_Gate_D_Open" useNavigator="True" />
+      <HaveBounty questId="361234">
+        <If condition="CurrentWorldId == 50585">
+          <TrinityUseOnce id="0">
+            <SafeMoveTo questId="312429" stepId="2" x="871" y="580" z="1" pathPrecision="20" pathPointLimit="250" statusText="" />
+          </TrinityUseOnce>
+          <TrinityUseOnce id="1">
+            <SafeMoveTo questId="312429" stepId="2" x="625" y="575" z="0" pathPrecision="20" pathPointLimit="250" statusText="" />
+          </TrinityUseOnce>
+          <TrinityUseOnce id="2">
+            <SafeMoveTo questId="312429" stepId="2" x="453" y="580" z="0" pathPrecision="15" pathPointLimit="250" statusText="" />
+          </TrinityUseOnce>
+          <TrinityUseOnce id="3">
+            <SafeMoveTo questId="312429" stepId="2" x="341" y="577" z="1" pathPrecision="20" pathPointLimit="250" statusText="" />
+          </TrinityUseOnce>
+          <TrinityUseOnce id="4">
+            <SafeMoveTo questId="312429" stepId="2" x="344" y="499" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+          </TrinityUseOnce>
 
-        <SafeMoveTo questId="312429" stepId="2" name="Skeleton King Crypt Door" pathPrecision="10" x="343" y="481" z="0"/>
-        <MoveToActor questId="312429" stepId="2" actorId="159573" isPortal="True" destinationWorldId="73261" x="343" y="481" z="0" />
-      </If>
+          <!-- Portal to Skeleton King Tomb -->
+          <MoveToActor questId="1" stepId="2" actorId="159573" isPortal="True" destinationWorldId="73261" x="343" y="481" z="0" />
+          <WaitTimer questId="1" stepId="2" waitTime="1000" />
+        </If>
 
-      <!-- Crypt of King World ID: 73261-->
-      <If condition="IsActiveQuest(312429) and IsActiveQuestStep(2) and CurrentWorldId==73261 and CurrentLevelAreaId==19789">
-        
-         <SafeMoveTo questId="312429" stepId="2" name="" pathPrecision="10" x="252" y="398" z="0" />
-         <SafeMoveTo questId="312429" stepId="2" name="" pathPrecision="10" x="289" y="427" z="0" />
-         <SafeMoveTo questId="312429" stepId="2" x="261" y="333" z="8" pathPrecision="5" pathPointLimit="250" statusText="" />
-         <SafeMoveTo questId="312429" stepId="2" x="343" y="285" z="15" pathPrecision="5" pathPointLimit="250" statusText="" />
+        <If condition="CurrentWorldId == 50585">
+          <!-- Open Onate Door to Skeleton King Tomb -->
+          <!-- Door to Portal -->
+          <MoveToActor questId="1" stepId="2" actorId="5944" x="343" y="481" z="0" endAnimation="trDun_SkeletonKIng_Sealed_Door_Open"  />
+          <WaitTimer questId="1" stepId="2" waitTime="1000" />
+        </If>
 
-        <!-- Check if Activation of Chair is Required? -->
-        <MoveToActor questId="312429" stepId="2" actorId="5354" x="340" y="262" z="18" />
+        <If condition="CurrentWorldId == 73261">
+          <!-- Place Leoric's crown on the Skeleton King -->
+          <MoveToActor questId="1" stepId="2" actorId="5354" x="340" y="262" z="18" />
+          <WaitTimer questId="1" stepId="2" waitTime="1000" />
+        </If>
 
-        <HaveBounty questId="361234">
-          <!-- Check if Skeleton King is still around! -->
-          <SafeMoveTo questId="312429" stepId="2" name="Kill the Skeleton King" pathPrecision="10" x="339" y="271" z="15" />
-          <WaitTimer questId="312429" stepId="2" waitTime="5000" />
-        </HaveBounty>
+        <If condition="CurrentWorldId == 50585">
+          <!-- Skeleton King Death Handling -->
+          <MoveToActor questId="1" stepId="2" actorId="159573" isPortal="True" destinationWorldId="73261" x="343" y="481" z="0" />
+          <WaitTimer questId="1" stepId="2" waitTime="1000" />
+        </If>
 
-      </If>
+        <If condition="CurrentWorldId == 50585">
+          <!-- Skeleton King Death Handling (Enter Desolate Chamber - already killed Skele King) -->
+          <MoveToActor questId="1" stepId="2" actorId="159573" isPortal="True" destinationWorldId="73261" x="343" y="481" z="0" />
+          <WaitTimer questId="1" stepId="2" waitTime="1000" />
+        </If>
+
+        <If condition="CurrentWorldId == 73261">
+          <!-- Death Handling: Place Leoric's crown on the Skeleton King -->
+          <MoveToActor questId="1" stepId="2" actorId="5354" x="340" y="262" z="18" />
+          <WaitTimer questId="1" stepId="2" waitTime="1000" />
+        </If>
+
+        <WaitTimer questId="1" stepId="2" waitTime="15000" />
+        <If condition="CurrentWorldId == 73261">
+          <!-- Kill the Skeleton King -->
+          <SafeMoveTo questId="1" stepId="2" name="Kill the Skeleton King" pathPrecision="10" x="339" y="271" z="15" />
+          <WaitTimer questId="1" stepId="2" waitTime="1000" />
+        </If>
+      </HaveBounty>
 
       <LoadProfile profile="_Act1BountyLoader.xml" />
    </Order>

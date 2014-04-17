@@ -26,6 +26,7 @@ namespace FunkyBot
 		Radiant = 48,
 		Square = 54,
 		FlawlessSquare = 60,
+		Marquise = 67,
 	}
 
 	internal partial class FunkyWindow : Window
@@ -290,7 +291,7 @@ namespace FunkyBot
 			{
 				Name = "Magic",
 				Width = 120,
-				Maximum = 63,
+				Maximum = 73,
 				Minimum = 0,
 				TickFrequency = 5,
 				LargeChange = 5,
@@ -328,7 +329,7 @@ namespace FunkyBot
 			{
 				Name = "Rare",
 				Width = 120,
-				Maximum = 63,
+				Maximum = 73,
 				Minimum = 0,
 				TickFrequency = 5,
 				LargeChange = 5,
@@ -384,7 +385,7 @@ namespace FunkyBot
 			{
 				Name = "Magic",
 				Width = 120,
-				Maximum = 63,
+				Maximum = 73,
 				Minimum = 0,
 				TickFrequency = 5,
 				LargeChange = 5,
@@ -421,7 +422,7 @@ namespace FunkyBot
 			Slider armorRareLevelSlider = new Slider
 			{
 				Name = "Rare",
-				Maximum = 63,
+				Maximum = 73,
 				Minimum = 0,
 				TickFrequency = 5,
 				LargeChange = 5,
@@ -477,7 +478,7 @@ namespace FunkyBot
 			{
 				Name = "Magic",
 				Width = 120,
-				Maximum = 63,
+				Maximum = 73,
 				Minimum = 0,
 				TickFrequency = 5,
 				LargeChange = 5,
@@ -513,7 +514,7 @@ namespace FunkyBot
 			Slider jeweleryRareLevelSlider = new Slider
 			{
 				Name = "Rare",
-				Maximum = 63,
+				Maximum = 73,
 				Minimum = 0,
 				TickFrequency = 5,
 				LargeChange = 5,
@@ -567,7 +568,7 @@ namespace FunkyBot
 			Slider sliderLegendaryILevel = new Slider
 			{
 				Width = 120,
-				Maximum = 63,
+				Maximum = 73,
 				Minimum = 0,
 				TickFrequency = 5,
 				LargeChange = 5,
@@ -608,7 +609,7 @@ namespace FunkyBot
 			Slider slideMinMiscItemLevel = new Slider
 			{
 				Width = 100,
-				Maximum = 63,
+				Maximum = 73,
 				Minimum = 0,
 				TickFrequency = 5,
 				LargeChange = 5,

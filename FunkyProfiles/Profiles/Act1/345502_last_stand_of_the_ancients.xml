@@ -6,7 +6,10 @@
 <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
 <Order>
 
-  <FunkyWaypoint waypointNumber="10" questId="1"/>
+  <If condition="CurrentLevelAreaId != 19953">
+    <FunkyWaypoint ID="10" />
+  </If>
+  
 	<WaitTimer questId="1" stepId="2" waitTime="2000" />
 	<HaveBounty questId="345502">
 
@@ -31,8 +34,9 @@
 		</If>
 
 		<!-- Look for stuff to kill -->
-		<WaitTimer questId="1" stepId="1" waitTime="20000" />				
-		
+		<WaitTimer questId="1" stepId="1" waitTime="20000" />
+    <FunkyClustering enabled="false" />
+    
 		<!-- Try to find the stragglers - move to column at base -->
 		<HaveBounty questId="345502">			
 			<TrinityExploreDungeon questId="1" stepId="1" until="ObjectFound" actorId="105303" pathPrecision="5" boxTolerance="0.05" boxSize="10"  />			

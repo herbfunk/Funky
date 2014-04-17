@@ -418,7 +418,7 @@ namespace FunkyBot
 
 			internal static MoveResult NavigateTo(Vector3 moveTarget, string destinationName = "")
 			{
-				return Navigator.MoveTo(moveTarget, destinationName, false);
+				return Navigator.MoveTo(moveTarget, destinationName);
 			}
 		}
 

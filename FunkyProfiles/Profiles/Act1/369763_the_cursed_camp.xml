@@ -5,17 +5,20 @@
 <PickupLoot>true</PickupLoot>
 <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
 <Order>
+  <If condition="CurrentLevelAreaId != 19940">
+    <FunkyWaypoint waypointNumber="13" questId="1"/>
+  </If>
 
-	<FunkyWaypoint waypointNumber="13" questId="1"/>
-	<WaitTimer questId="1" stepId="2" waitTime="2000" />	
+  <WaitTimer questId="1" stepId="2" waitTime="2000" />	
 	<HaveBounty questId="369763">
 
 		<!--  Southern Highlands  -->
 		<If condition="CurrentWorldId == 71150">
 
 			<!-- Shrine always seems to be in the same place -->
-			<MoveToActor questId="1" stepId="2" x="2113" y="4321" z="10" actorId="364601" interactRange="11" name="x1_Event_CursedShrine-25880"  pathPrecision="5" pathPointLimit="250" statusText="" /> 			
-			
+			<MoveToActor questId="1" stepId="2" x="2113" y="4321" z="10" actorId="364601" interactRange="11" name="x1_Event_CursedShrine-25880"  pathPrecision="5" pathPointLimit="250" statusText="" />
+      <FunkyClustering enabled="false" />
+      
 			<!-- Wait between waves -->
 			<WaitTimer questId="1" stepId="1" waitTime="12000" />	
 			

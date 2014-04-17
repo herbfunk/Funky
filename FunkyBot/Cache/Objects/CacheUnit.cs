@@ -664,18 +664,21 @@ namespace FunkyBot.Cache.Objects
 				else
 				{
 					Vector3 TestPosition = BotMeleeVector;
-					if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
-						Weight = 1;
+					//if (ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(TestPosition))
+					//	Weight = 1;
 
-					//intersecting avoidances..
+					////intersecting avoidances..
 					if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(TestPosition))
 					{
-						if (Weight != 1) //&& ObjectIsSpecial)
-						{//Only add this to the avoided list when its not currently inside avoidance area
-							Bot.Targeting.Cache.objectsIgnoredDueToAvoidance.Add(this);
-						}
-						else
-							Weight = 1;
+						Bot.Targeting.Cache.objectsIgnoredDueToAvoidance.Add(this);
+						Weight = 1;
+
+						//if (Weight != 1) //&& ObjectIsSpecial)
+						//{//Only add this to the avoided list when its not currently inside avoidance area
+						//	Bot.Targeting.Cache.objectsIgnoredDueToAvoidance.Add(this);
+						//}
+						//else
+							//Weight = 1;
 					}
 				}
 			}

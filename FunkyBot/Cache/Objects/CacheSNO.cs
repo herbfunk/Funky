@@ -427,6 +427,8 @@ namespace FunkyBot.Cache.Objects
 		public bool IsTransformUnit { get { return CacheIDLookup.hashActorSNOTransforms.Contains(SNOID); } }
 		public bool IsFlyingHoverUnit { get { return CacheIDLookup.hashActorSNOFlying.Contains(SNOID); } }
 		public bool IsDemonicForge { get { return SNOID == 174900 || SNOID == 185391; } }
+		public bool IsCursedChest { get { return SNOID == 365097; } }
+		public bool IsCursedShrine { get { return SNOID == 364601; } }
 		#endregion
 
 		public bool ContainsNullValues()
@@ -644,9 +646,17 @@ namespace FunkyBot.Cache.Objects
 							{//Special Interactive Object -- Add to special cache!
 								targetType = TargetType.ServerInteractable;
 							}
-							else if (thisGizmoType == GizmoType.Switch && InternalName.StartsWith("x1_Event"))
+							else if (thisGizmoType == GizmoType.Switch)
 							{
-								targetType = TargetType.CursedShrine;
+								if (IsCursedShrine)
+									targetType = TargetType.CursedShrine;
+								else if (IsCursedChest)
+									targetType = TargetType.CursedChest;
+								else
+								{
+									BlacklistCache.IgnoreThisObject(this, raguid);
+									return false;
+								}
 							}
 							else
 							{//All other gizmos should be ignored!

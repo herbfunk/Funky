@@ -127,6 +127,8 @@ namespace FunkyBot.Player.Class
 					return new Strafe();
 				case DemonHunterActiveSkills.DemonHunter_EvasiveFire:
 					return new EvasiveFire();
+				case DemonHunterActiveSkills.DemonHunter_Vengeance:
+					return new Vengeance();
 				default:
 					return DefaultAttack;
 			}
@@ -160,6 +162,7 @@ namespace FunkyBot.Player.Class
 			DemonHunter_Companion = 365311,
 			DemonHunter_Strafe = 134030,
 			DemonHunter_EvasiveFire = 377450,
+			DemonHunter_Vengeance = 302846,
 
 		}
 		/*

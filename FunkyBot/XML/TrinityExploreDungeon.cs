@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Objects;
+using FunkyBot.Game;
 using FunkyBot.Movement;
 using Zeta.Bot;
 using Zeta.Bot.Dungeons;
@@ -114,14 +115,19 @@ namespace FunkyBot.XMLTags
 		public class IgnoreScene : IEquatable<Scene>
 		{
 			[XmlAttribute("sceneName")]
-			public string SceneName { get; set; }
+			public string SceneName
+			{
+				get { return _scenename; }
+				set { _scenename = value.Trim().ToLower(); }
+			}
+			private string _scenename = String.Empty;
+
 			[XmlAttribute("sceneId")]
 			public int SceneId { get; set; }
 
 			public IgnoreScene()
 			{
 				SceneId = -1;
-				SceneName = String.Empty;
 			}
 
 			public IgnoreScene(string name)
@@ -135,7 +141,9 @@ namespace FunkyBot.XMLTags
 
 			public bool Equals(Scene other)
 			{
-				return (!string.IsNullOrWhiteSpace(SceneName) && other.Name.ToLowerInvariant().Contains(SceneName.ToLowerInvariant())) || other.SceneInfo.SNOId == SceneId;
+				return (SceneName != String.Empty && other.Name.ToLowerInvariant().Contains(SceneName)) 
+						|| other.SceneInfo.SNOId == SceneId;
+
 			}
 		}
 
@@ -152,21 +160,45 @@ namespace FunkyBot.XMLTags
 
 		private List<Area> GetIgnoredAreas()
 		{
-			var ignoredScenes = ZetaDia.Scenes.GetScenes()
-				.Where(scn => scn.IsValid && IgnoreScenes.Any(igns => igns.Equals(scn)) && !PriorityScenes.Any(psc => psc.Equals(scn)))
-				.Select(scn =>
-					scn.Mesh.Zone == null
-					? new Area(new Vector2(float.MinValue, float.MinValue), new Vector2(float.MaxValue, float.MaxValue))
-					: new Area(scn.Mesh.Zone.ZoneMin, scn.Mesh.Zone.ZoneMax))
-					.ToList();
-			Logger.DBLog.DebugFormat("Returning {0} ignored areas", ignoredScenes.Count());
-			return ignoredScenes;
+			List<Area> returnAreas=new List<Area>();
+			foreach (var s in ZetaDia.Scenes.GetScenes())
+			{
+				if (!s.IsValid) continue;
+				int SceneID = s.SceneInfo.SNOId;
+				if (SkippableSceneIDs.Contains(SceneID)) continue;
+
+				if (IgnoreScenes.Any(igns => igns.Equals(s)) && !PriorityScenes.Any(psc => psc.Equals(s)))
+				{
+					if (s.Mesh.Zone == null)
+					{
+						returnAreas.Add(new Area(new Vector2(float.MinValue, float.MinValue), new Vector2(float.MaxValue, float.MaxValue)));
+					}
+					else
+					{
+						returnAreas.Add(new Area(s.Mesh.Zone.ZoneMin, s.Mesh.Zone.ZoneMax));
+					}
+				}
+				else
+					SkippableSceneIDs.Add(SceneID);
+			}	
+
+			//var ignoredScenes = ZetaDia.Scenes.GetScenes()
+			//	.Where(scn => scn.IsValid && IgnoreScenes.Any(igns => igns.Equals(scn)) && !PriorityScenes.Any(psc => psc.Equals(scn)))
+			//	.Select(scn =>
+			//		scn.Mesh.Zone == null
+			//		? new Area(new Vector2(float.MinValue, float.MinValue), new Vector2(float.MaxValue, float.MaxValue))
+			//		: new Area(scn.Mesh.Zone.ZoneMin, scn.Mesh.Zone.ZoneMax))
+			//		.ToList();
+			Logger.DBLog.DebugFormat("Returning {0} ignored areas", returnAreas.Count());
+			return returnAreas;
 		}
+		private readonly List<int> SkippableSceneIDs = new List<int>(); 
 
 		private class Area
 		{
-			public Vector2 Min { get; set; }
-			public Vector2 Max { get; set; }
+			public readonly Vector2 Min;
+			public readonly Vector2 Max;
+			public readonly Vector2 Center;
 
 			/// <summary>
 			/// Initializes a new instance of the Area class.
@@ -175,6 +207,7 @@ namespace FunkyBot.XMLTags
 			{
 				Min = min;
 				Max = max;
+				Center = (Min + Max) / 2;
 			}
 
 			public bool IsPositionInside(Vector2 position)
@@ -195,18 +228,29 @@ namespace FunkyBot.XMLTags
 		[XmlElement("PrioritizeScene")]
 		public class PrioritizeScene : IEquatable<Scene>
 		{
+
 			[XmlAttribute("sceneName")]
-			public string SceneName { get; set; }
+			public string SceneName 
+			{
+				get { return _scenename; }
+				set { _scenename = value.Trim().ToLower(); }
+			}
+			private string _scenename = String.Empty;
+
 			[XmlAttribute("sceneId")]
 			public int SceneId { get; set; }
 			[XmlAttribute("pathPrecision")]
 			public float PathPrecision { get; set; }
 
+			[XmlAttribute("minDistance")]
+			[XmlAttribute("minimumDistance")]
+			public float MinimumDistance { get; set; }
+
 			public PrioritizeScene()
 			{
 				PathPrecision = 15f;
-				SceneName = String.Empty;
 				SceneId = -1;
+				MinimumDistance = 500;
 			}
 
 			public PrioritizeScene(string name)
@@ -219,7 +263,8 @@ namespace FunkyBot.XMLTags
 			}
 			public bool Equals(Scene other)
 			{
-				return (SceneName != String.Empty && other.Name.ToLowerInvariant().Contains(SceneName.ToLowerInvariant())) || other.SceneInfo.SNOId == SceneId;
+				return (SceneName != String.Empty && other.Name.ToLowerInvariant().Contains(SceneName))
+					|| other.SceneInfo.SNOId == SceneId;
 			}
 		}
 
@@ -242,7 +287,7 @@ namespace FunkyBot.XMLTags
 		}
 
 		[XmlElement("PrioritizeActors")]
-		public List<AlternateActor> PriorityActors { get; set; }
+		public List<PrioritizeActor> PriorityActors { get; set; }
 
 		[XmlElement("PrioritizeActor")]
 		public class PrioritizeActor
@@ -346,8 +391,14 @@ namespace FunkyBot.XMLTags
 		[XmlAttribute("interactRange")]
 		public float ObjectInteractRange { get; set; }
 
-		[XmlAttribute("stayAfterBounty", true)]
-		public bool StayAfterBounty { get; set; }
+		[XmlAttribute("stayAfterBounty", false)]
+		public bool StayAfterBounty 
+		{
+			get { return _stayAfterBounty; }
+			set { _stayAfterBounty = value; }
+		}
+		private bool _stayAfterBounty = true;
+
 		/// <summary>
 		/// The Position of the CurrentNode NavigableCenter
 		/// </summary>
@@ -421,8 +472,8 @@ namespace FunkyBot.XMLTags
 			UpdateSearchGridProvider();
 
 			CheckResetDungeonExplorer();
-			GridSegmentation.Reset();
-			BrainBehavior.DungeonExplorer.Reset();
+			GridSegmentation.Reset(BoxSize,BoxTolerance);
+			BrainBehavior.DungeonExplorer.Reset(BoxSize, BoxTolerance);
 			MiniMapMarker.KnownMarkers.Clear();
 
 			if (!InitDone)
@@ -447,9 +498,9 @@ namespace FunkyBot.XMLTags
 			// I added this because GridSegmentation may (rarely) reset itself without us doing it to 15/.55.
 			if ((BoxSize != 0 && BoxTolerance != 0) && (GridSegmentation.BoxSize != BoxSize || GridSegmentation.BoxTolerance != BoxTolerance) || (GetGridSegmentationNodeCount() == 0))
 			{
-				Logger.DBLog.DebugFormat("Box Size or Tolerance has been changed! {0}/{1}", GridSegmentation.BoxSize, GridSegmentation.BoxTolerance);
+				
 
-				BrainBehavior.DungeonExplorer.Reset();
+				BrainBehavior.DungeonExplorer.Reset(BoxSize, BoxTolerance);
 				PrintNodeCounts("BrainBehavior.DungeonExplorer.Reset");
 
 				GridSegmentation.BoxSize = BoxSize;
@@ -458,6 +509,8 @@ namespace FunkyBot.XMLTags
 
 				BrainBehavior.DungeonExplorer.Update();
 				PrintNodeCounts("BrainBehavior.DungeonExplorer.Update");
+
+				Logger.DBLog.DebugFormat("Box Size or Tolerance has been changed! {0}/{1}", GridSegmentation.BoxSize, GridSegmentation.BoxTolerance);
 			}
 		}
 
@@ -854,7 +907,7 @@ namespace FunkyBot.XMLTags
 		private DateTime lastCheckedActors = DateTime.MinValue;
 		private Vector3 PriorityActorTarget = Vector3.Zero;
 		private int PriorityActorSNOId = -1;
-		private DiaObject CurrentPriorityActor = null;
+		private CacheObject CurrentPriorityActor = null;
 		private float PriorityActorPathPrecision = -1f;
 		private List<int> PriorityActorsInvestigated = new List<int>();
 		private Composite PriorityActorsCheck()
@@ -873,7 +926,7 @@ namespace FunkyBot.XMLTags
 							new Decorator(ret => PriorityActorTarget.Distance2D(myPos) <= PriorityActorPathPrecision,
 								new Sequence(
 									new Action(ret => Logger.DBLog.DebugFormat("Successfully navigated to priority actor {0} {1} center {2} Distance {3:0}",
-										CurrentPriorityActor.Name, PriorityActorSNOId, PriorityActorTarget, PriorityActorTarget.Distance2D(myPos))),
+										CurrentPriorityActor.InternalName, PriorityActorSNOId, PriorityActorTarget, PriorityActorTarget.Distance2D(myPos))),
 									new Action(ret => PriorityActorMoveToFinished())
 								)
 							),
@@ -882,6 +935,27 @@ namespace FunkyBot.XMLTags
 					)
 				)
 			);
+		}
+		private void MoveToPriorityActor()
+		{
+			Logger.DBLog.DebugFormat("Moving to Priority Actor {0} - {1} Center {2} Distance {3:0}",
+				CurrentPriorityActor.InternalName, CurrentPriorityActor.SNOID, PriorityActorTarget, PriorityActorTarget.Distance2D(myPos));
+
+			MoveResult moveResult = Funky.PlayerMover.NavigateTo(PriorityActorTarget);
+
+			if (moveResult == MoveResult.PathGenerationFailed || moveResult == MoveResult.ReachedDestination)
+			{
+				Logger.DBLog.DebugFormat("Unable to navigate to Actor {0} - {1} Center {2} Distance {3:0}, cancelling!",
+					CurrentPriorityActor.InternalName, CurrentPriorityActor.SNOID, PriorityActorTarget, PriorityActorTarget.Distance2D(myPos));
+				PriorityActorMoveToFinished();
+			}
+		}
+		private void PriorityActorMoveToFinished()
+		{
+			PriorityActorsInvestigated.Add(PriorityActorSNOId);
+			PriorityActorSNOId = -1;
+			PriorityActorTarget = Vector3.Zero;
+			UpdateRoute();
 		}
 
 		/// <summary>
@@ -904,20 +978,6 @@ namespace FunkyBot.XMLTags
 			}
 		}
 
-		private void MoveToPriorityActor()
-		{
-			Logger.DBLog.DebugFormat("Moving to Priority Actor {0} - {1} Center {2} Distance {3:0}",
-				CurrentPriorityActor.Name, CurrentPriorityActor.ActorSNO, PriorityActorTarget, PriorityActorTarget.Distance2D(myPos));
-
-			MoveResult moveResult = Funky.PlayerMover.NavigateTo(PriorityActorTarget);
-
-			if (moveResult == MoveResult.PathGenerationFailed || moveResult == MoveResult.ReachedDestination)
-			{
-				Logger.DBLog.DebugFormat("Unable to navigate to Actor {0} - {1} Center {2} Distance {3:0}, cancelling!",
-					CurrentPriorityActor.Name, CurrentPriorityActor.ActorSNO, PriorityActorTarget, PriorityActorTarget.Distance2D(myPos));
-				PriorityActorMoveToFinished();
-			}
-		}
 
 		/// <summary>
 		/// Sets a priority scene as finished
@@ -930,60 +990,66 @@ namespace FunkyBot.XMLTags
 			UpdateRoute();
 		}
 
-		/// <summary>
-		/// Sets a priority scene as finished
-		/// </summary>
-		private void PriorityActorMoveToFinished()
-		{
-			PriorityActorsInvestigated.Add(PriorityActorSNOId);
-			PriorityActorSNOId = -1;
-			PriorityActorTarget = Vector3.Zero;
-			UpdateRoute();
-		}
 
 		/// <summary>
 		/// Finds a navigable point in a priority scene
 		/// </summary>
 		private void FindPrioritySceneTarget()
 		{
-			if (!PriorityScenes.Any())
+			if (PriorityScenes.Count == 0)
 				return;
-
-			//gp.Update();
 
 			if (PrioritySceneTarget != Vector3.Zero)
 				return;
 
-			bool foundPriorityScene = false;
 
-			// find any matching priority scenes in scene manager - match by name or SNOId
-
-			List<Scene> PScenes = ZetaDia.Scenes.GetScenes()
-				.Where(s => PriorityScenes.Any(ps => ps.SceneId != -1 && s.SceneInfo.SNOId == ps.SceneId)).ToList();
-
-			PScenes.AddRange(ZetaDia.Scenes.GetScenes()
-				 .Where(s => PriorityScenes.Any(ps => ps.SceneName.Trim() != String.Empty && ps.SceneId == -1 && s.Name.ToLower().Contains(ps.SceneName.ToLower()))).ToList());
-
-			List<Scene> foundPriorityScenes = new List<Scene>();
-			Dictionary<int, Vector3> foundPrioritySceneIndex = new Dictionary<int, Vector3>();
-
-			foreach (Scene scene in PScenes)
+			// Search Scences for any that we have not found and is prioritized.
+			foreach (var s in ZetaDia.Scenes.GetScenes())
 			{
-				if (!scene.IsValid)
+				if (!s.IsValid)
 					continue;
-				if (!scene.SceneInfo.IsValid)
+				if (!s.SceneInfo.IsValid)
 					continue;
-				if (!scene.Mesh.Zone.IsValid)
-					continue;
-				if (!scene.Mesh.Zone.NavZoneDef.IsValid)
+				if (PrioritizeScencesFound.ContainsKey(s.SceneInfo.SNOId))
 					continue;
 
-				if (PriorityScenesInvestigated.Contains(scene.SceneInfo.SNOId))
+				foreach (var ps in PriorityScenes)
+				{
+					if (ps.SceneId != -1)
+					{
+						if (s.SceneInfo.SNOId == ps.SceneId)
+						{
+							//Add the scene and PriorityScene so we can look it up!
+							PrioritizeScencesFound.Add(s.SceneInfo.SNOId, s);
+							PrioritizeScencesReference.Add(s.SceneInfo.SNOId, ps);
+						}
+					}
+					else if(ps.SceneName != String.Empty)
+					{
+						if (s.Name.ToLower().Contains(ps.SceneName))
+						{
+							//Add the scene and PriorityScene so we can look it up!
+							PrioritizeScencesFound.Add(s.SceneInfo.SNOId, s);
+							PrioritizeScencesReference.Add(s.SceneInfo.SNOId, ps);
+						}
+					}
+				}
+			}
+
+			//Lets check for any priority scenes that we have not yet setup a vector for.
+			foreach (var id in PrioritizeScencesFound.Keys.Where(p => !PrioritizeScenceVectors.ContainsKey(p)))
+			{
+				Scene s = PrioritizeScencesFound[id];
+				if (!s.IsValid)
+					continue;
+				if (!s.SceneInfo.IsValid)
+					continue;
+				if (!s.Mesh.Zone.IsValid)
+					continue;
+				if (!s.Mesh.Zone.NavZoneDef.IsValid)
 					continue;
 
-				foundPriorityScene = true;
-
-				NavZone navZone = scene.Mesh.Zone;
+				NavZone navZone = s.Mesh.Zone;
 				NavZoneDef zoneDef = navZone.NavZoneDef;
 
 				Vector2 zoneMin = navZone.ZoneMin;
@@ -998,10 +1064,10 @@ namespace FunkyBot.XMLTags
 
 				NavCell bestCell = NavCells.OrderBy(c => GetNavCellCenter(c.Min, c.Max, navZone).Distance2D(zoneCenter)).FirstOrDefault();
 
-				if (bestCell != null && !foundPrioritySceneIndex.ContainsKey(scene.SceneInfo.SNOId))
+				if (bestCell != null)
 				{
-					foundPrioritySceneIndex.Add(scene.SceneInfo.SNOId, GetNavCellCenter(bestCell, navZone));
-					foundPriorityScenes.Add(scene);
+					Vector3 center = GetNavCellCenter(bestCell, navZone);
+					PrioritizeScenceVectors.Add(id, center);
 				}
 				else
 				{
@@ -1009,24 +1075,33 @@ namespace FunkyBot.XMLTags
 				}
 			}
 
-			if (foundPrioritySceneIndex.Any())
+
+			if (PrioritizeScenceVectors.Count>0)
 			{
-				KeyValuePair<int, Vector3> nearestPriorityScene = foundPrioritySceneIndex.OrderBy(s => s.Value.Distance2D(myPos)).FirstOrDefault();
+				//Logger.DBLog.DebugFormat("Total Priority Vectors Available {0}", PrioritizeScenceVectors.Count);
+				foreach (KeyValuePair<int, Vector3> value in PrioritizeScenceVectors.Where(s => !PriorityScenesInvestigated.Contains(s.Key)).OrderBy(s => s.Value.Distance2D(myPos)))
+				{
+					// Check Minimum Distance
+					PrioritizeScene ps = PrioritizeScencesReference[value.Key];
+					if (value.Value.Distance(myPos) > ps.MinimumDistance) continue;
 
-				PrioritySceneSNOId = nearestPriorityScene.Key;
-				PrioritySceneTarget = nearestPriorityScene.Value;
-				CurrentPriorityScene = foundPriorityScenes.FirstOrDefault(s => s.SceneInfo.SNOId == PrioritySceneSNOId);
-				PriorityScenePathPrecision = GetPriorityScenePathPrecision(PScenes.FirstOrDefault(s => s.SceneInfo.SNOId == nearestPriorityScene.Key));
+					PrioritySceneSNOId = value.Key;
+					PrioritySceneTarget = value.Value;
+					CurrentPriorityScene = PrioritizeScencesFound[value.Key];
+					PriorityScenePathPrecision = ps.PathPrecision;
 
-				Logger.DBLog.DebugFormat("Found Priority Scene {0} - {1} Center {2} Distance {3:0}",
-					CurrentPriorityScene.Name, CurrentPriorityScene.SceneInfo.SNOId, PrioritySceneTarget, PrioritySceneTarget.Distance2D(myPos));
+					Logger.DBLog.DebugFormat("Found Priority Scene {0} - {1} Center {2} Distance {3:0}",
+												CurrentPriorityScene.Name, CurrentPriorityScene.SceneInfo.SNOId, PrioritySceneTarget, PrioritySceneTarget.Distance2D(myPos));
+					return;
+				}
 			}
 
-			if (!foundPriorityScene)
-			{
-				PrioritySceneTarget = Vector3.Zero;
-			}
+			PrioritySceneTarget = Vector3.Zero;
 		}
+
+		private Dictionary<int, Vector3> PrioritizeScenceVectors = new Dictionary<int, Vector3>();
+		private Dictionary<int, Scene> PrioritizeScencesFound = new Dictionary<int, Scene>();
+		private Dictionary<int, PrioritizeScene> PrioritizeScencesReference = new Dictionary<int, PrioritizeScene>(); 
 
 		private float GetPriorityScenePathPrecision(Scene scene)
 		{
@@ -1048,13 +1123,13 @@ namespace FunkyBot.XMLTags
 
 			bool foundPriorityScene = false;
 
-			List<DiaObject> PActors = ZetaDia.Actors.GetActorsOfType<DiaObject>()
-				.Where(s => PriorityActors.Any(ps => ps.ActorId != -1 && s.ActorSNO == ps.ActorId && !PriorityActorsInvestigated.Contains(ps.ActorId))).ToList();
+			List<CacheObject> PActors = ObjectCache.Objects.Values
+				.Where(s => PriorityActors.Any(ps => ps.ActorId != -1 && s.SNOID == ps.ActorId && !PriorityActorsInvestigated.Contains(ps.ActorId))).ToList();
 
 			if (PActors.Any())
 			{
-				DiaObject priortyDiaObject= PActors.FirstOrDefault();
-				PriorityActorSNOId = priortyDiaObject.ActorSNO;
+				CacheObject priortyDiaObject = PActors.FirstOrDefault();
+				PriorityActorSNOId = priortyDiaObject.SNOID;
 				PriorityActorTarget = priortyDiaObject.Position;
 				CurrentPriorityActor = priortyDiaObject;
 				PriorityActorPathPrecision = PriorityActors[PriorityActorSNOId].ObjectDistance;
@@ -1112,7 +1187,7 @@ namespace FunkyBot.XMLTags
 		private Composite CheckIgnoredScenes()
 		{
 			return
-			new Decorator(ret => IgnoreScenes != null && IgnoreScenes.Any(),
+			new Decorator(ret => IgnoreScenes.Count>0,
 				new PrioritySelector(
 					new Decorator(ret => IsPositionInsideIgnoredScene(CurrentNavTarget),
 						new Sequence(
@@ -1469,6 +1544,7 @@ namespace FunkyBot.XMLTags
 			SkipAheadCache.ClearCache();
 			PriorityScenesInvestigated.Clear();
 			MiniMapMarker.KnownMarkers.Clear();
+
 			if (PriorityScenes == null)
 				PriorityScenes = new List<PrioritizeScene>();
 
@@ -1478,11 +1554,21 @@ namespace FunkyBot.XMLTags
 			if (AlternateActors == null)
 				AlternateActors = new List<AlternateActor>();
 
+			if (PriorityActors == null)
+				PriorityActors = new List<PrioritizeActor>();
+			else
+			{
+				foreach (var pa in PriorityActors)
+				{
+					ProfileCache.PrioritizedObjects.Add(pa.ActorId);
+				}
+			}
+
 			if (!forced)
 			{
 				Logger.DBLog.DebugFormat(
-					"Initialized TrinityExploreDungeon: boxSize={0} boxTolerance={1:0.00} endType={2} timeoutType={3} timeoutValue={4} pathPrecision={5:0} sceneId={6} actorId={7} objectDistance={8} markerDistance={9} exitNameHash={10}",
-					GridSegmentation.BoxSize, GridSegmentation.BoxTolerance, EndType, ExploreTimeoutType, TimeoutValue, PathPrecision, SceneId, ActorId, ObjectDistance, MarkerDistance, ExitNameHash);
+					"Initialized TrinityExploreDungeon: boxSize={0} boxTolerance={1:0.00} endType={2} timeoutType={3} timeoutValue={4} pathPrecision={5:0} sceneId={6} actorId={7} objectDistance={8} markerDistance={9} exitNameHash={10} stayAfterBounty={11}",
+					BoxSize, BoxTolerance, EndType, ExploreTimeoutType, TimeoutValue, PathPrecision, SceneId, ActorId, ObjectDistance, MarkerDistance, ExitNameHash, StayAfterBounty);
 			}
 			InitDone = true;
 		}
@@ -1504,8 +1590,8 @@ namespace FunkyBot.XMLTags
 		{
 			isDone = false;
 			InitDone = false;
-			GridSegmentation.Reset();
-			BrainBehavior.DungeonExplorer.Reset();
+			GridSegmentation.Reset(BoxSize,BoxTolerance);
+			BrainBehavior.DungeonExplorer.Reset(BoxSize, BoxTolerance);
 			MiniMapMarker.KnownMarkers.Clear();
 		}
 	}

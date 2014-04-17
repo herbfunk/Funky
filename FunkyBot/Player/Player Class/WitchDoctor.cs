@@ -117,6 +117,8 @@ namespace FunkyBot.Player.Class
 					return new WallOfZombies();
 				case WitchDoctorActiveSkills.Witchdoctor_PoisonDart:
 					return new PoisonDart();
+				case WitchDoctorActiveSkills.Witchdcotor_Piranhas:
+					return new Piranhas();
 				default:
 					return DefaultAttack;
 			}
@@ -146,6 +148,7 @@ namespace FunkyBot.Player.Class
 			Witchdoctor_BigBadVoodoo = 117402,
 			Witchdoctor_WallOfZombies = 134837,
 			Witchdoctor_PoisonDart = 103181,
+			Witchdcotor_Piranhas = 347265,
 		}
 		//enum WitchDoctorPassiveSkills
 		//{

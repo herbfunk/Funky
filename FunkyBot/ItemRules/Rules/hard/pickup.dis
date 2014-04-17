@@ -53,9 +53,18 @@
 //[QUALITY] == "Rare"  && [LEVEL] <= 59 && [BASETYPE] == "Misc" -> [IGNORE]
 
 
-[QUALITY] == "Normal" && [BASETYPE] == "Weapon"
-[QUALITY] == "Normal" && [BASETYPE] == "Armor"
-[QUALITY] == "Magic"
-[QUALITY] == "Inferior"
-[QUALITY] == "Superior"
-[QUALITY] == "Rare"
+//All Craftable
+//[QUALITY] == "Normal" && [BASETYPE] == "Weapon"
+//[QUALITY] == "Normal" && [BASETYPE] == "Armor"
+//[QUALITY] == "Magic"
+//[QUALITY] == "Inferior"
+//[QUALITY] == "Superior"
+//[QUALITY] == "Rare"
+
+//ROS Craftable
+[QUALITY] == "Normal" && [BASETYPE] == "Weapon" && [LEVEL] > 61
+[QUALITY] == "Normal" && [BASETYPE] == "Armor" && [LEVEL] > 61
+[QUALITY] == "Magic" && [LEVEL] > 61
+[QUALITY] == "Inferior" && [LEVEL] > 61
+[QUALITY] == "Superior" && [LEVEL] > 61
+[QUALITY] == "Rare" && [LEVEL] > 61

@@ -125,6 +125,81 @@
     <Compile Include="Player\HotBar\Skills\Skill Objects\Barbarian\Avalanche.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\AkaratsChampion.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\BlessedHammer.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\BlessedShield.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\Bombardment.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\Condemn.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\Consecration.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\FallingSword.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\FistOfTheHeavens.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\HeavensFury.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\IronSkin.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\Judgement.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\Justice.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\LawsOfHope.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\LawsOfJustice.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\LawsOfValor.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\Phalanx.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\Provoke.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\Punish.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\ShieldBash.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\ShieldGlare.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\Slash.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\Smite.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\SteedCharge.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Crusader\SweepAttack.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\Vengeance.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Player\HotBar\Skills\Skill Objects\DrinkHealthPotion.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -212,6 +287,9 @@
     <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\Epiphany.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\Piranhas.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\BlackHole.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -285,6 +363,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\HotBar\Skills\Skill Objects\Demon Hunter\Vault.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\Player Class\Crusader.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\Player Class\DemonHunter.cs">

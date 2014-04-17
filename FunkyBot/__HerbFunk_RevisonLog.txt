@@ -1,21 +1,34 @@
 ﻿// herbfunk revisions
-v2.9.0.1
-
-Game:
-	Added Horadric Cache support.
-	Stats now include key fragments and horadric cache.
-	Added Bounty Cache.
-
+v2.9.1.0
 
 Tags:
-	TrinityExploreDungeon support for stayAfterBounty.
+	TrinityExploreDungeon:
+		PrioritizeScene has optional Minimum Distance before attempting navigation. (minDistance="125")
+		Optimized Priority and Ignored Scene Checking.
+		Fixed Bounty Checks when it shouldn't occur.
+		Added support for stayAfterBounty.
+	FunkyWaypoint will now toggle waypoint map prior to teleporting.
 	FunkyBountyLoad now sets Current Bounty SNO ID when successful.
 	FunkyBountyRefresh now has optional reset parameter to set Current Bounty SNO ID to 0.
 
 
+Settings:
+	Pools of Reflection, Cursed Chest, Cursed Shrine and Potion Range Settings added.
+	Gold Inactivity Timeout Added to General.
+	Marquise Gem Quality added to Pickup Settings.
+
+
 Misc:
+	Cursed Chest Support Added.
+	Demon Hunter Vengeance Skill Added.
+	Crusader Skills Added Again.. (But not setup!)
+	Line of Sight tests use Melee Vector for CacheObjects.
+	Added Horadric Cache support.
+	Stats now include key fragments and horadric cache.
+	Added Bounty Cache.
 	Barbarian Avalanche skill added.
 	Act 1 Town Runs should work properly again!
+
 
 
 v2.9.0.0

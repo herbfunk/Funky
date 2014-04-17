@@ -5,16 +5,22 @@
 <PickupLoot>true</PickupLoot>
 <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
 <Order>
-
-  <FunkyWaypoint waypointNumber="17" questId="1"/>
-	<WaitTimer questId="1" stepId="2" waitTime="2000" />	
+  
+  <If condition="CurrentLevelAreaId != 19776">
+    <FunkyWaypoint waypointNumber="17" questId="1"/>
+  </If>
+  
+  <WaitTimer questId="1" stepId="2" waitTime="2000" />	
 	<HaveBounty questId="369789">
-
 		<!--  Halls of Agony Level 3  -->
 		<If condition="CurrentLevelAreaId == 19776">
 
-			<!-- Find the chest -->				
-			<TrinityExploreDungeon questId="1" stepId="1" until="ObjectFound" actorId="364559" pathPrecision="40" boxSize="15" boxTolerance="0.50" />				
+			<!-- Find the chest -->
+      <TrinityExploreDungeon questId="1" stepId="1" until="ObjectFound" actorId="364559" pathPrecision="40" boxSize="20" boxTolerance="0.30">
+        <PrioritizeActors>
+          <PrioritizeActor actorId="364559" objectDistance="15" />
+        </PrioritizeActors>
+      </TrinityExploreDungeon>			
 			<UseObject questId="1" stepId="1" actorId="364559" isPortal="False" />
 			<WaitTimer questId="1" stepId="1" waitTime="5000" />	
 			

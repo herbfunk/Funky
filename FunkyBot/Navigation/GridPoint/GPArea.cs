@@ -19,8 +19,12 @@ namespace FunkyBot.Movement
 		internal GPRectangle centerGPRect;
 		internal GPRectangle lastUsedGPRect = null;
 
+		public Vector3 StartingLocation { get;set; }
+
 		public GPArea(Vector3 startingLocation)
 		{
+			StartingLocation=startingLocation;
+
 			//Creation and Cache base
 			centerGPRect = new GPRectangle(startingLocation, 5);
 			GPRectangle centerClone = centerGPRect.Clone();

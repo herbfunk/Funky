@@ -19,6 +19,8 @@ namespace FunkyBot.Game
 		// For the random ID tag
 		internal static Dictionary<int, int> dictRandomID = new Dictionary<int, int>();
 
+		internal static HashSet<int> PrioritizedObjects = new HashSet<int>(); 
+
 		private static SettingCluster clusterSettingsTag=new SettingCluster();
 		internal static SettingCluster ClusterSettingsTag
 		{
@@ -72,7 +74,6 @@ namespace FunkyBot.Game
 							InteractableCachedObject = GetInteractiveCachedObject(currentProfileBehavior);
 							if (InteractableCachedObject != null)
 								Logger.DBLog.DebugFormat("Found Cached Interactable Server Object");
-
 						}
 						else
 						{
@@ -83,11 +84,16 @@ namespace FunkyBot.Game
 						Logger.DBLog.DebugFormat("Current Profile Behavior has enabled OOC Behavior.");
 						IsRunningOOCBehavior = true;
 					}
+					else if(profileTagType == typeof(TrinityExploreDungeon))
+					{
+						//PrioritizedObjects.Clear();
+					}
 					else
 					{
 						ProfileBehaviorIsOOCInteractive = false;
 						InteractableCachedObject = null;
 						IsRunningOOCBehavior = false;
+						PrioritizedObjects.Clear();
 					}
 				}
 

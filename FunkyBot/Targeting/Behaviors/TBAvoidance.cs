@@ -43,7 +43,7 @@ namespace FunkyBot.Targeting.Behaviors
 					 {
 						 if (!ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(reuseV3))
 						 {
-							 obj = new CacheObject(reuseV3, TargetType.Avoidance, 20000f, "SafeReuseAvoid", 2.5f, -1);
+							 obj = new CacheObject(reuseV3, TargetType.Avoidance, 20000f, "SafeReuseAvoid", 2.5f, reuseV3.GetHashCode());
 							 return true;
 						 }
 					 }
@@ -69,7 +69,7 @@ namespace FunkyBot.Targeting.Behaviors
 					 Logger.DBLog.DebugFormat("Avoid Movement found AT {0} with {1} Distance", vAnySafePoint.ToString(), distance);
 
 					 //setup avoidance target
-					 obj = new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "SafeAvoid", 2.5f, -1);
+					 obj = new CacheObject(vAnySafePoint, TargetType.Avoidance, 20000f, "SafeAvoid", 2.5f, vAnySafePoint.GetHashCode());
 
 					 //Estimate time we will be reusing this movement vector3
 					 this.iSecondsAvoidMoveFor = 1 + (int)(distance / 5f);

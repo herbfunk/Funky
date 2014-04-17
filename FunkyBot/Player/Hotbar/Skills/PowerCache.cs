@@ -15,6 +15,7 @@ namespace FunkyBot.Cache
 		internal static readonly HashSet<SNOPower> AbilitiesDestructiblePriority = new HashSet<SNOPower>
 		  {
 				SNOPower.Barbarian_Frenzy, SNOPower.Barbarian_Bash,SNOPower.Barbarian_Cleave,SNOPower.X1_Barbarian_WeaponThrow, SNOPower.Barbarian_Rend,
+				SNOPower.X1_Crusader_Punish,SNOPower.X1_Crusader_Smite,SNOPower.X1_Crusader_Slash,SNOPower.X1_Crusader_Justice,
 				SNOPower.DemonHunter_HungeringArrow, SNOPower.X1_DemonHunter_EntanglingShot, SNOPower.DemonHunter_Bolas, SNOPower.DemonHunter_Grenades, SNOPower.DemonHunter_ElementalArrow, SNOPower.DemonHunter_RapidFire, SNOPower.DemonHunter_Chakram,
 				SNOPower.Monk_FistsofThunder,SNOPower.Monk_DeadlyReach,SNOPower.Monk_CripplingWave,SNOPower.Monk_WayOfTheHundredFists,
 				SNOPower.Witchdoctor_Firebomb, SNOPower.Witchdoctor_PoisonDart, SNOPower.Witchdoctor_ZombieCharger, SNOPower.Witchdoctor_CorpseSpider, SNOPower.Witchdoctor_PlagueOfToads,
@@ -31,6 +32,7 @@ namespace FunkyBot.Cache
 		internal static readonly HashSet<SNOPower> PrimaryAbilities = new HashSet<SNOPower>
 		  {
 				 SNOPower.Barbarian_Bash,SNOPower.Barbarian_Cleave,SNOPower.X1_Barbarian_WeaponThrow,SNOPower.Barbarian_Frenzy,
+				 SNOPower.X1_Crusader_Punish,SNOPower.X1_Crusader_Smite,SNOPower.X1_Crusader_Slash,SNOPower.X1_Crusader_Justice,
 				 SNOPower.DemonHunter_HungeringArrow,SNOPower.X1_DemonHunter_EntanglingShot,SNOPower.DemonHunter_Bolas,SNOPower.DemonHunter_Grenades,
 				 SNOPower.Monk_FistsofThunder,SNOPower.Monk_DeadlyReach,SNOPower.Monk_CripplingWave,SNOPower.Monk_WayOfTheHundredFists,
 				 SNOPower.Witchdoctor_PoisonDart,SNOPower.Witchdoctor_CorpseSpider,SNOPower.Witchdoctor_PlagueOfToads,SNOPower.Witchdoctor_Firebomb,
@@ -76,6 +78,18 @@ namespace FunkyBot.Cache
                 {SNOPower.Barbarian_CallOfTheAncients, 120500}, // Need to be able to check passive for cooldown
                 {SNOPower.Barbarian_WrathOfTheBerserker, 120500}, // Need to be able to check passive for cooldown 
 	#endregion
+
+				#region Crusader
+		        {SNOPower.X1_Crusader_AkaratsChampion, 90000},{SNOPower.X1_Crusader_BlessedHammer, 5},{SNOPower.X1_Crusader_BlessedShield, 5}, 
+                {SNOPower.X1_Crusader_Bombardment, 60000},{SNOPower.X1_Crusader_Condemn, 15000},{SNOPower.X1_Crusader_Consecration, 30000}, 
+                {SNOPower.X1_Crusader_FallingSword, 30000},{SNOPower.X1_Crusader_FistOfTheHeavens, 5}, 
+                {SNOPower.X1_Crusader_HeavensFury3, 20000},{SNOPower.X1_Crusader_IronSkin, 30000},{SNOPower.X1_Crusader_Judgment, 20000},
+                {SNOPower.X1_Crusader_Justice, 5},{SNOPower.X1_Crusader_LawsOfJustice, 45000},{SNOPower.X1_Crusader_LawsOfHope, 45000}, 
+                {SNOPower.X1_Crusader_LawsOfValor, 45000},{SNOPower.x1_Crusader_Phalanx3, 5},{SNOPower.X1_Crusader_Provoke, 20000},{SNOPower.X1_Crusader_Punish, 5},
+                {SNOPower.X1_Crusader_ShieldGlare, 12000},{SNOPower.X1_Crusader_ShieldBash2, 5},{SNOPower.X1_Crusader_Slash, 5}, 
+                {SNOPower.X1_Crusader_Smite, 5 },  {SNOPower.X1_Crusader_SteedCharge, 16000 }, {SNOPower.X1_Crusader_SweepAttack, 5 },
+	            #endregion 
+
                 #region Monk
 		// Monk skills
                 {SNOPower.Monk_FistsofThunder, 5},
@@ -208,6 +222,18 @@ namespace FunkyBot.Cache
                 {SNOPower.X1_Barbarian_WarCry_v2, DateTime.Today},{SNOPower.Barbarian_Earthquake, DateTime.Today},{SNOPower.Barbarian_CallOfTheAncients, DateTime.Today}, 
                 {SNOPower.Barbarian_WrathOfTheBerserker, DateTime.Today }, 
 	            #endregion 
+
+				#region Crusader
+		        {SNOPower.X1_Crusader_AkaratsChampion, DateTime.Today},{SNOPower.X1_Crusader_BlessedHammer, DateTime.Today},{SNOPower.X1_Crusader_BlessedShield, DateTime.Today}, 
+                {SNOPower.X1_Crusader_Bombardment, DateTime.Today},{SNOPower.X1_Crusader_Condemn, DateTime.Today},{SNOPower.X1_Crusader_Consecration, DateTime.Today}, 
+                {SNOPower.X1_Crusader_CrushingResolve, DateTime.Today},{SNOPower.X1_Crusader_FallingSword, DateTime.Today},{SNOPower.X1_Crusader_FistOfTheHeavens, DateTime.Today}, 
+                {SNOPower.X1_Crusader_HeavensFury3, DateTime.Today},{SNOPower.X1_Crusader_IronSkin, DateTime.Today},{SNOPower.X1_Crusader_Judgment, DateTime.Today},
+                {SNOPower.X1_Crusader_Justice, DateTime.Today},{SNOPower.X1_Crusader_LawsOfJustice, DateTime.Today},{SNOPower.X1_Crusader_LawsOfHope, DateTime.Today}, 
+                {SNOPower.X1_Crusader_LawsOfValor, DateTime.Today},{SNOPower.X1_Crusader_Provoke, DateTime.Today},{SNOPower.X1_Crusader_Punish, DateTime.Today},
+                {SNOPower.X1_Crusader_ShieldGlare, DateTime.Today},{SNOPower.X1_Crusader_ShieldBash2, DateTime.Today},{SNOPower.X1_Crusader_Slash, DateTime.Today}, 
+                {SNOPower.X1_Crusader_Smite, DateTime.Today },  {SNOPower.X1_Crusader_SteedCharge, DateTime.Today }, {SNOPower.X1_Crusader_SweepAttack, DateTime.Today },
+	            #endregion 
+
                 // Monk last-used timers
                 #region Monk
 		        {SNOPower.Monk_FistsofThunder, DateTime.Today},{SNOPower.Monk_DeadlyReach, DateTime.Today},{SNOPower.Monk_CripplingWave, DateTime.Today},

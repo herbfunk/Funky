@@ -4,7 +4,7 @@ namespace FunkyBot.Settings
 	 //To hold all plugin internal related variables (for advance tweaking!)
 	public class SettingPlugin
 	{
-		 public int GoldInactivityTimeoutMilliseconds { get; set; }
+		 public int GoldInactivityTimeoutSeconds { get; set; }
 		 public int CacheObjectRefreshRate { get; set; }
 		 public int UnusedSNORemovalRate { get; set; }
 		 public int MovementNonMovementCount { get; set; }
@@ -16,7 +16,7 @@ namespace FunkyBot.Settings
 
 		 public SettingPlugin()
 		 {
-			  GoldInactivityTimeoutMilliseconds = 180000; //default of 3 minutes
+			  GoldInactivityTimeoutSeconds = 180; //default of 3 minutes
 			  CacheObjectRefreshRate=150;
 			  UnusedSNORemovalRate=180000;
 			  MovementNonMovementCount=50;
