@@ -632,10 +632,7 @@
     <Compile Include="Player\HotBar\Skills\SkillCriteria.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\HotBar\Skills\Conditions\AbilityLogicConditions.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Player\HotBar\Skills\Conditions\LOSInfo.cs">
+    <Compile Include="Cache\Objects\LOSInfo.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\HotBar\Skills\Enums\SkillUseage.cs">

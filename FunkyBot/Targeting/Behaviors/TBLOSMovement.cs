@@ -93,6 +93,12 @@ namespace FunkyBot.Targeting.Behaviors
 								Bot.NavigationCache.LOSmovementObject = null;
 								return false;
 							}
+							else if(!Bot.NavigationCache.LOSmovementObject.OrginCacheObject.ObjectIsValidForTargeting)
+							{//Valid for Targeting?
+								Logger.Write(LogLevel.Movement, "Line of Sight Ending due to Orgin Object Not Valid for Targeting!");
+								Bot.NavigationCache.LOSmovementObject = null;
+								return false;
+							}
 							else
 							{
 								//Update Position using Orgin Object?

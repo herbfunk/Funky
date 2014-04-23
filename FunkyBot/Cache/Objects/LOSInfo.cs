@@ -8,7 +8,7 @@ using Zeta.Bot.Navigation;
 using Zeta.Common;
 using Zeta.Game.Internals.SNO;
 
-namespace FunkyBot.Player.HotBar.Skills.Conditions
+namespace FunkyBot.Cache.Objects
 {
 	public class LOSInfo
 	{

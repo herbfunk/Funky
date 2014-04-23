@@ -29,7 +29,7 @@ namespace FunkyBot.Player.Class
 			HotBar.UpdateRepeatAbilityTimes();
 
 			Skill healthPotionSkill = new DrinkHealthPotion();
-			AbilityLogicConditions.CreateAbilityLogicConditions(ref healthPotionSkill);
+			Skill.CreateSkillLogicConditions(ref healthPotionSkill);
 			HealthPotionAbility = (DrinkHealthPotion)healthPotionSkill;
 
 			LastUsedAbility = DefaultAttack;
@@ -122,7 +122,7 @@ namespace FunkyBot.Player.Class
 			if (!HotBar.HotbarContainsAPrimarySkill())
 			{
 				Skill defaultAbility = Bot.Character.Class.DefaultAttack;
-				AbilityLogicConditions.CreateAbilityLogicConditions(ref defaultAbility);
+				Skill.CreateSkillLogicConditions(ref defaultAbility);
 				Abilities.Add(defaultAbility.Power, defaultAbility);
 				HotBar.RuneIndexCache.Add(defaultAbility.Power, -1);
 				Logger.DBLog.DebugFormat("[Funky] Added Skill {0}", defaultAbility.Power);
@@ -133,7 +133,7 @@ namespace FunkyBot.Player.Class
 			foreach (var item in HotBar.HotbarPowers)
 			{
 				Skill newAbility = Bot.Character.Class.CreateAbility(item);
-				AbilityLogicConditions.CreateAbilityLogicConditions(ref newAbility);
+				Skill.CreateSkillLogicConditions(ref newAbility);
 				newAbility.SuccessfullyUsed += AbilitySuccessfullyUsed;
 
 				//combat ability set property

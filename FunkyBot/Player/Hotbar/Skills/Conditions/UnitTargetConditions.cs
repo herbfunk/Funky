@@ -1,6 +1,7 @@
 
 
 using System;
+using FunkyBot.Cache.Objects;
 using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Conditions
@@ -56,49 +57,49 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 				Criteria += () => true;
 			else
 			{
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Boss))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Boss))
 					Criteria += () => Bot.Targeting.Cache.CurrentTarget.IsBoss;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Burrowing))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Burrowing))
 					Criteria += () => Bot.Targeting.Cache.CurrentTarget.IsBurrowableUnit;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.FullHealth))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.FullHealth))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.Value == 1d;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.IsSpecial))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.IsSpecial))
 					Criteria += () => Bot.Targeting.Cache.CurrentTarget.ObjectIsSpecial;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Weak))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Weak))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.UnitMaxHitPointAverageWeight < 0;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.MissileDampening))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.MissileDampening))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.MonsterMissileDampening;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.RareElite))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.RareElite))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.IsEliteRareUnique;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.MissileReflecting))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.MissileReflecting))
 					Criteria += () => Bot.Targeting.Cache.CurrentTarget.IsMissileReflecting && Bot.Targeting.Cache.CurrentTarget.AnimState == AnimationState.Transform;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Shielding))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Shielding))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.MonsterShielding;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Stealthable))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Stealthable))
 					Criteria += () => Bot.Targeting.Cache.CurrentTarget.IsStealthableUnit;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.SucideBomber))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.SucideBomber))
 					Criteria += () => Bot.Targeting.Cache.CurrentTarget.IsSucideBomber;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.TreasureGoblin))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.TreasureGoblin))
 					Criteria += () => Bot.Targeting.Cache.CurrentTarget.IsTreasureGoblin;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Unique))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Unique))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.MonsterUnique;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Ranged))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Ranged))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.IsRanged;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.TargetableAndAttackable))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.TargetableAndAttackable))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.IsTargetableAndAttackable;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Fast))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Fast))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.IsFast;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.DOTDPS))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.DOTDPS))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.HasDOTdps.HasValue && Bot.Targeting.Cache.CurrentUnitTarget.HasDOTdps.Value;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.CloseDistance))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.CloseDistance))
 					Criteria += () => Bot.Targeting.Cache.CurrentTarget.RadiusDistance < 10f;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.ReflectsDamage))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.ReflectsDamage))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.MonsterReflectDamage;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Electrified))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Electrified))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.MonsterElectrified;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Normal))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Normal))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.MonsterNormal;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.LowHealth))
+				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.LowHealth))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.HasValue && Bot.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.Value < 0.25d;
 			}
 
@@ -107,51 +108,134 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 				Criteria += () => true;
 			else
 			{
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Boss))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Boss))
 					Criteria += () => !Bot.Targeting.Cache.CurrentTarget.IsBoss;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Burrowing))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Burrowing))
 					Criteria += () => !Bot.Targeting.Cache.CurrentTarget.IsBurrowableUnit;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.FullHealth))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.FullHealth))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.Value != 1d;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.IsSpecial))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.IsSpecial))
 					Criteria += () => !Bot.Targeting.Cache.CurrentTarget.ObjectIsSpecial;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Weak))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Weak))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.UnitMaxHitPointAverageWeight > 0;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.MissileDampening))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.MissileDampening))
 					Criteria += () => !Bot.Targeting.Cache.CurrentUnitTarget.MonsterMissileDampening;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.RareElite))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.RareElite))
 					Criteria += () => !Bot.Targeting.Cache.CurrentUnitTarget.IsEliteRareUnique;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.MissileReflecting))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.MissileReflecting))
 					Criteria += () => !Bot.Targeting.Cache.CurrentTarget.IsMissileReflecting || Bot.Targeting.Cache.CurrentTarget.AnimState != AnimationState.Transform;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Shielding))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Shielding))
 					Criteria += () => !Bot.Targeting.Cache.CurrentUnitTarget.MonsterShielding;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Stealthable))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Stealthable))
 					Criteria += () => !Bot.Targeting.Cache.CurrentTarget.IsStealthableUnit;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.SucideBomber))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.SucideBomber))
 					Criteria += () => !Bot.Targeting.Cache.CurrentTarget.IsSucideBomber;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.TreasureGoblin))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.TreasureGoblin))
 					Criteria += () => !Bot.Targeting.Cache.CurrentTarget.IsTreasureGoblin;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Unique))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Unique))
 					Criteria += () => !Bot.Targeting.Cache.CurrentUnitTarget.MonsterUnique;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Ranged))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Ranged))
 					Criteria += () => !Bot.Targeting.Cache.CurrentUnitTarget.IsRanged;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.TargetableAndAttackable))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.TargetableAndAttackable))
 					Criteria += () => !Bot.Targeting.Cache.CurrentUnitTarget.IsTargetableAndAttackable;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Fast))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Fast))
 					Criteria += () => !Bot.Targeting.Cache.CurrentUnitTarget.IsFast;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.DOTDPS))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.DOTDPS))
 					Criteria += () => !Bot.Targeting.Cache.CurrentUnitTarget.HasDOTdps.HasValue || !Bot.Targeting.Cache.CurrentUnitTarget.HasDOTdps.Value;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.CloseDistance))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.CloseDistance))
 					Criteria += () => Bot.Targeting.Cache.CurrentTarget.RadiusDistance > 10f;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.ReflectsDamage))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.ReflectsDamage))
 					Criteria += () => !Bot.Targeting.Cache.CurrentUnitTarget.MonsterReflectDamage;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Electrified))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Electrified))
 					Criteria += () => !Bot.Targeting.Cache.CurrentUnitTarget.MonsterElectrified;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Normal))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Normal))
 					Criteria += () => !Bot.Targeting.Cache.CurrentUnitTarget.MonsterNormal;
-				if (AbilityLogicConditions.CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.LowHealth))
+				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.LowHealth))
 					Criteria += () => !Bot.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.HasValue || Bot.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.Value >= 0.25d;
 			}
+		}
+
+		internal static bool CheckTargetPropertyFlag(TargetProperties property, TargetProperties flag)
+		{
+			return (property & flag) != 0;
+		}
+
+		internal static TargetProperties EvaluateUnitProperties(CacheUnit unit)
+		{
+			TargetProperties properties = TargetProperties.None;
+
+			if (unit.IsBoss)
+				properties |= TargetProperties.Boss;
+
+			if (unit.IsBurrowableUnit)
+				properties |= TargetProperties.Burrowing;
+
+			if (unit.MonsterMissileDampening)
+				properties |= TargetProperties.MissileDampening;
+
+			if (unit.IsMissileReflecting)
+				properties |= TargetProperties.MissileReflecting;
+
+			if (unit.MonsterShielding)
+				properties |= TargetProperties.Shielding;
+
+			if (unit.IsStealthableUnit)
+				properties |= TargetProperties.Stealthable;
+
+			if (unit.IsSucideBomber)
+				properties |= TargetProperties.SucideBomber;
+
+			if (unit.IsTreasureGoblin)
+				properties |= TargetProperties.TreasureGoblin;
+
+			if (unit.IsFast)
+				properties |= TargetProperties.Fast;
+
+
+
+			if (unit.IsEliteRareUnique)
+				properties |= TargetProperties.RareElite;
+
+			if (unit.MonsterUnique)
+				properties |= TargetProperties.Unique;
+
+			if (unit.ObjectIsSpecial)
+				properties |= TargetProperties.IsSpecial;
+
+			if (unit.CurrentHealthPct.HasValue && unit.CurrentHealthPct.Value == 1d)
+				properties |= TargetProperties.FullHealth;
+
+			if (unit.UnitMaxHitPointAverageWeight < 0)
+				properties |= TargetProperties.Weak;
+
+
+			if (unit.IsRanged)
+				properties |= TargetProperties.Ranged;
+
+
+			if (unit.IsTargetableAndAttackable)
+				properties |= TargetProperties.TargetableAndAttackable;
+
+
+			if (unit.HasDOTdps.HasValue && unit.HasDOTdps.Value)
+				properties |= TargetProperties.DOTDPS;
+
+			if (unit.RadiusDistance < 10f)
+				properties |= TargetProperties.CloseDistance;
+
+			if (unit.MonsterReflectDamage)
+				properties |= TargetProperties.ReflectsDamage;
+
+			if (unit.MonsterElectrified)
+				properties |= TargetProperties.Electrified;
+
+			if (unit.MonsterNormal)
+				properties |= TargetProperties.Normal;
+
+			if (unit.CurrentHealthPct.HasValue && unit.CurrentHealthPct.Value < 0.25d)
+				properties |= TargetProperties.LowHealth;
+
+			return properties;
 		}
 	}
 }

@@ -31,7 +31,7 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
-				return AbilityLogicConditions.EvaluateUnitProperties(this);
+				return UnitTargetConditions.EvaluateUnitProperties(this);
 			}
 		}
 		public override void UpdateProperties()
@@ -64,7 +64,7 @@ namespace FunkyBot.Cache.Objects
 
 			//if (this.Monstersize.HasValue&&this.Monstersize.Value==MonsterSize.Ranged)
 			//	 this.Properties|=TargetProperties.Ranged;
-			base.Properties = AbilityLogicConditions.EvaluateUnitProperties(this);
+			base.Properties = UnitTargetConditions.EvaluateUnitProperties(this);
 		}
 
 
