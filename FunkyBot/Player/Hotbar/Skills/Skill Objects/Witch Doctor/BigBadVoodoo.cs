@@ -9,11 +9,11 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 		 public override void Initialize()
 		  {
 				Cooldown=120000;
-				ExecutionType=AbilityExecuteFlags.Self;
+				ExecutionType=SkillExecutionFlags.Self;
 				WaitVars=new WaitLoops(0, 0, true);
-				UseageType=AbilityUseage.Anywhere;
-				Priority=AbilityPriority.Medium;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast));
+				UseageType=SkillUseage.Anywhere;
+				Priority=SkillPriority.Medium;
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast));
 
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 1);
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 12));

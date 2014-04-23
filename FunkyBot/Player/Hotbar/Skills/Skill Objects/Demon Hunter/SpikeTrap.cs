@@ -11,17 +11,17 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 
                 //Runeindex 2 == Sticky Trap!
                 if (RuneIndex != 2)
-                    ExecutionType = AbilityExecuteFlags.Location | AbilityExecuteFlags.ClusterTargetNearest;
+                    ExecutionType = SkillExecutionFlags.Location | SkillExecutionFlags.ClusterTargetNearest;
                 else
-                    ExecutionType = AbilityExecuteFlags.Target | AbilityExecuteFlags.ClusterTarget;
+                    ExecutionType = SkillExecutionFlags.Target | SkillExecutionFlags.ClusterTarget;
 
 				WaitVars=new WaitLoops(1, 1, true);
 				Cost=30;
 				Range=40;
-				UseageType=AbilityUseage.Anywhere;
-				Priority=AbilityPriority.Medium;
+				UseageType=SkillUseage.Anywhere;
+				Priority=SkillPriority.Medium;
 
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy));
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckRecastTimer|SkillPrecastFlags.CheckEnergy));
 
                 if (RuneIndex==2) //sticky trap on weak non-full HP units!
 				    SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Weak, falseConditionalFlags: TargetProperties.FullHealth));

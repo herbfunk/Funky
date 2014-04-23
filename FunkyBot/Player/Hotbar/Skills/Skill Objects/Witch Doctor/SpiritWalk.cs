@@ -13,13 +13,13 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 		  public override void Initialize()
 		  {
 				Cooldown=15200;
-				ExecutionType=AbilityExecuteFlags.Buff;
+				ExecutionType=SkillExecutionFlags.Buff;
 				WaitVars=new WaitLoops(0, 0, true);
 				Cost=49;
-				UseageType=AbilityUseage.Anywhere;
+				UseageType=SkillUseage.Anywhere;
 				IsSpecialAbility=true;
-				Priority=AbilityPriority.High;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast));
+				Priority=SkillPriority.High;
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckEnergy|SkillPrecastFlags.CheckCanCast));
 
 				IsBuff=true;
 				FcriteriaBuff=() => Bot.Settings.OutOfCombatMovement;

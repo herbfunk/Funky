@@ -16,15 +16,15 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 		  public override void Initialize()
 		  {
 				Cooldown=120500;
-				ExecutionType=AbilityExecuteFlags.Buff;
+				ExecutionType=SkillExecutionFlags.Buff;
 				WaitVars=new WaitLoops(4, 4, true);
 				Cost=0;
-				UseageType=AbilityUseage.Combat;
+				UseageType=SkillUseage.Combat;
 				IsSpecialAbility=true;
-				Priority=AbilityPriority.High;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckEnergy|
-				                          AbilityPreCastFlags.CheckExisitingBuff|AbilityPreCastFlags.CheckCanCast|
-				                          AbilityPreCastFlags.CheckPlayerIncapacitated));
+				Priority=SkillPriority.High;
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckRecastTimer|SkillPrecastFlags.CheckEnergy|
+				                          SkillPrecastFlags.CheckExisitingBuff|SkillPrecastFlags.CheckCanCast|
+				                          SkillPrecastFlags.CheckPlayerIncapacitated));
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 13));
 		  }

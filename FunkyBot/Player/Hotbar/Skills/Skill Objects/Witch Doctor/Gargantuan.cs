@@ -10,14 +10,14 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 		  public override void Initialize()
 		  {
 				Cooldown=25000;
-				ExecutionType=AbilityExecuteFlags.Buff;
+				ExecutionType=SkillExecutionFlags.Buff;
 				WaitVars=new WaitLoops(2, 1, true);
 				Cost=147;
 				Counter=1;
-				UseageType=AbilityUseage.Anywhere;
-				Priority=AbilityPriority.High;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|
-				                          AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckPetCount));
+				UseageType=SkillUseage.Anywhere;
+				Priority=SkillPriority.High;
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast|
+				                          SkillPrecastFlags.CheckEnergy|SkillPrecastFlags.CheckPetCount));
 				IsBuff=true;
 				FcriteriaBuff=
 				  () => Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]!=0&&Bot.Character.Data.PetData.Gargantuan==0;

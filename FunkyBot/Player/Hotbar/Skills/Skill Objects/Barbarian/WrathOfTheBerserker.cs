@@ -15,14 +15,14 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 		  public override void Initialize()
 		  {
 				Cooldown=120500;
-				ExecutionType=AbilityExecuteFlags.Buff;
+				ExecutionType=SkillExecutionFlags.Buff;
 				WaitVars=new WaitLoops(4, 4, true);
 				Cost=50;
-				UseageType=AbilityUseage.Anywhere;
+				UseageType=SkillUseage.Anywhere;
 				IsSpecialAbility=Bot.Settings.Barbarian.bWaitForWrath;
-				Priority=AbilityPriority.High;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckExisitingBuff|
-				                          AbilityPreCastFlags.CheckCanCast));
+				Priority=SkillPriority.High;
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckEnergy|SkillPrecastFlags.CheckExisitingBuff|
+				                          SkillPrecastFlags.CheckCanCast));
 				FcriteriaCombat=() => Bot.Targeting.Cache.Environment.bAnyChampionsPresent
 				                      ||(Bot.Settings.Barbarian.bBarbUseWOTBAlways&&Bot.Targeting.Cache.Environment.SurroundingUnits>1)
 									  || (Bot.Settings.Barbarian.bGoblinWrath && Bot.Targeting.Cache.CurrentTarget.IsTreasureGoblin);

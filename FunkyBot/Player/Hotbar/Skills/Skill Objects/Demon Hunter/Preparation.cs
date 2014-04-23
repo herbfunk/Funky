@@ -8,12 +8,12 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 		 public override void Initialize()
 		  {
 				Cooldown=5000;
-				ExecutionType=AbilityExecuteFlags.Buff;
+				ExecutionType=SkillExecutionFlags.Buff;
 				WaitVars=new WaitLoops(1, 1, true);
-				UseageType=AbilityUseage.Anywhere;
-				Priority=AbilityPriority.High;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|
-				                          AbilityPreCastFlags.CheckCanCast));
+				UseageType=SkillUseage.Anywhere;
+				Priority=SkillPriority.High;
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckRecastTimer|
+				                          SkillPrecastFlags.CheckCanCast));
 				Cost=Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.DemonHunter_Preparation]==0?25:0;
 				FcriteriaCombat=() => Bot.Character.Data.dDisciplinePct<0.25d
 					//Rune: Punishment (Restores all Hatered for 25 disc)

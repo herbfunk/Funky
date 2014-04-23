@@ -8,16 +8,16 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 		 public override void Initialize()
 		  {
 				Cooldown=12000;
-				ExecutionType=AbilityExecuteFlags.Target;
+				ExecutionType=SkillExecutionFlags.Target;
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 24,
 					falseConditionalFlags: TargetProperties.DOTDPS));
 				WaitVars=new WaitLoops(1, 1, true);
 				Cost=50;
 				Range=21;
-				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.Medium;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|
-				                          AbilityPreCastFlags.CheckEnergy));
+				UseageType=SkillUseage.Combat;
+				Priority=SkillPriority.Medium;
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast|
+				                          SkillPrecastFlags.CheckEnergy));
 
 				PreCast.Criteria += (s) => !Bot.Character.Class.HotBar.HasDebuff(SNOPower.Succubus_BloodStar);
 

@@ -3,7 +3,7 @@
 	 ///<summary>
 	 ///Priority assigned to abilities
 	 ///</summary>
-	 public enum AbilityPriority
+	 public enum SkillPriority
 	 {
 			//None is used for non-cost reusable abilities.
 			//Low is used for costing abilities.

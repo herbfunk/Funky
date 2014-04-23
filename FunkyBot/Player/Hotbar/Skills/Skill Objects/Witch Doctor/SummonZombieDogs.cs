@@ -11,12 +11,12 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 		  public override void Initialize()
 		  {
 				Cooldown=25000;
-				ExecutionType=AbilityExecuteFlags.Buff;
+				ExecutionType=SkillExecutionFlags.Buff;
 				WaitVars=new WaitLoops(0, 0, true);
 				Cost=49;
-				UseageType=AbilityUseage.Anywhere;
-				Priority=AbilityPriority.High;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckEnergy));
+				UseageType=SkillUseage.Anywhere;
+				Priority=SkillPriority.High;
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckCanCast|SkillPrecastFlags.CheckEnergy));
 				IsBuff=true;
 				FcriteriaBuff=
 				  () => Bot.Character.Data.PetData.ZombieDogs<

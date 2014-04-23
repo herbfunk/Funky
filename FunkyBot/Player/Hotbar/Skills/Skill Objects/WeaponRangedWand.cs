@@ -16,11 +16,11 @@ namespace FunkyBot.Player.HotBar.Skills
 				Range=25;
 				IsRanged=true;
 				IsProjectile=true;
-				Priority = AbilityPriority.None;
-				ExecutionType=AbilityExecuteFlags.Target;
+				Priority = SkillPriority.None;
+				ExecutionType=SkillExecutionFlags.Target;
 				WaitVars=new WaitLoops(0, 0, true);
-				PreCast=new SkillPreCast(AbilityPreCastFlags.None);
-				UseageType=AbilityUseage.Combat;
+				PreCast=new SkillPreCast(SkillPrecastFlags.None);
+				UseageType=SkillUseage.Combat;
 		  }
 
 		  #region IAbility

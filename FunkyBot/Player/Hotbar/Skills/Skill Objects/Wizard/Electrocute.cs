@@ -8,14 +8,14 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 		 public override void Initialize()
 		  {
 				Cooldown=5;
-				ExecutionType=AbilityExecuteFlags.Target|AbilityExecuteFlags.ClusterTarget;
+				ExecutionType=SkillExecutionFlags.Target|SkillExecutionFlags.ClusterTarget;
 				WaitVars=new WaitLoops(0, 0, true);
 				Range=(Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Wizard_Electrocute]==2?15:40);
 				IsRanged=true;
 				IsProjectile=true;
-				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.Low;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated));
+				UseageType=SkillUseage.Combat;
+				Priority=SkillPriority.Low;
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated));
 
 				//Aim for cluster with 2 units very close together.
 				ClusterConditions.Add(new SkillClusterConditions(3d, Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Wizard_Electrocute]==2?15:40, 2,true));

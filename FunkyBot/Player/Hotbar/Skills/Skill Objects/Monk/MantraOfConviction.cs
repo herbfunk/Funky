@@ -9,13 +9,13 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 		  {
 			 
 				Cooldown=3300;
-				ExecutionType=AbilityExecuteFlags.Buff;
+				ExecutionType=SkillExecutionFlags.Buff;
 				WaitVars=new WaitLoops(0, 1, true);
 				Cost=Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Monk_Passive_ChantOfResonance)?25:50;
 				IsBuff=true;
-				UseageType=AbilityUseage.Anywhere;
-				Priority=AbilityPriority.High;
-				PreCast = new SkillPreCast((AbilityPreCastFlags.CheckEnergy | AbilityPreCastFlags.CheckRecastTimer));
+				UseageType=SkillUseage.Anywhere;
+				Priority=SkillPriority.High;
+				PreCast = new SkillPreCast((SkillPrecastFlags.CheckEnergy | SkillPrecastFlags.CheckRecastTimer));
 				IsSpecialAbility=true;
 				FcriteriaBuff=() => !Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Monk_MantraOfConviction_v2_Passive);
 

@@ -8,17 +8,17 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 		 public override void Initialize()
 		  {
 				Cooldown=1500;
-				ExecutionType=AbilityExecuteFlags.ClusterLocation|AbilityExecuteFlags.Location;
+				ExecutionType=SkillExecutionFlags.ClusterLocation|SkillExecutionFlags.Location;
 				WaitVars=new WaitLoops(1, 2, true);
 				Counter = Bot.Settings.Wizard.SerpentSparker?2:1;
 				Cost=15;
 				Range=50;
 				IsRanged=true;
 				IsProjectile = true;
-				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.High;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
-				                          AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckPetCount));
+				UseageType=SkillUseage.Combat;
+				Priority=SkillPriority.High;
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckEnergy|
+				                          SkillPrecastFlags.CheckRecastTimer|SkillPrecastFlags.CheckPetCount));
 				ClusterConditions.Add(new SkillClusterConditions(7d, 50f, 2, true));
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial,
 					falseConditionalFlags: TargetProperties.Fast));

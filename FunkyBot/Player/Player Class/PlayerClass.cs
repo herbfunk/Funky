@@ -137,7 +137,7 @@ namespace FunkyBot.Player.Class
 				newAbility.SuccessfullyUsed += AbilitySuccessfullyUsed;
 
 				//combat ability set property
-				if ((AbilityExecuteFlags.ClusterLocation | AbilityExecuteFlags.ClusterTarget | AbilityExecuteFlags.ClusterTargetNearest | AbilityExecuteFlags.Location | AbilityExecuteFlags.Target).HasFlag(newAbility.ExecutionType))
+				if ((SkillExecutionFlags.ClusterLocation | SkillExecutionFlags.ClusterTarget | SkillExecutionFlags.ClusterTargetNearest | SkillExecutionFlags.Location | SkillExecutionFlags.Target).HasFlag(newAbility.ExecutionType))
 					newAbility.IsCombat = true;
 
 				Abilities.Add(item, newAbility);
@@ -282,7 +282,7 @@ namespace FunkyBot.Player.Class
 						return returnAbility;
 					}
 				}
-				else if (item.ExecutionType.HasFlag(AbilityExecuteFlags.Target) || item.ExecutionType.HasFlag(AbilityExecuteFlags.Location))
+				else if (item.ExecutionType.HasFlag(SkillExecutionFlags.Target) || item.ExecutionType.HasFlag(SkillExecutionFlags.Location))
 				{
 
 					//Check LOS -- Projectiles
@@ -412,7 +412,7 @@ namespace FunkyBot.Player.Class
 		internal bool FindCombatBuffPower(out Skill BuffAbility)
 		{
 			BuffAbility = null;
-			foreach (var item in Abilities.Values.Where(A => A.IsBuff && A.UseageType.HasFlag(AbilityUseage.Combat | AbilityUseage.Anywhere)))
+			foreach (var item in Abilities.Values.Where(A => A.IsBuff && A.UseageType.HasFlag(SkillUseage.Combat | SkillUseage.Anywhere)))
 			{
 				if (item.CheckPreCastConditionMethod())
 				{

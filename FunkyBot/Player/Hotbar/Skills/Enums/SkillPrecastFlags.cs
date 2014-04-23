@@ -6,7 +6,7 @@ namespace FunkyBot.Player.HotBar.Skills
 	 ///Conditions used to determine if Ability is capable of use.
 	 ///</summary>
 	 [Flags]
-	 public enum AbilityPreCastFlags
+	 public enum SkillPrecastFlags
 	 {
 			None=0,
 			CheckEnergy=1,

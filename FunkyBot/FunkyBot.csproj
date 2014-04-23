@@ -638,7 +638,7 @@
     <Compile Include="Player\HotBar\Skills\Conditions\LOSInfo.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\HotBar\Skills\Enums\AbilityUsage.cs">
+    <Compile Include="Player\HotBar\Skills\Enums\SkillUseage.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\HotBar\Skills\Conditions\WaitLoops.cs">
@@ -647,13 +647,13 @@
     <Compile Include="Navigation\Clustering\ClusterConditions.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\HotBar\Skills\Enums\AbilityPreCastFlags.cs">
+    <Compile Include="Player\HotBar\Skills\Enums\SkillPrecastFlags.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\HotBar\Skills\Enums\AbilityPriority.cs">
+    <Compile Include="Player\HotBar\Skills\Enums\SkillPriority.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Player\HotBar\Skills\Enums\AbilityExecuteFlags.cs">
+    <Compile Include="Player\HotBar\Skills\Enums\SkillExecutionFlags.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\HotBar\Skills\Enums\ConditionCriteraTypes.cs">

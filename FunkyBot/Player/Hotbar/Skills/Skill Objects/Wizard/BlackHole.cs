@@ -9,16 +9,16 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 		 public override void Initialize()
 		  {
 				Cooldown=20000;
-				ExecutionType = AbilityExecuteFlags.ClusterLocation| AbilityExecuteFlags.Location;
+				ExecutionType = SkillExecutionFlags.ClusterLocation| SkillExecutionFlags.Location;
 				WaitVars=new WaitLoops(1, 2, true);
 				Cost=20;
 				Range=50;
 				IsRanged=true;
 				IsProjectile = true;
-				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.High;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy|
-				                          AbilityPreCastFlags.CheckRecastTimer));
+				UseageType=SkillUseage.Combat;
+				Priority=SkillPriority.High;
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckEnergy|
+				                          SkillPrecastFlags.CheckRecastTimer));
 
 				ClusterConditions.Add(new SkillClusterConditions(7d, 50f, 5, true));
 			    SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 40, 0.95d));

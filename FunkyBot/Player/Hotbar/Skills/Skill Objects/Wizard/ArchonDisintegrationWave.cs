@@ -8,14 +8,14 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 		 public override void Initialize()
 		  {
 				Cooldown=5;
-				ExecutionType=AbilityExecuteFlags.Target;
+				ExecutionType=SkillExecutionFlags.Target;
 				WaitVars=new WaitLoops(0, 0, false);
 				Range=48;
 				IsRanged=true;
 				IsChanneling=true;
-				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.Low;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated));
+				UseageType=SkillUseage.Combat;
+				Priority=SkillPriority.Low;
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated));
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None));
 		  }
 

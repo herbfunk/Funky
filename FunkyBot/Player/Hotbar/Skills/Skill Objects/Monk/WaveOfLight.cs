@@ -9,16 +9,16 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 		  {
 				Cooldown=250;
 				ExecutionType=Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Monk_WaveOfLight]==1
-					?AbilityExecuteFlags.Self
-					:AbilityExecuteFlags.ClusterLocation|AbilityExecuteFlags.Location;
+					?SkillExecutionFlags.Self
+					:SkillExecutionFlags.ClusterLocation|SkillExecutionFlags.Location;
 				WaitVars=new WaitLoops(2, 4, true);
 				Cost=Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Monk_WaveOfLight]==3?40:75;
 				Range=16;
-				Priority=AbilityPriority.Medium;
-				UseageType=AbilityUseage.Combat;
+				Priority=SkillPriority.Medium;
+				UseageType=SkillUseage.Combat;
 
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckCanCast|
-				                          AbilityPreCastFlags.CheckRecastTimer|AbilityPreCastFlags.CheckPlayerIncapacitated));
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckEnergy|SkillPrecastFlags.CheckCanCast|
+				                          SkillPrecastFlags.CheckRecastTimer|SkillPrecastFlags.CheckPlayerIncapacitated));
 				ClusterConditions.Add(new SkillClusterConditions(6d, 35f, 3, true));
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 20, falseConditionalFlags: TargetProperties.MissileReflecting));
 

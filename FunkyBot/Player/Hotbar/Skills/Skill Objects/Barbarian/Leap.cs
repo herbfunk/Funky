@@ -17,13 +17,13 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 		  {
 				Cooldown=10200;
 				WaitVars=new WaitLoops(2, 2, true);
-				ExecutionType=AbilityExecuteFlags.ClusterLocation|AbilityExecuteFlags.Location;
+				ExecutionType=SkillExecutionFlags.ClusterLocation|SkillExecutionFlags.Location;
 				Range=35;
-				Priority=AbilityPriority.Medium;
-				UseageType=AbilityUseage.Combat;
+				Priority=SkillPriority.Medium;
+				UseageType=SkillUseage.Combat;
 				IsASpecialMovementPower = true;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer|
-				                          AbilityPreCastFlags.CheckCanCast));
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckRecastTimer|
+				                          SkillPrecastFlags.CheckCanCast));
 				ClusterConditions.Add(new SkillClusterConditions(5d, 30, 2, true));
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial,
 					falseConditionalFlags: TargetProperties.Fast, MinimumDistance: 30));

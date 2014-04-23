@@ -13,15 +13,15 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 		public override void Initialize()
 		{
 			Cooldown=300;
-			ExecutionType = AbilityExecuteFlags.Target;
+			ExecutionType = SkillExecutionFlags.Target;
 			WaitVars = new WaitLoops(2, 2, true);
 			Range = 35;
 			IsRanged = true;
 			IsProjectile=true;
-			UseageType=AbilityUseage.Combat;
-			Priority = AbilityPriority.Medium;
-			PreCast=new SkillPreCast((AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckCanCast |
-			                          AbilityPreCastFlags.CheckPlayerIncapacitated));
+			UseageType=SkillUseage.Combat;
+			Priority = SkillPriority.Medium;
+			PreCast=new SkillPreCast((SkillPrecastFlags.CheckRecastTimer | SkillPrecastFlags.CheckCanCast |
+			                          SkillPrecastFlags.CheckPlayerIncapacitated));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Ranged, 25, 0.50d));
 								
 								//TestCustomCombatConditionAlways=true,

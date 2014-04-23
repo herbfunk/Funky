@@ -12,15 +12,15 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				else
 					 Cooldown=250+(250*Bot.Settings.Monk.iMonkComboStrikeAbilities);
 
-				ExecutionType=AbilityExecuteFlags.Target;
-				UseageType=AbilityUseage.Combat;
+				ExecutionType=SkillExecutionFlags.Target;
+				UseageType=SkillUseage.Combat;
 				WaitVars=new WaitLoops(1, 4, true);
-				Priority=Bot.Settings.Monk.bMonkComboStrike?AbilityPriority.Medium:AbilityPriority.Low;
+				Priority=Bot.Settings.Monk.bMonkComboStrike?SkillPriority.Medium:SkillPriority.Low;
 				Range=16;
-				var precastflags = AbilityPreCastFlags.CheckPlayerIncapacitated;
+				var precastflags = SkillPrecastFlags.CheckPlayerIncapacitated;
 				//Combot Strike? lets enforce recast timer and cast check
 				if (Bot.Settings.Monk.bMonkComboStrike)
-					precastflags |= AbilityPreCastFlags.CheckRecastTimer | AbilityPreCastFlags.CheckCanCast;
+					precastflags |= SkillPrecastFlags.CheckRecastTimer | SkillPrecastFlags.CheckCanCast;
 
 				PreCast = new SkillPreCast(precastflags);
 		  }

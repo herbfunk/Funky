@@ -19,14 +19,14 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 		  public override void Initialize()
 		  {
 				Cooldown=150;
-				ExecutionType=AbilityExecuteFlags.ZigZagPathing;
+				ExecutionType=SkillExecutionFlags.ZigZagPathing;
 				WaitVars=new WaitLoops(0, 0, true);
 				Cost=15;
 				IsChanneling=true;
 				Range=23;
-				Priority=AbilityPriority.Medium;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated));
-				UseageType=AbilityUseage.Anywhere;
+				Priority=SkillPriority.Medium;
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated));
+				UseageType=SkillUseage.Anywhere;
 				
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 2);
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);

@@ -40,15 +40,15 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 			var range = Bot.Character.Class.HotBar.RuneIndexCache[Power] == 0 ? 40 : Bot.Character.Class.HotBar.RuneIndexCache[Power] == 4 ? 14 : 25;
 			//Cost = CastingCost();
 			Cooldown = 5;
-			ExecutionType = AbilityExecuteFlags.ClusterLocation | AbilityExecuteFlags.Target;
+			ExecutionType = SkillExecutionFlags.ClusterLocation | SkillExecutionFlags.Target;
 			WaitVars = new WaitLoops(0, 0, true);
 			Range = range;
 			IsRanged = true;
 			IsProjectile = true;
 			IsChanneling = true;
-			UseageType = AbilityUseage.Combat;
-			Priority = AbilityPriority.High;
-			PreCast = new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated));
+			UseageType = SkillUseage.Combat;
+			Priority = SkillPriority.High;
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, range));
 			ClusterConditions.Add(new SkillClusterConditions(5d, range, 2, true));
 

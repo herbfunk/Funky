@@ -8,7 +8,7 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 	///</summary>
 	public class SkillPreCast
 	{
-		public SkillPreCast(AbilityPreCastFlags flags)
+		public SkillPreCast(SkillPrecastFlags flags)
 		{
 			Flags = flags;
 			CreatePrecastCriteria();
@@ -22,33 +22,33 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 			Criteria += ((s) => true);
 		}
 
-		public AbilityPreCastFlags Flags { get; set; }
+		public SkillPrecastFlags Flags { get; set; }
 		public Func<Skill,bool> Criteria { get; set; } 
 
 		private void CreatePrecastCriteria()
 		{
-			AbilityPreCastFlags precastconditions_ = Flags;
-			if (precastconditions_.Equals(AbilityPreCastFlags.None))
+			SkillPrecastFlags precastconditions_ = Flags;
+			if (precastconditions_.Equals(SkillPrecastFlags.None))
 			{
 				Criteria += ((s) => true);
 				return;
 			}
-			if (precastconditions_.HasFlag(AbilityPreCastFlags.CheckPlayerIncapacitated))
+			if (precastconditions_.HasFlag(SkillPrecastFlags.CheckPlayerIncapacitated))
 				Criteria += ((s) => !Bot.Character.Data.bIsIncapacitated);
 
-			if (precastconditions_.HasFlag(AbilityPreCastFlags.CheckPlayerRooted))
+			if (precastconditions_.HasFlag(SkillPrecastFlags.CheckPlayerRooted))
 				Criteria += ((s) => !Bot.Character.Data.bIsRooted);
 
-			if (precastconditions_.HasFlag(AbilityPreCastFlags.CheckExisitingBuff))
+			if (precastconditions_.HasFlag(SkillPrecastFlags.CheckExisitingBuff))
 				Criteria += ((s) => !Bot.Character.Class.HotBar.HasBuff(s.Power));
 
-			if (precastconditions_.HasFlag(AbilityPreCastFlags.CheckPetCount))
+			if (precastconditions_.HasFlag(SkillPrecastFlags.CheckPetCount))
 				Criteria += ((s) => Bot.Character.Class.MainPetCount < s.Counter);
 
-			if (precastconditions_.HasFlag(AbilityPreCastFlags.CheckRecastTimer))
+			if (precastconditions_.HasFlag(SkillPrecastFlags.CheckRecastTimer))
 				Criteria += ((s) => s.LastUsedMilliseconds > s.Cooldown);
 
-			if (precastconditions_.HasFlag(AbilityPreCastFlags.CheckCanCast))
+			if (precastconditions_.HasFlag(SkillPrecastFlags.CheckCanCast))
 			{
 				Criteria += ((s) =>
 				{
@@ -70,7 +70,7 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 				});
 			}
 
-			if (precastconditions_.HasFlag(AbilityPreCastFlags.CheckEnergy))
+			if (precastconditions_.HasFlag(SkillPrecastFlags.CheckEnergy))
 			{
 				Criteria += ((s) =>
 				{

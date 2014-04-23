@@ -31,7 +31,7 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 			if (ability.ClusterConditions.Count==0)
 				return;
 
-			if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTarget | AbilityExecuteFlags.ClusterTargetNearest))
+			if (ability.ExecutionType.HasFlag(SkillExecutionFlags.ClusterTarget | SkillExecutionFlags.ClusterTargetNearest))
 			{
 				foreach (var condition in ability.ClusterConditions)
 				{
@@ -49,7 +49,7 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 			if (ability.SingleUnitCondition.Count == 0)
 			{
 				//No Default Conditions Set.. however if Ability uses target as a execution type then we implement the LOS conditions.
-				if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.Target))
+				if (ability.ExecutionType.HasFlag(SkillExecutionFlags.Target))
 					ability.SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None));
 				else
 					return;

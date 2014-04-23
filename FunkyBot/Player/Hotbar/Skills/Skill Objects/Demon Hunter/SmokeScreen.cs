@@ -8,13 +8,13 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 		 public override void Initialize()
 		  {
 				Cooldown=3000;
-				ExecutionType=AbilityExecuteFlags.Buff;
+				ExecutionType=SkillExecutionFlags.Buff;
 				WaitVars=new WaitLoops(0, 1, true);
 				Cost=28;
 				SecondaryEnergy=true;
 				Range=0;
-				UseageType=AbilityUseage.Anywhere;
-				Priority=AbilityPriority.High;
+				UseageType=SkillUseage.Anywhere;
+				Priority=SkillPriority.High;
 				//PreCastFlags=,
 
 				FcriteriaCombat=() => (!Bot.Character.Class.HotBar.HasBuff(SNOPower.DemonHunter_ShadowPower)||Bot.Character.Data.bIsIncapacitated)

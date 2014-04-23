@@ -29,12 +29,12 @@ namespace FunkyBot.Player.HotBar.Skills
 		  public override void Initialize()
 		  {
 				Cooldown=5;
-				ExecutionType=AbilityExecuteFlags.RemoveBuff;
+				ExecutionType=SkillExecutionFlags.RemoveBuff;
 				WaitVars=new WaitLoops(3, 3, true);
 				IsBuff=true;
-				Priority = AbilityPriority.None;
-				UseageType=AbilityUseage.OutOfCombat;
-				PreCast=new SkillPreCast(AbilityPreCastFlags.None);
+				Priority = SkillPriority.None;
+				UseageType=SkillUseage.OutOfCombat;
+				PreCast=new SkillPreCast(SkillPrecastFlags.None);
 			  
 				FcriteriaBuff=() => Bot.Character.Class.HotBar.HasBuff(SNOPower.Wizard_Archon)&&MissingBuffs();
 

@@ -3,7 +3,7 @@
 namespace FunkyBot.Player.HotBar.Skills
 {
 	 [Flags]
-	 public enum AbilityUseage
+	 public enum SkillUseage
 	 {
 			Anywhere=1,
 			OutOfCombat=2,

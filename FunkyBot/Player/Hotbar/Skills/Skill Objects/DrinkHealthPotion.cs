@@ -29,12 +29,12 @@ namespace FunkyBot.Player.HotBar.Skills
 		  public override void Initialize()
 		  {
 				Cooldown=30000;
-				ExecutionType=AbilityExecuteFlags.None;
+				ExecutionType=SkillExecutionFlags.None;
 				WaitVars=new WaitLoops(3, 3, true);
-				Priority=AbilityPriority.High;
+				Priority=SkillPriority.High;
 
-				UseageType=AbilityUseage.Anywhere;
-				PreCast=new SkillPreCast(AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckRecastTimer);
+				UseageType=SkillUseage.Anywhere;
+				PreCast=new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckRecastTimer);
 
 				//Important!! We have to override the default return of true.. we dont want this to fire as a combat Ability.
 				FcriteriaCombat=() => { return Bot.Character.Data.dCurrentHealthPct<=Bot.Settings.Combat.PotionHealthPercent; };

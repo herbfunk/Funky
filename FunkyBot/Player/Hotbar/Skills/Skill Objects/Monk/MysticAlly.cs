@@ -12,13 +12,13 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 			 //RuneIndex 4 == Sacrifice for 100% Heal
 
 				Cooldown=RuneIndex==4?50000:30000; //Restore Health increases cooldown to 50s
-				ExecutionType=AbilityExecuteFlags.Buff;
+				ExecutionType=SkillExecutionFlags.Buff;
 				WaitVars=new WaitLoops(2, 2, true);
-				UseageType=AbilityUseage.Anywhere;
+				UseageType=SkillUseage.Anywhere;
 				IsBuff=true;
-				Priority=AbilityPriority.High;
+				Priority=SkillPriority.High;
 				IsSpecialAbility=true;
-				PreCast=new SkillPreCast(AbilityPreCastFlags.CheckCanCast);
+				PreCast=new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 				FcriteriaBuff = () => Bot.Character.Data.PetData.MysticAlly == 0;
 				FcriteriaCombat = () => ((this.RuneIndex == 1 || this.RuneIndex==0 || this.RuneIndex==2) && //Damaging Attack
 									   (Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15] > 0 ||

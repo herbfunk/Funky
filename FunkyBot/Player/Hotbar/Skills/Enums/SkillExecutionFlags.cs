@@ -6,7 +6,7 @@ namespace FunkyBot.Player.HotBar.Skills
 	 ///Describes how to use the Ability (SNOPower)
 	 ///</summary>
 	 [Flags]
-	 public enum AbilityExecuteFlags
+	 public enum SkillExecutionFlags
 	 {
 			None=0,
 			Buff=1,

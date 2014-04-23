@@ -14,12 +14,12 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 		{
 			Cooldown = 30000;
 			Range = 25;
-			Priority = AbilityPriority.Medium;
-			ExecutionType = AbilityExecuteFlags.Self;
+			Priority = SkillPriority.Medium;
+			ExecutionType = SkillExecutionFlags.Self;
 
 			WaitVars = new WaitLoops(0, 0, true);
-			PreCast = new SkillPreCast(AbilityPreCastFlags.None);
-			UseageType = AbilityUseage.Combat;
+			PreCast = new SkillPreCast(SkillPrecastFlags.None);
+			UseageType = SkillUseage.Combat;
 		}
 	}
 }

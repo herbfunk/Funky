@@ -8,11 +8,11 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 		 public override void Initialize()
 		  {
 				Cooldown=15000;
-				ExecutionType=AbilityExecuteFlags.Buff;
+				ExecutionType=SkillExecutionFlags.Buff;
 				WaitVars=new WaitLoops(0, 1, true);
-				UseageType=AbilityUseage.Anywhere;
-				Priority=AbilityPriority.High;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckCanCast));
+				UseageType=SkillUseage.Anywhere;
+				Priority=SkillPriority.High;
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckCanCast));
 
 				FcriteriaCombat=() => Bot.Character.Data.dCurrentHealthPct<=0.45d && //less than 45% of HP
 									   (Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25] > 0 || //or with anything nearby while incapacitated

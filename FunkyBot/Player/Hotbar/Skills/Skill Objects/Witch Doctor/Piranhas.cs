@@ -10,16 +10,16 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 		  public override void Initialize()
 		  {
 				Cooldown=8000;
-				ExecutionType=AbilityExecuteFlags.ClusterTarget|AbilityExecuteFlags.Target;
+				ExecutionType=SkillExecutionFlags.ClusterTarget|SkillExecutionFlags.Target;
 
 				WaitVars=new WaitLoops(0, 3, true);
 				Cost=250;
 				Range=45;
 				IsRanged=true;
-				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.High;
+				UseageType=SkillUseage.Combat;
+				Priority=SkillPriority.High;
 
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckEnergy));
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast|SkillPrecastFlags.CheckEnergy));
 
 				ClusterConditions.Add(new SkillClusterConditions(4d, 45f, 5, true));
 			    SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 45, 0.95d));

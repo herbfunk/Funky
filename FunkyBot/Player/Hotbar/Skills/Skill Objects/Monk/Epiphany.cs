@@ -10,12 +10,12 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 		  {
 				//Only check for buff when correct rune is set! rune==2
 				Cooldown=60000;
-				ExecutionType=AbilityExecuteFlags.Buff;
+				ExecutionType=SkillExecutionFlags.Buff;
 				WaitVars=new WaitLoops(1, 1, true);
-				UseageType=AbilityUseage.Combat;
+				UseageType=SkillUseage.Combat;
 
-				Priority=AbilityPriority.High;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckCanCast|AbilityPreCastFlags.CheckRecastTimer));
+				Priority=SkillPriority.High;
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckCanCast|SkillPrecastFlags.CheckRecastTimer));
 				
 				ClusterConditions.Add(new SkillClusterConditions(10d, 50f, 13, false));
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 45, 0.75d));

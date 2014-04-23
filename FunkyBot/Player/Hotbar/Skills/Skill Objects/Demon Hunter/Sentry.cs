@@ -9,13 +9,13 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 		 public override void Initialize()
 		  {
 				Cooldown=12000;
-				ExecutionType=AbilityExecuteFlags.Self;
+				ExecutionType=SkillExecutionFlags.Self;
 				WaitVars=new WaitLoops(0, 0, true);
 				Cost=30;
-				UseageType=AbilityUseage.Anywhere;
-				Priority=AbilityPriority.High;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckEnergy|AbilityPreCastFlags.CheckRecastTimer|
-				                          AbilityPreCastFlags.CheckPlayerIncapacitated));
+				UseageType=SkillUseage.Anywhere;
+				Priority=SkillPriority.High;
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckEnergy|SkillPrecastFlags.CheckRecastTimer|
+				                          SkillPrecastFlags.CheckPlayerIncapacitated));
 
 				FcriteriaCombat=() => Bot.Character.Class.LastUsedAbility.Power!=SNOPower.DemonHunter_Sentry&&
 				                      (Bot.Targeting.Cache.FleeingLastTarget||DateTime.Now.Subtract(Bot.Targeting.Cache.LastFleeAction).TotalMilliseconds<1000)||

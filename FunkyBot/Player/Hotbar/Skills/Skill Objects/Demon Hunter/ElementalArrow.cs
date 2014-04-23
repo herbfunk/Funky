@@ -8,15 +8,15 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 		 public override void Initialize()
 		  {
 				Cooldown=5;
-				ExecutionType=AbilityExecuteFlags.ClusterTarget|AbilityExecuteFlags.Target;
+				ExecutionType=SkillExecutionFlags.ClusterTarget|SkillExecutionFlags.Target;
 				WaitVars=new WaitLoops(0, 1, true);
 				Cost=10;
 				Range=48;
 				IsRanged=true;
 				IsProjectile=true;
-				UseageType=AbilityUseage.Combat;
-				Priority=AbilityPriority.Medium;
-				PreCast=new SkillPreCast((AbilityPreCastFlags.CheckPlayerIncapacitated|AbilityPreCastFlags.CheckEnergy));
+				UseageType=SkillUseage.Combat;
+				Priority=SkillPriority.Medium;
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckEnergy));
 				ClusterConditions.Add(new SkillClusterConditions(4d, 40, 2, true));
 				FcriteriaCombat = () => (!Bot.Targeting.Cache.CurrentTarget.IsTreasureGoblin &&
 				                       Bot.Targeting.Cache.CurrentTarget.SNOID!=5208&&Bot.Targeting.Cache.CurrentTarget.SNOID!=5209&&

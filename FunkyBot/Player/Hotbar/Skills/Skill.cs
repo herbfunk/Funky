@@ -23,13 +23,13 @@ namespace FunkyBot.Player.HotBar.Skills
 			WaitVars = new WaitLoops(0, 0, true);
 			IsRanged = false;
 			IsProjectile = false;
-			UseageType = AbilityUseage.Anywhere;
-			ExecutionType = AbilityExecuteFlags.None;
+			UseageType = SkillUseage.Anywhere;
+			ExecutionType = SkillExecutionFlags.None;
 			IsSpecialAbility = false;
 			IsChanneling = false;
 			IsCombat = false;
 			Range = 0;
-			Priority = AbilityPriority.Low;
+			Priority = SkillPriority.Low;
 			LastUsed = DateTime.Today;
 			IsADestructiblePower = PowerCacheLookup.AbilitiesDestructiblePriority.Contains(Power);
 			IsASpecialMovementPower = PowerCacheLookup.SpecialMovementAbilities.Contains(Power);
@@ -148,7 +148,7 @@ namespace FunkyBot.Player.HotBar.Skills
 
 		private void UsePower()
 		{
-			if (!ExecutionType.HasFlag(AbilityExecuteFlags.RemoveBuff))
+			if (!ExecutionType.HasFlag(SkillExecutionFlags.RemoveBuff))
 			{
 				SuccessUsed = ZetaDia.Me.UsePower(Power, TargetPosition, WorldID, TargetACDGUID);
 			}
@@ -160,7 +160,7 @@ namespace FunkyBot.Player.HotBar.Skills
 		}
 
 		#region Properties
-		public AbilityPriority Priority { get; set; }
+		public SkillPriority Priority { get; set; }
 		///<summary>
 		///Describes variables for use of Ability: PreWait Loops, PostWait Loops, Reuseable
 		///</summary>
@@ -171,13 +171,13 @@ namespace FunkyBot.Player.HotBar.Skills
 		///<summary>
 		///This is used to determine how the Ability will be used
 		///</summary>
-		public AbilityExecuteFlags ExecutionType { get; set; }
+		public SkillExecutionFlags ExecutionType { get; set; }
 
-		private AbilityUseage useageType;
-		public AbilityUseage UseageType
+		private SkillUseage useageType;
+		public SkillUseage UseageType
 		{
 			get { return useageType; }
-			set { useageType = value; if (value.HasFlag(AbilityUseage.OutOfCombat | AbilityUseage.Anywhere)) FcriteriaBuff = () => true; }
+			set { useageType = value; if (value.HasFlag(SkillUseage.OutOfCombat | SkillUseage.Anywhere)) FcriteriaBuff = () => true; }
 		}
 
 		public virtual int RuneIndex { get { return -1; } }
@@ -461,7 +461,7 @@ namespace FunkyBot.Player.HotBar.Skills
 
 		public static void UsePower(ref Skill ability)
 		{
-			if (!ability.ExecutionType.HasFlag(AbilityExecuteFlags.RemoveBuff))
+			if (!ability.ExecutionType.HasFlag(SkillExecutionFlags.RemoveBuff))
 			{
 				ability.SuccessUsed = ZetaDia.Me.UsePower(ability.Power, ability.TargetPosition, ability.WorldID, ability.TargetACDGUID);
 			}
@@ -487,7 +487,7 @@ namespace FunkyBot.Player.HotBar.Skills
 			if (Bot.Settings.Backtracking.EnableBacktracking && Bot.Settings.Backtracking.TrackStartOfCombatEngagment && Bot.Targeting.Cache.StartingLocation.Equals(Vector3.Zero))
 				Bot.Targeting.Cache.StartingLocation = Bot.Character.Data.Position;
 
-			if (ExecutionType.HasFlag(AbilityExecuteFlags.ZigZagPathing))
+			if (ExecutionType.HasFlag(SkillExecutionFlags.ZigZagPathing))
 			{
 				//Reset Blockcounter --
 				Bot.Targeting.Movement.BlockedMovementCounter = 0;
@@ -558,7 +558,7 @@ namespace FunkyBot.Player.HotBar.Skills
 			{
 				CacheUnit ClusterUnit;
 				//Cluster Target -- Aims for Centeroid Unit
-				if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTarget) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster ACDGUID
+				if (ability.ExecutionType.HasFlag(SkillExecutionFlags.ClusterTarget) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster ACDGUID
 				{
 					ClusterUnit = Bot.Targeting.Cache.Clusters.AbilityClusterCache(ability.LastClusterConditionSuccessful)[0].GetNearestUnitToCenteroid();
 					ability.TargetACDGUID = ClusterUnit.AcdGuid.Value;
@@ -566,13 +566,13 @@ namespace FunkyBot.Player.HotBar.Skills
 					return;
 				}
 				//Cluster Location -- Aims for Center of Cluster
-				if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterLocation) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster Target Position
+				if (ability.ExecutionType.HasFlag(SkillExecutionFlags.ClusterLocation) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster Target Position
 				{
 					ability.TargetPosition = (Vector3)Bot.Targeting.Cache.Clusters.AbilityClusterCache(ability.LastClusterConditionSuccessful)[0].Midpoint;
 					return;
 				}
 				//Cluster Target Nearest -- Gets nearest unit in cluster as target.
-				if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ClusterTargetNearest) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster Target Position
+				if (ability.ExecutionType.HasFlag(SkillExecutionFlags.ClusterTargetNearest) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster Target Position
 				{
 					ClusterUnit = Bot.Targeting.Cache.Clusters.AbilityClusterCache(ability.LastClusterConditionSuccessful)[0].ListUnits[0];
 					ability.TargetACDGUID = ClusterUnit.AcdGuid.Value;
@@ -581,14 +581,14 @@ namespace FunkyBot.Player.HotBar.Skills
 				}
 			}
 
-			if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.Location)) //Current Target Position
+			if (ability.ExecutionType.HasFlag(SkillExecutionFlags.Location)) //Current Target Position
 			{
 				ability.TargetPosition = Bot.Targeting.Cache.CurrentTarget.Position;
 				ability.Target_ = Bot.Targeting.Cache.CurrentUnitTarget;
 			}
-			else if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.Self)) //Current Bot Position
+			else if (ability.ExecutionType.HasFlag(SkillExecutionFlags.Self)) //Current Bot Position
 				ability.TargetPosition = Bot.Character.Data.Position;
-			else if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.ZigZagPathing)) //Zig-Zag Pathing
+			else if (ability.ExecutionType.HasFlag(SkillExecutionFlags.ZigZagPathing)) //Zig-Zag Pathing
 			{
 				Bot.NavigationCache.vPositionLastZigZagCheck = Bot.Character.Data.Position;
 				if (Bot.Character.Class.ShouldGenerateNewZigZagPath())
@@ -596,7 +596,7 @@ namespace FunkyBot.Player.HotBar.Skills
 
 				ability.TargetPosition = Bot.NavigationCache.vSideToSideTarget;
 			}
-			else if (ability.ExecutionType.HasFlag(AbilityExecuteFlags.Target)) //Current Target ACDGUID
+			else if (ability.ExecutionType.HasFlag(SkillExecutionFlags.Target)) //Current Target ACDGUID
 			{
 				ability.Target_ = Bot.Targeting.Cache.CurrentUnitTarget;
 				ability.TargetACDGUID = Bot.Targeting.Cache.CurrentTarget.AcdGuid.Value;
