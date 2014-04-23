@@ -1,16 +1,20 @@
 ﻿// herbfunk revisions
 v2.9.1.0
 
+Skill:
+	Changed both Single and Cluster conditions to Lists allowing multiple criterias to be tested.
+
 Tags:
 	TrinityExploreDungeon:
 		PrioritizeScene has optional Minimum Distance before attempting navigation. (minDistance="125")
 		Optimized Priority and Ignored Scene Checking.
 		Fixed Bounty Checks when it shouldn't occur.
 		Added support for stayAfterBounty.
+		Added new until option: BountyCompleted (args: bountyId)
 	FunkyWaypoint will now toggle waypoint map prior to teleporting.
 	FunkyBountyLoad now sets Current Bounty SNO ID when successful.
 	FunkyBountyRefresh now has optional reset parameter to set Current Bounty SNO ID to 0.
-
+	Added HaveBounty and ActBountiesComplete tags from Trinity.
 
 Settings:
 	Pools of Reflection, Cursed Chest, Cursed Shrine and Potion Range Settings added.
@@ -28,13 +32,7 @@ Misc:
 	Added Bounty Cache.
 	Barbarian Avalanche skill added.
 	Act 1 Town Runs should work properly again!
-
-
-
-v2.9.0.0
-
-Skill:
-Changed both Single and Cluster conditions to Lists allowing multiple criterias to be tested.
+	Monk Epiphany Support Added. (Cluster of 13+ units)
 
 
 Bounty Support:
@@ -43,21 +41,8 @@ Bounty Support:
 		FunkyBountyRefresh (Refreshes Bounty Cache)
 		FunkyWaypoint (Uses waypoint non-gizmo Map Style)
 
-	Tags:
-		TrinityExploreDungeon
-			-Added PrioritizeActors (same as Scenes but for actors)
-			-Added new until option: BountyCompleted (args: bountyId)
-		Added HaveBounty tag from Trinity.
-
 Profiles:
-Act 1 Bounty Profiles Added. (Found FunkyBot Folder!)
-
-
-Monk:
-Epiphany Support Added. (Cluster of 13+ units)
-
-Misc:
-Fixed Act 1 Town Runs during Adventure Mode
+	Act 1 Bounty Profiles Added. (Some self made others copied )
 
 
 

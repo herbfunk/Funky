@@ -360,8 +360,8 @@ namespace FunkyBot
 			{
 				try
 				{
-					LBDebug.Items.Add(ZetaDia.CurrentQuest.QuestSNO);
-
+					ObjectCache.SnoObjectPropertyCache = new CacheObjectIDs();
+					CacheObjectIDs.SerializeToXML(ObjectCache.SnoObjectPropertyCache);
 				}
 				catch(Exception ex)
 				{

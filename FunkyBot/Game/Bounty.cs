@@ -41,6 +41,7 @@ namespace FunkyBot.Game
 			{
 				CurrentBounties.Add(bounty.Info.QuestSNO, bounty);
 			}
+			RefreshBountyInfo();
 		}
 		///<summary>
 		///Refreshes Current Bounty Quest States

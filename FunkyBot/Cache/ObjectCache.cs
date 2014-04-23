@@ -21,6 +21,7 @@ namespace FunkyBot.Cache
 	{
 		internal static CacheObject FakeCacheObject;
 		internal static CacheUnitIDs SnoUnitPropertyCache;
+		internal static CacheObjectIDs SnoObjectPropertyCache;
 
 		///<summary>
 		///Cached Objects.

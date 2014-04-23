@@ -617,52 +617,69 @@ namespace FunkyBot.Cache.Objects
 						}
 						else if (Actortype.Value == ActorType.Gizmo)
 						{
-
-							GizmoType thisGizmoType;
-							try
+							//Try Cache Lookup First!
+							if (ObjectCache.SnoObjectPropertyCache.Doors.Contains(SNOID))
 							{
-								thisGizmoType = thisObj.ActorInfo.GizmoType;
-							}
-							catch
+								targetType=TargetType.Door;
+								Gizmotype = GizmoType.Door;
+							}//Try Cache Lookup First!
+							else if(ObjectCache.SnoObjectPropertyCache.ResplendantChests.Contains(SNOID))
 							{
-
-								Logger.Write(LogLevel.Cache, "Failure to get actor Gizmo Type!");
-								return false;
-							}
-							
-							if (thisGizmoType == GizmoType.DestroyableObject || thisGizmoType == GizmoType.BreakableChest)
-								targetType = TargetType.Destructible;
-							else if (thisGizmoType == GizmoType.PowerUp || thisGizmoType == GizmoType.HealingWell || thisGizmoType == GizmoType.PoolOfReflection)
-							{
-								targetType = TargetType.Shrine;
-							}
-							else if (thisGizmoType == GizmoType.Chest)
 								targetType = TargetType.Container;
-							else if (thisGizmoType == GizmoType.BreakableDoor)
-								targetType = TargetType.Barricade;
-							else if (thisGizmoType == GizmoType.Door)
-								targetType = TargetType.Door;
-							else if (thisGizmoType == GizmoType.Waypoint || thisGizmoType == GizmoType.Portal || thisGizmoType == GizmoType.DungeonPortal || thisGizmoType == GizmoType.BossPortal)
-							{//Special Interactive Object -- Add to special cache!
-								targetType = TargetType.ServerInteractable;
+								Gizmotype = GizmoType.Chest;
 							}
-							else if (thisGizmoType == GizmoType.Switch)
+							else
 							{
-								if (IsCursedShrine)
-									targetType = TargetType.CursedShrine;
-								else if (IsCursedChest)
-									targetType = TargetType.CursedChest;
-								else
+								GizmoType thisGizmoType;
+								try
 								{
+									thisGizmoType = thisObj.ActorInfo.GizmoType;
+								}
+								catch
+								{
+
+									Logger.Write(LogLevel.Cache, "Failure to get actor Gizmo Type!");
+									return false;
+								}
+
+								if (thisGizmoType == GizmoType.DestroyableObject || thisGizmoType == GizmoType.BreakableChest)
+									targetType = TargetType.Destructible;
+								else if (thisGizmoType == GizmoType.PowerUp || thisGizmoType == GizmoType.HealingWell || thisGizmoType == GizmoType.PoolOfReflection)
+								{
+									targetType = TargetType.Shrine;
+								}
+								else if (thisGizmoType == GizmoType.Chest)
+									targetType = TargetType.Container;
+								else if (thisGizmoType == GizmoType.BreakableDoor)
+									targetType = TargetType.Barricade;
+								else if (thisGizmoType == GizmoType.Door)
+									targetType = TargetType.Door;
+								else if (thisGizmoType == GizmoType.Waypoint || thisGizmoType == GizmoType.Portal || thisGizmoType == GizmoType.DungeonPortal || thisGizmoType == GizmoType.BossPortal)
+								{//Special Interactive Object -- Add to special cache!
+									targetType = TargetType.ServerInteractable;
+								}
+								else if (thisGizmoType == GizmoType.Switch)
+								{
+									if (IsCursedShrine)
+										targetType = TargetType.CursedShrine;
+									else if (IsCursedChest)
+										targetType = TargetType.CursedChest;
+									else
+									{
+										BlacklistCache.IgnoreThisObject(this, raguid);
+										return false;
+									}
+								}
+								else
+								{//All other gizmos should be ignored!
 									BlacklistCache.IgnoreThisObject(this, raguid);
 									return false;
 								}
+
+								//Set Gizmotype Property!
+								if (!Gizmotype.HasValue) Gizmotype = thisGizmoType;
 							}
-							else
-							{//All other gizmos should be ignored!
-								BlacklistCache.IgnoreThisObject(this, raguid);
-								return false;
-							}
+
 
 							if (targetType.HasValue)
 							{
@@ -671,9 +688,6 @@ namespace FunkyBot.Cache.Objects
 								else if (targetType.Value == TargetType.Shrine || IsChestContainer)
 									Obstacletype = ObstacleType.ServerObject;
 							}
-
-							if (!Gizmotype.HasValue)
-								Gizmotype = thisGizmoType;
 						}
 						else if (CacheIDLookup.hashSNOInteractWhitelist.Contains(SNOID))
 							targetType = TargetType.Interactable;

@@ -172,6 +172,8 @@ namespace FunkyBot
 			}
 
 			ObjectCache.SnoUnitPropertyCache = CacheUnitIDs.DeserializeFromXML();
+			ObjectCache.SnoObjectPropertyCache = CacheObjectIDs.DeserializeFromXML();
+
 			ObjectCache.FakeCacheObject = new CacheObject(Vector3.Zero, TargetType.None, 0d, "Fake Target", 1f);
 			
 			//Update Account Details..
