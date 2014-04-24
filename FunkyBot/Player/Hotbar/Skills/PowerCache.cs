@@ -84,8 +84,9 @@ namespace FunkyBot.Cache
                 {SNOPower.X1_Crusader_Bombardment, 60000},{SNOPower.X1_Crusader_Condemn, 15000},{SNOPower.X1_Crusader_Consecration, 30000}, 
                 {SNOPower.X1_Crusader_FallingSword, 30000},{SNOPower.X1_Crusader_FistOfTheHeavens, 5}, 
                 {SNOPower.X1_Crusader_HeavensFury3, 20000},{SNOPower.X1_Crusader_IronSkin, 30000},{SNOPower.X1_Crusader_Judgment, 20000},
-                {SNOPower.X1_Crusader_Justice, 5},{SNOPower.X1_Crusader_LawsOfJustice, 45000},{SNOPower.X1_Crusader_LawsOfHope, 45000}, 
-                {SNOPower.X1_Crusader_LawsOfValor, 45000},{SNOPower.x1_Crusader_Phalanx3, 5},{SNOPower.X1_Crusader_Provoke, 20000},{SNOPower.X1_Crusader_Punish, 5},
+				{SNOPower.X1_Crusader_Justice, 5},
+                {SNOPower.X1_Crusader_LawsOfJustice2, 45000},{SNOPower.X1_Crusader_LawsOfHope2, 45000}, 
+                {SNOPower.X1_Crusader_LawsOfValor2, 45000},{SNOPower.x1_Crusader_Phalanx3, 5},{SNOPower.X1_Crusader_Provoke, 20000},{SNOPower.X1_Crusader_Punish, 5},
                 {SNOPower.X1_Crusader_ShieldGlare, 12000},{SNOPower.X1_Crusader_ShieldBash2, 5},{SNOPower.X1_Crusader_Slash, 5}, 
                 {SNOPower.X1_Crusader_Smite, 5 },  {SNOPower.X1_Crusader_SteedCharge, 16000 }, {SNOPower.X1_Crusader_SweepAttack, 5 },
 	            #endregion 
@@ -228,8 +229,8 @@ namespace FunkyBot.Cache
                 {SNOPower.X1_Crusader_Bombardment, DateTime.Today},{SNOPower.X1_Crusader_Condemn, DateTime.Today},{SNOPower.X1_Crusader_Consecration, DateTime.Today}, 
                 {SNOPower.X1_Crusader_CrushingResolve, DateTime.Today},{SNOPower.X1_Crusader_FallingSword, DateTime.Today},{SNOPower.X1_Crusader_FistOfTheHeavens, DateTime.Today}, 
                 {SNOPower.X1_Crusader_HeavensFury3, DateTime.Today},{SNOPower.X1_Crusader_IronSkin, DateTime.Today},{SNOPower.X1_Crusader_Judgment, DateTime.Today},
-                {SNOPower.X1_Crusader_Justice, DateTime.Today},{SNOPower.X1_Crusader_LawsOfJustice, DateTime.Today},{SNOPower.X1_Crusader_LawsOfHope, DateTime.Today}, 
-                {SNOPower.X1_Crusader_LawsOfValor, DateTime.Today},{SNOPower.X1_Crusader_Provoke, DateTime.Today},{SNOPower.X1_Crusader_Punish, DateTime.Today},
+                {SNOPower.X1_Crusader_Justice, DateTime.Today},{SNOPower.X1_Crusader_LawsOfJustice2, DateTime.Today},{SNOPower.X1_Crusader_LawsOfHope2, DateTime.Today}, 
+                {SNOPower.X1_Crusader_LawsOfValor2, DateTime.Today},{SNOPower.X1_Crusader_Provoke, DateTime.Today},{SNOPower.X1_Crusader_Punish, DateTime.Today},
                 {SNOPower.X1_Crusader_ShieldGlare, DateTime.Today},{SNOPower.X1_Crusader_ShieldBash2, DateTime.Today},{SNOPower.X1_Crusader_Slash, DateTime.Today}, 
                 {SNOPower.X1_Crusader_Smite, DateTime.Today },  {SNOPower.X1_Crusader_SteedCharge, DateTime.Today }, {SNOPower.X1_Crusader_SweepAttack, DateTime.Today },
 	            #endregion 

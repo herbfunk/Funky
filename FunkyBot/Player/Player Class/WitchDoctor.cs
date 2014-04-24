@@ -16,16 +16,13 @@ namespace FunkyBot.Player.Class
 		}
 		//Base class for each individual class!
 		public override ActorClass AC { get { return ActorClass.Witchdoctor; } }
-		private readonly HashSet<SNOAnim> knockbackanims = new HashSet<SNOAnim>
-				{
-					 SNOAnim.WitchDoctor_Male_1HT_MOJO_knockback_land,
+
+		private readonly HashSet<SNOAnim> knockbackanims_Female = new HashSet<SNOAnim>
+		{
 					 SNOAnim.WitchDoctor_Female_1HT_MOJO_knockback_land,
-					 SNOAnim.WitchDoctor_Male_HTH_Knockback_Land,
-					 SNOAnim.WitchDoctor_Male_1HT_Knockback_Land,
 					 SNOAnim.WitchDoctor_Female_HTH_knockback_land,
 					 SNOAnim.WitchDoctor_Female_1HT_knockback_land,
 					 SNOAnim.WitchDoctor_Female_2HT_knockback_land,
-					 SNOAnim.WitchDoctor_Male_XBOW_Knockback_Land,
 					 SNOAnim.WitchDoctor_Female_STF_knockback_land,
 					 SNOAnim.WitchDoctor_Female_XBOW_knockback_land,
 					 SNOAnim.WitchDoctor_Female_HTH_MOJO_knockback_land,
@@ -33,6 +30,9 @@ namespace FunkyBot.Player.Class
 					 SNOAnim.WitchDoctor_Female_2HS_knockback_land,
 					 SNOAnim.WitchDoctor_Female_1HS_MOJO_knockback_land,
 					 SNOAnim.WitchDoctor_Female_1HS_Knockback_land,
+		};
+		private readonly HashSet<SNOAnim> knockbackanims_Male = new HashSet<SNOAnim>
+		{
 					 SNOAnim.WitchDoctor_Male_1HS_Knockback_land,
 					 SNOAnim.WitchDoctor_Male_2HS_Knockback_Land,
 					 SNOAnim.WitchDoctor_Male_2HT_Knockback_Land,
@@ -40,12 +40,16 @@ namespace FunkyBot.Player.Class
 					 SNOAnim.WitchDoctor_Male_1HS_MOJO_Knockback_Land,
 					 SNOAnim.WitchDoctor_Male_BOW_Knockback_Land,
 					 SNOAnim.WitchDoctor_Male_STF_Knockback_Land,
-				};
+					 SNOAnim.WitchDoctor_Male_XBOW_Knockback_Land,
+					 SNOAnim.WitchDoctor_Male_HTH_Knockback_Land,
+					 SNOAnim.WitchDoctor_Male_1HT_Knockback_Land,
+					 SNOAnim.WitchDoctor_Male_1HT_MOJO_knockback_land,
+		};
 		internal override HashSet<SNOAnim> KnockbackLandAnims
 		{
 			get
 			{
-				return knockbackanims;
+				return Bot.Character.Data.SnoActor == SNOActor.WitchDoctor_Female ? knockbackanims_Female : knockbackanims_Male;
 			}
 		}
 		internal override Skill DefaultAttack

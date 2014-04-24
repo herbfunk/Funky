@@ -9,13 +9,14 @@
 </TargetBlacklists>
 <Order>
 
-  <If condition="CurrentWorldId != 71150">
-    <FunkyWaypoint ID="13" />
-  </If>
-  
-	<WaitTimer questId="1" stepId="2" waitTime="2000" />	
-	<HaveBounty questId="344501">	
-	
+
+
+  <WaitTimer questId="1" stepId="2" waitTime="2000" />
+  <HaveBounty questId="344501">
+    <If condition="CurrentWorldId != 71150">
+      <FunkyWaypoint ID="13" />
+    </If>
+    
 		<!-- Look for him -->
 		<LogMessage quest="1" step="2" output="We're hunting for the creature known as Lorzak..." />
 		<TrinityExploreDungeon questId="1" stepId="1" until="FullyExplored" boxTolerance="0.10" boxSize="15" stayAfterBounty="False">

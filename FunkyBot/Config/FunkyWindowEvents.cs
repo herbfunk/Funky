@@ -362,13 +362,8 @@ namespace FunkyBot
 			{
 				try
 				{
-					LBDebug.Items.Add(Game.UI.BloodShardVendor_GoldText.Text);
-					foreach (var uie in UIElement.GetChildren(Game.UI.BloodShardVendor_GoldText))
-					{
-						string s = String.Format("Name: {0} Hash: 0x{1} Text: {2}",uie.Name, uie.Hash.ToString("X"), uie.HasText?uie.Text.ToString():"");
-						LBDebug.Items.Add(s);
-						Logger.DBLog.Info(s);
-					}
+					LBDebug.Items.Add(Enum.GetName(typeof(SNOActor), ZetaDia.Me.ActorSNO));
+					
 				}
 				catch(Exception ex)
 				{

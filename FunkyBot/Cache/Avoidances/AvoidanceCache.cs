@@ -20,7 +20,7 @@ namespace FunkyBot.Cache
 			  new AvoidanceValue(AvoidanceType.AzmodanPool, 1, 54,5),
 			  new AvoidanceValue(AvoidanceType.BeeProjectile, 0.5, 2,5),
 			  new AvoidanceValue(AvoidanceType.BelialGround, 1, 25,5),
-			  new AvoidanceValue(AvoidanceType.Dececrator, 1, 9,12),
+			  new AvoidanceValue(AvoidanceType.Dececrator, 0.80, 9,12),
 			  new AvoidanceValue(AvoidanceType.DemonicForge, 1, 25,12),
 			  new AvoidanceValue(AvoidanceType.DiabloMetor, 0.80, 28,5),
 			  new AvoidanceValue(AvoidanceType.DiabloPrison, 1, 15,5),
@@ -39,7 +39,7 @@ namespace FunkyBot.Cache
 			  new AvoidanceValue(AvoidanceType.PoisonGas, 0.5, 9,5),
 			  new AvoidanceValue(AvoidanceType.ShamanFireBall, 0.1, 2,5), 
 			  new AvoidanceValue(AvoidanceType.SuccubusProjectile, 0.25, 2,5),
-			  new AvoidanceValue(AvoidanceType.Thunderstorm, 1, 9,10),
+			  new AvoidanceValue(AvoidanceType.Thunderstorm, 0.80, 9,10),
 			  new AvoidanceValue(AvoidanceType.TreeSpore, 1, 14,10),
 			  //new AvoidanceValue(AvoidanceType.WallOfFire, 0, 0, 0),
 			  //?? value never makes it when deseralized, but is seralized.

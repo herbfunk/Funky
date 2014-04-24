@@ -7,7 +7,7 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 	{
 		public override SNOPower Power
 		{
-			get { return SNOPower.X1_Crusader_LawsOfValor; }
+			get { return SNOPower.X1_Crusader_LawsOfValor2; }
 		}
 
 		public override void Initialize()
@@ -18,8 +18,11 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			ExecutionType = SkillExecutionFlags.Buff;
 
 			WaitVars = new WaitLoops(0, 0, true);
-			PreCast = new SkillPreCast(SkillPrecastFlags.None);
+			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 			UseageType = SkillUseage.Combat;
+
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 20, 0.95d, TargetProperties.Normal));
+			ClusterConditions.Add(new SkillClusterConditions(10d, 25, 10, false));
 		}
 	}
 }

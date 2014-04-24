@@ -937,6 +937,9 @@
     <Compile Include="XML\BaseComplexNodeTag.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="XML\TrinitySetQuesting.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="XML\FunkyBountyRefresh.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

@@ -27,17 +27,30 @@ namespace FunkyBot.Player.Class
 		//Base class for each individual class!
 		public override ActorClass AC { get { return ActorClass.Wizard; } }
 
-		private readonly HashSet<SNOAnim> knockbackanims = new HashSet<SNOAnim>
-				{
-					 SNOAnim.Wizard_Female_Archon_knockback_land,
+		private readonly HashSet<SNOAnim> knockbackanims_Male = new HashSet<SNOAnim>
+		{
 					 SNOAnim.Wizard_Male_Archon_knockback_land,
+					 SNOAnim.Wizard_Male_Bow_Knockback_End_01,
+					 SNOAnim.Wizard_Male_HTH_Orb_Knockback_End_01,
+					 SNOAnim.Wizard_Male_1HS_Orb_Knockback_End_01,
+					 SNOAnim.Wizard_Male_HTH_Knockback_End_01,
+					 SNOAnim.Wizard_Male_STF_Knockback_End_01,
+					 SNOAnim.Wizard_Male_1HS_Knockback_End_01,
+					 //
+		};
+		private readonly HashSet<SNOAnim> knockbackanims_Female = new HashSet<SNOAnim>
+		{
+					 SNOAnim.Wizard_Female_Archon_knockback_land,
 					 SNOAnim.Wizard_Female_1HS_Orb_Knockback_Land_01,
-				};
+					 SNOAnim.Wizard_Female_STF_Knockback_01_Land,
+					 SNOAnim.Wizard_Female_1HS_Knockback_End_01,
+					 //
+		};
 		internal override HashSet<SNOAnim> KnockbackLandAnims
 		{
 			get
 			{
-				return knockbackanims;
+				return Bot.Character.Data.SnoActor == SNOActor.Wizard_Female ? knockbackanims_Female : knockbackanims_Male;
 			}
 		}
 		internal override Skill DefaultAttack

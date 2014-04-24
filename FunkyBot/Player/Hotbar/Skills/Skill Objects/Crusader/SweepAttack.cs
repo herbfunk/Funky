@@ -16,11 +16,14 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			Range = 18;
 			Cost = 20;
 			Priority = SkillPriority.Low;
-			ExecutionType = SkillExecutionFlags.Target|SkillExecutionFlags.Location;
+			ExecutionType = SkillExecutionFlags.Target|SkillExecutionFlags.ClusterTargetNearest;
 
 			WaitVars = new WaitLoops(0, 0, true);
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckEnergy);
 			UseageType = SkillUseage.Combat;
+
+			ClusterConditions.Add(new SkillClusterConditions(10d, 25f, 3, true));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 20, 0.95d, TargetProperties.Normal));
 		}
 	}
 }

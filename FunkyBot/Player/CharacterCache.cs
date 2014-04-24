@@ -39,6 +39,8 @@ namespace FunkyBot.Player
 			coinage = 0;
 			fCharacterRadius = 0f;
 			CurrentExp = 0;
+			actorSNO = -1;
+			_snoactor=SNOActor.NoSpawnActor;
 		}
 
 		#region Events
@@ -228,8 +230,27 @@ namespace FunkyBot.Player
 			}
 		}
 
+		public int ActorSno
+		{
+			get { return actorSNO; }
+			set
+			{ 
+				actorSNO = value;
+				_snoactor = (SNOActor)value;
+			}
+		}
+		private int actorSNO;
+
+		private SNOActor _snoactor;
+		public SNOActor SnoActor
+		{
+			get { return _snoactor; }
+		}
+
 		internal DateTime lastUpdateNonEssentialData = DateTime.Today;
 		internal DateTime lastCheckedSceneID = DateTime.Today;
+
+		
 
 
 		#endregion
@@ -246,14 +267,20 @@ namespace FunkyBot.Player
 
 			using (ZetaDia.Memory.AcquireFrame())
 			{
-				// If we aren't in the game of a world is loading, don't do anything yet
-				if (!ZetaDia.IsInGame || !ZetaDia.Me.IsValid || ZetaDia.IsLoadingWorld) return;
-
-				var me = ZetaDia.Me;
-				if (me == null) return;
-
 				try
 				{
+					// If we aren't in the game of a world is loading, don't do anything yet
+					if (!ZetaDia.IsInGame || !ZetaDia.Me.IsValid || ZetaDia.IsLoadingWorld) return;
+
+					var me = ZetaDia.Me;
+					if (me == null) return;
+
+					//update actorSNO
+					if (ActorSno == -1)
+					{
+						ActorSno = me.ActorSNO;
+					}
+
 					if (Bot.Character.Class.AC == ActorClass.DemonHunter)
 					{
 						dDiscipline = me.CurrentSecondaryResource;
@@ -315,7 +342,7 @@ namespace FunkyBot.Player
 						lastUpdateNonEssentialData = DateTime.Now;
 
 						//update level if not 60 else update paragonlevel
-						if (iMyLevel < 60) iMyLevel = me.Level;
+						if (iMyLevel < 70) iMyLevel = me.Level;
 
 						iMyDynamicID = me.CommonData.DynamicId;
 						FreeBackpackSlots = me.Inventory.NumFreeBackpackSlots;
@@ -341,7 +368,7 @@ namespace FunkyBot.Player
 						lastCheckedSceneID = DateTime.Now;
 					}
 				}
-				catch (AccessViolationException)
+				catch (Exception)
 				{
 
 				}
@@ -386,13 +413,15 @@ namespace FunkyBot.Player
 															   "Incapacitated={5} -- Rooted={6} \r\n" +
 															   "Current Health={7} -- Current Energy={8}[{9}%] \r\n" +
 															   "Current Coin={10} -- CurrentXP={11} \r\n" +
-															   "Is In Boss Encounter={12}",
+															   "Is In Boss Encounter={12}\r\n" +
+															   "SNOActor ID: {13} -- {14}",
 															   iCurrentLevelID, iCurrentWorldID, iSceneID,
 															   Lastsnoanim.ToString(), lastAnimationState.ToString(),
 															   Bot.Character.Data.bIsIncapacitated.ToString(), Bot.Character.Data.bIsRooted.ToString(),
 															   dCurrentHealthPct, dCurrentEnergy, dCurrentEnergyPct,
 															   Coinage, CurrentExp,
-															   bIsInBossEncounter);
+															   bIsInBossEncounter,
+															   ActorSno,SnoActor);
 
 		}
 

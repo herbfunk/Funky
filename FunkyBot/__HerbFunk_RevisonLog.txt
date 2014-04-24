@@ -1,4 +1,40 @@
 ﻿// herbfunk revisions
+v2.9.2.0
+
+Cache:
+	Added CacheObjectIDs class with XML loading. (Cache/Dictionaries/SNOId_Cache_Objects.xml)
+	Gizmos will check CacheObjectIDs first before getting GizmoType from DiaGizmo.
+
+Game:
+	UpdateBounties now refreshes quest states too.
+
+Targeting:
+	Line of Sight Movement now validates object is still valid for targeting. (Fixed bug with containers)
+
+Town Run:
+	Added check for in-game and valid actor into behaviors. (So it will stop when its not in game!)
+	 
+Tags:
+	FunkyWaypoint now checks and changes the map to the valid area when using waypoints.
+	TrinityExploreDungeon now Caches Ignored Areas.
+	Added HasQuestAndStep Tag from Trinity.
+	Updated TrinityExploreDungeon with newest Until Types.
+	Updated MinimapMarker Class according to Trinity.
+	Added TrinitySetQuesting Tag: This enables monster quest property refreshing which prioritizes quest monsters.
+
+Items:
+	Updated Rare Rules using ShutteR's.
+	Common Crafting Items now have Armor or DPS to eliminate inferior items.
+
+Classes:
+	Added Knockback Animations to Crusader Class.
+	Knockback Animation Sets are separated by male/female.
+	Started on Crusader Skills...
+
+Settings:
+	Added Line of Sight option for Cursed Chests/Shrines.
+
+
 v2.9.1.0
 
 Skill:

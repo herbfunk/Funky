@@ -15,6 +15,7 @@ namespace FunkyBot
 
 			//Clear Custom Cluster Settings
 			ProfileCache.ClusterSettingsTag = Bot.Settings.Cluster;
+			ProfileCache.QuestMode = false;
 
 			//Update Tracker
 			Bot.Game.CurrentGameStats.ProfileChanged(sThisProfile);

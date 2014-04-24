@@ -21,7 +21,8 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 
 			WaitVars = new WaitLoops(0, 0, true);
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckEnergy);
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 25, 0.75d));
+			
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 25, 0.75d, TargetProperties.Normal));
 			ClusterConditions.Add(new SkillClusterConditions(5d, 25f, 2, true));
 			UseageType = SkillUseage.Combat;
 		}

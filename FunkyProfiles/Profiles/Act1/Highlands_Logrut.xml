@@ -36,6 +36,7 @@
           <IgnoreScene sceneName="Entrance_E06" />
           <IgnoreScene sceneName="Entrance_E07" />
           <IgnoreScene sceneName="Entrance_E08" />
+          <IgnoreScene sceneName="Chokepoint" />
         </IgnoreScenes>
       </TrinityExploreDungeon>
     </If>

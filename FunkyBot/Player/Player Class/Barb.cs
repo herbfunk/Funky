@@ -30,8 +30,17 @@ namespace FunkyBot.Player.Class
 				return true;
 			}
 		}
-		private readonly HashSet<SNOAnim> knockbackanims = new HashSet<SNOAnim>
-				{
+		private readonly HashSet<SNOAnim> knockbackanims_Male = new HashSet<SNOAnim>
+		{
+					 SNOAnim.barbarian_male_1HS_Knockback_Land_01, 
+					 SNOAnim.barbarian_male_1HT_knockback_land,
+					 SNOAnim.barbarian_male_DW_Knockback_Land_01,
+					 SNOAnim.barbarian_male_2HT_Knockback_Land_01,
+					 SNOAnim.barbarian_male_STF_Knockback_Land_01,
+					 SNOAnim.barbarian_male_2HS_Knockback_Land_01,
+		};
+		private readonly HashSet<SNOAnim> knockbackanims_Female = new HashSet<SNOAnim>
+		{
 					 SNOAnim.Barbarian_Female_1HS_knockback_land_01, 
 					 SNOAnim.Barbarian_Female_1HT_Knockback_Land, 
 					 SNOAnim.Barbarian_Female_2HS_Knockback_Land_01, 
@@ -39,18 +48,15 @@ namespace FunkyBot.Player.Class
 					 SNOAnim.Barbarian_Female_DW_Knockback_Land_01, 
 					 SNOAnim.Barbarian_Female_HTH_knockback_land, 
 					 SNOAnim.Barbarian_Female_STF_Knockback_Land_01,
-					 SNOAnim.barbarian_male_1HS_Knockback_Land_01, 
-					 SNOAnim.barbarian_male_1HT_knockback_land,
-					 SNOAnim.barbarian_male_DW_Knockback_Land_01,
-					 SNOAnim.barbarian_male_2HT_Knockback_Land_01,
-					 SNOAnim.barbarian_male_STF_Knockback_Land_01,
-					 SNOAnim.barbarian_male_2HS_Knockback_Land_01,
-				};
+		};
+
+
+
 		internal override HashSet<SNOAnim> KnockbackLandAnims
 		{
 			get
 			{
-				return knockbackanims;
+				return Bot.Character.Data.SnoActor == SNOActor.Barbarian_Male ? knockbackanims_Male : knockbackanims_Female;
 			}
 		}
 

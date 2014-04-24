@@ -18,8 +18,10 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			ExecutionType = SkillExecutionFlags.Self;
 
 			WaitVars = new WaitLoops(0, 0, true);
-			PreCast = new SkillPreCast(SkillPrecastFlags.None);
+			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 			UseageType = SkillUseage.Combat;
+
+			FcriteriaCombat = () => Bot.Character.Data.dCurrentHealthPct < 0.5d;
 		}
 	}
 }

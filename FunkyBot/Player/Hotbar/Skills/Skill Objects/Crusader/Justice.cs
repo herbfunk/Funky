@@ -13,10 +13,11 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 		public override void Initialize()
 		{
 			Cooldown = 5;
-			Range = 40;
+			Range = 49;
 			Priority = SkillPriority.None;
 			ExecutionType = SkillExecutionFlags.Target;
-
+			IsRanged = true;
+			IsProjectile = true;
 			WaitVars = new WaitLoops(0, 0, true);
 			PreCast = new SkillPreCast(SkillPrecastFlags.None);
 			UseageType = SkillUseage.Combat;

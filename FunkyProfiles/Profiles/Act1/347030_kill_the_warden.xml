@@ -6,13 +6,17 @@
 <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
 <Order>
 
-  <FunkyWaypoint waypointNumber="16" questId="1"/>
-	<WaitTimer questId="1" stepId="2" waitTime="2000" />		
+
 	<HaveBounty questId="347030">
+    
+    <If condition="CurrentLevelAreaId != 19775 and CurrentWorldId != 87707 and CurrentWorldId != 94676">
+      <FunkyWaypoint waypointNumber="16" questId="1"/>
+      <WaitTimer questId="1" stepId="2" waitTime="2000" />
+    </If>
 	
 		<!--  Halls of Agony Level 2 -->
 		<If condition="CurrentLevelAreaId == 19775">
-			<TrinityExploreDungeon questId="1" stepId="2" boxTolerance="0.18" boxSize="20" until="ExitFound" exitNameHash="1241437688" ignoreMarkers="False">
+			<TrinityExploreDungeon questId="1" stepId="2" boxTolerance="0.18" boxSize="20" until="ExitFound" exitNameHash="1241437688" markerDistance="47" ignoreMarkers="False">
 				<PrioritizeScenes>
 					<PriorityScene sceneName="Exit" />
 				</PrioritizeScenes>
@@ -21,18 +25,29 @@
 		</If>
 		
 		<!--  Highlands Passage -->
-		<If condition="CurrentWorldId == 87707">								
-			<TrinityExploreDungeon questId="1" stepId="2" boxTolerance="0.18" boxSize="20" until="ExitFound" exitNameHash="1303804501" ignoreMarkers="False">
-				<PrioritizeScenes>
-					<PriorityScene sceneName="Exit" />
-				</PrioritizeScenes>
-			</TrinityExploreDungeon>			
+		<If condition="CurrentWorldId == 87707">
+      <WaitTimer questId="1" stepId="2" waitTime="2000" />
+      
+      <TrinityUseOnce id="0">
+        <SafeMoveTo questId="312429" stepId="2" x="515" y="327" z="6" pathPrecision="5" pathPointLimit="250" statusText="" />
+      </TrinityUseOnce>
+      <TrinityUseOnce id="1">
+        <SafeMoveTo questId="312429" stepId="2" x="514" y="189" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+      </TrinityUseOnce>
+      <TrinityUseOnce id="2">
+        <SafeMoveTo questId="312429" stepId="2" x="403" y="226" z="-19" pathPrecision="5" pathPointLimit="250" statusText="" />
+      </TrinityUseOnce>
+      <TrinityUseOnce id="3">
+        <SafeMoveTo questId="312429" stepId="2" x="235" y="241" z="-25" pathPrecision="5" pathPointLimit="250" statusText="" />
+      </TrinityUseOnce>
+
 			<MoveToMapMarker questId="1" stepId="2" exitNameHash="1303804501" destinationWorldId="94676" interactRange="20"  />			
 		</If>
 		
 		<!--  Cursed Hold - Kill Warden  -->
-		<If condition="CurrentWorldId == 94676">	
-			
+		<If condition="CurrentWorldId == 94676">
+      <WaitTimer questId="1" stepId="2" waitTime="2000" />
+      
 			<!-- Kill Warden -->
 			<SafeMoveTo questId="1" stepId="1" x="351" y="600" z="0" pathPrecision="5" pathPointLimit="250" statusText="" /> 
 			<MoveToActor questId="1" stepId="1" x="345" y="598" z="1" actorId="4203" interactRange="10" name="Ghoul_C-22903"  pathPrecision="5" pathPointLimit="250" statusText="" /> 			

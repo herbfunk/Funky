@@ -53,30 +53,33 @@ namespace FunkyBot.Player.Class
 					 SNOPower.Monk_DeadlyReach,
 					 SNOPower.Monk_CripplingWave,
 				};
-
-		private readonly HashSet<SNOAnim> knockbackanims = new HashSet<SNOAnim>
-				{
+		private readonly HashSet<SNOAnim> knockbackanims_Male = new HashSet<SNOAnim>
+		{
 					 SNOAnim.Monk_Male_HTH_knockback_land_01,
-					 SNOAnim.Monk_Female_HTH_knockback_land_01,
-					 SNOAnim.Monk_Male_STF_knockback_land,
-					 SNOAnim.Monk_Male_2HT_knockback_land,
-					 SNOAnim.Monk_Female_STF_knockback_land,
-					 SNOAnim.Monk_Male_1HS_knockback_land,
-					 SNOAnim.Monk_Female_1HS_knockback_land,
-					 SNOAnim.Monk_Female_2HT_knockback_land,
 					 SNOAnim.Monk_Male_1HF_knockback_land_01,
 					 SNOAnim.Monk_Male_DW_SF_knockback_land_01,
 					 SNOAnim.Monk_Male_DW_FF_knockback_land_01,
+					 SNOAnim.Monk_Male_1HS_knockback_land,
+					 SNOAnim.Monk_Male_STF_knockback_land,
+					 SNOAnim.Monk_Male_2HT_knockback_land,
+		};
+		private readonly HashSet<SNOAnim> knockbackanims_Female = new HashSet<SNOAnim>
+		{
+					 SNOAnim.Monk_Female_STF_knockback_land,
+					 SNOAnim.Monk_Female_1HS_knockback_land,
+					 SNOAnim.Monk_Female_2HT_knockback_land,
+					 SNOAnim.Monk_Female_HTH_knockback_land_01,
 					 SNOAnim.Monk_Female_DW_SS_knockback_land_01,
 					 SNOAnim.Monk_Female_DW_SF_knockback_land_01,
 					 SNOAnim.Monk_Female_DW_FF_knockback_land_01,
 					 SNOAnim.Monk_Female_1HF_knockback_land_01,
-				};
+		};
+
 		internal override HashSet<SNOAnim> KnockbackLandAnims
 		{
 			get
 			{
-				return knockbackanims;
+				return Bot.Character.Data.SnoActor == SNOActor.Monk_Female ? knockbackanims_Female : knockbackanims_Male;
 			}
 		}
 		internal override Skill DefaultAttack

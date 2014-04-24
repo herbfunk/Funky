@@ -1374,7 +1374,7 @@ namespace FunkyBot.Cache.Objects
 			}
 
 			//Update Quest Monster?
-			if (Bot.Targeting.Cache.UpdateQuestMonsterProperty)
+			if (Bot.Targeting.Cache.UpdateQuestMonsterProperty || ProfileCache.QuestMode)
 			{
 				try
 				{
@@ -1491,7 +1491,11 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
-				return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n HP {4} / MaxHP {5} -- IsMoving: {6} \r\n PriorityCounter={7}\r\nUnit Properties {8}",
+				return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n" +
+				                     "HP {4} / MaxHP {5} -- IsMoving: {6} \r\n" +
+				                     "PriorityCounter={7}\r\n" +
+				                     "QuestMonster={9}\r\n" +
+				                     "Unit Properties {8}",
 					  base.DebugString,
 					  IsBurrowed.HasValue ? IsBurrowed.Value.ToString() : "",
 					  IsTargetable.HasValue ? IsTargetable.Value.ToString() : "",
@@ -1500,7 +1504,8 @@ namespace FunkyBot.Cache.Objects
 					  MaximumHealth.HasValue ? MaximumHealth.Value.ToString(CultureInfo.InvariantCulture) : "",
 					  IsMoving,
 					  PriorityCounter,
-					  Properties);
+					  Properties,
+					  QuestMonster);
 			}
 		}
 

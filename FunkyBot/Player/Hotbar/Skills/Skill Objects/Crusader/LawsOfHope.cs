@@ -7,18 +7,18 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 	{
 		public override SNOPower Power
 		{
-			get { return SNOPower.X1_Crusader_LawsOfHope; }
+			get { return SNOPower.X1_Crusader_LawsOfHope2; }
 		}
 
 		public override void Initialize()
 		{
-			Cooldown = 5;
+			Cooldown = 45000;
 			Range = 8;
-			Priority = SkillPriority.None;
-			ExecutionType = SkillExecutionFlags.Target;
+			Priority = SkillPriority.High;
+			ExecutionType = SkillExecutionFlags.Buff;
 
 			WaitVars = new WaitLoops(0, 0, true);
-			PreCast = new SkillPreCast(SkillPrecastFlags.None);
+			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 			UseageType = SkillUseage.Combat;
 		}
 	}

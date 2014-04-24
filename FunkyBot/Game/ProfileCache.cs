@@ -28,6 +28,8 @@ namespace FunkyBot.Game
 			set { clusterSettingsTag = value; }
 		}
 
+		internal static bool QuestMode { get; set; }
+
 		internal bool PreformingInteractiveBehavior
 		{
 			get

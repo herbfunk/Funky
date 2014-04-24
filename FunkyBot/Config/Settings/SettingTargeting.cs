@@ -28,13 +28,13 @@ namespace FunkyBot.Settings
 			  IgnoreAboveAverageMobs=false;
 			  PrioritizeCloseRangeUnits=true;
 			  PrioritizeCloseRangeMinimumUnits=3;
-			  IgnoreCorpses=false;
+			  IgnoreCorpses=true;
 			  UseExtendedRangeRepChest=false;
 			  MissleDampeningEnforceCloseRange=true;
-			  UnitExceptionLowHP=true;
+			  UnitExceptionLowHP = false;
               UnitExceptionLowHPMaximumDistance = 20;
-			  UnitExceptionRangedUnits=true;
-			  UnitExceptionSpawnerUnits=true;
+			  UnitExceptionRangedUnits=false;
+			  UnitExceptionSpawnerUnits = false;
 			  UnitExceptionSucideBombers=true;
 		 }
 		 private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Targeting_Default.xml");

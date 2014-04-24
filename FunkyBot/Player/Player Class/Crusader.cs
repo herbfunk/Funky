@@ -9,6 +9,11 @@ namespace FunkyBot.Player.Class
 {
 	internal class Crusader : PlayerClass
 	{
+		public Crusader()
+		{
+			Logger.DBLog.DebugFormat("[Funky] Using Crusader Player Class");
+		}
+
 		public override ActorClass AC { get { return ActorClass.Crusader; } }
 
 		internal override Skill DefaultAttack
@@ -23,9 +28,22 @@ namespace FunkyBot.Player.Class
 				return true;
 			}
 		}
-
-		private readonly HashSet<SNOAnim> knockbackanims = new HashSet<SNOAnim>
-				{
+		private readonly HashSet<SNOAnim> knockbackanims_Male = new HashSet<SNOAnim>
+		{
+					SNOAnim.x1_Crusader_Male_2HS_Shield_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_2HS_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_HTH_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_2HFlail_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_2HMace_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_2HT_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_1HT_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_2HT_Shield_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_1HT_Shield_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_1HS_Shield_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_knockback_land_01,
+		};
+		private readonly HashSet<SNOAnim> knockbackanims_Female = new HashSet<SNOAnim>
+		{
 					SNOAnim.x1_Crusader_Female_2HT_Shield_Knockback_land,
 					SNOAnim.x1_Crusader_Female_2HMace_Shield_Knockback_land,
 					SNOAnim.x1_Crusader_Female_2HS_Shield_Knockback_land,
@@ -40,24 +58,13 @@ namespace FunkyBot.Player.Class
 					SNOAnim.x1_Crusader_Female_1HS_Shield_Knockback_land,
 					SNOAnim.x1_Crusader_Female_1HS_Knockback_land,
 					SNOAnim.x1_Crusader_Female_HTH_Knockback_land,
+		};
 
-					SNOAnim.x1_Crusader_Male_2HS_Shield_knockback_land_01,
-					SNOAnim.x1_Crusader_Male_2HS_knockback_land_01,
-					SNOAnim.x1_Crusader_Male_HTH_knockback_land_01,
-					SNOAnim.x1_Crusader_Male_2HFlail_knockback_land_01,
-					SNOAnim.x1_Crusader_Male_2HMace_knockback_land_01,
-					SNOAnim.x1_Crusader_Male_2HT_knockback_land_01,
-					SNOAnim.x1_Crusader_Male_1HT_knockback_land_01,
-					SNOAnim.x1_Crusader_Male_2HT_Shield_knockback_land_01,
-					SNOAnim.x1_Crusader_Male_1HT_Shield_knockback_land_01,
-					SNOAnim.x1_Crusader_Male_1HS_Shield_knockback_land_01,
-					SNOAnim.x1_Crusader_Male_knockback_land_01,
-				};
 		internal override HashSet<SNOAnim> KnockbackLandAnims
 		{
 			get
 			{
-				return knockbackanims;
+				return Bot.Character.Data.SnoActor== SNOActor.X1_Crusader_Female ? knockbackanims_Female : knockbackanims_Male;
 			}
 		}
 
@@ -79,8 +86,6 @@ namespace FunkyBot.Player.Class
 					return new SteedCharge();
 				case CrusaderActiveSkills.Crusader_Condemn:
 					return new Condemn();
-				case CrusaderActiveSkills.Crusader_LawsOfJustice:
-					return new LawsOfJustice();
 				case CrusaderActiveSkills.Crusader_BlessedHammer:
 					return new BlessedHammer();
 				case CrusaderActiveSkills.Crusader_BlessedShield:
@@ -105,10 +110,12 @@ namespace FunkyBot.Player.Class
 					return new Slash();
 				case CrusaderActiveSkills.Crusader_Provoke:
 					return new Provoke();
-				case CrusaderActiveSkills.Crusader_LawsOfHope:
-					return new LawsOfHope();
-				case CrusaderActiveSkills.Crusader_LawsOfValor:
-					return new LawsOfValor();
+				//case CrusaderActiveSkills.Crusader_LawsOfHope:
+				//	return new LawsOfHope();
+				//case CrusaderActiveSkills.Crusader_LawsOfValor:
+				//	return new LawsOfValor();
+				//case CrusaderActiveSkills.Crusader_LawsOfJustice:
+				//	return new LawsOfJustice();
 				case CrusaderActiveSkills.Crusader_IronSkin:
 					return new IronSkin();
 				case CrusaderActiveSkills.Crusader_HeavensFury3:

@@ -920,7 +920,7 @@ namespace FunkyBot.XMLTags
 						new Action(ret => isDone = true)
 					)
 				),
-				new Decorator(ret => Bot.Character.Data.bIsInTown,
+				new Decorator(ret => ZetaDia.IsInTown,
 					new Sequence(
 						new Action(ret => Logger.DBLog.DebugFormat("Cannot use TrinityExploreDungeon in town - tag finished!", SceneName)),
 						new Action(ret => isDone = true)
@@ -1651,6 +1651,8 @@ namespace FunkyBot.XMLTags
 		/// </summary>
 		private void Init(bool forced = false)
 		{
+			Bot.Character.Data.Update(false, true);
+
 			iWorldID = ZetaDia.Me.WorldDynamicId;
 
 			if (BoxSize == 0)

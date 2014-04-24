@@ -18,25 +18,28 @@ namespace FunkyBot.Player.Class
 
 		//Base class for each individual class!
 		public override ActorClass AC { get { return ActorClass.DemonHunter; } }
-
-		private readonly HashSet<SNOAnim> knockbackanims = new HashSet<SNOAnim>
-				{
-					 SNOAnim.Demonhunter_Female_HTH_knockback_land_01,
-					 SNOAnim.Demonhunter_Female_Bow_knockback_land_01,
-					 SNOAnim.Demonhunter_Female_1HS_knockback_land_01,
+		private readonly HashSet<SNOAnim> knockbackanims_Male = new HashSet<SNOAnim>
+		{
 					 SNOAnim.Demonhunter_Male_XBow_knockback_land_01,
 					 SNOAnim.Demonhunter_Male_HTH_knockback_land_01,
 					 SNOAnim.Demonhunter_Male_1HS_knockback_land_01,
 					 SNOAnim.Demonhunter_Male_Bow_knockback_land_01,
-					 SNOAnim.Demonhunter_Female_1HXBow_knockback_land_01,
 					 SNOAnim.Demonhunter_Male_1HXBow_knockback_land_01,
 					 SNOAnim.Demonhunter_Male_DW_XBow_knockback_land_01,
-				};
+		};
+		private readonly HashSet<SNOAnim> knockbackanims_Female = new HashSet<SNOAnim>
+		{
+					 SNOAnim.Demonhunter_Female_HTH_knockback_land_01,
+					 SNOAnim.Demonhunter_Female_Bow_knockback_land_01,
+					 SNOAnim.Demonhunter_Female_1HS_knockback_land_01,
+					 SNOAnim.Demonhunter_Female_1HXBow_knockback_land_01,
+		};
+
 		internal override HashSet<SNOAnim> KnockbackLandAnims
 		{
 			get
 			{
-				return knockbackanims;
+				return Bot.Character.Data.SnoActor == SNOActor.Demonhunter_Female ? knockbackanims_Female : knockbackanims_Male;
 			}
 		}
 		internal override Skill DefaultAttack

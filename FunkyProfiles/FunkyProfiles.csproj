@@ -249,6 +249,9 @@
     <Content Include="Profiles\Act1\Araneae_Qurash.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Profiles\Act1\Highlands_Buras.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Profiles\Test.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
