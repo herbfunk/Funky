@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FunkyBot.Cache;
 using FunkyBot.Movement;
 using Zeta.Bot.Navigation;
 using Zeta.Common;
@@ -16,28 +17,35 @@ namespace FunkyBot.XMLTags
 	/// </summary>
 	public class MiniMapMarker : IEquatable<MiniMapMarker>
 	{
+		private const int WAYPOINT_MARKER = -1751517829;
+
+		internal static HashSet<int> TownHubMarkers = new HashSet<int>()
+        {
+            1877684886 // A5 Hub
+        };
+
 		public int MarkerNameHash { get; set; }
 		public Vector3 Position { get; set; }
 		public bool Visited { get; set; }
 		public bool Failed { get; set; }
 		public MiniMapMarker() { }
-		public static List<MiniMapMarker> KnownMarkers = new List<MiniMapMarker>();
+		internal static List<MiniMapMarker> KnownMarkers = new List<MiniMapMarker>();
 
-		public static MoveResult lastMoveResult = MoveResult.Moved;
+		internal static MoveResult lastMoveResult = MoveResult.Moved;
 
-		public static bool AnyUnvisitedMarkers()
+		internal static bool AnyUnvisitedMarkers()
 		{
-			return KnownMarkers.Any(m => !m.Visited && !m.Failed);
+			return MiniMapMarker.KnownMarkers.Any(m => !m.Visited && !m.Failed);
 		}
 
-		public static void SetNearbyMarkersVisited(Vector3 near, float pathPrecision)
+		internal static void SetNearbyMarkersVisited(Vector3 near, float pathPrecision)
 		{
 			MiniMapMarker nearestMarker = GetNearestUnvisitedMarker(near);
 			if (nearestMarker != null)
 			{
 				foreach (MiniMapMarker marker in KnownMarkers.Where(m => m.Equals(nearestMarker) && near.Distance2D(m.Position) <= pathPrecision))
 				{
-					//DbHelper.Logger.DBLog.InfoFormat(TrinityLogLevel.Normal, LogCategory.ProfileTag, "Setting MiniMapMarker {0} as Visited, within PathPrecision {1:0}", marker.MarkerNameHash, pathPrecision);
+					Logger.DBLog.DebugFormat("Setting MiniMapMarker {0} as Visited, within PathPrecision {1:0}", marker.MarkerNameHash, pathPrecision);
 					marker.Visited = true;
 					lastMoveResult = MoveResult.Moved;
 				}
@@ -47,7 +55,7 @@ namespace FunkyBot.XMLTags
 				{
 					foreach (MiniMapMarker marker in KnownMarkers.Where(m => m.Equals(nearestMarker)))
 					{
-						//DbHelper.Logger.DBLog.InfoFormat(TrinityLogLevel.Normal, LogCategory.ProfileTag, "Setting MiniMapMarker {0} as Visited, MoveResult=ReachedDestination", marker.MarkerNameHash);
+						Logger.DBLog.DebugFormat("Setting MiniMapMarker {0} as Visited, MoveResult=ReachedDestination", marker.MarkerNameHash);
 						marker.Visited = true;
 						lastMoveResult = MoveResult.Moved;
 					}
@@ -57,7 +65,7 @@ namespace FunkyBot.XMLTags
 				{
 					foreach (MiniMapMarker marker in KnownMarkers.Where(m => m.Equals(nearestMarker)))
 					{
-						//DbHelper.Logger.DBLog.InfoFormat(TrinityLogLevel.Normal, LogCategory.ProfileTag, "Unable to navigate to marker, setting MiniMapMarker {0} at {1} as failed", marker.MarkerNameHash, marker.Position);
+						Logger.DBLog.DebugFormat("Unable to navigate to marker, setting MiniMapMarker {0} at {1} as failed", marker.MarkerNameHash, marker.Position);
 						marker.Failed = true;
 						lastMoveResult = MoveResult.Moved;
 					}
@@ -66,24 +74,23 @@ namespace FunkyBot.XMLTags
 
 		}
 
-		public static MiniMapMarker GetNearestUnvisitedMarker(Vector3 near)
+		internal static MiniMapMarker GetNearestUnvisitedMarker(Vector3 near)
 		{
 			return KnownMarkers.OrderBy(m => m.MarkerNameHash != 0).ThenBy(m => Vector3.Distance(near, m.Position)).FirstOrDefault(m => !m.Visited && !m.Failed);
 		}
 
 		private static DefaultNavigationProvider NavProvider;
 
-		public static void UpdateFailedMarkers()
+		internal static void UpdateFailedMarkers()
 		{
 			if (NavProvider == null)
 				NavProvider = new DefaultNavigationProvider();
-
 
 			foreach (MiniMapMarker marker in KnownMarkers.Where(m => m.Failed))
 			{
 				if (NavProvider.CanPathWithinDistance(marker.Position, 10f))
 				{
-					//DbHelper.LogNormal("Was able to generate full path to failed MiniMapMarker {0} at {1}, marking as good", marker.MarkerNameHash, marker.Position);
+					Logger.DBLog.DebugFormat("Was able to generate full path to failed MiniMapMarker {0} at {1}, marking as good", marker.MarkerNameHash, marker.Position);
 					marker.Failed = false;
 					lastMoveResult = MoveResult.PathGenerated;
 				}
@@ -92,7 +99,7 @@ namespace FunkyBot.XMLTags
 
 		internal static void AddMarkersToList(int includeMarker = 0)
 		{
-			foreach (MinimapMarker marker in GetMarkerList(includeMarker))
+			foreach (Zeta.Game.Internals.MinimapMarker marker in GetMarkerList(includeMarker))
 			{
 				MiniMapMarker mmm = new MiniMapMarker()
 				{
@@ -101,50 +108,97 @@ namespace FunkyBot.XMLTags
 					Visited = false
 				};
 
-				//DbHelper.Logger.DBLog.InfoFormat(TrinityLogLevel.Normal, LogCategory.ProfileTag, "Adding MiniMapMarker {0} at {1} to KnownMarkers", mmm.MarkerNameHash, mmm.Position);
+				Logger.DBLog.DebugFormat("Adding MiniMapMarker {0} at {1} to KnownMarkers", mmm.MarkerNameHash, mmm.Position);
 
 				KnownMarkers.Add(mmm);
 			}
 		}
 
-		private static IEnumerable<MinimapMarker> GetMarkerList(int includeMarker)
-		{
-			return ZetaDia.Minimap.Markers.CurrentWorldMarkers.Where(m => (m.NameHash == 0 || m.NameHash == includeMarker) && !KnownMarkers.Any(ml => ml.Position == m.Position && ml.MarkerNameHash == m.NameHash)).OrderBy(m => m.NameHash != 0);
-		}
-
-		public static DecoratorContinue DetectMiniMapMarkers(int includeMarker = 0)
+		private static Composite CreateAddRiftMarkers()
 		{
 			return
-			new DecoratorContinue(ret => ZetaDia.Minimap.Markers.CurrentWorldMarkers.Any(m => (m.NameHash == 0 || m.NameHash == includeMarker) && !KnownMarkers.Any(m2 => m2.Position != m.Position && m2.MarkerNameHash == m.NameHash)),
-				 new Sequence(
-					  new Action(ret => AddMarkersToList(includeMarker))
-				 )
+			new DecoratorContinue(ret => ZetaDia.CurrentAct == Act.OpenWorld && CacheIDLookup.riftWorldIds.Contains(Bot.Character.Data.iCurrentWorldID),
+				new Action(ret =>
+				{
+					foreach (var nameHash in CacheIDLookup.riftPortalHashes)
+					{
+						AddMarkersToList(nameHash);
+					}
+
+					foreach (var marker in ZetaDia.Minimap.Markers.CurrentWorldMarkers.Where(m => (m.IsPortalExit || m.IsPointOfInterest) && !TownHubMarkers.Contains(m.NameHash)))
+					{
+						AddMarkersToList(marker.NameHash);
+					}
+				})
 			);
 		}
 
-		public static Decorator VisitMiniMapMarkers(Vector3 near, float markerDistance)
+		internal static void AddMarkersToList(List<TrinityExploreDungeon.Objective> objectives)
+		{
+			if (objectives == null)
+				return;
+
+			foreach (var objective in objectives.Where(o => o.MarkerNameHash != 0))
+			{
+				if (ZetaDia.Minimap.Markers.CurrentWorldMarkers.Any(m => m.NameHash == objective.MarkerNameHash))
+				{
+					AddMarkersToList(objective.MarkerNameHash);
+				}
+			}
+		}
+
+		private static IEnumerable<Zeta.Game.Internals.MinimapMarker> GetMarkerList(int includeMarker)
+		{
+			return ZetaDia.Minimap.Markers.CurrentWorldMarkers
+				.Where(m => (m.NameHash == 0 || m.NameHash == includeMarker || m.IsPointOfInterest || m.IsPortalExit) &&
+					!KnownMarkers.Any(ml => ml.Position == m.Position && ml.MarkerNameHash == m.NameHash))
+					.OrderBy(m => m.NameHash != 0);
+		}
+
+		internal static Composite DetectMiniMapMarkers(int includeMarker = 0)
 		{
 			return
-			new Decorator(ret => AnyUnvisitedMarkers(),
-				 new Sequence(
-					  new Action(ret => SetNearbyMarkersVisited(ZetaDia.Me.Position, markerDistance)),
-					  new Decorator(ret => GetNearestUnvisitedMarker(ZetaDia.Me.Position) != null,
-							new Action(ret => MoveToNearestMarker(near))
-					  )
-				 )
+			new Sequence(
+				CreateAddRiftMarkers(),
+				new DecoratorContinue(ret => ZetaDia.Minimap.Markers.CurrentWorldMarkers
+					.Any(m => (m.NameHash == 0 || m.NameHash == includeMarker) && !KnownMarkers.Any(m2 => m2.Position != m.Position && m2.MarkerNameHash == m.NameHash)),
+					new Sequence(
+					new Action(ret => MiniMapMarker.AddMarkersToList(includeMarker))
+					)
+				)
 			);
 		}
 
-		public static RunStatus MoveToNearestMarker(Vector3 near)
+		internal static Composite DetectMiniMapMarkers(List<TrinityExploreDungeon.Objective> objectives)
 		{
-			if (SkipAheadCache.bSkipAheadAGo)
-				SkipAheadCache.RecordSkipAheadCachePoint();
+			return
+			new Sequence(
+				new Action(ret => MiniMapMarker.AddMarkersToList(objectives))
+			);
+		}
 
+		internal static Composite VisitMiniMapMarkers(Vector3 near, float markerDistance)
+		{
+			return
+			new Decorator(ret => MiniMapMarker.AnyUnvisitedMarkers(),
+				new Sequence(
+					new Action(ret => MiniMapMarker.SetNearbyMarkersVisited(Bot.Character.Data.Position, markerDistance)),
+					new Decorator(ret => MiniMapMarker.GetNearestUnvisitedMarker(Bot.Character.Data.Position) != null,
+						new Action(ret => MoveToNearestMarker(near))
+					)
+				)
+			);
+		}
 
-			lastMoveResult = Navigator.MoveTo(GetNearestUnvisitedMarker(near).Position);
+		internal static RunStatus MoveToNearestMarker(Vector3 near)
+		{
+			MiniMapMarker m = MiniMapMarker.GetNearestUnvisitedMarker(near);
+			SkipAheadCache.RecordSkipAheadCachePoint();
 
-			//DbHelper.Logger.DBLog.InfoFormat(TrinityLogLevel.Normal, LogCategory.ProfileTag, "Moving to inspect nameHash {0} at {1} distance {2:0} mr: {3}",
-			//m.MarkerNameHash, m.Position, ZetaDia.Me.Position.Distance2D(m.Position), lastMoveResult);
+			lastMoveResult = Navigator.MoveTo(MiniMapMarker.GetNearestUnvisitedMarker(near).Position);
+
+			Logger.DBLog.DebugFormat("Moving to inspect nameHash {0} at {1} distance {2:0} mr: {3}",
+				m.MarkerNameHash, m.Position, Bot.Character.Data.Position.Distance2D(m.Position), lastMoveResult);
 
 
 			return RunStatus.Success;
@@ -153,7 +207,7 @@ namespace FunkyBot.XMLTags
 
 		public bool Equals(MiniMapMarker other)
 		{
-			return other.Position == Position && other.MarkerNameHash == MarkerNameHash;
+			return other.Position == this.Position && other.MarkerNameHash == this.MarkerNameHash;
 		}
 	}
 }

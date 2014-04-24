@@ -946,6 +946,9 @@
     <Compile Include="XML\FunkyWaypoint.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="XML\HasQuestAndStep.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="XML\HaveBounty.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

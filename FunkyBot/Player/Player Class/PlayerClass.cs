@@ -34,9 +34,20 @@ namespace FunkyBot.Player.Class
 
 			LastUsedAbility = DefaultAttack;
 			PowerPrime = DefaultAttack;
+
+			List<CacheACDItem> equippedItems = Bot.Character.Data.BackPack.ReturnCurrentEquippedItems();
+			if (equippedItems.Any(i => i.ThisRealName.Contains("Reaper's Wraps")))
+			{
+				GlobesRestoreResource = true;
+				Logger.DBLog.DebugFormat("Reaper's Wraps is equipped.. globes will be targeted on low resource!");
+			}
+			else
+				GlobesRestoreResource = false;
+
 			Logger.DBLog.InfoFormat("[Funky] Finished Creating Player Class");
 		}
 
+		public bool GlobesRestoreResource { get; set; }
 
 		///<summary>
 		///The actor class of this bot.

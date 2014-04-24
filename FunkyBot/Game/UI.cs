@@ -13,7 +13,31 @@ namespace FunkyBot.Game
 		{
 			return uie != null && uie.IsValid && uie.IsVisible;
 		}
-
+		public static UIElement Inventory_Dialog_MainPage
+		{
+			get
+			{
+				try { return UIElement.FromHash(0x3622D03B2C9B8E6D); }
+				catch { return null; }
+			}
+		}
+		public static UIElement BloodShardVendor
+		{
+			get
+			{ 
+				try { return UIElement.FromHash(0xA83F2BC15AC524D7); }
+				catch { return null; }
+			}
+		}
+		public static UIElement BloodShardVendor_GoldText
+		{
+			get
+			{
+				try { return UIElement.FromHash(0x8470DAE1C16136B8); }
+				catch { return null; }
+			}
+		}
+		// 
 		public static UIElement WaypointMap_ZoomOut
 		{
 			get
@@ -63,7 +87,7 @@ namespace FunkyBot.Game
 				catch { return null; }
 			}
 		}
-
+		//
 
 		public static UIElement WaypointMap_ActOneTown
 		{
@@ -117,6 +141,7 @@ namespace FunkyBot.Game
 
 		public static UIElement GetWaypointActUIByWaypointID(int id)
 		{
+			
 			if (id <= 17) return WaypointMap_ActOne;
 			if (id <= 25) return WaypointMap_ActTwo;
 			if (id <= 39) return WaypointMap_ActThree;

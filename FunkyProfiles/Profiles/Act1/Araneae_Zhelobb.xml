@@ -7,17 +7,18 @@
   <Order>
     <ToggleTargeting combat="True" killRadius="100" looting="True" lootRadius="100" />
 
+    <HaveBounty questId="345522">
+      <If condition="CurrentLevelAreaId != 78572">
+        <FunkyWaypoint ID="12" />
+        <WaitTimer questId="312429" stepId="2" waitTime="500" />
+      </If>
 
-    <If condition="CurrentLevelAreaId != 78572">
-      <FunkyWaypoint ID="12" />
-      <WaitTimer questId="312429" stepId="2" waitTime="500" />
-    </If>
-
-    <!-- Dungeon Lid: 78572-->
-    <If condition="CurrentLevelAreaId == 78572">
-      <TrinityExploreDungeon questId="312429" stepId="2" until="BountyCompleted" bountyId="345522" pathPrecision="25" boxSize="20" boxTolerance="0.25" />
-    </If>
-
+      <!-- Dungeon Lid: 78572-->
+      <If condition="CurrentLevelAreaId == 78572">
+        <TrinityExploreDungeon questId="312429" stepId="2" until="BountyCompleted" bountyId="345522" pathPrecision="25" boxSize="20" boxTolerance="0.25" />
+      </If>
+    </HaveBounty>
+    
     <LoadProfile profile="_Act1BountyLoader.xml" />
   </Order>
 </Profile>

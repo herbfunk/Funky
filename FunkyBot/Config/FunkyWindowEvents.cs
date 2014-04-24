@@ -19,6 +19,7 @@ using CheckBox = System.Windows.Controls.CheckBox;
 using MessageBox = System.Windows.MessageBox;
 using Orientation = System.Windows.Controls.Orientation;
 using RadioButton = System.Windows.Controls.RadioButton;
+using UIElement = Zeta.Game.Internals.UIElement;
 
 namespace FunkyBot
 {
@@ -361,9 +362,13 @@ namespace FunkyBot
 			{
 				try
 				{
-					//SettingsForm SF = new SettingsForm();
-					//SF.ShowDialog();
-					
+					LBDebug.Items.Add(Game.UI.BloodShardVendor_GoldText.Text);
+					foreach (var uie in UIElement.GetChildren(Game.UI.BloodShardVendor_GoldText))
+					{
+						string s = String.Format("Name: {0} Hash: 0x{1} Text: {2}",uie.Name, uie.Hash.ToString("X"), uie.HasText?uie.Text.ToString():"");
+						LBDebug.Items.Add(s);
+						Logger.DBLog.Info(s);
+					}
 				}
 				catch(Exception ex)
 				{

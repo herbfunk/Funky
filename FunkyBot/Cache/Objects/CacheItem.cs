@@ -7,7 +7,6 @@ using Zeta.Bot.Logic;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
-using Zeta.Game.Internals.SNO;
 using Zeta.TreeSharp;
 
 namespace FunkyBot.Cache.Objects
@@ -208,7 +207,9 @@ namespace FunkyBot.Cache.Objects
 						break;
 					case TargetType.Globe:
 					case TargetType.PowerGlobe:
-						if (targetType.Equals(TargetType.Globe) && Bot.Character.Data.dCurrentHealthPct > Bot.Settings.Combat.GlobeHealthPercent)
+						if (targetType.Equals(TargetType.Globe) && 
+							(Bot.Character.Data.dCurrentHealthPct > Bot.Settings.Combat.GlobeHealthPercent) ||
+							(!Bot.Character.Class.GlobesRestoreResource || Bot.Character.Data.dCurrentEnergyPct>0.75d))
 						{
 							Weight = 0;
 						}
@@ -364,7 +365,7 @@ namespace FunkyBot.Cache.Objects
 						if (CentreDistance > LootRadius)
 						{
 							//Blacklist Health Globes 10 loops
-							if (targetType!=TargetType.PowerGlobe)
+							if (targetType!=TargetType.PowerGlobe && !Bot.Character.Class.GlobesRestoreResource)
 								BlacklistLoops = 10;
 
 							return false;

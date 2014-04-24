@@ -482,6 +482,28 @@ namespace FunkyBot.Cache
          };
 		#endregion
 
+		public static readonly HashSet<int> riftWorldIds = new HashSet<int>()
+        {
+            288454,
+            288685,
+            288687,
+            288798,
+            288800,
+            288802,
+            288804,
+            288806,
+        };
+		public static readonly HashSet<int> riftPortalHashes = new HashSet<int>()
+		{
+			1938876095,
+			1938876096,
+			1938876097,
+			1938876098,
+			1938876099,
+			1938876100,
+			1938876101,
+			1938876102,
+		};
 
 		// NOTE: you don't NEED interactable SNO's listed here. But if they are listed here, *THIS* is the range at which your character will try to walk to within the object 
 		// BEFORE trying to actually "click it". Certain objects need you to get very close, so it's worth having them listed with low interact ranges

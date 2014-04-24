@@ -88,7 +88,11 @@ namespace FunkyBot.XMLTags
 			ObjectFound,
 			ExitFound,
 			SceneFound,
+			BountyComplete,
 			BountyCompleted,
+			SceneLeftOrActorFound,
+			RiftComplete,
+			PortalExitFound,
 		}
 
 		[XmlAttribute("endType", true)]
@@ -301,6 +305,73 @@ namespace FunkyBot.XMLTags
 			{
 				ActorId = -1;
 				ObjectDistance = 60f;
+			}
+		}
+
+		/// <summary>
+		/// The list of Scene SNOId's or Scene Names that the bot will use for endtype SceneLeftOrActorFound
+		/// </summary>
+		[XmlElement("AlternateScenes")]
+		public List<AlternateScene> AlternateScenes { get; set; }
+
+		/// <summary>
+		/// The Alternate Scene class, used as AlternateScenes child elements
+		/// </summary>
+		[XmlElement("AlternateScene")]
+		public class AlternateScene : IEquatable<Scene>
+		{
+			[XmlAttribute("sceneName")]
+			public string SceneName { get; set; }
+			[XmlAttribute("sceneId")]
+			public int SceneId { get; set; }
+			[XmlAttribute("pathPrecision")]
+			public float PathPrecision { get; set; }
+
+			public AlternateScene()
+			{
+				PathPrecision = 15f;
+				SceneName = String.Empty;
+				SceneId = -1;
+			}
+
+			public AlternateScene(string name)
+			{
+				this.SceneName = name;
+			}
+			public AlternateScene(int id)
+			{
+				this.SceneId = id;
+			}
+			public bool Equals(Scene other)
+			{
+				return (SceneName != String.Empty && other.Name.ToLowerInvariant().Contains(SceneName.ToLowerInvariant())) || other.SceneInfo.SNOId == SceneId;
+			}
+		}
+
+		[XmlElement("Objectives")]
+		public List<Objective> Objectives { get; set; }
+
+		[XmlElement("Objective")]
+		public class Objective
+		{
+			[XmlAttribute("actorId")]
+			public int ActorID { get; set; }
+
+			[XmlAttribute("markerNameHash")]
+			public int MarkerNameHash { get; set; }
+
+			[XmlAttribute("count")]
+			public int Count { get; set; }
+
+			[XmlAttribute("endAnimation")]
+			public SNOAnim EndAnimation { get; set; }
+
+			[XmlAttribute("interact")]
+			public bool Interact { get; set; }
+
+			public Objective()
+			{
+
 			}
 		}
 
@@ -775,6 +846,19 @@ namespace FunkyBot.XMLTags
 			return
 			new PrioritySelector(
 				TimeoutCheck(),
+				new Decorator(ret => EndType == TrinityExploreEndType.RiftComplete && GetIsRiftDone(),
+					new Sequence(
+						new Action(ret => Logger.DBLog.DebugFormat("Rift is done. Tag Finished.")),
+						new Action(ret => isDone = true)
+					)
+				),
+				new Decorator(ret => EndType == TrinityExploreEndType.PortalExitFound &&
+					PortalExitMarker() != null && PortalExitMarker().Position.Distance2D(myPos) <= MarkerDistance,
+					new Sequence(
+						new Action(ret => Logger.DBLog.DebugFormat("Found portal exit! Tag Finished.")),
+						new Action(ret => isDone = true)
+					)
+				),
 				new Decorator(ret => EndType == TrinityExploreEndType.FullyExplored && IgnoreLastNodes > 0 && GetRouteUnvisitedNodeCount() <= IgnoreLastNodes && GetGridSegmentationVisistedNodeCount() >= MinVisistedNodes,
 					new Sequence(
 						new Action(ret => Logger.DBLog.DebugFormat("Fully explored area! Ignoring {0} nodes. Tag Finished.", IgnoreLastNodes)),
@@ -793,14 +877,14 @@ namespace FunkyBot.XMLTags
 						new Action(ret => isDone = true)
 					)
 				),
-				new Decorator(ret => EndType == TrinityExploreEndType.ObjectFound && ActorId != 0 && ZetaDia.Actors.GetActorsOfType<DiaObject>(true, false)
+				new Decorator(ret => (EndType == TrinityExploreEndType.ObjectFound ||EndType == TrinityExploreEndType.SceneLeftOrActorFound) && ActorId != 0 && ZetaDia.Actors.GetActorsOfType<DiaObject>(true, false)
 					.Any(a => a.ActorSNO == ActorId && a.Distance <= ObjectDistance),
 					new Sequence(
 						new Action(ret => Logger.DBLog.DebugFormat("Found Object {0}!", ActorId)),
 						new Action(ret => isDone = true)
 					)
 				),
-				new Decorator(ret => EndType == TrinityExploreEndType.ObjectFound && AlternateActorsFound(),
+				new Decorator(ret => (EndType == TrinityExploreEndType.ObjectFound || EndType == TrinityExploreEndType.SceneLeftOrActorFound) && AlternateActorsFound(),
 					new Sequence(
 						new Action(ret => Logger.DBLog.DebugFormat("Found Alternate Object {0}!", GetAlternateActor().ActorSNO)),
 						new Action(ret => isDone = true)
@@ -812,13 +896,25 @@ namespace FunkyBot.XMLTags
 						new Action(ret => isDone = true)
 					)
 				),
-				new Decorator(ret => EndType == TrinityExploreEndType.SceneFound && !string.IsNullOrWhiteSpace(SceneName) && ZetaDia.Me.CurrentScene.Name.ToLower().Contains(SceneName.ToLower()),
+				new Decorator(ret => EndType == TrinityExploreEndType.SceneFound && !string.IsNullOrWhiteSpace(SceneName) && Bot.Character.Data.SceneName.ToLower().Contains(SceneName.ToLower()),
 					new Sequence(
 						new Action(ret => Logger.DBLog.DebugFormat("Found SceneName {0}!", SceneName)),
 						new Action(ret => isDone = true)
 					)
 				),
-				new Decorator(ret => (EndType == TrinityExploreEndType.BountyCompleted || !StayAfterBounty) && IsBountyCompleted(),
+				new Decorator(ret => EndType == TrinityExploreEndType.SceneLeftOrActorFound && SceneId != 0 && Bot.Character.Data.iSceneID != SceneId,
+					new Sequence(
+						new Action(ret => Logger.DBLog.DebugFormat("Left SceneId {0}!", SceneId)),
+						new Action(ret => isDone = true)
+					)
+				),
+				new Decorator(ret => (EndType == TrinityExploreEndType.SceneFound || EndType == TrinityExploreEndType.SceneLeftOrActorFound) && !string.IsNullOrWhiteSpace(SceneName) && SceneNameLeft(),
+					new Sequence(
+						new Action(ret => Logger.DBLog.DebugFormat("Left SceneName {0}!", SceneName)),
+						new Action(ret => isDone = true)
+					)
+				),
+				new Decorator(ret => (EndType == TrinityExploreEndType.BountyCompleted || EndType== TrinityExploreEndType.BountyComplete || !StayAfterBounty) && IsBountyCompleted(),
 					new Sequence(
 						new Action(ret => Logger.DBLog.DebugFormat("Bounty Completed {0}!", BountyID)),
 						new Action(ret => isDone = true)
@@ -831,6 +927,44 @@ namespace FunkyBot.XMLTags
 					)
 				)
 			);
+		}
+
+		private bool SceneNameLeft()
+		{
+			string currentSceneName=Bot.Character.Data.SceneName.ToLower();
+			return !currentSceneName.Contains(SceneName.ToLower()) && AlternateScenes != null && AlternateScenes.Any() && AlternateScenes.All(o => currentSceneName.Contains(o.SceneName.ToLower()));
+		}
+		private static MinimapMarker PortalExitMarker()
+		{
+			return ZetaDia.Minimap.Markers.CurrentWorldMarkers.FirstOrDefault(m => m.IsPortalExit);
+		}
+
+		private DateTime _LastCheckRiftDone = DateTime.MinValue;
+		public bool GetIsRiftDone()
+		{
+			if (DateTime.UtcNow.Subtract(_LastCheckRiftDone).TotalSeconds < 1)
+				return false;
+
+			_LastCheckRiftDone = DateTime.UtcNow;
+
+			if (ZetaDia.Me.IsInBossEncounter)
+				return false;
+			// X1_LR_DungeonFinder
+			if (ZetaDia.CurrentAct == Act.OpenWorld && CacheIDLookup.riftWorldIds.Contains(ZetaDia.CurrentWorldId) &&
+				ZetaDia.ActInfo.AllQuests.Any(q => q.QuestSNO == 337492 && q.QuestStep == 10))
+			{
+				Logger.DBLog.DebugFormat("Rift Quest Complete!");
+				return true;
+			}
+
+			if (ZetaDia.Minimap.Markers.CurrentWorldMarkers
+				.Any(m => m.IsPortalExit && m.Position.Distance2D(Bot.Character.Data.Position) <= MarkerDistance && !MiniMapMarker.TownHubMarkers.Contains(m.NameHash)))
+			{
+				Logger.DBLog.DebugFormat("Rift portal exit marker within range!");
+				return true;
+			}
+
+			return false;
 		}
 
 		private bool IsBountyCompleted()

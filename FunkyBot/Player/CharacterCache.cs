@@ -30,6 +30,7 @@ namespace FunkyBot.Player
 			iMyDynamicID = 0;
 			iMyLevel = 1;
 			iSceneID = -1;
+			SceneName=String.Empty;
 			iCurrentWorldID = -1;
 			iCurrentLevelID = -1;
 			BackPack = new Backpack();
@@ -106,6 +107,7 @@ namespace FunkyBot.Player
 		internal int iMyLevel { get; set; }
 		internal int iTotalPotions { get; set; }
 		internal int iSceneID { get; set; }
+		internal string SceneName { get; set; }
 		internal Pets PetData { get; set; }
 		internal Backpack BackPack { get; set; }
 		internal float PickupRadius { get; set; }
@@ -334,6 +336,7 @@ namespace FunkyBot.Player
 						if (CurrentSceneID != Bot.Character.Data.iSceneID)
 						{
 							Bot.Character.Data.iSceneID = CurrentSceneID;
+							Bot.Character.Data.SceneName=me.CurrentScene.Name;
 						}
 						lastCheckedSceneID = DateTime.Now;
 					}
