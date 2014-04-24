@@ -10,6 +10,7 @@
         public bool AllowSucideBomber { get; set; }
         public bool AllowSpawnerUnits { get; set; }
         public bool AllowRareLootContainer { get; set; }
+		public bool AllowCursedChestShrines { get; set; }
 		public int MaximumRange { get; set; }
 
 
@@ -20,9 +21,10 @@
             AllowRareElites = true;
             AllowUniqueBoss = true;
             AllowRanged = false;
-			AllowRareLootContainer = false;
+			AllowRareLootContainer = true;
 			AllowSucideBomber = false;
 			AllowSpawnerUnits = false;
+			AllowCursedChestShrines = true;
 			MaximumRange = 500;
         }
     }

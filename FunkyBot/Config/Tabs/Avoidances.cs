@@ -48,6 +48,7 @@ namespace FunkyBot
 				}
 			}
 		}
+
 		private void AvoidanceRadiusSliderValueChanged(object sender, EventArgs e)
 		{
 			Slider slider_sender = (Slider)sender;

@@ -18,7 +18,7 @@
       <WaitTimer questId="312429" stepId="2" waitTime="500" />
       <TrinityExploreDungeon questId="312429" stepId="2" until="ExitFound" exitNameHash="1317387500" actorId="183032" pathPrecision="25" boxSize="20" boxTolerance="0.25" objectDistance="45">
         <PriorityScenes>
-          <PriorityScene sceneName="Exit" />
+          <PriorityScene sceneName="Exit" minDistance="125" />
         </PriorityScenes>
       </TrinityExploreDungeon>
 

@@ -9,7 +9,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 		  {
 				Cooldown=5;
 				ExecutionType=SkillExecutionFlags.Target|SkillExecutionFlags.ClusterTarget;
-				WaitVars=new WaitLoops(0, 0, true);
+				WaitVars=new WaitLoops(0, 0, false);
 				Range=(Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Wizard_Electrocute]==2?15:40);
 				IsRanged=true;
 				IsProjectile=true;

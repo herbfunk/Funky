@@ -6,10 +6,14 @@
 <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
 <Order>
 
-  <FunkyWaypoint waypointNumber="7" questId="1"/>
-	<WaitTimer questId="1" stepId="2" waitTime="2000" />			
+	
 	<HaveBounty questId="349020">
-
+    
+    <If condition="CurrentWorldId != 72636 and CurrentLevelAreaId != 72712 and CurrentLevelAreaId != 19954">
+      <FunkyWaypoint waypointNumber="7" questId="1"/>
+      <WaitTimer questId="1" stepId="2" waitTime="2000" />
+    </If>
+    
 		<!--  Cemetery of the Forsaken  -->
 		<If condition="CurrentWorldId == 71150">			
 			<SafeMoveTo questId="1" stepId="2" x="2233" y="1811" z="6" pathPrecision="5" pathPointLimit="250" statusText="" /> 
@@ -30,40 +34,59 @@
 
 		<!--  Defiled Crypt -->
 		<If condition="CurrentLevelAreaId == 83264">
-
+      <WaitTimer questId="1" stepId="2" waitTime="2000" />
+      
 			<!-- Talk to Lady Dunhyld -->	
-			<TrinityExploreDungeon questId="1" stepId="1" until="ObjectFound" actorId="3892" pathPrecision="15" boxSize="15" boxTolerance="0.04" objectDistance="25" />
-			<MoveToActor questId="1" stepId="1" actorId="3892" interactRange="8" name="CryingGhost_Female_01_A-1573"  pathPrecision="5" pathPointLimit="250" statusText="" /> 
+      <TrinityExploreDungeon questId="312429" stepId="2" until="ObjectFound" actorId="3892" pathPrecision="15" boxSize="15" boxTolerance="0.04" objectDistance="25">
+        <PriorityScenes>
+          <PriorityScene sceneId="82107" />
+        </PriorityScenes>
+      </TrinityExploreDungeon>
+
+      
+      <MoveToActor questId="1" stepId="1" actorId="3892" interactRange="8" name="CryingGhost_Female_01_A-1573"  pathPrecision="5" pathPointLimit="250" statusText="" /> 
 			<WaitTimer questId="1" stepId="1" waitTime="2000" />	
 			
 			<!-- Click on the bowls -->
-			<MoveToActor questId="1" stepId="1" actorId="174754" interactRange="7" name="a1dun_Crypts_Bowl_of_Bones_03-1762"  pathPrecision="5" pathPointLimit="250" statusText="" /> 
+      <!-- 174754, 174753, 102079-->
+      <UseObject questId="1" actorId="174754" />
+      <!--<MoveToActor questId="1" stepId="1" actorId="174754" interactRange="7" name="a1dun_Crypts_Bowl_of_Bones_03-1762"  pathPrecision="5" pathPointLimit="250" statusText="" /> -->
+      <WaitTimer questId="1" stepId="1" waitTime="2000" />
+      <UseObject questId="1" actorId="174753" />
+			<!--<MoveToActor questId="1" stepId="1" actorId="174753" interactRange="7" name="a1dun_Crypts_Bowl_of_Bones_02-1566"  pathPrecision="5" pathPointLimit="250" statusText="" /> -->	 
 			<WaitTimer questId="1" stepId="1" waitTime="2000" />
-			<MoveToActor questId="1" stepId="1" actorId="174753" interactRange="7" name="a1dun_Crypts_Bowl_of_Bones_02-1566"  pathPrecision="5" pathPointLimit="250" statusText="" /> 			 
+      <UseObject questId="1" actorId="102079" />
+			<!--<MoveToActor questId="1" stepId="1" actorId="102079" interactRange="7" name="a1dun_Crypts_Bowl_of_Bones_01-1651"  pathPrecision="5" pathPointLimit="250" statusText="" /> -->
 			<WaitTimer questId="1" stepId="1" waitTime="2000" />
-			<MoveToActor questId="1" stepId="1" actorId="102079" interactRange="7" name="a1dun_Crypts_Bowl_of_Bones_01-1651"  pathPrecision="5" pathPointLimit="250" statusText="" /> 
-			<WaitTimer questId="1" stepId="1" waitTime="2000" />						
-
-			<!-- If we know where the casket is already then go there -->
+      <UseObject questId="1" actorId="105754" />
+      <UseObject questId="1" actorId="203608" />
+      
+			<!-- If we know where the casket is already then go there
 			<MoveToActor questId="1" stepId="1" actorId="105754" interactRange="15" name="a1dun_Crypts_Dual_Sarcophagus-2955"  pathPrecision="5" pathPointLimit="250" statusText="" /> 
 			<MoveToActor questId="1" stepId="1" actorId="203608" interactRange="15" name="a1dun_Crypts_Dual_Sarcophagus-2955"  pathPrecision="5" pathPointLimit="250" statusText="" />			
-			
-			<!-- Otherwise Find the casket -->
-			<TrinityExploreDungeon questId="1" stepId="1" until="ObjectFound" actorId="105754" pathPrecision="15" boxSize="10" boxTolerance="0.10" objectDistance="20" >
-				<AlternateActors>
-					<AlternateActor actorId="203608" objectDistance="20" /> <!-- scabbard -->
-				</AlternateActors>					
-				<PriorityScenes>
-					<PriorityScene sceneId="82107" /> <!-- Event Area -->
-				</PriorityScenes>
-				<IgnoreScenes>
-					<IgnoreScene sceneName="33054" /> <!-- Non Event Area -->
-					<IgnoreScene sceneName="33068" /> <!-- Non Event Area -->					
-				</IgnoreScenes>				
-			</TrinityExploreDungeon>	
-			<MoveToActor questId="1" stepId="1" actorId="105754" interactRange="15" name="a1dun_Crypts_Dual_Sarcophagus-2955"  pathPrecision="5" pathPointLimit="250" statusText="" /> 
-			<MoveToActor questId="1" stepId="1" actorId="203608" interactRange="15" name="a1dun_Crypts_Dual_Sarcophagus-2955"  pathPrecision="5" pathPointLimit="250" statusText="" />
-
+			 -->
+      <HaveBounty questId="349020">
+        <!-- Otherwise Find the casket -->
+        <TrinityExploreDungeon questId="1" stepId="1" until="ObjectFound" actorId="105754" pathPrecision="15" boxSize="10" boxTolerance="0.10" objectDistance="20" stayAfterBounty="False">
+          <AlternateActors>
+            <AlternateActor actorId="203608" objectDistance="20" />
+            <!-- scabbard -->
+          </AlternateActors>
+          <PriorityScenes>
+            <PriorityScene sceneId="82107" />
+            <!-- Event Area -->
+          </PriorityScenes>
+          <IgnoreScenes>
+            <IgnoreScene sceneName="33054" />
+            <!-- Non Event Area -->
+            <IgnoreScene sceneName="33068" />
+            <!-- Non Event Area -->
+          </IgnoreScenes>
+        </TrinityExploreDungeon>
+        <MoveToActor questId="1" stepId="1" actorId="105754" interactRange="15" name="a1dun_Crypts_Dual_Sarcophagus-2955"  pathPrecision="5" pathPointLimit="250" statusText="" />
+        <MoveToActor questId="1" stepId="1" actorId="203608" interactRange="15" name="a1dun_Crypts_Dual_Sarcophagus-2955"  pathPrecision="5" pathPointLimit="250" statusText="" />
+      </HaveBounty>
+      
 			<!-- Backup Plan -->
 			<HaveBounty questId="349020">
 				<LogMessage quest="1" step="1" output="Maybe something went wrong..." />	

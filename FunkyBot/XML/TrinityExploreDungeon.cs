@@ -749,6 +749,7 @@ namespace FunkyBot.XMLTags
 						new Action(ret => ForceUpdateScenes()),
 						new Action(ret => GridSegmentation.Reset()),
 						new Action(ret => GridSegmentation.Update()),
+						new Action(ret => PathPrecision = 15),
 						new Action(ret => BrainBehavior.DungeonExplorer.Reset()),
 						new Action(ret => PriorityScenesInvestigated.Clear()),
 						new Action(ret => UpdateRoute())

@@ -8,42 +8,142 @@
 </TargetBlacklists>
 <Order>
 
-  <FunkyWaypoint waypointNumber="14" questId="1"/>
-	<WaitTimer questId="1" stepId="2" waitTime="2000" />		
-	<HaveBounty questId="369271">	
-	
-		<!-- Attempt to find him efficiently -->
-		<SafeMoveTo questId="312429" stepId="2" x="1725" y="3855" z="40" pathPrecision="5" pathPointLimit="250" statusText="" /> 
-		<SafeMoveTo questId="312429" stepId="2" x="1702" y="4059" z="40" pathPrecision="5" pathPointLimit="250" statusText="" /> 
-		<SafeMoveTo questId="312429" stepId="2" x="1616" y="4112" z="40" pathPrecision="5" pathPointLimit="250" statusText="" /> 
-		<SafeMoveTo questId="312429" stepId="2" x="1550" y="3960" z="40" pathPrecision="5" pathPointLimit="250" statusText="" /> 
-		<SafeMoveTo questId="312429" stepId="2" x="1438" y="4054" z="40" pathPrecision="5" pathPointLimit="250" statusText="" /> 
-		<SafeMoveTo questId="312429" stepId="2" x="1334" y="3958" z="61" pathPrecision="5" pathPointLimit="250" statusText="" /> 
-		<HaveBounty questId="369271">		
-			<SafeMoveTo questId="312429" stepId="2" x="1274" y="3887" z="78" pathPrecision="5" pathPointLimit="250" statusText="" /> 
-		</HaveBounty>	
-		<HaveBounty questId="369271">				
-			<SafeMoveTo questId="312429" stepId="2" x="1124" y="3716" z="80" pathPrecision="5" pathPointLimit="250" statusText="" /> 
-		</HaveBounty>			
-		<HaveBounty questId="369271">			
-			<SafeMoveTo questId="312429" stepId="2" x="1041" y="3865" z="80" pathPrecision="5" pathPointLimit="250" statusText="" /> 
-		</HaveBounty>	
-		<HaveBounty questId="369271">			
-			<SafeMoveTo questId="312429" stepId="2" x="1147" y="3843" z="80" pathPrecision="5" pathPointLimit="250" statusText="" />
-		</HaveBounty>		
-		<HaveBounty questId="369271">
-			<SafeMoveTo questId="312429" stepId="2" x="1226" y="3958" z="80" pathPrecision="5" pathPointLimit="250" statusText="" /> 
-		</HaveBounty>	
-		<HaveBounty questId="369271">
-			<SafeMoveTo questId="312429" stepId="2" x="1156" y="3960" z="80" pathPrecision="5" pathPointLimit="250" statusText="" /> 
-		</HaveBounty>		
-		
-		<!-- Search Everywhere -->
-		<TrinityExploreDungeon questId="1" stepId="1" until="FullyExplored" boxTolerance="0.10" boxSize="15" stayAfterBounty="False">			
-			<IgnoreScenes>        
-				<IgnoreScene sceneName="_N01" /><!-- Southern Highlands--> 	
-			</IgnoreScenes>
-		</TrinityExploreDungeon>			
+
+  <HaveBounty questId="369271">
+    
+    <If condition="CurrentLevelAreaId != 19941 and CurrentLevelAreaId != 1199">
+      <FunkyWaypoint waypointNumber="14" questId="1"/>
+      <WaitTimer questId="1" stepId="2" waitTime="2000" />
+    </If>
+    
+    <If condition="CurrentLevelAreaId == 19941 or CurrentLevelAreaId == 1199">
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="0">
+          <SafeMoveTo questId="312429" stepId="2" x="1726" y="4023" z="38" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="1">
+          <SafeMoveTo questId="312429" stepId="2" x="1757" y="3813" z="40" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="2">
+          <SafeMoveTo questId="312429" stepId="2" x="1473" y="3826" z="40" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="3">
+          <SafeMoveTo questId="312429" stepId="2" x="1622" y="3908" z="40" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="4">
+          <SafeMoveTo questId="312429" stepId="2" x="1615" y="4059" z="40" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="5">
+          <SafeMoveTo questId="312429" stepId="2" x="1572" y="4160" z="40" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="6">
+          <SafeMoveTo questId="312429" stepId="2" x="1499" y="4144" z="40" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="7">
+          <SafeMoveTo questId="312429" stepId="2" x="1516" y="3949" z="40" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="8">
+          <SafeMoveTo questId="312429" stepId="2" x="1409" y="4105" z="40" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="9">
+          <SafeMoveTo questId="312429" stepId="2" x="1425" y="3960" z="50" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="10">
+          <SafeMoveTo questId="312429" stepId="2" x="1339" y="3958" z="61" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="11">
+          <SafeMoveTo questId="312429" stepId="2" x="1334" y="3904" z="70" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="12">
+          <SafeMoveTo questId="312429" stepId="2" x="1278" y="3903" z="78" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="13">
+          <SafeMoveTo questId="312429" stepId="2" x="1202" y="4058" z="80" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="14">
+          <SafeMoveTo questId="312429" stepId="2" x="1145" y="4086" z="80" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="15">
+          <SafeMoveTo questId="312429" stepId="2" x="997" y="4034" z="80" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="16">
+          <SafeMoveTo questId="312429" stepId="2" x="1017" y="3885" z="80" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="17">
+          <SafeMoveTo questId="312429" stepId="2" x="940" y="3942" z="80" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="18">
+          <SafeMoveTo questId="312429" stepId="2" x="939" y="3825" z="90" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="19">
+          <SafeMoveTo questId="312429" stepId="2" x="942" y="3713" z="80" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="20">
+          <SafeMoveTo questId="312429" stepId="2" x="1039" y="3831" z="80" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="21">
+          <SafeMoveTo questId="312429" stepId="2" x="1093" y="3865" z="78" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="22">
+          <SafeMoveTo questId="312429" stepId="2" x="1175" y="3716" z="80" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="23">
+          <SafeMoveTo questId="312429" stepId="2" x="1269" y="3762" z="80" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+      <HaveBounty questId="369271">
+        <TrinityUseOnce id="24">
+          <SafeMoveTo questId="312429" stepId="2" x="1173" y="3910" z="78" pathPrecision="20" pathPointLimit="250" statusText="" />
+        </TrinityUseOnce>
+      </HaveBounty>
+
+    </If>
 
 		
 	</HaveBounty>

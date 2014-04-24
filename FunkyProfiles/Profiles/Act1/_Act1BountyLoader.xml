@@ -42,7 +42,9 @@
       <FunkyBountyLoad ID="347054" Profile="Festering_HawthorneGable.xml" />
       <FunkyBountyLoad ID="344482" Profile="Highlands_CrumblingTower.xml" />
       <FunkyBountyLoad ID="345522" Profile="Araneae_Zhelobb.xml" />
-      //
+      <FunkyBountyLoad ID="369404" Profile="Weeping_Kankerrot.xml" />
+      
+      
       <FunkyBountyLoad ID="361320" Profile="Cathedral_RagusGrimlow.xml" />
       <FunkyBountyLoad ID="361339" Profile="Cathedral_Firestarter.xml" />
       <FunkyBountyLoad ID="361336" Profile="Cathedral_Cudgelarm.xml" />

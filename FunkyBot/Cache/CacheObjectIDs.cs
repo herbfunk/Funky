@@ -10,7 +10,7 @@ namespace FunkyBot.Cache
 	public class CacheObjectIDs
 	{
 		public int[] Doors { get; set; }
-		public int[] Chests { get; set; }
+		public int[] SpecialInteractables { get; set; }
 		public int[] ResplendantChests { get; set; }
 
 
@@ -19,6 +19,8 @@ namespace FunkyBot.Cache
 			Doors = new[] { 5854 };
 			//Chests = new[] { };
 			ResplendantChests = new[] {62873, 95011, 81424, 108230, 111808, 111809, 199583, 109264,101500,96993, 62866, 108230, 211861, 62860, 96993,112182, 363725 };
+
+			SpecialInteractables = new[] { 174754, 174753, 102079 };
 		}
 
 		private static string DefaultFilePath = Path.Combine(FolderPaths.sTrinityPluginPath, "Cache", "Dictionaries", "SNOId_Cache_Objects.xml");

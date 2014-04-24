@@ -32,6 +32,7 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 			FalseConditionFlags = TargetProperties.None;
 			Distance = -1;
 			HealthPercent = 0d;
+			CreateCriteria();
 		}
 
 

@@ -24,4 +24,11 @@
     <int>112182</int>
     <int>363725</int>
   </ResplendantChests>
+  <SpecialInteractables>
+    <int>174754</int>
+    <int>174753</int>
+    <int>102079</int>
+    <int>105754</int>
+    <int>203608</int>
+  </SpecialInteractables>
 </CacheObjectIDs>

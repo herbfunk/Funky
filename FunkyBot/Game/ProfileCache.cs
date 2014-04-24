@@ -64,7 +64,9 @@ namespace FunkyBot.Game
 					Logger.Write(LogLevel.Event, "Profile Behavior Changed To {0}", currentProfileBehavior.GetType().ToString());
 
 					Type profileTagType = currentProfileBehavior.GetType();
-					if (oocDBTags.Contains(profileTagType))
+					string profileTagTypeString = profileTagType.ToString();
+
+					if (oocDBTags.Contains(profileTagType) || profileTagTypeString=="MoveToActor")
 					{
 						if (InteractiveTags.Contains(profileTagType))
 						{

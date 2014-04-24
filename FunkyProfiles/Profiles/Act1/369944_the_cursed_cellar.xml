@@ -14,6 +14,7 @@
 			<SafeMoveTo questId="1" stepId="2" pathPrecision="20" x="2289.81" y="2562.356" z="27.10001" />
 			<MoveToMapMarker questId="1" stepId="2" exitNameHash="1107870150" destinationWorldId="106752" interactRange="20"  />
 			<WaitTimer questId="1" stepId="2" waitTime="2000" />
+      <FunkyClustering enabled="false" />
 			<SafeMoveTo questId="1" stepId="2" x="128.015" y="125.9703" z="0.1" />
 			<MoveToActor questId="1" stepId="2" actorId="365097"/>
 			<WaitTimer questId="1" stepId="2" waitTime="3000" />

@@ -72,7 +72,32 @@
 			this.label6 = new System.Windows.Forms.Label();
 			this.cb_ClusterTargetLogic = new System.Windows.Forms.CheckBox();
 			this.tabPage9 = new System.Windows.Forms.TabPage();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.panel13 = new System.Windows.Forms.Panel();
+			this.tb_GroupingMinBotHealth = new System.Windows.Forms.TrackBar();
+			this.txt_GroupingMinBotHealth = new System.Windows.Forms.TextBox();
+			this.label13 = new System.Windows.Forms.Label();
+			this.panel12 = new System.Windows.Forms.Panel();
+			this.tb_GroupingMinUnitsInCluster = new System.Windows.Forms.TrackBar();
+			this.txt_GroupingMinUnitsInCluster = new System.Windows.Forms.TextBox();
+			this.label12 = new System.Windows.Forms.Label();
+			this.panel11 = new System.Windows.Forms.Panel();
+			this.tb_GroupingMinCluster = new System.Windows.Forms.TrackBar();
+			this.txt_GroupingMinCluster = new System.Windows.Forms.TextBox();
+			this.label11 = new System.Windows.Forms.Label();
+			this.panel10 = new System.Windows.Forms.Panel();
+			this.tb_GroupingMaxDistance = new System.Windows.Forms.TrackBar();
+			this.txt_GroupingMaxDistance = new System.Windows.Forms.TextBox();
+			this.label10 = new System.Windows.Forms.Label();
+			this.panel9 = new System.Windows.Forms.Panel();
+			this.tb_GroupingMinDistance = new System.Windows.Forms.TrackBar();
+			this.txt_GroupingMinDistance = new System.Windows.Forms.TextBox();
+			this.label9 = new System.Windows.Forms.Label();
+			this.cb_GroupingLogic = new System.Windows.Forms.CheckBox();
 			this.tabPage10 = new System.Windows.Forms.TabPage();
+			this.flowLayoutPanel_Avoidances = new System.Windows.Forms.FlowLayoutPanel();
+			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.cb_AvoidanceLogic = new System.Windows.Forms.CheckBox();
 			this.tabPage11 = new System.Windows.Forms.TabPage();
 			this.tabPage12 = new System.Windows.Forms.TabPage();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -107,6 +132,20 @@
 			((System.ComponentModel.ISupportInitialize)(this.tb_ClusterLogicDistance)).BeginInit();
 			this.panel6.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tb_ClusterLogicDisableHealth)).BeginInit();
+			this.tabPage9.SuspendLayout();
+			this.groupBox4.SuspendLayout();
+			this.panel13.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.tb_GroupingMinBotHealth)).BeginInit();
+			this.panel12.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.tb_GroupingMinUnitsInCluster)).BeginInit();
+			this.panel11.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.tb_GroupingMinCluster)).BeginInit();
+			this.panel10.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.tb_GroupingMaxDistance)).BeginInit();
+			this.panel9.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.tb_GroupingMinDistance)).BeginInit();
+			this.tabPage10.SuspendLayout();
+			this.groupBox5.SuspendLayout();
 			this.tabPage2.SuspendLayout();
 			this.tabControl3.SuspendLayout();
 			this.SuspendLayout();
@@ -196,7 +235,7 @@
 			this.cb_MovementOutOfCombatSkills.TabIndex = 2;
 			this.cb_MovementOutOfCombatSkills.Text = "Allow Out Of Combat Skill Movement";
 			this.cb_MovementOutOfCombatSkills.UseVisualStyleBackColor = true;
-			this.cb_MovementOutOfCombatSkills.CheckStateChanged += new System.EventHandler(this.OutOfCombatMovementChecked);
+			this.cb_MovementOutOfCombatSkills.CheckedChanged += new System.EventHandler(this.OutOfCombatMovementChecked);
 			// 
 			// cb_CombatAllowDefaultAttack
 			// 
@@ -207,7 +246,7 @@
 			this.cb_CombatAllowDefaultAttack.TabIndex = 1;
 			this.cb_CombatAllowDefaultAttack.Text = "Allow Default Attack Always";
 			this.cb_CombatAllowDefaultAttack.UseVisualStyleBackColor = true;
-			this.cb_CombatAllowDefaultAttack.CheckStateChanged += new System.EventHandler(this.AllowDefaultAttackAlwaysChecked);
+			this.cb_CombatAllowDefaultAttack.CheckedChanged += new System.EventHandler(this.AllowDefaultAttackAlwaysChecked);
 			// 
 			// label5
 			// 
@@ -260,7 +299,7 @@
 			this.cb_CombatMovementItems.TabIndex = 1;
 			this.cb_CombatMovementItems.Text = "Items";
 			this.cb_CombatMovementItems.UseVisualStyleBackColor = true;
-			this.cb_CombatMovementItems.CheckStateChanged += new System.EventHandler(this.MovementTargetItemChecked);
+			this.cb_CombatMovementItems.CheckedChanged += new System.EventHandler(this.MovementTargetItemChecked);
 			// 
 			// label4
 			// 
@@ -568,6 +607,7 @@
 			// 
 			// tabPage9
 			// 
+			this.tabPage9.Controls.Add(this.groupBox4);
 			this.tabPage9.Location = new System.Drawing.Point(4, 22);
 			this.tabPage9.Name = "tabPage9";
 			this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
@@ -576,8 +616,239 @@
 			this.tabPage9.Text = "Grouping";
 			this.tabPage9.UseVisualStyleBackColor = true;
 			// 
+			// groupBox4
+			// 
+			this.groupBox4.Controls.Add(this.panel13);
+			this.groupBox4.Controls.Add(this.panel12);
+			this.groupBox4.Controls.Add(this.panel11);
+			this.groupBox4.Controls.Add(this.panel10);
+			this.groupBox4.Controls.Add(this.panel9);
+			this.groupBox4.Controls.Add(this.cb_GroupingLogic);
+			this.groupBox4.Dock = System.Windows.Forms.DockStyle.Top;
+			this.groupBox4.Location = new System.Drawing.Point(3, 3);
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.Size = new System.Drawing.Size(596, 367);
+			this.groupBox4.TabIndex = 0;
+			this.groupBox4.TabStop = false;
+			this.groupBox4.Text = "Grouping";
+			// 
+			// panel13
+			// 
+			this.panel13.Controls.Add(this.tb_GroupingMinBotHealth);
+			this.panel13.Controls.Add(this.txt_GroupingMinBotHealth);
+			this.panel13.Controls.Add(this.label13);
+			this.panel13.Location = new System.Drawing.Point(6, 196);
+			this.panel13.Name = "panel13";
+			this.panel13.Size = new System.Drawing.Size(243, 71);
+			this.panel13.TabIndex = 10;
+			// 
+			// tb_GroupingMinBotHealth
+			// 
+			this.tb_GroupingMinBotHealth.LargeChange = 2;
+			this.tb_GroupingMinBotHealth.Location = new System.Drawing.Point(3, 16);
+			this.tb_GroupingMinBotHealth.Maximum = 8;
+			this.tb_GroupingMinBotHealth.Minimum = 1;
+			this.tb_GroupingMinBotHealth.Name = "tb_GroupingMinBotHealth";
+			this.tb_GroupingMinBotHealth.Size = new System.Drawing.Size(160, 42);
+			this.tb_GroupingMinBotHealth.TabIndex = 0;
+			this.tb_GroupingMinBotHealth.TickStyle = System.Windows.Forms.TickStyle.None;
+			this.tb_GroupingMinBotHealth.Value = 1;
+			this.tb_GroupingMinBotHealth.ValueChanged += new System.EventHandler(this.GroupBotHealthSliderChanged);
+			// 
+			// txt_GroupingMinBotHealth
+			// 
+			this.txt_GroupingMinBotHealth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txt_GroupingMinBotHealth.Location = new System.Drawing.Point(169, 3);
+			this.txt_GroupingMinBotHealth.Name = "txt_GroupingMinBotHealth";
+			this.txt_GroupingMinBotHealth.ReadOnly = true;
+			this.txt_GroupingMinBotHealth.Size = new System.Drawing.Size(71, 26);
+			this.txt_GroupingMinBotHealth.TabIndex = 2;
+			// 
+			// label13
+			// 
+			this.label13.AutoSize = true;
+			this.label13.Location = new System.Drawing.Point(3, 0);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(141, 13);
+			this.label13.TabIndex = 1;
+			this.label13.Text = "Minimum Bot Health Percent";
+			// 
+			// panel12
+			// 
+			this.panel12.Controls.Add(this.tb_GroupingMinUnitsInCluster);
+			this.panel12.Controls.Add(this.txt_GroupingMinUnitsInCluster);
+			this.panel12.Controls.Add(this.label12);
+			this.panel12.Location = new System.Drawing.Point(266, 119);
+			this.panel12.Name = "panel12";
+			this.panel12.Size = new System.Drawing.Size(243, 71);
+			this.panel12.TabIndex = 9;
+			// 
+			// tb_GroupingMinUnitsInCluster
+			// 
+			this.tb_GroupingMinUnitsInCluster.LargeChange = 2;
+			this.tb_GroupingMinUnitsInCluster.Location = new System.Drawing.Point(3, 16);
+			this.tb_GroupingMinUnitsInCluster.Name = "tb_GroupingMinUnitsInCluster";
+			this.tb_GroupingMinUnitsInCluster.Size = new System.Drawing.Size(160, 42);
+			this.tb_GroupingMinUnitsInCluster.TabIndex = 0;
+			this.tb_GroupingMinUnitsInCluster.TickStyle = System.Windows.Forms.TickStyle.None;
+			this.tb_GroupingMinUnitsInCluster.Value = 1;
+			this.tb_GroupingMinUnitsInCluster.ValueChanged += new System.EventHandler(this.GroupMinimumUnitsInClusterSliderChanged);
+			// 
+			// txt_GroupingMinUnitsInCluster
+			// 
+			this.txt_GroupingMinUnitsInCluster.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txt_GroupingMinUnitsInCluster.Location = new System.Drawing.Point(169, 3);
+			this.txt_GroupingMinUnitsInCluster.Name = "txt_GroupingMinUnitsInCluster";
+			this.txt_GroupingMinUnitsInCluster.ReadOnly = true;
+			this.txt_GroupingMinUnitsInCluster.Size = new System.Drawing.Size(71, 26);
+			this.txt_GroupingMinUnitsInCluster.TabIndex = 2;
+			// 
+			// label12
+			// 
+			this.label12.AutoSize = true;
+			this.label12.Location = new System.Drawing.Point(3, 0);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(122, 13);
+			this.label12.TabIndex = 1;
+			this.label12.Text = "Minimum Units In Cluster";
+			// 
+			// panel11
+			// 
+			this.panel11.Controls.Add(this.tb_GroupingMinCluster);
+			this.panel11.Controls.Add(this.txt_GroupingMinCluster);
+			this.panel11.Controls.Add(this.label11);
+			this.panel11.Location = new System.Drawing.Point(6, 119);
+			this.panel11.Name = "panel11";
+			this.panel11.Size = new System.Drawing.Size(243, 71);
+			this.panel11.TabIndex = 8;
+			// 
+			// tb_GroupingMinCluster
+			// 
+			this.tb_GroupingMinCluster.LargeChange = 2;
+			this.tb_GroupingMinCluster.Location = new System.Drawing.Point(3, 16);
+			this.tb_GroupingMinCluster.Maximum = 8;
+			this.tb_GroupingMinCluster.Minimum = 1;
+			this.tb_GroupingMinCluster.Name = "tb_GroupingMinCluster";
+			this.tb_GroupingMinCluster.Size = new System.Drawing.Size(160, 42);
+			this.tb_GroupingMinCluster.TabIndex = 0;
+			this.tb_GroupingMinCluster.TickStyle = System.Windows.Forms.TickStyle.None;
+			this.tb_GroupingMinCluster.Value = 1;
+			this.tb_GroupingMinCluster.ValueChanged += new System.EventHandler(this.GroupMinimumClusterCountSliderChanged);
+			// 
+			// txt_GroupingMinCluster
+			// 
+			this.txt_GroupingMinCluster.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txt_GroupingMinCluster.Location = new System.Drawing.Point(169, 3);
+			this.txt_GroupingMinCluster.Name = "txt_GroupingMinCluster";
+			this.txt_GroupingMinCluster.ReadOnly = true;
+			this.txt_GroupingMinCluster.Size = new System.Drawing.Size(71, 26);
+			this.txt_GroupingMinCluster.TabIndex = 2;
+			// 
+			// label11
+			// 
+			this.label11.AutoSize = true;
+			this.label11.Location = new System.Drawing.Point(3, 0);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(114, 13);
+			this.label11.TabIndex = 1;
+			this.label11.Text = "Minimum Cluster Count";
+			// 
+			// panel10
+			// 
+			this.panel10.Controls.Add(this.tb_GroupingMaxDistance);
+			this.panel10.Controls.Add(this.txt_GroupingMaxDistance);
+			this.panel10.Controls.Add(this.label10);
+			this.panel10.Location = new System.Drawing.Point(266, 42);
+			this.panel10.Name = "panel10";
+			this.panel10.Size = new System.Drawing.Size(243, 71);
+			this.panel10.TabIndex = 7;
+			// 
+			// tb_GroupingMaxDistance
+			// 
+			this.tb_GroupingMaxDistance.LargeChange = 10;
+			this.tb_GroupingMaxDistance.Location = new System.Drawing.Point(3, 16);
+			this.tb_GroupingMaxDistance.Maximum = 200;
+			this.tb_GroupingMaxDistance.Minimum = 50;
+			this.tb_GroupingMaxDistance.Name = "tb_GroupingMaxDistance";
+			this.tb_GroupingMaxDistance.Size = new System.Drawing.Size(160, 42);
+			this.tb_GroupingMaxDistance.TabIndex = 0;
+			this.tb_GroupingMaxDistance.TickStyle = System.Windows.Forms.TickStyle.None;
+			this.tb_GroupingMaxDistance.Value = 50;
+			this.tb_GroupingMaxDistance.ValueChanged += new System.EventHandler(this.GroupMaxDistanceSliderChanged);
+			// 
+			// txt_GroupingMaxDistance
+			// 
+			this.txt_GroupingMaxDistance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txt_GroupingMaxDistance.Location = new System.Drawing.Point(169, 3);
+			this.txt_GroupingMaxDistance.Name = "txt_GroupingMaxDistance";
+			this.txt_GroupingMaxDistance.ReadOnly = true;
+			this.txt_GroupingMaxDistance.Size = new System.Drawing.Size(71, 26);
+			this.txt_GroupingMaxDistance.TabIndex = 2;
+			// 
+			// label10
+			// 
+			this.label10.AutoSize = true;
+			this.label10.Location = new System.Drawing.Point(3, 0);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(118, 13);
+			this.label10.TabIndex = 1;
+			this.label10.Text = "Unit Maximum Distance";
+			// 
+			// panel9
+			// 
+			this.panel9.Controls.Add(this.tb_GroupingMinDistance);
+			this.panel9.Controls.Add(this.txt_GroupingMinDistance);
+			this.panel9.Controls.Add(this.label9);
+			this.panel9.Location = new System.Drawing.Point(6, 42);
+			this.panel9.Name = "panel9";
+			this.panel9.Size = new System.Drawing.Size(243, 71);
+			this.panel9.TabIndex = 6;
+			// 
+			// tb_GroupingMinDistance
+			// 
+			this.tb_GroupingMinDistance.LargeChange = 10;
+			this.tb_GroupingMinDistance.Location = new System.Drawing.Point(3, 16);
+			this.tb_GroupingMinDistance.Maximum = 100;
+			this.tb_GroupingMinDistance.Minimum = 35;
+			this.tb_GroupingMinDistance.Name = "tb_GroupingMinDistance";
+			this.tb_GroupingMinDistance.Size = new System.Drawing.Size(160, 42);
+			this.tb_GroupingMinDistance.TabIndex = 0;
+			this.tb_GroupingMinDistance.TickStyle = System.Windows.Forms.TickStyle.None;
+			this.tb_GroupingMinDistance.Value = 35;
+			this.tb_GroupingMinDistance.ValueChanged += new System.EventHandler(this.GroupMinimumUnitDistanceSliderChanged);
+			// 
+			// txt_GroupingMinDistance
+			// 
+			this.txt_GroupingMinDistance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txt_GroupingMinDistance.Location = new System.Drawing.Point(169, 3);
+			this.txt_GroupingMinDistance.Name = "txt_GroupingMinDistance";
+			this.txt_GroupingMinDistance.ReadOnly = true;
+			this.txt_GroupingMinDistance.Size = new System.Drawing.Size(71, 26);
+			this.txt_GroupingMinDistance.TabIndex = 2;
+			// 
+			// label9
+			// 
+			this.label9.AutoSize = true;
+			this.label9.Location = new System.Drawing.Point(3, 0);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(115, 13);
+			this.label9.TabIndex = 1;
+			this.label9.Text = "Unit Minimum Distance";
+			// 
+			// cb_GroupingLogic
+			// 
+			this.cb_GroupingLogic.AutoSize = true;
+			this.cb_GroupingLogic.Location = new System.Drawing.Point(6, 19);
+			this.cb_GroupingLogic.Name = "cb_GroupingLogic";
+			this.cb_GroupingLogic.Size = new System.Drawing.Size(105, 17);
+			this.cb_GroupingLogic.TabIndex = 0;
+			this.cb_GroupingLogic.Text = "Enable Grouping";
+			this.cb_GroupingLogic.UseVisualStyleBackColor = true;
+			// 
 			// tabPage10
 			// 
+			this.tabPage10.Controls.Add(this.flowLayoutPanel_Avoidances);
+			this.tabPage10.Controls.Add(this.groupBox5);
 			this.tabPage10.Location = new System.Drawing.Point(4, 22);
 			this.tabPage10.Name = "tabPage10";
 			this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
@@ -585,6 +856,37 @@
 			this.tabPage10.TabIndex = 3;
 			this.tabPage10.Text = "Avoidances";
 			this.tabPage10.UseVisualStyleBackColor = true;
+			// 
+			// flowLayoutPanel_Avoidances
+			// 
+			this.flowLayoutPanel_Avoidances.AutoScroll = true;
+			this.flowLayoutPanel_Avoidances.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.flowLayoutPanel_Avoidances.Location = new System.Drawing.Point(3, 79);
+			this.flowLayoutPanel_Avoidances.Name = "flowLayoutPanel_Avoidances";
+			this.flowLayoutPanel_Avoidances.Size = new System.Drawing.Size(596, 447);
+			this.flowLayoutPanel_Avoidances.TabIndex = 1;
+			// 
+			// groupBox5
+			// 
+			this.groupBox5.Controls.Add(this.cb_AvoidanceLogic);
+			this.groupBox5.Dock = System.Windows.Forms.DockStyle.Top;
+			this.groupBox5.Location = new System.Drawing.Point(3, 3);
+			this.groupBox5.Name = "groupBox5";
+			this.groupBox5.Size = new System.Drawing.Size(596, 76);
+			this.groupBox5.TabIndex = 0;
+			this.groupBox5.TabStop = false;
+			this.groupBox5.Text = "Avoidances";
+			// 
+			// cb_AvoidanceLogic
+			// 
+			this.cb_AvoidanceLogic.AutoSize = true;
+			this.cb_AvoidanceLogic.Location = new System.Drawing.Point(6, 19);
+			this.cb_AvoidanceLogic.Name = "cb_AvoidanceLogic";
+			this.cb_AvoidanceLogic.Size = new System.Drawing.Size(113, 17);
+			this.cb_AvoidanceLogic.TabIndex = 0;
+			this.cb_AvoidanceLogic.Text = "Enable Avoidance";
+			this.cb_AvoidanceLogic.UseVisualStyleBackColor = true;
+			this.cb_AvoidanceLogic.CheckedChanged += new System.EventHandler(this.AvoidanceAttemptMovementChecked);
 			// 
 			// tabPage11
 			// 
@@ -756,6 +1058,27 @@
 			this.panel6.ResumeLayout(false);
 			this.panel6.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tb_ClusterLogicDisableHealth)).EndInit();
+			this.tabPage9.ResumeLayout(false);
+			this.groupBox4.ResumeLayout(false);
+			this.groupBox4.PerformLayout();
+			this.panel13.ResumeLayout(false);
+			this.panel13.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.tb_GroupingMinBotHealth)).EndInit();
+			this.panel12.ResumeLayout(false);
+			this.panel12.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.tb_GroupingMinUnitsInCluster)).EndInit();
+			this.panel11.ResumeLayout(false);
+			this.panel11.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.tb_GroupingMinCluster)).EndInit();
+			this.panel10.ResumeLayout(false);
+			this.panel10.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.tb_GroupingMaxDistance)).EndInit();
+			this.panel9.ResumeLayout(false);
+			this.panel9.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.tb_GroupingMinDistance)).EndInit();
+			this.tabPage10.ResumeLayout(false);
+			this.groupBox5.ResumeLayout(false);
+			this.groupBox5.PerformLayout();
 			this.tabPage2.ResumeLayout(false);
 			this.tabControl3.ResumeLayout(false);
 			this.ResumeLayout(false);
@@ -821,5 +1144,34 @@
 		private System.Windows.Forms.TextBox txt_ClusterLogicDisableHealth;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.CheckBox cb_ClusterTargetLogic;
+		private System.Windows.Forms.GroupBox groupBox4;
+		private System.Windows.Forms.Panel panel13;
+		private System.Windows.Forms.TrackBar tb_GroupingMinBotHealth;
+		private System.Windows.Forms.TextBox txt_GroupingMinBotHealth;
+		private System.Windows.Forms.Label label13;
+		private System.Windows.Forms.Panel panel12;
+		private System.Windows.Forms.TrackBar tb_GroupingMinUnitsInCluster;
+		private System.Windows.Forms.TextBox txt_GroupingMinUnitsInCluster;
+		private System.Windows.Forms.Label label12;
+		private System.Windows.Forms.Panel panel11;
+		private System.Windows.Forms.TrackBar tb_GroupingMinCluster;
+		private System.Windows.Forms.TextBox txt_GroupingMinCluster;
+		private System.Windows.Forms.Label label11;
+		private System.Windows.Forms.Panel panel10;
+		private System.Windows.Forms.TrackBar tb_GroupingMaxDistance;
+		private System.Windows.Forms.TextBox txt_GroupingMaxDistance;
+		private System.Windows.Forms.Label label10;
+		private System.Windows.Forms.Panel panel9;
+		private System.Windows.Forms.TrackBar tb_GroupingMinDistance;
+		private System.Windows.Forms.TextBox txt_GroupingMinDistance;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.CheckBox cb_GroupingLogic;
+		private System.Windows.Forms.GroupBox groupBox5;
+		private System.Windows.Forms.CheckBox cb_AvoidanceLogic;
+		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_Avoidances;
+		private System.Windows.Forms.TextBox[] TBavoidanceHealth;
+		private System.Windows.Forms.TextBox[] TBavoidanceRadius;
+		private System.Windows.Forms.TextBox[] TBavoidanceWeight;
+		//
 	}
 }

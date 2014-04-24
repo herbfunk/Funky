@@ -628,6 +628,11 @@ namespace FunkyBot.Cache.Objects
 								targetType = TargetType.Container;
 								Gizmotype = GizmoType.Chest;
 							}
+							else if(ObjectCache.SnoObjectPropertyCache.SpecialInteractables.Contains(SNOID))
+							{
+								targetType = TargetType.ServerInteractable;
+								Gizmotype = GizmoType.Chest;
+							}
 							else
 							{
 								GizmoType thisGizmoType;

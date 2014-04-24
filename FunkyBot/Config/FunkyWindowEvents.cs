@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Windows.Media;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Objects;
+using FunkyBot.Config;
 using FunkyBot.Settings;
 using System.Windows.Controls;
 using Zeta.Bot;
@@ -360,8 +361,9 @@ namespace FunkyBot
 			{
 				try
 				{
-					ObjectCache.SnoObjectPropertyCache = new CacheObjectIDs();
-					CacheObjectIDs.SerializeToXML(ObjectCache.SnoObjectPropertyCache);
+					//SettingsForm SF = new SettingsForm();
+					//SF.ShowDialog();
+					
 				}
 				catch(Exception ex)
 				{
@@ -446,9 +448,6 @@ namespace FunkyBot
 			Bot.Settings.DemonHunter.iDHVaultMovementDelay = Value;
 			TBiDHVaultMovementDelay.Text = Value.ToString();
 		}
-		#endregion
-
-
 		private void DebugStatusBarChecked(object sender, EventArgs e)
 		{
 			Bot.Settings.Debug.DebugStatusBar = !Bot.Settings.Debug.DebugStatusBar;
@@ -457,6 +456,10 @@ namespace FunkyBot
 		{
 			Bot.Settings.Debug.SkipAhead = !Bot.Settings.Debug.SkipAhead;
 		}
+		#endregion
+
+
+
 
 
 		protected override void OnClosed(EventArgs e)

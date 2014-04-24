@@ -6,20 +6,22 @@
   
     <Order>
       <ToggleTargeting combat="True" killRadius="100" looting="True" lootRadius="100" />
+     
+      <HaveBounty questId="361343">
+        <If condition="CurrentWorldId != 50584">
+          <FunkyWaypoint ID="4" />
+          <WaitTimer questId="312429" stepId="2" waitTime="500" />
+        </If>
 
-      <If condition="CurrentWorldId != 50584">
-        <FunkyWaypoint ID="4" />
-        <WaitTimer questId="312429" stepId="2" waitTime="500" />
-      </If>
+        <FunkyClustering enabled="false" />
 
-      <FunkyClustering enabled="false" />
+        <TrinityExploreDungeon questId="312429" stepId="2" boxTolerance="0.70" boxSize="10" until="BountyCompleted" bountyId="361343">
+          <IgnoreScenes>
+            <IgnoreScene sceneName="Entrance" />
+          </IgnoreScenes>
+        </TrinityExploreDungeon>
+      </HaveBounty>
       
-      <TrinityExploreDungeon questId="312429" stepId="2" boxTolerance="0.70" boxSize="10" until="BountyCompleted" bountyId="361343">
-        <IgnoreScenes>
-          <IgnoreScene sceneName="Entrance" />
-        </IgnoreScenes>
-      </TrinityExploreDungeon>
-
       <LoadProfile profile="_Act1BountyLoader.xml" />
       
    </Order>

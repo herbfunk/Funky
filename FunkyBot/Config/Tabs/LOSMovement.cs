@@ -40,7 +40,10 @@ namespace FunkyBot
 		{
 			Bot.Settings.LOSMovement.AllowRareLootContainer = !Bot.Settings.LOSMovement.AllowRareLootContainer;
 		}
-
+		private void LineOfSightBehaviorAllowCursedChestShrineChecked(object sender, EventArgs e)
+		{
+			Bot.Settings.LOSMovement.AllowCursedChestShrines = !Bot.Settings.LOSMovement.AllowCursedChestShrines;
+		}
 		#endregion
 
 		internal void InitLOSMovementControls()
@@ -163,6 +166,18 @@ namespace FunkyBot
 			cbLOSAllowRareLootContainer.Checked += LineOfSightBehaviorAllowRareLootContainerChecked;
 			cbLOSAllowRareLootContainer.Unchecked += LineOfSightBehaviorAllowRareLootContainerChecked;
 			SPTargetLOS.Children.Add(cbLOSAllowRareLootContainer);
+			#endregion
+
+			#region LOS_AllowCursedChestsShrines
+			CheckBox cbLOSAllowCursedChestsShrines = new CheckBox
+			{
+				Content = "Allow Cursed Chest/Shrines",
+				Height = 30,
+				IsChecked = (Bot.Settings.LOSMovement.AllowCursedChestShrines)
+			};
+			cbLOSAllowCursedChestsShrines.Checked += LineOfSightBehaviorAllowCursedChestShrineChecked;
+			cbLOSAllowCursedChestsShrines.Unchecked += LineOfSightBehaviorAllowCursedChestShrineChecked;
+			SPTargetLOS.Children.Add(cbLOSAllowCursedChestsShrines);
 			#endregion
 
 			LBTargetLOS.Items.Add(SPTargetLOS);

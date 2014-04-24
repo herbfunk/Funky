@@ -243,6 +243,9 @@
     <Content Include="Profiles\Act1\Agony_Crassus.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Profiles\Act1\Weeping_Kankerrot.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Profiles\Test.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
