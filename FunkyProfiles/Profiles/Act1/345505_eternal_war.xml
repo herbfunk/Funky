@@ -25,6 +25,9 @@
 					<IgnoreScene sceneName="_S01" />	
 				</IgnoreScenes>
 			</TrinityExploreDungeon>
+
+      <TrinitySetQuesting questId="1" />
+      
 			<UseObject questId="1" stepId="1" actorId="111907" isPortal="False" />
 
 			<!-- Wait for it to start and some extra time for delays between spawns -->

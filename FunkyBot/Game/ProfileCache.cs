@@ -67,8 +67,7 @@ namespace FunkyBot.Game
 
 					Type profileTagType = currentProfileBehavior.GetType();
 					string profileTagTypeString = profileTagType.ToString();
-
-					if (oocDBTags.Contains(profileTagType) || profileTagTypeString=="MoveToActor")
+					if (oocDBTags.Contains(profileTagType) || profileTagTypeString=="QuestTools.MoveToActor")
 					{
 						if (InteractiveTags.Contains(profileTagType))
 						{
@@ -87,10 +86,6 @@ namespace FunkyBot.Game
 
 						Logger.DBLog.DebugFormat("Current Profile Behavior has enabled OOC Behavior.");
 						IsRunningOOCBehavior = true;
-					}
-					else if(profileTagType == typeof(TrinityExploreDungeon))
-					{
-						//PrioritizedObjects.Clear();
 					}
 					else
 					{

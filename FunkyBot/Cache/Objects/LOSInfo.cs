@@ -70,7 +70,7 @@ namespace FunkyBot.Cache.Objects
 			  {//This is a basic raycast test to see if we have clear view of the object.
 					//Navigator.SearchGridProvider.Update();
 					Vector2 hitpos;
-					Vector3 ObjectPosition = (Obj.targetType.Value == TargetType.Door || Obj.targetType.Value == TargetType.Interactables) ? Obj.BotMeleeVector : Obj.Position;
+					Vector3 ObjectPosition = Obj.Position; //(Obj.targetType.Value == TargetType.Door || Obj.targetType.Value == TargetType.Interactables) ? Obj.BotMeleeVector : Obj.Position;
 
 					//Must check the Z difference.. (so we don't get false-positive result)
 					if (PositionToTestFrom.Z>=ObjectPosition.Z)

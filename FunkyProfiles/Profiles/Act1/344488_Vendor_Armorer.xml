@@ -5,21 +5,25 @@
 <PickupLoot>true</PickupLoot>
 <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
 <Order>
-  <If condition="CurrentWorldId != 71150">
-    <FunkyWaypoint ID="13" />
-  </If>
   
-	<WaitTimer questId="1" stepId="2" waitTime="2000" />	
-	<HaveBounty questId="344488">	
+
+  
+
+	<HaveBounty questId="344488">
+
+    <If condition="CurrentWorldId != 71150 and CurrentLevelAreaId != 82326 and CurrentLevelAreaId != 82327">
+      <FunkyWaypoint ID="13" />
+      <WaitTimer questId="1" stepId="2" waitTime="2000" />
+    </If>
 
 		<!-- Check Known Locations -->
 		<If condition="CurrentWorldId == 71150">		
-			<SafeMoveTo questId="1" stepId="1" x="2334" y="3886" z="10" pathPrecision="5" pathPointLimit="250" statusText="" /> 	
-			<MoveToMapMarker questId="1" stepId="1" exitNameHash="497382903" destinationWorldId="82076" interactRange="20"  />					
+			<SafeMoveTo questId="1" stepId="1" x="2334" y="3886" z="10" pathPrecision="5" pathPointLimit="250" statusText="" />
+      <MoveToActor questId="312429" stepId="2" actorId="175482" interactRange="20" isPortal="True" destinationWorldId="82076" />		
 		</If>
 		<If condition="CurrentWorldId == 71150">		
 			<SafeMoveTo questId="312429" stepId="2" x="2089" y="3876" z="10" pathPrecision="5" pathPointLimit="250" statusText="" />
-			<MoveToMapMarker questId="1" stepId="1" exitNameHash="497382903" destinationWorldId="82076" interactRange="20"  />		
+      <MoveToActor questId="312429" stepId="2" actorId="175482" interactRange="20" isPortal="True" destinationWorldId="82076" />
 		</If>		
 		
 		<!--  Search Everywhere -->
@@ -39,9 +43,9 @@
 		<If condition="CurrentLevelAreaId == 82326">
 		
 			<!--  Search for Watch Tower -->
-			<TrinityExploreDungeon questId="1" stepId="1" boxTolerance="0.05" boxSize="8" until="ExitFound" exitNameHash="497382904" ignoreMarkers="False">
+			<TrinityExploreDungeon questId="1" stepId="1" boxTolerance="0.18" boxSize="20" pathPrecision="20" until="ObjectFound" actorId="176001" objectDistance="30" ignoreMarkers="False">
 				<PrioritizeScenes>
-					<PriorityScene sceneName="Exit" />
+					<PriorityScene sceneName="Exit" minDistance="200" />
 				</PrioritizeScenes>				
 			</TrinityExploreDungeon>			
 			<MoveToMapMarker questId="1" stepId="1" markerNameHash="497382904" actorId="176001" interactRange="20" pathPrecision="5" pathPointLimit="250" isPortal="True" destinationWorldId="82313" statusText="" /> 	
@@ -64,7 +68,7 @@
 			<WaitTimer questId="1" stepId="1" waitTime="500" />	
 			
 			<!-- Pick up the scabbard -->
-			<MoveToActor questId="312429" stepId="2" x="528" y="274" z="0" actorId="222404" interactRange="9" name="a1dun_highlands_JeweledScabbard-4736"  pathPrecision="5" pathPointLimit="250" statusText="" /> 
+			<MoveToActor questId="312429" stepId="2" actorId="222404" interactRange="9" name="a1dun_highlands_JeweledScabbard-4736"  pathPrecision="5" pathPointLimit="250" statusText="" /> 
 
 			<!--  Talk to Vendor -->	
 			<MoveToActor questId="312429" stepId="2" actorId="81609" interactRange="8" name="A1_UniqueVendor_Armorer-3541"  pathPrecision="5" pathPointLimit="250" statusText="" /> 
