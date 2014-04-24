@@ -145,6 +145,12 @@ namespace FunkyBot.DBHandlers
 
 		internal static RunStatus GilesOptimisedSell(object ret)
 		{
+			if (!ZetaDia.IsInGame || ZetaDia.IsLoadingWorld || ZetaDia.Me == null || ZetaDia.Me.CommonData == null)
+			{
+				Logger.DBLog.InfoFormat("[Funky] Town Run Behavior Failed! (Not In Game/Invalid Actor/misc)");
+				return RunStatus.Failure;
+			}
+
 			Act curAct = ZetaDia.CurrentAct;
 			if (curAct == Act.Invalid || curAct == Act.OpenWorld || curAct == Act.Test)
 				curAct = Character.FindActByLevelID(Bot.Character.Data.iCurrentLevelID);

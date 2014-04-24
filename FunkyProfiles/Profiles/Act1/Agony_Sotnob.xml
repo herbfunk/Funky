@@ -9,15 +9,14 @@
 
     <If condition="CurrentLevelAreaId != 19775">
       <FunkyWaypoint ID="16" />
+      <WaitTimer questId="312429" stepId="2" waitTime="500" />
     </If>
 
     <If condition="CurrentLevelAreaId == 19775">
       <FunkyClustering enabled="false" />
       
       <TrinityExploreDungeon questId="312429" stepId="2" boxTolerance="0.10" boxSize="25" until="BountyCompleted" bountyId="349026">
-        <IgnoreScenes>
-          <IgnoreScene sceneName="Entrance" />
-        </IgnoreScenes>
+
       </TrinityExploreDungeon>
     </If>
 

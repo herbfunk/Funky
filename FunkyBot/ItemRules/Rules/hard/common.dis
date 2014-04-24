@@ -13,28 +13,30 @@
 
 // Normal Crafting Items
 //[BASETYPE] == "Weapon" && [NAME] == "Steppes Smasher"
-//[BASETYPE] == "Armor" && [NAME] == "Ascended Shield"
+//[BASETYPE] == "Armor" && [NAME] == "Ascended Shield" && [ARMOR] > 1900 && [TOTBLOCK%] > 17
 //[BASETYPE] == "Weapon" && [NAME] == "Dire Axe"
 //[BASETYPE] == "Weapon" && [NAME] == "Doubleshot"
-//[BASETYPE] == "Armor" && [NAME] == "Ascended Crown"
+//[BASETYPE] == "Armor" && [NAME] == "Ascended Crown" && [ARMOR] > 735
 //[BASETYPE] == "Weapon" && [NAME] == "Persuader"
-//[BASETYPE] == "Armor" && [NAME] == "Ascended Faulds"
+//[BASETYPE] == "Armor" && [NAME] == "Ascended Faulds" && [ARMOR] > 735
 //[BASETYPE] == "Weapon" && [NAME] == "Whirlwind Staff"
-//[BASETYPE] == "Armor" && [NAME] == "Ascended Bracers"
-//[BASETYPE] == "Armor" && [NAME] == "Ascended Gauntlets"
+//[BASETYPE] == "Armor" && [NAME] == "Ascended Bracers" && [ARMOR] > 405
+//[BASETYPE] == "Armor" && [NAME] == "Ascended Gauntlets" && [ARMOR] > 580
 //[BASETYPE] == "Weapon" && [NAME] == "Limb Cleaver"
 //[BASETYPE] == "Weapon" && [NAME] == "Kerykeion"
-//[BASETYPE] == "Armor" && [NAME] == "Ascended Armor"
+//[BASETYPE] == "Armor" && [NAME] == "Ascended Armor" && [ARMOR] > 740
 //[BASETYPE] == "Weapon" && [NAME] == "Tecpatl"
-//[BASETYPE] == "Weapon" && [NAME] == "Tsunami Blade"
-//[BASETYPE] == "Weapon" && [NAME] == "Grandfather Flail"
-//[BASETYPE] == "Armor" && [NAME] == "Archon Sash"
-//[BASETYPE] == "Weapon" && [NAME] == "Skullsplitter"
-//[BASETYPE] == "Weapon" && [NAME] == "Suwaiya"
-//[BASETYPE] == "Armor" && [NAME] == "Ascended Pauldrons"
-//[BASETYPE] == "Armor" && [NAME] == "Ascended Greaves"
-//[BASETYPE] == "Weapon" && [NAME] == "Punyal"
-//[BASETYPE] == "Weapon" && [NAME] == "Penetrator"
-//[BASETYPE] == "Weapon" && [NAME] == "Diabolic Wand"
-//[BASETYPE] == "Weapon" && [NAME] == "Oxybeles"
+//[BASETYPE] == "Weapon" && [NAME] == "Tsunami Blade" && [DPS] > 395
+//[BASETYPE] == "Weapon" && [NAME] == "Grandfather Flail" && [DPS] > 388
+//[BASETYPE] == "Armor" && [NAME] == "Archon Sash" && [ARMOR] > 490
+//[BASETYPE] == "Weapon" && [NAME] == "Skullsplitter" && [DPS] > 545
+//[BASETYPE] == "Weapon" && [NAME] == "Suwaiya" && [DPS] > 395
+//[BASETYPE] == "Armor" && [NAME] == "Ascended Pauldrons" && [ARMOR] > 660
+//[BASETYPE] == "Armor" && [NAME] == "Ascended Greaves" && [ARMOR] > 580
+//[BASETYPE] == "Weapon" && [NAME] == "Punyal" && [DPS] > 323
+//[BASETYPE] == "Weapon" && [NAME] == "Penetrator" && [DPS] > 673
+//[BASETYPE] == "Weapon" && [NAME] == "Diabolic Wand" && [DPS] > 388
+//[BASETYPE] == "Weapon" && [NAME] == "Oxybeles" && [DPS] > 958
+//[BASETYPE] == "Weapon" && [NAME] == "Flesh Render" && [DPS] > 958
+//
 

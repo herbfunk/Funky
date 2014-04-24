@@ -7,6 +7,7 @@
     <Order>
       <While condition="CurrentWorldId != 50585 and CurrentWorldId != 73261">
         <FunkyWaypoint ID="5" />
+        <WaitTimer questId="312429" stepId="2" waitTime="500" />
       </While>
 
       <HaveBounty questId="361234">

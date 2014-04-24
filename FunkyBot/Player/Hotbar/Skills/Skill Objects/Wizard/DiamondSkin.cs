@@ -14,9 +14,8 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				Priority=SkillPriority.High;
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckCanCast));
 
-				FcriteriaCombat=() => Bot.Character.Data.dCurrentHealthPct<=0.45d && //less than 45% of HP
-									   (Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25] > 0 || //or with anything nearby while incapacitated
-				                       ((Bot.Character.Data.bIsIncapacitated||Bot.Character.Data.bIsRooted) && Bot.Targeting.Cache.RequiresAvoidance)); //or requires avoidance
+				FcriteriaBuff = () => Bot.Character.Data.dCurrentHealthPct <= 0.45d && Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_40] > 0;
+				FcriteriaCombat=() => Bot.Character.Data.dCurrentHealthPct<=0.45d && Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_40]>0;
 		  }
 
 		  #region IAbility

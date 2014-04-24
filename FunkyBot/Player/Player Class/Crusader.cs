@@ -26,7 +26,32 @@ namespace FunkyBot.Player.Class
 
 		private readonly HashSet<SNOAnim> knockbackanims = new HashSet<SNOAnim>
 				{
-					 SNOAnim.Invalid,
+					SNOAnim.x1_Crusader_Female_2HT_Shield_Knockback_land,
+					SNOAnim.x1_Crusader_Female_2HMace_Shield_Knockback_land,
+					SNOAnim.x1_Crusader_Female_2HS_Shield_Knockback_land,
+					SNOAnim.x1_Crusader_Female_2HFlail_Shield_Knockback_land,
+					SNOAnim.x1_Crusader_Female_2HFlail_Knockback_land,
+					SNOAnim.x1_Crusader_Female_1HT_Shield_Knockback_land,
+					SNOAnim.x1_Crusader_Female_2HS_Knockback_land,
+					SNOAnim.x1_Crusader_Female_2HMace_Knockback_land,
+					SNOAnim.x1_Crusader_Female_2HT_Knockback_land,
+					SNOAnim.x1_Crusader_Female_1HT_Knockback_land,
+					SNOAnim.x1_Crusader_Female_1HS_Shield_Knockback_land,
+					SNOAnim.x1_Crusader_Female_1HS_Shield_Knockback_land,
+					SNOAnim.x1_Crusader_Female_1HS_Knockback_land,
+					SNOAnim.x1_Crusader_Female_HTH_Knockback_land,
+
+					SNOAnim.x1_Crusader_Male_2HS_Shield_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_2HS_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_HTH_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_2HFlail_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_2HMace_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_2HT_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_1HT_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_2HT_Shield_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_1HT_Shield_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_1HS_Shield_knockback_land_01,
+					SNOAnim.x1_Crusader_Male_knockback_land_01,
 				};
 		internal override HashSet<SNOAnim> KnockbackLandAnims
 		{

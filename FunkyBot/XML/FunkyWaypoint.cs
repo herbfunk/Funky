@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyBot.Game;
 using Zeta.Bot.Navigation;
 using Zeta.Bot.Profile;
 using Zeta.Game;
@@ -53,6 +54,14 @@ namespace FunkyBot.XMLTags
 				 //Toggle Waypoint Map!
 				 new Decorator(ret => !UIElements.WaypointMap.IsVisible,
 					 new Action(ret => UIManager.ToggleWaypointMap())),
+				//Check if Correct UI is showing!
+				new Decorator(ret => !UI.ValidateUIElement(UI.GetWaypointUIByWaypointID(waypointID)),
+					new PrioritySelector(
+						new Decorator(ret => !UI.ValidateUIElement(UI.WaypointMap_ActOne),
+							new Action(ret => UI.WaypointMap_ZoomOut.Click())),
+						new Decorator(ret => UI.GetWaypointActUIByWaypointID(waypointID).IsVisible,
+							new Action(ret => UI.GetWaypointActUIByWaypointID(waypointID).Click()))
+							)),
 				//Check if in range and interaction should occur again!
 				 new Decorator(ret => ShouldAttemptInteraction() && !LevelAreaChanged(),
 					  new Action(ret => UseWaypoint())

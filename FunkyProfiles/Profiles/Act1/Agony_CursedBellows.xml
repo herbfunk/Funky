@@ -8,13 +8,14 @@
   
   <If condition="CurrentLevelAreaId != 19776">
     <FunkyWaypoint waypointNumber="17" questId="1"/>
+    <WaitTimer questId="312429" stepId="2" waitTime="500" />
   </If>
   
   <WaitTimer questId="1" stepId="2" waitTime="2000" />	
 	<HaveBounty questId="369789">
 		<!--  Halls of Agony Level 3  -->
 		<If condition="CurrentLevelAreaId == 19776">
-
+      <WaitTimer questId="312429" stepId="2" waitTime="500" />
 			<!-- Find the chest -->
       <TrinityExploreDungeon questId="1" stepId="1" until="ObjectFound" actorId="364559" pathPrecision="40" boxSize="20" boxTolerance="0.30">
         <PrioritizeActors>

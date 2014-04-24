@@ -9,6 +9,7 @@
 
       <If condition="CurrentWorldId != 50582">
         <FunkyWaypoint ID="3" />
+        <WaitTimer questId="312429" stepId="2" waitTime="500" />
       </If>
 
       <TrinityExploreDungeon questId="312429" stepId="2" boxTolerance="0.70" boxSize="10" until="ObjectFound" objectDistance="10" actorId="365097 ">

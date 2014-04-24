@@ -40,7 +40,7 @@ namespace FunkyBot
 			Bot.Game.Profile.CheckCurrentProfileBehavior();
 
 			//UI?
-			Bot.Game.CheckUI();
+			//Bot.Game.CheckUI();
 
 			// Should we refresh target list?
 			if (Bot.Targeting.Cache.ShouldRefreshObjectList)

@@ -10,11 +10,12 @@
 
     <If condition="CurrentLevelAreaId != 78572 and CurrentLevelAreaId != 62726">
       <FunkyWaypoint ID="12" />
+      <WaitTimer questId="312429" stepId="2" waitTime="500" />
     </If>
 
     <!-- Dungeon Lid: 78572-->
     <If condition="CurrentLevelAreaId == 78572">
-   
+      <WaitTimer questId="312429" stepId="2" waitTime="500" />
       <TrinityExploreDungeon questId="312429" stepId="2" until="ExitFound" exitNameHash="1317387500" actorId="183032" pathPrecision="25" boxSize="20" boxTolerance="0.25" objectDistance="45">
         <PriorityScenes>
           <PriorityScene sceneName="Exit" />
@@ -27,6 +28,7 @@
 
     <!-- Boss Lid: 62726 -->
     <If condition="CurrentLevelAreaId == 62726">
+      <WaitTimer questId="312429" stepId="2" waitTime="500" />
       <!-- Queen Actor ID: 51341-->
       <While condition="ActorExistsAt(51341, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 300)">
         <WaitTimer questId="312429" stepId="2" waitTime="5000" />

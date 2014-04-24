@@ -105,6 +105,12 @@ namespace FunkyBot.DBHandlers
 		// **********************************************************************************************
 		internal static RunStatus GilesOptimisedSalvage(object ret)
 		{
+			if (!ZetaDia.IsInGame || ZetaDia.IsLoadingWorld || ZetaDia.Me == null || ZetaDia.Me.CommonData == null)
+			{
+				Logger.DBLog.InfoFormat("[Funky] Town Run Behavior Failed! (Not In Game/Invalid Actor/misc)");
+				return RunStatus.Failure;
+			}
+
 			DiaUnit objBlacksmith = ZetaDia.Actors.GetActorsOfType<DiaUnit>(true).FirstOrDefault<DiaUnit>(u => u.IsSalvageShortcut);
 			Vector3 vectorPlayerPosition = ZetaDia.Me.Position;
 			Vector3 vectorSalvageLocation = new Vector3(0f, 0f, 0f);

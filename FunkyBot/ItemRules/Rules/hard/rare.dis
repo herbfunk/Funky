@@ -273,11 +273,11 @@
 // | DEF: [VIT] == 200, [LIFE%] == 12, [ALLRES] == 80, [MAXONERES] == 60, [ARMOR] == 265
 // | ADD: [REGEN] == 342, [GF%] == 25, [MF%] == 20
 // +---------------------------------------------------------------------------+
-[QUALITY] == "Rare" && [TYPE] == "Shoulder" # ([STRVIT] > 1000 || [DEXVIT] > 900 ||  [INTVIT] > 900) && [LIFE%] > 11 && [ALLRES] > 80 && ([REGEN] > 600 || [ARMORBONUS] > 240 || ([GF%] > 24 && [MF%] > 19)) 
-[QUALITY] == "Rare" && [TYPE] == "Shoulder" # ([STRVIT] > 1000 || [DEXVIT] > 900 ||  [INTVIT] > 900) && [LIFE%] > 10 && [ALLRES] > 80
-[QUALITY] == "Rare" && [TYPE] == "Shoulder" # ([STRVIT] > 1000 || [DEXVIT] > 900 ||  [INTVIT] > 900) && [LIFE%] > 5 && [ALLRES] > 70
-[QUALITY] == "Rare" && [TYPE] == "Shoulder" # ([STRVIT] > 1100 || [DEXVIT] > 1100 ||  [INTVIT] > 1100) && [ALLRES] > 0
-[QUALITY] == "Rare" && [TYPE] == "Shoulder" # [MAXSTATVIT] > 0 && [TOTRES] > 120 && ([LIFE%] > 11 || [REGEN] > 600 || [ARMORBONUS] > 240 || ([GF%] > 24 && [MF%] > 19)) 
+[QUALITY] == "Rare" && [TYPE] == "Shoulder" # ([STRVIT] > 750 || [DEXVIT] > 750 ||  [INTVIT] > 750) && [LIFE%] > 11 && [ALLRES] > 80 && ([REGEN] > 600 || [ARMORBONUS] > 355 || ([GF%] > 24 && [MF%] > 19)) 
+[QUALITY] == "Rare" && [TYPE] == "Shoulder" # ([STRVIT] > 750 || [DEXVIT] > 750 ||  [INTVIT] > 750) && [LIFE%] > 10 && [ALLRES] > 80
+[QUALITY] == "Rare" && [TYPE] == "Shoulder" # ([STRVIT] > 750 || [DEXVIT] > 750 ||  [INTVIT] > 750) && [LIFE%] > 5 && [ALLRES] > 70
+[QUALITY] == "Rare" && [TYPE] == "Shoulder" # ([STRVIT] > 800 || [DEXVIT] > 800 ||  [INTVIT] > 800) && [ALLRES] > 0
+[QUALITY] == "Rare" && [TYPE] == "Shoulder" # [MAXSTATVIT] > 750 && [TOTRES] > 120 && [ARMORBONUS] > 355 && ([LIFE%] > 11 || [REGEN] > 600 || ([GF%] > 24 && [MF%] > 19)) 
 // trash rule
 [QUALITY] == "Rare" && [TYPE] == "Shoulder" -> [TRASH]
 

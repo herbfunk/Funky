@@ -320,6 +320,12 @@ namespace FunkyBot.DBHandlers
 
 		internal static RunStatus StashMovement(object ret)
 		{
+			if (!ZetaDia.IsInGame || ZetaDia.IsLoadingWorld || ZetaDia.Me == null || ZetaDia.Me.CommonData == null)
+			{
+				Logger.DBLog.InfoFormat("[Funky] Town Run Behavior Failed! (Not In Game/Invalid Actor/misc)");
+				return RunStatus.Failure;
+			}
+
 			if (ZetaDia.Actors.Me == null)
 			{
 				Logger.DBLog.DebugFormat("GSError: Diablo 3 memory read error, or item became invalid [CoreStash-1]");
@@ -380,6 +386,12 @@ namespace FunkyBot.DBHandlers
 
 		internal static RunStatus StashUpdate(object ret)
 		{
+			if (!ZetaDia.IsInGame || ZetaDia.IsLoadingWorld || ZetaDia.Me == null || ZetaDia.Me.CommonData == null)
+			{
+				Logger.DBLog.InfoFormat("[Funky] Town Run Behavior Failed! (Not In Game/Invalid Actor/misc)");
+				return RunStatus.Failure;
+			}
+
 			if (!bUpdatedStashMap)
 			{
 				// Array for what blocks are or are not blocked
@@ -429,6 +441,12 @@ namespace FunkyBot.DBHandlers
 
 		internal static RunStatus StashItems(object ret)
 		{
+			if (!ZetaDia.IsInGame || ZetaDia.IsLoadingWorld || ZetaDia.Me == null || ZetaDia.Me.CommonData == null)
+			{
+				Logger.DBLog.InfoFormat("[Funky] Town Run Behavior Failed! (Not In Game/Invalid Actor/misc)");
+				return RunStatus.Failure;
+			}
+
 			if (Bot.Character.Data.BackPack.townRunCache.hashGilesCachedKeepItems.Count > 0)
 			{
 				iCurrentItemLoops++;

@@ -418,7 +418,8 @@ namespace FunkyBot
 
 			internal static MoveResult NavigateTo(Vector3 moveTarget, string destinationName = "")
 			{
-				return Navigator.MoveTo(moveTarget, destinationName);
+				bool recentlyStuck=DateTime.Now.Subtract(timeStartedUnstuckMeasure).TotalMilliseconds < 2500;
+				return Navigator.MoveTo(moveTarget, destinationName, recentlyStuck);
 			}
 		}
 

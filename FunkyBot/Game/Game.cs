@@ -82,21 +82,14 @@ namespace FunkyBot.Game
 
 			return false;
 		}
-		public static UIElement BountyCompleteContinue
-		{
-			get
-			{
-				try { return UIElement.FromHash(0x278249110947CA00); }
-				catch { return null; }
-			}
-		}
+
 		//
 		internal void CheckUI()
 		{
-			if (BountyCompleteContinue != null && BountyCompleteContinue.IsValid && BountyCompleteContinue.IsVisible)
+			if (UI.BountyCompleteContinue != null && UI.BountyCompleteContinue.IsValid && UI.BountyCompleteContinue.IsVisible)
 			{
 				Logger.DBLog.Info("Funky Clicking Bounty Dialog!");
-				BountyCompleteContinue.Click();
+				UI.BountyCompleteContinue.Click();
 			}
 		}
 	}

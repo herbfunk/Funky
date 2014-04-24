@@ -9,6 +9,7 @@
 
     <If condition="CurrentLevelAreaId != 72712 and CurrentLevelAreaId != 19952 and CurrentLevelAreaId != 19954 and CurrentLevelAreaId != 83265">
       <FunkyWaypoint ID="7" />
+      <WaitTimer questId="312429" stepId="2" waitTime="500" />
     </If>
 
     <While condition="CurrentLevelAreaId == 72712 or CurrentLevelAreaId == 19952 or CurrentLevelAreaId == 19954">

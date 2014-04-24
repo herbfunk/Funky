@@ -30,6 +30,12 @@ namespace FunkyBot.DBHandlers
 		internal static RunStatus TownRunFinishBehavior(object ret)
 		{//Return to the town portal
 
+			if (!ZetaDia.IsInGame || ZetaDia.IsLoadingWorld || ZetaDia.Me == null || ZetaDia.Me.CommonData == null)
+			{
+				Logger.DBLog.InfoFormat("[Funky] Town Run Behavior Failed! (Not In Game/Invalid Actor/misc)");
+				return RunStatus.Failure;
+			}
+
 			//Check if town portal object is present
 			if (!FoundTownPortal)
 			{

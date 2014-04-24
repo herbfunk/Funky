@@ -10,6 +10,7 @@
 
     <If condition="CurrentLevelAreaId != 78572">
       <FunkyWaypoint ID="12" />
+      <WaitTimer questId="312429" stepId="2" waitTime="500" />
     </If>
 
     <!-- Dungeon Lid: 78572-->

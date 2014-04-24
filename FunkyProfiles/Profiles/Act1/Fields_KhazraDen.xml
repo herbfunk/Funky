@@ -9,6 +9,7 @@
 
       <If condition="CurrentLevelAreaId != 19952 and CurrentLevelAreaId != 119893">
         <FunkyWaypoint ID="8" />
+        <WaitTimer questId="312429" stepId="2" waitTime="500" />
       </If>
 
       <If condition="CurrentLevelAreaId == 19952">
@@ -25,6 +26,7 @@
       </If>
       
       <If condition="CurrentLevelAreaId == 119893">
+        <WaitTimer questId="312429" stepId="2" waitTime="500" />
         <FunkyClustering enabled="false" />
         <TrinityExploreDungeon questId="312429" stepId="2" boxTolerance="0.40" boxSize="12" until="BountyCompleted" bountyId="347065" />
       </If>

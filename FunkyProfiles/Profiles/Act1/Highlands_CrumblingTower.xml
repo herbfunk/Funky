@@ -9,6 +9,7 @@
 
       <If condition="CurrentWorldId != 71150 and CurrentWorldId != 80057">
         <FunkyWaypoint ID="13" />
+        <WaitTimer questId="312429" stepId="2" waitTime="500" />
       </If>
 
       <WaitTimer questId="1" stepId="2" waitTime="2000" />
@@ -32,6 +33,7 @@
         </If>
 
         <If condition="CurrentWorldId == 80057">
+          <WaitTimer questId="312429" stepId="2" waitTime="500" />
           <FunkyClustering enabled="false" />
           <TrinityExploreDungeon questId="312429" stepId="2" boxTolerance="0.10" boxSize="9" until="BountyCompleted" bountyId="344482" />
           <WaitTimer questId="1" stepId="2" waitTime="2000" />

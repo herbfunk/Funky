@@ -9,6 +9,7 @@
 
       <If condition="CurrentLevelAreaId != 93632 and CurrentLevelAreaId != 19940">
         <FunkyWaypoint ID="13" />
+        <WaitTimer questId="312429" stepId="2" waitTime="500" />
       </If>
 
       <If condition="CurrentLevelAreaId == 93632">
@@ -25,6 +26,7 @@
       
       <!-- Ignored Scenes: , -->
       <If condition="CurrentLevelAreaId == 19940">
+        <WaitTimer questId="312429" stepId="2" waitTime="500" />
         <TrinityExploreDungeon questId="312429" stepId="2" until="ObjectFound" exitNameHash="0" actorId="364601" pathPrecision="25" boxSize="15" boxTolerance="0.55" objectDistance="35">
           <PriorityScenes>
             <PriorityScene sceneName="Battlements_" />

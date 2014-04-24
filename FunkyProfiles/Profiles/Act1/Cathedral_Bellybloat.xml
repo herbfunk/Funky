@@ -9,6 +9,7 @@
 
       <If condition="CurrentWorldId != 50584">
         <FunkyWaypoint ID="4" />
+        <WaitTimer questId="312429" stepId="2" waitTime="500" />
       </If>
 
       <FunkyClustering enabled="false" />

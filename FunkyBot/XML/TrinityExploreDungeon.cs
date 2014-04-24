@@ -153,14 +153,14 @@ namespace FunkyBot.XMLTags
 			get
 			{
 				if (m_IgnoredAreas == null)
-					m_IgnoredAreas = new CachedValue<List<Area>>(() => { return GetIgnoredAreas(); }, TimeSpan.FromSeconds(1));
+					m_IgnoredAreas = new CachedValue<List<Area>>(GetIgnoredAreas, TimeSpan.FromSeconds(1));
 				return m_IgnoredAreas.Value;
 			}
 		}
 
 		private List<Area> GetIgnoredAreas()
 		{
-			List<Area> returnAreas=new List<Area>();
+			
 			foreach (var s in ZetaDia.Scenes.GetScenes())
 			{
 				if (!s.IsValid) continue;
@@ -169,30 +169,30 @@ namespace FunkyBot.XMLTags
 
 				if (IgnoreScenes.Any(igns => igns.Equals(s)) && !PriorityScenes.Any(psc => psc.Equals(s)))
 				{
-					if (s.Mesh.Zone == null)
+					if (s.Mesh.Zone != null)
 					{
-						returnAreas.Add(new Area(new Vector2(float.MinValue, float.MinValue), new Vector2(float.MaxValue, float.MaxValue)));
-					}
-					else
-					{
-						returnAreas.Add(new Area(s.Mesh.Zone.ZoneMin, s.Mesh.Zone.ZoneMax));
+						var newArea=new Area(s.Mesh.Zone.ZoneMin, s.Mesh.Zone.ZoneMax);
+						Ignoredareas.Add(newArea);
+						SkippableSceneIDs.Add(SceneID);
 					}
 				}
 				else
 					SkippableSceneIDs.Add(SceneID);
-			}	
+			}
 
-			//var ignoredScenes = ZetaDia.Scenes.GetScenes()
-			//	.Where(scn => scn.IsValid && IgnoreScenes.Any(igns => igns.Equals(scn)) && !PriorityScenes.Any(psc => psc.Equals(scn)))
-			//	.Select(scn =>
-			//		scn.Mesh.Zone == null
-			//		? new Area(new Vector2(float.MinValue, float.MinValue), new Vector2(float.MaxValue, float.MaxValue))
-			//		: new Area(scn.Mesh.Zone.ZoneMin, scn.Mesh.Zone.ZoneMax))
-			//		.ToList();
+
+			var returnAreas = new List<Area>();
+			if (Ignoredareas.Count>0)
+			{
+				returnAreas = Ignoredareas.Where(a => myPos.ToVector2().Distance(a.Center) <= 250f).ToList();
+			}
+			
+
 			Logger.DBLog.DebugFormat("Returning {0} ignored areas", returnAreas.Count());
 			return returnAreas;
 		}
-		private readonly List<int> SkippableSceneIDs = new List<int>(); 
+		private readonly List<int> SkippableSceneIDs = new List<int>();
+		private readonly List<Area> Ignoredareas = new List<Area>(); 
 
 		private class Area
 		{
