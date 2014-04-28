@@ -13,11 +13,16 @@
 	<WaitTimer questId="1" stepId="2" waitTime="2000" />
   
   <HaveBounty questId="365381">
+
+    <TrinitySetQuesting questId="1" />
     
     <TrinityExploreDungeon questId="312429" stepId="2" until="ObjectFound" actorId="365097" pathPrecision="25" boxSize="25" boxTolerance="0.01" objectDistance="45" stayAfterBounty="False">
       <PriorityScenes>
         <PriorityScene sceneId="33398" />
       </PriorityScenes>
+      <IgnoreScenes>
+        <IgnoreScene sceneName="Exit" />
+      </IgnoreScenes>
     </TrinityExploreDungeon>
     
     <While condition="ActorExistsAt(365097, Me.Position.X, Me.Position.Y, Me.Position.Z, 150)">
@@ -56,6 +61,9 @@
 		<!-- search everywhere -->
 		<HaveBounty questId="365381">
 			<TrinityExploreDungeon questId="1" stepId="2" until="ObjectFound" actorId="365097" boxTolerance="0.10" boxSize="15" >
+        <IgnoreScenes>
+          <IgnoreScene sceneName="Exit" />
+        </IgnoreScenes>
 			</TrinityExploreDungeon>
 			<MoveToActor questId="375198" stepId="2" actorId="365097" />
 			<WaitTimer questId="375198" stepId="2" waitTime="5000" />

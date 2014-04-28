@@ -710,6 +710,7 @@ namespace FunkyBot.Movement
 		{
 			if (!NavType.Equals(NavCellFlags.None))
 				return ZetaDia.Physics.Raycast(vStartLocation, vDestination, NavType); //False means nothing hit
+
 			if (UseSearchGridProvider)
 			{
 				Vector2 hitVector;
@@ -717,6 +718,7 @@ namespace FunkyBot.Movement
 					return !Navigator.SearchGridProvider.Raycast(vStartLocation.ToVector2(), vDestination.ToVector2(), out hitVector);
 				return !Navigator.SearchGridProvider.Raycast(vDestination.ToVector2(), vStartLocation.ToVector2(), out hitVector);
 			}
+
 			return !Navigator.Raycast(vStartLocation, vDestination); //True means nothing hit
 		}
 

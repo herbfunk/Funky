@@ -54,15 +54,15 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 				{
 					bool cancast = PowerManager.CanCast(s.Power, out s.CanCastFlags);
 
+					//&& s.CanCastFlags.HasFlag(PowerManager.CanCastFlags.PowerNotEnoughResource)
+					//if (!cancast)
+					//{
+					//	if (s.IsSpecialAbility)
+					//		Bot.Character.Class.bWaitingForSpecial = true;
 
-					if (!cancast && s.CanCastFlags.HasFlag(PowerManager.CanCastFlags.PowerNotEnoughResource))
-					{
-						if (s.IsSpecialAbility)
-							Bot.Character.Class.bWaitingForSpecial = true;
-
-						if (s.IsRanged || s.Range > 0)
-							Bot.Character.Class.CanUseDefaultAttack = true;
-					}
+					//	if (s.IsRanged || s.Range > 0)
+					//		Bot.Character.Class.CanUseDefaultAttack = true;
+					//}
 					//else if (IsSpecialAbility)
 					//	 Bot.Character_.Class.bWaitingForSpecial=false;
 

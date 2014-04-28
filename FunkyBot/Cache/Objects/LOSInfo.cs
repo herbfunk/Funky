@@ -73,10 +73,15 @@ namespace FunkyBot.Cache.Objects
 					Vector3 ObjectPosition = Obj.Position; //(Obj.targetType.Value == TargetType.Door || Obj.targetType.Value == TargetType.Interactables) ? Obj.BotMeleeVector : Obj.Position;
 
 					//Must check the Z difference.. (so we don't get false-positive result)
-					if (PositionToTestFrom.Z>=ObjectPosition.Z)
-						 RayCast=!Navigator.SearchGridProvider.Raycast(PositionToTestFrom.ToVector2(), ObjectPosition.ToVector2(), out hitpos);
+					//if (PositionToTestFrom.Z>ObjectPosition.Z)
+					//	 RayCast=!Navigator.SearchGridProvider.Raycast(PositionToTestFrom.ToVector2(), ObjectPosition.ToVector2(), out hitpos);
+					//else
+					//	 RayCast=!Navigator.SearchGridProvider.Raycast(ObjectPosition.ToVector2(), PositionToTestFrom.ToVector2(), out hitpos);
+					
+					if (PositionToTestFrom.Z > ObjectPosition.Z)
+					  RayCast=Navigation.CanRayCast(PositionToTestFrom, ObjectPosition);
 					else
-						 RayCast=!Navigator.SearchGridProvider.Raycast(ObjectPosition.ToVector2(), PositionToTestFrom.ToVector2(), out hitpos);
+					  RayCast=Navigation.CanRayCast(ObjectPosition, PositionToTestFrom);
 
 					if (!RayCast.Value)
 					{
