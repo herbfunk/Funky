@@ -58,10 +58,10 @@ namespace FunkyBot.Game
 					Logger.Write(LogLevel.Event, "Profile Behavior Changed To {0}", currentProfileBehavior.GetType().ToString());
 
 					Type profileTagType = currentProfileBehavior.GetType();
-					// string profileTagTypeString = profileTagType.ToString();
-					// profileTagTypeString=="QuestTools.MoveToActor"
+					string profileTagTypeString = profileTagType.ToString();
+					//Logger.DBLog.Info(profileTagTypeString);
 
-					if (oocDBTags.Contains(profileTagType))
+					if (oocDBTags.Contains(profileTagType) || DoesNameExist(profileTagTypeString, oocDBTagsNames))
 					{
 						if (InteractiveTags.Contains(profileTagType))
 						{
@@ -80,6 +80,11 @@ namespace FunkyBot.Game
 
 						Logger.DBLog.DebugFormat("Current Profile Behavior has enabled OOC Behavior.");
 						IsRunningOOCBehavior = true;
+					}
+					else if (String.Equals(profileTagTypeString,QuestingTag, StringComparison.InvariantCultureIgnoreCase))
+					{
+						Logger.DBLog.DebugFormat("Current Profile Behavior has enabled QuestMode.");
+						QuestMode = true;
 					}
 					else
 					{
@@ -174,6 +179,8 @@ namespace FunkyBot.Game
 																	  typeof(UseTownPortalTag),
 																	  //typeof(Zeta.CommonBot.Profile.Common.WaitTimerTag),
 																	  //typeof (TrinityTownPortal),
+																	  //typeof(QuestTools.ProfileTags.TownPortalTag),
+																	  //typeof(QuestTools.ProfileTags.TownRunTag),
 																	  typeof (FunkyWaypoint),
 																	};
 
@@ -185,6 +192,18 @@ namespace FunkyBot.Game
 																	  //typeof(Zeta.CommonBot.Profile.Common.UseTownPortalTag),
 																	  typeof(UsePortalTag),
 																	};
+
+		private const string QuestingTag = "QuestTools.ProfileTags.SetQuestingTag";
+		private static string[] oocDBTagsNames =
+		{ 
+			"QuestTools.ProfileTags.TownPortalTag",
+			"QuestTools.ProfileTags.TownRunTag",
+		};
+		private static bool DoesNameExist(string name, string[] strings)
+		{
+			return (Array.BinarySearch(strings, name, StringComparer.InvariantCultureIgnoreCase) >= 0);  // Line B.
+		}
+
 
 		public ProfileCache()
 		{

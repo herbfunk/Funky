@@ -48,11 +48,28 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 			if (precastconditions_.HasFlag(SkillPrecastFlags.CheckRecastTimer))
 				Criteria += ((s) => s.LastUsedMilliseconds > s.Cooldown);
 
+			if (precastconditions_.HasFlag(SkillPrecastFlags.CheckEnergy))
+			{
+				Criteria += ((s) =>
+				{
+					bool energyCheck = !s.SecondaryEnergy ? Bot.Character.Data.dCurrentEnergy >= s.Cost : Bot.Character.Data.dDiscipline >= s.Cost;
+					if (s.IsSpecialAbility && !energyCheck) //we trigger waiting for special here.
+						Bot.Character.Class.bWaitingForSpecial = true;
+					if (!energyCheck && (s.IsRanged || s.Range > 0))
+						Bot.Character.Class.CanUseDefaultAttack = true;
+
+					return energyCheck;
+				});
+			}
+
 			if (precastconditions_.HasFlag(SkillPrecastFlags.CheckCanCast))
 			{
 				Criteria += ((s) =>
 				{
 					bool cancast = PowerManager.CanCast(s.Power, out s.CanCastFlags);
+
+					//PowerManager.CanCastFlags.Flag80; (Not enough Resource?)
+					//PowerManager.CanCastFlags.Flag8; (On Cooldown?)
 
 					//&& s.CanCastFlags.HasFlag(PowerManager.CanCastFlags.PowerNotEnoughResource)
 					//if (!cancast)
@@ -70,19 +87,7 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 				});
 			}
 
-			if (precastconditions_.HasFlag(SkillPrecastFlags.CheckEnergy))
-			{
-				Criteria += ((s) =>
-				{
-					bool energyCheck = !s.SecondaryEnergy ? Bot.Character.Data.dCurrentEnergy >= s.Cost : Bot.Character.Data.dDiscipline >= s.Cost;
-					if (s.IsSpecialAbility && !energyCheck) //we trigger waiting for special here.
-						Bot.Character.Class.bWaitingForSpecial = true;
-					if (!energyCheck && (s.IsRanged || s.Range > 0))
-						Bot.Character.Class.CanUseDefaultAttack = true;
 
-					return energyCheck;
-				});
-			}
 		}
 	}
 }

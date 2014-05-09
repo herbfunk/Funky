@@ -14,8 +14,10 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 
 		public override void Initialize()
 		{
-			Cooldown = 20000;
+			Cooldown = RuneIndex==4?5:20000;
 			Range = 49;
+			Cost = RuneIndex == 4 ? 40 : 0;
+
 			Priority = SkillPriority.High;
 			ExecutionType = SkillExecutionFlags.Location | SkillExecutionFlags.ClusterLocation;
 
@@ -23,7 +25,11 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 			UseageType = SkillUseage.Combat;
 
-			ClusterConditions.Add(new SkillClusterConditions(8d, 45f, 4, true));
+			//Fires of Heaven (Straight Line Fire)
+			ClusterConditions.Add(RuneIndex == 4
+				? new SkillClusterConditions(5d, 45f, 3, true)
+				: new SkillClusterConditions(8d, 45f, 4, true));
+
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 45, 0.95d, TargetProperties.Normal));
 		}
 	}

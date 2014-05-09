@@ -32,7 +32,27 @@ namespace FunkyBot.Game
 				return Profiles.Sum(P => P.DeathCount);
 			}
 		}
-
+		public int TotalHoradricCacheOpened
+		{
+			get
+			{
+				return Profiles.Sum(P => P.HoradricCacheOpened);
+			}
+		}
+		public int TotalItemsGambled
+		{
+			get
+			{
+				return Profiles.Sum(P => P.ItemsGambled);
+			}
+		}
+		public int TotalTownRuns
+		{
+			get
+			{
+				return Profiles.Sum(P => P.TownRuns);
+			}
+		}
 		public TimeSpan TotalTimeRunning
 		{
 			get
@@ -131,24 +151,5 @@ namespace FunkyBot.Game
 		}
 
 
-		//public string GenerateOutputString()
-		//{
-		//	string output = String.Format("Total Stats while running\r\nGames:{0} Deaths:{1} Gold:{2} Exp:{3}\r\nTotalTime: {4}\r\n{5}",
-		//		Bot.Game.TrackingStats.GameCount,
-		//		Bot.Game.TrackingStats.TotalDeaths,
-		//		Bot.Game.TrackingStats.TotalGold,
-		//		Bot.Game.TrackingStats.TotalXP,
-		//		Bot.Game.TrackingStats.TotalTimeRunning.ToString(@"dd\ \d\ hh\ \h\ mm\ \m\ ss\ \s"),
-		//		Bot.Game.TrackingStats.TotalLootTracker);
-
-		//	double itemLootPerMin = Math.Round(TotalLootTracker.GetTotalLootStatCount(LootStatTypes.Looted) / TotalTimeRunning.TotalMinutes, 3);
-		//	double itemDropPerMin = Math.Round(TotalLootTracker.GetTotalLootStatCount(LootStatTypes.Dropped) / TotalTimeRunning.TotalMinutes, 3);
-		//	string PerHour = String.Format("~-~-~-~-~-~-~-~-~-~-~-~-~-~-\r\n" +
-		//								  "Drops Per Minute: {0}\r\n" +
-		//								  "Loot Per Minute: {1}",
-		//								  itemDropPerMin,
-		//								  itemLootPerMin);
-		//	return String.Format("{0}{1}", output, PerHour);
-		//}
 	}
 }

@@ -19,7 +19,7 @@ namespace FunkyBot.Settings
 			  GlobeHealthPercent=0.6d;
 			  PotionHealthPercent=0.5d;
 			  HealthWellHealthPercent=0.75d;
-			  CombatMovementTargetTypes = TargetType.Globe | TargetType.Avoidance | TargetType.Fleeing | TargetType.Gold | TargetType.Item;
+			  CombatMovementTargetTypes = TargetType.Avoidance | TargetType.Fleeing;
 			  GoblinMinimumRange = 40;
 			  AllowDefaultAttackAlways = false;
 		 }

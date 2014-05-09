@@ -41,6 +41,10 @@ namespace FunkyBot.DBHandlers
 						{
 							townRunItemCache.InteractItems.Add(thisitem);
 						}
+						else
+						{
+							return false;
+						}
 					}
 				}
 				else
@@ -106,6 +110,7 @@ namespace FunkyBot.DBHandlers
 				if (thisitem != null)
 				{
 					ZetaDia.Me.Inventory.UseItem(thisitem.ThisDynamicID);
+					if (thisitem.IsHoradricCache) Bot.Game.CurrentGameStats.CurrentProfile.HoradricCacheOpened++;
 				}
 				if (thisitem != null)
 					townRunItemCache.InteractItems.Remove(thisitem);
@@ -114,7 +119,7 @@ namespace FunkyBot.DBHandlers
 			}
 
 			//Add a long wait after interaction!
-			if (!TownRunItemLoopsTest(25)) return RunStatus.Running;
+			if (!TownRunItemLoopsTest(10)) return RunStatus.Running;
 
 			return RunStatus.Success;
 		}

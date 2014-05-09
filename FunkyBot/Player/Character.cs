@@ -1,6 +1,7 @@
 ﻿using System;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Objects;
+using FunkyBot.DBHandlers;
 using FunkyBot.Movement;
 using FunkyBot.Player.Class;
 using Zeta.Bot;
@@ -103,6 +104,7 @@ namespace FunkyBot.Player
 				{
 					//Gold Inactivity
 					Bot.Game.GoldTimeoutChecker.LastCoinageUpdate = DateTime.Now;
+					TownRunManager.TalliedTownRun = false;
 				}
 
 				//Clear the object cache!

@@ -15,6 +15,10 @@ namespace FunkyBot.Game
 		public int DeathCount { get; set; }
 		public LootTracking LootTracker { get; set; }
 
+		public int HoradricCacheOpened { get; set; }
+		public int ItemsGambled { get; set; }
+		public int TownRuns { get; set; }
+
 		public int TotalXP { get; set; }
 		private int StartingXP;
 
@@ -23,6 +27,9 @@ namespace FunkyBot.Game
 
 		public TrackedProfile(string name)
 		{
+			TownRuns = 0;
+			ItemsGambled = 0;
+			HoradricCacheOpened = 0;
 			DeathCount = 0;
 			TotalXP = 0;
 			StartingXP = Bot.Character.Data.CurrentExp;
@@ -57,6 +64,9 @@ namespace FunkyBot.Game
 		///</summary>
 		public void MergeStats(TrackedProfile other)
 		{
+			TownRuns += other.TownRuns;
+			ItemsGambled += other.ItemsGambled;
+			HoradricCacheOpened += other.HoradricCacheOpened;
 			TotalGold += other.TotalGold;
 			TotalXP += other.TotalXP;
 			DeathCount += other.DeathCount;
@@ -66,7 +76,11 @@ namespace FunkyBot.Game
 
 		public string GenerateOutput()
 		{
-			return String.Format("{0} TotalTime:{2} \r\nDeaths:{1} ({6} dph) TotalGold:{3} ({8} gph) TotalXP:{4} ({7} xph)\r\n{5}",
+			return String.Format("{0} TotalTime:{2} \r\nDeaths:{1} ({6} dph) TotalGold:{3} ({8} gph) TotalXP:{4} ({7} xph)" +
+								"\r\nTotal Town Runs: {11}" +
+								"\r\nHoradric Caches Opened: {9}" +
+								"\r\nItems Gambled: {10}" +
+			                    "\r\n{5}",
 								ProfileName,
 								DeathCount,
 								TotalTimeSpan.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"),
@@ -75,7 +89,8 @@ namespace FunkyBot.Game
 								LootTracker,
 								(DeathCount / TotalTimeSpan.TotalHours).ToString("#.##"),
 								(TotalXP / TotalTimeSpan.TotalHours).ToString("#.##"),
-								(TotalGold / TotalTimeSpan.TotalHours).ToString("#.##"));
+								(TotalGold / TotalTimeSpan.TotalHours).ToString("#.##"),
+								HoradricCacheOpened, ItemsGambled, TownRuns);
 		}
 
 		public override bool Equals(object obj)

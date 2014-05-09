@@ -315,15 +315,14 @@ namespace FunkyBot.Player
 					}
 
 
-					if (!ZetaDia.IsLoadingWorld && ZetaDia.Minimap.IsValid && ZetaDia.Minimap.IsMinimapVisible)
+
+					int currentLevelAreaID = ZetaDia.CurrentLevelAreaId;
+					if (iCurrentLevelID != currentLevelAreaID)
 					{
-						int currentLevelAreaID = ZetaDia.CurrentLevelAreaId;
-						if (iCurrentLevelID != currentLevelAreaID)
-						{
-							levelareaIDchanged(currentLevelAreaID);
-							iCurrentWorldID = ZetaDia.CurrentWorldDynamicId;
-						}
+						levelareaIDchanged(currentLevelAreaID);
+						iCurrentWorldID = ZetaDia.CurrentWorldDynamicId;
 					}
+					
 
 
 					if (Bot.Character.Account.CurrentLevel == 70)

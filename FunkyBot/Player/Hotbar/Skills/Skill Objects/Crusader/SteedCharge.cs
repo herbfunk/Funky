@@ -16,6 +16,7 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 		public override void Initialize()
 		{
 			Cooldown = 15000;
+			Range = 5;
 			Priority = SkillPriority.High;
 			ExecutionType = SkillExecutionFlags.Buff;
 			WaitVars = new WaitLoops(0, 0, true);
@@ -28,10 +29,10 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			FCombatMovement = (v) =>
 			{
 				float fDistanceFromTarget = Bot.Character.Data.Position.Distance(v);
-				if (!Bot.Character.Class.bWaitingForSpecial && Funky.Difference(Bot.Character.Data.Position.Z, v.Z) <= 4 && fDistanceFromTarget >= 20f)
+				if (!Bot.Character.Class.bWaitingForSpecial && Funky.Difference(Bot.Character.Data.Position.Z, v.Z) <= 4 && fDistanceFromTarget >= 5f)
 				{
-					if (fDistanceFromTarget > 35f)
-						return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 35f);
+					if (fDistanceFromTarget > 45f)
+						return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 45f);
 					else
 						return v;
 				}

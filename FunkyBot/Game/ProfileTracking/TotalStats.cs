@@ -48,7 +48,13 @@ namespace FunkyBot.Game
 		internal string GenerateOutputString()
 		{
 			LootTracking totalloottracker = TotalLootTracker;
-			return String.Format("Games:{0}\r\nTime {3}\r\nUnique Profiles:{1}\r\nDeaths:{2} ({7} dph) -- Gold:{4} ({8} gph) -- EXP:{5} ({9} xph)\r\n{6}" +
+			return String.Format("Games:{0}" +
+			                     "\r\nTime {3}" +
+			                     "\r\nUnique Profiles:{1}" +
+			                     "\r\nDeaths:{2} ({7} dph)" +
+			                     "\r\nGold:{4} ({8} gph) -- EXP:{5} ({9} xph)" +
+								 "\r\nTown Runs: {17}  Items Gambled: {16}  Horadric Cache Opened: {15}" +
+			                     "\r\n{6}" +
 							 "Drops Per Hour: {10} -- Looted Per Hour: {11}\r\n" + "Stash Per Hour: {12} -- Vendored Per Hour: {13} -- Salvaged Per Hour: {14}",
 							 GameCount,
 							 Profiles.Count,
@@ -64,7 +70,8 @@ namespace FunkyBot.Game
 							 (totalloottracker.GetTotalLootStatCount(LootStatTypes.Looted) / TotalTimeRunning.TotalHours).ToString("#.##"),
 							 (totalloottracker.GetTotalLootStatCount(LootStatTypes.Stashed) / TotalTimeRunning.TotalHours).ToString("#.##"),
 							 (totalloottracker.GetTotalLootStatCount(LootStatTypes.Vendored) / TotalTimeRunning.TotalHours).ToString("#.##"),
-							 (totalloottracker.GetTotalLootStatCount(LootStatTypes.Salvaged) / TotalTimeRunning.TotalHours).ToString("#.##"));
+							 (totalloottracker.GetTotalLootStatCount(LootStatTypes.Salvaged) / TotalTimeRunning.TotalHours).ToString("#.##"),
+							 TotalHoradricCacheOpened,TotalItemsGambled,TotalTownRuns);
 		}
 	}
 }

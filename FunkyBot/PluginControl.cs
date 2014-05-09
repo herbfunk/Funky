@@ -75,6 +75,7 @@ namespace FunkyBot
 		public static void ResetGame()
 		{
 			SkipAheadCache.ClearCache();
+			TownRunManager.TalliedTownRun = false;
 			TownRunManager.TownrunStartedInTown = true;
 			TownRunManager._dictItemStashAttempted = new Dictionary<int, int>();
 		}
@@ -365,14 +366,14 @@ namespace FunkyBot
 					ActionDelegate actionDelegateInteractionLootingBehaviorBehavior = TownRunManager.InteractionLootingBehavior;
 					ActionDelegate actionDelegateInteractionFinishBehaviorBehavior = TownRunManager.InteractionFinishBehavior;
 
-					Sequence sequenceFinish = new Sequence(
+					Sequence sequenceInteraction = new Sequence(
 							new Action(actionDelegateInteractionFinishBehaviorBehavior),
 							new Action(actionDelegateInteractionMovementhBehavior),
 							new Action(actionDelegateInteractionClickBehaviorBehavior),
 							new Action(actionDelegateInteractionLootingBehaviorBehavior),
 							new Action(actionDelegateInteractionFinishBehaviorBehavior)
 						);
-					GilesReplacement.InsertChild(7, new Decorator(canRunDelegateInteraction, sequenceFinish));
+					GilesReplacement.InsertChild(7, new Decorator(canRunDelegateInteraction, sequenceInteraction));
 					Logger.DBLog.DebugFormat("Town Run - Interaction Behavior - Inserted...");
 
 					#endregion
@@ -393,6 +394,19 @@ namespace FunkyBot
 						);
 					GilesReplacement.InsertChild(8, new Decorator(canRunDelegateGambling, sequenceGambling));
 					Logger.DBLog.DebugFormat("Town Run - Gambling Behavior - Inserted...");
+
+					#endregion
+
+					#region Finish Behavior
+
+					CanRunDecoratorDelegate canRunDelegateFinish = TownRunManager.FinishOverlord;
+					ActionDelegate actionDelegateFinishBehavior = TownRunManager.FinishBehavior;
+
+					Sequence sequenceFinish = new Sequence(
+							new Action(actionDelegateFinishBehavior)
+						);
+					GilesReplacement.InsertChild(9, new Decorator(canRunDelegateFinish, sequenceFinish));
+					Logger.DBLog.DebugFormat("Town Run - Finish Behavior - Inserted...");
 
 					#endregion
 

@@ -443,7 +443,7 @@ namespace FunkyBot.Targeting
 			#endregion
 
 			// See if we can use any special buffs etc. while in avoidance
-			if (ObjectCache.CheckTargetTypeFlag(Bot.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.Gold | TargetType.Globe | TargetType.AvoidanceMovements | TargetType.NoMovement))
+			if (ObjectCache.CheckTargetTypeFlag(Bot.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.Globe | TargetType.AvoidanceMovements))
 			{
 				Skill buff;
 				if (Bot.Character.Class.FindBuffPower(out buff))

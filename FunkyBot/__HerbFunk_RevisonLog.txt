@@ -10,13 +10,13 @@ Cache:
 	Added Bloodsprings to Avoidances.
 
 Adventure Mode:
-	Added Option to Navigate to Points of Intrest.
+	Added Option to Navigate to Points of Interest. (Expirmental for Adventure Mode)
 
 XML Tags:
 	Removed Trinity Related Tags. (QuestTools)
 
 Skills:
-	Added support for AkaratsChampion, FistOfTheHeavens, HeavensFury, Phalanx for Crusader.
+	Added support for AkaratsChampion, Bombardment, FistOfTheHeavens, HeavensFury, Phalanx for Crusader.
 
 Misc:
 	Recompiling Funky will now disable plugins prior.

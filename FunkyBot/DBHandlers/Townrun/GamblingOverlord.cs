@@ -25,11 +25,22 @@ namespace FunkyBot.DBHandlers
 		internal static bool ClickedItemUI = false;
 		internal static bool ClickedBackpackUI = false;
 
+		private static int LastBloodShardCount = 0;
+
 		internal static bool GamblingRunOverlord(object ret)
 		{//Should we gamble?
 
 			if (Bot.Settings.TownRun.EnableBloodShardGambling && Bot.Game.AdventureMode && !Bot.Settings.TownRun.BloodShardGambleItems.Equals(BloodShardGambleItems.None))
 			{
+				Bot.Character.Data.BackPack.Update();
+
+				//If we still have any items (not potions or protected) then we don't start behavior yet.
+				if (Bot.Character.Data.BackPack.CacheItemList.Values.Where(thisitem => !ItemManager.Current.ItemIsProtected(thisitem.ACDItem)).Any(thisitem => thisitem.ThisDBItemType != ItemType.Potion))
+				{
+					return false;
+				}
+
+
 				int currentBloodShardCount=ZetaDia.CPlayer.BloodshardCount;
 				return currentBloodShardCount >= Bot.Settings.TownRun.MinimumBloodShards;
 			}
@@ -166,6 +177,7 @@ namespace FunkyBot.DBHandlers
 			if (!ClickedItemUI)
 			{
 				if (!TownRunItemLoopsTest()) return RunStatus.Running;
+				LastBloodShardCount = CurrentBloodShardCount;
 
 				UIItemType.Click();
 				ClickedItemUI = true;
@@ -190,7 +202,10 @@ namespace FunkyBot.DBHandlers
 			
 
 			//Confirm Item Purchase..
-			if (!TownRunItemLoopsTest(2)) return RunStatus.Running;
+			if (!TownRunItemLoopsTest(5)) return RunStatus.Running;
+
+			if (LastBloodShardCount != CurrentBloodShardCount)
+				Bot.Game.CurrentGameStats.CurrentProfile.ItemsGambled++;
 
 			//Reset
 			ClickedItemUI = false;
