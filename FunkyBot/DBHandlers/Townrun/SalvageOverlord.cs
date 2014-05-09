@@ -215,7 +215,7 @@ namespace FunkyBot.DBHandlers
 				try
 				{
 					string sLogFileName = Logger.LoggingPrefixString + " -- JunkLog.log";
-					LogStream = File.Open(Logger.LoggingFolderPath + sLogFileName, FileMode.Append, FileAccess.Write, FileShare.Read);
+					LogStream = File.Open(FolderPaths.LoggingFolderPath + sLogFileName, FileMode.Append, FileAccess.Write, FileShare.Read);
 					using (StreamWriter LogWriter = new StreamWriter(LogStream))
 						LogWriter.WriteLine("");
 					//LogStream.Close();

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Text;
 using System.IO;
 using FunkyBot.Cache.Objects;
@@ -43,21 +42,6 @@ namespace FunkyBot
 				 return Bot.Character.Account.ActorClass.ToString() + " _ " + Bot.Character.Account.CurrentHeroName;
 			 }
 		 }
-		 internal static string LoggingFolderPath
-		 {
-			 get
-			 {
-				 string folderpath = FolderPaths.sTrinityLogPath + Bot.Character.Account.CurrentAccountName + @"\";
-
-				 if (!Directory.Exists(folderpath))
-				 {
-					 DBLog.DebugFormat("Creating Logging Folder @ {0}", folderpath);
-					 Directory.CreateDirectory(folderpath);
-				 }
-
-				 return folderpath;
-			 }
-		 }
 
 		 internal static void LogGoodItems(CacheACDItem thisgooditem, GilesBaseItemType thisgilesbaseitemtype, GilesItemType thisgilesitemtype)
 		 {
@@ -79,8 +63,9 @@ namespace FunkyBot
 			 FileStream LogStream = null;
 			 try
 			 {
+				 string outputPath = FolderPaths.LoggingFolderPath + @"\" + LoggingPrefixString + " -- StashLog.log";
 
-				 LogStream = File.Open(LoggingFolderPath + LoggingPrefixString + " -- StashLog.log", FileMode.Append, FileAccess.Write, FileShare.Read);
+				 LogStream = File.Open(outputPath, FileMode.Append, FileAccess.Write, FileShare.Read);
 				 using (StreamWriter LogWriter = new StreamWriter(LogStream))
 				 {
 					 if (!TownRunManager.bLoggedAnythingThisStash)
@@ -162,9 +147,11 @@ namespace FunkyBot
 		 internal static void LogJunkItems(CacheACDItem thisgooditem, GilesBaseItemType thisgilesbaseitemtype, GilesItemType thisgilesitemtype, double ithisitemvalue)
 		 {
 			 FileStream LogStream = null;
+			 string outputPath = FolderPaths.LoggingFolderPath + @"\" + LoggingPrefixString + " -- JunkLog.log";
+
 			 try
 			 {
-				 LogStream = File.Open(LoggingFolderPath + LoggingPrefixString + " -- JunkLog.log", FileMode.Append, FileAccess.Write, FileShare.Read);
+				 LogStream = File.Open(outputPath, FileMode.Append, FileAccess.Write, FileShare.Read);
 				 using (StreamWriter LogWriter = new StreamWriter(LogStream))
 				 {
 					 if (!TownRunManager.bLoggedJunkThisStash)
@@ -208,14 +195,14 @@ namespace FunkyBot
 		  internal static void CleanLogs()
 		  {
 				List<string> deleteList=new List<string>();
-				if (string.IsNullOrEmpty(FolderPaths.sDemonBuddyPath))
+				if (string.IsNullOrEmpty(FolderPaths.DemonBuddyPath))
 				{
 					DBLog.Info("Failure to reconigze demon buddy path!");
 
 				}
 				else
 				{
-					 foreach (string file in Directory.GetFiles(FolderPaths.sDemonBuddyPath+@"\Logs\"))
+					 foreach (string file in Directory.GetFiles(FolderPaths.DemonBuddyPath+@"\Logs\"))
 					 {
 						  DateTime curFileCreated=Directory.GetCreationTime(file);
 						  if (DateTime.Now.Subtract(curFileCreated).TotalHours>=24)
@@ -238,7 +225,7 @@ namespace FunkyBot
 				deleteList=new List<string>();
 				try
 				{
-					 foreach (string file in Directory.GetFiles(FolderPaths.sDemonBuddyPath+ItemRulesPath))
+					 foreach (string file in Directory.GetFiles(FolderPaths.DemonBuddyPath+ItemRulesPath))
 					 {
 						  DateTime curFileCreated=Directory.GetCreationTime(file);
 						  if (DateTime.Now.Subtract(curFileCreated).TotalHours>=24)
@@ -263,7 +250,7 @@ namespace FunkyBot
 				deleteList=new List<string>();
 				try
 				{
-					 foreach (string file in Directory.GetFiles(FolderPaths.sDemonBuddyPath+ProfileLogs))
+					 foreach (string file in Directory.GetFiles(FolderPaths.DemonBuddyPath+ProfileLogs))
 					 {
 						  DateTime curFileCreated=Directory.GetCreationTime(file);
 						  if (DateTime.Now.Subtract(curFileCreated).TotalDays>=1)
@@ -287,7 +274,7 @@ namespace FunkyBot
 
 		 internal static void WriteProfileTrackerOutput()
 		  {
-			  string outputPath = Path.Combine(FolderPaths.sTrinityLogPath, "ProfileStats", Bot.Character.Account.CurrentHeroName + " - " + LoggingStamp);
+			  string outputPath = FolderPaths.ProfileStatsPath + @"\" + Bot.Character.Account.CurrentHeroName + " - " + LoggingStamp;
 
 			  try
 			  {
@@ -348,7 +335,7 @@ namespace FunkyBot
 		  public static void Init()
 		  {
 			  LoggingStamp = DBLogFile;
-			  filename = Path.Combine(FolderPaths.sDemonBuddyPath, "Logs", FileNamePrefix + DBLogFile);
+			  filename = Path.Combine(FolderPaths.DemonBuddyPath, "Logs", FileNamePrefix + DBLogFile);
 		  }
 		  public static void Write(LogLevel level, string Message,bool WriteToMainLog, params object[] args)
 		  {
@@ -391,40 +378,6 @@ namespace FunkyBot
 		 private static bool LogLevelEnabled(LogLevel level)
 		  {
 			  return (Bot.Settings.Debug.FunkyLogFlags & level) != 0;
-		  }
-	 }
-
-
-
-	 public static class FolderPaths
-	 {
-		  internal static string sDemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-		  internal static string sTrinityPluginPath=sDemonBuddyPath+@"\Plugins\FunkyBot\";
-		  internal static string sTrinityLogPath=sDemonBuddyPath+@"\Plugins\FunkyBot\Log\";
-		  internal static string SettingsDefaultPath=Path.Combine(sTrinityPluginPath, "Config", "Defaults");
-
-
-		  internal static string sFunkySettingsPath
-		  {
-				get
-				{
-					string sFunkyCharacterFolder = Path.Combine(sDemonBuddyPath, "Settings", "FunkyBot", Bot.Character.Account.CurrentAccountName);
-					 if (!Directory.Exists(sFunkyCharacterFolder))
-					 {
-						  Logger.DBLog.DebugFormat("Creating Funky Settings Folder @ {0}", sFunkyCharacterFolder);
-						  Directory.CreateDirectory(sFunkyCharacterFolder);
-					 }
-
-					 return sFunkyCharacterFolder;
-				}
-		  }
-		  internal static string sFunkySettingsCurrentPath
-		  {
-				get
-				{
-					return Path.Combine(sFunkySettingsPath, Bot.Character.Account.CurrentHeroName + ".xml");
-
-				}
 		  }
 	 }
 }

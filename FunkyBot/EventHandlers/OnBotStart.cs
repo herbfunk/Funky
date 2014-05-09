@@ -15,7 +15,7 @@ namespace FunkyBot
 				return;
 			}
 
-			string FunkySettingsPath = System.IO.Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyBot");
+			string FunkySettingsPath = System.IO.Path.Combine(FolderPaths.DemonBuddyPath, "Settings", "FunkyBot");
 			if (!System.IO.Directory.Exists(FunkySettingsPath))
 			{
 				Logger.DBLog.DebugFormat("Creating Settings Folder at location {0}", FunkySettingsPath);

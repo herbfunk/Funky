@@ -20,7 +20,7 @@ Skills:
 
 Misc:
 	Recompiling Funky will now disable plugins prior.
-
+	Added Soft Rules Again (For Leveling)
 
 v2.9.2.0
 

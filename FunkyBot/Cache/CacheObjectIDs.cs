@@ -23,7 +23,7 @@ namespace FunkyBot.Cache
 			SpecialInteractables = new[] { 174754, 174753, 102079 };
 		}
 
-		private static string DefaultFilePath = Path.Combine(FolderPaths.sTrinityPluginPath, "Cache", "Dictionaries", "SNOId_Cache_Objects.xml");
+		private static string DefaultFilePath = Path.Combine(FolderPaths.PluginPath, "Cache", "Dictionaries", "SNOId_Cache_Objects.xml");
 		public static CacheObjectIDs DeserializeFromXML()
 		{
 			XmlSerializer deserializer = new XmlSerializer(typeof(CacheObjectIDs));

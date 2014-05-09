@@ -24,7 +24,7 @@ namespace FunkyBot
 		{
 			OpenFileDialog OFD = new OpenFileDialog
 			{
-				InitialDirectory = Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+				InitialDirectory = Path.Combine(FolderPaths.PluginPath, "Config", "Defaults"),
 				RestoreDirectory = false,
 				Filter = "xml files (*.xml)|*.xml|All files (*.*)|*.*",
 				Title = "ItemRules Template",
@@ -54,6 +54,7 @@ namespace FunkyBot
 
 				Add("Custom");
 				Add("Hard");
+				Add("Soft");
 			}
 		}
 		class ItemRuleQuality : ObservableCollection<string>
@@ -135,7 +136,7 @@ namespace FunkyBot
 		//UseLevelingLogic
 		private void ItemRulesOpenFolder_Click(object sender, EventArgs e)
 		{
-			Process.Start(Path.Combine(FolderPaths.sTrinityPluginPath, "ItemRules", "Rules"));
+			Process.Start(Path.Combine(FolderPaths.PluginPath, "ItemRules", "Rules"));
 		}
 		private void ItemRulesReload_Click(object sender, EventArgs e)
 		{
@@ -269,7 +270,9 @@ namespace FunkyBot
 				ItemsSource = new ItemRuleTypes(),
 				//Text=Bot.SettingsFunky.ItemRules.ItemRuleType.ToString(),
 			};
-			ItemRuleType.SelectedIndex = Bot.Settings.ItemRules.ItemRuleType.ToLower().Contains("hard") ? 1 : 0;
+			ItemRuleType.SelectedIndex = Bot.Settings.ItemRules.ItemRuleType.ToLower().Contains("hard") ? 1 :
+										 Bot.Settings.ItemRules.ItemRuleType.ToLower().Contains("soft") ? 2 : 0;
+
 			ItemRuleType.SelectionChanged += ItemRulesTypeChanged;
 			spItemRules_RuleSet.Children.Add(ItemRuleType);
 

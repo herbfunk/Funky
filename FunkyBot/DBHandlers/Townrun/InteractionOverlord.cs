@@ -113,6 +113,9 @@ namespace FunkyBot.DBHandlers
 					return RunStatus.Running;
 			}
 
+			//Add a long wait after interaction!
+			if (!TownRunItemLoopsTest(25)) return RunStatus.Running;
+
 			return RunStatus.Success;
 		}
 

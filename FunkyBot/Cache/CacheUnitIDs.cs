@@ -109,7 +109,7 @@ namespace FunkyBot.Cache
 
 		}
 
-		private static string DefaultFilePath = Path.Combine(FolderPaths.sTrinityPluginPath, "Cache", "Dictionaries", "SNOId_Cache_Units.xml");
+		private static string DefaultFilePath = Path.Combine(FolderPaths.PluginPath, "Cache", "Dictionaries", "SNOId_Cache_Units.xml");
 		public static CacheUnitIDs DeserializeFromXML()
 		{
 			XmlSerializer deserializer = new XmlSerializer(typeof(CacheUnitIDs));

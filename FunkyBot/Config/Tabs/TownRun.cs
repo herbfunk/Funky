@@ -140,7 +140,7 @@ namespace FunkyBot
 				Maximum = 500,
 				Minimum = 5,
 				TickFrequency = 100,
-				LargeChange = 50,
+				LargeChange = 5,
 				SmallChange = 1,
 				Value = Bot.Settings.TownRun.MinimumBloodShards,
 				HorizontalAlignment = HorizontalAlignment.Left,

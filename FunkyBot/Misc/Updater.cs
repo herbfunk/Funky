@@ -18,7 +18,7 @@ namespace FunkyBot.Misc
 		internal static bool UpdateAvailable()
 		{
 			Dictionary<string, string> GithubChecksumDict = GenerateDictionaryFromChecksumXML(GitHubChecksumUrl);
-			Dictionary<string, string> LocalChecksumDict = GenerateDictionaryFromChecksumXML(FolderPaths.sTrinityPluginPath + @"\checksum.xml");
+			Dictionary<string, string> LocalChecksumDict = GenerateDictionaryFromChecksumXML(FolderPaths.PluginPath + @"\checksum.xml");
 			List<string> GithubFileList = ReturnGitHubContentFiles();
 
 			List<string> FilesNeededUpdated = new List<string>();
@@ -53,14 +53,14 @@ namespace FunkyBot.Misc
 					foreach (var f in FilesNeededUpdated)
 					{
 						Logger.DBLog.InfoFormat("File: " + f);
-						string FullDirectoryPath = Path.GetFullPath(FolderPaths.sTrinityPluginPath + f.Substring(0, f.LastIndexOf(Convert.ToChar("/"))));
+						string FullDirectoryPath = Path.GetFullPath(FolderPaths.PluginPath + f.Substring(0, f.LastIndexOf(Convert.ToChar("/"))));
 						if (!Directory.Exists(FullDirectoryPath))
 						{
 							Directory.CreateDirectory(FullDirectoryPath);
 							Logger.DBLog.InfoFormat("Creating new dictionary {0}", FullDirectoryPath);
 						}
 
-						string FullPath = Path.GetFullPath(FolderPaths.sTrinityPluginPath + f);
+						string FullPath = Path.GetFullPath(FolderPaths.PluginPath + f);
 						string GitHubUrlFullPath = GitHubUrl + f;
 
 						// Create a new WebClient instance.

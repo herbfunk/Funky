@@ -38,7 +38,7 @@ namespace FunkyBot.DBHandlers
 		{
 			if (DateTime.Now.Subtract(LastActionTaken).TotalMilliseconds > RandomWaitTimeMilliseconds)
 			{
-				string NewGameProfile = FolderPaths.sTrinityPluginPath + @"DBHandlers\CharacterMule\NewGame.xml";
+				string NewGameProfile = FolderPaths.PluginPath + @"DBHandlers\CharacterMule\NewGame.xml";
 				if (ProfileManager.CurrentProfile.Path != NewGameProfile)
 				{
 					if (File.Exists(NewGameProfile))
@@ -139,7 +139,7 @@ namespace FunkyBot.DBHandlers
 						OutOfGame.TransferedGear = true;
 						Bot.Character.Account.UpdateCurrentAccountDetails();
 						//Delete settings
-						string sFunkyCharacterFolder = Path.Combine(FolderPaths.sDemonBuddyPath, "Settings", "FunkyBot", Bot.Character.Account.CurrentAccountName);
+						string sFunkyCharacterFolder = Path.Combine(FolderPaths.DemonBuddyPath, "Settings", "FunkyBot", Bot.Character.Account.CurrentAccountName);
 						if (Directory.Exists(sFunkyCharacterFolder))
 						{
 							string sFunkyCharacterConfigFile = Path.Combine(sFunkyCharacterFolder, Bot.Character.Account.CurrentHeroName + ".cfg");

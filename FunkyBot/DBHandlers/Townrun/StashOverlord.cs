@@ -127,7 +127,7 @@ namespace FunkyBot.DBHandlers
 				   FileStream LogStream = null;
 				   try
 				   {
-						LogStream = File.Open(sTrinityPluginPath + ZetaDia.Service.CurrentHero.BattleTagName + " - StashLog - " + ZetaDia.Actors.Me.ActorClass.ToString() + ".log", FileMode.Append, FileAccess.Write, FileShare.Read);
+						LogStream = File.Open(PluginPath + ZetaDia.Service.CurrentHero.BattleTagName + " - StashLog - " + ZetaDia.Actors.Me.ActorClass.ToString() + ".log", FileMode.Append, FileAccess.Write, FileShare.Read);
 						using (StreamWriter LogWriter = new StreamWriter(LogStream))
 							 LogWriter.WriteLine("");
 						LogStream.Close();

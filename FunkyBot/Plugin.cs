@@ -88,8 +88,8 @@ namespace FunkyBot
 				#endregion
 			}
 
-			string sRoutinePath = FolderPaths.sDemonBuddyPath + @"\Routines\Funky\";
-			string sPluginRoutineFolder = FolderPaths.sDemonBuddyPath + @"\Plugins\FunkyBot\CombatRoutine\";
+			string sRoutinePath = FolderPaths.DemonBuddyPath + @"\Routines\Funky\";
+			string sPluginRoutineFolder = FolderPaths.DemonBuddyPath + @"\Plugins\FunkyBot\CombatRoutine\";
 		
 			//DateTime RoutineCombatDate=System.IO.File.GetLastWriteTime(sRoutinePath+"CombatRoutine.cs");
 			//DateTime RoutineDebugDate=System.IO.File.GetLastWriteTime(sRoutinePath+"RoutineDebug.cs");
@@ -105,7 +105,7 @@ namespace FunkyBot
 				}
 
 				FunkyButton = null;
-				FolderPaths.sDemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+				FolderPaths.DemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 				Logger.DBLog.DebugFormat("Reloading combat routine..");
 
 				//Create Folder
@@ -184,7 +184,7 @@ namespace FunkyBot
 			Logger.Write("Init Logger Completed!");
 
 			//Generate Checksum for Update Check
-			//Process.Start(FolderPaths.sTrinityPluginPath + @"\CheckSum.exe");
+			//Process.Start(FolderPaths.PluginPath + @"\CheckSum.exe");
 			//if (Updater.UpdateAvailable())
 			//{
 			//	string dbPathString = Assembly.GetEntryAssembly().Location;
@@ -215,9 +215,9 @@ namespace FunkyBot
 
 
 
-			if (!Directory.Exists(FolderPaths.sTrinityPluginPath))
+			if (!Directory.Exists(FolderPaths.PluginPath))
 			{
-				Logger.DBLog.InfoFormat("Fatal Error - cannot enable plugin. Invalid path: " + FolderPaths.sTrinityPluginPath);
+				Logger.DBLog.InfoFormat("Fatal Error - cannot enable plugin. Invalid path: " + FolderPaths.PluginPath);
 				Logger.DBLog.InfoFormat("Please check you have installed the plugin to the correct location, and then restart DemonBuddy and re-enable the plugin.");
 				Logger.DBLog.InfoFormat(@"Plugin should be installed to \<DemonBuddyFolder>\Plugins\FunkyBot\");
 			}
@@ -233,7 +233,7 @@ namespace FunkyBot
 				//if (settings.bEnableTPS)
 				//  BotMain.TicksPerSecond=(int)settings.iTPSAmount;
 
-				FileInfo PluginInfo = new FileInfo(FolderPaths.sDemonBuddyPath + @"\Plugins\FunkyBot\");
+				FileInfo PluginInfo = new FileInfo(FolderPaths.DemonBuddyPath + @"\Plugins\FunkyBot\");
 				//
 				string CompileDateString = PluginInfo.LastWriteTime.ToString("MM/dd hh:mm:ss tt", CultureInfo.InvariantCulture);
 				Logger.DBLog.InfoFormat("************************************");
@@ -257,7 +257,7 @@ namespace FunkyBot
 		{
 			get
 			{
-				string settingsFolder = FolderPaths.sDemonBuddyPath + @"\Settings\FunkyBot\" + Bot.Character.Account.CurrentAccountName;
+				string settingsFolder = FolderPaths.DemonBuddyPath + @"\Settings\FunkyBot\" + Bot.Character.Account.CurrentAccountName;
 				if (!Directory.Exists(settingsFolder))
 					Directory.CreateDirectory(settingsFolder);
 				try

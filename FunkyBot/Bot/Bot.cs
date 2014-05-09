@@ -52,6 +52,7 @@ namespace FunkyBot
 		public static void Reset()
 		{
 			Logger.DBLog.InfoFormat("Funky Reseting Bot");
+			Game.Bounty.Reset();
 			TownRunManager.townRunItemCache=new TownRunManager.TownRunCache();
 			Character.Reset();
 			Settings_Funky.LoadFunkyConfiguration();

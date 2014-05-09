@@ -76,7 +76,7 @@ namespace FunkyBot
 		{
 			OpenFileDialog OFD = new OpenFileDialog
 			{
-				InitialDirectory = Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+				InitialDirectory = Path.Combine(FolderPaths.PluginPath, "Config", "Defaults"),
 				RestoreDirectory = false,
 				Filter = "xml files (*.xml)|*.xml|All files (*.*)|*.*",
 				Title = "Fleeing Template",

@@ -121,8 +121,10 @@ namespace FunkyBot
 					// Temporarily log stuff
 					if (iTotalAntiStuckAttempts == 1 && Bot.Settings.Debug.LogStuckLocations)
 					{
-						string sLogFileName = Logger.LoggingPrefixString + " -- Stucks.log";
-						FileStream LogStream = File.Open(Logger.LoggingFolderPath + sLogFileName, FileMode.Append, FileAccess.Write, FileShare.Read);
+					
+						string outputPath = FolderPaths.LoggingFolderPath + @"\" + Logger.LoggingPrefixString + " -- Stucks.log";
+
+						FileStream LogStream = File.Open(outputPath, FileMode.Append, FileAccess.Write, FileShare.Read);
 						using (StreamWriter LogWriter = new StreamWriter(LogStream))
 						{
 							LogWriter.WriteLine(DateTime.Now.ToString(CultureInfo.InvariantCulture) + ": Original Destination=" + vOldMoveToTarget.ToString() + ". Current player position when stuck=" + vMyCurrentPosition.ToString());
@@ -244,8 +246,9 @@ namespace FunkyBot
 							if (!hashDoneThisVector.Contains(vMoveToTarget))
 							{
 								// Logger.DBLog.InfoFormat it
-								string sLogFileName = Logger.LoggingPrefixString + " -- LongPaths.log";
-								FileStream LogStream = File.Open(Logger.LoggingFolderPath + sLogFileName, FileMode.Append, FileAccess.Write, FileShare.Read);
+								string outputPath = FolderPaths.LoggingFolderPath + @"\" + Logger.LoggingPrefixString + " -- Stucks.log";
+
+								FileStream LogStream = File.Open(outputPath, FileMode.Append, FileAccess.Write, FileShare.Read);
 								using (StreamWriter LogWriter = new StreamWriter(LogStream))
 								{
 									LogWriter.WriteLine(DateTime.Now.ToString(CultureInfo.InvariantCulture) + ":");

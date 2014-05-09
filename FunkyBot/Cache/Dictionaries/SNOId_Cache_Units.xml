@@ -19,6 +19,7 @@
     <int>5389</int>
     <int>182279</int>
     <int>5840</int>
+    <int>297708</int>
   </SpawnerUnits>
   <FastUnits>
     <int>5212</int>
@@ -216,6 +217,7 @@
     <int>218473</int>
     <int>98879</int>
     <int>218206</int>
+    <int>279394</int>
   </BossUnits>
   <UnitPriorities>
     <UnitPriority>

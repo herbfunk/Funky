@@ -36,7 +36,7 @@ namespace FunkyBot
 			if (!BotMain.IsRunning)
 				Bot.Character.Account.UpdateCurrentAccountDetails();
 
-			string settingsFolder = FolderPaths.sDemonBuddyPath + @"\Settings\FunkyBot\" + Bot.Character.Account.CurrentAccountName;
+			string settingsFolder = FolderPaths.DemonBuddyPath + @"\Settings\FunkyBot\" + Bot.Character.Account.CurrentAccountName;
 			if (!Directory.Exists(settingsFolder)) Directory.CreateDirectory(settingsFolder);
 
 			try
@@ -73,7 +73,7 @@ namespace FunkyBot
 				 "Confirm Overwrite", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
 			if (confirm == MessageBoxResult.Yes)
 			{
-				string DefaultLeveling = Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults", "LowLevel.xml");
+				string DefaultLeveling = Path.Combine(FolderPaths.PluginPath, "Config", "Defaults", "LowLevel.xml");
 				Logger.DBLog.InfoFormat("Creating new settings for {0} -- {1} using file {2}", Bot.Character.Account.CurrentAccountName, Bot.Character.Account.CurrentHeroName, DefaultLeveling);
 				Settings_Funky newSettings = Settings_Funky.DeserializeFromXML(DefaultLeveling);
 				Bot.Settings = newSettings;
@@ -84,7 +84,7 @@ namespace FunkyBot
 		{
 			var OFD = new OpenFileDialog
 			{
-				InitialDirectory = Path.Combine(FolderPaths.sTrinityPluginPath, "Config", "Defaults"),
+				InitialDirectory = Path.Combine(FolderPaths.PluginPath, "Config", "Defaults"),
 				RestoreDirectory = false,
 				Filter = "xml files (*.xml)|*.xml|All files (*.*)|*.*",
 				Title = "Open Settings",
@@ -366,7 +366,13 @@ namespace FunkyBot
 			{
 				try
 				{
-					LBDebug.Items.Add("Active Quest Count: " + ZetaDia.ActInfo.ActiveQuests.Count());
+					
+					foreach (var quest in ZetaDia.ActInfo.ActiveQuests)
+					{
+						string s = String.Format("QuestSNO: {0}", quest.QuestSNO);
+						LBDebug.Items.Add(s);
+					}
+
 					var binfo = ZetaDia.ActInfo.ActiveBounty;
 					if (binfo!=null)
 					{

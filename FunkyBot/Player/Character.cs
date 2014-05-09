@@ -117,10 +117,10 @@ namespace FunkyBot.Player
 
 				//ZetaDia.ActInfo.ActiveBounty.Info.QuestSNO
 				//Adventure Mode?
-				if (Bot.Game.AdventureMode)
-				{
-					Bot.Game.Bounty.RefreshBountyLevelChange();
-				}
+				//if (Bot.Game.AdventureMode)
+				//{
+				//	Bot.Game.Bounty.RefreshBountyLevelChange();
+				//}
 
 				LastLevelIDChangeWasTownRun = false;
 			}

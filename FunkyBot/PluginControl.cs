@@ -117,7 +117,7 @@ namespace FunkyBot
 
 			bool townportal = false, idenify = false, unidfystash = false, stash = false, vendor = false, salvage = false, looting = true, combat = true;
 
-			using (XmlReader reader = XmlReader.Create(FolderPaths.sTrinityPluginPath + "Treehooks.xml"))
+			using (XmlReader reader = XmlReader.Create(FolderPaths.PluginPath + "Treehooks.xml"))
 			{
 
 				// Parse the XML document.  ReadString is used to 
