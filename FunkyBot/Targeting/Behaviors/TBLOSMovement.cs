@@ -31,7 +31,9 @@ namespace FunkyBot.Targeting.Behaviors
 				//Check objects added for LOS movement
 				return Bot.Settings.LOSMovement.EnableLOSMovementBehavior &&
 					!Bot.IsInNonCombatBehavior &&
-					(Bot.Targeting.Cache.Environment.LoSMovementObjects.Count > 0 || Bot.NavigationCache.LOSmovementObject != null);
+					(Bot.Targeting.Cache.Environment.LoSMovementObjects.Count > 0 ||
+					Bot.NavigationCache.LOSmovementObject != null ||
+					(Bot.Game.AdventureMode && Bot.Settings.AdventureMode.NavigatePointsOfInterest && Bot.Game.Bounty.CurrentBountyMapMarkers.Count > 0));
 			}
 		}
 
@@ -42,8 +44,8 @@ namespace FunkyBot.Targeting.Behaviors
 				if (obj == null)
 				{
 					if (Bot.NavigationCache.LOSmovementObject != null &&
-						//((Bot.Targeting.Cache.LastCachedTarget!=null&&Bot.Targeting.Cache.LastCachedTarget.Equals(Bot.NavigationCache.LOSmovementObject))||
-						(Bot.NavigationCache.LOSmovementObject.CentreDistance < 50f && !Bot.NavigationCache.LOSmovementObject.CacheContainsOrginObject()))
+						(Bot.NavigationCache.LOSmovementObject.CentreDistance < 50f &&
+						(Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck || !Bot.NavigationCache.LOSmovementObject.CacheContainsOrginObject())))
 					{//Invalidated the Line of sight obj!
 
 
@@ -61,9 +63,12 @@ namespace FunkyBot.Targeting.Behaviors
 					if (Bot.NavigationCache.LOSmovementObject == null)
 					{//New LOS Movement Selection.
 
+
 						Bot.Targeting.Cache.Environment.LoSMovementObjects = Bot.Targeting.Cache.Environment.LoSMovementObjects.OrderBy(o => o.CentreDistance).ToList();
+
+						//Iterate Objects!
 						foreach (var cobj in Bot.Targeting.Cache.Environment.LoSMovementObjects)
-						{//Iterate Units
+						{
 
 							if (Bot.NavigationCache.LOSBlacklistedRAGUIDs.Contains(cobj.RAGUID)) continue;
 
@@ -79,13 +84,33 @@ namespace FunkyBot.Targeting.Behaviors
 							break;
 						}
 
+						//Check if we still found nothing and game mode is adventure mode
+						if (Bot.NavigationCache.LOSmovementObject == null && Bot.Game.AdventureMode && Bot.Game.Bounty.CurrentBountyMapMarkers.Count > 0)
+						{
+							foreach (var mapmarker in Bot.Game.Bounty.CurrentBountyMapMarkers.Values)
+							{
+
+								if (mapmarker.WorldID != Bot.Character.Data.iCurrentWorldID) continue;
+								if (Bot.NavigationCache.LOSBlacklistedRAGUIDs.Contains(mapmarker.GetHashCode())) continue;
+								if (mapmarker.Distance > 750f) continue;
+								if (!Navigation.NP.CanFullyClientPathTo(mapmarker.Position)) continue;
+
+								Logger.Write(LogLevel.Movement, "Line of Sight Started for Map Marker with {0} vectors", Navigation.NP.CurrentPath.Count);
+
+								Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(mapmarker.GetHashCode());
+
+								//Set the object
+								Bot.NavigationCache.LOSmovementObject = new CacheLineOfSight(mapmarker);
+							}
+						}
+
 					}
 
 					if (Bot.NavigationCache.LOSmovementObject != null)
 					{//Line of Sight unit is valid
 
 						//See if the orgin object is still valid..
-						if (Bot.NavigationCache.LOSmovementObject.CentreDistance<45f)
+						if (Bot.NavigationCache.LOSmovementObject.CentreDistance < 45f)
 						{
 							if (!Bot.NavigationCache.LOSmovementObject.CacheContainsOrginObject())
 							{
@@ -93,7 +118,7 @@ namespace FunkyBot.Targeting.Behaviors
 								Bot.NavigationCache.LOSmovementObject = null;
 								return false;
 							}
-							else if(!Bot.NavigationCache.LOSmovementObject.OrginCacheObject.ObjectIsValidForTargeting)
+							else if (!Bot.NavigationCache.LOSmovementObject.IsValidForTargeting())
 							{//Valid for Targeting?
 								Logger.Write(LogLevel.Movement, "Line of Sight Ending due to Orgin Object Not Valid for Targeting!");
 								Bot.NavigationCache.LOSmovementObject = null;

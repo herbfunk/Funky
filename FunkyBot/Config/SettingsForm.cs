@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
 using FunkyBot.Cache;
+using FunkyBot.Cache.Avoidance;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Settings;
 using Brushes = System.Drawing.Brushes;

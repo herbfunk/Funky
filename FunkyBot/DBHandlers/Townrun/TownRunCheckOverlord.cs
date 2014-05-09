@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using FunkyBot.Cache.Objects;
 using Zeta.Bot;
 using Zeta.Bot.Logic;
 using Zeta.Common;
@@ -8,6 +10,29 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.DBHandlers
 {
+	[Flags]
+	public enum BloodShardGambleItems
+	{
+		None = 0,
+		OneHandItem = 1,
+		TwoHandItem = 2,
+		Quiver = 4,
+		Orb = 8,
+		Mojo = 16,
+		Helm = 32,
+		Gloves = 64,
+		Boots = 128,
+		Chest = 256,
+		Belt = 512,
+		Shoulders = 1024,
+		Pants = 2048,
+		Bracers = 4096,
+		Shield = 8192,
+		Ring = 16384,
+		Amulet = 32768,
+
+		All = OneHandItem | TwoHandItem | Quiver | Orb | Mojo | Helm | Gloves | Boots | Chest | Belt | Shoulders | Pants | Bracers | Shield | Ring | Amulet
+	}
 
 	internal static partial class TownRunManager
 	{
@@ -19,17 +44,14 @@ namespace FunkyBot.DBHandlers
 		private static int[] LastStashPoint = { -1, -1 };
 		private static int LastStashPage = -1;
 
-		private static bool FoundTownPortal;
-		private static DiaGizmo TownPortalObj;
+
 		private static Vector3 TownportalMovementVector3 = Vector3.Zero;
 
 		// The distance last loop, so we can compare to current distance to work out if we moved
 		private static float iLastDistance;
 		// This dictionary stores attempted stash counts on items, to help detect any stash stucks on the same item etc.
 		internal static Dictionary<int, int> _dictItemStashAttempted = new Dictionary<int, int>();
-		// Random variables used during item handling and town-runs
-		private static int iItemDelayLoopLimit;
-		private static int iCurrentItemLoops;
+
 		internal static bool bLoggedAnythingThisStash = false;
 		private static bool bUpdatedStashMap;
 		private static bool bCheckUnidItems;
@@ -50,6 +72,66 @@ namespace FunkyBot.DBHandlers
 		// Stash mapper - it's an array representing every slot in your stash, true or false dictating if the slot is free or not
 		private static readonly bool[,] GilesStashSlotBlocked = new bool[7, 40];
 		internal static bool TownrunStartedInTown = true;
+
+		internal static TownRunCache townRunItemCache = new TownRunCache();
+
+		public class TownRunCache
+		{
+			private int InventoryRowCombine(int i)
+			{
+				if ((i & 1) == 0)
+					return i;
+				else
+					return i - 1;
+			}
+
+			// These three lists are used to cache item data from the backpack when handling sales, salvaging and stashing
+			// It completely minimized D3 <-> DB memory access, to reduce any random bugs/crashes etc.
+			public HashSet<CacheACDItem> KeepItems = new HashSet<CacheACDItem>();
+			public HashSet<CacheACDItem> SalvageItems = new HashSet<CacheACDItem>();
+			public HashSet<CacheACDItem> SellItems = new HashSet<CacheACDItem>();
+			public HashSet<CacheACDItem> InteractItems = new HashSet<CacheACDItem>(); 
+
+			public void sortSellList()
+			{
+				List<CacheACDItem> sortedList = SellItems.OrderBy(o => InventoryRowCombine(o.invRow)).ThenBy(o => o.invCol).ToList();
+				var newSortedHashSet = new HashSet<CacheACDItem>();
+				foreach (var item in sortedList)
+				{
+					newSortedHashSet.Add(item);
+				}
+
+				SellItems = newSortedHashSet;
+
+			}
+
+			public void sortSalvagelist()
+			{
+				List<CacheACDItem> sortedList = SalvageItems.OrderBy(o => InventoryRowCombine(o.invRow)).ThenBy(o => o.invCol).ToList();
+				var newSortedHashSet = new HashSet<CacheACDItem>();
+				foreach (var item in sortedList)
+				{
+					newSortedHashSet.Add(item);
+				}
+
+				SalvageItems = newSortedHashSet;
+
+			}
+		}
+
+		// Random variables used during item handling and town-runs
+		private static int iItemDelayLoopLimit;
+		private static int iCurrentItemLoops;
+		internal static bool TownRunItemLoopsTest(double multiplier = 1)
+		{
+			iCurrentItemLoops++;
+			if (iCurrentItemLoops < iItemDelayLoopLimit * multiplier) return false;
+
+			iCurrentItemLoops = 0;
+			RandomizeTheTimer();
+			return true;
+		}
+
 
 		// **********************************************************************************************
 		// *****         TownRunCheckOverlord - determine if we should do a town-run or not         *****
@@ -100,7 +182,9 @@ namespace FunkyBot.DBHandlers
 		{
 			Stash,
 			Sell,
-			Salvage
+			Salvage,
+			Gamble,
+			Interaction
 		}
 
 		private static Vector3 ReturnMovementVector(TownRunBehavior type, Act act)
@@ -156,6 +240,37 @@ namespace FunkyBot.DBHandlers
 							return new Vector3(389.3798f, 390.7143f, 0.3321428f);
 						case Act.A5:
 							return new Vector3(510.6552f, 502.1889f, 2.620764f);
+					}
+					break;
+				case TownRunBehavior.Gamble:
+					switch (act)
+					{
+						case Act.A1:
+							return new Vector3(376.3878f, 561.3141f, 24.04533f);
+						case Act.A2:
+							return new Vector3(334.8506f, 267.2392f, 0.1000038f);
+						case Act.A3:
+						case Act.A4:
+							return new Vector3(458.5429f, 416.3311f, 0.2663189f);
+						case Act.A5:
+							return new Vector3(592.5067f, 535.6719f, 2.74532f);
+					}
+					break;
+				case TownRunBehavior.Interaction:
+					switch (act)
+					{
+						case Act.A1:
+							if (!Bot.Game.AdventureMode)
+								return new Vector3(2959.277f, 2811.887f, 24.04533f);
+							else
+								return new Vector3(386.6582f, 534.2561f, 24.04533f);
+						case Act.A2:
+							return new Vector3(299.5841f, 250.1721f, 0.1000036f);
+						case Act.A3:
+						case Act.A4:
+							return new Vector3(403.7034f, 395.9311f, 0.5069602f);
+						case Act.A5:
+							return new Vector3(532.3179f, 521.8536f, 2.662077f);
 					}
 					break;
 			}

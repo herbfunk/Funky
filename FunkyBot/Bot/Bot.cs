@@ -52,7 +52,9 @@ namespace FunkyBot
 		public static void Reset()
 		{
 			Logger.DBLog.InfoFormat("Funky Reseting Bot");
+			TownRunManager.townRunItemCache=new TownRunManager.TownRunCache();
 			Character.Reset();
+			Settings_Funky.LoadFunkyConfiguration();
 			Targeting = new TargetingClass();
 			NavigationCache = new Navigation();
 		}

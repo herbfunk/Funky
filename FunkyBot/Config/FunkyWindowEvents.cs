@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -8,11 +9,14 @@ using System.Windows.Media;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Config;
+using FunkyBot.DBHandlers;
+using FunkyBot.Game;
 using FunkyBot.Settings;
 using System.Windows.Controls;
 using Zeta.Bot;
 using Zeta.Common;
 using Zeta.Game;
+using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
 using Button = System.Windows.Controls.Button;
 using CheckBox = System.Windows.Controls.CheckBox;
@@ -362,7 +366,15 @@ namespace FunkyBot
 			{
 				try
 				{
-					LBDebug.Items.Add(Enum.GetName(typeof(SNOActor), ZetaDia.Me.ActorSNO));
+					LBDebug.Items.Add("Active Quest Count: " + ZetaDia.ActInfo.ActiveQuests.Count());
+					var binfo = ZetaDia.ActInfo.ActiveBounty;
+					if (binfo!=null)
+					{
+						FunkyBot.Game.BountyCache.BountyInfoCache bifc = new BountyCache.BountyInfoCache(binfo);
+						LBDebug.Items.Add(bifc.ToString());
+						LBDebug.Items.Add(binfo.Info.KillCount);
+						//int i = binfo.Info.KillCount;
+					}
 					
 				}
 				catch(Exception ex)
@@ -377,6 +389,17 @@ namespace FunkyBot
 					string debugStr = Bot.Targeting.Movement.DebugString();
 					LBDebug.Items.Add(debugStr);
 					Logger.DBLog.InfoFormat("Movement Info: \r\n {0}", debugStr);
+				}
+				catch (Exception ex)
+				{
+					Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
+				}
+			}
+			else if (btnsender.Name == "BountyCache")
+			{
+				try
+				{
+					LBDebug.Items.Add(Bot.Game.Bounty.DebugString());
 				}
 				catch (Exception ex)
 				{

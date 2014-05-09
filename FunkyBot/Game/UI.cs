@@ -31,6 +31,15 @@ namespace FunkyBot.Game
 				catch { return null; }
 			}
 		}
+
+		public static UIElement Inventory_Backpack_TopLeftSlot
+		{
+			get
+			{
+				try { return UIElement.FromHash(0x18CCECE7D2C0A87B); }
+				catch { return null; }
+			}
+		}
 		// 
 
 		public static class WaypointMap

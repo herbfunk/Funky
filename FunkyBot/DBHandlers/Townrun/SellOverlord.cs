@@ -25,7 +25,7 @@ namespace FunkyBot.DBHandlers
 		// **********************************************************************************************
 		internal static bool GilesSellOverlord(object ret)
 		{
-			Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSellItems.Clear();
+			townRunItemCache.SellItems.Clear();
 
 
 
@@ -51,7 +51,7 @@ namespace FunkyBot.DBHandlers
 
 							if (thisitem.ACDGUID != Bot.Character.Data.BackPack.CurrentPotionACDGUID && Bot.Character.Data.BackPack.CurrentPotionACDGUID != -1)
 							{
-								Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSellItems.Add(thisitem);
+								townRunItemCache.SellItems.Add(thisitem);
 								Logger.DBLog.InfoFormat("Selling Potion -- Current PotionACDGUID=={0}", Bot.Character.Data.BackPack.CurrentPotionACDGUID);
 							}
 							continue;
@@ -68,7 +68,7 @@ namespace FunkyBot.DBHandlers
 							switch (action)
 							{
 								case Interpreter.InterpreterAction.TRASH:
-									Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSellItems.Add(thisitem);
+									townRunItemCache.SellItems.Add(thisitem);
 									continue;
 							}
 						}
@@ -81,7 +81,7 @@ namespace FunkyBot.DBHandlers
 
 						if (bShouldSellThis)
 						{
-							Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSellItems.Add(thisitem);
+							townRunItemCache.SellItems.Add(thisitem);
 						}
 
 					}
@@ -92,11 +92,11 @@ namespace FunkyBot.DBHandlers
 				}
 			}
 
-			bool bShouldVisitVendor = Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSellItems.Count > 0;
+			bool bShouldVisitVendor = townRunItemCache.SellItems.Count > 0;
 
 			if (bShouldVisitVendor)
 			{
-				Bot.Character.Data.BackPack.townRunCache.sortSellList();
+				townRunItemCache.sortSellList();
 			}
 			else
 			{
@@ -226,15 +226,11 @@ namespace FunkyBot.DBHandlers
 			#endregion
 
 			#region SellItem
-			if (Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSellItems.Count > 0)
+			if (townRunItemCache.SellItems.Count > 0)
 			{
-				iCurrentItemLoops++;
-				if (iCurrentItemLoops < iItemDelayLoopLimit)
-					return RunStatus.Running;
-				iCurrentItemLoops = 0;
-				RandomizeTheTimer();
+				if (!TownRunItemLoopsTest()) return RunStatus.Running;
 
-				CacheACDItem thisitem = Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSellItems.FirstOrDefault();
+				CacheACDItem thisitem = townRunItemCache.SellItems.FirstOrDefault();
 				// Item log for cool stuff sold
 				if (thisitem != null)
 				{
@@ -251,8 +247,8 @@ namespace FunkyBot.DBHandlers
 					ZetaDia.Me.Inventory.SellItem(thisitem.ACDItem);
 				}
 				if (thisitem != null)
-					Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSellItems.Remove(thisitem);
-				if (Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSellItems.Count > 0)
+					townRunItemCache.SellItems.Remove(thisitem);
+				if (townRunItemCache.SellItems.Count > 0)
 					return RunStatus.Running;
 			}
 			#endregion
@@ -263,11 +259,7 @@ namespace FunkyBot.DBHandlers
 				 !PotionCheck)
 			{
 				//Obey the timer, so we don't buy 100 potions in 3 seconds.
-				iCurrentItemLoops++;
-				if (iCurrentItemLoops < iItemDelayLoopLimit)
-					return RunStatus.Running;
-				iCurrentItemLoops = 0;
-				RandomizeTheTimer();
+				if (!TownRunItemLoopsTest()) return RunStatus.Running;
 
 				//Buy Potions
 				int BestPotionID = 0;
@@ -297,11 +289,7 @@ namespace FunkyBot.DBHandlers
 
 			if (bNeedsEquipmentRepairs)
 			{
-				iCurrentItemLoops++;
-				if (iCurrentItemLoops < iItemDelayLoopLimit)
-					return RunStatus.Running;
-				iCurrentItemLoops = 0;
-				RandomizeTheTimer();
+				if (!TownRunItemLoopsTest()) return RunStatus.Running;
 
 				if (ZetaDia.Me.Inventory.Coinage < 40000)
 				{
@@ -327,9 +315,7 @@ namespace FunkyBot.DBHandlers
 
 		internal static RunStatus GilesOptimisedPostSell(object ret)
 		{
-			iCurrentItemLoops++;
-			if (iCurrentItemLoops < iItemDelayLoopLimit)
-				return RunStatus.Running;
+			if (!TownRunItemLoopsTest()) return RunStatus.Running;
 
 			Logger.DBLog.DebugFormat("GSDebug: Sell routine ending sequence...");
 

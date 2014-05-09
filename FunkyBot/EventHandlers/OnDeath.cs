@@ -42,30 +42,30 @@ namespace FunkyBot
 
 
 			// Does Trinity need to handle deaths?
-			if (TrinityMaxDeathsTag.MaxDeathsAllowed > 0)
-			{
-				if (Bot.Game.CurrentGameStats.TotalDeaths > TrinityMaxDeathsTag.MaxDeathsAllowed)
-				{
-					Logger.DBLog.InfoFormat("[Funky] You have died too many times. Now restarting the game.");
+			//if (TrinityMaxDeathsTag.MaxDeathsAllowed > 0)
+			//{
+			//	if (Bot.Game.CurrentGameStats.TotalDeaths > TrinityMaxDeathsTag.MaxDeathsAllowed)
+			//	{
+			//		Logger.DBLog.InfoFormat("[Funky] You have died too many times. Now restarting the game.");
 
-					string profile = GlobalSettings.Instance.LastProfile;
+			//		string profile = GlobalSettings.Instance.LastProfile;
 
-					if (Bot.Game.CurrentGameStats.Profiles.Count > 0)
-						profile = Bot.Game.CurrentGameStats.Profiles.First().ProfileName;
+			//		if (Bot.Game.CurrentGameStats.Profiles.Count > 0)
+			//			profile = Bot.Game.CurrentGameStats.Profiles.First().ProfileName;
 
-					ProfileManager.Load(profile);
-					Thread.Sleep(1000);
-					Funky.ResetGame();
-					ZetaDia.Service.Party.LeaveGame();
-					Thread.Sleep(10000);
-				}
-				else
-				{
-					Logger.DBLog.InfoFormat("[Funky] I'm sorry, but I seem to have let you die :( Now restarting the current profile.");
-					ProfileManager.Load(GlobalSettings.Instance.LastProfile);
-					Thread.Sleep(3500);
-				}
-			}
+			//		ProfileManager.Load(profile);
+			//		Thread.Sleep(1000);
+			//		Funky.ResetGame();
+			//		ZetaDia.Service.Party.LeaveGame();
+			//		Thread.Sleep(10000);
+			//	}
+			//	else
+			//	{
+			//		Logger.DBLog.InfoFormat("[Funky] I'm sorry, but I seem to have let you die :( Now restarting the current profile.");
+			//		ProfileManager.Load(GlobalSettings.Instance.LastProfile);
+			//		Thread.Sleep(3500);
+			//	}
+			//}
 
 			//}
 		}

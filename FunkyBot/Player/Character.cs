@@ -93,8 +93,8 @@ namespace FunkyBot.Player
 				}
 
 				if (!LastLevelIDChangeWasTownRun)
-				{//Do full clear..
-					//Reset Playermover Backtrack Positions
+				{//Do full clear
+
 					BackTrackCache.cacheMovementGPRs.Clear();
 					Bot.NavigationCache.LOSBlacklistedRAGUIDs.Clear();
 					Bot.Game.Profile.InteractableCachedObject = null;
@@ -115,8 +115,12 @@ namespace FunkyBot.Player
 
 				Bot.Character.Data.UpdateCoinage = true;
 
-				//Logger.Write(LogLevel.Movement, "Updating Search Grid Provider.");
-				//Navigator.SearchGridProvider.Update();
+				//ZetaDia.ActInfo.ActiveBounty.Info.QuestSNO
+				//Adventure Mode?
+				if (Bot.Game.AdventureMode)
+				{
+					Bot.Game.Bounty.RefreshBountyLevelChange();
+				}
 
 				LastLevelIDChangeWasTownRun = false;
 			}
@@ -132,6 +136,7 @@ namespace FunkyBot.Player
 			Data.OnLevelAreaIDChanged += LevelAreaIDChangeHandler;
 			Class = null;
 			ItemRulesEval = new Interpreter();
+			Account.UpdateCurrentAccountDetails();
 		}
 
 		///<summary>

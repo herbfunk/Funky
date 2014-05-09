@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using FunkyBot.Cache.Avoidance;
 using FunkyBot.Cache.Enums;
 using Zeta.Common;
 using Zeta.Game.Internals.Actors;
@@ -427,7 +428,7 @@ namespace FunkyBot.Cache.Objects
 		public bool IsTransformUnit { get { return CacheIDLookup.hashActorSNOTransforms.Contains(SNOID); } }
 		public bool IsFlyingHoverUnit { get { return CacheIDLookup.hashActorSNOFlying.Contains(SNOID); } }
 		public bool IsDemonicForge { get { return SNOID == 174900 || SNOID == 185391; } }
-		public bool IsCursedChest { get { return SNOID == 365097; } }
+		public bool IsCursedChest { get { return SNOID == 365097 || SNOID == 364559; } }
 		public bool IsCursedShrine { get { return SNOID == 364601; } }
 		#endregion
 

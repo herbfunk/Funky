@@ -153,6 +153,11 @@ namespace GilesBlankCombatRoutine
 
 			var EnabledPlugins = PluginManager.GetEnabledPlugins().ToArray();
 
+			foreach (var p in PluginManager.Plugins)
+			{
+				p.Enabled = false;
+			}
+
 			PluginManager.ShutdownAllPlugins();
 
 			DBLog.DebugFormat("Removing Funky from plugins");

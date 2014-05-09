@@ -1,6 +1,7 @@
 ﻿using System;
 using FunkyBot.Cache.Objects;
 using FunkyBot.DBHandlers;
+using FunkyBot.Player;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
@@ -121,7 +122,7 @@ namespace FunkyBot.Targeting
 				}
 
 				//Vendor Behavior
-				if (BrainBehavior.IsVendoring)
+				if (BrainBehavior.IsVendoring && !TownRunManager.IgnoreVendoring)
 				{
 					CurrentState = RunStatus.Success;
 					return false;
@@ -178,7 +179,7 @@ namespace FunkyBot.Targeting
 						case ItemQuality.Magic3:
 							statusText += "<=Magical]";
 							//Non-Quality items get skipped quickly.
-							if (Bot.Targeting.Cache.recheckCount > 1)
+							if (Bot.Targeting.Cache.recheckCount > 2)
 								Bot.Targeting.Cache.reCheckedFinished = true;
 							break;
 
@@ -186,7 +187,7 @@ namespace FunkyBot.Targeting
 						case ItemQuality.Rare5:
 						case ItemQuality.Rare6:
 							statusText += "=Rare]";
-							if (Bot.Targeting.Cache.recheckCount > 2)
+							if (Bot.Targeting.Cache.recheckCount > 3)
 								Bot.Targeting.Cache.reCheckedFinished = true;
 							//else
 							//bItemForcedMovement = true;
@@ -195,7 +196,7 @@ namespace FunkyBot.Targeting
 
 						case ItemQuality.Legendary:
 							statusText += "=Legendary]";
-							if (Bot.Targeting.Cache.recheckCount > 3)
+							if (Bot.Targeting.Cache.recheckCount > 4)
 								Bot.Targeting.Cache.reCheckedFinished = true;
 							//else
 							//bItemForcedMovement = true;
@@ -218,7 +219,11 @@ namespace FunkyBot.Targeting
 						return false;
 					}
 					//We Rechecked Max Confirmation Checking Count, now we check if we want to retry confirmation, or simply try once more then ignore for a few.
-					bool stackableItem = (ItemType.Potion | ItemType.CraftingPage | ItemType.CraftingPlan | ItemType.CraftingReagent).HasFlag(thisObjItem.BalanceData.thisItemType);
+					var itemtype = thisObjItem.BalanceData.thisItemType;
+					var followertype=thisObjItem.BalanceData.thisFollowerType;
+					var gilesItemType=Backpack.DetermineItemType(thisObjItem.InternalName, itemtype, followertype);
+					bool stackableItem = Backpack.DetermineIsStackable(gilesItemType);
+
 					if (thisObjItem.Itemquality.Value > ItemQuality.Magic3 || stackableItem)
 					{
 						//Items above rare quality don't get blacklisted, just ignored for a few loops.

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using FunkyBot.Cache;
+using FunkyBot.Cache.Avoidance;
 using FunkyBot.Cache.Enums;
 using System.Collections.Generic;
 using FunkyBot.Cache.Objects;

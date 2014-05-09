@@ -3,28 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Game;
 using Zeta.Common;
 
 namespace FunkyBot.Cache.Objects
 {
 	public class CacheLineOfSight
 	{
-		public CacheObject OrginCacheObject { get; set; }
-		public readonly int OrginCacheObjectRAGUID;
-		public bool CacheContainsOrginObject()
+		public CacheLineOfSight(CacheObject obj, Vector3 pos)
 		{
-			return ObjectCache.Objects.ContainsKey(OrginCacheObjectRAGUID);
+			OrginCacheObject = obj;
+			OrginCacheObjectRAGUID = obj.RAGUID;
+			Position = pos;
 		}
-		public void UpdateOrginObject()
+		public CacheLineOfSight(BountyCache.BountyMapMarker bmm)
 		{
-			if (CacheContainsOrginObject())
-			{
-				OrginCacheObject = ObjectCache.Objects[OrginCacheObjectRAGUID];
-				Position = OrginCacheObject.Position;
-			}
+			Position=bmm.Position;
+			OrginCacheObjectRAGUID = bmm.GetHashCode();
+			OrginMapMarker = bmm;
+			IgnoringCacheCheck = true;
 		}
 
+		internal readonly bool IgnoringCacheCheck;
+		private CacheObject OrginCacheObject;
+		private BountyCache.BountyMapMarker OrginMapMarker;
+
+		public readonly int OrginCacheObjectRAGUID;
+
 		public Vector3 Position { get; set; }
+
 		public float CentreDistance
 		{
 			get
@@ -33,12 +40,45 @@ namespace FunkyBot.Cache.Objects
 			}
 		}
 
-		public CacheLineOfSight(CacheObject obj, Vector3 pos)
+
+
+		public bool CacheContainsOrginObject()
 		{
-			OrginCacheObject = obj;
-			OrginCacheObjectRAGUID=obj.RAGUID;
-			Position = pos;
+			if (IgnoringCacheCheck)
+			{
+				Bot.Game.Bounty.RefreshBountyMapMarkers();
+				return Bot.Game.Bounty.CurrentBountyMapMarkers.ContainsKey(OrginCacheObjectRAGUID);
+			}
+
+			return ObjectCache.Objects.ContainsKey(OrginCacheObjectRAGUID);
 		}
+
+		public void UpdateOrginObject()
+		{
+			if (CacheContainsOrginObject())
+			{
+				if (IgnoringCacheCheck)
+				{
+					Position=Bot.Game.Bounty.CurrentBountyMapMarkers[OrginCacheObjectRAGUID].Position;
+				}
+				else
+				{
+					OrginCacheObject = ObjectCache.Objects[OrginCacheObjectRAGUID];
+					Position = OrginCacheObject.Position;
+				}
+			}
+		}
+
+		public bool IsValidForTargeting()
+		{
+			if (IgnoringCacheCheck)
+			{
+				return true;
+			}
+			return OrginCacheObject.ObjectIsValidForTargeting;
+		}
+
+
 
 	}
 }

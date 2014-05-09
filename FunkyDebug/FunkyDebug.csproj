@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\Desktop\New folder %284%29\Plugins\FunkyDebug\</OutputPath>
+    <OutputPath>..\..\..\..\Desktop\db_beta\Plugins\FunkyDebug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -37,12 +37,14 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Demonbuddy">
-      <HintPath>..\FunkyBot\Assemblies\Demonbuddy.exe</HintPath>
+    <Reference Include="Demonbuddy, Version=1.1.1819.357, Culture=neutral, PublicKeyToken=eff32ccf253d66d4, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Desktop\db_beta\Demonbuddy.exe</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="GreyMagic">
-      <HintPath>..\FunkyBot\Assemblies\GreyMagic.dll</HintPath>
+    <Reference Include="GreyMagic, Version=1.1.1819.357, Culture=neutral, PublicKeyToken=260525fa2b0e778a, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Desktop\db_beta\GreyMagic.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />

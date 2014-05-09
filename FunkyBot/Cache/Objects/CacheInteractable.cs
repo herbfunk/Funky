@@ -83,9 +83,10 @@ namespace FunkyBot.Cache.Objects
 
 				if (GizmoHasBeenUsed.HasValue && GizmoHasBeenUsed.Value)
 				{
-					if (targetType.Value == TargetType.CursedShrine || targetType.Value == TargetType.CursedChest)
-					{
+					if ((targetType.Value == TargetType.CursedShrine || targetType.Value == TargetType.CursedChest) && IsStillValid())
+					{//Cursed Shrine/Chest that is still valid we reset to keep active!
 						Bot.Targeting.Cache.lastSeenCursedShrine = DateTime.Now;
+						LoopsUnseen = 0;
 					}
 					return false;
 				}
@@ -400,6 +401,11 @@ namespace FunkyBot.Cache.Objects
 			Bot.Character.Data.WaitWhileAnimating(20);
 			ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, Position, Bot.Character.Data.iCurrentWorldID, base.AcdGuid.Value);
 			InteractionAttempts++;
+
+			if (IsCursedShrine || IsCursedChest)
+			{
+				Bot.Targeting.Cache.lastSeenCursedShrine = DateTime.Now;
+			}
 
 			if (InteractionAttempts == 1)
 			{

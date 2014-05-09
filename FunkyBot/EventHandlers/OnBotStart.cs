@@ -26,7 +26,7 @@ namespace FunkyBot
 
 			//Load Settings
 			//Bot.Character.Account.UpdateCurrentAccountDetails();
-			//Settings_Funky.LoadFunkyConfiguration();
+			//
 			Bot.Reset();
 			
 

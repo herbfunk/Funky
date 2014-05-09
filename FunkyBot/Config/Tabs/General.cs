@@ -227,7 +227,7 @@ namespace FunkyBot
 
 			GeneralTab.Content = lbGeneralContent;
 
-
+			InitAdventureModeControls();
 			InitBacktrackingControls();
 		}
 	}

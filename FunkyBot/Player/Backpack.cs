@@ -37,7 +37,7 @@ namespace FunkyBot.Player
 			if (TrueItemType == GilesItemType.HoradricCache)
 			{
 				if (bOutputItemScores) Logger.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep cache)");
-				return true;
+				return Bot.Settings.TownRun.StashHoradricCache;
 			}
 			if (TrueItemType == GilesItemType.StaffOfHerding)
 			{
@@ -1898,6 +1898,7 @@ namespace FunkyBot.Player
 
 			return Math.Round(iTotalPoints);
 		}
+
 		// Readable names of the above stats that get output into the trash/stash log files
 		private static readonly string[] StatNames =
 		{ 
@@ -2056,35 +2057,17 @@ namespace FunkyBot.Player
 		#endregion
 
 
-		//Cache Backpack Item
-		//Used in caching item ACDGUID and ACDITEM as reference for Item Loot Confirmation.
-		internal class BackpackItem
-		{
-			public int ACDGUID { get; set; }
-			public CacheACDItem Item { get; set; }
-			public BackpackItem(CacheACDItem item)
-			{
-				ACDGUID = item.ACDGUID;
-				Item = item;
-			}
-		}
 
 
 		public Backpack()
 		{
-			townRunCache = new TownRunCache();
-			BPItems = new List<BackpackItem>();
 			CacheItemList = new Dictionary<int, CacheACDItem>();
 		}
-		public List<BackpackItem> BPItems { get; set; }
 		public Dictionary<int, CacheACDItem> CacheItemList { get; set; }
 
 		public ACDItem BestPotionToUse { get; set; }
 
 		public int CurrentPotionACDGUID = -1;
-
-		public TownRunCache townRunCache { get; set; }
-
 
 		//Sets List to current backpack contents
 		public void Update()
@@ -2114,20 +2097,6 @@ namespace FunkyBot.Player
 				CacheItemList.Remove(unseenAcdguiD);
 			}
 
-
-			//We refresh our BPItem Cache whenever we are checking for looted items!
-			if (Bot.Targeting.Cache.ShouldCheckItemLooted)
-			{
-				//Get a list of current BP Cached ACDItems
-				List<int> BPItemsACDItemList = (from backpackItems in BPItems
-												select backpackItems.ACDGUID).ToList();
-
-				//Now get items that are not currently in the BPItems List.
-				foreach (var item in CacheItemList.Values.Where(I => !BPItemsACDItemList.Contains(I.ACDGUID)))
-				{
-					BPItems.Add(new BackpackItem(item));
-				}
-			}
 		}
 
 		//Used to check if backpack is visible
@@ -2366,6 +2335,22 @@ namespace FunkyBot.Player
 			return returnItems;
 		}
 
+		public int ReturnFreeBackpackSlots()
+		{
+			Update();
+
+			int OccupiedSlots = 0;
+			foreach (var item in CacheItemList.Values)
+			{
+				if (item.IsTwoSlot)
+					OccupiedSlots += 2;
+				else
+					OccupiedSlots++;
+			}
+
+			return 60-OccupiedSlots;
+		}
+
 
 		//Used to hold Town Run Data
 		public class TownRunCache
@@ -2383,7 +2368,7 @@ namespace FunkyBot.Player
 			public HashSet<CacheACDItem> hashGilesCachedKeepItems = new HashSet<CacheACDItem>();
 			public HashSet<CacheACDItem> hashGilesCachedSalvageItems = new HashSet<CacheACDItem>();
 			public HashSet<CacheACDItem> hashGilesCachedSellItems = new HashSet<CacheACDItem>();
-			public HashSet<CacheACDItem> hashGilesCachedUnidStashItems = new HashSet<CacheACDItem>();
+			
 
 			public void sortSellList()
 			{

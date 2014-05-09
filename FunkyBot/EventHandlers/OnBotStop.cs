@@ -21,9 +21,9 @@ namespace FunkyBot
 			Funky.PlayerMover.iTimesReachedStuckPoint = 0;
 			Funky.PlayerMover.timeLastRecordedPosition = DateTime.Today;
 			Funky.PlayerMover.timeStartedUnstuckMeasure = DateTime.Today;
-			ProfileCache.hashUseOnceID = new HashSet<int>();
-			ProfileCache.dictUseOnceID = new Dictionary<int, int>();
-			ProfileCache.dictRandomID = new Dictionary<int, int>();
+			//ProfileCache.hashUseOnceID = new HashSet<int>();
+			//ProfileCache.dictUseOnceID = new Dictionary<int, int>();
+			//ProfileCache.dictRandomID = new Dictionary<int, int>();
 			Funky.initTreeHooks = false;
 			Funky.RemoveHandlers();
 			Funky.ResetTreehooks();

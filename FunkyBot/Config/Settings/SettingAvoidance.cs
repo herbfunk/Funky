@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
 using FunkyBot.Cache;
+using FunkyBot.Cache.Avoidance;
 
 
 namespace FunkyBot.Settings

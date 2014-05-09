@@ -15,14 +15,19 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 
 		public override void Initialize()
 		{
-			Cooldown = 120000;
-			Range = 8;
-			Priority = SkillPriority.None;
-			ExecutionType = SkillExecutionFlags.Target;
+			Cooldown = 90000;
+			Priority = SkillPriority.High;
+			ExecutionType = SkillExecutionFlags.Buff;
 
 			WaitVars = new WaitLoops(0, 0, true);
-			PreCast = new SkillPreCast(SkillPrecastFlags.None);
+			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 			UseageType = SkillUseage.Combat;
+
+			//Make sure we are targeting something!
+			SingleUnitCondition.Add(new UnitTargetConditions());
+
+			//Activate on Bosses or Low Health!
+			FcriteriaCombat = () => Bot.Targeting.Cache.CurrentTarget.IsBoss || Bot.Character.Data.dCurrentHealthPct < 0.5d;
 		}
 	}
 }

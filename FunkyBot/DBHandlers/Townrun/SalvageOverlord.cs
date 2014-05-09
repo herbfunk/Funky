@@ -23,7 +23,7 @@ namespace FunkyBot.DBHandlers
 		// **********************************************************************************************
 		internal static bool GilesSalvageOverlord(object ret)
 		{
-			Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSalvageItems.Clear();
+			townRunItemCache.SalvageItems.Clear();
 
 
 			//Get new list of current backpack
@@ -46,7 +46,7 @@ namespace FunkyBot.DBHandlers
 						{
 							if (Bot.Character.ItemRulesEval.checkSalvageItem(thisitem.ACDItem) == Interpreter.InterpreterAction.SALVAGE)
 							{
-								Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSalvageItems.Add(thisitem);
+								townRunItemCache.SalvageItems.Add(thisitem);
 								continue;
 							}
 						}
@@ -58,7 +58,7 @@ namespace FunkyBot.DBHandlers
 						bool bShouldVisitSalvage = ItemManager.Current.ShouldStashItem(thisitem.ACDItem);
 
 						if (bShouldVisitSalvage)
-							Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSalvageItems.Add(thisitem);
+							townRunItemCache.SalvageItems.Add(thisitem);
 
 					}
 				}
@@ -68,9 +68,9 @@ namespace FunkyBot.DBHandlers
 				}
 			}
 
-			if (Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSalvageItems.Count > 0)
+			if (townRunItemCache.SalvageItems.Count > 0)
 			{
-				Bot.Character.Data.BackPack.townRunCache.sortSalvagelist();
+				townRunItemCache.sortSalvagelist();
 				return true;
 			}
 
@@ -162,17 +162,12 @@ namespace FunkyBot.DBHandlers
 				return RunStatus.Running;
 			}
 
+			if (!TownRunItemLoopsTest(1.15)) return RunStatus.Running;
 
-			iCurrentItemLoops++;
-			if (iCurrentItemLoops < iItemDelayLoopLimit * 1.15)
-				return RunStatus.Running;
 
-			iCurrentItemLoops = 0;
-			RandomizeTheTimer();
-
-			if (Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSalvageItems.Count > 0)
+			if (townRunItemCache.SalvageItems.Count > 0)
 			{
-				CacheACDItem thisitem = Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSalvageItems.FirstOrDefault();
+				CacheACDItem thisitem = townRunItemCache.SalvageItems.FirstOrDefault();
 				if (thisitem != null)
 				{
 					// Item log for cool stuff stashed
@@ -189,10 +184,10 @@ namespace FunkyBot.DBHandlers
 					ZetaDia.Me.Inventory.SalvageItem(thisitem.ThisDynamicID);
 
 				}
-				Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSalvageItems.Remove(thisitem);
-				if (Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSalvageItems.Count > 0)
+				townRunItemCache.SalvageItems.Remove(thisitem);
+				if (townRunItemCache.SalvageItems.Count > 0)
 				{
-					thisitem = Bot.Character.Data.BackPack.townRunCache.hashGilesCachedSalvageItems.FirstOrDefault();
+					thisitem = townRunItemCache.SalvageItems.FirstOrDefault();
 					if (thisitem != null)
 						return RunStatus.Running;
 				}

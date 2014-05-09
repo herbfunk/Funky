@@ -1,4 +1,27 @@
 ﻿// herbfunk revisions
+v2.10.0.0
+
+Town Run:
+	Added Option to Stash Horadric Cache.
+	Added New Interaction Behavior to Open Horadric Cache.
+	Added New Gambling Behavior to Spend Blood Shards.
+
+Cache:
+	Added Bloodsprings to Avoidances.
+
+Adventure Mode:
+	Added Option to Navigate to Points of Intrest.
+
+XML Tags:
+	Removed Trinity Related Tags. (QuestTools)
+
+Skills:
+	Added support for AkaratsChampion, FistOfTheHeavens, HeavensFury, Phalanx for Crusader.
+
+Misc:
+	Recompiling Funky will now disable plugins prior.
+
+
 v2.9.2.0
 
 Cache:

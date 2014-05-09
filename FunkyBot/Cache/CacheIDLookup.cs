@@ -591,6 +591,8 @@ namespace FunkyBot.Cache
 			112182,
 			//GlobalChest
 			363725,
+			//a1dun_Leor_Chest_Rare_Garrach
+  			357509,
          };
 
 		// A list of SNO's to *FORCE* to type: Item. (BE CAREFUL WITH THIS!).

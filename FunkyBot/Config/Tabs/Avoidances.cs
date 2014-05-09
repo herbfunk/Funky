@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 using FunkyBot.Cache;
+using FunkyBot.Cache.Avoidance;
 using FunkyBot.Settings;
 using Button = System.Windows.Controls.Button;
 using CheckBox = System.Windows.Controls.CheckBox;

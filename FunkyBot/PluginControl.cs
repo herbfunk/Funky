@@ -74,12 +74,8 @@ namespace FunkyBot
 		}
 		public static void ResetGame()
 		{
-			ProfileCache.hashUseOnceID = new HashSet<int>();
-			ProfileCache.dictUseOnceID = new Dictionary<int, int>();
-			ProfileCache.dictRandomID = new Dictionary<int, int>();
 			SkipAheadCache.ClearCache();
 			TownRunManager.TownrunStartedInTown = true;
-			TrinityMaxDeathsTag.MaxDeathsAllowed = 0;
 			TownRunManager._dictItemStashAttempted = new Dictionary<int, int>();
 		}
 
@@ -362,6 +358,43 @@ namespace FunkyBot
 					
 					#endregion
 
+					#region Interaction Behavior
+					CanRunDecoratorDelegate canRunDelegateInteraction = TownRunManager.InteractionOverlord;
+					ActionDelegate actionDelegateInteractionMovementhBehavior = TownRunManager.InteractionMovement;
+					ActionDelegate actionDelegateInteractionClickBehaviorBehavior = TownRunManager.InteractionClickBehavior;
+					ActionDelegate actionDelegateInteractionLootingBehaviorBehavior = TownRunManager.InteractionLootingBehavior;
+					ActionDelegate actionDelegateInteractionFinishBehaviorBehavior = TownRunManager.InteractionFinishBehavior;
+
+					Sequence sequenceFinish = new Sequence(
+							new Action(actionDelegateInteractionFinishBehaviorBehavior),
+							new Action(actionDelegateInteractionMovementhBehavior),
+							new Action(actionDelegateInteractionClickBehaviorBehavior),
+							new Action(actionDelegateInteractionLootingBehaviorBehavior),
+							new Action(actionDelegateInteractionFinishBehaviorBehavior)
+						);
+					GilesReplacement.InsertChild(7, new Decorator(canRunDelegateInteraction, sequenceFinish));
+					Logger.DBLog.DebugFormat("Town Run - Interaction Behavior - Inserted...");
+
+					#endregion
+
+					#region Gambling Behavior
+
+					CanRunDecoratorDelegate canRunDelegateGambling = TownRunManager.GamblingRunOverlord;
+					ActionDelegate actionDelegateGamblingMovementBehavior = TownRunManager.GamblingMovement;
+					ActionDelegate actionDelegateGamblingInteractionBehavior = TownRunManager.GamblingInteraction;
+					ActionDelegate actionDelegateGamblingStartBehavior = TownRunManager.GamblingStart;
+					ActionDelegate actionDelegateGamblingFinishBehavior = TownRunManager.GamblingFinish;
+
+					Sequence sequenceGambling = new Sequence(
+						    new Action(actionDelegateGamblingStartBehavior),
+							new Action(actionDelegateGamblingMovementBehavior),
+							new Action(actionDelegateGamblingInteractionBehavior),
+							new Action(actionDelegateGamblingFinishBehavior)
+						);
+					GilesReplacement.InsertChild(8, new Decorator(canRunDelegateGambling, sequenceGambling));
+					Logger.DBLog.DebugFormat("Town Run - Gambling Behavior - Inserted...");
+
+					#endregion
 
 
 					CanRunDecoratorDelegate canRunDelegateGilesTownRunCheck = TownRunManager.GilesTownRunCheckOverlord;

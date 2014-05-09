@@ -366,6 +366,12 @@ namespace FunkyBot
 				string message=String.Format(Message, args);
 				WriteLine(String.Format("{0} {1}", prefix, message), true);
 		  }
+		  public static void Write(string Message, params object[] args)
+		  {
+			  string prefix = "[" + DateTime.Now.ToString("hh:mm:ss.fff") + " N]";
+			  string message = String.Format(Message, args);
+			  WriteLine(String.Format("{0} {1}", prefix, message), true);
+		  }
 		  private static void WriteLine(string text, bool append)
 		  {
 				// open file

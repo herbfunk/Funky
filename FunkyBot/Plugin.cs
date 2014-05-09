@@ -23,7 +23,7 @@ namespace FunkyBot
 {
 	public partial class Funky : IPlugin
 	{
-		public Version Version { get { return new Version(2, 9, 2, 1); } }
+		public Version Version { get { return new Version(2, 10, 0, 0); } }
 		public string Author { get { return "Herbfunk"; } }
 		public string Description
 		{
@@ -181,7 +181,7 @@ namespace FunkyBot
 			Bot.Settings = new Settings_Funky();
 
 			Logger.DBLogFile = DateTime.Now.ToString("yyyy-MM-dd hh.mm") + ".txt";
-			Logger.Write(LogLevel.User, "Init Logger Completed!");
+			Logger.Write("Init Logger Completed!");
 
 			//Generate Checksum for Update Check
 			//Process.Start(FolderPaths.sTrinityPluginPath + @"\CheckSum.exe");

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using FunkyBot.Cache.Avoidance;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Game;
@@ -97,8 +98,7 @@ namespace FunkyBot.Cache
 
 						//check our SNO blacklist
 						if (BlacklistCache.IsSNOIDBlacklisted(tmp_SNOID) 
-							&& !CacheIDLookup.hashSummonedPets.Contains(tmp_SNOID)
-							&& !ProfileCache.PrioritizedObjects.Contains(tmp_SNOID)) continue;
+							&& !CacheIDLookup.hashSummonedPets.Contains(tmp_SNOID)) continue;
 
 
 						#region Position

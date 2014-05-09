@@ -13,14 +13,6 @@ namespace FunkyBot.Game
 {
 	public class ProfileCache
 	{
-		// A list of "useonceonly" tags that have been triggered this xml profile
-		internal static HashSet<int> hashUseOnceID = new HashSet<int>();
-		internal static Dictionary<int, int> dictUseOnceID = new Dictionary<int, int>();
-		// For the random ID tag
-		internal static Dictionary<int, int> dictRandomID = new Dictionary<int, int>();
-
-		internal static HashSet<int> PrioritizedObjects = new HashSet<int>(); 
-
 		private static SettingCluster clusterSettingsTag=new SettingCluster();
 		internal static SettingCluster ClusterSettingsTag
 		{
@@ -94,7 +86,6 @@ namespace FunkyBot.Game
 						ProfileBehaviorIsOOCInteractive = false;
 						InteractableCachedObject = null;
 						IsRunningOOCBehavior = false;
-						PrioritizedObjects.Clear();
 					}
 				}
 
@@ -182,7 +173,7 @@ namespace FunkyBot.Game
 																	  typeof(UseObjectTag),
 																	  typeof(UseTownPortalTag),
 																	  //typeof(Zeta.CommonBot.Profile.Common.WaitTimerTag),
-																	  typeof (TrinityTownPortal),
+																	  //typeof (TrinityTownPortal),
 																	  typeof (FunkyWaypoint),
 																	};
 

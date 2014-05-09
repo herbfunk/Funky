@@ -314,12 +314,17 @@ namespace FunkyBot.Player
 						bIsIncapacitated = bIsInKnockBack || Bot.Character.Class.KnockbackLandAnims.Contains(CurrentSNOAnim);
 					}
 
-					int currentLevelAreaID = ZetaDia.CurrentLevelAreaId;
-					if (iCurrentLevelID != currentLevelAreaID)
+
+					if (!ZetaDia.IsLoadingWorld && ZetaDia.Minimap.IsValid && ZetaDia.Minimap.IsMinimapVisible)
 					{
-						levelareaIDchanged(currentLevelAreaID);
-						iCurrentWorldID = ZetaDia.CurrentWorldDynamicId;
+						int currentLevelAreaID = ZetaDia.CurrentLevelAreaId;
+						if (iCurrentLevelID != currentLevelAreaID)
+						{
+							levelareaIDchanged(currentLevelAreaID);
+							iCurrentWorldID = ZetaDia.CurrentWorldDynamicId;
+						}
 					}
+
 
 					if (Bot.Character.Account.CurrentLevel == 70)
 						CurrentExp = me.ParagonCurrentExperience;
@@ -348,8 +353,6 @@ namespace FunkyBot.Player
 						FreeBackpackSlots = me.Inventory.NumFreeBackpackSlots;
 						PickupRadius = me.GoldPickupRadius;
 						Coinage = me.Inventory.Coinage;
-						//Clear our BPItems list..
-						BackPack.BPItems.Clear();
 					}
 
 					if (UpdateCoinage)

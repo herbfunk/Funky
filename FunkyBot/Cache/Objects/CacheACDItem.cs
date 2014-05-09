@@ -1,4 +1,6 @@
-﻿using Zeta.Game.Internals;
+﻿using FunkyBot.Cache.Enums;
+using FunkyBot.Player;
+using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Cache.Objects
@@ -73,6 +75,16 @@ namespace FunkyBot.Cache.Objects
 
 		public string ItemStatString { get; set; }
 		public bool IsStackableItem { get; set; }
+		public bool IsTwoSlot { get; set; }
+
+		//Plugin Item Properties
+		public GilesBaseItemType BaseItemType { get; set; }
+		public GilesItemType ItemType { get; set; }
+
+		public bool IsHoradricCache
+		{
+			get { return ThisInternalName.StartsWith("HoradricCache"); }
+		}
 
 		public CacheACDItem(ACDItem item)
 		{
@@ -96,6 +108,8 @@ namespace FunkyBot.Cache.Objects
 			invRow = item.InventoryRow;
 			invCol = item.InventoryColumn;
 
+			ItemType = Backpack.DetermineItemType(ThisInternalName, ThisDBItemType, ThisFollowerType);
+			BaseItemType = Backpack.DetermineBaseType(ItemType);
 
 			ItemStats thesestats = item.Stats;
 			ItemStatString = thesestats.ToString();
@@ -143,7 +157,8 @@ namespace FunkyBot.Cache.Objects
 			Vitality = thesestats.Vitality;
 			WeaponDamagePerSecond = thesestats.WeaponDamagePerSecond;
 
-			IsStackableItem = Player.Backpack.DetermineIsStackable(this);
+			IsStackableItem = Backpack.DetermineIsStackable(this);
+			IsTwoSlot = Backpack.DetermineIsTwoSlot(ItemType);
 
 		}
 	}

@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
+using FunkyBot.Cache.Avoidance;
 using Zeta.Game;
 
 
@@ -8,6 +9,8 @@ namespace FunkyBot.Settings
 
 	public class Settings_Funky
 	{
+		public SettingTownRun TownRun { get; set; }
+		public SettingAdventureMode AdventureMode { get; set; }
 		public SettingDebug Debug { get; set; }
 		public SettingTargeting Targeting { get; set; }
 		public SettingCombat Combat { get; set; }
@@ -66,6 +69,8 @@ namespace FunkyBot.Settings
 
 		public Settings_Funky()
 		{
+			TownRun = new SettingTownRun();
+			AdventureMode=new SettingAdventureMode();
 			Debug = new SettingDebug();
 			Grouping = new SettingGrouping();
 			Fleeing = new SettingFleeing();
@@ -225,7 +230,7 @@ namespace FunkyBot.Settings
 				Settings_Funky testSettings = DeserializeFromXML();
 
 				//Avoidance Check
-				if (testSettings.Avoidance.Avoidances.Length != Cache.AvoidanceCache.AvoidancesDefault.Length)
+				if (testSettings.Avoidance.Avoidances.Length != AvoidanceCache.AvoidancesDefault.Length)
 				{
 					Logger.DBLog.Info("[Funky] Settings found missing Avoidances.. reseting avoidance settings to default!");
 					testSettings.Avoidance = new SettingAvoidance();

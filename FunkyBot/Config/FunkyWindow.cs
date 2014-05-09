@@ -177,6 +177,7 @@ namespace FunkyBot
 				Height = 600
 			};
 
+			InitTownRunControls();
 			InitItemRulesControls();
 			InitLootPickUpControls();
 			InitItemScoringControls();
@@ -354,11 +355,11 @@ namespace FunkyBot
 				VerticalAlignment = VerticalAlignment.Stretch,
 			};
 			tabControl1.Items.Add(DebuggingTabItem);
+
 			DockPanel DockPanel_Debug = new DockPanel
 			{
 				LastChildFill = true,
 				FlowDirection = FlowDirection.LeftToRight,
-
 			};
 
 
@@ -442,6 +443,15 @@ namespace FunkyBot
 				Name = "CombatMovement",
 			};
 			btnCombatMovement_Debug.Click += DebugButtonClicked;
+			Button btnBountyCache_Debug = new Button
+			{
+				Content = "Bounty",
+				FontSize = 10,
+				Width = 80,
+				Height = 25,
+				Name = "BountyCache",
+			};
+			btnBountyCache_Debug.Click += DebugButtonClicked;
 			Button btnTEST_Debug = new Button
 			{
 				Content = "Test",
@@ -454,9 +464,9 @@ namespace FunkyBot
 
 
 
-			StackPanel StackPanel_DebugButtons = new StackPanel
+			WrapPanel StackPanel_DebugButtons = new WrapPanel
 			{
-				Height = 40,
+				Height = 80,
 				HorizontalAlignment = HorizontalAlignment.Stretch,
 				FlowDirection = FlowDirection.LeftToRight,
 				Orientation = Orientation.Horizontal,
@@ -470,8 +480,10 @@ namespace FunkyBot
 			StackPanel_DebugButtons.Children.Add(btnCharacterCache_Debug);
 			StackPanel_DebugButtons.Children.Add(btnCombatCache_Debug);
 			StackPanel_DebugButtons.Children.Add(btnCombatMovement_Debug);
+			StackPanel_DebugButtons.Children.Add(btnBountyCache_Debug);
+			
 			StackPanel_DebugButtons.Children.Add(btnTEST_Debug);
-			//StackPanel_DebugButtons.Children.Add(btnGPC_Debug);
+
 
 			DockPanel.SetDock(StackPanel_DebugButtons, Dock.Top);
 			DockPanel_Debug.Children.Add(StackPanel_DebugButtons);
