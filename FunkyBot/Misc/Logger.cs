@@ -246,11 +246,11 @@ namespace FunkyBot
 
 				} catch { DBLog.DebugFormat("Failure to clean log files @ path: "+ItemRulesPath); }
 
-				string ProfileLogs=@"\Plugins\FunkyBot\Log\ProfileStats\";
+
 				deleteList=new List<string>();
 				try
 				{
-					 foreach (string file in Directory.GetFiles(FolderPaths.DemonBuddyPath+ProfileLogs))
+					foreach (string file in Directory.GetFiles(FolderPaths.ProfileStatsPath))
 					 {
 						  DateTime curFileCreated=Directory.GetCreationTime(file);
 						  if (DateTime.Now.Subtract(curFileCreated).TotalDays>=1)
@@ -268,7 +268,8 @@ namespace FunkyBot
 						  DBLog.DebugFormat("Total game stat logs deleted "+deleteList.Count);
 					 }
 
-				} catch { DBLog.DebugFormat("Failure to clean log files @ path: "+ProfileLogs); }
+				}
+				catch { DBLog.DebugFormat("Failure to clean log files @ path: " + FolderPaths.ProfileStatsPath); }
 
 		  }
 

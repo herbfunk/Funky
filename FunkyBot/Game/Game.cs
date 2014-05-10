@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Windows.Documents;
 using FunkyBot.Cache;
+using FunkyBot.Game.Bounty;
 using FunkyBot.XMLTags;
 using Zeta.Game;
 using Zeta.Game.Internals;
@@ -51,11 +52,11 @@ namespace FunkyBot.Game
 
 				//Adventure Mode (QuestID == 312429)
 				_adventureMode = questId == 312429;
-				if (AdventureMode)
+				if (AdventureMode && Bot.Settings.AdventureMode.EnableAdventuringMode)
 				{
 					Logger.DBLog.Info("Adventure Mode Enabled!");
 					Bounty.Reset();
-					Bounty.UpdateBounties();
+					Bounty.RefreshBountyInfo();
 				}
 
 				//Merge last GameStats with the Total

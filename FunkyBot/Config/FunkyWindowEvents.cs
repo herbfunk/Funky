@@ -11,6 +11,7 @@ using FunkyBot.Cache.Objects;
 using FunkyBot.Config;
 using FunkyBot.DBHandlers;
 using FunkyBot.Game;
+using FunkyBot.Game.Bounty;
 using FunkyBot.Settings;
 using System.Windows.Controls;
 using Zeta.Bot;
@@ -366,21 +367,23 @@ namespace FunkyBot
 			{
 				try
 				{
-					
+
 					foreach (var quest in ZetaDia.ActInfo.ActiveQuests)
 					{
 						string s = String.Format("QuestSNO: {0}", quest.QuestSNO);
 						LBDebug.Items.Add(s);
 					}
 
-					var binfo = ZetaDia.ActInfo.ActiveBounty;
-					if (binfo!=null)
-					{
-						FunkyBot.Game.BountyCache.BountyInfoCache bifc = new BountyCache.BountyInfoCache(binfo);
-						LBDebug.Items.Add(bifc.ToString());
-						LBDebug.Items.Add(binfo.Info.KillCount);
-						//int i = binfo.Info.KillCount;
-					}
+					//var binfo = ZetaDia.ActInfo.ActiveBounty;
+					//if (binfo!=null)
+					//{
+					//	FunkyBot.Game.BountyCache.BountyInfoCache bifc = new BountyCache.BountyInfoCache(binfo);
+					//	LBDebug.Items.Add(bifc.ToString());
+					//	LBDebug.Items.Add(binfo.Info.KillCount);
+					//	//int i = binfo.Info.KillCount;
+					//}
+					//
+					//BountyQuestActCache.SerializeToXML(bountyQuestCacheLookup.ActCache);
 					
 				}
 				catch(Exception ex)

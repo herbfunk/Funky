@@ -671,9 +671,8 @@ namespace FunkyBot.Cache.Objects
 									else if (IsCursedChest)
 										targetType = TargetType.CursedChest;
 									else
-									{
-										BlacklistCache.IgnoreThisObject(this, raguid);
-										return false;
+									{//Misc Gizmos (Sometimes Opening Doors or Paths!)
+										targetType=TargetType.Interactable;
 									}
 								}
 								else

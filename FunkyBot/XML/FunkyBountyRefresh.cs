@@ -24,7 +24,7 @@ namespace FunkyBot.XMLTags
 		{
 			return new Action(ret =>
 			{
-				Bot.Game.Bounty.RefreshBountyInfo();
+				Bot.Game.Bounty.RefreshBountyQuestStates();
 				if (Reset) Bot.Game.Bounty.CurrentBountyID = 0;
 
 				m_IsDone = true;

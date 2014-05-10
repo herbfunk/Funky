@@ -1,4 +1,18 @@
 ﻿// herbfunk revisions
+v2.10.0.1
+
+Adventure Mode:
+	Added Setting AdventuringMode which determines if the plugin will check bounty or not.
+		*Plugin Setting that tracks active bounty and modifies combat behavior using found cache value.
+		*A Cache Entry consists of a Name, Type, StartLevelID with options for EndLevelID, KillCount, and AdditionalLevelIds that are inbetween Start and End.
+		*Act 1 Cache for Kill/Clear/CursedEvents have been added only!
+		*Act1 Cache File can be found @ "/Game/Bounty/BountyCache/"
+	
+
+Cache:
+	No longer ignores Gizmo Switches that are not Cursed Chest/Shrines.
+
+
 v2.10.0.0
 
 Town Run:

@@ -8,7 +8,7 @@ namespace FunkyBot
 	{
 		internal static void FunkyOnGameChanged(object sender, EventArgs e)
 		{
-			Logger.Write(LogLevel.Event, "OnGameChanged Event");
+			Logger.Write(LogLevel.Event, "OnGameChanged CursedEvent");
 
 			ZetaDia.Memory.ClearCache();
 			Navigator.SearchGridProvider.Update();

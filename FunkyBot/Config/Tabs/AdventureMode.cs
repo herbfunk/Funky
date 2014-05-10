@@ -9,6 +9,10 @@ namespace FunkyBot
 	internal partial class FunkyWindow : Window
 	{
 		#region EventHandling
+		private void AdventureModeEnableBehaviorChecked(object sender, EventArgs e)
+		{
+			Bot.Settings.AdventureMode.EnableAdventuringMode = !Bot.Settings.AdventureMode.EnableAdventuringMode;
+		}
 		private void AdventureModeEnableNavigateChecked(object sender, EventArgs e)
 		{
 			Bot.Settings.AdventureMode.NavigatePointsOfInterest = !Bot.Settings.AdventureMode.NavigatePointsOfInterest;
@@ -26,6 +30,19 @@ namespace FunkyBot
 			AdventureTab.Header = "Adventure Mode";
 			tcGeneral.Items.Add(AdventureTab);
 			lbAdventureModeContent = new ListBox();
+
+			#region Enable Adventuring Mode
+			CheckBox cbAdventureModeEnabled = new CheckBox
+			{
+				Content = "Enable Adventuring Mode",
+				Width = 500,
+				Height = 30,
+				IsChecked = (Bot.Settings.AdventureMode.EnableAdventuringMode),
+			};
+			cbAdventureModeEnabled.Checked += AdventureModeEnableBehaviorChecked;
+			cbAdventureModeEnabled.Unchecked += AdventureModeEnableBehaviorChecked;
+			lbAdventureModeContent.Items.Add(cbAdventureModeEnabled);
+			#endregion
 
 			#region Naviagate Points of Intrest
 			CheckBox cbAdventureModeEnableNavigate = new CheckBox

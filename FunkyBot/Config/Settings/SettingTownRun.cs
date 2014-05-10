@@ -13,6 +13,7 @@ namespace FunkyBot.Settings
 		 public SettingTownRun()
 		 {
 			 StashHoradricCache = false;
+			 EnableBloodShardGambling = false;
 			 MinimumBloodShards = 100;
 			 BloodShardGambleItems = BloodShardGambleItems.All;
          }
