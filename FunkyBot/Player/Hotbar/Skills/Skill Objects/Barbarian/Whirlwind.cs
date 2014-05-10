@@ -25,7 +25,8 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckEnergy|SkillPrecastFlags.CheckPlayerIncapacitated));
 				ClusterConditions.Add(new SkillClusterConditions(10d, 30f, 2, true));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 20));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 20, 0.95d, TargetProperties.Normal));
+
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial&&
 				                      (!Bot.Settings.Barbarian.bSelectiveWhirlwind||Bot.Targeting.Cache.Environment.bAnyNonWWIgnoreMobsInRange||
 				                       !CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Targeting.Cache.CurrentTarget.SNOID))&&

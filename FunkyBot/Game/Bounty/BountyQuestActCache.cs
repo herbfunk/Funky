@@ -36,12 +36,6 @@ namespace FunkyBot.Game.Bounty
 			CursedEventBounties = new[] { new BountyQuestCacheEntry() };
 		}
 
-		public BountyQuestActCache(BountyQuestCacheEntry[] killBounties, BountyQuestCacheEntry[] clearBounties, BountyQuestCacheEntry[] cursedEventBounties)
-		{
-			KillBounties = killBounties;
-			ClearBounties = clearBounties;
-			CursedEventBounties = cursedEventBounties;
-		}
 
 		private static string DefaultFilePath = Path.Combine(FolderPaths.PluginPath, "Game", "Bounty", "BountyCache");
 		public static void SerializeToXML(BountyQuestActCache settings)

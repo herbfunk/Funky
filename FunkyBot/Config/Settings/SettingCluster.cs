@@ -50,5 +50,13 @@ namespace FunkyBot.Settings
 			textReader.Close();
 			return settings;
 		}
+
+		public static readonly SettingCluster DisabledClustering = new SettingCluster
+		{
+			EnableClusteringTargetLogic = false,
+			ClusterDistance = 20d,
+			ClusterMaxDistance = 100f,
+			ClusterMinimumUnitCount = 0
+		};
 	}
 }

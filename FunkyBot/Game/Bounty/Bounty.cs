@@ -115,9 +115,11 @@ namespace FunkyBot.Game.Bounty
 						//int act = aq.QuestRecord.Act;
 
 						Logger.DBLog.InfoFormat("ID: {0} State: {1}", questSNO, state);
+						 
+						if (state == QuestState.InProgress)
+						{
 
-						if (ActiveBounty != null && ActiveBounty.QuestSNO == questSNO)
-							return;
+						}
 					}
 				}
 			}
@@ -134,10 +136,20 @@ namespace FunkyBot.Game.Bounty
 			//If we are in town.. we don't do anything else!
 			if (Bot.Character.Data.bIsInTown) return;
 
-			//Do we have an active bounty set.. lets try to invalidate it.
-			if (ActiveBounty==null || !BountyQuestStates.ContainsKey(ActiveBounty.QuestSNO) || BountyQuestStates[ActiveBounty.QuestSNO] == QuestState.Completed)
+			if (ActiveBounty == null)
 			{
-				//ActiveBounty = null;
+				UpdateActiveBounty();
+			}
+			else if (!BountyQuestStates.ContainsKey(ActiveBounty.QuestSNO))
+			{
+				Logger.DBLog.InfoFormat("ActiveBounty is not contained within BountyQuestStates Cache!");
+				UpdateActiveBounty();
+			}
+			//Do we have an active bounty set.. lets try to invalidate it.
+			else if (BountyQuestStates[ActiveBounty.QuestSNO] == QuestState.Completed)
+			{
+				Logger.DBLog.InfoFormat("ActiveBounty Quest State is Completed!");
+				ActiveBounty = null;
 				UpdateActiveBounty();
 			}
 
@@ -164,6 +176,7 @@ namespace FunkyBot.Game.Bounty
 							case Act.A2:
 								break;
 							case Act.A3:
+								CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act3.xml");
 								break;
 							case Act.A4:
 								break;
@@ -202,7 +215,7 @@ namespace FunkyBot.Game.Bounty
 						if (CurrentBountyCacheEntry.EndingLevelAreaID == Bot.Character.Data.iCurrentLevelID)
 						{
 							Logger.DBLog.Info("Bounty Level ID Match (Clear) -- Disabling Cluster Logic!");
-							ProfileCache.ClusterSettingsTag = DisabledClustering;
+							ProfileCache.ClusterSettingsTag = SettingCluster.DisabledClustering;
 						}
 						else
 							ProfileCache.ClusterSettingsTag = Bot.Settings.Cluster;
@@ -216,7 +229,7 @@ namespace FunkyBot.Game.Bounty
 							CurrentBountyCacheEntry.LevelAreaIDs!=null && CurrentBountyCacheEntry.LevelAreaIDs.Any(i => i==curLevelID))
 						{
 							Logger.DBLog.Info("Bounty Level ID Match (Kill) -- Disabling Cluster Logic and Enabling Navigation of Points!");
-							ProfileCache.ClusterSettingsTag = DisabledClustering;
+							ProfileCache.ClusterSettingsTag = SettingCluster.DisabledClustering;
 							ShouldNavigateMinimapPoints = true;
 						}
 						else
@@ -244,14 +257,27 @@ namespace FunkyBot.Game.Bounty
 			}
 		}
 
-
-		public readonly SettingCluster DisabledClustering = new SettingCluster
+		
+		///<summary>
+		///Check used to validate active bounty (when it fails to update during level changes)
+		///</summary>
+		public void CheckActiveBounty()
 		{
-			EnableClusteringTargetLogic = false,
-			ClusterDistance = 20d,
-			ClusterMaxDistance = 100f,
-			ClusterMinimumUnitCount = 0
-		};
+			//Check if active bounty is null.. and attempt to update again.
+			if (ActiveBounty == null && !Bot.Character.Data.bIsInTown)
+			{
+				if (DateTime.Now.CompareTo(_lastAttemptedUpdateActiveBounty) > 0)
+				{
+					_lastAttemptedUpdateActiveBounty = DateTime.Now.AddSeconds(2.5);
+					UpdateActiveBounty();
+					if (ActiveBounty != null)
+					{//No Longer Null.. Do Full Refresh!
+						RefreshBountyLevelChange();
+					}
+				}
+			}
+		}
+		private DateTime _lastAttemptedUpdateActiveBounty = DateTime.Today;
 
 		public bool ShouldNavigatePointsOfInterest
 		{
@@ -271,6 +297,7 @@ namespace FunkyBot.Game.Bounty
 			ShouldNavigateMinimapPoints = false;
 			CurrentAct = Act.Invalid;
 			lastCheckedQuestSNO = -1;
+			_lastAttemptedUpdateActiveBounty=DateTime.Today;
 		}
 
 		public string DebugString()

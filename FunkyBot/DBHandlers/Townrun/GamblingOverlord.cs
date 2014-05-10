@@ -22,15 +22,20 @@ namespace FunkyBot.DBHandlers
 	internal static partial class TownRunManager
 	{
 		internal static BloodShardGambleItems nextItemType=BloodShardGambleItems.None;
+
+		internal static bool ClickVendorTab = false;
 		internal static bool ClickedItemUI = false;
 		internal static bool ClickedBackpackUI = false;
 
 		private static int LastBloodShardCount = 0;
+		private static ulong LastClickedTabHash = 0;
 
 		internal static bool GamblingRunOverlord(object ret)
 		{//Should we gamble?
 
-			if (Bot.Settings.TownRun.EnableBloodShardGambling && Bot.Game.AdventureMode && !Bot.Settings.TownRun.BloodShardGambleItems.Equals(BloodShardGambleItems.None))
+			if (Bot.Settings.TownRun.EnableBloodShardGambling && Bot.Game.AdventureMode && 
+				!Bot.Settings.TownRun.BloodShardGambleItems.Equals(BloodShardGambleItems.None) &&
+				ValidGambleItems.Any(i => Bot.Settings.TownRun.BloodShardGambleItems.HasFlag(i)))
 			{
 				Bot.Character.Data.BackPack.Update();
 
@@ -117,6 +122,7 @@ namespace FunkyBot.DBHandlers
 				Bot.Character.Data.BackPack.InventoryBackPackToggle(true);
 				return RunStatus.Running;
 			}
+			
 
 
 			int CurrentBloodShardCount = ZetaDia.CPlayer.BloodshardCount;
@@ -127,11 +133,12 @@ namespace FunkyBot.DBHandlers
 			}
 
 			//Check if we should find a new item type to gamble for..
-			if (nextItemType.Equals(BloodShardGambleItems.None) || GetGambleItemPrice(nextItemType) <= CurrentBloodShardCount)
+			if (nextItemType.Equals(BloodShardGambleItems.None) || GetGambleItemPrice(nextItemType) > CurrentBloodShardCount)
 			{
 				nextItemType = BloodShardGambleItems.None;
 
-				List<BloodShardGambleItems> freshList = ValidGambleItems.ToList();
+				List<BloodShardGambleItems> freshList = ValidGambleItems.Where(t => Bot.Settings.TownRun.BloodShardGambleItems.HasFlag(t)).ToList();
+
 				while (freshList.Count>0)
 				{
 					Random r = new Random();
@@ -143,6 +150,7 @@ namespace FunkyBot.DBHandlers
 					if (Bot.Settings.TownRun.BloodShardGambleItems.HasFlag(itemtype) && GetGambleItemPrice(itemtype) <= CurrentBloodShardCount)
 					{
 						nextItemType = itemtype;
+						Logger.DBLog.InfoFormat("Next Item Type: {0}", nextItemType);
 						break;
 					}
 					else
@@ -158,19 +166,34 @@ namespace FunkyBot.DBHandlers
 				return RunStatus.Success;
 			}
 
+			
+
+
+			//Get Current Tab We Should Have Visible..
+			UIElement UITab = GetGambleItemTabUIElement(nextItemType);
+			if (!UI.ValidateUIElement(UITab))
+			{
+				//Error!!?!
+				Logger.DBLog.DebugFormat("[Funky] Gambling Behavior UI Tab Not Valid!");
+				return RunStatus.Success;
+			}
+
+			if (!ClickVendorTab)
+			{
+				if (!TownRunItemLoopsTest()) return RunStatus.Running;
+
+				Logger.DBLog.InfoFormat("Clicking Tab: {0}", string.Format("0x{0:X}", UITab.Hash));
+				UITab.Click();
+				ClickVendorTab = true;
+				return RunStatus.Running;
+			}
+
 			//Check if the item UI element is valid
 			UIElement UIItemType = GetGambleItemUIElement(nextItemType);
 			if (!UI.ValidateUIElement(UIItemType))
 			{
-				UIElement UITab = GetGambleItemTabUIElement(nextItemType);
-				if (!UI.ValidateUIElement(UITab))
-				{
-					//Error!!?!
-					Logger.DBLog.DebugFormat("[Funky] Gambling Behavior UI Tab Not Valid!");
-				}
-
-				UITab.Click();
-				return RunStatus.Running;
+				Logger.DBLog.DebugFormat("[Funky] Gambling Behavior UI Item Not Valid!");
+				return RunStatus.Success;
 			}
 
 			//Click Item UI..
@@ -179,10 +202,14 @@ namespace FunkyBot.DBHandlers
 				if (!TownRunItemLoopsTest()) return RunStatus.Running;
 				LastBloodShardCount = CurrentBloodShardCount;
 
+				Logger.DBLog.InfoFormat("Clicking Item: {0}", string.Format("0x{0:X}", UIItemType.Hash));
+
 				UIItemType.Click();
 				ClickedItemUI = true;
 				return RunStatus.Running;
 			}
+
+
 			//Click Inventory Slot..
 			if (!ClickedBackpackUI)
 			{
@@ -192,10 +219,13 @@ namespace FunkyBot.DBHandlers
 				if (!UI.ValidateUIElement(BackpackSlot))
 				{
 					//Error!?!?
-					Logger.DBLog.DebugFormat("[Funky] Gambling Behavior UI Item Not Valid!");
+					Logger.DBLog.DebugFormat("[Funky] Gambling Behavior BackpackSlot Not Valid!");
+					return RunStatus.Success;
 				}
 
+				Logger.DBLog.InfoFormat("Clicking Backpack: {0}", string.Format("0x{0:X}", BackpackSlot.Hash));
 				BackpackSlot.Click();
+
 				ClickedBackpackUI = true;
 				return RunStatus.Running;
 			}
@@ -206,10 +236,16 @@ namespace FunkyBot.DBHandlers
 
 			if (LastBloodShardCount != CurrentBloodShardCount)
 				Bot.Game.CurrentGameStats.CurrentProfile.ItemsGambled++;
+			else if (ZetaDia.Me.Inventory.NumFreeBackpackSlots<3)
+			{
+				Logger.DBLog.DebugFormat("[Funky] Gambling Behavior Finished -- Backpack Is Nearly Full!");
+				return RunStatus.Success;
+			}
 
 			//Reset
 			ClickedItemUI = false;
 			ClickedBackpackUI = false;
+			ClickVendorTab = false;
 			nextItemType = BloodShardGambleItems.None;
 			return RunStatus.Running;
 		}
@@ -239,6 +275,8 @@ namespace FunkyBot.DBHandlers
 			Logger.DBLog.DebugFormat("Debug: Gambling routine ending sequence...");
 			ClickedItemUI = false;
 			ClickedBackpackUI = false;
+			ClickVendorTab = false;
+			LastClickedTabHash = 0;
 			nextItemType = BloodShardGambleItems.None;
 			return RunStatus.Success;
 		}
@@ -345,14 +383,19 @@ namespace FunkyBot.DBHandlers
 			return null;
 		}
 
+		//TODO:: Tab Switching Not Occuring For Bloodshard Vendor (Only Weapons Are Valid Options!)
 		internal static readonly List<BloodShardGambleItems> ValidGambleItems = new List<BloodShardGambleItems>
 		{
 			BloodShardGambleItems.OneHandItem,BloodShardGambleItems.TwoHandItem,
-			BloodShardGambleItems.Amulet,BloodShardGambleItems.Belt,BloodShardGambleItems.Boots,
-			BloodShardGambleItems.Bracers,BloodShardGambleItems.Chest,BloodShardGambleItems.Gloves,
-			BloodShardGambleItems.Helm,BloodShardGambleItems.Mojo,BloodShardGambleItems.Orb,
-			BloodShardGambleItems.Pants,BloodShardGambleItems.Quiver,BloodShardGambleItems.Ring,
-			BloodShardGambleItems.Shield,BloodShardGambleItems.Shoulders
+			BloodShardGambleItems.Mojo,BloodShardGambleItems.Orb,BloodShardGambleItems.Quiver,
+
+			//BloodShardGambleItems.Belt,BloodShardGambleItems.Boots,
+			//BloodShardGambleItems.Bracers,BloodShardGambleItems.Chest,BloodShardGambleItems.Gloves,
+			//BloodShardGambleItems.Helm,
+			//BloodShardGambleItems.Pants,
+			//BloodShardGambleItems.Shield,BloodShardGambleItems.Shoulders,
+
+			//BloodShardGambleItems.Amulet,BloodShardGambleItems.Ring,
 		};
 	}
 

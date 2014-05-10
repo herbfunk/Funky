@@ -137,6 +137,15 @@ namespace FunkyBot.Player.Class
 				Abilities.Add(defaultAbility.Power, defaultAbility);
 				HotBar.RuneIndexCache.Add(defaultAbility.Power, -1);
 				Logger.DBLog.DebugFormat("[Funky] Added Skill {0}", defaultAbility.Power);
+
+				//No Primary Skill.. Check if Default Attack can be used!
+				if (!Bot.Settings.Combat.AllowDefaultAttackAlways)
+				{
+					Logger.DBLog.Warn("**** Warning ****");
+					Logger.DBLog.Warn("No Primary Skill Found and Allow Default Attack Always Is Disabled!");
+					Logger.DBLog.Warn("This may cause idles to occur.. Enable AllowDefaultAttackAlways setting found under Combat Tab.");
+					Logger.DBLog.Warn("**** Warning ****");
+				}
 			}
 
 

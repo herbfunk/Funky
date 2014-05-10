@@ -19,7 +19,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				FcriteriaBuff=() => { return false; };
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 2);
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 1);
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 8));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 8, 0.95d, TargetProperties.Normal));
 
 
 				FcriteriaCombat=() =>

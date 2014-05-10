@@ -23,7 +23,8 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 
 				ClusterConditions.Add(new SkillClusterConditions(4d, 45f, 5, true));
 			    SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 45, 0.95d));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 45, 0.95d, TargetProperties.Fast|TargetProperties.Weak));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 45, 0.95d, TargetProperties.Normal|TargetProperties.Fast|TargetProperties.Weak));
+
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
 		  }
 

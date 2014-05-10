@@ -7,10 +7,20 @@ Adventure Mode:
 		*A Cache Entry consists of a Name, Type, StartLevelID with options for EndLevelID, KillCount, and AdditionalLevelIds that are inbetween Start and End.
 		*Act 1 Cache for Kill/Clear/CursedEvents have been added only!
 		*Act1 Cache File can be found @ "/Game/Bounty/BountyCache/"
+		*Act3 Cache File Started (Majority Kill Types done) -- still need to do Clear/CursedEvent types.
 	
 
 Cache:
 	No longer ignores Gizmo Switches that are not Cursed Chest/Shrines.
+
+
+Skills:
+	Removed TargetProperties.IsSpecial from all SingleTargetConditions. 
+	Barbarian Leap Cluster Unit Count Increased to 4 from 2.
+	Barbarian HoA Cluster Unit Count Increased to 3 from 2.
+
+TownRun:
+	Bug: Gambling Behavior only valid for Weapon Items. (i.e. the first tab of the vendor!)
 
 
 v2.10.0.0

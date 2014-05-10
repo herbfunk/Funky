@@ -64,8 +64,6 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 					Criteria += () => Bot.Targeting.Cache.CurrentTarget.IsBurrowableUnit;
 				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.FullHealth))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.Value == 1d;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.IsSpecial))
-					Criteria += () => Bot.Targeting.Cache.CurrentTarget.ObjectIsSpecial;
 				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Weak))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.UnitMaxHitPointAverageWeight < 0;
 				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.MissileDampening))
@@ -115,8 +113,6 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 					Criteria += () => !Bot.Targeting.Cache.CurrentTarget.IsBurrowableUnit;
 				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.FullHealth))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.Value != 1d;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.IsSpecial))
-					Criteria += () => !Bot.Targeting.Cache.CurrentTarget.ObjectIsSpecial;
 				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Weak))
 					Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.UnitMaxHitPointAverageWeight > 0;
 				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.MissileDampening))
@@ -200,8 +196,6 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 			if (unit.MonsterUnique)
 				properties |= TargetProperties.Unique;
 
-			if (unit.ObjectIsSpecial)
-				properties |= TargetProperties.IsSpecial;
 
 			if (unit.CurrentHealthPct.HasValue && unit.CurrentHealthPct.Value == 1d)
 				properties |= TargetProperties.FullHealth;

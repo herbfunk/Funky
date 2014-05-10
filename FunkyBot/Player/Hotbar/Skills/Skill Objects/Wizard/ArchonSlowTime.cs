@@ -18,7 +18,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				                          SkillPrecastFlags.CheckCanCast));
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 2);
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 35));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 35, 0.95d, TargetProperties.Normal));
 		  }
 
 		  #region IAbility

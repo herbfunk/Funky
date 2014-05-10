@@ -22,7 +22,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 
 				ClusterConditions.Add(new SkillClusterConditions(7d, 50f, 5, true));
 			    SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 40, 0.95d));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial, 40, falseConditionalFlags: TargetProperties.LowHealth));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 40, 0.95d, TargetProperties.Normal|TargetProperties.LowHealth));
 		  }
 
 		  #region IAbility

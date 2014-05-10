@@ -1218,6 +1218,10 @@
     <Content Include="Config\Defaults\Specific\Grouping_Default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Game\Bounty\BountyCache\Act3.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Game\Bounty\BountyCache\Blank.xml" />
     <Content Include="Game\Bounty\BountyCache\Act1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
