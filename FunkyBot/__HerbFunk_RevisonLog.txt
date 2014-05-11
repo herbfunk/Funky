@@ -1,4 +1,8 @@
 ﻿// herbfunk revisions
+v2.10.0.3
+
+Gambling is now capable of all item types.
+
 
 v2.10.0.2
 

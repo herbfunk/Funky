@@ -26,9 +26,11 @@ namespace FunkyBot.DBHandlers
 		internal static bool ClickVendorTab = false;
 		internal static bool ClickedItemUI = false;
 		internal static bool ClickedBackpackUI = false;
+		internal static bool PurchasedItem = false;
 
 		private static int LastBloodShardCount = 0;
 		private static ulong LastClickedTabHash = 0;
+		private static List<CacheACDItem> GamblingItemList = new List<CacheACDItem>(); 
 
 		internal static bool GamblingRunOverlord(object ret)
 		{//Should we gamble?
@@ -101,6 +103,10 @@ namespace FunkyBot.DBHandlers
 				objGamblingNPC.Interact();
 				return RunStatus.Running;
 			}
+
+			//Now we need to update our item list so we can get the DynamicIDs.
+			UpdateGambleItemList();
+			
 
 			return RunStatus.Success;
 		}
@@ -178,61 +184,83 @@ namespace FunkyBot.DBHandlers
 				return RunStatus.Success;
 			}
 
-			if (!ClickVendorTab)
+
+
+
+
+			//if (!ClickVendorTab)
+			//{
+			//	if (!TownRunItemLoopsTest()) return RunStatus.Running;
+
+			//	Logger.DBLog.DebugFormat("Clicking Tab: {0}", string.Format("0x{0:X}", UITab.Hash));
+			//	UITab.Click();
+			//	ClickVendorTab = true;
+			//	return RunStatus.Running;
+			//}
+
+			////Check if the item UI element is valid
+			//UIElement UIItemType = GetGambleItemUIElement(nextItemType);
+			//if (!UI.ValidateUIElement(UIItemType))
+			//{
+			//	Logger.DBLog.DebugFormat("[Funky] Gambling Behavior UI Item Not Valid!");
+			//	return RunStatus.Success;
+			//}
+
+			////Click Item UI..
+			//if (!ClickedItemUI)
+			//{
+			//	if (!TownRunItemLoopsTest()) return RunStatus.Running;
+			//	LastBloodShardCount = CurrentBloodShardCount;
+
+			//	Logger.DBLog.DebugFormat("Clicking Item: {0}", string.Format("0x{0:X}", UIItemType.Hash));
+
+			//	UIItemType.Click();
+			//	ClickedItemUI = true;
+			//	return RunStatus.Running;
+			//}
+
+
+			////Click Inventory Slot..
+			//if (!ClickedBackpackUI)
+			//{
+			//	if (!TownRunItemLoopsTest()) return RunStatus.Running;
+
+			//	UIElement BackpackSlot = UI.Inventory_Backpack_TopLeftSlot;
+			//	if (!UI.ValidateUIElement(BackpackSlot))
+			//	{
+			//		//Error!?!?
+			//		Logger.DBLog.DebugFormat("[Funky] Gambling Behavior BackpackSlot Not Valid!");
+			//		return RunStatus.Success;
+			//	}
+
+			//	Logger.DBLog.DebugFormat("Clicking Backpack: {0}", string.Format("0x{0:X}", BackpackSlot.Hash));
+			//	BackpackSlot.Click();
+
+			//	ClickedBackpackUI = true;
+			//	return RunStatus.Running;
+			//}
+
+			if (!PurchasedItem)
 			{
-				if (!TownRunItemLoopsTest()) return RunStatus.Running;
+				//Waiting..
+				if (!TownRunItemLoopsTest(2)) return RunStatus.Running;
 
-				Logger.DBLog.DebugFormat("Clicking Tab: {0}", string.Format("0x{0:X}", UITab.Hash));
-				UITab.Click();
-				ClickVendorTab = true;
-				return RunStatus.Running;
-			}
-
-			//Check if the item UI element is valid
-			UIElement UIItemType = GetGambleItemUIElement(nextItemType);
-			if (!UI.ValidateUIElement(UIItemType))
-			{
-				Logger.DBLog.DebugFormat("[Funky] Gambling Behavior UI Item Not Valid!");
-				return RunStatus.Success;
-			}
-
-			//Click Item UI..
-			if (!ClickedItemUI)
-			{
-				if (!TownRunItemLoopsTest()) return RunStatus.Running;
-				LastBloodShardCount = CurrentBloodShardCount;
-
-				Logger.DBLog.DebugFormat("Clicking Item: {0}", string.Format("0x{0:X}", UIItemType.Hash));
-
-				UIItemType.Click();
-				ClickedItemUI = true;
-				return RunStatus.Running;
-			}
-
-
-			//Click Inventory Slot..
-			if (!ClickedBackpackUI)
-			{
-				if (!TownRunItemLoopsTest()) return RunStatus.Running;
-
-				UIElement BackpackSlot = UI.Inventory_Backpack_TopLeftSlot;
-				if (!UI.ValidateUIElement(BackpackSlot))
+				//Retrieve the DynamicID based on our type selection
+				int dynamicID = GetGambleItemDynamicID(nextItemType);
+				if (dynamicID == -1)
 				{
-					//Error!?!?
-					Logger.DBLog.DebugFormat("[Funky] Gambling Behavior BackpackSlot Not Valid!");
+					//Error!?
+					Logger.DBLog.DebugFormat("[Funky] Gambling Behavior Item DynamicID was not found!");
 					return RunStatus.Success;
 				}
 
-				Logger.DBLog.DebugFormat("Clicking Backpack: {0}", string.Format("0x{0:X}", BackpackSlot.Hash));
-				BackpackSlot.Click();
-
-				ClickedBackpackUI = true;
+				ZetaDia.Actors.Me.Inventory.BuyItem(dynamicID);
+				PurchasedItem = true;
 				return RunStatus.Running;
 			}
-			
 
-			//Confirm Item Purchase..
-			if (!TownRunItemLoopsTest(2)) return RunStatus.Running;
+
+
 
 			if (LastBloodShardCount != CurrentBloodShardCount)
 				Bot.Game.CurrentGameStats.CurrentProfile.ItemsGambled++;
@@ -243,10 +271,12 @@ namespace FunkyBot.DBHandlers
 			}
 
 			//Reset
-			ClickedItemUI = false;
-			ClickedBackpackUI = false;
-			ClickVendorTab = false;
+			//ClickedItemUI = false;
+			//ClickedBackpackUI = false;
+			//ClickVendorTab = false;
+			PurchasedItem = false;
 			nextItemType = BloodShardGambleItems.None;
+
 			return RunStatus.Running;
 		}
 
@@ -264,6 +294,8 @@ namespace FunkyBot.DBHandlers
 
 			ClickedItemUI = false;
 			ClickedBackpackUI = false;
+			PurchasedItem = false;
+
 			nextItemType = BloodShardGambleItems.None;
 			iCurrentItemLoops = 0;
 			RandomizeTheTimer();
@@ -276,6 +308,7 @@ namespace FunkyBot.DBHandlers
 			ClickedItemUI = false;
 			ClickedBackpackUI = false;
 			ClickVendorTab = false;
+			PurchasedItem = false;
 			LastClickedTabHash = 0;
 			nextItemType = BloodShardGambleItems.None;
 			return RunStatus.Success;
@@ -383,19 +416,77 @@ namespace FunkyBot.DBHandlers
 			return null;
 		}
 
+		internal static void UpdateGambleItemList()
+		{
+			GamblingItemList.Clear();
+
+			foreach (var i in ZetaDia.Actors.ACDList)
+			{
+				try
+				{
+					ACDItem item;
+					item = (ACDItem)i;
+					if (item.Name.Contains("Mystery"))
+					{
+						string itemString = String.Format("Item Name {0} DynamicID {1}", item.Name, item.DynamicId);
+						Logger.DBLog.Info(itemString);
+						GamblingItemList.Add(new CacheACDItem(item));
+						//LBDebug.Items.Add(itemString);
+					}
+				}
+				catch (Exception)
+				{
+
+				}
+			}
+			Logger.DBLog.InfoFormat("Gambling items found", GamblingItemList.Count);
+		}
+
+		internal static int GetGambleItemDynamicID(BloodShardGambleItems type)
+		{
+			string ItemName = ReturnGamblingItemName(type);
+
+			//Search the gambling item list for the correct name
+			foreach (var acdItem in GamblingItemList )
+			{
+				if (acdItem.ThisRealName.Contains(ItemName))
+					return acdItem.ThisDynamicID;
+			}
+
+			return -1;
+		}
+
+		private static string ReturnGamblingItemName(BloodShardGambleItems type)
+		{
+			if (type == BloodShardGambleItems.OneHandItem) 
+			{
+				return "1-H Mystery Weapon";
+			}
+			if (type == BloodShardGambleItems.TwoHandItem)
+			{
+				return "2-H Mystery Weapon";
+			}
+			if (type == BloodShardGambleItems.Chest)
+			{
+				return "Mystery Chest Armor";
+			}
+
+			return String.Format("Mystery {0}", type);
+		}
+
 		//TODO:: Tab Switching Not Occuring For Bloodshard Vendor (Only Weapons Are Valid Options!)
 		internal static readonly List<BloodShardGambleItems> ValidGambleItems = new List<BloodShardGambleItems>
 		{
 			BloodShardGambleItems.OneHandItem,BloodShardGambleItems.TwoHandItem,
 			BloodShardGambleItems.Mojo,BloodShardGambleItems.Orb,BloodShardGambleItems.Quiver,
 
-			//BloodShardGambleItems.Belt,BloodShardGambleItems.Boots,
-			//BloodShardGambleItems.Bracers,BloodShardGambleItems.Chest,BloodShardGambleItems.Gloves,
-			//BloodShardGambleItems.Helm,
-			//BloodShardGambleItems.Pants,
-			//BloodShardGambleItems.Shield,BloodShardGambleItems.Shoulders,
+			BloodShardGambleItems.Belt,BloodShardGambleItems.Boots,
+			BloodShardGambleItems.Bracers,BloodShardGambleItems.Chest,BloodShardGambleItems.Gloves,
+			BloodShardGambleItems.Helm,
+			BloodShardGambleItems.Pants,
+			BloodShardGambleItems.Shield,BloodShardGambleItems.Shoulders,
 
-			//BloodShardGambleItems.Amulet,BloodShardGambleItems.Ring,
+			BloodShardGambleItems.Amulet,BloodShardGambleItems.Ring,
 		};
 	}
 

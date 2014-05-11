@@ -367,26 +367,32 @@ namespace FunkyBot
 			{
 				try
 				{
-					foreach (var i in ZetaDia.Me.Inventory.Backpack)
+					using (ZetaDia.Memory.SaveCacheState())
 					{
-						LBDebug.Items.Add(String.Format("Name: {0} Acdguid: {1} SNO: {2} DynamicID: {3} BoundToACD: {4}", i.InternalName, i.ACDGuid, i.AsRActor.ActorSNO, i.DynamicId, i.BoundToACD));
-					}
-					//foreach (var quest in ZetaDia.ActInfo.ActiveQuests)
-					//{
-					//	string s = String.Format("QuestSNO: {0}", quest.QuestSNO);
-					//	LBDebug.Items.Add(s);
-					//}
+						ZetaDia.Memory.DisableCache();
+						ZetaDia.Memory.ClearCache();
+						ZetaDia.Actors.Update();
 
-					//var binfo = ZetaDia.ActInfo.ActiveBounty;
-					//if (binfo!=null)
-					//{
-					//	FunkyBot.Game.BountyCache.BountyInfoCache bifc = new BountyCache.BountyInfoCache(binfo);
-					//	LBDebug.Items.Add(bifc.ToString());
-					//	LBDebug.Items.Add(binfo.Info.KillCount);
-					//	//int i = binfo.Info.KillCount;
-					//}
-					//
-					//BountyQuestActCache.SerializeToXML(bountyQuestCacheLookup.ActCache);
+						foreach (var i in ZetaDia.Actors.ACDList)
+						{
+							try
+							{
+								ACDItem item;
+								item = (ACDItem)i;
+								if (item.Name.Contains("Mystery"))
+								{
+									string itemString = String.Format("Item Name {0} DynamicID {1}", item.Name, item.DynamicId);
+									Logger.DBLog.Info(itemString);
+									LBDebug.Items.Add(itemString);
+								}
+							}
+							catch (Exception)
+							{
+
+							}
+						}
+					}
+
 					
 				}
 				catch(Exception ex)
