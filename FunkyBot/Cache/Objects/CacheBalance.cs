@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using FunkyBot.Cache.Enums;
+using FunkyBot.Player;
 using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Cache.Objects
@@ -13,8 +15,14 @@ namespace FunkyBot.Cache.Objects
 		public bool bThisTwoHand { get; set; }
 		public bool bThisOneHand { get; set; }
 		public FollowerType thisFollowerType { get; set; }
-
 		public bool bNeedsUpdated { get; set; }
+
+
+		public GilesItemType GetGItemType(string internalName)
+		{
+			return Backpack.DetermineItemType(internalName, thisItemType, thisFollowerType);
+		}
+
 		public CacheBalance(int balanceID, int itemlevel, ItemType itemtype, ItemBaseType itembasetype, bool onehand, bool twohand, FollowerType followertype)
 		{
 			iThisBalanceID = balanceID;

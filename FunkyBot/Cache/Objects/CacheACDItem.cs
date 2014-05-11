@@ -68,6 +68,7 @@ namespace FunkyBot.Cache.Objects
 		public float GlobeBonus { get; set; }
 		public ACDItem ACDItem { get; set; }
 		public int ACDGUID { get; set; }
+		public int SNO { get; set; }
 
 		//inventory positions
 		public int invRow { get; set; }
@@ -91,6 +92,9 @@ namespace FunkyBot.Cache.Objects
 			ACDItem = item;
 
 			ACDGUID = item.ACDGuid;
+			SNO=item.ActorSNO;
+
+
 			ThisBalanceID = item.GameBalanceId;
 			ThisDynamicID = item.DynamicId;
 			ThisInternalName = item.InternalName;
@@ -110,6 +114,8 @@ namespace FunkyBot.Cache.Objects
 
 			ItemType = Backpack.DetermineItemType(ThisInternalName, ThisDBItemType, ThisFollowerType);
 			BaseItemType = Backpack.DetermineBaseType(ItemType);
+			IsStackableItem = Backpack.DetermineIsStackable(ItemType);
+			IsTwoSlot = Backpack.DetermineIsTwoSlot(ItemType);
 
 			ItemStats thesestats = item.Stats;
 			ItemStatString = thesestats.ToString();
@@ -157,8 +163,7 @@ namespace FunkyBot.Cache.Objects
 			Vitality = thesestats.Vitality;
 			WeaponDamagePerSecond = thesestats.WeaponDamagePerSecond;
 
-			IsStackableItem = Backpack.DetermineIsStackable(this);
-			IsTwoSlot = Backpack.DetermineIsTwoSlot(ItemType);
+
 
 		}
 	}

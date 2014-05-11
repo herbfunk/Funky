@@ -295,7 +295,7 @@ namespace FunkyBot.Cache.Objects
 					double lootDistance = LootRadius * dMultiplier;
 
 					if (Bot.IsInNonCombatBehavior) lootDistance = Bot.Settings.Plugin.OutofCombatMaxDistance;
-
+					
 					float centredistance = CentreDistance;
 
 					if (centredistance > lootDistance)
@@ -601,14 +601,11 @@ namespace FunkyBot.Cache.Objects
 			}
 			Bot.Targeting.Cache.bWaitingForPower = false;
 
+			//This does the inital update of backpack so we can verify loot success during target handler
 			if (!Bot.Targeting.Cache.ShouldCheckItemLooted)
 			{
 				Bot.Targeting.Cache.ShouldCheckItemLooted = true;
 				Bot.Character.Data.BackPack.Update();
-				if (Bot.Character.Data.BackPack.CacheItemList.ContainsKey(AcdGuid.Value))
-				{
-					Bot.Targeting.Cache.CheckItemLootStackCount = Bot.Character.Data.BackPack.CacheItemList[AcdGuid.Value].ThisItemStackQuantity;
-				}
 			}
 
 			// Pick the item up the usepower way, and "blacklist" for a couple of loops

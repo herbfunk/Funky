@@ -89,8 +89,7 @@ namespace FunkyBot.Game.Bounty
 				if ((ActiveBounty == null || ActiveBounty.QuestSNO != activeBounty.QuestSNO) && activeBounty.QuestSNO != 0)
 				{
 					ActiveBounty = activeBounty;
-					Logger.DBLog.InfoFormat("Active Bounty Changed To {0}", ActiveBounty.QuestSNO);
-
+					Logger.Write(LogLevel.Bounty, "Active Bounty Changed To {0}", ActiveBounty.QuestSNO);
 					//nullify Cache Entry then set it if Cache contains it.
 					CurrentBountyCacheEntry = null;
 					ShouldNavigateMinimapPoints = false;
@@ -102,26 +101,26 @@ namespace FunkyBot.Game.Bounty
 			}
 			else
 			{
-				Logger.DBLog.Debug("Active Bounty Is Null!");
+				Logger.Write(LogLevel.Bounty, "Active Bounty Is Null!");
 				
+				//Unfinished:: Testing to match a possible ID..
+				//foreach (var aq in ZetaDia.ActInfo.ActiveQuests)
+				//{
+				//	int questSNO = aq.QuestSNO;
+				//	if (questSNO == 312429) continue;
+				//	if (BountyQuestStates.ContainsKey(questSNO))
+				//	{
+				//		QuestState state = BountyQuestStates[questSNO];
+				//		//int act = aq.QuestRecord.Act;
 
-				foreach (var aq in ZetaDia.ActInfo.ActiveQuests)
-				{
-					int questSNO = aq.QuestSNO;
-					if (questSNO == 312429) continue;
-					if (BountyQuestStates.ContainsKey(questSNO))
-					{
-						QuestState state = BountyQuestStates[questSNO];
-						//int act = aq.QuestRecord.Act;
-
-						Logger.DBLog.InfoFormat("ID: {0} State: {1}", questSNO, state);
+				//		Logger.Write(LogLevel.Bounty, "ID: {0} State: {1}", questSNO, state);
 						 
-						if (state == QuestState.InProgress)
-						{
+				//		if (state == QuestState.InProgress)
+				//		{
 
-						}
-					}
-				}
+				//		}
+				//	}
+				//}
 			}
 		}
 
@@ -133,27 +132,39 @@ namespace FunkyBot.Game.Bounty
 			//Do we have any bounties stored?.. if we do refresh states
 			if (CurrentBounties.Count == 0) RefreshBountyInfo(); else RefreshBountyQuestStates();
 
-			//If we are in town.. we don't do anything else!
-			if (Bot.Character.Data.bIsInTown) return;
+			//If we are in town.. we don't do anything else! (Since the Active Bounty is no longer visible)
+			if (Bot.Character.Data.bIsInTown)
+			{
+				//We could check that active bounty has been completed..
+				if (ActiveBounty != null && BountyQuestStates.ContainsKey(ActiveBounty.QuestSNO) && BountyQuestStates[ActiveBounty.QuestSNO]==QuestState.Completed)
+				{
+					Logger.Write(LogLevel.Bounty, "ActiveBounty Quest State is Completed!");
+					ActiveBounty = null;
+				}
 
+				return;
+			}
+
+			//Do we have an active bounty set.. lets try to invalidate it.
 			if (ActiveBounty == null)
 			{
 				UpdateActiveBounty();
 			}
 			else if (!BountyQuestStates.ContainsKey(ActiveBounty.QuestSNO))
 			{
-				Logger.DBLog.InfoFormat("ActiveBounty is not contained within BountyQuestStates Cache!");
+				Logger.Write(LogLevel.Bounty, "ActiveBounty is not contained within BountyQuestStates Cache!");
 				UpdateActiveBounty();
 			}
-			//Do we have an active bounty set.. lets try to invalidate it.
 			else if (BountyQuestStates[ActiveBounty.QuestSNO] == QuestState.Completed)
 			{
-				Logger.DBLog.InfoFormat("ActiveBounty Quest State is Completed!");
+				Logger.Write(LogLevel.Bounty, "ActiveBounty Quest State is Completed!");
 				ActiveBounty = null;
 				UpdateActiveBounty();
 			}
 
+			//Refresh any Map Markers we could use for navigation..
 			RefreshBountyMapMarkers();
+
 
 			//Is ActiveBounty valid still?
 			if (ActiveBounty != null)
@@ -190,70 +201,71 @@ namespace FunkyBot.Game.Bounty
 
 
 				if (CurrentBountyCacheEntry == null)
-				{
+				{//Attempt to Match a Cache Entry to the QuestSNO.
+
 					if (lastCheckedQuestSNO != ActiveBounty.QuestSNO)
-					{//Search Cache for any possible entries that match. 
+					{//Only attempt search once for the SNO..
+ 
 						lastCheckedQuestSNO = ActiveBounty.QuestSNO;
-
 						var allCacheBounties = CurrentActCache.AllBounties;
-						Logger.DBLog.InfoFormat("Current Cache Bounty Count: {0}", allCacheBounties.Count);
-
 						foreach (var b in allCacheBounties.Where(c => c.QuestSNOs != null && c.QuestSNOs.Any(i => i == ActiveBounty.QuestSNO)))
 						{
 							CurrentBountyCacheEntry = b;
 							break;
 						}
+
 					}
 				}
 
-				if (CurrentBountyCacheEntry != null)
-				{//We Modify the Bots Combat Behavior based on the quest Type and current Level Id..
-					
-					if (CurrentBountyCacheEntry.Type==BountyQuestTypes.Clear)
-					{
-						Logger.DBLog.Info("Checking Bounty Type Clear..");
-						if (CurrentBountyCacheEntry.EndingLevelAreaID == Bot.Character.Data.iCurrentLevelID)
-						{
-							Logger.DBLog.Info("Bounty Level ID Match (Clear) -- Disabling Cluster Logic!");
-							ProfileCache.ClusterSettingsTag = SettingCluster.DisabledClustering;
-						}
-						else
-							ProfileCache.ClusterSettingsTag = Bot.Settings.Cluster;
-					}
-					if (CurrentBountyCacheEntry.Type == BountyQuestTypes.Kill)
-					{
-						Logger.DBLog.Info("Checking Bounty Type Kill.. " + Bot.Character.Data.iCurrentLevelID);
-						int curLevelID=Bot.Character.Data.iCurrentLevelID;
+				if (CurrentBountyCacheEntry == null) return;
 
-						if (CurrentBountyCacheEntry.StartingLevelAreaID==curLevelID || CurrentBountyCacheEntry.EndingLevelAreaID==curLevelID ||
-							CurrentBountyCacheEntry.LevelAreaIDs!=null && CurrentBountyCacheEntry.LevelAreaIDs.Any(i => i==curLevelID))
-						{
-							Logger.DBLog.Info("Bounty Level ID Match (Kill) -- Disabling Cluster Logic and Enabling Navigation of Points!");
-							ProfileCache.ClusterSettingsTag = SettingCluster.DisabledClustering;
-							ShouldNavigateMinimapPoints = true;
-						}
-						else
-						{
-							ProfileCache.ClusterSettingsTag = Bot.Settings.Cluster;
-							ShouldNavigateMinimapPoints = false;
-						}
-					}
-					if (CurrentBountyCacheEntry.Type== BountyQuestTypes.CursedEvent)
+				//We Modify the Bots Combat Behavior based on the quest Type and current Level Id..
+				Logger.Write(LogLevel.Bounty, "Checking Bounty Type {0}", CurrentBountyCacheEntry.Type);
+
+				if (CurrentBountyCacheEntry.Type==BountyQuestTypes.Clear)
+				{
+					if (CurrentBountyCacheEntry.EndingLevelAreaID == Bot.Character.Data.iCurrentLevelID)
 					{
-						Logger.DBLog.Info("Checking Bounty Type CursedEvent..");
-						if (CurrentBountyCacheEntry.EndingLevelAreaID == Bot.Character.Data.iCurrentLevelID)
-						{
-							Logger.DBLog.Info("Bounty Level ID Match (CursedEvent) -- Enabling Navigation of Points!");
-							ShouldNavigateMinimapPoints = true;
-							ProfileCache.QuestMode = true;
-						}
-						else
-						{
-							ShouldNavigateMinimapPoints = false;
-							ProfileCache.QuestMode = false;
-						}
+						Logger.Write(LogLevel.Bounty, "Bounty Level ID Match (Clear) -- Disabling Cluster Logic!");
+						ProfileCache.ClusterSettingsTag = SettingCluster.DisabledClustering;
+					}
+					else
+						ProfileCache.ClusterSettingsTag = Bot.Settings.Cluster;
+				}
+
+				if (CurrentBountyCacheEntry.Type == BountyQuestTypes.Kill)
+				{
+					int curLevelID=Bot.Character.Data.iCurrentLevelID;
+
+					if (CurrentBountyCacheEntry.StartingLevelAreaID==curLevelID || CurrentBountyCacheEntry.EndingLevelAreaID==curLevelID ||
+					    CurrentBountyCacheEntry.LevelAreaIDs!=null && CurrentBountyCacheEntry.LevelAreaIDs.Any(i => i==curLevelID))
+					{
+						Logger.Write(LogLevel.Bounty, "Bounty Level ID Match (Kill) -- Disabling Cluster Logic and Enabling Navigation of Points!");
+						ProfileCache.ClusterSettingsTag = SettingCluster.DisabledClustering;
+						ShouldNavigateMinimapPoints = true;
+					}
+					else
+					{
+						ProfileCache.ClusterSettingsTag = Bot.Settings.Cluster;
+						ShouldNavigateMinimapPoints = false;
 					}
 				}
+
+				if (CurrentBountyCacheEntry.Type== BountyQuestTypes.CursedEvent)
+				{
+					if (CurrentBountyCacheEntry.EndingLevelAreaID == Bot.Character.Data.iCurrentLevelID)
+					{
+						Logger.Write(LogLevel.Bounty, "Bounty Level ID Match (CursedEvent) -- Enabling Navigation of Points!");
+						ShouldNavigateMinimapPoints = true;
+						ProfileCache.QuestMode = true;
+					}
+					else
+					{
+						ShouldNavigateMinimapPoints = false;
+						ProfileCache.QuestMode = false;
+					}
+				}
+
 			}
 		}
 

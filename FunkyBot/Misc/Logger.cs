@@ -28,8 +28,9 @@ namespace FunkyBot
 		  OutOfCombat=512,
 		  Event=1024,
 		  Cache=2048,
+		  Bounty=4096,
 
-		  All=User|Execption|Cluster|Grouping|Movement|Ability|Target|Items|OutOfGame|OutOfCombat|Event,
+		  All=User|Execption|Cluster|Grouping|Movement|Ability|Target|Items|OutOfGame|OutOfCombat|Event|Cache|Bounty,
 	 }
 	 public static class Logger
 	 {

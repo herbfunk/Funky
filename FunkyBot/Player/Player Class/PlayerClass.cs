@@ -35,7 +35,10 @@ namespace FunkyBot.Player.Class
 			LastUsedAbility = DefaultAttack;
 			PowerPrime = DefaultAttack;
 
+			//Gear Checks
 			List<CacheACDItem> equippedItems = Bot.Character.Data.BackPack.ReturnCurrentEquippedItems();
+
+			//Repear Wraps
 			if (equippedItems.Any(i => i.ThisRealName.Contains("Reaper's Wraps")))
 			{
 				GlobesRestoreResource = true;
@@ -44,10 +47,27 @@ namespace FunkyBot.Player.Class
 			else
 				GlobesRestoreResource = false;
 
+			//Ring of Royal Grandeur
+			bool hasRingOfGrandeur = equippedItems.Any(i => i.ThisRealName.Contains("Ring of Royal Grandeur"));
+
+
+			//Blackthorns Set
+			int BlackThornSetCount = equippedItems.Count(i => i.ThisRealName.Contains("Blackthorne's"));
+			if (BlackThornSetCount==4 || BlackThornSetCount==3 && hasRingOfGrandeur)
+			{
+				ImmuneToDescratorMoltenPlaguedAvoidances = true;
+				Logger.DBLog.DebugFormat("Blackthorne's Avoidance Immune is equipped");
+			}
+			else
+				ImmuneToDescratorMoltenPlaguedAvoidances = false;
+			
+
 			Logger.DBLog.InfoFormat("[Funky] Finished Creating Player Class");
+
 		}
 
 		public bool GlobesRestoreResource { get; set; }
+		public bool ImmuneToDescratorMoltenPlaguedAvoidances { get; set; }
 
 		///<summary>
 		///The actor class of this bot.

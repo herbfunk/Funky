@@ -200,6 +200,21 @@ namespace FunkyBot.Cache.Avoidance
 		///</summary>
 		internal static bool IgnoreAvoidance(AvoidanceType thisAvoidance)
 		{
+
+			//Special Blackthorne's Set Bonus Check!
+			if (Bot.Character.Class.ImmuneToDescratorMoltenPlaguedAvoidances)
+			{
+				switch (thisAvoidance)
+				{
+					case AvoidanceType.Dececrator:
+					case AvoidanceType.MoltenCore:
+					case AvoidanceType.MoltenTrail:
+					case AvoidanceType.PlagueCloud:
+					case AvoidanceType.PlagueHand:
+						return true;
+				}
+			}
+
 			double dThisHealthAvoid = Bot.Settings.Avoidance.Avoidances[(int)thisAvoidance].Health;
 
 			if (!Bot.Character.Data.CriticalAvoidance)
@@ -212,20 +227,7 @@ namespace FunkyBot.Cache.Avoidance
 					// Monks with serenity are immune
 					return true;
 
-				}// Witch doctors with spirit walk available and not currently Spirit Walking will subtly ignore ice balls, arcane, desecrator & plague cloud
-				//else if (Bot.Character_.Class.AC==ActorClass.WitchDoctor
-				//			&&Bot.Character_.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_SpiritWalk)
-				//			&&(!Bot.Character_.Class.HotBar.HasBuff(SNOPower.Witchdoctor_SpiritWalk)&&Bot.Character_.Class.Abilities[SNOPower.Witchdoctor_SpiritWalk].AbilityUseTimer())||Bot.Character_.Class.HotBar.HasBuff(SNOPower.Witchdoctor_SpiritWalk))
-				//{
-				//	switch (thisAvoidance)
-				//	{
-				//		case AvoidanceType.Frozen:
-				//		case AvoidanceType.ArcaneSentry:
-				//		case AvoidanceType.Dececrator:
-				//		case AvoidanceType.PlagueCloud:
-				//			return true;
-				//	}
-				//}
+				}
 				if (Bot.Character.Class.AC == ActorClass.Barbarian && Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker) && Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))
 				{
 					switch (thisAvoidance)

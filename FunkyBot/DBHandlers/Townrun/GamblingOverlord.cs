@@ -109,7 +109,7 @@ namespace FunkyBot.DBHandlers
 		{
 			if (!ZetaDia.IsInGame || ZetaDia.IsLoadingWorld || ZetaDia.Me == null || ZetaDia.Me.CommonData == null)
 			{
-				Logger.DBLog.InfoFormat("[Funky] Town Run Behavior Failed! (Not In Game/Invalid Actor/misc)");
+				Logger.DBLog.DebugFormat("[Funky] Town Run Behavior Failed! (Not In Game/Invalid Actor/misc)");
 				return RunStatus.Failure;
 			}
 			if (!UI.ValidateUIElement(UI.BloodShardVendor.BloodShardVendorMainDialog))
@@ -150,7 +150,7 @@ namespace FunkyBot.DBHandlers
 					if (Bot.Settings.TownRun.BloodShardGambleItems.HasFlag(itemtype) && GetGambleItemPrice(itemtype) <= CurrentBloodShardCount)
 					{
 						nextItemType = itemtype;
-						Logger.DBLog.InfoFormat("Next Item Type: {0}", nextItemType);
+						Logger.DBLog.DebugFormat("Next Item Type: {0}", nextItemType);
 						break;
 					}
 					else
@@ -182,7 +182,7 @@ namespace FunkyBot.DBHandlers
 			{
 				if (!TownRunItemLoopsTest()) return RunStatus.Running;
 
-				Logger.DBLog.InfoFormat("Clicking Tab: {0}", string.Format("0x{0:X}", UITab.Hash));
+				Logger.DBLog.DebugFormat("Clicking Tab: {0}", string.Format("0x{0:X}", UITab.Hash));
 				UITab.Click();
 				ClickVendorTab = true;
 				return RunStatus.Running;
@@ -202,7 +202,7 @@ namespace FunkyBot.DBHandlers
 				if (!TownRunItemLoopsTest()) return RunStatus.Running;
 				LastBloodShardCount = CurrentBloodShardCount;
 
-				Logger.DBLog.InfoFormat("Clicking Item: {0}", string.Format("0x{0:X}", UIItemType.Hash));
+				Logger.DBLog.DebugFormat("Clicking Item: {0}", string.Format("0x{0:X}", UIItemType.Hash));
 
 				UIItemType.Click();
 				ClickedItemUI = true;
@@ -223,7 +223,7 @@ namespace FunkyBot.DBHandlers
 					return RunStatus.Success;
 				}
 
-				Logger.DBLog.InfoFormat("Clicking Backpack: {0}", string.Format("0x{0:X}", BackpackSlot.Hash));
+				Logger.DBLog.DebugFormat("Clicking Backpack: {0}", string.Format("0x{0:X}", BackpackSlot.Hash));
 				BackpackSlot.Click();
 
 				ClickedBackpackUI = true;
@@ -232,7 +232,7 @@ namespace FunkyBot.DBHandlers
 			
 
 			//Confirm Item Purchase..
-			if (!TownRunItemLoopsTest(5)) return RunStatus.Running;
+			if (!TownRunItemLoopsTest(2)) return RunStatus.Running;
 
 			if (LastBloodShardCount != CurrentBloodShardCount)
 				Bot.Game.CurrentGameStats.CurrentProfile.ItemsGambled++;

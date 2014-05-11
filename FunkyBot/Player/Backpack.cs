@@ -2062,8 +2062,10 @@ namespace FunkyBot.Player
 		public Backpack()
 		{
 			CacheItemList = new Dictionary<int, CacheACDItem>();
+			NewItemList = new List<CacheACDItem>();
 		}
 		public Dictionary<int, CacheACDItem> CacheItemList { get; set; }
+		internal List<CacheACDItem> NewItemList { get; set; } 
 
 		public ACDItem BestPotionToUse { get; set; }
 
@@ -2072,31 +2074,66 @@ namespace FunkyBot.Player
 		//Sets List to current backpack contents
 		public void Update()
 		{
-			List<int> SeenACDGUIDs = new List<int>();
+			List<int> SeenACDGuid = new List<int>();
+
+			//Clear New Item List
+			NewItemList.Clear();
+
 			using (ZetaDia.Memory.AcquireFrame())
 			{
 				foreach (var thisitem in ZetaDia.Me.Inventory.Backpack)
 				{
-					int ACDGUID = thisitem.ACDGuid;
-					SeenACDGUIDs.Add(ACDGUID);
-					if (CacheItemList.ContainsKey(ACDGUID))
+					var ACDGuid = thisitem.ACDGuid;
+					SeenACDGuid.Add(ACDGuid);
+
+					if (CacheItemList.ContainsKey(ACDGuid))
 					{
-						if (CacheItemList[ACDGUID].IsStackableItem && CacheItemList[ACDGUID].ThisItemStackQuantity != thisitem.ItemStackQuantity)
-							CacheItemList[ACDGUID] = new CacheACDItem(thisitem);
+						//Stackable item that increased
+						if (CacheItemList[ACDGuid].IsStackableItem
+							&& CacheItemList[ACDGuid].ThisItemStackQuantity != thisitem.ItemStackQuantity)
+						{
+							//Update it..
+							CacheItemList[ACDGuid].ThisItemStackQuantity = thisitem.ItemStackQuantity;
+
+							//Add it to new item list..
+							NewItemList.Add(new CacheACDItem(thisitem));
+						}
+
 						continue;
 					}
 
-					CacheACDItem thiscacheditem = new CacheACDItem(thisitem);
+					var thiscacheditem = new CacheACDItem(thisitem);
 					CacheItemList.Add(thiscacheditem.ACDGUID, thiscacheditem);
+
+					//Add it to new item list..
+					NewItemList.Add(thiscacheditem);
 				}
 			}
 
-			List<int> UnseenACDGUIDs = CacheItemList.Keys.Where(k => !SeenACDGUIDs.Contains(k)).ToList();
-			foreach (var unseenAcdguiD in UnseenACDGUIDs)
+			//Trim away items missing..
+			var UnseenACDGuids = CacheItemList.Keys.Where(k => !SeenACDGuid.Contains(k)).ToList();
+			foreach (var unseenAcdguiD in UnseenACDGuids)
 			{
 				CacheItemList.Remove(unseenAcdguiD);
 			}
+		}
 
+		public bool ContainsItem(CacheItem item)
+		{
+			//Update Item List!
+			Update();
+
+			//Logger.DBLog.Info("New Items Count: " + NewItemList.Count);
+
+			//Use Gamebalance ID to narrow down the items.
+			foreach (var i in NewItemList.Where(i => i.ThisBalanceID == item.BalanceID))
+			{
+				//and matching Item Quality..
+				if (i.ThisQuality == item.Itemquality)
+					return true;
+			}
+
+			return false;
 		}
 
 		//Used to check if backpack is visible
@@ -2284,13 +2321,7 @@ namespace FunkyBot.Player
 
 		}
 
-		public bool ContainsItem(int ACDGUID, int prevstackcount = 0)
-		{
-			//Update Item List
-			Update();
-			bool found = CacheItemList.ContainsKey(ACDGUID) && (prevstackcount == 0 || CacheItemList[ACDGUID].ThisItemStackQuantity > prevstackcount);
-			return found;
-		}
+
 
 		public List<CacheACDItem> ReturnCurrentEquippedItems()
 		{

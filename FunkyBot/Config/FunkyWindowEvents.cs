@@ -367,12 +367,10 @@ namespace FunkyBot
 			{
 				try
 				{
-					List<BloodShardGambleItems> freshList = TownRunManager.ValidGambleItems.Where(t => Bot.Settings.TownRun.BloodShardGambleItems.HasFlag(t)).ToList();
-					UIElement ui = TownRunManager.GetGambleItemUIElement(freshList.First());
-					LBDebug.Items.Add(freshList.First());
-					LBDebug.Items.Add(UI.ValidateUIElement(UI.BloodShardVendor.BloodShardVendorArmorTab));
-					LBDebug.Items.Add(UI.BloodShardVendor.BloodShardVendorArmorTab.IsEnabled);
-					
+					foreach (var i in ZetaDia.Me.Inventory.Backpack)
+					{
+						LBDebug.Items.Add(String.Format("Name: {0} Acdguid: {1} SNO: {2} DynamicID: {3} BoundToACD: {4}", i.InternalName, i.ACDGuid, i.AsRActor.ActorSNO, i.DynamicId, i.BoundToACD));
+					}
 					//foreach (var quest in ZetaDia.ActInfo.ActiveQuests)
 					//{
 					//	string s = String.Format("QuestSNO: {0}", quest.QuestSNO);

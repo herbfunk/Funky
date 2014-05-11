@@ -1,4 +1,13 @@
 ﻿// herbfunk revisions
+
+v2.10.0.2
+
+Player Class Creation checks Blackthorne's Avoidance Immune Bonus. 
+	&& (Checks for Ring of Grandeur for Reduced Set Bonus)
+
+Item Loot Checking Updated and Should work again. (Uses GamebalanceID and Quality to match item looted)
+
+
 v2.10.0.1
 
 Adventure Mode:

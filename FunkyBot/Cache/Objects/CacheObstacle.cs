@@ -149,7 +149,8 @@ namespace FunkyBot.Cache.Objects
 			{
 				string debugstring = base.DebugString + "\r\n";
 				debugstring += "AvoidanceType: " + AvoidanceType + "\r\n";
-				debugstring += Obstacletype.Value == ObstacleType.MovingAvoidance ? "Rotation " + Rotation.ToString(CultureInfo.InvariantCulture) + " Speed " + Speed.ToString(CultureInfo.InvariantCulture) + " " : "";
+				debugstring += Obstacletype.Value == ObstacleType.MovingAvoidance ? "Rotation " + Rotation.ToString(CultureInfo.InvariantCulture) + " Speed " + Speed.ToString(CultureInfo.InvariantCulture) + " " : "\r\n";
+				debugstring += "Refresh Removal Counter = " + RefreshRemovalCounter;
 				return debugstring;
 			}
 		}

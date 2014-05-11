@@ -67,6 +67,14 @@ namespace FunkyBot.Targeting
 				LastFleeAction = DateTime.Now;
 				FleeingLastTarget = true;
 			}
+			else if (CurrentTarget.targetType.Value == TargetType.Item)
+			{
+				//Reset Item Vars
+				Bot.Targeting.Cache.recheckCount = 0;
+				Bot.Targeting.Cache.reCheckedFinished = false;
+				Bot.Targeting.Cache.CheckItemLootStackCount = 0;
+				Bot.Targeting.Cache.ShouldCheckItemLooted = false;
+			}
 
 			bWholeNewTarget = true;
 			bPickNewAbilities = true;

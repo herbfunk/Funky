@@ -121,7 +121,7 @@ namespace FunkyBot.Targeting
 					return false;
 				}
 
-				//Vendor Behavior
+				//Vendor Behavior ignore checking (Unless told that we shouldn't from town run manager)
 				if (BrainBehavior.IsVendoring && !TownRunManager.IgnoreVendoring)
 				{
 					CurrentState = RunStatus.Success;
@@ -136,12 +136,15 @@ namespace FunkyBot.Targeting
 				//Count each attempt to confirm.
 				Bot.Targeting.Cache.recheckCount++;
 				string statusText = "[Item Confirmation] Current recheck count " + Bot.Targeting.Cache.recheckCount;
-				bool LootedSuccess = Bot.Character.Data.BackPack.ContainsItem(Bot.Targeting.Cache.CurrentTarget.AcdGuid.Value, Bot.Targeting.Cache.CheckItemLootStackCount);
+
+
+				bool LootedSuccess = Bot.Character.Data.BackPack.ContainsItem((CacheItem)Bot.Targeting.Cache.CurrentTarget);
 				//Verify item is non-stackable!
 
 				statusText += " [ItemFound=" + LootedSuccess + "]";
 				if (LootedSuccess)
 				{
+					//Logger.DBLog.Info("Item Looted Successfully!");
 					GameEvents.FireItemLooted(Bot.Targeting.Cache.CurrentTarget.AcdGuid.Value);
 
 					if (Bot.Settings.Debug.DebugStatusBar) BotMain.StatusText = statusText;
@@ -149,14 +152,7 @@ namespace FunkyBot.Targeting
 					//This is where we should manipulate information of both what dropped and what was looted.
 					Logger.LogItemInformation();
 
-					//Reset if we reach here..
-					Bot.Targeting.Cache.reCheckedFinished = false;
-					Bot.Targeting.Cache.recheckCount = 0;
-					Bot.Targeting.Cache.CheckItemLootStackCount = 0;
-					Bot.Targeting.Cache.ShouldCheckItemLooted = false;
-					Bot.Targeting.Cache.bForceTargetUpdate = true;
-
-					//Remove..
+					//Remove item from cache..
 					Bot.Targeting.Cache.CurrentTarget.NeedsRemoved = true;
 				}
 				else
@@ -218,17 +214,16 @@ namespace FunkyBot.Targeting
 						CurrentState = RunStatus.Running;
 						return false;
 					}
-					//We Rechecked Max Confirmation Checking Count, now we check if we want to retry confirmation, or simply try once more then ignore for a few.
-					var itemtype = thisObjItem.BalanceData.thisItemType;
-					var followertype=thisObjItem.BalanceData.thisFollowerType;
-					var gilesItemType=Backpack.DetermineItemType(thisObjItem.InternalName, itemtype, followertype);
-					bool stackableItem = Backpack.DetermineIsStackable(gilesItemType);
 
+					//We Rechecked Max Confirmation Checking Count, now we check if we want to retry confirmation, or simply try once more then ignore for a few.
+					bool stackableItem = Backpack.DetermineIsStackable(thisObjItem.BalanceData.GetGItemType(thisObjItem.InternalName));
 					if (thisObjItem.Itemquality.Value > ItemQuality.Magic3 || stackableItem)
 					{
 						//Items above rare quality don't get blacklisted, just ignored for a few loops.
 						//This will force a movement if stuck.. but 5 loops is only 750ms
-						Bot.Targeting.Cache.CurrentTarget.BlacklistLoops = 5;
+
+						if (!TownRunManager.IgnoreVendoring) //Exclude town run manager checking!
+							Bot.Targeting.Cache.CurrentTarget.BlacklistLoops = 5;
 					}
 					else
 					{
@@ -236,10 +231,10 @@ namespace FunkyBot.Targeting
 						Bot.Targeting.Cache.CurrentTarget.BlacklistFlag = BlacklistType.Temporary;
 						Bot.Targeting.Cache.CurrentTarget.NeedsRemoved = true;
 					}
-
-					// Now tell Trinity to get a new target!
-					Bot.Targeting.Cache.bForceTargetUpdate = true;
 				}
+
+				// Now tell Trinity to get a new target!
+				Bot.Targeting.Cache.bForceTargetUpdate = true;
 
 				//Reset flag, and continue..
 				Bot.Targeting.Cache.ShouldCheckItemLooted = false;
@@ -303,14 +298,6 @@ namespace FunkyBot.Targeting
 					{
 						CurrentState = RunStatus.Success;
 						return false;
-					}
-					else if (Bot.Targeting.Cache.LastCachedTarget != null &&
-						  Bot.Targeting.Cache.LastCachedTarget.RAGUID != Bot.Targeting.Cache.CurrentTarget.RAGUID && Bot.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Item)
-					{
-						//Reset Item Vars
-						Bot.Targeting.Cache.recheckCount = 0;
-						Bot.Targeting.Cache.reCheckedFinished = false;
-						Bot.Targeting.Cache.CheckItemLootStackCount = 0;
 					}
 
 					// Been trying to handle the same target for more than 30 seconds without damaging/reaching it? Blacklist it!
