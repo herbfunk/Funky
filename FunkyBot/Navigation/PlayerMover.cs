@@ -381,13 +381,9 @@ namespace FunkyBot
 						}
 					}
 				}
-				else
-				{
-					// Get distance to current destination
-					fDistanceFromTarget = vMyCurrentPosition.Distance(vMoveToTarget);
-				} // Is the built-in unstucker enabled or not? 
 				#endregion
 
+					
 
 				//Prioritize "blocking" objects.
 				if (!Bot.Character.Data.bIsInTown) Bot.NavigationCache.ObstaclePrioritizeCheck();
@@ -413,8 +409,8 @@ namespace FunkyBot
 
 
 				//Send Movement Command!
-				//ZetaDia.Me.Movement.MoveActor(vMoveToTarget);
-				ZetaDia.Me.UsePower(SNOPower.Walk, vMoveToTarget, Bot.Character.Data.iCurrentWorldID);
+				if (vMyCurrentPosition.Distance2D(vMoveToTarget)>1f)
+					ZetaDia.Me.UsePower(SNOPower.Walk, vMoveToTarget, Bot.Character.Data.iCurrentWorldID);
 			}
 
 
