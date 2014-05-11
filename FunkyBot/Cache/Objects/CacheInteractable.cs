@@ -425,7 +425,9 @@ namespace FunkyBot.Cache.Objects
 			// If we've tried interacting too many times, blacklist this for a while
 			if (InteractionAttempts > 5)
 			{
-				BlacklistLoops = 50;
+				if (!IsCursedShrine && !IsCursedChest)
+					BlacklistLoops = 50;
+
 				InteractionAttempts = 0;
 			}
 

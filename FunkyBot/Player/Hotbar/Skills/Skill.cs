@@ -765,7 +765,7 @@ namespace FunkyBot.Player.HotBar.Skills
 						LOSInfo LOSINFO = Bot.Targeting.Cache.CurrentTarget.LineOfSight;
 						if (LOSINFO.LastLOSCheckMS > 2000 || !LOSINFO.NavCellProjectile.HasValue)
 						{
-							if (!LOSINFO.LOSTest(Bot.Character.Data.Position, true, false, NavCellFlags.AllowProjectile))
+							if (!LOSINFO.LOSTest(Bot.Character.Data.Position, true, ability.IsProjectile, NavCellFlags.AllowProjectile))
 							{
 
 

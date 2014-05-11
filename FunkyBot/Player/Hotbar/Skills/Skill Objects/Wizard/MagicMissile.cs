@@ -9,7 +9,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 		  {
 				Cooldown=5;
 				ExecutionType=SkillExecutionFlags.Target;
-				WaitVars=new WaitLoops(0, 1, true);
+				WaitVars=new WaitLoops(0, 0, false);
 				Range=40;
 				IsRanged=true;
 				IsProjectile=true;
