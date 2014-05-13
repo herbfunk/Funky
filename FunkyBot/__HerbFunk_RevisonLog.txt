@@ -1,7 +1,25 @@
 ﻿// herbfunk revisions
 v2.10.0.3
 
-Gambling is now capable of all item types.
+Cache:
+	Added teleport to avoidance cache types. (Is disabled by default)
+	Quest Monsters will use minimum of 200 kill radius.
+	Cursed Chests and Shrines should always stay put while it exists.
+
+Town Run:
+	Gambling is now capable of all item types.
+
+Bounty:
+	Added A4 Bounty Cache Entries.
+	Line of Sight behavior for bounty markers will check if quest is active and will no longer start when it shouldn't.
+
+Skills:
+	Fixed issue with player class creation throwing error when a passive ability that reduced cooldowns existed.
+	All Primary Skills have been modified to remove any type of delay.
+
+Misc:
+	Plugin Initialize will now set Funky as the combat routine.
+	Player Mover now checks if distance is very close.
 
 
 v2.10.0.2

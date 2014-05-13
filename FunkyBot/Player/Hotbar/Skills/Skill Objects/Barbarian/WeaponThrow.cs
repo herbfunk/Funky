@@ -16,14 +16,13 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 		  {
 				Cooldown=5;
 				ExecutionType=SkillExecutionFlags.Target;
-				WaitVars=new WaitLoops(0, 1, true);
+				WaitVars=new WaitLoops(0, 0, false);
 				Cost=10;
 				Range=44;
 				IsRanged=true;
 				UseageType=SkillUseage.Combat;
 				Priority=SkillPriority.Low;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckRecastTimer|SkillPrecastFlags.CheckEnergy|
-				                          SkillPrecastFlags.CheckCanCast|SkillPrecastFlags.CheckPlayerIncapacitated));
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckCanCast|SkillPrecastFlags.CheckPlayerIncapacitated));
 		  }
 
 		  #region IAbility

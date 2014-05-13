@@ -9,7 +9,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 		  {
 				Cooldown=5;
 				ExecutionType=SkillExecutionFlags.Target;
-				WaitVars=new WaitLoops(0, 1, true);
+				WaitVars=new WaitLoops(0, 0, false);
 				Range=Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Wizard_ShockPulse]==2?40
 					:Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Wizard_ShockPulse]==1?26:15;
 
@@ -17,7 +17,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				IsProjectile=true;
 				UseageType=SkillUseage.Combat;
 				Priority=SkillPriority.Low;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated));
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckCanCast));
 		  }
 
 		  #region IAbility

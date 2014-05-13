@@ -3,6 +3,7 @@ using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Movement;
 using Zeta.Common;
+using Zeta.Game.Internals;
 
 namespace FunkyBot.Targeting.Behaviors
 {
@@ -33,7 +34,7 @@ namespace FunkyBot.Targeting.Behaviors
 					!Bot.IsInNonCombatBehavior &&
 					(Bot.Targeting.Cache.Environment.LoSMovementObjects.Count > 0 ||
 					Bot.NavigationCache.LOSmovementObject != null ||
-					(Bot.Game.AdventureMode && Bot.Settings.AdventureMode.NavigatePointsOfInterest && Bot.Game.Bounty.CurrentBountyMapMarkers.Count > 0));
+					(Bot.Game.AdventureMode && Bot.Game.Bounty.ShouldNavigatePointsOfInterest && Bot.Game.Bounty.CurrentBountyMapMarkers.Count > 0));
 			}
 		}
 
@@ -85,25 +86,33 @@ namespace FunkyBot.Targeting.Behaviors
 						}
 
 						//Check if we still found nothing and game mode is adventure mode
-						if (Bot.NavigationCache.LOSmovementObject == null && Bot.Game.AdventureMode && Bot.Game.Bounty.CurrentBountyMapMarkers.Count > 0)
+						if (Bot.NavigationCache.LOSmovementObject == null && Bot.Game.AdventureMode && Bot.Game.Bounty.ShouldNavigatePointsOfInterest
+								&&  Bot.Game.Bounty.ActiveBounty != null && Bot.Game.Bounty.CurrentBountyMapMarkers.Count > 0)
 						{
-							foreach (var mapmarker in Bot.Game.Bounty.CurrentBountyMapMarkers.Values)
-							{
 
-								if (mapmarker.WorldID != Bot.Character.Data.iCurrentWorldID) continue;
-								if (Bot.NavigationCache.LOSBlacklistedRAGUIDs.Contains(mapmarker.GetHashCode())) continue;
-								if (mapmarker.Distance > 750f) continue;
-								if (!Navigation.NP.CanFullyClientPathTo(mapmarker.Position)) continue;
+							Bot.Game.Bounty.RefreshBountyQuestStates();
+							if (Bot.Game.Bounty.BountyQuestStates[Bot.Game.Bounty.ActiveBounty.QuestSNO] == QuestState.InProgress)
+							{//Lets make sure the bounty is not completed.
 
-								Logger.Write(LogLevel.Movement, "Line of Sight Started for Map Marker with {0} vectors", Navigation.NP.CurrentPath.Count);
+								foreach (var mapmarker in Bot.Game.Bounty.CurrentBountyMapMarkers.Values)
+								{
+									if (mapmarker.WorldID != Bot.Character.Data.iCurrentWorldID) continue;
+									if (Bot.NavigationCache.LOSBlacklistedRAGUIDs.Contains(mapmarker.GetHashCode())) continue;
+									if (mapmarker.Distance > 750f) continue;
 
-								Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(mapmarker.GetHashCode());
+									if (!Navigation.NP.CanFullyClientPathTo(mapmarker.Position)) continue;
 
-								//Set the object
-								Bot.NavigationCache.LOSmovementObject = new CacheLineOfSight(mapmarker);
+
+									Logger.Write(LogLevel.Movement, "Line of Sight Started for Map Marker with {0} vectors", Navigation.NP.CurrentPath.Count);
+
+									Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(mapmarker.GetHashCode());
+
+									//Set the object
+									Bot.NavigationCache.LOSmovementObject = new CacheLineOfSight(mapmarker);
+								}
+
 							}
 						}
-
 					}
 
 					if (Bot.NavigationCache.LOSmovementObject != null)

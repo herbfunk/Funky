@@ -562,6 +562,8 @@ namespace FunkyBot.Cache.Objects
 				// Standard 50f range when preforming OOC behaviors!
 				if (Bot.IsInNonCombatBehavior)
 					dUseKillRadius = Bot.Settings.Plugin.OutofCombatMaxDistance;
+				else if (QuestMonster && dUseKillRadius < 200f) //"Quest Monster" set 200f min distance.
+					dUseKillRadius = 200f;
 
 				return dUseKillRadius;
 			}

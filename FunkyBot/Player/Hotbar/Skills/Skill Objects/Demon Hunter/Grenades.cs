@@ -10,14 +10,14 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				Cooldown=5;
 				ExecutionType=SkillExecutionFlags.ClusterTarget|SkillExecutionFlags.Target;
 				ClusterConditions.Add(new SkillClusterConditions(6d, 40f, 1, true));
-				WaitVars=new WaitLoops(0, 1, true);
+				WaitVars=new WaitLoops(0, 0, false);
 				Cost=0;
 				Range=40;
 				IsRanged=true;
 				IsProjectile=true;
 				UseageType=SkillUseage.Combat;
 				Priority=SkillPriority.Low;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated));
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckCanCast));
 		  }
 
 		  #region IAbility

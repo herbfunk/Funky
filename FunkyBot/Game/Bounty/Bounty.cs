@@ -176,7 +176,7 @@ namespace FunkyBot.Game.Bounty
 				{
 					if (ActiveBounty.Act != CurrentAct)
 					{
-						Logger.DBLog.Info(ActiveBounty.Act);
+						//Logger.DBLog.Info(ActiveBounty.Act);
 
 						CurrentAct = ActiveBounty.Act;
 						switch (CurrentAct)
@@ -190,6 +190,7 @@ namespace FunkyBot.Game.Bounty
 								CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act3.xml");
 								break;
 							case Act.A4:
+								CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act4.xml");
 								break;
 							case Act.A5:
 								break;

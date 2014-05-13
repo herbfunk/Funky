@@ -79,7 +79,8 @@ namespace FunkyBot.Cache.Avoidance
 		  ShamanFireBall,
 		  [XmlEnum(Name="SuccubusProjectile")]
 		  SuccubusProjectile,
-
+		  [XmlEnum(Name = "Teleport")]
+		  Teleport,
 		  [XmlEnum(Name = "Thunderstorm")]
 		  Thunderstorm,
 

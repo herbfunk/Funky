@@ -11,14 +11,14 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 		  {
 				Cooldown=5;
 				ExecutionType=SkillExecutionFlags.Target;
-				WaitVars=new WaitLoops(0, 1, true);
+				WaitVars=new WaitLoops(0, 0, false);
 				Cost=10;
 				Range=48;
 				IsRanged=true;
 				IsProjectile=true;
 				UseageType=SkillUseage.Combat;
 				Priority=SkillPriority.Low;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated));
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckCanCast));
 
 		  }
 

@@ -15,7 +15,7 @@ namespace FunkyBot.Cache
 			_isTreasureGoblin = ObjectCache.SnoUnitPropertyCache.GoblinUnits.Contains(SNOID);//CacheIDLookup.hashActorSNOGoblins.Contains(SNOID);
 			_isBoss = ObjectCache.SnoUnitPropertyCache.BossUnits.Contains(SNOID);//CacheIDLookup.hashBossSNO.Contains(SNOID);
 			_isWormBoss = (SNOID == 218947 || SNOID == 144400);
-			_isResplendantChest = CacheIDLookup.hashSNOContainerResplendant.Contains(SNOID);
+			_isResplendantChest = ObjectCache.SnoObjectPropertyCache.ResplendantChests.Contains(SNOID);
 			_isAvoidance = AvoidanceCache.hashAvoidanceSNOList.Contains(SNOID);
 			_isSummonedPet = CacheIDLookup.hashSummonedPets.Contains(SNOID);
 			_isRespawnable = ObjectCache.SnoUnitPropertyCache.RevivableUnits.Contains(SNOID);//CacheIDLookup.hashActorSNOSummonedUnit.Contains(SNOID);
@@ -41,7 +41,7 @@ namespace FunkyBot.Cache
 			_isTreasureGoblin = ObjectCache.SnoUnitPropertyCache.GoblinUnits.Contains(SNOID);//CacheIDLookup.hashActorSNOGoblins.Contains(SNOID);
 			_isBoss = ObjectCache.SnoUnitPropertyCache.BossUnits.Contains(SNOID);//CacheIDLookup.hashBossSNO.Contains(SNOID);
 			_isWormBoss = (SNOID == 218947 || SNOID == 144400);
-			_isResplendantChest = CacheIDLookup.hashSNOContainerResplendant.Contains(SNOID);
+			_isResplendantChest = ObjectCache.SnoObjectPropertyCache.ResplendantChests.Contains(SNOID);
 			_isAvoidance = AvoidanceCache.hashAvoidanceSNOList.Contains(SNOID);
 			_isSummonedPet = CacheIDLookup.hashSummonedPets.Contains(SNOID);
 			_isRespawnable = ObjectCache.SnoUnitPropertyCache.RevivableUnits.Contains(SNOID);//CacheIDLookup.hashActorSNOSummonedUnit.Contains(SNOID);

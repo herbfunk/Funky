@@ -103,12 +103,29 @@ namespace FunkyBot.Player.HotBar
 		///</summary>
 		internal void UpdateRepeatAbilityTimes()
 		{
+
 			SkillCooldowns = new Dictionary<SNOPower, int>();
+			//Check if passives contain any "reduction"
+			bool passiveReductionCheck=PassivePowers.Any(p => PowerCacheLookup.PassiveAbiltiesReduceRepeatTime.Contains(p));
+
 			foreach (var item in HotbarPowers)
 			{
+				if (!PowerCacheLookup.dictAbilityRepeatDefaults.ContainsKey(item)) continue;
+
+				if (passiveReductionCheck)
+				{
+					if ((item == SNOPower.Barbarian_CallOfTheAncients || item == SNOPower.Barbarian_WrathOfTheBerserker || item == SNOPower.Barbarian_Earthquake)
+						&& PassivePowers.Contains(SNOPower.Barbarian_Passive_BoonOfBulKathos))
+					{
+						SkillCooldowns.Add(item, PowerCacheLookup.dictAbilityRepeatDefaults[item] - 30000);
+						continue;
+					}
+				}
+
 				if (PowerCacheLookup.dictAbilityRepeatDefaults.ContainsKey(item))
 					SkillCooldowns.Add(item, PowerCacheLookup.dictAbilityRepeatDefaults[item]);
 			}
+
 			foreach (var item in PassivePowers)
 			{
 				if (PowerCacheLookup.PassiveAbiltiesReduceRepeatTime.Contains(item))

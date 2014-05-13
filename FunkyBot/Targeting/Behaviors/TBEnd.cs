@@ -35,22 +35,20 @@ namespace FunkyBot.Targeting.Behaviors
 					}
 					//Herbfunks wait after loot containers are opened. 3s for rare chests, half the settings delay for everything else.
 					if ((DateTime.Now.Subtract(Bot.Targeting.Cache.lastHadRareChestAsTarget).TotalMilliseconds <= 3750) ||
-						(DateTime.Now.Subtract(Bot.Targeting.Cache.lastHadContainerAsTarget).TotalMilliseconds <= (Bot.Settings.AfterCombatDelay * 1.25)) ||
-						(DateTime.Now.Subtract(Bot.Targeting.Cache.lastSeenCursedShrine).TotalMilliseconds <= (1000)))
+						(DateTime.Now.Subtract(Bot.Targeting.Cache.lastHadContainerAsTarget).TotalMilliseconds <= (Bot.Settings.AfterCombatDelay * 1.25)))
 					{
 						obj = new CacheObject(Bot.Character.Data.Position, TargetType.NoMovement, 20000, "ContainerLootDropsWait", 2f, -1);
 						return true;
 					}
+
 					if (DateTime.Now.Subtract(Bot.Targeting.Cache.lastSeenCursedShrine).TotalMilliseconds <= (1000))
 					{
 						Bot.Targeting.Cache.UpdateQuestMonsterProperty = true;
 						obj = new CacheObject(Bot.Character.Data.Position, TargetType.NoMovement, 20000, "CursedShrineWait", 2f, -1);
 						return true;
 					}
-					else
-					{
-						Bot.Targeting.Cache.UpdateQuestMonsterProperty = false;
-					}
+
+					Bot.Targeting.Cache.UpdateQuestMonsterProperty = false;
 
 					// Finally, a special check for waiting for wrath of the berserker cooldown before engaging Azmodan
 					if (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker) && Bot.Settings.Barbarian.bWaitForWrath && !Bot.Character.Class.Abilities[SNOPower.Barbarian_WrathOfTheBerserker].AbilityUseTimer() &&

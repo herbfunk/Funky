@@ -15,7 +15,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				IsProjectile=true;
 				UseageType=SkillUseage.Combat;
 				Priority=SkillPriority.Low;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated));
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckCanCast));
 
 				//Aim for cluster with 2 units very close together.
 				ClusterConditions.Add(new SkillClusterConditions(3d, Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Wizard_Electrocute]==2?15:40, 2,true));

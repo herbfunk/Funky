@@ -590,15 +590,7 @@ namespace FunkyBot.DBHandlers
 			return RunStatus.Success;
 		}
 
-		// **********************************************************************************************
-		// *****                Randomize the timer between stashing/salvaging etc.                 *****
-		// **********************************************************************************************
-		private static void RandomizeTheTimer()
-		{
-			Random rndNum = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), NumberStyles.HexNumber));
-			int rnd = rndNum.Next(7);
-			iItemDelayLoopLimit = 4 + rnd;
-		}
+
 	}
 
 }

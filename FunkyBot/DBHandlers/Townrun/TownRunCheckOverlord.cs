@@ -1,12 +1,11 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using FunkyBot.Cache.Objects;
-using Zeta.Bot;
 using Zeta.Bot.Logic;
 using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.Game;
-using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.DBHandlers
 {
@@ -131,7 +130,12 @@ namespace FunkyBot.DBHandlers
 			RandomizeTheTimer();
 			return true;
 		}
-
+		private static void RandomizeTheTimer()
+		{
+			Random rndNum = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), NumberStyles.HexNumber));
+			int rnd = rndNum.Next(5);
+			iItemDelayLoopLimit = 2 + rnd;
+		}
 
 		// **********************************************************************************************
 		// *****         TownRunCheckOverlord - determine if we should do a town-run or not         *****

@@ -555,27 +555,16 @@ namespace FunkyBot.Cache
 					 193077,
 					 //a2 cave slime geyser
 					 //218228,
-					// Siegebreaker (96192), Azmodan (89690), Cydea (95250), Heart-thing (193077), Kulle (80509), Small Belial (220160), Big Belial (3349), Diablo 1 (114917), terror Diablo (133562), burrowed horrow worm (219847)
+					// Siegebreaker (96192), Azmodan (89690), Cydea (95250), Heart-thing (193077), Kulle (80509), Big Belial (3349), Diablo 1 (114917), terror Diablo (133562)
 					96192, 89690, 95250, 193077, 80509, 3349, 114917, 133562,
+					//queenArnare, Rakanoth
+					51341,4630,
 					// Uber_ZoltunKulle, Uber_SkeletonKingRed,  Uber_SiegebreakerDemon, Uber_Maghda, Uber_Despair, Uber_Gluttony
 					256508, 255929, 256187, 256189, 256711, 256709,
 					//A5: 
 					//Adria
 					279394,
 				};
-
-		// Resplendent chest SNO list
-		public static readonly HashSet<int> hashSNOContainerResplendant = new HashSet<int>
-				{ 
-            62873, 95011, 81424, 108230, 111808, 111809, 199583, 109264,101500,96993, 62866,
-			108230, 211861, 62860, 96993,
-            // Magi
-			112182,
-			//GlobalChest
-			363725,
-			//a1dun_Leor_Chest_Rare_Garrach
-  			357509,
-         };
 
 		// A list of SNO's to *FORCE* to type: Item. (BE CAREFUL WITH THIS!).
 		// 166943 = infernal key

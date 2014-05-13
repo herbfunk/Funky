@@ -420,7 +420,7 @@ namespace FunkyBot.Cache.Objects
 				Bot.Character.Data.WaitWhileAnimating(1500);
 			}
 
-			Bot.Character.Data.WaitWhileAnimating(75, true);
+			Bot.Character.Data.WaitWhileAnimating(75);
 
 			// If we've tried interacting too many times, blacklist this for a while
 			if (InteractionAttempts > 5)

@@ -41,6 +41,7 @@ namespace FunkyBot.Cache.Avoidance
 			  new AvoidanceValue(AvoidanceType.PoisonGas, 0.5, 9,5),
 			  new AvoidanceValue(AvoidanceType.ShamanFireBall, 0.1, 2,5), 
 			  new AvoidanceValue(AvoidanceType.SuccubusProjectile, 0.25, 2,5),
+			  new AvoidanceValue(AvoidanceType.Teleport, 0,7,0),
 			  new AvoidanceValue(AvoidanceType.Thunderstorm, 0.80, 9,10),
 			  new AvoidanceValue(AvoidanceType.TreeSpore, 1, 14,10),
 			  //new AvoidanceValue(AvoidanceType.WallOfFire, 0, 0, 0),
@@ -73,6 +74,8 @@ namespace FunkyBot.Cache.Avoidance
 				  332922,
 				  //Bloodspring (Large)
 				  332923,
+				  //Teleport
+				  337109,
 			  };
 
 		// A list of SNO's that are projectiles (so constantly look for new locations while avoiding)
@@ -179,6 +182,8 @@ namespace FunkyBot.Cache.Avoidance
 					return AvoidanceType.BloodSpringMedium;
 				case 332923:
 					return AvoidanceType.BloodSpringLarge;
+				case 337109:
+					return AvoidanceType.Teleport;
 			}
 			return AvoidanceType.None;
 		}

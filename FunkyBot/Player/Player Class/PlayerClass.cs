@@ -26,7 +26,7 @@ namespace FunkyBot.Player.Class
 		{
 			HotBar.RefreshHotbar();
 			HotBar.RefreshPassives();
-			HotBar.UpdateRepeatAbilityTimes();
+			//HotBar.UpdateRepeatAbilityTimes();
 
 			Skill healthPotionSkill = new DrinkHealthPotion();
 			Skill.CreateSkillLogicConditions(ref healthPotionSkill);

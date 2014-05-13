@@ -9,7 +9,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 		  {
 				Cooldown=5;
 				ExecutionType=SkillExecutionFlags.ClusterTarget|SkillExecutionFlags.Target;
-				WaitVars=new WaitLoops(0, 2, false);
+				WaitVars=new WaitLoops(0, 0, false);
 				UseageType=SkillUseage.Combat;
 				Priority=SkillPriority.Low;
 				Range=RuneIndex==0?25:12;

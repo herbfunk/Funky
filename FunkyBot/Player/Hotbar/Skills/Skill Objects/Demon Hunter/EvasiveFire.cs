@@ -9,14 +9,15 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 		 public override void Initialize()
 		  {
 				Cooldown=1500;
+				Range = 45;
 				ExecutionType=SkillExecutionFlags.Target;
-				WaitVars=new WaitLoops(1, 1, true);
+				WaitVars=new WaitLoops(0, 0, false);
 				Cost=0;
 				UseageType=SkillUseage.Anywhere;
-				Priority=SkillPriority.Medium;
+				Priority=SkillPriority.Low;
 
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckRecastTimer));
-				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckCanCast));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None));
 		  }
 
 		  #region IAbility

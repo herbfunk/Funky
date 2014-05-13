@@ -13,7 +13,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 					 Cooldown=250+(250*Bot.Settings.Monk.iMonkComboStrikeAbilities);
 
 				ExecutionType=SkillExecutionFlags.Target;
-				WaitVars=new WaitLoops(0, 1, false);
+				WaitVars=new WaitLoops(0, 0, false);
 				Priority=Bot.Settings.Monk.bMonkComboStrike?SkillPriority.Medium:SkillPriority.Low;
 				Range=14;
 				UseageType=SkillUseage.Combat;

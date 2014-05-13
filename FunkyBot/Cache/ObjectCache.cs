@@ -432,7 +432,6 @@ namespace FunkyBot.Cache
 		internal static Dictionary<int, GizmoType?> dictGizmoType = new Dictionary<int, GizmoType?>();
 		internal static Dictionary<int, bool?> dictIsBarricade = new Dictionary<int, bool?>();
 		internal static Dictionary<int, double> dictProjectileSpeed = new Dictionary<int, double>();
-		internal static Dictionary<int,SNOProperties> dictSnoProperties=new Dictionary<int, SNOProperties>(); 
 		#endregion
 
 

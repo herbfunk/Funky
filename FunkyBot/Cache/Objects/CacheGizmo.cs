@@ -147,6 +147,9 @@ namespace FunkyBot.Cache.Objects
 				catch
 				{
 					Logger.Write(LogLevel.Cache, "Safely handled getting attribute GizmoHasBeenOperated gizmo {0}", this.InternalName);
+					BlacklistFlag=BlacklistType.Temporary;
+					BlacklistLoops = 100;
+					NeedsRemoved = true;
 					return false;
 				}
 

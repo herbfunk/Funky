@@ -38,7 +38,6 @@ namespace FunkyBot.Cache.Collections
 			if (!ObjectCache.dictObstacleType.ContainsKey(key)) ObjectCache.dictObstacleType.Add(key, null);
 			if (!ObjectCache.dictActorSphereRadius.ContainsKey(key)) ObjectCache.dictActorSphereRadius.Add(key, null);
 			if (!ObjectCache.dictGizmoType.ContainsKey(key)) ObjectCache.dictGizmoType.Add(key, null);
-			if (!ObjectCache.dictSnoProperties.ContainsKey(key)) ObjectCache.dictSnoProperties.Add(key, new SNOProperties(key));
 		}
 		private void RemoveDictionaryEntries(int key)
 		{
@@ -56,7 +55,6 @@ namespace FunkyBot.Cache.Collections
 			ObjectCache.dictObstacleType.Remove(key);
 			ObjectCache.dictActorSphereRadius.Remove(key);
 			ObjectCache.dictGizmoType.Remove(key);
-			ObjectCache.dictSnoProperties.Remove(key);
 		}
 
 		#region IDictionary<int,CacheSNO> Members

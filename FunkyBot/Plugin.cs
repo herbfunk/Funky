@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Windows.Documents;
 using Demonbuddy;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
@@ -23,7 +25,7 @@ namespace FunkyBot
 {
 	public partial class Funky : IPlugin
 	{
-		public Version Version { get { return new Version(2, 10, 0, 2); } }
+		public Version Version { get { return new Version(2, 10, 0, 3); } }
 		public string Author { get { return "Herbfunk"; } }
 		public string Description
 		{
@@ -88,7 +90,7 @@ namespace FunkyBot
 				#endregion
 			}
 
-			string sRoutinePath = FolderPaths.DemonBuddyPath + @"\Routines\Funky\";
+			string sRoutineFunkyPath = FolderPaths.DemonBuddyPath + @"\Routines\Funky\";
 			string sPluginRoutineFolder = FolderPaths.DemonBuddyPath + @"\Plugins\FunkyBot\CombatRoutine\";
 		
 			//DateTime RoutineCombatDate=System.IO.File.GetLastWriteTime(sRoutinePath+"CombatRoutine.cs");
@@ -109,12 +111,12 @@ namespace FunkyBot
 				Logger.DBLog.DebugFormat("Reloading combat routine..");
 
 				//Create Folder
-				if (!Directory.Exists(sRoutinePath))
-					Directory.CreateDirectory(sRoutinePath);
+				if (!Directory.Exists(sRoutineFunkyPath))
+					Directory.CreateDirectory(sRoutineFunkyPath);
 
 				//Copy Files
-				File.Copy(sPluginRoutineFolder + "CombatRoutine", sRoutinePath + "CombatRoutine.cs", true);
-				File.Copy(sPluginRoutineFolder + "RoutineDebug", sRoutinePath + "RoutineDebug.cs", true);
+				File.Copy(sPluginRoutineFolder + "CombatRoutine", sRoutineFunkyPath + "CombatRoutine.cs", true);
+				File.Copy(sPluginRoutineFolder + "RoutineDebug", sRoutineFunkyPath + "RoutineDebug.cs", true);
 
 
 				//Recompile Routine
@@ -123,19 +125,37 @@ namespace FunkyBot
 				//FunkyRoutineCode.Compile();
 				//Logger.DBLog.DebugFormat(FunkyRoutineCode.CompiledToLocation);
 
+				//Trinity Routine Check
+				//string sRoutineTrinityPath = FolderPaths.DemonBuddyPath + @"\Routines\Trinity\";
+				//if (Directory.Exists(sRoutineTrinityPath))
+				//{
+				//	Logger.DBLog.DebugFormat("Trinity Routine Found.. Removing It!");
+
+				//	List<string> trinityFiles = Directory.GetFiles(sRoutineTrinityPath).ToList();
+				//	foreach (var f in trinityFiles)
+				//	{
+				//		File.Delete(f);
+				//	}
+
+				//	Directory.Delete(sRoutineTrinityPath, false);
+				//}
+
+				GlobalSettings.Instance.LastUsedRoutine = "Funky";
+
 				//Reload Routines
 				RoutineManager.Reload();
 
 				//remove
-				File.Delete(sRoutinePath + "RoutineDebug.cs");
-				File.Delete(sRoutinePath + "CombatRoutine.cs");
-				Directory.Delete(sRoutinePath);
+				File.Delete(sRoutineFunkyPath + "RoutineDebug.cs");
+				File.Delete(sRoutineFunkyPath + "CombatRoutine.cs");
+				Directory.Delete(sRoutineFunkyPath);
 
 				//Search again..
 				bool funkyRoutine = RoutineManager.Routines.Any(r => r.Name == "Funky");
 				if (funkyRoutine)
 				{
 					Logger.DBLog.DebugFormat("Setting Combat Routine to Funky");
+
 					RoutineManager.Current = RoutineManager.Routines.First(r => r.Name == "Funky");
 
 					#region FunkyButtonHandlerHook

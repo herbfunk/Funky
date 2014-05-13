@@ -410,7 +410,7 @@ namespace FunkyBot.Cache.Objects
 		public bool IsTreasureGoblin { get { return ObjectCache.SnoUnitPropertyCache.GoblinUnits.Contains(SNOID); } }
 		public bool IsBoss { get { return ObjectCache.SnoUnitPropertyCache.BossUnits.Contains(SNOID); } }
 		public bool IsWormBoss { get { return (SNOID == 218947 || SNOID == 144400); } }
-		public bool IsResplendantChest { get { return CacheIDLookup.hashSNOContainerResplendant.Contains(SNOID); } }
+		public bool IsResplendantChest { get { return ObjectCache.SnoObjectPropertyCache.ResplendantChests.Contains(SNOID); } }
 		public bool IsAvoidance { get { return AvoidanceCache.hashAvoidanceSNOList.Contains(SNOID); } }
 		public bool IsSummonedPet { get { return CacheIDLookup.hashSummonedPets.Contains(SNOID); } }
 		public bool IsRespawnable { get { return ObjectCache.SnoUnitPropertyCache.RevivableUnits.Contains(SNOID); } }
