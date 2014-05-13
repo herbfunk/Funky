@@ -37,7 +37,7 @@ namespace FunkyBot
 			}
 		}
 
-		private static void CheckFolderExists(string path)
+		internal static void CheckFolderExists(string path)
 		{
 			if (!Directory.Exists(path))
 			{

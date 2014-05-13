@@ -48,7 +48,7 @@ namespace FunkyBot.Cache.Objects
 					// Minimap icons caused a few problems in the past, so this force-blacklists them
 					this.BlacklistFlag = BlacklistType.Permanent;
 					this.NeedsRemoved = true;
-					BlacklistCache.hashActorSNOIgnoreBlacklist.Add(this.SNOID); //SNO blacklist.
+					BlacklistCache.BlacklistSnoIDs.Add(this.SNOID); //SNO blacklist.
 					return false;
 				}
 
@@ -57,15 +57,6 @@ namespace FunkyBot.Cache.Objects
 				if (!this.IsZDifferenceValid)
 				{
 					this.BlacklistLoops = 3;
-					return false;
-				}
-
-
-				// Check the primary object blacklist
-				if (BlacklistCache.hashSNOIgnoreBlacklist.Contains(this.SNOID))
-				{
-					this.NeedsRemoved = true;
-					this.BlacklistFlag = BlacklistType.Permanent;
 					return false;
 				}
 

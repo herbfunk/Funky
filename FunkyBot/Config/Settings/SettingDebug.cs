@@ -12,9 +12,11 @@ namespace FunkyBot.Settings
 		 public bool LogStuckLocations { get; set; }
 		 public bool EnableUnstucker { get; set; }
 		 public bool RestartGameOnLongStucks { get; set; }
+		 public bool DebuggingData { get; set; }
 
 		 public SettingDebug()
 		 {
+			  DebuggingData = false;
 			  DebugStatusBar=true;
 			  FunkyLogFlags=LogLevel.None;
 			  EnableUnstucker=true;

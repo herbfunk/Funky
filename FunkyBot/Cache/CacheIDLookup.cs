@@ -547,24 +547,6 @@ namespace FunkyBot.Cache
 				//a2dun_Cave_SlimeGeyser
 				218228,
          };
-		public static readonly HashSet<int> hashActorSNOIgnoreLOSCheck = new HashSet<int>
-				{
-					 //worm bosses
-					 218947,144400,
-					 //heart of sin
-					 193077,
-					 //a2 cave slime geyser
-					 //218228,
-					// Siegebreaker (96192), Azmodan (89690), Cydea (95250), Heart-thing (193077), Kulle (80509), Big Belial (3349), Diablo 1 (114917), terror Diablo (133562)
-					96192, 89690, 95250, 193077, 80509, 3349, 114917, 133562,
-					//queenArnare, Rakanoth
-					51341,4630,
-					// Uber_ZoltunKulle, Uber_SkeletonKingRed,  Uber_SiegebreakerDemon, Uber_Maghda, Uber_Despair, Uber_Gluttony
-					256508, 255929, 256187, 256189, 256711, 256709,
-					//A5: 
-					//Adria
-					279394,
-				};
 
 		// A list of SNO's to *FORCE* to type: Item. (BE CAREFUL WITH THIS!).
 		// 166943 = infernal key
@@ -603,7 +585,7 @@ namespace FunkyBot.Cache
 		public static readonly HashSet<int> hashGargantuan = new HashSet<int> { 179780, 179778, 179772, 179779, 179776, 122305 };
 		public static readonly HashSet<int> hashZombie = new HashSet<int> { 110959, 103235, 103215, 105763, 103217, 51353 };
 		public static readonly HashSet<int> hashDHPets = new HashSet<int> { 178664, 173827, 133741, 159144, 181748, 159098 };
-		public static readonly HashSet<int> hashWizHydras = new HashSet<int> { 80745, 81515, 82111, 82972, 82109, 83959 }; //IDs taken from d3lexicon
+		public static readonly HashSet<int> hashWizHydras = new HashSet<int> { 80745, 81515, 82111, 82972, 82109, 83959, 325807 }; //IDs taken from d3lexicon
 
 		//Quick reference to all possible pets
 		public static readonly HashSet<int> hashSummonedPets = new HashSet<int>
@@ -611,7 +593,7 @@ namespace FunkyBot.Cache
                                                                                     179780, 179778, 179772, 179779, 179776, 122305,
                                                                                      110959, 103235, 103215, 105763, 103217, 51353,
                                                                                       178664, 173827, 133741, 159144, 181748, 159098,
-																													80745, 81515, 82111, 82972, 82109, 83959,
+																													80745, 81515, 82111, 82972, 82109, 83959, 325807,
 																													 158941, 111330};
 	}
 

@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Windows.Documents;
 using Demonbuddy;
 using FunkyBot.Cache;
+using FunkyBot.Cache.Dictionaries.Objects;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
-using FunkyBot.Misc;
 using FunkyBot.Settings;
 using Zeta.Bot;
 using Zeta.Bot.Logic;
@@ -25,7 +23,7 @@ namespace FunkyBot
 {
 	public partial class Funky : IPlugin
 	{
-		public Version Version { get { return new Version(2, 10, 0, 3); } }
+		public Version Version { get { return new Version(2, 10, 1, 0); } }
 		public string Author { get { return "Herbfunk"; } }
 		public string Description
 		{
@@ -188,12 +186,11 @@ namespace FunkyBot
 			if (initFunkyButton && FunkyButton != null)
 			{
 				Logger.DBLog.DebugFormat("Funky Split Button Click Handler Added");
-				FunkyButton.Click += FunkyWindow.buttonFunkySettingDB_Click;
+				FunkyButton.Click += buttonFunkySettingDB_Click;
 			}
 
-			ObjectCache.SnoUnitPropertyCache = CacheUnitIDs.DeserializeFromXML();
-			ObjectCache.SnoObjectPropertyCache = CacheObjectIDs.DeserializeFromXML();
 
+			ObjectCache.SNOCache = new SnoIDCache();
 			ObjectCache.FakeCacheObject = new CacheObject(Vector3.Zero, TargetType.None, 0d, "Fake Target", 1f);
 			
 			//Update Account Details..
@@ -273,26 +270,7 @@ namespace FunkyBot
 
 			}
 		}
-		public Window DisplayWindow
-		{
-			get
-			{
-				string settingsFolder = FolderPaths.DemonBuddyPath + @"\Settings\FunkyBot\" + Bot.Character.Account.CurrentAccountName;
-				if (!Directory.Exists(settingsFolder))
-					Directory.CreateDirectory(settingsFolder);
-				try
-				{
-					FunkyWindow.funkyConfigWindow = new FunkyWindow();
 
-				}
-				catch (Exception ex)
-				{
-					Logger.DBLog.InfoFormat("Failure to initilize Funky Setting Window! \r\n {0} \r\n {1} \r\n {2}", ex.Message, ex.Source, ex.StackTrace);
-				}
-
-				return FunkyWindow.funkyConfigWindow;
-			}
-		}
 		public void OnDisabled()
 		{
 			bPluginEnabled = false;
@@ -320,7 +298,7 @@ namespace FunkyBot
 					if (item.Name.Contains("Funky"))
 					{
 						Logger.DBLog.DebugFormat("Funky Split Button Click Handler Removed");
-						item.Click -= FunkyWindow.buttonFunkySettingDB_Click;
+						item.Click -= buttonFunkySettingDB_Click;
 						break;
 					}
 				}
@@ -357,7 +335,7 @@ namespace FunkyBot
 					if (item.Name.Contains("Funky"))
 					{
 						Logger.DBLog.DebugFormat("Funky Split Button Click Handler Removed");
-						item.Click -= FunkyWindow.buttonFunkySettingDB_Click;
+						item.Click -= buttonFunkySettingDB_Click;
 						break;
 					}
 				}
@@ -402,5 +380,11 @@ namespace FunkyBot
 			return B - A;
 		}
 
+
+
+		public Window DisplayWindow
+		{
+			get { throw new NotImplementedException(); }
+		}
 	}
 }

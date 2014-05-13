@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CacheUnitIDs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<UnitDataCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SpawnerUnits>
     <int>3037</int>
     <int>204509</int>
@@ -181,6 +181,7 @@
     <int>114917</int>
     <int>133562</int>
     <int>218947</int>
+    <int>144400</int>
     <int>144001</int>
     <int>144003</int>
     <int>143996</int>
@@ -217,7 +218,19 @@
     <int>218473</int>
     <int>98879</int>
     <int>218206</int>
+    <int>316839</int>
+    <int>375106</int>
+    <int>375111</int>
     <int>279394</int>
+    <int>300862</int>
+    <int>318425</int>
+    <int>300866</int>
+    <int>346482</int>
+    <int>367456</int>
+    <int>347276</int>
+    <int>374751</int>
+    <int>307339</int>
+    <int>297730</int>
   </BossUnits>
   <UnitPriorities>
     <UnitPriority>
@@ -433,4 +446,4 @@
       <Value>-101</Value>
     </UnitPriority>
   </UnitPriorities>
-</CacheUnitIDs>
+</UnitDataCollection>

@@ -63,22 +63,22 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Cache\CacheObjectIDs.cs">
+    <Compile Include="Cache\Dictionaries\Objects\SnoIDCache.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Cache\CacheUnitIDs.cs">
+    <Compile Include="Cache\Dictionaries\Objects\GizmoDataCollection.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Cache\Dictionaries\Objects\UnitDataCollection.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Cache\Enums\GemQuality.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Cache\Objects\CacheLineOfSight.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Cache\Objects\CacheNavPoint.cs" />
-    <Compile Include="Config\SettingsForm.cs">
-      <SubType>Form</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Config\SettingsForm.Designer.cs">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
+    <Compile Include="Cache\Dictionaries\Objects\UnitPriority.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Config\Settings\Class\SettingBarbarian.cs">
@@ -102,16 +102,37 @@
     <Compile Include="Config\Settings\SettingAdventureMode.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Config\Tabs\TownRun.cs">
+    <Compile Include="Config\UI\UserControlAvoidance.cs">
+      <SubType>UserControl</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Config\Tabs\AdventureMode.cs">
+    <Compile Include="Config\UI\UserControlAvoidance.Designer.cs">
+      <DependentUpon>UserControlAvoidance.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Config\UI\SettingsForm.cs">
+      <SubType>Form</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Config\UI\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Config\UI\UserControlTargetRange.cs">
+      <SubType>UserControl</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Config\UI\UserControlTargetRange.Designer.cs">
+      <DependentUpon>UserControlTargetRange.cs</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DBHandlers\ExitGame.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DBHandlers\ItemIDOverlord.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DBHandlers\Townrun\BloodShardGambleItems.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DBHandlers\Townrun\GamblingOverlord.cs">
@@ -136,6 +157,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Game\UI.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Misc\DebugData.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Misc\FolderPaths.cs">
@@ -699,15 +723,6 @@
     <Compile Include="Cache\Avoidance\AvoidanceValue.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Config\Tabs\Backtracking.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Config\Tabs\Fleeing.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Config\Tabs\LOSMovement.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Game\Game.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -891,39 +906,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Config\Settings\SettingTargeting.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Config\Tabs\Avoidances.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Config\Tabs\Clustering.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Config\Tabs\Combat.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Config\Tabs\General.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Config\Tabs\Grouping.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Config\Tabs\ItemRules.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Config\Tabs\Pickup.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Config\Tabs\PlayerClass.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Config\Tabs\Ranges.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Config\Tabs\Scoring.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Config\Tabs\Targeting.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Cache\Avoidance\AvoidanceType.cs">
@@ -1123,13 +1105,7 @@
     <Compile Include="Cache\Objects\CacheObstacle.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Config\FunkyWindow.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Config\Settings\FunkySettings.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Config\FunkyWindowEvents.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ItemRules\Core\MaxStats.cs">
@@ -1164,7 +1140,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Cache\Dictionaries\SNOId_Cache_Objects.xml">
+    <Content Include="Cache\Dictionaries\SNOId_Cache_Gizmos.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Cache\Dictionaries\SNOId_Cache_Units.xml">
@@ -1221,6 +1197,7 @@
     <Content Include="Game\Bounty\BountyCache\Act4.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Game\Bounty\BountyCache\Act5.xml" />
     <Content Include="Game\Bounty\BountyCache\Blank.xml" />
     <Content Include="Game\Bounty\BountyCache\Act1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1245,11 +1222,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assemblies\" />
+    <Folder Include="Config\Old\" />
     <Folder Include="ItemRules\Log\Archive\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Config\SettingsForm.resx">
+    <EmbeddedResource Include="Config\UI\UserControlAvoidance.resx">
+      <DependentUpon>UserControlAvoidance.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\UI\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\UI\UserControlTargetRange.resx">
+      <DependentUpon>UserControlTargetRange.cs</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

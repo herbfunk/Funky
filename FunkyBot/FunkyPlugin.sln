@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyErrorClicker", "..\Fun
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyDebug", "..\FunkyDebug\FunkyDebug.csproj", "{2D41D60B-069C-4240-869D-08DCF7FF0E26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyProfiles", "..\..\FunkyProfiles\FunkyProfiles\FunkyProfiles.csproj", "{209771F0-0CC4-4F23-8480-7283F3D4CA54}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,16 +49,6 @@ Global
 		{2D41D60B-069C-4240-869D-08DCF7FF0E26}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2D41D60B-069C-4240-869D-08DCF7FF0E26}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2D41D60B-069C-4240-869D-08DCF7FF0E26}.Release|x86.ActiveCfg = Release|Any CPU
-		{209771F0-0CC4-4F23-8480-7283F3D4CA54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{209771F0-0CC4-4F23-8480-7283F3D4CA54}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{209771F0-0CC4-4F23-8480-7283F3D4CA54}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{209771F0-0CC4-4F23-8480-7283F3D4CA54}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{209771F0-0CC4-4F23-8480-7283F3D4CA54}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{209771F0-0CC4-4F23-8480-7283F3D4CA54}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{209771F0-0CC4-4F23-8480-7283F3D4CA54}.Release|Any CPU.Build.0 = Release|Any CPU
-		{209771F0-0CC4-4F23-8480-7283F3D4CA54}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{209771F0-0CC4-4F23-8480-7283F3D4CA54}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{209771F0-0CC4-4F23-8480-7283F3D4CA54}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,19 @@
 ﻿// herbfunk revisions
+v2.10.1.0
+
+Settings:
+	Overhauled the Settings Window into a actual windows Form.. although it might be ugly, changes will be easy with the designer.
+	
+Cache:
+	Added A5 Avodiances for Adria and Malthael.
+	Added Trinties A5 Blacklisting IDs.
+	Merged the "Object" blacklist into a single collection.
+	Removed IgnoreSNO Collection, IgnoresLOSChecks are bosses only now!
+	Object and Unit ID Cache class have been overhauled. 
+
+Bounty:
+	Kill bounties will only navigate markers on last levels.
+
 v2.10.0.3
 
 Cache:

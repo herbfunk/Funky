@@ -5,6 +5,11 @@ namespace FunkyBot.Cache.Avoidance
 
 	 public enum AvoidanceType
 	 {
+		  [XmlEnum(Name = "AdriaArcanePool")]
+		  AdriaArcanePool,
+		  [XmlEnum(Name = "AdriaBlood")]
+		  AdriaBlood,
+
 		  [XmlEnum(Name="ArcaneSentry")]
 		  ArcaneSentry,
 
@@ -53,6 +58,14 @@ namespace FunkyBot.Cache.Avoidance
 
 		  [XmlEnum(Name="MageFirePool")]
 		  MageFirePool,
+
+		  //
+		  [XmlEnum(Name = "MalthaelDeathFog")]
+		  MalthaelDeathFog,
+		  [XmlEnum(Name = "MalthaelDrainSoul")]
+		  MalthaelDrainSoul,
+		  [XmlEnum(Name = "MalthaelLightning")]
+		  MalthaelLightning,
 
 		  [XmlEnum(Name = "MeteorImpact")]
 		  MeteorImpact,

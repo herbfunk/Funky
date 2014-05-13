@@ -1,12 +1,14 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using Demonbuddy;
 using FunkyBot.Cache;
+using FunkyBot.Config.UI;
 using FunkyBot.Movement;
 using System.Collections.Generic;
 using FunkyBot.Player.Class;
-using FunkyBot.XMLTags;
+using FunkyBot.Settings;
 using Zeta.Bot;
 using Zeta.Bot.Logic;
 using Zeta.Bot.Navigation;
@@ -16,7 +18,6 @@ using Zeta.TreeSharp;
 using System.Xml;
 using System.Windows;
 using Decorator = Zeta.TreeSharp.Decorator;
-using FunkyBot.Game;
 using Action = Zeta.TreeSharp.Action;
 using FunkyBot.DBHandlers;
 
@@ -28,6 +29,7 @@ namespace FunkyBot
 		private static bool initFunkyButton;
 		internal static bool initTreeHooks;
 		internal static int iDemonbuddyMonsterPowerLevel = 0;
+		internal static SettingsForm FrmSettings;
 
 		// Status text for DB main window status
 		internal static string sStatusText = "";
@@ -112,6 +114,33 @@ namespace FunkyBot
 			}
 
 			return FunkyButton;
+		}
+		internal static void buttonFunkySettingDB_Click(object sender, RoutedEventArgs e)
+		{
+			//Update Account Details when bot is not running!
+			if (!BotMain.IsRunning)
+				Bot.Character.Account.UpdateCurrentAccountDetails();
+
+			string settingsFolder = FolderPaths.DemonBuddyPath + @"\Settings\FunkyBot\" + Bot.Character.Account.CurrentAccountName;
+			if (!Directory.Exists(settingsFolder)) Directory.CreateDirectory(settingsFolder);
+
+			try
+			{
+				Settings_Funky.LoadFunkyConfiguration();
+				FrmSettings = new SettingsForm();
+				FrmSettings.Show();
+			}
+			catch (Exception ex)
+			{
+				Logger.DBLog.InfoFormat("Failure to initilize Funky Setting Window! \r\n {0} \r\n {1} \r\n {2}", 
+					ex.Message, ex.Source, ex.StackTrace);
+				if (ex.InnerException!=null)
+				{
+					Logger.DBLog.InfoFormat("Inner Exception: {0}\r\n{1}\r\n{2}",ex.InnerException.Message,ex.InnerException.Source,ex.InnerException.StackTrace);
+				}
+			}
+
+			
 		}
 		internal static void HookBehaviorTree()
 		{

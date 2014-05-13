@@ -224,14 +224,14 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
-				return (ObjectCache.SnoUnitPropertyCache.RangedUnits.Contains(SNOID) || (Monstersize.HasValue && Monstersize.Value == MonsterSize.Ranged));
+				return (ObjectCache.SNOCache.Units.RangedUnits.Contains(SNOID) || (Monstersize.HasValue && Monstersize.Value == MonsterSize.Ranged));
 			}
 		}
 		public bool IsFast
 		{
 			get
 			{
-				return (ObjectCache.SnoUnitPropertyCache.FastUnits.Contains(SNOID) || MonsterFast);
+				return (ObjectCache.SNOCache.Units.FastUnits.Contains(SNOID) || MonsterFast);
 			}
 		}
 
@@ -293,14 +293,17 @@ namespace FunkyBot.Cache.Objects
 			get
 			{
 				return
-					 ((IsSucideBomber && Bot.Settings.LOSMovement.AllowSucideBomber) ||
-					 (IsTreasureGoblin && Bot.Settings.LOSMovement.AllowTreasureGoblin) ||
-					 (IsSpawnerUnit && Bot.Settings.LOSMovement.AllowSpawnerUnits) ||
-					 ((MonsterRare || MonsterElite) && Bot.Settings.LOSMovement.AllowRareElites) ||
-					 ((IsBoss || MonsterUnique) && Bot.Settings.LOSMovement.AllowUniqueBoss) ||
-					 (IsRanged && Bot.Settings.LOSMovement.AllowRanged)
-					 &&//Enforce A Maximum Range
-					 CentreDistance <= Bot.Settings.LOSMovement.MaximumRange);
+					 (
+						((IsSucideBomber && Bot.Settings.LOSMovement.AllowSucideBomber) ||
+						(IsTreasureGoblin && Bot.Settings.LOSMovement.AllowTreasureGoblin) ||
+						(IsSpawnerUnit && Bot.Settings.LOSMovement.AllowSpawnerUnits) ||
+						((MonsterRare || MonsterElite) && Bot.Settings.LOSMovement.AllowRareElites) ||
+						((IsBoss || MonsterUnique) && Bot.Settings.LOSMovement.AllowUniqueBoss) ||
+						(IsRanged && Bot.Settings.LOSMovement.AllowRanged))
+						&&
+						(CentreDistance <= Bot.Settings.LOSMovement.MaximumRange &&//Enforce A Maximum Range
+						SNOID != 347363) //Exclude A5 MastaBlasta event
+					);
 			}
 		}
 
@@ -487,7 +490,7 @@ namespace FunkyBot.Cache.Objects
 				if (CacheIDLookup.hashActorSNOShortRangeOnly.Contains(SNOID)) dUseKillRadius = 12;
 
 				// Prevent long-range mobs beign ignored while they may be pounding on us
-				if (dUseKillRadius <= 30 && ObjectCache.SnoUnitPropertyCache.RangedUnits.Contains(SNOID)) dUseKillRadius = 30;
+				if (dUseKillRadius <= 30 && ObjectCache.SNOCache.Units.RangedUnits.Contains(SNOID)) dUseKillRadius = 30;
 
 
 				// Bosses get extra radius

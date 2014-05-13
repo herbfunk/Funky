@@ -13,6 +13,9 @@ namespace FunkyBot.Cache.Avoidance
 
 		internal static readonly AvoidanceValue[] AvoidancesDefault =
 		  {
+			  new AvoidanceValue(AvoidanceType.AdriaArcanePool, 1, 12,15), 
+			  new AvoidanceValue(AvoidanceType.AdriaBlood, 1, 15,15), 
+
 			  new AvoidanceValue(AvoidanceType.ArcaneSentry, 1, 14,15), 
 			  new AvoidanceValue(AvoidanceType.AzmodanBodies, 1, 47,5),
 			  new AvoidanceValue(AvoidanceType.AzmodanFireball, 1, 16,5),
@@ -31,6 +34,11 @@ namespace FunkyBot.Cache.Avoidance
 			  new AvoidanceValue(AvoidanceType.GrotesqueExplosion, 0.50, 20,5),
 			  new AvoidanceValue(AvoidanceType.LacuniBomb, 0.25, 2,5),
 			  new AvoidanceValue(AvoidanceType.MageFirePool, 1, 10,5),
+
+			  new AvoidanceValue(AvoidanceType.MalthaelDeathFog, 1, 20,5),
+			  new AvoidanceValue(AvoidanceType.MalthaelDrainSoul, 0.75, 5,5),
+			  new AvoidanceValue(AvoidanceType.MalthaelLightning, 0.50, 8,5),
+
 			  new AvoidanceValue(AvoidanceType.MeteorImpact, 1, 14,5),
 			  new AvoidanceValue(AvoidanceType.MoltenCore, 1, 20,5),
 			  new AvoidanceValue(AvoidanceType.MoltenTrail, 0.75, 6,5),
@@ -76,6 +84,13 @@ namespace FunkyBot.Cache.Avoidance
 				  332923,
 				  //Teleport
 				  337109,
+
+				  335505, // x1_malthael_drainSoul_ghost
+				  325136, // x1_Malthael_DeathFogMonster
+				  340512, // x1_Malthael_Mephisto_LightningObject
+
+				  360738, // X1_Adria_arcanePool
+                  358404, // X1_Adria_blood_large
 			  };
 
 		// A list of SNO's that are projectiles (so constantly look for new locations while avoiding)
@@ -184,6 +199,16 @@ namespace FunkyBot.Cache.Avoidance
 					return AvoidanceType.BloodSpringLarge;
 				case 337109:
 					return AvoidanceType.Teleport;
+				case 335505:
+					return AvoidanceType.MalthaelDrainSoul;
+				case 325136:
+					return AvoidanceType.MalthaelDeathFog;
+				case 340512:
+					return  AvoidanceType.MalthaelLightning;
+				case 360738:
+					return AvoidanceType.AdriaArcanePool;
+				case 358404:
+					return AvoidanceType.AdriaBlood;
 			}
 			return AvoidanceType.None;
 		}

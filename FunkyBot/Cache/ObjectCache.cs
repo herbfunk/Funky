@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Collections.Generic;
 using FunkyBot.Cache.Avoidance;
+using FunkyBot.Cache.Dictionaries;
+using FunkyBot.Cache.Dictionaries.Objects;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Game;
@@ -11,6 +13,7 @@ using FunkyBot.Cache.Collections;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.SNO;
+using FunkyBot.Misc;
 
 namespace FunkyBot.Cache
 {
@@ -21,8 +24,7 @@ namespace FunkyBot.Cache
 	public static class ObjectCache
 	{
 		internal static CacheObject FakeCacheObject;
-		internal static CacheUnitIDs SnoUnitPropertyCache;
-		internal static CacheObjectIDs SnoObjectPropertyCache;
+		internal static SnoIDCache SNOCache; 
 
 		///<summary>
 		///Cached Objects.
@@ -38,6 +40,9 @@ namespace FunkyBot.Cache
 		///Cached Sno Data.
 		///</summary>
 		public static SnoCollection cacheSnoCollection = new SnoCollection();
+
+		//Used to log non-cached SNOs
+		internal static DebugData DebuggingData = new DebugData();
 
 	
 
@@ -190,7 +195,7 @@ namespace FunkyBot.Cache
 							else if (Bot.Character.Class.AC == ActorClass.Wizard)
 							{
 								//only count when range is within 45f (so we can summon a new one)
-								if (CacheIDLookup.hashWizHydras.Contains(tmp_CachedObj.SNOID) && tmp_CachedObj.CentreDistance <= 45f)
+								if (CacheIDLookup.hashWizHydras.Contains(tmp_CachedObj.SNOID) && tmp_CachedObj.CentreDistance <= 50f)
 									Bot.Character.Data.PetData.WizardHydra++;
 							}
 						}

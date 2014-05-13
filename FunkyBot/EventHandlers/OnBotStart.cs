@@ -1,4 +1,6 @@
-﻿using FunkyBot.Settings;
+﻿using FunkyBot.Cache;
+using FunkyBot.Misc;
+using FunkyBot.Settings;
 using Zeta.Bot;
 using Zeta.Bot.Navigation;
 using Zeta.Game;
@@ -33,11 +35,11 @@ namespace FunkyBot
 
 			Navigator.PlayerMover = new Funky.PlayerMover();
 			Navigator.StuckHandler = new TrinityStuckHandler();
-			GameEvents.OnPlayerDied += EventHandlers.FunkyOnDeath;
-			GameEvents.OnGameJoined += EventHandlers.FunkyOnJoinGame;
-			GameEvents.OnGameLeft += EventHandlers.FunkyOnLeaveGame;
-			GameEvents.OnGameChanged += EventHandlers.FunkyOnGameChanged;
-			ProfileManager.OnProfileLoaded += EventHandlers.FunkyOnProfileChanged;
+			GameEvents.OnPlayerDied += FunkyOnDeath;
+			GameEvents.OnGameJoined += FunkyOnJoinGame;
+			GameEvents.OnGameLeft += FunkyOnLeaveGame;
+			GameEvents.OnGameChanged += FunkyOnGameChanged;
+			ProfileManager.OnProfileLoaded += FunkyOnProfileChanged;
 
 			ITargetingProvider newCombatTargetingProvider = new TrinityCombatTargetingReplacer();
 			CombatTargeting.Instance.Provider = newCombatTargetingProvider;
@@ -58,10 +60,14 @@ namespace FunkyBot
 			bool isingame = ZetaDia.IsInGame;
 			if (isingame && !BotMain.IsRunning)
 			{
-				EventHandlers.FunkyOnGameChanged(null, null);
+				FunkyOnGameChanged(null, null);
 			}
 
-
+			if (Bot.Settings.Debug.DebuggingData)
+			{
+				Logger.DBLog.Debug("Loading Debugging Data from Xml");
+				ObjectCache.DebuggingData = DebugData.DeserializeFromXML();
+			}
 
 
 			Navigator.SearchGridProvider.Update();

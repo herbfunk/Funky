@@ -416,14 +416,16 @@ namespace FunkyBot.Player
 															   "Current Health={7} -- Current Energy={8}[{9}%] \r\n" +
 															   "Current Coin={10} -- CurrentXP={11} \r\n" +
 															   "Is In Boss Encounter={12}\r\n" +
-															   "SNOActor ID: {13} -- {14}",
+															   "SNOActor ID: {13} -- {14}" +
+																"\r\n{15}",
 															   iCurrentLevelID, iCurrentWorldID, iSceneID,
 															   Lastsnoanim.ToString(), lastAnimationState.ToString(),
 															   Bot.Character.Data.bIsIncapacitated.ToString(), Bot.Character.Data.bIsRooted.ToString(),
 															   dCurrentHealthPct, dCurrentEnergy, dCurrentEnergyPct,
 															   Coinage, CurrentExp,
 															   bIsInBossEncounter,
-															   ActorSno,SnoActor);
+															   ActorSno,SnoActor,
+															   PetData.DebugString());
 
 		}
 
@@ -561,6 +563,19 @@ namespace FunkyBot.Player
 				DemonHunterPet = 0;
 				WizardHydra = 0;
 				DemonHunterSpikeTraps = 0;
+			}
+
+			public string DebugString()
+			{
+				string PetString = "Pets\r\n";
+				if (MysticAlly > 0) PetString += "Mystic Ally: " + MysticAlly;
+				if (Gargantuan > 0) PetString += "Gargantuan: " + Gargantuan;
+				if (ZombieDogs > 0) PetString += "ZombieDogs: " + ZombieDogs;
+				if (DemonHunterPet > 0) PetString += "DemonHunterPet: " + DemonHunterPet;
+				if (WizardHydra > 0) PetString += "WizardHydra: " + WizardHydra;
+				if (DemonHunterSpikeTraps > 0) PetString += "DemonHunterSpikeTraps: " + DemonHunterSpikeTraps;
+
+				return PetString;
 			}
 
 		}

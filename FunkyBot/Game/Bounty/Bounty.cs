@@ -243,7 +243,9 @@ namespace FunkyBot.Game.Bounty
 					{
 						Logger.Write(LogLevel.Bounty, "Bounty Level ID Match (Kill) -- Disabling Cluster Logic and Enabling Navigation of Points!");
 						ProfileCache.ClusterSettingsTag = SettingCluster.DisabledClustering;
-						ShouldNavigateMinimapPoints = true;
+
+						//only enable when its the ending level.
+						ShouldNavigateMinimapPoints = CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID;
 					}
 					else
 					{

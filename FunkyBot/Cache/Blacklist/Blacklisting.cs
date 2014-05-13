@@ -11,7 +11,7 @@ namespace FunkyBot.Cache
 		// IGNORE LIST / BLACKLIST - for units / monsters / npcs
 		// Special blacklist for things like ravens, templar/scoundrel/enchantress in town, witch-doctor summons, tornado-animations etc. etc. that should never be attacked
 		// Note: This is a MONSTER blacklist - so only stuff that needs to be ignored by the combat-engine. An "object" blacklist is further down!
-		internal static readonly HashSet<int> hashActorSNOIgnoreBlacklist = new HashSet<int> { 
+		internal static readonly HashSet<int> BlacklistSnoIDs = new HashSet<int> { 
             5840, 111456, 5013, 5014, 205756, 205746, 4182, 4183, 4644, 4062, 4538, 52693, 162575, 2928, 51291, 51292, 
             96132, 90958, 90959, 80980, 51292, 51291, 2928, 3546,164195, 129345, 81857, 138428, 81857, 60583, 170038, 174854, 190390, 
             194263, 87189, 90072, 107031, 106584, 186130, 187265, 201426, 201242, 200969, 201423, 
@@ -28,19 +28,64 @@ namespace FunkyBot.Cache
 				316079,349943,369795,330082,308143,350072,330019,//crusader related
 				248990,249358,237062,
 				321855, 347223,
-        };
-
-		// IGNORE LIST / BLACKLIST - for world objects
-		// World objects that should always be ignored - eg certain destructables, certain containers, etc. - anything handled as a "world object" rather than a monster
-		internal static readonly HashSet<int> hashSNOIgnoreBlacklist = new HashSet<int> { 
-            163449, 78030, 2909, 58283, 58299, 58309, 58321, 87809, 88005, 90150, 91600, 97023, 97350, 97381, 72689, 121327, 54952, 54515, 3340, 122076, 123640, 
-            60665, 60844, 78554, 86400, 86428, 81699, 86266, 86400, 110769, 211456, 6190, 80002, 104596, 58836, 104827, 74909, 6155, 6156, 6158, 6159, 75132,
-            181504, 91688, 3007, 3011, 3014, 130858, 131573, 214396, 182730, 226087, 141639, 206569, 15119, 54413, 54926, 2979, 56416, 53802, 5776, 3949, 
-            108490, 52833, 3341, 4482, 188129, 188127, 55259, 54693, 3689, 131494, 3609, 225589, 171635, 3948,5739, 185949, 182697, 200371,
+				//hydras?
+				325815,325813,
+				54862,
+				163449, 78030, 2909, 58283, 58299, 58309, 58321, 87809, 88005, 90150, 91600, 97023, 97350, 97381, 72689, 121327, 54952, 54515, 3340, 122076, 123640, 
+				60665, 60844, 78554, 86400, 86428, 81699, 86266, 86400, 110769, 211456, 6190, 80002, 104596, 58836, 104827, 74909, 6155, 6156, 6158, 6159, 75132,
+				181504, 91688, 3007, 3011, 3014, 130858, 131573, 214396, 182730, 226087, 141639, 206569, 15119, 54413, 54926, 2979, 56416, 53802, 5776, 3949, 
+				108490, 52833, 3341, 4482, 188129, 188127, 55259, 54693, 3689, 131494, 3609, 225589, 171635, 3948,5739, 185949, 182697, 200371,
 				75023,54972,73260,172810,225567,225565, 225566, 
 				206461,61459,63114,53853,54331,53957,54379,199337,5900,5744,5902,85690,
-				182526,460,108266,56598,89503,118223,5906,
-         };
+				182526,460,108266,56598,89503,118223,5906,330629,
+				 /*
+             * A5
+             */
+
+            // Pandemonium Fortress
+            357297, // X1_Fortress_Rack_C
+            //374196, // X1_Fortress_Rack_C_Stump
+            357295, // X1_Fortress_Rack_B
+            //374195, // X1_Fortress_Rack_B_Stump
+            357299, // X1_Fortress_Rack_D
+            //374197, // X1_Fortress_Rack_D_Stump
+            357301, // X1_Fortress_Rack_E
+            //374198, // X1_Fortress_Rack_E_Stump
+            357306, // X1_Fortress_Rack_F
+            //374199, // X1_Fortress_Rack_F_Stump
+            365503, // X1_Fortress_FloatRubble_A
+            365739, // X1_Fortress_FloatRubble_F
+            365580, // X1_Fortress_FloatRubble_C
+            365611, // X1_Fortress_FloatRubble_E
+
+            284713, // x1_westmarch_rat_A
+            355365, // x1_Abattoir_furnaceWall
+
+            304313, // x1_abattoir_furnace_01 
+            375383, // x1_Abattoir_furnaceSpinner_Event_Phase2 -- this is a rotating avoidance, with a fire "beam" about 45f in length
+
+            265637, // x1_Catacombs_Weapon_Rack_Raise
+
+            321479, // x1_Westm_HeroWorship03_VO
+
+            328008, // X1_Westm_Door_Giant_Closed
+            312441, // X1_Westm_Door_Giant_Opening_Event
+
+            328942, // x1_Pand_Ext_ImperiusCharge_Barricade 
+            324867, // x1_Westm_DeathOrb_Caster_TEST
+            313302, // X1_Westm_Breakable_Wolf_Head_A
+
+            368268, // x1_Urzael_SoundSpawner
+            368626, // x1_Urzael_SoundSpawner
+            368599, // x1_Urzael_SoundSpawner
+            368621, // x1_Urzael_SoundSpawner
+
+            377253, // x1_Fortress_Crystal_Prison_Shield
+            316221, // X1_WarpToPortal 
+            370187, // x1_Malthael_Boss_Orb_Collapse
+            328830, // x1_Fortress_Portal_Switch
+        };
+
 
 		// When did we last clear the temporary blacklist?
 		private static DateTime dateSinceTemporaryBlacklistClear = DateTime.Today;
@@ -122,10 +167,7 @@ namespace FunkyBot.Cache
 		}
 		internal static bool IsSNOIDBlacklisted(int snoID)
 		{
-			if (hashActorSNOIgnoreBlacklist.Contains(snoID))
-				return true;
-
-			if (hashSNOIgnoreBlacklist.Contains(snoID))
+			if (BlacklistSnoIDs.Contains(snoID))
 				return true;
 
 			if (hashSNOTargetBlacklist.Contains(snoID))
@@ -147,7 +189,7 @@ namespace FunkyBot.Cache
 
 			if (blacklistSNOID)
 				//Blacklist SNO so we don't create it ever again!
-				hashActorSNOIgnoreBlacklist.Add(sno);
+				BlacklistSnoIDs.Add(sno);
 
 			if (removal)
 			{
@@ -173,7 +215,7 @@ namespace FunkyBot.Cache
 
 			if (blacklistSNOID)
 				//Blacklist SNO so we don't create it ever again!
-				hashActorSNOIgnoreBlacklist.Add(sno);
+				BlacklistSnoIDs.Add(sno);
 
 			if (removal)
 			{

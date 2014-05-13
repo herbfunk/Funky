@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CacheObjectIDs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<GizmoDataCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Doors>
     <int>5854</int>
     <int>454</int>
     <int>5767</int>
+    <int>230324</int>
+    <int>308241</int>
   </Doors>
   <ResplendantChests>
     <int>62873</int>
@@ -30,5 +32,7 @@
     <int>102079</int>
     <int>105754</int>
     <int>203608</int>
+    <int>93713</int>
+    <int>301177</int>
   </SpecialInteractables>
-</CacheObjectIDs>
+</GizmoDataCollection>

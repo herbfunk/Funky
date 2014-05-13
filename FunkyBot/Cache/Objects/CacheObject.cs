@@ -84,6 +84,7 @@ namespace FunkyBot.Cache.Objects
 			HandleAsAvoidanceObject = parent.HandleAsAvoidanceObject;
 			Properties = parent.Properties;
 		}
+
 		#endregion
 
 		public int? AcdGuid { get; set; }
