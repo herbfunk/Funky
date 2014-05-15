@@ -4,9 +4,10 @@ v2.10.1.0
 Settings:
 	Overhauled the Settings Window into a actual windows Form.. although it might be ugly, changes will be easy with the designer.
 	Added Keystone Fragments to Item Pickup settings.
+	Gold Inactivity set to Zero will no longer be tripped.
 
 Cache:
-	Added A5 Avodiances for Adria and Malthael.
+	Added A5 Avodiances for Adria and Malthael ground.
 	Added Trinties A5 Blacklisting IDs.
 	Merged the "Object" blacklist into a single collection.
 	Removed IgnoreLOSCheckSNO Collection, IgnoresLOSChecks are bosses only now!
@@ -15,15 +16,26 @@ Cache:
 	Event switches now capable of Line of Sight movement.
 	Fixed Adria not showing up as potential target.
 	Character Max Energy added to fix issue with DB max energy returning wrong values.
+	Added IsFriendly to CacheUnit and Hashset for NPC SNO's not to ignore.
+	Added IsVendorBought to ACDItem and Checks into Salvage/Sell routine.
+	
 
 Bounty:
 	Kill bounties will only navigate markers on last levels.
 	Added Act 5 Kill Bounties.
 	Added Profile Stat for # Completed Bounties.
 
+Skills:
+	Added ShouldTrack property to skill.
+	ShouldTrack will add/update entries on the object it was used for.
+	Witch Doctor: Modified Haunt, Lotus Swarm, Spirit Barge, Pirhanas, Zombie Dogs.
+
+Misc:
+	Act 5 Salvaging should not get stuck anymore when at stash.
+	
 Known Issues:
 	Mule behavior cannot change hero. (Demonbuddy function failure)
-
+	Avoidance during Malthael isn't working.
 
 
 v2.10.0.3

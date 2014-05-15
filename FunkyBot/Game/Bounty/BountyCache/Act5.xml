@@ -153,8 +153,18 @@
         <int>359722</int>
       </QuestSNOs>
     </BountyQuestCacheEntry>
+    <BountyQuestCacheEntry>
+      <Name>A5_Kill_PassageToCorvus</Name>
+      <Type>Kill</Type>
+      <StartingLevelAreaID>283553</StartingLevelAreaID>
+      <TotalKillCount>100</TotalKillCount>
+      <QuestSNOs>
+        <int>363000</int>
+        <int>359913</int>
+        <int>362996</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
     
-
   </KillBounties>
 
   <ClearBounties />
