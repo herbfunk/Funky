@@ -59,7 +59,7 @@ namespace FunkyBot
 			 {
 				 DBLog.DebugFormat("Failure to update CacheACDItem during Logging");
 			 }
-			 double iThisItemValue = Backpack.ValueThisItem(thisgooditem, thisgilesitemtype);
+			 double iThisItemValue = ItemFunc.ValueThisItem(thisgooditem, thisgilesitemtype);
 
 			 FileStream LogStream = null;
 			 try
@@ -185,8 +185,8 @@ namespace FunkyBot
 			 //if (!_hashsetItemPicksLookedAt.Contains(Bot.Targeting.Cache.CurrentTarget.RAGUID))
 			 //{
 			 CacheItem thisCacheItem = (CacheItem)Bot.Targeting.Cache.CurrentTarget;
-			 GilesItemType thisgilesitemtype = Backpack.DetermineItemType(thisCacheItem.InternalName, thisCacheItem.BalanceData.thisItemType, thisCacheItem.BalanceData.thisFollowerType);
-			 GilesBaseItemType thisgilesbasetype = Backpack.DetermineBaseType(thisgilesitemtype);
+			 GilesItemType thisgilesitemtype = ItemFunc.DetermineItemType(thisCacheItem.InternalName, thisCacheItem.BalanceData.thisItemType, thisCacheItem.BalanceData.thisFollowerType);
+			 GilesBaseItemType thisgilesbasetype = ItemFunc.DetermineBaseType(thisgilesitemtype);
 
 			 //Herbfunk -- Live loot stats keeping.
 			 Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.LootedItemLog(thisgilesitemtype, thisgilesbasetype, thisCacheItem.Itemquality.Value);

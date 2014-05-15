@@ -20,7 +20,7 @@ namespace FunkyBot.Cache.Objects
 
 		public GilesItemType GetGItemType(string internalName)
 		{
-			return Backpack.DetermineItemType(internalName, thisItemType, thisFollowerType);
+			return ItemFunc.DetermineItemType(internalName, thisItemType, thisFollowerType);
 		}
 
 		public CacheBalance(int balanceID, int itemlevel, ItemType itemtype, ItemBaseType itembasetype, bool onehand, bool twohand, FollowerType followertype)

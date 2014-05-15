@@ -108,7 +108,7 @@ namespace FunkyBot
 
 			// Out of combat buffing etc. but only if we don't want to return to town etc.
 			AnimationState myAnimationState = Bot.Character.Data.CurrentAnimationState;
-			if ((!Bot.Character.Data.bIsInTown || Bot.Settings.AllowBuffingInTown) &&
+			if ((!Bot.Character.Data.bIsInTown || Bot.Settings.General.AllowBuffingInTown) &&
 				 !TownRunManager.bWantToTownRun && !Bot.Game.Profile.IsRunningOOCBehavior &&
 				 myAnimationState != AnimationState.Attacking && myAnimationState != AnimationState.Casting && myAnimationState != AnimationState.Channeling)
 			{

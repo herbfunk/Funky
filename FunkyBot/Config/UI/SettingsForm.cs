@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using FunkyBot.Cache;
 using FunkyBot.Cache.Avoidance;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Cache.Objects;
+using FunkyBot.Config.Settings;
 using FunkyBot.DBHandlers;
-using FunkyBot.Settings;
 using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Config.UI
 {
@@ -47,7 +51,7 @@ namespace FunkyBot.Config.UI
 				cb_CombatAllowDefaultAttack.Checked=Bot.Settings.Combat.AllowDefaultAttackAlways;
 				cb_CombatAllowDefaultAttack.CheckedChanged += AllowDefaultAttackAlwaysChecked;
 
-				cb_MovementOutOfCombatSkills.Checked=Bot.Settings.OutOfCombatMovement;
+				cb_MovementOutOfCombatSkills.Checked=Bot.Settings.General.OutOfCombatMovement;
 				cb_MovementOutOfCombatSkills.CheckedChanged += OutOfCombatMovementChecked;
 
 				cb_ClusterTargetLogic.Checked = Bot.Settings.Cluster.EnableClusteringTargetLogic;
@@ -392,15 +396,15 @@ namespace FunkyBot.Config.UI
 
 				txt_GeneralGoldInactivityValue.Text = Bot.Settings.Plugin.GoldInactivityTimeoutSeconds.ToString();
 
-				cb_GeneralAllowBuffInTown.Checked = Bot.Settings.AllowBuffingInTown;
+				cb_GeneralAllowBuffInTown.Checked = Bot.Settings.General.AllowBuffingInTown;
 				cb_GeneralAllowBuffInTown.CheckedChanged += cb_GeneralAllowBuffInTown_CheckedChanged;
 
-				txt_GeneralEndOfCombatDelayValue.Text = Bot.Settings.AfterCombatDelay.ToString();
+				txt_GeneralEndOfCombatDelayValue.Text = Bot.Settings.General.AfterCombatDelay.ToString();
 				
-				tb_GeneralEndOfCombatDelayValue.Value = Bot.Settings.AfterCombatDelay;
+				tb_GeneralEndOfCombatDelayValue.Value = Bot.Settings.General.AfterCombatDelay;
 				tb_GeneralEndOfCombatDelayValue.ValueChanged += tb_GeneralEndOfCombatDelayValue_ValueChanged;
 
-				cb_GeneralApplyEndDelayToContainers.Checked = Bot.Settings.EnableWaitAfterContainers;
+				cb_GeneralApplyEndDelayToContainers.Checked = Bot.Settings.General.EnableWaitAfterContainers;
 				cb_GeneralApplyEndDelayToContainers.CheckedChanged += cb_GeneralApplyEndDelayToContainers_CheckedChanged;
 
 				cb_AdventureModeEnabled.Checked = Bot.Settings.AdventureMode.EnableAdventuringMode;
@@ -415,6 +419,9 @@ namespace FunkyBot.Config.UI
 				txt_TownRunBloodShardMinimumValue.Text = Bot.Settings.TownRun.MinimumBloodShards.ToString();
 				tb_TownRunBloodShardMinimumValue.Value = Bot.Settings.TownRun.MinimumBloodShards;
 				tb_TownRunBloodShardMinimumValue.ValueChanged += tb_TownRunBloodShardMinimumValue_ValueChanged;
+
+				cb_TownRunBuyPotions.Checked = Bot.Settings.TownRun.BuyPotionsDuringTownRun;
+				cb_TownRunBuyPotions.CheckedChanged += cb_TownRunBuyPotionsCheckedChanged;
 
 
 				bool noFlags = Bot.Settings.TownRun.BloodShardGambleItems.Equals(BloodShardGambleItems.None);
@@ -504,6 +511,10 @@ namespace FunkyBot.Config.UI
 
 				cb_LootInfernoKeys.Checked = Bot.Settings.Loot.PickupInfernalKeys;
 				cb_LootInfernoKeys.CheckedChanged += cb_LootInfernoKeys_CheckedChanged;
+
+				cb_LootExpBooks.Checked =Bot.Settings.Loot.ExpBooks;
+				cb_LootExpBooks.CheckedChanged += cb_LootExpBooks_CheckedChanged;
+				
 
 				cb_DebugDataLogging.Checked = Bot.Settings.Debug.DebuggingData;
 				cb_DebugDataLogging.CheckedChanged += cb_DebugDataLogging_CheckedChanged;
@@ -671,7 +682,7 @@ namespace FunkyBot.Config.UI
 		}
 		private void OutOfCombatMovementChecked(object sender, EventArgs e)
 		{
-			Bot.Settings.OutOfCombatMovement = !Bot.Settings.OutOfCombatMovement;
+			Bot.Settings.General.OutOfCombatMovement = !Bot.Settings.General.OutOfCombatMovement;
 		}
 
 		private void cb_ClusterTargetLogic_CheckedChanged(object sender, EventArgs e)
@@ -1093,20 +1104,20 @@ namespace FunkyBot.Config.UI
 
 		private void cb_GeneralAllowBuffInTown_CheckedChanged(object sender, EventArgs e)
 		{
-			Bot.Settings.AllowBuffingInTown=!Bot.Settings.AllowBuffingInTown;
+			Bot.Settings.General.AllowBuffingInTown=!Bot.Settings.General.AllowBuffingInTown;
 		}
 
 		private void tb_GeneralEndOfCombatDelayValue_ValueChanged(object sender, EventArgs e)
 		{
 			TrackBar slider_sender = (TrackBar)sender;
 			int Value = (int)slider_sender.Value;
-			Bot.Settings.AfterCombatDelay = Value;
+			Bot.Settings.General.AfterCombatDelay = Value;
 			txt_GeneralEndOfCombatDelayValue.Text = Value.ToString();
 		}
 
 		private void cb_GeneralApplyEndDelayToContainers_CheckedChanged(object sender, EventArgs e)
 		{
-			Bot.Settings.EnableWaitAfterContainers=!Bot.Settings.EnableWaitAfterContainers;
+			Bot.Settings.General.EnableWaitAfterContainers=!Bot.Settings.General.EnableWaitAfterContainers;
 		}
 
 		private void cb_AdventureModeEnabled_CheckedChanged(object sender, EventArgs e)
@@ -1230,6 +1241,10 @@ namespace FunkyBot.Config.UI
 		{
 			Bot.Settings.Loot.PickupInfernalKeys = !Bot.Settings.Loot.PickupInfernalKeys;
 		}
+		private void cb_LootExpBooks_CheckedChanged(object sender, EventArgs e)
+		{
+			Bot.Settings.Loot.ExpBooks = !Bot.Settings.Loot.ExpBooks;
+		}
 		private void GemQualityLevelChanged(object sender, EventArgs e)
 		{
 			ComboBox cbSender = (ComboBox)sender;
@@ -1251,7 +1266,10 @@ namespace FunkyBot.Config.UI
 		{
 			Bot.Settings.TownRun.EnableBloodShardGambling = !Bot.Settings.TownRun.EnableBloodShardGambling;
 		}
-
+		private void cb_TownRunBuyPotionsCheckedChanged(object sender, EventArgs e)
+		{
+			Bot.Settings.TownRun.BuyPotionsDuringTownRun = !Bot.Settings.TownRun.BuyPotionsDuringTownRun;
+		}
 		private void SettingsForm_FormClosing_1(object sender, FormClosingEventArgs e)
 		{
 			Settings_Funky.SerializeToXML(Bot.Settings);
@@ -1260,6 +1278,183 @@ namespace FunkyBot.Config.UI
 		private void SettingsForm_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			
+		}
+
+		private void btn_DumpObstacleCache_Click(object sender, EventArgs e)
+		{
+			LBDebug.Controls.Clear();
+			
+
+			try
+			{
+				LBDebug.Controls.Add(new UserControlDebugEntry(ObjectCache.Obstacles.DumpDebugInfo()));
+
+				Logger.DBLog.InfoFormat("Dumping Obstacle Cache");
+
+				var SortedValues = ObjectCache.Obstacles.Values.OrderBy(obj => obj.Obstacletype.Value).ThenBy(obj => obj.CentreDistance);
+				foreach (var item in ObjectCache.Obstacles)
+				{
+					LBDebug.Controls.Add(new UserControlDebugEntry(item.Value.DebugString));
+				}
+			}
+			catch
+			{
+
+				LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Modification Exception"));
+			}
+
+		}
+
+		private void btn_DumpSNOCache_Click(object sender, EventArgs e)
+		{
+			LBDebug.Controls.Clear();
+		
+			try
+			{
+				LBDebug.Controls.Add(new UserControlDebugEntry(ObjectCache.cacheSnoCollection.DumpDebugInfo()));
+
+				Logger.DBLog.InfoFormat("Dumping SNO Cache");
+
+				foreach (var item in ObjectCache.cacheSnoCollection)
+				{
+					LBDebug.Controls.Add(new UserControlDebugEntry(item.Value.DebugString));
+				}
+			}
+			catch
+			{
+
+				LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Modification Exception"));
+			}
+		}
+
+		private void btn_DumpCharacterCache_Click(object sender, EventArgs e)
+		{
+			LBDebug.Controls.Clear();
+			try
+			{
+				Logger.DBLog.InfoFormat("Dumping Character Cache");
+
+				LBDebug.Controls.Add(new UserControlDebugEntry(Bot.Character.Data.DebugString()));
+
+			}
+			catch (Exception ex)
+			{
+				Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
+			}
+		}
+
+		private void btn_DumpTargetingCache_Click(object sender, EventArgs e)
+		{
+			LBDebug.Controls.Clear();
+			try
+			{
+				LBDebug.Controls.Add(new UserControlDebugEntry(Bot.Targeting.Cache.DebugString()));
+			}
+			catch (Exception ex)
+			{
+				Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
+			}
+		}
+
+		private void btn_DumpSkillsCache_Click(object sender, EventArgs e)
+		{
+			LBDebug.Controls.Clear();
+			try
+			{
+				if (Bot.Character.Class == null) return;
+
+				LBDebug.Controls.Add(new UserControlDebugEntry("==Current HotBar Abilities=="));
+				foreach (var item in Bot.Character.Class.Abilities.Values)
+				{
+					try
+					{
+						LBDebug.Controls.Add(new UserControlDebugEntry(item.DebugString()));
+					}
+					catch (Exception ex)
+					{
+						Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
+					}
+				}
+
+				LBDebug.Controls.Add(new UserControlDebugEntry("==Cached HotBar Abilities=="));
+				foreach (var item in Bot.Character.Class.HotBar.CachedPowers)
+				{
+					try
+					{
+						LBDebug.Controls.Add(new UserControlDebugEntry(item.ToString()));
+					}
+					catch (Exception ex)
+					{
+						Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
+					}
+				}
+
+				LBDebug.Controls.Add(new UserControlDebugEntry("==Buffs=="));
+				foreach (var item in Bot.Character.Class.HotBar.CurrentBuffs.Keys)
+				{
+
+					string Power = Enum.GetName(typeof(SNOPower), item);
+					try
+					{
+						LBDebug.Controls.Add(new UserControlDebugEntry(Power));
+					}
+					catch (Exception ex)
+					{
+						Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
+					}
+				}
+
+			}
+			catch (Exception ex)
+			{
+				Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
+			}
+		}
+
+		private void btn_DumpBountyCache_Click(object sender, EventArgs e)
+		{
+			LBDebug.Controls.Clear();
+			try
+			{
+				LBDebug.Controls.Add(new UserControlDebugEntry(Bot.Game.Bounty.DebugString()));
+			}
+			catch (Exception ex)
+			{
+				Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
+			}
+		}
+
+		private void btn_DumpObjectCache_Click(object sender, EventArgs e)
+		{
+			LBDebug.Controls.Clear();
+			try
+			{
+
+				string OutPut = ObjectCache.Objects.DumpDebugInfo();
+				LBDebug.Controls.Add(new UserControlDebugEntry(OutPut));
+
+				var SortedValues = ObjectCache.Objects.Values.OrderBy(obj => obj.targetType.Value).ThenBy(obj => obj.CentreDistance);
+				foreach (var item in SortedValues)
+				{
+					string objDebugStr = item.DebugString;
+					Color foreColor = (item is CacheItem) ? Color.Black : Color.GhostWhite;
+					Color backColor = (item is CacheDestructable) ? Color.DarkSlateGray
+								: (item is CacheUnit) ? Color.MediumSeaGreen
+								: (item is CacheItem) ? Color.Gold
+								: (item is CacheInteractable) ? Color.DimGray
+								: Color.Gray;
+
+					UserControlDebugEntry entry = new UserControlDebugEntry(objDebugStr, foreColor, backColor);
+					LBDebug.Controls.Add(entry);
+
+				}
+
+			}
+			catch 
+			{
+				LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Modification Exception"));
+			}
+
 		}
 
 

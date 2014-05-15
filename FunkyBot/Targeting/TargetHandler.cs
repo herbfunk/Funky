@@ -216,7 +216,7 @@ namespace FunkyBot.Targeting
 					}
 
 					//We Rechecked Max Confirmation Checking Count, now we check if we want to retry confirmation, or simply try once more then ignore for a few.
-					bool stackableItem = Backpack.DetermineIsStackable(thisObjItem.BalanceData.GetGItemType(thisObjItem.InternalName));
+					bool stackableItem = ItemFunc.DetermineIsStackable(thisObjItem.BalanceData.GetGItemType(thisObjItem.InternalName));
 					if (thisObjItem.Itemquality.Value > ItemQuality.Magic3 || stackableItem)
 					{
 						//Items above rare quality don't get blacklisted, just ignored for a few loops.

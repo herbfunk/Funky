@@ -1,6 +1,6 @@
-﻿using FunkyBot.DBHandlers;
+﻿using FunkyBot.Config.Settings;
+using FunkyBot.DBHandlers;
 using FunkyBot.Movement;
-using FunkyBot.Settings;
 using FunkyBot.Targeting;
 using FunkyBot.Player;
 using FunkyBot.Game;

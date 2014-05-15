@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Web.Profile;
 using FunkyBot.Game;
-using FunkyBot.Settings;
 using Zeta.Bot.Profile;
 using Zeta.Bot.Settings;
 using Zeta.Game.Internals;

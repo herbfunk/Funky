@@ -24,7 +24,7 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckCanCast));
 
 			IsBuff = true;
-			FcriteriaBuff = () => Bot.Settings.OutOfCombatMovement;
+			FcriteriaBuff = () => Bot.Settings.General.OutOfCombatMovement;
 
 			FCombatMovement = (v) =>
 			{

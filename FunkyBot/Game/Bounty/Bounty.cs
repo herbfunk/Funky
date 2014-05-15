@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FunkyBot.Settings;
+using FunkyBot.Config.Settings;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals;

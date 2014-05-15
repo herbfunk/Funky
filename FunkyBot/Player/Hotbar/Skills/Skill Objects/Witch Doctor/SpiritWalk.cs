@@ -22,7 +22,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckEnergy|SkillPrecastFlags.CheckCanCast));
 
 				IsBuff=true;
-				FcriteriaBuff=() => Bot.Settings.OutOfCombatMovement;
+				FcriteriaBuff=() => Bot.Settings.General.OutOfCombatMovement;
 
 				FCombatMovement = (v) =>
 				{

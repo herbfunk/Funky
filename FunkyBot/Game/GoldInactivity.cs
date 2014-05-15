@@ -26,6 +26,8 @@ namespace FunkyBot.Game
 
 		public void CheckTimeoutTripped()
 		{
+			if (Bot.Settings.Plugin.GoldInactivityTimeoutSeconds == 0) return;
+
 			double lastCoinageChange = DateTime.Now.Subtract(LastCoinageUpdate).TotalSeconds;
 			if (lastCoinageChange > 5)
 			{

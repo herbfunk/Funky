@@ -25,9 +25,9 @@ namespace FunkyBot.Targeting.Behaviors
 				if (obj == null)
 				{
 					// See if we should wait for milliseconds for possible loot drops before continuing run
-					if (DateTime.Now.Subtract(Bot.Targeting.Cache.lastHadUnitInSights).TotalMilliseconds <= Bot.Settings.AfterCombatDelay && DateTime.Now.Subtract(Bot.Targeting.Cache.lastHadEliteUnitInSights).TotalMilliseconds <= 10000 ||
+					if (DateTime.Now.Subtract(Bot.Targeting.Cache.lastHadUnitInSights).TotalMilliseconds <= Bot.Settings.General.AfterCombatDelay && DateTime.Now.Subtract(Bot.Targeting.Cache.lastHadEliteUnitInSights).TotalMilliseconds <= 10000 ||
 						//Cut the delay time in half for non-elite monsters!
-						DateTime.Now.Subtract(Bot.Targeting.Cache.lastHadUnitInSights).TotalMilliseconds <= Bot.Settings.AfterCombatDelay)
+						DateTime.Now.Subtract(Bot.Targeting.Cache.lastHadUnitInSights).TotalMilliseconds <= Bot.Settings.General.AfterCombatDelay)
 					{
 						obj = new CacheObject(Bot.Character.Data.Position, TargetType.NoMovement, 20000, "WaitForLootDrops", 2f, -1);
 						return true;
@@ -35,7 +35,7 @@ namespace FunkyBot.Targeting.Behaviors
 					}
 					//Herbfunks wait after loot containers are opened. 3s for rare chests, half the settings delay for everything else.
 					if ((DateTime.Now.Subtract(Bot.Targeting.Cache.lastHadRareChestAsTarget).TotalMilliseconds <= 3750) ||
-						(DateTime.Now.Subtract(Bot.Targeting.Cache.lastHadContainerAsTarget).TotalMilliseconds <= (Bot.Settings.AfterCombatDelay * 1.25)))
+						(DateTime.Now.Subtract(Bot.Targeting.Cache.lastHadContainerAsTarget).TotalMilliseconds <= (Bot.Settings.General.AfterCombatDelay * 1.25)))
 					{
 						obj = new CacheObject(Bot.Character.Data.Position, TargetType.NoMovement, 20000, "ContainerLootDropsWait", 2f, -1);
 						return true;

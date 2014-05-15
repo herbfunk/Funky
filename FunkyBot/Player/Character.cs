@@ -61,7 +61,7 @@ namespace FunkyBot.Player
 				{
 					//Use Giles Scoring or DB Weighting..
 					item.ShouldPickup =
-						   Bot.Settings.ItemRules.ItemRuleGilesScoring ? Backpack.GilesPickupItemValidation(item)
+						   Bot.Settings.ItemRules.ItemRuleGilesScoring ? ItemFunc.PickupItemValidation(item)
 						 : ItemManager.Current.EvaluateItem(item.ref_DiaItem.CommonData, ItemEvaluationType.PickUp); ;
 				}
 			}

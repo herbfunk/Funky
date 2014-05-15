@@ -1,7 +1,7 @@
 using System.IO;
 using System.Xml.Serialization;
 
-namespace FunkyBot.Settings
+namespace FunkyBot.Config.Settings
 {
 	public class SettingLoot
 	{
@@ -39,7 +39,8 @@ namespace FunkyBot.Settings
 		public bool PickupInfernalKeys { get; set; }
 		public bool PickupDemonicEssence { get; set; }
 		public bool PickupCraftMaterials { get; set; }
-		public int MiscItemLevel { get; set; }
+
+		public bool ExpBooks { get; set; }
 
 		public SettingLoot()
 		{
@@ -69,10 +70,11 @@ namespace FunkyBot.Settings
 			PickupDemonicEssence=true;
 			PickupFollowerItems=true;
 			PickupCraftMaterials=true;
-			MiscItemLevel=0;
+
 			MinimumGemItemLevel=67;
 			PickupGems = new bool[] { true, true, true, true, true };
 			PickupGemDiamond = true;
+			ExpBooks = true;
 		}
 
 		private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Loot_Default.xml");

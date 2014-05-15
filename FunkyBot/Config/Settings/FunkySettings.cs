@@ -1,10 +1,10 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
 using FunkyBot.Cache.Avoidance;
+using FunkyBot.Config.Settings.Class;
 using Zeta.Game;
 
-
-namespace FunkyBot.Settings
+namespace FunkyBot.Config.Settings
 {
 
 	public class Settings_Funky
@@ -16,51 +16,15 @@ namespace FunkyBot.Settings
 		public SettingCombat Combat { get; set; }
 		public SettingAvoidance Avoidance { get; set; }
 		public SettingBacktrack Backtracking { get; set; }
-
-
-		public bool BuyPotionsDuringTownRun { get; set; }
-		public bool EnableWaitAfterContainers { get; set; }
-
-
-		//Character Related
-
-
 		public SettingFleeing Fleeing { get; set; }
-
-		//public int FleeDistance { get; set; }
-
-
 		public SettingGrouping Grouping { get; set; }
-
-
-
-
-		public int AfterCombatDelay { get; set; }
-
-
-		public bool OutOfCombatMovement { get; set; }
-		public bool AllowBuffingInTown { get; set; }
-
-
-
+		public SettingGeneral General { get; set; }
 		public SettingItemRules ItemRules { get; set; }
 		public SettingLoot Loot { get; set; }
 		public SettingRanges Ranges { get; set; }
-
-
-
-
-
-
-
-
 		public SettingCluster Cluster { get; set; }
-
 		public SettingLOSMovement LOSMovement { get; set; }
-
 		public SettingPlugin Plugin { get; set; }
-
-
 		public SettingBarbarian Barbarian { get; set; }
 		public SettingDemonHunter DemonHunter { get; set; }
 		public SettingMonk Monk { get; set; }
@@ -69,6 +33,7 @@ namespace FunkyBot.Settings
 
 		public Settings_Funky()
 		{
+			General = new SettingGeneral();
 			TownRun = new SettingTownRun();
 			AdventureMode=new SettingAdventureMode();
 			Debug = new SettingDebug();
@@ -84,16 +49,9 @@ namespace FunkyBot.Settings
 			LOSMovement = new SettingLOSMovement();
 			Plugin = new SettingPlugin();
 			Backtracking = new SettingBacktrack();
-
-
-			BuyPotionsDuringTownRun = false;
-			EnableWaitAfterContainers = false;
-
-			AfterCombatDelay = 500;
-			OutOfCombatMovement = false;
-			AllowBuffingInTown = false;
-
 			
+
+
 			CreateClassSettings();
 
 		}
@@ -124,65 +82,6 @@ namespace FunkyBot.Settings
 						Wizard = new SettingWizard();
 						break;
 				}
-			}
-		}
-
-		//TODO:: Create Abstract Base Class and Derieved Classes for each D3 Class.
-		public class ClassSettings
-		{
-			//barb
-			public bool bSelectiveWhirlwind { get; set; }
-			public bool bWaitForWrath { get; set; }
-			public bool bGoblinWrath { get; set; }
-			public bool bFuryDumpWrath { get; set; }
-			public bool bFuryDumpAlways { get; set; }
-			public bool bBarbUseWOTBAlways { get; set; }
-			//DH
-			public int iDHVaultMovementDelay { get; set; }
-
-			//Monk
-			public bool bMonkInnaSet { get; set; }
-			public bool bMonkSpamMantra { get; set; }
-			public bool bMonkComboStrike { get; set; }
-			public int iMonkComboStrikeAbilities { get; set; }
-			public bool bMonkMaintainSweepingWind { get; set; }
-
-			//Wiz
-			public bool bWaitForArchon { get; set; }
-			public bool bKiteOnlyArchon { get; set; }
-			public bool bCancelArchonRebuff { get; set; }
-			public bool bTeleportIntoGrouping { get; set; }
-			public bool bTeleportFleeWhenLowHP { get; set; }
-
-			//WD+Wiz
-			//public bool bEnableCriticalMass { get; set; }
-
-			//Range Class
-			public int GoblinMinimumRange { get; set; }
-			//Combat All Class
-			public bool AllowDefaultAttackAlways { get; set; }
-
-			public ClassSettings()
-			{
-				bTeleportIntoGrouping = false;
-				bTeleportFleeWhenLowHP = true;
-				bCancelArchonRebuff = false;
-				bBarbUseWOTBAlways = false;
-				bSelectiveWhirlwind = false;
-				bWaitForWrath = false;
-				bGoblinWrath = false;
-				bFuryDumpWrath = false;
-				bFuryDumpAlways = false;
-				iDHVaultMovementDelay = 400;
-				bMonkInnaSet = false;
-				bMonkSpamMantra = false;
-				bMonkComboStrike = false;
-				bMonkMaintainSweepingWind = false;
-				iMonkComboStrikeAbilities = 0;
-				bWaitForArchon = false;
-				bKiteOnlyArchon = true;
-				GoblinMinimumRange = 40;
-				AllowDefaultAttackAlways = false;
 			}
 		}
 

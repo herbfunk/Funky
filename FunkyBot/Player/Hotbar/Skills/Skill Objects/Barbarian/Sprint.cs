@@ -24,9 +24,9 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				                          SkillPrecastFlags.CheckPlayerIncapacitated));
 
 				IsBuff=true;
-				FcriteriaBuff=() => Bot.Settings.OutOfCombatMovement&&!Bot.Character.Class.HotBar.HasBuff(Power);
+				FcriteriaBuff=() => Bot.Settings.General.OutOfCombatMovement&&!Bot.Character.Class.HotBar.HasBuff(Power);
 
-				FcriteriaCombat=() => (!Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_Sprint)&&Bot.Settings.OutOfCombatMovement)||
+				FcriteriaCombat=() => (!Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_Sprint)&&Bot.Settings.General.OutOfCombatMovement)||
 				                      (((Bot.Settings.Barbarian.bFuryDumpWrath&&Bot.Character.Data.dCurrentEnergyPct>=0.95&&
 				                         Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))||
 				                        (Bot.Settings.Barbarian.bFuryDumpAlways&&Bot.Character.Data.dCurrentEnergyPct>=0.95)||

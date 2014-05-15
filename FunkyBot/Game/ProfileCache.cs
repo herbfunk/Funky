@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using FunkyBot.Cache.Objects;
-using FunkyBot.Settings;
+using FunkyBot.Config.Settings;
 using FunkyBot.XMLTags;
 using Zeta.Bot;
 using Zeta.Bot.Profile;

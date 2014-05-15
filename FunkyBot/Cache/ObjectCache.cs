@@ -101,9 +101,8 @@ namespace FunkyBot.Cache
 						#endregion
 
 
-						//check our SNO blacklist
-						if (BlacklistCache.IsSNOIDBlacklisted(tmp_SNOID) 
-							&& !CacheIDLookup.hashSummonedPets.Contains(tmp_SNOID)) continue;
+						//check our SNO blacklist (exclude pets?)
+						if (BlacklistCache.IsSNOIDBlacklisted(tmp_SNOID) && !CacheIDLookup.hashSummonedPets.Contains(tmp_SNOID)) continue;
 
 
 						#region Position
@@ -131,7 +130,6 @@ namespace FunkyBot.Cache
 						}
 
 						#endregion
-
 
 
 						tmp_CachedObj = new CacheObject(tmp_SNOID, tmp_raGUID, tmp_acdguid, tmp_position);
@@ -322,7 +320,8 @@ namespace FunkyBot.Cache
 					}
 
 					if (tmp_CachedObj.ObjectShouldBeRecreated)
-					{
+					{//This is where we create the real object after its done with SNO Update.
+
 						//Specific updates
 						if (tmp_CachedObj.Actortype.Value == ActorType.Item)
 						{
@@ -341,7 +340,7 @@ namespace FunkyBot.Cache
 								tmp_CachedObj = new CacheDestructable(tmp_CachedObj);
 						}
 
-						//Update Properties
+						//Update Properties (currently only for units)
 						tmp_CachedObj.UpdateProperties();
 					}
 

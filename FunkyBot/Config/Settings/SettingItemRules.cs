@@ -1,7 +1,7 @@
 using System.IO;
 using System.Xml.Serialization;
 
-namespace FunkyBot.Settings
+namespace FunkyBot.Config.Settings
 {
 	public class SettingItemRules
 	{
@@ -21,7 +21,7 @@ namespace FunkyBot.Settings
 		{
 			ItemRuleDebug=false;
 			ItemRuleUseItemIDs=false;
-			ItemRuleType="hard";
+			ItemRuleType="Hard";
 			ItemRuleLogKeep="Rare";
 			ItemRuleLogPickup="Rare";
 			ItemRuleGilesScoring=true;

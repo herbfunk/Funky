@@ -57,7 +57,7 @@ namespace FunkyBot.DBHandlers
 							continue;
 						}
 
-						if (Bot.Settings.ItemRules.ItemRulesSalvaging)
+						if (Bot.Settings.ItemRules.ItemRulesSalvaging && !thisitem.IsVendorBought)
 							if (Bot.Character.ItemRulesEval.checkSalvageItem(thisitem.ACDItem) == Interpreter.InterpreterAction.SALVAGE)
 								continue;
 
@@ -77,7 +77,7 @@ namespace FunkyBot.DBHandlers
 
 						//Logger.DBLog.InfoFormat("GilesTrinityScoring == "+Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring.ToString());
 
-						bool bShouldSellThis = Bot.Settings.ItemRules.ItemRuleGilesScoring ? Backpack.GilesSellValidation(thisitem.ThisInternalName, thisitem.ThisLevel, thisitem.ThisQuality, thisitem.ThisDBItemType, thisitem.ThisFollowerType) : ItemManager.Current.ShouldSellItem(thisitem.ACDItem);
+						bool bShouldSellThis = Bot.Settings.ItemRules.ItemRuleGilesScoring ? ItemFunc.SellValidation(thisitem.ThisInternalName, thisitem.ThisLevel, thisitem.ThisQuality, thisitem.ThisDBItemType, thisitem.ThisFollowerType) : ItemManager.Current.ShouldSellItem(thisitem.ACDItem);
 
 						if (bShouldSellThis)
 						{
@@ -234,13 +234,13 @@ namespace FunkyBot.DBHandlers
 				// Item log for cool stuff sold
 				if (thisitem != null)
 				{
-					GilesItemType OriginalGilesItemType = Backpack.DetermineItemType(thisitem.ThisInternalName, thisitem.ThisDBItemType, thisitem.ThisFollowerType);
-					GilesBaseItemType thisGilesBaseType = Backpack.DetermineBaseType(OriginalGilesItemType);
+					GilesItemType OriginalGilesItemType = ItemFunc.DetermineItemType(thisitem.ThisInternalName, thisitem.ThisDBItemType, thisitem.ThisFollowerType);
+					GilesBaseItemType thisGilesBaseType = ItemFunc.DetermineBaseType(OriginalGilesItemType);
 					if (thisGilesBaseType == GilesBaseItemType.WeaponTwoHand || thisGilesBaseType == GilesBaseItemType.WeaponOneHand || thisGilesBaseType == GilesBaseItemType.WeaponRange ||
 						 thisGilesBaseType == GilesBaseItemType.Armor || thisGilesBaseType == GilesBaseItemType.Jewelry || thisGilesBaseType == GilesBaseItemType.Offhand ||
 						 thisGilesBaseType == GilesBaseItemType.FollowerItem)
 					{
-						double iThisItemValue = Backpack.ValueThisItem(thisitem, OriginalGilesItemType);
+						double iThisItemValue = ItemFunc.ValueThisItem(thisitem, OriginalGilesItemType);
 						Logger.LogJunkItems(thisitem, thisGilesBaseType, OriginalGilesItemType, iThisItemValue);
 					}
 					Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.VendoredItemLog(thisitem);
@@ -255,7 +255,7 @@ namespace FunkyBot.DBHandlers
 
 			#region BuyPotion
 			//Check if settings for potion buy is enabled, with less than 99 potions existing!
-			if (Bot.Settings.BuyPotionsDuringTownRun && Bot.Character.Data.iTotalPotions < Bot.Settings.Loot.MaximumHealthPotions &&
+			if (Bot.Settings.TownRun.BuyPotionsDuringTownRun && Bot.Character.Data.iTotalPotions < Bot.Settings.Loot.MaximumHealthPotions &&
 				 !PotionCheck)
 			{
 				//Obey the timer, so we don't buy 100 potions in 3 seconds.

@@ -1,8 +1,8 @@
-using FunkyBot.Movement.Clustering;
 using System.IO;
 using System.Xml.Serialization;
+using FunkyBot.Movement.Clustering;
 
-namespace FunkyBot.Settings
+namespace FunkyBot.Config.Settings
 {
 	public class SettingGrouping
 	{

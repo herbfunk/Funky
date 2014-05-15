@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
-using FunkyBot.Settings;
+using FunkyBot.Config.Settings;
 using Zeta.Bot;
 using Zeta.Bot.Settings;
 using Zeta.Game;

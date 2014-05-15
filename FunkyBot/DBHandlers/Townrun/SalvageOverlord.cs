@@ -40,7 +40,7 @@ namespace FunkyBot.DBHandlers
 					// Find out if this item's in a protected bag slot
 					if (!ItemManager.Current.ItemIsProtected(thisitem.ACDItem))
 					{
-						if (thisitem.ThisDBItemType == ItemType.Potion) continue;
+						if (thisitem.ThisDBItemType == ItemType.Potion || thisitem.IsVendorBought) continue;
 
 						if (Bot.Settings.ItemRules.ItemRulesSalvaging)
 						{
@@ -171,13 +171,13 @@ namespace FunkyBot.DBHandlers
 				if (thisitem != null)
 				{
 					// Item log for cool stuff stashed
-					GilesItemType OriginalGilesItemType = Backpack.DetermineItemType(thisitem.ThisInternalName, thisitem.ThisDBItemType, thisitem.ThisFollowerType);
-					GilesBaseItemType thisGilesBaseType = Backpack.DetermineBaseType(OriginalGilesItemType);
+					GilesItemType OriginalGilesItemType = ItemFunc.DetermineItemType(thisitem.ThisInternalName, thisitem.ThisDBItemType, thisitem.ThisFollowerType);
+					GilesBaseItemType thisGilesBaseType = ItemFunc.DetermineBaseType(OriginalGilesItemType);
 					if (thisGilesBaseType == GilesBaseItemType.WeaponTwoHand || thisGilesBaseType == GilesBaseItemType.WeaponOneHand || thisGilesBaseType == GilesBaseItemType.WeaponRange ||
 						 thisGilesBaseType == GilesBaseItemType.Armor || thisGilesBaseType == GilesBaseItemType.Jewelry || thisGilesBaseType == GilesBaseItemType.Offhand ||
 						 thisGilesBaseType == GilesBaseItemType.FollowerItem)
 					{
-						double iThisItemValue = Backpack.ValueThisItem(thisitem, OriginalGilesItemType);
+						double iThisItemValue = ItemFunc.ValueThisItem(thisitem, OriginalGilesItemType);
 						Logger.LogJunkItems(thisitem, thisGilesBaseType, OriginalGilesItemType, iThisItemValue);
 					}
 					Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.SalvagedItemLog(thisitem);

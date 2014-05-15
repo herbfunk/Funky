@@ -1,4 +1,4 @@
-﻿namespace FunkyBot.Settings
+﻿namespace FunkyBot.Config.Settings
 {
     public class SettingLOSMovement
     {

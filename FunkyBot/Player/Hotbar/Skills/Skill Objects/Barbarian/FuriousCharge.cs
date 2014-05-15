@@ -32,7 +32,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				FCombatMovement=v =>
 				{
 					float fDistanceFromTarget=Bot.Character.Data.Position.Distance(v);
-					if (Bot.Settings.OutOfCombatMovement && !Bot.Character.Class.bWaitingForSpecial&&Funky.Difference(Bot.Character.Data.Position.Z, v.Z)<=4&&fDistanceFromTarget>=20f)
+					if (Bot.Settings.General.OutOfCombatMovement && !Bot.Character.Class.bWaitingForSpecial&&Funky.Difference(Bot.Character.Data.Position.Z, v.Z)<=4&&fDistanceFromTarget>=20f)
 					{
 						if (fDistanceFromTarget>35f)
 							return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 35f);

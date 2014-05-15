@@ -6,7 +6,7 @@ using FunkyBot.Cache;
 using FunkyBot.Cache.Dictionaries.Objects;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
-using FunkyBot.Settings;
+using FunkyBot.Config.Settings;
 using Zeta.Bot;
 using Zeta.Bot.Logic;
 using Zeta.Bot.Navigation;

@@ -1,7 +1,7 @@
 using System.IO;
 using System.Xml.Serialization;
 
-namespace FunkyBot.Settings
+namespace FunkyBot.Config.Settings
 {
 	public class SettingFleeing
 	{

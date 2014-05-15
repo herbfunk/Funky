@@ -62,13 +62,13 @@
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panel1.Location = new System.Drawing.Point(0, 0);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(604, 114);
+			this.panel1.Size = new System.Drawing.Size(604, 74);
 			this.panel1.TabIndex = 0;
 			// 
 			// tb_Weight
 			// 
 			this.tb_Weight.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.tb_Weight.Location = new System.Drawing.Point(551, 69);
+			this.tb_Weight.Location = new System.Drawing.Point(555, 36);
 			this.tb_Weight.Name = "tb_Weight";
 			this.tb_Weight.ReadOnly = true;
 			this.tb_Weight.Size = new System.Drawing.Size(35, 23);
@@ -77,25 +77,25 @@
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(392, 53);
+			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.Location = new System.Drawing.Point(398, 20);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(41, 13);
+			this.label4.Size = new System.Drawing.Size(52, 17);
 			this.label4.TabIndex = 18;
 			this.label4.Text = "Weight";
 			// 
 			// trackbar_Weight
 			// 
-			this.trackbar_Weight.Location = new System.Drawing.Point(395, 69);
+			this.trackbar_Weight.Location = new System.Drawing.Point(401, 31);
 			this.trackbar_Weight.Maximum = 20;
 			this.trackbar_Weight.Name = "trackbar_Weight";
 			this.trackbar_Weight.Size = new System.Drawing.Size(161, 42);
 			this.trackbar_Weight.TabIndex = 17;
-			//this.trackbar_Weight.ValueChanged += new System.EventHandler(this.trackbar_Weight_ValueChanged);
 			// 
 			// tb_Health
 			// 
 			this.tb_Health.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.tb_Health.Location = new System.Drawing.Point(354, 69);
+			this.tb_Health.Location = new System.Drawing.Point(360, 36);
 			this.tb_Health.Name = "tb_Health";
 			this.tb_Health.ReadOnly = true;
 			this.tb_Health.Size = new System.Drawing.Size(35, 23);
@@ -104,28 +104,28 @@
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(202, 53);
+			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label3.Location = new System.Drawing.Point(199, 20);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(38, 13);
+			this.label3.Size = new System.Drawing.Size(49, 17);
 			this.label3.TabIndex = 15;
 			this.label3.Text = "Health";
 			// 
 			// trackbar_Health
 			// 
 			this.trackbar_Health.LargeChange = 10;
-			this.trackbar_Health.Location = new System.Drawing.Point(198, 69);
+			this.trackbar_Health.Location = new System.Drawing.Point(202, 31);
 			this.trackbar_Health.Maximum = 100;
 			this.trackbar_Health.Name = "trackbar_Health";
 			this.trackbar_Health.Size = new System.Drawing.Size(161, 42);
 			this.trackbar_Health.SmallChange = 5;
 			this.trackbar_Health.TabIndex = 14;
 			this.trackbar_Health.TickFrequency = 10;
-			//this.trackbar_Health.ValueChanged += new System.EventHandler(this.trackbar_Health_ValueChanged);
 			// 
 			// tb_Radius
 			// 
 			this.tb_Radius.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.tb_Radius.Location = new System.Drawing.Point(157, 69);
+			this.tb_Radius.Location = new System.Drawing.Point(161, 36);
 			this.tb_Radius.Name = "tb_Radius";
 			this.tb_Radius.ReadOnly = true;
 			this.tb_Radius.Size = new System.Drawing.Size(35, 23);
@@ -134,21 +134,21 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(4, 53);
+			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label2.Location = new System.Drawing.Point(4, 20);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(40, 13);
+			this.label2.Size = new System.Drawing.Size(52, 17);
 			this.label2.TabIndex = 12;
 			this.label2.Text = "Radius";
 			// 
 			// trackbar_Radius
 			// 
-			this.trackbar_Radius.Location = new System.Drawing.Point(0, 69);
+			this.trackbar_Radius.Location = new System.Drawing.Point(3, 36);
 			this.trackbar_Radius.Maximum = 75;
 			this.trackbar_Radius.Name = "trackbar_Radius";
 			this.trackbar_Radius.Size = new System.Drawing.Size(161, 42);
 			this.trackbar_Radius.TabIndex = 11;
 			this.trackbar_Radius.TickFrequency = 5;
-			//this.trackbar_Radius.ValueChanged += new System.EventHandler(this.trackbar_Radius_ValueChanged);
 			// 
 			// lbl_AvoidanceName
 			// 
@@ -166,7 +166,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.panel1);
 			this.Name = "UserControlAvoidance";
-			this.Size = new System.Drawing.Size(604, 114);
+			this.Size = new System.Drawing.Size(604, 74);
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.trackbar_Weight)).EndInit();

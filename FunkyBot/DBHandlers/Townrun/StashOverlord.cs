@@ -74,7 +74,7 @@ namespace FunkyBot.DBHandlers
 						}
 
 
-						bool bShouldStashThis = (Bot.Settings.ItemRules.ItemRuleGilesScoring ? Backpack.ShouldWeStashThis(thisitem)
+						bool bShouldStashThis = (Bot.Settings.ItemRules.ItemRuleGilesScoring ? ItemFunc.StashValidation(thisitem)
 							: ItemManager.Current.ShouldStashItem(thisitem.ACDItem));
 
 
@@ -252,12 +252,12 @@ namespace FunkyBot.DBHandlers
 						// Mark this slot as not-free
 						GilesStashSlotBlocked[inventoryColumn, inventoryRow] = true;
 						// Try and reliably find out if this is a two slot item or not
-						GilesItemType tempItemType = Backpack.DetermineItemType(tempitem.InternalName, tempitem.ItemType, tempitem.FollowerSpecialType);
-						if (Backpack.DetermineIsTwoSlot(tempItemType) && inventoryRow != 19 && inventoryRow != 9 && inventoryRow != 29 && inventoryRow != 39)
+						GilesItemType tempItemType = ItemFunc.DetermineItemType(tempitem.InternalName, tempitem.ItemType, tempitem.FollowerSpecialType);
+						if (ItemFunc.DetermineIsTwoSlot(tempItemType) && inventoryRow != 19 && inventoryRow != 9 && inventoryRow != 29 && inventoryRow != 39)
 						{
 							GilesStashSlotBlocked[inventoryColumn, inventoryRow + 1] = true;
 						}
-						else if (Backpack.DetermineIsTwoSlot(tempItemType) && (inventoryRow == 19 || inventoryRow == 9 || inventoryRow == 29 || inventoryRow == 39))
+						else if (ItemFunc.DetermineIsTwoSlot(tempItemType) && (inventoryRow == 19 || inventoryRow == 9 || inventoryRow == 29 || inventoryRow == 39))
 						{
 							Logger.DBLog.DebugFormat("GSError: DemonBuddy thinks this item is 2 slot even though it's at bottom row of a stash page: " + tempitem.Name + " [" + tempitem.InternalName +
 								  "] type=" + tempItemType.ToString() + " @ slot " + (inventoryRow + 1).ToString(CultureInfo.InvariantCulture) + "/" +
@@ -340,10 +340,10 @@ namespace FunkyBot.DBHandlers
 			int iOriginalStackQuantity = item.ThisItemStackQuantity;
 			string sOriginalItemName = item.ThisRealName;
 			string sOriginalInternalName = item.ThisInternalName;
-			GilesItemType OriginalGilesItemType = Backpack.DetermineItemType(item.ThisInternalName, item.ThisDBItemType, item.ThisFollowerType);
-			GilesBaseItemType thisGilesBaseType = Backpack.DetermineBaseType(OriginalGilesItemType);
-			bool bOriginalTwoSlot = Backpack.DetermineIsTwoSlot(OriginalGilesItemType);
-			bool bOriginalIsStackable = Backpack.DetermineIsStackable(OriginalGilesItemType);
+			GilesItemType OriginalGilesItemType = ItemFunc.DetermineItemType(item.ThisInternalName, item.ThisDBItemType, item.ThisFollowerType);
+			GilesBaseItemType thisGilesBaseType = ItemFunc.DetermineBaseType(OriginalGilesItemType);
+			bool bOriginalTwoSlot = ItemFunc.DetermineIsTwoSlot(OriginalGilesItemType);
+			bool bOriginalIsStackable = ItemFunc.DetermineIsStackable(OriginalGilesItemType);
 			int iAttempts;
 			if (_dictItemStashAttempted.TryGetValue(iOriginalDynamicID, out iAttempts))
 			{

@@ -39,7 +39,7 @@ namespace FunkyBot.Targeting
 			FleeingLastTarget = false;
 			AvoidanceLastTarget = false;
 
-			if (CurrentTarget.targetType == TargetType.Container && Bot.Settings.EnableWaitAfterContainers)
+			if (CurrentTarget.targetType == TargetType.Container && Bot.Settings.General.EnableWaitAfterContainers)
 			{
 				//Herbfunks delay for container loot.
 				lastHadContainerAsTarget = DateTime.Now;

@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 using FunkyBot.Cache.Enums;
 
-namespace FunkyBot.Settings
+namespace FunkyBot.Config.Settings
 {
 	public class SettingCombat
 	{

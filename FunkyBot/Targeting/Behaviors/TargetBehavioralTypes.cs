@@ -9,5 +9,6 @@
 		Target = 8,
 		LineOfSight = 16,
 		Backtrack = 32,
+		Bounty = 64,
 	}
 }

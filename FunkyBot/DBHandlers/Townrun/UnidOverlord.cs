@@ -52,7 +52,7 @@ namespace FunkyBot.DBHandlers
 									}
 								}
 
-								bool bShouldStashThis = (Bot.Settings.ItemRules.ItemRuleGilesScoring ? Backpack.ShouldWeStashThis(thisitem)
+								bool bShouldStashThis = (Bot.Settings.ItemRules.ItemRuleGilesScoring ? ItemFunc.StashValidation(thisitem)
 									: ItemManager.Current.ShouldStashItem(thisitem.ACDItem));
 
 								if (bShouldStashThis)

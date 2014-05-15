@@ -1,5 +1,4 @@
 ﻿using FunkyBot.Game;
-using FunkyBot.Settings;
 using Zeta.Bot.Profile;
 using Zeta.Game.Internals;
 using Zeta.TreeSharp;

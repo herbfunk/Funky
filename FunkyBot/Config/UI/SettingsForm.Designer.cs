@@ -34,7 +34,6 @@
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.panel5 = new System.Windows.Forms.Panel();
-			this.cb_MovementOutOfCombatSkills = new System.Windows.Forms.CheckBox();
 			this.cb_CombatAllowDefaultAttack = new System.Windows.Forms.CheckBox();
 			this.label5 = new System.Windows.Forms.Label();
 			this.panel4 = new System.Windows.Forms.Panel();
@@ -56,6 +55,7 @@
 			this.txt_GlobeHealth = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.tabPage8 = new System.Windows.Forms.TabPage();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.groupBox10 = new System.Windows.Forms.GroupBox();
 			this.panel_TargetingUnitExceptionsLowHealthMaxDistance = new System.Windows.Forms.Panel();
 			this.label19 = new System.Windows.Forms.Label();
@@ -65,7 +65,6 @@
 			this.cb_TargetingUnitExceptionsSucideBomber = new System.Windows.Forms.CheckBox();
 			this.cb_TargetingUnitExceptionsSpawner = new System.Windows.Forms.CheckBox();
 			this.cb_TargetingUnitExceptionsRanged = new System.Windows.Forms.CheckBox();
-			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.panel8 = new System.Windows.Forms.Panel();
 			this.tb_ClusterLogicMinimumUnits = new System.Windows.Forms.TrackBar();
 			this.txt_ClusterLogicMinimumUnits = new System.Windows.Forms.TextBox();
@@ -189,12 +188,14 @@
 			this.tabPage7 = new System.Windows.Forms.TabPage();
 			this.tabControl2 = new System.Windows.Forms.TabControl();
 			this.tabPage12 = new System.Windows.Forms.TabPage();
+			this.panel21 = new System.Windows.Forms.Panel();
+			this.cb_GeneralAllowBuffInTown = new System.Windows.Forms.CheckBox();
+			this.cb_MovementOutOfCombatSkills = new System.Windows.Forms.CheckBox();
 			this.panel17 = new System.Windows.Forms.Panel();
 			this.cb_GeneralApplyEndDelayToContainers = new System.Windows.Forms.CheckBox();
 			this.label21 = new System.Windows.Forms.Label();
 			this.txt_GeneralEndOfCombatDelayValue = new System.Windows.Forms.TextBox();
 			this.tb_GeneralEndOfCombatDelayValue = new System.Windows.Forms.TrackBar();
-			this.cb_GeneralAllowBuffInTown = new System.Windows.Forms.CheckBox();
 			this.panel16 = new System.Windows.Forms.Panel();
 			this.label20 = new System.Windows.Forms.Label();
 			this.txt_GeneralGoldInactivityValue = new System.Windows.Forms.TextBox();
@@ -213,6 +214,7 @@
 			this.tb_TownRunBloodShardMinimumValue = new System.Windows.Forms.TrackBar();
 			this.cb_TownRunBloodShardGambling = new System.Windows.Forms.CheckBox();
 			this.groupBox13 = new System.Windows.Forms.GroupBox();
+			this.cb_TownRunBuyPotions = new System.Windows.Forms.CheckBox();
 			this.cb_TownRunStashHoradricCache = new System.Windows.Forms.CheckBox();
 			this.tabPage19 = new System.Windows.Forms.TabPage();
 			this.groupBox18 = new System.Windows.Forms.GroupBox();
@@ -236,6 +238,7 @@
 			this.cb_ItemRules = new System.Windows.Forms.CheckBox();
 			this.tabPage20 = new System.Windows.Forms.TabPage();
 			this.groupBox21 = new System.Windows.Forms.GroupBox();
+			this.cb_LootExpBooks = new System.Windows.Forms.CheckBox();
 			this.cb_LootInfernoKeys = new System.Windows.Forms.CheckBox();
 			this.cb_LootCraftMats = new System.Windows.Forms.CheckBox();
 			this.panel20 = new System.Windows.Forms.Panel();
@@ -264,6 +267,16 @@
 			this.cb_DebugStatusBar = new System.Windows.Forms.CheckBox();
 			this.tabPage15 = new System.Windows.Forms.TabPage();
 			this.tabPage16 = new System.Windows.Forms.TabPage();
+			this.LBDebug = new System.Windows.Forms.FlowLayoutPanel();
+			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+			this.btn_DumpObjectCache = new System.Windows.Forms.Button();
+			this.btn_DumpObstacleCache = new System.Windows.Forms.Button();
+			this.btn_DumpSNOCache = new System.Windows.Forms.Button();
+			this.btn_DumpCharacterCache = new System.Windows.Forms.Button();
+			this.btn_DumpSkillsCache = new System.Windows.Forms.Button();
+			this.btn_DumpTargetingCache = new System.Windows.Forms.Button();
+			this.btn_DumpBountyCache = new System.Windows.Forms.Button();
+			this.btn_Test = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabControl_Combat.SuspendLayout();
@@ -279,10 +292,10 @@
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tb_GlobeHealth)).BeginInit();
 			this.tabPage8.SuspendLayout();
+			this.groupBox3.SuspendLayout();
 			this.groupBox10.SuspendLayout();
 			this.panel_TargetingUnitExceptionsLowHealthMaxDistance.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tb_TargetingUnitExceptionLowHealthMaxDistance)).BeginInit();
-			this.groupBox3.SuspendLayout();
 			this.panel8.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tb_ClusterLogicMinimumUnits)).BeginInit();
 			this.panel7.SuspendLayout();
@@ -330,6 +343,7 @@
 			this.tabPage7.SuspendLayout();
 			this.tabControl2.SuspendLayout();
 			this.tabPage12.SuspendLayout();
+			this.panel21.SuspendLayout();
 			this.panel17.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tb_GeneralEndOfCombatDelayValue)).BeginInit();
 			this.panel16.SuspendLayout();
@@ -359,6 +373,8 @@
 			this.tabPage14.SuspendLayout();
 			this.groupBox23.SuspendLayout();
 			this.groupBox22.SuspendLayout();
+			this.tabPage16.SuspendLayout();
+			this.flowLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -434,24 +450,12 @@
 			// 
 			// panel5
 			// 
-			this.panel5.Controls.Add(this.cb_MovementOutOfCombatSkills);
 			this.panel5.Controls.Add(this.cb_CombatAllowDefaultAttack);
 			this.panel5.Controls.Add(this.label5);
 			this.panel5.Location = new System.Drawing.Point(9, 98);
 			this.panel5.Name = "panel5";
 			this.panel5.Size = new System.Drawing.Size(214, 93);
 			this.panel5.TabIndex = 1;
-			// 
-			// cb_MovementOutOfCombatSkills
-			// 
-			this.cb_MovementOutOfCombatSkills.AutoSize = true;
-			this.cb_MovementOutOfCombatSkills.Location = new System.Drawing.Point(9, 39);
-			this.cb_MovementOutOfCombatSkills.Name = "cb_MovementOutOfCombatSkills";
-			this.cb_MovementOutOfCombatSkills.Size = new System.Drawing.Size(199, 17);
-			this.cb_MovementOutOfCombatSkills.TabIndex = 2;
-			this.cb_MovementOutOfCombatSkills.Text = "Allow Out Of Combat Skill Movement";
-			this.cb_MovementOutOfCombatSkills.UseVisualStyleBackColor = true;
-			//this.cb_MovementOutOfCombatSkills.CheckedChanged += new System.EventHandler(this.OutOfCombatMovementChecked);
 			// 
 			// cb_CombatAllowDefaultAttack
 			// 
@@ -462,7 +466,6 @@
 			this.cb_CombatAllowDefaultAttack.TabIndex = 1;
 			this.cb_CombatAllowDefaultAttack.Text = "Allow Default Attack Always";
 			this.cb_CombatAllowDefaultAttack.UseVisualStyleBackColor = true;
-			//this.cb_CombatAllowDefaultAttack.CheckedChanged += new System.EventHandler(this.AllowDefaultAttackAlwaysChecked);
 			// 
 			// label5
 			// 
@@ -493,7 +496,6 @@
 			this.cb_CombatMovementGold.TabIndex = 3;
 			this.cb_CombatMovementGold.Text = "Gold";
 			this.cb_CombatMovementGold.UseVisualStyleBackColor = true;
-			//this.cb_CombatMovementGold.CheckedChanged += new System.EventHandler(this.MovementTargetGoldChecked);
 			// 
 			// cb_CombatMovementGlobes
 			// 
@@ -504,7 +506,6 @@
 			this.cb_CombatMovementGlobes.TabIndex = 2;
 			this.cb_CombatMovementGlobes.Text = "Globes";
 			this.cb_CombatMovementGlobes.UseVisualStyleBackColor = true;
-			//this.cb_CombatMovementGlobes.CheckedChanged += new System.EventHandler(this.MovementTargetGlobeChecked);
 			// 
 			// cb_CombatMovementItems
 			// 
@@ -515,7 +516,6 @@
 			this.cb_CombatMovementItems.TabIndex = 1;
 			this.cb_CombatMovementItems.Text = "Items";
 			this.cb_CombatMovementItems.UseVisualStyleBackColor = true;
-			//this.cb_CombatMovementItems.CheckedChanged += new System.EventHandler(this.MovementTargetItemChecked);
 			// 
 			// label4
 			// 
@@ -558,7 +558,6 @@
 			this.tb_WellHealth.Size = new System.Drawing.Size(160, 42);
 			this.tb_WellHealth.TabIndex = 0;
 			this.tb_WellHealth.TickStyle = System.Windows.Forms.TickStyle.None;
-			//this.tb_WellHealth.ValueChanged += new System.EventHandler(this.tb_WellHealth_ValueChanged);
 			// 
 			// txt_WellHealth
 			// 
@@ -597,7 +596,6 @@
 			this.tb_PotionHealth.Size = new System.Drawing.Size(160, 42);
 			this.tb_PotionHealth.TabIndex = 0;
 			this.tb_PotionHealth.TickStyle = System.Windows.Forms.TickStyle.None;
-			//this.tb_PotionHealth.ValueChanged += new System.EventHandler(this.tb_PotionHealth_ValueChanged);
 			// 
 			// txt_PotionHealth
 			// 
@@ -636,7 +634,6 @@
 			this.tb_GlobeHealth.Size = new System.Drawing.Size(160, 42);
 			this.tb_GlobeHealth.TabIndex = 0;
 			this.tb_GlobeHealth.TickStyle = System.Windows.Forms.TickStyle.None;
-			//this.tb_GlobeHealth.ValueChanged += new System.EventHandler(this.tb_GlobeHealth_ValueChanged);
 			// 
 			// txt_GlobeHealth
 			// 
@@ -658,7 +655,6 @@
 			// 
 			// tabPage8
 			// 
-			this.tabPage8.Controls.Add(this.groupBox10);
 			this.tabPage8.Controls.Add(this.groupBox3);
 			this.tabPage8.Location = new System.Drawing.Point(4, 22);
 			this.tabPage8.Name = "tabPage8";
@@ -668,6 +664,21 @@
 			this.tabPage8.Text = "Clustering";
 			this.tabPage8.UseVisualStyleBackColor = true;
 			// 
+			// groupBox3
+			// 
+			this.groupBox3.Controls.Add(this.groupBox10);
+			this.groupBox3.Controls.Add(this.panel8);
+			this.groupBox3.Controls.Add(this.panel7);
+			this.groupBox3.Controls.Add(this.panel6);
+			this.groupBox3.Controls.Add(this.cb_ClusterTargetLogic);
+			this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
+			this.groupBox3.Location = new System.Drawing.Point(3, 3);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(651, 297);
+			this.groupBox3.TabIndex = 0;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Clustering";
+			// 
 			// groupBox10
 			// 
 			this.groupBox10.Controls.Add(this.panel_TargetingUnitExceptionsLowHealthMaxDistance);
@@ -675,7 +686,7 @@
 			this.groupBox10.Controls.Add(this.cb_TargetingUnitExceptionsSucideBomber);
 			this.groupBox10.Controls.Add(this.cb_TargetingUnitExceptionsSpawner);
 			this.groupBox10.Controls.Add(this.cb_TargetingUnitExceptionsRanged);
-			this.groupBox10.Location = new System.Drawing.Point(3, 306);
+			this.groupBox10.Location = new System.Drawing.Point(340, 19);
 			this.groupBox10.Name = "groupBox10";
 			this.groupBox10.Size = new System.Drawing.Size(305, 198);
 			this.groupBox10.TabIndex = 7;
@@ -720,7 +731,6 @@
 			this.tb_TargetingUnitExceptionLowHealthMaxDistance.Size = new System.Drawing.Size(172, 42);
 			this.tb_TargetingUnitExceptionLowHealthMaxDistance.TabIndex = 8;
 			this.tb_TargetingUnitExceptionLowHealthMaxDistance.TickFrequency = 10;
-			//this.tb_TargetingUnitExceptionLowHealthMaxDistance.ValueChanged += new System.EventHandler(this.tb_TargetingUnitExceptionLowHealthMaxDistance_ValueChanged);
 			// 
 			// cb_TargetingUnitExceptionsLowHealth
 			// 
@@ -741,7 +751,6 @@
 			this.cb_TargetingUnitExceptionsSucideBomber.TabIndex = 2;
 			this.cb_TargetingUnitExceptionsSucideBomber.Text = "Sucide Bombers";
 			this.cb_TargetingUnitExceptionsSucideBomber.UseVisualStyleBackColor = true;
-			//this.cb_TargetingUnitExceptionsSucideBomber.CheckedChanged += new System.EventHandler(this.cb_TargetingUnitExceptionsSucideBomber_CheckedChanged);
 			// 
 			// cb_TargetingUnitExceptionsSpawner
 			// 
@@ -752,7 +761,6 @@
 			this.cb_TargetingUnitExceptionsSpawner.TabIndex = 1;
 			this.cb_TargetingUnitExceptionsSpawner.Text = "Spawner Units";
 			this.cb_TargetingUnitExceptionsSpawner.UseVisualStyleBackColor = true;
-			//this.cb_TargetingUnitExceptionsSpawner.CheckedChanged += new System.EventHandler(this.cb_TargetingUnitExceptionsSpawner_CheckedChanged);
 			// 
 			// cb_TargetingUnitExceptionsRanged
 			// 
@@ -763,21 +771,6 @@
 			this.cb_TargetingUnitExceptionsRanged.TabIndex = 0;
 			this.cb_TargetingUnitExceptionsRanged.Text = "Ranged Units";
 			this.cb_TargetingUnitExceptionsRanged.UseVisualStyleBackColor = true;
-			//this.cb_TargetingUnitExceptionsRanged.CheckedChanged += new System.EventHandler(this.cb_TargetingUnitExceptionsRanged_CheckedChanged);
-			// 
-			// groupBox3
-			// 
-			this.groupBox3.Controls.Add(this.panel8);
-			this.groupBox3.Controls.Add(this.panel7);
-			this.groupBox3.Controls.Add(this.panel6);
-			this.groupBox3.Controls.Add(this.cb_ClusterTargetLogic);
-			this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
-			this.groupBox3.Location = new System.Drawing.Point(3, 3);
-			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(651, 297);
-			this.groupBox3.TabIndex = 0;
-			this.groupBox3.TabStop = false;
-			this.groupBox3.Text = "Clustering";
 			// 
 			// panel8
 			// 
@@ -798,7 +791,6 @@
 			this.tb_ClusterLogicMinimumUnits.Size = new System.Drawing.Size(160, 42);
 			this.tb_ClusterLogicMinimumUnits.TabIndex = 0;
 			this.tb_ClusterLogicMinimumUnits.TickStyle = System.Windows.Forms.TickStyle.None;
-			//this.tb_ClusterLogicMinimumUnits.ValueChanged += new System.EventHandler(this.tb_ClusterLogicMinimumUnits_ValueChanged);
 			// 
 			// txt_ClusterLogicMinimumUnits
 			// 
@@ -837,7 +829,6 @@
 			this.tb_ClusterLogicDistance.Size = new System.Drawing.Size(160, 42);
 			this.tb_ClusterLogicDistance.TabIndex = 0;
 			this.tb_ClusterLogicDistance.TickStyle = System.Windows.Forms.TickStyle.None;
-			//this.tb_ClusterLogicDistance.ValueChanged += new System.EventHandler(this.tb_ClusterLogicDistance_ValueChanged);
 			// 
 			// txt_ClusterLogicDistance
 			// 
@@ -877,7 +868,6 @@
 			this.cb_ClusterLogicDisableHealth.TabIndex = 3;
 			this.cb_ClusterLogicDisableHealth.Text = "Cluster Logic Disable at %";
 			this.cb_ClusterLogicDisableHealth.UseVisualStyleBackColor = true;
-			//this.cb_ClusterLogicDisableHealth.CheckedChanged += new System.EventHandler(this.cb_ClusterLogicDisableHealth_CheckedChanged);
 			// 
 			// tb_ClusterLogicDisableHealth
 			// 
@@ -888,7 +878,6 @@
 			this.tb_ClusterLogicDisableHealth.Size = new System.Drawing.Size(160, 42);
 			this.tb_ClusterLogicDisableHealth.TabIndex = 0;
 			this.tb_ClusterLogicDisableHealth.TickStyle = System.Windows.Forms.TickStyle.None;
-			//this.tb_ClusterLogicDisableHealth.ValueChanged += new System.EventHandler(this.tb_ClusterLogicDisableHealth_ValueChanged);
 			// 
 			// txt_ClusterLogicDisableHealth
 			// 
@@ -965,7 +954,6 @@
 			this.tb_GroupingMinBotHealth.Size = new System.Drawing.Size(160, 42);
 			this.tb_GroupingMinBotHealth.TabIndex = 0;
 			this.tb_GroupingMinBotHealth.TickStyle = System.Windows.Forms.TickStyle.None;
-			//this.tb_GroupingMinBotHealth.ValueChanged += new System.EventHandler(this.GroupBotHealthSliderChanged);
 			// 
 			// txt_GroupingMinBotHealth
 			// 
@@ -1004,7 +992,6 @@
 			this.tb_GroupingMinUnitsInCluster.TabIndex = 0;
 			this.tb_GroupingMinUnitsInCluster.TickStyle = System.Windows.Forms.TickStyle.None;
 			this.tb_GroupingMinUnitsInCluster.Value = 1;
-			//this.tb_GroupingMinUnitsInCluster.ValueChanged += new System.EventHandler(this.GroupMinimumUnitsInClusterSliderChanged);
 			// 
 			// txt_GroupingMinUnitsInCluster
 			// 
@@ -1045,7 +1032,6 @@
 			this.tb_GroupingMinCluster.TabIndex = 0;
 			this.tb_GroupingMinCluster.TickStyle = System.Windows.Forms.TickStyle.None;
 			this.tb_GroupingMinCluster.Value = 1;
-			//this.tb_GroupingMinCluster.ValueChanged += new System.EventHandler(this.GroupMinimumClusterCountSliderChanged);
 			// 
 			// txt_GroupingMinCluster
 			// 
@@ -1086,7 +1072,6 @@
 			this.tb_GroupingMaxDistance.TabIndex = 0;
 			this.tb_GroupingMaxDistance.TickStyle = System.Windows.Forms.TickStyle.None;
 			this.tb_GroupingMaxDistance.Value = 50;
-			//this.tb_GroupingMaxDistance.ValueChanged += new System.EventHandler(this.GroupMaxDistanceSliderChanged);
 			// 
 			// txt_GroupingMaxDistance
 			// 
@@ -1127,7 +1112,6 @@
 			this.tb_GroupingMinDistance.TabIndex = 0;
 			this.tb_GroupingMinDistance.TickStyle = System.Windows.Forms.TickStyle.None;
 			this.tb_GroupingMinDistance.Value = 35;
-			//this.tb_GroupingMinDistance.ValueChanged += new System.EventHandler(this.GroupMinimumUnitDistanceSliderChanged);
 			// 
 			// txt_GroupingMinDistance
 			// 
@@ -1198,7 +1182,6 @@
 			this.cb_AvoidanceLogic.TabIndex = 0;
 			this.cb_AvoidanceLogic.Text = "Enable Avoidance";
 			this.cb_AvoidanceLogic.UseVisualStyleBackColor = true;
-			//this.cb_AvoidanceLogic.CheckedChanged += new System.EventHandler(this.AvoidanceAttemptMovementChecked);
 			// 
 			// tabPage11
 			// 
@@ -1259,7 +1242,6 @@
 			this.cb_FleeUnitRanged.TabIndex = 6;
 			this.cb_FleeUnitRanged.Text = "Ignore Ranged";
 			this.cb_FleeUnitRanged.UseVisualStyleBackColor = true;
-			//this.cb_FleeUnitRanged.CheckedChanged += new System.EventHandler(this.cb_FleeUnitRanged_CheckedChanged);
 			// 
 			// cb_FleeUnitSucideBomber
 			// 
@@ -1270,7 +1252,6 @@
 			this.cb_FleeUnitSucideBomber.TabIndex = 5;
 			this.cb_FleeUnitSucideBomber.Text = "Ignore Sucide Bomber";
 			this.cb_FleeUnitSucideBomber.UseVisualStyleBackColor = true;
-			//this.cb_FleeUnitSucideBomber.CheckedChanged += new System.EventHandler(this.cb_FleeUnitSucideBomber_CheckedChanged);
 			// 
 			// cb_FleeUnitFast
 			// 
@@ -1281,7 +1262,6 @@
 			this.cb_FleeUnitFast.TabIndex = 4;
 			this.cb_FleeUnitFast.Text = "Ignore Fast";
 			this.cb_FleeUnitFast.UseVisualStyleBackColor = true;
-			//this.cb_FleeUnitFast.CheckedChanged += new System.EventHandler(this.cb_FleeUnitFast_CheckedChanged);
 			// 
 			// cb_FleeUnitAboveAverageHitPoints
 			// 
@@ -1292,7 +1272,6 @@
 			this.cb_FleeUnitAboveAverageHitPoints.TabIndex = 3;
 			this.cb_FleeUnitAboveAverageHitPoints.Text = "Above Average Hitpoints";
 			this.cb_FleeUnitAboveAverageHitPoints.UseVisualStyleBackColor = true;
-			//this.cb_FleeUnitAboveAverageHitPoints.CheckedChanged += new System.EventHandler(this.cb_FleeUnitAboveAverageHitPoints_CheckedChanged);
 			// 
 			// cb_FleeUnitNormal
 			// 
@@ -1303,7 +1282,6 @@
 			this.cb_FleeUnitNormal.TabIndex = 2;
 			this.cb_FleeUnitNormal.Text = "Normal";
 			this.cb_FleeUnitNormal.UseVisualStyleBackColor = true;
-			//this.cb_FleeUnitNormal.CheckedChanged += new System.EventHandler(this.cb_FleeUnitNormal_CheckedChanged);
 			// 
 			// cb_FleeUnitRareElite
 			// 
@@ -1314,7 +1292,6 @@
 			this.cb_FleeUnitRareElite.TabIndex = 1;
 			this.cb_FleeUnitRareElite.Text = "Rare/Elite";
 			this.cb_FleeUnitRareElite.UseVisualStyleBackColor = true;
-			//this.cb_FleeUnitRareElite.CheckedChanged += new System.EventHandler(this.cb_FleeUnitRareElite_CheckedChanged);
 			// 
 			// cb_FleeUnitElectrified
 			// 
@@ -1325,7 +1302,6 @@
 			this.cb_FleeUnitElectrified.TabIndex = 0;
 			this.cb_FleeUnitElectrified.Text = "Electrified";
 			this.cb_FleeUnitElectrified.UseVisualStyleBackColor = true;
-			//this.cb_FleeUnitElectrified.CheckedChanged += new System.EventHandler(this.cb_FleeUnitElectrified_CheckedChanged);
 			// 
 			// panel14
 			// 
@@ -1346,7 +1322,6 @@
 			this.trackbar_FleeMaxMonsterDistance.Size = new System.Drawing.Size(160, 42);
 			this.trackbar_FleeMaxMonsterDistance.TabIndex = 0;
 			this.trackbar_FleeMaxMonsterDistance.TickStyle = System.Windows.Forms.TickStyle.None;
-			//this.trackbar_FleeMaxMonsterDistance.ValueChanged += new System.EventHandler(this.trackbar_FleeMaxMonsterDistance_ValueChanged);
 			// 
 			// txt_FleeMaxMonsterDistance
 			// 
@@ -1385,7 +1360,6 @@
 			this.trackbar_FleeBotMinHealth.Size = new System.Drawing.Size(160, 42);
 			this.trackbar_FleeBotMinHealth.TabIndex = 0;
 			this.trackbar_FleeBotMinHealth.TickStyle = System.Windows.Forms.TickStyle.None;
-			//this.trackbar_FleeBotMinHealth.ValueChanged += new System.EventHandler(this.trackbar_FleeBotMinHealth_ValueChanged);
 			// 
 			// txt_FleeBotMinHealth
 			// 
@@ -1727,7 +1701,6 @@
 			this.cb_TargetingShrineEmpowered.TabIndex = 5;
 			this.cb_TargetingShrineEmpowered.Text = "Empowered";
 			this.cb_TargetingShrineEmpowered.UseVisualStyleBackColor = true;
-			//this.cb_TargetingShrineEmpowered.CheckedChanged += new System.EventHandler(this.TargetingShrineCheckedChanged);
 			// 
 			// cb_TargetingShrineProtection
 			// 
@@ -1738,7 +1711,6 @@
 			this.cb_TargetingShrineProtection.TabIndex = 4;
 			this.cb_TargetingShrineProtection.Text = "Protection";
 			this.cb_TargetingShrineProtection.UseVisualStyleBackColor = true;
-			//this.cb_TargetingShrineProtection.CheckedChanged += new System.EventHandler(this.TargetingShrineCheckedChanged);
 			// 
 			// cb_TargetingShrineFortune
 			// 
@@ -1749,7 +1721,6 @@
 			this.cb_TargetingShrineFortune.TabIndex = 3;
 			this.cb_TargetingShrineFortune.Text = "Fortune";
 			this.cb_TargetingShrineFortune.UseVisualStyleBackColor = true;
-			//this.cb_TargetingShrineFortune.CheckedChanged += new System.EventHandler(this.TargetingShrineCheckedChanged);
 			// 
 			// cb_TargetingShrineFrenzy
 			// 
@@ -1760,7 +1731,6 @@
 			this.cb_TargetingShrineFrenzy.TabIndex = 2;
 			this.cb_TargetingShrineFrenzy.Text = "Frenzy";
 			this.cb_TargetingShrineFrenzy.UseVisualStyleBackColor = true;
-			//this.cb_TargetingShrineFrenzy.CheckedChanged += new System.EventHandler(this.TargetingShrineCheckedChanged);
 			// 
 			// cb_TargetingShrineEnlightnment
 			// 
@@ -1771,7 +1741,6 @@
 			this.cb_TargetingShrineEnlightnment.TabIndex = 1;
 			this.cb_TargetingShrineEnlightnment.Text = "Enlightenment";
 			this.cb_TargetingShrineEnlightnment.UseVisualStyleBackColor = true;
-			//this.cb_TargetingShrineEnlightnment.CheckedChanged += new System.EventHandler(this.TargetingShrineCheckedChanged);
 			// 
 			// cb_TargetingShrineFleeting
 			// 
@@ -1782,13 +1751,12 @@
 			this.cb_TargetingShrineFleeting.TabIndex = 0;
 			this.cb_TargetingShrineFleeting.Text = "Fleeting";
 			this.cb_TargetingShrineFleeting.UseVisualStyleBackColor = true;
-			//this.cb_TargetingShrineFleeting.CheckedChanged += new System.EventHandler(this.TargetingShrineCheckedChanged);
 			// 
 			// groupBox9
 			// 
 			this.groupBox9.Controls.Add(this.panel_TargetingPriorityCloseRangeMinUnits);
 			this.groupBox9.Controls.Add(this.cb_TargetingPrioritizeCloseRangeUnits);
-			this.groupBox9.Location = new System.Drawing.Point(340, 223);
+			this.groupBox9.Location = new System.Drawing.Point(256, 19);
 			this.groupBox9.Name = "groupBox9";
 			this.groupBox9.Size = new System.Drawing.Size(305, 113);
 			this.groupBox9.TabIndex = 5;
@@ -1831,7 +1799,6 @@
 			this.tb_TargetingPriorityCloseRangeUnitsCount.Name = "tb_TargetingPriorityCloseRangeUnitsCount";
 			this.tb_TargetingPriorityCloseRangeUnitsCount.Size = new System.Drawing.Size(172, 42);
 			this.tb_TargetingPriorityCloseRangeUnitsCount.TabIndex = 5;
-			//this.tb_TargetingPriorityCloseRangeUnitsCount.ValueChanged += new System.EventHandler(this.tb_TargetingPriorityCloseRangeUnitsCount_ValueChanged);
 			// 
 			// cb_TargetingPrioritizeCloseRangeUnits
 			// 
@@ -1855,7 +1822,6 @@
 			this.comboBox_TargetingGoblinPriority.Name = "comboBox_TargetingGoblinPriority";
 			this.comboBox_TargetingGoblinPriority.Size = new System.Drawing.Size(160, 21);
 			this.comboBox_TargetingGoblinPriority.TabIndex = 4;
-			//this.comboBox_TargetingGoblinPriority.SelectedIndexChanged += new System.EventHandler(this.comboBox_TargetingGoblinPriority_SelectedIndexChanged);
 			// 
 			// label17
 			// 
@@ -1870,35 +1836,35 @@
 			// cb_TargetingIncreaseRangeRareChests
 			// 
 			this.cb_TargetingIncreaseRangeRareChests.AutoSize = true;
+			this.cb_TargetingIncreaseRangeRareChests.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cb_TargetingIncreaseRangeRareChests.Location = new System.Drawing.Point(6, 65);
 			this.cb_TargetingIncreaseRangeRareChests.Name = "cb_TargetingIncreaseRangeRareChests";
-			this.cb_TargetingIncreaseRangeRareChests.Size = new System.Drawing.Size(178, 17);
+			this.cb_TargetingIncreaseRangeRareChests.Size = new System.Drawing.Size(230, 21);
 			this.cb_TargetingIncreaseRangeRareChests.TabIndex = 2;
 			this.cb_TargetingIncreaseRangeRareChests.Text = "Increase Range for Rare Chests";
 			this.cb_TargetingIncreaseRangeRareChests.UseVisualStyleBackColor = true;
-			//this.cb_TargetingIncreaseRangeRareChests.CheckedChanged += new System.EventHandler(this.cb_TargetingIncreaseRangeRareChests_CheckedChanged);
 			// 
 			// cb_TargetingIgnoreCorpses
 			// 
 			this.cb_TargetingIgnoreCorpses.AutoSize = true;
+			this.cb_TargetingIgnoreCorpses.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cb_TargetingIgnoreCorpses.Location = new System.Drawing.Point(6, 42);
 			this.cb_TargetingIgnoreCorpses.Name = "cb_TargetingIgnoreCorpses";
-			this.cb_TargetingIgnoreCorpses.Size = new System.Drawing.Size(135, 17);
+			this.cb_TargetingIgnoreCorpses.Size = new System.Drawing.Size(174, 21);
 			this.cb_TargetingIgnoreCorpses.TabIndex = 1;
 			this.cb_TargetingIgnoreCorpses.Text = "Ignore Looting Corpses";
 			this.cb_TargetingIgnoreCorpses.UseVisualStyleBackColor = true;
-			//this.cb_TargetingIgnoreCorpses.CheckedChanged += new System.EventHandler(this.cb_TargetingIgnoreCorpses_CheckedChanged);
 			// 
 			// cb_TargetingIgnoreRareElites
 			// 
 			this.cb_TargetingIgnoreRareElites.AutoSize = true;
+			this.cb_TargetingIgnoreRareElites.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cb_TargetingIgnoreRareElites.Location = new System.Drawing.Point(6, 19);
 			this.cb_TargetingIgnoreRareElites.Name = "cb_TargetingIgnoreRareElites";
-			this.cb_TargetingIgnoreRareElites.Size = new System.Drawing.Size(192, 17);
+			this.cb_TargetingIgnoreRareElites.Size = new System.Drawing.Size(244, 21);
 			this.cb_TargetingIgnoreRareElites.TabIndex = 0;
 			this.cb_TargetingIgnoreRareElites.Text = "Ignore Rare/Elite/Unique Monsters";
 			this.cb_TargetingIgnoreRareElites.UseVisualStyleBackColor = true;
-			//this.cb_TargetingIgnoreRareElites.CheckedChanged += new System.EventHandler(this.cb_TargetingIgnoreRareElites_CheckedChanged);
 			// 
 			// tabPage5
 			// 
@@ -1942,7 +1908,6 @@
 			this.cb_TargetRangeIgnoreProfileBlacklists.TabIndex = 2;
 			this.cb_TargetRangeIgnoreProfileBlacklists.Text = "Ignore Profile Blacklisted IDs";
 			this.cb_TargetRangeIgnoreProfileBlacklists.UseVisualStyleBackColor = true;
-			//this.cb_TargetRangeIgnoreProfileBlacklists.CheckedChanged += new System.EventHandler(this.cb_TargetRangeIgnoreProfileBlacklists_CheckedChanged);
 			// 
 			// cb_TargetRangeIgnoreLootProfileRange
 			// 
@@ -1954,7 +1919,6 @@
 			this.cb_TargetRangeIgnoreLootProfileRange.TabIndex = 1;
 			this.cb_TargetRangeIgnoreLootProfileRange.Text = "Ignore Loot Range Set By Profile ";
 			this.cb_TargetRangeIgnoreLootProfileRange.UseVisualStyleBackColor = true;
-			//this.cb_TargetRangeIgnoreLootProfileRange.CheckedChanged += new System.EventHandler(this.cb_TargetRangeIgnoreLootProfileRange_CheckedChanged);
 			// 
 			// cb_TargetRangeIgnoreKillRangeProfile
 			// 
@@ -1965,7 +1929,6 @@
 			this.cb_TargetRangeIgnoreKillRangeProfile.TabIndex = 0;
 			this.cb_TargetRangeIgnoreKillRangeProfile.Text = "Ignore Kill Range Set By Profile";
 			this.cb_TargetRangeIgnoreKillRangeProfile.UseVisualStyleBackColor = true;
-			//this.cb_TargetRangeIgnoreKillRangeProfile.CheckedChanged += new System.EventHandler(this.cb_TargetRangeIgnoreKillRangeProfile_CheckedChanged);
 			// 
 			// tabPage6
 			// 
@@ -1995,7 +1958,6 @@
 			this.cb_TargetLOSCursedChestShrine.TabIndex = 7;
 			this.cb_TargetLOSCursedChestShrine.Text = "Cursed Shrines and Chests";
 			this.cb_TargetLOSCursedChestShrine.UseVisualStyleBackColor = true;
-			//this.cb_TargetLOSCursedChestShrine.CheckedChanged += new System.EventHandler(this.cb_TargetLOSCursedChestShrine_CheckedChanged);
 			// 
 			// cb_TargetLOSRareChests
 			// 
@@ -2007,7 +1969,6 @@
 			this.cb_TargetLOSRareChests.TabIndex = 6;
 			this.cb_TargetLOSRareChests.Text = "Rare Chests";
 			this.cb_TargetLOSRareChests.UseVisualStyleBackColor = true;
-			//this.cb_TargetLOSRareChests.CheckedChanged += new System.EventHandler(this.cb_TargetLOSRareChests_CheckedChanged);
 			// 
 			// cb_TargetLOSSpawnerUnits
 			// 
@@ -2019,7 +1980,6 @@
 			this.cb_TargetLOSSpawnerUnits.TabIndex = 5;
 			this.cb_TargetLOSSpawnerUnits.Text = "Spawner Units";
 			this.cb_TargetLOSSpawnerUnits.UseVisualStyleBackColor = true;
-			//this.cb_TargetLOSSpawnerUnits.CheckedChanged += new System.EventHandler(this.cb_TargetLOSSpawnerUnits_CheckedChanged);
 			// 
 			// cb_TargetLOSSucideBombers
 			// 
@@ -2031,7 +1991,6 @@
 			this.cb_TargetLOSSucideBombers.TabIndex = 4;
 			this.cb_TargetLOSSucideBombers.Text = "Sucide Bombers";
 			this.cb_TargetLOSSucideBombers.UseVisualStyleBackColor = true;
-			//this.cb_TargetLOSSucideBombers.CheckedChanged += new System.EventHandler(this.cb_TargetLOSSucideBombers_CheckedChanged);
 			// 
 			// cb_TargetLOSRanged
 			// 
@@ -2043,7 +2002,6 @@
 			this.cb_TargetLOSRanged.TabIndex = 3;
 			this.cb_TargetLOSRanged.Text = "Ranged Units";
 			this.cb_TargetLOSRanged.UseVisualStyleBackColor = true;
-			//this.cb_TargetLOSRanged.CheckedChanged += new System.EventHandler(this.cb_TargetLOSRanged_CheckedChanged);
 			// 
 			// cb_TargetLOSBossUniques
 			// 
@@ -2055,7 +2013,6 @@
 			this.cb_TargetLOSBossUniques.TabIndex = 2;
 			this.cb_TargetLOSBossUniques.Text = "Bosses and Uniques";
 			this.cb_TargetLOSBossUniques.UseVisualStyleBackColor = true;
-			//this.cb_TargetLOSBossUniques.CheckedChanged += new System.EventHandler(this.cb_TargetLOSBossUniques_CheckedChanged);
 			// 
 			// cb_TargetLOSRareElite
 			// 
@@ -2067,7 +2024,6 @@
 			this.cb_TargetLOSRareElite.TabIndex = 1;
 			this.cb_TargetLOSRareElite.Text = "Rare and Elites";
 			this.cb_TargetLOSRareElite.UseVisualStyleBackColor = true;
-			//this.cb_TargetLOSRareElite.CheckedChanged += new System.EventHandler(this.cb_TargetLOSRareElite_CheckedChanged);
 			// 
 			// cb_TargetLOSGoblins
 			// 
@@ -2079,7 +2035,6 @@
 			this.cb_TargetLOSGoblins.TabIndex = 0;
 			this.cb_TargetLOSGoblins.Text = "Treasure Goblins";
 			this.cb_TargetLOSGoblins.UseVisualStyleBackColor = true;
-			//this.cb_TargetLOSGoblins.CheckedChanged += new System.EventHandler(this.cb_TargetLOSGoblins_CheckedChanged);
 			// 
 			// tabPage7
 			// 
@@ -2105,8 +2060,8 @@
 			// 
 			// tabPage12
 			// 
+			this.tabPage12.Controls.Add(this.panel21);
 			this.tabPage12.Controls.Add(this.panel17);
-			this.tabPage12.Controls.Add(this.cb_GeneralAllowBuffInTown);
 			this.tabPage12.Controls.Add(this.panel16);
 			this.tabPage12.Location = new System.Drawing.Point(4, 22);
 			this.tabPage12.Name = "tabPage12";
@@ -2116,13 +2071,44 @@
 			this.tabPage12.Text = "Misc";
 			this.tabPage12.UseVisualStyleBackColor = true;
 			// 
+			// panel21
+			// 
+			this.panel21.Controls.Add(this.cb_GeneralAllowBuffInTown);
+			this.panel21.Controls.Add(this.cb_MovementOutOfCombatSkills);
+			this.panel21.Location = new System.Drawing.Point(6, 195);
+			this.panel21.Name = "panel21";
+			this.panel21.Size = new System.Drawing.Size(296, 100);
+			this.panel21.TabIndex = 21;
+			// 
+			// cb_GeneralAllowBuffInTown
+			// 
+			this.cb_GeneralAllowBuffInTown.AutoSize = true;
+			this.cb_GeneralAllowBuffInTown.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_GeneralAllowBuffInTown.Location = new System.Drawing.Point(3, 3);
+			this.cb_GeneralAllowBuffInTown.Name = "cb_GeneralAllowBuffInTown";
+			this.cb_GeneralAllowBuffInTown.Size = new System.Drawing.Size(160, 21);
+			this.cb_GeneralAllowBuffInTown.TabIndex = 18;
+			this.cb_GeneralAllowBuffInTown.Text = "Allow Buffing In Town";
+			this.cb_GeneralAllowBuffInTown.UseVisualStyleBackColor = true;
+			// 
+			// cb_MovementOutOfCombatSkills
+			// 
+			this.cb_MovementOutOfCombatSkills.AutoSize = true;
+			this.cb_MovementOutOfCombatSkills.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_MovementOutOfCombatSkills.Location = new System.Drawing.Point(3, 30);
+			this.cb_MovementOutOfCombatSkills.Name = "cb_MovementOutOfCombatSkills";
+			this.cb_MovementOutOfCombatSkills.Size = new System.Drawing.Size(255, 21);
+			this.cb_MovementOutOfCombatSkills.TabIndex = 20;
+			this.cb_MovementOutOfCombatSkills.Text = "Allow Out Of Combat Skill Movement";
+			this.cb_MovementOutOfCombatSkills.UseVisualStyleBackColor = true;
+			// 
 			// panel17
 			// 
 			this.panel17.Controls.Add(this.cb_GeneralApplyEndDelayToContainers);
 			this.panel17.Controls.Add(this.label21);
 			this.panel17.Controls.Add(this.txt_GeneralEndOfCombatDelayValue);
 			this.panel17.Controls.Add(this.tb_GeneralEndOfCombatDelayValue);
-			this.panel17.Location = new System.Drawing.Point(6, 142);
+			this.panel17.Location = new System.Drawing.Point(6, 83);
 			this.panel17.Name = "panel17";
 			this.panel17.Size = new System.Drawing.Size(296, 106);
 			this.panel17.TabIndex = 19;
@@ -2136,7 +2122,6 @@
 			this.cb_GeneralApplyEndDelayToContainers.TabIndex = 10;
 			this.cb_GeneralApplyEndDelayToContainers.Text = "Apply Delay After Open Containers";
 			this.cb_GeneralApplyEndDelayToContainers.UseVisualStyleBackColor = true;
-			//this.cb_GeneralApplyEndDelayToContainers.CheckedChanged += new System.EventHandler(this.cb_GeneralApplyEndDelayToContainers_CheckedChanged);
 			// 
 			// label21
 			// 
@@ -2166,19 +2151,6 @@
 			this.tb_GeneralEndOfCombatDelayValue.Size = new System.Drawing.Size(172, 42);
 			this.tb_GeneralEndOfCombatDelayValue.TabIndex = 8;
 			this.tb_GeneralEndOfCombatDelayValue.TickFrequency = 250;
-			//this.tb_GeneralEndOfCombatDelayValue.ValueChanged += new System.EventHandler(this.tb_GeneralEndOfCombatDelayValue_ValueChanged);
-			// 
-			// cb_GeneralAllowBuffInTown
-			// 
-			this.cb_GeneralAllowBuffInTown.AutoSize = true;
-			this.cb_GeneralAllowBuffInTown.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cb_GeneralAllowBuffInTown.Location = new System.Drawing.Point(6, 98);
-			this.cb_GeneralAllowBuffInTown.Name = "cb_GeneralAllowBuffInTown";
-			this.cb_GeneralAllowBuffInTown.Size = new System.Drawing.Size(201, 24);
-			this.cb_GeneralAllowBuffInTown.TabIndex = 18;
-			this.cb_GeneralAllowBuffInTown.Text = "Allow Buffing In Town";
-			this.cb_GeneralAllowBuffInTown.UseVisualStyleBackColor = true;
-			//this.cb_GeneralAllowBuffInTown.CheckedChanged += new System.EventHandler(this.cb_GeneralAllowBuffInTown_CheckedChanged);
 			// 
 			// panel16
 			// 
@@ -2218,7 +2190,6 @@
 			this.tb_GeneralGoldInactivityValue.Size = new System.Drawing.Size(172, 42);
 			this.tb_GeneralGoldInactivityValue.TabIndex = 8;
 			this.tb_GeneralGoldInactivityValue.TickFrequency = 60;
-			//this.tb_GeneralGoldInactivityValue.ValueChanged += new System.EventHandler(this.tb_GeneralGoldInactivityValue_ValueChanged);
 			// 
 			// tabPage17
 			// 
@@ -2241,7 +2212,6 @@
 			this.cb_AdventureModeEnabled.TabIndex = 19;
 			this.cb_AdventureModeEnabled.Text = "Enable Adventuring Mode";
 			this.cb_AdventureModeEnabled.UseVisualStyleBackColor = true;
-			//this.cb_AdventureModeEnabled.CheckedChanged += new System.EventHandler(this.cb_AdventureModeEnabled_CheckedChanged);
 			// 
 			// tabPage13
 			// 
@@ -2295,9 +2265,9 @@
 			this.panel_TownRunBloodShardGambling.Controls.Add(this.flowLayout_TownRunBloodShardItems);
 			this.panel_TownRunBloodShardGambling.Controls.Add(this.panel18);
 			this.panel_TownRunBloodShardGambling.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel_TownRunBloodShardGambling.Location = new System.Drawing.Point(3, 33);
+			this.panel_TownRunBloodShardGambling.Location = new System.Drawing.Point(3, 37);
 			this.panel_TownRunBloodShardGambling.Name = "panel_TownRunBloodShardGambling";
-			this.panel_TownRunBloodShardGambling.Size = new System.Drawing.Size(645, 390);
+			this.panel_TownRunBloodShardGambling.Size = new System.Drawing.Size(645, 386);
 			this.panel_TownRunBloodShardGambling.TabIndex = 1;
 			// 
 			// flowLayout_TownRunBloodShardItems
@@ -2306,7 +2276,7 @@
 			this.flowLayout_TownRunBloodShardItems.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.flowLayout_TownRunBloodShardItems.Location = new System.Drawing.Point(0, 64);
 			this.flowLayout_TownRunBloodShardItems.Name = "flowLayout_TownRunBloodShardItems";
-			this.flowLayout_TownRunBloodShardItems.Size = new System.Drawing.Size(645, 326);
+			this.flowLayout_TownRunBloodShardItems.Size = new System.Drawing.Size(645, 322);
 			this.flowLayout_TownRunBloodShardItems.TabIndex = 19;
 			// 
 			// panel18
@@ -2348,22 +2318,22 @@
 			this.tb_TownRunBloodShardMinimumValue.Size = new System.Drawing.Size(172, 42);
 			this.tb_TownRunBloodShardMinimumValue.TabIndex = 8;
 			this.tb_TownRunBloodShardMinimumValue.TickFrequency = 25;
-			//this.tb_TownRunBloodShardMinimumValue.ValueChanged += new System.EventHandler(this.tb_TownRunBloodShardMinimumValue_ValueChanged);
 			// 
 			// cb_TownRunBloodShardGambling
 			// 
 			this.cb_TownRunBloodShardGambling.AutoSize = true;
 			this.cb_TownRunBloodShardGambling.Dock = System.Windows.Forms.DockStyle.Top;
+			this.cb_TownRunBloodShardGambling.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cb_TownRunBloodShardGambling.Location = new System.Drawing.Point(3, 16);
 			this.cb_TownRunBloodShardGambling.Name = "cb_TownRunBloodShardGambling";
-			this.cb_TownRunBloodShardGambling.Size = new System.Drawing.Size(645, 17);
+			this.cb_TownRunBloodShardGambling.Size = new System.Drawing.Size(645, 21);
 			this.cb_TownRunBloodShardGambling.TabIndex = 0;
 			this.cb_TownRunBloodShardGambling.Text = "Allow Blood Shard Gambling";
 			this.cb_TownRunBloodShardGambling.UseVisualStyleBackColor = true;
-			//this.cb_TownRunBloodShardGambling.CheckedChanged += new System.EventHandler(this.cb_TownRunBloodShardGambling_CheckedChanged);
 			// 
 			// groupBox13
 			// 
+			this.groupBox13.Controls.Add(this.cb_TownRunBuyPotions);
 			this.groupBox13.Controls.Add(this.cb_TownRunStashHoradricCache);
 			this.groupBox13.Dock = System.Windows.Forms.DockStyle.Top;
 			this.groupBox13.Location = new System.Drawing.Point(3, 3);
@@ -2373,23 +2343,34 @@
 			this.groupBox13.TabStop = false;
 			this.groupBox13.Text = "Options";
 			// 
+			// cb_TownRunBuyPotions
+			// 
+			this.cb_TownRunBuyPotions.AutoSize = true;
+			this.cb_TownRunBuyPotions.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_TownRunBuyPotions.Location = new System.Drawing.Point(6, 42);
+			this.cb_TownRunBuyPotions.Name = "cb_TownRunBuyPotions";
+			this.cb_TownRunBuyPotions.Size = new System.Drawing.Size(102, 21);
+			this.cb_TownRunBuyPotions.TabIndex = 1;
+			this.cb_TownRunBuyPotions.Text = "Buy Potions";
+			this.cb_TownRunBuyPotions.UseVisualStyleBackColor = true;
+			// 
 			// cb_TownRunStashHoradricCache
 			// 
 			this.cb_TownRunStashHoradricCache.AutoSize = true;
+			this.cb_TownRunStashHoradricCache.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cb_TownRunStashHoradricCache.Location = new System.Drawing.Point(6, 19);
 			this.cb_TownRunStashHoradricCache.Name = "cb_TownRunStashHoradricCache";
-			this.cb_TownRunStashHoradricCache.Size = new System.Drawing.Size(130, 17);
+			this.cb_TownRunStashHoradricCache.Size = new System.Drawing.Size(165, 21);
 			this.cb_TownRunStashHoradricCache.TabIndex = 0;
 			this.cb_TownRunStashHoradricCache.Text = "Stash Horadric Cache";
 			this.cb_TownRunStashHoradricCache.UseVisualStyleBackColor = true;
-			//this.cb_TownRunStashHoradricCache.CheckedChanged += new System.EventHandler(this.cb_TownRunStashHoradricCache_CheckedChanged);
 			// 
 			// tabPage19
 			// 
 			this.tabPage19.Controls.Add(this.groupBox18);
 			this.tabPage19.Controls.Add(this.groupBox17);
-			this.tabPage19.Controls.Add(this.groupBox16);
 			this.tabPage19.Controls.Add(this.groupBox15);
+			this.tabPage19.Controls.Add(this.groupBox16);
 			this.tabPage19.Controls.Add(this.cb_ItemRules);
 			this.tabPage19.Location = new System.Drawing.Point(4, 22);
 			this.tabPage19.Name = "tabPage19";
@@ -2440,7 +2421,6 @@
 			this.cb_ItemRulesDebugging.TabIndex = 2;
 			this.cb_ItemRulesDebugging.Text = "Debugging";
 			this.cb_ItemRulesDebugging.UseVisualStyleBackColor = true;
-			//this.cb_ItemRulesDebugging.CheckedChanged += new System.EventHandler(this.cb_ItemRulesDebugging_CheckedChanged);
 			// 
 			// cb_ItemRulesUseItemIDs
 			// 
@@ -2451,7 +2431,6 @@
 			this.cb_ItemRulesUseItemIDs.TabIndex = 1;
 			this.cb_ItemRulesUseItemIDs.Text = "Use Item IDs";
 			this.cb_ItemRulesUseItemIDs.UseVisualStyleBackColor = true;
-			//this.cb_ItemRulesUseItemIDs.CheckedChanged += new System.EventHandler(this.cb_ItemRulesUseItemIDs_CheckedChanged);
 			// 
 			// groupBox17
 			// 
@@ -2481,7 +2460,6 @@
 			this.comboBox_ItemRulesLogPickup.Name = "comboBox_ItemRulesLogPickup";
 			this.comboBox_ItemRulesLogPickup.Size = new System.Drawing.Size(127, 24);
 			this.comboBox_ItemRulesLogPickup.TabIndex = 3;
-			//this.comboBox_ItemRulesLogPickup.SelectedIndexChanged += new System.EventHandler(this.comboBox_ItemRulesLogPickup_SelectedIndexChanged);
 			// 
 			// label24
 			// 
@@ -2507,7 +2485,6 @@
 			this.combobox_ItemRulesLogStashed.Name = "combobox_ItemRulesLogStashed";
 			this.combobox_ItemRulesLogStashed.Size = new System.Drawing.Size(127, 24);
 			this.combobox_ItemRulesLogStashed.TabIndex = 1;
-			//this.combobox_ItemRulesLogStashed.SelectedIndexChanged += new System.EventHandler(this.cb_ItemRulesLogStashed_SelectedIndexChanged);
 			// 
 			// label23
 			// 
@@ -2525,7 +2502,7 @@
 			this.groupBox16.Controls.Add(this.txt_ItemRulesCustomLocation);
 			this.groupBox16.Controls.Add(this.comboBox_ItemRulesType);
 			this.groupBox16.Dock = System.Windows.Forms.DockStyle.Top;
-			this.groupBox16.Location = new System.Drawing.Point(3, 75);
+			this.groupBox16.Location = new System.Drawing.Point(3, 27);
 			this.groupBox16.Name = "groupBox16";
 			this.groupBox16.Size = new System.Drawing.Size(651, 54);
 			this.groupBox16.TabIndex = 21;
@@ -2562,7 +2539,6 @@
 			this.comboBox_ItemRulesType.Name = "comboBox_ItemRulesType";
 			this.comboBox_ItemRulesType.Size = new System.Drawing.Size(121, 24);
 			this.comboBox_ItemRulesType.TabIndex = 0;
-			//this.comboBox_ItemRulesType.SelectedIndexChanged += new System.EventHandler(this.comboBox_ItemRulesType_SelectedIndexChanged);
 			// 
 			// groupBox15
 			// 
@@ -2570,7 +2546,7 @@
 			this.groupBox15.Controls.Add(this.cb_ItemRulesSalvage);
 			this.groupBox15.Controls.Add(this.cb_ItemRulesPickup);
 			this.groupBox15.Dock = System.Windows.Forms.DockStyle.Top;
-			this.groupBox15.Location = new System.Drawing.Point(3, 27);
+			this.groupBox15.Location = new System.Drawing.Point(3, 81);
 			this.groupBox15.Name = "groupBox15";
 			this.groupBox15.Size = new System.Drawing.Size(651, 48);
 			this.groupBox15.TabIndex = 20;
@@ -2586,7 +2562,6 @@
 			this.cb_ItemRulesUnidStashing.TabIndex = 2;
 			this.cb_ItemRulesUnidStashing.Text = "Unid Stashing";
 			this.cb_ItemRulesUnidStashing.UseVisualStyleBackColor = true;
-			//this.cb_ItemRulesUnidStashing.CheckedChanged += new System.EventHandler(this.cb_ItemRulesUnidStashing_CheckedChanged);
 			// 
 			// cb_ItemRulesSalvage
 			// 
@@ -2597,7 +2572,6 @@
 			this.cb_ItemRulesSalvage.TabIndex = 1;
 			this.cb_ItemRulesSalvage.Text = "Salvage";
 			this.cb_ItemRulesSalvage.UseVisualStyleBackColor = true;
-			//this.cb_ItemRulesSalvage.CheckedChanged += new System.EventHandler(this.cb_ItemRulesSalvage_CheckedChanged);
 			// 
 			// cb_ItemRulesPickup
 			// 
@@ -2608,7 +2582,6 @@
 			this.cb_ItemRulesPickup.TabIndex = 0;
 			this.cb_ItemRulesPickup.Text = "Pickup";
 			this.cb_ItemRulesPickup.UseVisualStyleBackColor = true;
-			//this.cb_ItemRulesPickup.CheckedChanged += new System.EventHandler(this.cb_ItemRulesPickup_CheckedChanged);
 			// 
 			// cb_ItemRules
 			// 
@@ -2621,7 +2594,6 @@
 			this.cb_ItemRules.TabIndex = 19;
 			this.cb_ItemRules.Text = "Enable Item Rules";
 			this.cb_ItemRules.UseVisualStyleBackColor = true;
-			//this.cb_ItemRules.CheckedChanged += new System.EventHandler(this.cb_ItemRules_CheckedChanged);
 			// 
 			// tabPage20
 			// 
@@ -2638,6 +2610,7 @@
 			// 
 			// groupBox21
 			// 
+			this.groupBox21.Controls.Add(this.cb_LootExpBooks);
 			this.groupBox21.Controls.Add(this.cb_LootInfernoKeys);
 			this.groupBox21.Controls.Add(this.cb_LootCraftMats);
 			this.groupBox21.Controls.Add(this.panel20);
@@ -2650,27 +2623,38 @@
 			this.groupBox21.TabStop = false;
 			this.groupBox21.Text = "Misc";
 			// 
+			// cb_LootExpBooks
+			// 
+			this.cb_LootExpBooks.AutoSize = true;
+			this.cb_LootExpBooks.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_LootExpBooks.Location = new System.Drawing.Point(9, 174);
+			this.cb_LootExpBooks.Name = "cb_LootExpBooks";
+			this.cb_LootExpBooks.Size = new System.Drawing.Size(140, 21);
+			this.cb_LootExpBooks.TabIndex = 22;
+			this.cb_LootExpBooks.Text = "Experience Books";
+			this.cb_LootExpBooks.UseVisualStyleBackColor = true;
+			// 
 			// cb_LootInfernoKeys
 			// 
 			this.cb_LootInfernoKeys.AutoSize = true;
+			this.cb_LootInfernoKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cb_LootInfernoKeys.Location = new System.Drawing.Point(9, 151);
 			this.cb_LootInfernoKeys.Name = "cb_LootInfernoKeys";
-			this.cb_LootInfernoKeys.Size = new System.Drawing.Size(85, 17);
+			this.cb_LootInfernoKeys.Size = new System.Drawing.Size(106, 21);
 			this.cb_LootInfernoKeys.TabIndex = 21;
 			this.cb_LootInfernoKeys.Text = "Inferno Keys";
 			this.cb_LootInfernoKeys.UseVisualStyleBackColor = true;
-			//this.cb_LootInfernoKeys.CheckedChanged += new System.EventHandler(this.cb_LootInfernoKeys_CheckedChanged);
 			// 
 			// cb_LootCraftMats
 			// 
 			this.cb_LootCraftMats.AutoSize = true;
+			this.cb_LootCraftMats.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cb_LootCraftMats.Location = new System.Drawing.Point(9, 128);
 			this.cb_LootCraftMats.Name = "cb_LootCraftMats";
-			this.cb_LootCraftMats.Size = new System.Drawing.Size(107, 17);
+			this.cb_LootCraftMats.Size = new System.Drawing.Size(137, 21);
 			this.cb_LootCraftMats.TabIndex = 20;
 			this.cb_LootCraftMats.Text = "Crafting Materials";
 			this.cb_LootCraftMats.UseVisualStyleBackColor = true;
-			//this.cb_LootCraftMats.CheckedChanged += new System.EventHandler(this.cb_LootCraftMats_CheckedChanged);
 			// 
 			// panel20
 			// 
@@ -2710,7 +2694,6 @@
 			this.tb_LootHealthPotions.SmallChange = 25;
 			this.tb_LootHealthPotions.TabIndex = 8;
 			this.tb_LootHealthPotions.TickFrequency = 25;
-			//this.tb_LootHealthPotions.ValueChanged += new System.EventHandler(this.tb_LootHealthPotions_ValueChanged);
 			// 
 			// panel19
 			// 
@@ -2751,7 +2734,6 @@
 			this.tb_LootMinimumGold.SmallChange = 25;
 			this.tb_LootMinimumGold.TabIndex = 8;
 			this.tb_LootMinimumGold.TickFrequency = 500;
-			//this.tb_LootMinimumGold.ValueChanged += new System.EventHandler(this.tb_LootMinimumGold_ValueChanged);
 			// 
 			// groupBox20
 			// 
@@ -2781,7 +2763,6 @@
 			this.cb_LootGemTOPAZ.TabIndex = 7;
 			this.cb_LootGemTOPAZ.Text = "TOPAZ";
 			this.cb_LootGemTOPAZ.UseVisualStyleBackColor = false;
-			//this.cb_LootGemTOPAZ.CheckedChanged += new System.EventHandler(this.cb_LootGemTOPAZ_CheckedChanged);
 			// 
 			// cb_LootGemRUBY
 			// 
@@ -2794,7 +2775,6 @@
 			this.cb_LootGemRUBY.TabIndex = 5;
 			this.cb_LootGemRUBY.Text = "RUBY";
 			this.cb_LootGemRUBY.UseVisualStyleBackColor = false;
-			//this.cb_LootGemRUBY.CheckedChanged += new System.EventHandler(this.cb_LootGemRUBY_CheckedChanged);
 			// 
 			// cb_LootGemEMERALD
 			// 
@@ -2807,7 +2787,6 @@
 			this.cb_LootGemEMERALD.TabIndex = 4;
 			this.cb_LootGemEMERALD.Text = "EMERALD";
 			this.cb_LootGemEMERALD.UseVisualStyleBackColor = false;
-			//this.cb_LootGemEMERALD.CheckedChanged += new System.EventHandler(this.cb_LootGemEMERALD_CheckedChanged);
 			// 
 			// cb_LootGemDiamond
 			// 
@@ -2820,7 +2799,6 @@
 			this.cb_LootGemDiamond.TabIndex = 3;
 			this.cb_LootGemDiamond.Text = "Diamond";
 			this.cb_LootGemDiamond.UseVisualStyleBackColor = false;
-			//this.cb_LootGemDiamond.CheckedChanged += new System.EventHandler(this.cb_LootGemDiamond_CheckedChanged);
 			// 
 			// cb_LootGemAMETHYST
 			// 
@@ -2833,7 +2811,6 @@
 			this.cb_LootGemAMETHYST.TabIndex = 2;
 			this.cb_LootGemAMETHYST.Text = "AMETHYST";
 			this.cb_LootGemAMETHYST.UseVisualStyleBackColor = false;
-			//this.cb_LootGemAMETHYST.CheckedChanged += new System.EventHandler(this.cb_LootGemAMETHYST_CheckedChanged);
 			// 
 			// comboBox_LootGemQuality
 			// 
@@ -2877,13 +2854,13 @@
 			// cb_LootPickupCraftPlans
 			// 
 			this.cb_LootPickupCraftPlans.AutoSize = true;
+			this.cb_LootPickupCraftPlans.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cb_LootPickupCraftPlans.Location = new System.Drawing.Point(6, 19);
 			this.cb_LootPickupCraftPlans.Name = "cb_LootPickupCraftPlans";
-			this.cb_LootPickupCraftPlans.Size = new System.Drawing.Size(113, 17);
+			this.cb_LootPickupCraftPlans.Size = new System.Drawing.Size(142, 21);
 			this.cb_LootPickupCraftPlans.TabIndex = 0;
 			this.cb_LootPickupCraftPlans.Text = "Pickup Craft Plans";
 			this.cb_LootPickupCraftPlans.UseVisualStyleBackColor = true;
-			//this.cb_LootPickupCraftPlans.CheckedChanged += new System.EventHandler(this.cb_LootPickupCraftPlans_CheckedChanged);
 			// 
 			// tabPage14
 			// 
@@ -2938,7 +2915,6 @@
 			this.cb_DebugDataLogging.TabIndex = 1;
 			this.cb_DebugDataLogging.Text = "Debug Data Logging";
 			this.cb_DebugDataLogging.UseVisualStyleBackColor = true;
-			//this.cb_DebugDataLogging.CheckedChanged += new System.EventHandler(this.cb_DebugDataLogging_CheckedChanged);
 			// 
 			// cb_DebugStatusBar
 			// 
@@ -2949,7 +2925,6 @@
 			this.cb_DebugStatusBar.TabIndex = 0;
 			this.cb_DebugStatusBar.Text = "Debug Status Bar";
 			this.cb_DebugStatusBar.UseVisualStyleBackColor = true;
-			//this.cb_DebugStatusBar.CheckedChanged += new System.EventHandler(this.cb_DebugStatusBar_CheckedChanged);
 			// 
 			// tabPage15
 			// 
@@ -2963,6 +2938,9 @@
 			// 
 			// tabPage16
 			// 
+			this.tabPage16.AutoScroll = true;
+			this.tabPage16.Controls.Add(this.LBDebug);
+			this.tabPage16.Controls.Add(this.flowLayoutPanel1);
 			this.tabPage16.Location = new System.Drawing.Point(4, 22);
 			this.tabPage16.Name = "tabPage16";
 			this.tabPage16.Padding = new System.Windows.Forms.Padding(3);
@@ -2971,10 +2949,121 @@
 			this.tabPage16.Text = "Debug";
 			this.tabPage16.UseVisualStyleBackColor = true;
 			// 
+			// LBDebug
+			// 
+			this.LBDebug.AutoScroll = true;
+			this.LBDebug.AutoSize = true;
+			this.LBDebug.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.LBDebug.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LBDebug.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.LBDebug.Location = new System.Drawing.Point(3, 92);
+			this.LBDebug.Name = "LBDebug";
+			this.LBDebug.Size = new System.Drawing.Size(665, 466);
+			this.LBDebug.TabIndex = 1;
+			this.LBDebug.WrapContents = false;
+			// 
+			// flowLayoutPanel1
+			// 
+			this.flowLayoutPanel1.Controls.Add(this.btn_DumpObjectCache);
+			this.flowLayoutPanel1.Controls.Add(this.btn_DumpObstacleCache);
+			this.flowLayoutPanel1.Controls.Add(this.btn_DumpSNOCache);
+			this.flowLayoutPanel1.Controls.Add(this.btn_DumpCharacterCache);
+			this.flowLayoutPanel1.Controls.Add(this.btn_DumpSkillsCache);
+			this.flowLayoutPanel1.Controls.Add(this.btn_DumpTargetingCache);
+			this.flowLayoutPanel1.Controls.Add(this.btn_DumpBountyCache);
+			this.flowLayoutPanel1.Controls.Add(this.btn_Test);
+			this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+			this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(665, 89);
+			this.flowLayoutPanel1.TabIndex = 0;
+			// 
+			// btn_DumpObjectCache
+			// 
+			this.btn_DumpObjectCache.Location = new System.Drawing.Point(3, 3);
+			this.btn_DumpObjectCache.Name = "btn_DumpObjectCache";
+			this.btn_DumpObjectCache.Size = new System.Drawing.Size(137, 23);
+			this.btn_DumpObjectCache.TabIndex = 0;
+			this.btn_DumpObjectCache.Text = "Dump Object Cache";
+			this.btn_DumpObjectCache.UseVisualStyleBackColor = true;
+			this.btn_DumpObjectCache.Click += new System.EventHandler(this.btn_DumpObjectCache_Click);
+			// 
+			// btn_DumpObstacleCache
+			// 
+			this.btn_DumpObstacleCache.Location = new System.Drawing.Point(146, 3);
+			this.btn_DumpObstacleCache.Name = "btn_DumpObstacleCache";
+			this.btn_DumpObstacleCache.Size = new System.Drawing.Size(137, 23);
+			this.btn_DumpObstacleCache.TabIndex = 1;
+			this.btn_DumpObstacleCache.Text = "Dump Obstacle Cache";
+			this.btn_DumpObstacleCache.UseVisualStyleBackColor = true;
+			this.btn_DumpObstacleCache.Click += new System.EventHandler(this.btn_DumpObstacleCache_Click);
+			// 
+			// btn_DumpSNOCache
+			// 
+			this.flowLayoutPanel1.SetFlowBreak(this.btn_DumpSNOCache, true);
+			this.btn_DumpSNOCache.Location = new System.Drawing.Point(289, 3);
+			this.btn_DumpSNOCache.Name = "btn_DumpSNOCache";
+			this.btn_DumpSNOCache.Size = new System.Drawing.Size(137, 23);
+			this.btn_DumpSNOCache.TabIndex = 2;
+			this.btn_DumpSNOCache.Text = "Dump Sno Cache";
+			this.btn_DumpSNOCache.UseVisualStyleBackColor = true;
+			this.btn_DumpSNOCache.Click += new System.EventHandler(this.btn_DumpSNOCache_Click);
+			// 
+			// btn_DumpCharacterCache
+			// 
+			this.btn_DumpCharacterCache.Location = new System.Drawing.Point(3, 32);
+			this.btn_DumpCharacterCache.Name = "btn_DumpCharacterCache";
+			this.btn_DumpCharacterCache.Size = new System.Drawing.Size(137, 23);
+			this.btn_DumpCharacterCache.TabIndex = 3;
+			this.btn_DumpCharacterCache.Text = "Dump Character Cache";
+			this.btn_DumpCharacterCache.UseVisualStyleBackColor = true;
+			this.btn_DumpCharacterCache.Click += new System.EventHandler(this.btn_DumpCharacterCache_Click);
+			// 
+			// btn_DumpSkillsCache
+			// 
+			this.btn_DumpSkillsCache.Location = new System.Drawing.Point(146, 32);
+			this.btn_DumpSkillsCache.Name = "btn_DumpSkillsCache";
+			this.btn_DumpSkillsCache.Size = new System.Drawing.Size(137, 23);
+			this.btn_DumpSkillsCache.TabIndex = 5;
+			this.btn_DumpSkillsCache.Text = "Dump Skill Cache";
+			this.btn_DumpSkillsCache.UseVisualStyleBackColor = true;
+			this.btn_DumpSkillsCache.Click += new System.EventHandler(this.btn_DumpSkillsCache_Click);
+			// 
+			// btn_DumpTargetingCache
+			// 
+			this.btn_DumpTargetingCache.Location = new System.Drawing.Point(289, 32);
+			this.btn_DumpTargetingCache.Name = "btn_DumpTargetingCache";
+			this.btn_DumpTargetingCache.Size = new System.Drawing.Size(137, 23);
+			this.btn_DumpTargetingCache.TabIndex = 4;
+			this.btn_DumpTargetingCache.Text = "Dump Targeting Cache";
+			this.btn_DumpTargetingCache.UseVisualStyleBackColor = true;
+			this.btn_DumpTargetingCache.Click += new System.EventHandler(this.btn_DumpTargetingCache_Click);
+			// 
+			// btn_DumpBountyCache
+			// 
+			this.flowLayoutPanel1.SetFlowBreak(this.btn_DumpBountyCache, true);
+			this.btn_DumpBountyCache.Location = new System.Drawing.Point(432, 32);
+			this.btn_DumpBountyCache.Name = "btn_DumpBountyCache";
+			this.btn_DumpBountyCache.Size = new System.Drawing.Size(137, 23);
+			this.btn_DumpBountyCache.TabIndex = 6;
+			this.btn_DumpBountyCache.Text = "Dump Bounty Cache";
+			this.btn_DumpBountyCache.UseVisualStyleBackColor = true;
+			this.btn_DumpBountyCache.Click += new System.EventHandler(this.btn_DumpBountyCache_Click);
+			// 
+			// btn_Test
+			// 
+			this.btn_Test.Location = new System.Drawing.Point(3, 61);
+			this.btn_Test.Name = "btn_Test";
+			this.btn_Test.Size = new System.Drawing.Size(137, 23);
+			this.btn_Test.TabIndex = 7;
+			this.btn_Test.Text = "Test";
+			this.btn_Test.UseVisualStyleBackColor = true;
+			// 
 			// SettingsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoSize = true;
 			this.ClientSize = new System.Drawing.Size(679, 587);
 			this.Controls.Add(this.tabControl1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -3007,13 +3096,13 @@
 			this.panel1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tb_GlobeHealth)).EndInit();
 			this.tabPage8.ResumeLayout(false);
+			this.groupBox3.ResumeLayout(false);
+			this.groupBox3.PerformLayout();
 			this.groupBox10.ResumeLayout(false);
 			this.groupBox10.PerformLayout();
 			this.panel_TargetingUnitExceptionsLowHealthMaxDistance.ResumeLayout(false);
 			this.panel_TargetingUnitExceptionsLowHealthMaxDistance.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tb_TargetingUnitExceptionLowHealthMaxDistance)).EndInit();
-			this.groupBox3.ResumeLayout(false);
-			this.groupBox3.PerformLayout();
 			this.panel8.ResumeLayout(false);
 			this.panel8.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tb_ClusterLogicMinimumUnits)).EndInit();
@@ -3085,7 +3174,8 @@
 			this.tabPage7.ResumeLayout(false);
 			this.tabControl2.ResumeLayout(false);
 			this.tabPage12.ResumeLayout(false);
-			this.tabPage12.PerformLayout();
+			this.panel21.ResumeLayout(false);
+			this.panel21.PerformLayout();
 			this.panel17.ResumeLayout(false);
 			this.panel17.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tb_GeneralEndOfCombatDelayValue)).EndInit();
@@ -3132,6 +3222,9 @@
 			this.groupBox23.ResumeLayout(false);
 			this.groupBox22.ResumeLayout(false);
 			this.groupBox22.PerformLayout();
+			this.tabPage16.ResumeLayout(false);
+			this.tabPage16.PerformLayout();
+			this.flowLayoutPanel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -3172,7 +3265,6 @@
 		private System.Windows.Forms.TextBox txt_GlobeHealth;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Panel panel5;
-		private System.Windows.Forms.CheckBox cb_MovementOutOfCombatSkills;
 		private System.Windows.Forms.CheckBox cb_CombatAllowDefaultAttack;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Panel panel4;
@@ -3377,6 +3469,20 @@
 		private System.Windows.Forms.CheckBox cb_TargetingUnitExceptionsSucideBomber;
 		private System.Windows.Forms.CheckBox cb_TargetingUnitExceptionsSpawner;
 		private System.Windows.Forms.CheckBox cb_TargetingUnitExceptionsRanged;
+		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+		private System.Windows.Forms.Button btn_DumpObjectCache;
+		private System.Windows.Forms.Button btn_DumpObstacleCache;
+		private System.Windows.Forms.Button btn_DumpSNOCache;
+		private System.Windows.Forms.Button btn_DumpCharacterCache;
+		private System.Windows.Forms.Button btn_DumpSkillsCache;
+		private System.Windows.Forms.Button btn_DumpTargetingCache;
+		private System.Windows.Forms.Button btn_DumpBountyCache;
+		private System.Windows.Forms.Button btn_Test;
+		private System.Windows.Forms.FlowLayoutPanel LBDebug;
+		private System.Windows.Forms.CheckBox cb_TownRunBuyPotions;
+		private System.Windows.Forms.Panel panel21;
+		private System.Windows.Forms.CheckBox cb_MovementOutOfCombatSkills;
+		private System.Windows.Forms.CheckBox cb_LootExpBooks;
 		//
 	}
 }

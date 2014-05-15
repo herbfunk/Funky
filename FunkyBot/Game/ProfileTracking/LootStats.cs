@@ -178,7 +178,7 @@ namespace FunkyBot.Game
 			//if (Bot.BotStatistics.ProfileStats.CurrentProfile==null)
 			//return;
 
-			GilesItemType thisGilesItemType = Backpack.DetermineItemType(i.ThisInternalName, i.ThisDBItemType, i.ThisFollowerType);
+			GilesItemType thisGilesItemType = ItemFunc.DetermineItemType(i.ThisInternalName, i.ThisDBItemType, i.ThisFollowerType);
 			if (thisGilesItemType == GilesItemType.InfernalKey)
 			{
 				Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Keys.Stashed++;
@@ -355,7 +355,7 @@ namespace FunkyBot.Game
 		public void DroppedItemLog(CacheItem i)
 		{
 			CacheBalance thisBalanceData = i.BalanceData;
-			GilesItemType thisGilesItemType = Backpack.DetermineItemType(i.InternalName, thisBalanceData.thisItemType, thisBalanceData.thisFollowerType);
+			GilesItemType thisGilesItemType = ItemFunc.DetermineItemType(i.InternalName, thisBalanceData.thisItemType, thisBalanceData.thisFollowerType);
 			if (thisGilesItemType == GilesItemType.InfernalKey)
 			{
 				Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Keys.Dropped++;

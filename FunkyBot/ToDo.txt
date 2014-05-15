@@ -1,4 +1,1 @@
-﻿Cursed Events Stay Put needs to work!
-
-Line of Sight for Map Markers should check if quest is completed.
-
+﻿

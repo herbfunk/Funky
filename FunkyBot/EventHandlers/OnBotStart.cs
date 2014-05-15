@@ -1,6 +1,5 @@
 ﻿using FunkyBot.Cache;
 using FunkyBot.Misc;
-using FunkyBot.Settings;
 using Zeta.Bot;
 using Zeta.Bot.Navigation;
 using Zeta.Game;

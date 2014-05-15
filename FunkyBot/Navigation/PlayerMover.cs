@@ -394,7 +394,7 @@ namespace FunkyBot
 
 				#region MovementAbilities
 				// See if we can use abilities like leap etc. for movement out of combat, but not in town and only if we can raycast.
-				if (Bot.Settings.OutOfCombatMovement && !ZetaDia.IsInTown && !Bot.IsInNonCombatBehavior)
+				if (Bot.Settings.General.OutOfCombatMovement && !ZetaDia.IsInTown && !Bot.IsInNonCombatBehavior)
 				{
 					Skill MovementPower;
 					Vector3 MovementVector = Bot.Character.Class.FindOutOfCombatMovementPower(out MovementPower, vMoveToTarget);

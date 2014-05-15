@@ -77,6 +77,7 @@ namespace FunkyBot.Cache.Objects
 		public string ItemStatString { get; set; }
 		public bool IsStackableItem { get; set; }
 		public bool IsTwoSlot { get; set; }
+		public bool IsVendorBought { get; set; }
 
 		//Plugin Item Properties
 		public GilesBaseItemType BaseItemType { get; set; }
@@ -111,11 +112,15 @@ namespace FunkyBot.Cache.Objects
 			IsPotion = item.IsPotion;
 			invRow = item.InventoryRow;
 			invCol = item.InventoryColumn;
+			
+		
 
-			ItemType = Backpack.DetermineItemType(ThisInternalName, ThisDBItemType, ThisFollowerType);
-			BaseItemType = Backpack.DetermineBaseType(ItemType);
-			IsStackableItem = Backpack.DetermineIsStackable(ItemType);
-			IsTwoSlot = Backpack.DetermineIsTwoSlot(ItemType);
+			ItemType = ItemFunc.DetermineItemType(ThisInternalName, ThisDBItemType, ThisFollowerType);
+			BaseItemType = ItemFunc.DetermineBaseType(ItemType);
+			IsStackableItem = ItemFunc.DetermineIsStackable(ItemType);
+			IsTwoSlot = ItemFunc.DetermineIsTwoSlot(ItemType);
+
+			IsVendorBought = item.IsVendorBought;
 
 			ItemStats thesestats = item.Stats;
 			ItemStatString = thesestats.ToString();
