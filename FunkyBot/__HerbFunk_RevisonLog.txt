@@ -1,9 +1,14 @@
 ﻿// herbfunk revisions
 v2.10.1.1
+
+Misc:
 	Fixed Bloodshard Gambling when inventory is full.
+	Fixed Rifts sometimes breaking navigation when changing worlds.
+	Rift boss Poison AoE avoidance added.
+	Added Rift World IDs and checks.
+
 
 v2.10.1.0
-
 Settings:
 	Overhauled the Settings Window into a actual windows Form.. although it might be ugly, changes will be easy with the designer.
 	Added Keystone Fragments to Item Pickup settings.
