@@ -18,13 +18,13 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 			var precastflags = SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast;
 			if (!hotbarContainsHaunt)
 			{
-				ClusterConditions.Add(new SkillClusterConditions(5d, Range, 4, true, 0.25d));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, 0.99d, TargetProperties.DOTDPS));
+				ClusterConditions.Add(new SkillClusterConditions(5d, 25, 4, true, 0.25d));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 20, 0.99d, TargetProperties.DOTDPS));
 			}
 			else
 			{
-				ClusterConditions.Add(new SkillClusterConditions(5d, Range, 4, true));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, 0.99d, TargetProperties.Weak));
+				ClusterConditions.Add(new SkillClusterConditions(5d, 25, 4, true));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 20, 0.99d, TargetProperties.Weak));
 				precastflags |= SkillPrecastFlags.CheckRecastTimer;
 			}
 

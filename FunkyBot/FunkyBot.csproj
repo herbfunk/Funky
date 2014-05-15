@@ -1036,12 +1036,10 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Demonbuddy">
-      <HintPath>Assemblies\Demonbuddy.exe</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\Desktop\db_beta\Demonbuddy.exe</HintPath>
     </Reference>
     <Reference Include="GreyMagic">
-      <HintPath>Assemblies\GreyMagic.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\Desktop\db_beta\GreyMagic.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

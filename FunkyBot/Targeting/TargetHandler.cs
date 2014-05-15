@@ -405,7 +405,7 @@ namespace FunkyBot.Targeting
 					Bot.Character.Class.PowerPrime = Bot.Character.Class.DestructibleAbility();
 
 				//Interactables (for pre and post waits)
-				if (ObjectCache.CheckTargetTypeFlag(Bot.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.Item|TargetType.Interactables))
+				if (ObjectCache.CheckTargetTypeFlag(Bot.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.Item|TargetType.Interactables|TargetType.Interaction))
 				{
 					Skill.SetupAbilityForUse(ref Bot.Targeting.Cache.InteractionSkill);
 					Bot.Character.Class.PowerPrime = Bot.Targeting.Cache.InteractionSkill;

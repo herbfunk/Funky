@@ -184,7 +184,7 @@ namespace FunkyBot.Player.Class
 			Monk_DeadlyReach = 96019,
 			Monk_WaveOfLight = 96033,
 			Monk_SweepingWind = 96090,
-			Monk_DashingStrike = 96203,
+			Monk_DashingStrike = 312736,
 			Monk_Serenity = 96215,
 			Monk_CripplingWave = 96311,
 			Monk_SevenSidedStrike = 96694,

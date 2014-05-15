@@ -161,10 +161,6 @@ namespace FunkyBot.Game.Bounty
 				return;
 			}
 
-			////Rift?
-			if (CacheIDLookup.riftWorldIds.Contains(Bot.Character.Data.CurrentWorldID))
-				return;
-			
 
 			//Do we have an active bounty set.. lets try to invalidate it.
 			if (ActiveBounty == null)

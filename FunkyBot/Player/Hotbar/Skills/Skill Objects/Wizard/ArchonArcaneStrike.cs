@@ -15,7 +15,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				Priority=SkillPriority.Low;
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated));
 				ClusterConditions.Add(new SkillClusterConditions(6d, 10f, 2, true));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 8));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 18));
 		  }
 
 		  #region IAbility

@@ -158,7 +158,7 @@ namespace FunkyBot.Cache.Objects
 		private DateTime LastAvoidanceIgnored = DateTime.Today;
 		private bool? IsNPC { get; set; }
 		public bool? IsFriendly { get; set; }
-		public bool? IsQuestGiver { get; set; }
+		public bool IsQuestGiver { get; set; }
 		public bool? IsMinimapActive { get; set; }
 
 		public bool ForceLeap { get; set; }
@@ -1158,7 +1158,7 @@ namespace FunkyBot.Cache.Objects
 				//Special Bounty Check for Events only!
 				if (Bot.Settings.AdventureMode.EnableAdventuringMode && Bot.Game.AdventureMode && Bot.Game.Bounty.CurrentBountyCacheEntry != null && Bot.Game.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.Event)
 				{
-					if (!IsQuestGiver.HasValue)
+					if (!IsQuestGiver)
 					{
 						try
 						{
@@ -1170,7 +1170,7 @@ namespace FunkyBot.Cache.Objects
 						}
 					}
 
-					if (IsQuestGiver.HasValue && IsQuestGiver.Value)
+					if (IsQuestGiver)
 					{//Is A Quest Giver..
 
 						if (!Bot.Game.Profile.InteractableObjectCache.ContainsKey(RAGUID))
@@ -1605,7 +1605,8 @@ namespace FunkyBot.Cache.Objects
 				Bot.Character.Class.PowerPrime.MinimumRange = Bot.Settings.Combat.GoblinMinimumRange;
 			else if (MonsterMissileDampening && Bot.Settings.Targeting.MissleDampeningEnforceCloseRange)
 				Bot.Character.Class.PowerPrime.MinimumRange = 15;
-
+			else if(targetType.HasValue && targetType.Value==TargetType.Interaction)
+				Bot.Character.Class.PowerPrime.MinimumRange = 7;
 
 			// Pick a range to try to reach
 			fRangeRequired = Bot.Character.Class.PowerPrime.Power == SNOPower.None ? 9f : Bot.Character.Class.PowerPrime.MinimumRange;

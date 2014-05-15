@@ -13,6 +13,7 @@ namespace FunkyBot.Player.HotBar.Skills
 		  public override void Initialize()
 		  {
 				Cooldown=5;
+				Range = 7;
 				Priority=SkillPriority.None;
 				ExecutionType=SkillExecutionFlags.Target;
 				WaitVars=new WaitLoops(2, 2, true);

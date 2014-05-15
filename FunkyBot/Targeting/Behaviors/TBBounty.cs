@@ -78,7 +78,7 @@ namespace FunkyBot.Targeting.Behaviors
 								else if (interactableObj.CentreDistance < 25f)
 								{
 									CacheUnit interactableUnit = (CacheUnit)interactableObj;
-									if (interactableUnit.IsQuestGiver.HasValue && interactableUnit.IsQuestGiver.Value)
+									if (interactableUnit.IsQuestGiver)
 									{
 										obj = interactableObj;
 										return true;
@@ -110,6 +110,10 @@ namespace FunkyBot.Targeting.Behaviors
 									}
 								}
 							}
+						}
+						else if (Bot.Game.Bounty.BountyQuestStates[Bot.Game.Bounty.ActiveBounty.QuestSNO]==QuestState.Completed)
+						{//Bounty is Completed..
+
 						}
 					}
 				}

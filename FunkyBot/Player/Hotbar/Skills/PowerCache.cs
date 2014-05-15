@@ -90,7 +90,7 @@ namespace FunkyBot.Cache
 		        {SNOPower.Monk_FistsofThunder, DateTime.Today},{SNOPower.Monk_DeadlyReach, DateTime.Today},{SNOPower.Monk_CripplingWave, DateTime.Today},
                 {SNOPower.Monk_WayOfTheHundredFists, DateTime.Today},{SNOPower.Monk_LashingTailKick, DateTime.Today},{SNOPower.Monk_TempestRush, DateTime.Today},
                 {SNOPower.Monk_WaveOfLight, DateTime.Today},{SNOPower.Monk_BlindingFlash, DateTime.Today},{SNOPower.Monk_BreathOfHeaven, DateTime.Today}, 
-                {SNOPower.Monk_Serenity, DateTime.Today}, {SNOPower.X1_Monk_InnerSanctuary, DateTime.Today},{SNOPower.Monk_DashingStrike, DateTime.Today}, 
+                {SNOPower.Monk_Serenity, DateTime.Today}, {SNOPower.X1_Monk_InnerSanctuary, DateTime.Today},{SNOPower.X1_Monk_DashingStrike, DateTime.Today}, 
                 {SNOPower.Monk_ExplodingPalm, DateTime.Today},{SNOPower.Monk_SweepingWind, DateTime.Today},{SNOPower.Monk_CycloneStrike, DateTime.Today}, 
                 {SNOPower.Monk_SevenSidedStrike, DateTime.Today},{SNOPower.X1_Monk_MysticAlly_v2, DateTime.Today},{SNOPower.X1_Monk_MantraOfEvasion_v2, DateTime.Today}, 
                 {SNOPower.X1_Monk_MantraOfRetribution_v2, DateTime.Today},{SNOPower.X1_Monk_MantraOfHealing_v2, DateTime.Today}, {SNOPower.X1_Monk_MantraOfConviction_v2, DateTime.Today}, 

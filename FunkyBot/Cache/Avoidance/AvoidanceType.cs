@@ -88,6 +88,8 @@ namespace FunkyBot.Cache.Avoidance
 		  PlagueHand,
 		  [XmlEnum(Name="PoisonGas")]
 		  PoisonGas,
+		  [XmlEnum(Name = "RiftBossPoison")]
+		  RiftPoison,
 		  [XmlEnum(Name="ShamanFireBall")]
 		  ShamanFireBall,
 		  [XmlEnum(Name="SuccubusProjectile")]

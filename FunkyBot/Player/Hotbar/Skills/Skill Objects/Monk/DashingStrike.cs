@@ -49,7 +49,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 
 		  public override SNOPower Power
 		  {
-				get { return SNOPower.Monk_DashingStrike; }
+				get { return SNOPower.X1_Monk_DashingStrike; }
 		  }
 	 }
 }

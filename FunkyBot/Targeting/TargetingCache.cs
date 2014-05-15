@@ -315,7 +315,8 @@ namespace FunkyBot.Targeting
 			 new TBGrouping(), 
 			 new TBLOSMovement(),
 			 new TBBacktrack(),
-			 new TBBounty(),
+			 //TODO:: Disabled Until Further Testing!
+			 //new TBBounty(), 
 			 new TBEnd()
 		 };
 		internal TargetBehavioralTypes lastBehavioralType = TargetBehavioralTypes.None;

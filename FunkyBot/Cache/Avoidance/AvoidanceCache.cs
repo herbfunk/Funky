@@ -47,6 +47,7 @@ namespace FunkyBot.Cache.Avoidance
 			  new AvoidanceValue(AvoidanceType.PlagueCloud, 0.75, 19,5),
 			  new AvoidanceValue(AvoidanceType.PlagueHand, 1, 15,5),
 			  new AvoidanceValue(AvoidanceType.PoisonGas, 0.5, 9,5),
+			  new AvoidanceValue(AvoidanceType.RiftPoison, 0.80, 10, 10),
 			  new AvoidanceValue(AvoidanceType.ShamanFireBall, 0.1, 2,5), 
 			  new AvoidanceValue(AvoidanceType.SuccubusProjectile, 0.25, 2,5),
 			  new AvoidanceValue(AvoidanceType.Teleport, 0,7,0),
@@ -91,6 +92,8 @@ namespace FunkyBot.Cache.Avoidance
 
 				  360738, // X1_Adria_arcanePool
                   358404, // X1_Adria_blood_large
+
+				  360046, //X1_Unique_Monster_Generic_AOE_DOT_Poison
 			  };
 
 		// A list of SNO's that are projectiles (so constantly look for new locations while avoiding)
@@ -209,6 +212,8 @@ namespace FunkyBot.Cache.Avoidance
 					return AvoidanceType.AdriaArcanePool;
 				case 358404:
 					return AvoidanceType.AdriaBlood;
+				case 360046:
+					return AvoidanceType.RiftPoison;
 			}
 			return AvoidanceType.None;
 		}

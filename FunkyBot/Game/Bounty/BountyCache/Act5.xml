@@ -186,6 +186,7 @@
   <CursedEventBounties />
 
   <MiscEventBounties>
+    <!--
     <BountyQuestCacheEntry>
       <Name>A5_Event_GraveYard_SoldierHoldout</Name>
       <Type>Event</Type>
@@ -204,7 +205,7 @@
         <int>359096</int>
       </QuestSNOs>
     </BountyQuestCacheEntry>
-    
+    -->
   </MiscEventBounties>
 
 </BountyQuestActCache>
