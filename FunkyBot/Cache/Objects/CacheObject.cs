@@ -216,7 +216,7 @@ namespace FunkyBot.Cache.Objects
 				{
 					Position = ref_DiaObject.Position;
 				}
-				catch (NullReferenceException)
+				catch
 				{
 					Logger.Write(LogLevel.Cache, "Safely Handled Updating Position for Object {0}", InternalName);
 				}

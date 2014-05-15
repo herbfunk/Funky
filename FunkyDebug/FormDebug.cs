@@ -94,6 +94,7 @@ namespace FunkyDebug
 				using (ZetaDia.Memory.SaveCacheState())
 				{
 					ZetaDia.Memory.DisableCache();
+					ZetaDia.Actors.Update();
 
 					double iType = -1;
 

@@ -177,6 +177,7 @@
 			this.cb_TargetRangeIgnoreLootProfileRange = new System.Windows.Forms.CheckBox();
 			this.cb_TargetRangeIgnoreKillRangeProfile = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
+			this.cb_LOSEventSwitches = new System.Windows.Forms.CheckBox();
 			this.cb_TargetLOSCursedChestShrine = new System.Windows.Forms.CheckBox();
 			this.cb_TargetLOSRareChests = new System.Windows.Forms.CheckBox();
 			this.cb_TargetLOSSpawnerUnits = new System.Windows.Forms.CheckBox();
@@ -227,17 +228,18 @@
 			this.label24 = new System.Windows.Forms.Label();
 			this.combobox_ItemRulesLogStashed = new System.Windows.Forms.ComboBox();
 			this.label23 = new System.Windows.Forms.Label();
-			this.groupBox16 = new System.Windows.Forms.GroupBox();
-			this.btn_ItemRulesCustomBrowse = new System.Windows.Forms.Button();
-			this.txt_ItemRulesCustomLocation = new System.Windows.Forms.TextBox();
-			this.comboBox_ItemRulesType = new System.Windows.Forms.ComboBox();
 			this.groupBox15 = new System.Windows.Forms.GroupBox();
 			this.cb_ItemRulesUnidStashing = new System.Windows.Forms.CheckBox();
 			this.cb_ItemRulesSalvage = new System.Windows.Forms.CheckBox();
 			this.cb_ItemRulesPickup = new System.Windows.Forms.CheckBox();
+			this.groupBox16 = new System.Windows.Forms.GroupBox();
+			this.btn_ItemRulesCustomBrowse = new System.Windows.Forms.Button();
+			this.txt_ItemRulesCustomLocation = new System.Windows.Forms.TextBox();
+			this.comboBox_ItemRulesType = new System.Windows.Forms.ComboBox();
 			this.cb_ItemRules = new System.Windows.Forms.CheckBox();
 			this.tabPage20 = new System.Windows.Forms.TabPage();
 			this.groupBox21 = new System.Windows.Forms.GroupBox();
+			this.cb_LootKeyStones = new System.Windows.Forms.CheckBox();
 			this.cb_LootExpBooks = new System.Windows.Forms.CheckBox();
 			this.cb_LootInfernoKeys = new System.Windows.Forms.CheckBox();
 			this.cb_LootCraftMats = new System.Windows.Forms.CheckBox();
@@ -360,8 +362,8 @@
 			this.tabPage19.SuspendLayout();
 			this.groupBox18.SuspendLayout();
 			this.groupBox17.SuspendLayout();
-			this.groupBox16.SuspendLayout();
 			this.groupBox15.SuspendLayout();
+			this.groupBox16.SuspendLayout();
 			this.tabPage20.SuspendLayout();
 			this.groupBox21.SuspendLayout();
 			this.panel20.SuspendLayout();
@@ -1932,6 +1934,7 @@
 			// 
 			// tabPage6
 			// 
+			this.tabPage6.Controls.Add(this.cb_LOSEventSwitches);
 			this.tabPage6.Controls.Add(this.cb_TargetLOSCursedChestShrine);
 			this.tabPage6.Controls.Add(this.cb_TargetLOSRareChests);
 			this.tabPage6.Controls.Add(this.cb_TargetLOSSpawnerUnits);
@@ -1947,6 +1950,17 @@
 			this.tabPage6.TabIndex = 2;
 			this.tabPage6.Text = "LOS";
 			this.tabPage6.UseVisualStyleBackColor = true;
+			// 
+			// cb_LOSEventSwitches
+			// 
+			this.cb_LOSEventSwitches.AutoSize = true;
+			this.cb_LOSEventSwitches.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_LOSEventSwitches.Location = new System.Drawing.Point(6, 258);
+			this.cb_LOSEventSwitches.Name = "cb_LOSEventSwitches";
+			this.cb_LOSEventSwitches.Size = new System.Drawing.Size(151, 24);
+			this.cb_LOSEventSwitches.TabIndex = 8;
+			this.cb_LOSEventSwitches.Text = "Event Switches";
+			this.cb_LOSEventSwitches.UseVisualStyleBackColor = true;
 			// 
 			// cb_TargetLOSCursedChestShrine
 			// 
@@ -2496,6 +2510,49 @@
 			this.label23.TabIndex = 0;
 			this.label23.Text = "Items Stashed";
 			// 
+			// groupBox15
+			// 
+			this.groupBox15.Controls.Add(this.cb_ItemRulesUnidStashing);
+			this.groupBox15.Controls.Add(this.cb_ItemRulesSalvage);
+			this.groupBox15.Controls.Add(this.cb_ItemRulesPickup);
+			this.groupBox15.Dock = System.Windows.Forms.DockStyle.Top;
+			this.groupBox15.Location = new System.Drawing.Point(3, 81);
+			this.groupBox15.Name = "groupBox15";
+			this.groupBox15.Size = new System.Drawing.Size(651, 48);
+			this.groupBox15.TabIndex = 20;
+			this.groupBox15.TabStop = false;
+			this.groupBox15.Text = "Additional Rules";
+			// 
+			// cb_ItemRulesUnidStashing
+			// 
+			this.cb_ItemRulesUnidStashing.AutoSize = true;
+			this.cb_ItemRulesUnidStashing.Location = new System.Drawing.Point(142, 19);
+			this.cb_ItemRulesUnidStashing.Name = "cb_ItemRulesUnidStashing";
+			this.cb_ItemRulesUnidStashing.Size = new System.Drawing.Size(92, 17);
+			this.cb_ItemRulesUnidStashing.TabIndex = 2;
+			this.cb_ItemRulesUnidStashing.Text = "Unid Stashing";
+			this.cb_ItemRulesUnidStashing.UseVisualStyleBackColor = true;
+			// 
+			// cb_ItemRulesSalvage
+			// 
+			this.cb_ItemRulesSalvage.AutoSize = true;
+			this.cb_ItemRulesSalvage.Location = new System.Drawing.Point(71, 19);
+			this.cb_ItemRulesSalvage.Name = "cb_ItemRulesSalvage";
+			this.cb_ItemRulesSalvage.Size = new System.Drawing.Size(65, 17);
+			this.cb_ItemRulesSalvage.TabIndex = 1;
+			this.cb_ItemRulesSalvage.Text = "Salvage";
+			this.cb_ItemRulesSalvage.UseVisualStyleBackColor = true;
+			// 
+			// cb_ItemRulesPickup
+			// 
+			this.cb_ItemRulesPickup.AutoSize = true;
+			this.cb_ItemRulesPickup.Location = new System.Drawing.Point(6, 19);
+			this.cb_ItemRulesPickup.Name = "cb_ItemRulesPickup";
+			this.cb_ItemRulesPickup.Size = new System.Drawing.Size(59, 17);
+			this.cb_ItemRulesPickup.TabIndex = 0;
+			this.cb_ItemRulesPickup.Text = "Pickup";
+			this.cb_ItemRulesPickup.UseVisualStyleBackColor = true;
+			// 
 			// groupBox16
 			// 
 			this.groupBox16.Controls.Add(this.btn_ItemRulesCustomBrowse);
@@ -2540,49 +2597,6 @@
 			this.comboBox_ItemRulesType.Size = new System.Drawing.Size(121, 24);
 			this.comboBox_ItemRulesType.TabIndex = 0;
 			// 
-			// groupBox15
-			// 
-			this.groupBox15.Controls.Add(this.cb_ItemRulesUnidStashing);
-			this.groupBox15.Controls.Add(this.cb_ItemRulesSalvage);
-			this.groupBox15.Controls.Add(this.cb_ItemRulesPickup);
-			this.groupBox15.Dock = System.Windows.Forms.DockStyle.Top;
-			this.groupBox15.Location = new System.Drawing.Point(3, 81);
-			this.groupBox15.Name = "groupBox15";
-			this.groupBox15.Size = new System.Drawing.Size(651, 48);
-			this.groupBox15.TabIndex = 20;
-			this.groupBox15.TabStop = false;
-			this.groupBox15.Text = "Additional Rules";
-			// 
-			// cb_ItemRulesUnidStashing
-			// 
-			this.cb_ItemRulesUnidStashing.AutoSize = true;
-			this.cb_ItemRulesUnidStashing.Location = new System.Drawing.Point(142, 19);
-			this.cb_ItemRulesUnidStashing.Name = "cb_ItemRulesUnidStashing";
-			this.cb_ItemRulesUnidStashing.Size = new System.Drawing.Size(92, 17);
-			this.cb_ItemRulesUnidStashing.TabIndex = 2;
-			this.cb_ItemRulesUnidStashing.Text = "Unid Stashing";
-			this.cb_ItemRulesUnidStashing.UseVisualStyleBackColor = true;
-			// 
-			// cb_ItemRulesSalvage
-			// 
-			this.cb_ItemRulesSalvage.AutoSize = true;
-			this.cb_ItemRulesSalvage.Location = new System.Drawing.Point(71, 19);
-			this.cb_ItemRulesSalvage.Name = "cb_ItemRulesSalvage";
-			this.cb_ItemRulesSalvage.Size = new System.Drawing.Size(65, 17);
-			this.cb_ItemRulesSalvage.TabIndex = 1;
-			this.cb_ItemRulesSalvage.Text = "Salvage";
-			this.cb_ItemRulesSalvage.UseVisualStyleBackColor = true;
-			// 
-			// cb_ItemRulesPickup
-			// 
-			this.cb_ItemRulesPickup.AutoSize = true;
-			this.cb_ItemRulesPickup.Location = new System.Drawing.Point(6, 19);
-			this.cb_ItemRulesPickup.Name = "cb_ItemRulesPickup";
-			this.cb_ItemRulesPickup.Size = new System.Drawing.Size(59, 17);
-			this.cb_ItemRulesPickup.TabIndex = 0;
-			this.cb_ItemRulesPickup.Text = "Pickup";
-			this.cb_ItemRulesPickup.UseVisualStyleBackColor = true;
-			// 
 			// cb_ItemRules
 			// 
 			this.cb_ItemRules.AutoSize = true;
@@ -2610,6 +2624,7 @@
 			// 
 			// groupBox21
 			// 
+			this.groupBox21.Controls.Add(this.cb_LootKeyStones);
 			this.groupBox21.Controls.Add(this.cb_LootExpBooks);
 			this.groupBox21.Controls.Add(this.cb_LootInfernoKeys);
 			this.groupBox21.Controls.Add(this.cb_LootCraftMats);
@@ -2618,10 +2633,21 @@
 			this.groupBox21.Dock = System.Windows.Forms.DockStyle.Top;
 			this.groupBox21.Location = new System.Drawing.Point(3, 197);
 			this.groupBox21.Name = "groupBox21";
-			this.groupBox21.Size = new System.Drawing.Size(651, 202);
+			this.groupBox21.Size = new System.Drawing.Size(651, 261);
 			this.groupBox21.TabIndex = 2;
 			this.groupBox21.TabStop = false;
 			this.groupBox21.Text = "Misc";
+			// 
+			// cb_LootKeyStones
+			// 
+			this.cb_LootKeyStones.AutoSize = true;
+			this.cb_LootKeyStones.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_LootKeyStones.Location = new System.Drawing.Point(9, 201);
+			this.cb_LootKeyStones.Name = "cb_LootKeyStones";
+			this.cb_LootKeyStones.Size = new System.Drawing.Size(163, 21);
+			this.cb_LootKeyStones.TabIndex = 23;
+			this.cb_LootKeyStones.Text = "Key Stone Fragments";
+			this.cb_LootKeyStones.UseVisualStyleBackColor = true;
 			// 
 			// cb_LootExpBooks
 			// 
@@ -2649,7 +2675,7 @@
 			// 
 			this.cb_LootCraftMats.AutoSize = true;
 			this.cb_LootCraftMats.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cb_LootCraftMats.Location = new System.Drawing.Point(9, 128);
+			this.cb_LootCraftMats.Location = new System.Drawing.Point(9, 124);
 			this.cb_LootCraftMats.Name = "cb_LootCraftMats";
 			this.cb_LootCraftMats.Size = new System.Drawing.Size(137, 21);
 			this.cb_LootCraftMats.TabIndex = 20;
@@ -3058,6 +3084,7 @@
 			this.btn_Test.TabIndex = 7;
 			this.btn_Test.Text = "Test";
 			this.btn_Test.UseVisualStyleBackColor = true;
+			this.btn_Test.Click += new System.EventHandler(this.btn_Test_Click);
 			// 
 			// SettingsForm
 			// 
@@ -3201,10 +3228,10 @@
 			this.groupBox18.PerformLayout();
 			this.groupBox17.ResumeLayout(false);
 			this.groupBox17.PerformLayout();
-			this.groupBox16.ResumeLayout(false);
-			this.groupBox16.PerformLayout();
 			this.groupBox15.ResumeLayout(false);
 			this.groupBox15.PerformLayout();
+			this.groupBox16.ResumeLayout(false);
+			this.groupBox16.PerformLayout();
 			this.tabPage20.ResumeLayout(false);
 			this.groupBox21.ResumeLayout(false);
 			this.groupBox21.PerformLayout();
@@ -3483,6 +3510,8 @@
 		private System.Windows.Forms.Panel panel21;
 		private System.Windows.Forms.CheckBox cb_MovementOutOfCombatSkills;
 		private System.Windows.Forms.CheckBox cb_LootExpBooks;
+		private System.Windows.Forms.CheckBox cb_LootKeyStones;
+		private System.Windows.Forms.CheckBox cb_LOSEventSwitches;
 		//
 	}
 }

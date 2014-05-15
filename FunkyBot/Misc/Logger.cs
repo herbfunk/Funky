@@ -17,7 +17,7 @@ namespace FunkyBot
 	 {
 		  None=0,
 		  User=1,
-		  Execption=2, //doh?
+		  LineOfSight=2, //doh?
 		  Cluster=4,
 		  Grouping=8,
 		  Movement=16,
@@ -30,7 +30,7 @@ namespace FunkyBot
 		  Cache=2048,
 		  Bounty=4096,
 
-		  All=User|Execption|Cluster|Grouping|Movement|Ability|Target|Items|OutOfGame|OutOfCombat|Event|Cache|Bounty,
+		  All = User | LineOfSight | Cluster | Grouping | Movement | Ability | Target | Items | OutOfGame | OutOfCombat | Event | Cache | Bounty,
 	 }
 	 public static class Logger
 	 {

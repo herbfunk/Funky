@@ -384,7 +384,10 @@ namespace FunkyBot
 
 		public Window DisplayWindow
 		{
-			get { throw new NotImplementedException(); }
+			get 
+			{
+				return null;
+			}
 		}
 	}
 }

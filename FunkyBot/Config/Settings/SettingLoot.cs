@@ -22,7 +22,7 @@ namespace FunkyBot.Config.Settings
 		public bool[] PickupGems { get; set; }
 		public bool PickupGemDiamond { get; set; }
 		public int MinimumGemItemLevel { get; set; }
-		public bool PickupCraftTomes { get; set; }
+		
 		public bool PickupCraftPlans { get; set; }
 		public bool PickupBlacksmithPlanSix { get; set; }
 		public bool PickupBlacksmithPlanFive { get; set; }
@@ -35,9 +35,11 @@ namespace FunkyBot.Config.Settings
 		public bool PickupJewelerDesignRadiantStar { get; set; }
 		public bool PickupJewelerDesignMarquise { get; set; }
 		public bool PickupJewelerDesignAmulet { get; set; }
+
+
 		public bool PickupFollowerItems { get; set; }
 		public bool PickupInfernalKeys { get; set; }
-		public bool PickupDemonicEssence { get; set; }
+		public bool PickupKeystoneFragments { get; set; }
 		public bool PickupCraftMaterials { get; set; }
 
 		public bool ExpBooks { get; set; }
@@ -53,7 +55,6 @@ namespace FunkyBot.Config.Settings
 			MinimumLegendaryItemLevel=1;
 			MaximumHealthPotions=100;
 			MinimumGoldPile=425;
-			PickupCraftTomes=true;
 			PickupCraftPlans=true;
 			PickupBlacksmithPlanSix=false;
 			PickupBlacksmithPlanFive=false;
@@ -67,9 +68,10 @@ namespace FunkyBot.Config.Settings
 			PickupJewelerDesignMarquise=false;
 			PickupJewelerDesignAmulet=false;
 			PickupInfernalKeys=true;
-			PickupDemonicEssence=true;
+
 			PickupFollowerItems=true;
 			PickupCraftMaterials=true;
+			PickupKeystoneFragments = true;
 
 			MinimumGemItemLevel=67;
 			PickupGems = new bool[] { true, true, true, true, true };

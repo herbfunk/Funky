@@ -10,9 +10,9 @@ namespace FunkyBot.Game.Bounty
 	///</summary>
 	public class BountyQuestActCache
 	{
-		public BountyQuestCacheEntry[] KillBounties { get; set; }
-		public BountyQuestCacheEntry[] ClearBounties { get; set; }
-		public BountyQuestCacheEntry[] CursedEventBounties { get; set; }
+		public HashSet<BountyQuestCacheEntry> KillBounties { get; set; }
+		public HashSet<BountyQuestCacheEntry> ClearBounties { get; set; }
+		public HashSet<BountyQuestCacheEntry> CursedEventBounties { get; set; }
 
 
 		public List<BountyQuestCacheEntry> AllBounties
@@ -31,9 +31,9 @@ namespace FunkyBot.Game.Bounty
 
 		public BountyQuestActCache()
 		{
-			KillBounties = new[] { new BountyQuestCacheEntry() };
-			ClearBounties = new[] { new BountyQuestCacheEntry() };
-			CursedEventBounties = new[] { new BountyQuestCacheEntry() };
+			KillBounties = new HashSet<BountyQuestCacheEntry>();
+			ClearBounties = new HashSet<BountyQuestCacheEntry>();
+			CursedEventBounties = new HashSet<BountyQuestCacheEntry>();
 		}
 
 

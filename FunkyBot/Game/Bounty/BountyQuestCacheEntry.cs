@@ -21,7 +21,21 @@ namespace FunkyBot.Game.Bounty
 		///<summary>
 		///The Level Area where the quest should finish.
 		///</summary>
-		public int EndingLevelAreaID { get; set; }
+		public int EndingLevelAreaID 
+		{
+			get 
+			{ 
+				//No specific end level set.. we use start level ID
+				if (_endingLevelAreaID == -1 && StartingLevelAreaID != -1)
+					_endingLevelAreaID=StartingLevelAreaID;
+
+				return _endingLevelAreaID;
+			}
+			set { _endingLevelAreaID = value; } 
+		}
+
+		private int _endingLevelAreaID = -1;
+
 		///<summary>
 		///Any Connecting Areas inbetween Start and End
 		///</summary>

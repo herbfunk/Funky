@@ -115,12 +115,15 @@ namespace FunkyBot.DBHandlers
 			Vector3 vectorPlayerPosition = ZetaDia.Me.Position;
 			Vector3 vectorSalvageLocation = new Vector3(0f, 0f, 0f);
 
+			Act curAct = ZetaDia.CurrentAct;
+			if (curAct == Act.Invalid || curAct == Act.OpenWorld || curAct == Act.Test) curAct = Character.FindActByLevelID(Bot.Character.Data.iCurrentLevelID);
+
+			//Normal distance we use to move to specific location before moving to NPC
+			float _distanceRequired=curAct!=Act.A5?50f:17f; //Act 5 we want short range only!
+
 			if (objBlacksmith == null || objBlacksmith.Distance > 50f)
 			{
-				Act curAct = ZetaDia.CurrentAct;
-				if (curAct == Act.Invalid || curAct == Act.OpenWorld || curAct == Act.Test)
-					curAct = Character.FindActByLevelID(Bot.Character.Data.iCurrentLevelID);
-				vectorSalvageLocation = TownRunManager.ReturnMovementVector(TownRunBehavior.Salvage, curAct);
+				vectorSalvageLocation = ReturnMovementVector(TownRunBehavior.Salvage, curAct);
 			}
 			else
 				vectorSalvageLocation = objBlacksmith.Position;

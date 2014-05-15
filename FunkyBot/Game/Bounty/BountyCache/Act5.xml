@@ -82,33 +82,53 @@
         <int>367870</int>
       </QuestSNOs>
     </BountyQuestCacheEntry>
+    <BountyQuestCacheEntry>
+      <Name>A5_Kill_RuinsOfCorvus</Name>
+      <Type>Kill</Type>
+      <StartingLevelAreaID>283567</StartingLevelAreaID>
+      <TotalKillCount>150</TotalKillCount>
+      <QuestSNOs>
+        <int>363021</int>
+        <int>363019</int>
+        <int>363016</int>
+        <int>363013</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
+    <BountyQuestCacheEntry>
+      <Name>A5_Kill_PathsOfTheDrowned</Name>
+      <Type>Kill</Type>
+      <StartingLevelAreaID>258142</StartingLevelAreaID>
+      <TotalKillCount>150</TotalKillCount>
+      <QuestSNOs>
+        <int>362921</int>
+        <int>362923</int>
+        <int>362897</int>
+        <int>362915</int>
+        <int>359326</int>
+        <int>362913</int>
+        <int>362925</int>
+        <int>355282</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
+    <BountyQuestCacheEntry>
+      <Name>A5_Kill_Westmarch Commons</Name>
+      <Type>Kill</Type>
+      <StartingLevelAreaID>261758</StartingLevelAreaID>
+      <TotalKillCount>100</TotalKillCount>
+      <QuestSNOs>
+        <int>368783</int>
+        <int>368781</int>
+        <int>363075</int>
+        <int>368785</int>
+        <int>359430</int>
+        <int>363080</int>
+        <int>363082</int>
+        <int>359428</int>
+        <int>363078</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
   </KillBounties>
-  
-  <ClearBounties>
-    <BountyQuestCacheEntry>
-      <Name>Blank_Bounty_Name</Name>
-      <Type>Clear</Type>
-      <StartingLevelAreaID>0000</StartingLevelAreaID>
-      <EndingLevelAreaID>0000</EndingLevelAreaID>
-      <LevelAreaIDs>
-        <int>0000</int>
-      </LevelAreaIDs>
-      <TotalKillCount>-1</TotalKillCount>
-      <QuestSNOs>
-        <int>0000</int>
-      </QuestSNOs>
-    </BountyQuestCacheEntry>
-  </ClearBounties>
-  <CursedEventBounties>
-    <BountyQuestCacheEntry>
-      <Name>Blank_Bounty_Name</Name>
-      <Type>CursedEvent</Type>
-      <StartingLevelAreaID>00000</StartingLevelAreaID>
-      <EndingLevelAreaID>00000</EndingLevelAreaID>
-      <TotalKillCount>-1</TotalKillCount>
-      <QuestSNOs>
-        <int>00000</int>
-      </QuestSNOs>
-    </BountyQuestCacheEntry>
-  </CursedEventBounties>
+
+    <ClearBounties />
+  <CursedEventBounties />
 </BountyQuestActCache>

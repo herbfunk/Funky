@@ -5,6 +5,7 @@ using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.DBHandlers;
 using FunkyBot.Movement;
+using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Targeting.Behaviors;
 using Zeta.Bot;
 using Zeta.Bot.Settings;
@@ -424,6 +425,8 @@ namespace FunkyBot.Targeting
 				return DateTime.Now.Subtract(lastRefreshedObjects).TotalMilliseconds >= Bot.Settings.Plugin.CacheObjectRefreshRate;
 			}
 		}
+
+		internal Skill InteractionSkill = new Interact();
 
 		public string DebugString()
 		{

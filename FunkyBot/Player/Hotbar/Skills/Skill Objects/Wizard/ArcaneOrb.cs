@@ -19,6 +19,16 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckRecastTimer|
 				                          SkillPrecastFlags.CheckEnergy));
 				ClusterConditions.Add(new SkillClusterConditions(5d, 40, 3, true));
+
+				//Any unit when our energy is greater than 90%!
+				SingleUnitCondition.Add(new UnitTargetConditions
+				{
+					TrueConditionFlags=TargetProperties.None,
+					Criteria = () => Bot.Character.Data.dCurrentEnergyPct > 0.9d,
+					Distance=40,
+					
+				});
+
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 40, 0.95d, TargetProperties.Normal | TargetProperties.Fast | TargetProperties.MissileDampening));
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 40));
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;

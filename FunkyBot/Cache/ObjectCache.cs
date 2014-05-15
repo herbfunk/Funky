@@ -341,11 +341,21 @@ namespace FunkyBot.Cache
 						}
 
 						//Update Properties (currently only for units)
-						tmp_CachedObj.UpdateProperties();
+
+						try
+						{
+							tmp_CachedObj.UpdateProperties();
+						}
+						catch 
+						{
+							Logger.Write(LogLevel.Cache,"Failed to update properties for {0}", tmp_CachedObj.DebugStringSimple);
+						}
 					}
 
 					if (!tmp_CachedObj.UpdateData())
 					{
+						//Logger.Write(LogLevel.Cache, "Update Failed for {0}", tmp_CachedObj.DebugStringSimple);
+
 						if (!tmp_CachedObj.IsStillValid())
 							tmp_CachedObj.NeedsRemoved = true;
 

@@ -50,7 +50,7 @@ namespace FunkyBot.Targeting.Behaviors
 					{//Invalidated the Line of sight obj!
 
 
-						Logger.Write(LogLevel.Movement, "LOS Object is No Longer Valid -- Reseting.");
+						Logger.Write(LogLevel.LineOfSight, "LOS Object is No Longer Valid -- Reseting.");
 
 
 						Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(Bot.NavigationCache.LOSmovementObject.OrginCacheObjectRAGUID);
@@ -75,7 +75,7 @@ namespace FunkyBot.Targeting.Behaviors
 
 							if (!Navigation.NP.CanFullyClientPathTo(cobj.Position)) continue;
 
-							Logger.Write(LogLevel.Movement, "Line of Sight Started for object {0} -- with {1} vectors", cobj.InternalName, Navigation.NP.CurrentPath.Count);
+							Logger.Write(LogLevel.LineOfSight, "Line of Sight Started for object {0} -- with {1} vectors", cobj.InternalName, Navigation.NP.CurrentPath.Count);
 
 
 							Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(cobj.RAGUID);
@@ -103,7 +103,7 @@ namespace FunkyBot.Targeting.Behaviors
 									if (!Navigation.NP.CanFullyClientPathTo(mapmarker.Position)) continue;
 
 
-									Logger.Write(LogLevel.Movement, "Line of Sight Started for Map Marker with {0} vectors", Navigation.NP.CurrentPath.Count);
+									Logger.Write(LogLevel.LineOfSight, "Line of Sight Started for Map Marker with {0} vectors", Navigation.NP.CurrentPath.Count);
 
 									Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(mapmarker.GetHashCode());
 
@@ -123,13 +123,13 @@ namespace FunkyBot.Targeting.Behaviors
 						{
 							if (!Bot.NavigationCache.LOSmovementObject.CacheContainsOrginObject())
 							{
-								Logger.Write(LogLevel.Movement, "Line of Sight Ending due to Orgin Object No Longer Available!");
+								Logger.Write(LogLevel.LineOfSight, "Line of Sight Ending due to Orgin Object No Longer Available!");
 								Bot.NavigationCache.LOSmovementObject = null;
 								return false;
 							}
 							else if (!Bot.NavigationCache.LOSmovementObject.IsValidForTargeting())
 							{//Valid for Targeting?
-								Logger.Write(LogLevel.Movement, "Line of Sight Ending due to Orgin Object Not Valid for Targeting!");
+								Logger.Write(LogLevel.LineOfSight, "Line of Sight Ending due to Orgin Object Not Valid for Targeting!");
 								Bot.NavigationCache.LOSmovementObject = null;
 								return false;
 							}

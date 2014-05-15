@@ -403,6 +403,13 @@ namespace FunkyBot.Targeting
 				// Select an Ability for destroying a destructible with in advance
 				if (Bot.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Destructible || Bot.Targeting.Cache.CurrentTarget.targetType == TargetType.Barricade)
 					Bot.Character.Class.PowerPrime = Bot.Character.Class.DestructibleAbility();
+
+				//Interactables (for pre and post waits)
+				if (ObjectCache.CheckTargetTypeFlag(Bot.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.Item|TargetType.Interactables))
+				{
+					Skill.SetupAbilityForUse(ref Bot.Targeting.Cache.InteractionSkill);
+					Bot.Character.Class.PowerPrime = Bot.Targeting.Cache.InteractionSkill;
+				}
 			}
 			#endregion
 
@@ -462,7 +469,7 @@ namespace FunkyBot.Targeting
 					//No more points to navigate..
 					if (Navigation.NP.CurrentPath.Count == 1 && Bot.Character.Data.Position.Distance(Navigation.NP.CurrentPath.Current) <= Bot.Targeting.Cache.CurrentTarget.Radius)
 					{
-						Logger.Write(LogLevel.Movement, "Ending Line of Sight Movement");
+						Logger.Write(LogLevel.LineOfSight, "Ending Line of Sight Movement");
 						if (Bot.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.LineOfSight)
 						{
 							Bot.NavigationCache.LOSmovementObject = null;

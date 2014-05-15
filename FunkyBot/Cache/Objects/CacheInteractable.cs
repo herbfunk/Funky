@@ -19,6 +19,14 @@ namespace FunkyBot.Cache.Objects
 		{
 		}
 
+		public bool IsEventSwitch 
+		{ 
+			get 
+			{ 
+				return Gizmotype.HasValue && Gizmotype.Value == GizmoType.Switch && internalNameLower.Contains("event_switch"); 
+			}
+		}
+
 		public override string DebugString
 		{
 			get
@@ -65,14 +73,14 @@ namespace FunkyBot.Cache.Objects
 			get
 			{
 				if (!base.ObjectIsValidForTargeting) return false;
+				if (!targetType.HasValue) return false;
 
+				//Disabled by script?
+				if (GizmoDisabledByScript.HasValue && GizmoDisabledByScript.Value) return false;
 
 
 				float centreDistance = CentreDistance;
 				float radiusDistance = RadiusDistance;
-
-				if (!targetType.HasValue)
-					return false;
 
 				// Ignore it if it's not in range yet
 				if (centreDistance > LootRadius)
@@ -100,7 +108,8 @@ namespace FunkyBot.Cache.Objects
 					if (lastLOSCheckMS < 500 && centreDistance > 1f)
 					{
 						if ((IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer)||
-							((IsCursedChest||IsCursedShrine) && Bot.Settings.LOSMovement.AllowCursedChestShrines))
+							((IsCursedChest||IsCursedShrine) && Bot.Settings.LOSMovement.AllowCursedChestShrines)||
+							(IsEventSwitch && Bot.Settings.LOSMovement.AllowEventSwitches))
 						{
 							//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 							//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
@@ -122,7 +131,8 @@ namespace FunkyBot.Cache.Objects
 						if (lastLOSCheckMS < ReCheckTime)
 						{
 							if ((IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer) ||
-								((IsCursedChest || IsCursedShrine) && Bot.Settings.LOSMovement.AllowCursedChestShrines))
+								((IsCursedChest || IsCursedShrine) && Bot.Settings.LOSMovement.AllowCursedChestShrines) ||
+								 (IsEventSwitch && Bot.Settings.LOSMovement.AllowEventSwitches))
 							{
 								//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 								//   Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
@@ -135,7 +145,8 @@ namespace FunkyBot.Cache.Objects
 					if (!base.LineOfSight.LOSTest(Bot.Character.Data.Position, true, false))
 					{
 						if ((IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer) ||
-							((IsCursedChest || IsCursedShrine) && Bot.Settings.LOSMovement.AllowCursedChestShrines))
+							((IsCursedChest || IsCursedShrine) && Bot.Settings.LOSMovement.AllowCursedChestShrines) ||
+							(IsEventSwitch && Bot.Settings.LOSMovement.AllowEventSwitches))
 						{
 							//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 							//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
@@ -398,6 +409,18 @@ namespace FunkyBot.Cache.Objects
 
 		public override RunStatus Interact()
 		{
+			// Force waiting for global cooldown timer or long-animation abilities
+			if (Bot.Character.Class.PowerPrime.WaitLoopsBefore >= 1)
+			{
+				//Logger.DBLog.DebugFormat("Debug: Force waiting BEFORE Ability " + powerPrime.powerThis.ToString() + "...");
+				Bot.Targeting.Cache.bWaitingForPower = true;
+				if (Bot.Character.Class.PowerPrime.WaitLoopsBefore >= 1)
+					Bot.Character.Class.PowerPrime.WaitLoopsBefore--;
+				return RunStatus.Running;
+			}
+			Bot.Targeting.Cache.bWaitingForPower = false;
+
+
 			Bot.Character.Data.WaitWhileAnimating(20);
 			ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, Position, Bot.Character.Data.iCurrentWorldID, base.AcdGuid.Value);
 			InteractionAttempts++;
@@ -409,25 +432,37 @@ namespace FunkyBot.Cache.Objects
 
 			if (InteractionAttempts == 1)
 			{
-				// Force waiting AFTER power use for certain abilities
 				Bot.Targeting.Cache.bWaitingAfterPower = true;
-				Bot.Character.Class.PowerPrime.WaitLoopsAfter = 5;
 			}
 
-			// Interactables can have a long channeling time...
+
+			// Wait!!
 			if (ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Interactable))
 			{
 				Bot.Character.Data.WaitWhileAnimating(1500);
 			}
-
-			Bot.Character.Data.WaitWhileAnimating(75);
+			else if(ObjectCache.CheckTargetTypeFlag(targetType.Value,TargetType.Door))
+			{
+				Bot.Character.Data.WaitWhileAnimating(500);
+			}
+			else
+			{
+				Bot.Character.Data.WaitWhileAnimating(75);
+			}
+			
 
 			// If we've tried interacting too many times, blacklist this for a while
-			if (InteractionAttempts > 5)
+			if (InteractionAttempts > 5 && !IsCursedShrine && !IsCursedChest)
 			{
-				if (!IsCursedShrine && !IsCursedChest)
+				if (Gizmotype == GizmoType.Door)
+				{
+					BlacklistLoops = 20;
+				}
+				else
+				{
 					BlacklistLoops = 50;
-
+				}
+				
 				InteractionAttempts = 0;
 			}
 

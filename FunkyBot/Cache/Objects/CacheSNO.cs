@@ -365,7 +365,7 @@ namespace FunkyBot.Cache.Objects
 		#endregion
 
 		private string internalnamelower;
-		private string internalNameLower
+		internal string internalNameLower
 		{
 			get
 			{
@@ -378,7 +378,16 @@ namespace FunkyBot.Cache.Objects
 
 
 
-
+		public string DebugStringSimple
+		{
+			get
+			{
+				return String.Format("({0}) SNO {1} ActorType {2} TargetType {3}",
+										InternalName, SNOID,
+										Actortype.HasValue ? Actortype.Value.ToString() : "Null",
+										targetType.HasValue ? targetType.Value.ToString() : "Null");
+			}
+		}
 		public virtual string DebugString
 		{
 			get

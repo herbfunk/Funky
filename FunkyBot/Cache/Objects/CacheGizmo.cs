@@ -22,6 +22,8 @@ namespace FunkyBot.Cache.Objects
 		///For Shrines/Healthwells the value is set to (GizmoHasBeenOperated). For Containers the value is set to (ChestOpen).
 		///</summary>
 		public bool? GizmoHasBeenUsed { get; set; }
+		public bool? GizmoDisabledByScript { get; set; 
+		}
 		public int? PhysicsSNO { get; set; }
 		//public bool? IsEnviromentalActor { get; set; }
 
@@ -68,15 +70,15 @@ namespace FunkyBot.Cache.Objects
 		public override bool UpdateData()
 		{
 
-			if (this.ref_Gizmo == null)
+			if (ref_Gizmo == null)
 			{
 				try
 				{
-					this.ref_Gizmo = (DiaGizmo)base.ref_DiaObject;
+					ref_Gizmo = (DiaGizmo)ref_DiaObject;
 				}
 				catch
 				{
-					Logger.Write(LogLevel.Cache, "Failure to convert obj to DiaItem!");
+					Logger.Write(LogLevel.Cache, "Failure to convert obj to DiaGizmo {0}", DebugStringSimple);
 
 
 					NeedsRemoved = true;
@@ -137,40 +139,13 @@ namespace FunkyBot.Cache.Objects
 				}
 				catch
 				{
-					Logger.Write(LogLevel.Cache, "Safely handled getting attribute GizmoHasBeenOperated gizmo {0}", this.InternalName);
+					Logger.Write(LogLevel.Cache, "Exception GizmoHasBeenOperated {0}", DebugStringSimple);
 					BlacklistFlag=BlacklistType.Temporary;
 					BlacklistLoops = 100;
 					NeedsRemoved = true;
 					return false;
 				}
-
-				//Blacklist used gizmos.
-				//if (this.GizmoHasBeenUsed.HasValue && this.GizmoHasBeenUsed.Value)
-				//{
-				//	Logger.Write(LogLevel.Cache, "Removing {0} Has Been Used!", InternalName);
-
-				//	this.BlacklistFlag = BlacklistType.Permanent;
-				//	this.NeedsRemoved = true;
-				//	return false;
-				//}
 			}
-
-			//only shrines and "chests" would have set this value true.. so if no value than we set it false!
-			//if (this.HandleAsAvoidanceObject) base.Obstacletype = ObstacleType.ServerObject;
-
-			//PhysicsSNO -- (continiously updated) excluding shrines/interactables
-			//if (ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Destructible | TargetType.Barricade | TargetType.Container))
-			//{
-			//	try
-			//	{
-			//		this.PhysicsSNO = base.ref_DiaObject.PhysicsSNO;
-			//	}
-			//	catch
-			//	{
-			//		Logger.Write(LogLevel.Cache, "Safely handled exception getting physics SNO for object " + this.InternalName + " [" + this.SNOID + "]");
-			//		return false;
-			//	}
-			//}
 
 			////Update SNOAnim
 			if (ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Destructible | TargetType.Barricade))
@@ -182,8 +157,23 @@ namespace FunkyBot.Cache.Objects
 				}
 				catch
 				{
-					Logger.Write(LogLevel.Cache, "Exception occured attempting to update AnimState for object {0}", InternalName);
+					Logger.Write(LogLevel.Cache, "Exception occured attempting to update AnimState for object {0}", DebugStringSimple);
 					//AnimState=AnimationState.Invalid;
+				}
+			}
+
+
+			//DisabledByScript Check
+			if ((!GizmoDisabledByScript.HasValue || GizmoDisabledByScript.Value) && ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Interactables))
+			{
+				try
+				{
+					GizmoDisabledByScript = ref_Gizmo.CommonData.GetAttribute<int>(ActorAttributeType.GizmoDisabledByScript) > 0;
+				}
+				catch
+				{
+					Logger.Write(LogLevel.Cache, "Handled GizmoDisabledByScript for gizmo {0}", DebugStringSimple);
+					GizmoDisabledByScript = false;
 				}
 			}
 

@@ -228,15 +228,9 @@ namespace FunkyBot.Player
 					// Note; Infernal keys are misc, so should be picked up here - we aren't filtering them out, so should default to true at the end of this function
 					if (thisGilesItemType == GilesItemType.CraftingMaterial)
 					{
-						if (item.BalanceData.iThisItemLevel == 63 && Bot.Settings.Loot.PickupDemonicEssence)
-							return true;
-
 						return Bot.Settings.Loot.PickupCraftMaterials;
 					}
-					if (thisGilesItemType == GilesItemType.CraftTome && !Bot.Settings.Loot.PickupCraftTomes)
-					{
-						return false;
-					}
+
 					if (thisGilesItemType == GilesItemType.CraftingPlan)
 					{
 						if (!Bot.Settings.Loot.PickupCraftPlans) return false;
@@ -262,12 +256,12 @@ namespace FunkyBot.Player
 					}
 					if (thisGilesItemType == GilesItemType.InfernalKey)
 					{
-						if (!Bot.Settings.Loot.PickupInfernalKeys) return false;
+						return Bot.Settings.Loot.PickupInfernalKeys;
 					}
 
 					if (thisGilesItemType == GilesItemType.KeyStone)
 					{
-						return true;
+						return Bot.Settings.Loot.PickupKeystoneFragments;
 					}
 
 					// Potion filtering

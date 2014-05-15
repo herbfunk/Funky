@@ -411,11 +411,12 @@ namespace FunkyBot.Player
 		{
 			return String.Format("Character Info \r\n" +
 															   "CurrentLevelID={0} -- WorldID={1} -- SceneID={2} \r\n" +
+																"IsIncapacitated={17} IsRooted={18}  \r\n" +
 															   "SNOAnim={3} AnimState={4} \r\n" +
 															   "Incapacitated={5} -- Rooted={6} \r\n" +
 															   "Current Health={7} -- Current Energy={8}[{9}%] \r\n" +
 															   "Current Coin={10} -- CurrentXP={11} \r\n" +
-															   "Is In Boss Encounter={12}\r\n" +
+															   "Is In Boss Encounter={12}  IsInTown={16}\r\n" +
 															   "SNOActor ID: {13} -- {14}" +
 																"\r\n{15}",
 															   iCurrentLevelID, iCurrentWorldID, iSceneID,
@@ -425,7 +426,9 @@ namespace FunkyBot.Player
 															   Coinage, CurrentExp,
 															   bIsInBossEncounter,
 															   ActorSno,SnoActor,
-															   PetData.DebugString());
+															   PetData.DebugString(),
+															   bIsInTown,
+															   bIsIncapacitated, bIsRooted);
 
 		}
 

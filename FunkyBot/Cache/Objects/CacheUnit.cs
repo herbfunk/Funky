@@ -891,6 +891,7 @@ namespace FunkyBot.Cache.Objects
 					//Respawnable Units -- Only when they are not elite/rare/uniques!
 					if (!IsRespawnable || IsEliteRareUnique)
 					{
+						//Logger.Write(LogLevel.Cache, "Unit Is Dead {0}", DebugStringSimple);
 						BlacklistLoops = -1;
 						NeedsRemoved = true;
 						return false;
@@ -1006,7 +1007,7 @@ namespace FunkyBot.Cache.Objects
 						// if (this.IsEliteRareUnique||this.IsTreasureGoblin)
 						if (AllowLOSMovement)
 						{
-							Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
+							Logger.Write(LogLevel.LineOfSight, "Adding {0} to LOS Movement Objects", InternalName);
 							Bot.Targeting.Cache.Environment.LoSMovementObjects.Add(this);
 						}
 
@@ -1073,9 +1074,11 @@ namespace FunkyBot.Cache.Objects
 
 		public override bool UpdateData()
 		{
-
 			if (!base.IsStillValid())
+			{
+				//Logger.Write(LogLevel.Cache,"ref object not valid for {0}", DebugStringSimple);
 				return false;
+			}
 
 			if (ref_DiaUnit == null)
 			{
@@ -1085,7 +1088,7 @@ namespace FunkyBot.Cache.Objects
 				}
 				catch
 				{
-					Logger.Write(LogLevel.Cache, "Failure to convert obj to DiaUnit!");
+					Logger.Write(LogLevel.Cache, "Failure to convert obj to DiaUnit {0}", DebugStringSimple);
 
 					NeedsRemoved = true;
 					return false;
@@ -1101,12 +1104,19 @@ namespace FunkyBot.Cache.Objects
 
 
 			if (!Monstertype.HasValue)
+			{
+				//Logger.Write(LogLevel.Cache, "No Monster Type for object {0}", DebugStringSimple);
 				return false;
+			}
+
 			//Update Monster Type?
 			if (ShouldRefreshMonsterType)
 			{
 				if (!base.UpdateData(ref_DiaObject, RAGUID))
+				{
+					//Logger.Write(LogLevel.Cache, "Monster Refresh Failed for object {0}", DebugStringSimple);
 					return false;
+				}
 			}
 
 			//NPC Check
@@ -1120,7 +1130,7 @@ namespace FunkyBot.Cache.Objects
 				}
 				catch (Exception)
 				{
-					Logger.Write(LogLevel.Cache, "Safely Handled Getting Attribute IsNPC for object {0}", InternalName);
+					Logger.Write(LogLevel.Cache, "Handled IsNPC for Unit {0}", DebugStringSimple);
 				}
 
 			}
@@ -1133,14 +1143,18 @@ namespace FunkyBot.Cache.Objects
 				if (Bot.Character.Data.bIsInTown)
 				{
 					//Perma Ignore all NPCs we find in town..
-					if (isNPC)
-						BlacklistCache.IgnoreThisObject(this);
+					if (isNPC) BlacklistCache.IgnoreThisObject(this);
 
 					return false;
 				}
 
-				if (isNPC || !IsBoss)
+				//Either not hostile or NPC. (Bosses we exclude!)
+				if (!IsBoss)
+				{
+					//Logger.Write(LogLevel.Cache, "Monster Is NPC {0}", DebugStringSimple);
+					if (isNPC) BlacklistCache.IgnoreThisObject(this);
 					return false;
+				}
 			}
 
 
@@ -1171,7 +1185,7 @@ namespace FunkyBot.Cache.Objects
 				}
 				catch
 				{
-					Logger.Write(LogLevel.Cache, "Failure to check monster affixes for unit {0}", InternalName);
+					Logger.Write(LogLevel.Cache, "Failure to check monster affixes for unit {0}", DebugStringSimple);
 					return false;
 				}
 
@@ -1195,7 +1209,7 @@ namespace FunkyBot.Cache.Objects
 				}
 				catch
 				{
-					Logger.Write(LogLevel.Cache, "Failure to get maximum health for {0}", InternalName);
+					Logger.Write(LogLevel.Cache, "Failure to get maximum health for {0}", DebugStringSimple);
 					return false;
 				}
 			}
@@ -1206,6 +1220,7 @@ namespace FunkyBot.Cache.Objects
 
 			if (CurrentHealthPct.HasValue && CurrentHealthPct.Value <= 0d)
 			{
+				//Logger.Write(LogLevel.Cache, "Unit Is Dead {0}", DebugStringSimple);
 				NeedsRemoved = true;
 				return false;
 			}
@@ -1252,7 +1267,7 @@ namespace FunkyBot.Cache.Objects
 				}
 				catch (Exception ex)
 				{
-					Logger.Write(LogLevel.Cache, "[Funky] Safely handled exception getting is-targetable attribute for unit " + InternalName + " [" + SNOID.ToString(CultureInfo.InvariantCulture) + "]");
+					Logger.Write(LogLevel.Cache, "[Funky] Safely handled exception getting is-targetable attribute for unit {0}", DebugStringSimple);
 					//Logger.DBLog.DebugFormat(ex.ToString());
 					IsTargetable = true;
 				}

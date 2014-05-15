@@ -322,6 +322,116 @@ namespace FunkyBot.Game
 
 		}
 
+		public static class GameMenu
+		{
+			public static UIElement SwitchHeroButton
+			{
+				get
+				{
+					try { return UIElement.FromHash(0xBE4E61ABD1DCDC79); }
+					catch { return null; }
+				}
+			}
+			public static UIElement CreateHeroButton
+			{
+				get
+				{
+					try { return UIElement.FromHash(0x744BC83D82918CE2); }
+					catch { return null; }
+				}
+			}
+			public static UIElement SelectHeroButton
+			{
+				get
+				{
+					try { return UIElement.FromHash(0x5D73E830BC87CE66); }
+					catch { return null; }
+				}
+			}
+			public static UIElement HeroNameText
+			{
+				get
+				{
+					try { return UIElement.FromHash(0x8D2C771F09BC037F); }
+					catch { return null; }
+				}
+			}
+			public static UIElement CreateNewHeroButton
+			{
+				get
+				{
+					try { return UIElement.FromHash(0x28578F7B0F6384C6); }
+					catch { return null; }
+				}
+			}
+			public static UIElement SelectHeroType(ActorClass type)
+			{
+				UIElement thisClassButton = null;
+				switch (type)
+				{
+					case ActorClass.Barbarian:
+						thisClassButton = UIElement.FromHash(0x98976D3F43BBF74);
+						break;
+					case ActorClass.DemonHunter:
+						thisClassButton = UIElement.FromHash(0x98976D3F43BBF74);
+						break;
+					case ActorClass.Monk:
+						thisClassButton = UIElement.FromHash(0x7733072C07DABF11);
+						break;
+					case ActorClass.Witchdoctor:
+						thisClassButton = UIElement.FromHash(0x1A2DB1F47C26A8C2);
+						break;
+					case ActorClass.Wizard:
+						thisClassButton = UIElement.FromHash(0xBC3AA6A915972065);
+						break;
+					case ActorClass.Crusader:
+						thisClassButton = UIElement.FromHash(0x99AF146AC9D24C99);
+						break;
+				}
+
+				return thisClassButton;
+			}
+			public static UIElement SelectHeroByIndex(int index)
+			{
+				try
+				{
+					switch (index)
+					{
+						case 0:
+							return UIElement.FromHash(0x744AB2C58DBCA9FB);
+						case 1:
+							return UIElement.FromHash(0x744AB1C58DBCA848);
+						case 2:
+							return UIElement.FromHash(0x744AB4C58DBCAD61);
+						case 3:
+							return UIElement.FromHash(0x744AB3C58DBCABAE);
+						case 4:
+							return UIElement.FromHash(0x744AB6C58DBCB0C7);
+						case 5:
+							return UIElement.FromHash(0x744AB5C58DBCAF14);
+						case 6:
+							return UIElement.FromHash(0x744AB8C58DBCB42D);
+						case 7:
+							return UIElement.FromHash(0x744AB7C58DBCB27A);
+						case 8:
+							return UIElement.FromHash(0x744AAAC58DBC9C63);
+						case 9:
+							return UIElement.FromHash(0x744AA9C58DBC9AB0);
+						case 10:
+							return UIElement.FromHash(0x57948AAFD79243E8);
+						case 11:
+							return UIElement.FromHash(0x57948BAFD792459B);
+					}
+
+				}
+				catch 
+				{
+
+				}
+				return null;
+			}
+		}
+
 		
 		public static UIElement BountyCompleteContinue
 		{

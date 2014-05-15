@@ -13,6 +13,7 @@ using FunkyBot.Cache.Objects;
 using FunkyBot.Config.Settings;
 using FunkyBot.DBHandlers;
 using Zeta.Game;
+using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Config.UI
@@ -373,6 +374,9 @@ namespace FunkyBot.Config.UI
 				cb_TargetLOSSucideBombers.Checked = Bot.Settings.LOSMovement.AllowSucideBomber;
 				cb_TargetLOSSucideBombers.CheckedChanged += cb_TargetLOSSucideBombers_CheckedChanged;
 
+				cb_LOSEventSwitches.Checked=Bot.Settings.LOSMovement.AllowEventSwitches;
+				cb_LOSEventSwitches.CheckedChanged += cb_TargetLOSEventSwitches_CheckedChanged;
+
 				cb_TargetingShrineEmpowered.Checked = Bot.Settings.Targeting.UseShrineTypes[5];
 				cb_TargetingShrineEmpowered.CheckedChanged += TargetingShrineCheckedChanged;
 
@@ -514,6 +518,9 @@ namespace FunkyBot.Config.UI
 
 				cb_LootExpBooks.Checked =Bot.Settings.Loot.ExpBooks;
 				cb_LootExpBooks.CheckedChanged += cb_LootExpBooks_CheckedChanged;
+
+				cb_LootKeyStones.Checked=Bot.Settings.Loot.PickupKeystoneFragments;
+				cb_LootKeyStones.CheckedChanged += cb_LootKeyStoneFragments_CheckedChanged;
 				
 
 				cb_DebugDataLogging.Checked = Bot.Settings.Debug.DebuggingData;
@@ -1071,6 +1078,10 @@ namespace FunkyBot.Config.UI
 		{
 			Bot.Settings.LOSMovement.AllowSucideBomber = !Bot.Settings.LOSMovement.AllowSucideBomber;
 		}
+		private void cb_TargetLOSEventSwitches_CheckedChanged(object sender, EventArgs e)
+		{
+			Bot.Settings.LOSMovement.AllowEventSwitches = !Bot.Settings.LOSMovement.AllowEventSwitches;
+		}
 
 		private void cb_TargetLOSSpawnerUnits_CheckedChanged(object sender, EventArgs e)
 		{
@@ -1244,6 +1255,10 @@ namespace FunkyBot.Config.UI
 		private void cb_LootExpBooks_CheckedChanged(object sender, EventArgs e)
 		{
 			Bot.Settings.Loot.ExpBooks = !Bot.Settings.Loot.ExpBooks;
+		}
+		private void cb_LootKeyStoneFragments_CheckedChanged(object sender, EventArgs e)
+		{
+			Bot.Settings.Loot.PickupKeystoneFragments = !Bot.Settings.Loot.PickupKeystoneFragments;
 		}
 		private void GemQualityLevelChanged(object sender, EventArgs e)
 		{
@@ -1455,6 +1470,19 @@ namespace FunkyBot.Config.UI
 				LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Modification Exception"));
 			}
 
+		}
+
+		private void btn_Test_Click(object sender, EventArgs e)
+		{
+			UIElement uie = Game.UI.GameMenu.SelectHeroByIndex(11);
+			if (Game.UI.ValidateUIElement(uie))
+			{
+				Logger.DBLog.Info(uie.Hash);
+				uie.Click();
+				if(uie.HasText) Logger.DBLog.Info(uie.Text);
+
+			}
+			//ZetaDia.Service.GameAccount.SwitchHero(1);
 		}
 
 

@@ -147,7 +147,7 @@ namespace FunkyBot.DBHandlers
 								File.Delete(sFunkyCharacterConfigFile);
 						}
 
-						OutOfGame.D3Character.NewCharacterName = null;
+						OutOfGame.NewCharacterName = null;
 
 						ZetaDia.Service.Party.LeaveGame(true);
 						return RunStatus.Running;
@@ -172,6 +172,7 @@ namespace FunkyBot.DBHandlers
 				}
 				else if (ZetaDia.Service.Hero.Name != BotHeroName)
 				{
+					//ISSUE: Does Not Select Hero!
 					ZetaDia.Service.GameAccount.SwitchHero(BotHeroIndex);
 					RandomizeWaitTime(true);
 					BotHeroIndex++;

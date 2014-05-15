@@ -143,7 +143,6 @@
     <Compile Include="DBHandlers\ItemIDOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="DBHandlers\OOCLeveling.cs" />
     <Compile Include="DBHandlers\Townrun\BloodShardGambleItems.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -355,6 +354,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\HotBar\Skills\Skill Objects\Monk\Epiphany.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Player\HotBar\Skills\Skill Objects\Interact.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\HotBar\Skills\Skill Objects\Witch Doctor\Piranhas.cs">
@@ -1215,7 +1217,9 @@
     <Content Include="Game\Bounty\BountyCache\Act4.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Game\Bounty\BountyCache\Act5.xml" />
+    <Content Include="Game\Bounty\BountyCache\Act5.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Game\Bounty\BountyCache\Blank.xml" />
     <Content Include="Game\Bounty\BountyCache\Act1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -101,7 +101,7 @@ namespace FunkyBot.Cache.Objects
 			Vector3 TestPosition = Position;
 
 			//Use modified Test Position for Gold/Globe
-			if (Bot.Character.Data.PickupRadius > 0f && ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Globe | TargetType.Gold))
+			if (Bot.Character.Data.PickupRadius > 0f && ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Globe | TargetType.Gold | TargetType.PowerGlobe))
 				TestPosition = MathEx.CalculatePointFrom(Bot.Character.Data.Position, Position, Math.Max(0f, CentreDistance - Bot.Character.Data.PickupRadius));
 
 			if (Bot.Character.Data.Position.Distance(TestPosition) >= 2f)

@@ -11,6 +11,7 @@
         public bool AllowSpawnerUnits { get; set; }
         public bool AllowRareLootContainer { get; set; }
 		public bool AllowCursedChestShrines { get; set; }
+		public bool AllowEventSwitches { get; set; }
 		public int MaximumRange { get; set; }
 
 
@@ -25,6 +26,7 @@
 			AllowSucideBomber = false;
 			AllowSpawnerUnits = false;
 			AllowCursedChestShrines = true;
+			AllowEventSwitches = true;
 			MaximumRange = 500;
         }
     }
