@@ -303,7 +303,7 @@ namespace FunkyBot.Targeting
 				Vector3 MovementVector = Bot.Character.Class.FindCombatMovementPower(out MovementPower, obj.Position);
 				if (MovementVector != Vector3.Zero)
 				{
-					ZetaDia.Me.UsePower(MovementPower.Power, MovementVector, Bot.Character.Data.iCurrentWorldID, -1);
+					ZetaDia.Me.UsePower(MovementPower.Power, MovementVector, Bot.Character.Data.CurrentWorldDynamicID, -1);
 					MovementPower.OnSuccessfullyUsed();
 
 					// Store the current destination for comparison incase of changes next loop
@@ -341,7 +341,7 @@ namespace FunkyBot.Targeting
 						}
 						if (bUseThisLoop)
 						{
-							ZetaDia.Me.UsePower(SNOPower.Barbarian_Whirlwind, CurrentTargetLocation, Bot.Character.Data.iCurrentWorldID);
+							ZetaDia.Me.UsePower(SNOPower.Barbarian_Whirlwind, CurrentTargetLocation, Bot.Character.Data.CurrentWorldDynamicID);
 							Bot.Character.Class.Abilities[SNOPower.Barbarian_Whirlwind].OnSuccessfullyUsed();
 						}
 						// Store the current destination for comparison incase of changes next loop
@@ -412,7 +412,7 @@ namespace FunkyBot.Targeting
 				if (!UsePowerMovement)
 					ZetaDia.Me.Movement.MoveActor(CurrentTargetLocation);
 				else
-					ZetaDia.Me.UsePower(SNOPower.Walk, CurrentTargetLocation, Bot.Character.Data.iCurrentWorldID);
+					ZetaDia.Me.UsePower(SNOPower.Walk, CurrentTargetLocation, Bot.Character.Data.CurrentWorldDynamicID);
 
 				//and record when we sent the movement..
 				LastMovementCommand = DateTime.Now;

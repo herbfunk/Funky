@@ -13,7 +13,7 @@ namespace FunkyBot.Game.Bounty
 		public HashSet<BountyQuestCacheEntry> KillBounties { get; set; }
 		public HashSet<BountyQuestCacheEntry> ClearBounties { get; set; }
 		public HashSet<BountyQuestCacheEntry> CursedEventBounties { get; set; }
-
+		public HashSet<BountyQuestCacheEntry> MiscEventBounties { get; set; }
 
 		public List<BountyQuestCacheEntry> AllBounties
 		{
@@ -23,7 +23,7 @@ namespace FunkyBot.Game.Bounty
 				_allBounties.AddRange(KillBounties);
 				_allBounties.AddRange(ClearBounties);
 				_allBounties.AddRange(CursedEventBounties);
-
+				_allBounties.AddRange(MiscEventBounties);
 
 				return _allBounties;
 			}
@@ -34,6 +34,7 @@ namespace FunkyBot.Game.Bounty
 			KillBounties = new HashSet<BountyQuestCacheEntry>();
 			ClearBounties = new HashSet<BountyQuestCacheEntry>();
 			CursedEventBounties = new HashSet<BountyQuestCacheEntry>();
+			MiscEventBounties = new HashSet<BountyQuestCacheEntry>();
 		}
 
 

@@ -221,5 +221,7 @@
     </BountyQuestCacheEntry>
     
   </CursedEventBounties>
+
+  <MiscEventBounties />
   
 </BountyQuestActCache>

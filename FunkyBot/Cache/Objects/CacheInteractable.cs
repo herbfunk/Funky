@@ -143,7 +143,9 @@ namespace FunkyBot.Cache.Objects
 						}
 					}
 
-					if (!base.LineOfSight.LOSTest(Bot.Character.Data.Position, NavRayCast: true, ServerObjectIntersection: false))
+					var testPosition = Gizmotype.Value == GizmoType.Switch ? BotMeleeVector : Position;
+
+					if (!LineOfSight.LOSTest(Bot.Character.Data.Position, testPosition, Gizmotype.Value!=GizmoType.Switch, Gizmotype.Value==GizmoType.Switch, ServerObjectIntersection: false))
 					{
 						if ((IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer) ||
 							((IsCursedChest || IsCursedShrine) && Bot.Settings.LOSMovement.AllowCursedChestShrines) ||
@@ -187,7 +189,7 @@ namespace FunkyBot.Cache.Objects
 							}
 						}
 
-						if (centreDistance > 30f)
+						if (centreDistance > 50f)
 						{
 							BlacklistLoops = 3;
 							return false;
@@ -349,11 +351,11 @@ namespace FunkyBot.Cache.Objects
 						if (centreDistance <= 20f && RadiusDistance <= 5f)
 							Weight += 8000d;
 						// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-						if (this == Bot.Targeting.Cache.LastCachedTarget && centreDistance <= 25f)
-							Weight += 400;
-						// If there's a monster in the path-line to the item, reduce the weight by 50%
-						//if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
-						//    this.Weight*=0.5;
+						if (Equals(Bot.Targeting.Cache.LastCachedTarget) && centreDistance <= 25f)
+							Weight += 1000;
+
+						
+
 						break;
 					case TargetType.Container:
 						Weight = 11000d - (Math.Floor(centreDistance) * 190d);
@@ -423,7 +425,7 @@ namespace FunkyBot.Cache.Objects
 
 
 			Bot.Character.Data.WaitWhileAnimating(20);
-			ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, Position, Bot.Character.Data.iCurrentWorldID, base.AcdGuid.Value);
+			ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, Position, Bot.Character.Data.CurrentWorldDynamicID, base.AcdGuid.Value);
 			InteractionAttempts++;
 
 			if (IsCursedShrine || IsCursedChest)
@@ -486,7 +488,7 @@ namespace FunkyBot.Cache.Objects
 			{
 				// Treat the distance as closer based on the radius of the object
 				//fDistanceReduction=ObjectData.Radius;
-				fRangeRequired = CollisionRadius.Value * 0.75f;
+				fRangeRequired = CollisionRadius.Value * 0.95f;
 
 				// Check if it's in our interactable range dictionary or not
 				int iTempRange;

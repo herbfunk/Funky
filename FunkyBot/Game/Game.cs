@@ -5,6 +5,7 @@ using System.Windows.Documents;
 using FunkyBot.Cache;
 using FunkyBot.Game.Bounty;
 using FunkyBot.XMLTags;
+using Zeta.Bot.Navigation;
 using Zeta.Game;
 using Zeta.Game.Internals;
 using Zeta.Game.Internals.Service;
@@ -49,6 +50,9 @@ namespace FunkyBot.Game
 			{
 
 				Logger.Write(LogLevel.OutOfCombat, "New Game Started");
+
+				ZetaDia.Memory.ClearCache();
+				Navigator.SearchGridProvider.Update();
 
 				//Adventure Mode (QuestID == 312429)
 				_adventureMode = questId == 312429;

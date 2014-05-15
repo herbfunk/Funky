@@ -355,6 +355,7 @@ namespace FunkyBot
 		{
 			GameEvents.OnPlayerDied -= EventHandlers.FunkyOnDeath;
 			GameEvents.OnGameJoined -= EventHandlers.FunkyOnJoinGame;
+			GameEvents.OnWorldChanged -= EventHandlers.FunkyOnWorldChange;
 			GameEvents.OnGameLeft -= EventHandlers.FunkyOnLeaveGame;
 			GameEvents.OnGameChanged -= EventHandlers.FunkyOnGameChanged;
 			ProfileManager.OnProfileLoaded -= EventHandlers.FunkyOnProfileChanged;

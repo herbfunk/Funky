@@ -38,7 +38,9 @@ namespace FunkyBot
 			GameEvents.OnGameJoined += FunkyOnJoinGame;
 			GameEvents.OnGameLeft += FunkyOnLeaveGame;
 			GameEvents.OnGameChanged += FunkyOnGameChanged;
+			GameEvents.OnWorldChanged += FunkyOnWorldChange;
 			ProfileManager.OnProfileLoaded += FunkyOnProfileChanged;
+
 
 			ITargetingProvider newCombatTargetingProvider = new TrinityCombatTargetingReplacer();
 			CombatTargeting.Instance.Provider = newCombatTargetingProvider;

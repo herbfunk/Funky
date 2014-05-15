@@ -427,7 +427,7 @@ namespace FunkyBot.Player.HotBar.Skills
 
 		internal int WorldID
 		{
-			get { return Bot.Character.Data.iCurrentWorldID; }
+			get { return Bot.Character.Data.CurrentWorldDynamicID; }
 		}
 
 		private int _targetAcdguid;

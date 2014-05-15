@@ -599,6 +599,11 @@ namespace FunkyBot.Targeting
 					//}
 					CurrentState = RunStatus.Running;
 					break;
+				case TargetType.Interaction:
+					Logger.DBLog.InfoFormat("Interacting with obj {0}", Bot.Targeting.Cache.CurrentTarget.DebugStringSimple);
+					Bot.Targeting.Cache.CurrentTarget.ref_DiaObject.Interact();
+					Bot.Targeting.Cache.bForceTargetUpdate = true;
+					break;
 			}
 
 			// Now tell Trinity to get a new target!

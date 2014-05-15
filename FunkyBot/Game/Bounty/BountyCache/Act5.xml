@@ -34,6 +34,18 @@
       </QuestSNOs>
     </BountyQuestCacheEntry>
     <BountyQuestCacheEntry>
+      <Name>A5_Kill_Slarth</Name>
+      <Type>Kill</Type>
+      <StartingLevelAreaID>338602</StartingLevelAreaID>
+      <TotalKillCount>150</TotalKillCount>
+      <LevelAreaIDs>
+        <int>367831</int>
+      </LevelAreaIDs>
+      <QuestSNOs>
+        <int>363198</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
+    <BountyQuestCacheEntry>
       <Name>A5_Kill_Severag</Name>
       <Type>Kill</Type>
       <StartingLevelAreaID>338602</StartingLevelAreaID>
@@ -164,9 +176,35 @@
         <int>362996</int>
       </QuestSNOs>
     </BountyQuestCacheEntry>
-    
+
+
   </KillBounties>
 
+
   <ClearBounties />
+
   <CursedEventBounties />
+
+  <MiscEventBounties>
+    <BountyQuestCacheEntry>
+      <Name>A5_Event_GraveYard_SoldierHoldout</Name>
+      <Type>Event</Type>
+      <StartingLevelAreaID>338946</StartingLevelAreaID>
+      <TotalKillCount>3</TotalKillCount>
+      <QuestSNOs>
+        <int>359101</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
+    <BountyQuestCacheEntry>
+      <Name>A5_Event_GraveYard_UndeadHusband</Name>
+      <Type>Event</Type>
+      <StartingLevelAreaID>338946</StartingLevelAreaID>
+      <TotalKillCount>3</TotalKillCount>
+      <QuestSNOs>
+        <int>359096</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
+    
+  </MiscEventBounties>
+
 </BountyQuestActCache>

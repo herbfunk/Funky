@@ -30,6 +30,7 @@ namespace FunkyBot.Cache.Objects
 			AcdGuid = acdguid;
 			radius_ = 0f;
 			position_ = position;
+			QuestMonster = false;
 			RequiresLOSCheck = !(base.IgnoresLOSCheck); //require a LOS check initally on a new object!
 			lineofsight = new LOSInfo(this);
 			LosSearchRetryMilliseconds_ = 1000;
@@ -86,6 +87,7 @@ namespace FunkyBot.Cache.Objects
 			weight_ = parent.Weight;
 			HandleAsAvoidanceObject = parent.HandleAsAvoidanceObject;
 			Properties = parent.Properties;
+			QuestMonster=parent.QuestMonster;
 			_skillsUsedOnObject = new Dictionary<SNOPower, DateTime>();
 		}
 
@@ -157,6 +159,7 @@ namespace FunkyBot.Cache.Objects
 		///</summary>
 		public DiaObject ref_DiaObject { get; set; }
 
+		public bool QuestMonster { get; set; }
 
 		private Dictionary<SNOPower,DateTime> _skillsUsedOnObject;
 		public Dictionary<SNOPower, DateTime> SkillsUsedOnObject
@@ -577,6 +580,10 @@ namespace FunkyBot.Cache.Objects
 					PriorityCounter = PriorityCounter - 1;
 			}
 
+			if (QuestMonster)
+			{
+				Weight += 10000;
+			}
 		}
 
 		///<summary>

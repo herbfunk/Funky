@@ -27,6 +27,17 @@ namespace FunkyBot.Cache
 			}
 		}
 
+		public static readonly List<int> riftWorldIds = new List<int>()
+        {
+			288454,
+			288685,
+			288687,
+			288798,
+			288800,
+			288802,
+			288804,
+			288806,
+        };
 
 		internal static Dictionary<int, CacheBalance> dictGameBalanceCache = new Dictionary<int, CacheBalance>
 		  #region GameBalanceIDCache

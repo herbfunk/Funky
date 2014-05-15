@@ -6,6 +6,7 @@ using System.Linq;
 using FunkyBot.Cache.Avoidance;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Game;
+using FunkyBot.Game.Bounty;
 using FunkyBot.Movement;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.Conditions;
@@ -157,6 +158,9 @@ namespace FunkyBot.Cache.Objects
 		private DateTime LastAvoidanceIgnored = DateTime.Today;
 		private bool? IsNPC { get; set; }
 		public bool? IsFriendly { get; set; }
+		public bool? IsQuestGiver { get; set; }
+		public bool? IsMinimapActive { get; set; }
+
 		public bool ForceLeap { get; set; }
 
 		///<summary>
@@ -193,7 +197,7 @@ namespace FunkyBot.Cache.Objects
 			}
 		}
 
-		public bool QuestMonster { get; set; }
+		
 		public bool? IsTargetable { get; set; }
 		public bool? IsAttackable { get; set; }
 		public bool IsTargetableAndAttackable
@@ -687,7 +691,7 @@ namespace FunkyBot.Cache.Objects
 						//	Bot.Targeting.Cache.objectsIgnoredDueToAvoidance.Add(this);
 						//}
 						//else
-							//Weight = 1;
+						//Weight = 1;
 					}
 				}
 			}
@@ -764,7 +768,7 @@ namespace FunkyBot.Cache.Objects
 							Weight += 2000;
 
 						// Exploding Palm Bleeding Prioritize
-						if (Bot.Character.Class.AC == ActorClass.Monk 
+						if (Bot.Character.Class.AC == ActorClass.Monk
 							&& Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_ExplodingPalm)
 							&& centreDistance < 20f)
 						{
@@ -772,12 +776,12 @@ namespace FunkyBot.Cache.Objects
 							{
 								Weight += 500;
 							}
-							else if(CurrentHealthPct<0.15d) //Exploding Palm -- Low HP, Not Bleeding!
+							else if (CurrentHealthPct < 0.15d) //Exploding Palm -- Low HP, Not Bleeding!
 							{
 								Weight += 1000;
 							}
 						}
-														
+
 
 
 						// Swarmers/boss-likes get more weight
@@ -1151,6 +1155,104 @@ namespace FunkyBot.Cache.Objects
 				}
 
 
+				//Special Bounty Check for Events only!
+				if (Bot.Settings.AdventureMode.EnableAdventuringMode && Bot.Game.AdventureMode && Bot.Game.Bounty.CurrentBountyCacheEntry != null && Bot.Game.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.Event)
+				{
+					if (!IsQuestGiver.HasValue)
+					{
+						try
+						{
+							IsQuestGiver = ref_DiaUnit.IsQuestGiver;
+						}
+						catch (Exception ex)
+						{
+							Logger.Write(LogLevel.Cache, "Handled IsQuestGiver for Unit {0}", DebugStringSimple);
+						}
+					}
+
+					if (IsQuestGiver.HasValue && IsQuestGiver.Value)
+					{//Is A Quest Giver..
+
+						if (!Bot.Game.Profile.InteractableObjectCache.ContainsKey(RAGUID))
+						{//Check if MarkerType is Exclamation..
+
+							bool shouldInteract = false;
+							try
+							{
+								shouldInteract = ref_DiaUnit.MarkerType == MarkerType.Exclamation;
+							}
+							catch (Exception)
+							{
+								Logger.Write(LogLevel.Cache, "Handled MarkerType for Unit {0}", DebugStringSimple);
+							}
+
+							if (shouldInteract)
+							{
+								Bot.Game.Profile.InteractableObjectCache.Add(RAGUID, this);
+								targetType = TargetType.Interaction;
+							}
+							else
+							{
+								//SNOID should be ignored?
+								if(!CacheIDLookup.hashSnoNpcNoIgnore.Contains(SNOID))
+								{
+									BlacklistCache.IgnoreThisObject(this);
+									return false;
+								}
+							}
+						}
+
+						//Quest Giver No Good For Targeting!
+						return false;
+					}
+
+					//Minimap Active?
+					if (!IsMinimapActive.HasValue)
+					{
+						try
+						{
+							IsMinimapActive = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.MinimapActive) != 0;
+						}
+						catch (Exception ex)
+						{
+							Logger.Write(LogLevel.Cache, "Handled MinimapActive for Unit {0}", DebugStringSimple);
+						}
+					}
+
+					if (IsMinimapActive.HasValue && IsMinimapActive.Value)
+					{
+						if (!Bot.Game.Profile.InteractableObjectCache.ContainsKey(RAGUID))
+						{
+							bool shouldInteract = false;
+							try
+							{
+								shouldInteract = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.NPCIsOperatable) != 0;
+							}
+							catch (Exception)
+							{
+								Logger.Write(LogLevel.Cache, "Handled NPCIsOperatable for Unit {0}", DebugStringSimple);
+							}
+
+							if (shouldInteract)
+							{
+								Bot.Game.Profile.InteractableObjectCache.Add(RAGUID, this);
+								targetType = TargetType.Interaction;
+							}
+							else
+							{
+								//SNOID should be ignored?
+								if (!CacheIDLookup.hashSnoNpcNoIgnore.Contains(SNOID))
+								{
+									BlacklistCache.IgnoreThisObject(this);
+								}
+							}
+						}
+
+						return false;
+					}
+					
+				}
+
 
 				//Either not hostile or NPC. (Bosses we exclude!)
 				if (!IsBoss && !CacheIDLookup.hashSnoNpcNoIgnore.Contains(SNOID))
@@ -1295,8 +1397,13 @@ namespace FunkyBot.Cache.Objects
 				}
 			}
 
+			if (IsTargetable.HasValue && !IsTargetable.Value)
+			{
+				return false;
+			}
+
 			//Attackable
-			if (MonsterShielding || (IsGrotesqueActor && CurrentHealthPct.HasValue && (CurrentHealthPct.Value < 1d || CurrentHealthPct.Value > 1d)))
+			if (MonsterShielding || (CurrentHealthPct.HasValue && (CurrentHealthPct.Value < 1d || CurrentHealthPct.Value > 1d) && IsGrotesqueActor))
 			{
 				try
 				{
@@ -1536,17 +1643,17 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
-				
-				
-				
+
+
+
 				return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n" +
-				                     "HP {4} / MaxHP {5} -- IsMoving: {6} \r\n" +
-				                     "PriorityCounter={7}\r\n" +
-				                     "QuestMonster={9}\r\n" +
-				                     "IsNpc {11} IsFriendly {12}\r\n" +
-				                     "{10}\r\n" +
-				                     "{13}\r\n" +
-				                     "Unit Properties {8}",
+									 "HP {4} / MaxHP {5} -- IsMoving: {6} \r\n" +
+									 "PriorityCounter={7}\r\n" +
+									 "QuestMonster={9}\r\n" +
+									 "IsNpc {11} IsFriendly {12}\r\n" +
+									 "{10}\r\n" +
+									 "{13}\r\n" +
+									 "Unit Properties {8}",
 					  base.DebugString,
 					  IsBurrowed.HasValue ? IsBurrowed.Value.ToString() : "",
 					  IsTargetable.HasValue ? IsTargetable.Value.ToString() : "",
@@ -1557,12 +1664,12 @@ namespace FunkyBot.Cache.Objects
 					  PriorityCounter,
 					  Properties,
 					  QuestMonster,
-					  HasDOTdps.HasValue?HasDOTdps.Value + " dotdps: " + dotdpsValue:"",
+					  HasDOTdps.HasValue ? HasDOTdps.Value + " dotdps: " + dotdpsValue : "",
 					  IsNPC.HasValue ? IsNPC.Value.ToString() : "",
 					  IsFriendly.HasValue ? IsFriendly.ToString() : "",
-					  SkillsUsedOnObject.Count>0?
+					  SkillsUsedOnObject.Count > 0 ?
 							SkillsUsedOnObject.Aggregate("Skills Used\r\n:", (current, skill) => current + ("Power: " + skill.Key + " Date: " + skill.Value.ToString() + " LastUsedMS: " + DateTime.Now.Subtract(skill.Value).Milliseconds + "\r\n"))
-							:"");
+							: "");
 			}
 		}
 

@@ -123,7 +123,7 @@ namespace FunkyBot.Cache.Objects
 				}
 
 
-				if (radiusDistance > (Bot.Settings.Ranges.DestructibleRange + 5f))
+				if (radiusDistance > (Bot.Settings.Ranges.DestructibleRange + 5f) && (!QuestMonster || radiusDistance > 100f))
 				{
 					return false;
 				}
@@ -139,7 +139,7 @@ namespace FunkyBot.Cache.Objects
 			float centreDistance = this.CentreDistance;
 			this.Weight = 12000d - (Math.Floor(centreDistance) * 175d);
 			// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-			if (this == Bot.Targeting.Cache.LastCachedTarget && centreDistance <= 25f)
+			if (Equals(Bot.Targeting.Cache.LastCachedTarget) && centreDistance <= 25f)
 				this.Weight += 400;
 			// Close destructibles get a weight increase
 			if (centreDistance <= 16f)

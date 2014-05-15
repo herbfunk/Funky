@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Linq;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
+using FunkyBot.Game.Bounty;
 using FunkyBot.Movement;
 using Zeta.Bot;
 using Zeta.Bot.Logic;
 using Zeta.Bot.Navigation;
 using Zeta.Common;
 using Zeta.Game;
+using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Targeting.Behaviors
@@ -52,7 +55,7 @@ namespace FunkyBot.Targeting.Behaviors
 
 					// Finally, a special check for waiting for wrath of the berserker cooldown before engaging Azmodan
 					if (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker) && Bot.Settings.Barbarian.bWaitForWrath && !Bot.Character.Class.Abilities[SNOPower.Barbarian_WrathOfTheBerserker].AbilityUseTimer() &&
-						Bot.Character.Data.iCurrentWorldID == 121214 &&
+						Bot.Character.Data.CurrentWorldDynamicID == 121214 &&
 						(Vector3.Distance(Bot.Character.Data.Position, new Vector3(711.25f, 716.25f, 80.13903f)) <= 40f || Vector3.Distance(Bot.Character.Data.Position, new Vector3(546.8467f, 551.7733f, 1.576313f)) <= 40f))
 					{
 						Logger.DBLog.InfoFormat("[Funky] Waiting for Wrath Of The Berserker cooldown before continuing to Azmodan.");
@@ -134,6 +137,8 @@ namespace FunkyBot.Targeting.Behaviors
 						obj = new CacheObject(Bot.Targeting.Cache.StartingLocation, TargetType.Backtrack, 20000, "Backtracking", 2.5f);
 						return true;
 					}
+					
+					
 				}
 
 				return obj != null;

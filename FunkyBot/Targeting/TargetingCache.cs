@@ -107,11 +107,11 @@ namespace FunkyBot.Targeting
 			//Update Character (just incase it wasnt called before..)
 			Bot.Character.Data.Update(false, true);
 
-			//if (Bot.Game.AdventureMode && Bot.Settings.AdventureMode.EnableAdventuringMode &&
-			//	Bot.Game.Bounty.ActiveBounty == null && !Bot.Character.Data.bIsInTown)
-			//{
-			//	Bot.Game.Bounty.RefreshBountyLevelChange();
-			//}
+			if (Bot.Game.AdventureMode && Bot.Settings.AdventureMode.EnableAdventuringMode &&
+				Bot.Game.Bounty.ActiveBounty == null && !Bot.Character.Data.bIsInTown)
+			{
+				Bot.Game.Bounty.RefreshBountyLevelChange();
+			}
 
 			//Reset key targeting vars always!
 			InitObjectRefresh();
@@ -315,6 +315,7 @@ namespace FunkyBot.Targeting
 			 new TBGrouping(), 
 			 new TBLOSMovement(),
 			 new TBBacktrack(),
+			 new TBBounty(),
 			 new TBEnd()
 		 };
 		internal TargetBehavioralTypes lastBehavioralType = TargetBehavioralTypes.None;

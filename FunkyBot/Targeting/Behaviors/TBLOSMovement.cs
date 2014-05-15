@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
+using FunkyBot.Game.Bounty;
 using FunkyBot.Movement;
 using Zeta.Common;
 using Zeta.Game.Internals;
@@ -42,10 +43,11 @@ namespace FunkyBot.Targeting.Behaviors
 		{
 			base.Test = (ref CacheObject obj) =>
 			{
+
 				if (obj == null)
 				{
 					if (Bot.NavigationCache.LOSmovementObject != null &&
-						(Bot.NavigationCache.LOSmovementObject.CentreDistance < 50f &&
+						(Bot.NavigationCache.LOSmovementObject.CentreDistance < (Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck ? 25f : 45f) &&
 						(Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck || !Bot.NavigationCache.LOSmovementObject.CacheContainsOrginObject())))
 					{//Invalidated the Line of sight obj!
 
@@ -53,7 +55,9 @@ namespace FunkyBot.Targeting.Behaviors
 						Logger.Write(LogLevel.LineOfSight, "LOS Object is No Longer Valid -- Reseting.");
 
 
-						Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(Bot.NavigationCache.LOSmovementObject.OrginCacheObjectRAGUID);
+						if (!Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck || Bot.Game.Bounty.CurrentBountyCacheEntry.Type!=BountyQuestTypes.Event)
+							Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(Bot.NavigationCache.LOSmovementObject.OrginCacheObjectRAGUID);
+
 						Bot.NavigationCache.LOSmovementObject = null;
 
 						if (Bot.Targeting.Cache.LastCachedTarget.targetType.Value == TargetType.LineOfSight)
@@ -96,16 +100,17 @@ namespace FunkyBot.Targeting.Behaviors
 
 								foreach (var mapmarker in Bot.Game.Bounty.CurrentBountyMapMarkers.Values)
 								{
-									if (mapmarker.WorldID != Bot.Character.Data.iCurrentWorldID) continue;
+									if (mapmarker.WorldID != Bot.Character.Data.CurrentWorldDynamicID) continue;
 									if (Bot.NavigationCache.LOSBlacklistedRAGUIDs.Contains(mapmarker.GetHashCode())) continue;
-									if (mapmarker.Distance > 750f) continue;
+									if (mapmarker.Distance > 750f || mapmarker.Distance < 25f) continue;
 
 									if (!Navigation.NP.CanFullyClientPathTo(mapmarker.Position)) continue;
 
 
 									Logger.Write(LogLevel.LineOfSight, "Line of Sight Started for Map Marker with {0} vectors", Navigation.NP.CurrentPath.Count);
 
-									Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(mapmarker.GetHashCode());
+									if (Bot.Game.Bounty.CurrentBountyCacheEntry.Type!=BountyQuestTypes.Event)
+										Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(mapmarker.GetHashCode());
 
 									//Set the object
 									Bot.NavigationCache.LOSmovementObject = new CacheLineOfSight(mapmarker);
@@ -119,25 +124,33 @@ namespace FunkyBot.Targeting.Behaviors
 					{//Line of Sight unit is valid
 
 						//See if the orgin object is still valid..
-						if (Bot.NavigationCache.LOSmovementObject.CentreDistance < 45f)
+
+						//min Distance for Map Markers is 25f
+						if (Bot.NavigationCache.LOSmovementObject.CentreDistance < (Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck ? 25f : 45f))
 						{
+
 							if (!Bot.NavigationCache.LOSmovementObject.CacheContainsOrginObject())
 							{
 								Logger.Write(LogLevel.LineOfSight, "Line of Sight Ending due to Orgin Object No Longer Available!");
 								Bot.NavigationCache.LOSmovementObject = null;
 								return false;
 							}
-							else if (!Bot.NavigationCache.LOSmovementObject.IsValidForTargeting())
+
+							if (!Bot.NavigationCache.LOSmovementObject.IsValidForTargeting())
 							{//Valid for Targeting?
 								Logger.Write(LogLevel.LineOfSight, "Line of Sight Ending due to Orgin Object Not Valid for Targeting!");
 								Bot.NavigationCache.LOSmovementObject = null;
 								return false;
 							}
-							else
+
+							//Minimap Marker Check
+							if (Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck && Bot.Game.Bounty.CurrentActCache!=null && Bot.Game.Bounty.CurrentBountyCacheEntry.Type==BountyQuestTypes.Event)
 							{
-								//Update Position using Orgin Object?
-								Bot.NavigationCache.LOSmovementObject.UpdateOrginObject();
+								Bot.Game.Bounty.RefreshActiveQuests();
 							}
+
+							//Update Position using Orgin Object?
+							Bot.NavigationCache.LOSmovementObject.UpdateOrginObject();
 						}
 
 						Navigation.NP.MoveTo(Bot.NavigationCache.LOSmovementObject.Position, "LOS", true);

@@ -29,7 +29,7 @@ namespace FunkyBot
 
 			public void MoveStop()
 			{
-				ZetaDia.Me.UsePower(SNOPower.Walk, ZetaDia.Me.Position, Bot.Character.Data.iCurrentWorldID);
+				ZetaDia.Me.UsePower(SNOPower.Walk, ZetaDia.Me.Position, Bot.Character.Data.CurrentWorldDynamicID);
 			}
 			// Anti-stuck variables
 			private static Vector3 vOldMoveToTarget = Vector3.Zero;
@@ -400,7 +400,7 @@ namespace FunkyBot
 					Vector3 MovementVector = Bot.Character.Class.FindOutOfCombatMovementPower(out MovementPower, vMoveToTarget);
 					if (MovementVector != Vector3.Zero)
 					{
-						ZetaDia.Me.UsePower(MovementPower.Power, MovementVector, Bot.Character.Data.iCurrentWorldID);
+						ZetaDia.Me.UsePower(MovementPower.Power, MovementVector, Bot.Character.Data.CurrentWorldDynamicID);
 						MovementPower.OnSuccessfullyUsed();
 						return;
 					}
@@ -410,7 +410,7 @@ namespace FunkyBot
 
 				//Send Movement Command!
 				if (vMyCurrentPosition.Distance2D(vMoveToTarget)>1f)
-					ZetaDia.Me.UsePower(SNOPower.Walk, vMoveToTarget, Bot.Character.Data.iCurrentWorldID);
+					ZetaDia.Me.UsePower(SNOPower.Walk, vMoveToTarget, Bot.Character.Data.CurrentWorldDynamicID);
 			}
 
 

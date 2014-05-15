@@ -27,13 +27,13 @@ namespace FunkyBot.Config.UI
 			try
 			{
 
-				tb_GlobeHealth.Value = (int)(Bot.Settings.Combat.GlobeHealthPercent* 100);
+				tb_GlobeHealth.Value = (int)(Bot.Settings.Combat.GlobeHealthPercent * 100);
 				tb_GlobeHealth.ValueChanged += tb_GlobeHealth_ValueChanged;
 
-				tb_PotionHealth.Value = (int)(Bot.Settings.Combat.PotionHealthPercent* 100);
+				tb_PotionHealth.Value = (int)(Bot.Settings.Combat.PotionHealthPercent * 100);
 				tb_PotionHealth.ValueChanged += tb_PotionHealth_ValueChanged;
 
-				tb_WellHealth.Value = (int)(Bot.Settings.Combat.HealthWellHealthPercent* 100);
+				tb_WellHealth.Value = (int)(Bot.Settings.Combat.HealthWellHealthPercent * 100);
 				tb_WellHealth.ValueChanged += tb_WellHealth_ValueChanged;
 
 				txt_GlobeHealth.Text = Bot.Settings.Combat.GlobeHealthPercent.ToString("F2", CultureInfo.InvariantCulture);
@@ -49,10 +49,10 @@ namespace FunkyBot.Config.UI
 				cb_CombatMovementItems.Checked = Bot.Settings.Combat.CombatMovementTargetTypes.HasFlag(TargetType.Item);
 				cb_CombatMovementItems.CheckedChanged += MovementTargetItemChecked;
 
-				cb_CombatAllowDefaultAttack.Checked=Bot.Settings.Combat.AllowDefaultAttackAlways;
+				cb_CombatAllowDefaultAttack.Checked = Bot.Settings.Combat.AllowDefaultAttackAlways;
 				cb_CombatAllowDefaultAttack.CheckedChanged += AllowDefaultAttackAlwaysChecked;
 
-				cb_MovementOutOfCombatSkills.Checked=Bot.Settings.General.OutOfCombatMovement;
+				cb_MovementOutOfCombatSkills.Checked = Bot.Settings.General.OutOfCombatMovement;
 				cb_MovementOutOfCombatSkills.CheckedChanged += OutOfCombatMovementChecked;
 
 				cb_ClusterTargetLogic.Checked = Bot.Settings.Cluster.EnableClusteringTargetLogic;
@@ -63,8 +63,8 @@ namespace FunkyBot.Config.UI
 				txt_ClusterLogicDisableHealth.Text = Bot.Settings.Cluster.IgnoreClusterLowHPValue.ToString("F2", CultureInfo.InvariantCulture);
 				txt_ClusterLogicDistance.Text = Bot.Settings.Cluster.ClusterDistance.ToString("F2", CultureInfo.InvariantCulture);
 				txt_ClusterLogicMinimumUnits.Text = Bot.Settings.Cluster.ClusterMinimumUnitCount.ToString("F2", CultureInfo.InvariantCulture);
-				
-				tb_ClusterLogicDisableHealth.Value = (int)(Bot.Settings.Cluster.IgnoreClusterLowHPValue*100) ;
+
+				tb_ClusterLogicDisableHealth.Value = (int)(Bot.Settings.Cluster.IgnoreClusterLowHPValue * 100);
 				tb_ClusterLogicDisableHealth.ValueChanged += tb_ClusterLogicDisableHealth_ValueChanged;
 
 				tb_ClusterLogicDistance.Value = (int)(Bot.Settings.Cluster.ClusterDistance);
@@ -85,7 +85,7 @@ namespace FunkyBot.Config.UI
 				tb_GroupingMaxDistance.Value = Bot.Settings.Grouping.GroupingMaximumDistanceAllowed;
 				tb_GroupingMaxDistance.ValueChanged += GroupMaxDistanceSliderChanged;
 
-				tb_GroupingMinBotHealth.Value = (int)(Bot.Settings.Grouping.GroupingMinimumBotHealth* 100);
+				tb_GroupingMinBotHealth.Value = (int)(Bot.Settings.Grouping.GroupingMinimumBotHealth * 100);
 				tb_GroupingMinBotHealth.ValueChanged += GroupBotHealthSliderChanged;
 
 				tb_GroupingMinCluster.Value = Bot.Settings.Grouping.GroupingMinimumClusterCount;
@@ -122,13 +122,13 @@ namespace FunkyBot.Config.UI
 				trackbar_FleeMaxMonsterDistance.ValueChanged += trackbar_FleeMaxMonsterDistance_ValueChanged;
 
 				txt_FleeMaxMonsterDistance.Text = Bot.Settings.Fleeing.FleeMaxMonsterDistance.ToString();
-				
-				trackbar_FleeBotMinHealth.Value = (int)(Bot.Settings.Fleeing.FleeBotMinimumHealthPercent*100);
+
+				trackbar_FleeBotMinHealth.Value = (int)(Bot.Settings.Fleeing.FleeBotMinimumHealthPercent * 100);
 				trackbar_FleeBotMinHealth.ValueChanged += trackbar_FleeBotMinHealth_ValueChanged;
 
 				txt_FleeBotMinHealth.Text = Bot.Settings.Fleeing.FleeBotMinimumHealthPercent.ToString("F2", CultureInfo.InvariantCulture);
 				groupBox_FleeOptions.Enabled = Bot.Settings.Fleeing.EnableFleeingBehavior;
-				
+
 
 				cb_FleeUnitElectrified.Checked = Bot.Settings.Fleeing.FleeUnitElectrified;
 				cb_FleeUnitElectrified.CheckedChanged += cb_FleeUnitElectrified_CheckedChanged;
@@ -237,7 +237,7 @@ namespace FunkyBot.Config.UI
 				tb_TargetingPriorityCloseRangeUnitsCount.ValueChanged += tb_TargetingPriorityCloseRangeUnitsCount_ValueChanged;
 
 				txt_TargetingPriorityCloseRangeUnitsCount.Text = Bot.Settings.Targeting.PrioritizeCloseRangeMinimumUnits.ToString();
-				
+
 				cb_TargetingPrioritizeCloseRangeUnits.Checked = Bot.Settings.Targeting.PrioritizeCloseRangeUnits;
 				cb_TargetingPrioritizeCloseRangeUnits.CheckedChanged += cb_TargetingPrioritizeCloseRangeUnits_CheckedChanged;
 
@@ -258,7 +258,7 @@ namespace FunkyBot.Config.UI
 				tb_TargetingUnitExceptionLowHealthMaxDistance.ValueChanged += tb_TargetingUnitExceptionLowHealthMaxDistance_ValueChanged;
 
 				txt_TargetingUnitExceptionLowHealthMaxDistance.Text = Bot.Settings.Targeting.UnitExceptionLowHPMaximumDistance.ToString();
-				
+
 
 
 				UserControlTargetRange eliteRange = new UserControlTargetRange(Bot.Settings.Ranges.EliteCombatRange, "Rare/Elite/Unique Unit Range")
@@ -370,11 +370,11 @@ namespace FunkyBot.Config.UI
 
 				cb_TargetLOSSpawnerUnits.Checked = Bot.Settings.LOSMovement.AllowSpawnerUnits;
 				cb_TargetLOSSpawnerUnits.CheckedChanged += cb_TargetLOSSpawnerUnits_CheckedChanged;
-				
+
 				cb_TargetLOSSucideBombers.Checked = Bot.Settings.LOSMovement.AllowSucideBomber;
 				cb_TargetLOSSucideBombers.CheckedChanged += cb_TargetLOSSucideBombers_CheckedChanged;
 
-				cb_LOSEventSwitches.Checked=Bot.Settings.LOSMovement.AllowEventSwitches;
+				cb_LOSEventSwitches.Checked = Bot.Settings.LOSMovement.AllowEventSwitches;
 				cb_LOSEventSwitches.CheckedChanged += cb_TargetLOSEventSwitches_CheckedChanged;
 
 				cb_TargetingShrineEmpowered.Checked = Bot.Settings.Targeting.UseShrineTypes[5];
@@ -404,7 +404,7 @@ namespace FunkyBot.Config.UI
 				cb_GeneralAllowBuffInTown.CheckedChanged += cb_GeneralAllowBuffInTown_CheckedChanged;
 
 				txt_GeneralEndOfCombatDelayValue.Text = Bot.Settings.General.AfterCombatDelay.ToString();
-				
+
 				tb_GeneralEndOfCombatDelayValue.Value = Bot.Settings.General.AfterCombatDelay;
 				tb_GeneralEndOfCombatDelayValue.ValueChanged += tb_GeneralEndOfCombatDelayValue_ValueChanged;
 
@@ -417,7 +417,7 @@ namespace FunkyBot.Config.UI
 				cb_TownRunStashHoradricCache.Checked = Bot.Settings.TownRun.StashHoradricCache;
 				cb_TownRunStashHoradricCache.CheckedChanged += cb_TownRunStashHoradricCache_CheckedChanged;
 
-				cb_TownRunBloodShardGambling.Checked=Bot.Settings.TownRun.EnableBloodShardGambling;
+				cb_TownRunBloodShardGambling.Checked = Bot.Settings.TownRun.EnableBloodShardGambling;
 				cb_TownRunBloodShardGambling.CheckedChanged += cb_TownRunBloodShardGambling_CheckedChanged;
 
 				txt_TownRunBloodShardMinimumValue.Text = Bot.Settings.TownRun.MinimumBloodShards.ToString();
@@ -452,6 +452,11 @@ namespace FunkyBot.Config.UI
 				cb_ItemRules.Checked = Bot.Settings.ItemRules.UseItemRules;
 				cb_ItemRules.CheckedChanged += cb_ItemRules_CheckedChanged;
 
+				if (Bot.Settings.ItemRules.ItemRuleCustomPath != String.Empty)
+				{
+					txt_ItemRulesCustomLocation.Text = Bot.Settings.ItemRules.ItemRuleCustomPath;
+				}
+
 				cb_ItemRulesPickup.Checked = Bot.Settings.ItemRules.UseItemRulesPickup;
 				cb_ItemRulesPickup.CheckedChanged += cb_ItemRulesPickup_CheckedChanged;
 
@@ -461,10 +466,10 @@ namespace FunkyBot.Config.UI
 				cb_ItemRulesUnidStashing.Checked = Bot.Settings.ItemRules.ItemRulesUnidStashing;
 				cb_ItemRulesUnidStashing.CheckedChanged += cb_ItemRulesUnidStashing_CheckedChanged;
 
-				cb_ItemRulesDebugging.Checked=Bot.Settings.ItemRules.ItemRuleDebug;
+				cb_ItemRulesDebugging.Checked = Bot.Settings.ItemRules.ItemRuleDebug;
 				cb_ItemRulesDebugging.CheckedChanged += cb_ItemRulesDebugging_CheckedChanged;
 
-				cb_ItemRulesUseItemIDs.Checked=Bot.Settings.ItemRules.ItemRuleUseItemIDs;
+				cb_ItemRulesUseItemIDs.Checked = Bot.Settings.ItemRules.ItemRuleUseItemIDs;
 				cb_ItemRulesUseItemIDs.CheckedChanged += cb_ItemRulesUseItemIDs_CheckedChanged;
 
 				btn_ItemRulesCustomBrowse.Click += ItemRulesBrowse_Click;
@@ -516,16 +521,16 @@ namespace FunkyBot.Config.UI
 				cb_LootInfernoKeys.Checked = Bot.Settings.Loot.PickupInfernalKeys;
 				cb_LootInfernoKeys.CheckedChanged += cb_LootInfernoKeys_CheckedChanged;
 
-				cb_LootExpBooks.Checked =Bot.Settings.Loot.ExpBooks;
+				cb_LootExpBooks.Checked = Bot.Settings.Loot.ExpBooks;
 				cb_LootExpBooks.CheckedChanged += cb_LootExpBooks_CheckedChanged;
 
-				cb_LootKeyStones.Checked=Bot.Settings.Loot.PickupKeystoneFragments;
+				cb_LootKeyStones.Checked = Bot.Settings.Loot.PickupKeystoneFragments;
 				cb_LootKeyStones.CheckedChanged += cb_LootKeyStoneFragments_CheckedChanged;
-				
+
 
 				cb_DebugDataLogging.Checked = Bot.Settings.Debug.DebuggingData;
 				cb_DebugDataLogging.CheckedChanged += cb_DebugDataLogging_CheckedChanged;
-				
+
 				cb_DebugStatusBar.Checked = Bot.Settings.Debug.DebugStatusBar;
 				cb_DebugStatusBar.CheckedChanged += cb_DebugStatusBar_CheckedChanged;
 
@@ -633,7 +638,7 @@ namespace FunkyBot.Config.UI
 		}
 
 
-	
+
 		private void FunkyLogLevelChanged(object sender, EventArgs e)
 		{
 			CheckBox cbSender = (CheckBox)sender;
@@ -1056,7 +1061,7 @@ namespace FunkyBot.Config.UI
 
 		private void cb_TargetLOSGoblins_CheckedChanged(object sender, EventArgs e)
 		{
-			Bot.Settings.LOSMovement.AllowTreasureGoblin=!Bot.Settings.LOSMovement.AllowTreasureGoblin;
+			Bot.Settings.LOSMovement.AllowTreasureGoblin = !Bot.Settings.LOSMovement.AllowTreasureGoblin;
 		}
 
 		private void cb_TargetLOSRareElite_CheckedChanged(object sender, EventArgs e)
@@ -1115,7 +1120,7 @@ namespace FunkyBot.Config.UI
 
 		private void cb_GeneralAllowBuffInTown_CheckedChanged(object sender, EventArgs e)
 		{
-			Bot.Settings.General.AllowBuffingInTown=!Bot.Settings.General.AllowBuffingInTown;
+			Bot.Settings.General.AllowBuffingInTown = !Bot.Settings.General.AllowBuffingInTown;
 		}
 
 		private void tb_GeneralEndOfCombatDelayValue_ValueChanged(object sender, EventArgs e)
@@ -1128,17 +1133,17 @@ namespace FunkyBot.Config.UI
 
 		private void cb_GeneralApplyEndDelayToContainers_CheckedChanged(object sender, EventArgs e)
 		{
-			Bot.Settings.General.EnableWaitAfterContainers=!Bot.Settings.General.EnableWaitAfterContainers;
+			Bot.Settings.General.EnableWaitAfterContainers = !Bot.Settings.General.EnableWaitAfterContainers;
 		}
 
 		private void cb_AdventureModeEnabled_CheckedChanged(object sender, EventArgs e)
 		{
-			Bot.Settings.AdventureMode.EnableAdventuringMode=!Bot.Settings.AdventureMode.EnableAdventuringMode;
+			Bot.Settings.AdventureMode.EnableAdventuringMode = !Bot.Settings.AdventureMode.EnableAdventuringMode;
 		}
 
 		private void cb_TownRunStashHoradricCache_CheckedChanged(object sender, EventArgs e)
 		{
-			Bot.Settings.TownRun.StashHoradricCache=!Bot.Settings.TownRun.StashHoradricCache;
+			Bot.Settings.TownRun.StashHoradricCache = !Bot.Settings.TownRun.StashHoradricCache;
 		}
 
 		private void tb_TownRunBloodShardMinimumValue_ValueChanged(object sender, EventArgs e)
@@ -1151,7 +1156,7 @@ namespace FunkyBot.Config.UI
 
 		private void cb_ItemRules_CheckedChanged(object sender, EventArgs e)
 		{
-			Bot.Settings.ItemRules.UseItemRules=!Bot.Settings.ItemRules.UseItemRules;
+			Bot.Settings.ItemRules.UseItemRules = !Bot.Settings.ItemRules.UseItemRules;
 		}
 
 		private void cb_ItemRulesPickup_CheckedChanged(object sender, EventArgs e)
@@ -1189,7 +1194,7 @@ namespace FunkyBot.Config.UI
 
 		private void cb_ItemRulesUseItemIDs_CheckedChanged(object sender, EventArgs e)
 		{
-			Bot.Settings.ItemRules.ItemRuleUseItemIDs=!Bot.Settings.ItemRules.ItemRuleUseItemIDs;
+			Bot.Settings.ItemRules.ItemRuleUseItemIDs = !Bot.Settings.ItemRules.ItemRuleUseItemIDs;
 		}
 
 		private void cb_ItemRulesDebugging_CheckedChanged(object sender, EventArgs e)
@@ -1199,7 +1204,7 @@ namespace FunkyBot.Config.UI
 
 		private void cb_LootPickupCraftPlans_CheckedChanged(object sender, EventArgs e)
 		{
-			Bot.Settings.Loot.PickupCraftPlans=!Bot.Settings.Loot.PickupCraftPlans;
+			Bot.Settings.Loot.PickupCraftPlans = !Bot.Settings.Loot.PickupCraftPlans;
 		}
 
 		private void cb_LootGemAMETHYST_CheckedChanged(object sender, EventArgs e)
@@ -1245,7 +1250,7 @@ namespace FunkyBot.Config.UI
 
 		private void cb_LootCraftMats_CheckedChanged(object sender, EventArgs e)
 		{
-			Bot.Settings.Loot.PickupCraftMaterials=!Bot.Settings.Loot.PickupCraftMaterials;
+			Bot.Settings.Loot.PickupCraftMaterials = !Bot.Settings.Loot.PickupCraftMaterials;
 		}
 
 		private void cb_LootInfernoKeys_CheckedChanged(object sender, EventArgs e)
@@ -1269,7 +1274,7 @@ namespace FunkyBot.Config.UI
 
 		private void cb_DebugStatusBar_CheckedChanged(object sender, EventArgs e)
 		{
-			Bot.Settings.Debug.DebugStatusBar=!Bot.Settings.Debug.DebugStatusBar;
+			Bot.Settings.Debug.DebugStatusBar = !Bot.Settings.Debug.DebugStatusBar;
 		}
 
 		private void cb_DebugDataLogging_CheckedChanged(object sender, EventArgs e)
@@ -1292,13 +1297,13 @@ namespace FunkyBot.Config.UI
 
 		private void SettingsForm_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			
+
 		}
 
 		private void btn_DumpObstacleCache_Click(object sender, EventArgs e)
 		{
 			LBDebug.Controls.Clear();
-			
+
 
 			try
 			{
@@ -1317,17 +1322,18 @@ namespace FunkyBot.Config.UI
 
 				LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Modification Exception"));
 			}
+			LBDebug.Focus();
 
 		}
 
 		private void btn_DumpSNOCache_Click(object sender, EventArgs e)
 		{
 			LBDebug.Controls.Clear();
-		
+
 			try
 			{
 				LBDebug.Controls.Add(new UserControlDebugEntry(ObjectCache.cacheSnoCollection.DumpDebugInfo()));
-
+				var SortedValues = ObjectCache.cacheSnoCollection.Values.OrderBy(obj => obj.SNOID);
 				Logger.DBLog.InfoFormat("Dumping SNO Cache");
 
 				foreach (var item in ObjectCache.cacheSnoCollection)
@@ -1340,6 +1346,7 @@ namespace FunkyBot.Config.UI
 
 				LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Modification Exception"));
 			}
+			LBDebug.Focus();
 		}
 
 		private void btn_DumpCharacterCache_Click(object sender, EventArgs e)
@@ -1356,6 +1363,7 @@ namespace FunkyBot.Config.UI
 			{
 				Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
 			}
+			LBDebug.Focus();
 		}
 
 		private void btn_DumpTargetingCache_Click(object sender, EventArgs e)
@@ -1369,6 +1377,7 @@ namespace FunkyBot.Config.UI
 			{
 				Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
 			}
+			LBDebug.Focus();
 		}
 
 		private void btn_DumpSkillsCache_Click(object sender, EventArgs e)
@@ -1424,7 +1433,9 @@ namespace FunkyBot.Config.UI
 			{
 				Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
 			}
+			LBDebug.Focus();
 		}
+
 
 		private void btn_DumpBountyCache_Click(object sender, EventArgs e)
 		{
@@ -1437,6 +1448,7 @@ namespace FunkyBot.Config.UI
 			{
 				Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
 			}
+			LBDebug.Focus();
 		}
 
 		private void btn_DumpObjectCache_Click(object sender, EventArgs e)
@@ -1465,24 +1477,55 @@ namespace FunkyBot.Config.UI
 				}
 
 			}
-			catch 
+			catch
 			{
 				LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Modification Exception"));
 			}
+			LBDebug.Focus();
 
 		}
 
 		private void btn_Test_Click(object sender, EventArgs e)
 		{
-			UIElement uie = Game.UI.GameMenu.SelectHeroByIndex(11);
-			if (Game.UI.ValidateUIElement(uie))
-			{
-				Logger.DBLog.Info(uie.Hash);
-				uie.Click();
-				if(uie.HasText) Logger.DBLog.Info(uie.Text);
+			LBDebug.Controls.Clear();
 
+			ZetaDia.Memory.ClearCache();
+			
+			try
+			{
+				BountyInfo ab = ZetaDia.ActInfo.ActiveBounty;
+
+				int step = ab.Info.QuestStep;
+				float questmeter = ab.Info.QuestMeter;
+				int killcount = ab.Info.KillCount;
+				int bonuscount = ab.Info.BonusCount;
+				int creationTick = ab.Info.CreationTick;
+				string debugstr = String.Format("Step: {0} questMeter: {1} killCount: {2} bonusCount: {3} CreationTick: {4}", step, questmeter, killcount, bonuscount, creationTick);
+				LBDebug.Controls.Add(new UserControlDebugEntry(debugstr));
 			}
+			catch (Exception ex)
+			{
+				LBDebug.Controls.Add(new UserControlDebugEntry(String.Format("Exception: {0}", ex.InnerException)));
+			}
+
+			try
+			{
+
+				foreach (var q in ZetaDia.ActInfo.ActiveQuests)
+				{
+					var str = String.Format("\r\nID: {4} Step: {0} questMeter: {1} killCount: {2} bonusCount: {3}",
+						q.QuestStep, q.QuestMeter, q.KillCount, q.BonusCount, q.QuestSNO);
+					LBDebug.Controls.Add(new UserControlDebugEntry(str));
+				}
+			}
+			catch (Exception ex)
+			{
+				LBDebug.Controls.Add(new UserControlDebugEntry(String.Format("Exception: {0}", ex.InnerException)));
+			}
+
+
 			//ZetaDia.Service.GameAccount.SwitchHero(1);
+			LBDebug.Focus();
 		}
 
 		private void flowLayoutPanel_Avoidances_Click(object sender, EventArgs e)

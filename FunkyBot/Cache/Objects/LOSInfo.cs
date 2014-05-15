@@ -59,10 +59,18 @@ namespace FunkyBot.Cache.Objects
 			 }
 		}
 
-		 ///<summary>
+		///<summary>
+		///Runs raycasting and intersection tests to validate LOS.
+		///</summary>
+		public bool LOSTest(Vector3 PositionToTestFrom, bool NavRayCast = true, bool searchGridRayCast = false, bool ServerObjectIntersection = true, NavCellFlags Flags = NavCellFlags.None, bool ContinueOnFailures = true)
+		{
+			return LOSTest(PositionToTestFrom, Obj.Position, NavRayCast, searchGridRayCast, ServerObjectIntersection, Flags, ContinueOnFailures);
+		}
+
+		///<summary>
 		 ///Runs raycasting and intersection tests to validate LOS.
 		 ///</summary>
-		 public bool LOSTest(Vector3 PositionToTestFrom, bool NavRayCast = true, bool searchGridRayCast = false, bool ServerObjectIntersection = true, NavCellFlags Flags = NavCellFlags.None, bool ContinueOnFailures = true)
+		 public bool LOSTest(Vector3 PositionToTestFrom, Vector3 objposition, bool NavRayCast = true, bool searchGridRayCast = false, bool ServerObjectIntersection = true, NavCellFlags Flags = NavCellFlags.None, bool ContinueOnFailures = true)
 		 {
 			  LastLOSCheck=DateTime.Now;
 			  bool Failed=false;
@@ -70,20 +78,11 @@ namespace FunkyBot.Cache.Objects
 
 			  if (NavRayCast)
 			  {//This is a basic raycast test to see if we have clear view of the object.
-					//Navigator.SearchGridProvider.Update();
-					Vector2 hitpos;
-					Vector3 ObjectPosition = Obj.Position; //(Obj.targetType.Value == TargetType.Door || Obj.targetType.Value == TargetType.Interactables) ? Obj.BotMeleeVector : Obj.Position;
 
-					//Must check the Z difference.. (so we don't get false-positive result)
-					//if (PositionToTestFrom.Z>ObjectPosition.Z)
-					//	 RayCast=!Navigator.SearchGridProvider.Raycast(PositionToTestFrom.ToVector2(), ObjectPosition.ToVector2(), out hitpos);
-					//else
-					//	 RayCast=!Navigator.SearchGridProvider.Raycast(ObjectPosition.ToVector2(), PositionToTestFrom.ToVector2(), out hitpos);
-					
-					if (PositionToTestFrom.Z > ObjectPosition.Z)
-					  RayCast=Navigation.CanRayCast(PositionToTestFrom, ObjectPosition);
+					if (PositionToTestFrom.Z > objposition.Z)
+						RayCast = Navigation.CanRayCast(PositionToTestFrom, objposition);
 					else
-					  RayCast=Navigation.CanRayCast(ObjectPosition, PositionToTestFrom);
+						RayCast = Navigation.CanRayCast(objposition, PositionToTestFrom);
 
 					if (!RayCast.Value)
 					{
@@ -96,13 +95,12 @@ namespace FunkyBot.Cache.Objects
 			 if (searchGridRayCast)
 			 {
 				 Vector2 hitpos;
-				 Vector3 ObjectPosition = Obj.Position; //(Obj.targetType.Value == TargetType.Door || Obj.targetType.Value == TargetType.Interactables) ? Obj.BotMeleeVector : Obj.Position;
 
 				 //Must check the Z difference.. (so we don't get false-positive result)
-				 if (PositionToTestFrom.Z > ObjectPosition.Z)
-					 SearchGridRayCast = !Navigator.SearchGridProvider.Raycast(PositionToTestFrom.ToVector2(), ObjectPosition.ToVector2(), out hitpos);
+				 if (PositionToTestFrom.Z > objposition.Z)
+					 SearchGridRayCast = !Navigator.SearchGridProvider.Raycast(PositionToTestFrom.ToVector2(), objposition.ToVector2(), out hitpos);
 				 else
-					 SearchGridRayCast = !Navigator.SearchGridProvider.Raycast(ObjectPosition.ToVector2(), PositionToTestFrom.ToVector2(), out hitpos);
+					 SearchGridRayCast = !Navigator.SearchGridProvider.Raycast(objposition.ToVector2(), PositionToTestFrom.ToVector2(), out hitpos);
 					
 				 if (!SearchGridRayCast.Value)
 				 {
@@ -114,11 +112,10 @@ namespace FunkyBot.Cache.Objects
 			  if (ServerObjectIntersection)
 			  {//This test uses the obstacle cache to check objects for intersection
 
-					Vector3 TargetTestLocation=Obj.Position;
-					if (Funky.Difference(Bot.Character.Data.Position.Z,TargetTestLocation.Z)>1f)
+					if (Funky.Difference(Bot.Character.Data.Position.Z, objposition.Z) > 1f)
 					{
 						//Get actual height using MGP
-						 TargetTestLocation.Z=Navigation.MGP.GetHeight(TargetTestLocation.ToVector2());
+						objposition.Z = Navigation.MGP.GetHeight(objposition.ToVector2());
 					}
 
 					ObjectIntersection=ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
@@ -126,7 +123,7 @@ namespace FunkyBot.Cache.Objects
 							  obstacle.RAGUID!=Obj.RAGUID&&
 							  obstacle.Obstacletype.HasValue&&
 							  obstacle.Obstacletype.Value!=ObstacleType.Monster&&
-							  obstacle.TestIntersection(PositionToTestFrom, TargetTestLocation));
+							  obstacle.TestIntersection(PositionToTestFrom, objposition));
 
 					if (!Failed&&ObjectIntersection.Value)
 					{
@@ -138,7 +135,7 @@ namespace FunkyBot.Cache.Objects
 
 			  if (!Flags.Equals(NavCellFlags.None))
 			  {//Raycast test to validate it can preform the path -- walk/projectile
-					bool NavTest=Navigation.CanRayCast(PositionToTestFrom, Obj.Position, Flags);
+				  bool NavTest = Navigation.CanRayCast(PositionToTestFrom, objposition, Flags);
 
 					if (Flags.HasFlag(NavCellFlags.AllowWalk)) NavCellWalk=NavTest;
 					if (Flags.HasFlag(NavCellFlags.AllowProjectile)) NavCellProjectile=NavTest;

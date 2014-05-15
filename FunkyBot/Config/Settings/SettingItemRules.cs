@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -29,7 +30,7 @@ namespace FunkyBot.Config.Settings
 			UseItemRules=true;
 			ItemRulesUnidStashing=true;
 			ItemRulesSalvaging=true;
-			ItemRuleCustomPath="";
+			ItemRuleCustomPath=String.Empty;
 		}
 
 		private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "ItemRules_Default.xml");

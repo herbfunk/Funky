@@ -7,6 +7,7 @@
 		Kill, //Kill X enemies and Unique Boss
 		CursedEvent, //Find and Clear Cursed Shrine/Chest in level area.
 		Boss, //Kill the boss!
+		Event, //Stay Put..?
 		Other,
 	}
 }

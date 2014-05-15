@@ -82,10 +82,10 @@ namespace FunkyBot.Player
 			if (!BrainBehavior.IsVendoring)
 			{
 				//Check for World ID change!
-				if (Bot.Character.Data.iCurrentWorldID != LastWorldID)
+				if (Bot.Character.Data.CurrentWorldDynamicID != LastWorldID)
 				{
 					Logger.Write(LogLevel.Event, "World ID changed.. clearing Profile Interactable Cache.");
-					LastWorldID = Bot.Character.Data.iCurrentWorldID;
+					LastWorldID = Bot.Character.Data.CurrentWorldDynamicID;
 					Bot.Game.Profile.InteractableObjectCache.Clear();
 					Navigator.SearchGridProvider.Update();
 
@@ -121,7 +121,8 @@ namespace FunkyBot.Player
 				//Adventure Mode?
 				if (Bot.Game.AdventureMode && Bot.Settings.AdventureMode.EnableAdventuringMode)
 				{
-					Bot.Game.Bounty.RefreshBountyLevelChange();
+					if (!CacheIDLookup.riftWorldIds.Contains(Bot.Character.Data.CurrentWorldID))
+						Bot.Game.Bounty.RefreshBountyLevelChange();
 				}
 
 				LastLevelIDChangeWasTownRun = false;

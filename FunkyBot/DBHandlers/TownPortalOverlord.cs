@@ -192,7 +192,7 @@ namespace FunkyBot.DBHandlers
 					if (Bot.NavigationCache.AttemptFindSafeSpot(out UnstuckPos, Vector3.Zero, Bot.Settings.Plugin.AvoidanceFlags))
 					{
 						Logger.Write(LogLevel.OutOfCombat, "Generated Unstuck Position at {0}", UnstuckPos.ToString());
-						ZetaDia.Me.UsePower(SNOPower.Walk, UnstuckPos, Bot.Character.Data.iCurrentWorldID);
+						ZetaDia.Me.UsePower(SNOPower.Walk, UnstuckPos, Bot.Character.Data.CurrentWorldDynamicID);
 					}
 
 				}

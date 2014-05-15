@@ -129,7 +129,7 @@ namespace FunkyBot.DBHandlers
 				vectorSalvageLocation = objBlacksmith.Position;
 
 			if (vectorSalvageLocation == Vector3.Zero)
-				Character.FindActByLevelID(Bot.Character.Data.iCurrentWorldID);
+				Character.FindActByLevelID(Bot.Character.Data.CurrentWorldDynamicID);
 
 			Bot.NavigationCache.RefreshMovementCache();
 			//Wait until we are not moving

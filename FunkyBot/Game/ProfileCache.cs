@@ -47,7 +47,7 @@ namespace FunkyBot.Game
 		///</summary>
 		internal void CheckCurrentProfileBehavior()
 		{
-			if (DateTime.Now.Subtract(LastProfileBehaviorCheck).TotalMilliseconds > 450)
+			if (DateTime.Now.Subtract(LastProfileBehaviorCheck).TotalMilliseconds > 250)
 			{
 				LastProfileBehaviorCheck = DateTime.Now;
 

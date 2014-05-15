@@ -22,15 +22,10 @@ namespace FunkyBot.DBHandlers
 	internal static partial class TownRunManager
 	{
 		internal static BloodShardGambleItems nextItemType=BloodShardGambleItems.None;
-
-		internal static bool ClickVendorTab = false;
-		internal static bool ClickedItemUI = false;
-		internal static bool ClickedBackpackUI = false;
 		internal static bool PurchasedItem = false;
-
 		private static int LastBloodShardCount = 0;
-		private static ulong LastClickedTabHash = 0;
 		private static List<CacheACDItem> GamblingItemList = new List<CacheACDItem>(); 
+
 
 		internal static bool GamblingRunOverlord(object ret)
 		{//Should we gamble?
@@ -138,6 +133,12 @@ namespace FunkyBot.DBHandlers
 				return RunStatus.Success;
 			}
 
+			//set default
+			if (LastBloodShardCount == 0 && LastBloodShardCount != CurrentBloodShardCount)
+			{
+				LastBloodShardCount = CurrentBloodShardCount;
+			}
+
 			//Check if we should find a new item type to gamble for..
 			if (nextItemType.Equals(BloodShardGambleItems.None) || GetGambleItemPrice(nextItemType) > CurrentBloodShardCount)
 			{
@@ -165,14 +166,12 @@ namespace FunkyBot.DBHandlers
 					}
 				}
 			}
-			//Did we manage to find a new item to buy?
+			
 			if (nextItemType.Equals(BloodShardGambleItems.None))
 			{
 				Logger.DBLog.DebugFormat("[Funky] Gambling Behavior Finished -- No Valid Item Types Returned.");
 				return RunStatus.Success;
 			}
-
-			
 
 
 			//Get Current Tab We Should Have Visible..
@@ -183,62 +182,6 @@ namespace FunkyBot.DBHandlers
 				Logger.DBLog.DebugFormat("[Funky] Gambling Behavior UI Tab Not Valid!");
 				return RunStatus.Success;
 			}
-
-
-
-
-
-			//if (!ClickVendorTab)
-			//{
-			//	if (!TownRunItemLoopsTest()) return RunStatus.Running;
-
-			//	Logger.DBLog.DebugFormat("Clicking Tab: {0}", string.Format("0x{0:X}", UITab.Hash));
-			//	UITab.Click();
-			//	ClickVendorTab = true;
-			//	return RunStatus.Running;
-			//}
-
-			////Check if the item UI element is valid
-			//UIElement UIItemType = GetGambleItemUIElement(nextItemType);
-			//if (!UI.ValidateUIElement(UIItemType))
-			//{
-			//	Logger.DBLog.DebugFormat("[Funky] Gambling Behavior UI Item Not Valid!");
-			//	return RunStatus.Success;
-			//}
-
-			////Click Item UI..
-			//if (!ClickedItemUI)
-			//{
-			//	if (!TownRunItemLoopsTest()) return RunStatus.Running;
-			//	LastBloodShardCount = CurrentBloodShardCount;
-
-			//	Logger.DBLog.DebugFormat("Clicking Item: {0}", string.Format("0x{0:X}", UIItemType.Hash));
-
-			//	UIItemType.Click();
-			//	ClickedItemUI = true;
-			//	return RunStatus.Running;
-			//}
-
-
-			////Click Inventory Slot..
-			//if (!ClickedBackpackUI)
-			//{
-			//	if (!TownRunItemLoopsTest()) return RunStatus.Running;
-
-			//	UIElement BackpackSlot = UI.Inventory_Backpack_TopLeftSlot;
-			//	if (!UI.ValidateUIElement(BackpackSlot))
-			//	{
-			//		//Error!?!?
-			//		Logger.DBLog.DebugFormat("[Funky] Gambling Behavior BackpackSlot Not Valid!");
-			//		return RunStatus.Success;
-			//	}
-
-			//	Logger.DBLog.DebugFormat("Clicking Backpack: {0}", string.Format("0x{0:X}", BackpackSlot.Hash));
-			//	BackpackSlot.Click();
-
-			//	ClickedBackpackUI = true;
-			//	return RunStatus.Running;
-			//}
 
 			if (!PurchasedItem)
 			{
@@ -254,6 +197,7 @@ namespace FunkyBot.DBHandlers
 					return RunStatus.Success;
 				}
 
+				Logger.DBLog.DebugFormat("[Funky] Buying Item {0}", nextItemType);
 				ZetaDia.Actors.Me.Inventory.BuyItem(dynamicID);
 				PurchasedItem = true;
 				return RunStatus.Running;
@@ -263,17 +207,18 @@ namespace FunkyBot.DBHandlers
 
 
 			if (LastBloodShardCount != CurrentBloodShardCount)
+			{
+				LastBloodShardCount=CurrentBloodShardCount;
 				Bot.Game.CurrentGameStats.CurrentProfile.ItemsGambled++;
-			else if (ZetaDia.Me.Inventory.NumFreeBackpackSlots<3)
+			}
+			else if (ZetaDia.Me.Inventory.NumFreeBackpackSlots < 3)
 			{
 				Logger.DBLog.DebugFormat("[Funky] Gambling Behavior Finished -- Backpack Is Nearly Full!");
 				return RunStatus.Success;
 			}
+			
 
 			//Reset
-			//ClickedItemUI = false;
-			//ClickedBackpackUI = false;
-			//ClickVendorTab = false;
 			PurchasedItem = false;
 			nextItemType = BloodShardGambleItems.None;
 
@@ -292,10 +237,9 @@ namespace FunkyBot.DBHandlers
 				return RunStatus.Failure;
 			}
 
-			ClickedItemUI = false;
-			ClickedBackpackUI = false;
-			PurchasedItem = false;
 
+			PurchasedItem = false;
+			LastBloodShardCount = 0;
 			nextItemType = BloodShardGambleItems.None;
 			iCurrentItemLoops = 0;
 			RandomizeTheTimer();
@@ -305,11 +249,8 @@ namespace FunkyBot.DBHandlers
 		internal static RunStatus GamblingFinish(object ret)
 		{
 			Logger.DBLog.DebugFormat("Debug: Gambling routine ending sequence...");
-			ClickedItemUI = false;
-			ClickedBackpackUI = false;
-			ClickVendorTab = false;
+			LastBloodShardCount = 0;
 			PurchasedItem = false;
-			LastClickedTabHash = 0;
 			nextItemType = BloodShardGambleItems.None;
 			return RunStatus.Success;
 		}

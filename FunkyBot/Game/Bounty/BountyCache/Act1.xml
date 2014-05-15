@@ -339,4 +339,7 @@
       </QuestSNOs>
     </BountyQuestCacheEntry>
   </CursedEventBounties>
+
+  <MiscEventBounties/>
+  
 </BountyQuestActCache>

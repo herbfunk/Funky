@@ -1,5 +1,6 @@
 ﻿using System;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Game;
 using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.Actors.Gizmos;
 using Zeta.Game.Internals.SNO;
@@ -176,6 +177,19 @@ namespace FunkyBot.Cache.Objects
 				{
 					Logger.Write(LogLevel.Cache, "Handled GizmoDisabledByScript for gizmo {0}", DebugStringSimple);
 					GizmoDisabledByScript = false;
+				}
+			}
+
+			//Update Quest Monster?
+			if (Bot.Targeting.Cache.UpdateQuestMonsterProperty || ProfileCache.QuestMode)
+			{
+				try
+				{
+					QuestMonster = ref_Gizmo.CommonData.GetAttribute<int>(ActorAttributeType.QuestMonster) != 0;
+				}
+				catch (Exception)
+				{
+					QuestMonster = false;
 				}
 			}
 

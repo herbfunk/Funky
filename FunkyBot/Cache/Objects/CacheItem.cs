@@ -615,7 +615,7 @@ namespace FunkyBot.Cache.Objects
 
 			// Pick the item up the usepower way, and "blacklist" for a couple of loops
 			Bot.Character.Data.WaitWhileAnimating(20);
-			ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, Vector3.Zero, Bot.Character.Data.iCurrentWorldID, AcdGuid.Value);
+			ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, Vector3.Zero, Bot.Character.Data.CurrentWorldDynamicID, AcdGuid.Value);
 			Bot.NavigationCache.lastChangedZigZag = DateTime.Today;
 			Bot.NavigationCache.vPositionLastZigZagCheck = Vector3.Zero;
 

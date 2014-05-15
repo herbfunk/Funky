@@ -642,8 +642,8 @@ namespace FunkyBot.Cache.Objects
 							}
 							else if (ObjectCache.SNOCache.Gizmos.SpecialInteractables.Contains(SNOID))
 							{
-								targetType = TargetType.ServerInteractable;
-								Gizmotype = GizmoType.Chest;
+								targetType = TargetType.Interactable;
+								Gizmotype = GizmoType.Switch;
 							}
 							else
 							{

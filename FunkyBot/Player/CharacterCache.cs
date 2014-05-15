@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyBot.Cache;
 using FunkyBot.DBHandlers;
 using FunkyBot.Movement;
 using Zeta.Bot;
@@ -30,11 +31,12 @@ namespace FunkyBot.Player
 			MaxEnergy = 0;
 			MaxDiscipline = 0;
 
+			CurrentWorldID = 0;
 			iMyDynamicID = 0;
 			iMyLevel = 1;
 			iSceneID = -1;
 			SceneName=String.Empty;
-			iCurrentWorldID = -1;
+			CurrentWorldDynamicID = -1;
 			iCurrentLevelID = -1;
 			BackPack = new Backpack();
 			PetData = new Pets();
@@ -141,7 +143,8 @@ namespace FunkyBot.Player
 				UpdateCoinage = false;
 			}
 		}
-		public int iCurrentWorldID { get; set; }
+		public int CurrentWorldDynamicID { get; set; }
+		public int CurrentWorldID { get; set; }
 		public int iCurrentLevelID { get; set; }
 		internal bool UpdateCoinage { get; set; }
 		public bool ShouldFlee
@@ -325,10 +328,14 @@ namespace FunkyBot.Player
 
 
 					int currentLevelAreaID = ZetaDia.CurrentLevelAreaId;
-					if (iCurrentLevelID != currentLevelAreaID)
+					int currentWorldID = ZetaDia.CurrentWorldId;
+					bool inRift = CacheIDLookup.riftWorldIds.Contains(currentWorldID);
+
+					if (iCurrentLevelID != currentLevelAreaID || (inRift && currentWorldID != CurrentWorldID))
 					{
+						CurrentWorldDynamicID = ZetaDia.CurrentWorldDynamicId;
+						CurrentWorldID = ZetaDia.CurrentWorldId;
 						levelareaIDchanged(currentLevelAreaID);
-						iCurrentWorldID = ZetaDia.CurrentWorldDynamicId;
 					}
 					
 
@@ -418,7 +425,7 @@ namespace FunkyBot.Player
 		public string DebugString()
 		{
 			return String.Format("Character Info \r\n" +
-															   "CurrentLevelID={0} -- WorldID={1} -- SceneID={2} \r\n" +
+															   "CurrentLevelID={0} -- WorldID={19} WorldDynamicID={1} -- SceneID={2} \r\n" +
 																"IsIncapacitated={17} IsRooted={18}  \r\n" +
 															   "SNOAnim={3} AnimState={4} \r\n" +
 															   "Incapacitated={5} -- Rooted={6} \r\n" +
@@ -427,7 +434,7 @@ namespace FunkyBot.Player
 															   "Is In Boss Encounter={12}  IsInTown={16}\r\n" +
 															   "SNOActor ID: {13} -- {14}" +
 																"\r\n{15}",
-															   iCurrentLevelID, iCurrentWorldID, iSceneID,
+															   iCurrentLevelID, CurrentWorldDynamicID, iSceneID,
 															   Lastsnoanim.ToString(), lastAnimationState.ToString(),
 															   Bot.Character.Data.bIsIncapacitated.ToString(), Bot.Character.Data.bIsRooted.ToString(),
 															   dCurrentHealthPct, dCurrentEnergy, dCurrentEnergyPct,
@@ -436,7 +443,7 @@ namespace FunkyBot.Player
 															   ActorSno,SnoActor,
 															   PetData.DebugString(),
 															   bIsInTown,
-															   bIsIncapacitated, bIsRooted);
+															   bIsIncapacitated, bIsRooted, CurrentWorldID);
 
 		}
 

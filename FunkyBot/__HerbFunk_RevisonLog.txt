@@ -1,4 +1,7 @@
 ﻿// herbfunk revisions
+v2.10.1.1
+	Fixed Bloodshard Gambling when inventory is full.
+
 v2.10.1.0
 
 Settings:

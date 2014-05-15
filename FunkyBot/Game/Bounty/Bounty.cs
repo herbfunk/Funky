@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FunkyBot.Cache;
 using FunkyBot.Config.Settings;
 using Zeta.Common;
 using Zeta.Game;
@@ -10,9 +11,16 @@ namespace FunkyBot.Game.Bounty
 {
 	public class BountyCache
 	{
+		public const int ADVENTUREMODE_QUESTID = 312429;
+		public const int ADVENTUREMODE_RIFTID = 337492;
+
 		public Dictionary<int, QuestState> BountyQuestStates = new Dictionary<int, QuestState>();
 		public Dictionary<int, BountyInfo> CurrentBounties = new Dictionary<int, BountyInfo>();
+
 		public Dictionary<int, BountyMapMarker> CurrentBountyMapMarkers = new Dictionary<int, BountyMapMarker>();
+
+		public Dictionary<int, QuestInfoCache> ActiveQuests = new Dictionary<int, QuestInfoCache>(); 
+
 		public BountyInfoCache ActiveBounty = null;
 
 		public BountyQuestActCache CurrentActCache = new BountyQuestActCache();
@@ -117,6 +125,7 @@ namespace FunkyBot.Game.Bounty
 					//nullify Cache Entry then set it if Cache contains it.
 					CurrentBountyCacheEntry = null;
 					ShouldNavigateMinimapPoints = false;
+					ActiveQuests.Clear();
 				}
 				else if (activeBounty.QuestSNO == 0)
 				{//nullify when active bounty is nothing
@@ -126,25 +135,8 @@ namespace FunkyBot.Game.Bounty
 			else
 			{
 				Logger.Write(LogLevel.Bounty, "Active Bounty Is Null!");
+				RefreshActiveQuests();
 
-				//Unfinished:: Testing to match a possible ID..
-				//foreach (var aq in ZetaDia.ActInfo.ActiveQuests)
-				//{
-				//	int questSNO = aq.QuestSNO;
-				//	if (questSNO == 312429) continue;
-				//	if (BountyQuestStates.ContainsKey(questSNO))
-				//	{
-				//		QuestState state = BountyQuestStates[questSNO];
-				//		//int act = aq.QuestRecord.Act;
-
-				//		Logger.Write(LogLevel.Bounty, "ID: {0} State: {1}", questSNO, state);
-
-				//		if (state == QuestState.InProgress)
-				//		{
-
-				//		}
-				//	}
-				//}
 			}
 		}
 
@@ -168,6 +160,11 @@ namespace FunkyBot.Game.Bounty
 
 				return;
 			}
+
+			////Rift?
+			if (CacheIDLookup.riftWorldIds.Contains(Bot.Character.Data.CurrentWorldID))
+				return;
+			
 
 			//Do we have an active bounty set.. lets try to invalidate it.
 			if (ActiveBounty == null)
@@ -269,6 +266,21 @@ namespace FunkyBot.Game.Bounty
 					}
 				}
 
+				if (CurrentBountyCacheEntry.Type == BountyQuestTypes.Event)
+				{
+					if (CurrentBountyCacheEntry.EndingLevelAreaID == Bot.Character.Data.iCurrentLevelID)
+					{
+						Logger.Write(LogLevel.Bounty, "Bounty Level ID Match (Event) -- Enabling Navigation of Points!");
+						ShouldNavigateMinimapPoints = true;
+						ProfileCache.QuestMode = true;
+					}
+					else
+					{
+						ShouldNavigateMinimapPoints = false;
+						ProfileCache.QuestMode = false;
+					}
+				}
+
 			}
 		}
 
@@ -280,6 +292,7 @@ namespace FunkyBot.Game.Bounty
 					CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act1.xml");
 					break;
 				case Act.A2:
+					CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act2.xml");
 					break;
 				case Act.A3:
 					CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act3.xml");
@@ -294,13 +307,46 @@ namespace FunkyBot.Game.Bounty
 		}
 
 
+		public void RefreshActiveQuests()
+		{
+			var currentBountySnos = BountyQuestStates.Keys.ToList();
+			try
+			{
+				//Refresh any current quests..
+				foreach (var q in ActiveQuests.Values)
+				{
+					q.Refresh();
+				}
+
+				foreach (var aq in ZetaDia.ActInfo.ActiveQuests)
+				{
+					int sno = aq.QuestSNO;
+
+					//Filter Adventure Mode and Bounty IDs
+					if (sno == ADVENTUREMODE_QUESTID) continue;
+					if (BountyQuestStates.ContainsKey(sno)) continue;
+					//Ignore entries we already added
+					if (ActiveQuests.ContainsKey(sno)) continue;
+
+					var newEntry = new QuestInfoCache(aq);
+					ActiveQuests.Add(sno, newEntry);
+				}
+			}
+			catch (Exception ex)
+			{
+
+			}
+
+		}
+
+
 		///<summary>
 		///Check used to validate active bounty (when it fails to update during level changes)
 		///</summary>
 		public void CheckActiveBounty()
 		{
 			//Check if active bounty is null.. and attempt to update again.
-			if (ActiveBounty == null && !Bot.Character.Data.bIsInTown)
+			if (ActiveBounty == null && !Bot.Character.Data.bIsInTown && !CacheIDLookup.riftWorldIds.Contains(Bot.Character.Data.CurrentWorldID))
 			{
 				if (DateTime.Now.CompareTo(_lastAttemptedUpdateActiveBounty) > 0)
 				{
@@ -327,6 +373,7 @@ namespace FunkyBot.Game.Bounty
 		{
 			BountyQuestStates.Clear();
 			CurrentBounties.Clear();
+			ActiveQuests.Clear();
 			CurrentBountyMapMarkers.Clear();
 			ActiveBounty = null;
 			CurrentBountyCacheEntry = null;
@@ -350,8 +397,13 @@ namespace FunkyBot.Game.Bounty
 												CurrentBountyCacheEntry.Name, CurrentBountyCacheEntry.Type,
 												CurrentBountyCacheEntry.StartingLevelAreaID, CurrentBountyCacheEntry.EndingLevelAreaID);
 
-			return String.Format("{0}\r\n{1}\r\n{2}\r\n{3}\r\nBountyActCache: {4}\r\nBountyCacheEntry: {5}",
-				sActiveBounty, sBountyIDs, sBountyStates, sBountyMapMarkers, sBountyActCache, sBountyCurrentCacheEntry);
+			string sActiveQuests=ActiveQuests.Count == 0 ? "":
+										ActiveQuests.Aggregate("Active Quest: ", (current, q) => current +
+											(String.Format("ID: {4} Step: {0} questMeter: {1} killCount: {2} bonusCount: {3}\r\n",
+															q.Value.Step, q.Value.QuestMeter, q.Value.KillCount, q.Value.BonusCount, q.Key)));
+
+			return String.Format("{0}\r\n{1}\r\n{2}\r\n{3}\r\nBountyActCache: {4}\r\nBountyCacheEntry: {5}\r\n{6}",
+				sActiveBounty, sBountyIDs, sBountyStates, sBountyMapMarkers, sBountyActCache, sBountyCurrentCacheEntry, sActiveQuests);
 		}
 
 		public class BountyMapMarker
@@ -412,9 +464,7 @@ namespace FunkyBot.Game.Bounty
 				try
 				{
 					Act = b.Act;
-
 					State = b.State;
-
 					QuestSNO = b.Info.QuestSNO;
 
 				}
@@ -427,8 +477,8 @@ namespace FunkyBot.Game.Bounty
 			{
 				try
 				{
-
-					Act = (Act)quest.QuestRecord.Act;
+					//Act = (Act)quest.QuestRecord.Act;
+					Act = Act.Invalid;
 					State = quest.State;
 					QuestSNO = quest.QuestSNO;
 
@@ -469,6 +519,48 @@ namespace FunkyBot.Game.Bounty
 				return String.Format("QuestSNO: {0} Act: {1} State: {2}",
 					QuestSNO, Act, State);
 			}
+		}
+
+		public class QuestInfoCache : BountyInfoCache
+		{
+			public int Step { get; set; }
+			public int KillCount { get; set; }
+			public float QuestMeter { get; set; }
+			public int BonusCount { get; set; }
+			public int CreationTick { get; set; }
+
+			public QuestInfoCache(QuestInfo info):base(info)
+			{
+				Step=info.QuestStep;
+				KillCount=info.KillCount;
+				QuestMeter=info.QuestMeter;
+				BonusCount=info.BonusCount;
+				CreationTick=info.CreationTick;
+			}
+
+			public void Refresh()
+			{
+				try
+				{
+					foreach (var quest in ZetaDia.ActInfo.ActiveQuests)
+					{
+						if (quest.QuestSNO==QuestSNO)
+						{
+							Step = quest.QuestStep;
+							KillCount = quest.KillCount;
+							QuestMeter = quest.QuestMeter;
+							BonusCount = quest.BonusCount;
+							CreationTick = quest.CreationTick;
+							return;
+						}
+					}
+				}
+				catch (Exception ex)
+				{
+					Logger.Write(LogLevel.Bounty, "Safely hanlded updating quest info cache for entry {0}", QuestSNO);
+				}
+			}
+
 		}
 	}
 }
