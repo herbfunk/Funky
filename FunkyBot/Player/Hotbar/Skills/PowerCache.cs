@@ -49,159 +49,9 @@ namespace FunkyBot.Cache
 				SNOPower.Witchdoctor_Passive_GraveInjustice,
 				SNOPower.Wizard_Passive_Evocation,
 		  };
-		internal static readonly Dictionary<SNOPower, int> dictAbilityRepeatDefaults = new Dictionary<SNOPower, int>
-            {
-                #region Barb
-		{SNOPower.DrinkHealthPotion, 30000}, 
-                {SNOPower.Weapon_Melee_Instant, 5}, 
-                {SNOPower.Weapon_Ranged_Instant, 5}, 
-                {SNOPower.Barbarian_Bash, 5}, 
-                {SNOPower.Barbarian_Cleave, 5}, 
-                {SNOPower.Barbarian_Frenzy, 5}, 
-                {SNOPower.Barbarian_HammerOfTheAncients, 150}, 
-                {SNOPower.Barbarian_Rend, 3500}, 
-                {SNOPower.Barbarian_SeismicSlam, 200}, 
-                {SNOPower.Barbarian_Whirlwind, 5}, 
-                {SNOPower.Barbarian_GroundStomp, 12200}, 
-                {SNOPower.Barbarian_Leap, 10200}, 
-                {SNOPower.Barbarian_Sprint, 2900}, 
-                {SNOPower.Barbarian_IgnorePain, 30200},
-                {SNOPower.X1_Barbarian_AncientSpear, 300}, // Has a rune that resets cooldown from 10 seconds to 0 on crit
-                {SNOPower.Barbarian_Revenge, 600}, 
-                {SNOPower.Barbarian_FuriousCharge, 500}, // Need to be able to check skill-rune for the dynamic cooldown - set to 10 always except for the skill rune :(
-                {SNOPower.Barbarian_Overpower, 200}, 
-                {SNOPower.X1_Barbarian_WeaponThrow, 5}, 
-                {SNOPower.Barbarian_ThreateningShout, 10200}, 
-                {SNOPower.Barbarian_BattleRage, 118000}, 
-                {SNOPower.X1_Barbarian_WarCry_v2, 20500}, 
-                {SNOPower.Barbarian_Earthquake, 120500},  // Need to be able to check skill-run for dynamic cooldown, and passive for extra cooldown
-                {SNOPower.Barbarian_CallOfTheAncients, 120500}, // Need to be able to check passive for cooldown
-                {SNOPower.Barbarian_WrathOfTheBerserker, 120500}, // Need to be able to check passive for cooldown 
-	#endregion
 
-				#region Crusader
-		        {SNOPower.X1_Crusader_AkaratsChampion, 90000},{SNOPower.X1_Crusader_BlessedHammer, 5},{SNOPower.X1_Crusader_BlessedShield, 5}, 
-                {SNOPower.X1_Crusader_Bombardment, 60000},{SNOPower.X1_Crusader_Condemn, 15000},{SNOPower.X1_Crusader_Consecration, 30000}, 
-                {SNOPower.X1_Crusader_FallingSword, 30000},{SNOPower.X1_Crusader_FistOfTheHeavens, 5}, 
-                {SNOPower.X1_Crusader_HeavensFury3, 20000},{SNOPower.X1_Crusader_IronSkin, 30000},{SNOPower.X1_Crusader_Judgment, 20000},
-				{SNOPower.X1_Crusader_Justice, 5},
-                {SNOPower.X1_Crusader_LawsOfJustice2, 45000},{SNOPower.X1_Crusader_LawsOfHope2, 45000}, 
-                {SNOPower.X1_Crusader_LawsOfValor2, 45000},{SNOPower.x1_Crusader_Phalanx3, 5},{SNOPower.X1_Crusader_Provoke, 20000},{SNOPower.X1_Crusader_Punish, 5},
-                {SNOPower.X1_Crusader_ShieldGlare, 12000},{SNOPower.X1_Crusader_ShieldBash2, 5},{SNOPower.X1_Crusader_Slash, 5}, 
-                {SNOPower.X1_Crusader_Smite, 5 },  {SNOPower.X1_Crusader_SteedCharge, 16000 }, {SNOPower.X1_Crusader_SweepAttack, 5 },
-	            #endregion 
 
-                #region Monk
-		// Monk skills
-                {SNOPower.Monk_FistsofThunder, 5},
-                {SNOPower.Monk_DeadlyReach, 5},
-                {SNOPower.Monk_CripplingWave, 5},
-                {SNOPower.Monk_WayOfTheHundredFists, 5},
-                {SNOPower.Monk_LashingTailKick, 250},
-                {SNOPower.Monk_TempestRush, 150},
-                {SNOPower.Monk_WaveOfLight, 250},
-                {SNOPower.Monk_BlindingFlash, 15200}, 
-                {SNOPower.Monk_BreathOfHeaven, 15200}, 
-                {SNOPower.Monk_Serenity, 20200}, 
-                {SNOPower.X1_Monk_InnerSanctuary, 20200}, 
-                {SNOPower.Monk_DashingStrike, 1000}, 
-                {SNOPower.Monk_ExplodingPalm, 5000}, 
-                {SNOPower.Monk_SweepingWind, 6000}, 
-                {SNOPower.Monk_CycloneStrike, 10000}, 
-                {SNOPower.Monk_SevenSidedStrike, 30200}, 
-                {SNOPower.X1_Monk_MysticAlly_v2, 30000}, 
-                {SNOPower.X1_Monk_MantraOfEvasion_v2, 3300}, 
-                {SNOPower.X1_Monk_MantraOfRetribution_v2, 3300},
-                {SNOPower.X1_Monk_MantraOfHealing_v2, 3300},  
-                {SNOPower.X1_Monk_MantraOfConviction_v2, 3300},  
-	#endregion
-                #region Wizard
-		// Wizard skills
-                {SNOPower.Wizard_MagicMissile, 5},
-                {SNOPower.Wizard_ShockPulse, 5},
-                {SNOPower.Wizard_SpectralBlade, 5},
-                {SNOPower.Wizard_Electrocute, 5},
-                {SNOPower.Wizard_RayOfFrost, 5},
-                {SNOPower.Wizard_ArcaneOrb, 500},
-                {SNOPower.Wizard_ArcaneTorrent, 5},
-                {SNOPower.Wizard_Disintegrate, 5},
-                {SNOPower.Wizard_FrostNova, 9000},
-                {SNOPower.Wizard_DiamondSkin, 15000},
-                {SNOPower.Wizard_SlowTime, 16000}, // Is actually 20 seconds, with a rune that changes to 16 seconds
-                {SNOPower.Wizard_Teleport, 16000}, // Need to be able to check rune that let's us spam this 3 times in a row then cooldown
-                {SNOPower.Wizard_WaveOfForce, 12000}, // normally 15/16 seconds, but a certain rune can allow 12 seconds :(
-                {SNOPower.Wizard_EnergyTwister, 5},
-                {SNOPower.Wizard_Hydra, 1500},
-                {SNOPower.Wizard_Meteor, 1000},
-                {SNOPower.Wizard_Blizzard, 2500}, // Effect lasts for 6 seconds, actual cooldown is 0...
-                {SNOPower.Wizard_IceArmor, 115000},
-                {SNOPower.Wizard_StormArmor, 115000},
-                {SNOPower.Wizard_MagicWeapon, 60000},
-                {SNOPower.Wizard_Familiar, 60000},
-                {SNOPower.Wizard_EnergyArmor, 115000},
-                {SNOPower.Wizard_ExplosiveBlast, 6000},
-                {SNOPower.Wizard_MirrorImage, 5000},
-                {SNOPower.Wizard_Archon, 100000}, // Actually 120 seconds, but 100 seconds with a rune
-                {SNOPower.Wizard_Archon_ArcaneBlast, 5000},
-                {SNOPower.Wizard_Archon_ArcaneStrike, 200},
-                {SNOPower.Wizard_Archon_DisintegrationWave, 5},
-                {SNOPower.Wizard_Archon_SlowTime, 16000},
-                {SNOPower.Wizard_Archon_Teleport, 10000}, 
-	#endregion
-                #region WitchDoctor
-		// Witch Doctor skills 
-                {SNOPower.Witchdoctor_PoisonDart, 5},
-                {SNOPower.Witchdoctor_CorpseSpider, 5},
-                {SNOPower.Witchdoctor_PlagueOfToads, 5},
-                {SNOPower.Witchdoctor_Firebomb, 5},	
-				{SNOPower.Witchdoctor_GraspOfTheDead, 6000},
-                {SNOPower.Witchdoctor_Firebats, 5},
-                {SNOPower.Witchdoctor_Haunt, 12000},
-                {SNOPower.Witchdoctor_Locust_Swarm, 8000},
-                {SNOPower.Witchdoctor_SummonZombieDog, 25000},
-                {SNOPower.Witchdoctor_Horrify, 16200},
-                {SNOPower.Witchdoctor_SpiritWalk, 15200},
-                {SNOPower.Witchdoctor_Hex, 15200},
-                {SNOPower.Witchdoctor_SoulHarvest, 15000},	
-                {SNOPower.Witchdoctor_Sacrifice, 1000},	
-                {SNOPower.Witchdoctor_MassConfusion, 45200},		
-                {SNOPower.Witchdoctor_ZombieCharger, 5},	
-                {SNOPower.Witchdoctor_SpiritBarrage, 15000},
-				{SNOPower.Witchdoctor_AcidCloud, 1500},		
-                {SNOPower.Witchdoctor_WallOfZombies, 25200},
-                {SNOPower.Witchdoctor_Gargantuan, 25000},
-                {SNOPower.Witchdoctor_BigBadVoodoo, 120000},
-                {SNOPower.Witchdoctor_FetishArmy, 90000}, 
-	#endregion
-                #region DemonHunter
-		// Demon Hunter skills
-                {SNOPower.DemonHunter_HungeringArrow, 5},
-                {SNOPower.X1_DemonHunter_EntanglingShot, 5},
-                {SNOPower.DemonHunter_Bolas, 5},
-                {SNOPower.DemonHunter_Grenades, 5},	
-				{SNOPower.DemonHunter_Impale, 5},
-                {SNOPower.DemonHunter_RapidFire, 5},
-                {SNOPower.DemonHunter_Chakram, 5},
-                {SNOPower.DemonHunter_ElementalArrow, 5},
-                {SNOPower.DemonHunter_Caltrops, 6000},
-                {SNOPower.DemonHunter_SmokeScreen, 3000},
-                {SNOPower.DemonHunter_ShadowPower, 5000},
-                {SNOPower.DemonHunter_Vault, 400},
-                {SNOPower.DemonHunter_Preparation, 5000},	
-                {SNOPower.X1_DemonHunter_Companion, 30000},	
-                {SNOPower.DemonHunter_MarkedForDeath, 10000},		
-                {SNOPower.X1_DemonHunter_EvasiveFire, 1500},	
-                {SNOPower.DemonHunter_FanOfKnives, 10000},
-				{SNOPower.DemonHunter_SpikeTrap, 1000},		
-                {SNOPower.DemonHunter_Sentry, 12000},
-                {SNOPower.DemonHunter_Strafe, 5},
-                {SNOPower.DemonHunter_Multishot, 5},
-                {SNOPower.DemonHunter_ClusterArrow, 150},
-                {SNOPower.DemonHunter_RainOfVengeance, 10000}, 
-	#endregion
-            };
-
-		public static Dictionary<SNOPower, int> dictAbilityRepeatDelay = new Dictionary<SNOPower, int>(dictAbilityRepeatDefaults);
+		
 		// Last used-timers for all abilities to prevent spamming D3 memory for cancast checks too often
 		// These should NEVER need manually editing
 		// But you do need to make sure every skill used by Trinity is listed in here once!
@@ -221,7 +71,7 @@ namespace FunkyBot.Cache
                 {SNOPower.Barbarian_Revenge, DateTime.Today},{SNOPower.Barbarian_FuriousCharge, DateTime.Today},{SNOPower.Barbarian_Overpower, DateTime.Today}, 
                 {SNOPower.X1_Barbarian_WeaponThrow, DateTime.Today},{SNOPower.Barbarian_ThreateningShout, DateTime.Today},{SNOPower.Barbarian_BattleRage, DateTime.Today},
                 {SNOPower.X1_Barbarian_WarCry_v2, DateTime.Today},{SNOPower.Barbarian_Earthquake, DateTime.Today},{SNOPower.Barbarian_CallOfTheAncients, DateTime.Today}, 
-                {SNOPower.Barbarian_WrathOfTheBerserker, DateTime.Today }, 
+                {SNOPower.Barbarian_WrathOfTheBerserker, DateTime.Today }, {SNOPower.X1_Barbarian_Avalanche_v2,DateTime.Today},
 	            #endregion 
 
 				#region Crusader
@@ -244,6 +94,7 @@ namespace FunkyBot.Cache
                 {SNOPower.Monk_ExplodingPalm, DateTime.Today},{SNOPower.Monk_SweepingWind, DateTime.Today},{SNOPower.Monk_CycloneStrike, DateTime.Today}, 
                 {SNOPower.Monk_SevenSidedStrike, DateTime.Today},{SNOPower.X1_Monk_MysticAlly_v2, DateTime.Today},{SNOPower.X1_Monk_MantraOfEvasion_v2, DateTime.Today}, 
                 {SNOPower.X1_Monk_MantraOfRetribution_v2, DateTime.Today},{SNOPower.X1_Monk_MantraOfHealing_v2, DateTime.Today}, {SNOPower.X1_Monk_MantraOfConviction_v2, DateTime.Today}, 
+				{SNOPower.X1_Monk_Epiphany, DateTime.Today},
 	            #endregion
                 // Wizard last-used timers
                 #region Wizard
@@ -256,7 +107,8 @@ namespace FunkyBot.Cache
                 {SNOPower.Wizard_StormArmor, DateTime.Today},{SNOPower.Wizard_MagicWeapon, DateTime.Today},{SNOPower.Wizard_Familiar, DateTime.Today},
                 {SNOPower.Wizard_EnergyArmor, DateTime.Today},{SNOPower.Wizard_ExplosiveBlast, DateTime.Today},{SNOPower.Wizard_MirrorImage, DateTime.Today},
                 {SNOPower.Wizard_Archon, DateTime.Today},{SNOPower.Wizard_Archon_ArcaneBlast, DateTime.Today},{SNOPower.Wizard_Archon_ArcaneStrike, DateTime.Today},
-                {SNOPower.Wizard_Archon_DisintegrationWave, DateTime.Today},{SNOPower.Wizard_Archon_SlowTime, DateTime.Today},{SNOPower.Wizard_Archon_Teleport, DateTime.Today}, 
+                {SNOPower.Wizard_Archon_DisintegrationWave, DateTime.Today},{SNOPower.Wizard_Archon_SlowTime, DateTime.Today},
+				{SNOPower.Wizard_Archon_Teleport, DateTime.Today}, {SNOPower.X1_Wizard_Wormhole, DateTime.Today},
 	            #endregion
                 // Witch Doctor last-used timers 
                 #region WitchDoctor
@@ -267,7 +119,7 @@ namespace FunkyBot.Cache
                 {SNOPower.Witchdoctor_SoulHarvest, DateTime.Today},{SNOPower.Witchdoctor_Sacrifice, DateTime.Today},{SNOPower.Witchdoctor_MassConfusion, DateTime.Today},		
                 {SNOPower.Witchdoctor_ZombieCharger, DateTime.Today},{SNOPower.Witchdoctor_SpiritBarrage, DateTime.Today},{SNOPower.Witchdoctor_AcidCloud, DateTime.Today},		
                 {SNOPower.Witchdoctor_WallOfZombies, DateTime.Today},{SNOPower.Witchdoctor_Gargantuan, DateTime.Today},{SNOPower.Witchdoctor_BigBadVoodoo, DateTime.Today},
-                {SNOPower.Witchdoctor_FetishArmy, DateTime.Today},
+                {SNOPower.Witchdoctor_FetishArmy, DateTime.Today},{SNOPower.Witchdoctor_Piranhas,DateTime.Today},
                  
 	            #endregion
                 // Demon Hunter last-used timers 
@@ -279,7 +131,7 @@ namespace FunkyBot.Cache
                 {SNOPower.DemonHunter_Preparation, DateTime.Today},{SNOPower.X1_DemonHunter_Companion, DateTime.Today},{SNOPower.DemonHunter_MarkedForDeath, DateTime.Today},		
                 {SNOPower.X1_DemonHunter_EvasiveFire, DateTime.Today},{SNOPower.DemonHunter_FanOfKnives, DateTime.Today},{SNOPower.DemonHunter_SpikeTrap, DateTime.Today},		
                 {SNOPower.DemonHunter_Sentry, DateTime.Today},{SNOPower.DemonHunter_Strafe, DateTime.Today},{SNOPower.DemonHunter_Multishot, DateTime.Today},
-                {SNOPower.DemonHunter_ClusterArrow, DateTime.Today},{SNOPower.DemonHunter_RainOfVengeance, DateTime.Today},
+                {SNOPower.DemonHunter_ClusterArrow, DateTime.Today},{SNOPower.DemonHunter_RainOfVengeance, DateTime.Today},{SNOPower.X1_DemonHunter_Vengeance, DateTime.Today},
 	            #endregion
             };
 		// And this is to avoid using certain long-cooldown skills immediately after a fail

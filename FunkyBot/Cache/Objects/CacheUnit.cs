@@ -156,6 +156,7 @@ namespace FunkyBot.Cache.Objects
 
 		private DateTime LastAvoidanceIgnored = DateTime.Today;
 		private bool? IsNPC { get; set; }
+		public bool? IsFriendly { get; set; }
 		public bool ForceLeap { get; set; }
 
 		///<summary>
@@ -169,6 +170,7 @@ namespace FunkyBot.Cache.Objects
 			}
 		}
 
+		private int dotdpsValue = 0;
 		private bool? hasDOTdps_;
 		public bool? HasDOTdps
 		{
@@ -190,6 +192,7 @@ namespace FunkyBot.Cache.Objects
 
 			}
 		}
+
 		public bool QuestMonster { get; set; }
 		public bool? IsTargetable { get; set; }
 		public bool? IsAttackable { get; set; }
@@ -1000,7 +1003,7 @@ namespace FunkyBot.Cache.Objects
 					}
 
 					//This is intial test to validate we can "see" the unit.. 
-					if (!LineOfSight.LOSTest(Bot.Character.Data.Position, true, false, NavCellFlags.None, false))
+					if (!LineOfSight.LOSTest(Bot.Character.Data.Position, NavRayCast: true, ServerObjectIntersection: false, Flags: NavCellFlags.None, ContinueOnFailures: false))
 					{
 						//LOS Movement -- Check for special objects
 						//LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
@@ -1136,7 +1139,6 @@ namespace FunkyBot.Cache.Objects
 			}
 
 
-
 			// Make sure it's a valid monster type
 			if (!MonsterTypeIsHostile() || isNPC)
 			{
@@ -1148,8 +1150,10 @@ namespace FunkyBot.Cache.Objects
 					return false;
 				}
 
+
+
 				//Either not hostile or NPC. (Bosses we exclude!)
-				if (!IsBoss)
+				if (!IsBoss && !CacheIDLookup.hashSnoNpcNoIgnore.Contains(SNOID))
 				{
 					//Logger.Write(LogLevel.Cache, "Monster Is NPC {0}", DebugStringSimple);
 					if (isNPC) BlacklistCache.IgnoreThisObject(this);
@@ -1157,6 +1161,24 @@ namespace FunkyBot.Cache.Objects
 				}
 			}
 
+			bool isFriendly = false;
+			if (!IsFriendly.HasValue || IsFriendly.Value)
+			{
+				try
+				{
+					IsFriendly = ref_DiaUnit.IsFriendly;
+					isFriendly = IsFriendly.Value;
+				}
+				catch (Exception)
+				{
+					Logger.Write(LogLevel.Cache, "Handled IsFriendly for Unit {0}", DebugStringSimple);
+				}
+			}
+
+			if (isFriendly)
+			{
+				return false;
+			}
 
 
 			//Position update
@@ -1354,9 +1376,9 @@ namespace FunkyBot.Cache.Objects
 						//Haunted units always have buff visual effect!
 						//bool buffVisualEffect=(this.ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.BuffVisualEffect)>0);
 
-						int dotDPS = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.DOTDPS);
+						dotdpsValue = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.DOTDPS);
 						int visualBuff = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.BuffVisualEffect);
-						HasDOTdps = (dotDPS > 0 && visualBuff > 0);
+						HasDOTdps = (dotdpsValue > 0 && visualBuff > 0);
 						/*
 						if (Bot.Character_.Class.HotbarAbilities.Contains(SNOPower.Witchdoctor_Haunt))
 						{
@@ -1367,6 +1389,8 @@ namespace FunkyBot.Cache.Objects
 							 this.HasDOTdps=(visualBuff>0&&(dotDPS==1178820608||dotDPS==1197301760||dotDPS==1182662656));
 						}
 						*/
+						//1216447279
+						//1222043435
 
 						//haunt DotDPS values
 						//dotDPS==1194344448||dotDPS==1194786816||dotDPS==1202929855||dotDPS==1194983424||dotDPS==1196072960||dotDPS==1194770432)
@@ -1512,10 +1536,16 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
+				
+				
+				
 				return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n" +
 				                     "HP {4} / MaxHP {5} -- IsMoving: {6} \r\n" +
 				                     "PriorityCounter={7}\r\n" +
 				                     "QuestMonster={9}\r\n" +
+				                     "IsNpc {11} IsFriendly {12}\r\n" +
+				                     "{10}\r\n" +
+				                     "{13}\r\n" +
 				                     "Unit Properties {8}",
 					  base.DebugString,
 					  IsBurrowed.HasValue ? IsBurrowed.Value.ToString() : "",
@@ -1526,7 +1556,13 @@ namespace FunkyBot.Cache.Objects
 					  IsMoving,
 					  PriorityCounter,
 					  Properties,
-					  QuestMonster);
+					  QuestMonster,
+					  HasDOTdps.HasValue?HasDOTdps.Value + " dotdps: " + dotdpsValue:"",
+					  IsNPC.HasValue ? IsNPC.Value.ToString() : "",
+					  IsFriendly.HasValue ? IsFriendly.ToString() : "",
+					  SkillsUsedOnObject.Count>0?
+							SkillsUsedOnObject.Aggregate("Skills Used\r\n:", (current, skill) => current + ("Power: " + skill.Key + " Date: " + skill.Value.ToString() + " LastUsedMS: " + DateTime.Now.Subtract(skill.Value).Milliseconds + "\r\n"))
+							:"");
 			}
 		}
 

@@ -139,7 +139,7 @@ namespace FunkyBot.Cache.Objects
 						if (centreDistance <= 12f)
 							Weight += 600d;
 						// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-						if (this == Bot.Targeting.Cache.LastCachedTarget)
+						if (Equals(Bot.Targeting.Cache.LastCachedTarget))
 							Weight += 600;
 						// Give yellows more weight
 						if (Itemquality.Value >= ItemQuality.Rare4)
@@ -163,7 +163,7 @@ namespace FunkyBot.Cache.Objects
 							Weight = 18000 - (Math.Floor(centreDistance) * 200);
 						// If there's a monster in the path-line to the item, reduce the weight
 						if (ObjectCache.Obstacles.Monsters.Any(cp => cp.PointInside(Position)))
-							Weight *= 0.75;
+							Weight *= 0.50;
 						//Finally check if we should reduce the weight when more then 2 monsters are nearby..
 						//if (Bot.Targeting.Cache.Environment.SurroundingUnits>2&&
 						//     //But Only when we are low in health..
@@ -197,7 +197,7 @@ namespace FunkyBot.Cache.Objects
 							Weight = 18000 - (Math.Floor(centreDistance) * 200);
 						// If there's a monster in the path-line to the item, reduce the weight by 25%
 						if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
-							Weight *= 0.75;
+							Weight *= 0.25;
 						//Did we have a target last time? and if so was it a goblin?
 						if (Bot.Targeting.Cache.LastCachedTarget.RAGUID != -1)
 						{
@@ -227,16 +227,21 @@ namespace FunkyBot.Cache.Objects
 								Weight += 1500d;
 
 							if (targetType == TargetType.PowerGlobe)
+							{
+								if (centreDistance<20f)
+									Weight += 5000d;
+								
 								Weight += 5000d;
+							}
 
 							// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-							if (this == Bot.Targeting.Cache.LastCachedTarget && centreDistance <= 25f)
+							if (Equals(Bot.Targeting.Cache.LastCachedTarget) && centreDistance <= 25f)
 								Weight += 400;
 
 							// If there's a monster in the path-line to the item, reduce the weight
 							if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(BotPosition, TestPosition)))
 							{
-								Weight *= 0.25f;
+								Weight *= 0.35f;
 							}
 
 							// Calculate a spot reaching a little bit further out from the globe, to help globe-movements
@@ -314,7 +319,7 @@ namespace FunkyBot.Cache.Objects
 					//Check if we require LOS
 					if (RequiresLOSCheck)
 					{
-						if (!LineOfSight.LOSTest(Bot.Character.Data.Position, true, false))
+						if (!LineOfSight.LOSTest(Bot.Character.Data.Position, false, true, false))
 						{
 							//AllowWalk failure does not mean we should ignore it!
 							//if (LineOfSight.RayCast.HasValue && !LineOfSight.RayCast.Value)

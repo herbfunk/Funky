@@ -1163,6 +1163,8 @@
 			this.flowLayoutPanel_Avoidances.Name = "flowLayoutPanel_Avoidances";
 			this.flowLayoutPanel_Avoidances.Size = new System.Drawing.Size(651, 447);
 			this.flowLayoutPanel_Avoidances.TabIndex = 1;
+			this.flowLayoutPanel_Avoidances.Click += new System.EventHandler(this.flowLayoutPanel_Avoidances_Click);
+			this.flowLayoutPanel_Avoidances.MouseEnter += new System.EventHandler(this.flowLayoutPanel_Avoidances_MouseEnter);
 			// 
 			// groupBox5
 			// 
@@ -2987,6 +2989,8 @@
 			this.LBDebug.Size = new System.Drawing.Size(665, 466);
 			this.LBDebug.TabIndex = 1;
 			this.LBDebug.WrapContents = false;
+			this.LBDebug.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LBDebug_MouseClick);
+			this.LBDebug.MouseEnter += new System.EventHandler(this.LBDebug_MouseEnter);
 			// 
 			// flowLayoutPanel1
 			// 

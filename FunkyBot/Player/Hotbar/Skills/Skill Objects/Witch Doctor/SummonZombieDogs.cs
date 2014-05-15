@@ -18,11 +18,20 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				Priority=SkillPriority.High;
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckCanCast|SkillPrecastFlags.CheckEnergy));
 				IsBuff=true;
-				FcriteriaBuff=
-				  () => Bot.Character.Data.PetData.ZombieDogs<
-				        (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler)?4:3);
-				FcriteriaCombat=() => Bot.Character.Data.PetData.ZombieDogs<
-				                      (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler)?4:3);
+				FcriteriaBuff= () => Bot.Character.Data.PetData.ZombieDogs<GetTotalZombieDogsSummonable();
+				FcriteriaCombat=() => Bot.Character.Data.PetData.ZombieDogs<GetTotalZombieDogsSummonable();
+		  }
+
+		 private int GetTotalZombieDogsSummonable()
+		  {
+			 int total=3;
+
+			 if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler))
+				 total++;
+			 if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_MidnightFeast))
+				 total++;
+
+			 return total;
 		  }
 
 		  #region IAbility

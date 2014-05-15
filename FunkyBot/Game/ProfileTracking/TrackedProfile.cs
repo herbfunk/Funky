@@ -15,6 +15,7 @@ namespace FunkyBot.Game
 		public int DeathCount { get; set; }
 		public LootTracking LootTracker { get; set; }
 
+		public int BountiesCompleted { get; set; }
 		public int HoradricCacheOpened { get; set; }
 		public int ItemsGambled { get; set; }
 		public int TownRuns { get; set; }
@@ -30,6 +31,7 @@ namespace FunkyBot.Game
 			TownRuns = 0;
 			ItemsGambled = 0;
 			HoradricCacheOpened = 0;
+			BountiesCompleted = 0;
 			DeathCount = 0;
 			TotalXP = 0;
 			StartingXP = Bot.Character.Data.CurrentExp;
@@ -67,6 +69,7 @@ namespace FunkyBot.Game
 			TownRuns += other.TownRuns;
 			ItemsGambled += other.ItemsGambled;
 			HoradricCacheOpened += other.HoradricCacheOpened;
+			BountiesCompleted += other.BountiesCompleted;
 			TotalGold += other.TotalGold;
 			TotalXP += other.TotalXP;
 			DeathCount += other.DeathCount;
@@ -80,6 +83,7 @@ namespace FunkyBot.Game
 								"\r\nTotal Town Runs: {11}" +
 								"\r\nHoradric Caches Opened: {9}" +
 								"\r\nItems Gambled: {10}" +
+			                     "\r\nBounties Completed: {12}" +
 			                    "\r\n{5}",
 								ProfileName,
 								DeathCount,
@@ -90,7 +94,7 @@ namespace FunkyBot.Game
 								(DeathCount / TotalTimeSpan.TotalHours).ToString("#.##"),
 								(TotalXP / TotalTimeSpan.TotalHours).ToString("#.##"),
 								(TotalGold / TotalTimeSpan.TotalHours).ToString("#.##"),
-								HoradricCacheOpened, ItemsGambled, TownRuns);
+								HoradricCacheOpened, ItemsGambled, TownRuns, BountiesCompleted);
 		}
 
 		public override bool Equals(object obj)

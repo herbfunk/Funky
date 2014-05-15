@@ -47,6 +47,7 @@ namespace FunkyBot.Game.Bounty
 			{
 				CurrentBounties.Add(bounty.Info.QuestSNO, bounty);
 			}
+			BountyQuestStates.Clear();
 			RefreshBountyQuestStates();
 		}
 		///<summary>
@@ -54,13 +55,37 @@ namespace FunkyBot.Game.Bounty
 		///</summary>
 		public void RefreshBountyQuestStates()
 		{
-			BountyQuestStates.Clear();
-
 			foreach (var bounty in CurrentBounties.Values)
 			{
-				BountyQuestStates.Add(bounty.Info.QuestSNO, bounty.Info.State);
+				var bountySNO = bounty.Info.QuestSNO;
+				var bountyState = bounty.Info.State;
+
+				if (!BountyQuestStates.ContainsKey(bountySNO))
+				{
+					BountyQuestStates.Add(bountySNO, bountyState);
+				}
+				else if (BountyQuestStates[bountySNO] != bountyState)
+				{
+					//Update State
+					BountyQuestStates[bountySNO] = bountyState;
+
+					//Check State?
+					if (bountyState==QuestState.Completed)
+					{
+						Bot.Game.CurrentGameStats.CurrentProfile.BountiesCompleted++;
+					}
+
+					//Raise Event
+					if (OnBountyQuestStateChanged!=null)
+					{
+						OnBountyQuestStateChanged(bountySNO, bountyState);
+					}
+				}
 			}
 		}
+		public delegate void BountyQuestStateChange(int QuestSno, QuestState newState);
+		public event BountyQuestStateChange OnBountyQuestStateChanged;
+
 		///<summary>
 		///Refreshes Current Bounty Minimap Markers
 		///</summary>

@@ -184,7 +184,7 @@ namespace FunkyBot.DBHandlers
 						case Act.A3:
 						case Act.A4:
 							return new Vector3(379.6096f, 415.6198f, 0.3321424f);
-						case Act.A5:
+						case Act.A5://x="538.4665" y="479.0026" z="2.620764" (new Vector3())
 							return new Vector3(560.1434f, 501.5706f, 2.685907f);
 					}
 					break;

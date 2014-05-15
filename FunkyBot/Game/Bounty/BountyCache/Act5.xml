@@ -13,6 +13,17 @@
       </QuestSNOs>
     </BountyQuestCacheEntry>
     <BountyQuestCacheEntry>
+      <Name>A5_Kill_PandemoniumFortressLevelTwo</Name>
+      <Type>Kill</Type>
+      <StartingLevelAreaID>271271</StartingLevelAreaID>
+      <TotalKillCount>100</TotalKillCount>
+      <QuestSNOs>
+        <int>363563</int>
+        <int>363559</int>
+        <int>363561</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
+    <BountyQuestCacheEntry>
       <Name>A5_Kill_Borgoth</Name>
       <Type>Kill</Type>
       <StartingLevelAreaID>338602</StartingLevelAreaID>
@@ -127,8 +138,25 @@
         <int>363078</int>
       </QuestSNOs>
     </BountyQuestCacheEntry>
+    <BountyQuestCacheEntry>
+      <Name>A5_Kill_Westmarch_Heights</Name>
+      <Type>Kill</Type>
+      <StartingLevelAreaID>263493</StartingLevelAreaID>
+      <TotalKillCount>100</TotalKillCount>
+      <QuestSNOs>
+        <int>363180</int>
+        <int>363185</int>
+        <int>368789</int>
+        <int>363177</int>
+        <int>359661</int>
+        <int>359765</int>
+        <int>359722</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
+    
+
   </KillBounties>
 
-    <ClearBounties />
+  <ClearBounties />
   <CursedEventBounties />
 </BountyQuestActCache>

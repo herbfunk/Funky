@@ -53,6 +53,13 @@ namespace FunkyBot.Game
 				return Profiles.Sum(P => P.TownRuns);
 			}
 		}
+		public int TotalBountiesCompleted
+		{
+			get
+			{
+				return Profiles.Sum(P => P.BountiesCompleted);
+			}
+		}
 		public TimeSpan TotalTimeRunning
 		{
 			get

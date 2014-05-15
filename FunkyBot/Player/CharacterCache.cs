@@ -27,6 +27,9 @@ namespace FunkyBot.Player
 			dCurrentEnergyPct = 0d;
 			dDiscipline = 0d;
 			dDisciplinePct = 0d;
+			MaxEnergy = 0;
+			MaxDiscipline = 0;
+
 			iMyDynamicID = 0;
 			iMyLevel = 1;
 			iSceneID = -1;
@@ -96,6 +99,9 @@ namespace FunkyBot.Player
 		public double dCurrentEnergyPct { get; set; }
 		public double dDiscipline { get; set; }
 		public double dDisciplinePct { get; set; }
+		private double MaxEnergy = 0;
+		private double MaxDiscipline = 0;
+
 		internal float fCharacterRadius { get; set; }
 		internal Sphere CharacterSphere
 		{
@@ -284,7 +290,8 @@ namespace FunkyBot.Player
 					if (Bot.Character.Class.AC == ActorClass.DemonHunter)
 					{
 						dDiscipline = me.CurrentSecondaryResource;
-						dDisciplinePct = Bot.Character.Data.dDiscipline / me.MaxSecondaryResource;
+						if (dDiscipline>MaxDiscipline) MaxDiscipline=dDiscipline;
+						dDisciplinePct = dDiscipline / MaxDiscipline;
 					}
 
 					double curhealthpct = me.HitpointsCurrentPct;
@@ -292,7 +299,8 @@ namespace FunkyBot.Player
 						healthvalueChanged(dcurrentHealthPct, curhealthpct);
 					
 					dCurrentEnergy = me.CurrentPrimaryResource;
-					dCurrentEnergyPct = dCurrentEnergy / me.MaxPrimaryResource;
+					if (dCurrentEnergy > MaxEnergy) MaxEnergy = dCurrentEnergy;
+					dCurrentEnergyPct = dCurrentEnergy / MaxEnergy;
 
 					//Critical Avoidance (when no avoidance is set!)
 					if (dCurrentHealthPct < 0.50d && !Bot.Settings.Avoidance.AttemptAvoidanceMovements &&
@@ -362,10 +370,10 @@ namespace FunkyBot.Player
 					{
 						//Get the current guid, compare/update.
 						int CurrentSceneID = me.CurrentScene.SceneGuid;
-						if (CurrentSceneID != Bot.Character.Data.iSceneID)
+						if (CurrentSceneID != iSceneID)
 						{
-							Bot.Character.Data.iSceneID = CurrentSceneID;
-							Bot.Character.Data.SceneName=me.CurrentScene.Name;
+							iSceneID = CurrentSceneID;
+							SceneName=me.CurrentScene.Name;
 						}
 						lastCheckedSceneID = DateTime.Now;
 					}
@@ -393,9 +401,9 @@ namespace FunkyBot.Player
 				try
 				{
 					AnimationState currentanimstate = CurrentAnimationState;
-					if (currentanimstate.HasFlag(AnimationState.Casting | AnimationState.Channeling))
+					if (currentanimstate==(AnimationState.Casting) || currentanimstate==AnimationState.Channeling)
 						bIsAnimating = true;
-					if (bWaitForAttacking && (currentanimstate.HasFlag(AnimationState.Attacking)))
+					if (bWaitForAttacking && currentanimstate==AnimationState.Attacking)
 						bIsAnimating = true;
 				}
 				catch (NullReferenceException)

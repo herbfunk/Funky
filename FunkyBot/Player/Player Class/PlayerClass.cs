@@ -302,7 +302,7 @@ namespace FunkyBot.Player.Class
 						LOSInfo LOSINFO = Bot.Targeting.Cache.CurrentTarget.LineOfSight;
 						if (LOSINFO.LastLOSCheckMS > 3000 || (item.IsProjectile && !LOSINFO.ObjectIntersection.HasValue) || !LOSINFO.NavCellProjectile.HasValue)
 						{
-							if (!LOSINFO.LOSTest(Bot.Character.Data.Position, true, false, NavCellFlags.AllowProjectile))
+							if (!LOSINFO.LOSTest(Bot.Character.Data.Position, NavRayCast: true, ServerObjectIntersection: false, Flags: NavCellFlags.AllowProjectile))
 							{
 								//Raycast failed.. reset LOS Check -- for valid checking.
 								if (!LOSINFO.RayCast.Value) Bot.Targeting.Cache.CurrentTarget.RequiresLOSCheck = true;
@@ -331,7 +331,7 @@ namespace FunkyBot.Player.Class
 						LOSInfo LOSINFO = Bot.Targeting.Cache.CurrentTarget.LineOfSight;
 						if (LOSINFO.LastLOSCheckMS > 3000 || (item.IsProjectile && !LOSINFO.ObjectIntersection.HasValue) || !LOSINFO.NavCellProjectile.HasValue)
 						{
-							if (!LOSINFO.LOSTest(Bot.Character.Data.Position, true, item.IsProjectile, NavCellFlags.AllowProjectile))
+							if (!LOSINFO.LOSTest(Bot.Character.Data.Position, NavRayCast: true, ServerObjectIntersection: item.IsProjectile, Flags: NavCellFlags.AllowProjectile))
 							{
 								//Raycast failed.. reset LOS Check -- for valid checking.
 								if (!LOSINFO.RayCast.Value) Bot.Targeting.Cache.CurrentTarget.RequiresLOSCheck = true;

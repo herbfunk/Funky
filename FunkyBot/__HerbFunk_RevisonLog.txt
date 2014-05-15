@@ -3,16 +3,28 @@ v2.10.1.0
 
 Settings:
 	Overhauled the Settings Window into a actual windows Form.. although it might be ugly, changes will be easy with the designer.
-	
+	Added Keystone Fragments to Item Pickup settings.
+
 Cache:
 	Added A5 Avodiances for Adria and Malthael.
 	Added Trinties A5 Blacklisting IDs.
 	Merged the "Object" blacklist into a single collection.
-	Removed IgnoreSNO Collection, IgnoresLOSChecks are bosses only now!
+	Removed IgnoreLOSCheckSNO Collection, IgnoresLOSChecks are bosses only now!
 	Object and Unit ID Cache class have been overhauled. 
+	Added GizmoIsDisabled and check to exclude from targeting.
+	Event switches now capable of Line of Sight movement.
+	Fixed Adria not showing up as potential target.
+	Character Max Energy added to fix issue with DB max energy returning wrong values.
 
 Bounty:
 	Kill bounties will only navigate markers on last levels.
+	Added Act 5 Kill Bounties.
+	Added Profile Stat for # Completed Bounties.
+
+Known Issues:
+	Mule behavior cannot change hero. (Demonbuddy function failure)
+
+
 
 v2.10.0.3
 

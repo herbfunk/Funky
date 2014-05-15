@@ -483,7 +483,13 @@ namespace FunkyBot.Cache
 		#endregion
 
 
-
+		/// <summary>
+		/// Units that are considered NPC that we should check/update is hostile.
+		/// </summary>
+		public static readonly HashSet<int> hashSnoNpcNoIgnore = new HashSet<int>
+		{
+			357018,
+		};
 		// NOTE: you don't NEED interactable SNO's listed here. But if they are listed here, *THIS* is the range at which your character will try to walk to within the object 
 		// BEFORE trying to actually "click it". Certain objects need you to get very close, so it's worth having them listed with low interact ranges
 		public static readonly Dictionary<int, int> dictInteractableRange = new Dictionary<int, int> { 

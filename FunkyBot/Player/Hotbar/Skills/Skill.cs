@@ -34,6 +34,7 @@ namespace FunkyBot.Player.HotBar.Skills
 			LastUsed = DateTime.Today;
 			IsADestructiblePower = PowerCacheLookup.AbilitiesDestructiblePriority.Contains(Power);
 			IsASpecialMovementPower = PowerCacheLookup.SpecialMovementAbilities.Contains(Power);
+			ShouldTrack = false;
 
 			Initialize();
 		}
@@ -215,7 +216,7 @@ namespace FunkyBot.Player.HotBar.Skills
 		///</summary>
 		public bool IsChanneling { get; set; }
 
-		private DateTime LastUsed { get; set; }
+		public DateTime LastUsed { get; set; }
 		internal double LastUsedMilliseconds
 		{
 			get { return DateTime.Now.Subtract(LastUsed).TotalMilliseconds; }
@@ -244,6 +245,11 @@ namespace FunkyBot.Player.HotBar.Skills
 		public int Counter { get; set; }
 
 		public bool IsCombat { get; set; }
+
+		/// <summary>
+		/// Adds/Updates Entries to the object it was used upon. (Power/Date)
+		/// </summary>
+		public bool ShouldTrack { get; set; }
 
 		#endregion
 
@@ -496,6 +502,14 @@ namespace FunkyBot.Player.HotBar.Skills
 				Bot.Targeting.Movement.BlockedMovementCounter = 0;
 				Bot.Targeting.Movement.NonMovementCounter = 0;
 				Bot.Targeting.Movement.LastMovementDuringCombat = DateTime.Now;
+			}
+
+			if (ShouldTrack)
+			{
+				if (!Bot.Targeting.Cache.CurrentTarget.SkillsUsedOnObject.ContainsKey(this.Power))
+					Bot.Targeting.Cache.CurrentTarget.SkillsUsedOnObject.Add(Power, DateTime.Now);
+				else
+					Bot.Targeting.Cache.CurrentTarget.SkillsUsedOnObject[Power] = DateTime.Now;
 			}
 
 			//Disable Reordering for Channeling Abilities!
@@ -765,7 +779,7 @@ namespace FunkyBot.Player.HotBar.Skills
 						LOSInfo LOSINFO = Bot.Targeting.Cache.CurrentTarget.LineOfSight;
 						if (LOSINFO.LastLOSCheckMS > 2000 || !LOSINFO.NavCellProjectile.HasValue)
 						{
-							if (!LOSINFO.LOSTest(Bot.Character.Data.Position, true, ability.IsProjectile, NavCellFlags.AllowProjectile))
+							if (!LOSINFO.LOSTest(Bot.Character.Data.Position, NavRayCast: true, ServerObjectIntersection: ability.IsProjectile, Flags: NavCellFlags.AllowProjectile))
 							{
 
 
@@ -804,7 +818,7 @@ namespace FunkyBot.Player.HotBar.Skills
 							LOSInfo LOSINFO = Bot.Targeting.Cache.CurrentTarget.LineOfSight;
 							if (LOSINFO.LastLOSCheckMS > 2000)//||!LOSINFO.NavCellWalk.HasValue)
 							{
-								if (!LOSINFO.LOSTest(Bot.Character.Data.Position, true, false))
+								if (!LOSINFO.LOSTest(Bot.Character.Data.Position, NavRayCast: true, ServerObjectIntersection: false))
 								{
 									//bool MovementException=((Bot.Targeting.Cache.CurrentUnitTarget.MonsterTeleport||Bot.Targeting.Cache.CurrentTarget.IsTransformUnit)&&Bot.Targeting.Cache.CurrentUnitTarget.AnimState==Zeta.Internals.Actors.AnimationState.Transform);
 									//Raycast failed.. reset LOS Check -- for valid checking.

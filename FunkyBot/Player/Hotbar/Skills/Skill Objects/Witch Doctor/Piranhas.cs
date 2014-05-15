@@ -19,11 +19,11 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				UseageType=SkillUseage.Combat;
 				Priority=SkillPriority.High;
 
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast|SkillPrecastFlags.CheckEnergy));
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast));
 
 				ClusterConditions.Add(new SkillClusterConditions(4d, 45f, 5, true));
-			    SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 45, 0.95d));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 45, 0.95d, TargetProperties.Normal|TargetProperties.Fast|TargetProperties.Weak));
+			    //SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 45, 0.95d));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 45, 0.95d, TargetProperties.Normal));
 
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
 		  }

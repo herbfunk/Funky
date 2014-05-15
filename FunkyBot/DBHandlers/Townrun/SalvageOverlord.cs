@@ -119,9 +119,9 @@ namespace FunkyBot.DBHandlers
 			if (curAct == Act.Invalid || curAct == Act.OpenWorld || curAct == Act.Test) curAct = Character.FindActByLevelID(Bot.Character.Data.iCurrentLevelID);
 
 			//Normal distance we use to move to specific location before moving to NPC
-			float _distanceRequired=curAct!=Act.A5?50f:17f; //Act 5 we want short range only!
+			float _distanceRequired=curAct!=Act.A5?50f:14f; //Act 5 we want short range only!
 
-			if (objBlacksmith == null || objBlacksmith.Distance > 50f)
+			if (objBlacksmith == null || objBlacksmith.Distance > _distanceRequired)
 			{
 				vectorSalvageLocation = ReturnMovementVector(TownRunBehavior.Salvage, curAct);
 			}
@@ -148,7 +148,11 @@ namespace FunkyBot.DBHandlers
 				if (Bot.NavigationCache.IsMoving)
 					return RunStatus.Running;
 
+				//if (iDistanceFromSell > 50f)
 				Navigator.PlayerMover.MoveTowards(vectorSalvageLocation);
+				//else
+					//ZetaDia.Me.UsePower(SNOPower.Walk, vectorSalvageLocation);
+
 				return RunStatus.Running;
 			}
 

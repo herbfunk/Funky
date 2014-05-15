@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Windows.Documents;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
 using FunkyBot.Player.HotBar.Skills;
@@ -36,6 +38,7 @@ namespace FunkyBot.Cache.Objects
 			losv3_ = Vector3.Zero;
 			HandleAsAvoidanceObject = false;
 			Properties = TargetProperties.None;
+			SkillsUsedOnObject= new Dictionary<SNOPower, DateTime>();
 			//Keep track of each unique RaGuid that is created and uses this SNO during each level.
 			//if (!UsedByRaGuids.Contains(RAGUID)) UsedByRaGuids.Add(RAGUID);
 		}
@@ -83,6 +86,7 @@ namespace FunkyBot.Cache.Objects
 			weight_ = parent.Weight;
 			HandleAsAvoidanceObject = parent.HandleAsAvoidanceObject;
 			Properties = parent.Properties;
+			_skillsUsedOnObject = new Dictionary<SNOPower, DateTime>();
 		}
 
 		#endregion
@@ -152,6 +156,14 @@ namespace FunkyBot.Cache.Objects
 		///References the actual DiaObject
 		///</summary>
 		public DiaObject ref_DiaObject { get; set; }
+
+
+		private Dictionary<SNOPower,DateTime> _skillsUsedOnObject;
+		public Dictionary<SNOPower, DateTime> SkillsUsedOnObject
+		{
+			get { return _skillsUsedOnObject; }
+			set { _skillsUsedOnObject = value; }
+		}
 
 		public int PriorityCounter { get; set; }
 		public DateTime PrioritizedDate { get; set; }
@@ -669,6 +681,7 @@ namespace FunkyBot.Cache.Objects
 					  BotIsFacing(), BlacklistLoops.ToString(CultureInfo.InvariantCulture), SnoAnim, AnimState);
 			}
 		}
+
 
 	}
 

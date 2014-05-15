@@ -101,84 +101,84 @@ namespace FunkyBot.Player.HotBar
 		///<summary>
 		///Sets each current hotbar Ability repeat timer with adjustments made based upon passives.
 		///</summary>
-		internal void UpdateRepeatAbilityTimes()
-		{
+		//internal void UpdateRepeatAbilityTimes()
+		//{
 
-			SkillCooldowns = new Dictionary<SNOPower, int>();
-			//Check if passives contain any "reduction"
-			bool passiveReductionCheck=PassivePowers.Any(p => PowerCacheLookup.PassiveAbiltiesReduceRepeatTime.Contains(p));
+		//	SkillCooldowns = new Dictionary<SNOPower, int>();
+		//	//Check if passives contain any "reduction"
+		//	bool passiveReductionCheck=PassivePowers.Any(p => PowerCacheLookup.PassiveAbiltiesReduceRepeatTime.Contains(p));
 
-			foreach (var item in HotbarPowers)
-			{
-				if (!PowerCacheLookup.dictAbilityRepeatDefaults.ContainsKey(item)) continue;
+		//	foreach (var item in HotbarPowers)
+		//	{
+		//		if (!PowerCacheLookup.dictAbilityRepeatDefaults.ContainsKey(item)) continue;
 
-				if (passiveReductionCheck)
-				{
-					if ((item == SNOPower.Barbarian_CallOfTheAncients || item == SNOPower.Barbarian_WrathOfTheBerserker || item == SNOPower.Barbarian_Earthquake)
-						&& PassivePowers.Contains(SNOPower.Barbarian_Passive_BoonOfBulKathos))
-					{
-						SkillCooldowns.Add(item, PowerCacheLookup.dictAbilityRepeatDefaults[item] - 30000);
-						continue;
-					}
-				}
+		//		if (passiveReductionCheck)
+		//		{
+		//			if ((item == SNOPower.Barbarian_CallOfTheAncients || item == SNOPower.Barbarian_WrathOfTheBerserker || item == SNOPower.Barbarian_Earthquake)
+		//				&& PassivePowers.Contains(SNOPower.Barbarian_Passive_BoonOfBulKathos))
+		//			{
+		//				SkillCooldowns.Add(item, PowerCacheLookup.dictAbilityRepeatDefaults[item] - 30000);
+		//				continue;
+		//			}
+		//		}
 
-				if (PowerCacheLookup.dictAbilityRepeatDefaults.ContainsKey(item))
-					SkillCooldowns.Add(item, PowerCacheLookup.dictAbilityRepeatDefaults[item]);
-			}
+		//		if (PowerCacheLookup.dictAbilityRepeatDefaults.ContainsKey(item))
+		//			SkillCooldowns.Add(item, PowerCacheLookup.dictAbilityRepeatDefaults[item]);
+		//	}
 
-			foreach (var item in PassivePowers)
-			{
-				if (PowerCacheLookup.PassiveAbiltiesReduceRepeatTime.Contains(item))
-				{
-					switch (item)
-					{
-						case SNOPower.Barbarian_Passive_BoonOfBulKathos:
-							if (SkillCooldowns.ContainsKey(SNOPower.Barbarian_CallOfTheAncients | SNOPower.Barbarian_WrathOfTheBerserker | SNOPower.Barbarian_Earthquake))
-							{
-								List<SNOPower> AdjustedPowers = SkillCooldowns.Keys.Where(K => K.HasFlag(SNOPower.Barbarian_CallOfTheAncients | SNOPower.Barbarian_WrathOfTheBerserker | SNOPower.Barbarian_Earthquake)).ToList();
+		//	foreach (var item in PassivePowers)
+		//	{
+		//		if (PowerCacheLookup.PassiveAbiltiesReduceRepeatTime.Contains(item))
+		//		{
+		//			switch (item)
+		//			{
+		//				case SNOPower.Barbarian_Passive_BoonOfBulKathos:
+		//					if (SkillCooldowns.ContainsKey(SNOPower.Barbarian_CallOfTheAncients | SNOPower.Barbarian_WrathOfTheBerserker | SNOPower.Barbarian_Earthquake))
+		//					{
+		//						List<SNOPower> AdjustedPowers = SkillCooldowns.Keys.Where(K => K.HasFlag(SNOPower.Barbarian_CallOfTheAncients | SNOPower.Barbarian_WrathOfTheBerserker | SNOPower.Barbarian_Earthquake)).ToList();
 
-								foreach (var Ability in AdjustedPowers)
-								{
-									SkillCooldowns[Ability] -= 30000;
-								}
-							}
-							break;
-						case SNOPower.Monk_Passive_BeaconOfYtar:
-						case SNOPower.Wizard_Passive_Evocation:
-							double PctReduction = item == SNOPower.Wizard_Passive_Evocation ? 0.85 : 0.80;
-							foreach (var Ability in SkillCooldowns.Keys)
-							{
-								SkillCooldowns[Ability] = (int)(SkillCooldowns[Ability] * PctReduction);
-							}
-							break;
-						case SNOPower.Witchdoctor_Passive_SpiritVessel:
-							//Horrify, Spirit Walk, and Soul Harvest spells by 2 seconds
-							if (SkillCooldowns.ContainsKey(SNOPower.Witchdoctor_SoulHarvest | SNOPower.Witchdoctor_SpiritWalk | SNOPower.Witchdoctor_Horrify))
-							{
-								List<SNOPower> AdjustedPowers = SkillCooldowns.Keys.Where(K => K.HasFlag(SNOPower.Witchdoctor_SoulHarvest | SNOPower.Witchdoctor_SpiritWalk | SNOPower.Witchdoctor_Horrify)).ToList();
-								foreach (var Ability in AdjustedPowers)
-								{
-									SkillCooldowns[Ability] -= 2000;
-								}
-							}
-							break;
-						case SNOPower.Witchdoctor_Passive_TribalRites:
-							//The cooldowns of your Fetish Army, Big Bad Voodoo, Hex, Gargantuan, Summon Zombie Dogs and Mass Confusion abilities are reduced by 25%.
-							if (SkillCooldowns.ContainsKey(SNOPower.Witchdoctor_FetishArmy | SNOPower.Witchdoctor_BigBadVoodoo | SNOPower.Witchdoctor_Hex | SNOPower.Witchdoctor_Gargantuan | SNOPower.Witchdoctor_SummonZombieDog | SNOPower.Witchdoctor_MassConfusion))
-							{
-								List<SNOPower> AdjustedPowers = SkillCooldowns.Keys.Where(K => K.HasFlag(SNOPower.Witchdoctor_FetishArmy | SNOPower.Witchdoctor_BigBadVoodoo | SNOPower.Witchdoctor_Hex | SNOPower.Witchdoctor_Gargantuan | SNOPower.Witchdoctor_SummonZombieDog | SNOPower.Witchdoctor_MassConfusion)).ToList();
-								foreach (var Ability in AdjustedPowers)
-								{
-									SkillCooldowns[Ability] = (int)(SkillCooldowns[Ability] * 0.75);
-								}
-							}
-							break;
-					}
-				}
-			}
-			if (!SkillCooldowns.ContainsKey(SNOPower.DrinkHealthPotion))
-				SkillCooldowns.Add(SNOPower.DrinkHealthPotion, 30000);
-		}
+		//						foreach (var Ability in AdjustedPowers)
+		//						{
+		//							SkillCooldowns[Ability] -= 30000;
+		//						}
+		//					}
+		//					break;
+		//				case SNOPower.Monk_Passive_BeaconOfYtar:
+		//				case SNOPower.Wizard_Passive_Evocation:
+		//					double PctReduction = item == SNOPower.Wizard_Passive_Evocation ? 0.85 : 0.80;
+		//					foreach (var Ability in SkillCooldowns.Keys)
+		//					{
+		//						SkillCooldowns[Ability] = (int)(SkillCooldowns[Ability] * PctReduction);
+		//					}
+		//					break;
+		//				case SNOPower.Witchdoctor_Passive_SpiritVessel:
+		//					//Horrify, Spirit Walk, and Soul Harvest spells by 2 seconds
+		//					if (SkillCooldowns.ContainsKey(SNOPower.Witchdoctor_SoulHarvest | SNOPower.Witchdoctor_SpiritWalk | SNOPower.Witchdoctor_Horrify))
+		//					{
+		//						List<SNOPower> AdjustedPowers = SkillCooldowns.Keys.Where(K => K.HasFlag(SNOPower.Witchdoctor_SoulHarvest | SNOPower.Witchdoctor_SpiritWalk | SNOPower.Witchdoctor_Horrify)).ToList();
+		//						foreach (var Ability in AdjustedPowers)
+		//						{
+		//							SkillCooldowns[Ability] -= 2000;
+		//						}
+		//					}
+		//					break;
+		//				case SNOPower.Witchdoctor_Passive_TribalRites:
+		//					//The cooldowns of your Fetish Army, Big Bad Voodoo, Hex, Gargantuan, Summon Zombie Dogs and Mass Confusion abilities are reduced by 25%.
+		//					if (SkillCooldowns.ContainsKey(SNOPower.Witchdoctor_FetishArmy | SNOPower.Witchdoctor_BigBadVoodoo | SNOPower.Witchdoctor_Hex | SNOPower.Witchdoctor_Gargantuan | SNOPower.Witchdoctor_SummonZombieDog | SNOPower.Witchdoctor_MassConfusion))
+		//					{
+		//						List<SNOPower> AdjustedPowers = SkillCooldowns.Keys.Where(K => K.HasFlag(SNOPower.Witchdoctor_FetishArmy | SNOPower.Witchdoctor_BigBadVoodoo | SNOPower.Witchdoctor_Hex | SNOPower.Witchdoctor_Gargantuan | SNOPower.Witchdoctor_SummonZombieDog | SNOPower.Witchdoctor_MassConfusion)).ToList();
+		//						foreach (var Ability in AdjustedPowers)
+		//						{
+		//							SkillCooldowns[Ability] = (int)(SkillCooldowns[Ability] * 0.75);
+		//						}
+		//					}
+		//					break;
+		//			}
+		//		}
+		//	}
+		//	if (!SkillCooldowns.ContainsKey(SNOPower.DrinkHealthPotion))
+		//		SkillCooldowns.Add(SNOPower.DrinkHealthPotion, 30000);
+		//}
 
 		internal void RefreshHotbarBuffs()
 		{

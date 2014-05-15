@@ -22,6 +22,7 @@ namespace FunkyBot.Cache.Objects
 
 		 //Each Test Results
 		 public bool? RayCast { get; set; }
+		 public bool? SearchGridRayCast { get; set; }
 		 public bool? ObjectIntersection { get; set; }
 		 public bool? NavCellWalk { get; set; }
 		 public bool? NavCellProjectile { get; set; }
@@ -31,11 +32,12 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
-				 return String.Format("RayCast=={0} , ObjIntersect=={1} , Walk=={2} , Projectile=={3}",
+				 return String.Format("RayCast=={0} , SearchGridRayCast={4} , ObjIntersect=={1} , Walk=={2} , Projectile=={3}",
 												RayCast.HasValue?RayCast.Value.ToString():"null",
 												ObjectIntersection.HasValue?ObjectIntersection.Value.ToString():"null",
 												NavCellWalk.HasValue?NavCellWalk.Value.ToString():"null",
-												NavCellProjectile.HasValue?NavCellProjectile.Value.ToString():"null");
+												NavCellProjectile.HasValue?NavCellProjectile.Value.ToString():"null",
+												SearchGridRayCast.HasValue?SearchGridRayCast.Value.ToString():"null");
 			}
 		}
 
@@ -60,7 +62,7 @@ namespace FunkyBot.Cache.Objects
 		 ///<summary>
 		 ///Runs raycasting and intersection tests to validate LOS.
 		 ///</summary>
-		 public bool LOSTest(Vector3 PositionToTestFrom, bool NavRayCast=true, bool ServerObjectIntersection=true, NavCellFlags Flags=NavCellFlags.None, bool ContinueOnFailures=true)
+		 public bool LOSTest(Vector3 PositionToTestFrom, bool NavRayCast = true, bool searchGridRayCast = false, bool ServerObjectIntersection = true, NavCellFlags Flags = NavCellFlags.None, bool ContinueOnFailures = true)
 		 {
 			  LastLOSCheck=DateTime.Now;
 			  bool Failed=false;
@@ -90,6 +92,24 @@ namespace FunkyBot.Cache.Objects
 					}
 						 
 			  }
+
+			 if (searchGridRayCast)
+			 {
+				 Vector2 hitpos;
+				 Vector3 ObjectPosition = Obj.Position; //(Obj.targetType.Value == TargetType.Door || Obj.targetType.Value == TargetType.Interactables) ? Obj.BotMeleeVector : Obj.Position;
+
+				 //Must check the Z difference.. (so we don't get false-positive result)
+				 if (PositionToTestFrom.Z > ObjectPosition.Z)
+					 SearchGridRayCast = !Navigator.SearchGridProvider.Raycast(PositionToTestFrom.ToVector2(), ObjectPosition.ToVector2(), out hitpos);
+				 else
+					 SearchGridRayCast = !Navigator.SearchGridProvider.Raycast(ObjectPosition.ToVector2(), PositionToTestFrom.ToVector2(), out hitpos);
+					
+				 if (!SearchGridRayCast.Value)
+				 {
+					 Failed = true;
+					 if (!ContinueOnFailures) return false;
+				 }
+			 }
 
 			  if (ServerObjectIntersection)
 			  {//This test uses the obstacle cache to check objects for intersection

@@ -31,10 +31,12 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
-				return String.Format("{0}\r\n PhysSNO={1} HandleAsObstacle={2} Operated={3}",
-					base.DebugString, PhysicsSNO.HasValue ? PhysicsSNO.Value.ToString() : "NULL",
+				return String.Format("{0}\r\n PhysSNO={1} HandleAsObstacle={2} Operated={3} Disabled={4}",
+					base.DebugString,
+					PhysicsSNO.HasValue ? PhysicsSNO.Value.ToString() : "NULL",
 					HandleAsObstacle.HasValue ? HandleAsObstacle.Value.ToString() : "NULL",
-					GizmoHasBeenUsed.HasValue ? GizmoHasBeenUsed.Value.ToString() : "NULL");
+					GizmoHasBeenUsed.HasValue ? GizmoHasBeenUsed.Value.ToString() : "NULL",
+					GizmoDisabledByScript.HasValue ? GizmoDisabledByScript.Value.ToString() : "NULL");
 			}
 		}
 		private double LootRadius
@@ -75,8 +77,7 @@ namespace FunkyBot.Cache.Objects
 				if (!base.ObjectIsValidForTargeting) return false;
 				if (!targetType.HasValue) return false;
 
-				//Disabled by script?
-				if (GizmoDisabledByScript.HasValue && GizmoDisabledByScript.Value) return false;
+				
 
 
 				float centreDistance = CentreDistance;
@@ -142,7 +143,7 @@ namespace FunkyBot.Cache.Objects
 						}
 					}
 
-					if (!base.LineOfSight.LOSTest(Bot.Character.Data.Position, true, false))
+					if (!base.LineOfSight.LOSTest(Bot.Character.Data.Position, NavRayCast: true, ServerObjectIntersection: false))
 					{
 						if ((IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer) ||
 							((IsCursedChest || IsCursedShrine) && Bot.Settings.LOSMovement.AllowCursedChestShrines) ||

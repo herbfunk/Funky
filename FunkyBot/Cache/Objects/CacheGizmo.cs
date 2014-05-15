@@ -44,6 +44,8 @@ namespace FunkyBot.Cache.Objects
 				if (!base.ObjectIsValidForTargeting)
 					return false;
 
+				//Disabled by script?
+				if (GizmoDisabledByScript.HasValue && GizmoDisabledByScript.Value) return false;
 
 				if (this.InternalName.ToLower().StartsWith("minimapicon"))
 				{

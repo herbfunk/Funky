@@ -1485,6 +1485,26 @@ namespace FunkyBot.Config.UI
 			//ZetaDia.Service.GameAccount.SwitchHero(1);
 		}
 
+		private void flowLayoutPanel_Avoidances_Click(object sender, EventArgs e)
+		{
+			flowLayoutPanel_Avoidances.Focus();
+		}
+
+		private void flowLayoutPanel_Avoidances_MouseEnter(object sender, EventArgs e)
+		{
+			flowLayoutPanel_Avoidances.Focus();
+		}
+
+		private void LBDebug_MouseClick(object sender, MouseEventArgs e)
+		{
+			LBDebug.Focus();
+		}
+
+		private void LBDebug_MouseEnter(object sender, EventArgs e)
+		{
+			LBDebug.Focus();
+		}
+
 
 	}
 }
