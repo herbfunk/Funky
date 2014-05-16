@@ -70,7 +70,7 @@ namespace FunkyBot.Cache.Objects
 		///</summary>
 		public virtual bool TestIntersection(Vector3 V1, Vector3 V2, bool CollisonRadius = true)
 		{
-			return MathEx.IntersectsPath(base.Position, CollisonRadius ? Radius : base.Radius, V1, V2);
+			return MathEx.IntersectsPath(base.Position, CollisonRadius ? Radius : ActorSphereRadius.Value, V1, V2);
 		}
 		///<summary>
 		///Tests if this intersects between two gridpoints

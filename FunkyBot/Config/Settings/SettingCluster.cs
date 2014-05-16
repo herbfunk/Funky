@@ -8,14 +8,12 @@ namespace FunkyBot.Config.Settings
 		public double ClusterDistance { get; set; }
 		public int ClusterMinimumUnitCount { get; set; }
 		public bool EnableClusteringTargetLogic { get; set; }
-		public bool IgnoreClusteringWhenLowHP { get; set; }
 		public double IgnoreClusterLowHPValue { get; set; }
 		public float ClusterMaxDistance { get; set; }
 
 		public SettingCluster(bool enabled=true)
 		{
 			EnableClusteringTargetLogic=enabled;
-			IgnoreClusteringWhenLowHP=true;
 			ClusterDistance=7d;
 			ClusterMinimumUnitCount=3;
 			IgnoreClusterLowHPValue=0.55d;
@@ -24,7 +22,6 @@ namespace FunkyBot.Config.Settings
 		public SettingCluster()
 		{
 			EnableClusteringTargetLogic=true;
-			IgnoreClusteringWhenLowHP=true;
 			ClusterDistance=10d;
 			ClusterMinimumUnitCount=2;
 			IgnoreClusterLowHPValue=0.55d;

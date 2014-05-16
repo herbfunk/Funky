@@ -266,7 +266,7 @@ namespace FunkyBot.Cache.Objects
 			{
 
 				if (ProfileCache.ClusterSettingsTag.EnableClusteringTargetLogic
-					&& (!ProfileCache.ClusterSettingsTag.IgnoreClusteringWhenLowHP || Bot.Character.Data.dCurrentHealthPct > ProfileCache.ClusterSettingsTag.IgnoreClusterLowHPValue)
+					&& (Bot.Character.Data.dCurrentHealthPct > ProfileCache.ClusterSettingsTag.IgnoreClusterLowHPValue)
 					&& !Bot.IsInNonCombatBehavior && !Bot.Character.Data.bIsInBossEncounter)
 				{
 					//Check if this unit is valid based on if its contained in valid clusters
@@ -1007,7 +1007,7 @@ namespace FunkyBot.Cache.Objects
 					}
 
 					//This is intial test to validate we can "see" the unit.. 
-					if (!LineOfSight.LOSTest(Bot.Character.Data.Position, NavRayCast: true, ServerObjectIntersection: false, Flags: NavCellFlags.None, ContinueOnFailures: false))
+					if (!LineOfSight.LOSTest(Bot.Character.Data.Position, true, false, !Bot.Character.Class.ContainsNonRangedCombatSkill, NavCellFlags.None, false))
 					{
 						//LOS Movement -- Check for special objects
 						//LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.

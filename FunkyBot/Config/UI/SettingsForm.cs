@@ -57,8 +57,7 @@ namespace FunkyBot.Config.UI
 
 				cb_ClusterTargetLogic.Checked = Bot.Settings.Cluster.EnableClusteringTargetLogic;
 				cb_ClusterTargetLogic.CheckedChanged += cb_ClusterTargetLogic_CheckedChanged;
-				cb_ClusterLogicDisableHealth.Checked = Bot.Settings.Cluster.IgnoreClusteringWhenLowHP;
-				cb_ClusterLogicDisableHealth.CheckedChanged += cb_ClusterLogicDisableHealth_CheckedChanged;
+				gb_ClusteringOptions.Enabled = Bot.Settings.Cluster.EnableClusteringTargetLogic;
 
 				txt_ClusterLogicDisableHealth.Text = Bot.Settings.Cluster.IgnoreClusterLowHPValue.ToString("F2", CultureInfo.InvariantCulture);
 				txt_ClusterLogicDistance.Text = Bot.Settings.Cluster.ClusterDistance.ToString("F2", CultureInfo.InvariantCulture);
@@ -699,13 +698,11 @@ namespace FunkyBot.Config.UI
 
 		private void cb_ClusterTargetLogic_CheckedChanged(object sender, EventArgs e)
 		{
-			Bot.Settings.Cluster.EnableClusteringTargetLogic = !Bot.Settings.Cluster.EnableClusteringTargetLogic;
+			Bot.Settings.Cluster.EnableClusteringTargetLogic=!Bot.Settings.Cluster.EnableClusteringTargetLogic;
+			gb_ClusteringOptions.Enabled=Bot.Settings.Cluster.EnableClusteringTargetLogic;
 		}
 
-		private void cb_ClusterLogicDisableHealth_CheckedChanged(object sender, EventArgs e)
-		{
-			Bot.Settings.Cluster.IgnoreClusteringWhenLowHP = !Bot.Settings.Cluster.IgnoreClusteringWhenLowHP;
-		}
+
 
 		private void tb_ClusterLogicDisableHealth_ValueChanged(object sender, EventArgs e)
 		{
@@ -728,7 +725,7 @@ namespace FunkyBot.Config.UI
 			TrackBar slider_sender = (TrackBar)sender;
 			int Value = slider_sender.Value;
 			Bot.Settings.Cluster.ClusterMinimumUnitCount = Value;
-			txt_WellHealth.Text = Value.ToString();
+			txt_ClusterLogicMinimumUnits.Text = Value.ToString();
 		}
 
 

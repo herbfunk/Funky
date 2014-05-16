@@ -23,7 +23,10 @@ namespace FunkyBot.Cache.Objects
 		///For Shrines/Healthwells the value is set to (GizmoHasBeenOperated). For Containers the value is set to (ChestOpen).
 		///</summary>
 		public bool? GizmoHasBeenUsed { get; set; }
-		public bool? GizmoDisabledByScript { get; set; 
+		public bool? GizmoDisabledByScript
+		{
+			get;
+			set;
 		}
 		public int? PhysicsSNO { get; set; }
 		//public bool? IsEnviromentalActor { get; set; }
@@ -104,7 +107,7 @@ namespace FunkyBot.Cache.Objects
 			{
 				try
 				{
-					
+
 					if (base.Gizmotype.Value == GizmoType.PowerUp)
 					{
 						//this.HandleAsAvoidanceObject = true;
@@ -131,7 +134,7 @@ namespace FunkyBot.Cache.Objects
 						GizmoLootContainer gizmoContainer = this.ref_Gizmo as GizmoLootContainer;
 						this.GizmoHasBeenUsed = gizmoContainer.IsOpen;
 					}
-					else if(Gizmotype.Value == GizmoType.Switch)
+					else if (Gizmotype.Value == GizmoType.Switch)
 					{
 						this.GizmoHasBeenUsed = this.ref_Gizmo.HasBeenOperated;
 					}
@@ -143,10 +146,17 @@ namespace FunkyBot.Cache.Objects
 				catch
 				{
 					Logger.Write(LogLevel.Cache, "Exception GizmoHasBeenOperated {0}", DebugStringSimple);
-					BlacklistFlag=BlacklistType.Temporary;
+					BlacklistFlag = BlacklistType.Temporary;
 					BlacklistLoops = 100;
 					NeedsRemoved = true;
 					return false;
+				}
+
+				//Used Doors we remove from obstacle cache!
+				if (Gizmotype.Value == GizmoType.Door && GizmoHasBeenUsed.HasValue && GizmoHasBeenUsed.Value && ObjectCache.Obstacles.ContainsKey(RAGUID))
+				{
+					ObjectCache.Obstacles.Remove(RAGUID);
+					Obstacletype = ObstacleType.None;
 				}
 			}
 
@@ -197,7 +207,7 @@ namespace FunkyBot.Cache.Objects
 			{
 				if (this.IsBarricade.HasValue && this.IsBarricade.Value && !this.targetType.Value.HasFlag(TargetType.Barricade))
 				{
-				
+
 					//Logger.DBLog.InfoFormat("Changing Gizmo {0} target type from {1} to Barricade!", this.InternalName, this.targetType.Value.ToString());
 					//Change "barricade" attribute gizmos into barricade targeting!
 					this.targetType = TargetType.Barricade;

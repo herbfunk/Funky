@@ -123,7 +123,7 @@ namespace FunkyBot.Cache.Objects
 							  obstacle.RAGUID!=Obj.RAGUID&&
 							  obstacle.Obstacletype.HasValue&&
 							  obstacle.Obstacletype.Value!=ObstacleType.Monster&&
-							  obstacle.TestIntersection(PositionToTestFrom, objposition));
+							  obstacle.TestIntersection(PositionToTestFrom, objposition,false));
 
 					if (!Failed&&ObjectIntersection.Value)
 					{

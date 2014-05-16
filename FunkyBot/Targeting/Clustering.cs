@@ -85,7 +85,7 @@ namespace FunkyBot.Targeting
 
 			//normal clustering
 			if (Bot.Settings.Cluster.EnableClusteringTargetLogic &&
-				 (!Bot.Settings.Cluster.IgnoreClusteringWhenLowHP || Bot.Character.Data.dCurrentHealthPct > Bot.Settings.Cluster.IgnoreClusterLowHPValue))
+				 (Bot.Character.Data.dCurrentHealthPct > Bot.Settings.Cluster.IgnoreClusterLowHPValue))
 			{
 				if (Bot.Targeting.Cache.Environment.UnitRAGUIDs.Count >= Bot.Settings.Cluster.ClusterMinimumUnitCount)
 				{

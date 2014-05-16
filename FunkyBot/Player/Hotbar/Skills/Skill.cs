@@ -777,29 +777,28 @@ namespace FunkyBot.Player.HotBar.Skills
 					if (!Bot.Targeting.Cache.CurrentUnitTarget.IgnoresLOSCheck && Bot.Targeting.Cache.CurrentUnitTarget.IsTargetableAndAttackable)
 					{
 						LOSInfo LOSINFO = Bot.Targeting.Cache.CurrentTarget.LineOfSight;
-						if (LOSINFO.LastLOSCheckMS > 2000 || !LOSINFO.NavCellProjectile.HasValue)
+						if (LOSINFO.LastLOSCheckMS > 2000)
 						{
-							if (!LOSINFO.LOSTest(Bot.Character.Data.Position, NavRayCast: true, ServerObjectIntersection: ability.IsProjectile, Flags: NavCellFlags.AllowProjectile))
+							if (!LOSINFO.LOSTest(Bot.Character.Data.Position, true, false, true, ability.IsProjectile ? NavCellFlags.AllowProjectile:NavCellFlags.None))
 							{
-
-
 								//Raycast failed.. reset LOS Check -- for valid checking.
-								if (!LOSINFO.RayCast.Value)
-									Bot.Targeting.Cache.CurrentTarget.RequiresLOSCheck = true;
-								else if (!LOSINFO.NavCellProjectile.Value) //NavCellFlag Walk Failed
+								if (!LOSINFO.RayCast.Value || (LOSINFO.ObjectIntersection.HasValue && !LOSINFO.ObjectIntersection.Value))
 								{
-									bool MovementException = ((Bot.Targeting.Cache.CurrentUnitTarget.MonsterTeleport || Bot.Targeting.Cache.CurrentTarget.IsTransformUnit) && Bot.Targeting.Cache.CurrentUnitTarget.AnimState == AnimationState.Transform);
-									if (!MovementException)
-										return false;
-									//else
-									//LOSINFO.NavCellProjectile=true;
+									Bot.Targeting.Cache.CurrentTarget.RequiresLOSCheck = true;
+									return false;
 								}
+
+								//if (LOSINFO.NavCellProjectile.HasValue && !LOSINFO.NavCellProjectile.Value) //NavCellFlag Walk Failed
+								//{
+								//	bool MovementException = ((Bot.Targeting.Cache.CurrentUnitTarget.MonsterTeleport || Bot.Targeting.Cache.CurrentTarget.IsTransformUnit) && Bot.Targeting.Cache.CurrentUnitTarget.AnimState == AnimationState.Transform);
+								//	if (!MovementException) return false;
+								//}
 							}
 						}
-						else if (LOSINFO.NavCellProjectile.HasValue && !LOSINFO.NavCellProjectile.Value)
-						{
-							return false;
-						}
+						//else if (LOSINFO.ObjectIntersection.HasValue && !LOSINFO.ObjectIntersection.Value)
+						//{
+						//	return false;
+						//}
 					}
 					return true;
 				};

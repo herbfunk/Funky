@@ -74,7 +74,6 @@
 			this.txt_ClusterLogicDistance = new System.Windows.Forms.TextBox();
 			this.label7 = new System.Windows.Forms.Label();
 			this.panel6 = new System.Windows.Forms.Panel();
-			this.cb_ClusterLogicDisableHealth = new System.Windows.Forms.CheckBox();
 			this.tb_ClusterLogicDisableHealth = new System.Windows.Forms.TrackBar();
 			this.txt_ClusterLogicDisableHealth = new System.Windows.Forms.TextBox();
 			this.label6 = new System.Windows.Forms.Label();
@@ -279,6 +278,7 @@
 			this.btn_DumpTargetingCache = new System.Windows.Forms.Button();
 			this.btn_DumpBountyCache = new System.Windows.Forms.Button();
 			this.btn_Test = new System.Windows.Forms.Button();
+			this.gb_ClusteringOptions = new System.Windows.Forms.GroupBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabControl_Combat.SuspendLayout();
@@ -377,6 +377,7 @@
 			this.groupBox22.SuspendLayout();
 			this.tabPage16.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
+			this.gb_ClusteringOptions.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -668,10 +669,8 @@
 			// 
 			// groupBox3
 			// 
+			this.groupBox3.Controls.Add(this.gb_ClusteringOptions);
 			this.groupBox3.Controls.Add(this.groupBox10);
-			this.groupBox3.Controls.Add(this.panel8);
-			this.groupBox3.Controls.Add(this.panel7);
-			this.groupBox3.Controls.Add(this.panel6);
 			this.groupBox3.Controls.Add(this.cb_ClusterTargetLogic);
 			this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
 			this.groupBox3.Location = new System.Drawing.Point(3, 3);
@@ -779,16 +778,17 @@
 			this.panel8.Controls.Add(this.tb_ClusterLogicMinimumUnits);
 			this.panel8.Controls.Add(this.txt_ClusterLogicMinimumUnits);
 			this.panel8.Controls.Add(this.label8);
-			this.panel8.Location = new System.Drawing.Point(6, 215);
+			this.panel8.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel8.Location = new System.Drawing.Point(3, 87);
 			this.panel8.Name = "panel8";
-			this.panel8.Size = new System.Drawing.Size(243, 71);
+			this.panel8.Size = new System.Drawing.Size(252, 71);
 			this.panel8.TabIndex = 6;
 			// 
 			// tb_ClusterLogicMinimumUnits
 			// 
-			this.tb_ClusterLogicMinimumUnits.LargeChange = 25;
+			this.tb_ClusterLogicMinimumUnits.LargeChange = 2;
 			this.tb_ClusterLogicMinimumUnits.Location = new System.Drawing.Point(3, 16);
-			this.tb_ClusterLogicMinimumUnits.Maximum = 100;
+			this.tb_ClusterLogicMinimumUnits.Maximum = 20;
 			this.tb_ClusterLogicMinimumUnits.Name = "tb_ClusterLogicMinimumUnits";
 			this.tb_ClusterLogicMinimumUnits.Size = new System.Drawing.Size(160, 42);
 			this.tb_ClusterLogicMinimumUnits.TabIndex = 0;
@@ -817,19 +817,21 @@
 			this.panel7.Controls.Add(this.tb_ClusterLogicDistance);
 			this.panel7.Controls.Add(this.txt_ClusterLogicDistance);
 			this.panel7.Controls.Add(this.label7);
-			this.panel7.Location = new System.Drawing.Point(6, 138);
+			this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel7.Location = new System.Drawing.Point(3, 16);
 			this.panel7.Name = "panel7";
-			this.panel7.Size = new System.Drawing.Size(243, 71);
+			this.panel7.Size = new System.Drawing.Size(252, 71);
 			this.panel7.TabIndex = 5;
 			// 
 			// tb_ClusterLogicDistance
 			// 
-			this.tb_ClusterLogicDistance.LargeChange = 25;
+			this.tb_ClusterLogicDistance.LargeChange = 2;
 			this.tb_ClusterLogicDistance.Location = new System.Drawing.Point(3, 16);
-			this.tb_ClusterLogicDistance.Maximum = 100;
+			this.tb_ClusterLogicDistance.Maximum = 25;
 			this.tb_ClusterLogicDistance.Name = "tb_ClusterLogicDistance";
 			this.tb_ClusterLogicDistance.Size = new System.Drawing.Size(160, 42);
 			this.tb_ClusterLogicDistance.TabIndex = 0;
+			this.tb_ClusterLogicDistance.TickFrequency = 5;
 			this.tb_ClusterLogicDistance.TickStyle = System.Windows.Forms.TickStyle.None;
 			// 
 			// txt_ClusterLogicDistance
@@ -852,33 +854,23 @@
 			// 
 			// panel6
 			// 
-			this.panel6.Controls.Add(this.cb_ClusterLogicDisableHealth);
 			this.panel6.Controls.Add(this.tb_ClusterLogicDisableHealth);
 			this.panel6.Controls.Add(this.txt_ClusterLogicDisableHealth);
 			this.panel6.Controls.Add(this.label6);
-			this.panel6.Location = new System.Drawing.Point(6, 42);
+			this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel6.Location = new System.Drawing.Point(3, 158);
 			this.panel6.Name = "panel6";
-			this.panel6.Size = new System.Drawing.Size(243, 90);
+			this.panel6.Size = new System.Drawing.Size(252, 62);
 			this.panel6.TabIndex = 4;
-			// 
-			// cb_ClusterLogicDisableHealth
-			// 
-			this.cb_ClusterLogicDisableHealth.AutoSize = true;
-			this.cb_ClusterLogicDisableHealth.Location = new System.Drawing.Point(6, 70);
-			this.cb_ClusterLogicDisableHealth.Name = "cb_ClusterLogicDisableHealth";
-			this.cb_ClusterLogicDisableHealth.Size = new System.Drawing.Size(148, 17);
-			this.cb_ClusterLogicDisableHealth.TabIndex = 3;
-			this.cb_ClusterLogicDisableHealth.Text = "Cluster Logic Disable at %";
-			this.cb_ClusterLogicDisableHealth.UseVisualStyleBackColor = true;
 			// 
 			// tb_ClusterLogicDisableHealth
 			// 
-			this.tb_ClusterLogicDisableHealth.LargeChange = 25;
 			this.tb_ClusterLogicDisableHealth.Location = new System.Drawing.Point(3, 16);
 			this.tb_ClusterLogicDisableHealth.Maximum = 100;
 			this.tb_ClusterLogicDisableHealth.Name = "tb_ClusterLogicDisableHealth";
 			this.tb_ClusterLogicDisableHealth.Size = new System.Drawing.Size(160, 42);
 			this.tb_ClusterLogicDisableHealth.TabIndex = 0;
+			this.tb_ClusterLogicDisableHealth.TickFrequency = 10;
 			this.tb_ClusterLogicDisableHealth.TickStyle = System.Windows.Forms.TickStyle.None;
 			// 
 			// txt_ClusterLogicDisableHealth
@@ -908,7 +900,6 @@
 			this.cb_ClusterTargetLogic.TabIndex = 0;
 			this.cb_ClusterTargetLogic.Text = "Enable Clustering Target Logic";
 			this.cb_ClusterTargetLogic.UseVisualStyleBackColor = true;
-			this.cb_ClusterTargetLogic.CheckedChanged += new System.EventHandler(this.cb_ClusterTargetLogic_CheckedChanged);
 			// 
 			// tabPage9
 			// 
@@ -3090,6 +3081,17 @@
 			this.btn_Test.UseVisualStyleBackColor = true;
 			this.btn_Test.Click += new System.EventHandler(this.btn_Test_Click);
 			// 
+			// gb_ClusteringOptions
+			// 
+			this.gb_ClusteringOptions.Controls.Add(this.panel6);
+			this.gb_ClusteringOptions.Controls.Add(this.panel8);
+			this.gb_ClusteringOptions.Controls.Add(this.panel7);
+			this.gb_ClusteringOptions.Location = new System.Drawing.Point(6, 38);
+			this.gb_ClusteringOptions.Name = "gb_ClusteringOptions";
+			this.gb_ClusteringOptions.Size = new System.Drawing.Size(258, 253);
+			this.gb_ClusteringOptions.TabIndex = 1;
+			this.gb_ClusteringOptions.TabStop = false;
+			// 
 			// SettingsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3256,6 +3258,7 @@
 			this.tabPage16.ResumeLayout(false);
 			this.tabPage16.PerformLayout();
 			this.flowLayoutPanel1.ResumeLayout(false);
+			this.gb_ClusteringOptions.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -3313,7 +3316,6 @@
 		private System.Windows.Forms.TextBox txt_ClusterLogicDistance;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.Panel panel6;
-		private System.Windows.Forms.CheckBox cb_ClusterLogicDisableHealth;
 		private System.Windows.Forms.TrackBar tb_ClusterLogicDisableHealth;
 		private System.Windows.Forms.TextBox txt_ClusterLogicDisableHealth;
 		private System.Windows.Forms.Label label6;
@@ -3516,6 +3518,7 @@
 		private System.Windows.Forms.CheckBox cb_LootExpBooks;
 		private System.Windows.Forms.CheckBox cb_LootKeyStones;
 		private System.Windows.Forms.CheckBox cb_LOSEventSwitches;
+		private System.Windows.Forms.GroupBox gb_ClusteringOptions;
 		//
 	}
 }

@@ -21,6 +21,8 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 			WaitVars = new WaitLoops(0, 0, false);
 			Cost = 50;
 			Range = 45;
+			IsRanged = true;
+			IsProjectile=true;
 			UseageType = SkillUseage.Combat;
 			Priority = SkillPriority.Medium;
 			ShouldTrack = true;

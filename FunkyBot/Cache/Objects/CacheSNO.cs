@@ -703,9 +703,9 @@ namespace FunkyBot.Cache.Objects
 							}
 
 
-							if (targetType.Value == TargetType.Destructible || targetType.Value == TargetType.Barricade || targetType.Value == TargetType.Door)
+							if (targetType.Value == TargetType.Destructible || targetType.Value == TargetType.Barricade)
 								Obstacletype = ObstacleType.Destructable;
-							else if (targetType.Value == TargetType.Shrine || IsChestContainer)
+							else if (targetType.Value == TargetType.Shrine || IsChestContainer || targetType.Value == TargetType.Door)
 								Obstacletype = ObstacleType.ServerObject;
 						}
 						else if (CacheIDLookup.hashSNOInteractWhitelist.Contains(SNOID))

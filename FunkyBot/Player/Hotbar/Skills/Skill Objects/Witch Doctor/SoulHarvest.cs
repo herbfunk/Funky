@@ -14,9 +14,19 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				Counter=5;
 				UseageType=SkillUseage.Combat;
 				Priority=SkillPriority.High;
+				Range = 10;
 
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast|SkillPrecastFlags.CheckEnergy));
-				ClusterConditions.Add(new SkillClusterConditions(6d, 9f, 2, false, useRadiusDistance: true));
+				PreCast=new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast);
+				ClusterConditions.Add(new SkillClusterConditions(6d, 10f, 4, false, useRadiusDistance: true));
+				SingleUnitCondition.Add(new UnitTargetConditions
+				{
+					Criteria = () => Bot.Character.Class.HotBar.GetBuffStacks(SNOPower.Witchdoctor_SoulHarvest) == 0,
+					Distance = 9,
+					FalseConditionFlags = TargetProperties.Normal,
+					HealthPercent = 0.95d,
+					TrueConditionFlags = TargetProperties.None,
+				});
+
 				FcriteriaCombat=() =>
 				{
 

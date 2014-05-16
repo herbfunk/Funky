@@ -144,9 +144,10 @@ namespace FunkyBot.Player.Class
 			return false;
 		}
 
-
+		public bool ContainsNonRangedCombatSkill { get; set; }
 		internal virtual void RecreateAbilities()
 		{
+			ContainsNonRangedCombatSkill = false;
 			Abilities = new Dictionary<SNOPower, Skill>();
 
 			//No default rage generation Ability.. then we add the Instant Melee Ability.
@@ -181,6 +182,9 @@ namespace FunkyBot.Player.Class
 					newAbility.IsCombat = true;
 
 				Abilities.Add(item, newAbility);
+
+				if (!ContainsNonRangedCombatSkill && !newAbility.IsRanged && !newAbility.IsProjectile && (SkillExecutionFlags.Target | SkillExecutionFlags.ClusterTarget).HasFlag(newAbility.ExecutionType))
+					ContainsNonRangedCombatSkill = true;
 
 				Logger.DBLog.DebugFormat("[Funky] Added Skill {0} using RuneIndex {1}", newAbility.Power, newAbility.RuneIndex);
 			}

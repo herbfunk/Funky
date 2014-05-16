@@ -1037,9 +1037,11 @@
   <ItemGroup>
     <Reference Include="Demonbuddy">
       <HintPath>..\..\..\..\Desktop\db_beta\Demonbuddy.exe</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="GreyMagic">
       <HintPath>..\..\..\..\Desktop\db_beta\GreyMagic.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
