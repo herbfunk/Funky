@@ -186,7 +186,7 @@
   <CursedEventBounties />
 
   <MiscEventBounties>
-   <!--
+  <!--
     <BountyQuestCacheEntry>
       <Name>A5_Event_GraveYard_SoldierHoldout</Name>
       <Type>Event</Type>
@@ -205,7 +205,17 @@
         <int>359096</int>
       </QuestSNOs>
     </BountyQuestCacheEntry>
-    -->
+    <BountyQuestCacheEntry>
+      <Name>A5_Event_GraveYard_Cryptology</Name>
+      <Type>Event</Type>
+      <StartingLevelAreaID>338946</StartingLevelAreaID>
+      <TotalKillCount>3</TotalKillCount>
+      <QuestSNOs>
+        <int>359079</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
+ -->
+
   </MiscEventBounties>
 
 </BountyQuestActCache>

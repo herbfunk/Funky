@@ -273,7 +273,21 @@ namespace FunkyBot.Player
 			{
 				return false;
 			}
+		}
 
+		public int GetBloodShardCount()
+		{
+			int _count = -1;
+			try
+			{
+				_count=ZetaDia.CPlayer.BloodshardCount;
+			}
+			catch
+			{
+
+			}
+
+			return _count;
 		}
 
 

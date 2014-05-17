@@ -3,6 +3,8 @@ v2.10.1.2
 
 Misc:
 	Bloodshard Gambling will clear/update actors before getting Item IDs.
+	Town run check will now check blood shard count against the minimum setting used.
+	Routine Folder/Files are no longer deleted.
 
 
 

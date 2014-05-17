@@ -1542,6 +1542,25 @@ namespace FunkyBot.Config.UI
 			LBDebug.Focus();
 		}
 
+		private void btn_DumpInteractiveCache_Click(object sender, EventArgs e)
+		{
+			LBDebug.Controls.Clear();
+
+			try
+			{
+				foreach (var cacheObject in Bot.Game.Profile.InteractableObjectCache)
+				{
+					LBDebug.Controls.Add(new UserControlDebugEntry(cacheObject.Value.DebugString));
+				}
+			}
+			catch
+			{
+				LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Exception"));
+			}
+
+			LBDebug.Focus();
+		}
+
 
 	}
 }

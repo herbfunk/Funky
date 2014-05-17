@@ -779,7 +779,8 @@ namespace FunkyBot.Player.HotBar.Skills
 						LOSInfo LOSINFO = Bot.Targeting.Cache.CurrentTarget.LineOfSight;
 						if (LOSINFO.LastLOSCheckMS > 2000)
 						{
-							if (!LOSINFO.LOSTest(Bot.Character.Data.Position, true, false, false, ability.IsProjectile ? NavCellFlags.AllowProjectile:NavCellFlags.None))
+							//!LOSINFO.LOSTest(Bot.Character.Data.Position, true, ServerObjectIntersection: ability.IsProjectile, Flags: NavCellFlags.AllowProjectile)
+							if (!LOSINFO.LOSTest(Bot.Character.Data.Position, true, false, ability.IsProjectile, ability.IsProjectile ? NavCellFlags.AllowProjectile:NavCellFlags.None))
 							{
 								//Raycast failed.. reset LOS Check -- for valid checking.
 								if (!LOSINFO.RayCast.Value || (LOSINFO.ObjectIntersection.HasValue && !LOSINFO.ObjectIntersection.Value))

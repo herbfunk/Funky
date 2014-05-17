@@ -39,12 +39,6 @@ namespace FunkyBot
 			//update current profile behavior.
 			Bot.Game.Profile.CheckCurrentProfileBehavior();
 
-			//Check if active bounty is null.. and attempt to update again.
-			if (Bot.Game.AdventureMode && Bot.Settings.AdventureMode.EnableAdventuringMode)
-			{
-				Bot.Game.Bounty.CheckActiveBounty();
-			}
-
 			// Should we refresh target list?
 			if (Bot.Targeting.Cache.ShouldRefreshObjectList)
 			{

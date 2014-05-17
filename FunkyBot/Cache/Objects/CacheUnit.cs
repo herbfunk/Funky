@@ -285,7 +285,7 @@ namespace FunkyBot.Cache.Objects
 			get
 			{
 				return
-					 (QuestMonster) ||
+					 (QuestMonster || IsMinimapActive.HasValue && IsMinimapActive.Value) ||
 					 (IsSucideBomber && Bot.Settings.Targeting.UnitExceptionSucideBombers) ||
 					 (IsTreasureGoblin && Bot.Settings.Ranges.TreasureGoblinRange > 1) ||
 					 (IsRanged && Bot.Settings.Targeting.UnitExceptionRangedUnits) ||
@@ -572,7 +572,7 @@ namespace FunkyBot.Cache.Objects
 				// Standard 50f range when preforming OOC behaviors!
 				if (Bot.IsInNonCombatBehavior)
 					dUseKillRadius = Bot.Settings.Plugin.OutofCombatMaxDistance;
-				else if (QuestMonster && dUseKillRadius < 200f) //"Quest Monster" set 200f min distance.
+				else if ((QuestMonster||IsMinimapActive.HasValue && IsMinimapActive.Value) && dUseKillRadius < 200f) //"Quest Monster" set 200f min distance.
 					dUseKillRadius = 200f;
 
 				return dUseKillRadius;
@@ -1536,6 +1536,15 @@ namespace FunkyBot.Cache.Objects
 				{
 					QuestMonster = false;
 				}
+
+				try
+				{
+					IsMinimapActive = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.MinimapActive) != 0;
+				}
+				catch (Exception)
+				{
+					IsMinimapActive = false;
+				}
 			}
 
 			return true;
@@ -1545,11 +1554,6 @@ namespace FunkyBot.Cache.Objects
 		{
 			if (ref_DiaUnit == null || !ref_DiaUnit.IsValid || ref_DiaUnit.BaseAddress == IntPtr.Zero)
 				return false;
-
-
-
-
-
 
 			return base.IsStillValid();
 		}
@@ -1650,7 +1654,7 @@ namespace FunkyBot.Cache.Objects
 				return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n" +
 									 "HP {4} / MaxHP {5} -- IsMoving: {6} \r\n" +
 									 "PriorityCounter={7}\r\n" +
-									 "QuestMonster={9}\r\n" +
+									 "QuestMonster={9} MiniMapActive={14}\r\n" +
 									 "IsNpc {11} IsFriendly {12}\r\n" +
 									 "{10}\r\n" +
 									 "{13}\r\n" +
@@ -1670,7 +1674,8 @@ namespace FunkyBot.Cache.Objects
 					  IsFriendly.HasValue ? IsFriendly.ToString() : "",
 					  SkillsUsedOnObject.Count > 0 ?
 							SkillsUsedOnObject.Aggregate("Skills Used\r\n:", (current, skill) => current + ("Power: " + skill.Key + " Date: " + skill.Value.ToString() + " LastUsedMS: " + DateTime.Now.Subtract(skill.Value).Milliseconds + "\r\n"))
-							: "");
+							: "",
+					  IsMinimapActive.HasValue?IsMinimapActive.Value.ToString():"");
 			}
 		}
 

@@ -107,10 +107,10 @@ namespace FunkyBot.Targeting
 			//Update Character (just incase it wasnt called before..)
 			Bot.Character.Data.Update(false, true);
 
-			if (Bot.Game.AdventureMode && Bot.Settings.AdventureMode.EnableAdventuringMode &&
-				Bot.Game.Bounty.ActiveBounty == null && !Bot.Character.Data.bIsInTown)
+			//Check if active bounty is null.. and attempt to update again.
+			if (Bot.Game.AdventureMode && Bot.Settings.AdventureMode.EnableAdventuringMode)
 			{
-				Bot.Game.Bounty.RefreshBountyLevelChange();
+				Bot.Game.Bounty.CheckActiveBounty();
 			}
 
 			//Reset key targeting vars always!

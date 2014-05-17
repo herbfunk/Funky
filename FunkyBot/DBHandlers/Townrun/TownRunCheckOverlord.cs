@@ -131,7 +131,25 @@ namespace FunkyBot.DBHandlers
 				if (DateTime.Now.Subtract(TimeLastCheckedForTownRun).TotalSeconds > recheckDelay)
 				{
 					TimeLastCheckedForTownRun = DateTime.Now;
-					if (BrainBehavior.ShouldVendor || Bot.Character.Data.BackPack.ShouldRepairItems())
+
+					//our result of checking various things for town run.
+					bool _checkResult = false;
+
+					if (BrainBehavior.ShouldVendor)
+						_checkResult = true;
+					else
+					{
+						if (Bot.Character.Data.BackPack.ShouldRepairItems())
+							_checkResult=true;
+						else if(Bot.Settings.TownRun.EnableBloodShardGambling && Bot.Settings.TownRun.MinimumBloodShards>5)
+						{
+							int curBloodShardCount=Bot.Character.Data.BackPack.GetBloodShardCount();
+							if (curBloodShardCount!=-1 && curBloodShardCount>=Bot.Settings.TownRun.MinimumBloodShards)
+								_checkResult=true;
+						}
+					}
+
+					if (_checkResult)
 					{
 						bCheckedItemDurability = false;
 						bWantToTownRun = true;
