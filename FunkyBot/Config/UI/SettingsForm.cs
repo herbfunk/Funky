@@ -177,6 +177,9 @@ namespace FunkyBot.Config.UI
 						cb_BarbWaitForWrath.Checked = Bot.Settings.Barbarian.bWaitForWrath;
 						cb_BarbWaitForWrath.CheckedChanged += cb_BarbWaitForWrath_CheckedChanged;
 
+						cb_BarbSelectiveWhirldWind.Checked=Bot.Settings.Barbarian.bSelectiveWhirlwind;
+						cb_BarbSelectiveWhirldWind.CheckedChanged += cb_BarbSelectiveWhirlwind_CheckedChanged;
+
 						RemovalTabPages.Remove(tabPage_Barbarian);
 						break;
 					case ActorClass.Wizard:
@@ -494,7 +497,6 @@ namespace FunkyBot.Config.UI
 				cb_LootPickupCraftPlans.Checked = Bot.Settings.Loot.PickupCraftPlans;
 				cb_LootPickupCraftPlans.CheckedChanged += cb_LootPickupCraftPlans_CheckedChanged;
 
-				//Todo:: Convert level to Gem Type for Text
 				comboBox_LootGemQuality.Text = Enum.GetName(typeof(GemQuality), Bot.Settings.Loot.MinimumGemItemLevel).ToString();
 				comboBox_LootGemQuality.SelectedIndexChanged += GemQualityLevelChanged;
 
@@ -904,7 +906,7 @@ namespace FunkyBot.Config.UI
 			Bot.Settings.Fleeing.FleeUnitIgnoreRanged = !Bot.Settings.Fleeing.FleeUnitIgnoreRanged;
 		}
 
-		private void cb_Barb_CheckedChanged(object sender, EventArgs e)
+		private void cb_BarbSelectiveWhirlwind_CheckedChanged(object sender, EventArgs e)
 		{
 			Bot.Settings.Barbarian.bSelectiveWhirlwind = !Bot.Settings.Barbarian.bSelectiveWhirlwind;
 		}

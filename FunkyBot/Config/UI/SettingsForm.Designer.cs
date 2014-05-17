@@ -132,7 +132,7 @@
 			this.cb_BarbFuryDumpWrath = new System.Windows.Forms.CheckBox();
 			this.cb_BarbGoblinWrath = new System.Windows.Forms.CheckBox();
 			this.cb_BarbWaitForWrath = new System.Windows.Forms.CheckBox();
-			this.cb_Barb = new System.Windows.Forms.CheckBox();
+			this.cb_BarbSelectiveWhirldWind = new System.Windows.Forms.CheckBox();
 			this.tabPage_Monk = new System.Windows.Forms.TabPage();
 			this.cb_MonkMaintainSweepingWinds = new System.Windows.Forms.CheckBox();
 			this.cb_MonkSpamMantra = new System.Windows.Forms.CheckBox();
@@ -274,12 +274,12 @@
 			this.btn_DumpObjectCache = new System.Windows.Forms.Button();
 			this.btn_DumpObstacleCache = new System.Windows.Forms.Button();
 			this.btn_DumpSNOCache = new System.Windows.Forms.Button();
+			this.btn_DumpInteractiveCache = new System.Windows.Forms.Button();
 			this.btn_DumpCharacterCache = new System.Windows.Forms.Button();
 			this.btn_DumpSkillsCache = new System.Windows.Forms.Button();
 			this.btn_DumpTargetingCache = new System.Windows.Forms.Button();
 			this.btn_DumpBountyCache = new System.Windows.Forms.Button();
 			this.btn_Test = new System.Windows.Forms.Button();
-			this.btn_DumpInteractiveCache = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabControl_Combat.SuspendLayout();
@@ -1403,7 +1403,7 @@
 			this.tabPage_Barbarian.Controls.Add(this.cb_BarbFuryDumpWrath);
 			this.tabPage_Barbarian.Controls.Add(this.cb_BarbGoblinWrath);
 			this.tabPage_Barbarian.Controls.Add(this.cb_BarbWaitForWrath);
-			this.tabPage_Barbarian.Controls.Add(this.cb_Barb);
+			this.tabPage_Barbarian.Controls.Add(this.cb_BarbSelectiveWhirldWind);
 			this.tabPage_Barbarian.Location = new System.Drawing.Point(4, 22);
 			this.tabPage_Barbarian.Name = "tabPage_Barbarian";
 			this.tabPage_Barbarian.Padding = new System.Windows.Forms.Padding(3);
@@ -1462,15 +1462,15 @@
 			this.cb_BarbWaitForWrath.Text = "Wait For Wrath";
 			this.cb_BarbWaitForWrath.UseVisualStyleBackColor = true;
 			// 
-			// cb_Barb
+			// cb_BarbSelectiveWhirldWind
 			// 
-			this.cb_Barb.AutoSize = true;
-			this.cb_Barb.Location = new System.Drawing.Point(6, 17);
-			this.cb_Barb.Name = "cb_Barb";
-			this.cb_Barb.Size = new System.Drawing.Size(119, 17);
-			this.cb_Barb.TabIndex = 6;
-			this.cb_Barb.Text = "Selective Whirlwind";
-			this.cb_Barb.UseVisualStyleBackColor = true;
+			this.cb_BarbSelectiveWhirldWind.AutoSize = true;
+			this.cb_BarbSelectiveWhirldWind.Location = new System.Drawing.Point(6, 17);
+			this.cb_BarbSelectiveWhirldWind.Name = "cb_BarbSelectiveWhirldWind";
+			this.cb_BarbSelectiveWhirldWind.Size = new System.Drawing.Size(119, 17);
+			this.cb_BarbSelectiveWhirldWind.TabIndex = 6;
+			this.cb_BarbSelectiveWhirldWind.Text = "Selective Whirlwind";
+			this.cb_BarbSelectiveWhirldWind.UseVisualStyleBackColor = true;
 			// 
 			// tabPage_Monk
 			// 
@@ -3042,6 +3042,17 @@
 			this.btn_DumpSNOCache.UseVisualStyleBackColor = true;
 			this.btn_DumpSNOCache.Click += new System.EventHandler(this.btn_DumpSNOCache_Click);
 			// 
+			// btn_DumpInteractiveCache
+			// 
+			this.flowLayoutPanel1.SetFlowBreak(this.btn_DumpInteractiveCache, true);
+			this.btn_DumpInteractiveCache.Location = new System.Drawing.Point(432, 3);
+			this.btn_DumpInteractiveCache.Name = "btn_DumpInteractiveCache";
+			this.btn_DumpInteractiveCache.Size = new System.Drawing.Size(137, 23);
+			this.btn_DumpInteractiveCache.TabIndex = 8;
+			this.btn_DumpInteractiveCache.Text = "Dump Interactive Cache";
+			this.btn_DumpInteractiveCache.UseVisualStyleBackColor = true;
+			this.btn_DumpInteractiveCache.Click += new System.EventHandler(this.btn_DumpInteractiveCache_Click);
+			// 
 			// btn_DumpCharacterCache
 			// 
 			this.btn_DumpCharacterCache.Location = new System.Drawing.Point(3, 32);
@@ -3092,17 +3103,6 @@
 			this.btn_Test.Text = "Test";
 			this.btn_Test.UseVisualStyleBackColor = true;
 			this.btn_Test.Click += new System.EventHandler(this.btn_Test_Click);
-			// 
-			// btn_DumpInteractiveCache
-			// 
-			this.flowLayoutPanel1.SetFlowBreak(this.btn_DumpInteractiveCache, true);
-			this.btn_DumpInteractiveCache.Location = new System.Drawing.Point(432, 3);
-			this.btn_DumpInteractiveCache.Name = "btn_DumpInteractiveCache";
-			this.btn_DumpInteractiveCache.Size = new System.Drawing.Size(137, 23);
-			this.btn_DumpInteractiveCache.TabIndex = 8;
-			this.btn_DumpInteractiveCache.Text = "Dump Interactive Cache";
-			this.btn_DumpInteractiveCache.UseVisualStyleBackColor = true;
-			this.btn_DumpInteractiveCache.Click += new System.EventHandler(this.btn_DumpInteractiveCache_Click);
 			// 
 			// SettingsForm
 			// 
@@ -3395,7 +3395,7 @@
 		private System.Windows.Forms.CheckBox cb_BarbFuryDumpWrath;
 		private System.Windows.Forms.CheckBox cb_BarbGoblinWrath;
 		private System.Windows.Forms.CheckBox cb_BarbWaitForWrath;
-		private System.Windows.Forms.CheckBox cb_Barb;
+		private System.Windows.Forms.CheckBox cb_BarbSelectiveWhirldWind;
 		private System.Windows.Forms.TabPage tabPage_DemonHunter;
 		private System.Windows.Forms.TextBox txt_DemonHunterVaultDelay;
 		private System.Windows.Forms.TrackBar trackBar_DemonHunterValutDelay;
