@@ -66,6 +66,9 @@ namespace FunkyBot.Cache.Objects
 				if (targetType.Value == TargetType.CursedChest)
 					return Bot.Settings.Ranges.CursedChestRange;
 
+				if (targetType.Value==TargetType.Door)
+					return Bot.Settings.Ranges.DoorRange;
+
 				return Bot.Targeting.Cache.iCurrentMaxLootRadius;
 			}
 		}
@@ -100,7 +103,7 @@ namespace FunkyBot.Cache.Objects
 					return false;
 				}
 
-				if (RequiresLOSCheck && !IgnoresLOSCheck)
+				if (RequiresLOSCheck && !IgnoresLOSCheck && radiusDistance>0f)
 				{
 					//Get the wait time since last used LOSTest
 					double lastLOSCheckMS = base.LineOfSight.LastLOSCheckMS;
@@ -143,7 +146,7 @@ namespace FunkyBot.Cache.Objects
 						}
 					}
 
-					var testPosition = Gizmotype.Value == GizmoType.Switch ? BotMeleeVector : Position;
+					var testPosition = (Gizmotype.Value == GizmoType.Switch || Gizmotype.Value==GizmoType.Door) ? BotMeleeVector : Position;
 
 					if (!LineOfSight.LOSTest(Bot.Character.Data.Position, testPosition, Gizmotype.Value!=GizmoType.Switch, Gizmotype.Value==GizmoType.Switch, ServerObjectIntersection: false))
 					{
@@ -393,7 +396,7 @@ namespace FunkyBot.Cache.Objects
 			get
 			{
 				float fThisHeightDifference = Funky.Difference(Bot.Character.Data.Position.Z, Position.Z);
-				if (fThisHeightDifference >= 10f)
+				if (fThisHeightDifference >= 15f)
 				{
 					return false;
 

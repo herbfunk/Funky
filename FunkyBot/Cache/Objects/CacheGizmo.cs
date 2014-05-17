@@ -62,9 +62,9 @@ namespace FunkyBot.Cache.Objects
 
 
 				//Z-Height Funky.Difference Check
-				if (!this.IsZDifferenceValid)
+				if (!IsZDifferenceValid)
 				{
-					this.BlacklistLoops = 3;
+					BlacklistLoops = 3;
 					return false;
 				}
 

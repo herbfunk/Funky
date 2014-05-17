@@ -14,6 +14,7 @@ namespace FunkyBot.Config.Settings
 		public int GlobeRange { get; set; }
 		public int PotionRange { get; set; }
 		public int ShrineRange { get; set; }
+		public int DoorRange { get; set; }
 		public int DestructibleRange { get; set; }
 		public int ContainerOpenRange { get; set; }
 		public int NonEliteCombatRange { get; set; }
@@ -35,6 +36,7 @@ namespace FunkyBot.Config.Settings
 			EliteCombatRange=60;
 			GoldRange=45;
 			GlobeRange=40;
+			DoorRange=30;
 			PotionRange = 45;
 			ItemRange=150;
 			TreasureGoblinRange=55;

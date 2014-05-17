@@ -310,6 +310,12 @@ namespace FunkyBot.Config.UI
 				};
 				flowLayout_TargetRanges.Controls.Add(CursedChestRange);
 
+				UserControlTargetRange DoorRange = new UserControlTargetRange(Bot.Settings.Ranges.NonEliteCombatRange, "Door Range")
+				{
+					UpdateValue = i => { Bot.Settings.Ranges.DoorRange = i; }
+				};
+				flowLayout_TargetRanges.Controls.Add(DoorRange);
+
 				UserControlTargetRange destructibleRange = new UserControlTargetRange(Bot.Settings.Ranges.DestructibleRange, "Destructible Range")
 				{
 					UpdateValue = i => { Bot.Settings.Ranges.DestructibleRange = i; }
