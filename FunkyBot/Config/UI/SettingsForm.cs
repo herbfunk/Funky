@@ -1493,31 +1493,28 @@ namespace FunkyBot.Config.UI
 		{
 			LBDebug.Controls.Clear();
 
-			try
-			{
-				if (Navigation.CurrentDungeonExplorer != null)
-				{
-					if (Navigation.CurrentDungeonExplorer.CurrentNode != null)
-					{
-						LBDebug.Controls.Add(new UserControlDebugEntry("Current Node: " + Navigation.CurrentDungeonExplorer.CurrentNode.Center));
-					}
-					if (Navigation.CurrentDungeonExplorer.CurrentRoute != null)
-					{
-						LBDebug.Controls.Add(new UserControlDebugEntry("Current Route Nodes: " + Navigation.CurrentDungeonExplorer.CurrentRoute.Count));
+			ZetaDia.Memory.ClearCache();
+			ZetaDia.Actors.Update();
 
-						foreach (var node in Navigation.CurrentDungeonExplorer.CurrentRoute)
-						{
-							LBDebug.Controls.Add(new UserControlDebugEntry(
-								String.Format("Location {0} Distance {1}", node.Center.ToString(), Bot.Character.Data.Position.ToVector2().Distance(node.Center))));
-						}
+			foreach (var i in ZetaDia.Actors.ACDList)
+			{
+				try
+				{
+					ACDItem item;
+					item = (ACDItem)i;
+					if (item.Name.Contains("Mystery"))
+					{
+						string itemString = String.Format("Item Name {0} BalanceID {1}", item.Name, item.GameBalanceId);
+						Logger.DBLog.Info(itemString);
+						//GamblingItemList.Add(new CacheACDItem(item));
+						//LBDebug.Items.Add(itemString);
 					}
 				}
+				catch (Exception)
+				{
+
+				}
 			}
-			catch (Exception)
-			{
-				LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Exception"));
-			}
-		
 			//ZetaDia.Service.GameAccount.SwitchHero(1);
 			LBDebug.Focus();
 		}
