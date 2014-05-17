@@ -1,4 +1,12 @@
 ﻿// herbfunk revisions
+v2.10.1.2
+
+Misc:
+	Bloodshard Gambling will clear/update actors before getting Item IDs.
+
+
+
+
 v2.10.1.1
 
 Misc:
