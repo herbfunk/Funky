@@ -718,7 +718,7 @@ namespace FunkyBot
 				if (float.TryParse(Regex.Replace(item.Itemquality.ToString(), @"[^\d]", string.Empty), out roll))
 					 itemDic.Add("[ROLL]", roll);
 				else
-					 itemDic.Add("[ROLL]", 0);
+					 itemDic.Add("[ROLL]", 0f);
 
 				// - NAME -------------------------------------------------------------//
 				itemDic.Add("[NAME]", item.InternalName.ToString().Replace(" ", ""));
@@ -777,7 +777,7 @@ namespace FunkyBot
 				if (float.TryParse(Regex.Replace(item.ItemQualityLevel.ToString(), @"[^\d]", string.Empty), out roll))
 					 itemDic.Add("[ROLL]", roll);
 				else
-					 itemDic.Add("[ROLL]", 0);
+					 itemDic.Add("[ROLL]", 0f);
 
 				// - NAME -------------------------------------------------------------//
 				itemDic.Add("[NAME]", item.Name.ToString().Replace(" ", ""));

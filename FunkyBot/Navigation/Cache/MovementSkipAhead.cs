@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Linq;
+using Zeta.Bot;
+using Zeta.Bot.Dungeons;
+using Zeta.Bot.Logic;
 using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.Game;
@@ -66,8 +69,38 @@ namespace FunkyBot.Movement
 
 			if (SkipAheadAreaCache.Any(p => p.Position.Distance(ZetaDia.Me.Position) <= Precision))
 				return;
+
 			lastRecordedSkipAheadLocation = ZetaDia.Me.Position;
+
 			SkipAheadAreaCache.Add(new SkipAheadNavigation(lastRecordedSkipAheadLocation, Precision));
+
+			//Dungeon Explorer?
+			if (Navigation.CurrentDungeonExplorer != null)
+			{
+				if (Navigation.DungeonExplorerCurrentNode != null)
+				{
+					Vector2 lastrecordedV2 = lastRecordedSkipAheadLocation.ToVector2();
+
+					if (lastrecordedV2.Distance(Navigation.DungeonExplorerCurrentNode.Center) <= Precision)
+					{
+						Navigation.DungeonExplorerCurrentNode.Visited = true;
+						Logger.DBLog.Info("[Funky] Marking Node as Visited!");
+					}
+				}
+				//if (Navigation.CurrentDungeonExplorer.CurrentRoute != null && Navigation.CurrentDungeonExplorer.CurrentRoute.Count > 0)
+				//{
+				//	List<DungeonNode> RouteNodes = Navigation.CurrentDungeonExplorer.CurrentRoute.ToList();
+
+				//	Vector2 lastrecordedV2 = lastRecordedSkipAheadLocation.ToVector2();
+				//	foreach (var node in Navigation.CurrentDungeonExplorer.CurrentRoute)
+				//	{
+				//		if (lastrecordedV2.Distance(node.Center) <= Precision)
+				//		{
+				//			node.Visited = true;
+				//		}
+				//	}
+				//}
+			}
 
 			lastRecordedSkipAheadCache = DateTime.Now;
 		}

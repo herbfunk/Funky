@@ -319,14 +319,14 @@ namespace GilesTrinity.ItemRules.Core
             object obj = this.GetValue(tree, TokenType.MultExpr, 0);
 
             // only do addition and substraction for floating numbers
-            if (!(obj is float)) return obj;
+			if (!(obj is float) && !(obj is bool && this.GetValue(tree, TokenType.PLUS, 0) != null)) return obj;
 
-            float value = (float)obj;
+			float value = Convert.ToSingle(obj);
             int i = 1;
             while (this.GetValue(tree, TokenType.MultExpr, i) != null)
             {
                 if (this.GetValue(tree, TokenType.PLUS, i - 1) != null)
-                    value += (float)this.GetValue(tree, TokenType.MultExpr, i++);
+					value += Convert.ToSingle(this.GetValue(tree, TokenType.MultExpr, i++));
                 else
                     value -= (float)this.GetValue(tree, TokenType.MultExpr, i++);
             }

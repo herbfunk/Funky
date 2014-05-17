@@ -799,6 +799,25 @@ namespace FunkyBot.Movement
 
 		#endregion
 
+		public static DungeonExplorer CurrentDungeonExplorer = BrainBehavior.DungeonExplorer;
+		public static DungeonNode DungeonExplorerCurrentNode
+		{
+			get
+			{
+				
+				try
+				{
+					if (CurrentDungeonExplorer!=null && CurrentDungeonExplorer.CurrentNode!=null)
+						return CurrentDungeonExplorer.CurrentNode;
+				}
+				catch
+				{
+
+				}
+
+				return null;
+			}
+		}
 
 		//Town Scence IDs -- to verify in town!
 		private static readonly HashSet<int> TownSceneIDs = new HashSet<int>

@@ -144,9 +144,9 @@ namespace FunkyBot
 				RoutineManager.Reload();
 
 				//remove
-				File.Delete(sRoutineFunkyPath + "RoutineDebug.cs");
-				File.Delete(sRoutineFunkyPath + "CombatRoutine.cs");
-				Directory.Delete(sRoutineFunkyPath);
+				//File.Delete(sRoutineFunkyPath + "RoutineDebug.cs");
+				//File.Delete(sRoutineFunkyPath + "CombatRoutine.cs");
+				//Directory.Delete(sRoutineFunkyPath);
 
 				//Search again..
 				bool funkyRoutine = RoutineManager.Routines.Any(r => r.Name == "Funky");

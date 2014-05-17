@@ -126,7 +126,7 @@ namespace FunkyBot.Targeting.Behaviors
 						//See if the orgin object is still valid..
 
 						//min Distance for Map Markers is 25f
-						if (Bot.NavigationCache.LOSmovementObject.CentreDistance < (Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck ? 25f : 45f))
+						if (Bot.NavigationCache.LOSmovementObject.CentreDistance < (Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck ? 25f : 35f))
 						{
 
 							if (!Bot.NavigationCache.LOSmovementObject.CacheContainsOrginObject())

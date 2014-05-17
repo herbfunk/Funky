@@ -16,18 +16,16 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 		  public override void Initialize()
 		  {
 				Cooldown=10200;
-				WaitVars=new WaitLoops(2, 2, true);
+				WaitVars=new WaitLoops(0, 0, true);
 				ExecutionType=SkillExecutionFlags.ClusterLocation|SkillExecutionFlags.Location;
 				Range=35;
 				Priority=SkillPriority.Medium;
 				UseageType=SkillUseage.Combat;
 				IsASpecialMovementPower = true;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckRecastTimer|
-				                          SkillPrecastFlags.CheckCanCast));
-				ClusterConditions.Add(new SkillClusterConditions(5d, 30, 4, true));
-
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 30, 0.95d, TargetProperties.Normal));
-
+				PreCast=new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast);
+				
+				ClusterConditions.Add(new SkillClusterConditions(18d, 30, 2, true));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 30));
 
 				FCombatMovement=(v) =>
 				{

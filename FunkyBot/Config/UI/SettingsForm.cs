@@ -12,6 +12,7 @@ using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Config.Settings;
 using FunkyBot.DBHandlers;
+using FunkyBot.Movement;
 using Zeta.Game;
 using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
@@ -1486,41 +1487,31 @@ namespace FunkyBot.Config.UI
 		{
 			LBDebug.Controls.Clear();
 
-			ZetaDia.Memory.ClearCache();
-			
 			try
 			{
-				BountyInfo ab = ZetaDia.ActInfo.ActiveBounty;
-
-				int step = ab.Info.QuestStep;
-				float questmeter = ab.Info.QuestMeter;
-				int killcount = ab.Info.KillCount;
-				int bonuscount = ab.Info.BonusCount;
-				int creationTick = ab.Info.CreationTick;
-				string debugstr = String.Format("Step: {0} questMeter: {1} killCount: {2} bonusCount: {3} CreationTick: {4}", step, questmeter, killcount, bonuscount, creationTick);
-				LBDebug.Controls.Add(new UserControlDebugEntry(debugstr));
-			}
-			catch (Exception ex)
-			{
-				LBDebug.Controls.Add(new UserControlDebugEntry(String.Format("Exception: {0}", ex.InnerException)));
-			}
-
-			try
-			{
-
-				foreach (var q in ZetaDia.ActInfo.ActiveQuests)
+				if (Navigation.CurrentDungeonExplorer != null)
 				{
-					var str = String.Format("\r\nID: {4} Step: {0} questMeter: {1} killCount: {2} bonusCount: {3}",
-						q.QuestStep, q.QuestMeter, q.KillCount, q.BonusCount, q.QuestSNO);
-					LBDebug.Controls.Add(new UserControlDebugEntry(str));
+					if (Navigation.CurrentDungeonExplorer.CurrentNode != null)
+					{
+						LBDebug.Controls.Add(new UserControlDebugEntry("Current Node: " + Navigation.CurrentDungeonExplorer.CurrentNode.Center));
+					}
+					if (Navigation.CurrentDungeonExplorer.CurrentRoute != null)
+					{
+						LBDebug.Controls.Add(new UserControlDebugEntry("Current Route Nodes: " + Navigation.CurrentDungeonExplorer.CurrentRoute.Count));
+
+						foreach (var node in Navigation.CurrentDungeonExplorer.CurrentRoute)
+						{
+							LBDebug.Controls.Add(new UserControlDebugEntry(
+								String.Format("Location {0} Distance {1}", node.Center.ToString(), Bot.Character.Data.Position.ToVector2().Distance(node.Center))));
+						}
+					}
 				}
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				LBDebug.Controls.Add(new UserControlDebugEntry(String.Format("Exception: {0}", ex.InnerException)));
+				LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Exception"));
 			}
-
-
+		
 			//ZetaDia.Service.GameAccount.SwitchHero(1);
 			LBDebug.Focus();
 		}

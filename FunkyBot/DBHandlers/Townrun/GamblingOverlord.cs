@@ -361,6 +361,10 @@ namespace FunkyBot.DBHandlers
 		{
 			GamblingItemList.Clear();
 
+			//Clear and Update
+			ZetaDia.Memory.ClearCache();
+			ZetaDia.Actors.Update();
+
 			foreach (var i in ZetaDia.Actors.ACDList)
 			{
 				try

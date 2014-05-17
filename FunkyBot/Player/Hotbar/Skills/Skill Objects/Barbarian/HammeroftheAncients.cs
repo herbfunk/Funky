@@ -14,17 +14,16 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 
 		  public override void Initialize()
 		  {
-				Cooldown=150;
+				Cooldown=0;
 				ExecutionType=SkillExecutionFlags.ClusterTarget|SkillExecutionFlags.Target;
-				WaitVars=new WaitLoops(1, 2, true);
+				WaitVars=new WaitLoops(0, 0, true);
 				Cost=20;
 				Range=Bot.Character.Class.HotBar.RuneIndexCache[Power]==0?13:Bot.Character.Class.HotBar.RuneIndexCache[Power]==1?20:16;
 				UseageType=SkillUseage.Combat;
 				Priority=SkillPriority.Medium;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckRecastTimer|SkillPrecastFlags.CheckEnergy|
-				                          SkillPrecastFlags.CheckCanCast|SkillPrecastFlags.CheckPlayerIncapacitated));
+				PreCast=new SkillPreCast(SkillPrecastFlags.CheckCanCast|SkillPrecastFlags.CheckPlayerIncapacitated);
 				ClusterConditions.Add(new SkillClusterConditions(6d, 20f, 3, true));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 20, 0.95d, TargetProperties.Normal));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 20));
 
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
 		  }
