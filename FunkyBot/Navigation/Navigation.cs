@@ -818,6 +818,11 @@ namespace FunkyBot.Movement
 				return null;
 			}
 		}
+		public static string PrintDungeonExplorerNode(DungeonNode node)
+		{
+			return String.Format("Node: NavigableCenter {0} Visited {1} IsRequired {2} IsKnown {3} IsSeen {4} IsIgnored {5} IsUnknown {6}",
+									node.NavigableCenter, node.Visited, node.IsRequired, node.IsKnown, node.IsSeen, node.IsIgnored, node.IsUnknown);
+		}
 
 		//Town Scence IDs -- to verify in town!
 		private static readonly HashSet<int> TownSceneIDs = new HashSet<int>

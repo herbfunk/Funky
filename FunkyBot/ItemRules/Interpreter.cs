@@ -182,11 +182,11 @@ namespace FunkyBot
 				Logger.DBLog.InfoFormat("... loaded: {0} Pickup rules", pickUpRuleSet.Count);
 
 				//parse savlage file
-				salvageRuleSet=readLinesToArray(new StreamReader(Path.Combine(rulesPath, salvageFile)), salvageRuleSet);
+				salvageRuleSet = readLinesToArray(new StreamReader(Path.Combine(itemrulesPath, "Rules", salvageFile)), salvageRuleSet);
 				Logger.DBLog.InfoFormat("... loaded: {0} Salvage rules", salvageRuleSet.Count);
 
 				//parse unid keep file
-				unidKeepRuleSet = readLinesToArray(new StreamReader(Path.Combine(rulesPath, unidFile)), unidKeepRuleSet);
+				unidKeepRuleSet = readLinesToArray(new StreamReader(Path.Combine(itemrulesPath, "Rules", unidFile)), unidKeepRuleSet);
 				Logger.DBLog.InfoFormat("... loaded: {0} Unid Keep rules", unidKeepRuleSet.Count);
 
 				// parse all item files

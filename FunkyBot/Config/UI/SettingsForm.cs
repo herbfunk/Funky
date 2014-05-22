@@ -1400,6 +1400,7 @@ namespace FunkyBot.Config.UI
 			try
 			{
 				if (Bot.Character.Class == null) return;
+				LBDebug.Controls.Add(new UserControlDebugEntry(Bot.Character.Class.DebugString()));
 
 				LBDebug.Controls.Add(new UserControlDebugEntry("==Current HotBar Abilities=="));
 				foreach (var item in Bot.Character.Class.Abilities.Values)
@@ -1506,21 +1507,26 @@ namespace FunkyBot.Config.UI
 
 			try
 			{
-				if (Navigation.CurrentDungeonExplorer != null && Navigation.CurrentDungeonExplorer.CurrentRoute.Count>0)
+				//if (Navigation.CurrentDungeonExplorer != null && Navigation.CurrentDungeonExplorer.CurrentRoute.Count > 0)
+				//{
+				//	foreach (var n in Navigation.CurrentDungeonExplorer.CurrentRoute)
+				//	{
+				//		string s = String.Format("Center {0} IsVisited {1} Required {2}",
+				//			n.NavigableCenter.ToString(), n.Visited, n.IsRequired);
+				//		LBDebug.Controls.Add(new UserControlDebugEntry(s));
+				//	}
+				//}
+				ZetaDia.Memory.ClearCache();
+				ZetaDia.Actors.Update();
+				foreach (var i in ZetaDia.Actors.GetActorsOfType<DiaItem>())
 				{
-					foreach (var n in Navigation.CurrentDungeonExplorer.CurrentRoute)
-					{
-						string s = String.Format("Center {0} IsVisited {1} Required {2}",
-							n.Center.ToString(), n.Visited, n.IsRequired);
-						LBDebug.Controls.Add(new UserControlDebugEntry(s));
-					}
+					Logger.DBLog.Info(String.Format("Name {0} BalanceID {1}", i.Name, i.CommonData.GameBalanceId));
 				}
 			}
 			catch (Exception)
 			{
 
 			}
-
 			//ZetaDia.Service.GameAccount.SwitchHero(1);
 			LBDebug.Focus();
 		}

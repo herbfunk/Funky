@@ -338,9 +338,10 @@ namespace FunkyBot.Player.HotBar.Skills
 			}
 			if ((!TestCustomConditions || FailedCondition) && conditions.HasFlag(ConditionCriteraTypes.Cluster) && ClusterConditions.Count > 0)
 			{
-				FailedCondition = false;
 				foreach (var condition in ClusterConditions)
 				{
+					FailedCondition = false;
+
 					foreach (Func<bool> item in condition.Criteria.GetInvocationList())
 					{
 						if (!item())
@@ -362,11 +363,11 @@ namespace FunkyBot.Player.HotBar.Skills
 			}
 			if ((!TestCustomConditions || FailedCondition) && conditions.HasFlag(ConditionCriteraTypes.SingleTarget) && SingleUnitCondition.Count > 0)
 			{
-				FailedCondition = false;
-				
 				//We iterate each condition in the list and test the criteria.
 				foreach (var condition in SingleUnitCondition)
 				{
+					FailedCondition = false;
+
 					foreach (Func<bool> item in condition.Criteria.GetInvocationList())
 					{
 						if (!item())

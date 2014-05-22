@@ -1601,6 +1601,11 @@ namespace FunkyBot.Cache.Objects
 				Bot.Character.Class.PowerPrime.MinimumRange = Bot.Character.Class.IsMeleeClass ? 14 : 16;
 			else if (IgnoresLOSCheck)
 				Bot.Character.Class.PowerPrime.MinimumRange = (int)(ActorSphereRadius.Value * 1.5);
+			else if (Bot.Character.Class.HotBar.HasBuff(SNOPower.Pages_Buff_Electrified))
+			{
+				if (Bot.Character.Class.PowerPrime.MinimumRange>20)
+					Bot.Character.Class.PowerPrime.MinimumRange = 20;
+			}
 			else if (IsBurrowed.HasValue && IsBurrowed.Value && IsEliteRareUnique)//Force close range on burrowed elites!
 				Bot.Character.Class.PowerPrime.MinimumRange = 15;
 			else if (IsStealthableUnit && IsTargetable.HasValue && IsTargetable.Value == false && IsEliteRareUnique)
@@ -1609,7 +1614,7 @@ namespace FunkyBot.Cache.Objects
 				Bot.Character.Class.PowerPrime.MinimumRange = Bot.Settings.Combat.GoblinMinimumRange;
 			else if (MonsterMissileDampening && Bot.Settings.Targeting.MissleDampeningEnforceCloseRange)
 				Bot.Character.Class.PowerPrime.MinimumRange = 15;
-			else if(targetType.HasValue && targetType.Value==TargetType.Interaction)
+			else if (targetType.HasValue && targetType.Value == TargetType.Interaction)
 				Bot.Character.Class.PowerPrime.MinimumRange = 7;
 
 			// Pick a range to try to reach
@@ -1654,6 +1659,7 @@ namespace FunkyBot.Cache.Objects
 				return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n" +
 									 "HP {4} / MaxHP {5} -- IsMoving: {6} \r\n" +
 									 "PriorityCounter={7}\r\n" +
+				                     "IgnoredDueToClusterLogic {15} IsClusterException {16}\r\n" +
 									 "QuestMonster={9} MiniMapActive={14}\r\n" +
 									 "IsNpc {11} IsFriendly {12}\r\n" +
 									 "{10}\r\n" +
@@ -1675,7 +1681,8 @@ namespace FunkyBot.Cache.Objects
 					  SkillsUsedOnObject.Count > 0 ?
 							SkillsUsedOnObject.Aggregate("Skills Used\r\n:", (current, skill) => current + ("Power: " + skill.Key + " Date: " + skill.Value.ToString() + " LastUsedMS: " + DateTime.Now.Subtract(skill.Value).Milliseconds + "\r\n"))
 							: "",
-					  IsMinimapActive.HasValue?IsMinimapActive.Value.ToString():"");
+					  IsMinimapActive.HasValue?IsMinimapActive.Value.ToString():"",
+					  BeingIgnoredDueToClusterLogic, IsClusterException);
 			}
 		}
 

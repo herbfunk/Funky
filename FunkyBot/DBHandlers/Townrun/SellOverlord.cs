@@ -48,11 +48,13 @@ namespace FunkyBot.DBHandlers
 					{
 						if (thisitem.ThisDBItemType == ItemType.Potion)
 						{
-
-							if (thisitem.ACDGUID != Bot.Character.Data.BackPack.CurrentPotionACDGUID && Bot.Character.Data.BackPack.CurrentPotionACDGUID != -1)
+							if (thisitem.IsRegularPotion)
 							{
-								townRunItemCache.SellItems.Add(thisitem);
-								Logger.DBLog.InfoFormat("Selling Potion -- Current PotionACDGUID=={0}", Bot.Character.Data.BackPack.CurrentPotionACDGUID);
+								if (thisitem.ACDGUID != Bot.Character.Data.BackPack.CurrentPotionACDGUID && Bot.Character.Data.BackPack.CurrentPotionACDGUID != -1)
+								{
+									townRunItemCache.SellItems.Add(thisitem);
+									Logger.DBLog.InfoFormat("Selling Potion -- Current PotionACDGUID=={0}", Bot.Character.Data.BackPack.CurrentPotionACDGUID);
+								}
 							}
 							continue;
 						}

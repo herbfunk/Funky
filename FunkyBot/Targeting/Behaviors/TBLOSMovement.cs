@@ -55,8 +55,11 @@ namespace FunkyBot.Targeting.Behaviors
 						Logger.Write(LogLevel.LineOfSight, "LOS Object is No Longer Valid -- Reseting.");
 
 
-						if (!Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck || Bot.Game.Bounty.CurrentBountyCacheEntry.Type!=BountyQuestTypes.Event)
+						if (!Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck ||
+								(Bot.Game.Bounty.CurrentBountyCacheEntry == null || Bot.Game.Bounty.CurrentBountyCacheEntry.Type != BountyQuestTypes.Event))
+						{
 							Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(Bot.NavigationCache.LOSmovementObject.OrginCacheObjectRAGUID);
+						}
 
 						Bot.NavigationCache.LOSmovementObject = null;
 
@@ -94,8 +97,8 @@ namespace FunkyBot.Targeting.Behaviors
 								&&  Bot.Game.Bounty.ActiveBounty != null && Bot.Game.Bounty.CurrentBountyMapMarkers.Count > 0)
 						{
 
-							Bot.Game.Bounty.RefreshBountyQuestStates();
-							if (Bot.Game.Bounty.BountyQuestStates[Bot.Game.Bounty.ActiveBounty.QuestSNO] == QuestState.InProgress)
+							Bot.Game.Bounty.ActiveBounty.Refresh();
+							if (Bot.Game.Bounty.ActiveBounty.State == QuestState.InProgress)
 							{//Lets make sure the bounty is not completed.
 
 								foreach (var mapmarker in Bot.Game.Bounty.CurrentBountyMapMarkers.Values)
@@ -109,7 +112,7 @@ namespace FunkyBot.Targeting.Behaviors
 
 									Logger.Write(LogLevel.LineOfSight, "Line of Sight Started for Map Marker with {0} vectors", Navigation.NP.CurrentPath.Count);
 
-									if (Bot.Game.Bounty.CurrentBountyCacheEntry.Type!=BountyQuestTypes.Event)
+									if (Bot.Game.Bounty.CurrentBountyCacheEntry == null || Bot.Game.Bounty.CurrentBountyCacheEntry.Type != BountyQuestTypes.Event)
 										Bot.NavigationCache.LOSBlacklistedRAGUIDs.Add(mapmarker.GetHashCode());
 
 									//Set the object
@@ -144,7 +147,8 @@ namespace FunkyBot.Targeting.Behaviors
 							}
 
 							//Minimap Marker Check
-							if (Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck && Bot.Game.Bounty.CurrentActCache!=null && Bot.Game.Bounty.CurrentBountyCacheEntry.Type==BountyQuestTypes.Event)
+							if (Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck && 
+								Bot.Game.Bounty.CurrentActCache!=null && Bot.Game.Bounty.CurrentBountyCacheEntry!=null && Bot.Game.Bounty.CurrentBountyCacheEntry.Type==BountyQuestTypes.Event)
 							{
 								Bot.Game.Bounty.RefreshActiveQuests();
 							}

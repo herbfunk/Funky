@@ -37,6 +37,9 @@ namespace FunkyBot.Cache
 			288802,
 			288804,
 			288806,
+			288810,
+			288814,
+			288816,
         };
 
 		internal static Dictionary<int, CacheBalance> dictGameBalanceCache = new Dictionary<int, CacheBalance>

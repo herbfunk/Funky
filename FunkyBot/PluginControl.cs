@@ -426,30 +426,27 @@ namespace FunkyBot
 
 					#endregion
 
+
+					CanRunDecoratorDelegate canRunDelegateStats = TownRunManager.StatsOverlord;
+					ActionDelegate actionDelegateStatsBehavior = TownRunManager.StatsBehavior;
+					Sequence sequenceStats = new Sequence(new Action(actionDelegateStatsBehavior));
+					GilesReplacement.InsertChild(9, new Decorator(canRunDelegateStats, sequenceStats));
+
 					#region Finish Behavior
 
-					CanRunDecoratorDelegate canRunDelegateFinish = TownRunManager.FinishOverlord;
 					ActionDelegate actionDelegateFinishBehavior = TownRunManager.FinishBehavior;
-					Action actionFinish = GilesReplacement.Children[11] as Action;
-
+					Action actionFinish = GilesReplacement.Children[12] as Action;
 					Sequence sequenceFinish = new Sequence(
 							new Action(actionDelegateFinishBehavior),
 							actionFinish
 						);
-					//GilesReplacement.InsertChild(9, new Decorator(canRunDelegateFinish, sequenceFinish));
 					Logger.DBLog.DebugFormat("Town Run - Finish Behavior - Inserted...");
-					GilesReplacement.Children[11] = sequenceFinish;
-					//GilesReplacement.InsertChild(11, new Action(actionDelegateFinishBehavior));
+					GilesReplacement.Children[12] = sequenceFinish;
 					#endregion
 
 
 					CanRunDecoratorDelegate canRunDelegateGilesTownRunCheck = TownRunManager.GilesTownRunCheckOverlord;
 					hook.Value[0] = new Decorator(canRunDelegateGilesTownRunCheck, new PrioritySelector(GilesReplacement));
-
-					foreach (var item in GilesReplacement.Children)
-					{
-						Logger.DBLog.InfoFormat(item.GetType().ToString());
-					}
 
 					Logger.DBLog.DebugFormat("Vendor Run tree hooked...");
 				} // Vendor run hook

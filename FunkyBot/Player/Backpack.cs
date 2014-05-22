@@ -124,7 +124,7 @@ namespace FunkyBot.Player
 			BestPotionToUse = null;
 
 
-			var Potions = CacheItemList.Values.Where(i => i.ThisDBItemType== ItemType.Potion);
+			var Potions = CacheItemList.Values.Where(i => i.ThisDBItemType==ItemType.Potion && i.IsRegularPotion);
 			if (!Potions.Any())
 			{
 				Logger.DBLog.InfoFormat("No Potions Found In Backpack. Total Items Enumerated {0}", CacheItemList.Count);

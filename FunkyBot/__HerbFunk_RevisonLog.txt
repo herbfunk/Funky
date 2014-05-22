@@ -1,13 +1,21 @@
 ﻿// herbfunk revisions
 v2.10.2.0
 
+Skills:
+	Wizard Energy Armor use will reset Max Energy in Character Cache.
+	Witch Doctor Acid Cloud/Grasp will be used on single targets when energy is above 90% and target is not low HP.
+	Crusader Primary Skills priority is now Low (was none).
+	Getting a Destructible skill will now check if default attack is usable.
+	Fixed Issue with Multiple Conditions not working after first condition failed!
+
+Misc:
 	Player Mover will now check skip ahead cache during ExploreDungeon profile behavior.
 	Added OnLevelUp Event for characters under level 70, recreates player class after leveling up.
 	Low Level Settings will now use Soft Rules (pickup all items).
-	Wizard Energy Armor use will reset Max Energy in Character Cache.
-	Witch Doctor Acid Cloud will be used on single targets when energy is above 90% and target is not low HP.
 	Junk Log will no longer create log file outside of Account Folder.
-
+	Gambling Mojo item type should work now.
+	Added IsRegularPotion to CacheACDItem and BalanceCache.
+	Conduit Pylon buff will set minimum range to 20 for units.
 
 v2.10.1.3
 

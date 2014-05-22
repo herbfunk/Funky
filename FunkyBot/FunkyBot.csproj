@@ -158,6 +158,7 @@
     <Compile Include="EventHandlers\OnWorldChanged.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Game\AdventureMode.cs" />
     <Compile Include="Game\Bounty\Bounty.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -985,6 +986,9 @@
     <None Include="CombatRoutine\RoutineDebug">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="ItemRules\Rules\salvage.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="ItemRules\Rules\soft\common.dis">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -1000,22 +1004,10 @@
     <None Include="ItemRules\Rules\soft\rare.dis">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ItemRules\Rules\soft\salvage.dis">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="ItemRules\Rules\soft\set.dis">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ItemRules\Rules\soft\UnidStash.dis">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="ItemRules\Rules\hard\common.dis">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ItemRules\Rules\hard\salvage.dis">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ItemRules\Rules\hard\UnidStash.dis">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="ItemRules\Rules\hard\legendary.dis">
@@ -1034,6 +1026,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="ItemRules\Rules\translation.dis">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ItemRules\Rules\UnidStash.dis">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

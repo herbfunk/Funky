@@ -73,41 +73,15 @@ namespace FunkyBot.Movement
 			lastRecordedSkipAheadLocation = ZetaDia.Me.Position;
 
 			SkipAheadAreaCache.Add(new SkipAheadNavigation(lastRecordedSkipAheadLocation, Precision));
-
-			//Dungeon Explorer?
-			if (Navigation.CurrentDungeonExplorer != null)
-			{
-				if (Navigation.DungeonExplorerCurrentNode != null)
-				{
-					Vector2 lastrecordedV2 = lastRecordedSkipAheadLocation.ToVector2();
-
-					if (lastrecordedV2.Distance(Navigation.DungeonExplorerCurrentNode.Center) <= Precision)
-					{
-						Navigation.DungeonExplorerCurrentNode.Visited = true;
-						Logger.DBLog.Info("[Funky] Marking Node as Visited!");
-					}
-				}
-				//if (Navigation.CurrentDungeonExplorer.CurrentRoute != null && Navigation.CurrentDungeonExplorer.CurrentRoute.Count > 0)
-				//{
-				//	List<DungeonNode> RouteNodes = Navigation.CurrentDungeonExplorer.CurrentRoute.ToList();
-
-				//	Vector2 lastrecordedV2 = lastRecordedSkipAheadLocation.ToVector2();
-				//	foreach (var node in Navigation.CurrentDungeonExplorer.CurrentRoute)
-				//	{
-				//		if (lastrecordedV2.Distance(node.Center) <= Precision)
-				//		{
-				//			node.Visited = true;
-				//		}
-				//	}
-				//}
-			}
-
 			lastRecordedSkipAheadCache = DateTime.Now;
 		}
 
 		public static HashSet<int> LevelAreaIDsIgnoreSkipping = new HashSet<int>
  		{
 			276226, //Keep Depths
+			275923, //Cathedral
+			276212, //a2 caves
+
 		};
 	}
 

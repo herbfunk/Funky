@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web.UI.WebControls;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
@@ -432,8 +433,9 @@ namespace FunkyBot.Targeting
 
 		public string DebugString()
 		{
-			return string.Format("CurrentTarget: {32}" +
-			                     "LastTarget: {33}" +
+			return string.Format("CurrentTarget: {32}\r\n" +
+			                     "LastTarget: {33}\r\n" +
+			                     "UnitTarget: {34}\r\n" +
 			                     "Backtracking: {0} \r\n" +
 								 "bWholeNewTarget: {1} \r\n" +
 								 "bPickNewAbilities: {2} \r\n" +
@@ -474,7 +476,8 @@ namespace FunkyBot.Targeting
 								 lastHadEliteUnitInSights, lastHadContainerAsTarget, lastSeenCursedShrine, UpdateQuestMonsterProperty, lastHadRareChestAsTarget,
 								 iTotalNumberGoblins, lastGoblinTime, 
 								 CurrentTarget!=null?CurrentTarget.InternalName:"NONE!",
-								 LastCachedTarget!=null?LastCachedTarget.InternalName:"NONE!");
+								 LastCachedTarget!=null?LastCachedTarget.InternalName:"NONE!",
+								 CurrentUnitTarget!=null?CurrentUnitTarget.InternalName:"NONE!");
 		}
 	}
 }

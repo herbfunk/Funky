@@ -70,18 +70,16 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 
 					//PowerManager.CanCastFlags.Flag80; (Not enough Resource?)
 					//PowerManager.CanCastFlags.Flag8; (On Cooldown?)
+					if (!cancast && s.CanCastFlags.HasFlag(PowerManager.CanCastFlags.Flag80))
+					{
+						if (s.IsSpecialAbility)
+							Bot.Character.Class.bWaitingForSpecial = true;
 
-					//&& s.CanCastFlags.HasFlag(PowerManager.CanCastFlags.PowerNotEnoughResource)
-					//if (!cancast)
-					//{
-					//	if (s.IsSpecialAbility)
-					//		Bot.Character.Class.bWaitingForSpecial = true;
-
-					//	if (s.IsRanged || s.Range > 0)
-					//		Bot.Character.Class.CanUseDefaultAttack = true;
-					//}
-					//else if (IsSpecialAbility)
-					//	 Bot.Character_.Class.bWaitingForSpecial=false;
+						if (s.IsRanged || s.Range > 0)
+							Bot.Character.Class.CanUseDefaultAttack = true;
+					}
+					else if (s.IsSpecialAbility)
+						Bot.Character.Class.bWaitingForSpecial = false;
 
 					return cancast;
 				});

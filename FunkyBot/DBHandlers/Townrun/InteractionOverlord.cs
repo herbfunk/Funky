@@ -143,30 +143,9 @@ namespace FunkyBot.DBHandlers
 
 			IgnoreVendoring = true;
 
-			//Refresh?
-			if (Bot.Targeting.Cache.ShouldRefreshObjectList)
-				Bot.Targeting.Cache.Refresh();
 
-			//Check if we have any NEW targets to deal with.. 
-			if (Bot.Targeting.Cache.CurrentTarget != null)
-			{
-				
-
-				//Directly Handle Target..
-				RunStatus targetHandler = Bot.Targeting.Handler.HandleThis();
-
-				//Only return failure if handling failed..
-				if (targetHandler == RunStatus.Failure)
-				{
-					return RunStatus.Success;
-				}
-				if (targetHandler == RunStatus.Success)
-				{
-					Bot.Targeting.ResetTargetHandling();
-				}
-
+			if (Bot.Targeting.CheckHandleTarget()==RunStatus.Running)
 				return RunStatus.Running;
-			}
 
 			IgnoreVendoring = false;
 

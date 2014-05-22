@@ -16,7 +16,13 @@ namespace FunkyBot.Cache.Objects
 		public bool bThisOneHand { get; set; }
 		public FollowerType thisFollowerType { get; set; }
 		public bool bNeedsUpdated { get; set; }
-
+		public bool IsRegularPotion
+		{
+			get
+			{
+				return iThisBalanceID == -2142362846;
+			}
+		}
 
 		public GilesItemType GetGItemType(string internalName)
 		{

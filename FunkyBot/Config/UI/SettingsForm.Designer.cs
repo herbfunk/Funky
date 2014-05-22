@@ -191,6 +191,7 @@
 			this.tabControl2 = new System.Windows.Forms.TabControl();
 			this.tabPage12 = new System.Windows.Forms.TabPage();
 			this.panel21 = new System.Windows.Forms.Panel();
+			this.cb_GeneralSkipAhead = new System.Windows.Forms.CheckBox();
 			this.cb_GeneralAllowBuffInTown = new System.Windows.Forms.CheckBox();
 			this.cb_MovementOutOfCombatSkills = new System.Windows.Forms.CheckBox();
 			this.panel17 = new System.Windows.Forms.Panel();
@@ -281,7 +282,6 @@
 			this.btn_DumpTargetingCache = new System.Windows.Forms.Button();
 			this.btn_DumpBountyCache = new System.Windows.Forms.Button();
 			this.btn_Test = new System.Windows.Forms.Button();
-			this.cb_GeneralSkipAhead = new System.Windows.Forms.CheckBox();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -472,6 +472,7 @@
 			this.cb_CombatAllowDefaultAttack.Size = new System.Drawing.Size(158, 17);
 			this.cb_CombatAllowDefaultAttack.TabIndex = 1;
 			this.cb_CombatAllowDefaultAttack.Text = "Allow Default Attack Always";
+			this.toolTip1.SetToolTip(this.cb_CombatAllowDefaultAttack, "If your build does not contain a primary skill then you should enable this!");
 			this.cb_CombatAllowDefaultAttack.UseVisualStyleBackColor = true;
 			// 
 			// label5
@@ -493,6 +494,7 @@
 			this.panel4.Name = "panel4";
 			this.panel4.Size = new System.Drawing.Size(200, 73);
 			this.panel4.TabIndex = 0;
+			this.toolTip1.SetToolTip(this.panel4, "These are the targets valid for movement based skills such as leap or teleport.");
 			// 
 			// cb_CombatMovementGold
 			// 
@@ -705,6 +707,7 @@
 			this.panel6.Name = "panel6";
 			this.panel6.Size = new System.Drawing.Size(252, 62);
 			this.panel6.TabIndex = 4;
+			this.toolTip1.SetToolTip(this.panel6, "The bots health percent that will disable clustering behavior.");
 			// 
 			// tb_ClusterLogicDisableHealth
 			// 
@@ -744,6 +747,7 @@
 			this.panel8.Name = "panel8";
 			this.panel8.Size = new System.Drawing.Size(252, 71);
 			this.panel8.TabIndex = 6;
+			this.toolTip1.SetToolTip(this.panel8, "The minimum units required before the cluster is valid for targeting.");
 			// 
 			// tb_ClusterLogicMinimumUnits
 			// 
@@ -783,6 +787,8 @@
 			this.panel7.Name = "panel7";
 			this.panel7.Size = new System.Drawing.Size(252, 71);
 			this.panel7.TabIndex = 5;
+			this.toolTip1.SetToolTip(this.panel7, "The distance between each unit, the lower the value, the tighter the cluster will" +
+        " be.");
 			// 
 			// tb_ClusterLogicDistance
 			// 
@@ -826,6 +832,7 @@
 			this.groupBox10.TabIndex = 7;
 			this.groupBox10.TabStop = false;
 			this.groupBox10.Text = "Unit Exceptions";
+			this.toolTip1.SetToolTip(this.groupBox10, "Units that will be targetable regardless of clustering behavior.");
 			// 
 			// panel_TargetingUnitExceptionsLowHealthMaxDistance
 			// 
@@ -2103,6 +2110,18 @@
 			this.panel21.Size = new System.Drawing.Size(296, 100);
 			this.panel21.TabIndex = 21;
 			// 
+			// cb_GeneralSkipAhead
+			// 
+			this.cb_GeneralSkipAhead.AutoSize = true;
+			this.cb_GeneralSkipAhead.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_GeneralSkipAhead.Location = new System.Drawing.Point(3, 57);
+			this.cb_GeneralSkipAhead.Name = "cb_GeneralSkipAhead";
+			this.cb_GeneralSkipAhead.Size = new System.Drawing.Size(179, 21);
+			this.cb_GeneralSkipAhead.TabIndex = 21;
+			this.cb_GeneralSkipAhead.Text = "Allow Skip Ahead Cache";
+			this.toolTip1.SetToolTip(this.cb_GeneralSkipAhead, "Used to skip locations already visited. Used in ExploreDungeon Tag.");
+			this.cb_GeneralSkipAhead.UseVisualStyleBackColor = true;
+			// 
 			// cb_GeneralAllowBuffInTown
 			// 
 			this.cb_GeneralAllowBuffInTown.AutoSize = true;
@@ -3107,18 +3126,6 @@
 			this.btn_Test.Text = "Test";
 			this.btn_Test.UseVisualStyleBackColor = true;
 			this.btn_Test.Click += new System.EventHandler(this.btn_Test_Click);
-			// 
-			// cb_GeneralSkipAhead
-			// 
-			this.cb_GeneralSkipAhead.AutoSize = true;
-			this.cb_GeneralSkipAhead.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cb_GeneralSkipAhead.Location = new System.Drawing.Point(3, 57);
-			this.cb_GeneralSkipAhead.Name = "cb_GeneralSkipAhead";
-			this.cb_GeneralSkipAhead.Size = new System.Drawing.Size(179, 21);
-			this.cb_GeneralSkipAhead.TabIndex = 21;
-			this.cb_GeneralSkipAhead.Text = "Allow Skip Ahead Cache";
-			this.toolTip1.SetToolTip(this.cb_GeneralSkipAhead, "Used to skip locations already visited. Used in ExploreDungeon Tag.");
-			this.cb_GeneralSkipAhead.UseVisualStyleBackColor = true;
 			// 
 			// toolTip1
 			// 

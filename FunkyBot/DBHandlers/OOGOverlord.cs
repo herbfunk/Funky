@@ -25,11 +25,12 @@ namespace FunkyBot.DBHandlers
 		{
 			if (MuleBehavior)
 			{
-				if (!Bot.Settings.Plugin.CreateMuleOnStashFull)
-				{
+				Logger.DBLog.Warn("Cannot Stash anymore Items and Mule behavior is disabled!");
+				//if (!Bot.Settings.Plugin.CreateMuleOnStashFull)
+				//{
 					BotMain.Stop(true, "Cannot stash anymore items!");
 					return false;
-				}
+				//}
 
 				//Skip this until we create our new A1 game..
 				if (RanProfile && !TransferedGear)

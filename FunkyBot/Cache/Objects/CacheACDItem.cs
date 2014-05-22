@@ -27,6 +27,13 @@ namespace FunkyBot.Cache.Objects
 		public FollowerType ThisFollowerType { get; set; }
 		public bool IsUnidentified { get; set; }
 		public bool IsPotion { get; set; }
+		public bool IsRegularPotion
+		{
+			get
+			{
+				return ThisBalanceID == -2142362846;
+			}
+		}
 		public int ThisItemStackQuantity { get; set; }
 		public float Dexterity { get; set; }
 		public float Intelligence { get; set; }

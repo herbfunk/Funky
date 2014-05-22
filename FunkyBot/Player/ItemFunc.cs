@@ -273,17 +273,20 @@ namespace FunkyBot.Player
 					// Potion filtering
 					if (thisGilesItemType == GilesItemType.HealthPotion)
 					{
-						if (Bot.Settings.Loot.MaximumHealthPotions <= 0)
-							return false;
+						if (item.BalanceData.IsRegularPotion)
+						{
+							if (Bot.Settings.Loot.MaximumHealthPotions <= 0)
+								return false;
 
-						var Potions = Bot.Character.Data.BackPack.ReturnCurrentPotions();
+							var Potions = Bot.Character.Data.BackPack.ReturnCurrentPotions();
 
-						if (Potions == null || !Potions.Any() || Bot.Character.Data.BackPack.BestPotionToUse == null)
-							return true;
-						if (Bot.Character.Data.BackPack.BestPotionToUse != null && item.BalanceData.iThisItemLevel < Bot.Character.Data.BackPack.BestPotionToUse.Level)
-							return false;
-						if (Potions.Sum(potions => potions.ThisItemStackQuantity) >= Bot.Settings.Loot.MaximumHealthPotions)
-							return false;
+							if (Potions == null || !Potions.Any() || Bot.Character.Data.BackPack.BestPotionToUse == null)
+								return true;
+							if (Bot.Character.Data.BackPack.BestPotionToUse != null && item.BalanceData.iThisItemLevel < Bot.Character.Data.BackPack.BestPotionToUse.Level)
+								return false;
+							if (Potions.Sum(potions => potions.ThisItemStackQuantity) >= Bot.Settings.Loot.MaximumHealthPotions)
+								return false;
+						}
 					}
 
 

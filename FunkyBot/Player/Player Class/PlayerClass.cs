@@ -468,32 +468,10 @@ namespace FunkyBot.Player.Class
 		}
 
 
-		internal void DebugString()
+		internal string DebugString()
 		{
-			Logger.DBLog.InfoFormat("Character Information\r\nRadius {0}\r\nHotBar Abilities [{1}]\r\n", Bot.Character.Data.fCharacterRadius, HotBar.HotbarPowers.Count);
-
-			foreach (SNOPower item in Bot.Character.Class.HotBar.HotbarPowers)
-			{
-				Logger.DBLog.InfoFormat("{0} with current rune index {1}", item.ToString(), HotBar.RuneIndexCache.ContainsKey(item) ? HotBar.RuneIndexCache[item].ToString(CultureInfo.InvariantCulture) : "none");
-			}
-
-			Logger.DBLog.InfoFormat("Created Abilities [{0}]", Abilities.Count);
-			foreach (var item in Abilities.Values)
-			{
-				Logger.DBLog.InfoFormat("Power [{0}] -- Priority {1} --", item.Power.ToString(), item.Priority);
-			}
-
-			Logger.DBLog.InfoFormat("Current Buffs");
-			foreach (SNOPower item in HotBar.CurrentBuffs.Keys)
-			{
-				Logger.DBLog.InfoFormat("Buff: {0}", Enum.GetName(typeof(SNOPower), item));
-			}
-			Logger.DBLog.InfoFormat("Current Debuffs");
-			foreach (SNOPower item in HotBar.CurrentDebuffs)
-			{
-				Logger.DBLog.InfoFormat("Debuff: {0}", Enum.GetName(typeof(SNOPower), item));
-			}
-
+			string s = String.Format("Class {0} WaitingForSpecial {1} ReserveAmount {2}", AC.ToString(), bWaitingForSpecial, iWaitingReservedAmount);
+			return s;
 		}
 
 		///<summary>

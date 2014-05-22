@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FunkyBot.Cache.Objects;
+using Zeta.TreeSharp;
 
 namespace FunkyBot.Targeting
 {
@@ -34,6 +35,34 @@ namespace FunkyBot.Targeting
 		{
 			Cache.ResetTargetHandling();
 			Movement.ResetTargetMovementVars();
+		}
+
+		public RunStatus CheckHandleTarget()
+		{
+			//Refresh?
+			if (Bot.Targeting.Cache.ShouldRefreshObjectList)
+				Bot.Targeting.Cache.Refresh();
+
+			//Check if we have any NEW targets to deal with.. 
+			if (Bot.Targeting.Cache.CurrentTarget != null)
+			{
+				//Directly Handle Target..
+				RunStatus targetHandler = Bot.Targeting.Handler.HandleThis();
+
+				//Only return failure if handling failed..
+				if (targetHandler == RunStatus.Failure)
+				{
+					return RunStatus.Success;
+				}
+				if (targetHandler == RunStatus.Success)
+				{
+					Bot.Targeting.ResetTargetHandling();
+				}
+
+				return RunStatus.Running;
+			}
+
+			return RunStatus.Success;
 		}
 
 	}

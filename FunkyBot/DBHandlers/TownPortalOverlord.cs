@@ -106,7 +106,7 @@ namespace FunkyBot.DBHandlers
 			FunkyTP_LastCastAttempt = DateTime.MinValue;
 			//GameEvents.OnWorldChanged-=OnWorldChanged;
 			//GameEvents.OnWorldTransferStart-=OnWorldChangeStart;
-			StartingPosition = Vector3.Zero;
+			//StartingPosition = Vector3.Zero;
 		}
 
 		internal static bool initizedTPBehavior = false;
@@ -217,34 +217,10 @@ namespace FunkyBot.DBHandlers
 			//Set our flag which is used to setup the refreshing specific for this/similar behaviors.
 			FunkyTPBehaviorFlag = true;
 
-			//Refresh?
-			if (Bot.Targeting.Cache.ShouldRefreshObjectList)
-			{
-				Bot.Targeting.Cache.Refresh();
-			}
-
-			//Check if we have any NEW targets to deal with.. 
-			//Note: Refresh will filter targets to units and avoidance ONLY.
-			if (Bot.Targeting.Cache.CurrentTarget != null)
-			{
-				Bot.Targeting.Movement.RestartTracking();
-
-				//Directly Handle Target..
-				RunStatus targetHandler = Bot.Targeting.Handler.HandleThis();
-
-				//Only return failure if handling failed..
-				if (targetHandler == RunStatus.Failure)
-				{
-					ResetTPBehavior();
-					return RunStatus.Success;
-				}
-				if (targetHandler == RunStatus.Success)
-				{
-					Bot.Targeting.ResetTargetHandling();
-				}
-
+			//Handle Targeting..
+			if (Bot.Targeting.CheckHandleTarget() == RunStatus.Running)
 				return RunStatus.Running;
-			}
+
 			if (MovementOccured)
 			{
 				//Backtrack to orginal location...

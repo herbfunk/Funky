@@ -66,6 +66,7 @@ namespace FunkyDebug
 				return;
 
 			item = cacheItems[itemACDGUID];
+			
 
 			Point screenPoint = this.PointToScreen(entrySender.Location);//this.PointToClient(MousePosition);
 			screenPoint.Offset(this.Width, 0);
@@ -294,8 +295,26 @@ namespace FunkyDebug
 
 		private void entryDoubleClick(object sender, EventArgs e)
 		{
-			Label entry = (Label)sender;
-			Clipboard.SetText(entry.Text);
+			Label entrySender = (Label)sender;
+
+			CacheACDItem item;
+			int itemACDGUID;
+			try
+			{
+				itemACDGUID = Convert.ToInt32(entrySender.Name);
+			}
+			catch
+			{
+				return;
+			}
+
+			if (!cacheItems.ContainsKey(itemACDGUID))
+				return;
+
+			item = cacheItems[itemACDGUID];
+			string itemRulesString = FunkyDebug.FunkyDebugger.ItemRules.getFullItem(item);
+
+			Clipboard.SetText(entrySender.Text + " " + itemRulesString);
 		}
 		private void btnRefreshCharacter_Click(object sender, EventArgs e)
 		{

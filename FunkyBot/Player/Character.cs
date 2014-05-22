@@ -121,8 +121,7 @@ namespace FunkyBot.Player
 				//Adventure Mode?
 				if (Bot.Game.AdventureMode && Bot.Settings.AdventureMode.EnableAdventuringMode)
 				{
-					if (!CacheIDLookup.riftWorldIds.Contains(Bot.Character.Data.CurrentWorldID))
-						Bot.Game.Bounty.RefreshBountyLevelChange();
+					Bot.Game.Bounty.RefreshLevelChanged();
 				}
 
 				LastLevelIDChangeWasTownRun = false;

@@ -427,7 +427,7 @@ namespace FunkyBot.Cache.Objects
 		public bool IsProjectileAvoidance { get { return AvoidanceCache.hashAvoidanceSNOProjectiles.Contains(SNOID); } }
 		public bool IsCorpseContainer { get { return (internalNameLower.Contains("loottype") || internalNameLower.Contains("corpse")); } }
 		public bool IsChestContainer { get { return (internalNameLower.Contains("chest")); } }
-		public bool IgnoresLOSCheck { get { return IsBoss; } }
+		public bool IgnoresLOSCheck { get { return IsBoss || IsCorruptantGrowth; } }
 		public bool IsMissileReflecting { get { return ObjectCache.SNOCache.Units.ReflectiveMissleUnits.Contains(SNOID); } }
 		public bool IsStealthableUnit { get { return ObjectCache.SNOCache.Units.StealthUnits.Contains(SNOID); } }
 		public bool IsBurrowableUnit { get { return ObjectCache.SNOCache.Units.BurrowableUnits.Contains(SNOID); } }
