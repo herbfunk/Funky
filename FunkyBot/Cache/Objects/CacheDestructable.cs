@@ -74,7 +74,7 @@ namespace FunkyBot.Cache.Objects
 					else if (lastLOSCheckMS < 2500 && this.CentreDistance > 20f)
 						return false;
 
-					if (!base.LineOfSight.LOSTest(Bot.Character.Data.Position, NavRayCast: true, ServerObjectIntersection: false) && (Funky.PlayerMover.iTotalAntiStuckAttempts == 0 || this.RadiusDistance > 12f))
+					if (!base.LineOfSight.LOSTest(Bot.Character.Data.Position, true, ServerObjectIntersection: false) && (Funky.PlayerMover.iTotalAntiStuckAttempts == 0 || this.RadiusDistance > 12f))
 					{
 						return false;
 					}

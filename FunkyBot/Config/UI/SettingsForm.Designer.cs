@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.tabControl_Combat = new System.Windows.Forms.TabControl();
@@ -280,6 +281,8 @@
 			this.btn_DumpTargetingCache = new System.Windows.Forms.Button();
 			this.btn_DumpBountyCache = new System.Windows.Forms.Button();
 			this.btn_Test = new System.Windows.Forms.Button();
+			this.cb_GeneralSkipAhead = new System.Windows.Forms.CheckBox();
+			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabControl_Combat.SuspendLayout();
@@ -2092,6 +2095,7 @@
 			// 
 			// panel21
 			// 
+			this.panel21.Controls.Add(this.cb_GeneralSkipAhead);
 			this.panel21.Controls.Add(this.cb_GeneralAllowBuffInTown);
 			this.panel21.Controls.Add(this.cb_MovementOutOfCombatSkills);
 			this.panel21.Location = new System.Drawing.Point(6, 195);
@@ -3104,6 +3108,24 @@
 			this.btn_Test.UseVisualStyleBackColor = true;
 			this.btn_Test.Click += new System.EventHandler(this.btn_Test_Click);
 			// 
+			// cb_GeneralSkipAhead
+			// 
+			this.cb_GeneralSkipAhead.AutoSize = true;
+			this.cb_GeneralSkipAhead.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_GeneralSkipAhead.Location = new System.Drawing.Point(3, 57);
+			this.cb_GeneralSkipAhead.Name = "cb_GeneralSkipAhead";
+			this.cb_GeneralSkipAhead.Size = new System.Drawing.Size(179, 21);
+			this.cb_GeneralSkipAhead.TabIndex = 21;
+			this.cb_GeneralSkipAhead.Text = "Allow Skip Ahead Cache";
+			this.toolTip1.SetToolTip(this.cb_GeneralSkipAhead, "Used to skip locations already visited. Used in ExploreDungeon Tag.");
+			this.cb_GeneralSkipAhead.UseVisualStyleBackColor = true;
+			// 
+			// toolTip1
+			// 
+			this.toolTip1.AutoPopDelay = 5000;
+			this.toolTip1.InitialDelay = 1000;
+			this.toolTip1.ReshowDelay = 500;
+			// 
 			// SettingsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3532,6 +3554,8 @@
 		private System.Windows.Forms.CheckBox cb_LOSEventSwitches;
 		private System.Windows.Forms.GroupBox gb_ClusteringOptions;
 		private System.Windows.Forms.Button btn_DumpInteractiveCache;
+		private System.Windows.Forms.CheckBox cb_GeneralSkipAhead;
+		private System.Windows.Forms.ToolTip toolTip1;
 		//
 	}
 }

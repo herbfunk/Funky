@@ -666,7 +666,12 @@ namespace FunkyBot.Cache.Objects
 									targetType = TargetType.Shrine;
 								}
 								else if (thisGizmoType == GizmoType.Chest)
-									targetType = TargetType.Container;
+								{
+									if (IsCursedChest)
+										targetType = TargetType.CursedChest;
+									else
+										targetType = TargetType.Container;
+								}
 								else if (thisGizmoType == GizmoType.BreakableDoor)
 									targetType = TargetType.Barricade;
 								else if (thisGizmoType == GizmoType.Door)
@@ -683,7 +688,7 @@ namespace FunkyBot.Cache.Objects
 										targetType = TargetType.CursedChest;
 									else
 									{//Misc Gizmos (Sometimes Opening Doors or Paths!)
-										targetType=TargetType.Interactable;
+										targetType = TargetType.Interactable;
 									}
 								}
 								else

@@ -402,7 +402,19 @@ namespace FunkyBot.Targeting
 
 				// Select an Ability for destroying a destructible with in advance
 				if (Bot.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Destructible || Bot.Targeting.Cache.CurrentTarget.targetType == TargetType.Barricade)
+				{
+					Skill nextAbility = Bot.Character.Class.DestructibleAbility();
+					if (nextAbility.Equals(Bot.Character.Class.DefaultAttack) && !Bot.Character.Class.CanUseDefaultAttack && !Bot.Settings.Combat.AllowDefaultAttackAlways)
+					{
+						Logger.Write(LogLevel.Ability, "Default Attack not usable -- Failed to find a valid Ability to use -- Target: {0}", Bot.Targeting.Cache.CurrentTarget.InternalName);
+						Bot.Targeting.Cache.bForceTargetUpdate = true;
+						CurrentState = RunStatus.Running;
+						Bot.Targeting.Cache.CurrentTarget.BlacklistLoops = 10;
+						return false;
+					}
+
 					Bot.Character.Class.PowerPrime = Bot.Character.Class.DestructibleAbility();
+				}
 
 				//Interactables (for pre and post waits)
 				if (ObjectCache.CheckTargetTypeFlag(Bot.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.Item|TargetType.Interactables|TargetType.Interaction))
@@ -483,6 +495,10 @@ namespace FunkyBot.Targeting
 					}
 					else
 					{
+						//Skip to next location if within 2.5f distance!
+						if (Bot.Character.Data.Position.Distance2D(Navigation.NP.CurrentPath.Current)<=2.5f)
+							Navigation.NP.CurrentPath.Next();
+
 						Bot.Targeting.Movement.CurrentTargetLocation = Navigation.NP.CurrentPath.Current;
 					}
 

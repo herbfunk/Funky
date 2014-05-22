@@ -176,14 +176,34 @@
         <int>362996</int>
       </QuestSNOs>
     </BountyQuestCacheEntry>
-
+    <BountyQuestCacheEntry>
+      <Name>A5_Kill_Cemetery</Name>
+      <Type>Kill</Type>
+      <StartingLevelAreaID>338946</StartingLevelAreaID>
+      <TotalKillCount>100</TotalKillCount>
+      <QuestSNOs>
+        <int>363090</int>
+        <int>363092</int>
+        <int>363086</int>
+        <int>359233</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
 
   </KillBounties>
 
-
   <ClearBounties />
 
-  <CursedEventBounties />
+  <CursedEventBounties>
+    <BountyQuestCacheEntry>
+      <Name>Act5_Corvus_CursedCity</Name>
+      <Type>CursedEvent</Type>
+      <StartingLevelAreaID>258142</StartingLevelAreaID>
+      <EndingLevelAreaID>341041</EndingLevelAreaID>
+      <QuestSNOs>
+        <int>369952</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
+  </CursedEventBounties>
 
   <MiscEventBounties>
   <!--

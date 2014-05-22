@@ -420,6 +420,10 @@ namespace FunkyBot.Config.UI
 				cb_GeneralApplyEndDelayToContainers.Checked = Bot.Settings.General.EnableWaitAfterContainers;
 				cb_GeneralApplyEndDelayToContainers.CheckedChanged += cb_GeneralApplyEndDelayToContainers_CheckedChanged;
 
+				cb_GeneralSkipAhead.Checked=Bot.Settings.Debug.SkipAhead;
+				cb_GeneralSkipAhead.CheckedChanged += cb_GeneralSkipAhead_CheckedChanged;
+				
+
 				cb_AdventureModeEnabled.Checked = Bot.Settings.AdventureMode.EnableAdventuringMode;
 				cb_AdventureModeEnabled.CheckedChanged += cb_AdventureModeEnabled_CheckedChanged;
 
@@ -1140,6 +1144,10 @@ namespace FunkyBot.Config.UI
 		private void cb_GeneralApplyEndDelayToContainers_CheckedChanged(object sender, EventArgs e)
 		{
 			Bot.Settings.General.EnableWaitAfterContainers = !Bot.Settings.General.EnableWaitAfterContainers;
+		}
+		private void cb_GeneralSkipAhead_CheckedChanged(object sender, EventArgs e)
+		{
+			Bot.Settings.Debug.SkipAhead = !Bot.Settings.Debug.SkipAhead;
 		}
 
 		private void cb_AdventureModeEnabled_CheckedChanged(object sender, EventArgs e)

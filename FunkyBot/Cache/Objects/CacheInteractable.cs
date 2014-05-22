@@ -103,6 +103,16 @@ namespace FunkyBot.Cache.Objects
 					return false;
 				}
 
+
+				//Post Activation of Cursed Chest turns it into a "chest" gizmo (pre-activation is a switch)
+				if (targetType.Value==TargetType.CursedChest && Gizmotype.HasValue && Gizmotype.Value == GizmoType.Chest)
+				{
+					Bot.Targeting.Cache.lastSeenCursedShrine = DateTime.Now;
+					LoopsUnseen = 0;
+					return false;
+				}
+
+
 				if (RequiresLOSCheck && !IgnoresLOSCheck && radiusDistance>0f)
 				{
 					//Get the wait time since last used LOSTest

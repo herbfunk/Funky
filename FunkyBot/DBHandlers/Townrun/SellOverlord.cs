@@ -320,23 +320,23 @@ namespace FunkyBot.DBHandlers
 			Logger.DBLog.DebugFormat("GSDebug: Sell routine ending sequence...");
 
 
-			if (bLoggedJunkThisStash)
-			{
-				FileStream LogStream;
-				try
-				{
-					string sLogFileName = Logger.LoggingPrefixString + " -- JunkLog.log";
-					LogStream = File.Open(FolderPaths.LoggingFolderPath + sLogFileName, FileMode.Append, FileAccess.Write, FileShare.Read);
-					using (StreamWriter LogWriter = new StreamWriter(LogStream))
-						LogWriter.WriteLine("");
-					//LogStream.Close();
-				}
-				catch (IOException)
-				{
-					Logger.DBLog.DebugFormat("Fatal Error: File access error for signing off the junk log file.");
-				}
-				bLoggedJunkThisStash = false;
-			}
+			//if (bLoggedJunkThisStash)
+			//{
+			//	FileStream LogStream;
+			//	try
+			//	{
+			//		string sLogFileName = Logger.LoggingPrefixString + " -- JunkLog.log";
+			//		LogStream = File.Open(FolderPaths.LoggingFolderPath + sLogFileName, FileMode.Append, FileAccess.Write, FileShare.Read);
+			//		using (StreamWriter LogWriter = new StreamWriter(LogStream))
+			//			LogWriter.WriteLine("");
+			//		//LogStream.Close();
+			//	}
+			//	catch (IOException)
+			//	{
+			//		Logger.DBLog.DebugFormat("Fatal Error: File access error for signing off the junk log file.");
+			//	}
+			//	bLoggedJunkThisStash = false;
+			//}
 
 			// See if we can close the inventory window
 			if (UIElement.IsValidElement(0x368FF8C552241695))

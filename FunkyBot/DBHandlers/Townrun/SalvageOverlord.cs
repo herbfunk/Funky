@@ -216,23 +216,23 @@ namespace FunkyBot.DBHandlers
 		internal static RunStatus GilesOptimisedPostSalvage(object ret)
 		{
 			Logger.DBLog.DebugFormat("GSDebug: Salvage routine ending sequence...");
-			if (bLoggedJunkThisStash)
-			{
-				FileStream LogStream;
-				try
-				{
-					string sLogFileName = FolderPaths.LoggingFolderPath + @"\" + Logger.LoggingPrefixString + " -- JunkLog.log";
-					LogStream = File.Open(FolderPaths.LoggingFolderPath + sLogFileName, FileMode.Append, FileAccess.Write, FileShare.Read);
-					using (StreamWriter LogWriter = new StreamWriter(LogStream))
-						LogWriter.WriteLine("");
-					//LogStream.Close();
-				}
-				catch (IOException)
-				{
-					Logger.DBLog.DebugFormat("Fatal Error: File access error for signing off the junk log file.");
-				}
-				bLoggedJunkThisStash = false;
-			}
+			//if (bLoggedJunkThisStash)
+			//{
+			//	FileStream LogStream;
+			//	try
+			//	{
+			//		string sLogFileName = FolderPaths.LoggingFolderPath + @"\" + Logger.LoggingPrefixString + " -- JunkLog.log";
+			//		LogStream = File.Open(FolderPaths.LoggingFolderPath + sLogFileName, FileMode.Append, FileAccess.Write, FileShare.Read);
+			//		using (StreamWriter LogWriter = new StreamWriter(LogStream))
+			//			LogWriter.WriteLine("");
+			//		//LogStream.Close();
+			//	}
+			//	catch (IOException)
+			//	{
+			//		Logger.DBLog.DebugFormat("Fatal Error: File access error for signing off the junk log file.");
+			//	}
+			//	bLoggedJunkThisStash = false;
+			//}
 
 
 			if (!bReachedSafety && ZetaDia.CurrentAct == Act.A3)

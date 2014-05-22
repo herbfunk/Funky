@@ -104,6 +104,11 @@ namespace FunkyBot.Movement
 
 			lastRecordedSkipAheadCache = DateTime.Now;
 		}
+
+		public static HashSet<int> LevelAreaIDsIgnoreSkipping = new HashSet<int>
+ 		{
+			276226, //Keep Depths
+		};
 	}
 
 	// A list of small areas covering zones we move through while fighting to help our custom move-handler skip ahead waypoints
