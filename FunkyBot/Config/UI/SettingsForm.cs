@@ -440,6 +440,17 @@ namespace FunkyBot.Config.UI
 				cb_TownRunBuyPotions.Checked = Bot.Settings.TownRun.BuyPotionsDuringTownRun;
 				cb_TownRunBuyPotions.CheckedChanged += cb_TownRunBuyPotionsCheckedChanged;
 
+				combo_TownRunSalvageWhiteItems.SelectedIndex = Bot.Settings.TownRun.SalvageWhiteItemLevel == 0 ? 0 : Bot.Settings.TownRun.SalvageWhiteItemLevel == 1 ? 1 : 2;
+				combo_TownRunSalvageWhiteItems.SelectedIndexChanged += comboBox_TownRunSalvageWhiteItems_SelectedIndexChanged;
+
+				combo_TownRunSalvageRareItems.SelectedIndex = Bot.Settings.TownRun.SalvageRareItemLevel == 0 ? 0 : Bot.Settings.TownRun.SalvageRareItemLevel == 1 ? 1 : 2;
+				combo_TownRunSalvageRareItems.SelectedIndexChanged += comboBox_TownRunSalvageRareItems_SelectedIndexChanged;
+
+				combo_TownRunSalvageMagicItems.SelectedIndex = Bot.Settings.TownRun.SalvageMagicItemLevel == 0 ? 0 : Bot.Settings.TownRun.SalvageMagicItemLevel == 1 ? 1 : 2;
+				combo_TownRunSalvageMagicItems.SelectedIndexChanged += comboBox_TownRunSalvageMagicalItems_SelectedIndexChanged;
+
+				combo_TownRunSalvageLegendaryItems.SelectedIndex = Bot.Settings.TownRun.SalvageLegendaryItemLevel == 0 ? 0 : Bot.Settings.TownRun.SalvageLegendaryItemLevel == 1 ? 1 : 2;
+				combo_TownRunSalvageLegendaryItems.SelectedIndexChanged += comboBox_TownRunSalvageLegendaryItems_SelectedIndexChanged;
 
 				bool noFlags = Bot.Settings.TownRun.BloodShardGambleItems.Equals(BloodShardGambleItems.None);
 				var gambleItems = Enum.GetValues(typeof(BloodShardGambleItems));
@@ -472,9 +483,6 @@ namespace FunkyBot.Config.UI
 
 				cb_ItemRulesPickup.Checked = Bot.Settings.ItemRules.UseItemRulesPickup;
 				cb_ItemRulesPickup.CheckedChanged += cb_ItemRulesPickup_CheckedChanged;
-
-				cb_ItemRulesSalvage.Checked = Bot.Settings.ItemRules.ItemRulesSalvaging;
-				cb_ItemRulesSalvage.CheckedChanged += cb_ItemRulesSalvage_CheckedChanged;
 
 				cb_ItemRulesUnidStashing.Checked = Bot.Settings.ItemRules.ItemRulesUnidStashing;
 				cb_ItemRulesUnidStashing.CheckedChanged += cb_ItemRulesUnidStashing_CheckedChanged;
@@ -1160,6 +1168,26 @@ namespace FunkyBot.Config.UI
 			Bot.Settings.TownRun.StashHoradricCache = !Bot.Settings.TownRun.StashHoradricCache;
 		}
 
+		private void comboBox_TownRunSalvageWhiteItems_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			ComboBox slider_sender = (ComboBox)sender;
+			Bot.Settings.TownRun.SalvageWhiteItemLevel = slider_sender.SelectedIndex == 0 ? 0 : slider_sender.SelectedIndex == 1 ? 1 : 61;
+		}
+		private void comboBox_TownRunSalvageMagicalItems_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			ComboBox slider_sender = (ComboBox)sender;
+			Bot.Settings.TownRun.SalvageMagicItemLevel = slider_sender.SelectedIndex == 0 ? 0 : slider_sender.SelectedIndex == 1 ? 1 : 61;
+		}
+		private void comboBox_TownRunSalvageRareItems_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			ComboBox slider_sender = (ComboBox)sender;
+			Bot.Settings.TownRun.SalvageRareItemLevel = slider_sender.SelectedIndex == 0 ? 0 : slider_sender.SelectedIndex == 1 ? 1 : 61;
+		}
+		private void comboBox_TownRunSalvageLegendaryItems_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			ComboBox slider_sender = (ComboBox)sender;
+			Bot.Settings.TownRun.SalvageLegendaryItemLevel = slider_sender.SelectedIndex == 0 ? 0 : slider_sender.SelectedIndex == 1 ? 1 : 61;
+		}
 		private void tb_TownRunBloodShardMinimumValue_ValueChanged(object sender, EventArgs e)
 		{
 			TrackBar slider_sender = (TrackBar)sender;
@@ -1178,10 +1206,7 @@ namespace FunkyBot.Config.UI
 			Bot.Settings.ItemRules.UseItemRulesPickup = !Bot.Settings.ItemRules.UseItemRulesPickup;
 		}
 
-		private void cb_ItemRulesSalvage_CheckedChanged(object sender, EventArgs e)
-		{
-			Bot.Settings.ItemRules.ItemRulesSalvaging = !Bot.Settings.ItemRules.ItemRulesSalvaging;
-		}
+
 
 		private void cb_ItemRulesUnidStashing_CheckedChanged(object sender, EventArgs e)
 		{

@@ -12,15 +12,13 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				Cooldown=25000;
 				ExecutionType=SkillExecutionFlags.Buff;
 				WaitVars=new WaitLoops(2, 1, true);
-				Cost=147;
 				Counter=1;
 				UseageType=SkillUseage.Anywhere;
 				Priority=SkillPriority.High;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast|
-				                          SkillPrecastFlags.CheckEnergy|SkillPrecastFlags.CheckPetCount));
+				PreCast=new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 				IsBuff=true;
-				FcriteriaBuff=
-				  () => Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]!=0&&Bot.Character.Data.PetData.Gargantuan==0;
+				FcriteriaBuff=() => Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]!=0&&Bot.Character.Data.PetData.Gargantuan==0;
+
 				FcriteriaCombat=() => (Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan]==0&&
 				                       (Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15]>=1||
 				                        (Bot.Targeting.Cache.CurrentUnitTarget.IsEliteRareUnique&&Bot.Targeting.Cache.CurrentTarget.RadiusDistance<=15f))

@@ -62,7 +62,7 @@ namespace FunkyBot
 		  
 		  //readonly string configFile="config.dis";
 		  readonly string pickupFile="pickup.dis";
-		  readonly string salvageFile="salvage.dis";
+		  //readonly string salvageFile="salvage.dis";
 		  readonly string unidFile="UnidStash.dis";
 
 		  //readonly string townrunFile="salvage.dis";
@@ -141,7 +141,7 @@ namespace FunkyBot
 				// initialize or reset ruleSet array
 				ruleSet=new ArrayList();
 				pickUpRuleSet=new ArrayList();
-				salvageRuleSet=new ArrayList();
+				//salvageRuleSet=new ArrayList();
 				unidKeepRuleSet=new ArrayList();
 
 				// instantiating our macro dictonary
@@ -182,8 +182,8 @@ namespace FunkyBot
 				Logger.DBLog.InfoFormat("... loaded: {0} Pickup rules", pickUpRuleSet.Count);
 
 				//parse savlage file
-				salvageRuleSet = readLinesToArray(new StreamReader(Path.Combine(itemrulesPath, "Rules", salvageFile)), salvageRuleSet);
-				Logger.DBLog.InfoFormat("... loaded: {0} Salvage rules", salvageRuleSet.Count);
+				//salvageRuleSet = readLinesToArray(new StreamReader(Path.Combine(itemrulesPath, "Rules", salvageFile)), salvageRuleSet);
+				//Logger.DBLog.InfoFormat("... loaded: {0} Salvage rules", salvageRuleSet.Count);
 
 				//parse unid keep file
 				unidKeepRuleSet = readLinesToArray(new StreamReader(Path.Combine(itemrulesPath, "Rules", unidFile)), unidKeepRuleSet);
@@ -283,60 +283,7 @@ namespace FunkyBot
 				return checkItem(evaluationType);
 		  }
 
-		  /// <summary>
-		  /// 
-		  /// </summary>
-		  /// <param name="item"></param>
-		  /// <returns></returns>
-		  public InterpreterAction checkSalvageItem(ACDItem item)
-		  {
-				fillTownDic(item);
 
-				InterpreterAction action=InterpreterAction.NULL;
-
-				string validRule="";
-
-				ArrayList rules;
-				rules=salvageRuleSet;
-
-				foreach (string str in rules)
-				{
-					 ParseErrors parseErrors=null;
-
-					 // default configuration for positive rules is pickup and keep
-					 InterpreterAction tempAction=InterpreterAction.SALVAGE;
-					 
-
-					 string[] strings=str.Split(new string[] { assign }, StringSplitOptions.None);
-					 if (strings.Count()>1)
-						  tempAction=getInterpreterAction(strings[1]);
-
-					 try
-					 {
-						  if (evaluate(strings[0], out parseErrors))
-						  {
-								validRule=str;
-								action=tempAction;
-								if (parseErrors.Count>0)
-									 logOut("Have errors with out a catch!"
-										  +SEP+"last use rule: "+str
-										  +SEP+getParseErrors(parseErrors)
-										  +SEP+getFullItem(), tempAction, LogType.DEBUG);
-								break;
-						  }
-					 } catch (Exception e)
-					 {
-						  logOut(e.Message
-								+SEP+"last use rule: "+str
-								+SEP+getParseErrors(parseErrors)
-								+SEP+getFullItem(), tempAction, LogType.ERROR);
-					 }
-				}
-
-				//logOut(ItemEvaluationType.Salvage, validRule, action);
-
-				return action;
-		  }
 		  /// <summary>
 		  /// 
 		  /// </summary>

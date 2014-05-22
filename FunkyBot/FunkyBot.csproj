@@ -158,7 +158,6 @@
     <Compile Include="EventHandlers\OnWorldChanged.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Game\AdventureMode.cs" />
     <Compile Include="Game\Bounty\Bounty.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -984,9 +983,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="CombatRoutine\RoutineDebug">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="ItemRules\Rules\salvage.dis">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ItemRules\Rules\soft\common.dis">

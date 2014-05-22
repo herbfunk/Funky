@@ -191,7 +191,7 @@ namespace FunkyBot.Game
 			}
 			if (thisGilesItemType == GilesItemType.KeyStone)
 			{
-				Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.KeyStoneFragments.Stashed++;
+				Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.KeyStoneFragments.Stashed+=i.ThisItemStackQuantity;
 			}
 
 			switch (i.ACDItem.ItemType)

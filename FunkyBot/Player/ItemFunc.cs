@@ -102,6 +102,40 @@ namespace FunkyBot.Player
 			return false;
 		}
 
+		internal static bool SalvageValidation(CacheACDItem thisitem)
+		{
+			if (thisitem.ThisQuality==ItemQuality.Legendary)
+			{
+				if (Bot.Settings.TownRun.SalvageLegendaryItemLevel>0)
+				{
+					return Bot.Settings.TownRun.SalvageLegendaryItemLevel <= thisitem.ThisLevel;
+				}
+			}
+			else if(thisitem.ThisQuality==ItemQuality.Rare4||thisitem.ThisQuality==ItemQuality.Rare5||thisitem.ThisQuality==ItemQuality.Rare6)
+			{
+				if (Bot.Settings.TownRun.SalvageRareItemLevel > 0)
+				{
+					return Bot.Settings.TownRun.SalvageRareItemLevel <= thisitem.ThisLevel;
+				}
+			}
+			else if (thisitem.ThisQuality == ItemQuality.Magic1 || thisitem.ThisQuality == ItemQuality.Magic2 || thisitem.ThisQuality == ItemQuality.Magic3)
+			{
+				if (Bot.Settings.TownRun.SalvageMagicItemLevel > 0)
+				{
+					return Bot.Settings.TownRun.SalvageMagicItemLevel <= thisitem.ThisLevel;
+				}
+			}
+			else if (thisitem.ThisQuality == ItemQuality.Superior || thisitem.ThisQuality == ItemQuality.Inferior || thisitem.ThisQuality == ItemQuality.Normal)
+			{
+				if (Bot.Settings.TownRun.SalvageWhiteItemLevel > 0)
+				{
+					return Bot.Settings.TownRun.SalvageWhiteItemLevel <= thisitem.ThisLevel;
+				}
+			}
+			// If we reached this point, then we found no reason to keep the item!
+			return false;
+		}
+
 		// **********************************************************************************************
 		// *****       Pickup Validation - Determines what should or should not be picked up        *****
 		// **********************************************************************************************

@@ -12,6 +12,12 @@ namespace FunkyBot.Config.Settings
 		 public BloodShardGambleItems BloodShardGambleItems { get; set; }
 		 public bool BuyPotionsDuringTownRun { get; set; }
 
+		 //0 == Ignore, 1 == All, 61 == ROS Only
+		 public int SalvageWhiteItemLevel { get; set; }
+		 public int SalvageMagicItemLevel { get; set; }
+		 public int SalvageRareItemLevel { get; set; }
+		 public int SalvageLegendaryItemLevel { get; set; }
+
 		 public SettingTownRun()
 		 {
 			 StashHoradricCache = false;
@@ -19,6 +25,11 @@ namespace FunkyBot.Config.Settings
 			 MinimumBloodShards = 100;
 			 BloodShardGambleItems = BloodShardGambleItems.All;
 			 BuyPotionsDuringTownRun = false;
+
+			 SalvageWhiteItemLevel = 0;
+			 SalvageMagicItemLevel = 0;
+			 SalvageRareItemLevel = 0;
+			 SalvageLegendaryItemLevel = 0;
          }
 	}
 }

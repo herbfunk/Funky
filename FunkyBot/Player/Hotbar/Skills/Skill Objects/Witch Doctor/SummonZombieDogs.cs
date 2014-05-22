@@ -13,10 +13,9 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				Cooldown=25000;
 				ExecutionType=SkillExecutionFlags.Buff;
 				WaitVars=new WaitLoops(0, 0, true);
-				Cost=49;
 				UseageType=SkillUseage.Anywhere;
 				Priority=SkillPriority.High;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckCanCast|SkillPrecastFlags.CheckEnergy));
+				PreCast=new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 				IsBuff=true;
 				FcriteriaBuff= () => Bot.Character.Data.PetData.ZombieDogs<GetTotalZombieDogsSummonable();
 				FcriteriaCombat=() => Bot.Character.Data.PetData.ZombieDogs<GetTotalZombieDogsSummonable();
@@ -29,6 +28,8 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 			 if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler))
 				 total++;
 			 if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_MidnightFeast))
+				 total++;
+			 if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_FierceLoyalty))
 				 total++;
 
 			 return total;

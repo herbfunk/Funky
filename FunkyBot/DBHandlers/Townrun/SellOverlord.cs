@@ -59,8 +59,8 @@ namespace FunkyBot.DBHandlers
 							continue;
 						}
 
-						if (Bot.Settings.ItemRules.ItemRulesSalvaging && !thisitem.IsVendorBought)
-							if (Bot.Character.ItemRulesEval.checkSalvageItem(thisitem.ACDItem) == Interpreter.InterpreterAction.SALVAGE)
+						if (!thisitem.IsVendorBought)
+							if (ItemFunc.SalvageValidation(thisitem))
 								continue;
 
 

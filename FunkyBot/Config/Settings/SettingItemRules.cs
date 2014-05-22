@@ -8,7 +8,6 @@ namespace FunkyBot.Config.Settings
 	{
 		public bool UseItemRulesPickup { get; set; }
 		public bool UseItemRules { get; set; }
-		public bool ItemRulesSalvaging { get; set; }
 		public bool ItemRulesUnidStashing { get; set; }
 		public bool ItemRuleUseItemIDs { get; set; }
 		public bool ItemRuleDebug { get; set; }
@@ -29,7 +28,6 @@ namespace FunkyBot.Config.Settings
 			UseItemRulesPickup=true;
 			UseItemRules=true;
 			ItemRulesUnidStashing=true;
-			ItemRulesSalvaging=true;
 			ItemRuleCustomPath=String.Empty;
 		}
 		public SettingItemRules(string rules="Hard")
@@ -43,7 +41,6 @@ namespace FunkyBot.Config.Settings
 			UseItemRulesPickup = true;
 			UseItemRules = true;
 			ItemRulesUnidStashing = true;
-			ItemRulesSalvaging = true;
 			ItemRuleCustomPath = String.Empty;
 		}
 

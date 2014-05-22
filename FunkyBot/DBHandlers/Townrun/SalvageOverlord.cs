@@ -42,20 +42,20 @@ namespace FunkyBot.DBHandlers
 					{
 						if (thisitem.ThisDBItemType == ItemType.Potion || thisitem.IsVendorBought) continue;
 
-						if (Bot.Settings.ItemRules.ItemRulesSalvaging)
-						{
-							if (Bot.Character.ItemRulesEval.checkSalvageItem(thisitem.ACDItem) == Interpreter.InterpreterAction.SALVAGE)
-							{
-								townRunItemCache.SalvageItems.Add(thisitem);
-								continue;
-							}
-						}
+						//if (Bot.Settings.ItemRules.ItemRulesSalvaging)
+						//{
+						//	if (Bot.Character.ItemRulesEval.checkSalvageItem(thisitem.ACDItem) == Interpreter.InterpreterAction.SALVAGE)
+						//	{
+						//		townRunItemCache.SalvageItems.Add(thisitem);
+						//		continue;
+						//	}
+						//}
 
 
 
 						//Logger.DBLog.InfoFormat("GilesTrinityScoring == "+Bot.SettingsFunky.ItemRules.ItemRuleGilesScoring.ToString());
 
-						bool bShouldVisitSalvage = ItemManager.Current.ShouldStashItem(thisitem.ACDItem);
+						bool bShouldVisitSalvage = ItemFunc.SalvageValidation(thisitem);
 
 						if (bShouldVisitSalvage)
 							townRunItemCache.SalvageItems.Add(thisitem);
