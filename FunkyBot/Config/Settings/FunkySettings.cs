@@ -100,11 +100,12 @@ namespace FunkyBot.Config.Settings
 				{
 					Logger.DBLog.InfoFormat("Using Low Level Settings");
 					Bot.Settings = new Settings_Funky
-					 {
+					{
 						 Grouping = new SettingGrouping(false),
 						 Cluster = new SettingCluster(false),
 						 Fleeing = new SettingFleeing(false),
-					 };
+						 ItemRules=new SettingItemRules("Soft"),
+					};
 				}
 				else
 				{

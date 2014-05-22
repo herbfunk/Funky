@@ -254,6 +254,7 @@ namespace FunkyBot.Player
 
 
 					}
+
 					if (thisGilesItemType == GilesItemType.InfernalKey)
 					{
 						return Bot.Settings.Loot.PickupInfernalKeys;
@@ -262,6 +263,11 @@ namespace FunkyBot.Player
 					if (thisGilesItemType == GilesItemType.KeyStone)
 					{
 						return Bot.Settings.Loot.PickupKeystoneFragments;
+					}
+
+					if (thisGilesItemType == GilesItemType.BloodShard)
+					{
+						return Bot.Character.Data.BackPack.GetBloodShardCount() < 500;
 					}
 
 					// Potion filtering
@@ -328,6 +334,8 @@ namespace FunkyBot.Player
 			sThisInternalName = sThisInternalName.ToLower();
 
 			if (sThisInternalName.Contains("horadriccache")) return GilesItemType.HoradricCache;
+			if (sThisInternalName.Contains("horadricrelic")) return GilesItemType.BloodShard;
+
 			if (sThisInternalName.Contains("craftingreagent")) return GilesItemType.CraftingMaterial;
 			if (sThisInternalName.Contains("lootrunkey")) return GilesItemType.KeyStone;
 
@@ -498,7 +506,7 @@ namespace FunkyBot.Player
 			else if (thisGilesItemType == GilesItemType.CraftingMaterial || thisGilesItemType == GilesItemType.CraftTome || thisGilesItemType == GilesItemType.MiscBook ||
 				 thisGilesItemType == GilesItemType.SpecialItem || thisGilesItemType == GilesItemType.CraftingPlan || thisGilesItemType == GilesItemType.HealthPotion ||
 				 thisGilesItemType == GilesItemType.Dye || thisGilesItemType == GilesItemType.StaffOfHerding || thisGilesItemType == GilesItemType.InfernalKey ||
-				thisGilesItemType == GilesItemType.KeyStone || thisGilesItemType == GilesItemType.HoradricCache)
+				thisGilesItemType == GilesItemType.KeyStone || thisGilesItemType == GilesItemType.HoradricCache || thisGilesItemType == GilesItemType.BloodShard)
 			{
 				thisGilesBaseType = GilesBaseItemType.Misc;
 			}

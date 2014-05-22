@@ -86,8 +86,14 @@ namespace FunkyBot.Game
 						Logger.DBLog.DebugFormat("Current Profile Behavior has enabled QuestMode.");
 						QuestMode = true;
 					}
+					else if (String.Equals(profileTagTypeString, ExploreTag, StringComparison.InvariantCultureIgnoreCase))
+					{
+						Logger.DBLog.DebugFormat("Current Profile Behavior Is Explore Dungeon Tag!");
+						Funky.PlayerMover.CheckingExploreDungeonSkipAhead = true;
+					}
 					else
 					{
+						Funky.PlayerMover.CheckingExploreDungeonSkipAhead = false;
 						ProfileBehaviorIsOOCInteractive = false;
 						InteractableCachedObject = null;
 						IsRunningOOCBehavior = false;
@@ -194,6 +200,7 @@ namespace FunkyBot.Game
 																	};
 
 		private const string QuestingTag = "QuestTools.ProfileTags.SetQuestingTag";
+		private const string ExploreTag = "QuestTools.ProfileTags.ExploreDungeonTag";
 		private static string[] oocDBTagsNames =
 		{ 
 			"QuestTools.ProfileTags.TownPortalTag",

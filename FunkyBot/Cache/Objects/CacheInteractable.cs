@@ -146,9 +146,10 @@ namespace FunkyBot.Cache.Objects
 						}
 					}
 
-					var testPosition = (Gizmotype.Value == GizmoType.Switch || Gizmotype.Value==GizmoType.Door) ? BotMeleeVector : Position;
+					//var testPosition = (Gizmotype.Value == GizmoType.Switch || Gizmotype.Value==GizmoType.Door) ? BotMeleeVector : Position;
+					//if (!LineOfSight.LOSTest(Bot.Character.Data.Position, testPosition, Gizmotype.Value!=GizmoType.Switch, Gizmotype.Value==GizmoType.Switch, false))
 
-					if (!LineOfSight.LOSTest(Bot.Character.Data.Position, testPosition, Gizmotype.Value!=GizmoType.Switch, Gizmotype.Value==GizmoType.Switch, ServerObjectIntersection: false))
+					if (!LineOfSight.LOSTest(Bot.Character.Data.Position, BotMeleeVector, true, true, false))
 					{
 						if ((IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer) ||
 							((IsCursedChest || IsCursedShrine) && Bot.Settings.LOSMovement.AllowCursedChestShrines) ||

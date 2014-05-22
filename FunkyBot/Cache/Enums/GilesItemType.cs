@@ -65,5 +65,6 @@
 		    MiscBook,
 		    KeyStone,
 			HoradricCache,
+			BloodShard,
 	 }
 }

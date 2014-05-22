@@ -17,7 +17,7 @@ namespace FunkyBot
 	 {
 		  None=0,
 		  User=1,
-		  LineOfSight=2, //doh?
+		  LineOfSight=2,
 		  Cluster=4,
 		  Grouping=8,
 		  Movement=16,

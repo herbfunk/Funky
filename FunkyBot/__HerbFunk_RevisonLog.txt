@@ -1,4 +1,14 @@
 ﻿// herbfunk revisions
+v2.10.2.0
+
+	Player Mover will now check skip ahead cache during ExploreDungeon profile behavior.
+	Added OnLevelUp Event for characters under level 70, recreates player class after leveling up.
+	Low Level Settings will now use Soft Rules (pickup all items).
+	Wizard Energy Armor use will reset Max Energy in Character Cache.
+	Witch Doctor Acid Cloud will be used on single targets when energy is above 90% and target is not low HP.
+	Junk Log will no longer create log file outside of Account Folder.
+
+
 v2.10.1.3
 
 Misc:

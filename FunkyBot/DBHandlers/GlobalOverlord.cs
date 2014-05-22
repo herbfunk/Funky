@@ -26,8 +26,11 @@ namespace FunkyBot
 			}
 
 			//check if we initialized the bot..
-			if (Bot.Character.Class == null)
+			if (Bot.Character.Class == null || EventHandlers.LeveledUp)
+			{
+				EventHandlers.LeveledUp = false;
 				PlayerClass.CreateBotClass();
+			}
 
 			//Seconday Hotbar Check
 			Bot.Character.Class.SecondaryHotbarBuffPresent();

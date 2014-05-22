@@ -101,8 +101,8 @@ namespace FunkyBot.Player
 		public double dCurrentEnergyPct { get; set; }
 		public double dDiscipline { get; set; }
 		public double dDisciplinePct { get; set; }
-		private double MaxEnergy = 0;
-		private double MaxDiscipline = 0;
+		internal double MaxEnergy = 0;
+		internal double MaxDiscipline = 0;
 
 		internal float fCharacterRadius { get; set; }
 		internal Sphere CharacterSphere

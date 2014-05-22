@@ -16,7 +16,7 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 		{
 			Cooldown = 5;
 			Range = 15;
-			Priority = SkillPriority.None;
+			Priority = SkillPriority.Low;
 			ExecutionType = SkillExecutionFlags.Target|SkillExecutionFlags.ClusterTargetNearest;
 
 			WaitVars = new WaitLoops(0, 0, true);

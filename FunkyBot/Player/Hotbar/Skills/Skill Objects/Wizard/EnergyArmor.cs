@@ -19,7 +19,15 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				                          SkillPrecastFlags.CheckExisitingBuff));
 		  }
 
-		  #region IAbility
+		 public override void OnSuccessfullyUsed(bool reorderAbilities = true)
+		 {
+			 //Reset Character Max Energy!
+			 Bot.Character.Data.MaxEnergy = 0;
+
+			 base.OnSuccessfullyUsed(reorderAbilities);
+		 }
+
+		 #region IAbility
 
 		  public override int RuneIndex
 		  {

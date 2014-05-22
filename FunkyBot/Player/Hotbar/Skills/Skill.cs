@@ -487,7 +487,7 @@ namespace FunkyBot.Player.HotBar.Skills
 		///<summary>
 		///Sets values related to Ability usage
 		///</summary>
-		public void OnSuccessfullyUsed(bool reorderAbilities = true)
+		public virtual void OnSuccessfullyUsed(bool reorderAbilities = true)
 		{
 			LastUsed = DateTime.Now;
 			PowerCacheLookup.lastGlobalCooldownUse = DateTime.Now;
@@ -506,7 +506,7 @@ namespace FunkyBot.Player.HotBar.Skills
 
 			if (ShouldTrack)
 			{
-				if (!Bot.Targeting.Cache.CurrentTarget.SkillsUsedOnObject.ContainsKey(this.Power))
+				if (!Bot.Targeting.Cache.CurrentTarget.SkillsUsedOnObject.ContainsKey(Power))
 					Bot.Targeting.Cache.CurrentTarget.SkillsUsedOnObject.Add(Power, DateTime.Now);
 				else
 					Bot.Targeting.Cache.CurrentTarget.SkillsUsedOnObject[Power] = DateTime.Now;

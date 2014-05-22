@@ -32,6 +32,20 @@ namespace FunkyBot.Config.Settings
 			ItemRulesSalvaging=true;
 			ItemRuleCustomPath=String.Empty;
 		}
+		public SettingItemRules(string rules="Hard")
+		{
+			ItemRuleDebug = false;
+			ItemRuleUseItemIDs = false;
+			ItemRuleType = rules;
+			ItemRuleLogKeep = "Rare";
+			ItemRuleLogPickup = "Rare";
+			ItemRuleGilesScoring = true;
+			UseItemRulesPickup = true;
+			UseItemRules = true;
+			ItemRulesUnidStashing = true;
+			ItemRulesSalvaging = true;
+			ItemRuleCustomPath = String.Empty;
+		}
 
 		private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "ItemRules_Default.xml");
 		public static SettingItemRules DeserializeFromXML()

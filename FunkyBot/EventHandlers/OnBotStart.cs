@@ -41,6 +41,12 @@ namespace FunkyBot
 			GameEvents.OnWorldChanged += FunkyOnWorldChange;
 			ProfileManager.OnProfileLoaded += FunkyOnProfileChanged;
 
+			//Attach Level Up Event for characters less than 70!
+			if (Bot.Character.Account.CurrentLevel<70)
+			{
+				Logger.DBLog.Debug("[Funky] Attaching Level Up Event!");
+				GameEvents.OnLevelUp += FunkyOnLevelUp;
+			}
 
 			ITargetingProvider newCombatTargetingProvider = new TrinityCombatTargetingReplacer();
 			CombatTargeting.Instance.Provider = newCombatTargetingProvider;

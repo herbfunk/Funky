@@ -45,6 +45,7 @@ namespace FunkyBot
 			internal static int iCancelUnstuckerForSeconds = 60;
 			internal static DateTime timeLastRestartedGame = DateTime.Today;
 			internal static bool ShouldHandleObstacleObject = false;
+			internal static bool CheckingExploreDungeonSkipAhead = false;
 			// **********************************************************************************************
 			// *****                         Check if we are stuck or not                               *****
 			// **********************************************************************************************
@@ -121,7 +122,7 @@ namespace FunkyBot
 					// Temporarily log stuff
 					if (iTotalAntiStuckAttempts == 1 && Bot.Settings.Debug.LogStuckLocations)
 					{
-					
+
 						string outputPath = FolderPaths.LoggingFolderPath + @"\" + Logger.LoggingPrefixString + " -- Stucks.log";
 
 						FileStream LogStream = File.Open(outputPath, FileMode.Append, FileAccess.Write, FileShare.Read);
@@ -307,7 +308,25 @@ namespace FunkyBot
 				}
 
 				//Special cache for skipping locations visited.
-				if (Bot.Settings.Debug.SkipAhead) SkipAheadCache.RecordSkipAheadCachePoint();
+				if (Bot.Settings.Debug.SkipAhead)
+				{
+					SkipAheadCache.RecordSkipAheadCachePoint();
+
+					//Check if our current profile behavior is ExploreDungeon tag.
+					if (CheckingExploreDungeonSkipAhead)
+					{
+						//Check if DungeonExplorer and Current Node are valid. (only when there is more than one node in current route)
+						if (Navigation.CurrentDungeonExplorer != null && Navigation.DungeonExplorerCurrentNode != null && Navigation.CurrentDungeonExplorer.CurrentRoute.Count>1)
+						{
+							//Check if our target position is within skip ahead cache.
+							if (SkipAheadCache.CheckPositionForSkipping(vMoveToTarget))
+							{
+								Navigation.DungeonExplorerCurrentNode.Visited = true;
+								Logger.DBLog.Info("[Funky] Marking Node as Visited! (PlayerMover)");
+							}
+						}
+					}
+				}
 
 				// Store distance to current moveto target
 				float fDistanceFromTarget;
@@ -383,7 +402,7 @@ namespace FunkyBot
 				}
 				#endregion
 
-					
+
 
 				//Prioritize "blocking" objects.
 				if (!Bot.Character.Data.bIsInTown) Bot.NavigationCache.ObstaclePrioritizeCheck();
@@ -409,7 +428,7 @@ namespace FunkyBot
 
 
 				//Send Movement Command!
-				if (vMyCurrentPosition.Distance2D(vMoveToTarget)>1f)
+				if (vMyCurrentPosition.Distance2D(vMoveToTarget) > 1f)
 					ZetaDia.Me.UsePower(SNOPower.Walk, vMoveToTarget, Bot.Character.Data.CurrentWorldDynamicID);
 			}
 
@@ -417,7 +436,7 @@ namespace FunkyBot
 
 			internal static MoveResult NavigateTo(Vector3 moveTarget, string destinationName = "")
 			{
-				bool recentlyStuck=DateTime.Now.Subtract(timeStartedUnstuckMeasure).TotalMilliseconds < 2500;
+				bool recentlyStuck = DateTime.Now.Subtract(timeStartedUnstuckMeasure).TotalMilliseconds < 2500;
 				return Navigator.MoveTo(moveTarget, destinationName, recentlyStuck);
 			}
 		}

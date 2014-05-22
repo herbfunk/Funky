@@ -20,6 +20,7 @@ namespace FunkyBot.DBHandlers
 		{
 			Bot.Game.CurrentGameStats.CurrentProfile.TownRuns++;
 			TalliedTownRun = true;
+			Logger.DBLog.Info("Finished Town Run Behavior!");
 			return RunStatus.Success;
 		}
 

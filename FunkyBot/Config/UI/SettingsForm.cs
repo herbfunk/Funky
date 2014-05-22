@@ -177,7 +177,7 @@ namespace FunkyBot.Config.UI
 						cb_BarbWaitForWrath.Checked = Bot.Settings.Barbarian.bWaitForWrath;
 						cb_BarbWaitForWrath.CheckedChanged += cb_BarbWaitForWrath_CheckedChanged;
 
-						cb_BarbSelectiveWhirldWind.Checked=Bot.Settings.Barbarian.bSelectiveWhirlwind;
+						cb_BarbSelectiveWhirldWind.Checked = Bot.Settings.Barbarian.bSelectiveWhirlwind;
 						cb_BarbSelectiveWhirldWind.CheckedChanged += cb_BarbSelectiveWhirlwind_CheckedChanged;
 
 						RemovalTabPages.Remove(tabPage_Barbarian);
@@ -707,8 +707,8 @@ namespace FunkyBot.Config.UI
 
 		private void cb_ClusterTargetLogic_CheckedChanged(object sender, EventArgs e)
 		{
-			Bot.Settings.Cluster.EnableClusteringTargetLogic=!Bot.Settings.Cluster.EnableClusteringTargetLogic;
-			gb_ClusteringOptions.Enabled=Bot.Settings.Cluster.EnableClusteringTargetLogic;
+			Bot.Settings.Cluster.EnableClusteringTargetLogic = !Bot.Settings.Cluster.EnableClusteringTargetLogic;
+			gb_ClusteringOptions.Enabled = Bot.Settings.Cluster.EnableClusteringTargetLogic;
 		}
 
 
@@ -1495,28 +1495,24 @@ namespace FunkyBot.Config.UI
 		{
 			LBDebug.Controls.Clear();
 
-			ZetaDia.Memory.ClearCache();
-			ZetaDia.Actors.Update();
 
-			foreach (var i in ZetaDia.Actors.ACDList)
+			try
 			{
-				try
+				if (Navigation.CurrentDungeonExplorer != null && Navigation.CurrentDungeonExplorer.CurrentRoute.Count>0)
 				{
-					ACDItem item;
-					item = (ACDItem)i;
-					if (item.Name.Contains("Mystery"))
+					foreach (var n in Navigation.CurrentDungeonExplorer.CurrentRoute)
 					{
-						string itemString = String.Format("Item Name {0} BalanceID {1}", item.Name, item.GameBalanceId);
-						Logger.DBLog.Info(itemString);
-						//GamblingItemList.Add(new CacheACDItem(item));
-						//LBDebug.Items.Add(itemString);
+						string s = String.Format("Center {0} IsVisited {1} Required {2}",
+							n.Center.ToString(), n.Visited, n.IsRequired);
+						LBDebug.Controls.Add(new UserControlDebugEntry(s));
 					}
 				}
-				catch (Exception)
-				{
-
-				}
 			}
+			catch (Exception)
+			{
+
+			}
+
 			//ZetaDia.Service.GameAccount.SwitchHero(1);
 			LBDebug.Focus();
 		}

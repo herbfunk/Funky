@@ -152,6 +152,9 @@
     <Compile Include="DBHandlers\Townrun\FinishOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="EventHandlers\OnLevelUp.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="EventHandlers\OnWorldChanged.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

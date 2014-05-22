@@ -359,6 +359,7 @@ namespace FunkyBot
 			GameEvents.OnGameLeft -= EventHandlers.FunkyOnLeaveGame;
 			GameEvents.OnGameChanged -= EventHandlers.FunkyOnGameChanged;
 			ProfileManager.OnProfileLoaded -= EventHandlers.FunkyOnProfileChanged;
+			GameEvents.OnLevelUp -= EventHandlers.FunkyOnLevelUp;
 		}
 
 		internal static void ResetTreehooks()
