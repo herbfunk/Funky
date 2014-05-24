@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Linq;
-using Zeta.Bot;
-using Zeta.Bot.Settings;
 using Zeta.Game;
 using Zeta.TreeSharp;
 
@@ -37,6 +34,10 @@ namespace FunkyBot.DBHandlers
 				return RunStatus.Running;
 			}
 
+			//Loading World?
+			if (ZetaDia.IsLoadingWorld)
+				return RunStatus.Running;
+
 			//Exit Game..
 			if (ZetaDia.IsInGame)
 			{
@@ -48,18 +49,6 @@ namespace FunkyBot.DBHandlers
 				}
 				return RunStatus.Running;
 			}
-
-			//Get First or Last Used Profile..
-			string profile = Bot.Game.CurrentGameStats.Profiles.Count > 0 ? Bot.Game.CurrentGameStats.Profiles.First().ProfileName :
-							GlobalSettings.Instance.LastProfile;
-
-			//Load Profile and Fire our left game handler
-			ProfileManager.Load(profile);
-			EventHandlers.FunkyOnLeaveGame(null, null);
-
-			//Finally disable this..
-			BehaviorEngaged = false;
-			ShouldExitGame = false;
 
 			return RunStatus.Success;
 		}

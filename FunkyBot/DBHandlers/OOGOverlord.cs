@@ -54,11 +54,28 @@ namespace FunkyBot.DBHandlers
 					return true;
 			}
 
-			return false;
+
+			return ExitGame.BehaviorEngaged;
 		}
 
 		public static RunStatus OutOfGameBehavior(object ret)
 		{
+			if (ExitGame.BehaviorEngaged)
+			{
+				//Get First or Last Used Profile..
+				string profile = Bot.Game.CurrentGameStats.Profiles.Count > 0 ? Bot.Game.CurrentGameStats.Profiles.First().ProfileName :
+								GlobalSettings.Instance.LastProfile;
+
+				//Load Profile and Fire our left game handler
+				ProfileManager.Load(profile);
+				//EventHandlers.FunkyOnLeaveGame(null, null);
+
+				//Finally disable this..
+				ExitGame.BehaviorEngaged = false;
+				ExitGame.ShouldExitGame = false;
+				return RunStatus.Success;
+			}
+
 			if (MuleBehavior)
 			{
 				if (!InitMuleBehavior)

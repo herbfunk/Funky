@@ -1,4 +1,9 @@
 ﻿// herbfunk revisions
+v2.10.2.2
+
+	Misc:
+		Fixed Gold Inactivity will reset and reload first profile as intended.
+
 v2.10.2.1
 
 Skills:
