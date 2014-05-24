@@ -90,7 +90,7 @@ namespace FunkyBot.Targeting.Behaviors
 
 							//Set the object
 							Bot.NavigationCache.LOSmovementObject = new CacheLineOfSight(cobj, cobj.Position);
-							Navigation.NP.MoveTo(Bot.NavigationCache.LOSmovementObject.Position, "LOS", true);
+							
 							break;
 						}
 
@@ -119,7 +119,7 @@ namespace FunkyBot.Targeting.Behaviors
 
 									//Set the object
 									Bot.NavigationCache.LOSmovementObject = new CacheLineOfSight(mapmarker);
-									Navigation.NP.MoveTo(Bot.NavigationCache.LOSmovementObject.Position, "LOS", true);
+									
 								}
 
 							}
@@ -164,9 +164,9 @@ namespace FunkyBot.Targeting.Behaviors
 						if (Bot.Targeting.Cache.LastCachedTarget.targetType.Value!=TargetType.LineOfSight)
 						{
 							Navigation.NP.Clear();
-							Navigation.NP.MoveTo(Bot.NavigationCache.LOSmovementObject.Position, "LOS", true);
 						}
 
+						Navigation.NP.MoveTo(Bot.NavigationCache.LOSmovementObject.Position, "LOS", true);
 						
 						if (Navigation.NP.CurrentPath.Count > 0)
 						{

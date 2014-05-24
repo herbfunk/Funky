@@ -183,7 +183,6 @@ namespace FunkyBot.Targeting
 
 					//Bot.NavigationCache.LOSmovementObject = null;
 					Navigation.NP.Clear();
-					Navigation.NP.MoveTo(Bot.NavigationCache.LOSmovementObject.Position, "LOS", true);
 					Bot.Targeting.Cache.bForceTargetUpdate = true;
 					NonMovementCounter = 0;
 					// Reset the emergency loop counter and return success

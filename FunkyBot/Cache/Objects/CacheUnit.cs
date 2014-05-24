@@ -657,12 +657,19 @@ namespace FunkyBot.Cache.Objects
 		{
 			base.UpdateWeight();
 
-			//Ignore Non Clusters or Profile disabled Killing of monsters.
-			if (((BeingIgnoredDueToClusterLogic && !IsClusterException) || !ProfileManager.CurrentProfile.KillMonsters)
+			//Ignore Non Clusters
+			if (BeingIgnoredDueToClusterLogic && !IsClusterException
 				 && PriorityCounter == 0
 				 && (Bot.Targeting.Cache.CurrentTarget != null
 				 || Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_30] == 0
 				 || Bot.Targeting.Cache.objectsIgnoredDueToAvoidance.Count == 0))
+			{
+				Weight = 0;
+				return;
+			}
+
+			//Profile disabled Killing of monsters.
+			if (!ProfileManager.CurrentProfile.KillMonsters && PriorityCounter == 0)
 			{
 				Weight = 0;
 				return;
