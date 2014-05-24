@@ -10,6 +10,7 @@ using FunkyBot.Game.Bounty;
 using FunkyBot.Movement;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Bot;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
@@ -122,6 +123,7 @@ namespace FunkyBot.Cache.Objects
 			}
 
 			CheckedMonsterAffixes_ = true;
+			UpdateProperties();
 		}
 		public bool MonsterRare { get; set; }
 		public bool MonsterUnique { get; set; }
@@ -655,11 +657,9 @@ namespace FunkyBot.Cache.Objects
 		{
 			base.UpdateWeight();
 
-			//Ignore non-clustered, *only when not prioritized!*
-
-			if (BeingIgnoredDueToClusterLogic
+			//Ignore Non Clusters or Profile disabled Killing of monsters.
+			if (((BeingIgnoredDueToClusterLogic && !IsClusterException) || !ProfileManager.CurrentProfile.KillMonsters)
 				 && PriorityCounter == 0
-				 && !IsClusterException
 				 && (Bot.Targeting.Cache.CurrentTarget != null
 				 || Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_30] == 0
 				 || Bot.Targeting.Cache.objectsIgnoredDueToAvoidance.Count == 0))
@@ -1312,7 +1312,6 @@ namespace FunkyBot.Cache.Objects
 					Logger.Write(LogLevel.Cache, "Failure to check monster affixes for unit {0}", DebugStringSimple);
 					return false;
 				}
-
 			}
 
 			//Hitpoints

@@ -31,6 +31,8 @@ namespace FunkyBot.Cache.Avoidance
 			  new AvoidanceValue(AvoidanceType.DiabloPrison, 1, 15,5),
 			  new AvoidanceValue(AvoidanceType.Frozen, 1, 20,10),
 			  new AvoidanceValue(AvoidanceType.FrozenPulse, 0.75, 9,10),
+			  new AvoidanceValue(AvoidanceType.GhomGasCloud, 0.4, 25,5),
+
 			  new AvoidanceValue(AvoidanceType.GrotesqueExplosion, 0.50, 20,5),
 			  new AvoidanceValue(AvoidanceType.LacuniBomb, 0.25, 2,5),
 			  new AvoidanceValue(AvoidanceType.MageFirePool, 1, 10,5),
@@ -85,7 +87,7 @@ namespace FunkyBot.Cache.Avoidance
 				  332923,
 				  //Teleport
 				  337109,
-
+				  
 				  335505, // x1_malthael_drainSoul_ghost
 				  325136, // x1_Malthael_DeathFogMonster
 				  340512, // x1_Malthael_Mephisto_LightningObject
@@ -94,6 +96,8 @@ namespace FunkyBot.Cache.Avoidance
                   358404, // X1_Adria_blood_large
 
 				  360046, //X1_Unique_Monster_Generic_AOE_DOT_Poison
+
+				  93837, //Ghom's Gluttony_gasCloud
 			  };
 
 		// A list of SNO's that are projectiles (so constantly look for new locations while avoiding)
@@ -214,6 +218,8 @@ namespace FunkyBot.Cache.Avoidance
 					return AvoidanceType.AdriaBlood;
 				case 360046:
 					return AvoidanceType.RiftPoison;
+				case 93837:
+					return AvoidanceType.GhomGasCloud;
 			}
 			return AvoidanceType.None;
 		}

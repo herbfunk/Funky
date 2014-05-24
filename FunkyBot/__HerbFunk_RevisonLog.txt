@@ -1,4 +1,17 @@
 ﻿// herbfunk revisions
+v2.10.2.1
+
+Skills:
+	Barb Bash now modifies range if using pulverize rune.
+	Barb HOTA now used on normal tagets when energy is above 80%
+
+Misc:
+	Line of Sight movement will no longer backtrack.
+	Added Ghoms Posion Cloud to Avoidances.
+	Corruptant Growths no longer ignore LOS.
+	Game Stats now also generated in Funky Window under Misc tab.
+	Profiles that Disable Combat will be obeyed when unit is not prioritized.
+
 v2.10.2.0
 
 Skills:

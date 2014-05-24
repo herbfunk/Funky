@@ -43,7 +43,6 @@
 			this.tabPageCharacter = new System.Windows.Forms.TabPage();
 			this.tabControl3 = new System.Windows.Forms.TabControl();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
-			this.panelCharacterStats = new System.Windows.Forms.Panel();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.btnRefreshCharacter = new System.Windows.Forms.Button();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
@@ -56,6 +55,7 @@
 			this.panel_UI = new System.Windows.Forms.Panel();
 			this.panel4 = new System.Windows.Forms.Panel();
 			this.btn_dumpUIs = new System.Windows.Forms.Button();
+			this.panelCharacterStats = new System.Windows.Forms.FlowLayoutPanel();
 			this.tabControl1.SuspendLayout();
 			this.tabPageObjects.SuspendLayout();
 			this.tabControl2.SuspendLayout();
@@ -238,15 +238,6 @@
 			this.tabPage5.Text = "Stats";
 			this.tabPage5.UseVisualStyleBackColor = true;
 			// 
-			// panelCharacterStats
-			// 
-			this.panelCharacterStats.AutoScroll = true;
-			this.panelCharacterStats.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panelCharacterStats.Location = new System.Drawing.Point(3, 3);
-			this.panelCharacterStats.Name = "panelCharacterStats";
-			this.panelCharacterStats.Size = new System.Drawing.Size(547, 416);
-			this.panelCharacterStats.TabIndex = 2;
-			// 
 			// panel2
 			// 
 			this.panel2.AutoSize = true;
@@ -371,6 +362,15 @@
 			this.btn_dumpUIs.UseVisualStyleBackColor = true;
 			this.btn_dumpUIs.Click += new System.EventHandler(this.btn_dumpUIs_Click);
 			// 
+			// panelCharacterStats
+			// 
+			this.panelCharacterStats.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panelCharacterStats.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.panelCharacterStats.Location = new System.Drawing.Point(3, 3);
+			this.panelCharacterStats.Name = "panelCharacterStats";
+			this.panelCharacterStats.Size = new System.Drawing.Size(547, 416);
+			this.panelCharacterStats.TabIndex = 2;
+			// 
 			// FormDebug
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -424,7 +424,6 @@
 		private System.Windows.Forms.Panel panelMonsters;
 		private System.Windows.Forms.Panel panelGizmos;
 		private System.Windows.Forms.Panel panelItems;
-		private System.Windows.Forms.Panel panelCharacterStats;
 		private System.Windows.Forms.Panel panelCharacterInventory;
 		private System.Windows.Forms.TabPage tabPage7;
 		private System.Windows.Forms.Panel panelCharacterEquipped;
@@ -434,5 +433,6 @@
 		private System.Windows.Forms.Panel panel_UI;
 		private System.Windows.Forms.Panel panel4;
 		private System.Windows.Forms.Button btn_dumpUIs;
+		private System.Windows.Forms.FlowLayoutPanel panelCharacterStats;
 	}
 }

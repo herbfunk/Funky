@@ -179,9 +179,11 @@ namespace FunkyBot.Targeting
 				else if (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.LineOfSight | TargetType.Backtrack))
 				{
 
-					Logger.Write(LogLevel.Movement, "Line of Sight Movement Stalled!");
+					Logger.Write(LogLevel.LineOfSight, "Line of Sight Movement Stalled!");
 
-					Bot.NavigationCache.LOSmovementObject = null;
+					//Bot.NavigationCache.LOSmovementObject = null;
+					Navigation.NP.Clear();
+					Navigation.NP.MoveTo(Bot.NavigationCache.LOSmovementObject.Position, "LOS", true);
 					Bot.Targeting.Cache.bForceTargetUpdate = true;
 					NonMovementCounter = 0;
 					// Reset the emergency loop counter and return success
@@ -392,8 +394,8 @@ namespace FunkyBot.Targeting
 				}
 				else if (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.LineOfSight | TargetType.Backtrack))
 				{
-					if (currentDistance > 30f)
-						UsePowerMovement = false;
+					//if (currentDistance > 30f)
+					UsePowerMovement = false;
 				}
 				else
 				{

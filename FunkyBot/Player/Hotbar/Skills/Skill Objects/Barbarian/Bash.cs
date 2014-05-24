@@ -19,12 +19,9 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				ExecutionType=SkillExecutionFlags.Target;
 				WaitVars=new WaitLoops(0,0, false);
 				Cost=0;
-				Range=10;
+				Range=RuneIndex==4?20:10; //Pulverize Rune increases the range!
 				UseageType=SkillUseage.Combat;
 				Priority=SkillPriority.Low;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckCanCast|SkillPrecastFlags.CheckPlayerIncapacitated));
-				
-
 		  }
 
 		  #region IAbility

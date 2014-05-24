@@ -168,6 +168,9 @@ namespace FunkyBot.Player.HotBar.Skills
 		///Describes variables for use of Ability: PreWait Loops, PostWait Loops, Reuseable
 		///</summary>
 		public WaitLoops WaitVars { get; set; }
+		/// <summary>
+		/// The Minimum Distance Required Before Activation will Occur.
+		/// </summary>
 		public int Range { get; set; }
 		public double Cost { get; set; }
 		public bool SecondaryEnergy { get; set; }
@@ -521,6 +524,11 @@ namespace FunkyBot.Player.HotBar.Skills
 				SuccessfullyUsed(this, reorderAbilities);
 		}
 
+		/// <summary>
+		/// Resets usage variables and sets the target location or target ID depending on what condition passed.
+		/// </summary>
+		/// <param name="ability"></param>
+		/// <param name="Destructible"></param>
 		public static void SetupAbilityForUse(ref Skill ability, bool Destructible = false)
 		{
 			ability.MinimumRange = ability.Range;

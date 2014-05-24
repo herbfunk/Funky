@@ -85,6 +85,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControlDebugEntry.cs">
+      <SubType>UserControl</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="UserControlDebugEntry.Designer.cs">
+      <DependentUpon>UserControlDebugEntry.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FormDebug.resx">
@@ -92,6 +100,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ItemWindow.resx">
       <DependentUpon>ItemWindow.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControlDebugEntry.resx">
+      <DependentUpon>UserControlDebugEntry.cs</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

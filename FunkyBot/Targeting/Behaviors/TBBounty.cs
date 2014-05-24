@@ -30,24 +30,24 @@ namespace FunkyBot.Targeting.Behaviors
 				{
 					//	Cursed Events that have had interaction with a cursed object in the last nth time frame we check for completed bounty.
 					//  Kill/Clear Events that are on the last area level we check for completed bounty.
-					if ((Bot.Game.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.CursedEvent && DateTime.Now.Subtract(Bot.Targeting.Cache.lastSeenCursedShrine).TotalSeconds < 45) ||
-						((Bot.Game.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.Kill || Bot.Game.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.Clear)
-																								&& Bot.Character.Data.iCurrentLevelID == Bot.Game.Bounty.CurrentBountyCacheEntry.EndingLevelAreaID))
+					if ((Bot.Game.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.CursedEvent && DateTime.Now.Subtract(Bot.Targeting.Cache.lastSeenCursedShrine).TotalSeconds < 45))
+						//|| ((Bot.Game.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.Kill || Bot.Game.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.Clear)
+																								//&& Bot.Character.Data.iCurrentLevelID == Bot.Game.Bounty.CurrentBountyCacheEntry.EndingLevelAreaID))
 					{
-						//Refresh Quest States.
-						Bot.Game.Bounty.RefreshBountyQuestStates();
+						Bot.Game.Bounty.ActiveBounty.Refresh();
 
 						//Check Current Quest State!
-						if (Bot.Game.Bounty.BountyQuestStates[Bot.Game.Bounty.ActiveBounty.QuestSNO] == QuestState.Completed)
+						if (Bot.Game.Bounty.ActiveBounty.State == QuestState.Completed)
 						{
+							Logger.DBLog.Info("Bounty Is Finished.. Reloading Profile!!!");
 							//Refresh Active Bounty to Verify there is no active bounty still!
-							Bot.Game.Bounty.UpdateActiveBounty();
-							if (Bot.Game.Bounty.ActiveBounty == null)
-							{
-								Logger.DBLog.Info("Bounty Is Finished.. Reloading Profile!!!");
-								//No Active Bounty.. lets reload profile!
-								Zeta.Bot.ProfileManager.Load(Zeta.Bot.ProfileManager.CurrentProfile.Path);
-							}
+							//Bot.Game.Bounty.UpdateActiveBounty();
+							//if (Bot.Game.Bounty.ActiveBounty == null)
+							//{
+								
+							//	//No Active Bounty.. lets reload profile!
+							//	Zeta.Bot.ProfileManager.Load(Zeta.Bot.ProfileManager.CurrentProfile.Path);
+							//}
 						}
 					}
 					else if (Bot.Game.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.Event)

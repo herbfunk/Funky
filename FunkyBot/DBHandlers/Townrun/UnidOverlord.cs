@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyBot.Cache.Enums;
 using FunkyBot.Player;
 using Zeta.Bot;
 using Zeta.Game.Internals.Actors;
@@ -29,7 +30,7 @@ namespace FunkyBot.DBHandlers
 						{
 							if (thisitem.ThisDBItemType == ItemType.Potion) continue;
 
-							if (thisitem.IsUnidentified)
+							if (thisitem.IsUnidentified && thisitem.BaseItemType!=GilesBaseItemType.Misc && thisitem.BaseItemType!=GilesBaseItemType.Gem)
 							{
 								if (Bot.Character.ItemRulesEval.checkUnidStashItem(thisitem.ACDItem) == Interpreter.InterpreterAction.KEEP)
 								{

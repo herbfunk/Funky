@@ -50,6 +50,9 @@ namespace FunkyBot.Cache.Avoidance
 		  [XmlEnum(Name = "FrozenPulse")]
 		  FrozenPulse,
 
+		  [XmlEnum(Name = "GhomGasCloud")]
+		  GhomGasCloud,
+
 		  [XmlEnum(Name="GrotesqueExplosion")]
 		  GrotesqueExplosion,
 

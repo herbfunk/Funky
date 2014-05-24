@@ -175,7 +175,7 @@
       </QuestSNOs>
     </BountyQuestCacheEntry>
   </KillBounties>
-  
+
   <ClearBounties>
     <BountyQuestCacheEntry>
       <Name>A3_Clear_CavernsOfFrost</Name>
@@ -205,9 +205,37 @@
         <int>349206</int>
       </QuestSNOs>
     </BountyQuestCacheEntry>
+    <BountyQuestCacheEntry>
+      <Name>A3_Clear_FortifiedBunker</Name>
+      <Type>Clear</Type>
+      <StartingLevelAreaID>154644</StartingLevelAreaID>
+      <EndingLevelAreaID>221752</EndingLevelAreaID>
+      <LevelAreaIDs>
+        <int>174666</int>
+      </LevelAreaIDs>
+      <TotalKillCount>-1</TotalKillCount>
+      <QuestSNOs>
+        <int>349202</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
+    <BountyQuestCacheEntry>
+      <Name>A3_Clear_Underbridge</Name>
+      <Type>Clear</Type>
+      <StartingLevelAreaID>112565</StartingLevelAreaID>
+      <EndingLevelAreaID>197623</EndingLevelAreaID>
+      <LevelAreaIDs>
+        <int>69504</int>
+      </LevelAreaIDs>
+      <TotalKillCount>-1</TotalKillCount>
+      <QuestSNOs>
+        <int>349208</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
     
   </ClearBounties>
-  
+
+
+
   <CursedEventBounties>
     <BountyQuestCacheEntry>
       <Name>A3_Event_CursedCaldera</Name>
@@ -219,9 +247,9 @@
         <int>369868</int>
       </QuestSNOs>
     </BountyQuestCacheEntry>
-    
+
   </CursedEventBounties>
 
   <MiscEventBounties />
-  
+
 </BountyQuestActCache>

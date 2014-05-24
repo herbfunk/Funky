@@ -3,6 +3,7 @@ using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Game.Bounty;
 using FunkyBot.Movement;
+using Zeta.Bot;
 using Zeta.Common;
 using Zeta.Game.Internals;
 
@@ -89,6 +90,7 @@ namespace FunkyBot.Targeting.Behaviors
 
 							//Set the object
 							Bot.NavigationCache.LOSmovementObject = new CacheLineOfSight(cobj, cobj.Position);
+							Navigation.NP.MoveTo(Bot.NavigationCache.LOSmovementObject.Position, "LOS", true);
 							break;
 						}
 
@@ -117,6 +119,7 @@ namespace FunkyBot.Targeting.Behaviors
 
 									//Set the object
 									Bot.NavigationCache.LOSmovementObject = new CacheLineOfSight(mapmarker);
+									Navigation.NP.MoveTo(Bot.NavigationCache.LOSmovementObject.Position, "LOS", true);
 								}
 
 							}
@@ -157,7 +160,14 @@ namespace FunkyBot.Targeting.Behaviors
 							Bot.NavigationCache.LOSmovementObject.UpdateOrginObject();
 						}
 
-						Navigation.NP.MoveTo(Bot.NavigationCache.LOSmovementObject.Position, "LOS", true);
+						//If we had a different target.. chances are we moved, so lets reset the path.
+						if (Bot.Targeting.Cache.LastCachedTarget.targetType.Value!=TargetType.LineOfSight)
+						{
+							Navigation.NP.Clear();
+							Navigation.NP.MoveTo(Bot.NavigationCache.LOSmovementObject.Position, "LOS", true);
+						}
+
+						
 						if (Navigation.NP.CurrentPath.Count > 0)
 						{
 							//Setup a temp target that the handler will use

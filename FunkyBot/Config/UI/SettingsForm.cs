@@ -12,10 +12,14 @@ using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Config.Settings;
 using FunkyBot.DBHandlers;
+using FunkyBot.Game;
 using FunkyBot.Movement;
+using Zeta.Bot.Navigation;
+using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
+using Zeta.Game.Internals.SNO;
 
 namespace FunkyBot.Config.UI
 {
@@ -572,6 +576,39 @@ namespace FunkyBot.Config.UI
 					cb.CheckedChanged += FunkyLogLevelChanged;
 
 					flowLayout_DebugFunkyLogLevels.Controls.Add(cb);
+				}
+
+
+				//Misc Stats
+				try
+				{
+					GameStats cur = Bot.Game.CurrentGameStats;
+
+					flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("\r\n== CURRENT GAME SUMMARY =="));
+					flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(String.Format("Total Profiles:{0}\r\nDeaths:{1} TotalTime:{2} TotalGold:{3} TotalXP:{4}\r\nTownRuns {6} Items Gambled {7} Bounties Completed {8}\r\n{5}",
+															cur.Profiles.Count, cur.TotalDeaths, cur.TotalTimeRunning.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), cur.TotalGold, cur.TotalXP, cur.TotalLootTracker.ToString(), cur.TotalTownRuns,cur.TotalItemsGambled,cur.TotalBountiesCompleted)));
+
+					if (Bot.Game.CurrentGameStats.Profiles.Count > 0)
+					{
+						flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("\r\n== PROFILES =="));
+						foreach (var item in Bot.Game.CurrentGameStats.Profiles)
+						{
+							flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(String.Format("{0}\r\nDeaths:{1} TotalTime:{2} TotalGold:{3} TotalXP:{4}\r\n{5}",
+								item.ProfileName, item.DeathCount, item.TotalTimeSpan.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), item.TotalGold, item.TotalXP, item.LootTracker.ToString())));
+						}
+					}
+
+
+					TotalStats all = Bot.Game.TrackingStats;
+					flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("\r\n== CURRENT GAME SUMMARY =="));
+					flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(String.Format("Total Games:{0} -- Total Unique Profiles:{1}\r\nDeaths:{2} TotalTime:{3} TotalGold:{4} TotalXP:{5}\r\n{6}",
+															all.GameCount, all.Profiles.Count, all.TotalDeaths, all.TotalTimeRunning.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), all.TotalGold, all.TotalXP, all.TotalLootTracker.ToString())));
+
+
+				}
+				catch
+				{
+					flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("Exception Handled"));
 				}
 
 			}
@@ -1532,25 +1569,43 @@ namespace FunkyBot.Config.UI
 
 			try
 			{
-				//if (Navigation.CurrentDungeonExplorer != null && Navigation.CurrentDungeonExplorer.CurrentRoute.Count > 0)
-				//{
-				//	foreach (var n in Navigation.CurrentDungeonExplorer.CurrentRoute)
-				//	{
-				//		string s = String.Format("Center {0} IsVisited {1} Required {2}",
-				//			n.NavigableCenter.ToString(), n.Visited, n.IsRequired);
-				//		LBDebug.Controls.Add(new UserControlDebugEntry(s));
-				//	}
-				//}
 				ZetaDia.Memory.ClearCache();
 				ZetaDia.Actors.Update();
-				foreach (var i in ZetaDia.Actors.GetActorsOfType<DiaItem>())
+				
+				foreach (var obj in ZetaDia.Actors.GetActorsOfType<DiaObject>().Where(o => o.ActorType==ActorType.ServerProp).OrderBy(o => o.Distance))
 				{
-					Logger.DBLog.Info(String.Format("Name {0} BalanceID {1}", i.Name, i.CommonData.GameBalanceId));
-				}
-			}
-			catch (Exception)
-			{
+					string Sobj = String.Format("Object: {0}",obj.Name);
+					//obj.CollisionSphere.Center
+					try
+					{
+						float rotation=obj.Movement.Rotation;
+						float degrees = obj.Movement.RotationDegrees;
+						Sobj += String.Format("\r\nRotation {0} {1}", rotation, degrees);
+					}
+					catch
+					{
 
+					}
+					LBDebug.Controls.Add(new UserControlDebugEntry(Sobj));
+				}
+
+				string Splayer = String.Format("Player: {0}", ZetaDia.Me.Name);
+				//obj.CollisionSphere.Center
+				try
+				{
+					float rotation = ZetaDia.Me.Movement.Rotation;
+					float degrees = ZetaDia.Me.Movement.RotationDegrees;
+					Splayer += String.Format("\r\nRotation {0} {1}", rotation, degrees);
+				}
+				catch
+				{
+
+				}
+				LBDebug.Controls.Add(new UserControlDebugEntry(Splayer));
+			}
+			catch (Exception ex)
+			{
+				LBDebug.Controls.Add(new UserControlDebugEntry(ex.Message));
 			}
 			//ZetaDia.Service.GameAccount.SwitchHero(1);
 			LBDebug.Focus();
@@ -1594,7 +1649,5 @@ namespace FunkyBot.Config.UI
 
 			LBDebug.Focus();
 		}
-
-
 	}
 }
