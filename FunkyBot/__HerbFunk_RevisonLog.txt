@@ -1,4 +1,26 @@
 ﻿// herbfunk revisions
+v2.10.3.0
+
+Cache:
+	Added Demon Hunter Sentry to pet data.
+	Added Witch Doctor Fetish to pet data.
+
+Skills:
+	Demon Hunter Sentry has been updated!
+	Witch Doctor Fetish Army now recongizes Zunimassa five set.
+
+Player:
+	Added new File Equipment and property equipment to CharacterCache.
+	Added Bottomless Potion recongization and usage. (3/6 IDs)
+	
+Game:
+	End of town runs will reset gold inactivity and update MGP.
+
+Settings:
+	Fixed Town Run Gambling not showing checkboxes for certain item types.
+
+
+
 v2.10.2.2
 
 	Misc:

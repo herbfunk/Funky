@@ -1,4 +1,5 @@
-﻿using FunkyBot.Cache.Enums;
+﻿using System.Collections.Generic;
+using FunkyBot.Cache.Enums;
 using FunkyBot.Player;
 using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
@@ -34,6 +35,14 @@ namespace FunkyBot.Cache.Objects
 				return ThisBalanceID == -2142362846;
 			}
 		}
+
+		private BottomlessPotions _bottomlessPotionType=BottomlessPotions.None;
+		public BottomlessPotions BottomlessPotionType
+		{
+			get { return _bottomlessPotionType; }
+			set { _bottomlessPotionType = value; }
+		}
+
 		public int ThisItemStackQuantity { get; set; }
 		public float Dexterity { get; set; }
 		public float Intelligence { get; set; }
@@ -116,7 +125,13 @@ namespace FunkyBot.Cache.Objects
 			IsUnidentified = item.IsUnidentified;
 			ThisDBItemType = item.ItemType;
 			ThisDyeType = item.DyeType;
+
 			IsPotion = item.IsPotion;
+			if (IsPotion && !IsRegularPotion)
+			{
+				BottomlessPotionType = ReturnBottomlessPotionType(ThisBalanceID);
+			}
+
 			invRow = item.InventoryRow;
 			invCol = item.InventoryColumn;
 			
@@ -178,6 +193,30 @@ namespace FunkyBot.Cache.Objects
 
 
 		}
+
+		public static BottomlessPotions ReturnBottomlessPotionType(int balanceID)
+		{
+			switch (balanceID)
+			{
+				case -2018707796:
+					return BottomlessPotions.Regeneration;
+				case -2018707795:
+					return BottomlessPotions.Leech;
+				case -2018707793:
+					return BottomlessPotions.KulleAid;
+			}
+
+			return BottomlessPotions.None;
+		}
+
+		//TODO:: Add Tower, Diamond, and Mutilation IDs
+		private static readonly HashSet<int> HashBottomlessPotions = new HashSet<int>
+		{
+			-2018707796, //Regeneration
+			-2018707795, //Leech
+			-2018707793, //Kulle-Aid
+
+		};
 	}
 
 

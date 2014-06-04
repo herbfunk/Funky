@@ -17,9 +17,8 @@ namespace FunkyBot.Player.Class
 		public Monk()
 		{
 			//Monk Inna Full Set
-			List<CacheACDItem> equippedItems = Bot.Character.Data.BackPack.ReturnCurrentEquippedItems();
-			int InnaSetItemCount = equippedItems.Count(i => i.ThisRealName.Contains("Inna"));
-			if (InnaSetItemCount > 3)
+			int InnaSetItemCount = Bot.Character.Data.equipment.EquippedItems.Count(i => i.ThisRealName.Contains("Inna"));
+			if (InnaSetItemCount > 3 || InnaSetItemCount > 2 && Bot.Character.Data.equipment.RingOfGrandeur)
 			{
 				Logger.DBLog.InfoFormat("Monk has full inna set!");
 				Bot.Settings.Monk.bMonkInnaSet = true;

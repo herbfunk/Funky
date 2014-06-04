@@ -209,8 +209,6 @@
 			this.tabControl4 = new System.Windows.Forms.TabControl();
 			this.tabPage18 = new System.Windows.Forms.TabPage();
 			this.groupBox14 = new System.Windows.Forms.GroupBox();
-			this.panel_TownRunBloodShardGambling = new System.Windows.Forms.Panel();
-			this.flowLayout_TownRunBloodShardItems = new System.Windows.Forms.FlowLayoutPanel();
 			this.panel18 = new System.Windows.Forms.Panel();
 			this.label22 = new System.Windows.Forms.Label();
 			this.txt_TownRunBloodShardMinimumValue = new System.Windows.Forms.TextBox();
@@ -296,6 +294,7 @@
 			this.btn_DumpBountyCache = new System.Windows.Forms.Button();
 			this.btn_Test = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+			this.flowLayout_TownRunBloodShardItems = new System.Windows.Forms.FlowLayoutPanel();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabControl_Combat.SuspendLayout();
@@ -373,7 +372,6 @@
 			this.tabControl4.SuspendLayout();
 			this.tabPage18.SuspendLayout();
 			this.groupBox14.SuspendLayout();
-			this.panel_TownRunBloodShardGambling.SuspendLayout();
 			this.panel18.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tb_TownRunBloodShardMinimumValue)).BeginInit();
 			this.groupBox13.SuspendLayout();
@@ -2311,7 +2309,8 @@
 			// 
 			// groupBox14
 			// 
-			this.groupBox14.Controls.Add(this.panel_TownRunBloodShardGambling);
+			this.groupBox14.Controls.Add(this.flowLayout_TownRunBloodShardItems);
+			this.groupBox14.Controls.Add(this.panel18);
 			this.groupBox14.Controls.Add(this.cb_TownRunBloodShardGambling);
 			this.groupBox14.Dock = System.Windows.Forms.DockStyle.Top;
 			this.groupBox14.Location = new System.Drawing.Point(3, 217);
@@ -2321,32 +2320,13 @@
 			this.groupBox14.TabStop = false;
 			this.groupBox14.Text = "Blood Shard Gambling";
 			// 
-			// panel_TownRunBloodShardGambling
-			// 
-			this.panel_TownRunBloodShardGambling.Controls.Add(this.flowLayout_TownRunBloodShardItems);
-			this.panel_TownRunBloodShardGambling.Controls.Add(this.panel18);
-			this.panel_TownRunBloodShardGambling.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel_TownRunBloodShardGambling.Location = new System.Drawing.Point(3, 37);
-			this.panel_TownRunBloodShardGambling.Name = "panel_TownRunBloodShardGambling";
-			this.panel_TownRunBloodShardGambling.Size = new System.Drawing.Size(645, 386);
-			this.panel_TownRunBloodShardGambling.TabIndex = 1;
-			// 
-			// flowLayout_TownRunBloodShardItems
-			// 
-			this.flowLayout_TownRunBloodShardItems.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.flowLayout_TownRunBloodShardItems.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-			this.flowLayout_TownRunBloodShardItems.Location = new System.Drawing.Point(0, 64);
-			this.flowLayout_TownRunBloodShardItems.Name = "flowLayout_TownRunBloodShardItems";
-			this.flowLayout_TownRunBloodShardItems.Size = new System.Drawing.Size(645, 322);
-			this.flowLayout_TownRunBloodShardItems.TabIndex = 19;
-			// 
 			// panel18
 			// 
 			this.panel18.Controls.Add(this.label22);
 			this.panel18.Controls.Add(this.txt_TownRunBloodShardMinimumValue);
 			this.panel18.Controls.Add(this.tb_TownRunBloodShardMinimumValue);
 			this.panel18.Dock = System.Windows.Forms.DockStyle.Top;
-			this.panel18.Location = new System.Drawing.Point(0, 0);
+			this.panel18.Location = new System.Drawing.Point(3, 37);
 			this.panel18.Name = "panel18";
 			this.panel18.Size = new System.Drawing.Size(645, 64);
 			this.panel18.TabIndex = 18;
@@ -3288,6 +3268,15 @@
 			this.toolTip1.InitialDelay = 1000;
 			this.toolTip1.ReshowDelay = 500;
 			// 
+			// flowLayout_TownRunBloodShardItems
+			// 
+			this.flowLayout_TownRunBloodShardItems.Dock = System.Windows.Forms.DockStyle.Top;
+			this.flowLayout_TownRunBloodShardItems.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.flowLayout_TownRunBloodShardItems.Location = new System.Drawing.Point(3, 101);
+			this.flowLayout_TownRunBloodShardItems.Name = "flowLayout_TownRunBloodShardItems";
+			this.flowLayout_TownRunBloodShardItems.Size = new System.Drawing.Size(645, 215);
+			this.flowLayout_TownRunBloodShardItems.TabIndex = 20;
+			// 
 			// SettingsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3419,7 +3408,6 @@
 			this.tabPage18.ResumeLayout(false);
 			this.groupBox14.ResumeLayout(false);
 			this.groupBox14.PerformLayout();
-			this.panel_TownRunBloodShardGambling.ResumeLayout(false);
 			this.panel18.ResumeLayout(false);
 			this.panel18.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tb_TownRunBloodShardMinimumValue)).EndInit();
@@ -3647,13 +3635,11 @@
 		private System.Windows.Forms.CheckBox cb_TownRunStashHoradricCache;
 		private System.Windows.Forms.TabPage tabPage19;
 		private System.Windows.Forms.GroupBox groupBox14;
-		private System.Windows.Forms.Panel panel_TownRunBloodShardGambling;
 		private System.Windows.Forms.Panel panel18;
 		private System.Windows.Forms.Label label22;
 		private System.Windows.Forms.TextBox txt_TownRunBloodShardMinimumValue;
 		private System.Windows.Forms.TrackBar tb_TownRunBloodShardMinimumValue;
 		private System.Windows.Forms.CheckBox cb_TownRunBloodShardGambling;
-		private System.Windows.Forms.FlowLayoutPanel flowLayout_TownRunBloodShardItems;
 		private System.Windows.Forms.GroupBox groupBox15;
 		private System.Windows.Forms.CheckBox cb_ItemRulesUnidStashing;
 		private System.Windows.Forms.CheckBox cb_ItemRulesPickup;
@@ -3742,6 +3728,7 @@
 		private System.Windows.Forms.ComboBox combo_TownRunSalvageWhiteItems;
 		private System.Windows.Forms.Label label28;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_MiscStats;
+		private System.Windows.Forms.FlowLayoutPanel flowLayout_TownRunBloodShardItems;
 		//
 	}
 }

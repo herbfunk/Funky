@@ -18,10 +18,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 12));
 
 
-				FcriteriaCombat=() =>
-				{
-					return (Bot.Character.Data.dCurrentEnergy>=Bot.Character.Class.iWaitingReservedAmount);
-				};
+				FcriteriaCombat=() => (!Bot.Character.Class.bWaitingForSpecial && Bot.Character.Data.dCurrentEnergy >= Bot.Character.Class.iWaitingReservedAmount);
 		  }
 
 		  #region IAbility

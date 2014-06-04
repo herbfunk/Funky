@@ -5,9 +5,10 @@ namespace FunkyBot.Config.Settings.Class
 {
 	public class SettingWitchDoctor
 	{
+		public bool ZunimassaFullSet { get; set; }
 		public SettingWitchDoctor()
 		 {
-
+			 ZunimassaFullSet = false;
 		 }
 
 		internal string DefaultFilePath

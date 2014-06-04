@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.WitchDoctor;
 using Zeta.Game;
@@ -12,6 +13,15 @@ namespace FunkyBot.Player.Class
 	{
 		public WitchDoctor()
 		{
+			int ZunimassaSetItemCount = Bot.Character.Data.equipment.EquippedItems.Count(i => i.ThisRealName.Contains("Zunimassa"));
+			if (ZunimassaSetItemCount > 3 || ZunimassaSetItemCount > 2 && Bot.Character.Data.equipment.RingOfGrandeur)
+			{
+				Logger.DBLog.DebugFormat("[Funky] Zunimassa Five Set Bounus Found!");
+				Bot.Settings.WitchDoctor.ZunimassaFullSet = true;
+			}
+			else
+				Bot.Settings.WitchDoctor.ZunimassaFullSet = false;
+
 			Logger.DBLog.DebugFormat("[Funky] Using WitchDoctor Player Class");
 		}
 		//Base class for each individual class!

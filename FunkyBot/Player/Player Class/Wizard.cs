@@ -15,11 +15,15 @@ namespace FunkyBot.Player.Class
 	{
 		public Wizard()
 		{
-			List<CacheACDItem> equippedItems = Bot.Character.Data.BackPack.ReturnCurrentEquippedItems();
-			if (equippedItems.Any(i => i.ThisRealName.Contains("Serpent's Sparker")))
+
+			if (Bot.Character.Data.equipment.EquippedItems.Any(i => i.ThisRealName.Contains("Serpent's Sparker")))
 			{
 				Bot.Settings.Wizard.SerpentSparker = true;
 				Logger.DBLog.DebugFormat("Wizard Can Cast Two Hydras!");
+			}
+			else
+			{
+				Bot.Settings.Wizard.SerpentSparker = false;
 			}
 			Logger.DBLog.DebugFormat("[Funky] Using Wizard Player Class");
 		}

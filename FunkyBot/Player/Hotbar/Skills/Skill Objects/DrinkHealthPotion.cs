@@ -9,9 +9,9 @@ namespace FunkyBot.Player.HotBar.Skills
 		 public void AttemptToUseHealthPotion()
 		  {
 				//Update and find best potion to use.
-				Bot.Character.Data.BackPack.ReturnCurrentPotions();
+				//Bot.Character.Data.BackPack.ReturnCurrentPotions();
 
-				ACDItem thisBestPotion=Bot.Character.Data.BackPack.BestPotionToUse;
+				ACDItem thisBestPotion = Bot.Character.Data.BackPack.ReturnBestPotionToUse();
 				if (thisBestPotion!=null)
 				{
 					 Bot.Character.Data.WaitWhileAnimating(4, true);

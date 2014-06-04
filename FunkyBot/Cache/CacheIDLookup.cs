@@ -606,6 +606,8 @@ namespace FunkyBot.Cache
 		public static readonly HashSet<int> hashZombie = new HashSet<int> { 110959, 103235, 103215, 105763, 103217, 51353 };
 		public static readonly HashSet<int> hashDHPets = new HashSet<int> { 178664, 173827, 133741, 159144, 181748, 159098 };
 		public static readonly HashSet<int> hashWizHydras = new HashSet<int> { 80745, 81515, 82111, 82972, 82109, 83959, 325807 }; //IDs taken from d3lexicon
+		public static readonly HashSet<int> hashDHSentries = new HashSet<int> { 150027, 150026, 168815, 150024, 150025, 141402 };
+		public static readonly HashSet<int> hashWDFetish = new HashSet<int> { 87189, 89933, 89934, 90072, }; 
 
 		//Quick reference to all possible pets
 		public static readonly HashSet<int> hashSummonedPets = new HashSet<int>
@@ -613,8 +615,10 @@ namespace FunkyBot.Cache
                                                                                     179780, 179778, 179772, 179779, 179776, 122305,
                                                                                      110959, 103235, 103215, 105763, 103217, 51353,
                                                                                       178664, 173827, 133741, 159144, 181748, 159098,
-																													80745, 81515, 82111, 82972, 82109, 83959, 325807,
-																													 158941, 111330};
+																					   80745, 81515, 82111, 82972, 82109, 83959, 325807,
+																													 158941, 111330,
+																					   150027, 150026, 168815, 150024, 150025, 141402,
+																					    87189, 89933, 89934, 90072};
 	}
 
 }

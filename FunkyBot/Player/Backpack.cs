@@ -117,6 +117,28 @@ namespace FunkyBot.Player
 				UIElements.BackgroundScreenPCButtonInventory.Click();
 		}
 
+
+		public ACDItem ReturnBestPotionToUse()
+		{
+			//Always update!
+			Update();
+			var Potions = CacheItemList.Values.Where(i => i.ThisDBItemType == ItemType.Potion).ToList();
+			if (Potions.Count>0)
+			{
+				//Check for any Bottomless Pots First!
+				var BottomlessPotions = Potions.Where(i => i.BottomlessPotionType != Cache.Enums.BottomlessPotions.None).ToList();
+				if (BottomlessPotions.Count>0)
+				{
+					//TODO:: Base selection on current events!
+					return BottomlessPotions.First().ACDItem;
+				}
+
+				//Return normal potion
+				return BestPotionToUse=Potions.OrderByDescending(i => i.ThisItemStackQuantity).First().ACDItem;
+			}
+
+			return null;
+		}
 		public List<CacheACDItem> ReturnCurrentPotions()
 		{
 			//Always update!
@@ -137,17 +159,6 @@ namespace FunkyBot.Player
 			//Find best potion to use based upon stack
 			BestPotionToUse = Potions.OrderBy(i => i.ThisItemStackQuantity).FirstOrDefault().ACDItem;
 			return Potions.ToList();
-
-			//var Potions = ZetaDia.Me.Inventory.Backpack.Where(i => i.IsPotion);
-			//if (!Potions.Any()) return null;
-			//Potions = Potions.OrderByDescending(i => i.HitpointsGranted).ThenByDescending(i => i.ItemStackQuantity);
-			////Set Best Potion to use..
-			//CurrentPotionACDGUID = Potions.FirstOrDefault().ACDGuid;
-			//int balanceID = Potions.FirstOrDefault().GameBalanceId;
-			////Find best potion to use based upon stack
-			//BestPotionToUse = Potions.Where(i => i.GameBalanceId == balanceID).OrderBy(i => i.ItemStackQuantity).FirstOrDefault();
-			//return Potions.ToList();
-
 		}
 
 		public Queue<ACDItem> ReturnUnidenifiedItems()

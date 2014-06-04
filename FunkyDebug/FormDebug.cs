@@ -499,7 +499,7 @@ namespace FunkyDebug
 
 		private string ReturnItemString(ACDItem o)
 		{
-			return String.Format("Item - Name: {1} Row: {32} Column: {33} ActorSNO: {0} ACDGuid: {30} DynamicID: {31}  ItemType: {2} ItemBaseType: {3}\r\n" +
+			return String.Format("Item - Name: {1} Row: {32} Column: {33} ActorSNO: {0} ACDGuid: {30} DynamicID: {31} BalanceID: {34}  ItemType: {2} ItemBaseType: {3}\r\n" +
 									"Position: {29}" +
 									"IsArmor: {4} IsCrafted: {5} IsCraftingPage: {6} IsCraftingReagent: {7}\r\n" +
 									"IsElite: {8} IsEquipped: {9} IsGem: {10} IsMiscItem: {11}\r\n" +
@@ -520,7 +520,8 @@ namespace FunkyDebug
 									o.MaxStackCount, o.MaxDurability, o.NumSockets,
 									o.Stats,
 									o.Position, o.ACDGuid, o.DynamicId,
-									o.InventoryRow, o.InventoryColumn);
+									o.InventoryRow, o.InventoryColumn,
+									o.GameBalanceId);
 		}
 	}
 }

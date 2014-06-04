@@ -43,10 +43,10 @@
 			this.tabPageCharacter = new System.Windows.Forms.TabPage();
 			this.tabControl3 = new System.Windows.Forms.TabControl();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.panelCharacterStats = new System.Windows.Forms.FlowLayoutPanel();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.btnRefreshCharacter = new System.Windows.Forms.Button();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.panelCharacterInventory = new System.Windows.Forms.Panel();
 			this.panel3 = new System.Windows.Forms.Panel();
 			this.btnRefreshCharacterInventory = new System.Windows.Forms.Button();
 			this.tabPage7 = new System.Windows.Forms.TabPage();
@@ -55,7 +55,7 @@
 			this.panel_UI = new System.Windows.Forms.Panel();
 			this.panel4 = new System.Windows.Forms.Panel();
 			this.btn_dumpUIs = new System.Windows.Forms.Button();
-			this.panelCharacterStats = new System.Windows.Forms.FlowLayoutPanel();
+			this.panelCharacterInventory = new System.Windows.Forms.FlowLayoutPanel();
 			this.tabControl1.SuspendLayout();
 			this.tabPageObjects.SuspendLayout();
 			this.tabControl2.SuspendLayout();
@@ -238,6 +238,15 @@
 			this.tabPage5.Text = "Stats";
 			this.tabPage5.UseVisualStyleBackColor = true;
 			// 
+			// panelCharacterStats
+			// 
+			this.panelCharacterStats.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panelCharacterStats.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.panelCharacterStats.Location = new System.Drawing.Point(3, 3);
+			this.panelCharacterStats.Name = "panelCharacterStats";
+			this.panelCharacterStats.Size = new System.Drawing.Size(547, 416);
+			this.panelCharacterStats.TabIndex = 2;
+			// 
 			// panel2
 			// 
 			this.panel2.AutoSize = true;
@@ -270,16 +279,6 @@
 			this.tabPage6.TabIndex = 1;
 			this.tabPage6.Text = "Inventory";
 			this.tabPage6.UseVisualStyleBackColor = true;
-			// 
-			// panelCharacterInventory
-			// 
-			this.panelCharacterInventory.AutoScroll = true;
-			this.panelCharacterInventory.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.panelCharacterInventory.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panelCharacterInventory.Location = new System.Drawing.Point(3, 45);
-			this.panelCharacterInventory.Name = "panelCharacterInventory";
-			this.panelCharacterInventory.Size = new System.Drawing.Size(547, 415);
-			this.panelCharacterInventory.TabIndex = 3;
 			// 
 			// panel3
 			// 
@@ -362,14 +361,17 @@
 			this.btn_dumpUIs.UseVisualStyleBackColor = true;
 			this.btn_dumpUIs.Click += new System.EventHandler(this.btn_dumpUIs_Click);
 			// 
-			// panelCharacterStats
+			// panelCharacterInventory
 			// 
-			this.panelCharacterStats.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panelCharacterStats.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-			this.panelCharacterStats.Location = new System.Drawing.Point(3, 3);
-			this.panelCharacterStats.Name = "panelCharacterStats";
-			this.panelCharacterStats.Size = new System.Drawing.Size(547, 416);
-			this.panelCharacterStats.TabIndex = 2;
+			this.panelCharacterInventory.AutoScroll = true;
+			this.panelCharacterInventory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panelCharacterInventory.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panelCharacterInventory.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.panelCharacterInventory.Location = new System.Drawing.Point(3, 45);
+			this.panelCharacterInventory.Name = "panelCharacterInventory";
+			this.panelCharacterInventory.Size = new System.Drawing.Size(547, 415);
+			this.panelCharacterInventory.TabIndex = 5;
+			this.panelCharacterInventory.WrapContents = false;
 			// 
 			// FormDebug
 			// 
@@ -424,7 +426,6 @@
 		private System.Windows.Forms.Panel panelMonsters;
 		private System.Windows.Forms.Panel panelGizmos;
 		private System.Windows.Forms.Panel panelItems;
-		private System.Windows.Forms.Panel panelCharacterInventory;
 		private System.Windows.Forms.TabPage tabPage7;
 		private System.Windows.Forms.Panel panelCharacterEquipped;
 		private System.Windows.Forms.Panel panel3;
@@ -434,5 +435,6 @@
 		private System.Windows.Forms.Panel panel4;
 		private System.Windows.Forms.Button btn_dumpUIs;
 		private System.Windows.Forms.FlowLayoutPanel panelCharacterStats;
+		private System.Windows.Forms.FlowLayoutPanel panelCharacterInventory;
 	}
 }

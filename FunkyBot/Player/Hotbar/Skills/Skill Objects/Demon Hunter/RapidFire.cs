@@ -42,6 +42,8 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 
 				FcriteriaCombat=() =>
 				{
+					if (Bot.Character.Class.bWaitingForSpecial) return false;
+
 					var isChanneling=(IsFiring||LastUsedMilliseconds<450);
 					//If channeling, check if energy is greater then 10.. else only start when energy is at least -40-
 					return (isChanneling&&Bot.Character.Data.dCurrentEnergy>6)||(Bot.Character.Data.dCurrentEnergy>40)

@@ -55,7 +55,27 @@ namespace FunkyBot.Cache.Objects
 			bNeedsUpdated = true;
 		}
 
+		public bool IsBottomlessPotion
+		{
+			get
+			{
+				return HashBottomlessPotions.Contains(iThisBalanceID);
+			}
+		}
+		public BottomlessPotions ReturnBottomlessPotionType()
+		{
+			switch (iThisBalanceID)
+			{
+				case -2018707796:
+					return BottomlessPotions.Regeneration;
+				case -2018707795:
+					return BottomlessPotions.Leech;
+				case -2018707793:
+					return BottomlessPotions.KulleAid;
+			}
 
+			return BottomlessPotions.None;
+		}
 		//Property -- Craft Plans
 		public bool IsBlacksmithPlanSixProperties
 		{
@@ -208,6 +228,15 @@ namespace FunkyBot.Cache.Objects
 		  };
 
 		#endregion
+
+		//TODO:: Add Tower, Diamond, and Mutilation IDs
+		private static readonly HashSet<int> HashBottomlessPotions = new HashSet<int>
+		{
+			-2018707796, //Regeneration
+			-2018707795, //Leech
+			-2018707793, //Kulle-Aid
+
+		};
 
 	}
 

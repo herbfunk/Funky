@@ -38,8 +38,11 @@ namespace FunkyBot.Player
 			SceneName=String.Empty;
 			CurrentWorldDynamicID = -1;
 			iCurrentLevelID = -1;
+
 			BackPack = new Backpack();
 			PetData = new Pets();
+			equipment = new Equipment();
+
 			PickupRadius = 1;
 			coinage = 0;
 			fCharacterRadius = 0f;
@@ -120,6 +123,7 @@ namespace FunkyBot.Player
 		internal string SceneName { get; set; }
 		internal Pets PetData { get; set; }
 		internal Backpack BackPack { get; set; }
+		internal Equipment equipment { get; set; }
 		internal float PickupRadius { get; set; }
 		internal int FreeBackpackSlots { get; set; }
 		internal int CurrentExp { get; set; }
@@ -460,6 +464,8 @@ namespace FunkyBot.Player
 				DEMONHUNTER_Pet = 8,
 				WIZARD_Hydra = 16,
 				DEMONHUNTER_SpikeTrap = 32,
+				DEMONHUNTER_Sentry = 64,
+				WITCHDOCTOR_Fetish = 128,
 			}
 
 			public Dictionary<PetTypes, int> dictPetCounter = new Dictionary<PetTypes, int>();
@@ -521,6 +527,23 @@ namespace FunkyBot.Player
 						dictPetCounter[PetTypes.WITCHDOCTOR_ZombieDogs] = value;
 				}
 			}
+			public int WitchdoctorFetish
+			{
+				get
+				{
+					if (!dictPetCounter.ContainsKey(PetTypes.WITCHDOCTOR_Fetish))
+						dictPetCounter.Add(PetTypes.WITCHDOCTOR_Fetish, 0);
+
+					return dictPetCounter[PetTypes.WITCHDOCTOR_Fetish];
+				}
+				set
+				{
+					if (!dictPetCounter.ContainsKey(PetTypes.WITCHDOCTOR_Fetish))
+						dictPetCounter.Add(PetTypes.WITCHDOCTOR_Fetish, value);
+					else
+						dictPetCounter[PetTypes.WITCHDOCTOR_Fetish] = value;
+				}
+			}
 			public int DemonHunterPet
 			{
 				get
@@ -555,6 +578,24 @@ namespace FunkyBot.Player
 						dictPetCounter[PetTypes.DEMONHUNTER_SpikeTrap] = value;
 				}
 			}
+
+			public int DemonHunterSentry
+			{
+				get
+				{
+					if (!dictPetCounter.ContainsKey(PetTypes.DEMONHUNTER_Sentry))
+						dictPetCounter.Add(PetTypes.DEMONHUNTER_Sentry, 0);
+
+					return dictPetCounter[PetTypes.DEMONHUNTER_Sentry];
+				}
+				set
+				{
+					if (!dictPetCounter.ContainsKey(PetTypes.DEMONHUNTER_Sentry))
+						dictPetCounter.Add(PetTypes.DEMONHUNTER_Sentry, value);
+					else
+						dictPetCounter[PetTypes.DEMONHUNTER_Sentry] = value;
+				}
+			}
 			public int WizardHydra
 			{
 				get
@@ -581,17 +622,21 @@ namespace FunkyBot.Player
 				DemonHunterPet = 0;
 				WizardHydra = 0;
 				DemonHunterSpikeTraps = 0;
+				DemonHunterSentry = 0;
+				WitchdoctorFetish = 0;
 			}
 
 			public string DebugString()
 			{
 				string PetString = "Pets\r\n";
-				if (MysticAlly > 0) PetString += "Mystic Ally: " + MysticAlly;
-				if (Gargantuan > 0) PetString += "Gargantuan: " + Gargantuan;
-				if (ZombieDogs > 0) PetString += "ZombieDogs: " + ZombieDogs;
-				if (DemonHunterPet > 0) PetString += "DemonHunterPet: " + DemonHunterPet;
-				if (WizardHydra > 0) PetString += "WizardHydra: " + WizardHydra;
-				if (DemonHunterSpikeTraps > 0) PetString += "DemonHunterSpikeTraps: " + DemonHunterSpikeTraps;
+				if (MysticAlly > 0) PetString += "Mystic Ally: " + MysticAlly + "\r\n";
+				if (Gargantuan > 0) PetString += "Gargantuan: " + Gargantuan + "\r\n";
+				if (ZombieDogs > 0) PetString += "ZombieDogs: " + ZombieDogs + "\r\n";
+				if (DemonHunterPet > 0) PetString += "DemonHunterPet: " + DemonHunterPet + "\r\n";
+				if (WizardHydra > 0) PetString += "WizardHydra: " + WizardHydra + "\r\n";
+				if (DemonHunterSpikeTraps > 0) PetString += "DemonHunterSpikeTraps: " + DemonHunterSpikeTraps + "\r\n";
+				if (DemonHunterSentry > 0) PetString += "DemonHunterSentry: " + DemonHunterSentry + "\r\n";
+				if (WitchdoctorFetish > 0) PetString += "WitchdoctorFetish: " + WitchdoctorFetish + "\r\n";
 
 				return PetString;
 			}

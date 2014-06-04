@@ -1,4 +1,5 @@
 ﻿using System;
+using FunkyBot.Movement;
 using FunkyBot.Player;
 using Zeta.Bot;
 using Zeta.Game;
@@ -40,6 +41,9 @@ namespace FunkyBot.DBHandlers
 				if (Bot.Targeting.CheckHandleTarget() == RunStatus.Running)
 					return RunStatus.Running;
 			}
+
+			Bot.Game.GoldTimeoutChecker.LastCoinageUpdate = DateTime.Now;
+			Navigation.MGP.Update();
 
 			ResetCache = false;
 			Logger.DBLog.Info("Finished Town Run Behavior!");

@@ -1569,39 +1569,7 @@ namespace FunkyBot.Config.UI
 
 			try
 			{
-				ZetaDia.Memory.ClearCache();
-				ZetaDia.Actors.Update();
-				
-				foreach (var obj in ZetaDia.Actors.GetActorsOfType<DiaObject>().Where(o => o.ActorType==ActorType.ServerProp).OrderBy(o => o.Distance))
-				{
-					string Sobj = String.Format("Object: {0}",obj.Name);
-					//obj.CollisionSphere.Center
-					try
-					{
-						float rotation=obj.Movement.Rotation;
-						float degrees = obj.Movement.RotationDegrees;
-						Sobj += String.Format("\r\nRotation {0} {1}", rotation, degrees);
-					}
-					catch
-					{
-
-					}
-					LBDebug.Controls.Add(new UserControlDebugEntry(Sobj));
-				}
-
-				string Splayer = String.Format("Player: {0}", ZetaDia.Me.Name);
-				//obj.CollisionSphere.Center
-				try
-				{
-					float rotation = ZetaDia.Me.Movement.Rotation;
-					float degrees = ZetaDia.Me.Movement.RotationDegrees;
-					Splayer += String.Format("\r\nRotation {0} {1}", rotation, degrees);
-				}
-				catch
-				{
-
-				}
-				LBDebug.Controls.Add(new UserControlDebugEntry(Splayer));
+				ZetaDia.Service.GameAccount.SwitchHero(10);
 			}
 			catch (Exception ex)
 			{

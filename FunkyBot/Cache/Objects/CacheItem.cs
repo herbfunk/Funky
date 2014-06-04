@@ -209,7 +209,7 @@ namespace FunkyBot.Cache.Objects
 					case TargetType.PowerGlobe:
 						if (targetType.Equals(TargetType.Globe) && 
 							(Bot.Character.Data.dCurrentHealthPct > Bot.Settings.Combat.GlobeHealthPercent) ||
-							(!Bot.Character.Class.GlobesRestoreResource || Bot.Character.Data.dCurrentEnergyPct>0.75d))
+							(!Bot.Character.Data.equipment.GlobesRestoreResource || Bot.Character.Data.dCurrentEnergyPct>0.75d))
 						{
 							Weight = 0;
 						}
@@ -370,7 +370,7 @@ namespace FunkyBot.Cache.Objects
 						if (CentreDistance > LootRadius)
 						{
 							//Blacklist Health Globes 10 loops
-							if (targetType!=TargetType.PowerGlobe && !Bot.Character.Class.GlobesRestoreResource)
+							if (targetType != TargetType.PowerGlobe && !Bot.Character.Data.equipment.GlobesRestoreResource)
 								BlacklistLoops = 10;
 
 							return false;

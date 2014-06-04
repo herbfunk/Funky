@@ -182,6 +182,8 @@ namespace FunkyBot.Cache
 									Bot.Character.Data.PetData.DemonHunterPet++;
 								else if (CacheIDLookup.hashDHSpikeTraps.Contains(tmp_CachedObj.SNOID) && tmp_CachedObj.CentreDistance <= 50f)
 									Bot.Character.Data.PetData.DemonHunterSpikeTraps++;
+								else if (CacheIDLookup.hashDHSentries.Contains(tmp_CachedObj.SNOID) && tmp_CachedObj.CentreDistance <= 60f)
+									Bot.Character.Data.PetData.DemonHunterSentry++;
 							}
 							else if (Bot.Character.Class.AC == ActorClass.Witchdoctor)
 							{
@@ -189,6 +191,8 @@ namespace FunkyBot.Cache
 									Bot.Character.Data.PetData.ZombieDogs++;
 								else if (CacheIDLookup.hashGargantuan.Contains(tmp_CachedObj.SNOID))
 									Bot.Character.Data.PetData.Gargantuan++;
+								else if (CacheIDLookup.hashWDFetish.Contains(tmp_CachedObj.SNOID))
+									Bot.Character.Data.PetData.WitchdoctorFetish++;
 							}
 							else if (Bot.Character.Class.AC == ActorClass.Wizard)
 							{

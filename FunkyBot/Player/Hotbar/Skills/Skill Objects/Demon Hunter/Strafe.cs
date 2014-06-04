@@ -19,6 +19,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 2);
 				//SingleUnitCondition = new UnitTargetConditions(TargetProperties.None, 15);
 
+				FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial;
 		  }
 
 		  #region IAbility

@@ -243,7 +243,7 @@ namespace FunkyBot.Cache.Avoidance
 		{
 
 			//Special Blackthorne's Set Bonus Check!
-			if (Bot.Character.Class.ImmuneToDescratorMoltenPlaguedAvoidances)
+			if (Bot.Character.Data.equipment.ImmuneToDescratorMoltenPlaguedAvoidances)
 			{
 				switch (thisAvoidance)
 				{

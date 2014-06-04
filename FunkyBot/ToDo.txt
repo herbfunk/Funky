@@ -1,1 +1,7 @@
-﻿
+﻿Item - Name: Bottomless Potion of Regeneration BalanceID: -2018707796
+
+
+Item - Name: Bottomless Potion of the Leech BalanceID: -2018707795
+
+
+Item - Name: Bottomless Potion of Kulle-Aid BalanceID: -2018707793 
