@@ -43,6 +43,10 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 			//Custom Engineering - Max 3
 			if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.DemonHunter_Passive_CustomEngineering))
 				n++;
+			
+			//Bombardier's Rucksack - Additional 2
+			if (Bot.Settings.DemonHunter.BombadiersRucksack)
+				n += 2;
 
 			return n;
 		}

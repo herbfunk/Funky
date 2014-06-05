@@ -32,11 +32,8 @@
 			this.tabPageObjects = new System.Windows.Forms.TabPage();
 			this.tabControl2 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.panelMonsters = new System.Windows.Forms.Panel();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.panelGizmos = new System.Windows.Forms.Panel();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
-			this.panelItems = new System.Windows.Forms.Panel();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.btnRefreshObjects = new System.Windows.Forms.Button();
@@ -47,15 +44,20 @@
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.btnRefreshCharacter = new System.Windows.Forms.Button();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
+			this.panelCharacterInventory = new System.Windows.Forms.FlowLayoutPanel();
 			this.panel3 = new System.Windows.Forms.Panel();
 			this.btnRefreshCharacterInventory = new System.Windows.Forms.Button();
 			this.tabPage7 = new System.Windows.Forms.TabPage();
-			this.panelCharacterEquipped = new System.Windows.Forms.Panel();
+			this.panelCharacterEquipped = new System.Windows.Forms.FlowLayoutPanel();
+			this.panel5 = new System.Windows.Forms.Panel();
+			this.btnRefreshCharacterEquipped = new System.Windows.Forms.Button();
 			this.tabPage8 = new System.Windows.Forms.TabPage();
 			this.panel_UI = new System.Windows.Forms.Panel();
 			this.panel4 = new System.Windows.Forms.Panel();
 			this.btn_dumpUIs = new System.Windows.Forms.Button();
-			this.panelCharacterInventory = new System.Windows.Forms.FlowLayoutPanel();
+			this.panelMonsters = new System.Windows.Forms.FlowLayoutPanel();
+			this.panelGizmos = new System.Windows.Forms.FlowLayoutPanel();
+			this.panelItems = new System.Windows.Forms.FlowLayoutPanel();
 			this.tabControl1.SuspendLayout();
 			this.tabPageObjects.SuspendLayout();
 			this.tabControl2.SuspendLayout();
@@ -70,6 +72,7 @@
 			this.tabPage6.SuspendLayout();
 			this.panel3.SuspendLayout();
 			this.tabPage7.SuspendLayout();
+			this.panel5.SuspendLayout();
 			this.tabPage8.SuspendLayout();
 			this.panel4.SuspendLayout();
 			this.SuspendLayout();
@@ -122,16 +125,6 @@
 			this.tabPage1.Text = "Monsters";
 			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
-			// panelMonsters
-			// 
-			this.panelMonsters.AutoScroll = true;
-			this.panelMonsters.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.panelMonsters.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panelMonsters.Location = new System.Drawing.Point(3, 3);
-			this.panelMonsters.Name = "panelMonsters";
-			this.panelMonsters.Size = new System.Drawing.Size(547, 415);
-			this.panelMonsters.TabIndex = 0;
-			// 
 			// tabPage2
 			// 
 			this.tabPage2.Controls.Add(this.panelGizmos);
@@ -143,16 +136,6 @@
 			this.tabPage2.Text = "Gizmos";
 			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
-			// panelGizmos
-			// 
-			this.panelGizmos.AutoScroll = true;
-			this.panelGizmos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.panelGizmos.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panelGizmos.Location = new System.Drawing.Point(3, 3);
-			this.panelGizmos.Name = "panelGizmos";
-			this.panelGizmos.Size = new System.Drawing.Size(547, 415);
-			this.panelGizmos.TabIndex = 1;
-			// 
 			// tabPage3
 			// 
 			this.tabPage3.Controls.Add(this.panelItems);
@@ -163,16 +146,6 @@
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "Items";
 			this.tabPage3.UseVisualStyleBackColor = true;
-			// 
-			// panelItems
-			// 
-			this.panelItems.AutoScroll = true;
-			this.panelItems.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.panelItems.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panelItems.Location = new System.Drawing.Point(3, 3);
-			this.panelItems.Name = "panelItems";
-			this.panelItems.Size = new System.Drawing.Size(547, 415);
-			this.panelItems.TabIndex = 1;
 			// 
 			// tabPage4
 			// 
@@ -235,24 +208,25 @@
 			this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
 			this.tabPage5.Size = new System.Drawing.Size(553, 463);
 			this.tabPage5.TabIndex = 0;
-			this.tabPage5.Text = "Stats";
+			this.tabPage5.Text = "Skills";
 			this.tabPage5.UseVisualStyleBackColor = true;
 			// 
 			// panelCharacterStats
 			// 
 			this.panelCharacterStats.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelCharacterStats.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-			this.panelCharacterStats.Location = new System.Drawing.Point(3, 3);
+			this.panelCharacterStats.Location = new System.Drawing.Point(3, 44);
 			this.panelCharacterStats.Name = "panelCharacterStats";
 			this.panelCharacterStats.Size = new System.Drawing.Size(547, 416);
 			this.panelCharacterStats.TabIndex = 2;
+			this.panelCharacterStats.MouseEnter += new System.EventHandler(this.panelCharacterStats_MouseEnter);
 			// 
 			// panel2
 			// 
 			this.panel2.AutoSize = true;
 			this.panel2.Controls.Add(this.btnRefreshCharacter);
-			this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panel2.Location = new System.Drawing.Point(3, 419);
+			this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel2.Location = new System.Drawing.Point(3, 3);
 			this.panel2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 25);
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(547, 41);
@@ -280,6 +254,19 @@
 			this.tabPage6.Text = "Inventory";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
+			// panelCharacterInventory
+			// 
+			this.panelCharacterInventory.AutoScroll = true;
+			this.panelCharacterInventory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panelCharacterInventory.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panelCharacterInventory.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.panelCharacterInventory.Location = new System.Drawing.Point(3, 45);
+			this.panelCharacterInventory.Name = "panelCharacterInventory";
+			this.panelCharacterInventory.Size = new System.Drawing.Size(547, 415);
+			this.panelCharacterInventory.TabIndex = 5;
+			this.panelCharacterInventory.WrapContents = false;
+			this.panelCharacterInventory.MouseEnter += new System.EventHandler(this.panelCharacterInventory_MouseEnter);
+			// 
 			// panel3
 			// 
 			this.panel3.Controls.Add(this.btnRefreshCharacterInventory);
@@ -302,6 +289,7 @@
 			// tabPage7
 			// 
 			this.tabPage7.Controls.Add(this.panelCharacterEquipped);
+			this.tabPage7.Controls.Add(this.panel5);
 			this.tabPage7.Location = new System.Drawing.Point(4, 22);
 			this.tabPage7.Name = "tabPage7";
 			this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
@@ -313,12 +301,34 @@
 			// panelCharacterEquipped
 			// 
 			this.panelCharacterEquipped.AutoScroll = true;
-			this.panelCharacterEquipped.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.panelCharacterEquipped.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.panelCharacterEquipped.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panelCharacterEquipped.Location = new System.Drawing.Point(3, 3);
+			this.panelCharacterEquipped.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.panelCharacterEquipped.Location = new System.Drawing.Point(3, 45);
 			this.panelCharacterEquipped.Name = "panelCharacterEquipped";
-			this.panelCharacterEquipped.Size = new System.Drawing.Size(547, 457);
-			this.panelCharacterEquipped.TabIndex = 4;
+			this.panelCharacterEquipped.Size = new System.Drawing.Size(547, 415);
+			this.panelCharacterEquipped.TabIndex = 6;
+			this.panelCharacterEquipped.WrapContents = false;
+			this.panelCharacterEquipped.MouseEnter += new System.EventHandler(this.panelCharacterEquipped_MouseEnter);
+			// 
+			// panel5
+			// 
+			this.panel5.Controls.Add(this.btnRefreshCharacterEquipped);
+			this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel5.Location = new System.Drawing.Point(3, 3);
+			this.panel5.Name = "panel5";
+			this.panel5.Size = new System.Drawing.Size(547, 42);
+			this.panel5.TabIndex = 5;
+			// 
+			// btnRefreshCharacterEquipped
+			// 
+			this.btnRefreshCharacterEquipped.Location = new System.Drawing.Point(5, 3);
+			this.btnRefreshCharacterEquipped.Name = "btnRefreshCharacterEquipped";
+			this.btnRefreshCharacterEquipped.Size = new System.Drawing.Size(94, 35);
+			this.btnRefreshCharacterEquipped.TabIndex = 0;
+			this.btnRefreshCharacterEquipped.Text = "Refresh";
+			this.btnRefreshCharacterEquipped.UseVisualStyleBackColor = true;
+			this.btnRefreshCharacterEquipped.Click += new System.EventHandler(this.btnRefreshCharacterEquipped_Click);
 			// 
 			// tabPage8
 			// 
@@ -361,17 +371,41 @@
 			this.btn_dumpUIs.UseVisualStyleBackColor = true;
 			this.btn_dumpUIs.Click += new System.EventHandler(this.btn_dumpUIs_Click);
 			// 
-			// panelCharacterInventory
+			// panelMonsters
 			// 
-			this.panelCharacterInventory.AutoScroll = true;
-			this.panelCharacterInventory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panelCharacterInventory.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panelCharacterInventory.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-			this.panelCharacterInventory.Location = new System.Drawing.Point(3, 45);
-			this.panelCharacterInventory.Name = "panelCharacterInventory";
-			this.panelCharacterInventory.Size = new System.Drawing.Size(547, 415);
-			this.panelCharacterInventory.TabIndex = 5;
-			this.panelCharacterInventory.WrapContents = false;
+			this.panelMonsters.AutoScroll = true;
+			this.panelMonsters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panelMonsters.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panelMonsters.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.panelMonsters.Location = new System.Drawing.Point(3, 3);
+			this.panelMonsters.Name = "panelMonsters";
+			this.panelMonsters.Size = new System.Drawing.Size(547, 415);
+			this.panelMonsters.TabIndex = 6;
+			this.panelMonsters.WrapContents = false;
+			// 
+			// panelGizmos
+			// 
+			this.panelGizmos.AutoScroll = true;
+			this.panelGizmos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panelGizmos.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panelGizmos.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.panelGizmos.Location = new System.Drawing.Point(3, 3);
+			this.panelGizmos.Name = "panelGizmos";
+			this.panelGizmos.Size = new System.Drawing.Size(547, 415);
+			this.panelGizmos.TabIndex = 6;
+			this.panelGizmos.WrapContents = false;
+			// 
+			// panelItems
+			// 
+			this.panelItems.AutoScroll = true;
+			this.panelItems.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panelItems.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panelItems.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.panelItems.Location = new System.Drawing.Point(3, 3);
+			this.panelItems.Name = "panelItems";
+			this.panelItems.Size = new System.Drawing.Size(547, 415);
+			this.panelItems.TabIndex = 6;
+			this.panelItems.WrapContents = false;
 			// 
 			// FormDebug
 			// 
@@ -400,6 +434,7 @@
 			this.tabPage6.ResumeLayout(false);
 			this.panel3.ResumeLayout(false);
 			this.tabPage7.ResumeLayout(false);
+			this.panel5.ResumeLayout(false);
 			this.tabPage8.ResumeLayout(false);
 			this.panel4.ResumeLayout(false);
 			this.ResumeLayout(false);
@@ -423,11 +458,7 @@
 		private System.Windows.Forms.TabPage tabPage6;
 		private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.Button btnRefreshCharacter;
-		private System.Windows.Forms.Panel panelMonsters;
-		private System.Windows.Forms.Panel panelGizmos;
-		private System.Windows.Forms.Panel panelItems;
 		private System.Windows.Forms.TabPage tabPage7;
-		private System.Windows.Forms.Panel panelCharacterEquipped;
 		private System.Windows.Forms.Panel panel3;
 		private System.Windows.Forms.Button btnRefreshCharacterInventory;
 		private System.Windows.Forms.TabPage tabPage8;
@@ -436,5 +467,11 @@
 		private System.Windows.Forms.Button btn_dumpUIs;
 		private System.Windows.Forms.FlowLayoutPanel panelCharacterStats;
 		private System.Windows.Forms.FlowLayoutPanel panelCharacterInventory;
+		private System.Windows.Forms.FlowLayoutPanel panelCharacterEquipped;
+		private System.Windows.Forms.Panel panel5;
+		private System.Windows.Forms.Button btnRefreshCharacterEquipped;
+		private System.Windows.Forms.FlowLayoutPanel panelMonsters;
+		private System.Windows.Forms.FlowLayoutPanel panelGizmos;
+		private System.Windows.Forms.FlowLayoutPanel panelItems;
 	}
 }

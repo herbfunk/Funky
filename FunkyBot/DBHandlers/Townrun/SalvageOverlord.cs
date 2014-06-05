@@ -133,8 +133,7 @@ namespace FunkyBot.DBHandlers
 
 			Bot.NavigationCache.RefreshMovementCache();
 			//Wait until we are not moving
-			if (Bot.NavigationCache.IsMoving)
-				return RunStatus.Running;
+			if (Bot.NavigationCache.IsMoving) return RunStatus.Running;
 
 
 			float iDistanceFromSell = Vector3.Distance(vectorPlayerPosition, vectorSalvageLocation);

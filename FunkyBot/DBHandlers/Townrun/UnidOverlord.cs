@@ -32,11 +32,8 @@ namespace FunkyBot.DBHandlers
 
 							if (thisitem.IsUnidentified && thisitem.BaseItemType!=GilesBaseItemType.Misc && thisitem.BaseItemType!=GilesBaseItemType.Gem)
 							{
-								if (Bot.Character.ItemRulesEval.checkUnidStashItem(thisitem.ACDItem) == Interpreter.InterpreterAction.KEEP)
-								{
-									townRunItemCache.KeepItems.Add(thisitem);
-									foundStashableItem = true;
-								}
+								townRunItemCache.KeepItems.Add(thisitem);
+								foundStashableItem = true;
 							}
 							else
 							{//Incase we do find an unidentified item.. we should also stash any additional items while we are there!

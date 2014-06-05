@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.DemonHunter;
 using Zeta.Common;
@@ -13,6 +14,15 @@ namespace FunkyBot.Player.Class
 	{
 		public DemonHunter()
 		{
+			bool bombardierrutsack = Bot.Character.Data.equipment.EquippedItems.Any(i => i.ThisRealName.Contains("Bombadier"));
+			if (bombardierrutsack)
+			{
+				Logger.DBLog.DebugFormat("[Funky] Bombardier's Rucksack Found!");
+				Bot.Settings.DemonHunter.BombadiersRucksack = true;
+			}
+			else
+				Bot.Settings.DemonHunter.BombadiersRucksack = false;
+
 			Logger.DBLog.DebugFormat("[Funky] Using DemonHunter Player Class");
 		}
 

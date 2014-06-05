@@ -249,7 +249,7 @@ namespace FunkyBot.DBHandlers
 			currentItem = null;
 			totalFailures = 0;
 			castAttempts = 0;
-			shouldPreformOOCItemIDing = false;
+			//shouldPreformOOCItemIDing = false;
 			preWaitBeforeOpenInv = false;
 			isFinishingBahavior = false;
 

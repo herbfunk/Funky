@@ -444,6 +444,9 @@ namespace FunkyBot.Config.UI
 				cb_TownRunBuyPotions.Checked = Bot.Settings.TownRun.BuyPotionsDuringTownRun;
 				cb_TownRunBuyPotions.CheckedChanged += cb_TownRunBuyPotionsCheckedChanged;
 
+				cb_TownRunIDLegendaries.Checked = Bot.Settings.TownRun.IdentifyLegendaries;
+				cb_TownRunIDLegendaries.CheckedChanged += cb_TownRunIDLegendariesCheckedChanged;
+
 				combo_TownRunSalvageWhiteItems.SelectedIndex = Bot.Settings.TownRun.SalvageWhiteItemLevel == 0 ? 0 : Bot.Settings.TownRun.SalvageWhiteItemLevel == 1 ? 1 : 2;
 				combo_TownRunSalvageWhiteItems.SelectedIndexChanged += comboBox_TownRunSalvageWhiteItems_SelectedIndexChanged;
 
@@ -488,8 +491,8 @@ namespace FunkyBot.Config.UI
 				cb_ItemRulesPickup.Checked = Bot.Settings.ItemRules.UseItemRulesPickup;
 				cb_ItemRulesPickup.CheckedChanged += cb_ItemRulesPickup_CheckedChanged;
 
-				cb_ItemRulesUnidStashing.Checked = Bot.Settings.ItemRules.ItemRulesUnidStashing;
-				cb_ItemRulesUnidStashing.CheckedChanged += cb_ItemRulesUnidStashing_CheckedChanged;
+				//cb_ItemRulesUnidStashing.Checked = Bot.Settings.ItemRules.ItemRulesUnidStashing;
+				//cb_ItemRulesUnidStashing.CheckedChanged += cb_ItemRulesUnidStashing_CheckedChanged;
 
 				cb_ItemRulesDebugging.Checked = Bot.Settings.ItemRules.ItemRuleDebug;
 				cb_ItemRulesDebugging.CheckedChanged += cb_ItemRulesDebugging_CheckedChanged;
@@ -1245,10 +1248,10 @@ namespace FunkyBot.Config.UI
 
 
 
-		private void cb_ItemRulesUnidStashing_CheckedChanged(object sender, EventArgs e)
-		{
-			Bot.Settings.ItemRules.ItemRulesUnidStashing = !Bot.Settings.ItemRules.ItemRulesUnidStashing;
-		}
+		//private void cb_ItemRulesUnidStashing_CheckedChanged(object sender, EventArgs e)
+		//{
+		//	Bot.Settings.ItemRules.ItemRulesUnidStashing = !Bot.Settings.ItemRules.ItemRulesUnidStashing;
+		//}
 
 		private void comboBox_ItemRulesType_SelectedIndexChanged(object sender, EventArgs e)
 		{
@@ -1365,6 +1368,10 @@ namespace FunkyBot.Config.UI
 		private void cb_TownRunBuyPotionsCheckedChanged(object sender, EventArgs e)
 		{
 			Bot.Settings.TownRun.BuyPotionsDuringTownRun = !Bot.Settings.TownRun.BuyPotionsDuringTownRun;
+		}
+		private void cb_TownRunIDLegendariesCheckedChanged(object sender, EventArgs e)
+		{
+			Bot.Settings.TownRun.IdentifyLegendaries = !Bot.Settings.TownRun.IdentifyLegendaries;
 		}
 		private void SettingsForm_FormClosing_1(object sender, FormClosingEventArgs e)
 		{

@@ -18,6 +18,8 @@ namespace FunkyBot.Config.Settings
 		 public int SalvageRareItemLevel { get; set; }
 		 public int SalvageLegendaryItemLevel { get; set; }
 
+		 public bool IdentifyLegendaries { get; set; }
+
 		 public SettingTownRun()
 		 {
 			 StashHoradricCache = false;
@@ -30,6 +32,8 @@ namespace FunkyBot.Config.Settings
 			 SalvageMagicItemLevel = 0;
 			 SalvageRareItemLevel = 0;
 			 SalvageLegendaryItemLevel = 0;
+
+			 IdentifyLegendaries = false;
          }
 	}
 }

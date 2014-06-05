@@ -313,7 +313,7 @@ namespace FunkyBot.Player
 					if (dCurrentHealthPct < 0.50d && !Bot.Settings.Avoidance.AttemptAvoidanceMovements &&
 						 !PowerManager.CanCast(SNOPower.DrinkHealthPotion))
 						CriticalAvoidance = true;
-					else if (CriticalAvoidance && !ItemIdentifyBehavior.shouldPreformOOCItemIDing && !TownPortalBehavior.FunkyTPBehaviorFlag && dCurrentHealthPct > 0.5)
+					else if (CriticalAvoidance && !TownPortalBehavior.FunkyTPBehaviorFlag && dCurrentHealthPct > 0.5)
 						//Disable it when not OOC/TP/Low health still..
 						CriticalAvoidance = false;
 

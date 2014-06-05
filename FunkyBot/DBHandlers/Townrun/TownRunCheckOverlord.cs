@@ -65,7 +65,8 @@ namespace FunkyBot.DBHandlers
 			public HashSet<CacheACDItem> KeepItems = new HashSet<CacheACDItem>();
 			public HashSet<CacheACDItem> SalvageItems = new HashSet<CacheACDItem>();
 			public HashSet<CacheACDItem> SellItems = new HashSet<CacheACDItem>();
-			public HashSet<CacheACDItem> InteractItems = new HashSet<CacheACDItem>(); 
+			public HashSet<CacheACDItem> InteractItems = new HashSet<CacheACDItem>();
+			public HashSet<CacheACDItem> IdenifyItems = new HashSet<CacheACDItem>(); 
 
 			public void sortSellList()
 			{
@@ -170,7 +171,7 @@ namespace FunkyBot.DBHandlers
 				}
 
 				//Should we check Unidentified Items?
-				bCheckUnidItems = Bot.Settings.ItemRules.ItemRulesUnidStashing;
+				bCheckUnidItems = !Bot.Settings.TownRun.IdentifyLegendaries;
 			}
 
 			return bWantToTownRun;
@@ -182,7 +183,8 @@ namespace FunkyBot.DBHandlers
 			Sell,
 			Salvage,
 			Gamble,
-			Interaction
+			Interaction,
+			Idenify
 		}
 
 		private static Vector3 ReturnMovementVector(TownRunBehavior type, Act act)
@@ -269,6 +271,23 @@ namespace FunkyBot.DBHandlers
 							return new Vector3(403.7034f, 395.9311f, 0.5069602f);
 						case Act.A5:
 							return new Vector3(532.3179f, 521.8536f, 2.662077f);
+					}
+					break;
+				case TownRunBehavior.Idenify:
+					switch (act)
+					{
+						case Act.A1:
+							if (!Bot.Game.AdventureMode)
+								return new Vector3(2955.026f, 2817.4f, 24.04533f);
+							else
+								return new Vector3(372.3016f, 532.6918f, 24.04532f);
+						case Act.A2:
+							return new Vector3(326.9954f, 250.1623f, -0.3242276f);
+						case Act.A3:
+						case Act.A4:
+							return new Vector3(398.9163f, 393.4324f, 0.3577437f);
+						case Act.A5:
+							return new Vector3(523.6658f, 525.9195f, 2.662077f);
 					}
 					break;
 			}

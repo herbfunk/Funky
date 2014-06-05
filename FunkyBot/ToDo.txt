@@ -1,7 +1,1 @@
-﻿Item - Name: Bottomless Potion of Regeneration BalanceID: -2018707796
-
-
-Item - Name: Bottomless Potion of the Leech BalanceID: -2018707795
-
-
-Item - Name: Bottomless Potion of Kulle-Aid BalanceID: -2018707793 
+﻿Gizmo ActorSNO: 4067 Name: Exit_Location_1-5869 Type: PortalDestination Radius: 6.63 Position: x="860" y="691" z="0" (860, 691, 0) Distance: 7 Animation: Invalid AppearanceSNO: 14371 has Attributes: Level=70, TeamID=1, HitpointsCur=981668463, HitpointsMax=981663744, HitpointsMaxTotal=1065353216, ProjectileReflectDamageScalar=1065353216, 

@@ -102,7 +102,7 @@ namespace FunkyBot.Targeting
 			if (Bot.Character.Data.dCurrentHealthPct <= 0)
 			{
 				//Disable OOC IDing behavior if dead!
-				if (ItemIdentifyBehavior.shouldPreformOOCItemIDing) ItemIdentifyBehavior.shouldPreformOOCItemIDing = false;
+				//if (ItemIdentifyBehavior.shouldPreformOOCItemIDing) ItemIdentifyBehavior.shouldPreformOOCItemIDing = false;
 
 				CurrentState = RunStatus.Success;
 				return false;

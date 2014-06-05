@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Windows.Forms;
-using System.Windows.Input;
 using FunkyBot.Config.UI;
 using Zeta.Bot;
 using Zeta.Game;
@@ -298,17 +293,12 @@ namespace FunkyDebug
 			}
 
 			panelCharacterStats.Controls.Clear();
-			panelCharacterInventory.Controls.Clear();
-			panelCharacterEquipped.Controls.Clear();
 
 			try
 			{
 				using (ZetaDia.Memory.SaveCacheState())
 				{
 					ZetaDia.Memory.DisableCache();
-
-					double iType = -1;
-
 					ZetaDia.Actors.Update();
 
 					DiaActivePlayer me = ZetaDia.Me;
@@ -346,6 +336,13 @@ namespace FunkyDebug
 						if (hotbarslot == HotbarSlot.Invalid) continue;
 						panelCharacterStats.Controls.Add(new UserControlDebugEntry(ReturnSkillString(hotbarslot)));
 					}
+
+					foreach (var snoPower in ZetaDia.CPlayer.PassiveSkills)
+					{
+						string s = String.Format("Passive Skill {0}", snoPower.ToString());
+						panelCharacterStats.Controls.Add(new UserControlDebugEntry(s));
+					}
+					
 
 				}
 			}
@@ -499,7 +496,9 @@ namespace FunkyDebug
 
 		private string ReturnItemString(ACDItem o)
 		{
-			return String.Format("Item - Name: {1} Row: {32} Column: {33} ActorSNO: {0} ACDGuid: {30} DynamicID: {31} BalanceID: {34}  ItemType: {2} ItemBaseType: {3}\r\n" +
+			return String.Format("Item - Name: {1} InternalName: {35} Row: {32} Column: {33}\r\n" +
+									"ActorSNO: {0} ACDGuid: {30} DynamicID: {31} BalanceID: {34}\r\n" +
+									"ItemType: {2} ItemBaseType: {3}\r\n" +
 									"Position: {29}" +
 									"IsArmor: {4} IsCrafted: {5} IsCraftingPage: {6} IsCraftingReagent: {7}\r\n" +
 									"IsElite: {8} IsEquipped: {9} IsGem: {10} IsMiscItem: {11}\r\n" +
@@ -521,7 +520,73 @@ namespace FunkyDebug
 									o.Stats,
 									o.Position, o.ACDGuid, o.DynamicId,
 									o.InventoryRow, o.InventoryColumn,
-									o.GameBalanceId);
+									o.GameBalanceId, o.InternalName);
+		}
+
+		private void panelCharacterStats_MouseEnter(object sender, EventArgs e)
+		{
+			panelCharacterStats.Focus();
+		}
+
+		private void panelCharacterInventory_MouseEnter(object sender, EventArgs e)
+		{
+			panelCharacterInventory.Focus();
+		}
+
+		private void btnRefreshCharacterEquipped_Click(object sender, EventArgs e)
+		{
+			if (BotMain.IsRunning) return;
+			
+
+			panelCharacterEquipped.Controls.Clear();
+
+			try
+			{
+				using (ZetaDia.Memory.SaveCacheState())
+				{
+					ZetaDia.Memory.DisableCache();
+					ZetaDia.Actors.Update();
+
+					#region Character Inventory Items
+					foreach (var o in ZetaDia.Me.Inventory.Equipped)
+					{
+						try
+						{
+							panelCharacterEquipped.Controls.Add(new UserControlDebugEntry(ReturnItemString(o)));
+						}
+						catch (Exception)
+						{
+
+						}
+
+					}
+					#endregion
+				}
+			}
+			catch (Exception ex)
+			{
+
+			}
+		}
+
+		private void panelCharacterEquipped_MouseEnter(object sender, EventArgs e)
+		{
+			panelCharacterEquipped.Focus();
+		}
+
+		private void panelMonsters_MouseEnter(object sender, EventArgs e)
+		{
+			panelMonsters.Focus();
+		}
+
+		private void panelGizmos_MouseEnter(object sender, EventArgs e)
+		{
+			panelGizmos.Focus();
+		}
+
+		private void panelItems_MouseEnter(object sender, EventArgs e)
+		{
+			panelItems.Focus();
 		}
 	}
 }

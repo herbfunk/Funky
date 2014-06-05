@@ -7,6 +7,7 @@ using FunkyBot.Cache.Dictionaries.Objects;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Game;
+using FunkyBot.Game.Bounty;
 using FunkyBot.Movement;
 using Zeta.Common;
 using FunkyBot.Cache.Collections;
@@ -227,6 +228,16 @@ namespace FunkyBot.Cache
 						if (!Bot.Game.Profile.InteractableObjectCache.ContainsKey(tmp_CachedObj.RAGUID))
 						{
 							Bot.Game.Profile.InteractableObjectCache.Add(tmp_CachedObj.RAGUID, tmp_CachedObj);
+
+							//Adventure Mode -- Rifting we add Exit to LOS movement!
+							if (Bot.Game.AdventureMode && Bot.Game.Bounty.IsInRiftWorld && Bot.Settings.AdventureMode.EnableAdventuringMode)
+							{
+								if (tmp_CachedObj.InternalName.Contains("Exit"))
+								{
+									int index = Bot.Game.Bounty.CurrentBountyMapMarkers.Count;
+									Bot.Game.Bounty.CurrentBountyMapMarkers.Add(index, new BountyCache.BountyMapMarker(tmp_CachedObj.Position, Bot.Character.Data.CurrentWorldDynamicID, index));
+								}
+							}
 						}
 
 						//Do not add to main cache!

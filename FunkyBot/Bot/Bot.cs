@@ -4,6 +4,7 @@ using FunkyBot.Movement;
 using FunkyBot.Targeting;
 using FunkyBot.Player;
 using FunkyBot.Game;
+using Zeta.Game;
 
 
 namespace FunkyBot
@@ -46,6 +47,11 @@ namespace FunkyBot
 				//OOC IDing, Town Portal Casting, Town Run
 				return (Game.Profile.IsRunningOOCBehavior || ExitGame.BehaviorEngaged || TownPortalBehavior.FunkyTPBehaviorFlag || TownRunManager.bWantToTownRun);
 			}
+		}
+
+		public static bool GameIsInvalid()
+		{
+			return !ZetaDia.IsInGame || ZetaDia.IsLoadingWorld || ZetaDia.Me == null || ZetaDia.Me.CommonData == null;
 		}
 
 		//Recreate Bot Classes

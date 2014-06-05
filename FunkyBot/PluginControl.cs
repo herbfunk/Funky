@@ -62,7 +62,7 @@ namespace FunkyBot
 			//OOC ID Flags
 			Bot.Targeting.Cache.ShouldCheckItemLooted = false;
 			Bot.Targeting.Cache.CheckItemLootStackCount = 0;
-			ItemIdentifyBehavior.shouldPreformOOCItemIDing = false;
+			//ItemIdentifyBehavior.shouldPreformOOCItemIDing = false;
 
 			//TP Behavior Reset
 			TownPortalBehavior.ResetTPBehavior();
@@ -256,16 +256,45 @@ namespace FunkyBot
 					if (idenify)
 					{
 						//[2] == IDing items in inventory
-						CanRunDecoratorDelegate canRunDelegateFunkyIDBehavior = ItemIdentifyBehavior.FunkyIDOverlord;
-						ActionDelegate actionDelegateID = ItemIdentifyBehavior.FunkyIDBehavior;
-						Sequence sequenceIDItems = new Sequence(
-								new Action(actionDelegateID),
-								new Sequence(
-								new Action(actionDelegatePrePause),
-								new Action(actionDelegatePause)
-								)
-								);
-						GilesReplacement.Children[2] = new Decorator(canRunDelegateFunkyIDBehavior, sequenceIDItems);
+						//CanRunDecoratorDelegate canRunDelegateFunkyIDBehavior = ItemIdentifyBehavior.FunkyIDOverlord;
+						//ActionDelegate actionDelegateID = ItemIdentifyBehavior.FunkyIDBehavior;
+						//Sequence sequenceIDItems = new Sequence(
+						//		new Action(actionDelegateID),
+						//		new Sequence(
+						//		new Action(actionDelegatePrePause),
+						//		new Action(actionDelegatePause)
+						//		)
+						//		);
+						//GilesReplacement.Children[2] = new Decorator(canRunDelegateFunkyIDBehavior, sequenceIDItems);
+
+						
+
+						CanRunDecoratorDelegate canRunDelegateFunkyIDManual=TownRunManager.IdenifyItemManualOverlord;
+						ActionDelegate actionDelegateIDManual = TownRunManager.IdenifyItemManualBehavior;
+						ActionDelegate actionDelegateIDFinish = TownRunManager.IdenifyItemManualFinishBehavior;
+						Sequence sequenceIDManual = new Sequence(
+							new Action(actionDelegateIDManual),
+							new Action(actionDelegateIDFinish)
+						);
+
+						CanRunDecoratorDelegate canRunDelegateFunkyIDBookOfCain=TownRunManager.IdenifyItemBookOfCainOverlord;
+						ActionDelegate actionDelegateIDBookOfCainMovement = TownRunManager.IdenifyItemBookOfCainMovementBehavior;
+						ActionDelegate actionDelegateIDBookOfCainInteraction = TownRunManager.IdenifyItemBookOfCainInteractionBehavior;
+						Sequence sequenceIDBookOfCain = new Sequence(
+							new Action(actionDelegateIDBookOfCainMovement),
+							new Action(actionDelegateIDBookOfCainInteraction),
+							new Action(actionDelegateIDFinish)
+						);
+
+
+						PrioritySelector priorityIDItems = new PrioritySelector(
+							new Decorator(canRunDelegateFunkyIDManual, sequenceIDManual),
+							new Decorator(canRunDelegateFunkyIDBookOfCain, sequenceIDBookOfCain)
+						);
+
+						CanRunDecoratorDelegate canRunDelegateFunkyIDOverlord = TownRunManager.IdenifyItemOverlord;
+						GilesReplacement.Children[2] = new Decorator(canRunDelegateFunkyIDOverlord, priorityIDItems);
+
 						Logger.DBLog.DebugFormat("Town Run - Idenify Items - hooked...");
 					}
 

@@ -76,7 +76,7 @@ namespace FunkyBot
 		  TrinityItemQuality logPickQuality, logKeepQuality;
 
 		  // objects
-		  ArrayList ruleSet, pickUpRuleSet, salvageRuleSet, unidKeepRuleSet;
+		  ArrayList ruleSet, pickUpRuleSet;
 		  TextWriter log;
 		  Scanner scanner;
 		  Parser parser;
@@ -142,7 +142,7 @@ namespace FunkyBot
 				ruleSet=new ArrayList();
 				pickUpRuleSet=new ArrayList();
 				//salvageRuleSet=new ArrayList();
-				unidKeepRuleSet=new ArrayList();
+				//unidKeepRuleSet=new ArrayList();
 
 				// instantiating our macro dictonary
 				macroDic=new Dictionary<string, string>();
@@ -186,8 +186,8 @@ namespace FunkyBot
 				//Logger.DBLog.InfoFormat("... loaded: {0} Salvage rules", salvageRuleSet.Count);
 
 				//parse unid keep file
-				unidKeepRuleSet = readLinesToArray(new StreamReader(Path.Combine(itemrulesPath, "Rules", unidFile)), unidKeepRuleSet);
-				Logger.DBLog.InfoFormat("... loaded: {0} Unid Keep rules", unidKeepRuleSet.Count);
+				//unidKeepRuleSet = readLinesToArray(new StreamReader(Path.Combine(itemrulesPath, "Rules", unidFile)), unidKeepRuleSet);
+				//Logger.DBLog.InfoFormat("... loaded: {0} Unid Keep rules", unidKeepRuleSet.Count);
 
 				// parse all item files
 				foreach (TrinityItemQuality itemQuality in Enum.GetValues(typeof(TrinityItemQuality)))
@@ -284,60 +284,6 @@ namespace FunkyBot
 		  }
 
 
-		  /// <summary>
-		  /// 
-		  /// </summary>
-		  /// <param name="item"></param>
-		  /// <returns></returns>
-		  public InterpreterAction checkUnidStashItem(ACDItem item)
-		  {
-				fillDic(item);
-
-				InterpreterAction action=InterpreterAction.NULL;
-
-				string validRule="";
-
-				ArrayList rules;
-				rules=unidKeepRuleSet;
-
-				foreach (string str in rules)
-				{
-					 ParseErrors parseErrors=null;
-
-					 // default configuration for positive rules is pickup and keep
-					 InterpreterAction tempAction=InterpreterAction.KEEP;
-
-
-					 string[] strings=str.Split(new string[] { assign }, StringSplitOptions.None);
-					 if (strings.Count()>1)
-						  tempAction=getInterpreterAction(strings[1]);
-
-					 try
-					 {
-						  if (evaluate(strings[0], out parseErrors))
-						  {
-								validRule=str;
-								action=tempAction;
-								if (parseErrors.Count>0)
-									 logOut("Have errors with out a catch!"
-										  +SEP+"last use rule: "+str
-										  +SEP+getParseErrors(parseErrors)
-										  +SEP+getFullItem(), tempAction, LogType.DEBUG);
-								break;
-						  }
-					 } catch (Exception e)
-					 {
-						  logOut(e.Message
-								+SEP+"last use rule: "+str
-								+SEP+getParseErrors(parseErrors)
-								+SEP+getFullItem(), tempAction, LogType.ERROR);
-					 }
-				}
-
-				logOut(ItemEvaluationType.Keep, validRule, action);
-
-				return action;
-		  }
 		  /// <summary>
 		  /// 
 		  /// </summary>

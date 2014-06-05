@@ -209,6 +209,7 @@
 			this.tabControl4 = new System.Windows.Forms.TabControl();
 			this.tabPage18 = new System.Windows.Forms.TabPage();
 			this.groupBox14 = new System.Windows.Forms.GroupBox();
+			this.flowLayout_TownRunBloodShardItems = new System.Windows.Forms.FlowLayoutPanel();
 			this.panel18 = new System.Windows.Forms.Panel();
 			this.label22 = new System.Windows.Forms.Label();
 			this.txt_TownRunBloodShardMinimumValue = new System.Windows.Forms.TextBox();
@@ -242,7 +243,6 @@
 			this.combobox_ItemRulesLogStashed = new System.Windows.Forms.ComboBox();
 			this.label23 = new System.Windows.Forms.Label();
 			this.groupBox15 = new System.Windows.Forms.GroupBox();
-			this.cb_ItemRulesUnidStashing = new System.Windows.Forms.CheckBox();
 			this.cb_ItemRulesPickup = new System.Windows.Forms.CheckBox();
 			this.groupBox16 = new System.Windows.Forms.GroupBox();
 			this.btn_ItemRulesCustomBrowse = new System.Windows.Forms.Button();
@@ -294,7 +294,7 @@
 			this.btn_DumpBountyCache = new System.Windows.Forms.Button();
 			this.btn_Test = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.flowLayout_TownRunBloodShardItems = new System.Windows.Forms.FlowLayoutPanel();
+			this.cb_TownRunIDLegendaries = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabControl_Combat.SuspendLayout();
@@ -2320,6 +2320,15 @@
 			this.groupBox14.TabStop = false;
 			this.groupBox14.Text = "Blood Shard Gambling";
 			// 
+			// flowLayout_TownRunBloodShardItems
+			// 
+			this.flowLayout_TownRunBloodShardItems.Dock = System.Windows.Forms.DockStyle.Top;
+			this.flowLayout_TownRunBloodShardItems.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.flowLayout_TownRunBloodShardItems.Location = new System.Drawing.Point(3, 101);
+			this.flowLayout_TownRunBloodShardItems.Name = "flowLayout_TownRunBloodShardItems";
+			this.flowLayout_TownRunBloodShardItems.Size = new System.Drawing.Size(645, 215);
+			this.flowLayout_TownRunBloodShardItems.TabIndex = 20;
+			// 
 			// panel18
 			// 
 			this.panel18.Controls.Add(this.label22);
@@ -2374,6 +2383,7 @@
 			// 
 			// groupBox13
 			// 
+			this.groupBox13.Controls.Add(this.cb_TownRunIDLegendaries);
 			this.groupBox13.Controls.Add(this.groupBox24);
 			this.groupBox13.Controls.Add(this.cb_TownRunBuyPotions);
 			this.groupBox13.Controls.Add(this.cb_TownRunStashHoradricCache);
@@ -2391,7 +2401,7 @@
 			this.groupBox24.Controls.Add(this.panel24);
 			this.groupBox24.Controls.Add(this.panel23);
 			this.groupBox24.Controls.Add(this.panel22);
-			this.groupBox24.Location = new System.Drawing.Point(6, 69);
+			this.groupBox24.Location = new System.Drawing.Point(6, 98);
 			this.groupBox24.Name = "groupBox24";
 			this.groupBox24.Size = new System.Drawing.Size(639, 78);
 			this.groupBox24.TabIndex = 2;
@@ -2673,7 +2683,6 @@
 			// 
 			// groupBox15
 			// 
-			this.groupBox15.Controls.Add(this.cb_ItemRulesUnidStashing);
 			this.groupBox15.Controls.Add(this.cb_ItemRulesPickup);
 			this.groupBox15.Dock = System.Windows.Forms.DockStyle.Top;
 			this.groupBox15.Location = new System.Drawing.Point(3, 81);
@@ -2682,16 +2691,6 @@
 			this.groupBox15.TabIndex = 20;
 			this.groupBox15.TabStop = false;
 			this.groupBox15.Text = "Additional Rules";
-			// 
-			// cb_ItemRulesUnidStashing
-			// 
-			this.cb_ItemRulesUnidStashing.AutoSize = true;
-			this.cb_ItemRulesUnidStashing.Location = new System.Drawing.Point(71, 19);
-			this.cb_ItemRulesUnidStashing.Name = "cb_ItemRulesUnidStashing";
-			this.cb_ItemRulesUnidStashing.Size = new System.Drawing.Size(92, 17);
-			this.cb_ItemRulesUnidStashing.TabIndex = 2;
-			this.cb_ItemRulesUnidStashing.Text = "Unid Stashing";
-			this.cb_ItemRulesUnidStashing.UseVisualStyleBackColor = true;
 			// 
 			// cb_ItemRulesPickup
 			// 
@@ -3268,14 +3267,16 @@
 			this.toolTip1.InitialDelay = 1000;
 			this.toolTip1.ReshowDelay = 500;
 			// 
-			// flowLayout_TownRunBloodShardItems
+			// cb_TownRunIDLegendaries
 			// 
-			this.flowLayout_TownRunBloodShardItems.Dock = System.Windows.Forms.DockStyle.Top;
-			this.flowLayout_TownRunBloodShardItems.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-			this.flowLayout_TownRunBloodShardItems.Location = new System.Drawing.Point(3, 101);
-			this.flowLayout_TownRunBloodShardItems.Name = "flowLayout_TownRunBloodShardItems";
-			this.flowLayout_TownRunBloodShardItems.Size = new System.Drawing.Size(645, 215);
-			this.flowLayout_TownRunBloodShardItems.TabIndex = 20;
+			this.cb_TownRunIDLegendaries.AutoSize = true;
+			this.cb_TownRunIDLegendaries.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_TownRunIDLegendaries.Location = new System.Drawing.Point(6, 69);
+			this.cb_TownRunIDLegendaries.Name = "cb_TownRunIDLegendaries";
+			this.cb_TownRunIDLegendaries.Size = new System.Drawing.Size(155, 21);
+			this.cb_TownRunIDLegendaries.TabIndex = 3;
+			this.cb_TownRunIDLegendaries.Text = "Identify Legendaries";
+			this.cb_TownRunIDLegendaries.UseVisualStyleBackColor = true;
 			// 
 			// SettingsForm
 			// 
@@ -3641,7 +3642,6 @@
 		private System.Windows.Forms.TrackBar tb_TownRunBloodShardMinimumValue;
 		private System.Windows.Forms.CheckBox cb_TownRunBloodShardGambling;
 		private System.Windows.Forms.GroupBox groupBox15;
-		private System.Windows.Forms.CheckBox cb_ItemRulesUnidStashing;
 		private System.Windows.Forms.CheckBox cb_ItemRulesPickup;
 		private System.Windows.Forms.CheckBox cb_ItemRules;
 		private System.Windows.Forms.GroupBox groupBox18;
@@ -3729,6 +3729,7 @@
 		private System.Windows.Forms.Label label28;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_MiscStats;
 		private System.Windows.Forms.FlowLayoutPanel flowLayout_TownRunBloodShardItems;
+		private System.Windows.Forms.CheckBox cb_TownRunIDLegendaries;
 		//
 	}
 }

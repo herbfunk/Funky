@@ -16,9 +16,12 @@ Player:
 Game:
 	End of town runs will reset gold inactivity and update MGP.
 
+Town Run:
+	Idenification Behavior will only manually ID a single item, otherwise it will use book of cain.
+
 Settings:
 	Fixed Town Run Gambling not showing checkboxes for certain item types.
-
+	Legendary Idenification setting added under Town Run tab. (Disabled by Default)
 
 
 v2.10.2.2

@@ -676,7 +676,7 @@ namespace FunkyBot.Cache.Objects
 									targetType = TargetType.Barricade;
 								else if (thisGizmoType == GizmoType.Door)
 									targetType = TargetType.Door;
-								else if (thisGizmoType == GizmoType.Waypoint || thisGizmoType == GizmoType.Portal || thisGizmoType == GizmoType.DungeonPortal || thisGizmoType == GizmoType.BossPortal)
+								else if (thisGizmoType == GizmoType.Waypoint || thisGizmoType == GizmoType.Portal || thisGizmoType == GizmoType.DungeonPortal || thisGizmoType == GizmoType.BossPortal || thisGizmoType == GizmoType.PortalDestination)
 								{//Special Interactive Object -- Add to special cache!
 									targetType = TargetType.ServerInteractable;
 								}
