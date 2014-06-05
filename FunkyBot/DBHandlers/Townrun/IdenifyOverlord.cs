@@ -175,29 +175,12 @@ namespace FunkyBot.DBHandlers
 			return RunStatus.Success;
 		}
 
-		private static bool shouldUpdateTime = true;
-		private static bool finishPauseDone = false;
+
 		internal static RunStatus IdenifyItemManualFinishBehavior(object ret)
 		{
-			//We don't want to close our inventory immeditaly after our last cast, so this prevents that by making it wait around 3-4s
-			if (shouldUpdateTime)
-			{
-				//Update time to wait before actual finish
-				waitTime = RandomWaitTime();
-				shouldUpdateTime = false;
-				lastCastTime = DateTime.Now;
-			}
-
-			//Wait..
-			if (!finishPauseDone && DateTime.Now.Subtract(lastCastTime).TotalMilliseconds > (waitTime * 1.35))
-				finishPauseDone = true;
-			else
-				return RunStatus.Running;
-
 			//reset vars
 			ItemIDRefreshDone = false;
 			castAttempt = false;
-			shouldUpdateTime = true;
 			currentItem = null;
 			totalFailures = 0;
 			castAttempts = 0;

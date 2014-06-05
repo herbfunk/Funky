@@ -2,7 +2,7 @@
 <Treehooks>
   <Townportal>True</Townportal>
   <UnidentifiedStash>True</UnidentifiedStash>
-  <Identification>False</Identification>
+  <Identification>True</Identification>
   <Stash>True</Stash>
   <Vendor>True</Vendor>
   <Salvage>True</Salvage>

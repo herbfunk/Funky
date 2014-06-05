@@ -1033,9 +1033,6 @@
     <None Include="ItemRules\Rules\translation.dis">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ItemRules\Rules\UnidStash.dis">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Demonbuddy">
