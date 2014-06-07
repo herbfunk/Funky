@@ -11,38 +11,31 @@ namespace FunkyBot.Game.Bounty
 {
 	public class BountyCache
 	{
-		public const int ADVENTUREMODE_QUESTID = 312429;
-		public const int ADVENTUREMODE_RIFTID = 337492;
+		public static readonly int ADVENTUREMODE_QUESTID = 312429;
+		public static readonly int ADVENTUREMODE_RIFTID = 337492;
+
+		public delegate void BountyQuestStateChange(int QuestSno, QuestState newState);
+		public event BountyQuestStateChange OnBountyQuestStateChanged;
 
 		public Dictionary<int, QuestState> BountyQuestStates = new Dictionary<int, QuestState>();
 		public Dictionary<int, BountyInfo> CurrentBounties = new Dictionary<int, BountyInfo>();
-
 		public Dictionary<int, BountyMapMarker> CurrentBountyMapMarkers = new Dictionary<int, BountyMapMarker>();
-
-		public Dictionary<int, QuestInfoCache> ActiveQuests = new Dictionary<int, QuestInfoCache>(); 
+		public Dictionary<int, QuestInfoCache> ActiveQuests = new Dictionary<int, QuestInfoCache>();
 
 		public BountyInfoCache ActiveBounty = null;
 
+		/// <summary>
+		/// Bounty Cache Loaded from File
+		/// </summary>
 		public BountyQuestActCache CurrentActCache = new BountyQuestActCache();
+		/// <summary>
+		/// Cache Entry that contains info about the bounty.
+		/// </summary>
 		public BountyQuestCacheEntry CurrentBountyCacheEntry = null;
+
 		private bool ShouldNavigateMinimapPoints = false;
 		private int lastCheckedQuestSNO = -1;
 		private Act CurrentAct = Act.Invalid;
-
-		private int currentBountyID = 0;
-		///<summary>
-		///Current SNO ID (set by BountyLoad tag)
-		///</summary>
-		public int CurrentBountyID
-		{
-			get { return currentBountyID; }
-			set
-			{
-				currentBountyID = value;
-				Logger.DBLog.DebugFormat("Setting Current Bounty ID to {0}", value);
-			}
-		}
-
 
 		///<summary>
 		///Refreshes Bounty Info Cache
@@ -78,21 +71,19 @@ namespace FunkyBot.Game.Bounty
 					BountyQuestStates[bountySNO] = bountyState;
 
 					//Check State?
-					if (bountyState==QuestState.Completed)
+					if (bountyState == QuestState.Completed)
 					{
 						Bot.Game.CurrentGameStats.CurrentProfile.BountiesCompleted++;
 					}
 
 					//Raise Event
-					if (OnBountyQuestStateChanged!=null)
+					if (OnBountyQuestStateChanged != null)
 					{
 						OnBountyQuestStateChanged(bountySNO, bountyState);
 					}
 				}
 			}
 		}
-		public delegate void BountyQuestStateChange(int QuestSno, QuestState newState);
-		public event BountyQuestStateChange OnBountyQuestStateChanged;
 
 		///<summary>
 		///Refreshes Current Bounty Minimap Markers
@@ -110,12 +101,12 @@ namespace FunkyBot.Game.Bounty
 		public void RefreshRiftMapMarkers()
 		{
 			CurrentBountyMapMarkers.Clear();
-			int exitHash=GetRiftWorldExitHash(Bot.Character.Data.CurrentWorldID);
-			if (exitHash!=-1)
+			int exitHash = GetRiftWorldExitHash(Bot.Character.Data.CurrentWorldID);
+			if (exitHash != -1)
 			{
 				foreach (var m in ZetaDia.Minimap.Markers.CurrentWorldMarkers)
 				{
-					if (m.NameHash==exitHash)
+					if (m.NameHash == exitHash)
 					{
 						var bmm = new BountyMapMarker(m.Position, m.DynamicWorldId, m.Id);
 						CurrentBountyMapMarkers.Add(bmm.GetHashCode(), bmm);
@@ -149,7 +140,7 @@ namespace FunkyBot.Game.Bounty
 					ActiveBounty = null;
 				}
 			}
-			else if(IsInRiftWorld)
+			else if (IsInRiftWorld)
 			{
 				RefreshActiveQuests();
 				if (ActiveQuests.ContainsKey(ADVENTUREMODE_RIFTID))
@@ -163,8 +154,18 @@ namespace FunkyBot.Game.Bounty
 			}
 		}
 
-
-		public void RefreshBountyLevelChange()
+		public void RefreshLevelChanged()
+		{
+			if (!IsInRiftWorld)
+			{
+				RefreshBountyLevelChange();
+			}
+			else
+			{
+				RefreshRiftLevelChange();
+			}
+		}
+		private void RefreshBountyLevelChange()
 		{
 			//Logger.DBLog.InfoFormat("Updating Bounty Info!");
 
@@ -236,74 +237,82 @@ namespace FunkyBot.Game.Bounty
 
 				if (CurrentBountyCacheEntry == null) return;
 
-				//We Modify the Bots Combat Behavior based on the quest Type and current Level Id..
+				
 				Logger.Write(LogLevel.Bounty, "Checking Bounty Type {0}", CurrentBountyCacheEntry.Type);
-
-				if (CurrentBountyCacheEntry.Type == BountyQuestTypes.Clear)
+				
+				//Check if We should Modify the Bots Combat Behavior
+				switch (CurrentBountyCacheEntry.Type)
 				{
-					if (CurrentBountyCacheEntry.EndingLevelAreaID == Bot.Character.Data.iCurrentLevelID)
-					{
-						Logger.Write(LogLevel.Bounty, "Bounty Level ID Match (Clear) -- Disabling Cluster Logic!");
-						ProfileCache.ClusterSettingsTag = SettingCluster.DisabledClustering;
-					}
-					else
-						ProfileCache.ClusterSettingsTag = Bot.Settings.Cluster;
-				}
+					case BountyQuestTypes.Clear:
+						if (CurrentBountyCacheEntry.EndingLevelAreaID == Bot.Character.Data.iCurrentLevelID)
+						{
+							Logger.Write(LogLevel.Bounty, "Bounty Level ID Match (Clear) -- Disabling Cluster Logic!");
+							ProfileCache.ClusterSettingsTag = SettingCluster.DisabledClustering;
+						}
+						else
+							ProfileCache.ClusterSettingsTag = Bot.Settings.Cluster;
 
-				if (CurrentBountyCacheEntry.Type == BountyQuestTypes.Kill)
-				{
-					int curLevelID = Bot.Character.Data.iCurrentLevelID;
+						break;
+					case BountyQuestTypes.Kill:
+						int curLevelID = Bot.Character.Data.iCurrentLevelID;
 
-					if (CurrentBountyCacheEntry.StartingLevelAreaID == curLevelID || CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID ||
-						CurrentBountyCacheEntry.LevelAreaIDs != null && CurrentBountyCacheEntry.LevelAreaIDs.Any(i => i == curLevelID))
-					{
-						Logger.Write(LogLevel.Bounty, "Bounty Level ID Match (Kill) -- Disabling Cluster Logic and Enabling Navigation of Points!");
-						ProfileCache.ClusterSettingsTag = SettingCluster.DisabledClustering;
+						if (CurrentBountyCacheEntry.StartingLevelAreaID == curLevelID || CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID ||
+							CurrentBountyCacheEntry.LevelAreaIDs != null && CurrentBountyCacheEntry.LevelAreaIDs.Any(i => i == curLevelID))
+						{
+							Logger.Write(LogLevel.Bounty, "Bounty Level ID Match (Kill) -- Disabling Cluster Logic and Enabling Navigation of Points!");
+							ProfileCache.ClusterSettingsTag = SettingCluster.DisabledClustering;
 
-						//only enable when its the ending level.
-						ShouldNavigateMinimapPoints = CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID;
-					}
-					else
-					{
-						ProfileCache.ClusterSettingsTag = Bot.Settings.Cluster;
-						ShouldNavigateMinimapPoints = false;
-					}
-				}
-
-				if (CurrentBountyCacheEntry.Type == BountyQuestTypes.CursedEvent)
-				{
-					if (CurrentBountyCacheEntry.EndingLevelAreaID == Bot.Character.Data.iCurrentLevelID)
-					{
-						Logger.Write(LogLevel.Bounty, "Bounty Level ID Match (CursedEvent) -- Enabling Navigation of Points!");
-						ShouldNavigateMinimapPoints = true;
-						ProfileCache.QuestMode = true;
-					}
-					else
-					{
-						ShouldNavigateMinimapPoints = false;
-						ProfileCache.QuestMode = false;
-					}
-				}
-
-				if (CurrentBountyCacheEntry.Type == BountyQuestTypes.Event)
-				{
-					if (CurrentBountyCacheEntry.EndingLevelAreaID == Bot.Character.Data.iCurrentLevelID)
-					{
-						Logger.Write(LogLevel.Bounty, "Bounty Level ID Match (Event) -- Enabling Navigation of Points!");
-						ShouldNavigateMinimapPoints = true;
-						ProfileCache.QuestMode = true;
-					}
-					else
-					{
-						ShouldNavigateMinimapPoints = false;
-						ProfileCache.QuestMode = false;
-					}
+							//only enable when its the ending level.
+							ShouldNavigateMinimapPoints = CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID;
+						}
+						else
+						{
+							ProfileCache.ClusterSettingsTag = Bot.Settings.Cluster;
+							ShouldNavigateMinimapPoints = false;
+						}
+						break;
+					case BountyQuestTypes.CursedEvent:
+						if (CurrentBountyCacheEntry.EndingLevelAreaID == Bot.Character.Data.iCurrentLevelID)
+						{
+							Logger.Write(LogLevel.Bounty, "Bounty Level ID Match (CursedEvent) -- Enabling Navigation of Points!");
+							ShouldNavigateMinimapPoints = true;
+							ProfileCache.QuestMode = true;
+						}
+						else
+						{
+							ShouldNavigateMinimapPoints = false;
+							ProfileCache.QuestMode = false;
+						}
+						break;
+					case BountyQuestTypes.Boss:
+						if (Bot.Game.Profile.ExploreDungeonTag && CurrentBountyCacheEntry.StartingLevelAreaID == Bot.Character.Data.iCurrentLevelID)
+						{
+							Logger.Write(LogLevel.Bounty, "Bounty Level ID Match (Boss) -- Enabling Navigation of Points!");
+							ShouldNavigateMinimapPoints = true;
+						}
+						else
+						{
+							ShouldNavigateMinimapPoints = false;
+						}
+						break;
+					case BountyQuestTypes.Event:
+						if (CurrentBountyCacheEntry.EndingLevelAreaID == Bot.Character.Data.iCurrentLevelID)
+						{
+							Logger.Write(LogLevel.Bounty, "Bounty Level ID Match (Event) -- Enabling Navigation of Points!");
+							ShouldNavigateMinimapPoints = true;
+							ProfileCache.QuestMode = true;
+						}
+						else
+						{
+							ShouldNavigateMinimapPoints = false;
+							ProfileCache.QuestMode = false;
+						}
+						break;
 				}
 
 			}
 		}
-
-		public void RefreshRiftLevelChange()
+		private void RefreshRiftLevelChange()
 		{
 			if (ActiveBounty == null)
 			{
@@ -317,7 +326,7 @@ namespace FunkyBot.Game.Bounty
 				int curStep = ((QuestInfoCache)ActiveBounty).Step;
 
 				//Killing..
-				if (curStep==1)
+				if (curStep == 1)
 				{
 					RefreshRiftMapMarkers();
 					ShouldNavigateMinimapPoints = true;
@@ -337,6 +346,7 @@ namespace FunkyBot.Game.Bounty
 			}
 		}
 
+		//Loads the cache from file
 		private void LoadBountyCache(Act act)
 		{
 			switch (act)
@@ -359,17 +369,7 @@ namespace FunkyBot.Game.Bounty
 			}
 		}
 
-		public void RefreshLevelChanged()
-		{
-			if (!IsInRiftWorld)
-			{
-				RefreshBountyLevelChange();
-			}
-			else
-			{
-				RefreshRiftLevelChange();
-			}
-		}
+		
 
 
 		public void RefreshActiveQuests()
@@ -403,6 +403,52 @@ namespace FunkyBot.Game.Bounty
 			}
 
 		}
+
+		///<summary>
+		///Check used to validate active bounty (when it fails to update during level changes)
+		///</summary>
+		public void CheckActiveBounty()
+		{
+			//Check if active bounty is null.. and attempt to update again.
+			if (ActiveBounty == null && !Bot.Character.Data.bIsInTown)
+			{
+				if (DateTime.Now.CompareTo(_lastAttemptedUpdateActiveBounty) > 0)
+				{
+					_lastAttemptedUpdateActiveBounty = DateTime.Now.AddSeconds(2.5);
+					UpdateActiveBounty();
+					if (ActiveBounty != null)
+					{//No Longer Null.. Do Full Refresh!
+						RefreshLevelChanged();
+					}
+				}
+			}
+			else if (ActiveBounty != null && !Bot.Character.Data.bIsInTown && ActiveBounty.QuestSNO == ADVENTUREMODE_RIFTID)
+			{
+				if (DateTime.Now.CompareTo(_lastAttemptedUpdateActiveRift) > 0)
+				{
+					//Refresh every 10 seconds!
+					_lastAttemptedUpdateActiveRift = DateTime.Now.AddSeconds(10);
+					RefreshRiftLevelChange();
+				}
+			}
+		}
+		private DateTime _lastAttemptedUpdateActiveBounty = DateTime.Today;
+		private DateTime _lastAttemptedUpdateActiveRift = DateTime.Today;
+
+		public void Reset()
+		{
+			BountyQuestStates.Clear();
+			CurrentBounties.Clear();
+			ActiveQuests.Clear();
+			CurrentBountyMapMarkers.Clear();
+			ActiveBounty = null;
+			CurrentBountyCacheEntry = null;
+			ShouldNavigateMinimapPoints = false;
+			CurrentAct = Act.Invalid;
+			lastCheckedQuestSNO = -1;
+			_lastAttemptedUpdateActiveBounty = DateTime.Today;
+		}
+
 
 
 		public bool IsInRiftWorld
@@ -440,59 +486,12 @@ namespace FunkyBot.Game.Bounty
 			return -1;
 		}
 
-
-		///<summary>
-		///Check used to validate active bounty (when it fails to update during level changes)
-		///</summary>
-		public void CheckActiveBounty()
-		{
-			//Check if active bounty is null.. and attempt to update again.
-			if (ActiveBounty == null && !Bot.Character.Data.bIsInTown)
-			{
-				if (DateTime.Now.CompareTo(_lastAttemptedUpdateActiveBounty) > 0)
-				{
-					_lastAttemptedUpdateActiveBounty = DateTime.Now.AddSeconds(2.5);
-					UpdateActiveBounty();
-					if (ActiveBounty != null)
-					{//No Longer Null.. Do Full Refresh!
-						RefreshLevelChanged();
-					}
-				}
-			}
-			else if (ActiveBounty != null && !Bot.Character.Data.bIsInTown && ActiveBounty.QuestSNO == ADVENTUREMODE_RIFTID)
-			{
-				if (DateTime.Now.CompareTo(_lastAttemptedUpdateActiveRift) > 0)
-				{
-					//Refresh every 10 seconds!
-					_lastAttemptedUpdateActiveRift = DateTime.Now.AddSeconds(10);
-					RefreshRiftLevelChange();
-				}
-			}
-		}
-		private DateTime _lastAttemptedUpdateActiveBounty = DateTime.Today;
-		private DateTime _lastAttemptedUpdateActiveRift = DateTime.Today;
-
-
 		public bool ShouldNavigatePointsOfInterest
 		{
 			get
 			{
 				return Bot.Game.AdventureMode && (Bot.Settings.AdventureMode.NavigatePointsOfInterest || ShouldNavigateMinimapPoints);
 			}
-		}
-
-		public void Reset()
-		{
-			BountyQuestStates.Clear();
-			CurrentBounties.Clear();
-			ActiveQuests.Clear();
-			CurrentBountyMapMarkers.Clear();
-			ActiveBounty = null;
-			CurrentBountyCacheEntry = null;
-			ShouldNavigateMinimapPoints = false;
-			CurrentAct = Act.Invalid;
-			lastCheckedQuestSNO = -1;
-			_lastAttemptedUpdateActiveBounty = DateTime.Today;
 		}
 
 		public string DebugString()
@@ -509,7 +508,7 @@ namespace FunkyBot.Game.Bounty
 												CurrentBountyCacheEntry.Name, CurrentBountyCacheEntry.Type,
 												CurrentBountyCacheEntry.StartingLevelAreaID, CurrentBountyCacheEntry.EndingLevelAreaID);
 
-			string sActiveQuests=ActiveQuests.Count == 0 ? "":
+			string sActiveQuests = ActiveQuests.Count == 0 ? "" :
 										ActiveQuests.Aggregate("Active Quest: ", (current, q) => current +
 											(String.Format("ID: {4} Step: {0} questMeter: {1} killCount: {2} bonusCount: {3}\r\n",
 															q.Value.Step, q.Value.QuestMeter, q.Value.KillCount, q.Value.BonusCount, q.Key)));
@@ -517,6 +516,8 @@ namespace FunkyBot.Game.Bounty
 			return String.Format("{0}\r\n{1}\r\n{2}\r\n{3}\r\nBountyActCache: {4}\r\nBountyCacheEntry: {5}\r\n{6}",
 				sActiveBounty, sBountyIDs, sBountyStates, sBountyMapMarkers, sBountyActCache, sBountyCurrentCacheEntry, sActiveQuests);
 		}
+
+
 
 		public class BountyMapMarker
 		{
@@ -641,13 +642,14 @@ namespace FunkyBot.Game.Bounty
 			public int BonusCount { get; set; }
 			public int CreationTick { get; set; }
 
-			public QuestInfoCache(QuestInfo info):base(info)
+			public QuestInfoCache(QuestInfo info)
+				: base(info)
 			{
-				Step=info.QuestStep;
-				KillCount=info.KillCount;
-				QuestMeter=info.QuestMeter;
-				BonusCount=info.BonusCount;
-				CreationTick=info.CreationTick;
+				Step = info.QuestStep;
+				KillCount = info.KillCount;
+				QuestMeter = info.QuestMeter;
+				BonusCount = info.BonusCount;
+				CreationTick = info.CreationTick;
 			}
 
 			public override void Refresh()
@@ -656,7 +658,7 @@ namespace FunkyBot.Game.Bounty
 				{
 					foreach (var quest in ZetaDia.ActInfo.ActiveQuests)
 					{
-						if (quest.QuestSNO==QuestSNO)
+						if (quest.QuestSNO == QuestSNO)
 						{
 							Step = quest.QuestStep;
 							KillCount = quest.KillCount;
@@ -677,7 +679,7 @@ namespace FunkyBot.Game.Bounty
 			{
 				string s = String.Format("{0}\r\nStep {1} KillCount {2} QuestMeter {3} BonusCount {4} CreationTick {5}",
 					base.ToString(), Step, KillCount, QuestMeter, BonusCount, CreationTick);
-				
+
 				return s;
 			}
 

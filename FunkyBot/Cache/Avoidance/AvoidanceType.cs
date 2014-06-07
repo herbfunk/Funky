@@ -39,6 +39,9 @@ namespace FunkyBot.Cache.Avoidance
 		  [XmlEnum(Name = "DemonicForge")]
 		  DemonicForge,
 
+		  [XmlEnum(Name = "DestroyerDrop")]
+		  DestroyerDrop,
+
 		  [XmlEnum(Name="DiabloMetor")]
 		  DiabloMetor,
 		  [XmlEnum(Name="DiabloPrison")]

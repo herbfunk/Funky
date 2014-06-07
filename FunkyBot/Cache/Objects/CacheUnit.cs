@@ -894,6 +894,7 @@ namespace FunkyBot.Cache.Objects
 				//Z-Height Difference Check
 				if (!IsZDifferenceValid)
 				{
+					IgnoredType = TargetingIgnoreTypes.ZDifferenceFailure;
 					//this.BlacklistLoops=3;
 					return false;
 				}
@@ -942,6 +943,7 @@ namespace FunkyBot.Cache.Objects
 						else
 							BlacklistLoops = 10;
 
+						IgnoredType = TargetingIgnoreTypes.UnitUntargetable;
 						return false;
 					}
 				}
@@ -964,7 +966,10 @@ namespace FunkyBot.Cache.Objects
 				{
 					//Since special objects are subject to LOS movement, we do not ignore just yet.
 					if (!AllowLOSMovement)
+					{
+						IgnoredType = TargetingIgnoreTypes.DistanceFailure;
 						return false;
+					}
 				}
 				else
 					validUnit = true;
@@ -985,7 +990,7 @@ namespace FunkyBot.Cache.Objects
 							//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
 							Bot.Targeting.Cache.Environment.LoSMovementObjects.Add(this);
 						}
-
+						IgnoredType = TargetingIgnoreTypes.LineOfSightFailure;
 						return false;
 					}
 					//Set the maximum wait time
@@ -1010,6 +1015,7 @@ namespace FunkyBot.Cache.Objects
 							//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
 							Bot.Targeting.Cache.Environment.LoSMovementObjects.Add(this);
 						}
+						IgnoredType = TargetingIgnoreTypes.LineOfSightFailure;
 						return false;
 					}
 
@@ -1031,6 +1037,7 @@ namespace FunkyBot.Cache.Objects
 						else//Incapacitated we reset check
 							LineOfSight.LastLOSCheck = DateTime.Today;
 
+						IgnoredType = TargetingIgnoreTypes.LineOfSightFailure;
 						return false;
 					}
 
@@ -1048,8 +1055,10 @@ namespace FunkyBot.Cache.Objects
 				{
 					//Ignore Setting?
 					if (Bot.Settings.Targeting.IgnoreAboveAverageMobs && PriorityCounter <= 1 && !Bot.IsInNonCombatBehavior && !IsBoss)
+					{
+						IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;
 						return false;
-
+					}
 					Bot.Targeting.Cache.Environment.bAnyChampionsPresent = true;
 				}
 
@@ -1072,7 +1081,10 @@ namespace FunkyBot.Cache.Objects
 				{
 					//Only if not prioritized..
 					if (!Bot.IsInNonCombatBehavior)
+					{
+						IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;
 						return false;
+					}
 				}
 
 				if (distantUnit)
@@ -1662,8 +1674,8 @@ namespace FunkyBot.Cache.Objects
 
 
 
-				return String.Format("{0} Burrowed {1} / Targetable {2} / Attackable {3} \r\n" +
-									 "HP {4} / MaxHP {5} -- IsMoving: {6} \r\n" +
+				return String.Format("{0}Burrowed {1} / Targetable {2} / Attackable {3}\r\n" +
+									 "HP {4} / MaxHP {5} -- IsMoving: {6}\r\n" +
 									 "PriorityCounter={7}\r\n" +
 				                     "IgnoredDueToClusterLogic {15} IsClusterException {16}\r\n" +
 									 "QuestMonster={9} MiniMapActive={14}\r\n" +

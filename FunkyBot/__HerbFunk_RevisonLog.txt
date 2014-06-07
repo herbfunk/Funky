@@ -1,4 +1,19 @@
 ﻿// herbfunk revisions
+
+v2.10.3.1
+
+Skills:
+	Demon hunter companion skill updated for active support.
+
+Items:
+	Removed plugin pickup settings and evaluation code. (Item rules, no rule equals no pickup! *Armor/Weapon/Jewelery*)
+
+Avoidance:
+	Added Act 4 Destroyer Drop to avoidances.
+
+Bounty:
+	Added Boss to LOS movement. (Only when explore tag is used!)
+
 v2.10.3.0
 
 Cache:

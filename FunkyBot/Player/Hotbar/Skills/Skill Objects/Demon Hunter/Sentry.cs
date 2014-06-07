@@ -33,7 +33,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 			ClusterConditions.Add(new SkillClusterConditions(4d, Range, 3, true));
 
 
-			FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial && Bot.Character.Data.PetData.DemonHunterSentry < SentryMax();
+			FcriteriaCombat = () => Bot.Character.Data.PetData.DemonHunterSentry < SentryMax();
 		}
 
 		private int SentryMax()

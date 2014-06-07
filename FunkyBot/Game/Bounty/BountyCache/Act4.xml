@@ -90,6 +90,34 @@
       </QuestSNOs>
     </BountyQuestCacheEntry>
   </CursedEventBounties>
+
+  <BossBounties>
+    
+    <BountyQuestCacheEntry>
+      <Name>A4_Boss_Izual</Name>
+      <Type>Boss</Type>
+      <StartingLevelAreaID>109538</StartingLevelAreaID>
+      <EndingLevelAreaID>215396</EndingLevelAreaID>
+      <QuestSNOs>
+        <int>361421</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
+
+    <BountyQuestCacheEntry>
+      <Name>A4_Boss_Diablo</Name>
+      <Type>Boss</Type>
+      <StartingLevelAreaID>109540</StartingLevelAreaID>
+      <EndingLevelAreaID>215235</EndingLevelAreaID>
+      <LevelAreaIDs>
+        <int>109563</int>
+        <int>153669</int>
+      </LevelAreaIDs>
+      <QuestSNOs>
+        <int>349288</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
+    
+  </BossBounties>
   
   <MiscEventBounties />
   

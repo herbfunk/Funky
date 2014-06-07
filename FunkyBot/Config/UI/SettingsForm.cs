@@ -1573,10 +1573,28 @@ namespace FunkyBot.Config.UI
 		{
 			LBDebug.Controls.Clear();
 
-
+			Game.UI.GameMenu.SelectHeroByIndex(0).Click();
 			try
 			{
-				ZetaDia.Service.GameAccount.SwitchHero(10);
+				UIElement uie = Game.UI.GameMenu.HeroSelectListStackPanel;
+				if (Game.UI.ValidateUIElement(uie))
+				{
+					LBDebug.Controls.Add(new UserControlDebugEntry(Game.UI.UIElementString(uie)));
+					foreach (var u in Game.UI.GetChildren(uie))
+					{
+						LBDebug.Controls.Add(new UserControlDebugEntry(Game.UI.UIElementString(u)));
+						foreach (var ui in Game.UI.GetChildren(u))
+						{
+							LBDebug.Controls.Add(new UserControlDebugEntry(Game.UI.UIElementString(ui)));
+							foreach (var UI in Game.UI.GetChildren(ui))
+							{
+								LBDebug.Controls.Add(new UserControlDebugEntry(Game.UI.UIElementString(UI)));
+							}
+						}
+					}
+				}
+				
+				
 			}
 			catch (Exception ex)
 			{

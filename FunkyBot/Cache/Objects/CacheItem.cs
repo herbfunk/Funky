@@ -276,6 +276,7 @@ namespace FunkyBot.Cache.Objects
 				//Z-Height Difference Check
 				if (!IsZDifferenceValid)
 				{
+					IgnoredType = TargetingIgnoreTypes.ZDifferenceFailure;
 					BlacklistLoops = 3;
 					return false;
 				}
@@ -284,6 +285,7 @@ namespace FunkyBot.Cache.Objects
 				{
 					if (!ShouldPickup.Value)
 					{
+						IgnoredType = TargetingIgnoreTypes.ItemNoPickup;
 						NeedsRemoved = true;
 						BlacklistFlag = BlacklistType.Temporary;
 						return false;
@@ -313,6 +315,8 @@ namespace FunkyBot.Cache.Objects
 							Bot.Targeting.Cache.Environment.LoSMovementObjects.Add(this);
 						}
 
+						IgnoredType = TargetingIgnoreTypes.DistanceFailure;
+
 						return false;
 					}
 
@@ -321,9 +325,11 @@ namespace FunkyBot.Cache.Objects
 					{
 						if (!LineOfSight.LOSTest(Bot.Character.Data.Position, false, true, false))
 						{
+							IgnoredType = TargetingIgnoreTypes.LineOfSightFailure;
 							//AllowWalk failure does not mean we should ignore it!
 							//if (LineOfSight.RayCast.HasValue && !LineOfSight.RayCast.Value)
-								return false;
+							return false;
+
 						}
 
 						RequiresLOSCheck = false;
@@ -336,6 +342,7 @@ namespace FunkyBot.Cache.Objects
 					// Blacklist objects already in pickup radius range
 					if (CentreDistance + 2.5f < Bot.Character.Data.PickupRadius)
 					{
+						//IgnoredType = TargetingIgnoreTypes.DistanceFailure;
 						NeedsRemoved = true;
 						BlacklistFlag = BlacklistType.Temporary;
 						Bot.Character.Data.UpdateCoinage = true;
@@ -346,6 +353,7 @@ namespace FunkyBot.Cache.Objects
 					{
 						if (GoldAmount.Value < Bot.Settings.Loot.MinimumGoldPile)
 						{
+							IgnoredType = TargetingIgnoreTypes.ItemNoPickup;
 							NeedsRemoved = true;
 							BlacklistFlag = BlacklistType.Temporary;
 							Bot.Character.Data.UpdateCoinage = true;
@@ -358,6 +366,7 @@ namespace FunkyBot.Cache.Objects
 
 						if (CentreDistance > lootRange)
 						{
+							IgnoredType = TargetingIgnoreTypes.DistanceFailure;
 							BlacklistLoops = 20;
 							return false;
 						}
@@ -373,6 +382,7 @@ namespace FunkyBot.Cache.Objects
 							if (targetType != TargetType.PowerGlobe && !Bot.Character.Data.equipment.GlobesRestoreResource)
 								BlacklistLoops = 10;
 
+							IgnoredType = TargetingIgnoreTypes.DistanceFailure;
 							return false;
 						}
 					}
@@ -662,7 +672,7 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
-				return String.Format("{0}\r\n InteractAttempts={1} {2} {3}",
+				return String.Format("{0}\r\nInteractAttempts={1} {2} {3}",
 					  base.DebugString, InteractionAttempts,
 					  GoldAmount.HasValue ? "Gold:" + GoldAmount.Value : "",
 					  ShouldPickup.HasValue ? "PickUp=" + ShouldPickup.Value : "");

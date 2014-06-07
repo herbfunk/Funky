@@ -216,6 +216,7 @@
 			this.tb_TownRunBloodShardMinimumValue = new System.Windows.Forms.TrackBar();
 			this.cb_TownRunBloodShardGambling = new System.Windows.Forms.CheckBox();
 			this.groupBox13 = new System.Windows.Forms.GroupBox();
+			this.cb_TownRunIDLegendaries = new System.Windows.Forms.CheckBox();
 			this.groupBox24 = new System.Windows.Forms.GroupBox();
 			this.panel25 = new System.Windows.Forms.Panel();
 			this.combo_TownRunSalvageLegendaryItems = new System.Windows.Forms.ComboBox();
@@ -294,7 +295,6 @@
 			this.btn_DumpBountyCache = new System.Windows.Forms.Button();
 			this.btn_Test = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.cb_TownRunIDLegendaries = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabControl_Combat.SuspendLayout();
@@ -2265,11 +2265,13 @@
 			// 
 			this.cb_AdventureModeEnabled.AutoSize = true;
 			this.cb_AdventureModeEnabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cb_AdventureModeEnabled.Location = new System.Drawing.Point(6, 15);
+			this.cb_AdventureModeEnabled.Location = new System.Drawing.Point(6, 6);
 			this.cb_AdventureModeEnabled.Name = "cb_AdventureModeEnabled";
 			this.cb_AdventureModeEnabled.Size = new System.Drawing.Size(234, 24);
 			this.cb_AdventureModeEnabled.TabIndex = 19;
 			this.cb_AdventureModeEnabled.Text = "Enable Adventuring Mode";
+			this.toolTip1.SetToolTip(this.cb_AdventureModeEnabled, "Adventuring Mode enables Funky Bot to automatically move and change combat settin" +
+        "gs based on bounty and rift quests.");
 			this.cb_AdventureModeEnabled.UseVisualStyleBackColor = true;
 			// 
 			// tabPage13
@@ -2394,6 +2396,17 @@
 			this.groupBox13.TabIndex = 1;
 			this.groupBox13.TabStop = false;
 			this.groupBox13.Text = "Options";
+			// 
+			// cb_TownRunIDLegendaries
+			// 
+			this.cb_TownRunIDLegendaries.AutoSize = true;
+			this.cb_TownRunIDLegendaries.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_TownRunIDLegendaries.Location = new System.Drawing.Point(6, 69);
+			this.cb_TownRunIDLegendaries.Name = "cb_TownRunIDLegendaries";
+			this.cb_TownRunIDLegendaries.Size = new System.Drawing.Size(155, 21);
+			this.cb_TownRunIDLegendaries.TabIndex = 3;
+			this.cb_TownRunIDLegendaries.Text = "Identify Legendaries";
+			this.cb_TownRunIDLegendaries.UseVisualStyleBackColor = true;
 			// 
 			// groupBox24
 			// 
@@ -3266,17 +3279,6 @@
 			this.toolTip1.AutoPopDelay = 5000;
 			this.toolTip1.InitialDelay = 1000;
 			this.toolTip1.ReshowDelay = 500;
-			// 
-			// cb_TownRunIDLegendaries
-			// 
-			this.cb_TownRunIDLegendaries.AutoSize = true;
-			this.cb_TownRunIDLegendaries.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cb_TownRunIDLegendaries.Location = new System.Drawing.Point(6, 69);
-			this.cb_TownRunIDLegendaries.Name = "cb_TownRunIDLegendaries";
-			this.cb_TownRunIDLegendaries.Size = new System.Drawing.Size(155, 21);
-			this.cb_TownRunIDLegendaries.TabIndex = 3;
-			this.cb_TownRunIDLegendaries.Text = "Identify Legendaries";
-			this.cb_TownRunIDLegendaries.UseVisualStyleBackColor = true;
 			// 
 			// SettingsForm
 			// 

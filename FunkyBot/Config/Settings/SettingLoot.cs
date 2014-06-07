@@ -10,11 +10,6 @@ namespace FunkyBot.Config.Settings
 		public int GilesMinimumArmorScore { get; set; }
 		public int GilesMinimumJeweleryScore { get; set; }
 
-		public int[] MinimumWeaponItemLevel { get; set; }
-		public int[] MinimumArmorItemLevel { get; set; }
-		public int[] MinimumJeweleryItemLevel { get; set; }
-		public int MinimumLegendaryItemLevel { get; set; }
-
 		public int MaximumHealthPotions { get; set; }
 		public int MinimumGoldPile { get; set; }
 
@@ -37,7 +32,7 @@ namespace FunkyBot.Config.Settings
 		public bool PickupJewelerDesignAmulet { get; set; }
 
 
-		public bool PickupFollowerItems { get; set; }
+		
 		public bool PickupInfernalKeys { get; set; }
 		public bool PickupKeystoneFragments { get; set; }
 		public bool PickupCraftMaterials { get; set; }
@@ -49,10 +44,7 @@ namespace FunkyBot.Config.Settings
 			GilesMinimumWeaponScore=75000;
 			GilesMinimumArmorScore=30000;
 			GilesMinimumJeweleryScore=30000;
-			MinimumWeaponItemLevel=new int[] { 0, 61 };
-			MinimumArmorItemLevel=new int[] { 0, 61 };
-			MinimumJeweleryItemLevel=new int[] { 0, 61 };
-			MinimumLegendaryItemLevel=1;
+			
 			MaximumHealthPotions=100;
 			MinimumGoldPile=425;
 			PickupCraftPlans=true;
@@ -69,7 +61,7 @@ namespace FunkyBot.Config.Settings
 			PickupJewelerDesignAmulet=false;
 			PickupInfernalKeys=true;
 
-			PickupFollowerItems=true;
+			
 			PickupCraftMaterials=true;
 			PickupKeystoneFragments = true;
 

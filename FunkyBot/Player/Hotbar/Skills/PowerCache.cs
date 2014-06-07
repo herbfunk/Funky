@@ -33,7 +33,7 @@ namespace FunkyBot.Cache
 		  {
 				 SNOPower.Barbarian_Bash,SNOPower.Barbarian_Cleave,SNOPower.X1_Barbarian_WeaponThrow,SNOPower.Barbarian_Frenzy,
 				 SNOPower.X1_Crusader_Punish,SNOPower.X1_Crusader_Smite,SNOPower.X1_Crusader_Slash,SNOPower.X1_Crusader_Justice,
-				 SNOPower.DemonHunter_HungeringArrow,SNOPower.X1_DemonHunter_EntanglingShot,SNOPower.DemonHunter_Bolas,SNOPower.DemonHunter_Grenades,
+				 SNOPower.DemonHunter_HungeringArrow,SNOPower.X1_DemonHunter_EntanglingShot,SNOPower.DemonHunter_Bolas,SNOPower.DemonHunter_Grenades,SNOPower.X1_DemonHunter_EvasiveFire,
 				 SNOPower.Monk_FistsofThunder,SNOPower.Monk_DeadlyReach,SNOPower.Monk_CripplingWave,SNOPower.Monk_WayOfTheHundredFists,
 				 SNOPower.Witchdoctor_PoisonDart,SNOPower.Witchdoctor_CorpseSpider,SNOPower.Witchdoctor_PlagueOfToads,SNOPower.Witchdoctor_Firebomb,
 				 SNOPower.Wizard_MagicMissile,SNOPower.Wizard_ShockPulse,SNOPower.Wizard_SpectralBlade,SNOPower.Wizard_Electrocute,SNOPower.Wizard_Archon_DisintegrationWave,

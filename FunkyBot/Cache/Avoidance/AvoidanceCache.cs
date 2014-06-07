@@ -15,43 +15,51 @@ namespace FunkyBot.Cache.Avoidance
 		  {
 			  new AvoidanceValue(AvoidanceType.AdriaArcanePool, 1, 12,15), 
 			  new AvoidanceValue(AvoidanceType.AdriaBlood, 1, 15,15), 
-
 			  new AvoidanceValue(AvoidanceType.ArcaneSentry, 1, 14,15), 
 			  new AvoidanceValue(AvoidanceType.AzmodanBodies, 1, 47,5),
 			  new AvoidanceValue(AvoidanceType.AzmodanFireball, 1, 16,5),
 			  new AvoidanceValue(AvoidanceType.AzmodanPool, 1, 54,5),
+
 			  new AvoidanceValue(AvoidanceType.BeeProjectile, 0.5, 2,5),
 			  new AvoidanceValue(AvoidanceType.BelialGround, 1, 25,5),
 			  new AvoidanceValue(AvoidanceType.BloodSpringSmall, 0.25, 12,5),
 			  new AvoidanceValue(AvoidanceType.BloodSpringMedium, 0.25, 16,5),
 			  new AvoidanceValue(AvoidanceType.BloodSpringLarge, 0.25, 20,5),
+
 			  new AvoidanceValue(AvoidanceType.Dececrator, 0.80, 9,12),
 			  new AvoidanceValue(AvoidanceType.DemonicForge, 1, 25,12),
+			  new AvoidanceValue(AvoidanceType.DestroyerDrop, 1, 8, 12),
 			  new AvoidanceValue(AvoidanceType.DiabloMetor, 0.80, 28,5),
 			  new AvoidanceValue(AvoidanceType.DiabloPrison, 1, 15,5),
+
 			  new AvoidanceValue(AvoidanceType.Frozen, 1, 20,10),
 			  new AvoidanceValue(AvoidanceType.FrozenPulse, 0.75, 9,10),
+
 			  new AvoidanceValue(AvoidanceType.GhomGasCloud, 0.4, 25,5),
-
 			  new AvoidanceValue(AvoidanceType.GrotesqueExplosion, 0.50, 20,5),
-			  new AvoidanceValue(AvoidanceType.LacuniBomb, 0.25, 2,5),
-			  new AvoidanceValue(AvoidanceType.MageFirePool, 1, 10,5),
 
+			  new AvoidanceValue(AvoidanceType.LacuniBomb, 0.25, 2,5),
+
+			  new AvoidanceValue(AvoidanceType.MageFirePool, 1, 10,5),
 			  new AvoidanceValue(AvoidanceType.MalthaelDeathFog, 1, 20,5),
 			  new AvoidanceValue(AvoidanceType.MalthaelDrainSoul, 0.75, 5,5),
 			  new AvoidanceValue(AvoidanceType.MalthaelLightning, 0.50, 8,5),
-
 			  new AvoidanceValue(AvoidanceType.MeteorImpact, 1, 14,5),
 			  new AvoidanceValue(AvoidanceType.MoltenCore, 1, 20,5),
 			  new AvoidanceValue(AvoidanceType.MoltenTrail, 0.75, 6,5),
+
 			  new AvoidanceValue(AvoidanceType.OrbitFocalPoint, 0.75, 8,5),
 			  new AvoidanceValue(AvoidanceType.OrbitProjectile, 0.75, 5,5),
+
 			  new AvoidanceValue(AvoidanceType.PlagueCloud, 0.75, 19,5),
 			  new AvoidanceValue(AvoidanceType.PlagueHand, 1, 15,5),
 			  new AvoidanceValue(AvoidanceType.PoisonGas, 0.5, 9,5),
+
 			  new AvoidanceValue(AvoidanceType.RiftPoison, 0.80, 10, 10),
+
 			  new AvoidanceValue(AvoidanceType.ShamanFireBall, 0.1, 2,5), 
 			  new AvoidanceValue(AvoidanceType.SuccubusProjectile, 0.25, 2,5),
+
 			  new AvoidanceValue(AvoidanceType.Teleport, 0,7,0),
 			  new AvoidanceValue(AvoidanceType.Thunderstorm, 0.80, 9,10),
 			  new AvoidanceValue(AvoidanceType.TreeSpore, 1, 14,10),
@@ -98,6 +106,8 @@ namespace FunkyBot.Cache.Avoidance
 				  360046, //X1_Unique_Monster_Generic_AOE_DOT_Poison
 
 				  93837, //Ghom's Gluttony_gasCloud
+
+				  134831, //A4 Destroyer Drop Location
 			  };
 
 		// A list of SNO's that are projectiles (so constantly look for new locations while avoiding)
@@ -220,6 +230,8 @@ namespace FunkyBot.Cache.Avoidance
 					return AvoidanceType.RiftPoison;
 				case 93837:
 					return AvoidanceType.GhomGasCloud;
+				case 134831:
+					return AvoidanceType.DestroyerDrop;
 			}
 			return AvoidanceType.None;
 		}

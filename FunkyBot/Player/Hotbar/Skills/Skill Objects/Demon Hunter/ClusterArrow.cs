@@ -10,20 +10,27 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 		  {
 				Cooldown=150;
 				ExecutionType=SkillExecutionFlags.Location|SkillExecutionFlags.ClusterLocation;
-				WaitVars=new WaitLoops(1, 1, true);
+				WaitVars=new WaitLoops(0, 0, false);
 				Cost=50;
 				Range=50;
 				IsRanged=true;
 				IsProjectile=true;
 				UseageType=SkillUseage.Combat;
 				Priority=SkillPriority.Medium;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckEnergy|
-				                          SkillPrecastFlags.CheckRecastTimer));
+				PreCast=new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast);
 
-				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_50, 3);
-				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_50, 1);
-				//SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.IsSpecial,69),
-				ClusterConditions.Add(new SkillClusterConditions(4d, 45, 2, true));
+
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, 0.95d, TargetProperties.Normal));
+				ClusterConditions.Add(new SkillClusterConditions(7d, Range, 3, true));
+				
+			    //Any unit when our energy is greater than 90%!
+				SingleUnitCondition.Add(new UnitTargetConditions
+				{
+					TrueConditionFlags = TargetProperties.None,
+					Criteria = () => Bot.Character.Data.dCurrentEnergyPct > 0.9d,
+					Distance = Range,
+					FalseConditionFlags = TargetProperties.LowHealth,
+				});
 
 				FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial;
 		  }

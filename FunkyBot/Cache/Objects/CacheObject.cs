@@ -294,6 +294,16 @@ namespace FunkyBot.Cache.Objects
 
 
 		#region Blacklist, Removal, and Valid
+		private TargetingIgnoreTypes _ignoredtype = TargetingIgnoreTypes.None;
+		/// <summary>
+		/// Reason why object failed during targeting valid check
+		/// </summary>
+		public TargetingIgnoreTypes IgnoredType
+		{
+			get { return _ignoredtype; }
+			set { _ignoredtype = value; }
+		}
+
 		private int LoopsUnseen_ = 0;
 		///<summary>
 		///Counter which increases when object is not seen during the refresh stage.
@@ -510,16 +520,28 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
+				//Reset Ignore Reason
+				IgnoredType = TargetingIgnoreTypes.None;
+
 				//Blacklist loop counter checks
-				if (BlacklistLoops_ < 0) return false;
+				if (BlacklistLoops_ < 0)
+				{
+					//IgnoredType=TargetingIgnoreTypes.Blacklisted;
+					return false;
+				}
 				if (BlacklistLoops_ > 0)
 				{
+					//IgnoredType = TargetingIgnoreTypes.Blacklisted;
 					BlacklistLoops_--;
 					return false;
 				}
 
 				//Skip objects if not seen during cache refresh
-				if (LoopsUnseen_ > 0) return false;
+				if (LoopsUnseen_ > 0)
+				{
+					IgnoredType = TargetingIgnoreTypes.CacheUnseen;
+					return false;
+				}
 
 				//Check if we are doing something important.. if so we only want to check units!
 				if (Bot.IsInNonCombatBehavior)
@@ -530,7 +552,10 @@ namespace FunkyBot.Cache.Objects
 						typesValid |= TargetType.Door | TargetType.Barricade;
 					}
 					if (!ObjectCache.CheckTargetTypeFlag(targetType.Value, typesValid))
+					{
+						IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;
 						return false;
+					}
 				}
 
 				//Validate refrence still remains
@@ -682,10 +707,15 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
-				return String.Format("RAGUID {0}: \r\n {1} Distance (Centre{2} / Radius{3}) \r\n SnoAnim={9} -- AnimState={10} \r\n ReqLOS={4} -- {5} -- [LOSV3: {6}] \r\n BotFacing={7} \r\n BlackListLoops[{8}]",
+				return String.Format("RAGUID {0}:" +
+				                     "\r\n{1} Distance (Centre{2} / Radius{3})" +
+				                     "\r\n SnoAnim={9} -- AnimState={10}" +
+				                     "\r\n ReqLOS={4} -- {5} -- [LOSV3: {6}]" +
+				                     "\r\n BotFacing={7}" +
+									 "\r\n BlackListLoops[{8}] UnseenLoops[{11}] IgnoreReason: {12}\r\n",
 					  RAGUID.ToString(CultureInfo.InvariantCulture), base.DebugString, CentreDistance.ToString(CultureInfo.InvariantCulture), RadiusDistance.ToString(CultureInfo.InvariantCulture),
 					  RequiresLOSCheck, LineOfSight != null ? String.Format("-- {0} --", LineOfSight.DebugString) : "", LOSV3,
-					  BotIsFacing(), BlacklistLoops.ToString(CultureInfo.InvariantCulture), SnoAnim, AnimState);
+					  BotIsFacing(), BlacklistLoops.ToString(CultureInfo.InvariantCulture), SnoAnim, AnimState, LoopsUnseen, IgnoredType);
 			}
 		}
 

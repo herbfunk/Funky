@@ -2,6 +2,7 @@
 using System.Linq;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
+using FunkyBot.Player.HotBar.Skills;
 using Zeta.Bot.Settings;
 using Zeta.Common;
 using Zeta.Game.Internals.Actors;
@@ -26,96 +27,74 @@ namespace FunkyBot.Cache.Objects
 			{
 				if (!base.ObjectIsValidForTargeting) return false;
 
-				//Update SNOAnim
-				//if (this.Gizmotype.Value == GizmoType.Destructible)
-				//{
-				//	try
-				//	{
-				//		Logger.DBLog.InfoFormat("Updating Animation");
-				//		AnimState = (this.ref_Gizmo.CommonData.AnimationInfo.State);
-				//		SnoAnim = (this.ref_Gizmo.CommonData.CurrentAnimation);
-				//	}
-				//	catch
-				//	{
-				//		if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Cache))
-				//			Logger.Write(LogLevel.Cache, "Exception occured attempting to update AnimState for object {0}", InternalName);
-				//		//AnimState=AnimationState.Invalid;
-				//	}
-				//}
 
 				////Get current animation state! (Idle = Untouched, Dead = Destroyed)
 				UpdateAnimationState();
 				AnimationState currentAnimState = AnimState;
 				if (currentAnimState != AnimationState.Idle)
 				{
-					this.NeedsRemoved = true;
-					this.BlacklistFlag = BlacklistType.Permanent;
+					NeedsRemoved = true;
+					BlacklistFlag = BlacklistType.Permanent;
 					Logger.Write(LogLevel.Cache, "Removing destructible {0} due to invalid AnimationState of {1} -- SNOAnim {2}", InternalName, currentAnimState.ToString(), SnoAnim.ToString());
 					return false;
 				}
 
-				// No physics mesh? Ignore this destructible altogether
-				//if (this.PhysicsSNO.HasValue && this.PhysicsSNO.Value <= 0)
-				//{
-				//	Logger.Write(LogLevel.Cache, "Removing destructible {0} due to invalid PhysicsSNO", InternalName);
 
-				//	// No physics mesh on a destructible, probably bugged
-				//	this.NeedsRemoved = true;
-				//	this.BlacklistFlag = BlacklistType.Permanent;
-				//	return false;
-				//}
-
-				if (this.RequiresLOSCheck && !this.IgnoresLOSCheck)
+				if (RequiresLOSCheck && !IgnoresLOSCheck)
 				{
 					//Preform Test every 2500ms on normal objects, 1250ms on special objects.
 					double lastLOSCheckMS = base.LineOfSight.LastLOSCheckMS;
-					if (lastLOSCheckMS < 1250)
-						return false;
-					else if (lastLOSCheckMS < 2500 && this.CentreDistance > 20f)
-						return false;
-
-					if (!base.LineOfSight.LOSTest(Bot.Character.Data.Position, true, ServerObjectIntersection: false) && (Funky.PlayerMover.iTotalAntiStuckAttempts == 0 || this.RadiusDistance > 12f))
+					if ((lastLOSCheckMS < 1250) || (lastLOSCheckMS < 2500 && CentreDistance > 20f))
 					{
+						IgnoredType = TargetingIgnoreTypes.LineOfSightFailure;
 						return false;
 					}
 
-					this.RequiresLOSCheck = false;
+					if (!base.LineOfSight.LOSTest(Bot.Character.Data.Position, true, ServerObjectIntersection: false) && (Funky.PlayerMover.iTotalAntiStuckAttempts == 0 || RadiusDistance > 12f))
+					{
+						IgnoredType = TargetingIgnoreTypes.LineOfSightFailure;
+						return false;
+					}
+
+					RequiresLOSCheck = false;
 				}
 
 				//Ignore Destructibles Setting
 				if (!CharacterSettings.Instance.DestroyEnvironment
-					&& this.Gizmotype.Value == GizmoType.DestroyableObject
-					&& this.PriorityCounter == 0
-					&& !this.IsBarricade.Value)
+					&& Gizmotype.Value == GizmoType.DestroyableObject
+					&& PriorityCounter == 0
+					&& !IsBarricade.Value)
 				{
+					IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;
 					//ignore from being a targeted right now..
-					this.BlacklistLoops = 15;
+					BlacklistLoops = 15;
 					//We dont want to complete ignore this since the object may pose a navigational obstacle.
 					return false;
 				}
 
 
 
-				float radiusDistance = this.RadiusDistance;
+				float radiusDistance = RadiusDistance;
 				//Barricade and path intersects the actorsphere radius..
 				//Some barricades may be lower than ourself, or our destination is high enough to raycast past the object. So we add a little to the Z of the obstacle.
 				//The best method would be to get the hight of the object and compare it to our current Z-height if we are nearly within radius distance of the object.
-				if ((this.targetType.Value == TargetType.Barricade || this.IsBarricade.HasValue && this.IsBarricade.Value) &&
+				if ((targetType.Value == TargetType.Barricade || IsBarricade.HasValue && IsBarricade.Value) &&
 					(!Funky.PlayerMover.ShouldHandleObstacleObject  //Have special flag from unstucker to destroy nearby barricade.
-					 && this.PriorityCounter == 0
+					 && PriorityCounter == 0
 					 && radiusDistance > 0f))
 				{
-					Vector3 BarricadeTest = this.Position;
+					Vector3 BarricadeTest = Position;
 					if (radiusDistance > 1f)
 					{
 						if (radiusDistance < 10f)
 						{
-							BarricadeTest = MathEx.GetPointAt(this.Position, 10f, Navigation.FindDirection(Bot.Character.Data.Position, this.Position, true));
+							BarricadeTest = MathEx.GetPointAt(Position, 10f, Navigation.FindDirection(Bot.Character.Data.Position, Position, true));
 							BarricadeTest.Z = Navigation.MGP.GetHeight(BarricadeTest.ToVector2());
 
-							this.lastIntersectionTestResult = MathEx.IntersectsPath(this.Position, this.CollisionRadius.Value, Bot.Character.Data.Position, BarricadeTest);
-							if (!this.lastIntersectionTestResult.Value)
+							lastIntersectionTestResult = MathEx.IntersectsPath(Position, CollisionRadius.Value, Bot.Character.Data.Position, BarricadeTest);
+							if (!lastIntersectionTestResult.Value)
 							{
+								IgnoredType = TargetingIgnoreTypes.IntersectionFailed;
 								return false;
 							}
 						}
@@ -123,8 +102,9 @@ namespace FunkyBot.Cache.Objects
 				}
 
 
-				if (radiusDistance > (Bot.Settings.Ranges.DestructibleRange + 5f) && (!QuestMonster || radiusDistance > 100f))
+				if (radiusDistance > (Bot.Settings.Ranges.DestructibleRange + 1f) && (!QuestMonster || radiusDistance > 100f))
 				{
+					IgnoredType = TargetingIgnoreTypes.DistanceFailure;
 					return false;
 				}
 
@@ -136,24 +116,24 @@ namespace FunkyBot.Cache.Objects
 		{
 			base.UpdateWeight();
 
-			float centreDistance = this.CentreDistance;
-			this.Weight = 12000d - (Math.Floor(centreDistance) * 175d);
+			float centreDistance = CentreDistance;
+			Weight = 12000d - (Math.Floor(centreDistance) * 175d);
 			// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
 			if (Equals(Bot.Targeting.Cache.LastCachedTarget) && centreDistance <= 25f)
-				this.Weight += 400;
+				Weight += 400;
 			// Close destructibles get a weight increase
 			if (centreDistance <= 16f)
-				this.Weight += 1500d;
+				Weight += 1500d;
 			Vector3 BotPosition = Bot.Character.Data.Position;
 			// If there's a monster in the path-line to the item, reduce the weight by 50%
-			if (this.RadiusDistance > 0f && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
-				this.Weight *= 0.5;
+			if (RadiusDistance > 0f && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
+				Weight *= 0.5;
 			// Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
 			if (Bot.Character.Data.bIsRooted)
-				this.Weight = 19200d - (Math.Floor(centreDistance) * 200d);
+				Weight = 19200d - (Math.Floor(centreDistance) * 200d);
 			// Very close destructibles get a final weight increase
 			if (centreDistance <= 12f)
-				this.Weight += 2000d;
+				Weight += 2000d;
 
 		}
 
@@ -161,7 +141,7 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
-				float fThisHeightDifference = Funky.Difference(Bot.Character.Data.Position.Z, this.Position.Z);
+				float fThisHeightDifference = Funky.Difference(Bot.Character.Data.Position.Z, Position.Z);
 				if (fThisHeightDifference >= 15f)
 				{
 					if (!Funky.PlayerMover.ShouldHandleObstacleObject)
@@ -183,7 +163,7 @@ namespace FunkyBot.Cache.Objects
 
 		public override RunStatus Interact()
 		{
-			Player.HotBar.Skills.Skill.SetupAbilityForUse(ref Bot.Character.Class.PowerPrime, true);
+			Skill.SetupAbilityForUse(ref Bot.Character.Class.PowerPrime, true);
 
 			if (Bot.Character.Class.PowerPrime.Power != SNOPower.None)
 			{
@@ -191,34 +171,34 @@ namespace FunkyBot.Cache.Objects
 				if (Bot.Character.Class.PowerPrime.WaitWhileAnimating)
 					Bot.Character.Data.WaitWhileAnimating(9);
 
-				if (this.targetType.Value == TargetType.Barricade)
-					Logger.DBLog.DebugFormat("[Funky] Barricade: Name=" + this.InternalName + ". SNO=" + this.SNOID.ToString() +
-											", Range=" + this.CentreDistance.ToString() + ". Needed range=" + Bot.Character.Class.PowerPrime.MinimumRange.ToString() + ". Radius=" +
-											this.Radius.ToString() + ". SphereRadius=" + this.ActorSphereRadius.Value.ToString() + ". Type=" + this.targetType.ToString() + ". Using power=" + Bot.Character.Class.PowerPrime.Power.ToString());
+				if (targetType.Value == TargetType.Barricade)
+					Logger.DBLog.DebugFormat("[Funky] Barricade: Name=" + InternalName + ". SNO=" + SNOID.ToString() +
+											", Range=" + CentreDistance.ToString() + ". Needed range=" + Bot.Character.Class.PowerPrime.MinimumRange.ToString() + ". Radius=" +
+											Radius.ToString() + ". SphereRadius=" + ActorSphereRadius.Value.ToString() + ". Type=" + targetType.ToString() + ". Using power=" + Bot.Character.Class.PowerPrime.Power.ToString());
 				else
-					Logger.DBLog.DebugFormat("[Funky] Destructible: Name=" + this.InternalName + ". SNO=" + this.SNOID.ToString() +
-											", Range=" + this.CentreDistance.ToString() + ". Needed range=" + Bot.Character.Class.PowerPrime.MinimumRange.ToString() + ". Radius=" +
-											this.Radius.ToString() + ". SphereRadius=" + this.ActorSphereRadius.Value.ToString() + ". Type=" + this.targetType.ToString() + ". Using power=" + Bot.Character.Class.PowerPrime.Power.ToString());
+					Logger.DBLog.DebugFormat("[Funky] Destructible: Name=" + InternalName + ". SNO=" + SNOID.ToString() +
+											", Range=" + CentreDistance.ToString() + ". Needed range=" + Bot.Character.Class.PowerPrime.MinimumRange.ToString() + ". Radius=" +
+											Radius.ToString() + ". SphereRadius=" + ActorSphereRadius.Value.ToString() + ". Type=" + targetType.ToString() + ". Using power=" + Bot.Character.Class.PowerPrime.Power.ToString());
 
-				Player.HotBar.Skills.Skill.UsePower(ref Bot.Character.Class.PowerPrime);
+				Skill.UsePower(ref Bot.Character.Class.PowerPrime);
 
 				if (Bot.Character.Class.PowerPrime.SuccessUsed.HasValue && Bot.Character.Class.PowerPrime.SuccessUsed.Value)
 				{
 					//Logger.DBLog.InfoFormat(powerPrime.powerThis.ToString() + " used successfully");
 					Bot.Character.Class.PowerPrime.OnSuccessfullyUsed();
-					this.BlacklistLoops = 10;
+					BlacklistLoops = 10;
 				}
 				else
 				{
 					PowerCacheLookup.dictAbilityLastFailed[Bot.Character.Class.PowerPrime.Power] = DateTime.Now;
 				}
 
-				this.InteractionAttempts++;
+				InteractionAttempts++;
 				// If we've tried interacting too many times, blacklist this for a while
-				if (this.InteractionAttempts > 2)
+				if (InteractionAttempts > 2)
 				{
-					this.BlacklistLoops = 10;
-					this.InteractionAttempts = 0;
+					BlacklistLoops = 10;
+					InteractionAttempts = 0;
 				}
 
 
@@ -227,7 +207,7 @@ namespace FunkyBot.Cache.Objects
 
 			//Get current animation state! (Idle = Untouched, Dead = Destroyed)
 			UpdateAnimationState();
-			AnimationState currentAnimState = this.AnimState;
+			AnimationState currentAnimState = AnimState;
 			if (currentAnimState != AnimationState.Idle || !IsStillValid())
 			{
 				// Now tell Trinity to get a new target!
@@ -247,7 +227,7 @@ namespace FunkyBot.Cache.Objects
 		{
 			float fRangeRequired = Bot.Character.Class.PowerPrime.MinimumRange;
 
-			float distance = this.RadiusDistance;
+			float distance = RadiusDistance;
 			if (Bot.Targeting.Cache.LastCachedTarget.Equals(this))
 			{
 				// distance+=(this.CollisionRadius.Value*0.25f);
@@ -263,9 +243,9 @@ namespace FunkyBot.Cache.Objects
 
 			get
 			{
-				return String.Format("{0} \r\n LastIntersectionResult={1}",
+				return String.Format("{0}\r\nLastIntersectionResult={1}",
 					base.DebugString,
-					this.lastIntersectionTestResult.HasValue ? this.lastIntersectionTestResult.Value.ToString() : "NULL");
+					lastIntersectionTestResult.HasValue ? lastIntersectionTestResult.Value.ToString() : "NULL");
 			}
 		}
 	}

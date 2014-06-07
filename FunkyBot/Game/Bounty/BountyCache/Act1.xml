@@ -340,6 +340,41 @@
     </BountyQuestCacheEntry>
   </CursedEventBounties>
 
+  <BossBounties>
+
+    <BountyQuestCacheEntry>
+      <Name>A1_Boss_SkeletonKing</Name>
+      <Type>Boss</Type>
+      <StartingLevelAreaID>19787</StartingLevelAreaID>
+      <EndingLevelAreaID>19789</EndingLevelAreaID>
+      <QuestSNOs>
+        <int>361234</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
+
+    <BountyQuestCacheEntry>
+      <Name>A1_Boss_SpiderQueen</Name>
+      <Type>Boss</Type>
+      <StartingLevelAreaID>78572</StartingLevelAreaID>
+      <EndingLevelAreaID>00000</EndingLevelAreaID>
+      <QuestSNOs>
+        <int>345528</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
+
+
+    <BountyQuestCacheEntry>
+      <Name>A1_Boss_Butcher</Name>
+      <Type>Boss</Type>
+      <StartingLevelAreaID>19776</StartingLevelAreaID>
+      <EndingLevelAreaID>00000</EndingLevelAreaID>
+      <QuestSNOs>
+        <int>347032</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
+
+  </BossBounties>
+
   <MiscEventBounties/>
   
 </BountyQuestActCache>

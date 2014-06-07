@@ -49,7 +49,11 @@ namespace FunkyBot.Cache.Objects
 					return false;
 
 				//Disabled by script?
-				if (GizmoDisabledByScript.HasValue && GizmoDisabledByScript.Value) return false;
+				if (GizmoDisabledByScript.HasValue && GizmoDisabledByScript.Value)
+				{
+					IgnoredType = TargetingIgnoreTypes.GizmoDisabledByScript;
+					return false;
+				}
 
 				if (this.InternalName.ToLower().StartsWith("minimapicon"))
 				{
@@ -64,6 +68,7 @@ namespace FunkyBot.Cache.Objects
 				//Z-Height Funky.Difference Check
 				if (!IsZDifferenceValid)
 				{
+					IgnoredType = TargetingIgnoreTypes.ZDifferenceFailure;
 					BlacklistLoops = 3;
 					return false;
 				}
@@ -243,7 +248,8 @@ namespace FunkyBot.Cache.Objects
 
 			get
 			{
-				return String.Format("{0} --  InteractionAttempts[{1}] \r\n GizmoType[{2}]",
+				return String.Format("{0}InteractionAttempts[{1}]" +
+				                     "\r\nGizmoType[{2}]",
 					  base.DebugString,
 					  this.InteractionAttempts.ToString(),
 					  base.Gizmotype.HasValue ? base.Gizmotype.Value.ToString() : "?");

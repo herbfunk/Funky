@@ -145,15 +145,6 @@ namespace FunkyBot.Player
 			GilesItemType thisGilesItemType = DetermineItemType(item.InternalName, item.BalanceData.thisItemType, item.BalanceData.thisFollowerType);
 			GilesBaseItemType thisGilesBaseType = DetermineBaseType(thisGilesItemType);
 
-			// If it's legendary, we always want it *IF* it's level is right
-			if (item.Itemquality >= ItemQuality.Legendary)
-			{
-				if (Bot.Settings.Loot.MinimumLegendaryItemLevel > 0 && (item.BalanceData.iThisItemLevel >= Bot.Settings.Loot.MinimumLegendaryItemLevel || Bot.Settings.Loot.MinimumLegendaryItemLevel == 1))
-					return true;
-
-				return false;
-			}
-
 			if (thisGilesItemType == GilesItemType.MiscBook)
 				return Bot.Settings.Loot.ExpBooks;
 
@@ -171,82 +162,12 @@ namespace FunkyBot.Player
 				case GilesBaseItemType.WeaponTwoHand:
 				case GilesBaseItemType.WeaponOneHand:
 				case GilesBaseItemType.WeaponRange:
-					// Not enough DPS, so analyse for possibility to blacklist
-					if (item.Itemquality < ItemQuality.Magic1)
-					{
-						// White item, blacklist
-						return false;
-					}
-					if (item.Itemquality >= ItemQuality.Magic1 && item.Itemquality < ItemQuality.Rare4)
-					{
-						if (Bot.Settings.Loot.MinimumWeaponItemLevel[0] == 0 || (Bot.Settings.Loot.MinimumWeaponItemLevel[0] != 0 && item.BalanceData.iThisItemLevel < Bot.Settings.Loot.MinimumWeaponItemLevel[0]))
-						{
-							// Between magic and rare, and either we want no blues, or this level is higher than the blue level we want
-							return false;
-						}
-					}
-					else
-					{
-						if (Bot.Settings.Loot.MinimumWeaponItemLevel[1] == 0 || (Bot.Settings.Loot.MinimumWeaponItemLevel[1] != 0 && item.BalanceData.iThisItemLevel < Bot.Settings.Loot.MinimumWeaponItemLevel[1]))
-						{
-							// Between magic and rare, and either we want no blues, or this level is higher than the blue level we want
-							return false;
-						}
-					}
-					break;
 				case GilesBaseItemType.Armor:
 				case GilesBaseItemType.Offhand:
-					if (item.Itemquality < ItemQuality.Magic1)
-					{
-						// White item, blacklist
-						return false;
-					}
-					if (item.Itemquality >= ItemQuality.Magic1 && item.Itemquality < ItemQuality.Rare4)
-					{
-						if (Bot.Settings.Loot.MinimumArmorItemLevel[0] == 0 || (Bot.Settings.Loot.MinimumArmorItemLevel[0] != 0 && item.BalanceData.iThisItemLevel < Bot.Settings.Loot.MinimumArmorItemLevel[0]))
-						{
-							// Between magic and rare, and either we want no blues, or this level is higher than the blue level we want
-							return false;
-						}
-					}
-					else
-					{
-						if (Bot.Settings.Loot.MinimumArmorItemLevel[1] == 0 || (Bot.Settings.Loot.MinimumArmorItemLevel[1] != 0 && item.BalanceData.iThisItemLevel < Bot.Settings.Loot.MinimumArmorItemLevel[1]))
-						{
-							// Between magic and rare, and either we want no blues, or this level is higher than the blue level we want
-							return false;
-						}
-					}
-					break;
 				case GilesBaseItemType.Jewelry:
-					if (item.Itemquality < ItemQuality.Magic1)
-					{
-						// White item, blacklist
-						return false;
-					}
-					if (item.Itemquality >= ItemQuality.Magic1 && item.Itemquality < ItemQuality.Rare4)
-					{
-						if (Bot.Settings.Loot.MinimumJeweleryItemLevel[0] == 0 || (Bot.Settings.Loot.MinimumJeweleryItemLevel[0] != 0 && item.BalanceData.iThisItemLevel < Bot.Settings.Loot.MinimumJeweleryItemLevel[0]))
-						{
-							// Between magic and rare, and either we want no blues, or this level is higher than the blue level we want
-							return false;
-						}
-					}
-					else
-					{
-						if (Bot.Settings.Loot.MinimumJeweleryItemLevel[1] == 0 || (Bot.Settings.Loot.MinimumJeweleryItemLevel[1] != 0 && item.BalanceData.iThisItemLevel < Bot.Settings.Loot.MinimumJeweleryItemLevel[1]))
-						{
-							// Between magic and rare, and either we want no blues, or this level is higher than the blue level we want
-							return false;
-						}
-					}
-					break;
 				case GilesBaseItemType.FollowerItem:
-					if (item.BalanceData.iThisItemLevel < 60 || !Bot.Settings.Loot.PickupFollowerItems || item.Itemquality < ItemQuality.Rare4)
-					{
-						return false;
-					}
-					break;
+					//These items should be handled by Item Rules directly!
+					return false;
 				case GilesBaseItemType.Gem:
 					if (item.BalanceData.iThisItemLevel < Bot.Settings.Loot.MinimumGemItemLevel ||
 						(thisGilesItemType == GilesItemType.Ruby && !Bot.Settings.Loot.PickupGems[0]) ||

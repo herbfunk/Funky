@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Windows.Forms.VisualStyles;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Config.Settings;
 using FunkyBot.XMLTags;
@@ -40,6 +41,8 @@ namespace FunkyBot.Game
 		{
 			get { return currentProfileBehavior; }
 		}
+
+		internal bool ExploreDungeonTag { get; set; }
 
 		private DateTime LastProfileBehaviorCheck = DateTime.Today;
 		///<summary>
@@ -86,14 +89,15 @@ namespace FunkyBot.Game
 						Logger.DBLog.DebugFormat("Current Profile Behavior has enabled QuestMode.");
 						QuestMode = true;
 					}
-					else if (String.Equals(profileTagTypeString, ExploreTag, StringComparison.InvariantCultureIgnoreCase))
+					else if ((profileTagType==(typeof(ExploreAreaTag)))
+							||(String.Equals(profileTagTypeString, ExploreTag, StringComparison.InvariantCultureIgnoreCase)))
 					{
 						Logger.DBLog.DebugFormat("Current Profile Behavior Is Explore Dungeon Tag!");
-						Funky.PlayerMover.CheckingExploreDungeonSkipAhead = true;
+						ExploreDungeonTag = true;
 					}
 					else
 					{
-						Funky.PlayerMover.CheckingExploreDungeonSkipAhead = false;
+						ExploreDungeonTag = false;
 						ProfileBehaviorIsOOCInteractive = false;
 						InteractableCachedObject = null;
 						IsRunningOOCBehavior = false;

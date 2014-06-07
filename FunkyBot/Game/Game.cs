@@ -91,15 +91,7 @@ namespace FunkyBot.Game
 			return false;
 		}
 
-		//
-		internal void CheckUI()
-		{
-			if (UI.BountyCompleteContinue != null && UI.BountyCompleteContinue.IsValid && UI.BountyCompleteContinue.IsVisible)
-			{
-				Logger.DBLog.Info("Funky Clicking Bounty Dialog!");
-				UI.BountyCompleteContinue.Click();
-			}
-		}
+
 
 		public static int GetWaypointBySNOLevelID(SNOLevelArea id)
 		{

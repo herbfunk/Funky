@@ -26,19 +26,15 @@ namespace FunkyBot.Cache.Objects
 				return Gizmotype.HasValue && Gizmotype.Value == GizmoType.Switch && internalNameLower.Contains("event_switch"); 
 			}
 		}
-
-		public override string DebugString
+		public override bool ObjectIsSpecial
 		{
 			get
 			{
-				return String.Format("{0}\r\n PhysSNO={1} HandleAsObstacle={2} Operated={3} Disabled={4}",
-					base.DebugString,
-					PhysicsSNO.HasValue ? PhysicsSNO.Value.ToString() : "NULL",
-					HandleAsObstacle.HasValue ? HandleAsObstacle.Value.ToString() : "NULL",
-					GizmoHasBeenUsed.HasValue ? GizmoHasBeenUsed.Value.ToString() : "NULL",
-					GizmoDisabledByScript.HasValue ? GizmoDisabledByScript.Value.ToString() : "NULL");
+				//Rep Chests
+				return IsResplendantChest && Bot.Settings.Targeting.UseExtendedRangeRepChest;
 			}
 		}
+
 		private double LootRadius
 		{
 			get
@@ -89,6 +85,7 @@ namespace FunkyBot.Cache.Objects
 				// Ignore it if it's not in range yet
 				if (centreDistance > LootRadius)
 				{
+					IgnoredType = TargetingIgnoreTypes.DistanceFailure;
 					BlacklistLoops = 10;
 					return false;
 				}
@@ -100,6 +97,7 @@ namespace FunkyBot.Cache.Objects
 						Bot.Targeting.Cache.lastSeenCursedShrine = DateTime.Now;
 						LoopsUnseen = 0;
 					}
+					IgnoredType = TargetingIgnoreTypes.GizmoHasBeenUsed;
 					return false;
 				}
 
@@ -129,6 +127,7 @@ namespace FunkyBot.Cache.Objects
 							//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
 							Bot.Targeting.Cache.Environment.LoSMovementObjects.Add(this);
 						}
+						IgnoredType = TargetingIgnoreTypes.LineOfSightFailure;
 						return false;
 					}
 					else
@@ -152,6 +151,7 @@ namespace FunkyBot.Cache.Objects
 								//   Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
 								Bot.Targeting.Cache.Environment.LoSMovementObjects.Add(this);
 							}
+							IgnoredType = TargetingIgnoreTypes.LineOfSightFailure;
 							return false;
 						}
 					}
@@ -169,6 +169,7 @@ namespace FunkyBot.Cache.Objects
 							//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
 							Bot.Targeting.Cache.Environment.LoSMovementObjects.Add(this);
 						}
+						IgnoredType = TargetingIgnoreTypes.LineOfSightFailure;
 						return false;
 					}
 
@@ -197,6 +198,7 @@ namespace FunkyBot.Cache.Objects
 								bool intersectionTest = !MathEx.IntersectsPath(Position, CollisionRadius.Value, Bot.Character.Data.Position, BarricadeTest);
 								if (!intersectionTest)
 								{
+									IgnoredType = TargetingIgnoreTypes.IntersectionFailed;
 									return false;
 								}
 
@@ -205,6 +207,7 @@ namespace FunkyBot.Cache.Objects
 
 						if (centreDistance > 50f)
 						{
+							IgnoredType = TargetingIgnoreTypes.DistanceFailure;
 							BlacklistLoops = 3;
 							return false;
 						}
@@ -241,6 +244,7 @@ namespace FunkyBot.Cache.Objects
 						//Ignoring..?
 						if (IgnoreThis)
 						{
+							IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;
 							NeedsRemoved = true;
 							BlacklistFlag = BlacklistType.Permanent;
 							return false;
@@ -254,29 +258,22 @@ namespace FunkyBot.Cache.Objects
 					case TargetType.Container:
 
 						//Vendor Run and DB Settings check
-						if (TownRunManager.bWantToTownRun
-							 || !IsChestContainer && !CharacterSettings.Instance.OpenLootContainers
-							 || IsChestContainer && !CharacterSettings.Instance.OpenChests)
+						if ((!IsChestContainer && !CharacterSettings.Instance.OpenLootContainers)
+							 || (IsChestContainer && !CharacterSettings.Instance.OpenChests))
 						{
-							BlacklistLoops = 25;
-							return false;
-						}
-
-						if (IsCorpseContainer && Bot.Settings.Targeting.IgnoreCorpses)
-						{
+							IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;
 							NeedsRemoved = true;
 							BlacklistFlag = BlacklistType.Permanent;
 							return false;
 						}
 
-
-						// Any physics mesh? Give a minimum distance of 5 feet
-						//if (PhysicsSNO.HasValue && PhysicsSNO <= 0)
-						//{
-						//	NeedsRemoved = true;
-						//	return false;
-						//}
-
+						if (IsCorpseContainer && Bot.Settings.Targeting.IgnoreCorpses)
+						{
+							IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;
+							NeedsRemoved = true;
+							BlacklistFlag = BlacklistType.Permanent;
+							return false;
+						}
 
 						// Superlist for rare chests etc.
 						if (IsResplendantChest)
@@ -535,12 +532,18 @@ namespace FunkyBot.Cache.Objects
 			return (fRangeRequired <= 0f || base.DistanceFromTarget <= fRangeRequired);
 		}
 
-		public override bool ObjectIsSpecial
+
+
+		public override string DebugString
 		{
 			get
 			{
-				//Rep Chests
-				return IsResplendantChest && Bot.Settings.Targeting.UseExtendedRangeRepChest;
+				return String.Format("{0}\r\nPhysSNO={1} HandleAsObstacle={2} Operated={3} Disabled={4}",
+					base.DebugString,
+					PhysicsSNO.HasValue ? PhysicsSNO.Value.ToString() : "NULL",
+					HandleAsObstacle.HasValue ? HandleAsObstacle.Value.ToString() : "NULL",
+					GizmoHasBeenUsed.HasValue ? GizmoHasBeenUsed.Value.ToString() : "NULL",
+					GizmoDisabledByScript.HasValue ? GizmoDisabledByScript.Value.ToString() : "NULL");
 			}
 		}
 	}

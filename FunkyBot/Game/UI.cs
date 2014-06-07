@@ -14,33 +14,39 @@ namespace FunkyBot.Game
 		{
 			return uie != null && uie.IsValid && uie.IsVisible;
 		}
-		public static UIElement Inventory_Dialog_MainPage
+
+		public static List<UIElement> GetChildren(UIElement uie)
 		{
-			get
+			List<UIElement> retList = new List<UIElement>();
+
+			try
 			{
-				try { return UIElement.FromHash(0x3622D03B2C9B8E6D); }
-				catch { return null; }
+				foreach (var u in UIElement.GetChildren(uie))
+				{
+					retList.Add(u);
+				}
 			}
+			catch
+			{
+
+			}
+
+			return retList;
 		}
 
-		public static UIElement BloodShardVendor_GoldText
+		public static string UIElementString(UIElement uie)
 		{
-			get
+			try
 			{
-				try { return UIElement.FromHash(0x8470DAE1C16136B8); }
-				catch { return null; }
-			}
-		}
 
-		public static UIElement Inventory_Backpack_TopLeftSlot
-		{
-			get
+				return String.Format("Name {0} Hash {1} HasText {2} Text {3} Visible {4} Enabled {5}",
+					uie.Name, string.Format("0x{0:X}", uie.Hash), uie.HasText, uie.Text, uie.IsVisible, uie.IsEnabled);
+			}
+			catch (Exception ex)
 			{
-				try { return UIElement.FromHash(0x18CCECE7D2C0A87B); }
-				catch { return null; }
+				return String.Format("Exception Occured!\r\n{0}", ex.Message);
 			}
 		}
-		// 
 
 		public static class WaypointMap
 		{
@@ -391,6 +397,8 @@ namespace FunkyBot.Game
 
 				return thisClassButton;
 			}
+
+			
 			public static UIElement SelectHeroByIndex(int index)
 			{
 				try
@@ -430,16 +438,43 @@ namespace FunkyBot.Game
 				}
 				return null;
 			}
+			public static UIElement SelectHeroMain
+			{
+				get
+				{
+					try { return UIElement.FromHash(0xE93F10A86BBE8010); }
+					catch { return null; }
+				}
+			}
+			public static UIElement HeroSelectList
+			{
+				get
+				{
+					try { return UIElement.FromHash(0x47D0B765B5139B32); }
+					catch { return null; }
+				}
+			}
+			public static UIElement HeroSelectListStackPanel
+			{
+				get
+				{
+					try { return UIElement.FromHash(0xCF94B42C4CC5C80D); }
+					catch { return null; }
+				}
+			}
+
+			//Name Root.NormalLayer.BattleNetHeroSelect_main.LayoutRoot.HeroSelectList.HeroList._content._stackpanel._item0.Portrait Hash 0xDF71FA14F653F0C8 HasText False Text  Visible True Enabled True
+
 		}
 
 		
-		public static UIElement BountyCompleteContinue
-		{
-			get
-			{
-				try { return UIElement.FromHash(0x278249110947CA00); }
-				catch { return null; }
-			}
-		}
+		//public static UIElement BountyCompleteContinue
+		//{
+		//	get
+		//	{
+		//		try { return UIElement.FromHash(0x278249110947CA00); }
+		//		catch { return null; }
+		//	}
+		//}
 	}
 }

@@ -45,7 +45,7 @@ namespace FunkyBot
 			internal static int iCancelUnstuckerForSeconds = 60;
 			internal static DateTime timeLastRestartedGame = DateTime.Today;
 			internal static bool ShouldHandleObstacleObject = false;
-			internal static bool CheckingExploreDungeonSkipAhead = false;
+			
 			// **********************************************************************************************
 			// *****                         Check if we are stuck or not                               *****
 			// **********************************************************************************************
@@ -313,7 +313,7 @@ namespace FunkyBot
 					SkipAheadCache.RecordSkipAheadCachePoint();
 
 					//Check if our current profile behavior is ExploreDungeon tag.
-					if (CheckingExploreDungeonSkipAhead) //&& !SkipAheadCache.LevelAreaIDsIgnoreSkipping.Contains(Bot.Character.Data.iCurrentLevelID))
+					if (Bot.Game.Profile.ExploreDungeonTag) //&& !SkipAheadCache.LevelAreaIDsIgnoreSkipping.Contains(Bot.Character.Data.iCurrentLevelID))
 					{
 						//Check if DungeonExplorer and Current Node are valid. (only when there is more than one node in current route)
 						if (Navigation.CurrentDungeonExplorer != null && Navigation.DungeonExplorerCurrentNode != null && Navigation.CurrentDungeonExplorer.CurrentRoute.Count > 1)

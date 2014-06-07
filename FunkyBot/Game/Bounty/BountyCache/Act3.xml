@@ -250,6 +250,32 @@
 
   </CursedEventBounties>
 
+  <BossBounties>
+
+    <BountyQuestCacheEntry>
+      <Name>A3_Boss_Ghom</Name>
+      <Type>Boss</Type>
+      <StartingLevelAreaID>136448</StartingLevelAreaID>
+      <EndingLevelAreaID>00000</EndingLevelAreaID>
+      <QuestSNOs>
+        <int>346166</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
+    
+    <BountyQuestCacheEntry>
+      <Name>A3_Boss_Azmodan</Name>
+      <Type>Boss</Type>
+      <StartingLevelAreaID>119306</StartingLevelAreaID>
+      <EndingLevelAreaID>00000</EndingLevelAreaID>
+      <QuestSNOs>
+        <int>349244</int>
+      </QuestSNOs>
+    </BountyQuestCacheEntry>
+
+
+
+  </BossBounties>
+
   <MiscEventBounties />
 
 </BountyQuestActCache>

@@ -9,7 +9,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 		 public override void Initialize()
 		  {
 				Cooldown=1500;
-				Range = 45;
+				Range = RuneIndex==4?35:45;
 				ExecutionType=SkillExecutionFlags.Target;
 				WaitVars=new WaitLoops(0, 0, false);
 				Cost=0;
