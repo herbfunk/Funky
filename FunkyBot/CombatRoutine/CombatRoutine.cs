@@ -5,6 +5,7 @@ using System.Windows;
 using Demonbuddy;
 using Zeta.Bot;
 using Zeta.Common;
+using Zeta.Common.Plugins;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
@@ -21,7 +22,8 @@ namespace GilesBlankCombatRoutine
 		private static string sDemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 		private static string sTrinityPluginPath = sDemonBuddyPath + @"\Plugins\FunkyBot\";
 		private static readonly log4net.ILog DBLog = Zeta.Common.Logger.GetLoggerInstanceForType();
-
+		internal static PluginContainer lastSelectedPC = null;
+		private static ContextMenu advanceMenu = new ContextMenu();
 
 
 
@@ -68,16 +70,87 @@ namespace GilesBlankCombatRoutine
 							SplitButton btnSplit_Funky;
 							FunkyDebug.initDebugLabels(out btnSplit_Funky);
 
-							if (FunkyButton != null)
-								return;
-							else
+							if (FunkyButton==null)
 								grid.Children.Add(btnSplit_Funky);
+
+
+							if (PluginManager.Plugins.Any(p => p.Plugin.Name == "FunkyDebug"))
+							{
+								var debugButton = grid.FindName("FunkyDebug") as Button;
+								if (debugButton != null)
+								{
+									DBLog.DebugFormat("Funky Debug handler added");
+								}
+								else
+								{
+									Button[] splitbuttons = grid.Children.OfType<Button>().ToArray();
+									if (splitbuttons.Any())
+									{
+
+										foreach (var item in splitbuttons)
+										{
+											if (item.Name.Contains("FunkyDebug"))
+											{
+												debugButton = item;
+												break;
+											}
+										}
+									}
+								}
+
+
+
+								if (debugButton == null)
+								{
+									debugButton = new Button
+									{
+										Width = 125,
+										Height = 20,
+										HorizontalAlignment = HorizontalAlignment.Left,
+										VerticalAlignment = VerticalAlignment.Top,
+										Margin = new Thickness(425, 35, 0, 0),
+										IsEnabled = true,
+										Content = "Debug",
+										Name = "FunkyDebug",
+									};
+									grid.Children.Add(debugButton);
+								}
+							}
 						}
 					}
+
+					Button CompileMenuItem = new Button
+					{
+						Content = "Recompile",
+						Width = 150,
+						Height = 30,
+					};
+					CompileMenuItem.Click += FunkyDebug.RecompileSelectedPlugin;
+					advanceMenu.Items.Add(CompileMenuItem);
+
+					var PluginsDumpTab = tab.Items[2] as TabItem;
+					if (PluginsDumpTab == null) return;
+					var plugingrid = PluginsDumpTab.Content as Grid;
+					if (plugingrid == null) return;
+					var listboxPlugins = plugingrid.Children.OfType<ListBox>().First();
+					if (listboxPlugins == null) return;
+
+					listboxPlugins.SelectionChanged += OnPluginItemChanged;
+					listboxPlugins.ContextMenu = advanceMenu;
 				}
 			}));
 		}
 
+
+		private static void OnPluginItemChanged(object sender, EventArgs e)
+		{
+			ListBox sender_ = (ListBox)sender;
+			var SelectedItem = sender_.SelectedItem;
+			if (sender != null && SelectedItem is Zeta.Common.Plugins.PluginContainer)
+			{
+				lastSelectedPC = SelectedItem as Zeta.Common.Plugins.PluginContainer;
+			}
+		}
 
 		public sealed override void Dispose()
 		{
@@ -93,9 +166,14 @@ namespace GilesBlankCombatRoutine
 				if (infoDumpTab == null) return;
 				var grid = infoDumpTab.Content as Grid;
 				if (grid == null) return;
-				SplitButton btnfunky = grid.FindName("Funky") as SplitButton;
-				if (btnfunky == null) return;
-				grid.Children.Remove(btnfunky);
+				{
+					var btnfunky = grid.FindName("Funky") as SplitButton;
+					if (btnfunky != null) grid.Children.Remove(btnfunky);
+
+					var btnfunkydebug = grid.FindName("FunkyDebug") as Button;
+					if (btnfunkydebug != null) grid.Children.Remove(btnfunkydebug);
+				}
+
 			}));
 
 			GC.SuppressFinalize(this);

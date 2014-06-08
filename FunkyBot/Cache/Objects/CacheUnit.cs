@@ -40,33 +40,6 @@ namespace FunkyBot.Cache.Objects
 		public override void UpdateProperties()
 		{
 			base.UpdateProperties();
-			/*
-				   Things we know about the object based on cached values
-			*/
-
-			//if (this.IsBoss)
-			//	 this.Properties|=TargetProperties.Boss;
-
-			//if (this.IsBurrowableUnit)
-			//	 this.Properties|=TargetProperties.Burrowing;
-
-			//if (this.IsMissileReflecting)
-			//	 this.Properties|=TargetProperties.MissileReflecting;
-
-			//if (this.IsStealthableUnit)
-			//	 this.Properties|=TargetProperties.Stealthable;
-
-			//if (this.IsSucideBomber)
-			//	 this.Properties|=TargetProperties.SucideBomber;
-
-			//if (this.IsTreasureGoblin)
-			//	 this.Properties|=TargetProperties.TreasureGoblin;
-
-			//if (this.IsFast)
-			//	 this.Properties|=TargetProperties.Fast;
-
-			//if (this.Monstersize.HasValue&&this.Monstersize.Value==MonsterSize.Ranged)
-			//	 this.Properties|=TargetProperties.Ranged;
 			base.Properties = UnitTargetConditions.EvaluateUnitProperties(this);
 		}
 
@@ -303,7 +276,8 @@ namespace FunkyBot.Cache.Objects
 			{
 				return
 					 (
-						((IsSucideBomber && Bot.Settings.LOSMovement.AllowSucideBomber) ||
+						((Bot.Settings.AdventureMode.EnableAdventuringMode && Bot.Game.AdventureMode && Bot.Game.Bounty.AllowAnyUnitForLOSMovement) ||
+						(IsSucideBomber && Bot.Settings.LOSMovement.AllowSucideBomber) ||
 						(IsTreasureGoblin && Bot.Settings.LOSMovement.AllowTreasureGoblin) ||
 						(IsSpawnerUnit && Bot.Settings.LOSMovement.AllowSpawnerUnits) ||
 						((MonsterRare || MonsterElite) && Bot.Settings.LOSMovement.AllowRareElites) ||

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using FunkyBot.Config.UI;
 using Zeta.Bot;
 using Zeta.Game;
 using Zeta.Game.Internals;
@@ -14,7 +13,6 @@ namespace FunkyDebug
 {
 	public partial class FormDebug : Form
 	{
-		private static ItemWindow ItemWindowBrowser;
 
 		public FormDebug()
 		{
@@ -42,38 +40,7 @@ namespace FunkyDebug
 			//this.panelCharacterInventory.Controls.Add(entry);
 			//this.Text = "test";
 		}
-		private void entryMouseEnter(object sender, EventArgs e)
-		{
 
-			Label entrySender = (Label)sender;
-
-			CacheACDItem item;
-			int itemACDGUID;
-			try
-			{
-				itemACDGUID = Convert.ToInt32(entrySender.Name);
-			}
-			catch
-			{
-				return;
-			}
-
-			if (!cacheItems.ContainsKey(itemACDGUID))
-				return;
-
-			item = cacheItems[itemACDGUID];
-			
-
-			Point screenPoint = this.PointToScreen(entrySender.Location);//this.PointToClient(MousePosition);
-			screenPoint.Offset(this.Width, 0);
-			ItemWindowBrowser = new ItemWindow(item);
-			ItemWindowBrowser.Location = screenPoint;
-			ItemWindowBrowser.Show(this);
-		}
-		private void entryMouseLeave(object sender, EventArgs e)
-		{
-			ItemWindowBrowser.Dispose();
-		}
 
 		private void btnRefreshObjects_Click(object sender, EventArgs e)
 		{
@@ -82,9 +49,8 @@ namespace FunkyDebug
 				return;
 			}
 
-			panelItems.Controls.Clear();
-			panelMonsters.Controls.Clear();
-			panelGizmos.Controls.Clear();
+			flowLayout_OutPut.Controls.Clear();
+			
 
 			try
 			{
@@ -95,36 +61,40 @@ namespace FunkyDebug
 
 					double iType = -1;
 
-					ZetaDia.Actors.Update();
-					var units = ZetaDia.Actors.GetActorsOfType<DiaUnit>(false, false)
-						.Where(o => o.IsValid)
-						.OrderBy(o => o.Distance);
+					if (tabControl_Objects.SelectedTab.Text == "Monsters")
+					{
+						var units = ZetaDia.Actors.GetActorsOfType<DiaUnit>(false, false)
+							.Where(o => o.IsValid)
+							.OrderBy(o => o.Distance);
 
-					iType = DumpUnits(units, iType);
+						iType = DumpUnits(units, iType);
+					}
 
+					if (tabControl_Objects.SelectedTab.Text == "Items")
+					{
+						var items = ZetaDia.Actors.GetActorsOfType<DiaItem>(false, false)
+							.Where(o => o.IsValid)
+							.OrderBy(o => o.Distance);
 
-					//ZetaDia.Actors.Update();
-					var items = ZetaDia.Actors.GetActorsOfType<DiaItem>(false, false)
-						.Where(o => o.IsValid)
-						.OrderBy(o => o.Distance);
+						iType = DumpItems(items, iType);
+					}
 
-					iType = DumpItems(items, iType);
+					if (tabControl_Objects.SelectedTab.Text == "Gizmos")
+					{
+						var gizmos = ZetaDia.Actors.GetActorsOfType<DiaGizmo>(true, false)
+							.Where(o => o.IsValid)
+							.OrderBy(o => o.Distance);
 
-					//ZetaDia.Actors.Update();
-					var gizmos = ZetaDia.Actors.GetActorsOfType<DiaGizmo>(true, false)
-						.Where(o => o.IsValid)
-						.OrderBy(o => o.Distance);
-
-					iType = DumpGizmos(gizmos, iType);
-
-
-					//DumpPlayerProperties();
+						iType = DumpGizmos(gizmos, iType);
+					}
 				}
 			}
 			catch (Exception ex)
 			{
 
 			}
+
+			flowLayout_OutPut.Focus();
 		}
 
 		private double DumpUnits(IEnumerable<DiaUnit> units, double iType)
@@ -148,7 +118,7 @@ namespace FunkyDebug
 				try
 				{
 
-					panelMonsters.Controls.Add(new UserControlDebugEntry(String.Format("Unit ActorSNO: {0} Name: {1} Type: {2} Radius: {7:0.00} Position: {3} ({4}) Animation: {5} has Attributes: {6}\n",
+					flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(String.Format("Unit ActorSNO: {0} Name: {1} Type: {2} Radius: {7:0.00} Position: {3} ({4}) Animation: {5} has Attributes: {6}\n",
 											o.ActorSNO, o.Name, o.ActorInfo.GizmoType, o.Position, o.Position, o.CommonData.CurrentAnimation, attributesFound, o.CollisionSphere.Radius)));
 				}
 				catch { }
@@ -192,7 +162,7 @@ namespace FunkyDebug
 				try
 				{
 
-					panelGizmos.Controls.Add(new UserControlDebugEntry(String.Format("Gizmo ActorSNO: {0} Name: {1} Type: {2} Radius: {3:0.00} Position: {4} ({5}) Distance: {6:0} Animation: {7} AppearanceSNO: {8} has Attributes: {9}\n",
+					flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(String.Format("Gizmo ActorSNO: {0} Name: {1} Type: {2} Radius: {3:0.00} Position: {4} ({5}) Distance: {6:0} Animation: {7} AppearanceSNO: {8} has Attributes: {9}\n",
 							o.ActorSNO, o.Name, o.ActorInfo.GizmoType, o.CollisionSphere.Radius, o.Position, o.Position, o.Distance, o.CommonData.CurrentAnimation, o.AppearanceSNO, attributesFound)));
 
 				}
@@ -210,7 +180,7 @@ namespace FunkyDebug
 
 				try
 				{
-					panelItems.Controls.Add(new UserControlDebugEntry(String.Format("Item ActorSNO: {0} ACDGuid: {30} DynamicID: {31} Name: {1} ItemType: {2} ItemBaseType: {3}\r\n" +
+					flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(String.Format("Item ActorSNO: {0} ACDGuid: {30} DynamicID: {31} Name: {1} ItemType: {2} ItemBaseType: {3}\r\n" +
 											"Position: {29}" +
 											"IsArmor: {4} IsCrafted: {5} IsCraftingPage: {6} IsCraftingReagent: {7}\r\n" +
 											"IsElite: {8} IsEquipped: {9} IsGem: {10} IsMiscItem: {11}\r\n" +
@@ -281,9 +251,9 @@ namespace FunkyDebug
 				return;
 
 			item = cacheItems[itemACDGUID];
-			string itemRulesString = FunkyDebug.FunkyDebugger.ItemRules.getFullItem(item);
+			
 
-			Clipboard.SetText(entrySender.Text + " " + itemRulesString);
+			Clipboard.SetText(entrySender.Text);
 		}
 		private void btnRefreshCharacter_Click(object sender, EventArgs e)
 		{
@@ -292,7 +262,7 @@ namespace FunkyDebug
 				return;
 			}
 
-			panelCharacterStats.Controls.Clear();
+			flowLayout_OutPut.Controls.Clear();
 
 			try
 			{
@@ -306,7 +276,7 @@ namespace FunkyDebug
 					{
 						try
 						{
-							panelCharacterStats.Controls.Add(new UserControlDebugEntry(String.Format("Buff: {0} SNOID: {1} StackCount: {2} IsCancelable: {3}",
+							flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(String.Format("Buff: {0} SNOID: {1} StackCount: {2} IsCancelable: {3}",
 								buff.InternalName, buff.SNOId, buff.StackCount, buff.IsCancelable)));
 						}
 						catch (Exception)
@@ -319,7 +289,7 @@ namespace FunkyDebug
 						try
 						{
 
-							panelCharacterStats.Controls.Add(new UserControlDebugEntry(String.Format("Debuff: {0} SNOID: {1} StackCount: {2} IsCancelable: {3}",
+							flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(String.Format("Debuff: {0} SNOID: {1} StackCount: {2} IsCancelable: {3}",
 								buff.InternalName, buff.SNOId, buff.StackCount, buff.IsCancelable)));
 						
 
@@ -334,13 +304,13 @@ namespace FunkyDebug
 					foreach (HotbarSlot hotbarslot in hotbarslots)
 					{
 						if (hotbarslot == HotbarSlot.Invalid) continue;
-						panelCharacterStats.Controls.Add(new UserControlDebugEntry(ReturnSkillString(hotbarslot)));
+						flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(ReturnSkillString(hotbarslot)));
 					}
 
 					foreach (var snoPower in ZetaDia.CPlayer.PassiveSkills)
 					{
 						string s = String.Format("Passive Skill {0}", snoPower.ToString());
-						panelCharacterStats.Controls.Add(new UserControlDebugEntry(s));
+						flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(s));
 					}
 					
 
@@ -350,6 +320,8 @@ namespace FunkyDebug
 			{
 
 			}
+
+			flowLayout_OutPut.Focus();
 		}
 
 		private string ReturnSkillString(HotbarSlot slot)
@@ -375,7 +347,7 @@ namespace FunkyDebug
 				return;
 			}
 			cacheItems.Clear();
-			panelCharacterInventory.Controls.Clear();
+			flowLayout_OutPut.Controls.Clear();
 
 			try
 			{
@@ -391,7 +363,7 @@ namespace FunkyDebug
 
 						try
 						{
-							panelCharacterInventory.Controls.Add(new UserControlDebugEntry(ReturnItemString(o)));
+							flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(ReturnItemString(o)));
 						}
 						catch (Exception)
 						{
@@ -409,6 +381,8 @@ namespace FunkyDebug
 			{
 
 			}
+
+			flowLayout_OutPut.Focus();
 		}
 
 		private void FormDebug_Load(object sender, EventArgs e)
@@ -457,7 +431,7 @@ namespace FunkyDebug
 				return;
 			}
 
-			panel_UI.Controls.Clear();
+			flowLayout_OutPut.Controls.Clear();
 
 			try
 			{
@@ -483,7 +457,7 @@ namespace FunkyDebug
 						};
 
 						entry.Text = string.Format("Name: {0} Visible: {1} Text: {2}", uiElement.Name, uiElement.IsVisible, uiElement.Text);
-						panel_UI.Controls.Add(entry);
+						flowLayout_OutPut.Controls.Add(entry);
 					}
 
 				}
@@ -492,11 +466,14 @@ namespace FunkyDebug
 			{
 
 			}
+
+			flowLayout_OutPut.Focus();
 		}
 
 		private string ReturnItemString(ACDItem o)
 		{
-			return String.Format("Item - Name: {1} InternalName: {35} Row: {32} Column: {33}\r\n" +
+			return String.Format("Item - Name: {1} (InternalName: {35})\r\n" +
+									"Row: {32} Column: {33}\r\n" +
 									"ActorSNO: {0} ACDGuid: {30} DynamicID: {31} BalanceID: {34}\r\n" +
 									"ItemType: {2} ItemBaseType: {3}\r\n" +
 									"Position: {29}" +
@@ -523,22 +500,13 @@ namespace FunkyDebug
 									o.GameBalanceId, o.InternalName);
 		}
 
-		private void panelCharacterStats_MouseEnter(object sender, EventArgs e)
-		{
-			panelCharacterStats.Focus();
-		}
-
-		private void panelCharacterInventory_MouseEnter(object sender, EventArgs e)
-		{
-			panelCharacterInventory.Focus();
-		}
 
 		private void btnRefreshCharacterEquipped_Click(object sender, EventArgs e)
 		{
 			if (BotMain.IsRunning) return;
-			
 
-			panelCharacterEquipped.Controls.Clear();
+
+			flowLayout_OutPut.Controls.Clear();
 
 			try
 			{
@@ -552,7 +520,7 @@ namespace FunkyDebug
 					{
 						try
 						{
-							panelCharacterEquipped.Controls.Add(new UserControlDebugEntry(ReturnItemString(o)));
+							flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(ReturnItemString(o)));
 						}
 						catch (Exception)
 						{
@@ -567,26 +535,15 @@ namespace FunkyDebug
 			{
 
 			}
+
+			flowLayout_OutPut.Focus();
 		}
 
-		private void panelCharacterEquipped_MouseEnter(object sender, EventArgs e)
+		private void flowLayout_OutPut_MouseEnter(object sender, EventArgs e)
 		{
-			panelCharacterEquipped.Focus();
+			flowLayout_OutPut.Focus();
 		}
 
-		private void panelMonsters_MouseEnter(object sender, EventArgs e)
-		{
-			panelMonsters.Focus();
-		}
 
-		private void panelGizmos_MouseEnter(object sender, EventArgs e)
-		{
-			panelGizmos.Focus();
-		}
-
-		private void panelItems_MouseEnter(object sender, EventArgs e)
-		{
-			panelItems.Focus();
-		}
 	}
 }

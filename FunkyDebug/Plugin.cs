@@ -1,11 +1,15 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using Demonbuddy;
-using FunkyBot;
 using Zeta.Bot;
+using Zeta.Bot.Logic;
+using Zeta.Common;
+using Zeta.Common.Compiler;
 using Zeta.Common.Plugins;
 
 namespace FunkyDebug
@@ -13,7 +17,11 @@ namespace FunkyDebug
 	 public partial class FunkyDebugger : IPlugin
 	 {
 		 internal static readonly log4net.ILog DBLog = Zeta.Common.Logger.GetLoggerInstanceForType();
-		 internal static readonly Interpreter ItemRules = new Interpreter();
+		 private static PluginContainer lastSelectedPC = null;
+		 private static ContextMenu advanceMenu = new ContextMenu();
+		 private static readonly string sDemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+		 private static bool initFunkyButton;
+
 		  #region IPlugin Members
 
 		  public string Author
@@ -40,6 +48,13 @@ namespace FunkyDebug
 		  {
 				BotMain.OnStart-=FunkyBotStart;
 				BotMain.OnStop-=FunkyBotStop;
+
+				Button funkyButton;
+				bool found = FindFunkyButton(out funkyButton);
+				if (found)
+				{
+					funkyButton.Click -= lblFunky_Click;
+				}
 		  }
 
 		  public void OnEnabled()
@@ -50,67 +65,13 @@ namespace FunkyDebug
 
 		  public void OnInitialize()
 		  {
-			  Application.Current.Dispatcher.Invoke(
-			  new Action(
-			  () =>
+			  Button FunkyButton;
+			  initFunkyButton = FindFunkyButton(out FunkyButton);
+			  if (initFunkyButton && FunkyButton != null)
 			  {
-				  Window mainWindow = App.Current.MainWindow;
-				  Button FunkyButton;
-				  var tab = mainWindow.FindName("tabControlMain") as TabControl;
-				  if (tab != null)
-				  {
-					  var infoDumpTab = tab.Items[0] as TabItem;
-					  if (infoDumpTab != null)
-					  {
-						  var grid = infoDumpTab.Content as Grid;
-						  if (grid != null)
-						  {
-							  FunkyButton = grid.FindName("FunkyDebug") as Button;
-							  if (FunkyButton != null)
-							  {
-								  DBLog.DebugFormat("Funky Button handler added");
-							  }
-							  else
-							  {
-								  Button[] splitbuttons = grid.Children.OfType<Button>().ToArray();
-								  if (splitbuttons.Any())
-								  {
-
-									  foreach (var item in splitbuttons)
-									  {
-										  if (item.Name.Contains("FunkyDebug"))
-										  {
-											  FunkyButton = item;
-											  break;
-										  }
-									  }
-								  }
-							  }
-
-
-
-							  if (FunkyButton != null)
-								  return;
-							  else
-							  {
-								  FunkyButton = new Button
-								  {
-									  Width = 125,
-									  Height = 20,
-									  HorizontalAlignment = HorizontalAlignment.Left,
-									  VerticalAlignment = VerticalAlignment.Top,
-									  Margin = new Thickness(425, 35, 0, 0),
-									  IsEnabled = true,
-									  Content = "Debug",
-									  Name = "FunkyDebug",
-								  };
-								  FunkyButton.Click += lblFunky_Click;
-								  grid.Children.Add(FunkyButton);
-							  }
-						  }
-					  }
-				  }
-			  }));
+				  DBLog.DebugFormat("Funky Debug Button Click Handler Added");
+				  FunkyButton.Click += lblFunky_Click;
+			  }
 		  }
 		  static void lblFunky_Click(object sender, EventArgs e)
 		  {
@@ -127,6 +88,43 @@ namespace FunkyDebug
 
 		  }
 
+		  private static bool FindFunkyButton(out Button funkyButton)
+		  {
+			  funkyButton = null;
+
+			  Window mainWindow = App.Current.MainWindow;
+			  var tab = mainWindow.FindName("tabControlMain") as TabControl;
+			  if (tab == null) return false;
+			  var infoDumpTab = tab.Items[0] as TabItem;
+			  if (infoDumpTab == null) return false;
+			  var grid = infoDumpTab.Content as Grid;
+			  if (grid == null) return false;
+			  funkyButton = grid.FindName("FunkyDebug") as Button;
+			  if (funkyButton != null)
+			  {
+				  DBLog.DebugFormat("Funky Debug handler added");
+				  return true;
+			  }
+			  else
+			  {
+				  Button[] splitbuttons = grid.Children.OfType<Button>().ToArray();
+				  if (splitbuttons.Any())
+				  {
+
+					  foreach (var item in splitbuttons)
+					  {
+						  if (item.Name.Contains("FunkyDebug"))
+						  {
+							  funkyButton = item;
+							  return true;
+						  }
+					  }
+				  }
+			  }
+
+			  return false;
+		  }
+
 		  public void OnPulse()
 		  {
 
@@ -134,7 +132,12 @@ namespace FunkyDebug
 
 		  public void OnShutdown()
 		  {
-
+			  Button funkyButton;
+			  bool found = FindFunkyButton(out funkyButton);
+			  if (found)
+			  {
+				  funkyButton.Click -= lblFunky_Click;
+			  }
 		  }
 
 		  public Version Version

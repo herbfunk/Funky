@@ -34,12 +34,15 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
+			this.label1.BackColor = System.Drawing.Color.Black;
+			this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.label1.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.Location = new System.Drawing.Point(3, 0);
+			this.label1.ForeColor = System.Drawing.Color.White;
+			this.label1.Location = new System.Drawing.Point(0, 0);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(36, 16);
+			this.label1.Size = new System.Drawing.Size(84, 16);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "gdgd";
+			this.label1.Text = "BODY TEXT";
 			// 
 			// UserControlDebugEntry
 			// 
@@ -47,10 +50,11 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSize = true;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.BackColor = System.Drawing.Color.Black;
 			this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.Controls.Add(this.label1);
 			this.Name = "UserControlDebugEntry";
-			this.Size = new System.Drawing.Size(42, 16);
+			this.Size = new System.Drawing.Size(84, 16);
 			this.Load += new System.EventHandler(this.UserControlDebugEntry_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();

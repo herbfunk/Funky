@@ -3,14 +3,12 @@ using System.Xml.Serialization;
 
 namespace FunkyBot.Config.Settings.Class
 {
-	public class SettingWitchDoctor
+	public class SettingCrusader
 	{
-		public bool ZunimassaFullSet { get; set; }
-		public bool TallManFinger { get; set; }
-
-		public SettingWitchDoctor()
+		
+		public SettingCrusader()
 		 {
-			 ZunimassaFullSet = false;
+			
 		 }
 
 		internal string DefaultFilePath

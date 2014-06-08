@@ -7,8 +7,20 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player
 {
+	public enum EquippedItemType
+	{
+		None,
+		Blackthornes,
+		Zunimassas,
+		SerpentSparker,
+		TallManFinger,
+		RoyalGrandeur,
+	}
+
 	internal class Equipment
 	{
+
+
 		public bool GlobesRestoreResource { get; set; }
 		public bool ImmuneToDescratorMoltenPlaguedAvoidances { get; set; }
 		public bool RingOfGrandeur { get; set; }
@@ -77,5 +89,42 @@ namespace FunkyBot.Player
 			return returnItems;
 		}
 
+
+		#region Static Item Balance IDs
+		public static readonly Dictionary<int, EquippedItemType> ImportantItems = new Dictionary<int, EquippedItemType>
+		{
+
+			//Single Items
+			{1898798298, EquippedItemType.SerpentSparker},
+			{-1149809185, EquippedItemType.TallManFinger},
+			{-1149593563, EquippedItemType.RoyalGrandeur},
+
+
+			//BLACKTHORNE'S
+			{-773231465, EquippedItemType.Blackthornes}, //Jousting Mail
+			{1772078106, EquippedItemType.Blackthornes}, //Notched Belt
+			{-115330289, EquippedItemType.Blackthornes}, //Surcoat
+			{1941575230, EquippedItemType.Blackthornes}, //Spurs
+			{1528526556, EquippedItemType.Blackthornes}, //Duncraig Cross
+
+			//Zunimassa's
+			{1316917835, EquippedItemType.Zunimassas}, //Marrow
+			{-960430780, EquippedItemType.Zunimassas}, //String of Skulls
+			{-840125482, EquippedItemType.Zunimassas}, //Vision
+			{1941359608, EquippedItemType.Zunimassas}, //Trail
+			//TODO:: Add POX
+
+
+
+
+		};
+
+
+		#endregion
+
+		/*
+	 * 
+
+	 */
 	}
 }

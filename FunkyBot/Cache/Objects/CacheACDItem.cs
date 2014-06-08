@@ -27,6 +27,7 @@ namespace FunkyBot.Cache.Objects
 		public ItemType ThisDBItemType { get; set; }
 		public FollowerType ThisFollowerType { get; set; }
 		public bool IsUnidentified { get; set; }
+		public EquippedItemType EquippedType=EquippedItemType.None;
 		public bool IsPotion { get; set; }
 		public bool IsRegularPotion
 		{
@@ -113,6 +114,10 @@ namespace FunkyBot.Cache.Objects
 
 
 			ThisBalanceID = item.GameBalanceId;
+
+			if (Equipment.ImportantItems.ContainsKey(ThisBalanceID))
+				EquippedType = Equipment.ImportantItems[ThisBalanceID];
+
 			ThisDynamicID = item.DynamicId;
 			ThisInternalName = item.InternalName;
 			ThisRealName = item.Name;

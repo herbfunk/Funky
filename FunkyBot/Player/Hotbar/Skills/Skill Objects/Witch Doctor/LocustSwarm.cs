@@ -1,4 +1,5 @@
-﻿using FunkyBot.Movement.Clustering;
+﻿using System;
+using FunkyBot.Movement.Clustering;
 using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Game.Internals.Actors;
 
@@ -8,7 +9,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 	{
 		public override void Initialize()
 		{
-			bool hotbarContainsHaunt = Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_Haunt);
+			bool hotbarContainsDOT = Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_Haunt) || (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_Piranhas));
 
 			Cooldown = 8000;
 			ExecutionType = SkillExecutionFlags.ClusterLocation | SkillExecutionFlags.Location;
@@ -16,15 +17,21 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 			Cost = 196;
 
 			var precastflags = SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast;
-			if (!hotbarContainsHaunt)
+			if (!hotbarContainsDOT)
 			{
-				ClusterConditions.Add(new SkillClusterConditions(5d, 25, 4, true, 0.25d));
+				ClusterConditions.Add(new SkillClusterConditions(5d, 35, 4, true, 0.25d));
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 20, 0.99d, TargetProperties.DOTDPS));
+
+				//Any non-normal unit (Any Range!)
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, -1, 0.99d, TargetProperties.Normal|TargetProperties.DOTDPS));
 			}
 			else
 			{
-				ClusterConditions.Add(new SkillClusterConditions(5d, 25, 4, true));
+				ClusterConditions.Add(new SkillClusterConditions(5d, 35, 4, true));
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 20, 0.99d, TargetProperties.Weak));
+
+				//Any non-normal unit (Any Range!)
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, -1, 0.99d, TargetProperties.Normal));
 				precastflags |= SkillPrecastFlags.CheckRecastTimer;
 			}
 
@@ -42,10 +49,15 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 
 			FcriteriaCombat = () =>
 			{
-				if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_CreepingDeath))
+				if (Bot.Targeting.Cache.CurrentTarget.SkillsUsedOnObject.ContainsKey(Power))
 				{
-					return !Bot.Targeting.Cache.CurrentTarget.SkillsUsedOnObject.ContainsKey(Power);
+					//If we have Creeping Death, then we ignore any units that we already cast upon.
+					if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_CreepingDeath)) return false;
+
+					//Runeindex 2 has duration of 16s instead of 7s
+					return DateTime.Now.Subtract(Bot.Targeting.Cache.CurrentTarget.SkillsUsedOnObject[Power]).TotalSeconds > (RuneIndex==2?15:7);
 				}
+
 				return true;
 			};
 		}

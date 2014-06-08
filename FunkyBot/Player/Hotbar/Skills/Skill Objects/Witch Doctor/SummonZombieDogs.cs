@@ -32,6 +32,10 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 			 if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_FierceLoyalty))
 				 total++;
 
+			 //Tall Man Finger - Only 1
+			 if (Bot.Settings.WitchDoctor.TallManFinger)
+				 total = 1;
+
 			 return total;
 		  }
 

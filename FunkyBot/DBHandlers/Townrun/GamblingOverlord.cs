@@ -144,14 +144,16 @@ namespace FunkyBot.DBHandlers
 			{
 				nextItemType = BloodShardGambleItems.None;
 
+				//Generate our list of item types.
 				List<BloodShardGambleItems> freshList = ValidGambleItems.Where(t => Bot.Settings.TownRun.BloodShardGambleItems.HasFlag(t)).ToList();
-
+				
+				//Find next item type!
 				while (freshList.Count>0)
 				{
 					Random r = new Random();
 
 					int curListCount=freshList.Count;
-					int index = r.Next(0, curListCount-1);
+					int index = r.Next(0, curListCount);
 
 					BloodShardGambleItems itemtype = freshList[index];
 					if (Bot.Settings.TownRun.BloodShardGambleItems.HasFlag(itemtype) && GetGambleItemPrice(itemtype) <= CurrentBloodShardCount)
@@ -160,10 +162,8 @@ namespace FunkyBot.DBHandlers
 						Logger.DBLog.DebugFormat("Next Item Type: {0}", nextItemType);
 						break;
 					}
-					else
-					{
-						freshList.RemoveAt(index);
-					}
+
+					freshList.RemoveAt(index);
 				}
 			}
 			

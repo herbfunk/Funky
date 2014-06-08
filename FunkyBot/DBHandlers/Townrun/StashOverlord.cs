@@ -240,7 +240,9 @@ namespace FunkyBot.DBHandlers
 					for (int iColumn = 0; iColumn <= 6; iColumn++)
 						GilesStashSlotBlocked[iColumn, iRow] = true;
 
-				//StashedItems.Clear();
+				//Reset keystone Count
+				KeystoneFragments = 0;
+
 				// Map out all the items already in the stash
 				foreach (ACDItem tempitem in ZetaDia.Me.Inventory.StashItems)
 				{
@@ -253,6 +255,12 @@ namespace FunkyBot.DBHandlers
 						GilesStashSlotBlocked[inventoryColumn, inventoryRow] = true;
 						// Try and reliably find out if this is a two slot item or not
 						GilesItemType tempItemType = ItemFunc.DetermineItemType(tempitem.InternalName, tempitem.ItemType, tempitem.FollowerSpecialType);
+
+						//update keystone fragments
+						if (tempItemType==GilesItemType.KeyStone)
+							KeystoneFragments += tempitem.ItemStackQuantity;
+						
+
 						if (ItemFunc.DetermineIsTwoSlot(tempItemType) && inventoryRow != 19 && inventoryRow != 9 && inventoryRow != 29 && inventoryRow != 39)
 						{
 							GilesStashSlotBlocked[inventoryColumn, inventoryRow + 1] = true;

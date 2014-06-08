@@ -22,6 +22,9 @@ namespace FunkyBot.Player.Class
 			else
 				Bot.Settings.WitchDoctor.ZunimassaFullSet = false;
 
+			//Tall Man Finger Check
+			Bot.Settings.WitchDoctor.TallManFinger = Bot.Character.Data.equipment.EquippedItems.Any(i => i.EquippedType == EquippedItemType.TallManFinger);
+
 			Logger.DBLog.DebugFormat("[Funky] Using WitchDoctor Player Class");
 		}
 		//Base class for each individual class!

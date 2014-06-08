@@ -1,4 +1,5 @@
-﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+﻿using System;
+using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
@@ -14,9 +15,15 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 
 			//since we can only track one DOTDPS, we track locus swarm and cast this 
 			if (hotbarContainsLoctusSwarm)
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 45));
+			{
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 25));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, -1, 0.95d, TargetProperties.Normal));
+			}
 			else
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 45, falseConditionalFlags: TargetProperties.DOTDPS));
+			{
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 25, falseConditionalFlags: TargetProperties.DOTDPS));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, -1, 0.95d, TargetProperties.Normal|TargetProperties.DOTDPS));
+			}
 
 			WaitVars = new WaitLoops(0, 0, false);
 			Cost = 50;
@@ -24,7 +31,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 			IsRanged = true;
 			IsProjectile=true;
 			UseageType = SkillUseage.Combat;
-			Priority = SkillPriority.Medium;
+			Priority = SkillPriority.High;
 			ShouldTrack = true;
 
 			var precastflags = SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast;
@@ -36,11 +43,14 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 			
 			FcriteriaCombat = () =>
 			{
-				//If we have Creeping Death, then we ignore any units that we already cast upon.
-				if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_CreepingDeath))
+				if (Bot.Targeting.Cache.CurrentTarget.SkillsUsedOnObject.ContainsKey(Power))
 				{
-					return !Bot.Targeting.Cache.CurrentTarget.SkillsUsedOnObject.ContainsKey(Power);
+					//If we have Creeping Death, then we ignore any units that we already cast upon.
+					if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_CreepingDeath)) return false;
+
+					return DateTime.Now.Subtract(Bot.Targeting.Cache.CurrentTarget.SkillsUsedOnObject[Power]).TotalSeconds > 11;
 				}
+
 				return true;
 			};
 		}

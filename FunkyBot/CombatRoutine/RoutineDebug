@@ -195,6 +195,68 @@ namespace GilesBlankCombatRoutine
 			DBLog.DebugFormat("Enabling Plugins");
 			PluginManager.SetEnabledPlugins(EnabledPlugins);
 		}
+		internal static void RecompileSelectedPlugin(Object sender, EventArgs e)
+		{
+			  var FBD = new System.Windows.Forms.FolderBrowserDialog();
+			  string sDemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+			  FBD.SelectedPath = sDemonBuddyPath + @"\Plugins\";
+			  System.Windows.Forms.DialogResult PluginLocationResult = FBD.ShowDialog();
+
+			  if (PluginLocationResult == System.Windows.Forms.DialogResult.OK && !String.IsNullOrEmpty(FBD.SelectedPath))
+			  {
+				  DBLog.DebugFormat(FBD.SelectedPath);
+
+				  if (BotMain.IsRunning)
+				  {
+					  BotMain.Stop(false, "Recompiling Plugin!");
+					  while (BotMain.BotThread.IsAlive)
+						  Thread.Sleep(0);
+				  }
+
+				  var EnabledPlugins = PluginManager.GetEnabledPlugins().ToArray();
+
+				  foreach (var p in PluginManager.Plugins)
+				  {
+					  p.Enabled = false;
+				  }
+
+				  PluginManager.ShutdownAllPlugins();
+
+				  DBLog.DebugFormat("Removing {0} from plugins", FunkyRoutine.lastSelectedPC.Plugin.Name);
+				  while (PluginManager.Plugins.Any(p => p.Plugin.Name == FunkyRoutine.lastSelectedPC.Plugin.Name))
+				  {
+					  PluginManager.Plugins.Remove(PluginManager.Plugins.First(p => p.Plugin.Name == FunkyRoutine.lastSelectedPC.Plugin.Name));
+				  }
+
+				  DBLog.DebugFormat("Clearing all treehooks");
+				  TreeHooks.Instance.ClearAll();
+
+				  DBLog.DebugFormat("Disposing of current bot");
+				  BotMain.CurrentBot.Dispose();
+
+				  DBLog.DebugFormat("Removing old Assemblies");
+				  CodeCompiler.DeleteOldAssemblies();
+
+
+
+				  CodeCompiler FunkyCode = new CodeCompiler(FBD.SelectedPath);
+				  FunkyCode.ParseFilesForCompilerOptions();
+				  DBLog.DebugFormat("Recompiling Plugin");
+				  FunkyCode.Compile();
+				  DBLog.DebugFormat(FunkyCode.CompiledToLocation);
+
+
+
+				  TreeHooks.Instance.ClearAll();
+				  BrainBehavior.CreateBrain();
+
+				  DBLog.DebugFormat("Reloading Plugins");
+				  PluginManager.ReloadAllPlugins(sDemonBuddyPath + @"\Plugins\");
+
+				  DBLog.DebugFormat("Enabling Plugins");
+				  PluginManager.SetEnabledPlugins(EnabledPlugins);
+			  }
+		}
 		static void lblDebug_OpenDBLog(object sender, EventArgs e)
 		{
 			try

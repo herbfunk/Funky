@@ -1573,27 +1573,36 @@ namespace FunkyBot.Config.UI
 		{
 			LBDebug.Controls.Clear();
 
-			Game.UI.GameMenu.SelectHeroByIndex(0).Click();
+			
 			try
 			{
-				UIElement uie = Game.UI.GameMenu.HeroSelectListStackPanel;
-				if (Game.UI.ValidateUIElement(uie))
+
+				var nextItemType = BloodShardGambleItems.None;
+
+				List<BloodShardGambleItems> freshList = TownRunManager.ValidGambleItems.Where(t => Bot.Settings.TownRun.BloodShardGambleItems.HasFlag(t)).ToList();
+
+				while (freshList.Count > 0)
 				{
-					LBDebug.Controls.Add(new UserControlDebugEntry(Game.UI.UIElementString(uie)));
-					foreach (var u in Game.UI.GetChildren(uie))
+					Random r = new Random();
+
+					int curListCount = freshList.Count;
+					int index = r.Next(0, curListCount);
+
+					BloodShardGambleItems itemtype = freshList[index];
+					if (Bot.Settings.TownRun.BloodShardGambleItems.HasFlag(itemtype) && TownRunManager.GetGambleItemPrice(itemtype) <= 125)
 					{
-						LBDebug.Controls.Add(new UserControlDebugEntry(Game.UI.UIElementString(u)));
-						foreach (var ui in Game.UI.GetChildren(u))
-						{
-							LBDebug.Controls.Add(new UserControlDebugEntry(Game.UI.UIElementString(ui)));
-							foreach (var UI in Game.UI.GetChildren(ui))
-							{
-								LBDebug.Controls.Add(new UserControlDebugEntry(Game.UI.UIElementString(UI)));
-							}
-						}
+						nextItemType = itemtype;
+						Logger.DBLog.DebugFormat("Next Item Type: {0}", nextItemType);
+						break;
+					}
+					else
+					{
+						Logger.DBLog.DebugFormat("Removing Item Type: {0}", itemtype);
+						freshList.RemoveAt(index);
+						freshList.TrimExcess();
 					}
 				}
-				
+			
 				
 			}
 			catch (Exception ex)

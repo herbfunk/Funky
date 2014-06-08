@@ -248,9 +248,13 @@ namespace FunkyBot.Game.Bounty
 						{
 							Logger.Write(LogLevel.Bounty, "Bounty Level ID Match (Clear) -- Disabling Cluster Logic!");
 							ProfileCache.ClusterSettingsTag = SettingCluster.DisabledClustering;
+							AllowAnyUnitForLOSMovement = true;
 						}
 						else
+						{
 							ProfileCache.ClusterSettingsTag = Bot.Settings.Cluster;
+							AllowAnyUnitForLOSMovement = false;
+						}
 
 						break;
 					case BountyQuestTypes.Kill:
@@ -444,6 +448,7 @@ namespace FunkyBot.Game.Bounty
 			ActiveBounty = null;
 			CurrentBountyCacheEntry = null;
 			ShouldNavigateMinimapPoints = false;
+			AllowAnyUnitForLOSMovement = false;
 			CurrentAct = Act.Invalid;
 			lastCheckedQuestSNO = -1;
 			_lastAttemptedUpdateActiveBounty = DateTime.Today;
@@ -493,6 +498,8 @@ namespace FunkyBot.Game.Bounty
 				return Bot.Game.AdventureMode && (Bot.Settings.AdventureMode.NavigatePointsOfInterest || ShouldNavigateMinimapPoints);
 			}
 		}
+
+		public bool AllowAnyUnitForLOSMovement { get; set; }
 
 		public string DebugString()
 		{

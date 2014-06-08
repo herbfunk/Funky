@@ -26,6 +26,7 @@ namespace FunkyBot.Config.Settings
 		public SettingLOSMovement LOSMovement { get; set; }
 		public SettingPlugin Plugin { get; set; }
 		public SettingBarbarian Barbarian { get; set; }
+		public SettingCrusader Crusader { get; set; }
 		public SettingDemonHunter DemonHunter { get; set; }
 		public SettingMonk Monk { get; set; }
 		public SettingWitchDoctor WitchDoctor { get; set; }
@@ -68,6 +69,7 @@ namespace FunkyBot.Config.Settings
 						Barbarian = new SettingBarbarian();
 						break;
 					case ActorClass.Crusader:
+						Crusader = new SettingCrusader();
 						break;
 					case ActorClass.DemonHunter:
 						DemonHunter = new SettingDemonHunter();

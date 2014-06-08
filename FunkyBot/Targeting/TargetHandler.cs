@@ -510,10 +510,11 @@ namespace FunkyBot.Targeting
 
 
 			//Check if we are in range for interaction..
-			if (Bot.Targeting.Cache.CurrentTarget.WithinInteractionRange())
-				return true;
+			if (Bot.Targeting.Cache.CurrentTarget.WithinInteractionRange()) return true;
+
 			//Movement required..
 			CurrentState = Bot.Targeting.Movement.TargetMoveTo(Bot.Targeting.Cache.CurrentTarget);
+
 			return false;
 		}
 
