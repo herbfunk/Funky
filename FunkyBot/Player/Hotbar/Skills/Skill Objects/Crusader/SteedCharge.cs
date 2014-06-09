@@ -23,8 +23,12 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			UseageType = SkillUseage.Combat;
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckCanCast));
 
-			IsBuff = true;
-			FcriteriaBuff = () => Bot.Settings.General.OutOfCombatMovement;
+			//We want to preform zig-zag movements when using rune Ramming Speed or Nightmare
+			if (RuneIndex==0||RuneIndex==4)
+				IsSpecialMovementSkill = true;
+
+			//return location (no prediction required!)
+			FOutOfCombatMovement = (v) => v;
 
 			FCombatMovement = (v) =>
 			{
@@ -39,6 +43,15 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 
 				return Vector3.Zero;
 			};
+
+			ClusterConditions.Add(new SkillClusterConditions(5d, 50, 7, true));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 35, 0.95d, TargetProperties.Normal));
+			
+			//Reduced cool down.. lets use it more!
+			if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.X1_Crusader_Passive_LordCommander))
+			{
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 50, 0d, TargetProperties.Weak));
+			}
 		}
 	}
 }

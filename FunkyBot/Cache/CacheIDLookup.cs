@@ -589,6 +589,14 @@ namespace FunkyBot.Cache
             54908, 56686, 54850, 454, 211999, 52685, 54882, 89665, 
          };
 
+		public static readonly HashSet<int> hashUnitAvoidanceSpawner = new HashSet<int>
+		{
+			495,496,6572,139454,139456,170324,170325, //a1 WoodWraith
+			5372, //a2 Fire Mage
+			4738, //a3 Pestilence Hands
+
+		};
+
 		public static readonly HashSet<int> hashSNOGroundContainer = new HashSet<int>
  		{
 			289805,//x1_Pand_HexMaze_Ground_Clicky-6919
@@ -607,9 +615,6 @@ namespace FunkyBot.Cache
 			289246, //x1_Westm_weaponRack-6093
 			307432, //x1_westm_Int_WeaponRack-6628
 		};
-
-		//Gizmo ActorSNO: 289244 Name: x1_Westm_ArmorRack-2351 Type: Chest Radius: 15.63 Position: <796.6121, 390.3367, 10.70689> (<796.6121, 390.3367, 10.70689>) Distance: 9 Animation: x1_westm_ArmorRack_idle AppearanceSNO: 307105 has Attributes: Level=70, TeamID=1, HitpointsCur=981668463, HitpointsMax=981663744, HitpointsMaxTotal=1065353216, EnchantRangeMax=255, ProjectileReflectDamageScalar=1065353216, ScreenAttackRadiusConstant=1114636288, TurnRateScalar=1065353216, TurnAccelScalar=1065353216, TurnDeccelScalar=1065353216, UnequippedTime=1, CoreAttributesFromItemBonusMultiplier=1065353216, IsTemporaryLure=1, PowerPrimaryResourceCostOverride=2139095039, PowerSecondaryResourceCostOverride=2139095039, PowerChannelCostOverride=2139095039, 
-		//Gizmo ActorSNO: 307431 Name: x1_westm_Int_ArmorRack-6738 Type: Chest Radius: 7.05 Position: <254.1004, 255.251, 15> (<254.1004, 255.251, 15>) Distance: 6 Animation: trDun_ArmorRack_idle_01 AppearanceSNO: 15937 has Attributes: Level=70, TeamID=1, HitpointsCur=981668463, HitpointsMax=981663744, HitpointsMaxTotal=1065353216, EnchantRangeMax=255, ProjectileReflectDamageScalar=1065353216, ScreenAttackRadiusConstant=1114636288, TurnRateScalar=1065353216, TurnAccelScalar=1065353216, TurnDeccelScalar=1065353216, UnequippedTime=1, CoreAttributesFromItemBonusMultiplier=1065353216, IsTemporaryLure=1, PowerPrimaryResourceCostOverride=2139095039, PowerSecondaryResourceCostOverride=2139095039, PowerChannelCostOverride=2139095039, 
 
 
 

@@ -25,7 +25,7 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 			UseageType = SkillUseage.Combat;
 
-			IsASpecialMovementPower = true;
+			IsMovementSkill = true;
 
 			ClusterConditions.Add(new SkillClusterConditions(5d, 35, 6, true));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 35, 0.95d, TargetProperties.Normal));

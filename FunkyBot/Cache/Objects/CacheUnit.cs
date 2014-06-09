@@ -261,6 +261,7 @@ namespace FunkyBot.Cache.Objects
 			{
 				return
 					 (QuestMonster || IsMinimapActive.HasValue && IsMinimapActive.Value) ||
+					 (IsBoss) ||
 					 (IsSucideBomber && Bot.Settings.Targeting.UnitExceptionSucideBombers) ||
 					 (IsTreasureGoblin && Bot.Settings.Ranges.TreasureGoblinRange > 1) ||
 					 (IsRanged && Bot.Settings.Targeting.UnitExceptionRangedUnits) ||
@@ -677,11 +678,6 @@ namespace FunkyBot.Cache.Objects
 				}
 			}
 
-			//Range Class Ignore (Avoid/Kite last target!)
-			//if ((Bot.Targeting.Cache.Environment.FleeingLastTarget&&Bot.Targeting.Cache.Environment.FleeTriggeringUnits.Count>0&&Bot.Targeting.Cache.Environment.FleeTriggeringUnits.Contains(this))||
-			//	 (Bot.Targeting.Cache.Environment.AvoidanceLastTarget&&Bot.Targeting.Cache.Environment.TriggeringAvoidances.Count>0))
-			//	 this.Weight=1;
-
 
 			if (Weight != 1)
 			{
@@ -807,7 +803,7 @@ namespace FunkyBot.Cache.Objects
 							Weight += 2000;
 
 						// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-						if (this == Bot.Targeting.Cache.LastCachedTarget && centreDistance <= 25f)
+						if (Equals(Bot.Targeting.Cache.LastCachedTarget) && centreDistance <= 25f)
 							Weight += 400;
 
 
@@ -1597,6 +1593,10 @@ namespace FunkyBot.Cache.Objects
 			{
 				if (Bot.Character.Class.PowerPrime.MinimumRange>20)
 					Bot.Character.Class.PowerPrime.MinimumRange = 20;
+			}
+			else if(Bot.Character.Class.LastUsedAbility.IsSpecialMovementSkill && Bot.Character.Class.HasSpecialMovementBuff())
+			{
+				Bot.Character.Class.PowerPrime.MinimumRange=Bot.Character.Class.LastUsedAbility.Range;
 			}
 			else if (IsBurrowed.HasValue && IsBurrowed.Value && IsEliteRareUnique)//Force close range on burrowed elites!
 				Bot.Character.Class.PowerPrime.MinimumRange = 15;

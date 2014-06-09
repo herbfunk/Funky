@@ -70,6 +70,7 @@ namespace FunkyDebug
 			  if (initFunkyButton && FunkyButton != null)
 			  {
 				  DBLog.DebugFormat("Funky Debug Button Click Handler Added");
+				  FunkyButton.Visibility=Visibility.Visible;
 				  FunkyButton.Click += lblFunky_Click;
 			  }
 		  }

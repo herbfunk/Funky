@@ -21,8 +21,13 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				Priority=SkillPriority.High;
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckEnergy|SkillPrecastFlags.CheckCanCast));
 
-				IsBuff=true;
-				FcriteriaBuff=() => Bot.Settings.General.OutOfCombatMovement;
+
+				//IsSpecialMovementSkill = true;
+				//IsBuff=true;
+				//FcriteriaBuff=() => Bot.Settings.General.OutOfCombatMovement;
+
+				//Use buff at location (no prediction required!)
+				FOutOfCombatMovement = (v) => v;
 
 				FCombatMovement = (v) =>
 				{

@@ -440,6 +440,7 @@ namespace FunkyBot.Cache.Objects
 		public bool IsDemonicForge { get { return SNOID == 174900 || SNOID == 185391; } }
 		public bool IsCursedChest { get { return SNOID == 365097 || SNOID == 364559; } }
 		public bool IsCursedShrine { get { return SNOID == 364601; } }
+		public bool IsAvoidanceSpawnerUnit { get { return CacheIDLookup.hashUnitAvoidanceSpawner.Contains(SNOID); } }
 		#endregion
 
 		public bool ContainsNullValues()
@@ -604,7 +605,10 @@ namespace FunkyBot.Cache.Objects
 							 CacheIDLookup.hashActorSNOForceTargetUnit.Contains(SNOID))
 						{
 							targetType = TargetType.Unit;
-							Obstacletype = ObstacleType.Monster;
+
+							//No Monster Collision? (Illusionary Boots)
+							if (!Bot.Character.Data.equipment.NoMonsterCollision)
+								Obstacletype = ObstacleType.Monster;
 
 							if (CacheIDLookup.hashActorSNOForceTargetUnit.Contains(SNOID))
 							{

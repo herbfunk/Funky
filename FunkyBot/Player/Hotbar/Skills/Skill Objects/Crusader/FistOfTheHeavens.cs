@@ -26,6 +26,12 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 
 			ClusterConditions.Add(new SkillClusterConditions(8d, 45f, 4, true));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 45, 0.95d, TargetProperties.Normal));
+			SingleUnitCondition.Add(new UnitTargetConditions
+			{
+				TrueConditionFlags = TargetProperties.None,
+				Criteria = () => Bot.Character.Data.dCurrentEnergyPct > 0.5d,
+				FalseConditionFlags = TargetProperties.LowHealth,
+			});
 		}
 	}
 }

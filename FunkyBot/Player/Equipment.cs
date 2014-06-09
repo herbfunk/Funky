@@ -15,6 +15,7 @@ namespace FunkyBot.Player
 		SerpentSparker,
 		TallManFinger,
 		RoyalGrandeur,
+		IllusionaryBoots,
 	}
 
 	internal class Equipment
@@ -24,6 +25,7 @@ namespace FunkyBot.Player
 		public bool GlobesRestoreResource { get; set; }
 		public bool ImmuneToDescratorMoltenPlaguedAvoidances { get; set; }
 		public bool RingOfGrandeur { get; set; }
+		public bool NoMonsterCollision { get; set; }
 
 		public List<CacheACDItem> EquippedItems { get; set; }
 
@@ -33,6 +35,7 @@ namespace FunkyBot.Player
 			GlobesRestoreResource = false;
 			ImmuneToDescratorMoltenPlaguedAvoidances = false;
 			RingOfGrandeur = false;
+			NoMonsterCollision = false;
 		}
 
 		public void RefreshEquippedItemsList()
@@ -51,12 +54,22 @@ namespace FunkyBot.Player
 				GlobesRestoreResource = false;
 
 
+			//Illusionary Boots
+			if (EquippedItems.Any(i => i.EquippedType==EquippedItemType.IllusionaryBoots))
+			{
+				NoMonsterCollision = true;
+				Logger.DBLog.DebugFormat("Illusionary Boots Found -- No monster collision!");
+			}
+			else
+				NoMonsterCollision = false;
+
+
 			//Ring of Royal Grandeur
-			RingOfGrandeur = EquippedItems.Any(i => i.ThisRealName.Contains("Ring of Royal Grandeur"));
+			RingOfGrandeur = EquippedItems.Any(i => i.EquippedType==EquippedItemType.RoyalGrandeur);
 
 
 			//Blackthorns Set
-			int BlackThornSetCount = EquippedItems.Count(i => i.ThisRealName.Contains("Blackthorne's"));
+			int BlackThornSetCount = EquippedItems.Count(i => i.EquippedType==EquippedItemType.Blackthornes);
 			if (BlackThornSetCount == 4 || BlackThornSetCount == 3 && RingOfGrandeur)
 			{
 				ImmuneToDescratorMoltenPlaguedAvoidances = true;
@@ -98,6 +111,7 @@ namespace FunkyBot.Player
 			{1898798298, EquippedItemType.SerpentSparker},
 			{-1149809185, EquippedItemType.TallManFinger},
 			{-1149593563, EquippedItemType.RoyalGrandeur},
+			{1979309080, EquippedItemType.IllusionaryBoots},
 
 
 			//BLACKTHORNE'S
@@ -123,7 +137,10 @@ namespace FunkyBot.Player
 		#endregion
 
 		/*
-	 * 
+	 * Item - Name: Illusory Boots BalanceID: 1979309080
+
+
+
 
 	 */
 	}

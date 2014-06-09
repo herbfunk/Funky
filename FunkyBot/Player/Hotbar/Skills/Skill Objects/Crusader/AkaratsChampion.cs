@@ -24,10 +24,8 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			UseageType = SkillUseage.Combat;
 
 			//Make sure we are targeting something!
-			SingleUnitCondition.Add(new UnitTargetConditions());
-
-			//Activate on Bosses or Low Health!
-			FcriteriaCombat = () => Bot.Targeting.Cache.CurrentTarget.IsBoss || Bot.Character.Data.dCurrentHealthPct < 0.5d;
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 30, 0.95d, TargetProperties.Normal));
+			ClusterConditions.Add(new SkillClusterConditions(6d, 30, 10, true));
 		}
 	}
 }

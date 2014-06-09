@@ -355,6 +355,16 @@ namespace FunkyBot.Targeting
 			#endregion
 
 
+			//Special Movement Check for Steed Charge and Spirit Walk
+			if (Bot.Character.Class.LastUsedAbility.IsSpecialMovementSkill && Bot.Character.Class.HasSpecialMovementBuff() && ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.Unit))
+			{
+				//Logger.DBLog.DebugFormat("Preforming ZigZag for special movement skill activation!");
+				Bot.NavigationCache.vPositionLastZigZagCheck = Bot.Character.Data.Position;
+				if (Bot.Character.Class.ShouldGenerateNewZigZagPath()) Bot.Character.Class.GenerateNewZigZagPath();
+				CurrentTargetLocation = Bot.NavigationCache.vSideToSideTarget;
+			}
+
+
 			// Now for the actual movement request stuff
 			IsAlreadyMoving = true;
 			UseTargetMovement(obj, bForceNewMovement);
@@ -396,6 +406,12 @@ namespace FunkyBot.Targeting
 					//if (currentDistance > 30f)
 					UsePowerMovement = false;
 				}
+				else if (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.LineOfSight))
+				{
+					Navigator.MoveTo(CurrentTargetLocation, "LOS");
+					LastMovementCommand = DateTime.Now;
+					return;
+				}
 				else
 				{
 					//Use Walk Power when not using LOS Movement, target is not an item and target does not ignore LOS.
@@ -414,6 +430,8 @@ namespace FunkyBot.Targeting
 					ZetaDia.Me.Movement.MoveActor(CurrentTargetLocation);
 				else
 					ZetaDia.Me.UsePower(SNOPower.Walk, CurrentTargetLocation, Bot.Character.Data.CurrentWorldDynamicID);
+
+				
 
 				//and record when we sent the movement..
 				LastMovementCommand = DateTime.Now;

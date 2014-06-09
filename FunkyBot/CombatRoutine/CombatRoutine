@@ -70,52 +70,53 @@ namespace GilesBlankCombatRoutine
 							SplitButton btnSplit_Funky;
 							FunkyDebug.initDebugLabels(out btnSplit_Funky);
 
-							if (FunkyButton==null)
+							if (FunkyButton == null)
 								grid.Children.Add(btnSplit_Funky);
 
 
-							if (PluginManager.Plugins.Any(p => p.Plugin.Name == "FunkyDebug"))
-							{
-								var debugButton = grid.FindName("FunkyDebug") as Button;
-								if (debugButton != null)
-								{
-									DBLog.DebugFormat("Funky Debug handler added");
-								}
-								else
-								{
-									Button[] splitbuttons = grid.Children.OfType<Button>().ToArray();
-									if (splitbuttons.Any())
-									{
 
-										foreach (var item in splitbuttons)
+							var debugButton = grid.FindName("FunkyDebug") as Button;
+							if (debugButton != null)
+							{
+								DBLog.DebugFormat("Funky Debug handler added");
+							}
+							else
+							{
+								Button[] splitbuttons = grid.Children.OfType<Button>().ToArray();
+								if (splitbuttons.Any())
+								{
+
+									foreach (var item in splitbuttons)
+									{
+										if (item.Name.Contains("FunkyDebug"))
 										{
-											if (item.Name.Contains("FunkyDebug"))
-											{
-												debugButton = item;
-												break;
-											}
+											debugButton = item;
+											break;
 										}
 									}
 								}
-
-
-
-								if (debugButton == null)
-								{
-									debugButton = new Button
-									{
-										Width = 125,
-										Height = 20,
-										HorizontalAlignment = HorizontalAlignment.Left,
-										VerticalAlignment = VerticalAlignment.Top,
-										Margin = new Thickness(425, 35, 0, 0),
-										IsEnabled = true,
-										Content = "Debug",
-										Name = "FunkyDebug",
-									};
-									grid.Children.Add(debugButton);
-								}
 							}
+
+
+
+							if (debugButton == null)
+							{
+								debugButton = new Button
+								{
+									Width = 125,
+									Height = 20,
+									HorizontalAlignment = HorizontalAlignment.Left,
+									VerticalAlignment = VerticalAlignment.Top,
+									Margin = new Thickness(425, 35, 0, 0),
+									IsEnabled = true,
+									Visibility = Visibility.Hidden,
+									Content = "Debug",
+									Name = "FunkyDebug",
+								};
+
+								grid.Children.Add(debugButton);
+							}
+
 						}
 					}
 

@@ -64,7 +64,7 @@ namespace FunkyBot.Targeting.Behaviors
 
 						Bot.NavigationCache.LOSmovementObject = null;
 
-						if (Bot.Targeting.Cache.LastCachedTarget.targetType.Value == TargetType.LineOfSight)
+						if (Bot.Targeting.Cache.LastCachedTarget.targetType.HasValue && Bot.Targeting.Cache.LastCachedTarget.targetType.Value == TargetType.LineOfSight)
 							Navigation.NP.Clear();
 					}
 
@@ -161,7 +161,7 @@ namespace FunkyBot.Targeting.Behaviors
 						}
 
 						//If we had a different target.. chances are we moved, so lets reset the path.
-						if (Bot.Targeting.Cache.LastCachedTarget.targetType.Value!=TargetType.LineOfSight)
+						if (Bot.Targeting.Cache.LastCachedTarget.targetType.HasValue && Bot.Targeting.Cache.LastCachedTarget.targetType.Value != TargetType.LineOfSight)
 						{
 							Navigation.NP.Clear();
 						}

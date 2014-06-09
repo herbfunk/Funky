@@ -33,7 +33,7 @@ namespace FunkyBot.Player.HotBar.Skills
 			Priority = SkillPriority.Low;
 			LastUsed = DateTime.Today;
 			IsADestructiblePower = PowerCacheLookup.AbilitiesDestructiblePriority.Contains(Power);
-			IsASpecialMovementPower = PowerCacheLookup.SpecialMovementAbilities.Contains(Power);
+			IsMovementSkill = PowerCacheLookup.SpecialMovementAbilities.Contains(Power);
 			ShouldTrack = false;
 
 			Initialize();
@@ -193,8 +193,12 @@ namespace FunkyBot.Player.HotBar.Skills
 		///<summary>
 		///Teleport, Leap, etc.. skills that transport the character.
 		///</summary>
-		internal bool IsASpecialMovementPower { get; set; }
+		internal bool IsMovementSkill { get; set; }
 
+		/// <summary>
+		/// Spirit Walk and Steed Charge.. skills that modify the range while active
+		/// </summary>
+		internal bool IsSpecialMovementSkill { get; set; }
 
 
 		///<summary>
@@ -617,8 +621,7 @@ namespace FunkyBot.Player.HotBar.Skills
 			else if (ability.ExecutionType.HasFlag(SkillExecutionFlags.ZigZagPathing)) //Zig-Zag Pathing
 			{
 				Bot.NavigationCache.vPositionLastZigZagCheck = Bot.Character.Data.Position;
-				if (Bot.Character.Class.ShouldGenerateNewZigZagPath())
-					Bot.Character.Class.GenerateNewZigZagPath();
+				if (Bot.Character.Class.ShouldGenerateNewZigZagPath()) Bot.Character.Class.GenerateNewZigZagPath();
 
 				ability.TargetPosition = Bot.NavigationCache.vSideToSideTarget;
 			}

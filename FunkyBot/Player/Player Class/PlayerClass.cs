@@ -387,7 +387,7 @@ namespace FunkyBot.Player.Class
 
 		internal bool HasCastableMovementAbility(bool combatOnly = true)
 		{
-			foreach (var item in Abilities.Values.Where(A => A.FCombatMovement != null && A.IsASpecialMovementPower))
+			foreach (var item in Abilities.Values.Where(A => A.FCombatMovement != null && A.IsMovementSkill))
 			{
 
 				if (item.CheckPreCastConditionMethod())
@@ -439,6 +439,14 @@ namespace FunkyBot.Player.Class
 					}
 				}
 			}
+			return false;
+		}
+
+		internal bool HasSpecialMovementBuff()
+		{
+			if (AC== ActorClass.Witchdoctor) return Bot.Character.Class.HotBar.HasBuff(SNOPower.Witchdoctor_SpiritWalk);
+			if (AC == ActorClass.Crusader) return Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Crusader_SteedCharge);
+
 			return false;
 		}
 

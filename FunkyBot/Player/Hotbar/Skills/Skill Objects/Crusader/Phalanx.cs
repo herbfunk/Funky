@@ -24,8 +24,8 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 			UseageType = SkillUseage.Combat;
 
-			ClusterConditions.Add(new SkillClusterConditions(6d, 45f, 4, true));
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 45, 0.95d, TargetProperties.Normal));
+			
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 45, 0.95d));
 		}
 	}
 }
