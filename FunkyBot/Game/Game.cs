@@ -4,6 +4,8 @@ using System.Net.Sockets;
 using System.Windows.Documents;
 using FunkyBot.Cache;
 using FunkyBot.Game.Bounty;
+using FunkyBot.Game.ProfileTracking;
+using FunkyBot.Misc;
 using FunkyBot.XMLTags;
 using Zeta.Bot.Navigation;
 using Zeta.Game;
@@ -79,7 +81,7 @@ namespace FunkyBot.Game
 				ObjectCache.Objects.ClearHealthAverageStats();
 
 				//Renew bot
-				Funky.ResetBot();
+				Bot.ResetBot();
 
 				//Gold Inactivity
 				GoldTimeoutChecker.LastCoinageUpdate = DateTime.Now;

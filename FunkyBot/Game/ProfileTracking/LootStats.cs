@@ -1,10 +1,10 @@
-﻿using FunkyBot.Cache.Enums;
-using System;
+﻿using System;
+using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Player;
 using Zeta.Game.Internals.Actors;
 
-namespace FunkyBot.Game
+namespace FunkyBot.Game.ProfileTracking
 {
 	///<summary>
 	///Loot Stat Actions
@@ -111,14 +111,15 @@ namespace FunkyBot.Game
 			return 0;
 		}
 
-		public void LootedItemLog(GilesItemType thisgilesitemtype, GilesBaseItemType thisgilesbasetype, ItemQuality itemQuality)
+		public void LootedItemLog(CacheItem thisCacheItem)
 		{
+			GilesItemType thisgilesitemtype = ItemFunc.DetermineItemType(thisCacheItem.InternalName, thisCacheItem.BalanceData.thisItemType, thisCacheItem.BalanceData.thisFollowerType);
+			GilesBaseItemType thisgilesbasetype = ItemFunc.DetermineBaseType(thisgilesitemtype);
+			ItemQuality itemQuality = thisCacheItem.Itemquality.HasValue ? thisCacheItem.Itemquality.Value : ItemQuality.Invalid;
+
 			if (thisgilesitemtype == GilesItemType.HealthPotion)
 				return;
 
-			//No profile set.. because new game?
-			//if (Bot.BotStatistics.ProfileStats.CurrentProfile == null)
-			//    return;
 
 			switch (thisgilesbasetype)
 			{
@@ -131,18 +132,14 @@ namespace FunkyBot.Game
 				case GilesBaseItemType.FollowerItem:
 					if (itemQuality > ItemQuality.Rare6)
 					{
-						//Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[3]++;
-						//Statistics.ItemStats.CurrentGame.lootedItemTotals[3]++;
 						Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Legendary.Looted++;
 					}
 					else if (itemQuality > ItemQuality.Magic3)
 					{
-						//Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[2]++;
 						Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Rare.Looted++;
 					}
 					else
 					{
-						//Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[1]++;
 						Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Magical.Looted++;
 					}
 					break;
@@ -151,12 +148,10 @@ namespace FunkyBot.Game
 				case GilesBaseItemType.Misc:
 					if (thisgilesitemtype == GilesItemType.CraftingMaterial || thisgilesitemtype == GilesItemType.CraftingPlan || thisgilesitemtype == GilesItemType.CraftTome)
 					{
-						//   Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[(int)LootIndex.Crafting]++;
 						Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Crafting.Looted++;
 					}
 					else if (thisgilesitemtype == GilesItemType.InfernalKey)
 					{
-						// Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[(int)LootIndex.Key]++;
 						Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Keys.Looted++;
 					}
 					else if(thisgilesitemtype == GilesItemType.KeyStone)
@@ -165,7 +160,6 @@ namespace FunkyBot.Game
 					}
 					break;
 				case GilesBaseItemType.Gem:
-					// Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.lootedItemTotals[(int)LootIndex.Gem]++;
 					Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Gems.Looted++;
 					break;
 			}

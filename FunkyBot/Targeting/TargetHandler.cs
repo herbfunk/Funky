@@ -1,6 +1,7 @@
 ﻿using System;
 using FunkyBot.Cache.Objects;
 using FunkyBot.DBHandlers;
+using FunkyBot.DBHandlers.Townrun;
 using FunkyBot.Player;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
@@ -12,6 +13,8 @@ using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
+using Logger = FunkyBot.Misc.Logger;
+using LogLevel = FunkyBot.Misc.LogLevel;
 
 namespace FunkyBot.Targeting
 {
@@ -137,8 +140,8 @@ namespace FunkyBot.Targeting
 				Bot.Targeting.Cache.recheckCount++;
 				string statusText = "[Item Confirmation] Current recheck count " + Bot.Targeting.Cache.recheckCount;
 
-
-				bool LootedSuccess = Bot.Character.Data.BackPack.ContainsItem((CacheItem)Bot.Targeting.Cache.CurrentTarget);
+				CacheItem thisCacheItem=(CacheItem)Bot.Targeting.Cache.CurrentTarget;
+				bool LootedSuccess = Bot.Character.Data.BackPack.ContainsItem(thisCacheItem);
 				//Verify item is non-stackable!
 
 				statusText += " [ItemFound=" + LootedSuccess + "]";
@@ -150,7 +153,7 @@ namespace FunkyBot.Targeting
 					if (Bot.Settings.Debug.DebugStatusBar) BotMain.StatusText = statusText;
 
 					//This is where we should manipulate information of both what dropped and what was looted.
-					Logger.LogItemInformation();
+					Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.LootedItemLog(thisCacheItem);
 
 					//Remove item from cache..
 					Bot.Targeting.Cache.CurrentTarget.NeedsRemoved = true;
@@ -258,9 +261,9 @@ namespace FunkyBot.Targeting
 		public virtual bool Refresh()
 		{
 			// Make sure we reset unstucker stuff here
-			Funky.PlayerMover.iTimesReachedStuckPoint = 0;
-			Funky.PlayerMover.vSafeMovementLocation = Vector3.Zero;
-			Funky.PlayerMover.timeLastRecordedPosition = DateTime.Now;
+			PlayerMover.iTimesReachedStuckPoint = 0;
+			PlayerMover.vSafeMovementLocation = Vector3.Zero;
+			PlayerMover.timeLastRecordedPosition = DateTime.Now;
 
 			// Let's calculate whether or not we want a new target list...
 			#region NewtargetChecks

@@ -254,6 +254,15 @@ namespace FunkyBot.Cache.Avoidance
 		internal static bool IgnoreAvoidance(AvoidanceType thisAvoidance)
 		{
 
+			//Pylon Shield?
+			if (Bot.Character.Class.HotBar.HasBuff(SNOPower.Pages_Buff_Invulnerable))
+				return true;
+
+			//Countess Julias Cameo
+			if (Bot.Character.Data.equipment.ImmuneToArcane && thisAvoidance == AvoidanceType.ArcaneSentry)
+				return true;
+			
+
 			//Special Blackthorne's Set Bonus Check!
 			if (Bot.Character.Data.equipment.ImmuneToDescratorMoltenPlaguedAvoidances)
 			{
@@ -281,6 +290,11 @@ namespace FunkyBot.Cache.Avoidance
 					return true;
 
 				}
+
+				//Crusader Akarats Champion -- Ignore Frozen!
+				if (Bot.Character.Class.AC == ActorClass.Crusader && Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.X1_Crusader_AkaratsChampion) && Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Crusader_AkaratsChampion) && thisAvoidance == AvoidanceType.Frozen)
+					return true;
+
 				if (Bot.Character.Class.AC == ActorClass.Barbarian && Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker) && Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))
 				{
 					switch (thisAvoidance)

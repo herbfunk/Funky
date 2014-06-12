@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Xml;
+using FunkyBot.Misc;
 
 namespace FunkyBot
 {
-	 public partial class Funky
+	 public class Update
 	 {
 
-		  void CheckUpdate()
+		  public static void CheckUpdate()
 		  {
 				// in newVersion variable we will store the
 				// version info from xml file
@@ -78,7 +79,7 @@ namespace FunkyBot
 				}
 
 				// compare the versions
-				if (this.Version.CompareTo(newVersion)<0)
+				if (Funky.Instance.Version.CompareTo(newVersion)<0)
 				{
 					 Logger.DBLog.InfoFormat("New Version Available!");
 					 Logger.DBLog.InfoFormat("https://github.com/herbfunk/Funky/archive/master.zip");

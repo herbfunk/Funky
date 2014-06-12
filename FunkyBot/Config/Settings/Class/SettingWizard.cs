@@ -21,28 +21,5 @@ namespace FunkyBot.Config.Settings.Class
 			 bKiteOnlyArchon = true;
 			 SerpentSparker = false;
 		 }
-
-		 internal string DefaultFilePath
-		 {
-			 get { return Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Demonbuddy_Default.xml"); }
-		 }
-		 public SettingWizard DeserializeFromXML()
-		 {
-			 XmlSerializer deserializer = new XmlSerializer(typeof(SettingWizard));
-			  TextReader textReader=new StreamReader(DefaultFilePath);
-			  SettingWizard settings;
-			  settings = (SettingWizard)deserializer.Deserialize(textReader);
-			  textReader.Close();
-			  return settings;
-		 }
-		 public SettingWizard DeserializeFromXML(string Path)
-		 {
-			 XmlSerializer deserializer = new XmlSerializer(typeof(SettingWizard));
-			  TextReader textReader=new StreamReader(Path);
-			  SettingWizard settings;
-			  settings = (SettingWizard)deserializer.Deserialize(textReader);
-			  textReader.Close();
-			  return settings;
-		 }
 	}
 }

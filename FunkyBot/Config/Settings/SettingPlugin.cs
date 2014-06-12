@@ -25,7 +25,6 @@ namespace FunkyBot.Config.Settings
 			  CreateMuleOnStashFull=true;
               AvoidanceFlags = PointCheckingFlags.AvoidanceIntersection | PointCheckingFlags.AvoidanceOverlap | PointCheckingFlags.ObstacleOverlap | PointCheckingFlags.BlockedDirection;
               FleeingFlags = PointCheckingFlags.AvoidanceIntersection | PointCheckingFlags.AvoidanceOverlap | PointCheckingFlags.ObstacleOverlap | PointCheckingFlags.Raycast | PointCheckingFlags.MonsterOverlap | PointCheckingFlags.BlockedDirection;
-
          }
 	}
 }

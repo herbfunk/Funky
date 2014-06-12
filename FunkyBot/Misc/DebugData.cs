@@ -60,7 +60,7 @@ namespace FunkyBot.Misc
 			SerializeToXML(this);
 		}
 
-		private static readonly string DefaultFilePath = Path.Combine(FolderPaths.PluginPath, "Log");
+		private static readonly string DefaultFilePath = Path.Combine(FolderPaths.RoutinePath, "Log");
 		private static void SerializeToXML(DebugData settings)
 		{
 			FolderPaths.CheckFolderExists(DefaultFilePath);

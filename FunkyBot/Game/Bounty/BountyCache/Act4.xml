@@ -59,16 +59,13 @@
   </KillBounties>
   <ClearBounties>
     <BountyQuestCacheEntry>
-      <Name>Blank_Bounty_Name</Name>
+      <Name>A4_Clear_HellRift</Name>
       <Type>Clear</Type>
-      <StartingLevelAreaID>0000</StartingLevelAreaID>
-      <EndingLevelAreaID>0000</EndingLevelAreaID>
-      <LevelAreaIDs>
-        <int>0000</int>
-      </LevelAreaIDs>
+      <StartingLevelAreaID>109526</StartingLevelAreaID>
+      <EndingLevelAreaID>109531</EndingLevelAreaID>
       <TotalKillCount>-1</TotalKillCount>
       <QuestSNOs>
-        <int>0000</int>
+        <int>362140</int>
       </QuestSNOs>
     </BountyQuestCacheEntry>
   </ClearBounties>
@@ -120,5 +117,5 @@
   </BossBounties>
   
   <MiscEventBounties />
-  
+
 </BountyQuestActCache>

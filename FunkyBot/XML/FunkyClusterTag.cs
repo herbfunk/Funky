@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using FunkyBot.Config.Settings;
 using FunkyBot.Game;
+using FunkyBot.Misc;
 using Zeta.Bot.Profile;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
@@ -37,7 +38,7 @@ namespace FunkyBot.XMLTags
 					ClusterMaxDistance = Range,
 					ClusterMinimumUnitCount = Units
 				};
-				FunkyBot.Logger.DBLog.Info("[Funky] Using Custom Cluster Settings!");
+				Logger.DBLog.Info("[Funky] Using Custom Cluster Settings!");
 				m_IsDone=true;
 			});
 		}

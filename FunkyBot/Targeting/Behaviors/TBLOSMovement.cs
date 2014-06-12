@@ -1,11 +1,14 @@
 ﻿using System.Linq;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
+using FunkyBot.Game;
 using FunkyBot.Game.Bounty;
 using FunkyBot.Movement;
 using Zeta.Bot;
 using Zeta.Common;
 using Zeta.Game.Internals;
+using Logger = FunkyBot.Misc.Logger;
+using LogLevel = FunkyBot.Misc.LogLevel;
 
 namespace FunkyBot.Targeting.Behaviors
 {
@@ -32,7 +35,7 @@ namespace FunkyBot.Targeting.Behaviors
 			get
 			{
 				//Check objects added for LOS movement
-				return Bot.Settings.LOSMovement.EnableLOSMovementBehavior &&
+				return ProfileCache.LOSSettingsTag.EnableLOSMovementBehavior &&
 					!Bot.IsInNonCombatBehavior &&
 					(Bot.Targeting.Cache.Environment.LoSMovementObjects.Count > 0 ||
 					Bot.NavigationCache.LOSmovementObject != null ||
@@ -48,7 +51,7 @@ namespace FunkyBot.Targeting.Behaviors
 				if (obj == null)
 				{
 					if (Bot.NavigationCache.LOSmovementObject != null &&
-						(Bot.NavigationCache.LOSmovementObject.CentreDistance < (Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck ? 25f : 45f) &&
+						(Bot.NavigationCache.LOSmovementObject.CentreDistance < (Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck ? ProfileCache.LOSSettingsTag.MinimumRangeMarkers : ProfileCache.LOSSettingsTag.MiniumRangeObjects) &&
 						(Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck || !Bot.NavigationCache.LOSmovementObject.CacheContainsOrginObject())))
 					{//Invalidated the Line of sight obj!
 
@@ -132,7 +135,7 @@ namespace FunkyBot.Targeting.Behaviors
 						//See if the orgin object is still valid..
 
 						//min Distance for Map Markers is 25f
-						if (Bot.NavigationCache.LOSmovementObject.CentreDistance < (Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck ? 25f : 35f))
+						if (Bot.NavigationCache.LOSmovementObject.CentreDistance < (Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck ? ProfileCache.LOSSettingsTag.MinimumRangeMarkers : ProfileCache.LOSSettingsTag.MiniumRangeObjects))
 						{
 
 							if (!Bot.NavigationCache.LOSmovementObject.CacheContainsOrginObject())

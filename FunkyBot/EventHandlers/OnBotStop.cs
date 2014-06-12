@@ -1,10 +1,9 @@
 ﻿using System;
+using FunkyBot.Game.ProfileTracking;
 using Zeta.Bot;
 using Zeta.Common;
-using System.Collections.Generic;
-using FunkyBot.Game;
 
-namespace FunkyBot
+namespace FunkyBot.EventHandlers
 {
 	public partial class EventHandlers
 	{
@@ -13,14 +12,14 @@ namespace FunkyBot
 		{
 			// Issue final reports
 			Bot.Game.TrackingStats.GameStopped(ref Bot.Game.CurrentGameStats);
+			TotalStats.WriteProfileTrackerOutput(Bot.Game.TrackingStats);
 
-			Logger.WriteProfileTrackerOutput();
-			Funky.PlayerMover.iTotalAntiStuckAttempts = 1;
-			Funky.PlayerMover.vSafeMovementLocation = Vector3.Zero;
-			Funky.PlayerMover.vOldPosition = Vector3.Zero;
-			Funky.PlayerMover.iTimesReachedStuckPoint = 0;
-			Funky.PlayerMover.timeLastRecordedPosition = DateTime.Today;
-			Funky.PlayerMover.timeStartedUnstuckMeasure = DateTime.Today;
+			PlayerMover.iTotalAntiStuckAttempts = 1;
+			PlayerMover.vSafeMovementLocation = Vector3.Zero;
+			PlayerMover.vOldPosition = Vector3.Zero;
+			PlayerMover.iTimesReachedStuckPoint = 0;
+			PlayerMover.timeLastRecordedPosition = DateTime.Today;
+			PlayerMover.timeStartedUnstuckMeasure = DateTime.Today;
 			//ProfileCache.hashUseOnceID = new HashSet<int>();
 			//ProfileCache.dictUseOnceID = new Dictionary<int, int>();
 			//ProfileCache.dictRandomID = new Dictionary<int, int>();

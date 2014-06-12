@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FunkyBot.Game
+namespace FunkyBot.Game.ProfileTracking
 {
 	///<summary>
 	///Single Profile Stats

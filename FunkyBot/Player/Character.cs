@@ -2,6 +2,8 @@
 using FunkyBot.Cache;
 using FunkyBot.Cache.Objects;
 using FunkyBot.DBHandlers;
+using FunkyBot.DBHandlers.Townrun;
+using FunkyBot.Misc;
 using FunkyBot.Movement;
 using FunkyBot.Player.Class;
 using Zeta.Bot;
@@ -30,10 +32,7 @@ namespace FunkyBot.Player
 		public PlayerClass Class { get; set; }
 		internal Account Account { get; set; }
 
-		///<summary>
-		///Item Rules
-		///</summary>
-		internal Interpreter ItemRulesEval { get; set; }
+
 
 
 		public delegate void ItemPickupEvaluation(CacheItem item);
@@ -43,26 +42,10 @@ namespace FunkyBot.Player
 			if (OnItemPickupEvaluation == null)
 			{//If no event hooked then use default evaluation
 
-				if (Bot.Settings.ItemRules.UseItemRules)
-				{
-					Interpreter.InterpreterAction action = ItemRulesEval.checkPickUpItem(item, ItemEvaluationType.PickUp);
-					switch (action)
-					{
-						case Interpreter.InterpreterAction.PICKUP:
-							item.ShouldPickup = true;
-							break;
-						case Interpreter.InterpreterAction.IGNORE:
-							item.ShouldPickup = false;
-							break;
-					}
-				}
-
 				if (!item.ShouldPickup.HasValue)
 				{
 					//Use Giles Scoring or DB Weighting..
-					item.ShouldPickup =
-						   Bot.Settings.ItemRules.ItemRuleGilesScoring ? ItemFunc.PickupItemValidation(item)
-						 : ItemManager.Current.EvaluateItem(item.ref_DiaItem.CommonData, ItemEvaluationType.PickUp); ;
+					item.ShouldPickup = ItemFunc.PickupItemValidation(item);
 				}
 			}
 			else
@@ -137,7 +120,6 @@ namespace FunkyBot.Player
 			Data = new CharacterCache();
 			Data.OnLevelAreaIDChanged += LevelAreaIDChangeHandler;
 			Class = null;
-			ItemRulesEval = new Interpreter();
 			Account.UpdateCurrentAccountDetails();
 		}
 

@@ -16,6 +16,8 @@ using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.SNO;
 using Zeta.TreeSharp;
+using Logger = FunkyBot.Misc.Logger;
+using LogLevel = FunkyBot.Misc.LogLevel;
 
 namespace FunkyBot.Cache.Objects
 {
@@ -79,7 +81,10 @@ namespace FunkyBot.Cache.Objects
 				MonsterTeleport = theseaffixes.HasFlag(MonsterAffixes.Teleporter);
 				MonsterElectrified = theseaffixes.HasFlag(MonsterAffixes.Electrified);
 				MonsterFast = theseaffixes.HasFlag(MonsterAffixes.Fast);
+				MonsterFireChains = theseaffixes.HasFlag(MonsterAffixes.FireChains);
+				MonsterAvenger = theseaffixes.HasFlag(MonsterAffixes.Avenger);
 				MonsterNormal = false;
+
 			}
 			else
 			{
@@ -92,6 +97,8 @@ namespace FunkyBot.Cache.Objects
 				MonsterReflectDamage = false;
 				MonsterTeleport = false;
 				MonsterElectrified = false;
+				MonsterFireChains = false;
+				MonsterAvenger = false;
 				MonsterNormal = !IsBoss && !IsTreasureGoblin;
 			}
 
@@ -109,6 +116,8 @@ namespace FunkyBot.Cache.Objects
 		public bool MonsterIlluionist { get; set; }
 		public bool MonsterExtraHealth { get; set; }
 		public bool MonsterLifeLink { get; set; }
+		public bool MonsterFireChains { get; set; }
+		public bool MonsterAvenger { get; set; }
 		public bool MonsterReflectDamage { get; set; }
 		public bool MonsterElectrified { get; set; }
 		public bool MonsterTeleport { get; set; }
@@ -278,14 +287,14 @@ namespace FunkyBot.Cache.Objects
 				return
 					 (
 						((Bot.Settings.AdventureMode.EnableAdventuringMode && Bot.Game.AdventureMode && Bot.Game.Bounty.AllowAnyUnitForLOSMovement) ||
-						(IsSucideBomber && Bot.Settings.LOSMovement.AllowSucideBomber) ||
-						(IsTreasureGoblin && Bot.Settings.LOSMovement.AllowTreasureGoblin) ||
-						(IsSpawnerUnit && Bot.Settings.LOSMovement.AllowSpawnerUnits) ||
-						((MonsterRare || MonsterElite) && Bot.Settings.LOSMovement.AllowRareElites) ||
-						((IsBoss || MonsterUnique) && Bot.Settings.LOSMovement.AllowUniqueBoss) ||
-						(IsRanged && Bot.Settings.LOSMovement.AllowRanged))
+						(IsSucideBomber && ProfileCache.LOSSettingsTag.AllowSucideBomber) ||
+						(IsTreasureGoblin && ProfileCache.LOSSettingsTag.AllowTreasureGoblin) ||
+						(IsSpawnerUnit && ProfileCache.LOSSettingsTag.AllowSpawnerUnits) ||
+						((MonsterRare || MonsterElite) && ProfileCache.LOSSettingsTag.AllowRareElites) ||
+						((IsBoss || MonsterUnique) && ProfileCache.LOSSettingsTag.AllowUniqueBoss) ||
+						(IsRanged && ProfileCache.LOSSettingsTag.AllowRanged))
 						&&
-						(CentreDistance <= Bot.Settings.LOSMovement.MaximumRange &&//Enforce A Maximum Range
+						(CentreDistance <= ProfileCache.LOSSettingsTag.MaximumRange &&//Enforce A Maximum Range
 						SNOID != 347363) //Exclude A5 MastaBlasta event
 					);
 			}
@@ -462,7 +471,7 @@ namespace FunkyBot.Cache.Objects
 			}
 		}
 
-		private double KillRadius
+		public override int InteractionRange
 		{
 			get
 			{
@@ -515,7 +524,7 @@ namespace FunkyBot.Cache.Objects
 							if (surroundingList.Any(u => u.RadiusDistance < distanceFromGoblin
 																  && u.Position.Distance(Position) > 20f))
 							{
-								return 0f;
+								return 0;
 							}
 
 
@@ -552,7 +561,7 @@ namespace FunkyBot.Cache.Objects
 				else if ((QuestMonster||IsMinimapActive.HasValue && IsMinimapActive.Value) && dUseKillRadius < 200f) //"Quest Monster" set 200f min distance.
 					dUseKillRadius = 200f;
 
-				return dUseKillRadius;
+				return (int)dUseKillRadius;
 			}
 		}
 
@@ -734,7 +743,28 @@ namespace FunkyBot.Cache.Objects
 
 						// Give more weight to elites and minions
 						if (IsEliteRareUnique)
-							Weight += 2000;
+						{
+							//Non-Illusion
+							if (!MonsterIlluionist || !SummonerID.HasValue || SummonerID.Value<=0)
+							{
+								Weight += 2000;
+
+								if (MonsterAvenger && CurrentHealthPct.HasValue)
+								{
+									if (CurrentHealthPct.Value > 0.75d)
+										Weight += 4000;
+									else if (CurrentHealthPct.Value > 0.25d)
+										Weight += 2000;
+								}
+							}
+						}
+						else
+						{//Normal Units
+
+							if (IsAvoidanceSpawnerUnit)
+								Weight += 2000;
+
+						}
 
 						// Give more weight to bosses
 						if (IsBoss)
@@ -932,7 +962,7 @@ namespace FunkyBot.Cache.Objects
 					distantUnit = true;
 				}
 
-				if (centreDistance > KillRadius && !distantUnit)
+				if (centreDistance > InteractionRange && !distantUnit)
 				{
 					//Since special objects are subject to LOS movement, we do not ignore just yet.
 					if (!AllowLOSMovement)
@@ -1303,6 +1333,26 @@ namespace FunkyBot.Cache.Objects
 				}
 			}
 
+			if (IsEliteRareUnique)
+			{
+				//Illusionist -- Update the SummonedByACDID!
+				if (MonsterIlluionist)
+				{
+					// Get the summoned-by info, cached if possible
+					if (!SummonerID.HasValue)
+					{
+						try
+						{
+							SummonerID = CommonData.GetAttribute<int>(ActorAttributeType.SummonedByACDID);
+						}
+						catch (Exception ex)
+						{
+							Logger.Write(LogLevel.Cache, "Failure to get Summoned By ACDID for {0}", DebugStringSimple);
+						}
+					}
+				}
+			}
+
 			//Hitpoints
 			if (!MaximumHealth.HasValue)
 			{
@@ -1419,6 +1469,12 @@ namespace FunkyBot.Cache.Objects
 			else
 				IsAttackable = true;
 
+
+			//if (IsEliteRareUnique && MonsterFireChains && (!MonsterIlluionist || !SummonerID.HasValue || SummonerID.Value==-1))
+			//{
+				
+			//}
+
 			#region Class DOT DPS Check
 			//Barb specific updates
 			if (Bot.Character.Class.AC == ActorClass.Barbarian)
@@ -1512,6 +1568,22 @@ namespace FunkyBot.Cache.Objects
 					AnimState = AnimationState.Invalid;
 				}
 			}
+
+			//if (IsMalletLordUnit && CentreDistance<25f)
+			//{
+			//	UpdateSNOAnim();
+			//	if(SnoAnim== SNOAnim.malletDemon_attack_01)
+			//	{
+			//		//update rotation!
+			//		UpdateRotation();
+
+			//		if (IsFacingBot())
+			//		{
+			//			Logger.DBLog.DebugFormat("[Funky] Adding Mallet Lord to Watch List!");
+			//			Bot.Targeting.Cache.Environment.UnitAnimationWatchList.Add(this);
+			//		}
+			//	}
+			//}
 
 			//Update Quest Monster?
 			if (Bot.Targeting.Cache.UpdateQuestMonsterProperty || ProfileCache.QuestMode)

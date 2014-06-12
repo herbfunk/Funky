@@ -5,6 +5,7 @@ using System.Linq;
 using System.IO;
 using FunkyBot.Cache.Objects;
 using FunkyBot.DBHandlers;
+using FunkyBot.Misc;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Movement;
@@ -13,18 +14,14 @@ using Zeta.Bot.Navigation;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
+using Logger = FunkyBot.Misc.Logger;
+using LogLevel = FunkyBot.Misc.LogLevel;
 
 
 namespace FunkyBot
 {
-	public partial class Funky
-	{
 
-
-		// **********************************************************************************************
-		// *****                             Player Mover Class                                     *****
-		// **********************************************************************************************
-		internal class PlayerMover : IPlayerMover
+	internal class PlayerMover : IPlayerMover
 		{
 
 			public void MoveStop()
@@ -451,6 +448,4 @@ namespace FunkyBot
 			}
 		}
 
-
-	}
 }

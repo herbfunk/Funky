@@ -1,6 +1,7 @@
 ﻿using System;
+using FunkyBot.Misc;
 
-namespace FunkyBot
+namespace FunkyBot.EventHandlers
 {
 	public partial class EventHandlers
 	{

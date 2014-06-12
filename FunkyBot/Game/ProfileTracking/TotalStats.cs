@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using FunkyBot.Misc;
 
-namespace FunkyBot.Game
+namespace FunkyBot.Game.ProfileTracking
 {
 	///<summary>
 	///Extended GameStats to merge stats as Container
@@ -18,7 +20,7 @@ namespace FunkyBot.Game
 				UpdateTotals(ref lastGame);
 			}
 
-			Logger.WriteProfileTrackerOutput();
+			WriteProfileTrackerOutput(Bot.Game.TrackingStats);
 		}
 		public void GameStopped(ref GameStats lastGame)
 		{
@@ -26,7 +28,7 @@ namespace FunkyBot.Game
 			{
 				UpdateTotals(ref lastGame);
 			}
-			Logger.WriteProfileTrackerOutput();
+			WriteProfileTrackerOutput(Bot.Game.TrackingStats);
 		}
 
 		private void UpdateTotals(ref GameStats lastGame)
@@ -73,6 +75,46 @@ namespace FunkyBot.Game
 							 (totalloottracker.GetTotalLootStatCount(LootStatTypes.Vendored) / TotalTimeRunning.TotalHours).ToString("#.##"),
 							 (totalloottracker.GetTotalLootStatCount(LootStatTypes.Salvaged) / TotalTimeRunning.TotalHours).ToString("#.##"),
 							 TotalHoradricCacheOpened,TotalItemsGambled,TotalTownRuns,TotalBountiesCompleted);
+		}
+
+		internal static void WriteProfileTrackerOutput(TotalStats stats)
+		{
+			string outputPath = FolderPaths.ProfileStatsPath + @"\" + Bot.Character.Account.CurrentHeroName + " - " + Logger.LoggingStamp;
+
+			try
+			{
+				try
+				{
+					using (StreamWriter LogWriter = new StreamWriter(outputPath, false))
+					{
+						LogWriter.WriteLine("====================");
+						LogWriter.WriteLine("== TOTAL SUMMARY ==");
+
+
+						LogWriter.WriteLine(stats.GenerateOutputString());
+						//LogWriter.WriteLine("Total Games:{0} -- Total Unique Profiles:{1}\r\nDeaths:{2} TotalTime:{3} TotalGold:{4} TotalXP:{5}\r\n{6}",
+						//	all.GameCount, all.Profiles.Count, all.TotalDeaths, all.TotalTimeRunning.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), all.TotalGold, all.TotalXP, all.TotalLootTracker);
+
+						LogWriter.WriteLine("====================");
+						LogWriter.WriteLine("== PROFILE SUMMARY ==");
+						foreach (var item in stats.Profiles)
+						{
+							LogWriter.WriteLine(item.GenerateOutput());
+							//LogWriter.WriteLine("{0}\r\nDeaths:{1} TotalTime:{2} TotalGold:{3} TotalXP:{4}\r\n{5}",
+							//	item.ProfileName, item.DeathCount, item.TotalTimeSpan.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), item.TotalGold, item.TotalXP, item.LootTracker);
+						}
+					}
+
+				}
+				catch (IOException)
+				{
+					Logger.DBLog.Info("Fatal Error: File access error for Stats log file.");
+				}
+			}
+			catch
+			{
+
+			}
 		}
 	}
 }

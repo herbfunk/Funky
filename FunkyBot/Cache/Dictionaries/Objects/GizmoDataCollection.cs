@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+using FunkyBot.Misc;
 
 namespace FunkyBot.Cache.Dictionaries.Objects
 {
@@ -17,7 +18,7 @@ namespace FunkyBot.Cache.Dictionaries.Objects
 			SpecialInteractables = new HashSet<int>();
 		}
 
-		private static readonly string DefaultFilePath = Path.Combine(FolderPaths.PluginPath, "Cache", "Dictionaries", "SNOId_Cache_Gizmos.xml");
+		private static readonly string DefaultFilePath = Path.Combine(FolderPaths.RoutinePath, "Cache", "Dictionaries", "SNOId_Cache_Gizmos.xml");
 		internal static GizmoDataCollection DeserializeFromXML()
 		{
 			var deserializer = new XmlSerializer(typeof(GizmoDataCollection));

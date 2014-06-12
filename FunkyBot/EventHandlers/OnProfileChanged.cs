@@ -1,8 +1,9 @@
 ﻿using System;
 using FunkyBot.Game;
+using FunkyBot.Misc;
 using Zeta.Bot;
 
-namespace FunkyBot
+namespace FunkyBot.EventHandlers
 {
 	public partial class EventHandlers
 	{
@@ -16,6 +17,7 @@ namespace FunkyBot
 			//Clear Custom Cluster Settings
 			ProfileCache.ClusterSettingsTag = Bot.Settings.Cluster;
 			ProfileCache.QuestMode = false;
+			ProfileCache.LOSSettingsTag = Bot.Settings.LOSMovement;
 
 			//Update Tracker
 			Bot.Game.CurrentGameStats.ProfileChanged(sThisProfile);

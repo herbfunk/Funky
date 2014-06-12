@@ -14,6 +14,8 @@
 		public bool AllowEventSwitches { get; set; }
 		public int MaximumRange { get; set; }
 
+		public float MiniumRangeObjects { get; set; }
+		public float MinimumRangeMarkers { get; set; }
 
         public SettingLOSMovement()
         {
@@ -28,6 +30,8 @@
 			AllowCursedChestShrines = true;
 			AllowEventSwitches = true;
 			MaximumRange = 500;
+			MiniumRangeObjects = 45;
+			MinimumRangeMarkers = 25;
         }
     }
 }

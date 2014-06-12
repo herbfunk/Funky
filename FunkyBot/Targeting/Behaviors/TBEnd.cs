@@ -3,6 +3,8 @@ using System.Linq;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
+using FunkyBot.Config.Settings;
+using FunkyBot.Game;
 using FunkyBot.Game.Bounty;
 using FunkyBot.Movement;
 using Zeta.Bot;
@@ -12,6 +14,8 @@ using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
+using Logger = FunkyBot.Misc.Logger;
+using LogLevel = FunkyBot.Misc.LogLevel;
 
 namespace FunkyBot.Targeting.Behaviors
 {
@@ -46,6 +50,15 @@ namespace FunkyBot.Targeting.Behaviors
 
 					if (DateTime.Now.Subtract(Bot.Targeting.Cache.lastSeenCursedShrine).TotalMilliseconds <= (1000))
 					{
+						if (Bot.Settings.AdventureMode.EnableAdventuringMode && Bot.Game.AdventureMode && Bot.Game.Bounty.CurrentBountyCacheEntry != null && Bot.Game.Bounty.CurrentBountyCacheEntry.Type==BountyQuestTypes.CursedEvent)
+						{
+							Logger.DBLog.Info("[Funky] Cursed Object Found During Cursed Bounty -- Enabling LOS movement for all Units!");
+							ProfileCache.LOSSettingsTag.MiniumRangeObjects = 10f;
+							ProfileCache.LOSSettingsTag.MaximumRange = 125;
+							Bot.Game.Bounty.AllowAnyUnitForLOSMovement = true;
+							ProfileCache.ClusterSettingsTag = SettingCluster.DisabledClustering;
+						}
+
 						Bot.Targeting.Cache.UpdateQuestMonsterProperty = true;
 						obj = new CacheObject(Bot.Character.Data.Position, TargetType.NoMovement, 20000, "CursedShrineWait", 2f, -1);
 						return true;
@@ -108,7 +121,7 @@ namespace FunkyBot.Targeting.Behaviors
 						distanceFromStart = Bot.Character.Data.Position.Distance(Bot.Targeting.Cache.StartingLocation);
 						//lets see how far we are from our starting location.
 						if (distanceFromStart > 20f &&
-							  !Navigation.CanRayCast(Bot.Character.Data.Position, Funky.PlayerMover.vLastMoveTo, UseSearchGridProvider: true))
+							  !Navigation.CanRayCast(Bot.Character.Data.Position, PlayerMover.vLastMoveTo, UseSearchGridProvider: true))
 						{
 							Logger.Write(LogLevel.Movement, "Updating Navigator in Target Refresh");
 

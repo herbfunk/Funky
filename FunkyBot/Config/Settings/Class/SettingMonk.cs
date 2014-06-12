@@ -20,28 +20,5 @@ namespace FunkyBot.Config.Settings.Class
 			bMonkMaintainSweepingWind = false;
 			iMonkComboStrikeAbilities = 0;
 		}
-
-		internal string DefaultFilePath
-		{
-			get { return Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Demonbuddy_Default.xml"); }
-		}
-		public SettingMonk DeserializeFromXML()
-		{
-			XmlSerializer deserializer = new XmlSerializer(typeof(SettingMonk));
-			TextReader textReader = new StreamReader(DefaultFilePath);
-			SettingMonk settings;
-			settings = (SettingMonk)deserializer.Deserialize(textReader);
-			textReader.Close();
-			return settings;
-		}
-		public SettingMonk DeserializeFromXML(string Path)
-		{
-			XmlSerializer deserializer = new XmlSerializer(typeof(SettingMonk));
-			TextReader textReader = new StreamReader(Path);
-			SettingMonk settings;
-			settings = (SettingMonk)deserializer.Deserialize(textReader);
-			textReader.Close();
-			return settings;
-		}
 	}
 }

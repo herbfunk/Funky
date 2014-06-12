@@ -21,28 +21,5 @@ namespace FunkyBot.Config.Settings.Class
 			bFuryDumpWrath = false;
 			bFuryDumpAlways = false;
 		}
-
-		internal string DefaultFilePath
-		{
-			get { return Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Demonbuddy_Default.xml"); }
-		}
-		public SettingBarbarian DeserializeFromXML()
-		{
-			XmlSerializer deserializer = new XmlSerializer(typeof(SettingBarbarian));
-			TextReader textReader = new StreamReader(DefaultFilePath);
-			SettingBarbarian settings;
-			settings = (SettingBarbarian)deserializer.Deserialize(textReader);
-			textReader.Close();
-			return settings;
-		}
-		public SettingBarbarian DeserializeFromXML(string Path)
-		{
-			XmlSerializer deserializer = new XmlSerializer(typeof(SettingBarbarian));
-			TextReader textReader = new StreamReader(Path);
-			SettingBarbarian settings;
-			settings = (SettingBarbarian)deserializer.Deserialize(textReader);
-			textReader.Close();
-			return settings;
-		}
 	}
 }

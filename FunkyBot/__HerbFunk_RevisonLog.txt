@@ -1,5 +1,51 @@
 ﻿// herbfunk revisions
 
+v2.11.0.0
+
+FunkyBot has been Converted into a Combat Routine and is no longer a Plugin!
+
+
+Town Run behavior has been extracted from FunkyBot into a new separate plugin!
+	-Town Portaling and Horadric Cache Interaction still remain in FunkyBot.
+	-Item Rules has been removed.
+	-Pick Up settings are found in Item Tab which includes options for all quality types.
+
+
+Game
+	Encapsuled LOSMovement Settings in ProfileCache. (same as ClusterSettings)
+	LOSMovement will not occur for Adventure Mode if current tag is not ExploreTag.
+
+
+Crusader
+	Added Equipped Item Check for Piro Marella (Reduced Shield Bash Cost)
+	Sweep Attack used on any unit when energy is above 50%
+	Shield Bash used on any unit when energy is above 90% or 20% with Piro Marella equipped.
+
+
+
+
+v2.10.4.0
+
+Crusader:
+	Swift Steed with Rune Ramming Speed or Nightmare will be used offensively.
+	Swift Steed now used as Out of Combat Movement skill.
+	Fist of Heavens will be used on any target when energy is above 50%
+	Akarats Champion will be used on any non-normal unit or clusters of 10+ units.
+	Phalanx will be used on any target with 95% health or less.
+
+Witch Doctor
+	Check for Tall Man Finger to prevent recasting Zombie Dogs.
+	Haunt and Locust Swarm modified to be used more frequently and logically.
+	Piranhas will also be used on any target when energy is above 90%
+	Fixed Spirit Walk as Out of Combat Movement skill.
+
+Misc
+	Fixed issue with gambling not recognizing last item type when multiple types were given
+	"Open World" bosses will no longer be ignored due to cluster logic.
+	Added Illusionary Boots check for Monster Collision ignoring.
+
+
+
 v2.10.3.1
 
 Skills:

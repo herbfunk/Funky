@@ -6,6 +6,8 @@ using FunkyBot.Config.Settings;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals;
+using Logger = FunkyBot.Misc.Logger;
+using LogLevel = FunkyBot.Misc.LogLevel;
 
 namespace FunkyBot.Game.Bounty
 {
@@ -179,6 +181,7 @@ namespace FunkyBot.Game.Bounty
 				if (ActiveBounty != null && BountyQuestStates.ContainsKey(ActiveBounty.QuestSNO) && BountyQuestStates[ActiveBounty.QuestSNO] == QuestState.Completed)
 				{
 					Logger.Write(LogLevel.Bounty, "ActiveBounty Quest State is Completed!");
+					ResetCombatModifiers();
 					ActiveBounty = null;
 				}
 
@@ -199,6 +202,7 @@ namespace FunkyBot.Game.Bounty
 			else if (BountyQuestStates[ActiveBounty.QuestSNO] == QuestState.Completed)
 			{
 				Logger.Write(LogLevel.Bounty, "ActiveBounty Quest State is Completed!");
+				ResetCombatModifiers();
 				ActiveBounty = null;
 				UpdateActiveBounty();
 			}
@@ -441,19 +445,25 @@ namespace FunkyBot.Game.Bounty
 
 		public void Reset()
 		{
+			ResetCombatModifiers();
 			BountyQuestStates.Clear();
 			CurrentBounties.Clear();
 			ActiveQuests.Clear();
 			CurrentBountyMapMarkers.Clear();
 			ActiveBounty = null;
 			CurrentBountyCacheEntry = null;
-			ShouldNavigateMinimapPoints = false;
-			AllowAnyUnitForLOSMovement = false;
 			CurrentAct = Act.Invalid;
 			lastCheckedQuestSNO = -1;
 			_lastAttemptedUpdateActiveBounty = DateTime.Today;
 		}
-
+		private void ResetCombatModifiers()
+		{
+			ProfileCache.ClusterSettingsTag = Bot.Settings.Cluster;
+			ProfileCache.LOSSettingsTag = Bot.Settings.LOSMovement;
+			ProfileCache.QuestMode = false;
+			AllowAnyUnitForLOSMovement = false;
+			ShouldNavigateMinimapPoints = false;
+		}
 
 
 		public bool IsInRiftWorld
@@ -495,7 +505,7 @@ namespace FunkyBot.Game.Bounty
 		{
 			get
 			{
-				return Bot.Game.AdventureMode && (Bot.Settings.AdventureMode.NavigatePointsOfInterest || ShouldNavigateMinimapPoints);
+				return Bot.Game.AdventureMode && (Bot.Settings.AdventureMode.NavigatePointsOfInterest || ShouldNavigateMinimapPoints) && Bot.Game.Profile.ExploreDungeonTag;
 			}
 		}
 

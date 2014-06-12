@@ -8,6 +8,8 @@ using Zeta.Common;
 using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.SNO;
 using Zeta.TreeSharp;
+using Logger = FunkyBot.Misc.Logger;
+using LogLevel = FunkyBot.Misc.LogLevel;
 
 namespace FunkyBot.Cache.Objects
 {
@@ -20,6 +22,14 @@ namespace FunkyBot.Cache.Objects
 		}
 
 		private bool? lastIntersectionTestResult = null;
+
+		public override int InteractionRange
+		{
+			get
+			{
+				return Bot.Settings.Ranges.DestructibleRange + 1;
+			}
+		}
 
 		public override bool ObjectIsValidForTargeting
 		{
@@ -50,7 +60,7 @@ namespace FunkyBot.Cache.Objects
 						return false;
 					}
 
-					if (!base.LineOfSight.LOSTest(Bot.Character.Data.Position, true, ServerObjectIntersection: false) && (Funky.PlayerMover.iTotalAntiStuckAttempts == 0 || RadiusDistance > 12f))
+					if (!base.LineOfSight.LOSTest(Bot.Character.Data.Position, true, ServerObjectIntersection: false) && (PlayerMover.iTotalAntiStuckAttempts == 0 || RadiusDistance > 12f))
 					{
 						IgnoredType = TargetingIgnoreTypes.LineOfSightFailure;
 						return false;
@@ -79,7 +89,7 @@ namespace FunkyBot.Cache.Objects
 				//Some barricades may be lower than ourself, or our destination is high enough to raycast past the object. So we add a little to the Z of the obstacle.
 				//The best method would be to get the hight of the object and compare it to our current Z-height if we are nearly within radius distance of the object.
 				if ((targetType.Value == TargetType.Barricade || IsBarricade.HasValue && IsBarricade.Value) &&
-					(!Funky.PlayerMover.ShouldHandleObstacleObject  //Have special flag from unstucker to destroy nearby barricade.
+					(!PlayerMover.ShouldHandleObstacleObject  //Have special flag from unstucker to destroy nearby barricade.
 					 && PriorityCounter == 0
 					 && radiusDistance > 0f))
 				{
@@ -102,7 +112,7 @@ namespace FunkyBot.Cache.Objects
 				}
 
 
-				if (radiusDistance > (Bot.Settings.Ranges.DestructibleRange + 1f) && (!QuestMonster || radiusDistance > 100f))
+				if (radiusDistance > InteractionRange && (!QuestMonster || radiusDistance > 100f))
 				{
 					IgnoredType = TargetingIgnoreTypes.DistanceFailure;
 					return false;
@@ -126,7 +136,7 @@ namespace FunkyBot.Cache.Objects
 				Weight += 1500d;
 			Vector3 BotPosition = Bot.Character.Data.Position;
 			// If there's a monster in the path-line to the item, reduce the weight by 50%
-			if (RadiusDistance > 0f && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
+			if (RadiusDistance > 0f && !Bot.Character.Data.equipment.NoMonsterCollision && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 				Weight *= 0.5;
 			// Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
 			if (Bot.Character.Data.bIsRooted)
@@ -144,7 +154,7 @@ namespace FunkyBot.Cache.Objects
 				float fThisHeightDifference = Funky.Difference(Bot.Character.Data.Position.Z, Position.Z);
 				if (fThisHeightDifference >= 15f)
 				{
-					if (!Funky.PlayerMover.ShouldHandleObstacleObject)
+					if (!PlayerMover.ShouldHandleObstacleObject)
 						return false;
 					else if (fThisHeightDifference >= 20f)//Was stuck.. so give extra range..
 						return false;
@@ -214,7 +224,7 @@ namespace FunkyBot.Cache.Objects
 				Bot.Targeting.Cache.bForceTargetUpdate = true;
 				Bot.NavigationCache.lastChangedZigZag = DateTime.Today;
 				Bot.NavigationCache.vPositionLastZigZagCheck = Vector3.Zero;
-				Funky.PlayerMover.ShouldHandleObstacleObject = false;
+				PlayerMover.ShouldHandleObstacleObject = false;
 
 				//Blacklist all destructibles surrounding this obj
 				//ObjectCache.Objects.BlacklistObjectsSurroundingObject<CacheDestructable>(this, 10f, 15);

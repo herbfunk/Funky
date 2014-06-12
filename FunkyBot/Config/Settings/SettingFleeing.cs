@@ -47,25 +47,5 @@ namespace FunkyBot.Config.Settings
 			FleeBotMinimumHealthPercent=0.75d;
             FailureRetryMilliseconds = 2000;
 		}
-
-		private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Fleeing_Default.xml");
-		public static SettingFleeing DeserializeFromXML()
-		{
-			 XmlSerializer deserializer=new XmlSerializer(typeof(SettingFleeing));
-			 TextReader textReader=new StreamReader(DefaultFilePath);
-			 SettingFleeing settings;
-			 settings=(SettingFleeing)deserializer.Deserialize(textReader);
-			 textReader.Close();
-			 return settings;
-		}
-		public static SettingFleeing DeserializeFromXML(string Path)
-		{
-			 XmlSerializer deserializer=new XmlSerializer(typeof(SettingFleeing));
-			 TextReader textReader=new StreamReader(Path);
-			 SettingFleeing settings;
-			 settings=(SettingFleeing)deserializer.Deserialize(textReader);
-			 textReader.Close();
-			 return settings;
-		}
 	}
 }

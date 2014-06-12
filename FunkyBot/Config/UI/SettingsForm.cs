@@ -13,13 +13,18 @@ using FunkyBot.Cache.Objects;
 using FunkyBot.Config.Settings;
 using FunkyBot.DBHandlers;
 using FunkyBot.Game;
+using FunkyBot.Game.ProfileTracking;
 using FunkyBot.Movement;
+using Zeta.Bot;
 using Zeta.Bot.Navigation;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.SNO;
+using GameStats = FunkyBot.Game.ProfileTracking.GameStats;
+using Logger = FunkyBot.Misc.Logger;
+using LogLevel = FunkyBot.Misc.LogLevel;
 
 namespace FunkyBot.Config.UI
 {
@@ -431,87 +436,17 @@ namespace FunkyBot.Config.UI
 				cb_AdventureModeEnabled.Checked = Bot.Settings.AdventureMode.EnableAdventuringMode;
 				cb_AdventureModeEnabled.CheckedChanged += cb_AdventureModeEnabled_CheckedChanged;
 
-				cb_TownRunStashHoradricCache.Checked = Bot.Settings.TownRun.StashHoradricCache;
-				cb_TownRunStashHoradricCache.CheckedChanged += cb_TownRunStashHoradricCache_CheckedChanged;
+				comboBox_LootLegendaryItemQuality.SelectedIndex = Bot.Settings.Loot.PickupLegendaryItems == 0 ? 0 : Bot.Settings.Loot.PickupLegendaryItems == 61 ? 1 : 2;
+				comboBox_LootLegendaryItemQuality.SelectedIndexChanged += ItemLootChanged;
 
-				cb_TownRunBloodShardGambling.Checked = Bot.Settings.TownRun.EnableBloodShardGambling;
-				cb_TownRunBloodShardGambling.CheckedChanged += cb_TownRunBloodShardGambling_CheckedChanged;
+				comboBox_LootMagicItemQuality.SelectedIndex = Bot.Settings.Loot.PickupMagicItems == 0 ? 0 : Bot.Settings.Loot.PickupMagicItems == 61 ? 1 : 2;
+				comboBox_LootMagicItemQuality.SelectedIndexChanged += ItemLootChanged;
 
-				txt_TownRunBloodShardMinimumValue.Text = Bot.Settings.TownRun.MinimumBloodShards.ToString();
-				tb_TownRunBloodShardMinimumValue.Value = Bot.Settings.TownRun.MinimumBloodShards;
-				tb_TownRunBloodShardMinimumValue.ValueChanged += tb_TownRunBloodShardMinimumValue_ValueChanged;
+				comboBox_LootRareItemQuality.SelectedIndex = Bot.Settings.Loot.PickupRareItems == 0 ? 0 : Bot.Settings.Loot.PickupRareItems == 61 ? 1 : 2;
+				comboBox_LootRareItemQuality.SelectedIndexChanged += ItemLootChanged;
 
-				cb_TownRunBuyPotions.Checked = Bot.Settings.TownRun.BuyPotionsDuringTownRun;
-				cb_TownRunBuyPotions.CheckedChanged += cb_TownRunBuyPotionsCheckedChanged;
-
-				cb_TownRunIDLegendaries.Checked = Bot.Settings.TownRun.IdentifyLegendaries;
-				cb_TownRunIDLegendaries.CheckedChanged += cb_TownRunIDLegendariesCheckedChanged;
-
-				combo_TownRunSalvageWhiteItems.SelectedIndex = Bot.Settings.TownRun.SalvageWhiteItemLevel == 0 ? 0 : Bot.Settings.TownRun.SalvageWhiteItemLevel == 1 ? 1 : 2;
-				combo_TownRunSalvageWhiteItems.SelectedIndexChanged += comboBox_TownRunSalvageWhiteItems_SelectedIndexChanged;
-
-				combo_TownRunSalvageRareItems.SelectedIndex = Bot.Settings.TownRun.SalvageRareItemLevel == 0 ? 0 : Bot.Settings.TownRun.SalvageRareItemLevel == 1 ? 1 : 2;
-				combo_TownRunSalvageRareItems.SelectedIndexChanged += comboBox_TownRunSalvageRareItems_SelectedIndexChanged;
-
-				combo_TownRunSalvageMagicItems.SelectedIndex = Bot.Settings.TownRun.SalvageMagicItemLevel == 0 ? 0 : Bot.Settings.TownRun.SalvageMagicItemLevel == 1 ? 1 : 2;
-				combo_TownRunSalvageMagicItems.SelectedIndexChanged += comboBox_TownRunSalvageMagicalItems_SelectedIndexChanged;
-
-				combo_TownRunSalvageLegendaryItems.SelectedIndex = Bot.Settings.TownRun.SalvageLegendaryItemLevel == 0 ? 0 : Bot.Settings.TownRun.SalvageLegendaryItemLevel == 1 ? 1 : 2;
-				combo_TownRunSalvageLegendaryItems.SelectedIndexChanged += comboBox_TownRunSalvageLegendaryItems_SelectedIndexChanged;
-
-				bool noFlags = Bot.Settings.TownRun.BloodShardGambleItems.Equals(BloodShardGambleItems.None);
-				var gambleItems = Enum.GetValues(typeof(BloodShardGambleItems));
-				Func<object, string> fRetrieveNames = s => Enum.GetName(typeof(BloodShardGambleItems), s);
-				foreach (var gambleItem in gambleItems)
-				{
-					var thisGambleItem = (BloodShardGambleItems)gambleItem;
-					if (thisGambleItem.Equals(BloodShardGambleItems.None) || thisGambleItem.Equals(BloodShardGambleItems.All)) continue;
-
-					string gambleItemName = fRetrieveNames(gambleItem);
-					CheckBox cb = new CheckBox
-					{
-						Name = gambleItemName,
-						Text = gambleItemName,
-						Checked = !noFlags && Bot.Settings.TownRun.BloodShardGambleItems.HasFlag(thisGambleItem),
-					};
-					cb.CheckedChanged += BloodShardGambleItemsChanged;
-
-					flowLayout_TownRunBloodShardItems.Controls.Add(cb);
-				}
-
-
-				cb_ItemRules.Checked = Bot.Settings.ItemRules.UseItemRules;
-				cb_ItemRules.CheckedChanged += cb_ItemRules_CheckedChanged;
-
-				if (Bot.Settings.ItemRules.ItemRuleCustomPath != String.Empty)
-				{
-					txt_ItemRulesCustomLocation.Text = Bot.Settings.ItemRules.ItemRuleCustomPath;
-				}
-
-				cb_ItemRulesPickup.Checked = Bot.Settings.ItemRules.UseItemRulesPickup;
-				cb_ItemRulesPickup.CheckedChanged += cb_ItemRulesPickup_CheckedChanged;
-
-				//cb_ItemRulesUnidStashing.Checked = Bot.Settings.ItemRules.ItemRulesUnidStashing;
-				//cb_ItemRulesUnidStashing.CheckedChanged += cb_ItemRulesUnidStashing_CheckedChanged;
-
-				cb_ItemRulesDebugging.Checked = Bot.Settings.ItemRules.ItemRuleDebug;
-				cb_ItemRulesDebugging.CheckedChanged += cb_ItemRulesDebugging_CheckedChanged;
-
-				cb_ItemRulesUseItemIDs.Checked = Bot.Settings.ItemRules.ItemRuleUseItemIDs;
-				cb_ItemRulesUseItemIDs.CheckedChanged += cb_ItemRulesUseItemIDs_CheckedChanged;
-
-				btn_ItemRulesCustomBrowse.Click += ItemRulesBrowse_Click;
-				btn_ItemRulesOpenFolder.Click += ItemRulesOpenFolder_Click;
-				btn_ItemRulesReloadRules.Click += ItemRulesReload_Click;
-
-				comboBox_ItemRulesType.SelectedIndex = Bot.Settings.ItemRules.ItemRuleType == "Hard" ? 1 : Bot.Settings.ItemRules.ItemRuleType == "Soft" ? 2 : 0;
-				comboBox_ItemRulesType.SelectedIndexChanged += comboBox_ItemRulesType_SelectedIndexChanged;
-
-				comboBox_ItemRulesLogPickup.Text = Bot.Settings.ItemRules.ItemRuleLogPickup;
-				comboBox_ItemRulesLogPickup.SelectedIndexChanged += comboBox_ItemRulesLogPickup_SelectedIndexChanged;
-
-				combobox_ItemRulesLogStashed.Text = Bot.Settings.ItemRules.ItemRuleLogKeep;
-				combobox_ItemRulesLogStashed.SelectedIndexChanged += cb_ItemRulesLogStashed_SelectedIndexChanged;
+				comboBox_LootWhiteItemQuality.SelectedIndex = Bot.Settings.Loot.PickupWhiteItems == 0 ? 0 : Bot.Settings.Loot.PickupWhiteItems == 61 ? 1 : 2;
+				comboBox_LootWhiteItemQuality.SelectedIndexChanged += ItemLootChanged;
 
 				cb_LootPickupCraftPlans.Checked = Bot.Settings.Loot.PickupCraftPlans;
 				cb_LootPickupCraftPlans.CheckedChanged += cb_LootPickupCraftPlans_CheckedChanged;
@@ -622,49 +557,6 @@ namespace FunkyBot.Config.UI
 			}
 		}
 
-		private void ItemRulesOpenFolder_Click(object sender, EventArgs e)
-		{
-			Process.Start(Path.Combine(FolderPaths.PluginPath, "ItemRules", "Rules"));
-		}
-		private void ItemRulesReload_Click(object sender, EventArgs e)
-		{
-			if (Bot.Character.ItemRulesEval == null)
-			{
-				Logger.DBLog.InfoFormat("Cannot reload rules until bot has started", true);
-				return;
-			}
-
-			try
-			{
-				Bot.Character.ItemRulesEval.reloadFromUI();
-			}
-			catch (Exception ex)
-			{
-				Logger.DBLog.InfoFormat(ex.Message + "\r\n" + ex.StackTrace);
-			}
-
-		}
-		private void ItemRulesBrowse_Click(object sender, EventArgs e)
-		{
-			FolderBrowserDialog OFD = new FolderBrowserDialog
-			{
-
-			};
-			DialogResult OFD_Result = OFD.ShowDialog();
-
-			if (OFD_Result == System.Windows.Forms.DialogResult.OK)
-			{
-				try
-				{
-					Bot.Settings.ItemRules.ItemRuleCustomPath = OFD.SelectedPath;
-					txt_ItemRulesCustomLocation.Text = Bot.Settings.ItemRules.ItemRuleCustomPath;
-				}
-				catch
-				{
-
-				}
-			}
-		}
 
 		private void tb_GlobeHealth_ValueChanged(object sender, EventArgs e)
 		{
@@ -709,16 +601,16 @@ namespace FunkyBot.Config.UI
 			else
 				Bot.Settings.Debug.FunkyLogFlags |= LogLevelValue;
 		}
-		private void BloodShardGambleItemsChanged(object sender, EventArgs e)
-		{
-			CheckBox cbSender = (CheckBox)sender;
-			BloodShardGambleItems LogLevelValue = (BloodShardGambleItems)Enum.Parse(typeof(BloodShardGambleItems), cbSender.Name);
+		//private void BloodShardGambleItemsChanged(object sender, EventArgs e)
+		//{
+		//	CheckBox cbSender = (CheckBox)sender;
+		//	BloodShardGambleItems LogLevelValue = (BloodShardGambleItems)Enum.Parse(typeof(BloodShardGambleItems), cbSender.Name);
 
-			if (Bot.Settings.TownRun.BloodShardGambleItems.HasFlag(LogLevelValue))
-				Bot.Settings.TownRun.BloodShardGambleItems &= ~LogLevelValue;
-			else
-				Bot.Settings.TownRun.BloodShardGambleItems |= LogLevelValue;
-		}
+		//	if (Bot.Settings.TownRun.BloodShardGambleItems.HasFlag(LogLevelValue))
+		//		Bot.Settings.TownRun.BloodShardGambleItems &= ~LogLevelValue;
+		//	else
+		//		Bot.Settings.TownRun.BloodShardGambleItems |= LogLevelValue;
+		//}
 
 
 
@@ -1203,84 +1095,7 @@ namespace FunkyBot.Config.UI
 			Bot.Settings.AdventureMode.EnableAdventuringMode = !Bot.Settings.AdventureMode.EnableAdventuringMode;
 		}
 
-		private void cb_TownRunStashHoradricCache_CheckedChanged(object sender, EventArgs e)
-		{
-			Bot.Settings.TownRun.StashHoradricCache = !Bot.Settings.TownRun.StashHoradricCache;
-		}
-
-		private void comboBox_TownRunSalvageWhiteItems_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			ComboBox slider_sender = (ComboBox)sender;
-			Bot.Settings.TownRun.SalvageWhiteItemLevel = slider_sender.SelectedIndex == 0 ? 0 : slider_sender.SelectedIndex == 1 ? 1 : 61;
-		}
-		private void comboBox_TownRunSalvageMagicalItems_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			ComboBox slider_sender = (ComboBox)sender;
-			Bot.Settings.TownRun.SalvageMagicItemLevel = slider_sender.SelectedIndex == 0 ? 0 : slider_sender.SelectedIndex == 1 ? 1 : 61;
-		}
-		private void comboBox_TownRunSalvageRareItems_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			ComboBox slider_sender = (ComboBox)sender;
-			Bot.Settings.TownRun.SalvageRareItemLevel = slider_sender.SelectedIndex == 0 ? 0 : slider_sender.SelectedIndex == 1 ? 1 : 61;
-		}
-		private void comboBox_TownRunSalvageLegendaryItems_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			ComboBox slider_sender = (ComboBox)sender;
-			Bot.Settings.TownRun.SalvageLegendaryItemLevel = slider_sender.SelectedIndex == 0 ? 0 : slider_sender.SelectedIndex == 1 ? 1 : 61;
-		}
-		private void tb_TownRunBloodShardMinimumValue_ValueChanged(object sender, EventArgs e)
-		{
-			TrackBar slider_sender = (TrackBar)sender;
-			int Value = (int)slider_sender.Value;
-			Bot.Settings.TownRun.MinimumBloodShards = Value;
-			txt_TownRunBloodShardMinimumValue.Text = Value.ToString();
-		}
-
-		private void cb_ItemRules_CheckedChanged(object sender, EventArgs e)
-		{
-			Bot.Settings.ItemRules.UseItemRules = !Bot.Settings.ItemRules.UseItemRules;
-		}
-
-		private void cb_ItemRulesPickup_CheckedChanged(object sender, EventArgs e)
-		{
-			Bot.Settings.ItemRules.UseItemRulesPickup = !Bot.Settings.ItemRules.UseItemRulesPickup;
-		}
-
-
-
-		//private void cb_ItemRulesUnidStashing_CheckedChanged(object sender, EventArgs e)
-		//{
-		//	Bot.Settings.ItemRules.ItemRulesUnidStashing = !Bot.Settings.ItemRules.ItemRulesUnidStashing;
-		//}
-
-		private void comboBox_ItemRulesType_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			ComboBox slider_sender = (ComboBox)sender;
-			Bot.Settings.ItemRules.ItemRuleType = slider_sender.Text;
-		}
-
-		private void cb_ItemRulesLogStashed_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			ComboBox slider_sender = (ComboBox)sender;
-			Bot.Settings.ItemRules.ItemRuleLogKeep = slider_sender.Text;
-		}
-
-		private void comboBox_ItemRulesLogPickup_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			ComboBox slider_sender = (ComboBox)sender;
-			Bot.Settings.ItemRules.ItemRuleLogPickup = slider_sender.Text;
-		}
-
-		private void cb_ItemRulesUseItemIDs_CheckedChanged(object sender, EventArgs e)
-		{
-			Bot.Settings.ItemRules.ItemRuleUseItemIDs = !Bot.Settings.ItemRules.ItemRuleUseItemIDs;
-		}
-
-		private void cb_ItemRulesDebugging_CheckedChanged(object sender, EventArgs e)
-		{
-			Bot.Settings.ItemRules.ItemRuleDebug = !Bot.Settings.ItemRules.ItemRuleDebug;
-		}
-
+	
 		private void cb_LootPickupCraftPlans_CheckedChanged(object sender, EventArgs e)
 		{
 			Bot.Settings.Loot.PickupCraftPlans = !Bot.Settings.Loot.PickupCraftPlans;
@@ -1344,6 +1159,22 @@ namespace FunkyBot.Config.UI
 		{
 			Bot.Settings.Loot.PickupKeystoneFragments = !Bot.Settings.Loot.PickupKeystoneFragments;
 		}
+		private void ItemLootChanged(object sender, EventArgs e)
+		{
+			ComboBox cbSender = (ComboBox)sender;
+			string tagStr = (string)cbSender.Tag;
+			int newValue = cbSender.SelectedIndex == 0 ? 0 : cbSender.SelectedIndex == 1 ? 61 : 1;
+
+			if (tagStr == "white")
+				Bot.Settings.Loot.PickupWhiteItems = newValue;
+			else if (tagStr == "magic")
+				Bot.Settings.Loot.PickupMagicItems = newValue;
+			else if (tagStr == "rare")
+				Bot.Settings.Loot.PickupRareItems = newValue;
+			else if (tagStr == "legendary")
+				Bot.Settings.Loot.PickupLegendaryItems = newValue;
+
+		}
 		private void GemQualityLevelChanged(object sender, EventArgs e)
 		{
 			ComboBox cbSender = (ComboBox)sender;
@@ -1361,18 +1192,7 @@ namespace FunkyBot.Config.UI
 			Bot.Settings.Debug.DebuggingData = !Bot.Settings.Debug.DebuggingData;
 		}
 
-		private void cb_TownRunBloodShardGambling_CheckedChanged(object sender, EventArgs e)
-		{
-			Bot.Settings.TownRun.EnableBloodShardGambling = !Bot.Settings.TownRun.EnableBloodShardGambling;
-		}
-		private void cb_TownRunBuyPotionsCheckedChanged(object sender, EventArgs e)
-		{
-			Bot.Settings.TownRun.BuyPotionsDuringTownRun = !Bot.Settings.TownRun.BuyPotionsDuringTownRun;
-		}
-		private void cb_TownRunIDLegendariesCheckedChanged(object sender, EventArgs e)
-		{
-			Bot.Settings.TownRun.IdentifyLegendaries = !Bot.Settings.TownRun.IdentifyLegendaries;
-		}
+	
 		private void SettingsForm_FormClosing_1(object sender, FormClosingEventArgs e)
 		{
 			Settings_Funky.SerializeToXML(Bot.Settings);
@@ -1577,33 +1397,7 @@ namespace FunkyBot.Config.UI
 			try
 			{
 
-				var nextItemType = BloodShardGambleItems.None;
 
-				List<BloodShardGambleItems> freshList = TownRunManager.ValidGambleItems.Where(t => Bot.Settings.TownRun.BloodShardGambleItems.HasFlag(t)).ToList();
-
-				while (freshList.Count > 0)
-				{
-					Random r = new Random();
-
-					int curListCount = freshList.Count;
-					int index = r.Next(0, curListCount);
-
-					BloodShardGambleItems itemtype = freshList[index];
-					if (Bot.Settings.TownRun.BloodShardGambleItems.HasFlag(itemtype) && TownRunManager.GetGambleItemPrice(itemtype) <= 125)
-					{
-						nextItemType = itemtype;
-						Logger.DBLog.DebugFormat("Next Item Type: {0}", nextItemType);
-						break;
-					}
-					else
-					{
-						Logger.DBLog.DebugFormat("Removing Item Type: {0}", itemtype);
-						freshList.RemoveAt(index);
-						freshList.TrimExcess();
-					}
-				}
-			
-				
 			}
 			catch (Exception ex)
 			{
@@ -1643,6 +1437,43 @@ namespace FunkyBot.Config.UI
 				{
 					LBDebug.Controls.Add(new UserControlDebugEntry(cacheObject.Value.DebugString));
 				}
+			}
+			catch
+			{
+				LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Exception"));
+			}
+
+			LBDebug.Focus();
+		}
+
+		private void btn_DumpInventory_Click(object sender, EventArgs e)
+		{
+			if (BotMain.IsRunning || !ZetaDia.IsInGame || ZetaDia.IsLoadingWorld || ZetaDia.Me == null || ZetaDia.Me.CommonData == null)
+				return;
+
+			LBDebug.Controls.Clear();
+
+			try
+			{
+				ZetaDia.Memory.DisableCache();
+				ZetaDia.Actors.Update();
+
+				foreach (var o in ZetaDia.Me.Inventory.Backpack)
+				{
+					try
+					{
+						string s=String.Format("Item - Name: {0} (InternalName: {1}) BalanceID: {2}",
+															o.Name, o.InternalName, o.GameBalanceId);
+
+						LBDebug.Controls.Add(new UserControlDebugEntry(s));
+					}
+					catch (Exception)
+					{
+
+					}
+
+				}
+				
 			}
 			catch
 			{

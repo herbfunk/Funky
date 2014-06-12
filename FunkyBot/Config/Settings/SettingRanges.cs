@@ -45,25 +45,5 @@ namespace FunkyBot.Config.Settings
 			CursedShrineRange = 75;
 			CursedChestRange = 75;
 		}
-
-		private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Range_Default.xml");
-		public static SettingRanges DeserializeFromXML()
-		{
-			 XmlSerializer deserializer=new XmlSerializer(typeof(SettingRanges));
-			 TextReader textReader=new StreamReader(DefaultFilePath);
-			 SettingRanges settings;
-			 settings=(SettingRanges)deserializer.Deserialize(textReader);
-			 textReader.Close();
-			 return settings;
-		}
-		public static SettingRanges DeserializeFromXML(string Path)
-		{
-			 XmlSerializer deserializer=new XmlSerializer(typeof(SettingRanges));
-			 TextReader textReader=new StreamReader(Path);
-			 SettingRanges settings;
-			 settings=(SettingRanges)deserializer.Deserialize(textReader);
-			 textReader.Close();
-			 return settings;
-		}
 	}
 }

@@ -17,14 +17,20 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			Cooldown = 5;
 			Range = 25;
 			Cost = 30;
-			Priority = SkillPriority.Low;
+			Priority = SkillPriority.Medium;
 			ExecutionType = SkillExecutionFlags.Target|SkillExecutionFlags.ClusterTarget;
 			IsRanged = true;
 
 			WaitVars = new WaitLoops(0, 0, true);
-			PreCast = new SkillPreCast(SkillPrecastFlags.CheckEnergy);
+			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 			
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 25, 0.75d, TargetProperties.Normal));
+			SingleUnitCondition.Add(new UnitTargetConditions
+			{
+				TrueConditionFlags = TargetProperties.None,
+				Criteria = () => Bot.Character.Data.dCurrentEnergyPct > (Bot.Settings.Crusader.ReducedShieldBashCost?0.25:0.90d),
+				FalseConditionFlags = TargetProperties.LowHealth,
+			});
 			ClusterConditions.Add(new SkillClusterConditions(5d, 25f, 2, true));
 			UseageType = SkillUseage.Combat;
 		}

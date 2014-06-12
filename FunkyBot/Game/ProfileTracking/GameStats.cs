@@ -4,7 +4,7 @@ using System.Linq;
 using FunkyBot.Cache;
 using Zeta.Bot.Settings;
 
-namespace FunkyBot.Game
+namespace FunkyBot.Game.ProfileTracking
 {
 	///<summary>
 	///Tracker Game and Profile Stats 

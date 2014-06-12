@@ -1,13 +1,13 @@
 ﻿using System.IO;
 using System.Reflection;
 
-namespace FunkyBot
+namespace FunkyBot.Misc
 {
 	public static class FolderPaths
 	{
 		internal static string DemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-		internal static string PluginPath=DemonBuddyPath+@"\Plugins\FunkyBot\";
-		internal static string SettingsDefaultPath=Path.Combine(PluginPath, "Config", "Defaults");
+		internal static string RoutinePath = DemonBuddyPath + @"\Routines\FunkyBot\";
+		internal static string SettingsDefaultPath=Path.Combine(RoutinePath, "Config", "Defaults");
 
 		internal static string ProfileStatsPath
 		{

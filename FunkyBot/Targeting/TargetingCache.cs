@@ -12,6 +12,8 @@ using Zeta.Bot;
 using Zeta.Bot.Settings;
 using Zeta.Common;
 using System.Collections.Generic;
+using Logger = FunkyBot.Misc.Logger;
+using LogLevel = FunkyBot.Misc.LogLevel;
 
 namespace FunkyBot.Targeting
 {
@@ -122,6 +124,9 @@ namespace FunkyBot.Targeting
 
 			//Update last Refresh Time
 			lastRefreshedObjects = DateTime.Now;
+
+			//Sort?
+			Bot.Targeting.Cache.Environment.UnitAnimationWatchList=Bot.Targeting.Cache.Environment.UnitAnimationWatchList.OrderBy(u => u.CentreDistance).ToList();
 
 			//Refresh Obstacles
 			ObjectCache.Obstacles.Values.ForEach(obj => obj.RefreshObject());
@@ -312,6 +317,8 @@ namespace FunkyBot.Targeting
 			 new TBGroupingResume(), 
 			 new TBAvoidance(), 
 			 new TBFleeing(), 
+			 //TODO:: Disabled Until Further Testing!
+			 //new TBSafetyMove(),
 			 new TBUpdateTarget(), 
 			 new TBGrouping(), 
 			 new TBLOSMovement(),

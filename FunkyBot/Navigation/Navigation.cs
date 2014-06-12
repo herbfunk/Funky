@@ -634,7 +634,7 @@ namespace FunkyBot.Movement
 					LastObstacleIntersectionTest = DateTime.Now;
 
 					//modify range based upon # of stucks
-					if (Funky.PlayerMover.iTotalAntiStuckAttempts > 0) range += (Funky.PlayerMover.iTotalAntiStuckAttempts * 5f);
+					if (PlayerMover.iTotalAntiStuckAttempts > 0) range += (PlayerMover.iTotalAntiStuckAttempts * 5f);
 
 					//get collection of objects that pass the tests.
 					var intersectingObstacles = Bot.Targeting.Cache.Environment.NearbyObstacleObjects //ObjectCache.Obstacles.Values.OfType<CacheServerObject>()
@@ -660,7 +660,34 @@ namespace FunkyBot.Movement
 		}
 
 
+		private List<GPRectangle> LocationalRects = new List<GPRectangle>(); 
+		public Vector3 FindLocationBehindObject(CacheObject obj)
+		{
+			float rotation=FindDirection(Bot.Character.Data.Position, obj.Position, true);
+			Vector3 startLocation=MathEx.GetPointAt(obj.Position, obj.Radius, rotation);
 
+			DirectionPoint dp = new DirectionPoint(startLocation, rotation, 35f);
+			LocationalRects.Add(new GPRectangle(dp));
+
+			DirectionPoint dp2 = new DirectionPoint(startLocation, MathEx.WrapAngle(rotation + 0.7f), 35f);
+			LocationalRects.Add(new GPRectangle(dp2));
+
+			DirectionPoint dp3 = new DirectionPoint(startLocation, MathEx.WrapAngle(rotation - 0.7f), 35f);
+			LocationalRects.Add(new GPRectangle(dp3));
+
+			List<GridPoint> blacklisted = new List<GridPoint>();
+			Vector3 safespot=Vector3.Zero;
+			foreach (var gpr in LocationalRects)
+			{
+				bool found=gpr.TryFindSafeSpot(Bot.Character.Data.Position, out safespot, Vector3.Zero, PointCheckingFlags.AvoidanceIntersection | PointCheckingFlags.RaycastWalkable, blacklisted);
+				if (found)
+				{
+					break;
+				}
+			}
+
+			return safespot;
+		}
 
 		//Static Methods
 		#region Static Movement Methods
@@ -734,7 +761,7 @@ namespace FunkyBot.Movement
 			//MathEx.ToDegrees(NormalizeRadian((float)Math.Atan2(vTargetLocation.Y-vStartLocation.Y, vTargetLocation.X-vStartLocation.X)));
 
 
-
+			
 			if (inRadian)
 				return angle;
 			return MathEx.ToDegrees(angle);

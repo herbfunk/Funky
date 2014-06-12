@@ -9,6 +9,8 @@ using Zeta.Bot.Profile.Common;
 using Zeta.Bot.Settings;
 using Zeta.Common;
 using Zeta.Game;
+using Logger = FunkyBot.Misc.Logger;
+using LogLevel = FunkyBot.Misc.LogLevel;
 
 namespace FunkyBot.Targeting.Behaviors
 {

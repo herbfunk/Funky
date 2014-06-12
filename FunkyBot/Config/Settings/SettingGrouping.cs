@@ -38,25 +38,5 @@ namespace FunkyBot.Config.Settings
 			GroupingMinimumBotHealth=0d;
             GroupingClusterProperties = ClusterProperties.Boss | ClusterProperties.Elites | ClusterProperties.Large | ClusterProperties.Strong | ClusterProperties.Fast;
 		}
-
-		private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Grouping_Default.xml");
-		public static SettingGrouping DeserializeFromXML()
-		{
-			 XmlSerializer deserializer=new XmlSerializer(typeof(SettingGrouping));
-			 TextReader textReader=new StreamReader(DefaultFilePath);
-			 SettingGrouping settings;
-			 settings=(SettingGrouping)deserializer.Deserialize(textReader);
-			 textReader.Close();
-			 return settings;
-		}
-		public static SettingGrouping DeserializeFromXML(string Path)
-		{
-			 XmlSerializer deserializer=new XmlSerializer(typeof(SettingGrouping));
-			 TextReader textReader=new StreamReader(Path);
-			 SettingGrouping settings;
-			 settings=(SettingGrouping)deserializer.Deserialize(textReader);
-			 textReader.Close();
-			 return settings;
-		}
 	}
 }

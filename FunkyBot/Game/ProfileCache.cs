@@ -9,6 +9,8 @@ using Zeta.Bot;
 using Zeta.Bot.Profile;
 using Zeta.Bot.Profile.Common;
 using Zeta.Common;
+using Logger = FunkyBot.Misc.Logger;
+using LogLevel = FunkyBot.Misc.LogLevel;
 
 namespace FunkyBot.Game
 {
@@ -19,6 +21,13 @@ namespace FunkyBot.Game
 		{
 			get { return clusterSettingsTag; }
 			set { clusterSettingsTag = value; }
+		}
+
+		private static SettingLOSMovement losSettingsTag = new SettingLOSMovement();
+		internal static SettingLOSMovement LOSSettingsTag
+		{
+			get { return losSettingsTag; }
+			set { losSettingsTag = value; }
 		}
 
 		internal static bool QuestMode { get; set; }

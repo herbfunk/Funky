@@ -122,7 +122,7 @@ namespace FunkyBot.Cache.Objects
 						 .Any(obstacle =>
 							  obstacle.RAGUID!=Obj.RAGUID&&
 							  obstacle.Obstacletype.HasValue&&
-							  obstacle.Obstacletype.Value!=ObstacleType.Monster&&
+							  obstacle.Obstacletype.Value==ObstacleType.ServerObject &&
 							  obstacle.TestIntersection(PositionToTestFrom, objposition,false));
 
 					if (!Failed&&ObjectIntersection.Value)

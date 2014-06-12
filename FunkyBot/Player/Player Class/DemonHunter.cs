@@ -6,6 +6,7 @@ using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
+using Logger = FunkyBot.Misc.Logger;
 
 namespace FunkyBot.Player.Class
 {

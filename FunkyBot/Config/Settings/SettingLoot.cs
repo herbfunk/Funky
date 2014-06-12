@@ -5,10 +5,11 @@ namespace FunkyBot.Config.Settings
 {
 	public class SettingLoot
 	{
-		//Plugin Item Default Settings
-		public int GilesMinimumWeaponScore { get; set; }
-		public int GilesMinimumArmorScore { get; set; }
-		public int GilesMinimumJeweleryScore { get; set; }
+		//0 == None, 1 == All, 61 == ROS Only
+		public int PickupLegendaryItems { get; set; }
+		public int PickupRareItems { get; set; }
+		public int PickupMagicItems { get; set; }
+		public int PickupWhiteItems { get; set; }
 
 		public int MaximumHealthPotions { get; set; }
 		public int MinimumGoldPile { get; set; }
@@ -41,10 +42,11 @@ namespace FunkyBot.Config.Settings
 
 		public SettingLoot()
 		{
-			GilesMinimumWeaponScore=75000;
-			GilesMinimumArmorScore=30000;
-			GilesMinimumJeweleryScore=30000;
-			
+			PickupWhiteItems = 0;
+			PickupMagicItems = 0;
+			PickupRareItems = 1;
+			PickupLegendaryItems = 1;
+
 			MaximumHealthPotions=100;
 			MinimumGoldPile=425;
 			PickupCraftPlans=true;
@@ -69,26 +71,6 @@ namespace FunkyBot.Config.Settings
 			PickupGems = new bool[] { true, true, true, true, true };
 			PickupGemDiamond = true;
 			ExpBooks = true;
-		}
-
-		private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Loot_Default.xml");
-		public static SettingLoot DeserializeFromXML()
-		{
-			 XmlSerializer deserializer=new XmlSerializer(typeof(SettingLoot));
-			 TextReader textReader=new StreamReader(DefaultFilePath);
-			 SettingLoot settings;
-			 settings=(SettingLoot)deserializer.Deserialize(textReader);
-			 textReader.Close();
-			 return settings;
-		}
-		public static SettingLoot DeserializeFromXML(string Path)
-		{
-			 XmlSerializer deserializer=new XmlSerializer(typeof(SettingLoot));
-			 TextReader textReader=new StreamReader(Path);
-			 SettingLoot settings;
-			 settings=(SettingLoot)deserializer.Deserialize(textReader);
-			 textReader.Close();
-			 return settings;
 		}
 	}
 }

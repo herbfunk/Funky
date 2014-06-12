@@ -1,7 +1,9 @@
-﻿using Zeta.Game;
+﻿using FunkyBot.Misc;
+using Zeta.Game;
 using Zeta.Game.Internals;
 using Zeta.TreeSharp;
-namespace FunkyBot
+
+namespace FunkyBot.EventHandlers
 {
 	public partial class EventHandlers
 	{

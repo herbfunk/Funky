@@ -6,6 +6,8 @@ using Zeta.Bot.Logic;
 using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.Game;
+using Logger = FunkyBot.Misc.Logger;
+using LogLevel = FunkyBot.Misc.LogLevel;
 
 namespace FunkyBot.Movement
 {

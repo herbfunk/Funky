@@ -22,25 +22,5 @@ namespace FunkyBot.Config.Settings
 			  Avoidances=AvoidanceCache.AvoidancesDefault;
               FailureRetryMilliseconds = 2000;
 		 }
-
-		 private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath,"Specific","Avoidance_Default.xml");
-		 public static SettingAvoidance DeserializeFromXML()
-		 {
-			  XmlSerializer deserializer=new XmlSerializer(typeof(SettingAvoidance));
-			  TextReader textReader=new StreamReader(DefaultFilePath);
-			  SettingAvoidance settings;
-			  settings=(SettingAvoidance)deserializer.Deserialize(textReader);
-			  textReader.Close();
-			  return settings;
-		 }
-		 public static SettingAvoidance DeserializeFromXML(string Path)
-		 {
-			  XmlSerializer deserializer=new XmlSerializer(typeof(SettingAvoidance));
-			  TextReader textReader=new StreamReader(Path);
-			  SettingAvoidance settings;
-			  settings=(SettingAvoidance)deserializer.Deserialize(textReader);
-			  textReader.Close();
-			  return settings;
-		 }
 	}
 }

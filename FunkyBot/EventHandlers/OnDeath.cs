@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
-using System.Threading;
-using FunkyBot.XMLTags;
 using FunkyBot.Cache;
-using Zeta.Bot;
-using Zeta.Bot.Settings;
-using Zeta.Game;
+using FunkyBot.Misc;
 
-namespace FunkyBot
+namespace FunkyBot.EventHandlers
 {
 	public partial class EventHandlers
 	{
@@ -38,7 +33,7 @@ namespace FunkyBot
 			//Bot.Stats.iDeathsThisRun++;
 			//Bot.BotStatistics.GameStats.TotalDeaths++;
 
-			Funky.ResetBot();
+			Bot.ResetBot();
 
 
 			// Does Trinity need to handle deaths?

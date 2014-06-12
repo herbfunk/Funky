@@ -23,25 +23,5 @@ namespace FunkyBot.Config.Settings
 			  GoblinMinimumRange = 40;
 			  AllowDefaultAttackAlways = false;
 		 }
-
-		 private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Combat_Default.xml");
-		 public static SettingCombat DeserializeFromXML()
-		 {
-			  XmlSerializer deserializer=new XmlSerializer(typeof(SettingCombat));
-			  TextReader textReader=new StreamReader(DefaultFilePath);
-			  SettingCombat settings;
-			  settings=(SettingCombat)deserializer.Deserialize(textReader);
-			  textReader.Close();
-			  return settings;
-		 }
-		 public static SettingCombat DeserializeFromXML(string Path)
-		 {
-			  XmlSerializer deserializer=new XmlSerializer(typeof(SettingCombat));
-			  TextReader textReader=new StreamReader(Path);
-			  SettingCombat settings;
-			  settings=(SettingCombat)deserializer.Deserialize(textReader);
-			  textReader.Close();
-			  return settings;
-		 }
 	}
 }

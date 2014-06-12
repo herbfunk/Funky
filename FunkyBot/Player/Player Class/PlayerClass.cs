@@ -11,6 +11,7 @@ using Zeta.Common;
 using System.Collections.Generic;
 using FunkyBot.Player.HotBar;
 using Zeta.Game.Internals.SNO;
+using Logger = FunkyBot.Misc.Logger;
 
 namespace FunkyBot.Player.Class
 {

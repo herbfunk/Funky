@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.Crusader;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
+using Logger = FunkyBot.Misc.Logger;
 
 namespace FunkyBot.Player.Class
 {
@@ -13,6 +15,8 @@ namespace FunkyBot.Player.Class
 		public Crusader()
 		{
 			Logger.DBLog.DebugFormat("[Funky] Using Crusader Player Class");
+
+			Bot.Settings.Crusader.ReducedShieldBashCost=Bot.Character.Data.equipment.EquippedItems.Any(i => i.EquippedType == EquippedItemType.PiroMarella);
 		}
 
 		public override ActorClass AC { get { return ActorClass.Crusader; } }

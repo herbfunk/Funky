@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using FunkyBot.Misc;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.WitchDoctor;
 using Zeta.Game;

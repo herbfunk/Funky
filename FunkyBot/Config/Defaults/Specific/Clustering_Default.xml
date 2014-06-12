@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<SettingCluster xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ClusterDistance>10</ClusterDistance>
-  <ClusterMinimumUnitCount>2</ClusterMinimumUnitCount>
-  <EnableClusteringTargetLogic>true</EnableClusteringTargetLogic>
-  <IgnoreClusteringWhenLowHP>true</IgnoreClusteringWhenLowHP>
-</SettingCluster>

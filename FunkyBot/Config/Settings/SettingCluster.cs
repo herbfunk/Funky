@@ -28,25 +28,6 @@ namespace FunkyBot.Config.Settings
 			ClusterMaxDistance = 100;
 		}
 
-		private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Clustering_Default.xml");
-		public static SettingCluster DeserializeFromXML()
-		{
-			 XmlSerializer deserializer=new XmlSerializer(typeof(SettingCluster));
-			 TextReader textReader=new StreamReader(DefaultFilePath);
-			 SettingCluster settings;
-			 settings=(SettingCluster)deserializer.Deserialize(textReader);
-			 textReader.Close();
-			 return settings;
-		}
-		public static SettingCluster DeserializeFromXML(string Path)
-		{
-			XmlSerializer deserializer=new XmlSerializer(typeof(SettingCluster));
-			TextReader textReader=new StreamReader(Path);
-			SettingCluster settings;
-			settings=(SettingCluster)deserializer.Deserialize(textReader);
-			textReader.Close();
-			return settings;
-		}
 
 		public static readonly SettingCluster DisabledClustering = new SettingCluster
 		{

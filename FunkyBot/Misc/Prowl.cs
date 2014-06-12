@@ -6,7 +6,7 @@ using System.Web;
 
 namespace FunkyBot
 {
-    public partial class Funky
+    public static class Prowl
     {
 
         // Prowl API Key

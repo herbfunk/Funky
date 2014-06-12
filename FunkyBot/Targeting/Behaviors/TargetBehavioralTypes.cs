@@ -10,5 +10,6 @@
 		LineOfSight = 16,
 		Backtrack = 32,
 		Bounty = 64,
+		SafetyMove=128,
 	}
 }

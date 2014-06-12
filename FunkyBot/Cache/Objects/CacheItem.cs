@@ -3,11 +3,15 @@ using System.Diagnostics;
 using System.Linq;
 using FunkyBot.Cache.Enums;
 using FunkyBot.DBHandlers;
+using FunkyBot.DBHandlers.Townrun;
+using FunkyBot.Game;
 using Zeta.Bot.Logic;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
+using Logger = FunkyBot.Misc.Logger;
+using LogLevel = FunkyBot.Misc.LogLevel;
 
 namespace FunkyBot.Cache.Objects
 {
@@ -35,22 +39,25 @@ namespace FunkyBot.Cache.Objects
 
 		public int? BalanceID { get; set; }
 
-		private double LootRadius
+		public override int InteractionRange
 		{
 			get
 			{
+				int maxLootRange = (int)Bot.Targeting.Cache.iCurrentMaxLootRadius;
+
 				if (targetType.Value == TargetType.Item)
 				{
 					if (BalanceData.thisItemType == ItemType.Potion)
-						return Bot.Targeting.Cache.iCurrentMaxLootRadius + Bot.Settings.Ranges.PotionRange;
+						return maxLootRange + Bot.Settings.Ranges.PotionRange;
 
-					return Bot.Targeting.Cache.iCurrentMaxLootRadius + Bot.Settings.Ranges.ItemRange;
+					return maxLootRange + Bot.Settings.Ranges.ItemRange;
 				}
+
 				if (targetType.Value == TargetType.Gold)
-				{
-					return Bot.Targeting.Cache.iCurrentMaxLootRadius + Bot.Settings.Ranges.GoldRange;
-				}
-				return Bot.Targeting.Cache.iCurrentMaxLootRadius + Bot.Settings.Ranges.GlobeRange;
+					return maxLootRange + Bot.Settings.Ranges.GoldRange;
+				
+
+				return maxLootRange + Bot.Settings.Ranges.GlobeRange;
 			}
 		}
 
@@ -149,7 +156,7 @@ namespace FunkyBot.Cache.Objects
 						{
 							Weight += 10000d;
 
-							double rangelimitRatio = CentreDistance / LootRadius;
+							double rangelimitRatio = CentreDistance / InteractionRange;
 							if (rangelimitRatio > 0.5d && PriorityCounter == 0)
 							{
 								//prioritize!
@@ -162,7 +169,7 @@ namespace FunkyBot.Cache.Objects
 						if (Bot.Character.Data.bIsRooted)
 							Weight = 18000 - (Math.Floor(centreDistance) * 200);
 						// If there's a monster in the path-line to the item, reduce the weight
-						if (ObjectCache.Obstacles.Monsters.Any(cp => cp.PointInside(Position)))
+						if (!Bot.Character.Data.equipment.NoMonsterCollision&&ObjectCache.Obstacles.Monsters.Any(cp => cp.PointInside(Position)))
 							Weight *= 0.50;
 						//Finally check if we should reduce the weight when more then 2 monsters are nearby..
 						//if (Bot.Targeting.Cache.Environment.SurroundingUnits>2&&
@@ -190,13 +197,13 @@ namespace FunkyBot.Cache.Objects
 						if (GoldAmount > 0)
 							Weight = 11000d - (Math.Floor(centreDistance) * 200d);
 						// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-						if (this == Bot.Targeting.Cache.LastCachedTarget)
+						if (Equals(Bot.Targeting.Cache.LastCachedTarget))
 							Weight += 600;
 						// Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
 						if (Bot.Character.Data.bIsRooted)
 							Weight = 18000 - (Math.Floor(centreDistance) * 200);
 						// If there's a monster in the path-line to the item, reduce the weight by 25%
-						if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
+						if (!Bot.Character.Data.equipment.NoMonsterCollision && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 							Weight *= 0.25;
 						//Did we have a target last time? and if so was it a goblin?
 						if (Bot.Targeting.Cache.LastCachedTarget.RAGUID != -1)
@@ -239,7 +246,7 @@ namespace FunkyBot.Cache.Objects
 								Weight += 400;
 
 							// If there's a monster in the path-line to the item, reduce the weight
-							if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(BotPosition, TestPosition)))
+							if (!Bot.Character.Data.equipment.NoMonsterCollision && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(BotPosition, TestPosition)))
 							{
 								Weight *= 0.35f;
 							}
@@ -299,7 +306,7 @@ namespace FunkyBot.Cache.Objects
 					double dMultiplier = 1d;
 					if (Itemquality >= ItemQuality.Rare4) dMultiplier += 0.25d;
 					if (Itemquality >= ItemQuality.Legendary) dMultiplier += 0.45d;
-					double lootDistance = LootRadius * dMultiplier;
+					double lootDistance = InteractionRange * dMultiplier;
 
 					if (Bot.IsInNonCombatBehavior) lootDistance = Bot.Settings.Plugin.OutofCombatMaxDistance;
 					
@@ -308,7 +315,7 @@ namespace FunkyBot.Cache.Objects
 					if (centredistance > lootDistance)
 					{
 						//Add to LOS Movement..
-						if (Bot.Settings.Backtracking.TrackLootableItems && this.CentreDistance <= Bot.Settings.LOSMovement.MaximumRange)
+						if (Bot.Settings.Backtracking.TrackLootableItems && CentreDistance <= ProfileCache.LOSSettingsTag.MaximumRange)
 						{
 							LoopsUnseen = 0;
 							Logger.Write(LogLevel.Items, "Adding Item {0} to LOS Movement Objects", InternalName);
@@ -360,7 +367,7 @@ namespace FunkyBot.Cache.Objects
 							return false;
 						}
 
-						double lootRange = LootRadius;
+						double lootRange = InteractionRange;
 
 						if (Bot.IsInNonCombatBehavior) lootRange = Bot.Settings.Plugin.OutofCombatMaxDistance;
 
@@ -376,7 +383,7 @@ namespace FunkyBot.Cache.Objects
 					{
 						//GLOBE
 						// Ignore it if it's not in range yet
-						if (CentreDistance > LootRadius)
+						if (CentreDistance > InteractionRange)
 						{
 							//Blacklist Health Globes 10 loops
 							if (targetType != TargetType.PowerGlobe && !Bot.Character.Data.equipment.GlobesRestoreResource)

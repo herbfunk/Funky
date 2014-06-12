@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Zeta.Common;
+using Logger = FunkyBot.Misc.Logger;
 
 namespace FunkyBot.Movement
 {

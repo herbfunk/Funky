@@ -1,21 +1,17 @@
-﻿using FunkyBot.Cache;
+﻿using System.Globalization;
+using System.IO;
+using FunkyBot.Cache;
 using FunkyBot.Misc;
 using Zeta.Bot;
 using Zeta.Bot.Navigation;
 using Zeta.Game;
 
-namespace FunkyBot
+namespace FunkyBot.EventHandlers
 {
 	public partial class EventHandlers
 	{
 		internal static void FunkyBotStart(IBot bot)
 		{
-			if (!Funky.bPluginEnabled && bot != null)
-			{
-				Logger.DBLog.InfoFormat("WARNING: FunkyBot Plugin is NOT ENABLED. Bot start detected");
-				return;
-			}
-
 			string FunkySettingsPath = System.IO.Path.Combine(FolderPaths.DemonBuddyPath, "Settings", "FunkyBot");
 			if (!System.IO.Directory.Exists(FunkySettingsPath))
 			{
@@ -25,15 +21,10 @@ namespace FunkyBot
 			Logger.DBLog.DebugFormat("[Funky] Plugin settings location=" + FunkySettingsPath);
 
 
-			//Load Settings
-			//Bot.Character.Account.UpdateCurrentAccountDetails();
-			//
 			Bot.Reset();
-			
-
-
-			Navigator.PlayerMover = new Funky.PlayerMover();
-			Navigator.StuckHandler = new TrinityStuckHandler();
+	
+			Navigator.PlayerMover = new PlayerMover();
+			Navigator.StuckHandler = new Funky.TrinityStuckHandler();
 			GameEvents.OnPlayerDied += FunkyOnDeath;
 			GameEvents.OnGameJoined += FunkyOnJoinGame;
 			GameEvents.OnGameLeft += FunkyOnLeaveGame;
@@ -48,11 +39,11 @@ namespace FunkyBot
 				GameEvents.OnLevelUp += FunkyOnLevelUp;
 			}
 
-			ITargetingProvider newCombatTargetingProvider = new TrinityCombatTargetingReplacer();
+			ITargetingProvider newCombatTargetingProvider = new Funky.TrinityCombatTargetingReplacer();
 			CombatTargeting.Instance.Provider = newCombatTargetingProvider;
-			ITargetingProvider newLootTargetingProvider = new TrinityLootTargetingProvider();
+			ITargetingProvider newLootTargetingProvider = new Funky.TrinityLootTargetingProvider();
 			LootTargeting.Instance.Provider = newLootTargetingProvider;
-			ITargetingProvider newObstacleTargetingProvider = new TrinityObstacleTargetingProvider();
+			ITargetingProvider newObstacleTargetingProvider = new Funky.TrinityObstacleTargetingProvider();
 			ObstacleTargeting.Instance.Provider = newObstacleTargetingProvider;
 
 

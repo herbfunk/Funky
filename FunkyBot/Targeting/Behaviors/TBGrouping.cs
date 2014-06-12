@@ -2,6 +2,7 @@
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
+using FunkyBot.Misc;
 using FunkyBot.Movement.Clustering;
 
 namespace FunkyBot.Targeting.Behaviors

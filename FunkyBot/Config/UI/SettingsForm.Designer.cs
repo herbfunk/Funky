@@ -207,51 +207,9 @@
 			this.cb_AdventureModeEnabled = new System.Windows.Forms.CheckBox();
 			this.tabPage13 = new System.Windows.Forms.TabPage();
 			this.tabControl4 = new System.Windows.Forms.TabControl();
-			this.tabPage18 = new System.Windows.Forms.TabPage();
-			this.groupBox14 = new System.Windows.Forms.GroupBox();
-			this.flowLayout_TownRunBloodShardItems = new System.Windows.Forms.FlowLayoutPanel();
-			this.panel18 = new System.Windows.Forms.Panel();
-			this.label22 = new System.Windows.Forms.Label();
-			this.txt_TownRunBloodShardMinimumValue = new System.Windows.Forms.TextBox();
-			this.tb_TownRunBloodShardMinimumValue = new System.Windows.Forms.TrackBar();
-			this.cb_TownRunBloodShardGambling = new System.Windows.Forms.CheckBox();
-			this.groupBox13 = new System.Windows.Forms.GroupBox();
-			this.cb_TownRunIDLegendaries = new System.Windows.Forms.CheckBox();
-			this.groupBox24 = new System.Windows.Forms.GroupBox();
-			this.panel25 = new System.Windows.Forms.Panel();
-			this.combo_TownRunSalvageLegendaryItems = new System.Windows.Forms.ComboBox();
-			this.label31 = new System.Windows.Forms.Label();
-			this.panel24 = new System.Windows.Forms.Panel();
-			this.combo_TownRunSalvageRareItems = new System.Windows.Forms.ComboBox();
-			this.label30 = new System.Windows.Forms.Label();
-			this.panel23 = new System.Windows.Forms.Panel();
-			this.combo_TownRunSalvageMagicItems = new System.Windows.Forms.ComboBox();
-			this.label29 = new System.Windows.Forms.Label();
-			this.panel22 = new System.Windows.Forms.Panel();
-			this.combo_TownRunSalvageWhiteItems = new System.Windows.Forms.ComboBox();
-			this.label28 = new System.Windows.Forms.Label();
-			this.cb_TownRunBuyPotions = new System.Windows.Forms.CheckBox();
-			this.cb_TownRunStashHoradricCache = new System.Windows.Forms.CheckBox();
-			this.tabPage19 = new System.Windows.Forms.TabPage();
-			this.groupBox18 = new System.Windows.Forms.GroupBox();
-			this.btn_ItemRulesReloadRules = new System.Windows.Forms.Button();
-			this.btn_ItemRulesOpenFolder = new System.Windows.Forms.Button();
-			this.cb_ItemRulesDebugging = new System.Windows.Forms.CheckBox();
-			this.cb_ItemRulesUseItemIDs = new System.Windows.Forms.CheckBox();
-			this.groupBox17 = new System.Windows.Forms.GroupBox();
-			this.comboBox_ItemRulesLogPickup = new System.Windows.Forms.ComboBox();
-			this.label24 = new System.Windows.Forms.Label();
-			this.combobox_ItemRulesLogStashed = new System.Windows.Forms.ComboBox();
-			this.label23 = new System.Windows.Forms.Label();
-			this.groupBox15 = new System.Windows.Forms.GroupBox();
-			this.cb_ItemRulesPickup = new System.Windows.Forms.CheckBox();
-			this.groupBox16 = new System.Windows.Forms.GroupBox();
-			this.btn_ItemRulesCustomBrowse = new System.Windows.Forms.Button();
-			this.txt_ItemRulesCustomLocation = new System.Windows.Forms.TextBox();
-			this.comboBox_ItemRulesType = new System.Windows.Forms.ComboBox();
-			this.cb_ItemRules = new System.Windows.Forms.CheckBox();
 			this.tabPage20 = new System.Windows.Forms.TabPage();
 			this.groupBox21 = new System.Windows.Forms.GroupBox();
+			this.cb_LootPickupCraftPlans = new System.Windows.Forms.CheckBox();
 			this.cb_LootKeyStones = new System.Windows.Forms.CheckBox();
 			this.cb_LootExpBooks = new System.Windows.Forms.CheckBox();
 			this.cb_LootInfernoKeys = new System.Windows.Forms.CheckBox();
@@ -273,7 +231,14 @@
 			this.comboBox_LootGemQuality = new System.Windows.Forms.ComboBox();
 			this.label25 = new System.Windows.Forms.Label();
 			this.groupBox19 = new System.Windows.Forms.GroupBox();
-			this.cb_LootPickupCraftPlans = new System.Windows.Forms.CheckBox();
+			this.comboBox_LootLegendaryItemQuality = new System.Windows.Forms.ComboBox();
+			this.label28 = new System.Windows.Forms.Label();
+			this.comboBox_LootRareItemQuality = new System.Windows.Forms.ComboBox();
+			this.label24 = new System.Windows.Forms.Label();
+			this.comboBox_LootMagicItemQuality = new System.Windows.Forms.ComboBox();
+			this.label23 = new System.Windows.Forms.Label();
+			this.comboBox_LootWhiteItemQuality = new System.Windows.Forms.ComboBox();
+			this.label22 = new System.Windows.Forms.Label();
 			this.tabPage14 = new System.Windows.Forms.TabPage();
 			this.groupBox23 = new System.Windows.Forms.GroupBox();
 			this.flowLayout_DebugFunkyLogLevels = new System.Windows.Forms.FlowLayoutPanel();
@@ -295,6 +260,7 @@
 			this.btn_DumpBountyCache = new System.Windows.Forms.Button();
 			this.btn_Test = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+			this.btn_DumpInventory = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabControl_Combat.SuspendLayout();
@@ -370,21 +336,6 @@
 			this.tabPage17.SuspendLayout();
 			this.tabPage13.SuspendLayout();
 			this.tabControl4.SuspendLayout();
-			this.tabPage18.SuspendLayout();
-			this.groupBox14.SuspendLayout();
-			this.panel18.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.tb_TownRunBloodShardMinimumValue)).BeginInit();
-			this.groupBox13.SuspendLayout();
-			this.groupBox24.SuspendLayout();
-			this.panel25.SuspendLayout();
-			this.panel24.SuspendLayout();
-			this.panel23.SuspendLayout();
-			this.panel22.SuspendLayout();
-			this.tabPage19.SuspendLayout();
-			this.groupBox18.SuspendLayout();
-			this.groupBox17.SuspendLayout();
-			this.groupBox15.SuspendLayout();
-			this.groupBox16.SuspendLayout();
 			this.tabPage20.SuspendLayout();
 			this.groupBox21.SuspendLayout();
 			this.panel20.SuspendLayout();
@@ -2287,8 +2238,6 @@
 			// 
 			// tabControl4
 			// 
-			this.tabControl4.Controls.Add(this.tabPage18);
-			this.tabControl4.Controls.Add(this.tabPage19);
 			this.tabControl4.Controls.Add(this.tabPage20);
 			this.tabControl4.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl4.Location = new System.Drawing.Point(3, 3);
@@ -2296,480 +2245,6 @@
 			this.tabControl4.SelectedIndex = 0;
 			this.tabControl4.Size = new System.Drawing.Size(665, 555);
 			this.tabControl4.TabIndex = 0;
-			// 
-			// tabPage18
-			// 
-			this.tabPage18.Controls.Add(this.groupBox14);
-			this.tabPage18.Controls.Add(this.groupBox13);
-			this.tabPage18.Location = new System.Drawing.Point(4, 22);
-			this.tabPage18.Name = "tabPage18";
-			this.tabPage18.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage18.Size = new System.Drawing.Size(657, 529);
-			this.tabPage18.TabIndex = 0;
-			this.tabPage18.Text = "Town Run";
-			this.tabPage18.UseVisualStyleBackColor = true;
-			// 
-			// groupBox14
-			// 
-			this.groupBox14.Controls.Add(this.flowLayout_TownRunBloodShardItems);
-			this.groupBox14.Controls.Add(this.panel18);
-			this.groupBox14.Controls.Add(this.cb_TownRunBloodShardGambling);
-			this.groupBox14.Dock = System.Windows.Forms.DockStyle.Top;
-			this.groupBox14.Location = new System.Drawing.Point(3, 217);
-			this.groupBox14.Name = "groupBox14";
-			this.groupBox14.Size = new System.Drawing.Size(651, 426);
-			this.groupBox14.TabIndex = 2;
-			this.groupBox14.TabStop = false;
-			this.groupBox14.Text = "Blood Shard Gambling";
-			// 
-			// flowLayout_TownRunBloodShardItems
-			// 
-			this.flowLayout_TownRunBloodShardItems.Dock = System.Windows.Forms.DockStyle.Top;
-			this.flowLayout_TownRunBloodShardItems.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-			this.flowLayout_TownRunBloodShardItems.Location = new System.Drawing.Point(3, 101);
-			this.flowLayout_TownRunBloodShardItems.Name = "flowLayout_TownRunBloodShardItems";
-			this.flowLayout_TownRunBloodShardItems.Size = new System.Drawing.Size(645, 215);
-			this.flowLayout_TownRunBloodShardItems.TabIndex = 20;
-			// 
-			// panel18
-			// 
-			this.panel18.Controls.Add(this.label22);
-			this.panel18.Controls.Add(this.txt_TownRunBloodShardMinimumValue);
-			this.panel18.Controls.Add(this.tb_TownRunBloodShardMinimumValue);
-			this.panel18.Dock = System.Windows.Forms.DockStyle.Top;
-			this.panel18.Location = new System.Drawing.Point(3, 37);
-			this.panel18.Name = "panel18";
-			this.panel18.Size = new System.Drawing.Size(645, 64);
-			this.panel18.TabIndex = 18;
-			// 
-			// label22
-			// 
-			this.label22.AutoSize = true;
-			this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label22.Location = new System.Drawing.Point(7, 9);
-			this.label22.Name = "label22";
-			this.label22.Size = new System.Drawing.Size(180, 17);
-			this.label22.TabIndex = 7;
-			this.label22.Text = "Minimum Bloodshard Count";
-			// 
-			// txt_TownRunBloodShardMinimumValue
-			// 
-			this.txt_TownRunBloodShardMinimumValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txt_TownRunBloodShardMinimumValue.Location = new System.Drawing.Point(188, 29);
-			this.txt_TownRunBloodShardMinimumValue.Name = "txt_TownRunBloodShardMinimumValue";
-			this.txt_TownRunBloodShardMinimumValue.ReadOnly = true;
-			this.txt_TownRunBloodShardMinimumValue.Size = new System.Drawing.Size(58, 26);
-			this.txt_TownRunBloodShardMinimumValue.TabIndex = 9;
-			// 
-			// tb_TownRunBloodShardMinimumValue
-			// 
-			this.tb_TownRunBloodShardMinimumValue.LargeChange = 10;
-			this.tb_TownRunBloodShardMinimumValue.Location = new System.Drawing.Point(10, 29);
-			this.tb_TownRunBloodShardMinimumValue.Maximum = 500;
-			this.tb_TownRunBloodShardMinimumValue.Name = "tb_TownRunBloodShardMinimumValue";
-			this.tb_TownRunBloodShardMinimumValue.Size = new System.Drawing.Size(172, 42);
-			this.tb_TownRunBloodShardMinimumValue.TabIndex = 8;
-			this.tb_TownRunBloodShardMinimumValue.TickFrequency = 25;
-			// 
-			// cb_TownRunBloodShardGambling
-			// 
-			this.cb_TownRunBloodShardGambling.AutoSize = true;
-			this.cb_TownRunBloodShardGambling.Dock = System.Windows.Forms.DockStyle.Top;
-			this.cb_TownRunBloodShardGambling.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cb_TownRunBloodShardGambling.Location = new System.Drawing.Point(3, 16);
-			this.cb_TownRunBloodShardGambling.Name = "cb_TownRunBloodShardGambling";
-			this.cb_TownRunBloodShardGambling.Size = new System.Drawing.Size(645, 21);
-			this.cb_TownRunBloodShardGambling.TabIndex = 0;
-			this.cb_TownRunBloodShardGambling.Text = "Allow Blood Shard Gambling";
-			this.cb_TownRunBloodShardGambling.UseVisualStyleBackColor = true;
-			// 
-			// groupBox13
-			// 
-			this.groupBox13.Controls.Add(this.cb_TownRunIDLegendaries);
-			this.groupBox13.Controls.Add(this.groupBox24);
-			this.groupBox13.Controls.Add(this.cb_TownRunBuyPotions);
-			this.groupBox13.Controls.Add(this.cb_TownRunStashHoradricCache);
-			this.groupBox13.Dock = System.Windows.Forms.DockStyle.Top;
-			this.groupBox13.Location = new System.Drawing.Point(3, 3);
-			this.groupBox13.Name = "groupBox13";
-			this.groupBox13.Size = new System.Drawing.Size(651, 214);
-			this.groupBox13.TabIndex = 1;
-			this.groupBox13.TabStop = false;
-			this.groupBox13.Text = "Options";
-			// 
-			// cb_TownRunIDLegendaries
-			// 
-			this.cb_TownRunIDLegendaries.AutoSize = true;
-			this.cb_TownRunIDLegendaries.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cb_TownRunIDLegendaries.Location = new System.Drawing.Point(6, 69);
-			this.cb_TownRunIDLegendaries.Name = "cb_TownRunIDLegendaries";
-			this.cb_TownRunIDLegendaries.Size = new System.Drawing.Size(155, 21);
-			this.cb_TownRunIDLegendaries.TabIndex = 3;
-			this.cb_TownRunIDLegendaries.Text = "Identify Legendaries";
-			this.cb_TownRunIDLegendaries.UseVisualStyleBackColor = true;
-			// 
-			// groupBox24
-			// 
-			this.groupBox24.Controls.Add(this.panel25);
-			this.groupBox24.Controls.Add(this.panel24);
-			this.groupBox24.Controls.Add(this.panel23);
-			this.groupBox24.Controls.Add(this.panel22);
-			this.groupBox24.Location = new System.Drawing.Point(6, 98);
-			this.groupBox24.Name = "groupBox24";
-			this.groupBox24.Size = new System.Drawing.Size(639, 78);
-			this.groupBox24.TabIndex = 2;
-			this.groupBox24.TabStop = false;
-			this.groupBox24.Text = "Salvage Options";
-			// 
-			// panel25
-			// 
-			this.panel25.Controls.Add(this.combo_TownRunSalvageLegendaryItems);
-			this.panel25.Controls.Add(this.label31);
-			this.panel25.Location = new System.Drawing.Point(430, 19);
-			this.panel25.Name = "panel25";
-			this.panel25.Size = new System.Drawing.Size(135, 46);
-			this.panel25.TabIndex = 3;
-			// 
-			// combo_TownRunSalvageLegendaryItems
-			// 
-			this.combo_TownRunSalvageLegendaryItems.FormattingEnabled = true;
-			this.combo_TownRunSalvageLegendaryItems.Items.AddRange(new object[] {
-            "None",
-            "All",
-            "ROS Only"});
-			this.combo_TownRunSalvageLegendaryItems.Location = new System.Drawing.Point(6, 16);
-			this.combo_TownRunSalvageLegendaryItems.Name = "combo_TownRunSalvageLegendaryItems";
-			this.combo_TownRunSalvageLegendaryItems.Size = new System.Drawing.Size(121, 21);
-			this.combo_TownRunSalvageLegendaryItems.TabIndex = 1;
-			// 
-			// label31
-			// 
-			this.label31.AutoSize = true;
-			this.label31.Location = new System.Drawing.Point(3, 0);
-			this.label31.Name = "label31";
-			this.label31.Size = new System.Drawing.Size(85, 13);
-			this.label31.TabIndex = 0;
-			this.label31.Text = "Legendary Items";
-			// 
-			// panel24
-			// 
-			this.panel24.Controls.Add(this.combo_TownRunSalvageRareItems);
-			this.panel24.Controls.Add(this.label30);
-			this.panel24.Location = new System.Drawing.Point(289, 19);
-			this.panel24.Name = "panel24";
-			this.panel24.Size = new System.Drawing.Size(135, 46);
-			this.panel24.TabIndex = 2;
-			// 
-			// combo_TownRunSalvageRareItems
-			// 
-			this.combo_TownRunSalvageRareItems.FormattingEnabled = true;
-			this.combo_TownRunSalvageRareItems.Items.AddRange(new object[] {
-            "None",
-            "All",
-            "ROS Only"});
-			this.combo_TownRunSalvageRareItems.Location = new System.Drawing.Point(6, 16);
-			this.combo_TownRunSalvageRareItems.Name = "combo_TownRunSalvageRareItems";
-			this.combo_TownRunSalvageRareItems.Size = new System.Drawing.Size(121, 21);
-			this.combo_TownRunSalvageRareItems.TabIndex = 1;
-			// 
-			// label30
-			// 
-			this.label30.AutoSize = true;
-			this.label30.Location = new System.Drawing.Point(3, 0);
-			this.label30.Name = "label30";
-			this.label30.Size = new System.Drawing.Size(58, 13);
-			this.label30.TabIndex = 0;
-			this.label30.Text = "Rare Items";
-			// 
-			// panel23
-			// 
-			this.panel23.Controls.Add(this.combo_TownRunSalvageMagicItems);
-			this.panel23.Controls.Add(this.label29);
-			this.panel23.Location = new System.Drawing.Point(148, 19);
-			this.panel23.Name = "panel23";
-			this.panel23.Size = new System.Drawing.Size(135, 46);
-			this.panel23.TabIndex = 1;
-			// 
-			// combo_TownRunSalvageMagicItems
-			// 
-			this.combo_TownRunSalvageMagicItems.FormattingEnabled = true;
-			this.combo_TownRunSalvageMagicItems.Items.AddRange(new object[] {
-            "None",
-            "All",
-            "ROS Only"});
-			this.combo_TownRunSalvageMagicItems.Location = new System.Drawing.Point(6, 16);
-			this.combo_TownRunSalvageMagicItems.Name = "combo_TownRunSalvageMagicItems";
-			this.combo_TownRunSalvageMagicItems.Size = new System.Drawing.Size(121, 21);
-			this.combo_TownRunSalvageMagicItems.TabIndex = 1;
-			// 
-			// label29
-			// 
-			this.label29.AutoSize = true;
-			this.label29.Location = new System.Drawing.Point(3, 0);
-			this.label29.Name = "label29";
-			this.label29.Size = new System.Drawing.Size(64, 13);
-			this.label29.TabIndex = 0;
-			this.label29.Text = "Magic Items";
-			// 
-			// panel22
-			// 
-			this.panel22.Controls.Add(this.combo_TownRunSalvageWhiteItems);
-			this.panel22.Controls.Add(this.label28);
-			this.panel22.Location = new System.Drawing.Point(7, 19);
-			this.panel22.Name = "panel22";
-			this.panel22.Size = new System.Drawing.Size(135, 46);
-			this.panel22.TabIndex = 0;
-			// 
-			// combo_TownRunSalvageWhiteItems
-			// 
-			this.combo_TownRunSalvageWhiteItems.FormattingEnabled = true;
-			this.combo_TownRunSalvageWhiteItems.Items.AddRange(new object[] {
-            "None",
-            "All",
-            "ROS Only"});
-			this.combo_TownRunSalvageWhiteItems.Location = new System.Drawing.Point(6, 16);
-			this.combo_TownRunSalvageWhiteItems.Name = "combo_TownRunSalvageWhiteItems";
-			this.combo_TownRunSalvageWhiteItems.Size = new System.Drawing.Size(121, 21);
-			this.combo_TownRunSalvageWhiteItems.TabIndex = 1;
-			// 
-			// label28
-			// 
-			this.label28.AutoSize = true;
-			this.label28.Location = new System.Drawing.Point(3, 0);
-			this.label28.Name = "label28";
-			this.label28.Size = new System.Drawing.Size(63, 13);
-			this.label28.TabIndex = 0;
-			this.label28.Text = "White Items";
-			// 
-			// cb_TownRunBuyPotions
-			// 
-			this.cb_TownRunBuyPotions.AutoSize = true;
-			this.cb_TownRunBuyPotions.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cb_TownRunBuyPotions.Location = new System.Drawing.Point(6, 42);
-			this.cb_TownRunBuyPotions.Name = "cb_TownRunBuyPotions";
-			this.cb_TownRunBuyPotions.Size = new System.Drawing.Size(102, 21);
-			this.cb_TownRunBuyPotions.TabIndex = 1;
-			this.cb_TownRunBuyPotions.Text = "Buy Potions";
-			this.cb_TownRunBuyPotions.UseVisualStyleBackColor = true;
-			// 
-			// cb_TownRunStashHoradricCache
-			// 
-			this.cb_TownRunStashHoradricCache.AutoSize = true;
-			this.cb_TownRunStashHoradricCache.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cb_TownRunStashHoradricCache.Location = new System.Drawing.Point(6, 19);
-			this.cb_TownRunStashHoradricCache.Name = "cb_TownRunStashHoradricCache";
-			this.cb_TownRunStashHoradricCache.Size = new System.Drawing.Size(165, 21);
-			this.cb_TownRunStashHoradricCache.TabIndex = 0;
-			this.cb_TownRunStashHoradricCache.Text = "Stash Horadric Cache";
-			this.cb_TownRunStashHoradricCache.UseVisualStyleBackColor = true;
-			// 
-			// tabPage19
-			// 
-			this.tabPage19.Controls.Add(this.groupBox18);
-			this.tabPage19.Controls.Add(this.groupBox17);
-			this.tabPage19.Controls.Add(this.groupBox15);
-			this.tabPage19.Controls.Add(this.groupBox16);
-			this.tabPage19.Controls.Add(this.cb_ItemRules);
-			this.tabPage19.Location = new System.Drawing.Point(4, 22);
-			this.tabPage19.Name = "tabPage19";
-			this.tabPage19.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage19.Size = new System.Drawing.Size(657, 529);
-			this.tabPage19.TabIndex = 1;
-			this.tabPage19.Text = "Item Rules";
-			this.tabPage19.UseVisualStyleBackColor = true;
-			// 
-			// groupBox18
-			// 
-			this.groupBox18.Controls.Add(this.btn_ItemRulesReloadRules);
-			this.groupBox18.Controls.Add(this.btn_ItemRulesOpenFolder);
-			this.groupBox18.Controls.Add(this.cb_ItemRulesDebugging);
-			this.groupBox18.Controls.Add(this.cb_ItemRulesUseItemIDs);
-			this.groupBox18.Dock = System.Windows.Forms.DockStyle.Top;
-			this.groupBox18.Location = new System.Drawing.Point(3, 199);
-			this.groupBox18.Name = "groupBox18";
-			this.groupBox18.Size = new System.Drawing.Size(651, 131);
-			this.groupBox18.TabIndex = 23;
-			this.groupBox18.TabStop = false;
-			this.groupBox18.Text = "Misc";
-			// 
-			// btn_ItemRulesReloadRules
-			// 
-			this.btn_ItemRulesReloadRules.Location = new System.Drawing.Point(252, 77);
-			this.btn_ItemRulesReloadRules.Name = "btn_ItemRulesReloadRules";
-			this.btn_ItemRulesReloadRules.Size = new System.Drawing.Size(237, 48);
-			this.btn_ItemRulesReloadRules.TabIndex = 4;
-			this.btn_ItemRulesReloadRules.Text = "Reload Rules";
-			this.btn_ItemRulesReloadRules.UseVisualStyleBackColor = true;
-			// 
-			// btn_ItemRulesOpenFolder
-			// 
-			this.btn_ItemRulesOpenFolder.Location = new System.Drawing.Point(9, 77);
-			this.btn_ItemRulesOpenFolder.Name = "btn_ItemRulesOpenFolder";
-			this.btn_ItemRulesOpenFolder.Size = new System.Drawing.Size(237, 48);
-			this.btn_ItemRulesOpenFolder.TabIndex = 3;
-			this.btn_ItemRulesOpenFolder.Text = "Open Item Rules Folder";
-			this.btn_ItemRulesOpenFolder.UseVisualStyleBackColor = true;
-			// 
-			// cb_ItemRulesDebugging
-			// 
-			this.cb_ItemRulesDebugging.AutoSize = true;
-			this.cb_ItemRulesDebugging.Location = new System.Drawing.Point(9, 42);
-			this.cb_ItemRulesDebugging.Name = "cb_ItemRulesDebugging";
-			this.cb_ItemRulesDebugging.Size = new System.Drawing.Size(78, 17);
-			this.cb_ItemRulesDebugging.TabIndex = 2;
-			this.cb_ItemRulesDebugging.Text = "Debugging";
-			this.cb_ItemRulesDebugging.UseVisualStyleBackColor = true;
-			// 
-			// cb_ItemRulesUseItemIDs
-			// 
-			this.cb_ItemRulesUseItemIDs.AutoSize = true;
-			this.cb_ItemRulesUseItemIDs.Location = new System.Drawing.Point(9, 19);
-			this.cb_ItemRulesUseItemIDs.Name = "cb_ItemRulesUseItemIDs";
-			this.cb_ItemRulesUseItemIDs.Size = new System.Drawing.Size(87, 17);
-			this.cb_ItemRulesUseItemIDs.TabIndex = 1;
-			this.cb_ItemRulesUseItemIDs.Text = "Use Item IDs";
-			this.cb_ItemRulesUseItemIDs.UseVisualStyleBackColor = true;
-			// 
-			// groupBox17
-			// 
-			this.groupBox17.Controls.Add(this.comboBox_ItemRulesLogPickup);
-			this.groupBox17.Controls.Add(this.label24);
-			this.groupBox17.Controls.Add(this.combobox_ItemRulesLogStashed);
-			this.groupBox17.Controls.Add(this.label23);
-			this.groupBox17.Dock = System.Windows.Forms.DockStyle.Top;
-			this.groupBox17.Location = new System.Drawing.Point(3, 129);
-			this.groupBox17.Name = "groupBox17";
-			this.groupBox17.Size = new System.Drawing.Size(651, 70);
-			this.groupBox17.TabIndex = 22;
-			this.groupBox17.TabStop = false;
-			this.groupBox17.Text = "Logging";
-			// 
-			// comboBox_ItemRulesLogPickup
-			// 
-			this.comboBox_ItemRulesLogPickup.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.comboBox_ItemRulesLogPickup.FormattingEnabled = true;
-			this.comboBox_ItemRulesLogPickup.Items.AddRange(new object[] {
-            "Common",
-            "Normal",
-            "Magic",
-            "Rare",
-            "Legendary"});
-			this.comboBox_ItemRulesLogPickup.Location = new System.Drawing.Point(142, 36);
-			this.comboBox_ItemRulesLogPickup.Name = "comboBox_ItemRulesLogPickup";
-			this.comboBox_ItemRulesLogPickup.Size = new System.Drawing.Size(127, 24);
-			this.comboBox_ItemRulesLogPickup.TabIndex = 3;
-			// 
-			// label24
-			// 
-			this.label24.AutoSize = true;
-			this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label24.Location = new System.Drawing.Point(139, 16);
-			this.label24.Name = "label24";
-			this.label24.Size = new System.Drawing.Size(87, 17);
-			this.label24.TabIndex = 2;
-			this.label24.Text = "Items Pickup";
-			// 
-			// combobox_ItemRulesLogStashed
-			// 
-			this.combobox_ItemRulesLogStashed.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.combobox_ItemRulesLogStashed.FormattingEnabled = true;
-			this.combobox_ItemRulesLogStashed.Items.AddRange(new object[] {
-            "Common",
-            "Normal",
-            "Magic",
-            "Rare",
-            "Legendary"});
-			this.combobox_ItemRulesLogStashed.Location = new System.Drawing.Point(9, 36);
-			this.combobox_ItemRulesLogStashed.Name = "combobox_ItemRulesLogStashed";
-			this.combobox_ItemRulesLogStashed.Size = new System.Drawing.Size(127, 24);
-			this.combobox_ItemRulesLogStashed.TabIndex = 1;
-			// 
-			// label23
-			// 
-			this.label23.AutoSize = true;
-			this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label23.Location = new System.Drawing.Point(6, 16);
-			this.label23.Name = "label23";
-			this.label23.Size = new System.Drawing.Size(97, 17);
-			this.label23.TabIndex = 0;
-			this.label23.Text = "Items Stashed";
-			// 
-			// groupBox15
-			// 
-			this.groupBox15.Controls.Add(this.cb_ItemRulesPickup);
-			this.groupBox15.Dock = System.Windows.Forms.DockStyle.Top;
-			this.groupBox15.Location = new System.Drawing.Point(3, 81);
-			this.groupBox15.Name = "groupBox15";
-			this.groupBox15.Size = new System.Drawing.Size(651, 48);
-			this.groupBox15.TabIndex = 20;
-			this.groupBox15.TabStop = false;
-			this.groupBox15.Text = "Additional Rules";
-			// 
-			// cb_ItemRulesPickup
-			// 
-			this.cb_ItemRulesPickup.AutoSize = true;
-			this.cb_ItemRulesPickup.Location = new System.Drawing.Point(6, 19);
-			this.cb_ItemRulesPickup.Name = "cb_ItemRulesPickup";
-			this.cb_ItemRulesPickup.Size = new System.Drawing.Size(59, 17);
-			this.cb_ItemRulesPickup.TabIndex = 0;
-			this.cb_ItemRulesPickup.Text = "Pickup";
-			this.cb_ItemRulesPickup.UseVisualStyleBackColor = true;
-			// 
-			// groupBox16
-			// 
-			this.groupBox16.Controls.Add(this.btn_ItemRulesCustomBrowse);
-			this.groupBox16.Controls.Add(this.txt_ItemRulesCustomLocation);
-			this.groupBox16.Controls.Add(this.comboBox_ItemRulesType);
-			this.groupBox16.Dock = System.Windows.Forms.DockStyle.Top;
-			this.groupBox16.Location = new System.Drawing.Point(3, 27);
-			this.groupBox16.Name = "groupBox16";
-			this.groupBox16.Size = new System.Drawing.Size(651, 54);
-			this.groupBox16.TabIndex = 21;
-			this.groupBox16.TabStop = false;
-			this.groupBox16.Text = "Rule Set";
-			// 
-			// btn_ItemRulesCustomBrowse
-			// 
-			this.btn_ItemRulesCustomBrowse.Location = new System.Drawing.Point(548, 19);
-			this.btn_ItemRulesCustomBrowse.Name = "btn_ItemRulesCustomBrowse";
-			this.btn_ItemRulesCustomBrowse.Size = new System.Drawing.Size(75, 23);
-			this.btn_ItemRulesCustomBrowse.TabIndex = 2;
-			this.btn_ItemRulesCustomBrowse.Text = "Browse";
-			this.btn_ItemRulesCustomBrowse.UseVisualStyleBackColor = true;
-			// 
-			// txt_ItemRulesCustomLocation
-			// 
-			this.txt_ItemRulesCustomLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txt_ItemRulesCustomLocation.Location = new System.Drawing.Point(133, 19);
-			this.txt_ItemRulesCustomLocation.Name = "txt_ItemRulesCustomLocation";
-			this.txt_ItemRulesCustomLocation.ReadOnly = true;
-			this.txt_ItemRulesCustomLocation.Size = new System.Drawing.Size(409, 23);
-			this.txt_ItemRulesCustomLocation.TabIndex = 1;
-			// 
-			// comboBox_ItemRulesType
-			// 
-			this.comboBox_ItemRulesType.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.comboBox_ItemRulesType.FormattingEnabled = true;
-			this.comboBox_ItemRulesType.Items.AddRange(new object[] {
-            "Custom",
-            "Hard",
-            "Soft"});
-			this.comboBox_ItemRulesType.Location = new System.Drawing.Point(6, 19);
-			this.comboBox_ItemRulesType.Name = "comboBox_ItemRulesType";
-			this.comboBox_ItemRulesType.Size = new System.Drawing.Size(121, 24);
-			this.comboBox_ItemRulesType.TabIndex = 0;
-			// 
-			// cb_ItemRules
-			// 
-			this.cb_ItemRules.AutoSize = true;
-			this.cb_ItemRules.Dock = System.Windows.Forms.DockStyle.Top;
-			this.cb_ItemRules.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cb_ItemRules.Location = new System.Drawing.Point(3, 3);
-			this.cb_ItemRules.Name = "cb_ItemRules";
-			this.cb_ItemRules.Size = new System.Drawing.Size(651, 24);
-			this.cb_ItemRules.TabIndex = 19;
-			this.cb_ItemRules.Text = "Enable Item Rules";
-			this.cb_ItemRules.UseVisualStyleBackColor = true;
 			// 
 			// tabPage20
 			// 
@@ -2786,6 +2261,7 @@
 			// 
 			// groupBox21
 			// 
+			this.groupBox21.Controls.Add(this.cb_LootPickupCraftPlans);
 			this.groupBox21.Controls.Add(this.cb_LootKeyStones);
 			this.groupBox21.Controls.Add(this.cb_LootExpBooks);
 			this.groupBox21.Controls.Add(this.cb_LootInfernoKeys);
@@ -2799,6 +2275,17 @@
 			this.groupBox21.TabIndex = 2;
 			this.groupBox21.TabStop = false;
 			this.groupBox21.Text = "Misc";
+			// 
+			// cb_LootPickupCraftPlans
+			// 
+			this.cb_LootPickupCraftPlans.AutoSize = true;
+			this.cb_LootPickupCraftPlans.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_LootPickupCraftPlans.Location = new System.Drawing.Point(9, 97);
+			this.cb_LootPickupCraftPlans.Name = "cb_LootPickupCraftPlans";
+			this.cb_LootPickupCraftPlans.Size = new System.Drawing.Size(115, 21);
+			this.cb_LootPickupCraftPlans.TabIndex = 0;
+			this.cb_LootPickupCraftPlans.Text = "Crafting Plans";
+			this.cb_LootPickupCraftPlans.UseVisualStyleBackColor = true;
 			// 
 			// cb_LootKeyStones
 			// 
@@ -2826,7 +2313,7 @@
 			// 
 			this.cb_LootInfernoKeys.AutoSize = true;
 			this.cb_LootInfernoKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cb_LootInfernoKeys.Location = new System.Drawing.Point(9, 151);
+			this.cb_LootInfernoKeys.Location = new System.Drawing.Point(9, 147);
 			this.cb_LootInfernoKeys.Name = "cb_LootInfernoKeys";
 			this.cb_LootInfernoKeys.Size = new System.Drawing.Size(106, 21);
 			this.cb_LootInfernoKeys.TabIndex = 21;
@@ -3030,25 +2517,113 @@
 			// 
 			// groupBox19
 			// 
-			this.groupBox19.Controls.Add(this.cb_LootPickupCraftPlans);
+			this.groupBox19.Controls.Add(this.comboBox_LootLegendaryItemQuality);
+			this.groupBox19.Controls.Add(this.label28);
+			this.groupBox19.Controls.Add(this.comboBox_LootRareItemQuality);
+			this.groupBox19.Controls.Add(this.label24);
+			this.groupBox19.Controls.Add(this.comboBox_LootMagicItemQuality);
+			this.groupBox19.Controls.Add(this.label23);
+			this.groupBox19.Controls.Add(this.comboBox_LootWhiteItemQuality);
+			this.groupBox19.Controls.Add(this.label22);
 			this.groupBox19.Dock = System.Windows.Forms.DockStyle.Top;
 			this.groupBox19.Location = new System.Drawing.Point(3, 3);
 			this.groupBox19.Name = "groupBox19";
 			this.groupBox19.Size = new System.Drawing.Size(651, 100);
 			this.groupBox19.TabIndex = 0;
 			this.groupBox19.TabStop = false;
-			this.groupBox19.Text = "Crafting Plans";
+			this.groupBox19.Text = "Items";
 			// 
-			// cb_LootPickupCraftPlans
+			// comboBox_LootLegendaryItemQuality
 			// 
-			this.cb_LootPickupCraftPlans.AutoSize = true;
-			this.cb_LootPickupCraftPlans.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cb_LootPickupCraftPlans.Location = new System.Drawing.Point(6, 19);
-			this.cb_LootPickupCraftPlans.Name = "cb_LootPickupCraftPlans";
-			this.cb_LootPickupCraftPlans.Size = new System.Drawing.Size(142, 21);
-			this.cb_LootPickupCraftPlans.TabIndex = 0;
-			this.cb_LootPickupCraftPlans.Text = "Pickup Craft Plans";
-			this.cb_LootPickupCraftPlans.UseVisualStyleBackColor = true;
+			this.comboBox_LootLegendaryItemQuality.FormattingEnabled = true;
+			this.comboBox_LootLegendaryItemQuality.Items.AddRange(new object[] {
+            "None",
+            "ROS",
+            "All"});
+			this.comboBox_LootLegendaryItemQuality.Location = new System.Drawing.Point(390, 36);
+			this.comboBox_LootLegendaryItemQuality.Name = "comboBox_LootLegendaryItemQuality";
+			this.comboBox_LootLegendaryItemQuality.Size = new System.Drawing.Size(121, 21);
+			this.comboBox_LootLegendaryItemQuality.TabIndex = 9;
+			this.comboBox_LootLegendaryItemQuality.Tag = "legendary";
+			// 
+			// label28
+			// 
+			this.label28.AutoSize = true;
+			this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label28.Location = new System.Drawing.Point(387, 16);
+			this.label28.Name = "label28";
+			this.label28.Size = new System.Drawing.Size(76, 17);
+			this.label28.TabIndex = 8;
+			this.label28.Text = "Legendary";
+			// 
+			// comboBox_LootRareItemQuality
+			// 
+			this.comboBox_LootRareItemQuality.FormattingEnabled = true;
+			this.comboBox_LootRareItemQuality.Items.AddRange(new object[] {
+            "None",
+            "ROS",
+            "All"});
+			this.comboBox_LootRareItemQuality.Location = new System.Drawing.Point(263, 36);
+			this.comboBox_LootRareItemQuality.Name = "comboBox_LootRareItemQuality";
+			this.comboBox_LootRareItemQuality.Size = new System.Drawing.Size(121, 21);
+			this.comboBox_LootRareItemQuality.TabIndex = 7;
+			this.comboBox_LootRareItemQuality.Tag = "rare";
+			// 
+			// label24
+			// 
+			this.label24.AutoSize = true;
+			this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label24.Location = new System.Drawing.Point(260, 16);
+			this.label24.Name = "label24";
+			this.label24.Size = new System.Drawing.Size(39, 17);
+			this.label24.TabIndex = 6;
+			this.label24.Text = "Rare";
+			// 
+			// comboBox_LootMagicItemQuality
+			// 
+			this.comboBox_LootMagicItemQuality.FormattingEnabled = true;
+			this.comboBox_LootMagicItemQuality.Items.AddRange(new object[] {
+            "None",
+            "ROS",
+            "All"});
+			this.comboBox_LootMagicItemQuality.Location = new System.Drawing.Point(136, 36);
+			this.comboBox_LootMagicItemQuality.Name = "comboBox_LootMagicItemQuality";
+			this.comboBox_LootMagicItemQuality.Size = new System.Drawing.Size(121, 21);
+			this.comboBox_LootMagicItemQuality.TabIndex = 5;
+			this.comboBox_LootMagicItemQuality.Tag = "magic";
+			// 
+			// label23
+			// 
+			this.label23.AutoSize = true;
+			this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label23.Location = new System.Drawing.Point(133, 16);
+			this.label23.Name = "label23";
+			this.label23.Size = new System.Drawing.Size(56, 17);
+			this.label23.TabIndex = 4;
+			this.label23.Text = "Magical";
+			// 
+			// comboBox_LootWhiteItemQuality
+			// 
+			this.comboBox_LootWhiteItemQuality.FormattingEnabled = true;
+			this.comboBox_LootWhiteItemQuality.Items.AddRange(new object[] {
+            "None",
+            "ROS",
+            "All"});
+			this.comboBox_LootWhiteItemQuality.Location = new System.Drawing.Point(9, 36);
+			this.comboBox_LootWhiteItemQuality.Name = "comboBox_LootWhiteItemQuality";
+			this.comboBox_LootWhiteItemQuality.Size = new System.Drawing.Size(121, 21);
+			this.comboBox_LootWhiteItemQuality.TabIndex = 3;
+			this.comboBox_LootWhiteItemQuality.Tag = "white";
+			// 
+			// label22
+			// 
+			this.label22.AutoSize = true;
+			this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label22.Location = new System.Drawing.Point(6, 16);
+			this.label22.Name = "label22";
+			this.label22.Size = new System.Drawing.Size(44, 17);
+			this.label22.TabIndex = 2;
+			this.label22.Text = "White";
 			// 
 			// tabPage14
 			// 
@@ -3175,6 +2750,7 @@
 			this.flowLayoutPanel1.Controls.Add(this.btn_DumpSkillsCache);
 			this.flowLayoutPanel1.Controls.Add(this.btn_DumpTargetingCache);
 			this.flowLayoutPanel1.Controls.Add(this.btn_DumpBountyCache);
+			this.flowLayoutPanel1.Controls.Add(this.btn_DumpInventory);
 			this.flowLayoutPanel1.Controls.Add(this.btn_Test);
 			this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
@@ -3266,7 +2842,7 @@
 			// 
 			// btn_Test
 			// 
-			this.btn_Test.Location = new System.Drawing.Point(3, 61);
+			this.btn_Test.Location = new System.Drawing.Point(146, 61);
 			this.btn_Test.Name = "btn_Test";
 			this.btn_Test.Size = new System.Drawing.Size(137, 23);
 			this.btn_Test.TabIndex = 7;
@@ -3279,6 +2855,16 @@
 			this.toolTip1.AutoPopDelay = 5000;
 			this.toolTip1.InitialDelay = 1000;
 			this.toolTip1.ReshowDelay = 500;
+			// 
+			// btn_DumpInventory
+			// 
+			this.btn_DumpInventory.Location = new System.Drawing.Point(3, 61);
+			this.btn_DumpInventory.Name = "btn_DumpInventory";
+			this.btn_DumpInventory.Size = new System.Drawing.Size(137, 23);
+			this.btn_DumpInventory.TabIndex = 9;
+			this.btn_DumpInventory.Text = "Inventory";
+			this.btn_DumpInventory.UseVisualStyleBackColor = true;
+			this.btn_DumpInventory.Click += new System.EventHandler(this.btn_DumpInventory_Click);
 			// 
 			// SettingsForm
 			// 
@@ -3408,33 +2994,6 @@
 			this.tabPage17.PerformLayout();
 			this.tabPage13.ResumeLayout(false);
 			this.tabControl4.ResumeLayout(false);
-			this.tabPage18.ResumeLayout(false);
-			this.groupBox14.ResumeLayout(false);
-			this.groupBox14.PerformLayout();
-			this.panel18.ResumeLayout(false);
-			this.panel18.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.tb_TownRunBloodShardMinimumValue)).EndInit();
-			this.groupBox13.ResumeLayout(false);
-			this.groupBox13.PerformLayout();
-			this.groupBox24.ResumeLayout(false);
-			this.panel25.ResumeLayout(false);
-			this.panel25.PerformLayout();
-			this.panel24.ResumeLayout(false);
-			this.panel24.PerformLayout();
-			this.panel23.ResumeLayout(false);
-			this.panel23.PerformLayout();
-			this.panel22.ResumeLayout(false);
-			this.panel22.PerformLayout();
-			this.tabPage19.ResumeLayout(false);
-			this.tabPage19.PerformLayout();
-			this.groupBox18.ResumeLayout(false);
-			this.groupBox18.PerformLayout();
-			this.groupBox17.ResumeLayout(false);
-			this.groupBox17.PerformLayout();
-			this.groupBox15.ResumeLayout(false);
-			this.groupBox15.PerformLayout();
-			this.groupBox16.ResumeLayout(false);
-			this.groupBox16.PerformLayout();
 			this.tabPage20.ResumeLayout(false);
 			this.groupBox21.ResumeLayout(false);
 			this.groupBox21.PerformLayout();
@@ -3463,7 +3022,6 @@
 
 		#endregion
 
-		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPage1;
 		private System.Windows.Forms.TabControl tabControl_Combat;
 		private System.Windows.Forms.TabPage tabPage3;
@@ -3632,56 +3190,6 @@
 		private System.Windows.Forms.TrackBar tb_GeneralGoldInactivityValue;
 		private System.Windows.Forms.TabPage tabPage17;
 		private System.Windows.Forms.CheckBox cb_AdventureModeEnabled;
-		private System.Windows.Forms.TabControl tabControl4;
-		private System.Windows.Forms.TabPage tabPage18;
-		private System.Windows.Forms.GroupBox groupBox13;
-		private System.Windows.Forms.CheckBox cb_TownRunStashHoradricCache;
-		private System.Windows.Forms.TabPage tabPage19;
-		private System.Windows.Forms.GroupBox groupBox14;
-		private System.Windows.Forms.Panel panel18;
-		private System.Windows.Forms.Label label22;
-		private System.Windows.Forms.TextBox txt_TownRunBloodShardMinimumValue;
-		private System.Windows.Forms.TrackBar tb_TownRunBloodShardMinimumValue;
-		private System.Windows.Forms.CheckBox cb_TownRunBloodShardGambling;
-		private System.Windows.Forms.GroupBox groupBox15;
-		private System.Windows.Forms.CheckBox cb_ItemRulesPickup;
-		private System.Windows.Forms.CheckBox cb_ItemRules;
-		private System.Windows.Forms.GroupBox groupBox18;
-		private System.Windows.Forms.Button btn_ItemRulesReloadRules;
-		private System.Windows.Forms.Button btn_ItemRulesOpenFolder;
-		private System.Windows.Forms.CheckBox cb_ItemRulesDebugging;
-		private System.Windows.Forms.CheckBox cb_ItemRulesUseItemIDs;
-		private System.Windows.Forms.GroupBox groupBox17;
-		private System.Windows.Forms.ComboBox comboBox_ItemRulesLogPickup;
-		private System.Windows.Forms.Label label24;
-		private System.Windows.Forms.ComboBox combobox_ItemRulesLogStashed;
-		private System.Windows.Forms.Label label23;
-		private System.Windows.Forms.GroupBox groupBox16;
-		private System.Windows.Forms.Button btn_ItemRulesCustomBrowse;
-		private System.Windows.Forms.TextBox txt_ItemRulesCustomLocation;
-		private System.Windows.Forms.ComboBox comboBox_ItemRulesType;
-		private System.Windows.Forms.TabPage tabPage20;
-		private System.Windows.Forms.GroupBox groupBox21;
-		private System.Windows.Forms.GroupBox groupBox20;
-		private System.Windows.Forms.GroupBox groupBox19;
-		private System.Windows.Forms.CheckBox cb_LootPickupCraftPlans;
-		private System.Windows.Forms.CheckBox cb_LootGemTOPAZ;
-		private System.Windows.Forms.CheckBox cb_LootGemRUBY;
-		private System.Windows.Forms.CheckBox cb_LootGemEMERALD;
-		private System.Windows.Forms.CheckBox cb_LootGemDiamond;
-		private System.Windows.Forms.CheckBox cb_LootGemAMETHYST;
-		private System.Windows.Forms.ComboBox comboBox_LootGemQuality;
-		private System.Windows.Forms.Label label25;
-		private System.Windows.Forms.Panel panel19;
-		private System.Windows.Forms.Label label26;
-		private System.Windows.Forms.TextBox txt_LootMinimumGold;
-		private System.Windows.Forms.TrackBar tb_LootMinimumGold;
-		private System.Windows.Forms.Panel panel20;
-		private System.Windows.Forms.Label label27;
-		private System.Windows.Forms.TextBox txt_LootHealthPotions;
-		private System.Windows.Forms.TrackBar tb_LootHealthPotions;
-		private System.Windows.Forms.CheckBox cb_LootInfernoKeys;
-		private System.Windows.Forms.CheckBox cb_LootCraftMats;
 		private System.Windows.Forms.GroupBox groupBox23;
 		private System.Windows.Forms.FlowLayoutPanel flowLayout_DebugFunkyLogLevels;
 		private System.Windows.Forms.GroupBox groupBox22;
@@ -3706,32 +3214,49 @@
 		private System.Windows.Forms.Button btn_DumpBountyCache;
 		private System.Windows.Forms.Button btn_Test;
 		private System.Windows.Forms.FlowLayoutPanel LBDebug;
-		private System.Windows.Forms.CheckBox cb_TownRunBuyPotions;
 		private System.Windows.Forms.Panel panel21;
 		private System.Windows.Forms.CheckBox cb_MovementOutOfCombatSkills;
-		private System.Windows.Forms.CheckBox cb_LootExpBooks;
-		private System.Windows.Forms.CheckBox cb_LootKeyStones;
 		private System.Windows.Forms.CheckBox cb_LOSEventSwitches;
 		private System.Windows.Forms.GroupBox gb_ClusteringOptions;
 		private System.Windows.Forms.Button btn_DumpInteractiveCache;
 		private System.Windows.Forms.CheckBox cb_GeneralSkipAhead;
 		private System.Windows.Forms.ToolTip toolTip1;
-		private System.Windows.Forms.GroupBox groupBox24;
-		private System.Windows.Forms.Panel panel25;
-		private System.Windows.Forms.ComboBox combo_TownRunSalvageLegendaryItems;
-		private System.Windows.Forms.Label label31;
-		private System.Windows.Forms.Panel panel24;
-		private System.Windows.Forms.ComboBox combo_TownRunSalvageRareItems;
-		private System.Windows.Forms.Label label30;
-		private System.Windows.Forms.Panel panel23;
-		private System.Windows.Forms.ComboBox combo_TownRunSalvageMagicItems;
-		private System.Windows.Forms.Label label29;
-		private System.Windows.Forms.Panel panel22;
-		private System.Windows.Forms.ComboBox combo_TownRunSalvageWhiteItems;
-		private System.Windows.Forms.Label label28;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_MiscStats;
-		private System.Windows.Forms.FlowLayoutPanel flowLayout_TownRunBloodShardItems;
-		private System.Windows.Forms.CheckBox cb_TownRunIDLegendaries;
+		private System.Windows.Forms.TabControl tabControl4;
+		private System.Windows.Forms.TabPage tabPage20;
+		private System.Windows.Forms.GroupBox groupBox21;
+		private System.Windows.Forms.CheckBox cb_LootKeyStones;
+		private System.Windows.Forms.CheckBox cb_LootExpBooks;
+		private System.Windows.Forms.CheckBox cb_LootInfernoKeys;
+		private System.Windows.Forms.CheckBox cb_LootCraftMats;
+		private System.Windows.Forms.Panel panel20;
+		private System.Windows.Forms.Label label27;
+		private System.Windows.Forms.TextBox txt_LootHealthPotions;
+		private System.Windows.Forms.TrackBar tb_LootHealthPotions;
+		private System.Windows.Forms.Panel panel19;
+		private System.Windows.Forms.Label label26;
+		private System.Windows.Forms.TextBox txt_LootMinimumGold;
+		private System.Windows.Forms.TrackBar tb_LootMinimumGold;
+		private System.Windows.Forms.GroupBox groupBox20;
+		private System.Windows.Forms.CheckBox cb_LootGemTOPAZ;
+		private System.Windows.Forms.CheckBox cb_LootGemRUBY;
+		private System.Windows.Forms.CheckBox cb_LootGemEMERALD;
+		private System.Windows.Forms.CheckBox cb_LootGemDiamond;
+		private System.Windows.Forms.CheckBox cb_LootGemAMETHYST;
+		private System.Windows.Forms.ComboBox comboBox_LootGemQuality;
+		private System.Windows.Forms.Label label25;
+		private System.Windows.Forms.GroupBox groupBox19;
+		private System.Windows.Forms.CheckBox cb_LootPickupCraftPlans;
+		private System.Windows.Forms.ComboBox comboBox_LootLegendaryItemQuality;
+		private System.Windows.Forms.Label label28;
+		private System.Windows.Forms.ComboBox comboBox_LootRareItemQuality;
+		private System.Windows.Forms.Label label24;
+		private System.Windows.Forms.ComboBox comboBox_LootMagicItemQuality;
+		private System.Windows.Forms.Label label23;
+		private System.Windows.Forms.ComboBox comboBox_LootWhiteItemQuality;
+		private System.Windows.Forms.Label label22;
+		internal System.Windows.Forms.TabControl tabControl1;
+		private System.Windows.Forms.Button btn_DumpInventory;
 		//
 	}
 }

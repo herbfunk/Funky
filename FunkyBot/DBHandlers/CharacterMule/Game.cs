@@ -1,18 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FunkyBot.Misc;
 using Zeta.Bot;
 using Zeta.Bot.Navigation;
 using Zeta.Bot.Settings;
+using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.Actors.Gizmos;
 using Zeta.TreeSharp;
-using Zeta.Common;
-using System.Collections.Generic;
+using Logger = FunkyBot.Misc.Logger;
+using LogLevel = FunkyBot.Misc.LogLevel;
 
-namespace FunkyBot.DBHandlers
+namespace FunkyBot.DBHandlers.CharacterMule
 {
 
 	public static class NewMuleGame
@@ -38,7 +41,7 @@ namespace FunkyBot.DBHandlers
 		{
 			if (DateTime.Now.Subtract(LastActionTaken).TotalMilliseconds > RandomWaitTimeMilliseconds)
 			{
-				string NewGameProfile = FolderPaths.PluginPath + @"DBHandlers\CharacterMule\NewGame.xml";
+				string NewGameProfile = FolderPaths.RoutinePath + @"DBHandlers\CharacterMule\NewGame.xml";
 				if (ProfileManager.CurrentProfile.Path != NewGameProfile)
 				{
 					if (File.Exists(NewGameProfile))

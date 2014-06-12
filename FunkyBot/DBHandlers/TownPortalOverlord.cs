@@ -5,11 +5,15 @@ using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
 using Action = Zeta.TreeSharp.Action;
+using Logger = FunkyBot.Misc.Logger;
+using LogLevel = FunkyBot.Misc.LogLevel;
 
 namespace FunkyBot.DBHandlers
 {
 	public static class TownPortalBehavior
 	{
+		public static bool TownrunStartedInTown = false;
+
 		internal static bool SafetyCheckForTownRun()
 		{
 			//This is called only if we want to townrun... basically a pre-check to if we should proceede.
@@ -303,7 +307,7 @@ namespace FunkyBot.DBHandlers
 
 		internal static RunStatus FunkyTownPortalTownRun(object ret)
 		{
-			TownRunManager.TownrunStartedInTown = false;
+			TownrunStartedInTown = false;
 			return RunStatus.Success;
 		}
 	}

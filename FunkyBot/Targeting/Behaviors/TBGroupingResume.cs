@@ -1,4 +1,5 @@
 ﻿using FunkyBot.Cache.Objects;
+using FunkyBot.Misc;
 
 namespace FunkyBot.Targeting.Behaviors
 {

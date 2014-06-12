@@ -37,24 +37,6 @@ namespace FunkyBot.Config.Settings
 			  UnitExceptionSpawnerUnits = false;
 			  UnitExceptionSucideBombers=true;
 		 }
-		 private static string DefaultFilePath=Path.Combine(FolderPaths.SettingsDefaultPath, "Specific", "Targeting_Default.xml");
-		 public static SettingTargeting DeserializeFromXML()
-		 {
-			  XmlSerializer deserializer=new XmlSerializer(typeof(SettingTargeting));
-			  TextReader textReader=new StreamReader(DefaultFilePath);
-			  SettingTargeting settings;
-			  settings=(SettingTargeting)deserializer.Deserialize(textReader);
-			  textReader.Close();
-			  return settings;
-		 }
-		 public static SettingTargeting DeserializeFromXML(string Path)
-		 {
-			  XmlSerializer deserializer=new XmlSerializer(typeof(SettingTargeting));
-			  TextReader textReader=new StreamReader(Path);
-			  SettingTargeting settings;
-			  settings=(SettingTargeting)deserializer.Deserialize(textReader);
-			  textReader.Close();
-			  return settings;
-		 }
+
 	}
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Game.Bounty;
+using FunkyBot.Misc;
 using FunkyBot.Movement;
 using Zeta.Game.Internals;
 

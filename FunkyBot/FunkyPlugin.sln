@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyBot", "FunkyBot.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyDebug", "..\FunkyDebug\FunkyDebug.csproj", "{2D41D60B-069C-4240-869D-08DCF7FF0E26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyTownRun", "..\..\FunkyTownRun\FunkyTownRun.csproj", "{0AB4160A-A6F1-4A2F-8295-E64674DF7904}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,16 @@ Global
 		{2D41D60B-069C-4240-869D-08DCF7FF0E26}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2D41D60B-069C-4240-869D-08DCF7FF0E26}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2D41D60B-069C-4240-869D-08DCF7FF0E26}.Release|x86.ActiveCfg = Release|Any CPU
+		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

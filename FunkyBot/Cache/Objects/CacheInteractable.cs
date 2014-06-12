@@ -2,6 +2,7 @@
 using System.Linq;
 using FunkyBot.Cache.Enums;
 using FunkyBot.DBHandlers;
+using FunkyBot.Game;
 using FunkyBot.Movement;
 using Zeta.Bot.Settings;
 using Zeta.Common;
@@ -35,7 +36,7 @@ namespace FunkyBot.Cache.Objects
 			}
 		}
 
-		private double LootRadius
+		public override int InteractionRange
 		{
 			get
 			{
@@ -43,7 +44,7 @@ namespace FunkyBot.Cache.Objects
 				{
 					if (Gizmotype == GizmoType.PoolOfReflection)
 						return Bot.Settings.Ranges.PoolsOfReflectionRange;
-
+					 
 					return IsHealthWell ? Bot.Settings.Ranges.ShrineRange * 2 : Bot.Settings.Ranges.ShrineRange;
 				}
 
@@ -51,21 +52,20 @@ namespace FunkyBot.Cache.Objects
 				{
 					if (IsResplendantChest && Bot.Settings.Targeting.UseExtendedRangeRepChest)
 						return Bot.Settings.Ranges.ContainerOpenRange * 2;
-					else
-						return Bot.Settings.Ranges.ContainerOpenRange;
+					
+					return Bot.Settings.Ranges.ContainerOpenRange;
 				}
 
 				if (targetType.Value == TargetType.CursedShrine)
-				{
 					return Bot.Settings.Ranges.CursedShrineRange;
-				}
+				
 				if (targetType.Value == TargetType.CursedChest)
 					return Bot.Settings.Ranges.CursedChestRange;
 
 				if (targetType.Value==TargetType.Door)
 					return Bot.Settings.Ranges.DoorRange;
 
-				return Bot.Targeting.Cache.iCurrentMaxLootRadius;
+				return (int)Bot.Targeting.Cache.iCurrentMaxLootRadius;
 			}
 		}
 
@@ -83,7 +83,7 @@ namespace FunkyBot.Cache.Objects
 				float radiusDistance = RadiusDistance;
 
 				// Ignore it if it's not in range yet
-				if (centreDistance > LootRadius)
+				if (centreDistance > InteractionRange)
 				{
 					IgnoredType = TargetingIgnoreTypes.DistanceFailure;
 					BlacklistLoops = 10;
@@ -119,9 +119,9 @@ namespace FunkyBot.Cache.Objects
 					//unless its in front of us.. we wait 500ms mandatory.
 					if (lastLOSCheckMS < 500 && centreDistance > 1f)
 					{
-						if ((IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer)||
-							((IsCursedChest||IsCursedShrine) && Bot.Settings.LOSMovement.AllowCursedChestShrines)||
-							(IsEventSwitch && Bot.Settings.LOSMovement.AllowEventSwitches))
+						if ((IsResplendantChest && ProfileCache.LOSSettingsTag.AllowRareLootContainer)||
+							((IsCursedChest||IsCursedShrine) && ProfileCache.LOSSettingsTag.AllowCursedChestShrines)||
+							(IsEventSwitch && ProfileCache.LOSSettingsTag.AllowEventSwitches))
 						{
 							//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 							//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
@@ -143,9 +143,9 @@ namespace FunkyBot.Cache.Objects
 
 						if (lastLOSCheckMS < ReCheckTime)
 						{
-							if ((IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer) ||
-								((IsCursedChest || IsCursedShrine) && Bot.Settings.LOSMovement.AllowCursedChestShrines) ||
-								 (IsEventSwitch && Bot.Settings.LOSMovement.AllowEventSwitches))
+							if ((IsResplendantChest && ProfileCache.LOSSettingsTag.AllowRareLootContainer) ||
+								((IsCursedChest || IsCursedShrine) && ProfileCache.LOSSettingsTag.AllowCursedChestShrines) ||
+								 (IsEventSwitch && ProfileCache.LOSSettingsTag.AllowEventSwitches))
 							{
 								//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 								//   Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
@@ -161,9 +161,9 @@ namespace FunkyBot.Cache.Objects
 
 					if (!LineOfSight.LOSTest(Bot.Character.Data.Position, BotMeleeVector, true, true, false))
 					{
-						if ((IsResplendantChest && Bot.Settings.LOSMovement.AllowRareLootContainer) ||
-							((IsCursedChest || IsCursedShrine) && Bot.Settings.LOSMovement.AllowCursedChestShrines) ||
-							(IsEventSwitch && Bot.Settings.LOSMovement.AllowEventSwitches))
+						if ((IsResplendantChest && ProfileCache.LOSSettingsTag.AllowRareLootContainer) ||
+							((IsCursedChest || IsCursedShrine) && ProfileCache.LOSSettingsTag.AllowCursedChestShrines) ||
+							(IsEventSwitch && ProfileCache.LOSSettingsTag.AllowEventSwitches))
 						{
 							//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 							//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
@@ -346,20 +346,20 @@ namespace FunkyBot.Cache.Objects
 						if (Weight > 0)
 						{
 							// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-							if (this == Bot.Targeting.Cache.LastCachedTarget)
+							if (Equals(Bot.Targeting.Cache.LastCachedTarget))
 								Weight += 600;
 							// Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
 							if (Bot.Character.Data.bIsRooted)
 								Weight = 18500d - (Math.Floor(centreDistance) * 200);
 							// If there's a monster in the path-line to the item, reduce the weight by 25%
-							if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
+							if (!Bot.Character.Data.equipment.NoMonsterCollision && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 								Weight *= 0.75;
 						}
 						break;
 					case TargetType.Interactable:
 					case TargetType.Door:
 						Weight = 15000d - (Math.Floor(centreDistance) * 170d);
-						if (centreDistance <= 20f && RadiusDistance <= 5f)
+						if (centreDistance <= 30f && RadiusDistance <= 5f)
 							Weight += 8000d;
 						// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
 						if (Equals(Bot.Targeting.Cache.LastCachedTarget) && centreDistance <= 25f)
@@ -373,12 +373,12 @@ namespace FunkyBot.Cache.Objects
 						if (centreDistance <= 12f)
 							Weight += 600d;
 						// Was already a target and is still viable, give it some free extra weight, to help stop flip-flopping between two targets
-						if (this == Bot.Targeting.Cache.LastCachedTarget && centreDistance <= 25f)
+						if (Equals(Bot.Targeting.Cache.LastCachedTarget) && centreDistance <= 25f)
 						{
 							Weight += 400;
 						}
 						// If there's a monster in the path-line to the item, reduce the weight by 50%
-						if (ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
+						if (!Bot.Character.Data.equipment.NoMonsterCollision && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 						{
 							Weight *= 0.5;
 						}

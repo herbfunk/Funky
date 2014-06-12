@@ -2,6 +2,7 @@
 using System.Xml.Serialization;
 using FunkyBot.Cache.Avoidance;
 using FunkyBot.Config.Settings.Class;
+using FunkyBot.Misc;
 using Zeta.Game;
 
 namespace FunkyBot.Config.Settings
@@ -9,7 +10,6 @@ namespace FunkyBot.Config.Settings
 
 	public class Settings_Funky
 	{
-		public SettingTownRun TownRun { get; set; }
 		public SettingAdventureMode AdventureMode { get; set; }
 		public SettingDebug Debug { get; set; }
 		public SettingTargeting Targeting { get; set; }
@@ -19,7 +19,6 @@ namespace FunkyBot.Config.Settings
 		public SettingFleeing Fleeing { get; set; }
 		public SettingGrouping Grouping { get; set; }
 		public SettingGeneral General { get; set; }
-		public SettingItemRules ItemRules { get; set; }
 		public SettingLoot Loot { get; set; }
 		public SettingRanges Ranges { get; set; }
 		public SettingCluster Cluster { get; set; }
@@ -35,13 +34,11 @@ namespace FunkyBot.Config.Settings
 		public Settings_Funky()
 		{
 			General = new SettingGeneral();
-			TownRun = new SettingTownRun();
 			AdventureMode=new SettingAdventureMode();
 			Debug = new SettingDebug();
 			Grouping = new SettingGrouping();
 			Fleeing = new SettingFleeing();
 			Ranges = new SettingRanges();
-			ItemRules = new SettingItemRules();
 			Loot = new SettingLoot();
 			Cluster = new SettingCluster();
 			Targeting = new SettingTargeting();
@@ -106,7 +103,6 @@ namespace FunkyBot.Config.Settings
 						 Grouping = new SettingGrouping(false),
 						 Cluster = new SettingCluster(false),
 						 Fleeing = new SettingFleeing(false),
-						 ItemRules=new SettingItemRules("Soft"),
 					};
 				}
 				else
@@ -114,12 +110,12 @@ namespace FunkyBot.Config.Settings
 					if (Bot.Character.Account.ActorClass == ActorClass.Barbarian || Bot.Character.Account.ActorClass == ActorClass.Monk)
 					{
 						Logger.DBLog.InfoFormat("Using Melee Inferno Default Settings");
-						DeserializeFromXML(Path.Combine(FolderPaths.SettingsDefaultPath, "InfernoMelee.xml"));
+						DeserializeFromXML(Path.Combine(FolderPaths.SettingsDefaultPath, "Melee.xml"));
 					}
 					else
 					{
 						Logger.DBLog.InfoFormat("Using Ranged Inferno Default Settings");
-						DeserializeFromXML(Path.Combine(FolderPaths.SettingsDefaultPath, "InfernoRanged.xml"));
+						DeserializeFromXML(Path.Combine(FolderPaths.SettingsDefaultPath, "Ranged.xml"));
 					}
 				}
 

@@ -11,6 +11,8 @@ using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
+using Logger = FunkyBot.Misc.Logger;
+using LogLevel = FunkyBot.Misc.LogLevel;
 
 namespace FunkyBot.Cache.Objects
 {
@@ -608,6 +610,17 @@ namespace FunkyBot.Cache.Objects
 			if (QuestMonster)
 			{
 				Weight += 10000;
+			}
+		}
+
+		/// <summary>
+		/// Maximum range required for targeting.
+		/// </summary>
+		public virtual int InteractionRange
+		{
+			get
+			{
+				return 0;
 			}
 		}
 

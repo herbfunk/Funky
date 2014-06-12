@@ -17,8 +17,8 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 		{
 			Cooldown = 30000;
 			Cost = 25;
-			Range = 35;
-			Priority = SkillPriority.Medium;
+			Range = 45;
+			Priority = SkillPriority.High;
 			ExecutionType = SkillExecutionFlags.ClusterLocation | SkillExecutionFlags.Location;
 
 			WaitVars = new WaitLoops(0, 0, true);
@@ -27,16 +27,16 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 
 			IsMovementSkill = true;
 
-			ClusterConditions.Add(new SkillClusterConditions(5d, 35, 6, true));
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 35, 0.95d, TargetProperties.Normal));
+			ClusterConditions.Add(new SkillClusterConditions(5d, 45, 6, true));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 45, 0.95d, TargetProperties.Normal));
 
 			FCombatMovement = (v) =>
 			{
 				float fDistanceFromTarget = Bot.Character.Data.Position.Distance(v);
 				if (!Bot.Character.Class.bWaitingForSpecial && Funky.Difference(Bot.Character.Data.Position.Z, v.Z) <= 4 && fDistanceFromTarget >= 20f)
 				{
-					if (fDistanceFromTarget > 35f)
-						return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 35f);
+					if (fDistanceFromTarget > 45f)
+						return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 45f);
 					else
 						return v;
 				}
@@ -48,8 +48,8 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 				float fDistanceFromTarget = Bot.Character.Data.Position.Distance(v);
 				if (Funky.Difference(Bot.Character.Data.Position.Z, v.Z) <= 4 && fDistanceFromTarget >= 20f)
 				{
-					if (fDistanceFromTarget > 35f)
-						return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 35f);
+					if (fDistanceFromTarget > 45f)
+						return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 45f);
 					else
 						return v;
 				}

@@ -597,6 +597,24 @@ namespace FunkyBot.Cache
 
 		};
 
+		public static readonly HashSet<int> hashUnitDebuffingUnit = new HashSet<int>
+		{
+			106714, // (TerrorDemon_A-79246)
+			219673, // (Succubus_C-79292)
+		};
+
+
+		//malletDemon_attack_01
+		public static readonly HashSet<int> hashUnitMalletLord = new HashSet<int>
+		{
+			343767,//X1_LR_Boss_MalletDemon
+			219751,//MalletDemon_A_Unique
+			219736,//MalletDemon_A_Unique_01
+			106709,//MalletDemon_A
+		};
+
+
+
 		public static readonly HashSet<int> hashSNOGroundContainer = new HashSet<int>
  		{
 			289805,//x1_Pand_HexMaze_Ground_Clicky-6919

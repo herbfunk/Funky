@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FunkyBot.Cache.Objects;
+using FunkyBot.Misc;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 
@@ -16,6 +17,8 @@ namespace FunkyBot.Player
 		TallManFinger,
 		RoyalGrandeur,
 		IllusionaryBoots,
+		PiroMarella,
+		CountessJuliasCameo,
 	}
 
 	internal class Equipment
@@ -24,6 +27,7 @@ namespace FunkyBot.Player
 
 		public bool GlobesRestoreResource { get; set; }
 		public bool ImmuneToDescratorMoltenPlaguedAvoidances { get; set; }
+		public bool ImmuneToArcane { get; set; }
 		public bool RingOfGrandeur { get; set; }
 		public bool NoMonsterCollision { get; set; }
 
@@ -36,12 +40,16 @@ namespace FunkyBot.Player
 			ImmuneToDescratorMoltenPlaguedAvoidances = false;
 			RingOfGrandeur = false;
 			NoMonsterCollision = false;
+			ImmuneToArcane = false;
 		}
 
 		public void RefreshEquippedItemsList()
 		{
 			EquippedItems.Clear();
 			EquippedItems = ReturnCurrentEquippedItems();
+
+			//Countess Julias Cameo
+			ImmuneToArcane = EquippedItems.Any(i => i.EquippedType == EquippedItemType.CountessJuliasCameo);
 
 
 			//Repear Wraps
@@ -112,7 +120,8 @@ namespace FunkyBot.Player
 			{-1149809185, EquippedItemType.TallManFinger},
 			{-1149593563, EquippedItemType.RoyalGrandeur},
 			{1979309080, EquippedItemType.IllusionaryBoots},
-
+			{820499474, EquippedItemType.PiroMarella},
+			{1566368217, EquippedItemType.CountessJuliasCameo},
 
 			//BLACKTHORNE'S
 			{-773231465, EquippedItemType.Blackthornes}, //Jousting Mail
@@ -139,6 +148,9 @@ namespace FunkyBot.Player
 		/*
 	 * Item - Name: Illusory Boots BalanceID: 1979309080
 
+		Item - Name: Piro Marella BalanceID: 820499474
+
+		Item - Name: Countess Julia's Cameo (InternalName: x1_Amulet_norm_unique_19-211) BalanceID: 1566368217
 
 
 

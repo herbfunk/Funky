@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+using FunkyBot.Misc;
 
 namespace FunkyBot.Cache.Dictionaries.Objects
 {
@@ -37,7 +38,7 @@ namespace FunkyBot.Cache.Dictionaries.Objects
 			UnitPriorities = new HashSet<UnitPriority>();
 		}
 
-		private static readonly string DefaultFilePath = Path.Combine(FolderPaths.PluginPath, "Cache", "Dictionaries", "SNOId_Cache_Units.xml");
+		private static readonly string DefaultFilePath = Path.Combine(FolderPaths.RoutinePath, "Cache", "Dictionaries", "SNOId_Cache_Units.xml");
 		internal static UnitDataCollection DeserializeFromXML()
 		{
 			var deserializer = new XmlSerializer(typeof(UnitDataCollection));

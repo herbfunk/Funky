@@ -1,7 +1,7 @@
 ﻿using System;
-using Zeta.Bot.Settings;
+using FunkyBot.Misc;
 
-namespace FunkyBot
+namespace FunkyBot.EventHandlers
 {
 	public partial class EventHandlers
 	{
@@ -10,7 +10,7 @@ namespace FunkyBot
 		internal static void FunkyOnJoinGame(object src, EventArgs mea)
 		{
 			Logger.Write(LogLevel.Event, "OnJoinGame Event");
-			Funky.ResetGame();
+			Bot.ResetGame();
 			Bot.Game.RefreshGameId();
 
 			//if (Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings)

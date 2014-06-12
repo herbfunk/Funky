@@ -1,5 +1,6 @@
 ﻿using System;
 using FunkyBot.Game;
+using FunkyBot.Misc;
 using Zeta.Bot.Navigation;
 using Zeta.Bot.Profile;
 using Zeta.Game;

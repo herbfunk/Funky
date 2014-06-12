@@ -6,6 +6,8 @@ using FunkyBot.Cache.Enums;
 using Zeta.Common;
 using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.SNO;
+using Logger = FunkyBot.Misc.Logger;
+using LogLevel = FunkyBot.Misc.LogLevel;
 
 namespace FunkyBot.Cache.Objects
 {
@@ -66,6 +68,7 @@ namespace FunkyBot.Cache.Objects
 			_obstacletype = obstacletype;
 			_actorsphereradius = actorsphereradius;
 			_gizmotype = gimzotype;
+			UpdateLookUpFinalValues();
 			IsFinalized = true;
 		}
 		public SNO(SNO sno)
@@ -414,33 +417,116 @@ namespace FunkyBot.Cache.Objects
 
 
 		#region Cache Lookup Properties
-	
-		public bool IsObstacle { get { return CacheIDLookup.hashSNONavigationObstacles.Contains(SNOID); } }
-		public bool IsHealthWell { get { return SNOID == 138989; } }
-		public bool IsTreasureGoblin { get { return ObjectCache.SNOCache.Units.GoblinUnits.Contains(SNOID); } }
-		public bool IsBoss { get { return ObjectCache.SNOCache.Units.BossUnits.Contains(SNOID); } }
-		public bool IsWormBoss { get { return (SNOID == 218947 || SNOID == 144400); } }
-		public bool IsResplendantChest { get { return ObjectCache.SNOCache.Gizmos.ResplendantChests.Contains(SNOID); } }
-		public bool IsAvoidance { get { return AvoidanceCache.hashAvoidanceSNOList.Contains(SNOID); } }
-		public bool IsSummonedPet { get { return CacheIDLookup.hashSummonedPets.Contains(SNOID); } }
-		public bool IsRespawnable { get { return ObjectCache.SNOCache.Units.RevivableUnits.Contains(SNOID); } }
-		public bool IsProjectileAvoidance { get { return AvoidanceCache.hashAvoidanceSNOProjectiles.Contains(SNOID); } }
-		public bool IsCorpseContainer { get { return (internalNameLower.Contains("loottype") || internalNameLower.Contains("corpse")); } }
-		public bool IsChestContainer { get { return (internalNameLower.Contains("chest")); } }
 		public bool IgnoresLOSCheck { get { return IsBoss; } }
-		public bool IsMissileReflecting { get { return ObjectCache.SNOCache.Units.ReflectiveMissleUnits.Contains(SNOID); } }
-		public bool IsStealthableUnit { get { return ObjectCache.SNOCache.Units.StealthUnits.Contains(SNOID); } }
-		public bool IsBurrowableUnit { get { return ObjectCache.SNOCache.Units.BurrowableUnits.Contains(SNOID); } }
-		public bool IsSucideBomber { get { return ObjectCache.SNOCache.Units.SucideBomberUnits.Contains(SNOID); } }
-		public bool IsGrotesqueActor { get { return ObjectCache.SNOCache.Units.GrotesqueUnits.Contains(SNOID); } }
-		public bool IsCorruptantGrowth { get { return SNOID == 210120 || SNOID == 210268; } }
-		public bool IsSpawnerUnit { get { return ObjectCache.SNOCache.Units.SpawnerUnits.Contains(SNOID); } }
-		public bool IsTransformUnit { get { return CacheIDLookup.hashActorSNOTransforms.Contains(SNOID); } }
-		public bool IsFlyingHoverUnit { get { return CacheIDLookup.hashActorSNOFlying.Contains(SNOID); } }
-		public bool IsDemonicForge { get { return SNOID == 174900 || SNOID == 185391; } }
-		public bool IsCursedChest { get { return SNOID == 365097 || SNOID == 364559; } }
-		public bool IsCursedShrine { get { return SNOID == 364601; } }
-		public bool IsAvoidanceSpawnerUnit { get { return CacheIDLookup.hashUnitAvoidanceSpawner.Contains(SNOID); } }
+
+		private void UpdateLookUpFinalValues()
+		{
+			_IsObstacle = CacheIDLookup.hashSNONavigationObstacles.Contains(SNOID);
+			_IsHealthWell = SNOID == 138989;
+			_IsTreasureGoblin = ObjectCache.SNOCache.Units.GoblinUnits.Contains(SNOID);
+			_IsBoss = ObjectCache.SNOCache.Units.BossUnits.Contains(SNOID);
+			_IsWormBoss = (SNOID == 218947 || SNOID == 144400);
+			_IsResplendantChest = ObjectCache.SNOCache.Gizmos.ResplendantChests.Contains(SNOID);
+			_IsAvoidance = AvoidanceCache.hashAvoidanceSNOList.Contains(SNOID);
+			_IsSummonedPet = CacheIDLookup.hashSummonedPets.Contains(SNOID);
+			_IsRespawnable = ObjectCache.SNOCache.Units.RevivableUnits.Contains(SNOID);
+			_IsProjectileAvoidance = AvoidanceCache.hashAvoidanceSNOProjectiles.Contains(SNOID);
+			_IsCorpseContainer = (internalNameLower.Contains("loottype") || internalNameLower.Contains("corpse"));
+			_IsChestContainer = (internalNameLower.Contains("chest"));
+			_IsMissileReflecting = ObjectCache.SNOCache.Units.ReflectiveMissleUnits.Contains(SNOID);
+			_IsStealthableUnit = ObjectCache.SNOCache.Units.StealthUnits.Contains(SNOID);
+			_IsBurrowableUnit = ObjectCache.SNOCache.Units.BurrowableUnits.Contains(SNOID);
+			_IsSucideBomber = ObjectCache.SNOCache.Units.SucideBomberUnits.Contains(SNOID);
+			_IsGrotesqueActor = ObjectCache.SNOCache.Units.GrotesqueUnits.Contains(SNOID);
+			_IsCorruptantGrowth = SNOID == 210120 || SNOID == 210268;
+			_IsSpawnerUnit = ObjectCache.SNOCache.Units.SpawnerUnits.Contains(SNOID);
+			_IsTransformUnit = CacheIDLookup.hashActorSNOTransforms.Contains(SNOID);
+			_IsFlyingHoverUnit = CacheIDLookup.hashActorSNOFlying.Contains(SNOID);
+			_IsDemonicForge = SNOID == 174900 || SNOID == 185391;
+			_IsCursedChest = SNOID == 365097 || SNOID == 364559;
+			_IsCursedShrine = SNOID == 364601;
+			_IsAvoidanceSpawnerUnit = CacheIDLookup.hashUnitAvoidanceSpawner.Contains(SNOID);
+			_IsMalletLordUnit = CacheIDLookup.hashUnitMalletLord.Contains(SNOID);
+		}
+
+		private bool _IsObstacle;
+		public bool IsObstacle { get { if (IsFinalized) return _IsObstacle; return CacheIDLookup.hashSNONavigationObstacles.Contains(SNOID); } }
+		
+		private bool _IsHealthWell;
+		public bool IsHealthWell { get { if (IsFinalized) return _IsHealthWell; return SNOID == 138989; } }
+		
+		private bool _IsTreasureGoblin;
+		public bool IsTreasureGoblin { get { if (IsFinalized) return _IsTreasureGoblin; return ObjectCache.SNOCache.Units.GoblinUnits.Contains(SNOID); } }
+		
+		private bool _IsBoss;
+		public bool IsBoss { get { if (IsFinalized) return _IsBoss; return ObjectCache.SNOCache.Units.BossUnits.Contains(SNOID); } }
+		
+		private bool _IsWormBoss;
+		public bool IsWormBoss { get { if (IsFinalized) return _IsWormBoss; return (SNOID == 218947 || SNOID == 144400); } }
+		
+		private bool _IsResplendantChest;
+		public bool IsResplendantChest { get { if (IsFinalized) return _IsResplendantChest; return ObjectCache.SNOCache.Gizmos.ResplendantChests.Contains(SNOID); } }
+		
+		private bool _IsAvoidance;
+		public bool IsAvoidance { get { if (IsFinalized) return _IsAvoidance; return AvoidanceCache.hashAvoidanceSNOList.Contains(SNOID); } }
+		
+		private bool _IsSummonedPet;
+		public bool IsSummonedPet { get { if (IsFinalized) return _IsSummonedPet; return CacheIDLookup.hashSummonedPets.Contains(SNOID); } }
+		
+		private bool _IsRespawnable;
+		public bool IsRespawnable { get { if (IsFinalized) return _IsRespawnable; return ObjectCache.SNOCache.Units.RevivableUnits.Contains(SNOID); } }
+		
+		private bool _IsProjectileAvoidance;
+		public bool IsProjectileAvoidance { get { if (IsFinalized) return _IsProjectileAvoidance; return AvoidanceCache.hashAvoidanceSNOProjectiles.Contains(SNOID); } }
+		
+		private bool _IsCorpseContainer;
+		public bool IsCorpseContainer { get { if (IsFinalized) return _IsCorpseContainer; return (internalNameLower.Contains("loottype") || internalNameLower.Contains("corpse")); } }
+		
+		private bool _IsChestContainer;
+		public bool IsChestContainer { get { if (IsFinalized) return _IsChestContainer; return (internalNameLower.Contains("chest")); } }
+
+		private bool _IsMissileReflecting;
+		public bool IsMissileReflecting { get { if (IsFinalized) return _IsMissileReflecting; return ObjectCache.SNOCache.Units.ReflectiveMissleUnits.Contains(SNOID); } }
+
+		private bool _IsStealthableUnit;
+		public bool IsStealthableUnit { get { if (IsFinalized) return _IsStealthableUnit; return ObjectCache.SNOCache.Units.StealthUnits.Contains(SNOID); } }
+
+		private bool _IsBurrowableUnit;
+		public bool IsBurrowableUnit { get { if (IsFinalized) return _IsBurrowableUnit; return ObjectCache.SNOCache.Units.BurrowableUnits.Contains(SNOID); } }
+
+		private bool _IsSucideBomber;
+		public bool IsSucideBomber { get { if (IsFinalized) return _IsSucideBomber; return ObjectCache.SNOCache.Units.SucideBomberUnits.Contains(SNOID); } }
+
+		private bool _IsGrotesqueActor;
+		public bool IsGrotesqueActor { get { if (IsFinalized) return _IsGrotesqueActor; return ObjectCache.SNOCache.Units.GrotesqueUnits.Contains(SNOID); } }
+
+		private bool _IsCorruptantGrowth;
+		public bool IsCorruptantGrowth { get { if (IsFinalized) return _IsCorruptantGrowth; return SNOID == 210120 || SNOID == 210268; } }
+
+		private bool _IsSpawnerUnit;
+		public bool IsSpawnerUnit { get { if (IsFinalized) return _IsSpawnerUnit; return ObjectCache.SNOCache.Units.SpawnerUnits.Contains(SNOID); } }
+
+		private bool _IsTransformUnit;
+		public bool IsTransformUnit { get { if (IsFinalized) return _IsTransformUnit; return CacheIDLookup.hashActorSNOTransforms.Contains(SNOID); } }
+
+		private bool _IsFlyingHoverUnit;
+		public bool IsFlyingHoverUnit { get { if (IsFinalized) return _IsFlyingHoverUnit; return CacheIDLookup.hashActorSNOFlying.Contains(SNOID); } }
+
+		private bool _IsDemonicForge;
+		public bool IsDemonicForge { get { if (IsFinalized) return _IsDemonicForge; return SNOID == 174900 || SNOID == 185391; } }
+
+		private bool _IsCursedChest;
+		public bool IsCursedChest { get { if (IsFinalized) return _IsCursedChest; return SNOID == 365097 || SNOID == 364559; } }
+
+		private bool _IsCursedShrine;
+		public bool IsCursedShrine { get { if (IsFinalized) return _IsCursedShrine; return SNOID == 364601; } }
+
+		private bool _IsAvoidanceSpawnerUnit;
+		public bool IsAvoidanceSpawnerUnit { get { if (IsFinalized) return _IsAvoidanceSpawnerUnit; return CacheIDLookup.hashUnitAvoidanceSpawner.Contains(SNOID); } }
+
+		private bool _IsMalletLordUnit;
+		public bool IsMalletLordUnit { get { if (IsFinalized) return _IsMalletLordUnit; return CacheIDLookup.hashUnitMalletLord.Contains(SNOID); } }
+
 		#endregion
 
 		public bool ContainsNullValues()
@@ -480,7 +566,7 @@ namespace FunkyBot.Cache.Objects
 	{
 
 		public CachedSNOEntry(int sno, String internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gizmotype = null)
-			: base(sno, internalname,  actortype, targettype, monstertype, monstersize, collisionradius, canburrow, grantsnoxp, dropsnoloot, isbarricade, obstacletype, actorsphereradius, gizmotype)
+			: base(sno, internalname, actortype, targettype, monstertype, monstersize, collisionradius, canburrow, grantsnoxp, dropsnoloot, isbarricade, obstacletype, actorsphereradius, gizmotype)
 		{
 		}
 
@@ -636,7 +722,7 @@ namespace FunkyBot.Cache.Objects
 							//Try Cache Lookup First!
 							if (ObjectCache.SNOCache.Gizmos.Doors.Contains(SNOID))
 							{
-								targetType=TargetType.Door;
+								targetType = TargetType.Door;
 								Gizmotype = GizmoType.Door;
 							}//Try Cache Lookup First!
 							else if (ObjectCache.SNOCache.Gizmos.ResplendantChests.Contains(SNOID))
@@ -705,7 +791,7 @@ namespace FunkyBot.Cache.Objects
 								if (!Gizmotype.HasValue) Gizmotype = thisGizmoType;
 
 								//We could not find ID using our cache.. lets log it!
-								if (Bot.Settings.Debug.DebuggingData && ObjectCache.CheckTargetTypeFlag(targetType.Value,TargetType.Container | TargetType.Barricade | TargetType.Destructible | TargetType.Door))
+								if (Bot.Settings.Debug.DebuggingData && ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Container | TargetType.Barricade | TargetType.Destructible | TargetType.Door))
 								{
 									ObjectCache.DebuggingData.CheckEntry(this);
 								}
