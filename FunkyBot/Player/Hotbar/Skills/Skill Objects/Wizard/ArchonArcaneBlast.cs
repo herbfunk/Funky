@@ -10,23 +10,14 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 		  {
 				Cooldown=1000;
 				ExecutionType=SkillExecutionFlags.Buff;
-				WaitVars=new WaitLoops(1, 1, true);
-				Range=15;
-				UseageType=SkillUseage.Combat;
+				WaitVars=new WaitLoops(0, 0, false);
+				UseageType=SkillUseage.Anywhere;
 				Priority=SkillPriority.High;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckRecastTimer|SkillPrecastFlags.CheckCanCast));
-				IsBuff=true;
-				FcriteriaBuff=() => { return false; };
-				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 2);
-				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 1);
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 8, 0.95d, TargetProperties.Normal));
-
-
-				FcriteriaCombat=() =>
-				{
-					//We only want to use this if there are nearby units!
-					return Bot.Targeting.Cache.Environment.SurroundingUnits>1;
-				};
+				IsBuff = true;
+				FcriteriaBuff = () => false;
+				PreCast=new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast);
+				//SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 10));
+				FcriteriaCombat = () => Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_12]>0;
 		  }
 
 		  #region IAbility
@@ -59,4 +50,30 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				get { return SNOPower.Wizard_Archon_ArcaneBlast; }
 		  }
 	 }
+
+	public class ArchonArcaneBlastCold : ArchonArcaneBlast
+	{
+		public override SNOPower Power
+		{
+			get { return SNOPower.Wizard_Archon_ArcaneBlast_Cold; }
+		}
+	}
+
+	public class ArchonArcaneBlastFire : ArchonArcaneBlast
+	{
+		public override SNOPower Power
+		{
+			get { return SNOPower.Wizard_Archon_ArcaneBlast_Fire; }
+		}
+	}
+
+	public class ArchonArcaneBlastLightning : ArchonArcaneBlast
+	{
+		public override SNOPower Power
+		{
+			get { return SNOPower.Wizard_Archon_ArcaneBlast_Lightning; }
+		}
+	}
+
+
 }

@@ -33,7 +33,7 @@ namespace FunkyBot.Player.HotBar.Skills
 			IsCombat = false;
 			Range = 0;
 			Priority = SkillPriority.Low;
-			LastUsed = DateTime.Today;
+			LastUsed = DateTime.MinValue;
 			IsADestructiblePower = PowerCacheLookup.AbilitiesDestructiblePriority.Contains(Power);
 			IsMovementSkill = PowerCacheLookup.SpecialMovementAbilities.Contains(Power);
 			ShouldTrack = false;

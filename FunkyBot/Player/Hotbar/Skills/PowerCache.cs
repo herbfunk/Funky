@@ -19,7 +19,9 @@ namespace FunkyBot.Cache
 				SNOPower.DemonHunter_HungeringArrow, SNOPower.X1_DemonHunter_EntanglingShot, SNOPower.DemonHunter_Bolas, SNOPower.DemonHunter_Grenades, SNOPower.DemonHunter_ElementalArrow, SNOPower.DemonHunter_RapidFire, SNOPower.DemonHunter_Chakram,
 				SNOPower.Monk_FistsofThunder,SNOPower.Monk_DeadlyReach,SNOPower.Monk_CripplingWave,SNOPower.Monk_WayOfTheHundredFists,
 				SNOPower.Witchdoctor_Firebomb, SNOPower.Witchdoctor_PoisonDart, SNOPower.Witchdoctor_ZombieCharger, SNOPower.Witchdoctor_CorpseSpider, SNOPower.Witchdoctor_PlagueOfToads,
-				SNOPower.Wizard_EnergyTwister, SNOPower.Wizard_MagicMissile,SNOPower.Wizard_ShockPulse,SNOPower.Wizard_SpectralBlade, SNOPower.Wizard_Electrocute, SNOPower.Wizard_Archon_DisintegrationWave,
+				
+				SNOPower.Wizard_EnergyTwister, SNOPower.Wizard_MagicMissile,SNOPower.Wizard_ShockPulse,SNOPower.Wizard_SpectralBlade, SNOPower.Wizard_Electrocute, 
+				SNOPower.Wizard_Archon_DisintegrationWave,SNOPower.Wizard_Archon_DisintegrationWave_Cold,SNOPower.Wizard_Archon_DisintegrationWave_Fire,SNOPower.Wizard_Archon_DisintegrationWave_Lightning
 		  };
 
 		internal static readonly HashSet<SNOPower> SpecialMovementAbilities = new HashSet<SNOPower>
@@ -36,7 +38,9 @@ namespace FunkyBot.Cache
 				 SNOPower.DemonHunter_HungeringArrow,SNOPower.X1_DemonHunter_EntanglingShot,SNOPower.DemonHunter_Bolas,SNOPower.DemonHunter_Grenades,SNOPower.X1_DemonHunter_EvasiveFire,
 				 SNOPower.Monk_FistsofThunder,SNOPower.Monk_DeadlyReach,SNOPower.Monk_CripplingWave,SNOPower.Monk_WayOfTheHundredFists,
 				 SNOPower.Witchdoctor_PoisonDart,SNOPower.Witchdoctor_CorpseSpider,SNOPower.Witchdoctor_PlagueOfToads,SNOPower.Witchdoctor_Firebomb,
-				 SNOPower.Wizard_MagicMissile,SNOPower.Wizard_ShockPulse,SNOPower.Wizard_SpectralBlade,SNOPower.Wizard_Electrocute,SNOPower.Wizard_Archon_DisintegrationWave,
+				 
+				 SNOPower.Wizard_MagicMissile,SNOPower.Wizard_ShockPulse,SNOPower.Wizard_SpectralBlade,SNOPower.Wizard_Electrocute,
+				 SNOPower.Wizard_Archon_DisintegrationWave,SNOPower.Wizard_Archon_DisintegrationWave_Cold,SNOPower.Wizard_Archon_DisintegrationWave_Fire,SNOPower.Wizard_Archon_DisintegrationWave_Lightning
 		  };
 
 		internal static readonly HashSet<SNOPower> PassiveAbiltiesReduceRepeatTime = new HashSet<SNOPower>
@@ -109,6 +113,10 @@ namespace FunkyBot.Cache
                 {SNOPower.Wizard_Archon, DateTime.Today},{SNOPower.Wizard_Archon_ArcaneBlast, DateTime.Today},{SNOPower.Wizard_Archon_ArcaneStrike, DateTime.Today},
                 {SNOPower.Wizard_Archon_DisintegrationWave, DateTime.Today},{SNOPower.Wizard_Archon_SlowTime, DateTime.Today},
 				{SNOPower.Wizard_Archon_Teleport, DateTime.Today}, {SNOPower.X1_Wizard_Wormhole, DateTime.Today},
+
+				{SNOPower.Wizard_Archon_DisintegrationWave_Cold, DateTime.Today},{SNOPower.Wizard_Archon_DisintegrationWave_Fire, DateTime.Today},{SNOPower.Wizard_Archon_DisintegrationWave_Lightning, DateTime.Today},
+				{SNOPower.Wizard_Archon_ArcaneBlast_Cold, DateTime.Today},{SNOPower.Wizard_Archon_ArcaneBlast_Fire, DateTime.Today},{SNOPower.Wizard_Archon_ArcaneBlast_Lightning, DateTime.Today},
+				{SNOPower.Wizard_Archon_ArcaneStrike_Cold, DateTime.Today},{SNOPower.Wizard_Archon_ArcaneStrike_Lightning, DateTime.Today},{SNOPower.Wizard_Archon_ArcaneStrike_Fire, DateTime.Today},
 	            #endregion
                 // Witch Doctor last-used timers 
                 #region WitchDoctor

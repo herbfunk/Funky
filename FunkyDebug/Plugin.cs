@@ -2,165 +2,191 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using Demonbuddy;
 using Zeta.Bot;
-using Zeta.Bot.Logic;
-using Zeta.Common;
-using Zeta.Common.Compiler;
 using Zeta.Common.Plugins;
 
 namespace FunkyDebug
 {
-	 public partial class FunkyDebugger : IPlugin
-	 {
-		 internal static readonly log4net.ILog DBLog = Zeta.Common.Logger.GetLoggerInstanceForType();
-		 private static PluginContainer lastSelectedPC = null;
-		 private static ContextMenu advanceMenu = new ContextMenu();
-		 private static readonly string sDemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-		 private static bool initFunkyButton;
+	public partial class FunkyDebugger : IPlugin
+	{
+		internal static readonly log4net.ILog DBLog = Zeta.Common.Logger.GetLoggerInstanceForType();
+		private static PluginContainer lastSelectedPC = null;
+		private static ContextMenu advanceMenu = new ContextMenu();
+		private static readonly string sDemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+		private static bool initFunkyButton;
 
-		  #region IPlugin Members
+		#region IPlugin Members
 
-		  public string Author
-		  {
-				get { return "HerbFunk"; }
-		  }
+		public string Author
+		{
+			get { return "HerbFunk"; }
+		}
 
-		  public string Description
-		  {
-				get { return "Debugging Tools"; }
-		  }
+		public string Description
+		{
+			get { return "Debugging Tools"; }
+		}
 
-		  public Window DisplayWindow
-		  {
-				get { return null; }
-		  }
+		public Window DisplayWindow
+		{
+			get { return null; }
+		}
 
-		  public string Name
-		  {
-				get { return "FunkyDebug"; }
-		  }
+		public string Name
+		{
+			get { return "FunkyDebug"; }
+		}
 
-		  public void OnDisabled()
-		  {
-				BotMain.OnStart-=FunkyBotStart;
-				BotMain.OnStop-=FunkyBotStop;
+		public void OnDisabled()
+		{
+			BotMain.OnStart -= FunkyBotStart;
+			BotMain.OnStop -= FunkyBotStop;
 
-				Button funkyButton;
-				bool found = FindFunkyButton(out funkyButton);
-				if (found)
+			Button funkyButton;
+			bool found = FindFunkyButton(out funkyButton);
+			if (found)
+			{
+				funkyButton.Click -= lblFunky_Click;
+			}
+		}
+
+		public void OnEnabled()
+		{
+			BotMain.OnStart += FunkyBotStart;
+			BotMain.OnStop += FunkyBotStop;
+		}
+
+		public void OnInitialize()
+		{
+			Button FunkyButton;
+			initFunkyButton = FindFunkyButton(out FunkyButton);
+			if (initFunkyButton && FunkyButton != null)
+			{
+				DBLog.DebugFormat("Funky Debug Button Click Handler Added");
+				FunkyButton.Visibility = Visibility.Visible;
+				FunkyButton.Click += lblFunky_Click;
+			}
+			else if (FunkyButton == null)
+			{
+				Grid dbMainGrid = ReturnDemonbuddyMainGrid();
+				if (dbMainGrid != null)
 				{
-					funkyButton.Click -= lblFunky_Click;
+					FunkyButton = new Button
+					{
+						Width = 125,
+						Height = 20,
+						HorizontalAlignment = HorizontalAlignment.Left,
+						VerticalAlignment = VerticalAlignment.Top,
+						Margin = new Thickness(425, 35, 0, 0),
+						IsEnabled = true,
+						Content = "Debug",
+						Name = "FunkyDebug",
+					};
+					FunkyButton.Click += lblFunky_Click;
+					dbMainGrid.Children.Add(FunkyButton);
 				}
-		  }
+			}
 
-		  public void OnEnabled()
-		  {
-				BotMain.OnStart+=FunkyBotStart;
-				BotMain.OnStop+=FunkyBotStop;
-		  }
+		}
+		static void lblFunky_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				FormDebug debug = new FormDebug();
+				debug.ShowDialog();
+				//BotMain.CurrentBot.ConfigWindow.Show();
+			}
+			catch
+			{
 
-		  public void OnInitialize()
-		  {
-			  Button FunkyButton;
-			  initFunkyButton = FindFunkyButton(out FunkyButton);
-			  if (initFunkyButton && FunkyButton != null)
-			  {
-				  DBLog.DebugFormat("Funky Debug Button Click Handler Added");
-				  FunkyButton.Visibility=Visibility.Visible;
-				  FunkyButton.Click += lblFunky_Click;
-			  }
-		  }
-		  static void lblFunky_Click(object sender, EventArgs e)
-		  {
-			  try
-			  {
-				  FormDebug debug = new FormDebug();
-				  debug.ShowDialog();
-				  //BotMain.CurrentBot.ConfigWindow.Show();
-			  }
-			  catch
-			  {
+			}
 
-			  }
+		}
 
-		  }
+		private static bool FindFunkyButton(out Button funkyButton)
+		{
+			funkyButton = null;
 
-		  private static bool FindFunkyButton(out Button funkyButton)
-		  {
-			  funkyButton = null;
+			Grid dbGrid = ReturnDemonbuddyMainGrid();
+			if (dbGrid == null) return false;
 
-			  Window mainWindow = App.Current.MainWindow;
-			  var tab = mainWindow.FindName("tabControlMain") as TabControl;
-			  if (tab == null) return false;
-			  var infoDumpTab = tab.Items[0] as TabItem;
-			  if (infoDumpTab == null) return false;
-			  var grid = infoDumpTab.Content as Grid;
-			  if (grid == null) return false;
-			  funkyButton = grid.FindName("FunkyDebug") as Button;
-			  if (funkyButton != null)
-			  {
-				  DBLog.DebugFormat("Funky Debug handler added");
-				  return true;
-			  }
-			  else
-			  {
-				  Button[] splitbuttons = grid.Children.OfType<Button>().ToArray();
-				  if (splitbuttons.Any())
-				  {
+			funkyButton = dbGrid.FindName("FunkyDebug") as Button;
+			if (funkyButton != null)
+			{
+				DBLog.DebugFormat("Funky Debug handler added");
+				return true;
+			}
+			else
+			{
+				Button[] splitbuttons = dbGrid.Children.OfType<Button>().ToArray();
+				if (splitbuttons.Any())
+				{
 
-					  foreach (var item in splitbuttons)
-					  {
-						  if (item.Name.Contains("FunkyDebug"))
-						  {
-							  funkyButton = item;
-							  return true;
-						  }
-					  }
-				  }
-			  }
+					foreach (var item in splitbuttons)
+					{
+						if (item.Name.Contains("FunkyDebug"))
+						{
+							funkyButton = item;
+							return true;
+						}
+					}
+				}
+			}
 
-			  return false;
-		  }
+			return false;
+		}
 
-		  public void OnPulse()
-		  {
+		private static Grid ReturnDemonbuddyMainGrid()
+		{
+			Window mainWindow = App.Current.MainWindow;
+			var tab = mainWindow.FindName("tabControlMain") as TabControl;
+			if (tab == null) return null;
+			var infoDumpTab = tab.Items[0] as TabItem;
+			if (infoDumpTab == null) return null;
+			var grid = infoDumpTab.Content as Grid;
+			if (grid == null) return null;
 
-		  }
+			return grid;
+		}
 
-		  public void OnShutdown()
-		  {
-			  Button funkyButton;
-			  bool found = FindFunkyButton(out funkyButton);
-			  if (found)
-			  {
-				  funkyButton.Click -= lblFunky_Click;
-			  }
-		  }
+		public void OnPulse()
+		{
 
-		  public Version Version
-		  {
-				get { return new Version(0, 0, 1); }
-		  }
+		}
 
-		  #endregion
+		public void OnShutdown()
+		{
+			Button funkyButton;
+			bool found = FindFunkyButton(out funkyButton);
+			if (found)
+			{
+				funkyButton.Click -= lblFunky_Click;
+			}
+		}
 
-		  #region IEquatable<IPlugin> Members
+		public Version Version
+		{
+			get { return new Version(0, 0, 1); }
+		}
 
-		  public bool Equals(IPlugin other) { return (other.Name==Name)&&(other.Version==Version); }
+		#endregion
 
-		  #endregion
+		#region IEquatable<IPlugin> Members
 
-		  private void FunkyBotStart(IBot bot)
-		  {
+		public bool Equals(IPlugin other) { return (other.Name == Name) && (other.Version == Version); }
 
-		  }
-		  private void FunkyBotStop(IBot bot)
-		  {
+		#endregion
 
-		  }
-	 }
+		private void FunkyBotStart(IBot bot)
+		{
+
+		}
+		private void FunkyBotStop(IBot bot)
+		{
+
+		}
+	}
 }

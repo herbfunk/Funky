@@ -86,6 +86,7 @@ namespace FunkyBot.DBHandlers.Townrun
 
 			iCurrentItemLoops = 0;
 			RandomizeTheTimer();
+			Logger.DBLog.Info("Interaction Town Run Movement Finished.");
 			return RunStatus.Success;
 		}
 
@@ -126,7 +127,7 @@ namespace FunkyBot.DBHandlers.Townrun
 
 			//Reset so we can loot!
 			bFailedToLootLastItem = false;
-
+			Logger.DBLog.Info("Interaction Town Run Clicky Finished.");
 			return RunStatus.Success;
 		}
 
@@ -155,7 +156,7 @@ namespace FunkyBot.DBHandlers.Townrun
 
 			IgnoreVendoring = false;
 
-
+			Logger.DBLog.Info("Interaction Town Run Looting Finished.");
 			return RunStatus.Success;
 		}
 
@@ -163,6 +164,7 @@ namespace FunkyBot.DBHandlers.Townrun
 		{
 			InteractionMovementMade = false;
 			IgnoreVendoring = false;
+			Logger.DBLog.Info("Interaction Town Run Behavior is Finished.");
 			return RunStatus.Success;
 		}
 

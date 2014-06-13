@@ -28,7 +28,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\..\Desktop\New folder %284%29\Plugins\FunkyDebug\</OutputPath>
+    <OutputPath>..\..\..\..\Desktop\db_beta\Plugins\FunkyDebug\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -39,12 +39,12 @@
   <ItemGroup>
     <Reference Include="Demonbuddy, Version=1.1.1898.410, Culture=neutral, PublicKeyToken=eff32ccf253d66d4, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\FunkyBot\Assemblies\Demonbuddy.exe</HintPath>
+      <HintPath>Assemblies\Demonbuddy.exe</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="GreyMagic, Version=1.1.1898.410, Culture=neutral, PublicKeyToken=260525fa2b0e778a, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\FunkyBot\Assemblies\GreyMagic.dll</HintPath>
+      <HintPath>Assemblies\GreyMagic.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />

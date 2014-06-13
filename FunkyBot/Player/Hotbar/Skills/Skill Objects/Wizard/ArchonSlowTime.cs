@@ -9,16 +9,17 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 		 public override void Initialize()
 		  {
 				Cooldown=16000;
-				ExecutionType=SkillExecutionFlags.Target;
+				ExecutionType=SkillExecutionFlags.Buff;
+				IsBuff = true;
+				Priority = SkillPriority.High;
 				WaitVars=new WaitLoops(1, 1, true);
-				Range=48;
+				//Range=48;
 				UseageType=SkillUseage.Anywhere;
-				Priority=SkillPriority.Medium;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckRecastTimer|
-				                          SkillPrecastFlags.CheckCanCast));
-				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 2);
-				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 35, 0.95d, TargetProperties.Normal));
+				PreCast = new SkillPreCast
+				{
+					Criteria = skill => skill.LastUsed == DateTime.MinValue
+				};
+				
 		  }
 
 		  #region IAbility

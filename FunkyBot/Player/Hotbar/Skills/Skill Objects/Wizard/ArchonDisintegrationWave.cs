@@ -49,4 +49,26 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				get { return SNOPower.Wizard_Archon_DisintegrationWave; }
 		  }
 	 }
+
+	public class ArchonDisintegrationWaveFire:ArchonDisintegrationWave
+	{
+		public override SNOPower Power
+		{
+			get { return SNOPower.Wizard_Archon_DisintegrationWave_Fire; }
+		}
+	}
+	public class ArchonDisintegrationWaveCold : ArchonDisintegrationWave
+	{
+		public override SNOPower Power
+		{
+			get { return SNOPower.Wizard_Archon_DisintegrationWave_Cold; }
+		}
+	}
+	public class ArchonDisintegrationWaveLightning : ArchonDisintegrationWave
+	{
+		public override SNOPower Power
+		{
+			get { return SNOPower.Wizard_Archon_DisintegrationWave_Lightning; }
+		}
+	}
 }

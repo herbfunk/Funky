@@ -48,4 +48,28 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				get { return SNOPower.Wizard_Archon_ArcaneStrike; }
 		  }
 	 }
+
+	 public class ArchonArcaneStrikeFire:ArchonArcaneStrike
+	 {
+		 public override SNOPower Power
+		 {
+			 get { return SNOPower.Wizard_Archon_ArcaneStrike_Fire; }
+		 }
+	 }
+
+	 public class ArchonArcaneStrikeCold : ArchonArcaneStrike
+	 {
+		 public override SNOPower Power
+		 {
+			 get { return SNOPower.Wizard_Archon_ArcaneStrike_Cold; }
+		 }
+	 }
+
+	 public class ArchonArcaneStrikeLightning : ArchonArcaneStrike
+	 {
+		 public override SNOPower Power
+		 {
+			 get { return SNOPower.Wizard_Archon_ArcaneStrike_Lightning; }
+		 }
+	 }
 }

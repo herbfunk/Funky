@@ -92,7 +92,7 @@ namespace FunkyBot.Cache.Objects
 
 				if (GizmoHasBeenUsed.HasValue && GizmoHasBeenUsed.Value)
 				{
-					if ((targetType.Value == TargetType.CursedShrine || targetType.Value == TargetType.CursedChest) && IsStillValid())
+					if (targetType.Value == TargetType.CursedShrine)
 					{//Cursed Shrine/Chest that is still valid we reset to keep active!
 						Bot.Targeting.Cache.lastSeenCursedShrine = DateTime.Now;
 						LoopsUnseen = 0;

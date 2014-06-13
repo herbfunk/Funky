@@ -96,8 +96,8 @@ namespace FunkyBot.Player.Class
 			bool ArchonBuffPresent = HotBar.HasBuff(SNOPower.Wizard_Archon);
 
 			//Confirm we don't have archon Ability without archon buff.
-			bool RefreshNeeded = ((!ArchonBuffPresent && Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast))
-									   || (ArchonBuffPresent && !Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast)));
+			bool RefreshNeeded = ((!ArchonBuffPresent && (Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast) || Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast_Fire) || Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast_Cold) || Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast_Lightning)))
+									   || (ArchonBuffPresent && (!Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast) && !Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast_Fire) && !Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast_Cold) && !Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast_Lightning))));
 
 			if (RefreshNeeded)
 			{
@@ -189,6 +189,28 @@ namespace FunkyBot.Player.Class
 					return new Teleport();
 				case WizardActiveSkills.Wizard_BlackHole:
 					return new BlackHole();
+
+				case WizardActiveSkills.Wizard_Archon_ArcaneBlast_Cold:
+					return new ArchonArcaneBlastCold();
+				case WizardActiveSkills.Wizard_Archon_ArcaneBlast_Fire:
+					return new ArchonArcaneBlastFire();
+				case WizardActiveSkills.Wizard_Archon_ArcaneBlast_Lightning:
+					return new ArchonArcaneBlastLightning();
+
+				case WizardActiveSkills.Wizard_Archon_ArcaneStrike_Cold:
+					return new ArchonArcaneStrikeCold();
+				case WizardActiveSkills.Wizard_Archon_ArcaneStrike_Fire:
+					return new ArchonArcaneStrikeFire();
+				case WizardActiveSkills.Wizard_Archon_ArcaneStrike_Lightning:
+					return new ArchonArcaneStrikeLightning();
+
+				case WizardActiveSkills.Wizard_Archon_DisintegrationWave_Cold:
+					return new ArchonDisintegrationWaveCold();
+				case WizardActiveSkills.Wizard_Archon_DisintegrationWave_Fire:
+					return new ArchonDisintegrationWaveFire();
+				case WizardActiveSkills.Wizard_Archon_DisintegrationWave_Lightning:
+					return new ArchonDisintegrationWaveLightning();
+
 				default:
 					return DefaultAttack;
 			}
@@ -224,14 +246,28 @@ namespace FunkyBot.Player.Class
 			Wizard_MirrorImage = 98027,
 			Wizard_Familiar = 99120,
 			Wizard_ArcaneTorrent = 134456,
+			Wizard_Teleport = 168344,
+			Wizard_BlackHole = 243141,
+
 			Wizard_Archon = 134872,
 			Wizard_Archon_ArcaneStrike = 135166,
 			Wizard_Archon_DisintegrationWave = 135238,
 			Wizard_Archon_SlowTime = 135663,
 			Wizard_Archon_ArcaneBlast = 167355,
 			Wizard_Archon_Teleport = 167648,
-			Wizard_Teleport = 168344,
-			Wizard_BlackHole = 243141,
+
+			Wizard_Archon_ArcaneBlast_Fire = 392691,
+			Wizard_Archon_ArcaneBlast_Cold = 392692,
+			Wizard_Archon_ArcaneBlast_Lightning = 392693,
+
+			Wizard_Archon_ArcaneStrike_Cold = 392694,
+			Wizard_Archon_ArcaneStrike_Fire = 392695,
+			Wizard_Archon_ArcaneStrike_Lightning = 392696,
+
+			Wizard_Archon_DisintegrationWave_Cold = 392697,
+			Wizard_Archon_DisintegrationWave_Fire = 392698,
+			Wizard_Archon_DisintegrationWave_Lightning = 392699,
+
 		}
 		/*
 						enum WizardPassiveSkills

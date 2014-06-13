@@ -17,8 +17,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				IsProjectile = true;
 				UseageType=SkillUseage.Combat;
 				Priority=SkillPriority.High;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckEnergy|
-				                          SkillPrecastFlags.CheckRecastTimer));
+				PreCast=new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast);
 
 				ClusterConditions.Add(new SkillClusterConditions(7d, 50f, 5, true));
 			    SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 40, 0.95d));

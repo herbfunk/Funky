@@ -16,8 +16,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				IsProjectile=true;
 				UseageType=SkillUseage.Combat;
 				Priority=SkillPriority.Medium;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckRecastTimer|
-				                          SkillPrecastFlags.CheckEnergy));
+				PreCast = new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast);
 				ClusterConditions.Add(new SkillClusterConditions(5d, 40, 3, true));
 
 				//Any unit when our energy is greater than 90%!
