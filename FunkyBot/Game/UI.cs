@@ -467,7 +467,7 @@ namespace FunkyBot.Game
 
 		}
 
-		
+
 		//public static UIElement BountyCompleteContinue
 		//{
 		//	get

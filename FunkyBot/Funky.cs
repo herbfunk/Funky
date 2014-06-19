@@ -149,13 +149,13 @@ namespace FunkyBot
 					#region Finish Behavior
 
 					ActionDelegate actionDelegateFinishBehavior = TownRunManager.FinishBehavior;
-					Action actionFinish = GilesReplacement.Children[insertIndex+5] as Action;
-					Sequence sequenceFinish = new Sequence(
-							new Action(actionDelegateFinishBehavior),
-							actionFinish
-						);
-					Logger.DBLog.DebugFormat("Town Run - Finish Behavior - Inserted...");
-					GilesReplacement.Children[insertIndex+5] = sequenceFinish;
+					Sequence actionFinish = GilesReplacement.Children[insertIndex+5] as Sequence;
+					if (actionFinish!=null)
+					{
+						actionFinish.InsertChild(0, new Action(actionDelegateFinishBehavior));
+						Logger.DBLog.DebugFormat("Town Run - Finish Behavior - Inserted...");
+						GilesReplacement.Children[insertIndex + 5] = actionFinish;
+					}
 					#endregion
 
 
@@ -355,6 +355,8 @@ namespace FunkyBot
 
 		public override void Dispose()
 		{
+			if (RoutineManager.Current.Name != "Funky") return;
+
 			BotMain.OnStop -= EventHandlers.EventHandlers.FunkyBotStop;
 			BotMain.OnStart -= EventHandlers.EventHandlers.FunkyBotStart;
 			RemoveHandlers();

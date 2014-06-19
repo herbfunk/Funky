@@ -7,12 +7,19 @@ Added Death Skill Cooldown waiting options.
 Added Death Settings under General Tab.
 
 Added Pylons to ShrineTypes. (Should no longer ignore if Empowered is unchecked.)
-
-Added Poison Immunity Item Check.
-Added Akkhan Set to EquippedTypes.
-
 Added additional Cursed Shrine SNOId that was missing.
 
+Equipment
+	Added Poison Immunity Item Check.
+	Added Akkhan Set to EquippedTypes.
+	Added Starmetal Kukri Witch Doctor Dagger.
+
+
+Monk
+	Exploding Palm now using ShouldTrack property.
+	Dashing Strike now usable as special movement (in/out of combat)
+
+Witch Doctor Big Bad Voodoo will be used more frequently with Starmetal Kukri equipped.
 
 
 v2.11.0.1

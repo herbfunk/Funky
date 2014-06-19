@@ -25,6 +25,8 @@ namespace FunkyBot.Player.Class
 
 			//Tall Man Finger Check
 			Bot.Settings.WitchDoctor.TallManFinger = Bot.Character.Data.equipment.EquippedItems.Any(i => i.EquippedType == EquippedItemType.TallManFinger);
+			//Reduced CD (Big Bad Voodoo / Fetish Army) Dagger
+			Bot.Settings.WitchDoctor.StarmetalKukri = Bot.Character.Data.equipment.EquippedItems.Any(i => i.EquippedType == EquippedItemType.StarmetalKukri);
 
 			Logger.DBLog.DebugFormat("[Funky] Using WitchDoctor Player Class");
 		}

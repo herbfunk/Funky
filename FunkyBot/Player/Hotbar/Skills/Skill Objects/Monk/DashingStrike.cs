@@ -1,4 +1,5 @@
 ﻿using FunkyBot.Player.HotBar.Skills.Conditions;
+using Zeta.Common;
 using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Monk
@@ -8,18 +9,44 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 		 public override void Initialize()
 		  {
 				Cooldown=1000;
-				ExecutionType=SkillExecutionFlags.Target;
+				ExecutionType=SkillExecutionFlags.Location;
 				UseageType=SkillUseage.Combat;
-				WaitVars=new WaitLoops(0, 1, true);
-				Cost=25;
-				Range=30;
+				WaitVars=new WaitLoops(0, 0, false);
+				Range=40;
 				Priority=SkillPriority.Medium;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckEnergy|SkillPrecastFlags.CheckCanCast|
-				                          SkillPrecastFlags.CheckRecastTimer|SkillPrecastFlags.CheckPlayerIncapacitated));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Ranged, maxdistance: 20));
+				PreCast=new SkillPreCast(SkillPrecastFlags.CheckCanCast|SkillPrecastFlags.CheckPlayerIncapacitated);
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Ranged, mindistance: 30));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, mindistance: 30, falseConditionalFlags: TargetProperties.Normal));
 
+				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
 
-				FcriteriaCombat=() => (!Bot.Character.Class.bWaitingForSpecial||Bot.Character.Data.dCurrentEnergy>=Bot.Character.Class.iWaitingReservedAmount);
+				IsMovementSkill = true;
+				FCombatMovement = (v) =>
+				{
+					float fDistanceFromTarget = Bot.Character.Data.Position.Distance(v);
+					if (!Bot.Character.Class.bWaitingForSpecial && Funky.Difference(Bot.Character.Data.Position.Z, v.Z) <= 4)
+					{
+						if (fDistanceFromTarget > 50f)
+							return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 50f);
+						
+						return v;
+					}
+
+					return Vector3.Zero;
+				};
+				FOutOfCombatMovement = (v) =>
+				{
+					float fDistanceFromTarget = Bot.Character.Data.Position.Distance(v);
+					if (Funky.Difference(Bot.Character.Data.Position.Z, v.Z) <= 4 && fDistanceFromTarget >= 20f)
+					{
+						if (fDistanceFromTarget > 50f)
+							return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 50f);
+						else
+							return v;
+					}
+
+					return Vector3.Zero;
+				};
 		  }
 
 		  #region IAbility

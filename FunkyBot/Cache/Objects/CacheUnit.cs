@@ -652,12 +652,7 @@ namespace FunkyBot.Cache.Objects
 				return;
 			}
 
-			//Profile disabled Killing of monsters.
-			if (!ProfileManager.CurrentProfile.KillMonsters && PriorityCounter == 0)
-			{
-				Weight = 0;
-				return;
-			}
+
 
 			if (RadiusDistance >= 5f && Bot.Character.Class.IsMeleeClass)
 			{
@@ -890,6 +885,13 @@ namespace FunkyBot.Cache.Objects
 			{
 				if (!base.ObjectIsValidForTargeting)
 					return false;
+
+				//Profile disabled Killing of monsters.
+				if (!ProfileManager.CurrentProfile.KillMonsters)
+				{
+					IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;
+					return false;
+				}
 
 				//Z-Height Difference Check
 				if (!IsZDifferenceValid)

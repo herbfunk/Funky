@@ -21,6 +21,7 @@ namespace FunkyBot.Player
 		CountessJuliasCameo,
 		MarasKaleidoscope,
 		Akkhan,
+		StarmetalKukri,
 	}
 
 	internal class Equipment
@@ -127,6 +128,7 @@ namespace FunkyBot.Player
 			{820499474, EquippedItemType.PiroMarella},
 			{1566368217, EquippedItemType.CountessJuliasCameo},
 			{1528490619, EquippedItemType.MarasKaleidoscope},
+			{1823578424, EquippedItemType.StarmetalKukri},
 
 			//BLACKTHORNE'S
 			{-773231465, EquippedItemType.Blackthornes}, //Jousting Mail
@@ -170,6 +172,8 @@ namespace FunkyBot.Player
 		Item - Name: Breastplate of Akkhan BalanceID: 259933632
 		Item - Name: Gauntlets of Akkhan BalanceID: 2059399737
 
+
+		Item - Name: Starmetal Kukri BalanceID: 1823578424
 
 
 

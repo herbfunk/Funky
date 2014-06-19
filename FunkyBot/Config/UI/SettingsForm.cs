@@ -1410,7 +1410,6 @@ namespace FunkyBot.Config.UI
 			try
 			{
 
-
 			}
 			catch (Exception ex)
 			{
