@@ -31,7 +31,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 			}
 
 			//Any non-normal unit within 30 yards that is 95% HP or less!
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 30, 0.95d, TargetProperties.Normal));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 30, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 		}
 
 

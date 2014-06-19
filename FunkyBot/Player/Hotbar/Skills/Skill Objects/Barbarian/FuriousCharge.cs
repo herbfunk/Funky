@@ -25,7 +25,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				PreCast=new SkillPreCast(SkillPrecastFlags.CheckCanCast|SkillPrecastFlags.CheckPlayerIncapacitated);
 				
 				ClusterConditions.Add(new SkillClusterConditions(7d, 35f, 4, false, minDistance: 15f, useRadiusDistance: true));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 30, falseConditionalFlags: TargetProperties.Normal));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 30, falseConditionalFlags: TargetProperties.Normal));
 
 				FCombatMovement=v =>
 				{

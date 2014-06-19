@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Xml;
-using FunkyBot.Misc;
 
-namespace FunkyBot
+namespace FunkyBot.Misc
 {
-	 public class Update
+	 public static class Updater
 	 {
-
 		  public static void CheckUpdate()
 		  {
 				// in newVersion variable we will store the
@@ -85,6 +83,5 @@ namespace FunkyBot
 					 Logger.DBLog.InfoFormat("https://github.com/herbfunk/Funky/archive/master.zip");
 				}
 		  }
-
 	 }
 }

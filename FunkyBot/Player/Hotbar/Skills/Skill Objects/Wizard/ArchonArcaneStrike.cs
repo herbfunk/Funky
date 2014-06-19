@@ -9,13 +9,13 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 		  {
 				Cooldown=200;
 				ExecutionType=SkillExecutionFlags.Target|SkillExecutionFlags.ClusterTargetNearest;
-				WaitVars=new WaitLoops(1, 1, true);
+				WaitVars=new WaitLoops(0, 0, false);
 				Range=15;
 				UseageType=SkillUseage.Combat;
 				Priority=SkillPriority.Low;
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated));
 				ClusterConditions.Add(new SkillClusterConditions(6d, 10f, 2, true));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 18));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None));
 		  }
 
 		  #region IAbility

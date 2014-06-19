@@ -1,4 +1,12 @@
 ﻿// herbfunk revisions
+v2.11.0.1
+	
+Wizard
+	Added new Skiils for Cold/Fire/Lightning variations of Archon.
+	Archon will only activate on Non-Normal units (Combustion will on 10+ units also)
+	Fixed Refresh Archon Checking.
+	Archon Slow Time will be cast only once now.
+
 
 v2.11.0.0
 

@@ -293,7 +293,7 @@ namespace FunkyBot.Game.Bounty
 						}
 						break;
 					case BountyQuestTypes.Boss:
-						if (Bot.Game.Profile.ExploreDungeonTag && CurrentBountyCacheEntry.StartingLevelAreaID == Bot.Character.Data.iCurrentLevelID)
+						if (CurrentBountyCacheEntry.StartingLevelAreaID == Bot.Character.Data.iCurrentLevelID)
 						{
 							Logger.Write(LogLevel.Bounty, "Bounty Level ID Match (Boss) -- Enabling Navigation of Points!");
 							ShouldNavigateMinimapPoints = true;

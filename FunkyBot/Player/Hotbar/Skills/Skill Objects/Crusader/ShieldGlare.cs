@@ -27,7 +27,7 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			ClusterConditions.Add(new SkillClusterConditions(10d, 30f, 3, true));
 			
 			//Any Non-Normal Mob thats within 20f and is below 95% HP.
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 20, 0.95d, TargetProperties.Normal));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 20, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 		}
 	}
 }

@@ -28,7 +28,7 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			IsMovementSkill = true;
 
 			ClusterConditions.Add(new SkillClusterConditions(5d, 45, 6, true));
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 45, 0.95d, TargetProperties.Normal));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 45, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 
 			FCombatMovement = (v) =>
 			{

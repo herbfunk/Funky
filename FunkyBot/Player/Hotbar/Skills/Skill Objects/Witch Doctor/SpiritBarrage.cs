@@ -12,7 +12,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				IsProjectile = true;
 				IsRanged = true;
 				//ClusterConditions.Add(new SkillClusterConditions(5d, 20f, 1, true));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 45,falseConditionalFlags: TargetProperties.DOTDPS));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 45,falseConditionalFlags: TargetProperties.DOTDPS));
 				WaitVars=new WaitLoops(0, 0, false);
 				Cost=100;
 				Range=45;

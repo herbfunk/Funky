@@ -20,7 +20,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckEnergy|
 				                          SkillPrecastFlags.CheckRecastTimer|SkillPrecastFlags.CheckPetCount));
 				ClusterConditions.Add(new SkillClusterConditions(7d, 50f, 2, true));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 45, 0.95d, TargetProperties.Normal|TargetProperties.Fast));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 45, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal|TargetProperties.Fast));
 		  }
 
 		  #region IAbility

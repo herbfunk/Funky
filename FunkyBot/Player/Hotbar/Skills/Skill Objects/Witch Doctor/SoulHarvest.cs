@@ -21,7 +21,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				SingleUnitCondition.Add(new UnitTargetConditions
 				{
 					Criteria = () => Bot.Character.Class.HotBar.GetBuffStacks(SNOPower.Witchdoctor_SoulHarvest) == 0,
-					Distance = 9,
+					MaximumDistance = 9,
 					FalseConditionFlags = TargetProperties.Normal,
 					HealthPercent = 0.95d,
 					TrueConditionFlags = TargetProperties.None,

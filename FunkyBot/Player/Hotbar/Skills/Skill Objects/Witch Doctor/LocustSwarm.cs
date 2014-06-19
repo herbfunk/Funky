@@ -20,18 +20,18 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 			if (!hotbarContainsDOT)
 			{
 				ClusterConditions.Add(new SkillClusterConditions(5d, 35, 4, true, 0.25d));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 20, 0.99d, TargetProperties.DOTDPS));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 20, MinimumHealthPercent: 0.99d, falseConditionalFlags: TargetProperties.DOTDPS));
 
 				//Any non-normal unit (Any Range!)
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, -1, 0.99d, TargetProperties.Normal|TargetProperties.DOTDPS));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: -1, MinimumHealthPercent: 0.99d, falseConditionalFlags: TargetProperties.Normal|TargetProperties.DOTDPS));
 			}
 			else
 			{
 				ClusterConditions.Add(new SkillClusterConditions(5d, 35, 4, true));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 20, 0.99d, TargetProperties.Weak));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 20, MinimumHealthPercent: 0.99d, falseConditionalFlags: TargetProperties.Weak));
 
 				//Any non-normal unit (Any Range!)
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, -1, 0.99d, TargetProperties.Normal));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: -1, MinimumHealthPercent: 0.99d, falseConditionalFlags: TargetProperties.Normal));
 				precastflags |= SkillPrecastFlags.CheckRecastTimer;
 			}
 

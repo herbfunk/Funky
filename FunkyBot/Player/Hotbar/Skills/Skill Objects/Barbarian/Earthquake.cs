@@ -27,7 +27,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				                          SkillPrecastFlags.CheckPlayerIncapacitated));
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
 
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 13, 0.95d, TargetProperties.Normal));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 13, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 		  }
 
 		  #region IAbility

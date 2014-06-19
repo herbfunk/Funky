@@ -519,7 +519,7 @@ namespace FunkyBot.Cache.Objects
 		public bool IsCursedChest { get { if (IsFinalized) return _IsCursedChest; return SNOID == 365097 || SNOID == 364559; } }
 
 		private bool _IsCursedShrine;
-		public bool IsCursedShrine { get { if (IsFinalized) return _IsCursedShrine; return SNOID == 364601; } }
+		public bool IsCursedShrine { get { if (IsFinalized) return _IsCursedShrine; return SNOID == 364601 || SNOID == 368169; } }
 
 		private bool _IsAvoidanceSpawnerUnit;
 		public bool IsAvoidanceSpawnerUnit { get { if (IsFinalized) return _IsAvoidanceSpawnerUnit; return CacheIDLookup.hashUnitAvoidanceSpawner.Contains(SNOID); } }

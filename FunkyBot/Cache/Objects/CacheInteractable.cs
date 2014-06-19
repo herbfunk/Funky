@@ -235,10 +235,8 @@ namespace FunkyBot.Cache.Objects
 						else
 						{
 							ShrineTypes shrinetype = CacheIDLookup.FindShrineType(SNOID);
-
-							//Ignore XP Shrines at MAX Paragon Level!
-							//if (this.SNOID==176075&&Bot.Character_.Data.iMyParagonLevel==100)
-							IgnoreThis = !Bot.Settings.Targeting.UseShrineTypes[(int)shrinetype];
+							if (shrinetype.HasFlag(ShrineTypes.Normal))
+								IgnoreThis = !Bot.Settings.Targeting.UseShrineTypes[(int)shrinetype];
 						}
 
 						//Ignoring..?

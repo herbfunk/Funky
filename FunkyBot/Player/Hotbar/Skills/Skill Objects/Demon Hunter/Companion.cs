@@ -29,14 +29,14 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				//Cluster of 5 or more
 				ClusterConditions.Add(new SkillClusterConditions(6d, RuneIndex==1?20:25,5,true));
 				//Non-Normal Unit
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, RuneIndex == 1 ? 20 : 25, 0.95d, TargetProperties.Normal));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: RuneIndex == 1 ? 20 : 25, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 			}
 
 			//Increased Damage
 			if (RuneIndex==2)
 			{
 				//Non-Normal Unit
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, RuneIndex == 1 ? 20 : 25, 0.95d, TargetProperties.Normal));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: RuneIndex == 1 ? 20 : 25, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 			}
 
 			//Hatred
@@ -47,7 +47,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 					new UnitTargetConditions
 					{
 						Criteria = () => Bot.Character.Data.dCurrentEnergyPct<0.50d,
-						Distance=50,
+						MaximumDistance=50,
 						HealthPercent=0.95d,
 						TrueConditionFlags=TargetProperties.None
 					}
@@ -62,7 +62,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 					new UnitTargetConditions
 					{
 						Criteria = () => Bot.Character.Data.dCurrentHealthPct < 0.50d,
-						Distance = 50,
+						MaximumDistance = 50,
 						HealthPercent = 0.95d,
 						TrueConditionFlags = TargetProperties.None
 					}

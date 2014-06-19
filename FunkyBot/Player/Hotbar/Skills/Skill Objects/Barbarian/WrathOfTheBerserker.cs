@@ -23,7 +23,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 			IsSpecialAbility = Bot.Settings.Barbarian.bWaitForWrath;
 			Priority = SkillPriority.High;
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckEnergy | SkillPrecastFlags.CheckExisitingBuff | SkillPrecastFlags.CheckCanCast);
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 40, 0.95d, TargetProperties.Normal));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 40, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 			
 			if (Bot.Settings.Barbarian.bBarbUseWOTBAlways)
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None));

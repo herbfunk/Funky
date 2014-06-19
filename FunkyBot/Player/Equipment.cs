@@ -19,6 +19,7 @@ namespace FunkyBot.Player
 		IllusionaryBoots,
 		PiroMarella,
 		CountessJuliasCameo,
+		MarasKaleidoscope,
 	}
 
 	internal class Equipment
@@ -28,6 +29,7 @@ namespace FunkyBot.Player
 		public bool GlobesRestoreResource { get; set; }
 		public bool ImmuneToDescratorMoltenPlaguedAvoidances { get; set; }
 		public bool ImmuneToArcane { get; set; }
+		public bool ImmuneToPoison { get; set; }
 		public bool RingOfGrandeur { get; set; }
 		public bool NoMonsterCollision { get; set; }
 
@@ -41,6 +43,7 @@ namespace FunkyBot.Player
 			RingOfGrandeur = false;
 			NoMonsterCollision = false;
 			ImmuneToArcane = false;
+			ImmuneToPoison = false;
 		}
 
 		public void RefreshEquippedItemsList()
@@ -50,7 +53,7 @@ namespace FunkyBot.Player
 
 			//Countess Julias Cameo
 			ImmuneToArcane = EquippedItems.Any(i => i.EquippedType == EquippedItemType.CountessJuliasCameo);
-
+			ImmuneToPoison = EquippedItems.Any(i => i.EquippedType == EquippedItemType.MarasKaleidoscope);
 
 			//Repear Wraps
 			if (EquippedItems.Any(i => i.ThisRealName.Contains("Reaper's Wraps")))
@@ -122,6 +125,7 @@ namespace FunkyBot.Player
 			{1979309080, EquippedItemType.IllusionaryBoots},
 			{820499474, EquippedItemType.PiroMarella},
 			{1566368217, EquippedItemType.CountessJuliasCameo},
+			{1528490619, EquippedItemType.MarasKaleidoscope},
 
 			//BLACKTHORNE'S
 			{-773231465, EquippedItemType.Blackthornes}, //Jousting Mail
@@ -151,6 +155,8 @@ namespace FunkyBot.Player
 		Item - Name: Piro Marella BalanceID: 820499474
 
 		Item - Name: Countess Julia's Cameo (InternalName: x1_Amulet_norm_unique_19-211) BalanceID: 1566368217
+
+		Item - Name: Mara's Kaleidoscope BalanceID: 1528490619
 
 
 

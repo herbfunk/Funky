@@ -50,7 +50,7 @@ namespace FunkyDebug
 			}
 
 			flowLayout_OutPut.Controls.Clear();
-			
+
 
 			try
 			{
@@ -251,7 +251,7 @@ namespace FunkyDebug
 				return;
 
 			item = cacheItems[itemACDGUID];
-			
+
 
 			Clipboard.SetText(entrySender.Text);
 		}
@@ -291,7 +291,7 @@ namespace FunkyDebug
 
 							flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(String.Format("Debuff: {0} SNOID: {1} StackCount: {2} IsCancelable: {3}",
 								buff.InternalName, buff.SNOId, buff.StackCount, buff.IsCancelable)));
-						
+
 
 						}
 						catch (Exception)
@@ -312,7 +312,7 @@ namespace FunkyDebug
 						string s = String.Format("Passive Skill {0}", snoPower.ToString());
 						flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(s));
 					}
-					
+
 
 				}
 			}
@@ -328,9 +328,12 @@ namespace FunkyDebug
 		{
 			try
 			{
-
-				return String.Format("Skill: {0} HotbarSlot: {1} RuneIndex: {2}",
-								ZetaDia.CPlayer.GetPowerForSlot(slot), slot, ZetaDia.CPlayer.GetRuneIndexForSlot(slot));
+				SNOPower power=ZetaDia.CPlayer.GetPowerForSlot(slot);
+				PowerManager.CanCastFlags castflags;
+				bool cancast=Zeta.Bot.PowerManager.CanCast(power, out castflags);
+				return String.Format("Skill: {0} HotbarSlot: {1} RuneIndex: {2}\r\n" +
+				                     "CanCast: {3} CanCastFlags: {4}",
+								power, slot, ZetaDia.CPlayer.GetRuneIndexForSlot(slot), cancast, castflags);
 			}
 			catch (Exception)
 			{
@@ -541,6 +544,190 @@ namespace FunkyDebug
 
 		private void flowLayout_OutPut_MouseEnter(object sender, EventArgs e)
 		{
+			flowLayout_OutPut.Focus();
+			
+		}
+
+		private void btn_DumpOpenWorldMarkers_Click(object sender, EventArgs e)
+		{
+			if (BotMain.IsRunning)
+			{
+				return;
+			}
+
+			flowLayout_OutPut.Controls.Clear();
+
+			try
+			{
+				ZetaDia.Memory.ClearCache();
+
+				using (ZetaDia.Memory.SaveCacheState())
+				{
+					ZetaDia.Memory.DisableCache();
+					ZetaDia.Actors.Update();
+
+					foreach (var mmm in ZetaDia.Minimap.Markers.OpenWorldMarkers)
+					{
+						var entry = new UserControlDebugEntry(ReturnMinimapMarkerString(mmm));
+						flowLayout_OutPut.Controls.Add(entry);
+					}
+				}
+			}
+			catch
+			{
+
+			}
+
+			flowLayout_OutPut.Focus();
+		}
+
+		private string ReturnMinimapMarkerString(MinimapMarker mmm)
+		{
+			return String.Format("ID: {0} DynamicWorldId: {1} NameHash: {2} Position: {3}\r\n" +
+								 "IsPointOfInterest:{4} IsPortalEntrance:{5} IsPortalExit:{6} IsWaypoint:{7}",
+				mmm.Id, mmm.DynamicWorldId, String.Format("{0:X}", mmm.NameHash), mmm.Position,
+				mmm.IsPointOfInterest,mmm.IsPortalEntrance,mmm.IsPortalExit,mmm.IsWaypoint);
+		}
+
+		private void btn_DumpCurrentWorldMarkers_Click(object sender, EventArgs e)
+		{
+			if (BotMain.IsRunning)
+			{
+				return;
+			}
+
+			flowLayout_OutPut.Controls.Clear();
+
+			try
+			{
+				ZetaDia.Memory.ClearCache();
+
+				using (ZetaDia.Memory.SaveCacheState())
+				{
+					ZetaDia.Memory.DisableCache();
+					ZetaDia.Actors.Update();
+
+					foreach (var mmm in ZetaDia.Minimap.Markers.CurrentWorldMarkers)
+					{
+						var entry = new UserControlDebugEntry(ReturnMinimapMarkerString(mmm));
+						flowLayout_OutPut.Controls.Add(entry);
+					}
+				}
+			}
+			catch
+			{
+
+			}
+
+			flowLayout_OutPut.Focus();
+		}
+
+		private void btn_DumpNormalMarkers_Click(object sender, EventArgs e)
+		{
+			if (BotMain.IsRunning)
+			{
+				return;
+			}
+
+			flowLayout_OutPut.Controls.Clear();
+
+			try
+			{
+				ZetaDia.Memory.ClearCache();
+
+				using (ZetaDia.Memory.SaveCacheState())
+				{
+					ZetaDia.Memory.DisableCache();
+					ZetaDia.Actors.Update();
+
+					foreach (var mmm in ZetaDia.Minimap.Markers.NormalMarkers)
+					{
+						var entry = new UserControlDebugEntry(ReturnMinimapMarkerString(mmm));
+						flowLayout_OutPut.Controls.Add(entry);
+					}
+				}
+			}
+			catch
+			{
+
+			}
+
+			flowLayout_OutPut.Focus();
+		}
+
+		private string ReturnQuestInfoString(QuestInfo q)
+		{
+			return String.Format("Type: {0} QuestSNO: {1} State: {2} Step: {3} LevelArea: {4}\r\n" +
+								 "BonusCount: {5} CreationTick: {6} KillCount: {7} QuestMeter: {8}",
+				q.QuestType,q.QuestSNO, q.State,q.QuestStep,q.LevelArea,
+				q.BonusCount,q.CreationTick,q.KillCount,q.QuestMeter);
+		}
+
+		private void btn_DumpBounties_Click(object sender, EventArgs e)
+		{
+			if (BotMain.IsRunning)
+			{
+				return;
+			}
+
+			flowLayout_OutPut.Controls.Clear();
+
+			try
+			{
+				ZetaDia.Memory.ClearCache();
+
+				using (ZetaDia.Memory.SaveCacheState())
+				{
+					ZetaDia.Memory.DisableCache();
+					ZetaDia.Actors.Update();
+
+					foreach (var q in ZetaDia.ActInfo.Bounties)
+					{
+
+						var entry = new UserControlDebugEntry(ReturnQuestInfoString(q.Info));
+						flowLayout_OutPut.Controls.Add(entry);
+					}
+				}
+			}
+			catch
+			{
+
+			}
+
+			flowLayout_OutPut.Focus();
+		}
+
+		private void btn_DumpQuests_Click(object sender, EventArgs e)
+		{
+			if (BotMain.IsRunning)
+			{
+				return;
+			}
+
+			flowLayout_OutPut.Controls.Clear();
+
+			try
+			{
+				ZetaDia.Memory.ClearCache();
+
+				using (ZetaDia.Memory.SaveCacheState())
+				{
+					ZetaDia.Memory.DisableCache();
+					ZetaDia.Actors.Update();
+
+					foreach (var q in ZetaDia.ActInfo.AllQuests)
+					{
+
+						var entry = new UserControlDebugEntry(ReturnQuestInfoString(q));
+						flowLayout_OutPut.Controls.Add(entry);
+					}
+				}
+			}
+			catch
+			{
+
+			}
+
 			flowLayout_OutPut.Focus();
 		}
 

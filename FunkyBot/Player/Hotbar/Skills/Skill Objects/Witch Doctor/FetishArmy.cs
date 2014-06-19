@@ -15,7 +15,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 			Priority = SkillPriority.Medium;
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast));
 			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 16, 0.95d, TargetProperties.Normal));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 16, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 
 			//Zunimassa Set we have perma pets!
 			if (Bot.Settings.WitchDoctor.ZunimassaFullSet)

@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using Demonbuddy;
@@ -16,11 +12,9 @@ using FunkyBot.Config.Settings;
 using FunkyBot.Config.UI;
 using FunkyBot.DBHandlers;
 using FunkyBot.DBHandlers.Townrun;
-using FunkyBot.Misc;
 using Zeta.Bot;
 using Zeta.Bot.Logic;
 using Zeta.Bot.Navigation;
-using Zeta.Bot.Settings;
 using Zeta.Common;
 using Zeta.Common.Plugins;
 using Zeta.Game;
@@ -32,7 +26,7 @@ using Logger = FunkyBot.Misc.Logger;
 
 namespace FunkyBot
 {
-	public class Funky : Zeta.Bot.CombatRoutine
+	public partial class Funky : CombatRoutine
 	{
 
 		public Funky()
@@ -340,14 +334,7 @@ namespace FunkyBot
 			}
 		}
 
-
-
-
-
-
-
-
-		public Version Version { get { return new Version(2, 11, 0, 0); } }
+		
 		public string Author { get { return "Herbfunk"; } }
 		public string Description
 		{

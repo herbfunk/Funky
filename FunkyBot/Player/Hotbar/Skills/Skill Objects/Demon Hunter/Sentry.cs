@@ -20,13 +20,13 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 			//Force wait on other skills when out of energy!
 			IsSpecialAbility = true;
 
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, 0.95d, TargetProperties.Normal | TargetProperties.Fast));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: Range, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal | TargetProperties.Fast));
 			//Any unit when our energy is greater than 90%!
 			SingleUnitCondition.Add(new UnitTargetConditions
 			{
 				TrueConditionFlags = TargetProperties.None,
 				Criteria = () => Bot.Character.Data.dCurrentEnergyPct > 0.9d,
-				Distance = Range,
+				MaximumDistance = Range,
 				FalseConditionFlags = TargetProperties.LowHealth,
 			});
 

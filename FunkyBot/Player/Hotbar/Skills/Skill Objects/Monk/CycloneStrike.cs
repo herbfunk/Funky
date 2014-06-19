@@ -21,7 +21,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 7);
 				//ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 3);
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 23, 0.95d, TargetProperties.Normal));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 23, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 
 				ClusterConditions.Add(new SkillClusterConditions(8d, 20f, 4, false, 0, ClusterProperties.Large, 10f, false));
 				FcriteriaCombat = () =>

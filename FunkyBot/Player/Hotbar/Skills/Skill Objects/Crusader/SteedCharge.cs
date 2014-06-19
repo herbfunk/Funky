@@ -45,12 +45,12 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			};
 
 			ClusterConditions.Add(new SkillClusterConditions(5d, 50, 7, true));
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 35, 0.95d, TargetProperties.Normal));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 35, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 			
 			//Reduced cool down.. lets use it more!
 			if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.X1_Crusader_Passive_LordCommander))
 			{
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 50, 0d, TargetProperties.Weak));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 50, MinimumHealthPercent: 0d, falseConditionalFlags: TargetProperties.Weak));
 			}
 		}
 	}

@@ -24,7 +24,7 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			WaitVars = new WaitLoops(0, 0, true);
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 			
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 25, 0.75d, TargetProperties.Normal));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 25, MinimumHealthPercent: 0.75d, falseConditionalFlags: TargetProperties.Normal));
 			SingleUnitCondition.Add(new UnitTargetConditions
 			{
 				TrueConditionFlags = TargetProperties.None,

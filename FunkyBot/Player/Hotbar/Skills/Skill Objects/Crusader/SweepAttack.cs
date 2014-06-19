@@ -25,7 +25,7 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			UseageType = SkillUseage.Combat;
 
 			ClusterConditions.Add(new SkillClusterConditions(10d, 25f, 3, true));
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 20, 0.95d, TargetProperties.Normal));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 20, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 			SingleUnitCondition.Add(new UnitTargetConditions
 			{
 				TrueConditionFlags = TargetProperties.None,

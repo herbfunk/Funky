@@ -1,19 +1,26 @@
-﻿namespace FunkyBot.Cache.Enums
+﻿using System;
+
+namespace FunkyBot.Cache.Enums
 {
+	 [Flags]
 	 public enum ShrineTypes
 	 {
-			Fleeting=0,
-			Enlightenment=1,
-			Frenzy=2,
-			Fortune=3,
-			Protection=4,
-			Empowered=5,
+			None=0,
+			Fleeting=1,
+			Enlightenment=2,
+			Frenzy=4,
+			Fortune=8,
+			Protection=16,
+			Empowered=32,
 
-			Channeling=6,
-			Speed=7,
-			Shield=8,
-			Power=9,
-		    Conduit=10, 
+			Channeling=64,
+			Speed=128,
+			Shield=256,
+			Power=512,
+		    Conduit=1024, 
+
+		 Normal=Fleeting|Enlightenment|Frenzy|Fortune|Protection|Empowered,
+		 Pylon=Channeling|Speed|Shield|Power|Conduit
 	 }
 
 }

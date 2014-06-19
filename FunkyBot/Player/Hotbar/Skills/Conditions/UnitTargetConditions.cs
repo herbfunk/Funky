@@ -11,11 +11,12 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 	///</summary>
 	public class UnitTargetConditions
 	{
-		public UnitTargetConditions(TargetProperties trueconditionalFlags, int MinimumDistance = -1, double MinimumHealthPercent = 0d, TargetProperties falseConditionalFlags = TargetProperties.None)
+		public UnitTargetConditions(TargetProperties trueconditionalFlags, int maxdistance = -1, int mindistance = -1, double MinimumHealthPercent = 0d, TargetProperties falseConditionalFlags = TargetProperties.None)
 		{
 			TrueConditionFlags = trueconditionalFlags;
 			FalseConditionFlags = falseConditionalFlags;
-			Distance = MinimumDistance;
+			MaximumDistance = maxdistance;
+			MinimumDistance = mindistance;
 			HealthPercent = MinimumHealthPercent;
 			CreateCriteria();
 		}
@@ -30,7 +31,8 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 		{
 			TrueConditionFlags = TargetProperties.None;
 			FalseConditionFlags = TargetProperties.None;
-			Distance = -1;
+			MaximumDistance = -1;
+			MinimumDistance = -1;
 			HealthPercent = 0d;
 			CreateCriteria();
 		}
@@ -38,7 +40,8 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 
 		public TargetProperties TrueConditionFlags { get; set; }
 		public TargetProperties FalseConditionFlags { get; set; }
-		public int Distance { get; set; }
+		public int MaximumDistance { get; set; }
+		public int MinimumDistance { get; set; }
 		public double HealthPercent { get; set; }
 		public Func<bool> Criteria { get; set; } 
 
@@ -46,8 +49,11 @@ namespace FunkyBot.Player.HotBar.Skills.Conditions
 		private void CreateCriteria()
 		{
 			//Distance
-			if (Distance > -1)
-				Criteria += () => Bot.Targeting.Cache.CurrentTarget.RadiusDistance <= Distance;
+			if (MaximumDistance > -1)
+				Criteria += () => Bot.Targeting.Cache.CurrentTarget.RadiusDistance <= MaximumDistance;
+			if (MinimumDistance > -1)
+				Criteria += () => Bot.Targeting.Cache.CurrentTarget.RadiusDistance >= MinimumDistance;
+
 			//Health
 			if (HealthPercent > 0d)
 				Criteria += () => Bot.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.Value <= HealthPercent;

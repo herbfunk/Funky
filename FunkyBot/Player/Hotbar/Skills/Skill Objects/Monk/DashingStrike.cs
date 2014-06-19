@@ -16,7 +16,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				Priority=SkillPriority.Medium;
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckEnergy|SkillPrecastFlags.CheckCanCast|
 				                          SkillPrecastFlags.CheckRecastTimer|SkillPrecastFlags.CheckPlayerIncapacitated));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Ranged, 20));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Ranged, maxdistance: 20));
 
 
 				FcriteriaCombat=() => (!Bot.Character.Class.bWaitingForSpecial||Bot.Character.Data.dCurrentEnergy>=Bot.Character.Class.iWaitingReservedAmount);

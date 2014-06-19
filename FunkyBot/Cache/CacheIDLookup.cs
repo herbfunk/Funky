@@ -22,16 +22,20 @@ namespace FunkyBot.Cache
 					return ShrineTypes.Fortune;
 				case 260331:
 					return ShrineTypes.Fleeting;
-				//case 260330:
-				default:
-					return ShrineTypes.Empowered; //260330
-				//case 330697:
-					//return ShrineTypes.Channeling;
-				//case 330699:
-					//return ShrineTypes.Speed;
-				//case 330698:
-					//return ShrineTypes.Shield;
+				case 260330:
+					return ShrineTypes.Empowered;
 
+
+				case 330697:
+					return ShrineTypes.Channeling;
+				case 330699:
+					return ShrineTypes.Speed;
+				case 330698:
+					return ShrineTypes.Shield;
+				case 330695:
+					return ShrineTypes.Power;
+				default://case 330696:
+					return ShrineTypes.Conduit;
 
 			}
 		}

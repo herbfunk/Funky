@@ -13,7 +13,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				WaitVars=new WaitLoops(0, 1, true);
 				UseageType=SkillUseage.Combat;
 				Priority=SkillPriority.High;
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 50, 0.75d));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, maxdistance: 50, MinimumHealthPercent: 0.75d));
 				ClusterConditions.Add(new SkillClusterConditions(10d, 50f, 4, true, clusterflags: ClusterProperties.Elites));
 				PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 

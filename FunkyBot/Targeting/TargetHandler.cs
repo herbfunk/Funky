@@ -499,8 +499,11 @@ namespace FunkyBot.Targeting
 					else
 					{
 						//Skip to next location if within 2.5f distance!
-						if (Bot.Character.Data.Position.Distance2D(Navigation.NP.CurrentPath.Current)<=2.5f)
+						if (Navigation.NP.CurrentPath.Count > 1 && Bot.Character.Data.Position.Distance2D(Navigation.NP.CurrentPath.Current) <= 5f)
+						{
+							Logger.DBLog.Debug("LOS: Skipping to next vector");
 							Navigation.NP.CurrentPath.Next();
+						}
 
 						Bot.Targeting.Movement.CurrentTargetLocation = Navigation.NP.CurrentPath.Current;
 					}

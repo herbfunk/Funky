@@ -24,12 +24,12 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				{
 					TrueConditionFlags=TargetProperties.None,
 					Criteria = () => Bot.Character.Data.dCurrentEnergyPct > 0.9d,
-					Distance=40,
+					MaximumDistance=40,
 					
 				});
 
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 40, 0.95d, TargetProperties.Normal | TargetProperties.Fast | TargetProperties.MissileDampening));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 40));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 40, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal | TargetProperties.Fast | TargetProperties.MissileDampening));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, maxdistance: 40));
 				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
 		  }
 

@@ -23,12 +23,12 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 
 				ClusterConditions.Add(new SkillClusterConditions(4d, 45f, 5, true));
 			    //SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 45, 0.95d));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, 0.95d, TargetProperties.Normal));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: Range, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 				SingleUnitCondition.Add(new UnitTargetConditions
 				{
 					TrueConditionFlags = TargetProperties.None,
 					Criteria = () => Bot.Character.Data.dCurrentEnergyPct > 0.9d,
-					Distance = Range,
+					MaximumDistance = Range,
 					FalseConditionFlags = TargetProperties.LowHealth,
 				});
 

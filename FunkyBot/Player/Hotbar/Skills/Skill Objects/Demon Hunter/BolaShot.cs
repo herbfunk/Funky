@@ -19,7 +19,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckCanCast));
 
 				ClusterConditions.Add(new SkillClusterConditions(5d, 49f, 2, true));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 49));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 49));
 		  }
 
 		  #region IAbility

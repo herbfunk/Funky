@@ -16,13 +16,13 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 			//since we can only track one DOTDPS, we track locus swarm and cast this 
 			if (hotbarContainsLoctusSwarm)
 			{
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 25));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, -1, 0.95d, TargetProperties.Normal));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 25));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: -1, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 			}
 			else
 			{
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 25, falseConditionalFlags: TargetProperties.DOTDPS));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, -1, 0.95d, TargetProperties.Normal|TargetProperties.DOTDPS));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 25, falseConditionalFlags: TargetProperties.DOTDPS));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: -1, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal|TargetProperties.DOTDPS));
 			}
 
 			WaitVars = new WaitLoops(0, 0, false);

@@ -24,7 +24,7 @@ namespace FunkyBot.Config.Settings
 		 public SettingTargeting()
 		 {
 			  GoblinPriority=2;
-			  UseShrineTypes=new bool[6] { true, true, true, true, true, true };
+			  UseShrineTypes=new [] { true, true, true, true, true, true };
 			  IgnoreAboveAverageMobs=false;
 			  PrioritizeCloseRangeUnits=true;
 			  PrioritizeCloseRangeMinimumUnits=3;

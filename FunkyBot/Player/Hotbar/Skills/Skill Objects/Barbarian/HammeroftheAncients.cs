@@ -23,11 +23,11 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 				Priority=SkillPriority.Medium;
 				PreCast=new SkillPreCast(SkillPrecastFlags.CheckCanCast|SkillPrecastFlags.CheckPlayerIncapacitated);
 				ClusterConditions.Add(new SkillClusterConditions(6d, 30f, 3, true));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, 0.95d, TargetProperties.Normal));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: Range, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 				SingleUnitCondition.Add(new UnitTargetConditions
 				{
 					Criteria = () => Bot.Character.Data.dCurrentEnergyPct > 0.80d,
-					Distance = Range,
+					MaximumDistance = Range,
 					FalseConditionFlags = TargetProperties.LowHealth,
 				});
 

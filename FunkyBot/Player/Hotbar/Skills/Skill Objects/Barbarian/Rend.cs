@@ -25,7 +25,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 
 			ClusterConditions.Add(new SkillClusterConditions(5d, 8, 2, true, 0.90d));
 
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 10,
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 10,
 				falseConditionalFlags: TargetProperties.DOTDPS | TargetProperties.SucideBomber));
 
 			FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial

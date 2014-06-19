@@ -30,7 +30,7 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 				? new SkillClusterConditions(5d, 45f, 3, true)
 				: new SkillClusterConditions(8d, 45f, 4, true));
 
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 45, 0.95d, TargetProperties.Normal));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 45, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 
 			//Fire of Heaven (No CD!)
 			if (RuneIndex == 4)

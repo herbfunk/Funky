@@ -16,12 +16,12 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				Priority=SkillPriority.High;
 				PreCast=new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast);
 
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 15, 0.95d));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, maxdistance: 15, MinimumHealthPercent: 0.95d));
 				SingleUnitCondition.Add(
 					new UnitTargetConditions
 					{
 						Criteria = () => Bot.Character.Data.dCurrentEnergyPct>0.9d || Bot.Character.Data.dCurrentHealthPct<0.5d,
-						Distance = 15,
+						MaximumDistance = 15,
 						FalseConditionFlags = TargetProperties.Normal,
 						TrueConditionFlags = TargetProperties.None,
 						HealthPercent = 0.95d,

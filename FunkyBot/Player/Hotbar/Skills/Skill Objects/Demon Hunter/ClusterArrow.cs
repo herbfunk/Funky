@@ -20,7 +20,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				PreCast=new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast);
 
 
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, 0.95d, TargetProperties.Normal));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: Range, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 				ClusterConditions.Add(new SkillClusterConditions(7d, Range, 3, true));
 				
 			    //Any unit when our energy is greater than 90%!
@@ -28,7 +28,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				{
 					TrueConditionFlags = TargetProperties.None,
 					Criteria = () => Bot.Character.Data.dCurrentEnergyPct > 0.9d,
-					Distance = Range,
+					MaximumDistance = Range,
 					FalseConditionFlags = TargetProperties.LowHealth,
 				});
 

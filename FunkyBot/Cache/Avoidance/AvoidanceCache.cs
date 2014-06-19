@@ -258,10 +258,13 @@ namespace FunkyBot.Cache.Avoidance
 			if (Bot.Character.Class.HotBar.HasBuff(SNOPower.Pages_Buff_Invulnerable))
 				return true;
 
-			//Countess Julias Cameo
+			//Countess Julias Cameo (Arcane Immunity)
 			if (Bot.Character.Data.equipment.ImmuneToArcane && thisAvoidance == AvoidanceType.ArcaneSentry)
 				return true;
-			
+
+			//Maras Kaleidoscope (Poison Immunity)
+			if (Bot.Character.Data.equipment.ImmuneToPoison && (thisAvoidance == AvoidanceType.PlagueCloud || thisAvoidance == AvoidanceType.PlagueHand || thisAvoidance == AvoidanceType.PoisonGas))
+				return true;
 
 			//Special Blackthorne's Set Bonus Check!
 			if (Bot.Character.Data.equipment.ImmuneToDescratorMoltenPlaguedAvoidances)
