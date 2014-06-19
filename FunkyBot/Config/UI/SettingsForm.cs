@@ -431,6 +431,12 @@ namespace FunkyBot.Config.UI
 
 				cb_GeneralSkipAhead.Checked=Bot.Settings.Debug.SkipAhead;
 				cb_GeneralSkipAhead.CheckedChanged += cb_GeneralSkipAhead_CheckedChanged;
+
+				cb_DeathWaitForPotion.Checked = Bot.Settings.Death.WaitForPotionCooldown;
+				cb_DeathWaitForPotion.CheckedChanged += cb_DeathPotion_CheckedChanged;
+				
+				cb_DeathWaitForSkillsCooldown.Checked = Bot.Settings.Death.WaitForAllSkillsCooldown;
+				cb_DeathWaitForSkillsCooldown.CheckedChanged += cb_DeathSkills_CheckedChanged;
 				
 
 				cb_AdventureModeEnabled.Checked = Bot.Settings.AdventureMode.EnableAdventuringMode;
@@ -1089,7 +1095,14 @@ namespace FunkyBot.Config.UI
 		{
 			Bot.Settings.Debug.SkipAhead = !Bot.Settings.Debug.SkipAhead;
 		}
-
+		private void cb_DeathPotion_CheckedChanged(object sender, EventArgs e)
+		{
+			Bot.Settings.Death.WaitForPotionCooldown = !Bot.Settings.Death.WaitForPotionCooldown;
+		}
+		private void cb_DeathSkills_CheckedChanged(object sender, EventArgs e)
+		{
+			Bot.Settings.Death.WaitForAllSkillsCooldown = !Bot.Settings.Death.WaitForAllSkillsCooldown;
+		}
 		private void cb_AdventureModeEnabled_CheckedChanged(object sender, EventArgs e)
 		{
 			Bot.Settings.AdventureMode.EnableAdventuringMode = !Bot.Settings.AdventureMode.EnableAdventuringMode;

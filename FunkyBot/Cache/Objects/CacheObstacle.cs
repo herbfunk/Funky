@@ -122,6 +122,12 @@ namespace FunkyBot.Cache.Objects
 				Obstacletype = ObstacleType.None;
 		}
 
+		public CacheObstacle(int snoid, int raguid, int acdguid, Vector3 position, string name="")
+			:base(snoid, raguid, acdguid, position, name)
+		{
+			Obstacletype = ObstacleType.None;
+		}
+
 		public override int GetHashCode()
 		{
 			return base.GetHashCode();
@@ -390,6 +396,14 @@ namespace FunkyBot.Cache.Objects
 			ray_ = R;
 			Speed = speed;
 			projectile_startPosition = base.Position;
+		}
+
+		public CacheAvoidance(AvoidanceType type, int snoid, int raguid, int acdguid, Vector3 position, string name = "")
+			:base(snoid, raguid, acdguid, position, name)
+		{
+			AvoidanceType = type;
+			AvoidanceValue = Bot.Settings.Avoidance.Avoidances[(int)type];
+			targetType = TargetType.Avoidance;
 		}
 	}
 

@@ -1569,21 +1569,27 @@ namespace FunkyBot.Cache.Objects
 				}
 			}
 
-			//if (IsMalletLordUnit && CentreDistance<25f)
-			//{
-			//	UpdateSNOAnim();
-			//	if(SnoAnim== SNOAnim.malletDemon_attack_01)
-			//	{
-			//		//update rotation!
-			//		UpdateRotation();
+			if (IsMalletLordUnit && CentreDistance < 25f)
+			{
+				UpdateSNOAnim();
+				if (SnoAnim == SNOAnim.malletDemon_attack_01)
+				{
+					//update rotation!
+					UpdateRotation();
 
-			//		if (IsFacingBot())
-			//		{
-			//			Logger.DBLog.DebugFormat("[Funky] Adding Mallet Lord to Watch List!");
-			//			Bot.Targeting.Cache.Environment.UnitAnimationWatchList.Add(this);
-			//		}
-			//	}
-			//}
+					if (IsFacingBot())
+					{
+						Vector3 avoidPosition = MathEx.GetPointAt(Position, Radius, Rotation);
+						int positionHash = avoidPosition.GetHashCode();
+						CacheObstacle outvalue;
+						if (!ObjectCache.Obstacles.TryGetValue(positionHash, out outvalue))
+						{
+							Logger.DBLog.DebugFormat("[Funky] Adding Mallet Lord to Watch List!");
+							ObjectCache.Obstacles.Add(positionHash, new CacheAvoidance(AvoidanceType.MalletLord, 100, positionHash, AcdGuid.Value, avoidPosition, "MalletLordAvoidance"));
+						}
+					}
+				}
+			}
 
 			//Update Quest Monster?
 			if (Bot.Targeting.Cache.UpdateQuestMonsterProperty || ProfileCache.QuestMode)

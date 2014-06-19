@@ -117,7 +117,7 @@ namespace FunkyBot.Player.Class
 			base.RecreateAbilities();
 
 			//Check for buff Archon -- and if we should add Cancel to abilities.
-			if (Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneStrike) && Bot.Settings.Wizard.bCancelArchonRebuff)
+			if (Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast) || Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast_Fire) || Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast_Cold) || Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast_Lightning))
 			{
 				Abilities.Add(SNOPower.Wizard_Archon_Cancel, new CancelArchonBuff());
 			}

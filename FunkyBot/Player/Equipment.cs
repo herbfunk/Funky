@@ -20,6 +20,7 @@ namespace FunkyBot.Player
 		PiroMarella,
 		CountessJuliasCameo,
 		MarasKaleidoscope,
+		Akkhan,
 	}
 
 	internal class Equipment
@@ -141,9 +142,13 @@ namespace FunkyBot.Player
 			{1941359608, EquippedItemType.Zunimassas}, //Trail
 			//TODO:: Add POX
 
-
-
-
+			//Akkhan's
+			{-1992164625, EquippedItemType.Akkhan},//Helm
+			{-800755056, EquippedItemType.Akkhan},//Sabatons
+			{-1980761457, EquippedItemType.Akkhan},//Pauldrons
+			{827015887, EquippedItemType.Akkhan},//Cuisses
+			{259933632, EquippedItemType.Akkhan},//Breastplate
+			{2059399737, EquippedItemType.Akkhan},//Gauntlets
 		};
 
 
@@ -157,6 +162,15 @@ namespace FunkyBot.Player
 		Item - Name: Countess Julia's Cameo (InternalName: x1_Amulet_norm_unique_19-211) BalanceID: 1566368217
 
 		Item - Name: Mara's Kaleidoscope BalanceID: 1528490619
+
+		Item - Name: Helm of Akkhan BalanceID: -1992164625
+		Item - Name: Sabatons of Akkhan BalanceID: -800755056
+		Item - Name: Pauldrons of Akkhan BalanceID: -1980761457
+		Item - Name: Cuisses of Akkhan BalanceID: 827015887
+		Item - Name: Breastplate of Akkhan BalanceID: 259933632
+		Item - Name: Gauntlets of Akkhan BalanceID: 2059399737
+
+
 
 
 

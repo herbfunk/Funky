@@ -17,6 +17,15 @@ namespace FunkyBot.Player.Class
 			Logger.DBLog.DebugFormat("[Funky] Using Crusader Player Class");
 
 			Bot.Settings.Crusader.ReducedShieldBashCost=Bot.Character.Data.equipment.EquippedItems.Any(i => i.EquippedType == EquippedItemType.PiroMarella);
+
+			int AkkhanSetItemCount = Bot.Character.Data.equipment.EquippedItems.Count(i => i.EquippedType==EquippedItemType.Akkhan);
+			if (AkkhanSetItemCount > 5 || AkkhanSetItemCount > 4 && Bot.Character.Data.equipment.RingOfGrandeur)
+			{
+				Logger.DBLog.DebugFormat("[Funky] Akkhan's Six Set Bounus Found!");
+				Bot.Settings.Crusader.FullAkkhanSet = true;
+			}
+			else
+				Bot.Settings.Crusader.FullAkkhanSet = false;
 		}
 
 		public override ActorClass AC { get { return ActorClass.Crusader; } }

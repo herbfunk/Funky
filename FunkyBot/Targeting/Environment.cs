@@ -31,8 +31,6 @@ namespace FunkyBot.Targeting
 		internal List<CacheAvoidance> TriggeringAvoidances = new List<CacheAvoidance>();
 		internal List<int> TriggeringAvoidanceRAGUIDs = new List<int>();
 
-		internal List<CacheUnit> UnitAnimationWatchList = new List<CacheUnit>();
-
 		internal List<int> UnitRAGUIDs = new List<int>();
 		internal List<CacheUnit> DistantUnits = new List<CacheUnit>();
 		internal List<CacheObject> LoSMovementObjects = new List<CacheObject>();
@@ -83,7 +81,7 @@ namespace FunkyBot.Targeting
 			FleeTriggeringUnits.Clear();
 			DistantUnits.Clear();
 			LoSMovementObjects.Clear();
-			UnitAnimationWatchList.Clear();
+			
 		}
 	}
 }

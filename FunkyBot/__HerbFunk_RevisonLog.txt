@@ -1,4 +1,20 @@
 ﻿// herbfunk revisions
+v2.11.1.0
+
+Skill Single Unit Condition now has a optional Minimum Distance property.
+
+Added Death Skill Cooldown waiting options.
+Added Death Settings under General Tab.
+
+Added Pylons to ShrineTypes. (Should no longer ignore if Empowered is unchecked.)
+
+Added Poison Immunity Item Check.
+Added Akkhan Set to EquippedTypes.
+
+Added additional Cursed Shrine SNOId that was missing.
+
+
+
 v2.11.0.1
 	
 Wizard

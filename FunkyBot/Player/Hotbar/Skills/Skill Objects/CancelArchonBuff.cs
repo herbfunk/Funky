@@ -11,33 +11,15 @@ namespace FunkyBot.Player.HotBar.Skills
 				get { return SNOPower.Wizard_Archon; }
 		  }
 
-		  private bool MissingBuffs()
-		  {
-				HashSet<SNOPower> abilities_=Bot.Character.Class.HotBar.CachedPowers;
-
-				if ((abilities_.Contains(SNOPower.Wizard_EnergyArmor)&&!Bot.Character.Class.HotBar.HasBuff(SNOPower.Wizard_EnergyArmor))||
-					 (abilities_.Contains(SNOPower.Wizard_IceArmor)&&!Bot.Character.Class.HotBar.HasBuff(SNOPower.Wizard_IceArmor))||
-					 (abilities_.Contains(SNOPower.Wizard_StormArmor)&&!Bot.Character.Class.HotBar.HasBuff(SNOPower.Wizard_StormArmor)))
-					 return true;
-
-				if (abilities_.Contains(SNOPower.Wizard_MagicWeapon)&&!Bot.Character.Class.HotBar.HasBuff(SNOPower.Wizard_MagicWeapon))
-					 return true;
-
-				return false;
-		  }
-
 		  public override void Initialize()
 		  {
 				Cooldown=5;
 				ExecutionType=SkillExecutionFlags.RemoveBuff;
 				WaitVars=new WaitLoops(3, 3, true);
-				IsBuff=true;
 				Priority = SkillPriority.None;
 				UseageType=SkillUseage.OutOfCombat;
 				PreCast=new SkillPreCast(SkillPrecastFlags.None);
 			  
-				FcriteriaBuff=() => Bot.Character.Class.HotBar.HasBuff(SNOPower.Wizard_Archon)&&MissingBuffs();
-
 				//Important!! We have to override the default return of true.. we dont want this to fire as a combat Ability.
 				FcriteriaCombat=() => false;
 		  }

@@ -65,7 +65,9 @@ namespace FunkyBot.Cache.Avoidance
 		  [XmlEnum(Name="MageFirePool")]
 		  MageFirePool,
 
-		  //
+		  [XmlEnum(Name = "MalletLord")]
+		  MalletLord,
+
 		  [XmlEnum(Name = "MalthaelDeathFog")]
 		  MalthaelDeathFog,
 		  [XmlEnum(Name = "MalthaelDrainSoul")]

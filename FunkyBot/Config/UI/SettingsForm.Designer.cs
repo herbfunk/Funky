@@ -258,9 +258,13 @@
 			this.btn_DumpSkillsCache = new System.Windows.Forms.Button();
 			this.btn_DumpTargetingCache = new System.Windows.Forms.Button();
 			this.btn_DumpBountyCache = new System.Windows.Forms.Button();
+			this.btn_DumpInventory = new System.Windows.Forms.Button();
 			this.btn_Test = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.btn_DumpInventory = new System.Windows.Forms.Button();
+			this.tabPage18 = new System.Windows.Forms.TabPage();
+			this.panel18 = new System.Windows.Forms.Panel();
+			this.cb_DeathWaitForPotion = new System.Windows.Forms.CheckBox();
+			this.cb_DeathWaitForSkillsCooldown = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabControl_Combat.SuspendLayout();
@@ -350,6 +354,8 @@
 			this.tabPage15.SuspendLayout();
 			this.tabPage16.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
+			this.tabPage18.SuspendLayout();
+			this.panel18.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -2047,6 +2053,7 @@
 			// tabControl2
 			// 
 			this.tabControl2.Controls.Add(this.tabPage12);
+			this.tabControl2.Controls.Add(this.tabPage18);
 			this.tabControl2.Controls.Add(this.tabPage17);
 			this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl2.Location = new System.Drawing.Point(3, 3);
@@ -2840,6 +2847,16 @@
 			this.btn_DumpBountyCache.UseVisualStyleBackColor = true;
 			this.btn_DumpBountyCache.Click += new System.EventHandler(this.btn_DumpBountyCache_Click);
 			// 
+			// btn_DumpInventory
+			// 
+			this.btn_DumpInventory.Location = new System.Drawing.Point(3, 61);
+			this.btn_DumpInventory.Name = "btn_DumpInventory";
+			this.btn_DumpInventory.Size = new System.Drawing.Size(137, 23);
+			this.btn_DumpInventory.TabIndex = 9;
+			this.btn_DumpInventory.Text = "Inventory";
+			this.btn_DumpInventory.UseVisualStyleBackColor = true;
+			this.btn_DumpInventory.Click += new System.EventHandler(this.btn_DumpInventory_Click);
+			// 
 			// btn_Test
 			// 
 			this.btn_Test.Location = new System.Drawing.Point(146, 61);
@@ -2856,15 +2873,47 @@
 			this.toolTip1.InitialDelay = 1000;
 			this.toolTip1.ReshowDelay = 500;
 			// 
-			// btn_DumpInventory
+			// tabPage18
 			// 
-			this.btn_DumpInventory.Location = new System.Drawing.Point(3, 61);
-			this.btn_DumpInventory.Name = "btn_DumpInventory";
-			this.btn_DumpInventory.Size = new System.Drawing.Size(137, 23);
-			this.btn_DumpInventory.TabIndex = 9;
-			this.btn_DumpInventory.Text = "Inventory";
-			this.btn_DumpInventory.UseVisualStyleBackColor = true;
-			this.btn_DumpInventory.Click += new System.EventHandler(this.btn_DumpInventory_Click);
+			this.tabPage18.Controls.Add(this.panel18);
+			this.tabPage18.Location = new System.Drawing.Point(4, 22);
+			this.tabPage18.Name = "tabPage18";
+			this.tabPage18.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage18.Size = new System.Drawing.Size(657, 529);
+			this.tabPage18.TabIndex = 2;
+			this.tabPage18.Text = "Death";
+			this.tabPage18.UseVisualStyleBackColor = true;
+			// 
+			// panel18
+			// 
+			this.panel18.Controls.Add(this.cb_DeathWaitForSkillsCooldown);
+			this.panel18.Controls.Add(this.cb_DeathWaitForPotion);
+			this.panel18.Location = new System.Drawing.Point(6, 6);
+			this.panel18.Name = "panel18";
+			this.panel18.Size = new System.Drawing.Size(312, 128);
+			this.panel18.TabIndex = 0;
+			// 
+			// cb_DeathWaitForPotion
+			// 
+			this.cb_DeathWaitForPotion.AutoSize = true;
+			this.cb_DeathWaitForPotion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_DeathWaitForPotion.Location = new System.Drawing.Point(3, 3);
+			this.cb_DeathWaitForPotion.Name = "cb_DeathWaitForPotion";
+			this.cb_DeathWaitForPotion.Size = new System.Drawing.Size(185, 21);
+			this.cb_DeathWaitForPotion.TabIndex = 19;
+			this.cb_DeathWaitForPotion.Text = "Wait for Potion Cooldown";
+			this.cb_DeathWaitForPotion.UseVisualStyleBackColor = true;
+			// 
+			// cb_DeathWaitForSkillsCooldown
+			// 
+			this.cb_DeathWaitForSkillsCooldown.AutoSize = true;
+			this.cb_DeathWaitForSkillsCooldown.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_DeathWaitForSkillsCooldown.Location = new System.Drawing.Point(3, 30);
+			this.cb_DeathWaitForSkillsCooldown.Name = "cb_DeathWaitForSkillsCooldown";
+			this.cb_DeathWaitForSkillsCooldown.Size = new System.Drawing.Size(177, 21);
+			this.cb_DeathWaitForSkillsCooldown.TabIndex = 20;
+			this.cb_DeathWaitForSkillsCooldown.Text = "Wait for Skills Cooldown";
+			this.cb_DeathWaitForSkillsCooldown.UseVisualStyleBackColor = true;
 			// 
 			// SettingsForm
 			// 
@@ -3016,6 +3065,9 @@
 			this.tabPage16.ResumeLayout(false);
 			this.tabPage16.PerformLayout();
 			this.flowLayoutPanel1.ResumeLayout(false);
+			this.tabPage18.ResumeLayout(false);
+			this.panel18.ResumeLayout(false);
+			this.panel18.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -3257,6 +3309,10 @@
 		private System.Windows.Forms.Label label22;
 		internal System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.Button btn_DumpInventory;
+		private System.Windows.Forms.TabPage tabPage18;
+		private System.Windows.Forms.Panel panel18;
+		private System.Windows.Forms.CheckBox cb_DeathWaitForSkillsCooldown;
+		private System.Windows.Forms.CheckBox cb_DeathWaitForPotion;
 		//
 	}
 }

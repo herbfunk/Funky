@@ -125,9 +125,6 @@ namespace FunkyBot.Targeting
 			//Update last Refresh Time
 			lastRefreshedObjects = DateTime.Now;
 
-			//Sort?
-			Bot.Targeting.Cache.Environment.UnitAnimationWatchList=Bot.Targeting.Cache.Environment.UnitAnimationWatchList.OrderBy(u => u.CentreDistance).ToList();
-
 			//Refresh Obstacles
 			ObjectCache.Obstacles.Values.ForEach(obj => obj.RefreshObject());
 

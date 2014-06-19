@@ -1,12 +1,106 @@
-﻿using FunkyBot.Misc;
+﻿using System;
+using FunkyBot.Misc;
+using FunkyBot.Player.HotBar.Skills;
+using Zeta.Bot;
 using Zeta.Game;
 using Zeta.Game.Internals;
+using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
 
 namespace FunkyBot.EventHandlers
 {
 	public partial class EventHandlers
 	{
+		internal static bool DeathShouldWait(object ret)
+		{
+			if (Bot.Settings.Death.WaitForPotionCooldown)
+			{
+				//Check Potion Cast Flags..
+				PowerManager.CanCastFlags potionCastFlags;
+				if (!PowerManager.CanCast(SNOPower.DrinkHealthPotion, out potionCastFlags))
+				{
+					if (potionCastFlags.HasFlag(PowerManager.CanCastFlags.Flag8))
+					{
+						BotMain.StatusText = "[Funky] Death: Waiting For Cooldowns!";
+						return true;
+					}
+				}
+			}
+
+			if (Bot.Settings.Death.WaitForAllSkillsCooldown)
+			{
+				//Check Archon?
+				if (Bot.Character.Class.AC==ActorClass.Wizard && Bot.Character.Class.HotBar.HasBuff(SNOPower.Wizard_Archon))
+				{
+					Skill cancelSkill=Bot.Character.Class.Abilities[SNOPower.Wizard_Archon_Cancel];
+					Skill.UsePower(ref cancelSkill);
+					Bot.Character.Class.HotBar.RefreshHotbar();
+					BotMain.StatusText = "[Funky] Death: Waiting For Cooldowns!";
+					return true;
+				}
+
+				foreach (var skill in Bot.Character.Class.HotBar.HotbarPowers)
+				{
+					PowerManager.CanCastFlags skillCastFlags;
+					if (!PowerManager.CanCast(skill, out skillCastFlags))
+					{
+						if (skillCastFlags.HasFlag(PowerManager.CanCastFlags.Flag8))
+						{
+							BotMain.StatusText = "[Funky] Death: Waiting For Cooldowns!";
+							return true;
+						}
+					}
+				}
+			}
+
+			return false;
+		}
+
+		internal static RunStatus DeathWaitAction(object ret)
+		{
+
+			if (Bot.Settings.Death.WaitForPotionCooldown)
+			{
+				//Check Potion Cast Flags..
+				PowerManager.CanCastFlags potionCastFlags;
+				if (!PowerManager.CanCast(SNOPower.DrinkHealthPotion, out potionCastFlags))
+				{
+					if (potionCastFlags.HasFlag(PowerManager.CanCastFlags.Flag8))
+					{
+						InactivityDetector.Reset();
+						return RunStatus.Running;
+					}
+				}
+			}
+
+			if (Bot.Settings.Death.WaitForAllSkillsCooldown)
+			{
+				if (Bot.Character.Class.AC == ActorClass.Wizard && Bot.Character.Class.HotBar.HasBuff(SNOPower.Wizard_Archon))
+				{
+					Bot.Character.Class.HotBar.RefreshHotbar();
+					InactivityDetector.Reset();
+					return RunStatus.Running;
+				}
+
+				foreach (var skill in Bot.Character.Class.HotBar.HotbarPowers)
+				{
+					PowerManager.CanCastFlags skillCastFlags;
+					if (!PowerManager.CanCast(skill, out skillCastFlags))
+					{
+						if (skillCastFlags.HasFlag(PowerManager.CanCastFlags.Flag8))
+						{
+							InactivityDetector.Reset();
+							return RunStatus.Running;
+						}
+					}
+				}
+			}
+
+			Bot.Game.GoldTimeoutChecker.LastCoinageUpdate = DateTime.Now;
+			return RunStatus.Success;
+		}
+
+
 		internal static bool TallyedDeathCounter = false;
 		internal static bool TallyDeathCanRunDecorator(object ret)
 		{
@@ -17,76 +111,6 @@ namespace FunkyBot.EventHandlers
 			Bot.Game.CurrentGameStats.CurrentProfile.DeathCount++;
 			TallyedDeathCounter = true;
 			return RunStatus.Success;
-		}
-
-		private static bool WaitingForRevive;
-		public static RunStatus DeathHandler(object ret)
-		{
-			UIElement ReviveAtLastCheckpointButton = null;
-			try
-			{
-				ReviveAtLastCheckpointButton = UIElements.ReviveAtLastCheckpointButton;
-			}
-			catch
-			{
-				Logger.DBLog.InfoFormat("Revive Button Exception Handled");
-			}
-
-			if (ReviveAtLastCheckpointButton != null)
-			{
-				//TODO:: Add Safety Exit-Game for Broken Equipped Items 
-				if (UIElements.ReviveAtLastCheckpointButton.IsVisible && UIElements.ReviveAtLastCheckpointButton.IsEnabled)
-				{
-					Logger.DBLog.InfoFormat("Clicking Revive Button!");
-					UIElements.ReviveAtLastCheckpointButton.Click();
-					WaitingForRevive = true;
-					Bot.Character.Data.OnHealthChanged += OnHealthChanged;
-					return RunStatus.Running;
-				}
-			}
-			else
-			{
-				//No revive button?? lets check if we are alive..?
-				if (!ZetaDia.Me.IsDead)
-				{
-					//Don't wait for health change event..
-					WaitingForRevive = false;
-					Revived = false;
-
-					Bot.Game.CurrentGameStats.CurrentProfile.DeathCount++;
-					//Bot.BotStatistics.GameStats.CurrentGame.Deaths++;
-					//Bot.BotStatistics.ProfileStats.CurrentProfile.DeathCount++;
-					Bot.Character.Data.OnHealthChanged -= OnHealthChanged;
-					return RunStatus.Success;
-				}
-			}
-
-			if (WaitingForRevive)
-			{
-				if (Revived)
-				{
-					WaitingForRevive = false;
-					Revived = false;
-					Bot.Game.CurrentGameStats.CurrentProfile.DeathCount++;
-					//Bot.BotStatistics.GameStats.CurrentGame.Deaths++;
-					//Bot.BotStatistics.ProfileStats.CurrentProfile.DeathCount++;
-				}
-				else
-				{
-					Bot.Character.Data.Update();
-					return RunStatus.Running;
-				}
-			}
-
-			Bot.Character.Data.OnHealthChanged -= OnHealthChanged;
-			return RunStatus.Success;
-		}
-
-		private static bool Revived;
-		private static void OnHealthChanged(double oldvalue, double newvalue)
-		{
-			if (newvalue >= 1d)
-				Revived = true;
 		}
 	}
 }

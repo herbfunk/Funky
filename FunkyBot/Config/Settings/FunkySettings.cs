@@ -10,6 +10,7 @@ namespace FunkyBot.Config.Settings
 
 	public class Settings_Funky
 	{
+		public SettingDeath Death { get; set; }
 		public SettingAdventureMode AdventureMode { get; set; }
 		public SettingDebug Debug { get; set; }
 		public SettingTargeting Targeting { get; set; }
@@ -34,6 +35,7 @@ namespace FunkyBot.Config.Settings
 		public Settings_Funky()
 		{
 			General = new SettingGeneral();
+			Death = new SettingDeath();
 			AdventureMode=new SettingAdventureMode();
 			Debug = new SettingDebug();
 			Grouping = new SettingGrouping();

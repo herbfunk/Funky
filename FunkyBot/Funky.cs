@@ -229,11 +229,20 @@ namespace FunkyBot
 					Decorator deathTallyDecorator = new Decorator(deathTallyDecoratorDelegate, deathTallyAction);
 					DeathPrioritySelector.InsertChild(0, deathTallyDecorator);
 
+
+					//Death Wait..
+					CanRunDecoratorDelegate deathWaitDecoratorDelegate = EventHandlers.EventHandlers.DeathShouldWait;
+					ActionDelegate deathWaitActionDelegate = EventHandlers.EventHandlers.DeathWaitAction;
+					Action deathWaitAction = new Action(deathWaitActionDelegate);
+					Decorator deathWaitDecorator = new Decorator(deathWaitDecoratorDelegate, deathWaitAction);
+					DeathPrioritySelector.InsertChild(0, deathWaitDecorator);
+
 					//Insert Death Tally Reset at End!
 					Action deathTallyActionReset = new Action(ret => EventHandlers.EventHandlers.TallyedDeathCounter = false);
-					DeathPrioritySelector.InsertChild(7, deathTallyActionReset);
-
+					DeathPrioritySelector.InsertChild(DeathPrioritySelector.Children.Count-1, deathTallyActionReset);
 					Logger.DBLog.DebugFormat("Death tree hooked");
+
+
 
 					//foreach (var item in DeathPrioritySelector.Children)
 					//{

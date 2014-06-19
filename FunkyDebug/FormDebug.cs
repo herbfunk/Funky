@@ -307,6 +307,22 @@ namespace FunkyDebug
 						flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(ReturnSkillString(hotbarslot)));
 					}
 
+					try
+					{
+
+						SNOPower power = SNOPower.DrinkHealthPotion;
+						PowerManager.CanCastFlags castflags;
+						bool cancast = Zeta.Bot.PowerManager.CanCast(power, out castflags);
+						string potionString = String.Format("Skill: {0} HotbarSlot: {1} RuneIndex: {2}\r\n" +
+											 "CanCast: {3} CanCastFlags: {4}",
+										power, HotbarSlot.Invalid, -1, cancast, castflags);
+						flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(potionString));
+					}
+					catch (Exception)
+					{
+
+					}
+
 					foreach (var snoPower in ZetaDia.CPlayer.PassiveSkills)
 					{
 						string s = String.Format("Passive Skill {0}", snoPower.ToString());

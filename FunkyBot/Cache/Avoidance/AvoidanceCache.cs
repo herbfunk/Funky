@@ -41,6 +41,8 @@ namespace FunkyBot.Cache.Avoidance
 			  new AvoidanceValue(AvoidanceType.LacuniBomb, 0.25, 2,5),
 
 			  new AvoidanceValue(AvoidanceType.MageFirePool, 1, 10,5),
+			  new AvoidanceValue(AvoidanceType.MalletLord, 1, 20, 5),
+
 			  new AvoidanceValue(AvoidanceType.MalthaelDeathFog, 1, 20,5),
 			  new AvoidanceValue(AvoidanceType.MalthaelDrainSoul, 0.75, 5,5),
 			  new AvoidanceValue(AvoidanceType.MalthaelLightning, 0.50, 8,5),
