@@ -1313,8 +1313,9 @@ namespace FunkyBot.Cache.Objects
 				{
 					Radius = ActorSphereRadius.Value;
 
-					//if (this.Monstersize.Value==Zeta.Internals.SNO.MonsterSize.Big||this.Monstersize.Value==Zeta.Internals.SNO.MonsterSize.Boss)
-					//	 this.Radius*=0.25f;
+					//Reduce the radius for Corruptant Growths.
+					if (IsCorruptantGrowth)
+						Radius *= 0.80f;
 
 					if (Radius < 0f)
 						Radius = 1f;

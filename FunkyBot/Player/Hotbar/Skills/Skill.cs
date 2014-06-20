@@ -190,6 +190,9 @@ namespace FunkyBot.Player.HotBar.Skills
 
 		public virtual int RuneIndex { get { return -1; } }
 
+		/// <summary>
+		/// Used to destroy destructible objects
+		/// </summary>
 		internal bool IsADestructiblePower { get; set; }
 
 		///<summary>

@@ -24,8 +24,15 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			UseageType = SkillUseage.Combat;
 
 			//Make sure we are targeting something!
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 30, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 30, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 			ClusterConditions.Add(new SkillClusterConditions(6d, 30, 10, true));
+
+			//Akkhan Set?
+			if (Bot.Settings.Crusader.FullAkkhanSet)
+			{
+				//Clusters of 4 units..
+				ClusterConditions.Add(new SkillClusterConditions(10d, 30, 4, false));
+			}
 		}
 	}
 }

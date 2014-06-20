@@ -1,4 +1,11 @@
 ﻿// herbfunk revisions
+v2.11.1.1
+
+Crusader
+	Blessed Hammer will be used on any unit when no Primary Skill is present.
+	Provoke will be used more frequently.
+
+
 v2.11.1.0
 
 Skill Single Unit Condition now has a optional Minimum Distance property.

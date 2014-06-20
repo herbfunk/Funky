@@ -12,6 +12,14 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			get { return SNOPower.X1_Crusader_Provoke; }
 		}
 
+		/*
+		 * Rune Indexs
+		 * 0 == Cleanse (Life on Hit increased)
+		 * 1 == Flee Fool (Fear Enemies)
+		 * 2 == Too Scared to Run (Reduced Attack Speed and Movement)
+		 * 3 == Charged Up (Lightning Damage)
+		 * 4 == Hit Me (Increased Block Chance)
+		*/
 		public override void Initialize()
 		{
 			Cooldown = 20000;
@@ -23,10 +31,15 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 			UseageType = SkillUseage.Combat;
 
-			ClusterConditions.Add(new SkillClusterConditions(10d, 15f, 4, false));
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 15, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+			//Low On Wrath Buff Option (less than 10%)
+			IsBuff = true;
+			FcriteriaBuff = () => Bot.Character.Data.dCurrentEnergyPct < 0.10d;
 
-			FcriteriaCombat = () => Bot.Character.Data.dCurrentEnergyPct < 0.5d;
+			ClusterConditions.Add(new SkillClusterConditions(10d, 15f, 3, false));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 20, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+
+			//Minimum Wrath Missing 10%
+			FcriteriaCombat = () => Bot.Character.Data.dCurrentEnergyPct < 0.90d;
 		}
 	}
 }
