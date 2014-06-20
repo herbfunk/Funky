@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Avoidance;
@@ -592,7 +593,7 @@ namespace FunkyBot.Config.UI
 
 		private void SettingsFor_Load(object sender, EventArgs e)
 		{
-			Text = Bot.Character.Account.CurrentHeroName;
+			Text = Bot.Character.Account.CurrentHeroName;// + " " + Bot.Character.Account.CurrentAccountName;
 		}
 
 
@@ -1409,7 +1410,7 @@ namespace FunkyBot.Config.UI
 			
 			try
 			{
-
+				LBDebug.Controls.Add(new UserControlDebugEntry("test"));
 			}
 			catch (Exception ex)
 			{

@@ -16,14 +16,14 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 			Priority = SkillPriority.Medium;
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast));
 
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, MinimumHealthPercent: 0.95d));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 25, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 
 			//Reduced CD Dagger!
 			if (Bot.Settings.WitchDoctor.StarmetalKukri)
 			{
-				ClusterConditions.Add(new SkillClusterConditions(7d, 40f, 5, true, clusterflags: ClusterProperties.Strong));
-				ClusterConditions.Add(new SkillClusterConditions(7d, 40f, 10, true));
+				ClusterConditions.Add(new SkillClusterConditions(9d, 50f, 5, true, clusterflags: ClusterProperties.Strong));
+				ClusterConditions.Add(new SkillClusterConditions(9d, 50f, 10, false));
 			}
 		}
 

@@ -192,12 +192,23 @@ namespace FunkyBot.Config
 			}
 
 			PluginManager.ShutdownAllPlugins();
-		
-			Logger.DBLog.DebugFormat("Removing Funky from plugins");
-			while (PluginManager.Plugins.Any(p => p.Plugin.Name == "Funky"))
+
+			Logger.DBLog.DebugFormat("Disposing All Routines");
+			foreach (var r in RoutineManager.Routines)
 			{
-				PluginManager.Plugins.Remove(PluginManager.Plugins.First(p => p.Plugin.Name == "Funky"));
+				r.Dispose();
 			}
+			
+
+
+			string sDemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+			string sTrinityPluginPath = FolderPaths.RoutinePath;
+
+			CodeCompiler FunkyCode = new CodeCompiler(sTrinityPluginPath);
+			FunkyCode.ParseFilesForCompilerOptions();
+			Logger.DBLog.DebugFormat("Recompiling Funky Bot");
+			FunkyCode.Compile();
+			Logger.DBLog.DebugFormat(FunkyCode.CompiledToLocation);
 
 			Logger.DBLog.DebugFormat("Clearing all treehooks");
 			TreeHooks.Instance.ClearAll();
@@ -208,18 +219,6 @@ namespace FunkyBot.Config
 			Logger.DBLog.DebugFormat("Removing old Assemblies");
 			CodeCompiler.DeleteOldAssemblies();
 
-			string sDemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-			string sTrinityPluginPath = sDemonBuddyPath + @"\Plugins\FunkyBot\";
-
-			CodeCompiler FunkyCode = new CodeCompiler(sTrinityPluginPath);
-			FunkyCode.ParseFilesForCompilerOptions();
-			Logger.DBLog.DebugFormat("Recompiling Funky Plugin");
-			FunkyCode.Compile();
-			Logger.DBLog.DebugFormat(FunkyCode.CompiledToLocation);
-
-
-
-			TreeHooks.Instance.ClearAll();
 			BrainBehavior.CreateBrain();
 
 			Logger.DBLog.DebugFormat("Reloading Plugins");
@@ -227,6 +226,9 @@ namespace FunkyBot.Config
 
 			Logger.DBLog.DebugFormat("Enabling Plugins");
 			PluginManager.SetEnabledPlugins(EnabledPlugins);
+
+			Logger.DBLog.DebugFormat("Reloading Routines");
+			RoutineManager.Reload();
 		}
 		internal static void RecompileSelectedPlugin(Object sender, EventArgs e)
 		{

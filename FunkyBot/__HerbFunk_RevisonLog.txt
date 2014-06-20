@@ -19,7 +19,12 @@ Monk
 	Exploding Palm now using ShouldTrack property.
 	Dashing Strike now usable as special movement (in/out of combat)
 
-Witch Doctor Big Bad Voodoo will be used more frequently with Starmetal Kukri equipped.
+Witch Doctor 
+	Big Bad Voodoo will be used more frequently with Starmetal Kukri equipped.
+
+Wizard
+	Archon Disintegration Wave now uses Minimum Distance of 10 yards for units.
+
 
 
 v2.11.0.1

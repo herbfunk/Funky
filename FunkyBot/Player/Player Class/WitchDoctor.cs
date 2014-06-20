@@ -144,6 +144,11 @@ namespace FunkyBot.Player.Class
 			}
 		}
 
+		internal Dictionary<SNOPower, Func<Skill>> SkillCreation = new Dictionary<SNOPower, Func<Skill>>
+		{
+			{SNOPower.Witchdoctor_PoisonDart, () => new PoisonDart()}
+		};
+
 		enum WitchDoctorActiveSkills
 		{
 			Witchdoctor_Gargantuan = 30624,

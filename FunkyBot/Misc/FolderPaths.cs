@@ -6,7 +6,18 @@ namespace FunkyBot.Misc
 	public static class FolderPaths
 	{
 		internal static string DemonBuddyPath=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-		internal static string RoutinePath = DemonBuddyPath + @"\Routines\FunkyBot\";
+		internal static string RoutinePath
+		{
+			get
+			{
+				if (Directory.Exists(DemonBuddyPath + @"\Plugins\FunkyBot\"))
+					return DemonBuddyPath + @"\Plugins\FunkyBot\";
+				else if(Directory.Exists(DemonBuddyPath + @"\Routines\FunkyBot\"))
+					return DemonBuddyPath + @"\Routines\FunkyBot\";
+
+				return null;
+			}
+		}
 		internal static string SettingsDefaultPath=Path.Combine(RoutinePath, "Config", "Defaults");
 
 		internal static string ProfileStatsPath

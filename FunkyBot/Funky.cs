@@ -355,6 +355,18 @@ namespace FunkyBot
 
 		public override void Dispose()
 		{
+			SplitButton btnSplit_Funky = UIControl.FindFunkyButton();
+			if (btnSplit_Funky != null)
+			{
+				btnSplit_Funky.Click -= UIControl.buttonFunkySettingDB_Click;
+				Grid dbGrid = UIControl.GetDemonbuddyMainGrid();
+				if (dbGrid != null)
+				{
+					Logger.DBLog.DebugFormat("Funky Split Button Removed!");
+					dbGrid.Children.Remove(btnSplit_Funky);
+				}
+			}
+
 			if (RoutineManager.Current.Name != "Funky") return;
 
 			BotMain.OnStop -= EventHandlers.EventHandlers.FunkyBotStop;
@@ -365,18 +377,7 @@ namespace FunkyBot
 
 			Bot.ResetGame();
 
-			SplitButton btnSplit_Funky = UIControl.FindFunkyButton();
-			if (btnSplit_Funky != null)
-			{
-				btnSplit_Funky.Click -= UIControl.buttonFunkySettingDB_Click;
-				Grid dbGrid = UIControl.GetDemonbuddyMainGrid();
-				if (dbGrid != null)
-				{
-					dbGrid.Children.Remove(btnSplit_Funky);
-				}
-			}
-
-			Logger.DBLog.InfoFormat("FunkyBot Disposed!");
+			Logger.DBLog.InfoFormat("FunkyBot has been Disposed!");
 		}
 
 		public override void Initialize()
@@ -402,7 +403,7 @@ namespace FunkyBot
 
 			Logger.Write("Init Logger Completed!");
 
-			Logger.DBLog.InfoFormat("FunkyBot Initalized!");
+			Logger.DBLog.InfoFormat("FunkyBot has been Initalized!");
 		}
 
 		public override string Name { get { return "Funky"; } }

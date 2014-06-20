@@ -12,7 +12,7 @@ namespace FunkyDebug
 {
 	public partial class FunkyDebugger : IPlugin
 	{
-		internal static readonly log4net.ILog DBLog = Zeta.Common.Logger.GetLoggerInstanceForType();
+		public static readonly log4net.ILog DBLog = Zeta.Common.Logger.GetLoggerInstanceForType();
 		private static PluginContainer lastSelectedPC = null;
 		private static ContextMenu advanceMenu = new ContextMenu();
 		private static readonly string sDemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
