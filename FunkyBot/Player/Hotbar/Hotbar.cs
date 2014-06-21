@@ -19,7 +19,6 @@ namespace FunkyBot.Player.HotBar
 		internal Dictionary<SNOPower, int> SkillCooldowns = new Dictionary<SNOPower, int>();
 		internal Dictionary<int, int> CurrentBuffs = new Dictionary<int, int>();
 		internal List<int> CurrentDebuffs = new List<int>();
-		internal List<SNOPower> destructibleSkills = new List<SNOPower>();
 
 		///<summary>
 		///Enumerates through the ActiveSkills and adds them to the HotbarAbilities collection.
@@ -27,7 +26,6 @@ namespace FunkyBot.Player.HotBar
 		internal void RefreshHotbar()
 		{
 			HotbarPowers = new HashSet<SNOPower>();
-			destructibleSkills = new List<SNOPower>();
 			RuneIndexCache = new Dictionary<SNOPower, int>();
 
 			using (ZetaDia.Memory.AcquireFrame())
@@ -43,13 +41,6 @@ namespace FunkyBot.Player.HotBar
 
 						if (!HotbarPowers.Contains(ability))
 							HotbarPowers.Add(ability);
-
-						//Check if the SNOPower is a destructible Ability
-						if (PowerCacheLookup.AbilitiesDestructiblePriority.Contains(ability))
-						{
-							if (!destructibleSkills.Contains(ability))
-								destructibleSkills.Add(ability);
-						}
 
 					}
 
@@ -238,13 +229,6 @@ namespace FunkyBot.Player.HotBar
 		{
 			int id = (int)power;
 			return CurrentDebuffs.Contains(id);
-		}
-		///<summary>
-		///Checks if hotbar contains any of the "Primary" abilities.
-		///</summary>
-		internal bool HotbarContainsAPrimarySkill()
-		{
-			return HotbarPowers.Any(p => PowerCacheLookup.PrimaryAbilities.Contains(p));
 		}
 	}
 }

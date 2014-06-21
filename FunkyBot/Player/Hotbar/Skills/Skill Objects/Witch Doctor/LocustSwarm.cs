@@ -7,12 +7,18 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 {
 	public class LocustSwarm : Skill
 	{
+		public override double Cooldown { get { return 8000; } }
+
+		public override bool IsSpecialAbility { get { return true; } }
+
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.ClusterLocation | SkillExecutionFlags.Location; } }
+
 		public override void Initialize()
 		{
 			bool hotbarContainsDOT = Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_Haunt) || (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_Piranhas));
 
-			Cooldown = 8000;
-			ExecutionType = SkillExecutionFlags.ClusterLocation | SkillExecutionFlags.Location;
 			Range = 14;
 			Cost = 196;
 
@@ -38,14 +44,13 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 			WaitVars = new WaitLoops(1, 1, true);
 			
 			
-			UseageType = SkillUseage.Combat;
+		
 			Priority = SkillPriority.High;
 			PreCast = new SkillPreCast(precastflags);
 			ShouldTrack = true;
 
 			PreCast.Criteria += (s) => !Bot.Character.Class.HotBar.HasDebuff(SNOPower.Succubus_BloodStar);
 
-			IsSpecialAbility = true;
 
 			FcriteriaCombat = () =>
 			{
@@ -61,31 +66,6 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				return true;
 			};
 		}
-
-		#region IAbility
-
-		public override int RuneIndex
-		{
-			get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power) ? Bot.Character.Class.HotBar.RuneIndexCache[Power] : -1; }
-		}
-
-		public override int GetHashCode()
-		{
-			return (int)Power;
-		}
-
-		public override bool Equals(object obj)
-		{
-			//Check for null and compare run-time types. 
-			if (obj == null || GetType() != obj.GetType())
-			{
-				return false;
-			}
-			Skill p = (Skill)obj;
-			return Power == p.Power;
-		}
-
-		#endregion
 
 		public override SNOPower Power
 		{

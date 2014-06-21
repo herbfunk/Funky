@@ -3,53 +3,35 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 {
-	 public class ZombieCharger : Skill
-	 {
-		 public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; } }
+	public class ZombieCharger : Skill
+	{
+		public override double Cooldown { get { return 5; } }
 
-		  public override void Initialize()
-		  {
-				Cooldown=5;
-				ExecutionType=SkillExecutionFlags.ClusterTarget|SkillExecutionFlags.Target;
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
-				WaitVars=new WaitLoops(0, 1, true);
-				Cost=134;
-				Range=15;
-				UseageType=SkillUseage.Combat;
-				Priority=SkillPriority.Medium;
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.ClusterTarget | SkillExecutionFlags.Target; } }
 
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckEnergy|
-				                          SkillPrecastFlags.CheckCanCast));
+		public override void Initialize()
+		{
+			WaitVars = new WaitLoops(0, 1, true);
+			Cost = 134;
+			Range = 15;
 
-				//FcriteriaPreCast=new Func<bool>(() => { return !Bot.Character_.Class.HotBar.HasDebuff(SNOPower.Succubus_BloodStar); });
+			Priority = SkillPriority.Medium;
+			IsDestructiblePower = true;
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckEnergy |
+									  SkillPrecastFlags.CheckCanCast));
 
-				ClusterConditions.Add(new SkillClusterConditions(5d, 20f, 2, true));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None));
-		  }
+			//FcriteriaPreCast=new Func<bool>(() => { return !Bot.Character_.Class.HotBar.HasDebuff(SNOPower.Succubus_BloodStar); });
 
-		  #region IAbility
+			ClusterConditions.Add(new SkillClusterConditions(5d, 20f, 2, true));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None));
+		}
 
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
 
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
-
-		  #endregion
-
-		  public override SNOPower Power
-		  {
-				get { return SNOPower.Witchdoctor_ZombieCharger; }
-		  }
-	 }
+		public override SNOPower Power
+		{
+			get { return SNOPower.Witchdoctor_ZombieCharger; }
+		}
+	}
 }

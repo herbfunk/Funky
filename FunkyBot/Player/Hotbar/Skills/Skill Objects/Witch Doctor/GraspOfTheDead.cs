@@ -3,62 +3,46 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 {
-	 public class GraspOfTheDead : Skill
-	 {
-		 public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; } }
+	public class GraspOfTheDead : Skill
+	{
+		public override double Cooldown { get { return 8000; } }
 
-		  public override void Initialize()
-		  {
-				Cooldown=8000;
-				ExecutionType=SkillExecutionFlags.ClusterTarget|SkillExecutionFlags.Target;
+		public override bool IsRanged { get { return true; } }
 
-				WaitVars=new WaitLoops(0, 3, true);
-				Cost=122;
-				Range=45;
-				IsRanged=true;
-				UseageType=SkillUseage.Combat;
-				Priority=SkillPriority.High;
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
-				PreCast=new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast);
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.ClusterTarget | SkillExecutionFlags.Target; } }
 
-				PreCast.Criteria += (s) => !Bot.Character.Class.HotBar.HasDebuff(SNOPower.Succubus_BloodStar);
+		public override void Initialize()
+		{
+			WaitVars = new WaitLoops(0, 3, true);
+			Cost = 122;
+			Range = 45;
 
-				ClusterConditions.Add(new SkillClusterConditions(4d, 45f, 4, true));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: Range, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal|TargetProperties.Fast));
-				SingleUnitCondition.Add(new UnitTargetConditions
-				{
-					TrueConditionFlags = TargetProperties.None,
-					Criteria = () => Bot.Character.Data.dCurrentEnergyPct > 0.9d,
-					//Distance = Range,
-					FalseConditionFlags = TargetProperties.LowHealth,
-				});
+			
+			Priority = SkillPriority.High;
 
-				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
-		  }
+			PreCast = new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast);
 
-		  #region IAbility
+			PreCast.Criteria += (s) => !Bot.Character.Class.HotBar.HasDebuff(SNOPower.Succubus_BloodStar);
 
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
+			ClusterConditions.Add(new SkillClusterConditions(4d, 45f, 4, true));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: Range, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal | TargetProperties.Fast));
+			SingleUnitCondition.Add(new UnitTargetConditions
+			{
+				TrueConditionFlags = TargetProperties.None,
+				Criteria = () => Bot.Character.Data.dCurrentEnergyPct > 0.9d,
+				//Distance = Range,
+				FalseConditionFlags = TargetProperties.LowHealth,
+			});
 
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
+			FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial;
+		}
 
-		  #endregion
 
-		  public override SNOPower Power
-		  {
-				get { return SNOPower.Witchdoctor_GraspOfTheDead; }
-		  }
-	 }
+		public override SNOPower Power
+		{
+			get { return SNOPower.Witchdoctor_GraspOfTheDead; }
+		}
+	}
 }

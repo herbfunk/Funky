@@ -4,54 +4,34 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Wizard
 {
-	 public class BlackHole : Skill
-	 {
-		 public override void Initialize()
-		  {
-				Cooldown=20000;
-				ExecutionType = SkillExecutionFlags.ClusterLocation| SkillExecutionFlags.Location;
-				WaitVars=new WaitLoops(1, 2, true);
-				Cost=20;
-				Range=50;
-				IsRanged=true;
-				IsProjectile = true;
-				UseageType=SkillUseage.Combat;
-				Priority=SkillPriority.High;
-				PreCast=new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast);
+	public class BlackHole : Skill
+	{
+		public override double Cooldown { get { return 20000; } }
 
-				ClusterConditions.Add(new SkillClusterConditions(7d, 50f, 5, true));
-			    SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, maxdistance: 40, MinimumHealthPercent: 0.95d));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 40, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal|TargetProperties.LowHealth));
-		  }
+		public override bool IsRanged { get { return true; } }
+		public override bool IsProjectile { get { return true; } }
 
-		  #region IAbility
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
-		  public override int RuneIndex
-		  {
-				get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; }
-		  }
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.ClusterLocation | SkillExecutionFlags.Location; } }
 
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
+		public override void Initialize()
+		{
+			WaitVars = new WaitLoops(1, 2, true);
+			Cost = 20;
+			Range = 50;
 
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
+			Priority = SkillPriority.High;
+			PreCast = new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast);
 
-		  #endregion
+			ClusterConditions.Add(new SkillClusterConditions(7d, 50f, 5, true));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, maxdistance: 40, MinimumHealthPercent: 0.95d));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 40, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal | TargetProperties.LowHealth));
+		}
 
-		  public override SNOPower Power
-		  {
-				get { return SNOPower.X1_Wizard_Wormhole; }
-		  }
-	 }
+		public override SNOPower Power
+		{
+			get { return SNOPower.X1_Wizard_Wormhole; }
+		}
+	}
 }

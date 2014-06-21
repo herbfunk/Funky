@@ -965,6 +965,12 @@
     <Compile Include="Version.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="XML\FunkyLineOfSight.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="XML\FunkyAdventureMode.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="XML\FunkyWaypoint.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

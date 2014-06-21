@@ -6,21 +6,25 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 {
 	public class SteedCharge : Skill
 	{
-		public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power) ? Bot.Character.Class.HotBar.RuneIndexCache[Power] : -1; } }
-
 		public override SNOPower Power
 		{
 			get { return SNOPower.X1_Crusader_SteedCharge; }
 		}
 
+
+		public override double Cooldown { get { return 15000; } }
+
+		public override WaitLoops WaitVars { get { return WaitLoops.Default; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
+	
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
+
 		public override void Initialize()
 		{
-			Cooldown = 15000;
 			Range = 5;
+			Cost = 10;
 			Priority = SkillPriority.High;
-			ExecutionType = SkillExecutionFlags.Buff;
-			WaitVars = new WaitLoops(0, 0, true);
-			UseageType = SkillUseage.Combat;
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckCanCast));
 
 			//We want to preform zig-zag movements when using rune Ramming Speed or Nightmare

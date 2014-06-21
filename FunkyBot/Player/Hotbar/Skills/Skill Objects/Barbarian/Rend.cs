@@ -5,21 +5,24 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 {
 	public class Rend : Skill
 	{
-		public override SNOPower Power
-		{
-			get { return SNOPower.Barbarian_Rend; }
-		}
+		public override SNOPower Power { get { return SNOPower.Barbarian_Rend; } }
 
-		public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power) ? Bot.Character.Class.HotBar.RuneIndexCache[Power] : -1; } }
+	
+		public override double Cooldown { get { return 3500; } }
+
+		private readonly WaitLoops _waitVars = new WaitLoops(3, 3, true);
+		public override WaitLoops WaitVars { get { return _waitVars; } }
+
+		public override bool IsDestructiblePower { get { return true; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Self; } }
+	
+		public override SkillUseage UseageType { get { return SkillUseage.Anywhere; } }
 
 		public override void Initialize()
 		{
-			Cooldown = 3500;
-			ExecutionType = SkillExecutionFlags.Self;
-			WaitVars = new WaitLoops(3, 3, true);
-			Cost = 20;
-			UseageType = SkillUseage.Combat;
 			Priority = SkillPriority.Medium;
+			Cost = 20;
 			PreCast=new SkillPreCast((SkillPrecastFlags.CheckRecastTimer | SkillPrecastFlags.CheckEnergy |
 			                          SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckPlayerIncapacitated));
 
@@ -33,26 +36,5 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 									 Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker) && !Bot.Character.Class.Abilities.ContainsKey(SNOPower.Barbarian_Rend));
 		}
 
-		#region IAbility
-		public override int GetHashCode()
-		{
-			return (int)Power;
-		}
-		public override bool Equals(object obj)
-		{
-			//Check for null and compare run-time types. 
-			if (obj == null || GetType() != obj.GetType())
-			{
-				return false;
-			}
-			else
-			{
-				Skill p = (Skill)obj;
-				return Power == p.Power;
-			}
-		}
-
-
-		#endregion
 	}
 }

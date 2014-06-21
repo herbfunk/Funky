@@ -5,78 +5,59 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 {
-	 public class SpiritWalk : Skill
-	 {
-		 public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; } }
+	public class SpiritWalk : Skill
+	{
+		public override double Cooldown { get { return 15200; } }
+
+		public override bool IsSpecialAbility { get { return true; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
+
+		public override void Initialize()
+		{
+			WaitVars = new WaitLoops(0, 0, true);
+			Cost = 49;
 
 
-		  public override void Initialize()
-		  {
-				Cooldown=15200;
-				ExecutionType=SkillExecutionFlags.Buff;
-				WaitVars=new WaitLoops(0, 0, true);
-				Cost=49;
-				UseageType=SkillUseage.Anywhere;
-				IsSpecialAbility=true;
-				Priority=SkillPriority.High;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckEnergy|SkillPrecastFlags.CheckCanCast));
+			Priority = SkillPriority.High;
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckEnergy | SkillPrecastFlags.CheckCanCast));
 
 
-				//IsSpecialMovementSkill = true;
-				//IsBuff=true;
-				//FcriteriaBuff=() => Bot.Settings.General.OutOfCombatMovement;
+			//IsSpecialMovementSkill = true;
+			//IsBuff=true;
+			//FcriteriaBuff=() => Bot.Settings.General.OutOfCombatMovement;
 
-				//Use buff at location (no prediction required!)
-				FOutOfCombatMovement = (v) => v;
+			//Use buff at location (no prediction required!)
+			FOutOfCombatMovement = (v) => v;
 
-				FCombatMovement = (v) =>
+			FCombatMovement = (v) =>
+			{
+				float fDistanceFromTarget = Bot.Character.Data.Position.Distance(v);
+				if (!Bot.Character.Class.bWaitingForSpecial && Funky.Difference(Bot.Character.Data.Position.Z, v.Z) <= 4 && fDistanceFromTarget >= 20f)
 				{
-					float fDistanceFromTarget = Bot.Character.Data.Position.Distance(v);
-					if (!Bot.Character.Class.bWaitingForSpecial && Funky.Difference(Bot.Character.Data.Position.Z, v.Z) <= 4 && fDistanceFromTarget >= 20f)
-					{
-						if (fDistanceFromTarget > 35f)
-							return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 35f);
-						else
-							return v;
-					}
-
-					return Vector3.Zero;
-				};
-
-				Range = 6;
-			    ClusterConditions.Add(new SkillClusterConditions(7d, 30f, 4, false, 0, ClusterProperties.None, 10f, true));
-				FcriteriaCombat=() => (	   (LastConditionPassed== ConditionCriteraTypes.Cluster) ||   
-										   (Bot.Character.Data.dCurrentHealthPct <= 0.35d) ||
-				                           (RuneIndex==3&&Bot.Character.Data.dCurrentEnergyPct<0.25d)||
-				                           (Bot.Targeting.Cache.Environment.FleeTriggeringUnits.Count > 0) ||
-				                           (Bot.Targeting.Cache.Environment.TriggeringAvoidances.Count > 0) ||
-				                           (Bot.Character.Data.bIsIncapacitated || Bot.Character.Data.bIsRooted));
-		  }
-
-		  #region IAbility
-
-
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
-
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
+					if (fDistanceFromTarget > 35f)
+						return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 35f);
+					else
+						return v;
 				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
 
-		  #endregion
+				return Vector3.Zero;
+			};
 
-		  public override SNOPower Power
-		  {
-				get { return SNOPower.Witchdoctor_SpiritWalk; }
-		  }
-	 }
+			Range = 6;
+			ClusterConditions.Add(new SkillClusterConditions(7d, 30f, 4, false, 0, ClusterProperties.None, 10f, true));
+			FcriteriaCombat = () => ((LastConditionPassed == ConditionCriteraTypes.Cluster) ||
+									   (Bot.Character.Data.dCurrentHealthPct <= 0.35d) ||
+									   (RuneIndex == 3 && Bot.Character.Data.dCurrentEnergyPct < 0.25d) ||
+									   (Bot.Targeting.Cache.Environment.FleeTriggeringUnits.Count > 0) ||
+									   (Bot.Targeting.Cache.Environment.TriggeringAvoidances.Count > 0) ||
+									   (Bot.Character.Data.bIsIncapacitated || Bot.Character.Data.bIsRooted));
+		}
+
+
+		public override SNOPower Power
+		{
+			get { return SNOPower.Witchdoctor_SpiritWalk; }
+		}
+	}
 }

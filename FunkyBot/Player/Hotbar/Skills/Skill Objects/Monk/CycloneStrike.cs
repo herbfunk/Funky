@@ -5,73 +5,53 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Monk
 {
-	 public class CycloneStrike : Skill
-	 {
-		 public override void Initialize()
-		  {
-				Cooldown=1000;
-				ExecutionType=SkillExecutionFlags.Buff;
-				UseageType=SkillUseage.Combat;
-				WaitVars=new WaitLoops(2, 2, true);
-				Cost=50;
-				Priority=SkillPriority.High;
+	public class CycloneStrike : Skill
+	{
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
 
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckEnergy|SkillPrecastFlags.CheckCanCast|
-				                          SkillPrecastFlags.CheckRecastTimer|SkillPrecastFlags.CheckPlayerIncapacitated));
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
-				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 7);
-				//ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 3);
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 23, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+		public override void Initialize()
+		{
+			Cooldown = 1000;
 
-				ClusterConditions.Add(new SkillClusterConditions(8d, 20f, 4, false, 0, ClusterProperties.Large, 10f, false));
-				FcriteriaCombat = () =>
+
+			WaitVars = new WaitLoops(2, 2, true);
+			Cost = 50;
+			Priority = SkillPriority.High;
+
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckEnergy | SkillPrecastFlags.CheckCanCast |
+									  SkillPrecastFlags.CheckRecastTimer | SkillPrecastFlags.CheckPlayerIncapacitated));
+
+			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 7);
+			//ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 3);
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 23, 7, 0.95d));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 23, 7, 0.95d, TargetProperties.Normal | TargetProperties.Boss));
+
+			ClusterConditions.Add(new SkillClusterConditions(10d, 24f, 4, false, 0, ClusterProperties.Large, 10f, false));
+			FcriteriaCombat = () =>
+			{
+				if (LastConditionPassed == ConditionCriteraTypes.SingleTarget) return true; //special and fast..
+
+				//Use every 5.5s when 7+ units are within 25f.
+				if (LastConditionPassed == ConditionCriteraTypes.UnitsInRange && LastUsedMilliseconds > 5500 && !Bot.Character.Class.bWaitingForSpecial)
+					return true;
+
+				if (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_ExplodingPalm) || !Bot.Targeting.Cache.CurrentUnitTarget.SkillsUsedOnObject.ContainsKey(SNOPower.Monk_ExplodingPalm)) return true; //Non Exploding Palm Check
+
+				if (DateTime.Now.Subtract(Bot.Targeting.Cache.CurrentUnitTarget.SkillsUsedOnObject[SNOPower.Monk_ExplodingPalm]).TotalSeconds < 9
+					&& Bot.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct < 0.10d)
 				{
-					if (LastConditionPassed == ConditionCriteraTypes.SingleTarget) return true; //special and fast..
-
-					//Use every 5.5s when 7+ units are within 25f.
-					if (LastConditionPassed == ConditionCriteraTypes.UnitsInRange && LastUsedMilliseconds > 5500 && !Bot.Character.Class.bWaitingForSpecial)
-						return true;
-
-					if (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_ExplodingPalm)) return true; //Non Exploding Palm Check
-
-					if ((Bot.Targeting.Cache.CurrentUnitTarget.HasDOTdps.HasValue && Bot.Targeting.Cache.CurrentUnitTarget.HasDOTdps.Value)
-						&& Bot.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct<0.10d)
-					{
-						return true;
-					}
-
-					return false;
-				};
-		  }
-
-		  #region IAbility
-
-		  public override int RuneIndex
-		  {
-				get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; }
-		  }
-
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
-
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
+					return true;
 				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
 
-		  #endregion
+				return false;
+			};
+		}
 
-		  public override SNOPower Power
-		  {
-				get { return SNOPower.Monk_CycloneStrike; }
-		  }
-	 }
+		public override SNOPower Power
+		{
+			get { return SNOPower.Monk_CycloneStrike; }
+		}
+	}
 }

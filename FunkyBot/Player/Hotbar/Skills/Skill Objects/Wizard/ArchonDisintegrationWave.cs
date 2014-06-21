@@ -3,54 +3,39 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Wizard
 {
-	 public class ArchonDisintegrationWave : Skill
-	 {
-		 public override void Initialize()
-		  {
-				Cooldown=5;
-				ExecutionType=SkillExecutionFlags.Target;
-				WaitVars=new WaitLoops(0, 0, false);
-				Range=48;
-				IsRanged=true;
-				IsChanneling=true;
-				UseageType=SkillUseage.Combat;
-				Priority=SkillPriority.Low;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, -1, 10));
-		  }
+	public class ArchonDisintegrationWave : Skill
+	{
+		public override double Cooldown { get { return 5; } }
 
-		  #region IAbility
+		public override bool IsDestructiblePower { get { return true; } }
+		public override bool IsPrimarySkill { get { return true; } }
+		public override bool IsRanged { get { return true; } }
 
-		  public override int RuneIndex
-		  {
-				get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; }
-		  }
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
 
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Target; } }
 
-		  #endregion
+		public override void Initialize()
+		{
+			Range = 48;
 
-		  public override SNOPower Power
-		  {
-				get { return SNOPower.Wizard_Archon_DisintegrationWave; }
-		  }
-	 }
+			IsChanneling = true;
 
-	public class ArchonDisintegrationWaveFire:ArchonDisintegrationWave
+		
+			Priority = SkillPriority.Low;
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, -1, 10));
+		}
+
+
+		public override SNOPower Power
+		{
+			get { return SNOPower.Wizard_Archon_DisintegrationWave; }
+		}
+	}
+
+	public class ArchonDisintegrationWaveFire : ArchonDisintegrationWave
 	{
 		public override SNOPower Power
 		{

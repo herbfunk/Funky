@@ -29,11 +29,11 @@ namespace FunkyBot.Player.HotBar.Skills
 		  public override void Initialize()
 		  {
 				Cooldown=30000;
-				ExecutionType=SkillExecutionFlags.None;
+				
 				WaitVars=new WaitLoops(3, 3, true);
 				Priority=SkillPriority.High;
 
-				UseageType=SkillUseage.Anywhere;
+				
 				PreCast=new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckRecastTimer);
 
 				//Important!! We have to override the default return of true.. we dont want this to fire as a combat Ability.
@@ -41,32 +41,6 @@ namespace FunkyBot.Player.HotBar.Skills
 
 
 		  }
-
-		  #region IAbility
-
-		  public override int RuneIndex
-		  {
-				get { return -1; }
-		  }
-
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
-
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
-
-		  #endregion
-
 
 	 }
 }

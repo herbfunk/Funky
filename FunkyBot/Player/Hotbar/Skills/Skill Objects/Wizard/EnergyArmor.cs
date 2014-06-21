@@ -3,58 +3,37 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Wizard
 {
-	 public class EnergyArmor : Skill
-	 {
-		 public override void Initialize()
-		  {
-				Cooldown=115000;
-				ExecutionType=SkillExecutionFlags.Buff;
-				WaitVars=new WaitLoops(1, 2, true);
-				Cost=25;
-				Counter=1;
-				UseageType=SkillUseage.Anywhere;
-				IsBuff=true;
-				Priority=SkillPriority.High;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckEnergy|
-				                          SkillPrecastFlags.CheckExisitingBuff));
-		  }
+	public class EnergyArmor : Skill
+	{
+		public override double Cooldown { get { return 115000; } }
 
-		 public override void OnSuccessfullyUsed(bool reorderAbilities = true)
-		 {
-			 //Reset Character Max Energy!
-			 Bot.Character.Data.MaxEnergy = 0;
+		public override bool IsBuff { get { return true; } }
 
-			 base.OnSuccessfullyUsed(reorderAbilities);
-		 }
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
 
-		 #region IAbility
+		public override void Initialize()
+		{
+			WaitVars = new WaitLoops(1, 2, true);
+			Cost = 25;
+			Counter = 1;
 
-		  public override int RuneIndex
-		  {
-				get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; }
-		  }
 
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
+			Priority = SkillPriority.High;
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckEnergy |
+									  SkillPrecastFlags.CheckExisitingBuff));
+		}
 
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
+		public override void OnSuccessfullyUsed(bool reorderAbilities = true)
+		{
+			//Reset Character Max Energy!
+			Bot.Character.Data.MaxEnergy = 0;
 
-		  #endregion
+			base.OnSuccessfullyUsed(reorderAbilities);
+		}
 
-		  public override SNOPower Power
-		  {
-				get { return SNOPower.Wizard_EnergyArmor; }
-		  }
-	 }
+		public override SNOPower Power
+		{
+			get { return SNOPower.Wizard_EnergyArmor; }
+		}
+	}
 }

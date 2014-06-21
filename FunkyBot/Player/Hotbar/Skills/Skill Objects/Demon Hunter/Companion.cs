@@ -8,6 +8,12 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 {
 	public class Companion : Skill
 	{
+		public override double Cooldown { get { return 30000; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
+
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
+
 		public override void Initialize()
 		{
 			//rune index 2: Wolf (increased attack damage)
@@ -16,10 +22,8 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 			//rune index 3: Bat (Gain 50 Hatred)
 			//rune index 0: Spider (Web nearby enemies 25 yards)
 
-			Cooldown = 30000;
-			ExecutionType = SkillExecutionFlags.Buff;
 			WaitVars = new WaitLoops(2, 1, true);
-			UseageType = SkillUseage.Combat;
+		
 			Priority = SkillPriority.High;
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast);
 
@@ -73,34 +77,6 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 			}
 
 		}
-
-		#region IAbility
-
-		public override int RuneIndex
-		{
-			get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power) ? Bot.Character.Class.HotBar.RuneIndexCache[Power] : -1; }
-		}
-
-		public override int GetHashCode()
-		{
-			return (int)Power;
-		}
-
-		public override bool Equals(object obj)
-		{
-			//Check for null and compare run-time types. 
-			if (obj == null || GetType() != obj.GetType())
-			{
-				return false;
-			}
-			else
-			{
-				Skill p = (Skill)obj;
-				return Power == p.Power;
-			}
-		}
-
-		#endregion
 
 		public override SNOPower Power
 		{

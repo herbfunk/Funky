@@ -1,3 +1,30 @@
-﻿Gizmo ActorSNO: 4067 Name: Exit_Location_1-5869 Type: PortalDestination Radius: 6.63 Position: x="860" y="691" z="0" (860, 691, 0) Distance: 7 Animation: Invalid AppearanceSNO: 14371 has Attributes: Level=70, TeamID=1, HitpointsCur=981668463, HitpointsMax=981663744, HitpointsMaxTotal=1065353216, ProjectileReflectDamageScalar=1065353216, 
+﻿		public override double Cost { get { return 0; } }
+		public override double Cooldown { get { return 300; } }
+		public override int Range { get { return 35; } }
 
- SNO: 330695(x1_LR_Shrine_Damage-3256)	ActorType: Gizmo TargetType: Shrine 	CollisionRadius: 10.37503 ActorSphereRadius: 10.37503 	 Distance (Centre58.72016 / Radius53.62016) 	 SnoAnim=Invalid -- AnimState=Invalid 	 ReqLOS=False -- -- RayCast==True , SearchGridRayCast=True , ObjIntersect==null , Walk==null , Projectile==null -- -- [LOSV3: <0, 0, 0>] 	 BotFacing=True 	 BlackListLoops[0] --  InteractionAttempts[0] 	 GizmoType[PowerUp]	 PhysSNO=NULL HandleAsObstacle=NULL Operated=False Disabled=False
+		public override bool IsDestructiblePower { get { return true; } }
+		public override bool IsPrimarySkill { get { return true; } }
+		public override bool IsRanged { get { return true; } }
+		public override bool IsProjectile { get { return true; } }
+		public override bool IsBuff { get { return true; } }
+		public override bool IsSpecialAbility { get { return true; } }
+		 public override bool IsMovementSkill { get { return true; } }
+
+		private readonly WaitLoops _waitVars = new WaitLoops(2, 2, true);
+		public override WaitLoops WaitVars { get { return _waitVars; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Target; } }
+		public override SkillPriority Priority { get { return SkillPriority.Medium; } }
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
+
+
+
+
+		public override double Cost { get { return 10; } }
+		public override double Cooldown { get { return 90000; } }
+
+		public override WaitLoops WaitVars { get { return WaitLoops.Default; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
+		public override SkillPriority Priority { get { return SkillPriority.High; } }
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }

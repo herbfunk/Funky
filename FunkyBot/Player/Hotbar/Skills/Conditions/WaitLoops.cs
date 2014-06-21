@@ -15,5 +15,7 @@
 				 PostLoops=AfterLoops;
 				 Reusable=Reuse;
 			}
+
+			public static readonly WaitLoops Default = new WaitLoops(0, 0, false);
 	 }
 }

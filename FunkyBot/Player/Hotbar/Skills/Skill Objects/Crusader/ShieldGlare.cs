@@ -5,23 +5,26 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 {
 	public class ShieldGlare : Skill
 	{
-		public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power) ? Bot.Character.Class.HotBar.RuneIndexCache[Power] : -1; } }
-
 		public override SNOPower Power
 		{
 			get { return SNOPower.X1_Crusader_ShieldGlare; }
 		}
 
+
+		public override double Cooldown { get { return 12000; } }
+
+		public override WaitLoops WaitVars { get { return WaitLoops.Default; } }
+
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Location | SkillExecutionFlags.ClusterLocation; } }
+	
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
+
 		public override void Initialize()
 		{
-			Cooldown = 12000;
 			Range = 30;
 			Priority = SkillPriority.Medium;
-			ExecutionType = SkillExecutionFlags.Location|SkillExecutionFlags.ClusterLocation;
-
-			WaitVars = new WaitLoops(0, 0, true);
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckRecastTimer);
-			UseageType = SkillUseage.Combat;
 
 			//Clusters with 3 units within 30f
 			ClusterConditions.Add(new SkillClusterConditions(10d, 30f, 3, true));

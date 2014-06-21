@@ -4,60 +4,45 @@ using Zeta.Game.Internals.Actors;
 namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 {
 	public class Piranhas : Skill
-	 {
-		 public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; } }
+	{
+		public override double Cooldown { get { return 8000; } }
 
-		  public override void Initialize()
-		  {
-				Cooldown=8000;
-				ExecutionType=SkillExecutionFlags.ClusterLocation|SkillExecutionFlags.Location;
+		public override bool IsRanged { get { return true; } }
 
-				WaitVars=new WaitLoops(0, 3, true);
-				Cost=250;
-				Range=45;
-				IsRanged=true;
-				UseageType=SkillUseage.Combat;
-				Priority=SkillPriority.High;
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast));
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.ClusterLocation | SkillExecutionFlags.Location; } }
 
-				ClusterConditions.Add(new SkillClusterConditions(4d, 45f, 5, true));
-			    //SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 45, 0.95d));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: Range, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
-				SingleUnitCondition.Add(new UnitTargetConditions
-				{
-					TrueConditionFlags = TargetProperties.None,
-					Criteria = () => Bot.Character.Data.dCurrentEnergyPct > 0.9d,
-					MaximumDistance = Range,
-					FalseConditionFlags = TargetProperties.LowHealth,
-				});
+		public override void Initialize()
+		{
 
-				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
-		  }
+			WaitVars = new WaitLoops(0, 3, true);
+			Cost = 250;
+			Range = 45;
 
-		  #region IAbility
+		
+			Priority = SkillPriority.High;
 
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast));
 
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
+			ClusterConditions.Add(new SkillClusterConditions(4d, 45f, 5, true));
+			//SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 45, 0.95d));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: Range, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+			SingleUnitCondition.Add(new UnitTargetConditions
+			{
+				TrueConditionFlags = TargetProperties.None,
+				Criteria = () => Bot.Character.Data.dCurrentEnergyPct > 0.9d,
+				MaximumDistance = Range,
+				FalseConditionFlags = TargetProperties.LowHealth,
+			});
 
-		  #endregion
+			FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial;
+		}
 
-		  public override SNOPower Power
-		  {
-				get { return SNOPower.Witchdoctor_Piranhas; }
-		  }
-	 }
+
+		public override SNOPower Power
+		{
+			get { return SNOPower.Witchdoctor_Piranhas; }
+		}
+	}
 }

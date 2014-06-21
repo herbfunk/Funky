@@ -3,59 +3,44 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Monk
 {
-	 public class WaveOfLight : Skill
-	 {
-		 public override void Initialize()
-		  {
-				Cooldown=250;
-				ExecutionType=Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Monk_WaveOfLight]==1
-					?SkillExecutionFlags.Self
-					:SkillExecutionFlags.ClusterLocation|SkillExecutionFlags.Location;
-				WaitVars=new WaitLoops(2, 4, true);
-				Cost=Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Monk_WaveOfLight]==3?40:75;
-				Range=16;
-				Priority=SkillPriority.Medium;
-				UseageType=SkillUseage.Combat;
+	public class WaveOfLight : Skill
+	{
+		public override double Cooldown { get { return 250; } }
 
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckEnergy|SkillPrecastFlags.CheckCanCast|
-				                          SkillPrecastFlags.CheckRecastTimer|SkillPrecastFlags.CheckPlayerIncapacitated));
-				ClusterConditions.Add(new SkillClusterConditions(6d, 35f, 3, true));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 30, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal|TargetProperties.MissileReflecting));
-				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
+		public override bool IsBuff { get { return true; } }
 
-				FcriteriaBuff=() => Bot.Character.Data.dCurrentHealthPct<0.25d;
-				IsBuff=true;
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
-		  }
+		public override SkillExecutionFlags ExecutionType { get { return _executiontype; } set { _executiontype = value; } }
+		private SkillExecutionFlags _executiontype = SkillExecutionFlags.ClusterLocation | SkillExecutionFlags.Location;
 
-		  #region IAbility
+		public override void Initialize()
+		{
 
-		  public override int RuneIndex
-		  {
-				get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; }
-		  }
+			if (RuneIndex == 1)
+				ExecutionType = SkillExecutionFlags.Self;
 
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
+			WaitVars = new WaitLoops(2, 4, true);
+			Cost = Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Monk_WaveOfLight] == 3 ? 40 : 75;
+			Range = 16;
+			Priority = SkillPriority.Medium;
 
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
 
-		  #endregion
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckEnergy | SkillPrecastFlags.CheckCanCast |
+									  SkillPrecastFlags.CheckRecastTimer | SkillPrecastFlags.CheckPlayerIncapacitated));
+			ClusterConditions.Add(new SkillClusterConditions(6d, 35f, 3, true));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 30, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal | TargetProperties.MissileReflecting));
+			FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial;
 
-		  public override SNOPower Power
-		  {
-				get { return SNOPower.Monk_WaveOfLight; }
-		  }
-	 }
+			FcriteriaBuff = () => Bot.Character.Data.dCurrentHealthPct < 0.25d;
+
+
+		}
+
+
+		public override SNOPower Power
+		{
+			get { return SNOPower.Monk_WaveOfLight; }
+		}
+	}
 }

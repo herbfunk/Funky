@@ -5,12 +5,22 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 {
 	public class Provoke : Skill
 	{
-		public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power) ? Bot.Character.Class.HotBar.RuneIndexCache[Power] : -1; } }
 
 		public override SNOPower Power
 		{
 			get { return SNOPower.X1_Crusader_Provoke; }
 		}
+
+
+		public override double Cooldown { get { return 20000; } }
+
+		public override WaitLoops WaitVars { get { return WaitLoops.Default; } }
+
+		public override bool IsBuff { get { return true; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
+	
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
 		/*
 		 * Rune Indexs
@@ -22,17 +32,13 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 		*/
 		public override void Initialize()
 		{
-			Cooldown = 20000;
 			Range = 20;
+			Cost = 30;
 			Priority = SkillPriority.High;
-			ExecutionType = SkillExecutionFlags.Buff;
-
-			WaitVars = new WaitLoops(0, 0, true);
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
-			UseageType = SkillUseage.Combat;
+
 
 			//Low On Wrath Buff Option (less than 10%)
-			IsBuff = true;
 			FcriteriaBuff = () => Bot.Character.Data.dCurrentEnergyPct < 0.10d;
 
 			ClusterConditions.Add(new SkillClusterConditions(10d, 15f, 3, false));

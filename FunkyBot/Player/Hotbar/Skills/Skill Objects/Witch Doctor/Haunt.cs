@@ -6,12 +6,18 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 {
 	public class Haunt : Skill
 	{
+		public override double Cooldown { get { return 2000; } }
+
+		public override bool IsRanged { get { return true; } }
+		public override bool IsProjectile { get { return true; } }
+
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Target; } }
+
 		public override void Initialize()
 		{
 			bool hotbarContainsLoctusSwarm = Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_Locust_Swarm);
-
-			Cooldown = 2000;
-			ExecutionType = SkillExecutionFlags.Target;
 
 			//since we can only track one DOTDPS, we track locus swarm and cast this 
 			if (hotbarContainsLoctusSwarm)
@@ -22,15 +28,14 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 			else
 			{
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 25, falseConditionalFlags: TargetProperties.DOTDPS));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: -1, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal|TargetProperties.DOTDPS));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: -1, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal | TargetProperties.DOTDPS));
 			}
 
 			WaitVars = new WaitLoops(0, 0, false);
 			Cost = 50;
 			Range = 45;
-			IsRanged = true;
-			IsProjectile=true;
-			UseageType = SkillUseage.Combat;
+
+		
 			Priority = SkillPriority.High;
 			ShouldTrack = true;
 
@@ -40,7 +45,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 			PreCast = new SkillPreCast(precastflags);
 
 			PreCast.Criteria += (s) => !Bot.Character.Class.HotBar.HasDebuff(SNOPower.Succubus_BloodStar);
-			
+
 			FcriteriaCombat = () =>
 			{
 				if (Bot.Targeting.Cache.CurrentTarget.SkillsUsedOnObject.ContainsKey(Power))
@@ -55,30 +60,6 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 			};
 		}
 
-		#region IAbility
-
-		public override int RuneIndex
-		{
-			get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power) ? Bot.Character.Class.HotBar.RuneIndexCache[Power] : -1; }
-		}
-
-		public override int GetHashCode()
-		{
-			return (int)Power;
-		}
-
-		public override bool Equals(object obj)
-		{
-			//Check for null and compare run-time types. 
-			if (obj == null || GetType() != obj.GetType())
-			{
-				return false;
-			}
-			Skill p = (Skill)obj;
-			return Power == p.Power;
-		}
-
-		#endregion
 
 		public override SNOPower Power
 		{

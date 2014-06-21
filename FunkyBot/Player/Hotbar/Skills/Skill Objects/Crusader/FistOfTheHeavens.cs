@@ -5,24 +5,27 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 {
 	public class FistOfTheHeavens : Skill
 	{
-		public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power) ? Bot.Character.Class.HotBar.RuneIndexCache[Power] : -1; } }
 
 		public override SNOPower Power
 		{
 			get { return SNOPower.X1_Crusader_FistOfTheHeavens; }
 		}
 
+
+		public override double Cooldown { get { return 5; } }
+
+		public override WaitLoops WaitVars { get { return WaitLoops.Default; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Location | SkillExecutionFlags.ClusterLocation; } }
+
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
+
 		public override void Initialize()
 		{
-			Cooldown = 5;
 			Range = 49;
 			Cost = 30;
 			Priority = SkillPriority.Medium;
-			ExecutionType = SkillExecutionFlags.Location|SkillExecutionFlags.ClusterLocation;
-
-			WaitVars = new WaitLoops(0, 0, true);
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
-			UseageType = SkillUseage.Combat;
 
 			ClusterConditions.Add(new SkillClusterConditions(8d, 45f, 4, true));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 45, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));

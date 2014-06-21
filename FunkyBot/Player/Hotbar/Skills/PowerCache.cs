@@ -12,36 +12,10 @@ namespace FunkyBot.Cache
 					 (int)SNOPower.Wizard_EnergyTwister
 				};
 
-		internal static readonly HashSet<SNOPower> AbilitiesDestructiblePriority = new HashSet<SNOPower>
-		  {
-				SNOPower.Barbarian_Frenzy, SNOPower.Barbarian_Bash,SNOPower.Barbarian_Cleave,SNOPower.X1_Barbarian_WeaponThrow, SNOPower.Barbarian_Rend,
-				SNOPower.X1_Crusader_Punish,SNOPower.X1_Crusader_Smite,SNOPower.X1_Crusader_Slash,SNOPower.X1_Crusader_Justice,
-				SNOPower.DemonHunter_HungeringArrow, SNOPower.X1_DemonHunter_EntanglingShot, SNOPower.DemonHunter_Bolas, SNOPower.DemonHunter_Grenades, SNOPower.DemonHunter_ElementalArrow, SNOPower.DemonHunter_RapidFire, SNOPower.DemonHunter_Chakram,
-				SNOPower.Monk_FistsofThunder,SNOPower.Monk_DeadlyReach,SNOPower.Monk_CripplingWave,SNOPower.Monk_WayOfTheHundredFists,
-				SNOPower.Witchdoctor_Firebomb, SNOPower.Witchdoctor_PoisonDart, SNOPower.Witchdoctor_ZombieCharger, SNOPower.Witchdoctor_CorpseSpider, SNOPower.Witchdoctor_PlagueOfToads,
-				
-				SNOPower.Wizard_EnergyTwister, SNOPower.Wizard_MagicMissile,SNOPower.Wizard_ShockPulse,SNOPower.Wizard_SpectralBlade, SNOPower.Wizard_Electrocute, 
-				SNOPower.Wizard_Archon_DisintegrationWave,SNOPower.Wizard_Archon_DisintegrationWave_Cold,SNOPower.Wizard_Archon_DisintegrationWave_Fire,SNOPower.Wizard_Archon_DisintegrationWave_Lightning
-		  };
 
-		internal static readonly HashSet<SNOPower> SpecialMovementAbilities = new HashSet<SNOPower>
-		  {
-				SNOPower.Barbarian_FuriousCharge,SNOPower.Barbarian_Sprint,SNOPower.Barbarian_Whirlwind,
-				SNOPower.DemonHunter_Vault,SNOPower.DemonHunter_Strafe,
-				SNOPower.Monk_TempestRush,
-		  };
 
-		internal static readonly HashSet<SNOPower> PrimaryAbilities = new HashSet<SNOPower>
-		  {
-				 SNOPower.Barbarian_Bash,SNOPower.Barbarian_Cleave,SNOPower.X1_Barbarian_WeaponThrow,SNOPower.Barbarian_Frenzy,
-				 SNOPower.X1_Crusader_Punish,SNOPower.X1_Crusader_Smite,SNOPower.X1_Crusader_Slash,SNOPower.X1_Crusader_Justice,
-				 SNOPower.DemonHunter_HungeringArrow,SNOPower.X1_DemonHunter_EntanglingShot,SNOPower.DemonHunter_Bolas,SNOPower.DemonHunter_Grenades,SNOPower.X1_DemonHunter_EvasiveFire,
-				 SNOPower.Monk_FistsofThunder,SNOPower.Monk_DeadlyReach,SNOPower.Monk_CripplingWave,SNOPower.Monk_WayOfTheHundredFists,
-				 SNOPower.Witchdoctor_PoisonDart,SNOPower.Witchdoctor_CorpseSpider,SNOPower.Witchdoctor_PlagueOfToads,SNOPower.Witchdoctor_Firebomb,
-				 
-				 SNOPower.Wizard_MagicMissile,SNOPower.Wizard_ShockPulse,SNOPower.Wizard_SpectralBlade,SNOPower.Wizard_Electrocute,
-				 SNOPower.Wizard_Archon_DisintegrationWave,SNOPower.Wizard_Archon_DisintegrationWave_Cold,SNOPower.Wizard_Archon_DisintegrationWave_Fire,SNOPower.Wizard_Archon_DisintegrationWave_Lightning
-		  };
+
+
 
 		internal static readonly HashSet<SNOPower> PassiveAbiltiesReduceRepeatTime = new HashSet<SNOPower>
 		  {

@@ -5,74 +5,57 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Barb
 {
-	 public class FuriousCharge : Skill
-	 {
-		 public override SNOPower Power
-		  {
-				get { return SNOPower.Barbarian_FuriousCharge; }
-		  }
+	public class FuriousCharge : Skill
+	{
+		public override SNOPower Power { get { return SNOPower.Barbarian_FuriousCharge; } }
 
-		  public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; } }
 
-		  public override void Initialize()
-		  {
-				Cooldown=15000;
-				ExecutionType=SkillExecutionFlags.Target;
-				WaitVars=new WaitLoops(1, 2, true);
-				Range=35;
-				UseageType=SkillUseage.Combat;
-				Priority=SkillPriority.Medium;
-				PreCast=new SkillPreCast(SkillPrecastFlags.CheckCanCast|SkillPrecastFlags.CheckPlayerIncapacitated);
-				
-				ClusterConditions.Add(new SkillClusterConditions(7d, 35f, 4, false, minDistance: 15f, useRadiusDistance: true));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 30, falseConditionalFlags: TargetProperties.Normal));
+		public override double Cooldown { get { return 15000; } }
 
-				FCombatMovement=v =>
+
+		public override bool IsMovementSkill { get { return true; } }
+
+		private readonly WaitLoops _waitVars = new WaitLoops(1, 2, true);
+		public override WaitLoops WaitVars { get { return _waitVars; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Target; } }
+
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
+
+		public override void Initialize()
+		{
+			Priority = SkillPriority.Medium;
+			Range = 35;
+			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckPlayerIncapacitated);
+
+			ClusterConditions.Add(new SkillClusterConditions(7d, 35f, 4, false, minDistance: 15f, useRadiusDistance: true));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 30, falseConditionalFlags: TargetProperties.Normal));
+
+			FCombatMovement = v =>
+			{
+				float fDistanceFromTarget = Bot.Character.Data.Position.Distance(v);
+				if (Bot.Settings.General.OutOfCombatMovement && !Bot.Character.Class.bWaitingForSpecial && Funky.Difference(Bot.Character.Data.Position.Z, v.Z) <= 4 && fDistanceFromTarget >= 20f)
 				{
-					float fDistanceFromTarget=Bot.Character.Data.Position.Distance(v);
-					if (Bot.Settings.General.OutOfCombatMovement && !Bot.Character.Class.bWaitingForSpecial&&Funky.Difference(Bot.Character.Data.Position.Z, v.Z)<=4&&fDistanceFromTarget>=20f)
-					{
-						if (fDistanceFromTarget>35f)
-							return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 35f);
-						return v;
-					}
-
-					return Vector3.Zero;
-				};
-				FOutOfCombatMovement=v =>
-				{
-					float fDistanceFromTarget=Bot.Character.Data.Position.Distance(v);
-					if (Funky.Difference(Bot.Character.Data.Position.Z, v.Z)<=4&&fDistanceFromTarget>=20f)
-					{
-						if (fDistanceFromTarget>35f)
-							return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 35f);
-						return v;
-					}
-
-					return Vector3.Zero;
-				};
-		  }
-
-		  #region IAbility
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
+					if (fDistanceFromTarget > 35f)
+						return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 35f);
+					return v;
 				}
-				else
+
+				return Vector3.Zero;
+			};
+			FOutOfCombatMovement = v =>
+			{
+				float fDistanceFromTarget = Bot.Character.Data.Position.Distance(v);
+				if (Funky.Difference(Bot.Character.Data.Position.Z, v.Z) <= 4 && fDistanceFromTarget >= 20f)
 				{
-					 Skill p=(Skill)obj;
-					 return Power==p.Power;
+					if (fDistanceFromTarget > 35f)
+						return MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 35f);
+					return v;
 				}
-		  }
 
+				return Vector3.Zero;
+			};
+		}
 
-		  #endregion
-	 }
+	}
 }

@@ -5,23 +5,27 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 {
 	public class ShieldBash : Skill
 	{
-		public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power) ? Bot.Character.Class.HotBar.RuneIndexCache[Power] : -1; } }
-
 		public override SNOPower Power
 		{
 			get { return SNOPower.X1_Crusader_ShieldBash2; }
 		}
 
+
+		public override double Cooldown { get { return 5; } }
+
+		public override WaitLoops WaitVars { get { return WaitLoops.Default; } }
+
+		public override bool IsRanged { get { return true; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Target | SkillExecutionFlags.ClusterTarget; } }
+
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
+
 		public override void Initialize()
 		{
-			Cooldown = 5;
 			Range = 25;
 			Cost = 30;
 			Priority = SkillPriority.Medium;
-			ExecutionType = SkillExecutionFlags.Target|SkillExecutionFlags.ClusterTarget;
-			IsRanged = true;
-
-			WaitVars = new WaitLoops(0, 0, true);
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 			
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 25, MinimumHealthPercent: 0.75d, falseConditionalFlags: TargetProperties.Normal));
@@ -32,7 +36,6 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 				FalseConditionFlags = TargetProperties.LowHealth,
 			});
 			ClusterConditions.Add(new SkillClusterConditions(5d, 25f, 2, true));
-			UseageType = SkillUseage.Combat;
 		}
 	}
 }

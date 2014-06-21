@@ -3,52 +3,33 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Wizard
 {
-	 public class Blizzard : Skill
-	 {
-		 public override void Initialize()
-		  {
-				Cooldown=2500;
-				ExecutionType=SkillExecutionFlags.ClusterTarget|SkillExecutionFlags.Target;
-				WaitVars=new WaitLoops(1, 2, true);
-				Cost=40;
-				Range=50;
-				IsRanged=true;
-				UseageType=SkillUseage.Combat;
-				Priority=SkillPriority.Medium;
-				PreCast = new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast);
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 45, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
-				ClusterConditions.Add(new SkillClusterConditions(5d, 50f, 2, true));
-				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
-		  }
+	public class Blizzard : Skill
+	{
+		public override double Cooldown { get { return 2500; } }
 
-		  #region IAbility
+		public override bool IsRanged { get { return true; } }
 
-		  public override int RuneIndex
-		  {
-				get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; }
-		  }
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.ClusterTarget | SkillExecutionFlags.Target; } }
 
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
+		public override void Initialize()
+		{
+			WaitVars = new WaitLoops(1, 2, true);
+			Cost = 40;
+			Range = 50;
 
-		  #endregion
+		
+			Priority = SkillPriority.Medium;
+			PreCast = new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast);
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 45, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+			ClusterConditions.Add(new SkillClusterConditions(5d, 50f, 2, true));
+			FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial;
+		}
 
-		  public override SNOPower Power
-		  {
-				get { return SNOPower.Wizard_Blizzard; }
-		  }
-	 }
+		public override SNOPower Power
+		{
+			get { return SNOPower.Wizard_Blizzard; }
+		}
+	}
 }

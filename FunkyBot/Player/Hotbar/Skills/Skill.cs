@@ -23,22 +23,9 @@ namespace FunkyBot.Player.HotBar.Skills
 	{
 		public Skill()
 		{
-			WaitVars = new WaitLoops(0, 0, true);
-			IsRanged = false;
-			IsProjectile = false;
-			UseageType = SkillUseage.Anywhere;
-			ExecutionType = SkillExecutionFlags.None;
-			IsSpecialAbility = false;
-			IsChanneling = false;
 			IsCombat = false;
-			Range = 0;
-			Priority = SkillPriority.Low;
 			LastUsed = DateTime.MinValue;
-			IsADestructiblePower = PowerCacheLookup.AbilitiesDestructiblePriority.Contains(Power);
-			IsMovementSkill = PowerCacheLookup.SpecialMovementAbilities.Contains(Power);
-			ShouldTrack = false;
-
-			Initialize();
+			//Initialize();
 		}
 
 		public virtual void Initialize()
@@ -164,69 +151,148 @@ namespace FunkyBot.Player.HotBar.Skills
 			}
 		}
 
+		public int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power) ? Bot.Character.Class.HotBar.RuneIndexCache[Power] : -1; } }
+
 		#region Properties
-		public SkillPriority Priority { get; set; }
+		public SkillPriority Priority
+		{
+			get { return _priority; }
+			set { _priority = value; }
+		}
+		private SkillPriority _priority = SkillPriority.None;
 		///<summary>
 		///Describes variables for use of Ability: PreWait Loops, PostWait Loops, Reuseable
 		///</summary>
-		public WaitLoops WaitVars { get; set; }
+		public virtual WaitLoops WaitVars
+		{
+			get { return _waitvars; }
+			set { _waitvars = value; }
+		}
+		private WaitLoops _waitvars=WaitLoops.Default;
+
 		/// <summary>
 		/// The Minimum Distance Required Before Activation will Occur.
 		/// </summary>
-		public int Range { get; set; }
-		public double Cost { get; set; }
-		public bool SecondaryEnergy { get; set; }
+		public int Range
+		{
+			get { return _range; }
+			set { _range = value; }
+		}
+		private int _range = 0;
+
+		public double Cost
+		{
+			get { return _cost; }
+			set { _cost = value; }
+		}
+		private double _cost = 0;
+
+		public virtual bool SecondaryEnergy
+		{
+			get { return _secondaryenergy; }
+			set { _secondaryenergy = value; }
+		}
+		private bool _secondaryenergy = false;
 		///<summary>
 		///This is used to determine how the Ability will be used
 		///</summary>
-		public SkillExecutionFlags ExecutionType { get; set; }
+		public virtual SkillExecutionFlags ExecutionType
+		{
+			get { return _executiontype; }
+			set { _executiontype = value; }
+		}
+		private SkillExecutionFlags _executiontype = SkillExecutionFlags.None;
 
-		private SkillUseage useageType;
-		public SkillUseage UseageType
+		
+		public virtual SkillUseage UseageType
 		{
 			get { return useageType; }
 			set { useageType = value; if (value.HasFlag(SkillUseage.OutOfCombat | SkillUseage.Anywhere)) FcriteriaBuff = () => true; }
 		}
+		private SkillUseage useageType = SkillUseage.Anywhere;
 
-		public virtual int RuneIndex { get { return -1; } }
+		
 
+		public virtual bool IsPrimarySkill
+		{
+			get { return _isprimaryskill; }
+			set { _isprimaryskill = value; }
+		}
+		private bool _isprimaryskill = false;
 		/// <summary>
 		/// Used to destroy destructible objects
 		/// </summary>
-		internal bool IsADestructiblePower { get; set; }
-
+		public virtual bool IsDestructiblePower
+		{
+			get { return _isdstructiblepower; }
+			set { _isdstructiblepower = value; }
+		}
+		private bool _isdstructiblepower = false;
 		///<summary>
 		///Teleport, Leap, etc.. skills that transport the character.
 		///</summary>
-		internal bool IsMovementSkill { get; set; }
-
+		public virtual bool IsMovementSkill
+		{
+			get { return _ismovementskill; }
+			set { _ismovementskill = value; }
+		}
+		private bool _ismovementskill = false;
 		/// <summary>
 		/// Spirit Walk and Steed Charge.. skills that modify the range while active
 		/// </summary>
-		internal bool IsSpecialMovementSkill { get; set; }
-
+		public virtual bool IsSpecialMovementSkill
+		{
+			get { return _isspecialmovementskill; }
+			set { _isspecialmovementskill = value; }
+		}
+		private bool _isspecialmovementskill = false;
 
 		///<summary>
 		///Ability will trigger WaitingForSpecial if Energy Check fails.
 		///</summary>
-		public bool IsSpecialAbility { get; set; }
-		public bool IsBuff { get; set; }
+		public virtual bool IsSpecialAbility
+		{
+			get { return _isspecialability; }
+			set { _isspecialability = value; }
+		}
+		private bool _isspecialability = false;
+		public virtual bool IsBuff
+		{
+			get { return _isbuff; }
+			set { _isbuff = value; }
+		}
+		private bool _isbuff = false;
 
 
 
 		///<summary>
 		///
 		///</summary>
-		public bool IsRanged { get; set; }
+		public virtual bool IsRanged
+		{
+			get { return _isranged; }
+			set { _isranged = value; }
+		}
+		private bool _isranged = false;
 		///<summary>
 		///Ability is a projectile -- meaning it starts from bot position and travels to destination.
 		///</summary>
-		public bool IsProjectile { get; set; }
+		public virtual bool IsProjectile
+		{
+			get { return _isprojectile; }
+			set { _isprojectile = value; }
+		}
+		private bool _isprojectile = false;
 
 		///<summary>
 		///Ability is continously casted -- allowing other abilities to be used too.
 		///</summary>
-		public bool IsChanneling { get; set; }
+		public virtual bool IsChanneling
+		{
+			get { return _ischanneling; }
+			set { _ischanneling = value; }
+		}
+		private bool _ischanneling = false;
 
 		public DateTime LastUsed { get; set; }
 		internal double LastUsedMilliseconds
@@ -234,21 +300,14 @@ namespace FunkyBot.Player.HotBar.Skills
 			get { return DateTime.Now.Subtract(LastUsed).TotalMilliseconds; }
 		}
 
-		internal double Cooldown
+		public virtual double Cooldown
 		{
-			get;
-			set;
+			get { return _cooldown; }
+			set { _cooldown = value; }
 		}
+		private double _cooldown = 0;
 
-		internal bool AbilityUseTimer(bool bReCheck = false)
-		{
-			double lastUseMS = LastUsedMilliseconds;
-			if (lastUseMS >= Cooldown)
-				return true;
-			if (bReCheck && lastUseMS >= 150 && lastUseMS <= 600)
-				return true;
-			return false;
-		}
+
 
 
 		///<summary>
@@ -261,13 +320,28 @@ namespace FunkyBot.Player.HotBar.Skills
 		/// <summary>
 		/// Adds/Updates Entries to the object it was used upon. (Power/Date)
 		/// </summary>
-		public bool ShouldTrack { get; set; }
+		public virtual bool ShouldTrack
+		{
+			get { return _shouldtrack; }
+			set { _shouldtrack = value; }
+		}
+		private bool _shouldtrack = false;
 
 		#endregion
 
 
 
 		#region Test Methods
+		internal bool AbilityUseTimer(bool bReCheck = false)
+		{
+			double lastUseMS = LastUsedMilliseconds;
+			if (lastUseMS >= Cooldown)
+				return true;
+			if (bReCheck && lastUseMS >= 150 && lastUseMS <= 600)
+				return true;
+			return false;
+		}
+
 		///<summary>
 		///Check Ability Buff Conditions
 		///</summary>
@@ -728,6 +802,9 @@ namespace FunkyBot.Player.HotBar.Skills
 		{
 			get { return SNOPower.None; }
 		}
+
+
+
 		#endregion
 
 

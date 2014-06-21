@@ -6,26 +6,28 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 {
 	public class FallingSword : Skill
 	{
-		public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power) ? Bot.Character.Class.HotBar.RuneIndexCache[Power] : -1; } }
-
 		public override SNOPower Power
 		{
 			get { return SNOPower.X1_Crusader_FallingSword; }
 		}
 
+		
+		public override double Cooldown { get { return 30000; } }
+
+		public override WaitLoops WaitVars { get { return WaitLoops.Default; } }
+
+		public override bool IsMovementSkill { get { return true; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.ClusterLocation | SkillExecutionFlags.Location; } }
+
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
+
 		public override void Initialize()
 		{
-			Cooldown = 30000;
-			Cost = 25;
 			Range = 45;
+			Cost = 25;
 			Priority = SkillPriority.High;
-			ExecutionType = SkillExecutionFlags.ClusterLocation | SkillExecutionFlags.Location;
-
-			WaitVars = new WaitLoops(0, 0, true);
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
-			UseageType = SkillUseage.Combat;
-
-			IsMovementSkill = true;
 
 			ClusterConditions.Add(new SkillClusterConditions(5d, 45, 6, true));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 45, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));

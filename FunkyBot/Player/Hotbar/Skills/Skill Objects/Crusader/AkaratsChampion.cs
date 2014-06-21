@@ -5,23 +5,26 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 {
 	public class AkaratsChampion : Skill
 	{
-		public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power) ? Bot.Character.Class.HotBar.RuneIndexCache[Power] : -1; } }
-
-
 		public override SNOPower Power
 		{
 			get { return SNOPower.X1_Crusader_AkaratsChampion; }
 		}
 
+
+		
+		public override double Cooldown { get { return 90000; } }
+
+		public override WaitLoops WaitVars { get { return WaitLoops.Default; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
+		
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
+
 		public override void Initialize()
 		{
-			Cooldown = 90000;
 			Priority = SkillPriority.High;
-			ExecutionType = SkillExecutionFlags.Buff;
-
-			WaitVars = new WaitLoops(0, 0, true);
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
-			UseageType = SkillUseage.Combat;
+			Cost = 10;
 
 			//Make sure we are targeting something!
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 30, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));

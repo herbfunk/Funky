@@ -8,25 +8,25 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 {
 	 public class TempestRush : Skill
 	 {
-		 private bool IsHobbling
-		  {
-				get
-				{
-					 return Bot.Character.Data.CurrentSNOAnim.HasFlag(SNOAnim.Monk_Female_Hobble_Run|SNOAnim.Monk_Male_HTH_Hobble_Run);
-				}
-		  }
+
+		 public override bool IsMovementSkill { get { return true; } }
+
+
+		 public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.ClusterTarget | SkillExecutionFlags.ZigZagPathing; } }
+
 
 		  public override void Initialize()
 		  {
 				Cooldown=150;
-				ExecutionType=SkillExecutionFlags.ZigZagPathing;
+			
 				WaitVars=new WaitLoops(0, 0, true);
 				Cost=15;
 				IsChanneling=true;
+			
 				Range=23;
 				Priority=SkillPriority.Medium;
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated));
-				UseageType=SkillUseage.Anywhere;
+				
 				
 				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 2);
 				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
@@ -72,31 +72,13 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 					return Vector3.Zero;
 				};
 		  }
-
-		  #region IAbility
-
-		  public override int RuneIndex
+		  private bool IsHobbling
 		  {
-				get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; }
+			  get
+			  {
+				  return Bot.Character.Data.CurrentSNOAnim.HasFlag(SNOAnim.Monk_Female_Hobble_Run | SNOAnim.Monk_Male_HTH_Hobble_Run);
+			  }
 		  }
-
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
-
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
-
-		  #endregion
 
 		  public override SNOPower Power
 		  {

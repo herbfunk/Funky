@@ -3,54 +3,37 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Wizard
 {
-	 public class Electrocute : Skill
-	 {
-		 public override void Initialize()
-		  {
-				Cooldown=5;
-				ExecutionType=SkillExecutionFlags.Target|SkillExecutionFlags.ClusterTarget;
-				WaitVars=new WaitLoops(0, 0, false);
-				Range=(Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Wizard_Electrocute]==2?15:40);
-				IsRanged=true;
-				IsProjectile=true;
-				UseageType=SkillUseage.Combat;
-				Priority=SkillPriority.Low;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckCanCast));
+	public class Electrocute : Skill
+	{
+		public override double Cooldown { get { return 5; } }
 
-				//Aim for cluster with 2 units very close together.
-				ClusterConditions.Add(new SkillClusterConditions(3d, Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Wizard_Electrocute]==2?15:40, 2,true));
-				//No conditions for a single target.
-				SingleUnitCondition.Add(new UnitTargetConditions());
-		  }
+		public override bool IsDestructiblePower { get { return true; } }
+		public override bool IsPrimarySkill { get { return true; } }
+		public override bool IsRanged { get { return true; } }
+		public override bool IsProjectile { get { return true; } }
 
-		  #region IAbility
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
-		  public override int RuneIndex
-		  {
-				get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; }
-		  }
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.ClusterTarget | SkillExecutionFlags.Target; } }
 
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
+		public override void Initialize()
+		{
+			Range = (Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Wizard_Electrocute] == 2 ? 15 : 40);
 
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
 
-		  #endregion
 
-		  public override SNOPower Power
-		  {
-				get { return SNOPower.Wizard_Electrocute; }
-		  }
-	 }
+			Priority = SkillPriority.Low;
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckCanCast));
+
+			//Aim for cluster with 2 units very close together.
+			ClusterConditions.Add(new SkillClusterConditions(3d, Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Wizard_Electrocute] == 2 ? 15 : 40, 2, true));
+			//No conditions for a single target.
+			SingleUnitCondition.Add(new UnitTargetConditions());
+		}
+
+		public override SNOPower Power
+		{
+			get { return SNOPower.Wizard_Electrocute; }
+		}
+	}
 }

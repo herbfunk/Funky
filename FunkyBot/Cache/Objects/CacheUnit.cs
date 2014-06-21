@@ -285,8 +285,8 @@ namespace FunkyBot.Cache.Objects
 			get
 			{
 				return
-					 (
-						((Bot.Settings.AdventureMode.EnableAdventuringMode && Bot.Game.AdventureMode && Bot.Game.Bounty.AllowAnyUnitForLOSMovement) ||
+					(ProfileCache.LineOfSightSNOIds.Contains(SNOID)) ||
+					 (((Bot.Settings.AdventureMode.EnableAdventuringMode && Bot.Game.AdventureMode && Bot.Game.Bounty.AllowAnyUnitForLOSMovement) ||
 						(IsSucideBomber && ProfileCache.LOSSettingsTag.AllowSucideBomber) ||
 						(IsTreasureGoblin && ProfileCache.LOSSettingsTag.AllowTreasureGoblin) ||
 						(IsSpawnerUnit && ProfileCache.LOSSettingsTag.AllowSpawnerUnits) ||
@@ -295,8 +295,7 @@ namespace FunkyBot.Cache.Objects
 						(IsRanged && ProfileCache.LOSSettingsTag.AllowRanged))
 						&&
 						(CentreDistance <= ProfileCache.LOSSettingsTag.MaximumRange &&//Enforce A Maximum Range
-						SNOID != 347363) //Exclude A5 MastaBlasta event
-					);
+						SNOID != 347363)); //Exclude A5 MastaBlasta event
 			}
 		}
 

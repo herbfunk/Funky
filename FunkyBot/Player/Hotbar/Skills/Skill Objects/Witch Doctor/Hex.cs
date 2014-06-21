@@ -4,52 +4,34 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 {
-	 public class Hex : Skill
-	 {
-		 public override void Initialize()
-		  {
-				Cooldown=15200;
-				ExecutionType=SkillExecutionFlags.Self;
-				WaitVars=new WaitLoops(0, 0, true);
-				Cost=49;
-				UseageType=SkillUseage.Anywhere;
-				Priority=SkillPriority.Medium;
-				IsBuff=true;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckEnergy|
-				                          SkillPrecastFlags.CheckCanCast));
-				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_12, 1);
-				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_12, 1);
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 18, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
-		  }
+	public class Hex : Skill
+	{
+		public override double Cooldown { get { return 15200; } }
 
-		  #region IAbility
+		public override bool IsBuff { get { return true; } }
 
-		  public override int RuneIndex
-		  {
-				get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; }
-		  }
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Self; } }
 
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
+		public override void Initialize()
+		{
+		
+			
+			WaitVars = new WaitLoops(0, 0, true);
+			Cost = 49;
 
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
+			Priority = SkillPriority.Medium;
 
-		  #endregion
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckEnergy |
+									  SkillPrecastFlags.CheckCanCast));
+			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_12, 1);
+			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_12, 1);
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 18, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+		}
 
-		  public override SNOPower Power
-		  {
-				get { return SNOPower.Witchdoctor_Hex; }
-		  }
-	 }
+
+		public override SNOPower Power
+		{
+			get { return SNOPower.Witchdoctor_Hex; }
+		}
+	}
 }

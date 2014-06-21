@@ -4,74 +4,57 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Monk
 {
-	 public class SweepingWind : Skill
-	 {
-		 public override void Initialize()
-		  {
-				Cooldown=6000;
-				ExecutionType=SkillExecutionFlags.Buff;
-				WaitVars=new WaitLoops(0, 1, true);
-				Cost=Bot.Settings.Monk.bMonkInnaSet?5:75;
-				Priority=SkillPriority.High;
-				UseageType=SkillUseage.Combat;
-				IsSpecialAbility=true;
+	public class SweepingWind : Skill
+	{
+		public override double Cooldown { get { return 6000; } }
 
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckEnergy));
+		public override bool IsBuff { get { return true; } }
+		public override bool IsSpecialAbility { get { return true; } }
 
-				ClusterConditions.Add(new SkillClusterConditions(7d, 35f, 2, false));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 25, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
-                IsBuff = true;
-                FcriteriaBuff = () =>
-                {
-	                //Rune index of 4 increases duration of buff to 20 seconds..
-	                int buffDuration = RuneIndex == 4 ? 17500 : 4500;
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
 
-	                if (Bot.Settings.Monk.bMonkMaintainSweepingWind &&  //Maintaining Sweeping Wind (Must already have buff.. and has not used combat ability within 2000ms!)
-	                    DateTime.Now.Subtract(Bot.Character.Class.LastUsedACombatAbility).TotalMilliseconds > 2000 &&
-	                    LastUsedMilliseconds > buffDuration)
-	                {
-		                return true;
-	                }
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
-	                return false;
-                };
-                FcriteriaCombat = () =>
-                {
-	                if (!Bot.Character.Class.HotBar.CurrentBuffs.ContainsKey((int)SNOPower.Monk_SweepingWind))
-		                return true;
+		public override void Initialize()
+		{
+			WaitVars = new WaitLoops(0, 1, true);
+			Cost = Bot.Settings.Monk.bMonkInnaSet ? 5 : 75;
+			Priority = SkillPriority.High;
+			
+		
 
-	                return false;
-                };
-		  }
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckEnergy));
 
-		  #region IAbility
+			ClusterConditions.Add(new SkillClusterConditions(7d, 35f, 2, false));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 25, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 
-		  public override int RuneIndex
-		  {
-				get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; }
-		  }
+			FcriteriaBuff = () =>
+			{
+				//Rune index of 4 increases duration of buff to 20 seconds..
+				int buffDuration = RuneIndex == 4 ? 17500 : 4500;
 
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
-
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
+				if (Bot.Settings.Monk.bMonkMaintainSweepingWind &&  //Maintaining Sweeping Wind (Must already have buff.. and has not used combat ability within 2000ms!)
+					DateTime.Now.Subtract(Bot.Character.Class.LastUsedACombatAbility).TotalMilliseconds > 2000 &&
+					LastUsedMilliseconds > buffDuration)
 				{
-					 return false;
+					return true;
 				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
 
-		  #endregion
+				return false;
+			};
+			FcriteriaCombat = () =>
+			{
+				if (!Bot.Character.Class.HotBar.CurrentBuffs.ContainsKey((int)SNOPower.Monk_SweepingWind))
+					return true;
 
-		  public override SNOPower Power
-		  {
-				get { return SNOPower.Monk_SweepingWind; }
-		  }
-	 }
+				return false;
+			};
+		}
+
+
+		public override SNOPower Power
+		{
+			get { return SNOPower.Monk_SweepingWind; }
+		}
+	}
 }

@@ -7,6 +7,13 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 {
 	public class Archon : Skill
 	{
+		public override double Cooldown { get { return 100000; } }
+
+		public override bool IsSpecialAbility { get { return true; } }
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
+
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
+
 		//RuneIndex == 4 //Combustion
 		//RuneIndex == 2 //Teleport
 		//RuneIndex == 3 //FirePower
@@ -15,12 +22,10 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 
 		public override void Initialize()
 		{
-			Cooldown = 100000;
-			ExecutionType = SkillExecutionFlags.Buff;
 			WaitVars = new WaitLoops(4, 5, true);
 			Cost = 25;
-			UseageType = SkillUseage.Combat;
-			IsSpecialAbility = true;
+			
+		
 			Priority = SkillPriority.High;
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 
@@ -34,31 +39,6 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 30, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 		}
 
-
-		#region IAbility
-
-		public override int RuneIndex
-		{
-			get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power) ? Bot.Character.Class.HotBar.RuneIndexCache[Power] : -1; }
-		}
-
-		public override int GetHashCode()
-		{
-			return (int)Power;
-		}
-
-		public override bool Equals(object obj)
-		{
-			//Check for null and compare run-time types. 
-			if (obj == null || GetType() != obj.GetType())
-			{
-				return false;
-			}
-			Skill p = (Skill)obj;
-			return Power == p.Power;
-		}
-
-		#endregion
 
 		public override SNOPower Power
 		{

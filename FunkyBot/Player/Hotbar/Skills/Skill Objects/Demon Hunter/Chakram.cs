@@ -3,57 +3,35 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 {
-	 public class Chakram : Skill
-	 {
-		 public override void Initialize()
-		  {
-				Cooldown=5;
-				ExecutionType=SkillExecutionFlags.ClusterTarget|SkillExecutionFlags.Target;
-				WaitVars=new WaitLoops(0, 1, true);
-				Cost=10;
-				Range=50;
-				UseageType=SkillUseage.Combat;
-				Priority=SkillPriority.Medium;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckEnergy));
+	public class Chakram : Skill
+	{
+		public override double Cooldown { get { return 5; } }
 
-				ClusterConditions.Add(new SkillClusterConditions(4d, 40, 2, true));
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 50, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
-				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial && ((!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.DemonHunter_ClusterArrow)) ||
-				                                                                  LastUsedMilliseconds>=110000);
-		  }
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.ClusterTarget | SkillExecutionFlags.Target; } }
 
-		  #region IAbility
+		public override void Initialize()
+		{
+			WaitVars = new WaitLoops(0, 1, true);
+			Cost = 10;
+			Range = 50;
+			IsDestructiblePower = true;
 
-		  public override int RuneIndex
-		  {
-				get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; }
-		  }
+			Priority = SkillPriority.Medium;
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckEnergy));
 
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
+			ClusterConditions.Add(new SkillClusterConditions(4d, 40, 2, true));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 50, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-				else
-				{
-					 Skill p=(Skill)obj;
-					 return Power==p.Power;
-				}
-		  }
+			FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial && ((!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.DemonHunter_ClusterArrow)) ||
+																			  LastUsedMilliseconds >= 110000);
+		}
 
-		  #endregion
 
-		  public override SNOPower Power
-		  {
-				get { return SNOPower.DemonHunter_Chakram; }
-		  }
-	 }
+		public override SNOPower Power
+		{
+			get { return SNOPower.DemonHunter_Chakram; }
+		}
+	}
 }

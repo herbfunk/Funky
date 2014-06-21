@@ -5,24 +5,24 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 {
 	public class AncientSpear : Skill
 	{
+		public override SNOPower Power { get { return SNOPower.X1_Barbarian_AncientSpear; } }
 
-		public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power) ? Bot.Character.Class.HotBar.RuneIndexCache[Power] : -1; } }
+		public override double Cooldown { get { return 300; } }
 
-		public override SNOPower Power
-		{
-			get { return SNOPower.X1_Barbarian_AncientSpear; }
-		}
+		public override bool IsRanged { get { return true; } }
+		public override bool IsProjectile { get { return true; } }
+
+		private readonly WaitLoops _waitVars = new WaitLoops(2, 2, true);
+		public override WaitLoops WaitVars { get { return _waitVars; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Target; } }
+
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
 		public override void Initialize()
 		{
-			Cooldown=300;
-			ExecutionType = SkillExecutionFlags.Target;
-			WaitVars = new WaitLoops(2, 2, true);
-			Range = 35;
-			IsRanged = true;
-			IsProjectile=true;
-			UseageType=SkillUseage.Combat;
 			Priority = SkillPriority.Medium;
+			Range = 35;
 			PreCast=new SkillPreCast((SkillPrecastFlags.CheckRecastTimer | SkillPrecastFlags.CheckCanCast |
 			                          SkillPrecastFlags.CheckPlayerIncapacitated));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Ranged, maxdistance: 25, MinimumHealthPercent: 0.50d));
@@ -32,22 +32,5 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 			                        Bot.Character.Data.dCurrentEnergyPct < 0.5d;
 		}
 
-		#region IAbility
-		public override int GetHashCode()
-		{
-			 return (int)Power;
-		}
-		public override bool Equals(object obj)
-		{
-			 //Check for null and compare run-time types. 
-			 if (obj==null||GetType()!=obj.GetType())
-			 {
-				  return false;
-			 }
-			Skill p=(Skill)obj;
-			return Power==p.Power;
-		}
-
-		#endregion
 	}
 }

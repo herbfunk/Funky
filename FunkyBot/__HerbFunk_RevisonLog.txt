@@ -1,10 +1,20 @@
 ﻿// herbfunk revisions
-v2.11.1.1
+v2.11.2.0
 
 Crusader
-	Blessed Hammer will be used on any unit when no Primary Skill is present.
+	Blessed Hammer will be used on any unit when no Primary Skill is present
 	Provoke will be used more frequently.
+	Akarats Champion will be used on clusters of 4 with Full Akkhan Set Bonus
 
+Monks cyclone strike now uses minimum distance on single target conditions.
+
+Cleaned Up Skill and Skill Objects.
+	-Following Properties are now defined in the class and not during initalize method.
+		UsageType, ExecutionType, IsProjectile, IsRanged, IsBuff, IsMovement, IsPrimarySkill, IsDestructiblePower, 
+	-Initalize Method is no longer called during creation of a skill.
+	-Removed override of RuneIndex and Equals from skills.
+
+Player Class will now create the skill object then use its initalize method.
 
 v2.11.1.0
 

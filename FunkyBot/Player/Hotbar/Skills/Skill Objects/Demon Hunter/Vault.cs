@@ -7,17 +7,23 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 {
 	 public class Vault : Skill
 	 {
+		 public override bool IsMovementSkill { get { return true; } }
+
+		 public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
+
+		 public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.ZigZagPathing; } }
+
 		 public override void Initialize()
 		  {
 				Cooldown=400;
-				ExecutionType=SkillExecutionFlags.ZigZagPathing;
+			
 				WaitVars=new WaitLoops(1, 2, true);
 				Cost=8;
 				SecondaryEnergy=true;
 				Range=20;
-				UseageType=SkillUseage.Combat;
+				
 				Priority=SkillPriority.Medium;
-				IsMovementSkill = true;
+				
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast|
 				                          SkillPrecastFlags.CheckEnergy|SkillPrecastFlags.CheckRecastTimer));
 				//SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 10);
@@ -47,30 +53,6 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				};
 		  }
 
-		  #region IAbility
-
-		  public override int RuneIndex
-		  {
-				get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; }
-		  }
-
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
-
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
-
-		  #endregion
 
 		  public override SNOPower Power
 		  {

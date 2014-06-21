@@ -4,49 +4,32 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Barb
 {
-	 public class CalloftheAncients : Skill
-	 {
-		 public override SNOPower Power
-		  {
-				get { return SNOPower.Barbarian_CallOfTheAncients; }
-		  }
+	public class CalloftheAncients : Skill
+	{
+		public override SNOPower Power { get { return SNOPower.Barbarian_CallOfTheAncients; } }
 
-		  public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; } }
+	
+		public override double Cooldown { get { return 120500; } }
 
-		  public override void Initialize()
-		  {
-				Cooldown=120500;
-				ExecutionType=SkillExecutionFlags.Buff;
-				WaitVars=new WaitLoops(4, 4, true);
-				Cost=50;
-				UseageType=SkillUseage.Combat;
-				Priority=SkillPriority.High;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckRecastTimer|SkillPrecastFlags.CheckEnergy|
-				                          SkillPrecastFlags.CheckCanCast|SkillPrecastFlags.CheckPlayerIncapacitated));
-				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
+		private readonly WaitLoops _waitVars = new WaitLoops(4, 4, true);
+		public override WaitLoops WaitVars { get { return _waitVars; } }
 
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 25, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
-		  }
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
 
-		  #region IAbility
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-				else
-				{
-					 Skill p=(Skill)obj;
-					 return Power==p.Power;
-				}
-		  }
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
-		  #endregion
-	 }
+		public override void Initialize()
+		{
+			Priority = SkillPriority.High;
+			Cost = 50;
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckRecastTimer | SkillPrecastFlags.CheckEnergy |
+									  SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckPlayerIncapacitated));
+
+			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
+
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 25, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+		}
+
+
+	}
 }

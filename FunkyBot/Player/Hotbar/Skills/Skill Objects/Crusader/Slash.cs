@@ -5,23 +5,30 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 {
 	public class Slash : Skill
 	{
-		public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power) ? Bot.Character.Class.HotBar.RuneIndexCache[Power] : -1; } }
-
 		public override SNOPower Power
 		{
 			get { return SNOPower.X1_Crusader_Slash; }
 		}
 
+	
+		public override double Cooldown { get { return 100; } }
+
+		public override WaitLoops WaitVars { get { return WaitLoops.Default; } }
+
+		public override bool IsDestructiblePower { get { return true; } }
+		public override bool IsPrimarySkill { get { return true; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Target; } }
+
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
+
 		public override void Initialize()
 		{
-			Cooldown = 100;
 			Range = 8;
-			Priority = SkillPriority.Low;
-			ExecutionType = SkillExecutionFlags.Target;
+			Cost = 10;
 
-			WaitVars = new WaitLoops(0, 0, true);
+			Priority = SkillPriority.Low;
 			PreCast = new SkillPreCast(SkillPrecastFlags.None);
-			UseageType = SkillUseage.Combat;
 			SingleUnitCondition.Add(new UnitTargetConditions());
 		}
 	}

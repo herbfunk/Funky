@@ -18,6 +18,8 @@ namespace FunkyBot.EventHandlers
 			ProfileCache.ClusterSettingsTag = Bot.Settings.Cluster;
 			ProfileCache.QuestMode = false;
 			ProfileCache.LOSSettingsTag = Bot.Settings.LOSMovement;
+			ProfileCache.AdventureMode = Bot.Settings.AdventureMode.EnableAdventuringMode;
+			ProfileCache.LineOfSightSNOIds.Clear();
 
 			//Update Tracker
 			Bot.Game.CurrentGameStats.ProfileChanged(sThisProfile);

@@ -30,6 +30,21 @@ namespace FunkyBot.Game
 			set { losSettingsTag = value; }
 		}
 
+		private static bool _adventuremode = false;
+		internal static bool AdventureMode
+		{
+			get
+			{
+				return _adventuremode;
+			}
+			set
+			{
+				_adventuremode = value;
+			}
+		}
+
+		internal static HashSet<int> LineOfSightSNOIds = new HashSet<int>(); 
+
 		internal static bool QuestMode { get; set; }
 
 		internal bool PreformingInteractiveBehavior

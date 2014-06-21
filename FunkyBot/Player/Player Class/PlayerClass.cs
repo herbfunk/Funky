@@ -30,6 +30,7 @@ namespace FunkyBot.Player.Class
 			//HotBar.UpdateRepeatAbilityTimes();
 
 			Skill healthPotionSkill = new DrinkHealthPotion();
+			healthPotionSkill.Initialize();
 			Skill.CreateSkillLogicConditions(ref healthPotionSkill);
 			HealthPotionAbility = (DrinkHealthPotion)healthPotionSkill;
 
@@ -84,6 +85,8 @@ namespace FunkyBot.Player.Class
 		///</summary>
 		internal bool CanUseDefaultAttack { get; set; }
 
+		
+
 		///<summary>
 		///Check if Bot should generate a new ZigZag location.
 		///</summary>
@@ -121,15 +124,54 @@ namespace FunkyBot.Player.Class
 		}
 
 		public bool ContainsNonRangedCombatSkill { get; set; }
+		public bool ContainsAnyPrimarySkill { get; set; }
+
 		internal virtual void RecreateAbilities()
 		{
+			ContainsAnyPrimarySkill = false;
 			ContainsNonRangedCombatSkill = false;
 			Abilities = new Dictionary<SNOPower, Skill>();
 
+
+			var uninitalizedSkills=new Dictionary<SNOPower, Skill>();
+
+			//Create the abilities
+			foreach (var item in HotBar.HotbarPowers)
+			{
+				Skill newAbility = Bot.Character.Class.CreateAbility(item);
+
+				if (newAbility.IsPrimarySkill) 
+					ContainsAnyPrimarySkill = true;
+
+				//combat ability set property
+				if ((SkillExecutionFlags.ClusterLocation | SkillExecutionFlags.ClusterTarget | SkillExecutionFlags.ClusterTargetNearest | SkillExecutionFlags.Location | SkillExecutionFlags.Target).HasFlag(newAbility.ExecutionType))
+					newAbility.IsCombat = true;
+
+				if (!ContainsNonRangedCombatSkill && !newAbility.IsRanged && !newAbility.IsProjectile && (SkillExecutionFlags.Target | SkillExecutionFlags.ClusterTarget).HasFlag(newAbility.ExecutionType))
+					ContainsNonRangedCombatSkill = true;
+
+				uninitalizedSkills.Add(item,newAbility);
+				Logger.DBLog.DebugFormat("[Funky] Added Skill {0} using RuneIndex {1}", newAbility.Power, newAbility.RuneIndex);
+			}
+
+			foreach (var item in uninitalizedSkills)
+			{
+				Skill skill = item.Value;
+				skill.Initialize();
+				Skill.CreateSkillLogicConditions(ref skill);
+				skill.SuccessfullyUsed += AbilitySuccessfullyUsed;
+				Abilities.Add(item.Key, skill);
+				Logger.DBLog.DebugFormat("[Funky] Skill {0} has been initalized", item.Key);
+			}
+
+			//Sort Abilities
+			SortedAbilities = Abilities.Values.OrderByDescending(a => a.Priority).ThenBy(a => a.Range).ToList();
+
 			//No default rage generation Ability.. then we add the Instant Melee Ability.
-			if (!HotBar.HotbarContainsAPrimarySkill())
+			if (!ContainsAnyPrimarySkill)
 			{
 				Skill defaultAbility = Bot.Character.Class.DefaultAttack;
+				defaultAbility.Initialize();
 				Skill.CreateSkillLogicConditions(ref defaultAbility);
 				Abilities.Add(defaultAbility.Power, defaultAbility);
 				HotBar.RuneIndexCache.Add(defaultAbility.Power, -1);
@@ -144,29 +186,6 @@ namespace FunkyBot.Player.Class
 					Logger.DBLog.Warn("**** Warning ****");
 				}
 			}
-
-
-			//Create the abilities
-			foreach (var item in HotBar.HotbarPowers)
-			{
-				Skill newAbility = Bot.Character.Class.CreateAbility(item);
-				Skill.CreateSkillLogicConditions(ref newAbility);
-				newAbility.SuccessfullyUsed += AbilitySuccessfullyUsed;
-
-				//combat ability set property
-				if ((SkillExecutionFlags.ClusterLocation | SkillExecutionFlags.ClusterTarget | SkillExecutionFlags.ClusterTargetNearest | SkillExecutionFlags.Location | SkillExecutionFlags.Target).HasFlag(newAbility.ExecutionType))
-					newAbility.IsCombat = true;
-
-				Abilities.Add(item, newAbility);
-
-				if (!ContainsNonRangedCombatSkill && !newAbility.IsRanged && !newAbility.IsProjectile && (SkillExecutionFlags.Target | SkillExecutionFlags.ClusterTarget).HasFlag(newAbility.ExecutionType))
-					ContainsNonRangedCombatSkill = true;
-
-				Logger.DBLog.DebugFormat("[Funky] Added Skill {0} using RuneIndex {1}", newAbility.Power, newAbility.RuneIndex);
-			}
-
-			//Sort Abilities
-			SortedAbilities = Abilities.Values.OrderByDescending(a => a.Priority).ThenBy(a => a.Range).ToList();
 		}
 
 
@@ -273,7 +292,7 @@ namespace FunkyBot.Player.Class
 			List<Skill> nonDestructibleAbilities = new List<Skill>();
 			foreach (var item in Abilities.Values)
 			{
-				if (item.IsADestructiblePower)
+				if (item.IsDestructiblePower)
 				{
 
 					//Check LOS -- Projectiles

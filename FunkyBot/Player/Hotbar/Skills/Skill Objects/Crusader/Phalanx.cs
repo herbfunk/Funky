@@ -5,24 +5,26 @@ namespace FunkyBot.Player.HotBar.Skills.Crusader
 {
 	public class Phalanx : Skill
 	{
-		public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power) ? Bot.Character.Class.HotBar.RuneIndexCache[Power] : -1; } }
-
 		public override SNOPower Power
 		{
 			get { return SNOPower.x1_Crusader_Phalanx3; }
 		}
 
+		
+		public override double Cooldown { get { return 1000; } }
+
+		public override WaitLoops WaitVars { get { return WaitLoops.Default; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Location; } }
+		
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
+
 		public override void Initialize()
 		{
-			Cost = 30;
-			Cooldown = 1000;
 			Range = 49;
+			Cost = 30;
 			Priority = SkillPriority.Medium;
-			ExecutionType = SkillExecutionFlags.Location;
-
-			WaitVars = new WaitLoops(0, 0, true);
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
-			UseageType = SkillUseage.Combat;
 
 			
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 45, MinimumHealthPercent: 0.95d));

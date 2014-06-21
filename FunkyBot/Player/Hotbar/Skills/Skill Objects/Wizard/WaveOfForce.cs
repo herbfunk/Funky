@@ -5,14 +5,16 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 {
 	 public class WaveOfForce : Skill
 	 {
+		 public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
+
 		 public override void Initialize()
 		  {
 				Cooldown=2000;
-				ExecutionType=SkillExecutionFlags.Buff;
+				
 				WaitVars=new WaitLoops(1, 2, true);
 				Cost=25;
 				Range = 25;
-				UseageType=SkillUseage.Anywhere;
+				
 				Priority=SkillPriority.Medium;
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckEnergy|
 				                          SkillPrecastFlags.CheckCanCast));
@@ -20,33 +22,6 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.CloseDistance | TargetProperties.Weak));
 				FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial;
 		  }
-
-
-
-		  #region IAbility
-
-		  public override int RuneIndex
-		  {
-				get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; }
-		  }
-
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
-
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
-
-		  #endregion
 
 		  public override SNOPower Power
 		  {

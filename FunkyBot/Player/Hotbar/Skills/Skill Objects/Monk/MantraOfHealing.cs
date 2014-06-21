@@ -5,17 +5,21 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 {
 	 public class MantraOfHealing : Skill
 	 {
+		 public override bool IsBuff { get { return true; } }
+		 public override bool IsSpecialAbility { get { return true; } }
+		 public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
+
 		 public override void Initialize()
 		  {
 				Cooldown=3300;
-				ExecutionType=SkillExecutionFlags.Buff;
+			
 				WaitVars=new WaitLoops(0, 1, true);
 				Cost = Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Monk_Passive_ChantOfResonance) ? 25 : 50;
-				IsBuff=true;
-				UseageType=SkillUseage.Anywhere;
+				
+				
 				Priority=SkillPriority.High;
 				PreCast = new SkillPreCast((SkillPrecastFlags.CheckEnergy | SkillPrecastFlags.CheckRecastTimer));
-				IsSpecialAbility=true;
+				
 				FcriteriaBuff=() => !Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Monk_MantraOfHealing_v2_Passive);
 
 				FcriteriaCombat = () => !Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Monk_MantraOfHealing_v2_Passive)
@@ -31,31 +35,6 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				                      (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)||
 				                       (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)&&(Bot.Character.Class.HotBar.HasBuff(SNOPower.Monk_BlindingFlash))));
 		  }
-
-		  #region IAbility
-
-		  public override int RuneIndex
-		  {
-				get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; }
-		  }
-
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
-
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
-
-		  #endregion
 
 		  public override SNOPower Power
 		  {

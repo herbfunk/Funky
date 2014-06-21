@@ -3,66 +3,48 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 {
-	 public class SummonZombieDogs : Skill
-	 {
-		 public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; } }
+	public class SummonZombieDogs : Skill
+	{
+		public override double Cooldown { get { return 25000; } }
+
+		public override bool IsBuff { get { return true; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
 
 
-		  public override void Initialize()
-		  {
-				Cooldown=25000;
-				ExecutionType=SkillExecutionFlags.Buff;
-				WaitVars=new WaitLoops(0, 0, true);
-				UseageType=SkillUseage.Anywhere;
-				Priority=SkillPriority.High;
-				PreCast=new SkillPreCast(SkillPrecastFlags.CheckCanCast);
-				IsBuff=true;
-				FcriteriaBuff= () => Bot.Character.Data.PetData.ZombieDogs<GetTotalZombieDogsSummonable();
-				FcriteriaCombat=() => Bot.Character.Data.PetData.ZombieDogs<GetTotalZombieDogsSummonable();
-		  }
+		public override void Initialize()
+		{
+			WaitVars = new WaitLoops(0, 0, true);
 
-		 private int GetTotalZombieDogsSummonable()
-		  {
-			 int total=3;
+			Priority = SkillPriority.High;
+			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 
-			 if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler))
-				 total++;
-			 if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_MidnightFeast))
-				 total++;
-			 if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_FierceLoyalty))
-				 total++;
+			FcriteriaBuff = () => Bot.Character.Data.PetData.ZombieDogs < GetTotalZombieDogsSummonable();
+			FcriteriaCombat = () => Bot.Character.Data.PetData.ZombieDogs < GetTotalZombieDogsSummonable();
+		}
 
-			 //Tall Man Finger - Only 1
-			 if (Bot.Settings.WitchDoctor.TallManFinger)
-				 total = 1;
+		private int GetTotalZombieDogsSummonable()
+		{
+			int total = 3;
 
-			 return total;
-		  }
+			if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_ZombieHandler))
+				total++;
+			if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_MidnightFeast))
+				total++;
+			if (Bot.Character.Class.HotBar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_FierceLoyalty))
+				total++;
 
-		  #region IAbility
+			//Tall Man Finger - Only 1
+			if (Bot.Settings.WitchDoctor.TallManFinger)
+				total = 1;
+
+			return total;
+		}
 
 
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
-
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
-
-		  #endregion
-
-		  public override SNOPower Power
-		  {
-				get { return SNOPower.Witchdoctor_SummonZombieDog; }
-		  }
-	 }
+		public override SNOPower Power
+		{
+			get { return SNOPower.Witchdoctor_SummonZombieDog; }
+		}
+	}
 }

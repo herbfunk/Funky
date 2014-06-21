@@ -4,53 +4,33 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 {
-	 public class WallOfZombies : Skill
-	 {
-		 public override void Initialize()
-		  {
-				Cooldown=25200;
-				ExecutionType=SkillExecutionFlags.Location;
-				WaitVars=new WaitLoops(1, 1, true);
-				Cost=103;
-				Range=25;
-				UseageType=SkillUseage.Combat;
-				Priority=SkillPriority.Medium;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckEnergy|
-				                          SkillPrecastFlags.CheckCanCast));
-				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 3);
-				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 25, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
-				FcriteriaCombat=() => !Bot.Character.Class.bWaitingForSpecial;
-		  }
+	public class WallOfZombies : Skill
+	{
+		public override double Cooldown { get { return 25200; } }
 
-		  #region IAbility
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
-		  public override int RuneIndex
-		  {
-				get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; }
-		  }
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Location; } }
 
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
+		public override void Initialize()
+		{
+			WaitVars = new WaitLoops(1, 1, true);
+			Cost = 103;
+			Range = 25;
 
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
+			Priority = SkillPriority.Medium;
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckEnergy |
+									  SkillPrecastFlags.CheckCanCast));
+			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 3);
+			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 25, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+			FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial;
+		}
 
-		  #endregion
 
-		  public override SNOPower Power
-		  {
-				get { return SNOPower.Witchdoctor_WallOfZombies; }
-		  }
-	 }
+		public override SNOPower Power
+		{
+			get { return SNOPower.Witchdoctor_WallOfZombies; }
+		}
+	}
 }

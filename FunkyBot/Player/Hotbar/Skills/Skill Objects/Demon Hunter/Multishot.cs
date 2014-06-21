@@ -3,57 +3,35 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 {
-	 public class Multishot : Skill
-	 {
-		 public override void Initialize()
-		  {
-				Cooldown=5;
-				ExecutionType=SkillExecutionFlags.ClusterTarget;
+	public class Multishot : Skill
+	{
+		public override double Cooldown { get { return 5; } }
 
-				WaitVars=new WaitLoops(1, 1, true);
-				Cost=30;
-				Range=50;
-				IsRanged=true;
-				IsProjectile=true;
-				UseageType=SkillUseage.Combat;
-				Priority=SkillPriority.Medium;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckEnergy));
-				ClusterConditions.Add(new SkillClusterConditions(10d, 40, 3, true));
+		public override bool IsRanged { get { return true; } }
+		public override bool IsProjectile { get { return true; } }
 
-				FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial;
-		  }
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
-		  #region IAbility
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.ClusterTarget; } }
 
-		  public override int RuneIndex
-		  {
-				get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power)?Bot.Character.Class.HotBar.RuneIndexCache[Power]:-1; }
-		  }
+		public override void Initialize()
+		{
+			WaitVars = new WaitLoops(1, 1, true);
+			Cost = 30;
+			Range = 50;
 
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
+		
+			Priority = SkillPriority.Medium;
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckEnergy));
+			ClusterConditions.Add(new SkillClusterConditions(10d, 40, 3, true));
 
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-				else
-				{
-					 Skill p=(Skill)obj;
-					 return Power==p.Power;
-				}
-		  }
+			FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial;
+		}
 
-		  #endregion
 
-		  public override SNOPower Power
-		  {
-				get { return SNOPower.DemonHunter_Multishot; }
-		  }
-	 }
+		public override SNOPower Power
+		{
+			get { return SNOPower.DemonHunter_Multishot; }
+		}
+	}
 }

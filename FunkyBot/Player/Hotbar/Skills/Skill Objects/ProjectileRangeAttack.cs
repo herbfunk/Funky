@@ -3,42 +3,30 @@ using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills
 {
-	 public class ProjectileRangeAttack : Skill
-	 {
-		 public override SNOPower Power
-		  {
-				get { return SNOPower.Weapon_Ranged_Projectile; }
-		  }
+	public class ProjectileRangeAttack : Skill
+	{
+		public override SNOPower Power
+		{
+			get { return SNOPower.Weapon_Ranged_Projectile; }
+		}
+		public override double Cooldown { get { return 5; } }
 
-		  public override void Initialize()
-		  {
-				Cooldown=5;
-				Range=25;
-				Priority=SkillPriority.None;
-				ExecutionType=SkillExecutionFlags.Target;
-				IsProjectile=true;
-				IsRanged=true;
-				WaitVars=new WaitLoops(0, 0, true);
-				PreCast=new SkillPreCast(SkillPrecastFlags.None);
-				UseageType=SkillUseage.Combat;
-		  }
+		public override bool IsRanged { get { return true; } }
+		public override bool IsProjectile { get { return true; } }
 
-		  #region IAbility
-		  public override int GetHashCode()
-		  {
-				return (int)Power;
-		  }
-		  public override bool Equals(object obj)
-		  {
-				//Check for null and compare run-time types. 
-				if (obj==null||GetType()!=obj.GetType())
-				{
-					 return false;
-				}
-			  Skill p=(Skill)obj;
-			  return Power==p.Power;
-		  }
+		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
-		  #endregion
-	 }
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Target; } }
+
+		public override void Initialize()
+		{
+			Range = 25;
+			Priority = SkillPriority.None;
+			
+
+			WaitVars = new WaitLoops(0, 0, true);
+			PreCast = new SkillPreCast(SkillPrecastFlags.None);
+			
+		}
+	}
 }

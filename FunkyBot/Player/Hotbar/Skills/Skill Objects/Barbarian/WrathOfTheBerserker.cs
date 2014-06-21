@@ -11,20 +11,25 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 			get { return SNOPower.Barbarian_WrathOfTheBerserker; }
 		}
 
-		public override int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power) ? Bot.Character.Class.HotBar.RuneIndexCache[Power] : -1; } }
+		
+		public override double Cooldown { get { return 120500; } }
+
+		private readonly WaitLoops _waitVars = new WaitLoops(4, 4, true);
+		public override WaitLoops WaitVars { get { return _waitVars; } }
+
+		public override bool IsSpecialAbility { get { return Bot.Settings.Barbarian.bWaitForWrath; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
+		
+		public override SkillUseage UseageType { get { return SkillUseage.Anywhere; } }
 
 		public override void Initialize()
 		{
-			Cooldown = 120500;
-			ExecutionType = SkillExecutionFlags.Buff;
-			WaitVars = new WaitLoops(4, 4, true);
-			Cost = 50;
-			UseageType = SkillUseage.Anywhere;
-			IsSpecialAbility = Bot.Settings.Barbarian.bWaitForWrath;
 			Priority = SkillPriority.High;
+			Cost = 50;
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckEnergy | SkillPrecastFlags.CheckExisitingBuff | SkillPrecastFlags.CheckCanCast);
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 40, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
-			
+
 			if (Bot.Settings.Barbarian.bBarbUseWOTBAlways)
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None));
 
@@ -39,34 +44,12 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 					return Bot.Settings.Barbarian.bGoblinWrath;
 
 				//Normal Targets?
-				if (Bot.Targeting.Cache.CurrentTarget.Properties.HasFlag(TargetProperties.Normal)) 
+				if (Bot.Targeting.Cache.CurrentTarget.Properties.HasFlag(TargetProperties.Normal))
 					return false;
 
 
 				return true;
 			};
 		}
-
-		#region IAbility
-		public override int GetHashCode()
-		{
-			return (int)Power;
-		}
-		public override bool Equals(object obj)
-		{
-			//Check for null and compare run-time types. 
-			if (obj == null || GetType() != obj.GetType())
-			{
-				return false;
-			}
-			else
-			{
-				Skill p = (Skill)obj;
-				return Power == p.Power;
-			}
-		}
-
-
-		#endregion
 	}
 }
