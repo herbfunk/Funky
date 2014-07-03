@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using FunkyBot.Cache.Objects;
+using FunkyBot.DBHandlers;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Bot;
@@ -27,7 +28,6 @@ namespace FunkyBot.Player.Class
 		{
 			HotBar.RefreshHotbar();
 			HotBar.RefreshPassives();
-			//HotBar.UpdateRepeatAbilityTimes();
 
 			Skill healthPotionSkill = new DrinkHealthPotion();
 			healthPotionSkill.Initialize();
@@ -37,12 +37,8 @@ namespace FunkyBot.Player.Class
 			LastUsedAbility = DefaultAttack;
 			PowerPrime = DefaultAttack;
 
-			//Gear Update!
-			Bot.Character.Data.equipment.RefreshEquippedItemsList();
 
-			
 			Logger.DBLog.InfoFormat("[Funky] Finished Creating Player Class");
-
 		}
 
 
@@ -136,9 +132,9 @@ namespace FunkyBot.Player.Class
 			var uninitalizedSkills=new Dictionary<SNOPower, Skill>();
 
 			//Create the abilities
-			foreach (var item in HotBar.HotbarPowers)
+			foreach (var item in HotBar.HotbarSkills)
 			{
-				Skill newAbility = Bot.Character.Class.CreateAbility(item);
+				Skill newAbility = Bot.Character.Class.CreateAbility(item.Power);
 
 				if (newAbility.IsPrimarySkill) 
 					ContainsAnyPrimarySkill = true;
@@ -150,7 +146,7 @@ namespace FunkyBot.Player.Class
 				if (!ContainsNonRangedCombatSkill && !newAbility.IsRanged && !newAbility.IsProjectile && (SkillExecutionFlags.Target | SkillExecutionFlags.ClusterTarget).HasFlag(newAbility.ExecutionType))
 					ContainsNonRangedCombatSkill = true;
 
-				uninitalizedSkills.Add(item,newAbility);
+				uninitalizedSkills.Add(item.Power,newAbility);
 				Logger.DBLog.DebugFormat("[Funky] Added Skill {0} using RuneIndex {1}", newAbility.Power, newAbility.RuneIndex);
 			}
 
@@ -174,7 +170,7 @@ namespace FunkyBot.Player.Class
 				defaultAbility.Initialize();
 				Skill.CreateSkillLogicConditions(ref defaultAbility);
 				Abilities.Add(defaultAbility.Power, defaultAbility);
-				HotBar.RuneIndexCache.Add(defaultAbility.Power, -1);
+				//HotBar.RuneIndexCache.Add(defaultAbility.Power, -1);
 				Logger.DBLog.DebugFormat("[Funky] Added Skill {0}", defaultAbility.Power);
 
 				//No Primary Skill.. Check if Default Attack can be used!
@@ -196,7 +192,7 @@ namespace FunkyBot.Player.Class
 		internal virtual Skill AbilitySelector(CacheUnit obj, bool IgnoreOutOfRange = false)
 		{
 			//Reset default attack can use
-			CanUseDefaultAttack = !HotBar.HotbarPowers.Contains(DefaultAttack.Power) ? false : true;
+			CanUseDefaultAttack = !HotBar.HasPower(DefaultAttack.Power) ? false : true;
 			//Reset waiting for special!
 			bWaitingForSpecial = false;
 
@@ -500,6 +496,7 @@ namespace FunkyBot.Player.Class
 
 		internal Skill PowerPrime;
 
+		internal static bool ShouldRecreatePlayerClass = false;
 		internal static void CreateBotClass()
 		{
 			if (Bot.Game != null && Bot.Character.Account.ActorClass != ActorClass.Invalid)
@@ -523,14 +520,12 @@ namespace FunkyBot.Player.Class
 						Bot.Character.Class = new Wizard();
 						break;
 					case ActorClass.Crusader:
-						//Logger.DBLog.Fatal("Crusader Class is not supported yet!");
-						//BotMain.Stop(true, "Crusader Class not supported by FunkyBot");
-						//return;
 						Bot.Character.Class = new Crusader();
 						break;
 				}
 
 				Bot.Character.Class.RecreateAbilities();
+				ShouldRecreatePlayerClass = false;
 			}
 		}
 	}

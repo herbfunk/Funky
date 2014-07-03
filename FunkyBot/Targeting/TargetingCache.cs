@@ -112,9 +112,13 @@ namespace FunkyBot.Targeting
 
 			//Check if active bounty is null.. and attempt to update again.
 			if (Bot.Game.AdventureMode && Bot.Settings.AdventureMode.EnableAdventuringMode)
-			{
 				Bot.Game.Bounty.CheckActiveBounty();
-			}
+
+			//equipment check
+			//Bot.Character.Data.equipment.CheckEquippment();
+
+			//skill check
+			//Bot.Character.Class.HotBar.CheckSkills();
 
 			//Reset key targeting vars always!
 			InitObjectRefresh();

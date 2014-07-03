@@ -16,10 +16,10 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 				Priority=SkillPriority.High;
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckRecastTimer|
 				                          SkillPrecastFlags.CheckCanCast));
-				Cost=Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.DemonHunter_Preparation]==0?25:0;
+				Cost = RuneIndex == 0 ? 25 : 0;
 				FcriteriaCombat=() => Bot.Character.Data.dDisciplinePct<0.25d
 					//Rune: Punishment (Restores all Hatered for 25 disc)
-				                      ||(Bot.Character.Class.HotBar.RuneIndexCache[Power]==0&&Bot.Character.Data.dCurrentEnergyPct<0.20d);
+									  || (RuneIndex == 0 && Bot.Character.Data.dCurrentEnergyPct < 0.20d);
 
 		  }
 

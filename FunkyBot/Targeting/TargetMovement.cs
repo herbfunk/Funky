@@ -321,13 +321,13 @@ namespace FunkyBot.Targeting
 				}
 
 				//Special Whirlwind Code
-				if (Bot.Character.Class.AC == ActorClass.Barbarian && Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_Whirlwind))
+				if (Bot.Character.Class.AC == ActorClass.Barbarian && Bot.Character.Class.HotBar.HasPower(SNOPower.Barbarian_Whirlwind))
 				{
 					// Whirlwind against everything within range (except backtrack points)
 					if (Bot.Character.Data.dCurrentEnergy >= 10
 						 && Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20] >= 1
 						 && obj.DistanceFromTarget <= 12f
-						 && (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_Sprint) || Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_Sprint))
+						 && (!Bot.Character.Class.HotBar.HasPower(SNOPower.Barbarian_Sprint) || Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_Sprint))
 						 && (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.AvoidanceMovements | TargetType.Gold | TargetType.Globe) == false)
 						 && (obj.targetType.Value != TargetType.Unit
 						 || (obj.targetType.Value == TargetType.Unit && !obj.IsTreasureGoblin

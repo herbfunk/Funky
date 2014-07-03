@@ -29,15 +29,15 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 								  (Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_30] >= 1 ||
 								   Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25] >= 1 ||
 								   Bot.Targeting.Cache.CurrentTarget.RadiusDistance <= 12f) &&
-								  (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_Electrocute) ||
+								  (!Bot.Character.Class.HotBar.HasPower(SNOPower.Wizard_Electrocute) ||
 								   !Bot.Targeting.Cache.CurrentUnitTarget.IsFast) &&
 								  (Bot.Character.Data.dCurrentEnergy >= 35);
 		}
 
 		private bool HasSignatureAbility()
 		{
-			return (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_MagicMissile) || Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_ShockPulse) ||
-									Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_SpectralBlade) || Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Wizard_Electrocute));
+			return (Bot.Character.Class.HotBar.HasPower(SNOPower.Wizard_MagicMissile) || Bot.Character.Class.HotBar.HasPower(SNOPower.Wizard_ShockPulse) ||
+									Bot.Character.Class.HotBar.HasPower(SNOPower.Wizard_SpectralBlade) || Bot.Character.Class.HotBar.HasPower(SNOPower.Wizard_Electrocute));
 		}
 
 

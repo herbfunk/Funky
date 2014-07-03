@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-using System.IO;
-using FunkyBot.Cache;
+﻿using FunkyBot.Cache;
 using FunkyBot.Misc;
 using Zeta.Bot;
 using Zeta.Bot.Navigation;
@@ -24,7 +22,7 @@ namespace FunkyBot.EventHandlers
 			Bot.Reset();
 	
 			Navigator.PlayerMover = new PlayerMover();
-			Navigator.StuckHandler = new Funky.TrinityStuckHandler();
+			Navigator.StuckHandler = new Funky.PluginStuckHandler();
 			GameEvents.OnPlayerDied += FunkyOnDeath;
 			GameEvents.OnGameJoined += FunkyOnJoinGame;
 			GameEvents.OnGameLeft += FunkyOnLeaveGame;
@@ -33,17 +31,17 @@ namespace FunkyBot.EventHandlers
 			ProfileManager.OnProfileLoaded += FunkyOnProfileChanged;
 
 			//Attach Level Up Event for characters less than 70!
-			if (Bot.Character.Account.CurrentLevel<70)
-			{
-				Logger.DBLog.Debug("[Funky] Attaching Level Up Event!");
-				GameEvents.OnLevelUp += FunkyOnLevelUp;
-			}
+			//if (Bot.Character.Account.CurrentLevel<70)
+			//{
+			//	Logger.DBLog.Debug("[Funky] Attaching Level Up Event!");
+			//	GameEvents.OnLevelUp += FunkyOnLevelUp;
+			//}
 
-			ITargetingProvider newCombatTargetingProvider = new Funky.TrinityCombatTargetingReplacer();
+			ITargetingProvider newCombatTargetingProvider = new Funky.PluginCombatTargeting();
 			CombatTargeting.Instance.Provider = newCombatTargetingProvider;
-			ITargetingProvider newLootTargetingProvider = new Funky.TrinityLootTargetingProvider();
+			ITargetingProvider newLootTargetingProvider = new Funky.PluginLootTargeting();
 			LootTargeting.Instance.Provider = newLootTargetingProvider;
-			ITargetingProvider newObstacleTargetingProvider = new Funky.TrinityObstacleTargetingProvider();
+			ITargetingProvider newObstacleTargetingProvider = new Funky.PluginObstacleTargeting();
 			ObstacleTargeting.Instance.Provider = newObstacleTargetingProvider;
 
 

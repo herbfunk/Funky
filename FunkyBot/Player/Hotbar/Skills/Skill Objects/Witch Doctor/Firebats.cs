@@ -27,7 +27,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 		//(((Level - 5) / 2) * 3.2)+140)
 		public override void Initialize()
 		{
-			var range = Bot.Character.Class.HotBar.RuneIndexCache[Power] == 0 ? 40 : Bot.Character.Class.HotBar.RuneIndexCache[Power] == 4 ? 14 : 25;
+			var range = RuneIndex == 0 ? 40 : RuneIndex == 4 ? 14 : 25;
 
 			WaitVars = new WaitLoops(0, 0, true);
 			Range = range;

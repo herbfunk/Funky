@@ -17,7 +17,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 		{
 			WaitVars = new WaitLoops(1, 1, true);
 			Cost = 250;
-			Range = Bot.Character.Class.HotBar.RuneIndexCache[Power] == 4 ? 20 : 40;
+			Range = RuneIndex == 4 ? 20 : 40;
 
 			
 			Priority = SkillPriority.Medium;
@@ -36,7 +36,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 				FalseConditionFlags = TargetProperties.LowHealth,
 			});
 
-			ClusterConditions.Add(new SkillClusterConditions(4d, Bot.Character.Class.HotBar.RuneIndexCache[Power] == 4 ? 20f : 40f, 2, true));
+			ClusterConditions.Add(new SkillClusterConditions(4d, RuneIndex == 4 ? 20f : 40f, 2, true));
 
 			FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial;
 		}

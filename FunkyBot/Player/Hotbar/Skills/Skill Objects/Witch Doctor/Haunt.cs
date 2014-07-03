@@ -17,7 +17,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 
 		public override void Initialize()
 		{
-			bool hotbarContainsLoctusSwarm = Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_Locust_Swarm);
+			bool hotbarContainsLoctusSwarm = Bot.Character.Class.HotBar.HasPower(SNOPower.Witchdoctor_Locust_Swarm);
 
 			//since we can only track one DOTDPS, we track locus swarm and cast this 
 			if (hotbarContainsLoctusSwarm)

@@ -19,12 +19,12 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 			Priority = SkillPriority.High;
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 
-			FcriteriaBuff = () => Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan] != 0 && Bot.Character.Data.PetData.Gargantuan == 0;
+			FcriteriaBuff = () => RuneIndex != 0 && Bot.Character.Data.PetData.Gargantuan == 0;
 
-			FcriteriaCombat = () => (Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan] == 0 &&
+			FcriteriaCombat = () => (RuneIndex == 0 &&
 								   (Bot.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15] >= 1 ||
 									(Bot.Targeting.Cache.CurrentUnitTarget.IsEliteRareUnique && Bot.Targeting.Cache.CurrentTarget.RadiusDistance <= 15f))
-								   || Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Witchdoctor_Gargantuan] != 0 && Bot.Character.Data.PetData.Gargantuan == 0);
+								   || RuneIndex != 0 && Bot.Character.Data.PetData.Gargantuan == 0);
 		}
 
 

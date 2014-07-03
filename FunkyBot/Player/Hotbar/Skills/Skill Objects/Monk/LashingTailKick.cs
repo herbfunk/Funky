@@ -24,8 +24,8 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 10, falseConditionalFlags: TargetProperties.Normal));
 
 
-			FcriteriaCombat = () => (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_SweepingWind) ||
-								   (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_SweepingWind) && Bot.Character.Class.HotBar.HasBuff(SNOPower.Monk_SweepingWind))) &&
+			FcriteriaCombat = () => (!Bot.Character.Class.HotBar.HasPower(SNOPower.Monk_SweepingWind) ||
+								   (Bot.Character.Class.HotBar.HasPower(SNOPower.Monk_SweepingWind) && Bot.Character.Class.HotBar.HasBuff(SNOPower.Monk_SweepingWind))) &&
 								  (!Bot.Character.Class.bWaitingForSpecial || Bot.Character.Data.dCurrentEnergy >= Bot.Character.Class.iWaitingReservedAmount);
 		}
 

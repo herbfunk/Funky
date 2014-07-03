@@ -181,14 +181,14 @@ namespace FunkyBot.Cache.Objects
 				if (Bot.Character.Class.PowerPrime.WaitWhileAnimating)
 					Bot.Character.Data.WaitWhileAnimating(9);
 
-				if (targetType.Value == TargetType.Barricade)
-					Logger.DBLog.DebugFormat("[Funky] Barricade: Name=" + InternalName + ". SNO=" + SNOID.ToString() +
-											", Range=" + CentreDistance.ToString() + ". Needed range=" + Bot.Character.Class.PowerPrime.MinimumRange.ToString() + ". Radius=" +
-											Radius.ToString() + ". SphereRadius=" + ActorSphereRadius.Value.ToString() + ". Type=" + targetType.ToString() + ". Using power=" + Bot.Character.Class.PowerPrime.Power.ToString());
-				else
-					Logger.DBLog.DebugFormat("[Funky] Destructible: Name=" + InternalName + ". SNO=" + SNOID.ToString() +
-											", Range=" + CentreDistance.ToString() + ". Needed range=" + Bot.Character.Class.PowerPrime.MinimumRange.ToString() + ". Radius=" +
-											Radius.ToString() + ". SphereRadius=" + ActorSphereRadius.Value.ToString() + ". Type=" + targetType.ToString() + ". Using power=" + Bot.Character.Class.PowerPrime.Power.ToString());
+				//if (targetType.Value == TargetType.Barricade)
+				//	Logger.DBLog.DebugFormat("[Funky] Barricade: Name=" + InternalName + ". SNO=" + SNOID.ToString() +
+				//							", Range=" + CentreDistance.ToString() + ". Needed range=" + Bot.Character.Class.PowerPrime.MinimumRange.ToString() + ". Radius=" +
+				//							Radius.ToString() + ". SphereRadius=" + ActorSphereRadius.Value.ToString() + ". Type=" + targetType.ToString() + ". Using power=" + Bot.Character.Class.PowerPrime.Power.ToString());
+				//else
+				//	Logger.DBLog.DebugFormat("[Funky] Destructible: Name=" + InternalName + ". SNO=" + SNOID.ToString() +
+				//							", Range=" + CentreDistance.ToString() + ". Needed range=" + Bot.Character.Class.PowerPrime.MinimumRange.ToString() + ". Radius=" +
+				//							Radius.ToString() + ". SphereRadius=" + ActorSphereRadius.Value.ToString() + ". Type=" + targetType.ToString() + ". Using power=" + Bot.Character.Class.PowerPrime.Power.ToString());
 
 				Skill.UsePower(ref Bot.Character.Class.PowerPrime);
 

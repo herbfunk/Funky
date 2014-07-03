@@ -37,7 +37,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				if (LastConditionPassed == ConditionCriteraTypes.UnitsInRange && LastUsedMilliseconds > 5500 && !Bot.Character.Class.bWaitingForSpecial)
 					return true;
 
-				if (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_ExplodingPalm) || !Bot.Targeting.Cache.CurrentUnitTarget.SkillsUsedOnObject.ContainsKey(SNOPower.Monk_ExplodingPalm)) return true; //Non Exploding Palm Check
+				if (!Bot.Character.Class.HotBar.HasPower(SNOPower.Monk_ExplodingPalm) || !Bot.Targeting.Cache.CurrentUnitTarget.SkillsUsedOnObject.ContainsKey(SNOPower.Monk_ExplodingPalm)) return true; //Non Exploding Palm Check
 
 				if (DateTime.Now.Subtract(Bot.Targeting.Cache.CurrentUnitTarget.SkillsUsedOnObject[SNOPower.Monk_ExplodingPalm]).TotalSeconds < 9
 					&& Bot.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct < 0.10d)

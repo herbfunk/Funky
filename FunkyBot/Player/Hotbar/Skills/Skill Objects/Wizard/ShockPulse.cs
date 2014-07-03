@@ -18,8 +18,8 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 
 		public override void Initialize()
 		{
-			Range = Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Wizard_ShockPulse] == 2 ? 40
-				: Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Wizard_ShockPulse] == 1 ? 26 : 15;
+			Range = RuneIndex == 2 ? 40
+				: RuneIndex == 1 ? 26 : 15;
 
 
 

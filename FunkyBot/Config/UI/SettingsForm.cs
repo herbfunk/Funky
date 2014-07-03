@@ -1318,18 +1318,6 @@ namespace FunkyBot.Config.UI
 					}
 				}
 
-				LBDebug.Controls.Add(new UserControlDebugEntry("==Cached HotBar Abilities=="));
-				foreach (var item in Bot.Character.Class.HotBar.CachedPowers)
-				{
-					try
-					{
-						LBDebug.Controls.Add(new UserControlDebugEntry(item.ToString()));
-					}
-					catch (Exception ex)
-					{
-						Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
-					}
-				}
 
 				LBDebug.Controls.Add(new UserControlDebugEntry("==Buffs=="));
 				foreach (var item in Bot.Character.Class.HotBar.CurrentBuffs.Keys)

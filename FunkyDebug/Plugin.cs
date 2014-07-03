@@ -151,10 +151,16 @@ namespace FunkyDebug
 
 			return grid;
 		}
-
+		private static bool MouseLeft()
+		{
+			return (System.Windows.Forms.Control.MouseButtons & System.Windows.Forms.MouseButtons.Left) == System.Windows.Forms.MouseButtons.Left;
+		}
 		public void OnPulse()
 		{
-
+			if (!BotMain.IsPaused)
+			{
+				BotMain.PauseWhile(MouseLeft);
+			}
 		}
 
 		public void OnShutdown()

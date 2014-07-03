@@ -770,7 +770,7 @@ namespace FunkyBot.Cache.Objects
 
 						// Exploding Palm Bleeding Prioritize
 						if (Bot.Character.Class.AC == ActorClass.Monk
-							&& Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_ExplodingPalm)
+							&& Bot.Character.Class.HotBar.HasPower(SNOPower.Monk_ExplodingPalm)
 							&& centreDistance < 20f)
 						{
 							if (HasDOTdps.HasValue && HasDOTdps.Value) //Exploding Palm -- Bleeding Already!
@@ -1482,7 +1482,7 @@ namespace FunkyBot.Cache.Objects
 			if (Bot.Character.Class.AC == ActorClass.Barbarian)
 			{
 				//Rend DotDPS update
-				if (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_Rend))
+				if (Bot.Character.Class.HotBar.HasPower(SNOPower.Barbarian_Rend))
 				{
 					try
 					{
@@ -1496,7 +1496,7 @@ namespace FunkyBot.Cache.Objects
 			else if (Bot.Character.Class.AC == ActorClass.Monk)
 			{
 				//1195139072
-				if (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_ExplodingPalm))
+				if (Bot.Character.Class.HotBar.HasPower(SNOPower.Monk_ExplodingPalm))
 				{
 					if (CentreDistance < 30f)
 					{
@@ -1521,7 +1521,7 @@ namespace FunkyBot.Cache.Objects
 			else if (Bot.Character.Class.AC == ActorClass.Witchdoctor)
 			{
 				//Haunted DotDPS update
-				if (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_Haunt) || Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_Locust_Swarm))
+				if (Bot.Character.Class.HotBar.HasPower(SNOPower.Witchdoctor_Haunt) || Bot.Character.Class.HotBar.HasPower(SNOPower.Witchdoctor_Locust_Swarm))
 				{
 					Bot.Targeting.Cache.Environment.UsesDOTDPSAbility = true;
 					try

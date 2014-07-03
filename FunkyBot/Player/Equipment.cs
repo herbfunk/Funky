@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Misc;
+using FunkyBot.Player.Class;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 
@@ -26,16 +27,67 @@ namespace FunkyBot.Player
 
 	internal class Equipment
 	{
-
-
 		public bool GlobesRestoreResource { get; set; }
 		public bool ImmuneToDescratorMoltenPlaguedAvoidances { get; set; }
 		public bool ImmuneToArcane { get; set; }
 		public bool ImmuneToPoison { get; set; }
 		public bool RingOfGrandeur { get; set; }
 		public bool NoMonsterCollision { get; set; }
-
 		public List<CacheACDItem> EquippedItems { get; set; }
+
+		private DateTime _lastCheckedItemIDs;
+		private const int _itemIDRecheckSeconds = 10;
+		private List<int> _equippedItemIDs;
+		private bool ShouldRecheckItemIDs
+		{
+			get
+			{
+				return DateTime.Now.Subtract(_lastCheckedItemIDs).TotalSeconds >= _itemIDRecheckSeconds;
+			}
+		}
+		public void CheckEquippment()
+		{
+			if (!PlayerClass.ShouldRecreatePlayerClass && ShouldRecheckItemIDs)
+			{
+				_lastCheckedItemIDs = DateTime.Now;
+				List<int> compareList = ReturnEquippedItemIDs();
+
+				//Check for any new IDs..
+				if (compareList.Except(_equippedItemIDs).Any())
+				{
+					_equippedItemIDs = new List<int>(compareList);
+					RefreshEquippedItemsList();
+					PlayerClass.ShouldRecreatePlayerClass = true;
+				}
+			}
+		}
+		private List<int> ReturnEquippedItemIDs()
+		{
+			var returnItems = new List<int>();
+
+			try
+			{
+				using (ZetaDia.Memory.AcquireFrame())
+				{
+					foreach (ACDItem item in ZetaDia.Me.Inventory.Equipped)
+					{
+						try
+						{
+							var thisItemID = item.GameBalanceId;
+							returnItems.Add(thisItemID);
+						}
+						catch{}
+					}
+				}
+
+			}
+			catch
+			{
+
+			}
+
+			return returnItems;
+		}
 
 		public Equipment()
 		{
@@ -46,12 +98,22 @@ namespace FunkyBot.Player
 			NoMonsterCollision = false;
 			ImmuneToArcane = false;
 			ImmuneToPoison = false;
+			_equippedItemIDs = new List<int>();
+			_lastCheckedItemIDs = DateTime.MinValue;
 		}
 
 		public void RefreshEquippedItemsList()
 		{
+			if (Bot.GameIsInvalid())
+				return;
+
+			Logger.DBLog.DebugFormat("Refreshing Item List..");
+
 			EquippedItems.Clear();
 			EquippedItems = ReturnCurrentEquippedItems();
+
+			var ids = EquippedItems.Select(i => i.ThisBalanceID).ToList();
+			_equippedItemIDs = new List<int>(ids);
 
 			//Countess Julias Cameo
 			ImmuneToArcane = EquippedItems.Any(i => i.EquippedType == EquippedItemType.CountessJuliasCameo);
@@ -93,7 +155,7 @@ namespace FunkyBot.Player
 			
 		}
 
-		public List<CacheACDItem> ReturnCurrentEquippedItems()
+		private List<CacheACDItem> ReturnCurrentEquippedItems()
 		{
 			var returnItems = new List<CacheACDItem>();
 			try

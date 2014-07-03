@@ -224,8 +224,17 @@ namespace FunkyBot.Cache.Objects
 
 		public virtual void UpdatePosition(bool force = false)
 		{
-			if (!force && DateTime.Now.Subtract(lastUpdatedPosition).TotalMilliseconds < 150)
-				return;
+			if (!force)
+			{
+				double lastUpdated=DateTime.Now.Subtract(lastUpdatedPosition).TotalMilliseconds;
+
+				if (IsSlimeGeyser && lastUpdated < 100000)
+					return;
+
+				if (lastUpdated < 150)
+					return;
+			}
+
 			using (ZetaDia.Memory.AcquireFrame())
 			{
 
@@ -239,7 +248,18 @@ namespace FunkyBot.Cache.Objects
 				}
 				lastUpdatedPosition = DateTime.Now;
 				positionUpdated = true;
+			}
 
+			//Special Position Adjustment!
+			if (IsSlimeGeyser)
+			{
+				UpdateRotation();
+
+				float distance = ActorSphereRadius.HasValue ? ActorSphereRadius.Value
+									  : CollisionRadius.HasValue ? CollisionRadius.Value : Radius;
+
+				Vector3 curPosition = Position;
+				Position=MathEx.GetPointAt(curPosition, distance, Rotation);
 			}
 		}
 		///<summary>

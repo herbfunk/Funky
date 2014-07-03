@@ -214,9 +214,9 @@ namespace FunkyBot.Cache.Objects
 						break;
 					case TargetType.Globe:
 					case TargetType.PowerGlobe:
-						if (targetType.Equals(TargetType.Globe) && 
-							(Bot.Character.Data.dCurrentHealthPct > Bot.Settings.Combat.GlobeHealthPercent) ||
-							(!Bot.Character.Data.equipment.GlobesRestoreResource || Bot.Character.Data.dCurrentEnergyPct>0.75d))
+						if (targetType.Equals(TargetType.Globe) &&
+							((Bot.Character.Data.dCurrentHealthPct > Bot.Settings.Combat.GlobeHealthPercent && !Bot.Character.Data.equipment.GlobesRestoreResource) ||
+							(Bot.Character.Data.equipment.GlobesRestoreResource && Bot.Character.Data.dCurrentEnergyPct > 0.75d)))
 						{
 							Weight = 0;
 						}

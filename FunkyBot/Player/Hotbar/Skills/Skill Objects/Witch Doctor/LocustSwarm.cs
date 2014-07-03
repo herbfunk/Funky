@@ -17,7 +17,7 @@ namespace FunkyBot.Player.HotBar.Skills.WitchDoctor
 
 		public override void Initialize()
 		{
-			bool hotbarContainsDOT = Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_Haunt) || (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Witchdoctor_Piranhas));
+			bool hotbarContainsDOT = Bot.Character.Class.HotBar.HasPower(SNOPower.Witchdoctor_Haunt) || (Bot.Character.Class.HotBar.HasPower(SNOPower.Witchdoctor_Piranhas));
 
 			Range = 14;
 			Cost = 196;

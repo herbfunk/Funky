@@ -33,7 +33,7 @@ namespace FunkyBot.Player.Class
 			{
 				Logger.DBLog.InfoFormat("Combination Strike Found!");
 				Bot.Settings.Monk.bMonkComboStrike = true;
-				int TotalAbilities = HotBar.HotbarPowers.Count(power => SpiritGeneratingAbilities.Contains(power));
+				int TotalAbilities = HotBar.HotbarSkills.Count(Skill => SpiritGeneratingAbilities.Contains(Skill.Power));
 				Bot.Settings.Monk.iMonkComboStrikeAbilities = TotalAbilities;
 			}
 			else

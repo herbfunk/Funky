@@ -35,7 +35,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				FcriteriaCombat=() =>
 				{
 					bool isChanneling=(IsHobbling||LastUsedMilliseconds<150);
-					int channelingCost=Bot.Character.Class.HotBar.RuneIndexCache[Power]==3?8:10;
+					int channelingCost = RuneIndex == 3 ? 8 : 10;
 
 					//If channeling, check if energy is greater then 10.. else only start when energy is at least -40-
 					return (isChanneling&&Bot.Character.Data.dCurrentEnergy>channelingCost)||(Bot.Character.Data.dCurrentEnergy>40)
@@ -45,7 +45,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				FCombatMovement=v =>
 				{
 					bool isChanneling=(IsHobbling||LastUsedMilliseconds<150);
-					int channelingCost=Bot.Character.Class.HotBar.RuneIndexCache[Power]==3?8:10;
+					int channelingCost = RuneIndex == 3 ? 8 : 10;
 
 					//If channeling, check if energy is greater then 10.. else only start when energy is at least -40-
 					if ((isChanneling&&Bot.Character.Data.dCurrentEnergy>channelingCost)||(Bot.Character.Data.dCurrentEnergy>15)&&!Bot.Character.Class.bWaitingForSpecial)
@@ -63,7 +63,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				{
 					Vector3 vTargetAimPoint=MathEx.CalculatePointFrom(v, Bot.Character.Data.Position, 10f);
 					bool isChanneling=(IsHobbling||LastUsedMilliseconds<150);
-					int channelingCost=Bot.Character.Class.HotBar.RuneIndexCache[Power]==3?8:10;
+					int channelingCost = RuneIndex == 3 ? 8 : 10;
 
 					//If channeling, check if energy is greater then 10.. else only start when energy is at least -40-
 					if ((isChanneling&&Bot.Character.Data.dCurrentEnergy>channelingCost)||Bot.Character.Data.dCurrentEnergyPct>0.50d)

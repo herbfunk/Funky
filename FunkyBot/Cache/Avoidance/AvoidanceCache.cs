@@ -289,18 +289,22 @@ namespace FunkyBot.Cache.Avoidance
 				//Not Critical Avoidance, should we be in total ignorance because of a buff?
 
 				// Monks with Serenity up ignore all AOE's
-				if (Bot.Character.Class.AC == ActorClass.Monk && Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_Serenity) && Bot.Character.Class.HotBar.HasBuff(SNOPower.Monk_Serenity))
+				if (Bot.Character.Class.AC == ActorClass.Monk)
 				{
 					// Monks with serenity are immune
-					return true;
+					if (Bot.Character.Class.HotBar.HasPower(SNOPower.Monk_Serenity) && Bot.Character.Class.HotBar.HasBuff(SNOPower.Monk_Serenity))
+						return true;
 
+					//Epiphany ignore frozen.
+					if (Bot.Character.Class.HotBar.HasPower(SNOPower.X1_Monk_Epiphany) && Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Monk_Epiphany) && thisAvoidance == AvoidanceType.Frozen)
+						return true;
 				}
 
 				//Crusader Akarats Champion -- Ignore Frozen!
-				if (Bot.Character.Class.AC == ActorClass.Crusader && Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.X1_Crusader_AkaratsChampion) && Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Crusader_AkaratsChampion) && thisAvoidance == AvoidanceType.Frozen)
+				if (Bot.Character.Class.AC == ActorClass.Crusader && Bot.Character.Class.HotBar.HasPower(SNOPower.X1_Crusader_AkaratsChampion) && Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Crusader_AkaratsChampion) && thisAvoidance == AvoidanceType.Frozen)
 					return true;
 
-				if (Bot.Character.Class.AC == ActorClass.Barbarian && Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_WrathOfTheBerserker) && Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))
+				if (Bot.Character.Class.AC == ActorClass.Barbarian && Bot.Character.Class.HotBar.HasPower(SNOPower.Barbarian_WrathOfTheBerserker) && Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))
 				{
 					switch (thisAvoidance)
 					{

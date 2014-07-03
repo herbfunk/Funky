@@ -24,7 +24,7 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 			ClusterConditions.Add(new SkillClusterConditions(4d, 40, 2, true));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 50, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 
-			FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial && ((!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.DemonHunter_ClusterArrow)) ||
+			FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial && ((!Bot.Character.Class.HotBar.HasPower(SNOPower.DemonHunter_ClusterArrow)) ||
 																			  LastUsedMilliseconds >= 110000);
 		}
 

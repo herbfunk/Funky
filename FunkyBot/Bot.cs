@@ -89,7 +89,8 @@ namespace FunkyBot
 			PlayerMover.timeCancelledUnstuckerFor = DateTime.Today;
 
 			//Reset all data with bot (Playerdata, Combat Data)
-			Bot.Reset();
+			Reset();
+
 			PlayerClass.CreateBotClass();
 			//Update character info!
 			Bot.Character.Data.Update();

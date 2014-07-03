@@ -15,25 +15,40 @@ namespace FunkyBot.DBHandlers
 {
 	public class CombatHandler
 	{
+		internal static bool ShouldRecreateBotClass = false;
+
 		public static bool GlobalOverlord(object ret)
 		{
 			// If we aren't in the game of a world is loading, don't do anything yet
-			if (!ZetaDia.IsInGame ||  !ZetaDia.Me.IsValid || ZetaDia.IsLoadingWorld)
+			if (Bot.GameIsInvalid())
 			{
 				Bot.NavigationCache.lastChangedZigZag = DateTime.Today;
 				Bot.NavigationCache.vPositionLastZigZagCheck = Vector3.Zero;
 				return false;
 			}
 
-			//check if we initialized the bot..
-			if (Bot.Character.Class == null || EventHandlers.EventHandlers.LeveledUp)
-			{
-				EventHandlers.EventHandlers.LeveledUp = false;
-				PlayerClass.CreateBotClass();
+			//Equipment Change Check
+			Bot.Character.Data.equipment.CheckEquippment();
+
+
+			if (Bot.Character.Class == null)
+			{//Null?
+				PlayerClass.ShouldRecreatePlayerClass = true;
 			}
+			else
+			{//Skill Change Check
+				Bot.Character.Class.HotBar.CheckSkills();
+			}
+
+			//Should we recreate class?
+			if (PlayerClass.ShouldRecreatePlayerClass)
+				PlayerClass.CreateBotClass();
+			
 
 			//Seconday Hotbar Check
 			Bot.Character.Class.SecondaryHotbarBuffPresent();
+
+			
 
 			// Clear target current and reset key variables used during the target-handling function
 			Bot.Targeting.ResetTargetHandling();

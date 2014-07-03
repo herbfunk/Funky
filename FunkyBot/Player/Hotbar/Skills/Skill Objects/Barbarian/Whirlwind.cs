@@ -37,8 +37,8 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 								  (!Bot.Settings.Barbarian.bSelectiveWhirlwind || Bot.Targeting.Cache.Environment.bAnyNonWWIgnoreMobsInRange ||
 								   !CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(Bot.Targeting.Cache.CurrentTarget.SNOID)) &&
 				// If they have battle-rage, make sure it's up
-								  (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage) ||
-								   (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Barbarian_BattleRage) && Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_BattleRage)));
+								  (!Bot.Character.Class.HotBar.HasPower(SNOPower.Barbarian_BattleRage) ||
+								   (Bot.Character.Class.HotBar.HasPower(SNOPower.Barbarian_BattleRage) && Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_BattleRage)));
 
 
 		}

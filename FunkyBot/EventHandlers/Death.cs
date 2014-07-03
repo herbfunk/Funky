@@ -39,10 +39,10 @@ namespace FunkyBot.EventHandlers
 					return true;
 				}
 
-				foreach (var skill in Bot.Character.Class.HotBar.HotbarPowers)
+				foreach (var skill in Bot.Character.Class.HotBar.HotbarSkills)
 				{
 					PowerManager.CanCastFlags skillCastFlags;
-					if (!PowerManager.CanCast(skill, out skillCastFlags))
+					if (!PowerManager.CanCast(skill.Power, out skillCastFlags))
 					{
 						if (skillCastFlags.HasFlag(PowerManager.CanCastFlags.Flag8))
 						{
@@ -82,10 +82,10 @@ namespace FunkyBot.EventHandlers
 					return RunStatus.Running;
 				}
 
-				foreach (var skill in Bot.Character.Class.HotBar.HotbarPowers)
+				foreach (var skill in Bot.Character.Class.HotBar.HotbarSkills)
 				{
 					PowerManager.CanCastFlags skillCastFlags;
-					if (!PowerManager.CanCast(skill, out skillCastFlags))
+					if (!PowerManager.CanCast(skill.Power, out skillCastFlags))
 					{
 						if (skillCastFlags.HasFlag(PowerManager.CanCastFlags.Flag8))
 						{

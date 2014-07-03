@@ -21,7 +21,7 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				ExecutionType = SkillExecutionFlags.Self;
 
 			WaitVars = new WaitLoops(2, 4, true);
-			Cost = Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Monk_WaveOfLight] == 3 ? 40 : 75;
+			Cost = RuneIndex == 3 ? 40 : 75;
 			Range = 16;
 			Priority = SkillPriority.Medium;
 

@@ -18,7 +18,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 
 		public override void Initialize()
 		{
-			Range = (Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Wizard_Electrocute] == 2 ? 15 : 40);
+			Range = (RuneIndex == 2 ? 15 : 40);
 
 
 
@@ -26,7 +26,7 @@ namespace FunkyBot.Player.HotBar.Skills.Wizard
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckCanCast));
 
 			//Aim for cluster with 2 units very close together.
-			ClusterConditions.Add(new SkillClusterConditions(3d, Bot.Character.Class.HotBar.RuneIndexCache[SNOPower.Wizard_Electrocute] == 2 ? 15 : 40, 2, true));
+			ClusterConditions.Add(new SkillClusterConditions(3d, RuneIndex == 2 ? 15 : 40, 2, true));
 			//No conditions for a single target.
 			SingleUnitCondition.Add(new UnitTargetConditions());
 		}

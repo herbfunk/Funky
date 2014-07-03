@@ -25,7 +25,6 @@ namespace FunkyBot.Player.HotBar.Skills
 		{
 			IsCombat = false;
 			LastUsed = DateTime.MinValue;
-			//Initialize();
 		}
 
 		public virtual void Initialize()
@@ -151,7 +150,7 @@ namespace FunkyBot.Player.HotBar.Skills
 			}
 		}
 
-		public int RuneIndex { get { return Bot.Character.Class.HotBar.RuneIndexCache.ContainsKey(Power) ? Bot.Character.Class.HotBar.RuneIndexCache[Power] : -1; } }
+		public int RuneIndex { get { return Bot.Character.Class.HotBar.ReturnRuneIndex(Power); } }
 
 		#region Properties
 		public SkillPriority Priority
@@ -781,7 +780,7 @@ namespace FunkyBot.Player.HotBar.Skills
 
 		public string DebugString()
 		{
-			return String.Format("Ability: {0} [RuneIndex={1}] " + " Cost=" + Cost + "\r\n" +
+			return String.Format("Skill: {0} [RuneIndex={1}] " + " Cost=" + Cost + "\r\n" +
 									  "Range={2} ReuseMS={3} Priority [{4}] UseType [{5}] Usage {6} \r\n" +
 									  "Last Condition {7} -- Last Used {8} \r\n" +
 									  "Used Successfully=[{9}] -- CanCastFlags={10}",

@@ -1,4 +1,13 @@
 ﻿// herbfunk revisions
+v2.11.2.1
+	
+	Added Hotbar Skill Check which will compare Power/Rune and refresh if change occured (Every 10 secs)
+	Added Equipment check which will compare IDs and Refresh both equipped items and player class. (Every 10 secs)
+	Act 2 Slime Gysers now uses a static calculated position (for LOS testing)
+	Fixed Globes being ignored. (Power and Health)
+	Monks Epiphany will be used on non-normal units now.
+
+
 v2.11.2.0
 
 Crusader

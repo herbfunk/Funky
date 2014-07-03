@@ -102,9 +102,7 @@ namespace FunkyBot.Player.Class
 			if (RefreshNeeded)
 			{
 				Logger.DBLog.InfoFormat("Updating Hotbar abilities!");
-				HotBar.CachedPowers = new HashSet<SNOPower>(HotBar.HotbarPowers);
 				HotBar.RefreshHotbar();
-				//HotBar.UpdateRepeatAbilityTimes();
 				RecreateAbilities();
 				return true;
 			}

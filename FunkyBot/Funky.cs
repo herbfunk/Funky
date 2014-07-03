@@ -291,15 +291,10 @@ namespace FunkyBot
 			BrainBehavior.CreateCombatLogic();
 			BrainBehavior.CreateLootBehavior();
 		}
-		private static bool BlankDecorator(object ret)
-		{
-			return false;
-		}
-		private static RunStatus BlankAction(object ret)
-		{
-			return RunStatus.Success;
-		}
-		public class TrinityStuckHandler : IStuckHandler
+
+		private static bool BlankDecorator(object ret) { return false; }
+		private static RunStatus BlankAction(object ret) { return RunStatus.Success; }
+		public class PluginStuckHandler : IStuckHandler
 		{
 			public Vector3 GetUnstuckPos()
 			{
@@ -314,7 +309,7 @@ namespace FunkyBot
 				}
 			}
 		}
-		public class TrinityCombatTargetingReplacer : ITargetingProvider
+		public class PluginCombatTargeting : ITargetingProvider
 		{
 			private static readonly List<DiaObject> listEmptyList = new List<DiaObject>();
 			public List<DiaObject> GetObjectsByWeight()
@@ -326,7 +321,7 @@ namespace FunkyBot
 				return listFakeList;
 			}
 		}
-		public class TrinityLootTargetingProvider : ITargetingProvider
+		public class PluginLootTargeting : ITargetingProvider
 		{
 			private static readonly List<DiaObject> listEmptyList = new List<DiaObject>();
 			public List<DiaObject> GetObjectsByWeight()
@@ -334,7 +329,7 @@ namespace FunkyBot
 				return listEmptyList;
 			}
 		}
-		public class TrinityObstacleTargetingProvider : ITargetingProvider
+		public class PluginObstacleTargeting : ITargetingProvider
 		{
 			private static readonly List<DiaObject> listEmptyList = new List<DiaObject>();
 			public List<DiaObject> GetObjectsByWeight()
@@ -343,7 +338,7 @@ namespace FunkyBot
 			}
 		}
 
-		
+		#region Combat Routine Implementation
 		public string Author { get { return "Herbfunk"; } }
 		public string Description
 		{
@@ -450,6 +445,7 @@ namespace FunkyBot
 		public override Composite Buff { get { return new PrioritySelector(); } }
 
 		public bool Equals(IPlugin other) { return (other.Name == Name) && (other.Version == Version); }
+		#endregion
 
 	}
 }

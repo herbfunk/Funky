@@ -19,7 +19,7 @@ namespace FunkyBot.Player.HotBar.Skills.Barb
 
 		public override void Initialize()
 		{
-			Range = Bot.Character.Class.HotBar.RuneIndexCache[Power] == 0 ? 13 : Bot.Character.Class.HotBar.RuneIndexCache[Power] == 1 ? 20 : 16;
+			Range = RuneIndex == 0 ? 13 : RuneIndex == 1 ? 20 : 16;
 			Cost = 20;
 			Priority = SkillPriority.Medium;
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckPlayerIncapacitated);

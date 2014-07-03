@@ -32,8 +32,8 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 				                       Bot.Targeting.Cache.CurrentTarget.RadiusDistance<=25f)&&
 				                      // Check if either we don't have blinding flash, or we do and it's been cast in the last 6000ms
 				                      //DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Monk_BlindingFlash]).TotalMilliseconds <= 6000)) &&
-				                      (!Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)||
-				                       (Bot.Character.Class.HotBar.HotbarPowers.Contains(SNOPower.Monk_BlindingFlash)&&(Bot.Character.Class.HotBar.HasBuff(SNOPower.Monk_BlindingFlash))));
+				                      (!Bot.Character.Class.HotBar.HasPower(SNOPower.Monk_BlindingFlash)||
+				                       (Bot.Character.Class.HotBar.HasPower(SNOPower.Monk_BlindingFlash)&&(Bot.Character.Class.HotBar.HasBuff(SNOPower.Monk_BlindingFlash))));
 		  }
 
 
