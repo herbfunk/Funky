@@ -1,29 +1,35 @@
 ﻿// herbfunk revisions
 v2.11.2.1
-	
-	Added Hotbar Skill Check which will compare Power/Rune and refresh if change occured (Every 10 secs)
-	Added Equipment check which will compare IDs and Refresh both equipped items and player class. (Every 10 secs)
-	Act 2 Slime Gysers now uses a static calculated position (for LOS testing)
-	Fixed Globes being ignored. (Power and Health)
-	Monks Epiphany will be used on non-normal units now.
-
-
-v2.11.2.0
 
 Crusader
 	Blessed Hammer will be used on any unit when no Primary Skill is present
 	Provoke will be used more frequently.
 	Akarats Champion will be used on clusters of 4 with Full Akkhan Set Bonus
 
-Monks cyclone strike now uses minimum distance on single target conditions.
+Monk
+	Cyclone strike now uses minimum distance on single target conditions.
+	Epiphany will be used on non-normal units now.
+	Dashing Strike now checks for ROTS Set Bonus and adds additional critiera to use more often.
 
-Cleaned Up Skill and Skill Objects.
-	-Following Properties are now defined in the class and not during initalize method.
-		UsageType, ExecutionType, IsProjectile, IsRanged, IsBuff, IsMovement, IsPrimarySkill, IsDestructiblePower, 
-	-Initalize Method is no longer called during creation of a skill.
-	-Removed override of RuneIndex and Equals from skills.
+Equipment
+	Added Rainments Thousand Storms (5/6) Set (missing gloves)
+	Added new Check for gear changes which will trigger a refresh.
 
-Player Class will now create the skill object then use its initalize method.
+Cache
+	Fixed the ignoring of Globes.
+	Slime Gysers in Act 2 now use a static position to help with LOS testing.
+
+Misc
+	Added Hotbar Skill check for changes which will trigger a refresh.
+
+Skill and Skill Objects
+	Following Properties are now defined in the class and not during initalize method.
+		-UsageType, ExecutionType, IsProjectile, IsRanged, IsBuff, IsMovement, IsPrimarySkill, IsDestructiblePower, 
+	Initalize Method is no longer called during creation of a skill.
+	Removed override of RuneIndex and Equals from skills.
+
+
+
 
 v2.11.1.0
 

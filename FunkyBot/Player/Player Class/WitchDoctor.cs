@@ -14,7 +14,7 @@ namespace FunkyBot.Player.Class
 	{
 		public WitchDoctor()
 		{
-			int ZunimassaSetItemCount = Bot.Character.Data.equipment.EquippedItems.Count(i => i.ThisRealName.Contains("Zunimassa"));
+			int ZunimassaSetItemCount = Bot.Character.Data.equipment.EquippedItems.Count(i => i.EquippedType==EquippedItemType.Zunimassas);
 			if (ZunimassaSetItemCount > 3 || ZunimassaSetItemCount > 2 && Bot.Character.Data.equipment.RingOfGrandeur)
 			{
 				Logger.DBLog.DebugFormat("[Funky] Zunimassa Five Set Bounus Found!");

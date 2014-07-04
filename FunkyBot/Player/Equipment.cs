@@ -23,6 +23,7 @@ namespace FunkyBot.Player
 		MarasKaleidoscope,
 		Akkhan,
 		StarmetalKukri,
+		RaimentofaThousandStorms,
 	}
 
 	internal class Equipment
@@ -204,7 +205,8 @@ namespace FunkyBot.Player
 			{-960430780, EquippedItemType.Zunimassas}, //String of Skulls
 			{-840125482, EquippedItemType.Zunimassas}, //Vision
 			{1941359608, EquippedItemType.Zunimassas}, //Trail
-			//TODO:: Add POX
+			{-1187722720, EquippedItemType.Zunimassas}, //Pox
+			
 
 			//Akkhan's
 			{-1992164625, EquippedItemType.Akkhan},//Helm
@@ -213,33 +215,28 @@ namespace FunkyBot.Player
 			{827015887, EquippedItemType.Akkhan},//Cuisses
 			{259933632, EquippedItemType.Akkhan},//Breastplate
 			{2059399737, EquippedItemType.Akkhan},//Gauntlets
+
+			//Raiment of a ThousandStorms
+			{826117462, EquippedItemType.RaimentofaThousandStorms},//Pants
+			{-801653481, EquippedItemType.RaimentofaThousandStorms},//Boots
+			{-1981659882, EquippedItemType.RaimentofaThousandStorms},//Shoulders
+			{-1993063050, EquippedItemType.RaimentofaThousandStorms},//Helm
+			{259035207, EquippedItemType.RaimentofaThousandStorms},//Chest
+			//TODO:: Add Gloves
 		};
 
 
 		#endregion
 
 		/*
-	 * Item - Name: Illusory Boots BalanceID: 1979309080
 
-		Item - Name: Piro Marella BalanceID: 820499474
-
-		Item - Name: Countess Julia's Cameo (InternalName: x1_Amulet_norm_unique_19-211) BalanceID: 1566368217
-
-		Item - Name: Mara's Kaleidoscope BalanceID: 1528490619
-
-		Item - Name: Helm of Akkhan BalanceID: -1992164625
-		Item - Name: Sabatons of Akkhan BalanceID: -800755056
-		Item - Name: Pauldrons of Akkhan BalanceID: -1980761457
-		Item - Name: Cuisses of Akkhan BalanceID: 827015887
-		Item - Name: Breastplate of Akkhan BalanceID: 259933632
-		Item - Name: Gauntlets of Akkhan BalanceID: 2059399737
-
-
-		Item - Name: Starmetal Kukri BalanceID: 1823578424
-
-
-
-
+		 Item - Name: Zunimassa's Pox (InternalName: Ring_norm_unique_012-214) BalanceID: -1187722720
+		Item - Name: Scales of the Dancing Serpent (InternalName: x1_pants_norm_set_08-148) BalanceID: 826117462
+		 * Item - Name: Eight-Demon Boots (InternalName: x1_Boots_norm_set_08-151) BalanceID: -801653481
+		 * Item - Name: Mantle of the Upside-Down Sinners (InternalName: x1_shoulderPads_norm_set_08-182) BalanceID: -1981659882
+		 * Item - Name: Mask of the Searing Sky (InternalName: x1_Helm_norm_set_08-194) BalanceID: -1993063050
+		 * Item - Name: Heart of the Crashing Wave (InternalName: x1_chestArmor_norm_set_08-187) BalanceID: 259035207
+		 * 
 	 */
 	}
 }

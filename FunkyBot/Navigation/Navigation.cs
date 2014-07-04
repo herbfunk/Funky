@@ -689,6 +689,8 @@ namespace FunkyBot.Movement
 			return safespot;
 		}
 
+
+
 		//Static Methods
 		#region Static Movement Methods
 		public static bool CheckVectorFlags(Vector3 currentPos, Vector3 targetPos, PointCheckingFlags flags)

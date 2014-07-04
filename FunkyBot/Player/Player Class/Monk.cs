@@ -27,6 +27,14 @@ namespace FunkyBot.Player.Class
 			else
 				Bot.Settings.Monk.bMonkInnaSet = false;
 
+			int RotsSetItemCount = Bot.Character.Data.equipment.EquippedItems.Count(i => i.EquippedType == EquippedItemType.RaimentofaThousandStorms);
+			if (RotsSetItemCount>5 || RotsSetItemCount>4 && Bot.Character.Data.equipment.RingOfGrandeur)
+			{
+				Logger.DBLog.InfoFormat("Monk has full Rainments of Thousand Storm Set!");
+				Bot.Settings.Monk.RainmentsOfThousandStormsFiveBonus = true;
+			}
+			else
+				Bot.Settings.Monk.RainmentsOfThousandStormsFiveBonus = false;
 
 			//Combo Strike???
 			if (HotBar.PassivePowers.Contains(SNOPower.Monk_Passive_CombinationStrike))

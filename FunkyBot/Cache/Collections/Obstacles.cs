@@ -296,6 +296,12 @@ namespace FunkyBot.Cache.Collections
 			return Avoidances.Any(A => A.ShouldAvoid
 				  && MathEx.IntersectsPath(A.Position, A.Radius, currentPosition, destinationPoint));
 		}
+
+		public List<CacheObstacle> ReturnAllIntersectingObjects(Vector3 StartPosition, Vector3 EndPosition, ObstacleType Type = ObstacleType.All)
+		{
+			return OfType(Type).Where(obj => obj.TestIntersection(StartPosition, EndPosition)).ToList();
+		}
+
 		///<summary>
 		///Sorts avoidance zone objects based upon current bots position.
 		///</summary>
