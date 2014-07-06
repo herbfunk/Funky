@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using FunkyBot.Cache.Objects;
+using fItemPlugin.Items;
 using FunkyBot.Player;
 using Zeta.Bot;
 using Zeta.Bot.Navigation;
@@ -38,7 +38,7 @@ namespace FunkyBot.DBHandlers.Townrun
 					{
 						if (thisitem.ThisDBItemType == ItemType.Potion) continue;
 
-						if (thisitem.IsHoradricCache)
+						if (thisitem.ItemType==PluginItemType.HoradricCache)
 						{
 							InteractItems.Add(thisitem);
 						}
@@ -100,7 +100,8 @@ namespace FunkyBot.DBHandlers.Townrun
 
 			if (!UIElements.InventoryWindow.IsVisible)
 			{
-				Bot.Character.Data.BackPack.InventoryBackPackToggle(true);
+				
+				fItemPlugin.Player.Backpack.InventoryBackPackToggle(true);
 				return RunStatus.Running;
 			}
 
@@ -114,7 +115,7 @@ namespace FunkyBot.DBHandlers.Townrun
 				if (thisitem != null)
 				{
 					ZetaDia.Me.Inventory.UseItem(thisitem.ThisDynamicID);
-					if (thisitem.IsHoradricCache) Bot.Game.CurrentGameStats.CurrentProfile.HoradricCacheOpened++;
+					if (thisitem.ItemType==PluginItemType.HoradricCache) Bot.Game.CurrentGameStats.CurrentProfile.HoradricCacheOpened++;
 				}
 				if (thisitem != null)
 					InteractItems.Remove(thisitem);

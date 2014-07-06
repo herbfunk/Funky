@@ -1,5 +1,3 @@
-using System.IO;
-using System.Xml.Serialization;
 using FunkyBot.Movement.Clustering;
 
 namespace FunkyBot.Config.Settings

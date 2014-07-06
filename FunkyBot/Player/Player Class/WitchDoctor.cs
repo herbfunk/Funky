@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Linq;
+using fItemPlugin.Items;
+using fItemPlugin.Player;
 using FunkyBot.Misc;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.WitchDoctor;
 using Zeta.Game;
 using System.Collections.Generic;
 using Zeta.Game.Internals.Actors;
+using System.Linq;
 
 namespace FunkyBot.Player.Class
 {
@@ -14,8 +16,8 @@ namespace FunkyBot.Player.Class
 	{
 		public WitchDoctor()
 		{
-			int ZunimassaSetItemCount = Bot.Character.Data.equipment.EquippedItems.Count(i => i.EquippedType==EquippedItemType.Zunimassas);
-			if (ZunimassaSetItemCount > 3 || ZunimassaSetItemCount > 2 && Bot.Character.Data.equipment.RingOfGrandeur)
+			int ZunimassaSetItemCount = Equipment.EquippedItems.Count(i => i.LegendaryItemType == LegendaryItemTypes.Zunimassas);
+			if (ZunimassaSetItemCount > 3 || ZunimassaSetItemCount > 2 && Equipment.RingOfGrandeur)
 			{
 				Logger.DBLog.DebugFormat("[Funky] Zunimassa Five Set Bounus Found!");
 				Bot.Settings.WitchDoctor.ZunimassaFullSet = true;
@@ -23,10 +25,19 @@ namespace FunkyBot.Player.Class
 			else
 				Bot.Settings.WitchDoctor.ZunimassaFullSet = false;
 
+			int JadeHarvesterSetItemCount = Equipment.EquippedItems.Count(i => i.LegendaryItemType == LegendaryItemTypes.JadeHarvester);
+			if (JadeHarvesterSetItemCount > 5 || JadeHarvesterSetItemCount > 4 && Equipment.RingOfGrandeur)
+			{
+				Logger.DBLog.DebugFormat("[Funky] Jade Harvester Six Set Bounus Found!");
+				Bot.Settings.WitchDoctor.JadeHarvesterFullSet = true;
+			}
+			else
+				Bot.Settings.WitchDoctor.JadeHarvesterFullSet = false;
+
 			//Tall Man Finger Check
-			Bot.Settings.WitchDoctor.TallManFinger = Bot.Character.Data.equipment.EquippedItems.Any(i => i.EquippedType == EquippedItemType.TallManFinger);
+			Bot.Settings.WitchDoctor.TallManFinger = Equipment.EquippedItems.Any(i => i.LegendaryItemType == LegendaryItemTypes.TallManFinger);
 			//Reduced CD (Big Bad Voodoo / Fetish Army) Dagger
-			Bot.Settings.WitchDoctor.StarmetalKukri = Bot.Character.Data.equipment.EquippedItems.Any(i => i.EquippedType == EquippedItemType.StarmetalKukri);
+			Bot.Settings.WitchDoctor.StarmetalKukri = Equipment.EquippedItems.Any(i => i.LegendaryItemType == LegendaryItemTypes.StarmetalKukri);
 
 			Logger.DBLog.DebugFormat("[Funky] Using WitchDoctor Player Class");
 		}

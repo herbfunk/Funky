@@ -1,28 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Avoidance;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Config.Settings;
-using FunkyBot.DBHandlers;
-using FunkyBot.Game;
 using FunkyBot.Game.ProfileTracking;
-using FunkyBot.Movement;
 using Zeta.Bot;
-using Zeta.Bot.Navigation;
-using Zeta.Common;
 using Zeta.Game;
-using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
-using Zeta.Game.Internals.SNO;
 using GameStats = FunkyBot.Game.ProfileTracking.GameStats;
 using Logger = FunkyBot.Misc.Logger;
 using LogLevel = FunkyBot.Misc.LogLevel;
@@ -458,7 +448,7 @@ namespace FunkyBot.Config.UI
 				cb_LootPickupCraftPlans.Checked = Bot.Settings.Loot.PickupCraftPlans;
 				cb_LootPickupCraftPlans.CheckedChanged += cb_LootPickupCraftPlans_CheckedChanged;
 
-				comboBox_LootGemQuality.Text = Enum.GetName(typeof(GemQuality), Bot.Settings.Loot.MinimumGemItemLevel).ToString();
+				comboBox_LootGemQuality.Text = Enum.GetName(typeof(fItemPlugin.Items.GemQualityType), Bot.Settings.Loot.MinimumGemItemLevel).ToString();
 				comboBox_LootGemQuality.SelectedIndexChanged += GemQualityLevelChanged;
 
 				cb_LootGemAMETHYST.Checked = Bot.Settings.Loot.PickupGems[2];
@@ -530,8 +520,8 @@ namespace FunkyBot.Config.UI
 					GameStats cur = Bot.Game.CurrentGameStats;
 
 					flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("\r\n== CURRENT GAME SUMMARY =="));
-					flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(String.Format("Total Profiles:{0}\r\nDeaths:{1} TotalTime:{2} TotalGold:{3} TotalXP:{4}\r\nTownRuns {6} Items Gambled {7} Bounties Completed {8}\r\n{5}",
-															cur.Profiles.Count, cur.TotalDeaths, cur.TotalTimeRunning.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), cur.TotalGold, cur.TotalXP, cur.TotalLootTracker.ToString(), cur.TotalTownRuns,cur.TotalItemsGambled,cur.TotalBountiesCompleted)));
+					flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(String.Format("Total Profiles:{0}\r\nDeaths:{1} TotalTime:{2} TotalGold:{3} TotalXP:{4}\r\n Bounties Completed {6}\r\n{5}",
+															cur.Profiles.Count, cur.TotalDeaths, cur.TotalTimeRunning.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), cur.TotalGold, cur.TotalXP, cur.TotalLootTracker.ToString(), cur.TotalBountiesCompleted)));
 
 					if (Bot.Game.CurrentGameStats.Profiles.Count > 0)
 					{
@@ -1193,7 +1183,7 @@ namespace FunkyBot.Config.UI
 		{
 			ComboBox cbSender = (ComboBox)sender;
 
-			Bot.Settings.Loot.MinimumGemItemLevel = (int)Enum.Parse(typeof(GemQuality), cbSender.Items[cbSender.SelectedIndex].ToString());
+			Bot.Settings.Loot.MinimumGemItemLevel = (int)Enum.Parse(typeof(fItemPlugin.Items.GemQualityType), cbSender.Items[cbSender.SelectedIndex].ToString());
 		}
 
 		private void cb_DebugStatusBar_CheckedChanged(object sender, EventArgs e)
@@ -1463,8 +1453,8 @@ namespace FunkyBot.Config.UI
 				{
 					try
 					{
-						string s=String.Format("Item - Name: {0} (InternalName: {1}) BalanceID: {2}",
-															o.Name, o.InternalName, o.GameBalanceId);
+						string s=String.Format("{0} - {1} BalanceID: {2} ACDGuid: {3}",
+															o.Name, o.ActorSNO, o.GameBalanceId, o.ACDGuid);
 
 						LBDebug.Controls.Add(new UserControlDebugEntry(s));
 					}

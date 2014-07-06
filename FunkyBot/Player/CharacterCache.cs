@@ -7,6 +7,7 @@ using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
+using Logger = FunkyBot.Misc.Logger;
 
 namespace FunkyBot.Player
 {
@@ -41,7 +42,7 @@ namespace FunkyBot.Player
 
 			BackPack = new Backpack();
 			PetData = new Pets();
-			equipment = new Equipment();
+		
 
 			PickupRadius = 1;
 			coinage = 0;
@@ -123,7 +124,7 @@ namespace FunkyBot.Player
 		internal string SceneName { get; set; }
 		internal Pets PetData { get; set; }
 		internal Backpack BackPack { get; set; }
-		internal Equipment equipment { get; set; }
+		
 		internal float PickupRadius { get; set; }
 		internal int FreeBackpackSlots { get; set; }
 		internal int CurrentExp { get; set; }
@@ -453,6 +454,21 @@ namespace FunkyBot.Player
 
 
 		#endregion
+
+		public static decimal TotalResourceCostReduction = 0;
+		public static decimal TotalSkillCooldownReduction = 0;
+		internal static void UpdateStaticProperties()
+		{
+			if (Bot.GameIsInvalid()) return;
+			var skillcooldownreduction = ZetaDia.Me.CommonData.GetAttribute<float>(ActorAttributeType.PowerCooldownReductionPercentAll) * 100;
+			TotalSkillCooldownReduction = Math.Round(Convert.ToDecimal(skillcooldownreduction),1);
+
+			var resourcecostreduction =ZetaDia.Me.CommonData.GetAttribute<float>(ActorAttributeType.ResourceCostReductionPercentAll) * 100;
+			TotalResourceCostReduction = Math.Round(Convert.ToDecimal(resourcecostreduction),1);
+			
+			Logger.DBLog.InfoFormat("Skill cooldown reduction {0}", TotalSkillCooldownReduction);
+			Logger.DBLog.InfoFormat("Skill resource cost reduction {0}", TotalResourceCostReduction);
+		}
 
 		internal class Pets
 		{

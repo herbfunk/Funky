@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 using FunkyBot.Config.Settings;
 using FunkyBot.DBHandlers.CharacterMule;

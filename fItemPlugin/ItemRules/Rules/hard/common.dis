@@ -1,0 +1,44 @@
+// +---------------------------------------------------------------------------+
+// |  _______ ______ _______ ______ _______ _______ _____   
+// | |     __|   __ \    ___|      |_     _|   _   |     |_ 
+// | |__     |    __/    ___|   ---|_|   |_|       |       |
+// | |_______|___|  |_______|______|_______|___|___|_______|
+// +---------------------------------------------------------------------------+  
+
+// keep all special items
+// this is a saftey line ... as long it isn't removed it will keep all items
+// specifyed by the rule ... the action of commenting it out
+// will apply all following rules ... this set of rules is no where of complete
+[QUALITY] == "Special" -> [KEEP]
+
+// Normal Crafting Items
+//[BASETYPE] == "Weapon" && [NAME] == "Diabolic Wand" && [DPS] > 388
+//[BASETYPE] == "Weapon" && [NAME] == "Dire Axe"
+//[BASETYPE] == "Weapon" && [NAME] == "Doubleshot"
+//[BASETYPE] == "Weapon" && [NAME] == "Flesh Render" && [DPS] > 958
+//[BASETYPE] == "Weapon" && [NAME] == "Grandfather Flail" && [DPS] > 388
+//[BASETYPE] == "Weapon" && [NAME] == "Kerykeion"
+//[BASETYPE] == "Weapon" && [NAME] == "Limb Cleaver"
+//[BASETYPE] == "Weapon" && [NAME] == "Oxybeles" && [DPS] > 958
+//[BASETYPE] == "Weapon" && [NAME] == "Penetrator" && [DPS] > 673
+//[BASETYPE] == "Weapon" && [NAME] == "Persuader"
+//[BASETYPE] == "Weapon" && [NAME] == "Punyal" && [DPS] > 323
+//[BASETYPE] == "Weapon" && [NAME] == "Skullsplitter" && [DPS] > 545
+//[BASETYPE] == "Weapon" && [NAME] == "Steppes Smasher"
+//[BASETYPE] == "Weapon" && [NAME] == "Suwaiya" && [DPS] > 395
+//[BASETYPE] == "Weapon" && [NAME] == "Tecpatl"
+//[BASETYPE] == "Weapon" && [NAME] == "Tsunami Blade" && [DPS] > 395
+//[BASETYPE] == "Weapon" && [NAME] == "Whirlwind Staff"
+
+
+//[BASETYPE] == "Armor" && [NAME] == "Ascended Armor" && [ARMOR] > 740
+//[BASETYPE] == "Armor" && [NAME] == "Ascended Bracers" && [ARMOR] > 405
+//[BASETYPE] == "Armor" && [NAME] == "Ascended Crown" && [ARMOR] > 735
+//[BASETYPE] == "Armor" && [NAME] == "Ascended Faulds" && [ARMOR] > 735
+//[BASETYPE] == "Armor" && [NAME] == "Ascended Gauntlets" && [ARMOR] > 580
+//[BASETYPE] == "Armor" && [NAME] == "Ascended Greaves" && [ARMOR] > 580
+//[BASETYPE] == "Armor" && [NAME] == "Ascended Pauldrons" && [ARMOR] > 660
+//[BASETYPE] == "Armor" && [NAME] == "Archon Sash" && [ARMOR] > 490
+//[BASETYPE] == "Armor" && [NAME] == "Ascended Shield" && [ARMOR] > 1900 && [TOTBLOCK%] > 17
+
+

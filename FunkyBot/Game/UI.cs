@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Zeta.Game;
 using Zeta.Game.Internals;
-using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Game
 {

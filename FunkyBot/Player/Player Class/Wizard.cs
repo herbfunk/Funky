@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
-using FunkyBot.Cache.Objects;
+using fItemPlugin.Items;
+using fItemPlugin.Player;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.Wizard;
 using Zeta.Game;
@@ -17,7 +18,7 @@ namespace FunkyBot.Player.Class
 		public Wizard()
 		{
 
-			if (Bot.Character.Data.equipment.EquippedItems.Any(i => i.ThisRealName.Contains("Serpent's Sparker")))
+			if (Equipment.EquippedItems.Any(i => i.ThisRealName.Contains("Serpent's Sparker")))
 			{
 				Bot.Settings.Wizard.SerpentSparker = true;
 				Logger.DBLog.DebugFormat("Wizard Can Cast Two Hydras!");
@@ -26,6 +27,17 @@ namespace FunkyBot.Player.Class
 			{
 				Bot.Settings.Wizard.SerpentSparker = false;
 			}
+
+
+			int VyrsSetItemCount = Equipment.EquippedItems.Count(i => i.LegendaryItemType == LegendaryItemTypes.Vyrs);
+			if (VyrsSetItemCount > 3 || VyrsSetItemCount > 2 && Equipment.RingOfGrandeur)
+			{
+				Logger.DBLog.DebugFormat("[Funky] Vyrs Four Set Bounus Found!");
+				Bot.Settings.Wizard.VyrsFullSet = true;
+			}
+			else
+				Bot.Settings.Wizard.VyrsFullSet = false;
+
 			Logger.DBLog.DebugFormat("[Funky] Using Wizard Player Class");
 		}
 

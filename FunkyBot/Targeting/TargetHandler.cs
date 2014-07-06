@@ -1,8 +1,7 @@
 ﻿using System;
+using fItemPlugin.Items;
 using FunkyBot.Cache.Objects;
-using FunkyBot.DBHandlers;
 using FunkyBot.DBHandlers.Townrun;
-using FunkyBot.Player;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;

@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyDebug", "..\FunkyDebug
 		{4B51B3E8-7674-455D-8478-681C08AA01E5} = {4B51B3E8-7674-455D-8478-681C08AA01E5}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyTownRun", "..\..\FunkyTownRun\FunkyTownRun.csproj", "{0AB4160A-A6F1-4A2F-8295-E64674DF7904}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyTownRun", "..\fItemPlugin\FunkyTownRun.csproj", "{0AB4160A-A6F1-4A2F-8295-E64674DF7904}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

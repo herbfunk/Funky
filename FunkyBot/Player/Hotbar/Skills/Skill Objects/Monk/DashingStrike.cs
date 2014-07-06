@@ -1,6 +1,4 @@
-﻿using FunkyBot.Cache;
-using FunkyBot.Cache.Enums;
-using FunkyBot.Movement.Clustering;
+﻿using FunkyBot.Movement.Clustering;
 using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Common;
 using Zeta.Game.Internals.Actors;
@@ -25,14 +23,14 @@ namespace FunkyBot.Player.HotBar.Skills.Monk
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Ranged, mindistance: 30));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, mindistance: 30, falseConditionalFlags: TargetProperties.Normal));
 
-			SingleUnitCondition.Add(
-				new UnitTargetConditions
-				{
-					TrueConditionFlags=TargetProperties.TargetableAndAttackable,
-					MinimumDistance=30,
-					Criteria = () => (ObjectCache.Obstacles.ReturnAllIntersectingObjects(Bot.Character.Data.Position, Bot.Targeting.Cache.CurrentTarget.Position, ObstacleType.Monster).Count > 2)
-				}
-			);
+			//SingleUnitCondition.Add(
+			//	new UnitTargetConditions
+			//	{
+			//		TrueConditionFlags=TargetProperties.TargetableAndAttackable,
+			//		MinimumDistance=30,
+			//		Criteria = () => (ObjectCache.Obstacles.ReturnAllIntersectingObjects(Bot.Character.Data.Position, Bot.Targeting.Cache.CurrentTarget.Position, ObstacleType.Monster).Count > 2)
+			//	}
+			//);
 
 			//Rainments of Thousand Storms Full Set Bonus (Explosion of lightning)
 			if (Bot.Settings.Monk.RainmentsOfThousandStormsFiveBonus)

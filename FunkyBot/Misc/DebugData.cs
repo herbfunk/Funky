@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
-using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.SNO;
 
 namespace FunkyBot.Misc

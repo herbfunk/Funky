@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
-using FunkyBot.Movement;
-using Zeta.Bot.Profile.Common;
 using Zeta.Bot.Settings;
 using Zeta.Common;
-using Zeta.Game;
 using Logger = FunkyBot.Misc.Logger;
 using LogLevel = FunkyBot.Misc.LogLevel;
 

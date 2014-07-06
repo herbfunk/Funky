@@ -4,6 +4,6 @@ namespace FunkyBot
 {
 	public partial class Funky 
 	{
-		public Version Version { get { return new Version(2, 11, 2, 1); } }
+		public Version Version { get { return new Version(2, 12, 0, 0); } }
 	}
 }

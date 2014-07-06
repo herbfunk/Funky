@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 using FunkyBot.Cache.Objects;
-using FunkyBot.DBHandlers;
 using FunkyBot.Player.HotBar.Skills;
-using FunkyBot.Player.HotBar.Skills.Conditions;
-using Zeta.Bot;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Zeta.Common;

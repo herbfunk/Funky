@@ -39,20 +39,6 @@ namespace FunkyBot.Game.ProfileTracking
 				return Profiles.Sum(P => P.HoradricCacheOpened);
 			}
 		}
-		public int TotalItemsGambled
-		{
-			get
-			{
-				return Profiles.Sum(P => P.ItemsGambled);
-			}
-		}
-		public int TotalTownRuns
-		{
-			get
-			{
-				return Profiles.Sum(P => P.TownRuns);
-			}
-		}
 		public int TotalBountiesCompleted
 		{
 			get

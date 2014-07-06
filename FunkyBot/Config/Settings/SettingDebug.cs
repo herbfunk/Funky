@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.Xml.Serialization;
-using FunkyBot.Misc;
+﻿using FunkyBot.Misc;
 
 namespace FunkyBot.Config.Settings
 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using fItemPlugin.Player;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
 using FunkyBot.Player.HotBar.Skills;
@@ -136,7 +137,7 @@ namespace FunkyBot.Cache.Objects
 				Weight += 1500d;
 			Vector3 BotPosition = Bot.Character.Data.Position;
 			// If there's a monster in the path-line to the item, reduce the weight by 50%
-			if (RadiusDistance > 0f && !Bot.Character.Data.equipment.NoMonsterCollision && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
+			if (RadiusDistance > 0f && !Equipment.NoMonsterCollision && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 				Weight *= 0.5;
 			// Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
 			if (Bot.Character.Data.bIsRooted)

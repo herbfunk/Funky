@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Xml.Serialization;
-
-namespace FunkyBot.Config.Settings.Class
+﻿namespace FunkyBot.Config.Settings.Class
 {
 	public class SettingWizard
 	{
@@ -11,15 +8,17 @@ namespace FunkyBot.Config.Settings.Class
 		public bool bTeleportIntoGrouping { get; set; }
 		public bool bTeleportFleeWhenLowHP { get; set; }
 		public bool SerpentSparker { get; set; }
+		public bool VyrsFullSet { get; set; }
 
-		 public SettingWizard()
-		 {
-			 bTeleportIntoGrouping = false;
-			 bTeleportFleeWhenLowHP = true;
-			 bCancelArchonRebuff = false;
-			 bWaitForArchon = false;
-			 bKiteOnlyArchon = true;
-			 SerpentSparker = false;
-		 }
+		public SettingWizard()
+		{
+			bTeleportIntoGrouping = false;
+			bTeleportFleeWhenLowHP = true;
+			bCancelArchonRebuff = false;
+			bWaitForArchon = false;
+			bKiteOnlyArchon = true;
+			SerpentSparker = false;
+			VyrsFullSet = false;
+		}
 	}
 }

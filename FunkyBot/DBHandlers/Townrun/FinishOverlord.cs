@@ -20,7 +20,6 @@ namespace FunkyBot.DBHandlers.Townrun
 
 		internal static RunStatus StatsBehavior(object ret)
 		{
-			Bot.Game.CurrentGameStats.CurrentProfile.TownRuns++;
 			TalliedTownRun = true;
 			return RunStatus.Success;
 		}

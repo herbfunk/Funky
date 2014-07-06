@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Linq;
-using System.Web.UI.WebControls;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.DBHandlers;
-using FunkyBot.Movement;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Targeting.Behaviors;
 using Zeta.Bot;
@@ -114,8 +112,7 @@ namespace FunkyBot.Targeting
 			if (Bot.Game.AdventureMode && Bot.Settings.AdventureMode.EnableAdventuringMode)
 				Bot.Game.Bounty.CheckActiveBounty();
 
-			//equipment check
-			//Bot.Character.Data.equipment.CheckEquippment();
+
 
 			//skill check
 			//Bot.Character.Class.HotBar.CheckSkills();

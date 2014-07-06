@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Xml.Serialization;
-
-namespace FunkyBot.Config.Settings.Class
+﻿namespace FunkyBot.Config.Settings.Class
 {
 	public class SettingBarbarian
 	{
@@ -12,6 +9,8 @@ namespace FunkyBot.Config.Settings.Class
 		public bool bFuryDumpAlways { get; set; }
 		public bool bBarbUseWOTBAlways { get; set; }
 
+		public bool FullEarthSet { get; set; }
+
 		public SettingBarbarian()
 		{
 			bBarbUseWOTBAlways = false;
@@ -20,6 +19,7 @@ namespace FunkyBot.Config.Settings.Class
 			bGoblinWrath = false;
 			bFuryDumpWrath = false;
 			bFuryDumpAlways = false;
+			FullEarthSet = false;
 		}
 	}
 }

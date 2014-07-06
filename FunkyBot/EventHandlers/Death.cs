@@ -1,9 +1,7 @@
 ﻿using System;
-using FunkyBot.Misc;
 using FunkyBot.Player.HotBar.Skills;
 using Zeta.Bot;
 using Zeta.Game;
-using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
 

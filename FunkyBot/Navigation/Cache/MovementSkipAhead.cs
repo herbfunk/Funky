@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Zeta.Bot;
-using Zeta.Bot.Dungeons;
-using Zeta.Bot.Logic;
 using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.Game;

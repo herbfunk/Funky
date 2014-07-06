@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using FunkyBot.Cache;
 using FunkyBot.Config.Settings;
 using FunkyBot.DBHandlers;

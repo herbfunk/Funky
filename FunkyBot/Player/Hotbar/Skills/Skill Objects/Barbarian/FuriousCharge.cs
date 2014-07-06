@@ -1,5 +1,4 @@
-﻿using System;
-using FunkyBot.Player.HotBar.Skills.Conditions;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Common;
 using Zeta.Game.Internals.Actors;
 

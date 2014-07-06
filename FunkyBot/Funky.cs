@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using Demonbuddy;
+using fItemPlugin.Player;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Dictionaries.Objects;
 using FunkyBot.Cache.Enums;
@@ -22,6 +22,7 @@ using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
 using Decorator = Zeta.TreeSharp.Decorator;
 using Action = Zeta.TreeSharp.Action;
+using Character = FunkyBot.Player.Character;
 using Logger = FunkyBot.Misc.Logger;
 
 namespace FunkyBot
@@ -278,6 +279,7 @@ namespace FunkyBot
 			GameEvents.OnGameLeft -= EventHandlers.EventHandlers.FunkyOnLeaveGame;
 			GameEvents.OnGameChanged -= EventHandlers.EventHandlers.FunkyOnGameChanged;
 			ProfileManager.OnProfileLoaded -= EventHandlers.EventHandlers.FunkyOnProfileChanged;
+			Equipment.OnEquippedItemsChanged -= Character.EquippmentChangedHandler;
 			GameEvents.OnLevelUp -= EventHandlers.EventHandlers.FunkyOnLevelUp;
 		}
 		internal static void ResetTreehooks()

@@ -1,4 +1,6 @@
 ﻿using System;
+using fItemPlugin.Items;
+using fItemPlugin.Player;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.Barb;
 using Zeta.Common;
@@ -6,6 +8,7 @@ using System.Collections.Generic;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Logger = FunkyBot.Misc.Logger;
+using System.Linq;
 
 namespace FunkyBot.Player.Class
 {
@@ -14,6 +17,15 @@ namespace FunkyBot.Player.Class
 	{
 		public Barbarian()
 		{
+			int EarthSetItemCount = Equipment.EquippedItems.Count(i => i.LegendaryItemType == LegendaryItemTypes.MightOfTheEarth);
+			if (EarthSetItemCount > 5 || EarthSetItemCount > 4 && Equipment.RingOfGrandeur)
+			{
+				Logger.DBLog.DebugFormat("[Funky] Earth's Six Set Bounus Found!");
+				Bot.Settings.Barbarian.FullEarthSet = true;
+			}
+			else
+				Bot.Settings.Barbarian.FullEarthSet = false;
+
 			Logger.DBLog.DebugFormat("[Funky] Using Barbarian Player Class");
 		}
 		//Base class for each individual class!

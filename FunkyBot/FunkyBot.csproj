@@ -20,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\..\Desktop\db_beta\Routines\FunkyBot\</OutputPath>
+    <OutputPath>..\..\..\..\Desktop\db_beta\Plugins\FunkyBot\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>none</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -36,7 +36,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\..\Desktop\db_beta\Routines\FunkyBot\</OutputPath>
+    <OutputPath>..\..\..\..\Desktop\db_beta\Plugins\FunkyBot\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>none</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -70,12 +70,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Cache\Dictionaries\Objects\UnitDataCollection.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Cache\Enums\BottomlessPotions.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Cache\Enums\GemQuality.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Cache\Enums\TargetingIgnoreTypes.cs">
@@ -152,9 +146,6 @@
     <Compile Include="DBHandlers\ExitGame.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="DBHandlers\ItemIDOverlord.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="DBHandlers\Townrun\FinishOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -195,9 +186,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\Account.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Player\Equipment.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\HotBar\Skills\Conditions\SkillClusterConditions.cs">
@@ -378,9 +366,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\HotBar\Skills\Skill Objects\Wizard\BlackHole.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Player\ItemFunc.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Player\Player Class\Barb.cs">
@@ -857,9 +842,6 @@
     <Compile Include="Cache\Collections\SNO.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Cache\Objects\CacheACDItem.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Cache\Objects\CacheDestructable.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -932,12 +914,6 @@
     <Compile Include="Cache\Avoidance\AvoidanceType.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Cache\Enums\GilesBaseItemType.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Cache\Enums\GilesItemType.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Cache\Enums\ObstacleType.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -981,6 +957,10 @@
   <ItemGroup>
     <Reference Include="Demonbuddy">
       <HintPath>Assemblies\Demonbuddy.exe</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="fItemPlugin">
+      <HintPath>..\..\..\..\Desktop\db_beta\Plugins\fItemPlugin\fItemPlugin.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="GreyMagic">

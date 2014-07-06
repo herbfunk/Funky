@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
-using FunkyBot.Cache.Objects;
+using fItemPlugin.Items;
+using fItemPlugin.Player;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.Monk;
 using Zeta.Common;
@@ -18,17 +19,17 @@ namespace FunkyBot.Player.Class
 		public Monk()
 		{
 			//Monk Inna Full Set
-			int InnaSetItemCount = Bot.Character.Data.equipment.EquippedItems.Count(i => i.ThisRealName.Contains("Inna"));
-			if (InnaSetItemCount > 3 || InnaSetItemCount > 2 && Bot.Character.Data.equipment.RingOfGrandeur)
+			int InnaSetItemCount = Equipment.EquippedItems.Count(i => i.LegendaryItemType==LegendaryItemTypes.Inna);
+			if (InnaSetItemCount > 2 || InnaSetItemCount > 1 && Equipment.RingOfGrandeur)
 			{
-				Logger.DBLog.InfoFormat("Monk has full inna set!");
+				Logger.DBLog.InfoFormat("Monk has inna set! (reduced sweeping wind cost)");
 				Bot.Settings.Monk.bMonkInnaSet = true;
 			}
 			else
 				Bot.Settings.Monk.bMonkInnaSet = false;
 
-			int RotsSetItemCount = Bot.Character.Data.equipment.EquippedItems.Count(i => i.EquippedType == EquippedItemType.RaimentofaThousandStorms);
-			if (RotsSetItemCount>5 || RotsSetItemCount>4 && Bot.Character.Data.equipment.RingOfGrandeur)
+			int RotsSetItemCount = Equipment.EquippedItems.Count(i => i.LegendaryItemType == LegendaryItemTypes.RaimentofaThousandStorms);
+			if (RotsSetItemCount>5 || RotsSetItemCount>4 && Equipment.RingOfGrandeur)
 			{
 				Logger.DBLog.InfoFormat("Monk has full Rainments of Thousand Storm Set!");
 				Bot.Settings.Monk.RainmentsOfThousandStormsFiveBonus = true;

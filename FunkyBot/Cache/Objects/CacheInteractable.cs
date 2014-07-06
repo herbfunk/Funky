@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
+using fItemPlugin.Player;
 using FunkyBot.Cache.Enums;
-using FunkyBot.DBHandlers;
 using FunkyBot.Game;
 using FunkyBot.Movement;
 using Zeta.Bot.Settings;
@@ -350,7 +350,7 @@ namespace FunkyBot.Cache.Objects
 							if (Bot.Character.Data.bIsRooted)
 								Weight = 18500d - (Math.Floor(centreDistance) * 200);
 							// If there's a monster in the path-line to the item, reduce the weight by 25%
-							if (!Bot.Character.Data.equipment.NoMonsterCollision && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
+							if (!Equipment.NoMonsterCollision && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 								Weight *= 0.75;
 						}
 						break;
@@ -376,7 +376,7 @@ namespace FunkyBot.Cache.Objects
 							Weight += 400;
 						}
 						// If there's a monster in the path-line to the item, reduce the weight by 50%
-						if (!Bot.Character.Data.equipment.NoMonsterCollision && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
+						if (!Equipment.NoMonsterCollision && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 						{
 							Weight *= 0.5;
 						}

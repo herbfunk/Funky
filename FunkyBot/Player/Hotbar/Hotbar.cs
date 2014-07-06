@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FunkyBot.Player.Class;
-using FunkyBot.Player.HotBar.Skills;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 

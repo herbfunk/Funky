@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using FunkyBot.Config.Settings;
 using FunkyBot.Game;
 using FunkyBot.Misc;
 using Zeta.Bot.Profile;

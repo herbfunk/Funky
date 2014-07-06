@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Linq;
+using fItemPlugin;
+using fItemPlugin.ItemRules;
+using fItemPlugin.Items;
+using fItemPlugin.Player;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Objects;
-using FunkyBot.DBHandlers;
 using FunkyBot.DBHandlers.Townrun;
 using FunkyBot.Misc;
 using FunkyBot.Movement;
@@ -10,6 +14,7 @@ using Zeta.Bot;
 using Zeta.Bot.Logic;
 using Zeta.Bot.Navigation;
 using Zeta.Game;
+using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player
 {
@@ -20,6 +25,7 @@ namespace FunkyBot.Player
 			Account = new Account();
 			Data = new CharacterCache();
 			Class = null;
+			Equipment.OnEquippedItemsChanged += EquippmentChangedHandler;
 		}
 		public void RefreshHotBar()
 		{
@@ -45,7 +51,7 @@ namespace FunkyBot.Player
 				if (!item.ShouldPickup.HasValue)
 				{
 					//Use Giles Scoring or DB Weighting..
-					item.ShouldPickup = ItemFunc.PickupItemValidation(item);
+					item.ShouldPickup = PickupItemValidation(item);
 				}
 			}
 			else
@@ -53,6 +59,157 @@ namespace FunkyBot.Player
 				OnItemPickupEvaluation(item);
 			}
 		}
+		internal static bool PickupItemValidation(CacheItem item)
+		{
+			if (FunkyTownRunPlugin.ItemRulesEval != null)
+			{
+				Interpreter.InterpreterAction action = FunkyTownRunPlugin.ItemRulesEval.checkPickUpItem(item.DynamicID.Value, item.BalanceData.thisItemType, item.ref_DiaItem.Name, item.InternalName, item.Itemquality.Value, item.BalanceData.iThisItemLevel, item.BalanceData.bThisOneHand, item.BalanceData.bThisTwoHand, item.BalanceID.Value, ItemEvaluationType.PickUp);
+				if (action== Interpreter.InterpreterAction.PICKUP)
+				{
+					return true;
+				}
+			}
+
+			// Calculate giles item types and base types etc.
+			PluginItemType thisPluginItemType = ItemFunc.DetermineItemType(item.InternalName, item.BalanceData.thisItemType, item.BalanceData.thisFollowerType, item.SNOID);
+			PluginBaseItemType thisGilesBaseType = ItemFunc.DetermineBaseType(thisPluginItemType);
+
+			if (thisPluginItemType == PluginItemType.MiscBook)
+				return Bot.Settings.Loot.ExpBooks;
+
+
+			// Error logging for DemonBuddy item mis-reading
+			ItemType gilesDBItemType = ItemFunc.PluginItemTypeToDBItemType(thisPluginItemType);
+			if (gilesDBItemType != item.BalanceData.thisItemType)
+			{
+				Logger.DBLog.InfoFormat("GSError: Item type mis-match detected: Item Internal=" + item.InternalName + ". DemonBuddy ItemType thinks item type is=" + item.BalanceData.thisItemType + ". Giles thinks item type is=" +
+					 gilesDBItemType + ". [pickup]", true);
+			}
+
+			switch (thisGilesBaseType)
+			{
+				case PluginBaseItemType.WeaponTwoHand:
+				case PluginBaseItemType.WeaponOneHand:
+				case PluginBaseItemType.WeaponRange:
+				case PluginBaseItemType.Armor:
+				case PluginBaseItemType.Offhand:
+				case PluginBaseItemType.Jewelry:
+				case PluginBaseItemType.FollowerItem:
+					if (item.Itemquality.HasValue)
+					{
+						switch (item.Itemquality.Value)
+						{
+							case ItemQuality.Inferior:
+							case ItemQuality.Normal:
+							case ItemQuality.Superior:
+								return Bot.Settings.Loot.PickupWhiteItems > 0 && (item.BalanceData.iThisItemLevel >= Bot.Settings.Loot.PickupWhiteItems);
+							case ItemQuality.Magic1:
+							case ItemQuality.Magic2:
+							case ItemQuality.Magic3:
+								return Bot.Settings.Loot.PickupMagicItems > 0 && (item.BalanceData.iThisItemLevel >= Bot.Settings.Loot.PickupMagicItems);
+							case ItemQuality.Rare4:
+							case ItemQuality.Rare5:
+							case ItemQuality.Rare6:
+								return Bot.Settings.Loot.PickupRareItems > 0 && (item.BalanceData.iThisItemLevel >= Bot.Settings.Loot.PickupRareItems);
+							case ItemQuality.Legendary:
+								return Bot.Settings.Loot.PickupLegendaryItems > 0 && (item.BalanceData.iThisItemLevel >= Bot.Settings.Loot.PickupLegendaryItems);
+						}
+					}
+
+					return false;
+				case PluginBaseItemType.Gem:
+					GemQualityType qualityType = ItemFunc.ReturnGemQualityType(item.SNOID, item.BalanceData.iThisItemLevel);
+					int qualityLevel = (int)qualityType;
+
+					if (qualityLevel < Bot.Settings.Loot.MinimumGemItemLevel ||
+						(thisPluginItemType == PluginItemType.Ruby && !Bot.Settings.Loot.PickupGems[0]) ||
+						(thisPluginItemType == PluginItemType.Emerald && !Bot.Settings.Loot.PickupGems[1]) ||
+						(thisPluginItemType == PluginItemType.Amethyst && !Bot.Settings.Loot.PickupGems[2]) ||
+						(thisPluginItemType == PluginItemType.Topaz && !Bot.Settings.Loot.PickupGems[3]) ||
+						(thisPluginItemType == PluginItemType.Diamond && !Bot.Settings.Loot.PickupGemDiamond))
+					{
+						return false;
+					}
+					break;
+				case PluginBaseItemType.Misc:
+					// Note; Infernal keys are misc, so should be picked up here - we aren't filtering them out, so should default to true at the end of this function
+					if (thisPluginItemType == PluginItemType.CraftingMaterial)
+					{
+						return Bot.Settings.Loot.PickupCraftMaterials;
+					}
+
+					if (thisPluginItemType == PluginItemType.CraftingPlan)
+					{
+						if (!Bot.Settings.Loot.PickupCraftPlans) return false;
+
+						int gamebalanceID = item.BalanceID.Value;
+
+						if (item.BalanceData.IsBlacksmithPlanSixProperties && !Bot.Settings.Loot.PickupBlacksmithPlanSix) return false;
+						if (item.BalanceData.IsBlacksmithPlanFiveProperties && !Bot.Settings.Loot.PickupBlacksmithPlanFive) return false;
+						if (item.BalanceData.IsBlacksmithPlanFourProperties && !Bot.Settings.Loot.PickupBlacksmithPlanFour) return false;
+
+						if (item.BalanceData.IsBlacksmithPlanArchonSpaulders && !Bot.Settings.Loot.PickupBlacksmithPlanArchonSpaulders) return false;
+						if (item.BalanceData.IsBlacksmithPlanArchonGauntlets && !Bot.Settings.Loot.PickupBlacksmithPlanArchonGauntlets) return false;
+						if (item.BalanceData.IsBlacksmithPlanRazorspikes && !Bot.Settings.Loot.PickupBlacksmithPlanRazorspikes) return false;
+
+
+						if (item.BalanceData.IsJewelcraftDesignAmulet && !Bot.Settings.Loot.PickupJewelerDesignAmulet) return false;
+						if (item.BalanceData.IsJewelcraftDesignFlawlessStarGem && !Bot.Settings.Loot.PickupJewelerDesignFlawlessStar) return false;
+						if (item.BalanceData.IsJewelcraftDesignMarquiseGem && !Bot.Settings.Loot.PickupJewelerDesignMarquise) return false;
+						if (item.BalanceData.IsJewelcraftDesignPerfectStarGem && !Bot.Settings.Loot.PickupJewelerDesignPerfectStar) return false;
+						if (item.BalanceData.IsJewelcraftDesignRadiantStarGem && !Bot.Settings.Loot.PickupJewelerDesignRadiantStar) return false;
+
+
+					}
+
+					if (thisPluginItemType == PluginItemType.InfernalKey)
+					{
+						return Bot.Settings.Loot.PickupInfernalKeys;
+					}
+
+					if (thisPluginItemType == PluginItemType.KeyStone)
+					{
+						return Bot.Settings.Loot.PickupKeystoneFragments;
+					}
+
+					if (thisPluginItemType == PluginItemType.BloodShard)
+					{
+
+						return fItemPlugin.Player.Backpack.GetBloodShardCount() < 500;
+					}
+
+					// Potion filtering
+					if (thisPluginItemType == PluginItemType.HealthPotion)
+					{
+						if (item.BalanceData.IsRegularPotion)
+						{
+							if (Bot.Settings.Loot.MaximumHealthPotions <= 0)
+								return false;
+
+
+							var BestPotionToUse = fItemPlugin.Player.Backpack.ReturnBestPotionToUse();
+							if (BestPotionToUse == null)
+								return true;
+
+							var Potions = fItemPlugin.Player.Backpack.ReturnRegularPotions();
+							if (Potions.Sum(potions => potions.ThisItemStackQuantity) >= Bot.Settings.Loot.MaximumHealthPotions)
+								return false;
+						}
+					}
+
+
+					break;
+				case PluginBaseItemType.HealthGlobe:
+					return false;
+				case PluginBaseItemType.Unknown:
+					return false;
+				default:
+					return false;
+			} // Switch giles base item type
+			// Didn't cancel it, so default to true!
+			return true;
+		}
+
 
 		private int LastWorldID = -1;
 		private bool LastLevelIDChangeWasTownRun;
@@ -119,7 +276,7 @@ namespace FunkyBot.Player
 		{
 			Data = new CharacterCache();
 			Data.OnLevelAreaIDChanged += LevelAreaIDChangeHandler;
-			Data.equipment.RefreshEquippedItemsList();
+			Equipment.RefreshEquippedItemsList();
 			Class = null;
 			Account.UpdateCurrentAccountDetails();
 		}
@@ -142,6 +299,14 @@ namespace FunkyBot.Player
 			}
 
 			return Act.Invalid;
+		}
+
+		internal static void EquippmentChangedHandler()
+		{
+			Logger.DBLog.InfoFormat("Equippment has changed!");
+
+			if (!PlayerClass.ShouldRecreatePlayerClass)
+				PlayerClass.ShouldRecreatePlayerClass = true;
 		}
 
 	}

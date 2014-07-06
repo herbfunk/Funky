@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Xml.Serialization;
-
-namespace FunkyBot.Config.Settings
+﻿namespace FunkyBot.Config.Settings
 {
 	public class SettingTargeting
 	{

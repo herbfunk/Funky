@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Documents;
 using System.Xml.Serialization;
 using FunkyBot.Misc;
 

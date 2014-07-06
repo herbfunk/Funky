@@ -1,8 +1,9 @@
-﻿namespace FunkyBot.Cache.Enums
+﻿namespace fItemPlugin.Items
 {
-	public enum BottomlessPotions
+	public enum PotionTypes
 	{
 		None,
+		Regular,
 		KulleAid,
 		Mutilation,
 		Regeneration,

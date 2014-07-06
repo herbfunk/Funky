@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using fItemPlugin.Items;
+using fItemPlugin.Player;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.Crusader;
 using Zeta.Common;
@@ -16,10 +18,10 @@ namespace FunkyBot.Player.Class
 		{
 			Logger.DBLog.DebugFormat("[Funky] Using Crusader Player Class");
 
-			Bot.Settings.Crusader.ReducedShieldBashCost=Bot.Character.Data.equipment.EquippedItems.Any(i => i.EquippedType == EquippedItemType.PiroMarella);
+			Bot.Settings.Crusader.ReducedShieldBashCost = Equipment.EquippedItems.Any(i => i.LegendaryItemType == LegendaryItemTypes.PiroMarella);
 
-			int AkkhanSetItemCount = Bot.Character.Data.equipment.EquippedItems.Count(i => i.EquippedType==EquippedItemType.Akkhan);
-			if (AkkhanSetItemCount > 5 || AkkhanSetItemCount > 4 && Bot.Character.Data.equipment.RingOfGrandeur)
+			int AkkhanSetItemCount = Equipment.EquippedItems.Count(i => i.LegendaryItemType == LegendaryItemTypes.Akkhan);
+			if (AkkhanSetItemCount > 5 || AkkhanSetItemCount > 4 && Equipment.RingOfGrandeur)
 			{
 				Logger.DBLog.DebugFormat("[Funky] Akkhan's Six Set Bounus Found!");
 				Bot.Settings.Crusader.FullAkkhanSet = true;

@@ -17,14 +17,16 @@ namespace FunkyBot.Player.HotBar.Skills.DemonHunter
 		public override void Initialize()
 		{
 			WaitVars = new WaitLoops(0, 0, true);
-			Cost = 15;
+			Cost = 12;
 			Range = 25;
 
-		
+
 			Priority = SkillPriority.Medium;
-			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckEnergy));
-			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 2);
-			//SingleUnitCondition = new UnitTargetConditions(TargetProperties.None, 15);
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast));
+			//UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 2);
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 25, -1, 0.95d, TargetProperties.Normal));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 60, -1, 0.95d));
+			ClusterConditions.Add(new SkillClusterConditions(9d, 45f, 5, true));
 
 			FcriteriaCombat = () => !Bot.Character.Class.bWaitingForSpecial;
 		}

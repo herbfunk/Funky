@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FunkyBot.Cache.Enums;
-using FunkyBot.Game;
-using FunkyBot.Game.Bounty;
+﻿using FunkyBot.Game.Bounty;
 using Zeta.Common;
 
 namespace FunkyBot.Cache.Objects

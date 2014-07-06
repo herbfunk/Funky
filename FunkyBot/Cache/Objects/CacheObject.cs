@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Windows.Documents;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
 using FunkyBot.Player.HotBar.Skills;
-using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Bot.Navigation;
 using Zeta.Common;
 using Zeta.Game;

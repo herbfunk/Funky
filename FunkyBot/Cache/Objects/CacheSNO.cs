@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
+using fItemPlugin.Player;
 using FunkyBot.Cache.Avoidance;
 using FunkyBot.Cache.Enums;
 using Zeta.Common;
@@ -698,7 +698,7 @@ namespace FunkyBot.Cache.Objects
 							targetType = TargetType.Unit;
 
 							//No Monster Collision? (Illusionary Boots)
-							if (!Bot.Character.Data.equipment.NoMonsterCollision)
+							if (!Equipment.NoMonsterCollision)
 								Obstacletype = ObstacleType.Monster;
 
 							if (CacheIDLookup.hashActorSNOForceTargetUnit.Contains(SNOID))

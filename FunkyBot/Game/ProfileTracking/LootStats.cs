@@ -1,8 +1,8 @@
 ﻿using System;
-using FunkyBot.Cache.Enums;
+using fItemPlugin.Items;
 using FunkyBot.Cache.Objects;
-using FunkyBot.Player;
 using Zeta.Game.Internals.Actors;
+
 
 namespace FunkyBot.Game.ProfileTracking
 {
@@ -23,33 +23,24 @@ namespace FunkyBot.Game.ProfileTracking
 	public class LootStats
 	{
 		public int Looted { get; set; }
-		public int Stashed { get; set; }
-		public int Salvaged { get; set; }
-		public int Vendored { get; set; }
 		public int Dropped { get; set; }
 
 		public LootStats()
 		{
 			Looted = 0;
-			Stashed = 0;
-			Salvaged = 0;
-			Vendored = 0;
 			Dropped = 0;
 		}
 
 		public void Merge(LootStats other)
 		{
 			Looted += other.Looted;
-			Stashed += other.Stashed;
-			Salvaged += other.Salvaged;
-			Vendored += other.Vendored;
 			Dropped += other.Dropped;
 		}
 
 		public override string ToString()
 		{
-			return String.Format("{0} \t {1} \t {2} \t {3} \t {4}",
-				Dropped, Looted, Stashed, Vendored, Salvaged);
+			return String.Format("{0} \t {1}",
+				Dropped, Looted);
 		}
 	}
 
@@ -98,12 +89,6 @@ namespace FunkyBot.Game.ProfileTracking
 			{
 				case LootStatTypes.Looted:
 					return Magical.Looted + Rare.Looted + Legendary.Looted + Crafting.Looted + Keys.Looted + Gems.Looted + KeyStoneFragments.Looted + HoradricCache.Looted;
-				case LootStatTypes.Stashed:
-					return Magical.Stashed + Rare.Stashed + Legendary.Stashed + Crafting.Stashed + Keys.Stashed + Gems.Stashed + KeyStoneFragments.Stashed + HoradricCache.Stashed;
-				case LootStatTypes.Salvaged:
-					return Magical.Salvaged + Rare.Salvaged + Legendary.Salvaged + Crafting.Salvaged + Keys.Salvaged + Gems.Salvaged + KeyStoneFragments.Salvaged + HoradricCache.Salvaged;
-				case LootStatTypes.Vendored:
-					return Magical.Vendored + Rare.Vendored + Legendary.Vendored + Crafting.Vendored + Keys.Vendored + Gems.Vendored + KeyStoneFragments.Vendored + HoradricCache.Vendored;
 				case LootStatTypes.Dropped:
 					return Magical.Dropped + Rare.Dropped + Legendary.Dropped + Crafting.Dropped + Keys.Dropped + Gems.Dropped + KeyStoneFragments.Dropped + HoradricCache.Dropped;
 			}
@@ -113,23 +98,23 @@ namespace FunkyBot.Game.ProfileTracking
 
 		public void LootedItemLog(CacheItem thisCacheItem)
 		{
-			GilesItemType thisgilesitemtype = ItemFunc.DetermineItemType(thisCacheItem.InternalName, thisCacheItem.BalanceData.thisItemType, thisCacheItem.BalanceData.thisFollowerType);
-			GilesBaseItemType thisgilesbasetype = ItemFunc.DetermineBaseType(thisgilesitemtype);
+			PluginItemType thisgilesitemtype = ItemFunc.DetermineItemType(thisCacheItem.InternalName, thisCacheItem.BalanceData.thisItemType, thisCacheItem.BalanceData.thisFollowerType);
+			PluginBaseItemType thisgilesbasetype = ItemFunc.DetermineBaseType(thisgilesitemtype);
 			ItemQuality itemQuality = thisCacheItem.Itemquality.HasValue ? thisCacheItem.Itemquality.Value : ItemQuality.Invalid;
 
-			if (thisgilesitemtype == GilesItemType.HealthPotion)
+			if (thisgilesitemtype == PluginItemType.HealthPotion)
 				return;
 
 
 			switch (thisgilesbasetype)
 			{
-				case GilesBaseItemType.WeaponOneHand:
-				case GilesBaseItemType.WeaponTwoHand:
-				case GilesBaseItemType.WeaponRange:
-				case GilesBaseItemType.Offhand:
-				case GilesBaseItemType.Armor:
-				case GilesBaseItemType.Jewelry:
-				case GilesBaseItemType.FollowerItem:
+				case PluginBaseItemType.WeaponOneHand:
+				case PluginBaseItemType.WeaponTwoHand:
+				case PluginBaseItemType.WeaponRange:
+				case PluginBaseItemType.Offhand:
+				case PluginBaseItemType.Armor:
+				case PluginBaseItemType.Jewelry:
+				case PluginBaseItemType.FollowerItem:
 					if (itemQuality > ItemQuality.Rare6)
 					{
 						Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Legendary.Looted++;
@@ -144,22 +129,22 @@ namespace FunkyBot.Game.ProfileTracking
 					}
 					break;
 
-				case GilesBaseItemType.Unknown:
-				case GilesBaseItemType.Misc:
-					if (thisgilesitemtype == GilesItemType.CraftingMaterial || thisgilesitemtype == GilesItemType.CraftingPlan || thisgilesitemtype == GilesItemType.CraftTome)
+				case PluginBaseItemType.Unknown:
+				case PluginBaseItemType.Misc:
+					if (thisgilesitemtype == PluginItemType.CraftingMaterial || thisgilesitemtype == PluginItemType.CraftingPlan || thisgilesitemtype == PluginItemType.CraftTome)
 					{
 						Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Crafting.Looted++;
 					}
-					else if (thisgilesitemtype == GilesItemType.InfernalKey)
+					else if (thisgilesitemtype == PluginItemType.InfernalKey)
 					{
 						Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Keys.Looted++;
 					}
-					else if(thisgilesitemtype == GilesItemType.KeyStone)
+					else if(thisgilesitemtype == PluginItemType.KeyStone)
 					{
 						Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.KeyStoneFragments.Looted++;
 					}
 					break;
-				case GilesBaseItemType.Gem:
+				case PluginBaseItemType.Gem:
 					Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Gems.Looted++;
 					break;
 			}
@@ -167,190 +152,11 @@ namespace FunkyBot.Game.ProfileTracking
 
 		}
 
-		public void StashedItemLog(CacheACDItem i)
-		{
-			//if (Bot.BotStatistics.ProfileStats.CurrentProfile==null)
-			//return;
-
-			GilesItemType thisGilesItemType = ItemFunc.DetermineItemType(i.ThisInternalName, i.ThisDBItemType, i.ThisFollowerType);
-			if (thisGilesItemType == GilesItemType.InfernalKey)
-			{
-				Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Keys.Stashed++;
-				//	 Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[(int)LootIndex.Key]++;
-				return;
-			}
-			if (thisGilesItemType == GilesItemType.HoradricCache)
-			{
-				Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.HoradricCache.Stashed++;
-			}
-			if (thisGilesItemType == GilesItemType.KeyStone)
-			{
-				Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.KeyStoneFragments.Stashed+=i.ThisItemStackQuantity;
-			}
-
-			switch (i.ACDItem.ItemType)
-			{
-				case ItemType.CraftingPage:
-				case ItemType.CraftingPlan:
-				case ItemType.CraftingReagent:
-					Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Crafting.Stashed++;
-					//  Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[(int)LootIndex.Crafting]++;
-					break;
-				case ItemType.Gem:
-					Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Gems.Stashed++;
-					// Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[(int)LootIndex.Gem]++;
-					break;
-				case ItemType.Amulet:
-				case ItemType.Axe:
-				case ItemType.Belt:
-				case ItemType.Boots:
-				case ItemType.Bow:
-				case ItemType.Bracer:
-				case ItemType.CeremonialDagger:
-				case ItemType.Chest:
-				case ItemType.Cloak:
-				case ItemType.Crossbow:
-				case ItemType.Dagger:
-				case ItemType.Daibo:
-				case ItemType.FistWeapon:
-				case ItemType.FollowerSpecial:
-				case ItemType.Flail:
-				case ItemType.CrusaderShield:
-				case ItemType.Gloves:
-				case ItemType.HandCrossbow:
-				case ItemType.Helm:
-				case ItemType.Legs:
-				case ItemType.Mace:
-				case ItemType.MightyBelt:
-				case ItemType.MightyWeapon:
-				case ItemType.Mojo:
-				case ItemType.Orb:
-				case ItemType.Polearm:
-				case ItemType.Quiver:
-				case ItemType.Ring:
-				case ItemType.Shield:
-				case ItemType.Shoulder:
-				case ItemType.Spear:
-				case ItemType.SpiritStone:
-				case ItemType.Staff:
-				case ItemType.Sword:
-				case ItemType.VoodooMask:
-				case ItemType.Wand:
-				case ItemType.WizardHat:
-					if (i.ThisQuality == ItemQuality.Legendary)
-					{
-						//Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[3]++;
-						Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Legendary.Stashed++;
-					}
-					else if (i.ThisQuality > ItemQuality.Magic3)
-					{
-						// Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[2]++;
-						Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Rare.Stashed++;
-					}
-					else
-					{
-						//  Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[1]++;
-						Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Magical.Stashed++;
-					}
-					break;
-			}
-		}
-
-		public void SalvagedItemLog(CacheACDItem i)
-		{
-			if (i.ThisQuality == ItemQuality.Legendary)
-			{
-				//Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[3]++;
-				Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Legendary.Salvaged++;
-			}
-			else if (i.ThisQuality > ItemQuality.Magic3)
-			{
-				// Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[2]++;
-				Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Rare.Salvaged++;
-			}
-			else
-			{
-				//  Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[1]++;
-				Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Magical.Salvaged++;
-			}
-		}
-
-		public void VendoredItemLog(CacheACDItem i)
-		{
-			//if (Bot.BotStatistics.ProfileStats.CurrentProfile==null)
-			//return;
-
-			switch (i.ACDItem.ItemType)
-			{
-				case ItemType.CraftingPage:
-				case ItemType.CraftingPlan:
-				case ItemType.CraftingReagent:
-					Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Crafting.Vendored++;
-					//  Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[(int)LootIndex.Crafting]++;
-					break;
-				case ItemType.Gem:
-					Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Gems.Vendored++;
-					// Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[(int)LootIndex.Gem]++;
-					break;
-				case ItemType.Amulet:
-				case ItemType.Axe:
-				case ItemType.Belt:
-				case ItemType.Boots:
-				case ItemType.Bow:
-				case ItemType.Bracer:
-				case ItemType.CeremonialDagger:
-				case ItemType.Chest:
-				case ItemType.Cloak:
-				case ItemType.Crossbow:
-				case ItemType.Dagger:
-				case ItemType.Daibo:
-				case ItemType.FistWeapon:
-				case ItemType.FollowerSpecial:
-				case ItemType.Gloves:
-				case ItemType.HandCrossbow:
-				case ItemType.Helm:
-				case ItemType.Legs:
-				case ItemType.Mace:
-				case ItemType.MightyBelt:
-				case ItemType.MightyWeapon:
-				case ItemType.Mojo:
-				case ItemType.Orb:
-				case ItemType.Polearm:
-				case ItemType.Quiver:
-				case ItemType.Ring:
-				case ItemType.Shield:
-				case ItemType.Shoulder:
-				case ItemType.Spear:
-				case ItemType.SpiritStone:
-				case ItemType.Staff:
-				case ItemType.Sword:
-				case ItemType.VoodooMask:
-				case ItemType.Wand:
-				case ItemType.WizardHat:
-					if (i.ThisQuality == ItemQuality.Legendary)
-					{
-						//Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[3]++;
-						Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Legendary.Vendored++;
-					}
-					else if (i.ThisQuality > ItemQuality.Magic3)
-					{
-						// Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[2]++;
-						Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Rare.Vendored++;
-					}
-					else
-					{
-						//  Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[1]++;
-						Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Magical.Vendored++;
-					}
-					break;
-			}
-		}
-
 		public void DroppedItemLog(CacheItem i)
 		{
 			CacheBalance thisBalanceData = i.BalanceData;
-			GilesItemType thisGilesItemType = ItemFunc.DetermineItemType(i.InternalName, thisBalanceData.thisItemType, thisBalanceData.thisFollowerType);
-			if (thisGilesItemType == GilesItemType.InfernalKey)
+			PluginItemType thisGilesItemType = ItemFunc.DetermineItemType(i.InternalName, thisBalanceData.thisItemType, thisBalanceData.thisFollowerType);
+			if (thisGilesItemType == PluginItemType.InfernalKey)
 			{
 				Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.Keys.Dropped++;
 				//	 Bot.BotStatistics.ProfileStats.CurrentProfile.ItemStats.stashedItemTotals[(int)LootIndex.Key]++;
@@ -425,7 +231,7 @@ namespace FunkyBot.Game.ProfileTracking
 
 		public override string ToString()
 		{
-			return String.Format("Type       \t Drop \t Loot \t Stash \t Sold \t Salvaged\r\n" +
+			return String.Format("Type       \t Drop \t Loot\r\n" +
 								 "Magical:    \t {0} \r\n" +
 								 "Rare:      \t {1} \r\n" +
 								 "Legendary: \t {2} \r\n" +

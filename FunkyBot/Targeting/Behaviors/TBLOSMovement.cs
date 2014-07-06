@@ -4,8 +4,6 @@ using FunkyBot.Cache.Objects;
 using FunkyBot.Game;
 using FunkyBot.Game.Bounty;
 using FunkyBot.Movement;
-using Zeta.Bot;
-using Zeta.Common;
 using Zeta.Game.Internals;
 using Logger = FunkyBot.Misc.Logger;
 using LogLevel = FunkyBot.Misc.LogLevel;

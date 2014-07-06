@@ -1,5 +1,6 @@
 ﻿using System;
 using FunkyBot.Misc;
+using FunkyBot.Player;
 using Zeta.Bot;
 using Zeta.Bot.Navigation;
 
@@ -12,6 +13,7 @@ namespace FunkyBot.EventHandlers
 			Logger.Write(LogLevel.Event, "OnGameChanged Event");
 			Bot.ResetGame();
 			Bot.Game.RefreshGameId();
+			CharacterCache.UpdateStaticProperties();
 
 			string currentProfilePath = ProfileManager.CurrentProfile.Path;
 			ProfileManager.Load(currentProfilePath);

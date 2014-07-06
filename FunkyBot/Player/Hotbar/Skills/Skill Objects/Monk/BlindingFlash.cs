@@ -1,5 +1,4 @@
-﻿using FunkyBot.Movement.Clustering;
-using FunkyBot.Player.HotBar.Skills.Conditions;
+﻿using FunkyBot.Player.HotBar.Skills.Conditions;
 using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Player.HotBar.Skills.Monk

@@ -53,28 +53,24 @@ namespace FunkyBot.Game.ProfileTracking
 			return String.Format("Games:{0}" +
 			                     "\r\nTime {3}" +
 			                     "\r\nUnique Profiles:{1}" +
-			                     "\r\nDeaths:{2} ({7} dph)" +
-			                     "\r\nGold:{4} ({8} gph) -- EXP:{5} ({9} xph)" +
-								 "\r\nTown Runs: {17}  Items Gambled: {16}  Horadric Cache Opened: {15}" +
-			                     "\r\nBounties Completed: {18}" +
-			                     "\r\n{6}" +
-							 "Drops Per Hour: {10} -- Looted Per Hour: {11}\r\n" + "Stash Per Hour: {12} -- Vendored Per Hour: {13} -- Salvaged Per Hour: {14}",
+			                     "\r\nDeaths:{2} ({6} dph)" +
+			                     "\r\nGold:{4} ({7} gph) -- EXP:{5} ({8} xph)" +
+			                     "\r\nBounties Completed: {11}" +
+							 "Drops Per Hour: {9} -- Looted Per Hour: {10}\r\n" +
+			                     "{12}",
 							 GameCount,
 							 Profiles.Count,
 							 TotalDeaths,
 							 TotalTimeRunning.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"),
 							 TotalGold,
 							 TotalXP,
-							 totalloottracker,
 							 (TotalDeaths / TotalTimeRunning.TotalHours).ToString("#.##"),
 							 (TotalGold / TotalTimeRunning.TotalHours).ToString("#.##"),
 							 (TotalXP / TotalTimeRunning.TotalHours).ToString("#.##"),
 							 (totalloottracker.GetTotalLootStatCount(LootStatTypes.Dropped) / TotalTimeRunning.TotalHours).ToString("#.##"),
 							 (totalloottracker.GetTotalLootStatCount(LootStatTypes.Looted) / TotalTimeRunning.TotalHours).ToString("#.##"),
-							 (totalloottracker.GetTotalLootStatCount(LootStatTypes.Stashed) / TotalTimeRunning.TotalHours).ToString("#.##"),
-							 (totalloottracker.GetTotalLootStatCount(LootStatTypes.Vendored) / TotalTimeRunning.TotalHours).ToString("#.##"),
-							 (totalloottracker.GetTotalLootStatCount(LootStatTypes.Salvaged) / TotalTimeRunning.TotalHours).ToString("#.##"),
-							 TotalHoradricCacheOpened,TotalItemsGambled,TotalTownRuns,TotalBountiesCompleted);
+							 TotalBountiesCompleted,
+							 totalloottracker);
 		}
 
 		internal static void WriteProfileTrackerOutput(TotalStats stats)

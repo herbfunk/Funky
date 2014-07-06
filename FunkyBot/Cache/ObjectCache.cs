@@ -2,11 +2,9 @@
 using System.Linq;
 using System.Collections.Generic;
 using FunkyBot.Cache.Avoidance;
-using FunkyBot.Cache.Dictionaries;
 using FunkyBot.Cache.Dictionaries.Objects;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
-using FunkyBot.Game;
 using FunkyBot.Game.Bounty;
 using FunkyBot.Movement;
 using Zeta.Common;

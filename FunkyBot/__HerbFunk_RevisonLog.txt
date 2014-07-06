@@ -1,4 +1,19 @@
 ﻿// herbfunk revisions
+
+v2.12.0.0
+
+FunkyBot now references fItemPlugin!
+	-Added hook for event EquippedItemsChanged into Character class.
+	-Pickup evaluation will check if item rules is valid and check the item prior to default evaluation.
+
+
+Extracted the following to fItemPlugin
+	-Equipment class
+	-Majority of Backpack class
+	-Enums: GemQualityTypes, PotionTypes, LegendaryItemTypes(was EquippedItemTypes)
+
+
+
 v2.11.2.1
 
 Crusader

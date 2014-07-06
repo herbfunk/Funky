@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
@@ -12,7 +11,6 @@ using Zeta.Bot.Logic;
 using Zeta.Bot.Navigation;
 using Zeta.Common;
 using Zeta.Game;
-using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
 using Logger = FunkyBot.Misc.Logger;
 using LogLevel = FunkyBot.Misc.LogLevel;

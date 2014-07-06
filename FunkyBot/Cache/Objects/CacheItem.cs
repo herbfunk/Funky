@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using fItemPlugin.Items;
+using fItemPlugin.Player;
 using FunkyBot.Cache.Enums;
-using FunkyBot.DBHandlers;
 using FunkyBot.DBHandlers.Townrun;
 using FunkyBot.Game;
 using Zeta.Bot.Logic;
@@ -30,7 +31,7 @@ namespace FunkyBot.Cache.Objects
 		public int? DynamicID { get; set; }
 		public ItemQuality? Itemquality { get; set; }
 		public bool ItemQualityRechecked { get; set; }
-		public GilesItemType GilesItemType { get; set; }
+		public PluginItemType GilesItemType { get; set; }
 		public bool? ShouldPickup { get; set; }
 		private DateTime LastAvoidanceIgnored = DateTime.Today;
 
@@ -169,7 +170,7 @@ namespace FunkyBot.Cache.Objects
 						if (Bot.Character.Data.bIsRooted)
 							Weight = 18000 - (Math.Floor(centreDistance) * 200);
 						// If there's a monster in the path-line to the item, reduce the weight
-						if (!Bot.Character.Data.equipment.NoMonsterCollision&&ObjectCache.Obstacles.Monsters.Any(cp => cp.PointInside(Position)))
+						if (!Equipment.NoMonsterCollision&&ObjectCache.Obstacles.Monsters.Any(cp => cp.PointInside(Position)))
 							Weight *= 0.50;
 						//Finally check if we should reduce the weight when more then 2 monsters are nearby..
 						//if (Bot.Targeting.Cache.Environment.SurroundingUnits>2&&
@@ -203,7 +204,7 @@ namespace FunkyBot.Cache.Objects
 						if (Bot.Character.Data.bIsRooted)
 							Weight = 18000 - (Math.Floor(centreDistance) * 200);
 						// If there's a monster in the path-line to the item, reduce the weight by 25%
-						if (!Bot.Character.Data.equipment.NoMonsterCollision && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
+						if (!Equipment.NoMonsterCollision && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 							Weight *= 0.25;
 						//Did we have a target last time? and if so was it a goblin?
 						if (Bot.Targeting.Cache.LastCachedTarget.RAGUID != -1)
@@ -215,8 +216,8 @@ namespace FunkyBot.Cache.Objects
 					case TargetType.Globe:
 					case TargetType.PowerGlobe:
 						if (targetType.Equals(TargetType.Globe) &&
-							((Bot.Character.Data.dCurrentHealthPct > Bot.Settings.Combat.GlobeHealthPercent && !Bot.Character.Data.equipment.GlobesRestoreResource) ||
-							(Bot.Character.Data.equipment.GlobesRestoreResource && Bot.Character.Data.dCurrentEnergyPct > 0.75d)))
+							((Bot.Character.Data.dCurrentHealthPct > Bot.Settings.Combat.GlobeHealthPercent && !Equipment.GlobesRestoreResource) ||
+							(Equipment.GlobesRestoreResource && Bot.Character.Data.dCurrentEnergyPct > 0.75d)))
 						{
 							Weight = 0;
 						}
@@ -246,7 +247,7 @@ namespace FunkyBot.Cache.Objects
 								Weight += 400;
 
 							// If there's a monster in the path-line to the item, reduce the weight
-							if (!Bot.Character.Data.equipment.NoMonsterCollision && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(BotPosition, TestPosition)))
+							if (!Equipment.NoMonsterCollision && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(BotPosition, TestPosition)))
 							{
 								Weight *= 0.35f;
 							}
@@ -386,7 +387,7 @@ namespace FunkyBot.Cache.Objects
 						if (CentreDistance > InteractionRange)
 						{
 							//Blacklist Health Globes 10 loops
-							if (targetType != TargetType.PowerGlobe && !Bot.Character.Data.equipment.GlobesRestoreResource)
+							if (targetType != TargetType.PowerGlobe && !Equipment.GlobesRestoreResource)
 								BlacklistLoops = 10;
 
 							IgnoredType = TargetingIgnoreTypes.DistanceFailure;

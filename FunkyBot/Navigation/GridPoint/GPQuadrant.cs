@@ -6,7 +6,6 @@ using FunkyBot.Cache.Enums;
 using System.Collections.Generic;
 using FunkyBot.Cache.Objects;
 using Zeta.Common;
-using Zeta.Game.Internals.SNO;
 
 namespace FunkyBot.Movement
 {

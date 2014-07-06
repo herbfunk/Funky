@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Windows.Forms.VisualStyles;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Config.Settings;
 using FunkyBot.XMLTags;

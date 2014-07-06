@@ -1,0 +1,41 @@
+﻿v0.1.0
+
+FunkyBot will reference this plugin now!
+
+Added Static Class Equipment
+	-Checks equipped items for special legendaries.
+	-Method RefreshEquippedItemsList will update the EquipedItems and LegendaryItems lists.
+	-Has event EquippedItemsChanged when hooked will check for changes during OnPulse.
+
+
+Added LegenadryItemTypes Enum (W.I.P.)
+Added PotionTypes Enum
+Added GemQualityType Enum
+
+Added SNO Cache Class to lookup items using Sno ID.
+	-Gem IDs (Flawless to Royal Flawless Completed)
+	-Regular Crafting Materials
+	-Potions
+	-Infernal Keys, Machines, and Materials.
+	-Dyes (missing a few still)
+
+Added Balance Cache Class to lookup items using Balance ID.
+	-Legendary Item Types.
+
+
+Item Cache will reset every new town run.
+Check for Potions will now use the PluginItemType instead of DB ItemType.
+Invalid Game will reset action behavior properties.
+Infernal Keys will no longer be considered legendary crafting materials and sold.
+Added town run stats output - found @ DB\FunkyStats\Account\ folder.
+	-includes total town runs, items gambled, and stash/sold/salvage counts.
+
+
+v0.0.3
+
+Config settings should now load Hero and Account Name when bot is not running.
+Fixed Backpack Full Check.
+Added Potion Count -- Zero will sell all regular potions.
+Sells Legendary Crafting Reagents.
+Legendary Item Rules for Hard now uses Job2k9's setup.
+Added Check for Trinity and Replacement of hook.

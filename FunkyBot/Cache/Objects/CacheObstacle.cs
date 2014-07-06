@@ -5,7 +5,6 @@ using FunkyBot.Cache.Avoidance;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
 using Zeta.Common;
-using Zeta.Game;
 
 namespace FunkyBot.Cache.Objects
 {

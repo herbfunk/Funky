@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.Xml.Serialization;
-using FunkyBot.Cache.Enums;
+﻿using FunkyBot.Cache.Enums;
 
 namespace FunkyBot.Config.Settings
 {

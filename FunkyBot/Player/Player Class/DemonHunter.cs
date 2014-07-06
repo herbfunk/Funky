@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using fItemPlugin.Items;
+using fItemPlugin.Player;
 using FunkyBot.Player.HotBar.Skills;
 using FunkyBot.Player.HotBar.Skills.DemonHunter;
 using Zeta.Common;
@@ -15,7 +17,7 @@ namespace FunkyBot.Player.Class
 	{
 		public DemonHunter()
 		{
-			bool bombardierrutsack = Bot.Character.Data.equipment.EquippedItems.Any(i => i.ThisRealName.Contains("Bombadier"));
+			bool bombardierrutsack = Equipment.EquippedItems.Any(i => i.ThisRealName.Contains("Bombadier"));
 			if (bombardierrutsack)
 			{
 				Logger.DBLog.DebugFormat("[Funky] Bombardier's Rucksack Found!");
@@ -23,6 +25,15 @@ namespace FunkyBot.Player.Class
 			}
 			else
 				Bot.Settings.DemonHunter.BombadiersRucksack = false;
+
+			int MaurderSetItemCount = Equipment.EquippedItems.Count(i => i.LegendaryItemType == LegendaryItemTypes.Marauder);
+			if (MaurderSetItemCount > 5 || MaurderSetItemCount > 4 && Equipment.RingOfGrandeur)
+			{
+				Logger.DBLog.DebugFormat("[Funky] Marauder Six Set Bounus Found!");
+				Bot.Settings.DemonHunter.FullMarauderSet = true;
+			}
+			else
+				Bot.Settings.DemonHunter.FullMarauderSet = false;
 
 			Logger.DBLog.DebugFormat("[Funky] Using DemonHunter Player Class");
 		}

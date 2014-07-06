@@ -27,9 +27,6 @@ namespace FunkyBot.DBHandlers
 				return false;
 			}
 
-			//Equipment Change Check
-			Bot.Character.Data.equipment.CheckEquippment();
-
 
 			if (Bot.Character.Class == null)
 			{//Null?

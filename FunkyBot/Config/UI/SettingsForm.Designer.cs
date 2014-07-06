@@ -203,6 +203,10 @@
 			this.label20 = new System.Windows.Forms.Label();
 			this.txt_GeneralGoldInactivityValue = new System.Windows.Forms.TextBox();
 			this.tb_GeneralGoldInactivityValue = new System.Windows.Forms.TrackBar();
+			this.tabPage18 = new System.Windows.Forms.TabPage();
+			this.panel18 = new System.Windows.Forms.Panel();
+			this.cb_DeathWaitForSkillsCooldown = new System.Windows.Forms.CheckBox();
+			this.cb_DeathWaitForPotion = new System.Windows.Forms.CheckBox();
 			this.tabPage17 = new System.Windows.Forms.TabPage();
 			this.cb_AdventureModeEnabled = new System.Windows.Forms.CheckBox();
 			this.tabPage13 = new System.Windows.Forms.TabPage();
@@ -261,10 +265,6 @@
 			this.btn_DumpInventory = new System.Windows.Forms.Button();
 			this.btn_Test = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.tabPage18 = new System.Windows.Forms.TabPage();
-			this.panel18 = new System.Windows.Forms.Panel();
-			this.cb_DeathWaitForPotion = new System.Windows.Forms.CheckBox();
-			this.cb_DeathWaitForSkillsCooldown = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabControl_Combat.SuspendLayout();
@@ -337,6 +337,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.tb_GeneralEndOfCombatDelayValue)).BeginInit();
 			this.panel16.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tb_GeneralGoldInactivityValue)).BeginInit();
+			this.tabPage18.SuspendLayout();
+			this.panel18.SuspendLayout();
 			this.tabPage17.SuspendLayout();
 			this.tabPage13.SuspendLayout();
 			this.tabControl4.SuspendLayout();
@@ -354,8 +356,6 @@
 			this.tabPage15.SuspendLayout();
 			this.tabPage16.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
-			this.tabPage18.SuspendLayout();
-			this.panel18.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -2208,6 +2208,48 @@
 			this.tb_GeneralGoldInactivityValue.TabIndex = 8;
 			this.tb_GeneralGoldInactivityValue.TickFrequency = 60;
 			// 
+			// tabPage18
+			// 
+			this.tabPage18.Controls.Add(this.panel18);
+			this.tabPage18.Location = new System.Drawing.Point(4, 22);
+			this.tabPage18.Name = "tabPage18";
+			this.tabPage18.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage18.Size = new System.Drawing.Size(657, 529);
+			this.tabPage18.TabIndex = 2;
+			this.tabPage18.Text = "Death";
+			this.tabPage18.UseVisualStyleBackColor = true;
+			// 
+			// panel18
+			// 
+			this.panel18.Controls.Add(this.cb_DeathWaitForSkillsCooldown);
+			this.panel18.Controls.Add(this.cb_DeathWaitForPotion);
+			this.panel18.Location = new System.Drawing.Point(6, 6);
+			this.panel18.Name = "panel18";
+			this.panel18.Size = new System.Drawing.Size(312, 128);
+			this.panel18.TabIndex = 0;
+			// 
+			// cb_DeathWaitForSkillsCooldown
+			// 
+			this.cb_DeathWaitForSkillsCooldown.AutoSize = true;
+			this.cb_DeathWaitForSkillsCooldown.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_DeathWaitForSkillsCooldown.Location = new System.Drawing.Point(3, 30);
+			this.cb_DeathWaitForSkillsCooldown.Name = "cb_DeathWaitForSkillsCooldown";
+			this.cb_DeathWaitForSkillsCooldown.Size = new System.Drawing.Size(177, 21);
+			this.cb_DeathWaitForSkillsCooldown.TabIndex = 20;
+			this.cb_DeathWaitForSkillsCooldown.Text = "Wait for Skills Cooldown";
+			this.cb_DeathWaitForSkillsCooldown.UseVisualStyleBackColor = true;
+			// 
+			// cb_DeathWaitForPotion
+			// 
+			this.cb_DeathWaitForPotion.AutoSize = true;
+			this.cb_DeathWaitForPotion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_DeathWaitForPotion.Location = new System.Drawing.Point(3, 3);
+			this.cb_DeathWaitForPotion.Name = "cb_DeathWaitForPotion";
+			this.cb_DeathWaitForPotion.Size = new System.Drawing.Size(185, 21);
+			this.cb_DeathWaitForPotion.TabIndex = 19;
+			this.cb_DeathWaitForPotion.Text = "Wait for Potion Cooldown";
+			this.cb_DeathWaitForPotion.UseVisualStyleBackColor = true;
+			// 
 			// tabPage17
 			// 
 			this.tabPage17.Controls.Add(this.cb_AdventureModeEnabled);
@@ -2506,7 +2548,8 @@
             "Radiant",
             "Square",
             "FlawlessSquare",
-            "Marquise"});
+            "Marquise",
+            "Imperial"});
 			this.comboBox_LootGemQuality.Location = new System.Drawing.Point(9, 36);
 			this.comboBox_LootGemQuality.Name = "comboBox_LootGemQuality";
 			this.comboBox_LootGemQuality.Size = new System.Drawing.Size(121, 21);
@@ -2873,48 +2916,6 @@
 			this.toolTip1.InitialDelay = 1000;
 			this.toolTip1.ReshowDelay = 500;
 			// 
-			// tabPage18
-			// 
-			this.tabPage18.Controls.Add(this.panel18);
-			this.tabPage18.Location = new System.Drawing.Point(4, 22);
-			this.tabPage18.Name = "tabPage18";
-			this.tabPage18.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage18.Size = new System.Drawing.Size(657, 529);
-			this.tabPage18.TabIndex = 2;
-			this.tabPage18.Text = "Death";
-			this.tabPage18.UseVisualStyleBackColor = true;
-			// 
-			// panel18
-			// 
-			this.panel18.Controls.Add(this.cb_DeathWaitForSkillsCooldown);
-			this.panel18.Controls.Add(this.cb_DeathWaitForPotion);
-			this.panel18.Location = new System.Drawing.Point(6, 6);
-			this.panel18.Name = "panel18";
-			this.panel18.Size = new System.Drawing.Size(312, 128);
-			this.panel18.TabIndex = 0;
-			// 
-			// cb_DeathWaitForPotion
-			// 
-			this.cb_DeathWaitForPotion.AutoSize = true;
-			this.cb_DeathWaitForPotion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cb_DeathWaitForPotion.Location = new System.Drawing.Point(3, 3);
-			this.cb_DeathWaitForPotion.Name = "cb_DeathWaitForPotion";
-			this.cb_DeathWaitForPotion.Size = new System.Drawing.Size(185, 21);
-			this.cb_DeathWaitForPotion.TabIndex = 19;
-			this.cb_DeathWaitForPotion.Text = "Wait for Potion Cooldown";
-			this.cb_DeathWaitForPotion.UseVisualStyleBackColor = true;
-			// 
-			// cb_DeathWaitForSkillsCooldown
-			// 
-			this.cb_DeathWaitForSkillsCooldown.AutoSize = true;
-			this.cb_DeathWaitForSkillsCooldown.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cb_DeathWaitForSkillsCooldown.Location = new System.Drawing.Point(3, 30);
-			this.cb_DeathWaitForSkillsCooldown.Name = "cb_DeathWaitForSkillsCooldown";
-			this.cb_DeathWaitForSkillsCooldown.Size = new System.Drawing.Size(177, 21);
-			this.cb_DeathWaitForSkillsCooldown.TabIndex = 20;
-			this.cb_DeathWaitForSkillsCooldown.Text = "Wait for Skills Cooldown";
-			this.cb_DeathWaitForSkillsCooldown.UseVisualStyleBackColor = true;
-			// 
 			// SettingsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3039,6 +3040,9 @@
 			this.panel16.ResumeLayout(false);
 			this.panel16.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tb_GeneralGoldInactivityValue)).EndInit();
+			this.tabPage18.ResumeLayout(false);
+			this.panel18.ResumeLayout(false);
+			this.panel18.PerformLayout();
 			this.tabPage17.ResumeLayout(false);
 			this.tabPage17.PerformLayout();
 			this.tabPage13.ResumeLayout(false);
@@ -3065,9 +3069,6 @@
 			this.tabPage16.ResumeLayout(false);
 			this.tabPage16.PerformLayout();
 			this.flowLayoutPanel1.ResumeLayout(false);
-			this.tabPage18.ResumeLayout(false);
-			this.panel18.ResumeLayout(false);
-			this.panel18.PerformLayout();
 			this.ResumeLayout(false);
 
 		}

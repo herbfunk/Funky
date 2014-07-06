@@ -1,6 +1,3 @@
-using System.IO;
-using System.Xml.Serialization;
-
 namespace FunkyBot.Config.Settings
 {
 	public class SettingLoot
