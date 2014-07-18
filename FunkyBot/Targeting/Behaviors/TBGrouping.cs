@@ -1,4 +1,6 @@
 ﻿using System;
+using fBaseXtensions.Game;
+using fBaseXtensions.Helpers;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
@@ -26,7 +28,7 @@ namespace FunkyBot.Targeting.Behaviors
 				return !Bot.IsInNonCombatBehavior &&
 						   !Bot.Targeting.Cache.Environment.bAnyLootableItemsNearby &&
 						   Bot.Settings.Grouping.AttemptGroupingMovements &&
-						   Bot.Settings.Grouping.GroupingMinimumBotHealth <= Bot.Character.Data.dCurrentHealthPct;
+						   Bot.Settings.Grouping.GroupingMinimumBotHealth <= FunkyGame.Hero.dCurrentHealthPct;
 			}
 		}
 		public override void Initialize()

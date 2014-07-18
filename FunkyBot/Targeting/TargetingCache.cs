@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Linq;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.DBHandlers;
-using FunkyBot.Player.HotBar.Skills;
+using FunkyBot.Skills;
 using FunkyBot.Targeting.Behaviors;
 using Zeta.Bot;
 using Zeta.Bot.Settings;
 using Zeta.Common;
 using System.Collections.Generic;
-using Logger = FunkyBot.Misc.Logger;
-using LogLevel = FunkyBot.Misc.LogLevel;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 namespace FunkyBot.Targeting
 {
@@ -95,6 +97,10 @@ namespace FunkyBot.Targeting
 		}
 		#endregion
 
+		public void HotbarSkillsChangedHandler()
+		{
+
+		}
 
 
 		///<summary>
@@ -103,19 +109,19 @@ namespace FunkyBot.Targeting
 		public void Refresh()
 		{
 			//Profile Behavior
-			Bot.Game.Profile.CheckCurrentProfileBehavior();
+			//Bot.Game.Profile.CheckCurrentProfileBehavior();
 
 			//Update Character (just incase it wasnt called before..)
-			Bot.Character.Data.Update(false, true);
+			FunkyGame.Hero.Update(false, true);
 
 			//Check if active bounty is null.. and attempt to update again.
-			if (Bot.Game.AdventureMode && Bot.Settings.AdventureMode.EnableAdventuringMode)
+			if (FunkyGame.AdventureMode && Bot.Settings.AdventureMode.EnableAdventuringMode)
 				Bot.Game.Bounty.CheckActiveBounty();
 
 
 
 			//skill check
-			//Bot.Character.Class.HotBar.CheckSkills();
+			//Hotbar.CheckSkills();
 
 			//Reset key targeting vars always!
 			InitObjectRefresh();
@@ -135,7 +141,7 @@ namespace FunkyBot.Targeting
 				if (!AvoidanceLastTarget &&
 					 DateTime.Now.Subtract(Bot.Targeting.Movement.LastMovementAttempted).TotalMilliseconds < 300 &&//We are moving..? 
 					 !ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(Bot.Targeting.Movement.CurrentTargetLocation) &&
-					 !ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(Bot.Character.Data.Position, Bot.Targeting.Movement.CurrentTargetLocation))
+					 !ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(FunkyGame.Hero.Position, Bot.Targeting.Movement.CurrentTargetLocation))
 				{
 					RequiresAvoidance = false;
 				}
@@ -199,11 +205,9 @@ namespace FunkyBot.Targeting
 			UpdateKillLootRadiusValues();
 
 			// Refresh buffs (so we can check for wrath being up to ignore ice balls and anything else like that)
-			Bot.Character.Class.HotBar.RefreshHotbarBuffs();
+			Hotbar.RefreshHotbarBuffs();
 
 
-			// Bunch of variables used throughout
-			Bot.Character.Data.PetData.Reset();
 			// Reset the counters for monsters at various ranges
 			Environment.Reset();
 
@@ -249,7 +253,7 @@ namespace FunkyBot.Targeting
 				BlacklistCache.CheckRefreshBlacklists(10);
 
 			//Check Gold Inactivity
-			Bot.Game.GoldTimeoutChecker.CheckTimeoutTripped();
+			//Bot.Game.GoldTimeoutChecker.CheckTimeoutTripped();
 		}
 
 		///<summary>

@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Globalization;
-using fItemPlugin.Player;
+using fBaseXtensions.Game.Hero;
+using fBaseXtensions.Items;
+using fBaseXtensions.Items.Enums;
 using FunkyBot.Cache.Avoidance;
 using FunkyBot.Cache.Enums;
 using Zeta.Common;
 using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.SNO;
-using Logger = FunkyBot.Misc.Logger;
-using LogLevel = FunkyBot.Misc.LogLevel;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 namespace FunkyBot.Cache.Objects
 {
@@ -34,6 +36,7 @@ namespace FunkyBot.Cache.Objects
 			if (sno > 0)
 			{
 				SNOID = thisEntry.SNOID;
+				_itembasetype = thisEntry.ItemBasetype;
 				_actortype = thisEntry.Actortype;
 				_targettype = thisEntry.targetType;
 				_monstersize = thisEntry.Monstersize;
@@ -51,7 +54,7 @@ namespace FunkyBot.Cache.Objects
 				IsFinalized = thisEntry.IsFinalized;
 			}
 		}
-		public SNO(int sno, String internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gimzotype = null)
+		public SNO(int sno, String internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gimzotype = null, PluginBaseItemTypes? baseitemtype=null)
 		{
 			//Creates the perm data
 			SNOID = sno;
@@ -68,6 +71,7 @@ namespace FunkyBot.Cache.Objects
 			_obstacletype = obstacletype;
 			_actorsphereradius = actorsphereradius;
 			_gizmotype = gimzotype;
+			_itembasetype = baseitemtype;
 			UpdateLookUpFinalValues();
 			IsFinalized = true;
 		}
@@ -87,6 +91,7 @@ namespace FunkyBot.Cache.Objects
 			_internalname = sno.InternalName;
 			_obstacletype = sno.Obstacletype;
 			_gizmotype = sno.Gizmotype;
+			_itembasetype = sno.ItemBasetype;
 			//this._RunningRate=sno.RunningRate;
 			IsFinalized = sno.IsFinalized;
 		}
@@ -347,6 +352,25 @@ namespace FunkyBot.Cache.Objects
 			}
 		}
 
+		private readonly PluginBaseItemTypes? _itembasetype;
+		public PluginBaseItemTypes? ItemBasetype
+		{
+			get
+			{
+				if (IsFinalized) return _itembasetype;
+
+				if (ObjectCache.dictBaseItemTypes.ContainsKey(SNOID)) return ObjectCache.dictBaseItemTypes[SNOID];
+				return null;
+			}
+			set
+			{
+				if (IsFinalized) return;
+
+				ObjectCache.dictBaseItemTypes[SNOID] = value;
+
+			}
+		}
+
 		private readonly string _internalname;
 		public string InternalName
 		{
@@ -409,7 +433,7 @@ namespace FunkyBot.Cache.Objects
 				debugstring += GrantsNoXP.HasValue ? "GrantsNoXP: " + GrantsNoXP.Value.ToString() + " " : "";
 				debugstring += DropsNoLoot.HasValue ? "DropsNoLoot: " + DropsNoLoot.Value.ToString() + " " : "";
 				debugstring += IsBarricade.HasValue ? "IsBarricade: " + IsBarricade.Value.ToString() + " " + "\r\n" : "";
-
+				debugstring += ItemBasetype.HasValue ? "ItemBaseType: " + ItemBasetype.Value.ToString() + " " + "\r\n" : "";
 				return debugstring;
 
 			}
@@ -570,8 +594,8 @@ namespace FunkyBot.Cache.Objects
 	public class CachedSNOEntry : SNO
 	{
 
-		public CachedSNOEntry(int sno, String internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gizmotype = null)
-			: base(sno, internalname, actortype, targettype, monstertype, monstersize, collisionradius, canburrow, grantsnoxp, dropsnoloot, isbarricade, obstacletype, actorsphereradius, gizmotype)
+		public CachedSNOEntry(int sno, String internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gizmotype = null, PluginBaseItemTypes? baseitemtype=null)
+			: base(sno, internalname, actortype, targettype, monstertype, monstersize, collisionradius, canburrow, grantsnoxp, dropsnoloot, isbarricade, obstacletype, actorsphereradius, gizmotype, baseitemtype)
 		{
 		}
 
@@ -641,10 +665,14 @@ namespace FunkyBot.Cache.Objects
 				}
 				catch
 				{
-
-					Logger.Write(LogLevel.Cache, "Failure to get actorType for object, SNO: {0}", SNOID);
-
-					return false;
+					
+					if (ItemFunc.DetermineIsItemActorType(InternalName))
+						Actortype = ActorType.Item;
+					else
+					{
+						Logger.Write(LogLevel.Cache, "Failure to get actorType for object {0}", DebugStringSimple);
+						return false;
+					}
 				}
 				#endregion
 			}
@@ -710,17 +738,35 @@ namespace FunkyBot.Cache.Objects
 						else if (Actortype.Value == ActorType.Item ||
 							 CacheIDLookup.hashForceSNOToItemList.Contains(SNOID))
 						{
-							string testname = InternalName.ToLower();
+							if (!ItemFunc.DetermineIsItemActorType(InternalName))
+							{
+								Logger.DBLog.InfoFormat("Object {0} is considered Item but does not have a matching item name!", DebugStringSimple);
+								BlacklistCache.IgnoreThisObject(this, raguid, true, false);
+								return false;
+							}
+
+							PluginDroppedItemTypes droppedItem=ItemFunc.DetermineDroppedItemType(this.SNOID);
+
+							//string testname = InternalName.ToLower();
 							//Check if this item is gold/globe..
-							if (testname.StartsWith("gold"))
+							if (droppedItem== PluginDroppedItemTypes.Gold)
 								targetType = TargetType.Gold;
-							else if (testname.StartsWith("healthglobe"))
+							else if (droppedItem== PluginDroppedItemTypes.HealthGlobe)
 								targetType = TargetType.Globe;
-							else if (testname.StartsWith("console_powerglobe"))
+							else if (droppedItem== PluginDroppedItemTypes.PowerGlobe)
 								targetType = TargetType.PowerGlobe;
 							else
 								targetType = TargetType.Item;
 							//Gold/Globe?
+
+
+							//if (droppedItem == PluginDroppedItemTypes.Unknown)
+							//	Logger.DBLog.InfoFormat("Unknown Item Type {0} -- {1}", SNOID, InternalName);
+
+							if (Bot.Settings.Debug.DebuggingData && droppedItem == PluginDroppedItemTypes.Unknown)
+							{
+								ObjectCache.DebuggingData.CheckEntry(this);
+							}
 						}
 						else if (Actortype.Value == ActorType.Gizmo)
 						{
@@ -796,10 +842,10 @@ namespace FunkyBot.Cache.Objects
 								if (!Gizmotype.HasValue) Gizmotype = thisGizmoType;
 
 								//We could not find ID using our cache.. lets log it!
-								if (Bot.Settings.Debug.DebuggingData && ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Container | TargetType.Barricade | TargetType.Destructible | TargetType.Door))
-								{
-									ObjectCache.DebuggingData.CheckEntry(this);
-								}
+								//if (Bot.Settings.Debug.DebuggingData && ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Container | TargetType.Barricade | TargetType.Destructible | TargetType.Door))
+								//{
+								//	ObjectCache.DebuggingData.CheckEntry(this);
+								//}
 							}
 
 
@@ -867,9 +913,9 @@ namespace FunkyBot.Cache.Objects
 						}
 					}
 				}
-				catch
+				catch(Exception ex)
 				{
-					Logger.Write(LogLevel.Cache, "Failure to get actorType for object, SNO: {0}", SNOID);
+					Logger.Write(LogLevel.Cache, "Failure to get TargetType for object {0}\r\n{1}\r\n{2}", DebugStringSimple,ex.Message,ex.StackTrace);
 					return false;
 				}
 				#endregion
@@ -1020,6 +1066,14 @@ namespace FunkyBot.Cache.Objects
 					}
 				}
 				#endregion
+			}
+
+			if (ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Item))
+			{
+				if (!ItemBasetype.HasValue)
+				{
+					ItemBasetype = ItemFunc.DetermineBaseItemType(InternalName, SNOID);
+				}
 			}
 
 

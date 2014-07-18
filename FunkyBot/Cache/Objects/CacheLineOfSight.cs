@@ -1,4 +1,5 @@
-﻿using FunkyBot.Game.Bounty;
+﻿using fBaseXtensions.Game;
+using FunkyBot.Game.Bounty;
 using Zeta.Common;
 
 namespace FunkyBot.Cache.Objects
@@ -31,7 +32,7 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
-				return Bot.Character.Data.Position.Distance(Position);
+				return FunkyGame.Hero.Position.Distance(Position);
 			}
 		}
 

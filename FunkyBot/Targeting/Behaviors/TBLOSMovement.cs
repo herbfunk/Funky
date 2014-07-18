@@ -1,12 +1,14 @@
 ﻿using System.Linq;
+using fBaseXtensions.Game;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
+using FunkyBot.Config.Settings;
 using FunkyBot.Game;
 using FunkyBot.Game.Bounty;
 using FunkyBot.Movement;
 using Zeta.Game.Internals;
-using Logger = FunkyBot.Misc.Logger;
-using LogLevel = FunkyBot.Misc.LogLevel;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 namespace FunkyBot.Targeting.Behaviors
 {
@@ -33,11 +35,11 @@ namespace FunkyBot.Targeting.Behaviors
 			get
 			{
 				//Check objects added for LOS movement
-				return ProfileCache.LOSSettingsTag.EnableLOSMovementBehavior &&
+				return SettingLOSMovement.LOSSettingsTag.EnableLOSMovementBehavior &&
 					!Bot.IsInNonCombatBehavior &&
 					(Bot.Targeting.Cache.Environment.LoSMovementObjects.Count > 0 ||
 					Bot.NavigationCache.LOSmovementObject != null ||
-					(Bot.Game.AdventureMode && Bot.Game.Bounty.ShouldNavigatePointsOfInterest && Bot.Game.Bounty.CurrentBountyMapMarkers.Count > 0));
+					(FunkyGame.AdventureMode && Bot.Game.Bounty.ShouldNavigatePointsOfInterest && Bot.Game.Bounty.CurrentBountyMapMarkers.Count > 0));
 			}
 		}
 
@@ -49,7 +51,7 @@ namespace FunkyBot.Targeting.Behaviors
 				if (obj == null)
 				{
 					if (Bot.NavigationCache.LOSmovementObject != null &&
-						(Bot.NavigationCache.LOSmovementObject.CentreDistance < (Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck ? ProfileCache.LOSSettingsTag.MinimumRangeMarkers : ProfileCache.LOSSettingsTag.MiniumRangeObjects) &&
+						(Bot.NavigationCache.LOSmovementObject.CentreDistance < (Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck ? SettingLOSMovement.LOSSettingsTag.MinimumRangeMarkers : SettingLOSMovement.LOSSettingsTag.MiniumRangeObjects) &&
 						(Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck || !Bot.NavigationCache.LOSmovementObject.CacheContainsOrginObject())))
 					{//Invalidated the Line of sight obj!
 
@@ -96,7 +98,7 @@ namespace FunkyBot.Targeting.Behaviors
 						}
 
 						//Check if we still found nothing and game mode is adventure mode
-						if (Bot.NavigationCache.LOSmovementObject == null && Bot.Game.AdventureMode && Bot.Game.Bounty.ShouldNavigatePointsOfInterest
+						if (Bot.NavigationCache.LOSmovementObject == null && FunkyGame.AdventureMode && Bot.Game.Bounty.ShouldNavigatePointsOfInterest
 								&&  Bot.Game.Bounty.ActiveBounty != null && Bot.Game.Bounty.CurrentBountyMapMarkers.Count > 0)
 						{
 
@@ -106,7 +108,7 @@ namespace FunkyBot.Targeting.Behaviors
 
 								foreach (var mapmarker in Bot.Game.Bounty.CurrentBountyMapMarkers.Values)
 								{
-									if (mapmarker.WorldID != Bot.Character.Data.CurrentWorldDynamicID) continue;
+									if (mapmarker.WorldID != FunkyGame.Hero.CurrentWorldDynamicID) continue;
 									if (Bot.NavigationCache.LOSBlacklistedRAGUIDs.Contains(mapmarker.GetHashCode())) continue;
 									if (mapmarker.Distance > 750f || mapmarker.Distance < 25f) continue;
 
@@ -133,7 +135,7 @@ namespace FunkyBot.Targeting.Behaviors
 						//See if the orgin object is still valid..
 
 						//min Distance for Map Markers is 25f
-						if (Bot.NavigationCache.LOSmovementObject.CentreDistance < (Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck ? ProfileCache.LOSSettingsTag.MinimumRangeMarkers : ProfileCache.LOSSettingsTag.MiniumRangeObjects))
+						if (Bot.NavigationCache.LOSmovementObject.CentreDistance < (Bot.NavigationCache.LOSmovementObject.IgnoringCacheCheck ? SettingLOSMovement.LOSSettingsTag.MinimumRangeMarkers : SettingLOSMovement.LOSSettingsTag.MiniumRangeObjects))
 						{
 
 							if (!Bot.NavigationCache.LOSmovementObject.CacheContainsOrginObject())

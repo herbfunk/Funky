@@ -1,4 +1,5 @@
 ﻿using System;
+using fBaseXtensions.Helpers;
 using FunkyBot.Misc;
 
 namespace FunkyBot.EventHandlers
@@ -10,7 +11,7 @@ namespace FunkyBot.EventHandlers
 		{
 			Logger.Write(LogLevel.Event, "OnLeaveGame CursedEvent");
 
-			Bot.Game.CurrentGameStats.CurrentProfile.UpdateRangeVariables();
+			//Bot.Game.CurrentGameStats.CurrentProfile.UpdateRangeVariables();
 			Bot.ResetGame();
 			Funky.initTreeHooks = false;
 		}

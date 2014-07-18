@@ -33,5 +33,12 @@ namespace FunkyBot.Config.Settings
 			ClusterMaxDistance = 100f,
 			ClusterMinimumUnitCount = 0
 		};
+
+		private static SettingCluster clusterSettingsTag = new SettingCluster();
+		internal static SettingCluster ClusterSettingsTag
+		{
+			get { return clusterSettingsTag; }
+			set { clusterSettingsTag = value; }
+		}
 	}
 }

@@ -12,5 +12,12 @@
 			 EnableAdventuringMode = true;
 			 NavigatePointsOfInterest = false;
          }
+
+		 private static SettingAdventureMode adventureModeSettingsTag = new SettingAdventureMode();
+		 internal static SettingAdventureMode AdventureModeSettingsTag
+		 {
+			 get { return adventureModeSettingsTag; }
+			 set { adventureModeSettingsTag = value; }
+		 }
 	}
 }

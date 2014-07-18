@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using fBaseXtensions.Game;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using Zeta.Common;
@@ -249,7 +250,7 @@ namespace FunkyBot.Cache.Collections
 		///</summary>
 		public bool DoesPositionIntersectAny(Vector3 Pos, ObstacleType par = ObstacleType.All)
 		{
-			Vector3 BotPosition = Bot.Character.Data.Position;
+			Vector3 BotPosition = FunkyGame.Hero.Position;
 			return OfType(par).Any(O => O.TestIntersection(BotPosition, Pos));
 		}
 		///<summary>
@@ -292,7 +293,7 @@ namespace FunkyBot.Cache.Collections
 		//}
 		public bool TestVectorAgainstAvoidanceZones(Vector3 destinationPoint)
 		{
-			Vector3 currentPosition = Bot.Character.Data.Position;
+			Vector3 currentPosition = FunkyGame.Hero.Position;
 			return Avoidances.Any(A => A.ShouldAvoid
 				  && MathEx.IntersectsPath(A.Position, A.Radius, currentPosition, destinationPoint));
 		}

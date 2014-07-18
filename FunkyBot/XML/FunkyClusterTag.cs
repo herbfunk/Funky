@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using fBaseXtensions.Helpers;
 using FunkyBot.Config.Settings;
 using FunkyBot.Game;
 using FunkyBot.Misc;
@@ -31,7 +32,7 @@ namespace FunkyBot.XMLTags
 		{
 			return new Action(ret =>
 			{
-				ProfileCache.ClusterSettingsTag = new SettingCluster 
+				SettingCluster.ClusterSettingsTag = new SettingCluster 
 				{
 					EnableClusteringTargetLogic=Enabled,
 					ClusterDistance = Radius,

@@ -1,5 +1,8 @@
 ﻿using System;
-using FunkyBot.Player.HotBar.Skills;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
+using fBaseXtensions.Monitor;
+using FunkyBot.Skills;
 using Zeta.Bot;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
@@ -28,16 +31,16 @@ namespace FunkyBot.EventHandlers
 			if (Bot.Settings.Death.WaitForAllSkillsCooldown)
 			{
 				//Check Archon?
-				if (Bot.Character.Class.AC==ActorClass.Wizard && Bot.Character.Class.HotBar.HasBuff(SNOPower.Wizard_Archon))
+				if (Bot.Character.Class.AC==ActorClass.Wizard && Hotbar.HasBuff(SNOPower.Wizard_Archon))
 				{
 					Skill cancelSkill=Bot.Character.Class.Abilities[SNOPower.Wizard_Archon_Cancel];
 					Skill.UsePower(ref cancelSkill);
-					Bot.Character.Class.HotBar.RefreshHotbar();
+					Hotbar.RefreshHotbar();
 					BotMain.StatusText = "[Funky] Death: Waiting For Cooldowns!";
 					return true;
 				}
 
-				foreach (var skill in Bot.Character.Class.HotBar.HotbarSkills)
+				foreach (var skill in Hotbar.HotbarSkills)
 				{
 					PowerManager.CanCastFlags skillCastFlags;
 					if (!PowerManager.CanCast(skill.Power, out skillCastFlags))
@@ -73,14 +76,14 @@ namespace FunkyBot.EventHandlers
 
 			if (Bot.Settings.Death.WaitForAllSkillsCooldown)
 			{
-				if (Bot.Character.Class.AC == ActorClass.Wizard && Bot.Character.Class.HotBar.HasBuff(SNOPower.Wizard_Archon))
+				if (Bot.Character.Class.AC == ActorClass.Wizard && Hotbar.HasBuff(SNOPower.Wizard_Archon))
 				{
-					Bot.Character.Class.HotBar.RefreshHotbar();
+					Hotbar.RefreshHotbar();
 					InactivityDetector.Reset();
 					return RunStatus.Running;
 				}
 
-				foreach (var skill in Bot.Character.Class.HotBar.HotbarSkills)
+				foreach (var skill in Hotbar.HotbarSkills)
 				{
 					PowerManager.CanCastFlags skillCastFlags;
 					if (!PowerManager.CanCast(skill.Power, out skillCastFlags))
@@ -94,7 +97,7 @@ namespace FunkyBot.EventHandlers
 				}
 			}
 
-			Bot.Game.GoldTimeoutChecker.LastCoinageUpdate = DateTime.Now;
+			GoldInactivity.LastCoinageUpdate = DateTime.Now;
 			return RunStatus.Success;
 		}
 
@@ -106,7 +109,8 @@ namespace FunkyBot.EventHandlers
 		}
 		internal static RunStatus TallyDeathAction(object ret)
 		{
-			Bot.Game.CurrentGameStats.CurrentProfile.DeathCount++;
+			FunkyGame.CurrentGameStats.CurrentProfile.DeathCount++;
+			//Bot.Game.CurrentGameStats.CurrentProfile.DeathCount++;
 			TallyedDeathCounter = true;
 			return RunStatus.Success;
 		}

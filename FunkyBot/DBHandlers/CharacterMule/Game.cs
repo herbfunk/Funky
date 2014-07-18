@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using fBaseXtensions.Game;
+using fBaseXtensions.Helpers;
 using FunkyBot.Misc;
 using Zeta.Bot;
 using Zeta.Bot.Navigation;
@@ -12,8 +14,8 @@ using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.Actors.Gizmos;
 using Zeta.TreeSharp;
-using Logger = FunkyBot.Misc.Logger;
-using LogLevel = FunkyBot.Misc.LogLevel;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 namespace FunkyBot.DBHandlers.CharacterMule
 {
@@ -41,7 +43,7 @@ namespace FunkyBot.DBHandlers.CharacterMule
 		{
 			if (DateTime.Now.Subtract(LastActionTaken).TotalMilliseconds > RandomWaitTimeMilliseconds)
 			{
-				string NewGameProfile = FolderPaths.RoutinePath + @"DBHandlers\CharacterMule\NewGame.xml";
+				string NewGameProfile = Funky.RoutinePath + @"DBHandlers\CharacterMule\NewGame.xml";
 				if (ProfileManager.CurrentProfile.Path != NewGameProfile)
 				{
 					if (File.Exists(NewGameProfile))
@@ -140,12 +142,12 @@ namespace FunkyBot.DBHandlers.CharacterMule
 						SortedStashItems.Clear();
 						LastActionTaken = DateTime.Today;
 						OutOfGame.TransferedGear = true;
-						Bot.Character.Account.UpdateCurrentAccountDetails();
+						
 						//Delete settings
-						string sFunkyCharacterFolder = Path.Combine(FolderPaths.DemonBuddyPath, "Settings", "FunkyBot", Bot.Character.Account.CurrentAccountName);
+						string sFunkyCharacterFolder = Path.Combine(FolderPaths.DemonBuddyPath, "Settings", "FunkyBot", FunkyGame.CurrentAccountName);
 						if (Directory.Exists(sFunkyCharacterFolder))
 						{
-							string sFunkyCharacterConfigFile = Path.Combine(sFunkyCharacterFolder, Bot.Character.Account.CurrentHeroName + ".cfg");
+							string sFunkyCharacterConfigFile = Path.Combine(sFunkyCharacterFolder, FunkyGame.CurrentHeroName + ".cfg");
 							if (File.Exists(sFunkyCharacterConfigFile))
 								File.Delete(sFunkyCharacterConfigFile);
 						}

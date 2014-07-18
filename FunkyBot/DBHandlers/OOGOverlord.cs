@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using fBaseXtensions.Game;
+using fBaseXtensions.Helpers;
 using FunkyBot.Config.Settings;
 using FunkyBot.DBHandlers.CharacterMule;
 using FunkyBot.Game;
@@ -64,7 +66,8 @@ namespace FunkyBot.DBHandlers
 			if (ExitGame.BehaviorEngaged)
 			{
 				//Get First or Last Used Profile..
-				string profile = Bot.Game.CurrentGameStats.Profiles.Count > 0 ? Bot.Game.CurrentGameStats.Profiles.First().ProfileName :
+
+				string profile = FunkyGame.CurrentGameStats.Profiles.Count > 0 ? FunkyGame.CurrentGameStats.Profiles.First().ProfileName :
 								GlobalSettings.Instance.LastProfile;
 
 				//Load Profile and Fire our left game handler
@@ -97,7 +100,7 @@ namespace FunkyBot.DBHandlers
 					{
 						CreatedCharacter = true;
 						//Setup Settings
-						Bot.Character.Account.UpdateCurrentAccountDetails();
+						//Bot.Character.Account.UpdateCurrentAccountDetails();
 						Settings_Funky.LoadFunkyConfiguration();
 					}
 					return RunStatus.Running;
@@ -123,7 +126,7 @@ namespace FunkyBot.DBHandlers
 					InitMuleBehavior = false;
 					MuleBehavior = false;
 					//Load Settings
-					Bot.Character.Account.UpdateCurrentAccountDetails();
+					//Bot.Character.Account.UpdateCurrentAccountDetails();
 					Settings_Funky.LoadFunkyConfiguration();
 
 					return RunStatus.Success;

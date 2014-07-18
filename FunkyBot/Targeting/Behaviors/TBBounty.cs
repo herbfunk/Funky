@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Linq;
+using fBaseXtensions.Game;
+using fBaseXtensions.Helpers;
+using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Game.Bounty;
@@ -33,7 +36,7 @@ namespace FunkyBot.Targeting.Behaviors
 					//  Kill/Clear Events that are on the last area level we check for completed bounty.
 					if ((Bot.Game.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.CursedEvent && DateTime.Now.Subtract(Bot.Targeting.Cache.lastSeenCursedShrine).TotalSeconds < 45))
 						//|| ((Bot.Game.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.Kill || Bot.Game.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.Clear)
-																								//&& Bot.Character.Data.iCurrentLevelID == Bot.Game.Bounty.CurrentBountyCacheEntry.EndingLevelAreaID))
+																								//&& FunkyGame.Hero.iCurrentLevelID == Bot.Game.Bounty.CurrentBountyCacheEntry.EndingLevelAreaID))
 					{
 						Bot.Game.Bounty.ActiveBounty.Refresh();
 
@@ -59,13 +62,13 @@ namespace FunkyBot.Targeting.Behaviors
 						if (Bot.Game.Bounty.BountyQuestStates[Bot.Game.Bounty.ActiveBounty.QuestSNO] == QuestState.InProgress)
 						{
 							//Check interactive object cache..
-							if (Bot.Game.Profile.InteractableObjectCache.Values.Any(o => o.targetType.HasValue && o.targetType.Value == TargetType.Interaction && o.CentreDistance < 75f))
+							if (ObjectCache.InteractableObjectCache.Values.Any(o => o.targetType.HasValue && o.targetType.Value == TargetType.Interaction && o.CentreDistance < 75f))
 							{
 								Logger.DBLog.Info("Quest Giver Nearby!");
 
-								var interactableObj = Bot.Game.Profile.InteractableObjectCache.Values.First(o => o.targetType.HasValue && o.targetType.Value == TargetType.Interaction && o.CentreDistance < 75f);
+								var interactableObj = ObjectCache.InteractableObjectCache.Values.First(o => o.targetType.HasValue && o.targetType.Value == TargetType.Interaction && o.CentreDistance < 75f);
 
-								if (!interactableObj.LineOfSight.LOSTest(Bot.Character.Data.Position, interactableObj.BotMeleeVector))
+								if (!interactableObj.LineOfSight.LOSTest(FunkyGame.Hero.Position, interactableObj.BotMeleeVector))
 								{
 									if (interactableObj.CentreDistance > 25f)
 									{
@@ -92,13 +95,13 @@ namespace FunkyBot.Targeting.Behaviors
 								//Check map marker..
 								foreach (var mapmarker in Bot.Game.Bounty.CurrentBountyMapMarkers.Values)
 								{
-									if (mapmarker.WorldID != Bot.Character.Data.CurrentWorldDynamicID) continue;
+									if (mapmarker.WorldID != FunkyGame.Hero.CurrentWorldDynamicID) continue;
 
 									//Check Distance
-									var DistanceFromMarker = mapmarker.Position.Distance(Bot.Character.Data.Position);
+									var DistanceFromMarker = mapmarker.Position.Distance(FunkyGame.Hero.Position);
 									if (DistanceFromMarker < 25f)
 									{
-										obj = new CacheObject(Bot.Character.Data.Position, TargetType.NoMovement, 20000, "EventWait", 2f, -1);
+										obj = new CacheObject(FunkyGame.Hero.Position, TargetType.NoMovement, 20000, "EventWait", 2f, -1);
 										return true;
 									}
 

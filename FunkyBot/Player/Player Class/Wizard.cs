@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Linq;
-using fItemPlugin.Items;
-using fItemPlugin.Player;
-using FunkyBot.Player.HotBar.Skills;
-using FunkyBot.Player.HotBar.Skills.Wizard;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
+using fBaseXtensions.Items.Enums;
+using FunkyBot.Skills;
+using FunkyBot.Skills.Wizard;
 using Zeta.Game;
 using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.Game.Internals.Actors;
-using Logger = FunkyBot.Misc.Logger;
+using Logger = fBaseXtensions.Helpers.Logger;
 
 namespace FunkyBot.Player.Class
 {
@@ -67,7 +68,7 @@ namespace FunkyBot.Player.Class
 		{
 			get
 			{
-				return Bot.Character.Data.SnoActor == SNOActor.Wizard_Female ? knockbackanims_Female : knockbackanims_Male;
+				return FunkyGame.Hero.SnoActor == SNOActor.Wizard_Female ? knockbackanims_Female : knockbackanims_Male;
 			}
 		}
 		internal override Skill DefaultAttack
@@ -79,7 +80,7 @@ namespace FunkyBot.Player.Class
 		{
 			Vector3 loc;
 			//Low HP -- Flee Teleport
-			if (Bot.Settings.Wizard.bTeleportFleeWhenLowHP && Bot.Character.Data.dCurrentHealthPct < 0.5d && (Bot.NavigationCache.AttemptFindSafeSpot(out loc, Bot.Targeting.Cache.CurrentTarget.Position, Bot.Settings.Plugin.FleeingFlags)))
+			if (Bot.Settings.Wizard.bTeleportFleeWhenLowHP && FunkyGame.Hero.dCurrentHealthPct < 0.5d && (Bot.NavigationCache.AttemptFindSafeSpot(out loc, Bot.Targeting.Cache.CurrentTarget.Position, Bot.Settings.Plugin.FleeingFlags)))
 				Bot.NavigationCache.vSideToSideTarget = loc;
 			else
 				Bot.NavigationCache.vSideToSideTarget = Bot.NavigationCache.FindZigZagTargetLocation(Bot.Targeting.Cache.CurrentTarget.Position, Bot.Targeting.Cache.CurrentTarget.CentreDistance, true);
@@ -88,7 +89,7 @@ namespace FunkyBot.Player.Class
 		{
 			get
 			{
-				return Bot.Character.Data.PetData.WizardHydra;
+				return Bot.Targeting.Cache.Environment.HeroPets.WizardHydra;
 			}
 		}
 		internal override bool IsMeleeClass
@@ -105,7 +106,7 @@ namespace FunkyBot.Player.Class
 		internal override bool SecondaryHotbarBuffPresent()
 		{
 
-			bool ArchonBuffPresent = HotBar.HasBuff(SNOPower.Wizard_Archon);
+			bool ArchonBuffPresent = Hotbar.HasBuff(SNOPower.Wizard_Archon);
 
 			//Confirm we don't have archon Ability without archon buff.
 			bool RefreshNeeded = ((!ArchonBuffPresent && (Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast) || Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast_Fire) || Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast_Cold) || Abilities.ContainsKey(SNOPower.Wizard_Archon_ArcaneBlast_Lightning)))
@@ -114,7 +115,7 @@ namespace FunkyBot.Player.Class
 			if (RefreshNeeded)
 			{
 				Logger.DBLog.InfoFormat("Updating Hotbar abilities!");
-				HotBar.RefreshHotbar();
+				Hotbar.RefreshHotbar();
 				RecreateAbilities();
 				return true;
 			}

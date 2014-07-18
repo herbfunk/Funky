@@ -1,98 +1,167 @@
-﻿using System;
+﻿using System.Linq;
+using fBaseXtensions.Game;
 using FunkyBot.Cache;
+using FunkyBot.Cache.Objects;
+using FunkyBot.DBHandlers;
 using FunkyBot.Game.Bounty;
-using FunkyBot.Game.ProfileTracking;
-using FunkyBot.Misc;
-using Zeta.Bot.Navigation;
+using Zeta.Bot.Profile.Common;
+using Zeta.Common;
 using Zeta.Game;
-using Zeta.Game.Internals.Service;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
+using Profile = fBaseXtensions.Game.Profile;
 
 namespace FunkyBot.Game
 {
 	//Tracks Stats, Profile related properties, and general in-game info
 	public class GameCache
 	{
+		public GameCache()
+		{
+			QuestMode = false;
+		}
 		///<summary>
 		///Tracking of All Game Stats 
 		///</summary>
-		internal TotalStats TrackingStats = new TotalStats();
+		//internal TotalStats TrackingStats = new TotalStats();
 
 		///<summary>
 		///Tracking of current Game Stats
 		///</summary>
-		internal GameStats CurrentGameStats = new GameStats();
+		//internal GameStats CurrentGameStats = new GameStats();
 
-		internal GoldInactivity GoldTimeoutChecker = new GoldInactivity();
-
-		internal ProfileCache Profile = new ProfileCache();
 
 		internal BountyCache Bounty = new BountyCache();
 
+		
 
-		public bool AdventureMode { get { return _adventureMode; } }
-		private bool _adventureMode = false;
-
-		private GameId _currentGameId = new GameId();
-		internal bool RefreshGameId()
+		internal static void GoldInactivityTimerTrippedHandler()
 		{
-			GameId curgameID = _currentGameId;
-			int questId = 0;
-			using (ZetaDia.Memory.AcquireFrame())
+			Logger.DBLog.Info("[Funky] Gold Timeout Breached.. enabling exit behavior!");
+			ExitGame.ShouldExitGame = true;
+		}
+
+		internal bool QuestMode { get; set; }
+		internal CacheObject InteractableCachedObject { get; set; }
+		internal void OnProfileBehaviorChanged(Profile.ProfileBehaviorTypes type)
+		{
+			if (type == Profile.ProfileBehaviorTypes.Unknown)
 			{
-				curgameID = ZetaDia.Service.CurrentGameId;
-				questId = ZetaDia.CurrentQuest.QuestSNO;
+				InteractableCachedObject = null;
+
+				return;
 			}
 
-			if (!curgameID.Equals(_currentGameId))
+			if (type == Profile.ProfileBehaviorTypes.SetQuestMode)
+				QuestMode = true;
+			else if(type.HasFlag(Profile.ProfileBehaviorTypes.Interactive))
 			{
+				Logger.DBLog.DebugFormat("Interactable Profile Tag!");
 
-				Logger.Write(LogLevel.OutOfCombat, "New Game Started");
+				InteractableCachedObject = GetInteractiveCachedObject(type);
+				if (InteractableCachedObject != null)
+					Logger.DBLog.DebugFormat("Found Cached Interactable Server Object");
+			}
+		}
 
-				ZetaDia.Memory.ClearCache();
-				Navigator.SearchGridProvider.Update();
+		internal CacheObject GetInteractiveCachedObject(Profile.ProfileBehaviorTypes type)
+		{
 
-				//Adventure Mode (QuestID == 312429)
-				_adventureMode = questId == 312429;
-				if (AdventureMode && Bot.Settings.AdventureMode.EnableAdventuringMode)
+			if (type == Profile.ProfileBehaviorTypes.UseWaypoint)
+			{
+				UseWaypointTag tagWP = (UseWaypointTag)FunkyGame.Profile.CurrentProfileBehavior;
+				var WaypointObjects = ObjectCache.InteractableObjectCache.Values.Where(obj => obj.SNOID == 6442);
+				foreach (CacheObject item in WaypointObjects)
 				{
-					Logger.DBLog.Info("Adventure Mode Enabled!");
-					Bounty.Reset();
-					Bounty.RefreshBountyInfo();
+					if (item.Position.Distance(tagWP.Position) < 100f)
+					{
+						//Found matching waypoint object!
+						return item;
+					}
 				}
+			}
+			else if (type == Profile.ProfileBehaviorTypes.UseObject)
+			{
+				UseObjectTag tagUseObj = (UseObjectTag)FunkyGame.Profile.CurrentProfileBehavior;
+				if (tagUseObj.ActorId > 0)
+				{//Using SNOID..
+					var Objects = ObjectCache.InteractableObjectCache.Values.Where(obj => obj.SNOID == tagUseObj.ActorId);
+					foreach (CacheObject item in Objects.OrderBy(obj => obj.Position.Distance(FunkyGame.Hero.Position)))
+					{
+						//Found matching object!
+						return item;
+					}
 
-				//Merge last GameStats with the Total
-				TrackingStats.GameChanged(ref CurrentGameStats);
+				}
+				else
+				{//use position to match object
+					Vector3 tagPosition = tagUseObj.Position;
+					var Objects = ObjectCache.InteractableObjectCache.Values.Where(obj => obj.Position.Distance(tagPosition) <= 100f);
+					foreach (CacheObject item in Objects)
+					{
+						//Found matching object!
+						return item;
+					}
+				}
+			}
+			else if (type == Profile.ProfileBehaviorTypes.UsePortal)
+			{
+				UsePortalTag tagUsePortal = (UsePortalTag)FunkyGame.Profile.CurrentProfileBehavior;
+				if (tagUsePortal.ActorId > 0)
+				{//Using SNOID..
+					var Objects = ObjectCache.InteractableObjectCache.Values.Where(obj => obj.SNOID == tagUsePortal.ActorId);
+					foreach (CacheObject item in Objects.OrderBy(obj => obj.Position.Distance(FunkyGame.Hero.Position)))
+					{
+						//Found matching object!
+						return item;
+					}
 
-				//Create new GameStats
-				CurrentGameStats = new GameStats();
-
-				//Update Account Details
-				Bot.Character.Account.UpdateCurrentAccountDetails();
-
-				//Clear Interactable Cache
-				Profile.InteractableObjectCache.Clear();
-
-				//Clear Health Average
-				ObjectCache.Objects.ClearHealthAverageStats();
-
-				//Renew bot
-				Bot.ResetBot();
-
-				//Gold Inactivity
-				GoldTimeoutChecker.LastCoinageUpdate = DateTime.Now;
-
-				_currentGameId = curgameID;
-				return true;
+				}
+				else
+				{//use position to match object
+					Vector3 tagPosition = tagUsePortal.Position;
+					var Objects = ObjectCache.InteractableObjectCache.Values.Where(obj => obj.Position.Distance(tagPosition) <= 100f);
+					foreach (CacheObject item in Objects.OrderBy(obj => obj.Position.Distance(FunkyGame.Hero.Position)))
+					{
+						//Found matching object!
+						return item;
+					}
+				}
 			}
 
-			return false;
+
+			return null;
 		}
 
 
+		internal void OnGameIDChangedHandler()
+		{
+			Logger.Write(LogLevel.OutOfCombat, "New Game Started");
+
+
+			if (FunkyGame.AdventureMode && Bot.Settings.AdventureMode.EnableAdventuringMode)
+			{
+				Logger.DBLog.Info("Adventure Mode Enabled!");
+				Bounty.Reset();
+				Bounty.RefreshBountyInfo();
+			}
+
+
+			//Clear Interactable Cache
+			ObjectCache.InteractableObjectCache.Clear();
+
+			//Clear Health Average
+			ObjectCache.Objects.ClearHealthAverageStats();
+
+			//Renew bot
+			Bot.ResetBot();
+
+
+		}
 
 		public static int GetWaypointBySNOLevelID(SNOLevelArea id)
 		{
-			switch(id)
+			switch (id)
 			{
 				case SNOLevelArea.A1_trOut_Old_Tristram_Road_Cath:
 					return 1;

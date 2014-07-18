@@ -1,0 +1,64 @@
+﻿using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
+using FunkyBot.Skills.Conditions;
+using Zeta.Game.Internals.Actors;
+
+namespace FunkyBot.Skills.DemonHunter
+{
+	public class Sentry : Skill
+	{
+		public override double Cooldown { get { return 6000; } }
+
+		public override bool IsSpecialAbility { get { return true; } }
+
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Location | SkillExecutionFlags.ClusterLocation; } }
+
+		public override void Initialize()
+		{
+			WaitVars = new WaitLoops(0, 0, true);
+			Cost = 30;
+			Range = 55;
+			
+			Priority = SkillPriority.High;
+			PreCast = new SkillPreCast(SkillPrecastFlags.CheckEnergy | SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast);
+			
+
+
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: Range, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal | TargetProperties.Fast));
+			//Any unit when our energy is greater than 90%!
+			SingleUnitCondition.Add(new UnitTargetConditions
+			{
+				TrueConditionFlags = TargetProperties.None,
+				Criteria = () => FunkyGame.Hero.dCurrentEnergyPct > 0.9d,
+				MaximumDistance = Range,
+				FalseConditionFlags = TargetProperties.LowHealth,
+			});
+
+			ClusterConditions.Add(new SkillClusterConditions(4d, Range, 3, true));
+
+
+			FcriteriaCombat = () => Bot.Targeting.Cache.Environment.HeroPets.DemonHunterSentry < SentryMax();
+		}
+
+		private int SentryMax()
+		{
+			int n=2;
+
+			//Custom Engineering - Max 3
+			if (Hotbar.PassivePowers.Contains(SNOPower.DemonHunter_Passive_CustomEngineering))
+				n++;
+			
+			//Bombardier's Rucksack - Additional 2
+			if (Bot.Settings.DemonHunter.BombadiersRucksack)
+				n += 2;
+
+			return n;
+		}
+
+
+		public override SNOPower Power
+		{
+			get { return SNOPower.DemonHunter_Sentry; }
+		}
+	}
+}

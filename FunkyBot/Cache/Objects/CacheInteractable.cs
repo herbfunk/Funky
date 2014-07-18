@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
-using fItemPlugin.Player;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Config.Settings;
 using FunkyBot.Game;
 using FunkyBot.Movement;
 using Zeta.Bot.Settings;
@@ -119,9 +121,10 @@ namespace FunkyBot.Cache.Objects
 					//unless its in front of us.. we wait 500ms mandatory.
 					if (lastLOSCheckMS < 500 && centreDistance > 1f)
 					{
-						if ((IsResplendantChest && ProfileCache.LOSSettingsTag.AllowRareLootContainer)||
-							((IsCursedChest||IsCursedShrine) && ProfileCache.LOSSettingsTag.AllowCursedChestShrines)||
-							(IsEventSwitch && ProfileCache.LOSSettingsTag.AllowEventSwitches))
+
+						if ((IsResplendantChest && SettingLOSMovement.LOSSettingsTag.AllowRareLootContainer) ||
+							((IsCursedChest||IsCursedShrine) && SettingLOSMovement.LOSSettingsTag.AllowCursedChestShrines)||
+							(IsEventSwitch && SettingLOSMovement.LOSSettingsTag.AllowEventSwitches))
 						{
 							//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 							//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
@@ -143,9 +146,9 @@ namespace FunkyBot.Cache.Objects
 
 						if (lastLOSCheckMS < ReCheckTime)
 						{
-							if ((IsResplendantChest && ProfileCache.LOSSettingsTag.AllowRareLootContainer) ||
-								((IsCursedChest || IsCursedShrine) && ProfileCache.LOSSettingsTag.AllowCursedChestShrines) ||
-								 (IsEventSwitch && ProfileCache.LOSSettingsTag.AllowEventSwitches))
+							if ((IsResplendantChest && SettingLOSMovement.LOSSettingsTag.AllowRareLootContainer) ||
+								((IsCursedChest || IsCursedShrine) && SettingLOSMovement.LOSSettingsTag.AllowCursedChestShrines) ||
+								 (IsEventSwitch && SettingLOSMovement.LOSSettingsTag.AllowEventSwitches))
 							{
 								//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 								//   Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
@@ -157,13 +160,13 @@ namespace FunkyBot.Cache.Objects
 					}
 
 					//var testPosition = (Gizmotype.Value == GizmoType.Switch || Gizmotype.Value==GizmoType.Door) ? BotMeleeVector : Position;
-					//if (!LineOfSight.LOSTest(Bot.Character.Data.Position, testPosition, Gizmotype.Value!=GizmoType.Switch, Gizmotype.Value==GizmoType.Switch, false))
-
-					if (!LineOfSight.LOSTest(Bot.Character.Data.Position, BotMeleeVector, true, true, false))
+					//if (!LineOfSight.LOSTest(FunkyGame.Hero.Position, testPosition, Gizmotype.Value!=GizmoType.Switch, Gizmotype.Value==GizmoType.Switch, false))
+					
+					if (!LineOfSight.LOSTest(FunkyGame.Hero.Position, BotMeleeVector, true, true, false))
 					{
-						if ((IsResplendantChest && ProfileCache.LOSSettingsTag.AllowRareLootContainer) ||
-							((IsCursedChest || IsCursedShrine) && ProfileCache.LOSSettingsTag.AllowCursedChestShrines) ||
-							(IsEventSwitch && ProfileCache.LOSSettingsTag.AllowEventSwitches))
+						if ((IsResplendantChest && SettingLOSMovement.LOSSettingsTag.AllowRareLootContainer) ||
+							((IsCursedChest || IsCursedShrine) && SettingLOSMovement.LOSSettingsTag.AllowCursedChestShrines) ||
+							(IsEventSwitch && SettingLOSMovement.LOSSettingsTag.AllowEventSwitches))
 						{
 							//if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Target))
 							//	Logger.Write(LogLevel.Target, "Adding {0} to LOS Movement Objects", InternalName);
@@ -194,8 +197,8 @@ namespace FunkyBot.Cache.Objects
 							if (radiusDistance > 1f)
 							{
 
-								BarricadeTest = MathEx.GetPointAt(Position, 10f, Navigation.FindDirection(Bot.Character.Data.Position, Position, true));
-								bool intersectionTest = !MathEx.IntersectsPath(Position, CollisionRadius.Value, Bot.Character.Data.Position, BarricadeTest);
+								BarricadeTest = MathEx.GetPointAt(Position, 10f, Navigation.FindDirection(FunkyGame.Hero.Position, Position, true));
+								bool intersectionTest = !MathEx.IntersectsPath(Position, CollisionRadius.Value, FunkyGame.Hero.Position, BarricadeTest);
 								if (!intersectionTest)
 								{
 									IgnoredType = TargetingIgnoreTypes.IntersectionFailed;
@@ -222,7 +225,7 @@ namespace FunkyBot.Cache.Objects
 						if (IsHealthWell)
 						{
 							//Health wells..
-							if (Bot.Character.Data.dCurrentHealthPct > Bot.Settings.Combat.HealthWellHealthPercent)
+							if (FunkyGame.Hero.dCurrentHealthPct > Bot.Settings.Combat.HealthWellHealthPercent)
 							{
 								BlacklistLoops = 5;
 								return false;
@@ -318,7 +321,7 @@ namespace FunkyBot.Cache.Objects
 			if (Weight != 1)
 			{
 				float centreDistance = CentreDistance;
-				Vector3 BotPosition = Bot.Character.Data.Position;
+				Vector3 BotPosition = FunkyGame.Hero.Position;
 				switch (targetType.Value)
 				{
 					case TargetType.Shrine:
@@ -330,11 +333,11 @@ namespace FunkyBot.Cache.Objects
 						// health pool
 						if (base.IsHealthWell)
 						{
-							if (Bot.Character.Data.dCurrentHealthPct > 0.75d)
+							if (FunkyGame.Hero.dCurrentHealthPct > 0.75d)
 								Weight = 0;
 							else
 								//Give weight based upon current health percent.
-								Weight += 1000d / (Bot.Character.Data.dCurrentHealthPct);
+								Weight += 1000d / (FunkyGame.Hero.dCurrentHealthPct);
 						}
 						else if (this.Gizmotype.Value == GizmoType.PoolOfReflection)
 						{
@@ -347,7 +350,7 @@ namespace FunkyBot.Cache.Objects
 							if (Equals(Bot.Targeting.Cache.LastCachedTarget))
 								Weight += 600;
 							// Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
-							if (Bot.Character.Data.bIsRooted)
+							if (FunkyGame.Hero.bIsRooted)
 								Weight = 18500d - (Math.Floor(centreDistance) * 200);
 							// If there's a monster in the path-line to the item, reduce the weight by 25%
 							if (!Equipment.NoMonsterCollision && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
@@ -401,7 +404,7 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
-				float fThisHeightDifference = Funky.Difference(Bot.Character.Data.Position.Z, Position.Z);
+				float fThisHeightDifference = Funky.Difference(FunkyGame.Hero.Position.Z, Position.Z);
 				if (fThisHeightDifference >= 15f)
 				{
 					return false;
@@ -433,8 +436,8 @@ namespace FunkyBot.Cache.Objects
 			Bot.Targeting.Cache.bWaitingForPower = false;
 
 
-			Bot.Character.Data.WaitWhileAnimating(20);
-			ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, Position, Bot.Character.Data.CurrentWorldDynamicID, base.AcdGuid.Value);
+			FunkyGame.Hero.WaitWhileAnimating(20);
+			ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, Position, FunkyGame.Hero.CurrentWorldDynamicID, base.AcdGuid.Value);
 			InteractionAttempts++;
 
 			if (IsCursedShrine || IsCursedChest)
@@ -451,15 +454,15 @@ namespace FunkyBot.Cache.Objects
 			// Wait!!
 			if (ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Interactable))
 			{
-				Bot.Character.Data.WaitWhileAnimating(1500);
+				FunkyGame.Hero.WaitWhileAnimating(1500);
 			}
 			else if(ObjectCache.CheckTargetTypeFlag(targetType.Value,TargetType.Door))
 			{
-				Bot.Character.Data.WaitWhileAnimating(500);
+				FunkyGame.Hero.WaitWhileAnimating(500);
 			}
 			else
 			{
-				Bot.Character.Data.WaitWhileAnimating(75);
+				FunkyGame.Hero.WaitWhileAnimating(75);
 			}
 			
 
@@ -509,7 +512,7 @@ namespace FunkyBot.Cache.Objects
 				if (RadiusDistance <= 2f)
 					fDistanceReduction += 1f;
 
-				base.DistanceFromTarget = Vector3.Distance(Bot.Character.Data.Position, Position) - fDistanceReduction;
+				base.DistanceFromTarget = Vector3.Distance(FunkyGame.Hero.Position, Position) - fDistanceReduction;
 
 			}
 			else
@@ -518,7 +521,7 @@ namespace FunkyBot.Cache.Objects
 				fRangeRequired = 8f;
 
 
-				if (Bot.Character.Data.Position.Distance(Position) <= 1.5f)
+				if (FunkyGame.Hero.Position.Distance(Position) <= 1.5f)
 					fDistanceReduction += 1f;
 
 				base.DistanceFromTarget = base.RadiusDistance - fDistanceReduction;

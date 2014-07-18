@@ -1,13 +1,14 @@
 ﻿using System;
-using fItemPlugin.Items;
-using fItemPlugin.Player;
-using FunkyBot.Player.HotBar.Skills;
-using FunkyBot.Player.HotBar.Skills.Barb;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
+using fBaseXtensions.Items.Enums;
+using FunkyBot.Skills;
+using FunkyBot.Skills.Barb;
 using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
-using Logger = FunkyBot.Misc.Logger;
+using Logger = fBaseXtensions.Helpers.Logger;
 using System.Linq;
 
 namespace FunkyBot.Player.Class
@@ -69,7 +70,7 @@ namespace FunkyBot.Player.Class
 		{
 			get
 			{
-				return Bot.Character.Data.SnoActor == SNOActor.Barbarian_Male ? knockbackanims_Male : knockbackanims_Female;
+				return FunkyGame.Hero.SnoActor == SNOActor.Barbarian_Male ? knockbackanims_Male : knockbackanims_Female;
 			}
 		}
 
@@ -77,8 +78,8 @@ namespace FunkyBot.Player.Class
 		internal override bool ShouldGenerateNewZigZagPath()
 		{
 			return (DateTime.Now.Subtract(Bot.NavigationCache.lastChangedZigZag).TotalMilliseconds >= 2000f ||
-					   (Bot.NavigationCache.vPositionLastZigZagCheck != Vector3.Zero && Bot.Character.Data.Position == Bot.NavigationCache.vPositionLastZigZagCheck && DateTime.Now.Subtract(Bot.NavigationCache.lastChangedZigZag).TotalMilliseconds >= 1200) ||
-					   Vector3.Distance(Bot.Character.Data.Position, Bot.NavigationCache.vSideToSideTarget) <= 5f ||
+					   (Bot.NavigationCache.vPositionLastZigZagCheck != Vector3.Zero && FunkyGame.Hero.Position == Bot.NavigationCache.vPositionLastZigZagCheck && DateTime.Now.Subtract(Bot.NavigationCache.lastChangedZigZag).TotalMilliseconds >= 1200) ||
+					   Vector3.Distance(FunkyGame.Hero.Position, Bot.NavigationCache.vSideToSideTarget) <= 5f ||
 					   Bot.Targeting.Cache.CurrentTarget != null && Bot.Targeting.Cache.CurrentTarget.AcdGuid.HasValue && Bot.Targeting.Cache.CurrentTarget.AcdGuid.Value != Bot.NavigationCache.iACDGUIDLastWhirlwind);
 		}
 		internal override void GenerateNewZigZagPath()

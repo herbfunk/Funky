@@ -1,46 +1,19 @@
 ﻿using System;
+using fBaseXtensions.Game;
 using Zeta.Bot.Navigation;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
 using Action = Zeta.TreeSharp.Action;
-using Logger = FunkyBot.Misc.Logger;
-using LogLevel = FunkyBot.Misc.LogLevel;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 namespace FunkyBot.DBHandlers
 {
 	public static class TownPortalBehavior
 	{
 		public static bool TownrunStartedInTown = false;
-
-		internal static bool SafetyCheckForTownRun()
-		{
-			//This is called only if we want to townrun... basically a pre-check to if we should proceede.
-			Logger.Write(LogLevel.OutOfCombat, "Precheck running for town run");
-
-			//Avoidance Flag
-			Bot.Character.Data.CriticalAvoidance = true;
-
-			if (Bot.Targeting.Cache.ShouldRefreshObjectList)
-			{
-				Bot.Targeting.Cache.Refresh();
-				// Check for death / player being dead
-				if (Bot.Character.Data.dCurrentHealthPct <= 0)
-				{
-					return false;
-				}
-			}
-
-			//Checks
-			if (Bot.Targeting.Cache.CurrentTarget != null)
-			{
-				return false;
-			}
-
-			//All checks passed.. so continue behavior!
-			return true;
-		}
 
 		internal static DateTime FunkyTP_LastCastAttempt = DateTime.MinValue;
 		internal static Vector3 StartingPosition = Vector3.Zero;
@@ -122,7 +95,7 @@ namespace FunkyBot.DBHandlers
 			//GameEvents.OnWorldChanged+=OnWorldChanged;
 			//GameEvents.OnWorldTransferStart+=OnWorldChangeStart;
 			initizedTPBehavior = true;
-			StartingPosition = Bot.Character.Data.Position;
+			StartingPosition = FunkyGame.Hero.Position;
 			MovementOccured = false;
 		}
 
@@ -132,9 +105,9 @@ namespace FunkyBot.DBHandlers
 
 		internal static bool CastingRecall()
 		{
-			if (Bot.Character.Data.CurrentAnimationState != AnimationState.Idle)
+			if (FunkyGame.Hero.CurrentAnimationState != AnimationState.Idle)
 			{
-				switch (Bot.Character.Data.CurrentSNOAnim)
+				switch (FunkyGame.Hero.CurrentSNOAnim)
 				{
 					case SNOAnim.barbarian_male_HTH_Recall_Channel_01:
 					case SNOAnim.Barbarian_Female_HTH_Recall_Channel_01:
@@ -180,14 +153,14 @@ namespace FunkyBot.DBHandlers
 				{
 					//Logger.Write(LogLevel.OutOfCombat,"Waiting for world change!");
 
-					if (!Bot.Character.Data.bIsInTown)
+					if (!FunkyGame.Hero.bIsInTown)
 						return RunStatus.Running;
 					Logger.Write(LogLevel.OutOfCombat, "Casting Behavior Finished, we are in town!", true);
 					ResetTPBehavior();
 					//UpdateSearchGridProvider(true);
 					return RunStatus.Success;
 				}
-				if (ElapsedTime >= 10 && !Bot.Character.Data.bIsInTown)
+				if (ElapsedTime >= 10 && !FunkyGame.Hero.bIsInTown)
 				{
 					//Retry?
 					worldtransferStarted = false;
@@ -196,7 +169,7 @@ namespace FunkyBot.DBHandlers
 					if (Bot.NavigationCache.AttemptFindSafeSpot(out UnstuckPos, Vector3.Zero, Bot.Settings.Plugin.AvoidanceFlags))
 					{
 						Logger.Write(LogLevel.OutOfCombat, "Generated Unstuck Position at {0}", UnstuckPos.ToString());
-						ZetaDia.Me.UsePower(SNOPower.Walk, UnstuckPos, Bot.Character.Data.CurrentWorldDynamicID);
+						ZetaDia.Me.UsePower(SNOPower.Walk, UnstuckPos, FunkyGame.Hero.CurrentWorldDynamicID);
 					}
 
 				}
@@ -239,7 +212,7 @@ namespace FunkyBot.DBHandlers
 				//Use simple checking of movement, with UsePower on our last location.
 				if (!isMoving)
 				{
-					double DistanceFromStart = StartingPosition.Distance(Bot.Character.Data.Position);
+					double DistanceFromStart = StartingPosition.Distance(FunkyGame.Hero.Position);
 
 					if (DistanceFromStart > 15f && DistanceFromStart < 50f)
 					{

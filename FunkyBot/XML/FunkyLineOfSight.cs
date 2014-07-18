@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using fBaseXtensions.Helpers;
+using FunkyBot.Config.Settings;
 using FunkyBot.Game;
 using FunkyBot.Misc;
 using Zeta.Bot.Profile;
@@ -48,8 +50,8 @@ namespace FunkyBot.XMLTags
 						if (!ProfileCache.LineOfSightSNOIds.Contains(id.Id))
 							ProfileCache.LineOfSightSNOIds.Add(id.Id);
 					}
-					ProfileCache.LOSSettingsTag.MaximumRange = 1000;
-					ProfileCache.LOSSettingsTag.MiniumRangeObjects = 10;
+					SettingLOSMovement.LOSSettingsTag.MaximumRange = 1000;
+					SettingLOSMovement.LOSSettingsTag.MiniumRangeObjects = 10;
 
 					Logger.DBLog.InfoFormat("[Funky] Added {0} to Line of Sight Ids", ProfileCache.LineOfSightSNOIds.Count);
 				}

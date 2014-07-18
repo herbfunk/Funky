@@ -3,8 +3,8 @@ using System.Linq;
 using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.Game;
-using Logger = FunkyBot.Misc.Logger;
-using LogLevel = FunkyBot.Misc.LogLevel;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 namespace FunkyBot.Movement
 {

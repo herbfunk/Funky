@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Globalization;
+using fBaseXtensions.Game;
+using fBaseXtensions.Helpers;
 using FunkyBot.Cache;
 using FunkyBot.Misc;
 
@@ -11,13 +13,14 @@ namespace FunkyBot.EventHandlers
 
 		internal static void FunkyOnDeath(object src, EventArgs mea)
 		{
+			
 			if (!DumpedDeathInfo)
 			{
 				Logger.Write(LogLevel.User, "Death Info Dump \r\n ProfileBehavior {0} \r\n Last Target Behavior {1} \r\n" +
 							"{2} \r\n" +
 							"Triggering Avoidances={3} -- RequiredAvoidance={4} -- LastAvoidAction={5} \r\n" +
 							"Nearby Flee Triggering Units={6} -- LastFleeAction={7} \r\n",
-							Bot.Game.Profile.CurrentProfileBehavior.GetType().ToString(), Bot.Targeting.Cache.lastBehavioralType.ToString(),
+							FunkyGame.Profile.CurrentProfileBehavior.GetType().ToString(), Bot.Targeting.Cache.lastBehavioralType.ToString(),
 							ObjectCache.Objects.DumpDebugInfo(),
 							Bot.Targeting.Cache.Environment.TriggeringAvoidances.Count, Bot.Targeting.Cache.RequiresAvoidance, Bot.Targeting.Cache.LastAvoidanceMovement.ToString(CultureInfo.InvariantCulture),
 							Bot.Targeting.Cache.Environment.FleeTriggeringUnits.Count, Bot.Targeting.Cache.LastFleeAction.ToString(CultureInfo.InvariantCulture));

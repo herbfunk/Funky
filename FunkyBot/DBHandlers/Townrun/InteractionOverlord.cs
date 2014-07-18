@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using fItemPlugin.Items;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
+using fBaseXtensions.Items;
+using fBaseXtensions.Items.Enums;
 using FunkyBot.Player;
 using Zeta.Bot;
 using Zeta.Bot.Navigation;
@@ -11,7 +14,7 @@ using Zeta.Game;
 using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
-using Logger = FunkyBot.Misc.Logger;
+using Logger = fBaseXtensions.Helpers.Logger;
 
 namespace FunkyBot.DBHandlers.Townrun
 {
@@ -27,9 +30,9 @@ namespace FunkyBot.DBHandlers.Townrun
 
 			InteractItems.Clear();
 			//Get new list of current backpack
-			Bot.Character.Data.BackPack.Update();
+			Backpack.UpdateItemList();
 
-			foreach (var thisitem in Bot.Character.Data.BackPack.CacheItemList.Values)
+			foreach (var thisitem in Backpack.CacheItemList.Values)
 			{
 				if (thisitem.ACDItem.BaseAddress != IntPtr.Zero)
 				{
@@ -38,7 +41,7 @@ namespace FunkyBot.DBHandlers.Townrun
 					{
 						if (thisitem.ThisDBItemType == ItemType.Potion) continue;
 
-						if (thisitem.ItemType==PluginItemType.HoradricCache)
+						if (thisitem.ItemType==PluginItemTypes.HoradricCache)
 						{
 							InteractItems.Add(thisitem);
 						}
@@ -67,7 +70,7 @@ namespace FunkyBot.DBHandlers.Townrun
 
 			Act curAct = ZetaDia.CurrentAct;
 			if (curAct == Act.Invalid || curAct == Act.OpenWorld || curAct == Act.Test)
-				curAct = Character.FindActByLevelID(Bot.Character.Data.iCurrentLevelID);
+				curAct = Character.FindActByLevelID(FunkyGame.Hero.iCurrentLevelID);
 			var vectorLocation = ReturnMovementVector(curAct);
 
 			Vector3 vectorPlayerPosition = ZetaDia.Me.Position;
@@ -100,8 +103,7 @@ namespace FunkyBot.DBHandlers.Townrun
 
 			if (!UIElements.InventoryWindow.IsVisible)
 			{
-				
-				fItemPlugin.Player.Backpack.InventoryBackPackToggle(true);
+				Backpack.InventoryBackPackToggle(true);
 				return RunStatus.Running;
 			}
 
@@ -115,7 +117,12 @@ namespace FunkyBot.DBHandlers.Townrun
 				if (thisitem != null)
 				{
 					ZetaDia.Me.Inventory.UseItem(thisitem.ThisDynamicID);
-					if (thisitem.ItemType==PluginItemType.HoradricCache) Bot.Game.CurrentGameStats.CurrentProfile.HoradricCacheOpened++;
+					if (thisitem.ItemType==PluginItemTypes.HoradricCache)
+					{
+						//Bot.Game.CurrentGameStats.CurrentProfile.HoradricCacheOpened++;
+						FunkyGame.CurrentGameStats.CurrentProfile.HoradricCacheOpened++;
+					}
+						
 				}
 				if (thisitem != null)
 					InteractItems.Remove(thisitem);
@@ -174,7 +181,7 @@ namespace FunkyBot.DBHandlers.Townrun
 			switch (act)
 			{
 				case Act.A1:
-					if (!Bot.Game.AdventureMode)
+					if (!FunkyGame.AdventureMode)
 						return new Vector3(2959.277f, 2811.887f, 24.04533f);
 					else
 						return new Vector3(386.6582f, 534.2561f, 24.04533f);

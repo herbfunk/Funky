@@ -1,4 +1,5 @@
 ﻿using System;
+using fBaseXtensions.Game;
 using FunkyBot.Cache;
 using FunkyBot.Config.Settings;
 using FunkyBot.DBHandlers;
@@ -11,7 +12,7 @@ using FunkyBot.Game;
 using Zeta.Bot.Logic;
 using Zeta.Common;
 using Zeta.Game;
-using Logger = FunkyBot.Misc.Logger;
+using Logger = fBaseXtensions.Helpers.Logger;
 
 
 namespace FunkyBot
@@ -50,8 +51,9 @@ namespace FunkyBot
 		{
 			get
 			{
+				
 				//OOC IDing, Town Portal Casting, Town Run
-				return (Game.Profile.IsRunningOOCBehavior || ExitGame.BehaviorEngaged || TownPortalBehavior.FunkyTPBehaviorFlag || BrainBehavior.IsVendoring);
+				return (FunkyGame.Profile.CurrentProfileBehaviorType.HasFlag(fBaseXtensions.Game.Profile.ProfileBehaviorTypes.OutOfCombat) || ExitGame.BehaviorEngaged || TownPortalBehavior.FunkyTPBehaviorFlag || BrainBehavior.IsVendoring);
 			}
 		}
 
@@ -92,7 +94,7 @@ namespace FunkyBot
 
 			PlayerClass.CreateBotClass();
 			//Update character info!
-			Bot.Character.Data.Update();
+			FunkyGame.Hero.Update();
 
 			//OOC ID Flags
 			Bot.Targeting.Cache.ShouldCheckItemLooted = false;

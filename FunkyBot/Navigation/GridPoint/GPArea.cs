@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using fBaseXtensions.Game;
 using Zeta.Common;
-using Logger = FunkyBot.Misc.Logger;
+using Logger = fBaseXtensions.Helpers.Logger;
 
 namespace FunkyBot.Movement
 {
@@ -164,7 +165,7 @@ namespace FunkyBot.Movement
 				lastfoundsafespots.Clear();
 				Logger.DBLog.InfoFormat("Found a total of {0} possible safe spots!", safespotsFound.Count);
 				
-				List<Vector3> safeVectors=new List<Vector3>(safespotsFound.Keys.OrderBy(o => o.Distance(Bot.Character.Data.Position)).ToList());
+				List<Vector3> safeVectors=new List<Vector3>(safespotsFound.Keys.OrderBy(o => o.Distance(FunkyGame.Hero.Position)).ToList());
 				lastfoundsafespots.AddRange(safeVectors);
 
 				safespot = lastfoundsafespots.First();

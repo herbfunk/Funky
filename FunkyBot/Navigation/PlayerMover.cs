@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.IO;
+using fBaseXtensions.Game;
+using fBaseXtensions.Helpers;
 using FunkyBot.Cache.Objects;
 using FunkyBot.DBHandlers;
 using FunkyBot.Misc;
-using FunkyBot.Player.HotBar.Skills;
+using FunkyBot.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Movement;
 using Zeta.Bot;
@@ -14,8 +16,8 @@ using Zeta.Bot.Navigation;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
-using Logger = FunkyBot.Misc.Logger;
-using LogLevel = FunkyBot.Misc.LogLevel;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 
 namespace FunkyBot
@@ -26,7 +28,7 @@ namespace FunkyBot
 
 			public void MoveStop()
 			{
-				ZetaDia.Me.UsePower(SNOPower.Walk, ZetaDia.Me.Position, Bot.Character.Data.CurrentWorldDynamicID);
+				ZetaDia.Me.UsePower(SNOPower.Walk, ZetaDia.Me.Position, FunkyGame.Hero.CurrentWorldDynamicID);
 			}
 			// Anti-stuck variables
 			private static Vector3 vOldMoveToTarget = Vector3.Zero;
@@ -120,7 +122,7 @@ namespace FunkyBot
 					if (iTotalAntiStuckAttempts == 1 && Bot.Settings.Debug.LogStuckLocations)
 					{
 
-						string outputPath = FolderPaths.LoggingFolderPath + @"\" + Logger.LoggingPrefixString + " -- Stucks.log";
+						string outputPath = FolderPaths.LoggingFolderPath + @"\Stucks.log";
 
 						FileStream LogStream = File.Open(outputPath, FileMode.Append, FileAccess.Write, FileShare.Read);
 						using (StreamWriter LogWriter = new StreamWriter(LogStream))
@@ -244,7 +246,7 @@ namespace FunkyBot
 							if (!hashDoneThisVector.Contains(vMoveToTarget))
 							{
 								// Logger.DBLog.InfoFormat it
-								string outputPath = FolderPaths.LoggingFolderPath + @"\" + Logger.LoggingPrefixString + " -- Stucks.log";
+								string outputPath = FolderPaths.LoggingFolderPath + @"\Stucks.log";
 
 								FileStream LogStream = File.Open(outputPath, FileMode.Append, FileAccess.Write, FileShare.Read);
 								using (StreamWriter LogWriter = new StreamWriter(LogStream))
@@ -310,7 +312,7 @@ namespace FunkyBot
 					SkipAheadCache.RecordSkipAheadCachePoint();
 
 					//Check if our current profile behavior is ExploreDungeon tag.
-					if (Bot.Game.Profile.ExploreDungeonTag) //&& !SkipAheadCache.LevelAreaIDsIgnoreSkipping.Contains(Bot.Character.Data.iCurrentLevelID))
+					if (FunkyGame.Profile.CurrentProfileBehaviorType == Profile.ProfileBehaviorTypes.ExploreDungeon) //&& !SkipAheadCache.LevelAreaIDsIgnoreSkipping.Contains(FunkyGame.Hero.iCurrentLevelID))
 					{
 						//Check if DungeonExplorer and Current Node are valid. (only when there is more than one node in current route)
 						if (Navigation.CurrentDungeonExplorer != null && Navigation.DungeonExplorerCurrentNode != null && Navigation.CurrentDungeonExplorer.CurrentRoute.Count > 1)
@@ -412,7 +414,7 @@ namespace FunkyBot
 
 
 				//Prioritize "blocking" objects.
-				if (!Bot.Character.Data.bIsInTown) Bot.NavigationCache.ObstaclePrioritizeCheck();
+				if (!FunkyGame.Hero.bIsInTown) Bot.NavigationCache.ObstaclePrioritizeCheck();
 
 
 
@@ -426,7 +428,7 @@ namespace FunkyBot
 					Vector3 MovementVector = Bot.Character.Class.FindOutOfCombatMovementPower(out MovementPower, vMoveToTarget);
 					if (MovementVector != Vector3.Zero)
 					{
-						ZetaDia.Me.UsePower(MovementPower.Power, MovementVector, Bot.Character.Data.CurrentWorldDynamicID);
+						ZetaDia.Me.UsePower(MovementPower.Power, MovementVector, FunkyGame.Hero.CurrentWorldDynamicID);
 						MovementPower.OnSuccessfullyUsed();
 						return;
 					}
@@ -436,7 +438,7 @@ namespace FunkyBot
 
 				//Send Movement Command!
 				if (vMyCurrentPosition.Distance2D(vMoveToTarget) > 1f)
-					ZetaDia.Me.UsePower(SNOPower.Walk, vMoveToTarget, Bot.Character.Data.CurrentWorldDynamicID);
+					ZetaDia.Me.UsePower(SNOPower.Walk, vMoveToTarget, FunkyGame.Hero.CurrentWorldDynamicID);
 			}
 
 

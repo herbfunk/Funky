@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Linq;
-using fItemPlugin.Player;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
-using FunkyBot.Player.HotBar.Skills;
+using FunkyBot.Skills;
 using Zeta.Bot.Settings;
 using Zeta.Common;
 using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.SNO;
 using Zeta.TreeSharp;
-using Logger = FunkyBot.Misc.Logger;
-using LogLevel = FunkyBot.Misc.LogLevel;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 namespace FunkyBot.Cache.Objects
 {
@@ -61,7 +62,7 @@ namespace FunkyBot.Cache.Objects
 						return false;
 					}
 
-					if (!base.LineOfSight.LOSTest(Bot.Character.Data.Position, true, ServerObjectIntersection: false) && (PlayerMover.iTotalAntiStuckAttempts == 0 || RadiusDistance > 12f))
+					if (!base.LineOfSight.LOSTest(FunkyGame.Hero.Position, true, ServerObjectIntersection: false) && (PlayerMover.iTotalAntiStuckAttempts == 0 || RadiusDistance > 12f))
 					{
 						IgnoredType = TargetingIgnoreTypes.LineOfSightFailure;
 						return false;
@@ -99,10 +100,10 @@ namespace FunkyBot.Cache.Objects
 					{
 						if (radiusDistance < 10f)
 						{
-							BarricadeTest = MathEx.GetPointAt(Position, 10f, Navigation.FindDirection(Bot.Character.Data.Position, Position, true));
+							BarricadeTest = MathEx.GetPointAt(Position, 10f, Navigation.FindDirection(FunkyGame.Hero.Position, Position, true));
 							BarricadeTest.Z = Navigation.MGP.GetHeight(BarricadeTest.ToVector2());
 
-							lastIntersectionTestResult = MathEx.IntersectsPath(Position, CollisionRadius.Value, Bot.Character.Data.Position, BarricadeTest);
+							lastIntersectionTestResult = MathEx.IntersectsPath(Position, CollisionRadius.Value, FunkyGame.Hero.Position, BarricadeTest);
 							if (!lastIntersectionTestResult.Value)
 							{
 								IgnoredType = TargetingIgnoreTypes.IntersectionFailed;
@@ -135,12 +136,12 @@ namespace FunkyBot.Cache.Objects
 			// Close destructibles get a weight increase
 			if (centreDistance <= 16f)
 				Weight += 1500d;
-			Vector3 BotPosition = Bot.Character.Data.Position;
+			Vector3 BotPosition = FunkyGame.Hero.Position;
 			// If there's a monster in the path-line to the item, reduce the weight by 50%
 			if (RadiusDistance > 0f && !Equipment.NoMonsterCollision && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
 				Weight *= 0.5;
 			// Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
-			if (Bot.Character.Data.bIsRooted)
+			if (FunkyGame.Hero.bIsRooted)
 				Weight = 19200d - (Math.Floor(centreDistance) * 200d);
 			// Very close destructibles get a final weight increase
 			if (centreDistance <= 12f)
@@ -152,7 +153,7 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
-				float fThisHeightDifference = Funky.Difference(Bot.Character.Data.Position.Z, Position.Z);
+				float fThisHeightDifference = Funky.Difference(FunkyGame.Hero.Position.Z, Position.Z);
 				if (fThisHeightDifference >= 15f)
 				{
 					if (!PlayerMover.ShouldHandleObstacleObject)
@@ -180,7 +181,7 @@ namespace FunkyBot.Cache.Objects
 			{
 				// Wait while animating before an attack
 				if (Bot.Character.Class.PowerPrime.WaitWhileAnimating)
-					Bot.Character.Data.WaitWhileAnimating(9);
+					FunkyGame.Hero.WaitWhileAnimating(9);
 
 				//if (targetType.Value == TargetType.Barricade)
 				//	Logger.DBLog.DebugFormat("[Funky] Barricade: Name=" + InternalName + ". SNO=" + SNOID.ToString() +
@@ -213,7 +214,7 @@ namespace FunkyBot.Cache.Objects
 				}
 
 
-				Bot.Character.Data.WaitWhileAnimating(9, true);
+				FunkyGame.Hero.WaitWhileAnimating(9, true);
 			}
 
 			//Get current animation state! (Idle = Untouched, Dead = Destroyed)

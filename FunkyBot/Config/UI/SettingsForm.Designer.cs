@@ -199,10 +199,6 @@
 			this.label21 = new System.Windows.Forms.Label();
 			this.txt_GeneralEndOfCombatDelayValue = new System.Windows.Forms.TextBox();
 			this.tb_GeneralEndOfCombatDelayValue = new System.Windows.Forms.TrackBar();
-			this.panel16 = new System.Windows.Forms.Panel();
-			this.label20 = new System.Windows.Forms.Label();
-			this.txt_GeneralGoldInactivityValue = new System.Windows.Forms.TextBox();
-			this.tb_GeneralGoldInactivityValue = new System.Windows.Forms.TrackBar();
 			this.tabPage18 = new System.Windows.Forms.TabPage();
 			this.panel18 = new System.Windows.Forms.Panel();
 			this.cb_DeathWaitForSkillsCooldown = new System.Windows.Forms.CheckBox();
@@ -244,8 +240,6 @@
 			this.comboBox_LootWhiteItemQuality = new System.Windows.Forms.ComboBox();
 			this.label22 = new System.Windows.Forms.Label();
 			this.tabPage14 = new System.Windows.Forms.TabPage();
-			this.groupBox23 = new System.Windows.Forms.GroupBox();
-			this.flowLayout_DebugFunkyLogLevels = new System.Windows.Forms.FlowLayoutPanel();
 			this.groupBox22 = new System.Windows.Forms.GroupBox();
 			this.cb_DebugDataLogging = new System.Windows.Forms.CheckBox();
 			this.cb_DebugStatusBar = new System.Windows.Forms.CheckBox();
@@ -335,8 +329,6 @@
 			this.panel21.SuspendLayout();
 			this.panel17.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tb_GeneralEndOfCombatDelayValue)).BeginInit();
-			this.panel16.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.tb_GeneralGoldInactivityValue)).BeginInit();
 			this.tabPage18.SuspendLayout();
 			this.panel18.SuspendLayout();
 			this.tabPage17.SuspendLayout();
@@ -351,7 +343,6 @@
 			this.groupBox20.SuspendLayout();
 			this.groupBox19.SuspendLayout();
 			this.tabPage14.SuspendLayout();
-			this.groupBox23.SuspendLayout();
 			this.groupBox22.SuspendLayout();
 			this.tabPage15.SuspendLayout();
 			this.tabPage16.SuspendLayout();
@@ -2066,7 +2057,6 @@
 			// 
 			this.tabPage12.Controls.Add(this.panel21);
 			this.tabPage12.Controls.Add(this.panel17);
-			this.tabPage12.Controls.Add(this.panel16);
 			this.tabPage12.Location = new System.Drawing.Point(4, 22);
 			this.tabPage12.Name = "tabPage12";
 			this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
@@ -2168,45 +2158,6 @@
 			this.tb_GeneralEndOfCombatDelayValue.Size = new System.Drawing.Size(172, 42);
 			this.tb_GeneralEndOfCombatDelayValue.TabIndex = 8;
 			this.tb_GeneralEndOfCombatDelayValue.TickFrequency = 250;
-			// 
-			// panel16
-			// 
-			this.panel16.Controls.Add(this.label20);
-			this.panel16.Controls.Add(this.txt_GeneralGoldInactivityValue);
-			this.panel16.Controls.Add(this.tb_GeneralGoldInactivityValue);
-			this.panel16.Location = new System.Drawing.Point(6, 6);
-			this.panel16.Name = "panel16";
-			this.panel16.Size = new System.Drawing.Size(296, 72);
-			this.panel16.TabIndex = 17;
-			// 
-			// label20
-			// 
-			this.label20.AutoSize = true;
-			this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label20.Location = new System.Drawing.Point(7, 9);
-			this.label20.Name = "label20";
-			this.label20.Size = new System.Drawing.Size(210, 17);
-			this.label20.TabIndex = 7;
-			this.label20.Text = "Gold Inactivity Timeout Seconds";
-			// 
-			// txt_GeneralGoldInactivityValue
-			// 
-			this.txt_GeneralGoldInactivityValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txt_GeneralGoldInactivityValue.Location = new System.Drawing.Point(188, 29);
-			this.txt_GeneralGoldInactivityValue.Name = "txt_GeneralGoldInactivityValue";
-			this.txt_GeneralGoldInactivityValue.ReadOnly = true;
-			this.txt_GeneralGoldInactivityValue.Size = new System.Drawing.Size(58, 26);
-			this.txt_GeneralGoldInactivityValue.TabIndex = 9;
-			// 
-			// tb_GeneralGoldInactivityValue
-			// 
-			this.tb_GeneralGoldInactivityValue.LargeChange = 10;
-			this.tb_GeneralGoldInactivityValue.Location = new System.Drawing.Point(10, 29);
-			this.tb_GeneralGoldInactivityValue.Maximum = 900;
-			this.tb_GeneralGoldInactivityValue.Name = "tb_GeneralGoldInactivityValue";
-			this.tb_GeneralGoldInactivityValue.Size = new System.Drawing.Size(172, 42);
-			this.tb_GeneralGoldInactivityValue.TabIndex = 8;
-			this.tb_GeneralGoldInactivityValue.TickFrequency = 60;
 			// 
 			// tabPage18
 			// 
@@ -2677,7 +2628,6 @@
 			// 
 			// tabPage14
 			// 
-			this.tabPage14.Controls.Add(this.groupBox23);
 			this.tabPage14.Controls.Add(this.groupBox22);
 			this.tabPage14.Location = new System.Drawing.Point(4, 22);
 			this.tabPage14.Name = "tabPage14";
@@ -2686,26 +2636,6 @@
 			this.tabPage14.TabIndex = 4;
 			this.tabPage14.Text = "Advanced";
 			this.tabPage14.UseVisualStyleBackColor = true;
-			// 
-			// groupBox23
-			// 
-			this.groupBox23.Controls.Add(this.flowLayout_DebugFunkyLogLevels);
-			this.groupBox23.Dock = System.Windows.Forms.DockStyle.Top;
-			this.groupBox23.Location = new System.Drawing.Point(3, 78);
-			this.groupBox23.Name = "groupBox23";
-			this.groupBox23.Size = new System.Drawing.Size(665, 262);
-			this.groupBox23.TabIndex = 1;
-			this.groupBox23.TabStop = false;
-			this.groupBox23.Text = "Funky Logging";
-			// 
-			// flowLayout_DebugFunkyLogLevels
-			// 
-			this.flowLayout_DebugFunkyLogLevels.Dock = System.Windows.Forms.DockStyle.Top;
-			this.flowLayout_DebugFunkyLogLevels.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-			this.flowLayout_DebugFunkyLogLevels.Location = new System.Drawing.Point(3, 16);
-			this.flowLayout_DebugFunkyLogLevels.Name = "flowLayout_DebugFunkyLogLevels";
-			this.flowLayout_DebugFunkyLogLevels.Size = new System.Drawing.Size(659, 198);
-			this.flowLayout_DebugFunkyLogLevels.TabIndex = 0;
 			// 
 			// groupBox22
 			// 
@@ -3037,9 +2967,6 @@
 			this.panel17.ResumeLayout(false);
 			this.panel17.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tb_GeneralEndOfCombatDelayValue)).EndInit();
-			this.panel16.ResumeLayout(false);
-			this.panel16.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.tb_GeneralGoldInactivityValue)).EndInit();
 			this.tabPage18.ResumeLayout(false);
 			this.panel18.ResumeLayout(false);
 			this.panel18.PerformLayout();
@@ -3061,7 +2988,6 @@
 			this.groupBox19.ResumeLayout(false);
 			this.groupBox19.PerformLayout();
 			this.tabPage14.ResumeLayout(false);
-			this.groupBox23.ResumeLayout(false);
 			this.groupBox22.ResumeLayout(false);
 			this.groupBox22.PerformLayout();
 			this.tabPage15.ResumeLayout(false);
@@ -3237,14 +3163,8 @@
 		private System.Windows.Forms.TextBox txt_GeneralEndOfCombatDelayValue;
 		private System.Windows.Forms.TrackBar tb_GeneralEndOfCombatDelayValue;
 		private System.Windows.Forms.CheckBox cb_GeneralAllowBuffInTown;
-		private System.Windows.Forms.Panel panel16;
-		private System.Windows.Forms.Label label20;
-		private System.Windows.Forms.TextBox txt_GeneralGoldInactivityValue;
-		private System.Windows.Forms.TrackBar tb_GeneralGoldInactivityValue;
 		private System.Windows.Forms.TabPage tabPage17;
 		private System.Windows.Forms.CheckBox cb_AdventureModeEnabled;
-		private System.Windows.Forms.GroupBox groupBox23;
-		private System.Windows.Forms.FlowLayoutPanel flowLayout_DebugFunkyLogLevels;
 		private System.Windows.Forms.GroupBox groupBox22;
 		private System.Windows.Forms.CheckBox cb_DebugDataLogging;
 		private System.Windows.Forms.CheckBox cb_DebugStatusBar;

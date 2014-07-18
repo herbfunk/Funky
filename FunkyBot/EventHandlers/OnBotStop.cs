@@ -1,5 +1,4 @@
 ﻿using System;
-using FunkyBot.Game.ProfileTracking;
 using Zeta.Bot;
 using Zeta.Common;
 
@@ -11,8 +10,8 @@ namespace FunkyBot.EventHandlers
 		internal static void FunkyBotStop(IBot bot)
 		{
 			// Issue final reports
-			Bot.Game.TrackingStats.GameStopped(ref Bot.Game.CurrentGameStats);
-			TotalStats.WriteProfileTrackerOutput(Bot.Game.TrackingStats);
+			//Bot.Game.TrackingStats.GameStopped(ref Bot.Game.CurrentGameStats);
+			//TotalStats.WriteProfileTrackerOutput(Bot.Game.TrackingStats);
 
 			PlayerMover.iTotalAntiStuckAttempts = 1;
 			PlayerMover.vSafeMovementLocation = Vector3.Zero;

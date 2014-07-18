@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using fItemPlugin.Items;
-using fItemPlugin.Player;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
+using fBaseXtensions.Items;
+using fBaseXtensions.Items.Enums;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Config.Settings;
 using FunkyBot.DBHandlers.Townrun;
 using FunkyBot.Game;
 using Zeta.Bot.Logic;
@@ -11,8 +14,8 @@ using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
-using Logger = FunkyBot.Misc.Logger;
-using LogLevel = FunkyBot.Misc.LogLevel;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 namespace FunkyBot.Cache.Objects
 {
@@ -31,7 +34,7 @@ namespace FunkyBot.Cache.Objects
 		public int? DynamicID { get; set; }
 		public ItemQuality? Itemquality { get; set; }
 		public bool ItemQualityRechecked { get; set; }
-		public PluginItemType GilesItemType { get; set; }
+		public PluginItemTypes GilesItemType { get; set; }
 		public bool? ShouldPickup { get; set; }
 		private DateTime LastAvoidanceIgnored = DateTime.Today;
 
@@ -76,7 +79,7 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
-				float fThisHeightDifference = Funky.Difference(Bot.Character.Data.Position.Z, Position.Z);
+				float fThisHeightDifference = Funky.Difference(FunkyGame.Hero.Position.Z, Position.Z);
 
 				if (targetType.HasValue && targetType.Value == TargetType.Item)
 				{
@@ -109,10 +112,10 @@ namespace FunkyBot.Cache.Objects
 			Vector3 TestPosition = Position;
 
 			//Use modified Test Position for Gold/Globe
-			if (Bot.Character.Data.PickupRadius > 0f && ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Globe | TargetType.Gold | TargetType.PowerGlobe))
-				TestPosition = MathEx.CalculatePointFrom(Bot.Character.Data.Position, Position, Math.Max(0f, CentreDistance - Bot.Character.Data.PickupRadius));
+			if (FunkyGame.Hero.PickupRadius > 0f && ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Globe | TargetType.Gold | TargetType.PowerGlobe))
+				TestPosition = MathEx.CalculatePointFrom(FunkyGame.Hero.Position, Position, Math.Max(0f, CentreDistance - FunkyGame.Hero.PickupRadius));
 
-			if (Bot.Character.Data.Position.Distance(TestPosition) >= 2f)
+			if (FunkyGame.Hero.Position.Distance(TestPosition) >= 2f)
 			{
 				//If we are already ignored this recently.. lets just assume its still being ignored!
 				if (DateTime.Now.Subtract(LastAvoidanceIgnored).TotalMilliseconds < 1000 && Bot.Targeting.Cache.Environment.NearbyAvoidances.Count > 0)
@@ -134,7 +137,7 @@ namespace FunkyBot.Cache.Objects
 			if (Weight != 1)
 			{
 
-				Vector3 BotPosition = Bot.Character.Data.Position;
+				Vector3 BotPosition = FunkyGame.Hero.Position;
 				float centreDistance = BotPosition.Distance(TestPosition);
 
 				switch (targetType.Value)
@@ -167,7 +170,7 @@ namespace FunkyBot.Cache.Objects
 							}
 						}
 						// Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
-						if (Bot.Character.Data.bIsRooted)
+						if (FunkyGame.Hero.bIsRooted)
 							Weight = 18000 - (Math.Floor(centreDistance) * 200);
 						// If there's a monster in the path-line to the item, reduce the weight
 						if (!Equipment.NoMonsterCollision&&ObjectCache.Obstacles.Monsters.Any(cp => cp.PointInside(Position)))
@@ -181,7 +184,7 @@ namespace FunkyBot.Cache.Objects
 						//     this.Weight*=0.10;
 
 						//Test if there are nearby units that will trigger kite action..
-						if (Bot.Character.Data.ShouldFlee)
+						if (Targeting.Behaviors.TBFleeing.ShouldFlee)
 						{
 							if (ObjectCache.Objects.OfType<CacheUnit>().Any(m => m.ShouldFlee && m.IsPositionWithinRange(Position, Bot.Settings.Fleeing.FleeMaxMonsterDistance)))
 								Weight = 1;
@@ -201,7 +204,7 @@ namespace FunkyBot.Cache.Objects
 						if (Equals(Bot.Targeting.Cache.LastCachedTarget))
 							Weight += 600;
 						// Are we prioritizing close-range stuff atm? If so limit it at a value 3k lower than monster close-range priority
-						if (Bot.Character.Data.bIsRooted)
+						if (FunkyGame.Hero.bIsRooted)
 							Weight = 18000 - (Math.Floor(centreDistance) * 200);
 						// If there's a monster in the path-line to the item, reduce the weight by 25%
 						if (!Equipment.NoMonsterCollision && ObjectCache.Obstacles.Monsters.Any(cp => cp.TestIntersection(this, BotPosition)))
@@ -216,8 +219,8 @@ namespace FunkyBot.Cache.Objects
 					case TargetType.Globe:
 					case TargetType.PowerGlobe:
 						if (targetType.Equals(TargetType.Globe) &&
-							((Bot.Character.Data.dCurrentHealthPct > Bot.Settings.Combat.GlobeHealthPercent && !Equipment.GlobesRestoreResource) ||
-							(Equipment.GlobesRestoreResource && Bot.Character.Data.dCurrentEnergyPct > 0.75d)))
+							((FunkyGame.Hero.dCurrentHealthPct > Bot.Settings.Combat.GlobeHealthPercent && !Equipment.GlobesRestoreResource) ||
+							(Equipment.GlobesRestoreResource && FunkyGame.Hero.dCurrentEnergyPct > 0.75d)))
 						{
 							Weight = 0;
 						}
@@ -316,7 +319,7 @@ namespace FunkyBot.Cache.Objects
 					if (centredistance > lootDistance)
 					{
 						//Add to LOS Movement..
-						if (Bot.Settings.Backtracking.TrackLootableItems && CentreDistance <= ProfileCache.LOSSettingsTag.MaximumRange)
+						if (Bot.Settings.Backtracking.TrackLootableItems && CentreDistance <= SettingLOSMovement.LOSSettingsTag.MaximumRange)
 						{
 							LoopsUnseen = 0;
 							Logger.Write(LogLevel.Items, "Adding Item {0} to LOS Movement Objects", InternalName);
@@ -331,7 +334,7 @@ namespace FunkyBot.Cache.Objects
 					//Check if we require LOS
 					if (RequiresLOSCheck)
 					{
-						if (!LineOfSight.LOSTest(Bot.Character.Data.Position, false, true, false))
+						if (!LineOfSight.LOSTest(FunkyGame.Hero.Position, false, true, false))
 						{
 							IgnoredType = TargetingIgnoreTypes.LineOfSightFailure;
 							//AllowWalk failure does not mean we should ignore it!
@@ -348,12 +351,12 @@ namespace FunkyBot.Cache.Objects
 				else
 				{
 					// Blacklist objects already in pickup radius range
-					if (CentreDistance + 2.5f < Bot.Character.Data.PickupRadius)
+					if (CentreDistance + 2.5f < FunkyGame.Hero.PickupRadius)
 					{
 						//IgnoredType = TargetingIgnoreTypes.DistanceFailure;
 						NeedsRemoved = true;
 						BlacklistFlag = BlacklistType.Temporary;
-						Bot.Character.Data.UpdateCoinage = true;
+						FunkyGame.Hero.UpdateCoinage = true;
 						return false;
 					}
 
@@ -364,7 +367,7 @@ namespace FunkyBot.Cache.Objects
 							IgnoredType = TargetingIgnoreTypes.ItemNoPickup;
 							NeedsRemoved = true;
 							BlacklistFlag = BlacklistType.Temporary;
-							Bot.Character.Data.UpdateCoinage = true;
+							FunkyGame.Hero.UpdateCoinage = true;
 							return false;
 						}
 
@@ -378,7 +381,7 @@ namespace FunkyBot.Cache.Objects
 							BlacklistLoops = 20;
 							return false;
 						}
-						Bot.Character.Data.UpdateCoinage = true;
+						FunkyGame.Hero.UpdateCoinage = true;
 					}
 					else
 					{
@@ -527,7 +530,14 @@ namespace FunkyBot.Cache.Objects
 				if (!ShouldPickup.HasValue)
 				{
 					//Logger.DBLog.InfoFormat Dropped Items Here!!
-					Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.DroppedItemLog(this);
+					if (BalanceData!=null)
+					{
+						PluginItemTypes itemType=ItemFunc.DetermineItemType(InternalName, BalanceData.thisItemType, BalanceData.thisFollowerType);
+						FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.DroppedItemLog(itemType, Itemquality.Value);
+					}
+
+					//Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.DroppedItemLog(this);
+
 					Bot.Character.ItemPickupEval(this);
 					//if (Bot.Settings.ItemRules.UseItemRules)
 					//{
@@ -575,7 +585,7 @@ namespace FunkyBot.Cache.Objects
 						return false;
 					}
 				}
-				Bot.Character.Data.UpdateCoinage = true;
+				FunkyGame.Hero.UpdateCoinage = true;
 				NeedsUpdate = false;
 				#endregion
 			}
@@ -593,7 +603,7 @@ namespace FunkyBot.Cache.Objects
 		public override RunStatus Interact()
 		{
 			//Only validate if we can pickup if slots are minimum
-			if (Bot.Character.Data.FreeBackpackSlots <= 8)
+			if (FunkyGame.Hero.FreeBackpackSlots <= 8)
 			{
 				if (ref_DiaItem != null && ref_DiaItem.BaseAddress != IntPtr.Zero)
 				{
@@ -628,19 +638,19 @@ namespace FunkyBot.Cache.Objects
 			if (!Bot.Targeting.Cache.ShouldCheckItemLooted)
 			{
 				Bot.Targeting.Cache.ShouldCheckItemLooted = true;
-				Bot.Character.Data.BackPack.Update();
+				Backpack.UpdateItemList();
 			}
 
 			// Pick the item up the usepower way, and "blacklist" for a couple of loops
-			Bot.Character.Data.WaitWhileAnimating(20);
-			ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, Vector3.Zero, Bot.Character.Data.CurrentWorldDynamicID, AcdGuid.Value);
+			FunkyGame.Hero.WaitWhileAnimating(20);
+			ZetaDia.Me.UsePower(SNOPower.Axe_Operate_Gizmo, Vector3.Zero, FunkyGame.Hero.CurrentWorldDynamicID, AcdGuid.Value);
 			Bot.NavigationCache.lastChangedZigZag = DateTime.Today;
 			Bot.NavigationCache.vPositionLastZigZagCheck = Vector3.Zero;
 
 
 
 
-			Bot.Character.Data.WaitWhileAnimating(5, true);
+			FunkyGame.Hero.WaitWhileAnimating(5, true);
 			return RunStatus.Running;
 		}
 
@@ -658,13 +668,13 @@ namespace FunkyBot.Cache.Objects
 			{
 				if (targetType.Value == TargetType.Gold)
 				{
-					fRangeRequired = Bot.Character.Data.PickupRadius;
+					fRangeRequired = FunkyGame.Hero.PickupRadius;
 					if (fRangeRequired == 0f)
 						fRangeRequired = 0.5f;
 				}
 				else
 				{
-					fRangeRequired = Bot.Character.Data.PickupRadius;
+					fRangeRequired = FunkyGame.Hero.PickupRadius;
 					if (fRangeRequired == 0f)
 						fRangeRequired = 0.5f;
 					if (fRangeRequired > 5f)
@@ -672,7 +682,7 @@ namespace FunkyBot.Cache.Objects
 				}
 			}
 
-			DistanceFromTarget = Bot.Character.Data.Position.Distance2D(Position) - fDistanceReduction;
+			DistanceFromTarget = FunkyGame.Hero.Position.Distance2D(Position) - fDistanceReduction;
 			return (fRangeRequired <= 0f || base.DistanceFromTarget <= fRangeRequired);
 		}
 

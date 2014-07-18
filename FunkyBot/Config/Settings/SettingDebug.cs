@@ -6,7 +6,6 @@ namespace FunkyBot.Config.Settings
 	{
 		 public bool DebugStatusBar { get; set; }
 		 public bool LogGroupingOutput { get; set; }
-		 public LogLevel FunkyLogFlags { get; set; }
 		 public bool SkipAhead { get; set; }
 		 public bool LogStuckLocations { get; set; }
 		 public bool EnableUnstucker { get; set; }
@@ -17,7 +16,6 @@ namespace FunkyBot.Config.Settings
 		 {
 			  DebuggingData = false;
 			  DebugStatusBar=true;
-			  FunkyLogFlags=LogLevel.None;
 			  EnableUnstucker=true;
 			  RestartGameOnLongStucks=true;
 			  LogStuckLocations=true;

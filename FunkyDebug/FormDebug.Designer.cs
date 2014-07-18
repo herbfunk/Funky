@@ -48,26 +48,49 @@
 			this.tabPage7 = new System.Windows.Forms.TabPage();
 			this.panel5 = new System.Windows.Forms.Panel();
 			this.btnRefreshCharacterEquipped = new System.Windows.Forms.Button();
-			this.tabPage8 = new System.Windows.Forms.TabPage();
-			this.panel4 = new System.Windows.Forms.Panel();
-			this.btn_dumpUIs = new System.Windows.Forms.Button();
-			this.flowLayout_OutPut = new System.Windows.Forms.FlowLayoutPanel();
 			this.tabPage9 = new System.Windows.Forms.TabPage();
 			this.tabControl2 = new System.Windows.Forms.TabControl();
 			this.tabPage10 = new System.Windows.Forms.TabPage();
-			this.tabPage11 = new System.Windows.Forms.TabPage();
 			this.tabControl4 = new System.Windows.Forms.TabControl();
 			this.tabPage12 = new System.Windows.Forms.TabPage();
-			this.tabPage13 = new System.Windows.Forms.TabPage();
 			this.btn_DumpOpenWorldMarkers = new System.Windows.Forms.Button();
+			this.tabPage13 = new System.Windows.Forms.TabPage();
 			this.btn_DumpCurrentWorldMarkers = new System.Windows.Forms.Button();
 			this.tabPage14 = new System.Windows.Forms.TabPage();
 			this.btn_DumpNormalMarkers = new System.Windows.Forms.Button();
+			this.tabPage11 = new System.Windows.Forms.TabPage();
 			this.tabControl5 = new System.Windows.Forms.TabControl();
 			this.tabPage15 = new System.Windows.Forms.TabPage();
-			this.tabPage16 = new System.Windows.Forms.TabPage();
 			this.btn_DumpBounties = new System.Windows.Forms.Button();
+			this.tabPage16 = new System.Windows.Forms.TabPage();
 			this.btn_DumpQuests = new System.Windows.Forms.Button();
+			this.tabPage8 = new System.Windows.Forms.TabPage();
+			this.panel4 = new System.Windows.Forms.Panel();
+			this.btn_dumpUIs = new System.Windows.Forms.Button();
+			this.tabPage17 = new System.Windows.Forms.TabPage();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.panel6 = new System.Windows.Forms.Panel();
+			this.label4 = new System.Windows.Forms.Label();
+			this.txtbox_RaycastTo_Z = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.txtbox_RaycastTo_X = new System.Windows.Forms.TextBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.txtbox_RaycastTo_Y = new System.Windows.Forms.TextBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.btn_RayCast = new System.Windows.Forms.Button();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.radioButton_FromOtherLocation = new System.Windows.Forms.RadioButton();
+			this.radioButton_FromPlayer = new System.Windows.Forms.RadioButton();
+			this.panel_Raycast_FromLocation = new System.Windows.Forms.Panel();
+			this.label3 = new System.Windows.Forms.Label();
+			this.txtbox_Raycast_Z = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.txtbox_Raycast_X = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.txtbox_Raycast_Y = new System.Windows.Forms.TextBox();
+			this.flowLayout_OutPut = new System.Windows.Forms.FlowLayoutPanel();
+			this.tabPage18 = new System.Windows.Forms.TabPage();
+			this.button1 = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPageObjects.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -80,19 +103,26 @@
 			this.panel3.SuspendLayout();
 			this.tabPage7.SuspendLayout();
 			this.panel5.SuspendLayout();
-			this.tabPage8.SuspendLayout();
-			this.panel4.SuspendLayout();
 			this.tabPage9.SuspendLayout();
 			this.tabControl2.SuspendLayout();
 			this.tabPage10.SuspendLayout();
-			this.tabPage11.SuspendLayout();
 			this.tabControl4.SuspendLayout();
 			this.tabPage12.SuspendLayout();
 			this.tabPage13.SuspendLayout();
 			this.tabPage14.SuspendLayout();
+			this.tabPage11.SuspendLayout();
 			this.tabControl5.SuspendLayout();
 			this.tabPage15.SuspendLayout();
 			this.tabPage16.SuspendLayout();
+			this.tabPage8.SuspendLayout();
+			this.panel4.SuspendLayout();
+			this.tabPage17.SuspendLayout();
+			this.groupBox3.SuspendLayout();
+			this.panel6.SuspendLayout();
+			this.groupBox2.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			this.panel_Raycast_FromLocation.SuspendLayout();
+			this.tabPage18.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -101,6 +131,8 @@
 			this.tabControl1.Controls.Add(this.tabPageCharacter);
 			this.tabControl1.Controls.Add(this.tabPage9);
 			this.tabControl1.Controls.Add(this.tabPage8);
+			this.tabControl1.Controls.Add(this.tabPage17);
+			this.tabControl1.Controls.Add(this.tabPage18);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
@@ -115,7 +147,7 @@
 			this.tabPageObjects.Location = new System.Drawing.Point(4, 22);
 			this.tabPageObjects.Name = "tabPageObjects";
 			this.tabPageObjects.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageObjects.Size = new System.Drawing.Size(750, 79);
+			this.tabPageObjects.Size = new System.Drawing.Size(750, 108);
 			this.tabPageObjects.TabIndex = 0;
 			this.tabPageObjects.Text = "Objects";
 			this.tabPageObjects.UseVisualStyleBackColor = true;
@@ -198,7 +230,7 @@
 			this.tabPageCharacter.Location = new System.Drawing.Point(4, 22);
 			this.tabPageCharacter.Name = "tabPageCharacter";
 			this.tabPageCharacter.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageCharacter.Size = new System.Drawing.Size(750, 79);
+			this.tabPageCharacter.Size = new System.Drawing.Size(750, 108);
 			this.tabPageCharacter.TabIndex = 1;
 			this.tabPageCharacter.Text = "Character";
 			this.tabPageCharacter.UseVisualStyleBackColor = true;
@@ -212,7 +244,7 @@
 			this.tabControl3.Location = new System.Drawing.Point(3, 3);
 			this.tabControl3.Name = "tabControl3";
 			this.tabControl3.SelectedIndex = 0;
-			this.tabControl3.Size = new System.Drawing.Size(744, 73);
+			this.tabControl3.Size = new System.Drawing.Size(744, 102);
 			this.tabControl3.TabIndex = 2;
 			// 
 			// tabPage5
@@ -221,7 +253,7 @@
 			this.tabPage5.Location = new System.Drawing.Point(4, 22);
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage5.Size = new System.Drawing.Size(736, 47);
+			this.tabPage5.Size = new System.Drawing.Size(736, 76);
 			this.tabPage5.TabIndex = 0;
 			this.tabPage5.Text = "Skills";
 			this.tabPage5.UseVisualStyleBackColor = true;
@@ -253,7 +285,7 @@
 			this.tabPage6.Location = new System.Drawing.Point(4, 22);
 			this.tabPage6.Name = "tabPage6";
 			this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage6.Size = new System.Drawing.Size(736, 47);
+			this.tabPage6.Size = new System.Drawing.Size(736, 76);
 			this.tabPage6.TabIndex = 1;
 			this.tabPage6.Text = "Inventory";
 			this.tabPage6.UseVisualStyleBackColor = true;
@@ -283,7 +315,7 @@
 			this.tabPage7.Location = new System.Drawing.Point(4, 22);
 			this.tabPage7.Name = "tabPage7";
 			this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage7.Size = new System.Drawing.Size(736, 47);
+			this.tabPage7.Size = new System.Drawing.Size(736, 76);
 			this.tabPage7.TabIndex = 2;
 			this.tabPage7.Text = "Equipped";
 			this.tabPage7.UseVisualStyleBackColor = true;
@@ -306,50 +338,6 @@
 			this.btnRefreshCharacterEquipped.Text = "Refresh";
 			this.btnRefreshCharacterEquipped.UseVisualStyleBackColor = true;
 			this.btnRefreshCharacterEquipped.Click += new System.EventHandler(this.btnRefreshCharacterEquipped_Click);
-			// 
-			// tabPage8
-			// 
-			this.tabPage8.Controls.Add(this.panel4);
-			this.tabPage8.Location = new System.Drawing.Point(4, 22);
-			this.tabPage8.Name = "tabPage8";
-			this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage8.Size = new System.Drawing.Size(750, 79);
-			this.tabPage8.TabIndex = 2;
-			this.tabPage8.Text = "UI";
-			this.tabPage8.UseVisualStyleBackColor = true;
-			// 
-			// panel4
-			// 
-			this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panel4.Controls.Add(this.btn_dumpUIs);
-			this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-			this.panel4.Location = new System.Drawing.Point(3, 3);
-			this.panel4.Name = "panel4";
-			this.panel4.Size = new System.Drawing.Size(744, 32);
-			this.panel4.TabIndex = 0;
-			// 
-			// btn_dumpUIs
-			// 
-			this.btn_dumpUIs.Location = new System.Drawing.Point(5, 3);
-			this.btn_dumpUIs.Name = "btn_dumpUIs";
-			this.btn_dumpUIs.Size = new System.Drawing.Size(75, 23);
-			this.btn_dumpUIs.TabIndex = 0;
-			this.btn_dumpUIs.Text = "Dump";
-			this.btn_dumpUIs.UseVisualStyleBackColor = true;
-			this.btn_dumpUIs.Click += new System.EventHandler(this.btn_dumpUIs_Click);
-			// 
-			// flowLayout_OutPut
-			// 
-			this.flowLayout_OutPut.AutoScroll = true;
-			this.flowLayout_OutPut.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.flowLayout_OutPut.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.flowLayout_OutPut.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-			this.flowLayout_OutPut.Location = new System.Drawing.Point(0, 134);
-			this.flowLayout_OutPut.Name = "flowLayout_OutPut";
-			this.flowLayout_OutPut.Size = new System.Drawing.Size(758, 459);
-			this.flowLayout_OutPut.TabIndex = 1;
-			this.flowLayout_OutPut.WrapContents = false;
-			this.flowLayout_OutPut.MouseEnter += new System.EventHandler(this.flowLayout_OutPut_MouseEnter);
 			// 
 			// tabPage9
 			// 
@@ -384,17 +372,6 @@
 			this.tabPage10.Text = "Minimap";
 			this.tabPage10.UseVisualStyleBackColor = true;
 			// 
-			// tabPage11
-			// 
-			this.tabPage11.Controls.Add(this.tabControl5);
-			this.tabPage11.Location = new System.Drawing.Point(4, 22);
-			this.tabPage11.Name = "tabPage11";
-			this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage11.Size = new System.Drawing.Size(736, 77);
-			this.tabPage11.TabIndex = 1;
-			this.tabPage11.Text = "Quests";
-			this.tabPage11.UseVisualStyleBackColor = true;
-			// 
 			// tabControl4
 			// 
 			this.tabControl4.Controls.Add(this.tabPage12);
@@ -418,6 +395,16 @@
 			this.tabPage12.Text = "Open World Markers";
 			this.tabPage12.UseVisualStyleBackColor = true;
 			// 
+			// btn_DumpOpenWorldMarkers
+			// 
+			this.btn_DumpOpenWorldMarkers.Location = new System.Drawing.Point(6, 6);
+			this.btn_DumpOpenWorldMarkers.Name = "btn_DumpOpenWorldMarkers";
+			this.btn_DumpOpenWorldMarkers.Size = new System.Drawing.Size(75, 23);
+			this.btn_DumpOpenWorldMarkers.TabIndex = 0;
+			this.btn_DumpOpenWorldMarkers.Text = "Dump";
+			this.btn_DumpOpenWorldMarkers.UseVisualStyleBackColor = true;
+			this.btn_DumpOpenWorldMarkers.Click += new System.EventHandler(this.btn_DumpOpenWorldMarkers_Click);
+			// 
 			// tabPage13
 			// 
 			this.tabPage13.Controls.Add(this.btn_DumpCurrentWorldMarkers);
@@ -428,16 +415,6 @@
 			this.tabPage13.TabIndex = 1;
 			this.tabPage13.Text = "Current World Markers";
 			this.tabPage13.UseVisualStyleBackColor = true;
-			// 
-			// btn_DumpOpenWorldMarkers
-			// 
-			this.btn_DumpOpenWorldMarkers.Location = new System.Drawing.Point(6, 6);
-			this.btn_DumpOpenWorldMarkers.Name = "btn_DumpOpenWorldMarkers";
-			this.btn_DumpOpenWorldMarkers.Size = new System.Drawing.Size(75, 23);
-			this.btn_DumpOpenWorldMarkers.TabIndex = 0;
-			this.btn_DumpOpenWorldMarkers.Text = "Dump";
-			this.btn_DumpOpenWorldMarkers.UseVisualStyleBackColor = true;
-			this.btn_DumpOpenWorldMarkers.Click += new System.EventHandler(this.btn_DumpOpenWorldMarkers_Click);
 			// 
 			// btn_DumpCurrentWorldMarkers
 			// 
@@ -470,6 +447,17 @@
 			this.btn_DumpNormalMarkers.UseVisualStyleBackColor = true;
 			this.btn_DumpNormalMarkers.Click += new System.EventHandler(this.btn_DumpNormalMarkers_Click);
 			// 
+			// tabPage11
+			// 
+			this.tabPage11.Controls.Add(this.tabControl5);
+			this.tabPage11.Location = new System.Drawing.Point(4, 22);
+			this.tabPage11.Name = "tabPage11";
+			this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage11.Size = new System.Drawing.Size(736, 77);
+			this.tabPage11.TabIndex = 1;
+			this.tabPage11.Text = "Quests";
+			this.tabPage11.UseVisualStyleBackColor = true;
+			// 
 			// tabControl5
 			// 
 			this.tabControl5.Controls.Add(this.tabPage15);
@@ -492,6 +480,16 @@
 			this.tabPage15.Text = "Bounties";
 			this.tabPage15.UseVisualStyleBackColor = true;
 			// 
+			// btn_DumpBounties
+			// 
+			this.btn_DumpBounties.Location = new System.Drawing.Point(6, 6);
+			this.btn_DumpBounties.Name = "btn_DumpBounties";
+			this.btn_DumpBounties.Size = new System.Drawing.Size(75, 23);
+			this.btn_DumpBounties.TabIndex = 3;
+			this.btn_DumpBounties.Text = "Dump";
+			this.btn_DumpBounties.UseVisualStyleBackColor = true;
+			this.btn_DumpBounties.Click += new System.EventHandler(this.btn_DumpBounties_Click);
+			// 
 			// tabPage16
 			// 
 			this.tabPage16.Controls.Add(this.btn_DumpQuests);
@@ -503,16 +501,6 @@
 			this.tabPage16.Text = "Quests";
 			this.tabPage16.UseVisualStyleBackColor = true;
 			// 
-			// btn_DumpBounties
-			// 
-			this.btn_DumpBounties.Location = new System.Drawing.Point(6, 6);
-			this.btn_DumpBounties.Name = "btn_DumpBounties";
-			this.btn_DumpBounties.Size = new System.Drawing.Size(75, 23);
-			this.btn_DumpBounties.TabIndex = 3;
-			this.btn_DumpBounties.Text = "Dump";
-			this.btn_DumpBounties.UseVisualStyleBackColor = true;
-			this.btn_DumpBounties.Click += new System.EventHandler(this.btn_DumpBounties_Click);
-			// 
 			// btn_DumpQuests
 			// 
 			this.btn_DumpQuests.Location = new System.Drawing.Point(6, 6);
@@ -522,6 +510,284 @@
 			this.btn_DumpQuests.Text = "Dump";
 			this.btn_DumpQuests.UseVisualStyleBackColor = true;
 			this.btn_DumpQuests.Click += new System.EventHandler(this.btn_DumpQuests_Click);
+			// 
+			// tabPage8
+			// 
+			this.tabPage8.Controls.Add(this.panel4);
+			this.tabPage8.Location = new System.Drawing.Point(4, 22);
+			this.tabPage8.Name = "tabPage8";
+			this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage8.Size = new System.Drawing.Size(750, 108);
+			this.tabPage8.TabIndex = 2;
+			this.tabPage8.Text = "UI";
+			this.tabPage8.UseVisualStyleBackColor = true;
+			// 
+			// panel4
+			// 
+			this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel4.Controls.Add(this.btn_dumpUIs);
+			this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel4.Location = new System.Drawing.Point(3, 3);
+			this.panel4.Name = "panel4";
+			this.panel4.Size = new System.Drawing.Size(744, 32);
+			this.panel4.TabIndex = 0;
+			// 
+			// btn_dumpUIs
+			// 
+			this.btn_dumpUIs.Location = new System.Drawing.Point(5, 3);
+			this.btn_dumpUIs.Name = "btn_dumpUIs";
+			this.btn_dumpUIs.Size = new System.Drawing.Size(75, 23);
+			this.btn_dumpUIs.TabIndex = 0;
+			this.btn_dumpUIs.Text = "Dump";
+			this.btn_dumpUIs.UseVisualStyleBackColor = true;
+			this.btn_dumpUIs.Click += new System.EventHandler(this.btn_dumpUIs_Click);
+			// 
+			// tabPage17
+			// 
+			this.tabPage17.Controls.Add(this.groupBox3);
+			this.tabPage17.Controls.Add(this.groupBox2);
+			this.tabPage17.Controls.Add(this.groupBox1);
+			this.tabPage17.Location = new System.Drawing.Point(4, 22);
+			this.tabPage17.Name = "tabPage17";
+			this.tabPage17.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage17.Size = new System.Drawing.Size(750, 108);
+			this.tabPage17.TabIndex = 4;
+			this.tabPage17.Text = "Raycast";
+			this.tabPage17.UseVisualStyleBackColor = true;
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Controls.Add(this.panel6);
+			this.groupBox3.Location = new System.Drawing.Point(282, 6);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(268, 96);
+			this.groupBox3.TabIndex = 3;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "To";
+			// 
+			// panel6
+			// 
+			this.panel6.Controls.Add(this.label4);
+			this.panel6.Controls.Add(this.txtbox_RaycastTo_Z);
+			this.panel6.Controls.Add(this.label5);
+			this.panel6.Controls.Add(this.txtbox_RaycastTo_X);
+			this.panel6.Controls.Add(this.label6);
+			this.panel6.Controls.Add(this.txtbox_RaycastTo_Y);
+			this.panel6.Location = new System.Drawing.Point(6, 43);
+			this.panel6.Name = "panel6";
+			this.panel6.Size = new System.Drawing.Size(256, 47);
+			this.panel6.TabIndex = 6;
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(163, 5);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(14, 13);
+			this.label4.TabIndex = 5;
+			this.label4.Text = "Z";
+			// 
+			// txtbox_RaycastTo_Z
+			// 
+			this.txtbox_RaycastTo_Z.Location = new System.Drawing.Point(166, 21);
+			this.txtbox_RaycastTo_Z.Name = "txtbox_RaycastTo_Z";
+			this.txtbox_RaycastTo_Z.Size = new System.Drawing.Size(74, 20);
+			this.txtbox_RaycastTo_Z.TabIndex = 2;
+			this.txtbox_RaycastTo_Z.Tag = "to";
+			this.txtbox_RaycastTo_Z.TextChanged += new System.EventHandler(this.txtbox_Raycast_X_TextChanged);
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(83, 5);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(14, 13);
+			this.label5.TabIndex = 4;
+			this.label5.Text = "Y";
+			// 
+			// txtbox_RaycastTo_X
+			// 
+			this.txtbox_RaycastTo_X.Location = new System.Drawing.Point(6, 21);
+			this.txtbox_RaycastTo_X.Name = "txtbox_RaycastTo_X";
+			this.txtbox_RaycastTo_X.Size = new System.Drawing.Size(74, 20);
+			this.txtbox_RaycastTo_X.TabIndex = 0;
+			this.txtbox_RaycastTo_X.Tag = "to";
+			this.txtbox_RaycastTo_X.TextChanged += new System.EventHandler(this.txtbox_Raycast_X_TextChanged);
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(6, 5);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(14, 13);
+			this.label6.TabIndex = 3;
+			this.label6.Text = "X";
+			// 
+			// txtbox_RaycastTo_Y
+			// 
+			this.txtbox_RaycastTo_Y.Location = new System.Drawing.Point(86, 21);
+			this.txtbox_RaycastTo_Y.Name = "txtbox_RaycastTo_Y";
+			this.txtbox_RaycastTo_Y.Size = new System.Drawing.Size(74, 20);
+			this.txtbox_RaycastTo_Y.TabIndex = 1;
+			this.txtbox_RaycastTo_Y.Tag = "to";
+			this.txtbox_RaycastTo_Y.TextChanged += new System.EventHandler(this.txtbox_Raycast_X_TextChanged);
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.btn_RayCast);
+			this.groupBox2.Location = new System.Drawing.Point(556, 6);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(186, 96);
+			this.groupBox2.TabIndex = 2;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "groupBox2";
+			// 
+			// btn_RayCast
+			// 
+			this.btn_RayCast.Location = new System.Drawing.Point(6, 20);
+			this.btn_RayCast.Name = "btn_RayCast";
+			this.btn_RayCast.Size = new System.Drawing.Size(75, 23);
+			this.btn_RayCast.TabIndex = 0;
+			this.btn_RayCast.Text = "Test";
+			this.btn_RayCast.UseVisualStyleBackColor = true;
+			this.btn_RayCast.Click += new System.EventHandler(this.btn_RayCast_Click);
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.radioButton_FromOtherLocation);
+			this.groupBox1.Controls.Add(this.radioButton_FromPlayer);
+			this.groupBox1.Controls.Add(this.panel_Raycast_FromLocation);
+			this.groupBox1.Location = new System.Drawing.Point(8, 6);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(268, 96);
+			this.groupBox1.TabIndex = 1;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "From";
+			// 
+			// radioButton_FromOtherLocation
+			// 
+			this.radioButton_FromOtherLocation.AutoSize = true;
+			this.radioButton_FromOtherLocation.Location = new System.Drawing.Point(110, 19);
+			this.radioButton_FromOtherLocation.Name = "radioButton_FromOtherLocation";
+			this.radioButton_FromOtherLocation.Size = new System.Drawing.Size(95, 17);
+			this.radioButton_FromOtherLocation.TabIndex = 8;
+			this.radioButton_FromOtherLocation.Text = "Other Location";
+			this.radioButton_FromOtherLocation.UseVisualStyleBackColor = true;
+			this.radioButton_FromOtherLocation.CheckedChanged += new System.EventHandler(this.radioButton_FromOtherLocation_CheckedChanged);
+			// 
+			// radioButton_FromPlayer
+			// 
+			this.radioButton_FromPlayer.AutoSize = true;
+			this.radioButton_FromPlayer.Checked = true;
+			this.radioButton_FromPlayer.Location = new System.Drawing.Point(6, 19);
+			this.radioButton_FromPlayer.Name = "radioButton_FromPlayer";
+			this.radioButton_FromPlayer.Size = new System.Drawing.Size(98, 17);
+			this.radioButton_FromPlayer.TabIndex = 7;
+			this.radioButton_FromPlayer.TabStop = true;
+			this.radioButton_FromPlayer.Text = "Player Location";
+			this.radioButton_FromPlayer.UseVisualStyleBackColor = true;
+			// 
+			// panel_Raycast_FromLocation
+			// 
+			this.panel_Raycast_FromLocation.Controls.Add(this.label3);
+			this.panel_Raycast_FromLocation.Controls.Add(this.txtbox_Raycast_Z);
+			this.panel_Raycast_FromLocation.Controls.Add(this.label2);
+			this.panel_Raycast_FromLocation.Controls.Add(this.txtbox_Raycast_X);
+			this.panel_Raycast_FromLocation.Controls.Add(this.label1);
+			this.panel_Raycast_FromLocation.Controls.Add(this.txtbox_Raycast_Y);
+			this.panel_Raycast_FromLocation.Enabled = false;
+			this.panel_Raycast_FromLocation.Location = new System.Drawing.Point(6, 43);
+			this.panel_Raycast_FromLocation.Name = "panel_Raycast_FromLocation";
+			this.panel_Raycast_FromLocation.Size = new System.Drawing.Size(256, 47);
+			this.panel_Raycast_FromLocation.TabIndex = 6;
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(163, 5);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(14, 13);
+			this.label3.TabIndex = 5;
+			this.label3.Text = "Z";
+			// 
+			// txtbox_Raycast_Z
+			// 
+			this.txtbox_Raycast_Z.Location = new System.Drawing.Point(166, 21);
+			this.txtbox_Raycast_Z.Name = "txtbox_Raycast_Z";
+			this.txtbox_Raycast_Z.Size = new System.Drawing.Size(74, 20);
+			this.txtbox_Raycast_Z.TabIndex = 2;
+			this.txtbox_Raycast_Z.Tag = "from";
+			this.txtbox_Raycast_Z.TextChanged += new System.EventHandler(this.txtbox_Raycast_X_TextChanged);
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(83, 5);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(14, 13);
+			this.label2.TabIndex = 4;
+			this.label2.Text = "Y";
+			// 
+			// txtbox_Raycast_X
+			// 
+			this.txtbox_Raycast_X.Location = new System.Drawing.Point(6, 21);
+			this.txtbox_Raycast_X.Name = "txtbox_Raycast_X";
+			this.txtbox_Raycast_X.Size = new System.Drawing.Size(74, 20);
+			this.txtbox_Raycast_X.TabIndex = 0;
+			this.txtbox_Raycast_X.Tag = "from";
+			this.txtbox_Raycast_X.TextChanged += new System.EventHandler(this.txtbox_Raycast_X_TextChanged);
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(6, 5);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(14, 13);
+			this.label1.TabIndex = 3;
+			this.label1.Text = "X";
+			// 
+			// txtbox_Raycast_Y
+			// 
+			this.txtbox_Raycast_Y.Location = new System.Drawing.Point(86, 21);
+			this.txtbox_Raycast_Y.Name = "txtbox_Raycast_Y";
+			this.txtbox_Raycast_Y.Size = new System.Drawing.Size(74, 20);
+			this.txtbox_Raycast_Y.TabIndex = 1;
+			this.txtbox_Raycast_Y.Tag = "from";
+			this.txtbox_Raycast_Y.TextChanged += new System.EventHandler(this.txtbox_Raycast_X_TextChanged);
+			// 
+			// flowLayout_OutPut
+			// 
+			this.flowLayout_OutPut.AutoScroll = true;
+			this.flowLayout_OutPut.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.flowLayout_OutPut.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.flowLayout_OutPut.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.flowLayout_OutPut.Location = new System.Drawing.Point(0, 134);
+			this.flowLayout_OutPut.Name = "flowLayout_OutPut";
+			this.flowLayout_OutPut.Size = new System.Drawing.Size(758, 459);
+			this.flowLayout_OutPut.TabIndex = 1;
+			this.flowLayout_OutPut.WrapContents = false;
+			this.flowLayout_OutPut.MouseEnter += new System.EventHandler(this.flowLayout_OutPut_MouseEnter);
+			// 
+			// tabPage18
+			// 
+			this.tabPage18.Controls.Add(this.button1);
+			this.tabPage18.Location = new System.Drawing.Point(4, 22);
+			this.tabPage18.Name = "tabPage18";
+			this.tabPage18.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage18.Size = new System.Drawing.Size(750, 108);
+			this.tabPage18.TabIndex = 5;
+			this.tabPage18.Text = "tabPage18";
+			this.tabPage18.UseVisualStyleBackColor = true;
+			// 
+			// button1
+			// 
+			this.button1.Location = new System.Drawing.Point(8, 6);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(75, 23);
+			this.button1.TabIndex = 0;
+			this.button1.Text = "button1";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// FormDebug
 			// 
@@ -549,19 +815,29 @@
 			this.panel3.ResumeLayout(false);
 			this.tabPage7.ResumeLayout(false);
 			this.panel5.ResumeLayout(false);
-			this.tabPage8.ResumeLayout(false);
-			this.panel4.ResumeLayout(false);
 			this.tabPage9.ResumeLayout(false);
 			this.tabControl2.ResumeLayout(false);
 			this.tabPage10.ResumeLayout(false);
-			this.tabPage11.ResumeLayout(false);
 			this.tabControl4.ResumeLayout(false);
 			this.tabPage12.ResumeLayout(false);
 			this.tabPage13.ResumeLayout(false);
 			this.tabPage14.ResumeLayout(false);
+			this.tabPage11.ResumeLayout(false);
 			this.tabControl5.ResumeLayout(false);
 			this.tabPage15.ResumeLayout(false);
 			this.tabPage16.ResumeLayout(false);
+			this.tabPage8.ResumeLayout(false);
+			this.panel4.ResumeLayout(false);
+			this.tabPage17.ResumeLayout(false);
+			this.groupBox3.ResumeLayout(false);
+			this.panel6.ResumeLayout(false);
+			this.panel6.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
+			this.panel_Raycast_FromLocation.ResumeLayout(false);
+			this.panel_Raycast_FromLocation.PerformLayout();
+			this.tabPage18.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -608,5 +884,28 @@
 		private System.Windows.Forms.Button btn_DumpBounties;
 		private System.Windows.Forms.TabPage tabPage16;
 		private System.Windows.Forms.Button btn_DumpQuests;
+		private System.Windows.Forms.TabPage tabPage17;
+		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.Button btn_RayCast;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.RadioButton radioButton_FromOtherLocation;
+		private System.Windows.Forms.RadioButton radioButton_FromPlayer;
+		private System.Windows.Forms.Panel panel_Raycast_FromLocation;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.TextBox txtbox_Raycast_Z;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.TextBox txtbox_Raycast_X;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.TextBox txtbox_Raycast_Y;
+		private System.Windows.Forms.GroupBox groupBox3;
+		private System.Windows.Forms.Panel panel6;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.TextBox txtbox_RaycastTo_Z;
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.TextBox txtbox_RaycastTo_X;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.TextBox txtbox_RaycastTo_Y;
+		private System.Windows.Forms.TabPage tabPage18;
+		private System.Windows.Forms.Button button1;
 	}
 }

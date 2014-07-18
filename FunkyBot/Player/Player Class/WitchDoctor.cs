@@ -1,9 +1,11 @@
 ﻿using System;
-using fItemPlugin.Items;
-using fItemPlugin.Player;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
+using fBaseXtensions.Helpers;
+using fBaseXtensions.Items.Enums;
 using FunkyBot.Misc;
-using FunkyBot.Player.HotBar.Skills;
-using FunkyBot.Player.HotBar.Skills.WitchDoctor;
+using FunkyBot.Skills;
+using FunkyBot.Skills.WitchDoctor;
 using Zeta.Game;
 using System.Collections.Generic;
 using Zeta.Game.Internals.Actors;
@@ -76,7 +78,7 @@ namespace FunkyBot.Player.Class
 		{
 			get
 			{
-				return Bot.Character.Data.SnoActor == SNOActor.WitchDoctor_Female ? knockbackanims_Female : knockbackanims_Male;
+				return FunkyGame.Hero.SnoActor == SNOActor.WitchDoctor_Female ? knockbackanims_Female : knockbackanims_Male;
 			}
 		}
 		internal override Skill DefaultAttack
@@ -87,7 +89,7 @@ namespace FunkyBot.Player.Class
 		{
 			get
 			{
-				return Bot.Character.Data.PetData.Gargantuan;
+				return Bot.Targeting.Cache.Environment.HeroPets.Gargantuan;
 			}
 		}
 		internal override bool IsMeleeClass

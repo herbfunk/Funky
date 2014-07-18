@@ -1,4 +1,6 @@
 ﻿using System;
+using fBaseXtensions.Helpers;
+using FunkyBot.Config.Settings;
 using FunkyBot.Game;
 using FunkyBot.Misc;
 using Zeta.Bot;
@@ -15,14 +17,14 @@ namespace FunkyBot.EventHandlers
 			Logger.Write(LogLevel.Event, "Profile Changed to {0}", sThisProfile);
 
 			//Clear Custom Cluster Settings
-			ProfileCache.ClusterSettingsTag = Bot.Settings.Cluster;
-			ProfileCache.QuestMode = false;
-			ProfileCache.LOSSettingsTag = Bot.Settings.LOSMovement;
-			ProfileCache.AdventureMode = Bot.Settings.AdventureMode.EnableAdventuringMode;
-			ProfileCache.LineOfSightSNOIds.Clear();
+			SettingCluster.ClusterSettingsTag = Bot.Settings.Cluster;
+			Bot.Game.QuestMode = false;
+			SettingLOSMovement.LOSSettingsTag = Bot.Settings.LOSMovement;
+			SettingAdventureMode.AdventureModeSettingsTag = Bot.Settings.AdventureMode;
+			//ProfileCache.LineOfSightSNOIds.Clear();
 
 			//Update Tracker
-			Bot.Game.CurrentGameStats.ProfileChanged(sThisProfile);
+			//Bot.Game.CurrentGameStats.ProfileChanged(sThisProfile);
 		}
 	}
 }

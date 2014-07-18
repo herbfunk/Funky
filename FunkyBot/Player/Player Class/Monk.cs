@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Linq;
-using fItemPlugin.Items;
-using fItemPlugin.Player;
-using FunkyBot.Player.HotBar.Skills;
-using FunkyBot.Player.HotBar.Skills.Monk;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
+using fBaseXtensions.Items.Enums;
+using FunkyBot.Skills;
+using FunkyBot.Skills.Monk;
 using Zeta.Common;
 using System.Collections.Generic;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
-using Logger = FunkyBot.Misc.Logger;
+using Logger = fBaseXtensions.Helpers.Logger;
 
 namespace FunkyBot.Player.Class
 {
@@ -38,11 +39,11 @@ namespace FunkyBot.Player.Class
 				Bot.Settings.Monk.RainmentsOfThousandStormsFiveBonus = false;
 
 			//Combo Strike???
-			if (HotBar.PassivePowers.Contains(SNOPower.Monk_Passive_CombinationStrike))
+			if (Hotbar.PassivePowers.Contains(SNOPower.Monk_Passive_CombinationStrike))
 			{
 				Logger.DBLog.InfoFormat("Combination Strike Found!");
 				Bot.Settings.Monk.bMonkComboStrike = true;
-				int TotalAbilities = HotBar.HotbarSkills.Count(Skill => SpiritGeneratingAbilities.Contains(Skill.Power));
+				int TotalAbilities = Hotbar.HotbarSkills.Count(Skill => SpiritGeneratingAbilities.Contains(Skill.Power));
 				Bot.Settings.Monk.iMonkComboStrikeAbilities = TotalAbilities;
 			}
 			else
@@ -88,7 +89,7 @@ namespace FunkyBot.Player.Class
 		{
 			get
 			{
-				return Bot.Character.Data.SnoActor == SNOActor.Monk_Female ? knockbackanims_Female : knockbackanims_Male;
+				return FunkyGame.Hero.SnoActor == SNOActor.Monk_Female ? knockbackanims_Female : knockbackanims_Male;
 			}
 		}
 		internal override Skill DefaultAttack
@@ -100,7 +101,7 @@ namespace FunkyBot.Player.Class
 		{
 			get
 			{
-				return Bot.Character.Data.PetData.MysticAlly;
+				return Bot.Targeting.Cache.Environment.HeroPets.MysticAlly;
 			}
 		}
 		internal override bool IsMeleeClass
@@ -113,8 +114,8 @@ namespace FunkyBot.Player.Class
 		internal override bool ShouldGenerateNewZigZagPath()
 		{
 			return (DateTime.Now.Subtract(Bot.NavigationCache.lastChangedZigZag).TotalMilliseconds >= 1500 ||
-					 (Bot.NavigationCache.vPositionLastZigZagCheck != Vector3.Zero && Bot.Character.Data.Position == Bot.NavigationCache.vPositionLastZigZagCheck && DateTime.Now.Subtract(Bot.NavigationCache.lastChangedZigZag).TotalMilliseconds >= 200) ||
-					 Vector3.Distance(Bot.Character.Data.Position, Bot.NavigationCache.vSideToSideTarget) <= 4f ||
+					 (Bot.NavigationCache.vPositionLastZigZagCheck != Vector3.Zero && FunkyGame.Hero.Position == Bot.NavigationCache.vPositionLastZigZagCheck && DateTime.Now.Subtract(Bot.NavigationCache.lastChangedZigZag).TotalMilliseconds >= 200) ||
+					 Vector3.Distance(FunkyGame.Hero.Position, Bot.NavigationCache.vSideToSideTarget) <= 4f ||
 					 Bot.Targeting.Cache.CurrentTarget != null && Bot.Targeting.Cache.CurrentTarget.AcdGuid.HasValue && Bot.Targeting.Cache.CurrentTarget.AcdGuid.Value != Bot.NavigationCache.iACDGUIDLastWhirlwind);
 		}
 		internal override void GenerateNewZigZagPath()

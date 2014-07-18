@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using fBaseXtensions.Game;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
-using FunkyBot.Player.HotBar.Skills;
+using FunkyBot.Skills;
 using Zeta.Bot.Navigation;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
-using Logger = FunkyBot.Misc.Logger;
-using LogLevel = FunkyBot.Misc.LogLevel;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 namespace FunkyBot.Cache.Objects
 {
@@ -205,7 +206,7 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
-				return Bot.Character.Data.Position.Distance(Position);
+				return FunkyGame.Hero.Position.Distance(Position);
 			}
 		}
 
@@ -271,7 +272,7 @@ namespace FunkyBot.Cache.Objects
 									  : CollisionRadius.HasValue ? CollisionRadius.Value : Radius;
 
 				Vector3 GroundedVector = new Vector3(position_.X, position_.Y, position_.Z + radius_ / 2);
-				return MathEx.GetPointAt(GroundedVector, (distance * 1.15f), Navigation.FindDirection(GroundedVector, Bot.Character.Data.Position, true));
+				return MathEx.GetPointAt(GroundedVector, (distance * 1.15f), Navigation.FindDirection(GroundedVector, FunkyGame.Hero.Position, true));
 			}
 		}
 
@@ -475,7 +476,7 @@ namespace FunkyBot.Cache.Objects
 			NormalizedVector.Z = 0f; //Use Zero for Z -- this helps with units that hover..
 			NormalizedVector.Normalize();
 
-			Vector3 BotPositionNormalized = Bot.Character.Data.Position;
+			Vector3 BotPositionNormalized = FunkyGame.Hero.Position;
 			BotPositionNormalized.Z = 0f;
 			BotPositionNormalized.Normalize();
 
@@ -490,7 +491,7 @@ namespace FunkyBot.Cache.Objects
 			NormalizedVector.Z = 0f;
 			NormalizedVector.Normalize();
 
-			Vector3 NormalizedBotDestination = Vector3.NormalizedDirection(Bot.Character.Data.Position, DestinationVector);
+			Vector3 NormalizedBotDestination = Vector3.NormalizedDirection(FunkyGame.Hero.Position, DestinationVector);
 			NormalizedBotDestination.Z = 0f;
 
 			float angleDegrees = Vector3.AngleBetween(NormalizedVector, NormalizedBotDestination);
@@ -502,7 +503,7 @@ namespace FunkyBot.Cache.Objects
 			NormalizedVector.Z = 0f;
 			NormalizedVector.Normalize();
 
-			Vector3 BotPositionNormalized = Bot.Character.Data.Position;
+			Vector3 BotPositionNormalized = FunkyGame.Hero.Position;
 			BotPositionNormalized.Z = 0f;
 			BotPositionNormalized.Normalize();
 
@@ -567,7 +568,8 @@ namespace FunkyBot.Cache.Objects
 				if (Bot.IsInNonCombatBehavior)
 				{
 					TargetType typesValid = TargetType.Unit | TargetType.Item | TargetType.Gold | TargetType.Globe;
-					if (Bot.Game.Profile.ProfileBehaviorIsOOCInteractive && !Bot.Character.Data.bIsInTown)
+
+					if (FunkyGame.Profile.ProfileBehaviorIsInteractive && !FunkyGame.Hero.bIsInTown)
 					{
 						typesValid |= TargetType.Door | TargetType.Barricade;
 					}
@@ -677,7 +679,7 @@ namespace FunkyBot.Cache.Objects
 		///</summary>
 		public virtual bool WithinInteractionRange()
 		{
-			DistanceFromTarget = Bot.Character.Data.Position.Distance(Position);
+			DistanceFromTarget = FunkyGame.Hero.Position.Distance(Position);
 			return (Radius <= 0f || DistanceFromTarget <= Radius);
 		}
 		///<summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml;
+using fBaseXtensions.Helpers;
 
 namespace FunkyBot.Misc
 {

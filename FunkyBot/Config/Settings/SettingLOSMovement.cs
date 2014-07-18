@@ -33,5 +33,12 @@
 			MiniumRangeObjects = 45;
 			MinimumRangeMarkers = 25;
         }
+
+		private static SettingLOSMovement losSettingsTag = new SettingLOSMovement();
+		internal static SettingLOSMovement LOSSettingsTag
+		{
+			get { return losSettingsTag; }
+			set { losSettingsTag = value; }
+		}
     }
 }

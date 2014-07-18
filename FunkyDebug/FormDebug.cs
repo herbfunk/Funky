@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Linq;
 using Zeta.Bot;
+using Zeta.Bot.Navigation;
+using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
+using Zeta.Game.Internals.SNO;
 using Color = System.Drawing.Color;
 
 namespace FunkyDebug
@@ -745,6 +747,189 @@ namespace FunkyDebug
 			}
 
 			flowLayout_OutPut.Focus();
+		}
+
+		private bool Raycast_UsingPlayerLocation = true;
+		private void radioButton_FromOtherLocation_CheckedChanged(object sender, EventArgs e)
+		{
+			RadioButton radioButton = (RadioButton)sender;
+			bool ischecked=radioButton.Checked;
+			panel_Raycast_FromLocation.Enabled = ischecked;
+			Raycast_UsingPlayerLocation = !ischecked;
+		}
+
+		private void txtbox_Raycast_X_TextChanged(object sender, EventArgs e)
+		{
+			TextBox txtbox = (TextBox)sender;
+			string text=txtbox.Text;
+
+			//x="392.958" y="400.0356" z="0.4476572" (new Vector3(392.958f,400.0356f,0.4476572f))
+			if (text.Contains("new Vector3"))
+			{
+				string[] textArray = text.Split(Convert.ToChar(" "));
+				float x, y, z;
+				x = ReturnNumberFromString(textArray[0]);
+				y = ReturnNumberFromString(textArray[1]);
+				z = ReturnNumberFromString(textArray[2]);
+				if (Convert.ToString(txtbox.Tag)=="from")
+				{
+					txtbox_Raycast_X.Text = x.ToString();
+					txtbox_Raycast_Y.Text = y.ToString();
+					txtbox_Raycast_Z.Text = z.ToString();
+					return;
+				}
+				else
+				{
+					txtbox_RaycastTo_X.Text = x.ToString();
+					txtbox_RaycastTo_Y.Text = y.ToString();
+					txtbox_RaycastTo_Z.Text = z.ToString();
+					return;
+				}
+			}
+
+
+			bool invalidcharfound = false;
+			foreach (var c in text.ToCharArray())
+			{
+				if (!Char.IsDigit(c) && !c.Equals(Convert.ToChar(".")))
+				{
+					invalidcharfound = true;
+					break;
+				}
+			}
+
+			if (invalidcharfound)
+				txtbox.Text = String.Empty;
+		}
+		private float ReturnNumberFromString(string s)
+		{
+			try
+			{
+				int startIndex = s.IndexOf(Convert.ToChar("=")) + 2;
+				int length = (s.Length - 1) - startIndex;
+				return Convert.ToSingle(s.Substring(startIndex, length));
+			}
+			catch (Exception ex)
+			{
+
+			}
+
+			return 0;
+		}
+		private void btn_RayCast_Click(object sender, EventArgs e)
+		{
+			if (BotMain.IsRunning)
+			{
+				return;
+			}
+
+			ZetaDia.Memory.ClearCache();
+			ZetaDia.Actors.Update();
+			Navigator.SearchGridProvider.Update();
+			
+
+			flowLayout_OutPut.Controls.Clear();
+
+
+			float FromX, FromY, FromZ, ToX, ToY, ToZ;
+			Vector3 FromVector3, ToVector3;
+
+			try
+			{
+				if (!Raycast_UsingPlayerLocation)
+				{
+					FromX = Convert.ToSingle(txtbox_Raycast_X.Text);
+					FromY = Convert.ToSingle(txtbox_Raycast_Y.Text);
+					FromZ = Convert.ToSingle(txtbox_Raycast_Z.Text);
+					FromVector3 = new Vector3(FromX, FromY, FromZ);
+				}
+				else
+				{
+					FromVector3 = ZetaDia.Me.Position;
+				}
+
+				ToX = Convert.ToSingle(txtbox_RaycastTo_X.Text);
+				ToY = Convert.ToSingle(txtbox_RaycastTo_Y.Text);
+				ToZ = Convert.ToSingle(txtbox_RaycastTo_Z.Text);
+				ToVector3 = new Vector3(ToX, ToY, ToZ);
+			}
+			catch (Exception ex)
+			{
+				var exceptionEntry = new UserControlDebugEntry(String.Format("{0}\r\n{1}",ex.Message,ex.StackTrace));
+				flowLayout_OutPut.Controls.Add(exceptionEntry);
+				return;
+			}
+
+			bool raycast=Navigator.Raycast(FromVector3, ToVector3);
+			var entry = new UserControlDebugEntry(String.Format("Navigator Raycast={0} ({1} to {2}", raycast, FromVector3, ToVector3));
+			flowLayout_OutPut.Controls.Add(entry);
+
+			raycast = ZetaDia.Physics.Raycast(FromVector3, ToVector3, NavCellFlags.AllowWalk);
+			entry = new UserControlDebugEntry(String.Format("Physics Raycast={0} ({1} to {2}", raycast, FromVector3, ToVector3));
+			flowLayout_OutPut.Controls.Add(entry);
+
+			Vector2 outHitPoint;
+			raycast=Navigator.SearchGridProvider.Raycast(FromVector3.ToVector2(), ToVector3.ToVector2(), out outHitPoint);
+			entry = new UserControlDebugEntry(String.Format("SearchGridProvider Raycast={0} HitPoint: ({1}) ({2} to {3}", raycast, outHitPoint, FromVector3, ToVector3));
+			flowLayout_OutPut.Controls.Add(entry);
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			/*
+			 *     <DebugEntry>
+					<SNOID>6348</SNOID>
+				<Name>twoHandedSword_norm_base_flippy_02-9088</Name>
+				<ActorType>Item</ActorType>
+				<GizmoType>None</GizmoType>
+				 <TargetType>Item</TargetType>
+			</DebugEntry>
+			 */
+
+			//new ItemEntry(5457, PluginDroppedItemTypes.Spear,"Spear_norm_base_flippy_01"),
+
+		
+			string s = Clipboard.GetText();
+			if (s.Contains("<DebugEntry>"))
+			{
+
+				string[] splitStrings = s.Split(Convert.ToChar(Environment.NewLine));
+				string snoID = splitStrings.FirstOrDefault(str => str.StartsWith("<SNOID>"));
+				if (snoID == null) return;
+				snoID=ExtractDataFromXMLTag(snoID);
+				if (snoID == String.Empty) return;
+
+				string returnString = "new ItemEntry(" + snoID + ", PluginDroppedItemTypes.Spear";
+
+				string name = splitStrings.FirstOrDefault(str => str.StartsWith("<Name>"));
+				if (name!=null)
+				{
+					name = ExtractDataFromXMLTag(name);
+					if (name!=String.Empty)
+						returnString = returnString + @", """ + name + @"""),";
+				}
+
+				Clipboard.SetText(returnString);
+			}
+			
+		}
+
+		private string ExtractDataFromXMLTag(string tag)
+		{
+			try
+			{
+
+				int startIndex = tag.IndexOf(Convert.ToChar(">"));
+				int endIndex = tag.LastIndexOf(Convert.ToChar("<"));
+				return tag.Substring(startIndex, (endIndex - startIndex));
+
+			}
+			catch
+			{
+
+			}
+
+			return String.Empty;
 		}
 
 

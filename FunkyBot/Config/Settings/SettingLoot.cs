@@ -39,13 +39,13 @@ namespace FunkyBot.Config.Settings
 
 		public SettingLoot()
 		{
-			PickupWhiteItems = 0;
-			PickupMagicItems = 0;
+			PickupWhiteItems = 1;
+			PickupMagicItems = 1;
 			PickupRareItems = 1;
 			PickupLegendaryItems = 1;
 
 			MaximumHealthPotions=100;
-			MinimumGoldPile=425;
+			MinimumGoldPile=1000;
 			PickupCraftPlans=true;
 			PickupBlacksmithPlanSix=false;
 			PickupBlacksmithPlanFive=false;

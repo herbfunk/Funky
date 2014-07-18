@@ -7,15 +7,18 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using Demonbuddy;
+using fBaseXtensions.Game;
+using fBaseXtensions.Helpers;
 using FunkyBot.Config.Settings;
 using FunkyBot.Config.UI;
 using FunkyBot.Misc;
+using FunkyBot.Player;
 using Zeta.Bot;
 using Zeta.Bot.Logic;
 using Zeta.Common;
 using Zeta.Common.Compiler;
 using Zeta.Common.Plugins;
-using Logger = FunkyBot.Misc.Logger;
+using Logger = fBaseXtensions.Helpers.Logger;
 
 namespace FunkyBot.Config
 {
@@ -202,7 +205,7 @@ namespace FunkyBot.Config
 
 
 			string sDemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-			string sTrinityPluginPath = FolderPaths.RoutinePath;
+			string sTrinityPluginPath = Funky.RoutinePath;
 
 			CodeCompiler FunkyCode = new CodeCompiler(sTrinityPluginPath);
 			FunkyCode.ParseFilesForCompilerOptions();
@@ -346,10 +349,10 @@ namespace FunkyBot.Config
 		internal static void buttonFunkySettingDB_Click(object sender, RoutedEventArgs e)
 		{
 			//Update Account Details when bot is not running!
-			if (!BotMain.IsRunning)
-				Bot.Character.Account.UpdateCurrentAccountDetails();
+			//if (!BotMain.IsRunning)
+				//Bot.Character.Account.UpdateCurrentAccountDetails();
 
-			string settingsFolder = FolderPaths.DemonBuddyPath + @"\Settings\FunkyBot\" + Bot.Character.Account.CurrentAccountName;
+			string settingsFolder = FolderPaths.DemonBuddyPath + @"\Settings\FunkyBot\" + FunkyGame.CurrentAccountName;
 			if (!Directory.Exists(settingsFolder)) Directory.CreateDirectory(settingsFolder);
 
 			try

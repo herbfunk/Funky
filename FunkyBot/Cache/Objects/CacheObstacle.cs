@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows;
+using fBaseXtensions.Game;
 using FunkyBot.Cache.Avoidance;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
@@ -220,8 +221,8 @@ namespace FunkyBot.Cache.Objects
 				float radius = (float)AvoidanceValue.Radius;
 
 				//Modify radius during critical avoidance for arcane sentry.
-				if (Bot.Character.Data.CriticalAvoidance && AvoidanceType == AvoidanceType.ArcaneSentry)
-					radius = 25f;
+				//if (FunkyGame.Hero.CriticalAvoidance && AvoidanceType == AvoidanceType.ArcaneSentry)
+					//radius = 25f;
 
 				return radius;
 			}
@@ -255,7 +256,7 @@ namespace FunkyBot.Cache.Objects
 				if (CentreDistance < 50f)
 					Bot.Targeting.Cache.Environment.NearbyAvoidances.Add(RAGUID);
 
-				if (Position.Distance(Bot.Character.Data.Position) <= Radius)
+				if (Position.Distance(FunkyGame.Hero.Position) <= Radius)
 				{
 					Bot.Targeting.Cache.Environment.TriggeringAvoidances.Add(this);
 					Bot.Targeting.Cache.Environment.TriggeringAvoidanceRAGUIDs.Add(RAGUID);
@@ -268,7 +269,7 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
-				return Vector3.Distance(Bot.Character.Data.Position, Position) > Bot.Character.Data.fCharacterRadius;
+				return Vector3.Distance(FunkyGame.Hero.Position, Position) > FunkyGame.Hero.fCharacterRadius;
 
 			}
 		}
@@ -288,11 +289,11 @@ namespace FunkyBot.Cache.Objects
 			if (Bot.Settings.Avoidance.UseAdvancedProjectileTesting)
 			{
 				//Do fancy checks for this fixed projectile.
-				if (Ray.Intersects(Bot.Character.Data.CharacterSphere).HasValue)
+				if (Ray.Intersects(FunkyGame.Hero.CharacterSphere).HasValue)
 				{
 					//Now we get the distance from us, divide it by the speed (which is also divided by 10 to normalize it) to get the total, this is than divided by our lastrefresh time, which gives us our loops before intersection.
 					//Example: 35f away, 0.02f is speed, when divided is equal to 1750. Average Refresh is 150ms, so the loops would be ~11.6
-					BlacklistRefreshCounter = (int)(Math.Round((Vector3.Distance(Position, Bot.Character.Data.Position) / (Speed / 10)) / 150));
+					BlacklistRefreshCounter = (int)(Math.Round((Vector3.Distance(Position, FunkyGame.Hero.Position) / (Speed / 10)) / 150));
 					if (BlacklistRefreshCounter < 5 && BlacklistRefreshCounter > 1)
 					{
 						projectileraytest_ = true;
@@ -305,7 +306,7 @@ namespace FunkyBot.Cache.Objects
 			else
 			{
 				Vector3 ProjectileEndPoint = MathEx.GetPointAt(Position, 40f, Rotation);
-				projectileraytest_ = MathEx.IntersectsPath(Bot.Character.Data.Position, Bot.Character.Data.fCharacterRadius, Position, ProjectileEndPoint);
+				projectileraytest_ = MathEx.IntersectsPath(FunkyGame.Hero.Position, FunkyGame.Hero.fCharacterRadius, Position, ProjectileEndPoint);
 			}
 
 			BlacklistRefreshCounter = 3;
@@ -438,7 +439,7 @@ namespace FunkyBot.Cache.Objects
 			//if (IsDemonicForge && RadiusDistance <= 30f)
 			//{//Check if avoidance is necessary..
 
-			//	bool IntersectionTest = MathEx.IntersectsPath(Bot.Character.Data.Position, 12f, FacingStartVector3, FacingEndVector3);
+			//	bool IntersectionTest = MathEx.IntersectsPath(FunkyGame.Hero.Position, 12f, FacingStartVector3, FacingEndVector3);
 			//	if (IntersectionTest)
 			//	{//Intersection of fire may occur..
 

@@ -1,4 +1,6 @@
 ﻿using System.Runtime.InteropServices;
+using fBaseXtensions.Helpers;
+using FunkyBot.Config.Settings;
 using FunkyBot.Game;
 using FunkyBot.Misc;
 using Zeta.Bot.Profile;
@@ -24,7 +26,7 @@ namespace FunkyBot.XMLTags
 		{
 			return new Action(ret =>
 			{
-				ProfileCache.AdventureMode = Enabled;
+				SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode = Enabled;
 				Logger.DBLog.InfoFormat("[Funky] Adventureing Mode has been set to {0}", Enabled);
 				m_IsDone=true;
 			});

@@ -1,4 +1,6 @@
 ﻿using System;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
@@ -6,7 +8,7 @@ using FunkyBot.Movement;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
-using Logger = FunkyBot.Misc.Logger;
+using Logger = fBaseXtensions.Helpers.Logger;
 
 namespace FunkyBot.Targeting.Behaviors
 {
@@ -24,10 +26,10 @@ namespace FunkyBot.Targeting.Behaviors
 				return
 					Bot.Settings.Fleeing.EnableFleeingBehavior &&
 					DateTime.Now.CompareTo(FleeRetryDate) > 0 &&
-					Bot.Character.Data.dCurrentHealthPct <= Bot.Settings.Fleeing.FleeBotMinimumHealthPercent &&
+					FunkyGame.Hero.dCurrentHealthPct <= Bot.Settings.Fleeing.FleeBotMinimumHealthPercent &&
 					Bot.Targeting.Cache.Environment.FleeTriggeringUnits.Count > 0 &&
 					(!Bot.Targeting.Cache.Environment.bAnyTreasureGoblinsPresent || Bot.Settings.Targeting.GoblinPriority < 2) &&
-					(Bot.Character.Class.AC != ActorClass.Wizard || (!Bot.Character.Class.HotBar.HasBuff(SNOPower.Wizard_Archon) || !Bot.Settings.Wizard.bKiteOnlyArchon));
+					(Bot.Character.Class.AC != ActorClass.Wizard || (!Hotbar.HasBuff(SNOPower.Wizard_Archon) || !Bot.Settings.Wizard.bKiteOnlyArchon));
 			}
 		}
 		public override TargetBehavioralTypes TargetBehavioralTypeType { get { return TargetBehavioralTypes.Fleeing; } }
@@ -67,7 +69,7 @@ namespace FunkyBot.Targeting.Behaviors
 
 				if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, LineOfSight, flags))
 				{
-					float distance = vAnySafePoint.Distance(Bot.Character.Data.Position);
+					float distance = vAnySafePoint.Distance(FunkyGame.Hero.Position);
 
 					Logger.DBLog.DebugFormat("Flee Movement found AT {0} with {1} Distance", vAnySafePoint.ToString(), distance.ToString());
 
@@ -86,6 +88,15 @@ namespace FunkyBot.Targeting.Behaviors
 
 				return false;
 			};
+		}
+
+		internal static bool ShouldFlee
+		{
+			get
+			{
+				bool flee = Bot.Settings.Fleeing.EnableFleeingBehavior && FunkyGame.Hero.dCurrentHealthPct <= Bot.Settings.Fleeing.FleeBotMinimumHealthPercent;
+				return flee;
+			}
 		}
 	}
 }

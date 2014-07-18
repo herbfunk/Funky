@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using fBaseXtensions.Game;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Avoidance;
 using FunkyBot.Cache.Enums;
@@ -140,7 +141,7 @@ namespace FunkyBot.Movement
 							//else
 							//	 BaseWeight=0.5f;
 
-							this.ThisWeight += (BaseWeight / Bot.Character.Data.dCurrentHealthPct);
+							this.ThisWeight += (BaseWeight / FunkyGame.Hero.dCurrentHealthPct);
 
 							UsedRAGUIDs.Add(item.RAGUID);
 						}
@@ -222,7 +223,7 @@ namespace FunkyBot.Movement
 			//Create Vector3
 			Vector3 pointVectorReturn = (Vector3)point;
 			Vector3 pointVector = pointVectorReturn;
-			Vector3 botcurpos = Bot.Character.Data.Position;
+			Vector3 botcurpos = FunkyGame.Hero.Position;
 
 			//2D Obstacle Navigation Check
 			bool ZCheck = false;

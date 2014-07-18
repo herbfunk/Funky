@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+using fBaseXtensions.Helpers;
 using FunkyBot.Misc;
 
 namespace FunkyBot.Game.Bounty
@@ -41,7 +42,7 @@ namespace FunkyBot.Game.Bounty
 		}
 
 
-		private static string DefaultFilePath = Path.Combine(FolderPaths.RoutinePath, "Game", "Bounty", "BountyCache");
+		private static string DefaultFilePath = Path.Combine(Funky.RoutinePath, "Game", "Bounty", "BountyCache");
 		public static void SerializeToXML(BountyQuestActCache settings)
 		{
 			// Type[] Settings=new Type[] {typeof(SettingCluster),typeof(SettingFleeing),typeof(SettingGrouping),typeof(SettingItemRules),typeof(SettingLoot),typeof(SettingRanges) };

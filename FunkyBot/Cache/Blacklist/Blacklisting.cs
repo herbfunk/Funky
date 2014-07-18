@@ -85,6 +85,13 @@ namespace FunkyBot.Cache
             316221, // X1_WarpToPortal 
             370187, // x1_Malthael_Boss_Orb_Collapse
             328830, // x1_Fortress_Portal_Switch
+
+			4589, //levelUp_glowSphere
+			376350, //x1_global_chest_shield_sphere
+			5503,//Start_Location_Team_0
+			5466,//SphereTrigger
+			195171,//PT_Blacksmith_ForgeWeaponShortcut
+
         };
 
 

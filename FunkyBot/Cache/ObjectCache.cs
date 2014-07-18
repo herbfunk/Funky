@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using fBaseXtensions.Game;
+using fBaseXtensions.Items.Enums;
 using FunkyBot.Cache.Avoidance;
 using FunkyBot.Cache.Dictionaries.Objects;
 using FunkyBot.Cache.Enums;
@@ -13,8 +15,8 @@ using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.SNO;
 using FunkyBot.Misc;
-using Logger = FunkyBot.Misc.Logger;
-using LogLevel = FunkyBot.Misc.LogLevel;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 namespace FunkyBot.Cache
 {
@@ -45,6 +47,7 @@ namespace FunkyBot.Cache
 		//Used to log non-cached SNOs
 		internal static DebugData DebuggingData = new DebugData();
 
+		internal static Dictionary<int, CacheObject> InteractableObjectCache = new Dictionary<int, CacheObject>();
 	
 
 		internal static bool CheckTargetTypeFlag(TargetType property, TargetType flag)
@@ -172,34 +175,35 @@ namespace FunkyBot.Cache
 						}
 
 						//See if this summoned unit was summoned by the bot.
-						if (Bot.Character.Data.iMyDynamicID == tmp_CachedObj.SummonerID.Value)
+						if (FunkyGame.Hero.iMyDynamicID == tmp_CachedObj.SummonerID.Value)
 						{
+							
 							//Now modify the player data pets count..
 							if (Bot.Character.Class.AC == ActorClass.Monk)
-								Bot.Character.Data.PetData.MysticAlly++;
+								Bot.Targeting.Cache.Environment.HeroPets.MysticAlly++;
 							else if (Bot.Character.Class.AC == ActorClass.DemonHunter)
 							{
 								if (CacheIDLookup.hashDHPets.Contains(tmp_CachedObj.SNOID))
-									Bot.Character.Data.PetData.DemonHunterPet++;
+									Bot.Targeting.Cache.Environment.HeroPets.DemonHunterPet++;
 								else if (CacheIDLookup.hashDHSpikeTraps.Contains(tmp_CachedObj.SNOID) && tmp_CachedObj.CentreDistance <= 50f)
-									Bot.Character.Data.PetData.DemonHunterSpikeTraps++;
+									Bot.Targeting.Cache.Environment.HeroPets.DemonHunterSpikeTraps++;
 								else if (CacheIDLookup.hashDHSentries.Contains(tmp_CachedObj.SNOID) && tmp_CachedObj.CentreDistance <= 60f)
-									Bot.Character.Data.PetData.DemonHunterSentry++;
+									Bot.Targeting.Cache.Environment.HeroPets.DemonHunterSentry++;
 							}
 							else if (Bot.Character.Class.AC == ActorClass.Witchdoctor)
 							{
 								if (CacheIDLookup.hashZombie.Contains(tmp_CachedObj.SNOID))
-									Bot.Character.Data.PetData.ZombieDogs++;
+									Bot.Targeting.Cache.Environment.HeroPets.ZombieDogs++;
 								else if (CacheIDLookup.hashGargantuan.Contains(tmp_CachedObj.SNOID))
-									Bot.Character.Data.PetData.Gargantuan++;
+									Bot.Targeting.Cache.Environment.HeroPets.Gargantuan++;
 								else if (CacheIDLookup.hashWDFetish.Contains(tmp_CachedObj.SNOID))
-									Bot.Character.Data.PetData.WitchdoctorFetish++;
+									Bot.Targeting.Cache.Environment.HeroPets.WitchdoctorFetish++;
 							}
 							else if (Bot.Character.Class.AC == ActorClass.Wizard)
 							{
 								//only count when range is within 45f (so we can summon a new one)
 								if (CacheIDLookup.hashWizHydras.Contains(tmp_CachedObj.SNOID) && tmp_CachedObj.CentreDistance <= 50f)
-									Bot.Character.Data.PetData.WizardHydra++;
+									Bot.Targeting.Cache.Environment.HeroPets.WizardHydra++;
 							}
 						}
 
@@ -225,17 +229,17 @@ namespace FunkyBot.Cache
 					//Special Cache for Interactable Server Objects
 					if (CheckTargetTypeFlag(tmp_CachedObj.targetType.Value, TargetType.ServerInteractable))
 					{
-						if (!Bot.Game.Profile.InteractableObjectCache.ContainsKey(tmp_CachedObj.RAGUID))
+						if (!InteractableObjectCache.ContainsKey(tmp_CachedObj.RAGUID))
 						{
-							Bot.Game.Profile.InteractableObjectCache.Add(tmp_CachedObj.RAGUID, tmp_CachedObj);
+							InteractableObjectCache.Add(tmp_CachedObj.RAGUID, tmp_CachedObj);
 
 							//Adventure Mode -- Rifting we add Exit to LOS movement!
-							if (Bot.Game.AdventureMode && Bot.Game.Bounty.IsInRiftWorld && Bot.Settings.AdventureMode.EnableAdventuringMode)
+							if (FunkyGame.AdventureMode && Bot.Game.Bounty.IsInRiftWorld && Bot.Settings.AdventureMode.EnableAdventuringMode)
 							{
 								if (tmp_CachedObj.InternalName.Contains("Exit"))
 								{
 									int index = Bot.Game.Bounty.CurrentBountyMapMarkers.Count;
-									Bot.Game.Bounty.CurrentBountyMapMarkers.Add(index, new BountyCache.BountyMapMarker(tmp_CachedObj.Position, Bot.Character.Data.CurrentWorldDynamicID, index));
+									Bot.Game.Bounty.CurrentBountyMapMarkers.Add(index, new BountyCache.BountyMapMarker(tmp_CachedObj.Position, FunkyGame.Hero.CurrentWorldDynamicID, index));
 								}
 							}
 						}
@@ -447,6 +451,7 @@ namespace FunkyBot.Cache
 
 
 		#region SNO Cache Dictionaries
+		internal static Dictionary<int, PluginBaseItemTypes?> dictBaseItemTypes = new Dictionary<int, PluginBaseItemTypes?>();
 		internal static Dictionary<int, ActorType?> dictActorType = new Dictionary<int, ActorType?>();
 		internal static Dictionary<int, TargetType?> dictTargetType = new Dictionary<int, TargetType?>();
 		internal static Dictionary<int, MonsterSize?> dictMonstersize = new Dictionary<int, MonsterSize?>();

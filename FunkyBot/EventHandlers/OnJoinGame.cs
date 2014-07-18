@@ -1,4 +1,5 @@
 ﻿using System;
+using fBaseXtensions.Helpers;
 using FunkyBot.Misc;
 
 namespace FunkyBot.EventHandlers
@@ -11,7 +12,7 @@ namespace FunkyBot.EventHandlers
 		{
 			Logger.Write(LogLevel.Event, "OnJoinGame Event");
 			Bot.ResetGame();
-			Bot.Game.RefreshGameId();
+			//Bot.Game.RefreshGameId();
 
 			//if (Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings)
 			//	CharacterSettings.Instance.MonsterPowerLevel = Funky.iDemonbuddyMonsterPowerLevel;

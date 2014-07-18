@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings_Funky xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Death>
+    <WaitForPotionCooldown>false</WaitForPotionCooldown>
+    <WaitForAllSkillsCooldown>false</WaitForAllSkillsCooldown>
+  </Death>
   <AdventureMode>
     <EnableAdventuringMode>true</EnableAdventuringMode>
     <NavigatePointsOfInterest>false</NavigatePointsOfInterest>
@@ -7,7 +11,6 @@
   <Debug>
     <DebugStatusBar>true</DebugStatusBar>
     <LogGroupingOutput>false</LogGroupingOutput>
-    <FunkyLogFlags>Target</FunkyLogFlags>
     <SkipAhead>true</SkipAhead>
     <LogStuckLocations>true</LogStuckLocations>
     <EnableUnstucker>true</EnableUnstucker>
@@ -31,17 +34,17 @@
     <UnitExceptionLowHP>false</UnitExceptionLowHP>
     <UnitExceptionLowHPMaximumDistance>20</UnitExceptionLowHPMaximumDistance>
     <UnitExceptionRangedUnits>false</UnitExceptionRangedUnits>
-    <UnitExceptionSpawnerUnits>true</UnitExceptionSpawnerUnits>
+    <UnitExceptionSpawnerUnits>false</UnitExceptionSpawnerUnits>
     <UnitExceptionSucideBombers>true</UnitExceptionSucideBombers>
     <PrioritizeCloseRangeUnits>true</PrioritizeCloseRangeUnits>
-    <PrioritizeCloseRangeMinimumUnits>4</PrioritizeCloseRangeMinimumUnits>
+    <PrioritizeCloseRangeMinimumUnits>3</PrioritizeCloseRangeMinimumUnits>
   </Targeting>
   <Combat>
     <GlobeHealthPercent>0.6</GlobeHealthPercent>
     <PotionHealthPercent>0.5</PotionHealthPercent>
     <HealthWellHealthPercent>0.75</HealthWellHealthPercent>
     <GoblinMinimumRange>40</GoblinMinimumRange>
-    <AllowDefaultAttackAlways>true</AllowDefaultAttackAlways>
+    <AllowDefaultAttackAlways>false</AllowDefaultAttackAlways>
     <CombatMovementTargetTypes>AvoidanceMovements</CombatMovementTargetTypes>
   </Combat>
   <Avoidance>
@@ -129,7 +132,7 @@
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>DestroyerDrop</Type>
-        <Health>1</Health>
+        <Health>0.89999997615814209</Health>
         <Radius>8</Radius>
         <Weight>12</Weight>
       </AvoidanceValue>
@@ -177,8 +180,14 @@
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>MageFirePool</Type>
-        <Health>1</Health>
+        <Health>0.800000011920929</Health>
         <Radius>10</Radius>
+        <Weight>5</Weight>
+      </AvoidanceValue>
+      <AvoidanceValue>
+        <Type>MalletLord</Type>
+        <Health>0.699999988079071</Health>
+        <Radius>20</Radius>
         <Weight>5</Weight>
       </AvoidanceValue>
       <AvoidanceValue>
@@ -237,7 +246,7 @@
       </AvoidanceValue>
       <AvoidanceValue>
         <Type>PlagueHand</Type>
-        <Health>1</Health>
+        <Health>0.89999997615814209</Health>
         <Radius>15</Radius>
         <Weight>5</Weight>
       </AvoidanceValue>
@@ -331,11 +340,8 @@
     <PickupRareItems>1</PickupRareItems>
     <PickupMagicItems>1</PickupMagicItems>
     <PickupWhiteItems>1</PickupWhiteItems>
-    <GilesMinimumWeaponScore>75000</GilesMinimumWeaponScore>
-    <GilesMinimumArmorScore>30000</GilesMinimumArmorScore>
-    <GilesMinimumJeweleryScore>30000</GilesMinimumJeweleryScore>
-    <MaximumHealthPotions>0</MaximumHealthPotions>
-    <MinimumGoldPile>699</MinimumGoldPile>
+    <MaximumHealthPotions>100</MaximumHealthPotions>
+    <MinimumGoldPile>1000</MinimumGoldPile>
     <PickupGems>
       <boolean>true</boolean>
       <boolean>true</boolean>
@@ -368,12 +374,12 @@
     <IgnoreProfileBlacklists>false</IgnoreProfileBlacklists>
     <ItemRange>150</ItemRange>
     <GoldRange>45</GoldRange>
-    <GlobeRange>80</GlobeRange>
+    <GlobeRange>40</GlobeRange>
     <PotionRange>45</PotionRange>
-    <ShrineRange>100</ShrineRange>
+    <ShrineRange>30</ShrineRange>
     <DoorRange>30</DoorRange>
     <DestructibleRange>0</DestructibleRange>
-    <ContainerOpenRange>70</ContainerOpenRange>
+    <ContainerOpenRange>30</ContainerOpenRange>
     <NonEliteCombatRange>45</NonEliteCombatRange>
     <EliteCombatRange>60</EliteCombatRange>
     <TreasureGoblinRange>55</TreasureGoblinRange>
@@ -385,7 +391,7 @@
     <ClusterDistance>8</ClusterDistance>
     <ClusterMinimumUnitCount>4</ClusterMinimumUnitCount>
     <EnableClusteringTargetLogic>true</EnableClusteringTargetLogic>
-    <IgnoreClusterLowHPValue>0.34999999403953552</IgnoreClusterLowHPValue>
+    <IgnoreClusterLowHPValue>0.800000011920929</IgnoreClusterLowHPValue>
     <ClusterMaxDistance>100</ClusterMaxDistance>
   </Cluster>
   <LOSMovement>
@@ -400,6 +406,8 @@
     <AllowCursedChestShrines>true</AllowCursedChestShrines>
     <AllowEventSwitches>true</AllowEventSwitches>
     <MaximumRange>500</MaximumRange>
+    <MiniumRangeObjects>45</MiniumRangeObjects>
+    <MinimumRangeMarkers>25</MinimumRangeMarkers>
   </LOSMovement>
   <Plugin>
     <GoldInactivityTimeoutSeconds>180</GoldInactivityTimeoutSeconds>
@@ -411,4 +419,10 @@
     <AvoidanceFlags>AvoidanceOverlap ObstacleOverlap AvoidanceIntersection BlockedDirection</AvoidanceFlags>
     <FleeingFlags>AvoidanceOverlap ObstacleOverlap MonsterOverlap AvoidanceIntersection Raycast BlockedDirection</FleeingFlags>
   </Plugin>
+  <WitchDoctor>
+    <ZunimassaFullSet>false</ZunimassaFullSet>
+    <JadeHarvesterFullSet>false</JadeHarvesterFullSet>
+    <TallManFinger>false</TallManFinger>
+    <StarmetalKukri>false</StarmetalKukri>
+  </WitchDoctor>
 </Settings_Funky>

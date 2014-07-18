@@ -1,7 +1,9 @@
 ﻿using System;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Movement;
-using FunkyBot.Player.HotBar.Skills;
+using FunkyBot.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using Zeta.Bot.Navigation;
@@ -10,8 +12,8 @@ using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.SNO;
 using Zeta.TreeSharp;
 using Zeta.Common;
-using Logger = FunkyBot.Misc.Logger;
-using LogLevel = FunkyBot.Misc.LogLevel;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 namespace FunkyBot.Targeting
 {
@@ -33,7 +35,7 @@ namespace FunkyBot.Targeting
 			CurrentTargetLocation = Vector3.Zero;
 
 			//Add handler for position update
-			Bot.Character.Data.OnPositionChanged += positionChangedHandler;
+			FunkyGame.Hero.OnPositionChanged += positionChangedHandler;
 		}
 
 		internal string DebugString()
@@ -135,7 +137,7 @@ namespace FunkyBot.Targeting
 			#endregion
 
 			// Are we currently incapacitated? If so then wait...
-			if (Bot.Character.Data.bIsIncapacitated || Bot.Character.Data.bIsRooted)
+			if (FunkyGame.Hero.bIsIncapacitated || FunkyGame.Hero.bIsRooted)
 				return RunStatus.Running;
 
 			//Ignore skip ahead cache for LOS movements..
@@ -156,7 +158,7 @@ namespace FunkyBot.Targeting
 					if (NonMovementCounter > 250)
 					{
 						//Are we stuck?
-						if (!Navigation.MGP.CanStandAt(Bot.Character.Data.Position))
+						if (!Navigation.MGP.CanStandAt(FunkyGame.Hero.Position))
 						{
 							Logger.DBLog.InfoFormat("Character is stuck inside non-standable location.. attempting townportal cast..");
 							ZetaDia.Me.UseTownPortal();
@@ -167,7 +169,7 @@ namespace FunkyBot.Targeting
 
 
 					//Check if we can walk to this location from current location..
-					if (!Navigation.CanRayCast(Bot.Character.Data.Position, CurrentTargetLocation, UseSearchGridProvider: true))
+					if (!Navigation.CanRayCast(FunkyGame.Hero.Position, CurrentTargetLocation, UseSearchGridProvider: true))
 					{
 						obj.RequiresLOSCheck = true;
 						obj.BlacklistLoops = 50;
@@ -246,7 +248,7 @@ namespace FunkyBot.Targeting
 								{
 									Vector3 hitTest;
 									// No raycast available, try and force-ignore this for a little while, and blacklist for a few seconds
-									if (Navigator.Raycast(Bot.Character.Data.Position, obj.Position, out hitTest))
+									if (Navigator.Raycast(FunkyGame.Hero.Position, obj.Position, out hitTest))
 									{
 										if (hitTest != Vector3.Zero)
 										{
@@ -267,7 +269,7 @@ namespace FunkyBot.Targeting
 							}
 							else
 							{
-								if (!Navigation.CanRayCast(Bot.Character.Data.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
+								if (!Navigation.CanRayCast(FunkyGame.Hero.Position, CurrentTargetLocation, NavCellFlags.AllowWalk))
 								{
 									Logger.Write(LogLevel.Movement, "Cannot continue with avoidance movement due to raycast failure!");
 									BlockedMovementCounter = 0;
@@ -306,7 +308,7 @@ namespace FunkyBot.Targeting
 				Vector3 MovementVector = Bot.Character.Class.FindCombatMovementPower(out MovementPower, obj.Position);
 				if (MovementVector != Vector3.Zero)
 				{
-					ZetaDia.Me.UsePower(MovementPower.Power, MovementVector, Bot.Character.Data.CurrentWorldDynamicID, -1);
+					ZetaDia.Me.UsePower(MovementPower.Power, MovementVector, FunkyGame.Hero.CurrentWorldDynamicID, -1);
 					MovementPower.OnSuccessfullyUsed();
 
 					// Store the current destination for comparison incase of changes next loop
@@ -321,13 +323,13 @@ namespace FunkyBot.Targeting
 				}
 
 				//Special Whirlwind Code
-				if (Bot.Character.Class.AC == ActorClass.Barbarian && Bot.Character.Class.HotBar.HasPower(SNOPower.Barbarian_Whirlwind))
+				if (Bot.Character.Class.AC == ActorClass.Barbarian && Hotbar.HasPower(SNOPower.Barbarian_Whirlwind))
 				{
 					// Whirlwind against everything within range (except backtrack points)
-					if (Bot.Character.Data.dCurrentEnergy >= 10
+					if (FunkyGame.Hero.dCurrentEnergy >= 10
 						 && Bot.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20] >= 1
 						 && obj.DistanceFromTarget <= 12f
-						 && (!Bot.Character.Class.HotBar.HasPower(SNOPower.Barbarian_Sprint) || Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_Sprint))
+						 && (!Hotbar.HasPower(SNOPower.Barbarian_Sprint) || Hotbar.HasBuff(SNOPower.Barbarian_Sprint))
 						 && (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.AvoidanceMovements | TargetType.Gold | TargetType.Globe) == false)
 						 && (obj.targetType.Value != TargetType.Unit
 						 || (obj.targetType.Value == TargetType.Unit && !obj.IsTreasureGoblin
@@ -344,7 +346,7 @@ namespace FunkyBot.Targeting
 						}
 						if (bUseThisLoop)
 						{
-							ZetaDia.Me.UsePower(SNOPower.Barbarian_Whirlwind, CurrentTargetLocation, Bot.Character.Data.CurrentWorldDynamicID);
+							ZetaDia.Me.UsePower(SNOPower.Barbarian_Whirlwind, CurrentTargetLocation, FunkyGame.Hero.CurrentWorldDynamicID);
 							Bot.Character.Class.Abilities[SNOPower.Barbarian_Whirlwind].OnSuccessfullyUsed();
 						}
 						// Store the current destination for comparison incase of changes next loop
@@ -361,7 +363,7 @@ namespace FunkyBot.Targeting
 			if (Bot.Character.Class.LastUsedAbility.IsSpecialMovementSkill && Bot.Character.Class.HasSpecialMovementBuff() && ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.Unit))
 			{
 				//Logger.DBLog.DebugFormat("Preforming ZigZag for special movement skill activation!");
-				Bot.NavigationCache.vPositionLastZigZagCheck = Bot.Character.Data.Position;
+				Bot.NavigationCache.vPositionLastZigZagCheck = FunkyGame.Hero.Position;
 				if (Bot.Character.Class.ShouldGenerateNewZigZagPath()) Bot.Character.Class.GenerateNewZigZagPath();
 				CurrentTargetLocation = Bot.NavigationCache.vSideToSideTarget;
 			}
@@ -376,7 +378,7 @@ namespace FunkyBot.Targeting
 			LastTargetLocation = CurrentTargetLocation;
 
 			//Check if we moved at least 5f..
-			if (LastPlayerLocation.Distance(Bot.Character.Data.Position) <= 5f)
+			if (LastPlayerLocation.Distance(FunkyGame.Hero.Position) <= 5f)
 				NonMovementCounter++;
 			else
 			{
@@ -385,7 +387,7 @@ namespace FunkyBot.Targeting
 			}
 
 			//store player location
-			LastPlayerLocation = Bot.Character.Data.Position;
+			LastPlayerLocation = FunkyGame.Hero.Position;
 
 			return RunStatus.Running;
 		}
@@ -431,7 +433,7 @@ namespace FunkyBot.Targeting
 				if (!UsePowerMovement)
 					ZetaDia.Me.Movement.MoveActor(CurrentTargetLocation);
 				else
-					ZetaDia.Me.UsePower(SNOPower.Walk, CurrentTargetLocation, Bot.Character.Data.CurrentWorldDynamicID);
+					ZetaDia.Me.UsePower(SNOPower.Walk, CurrentTargetLocation, FunkyGame.Hero.CurrentWorldDynamicID);
 
 				
 
@@ -442,12 +444,12 @@ namespace FunkyBot.Targeting
 
 		internal void RestartTracking()
 		{
-			Bot.Character.Data.OnPositionChanged += positionChangedHandler;
+			FunkyGame.Hero.OnPositionChanged += positionChangedHandler;
 			lastPositionChange = DateTime.Now;
 		}
 		internal void ResetTargetMovementVars()
 		{
-			Bot.Character.Data.OnPositionChanged -= positionChangedHandler;
+			FunkyGame.Hero.OnPositionChanged -= positionChangedHandler;
 			BlockedMovementCounter = 0;
 			NonMovementCounter = 0;
 			NewTargetResetVars();

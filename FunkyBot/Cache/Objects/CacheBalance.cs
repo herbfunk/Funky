@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using fItemPlugin.Items;
+using fBaseXtensions.Items;
+using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.Actors;
 
 namespace FunkyBot.Cache.Objects
@@ -23,7 +24,7 @@ namespace FunkyBot.Cache.Objects
 			}
 		}
 
-		public PluginItemType GetGItemType(string internalName)
+		public PluginItemTypes GetGItemType(string internalName)
 		{
 			return ItemFunc.DetermineItemType(internalName, thisItemType, thisFollowerType);
 		}

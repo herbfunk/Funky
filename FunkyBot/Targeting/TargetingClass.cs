@@ -12,6 +12,7 @@ namespace FunkyBot.Targeting
 
 			//Reset Vars on target change!
 			Cache.TargetChanged += Movement.OnTargetChanged;
+			
 		}
 		///<summary>
 		///Contains all Targeting related Cache Properties and Methods

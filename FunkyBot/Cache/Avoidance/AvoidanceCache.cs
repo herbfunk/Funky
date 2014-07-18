@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using fItemPlugin.Player;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 
@@ -29,7 +30,7 @@ namespace FunkyBot.Cache.Avoidance
 
 			  new AvoidanceValue(AvoidanceType.Dececrator, 0.80, 9,12),
 			  new AvoidanceValue(AvoidanceType.DemonicForge, 1, 25,12),
-			  new AvoidanceValue(AvoidanceType.DestroyerDrop, 1, 8, 12),
+			  new AvoidanceValue(AvoidanceType.DestroyerDrop, 0.80, 8, 12),
 			  new AvoidanceValue(AvoidanceType.DiabloMetor, 0.80, 28,5),
 			  new AvoidanceValue(AvoidanceType.DiabloPrison, 1, 15,5),
 
@@ -41,8 +42,8 @@ namespace FunkyBot.Cache.Avoidance
 
 			  new AvoidanceValue(AvoidanceType.LacuniBomb, 0.25, 2,5),
 
-			  new AvoidanceValue(AvoidanceType.MageFirePool, 1, 10,5),
-			  new AvoidanceValue(AvoidanceType.MalletLord, 1, 20, 5),
+			  new AvoidanceValue(AvoidanceType.MageFirePool, 0.85, 10,5),
+			  new AvoidanceValue(AvoidanceType.MalletLord, 0.70, 20, 5),
 
 			  new AvoidanceValue(AvoidanceType.MalthaelDeathFog, 1, 20,5),
 			  new AvoidanceValue(AvoidanceType.MalthaelDrainSoul, 0.75, 5,5),
@@ -55,7 +56,7 @@ namespace FunkyBot.Cache.Avoidance
 			  new AvoidanceValue(AvoidanceType.OrbitProjectile, 0.75, 5,5),
 
 			  new AvoidanceValue(AvoidanceType.PlagueCloud, 0.75, 19,5),
-			  new AvoidanceValue(AvoidanceType.PlagueHand, 1, 15,5),
+			  new AvoidanceValue(AvoidanceType.PlagueHand, 0.80, 15,5),
 			  new AvoidanceValue(AvoidanceType.PoisonGas, 0.5, 9,5),
 
 			  new AvoidanceValue(AvoidanceType.RiftPoison, 0.80, 10, 10),
@@ -224,7 +225,7 @@ namespace FunkyBot.Cache.Avoidance
 				case 325136:
 					return AvoidanceType.MalthaelDeathFog;
 				case 340512:
-					return  AvoidanceType.MalthaelLightning;
+					return AvoidanceType.MalthaelLightning;
 				case 360738:
 					return AvoidanceType.AdriaArcanePool;
 				case 358404:
@@ -258,9 +259,9 @@ namespace FunkyBot.Cache.Avoidance
 		{
 
 			//Pylon Shield?
-			if (Bot.Character.Class.HotBar.HasBuff(SNOPower.Pages_Buff_Invulnerable))
+			if (Hotbar.HasBuff(SNOPower.Pages_Buff_Invulnerable))
 				return true;
-			
+
 			//Countess Julias Cameo (Arcane Immunity)
 			if (Equipment.ImmuneToArcane && thisAvoidance == AvoidanceType.ArcaneSentry)
 				return true;
@@ -285,41 +286,41 @@ namespace FunkyBot.Cache.Avoidance
 
 			double dThisHealthAvoid = Bot.Settings.Avoidance.Avoidances[(int)thisAvoidance].Health;
 
-			if (!Bot.Character.Data.CriticalAvoidance)
+			//if (!FunkyGame.Hero.CriticalAvoidance)
+			//{
+			//Not Critical Avoidance, should we be in total ignorance because of a buff?
+
+			// Monks with Serenity up ignore all AOE's
+			if (Bot.Character.Class.AC == ActorClass.Monk)
 			{
-				//Not Critical Avoidance, should we be in total ignorance because of a buff?
-
-				// Monks with Serenity up ignore all AOE's
-				if (Bot.Character.Class.AC == ActorClass.Monk)
-				{
-					// Monks with serenity are immune
-					if (Bot.Character.Class.HotBar.HasPower(SNOPower.Monk_Serenity) && Bot.Character.Class.HotBar.HasBuff(SNOPower.Monk_Serenity))
-						return true;
-
-					//Epiphany ignore frozen.
-					if (Bot.Character.Class.HotBar.HasPower(SNOPower.X1_Monk_Epiphany) && Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Monk_Epiphany) && thisAvoidance == AvoidanceType.Frozen)
-						return true;
-				}
-
-				//Crusader Akarats Champion -- Ignore Frozen!
-				if (Bot.Character.Class.AC == ActorClass.Crusader && Bot.Character.Class.HotBar.HasPower(SNOPower.X1_Crusader_AkaratsChampion) && Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Crusader_AkaratsChampion) && thisAvoidance == AvoidanceType.Frozen)
+				// Monks with serenity are immune
+				if (Hotbar.HasPower(SNOPower.Monk_Serenity) && Hotbar.HasBuff(SNOPower.Monk_Serenity))
 					return true;
 
-				if (Bot.Character.Class.AC == ActorClass.Barbarian && Bot.Character.Class.HotBar.HasPower(SNOPower.Barbarian_WrathOfTheBerserker) && Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))
-				{
-					switch (thisAvoidance)
-					{
-						case AvoidanceType.Frozen:
-						case AvoidanceType.ArcaneSentry:
-						case AvoidanceType.Dececrator:
-						case AvoidanceType.PlagueCloud:
-							return true;
-					}
-				}
+				//Epiphany ignore frozen.
+				if (Hotbar.HasPower(SNOPower.X1_Monk_Epiphany) && Hotbar.HasBuff(SNOPower.X1_Monk_Epiphany) && thisAvoidance == AvoidanceType.Frozen)
+					return true;
 			}
 
+			//Crusader Akarats Champion -- Ignore Frozen!
+			if (Bot.Character.Class.AC == ActorClass.Crusader && Hotbar.HasPower(SNOPower.X1_Crusader_AkaratsChampion) && Hotbar.HasBuff(SNOPower.X1_Crusader_AkaratsChampion) && thisAvoidance == AvoidanceType.Frozen)
+				return true;
+
+			if (Bot.Character.Class.AC == ActorClass.Barbarian && Hotbar.HasPower(SNOPower.Barbarian_WrathOfTheBerserker) && Hotbar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker))
+			{
+				switch (thisAvoidance)
+				{
+					case AvoidanceType.Frozen:
+					case AvoidanceType.ArcaneSentry:
+					case AvoidanceType.Dececrator:
+					case AvoidanceType.PlagueCloud:
+						return true;
+				}
+			}
+			//}
+
 			//Only procedee if health percent is necessary for avoidance!
-			return dThisHealthAvoid < Bot.Character.Data.dCurrentHealthPct;
+			return dThisHealthAvoid < FunkyGame.Hero.dCurrentHealthPct;
 		}
 
 	}

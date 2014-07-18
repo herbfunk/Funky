@@ -1,0 +1,39 @@
+﻿A plugin that bundles all the common used code for other plugins/routines to use.
+
+FunkyGame (Account, Hero, and Game)
+	Hero (contains many properties of the active hero such as life, resource, level/world IDs, and more)
+		*Use the update method to keep properties from going bad.
+		*Includes events for Health Change, Level Change, and Position Change.
+	Profile (monitors profile behavior changes -- plugin must be enabled)
+		*Checks for common used tags for out of combat, interactive, and exploring.
+
+
+Equippment (an easy way to check equipped gear!)
+	Hooking event OnEquippedItemsChanged will monitor for changes during pulse (plugin must be enabled)
+	Use RefreshEquippedItemsList to update the equipped list and legendary list.
+
+Hotbar (an easy way to check current skills/passives/buffs/debuffs)
+	Hooking event OnSkillsChanged will monitor active skills for changes during pulse (plugin must be enabled)
+	RefreshHotbar method will update the HotbarSkills list.
+	Use RefreshPassives and RefreshCurrentBuffs methods to update the other lists.
+
+GoldInactivity
+	Timeout setting found in config.
+	To use, hook the event GoldTimeoutTripped, will check during pulse (plugin must be enabled)
+
+Cache
+	An expanding cache dedicated to items, including both DiaItem and ACDItem Idenification.
+	*Future plans to expand into other objects such as gizmos.
+
+
+Other Things
+	Event EventHandling.OnGameIDChanged is one time fire only event when game has truely changed.
+	Item Code -- CacheACDItem Object, ItemFunc methods, and extended enums for types!
+
+
+
+What is the purpose of this plugin?
+	I've spent a lot of time coding with demonbuddy and as a result a lot of code has been created.
+	The code that seemed to be redudant in separate plugins was moved into this plugin to make life easier.
+	Developers can reference it and build plugins without having to build a core for common functions.
+

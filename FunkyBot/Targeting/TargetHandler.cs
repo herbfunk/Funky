@@ -1,8 +1,11 @@
 ﻿using System;
-using fItemPlugin.Items;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
+using fBaseXtensions.Items;
+using fBaseXtensions.Items.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.DBHandlers.Townrun;
-using FunkyBot.Player.HotBar.Skills;
+using FunkyBot.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
@@ -12,8 +15,8 @@ using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
-using Logger = FunkyBot.Misc.Logger;
-using LogLevel = FunkyBot.Misc.LogLevel;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 namespace FunkyBot.Targeting
 {
@@ -97,11 +100,11 @@ namespace FunkyBot.Targeting
 			#endregion
 
 			// Update player-data cache -- Special combat call
-			Bot.Character.Data.Update(true);
+			FunkyGame.Hero.Update(true);
 
 			// Check for death / player being dead
 			#region DeadCheck
-			if (Bot.Character.Data.dCurrentHealthPct <= 0)
+			if (FunkyGame.Hero.dCurrentHealthPct <= 0)
 			{
 				//Disable OOC IDing behavior if dead!
 				//if (ItemIdentifyBehavior.shouldPreformOOCItemIDing) ItemIdentifyBehavior.shouldPreformOOCItemIDing = false;
@@ -129,7 +132,7 @@ namespace FunkyBot.Targeting
 					CurrentState = RunStatus.Success;
 					return false;
 				}
-				if (Bot.Character.Data.bIsIncapacitated)
+				if (FunkyGame.Hero.bIsIncapacitated)
 				{
 					CurrentState = RunStatus.Running;
 					return false;
@@ -140,7 +143,7 @@ namespace FunkyBot.Targeting
 				string statusText = "[Item Confirmation] Current recheck count " + Bot.Targeting.Cache.recheckCount;
 
 				CacheItem thisCacheItem=(CacheItem)Bot.Targeting.Cache.CurrentTarget;
-				bool LootedSuccess = Bot.Character.Data.BackPack.ContainsItem(thisCacheItem);
+				bool LootedSuccess = Backpack.ContainsItem(thisCacheItem.BalanceID.Value, thisCacheItem.Itemquality.Value);
 				//Verify item is non-stackable!
 
 				statusText += " [ItemFound=" + LootedSuccess + "]";
@@ -152,7 +155,10 @@ namespace FunkyBot.Targeting
 					if (Bot.Settings.Debug.DebugStatusBar) BotMain.StatusText = statusText;
 
 					//This is where we should manipulate information of both what dropped and what was looted.
-					Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.LootedItemLog(thisCacheItem);
+					//Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.LootedItemLog(thisCacheItem);
+					PluginItemTypes itemType=ItemFunc.DetermineItemType(thisCacheItem.InternalName, thisCacheItem.BalanceData.thisItemType, thisCacheItem.BalanceData.thisFollowerType);
+					PluginBaseItemTypes itembaseType = ItemFunc.DetermineBaseType(itemType);
+					FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.LootedItemLog(itemType, itembaseType, thisCacheItem.Itemquality.Value);
 
 					//Remove item from cache..
 					Bot.Targeting.Cache.CurrentTarget.NeedsRemoved = true;
@@ -245,13 +251,13 @@ namespace FunkyBot.Targeting
 
 
 			// See if we have been "newly rooted", to force target updates
-			if (Bot.Character.Data.bIsRooted && !Bot.Targeting.Cache.bWasRootedLastTick)
+			if (FunkyGame.Hero.bIsRooted && !Bot.Targeting.Cache.bWasRootedLastTick)
 			{
 				Bot.Targeting.Cache.bWasRootedLastTick = true;
 				Bot.Targeting.Cache.bForceTargetUpdate = true;
 			}
 
-			if (!Bot.Character.Data.bIsRooted) Bot.Targeting.Cache.bWasRootedLastTick = false;
+			if (!FunkyGame.Hero.bIsRooted) Bot.Targeting.Cache.bWasRootedLastTick = false;
 
 			return true;
 		}
@@ -357,7 +363,7 @@ namespace FunkyBot.Targeting
 
 
 			//Make sure we are not incapacitated..
-			if (Bot.Character.Data.bIsIncapacitated)
+			if (FunkyGame.Hero.bIsIncapacitated)
 			{
 				CurrentState = RunStatus.Running;
 				return false;
@@ -428,10 +434,10 @@ namespace FunkyBot.Targeting
 			#endregion
 
 			#region PotionCheck
-			if (Bot.Character.Data.dCurrentHealthPct <= Bot.Settings.Combat.PotionHealthPercent
+			if (FunkyGame.Hero.dCurrentHealthPct <= Bot.Settings.Combat.PotionHealthPercent
 				 && !Bot.Targeting.Cache.bWaitingForPower
 				 && !Bot.Targeting.Cache.bWaitingForPotion
-				 && !Bot.Character.Data.bIsIncapacitated
+				 && !FunkyGame.Hero.bIsIncapacitated
 				 && Bot.Character.Class.HealthPotionAbility.AbilityUseTimer())
 			{
 				Bot.Targeting.Cache.bWaitingForPotion = true;
@@ -481,7 +487,7 @@ namespace FunkyBot.Targeting
 				if (Navigation.NP.CurrentPath.Count > 0)
 				{
 					//No more points to navigate..
-					if (Navigation.NP.CurrentPath.Count == 1 && Bot.Character.Data.Position.Distance(Navigation.NP.CurrentPath.Current) <= Bot.Targeting.Cache.CurrentTarget.Radius)
+					if (Navigation.NP.CurrentPath.Count == 1 && FunkyGame.Hero.Position.Distance(Navigation.NP.CurrentPath.Current) <= Bot.Targeting.Cache.CurrentTarget.Radius)
 					{
 						Logger.Write(LogLevel.LineOfSight, "Ending Line of Sight Movement");
 						if (Bot.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.LineOfSight)
@@ -498,7 +504,7 @@ namespace FunkyBot.Targeting
 					else
 					{
 						//Skip to next location if within 2.5f distance!
-						if (Navigation.NP.CurrentPath.Count > 1 && Bot.Character.Data.Position.Distance2D(Navigation.NP.CurrentPath.Current) <= 5f)
+						if (Navigation.NP.CurrentPath.Count > 1 && FunkyGame.Hero.Position.Distance2D(Navigation.NP.CurrentPath.Current) <= 5f)
 						{
 							Logger.DBLog.Debug("LOS: Skipping to next vector");
 							Navigation.NP.CurrentPath.Next();

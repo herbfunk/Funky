@@ -4,18 +4,20 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
+using fBaseXtensions.Items;
+using fBaseXtensions.Items.Enums;
+using fBaseXtensions.Stats;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Avoidance;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Config.Settings;
-using FunkyBot.Game.ProfileTracking;
 using Zeta.Bot;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
-using GameStats = FunkyBot.Game.ProfileTracking.GameStats;
-using Logger = FunkyBot.Misc.Logger;
-using LogLevel = FunkyBot.Misc.LogLevel;
+using Logger = fBaseXtensions.Helpers.Logger;
 
 namespace FunkyBot.Config.UI
 {
@@ -153,7 +155,7 @@ namespace FunkyBot.Config.UI
 
 
 				List<TabPage> RemovalTabPages = new List<TabPage> { tabPage_DemonHunter, tabPage_Barbarian, tabPage_Wizard, tabPage_WitchDoctor, tabPage_Monk, tabPage_Crusader };
-				switch (Bot.Character.Account.ActorClass)
+				switch (FunkyGame.CurrentActorClass)
 				{
 					case ActorClass.DemonHunter:
 						trackBar_DemonHunterValutDelay.Value = Bot.Settings.DemonHunter.iDHVaultMovementDelay;
@@ -404,10 +406,6 @@ namespace FunkyBot.Config.UI
 				cb_TargetingShrineProtection.Checked = Bot.Settings.Targeting.UseShrineTypes[4];
 				cb_TargetingShrineProtection.CheckedChanged += TargetingShrineCheckedChanged;
 
-				tb_GeneralGoldInactivityValue.Value = Bot.Settings.Plugin.GoldInactivityTimeoutSeconds;
-				tb_GeneralGoldInactivityValue.ValueChanged += tb_GeneralGoldInactivityValue_ValueChanged;
-
-				txt_GeneralGoldInactivityValue.Text = Bot.Settings.Plugin.GoldInactivityTimeoutSeconds.ToString();
 
 				cb_GeneralAllowBuffInTown.Checked = Bot.Settings.General.AllowBuffingInTown;
 				cb_GeneralAllowBuffInTown.CheckedChanged += cb_GeneralAllowBuffInTown_CheckedChanged;
@@ -448,7 +446,7 @@ namespace FunkyBot.Config.UI
 				cb_LootPickupCraftPlans.Checked = Bot.Settings.Loot.PickupCraftPlans;
 				cb_LootPickupCraftPlans.CheckedChanged += cb_LootPickupCraftPlans_CheckedChanged;
 
-				comboBox_LootGemQuality.Text = Enum.GetName(typeof(fItemPlugin.Items.GemQualityType), Bot.Settings.Loot.MinimumGemItemLevel).ToString();
+				comboBox_LootGemQuality.Text = Enum.GetName(typeof(GemQualityTypes), Bot.Settings.Loot.MinimumGemItemLevel).ToString();
 				comboBox_LootGemQuality.SelectedIndexChanged += GemQualityLevelChanged;
 
 				cb_LootGemAMETHYST.Checked = Bot.Settings.Loot.PickupGems[2];
@@ -493,40 +491,21 @@ namespace FunkyBot.Config.UI
 				cb_DebugStatusBar.Checked = Bot.Settings.Debug.DebugStatusBar;
 				cb_DebugStatusBar.CheckedChanged += cb_DebugStatusBar_CheckedChanged;
 
-				var LogLevels = Enum.GetValues(typeof(LogLevel));
-				Func<object, string> fRetrieveLogLevelNames = s => Enum.GetName(typeof(LogLevel), s);
-				bool noLogFlags = Bot.Settings.Debug.FunkyLogFlags.Equals(LogLevel.None);
-				foreach (var logLevel in LogLevels)
-				{
-					LogLevel thisloglevel = (LogLevel)logLevel;
-					if (thisloglevel.Equals(LogLevel.None) || thisloglevel.Equals(LogLevel.All)) continue;
-
-					string loglevelName = fRetrieveLogLevelNames(logLevel);
-					CheckBox cb = new CheckBox
-					{
-						Name = loglevelName,
-						Text = loglevelName,
-						Checked = !noLogFlags && Bot.Settings.Debug.FunkyLogFlags.HasFlag(thisloglevel),
-					};
-					cb.CheckedChanged += FunkyLogLevelChanged;
-
-					flowLayout_DebugFunkyLogLevels.Controls.Add(cb);
-				}
-
 
 				//Misc Stats
 				try
 				{
-					GameStats cur = Bot.Game.CurrentGameStats;
+
+					fBaseXtensions.Stats.GameStats cur = FunkyGame.CurrentGameStats;
 
 					flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("\r\n== CURRENT GAME SUMMARY =="));
 					flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(String.Format("Total Profiles:{0}\r\nDeaths:{1} TotalTime:{2} TotalGold:{3} TotalXP:{4}\r\n Bounties Completed {6}\r\n{5}",
 															cur.Profiles.Count, cur.TotalDeaths, cur.TotalTimeRunning.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), cur.TotalGold, cur.TotalXP, cur.TotalLootTracker.ToString(), cur.TotalBountiesCompleted)));
 
-					if (Bot.Game.CurrentGameStats.Profiles.Count > 0)
+					if (FunkyGame.CurrentGameStats.Profiles.Count > 0)
 					{
 						flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("\r\n== PROFILES =="));
-						foreach (var item in Bot.Game.CurrentGameStats.Profiles)
+						foreach (var item in FunkyGame.CurrentGameStats.Profiles)
 						{
 							flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(String.Format("{0}\r\nDeaths:{1} TotalTime:{2} TotalGold:{3} TotalXP:{4}\r\n{5}",
 								item.ProfileName, item.DeathCount, item.TotalTimeSpan.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), item.TotalGold, item.TotalXP, item.LootTracker.ToString())));
@@ -534,7 +513,7 @@ namespace FunkyBot.Config.UI
 					}
 
 
-					TotalStats all = Bot.Game.TrackingStats;
+					TotalStats all = FunkyGame.TrackingStats;
 					flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("\r\n== CURRENT GAME SUMMARY =="));
 					flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(String.Format("Total Games:{0} -- Total Unique Profiles:{1}\r\nDeaths:{2} TotalTime:{3} TotalGold:{4} TotalXP:{5}\r\n{6}",
 															all.GameCount, all.Profiles.Count, all.TotalDeaths, all.TotalTimeRunning.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), all.TotalGold, all.TotalXP, all.TotalLootTracker.ToString())));
@@ -583,21 +562,11 @@ namespace FunkyBot.Config.UI
 
 		private void SettingsFor_Load(object sender, EventArgs e)
 		{
-			Text = Bot.Character.Account.CurrentHeroName;// + " " + Bot.Character.Account.CurrentAccountName;
+			Text = FunkyGame.CurrentHeroName;// + " " + Bot.Character.Account.CurrentAccountName;
 		}
 
 
 
-		private void FunkyLogLevelChanged(object sender, EventArgs e)
-		{
-			CheckBox cbSender = (CheckBox)sender;
-			LogLevel LogLevelValue = (LogLevel)Enum.Parse(typeof(LogLevel), cbSender.Name);
-
-			if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevelValue))
-				Bot.Settings.Debug.FunkyLogFlags &= ~LogLevelValue;
-			else
-				Bot.Settings.Debug.FunkyLogFlags |= LogLevelValue;
-		}
 		//private void BloodShardGambleItemsChanged(object sender, EventArgs e)
 		//{
 		//	CheckBox cbSender = (CheckBox)sender;
@@ -1057,13 +1026,6 @@ namespace FunkyBot.Config.UI
 			Bot.Settings.Targeting.UseShrineTypes[index] = !(Bot.Settings.Targeting.UseShrineTypes[index]);
 		}
 
-		private void tb_GeneralGoldInactivityValue_ValueChanged(object sender, EventArgs e)
-		{
-			TrackBar slider_sender = (TrackBar)sender;
-			int Value = (int)slider_sender.Value;
-			Bot.Settings.Plugin.GoldInactivityTimeoutSeconds = Value;
-			txt_GeneralGoldInactivityValue.Text = Value.ToString();
-		}
 
 		private void cb_GeneralAllowBuffInTown_CheckedChanged(object sender, EventArgs e)
 		{
@@ -1183,7 +1145,7 @@ namespace FunkyBot.Config.UI
 		{
 			ComboBox cbSender = (ComboBox)sender;
 
-			Bot.Settings.Loot.MinimumGemItemLevel = (int)Enum.Parse(typeof(fItemPlugin.Items.GemQualityType), cbSender.Items[cbSender.SelectedIndex].ToString());
+			Bot.Settings.Loot.MinimumGemItemLevel = (int)Enum.Parse(typeof(GemQualityTypes), cbSender.Items[cbSender.SelectedIndex].ToString());
 		}
 
 		private void cb_DebugStatusBar_CheckedChanged(object sender, EventArgs e)
@@ -1263,7 +1225,7 @@ namespace FunkyBot.Config.UI
 			{
 				Logger.DBLog.InfoFormat("Dumping Character Cache");
 
-				LBDebug.Controls.Add(new UserControlDebugEntry(Bot.Character.Data.DebugString()));
+				LBDebug.Controls.Add(new UserControlDebugEntry(FunkyGame.Hero.DebugString()));
 
 			}
 			catch (Exception ex)
@@ -1295,7 +1257,7 @@ namespace FunkyBot.Config.UI
 				if (Bot.Character.Class == null) return;
 				LBDebug.Controls.Add(new UserControlDebugEntry(Bot.Character.Class.DebugString()));
 
-				LBDebug.Controls.Add(new UserControlDebugEntry("==Current HotBar Abilities=="));
+				LBDebug.Controls.Add(new UserControlDebugEntry("==Current Hotbar Abilities=="));
 				foreach (var item in Bot.Character.Class.Abilities.Values)
 				{
 					try
@@ -1310,7 +1272,7 @@ namespace FunkyBot.Config.UI
 
 
 				LBDebug.Controls.Add(new UserControlDebugEntry("==Buffs=="));
-				foreach (var item in Bot.Character.Class.HotBar.CurrentBuffs.Keys)
+				foreach (var item in Hotbar.CurrentBuffs.Keys)
 				{
 
 					string Power = Enum.GetName(typeof(SNOPower), item);
@@ -1388,7 +1350,50 @@ namespace FunkyBot.Config.UI
 			
 			try
 			{
-				LBDebug.Controls.Add(new UserControlDebugEntry("test"));
+				string s = Clipboard.GetText();
+				if (s.Contains("<DebugEntry>"))
+				{
+					string[] delimiter = new string[] { "<DebugEntry>\r\n" };
+					string[] entryStrings = s.TrimStart().Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
+					string finalString = String.Empty;
+					foreach (var entryString in entryStrings)
+					{
+						string[] splitStrings = entryString.Split(Convert.ToChar("\n"));
+
+						string snoID = splitStrings.FirstOrDefault(str => str.TrimStart().StartsWith("<SNOID>"));
+						if (snoID == null) return;
+						snoID = ExtractDataFromXMLTag(snoID);
+						if (snoID == String.Empty) return;
+						int iSNOID = Convert.ToInt32(snoID);
+
+						string returnString = "new ItemEntry(" + snoID + ", ";
+						string name = splitStrings.FirstOrDefault(str => str.TrimStart().StartsWith("<Name>"));
+						if (name != null)
+						{
+
+
+							name = ExtractDataFromXMLTag(name);
+							if (name != String.Empty)
+							{
+								PluginDroppedItemTypes itemtype = ItemFunc.DetermineDroppedItemType(name, iSNOID);
+								returnString = returnString + "PluginDroppedItemTypes." + itemtype.ToString() + @", """ + name + @"""),";
+							}
+							else
+							{
+								returnString = returnString + "PluginDroppedItemTypes.Unknown),";
+							}
+						}
+						else
+						{
+							returnString = returnString + "PluginDroppedItemTypes.Unknown),";
+						}
+
+						finalString = finalString + returnString + "\r\n";
+					}
+
+					Clipboard.SetText(finalString);
+					LBDebug.Controls.Add(new UserControlDebugEntry(finalString));
+				}
 			}
 			catch (Exception ex)
 			{
@@ -1396,6 +1401,23 @@ namespace FunkyBot.Config.UI
 			}
 			//ZetaDia.Service.GameAccount.SwitchHero(1);
 			LBDebug.Focus();
+		}
+		private string ExtractDataFromXMLTag(string tag)
+		{
+			try
+			{
+
+				int startIndex = tag.IndexOf(Convert.ToChar(">"))+1;
+				int endIndex = tag.LastIndexOf(Convert.ToChar("<"));
+				return tag.Substring(startIndex, (endIndex - startIndex));
+
+			}
+			catch
+			{
+
+			}
+
+			return String.Empty;
 		}
 
 		private void flowLayoutPanel_Avoidances_Click(object sender, EventArgs e)
@@ -1424,7 +1446,7 @@ namespace FunkyBot.Config.UI
 
 			try
 			{
-				foreach (var cacheObject in Bot.Game.Profile.InteractableObjectCache)
+				foreach (var cacheObject in ObjectCache.InteractableObjectCache)
 				{
 					LBDebug.Controls.Add(new UserControlDebugEntry(cacheObject.Value.DebugString));
 				}
@@ -1453,8 +1475,9 @@ namespace FunkyBot.Config.UI
 				{
 					try
 					{
-						string s=String.Format("{0} - {1} BalanceID: {2} ACDGuid: {3}",
-															o.Name, o.ActorSNO, o.GameBalanceId, o.ACDGuid);
+						//CacheACDItem item = new CacheACDItem(o);
+						string s=String.Format("Type {0} {1} - SNO: {2} BalanceID: {3}",
+															o.ItemType, o.InternalName, o.ActorSNO, o.GameBalanceId);
 
 						LBDebug.Controls.Add(new UserControlDebugEntry(s));
 					}

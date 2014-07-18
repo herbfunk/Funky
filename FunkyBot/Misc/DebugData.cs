@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+using fBaseXtensions.Helpers;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using Zeta.Game.Internals.SNO;
@@ -16,6 +17,7 @@ namespace FunkyBot.Misc
 		public HashSet<DebugEntry> Containers { get; set; }
 		public HashSet<DebugEntry> Destructibles { get; set; }
 		public HashSet<DebugEntry> Barricades { get; set; }
+		public HashSet<DebugEntry> Items { get; set; } 
 		
 		public DebugData()
 		{
@@ -23,6 +25,8 @@ namespace FunkyBot.Misc
 			Containers = new HashSet<DebugEntry>();
 			Destructibles = new HashSet<DebugEntry>();
 			Barricades = new HashSet<DebugEntry>();
+			Items = new HashSet<DebugEntry>();
+
 		}
 
 		public void CheckEntry(CachedSNOEntry entry)
@@ -48,6 +52,11 @@ namespace FunkyBot.Misc
 				if (Barricades.Contains(d)) return;
 				Barricades.Add(d);
 			}
+			else if(d.ActorType== ActorType.Item || d.TargetType== TargetType.Item)
+			{
+				if (Items.Contains(d)) return;
+				Items.Add(d);
+			}
 			else
 			{
 				return;
@@ -56,7 +65,7 @@ namespace FunkyBot.Misc
 			SerializeToXML(this);
 		}
 
-		private static readonly string DefaultFilePath = Path.Combine(FolderPaths.RoutinePath, "Log");
+		private static readonly string DefaultFilePath = Path.Combine(Funky.RoutinePath, "Log");
 		private static void SerializeToXML(DebugData settings)
 		{
 			FolderPaths.CheckFolderExists(DefaultFilePath);
@@ -72,7 +81,9 @@ namespace FunkyBot.Misc
 			if (!File.Exists(filePath))
 			{
 				Logger.DBLog.Debug("Could not load Data Debugging File!");
-				return new DebugData();
+				var debugData = new DebugData();
+				SerializeToXML(debugData);
+				return debugData;
 			}
 
 			var deserializer = new XmlSerializer(typeof(DebugData));

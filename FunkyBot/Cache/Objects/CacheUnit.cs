@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
 using FunkyBot.Cache.Avoidance;
 using FunkyBot.Cache.Enums;
+using FunkyBot.Config.Settings;
 using FunkyBot.Game;
 using FunkyBot.Game.Bounty;
 using FunkyBot.Movement;
-using FunkyBot.Player.HotBar.Skills;
-using FunkyBot.Player.HotBar.Skills.Conditions;
+using FunkyBot.Skills;
+using FunkyBot.Skills.Conditions;
 using Zeta.Bot;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.SNO;
 using Zeta.TreeSharp;
-using Logger = FunkyBot.Misc.Logger;
-using LogLevel = FunkyBot.Misc.LogLevel;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 namespace FunkyBot.Cache.Objects
 {
@@ -249,9 +252,9 @@ namespace FunkyBot.Cache.Objects
 			get
 			{
 
-				if (ProfileCache.ClusterSettingsTag.EnableClusteringTargetLogic
-					&& (Bot.Character.Data.dCurrentHealthPct > ProfileCache.ClusterSettingsTag.IgnoreClusterLowHPValue)
-					&& !Bot.IsInNonCombatBehavior && !Bot.Character.Data.bIsInBossEncounter)
+				if (SettingCluster.ClusterSettingsTag.EnableClusteringTargetLogic
+					&& (FunkyGame.Hero.dCurrentHealthPct > SettingCluster.ClusterSettingsTag.IgnoreClusterLowHPValue)
+					&& !Bot.IsInNonCombatBehavior && !FunkyGame.Hero.bIsInBossEncounter)
 				{
 					//Check if this unit is valid based on if its contained in valid clusters
 					if (!Bot.Targeting.Cache.Clusters.ValidClusterUnits.Contains(RAGUID))
@@ -285,16 +288,16 @@ namespace FunkyBot.Cache.Objects
 			get
 			{
 				return
-					(ProfileCache.LineOfSightSNOIds.Contains(SNOID)) ||
-					 (((Bot.Settings.AdventureMode.EnableAdventuringMode && Bot.Game.AdventureMode && Bot.Game.Bounty.AllowAnyUnitForLOSMovement) ||
-						(IsSucideBomber && ProfileCache.LOSSettingsTag.AllowSucideBomber) ||
-						(IsTreasureGoblin && ProfileCache.LOSSettingsTag.AllowTreasureGoblin) ||
-						(IsSpawnerUnit && ProfileCache.LOSSettingsTag.AllowSpawnerUnits) ||
-						((MonsterRare || MonsterElite) && ProfileCache.LOSSettingsTag.AllowRareElites) ||
-						((IsBoss || MonsterUnique) && ProfileCache.LOSSettingsTag.AllowUniqueBoss) ||
-						(IsRanged && ProfileCache.LOSSettingsTag.AllowRanged))
+					//(ProfileCache.LineOfSightSNOIds.Contains(SNOID)) ||
+					 (((Bot.Settings.AdventureMode.EnableAdventuringMode && FunkyGame.AdventureMode && Bot.Game.Bounty.AllowAnyUnitForLOSMovement) ||
+						(IsSucideBomber && SettingLOSMovement.LOSSettingsTag.AllowSucideBomber) ||
+						(IsTreasureGoblin && SettingLOSMovement.LOSSettingsTag.AllowTreasureGoblin) ||
+						(IsSpawnerUnit && SettingLOSMovement.LOSSettingsTag.AllowSpawnerUnits) ||
+						((MonsterRare || MonsterElite) && SettingLOSMovement.LOSSettingsTag.AllowRareElites) ||
+						((IsBoss || MonsterUnique) && SettingLOSMovement.LOSSettingsTag.AllowUniqueBoss) ||
+						(IsRanged && SettingLOSMovement.LOSSettingsTag.AllowRanged))
 						&&
-						(CentreDistance <= ProfileCache.LOSSettingsTag.MaximumRange &&//Enforce A Maximum Range
+						(CentreDistance <= SettingLOSMovement.LOSSettingsTag.MaximumRange &&//Enforce A Maximum Range
 						SNOID != 347363)); //Exclude A5 MastaBlasta event
 			}
 		}
@@ -447,7 +450,7 @@ namespace FunkyBot.Cache.Objects
 		{
 			get
 			{
-				float fThisHeightDifference = Funky.Difference(Bot.Character.Data.Position.Z, Position.Z);
+				float fThisHeightDifference = Funky.Difference(FunkyGame.Hero.Position.Z, Position.Z);
 				if (fThisHeightDifference > 12f)
 				{
 					//raycast.. 
@@ -692,7 +695,7 @@ namespace FunkyBot.Cache.Objects
 					Weight += 9999;
 
 				// Force a close range target because we seem to be stuck *OR* if not ranged and currently rooted
-				if (Bot.Targeting.Cache.bPrioritizeCloseRangeUnits || Bot.Character.Data.bIsRooted)
+				if (Bot.Targeting.Cache.bPrioritizeCloseRangeUnits || FunkyGame.Hero.bIsRooted)
 				{
 
 					Weight = 20000 - (Math.Floor(radiusDistance) * 200);
@@ -765,12 +768,12 @@ namespace FunkyBot.Cache.Objects
 							Weight += 4000;
 
 						// Barbarians with wrath of the berserker up should prioritize elites more
-						if (Bot.Character.Class.HotBar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker) && (IsEliteRareUnique || IsTreasureGoblin || IsBoss))
+						if (Hotbar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker) && (IsEliteRareUnique || IsTreasureGoblin || IsBoss))
 							Weight += 2000;
 
 						// Exploding Palm Bleeding Prioritize
 						if (Bot.Character.Class.AC == ActorClass.Monk
-							&& Bot.Character.Class.HotBar.HasPower(SNOPower.Monk_ExplodingPalm)
+							&& Hotbar.HasPower(SNOPower.Monk_ExplodingPalm)
 							&& centreDistance < 20f)
 						{
 							if (HasDOTdps.HasValue && HasDOTdps.Value) //Exploding Palm -- Bleeding Already!
@@ -1021,7 +1024,7 @@ namespace FunkyBot.Cache.Objects
 					}
 
 					//This is intial test to validate we can "see" the unit.. 
-					if (!LineOfSight.LOSTest(Bot.Character.Data.Position, true, false, !Bot.Character.Class.ContainsNonRangedCombatSkill, NavCellFlags.None, false))
+					if (!LineOfSight.LOSTest(FunkyGame.Hero.Position, true, false, !Bot.Character.Class.ContainsNonRangedCombatSkill, NavCellFlags.None, false))
 					{
 						//LOS Movement -- Check for special objects
 						//LOS failed.. now we should decide if we want to find a spot for this target, or just ignore it.
@@ -1033,7 +1036,7 @@ namespace FunkyBot.Cache.Objects
 						}
 
 						//Valid?? Did we find a location we could move to for LOS?
-						if (!Bot.Character.Data.bIsIncapacitated && !ObjectIsSpecial)
+						if (!FunkyGame.Hero.bIsIncapacitated && !ObjectIsSpecial)
 							BlacklistLoops = 2;
 						else//Incapacitated we reset check
 							LineOfSight.LastLOSCheck = DateTime.Today;
@@ -1166,7 +1169,7 @@ namespace FunkyBot.Cache.Objects
 			// Make sure it's a valid monster type
 			if (!MonsterTypeIsHostile() || isNPC)
 			{
-				if (Bot.Character.Data.bIsInTown)
+				if (FunkyGame.Hero.bIsInTown)
 				{
 					//Perma Ignore all NPCs we find in town..
 					if (isNPC) BlacklistCache.IgnoreThisObject(this);
@@ -1176,7 +1179,7 @@ namespace FunkyBot.Cache.Objects
 
 
 				//Special Bounty Check for Events only!
-				if (Bot.Settings.AdventureMode.EnableAdventuringMode && Bot.Game.AdventureMode && Bot.Game.Bounty.CurrentBountyCacheEntry != null && Bot.Game.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.Event)
+				if (Bot.Settings.AdventureMode.EnableAdventuringMode && FunkyGame.AdventureMode && Bot.Game.Bounty.CurrentBountyCacheEntry != null && Bot.Game.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.Event)
 				{
 					if (!IsQuestGiver)
 					{
@@ -1192,8 +1195,8 @@ namespace FunkyBot.Cache.Objects
 
 					if (IsQuestGiver)
 					{//Is A Quest Giver..
-
-						if (!Bot.Game.Profile.InteractableObjectCache.ContainsKey(RAGUID))
+						
+						if (!ObjectCache.InteractableObjectCache.ContainsKey(RAGUID))
 						{//Check if MarkerType is Exclamation..
 
 							bool shouldInteract = false;
@@ -1208,7 +1211,7 @@ namespace FunkyBot.Cache.Objects
 
 							if (shouldInteract)
 							{
-								Bot.Game.Profile.InteractableObjectCache.Add(RAGUID, this);
+								ObjectCache.InteractableObjectCache.Add(RAGUID, this);
 								targetType = TargetType.Interaction;
 							}
 							else
@@ -1241,7 +1244,7 @@ namespace FunkyBot.Cache.Objects
 
 					if (IsMinimapActive.HasValue && IsMinimapActive.Value)
 					{
-						if (!Bot.Game.Profile.InteractableObjectCache.ContainsKey(RAGUID))
+						if (!ObjectCache.InteractableObjectCache.ContainsKey(RAGUID))
 						{
 							bool shouldInteract = false;
 							try
@@ -1255,7 +1258,7 @@ namespace FunkyBot.Cache.Objects
 
 							if (shouldInteract)
 							{
-								Bot.Game.Profile.InteractableObjectCache.Add(RAGUID, this);
+								ObjectCache.InteractableObjectCache.Add(RAGUID, this);
 								targetType = TargetType.Interaction;
 							}
 							else
@@ -1482,7 +1485,7 @@ namespace FunkyBot.Cache.Objects
 			if (Bot.Character.Class.AC == ActorClass.Barbarian)
 			{
 				//Rend DotDPS update
-				if (Bot.Character.Class.HotBar.HasPower(SNOPower.Barbarian_Rend))
+				if (Hotbar.HasPower(SNOPower.Barbarian_Rend))
 				{
 					try
 					{
@@ -1496,7 +1499,7 @@ namespace FunkyBot.Cache.Objects
 			else if (Bot.Character.Class.AC == ActorClass.Monk)
 			{
 				//1195139072
-				if (Bot.Character.Class.HotBar.HasPower(SNOPower.Monk_ExplodingPalm))
+				if (Hotbar.HasPower(SNOPower.Monk_ExplodingPalm))
 				{
 					if (CentreDistance < 30f)
 					{
@@ -1521,7 +1524,7 @@ namespace FunkyBot.Cache.Objects
 			else if (Bot.Character.Class.AC == ActorClass.Witchdoctor)
 			{
 				//Haunted DotDPS update
-				if (Bot.Character.Class.HotBar.HasPower(SNOPower.Witchdoctor_Haunt) || Bot.Character.Class.HotBar.HasPower(SNOPower.Witchdoctor_Locust_Swarm))
+				if (Hotbar.HasPower(SNOPower.Witchdoctor_Haunt) || Hotbar.HasPower(SNOPower.Witchdoctor_Locust_Swarm))
 				{
 					Bot.Targeting.Cache.Environment.UsesDOTDPSAbility = true;
 					try
@@ -1594,7 +1597,7 @@ namespace FunkyBot.Cache.Objects
 			}
 
 			//Update Quest Monster?
-			if (Bot.Targeting.Cache.UpdateQuestMonsterProperty || ProfileCache.QuestMode)
+			if (Bot.Targeting.Cache.UpdateQuestMonsterProperty || Bot.Game.QuestMode)
 			{
 				try
 				{
@@ -1637,7 +1640,7 @@ namespace FunkyBot.Cache.Objects
 				if (Bot.Targeting.Cache.LastCachedTarget.Equals(this) &&
 					  DateTime.Now.Subtract(Bot.Character.Class.LastUsedACombatAbility).TotalMilliseconds < 2500 &&
 					  DateTime.Now.Subtract(Bot.Targeting.Cache.LastChangeOfTarget).TotalMilliseconds > 3000 &&
-					 !Bot.Character.Data.bIsInBossEncounter)
+					 !FunkyGame.Hero.bIsInBossEncounter)
 				{
 					double LastHealthChangedMS = DateTime.Now.Subtract(LastHealthChange).TotalMilliseconds;
 					if (LastHealthChangedMS > 5000)
@@ -1669,7 +1672,7 @@ namespace FunkyBot.Cache.Objects
 				Bot.Character.Class.PowerPrime.MinimumRange = Bot.Character.Class.IsMeleeClass ? 14 : 16;
 			else if (IgnoresLOSCheck)
 				Bot.Character.Class.PowerPrime.MinimumRange = (int)(ActorSphereRadius.Value * 1.5);
-			else if (Bot.Character.Class.HotBar.HasBuff(SNOPower.Pages_Buff_Electrified))
+			else if (Hotbar.HasBuff(SNOPower.Pages_Buff_Electrified))
 			{
 				if (Bot.Character.Class.PowerPrime.MinimumRange>20)
 					Bot.Character.Class.PowerPrime.MinimumRange = 20;

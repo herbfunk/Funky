@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using fBaseXtensions.Game;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Movement;
 using Zeta.Bot.Navigation;
@@ -110,7 +111,7 @@ namespace FunkyBot.Cache.Objects
 			  if (ServerObjectIntersection)
 			  {//This test uses the obstacle cache to check objects for intersection
 
-					if (Funky.Difference(Bot.Character.Data.Position.Z, objposition.Z) > 1f)
+					if (Funky.Difference(FunkyGame.Hero.Position.Z, objposition.Z) > 1f)
 					{
 						//Get actual height using MGP
 						objposition.Z = Navigation.MGP.GetHeight(objposition.ToVector2());

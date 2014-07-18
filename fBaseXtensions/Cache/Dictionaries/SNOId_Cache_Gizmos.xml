@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GizmoSnoDataCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Doors>
+    <int>5854</int>
+    <int>454</int>
+    <int>5767</int>
+    <int>230324</int>
+    <int>308241</int>
+    <int>273323</int>
+  </Doors>
+  <ResplendantChests>
+    <int>62873</int>
+    <int>95011</int>
+    <int>81424</int>
+    <int>108230</int>
+    <int>111808</int>
+    <int>111809</int>
+    <int>199583</int>
+    <int>109264</int>
+    <int>101500</int>
+    <int>96993</int>
+    <int>62866</int>
+    <int>108230</int>
+    <int>211861</int>
+    <int>62860</int>
+    <int>96993</int>
+    <int>112182</int>
+    <int>363725</int>
+  </ResplendantChests>
+  <SpecialInteractables>
+    <int>174754</int>
+    <int>174753</int>
+    <int>102079</int>
+    <int>105754</int>
+    <int>203608</int>
+    <int>93713</int>
+    <int>301177</int>
+  </SpecialInteractables>
+</GizmoSnoDataCollection>

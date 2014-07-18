@@ -1,8 +1,18 @@
-﻿using FunkyBot.Cache;
+﻿using System.Linq;
+using fBaseXtensions;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
+using fBaseXtensions.Helpers;
+using fBaseXtensions.Monitor;
+using FunkyBot.Cache;
+using FunkyBot.Game;
 using FunkyBot.Misc;
+using FunkyBot.Player.Class;
 using Zeta.Bot;
 using Zeta.Bot.Navigation;
+using Zeta.Common.Plugins;
 using Zeta.Game;
+using Logger = fBaseXtensions.Helpers.Logger;
 
 namespace FunkyBot.EventHandlers
 {
@@ -18,6 +28,15 @@ namespace FunkyBot.EventHandlers
 			}
 			Logger.DBLog.DebugFormat("[Funky] Plugin settings location=" + FunkySettingsPath);
 
+			var basePlugin = PluginManager.Plugins.First(p => p.Plugin.Name == "fBaseXtensions");
+			if (basePlugin!=null)
+			{
+				if (!basePlugin.Enabled)
+				{
+					Logger.DBLog.Warn("FunkyBot requires fBaseXtensions to be enabled! -- Enabling it automatically.");
+					basePlugin.Enabled = true;
+				}
+			}
 
 			Bot.Reset();
 	
@@ -29,6 +48,10 @@ namespace FunkyBot.EventHandlers
 			GameEvents.OnGameChanged += FunkyOnGameChanged;
 			GameEvents.OnWorldChanged += FunkyOnWorldChange;
 			ProfileManager.OnProfileLoaded += FunkyOnProfileChanged;
+			Hotbar.OnSkillsChanged += PlayerClass.HotbarSkillsChangedHandler;
+			GoldInactivity.OnGoldTimeoutTripped += GameCache.GoldInactivityTimerTrippedHandler;
+			EventHandling.OnGameIDChanged += Bot.Game.OnGameIDChangedHandler;
+			FunkyGame.Profile.OnProfileBehaviorChange += Bot.Game.OnProfileBehaviorChanged;
 
 			//Attach Level Up Event for characters less than 70!
 			//if (Bot.Character.Account.CurrentLevel<70)

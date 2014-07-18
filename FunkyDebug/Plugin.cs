@@ -96,7 +96,7 @@ namespace FunkyDebug
 			try
 			{
 				FormDebug debug = new FormDebug();
-				debug.ShowDialog();
+				debug.Show();
 				//BotMain.CurrentBot.ConfigWindow.Show();
 			}
 			catch

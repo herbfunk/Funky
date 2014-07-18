@@ -1,12 +1,13 @@
 ﻿using System;
+using fBaseXtensions.Game;
 using FunkyBot.Cache.Objects;
-using FunkyBot.Player.HotBar.Skills;
+using FunkyBot.Skills;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using Zeta.Bot.Settings;
 using Zeta.Common;
-using Logger = FunkyBot.Misc.Logger;
-using LogLevel = FunkyBot.Misc.LogLevel;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 namespace FunkyBot.Targeting.Behaviors
 {
@@ -62,7 +63,7 @@ namespace FunkyBot.Targeting.Behaviors
 
 						if (Bot.Targeting.Cache.Environment.TriggeringAvoidances.Count == 0)
 						{
-							obj = new CacheObject(Bot.Character.Data.Position, TargetType.Avoidance, 20000, "StayPutPoint", 2.5f, -1);
+							obj = new CacheObject(FunkyGame.Hero.Position, TargetType.Avoidance, 20000, "StayPutPoint", 2.5f, -1);
 							return true;
 						}
 					}
@@ -80,7 +81,7 @@ namespace FunkyBot.Targeting.Behaviors
 			// Store if we are ignoring all units this cycle or not
 			bool bIgnoreAllUnits = !Bot.Targeting.Cache.Environment.bAnyChampionsPresent
 										&& ((!Bot.Targeting.Cache.Environment.bAnyTreasureGoblinsPresent && Bot.Settings.Targeting.GoblinPriority >= 2) || Bot.Settings.Targeting.GoblinPriority < 2)
-										&& Bot.Character.Data.dCurrentHealthPct >= 0.85d;
+										&& FunkyGame.Hero.dCurrentHealthPct >= 0.85d;
 
 
 			//clear our last "avoid" list..
@@ -147,7 +148,7 @@ namespace FunkyBot.Targeting.Behaviors
 						else
 						{
 							Vector3 destination = nextAbility.DestinationVector;
-							if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(Bot.Character.Data.Position, destination))
+							if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(FunkyGame.Hero.Position, destination))
 							{
 								//if (!thisobj.ObjectIsSpecial)
 								//	resetTarget = true;

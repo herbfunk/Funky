@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
+using fBaseXtensions.Game;
 using FunkyBot.Cache;
 using FunkyBot.DBHandlers.CharacterMule;
 using FunkyBot.Player.Class;
-using FunkyBot.Player.HotBar.Skills;
+using FunkyBot.Skills;
 using Zeta.Bot;
 using Zeta.Common;
 using Zeta.Game;
@@ -32,10 +33,6 @@ namespace FunkyBot.DBHandlers
 			{//Null?
 				PlayerClass.ShouldRecreatePlayerClass = true;
 			}
-			else
-			{//Skill Change Check
-				Bot.Character.Class.HotBar.CheckSkills();
-			}
 
 			//Should we recreate class?
 			if (PlayerClass.ShouldRecreatePlayerClass)
@@ -52,7 +49,7 @@ namespace FunkyBot.DBHandlers
 			Bot.Targeting.Cache.DontMove = false;
 
 			//update current profile behavior.
-			Bot.Game.Profile.CheckCurrentProfileBehavior();
+			//Bot.Game.Profile.CheckCurrentProfileBehavior();
 
 			// Should we refresh target list?
 			if (Bot.Targeting.Cache.ShouldRefreshObjectList)
@@ -116,8 +113,8 @@ namespace FunkyBot.DBHandlers
 			Bot.NavigationCache.vPositionLastZigZagCheck = Vector3.Zero;
 
 			// Out of combat buffing etc. but only if we don't want to return to town etc.
-			AnimationState myAnimationState = Bot.Character.Data.CurrentAnimationState;
-			if ((!Bot.Character.Data.bIsInTown || Bot.Settings.General.AllowBuffingInTown) &&
+			AnimationState myAnimationState = FunkyGame.Hero.CurrentAnimationState;
+			if ((!FunkyGame.Hero.bIsInTown || Bot.Settings.General.AllowBuffingInTown) &&
 				 !Bot.IsInNonCombatBehavior &&
 				 myAnimationState != AnimationState.Attacking && myAnimationState != AnimationState.Casting && myAnimationState != AnimationState.Channeling)
 			{
@@ -125,10 +122,10 @@ namespace FunkyBot.DBHandlers
 				if (Bot.Character.Class.FindBuffPower(out Buff))
 				{
 					Skill.SetupAbilityForUse(ref Buff);
-					Bot.Character.Data.WaitWhileAnimating(4, true);
+					FunkyGame.Hero.WaitWhileAnimating(4, true);
 					Skill.UsePower(ref Buff);
 					Buff.OnSuccessfullyUsed();
-					Bot.Character.Data.WaitWhileAnimating(3, true);
+					FunkyGame.Hero.WaitWhileAnimating(3, true);
 				}
 			}
 

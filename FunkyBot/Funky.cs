@@ -1,8 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using Demonbuddy;
-using fItemPlugin.Player;
+using fBaseXtensions;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
+using fBaseXtensions.Helpers;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Dictionaries.Objects;
 using FunkyBot.Cache.Enums;
@@ -12,9 +16,11 @@ using FunkyBot.Config.Settings;
 using FunkyBot.Config.UI;
 using FunkyBot.DBHandlers;
 using FunkyBot.DBHandlers.Townrun;
+using FunkyBot.Player.Class;
 using Zeta.Bot;
 using Zeta.Bot.Logic;
 using Zeta.Bot.Navigation;
+using Zeta.Bot.Settings;
 using Zeta.Common;
 using Zeta.Common.Plugins;
 using Zeta.Game;
@@ -23,7 +29,7 @@ using Zeta.TreeSharp;
 using Decorator = Zeta.TreeSharp.Decorator;
 using Action = Zeta.TreeSharp.Action;
 using Character = FunkyBot.Player.Character;
-using Logger = FunkyBot.Misc.Logger;
+using Logger = fBaseXtensions.Helpers.Logger;
 
 namespace FunkyBot
 {
@@ -36,7 +42,18 @@ namespace FunkyBot
 		}
         public static Funky Instance { get; private set; }
 
+		internal static string RoutinePath
+		{
+			get
+			{
+				if (Directory.Exists(FolderPaths.DemonBuddyPath + @"\Plugins\FunkyBot\"))
+					return FolderPaths.DemonBuddyPath + @"\Plugins\FunkyBot\";
+				else if (Directory.Exists(FolderPaths.DemonBuddyPath + @"\Routines\FunkyBot\"))
+					return FolderPaths.DemonBuddyPath + @"\Routines\FunkyBot\";
 
+				return null;
+			}
+		}
 
 
 		internal static float Difference(float A, float B)
@@ -198,6 +215,11 @@ namespace FunkyBot
 
 					PrioritySelector CompositeReplacement = hook.Value[0] as PrioritySelector;
 
+					foreach (var item in CompositeReplacement.Children)
+					{
+						Logger.DBLog.InfoFormat(item.GetType().ToString());
+					}
+
 					CanRunDecoratorDelegate shouldPreformOutOfGameBehavior = OutOfGame.OutOfGameOverlord;
 					ActionDelegate actionDelgateOOGBehavior = OutOfGame.OutOfGameBehavior;
 					Sequence sequenceOOG = new Sequence(
@@ -280,7 +302,10 @@ namespace FunkyBot
 			GameEvents.OnGameChanged -= EventHandlers.EventHandlers.FunkyOnGameChanged;
 			ProfileManager.OnProfileLoaded -= EventHandlers.EventHandlers.FunkyOnProfileChanged;
 			Equipment.OnEquippedItemsChanged -= Character.EquippmentChangedHandler;
+			Hotbar.OnSkillsChanged -= PlayerClass.HotbarSkillsChangedHandler;
 			GameEvents.OnLevelUp -= EventHandlers.EventHandlers.FunkyOnLevelUp;
+			EventHandling.OnGameIDChanged -= Bot.Game.OnGameIDChangedHandler;
+			FunkyGame.Profile.OnProfileBehaviorChange -= Bot.Game.OnProfileBehaviorChanged;
 		}
 		internal static void ResetTreehooks()
 		{
@@ -393,7 +418,6 @@ namespace FunkyBot
 			ObjectCache.FakeCacheObject = new CacheObject(Vector3.Zero, TargetType.None, 0d, "Fake Target", 1f);
 
 			//Update Account Details..
-			Bot.Character.Account.UpdateCurrentAccountDetails();
 			Bot.Settings = new Settings_Funky();
 			BotMain.OnStop += EventHandlers.EventHandlers.FunkyBotStop;
 			BotMain.OnStart += EventHandlers.EventHandlers.FunkyBotStart;
@@ -425,10 +449,8 @@ namespace FunkyBot
 		{
 			get 
 			{
-				if (Bot.Character.Account.ActorClass == ActorClass.Invalid)
-					Bot.Character.Account.UpdateCurrentAccountDetails();
 
-				return Bot.Character.Account.ActorClass;
+				return FunkyGame.CurrentActorClass;
 			}
 		}
 

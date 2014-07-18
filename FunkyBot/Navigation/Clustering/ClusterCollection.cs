@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using FunkyBot.Cache.Objects;
+using FunkyBot.Config.Settings;
 using FunkyBot.Game;
 
 namespace FunkyBot.Movement.Clustering
@@ -137,7 +138,7 @@ namespace FunkyBot.Movement.Clustering
 		{
 			get
 			{
-				return new ClusterConditions(ProfileCache.ClusterSettingsTag.ClusterDistance, 125f, ProfileCache.ClusterSettingsTag.ClusterMinimumUnitCount, false);
+				return new ClusterConditions(SettingCluster.ClusterSettingsTag.ClusterDistance, 125f, SettingCluster.ClusterSettingsTag.ClusterMinimumUnitCount, false);
 			}
 			set
 			{

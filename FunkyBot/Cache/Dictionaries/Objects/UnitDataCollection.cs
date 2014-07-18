@@ -38,7 +38,7 @@ namespace FunkyBot.Cache.Dictionaries.Objects
 			UnitPriorities = new HashSet<UnitPriority>();
 		}
 
-		private static readonly string DefaultFilePath = Path.Combine(FolderPaths.RoutinePath, "Cache", "Dictionaries", "SNOId_Cache_Units.xml");
+		private static readonly string DefaultFilePath = Path.Combine(Funky.RoutinePath, "Cache", "Dictionaries", "SNOId_Cache_Units.xml");
 		internal static UnitDataCollection DeserializeFromXML()
 		{
 			var deserializer = new XmlSerializer(typeof(UnitDataCollection));

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using fBaseXtensions.Game;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
@@ -145,12 +146,12 @@ namespace FunkyBot.Movement
 		internal void RefreshNavigationBlocked()
 		{
 			//Check if bot is navigationally blocked.. (if bot pos changed or 500ms elapsed then we refresh!)
-			if (LastBotPositionChecked != Bot.Character.Data.Position || DateTime.Now.Subtract(LastNavigationBlockCheck).TotalMilliseconds > 500)
+			if (LastBotPositionChecked != FunkyGame.Hero.Position || DateTime.Now.Subtract(LastNavigationBlockCheck).TotalMilliseconds > 500)
 			{
 				LastNavigationBlockCheck = DateTime.Now;
-				LastBotPositionChecked = Bot.Character.Data.Position;
+				LastBotPositionChecked = FunkyGame.Hero.Position;
 
-				if (IsVectorBlocked(Bot.Character.Data.Position))
+				if (IsVectorBlocked(FunkyGame.Hero.Position))
 				{
 					//Logger.DBLog.InfoFormat("[Funky] Current Position is Navigationally Blocked");
 					BotIsNavigationallyBlocked = true;
@@ -345,7 +346,7 @@ namespace FunkyBot.Movement
 		public bool CurrentAreaValid()
 		{
 			return (Bot.NavigationCache.CurrentGPArea != null && !Bot.NavigationCache.CurrentGPArea.AllGPRectsFailed
-				&& (Bot.NavigationCache.CurrentGPArea.StartingLocation == Bot.Character.Data.Position || Bot.NavigationCache.CurrentGPArea.centerGPRect.Contains(Bot.Character.Data.Position)));
+				&& (Bot.NavigationCache.CurrentGPArea.StartingLocation == FunkyGame.Hero.Position || Bot.NavigationCache.CurrentGPArea.centerGPRect.Contains(FunkyGame.Hero.Position)));
 		}
 
 		public Vector3 AttemptToReuseLastLocationFound()
@@ -353,7 +354,7 @@ namespace FunkyBot.Movement
 			if (vlastSafeSpot != Vector3.Zero)
 			{
 				//Check how close we are..
-				if (Bot.Character.Data.Position.Distance2D(vlastSafeSpot) < 2.5f)
+				if (FunkyGame.Hero.Position.Distance2D(vlastSafeSpot) < 2.5f)
 				{
 					vlastSafeSpot = Vector3.Zero;
 
@@ -368,7 +369,7 @@ namespace FunkyBot.Movement
 		{
 			safespot = vlastSafeSpot;
 
-			Vector3 BotPosition = Bot.Character.Data.Position;
+			Vector3 BotPosition = FunkyGame.Hero.Position;
 
 			//Recreate the entire area?
 			if (!CurrentAreaValid())
@@ -384,7 +385,7 @@ namespace FunkyBot.Movement
 			}
 
 			//Recreate Bot Current rect?
-			//if (CurrentLocationGPrect == null || CurrentLocationGPrect.centerpoint != Bot.Character.Data.PointPosition)
+			//if (CurrentLocationGPrect == null || CurrentLocationGPrect.centerpoint != FunkyGame.Hero.PointPosition)
 			//{
 			//	Bot.NavigationCache.CurrentLocationGPrect = new GPRectangle(BotPosition);
 			//	//Refresh boundary (blocked directions)
@@ -486,7 +487,7 @@ namespace FunkyBot.Movement
 				iFakeStart = rndNum.Next(18) * 5;
 			if (bRandomizeDistance)
 				fDistanceOutreach += rndNum.Next(18);
-			float fDirectionToTarget = FindDirection(Bot.Character.Data.Position, vTargetLocation);
+			float fDirectionToTarget = FindDirection(FunkyGame.Hero.Position, vTargetLocation);
 
 			float fHighestWeight = float.NegativeInfinity;
 			Vector3 vBestLocation = Vector3.Zero;
@@ -526,7 +527,7 @@ namespace FunkyBot.Movement
 					if (iPosition >= 360f)
 						iPosition = iPosition - 360f;
 
-					Vector3 vThisZigZag = MathEx.GetPointAt(Bot.Character.Data.Position, fRunDistance, MathEx.ToRadians(iPosition));
+					Vector3 vThisZigZag = MathEx.GetPointAt(FunkyGame.Hero.Position, fRunDistance, MathEx.ToRadians(iPosition));
 
 					if (fPointToTarget <= 30f || fPointToTarget >= 330f)
 					{
@@ -536,7 +537,7 @@ namespace FunkyBot.Movement
 					{
 						//K: we are trying to find position that we can circle around the target
 						//   but we shouldn't run too far away from target
-						vThisZigZag.Z = (vTargetLocation.Z + Bot.Character.Data.Position.Z) / 2;
+						vThisZigZag.Z = (vTargetLocation.Z + FunkyGame.Hero.Position.Z) / 2;
 						fRunDistance = fDistanceOutreach - 5f;
 					}
 					else
@@ -560,13 +561,13 @@ namespace FunkyBot.Movement
 						if (iMultiplier == 2)
 							fThisWeight -= 80f;
 
-						if (Bot.Character.Data.ShouldFlee && ObjectCache.Objects.IsPointNearbyMonsters(vThisZigZag, Bot.Settings.Fleeing.FleeMaxMonsterDistance))
+						if (Targeting.Behaviors.TBFleeing.ShouldFlee && ObjectCache.Objects.IsPointNearbyMonsters(vThisZigZag, Bot.Settings.Fleeing.FleeMaxMonsterDistance))
 							continue;
 
-						if (ObjectCache.Obstacles.Navigations.Any(obj => obj.Obstacletype.Value != ObstacleType.Monster && obj.TestIntersection(Bot.Character.Data.Position, vThisZigZag, false)))
+						if (ObjectCache.Obstacles.Navigations.Any(obj => obj.Obstacletype.Value != ObstacleType.Monster && obj.TestIntersection(FunkyGame.Hero.Position, vThisZigZag, false)))
 							continue;
 
-						float distanceToTarget = vTargetLocation.Distance2D(Bot.Character.Data.Position);
+						float distanceToTarget = vTargetLocation.Distance2D(FunkyGame.Hero.Position);
 
 						fThisWeight += (distanceToTarget * 10f);
 
@@ -663,7 +664,7 @@ namespace FunkyBot.Movement
 		private List<GPRectangle> LocationalRects = new List<GPRectangle>(); 
 		public Vector3 FindLocationBehindObject(CacheObject obj)
 		{
-			float rotation=FindDirection(Bot.Character.Data.Position, obj.Position, true);
+			float rotation=FindDirection(FunkyGame.Hero.Position, obj.Position, true);
 			Vector3 startLocation=MathEx.GetPointAt(obj.Position, obj.Radius, rotation);
 
 			DirectionPoint dp = new DirectionPoint(startLocation, rotation, 35f);
@@ -679,7 +680,7 @@ namespace FunkyBot.Movement
 			Vector3 safespot=Vector3.Zero;
 			foreach (var gpr in LocationalRects)
 			{
-				bool found=gpr.TryFindSafeSpot(Bot.Character.Data.Position, out safespot, Vector3.Zero, PointCheckingFlags.AvoidanceIntersection | PointCheckingFlags.RaycastWalkable, blacklisted);
+				bool found=gpr.TryFindSafeSpot(FunkyGame.Hero.Position, out safespot, Vector3.Zero, PointCheckingFlags.AvoidanceIntersection | PointCheckingFlags.RaycastWalkable, blacklisted);
 				if (found)
 				{
 					break;
@@ -716,7 +717,7 @@ namespace FunkyBot.Movement
 				if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(currentPos, targetPos)) return false;
 			}
 
-			Vector3 botcurpos = Bot.Character.Data.Position;
+			Vector3 botcurpos = FunkyGame.Hero.Position;
 			if (flags.HasFlag(PointCheckingFlags.Raycast))
 			{
 				if (!Navigation.CanRayCast(currentPos, targetPos)) return false;

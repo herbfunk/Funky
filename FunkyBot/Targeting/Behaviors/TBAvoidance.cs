@@ -1,11 +1,12 @@
 ﻿using System;
+using fBaseXtensions.Game;
 using FunkyBot.Cache;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Cache.Objects;
 using FunkyBot.Movement;
 using Zeta.Common;
-using Logger = FunkyBot.Misc.Logger;
-using LogLevel = FunkyBot.Misc.LogLevel;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 namespace FunkyBot.Targeting.Behaviors
 {
@@ -30,7 +31,7 @@ namespace FunkyBot.Targeting.Behaviors
 		{
 			base.Test = (ref CacheObject obj) =>
 			 {
-				 if (Bot.Settings.Debug.FunkyLogFlags.HasFlag(LogLevel.Movement))
+				 if (fBaseXtensions.FunkyBaseExtension.Settings.Logging.LogFlags.HasFlag(LogLevel.Movement))
 				 {
 					 string avoidances = "";
 					 Bot.Targeting.Cache.Environment.TriggeringAvoidances.ForEach(a => avoidances = avoidances + a.AvoidanceType.ToString() + ", ");
@@ -66,7 +67,7 @@ namespace FunkyBot.Targeting.Behaviors
 
 				 if (Bot.NavigationCache.AttemptFindSafeSpot(out vAnySafePoint, losVector3, flags))
 				 {
-					 float distance = vAnySafePoint.Distance(Bot.Character.Data.Position);
+					 float distance = vAnySafePoint.Distance(FunkyGame.Hero.Position);
 
 					 Logger.DBLog.DebugFormat("Avoid Movement found AT {0} with {1} Distance", vAnySafePoint.ToString(), distance);
 

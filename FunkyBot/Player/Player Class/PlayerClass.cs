@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Linq;
+using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero;
 using FunkyBot.Cache.Objects;
-using FunkyBot.Player.HotBar.Skills;
+using FunkyBot.Skills;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Zeta.Common;
 using System.Collections.Generic;
-using FunkyBot.Player.HotBar;
 using Zeta.Game.Internals.SNO;
-using Logger = FunkyBot.Misc.Logger;
+using Logger = fBaseXtensions.Helpers.Logger;
 
 namespace FunkyBot.Player.Class
 {
@@ -22,8 +23,9 @@ namespace FunkyBot.Player.Class
 		//Base class for each individual class!
 		protected PlayerClass()
 		{
-			HotBar.RefreshHotbar();
-			HotBar.RefreshPassives();
+			
+			Hotbar.RefreshHotbar();
+			Hotbar.RefreshPassives();
 
 			Skill healthPotionSkill = new DrinkHealthPotion();
 			healthPotionSkill.Initialize();
@@ -33,16 +35,18 @@ namespace FunkyBot.Player.Class
 			LastUsedAbility = DefaultAttack;
 			PowerPrime = DefaultAttack;
 
+			Equipment.RefreshEquippedItemsList();
 
 			Logger.DBLog.InfoFormat("[Funky] Finished Creating Player Class");
 		}
+
+
 
 
 		///<summary>
 		///The actor class of this bot.
 		///</summary>
 		public virtual ActorClass AC { get { return ActorClass.Invalid; } }
-		internal Hotbar HotBar = new Hotbar();
 
 		///<summary>
 		///This is used to determine things such as how we preform certain checks (I.E. Line Of Sight)
@@ -128,7 +132,7 @@ namespace FunkyBot.Player.Class
 			var uninitalizedSkills=new Dictionary<SNOPower, Skill>();
 
 			//Create the abilities
-			foreach (var item in HotBar.HotbarSkills)
+			foreach (var item in Hotbar.HotbarSkills)
 			{
 				Skill newAbility = Bot.Character.Class.CreateAbility(item.Power);
 
@@ -166,7 +170,7 @@ namespace FunkyBot.Player.Class
 				defaultAbility.Initialize();
 				Skill.CreateSkillLogicConditions(ref defaultAbility);
 				Abilities.Add(defaultAbility.Power, defaultAbility);
-				//HotBar.RuneIndexCache.Add(defaultAbility.Power, -1);
+				//Hotbar.RuneIndexCache.Add(defaultAbility.Power, -1);
 				Logger.DBLog.DebugFormat("[Funky] Added Skill {0}", defaultAbility.Power);
 
 				//No Primary Skill.. Check if Default Attack can be used!
@@ -188,7 +192,7 @@ namespace FunkyBot.Player.Class
 		internal virtual Skill AbilitySelector(CacheUnit obj, bool IgnoreOutOfRange = false)
 		{
 			//Reset default attack can use
-			CanUseDefaultAttack = !HotBar.HasPower(DefaultAttack.Power) ? false : true;
+			CanUseDefaultAttack = !Hotbar.HasPower(DefaultAttack.Power) ? false : true;
 			//Reset waiting for special!
 			bWaitingForSpecial = false;
 
@@ -222,7 +226,7 @@ namespace FunkyBot.Player.Class
 				//Check if we can execute or if it requires movement
 				if (IgnoreOutOfRange)
 				{
-					if (item.DestinationVector != Bot.Character.Data.Position)
+					if (item.DestinationVector != FunkyGame.Hero.Position)
 						continue;
 				}
 
@@ -263,7 +267,7 @@ namespace FunkyBot.Player.Class
 				//Check if we can execute or if it requires movement
 				if (IgnoreOutOfRange)
 				{
-					if (item.DestinationVector != Bot.Character.Data.Position)
+					if (item.DestinationVector != FunkyGame.Hero.Position)
 						continue;
 				}
 
@@ -293,7 +297,7 @@ namespace FunkyBot.Player.Class
 						LOSInfo LOSINFO = Bot.Targeting.Cache.CurrentTarget.LineOfSight;
 						if (LOSINFO.LastLOSCheckMS > 3000)
 						{
-							if (!LOSINFO.LOSTest(Bot.Character.Data.Position, true, ServerObjectIntersection: false))
+							if (!LOSINFO.LOSTest(FunkyGame.Hero.Position, true, ServerObjectIntersection: false))
 							{
 								//Raycast failed.. reset LOS Check -- for valid checking.
 								if (!LOSINFO.RayCast.Value) Bot.Targeting.Cache.CurrentTarget.RequiresLOSCheck = true;
@@ -318,7 +322,7 @@ namespace FunkyBot.Player.Class
 						LOSInfo LOSINFO = Bot.Targeting.Cache.CurrentTarget.LineOfSight;
 						if (LOSINFO.LastLOSCheckMS > 3000 || (item.IsProjectile && !LOSINFO.ObjectIntersection.HasValue) || !LOSINFO.NavCellProjectile.HasValue)
 						{
-							if (!LOSINFO.LOSTest(Bot.Character.Data.Position, NavRayCast: true, ServerObjectIntersection: item.IsProjectile, Flags: NavCellFlags.AllowProjectile))
+							if (!LOSINFO.LOSTest(FunkyGame.Hero.Position, NavRayCast: true, ServerObjectIntersection: item.IsProjectile, Flags: NavCellFlags.AllowProjectile))
 							{
 								//Raycast failed.. reset LOS Check -- for valid checking.
 								if (!LOSINFO.RayCast.Value) Bot.Targeting.Cache.CurrentTarget.RequiresLOSCheck = true;
@@ -456,8 +460,8 @@ namespace FunkyBot.Player.Class
 
 		internal bool HasSpecialMovementBuff()
 		{
-			if (AC== ActorClass.Witchdoctor) return Bot.Character.Class.HotBar.HasBuff(SNOPower.Witchdoctor_SpiritWalk);
-			if (AC == ActorClass.Crusader) return Bot.Character.Class.HotBar.HasBuff(SNOPower.X1_Crusader_SteedCharge);
+			if (AC== ActorClass.Witchdoctor) return Hotbar.HasBuff(SNOPower.Witchdoctor_SpiritWalk);
+			if (AC == ActorClass.Crusader) return Hotbar.HasBuff(SNOPower.X1_Crusader_SteedCharge);
 
 			return false;
 		}
@@ -495,10 +499,10 @@ namespace FunkyBot.Player.Class
 		internal static bool ShouldRecreatePlayerClass = false;
 		internal static void CreateBotClass()
 		{
-			if (Bot.Game != null && Bot.Character.Account.ActorClass != ActorClass.Invalid)
+			if (Bot.Game != null && FunkyGame.CurrentActorClass != ActorClass.Invalid)
 			{
 				//Create Specific Player Class
-				switch (Bot.Character.Account.ActorClass)
+				switch (FunkyGame.CurrentActorClass)
 				{
 					case ActorClass.Barbarian:
 						Bot.Character.Class = new Barbarian();
@@ -523,6 +527,13 @@ namespace FunkyBot.Player.Class
 				Bot.Character.Class.RecreateAbilities();
 				ShouldRecreatePlayerClass = false;
 			}
+		}
+
+		internal static void HotbarSkillsChangedHandler()
+		{
+			Logger.DBLog.InfoFormat("Hotbar Skills have changed.");
+			Bot.Character.Class.RecreateAbilities();
+			ShouldRecreatePlayerClass = true;
 		}
 	}
 

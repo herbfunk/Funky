@@ -1,4 +1,6 @@
 ﻿using System;
+using fBaseXtensions.Game;
+using fBaseXtensions.Helpers;
 using FunkyBot.Cache.Enums;
 using FunkyBot.Game;
 using FunkyBot.Misc;
@@ -195,9 +197,9 @@ namespace FunkyBot.Cache.Objects
 					GizmoDisabledByScript = false;
 				}
 			}
-
+			
 			//Update Quest Monster?
-			if (Bot.Targeting.Cache.UpdateQuestMonsterProperty || ProfileCache.QuestMode)
+			if (Bot.Targeting.Cache.UpdateQuestMonsterProperty || Bot.Game.QuestMode)
 			{
 				try
 				{

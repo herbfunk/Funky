@@ -1,9 +1,11 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
+using fBaseXtensions.Game;
+using fBaseXtensions.Helpers;
 using FunkyBot.Cache.Avoidance;
 using FunkyBot.Config.Settings.Class;
-using FunkyBot.Misc;
 using Zeta.Game;
+using Logger = fBaseXtensions.Helpers.Logger;
 
 namespace FunkyBot.Config.Settings
 {
@@ -58,11 +60,9 @@ namespace FunkyBot.Config.Settings
 
 		public void CreateClassSettings()
 		{
-			if (Bot.Character == null || Bot.Character.Account == null) return;
-
-			if (Bot.Character.Account.ActorClass != ActorClass.Invalid)
+			if (FunkyGame.CurrentActorClass != ActorClass.Invalid)
 			{
-				switch (Bot.Character.Account.ActorClass)
+				switch (FunkyGame.CurrentActorClass)
 				{
 					case ActorClass.Barbarian:
 						Barbarian = new SettingBarbarian();
@@ -86,10 +86,17 @@ namespace FunkyBot.Config.Settings
 			}
 		}
 
+		private static string sFunkySettingsCurrentPath
+		{
+			get
+			{
+				return Path.Combine(FolderPaths.sFunkySettingsPath,FunkyGame.CurrentHeroName + "_Combat.xml");
 
+			}
+		}
 		public static void LoadFunkyConfiguration()
 		{
-			string sFunkyCharacterConfigFile = FolderPaths.sFunkySettingsCurrentPath;
+			string sFunkyCharacterConfigFile = sFunkySettingsCurrentPath;
 
 			//Check for Config file
 			if (!File.Exists(sFunkyCharacterConfigFile))
@@ -97,7 +104,7 @@ namespace FunkyBot.Config.Settings
 				Logger.DBLog.InfoFormat("No config file found, now creating a new config from defaults at: " + sFunkyCharacterConfigFile);
 
 
-				if (Bot.Character.Account.CurrentLevel < 60)
+				if (FunkyGame.CurrentHeroLevel < 60)
 				{
 					Logger.DBLog.InfoFormat("Using Low Level Settings");
 					Bot.Settings = new Settings_Funky
@@ -109,15 +116,16 @@ namespace FunkyBot.Config.Settings
 				}
 				else
 				{
-					if (Bot.Character.Account.ActorClass == ActorClass.Barbarian || Bot.Character.Account.ActorClass == ActorClass.Monk)
+					var path = Path.Combine(Funky.RoutinePath, "Config", "Defaults");
+					if (FunkyGame.CurrentActorClass == ActorClass.Barbarian || FunkyGame.CurrentActorClass == ActorClass.Monk)
 					{
 						Logger.DBLog.InfoFormat("Using Melee Inferno Default Settings");
-						DeserializeFromXML(Path.Combine(FolderPaths.SettingsDefaultPath, "Melee.xml"));
+						DeserializeFromXML(Path.Combine(path, "Melee.xml"));
 					}
 					else
 					{
 						Logger.DBLog.InfoFormat("Using Ranged Inferno Default Settings");
-						DeserializeFromXML(Path.Combine(FolderPaths.SettingsDefaultPath, "Ranged.xml"));
+						DeserializeFromXML(Path.Combine(path, "Ranged.xml"));
 					}
 				}
 
@@ -154,7 +162,7 @@ namespace FunkyBot.Config.Settings
 		{
 			// Type[] Settings=new Type[] {typeof(SettingCluster),typeof(SettingFleeing),typeof(SettingGrouping),typeof(SettingItemRules),typeof(SettingLoot),typeof(SettingRanges) };
 			XmlSerializer serializer = new XmlSerializer(typeof(Settings_Funky));
-			TextWriter textWriter = new StreamWriter(FolderPaths.sFunkySettingsCurrentPath);
+			TextWriter textWriter = new StreamWriter(sFunkySettingsCurrentPath);
 			serializer.Serialize(textWriter, settings);
 			textWriter.Close();
 		}
@@ -171,7 +179,7 @@ namespace FunkyBot.Config.Settings
 		}
 		public static Settings_Funky DeserializeFromXML()
 		{
-			return DeserializeFromXML(FolderPaths.sFunkySettingsCurrentPath);
+			return DeserializeFromXML(sFunkySettingsCurrentPath);
 		}
 	}
 

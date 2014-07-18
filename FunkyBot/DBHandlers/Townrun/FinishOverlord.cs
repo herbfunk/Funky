@@ -1,10 +1,12 @@
 ﻿using System;
+using fBaseXtensions.Game;
+using fBaseXtensions.Monitor;
 using FunkyBot.Movement;
 using Zeta.Bot.Navigation;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.TreeSharp;
-using Logger = FunkyBot.Misc.Logger;
+using Logger = fBaseXtensions.Helpers.Logger;
 
 namespace FunkyBot.DBHandlers.Townrun
 {
@@ -39,7 +41,7 @@ namespace FunkyBot.DBHandlers.Townrun
 			{
 				if (Bot.Targeting.CheckHandleTarget() == RunStatus.Running) return RunStatus.Running;
 
-				float distanceFromStart=Bot.Character.Data.Position.Distance(TownPortalBehavior.StartingPosition);
+				float distanceFromStart=FunkyGame.Hero.Position.Distance(TownPortalBehavior.StartingPosition);
 
 				//Backtrack to our starting location!
 				if (TownPortalBehavior.StartingPosition != Vector3.Zero && distanceFromStart > 25f)
@@ -50,9 +52,11 @@ namespace FunkyBot.DBHandlers.Townrun
 					Navigator.MoveTo(TownPortalBehavior.StartingPosition, "TownPortalStart");
 					return RunStatus.Running;
 				}
-			}
 
-			Bot.Game.GoldTimeoutChecker.LastCoinageUpdate = DateTime.Now;
+				TownPortalBehavior.StartingPosition = Vector3.Zero;
+			}
+			
+			GoldInactivity.LastCoinageUpdate = DateTime.Now;
 			Navigation.MGP.Update();
 
 			ResetCache = false;
