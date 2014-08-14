@@ -507,13 +507,25 @@
 		RaimentoftheJadeHarvester,
 		MightOfTheEarth,
 		RaimentofaThousandStorms,
+
+		BornsDefiance,
+		BornsCommand,
 		CainsDestiny,
+		CainsFate,
 		AughildsAuthority,
+		AughildsVictory,
 		GuardiansJeopardy,
+		GuardiansContingency,
+		DemonsHide,
+		DemonsSkin,
+		AshearasVestments,
+		AshearasUniform,
+		SagesJourney,
+		SagesPlight,
+
 		ImmortalKingsCall,
 		NatalyasVengeance,
 		TalRashasElements,
-		SagesJourney,
 		ThornsoftheInvoker,
 		MightoftheEarth,
 		FirebirdsFinery,
@@ -521,9 +533,7 @@
 		TheLegacyofRaekor,
 		MonkeyKingsGarb,
 		CaptainCrimsonsTrimmings,
-		AshearasVestments,
 		TheShadowsMantle,
-		DemonsHide,
 		EndlessWalk,
 		HallowedProtectors,
 		BastionsofWill,
@@ -533,7 +543,6 @@
 		BulKathossOath,
 		ShenlongsSpirit,
 		IstvansPairedBlades,
-		BornsDefiance,
-
+		
 	}
 }

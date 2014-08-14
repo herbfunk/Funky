@@ -34,9 +34,8 @@ namespace fBaseXtensions
 				}
 
 				FunkyGame.Reset();
-				TheCache.LoadCache();
 				
-				Hotbar.OnSkillsChanged += PlayerClass.HotbarSkillsChangedHandler;
+				//Hotbar.OnSkillsChanged += PlayerClass.HotbarSkillsChangedHandler;
 				GoldInactivity.OnGoldTimeoutTripped += GameCache.GoldInactivityTimerTrippedHandler;
 				Equipment.OnEquippedItemsChanged += Equipment.EquippmentChangedHandler;
 
@@ -55,7 +54,7 @@ namespace fBaseXtensions
 
 			if (FunkyBaseExtension.PluginIsEnabled)
 			{
-				Hotbar.OnSkillsChanged -= PlayerClass.HotbarSkillsChangedHandler;
+				//Hotbar.OnSkillsChanged -= PlayerClass.HotbarSkillsChangedHandler;
 				Equipment.OnEquippedItemsChanged -= Equipment.EquippmentChangedHandler;
 				// Issue final reports
 				FunkyGame.TrackingStats.GameStopped(ref FunkyGame.CurrentGameStats);

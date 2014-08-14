@@ -136,7 +136,13 @@
     <Compile Include="Cache\Internal\Enums\DebugDataTypes.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Cache\Internal\Enums\GizmoTargetTypes.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Cache\Internal\Enums\ObstacleType.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Cache\Internal\Enums\PetTypes.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Cache\Internal\Enums\ShrineTypes.cs">
@@ -745,13 +751,7 @@
     <Compile Include="Items\Enums\PluginDroppedItemTypes.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Items\ItemBalanceCache.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Cache\TheCache.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Items\ItemSnoCache.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="EventHandling.cs">

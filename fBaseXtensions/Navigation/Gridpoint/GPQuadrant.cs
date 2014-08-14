@@ -231,12 +231,12 @@ namespace fBaseXtensions.Navigation.Gridpoint
 			{
 				if (flags.HasFlag(PointCheckingFlags.ObstacleOverlap))
 				{
-					if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObstacleType.Navigation.HasFlag(obj.Obstacletype.Value) && obj.PointInside(point))) return false;
+					if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObjectCache.CheckFlag(ObstacleType.Navigation, obj.Obstacletype.Value) && obj.PointInside(point))) return false;
 				}
 
 				if (flags.HasFlag(PointCheckingFlags.ObstacleIntersection))
 				{
-					if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObstacleType.Navigation.HasFlag(obj.Obstacletype.Value) && obj.TestIntersection(botcurpos, point))) return false;
+					if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObjectCache.CheckFlag(ObstacleType.Navigation, obj.Obstacletype.Value) && obj.TestIntersection(botcurpos, point))) return false;
 				}
 
 				ZCheck = true;
@@ -256,11 +256,11 @@ namespace fBaseXtensions.Navigation.Gridpoint
 
 				if (flags.HasFlag(PointCheckingFlags.ObstacleOverlap))
 				{
-					if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObstacleType.Navigation.HasFlag(obj.Obstacletype.Value) && obj.PointInside(pointVector))) return false;
+					if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObjectCache.CheckFlag(ObstacleType.Navigation, obj.Obstacletype.Value) && obj.PointInside(pointVector))) return false;
 				}
 				if (flags.HasFlag(PointCheckingFlags.ObstacleIntersection))
 				{
-					if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObstacleType.Navigation.HasFlag(obj.Obstacletype.Value) && obj.TestIntersection(botcurpos, pointVector))) return false;
+					if (ObjectCache.Obstacles.Values.OfType<CacheServerObject>().Any(obj => ObjectCache.CheckFlag(ObstacleType.Navigation, obj.Obstacletype.Value) && obj.TestIntersection(botcurpos, pointVector))) return false;
 				}
 			}
 

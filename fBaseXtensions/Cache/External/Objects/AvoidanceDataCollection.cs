@@ -9,8 +9,6 @@ namespace fBaseXtensions.Cache.External.Objects
 	public class AvoidanceDataCollection
 	{
 		public HashSet<AvoidanceEntry> AvoidanceCache { get; set; }
-		public HashSet<int> Avoidances { get; set; }
-		public HashSet<int> Projectiles { get; set; } 
 
 		public AvoidanceDataCollection()
 		{
@@ -23,6 +21,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new AvoidanceEntry(6578, AvoidanceType.TreeSpore),
 				new AvoidanceEntry(4803, AvoidanceType.MoltenCore),
 				new AvoidanceEntry(4804, AvoidanceType.MoltenCore),
+				new AvoidanceEntry(224225, AvoidanceType.MoltenCore),
+				new AvoidanceEntry(247987, AvoidanceType.MoltenCore),
 				new AvoidanceEntry(95868, AvoidanceType.MoltenTrail),
 				new AvoidanceEntry(108869, AvoidanceType.PlagueCloud),
 				new AvoidanceEntry(402, AvoidanceType.Frozen),
@@ -58,55 +58,59 @@ namespace fBaseXtensions.Cache.External.Objects
 				new AvoidanceEntry(360046, AvoidanceType.RiftPoison),
 				new AvoidanceEntry(93837, AvoidanceType.GhomGasCloud),
 				new AvoidanceEntry(134831, AvoidanceType.DestroyerDrop),
+				new AvoidanceEntry(185924, AvoidanceType.ZoltBubble),
+				new AvoidanceEntry(139741, AvoidanceType.ZoltTwister),
+
 				//new AvoidanceEntry(000000, AvoidanceType.ArcaneSentry),
 			};
 
 			// A list of all the SNO's to avoid - you could add 
-			Avoidances = new HashSet<int>
-			{
-				  // Arcane        Arcane 2      Desecrator   Poison Tree    Molten Core   Molten Trail   Plague Cloud   Ice Balls     
-				  219702,          221225,       84608,       5482,6578,     4803, 4804,   95868,         108869,        402, 223675,             
-				  // Bees-Wasps    Plague-Hands  Azmo Pools   Azmo fireball  Azmo bodies   Belial 1       Belial 2      
-				  5212,            3865,         123124,      123842,        123839,       161822,        161833, 
-				  // Sha-Ball      Mol Ball      Mage Fire    Diablo Prison  Diablo Meteor Ice-trail      PoisonGas
-				  4103,            160154,       432,         168031,        214845,       260377,        4176,
-				  //lacuni bomb		Succubus Bloodstar	  Halls Of Agony: Inferno Wall
-				  4546,			   164829,						  89578,
-				  //Lightning Orbiter Projectile		Lightning Orbiter Focal Point
-				  343539,								343582,
-				  //Frozen Pulse
-				  349774,
-				  //Thunderstorm
-				  341512,
-				  //Meteor Impact
-				  185366,
-				  //Bloodspring (small)
-				  332924,
-				  //Bloodspring (medium)
-				  332922,
-				  //Bloodspring (Large)
-				  332923,
-				  //Teleport
-				  337109,
+			//Avoidances = new HashSet<int>
+			//{
+			//	  // Arcane        Arcane 2      Desecrator   Poison Tree    Molten Core   Molten Trail   Plague Cloud   Ice Balls     
+			//	  219702,          221225,       84608,       5482,6578,     4803, 4804,   95868,         108869,        402, 223675,             
+			//	  // Bees-Wasps    Plague-Hands  Azmo Pools   Azmo fireball  Azmo bodies   Belial 1       Belial 2      
+			//	  5212,            3865,         123124,      123842,        123839,       161822,        161833, 
+			//	  // Sha-Ball      Mol Ball      Mage Fire    Diablo Prison  Diablo Meteor Ice-trail      PoisonGas
+			//	  4103,            160154,       432,         168031,        214845,       260377,        4176,
+			//	  //lacuni bomb		Succubus Bloodstar	  Halls Of Agony: Inferno Wall
+			//	  4546,			   164829,						  89578,
+			//	  //Lightning Orbiter Projectile		Lightning Orbiter Focal Point
+			//	  343539,								343582,
+			//	  //Frozen Pulse
+			//	  349774,
+			//	  //Thunderstorm
+			//	  341512,
+			//	  //Meteor Impact
+			//	  185366,
+			//	  //Bloodspring (small)
+			//	  332924,
+			//	  //Bloodspring (medium)
+			//	  332922,
+			//	  //Bloodspring (Large)
+			//	  332923,
+			//	  //Teleport
+			//	  337109,
 				  
-				  335505, // x1_malthael_drainSoul_ghost
-				  325136, // x1_Malthael_DeathFogMonster
-				  340512, // x1_Malthael_Mephisto_LightningObject
+			//	  335505, // x1_malthael_drainSoul_ghost
+			//	  325136, // x1_Malthael_DeathFogMonster
+			//	  340512, // x1_Malthael_Mephisto_LightningObject
 
-				  360738, // X1_Adria_arcanePool
-                  358404, // X1_Adria_blood_large
+			//	  360738, // X1_Adria_arcanePool
+			//	  358404, // X1_Adria_blood_large
 
-				  360046, //X1_Unique_Monster_Generic_AOE_DOT_Poison
+			//	  360046, //X1_Unique_Monster_Generic_AOE_DOT_Poison
 
-				  93837, //Ghom's Gluttony_gasCloud
+			//	  93837, //Ghom's Gluttony_gasCloud
 
-				  134831, //A4 Destroyer Drop Location
-			};
-			Projectiles = new HashSet<int>
-			{
-				// Bees-Wasps  Sha-Ball   Mol Ball   Azmo fireball
-				5212,          4103,      160154,    123842,		164829, 
-			};
+			//	  134831, //A4 Destroyer Drop Location
+			//};
+
+		}
+
+		public void ClearCollections()
+		{
+			AvoidanceCache.Clear();
 		}
 
 		private static readonly string DefaultFilePath = Path.Combine(FolderPaths.PluginPath, "Cache", "External", "Dictionaries", "Cache_Avoidance.xml");

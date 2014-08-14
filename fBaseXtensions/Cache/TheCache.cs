@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using fBaseXtensions.Cache.External;
 using fBaseXtensions.Cache.External.Objects;
+using fBaseXtensions.Cache.Internal.Enums;
+using fBaseXtensions.Helpers;
 using Zeta.Game;
 
 namespace fBaseXtensions.Cache
@@ -8,39 +11,8 @@ namespace fBaseXtensions.Cache
 	public static class TheCache
 	{
 		public static IDCache ObjectIDCache;
-		public static Dictionary<int, SnoEntry> CacheEntries = new Dictionary<int, SnoEntry>();
-		public static Dictionary<int, ItemDataEntry> ItemDataEntries = new Dictionary<int, ItemDataEntry>(); 
 
-		internal static void LoadCache()
-		{
-			ObjectIDCache = new IDCache();
-			
-			//AvoidanceDataCollection.SerializeToXML(TheCache.ObjectIDCache.Avoidance);
-			//ItemDataCollection.SerializeToXML(TheCache.ObjectIDCache.Items);
-			//GizmoDataCollection.SerializeToXML(TheCache.ObjectIDCache.Gizmos);
-			//UnitDataCollection.SerializeToXML(ObjectIDCache.Units);
-			//UnitData.SerializeToXML(ObjectIDCache.UnitData);
-
-			CacheEntries.Clear();
-			foreach (var entry in ObjectIDCache.Items.DroppedItemCache)
-			{
-				CacheEntries.Add(entry.SnoId, entry);
-			}
-			foreach (var entry in ObjectIDCache.Gizmos.GizmoCache)
-			{
-				CacheEntries.Add(entry.SnoId, entry);
-			}
-			foreach (var entry in ObjectIDCache.UnitData.UnitEntries)
-			{
-				CacheEntries.Add(entry.SnoId, entry);
-			}
-
-			ItemDataEntries.Clear();
-			foreach (var entry in ObjectIDCache.Items.ItemDataCache)
-			{
-				ItemDataEntries.Add(entry.SnoId, entry);
-			}
-		}
+	
 		public static readonly List<int> riftWorldIds = new List<int>()
         {
 			288454,

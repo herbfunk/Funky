@@ -51,6 +51,20 @@
       <AvoidanceType>MoltenCore</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
+      <SnoId>224225</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>MoltenCore</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>247987</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>MoltenCore</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
       <SnoId>95868</SnoId>
       <InternalName />
       <ActorType>ServerProp</ActorType>
@@ -295,59 +309,19 @@
       <EntryType>Avoidance</EntryType>
       <AvoidanceType>DestroyerDrop</AvoidanceType>
     </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>185924</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>ZoltBubble</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>139741</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>ZoltTwister</AvoidanceType>
+    </AvoidanceEntry>
   </AvoidanceCache>
-  <Avoidances>
-    <int>219702</int>
-    <int>221225</int>
-    <int>84608</int>
-    <int>5482</int>
-    <int>6578</int>
-    <int>4803</int>
-    <int>4804</int>
-    <int>95868</int>
-    <int>108869</int>
-    <int>402</int>
-    <int>223675</int>
-    <int>5212</int>
-    <int>3865</int>
-    <int>123124</int>
-    <int>123842</int>
-    <int>123839</int>
-    <int>161822</int>
-    <int>161833</int>
-    <int>4103</int>
-    <int>160154</int>
-    <int>432</int>
-    <int>168031</int>
-    <int>214845</int>
-    <int>260377</int>
-    <int>4176</int>
-    <int>4546</int>
-    <int>164829</int>
-    <int>89578</int>
-    <int>343539</int>
-    <int>343582</int>
-    <int>349774</int>
-    <int>341512</int>
-    <int>185366</int>
-    <int>332924</int>
-    <int>332922</int>
-    <int>332923</int>
-    <int>337109</int>
-    <int>335505</int>
-    <int>325136</int>
-    <int>340512</int>
-    <int>360738</int>
-    <int>358404</int>
-    <int>360046</int>
-    <int>93837</int>
-    <int>134831</int>
-  </Avoidances>
-  <Projectiles>
-    <int>5212</int>
-    <int>4103</int>
-    <int>160154</int>
-    <int>123842</int>
-    <int>164829</int>
-  </Projectiles>
 </AvoidanceDataCollection>

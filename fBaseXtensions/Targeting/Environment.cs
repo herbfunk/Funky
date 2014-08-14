@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Cache.Internal.Objects;
 
 namespace fBaseXtensions.Targeting
@@ -78,17 +79,7 @@ namespace fBaseXtensions.Targeting
 
 		public class Pets
 		{
-			public enum PetTypes
-			{
-				MONK_MysticAlly = 1,
-				WITCHDOCTOR_Gargantuan = 2,
-				WITCHDOCTOR_ZombieDogs = 4,
-				DEMONHUNTER_Pet = 8,
-				WIZARD_Hydra = 16,
-				DEMONHUNTER_SpikeTrap = 32,
-				DEMONHUNTER_Sentry = 64,
-				WITCHDOCTOR_Fetish = 128,
-			}
+
 
 			public Dictionary<PetTypes, int> dictPetCounter = new Dictionary<PetTypes, int>();
 

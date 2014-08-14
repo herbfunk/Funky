@@ -185,7 +185,7 @@ namespace fBaseXtensions.Cache.Internal.Collections
 			CachedSNOEntry thisSNOdata = this[sno];
 
 			//Take the value, recreate it using finalized constructor
-			CachedSNOEntry thisNewData = new CachedSNOEntry(thisSNOdata.SNOID, thisSNOdata.InternalName, thisSNOdata.Actortype, thisSNOdata.targetType, thisSNOdata.Monstertype, thisSNOdata.Monstersize, thisSNOdata.CollisionRadius, thisSNOdata.CanBurrow, thisSNOdata.GrantsNoXP, thisSNOdata.DropsNoLoot, thisSNOdata.IsBarricade, thisSNOdata.Obstacletype, thisSNOdata.ActorSphereRadius, thisSNOdata.Gizmotype, thisSNOdata.ItemDropType, thisSNOdata.UnitPropertyFlags);
+			CachedSNOEntry thisNewData = new CachedSNOEntry(thisSNOdata.SNOID, thisSNOdata.InternalName, thisSNOdata.Actortype, thisSNOdata.targetType, thisSNOdata.Monstertype, thisSNOdata.Monstersize, thisSNOdata.CollisionRadius, thisSNOdata.CanBurrow, thisSNOdata.GrantsNoXP, thisSNOdata.DropsNoLoot, thisSNOdata.IsBarricade, thisSNOdata.Obstacletype, thisSNOdata.ActorSphereRadius, thisSNOdata.Gizmotype, thisSNOdata.ItemDropType, thisSNOdata.UnitPropertyFlags, thisSNOdata.snoentry);
 
 			//Now clone the data and set it as the value
 			snoEntries[sno] = (CachedSNOEntry)thisNewData.Clone();

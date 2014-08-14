@@ -102,7 +102,9 @@ namespace fBaseXtensions.Cache.Internal.Blacklist
 			167185, //trOut_Cultists_Summoning_Portal_B
 			175181, //trDun_Crypt_Skeleton_King_Throne_Parts
 			201680, //a3dun_crater_st_Demon_ChainPylon_Fire_MistressOfPain
-
+			84919, //Shield_Skeleton_SkeletonKing
+			6575, //woodWraith_explosion
+			178657, //TemplarIntro_Stash
         };
 
 

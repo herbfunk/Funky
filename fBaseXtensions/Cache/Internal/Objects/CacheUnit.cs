@@ -795,9 +795,11 @@ namespace fBaseXtensions.Cache.Internal.Objects
 						else
 						{//Normal Units
 
-							if (IsAvoidanceSpawnerUnit)
+							if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.AvoidanceSummoner) || ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Debuffing))
 								Weight += 2000;
 
+							if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Summoner))
+								Weight += 500;
 						}
 
 						// Give more weight to bosses
@@ -1655,12 +1657,12 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				}
 			}
 
-			if (!UnitPropertyFlags.HasValue && !DebugDataChecked && FunkyBaseExtension.Settings.Debugging.DebuggingData && FunkyBaseExtension.Settings.Debugging.DebuggingDataTypes.HasFlag(DebugDataTypes.Units))
+			if (!UnitPropertyFlags.HasValue)
 			{
-				DebugDataChecked = true;
-				if (!TheCache.CacheEntries.ContainsKey(SNOID))
+				UnitPropertyFlags = GenerateUnitFlags();
+				if (!DebugDataChecked && FunkyBaseExtension.Settings.Debugging.DebuggingData && FunkyBaseExtension.Settings.Debugging.DebuggingDataTypes.HasFlag(DebugDataTypes.Units))
 				{
-					UnitPropertyFlags = GenerateUnitFlags();
+					DebugDataChecked = true;
 					ObjectCache.DebuggingData.CheckEntry(this);
 				}
 			}

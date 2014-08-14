@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Demonbuddy;
 using fBaseXtensions.Cache;
+using fBaseXtensions.Cache.External;
 using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Cache.Internal.Objects;
@@ -36,7 +37,6 @@ namespace fBaseXtensions
 			if (FunkyGame.GameIsInvalid) 
 				return;
 
-			//FunkyGame.Hero.Update();
 
 			//in-game monitoring
 			FunkyGame.Profile.CheckCurrentProfileBehavior();
@@ -63,7 +63,7 @@ namespace fBaseXtensions
 
 		    Settings=new PluginSettings();
 			PluginSettings.LoadSettings();
-			TheCache.LoadCache();
+			TheCache.ObjectIDCache = new IDCache();
 			BotMain.OnStart += EventHandling.OnBotStart;
 			BotMain.OnStop += EventHandling.OnBotStop;
 			ObjectCache.FakeCacheObject = new CacheObject(Vector3.Zero, TargetType.None, 0d, "Fake Target", 1f);

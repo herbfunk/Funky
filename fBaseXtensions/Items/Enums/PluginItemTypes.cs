@@ -2,7 +2,23 @@
 {
 	public enum PluginItemTypes
 	{
-		Unknown,
+		Unknown = 0,
+		Amulet,
+		Ring,
+		Belt,
+		Boots,
+		Bracers,
+		Chest,
+		Cloak,
+		Gloves,
+		Helm,
+		Pants,
+		MightyBelt,
+		Shoulders,
+		SpiritStone,
+		VoodooMask,
+		WizardHat,
+
 		Axe,
 		CeremonialKnife,
 		HandCrossbow,
@@ -24,52 +40,44 @@
 		TwoHandPolearm,
 		TwoHandStaff,
 		TwoHandSword,
-		StaffOfHerding,
+
+		CrusaderShield,
 		Mojo,
 		Source,
 		Quiver,
 		Shield,
-		CrusaderShield,
-		Amulet,
-		Ring,
-		Belt,
-		Boots,
-		Bracers,
-		Chest,
-		Cloak,
-		Gloves,
-		Helm,
-		Pants,
-		MightyBelt,
-		Shoulders,
-		SpiritStone,
-		VoodooMask,
-		WizardHat,
+
 		FollowerEnchantress,
 		FollowerScoundrel,
 		FollowerTemplar,
+
 		CraftingMaterial,
-		LegendaryCraftingMaterial,
-		CraftTome,
-		Ruby,
-		Emerald,
-		Topaz,
-		Amethyst,
-		Diamond,
-		SpecialItem,
 		CraftingPlan,
 		HealthPotion,
-		Dye,
-	
 		InfernalKey,
-		MiscBook,
-		KeyStone,
 		HoradricCache,
-		BloodShard,
+		KeyStone,
 
+		Amethyst,
+		Diamond,
+		Emerald,
+		Ruby,
+		Topaz,
+		
+		
+		
+		
+		
+
+		StaffOfHerding,
+		LegendaryCraftingMaterial,
+		CraftTome,
+		SpecialItem,
+		Dye,
+		MiscBook,
+		BloodShard,
 		HealthGlobe,
 		PowerGlobe,
-
 		Gold,
 	}
 }

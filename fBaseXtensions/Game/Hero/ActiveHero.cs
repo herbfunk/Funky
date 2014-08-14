@@ -445,7 +445,7 @@ namespace fBaseXtensions.Game.Hero
 		}
 		#endregion
 
-		internal static void EquippmentChangedHandler()
+		private void EquippmentChangedHandler()
 		{
 			Logger.DBLog.InfoFormat("Equippment has changed!");
 

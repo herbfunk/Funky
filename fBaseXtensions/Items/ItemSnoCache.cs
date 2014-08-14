@@ -379,14 +379,7 @@ namespace fBaseXtensions.Items
 		 * Vanishing - 148310
 		 * Winter - 148288
 		 * 
-		 * TODO
-		 * Aquatic
-		 * Spring
-		 * Cardinal
-		 * Desert
-		 * Rangers
-		 * Royal
-		 * Elegant
+		 * 
 		 * 
 		 */
 

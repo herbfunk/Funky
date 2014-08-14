@@ -112,7 +112,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			Vector3 TestPosition = Position;
 
 			//Use modified Test Position for Gold/Globe
-			if (FunkyGame.Hero.PickupRadius > 0f && ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Globe | TargetType.Gold | TargetType.PowerGlobe))
+			if (FunkyGame.Hero.PickupRadius > 0f && ObjectCache.CheckFlag(targetType.Value, TargetType.Globe | TargetType.Gold | TargetType.PowerGlobe))
 				TestPosition = MathEx.CalculatePointFrom(BotPosition, Position, Math.Max(0f, CentreDistance - FunkyGame.Hero.PickupRadius));
 			float centreDistance = BotPosition.Distance(TestPosition);
 			if (centreDistance >= 2f)

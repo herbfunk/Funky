@@ -451,11 +451,11 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 
 			// Wait!!
-			if (ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Interactable))
+			if (ObjectCache.CheckFlag(targetType.Value, TargetType.Interactable))
 			{
 				FunkyGame.Hero.WaitWhileAnimating(1500);
 			}
-			else if(ObjectCache.CheckTargetTypeFlag(targetType.Value,TargetType.Door))
+			else if(ObjectCache.CheckFlag(targetType.Value,TargetType.Door))
 			{
 				FunkyGame.Hero.WaitWhileAnimating(500);
 			}

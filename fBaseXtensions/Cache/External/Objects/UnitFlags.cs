@@ -20,6 +20,12 @@ namespace fBaseXtensions.Cache.External.Objects
 		Grotesque = 2048,
 		ReflectiveMissle = 4096,
 		Flying = 8192,
-		AdventureModeBoss = 16348,
+		AdventureModeBoss = 16384,
+		AvoidanceSummoner = 32768,
+		MalletLord=65536,
+		Debuffing=131072,
+		Worm=262144,
+		Revivable=524288,
+
 	}
 }

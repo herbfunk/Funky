@@ -122,6 +122,17 @@ namespace fBaseXtensions.Cache.Internal.Avoidance
 				  5212,          4103,      160154,    123842,		164829, 
 			  };
 
+		public static bool IsAvoidanceTypeProjectile(AvoidanceType type)
+		{
+			return (type == AvoidanceType.BeeProjectile ||
+					type == AvoidanceType.ShamanFireBall || 
+					type == AvoidanceType.AzmodanFireball);
+		}
+		public static bool IsAvoidanceTypeProjectile(int snoid)
+		{
+			return hashAvoidanceSNOProjectiles.Contains(snoid);
+		}
+
 		internal static AvoidanceType FindAvoidanceUsingName(string Name)
 		{
 			Name = Name.ToLower();

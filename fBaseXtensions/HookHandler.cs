@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace fBaseXtensions
 	public static class HookHandler
 	{
 		internal static bool initTreeHooks = false;
+		private static Guid PrecombatCompositeGUID=Guid.Empty;
 
 		internal static void HookBehaviorTree()
 		{
@@ -119,16 +121,10 @@ namespace fBaseXtensions
 		internal static bool CheckCombatHook()
 		{
 			var combatValue = ReturnHookValue(HookType.Combat);
-
-			if (combatValue[0] is PrioritySelector)
-				return true;
-
-			return false;
+			return combatValue[0].Guid == PrecombatCompositeGUID;
 		}
 		internal static void HookCombat()
 		{
-
-
 			CanRunDecoratorDelegate canRunDelegateCombatTargetCheck = PreCombat.PreCombatOverlord;
 			ActionDelegate actionDelegateCoreTarget = PreCombat.HandleTarget;
 			Sequence sequencecombat = new Sequence
@@ -136,16 +132,10 @@ namespace fBaseXtensions
 				new Zeta.TreeSharp.Action(actionDelegateCoreTarget)
 			);
 			Decorator Precombat = new Decorator(canRunDelegateCombatTargetCheck, sequencecombat);
-
-			var CombatValue = ReturnHookValue(HookType.Combat)[0];
-			PrioritySelector hookedCombatSequence = new PrioritySelector
-			(
-				Precombat,
-				CombatValue
-			);
-
-			//var coroutineComposite = new ActionRunCoroutine(ctx => PreCombat._PreCombatOverlord());
-			SetHookValue(HookType.Combat, 0, hookedCombatSequence);
+			//Record GUID for checking
+			PrecombatCompositeGUID = Precombat.Guid;
+			//Insert precombat!
+			SetHookValue(HookType.Combat, 0, Precombat, true);
 		}
 
 		public enum HookType
@@ -156,22 +146,49 @@ namespace fBaseXtensions
 			OutOfGame,
 			Death
 		}
-		private static readonly Dictionary<HookType, Composite> OriginalHooks = new Dictionary<HookType, Composite>();
+		private static readonly Dictionary<HookType, List<Composite>> OriginalHooks = new Dictionary<HookType, List<Composite>>();
 		public static void StoreHook(HookType type)
 		{
 			if (!OriginalHooks.ContainsKey(type))
 			{
-				var composite = TreeHooks.Instance.Hooks[type.ToString()][0];
-				OriginalHooks.Add(type, composite);
-				Logger.DBLog.DebugFormat("Stored Hook [{0}]", type.ToString());
+				List<Composite> newList = new List<Composite>();
+
+				var Startcomposite = TreeHooks.Instance.Hooks[type.ToString()][0];
+				newList.Add(Startcomposite);
+
+				if (TreeHooks.Instance.Hooks[type.ToString()].Count>1)
+				{
+					for (int i = 1; i < TreeHooks.Instance.Hooks[type.ToString()].Count; i++)
+					{
+						var additionalComposite = TreeHooks.Instance.Hooks[type.ToString()][i];
+						newList.Add(additionalComposite);
+					}
+				}
+				
+				OriginalHooks.Add(type, newList);
+				Logger.DBLog.DebugFormat("Stored Hook [{0}] with {1} composite(s)", type.ToString(), newList.Count);
 			}
 		}
 		public static void RestoreHook(HookType type)
 		{
 			if (OriginalHooks.ContainsKey(type))
 			{
-				Logger.DBLog.DebugFormat("Restoring Hook [{0}]", type.ToString());
-				TreeHooks.Instance.ReplaceHook(type.ToString(), OriginalHooks[type]);
+				if (!TreeHooks.Instance.Hooks.ContainsKey(type.ToString()))
+				{
+					Logger.DBLog.DebugFormat("Adding Original Hook [{0}]", type.ToString());
+					TreeHooks.Instance.Hooks.Add(type.ToString(), OriginalHooks[type]);
+				}
+				else
+				{
+					Logger.DBLog.DebugFormat("Restoring Original Hook [{0}]", type.ToString());
+					TreeHooks.Instance.Hooks[type.ToString()].Clear();
+					for (int i = 0; i < OriginalHooks[type].Count; i++)
+					{
+						var composite = OriginalHooks[type][i];
+						TreeHooks.Instance.Hooks[type.ToString()].Add(composite);
+					}
+				}
+
 				OriginalHooks.Remove(type);
 			}
 		}

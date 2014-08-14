@@ -1,4 +1,5 @@
 using System;
+using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Cache.Internal.Objects;
 using Zeta.Game.Internals.Actors;
 
@@ -62,47 +63,47 @@ namespace fBaseXtensions.Game.Hero.Skills.Conditions
 				Criteria += () => true;
 			else
 			{
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Boss))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.Boss))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentTarget.IsBoss;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Burrowing))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.Burrowing))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentTarget.IsBurrowableUnit;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.FullHealth))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.FullHealth))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.Value == 1d;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Weak))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.Weak))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitMaxHitPointAverageWeight < 0;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.MissileDampening))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.MissileDampening))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.MonsterMissileDampening;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.RareElite))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.RareElite))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.IsEliteRareUnique;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.MissileReflecting))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.MissileReflecting))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentTarget.IsMissileReflecting && FunkyGame.Targeting.Cache.CurrentTarget.AnimState == AnimationState.Transform;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Shielding))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.Shielding))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.MonsterShielding;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Stealthable))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.Stealthable))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentTarget.IsStealthableUnit;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.SucideBomber))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.SucideBomber))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentTarget.IsSucideBomber;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.TreasureGoblin))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.TreasureGoblin))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentTarget.IsTreasureGoblin;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Unique))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.Unique))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.MonsterUnique;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Ranged))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.Ranged))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.IsRanged;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.TargetableAndAttackable))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.TargetableAndAttackable))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.IsTargetableAndAttackable;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Fast))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.Fast))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.IsFast;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.DOTDPS))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.DOTDPS))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.HasDOTdps.HasValue && FunkyGame.Targeting.Cache.CurrentUnitTarget.HasDOTdps.Value;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.CloseDistance))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.CloseDistance))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentTarget.RadiusDistance < 10f;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.ReflectsDamage))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.ReflectsDamage))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.MonsterReflectDamage;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Electrified))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.Electrified))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.MonsterElectrified;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.Normal))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.Normal))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.MonsterNormal;
-				if (CheckTargetPropertyFlag(TrueConditionFlags, TargetProperties.LowHealth))
+				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.LowHealth))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.HasValue && FunkyGame.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.Value < 0.25d;
 			}
 
@@ -111,55 +112,51 @@ namespace fBaseXtensions.Game.Hero.Skills.Conditions
 				Criteria += () => true;
 			else
 			{
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Boss))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.Boss))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentTarget.IsBoss;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Burrowing))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.Burrowing))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentTarget.IsBurrowableUnit;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.FullHealth))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.FullHealth))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.Value != 1d;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Weak))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.Weak))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitMaxHitPointAverageWeight > 0;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.MissileDampening))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.MissileDampening))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentUnitTarget.MonsterMissileDampening;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.RareElite))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.RareElite))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentUnitTarget.IsEliteRareUnique;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.MissileReflecting))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.MissileReflecting))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentTarget.IsMissileReflecting || FunkyGame.Targeting.Cache.CurrentTarget.AnimState != AnimationState.Transform;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Shielding))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.Shielding))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentUnitTarget.MonsterShielding;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Stealthable))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.Stealthable))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentTarget.IsStealthableUnit;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.SucideBomber))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.SucideBomber))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentTarget.IsSucideBomber;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.TreasureGoblin))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.TreasureGoblin))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentTarget.IsTreasureGoblin;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Unique))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.Unique))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentUnitTarget.MonsterUnique;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Ranged))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.Ranged))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentUnitTarget.IsRanged;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.TargetableAndAttackable))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.TargetableAndAttackable))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentUnitTarget.IsTargetableAndAttackable;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Fast))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.Fast))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentUnitTarget.IsFast;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.DOTDPS))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.DOTDPS))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentUnitTarget.HasDOTdps.HasValue || !FunkyGame.Targeting.Cache.CurrentUnitTarget.HasDOTdps.Value;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.CloseDistance))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.CloseDistance))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentTarget.RadiusDistance > 10f;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.ReflectsDamage))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.ReflectsDamage))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentUnitTarget.MonsterReflectDamage;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Electrified))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.Electrified))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentUnitTarget.MonsterElectrified;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.Normal))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.Normal))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentUnitTarget.MonsterNormal;
-				if (CheckTargetPropertyFlag(FalseConditionFlags, TargetProperties.LowHealth))
+				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.LowHealth))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.HasValue || FunkyGame.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.Value >= 0.25d;
 			}
 		}
 
-		internal static bool CheckTargetPropertyFlag(TargetProperties property, TargetProperties flag)
-		{
-			return (property & flag) != 0;
-		}
 
 		internal static TargetProperties EvaluateUnitProperties(CacheUnit unit)
 		{

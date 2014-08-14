@@ -54,11 +54,12 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				_internalname = thisEntry.InternalName;
 				_obstacletype = thisEntry.Obstacletype;
 				_gizmotype = thisEntry.Gizmotype;
+				_snoentry = thisEntry.snoentry;
 				//this._RunningRate=thisEntry.RunningRate;
 				IsFinalized = thisEntry.IsFinalized;
 			}
 		}
-		public SNO(int sno, String internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gimzotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags=null)
+		public SNO(int sno, String internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gimzotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags=null, SnoEntry snoentry=null)
 		{
 			//Creates the perm data
 			SNOID = sno;
@@ -77,6 +78,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			_gizmotype = gimzotype;
 			_itemdroptype = baseitemtype;
 			_unitflags = unitflags;
+			_snoentry = snoentry;
 			UpdateLookUpFinalValues();
 			IsFinalized = true;
 		}
@@ -98,6 +100,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			_gizmotype = sno.Gizmotype;
 			_itemdroptype = sno.ItemDropType;
 			_unitflags = sno.UnitPropertyFlags;
+			_snoentry = sno.snoentry;
 			//this._RunningRate=sno.RunningRate;
 			IsFinalized = sno.IsFinalized;
 		}
@@ -395,6 +398,20 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			}
 		}
 
+		private readonly SnoEntry _snoentry;
+		public SnoEntry snoentry
+		{
+			get
+			{
+				if (IsFinalized) return _snoentry;
+				SnoEntry outvalue;
+				if (TheCache.ObjectIDCache.TryGetCacheValue(SNOID, out outvalue))
+					return outvalue;
+
+				return null;
+			}
+		}
+
 		private readonly string _internalname;
 		public string InternalName
 		{
@@ -459,6 +476,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				debugstring += IsBarricade.HasValue ? "IsBarricade: " + IsBarricade.Value.ToString() + " " + "\r\n" : "";
 				debugstring += ItemDropType.HasValue ? "ItemBaseType: " + ItemDropType.Value.ToString() + " " + "\r\n" : "";
 				debugstring += UnitPropertyFlags.HasValue ? "UnitFlags: " + UnitPropertyFlags.Value.ToString() + " " + "\r\n" : "";
+				debugstring += snoentry != null ? "SnoEntry: " + snoentry.ToString() + " " + "\r\n" : "";
 				return debugstring;
 
 			}
@@ -484,20 +502,20 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		public bool IsWormBoss { get { if (IsFinalized) return _IsWormBoss; return (SNOID == 218947 || SNOID == 144400); } }
 
 		private bool _IsResplendantChest;
-		public bool IsResplendantChest { get { if (IsFinalized) return _IsResplendantChest; return TheCache.ObjectIDCache.Gizmos.ResplendantChests.Contains(SNOID); } }
+		public bool IsResplendantChest { get { if (IsFinalized) return _IsResplendantChest; return CacheIDLookup.hashSNORareChests.Contains(SNOID); } }
 
 		private bool _IsAvoidance;
-		public bool IsAvoidance { get { if (IsFinalized) return _IsAvoidance; return TheCache.ObjectIDCache.Avoidance.Avoidances.Contains(SNOID); } }
+		public bool IsAvoidance { get { if (IsFinalized) return _IsAvoidance; return TheCache.ObjectIDCache.AvoidanceEntries.ContainsKey(SNOID); } }
 
 		private bool _IsSummonedPet;
-		public bool IsSummonedPet { get { if (IsFinalized) return _IsSummonedPet; return CacheIDLookup.hashSummonedPets.Contains(SNOID); } }
+		public bool IsSummonedPet { get { if (IsFinalized) return _IsSummonedPet; return TheCache.ObjectIDCache.UnitPetEntries.ContainsKey(SNOID); } }
 
 		private bool _IsRespawnable;
 		public bool IsRespawnable { get { if (IsFinalized) return _IsRespawnable; return TheCache.ObjectIDCache.Units.RevivableUnits.Contains(SNOID); } }
 
 		private bool _IsProjectileAvoidance;
-		public bool IsProjectileAvoidance { get { if (IsFinalized) return _IsProjectileAvoidance; return TheCache.ObjectIDCache.Avoidance.Projectiles.Contains(SNOID); } }
-
+		public bool IsProjectileAvoidance { get { if (IsFinalized) return _IsProjectileAvoidance; return AvoidanceCache.IsAvoidanceTypeProjectile(SNOID); } }
+		
 		private bool _IsCorpseContainer;
 		public bool IsCorpseContainer { get { if (IsFinalized) return _IsCorpseContainer; return (internalNameLower.Contains("loottype") || internalNameLower.Contains("corpse")); } }
 
@@ -557,11 +575,11 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			_IsTreasureGoblin = TheCache.ObjectIDCache.Units.GoblinUnits.Contains(SNOID);
 			_IsBoss = TheCache.ObjectIDCache.Units.BossUnits.Contains(SNOID);
 			_IsWormBoss = (SNOID == 218947 || SNOID == 144400);
-			_IsResplendantChest = TheCache.ObjectIDCache.Gizmos.ResplendantChests.Contains(SNOID);
-			_IsAvoidance = TheCache.ObjectIDCache.Avoidance.Avoidances.Contains(SNOID);
-			_IsSummonedPet = CacheIDLookup.hashSummonedPets.Contains(SNOID);
+			_IsResplendantChest = CacheIDLookup.hashSNORareChests.Contains(SNOID);
+			_IsAvoidance = TheCache.ObjectIDCache.AvoidanceEntries.ContainsKey(SNOID);
+			_IsSummonedPet = TheCache.ObjectIDCache.UnitPetEntries.ContainsKey(SNOID);
 			_IsRespawnable = TheCache.ObjectIDCache.Units.RevivableUnits.Contains(SNOID);
-			_IsProjectileAvoidance = TheCache.ObjectIDCache.Avoidance.Projectiles.Contains(SNOID);
+			_IsProjectileAvoidance = AvoidanceCache.IsAvoidanceTypeProjectile(SNOID);
 			_IsCorpseContainer = (internalNameLower.Contains("loottype") || internalNameLower.Contains("corpse"));
 			_IsChestContainer = (internalNameLower.Contains("chest"));
 			_IsMissileReflecting = TheCache.ObjectIDCache.Units.ReflectiveMissleUnits.Contains(SNOID);
@@ -619,8 +637,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 	public class CachedSNOEntry : SNO
 	{
 
-		public CachedSNOEntry(int sno, String internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gizmotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags=null)
-			: base(sno, internalname, actortype, targettype, monstertype, monstersize, collisionradius, canburrow, grantsnoxp, dropsnoloot, isbarricade, obstacletype, actorsphereradius, gizmotype, baseitemtype, unitflags)
+		public CachedSNOEntry(int sno, String internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gizmotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags=null, SnoEntry snoentry=null)
+			: base(sno, internalname, actortype, targettype, monstertype, monstersize, collisionradius, canburrow, grantsnoxp, dropsnoloot, isbarricade, obstacletype, actorsphereradius, gizmotype, baseitemtype, unitflags, snoentry)
 		{
 		}
 
@@ -685,23 +703,22 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 			if (!Actortype.HasValue)
 			{
-				SnoEntry entry;
-				if (TheCache.CacheEntries.TryGetValue(SNOID, out entry))
+				if (snoentry!=null)
 				{
-					Actortype = entry.ActorType;
-					if (entry.EntryType == EntryType.Item)
+					Actortype = snoentry.ActorType;
+					if (snoentry.EntryType == EntryType.Item)
 					{
-						DroppedItemEntry droppedItemEntry = (DroppedItemEntry)entry;
+						DroppedItemEntry droppedItemEntry = (DroppedItemEntry)snoentry;
 						ItemDropType = (PluginDroppedItemTypes)droppedItemEntry.ObjectType;
 					}
-					else if (entry.EntryType == EntryType.Gizmo)
+					else if (snoentry.EntryType == EntryType.Gizmo)
 					{
-						GizmoEntry gizmoEntry = (GizmoEntry)entry;
+						GizmoEntry gizmoEntry = (GizmoEntry)snoentry;
 						Gizmotype = (GizmoType)gizmoEntry.ObjectType;
 					}
-					else if (entry.EntryType == EntryType.Unit)
+					else if (snoentry.EntryType == EntryType.Unit)
 					{
-						UnitEntry unitEntry = (UnitEntry)entry;
+						UnitEntry unitEntry = (UnitEntry)snoentry;
 						UnitPropertyFlags = (UnitFlags)unitEntry.ObjectType;
 					}
 				}
@@ -740,16 +757,17 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 						if (IsAvoidance)
 						{
+
+							var cacheEntry = TheCache.ObjectIDCache.AvoidanceEntries[SNOID];
+							var AT = AvoidanceType.None;
+							if (cacheEntry != null) AT = (AvoidanceType)cacheEntry.ObjectType;
+
+
 							if (IsProjectileAvoidance)
 								Obstacletype = ObstacleType.MovingAvoidance;
 							else
 								Obstacletype = ObstacleType.StaticAvoidance;
 
-							AvoidanceType AT= AvoidanceType.None;
-							External.Objects.AvoidanceEntry cacheEntry = TheCache.ObjectIDCache.Avoidance.AvoidanceCache.FirstOrDefault(e => e.SnoId == SNOID);
-							if (cacheEntry!=null)
-								AT = (AvoidanceType)cacheEntry.ObjectType;
-							
 							
 							//Check if avoidance is enabled or if the avoidance type is set to 0
 							if (!FunkyBaseExtension.Settings.Avoidance.AttemptAvoidanceMovements || AT != AvoidanceType.None && AvoidanceCache.IgnoringAvoidanceType(AT))
@@ -965,7 +983,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				Obstacletype = ObstacleType.None;
 
 
-			if (ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Unit))
+			if (ObjectCache.CheckFlag(targetType.Value, TargetType.Unit))
 			{
 				SNORecordMonster monsterInfo;
 				try
@@ -1055,7 +1073,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				}
 
 				#region GizmoProperties
-				if (ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Destructible | TargetType.Interactable))
+				if (ObjectCache.CheckFlag(targetType.Value, TargetType.Destructible | TargetType.Interactable))
 				{
 					//No Loot
 					if (!DropsNoLoot.HasValue)

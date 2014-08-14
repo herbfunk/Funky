@@ -59,6 +59,10 @@ namespace fBaseXtensions.Cache.External.Objects
 			return (SnoId == p.SnoId);
 		}
 
+		public override string ToString()
+		{
+			return String.Format("SnoID[{0}] ActorType[{1}] EntryType[{2}] Name[{3}]", SnoId, ActorType.ToString(), EntryType.ToString(), InternalName);
+		}
 	}
 
 	public class GizmoEntry : SnoEntry
@@ -69,7 +73,8 @@ namespace fBaseXtensions.Cache.External.Objects
 		[XmlElement(Type = typeof(PluginDroppedItemTypes)),
 		XmlElement(Type = typeof(GizmoType)),
 		XmlElement(Type = typeof(AvoidanceType)),
-		XmlElement(Type = typeof(UnitFlags))]
+		XmlElement(Type = typeof(UnitFlags)),
+		XmlElement(Type = typeof(PetTypes))]
 		public new Object ObjectType
 		{
 			get { return _objectType; }
@@ -77,13 +82,29 @@ namespace fBaseXtensions.Cache.External.Objects
 		}
 		private Object _objectType = GizmoType.None;
 
+		public GizmoTargetTypes GizmotargetType
+		{
+			get { return _gizmotargetType; }
+			set { _gizmotargetType = value; }
+		}
+		private GizmoTargetTypes _gizmotargetType = GizmoTargetTypes.None;
+
+
+
+
 
 		public GizmoEntry() : base() { }
-		public GizmoEntry(int snoID, GizmoType objectType, string internalname = "")
+		public GizmoEntry(int snoID, GizmoType objectType, string internalname = "", GizmoTargetTypes targettype= GizmoTargetTypes.None)
 			: base(snoID)
 		{
 			InternalName = internalname;
 			_objectType = objectType;
+			GizmotargetType = targettype;
+		}
+
+		public override string ToString()
+		{
+			return base.ToString() + " " + String.Format("GizmoType[{0}] GizmoTargetType[{1}]", ((GizmoType)_objectType).ToString(), _gizmotargetType);
 		}
 	}
 
@@ -95,7 +116,8 @@ namespace fBaseXtensions.Cache.External.Objects
 		[XmlElement(Type = typeof(PluginDroppedItemTypes)),
 		XmlElement(Type = typeof(GizmoType)),
 		XmlElement(Type = typeof(AvoidanceType)),
-		XmlElement(Type = typeof(UnitFlags))]
+		XmlElement(Type = typeof(UnitFlags)),
+		XmlElement(Type = typeof(PetTypes))]
 		public new Object ObjectType
 		{
 			get { return _objectType; }
@@ -111,6 +133,11 @@ namespace fBaseXtensions.Cache.External.Objects
 			InternalName=internalname;
 			_objectType = objectType;
 		}
+
+		public override string ToString()
+		{
+			return base.ToString() + " " + String.Format("PluginDroppedItemTypes[{0}]", ((PluginDroppedItemTypes)_objectType).ToString());
+		}
 	}
 
 	public class AvoidanceEntry : SnoEntry
@@ -121,7 +148,8 @@ namespace fBaseXtensions.Cache.External.Objects
 		[XmlElement(Type = typeof(PluginDroppedItemTypes)),
 		XmlElement(Type = typeof(GizmoType)),
 		XmlElement(Type = typeof(AvoidanceType)),
-		XmlElement(Type = typeof(UnitFlags))]
+		XmlElement(Type = typeof(UnitFlags)),
+		XmlElement(Type = typeof(PetTypes))]
 		public new Object ObjectType
 		{
 			get { return _objectType; }
@@ -137,6 +165,11 @@ namespace fBaseXtensions.Cache.External.Objects
 			InternalName=internalname;
 			_objectType = objectType;
 		}
+
+		public override string ToString()
+		{
+			return base.ToString() + " " + String.Format("AvoidanceType[{0}]", ((AvoidanceType)_objectType).ToString());
+		}
 	}
 
 	public class UnitEntry : SnoEntry
@@ -147,7 +180,8 @@ namespace fBaseXtensions.Cache.External.Objects
 		[XmlElement(Type = typeof(PluginDroppedItemTypes)),
 		XmlElement(Type = typeof(GizmoType)),
 		XmlElement(Type = typeof(AvoidanceType)),
-		XmlElement(Type = typeof(UnitFlags))]
+		XmlElement(Type = typeof(UnitFlags)),
+		XmlElement(Type = typeof(PetTypes))]
 		public new Object ObjectType
 		{
 			get { return _objectType; }
@@ -162,6 +196,50 @@ namespace fBaseXtensions.Cache.External.Objects
 		{
 			InternalName=internalname;
 			_objectType = flags;
+		}
+
+		public string ReturnCacheEntryString()
+		{
+			//new UnitEntry(5984, UnitFlags.TreasureGoblin, "treasureGoblin_A-12185"),
+			string sUnitFlags = "UnitFlags." + ((UnitFlags)ObjectType).ToString().Replace(", ", " | UnitFlags.");
+			return String.Format("new UnitEntry({0}, {1}, {3}{2}{3}),", SnoId, sUnitFlags, InternalName, @"""");
+		}
+
+		public override string ToString()
+		{
+			return base.ToString() + " " + String.Format("UnitFlags[{0}]", ((UnitFlags)_objectType).ToString());
+		}
+	}
+
+	public class UnitPetEntry : SnoEntry
+	{
+		public override EntryType EntryType { get { return EntryType.Unit; } }
+		public override ActorType ActorType { get { return ActorType.Monster; } }
+
+		[XmlElement(Type = typeof(PluginDroppedItemTypes)),
+		XmlElement(Type = typeof(GizmoType)),
+		XmlElement(Type = typeof(AvoidanceType)),
+		XmlElement(Type = typeof(UnitFlags)),
+		XmlElement(Type = typeof(PetTypes))]
+		public new Object ObjectType
+		{
+			get { return _objectType; }
+			set { _objectType = value; }
+		}
+		private Object _objectType = PetTypes.None;
+
+
+		public UnitPetEntry() : base() { }
+		public UnitPetEntry(int snoID, PetTypes type, string internalname = "")
+			:base(snoID)
+		{
+			InternalName=internalname;
+			_objectType = type;
+		}
+
+		public override string ToString()
+		{
+			return base.ToString() + " " + String.Format("PetTypes[{0}]", ((PetTypes)_objectType).ToString());
 		}
 	}
 
@@ -201,7 +279,40 @@ namespace fBaseXtensions.Cache.External.Objects
 		}
 	}
 
+	public class ItemGemEntry
+	{
+		public int SnoId { get; set; }
+		public GemType Type { get; set; }
+		public GemQualityTypes Quality { get; set; }
 
+		public ItemGemEntry()
+		{
+			SnoId = -1;
+			Type = GemType.Amethyst;
+			Quality = GemQualityTypes.Unknown;
+		}
+		public ItemGemEntry(int snoid, GemType type, GemQualityTypes quality)
+		{
+			SnoId = snoid;
+			Type = type;
+			Quality=quality;
+		}
+
+		public override int GetHashCode()
+		{
+			return SnoId;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+				return false;
+
+			var p = obj as ItemGemEntry;
+			if (p == null)
+				return false;
+			return (SnoId == p.SnoId);
+		}
+	}
 
 
 

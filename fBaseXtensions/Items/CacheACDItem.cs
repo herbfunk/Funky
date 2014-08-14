@@ -62,7 +62,7 @@ namespace fBaseXtensions.Items
 			ThisLevel = item.Level;
 
 			ItemDataEntry itemEntry;
-			if (TheCache.ItemDataEntries.TryGetValue(SNO, out itemEntry))
+			if (TheCache.ObjectIDCache.ItemDataEntries.TryGetValue(SNO, out itemEntry))
 			{
 				ItemType=itemEntry.ItemType;
 				ThisDBItemType = ItemFunc.PluginItemTypeToDBItemType(ItemType);
@@ -73,7 +73,7 @@ namespace fBaseXtensions.Items
 			{
 				ThisFollowerType = item.FollowerSpecialType;
 				ThisDBItemType = item.ItemType;
-				ItemType = ItemFunc.DetermineItemType(ThisInternalName, ThisDBItemType, ThisFollowerType, SNO);
+				ItemType = ItemFunc.DetermineItemType(ThisInternalName, ThisDBItemType, ThisFollowerType);
 			}
 
 			BaseItemType = ItemFunc.DetermineBaseType(ItemType);
@@ -105,7 +105,7 @@ namespace fBaseXtensions.Items
 			
 			ThisDyeType = item.DyeType;
 
-			IsPotion = ItemSnoCache.HealthPotionSNOIds.Contains(SNO);
+			IsPotion = ItemType == PluginItemTypes.HealthPotion;
 			if (IsPotion)
 				PotionType = ItemFunc.ReturnPotionType(SNO);
 			

@@ -176,7 +176,7 @@ namespace fBaseXtensions.Cache.Internal.Collections
 		{
 			get
 			{
-				return Values.OfType<CacheServerObject>().Where(obj => obj.Obstacletype.HasValue && ObstacleType.Navigation.HasFlag(obj.Obstacletype.Value)).ToList();
+				return Values.OfType<CacheServerObject>().Where(obj => obj.Obstacletype.HasValue && ObjectCache.CheckFlag(ObstacleType.Navigation, obj.Obstacletype.Value)).ToList();
 			}
 		}
 		public List<CacheAvoidance> Avoidances
@@ -197,7 +197,7 @@ namespace fBaseXtensions.Cache.Internal.Collections
 				if (!item.Obstacletype.HasValue)
 					continue;
 
-				if (var.HasFlag(item.Obstacletype.Value))
+				if (ObjectCache.CheckFlag(item.Obstacletype.Value, var))
 					yield return item;
 			}
 		}

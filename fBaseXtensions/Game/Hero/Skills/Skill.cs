@@ -138,7 +138,7 @@ namespace fBaseXtensions.Game.Hero.Skills
 
 		private void UsePower()
 		{
-			if (!ExecutionType.HasFlag(SkillExecutionFlags.RemoveBuff))
+			if (!ObjectCache.CheckFlag(ExecutionType, SkillExecutionFlags.RemoveBuff))
 			{
 				SuccessUsed = ZetaDia.Me.UsePower(Power, TargetPosition, WorldID, TargetACDGUID);
 			}
@@ -555,7 +555,7 @@ namespace fBaseXtensions.Game.Hero.Skills
 
 		public static void UsePower(ref Skill ability)
 		{
-			if (!ability.ExecutionType.HasFlag(SkillExecutionFlags.RemoveBuff))
+			if (!ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.RemoveBuff))
 			{
 				ability.SuccessUsed = ZetaDia.Me.UsePower(ability.Power, ability.TargetPosition, ability.WorldID, ability.TargetACDGUID);
 			}
@@ -581,7 +581,7 @@ namespace fBaseXtensions.Game.Hero.Skills
 			if (FunkyBaseExtension.Settings.Backtracking.EnableBacktracking && FunkyBaseExtension.Settings.Backtracking.TrackStartOfCombatEngagment && FunkyGame.Targeting.Cache.StartingLocation.Equals(Vector3.Zero))
 				FunkyGame.Targeting.Cache.StartingLocation = FunkyGame.Hero.Position;
 
-			if (ExecutionType.HasFlag(SkillExecutionFlags.ZigZagPathing))
+			if (ObjectCache.CheckFlag(ExecutionType, SkillExecutionFlags.ZigZagPathing))
 			{
 				//Reset Blockcounter --
 				FunkyGame.Targeting.Movement.BlockedMovementCounter = 0;
@@ -665,7 +665,7 @@ namespace fBaseXtensions.Game.Hero.Skills
 			{
 				CacheUnit ClusterUnit;
 				//Cluster Target -- Aims for Centeroid Unit
-				if (ability.ExecutionType.HasFlag(SkillExecutionFlags.ClusterTarget) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster ACDGUID
+				if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.ClusterTarget) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster ACDGUID
 				{
 					ClusterUnit = FunkyGame.Targeting.Cache.Clusters.AbilityClusterCache(ability.LastClusterConditionSuccessful)[0].GetNearestUnitToCenteroid();
 					ability.TargetACDGUID = ClusterUnit.AcdGuid.Value;
@@ -673,13 +673,13 @@ namespace fBaseXtensions.Game.Hero.Skills
 					return;
 				}
 				//Cluster Location -- Aims for Center of Cluster
-				if (ability.ExecutionType.HasFlag(SkillExecutionFlags.ClusterLocation) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster Target Position
+				if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.ClusterLocation) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster Target Position
 				{
 					ability.TargetPosition = (Vector3)FunkyGame.Targeting.Cache.Clusters.AbilityClusterCache(ability.LastClusterConditionSuccessful)[0].Midpoint;
 					return;
 				}
 				//Cluster Target Nearest -- Gets nearest unit in cluster as target.
-				if (ability.ExecutionType.HasFlag(SkillExecutionFlags.ClusterTargetNearest) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster Target Position
+				if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.ClusterTargetNearest) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster Target Position
 				{
 					ClusterUnit = FunkyGame.Targeting.Cache.Clusters.AbilityClusterCache(ability.LastClusterConditionSuccessful)[0].ListUnits[0];
 					ability.TargetACDGUID = ClusterUnit.AcdGuid.Value;
@@ -688,21 +688,21 @@ namespace fBaseXtensions.Game.Hero.Skills
 				}
 			}
 
-			if (ability.ExecutionType.HasFlag(SkillExecutionFlags.Location)) //Current Target Position
+			if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.Location)) //Current Target Position
 			{
 				ability.TargetPosition = FunkyGame.Targeting.Cache.CurrentTarget.Position;
 				ability.Target_ = FunkyGame.Targeting.Cache.CurrentUnitTarget;
 			}
-			else if (ability.ExecutionType.HasFlag(SkillExecutionFlags.Self)) //Current Bot Position
+			else if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.Self)) //Current Bot Position
 				ability.TargetPosition = FunkyGame.Hero.Position;
-			else if (ability.ExecutionType.HasFlag(SkillExecutionFlags.ZigZagPathing)) //Zig-Zag Pathing
+			else if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.ZigZagPathing)) //Zig-Zag Pathing
 			{
 				FunkyGame.Navigation.vPositionLastZigZagCheck = FunkyGame.Hero.Position;
 				if (FunkyGame.Hero.Class.ShouldGenerateNewZigZagPath()) FunkyGame.Hero.Class.GenerateNewZigZagPath();
 
 				ability.TargetPosition = FunkyGame.Navigation.vSideToSideTarget;
 			}
-			else if (ability.ExecutionType.HasFlag(SkillExecutionFlags.Target)) //Current Target ACDGUID
+			else if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.Target)) //Current Target ACDGUID
 			{
 				ability.Target_ = FunkyGame.Targeting.Cache.CurrentUnitTarget;
 				ability.TargetACDGUID = FunkyGame.Targeting.Cache.CurrentTarget.AcdGuid.Value;
@@ -827,7 +827,7 @@ namespace fBaseXtensions.Game.Hero.Skills
 			if (ability.ClusterConditions.Count == 0)
 				return;
 
-			if (ability.ExecutionType.HasFlag(SkillExecutionFlags.ClusterTarget | SkillExecutionFlags.ClusterTargetNearest))
+			if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.ClusterTarget) || ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.ClusterTargetNearest))
 			{
 				foreach (var condition in ability.ClusterConditions)
 				{
@@ -845,7 +845,7 @@ namespace fBaseXtensions.Game.Hero.Skills
 			if (ability.SingleUnitCondition.Count == 0)
 			{
 				//No Default Conditions Set.. however if Ability uses target as a execution type then we implement the LOS conditions.
-				if (ability.ExecutionType.HasFlag(SkillExecutionFlags.Target))
+				if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.Target))
 					ability.SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None));
 				else
 					return;

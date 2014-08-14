@@ -181,7 +181,7 @@ namespace fBaseXtensions.Targeting
 						return RunStatus.Running;
 					}
 				}
-				else if (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.LineOfSight | TargetType.Backtrack))
+				else if (ObjectCache.CheckFlag(obj.targetType.Value, TargetType.LineOfSight | TargetType.Backtrack))
 				{
 
 					Logger.Write(LogLevel.LineOfSight, "Line of Sight Movement Stalled!");
@@ -238,7 +238,7 @@ namespace fBaseXtensions.Targeting
 								return RunStatus.Running;
 							}
 
-							if (!ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.AvoidanceMovements))
+							if (!ObjectCache.CheckFlag(obj.targetType.Value, TargetType.AvoidanceMovements))
 							{
 								//Finally try raycasting to see if navigation is possible..
 								if (obj.Actortype.HasValue &&
@@ -300,7 +300,7 @@ namespace fBaseXtensions.Targeting
 
 			// If we're doing avoidance, globes or backtracking, try to use special abilities to move quicker
 			#region SpecialMovementChecks
-			if (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, FunkyBaseExtension.Settings.Combat.CombatMovementTargetTypes))
+			if (ObjectCache.CheckFlag(obj.targetType.Value, FunkyBaseExtension.Settings.Combat.CombatMovementTargetTypes))
 			{
 				Skill MovementPower;
 				Vector3 MovementVector = FunkyGame.Hero.Class.FindCombatMovementPower(out MovementPower, obj.Position);
@@ -328,7 +328,7 @@ namespace fBaseXtensions.Targeting
 						 && FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20] >= 1
 						 && obj.DistanceFromTarget <= 12f
 						 && (!Hotbar.HasPower(SNOPower.Barbarian_Sprint) || Hotbar.HasBuff(SNOPower.Barbarian_Sprint))
-						 && (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.AvoidanceMovements | TargetType.Gold | TargetType.Globe) == false)
+						 && (ObjectCache.CheckFlag(obj.targetType.Value, TargetType.AvoidanceMovements | TargetType.Gold | TargetType.Globe) == false)
 						 && (obj.targetType.Value != TargetType.Unit
 						 || (obj.targetType.Value == TargetType.Unit && !obj.IsTreasureGoblin
 							  && (!FunkyBaseExtension.Settings.Barbarian.bSelectiveWhirlwind
@@ -358,7 +358,7 @@ namespace fBaseXtensions.Targeting
 
 
 			//Special Movement Check for Steed Charge and Spirit Walk
-			if (FunkyGame.Hero.Class.LastUsedAbility.IsSpecialMovementSkill && FunkyGame.Hero.Class.HasSpecialMovementBuff() && ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.Unit))
+			if (FunkyGame.Hero.Class.LastUsedAbility.IsSpecialMovementSkill && FunkyGame.Hero.Class.HasSpecialMovementBuff() && ObjectCache.CheckFlag(obj.targetType.Value, TargetType.Unit))
 			{
 				//Logger.DBLog.DebugFormat("Preforming ZigZag for special movement skill activation!");
 				FunkyGame.Navigation.vPositionLastZigZagCheck = FunkyGame.Hero.Position;
@@ -398,17 +398,17 @@ namespace fBaseXtensions.Targeting
 				bool UsePowerMovement = true;
 
 				//Check for any circumstances where we use actor movement instead of power. (click or click-hold)
-				if (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.AvoidanceMovements))
+				if (ObjectCache.CheckFlag(obj.targetType.Value, TargetType.AvoidanceMovements))
 				{
 					if (NonMovementCounter < 10 || currentDistance > 50f)
 						UsePowerMovement = false;
 				}
-				else if (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.LineOfSight | TargetType.Backtrack))
+				else if (ObjectCache.CheckFlag(obj.targetType.Value, TargetType.LineOfSight | TargetType.Backtrack))
 				{
 					//if (currentDistance > 30f)
 					UsePowerMovement = false;
 				}
-				else if (ObjectCache.CheckTargetTypeFlag(obj.targetType.Value, TargetType.LineOfSight))
+				else if (ObjectCache.CheckFlag(obj.targetType.Value, TargetType.LineOfSight))
 				{
 					Navigator.MoveTo(CurrentTargetLocation, "LOS");
 					LastMovementCommand = DateTime.Now;

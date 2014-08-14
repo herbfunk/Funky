@@ -3,18 +3,22 @@ using System.IO;
 using System.Xml.Serialization;
 using fBaseXtensions.Helpers;
 using fBaseXtensions.Items.Enums;
+using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Cache.External.Objects
 {
 	public class ItemDataCollection
 	{
-		//TODO:: Create Classic and ROS Lists -- based on sno>300k? or name containing x1_
-
 		public HashSet<DroppedItemEntry> DroppedItemCache { get; set; }
 		public List<ItemStringEntry> DroppedItemInternalNames { get; set; }
-		public HashSet<ItemDataEntry> ItemDataCache { get; set; } 
+		public HashSet<ItemDataEntry> ItemDataCache { get; set; }
+		public HashSet<ItemGemEntry> GemCache { get; set; } 
+
 		public ItemDataCollection()
 		{
+
+
+#region Dropped Item Names
 			DroppedItemInternalNames = new List<ItemStringEntry>
 			{
 				new ItemStringEntry("ruby_", PluginDroppedItemTypes.Ruby),
@@ -83,8 +87,10 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemStringEntry("helmcloth_", PluginDroppedItemTypes.Helm),
 				new ItemStringEntry("belt_", PluginDroppedItemTypes.Belt),
 			};
+			
+#endregion
 
-			#region Dropped Items
+#region Dropped Items
 			DroppedItemCache = new HashSet<DroppedItemEntry>
 			{
 				//============================= ARMOR =============================
@@ -106,6 +112,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(3435, PluginDroppedItemTypes.Boots, "Boots_norm_base_05-4805"),
 				new DroppedItemEntry(222463, PluginDroppedItemTypes.Boots, "Boots_norm_unique_050-13353"),
 				new DroppedItemEntry(339125, PluginDroppedItemTypes.Boots, "x1_Boots_norm_unique_04-11551"),
+				new DroppedItemEntry(3432, PluginDroppedItemTypes.Boots, "Boots_norm_base_01-3932"),
 
 				//
 				new DroppedItemEntry(56323, PluginDroppedItemTypes.Bracers,"Bracers_norm_base_01"),
@@ -139,6 +146,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				//
 				new DroppedItemEntry(5288, PluginDroppedItemTypes.Shoulders,"shoulderPads_norm_base_flippy"),
 
+				#region Weapons
 				//============================= WEAPONS =============================
 				//
 				new DroppedItemEntry(3256, PluginDroppedItemTypes.Axe, "Axe_norm_base_flippy_04"),
@@ -203,6 +211,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				//
 				new DroppedItemEntry(3843, PluginDroppedItemTypes.Daibo, "combatStaff_norm_base_flippy_03-15187"),
 				new DroppedItemEntry(367192, PluginDroppedItemTypes.Daibo, "x1_combatStaff_norm_base_flippy_02-23248"),
+				new DroppedItemEntry(3844, PluginDroppedItemTypes.Daibo, "combatStaff_norm_base_flippy_04-10439"),
 
 				//
 				new DroppedItemEntry(3913, PluginDroppedItemTypes.Dagger, "Dagger_norm_base_flippy_04-7545"),
@@ -249,6 +258,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(145118, PluginDroppedItemTypes.HandCrossbow, "handXBow_norm_base_flippy_04-5972"),
 				new DroppedItemEntry(335371, PluginDroppedItemTypes.HandCrossbow, "x1_handXbow_norm_base_flippy_01-4978"),
 				new DroppedItemEntry(192478, PluginDroppedItemTypes.HandCrossbow, "handXBow_norm_unique_flippy_01-14894"),
+				new DroppedItemEntry(82635, PluginDroppedItemTypes.HandCrossbow, "handXbow_norm_base_flippy_02-4807"),
 
 				//
 				new DroppedItemEntry(4653, PluginDroppedItemTypes.Mace,"Mace_norm_base_flippy_01"),
@@ -279,16 +289,22 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(335171, PluginDroppedItemTypes.MaceTwoHanded, "x1_twoHandedMace_norm_base_flippy_01-13662"),
 				new DroppedItemEntry(99228, PluginDroppedItemTypes.MaceTwoHanded, "twoHandedMace_norm_unique_flippy_02-3137"),
 				new DroppedItemEntry(190885, PluginDroppedItemTypes.MaceTwoHanded, "twoHandedMace_norm_unique_flippy_04-656"),
+				new DroppedItemEntry(6336, PluginDroppedItemTypes.MaceTwoHanded, "twoHandedMace_norm_base_flippy_01-6334"),
 
 				//
 				new DroppedItemEntry(144192, PluginDroppedItemTypes.MightyWeapon, "mightyWeapon_1H_norm_base_flippy_02-1494"),
 				new DroppedItemEntry(367169, PluginDroppedItemTypes.MightyWeapon, "x1_mightyWeapon_1H_norm_base_flippy_02-1846"),
 				new DroppedItemEntry(144194, PluginDroppedItemTypes.MightyWeapon, "mightyWeapon_1H_norm_base_flippy_04-1864"),
 				new DroppedItemEntry(144193, PluginDroppedItemTypes.MightyWeapon, "mightyWeapon_1H_norm_base_flippy_03-12964"),
+				new DroppedItemEntry(139060, PluginDroppedItemTypes.MightyWeapon, "mightyWeapon_1H_norm_base_flippy_01-2042"),
 
 				//
 				new DroppedItemEntry(367171, PluginDroppedItemTypes.MightyWeaponTwoHanded,"x1_mightyWeapon_2H_norm_base_flippy_02"),
 				new DroppedItemEntry(335395, PluginDroppedItemTypes.MightyWeaponTwoHanded, "x1_mightyWeapon_2H_norm_base_flippy_01-3363"),
+				new DroppedItemEntry(139066, PluginDroppedItemTypes.MightyWeaponTwoHanded, "mightyWeapon_2H_norm_base_flippy_01-7780"),
+				new DroppedItemEntry(144262, PluginDroppedItemTypes.MightyWeaponTwoHanded, "mightyWeapon_2H_norm_base_flippy_02-4331"),
+				new DroppedItemEntry(144263, PluginDroppedItemTypes.MightyWeaponTwoHanded, "mightyWeapon_2H_norm_base_flippy_03-6700"),
+				new DroppedItemEntry(144264, PluginDroppedItemTypes.MightyWeaponTwoHanded, "mightyWeapon_2H_norm_base_flippy_04-6834"),
 
 				//
 				new DroppedItemEntry(4878, PluginDroppedItemTypes.Polearm, "Polearm_norm_base_flippy_06-7575"),
@@ -313,6 +329,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(197098, PluginDroppedItemTypes.Spear, "Spear_norm_unique_flippy_04-18555"),
 				new DroppedItemEntry(5461, PluginDroppedItemTypes.Spear, "Spear_norm_base_flippy_05-19801"),
 				new DroppedItemEntry(335181, PluginDroppedItemTypes.Spear, "x1_spear_norm_base_flippy_01-13786"),
+				new DroppedItemEntry(191452, PluginDroppedItemTypes.Spear, "Spear_norm_unique_flippy_01-26405"),
 
 				//
 				new DroppedItemEntry(5491, PluginDroppedItemTypes.Staff, "Staff_norm_base_flippy_02"),
@@ -328,6 +345,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(195671, PluginDroppedItemTypes.Staff, "Staff_norm_unique_flippy_07-11602"),
 				new DroppedItemEntry(5492, PluginDroppedItemTypes.Staff, "Staff_norm_base_flippy_03-6947"),
 				new DroppedItemEntry(5490, PluginDroppedItemTypes.Staff, "Staff_norm_base_flippy_01-14597"),
+				new DroppedItemEntry(5495, PluginDroppedItemTypes.Staff, "Staff_norm_base_flippy_06-14562"),
 
 				//
 				new DroppedItemEntry(5530, PluginDroppedItemTypes.Sword, "Sword_norm_base_flippy_04-7841"),
@@ -360,6 +378,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(198981, PluginDroppedItemTypes.SwordTwoHanded, "twoHandedSword_norm_unique_flippy_09-8791"),
 				new DroppedItemEntry(184189, PluginDroppedItemTypes.SwordTwoHanded, "twoHandedSword_norm_unique_flippy_04-16946"),
 				new DroppedItemEntry(184195, PluginDroppedItemTypes.SwordTwoHanded, "twoHandedSword_norm_unique_flippy_05-18881"),
+				new DroppedItemEntry(271641, PluginDroppedItemTypes.SwordTwoHanded, "x1_twoHandedSword_norm_unique_flippy_12-3925"),
+
 
 				//
 				new DroppedItemEntry(6431, PluginDroppedItemTypes.Wand, "Wand_norm_base_flippy_05-11528"),
@@ -370,6 +390,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(6433, PluginDroppedItemTypes.Wand, "Wand_norm_base_flippy_07-24809"),
 				new DroppedItemEntry(335375, PluginDroppedItemTypes.Wand, "x1_Wand_norm_base_flippy_01-15541"),
 				new DroppedItemEntry(6428, PluginDroppedItemTypes.Wand, "Wand_norm_base_flippy_02-5412"),
+ 
+				#endregion
 
 				//============================= JEWELERY =============================
 				new DroppedItemEntry(3188, PluginDroppedItemTypes.Amulet),
@@ -377,7 +399,6 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(193056, PluginDroppedItemTypes.FollowerTrinket),
 
 				//============================= OFFHAND =============================
-
 				//
 				new DroppedItemEntry(335033, PluginDroppedItemTypes.CrusaderShield,"x1_CruShield_norm_base_flippy_03"),
 				new DroppedItemEntry(335038, PluginDroppedItemTypes.CrusaderShield),
@@ -386,6 +407,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(335040, PluginDroppedItemTypes.CrusaderShield, "x1_CruShield_norm_base_flippy_06-9340"),
 				new DroppedItemEntry(335041, PluginDroppedItemTypes.CrusaderShield, "x1_CruShield_norm_base_flippy_07-14146"),
 				new DroppedItemEntry(316612, PluginDroppedItemTypes.CrusaderShield, "x1_CruShield_norm_base_flippy_02-3319"),
+				new DroppedItemEntry(335037, PluginDroppedItemTypes.CrusaderShield, "x1_CruShield_norm_base_07-17026"),
 
 				//
 				new DroppedItemEntry(139096, PluginDroppedItemTypes.Mojo, "Mojo_norm_base_02-10188"),
@@ -426,12 +448,16 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(4815, PluginDroppedItemTypes.Source, "orb_norm_base_flippy_01-10108"),
 				new DroppedItemEntry(335314, PluginDroppedItemTypes.Source, "x1_orb_norm_base_flippy_01-10695"),
 				new DroppedItemEntry(367205, PluginDroppedItemTypes.Source, "x1_orb_norm_base_flippy_02-2520"),
+				new DroppedItemEntry(4818, PluginDroppedItemTypes.Source, "orb_norm_base_flippy_04-24761"),
 
+				#region Misc Items
+		
 				//============================= CRAFTING =============================
 				new DroppedItemEntry(137958, PluginDroppedItemTypes.CraftingMaterial,"CraftingMaterials_Flippy_Global"),
 				new DroppedItemEntry(192598, PluginDroppedItemTypes.CraftingMaterial, "CraftingPlan_Smith_Drop"),
 				new DroppedItemEntry(192600, PluginDroppedItemTypes.CraftingMaterial, "CraftingPlan_Jeweler_Drop"),
 				new DroppedItemEntry(371083, PluginDroppedItemTypes.CraftingMaterial, "CraftingReagent_Legendary_Unique_Gloves_001_x1-8035"),
+				new DroppedItemEntry(367009, PluginDroppedItemTypes.CraftingMaterial, "CraftingReagent_Legendary_Unique_Sword_1H_019_x1-6052"),
 
 				new DroppedItemEntry(364695,PluginDroppedItemTypes.InfernalKey), 
 				new DroppedItemEntry(364697, PluginDroppedItemTypes.InfernalKey),
@@ -534,23 +560,33 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(361573, PluginDroppedItemTypes.Topaz),
 				new DroppedItemEntry(361574, PluginDroppedItemTypes.Topaz),
 				new DroppedItemEntry(361575,PluginDroppedItemTypes.Topaz)
+ 
+				#endregion
 			};
 			
-			#endregion
+#endregion
 
-			#region Item Data
+#region Item Data
+
 			ItemDataCache = new HashSet<ItemDataEntry>
 			{
 				//BASE ITEMS
-
+				#region Base Items
+		
 				//========= JEWELERY =========//
-				new ItemDataEntry(325062, PluginItemTypes.Amulet),new ItemDataEntry(325061, PluginItemTypes.Amulet),
+				new ItemDataEntry(325062, PluginItemTypes.Amulet),
+				new ItemDataEntry(325061, PluginItemTypes.Amulet),
 				new ItemDataEntry(3179, PluginItemTypes.Amulet),
 				new ItemDataEntry(3182, PluginItemTypes.Amulet),
 				new ItemDataEntry(3181, PluginItemTypes.Amulet),
 				new ItemDataEntry(3184, PluginItemTypes.Amulet),
+				new ItemDataEntry(3178, PluginItemTypes.Amulet),
+				new ItemDataEntry(3174, PluginItemTypes.Amulet),
+				new ItemDataEntry(3175, PluginItemTypes.Amulet),
+				new ItemDataEntry(3177, PluginItemTypes.Amulet),
 
-				new ItemDataEntry(5044, PluginItemTypes.Ring),new ItemDataEntry(5043, PluginItemTypes.Ring),
+				new ItemDataEntry(5044, PluginItemTypes.Ring),
+				new ItemDataEntry(5043, PluginItemTypes.Ring),
 				new ItemDataEntry(5030, PluginItemTypes.Ring),
 				new ItemDataEntry(5035, PluginItemTypes.Ring),
 				new ItemDataEntry(5036, PluginItemTypes.Ring),
@@ -558,24 +594,50 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(5038, PluginItemTypes.Ring),
 				new ItemDataEntry(5039, PluginItemTypes.Ring),
 				new ItemDataEntry(5037, PluginItemTypes.Ring),
+				new ItemDataEntry(5042, PluginItemTypes.Ring),
+				new ItemDataEntry(5022, PluginItemTypes.Ring),
+				new ItemDataEntry(5023, PluginItemTypes.Ring),
+				new ItemDataEntry(5024, PluginItemTypes.Ring),
+				new ItemDataEntry(5026, PluginItemTypes.Ring),
+				new ItemDataEntry(5027, PluginItemTypes.Ring),
+				new ItemDataEntry(5028, PluginItemTypes.Ring),
+				new ItemDataEntry(5031, PluginItemTypes.Ring),
 
 				//========= ARMOR =========//
-				new ItemDataEntry(253996, PluginItemTypes.Belt),new ItemDataEntry(253987, PluginItemTypes.Belt),
+				#region Armor
+		
+				new ItemDataEntry(253996, PluginItemTypes.Belt),
+				new ItemDataEntry(253987, PluginItemTypes.Belt),
 				new ItemDataEntry(139133, PluginItemTypes.Belt),
 				new ItemDataEntry(139134, PluginItemTypes.Belt),
 				new ItemDataEntry(139135, PluginItemTypes.Belt),
 				new ItemDataEntry(139136, PluginItemTypes.Belt),
 				new ItemDataEntry(139137, PluginItemTypes.Belt),
+				new ItemDataEntry(3350, PluginItemTypes.Belt),
+				new ItemDataEntry(3351, PluginItemTypes.Belt),
+				new ItemDataEntry(3352, PluginItemTypes.Belt),
+				new ItemDataEntry(3353, PluginItemTypes.Belt),
+				new ItemDataEntry(3354, PluginItemTypes.Belt),
+				new ItemDataEntry(3355, PluginItemTypes.Belt),
+				new ItemDataEntry(139131, PluginItemTypes.Belt),
 
-				new ItemDataEntry(253997, PluginItemTypes.Boots),new ItemDataEntry(253986, PluginItemTypes.Boots),
+				new ItemDataEntry(253997, PluginItemTypes.Boots),
+				new ItemDataEntry(253986, PluginItemTypes.Boots),
 				new ItemDataEntry(58878, PluginItemTypes.Boots),
 				new ItemDataEntry(58877, PluginItemTypes.Boots),
 				new ItemDataEntry(58879, PluginItemTypes.Boots),
 				new ItemDataEntry(58880, PluginItemTypes.Boots),
 				new ItemDataEntry(58881, PluginItemTypes.Boots),
 				new ItemDataEntry(58904, PluginItemTypes.Boots),
+				new ItemDataEntry(3432, PluginItemTypes.Boots),
+				new ItemDataEntry(3433, PluginItemTypes.Boots),
+				new ItemDataEntry(3434, PluginItemTypes.Boots),
+				new ItemDataEntry(330, PluginItemTypes.Boots),
+				new ItemDataEntry(3436, PluginItemTypes.Boots),
+				new ItemDataEntry(3435, PluginItemTypes.Boots),
 
-				new ItemDataEntry(253988, PluginItemTypes.Bracers),new ItemDataEntry(253995, PluginItemTypes.Bracers),
+				new ItemDataEntry(253988, PluginItemTypes.Bracers),
+				new ItemDataEntry(253995, PluginItemTypes.Bracers),
 				new ItemDataEntry(56324, PluginItemTypes.Bracers),
 				new ItemDataEntry(56328, PluginItemTypes.Bracers),
 				new ItemDataEntry(56325, PluginItemTypes.Bracers),
@@ -583,62 +645,113 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(56323, PluginItemTypes.Bracers),
 				new ItemDataEntry(56327, PluginItemTypes.Bracers),
 
-				new ItemDataEntry(253994, PluginItemTypes.Chest),new ItemDataEntry(253983, PluginItemTypes.Chest),
+				new ItemDataEntry(253994, PluginItemTypes.Chest),
+				new ItemDataEntry(253983, PluginItemTypes.Chest),
 				new ItemDataEntry(3804, PluginItemTypes.Chest),
 				new ItemDataEntry(58887, PluginItemTypes.Chest),
 				new ItemDataEntry(58889, PluginItemTypes.Chest),
 				new ItemDataEntry(58888, PluginItemTypes.Chest),
 				new ItemDataEntry(58890, PluginItemTypes.Chest),
+				new ItemDataEntry(3799, PluginItemTypes.Chest),
+				new ItemDataEntry(3800, PluginItemTypes.Chest),
+				new ItemDataEntry(3801, PluginItemTypes.Chest),
+				new ItemDataEntry(3802, PluginItemTypes.Chest),
+				new ItemDataEntry(3803, PluginItemTypes.Chest),
 
-				new ItemDataEntry(367188, PluginItemTypes.Cloak),new ItemDataEntry(335376, PluginItemTypes.Cloak),
+				new ItemDataEntry(367188, PluginItemTypes.Cloak),
+				new ItemDataEntry(335376, PluginItemTypes.Cloak),
 				new ItemDataEntry(139089, PluginItemTypes.Cloak),
+				new ItemDataEntry(139086, PluginItemTypes.Cloak),
+				new ItemDataEntry(139088, PluginItemTypes.Cloak),
 
-				new ItemDataEntry(253993, PluginItemTypes.Gloves),new ItemDataEntry(253985, PluginItemTypes.Gloves),
+				new ItemDataEntry(253993, PluginItemTypes.Gloves),
+				new ItemDataEntry(253985, PluginItemTypes.Gloves),
 				new ItemDataEntry(58917, PluginItemTypes.Gloves),
 				new ItemDataEntry(58919, PluginItemTypes.Gloves),
 				new ItemDataEntry(70412, PluginItemTypes.Gloves),
 				new ItemDataEntry(70411, PluginItemTypes.Gloves),
 				new ItemDataEntry(58921, PluginItemTypes.Gloves),
+				new ItemDataEntry(4256, PluginItemTypes.Gloves),
+				new ItemDataEntry(4257, PluginItemTypes.Gloves),
+				new ItemDataEntry(4258, PluginItemTypes.Gloves),
+				new ItemDataEntry(4259, PluginItemTypes.Gloves),
+				new ItemDataEntry(4260, PluginItemTypes.Gloves),
+				new ItemDataEntry(4261, PluginItemTypes.Gloves),
+				new ItemDataEntry(58916, PluginItemTypes.Gloves),
+				new ItemDataEntry(58918, PluginItemTypes.Gloves),
 
-				new ItemDataEntry(253992, PluginItemTypes.Helm),new ItemDataEntry(239290, PluginItemTypes.Helm),
+				new ItemDataEntry(253992, PluginItemTypes.Helm),
+				new ItemDataEntry(239290, PluginItemTypes.Helm),
 				new ItemDataEntry(57779, PluginItemTypes.Helm),
 				new ItemDataEntry(57778, PluginItemTypes.Helm),
 				new ItemDataEntry(57780, PluginItemTypes.Helm),
 				new ItemDataEntry(57781, PluginItemTypes.Helm),
 				new ItemDataEntry(57784, PluginItemTypes.Helm),
 				new ItemDataEntry(57782, PluginItemTypes.Helm),
+				new ItemDataEntry(57785, PluginItemTypes.Helm),
+				new ItemDataEntry(4447, PluginItemTypes.Helm),
+				new ItemDataEntry(4448, PluginItemTypes.Helm),
+				new ItemDataEntry(4449, PluginItemTypes.Helm),
+				new ItemDataEntry(4450, PluginItemTypes.Helm),
+				new ItemDataEntry(4451, PluginItemTypes.Helm),
 
-				new ItemDataEntry(253984, PluginItemTypes.Pants),new ItemDataEntry(253991, PluginItemTypes.Pants),
+				new ItemDataEntry(253984, PluginItemTypes.Pants),
+				new ItemDataEntry(253991, PluginItemTypes.Pants),
 				new ItemDataEntry(58932, PluginItemTypes.Pants),
 				new ItemDataEntry(58933, PluginItemTypes.Pants),
 				new ItemDataEntry(58935, PluginItemTypes.Pants),
 				new ItemDataEntry(58934, PluginItemTypes.Pants),
 				new ItemDataEntry(58937, PluginItemTypes.Pants),
+				new ItemDataEntry(58938, PluginItemTypes.Pants),
+				new ItemDataEntry(4825, PluginItemTypes.Pants),
+				new ItemDataEntry(4826, PluginItemTypes.Pants),
+				new ItemDataEntry(4827, PluginItemTypes.Pants),
+				new ItemDataEntry(4828, PluginItemTypes.Pants),
+				new ItemDataEntry(4829, PluginItemTypes.Pants),
+				new ItemDataEntry(4830, PluginItemTypes.Pants),
+				new ItemDataEntry(58923, PluginItemTypes.Pants),
 
-				new ItemDataEntry(367173, PluginItemTypes.MightyBelt),new ItemDataEntry(367172, PluginItemTypes.MightyBelt),
-				
-				new ItemDataEntry(253990, PluginItemTypes.Shoulders),new ItemDataEntry(239289, PluginItemTypes.Shoulders),
+				new ItemDataEntry(367173, PluginItemTypes.MightyBelt),
+				new ItemDataEntry(367172, PluginItemTypes.MightyBelt),
+				new ItemDataEntry(139072, PluginItemTypes.MightyBelt),
+				new ItemDataEntry(139074, PluginItemTypes.MightyBelt),
+				new ItemDataEntry(139075, PluginItemTypes.MightyBelt),
+				new ItemDataEntry(139076, PluginItemTypes.MightyBelt),
+
+				new ItemDataEntry(253990, PluginItemTypes.Shoulders),
+				new ItemDataEntry(239289, PluginItemTypes.Shoulders),
 				new ItemDataEntry(58692, PluginItemTypes.Shoulders),
 				new ItemDataEntry(5285, PluginItemTypes.Shoulders),
 				new ItemDataEntry(58694, PluginItemTypes.Shoulders),
 				new ItemDataEntry(58693, PluginItemTypes.Shoulders),
 				new ItemDataEntry(58697, PluginItemTypes.Shoulders),
 				new ItemDataEntry(58695, PluginItemTypes.Shoulders),
+				new ItemDataEntry(58699, PluginItemTypes.Shoulders),
+				new ItemDataEntry(58702, PluginItemTypes.Shoulders),
+				new ItemDataEntry(5281, PluginItemTypes.Shoulders),
+				new ItemDataEntry(5282, PluginItemTypes.Shoulders),
+				new ItemDataEntry(5283, PluginItemTypes.Shoulders),
 
-				new ItemDataEntry(335392, PluginItemTypes.SpiritStone),new ItemDataEntry(364156, PluginItemTypes.SpiritStone),
+				new ItemDataEntry(335392, PluginItemTypes.SpiritStone),
+				new ItemDataEntry(364156, PluginItemTypes.SpiritStone),
+
 				new ItemDataEntry(139114, PluginItemTypes.VoodooMask),
-
-				new ItemDataEntry(367197, PluginItemTypes.VoodooMask),new ItemDataEntry(335387, PluginItemTypes.VoodooMask),
+				new ItemDataEntry(367197, PluginItemTypes.VoodooMask),
+				new ItemDataEntry(335387, PluginItemTypes.VoodooMask),
 				new ItemDataEntry(139115, PluginItemTypes.VoodooMask),
 
-				new ItemDataEntry(367201, PluginItemTypes.WizardHat),new ItemDataEntry(335378, PluginItemTypes.WizardHat),
+				new ItemDataEntry(367201, PluginItemTypes.WizardHat),
+				new ItemDataEntry(335378, PluginItemTypes.WizardHat),
 				new ItemDataEntry(139126, PluginItemTypes.WizardHat),
 				new ItemDataEntry(139125, PluginItemTypes.WizardHat),
-
-				
+				new ItemDataEntry(139124, PluginItemTypes.WizardHat),
+				new ItemDataEntry(139127, PluginItemTypes.WizardHat),
+				#endregion
 
 
 				//========= WEAPONS =========//
+				#region Weapons && Offhand
+		
 				new ItemDataEntry(367143, PluginItemTypes.Axe),
 				new ItemDataEntry(335155, PluginItemTypes.Axe),
 				new ItemDataEntry(3247, PluginItemTypes.Axe),
@@ -646,6 +759,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(3248, PluginItemTypes.Axe),
 				new ItemDataEntry(3246, PluginItemTypes.Axe),
 				new ItemDataEntry(3251, PluginItemTypes.Axe),
+				new ItemDataEntry(3250, PluginItemTypes.Axe),
+				new ItemDataEntry(3245, PluginItemTypes.Axe),
 
 				new ItemDataEntry(326811, PluginItemTypes.CeremonialKnife),
 				new ItemDataEntry(367198, PluginItemTypes.CeremonialKnife),
@@ -655,13 +770,14 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(3908, PluginItemTypes.Dagger),
 				new ItemDataEntry(3905, PluginItemTypes.Dagger),
 				new ItemDataEntry(3903, PluginItemTypes.Dagger),
-
-				new ItemDataEntry(327966, PluginItemTypes.TwoHandDaibo),
-				new ItemDataEntry(367191, PluginItemTypes.TwoHandDaibo),
+				new ItemDataEntry(3906, PluginItemTypes.Dagger),
+				new ItemDataEntry(3904, PluginItemTypes.Dagger),
+				new ItemDataEntry(3909, PluginItemTypes.Dagger),
 				
 				new ItemDataEntry(247381, PluginItemTypes.Flail),
 				new ItemDataEntry(247380, PluginItemTypes.Flail),
 				new ItemDataEntry(247379, PluginItemTypes.Flail),
+				new ItemDataEntry(246811, PluginItemTypes.Flail),
 
 				new ItemDataEntry(367193, PluginItemTypes.FistWeapon),
 				new ItemDataEntry(328572, PluginItemTypes.FistWeapon),
@@ -670,6 +786,10 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(367185, PluginItemTypes.HandCrossbow),
 				new ItemDataEntry(145086, PluginItemTypes.HandCrossbow),
 				new ItemDataEntry(145084, PluginItemTypes.HandCrossbow),
+				new ItemDataEntry(82626, PluginItemTypes.HandCrossbow),
+				new ItemDataEntry(82639, PluginItemTypes.HandCrossbow),
+				new ItemDataEntry(145082, PluginItemTypes.HandCrossbow),
+				new ItemDataEntry(145083, PluginItemTypes.HandCrossbow),
 
 				new ItemDataEntry(367147, PluginItemTypes.Mace),
 				new ItemDataEntry(335166, PluginItemTypes.Mace),
@@ -677,33 +797,60 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(4648, PluginItemTypes.Mace),
 				new ItemDataEntry(4650, PluginItemTypes.Mace),
 				new ItemDataEntry(4646, PluginItemTypes.Mace),
+				new ItemDataEntry(4645, PluginItemTypes.Mace),
+				new ItemDataEntry(4649, PluginItemTypes.Mace),
+				new ItemDataEntry(394, PluginItemTypes.Mace),
 
 				new ItemDataEntry(367168, PluginItemTypes.MightyWeapon),
 				new ItemDataEntry(335340, PluginItemTypes.MightyWeapon),
-				
+				new ItemDataEntry(139044, PluginItemTypes.MightyWeapon),
+				new ItemDataEntry(139059, PluginItemTypes.MightyWeapon),
+				new ItemDataEntry(139062, PluginItemTypes.MightyWeapon),
+				new ItemDataEntry(139063, PluginItemTypes.MightyWeapon),
+
 				new ItemDataEntry(367155, PluginItemTypes.Spear),
 				new ItemDataEntry(335179, PluginItemTypes.Spear),
 				new ItemDataEntry(5455, PluginItemTypes.Spear),
+				new ItemDataEntry(5452, PluginItemTypes.Spear),
+				new ItemDataEntry(5453, PluginItemTypes.Spear),
+				new ItemDataEntry(5454, PluginItemTypes.Spear),
 
 				new ItemDataEntry(335133, PluginItemTypes.Sword),
 				new ItemDataEntry(367139, PluginItemTypes.Sword),
 				new ItemDataEntry(5521, PluginItemTypes.Sword),
 				new ItemDataEntry(5524, PluginItemTypes.Sword),
+				new ItemDataEntry(5516, PluginItemTypes.Sword),
+				new ItemDataEntry(5520, PluginItemTypes.Sword),
+				new ItemDataEntry(5523, PluginItemTypes.Sword),
+				new ItemDataEntry(5522, PluginItemTypes.Sword),
+				new ItemDataEntry(5525, PluginItemTypes.Sword),
 
 				new ItemDataEntry(335159, PluginItemTypes.TwoHandAxe),
 				new ItemDataEntry(367145, PluginItemTypes.TwoHandAxe),
 				new ItemDataEntry(6319, PluginItemTypes.TwoHandAxe),
 				new ItemDataEntry(6322, PluginItemTypes.TwoHandAxe),
+				new ItemDataEntry(6320, PluginItemTypes.TwoHandAxe),
+				new ItemDataEntry(6321, PluginItemTypes.TwoHandAxe),
+				new ItemDataEntry(6323, PluginItemTypes.TwoHandAxe),
 
 				new ItemDataEntry(367157, PluginItemTypes.TwoHandBow),
 				new ItemDataEntry(335186, PluginItemTypes.TwoHandBow),
 				new ItemDataEntry(3445, PluginItemTypes.TwoHandBow),
 				new ItemDataEntry(3447, PluginItemTypes.TwoHandBow),
+				new ItemDataEntry(3449, PluginItemTypes.TwoHandBow),
 
 				new ItemDataEntry(335189, PluginItemTypes.TwoHandCrossbow),
 				new ItemDataEntry(367159, PluginItemTypes.TwoHandCrossbow),
 				new ItemDataEntry(6614, PluginItemTypes.TwoHandCrossbow),
 				new ItemDataEntry(6613, PluginItemTypes.TwoHandCrossbow),
+				new ItemDataEntry(497, PluginItemTypes.TwoHandCrossbow),
+				new ItemDataEntry(6612, PluginItemTypes.TwoHandCrossbow),
+				new ItemDataEntry(98159, PluginItemTypes.TwoHandCrossbow),
+
+				new ItemDataEntry(327966, PluginItemTypes.TwoHandDaibo),
+				new ItemDataEntry(367191, PluginItemTypes.TwoHandDaibo),
+				new ItemDataEntry(3837, PluginItemTypes.TwoHandDaibo),
+				new ItemDataEntry(3838, PluginItemTypes.TwoHandDaibo),
 
 				new ItemDataEntry(247387, PluginItemTypes.TwoHandFlail),
 				new ItemDataEntry(247386, PluginItemTypes.TwoHandFlail),
@@ -714,31 +861,50 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(6331, PluginItemTypes.TwoHandMace),
 				new ItemDataEntry(6332, PluginItemTypes.TwoHandMace),
 				new ItemDataEntry(6335, PluginItemTypes.TwoHandMace),
+				new ItemDataEntry(6330, PluginItemTypes.TwoHandMace),
+				new ItemDataEntry(6333, PluginItemTypes.TwoHandMace),
 
 				new ItemDataEntry(367170, PluginItemTypes.TwoHandMighty),
 				new ItemDataEntry(221451, PluginItemTypes.TwoHandMighty),
-				
+				new ItemDataEntry(139064, PluginItemTypes.TwoHandMighty),
+				new ItemDataEntry(139069, PluginItemTypes.TwoHandMighty),
+				new ItemDataEntry(139070, PluginItemTypes.TwoHandMighty),
+				new ItemDataEntry(139071, PluginItemTypes.TwoHandMighty),
+
 				new ItemDataEntry(335176, PluginItemTypes.TwoHandPolearm),
 				new ItemDataEntry(367153, PluginItemTypes.TwoHandPolearm),
 				new ItemDataEntry(4865, PluginItemTypes.TwoHandPolearm),
 				new ItemDataEntry(4864, PluginItemTypes.TwoHandPolearm),
 				new ItemDataEntry(4871, PluginItemTypes.TwoHandPolearm),
+				new ItemDataEntry(4866, PluginItemTypes.TwoHandPolearm),
+				new ItemDataEntry(4867, PluginItemTypes.TwoHandPolearm),
+				new ItemDataEntry(4868, PluginItemTypes.TwoHandPolearm),
+				new ItemDataEntry(4870, PluginItemTypes.TwoHandPolearm),
 
 				new ItemDataEntry(367162, PluginItemTypes.TwoHandStaff),
 				new ItemDataEntry(328169, PluginItemTypes.TwoHandStaff),
 				new ItemDataEntry(5487, PluginItemTypes.TwoHandStaff),
 				new ItemDataEntry(5485, PluginItemTypes.TwoHandStaff),
 				new ItemDataEntry(5483, PluginItemTypes.TwoHandStaff),
+				new ItemDataEntry(438, PluginItemTypes.TwoHandStaff),
+				new ItemDataEntry(5486, PluginItemTypes.TwoHandStaff),
+				new ItemDataEntry(5488, PluginItemTypes.TwoHandStaff),
+				new ItemDataEntry(5484, PluginItemTypes.TwoHandStaff),
 
 				new ItemDataEntry(335139, PluginItemTypes.TwoHandSword),
 				new ItemDataEntry(367141, PluginItemTypes.TwoHandSword),
 				new ItemDataEntry(6345, PluginItemTypes.TwoHandSword),
+				new ItemDataEntry(6342, PluginItemTypes.TwoHandSword),
+				new ItemDataEntry(6344, PluginItemTypes.TwoHandSword),
+				new ItemDataEntry(6343, PluginItemTypes.TwoHandSword),
+				new ItemDataEntry(483, PluginItemTypes.TwoHandSword),
 
 				new ItemDataEntry(367202, PluginItemTypes.Wand),
 				new ItemDataEntry(335373, PluginItemTypes.Wand),
 				new ItemDataEntry(6421, PluginItemTypes.Wand),
 				new ItemDataEntry(6422, PluginItemTypes.Wand),
 				new ItemDataEntry(6426, PluginItemTypes.Wand),
+				new ItemDataEntry(6423, PluginItemTypes.Wand),
 
 				new ItemDataEntry(367175, PluginItemTypes.CrusaderShield),
 				new ItemDataEntry(335037, PluginItemTypes.CrusaderShield),
@@ -747,12 +913,16 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(335035, PluginItemTypes.CrusaderShield),
 				new ItemDataEntry(335034, PluginItemTypes.CrusaderShield),
 				new ItemDataEntry(335036, PluginItemTypes.CrusaderShield),
+				new ItemDataEntry(305908, PluginItemTypes.CrusaderShield),
 
 				new ItemDataEntry(335259, PluginItemTypes.Mojo),
 				new ItemDataEntry(367195, PluginItemTypes.Mojo),
-				
+				new ItemDataEntry(139096, PluginItemTypes.Mojo),
+
 				new ItemDataEntry(367204, PluginItemTypes.Source),
 				new ItemDataEntry(327063, PluginItemTypes.Source),
+				new ItemDataEntry(4812, PluginItemTypes.Source),
+				new ItemDataEntry(4813, PluginItemTypes.Source),
 				
 				new ItemDataEntry(367184, PluginItemTypes.Quiver),
 				new ItemDataEntry(367183, PluginItemTypes.Quiver),
@@ -765,6 +935,9 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(5264, PluginItemTypes.Shield),
 				new ItemDataEntry(5263, PluginItemTypes.Shield),
 				new ItemDataEntry(426, PluginItemTypes.Shield),
+				new ItemDataEntry(5259, PluginItemTypes.Shield),
+ 
+				#endregion
 
 				new ItemDataEntry(190635, PluginItemTypes.FollowerEnchantress),
 				new ItemDataEntry(190632, PluginItemTypes.FollowerEnchantress),
@@ -779,6 +952,8 @@ namespace fBaseXtensions.Cache.External.Objects
 
 
 				//MISC ITEMS
+				#region Misc Items
+		
 				new ItemDataEntry(192598, PluginItemTypes.CraftingPlan),
 				new ItemDataEntry(192600, PluginItemTypes.CraftingPlan),
 
@@ -912,7 +1087,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(361566, PluginItemTypes.Amethyst),
 				new ItemDataEntry(361567, PluginItemTypes.Amethyst),
 
-				//,,,,,,,,,,,,,,
+				//TODO  Cardinal, Desert, Rangers,Elegant
 				new ItemDataEntry(148299, PluginItemTypes.Dye),
 				new ItemDataEntry(148311, PluginItemTypes.Dye),
 				new ItemDataEntry(54505, PluginItemTypes.Dye),
@@ -928,30 +1103,18 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(148308, PluginItemTypes.Dye),
 				new ItemDataEntry(148310, PluginItemTypes.Dye),
 				new ItemDataEntry(148288, PluginItemTypes.Dye),
-				//new ItemDataEntry(000000, PluginItemTypes.Unknown),
-				//new ItemDataEntry(000000, PluginItemTypes.Unknown),
-				//new ItemDataEntry(000000, PluginItemTypes.Unknown),
-				//new ItemDataEntry(000000, PluginItemTypes.Unknown),
-				//new ItemDataEntry(000000, PluginItemTypes.Unknown),
-				//new ItemDataEntry(000000, PluginItemTypes.Unknown),
-				//new ItemDataEntry(000000, PluginItemTypes.Unknown),
-				//new ItemDataEntry(000000, PluginItemTypes.Unknown),
-				//new ItemDataEntry(000000, PluginItemTypes.Unknown),
-				//new ItemDataEntry(000000, PluginItemTypes.Unknown),
-				//new ItemDataEntry(000000, PluginItemTypes.Unknown),
-				//new ItemDataEntry(000000, PluginItemTypes.Unknown),
-				//new ItemDataEntry(000000, PluginItemTypes.Unknown),
-				//new ItemDataEntry(000000, PluginItemTypes.Unknown),
-				//new ItemDataEntry(000000, PluginItemTypes.Unknown),
-				//new ItemDataEntry(000000, PluginItemTypes.Unknown),
-				//new ItemDataEntry(000000, PluginItemTypes.Unknown),
+				new ItemDataEntry(148300, PluginItemTypes.Dye),
+				new ItemDataEntry(148306, PluginItemTypes.Dye),
+				new ItemDataEntry(148289, PluginItemTypes.Dye),
+				// 
+				#endregion
+
+				#endregion
 
 
 				//LEGENDARY ITEMS
-
-				
-
-				//Single Items
+				#region Legendary Single Items
+		
 				new ItemDataEntry(298050, PluginItemTypes.Amulet, LegendaryItemTypes.CountessJuliasCameo),
 				new ItemDataEntry(298054, PluginItemTypes.Amulet, LegendaryItemTypes.DovuEnergyTrap),
 				//new ItemDataEntry(341342, PluginItemTypes.Amulet, LegendaryItemTypes.None), //ExecutionersMedal
@@ -1339,9 +1502,11 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(192320, PluginItemTypes.Source, LegendaryItemTypes.TheOculus),
 				new ItemDataEntry(195325, PluginItemTypes.Source, LegendaryItemTypes.Triumvirate),
 				new ItemDataEntry(184199, PluginItemTypes.Source, LegendaryItemTypes.WinterFlurry),
+				 
+				#endregion
 				
-				
-
+				#region Legendary Set Items
+		
 				//BLACKTHORNE'S
 				new ItemDataEntry(222477, PluginItemTypes.Pants, LegendaryItemTypes.BlackthornesBattlegear), //Jousting Mail
 				new ItemDataEntry(224191, PluginItemTypes.Belt, LegendaryItemTypes.BlackthornesBattlegear), //Notched Belt
@@ -1446,8 +1611,6 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(212651, PluginItemTypes.Ring, LegendaryItemTypes.LegacyofNightmares), //LitanyoftheUndaunted
 				new ItemDataEntry(212650, PluginItemTypes.Ring, LegendaryItemTypes.LegacyofNightmares), //TheWailingHost
 
-				
-
 				//Sunwukos
 				new ItemDataEntry(336174, PluginItemTypes.Amulet, LegendaryItemTypes.MonkeyKingsGarb), //SunwukosShines
 				new ItemDataEntry(336172, PluginItemTypes.Gloves, LegendaryItemTypes.MonkeyKingsGarb), //SunwukosPaws
@@ -1459,32 +1622,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(335027, PluginItemTypes.Gloves, LegendaryItemTypes.ThornsoftheInvoker), //PrideoftheInvoker
 				new ItemDataEntry(335028, PluginItemTypes.Helm, LegendaryItemTypes.ThornsoftheInvoker), //CrownoftheInvoker
 
-				//Ashearas Vestments
-				new ItemDataEntry(205618, PluginItemTypes.Boots, LegendaryItemTypes.AshearasVestments), //AshearasFinders
-				new ItemDataEntry(205636, PluginItemTypes.Gloves, LegendaryItemTypes.AshearasVestments), //AshearasWard
-				new ItemDataEntry(209054, PluginItemTypes.Pants, LegendaryItemTypes.AshearasVestments), //AshearasPace
-				new ItemDataEntry(225132, PluginItemTypes.Shoulders, LegendaryItemTypes.AshearasVestments), //AshearasCustodian
-
-				//DemonsHide
-				new ItemDataEntry(222741, PluginItemTypes.Bracers, LegendaryItemTypes.DemonsHide), //DemonsAnimus
-				new ItemDataEntry(205612, PluginItemTypes.Chest, LegendaryItemTypes.DemonsHide), //DemonsMarrow
-				new ItemDataEntry(224397, PluginItemTypes.Shoulders, LegendaryItemTypes.DemonsHide), //DemonsAileron
-				new ItemDataEntry(222740, PluginItemTypes.Belt, LegendaryItemTypes.DemonsHide), //DemonsRestraint
-
-				//Cain sDestiny
-				new ItemDataEntry(197210, PluginItemTypes.Gloves, LegendaryItemTypes.CainsDestiny), //CainsScribe
-				new ItemDataEntry(197218, PluginItemTypes.Pants, LegendaryItemTypes.CainsDestiny), //CainsHabit
-				new ItemDataEntry(197225, PluginItemTypes.Boots, LegendaryItemTypes.CainsDestiny), //CainsTravelers
 				
-				//BornsDefiance
-				new ItemDataEntry(222948, PluginItemTypes.Shoulders, LegendaryItemTypes.BornsDefiance), //BornsPrivilege
-				new ItemDataEntry(197199, PluginItemTypes.Chest, LegendaryItemTypes.BornsDefiance), //BornsFrozenSoul
-
-				//AughildsAuthority
-				new ItemDataEntry(222972, PluginItemTypes.Bracers, LegendaryItemTypes.AughildsAuthority), //AughildsSearch
-				new ItemDataEntry(197193, PluginItemTypes.Chest, LegendaryItemTypes.AughildsAuthority), //AughildsRule
-				new ItemDataEntry(224051, PluginItemTypes.Shoulders, LegendaryItemTypes.AughildsAuthority), //AughildsPower
-
 				//Tal Rashas
 				new ItemDataEntry(222486, PluginItemTypes.Amulet, LegendaryItemTypes.TalRashasElements), //TalRashasAllegiance
 				new ItemDataEntry(212657, PluginItemTypes.Belt, LegendaryItemTypes.TalRashasElements), //TalRashasBrace
@@ -1535,10 +1673,163 @@ namespace fBaseXtensions.Cache.External.Objects
 				//Istvans Paired Blades
 				new ItemDataEntry(313290, PluginItemTypes.Sword, LegendaryItemTypes.IstvansPairedBlades), //TheSlanderer
 				new ItemDataEntry(313291, PluginItemTypes.Sword, LegendaryItemTypes.IstvansPairedBlades), //LittleRogue
+ 
 
+				//CRAFTED SETS
+
+				//Ashearas Vestments
+				new ItemDataEntry(205618, PluginItemTypes.Boots, LegendaryItemTypes.AshearasVestments), //AshearasFinders
+				new ItemDataEntry(205636, PluginItemTypes.Gloves, LegendaryItemTypes.AshearasVestments), //AshearasWard
+				new ItemDataEntry(209054, PluginItemTypes.Pants, LegendaryItemTypes.AshearasVestments), //AshearasPace
+				new ItemDataEntry(225132, PluginItemTypes.Shoulders, LegendaryItemTypes.AshearasVestments), //AshearasCustodian
+
+				//DemonsHide
+				new ItemDataEntry(222741, PluginItemTypes.Bracers, LegendaryItemTypes.DemonsHide), //DemonsAnimus
+				new ItemDataEntry(205612, PluginItemTypes.Chest, LegendaryItemTypes.DemonsHide), //DemonsMarrow
+				new ItemDataEntry(224397, PluginItemTypes.Shoulders, LegendaryItemTypes.DemonsHide), //DemonsAileron
+				new ItemDataEntry(222740, PluginItemTypes.Belt, LegendaryItemTypes.DemonsHide), //DemonsRestraint
+
+				//Cain's Fate
+				new ItemDataEntry(197210, PluginItemTypes.Gloves, LegendaryItemTypes.CainsFate), //CainsScribe
+				new ItemDataEntry(197218, PluginItemTypes.Pants, LegendaryItemTypes.CainsFate), //CainsHabit
+				new ItemDataEntry(197225, PluginItemTypes.Boots, LegendaryItemTypes.CainsFate), //CainsTravelers
+				new ItemDataEntry(222559, PluginItemTypes.Helm, LegendaryItemTypes.CainsFate), //CainsMemory
+
+				//BornsDefiance
+				new ItemDataEntry(222948, PluginItemTypes.Shoulders, LegendaryItemTypes.BornsDefiance), //BornsPrivilege
+				new ItemDataEntry(197199, PluginItemTypes.Chest, LegendaryItemTypes.BornsDefiance), //BornsFrozenSoul
+
+				//AughildsAuthority
+				new ItemDataEntry(222972, PluginItemTypes.Bracers, LegendaryItemTypes.AughildsAuthority), //AughildsSearch
+				new ItemDataEntry(197193, PluginItemTypes.Chest, LegendaryItemTypes.AughildsAuthority), //AughildsRule
+				new ItemDataEntry(224051, PluginItemTypes.Shoulders, LegendaryItemTypes.AughildsAuthority), //AughildsPower
+
+				//GuardiansContingency
+				new ItemDataEntry(222976, PluginItemTypes.Belt, LegendaryItemTypes.GuardiansContingency), //GuardiansSheath
+ 
+				#endregion
 			};
-			#endregion
 
+#endregion
+
+#region Gem Cache
+			GemCache = new HashSet<ItemGemEntry>
+			{
+				new ItemGemEntry(56860, GemType.Amethyst, GemQualityTypes.Chipped),
+				new ItemGemEntry(56874, GemType.Diamond, GemQualityTypes.Chipped),
+				new ItemGemEntry(56888, GemType.Emerald, GemQualityTypes.Chipped),
+				new ItemGemEntry(56846, GemType.Ruby, GemQualityTypes.Chipped),
+				new ItemGemEntry(56916, GemType.Topaz, GemQualityTypes.Chipped),
+
+				new ItemGemEntry(56861, GemType.Amethyst, GemQualityTypes.Flawed),
+				new ItemGemEntry(56875, GemType.Diamond, GemQualityTypes.Flawed),
+				new ItemGemEntry(56889, GemType.Emerald, GemQualityTypes.Flawed),
+				new ItemGemEntry(56847, GemType.Ruby, GemQualityTypes.Flawed),
+				new ItemGemEntry(56917, GemType.Topaz, GemQualityTypes.Flawed),
+
+				new ItemGemEntry(56862, GemType.Amethyst, GemQualityTypes.Normal),
+				new ItemGemEntry(56876, GemType.Diamond, GemQualityTypes.Normal),
+				new ItemGemEntry(56890, GemType.Emerald, GemQualityTypes.Normal),
+				new ItemGemEntry(56848, GemType.Ruby, GemQualityTypes.Normal),
+				new ItemGemEntry(56918, GemType.Topaz, GemQualityTypes.Normal),
+
+				new ItemGemEntry(56863, GemType.Amethyst, GemQualityTypes.Flawless),
+				new ItemGemEntry(56877, GemType.Diamond, GemQualityTypes.Flawless),
+				new ItemGemEntry(56891, GemType.Emerald, GemQualityTypes.Flawless),
+				new ItemGemEntry(56849, GemType.Ruby, GemQualityTypes.Flawless),
+				new ItemGemEntry(56919, GemType.Topaz, GemQualityTypes.Flawless),
+				
+				new ItemGemEntry(56864, GemType.Amethyst, GemQualityTypes.Perfect),
+				new ItemGemEntry(56878, GemType.Diamond, GemQualityTypes.Perfect),
+				new ItemGemEntry(56892, GemType.Emerald, GemQualityTypes.Perfect),
+				new ItemGemEntry(56850, GemType.Ruby, GemQualityTypes.Perfect),
+				new ItemGemEntry(56920, GemType.Topaz, GemQualityTypes.Perfect),
+
+				new ItemGemEntry(56865, GemType.Amethyst, GemQualityTypes.Radiant),
+				new ItemGemEntry(56879, GemType.Diamond, GemQualityTypes.Radiant),
+				new ItemGemEntry(56893, GemType.Emerald, GemQualityTypes.Radiant),
+				new ItemGemEntry(56851, GemType.Ruby, GemQualityTypes.Radiant),
+				new ItemGemEntry(56921, GemType.Topaz, GemQualityTypes.Radiant),
+
+				new ItemGemEntry(56866, GemType.Amethyst, GemQualityTypes.Square),
+				new ItemGemEntry(56880, GemType.Diamond, GemQualityTypes.Square),
+				new ItemGemEntry(56894, GemType.Emerald, GemQualityTypes.Square),
+				new ItemGemEntry(56852, GemType.Ruby, GemQualityTypes.Square),
+				new ItemGemEntry(56922, GemType.Topaz, GemQualityTypes.Square),
+
+				new ItemGemEntry(56867, GemType.Amethyst, GemQualityTypes.FlawlessSquare),
+				new ItemGemEntry(56881, GemType.Diamond, GemQualityTypes.FlawlessSquare),
+				new ItemGemEntry(56895, GemType.Emerald, GemQualityTypes.FlawlessSquare),
+				new ItemGemEntry(56853, GemType.Ruby, GemQualityTypes.FlawlessSquare),
+				new ItemGemEntry(56923, GemType.Topaz, GemQualityTypes.FlawlessSquare),
+
+				new ItemGemEntry(56868, GemType.Amethyst, GemQualityTypes.PerfectSquare),
+				new ItemGemEntry(56882, GemType.Diamond, GemQualityTypes.PerfectSquare),
+				new ItemGemEntry(56896, GemType.Emerald, GemQualityTypes.PerfectSquare),
+				new ItemGemEntry(56854, GemType.Ruby, GemQualityTypes.PerfectSquare),
+				new ItemGemEntry(56924, GemType.Topaz, GemQualityTypes.PerfectSquare),
+
+				new ItemGemEntry(56869, GemType.Amethyst, GemQualityTypes.RadiantSquare),
+				new ItemGemEntry(56883, GemType.Diamond, GemQualityTypes.RadiantSquare),
+				new ItemGemEntry(56897, GemType.Emerald, GemQualityTypes.RadiantSquare),
+				new ItemGemEntry(56855, GemType.Ruby, GemQualityTypes.RadiantSquare),
+				new ItemGemEntry(56925, GemType.Topaz, GemQualityTypes.RadiantSquare),
+
+				new ItemGemEntry(56870, GemType.Amethyst, GemQualityTypes.Star),
+				new ItemGemEntry(56884, GemType.Diamond, GemQualityTypes.Star),
+				new ItemGemEntry(56898, GemType.Emerald, GemQualityTypes.Star),
+				new ItemGemEntry(56856, GemType.Ruby, GemQualityTypes.Star),
+				new ItemGemEntry(56926, GemType.Topaz, GemQualityTypes.Star),
+
+				new ItemGemEntry(56871, GemType.Amethyst, GemQualityTypes.FlawlessStar),
+				new ItemGemEntry(56885, GemType.Diamond, GemQualityTypes.FlawlessStar),
+				new ItemGemEntry(56899, GemType.Emerald, GemQualityTypes.FlawlessStar),
+				new ItemGemEntry(56857, GemType.Ruby, GemQualityTypes.FlawlessStar),
+				new ItemGemEntry(56927, GemType.Topaz, GemQualityTypes.FlawlessStar),
+
+				//TODO -- Add Perfect Star
+
+				new ItemGemEntry(283116, GemType.Amethyst, GemQualityTypes.Marquise),
+				new ItemGemEntry(361559, GemType.Diamond, GemQualityTypes.Marquise),
+				new ItemGemEntry(283117, GemType.Emerald, GemQualityTypes.Marquise),
+				new ItemGemEntry(283118, GemType.Ruby, GemQualityTypes.Marquise),
+				new ItemGemEntry(283119, GemType.Topaz, GemQualityTypes.Marquise),
+
+				new ItemGemEntry(361564, GemType.Amethyst, GemQualityTypes.Imperial),
+				new ItemGemEntry(361560, GemType.Diamond, GemQualityTypes.Imperial),
+				new ItemGemEntry(361492, GemType.Emerald, GemQualityTypes.Imperial),
+				new ItemGemEntry(361568, GemType.Ruby, GemQualityTypes.Imperial),
+				new ItemGemEntry(361572, GemType.Topaz, GemQualityTypes.Imperial),
+
+				new ItemGemEntry(361565, GemType.Amethyst, GemQualityTypes.FlawlessImperial),
+				new ItemGemEntry(361561, GemType.Diamond, GemQualityTypes.FlawlessImperial),
+				new ItemGemEntry(361493, GemType.Emerald, GemQualityTypes.FlawlessImperial),
+				new ItemGemEntry(361569, GemType.Ruby, GemQualityTypes.FlawlessImperial),
+				new ItemGemEntry(361573, GemType.Topaz, GemQualityTypes.FlawlessImperial),
+
+				new ItemGemEntry(361566, GemType.Amethyst, GemQualityTypes.Royal),
+				new ItemGemEntry(361562, GemType.Diamond, GemQualityTypes.Royal),
+				new ItemGemEntry(361494, GemType.Emerald, GemQualityTypes.Royal),
+				new ItemGemEntry(361570, GemType.Ruby, GemQualityTypes.Royal),
+				new ItemGemEntry(361574, GemType.Topaz, GemQualityTypes.Royal),
+
+				new ItemGemEntry(361567, GemType.Amethyst, GemQualityTypes.FlawlessRoyal),
+				new ItemGemEntry(361563, GemType.Diamond, GemQualityTypes.FlawlessRoyal),
+				new ItemGemEntry(361495, GemType.Emerald, GemQualityTypes.FlawlessRoyal),
+				new ItemGemEntry(361571, GemType.Ruby, GemQualityTypes.FlawlessRoyal),
+				new ItemGemEntry(361575, GemType.Topaz, GemQualityTypes.FlawlessRoyal),
+			};
+			
+#endregion
+
+		}
+
+		public void ClearCollections()
+		{
+			DroppedItemCache.Clear();
+			DroppedItemInternalNames.Clear();
+			ItemDataCache.Clear();
+			GemCache.Clear();
 		}
 
 		private static readonly string DefaultFilePath = Path.Combine(FolderPaths.PluginPath, "Cache", "External", "Dictionaries", "Cache_Items.xml");

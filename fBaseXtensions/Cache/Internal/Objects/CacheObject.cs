@@ -582,7 +582,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					{
 						typesValid |= TargetType.Door | TargetType.Barricade;
 					}
-					if (!ObjectCache.CheckTargetTypeFlag(targetType.Value, typesValid))
+					if (!ObjectCache.CheckFlag(targetType.Value, typesValid))
 					{
 						IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;
 						return false;

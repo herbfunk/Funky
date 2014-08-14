@@ -4,23 +4,6 @@
 	{
 		Unknown=0,
 
-		LoreBook,
-		InfernalKey,
-		KeyFragment,
-		CraftingMaterial,
-		HealthGlobe,
-		PowerGlobe,
-		Potion,
-		Gold,
-		BloodShard,
-
-		Amethyst,
-		Diamond,
-		Emerald,
-		Ruby,
-		Topaz,
-
-
 		Belt,
 		Boots,
 		Bracers,
@@ -29,7 +12,6 @@
 		Helm,
 		Pants,
 		Shoulders,
-		
 
 		Axe,
 		AxeTwoHanded,
@@ -53,15 +35,33 @@
 		SwordTwoHanded,
 		Wand,
 
+		Amulet,
+		Ring,
+		FollowerTrinket,
+
 		CrusaderShield,
 		Mojo,
 		Quiver,
 		Shield,
 		Source,
 
-		Ring,
-		Amulet,
-		FollowerTrinket,
+		CraftingMaterial,
+		InfernalKey,
+		KeyFragment,
+		LoreBook,
+
+		PowerGlobe,
+		HealthGlobe,
+		
+		Potion,
+		Gold,
+		BloodShard,
+
+		Amethyst,
+		Diamond,
+		Emerald,
+		Ruby,
+		Topaz,
 
 	}
 }

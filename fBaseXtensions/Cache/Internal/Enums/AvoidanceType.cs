@@ -115,6 +115,12 @@ namespace fBaseXtensions.Cache.Internal.Enums
 
 		  [XmlEnum(Name="Wall")]
 		  Wall,
+
+		  [XmlEnum(Name = "ZoltBubble")]
+		  ZoltBubble,
+		  [XmlEnum(Name = "ZoltTwister")]
+		  ZoltTwister,
+
 		  [XmlEnum(Name="None")]
 		  None,
 	 }

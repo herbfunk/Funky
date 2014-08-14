@@ -102,7 +102,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			public ActorType ActorType { get; set; }
 			public GizmoType GizmoType { get; set; }
 			public TargetType TargetType { get; set; }
-
+			public PluginDroppedItemTypes DroppedItemType { get; set; }
 
 			public DebugEntry()
 			{
@@ -111,7 +111,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				ActorType = ActorType.Invalid;
 				GizmoType = GizmoType.None;
 				TargetType = TargetType.None;
-
+				DroppedItemType = PluginDroppedItemTypes.Unknown;
 			}
 			public DebugEntry(CachedSNOEntry entry)
 			{
@@ -120,6 +120,35 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				ActorType = entry.Actortype.HasValue ? entry.Actortype.Value : ActorType.Invalid;
 				GizmoType = entry.Gizmotype.HasValue ? entry.Gizmotype.Value : GizmoType.None;
 				TargetType = entry.targetType.HasValue ? entry.targetType.Value : TargetType.None;
+				if (ActorType== ActorType.Item)
+					DroppedItemType = ItemFunc.DetermineDroppedItemType(Name, SNOID);
+			}
+			public DebugEntry(int snoid, string name, ActorType actortype, GizmoType gizmotype= GizmoType.None)
+			{
+				SNOID = snoid;
+				Name = name;
+				ActorType = actortype;
+				GizmoType = gizmotype;
+
+				if (ActorType == ActorType.Item)
+					DroppedItemType = ItemFunc.DetermineDroppedItemType(Name, SNOID);
+			}
+
+			public string ReturnCacheEntryString()
+			{
+				string returnString = "";
+				if (ActorType == ActorType.Item)
+				{
+					returnString = "new DroppedItemEntry(" + SNOID + ", ";
+					returnString = returnString + "PluginDroppedItemTypes." + DroppedItemType.ToString() + @", """ + Name + @"""),";
+				}
+				else if (ActorType == ActorType.Gizmo)
+				{
+					returnString = "new GizmoEntry(" + SNOID + ", ";
+					returnString = returnString + "GizmoType." + GizmoType.ToString() + @", """ + Name + @"""),";
+				}
+
+				return returnString;
 			}
 
 			public override int GetHashCode()
@@ -159,6 +188,13 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				Type = item.ItemType;
 				Quality = item.ThisQuality;
 			}
+			public DebugItemDataEntry(int snoid, string name, PluginItemTypes type, ItemQuality quality)
+			{
+				SNOID = snoid;
+				Name = name;
+				Type = type;
+				Quality = quality;
+			}
 
 			private string FormatString(string s)
 			{
@@ -187,6 +223,30 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				}
 
 				return retString;
+			}
+
+			public string ReturnCacheEntryString()
+			{
+				string returnString = "";
+
+				returnString = "new ItemDataEntry(" + SNOID + ", PluginItemTypes." + Type.ToString();
+				if (Quality== ItemQuality.Legendary)
+				{
+					try
+					{
+						var LegendaryItemType = (LegendaryItemTypes)Enum.Parse(typeof(LegendaryItemTypes), Name);
+						returnString = returnString + ", LegendaryItemTypes." + LegendaryItemType.ToString() + "),";
+					}
+					catch (ArgumentException)
+					{
+						returnString = returnString + ", LegendaryItemTypes.None), //" + Name;
+
+					}
+				}
+				else
+					returnString = returnString + "),";
+
+				return returnString;
 			}
 
 			public override int GetHashCode()
@@ -229,6 +289,20 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				ActorType = ActorType.Monster;
 				UnitFlags = entry.UnitPropertyFlags.HasValue ? entry.UnitPropertyFlags.Value : UnitFlags.None;
 				TargetType = TargetType.Unit;
+			}
+			public DebugUnitEntry(int snoid, string name, UnitFlags flags)
+			{
+				SNOID = snoid;
+				Name = name;
+				ActorType = ActorType.Monster;
+				UnitFlags = flags;
+				TargetType = TargetType.Unit;
+			}
+
+			public string ReturnCacheEntryString()
+			{
+				string sUnitFlags = "UnitFlags." + UnitFlags.ToString().Replace(", ", " | UnitFlags.");
+				return "new UnitEntry(" + SNOID + ", UnitFlags." + sUnitFlags + @", """ + Name + @"""),";
 			}
 
 			public override int GetHashCode()
@@ -283,7 +357,9 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		{
 			string[] delimiter = new string[] { "<DebugEntry>\r\n" };
 			string[] entryStrings = s.TrimStart().Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
-			string finalString = String.Empty;
+			List<DebugEntry> Entries = new List<DebugEntry>();
+
+			
 			foreach (var entryString in entryStrings)
 			{
 				string[] splitStrings = entryString.Split(Convert.ToChar("\n"));
@@ -305,28 +381,44 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				name = ExtractDataFromXMLTag(name);
 				if (name == String.Empty) return String.Empty;
 
-				string returnString = "";
-				if (ActorType == ActorType.Item)
+				GizmoType gizmotype = GizmoType.None;
+				if (ActorType == ActorType.Gizmo)
 				{
-					returnString = "new DroppedItemEntry(" + sSnoID + ", ";
-
-					PluginDroppedItemTypes itemtype = ItemFunc.DetermineDroppedItemType(name, iSNOID);
-					returnString = returnString + "PluginDroppedItemTypes." + itemtype.ToString() + @", """ + name + @"""),";
-				}
-				else if (ActorType == ActorType.Gizmo)
-				{
-					returnString = "new GizmoEntry(" + sSnoID + ", ";
-
 					string sGizmoType = splitStrings.FirstOrDefault(str => str.TrimStart().StartsWith("<GizmoType>"));
 					if (sGizmoType == null) return String.Empty;
 					sGizmoType = ExtractDataFromXMLTag(sGizmoType);
 					if (sGizmoType == String.Empty) return String.Empty;
-					returnString = returnString + "GizmoType." + sGizmoType + @", """ + name + @"""),";
+					gizmotype = (GizmoType)Enum.Parse(typeof(GizmoType), sGizmoType);
 				}
 
+				Entries.Add(new DebugEntry(iSNOID, name, ActorType, gizmotype));
+
+				//string returnString = "";
+				//if (ActorType == ActorType.Item)
+				//{
+				//	returnString = "new DroppedItemEntry(" + sSnoID + ", ";
+
+				//	PluginDroppedItemTypes itemtype = ItemFunc.DetermineDroppedItemType(name, iSNOID);
+				//	returnString = returnString + "PluginDroppedItemTypes." + itemtype.ToString() + @", """ + name + @"""),";
+				//}
+				//else if (ActorType == ActorType.Gizmo)
+				//{
+				//	returnString = "new GizmoEntry(" + sSnoID + ", ";
+
+					
+				//	returnString = returnString + "GizmoType." + sGizmoType + @", """ + name + @"""),";
+				//}
 
 
-				finalString = finalString + returnString + "\r\n";
+
+				//finalString = finalString + returnString + "\r\n";
+			}
+
+
+			string finalString = String.Empty;
+			foreach (var entry in Entries.OrderBy(e => e.DroppedItemType))
+			{
+				finalString = finalString + entry.ReturnCacheEntryString() + "\r\n";
 			}
 
 			return finalString;
@@ -370,7 +462,9 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		{
 			string[] delimiter = new string[] { "<DebugItemDataEntry>\r\n" };
 			string[] entryStrings = s.TrimStart().Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
-			string finalString = String.Empty;
+			
+			List<DebugItemDataEntry> Entries = new List<DebugItemDataEntry>();
+
 			foreach (var entryString in entryStrings)
 			{
 				string[] splitStrings = entryString.Split(Convert.ToChar("\n"));
@@ -400,29 +494,37 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				if (sQuality == String.Empty) return String.Empty;
 				var Quality = (ItemQuality)Enum.Parse(typeof(ItemQuality), sQuality);
 
-				string returnString = "";
+				Entries.Add(new DebugItemDataEntry(iSNOID, name, ItemType, Quality));
 
-				returnString = "new ItemDataEntry(" + sSnoID + ", PluginItemTypes." + ItemType.ToString();
+				//string returnString = "";
 
-				if (Quality == ItemQuality.Legendary)
-				{
-					try
-					{
-						var LegendaryItemType = (LegendaryItemTypes)Enum.Parse(typeof(LegendaryItemTypes), name);
-						returnString = returnString + ", LegendaryItemTypes." + LegendaryItemType.ToString() + "),";
-					}
-					catch (ArgumentException)
-					{
-						returnString = returnString + ", LegendaryItemTypes.None), //" + name;
+				//returnString = "new ItemDataEntry(" + sSnoID + ", PluginItemTypes." + ItemType.ToString();
 
-					}
-				}
-				else
-					returnString = returnString + "),";
+				//if (Quality == ItemQuality.Legendary)
+				//{
+				//	try
+				//	{
+				//		var LegendaryItemType = (LegendaryItemTypes)Enum.Parse(typeof(LegendaryItemTypes), name);
+				//		returnString = returnString + ", LegendaryItemTypes." + LegendaryItemType.ToString() + "),";
+				//	}
+				//	catch (ArgumentException)
+				//	{
+				//		returnString = returnString + ", LegendaryItemTypes.None), //" + name;
+
+				//	}
+				//}
+				//else
+				//	returnString = returnString + "),";
 
 
 
-				finalString = finalString + returnString + "\r\n";
+				//finalString = finalString + returnString + "\r\n";
+			}
+
+			string finalString = String.Empty;
+			foreach (var entry in Entries.OrderBy(e => e.Type))
+			{
+				finalString = finalString + entry.ReturnCacheEntryString() + "\r\n";
 			}
 
 			return finalString;

@@ -2,6 +2,7 @@
 using System.Linq;
 using fBaseXtensions.Cache;
 using fBaseXtensions.Cache.External.Objects;
+using fBaseXtensions.Cache.Internal;
 using Zeta.Game.Internals.Actors;
 using fBaseXtensions.Items.Enums;
 
@@ -12,13 +13,13 @@ namespace fBaseXtensions.Items
 		public static ItemStringEntry DetermineIsItemActorType(string internalName)
 		{
 			internalName = internalName.ToLower();
-			return TheCache.ObjectIDCache.Items.DroppedItemInternalNames.FirstOrDefault(entry => internalName.Contains(entry.ID));
+			return TheCache.ObjectIDCache.ItemDroppedInternalNames.FirstOrDefault(entry => internalName.Contains(entry.ID));
 		}
 		public static PluginDroppedItemTypes DetermineDroppedItemType(int SNO, string internalname="")
 		{
 			bool searchName = internalname != "";
 			//TheCache.ObjectIDCache.FindDroppedItemEntry(SNO);
-			var retEntry = TheCache.ObjectIDCache.Items.DroppedItemCache.FirstOrDefault(e => e.SnoId == SNO || (searchName && e.InternalName != String.Empty && String.Compare(internalname, e.InternalName, StringComparison.InvariantCultureIgnoreCase) > 0));
+			var retEntry = TheCache.ObjectIDCache.ItemDroppedEntries.Values.FirstOrDefault(e => e.SnoId == SNO || (searchName && e.InternalName != String.Empty && String.Compare(internalname, e.InternalName, StringComparison.InvariantCultureIgnoreCase) > 0));
 			//var retEntry = SNOCache.IdCollections.ItemsSno.DroppedItems.FirstOrDefault(e => e.Sno == SNO);
 			if (retEntry != null) return (PluginDroppedItemTypes)retEntry.ObjectType;
 			return PluginDroppedItemTypes.Unknown;
@@ -286,19 +287,20 @@ namespace fBaseXtensions.Items
 
 			return PluginBaseItemTypes.Unknown;
 		}
+
 		public static PluginItemTypes DetermineItemType(string sThisInternalName, ItemType DBItemType, FollowerType dbFollowerType = FollowerType.None, int snoid = -1)
 		{
 			sThisInternalName = sThisInternalName.ToLower();
 
 			if (snoid != -1)
 			{
-				PluginItemTypes types;
-				if (DetermineItemTypeUsingSNO(snoid, out types))
+				ItemDataEntry itemEntry;
+				if (TheCache.ObjectIDCache.ItemDataEntries.TryGetValue(snoid, out itemEntry))
 				{
-					return types;
+					return itemEntry.ItemType;
 				}
 			}
-			
+
 			if (sThisInternalName.Contains("ruby_")) return PluginItemTypes.Ruby;
 			if (sThisInternalName.Contains("emerald_")) return PluginItemTypes.Emerald;
 			if (sThisInternalName.Contains("topaz_")) return PluginItemTypes.Topaz;
@@ -321,7 +323,6 @@ namespace fBaseXtensions.Items
 			// Fall back on some partial DB item type checking 
 			if (sThisInternalName.Contains("crafting_") || sThisInternalName.Contains("craftingmaterials_"))
 			{
-				if (ItemSnoCache.CraftingMaterialSNOIds.Contains(snoid)) return PluginItemTypes.CraftingMaterial;
 				if (DBItemType == ItemType.CraftingPage) return PluginItemTypes.CraftTome;
 				return PluginItemTypes.CraftingMaterial;
 			}
@@ -430,68 +431,68 @@ namespace fBaseXtensions.Items
 
 			return PluginItemTypes.Unknown;
 		}
-		public static bool DetermineItemTypeUsingSNO(int snoid, out PluginItemTypes types)
-		{
-			types = PluginItemTypes.Unknown;
+		//public static bool DetermineItemTypeUsingSNO(int snoid, out PluginItemTypes types)
+		//{
+		//	types = PluginItemTypes.Unknown;
 
-			if (ItemSnoCache.GEMS_AmethystSNOIds.Contains(snoid))
-			{
-				types = PluginItemTypes.Amethyst;
-				return true;
-			}
-			if (ItemSnoCache.GEMS_RubySNOIds.Contains(snoid))
-			{
-				types = PluginItemTypes.Ruby;
-				return true;
-			}
-			if (ItemSnoCache.GEMS_TopazSNOIds.Contains(snoid))
-			{
-				types = PluginItemTypes.Topaz;
-				return true;
-			}
-			if (ItemSnoCache.GEMS_EmeraldSNOIds.Contains(snoid))
-			{
-				types = PluginItemTypes.Emerald;
-				return true;
-			}
-			if (ItemSnoCache.GEMS_DiamondSNOIds.Contains(snoid))
-			{
-				types = PluginItemTypes.Diamond;
-				return true;
-			}
-			if (ItemSnoCache.HealthPotionSNOIds.Contains(snoid))
-			{
-				types = PluginItemTypes.HealthPotion;
-				return true;
-			}
-			if (ItemSnoCache.CraftingMaterialSNOIds.Contains(snoid))
-			{
-				types = PluginItemTypes.CraftingMaterial;
-				return true;
-			}
-			if (ItemSnoCache.InfernalKeySNOIds.Contains(snoid))
-			{
-				types = PluginItemTypes.InfernalKey;
-				return true;
-			}
-			if (ItemSnoCache.MiscItemSNOIds.Contains(snoid))
-			{
-				types = PluginItemTypes.CraftingMaterial;
-				return true;
-			}
-			if (ItemSnoCache.DyesSNOIds.Contains(snoid))
-			{
-				types = PluginItemTypes.Dye;
-				return true;
-			}
-			if (ItemSnoCache.HoradricCacheSNOIds.Contains(snoid))
-			{
-				types=PluginItemTypes.HoradricCache;
-				return true;
-			}
+		//	if (ItemSnoCache.GEMS_AmethystSNOIds.Contains(snoid))
+		//	{
+		//		types = PluginItemTypes.Amethyst;
+		//		return true;
+		//	}
+		//	if (ItemSnoCache.GEMS_RubySNOIds.Contains(snoid))
+		//	{
+		//		types = PluginItemTypes.Ruby;
+		//		return true;
+		//	}
+		//	if (ItemSnoCache.GEMS_TopazSNOIds.Contains(snoid))
+		//	{
+		//		types = PluginItemTypes.Topaz;
+		//		return true;
+		//	}
+		//	if (ItemSnoCache.GEMS_EmeraldSNOIds.Contains(snoid))
+		//	{
+		//		types = PluginItemTypes.Emerald;
+		//		return true;
+		//	}
+		//	if (ItemSnoCache.GEMS_DiamondSNOIds.Contains(snoid))
+		//	{
+		//		types = PluginItemTypes.Diamond;
+		//		return true;
+		//	}
+		//	if (ItemSnoCache.HealthPotionSNOIds.Contains(snoid))
+		//	{
+		//		types = PluginItemTypes.HealthPotion;
+		//		return true;
+		//	}
+		//	if (ItemSnoCache.CraftingMaterialSNOIds.Contains(snoid))
+		//	{
+		//		types = PluginItemTypes.CraftingMaterial;
+		//		return true;
+		//	}
+		//	if (ItemSnoCache.InfernalKeySNOIds.Contains(snoid))
+		//	{
+		//		types = PluginItemTypes.InfernalKey;
+		//		return true;
+		//	}
+		//	if (ItemSnoCache.MiscItemSNOIds.Contains(snoid))
+		//	{
+		//		types = PluginItemTypes.CraftingMaterial;
+		//		return true;
+		//	}
+		//	if (ItemSnoCache.DyesSNOIds.Contains(snoid))
+		//	{
+		//		types = PluginItemTypes.Dye;
+		//		return true;
+		//	}
+		//	if (ItemSnoCache.HoradricCacheSNOIds.Contains(snoid))
+		//	{
+		//		types=PluginItemTypes.HoradricCache;
+		//		return true;
+		//	}
 
-			return types != PluginItemTypes.Unknown;
-		}
+		//	return types != PluginItemTypes.Unknown;
+		//}
 		public static PluginBaseItemTypes DetermineBaseType(PluginItemTypes thisPluginItemTypes)
 		{
 			PluginBaseItemTypes thisGilesBaseTypes = PluginBaseItemTypes.Unknown;
@@ -750,18 +751,11 @@ namespace fBaseXtensions.Items
 		}
 		public static GemQualityTypes ReturnGemQualityType(int snoid, int itemLevel)
 		{
-			if (ItemSnoCache.GemsSNOIds.Contains(snoid))
+
+			if (TheCache.ObjectIDCache.ItemGemEntries.ContainsKey(snoid))
 			{
-				if (ItemSnoCache.GEMS_FlawlessSNOIds.Contains(snoid)) return GemQualityTypes.Flawless;
-				if (ItemSnoCache.GEMS_PerfectSNOIds.Contains(snoid)) return GemQualityTypes.Perfect;
-				if (ItemSnoCache.GEMS_RadiantSNOIds.Contains(snoid)) return GemQualityTypes.Radiant;
-				if (ItemSnoCache.GEMS_SquareSNOIds.Contains(snoid)) return GemQualityTypes.Square;
-				if (ItemSnoCache.GEMS_FlawlessSquareSNOIds.Contains(snoid)) return GemQualityTypes.FlawlessSquare;
-				if (ItemSnoCache.GEMS_MarquiseSNOIds.Contains(snoid)) return GemQualityTypes.Marquise;
-				if (ItemSnoCache.GEMS_ImperialSNOIds.Contains(snoid)) return GemQualityTypes.Imperial;
-				if (ItemSnoCache.GEMS_FlawlessImperialSNOIds.Contains(snoid)) return GemQualityTypes.FlawlessImperial;
-				if (ItemSnoCache.GEMS_RoyalSNOIds.Contains(snoid)) return GemQualityTypes.Royal;
-				if (ItemSnoCache.GEMS_FlawlessRoyalSNOIds.Contains(snoid)) return GemQualityTypes.FlawlessRoyal;
+				var entry = TheCache.ObjectIDCache.ItemGemEntries[snoid];
+				return entry.Quality;
 			}
 
 			if (itemLevel == 14) return GemQualityTypes.Chipped;

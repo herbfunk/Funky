@@ -9,6 +9,13 @@
       <UnitFlags>TreasureGoblin</UnitFlags>
     </UnitEntry>
     <UnitEntry>
+      <SnoId>5985</SnoId>
+      <InternalName>treasureGoblin_B-16978</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>TreasureGoblin</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
       <SnoId>5987</SnoId>
       <InternalName>treasureGoblin_C-8189</InternalName>
       <ActorType>Monster</ActorType>
@@ -23,6 +30,27 @@
       <UnitFlags>TreasureGoblin</UnitFlags>
     </UnitEntry>
     <UnitEntry>
+      <SnoId>86624</SnoId>
+      <InternalName>Adventurer_D_TemplarIntroUnique-17287</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Boss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>3526</SnoId>
+      <InternalName>Butcher-14105</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Boss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>51341</SnoId>
+      <InternalName>SpiderQueen-9649</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Boss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
       <SnoId>5350</SnoId>
       <InternalName>SkeletonKing</InternalName>
       <ActorType>Monster</ActorType>
@@ -30,39 +58,186 @@
       <UnitFlags>Boss</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>218462</SnoId>
-      <InternalName>Spider_Poison_A_Unique_02-7479</InternalName>
+      <SnoId>98879</SnoId>
+      <InternalName>graveDigger_Warden-18500</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast</UnitFlags>
+      <UnitFlags>Boss Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>129012</SnoId>
-      <InternalName>Goatman_Melee_B_Ghost-9549</InternalName>
+      <SnoId>218364</SnoId>
+      <InternalName>Skeleton_A_Unique_03-1788</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>Rare</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>218674</SnoId>
-      <InternalName>Triune_Berserker_A_Unique_02-13348</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>105959</SnoId>
-      <InternalName>TriuneCultist_C_TortureLeader-14148</InternalName>
+      <SnoId>189906</SnoId>
+      <InternalName>TriuneVesselActivated_A_Unique_Tower_Of_Power-20073</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>Rare</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>260237</SnoId>
-      <InternalName>TriuneCultist_A_VendorRescue_Unique-12735</InternalName>
+      <SnoId>361349</SnoId>
+      <InternalName>Unique_CaptainDaltyn_AdventureMode-3477</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>Rare</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>210591</SnoId>
+      <InternalName>a2dun_Spider_EggSack_Clusters_E-9340</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>171193</SnoId>
+      <InternalName>a2dun_Spider_EggSack_Clusters-9339</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218458</SnoId>
+      <InternalName>Spider_Poison_A_Unique_01-8192</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Rare</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>176054</SnoId>
+      <InternalName>zombieCrawler_Spawner_B-4613</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>76856</SnoId>
+      <InternalName>ZombieCrawler_Custom_A-5374</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4308</SnoId>
+      <InternalName>GoatWarrior_piece_spear-3220</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>81982</SnoId>
+      <InternalName>FleshPitFlyerSpawner_B_Event_FarmAmbush-6604</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>81954</SnoId>
+      <InternalName>FleshPitFlyer_B_Event_Ambusher-6670</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>260231</SnoId>
+      <InternalName>FleshPitFlyer_B_FarmhouseAmbush_Unique-7236</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>365425</SnoId>
+      <InternalName>Skeleton_B_Unique_01-7935</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218307</SnoId>
+      <InternalName>Corpulent_A_Unique_01-1428</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>169533</SnoId>
+      <InternalName>Goatman_Shaman_B_Unique_MysticWagon-6395</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>129222</SnoId>
+      <InternalName>Goatman_Shaman_Highlands_Barricade-5657</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>230832</SnoId>
+      <InternalName>Shield_Skeleton_Jail-15038</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>230834</SnoId>
+      <InternalName>SkeletonArcher_Jail-15043</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4203</SnoId>
+      <InternalName>Ghoul_C-15058</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>434</SnoId>
+      <InternalName>skeleton_twoHander_B-15280</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Rare</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5389</SnoId>
+      <InternalName>SkeletonSummoner_C-15686</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged Summoner</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>3849</SnoId>
+      <InternalName>Corpulent_C-15764</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Grotesque</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>202856</SnoId>
+      <InternalName>electricEel_B-16203</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218536</SnoId>
+      <InternalName>Beast_A_Unique_02-12159</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>AdventureModeBoss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>365335</SnoId>
+      <InternalName>Beast_A_Unique_03-4661</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>AdventureModeBoss</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>3337</SnoId>
@@ -72,11 +247,151 @@
       <UnitFlags>Rare</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>365330</SnoId>
-      <InternalName>Goatman_Melee_A_Unique_03-5431</InternalName>
+      <SnoId>3338</SnoId>
+      <InternalName>Beast_B-19030</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>Rare</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218308</SnoId>
+      <InternalName>Corpulent_A_Unique_02-2709</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Grotesque AdventureModeBoss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>365450</SnoId>
+      <InternalName>Corpulent_A_Unique_03-9354</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Grotesque AdventureModeBoss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>3847</SnoId>
+      <InternalName>Corpulent_A-457</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Grotesque</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218405</SnoId>
+      <InternalName>Corpulent_B_Unique_01-1470</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Grotesque AdventureModeBoss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>3848</SnoId>
+      <InternalName>Corpulent_B-1087</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Grotesque</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>77090</SnoId>
+      <InternalName>CryptChild_A_FamilyTree_Son-5518</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Fast AdventureModeBoss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>3893</SnoId>
+      <InternalName>CryptChild_A-8219</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>3894</SnoId>
+      <InternalName>CryptChild_B-1792</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218362</SnoId>
+      <InternalName>FleshPitFlyer_A_Unique_02-985</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4156</SnoId>
+      <InternalName>FleshPitFlyer_A-536</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Rare Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4157</SnoId>
+      <InternalName>FleshPitFlyer_B-4355</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>195747</SnoId>
+      <InternalName>FleshPitFlyer_E-18877</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>104424</SnoId>
+      <InternalName>FleshPitFlyer_Leoric_Inferno-10916</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4152</SnoId>
+      <InternalName>FleshPitFlyerSpawner_A-6429</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Summoner</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4153</SnoId>
+      <InternalName>FleshPitFlyerSpawner_B-4352</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Summoner</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4154</SnoId>
+      <InternalName>FleshPitFlyerSpawner_C-12440</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Summoner</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>136943</SnoId>
+      <InternalName>Ghost_A_NoRun-5601</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218441</SnoId>
+      <InternalName>Ghost_A_Unique_02-5704</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>156353</SnoId>
+      <InternalName>Ghost_A_Unique_Chancellor-12860</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>85971</SnoId>
+      <InternalName>Ghost_A_Unique_House1000Undead-3742</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Fast Flying</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>370</SnoId>
@@ -86,57 +401,50 @@
       <UnitFlags>Rare Fast Flying</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>294664</SnoId>
-      <InternalName>x1_Ghoul_A_Challenge-1856</InternalName>
+      <SnoId>4201</SnoId>
+      <InternalName>Ghoul_A-7213</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>375</SnoId>
-      <InternalName>Goatman_Shaman_B-4749</InternalName>
+      <SnoId>129000</SnoId>
+      <InternalName>Goatman_Melee_A_Ghost-8170</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal Ranged</UnitFlags>
+      <UnitFlags>Rare Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>5395</SnoId>
-      <InternalName>Skeleton_B-8092</InternalName>
+      <SnoId>365330</SnoId>
+      <InternalName>Goatman_Melee_A_Unique_03-5431</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Unique</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>5387</SnoId>
-      <InternalName>SkeletonSummoner_A-3074</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal Ranged Summoner</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>5393</SnoId>
-      <InternalName>Skeleton_A-3088</InternalName>
+      <SnoId>4282</SnoId>
+      <InternalName>Goatman_Melee_A-4378</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>5346</SnoId>
-      <InternalName>SkeletonArcher_A-3093</InternalName>
+      <SnoId>129012</SnoId>
+      <InternalName>Goatman_Melee_B_Ghost-9549</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal Ranged</UnitFlags>
+      <UnitFlags>Rare</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>5275</SnoId>
-      <InternalName>Shield_Skeleton_A-3100</InternalName>
+      <SnoId>218469</SnoId>
+      <InternalName>Goatman_Melee_B_Unique_01-4436</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Fast AdventureModeBoss</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>6356</SnoId>
-      <InternalName>Unburied_A-3007</InternalName>
+      <SnoId>4283</SnoId>
+      <InternalName>Goatman_Melee_B-8932</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>Normal</UnitFlags>
@@ -149,83 +457,6 @@
       <UnitFlags>Normal Ranged</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>4282</SnoId>
-      <InternalName>Goatman_Melee_A-4378</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>4157</SnoId>
-      <InternalName>FleshPitFlyer_B-4355</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal Flying</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>4153</SnoId>
-      <InternalName>FleshPitFlyerSpawner_B-4352</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal Summoner</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>139454</SnoId>
-      <InternalName>WoodWraith_A_02-4412</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>5236</SnoId>
-      <InternalName>Scavenger_B-5021</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal Fast Burrowing</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>4983</SnoId>
-      <InternalName>QuillDemon_B-6082</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal Ranged</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>166726</SnoId>
-      <InternalName>Spider_Poison_A-7111</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>5467</SnoId>
-      <InternalName>Spiderling_A-7140</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>4201</SnoId>
-      <InternalName>Ghoul_A-7213</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>5474</SnoId>
-      <InternalName>Spider_A-7259</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>4283</SnoId>
-      <InternalName>Goatman_Melee_B-8932</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
       <SnoId>4287</SnoId>
       <InternalName>Goatman_Ranged_B-8930</InternalName>
       <ActorType>Monster</ActorType>
@@ -233,11 +464,11 @@
       <UnitFlags>Normal Ranged</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>99556</SnoId>
-      <InternalName>WitherMoth_A_Hidden-8944</InternalName>
+      <SnoId>218508</SnoId>
+      <InternalName>Goatman_Shaman_A_Unique_01-7630</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Unique</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>4290</SnoId>
@@ -247,211 +478,50 @@
       <UnitFlags>Normal Ranged</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>6024</SnoId>
-      <InternalName>TriuneCultist_A-9509</InternalName>
+      <SnoId>76676</SnoId>
+      <InternalName>Goatman_Shaman_B_Unique-11733</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Unique</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>170324</SnoId>
-      <InternalName>WoodWraith_B_01-9529</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>495</SnoId>
-      <InternalName>WoodWraith_B_03-9685</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>166452</SnoId>
-      <InternalName>trOut_Highlands_Goatmen_SummoningMachine_A_Node-10023</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>170325</SnoId>
-      <InternalName>WoodWraith_B_02-10029</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>6035</SnoId>
-      <InternalName>TriuneSummoner_A-10080</InternalName>
+      <SnoId>375</SnoId>
+      <InternalName>Goatman_Shaman_B-4749</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>Normal Ranged</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>6059</SnoId>
-      <InternalName>Triune_Summonable_A-10084</InternalName>
+      <SnoId>366975</SnoId>
+      <InternalName>Goatman_Shaman_C_Unique_01-11475</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>AdventureModeBoss</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>6046</SnoId>
-      <InternalName>TriuneVessel_A-12145</InternalName>
+      <SnoId>366981</SnoId>
+      <InternalName>Goatman_Shaman_C_Unique_02-10983</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>AdventureModeBoss</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>6359</SnoId>
-      <InternalName>Unburied_C-12299</InternalName>
+      <SnoId>255704</SnoId>
+      <InternalName>GoatMutant_Ranged_A_Unique_Uber-3308</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Unique Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>6052</SnoId>
-      <InternalName>Triune_Berserker_A-12360</InternalName>
+      <SnoId>218206</SnoId>
+      <InternalName>graveDigger_B_Ghost_Unique-9675</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Fast AdventureModeBoss</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>113949</SnoId>
-      <InternalName>ZombieCrawler_Custom_C-13275</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>6042</SnoId>
-      <InternalName>TriuneVesselActivated_A-13288</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>100956</SnoId>
-      <InternalName>Spawner_Leor_Iron_Maiden-14866</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>90453</SnoId>
-      <InternalName>Zombie_Inferno_C-14953</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>3847</SnoId>
-      <InternalName>Corpulent_A-457</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal Grotesque</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>6646</SnoId>
-      <InternalName>ZombieSkinny_B-459</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>6644</SnoId>
-      <InternalName>ZombieSkinny_A-481</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>6652</SnoId>
-      <InternalName>Zombie_A-477</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>4156</SnoId>
-      <InternalName>FleshPitFlyer_A-536</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Flying</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>6632</SnoId>
-      <InternalName>ZombieCrawler_A-560</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>4564</SnoId>
-      <InternalName>Lamprey_A-684</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>6023</SnoId>
-      <InternalName>trist_Urn_Tall-2629</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>364563</SnoId>
-      <InternalName>QuillDemon_FastAttack_A-5555</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal Ranged</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>364508</SnoId>
-      <InternalName>ZombieFemale_Spitter_A-5560</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>6653</SnoId>
-      <InternalName>Zombie_B-5575</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>6639</SnoId>
-      <InternalName>ZombieFemale_B-5768</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal Summoner</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>5235</SnoId>
-      <InternalName>Scavenger_A-5765</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal Fast Burrowing</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>123160</SnoId>
-      <InternalName>ZombieCrawler_Custom_B-5786</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>4152</SnoId>
-      <InternalName>FleshPitFlyerSpawner_A-6429</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal Summoner</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>3893</SnoId>
-      <InternalName>CryptChild_A-8219</InternalName>
+      <SnoId>131278</SnoId>
+      <InternalName>graveDigger_B_Ghost-8312</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>Normal</UnitFlags>
@@ -464,8 +534,547 @@
       <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>131278</SnoId>
-      <InternalName>graveDigger_B_Ghost-8312</InternalName>
+      <SnoId>4372</SnoId>
+      <InternalName>graveRobber_A-11397</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Rare</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4373</SnoId>
+      <InternalName>graveRobber_B-22477</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Rare</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>174013</SnoId>
+      <InternalName>graveRobber_C_Nigel-23714</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Rare Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4376</SnoId>
+      <InternalName>graveRobber_C-23602</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4377</SnoId>
+      <InternalName>graveRobber_D-23646</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4564</SnoId>
+      <InternalName>Lamprey_A-684</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4982</SnoId>
+      <InternalName>QuillDemon_A-8892</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Rare Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4983</SnoId>
+      <InternalName>QuillDemon_B-6082</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>364563</SnoId>
+      <InternalName>QuillDemon_FastAttack_A-5555</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5235</SnoId>
+      <InternalName>Scavenger_A-5765</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Fast Burrowing</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5236</SnoId>
+      <InternalName>Scavenger_B-5021</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Fast Burrowing</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5275</SnoId>
+      <InternalName>Shield_Skeleton_A-3100</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5276</SnoId>
+      <InternalName>Shield_Skeleton_B-4932</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Rare</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>112134</SnoId>
+      <InternalName>Shield_Skeleton_NephChamp-5788</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Rare</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>115403</SnoId>
+      <InternalName>Skeleton_A_Cain_Unique-7172</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>87012</SnoId>
+      <InternalName>Skeleton_A_Cain-7076</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>105863</SnoId>
+      <InternalName>Skeleton_A_TemplarIntro_NoWander-16176</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>104725</SnoId>
+      <InternalName>Skeleton_A_TemplarIntro-16340</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5393</SnoId>
+      <InternalName>Skeleton_A-3088</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5395</SnoId>
+      <InternalName>Skeleton_B-8092</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>80652</SnoId>
+      <InternalName>Skeleton_Cain-7031</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5411</SnoId>
+      <InternalName>skeleton_twoHander_A-982</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218400</SnoId>
+      <InternalName>SkeletonArcher_A_Unique_01-2825</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Ranged AdventureModeBoss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5346</SnoId>
+      <InternalName>SkeletonArcher_A-3093</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5347</SnoId>
+      <InternalName>SkeletonArcher_B-5230</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>179343</SnoId>
+      <InternalName>SkeletonArcher_F-4928</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>104728</SnoId>
+      <InternalName>SkeletonSummoner_A_TemplarIntro-16466</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5387</SnoId>
+      <InternalName>SkeletonSummoner_A-3074</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged Summoner</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5388</SnoId>
+      <InternalName>SkeletonSummoner_B-24350</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged Summoner</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>100956</SnoId>
+      <InternalName>Spawner_Leor_Iron_Maiden-14866</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>122367</SnoId>
+      <InternalName>Spider_A_SpiderQueen_Minion-9756</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218448</SnoId>
+      <InternalName>Spider_A_Unique_01-8699</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Fast AdventureModeBoss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5474</SnoId>
+      <InternalName>Spider_A-7259</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218462</SnoId>
+      <InternalName>Spider_Poison_A_Unique_02-7479</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>166726</SnoId>
+      <InternalName>Spider_Poison_A-7111</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>370696</SnoId>
+      <InternalName>Spiderling_A_CursedChest-17137</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218456</SnoId>
+      <InternalName>Spiderling_A_Unique_01-6619</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5467</SnoId>
+      <InternalName>Spiderling_A-7140</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>176907</SnoId>
+      <InternalName>trDun_Cath_Skeleton_SummoningMachine-1008</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6023</SnoId>
+      <InternalName>trist_Urn_Tall-2629</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218674</SnoId>
+      <InternalName>Triune_Berserker_A_Unique_02-13348</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6052</SnoId>
+      <InternalName>Triune_Berserker_A-12360</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6059</SnoId>
+      <InternalName>Triune_Summonable_A-10084</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>145745</SnoId>
+      <InternalName>TriuneCultist_A_Templar-16276</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>366998</SnoId>
+      <InternalName>TriuneCultist_A_Unique_03-12855</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>AdventureModeBoss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>260237</SnoId>
+      <InternalName>TriuneCultist_A_VendorRescue_Unique-12735</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6024</SnoId>
+      <InternalName>TriuneCultist_A-9509</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>366990</SnoId>
+      <InternalName>TriuneCultist_B_Unique_01-10375</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>105959</SnoId>
+      <InternalName>TriuneCultist_C_TortureLeader-14148</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Rare</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>178213</SnoId>
+      <InternalName>TriuneCultist_E-9420</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218662</SnoId>
+      <InternalName>TriuneSummoner_A_Unique_01-23267</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Ranged AdventureModeBoss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>131131</SnoId>
+      <InternalName>TriuneSummoner_A_Unique_SwordOfJustice-22011</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Ranged Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6035</SnoId>
+      <InternalName>TriuneSummoner_A-10080</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged Summoner</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6046</SnoId>
+      <InternalName>TriuneVessel_A-12145</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6042</SnoId>
+      <InternalName>TriuneVesselActivated_A-13288</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>166452</SnoId>
+      <InternalName>trOut_Highlands_Goatmen_SummoningMachine_A_Node-10023</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>76953</SnoId>
+      <InternalName>Unburied_A_Unique-12652</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6356</SnoId>
+      <InternalName>Unburied_A-3007</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>365906</SnoId>
+      <InternalName>Unburied_C_Unique_01-3328</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>AdventureModeBoss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6359</SnoId>
+      <InternalName>Unburied_C-12299</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>99556</SnoId>
+      <InternalName>WitherMoth_A_Hidden-8944</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6500</SnoId>
+      <InternalName>WitherMoth_A-6229</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6572</SnoId>
+      <InternalName>WoodWraith_A_01-4841</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal AvoidanceSummoner</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>139454</SnoId>
+      <InternalName>WoodWraith_A_02-4412</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal AvoidanceSummoner</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>139456</SnoId>
+      <InternalName>WoodWraith_A_03-3352</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal AvoidanceSummoner</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>170324</SnoId>
+      <InternalName>WoodWraith_B_01-9529</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal AvoidanceSummoner</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>170325</SnoId>
+      <InternalName>WoodWraith_B_02-10029</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal AvoidanceSummoner</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>495</SnoId>
+      <InternalName>WoodWraith_B_03-9685</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal AvoidanceSummoner</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>332432</SnoId>
+      <InternalName>x1_devilshand_unique_SkeletonSummoner_B-8145</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Ranged AdventureModeBoss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>294664</SnoId>
+      <InternalName>x1_Ghoul_A_Challenge-1856</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>365632</SnoId>
+      <InternalName>x1_SpeedKill_SkeletonKing-776</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>AdventureModeBoss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>77085</SnoId>
+      <InternalName>Zombie_A_FamilyTree_Father-5481</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>AdventureModeBoss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6652</SnoId>
+      <InternalName>Zombie_A-477</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6653</SnoId>
+      <InternalName>Zombie_B-5575</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6654</SnoId>
+      <InternalName>Zombie_C-10516</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>204256</SnoId>
+      <InternalName>Zombie_E-4755</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>90453</SnoId>
+      <InternalName>Zombie_Inferno_C-14953</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6632</SnoId>
+      <InternalName>ZombieCrawler_A-560</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>Normal</UnitFlags>
@@ -478,32 +1087,965 @@
       <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>218448</SnoId>
-      <InternalName>Spider_A_Unique_01-8699</InternalName>
+      <SnoId>218367</SnoId>
+      <InternalName>ZombieCrawler_Barricade_A-647</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6634</SnoId>
+      <InternalName>ZombieCrawler_C-11088</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>123160</SnoId>
+      <InternalName>ZombieCrawler_Custom_B-5786</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>113949</SnoId>
+      <InternalName>ZombieCrawler_Custom_C-13275</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218813</SnoId>
+      <InternalName>ZombieCrawler_E-4982</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>85900</SnoId>
+      <InternalName>ZombieFemale_A_BlacksmithA-8082</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Fast Summoner</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>77087</SnoId>
+      <InternalName>ZombieFemale_A_FamilyTree_Mother-5494</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>AdventureModeBoss</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>218206</SnoId>
-      <InternalName>graveDigger_B_Ghost_Unique-9675</InternalName>
+      <SnoId>219725</SnoId>
+      <InternalName>ZombieFemale_A_TristramQuest_Unique-1359</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>AdventureModeBoss</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>365906</SnoId>
-      <InternalName>Unburied_C_Unique_01-3328</InternalName>
+      <SnoId>108444</SnoId>
+      <InternalName>ZombieFemale_A_TristramQuest-1604</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>AdventureModeBoss</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>332432</SnoId>
-      <InternalName>x1_devilshand_unique_SkeletonSummoner_B-8145</InternalName>
+      <SnoId>6639</SnoId>
+      <InternalName>ZombieFemale_B-5768</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Unique Boss TreasureGoblin Ranged Fast Stealthable Burrowing Summoner SucideBomber Grotesque ReflectiveMissle Flying</UnitFlags>
+      <UnitFlags>Normal Summoner</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6640</SnoId>
+      <InternalName>ZombieFemale_C-4599</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Summoner</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>364508</SnoId>
+      <InternalName>ZombieFemale_Spitter_A-5560</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>176889</SnoId>
+      <InternalName>ZombieFemale_Unique_WretchedQueen-2822</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>203121</SnoId>
+      <InternalName>ZombieSkinny_A_LeahInn-980</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>209608</SnoId>
+      <InternalName>ZombieSkinny_A_Unique_01-1337</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Fast AdventureModeBoss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6644</SnoId>
+      <InternalName>ZombieSkinny_A-481</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6646</SnoId>
+      <InternalName>ZombieSkinny_B-459</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6647</SnoId>
+      <InternalName>ZombieSkinny_C-11485</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218339</SnoId>
+      <InternalName>ZombieSkinny_Custom_A-280</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>6651</SnoId>
+      <InternalName>ZombieSkinny_D-4597</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>139757</SnoId>
+      <InternalName>Nephalem_Ghost_A_DrownedTemple_Martyr_Skeleton-26979</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>139715</SnoId>
+      <InternalName>Nephalem_Ghost_A_DrownedTemple_Martyr2_Skeleton-27128</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>139756</SnoId>
+      <InternalName>Nephalem_Ghost_A_DrownedTemple_Martyr3_Skeleton-27130</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>139713</SnoId>
+      <InternalName>Nephalem_Ghost_A_DrownedTemple_Martyr1_Skeleton-27140</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>90008</SnoId>
+      <InternalName>TownAttackCultistMelee-27395</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>90367</SnoId>
+      <InternalName>TownAttack_Cultist-28100</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>178619</SnoId>
+      <InternalName>TownAttack_Summoner_Unique-28361</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>178300</SnoId>
+      <InternalName>TownAttack_Berserker-28517</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Rare Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>178297</SnoId>
+      <InternalName>TownAttack_Summoner-28528</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>186039</SnoId>
+      <InternalName>TriuneSummoner_A_CainEvent-29198</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218947</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Burrowing Worm</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>144400</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Burrowing Worm</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5088</SnoId>
+      <InternalName>Rockworm_A</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Burrowing Worm</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5090</SnoId>
+      <InternalName>Rockworm_D</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Burrowing Worm</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>203048</SnoId>
+      <InternalName>Rockworm_A3_Crater</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Burrowing Worm</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>220777</SnoId>
+      <InternalName>Rockworm_A3_Crater_Unique_01</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Burrowing Worm</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>220851</SnoId>
+      <InternalName>Rockworm_A3_Crater_Unique_02</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Burrowing Worm</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>3384</SnoId>
+      <InternalName>Bloodhawk_A</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Burrowing Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>222011</SnoId>
+      <InternalName>Bloodhawk_A_Unique_01</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Burrowing Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>222385</SnoId>
+      <InternalName>Bloodhawk_A_Unique_02</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Burrowing Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>3385</SnoId>
+      <InternalName>Bloodhawk_B</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Burrowing Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>3980</SnoId>
+      <InternalName>DuneDervish_A</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal ReflectiveMissle Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>140947</SnoId>
+      <InternalName>DuneDervish_A_DyingManMine</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique ReflectiveMissle Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>3981</SnoId>
+      <InternalName>DuneDervish_B</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal ReflectiveMissle Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>256000</SnoId>
+      <InternalName>DuneDervish_B_Unique_Uber</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique ReflectiveMissle Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>3982</SnoId>
+      <InternalName>DuneDervish_C</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal ReflectiveMissle Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5191</SnoId>
+      <InternalName>SandMonster_A</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Burrowing ReflectiveMissle</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>226849</SnoId>
+      <InternalName>SandMonster_A_Eternal_Guardian_ZoltBoss</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Burrowing ReflectiveMissle</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>116299</SnoId>
+      <InternalName>SandMonster_A_Gauntlet</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Burrowing ReflectiveMissle</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>164502</SnoId>
+      <InternalName>SandMonster_A_Head_Guardian</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Burrowing ReflectiveMissle</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>219832</SnoId>
+      <InternalName>sandMonster_A_PortalRoulette</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Burrowing ReflectiveMissle</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5192</SnoId>
+      <InternalName>SandMonster_B</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Burrowing ReflectiveMissle</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>222413</SnoId>
+      <InternalName>SandMonster_B_Unique_01</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Burrowing ReflectiveMissle</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5193</SnoId>
+      <InternalName>SandMonster_C</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Burrowing ReflectiveMissle</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>222523</SnoId>
+      <InternalName>SandMonster_C_Unique_01</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Burrowing ReflectiveMissle</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5194</SnoId>
+      <InternalName>SandMonster_D</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Burrowing ReflectiveMissle</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5187</SnoId>
+      <InternalName>Sandling_A</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Fast Burrowing</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5188</SnoId>
+      <InternalName>Sandling_B</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Fast Burrowing</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5189</SnoId>
+      <InternalName>Sandling_C</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Fast Burrowing</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5199</SnoId>
+      <InternalName>SandShark_A</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Burrowing</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>221402</SnoId>
+      <InternalName>SandShark_A_Unique_01</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Burrowing</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>156738</SnoId>
+      <InternalName>SandShark_B_SewerSharkEvent</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Burrowing</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5432</SnoId>
+      <InternalName>SnakeMan_Melee_A</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Stealthable</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5433</SnoId>
+      <InternalName>SnakeMan_Melee_B</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Stealthable</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5434</SnoId>
+      <InternalName>SnakeMan_Melee_C</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Stealthable</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>213842</SnoId>
+      <InternalName>SnakeMan_Melee_A_AdriaRescue</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Stealthable</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>160525</SnoId>
+      <InternalName>SnakeMan_Melee_A_EscapeFromCaldeum</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Stealthable</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>60816</SnoId>
+      <InternalName>SnakeMan_Melee_C_Khamsin</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Stealthable</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4093</SnoId>
+      <InternalName>FallenLunatic_A</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal SucideBomber</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4094</SnoId>
+      <InternalName>FallenLunatic_A</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal SucideBomber</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4095</SnoId>
+      <InternalName>FallenLunatic_A</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal SucideBomber</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>231356</SnoId>
+      <InternalName>FallenLunatic_A</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal SucideBomber</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>343767</SnoId>
+      <InternalName>X1_LR_Boss_MalletDemon</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>AdventureModeBoss MalletLord</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>219751</SnoId>
+      <InternalName>MalletDemon_A_Unique</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique MalletLord</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>219736</SnoId>
+      <InternalName>MalletDemon_A_Unique_01</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique MalletLord</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>106709</SnoId>
+      <InternalName>MalletDemon_A_Unique_01</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal MalletLord</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>106714</SnoId>
+      <InternalName>TerrorDemon_A</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Debuffing</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>196102</SnoId>
+      <InternalName>TerrorDemon_A_Unique_1000Monster</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Debuffing</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>256034</SnoId>
+      <InternalName>TerrorDemon_A_Unique_Uber</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Debuffing</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5508</SnoId>
+      <InternalName>Succubus_A</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Flying Debuffing</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>209596</SnoId>
+      <InternalName>Succubus_A_Unique_01</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Flying Debuffing</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>152679</SnoId>
+      <InternalName>Succubus_B</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Flying Debuffing</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>219673</SnoId>
+      <InternalName>Succubus_C_Unique_01</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Flying Debuffing</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>152535</SnoId>
+      <InternalName>Succubus_DaughterOfPain</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Flying Debuffing</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4080</SnoId>
+      <InternalName>FallenGrunt_A</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Fast Revivable</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4083</SnoId>
+      <InternalName>FallenGrunt_B</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Fast Revivable</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4084</SnoId>
+      <InternalName>FallenGrunt_C</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Fast Revivable</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4085</SnoId>
+      <InternalName>FallenGrunt_D</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Fast Revivable</UnitFlags>
     </UnitEntry>
   </UnitEntries>
+  <UnitPetEntries>
+    <UnitPetEntry>
+      <SnoId>158941</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>DEMONHUNTER_SpikeTrap</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>111330</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>DEMONHUNTER_SpikeTrap</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>169123</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>MONK_MysticAlly</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>123885</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>MONK_MysticAlly</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>169890</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>MONK_MysticAlly</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>168878</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>MONK_MysticAlly</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>169891</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>MONK_MysticAlly</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>169077</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>MONK_MysticAlly</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>169904</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>MONK_MysticAlly</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>169907</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>MONK_MysticAlly</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>169906</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>MONK_MysticAlly</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>169908</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>MONK_MysticAlly</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>169905</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>MONK_MysticAlly</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>169909</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>MONK_MysticAlly</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>179780</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WITCHDOCTOR_Gargantuan</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>179778</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WITCHDOCTOR_Gargantuan</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>179772</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WITCHDOCTOR_Gargantuan</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>179779</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WITCHDOCTOR_Gargantuan</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>179776</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WITCHDOCTOR_Gargantuan</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>122305</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WITCHDOCTOR_Gargantuan</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>110959</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WITCHDOCTOR_ZombieDogs</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>103235</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WITCHDOCTOR_ZombieDogs</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>103215</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WITCHDOCTOR_ZombieDogs</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>105763</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WITCHDOCTOR_ZombieDogs</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>103217</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WITCHDOCTOR_ZombieDogs</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>51353</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WITCHDOCTOR_ZombieDogs</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>178664</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>DEMONHUNTER_Pet</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>173827</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>DEMONHUNTER_Pet</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>133741</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>DEMONHUNTER_Pet</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>159144</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>DEMONHUNTER_Pet</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>181748</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>DEMONHUNTER_Pet</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>159098</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>DEMONHUNTER_Pet</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>80745</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WIZARD_Hydra</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>81515</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WIZARD_Hydra</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>82111</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WIZARD_Hydra</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>82972</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WIZARD_Hydra</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>82109</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WIZARD_Hydra</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>83959</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WIZARD_Hydra</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>325807</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WIZARD_Hydra</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>150027</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>DEMONHUNTER_Sentry</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>150026</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>DEMONHUNTER_Sentry</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>168815</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>DEMONHUNTER_Sentry</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>150024</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>DEMONHUNTER_Sentry</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>150025</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>DEMONHUNTER_Sentry</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>141402</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>DEMONHUNTER_Sentry</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>87189</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WITCHDOCTOR_Fetish</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>89933</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WITCHDOCTOR_Fetish</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>89934</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WITCHDOCTOR_Fetish</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>90072</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <PetTypes>WITCHDOCTOR_Fetish</PetTypes>
+    </UnitPetEntry>
+  </UnitPetEntries>
 </UnitData>

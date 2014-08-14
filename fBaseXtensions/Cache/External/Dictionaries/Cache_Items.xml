@@ -107,6 +107,13 @@
       <PluginDroppedItemTypes>Boots</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>3432</SnoId>
+      <InternalName>Boots_norm_base_01-3932</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Boots</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>56323</SnoId>
       <InternalName>Bracers_norm_base_01</InternalName>
       <ActorType>Item</ActorType>
@@ -611,6 +618,13 @@
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>3844</SnoId>
+      <InternalName>combatStaff_norm_base_flippy_04-10439</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>3913</SnoId>
       <InternalName>Dagger_norm_base_flippy_04-7545</InternalName>
       <ActorType>Item</ActorType>
@@ -863,6 +877,13 @@
       <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>82635</SnoId>
+      <InternalName>handXbow_norm_base_flippy_02-4807</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>4653</SnoId>
       <InternalName>Mace_norm_base_flippy_01</InternalName>
       <ActorType>Item</ActorType>
@@ -1038,6 +1059,13 @@
       <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>6336</SnoId>
+      <InternalName>twoHandedMace_norm_base_flippy_01-6334</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>144192</SnoId>
       <InternalName>mightyWeapon_1H_norm_base_flippy_02-1494</InternalName>
       <ActorType>Item</ActorType>
@@ -1066,6 +1094,13 @@
       <PluginDroppedItemTypes>MightyWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>139060</SnoId>
+      <InternalName>mightyWeapon_1H_norm_base_flippy_01-2042</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>MightyWeapon</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>367171</SnoId>
       <InternalName>x1_mightyWeapon_2H_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
@@ -1075,6 +1110,34 @@
     <DroppedItemEntry>
       <SnoId>335395</SnoId>
       <InternalName>x1_mightyWeapon_2H_norm_base_flippy_01-3363</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>MightyWeaponTwoHanded</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>139066</SnoId>
+      <InternalName>mightyWeapon_2H_norm_base_flippy_01-7780</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>MightyWeaponTwoHanded</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>144262</SnoId>
+      <InternalName>mightyWeapon_2H_norm_base_flippy_02-4331</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>MightyWeaponTwoHanded</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>144263</SnoId>
+      <InternalName>mightyWeapon_2H_norm_base_flippy_03-6700</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>MightyWeaponTwoHanded</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>144264</SnoId>
+      <InternalName>mightyWeapon_2H_norm_base_flippy_04-6834</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>MightyWeaponTwoHanded</PluginDroppedItemTypes>
@@ -1220,6 +1283,13 @@
       <PluginDroppedItemTypes>Spear</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>191452</SnoId>
+      <InternalName>Spear_norm_unique_flippy_01-26405</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Spear</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>5491</SnoId>
       <InternalName>Staff_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
@@ -1306,6 +1376,13 @@
     <DroppedItemEntry>
       <SnoId>5490</SnoId>
       <InternalName>Staff_norm_base_flippy_01-14597</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>5495</SnoId>
+      <InternalName>Staff_norm_base_flippy_06-14562</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
@@ -1507,6 +1584,13 @@
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>271641</SnoId>
+      <InternalName>x1_twoHandedSword_norm_unique_flippy_12-3925</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>6431</SnoId>
       <InternalName>Wand_norm_base_flippy_05-11528</InternalName>
       <ActorType>Item</ActorType>
@@ -1628,6 +1712,13 @@
     <DroppedItemEntry>
       <SnoId>316612</SnoId>
       <InternalName>x1_CruShield_norm_base_flippy_02-3319</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>CrusaderShield</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>335037</SnoId>
+      <InternalName>x1_CruShield_norm_base_07-17026</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>CrusaderShield</PluginDroppedItemTypes>
@@ -1850,6 +1941,13 @@
       <PluginDroppedItemTypes>Source</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>4818</SnoId>
+      <InternalName>orb_norm_base_flippy_04-24761</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Source</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>137958</SnoId>
       <InternalName>CraftingMaterials_Flippy_Global</InternalName>
       <ActorType>Item</ActorType>
@@ -1873,6 +1971,13 @@
     <DroppedItemEntry>
       <SnoId>371083</SnoId>
       <InternalName>CraftingReagent_Legendary_Unique_Gloves_001_x1-8035</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>CraftingMaterial</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>367009</SnoId>
+      <InternalName>CraftingReagent_Legendary_Unique_Sword_1H_019_x1-6052</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>CraftingMaterial</PluginDroppedItemTypes>
@@ -2918,6 +3023,26 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>3178</SnoId>
+      <ItemType>Amulet</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3174</SnoId>
+      <ItemType>Amulet</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3175</SnoId>
+      <ItemType>Amulet</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3177</SnoId>
+      <ItemType>Amulet</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>5044</SnoId>
       <ItemType>Ring</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -2963,6 +3088,46 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>5042</SnoId>
+      <ItemType>Ring</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5022</SnoId>
+      <ItemType>Ring</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5023</SnoId>
+      <ItemType>Ring</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5024</SnoId>
+      <ItemType>Ring</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5026</SnoId>
+      <ItemType>Ring</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5027</SnoId>
+      <ItemType>Ring</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5028</SnoId>
+      <ItemType>Ring</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5031</SnoId>
+      <ItemType>Ring</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>253996</SnoId>
       <ItemType>Belt</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -2994,6 +3159,41 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>139137</SnoId>
+      <ItemType>Belt</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3350</SnoId>
+      <ItemType>Belt</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3351</SnoId>
+      <ItemType>Belt</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3352</SnoId>
+      <ItemType>Belt</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3353</SnoId>
+      <ItemType>Belt</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3354</SnoId>
+      <ItemType>Belt</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3355</SnoId>
+      <ItemType>Belt</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139131</SnoId>
       <ItemType>Belt</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -3034,6 +3234,36 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>58904</SnoId>
+      <ItemType>Boots</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3432</SnoId>
+      <ItemType>Boots</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3433</SnoId>
+      <ItemType>Boots</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3434</SnoId>
+      <ItemType>Boots</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>330</SnoId>
+      <ItemType>Boots</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3436</SnoId>
+      <ItemType>Boots</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3435</SnoId>
       <ItemType>Boots</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -3113,6 +3343,31 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>3799</SnoId>
+      <ItemType>Chest</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3800</SnoId>
+      <ItemType>Chest</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3801</SnoId>
+      <ItemType>Chest</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3802</SnoId>
+      <ItemType>Chest</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3803</SnoId>
+      <ItemType>Chest</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>367188</SnoId>
       <ItemType>Cloak</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -3124,6 +3379,16 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>139089</SnoId>
+      <ItemType>Cloak</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139086</SnoId>
+      <ItemType>Cloak</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139088</SnoId>
       <ItemType>Cloak</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -3159,6 +3424,46 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>58921</SnoId>
+      <ItemType>Gloves</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4256</SnoId>
+      <ItemType>Gloves</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4257</SnoId>
+      <ItemType>Gloves</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4258</SnoId>
+      <ItemType>Gloves</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4259</SnoId>
+      <ItemType>Gloves</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4260</SnoId>
+      <ItemType>Gloves</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4261</SnoId>
+      <ItemType>Gloves</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>58916</SnoId>
+      <ItemType>Gloves</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>58918</SnoId>
       <ItemType>Gloves</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -3203,6 +3508,36 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>57785</SnoId>
+      <ItemType>Helm</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4447</SnoId>
+      <ItemType>Helm</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4448</SnoId>
+      <ItemType>Helm</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4449</SnoId>
+      <ItemType>Helm</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4450</SnoId>
+      <ItemType>Helm</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4451</SnoId>
+      <ItemType>Helm</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>253984</SnoId>
       <ItemType>Pants</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -3238,12 +3573,72 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>58938</SnoId>
+      <ItemType>Pants</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4825</SnoId>
+      <ItemType>Pants</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4826</SnoId>
+      <ItemType>Pants</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4827</SnoId>
+      <ItemType>Pants</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4828</SnoId>
+      <ItemType>Pants</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4829</SnoId>
+      <ItemType>Pants</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4830</SnoId>
+      <ItemType>Pants</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>58923</SnoId>
+      <ItemType>Pants</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>367173</SnoId>
       <ItemType>MightyBelt</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>367172</SnoId>
+      <ItemType>MightyBelt</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139072</SnoId>
+      <ItemType>MightyBelt</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139074</SnoId>
+      <ItemType>MightyBelt</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139075</SnoId>
+      <ItemType>MightyBelt</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139076</SnoId>
       <ItemType>MightyBelt</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -3284,6 +3679,31 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>58695</SnoId>
+      <ItemType>Shoulders</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>58699</SnoId>
+      <ItemType>Shoulders</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>58702</SnoId>
+      <ItemType>Shoulders</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5281</SnoId>
+      <ItemType>Shoulders</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5282</SnoId>
+      <ItemType>Shoulders</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5283</SnoId>
       <ItemType>Shoulders</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -3338,6 +3758,16 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>139124</SnoId>
+      <ItemType>WizardHat</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139127</SnoId>
+      <ItemType>WizardHat</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>367143</SnoId>
       <ItemType>Axe</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -3369,6 +3799,16 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>3251</SnoId>
+      <ItemType>Axe</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3250</SnoId>
+      <ItemType>Axe</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3245</SnoId>
       <ItemType>Axe</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -3408,13 +3848,18 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
-      <SnoId>327966</SnoId>
-      <ItemType>TwoHandDaibo</ItemType>
+      <SnoId>3906</SnoId>
+      <ItemType>Dagger</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
-      <SnoId>367191</SnoId>
-      <ItemType>TwoHandDaibo</ItemType>
+      <SnoId>3904</SnoId>
+      <ItemType>Dagger</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3909</SnoId>
+      <ItemType>Dagger</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
@@ -3429,6 +3874,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>247379</SnoId>
+      <ItemType>Flail</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>246811</SnoId>
       <ItemType>Flail</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -3463,6 +3913,26 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>82626</SnoId>
+      <ItemType>HandCrossbow</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>82639</SnoId>
+      <ItemType>HandCrossbow</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>145082</SnoId>
+      <ItemType>HandCrossbow</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>145083</SnoId>
+      <ItemType>HandCrossbow</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>367147</SnoId>
       <ItemType>Mace</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -3493,12 +3963,47 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>4645</SnoId>
+      <ItemType>Mace</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4649</SnoId>
+      <ItemType>Mace</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>394</SnoId>
+      <ItemType>Mace</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>367168</SnoId>
       <ItemType>MightyWeapon</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>335340</SnoId>
+      <ItemType>MightyWeapon</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139044</SnoId>
+      <ItemType>MightyWeapon</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139059</SnoId>
+      <ItemType>MightyWeapon</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139062</SnoId>
+      <ItemType>MightyWeapon</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139063</SnoId>
       <ItemType>MightyWeapon</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -3514,6 +4019,21 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>5455</SnoId>
+      <ItemType>Spear</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5452</SnoId>
+      <ItemType>Spear</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5453</SnoId>
+      <ItemType>Spear</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5454</SnoId>
       <ItemType>Spear</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -3538,6 +4058,31 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>5516</SnoId>
+      <ItemType>Sword</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5520</SnoId>
+      <ItemType>Sword</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5523</SnoId>
+      <ItemType>Sword</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5522</SnoId>
+      <ItemType>Sword</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5525</SnoId>
+      <ItemType>Sword</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>335159</SnoId>
       <ItemType>TwoHandAxe</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -3554,6 +4099,21 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>6322</SnoId>
+      <ItemType>TwoHandAxe</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>6320</SnoId>
+      <ItemType>TwoHandAxe</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>6321</SnoId>
+      <ItemType>TwoHandAxe</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>6323</SnoId>
       <ItemType>TwoHandAxe</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -3578,6 +4138,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>3449</SnoId>
+      <ItemType>TwoHandBow</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>335189</SnoId>
       <ItemType>TwoHandCrossbow</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -3595,6 +4160,41 @@
     <ItemDataEntry>
       <SnoId>6613</SnoId>
       <ItemType>TwoHandCrossbow</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>497</SnoId>
+      <ItemType>TwoHandCrossbow</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>6612</SnoId>
+      <ItemType>TwoHandCrossbow</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>98159</SnoId>
+      <ItemType>TwoHandCrossbow</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>327966</SnoId>
+      <ItemType>TwoHandDaibo</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>367191</SnoId>
+      <ItemType>TwoHandDaibo</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3837</SnoId>
+      <ItemType>TwoHandDaibo</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3838</SnoId>
+      <ItemType>TwoHandDaibo</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
@@ -3638,12 +4238,42 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>6330</SnoId>
+      <ItemType>TwoHandMace</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>6333</SnoId>
+      <ItemType>TwoHandMace</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>367170</SnoId>
       <ItemType>TwoHandMighty</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>221451</SnoId>
+      <ItemType>TwoHandMighty</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139064</SnoId>
+      <ItemType>TwoHandMighty</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139069</SnoId>
+      <ItemType>TwoHandMighty</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139070</SnoId>
+      <ItemType>TwoHandMighty</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139071</SnoId>
       <ItemType>TwoHandMighty</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -3673,6 +4303,26 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>4866</SnoId>
+      <ItemType>TwoHandPolearm</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4867</SnoId>
+      <ItemType>TwoHandPolearm</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4868</SnoId>
+      <ItemType>TwoHandPolearm</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4870</SnoId>
+      <ItemType>TwoHandPolearm</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>367162</SnoId>
       <ItemType>TwoHandStaff</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -3698,6 +4348,26 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>438</SnoId>
+      <ItemType>TwoHandStaff</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5486</SnoId>
+      <ItemType>TwoHandStaff</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5488</SnoId>
+      <ItemType>TwoHandStaff</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5484</SnoId>
+      <ItemType>TwoHandStaff</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>335139</SnoId>
       <ItemType>TwoHandSword</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -3709,6 +4379,26 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>6345</SnoId>
+      <ItemType>TwoHandSword</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>6342</SnoId>
+      <ItemType>TwoHandSword</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>6344</SnoId>
+      <ItemType>TwoHandSword</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>6343</SnoId>
+      <ItemType>TwoHandSword</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>483</SnoId>
       <ItemType>TwoHandSword</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -3734,6 +4424,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>6426</SnoId>
+      <ItemType>Wand</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>6423</SnoId>
       <ItemType>Wand</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -3773,6 +4468,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>305908</SnoId>
+      <ItemType>CrusaderShield</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>335259</SnoId>
       <ItemType>Mojo</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -3783,12 +4483,27 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>139096</SnoId>
+      <ItemType>Mojo</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>367204</SnoId>
       <ItemType>Source</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>327063</SnoId>
+      <ItemType>Source</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4812</SnoId>
+      <ItemType>Source</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4813</SnoId>
       <ItemType>Source</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -3839,6 +4554,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>426</SnoId>
+      <ItemType>Shield</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5259</SnoId>
       <ItemType>Shield</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -4504,6 +5224,21 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>148288</SnoId>
+      <ItemType>Dye</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>148300</SnoId>
+      <ItemType>Dye</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>148306</SnoId>
+      <ItemType>Dye</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>148289</SnoId>
       <ItemType>Dye</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -6578,86 +7313,6 @@
       <LegendaryType>ThornsoftheInvoker</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
-      <SnoId>205618</SnoId>
-      <ItemType>Boots</ItemType>
-      <LegendaryType>AshearasVestments</LegendaryType>
-    </ItemDataEntry>
-    <ItemDataEntry>
-      <SnoId>205636</SnoId>
-      <ItemType>Gloves</ItemType>
-      <LegendaryType>AshearasVestments</LegendaryType>
-    </ItemDataEntry>
-    <ItemDataEntry>
-      <SnoId>209054</SnoId>
-      <ItemType>Pants</ItemType>
-      <LegendaryType>AshearasVestments</LegendaryType>
-    </ItemDataEntry>
-    <ItemDataEntry>
-      <SnoId>225132</SnoId>
-      <ItemType>Shoulders</ItemType>
-      <LegendaryType>AshearasVestments</LegendaryType>
-    </ItemDataEntry>
-    <ItemDataEntry>
-      <SnoId>222741</SnoId>
-      <ItemType>Bracers</ItemType>
-      <LegendaryType>DemonsHide</LegendaryType>
-    </ItemDataEntry>
-    <ItemDataEntry>
-      <SnoId>205612</SnoId>
-      <ItemType>Chest</ItemType>
-      <LegendaryType>DemonsHide</LegendaryType>
-    </ItemDataEntry>
-    <ItemDataEntry>
-      <SnoId>224397</SnoId>
-      <ItemType>Shoulders</ItemType>
-      <LegendaryType>DemonsHide</LegendaryType>
-    </ItemDataEntry>
-    <ItemDataEntry>
-      <SnoId>222740</SnoId>
-      <ItemType>Belt</ItemType>
-      <LegendaryType>DemonsHide</LegendaryType>
-    </ItemDataEntry>
-    <ItemDataEntry>
-      <SnoId>197210</SnoId>
-      <ItemType>Gloves</ItemType>
-      <LegendaryType>CainsDestiny</LegendaryType>
-    </ItemDataEntry>
-    <ItemDataEntry>
-      <SnoId>197218</SnoId>
-      <ItemType>Pants</ItemType>
-      <LegendaryType>CainsDestiny</LegendaryType>
-    </ItemDataEntry>
-    <ItemDataEntry>
-      <SnoId>197225</SnoId>
-      <ItemType>Boots</ItemType>
-      <LegendaryType>CainsDestiny</LegendaryType>
-    </ItemDataEntry>
-    <ItemDataEntry>
-      <SnoId>222948</SnoId>
-      <ItemType>Shoulders</ItemType>
-      <LegendaryType>BornsDefiance</LegendaryType>
-    </ItemDataEntry>
-    <ItemDataEntry>
-      <SnoId>197199</SnoId>
-      <ItemType>Chest</ItemType>
-      <LegendaryType>BornsDefiance</LegendaryType>
-    </ItemDataEntry>
-    <ItemDataEntry>
-      <SnoId>222972</SnoId>
-      <ItemType>Bracers</ItemType>
-      <LegendaryType>AughildsAuthority</LegendaryType>
-    </ItemDataEntry>
-    <ItemDataEntry>
-      <SnoId>197193</SnoId>
-      <ItemType>Chest</ItemType>
-      <LegendaryType>AughildsAuthority</LegendaryType>
-    </ItemDataEntry>
-    <ItemDataEntry>
-      <SnoId>224051</SnoId>
-      <ItemType>Shoulders</ItemType>
-      <LegendaryType>AughildsAuthority</LegendaryType>
-    </ItemDataEntry>
-    <ItemDataEntry>
       <SnoId>222486</SnoId>
       <ItemType>Amulet</ItemType>
       <LegendaryType>TalRashasElements</LegendaryType>
@@ -6822,5 +7477,522 @@
       <ItemType>Sword</ItemType>
       <LegendaryType>IstvansPairedBlades</LegendaryType>
     </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>205618</SnoId>
+      <ItemType>Boots</ItemType>
+      <LegendaryType>AshearasVestments</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>205636</SnoId>
+      <ItemType>Gloves</ItemType>
+      <LegendaryType>AshearasVestments</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>209054</SnoId>
+      <ItemType>Pants</ItemType>
+      <LegendaryType>AshearasVestments</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>225132</SnoId>
+      <ItemType>Shoulders</ItemType>
+      <LegendaryType>AshearasVestments</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>222741</SnoId>
+      <ItemType>Bracers</ItemType>
+      <LegendaryType>DemonsHide</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>205612</SnoId>
+      <ItemType>Chest</ItemType>
+      <LegendaryType>DemonsHide</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>224397</SnoId>
+      <ItemType>Shoulders</ItemType>
+      <LegendaryType>DemonsHide</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>222740</SnoId>
+      <ItemType>Belt</ItemType>
+      <LegendaryType>DemonsHide</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>197210</SnoId>
+      <ItemType>Gloves</ItemType>
+      <LegendaryType>CainsFate</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>197218</SnoId>
+      <ItemType>Pants</ItemType>
+      <LegendaryType>CainsFate</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>197225</SnoId>
+      <ItemType>Boots</ItemType>
+      <LegendaryType>CainsFate</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>222559</SnoId>
+      <ItemType>Helm</ItemType>
+      <LegendaryType>CainsFate</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>222948</SnoId>
+      <ItemType>Shoulders</ItemType>
+      <LegendaryType>BornsDefiance</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>197199</SnoId>
+      <ItemType>Chest</ItemType>
+      <LegendaryType>BornsDefiance</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>222972</SnoId>
+      <ItemType>Bracers</ItemType>
+      <LegendaryType>AughildsAuthority</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>197193</SnoId>
+      <ItemType>Chest</ItemType>
+      <LegendaryType>AughildsAuthority</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>224051</SnoId>
+      <ItemType>Shoulders</ItemType>
+      <LegendaryType>AughildsAuthority</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>222976</SnoId>
+      <ItemType>Belt</ItemType>
+      <LegendaryType>GuardiansContingency</LegendaryType>
+    </ItemDataEntry>
   </ItemDataCache>
+  <GemCache>
+    <ItemGemEntry>
+      <SnoId>56860</SnoId>
+      <Type>Amethyst</Type>
+      <Quality>Chipped</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56874</SnoId>
+      <Type>Diamond</Type>
+      <Quality>Chipped</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56888</SnoId>
+      <Type>Emerald</Type>
+      <Quality>Chipped</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56846</SnoId>
+      <Type>Ruby</Type>
+      <Quality>Chipped</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56916</SnoId>
+      <Type>Topaz</Type>
+      <Quality>Chipped</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56861</SnoId>
+      <Type>Amethyst</Type>
+      <Quality>Flawed</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56875</SnoId>
+      <Type>Diamond</Type>
+      <Quality>Flawed</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56889</SnoId>
+      <Type>Emerald</Type>
+      <Quality>Flawed</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56847</SnoId>
+      <Type>Ruby</Type>
+      <Quality>Flawed</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56917</SnoId>
+      <Type>Topaz</Type>
+      <Quality>Flawed</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56862</SnoId>
+      <Type>Amethyst</Type>
+      <Quality>Normal</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56876</SnoId>
+      <Type>Diamond</Type>
+      <Quality>Normal</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56890</SnoId>
+      <Type>Emerald</Type>
+      <Quality>Normal</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56848</SnoId>
+      <Type>Ruby</Type>
+      <Quality>Normal</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56918</SnoId>
+      <Type>Topaz</Type>
+      <Quality>Normal</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56863</SnoId>
+      <Type>Amethyst</Type>
+      <Quality>Flawless</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56877</SnoId>
+      <Type>Diamond</Type>
+      <Quality>Flawless</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56891</SnoId>
+      <Type>Emerald</Type>
+      <Quality>Flawless</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56849</SnoId>
+      <Type>Ruby</Type>
+      <Quality>Flawless</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56919</SnoId>
+      <Type>Topaz</Type>
+      <Quality>Flawless</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56864</SnoId>
+      <Type>Amethyst</Type>
+      <Quality>Perfect</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56878</SnoId>
+      <Type>Diamond</Type>
+      <Quality>Perfect</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56892</SnoId>
+      <Type>Emerald</Type>
+      <Quality>Perfect</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56850</SnoId>
+      <Type>Ruby</Type>
+      <Quality>Perfect</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56920</SnoId>
+      <Type>Topaz</Type>
+      <Quality>Perfect</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56865</SnoId>
+      <Type>Amethyst</Type>
+      <Quality>Radiant</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56879</SnoId>
+      <Type>Diamond</Type>
+      <Quality>Radiant</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56893</SnoId>
+      <Type>Emerald</Type>
+      <Quality>Radiant</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56851</SnoId>
+      <Type>Ruby</Type>
+      <Quality>Radiant</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56921</SnoId>
+      <Type>Topaz</Type>
+      <Quality>Radiant</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56866</SnoId>
+      <Type>Amethyst</Type>
+      <Quality>Square</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56880</SnoId>
+      <Type>Diamond</Type>
+      <Quality>Square</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56894</SnoId>
+      <Type>Emerald</Type>
+      <Quality>Square</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56852</SnoId>
+      <Type>Ruby</Type>
+      <Quality>Square</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56922</SnoId>
+      <Type>Topaz</Type>
+      <Quality>Square</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56867</SnoId>
+      <Type>Amethyst</Type>
+      <Quality>FlawlessSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56881</SnoId>
+      <Type>Diamond</Type>
+      <Quality>FlawlessSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56895</SnoId>
+      <Type>Emerald</Type>
+      <Quality>FlawlessSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56853</SnoId>
+      <Type>Ruby</Type>
+      <Quality>FlawlessSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56923</SnoId>
+      <Type>Topaz</Type>
+      <Quality>FlawlessSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56868</SnoId>
+      <Type>Amethyst</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56882</SnoId>
+      <Type>Diamond</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56896</SnoId>
+      <Type>Emerald</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56854</SnoId>
+      <Type>Ruby</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56924</SnoId>
+      <Type>Topaz</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56869</SnoId>
+      <Type>Amethyst</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56883</SnoId>
+      <Type>Diamond</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56897</SnoId>
+      <Type>Emerald</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56855</SnoId>
+      <Type>Ruby</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56925</SnoId>
+      <Type>Topaz</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56870</SnoId>
+      <Type>Amethyst</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56884</SnoId>
+      <Type>Diamond</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56898</SnoId>
+      <Type>Emerald</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56856</SnoId>
+      <Type>Ruby</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56926</SnoId>
+      <Type>Topaz</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56871</SnoId>
+      <Type>Amethyst</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56885</SnoId>
+      <Type>Diamond</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56899</SnoId>
+      <Type>Emerald</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56857</SnoId>
+      <Type>Ruby</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>56927</SnoId>
+      <Type>Topaz</Type>
+      <Quality>PerfectSquare</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>283116</SnoId>
+      <Type>Amethyst</Type>
+      <Quality>Marquise</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361559</SnoId>
+      <Type>Diamond</Type>
+      <Quality>Marquise</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>283117</SnoId>
+      <Type>Emerald</Type>
+      <Quality>Marquise</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>283118</SnoId>
+      <Type>Ruby</Type>
+      <Quality>Marquise</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>283119</SnoId>
+      <Type>Topaz</Type>
+      <Quality>Marquise</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361564</SnoId>
+      <Type>Amethyst</Type>
+      <Quality>Imperial</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361560</SnoId>
+      <Type>Diamond</Type>
+      <Quality>Imperial</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361492</SnoId>
+      <Type>Emerald</Type>
+      <Quality>Imperial</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361568</SnoId>
+      <Type>Ruby</Type>
+      <Quality>Imperial</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361572</SnoId>
+      <Type>Topaz</Type>
+      <Quality>Imperial</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361565</SnoId>
+      <Type>Amethyst</Type>
+      <Quality>FlawlessImperial</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361561</SnoId>
+      <Type>Diamond</Type>
+      <Quality>FlawlessImperial</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361493</SnoId>
+      <Type>Emerald</Type>
+      <Quality>FlawlessImperial</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361569</SnoId>
+      <Type>Ruby</Type>
+      <Quality>FlawlessImperial</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361573</SnoId>
+      <Type>Topaz</Type>
+      <Quality>FlawlessImperial</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361566</SnoId>
+      <Type>Amethyst</Type>
+      <Quality>Royal</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361562</SnoId>
+      <Type>Diamond</Type>
+      <Quality>Royal</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361494</SnoId>
+      <Type>Emerald</Type>
+      <Quality>Royal</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361570</SnoId>
+      <Type>Ruby</Type>
+      <Quality>Royal</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361574</SnoId>
+      <Type>Topaz</Type>
+      <Quality>Royal</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361567</SnoId>
+      <Type>Amethyst</Type>
+      <Quality>FlawlessRoyal</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361563</SnoId>
+      <Type>Diamond</Type>
+      <Quality>FlawlessRoyal</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361495</SnoId>
+      <Type>Emerald</Type>
+      <Quality>FlawlessRoyal</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361571</SnoId>
+      <Type>Ruby</Type>
+      <Quality>FlawlessRoyal</Quality>
+    </ItemGemEntry>
+    <ItemGemEntry>
+      <SnoId>361575</SnoId>
+      <Type>Topaz</Type>
+      <Quality>FlawlessRoyal</Quality>
+    </ItemGemEntry>
+  </GemCache>
 </ItemDataCollection>

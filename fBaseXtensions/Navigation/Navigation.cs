@@ -642,7 +642,7 @@ namespace fBaseXtensions.Navigation
 																			  .Where(obstacle =>
 																					!PrioritizedRAGUIDs.Contains(obstacle.RAGUID)//Only objects not already prioritized
 																					&& obstacle.Obstacletype.HasValue
-																					&& ObstacleType.Navigation.HasFlag(obstacle.Obstacletype.Value)//only navigation/intersection blocking objects!
+																					&& ObjectCache.CheckFlag(ObstacleType.Navigation, obstacle.Obstacletype.Value)//only navigation/intersection blocking objects!
 																					&& obstacle.RadiusDistance <= range //Only within range..
 																					&& obstacle.BotIsFacing() || obstacle.RadiusDistance <= 0f);
 					//&&obstacle.TestIntersection(BotGridPoint, IntersectionDestinationPoint));

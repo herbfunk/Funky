@@ -7,6 +7,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Door</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>454</SnoId>
@@ -14,6 +15,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Door</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>5767</SnoId>
@@ -21,6 +23,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Door</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>230324</SnoId>
@@ -28,6 +31,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Door</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>308241</SnoId>
@@ -35,6 +39,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Door</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>273323</SnoId>
@@ -42,6 +47,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Door</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>308376</SnoId>
@@ -49,6 +55,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Door</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>90419</SnoId>
@@ -56,6 +63,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Door</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>309812</SnoId>
@@ -63,6 +71,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Door</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>152772</SnoId>
@@ -70,6 +79,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Door</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>258595</SnoId>
@@ -77,6 +87,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Door</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>5763</SnoId>
@@ -84,6 +95,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Door</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>5766</SnoId>
@@ -91,6 +103,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Door</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>105361</SnoId>
@@ -98,6 +111,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Door</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>95571</SnoId>
@@ -105,6 +119,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Door</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>5765</SnoId>
@@ -112,6 +127,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Door</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>104888</SnoId>
@@ -119,6 +135,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Door</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>62873</SnoId>
@@ -126,6 +143,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>95011</SnoId>
@@ -133,6 +151,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>81424</SnoId>
@@ -140,6 +159,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>108230</SnoId>
@@ -147,6 +167,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>111808</SnoId>
@@ -154,6 +175,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>111809</SnoId>
@@ -161,6 +183,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>199583</SnoId>
@@ -168,6 +191,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>109264</SnoId>
@@ -175,6 +199,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>101500</SnoId>
@@ -182,6 +207,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>96993</SnoId>
@@ -189,6 +215,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>62866</SnoId>
@@ -196,6 +223,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>211861</SnoId>
@@ -203,6 +231,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>62860</SnoId>
@@ -210,6 +239,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>112182</SnoId>
@@ -217,6 +247,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>363725</SnoId>
@@ -224,6 +255,15 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>357509</SnoId>
+      <InternalName>a1dun_Leor_Chest_Rare_Garrach-16708</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>62865</SnoId>
@@ -231,6 +271,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>62859</SnoId>
@@ -238,6 +279,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>79319</SnoId>
@@ -245,6 +287,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>94708</SnoId>
@@ -252,6 +295,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>108792</SnoId>
@@ -259,6 +303,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>5822</SnoId>
@@ -266,6 +311,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>70534</SnoId>
@@ -273,6 +319,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>96522</SnoId>
@@ -280,6 +327,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>364559</SnoId>
@@ -287,6 +335,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>357331</SnoId>
@@ -294,6 +343,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>375539</SnoId>
@@ -301,6 +351,47 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Chest</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>78790</SnoId>
+      <InternalName>trOut_wilderness_chest-9346</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Chest</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>375540</SnoId>
+      <InternalName>x1_Global_Chest_SpeedKill_Boss-881</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Chest</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>137189</SnoId>
+      <InternalName>DrownedTemple_Chest-26930</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Chest</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>215512</SnoId>
+      <InternalName>a1dun_Caves_Nephalem Altar_A_Chest_03_B-24663</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Chest</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>215434</SnoId>
+      <InternalName>a1dun_Caves_Nephalem Altar_A_Chest_03-26244</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>5759</SnoId>
@@ -308,6 +399,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>116063</SnoId>
@@ -315,6 +407,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>5758</SnoId>
@@ -322,6 +415,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187374</SnoId>
@@ -329,6 +423,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187372</SnoId>
@@ -336,6 +431,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187376</SnoId>
@@ -343,6 +439,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187423</SnoId>
@@ -350,6 +447,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187369</SnoId>
@@ -357,6 +455,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>188119</SnoId>
@@ -364,6 +463,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>188120</SnoId>
@@ -371,6 +471,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187435</SnoId>
@@ -378,6 +479,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187434</SnoId>
@@ -385,6 +487,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187371</SnoId>
@@ -392,6 +495,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187367</SnoId>
@@ -399,6 +503,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187370</SnoId>
@@ -406,6 +511,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187373</SnoId>
@@ -413,6 +519,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187428</SnoId>
@@ -420,6 +527,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187429</SnoId>
@@ -427,6 +535,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187418</SnoId>
@@ -434,6 +543,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>188128</SnoId>
@@ -441,6 +551,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>188000</SnoId>
@@ -448,6 +559,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187438</SnoId>
@@ -455,6 +567,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187432</SnoId>
@@ -462,6 +575,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187431</SnoId>
@@ -469,6 +583,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187436</SnoId>
@@ -476,6 +591,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>185159</SnoId>
@@ -483,6 +599,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>132551</SnoId>
@@ -490,6 +607,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>139486</SnoId>
@@ -497,6 +615,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>77843</SnoId>
@@ -504,6 +623,191 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>187437</SnoId>
+      <InternalName>LootType2_tristramVillager_Male_C_Corpse_02-408</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>187422</SnoId>
+      <InternalName>LootType3_TristramGuard_Corpse_05-409</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>187433</SnoId>
+      <InternalName>LootType2_tristramVillager_Male_B_Corpse_02-427</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>187439</SnoId>
+      <InternalName>LootType2_tristramVillager_Male_C_Corpse_06-10499</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>187419</SnoId>
+      <InternalName>LootType3_TristramGuard_Corpse_02-540</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188228</SnoId>
+      <InternalName>LootType2_OldTristram_Guard_Corpse_02-705</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188232</SnoId>
+      <InternalName>LootType2_OldTristram_Guard_Corpse_06-717</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188133</SnoId>
+      <InternalName>LootType3_CaldeumGuard_Spear_D_Corpse_03-10835</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>187430</SnoId>
+      <InternalName>LootType2_tristramVillager_Male_A_Corpse_03-9136</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>225782</SnoId>
+      <InternalName>trOut_TristramFields_DenofEvil_FallenShaman_Special-2084</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>193023</SnoId>
+      <InternalName>LootType3_GraveGuard_C_Corpse_03-4911</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>187420</SnoId>
+      <InternalName>LootType3_TristramGuard_Corpse_03-913</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188130</SnoId>
+      <InternalName>LootType3_CaldeumGuard_Spear_D_Corpse_01-4575</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188131</SnoId>
+      <InternalName>LootType3_CaldeumGuard_Spear_D_Corpse_02-7461</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188229</SnoId>
+      <InternalName>LootType2_OldTristram_Guard_Corpse_03-1579</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188230</SnoId>
+      <InternalName>LootType2_OldTristram_Guard_Corpse_04-2570</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188227</SnoId>
+      <InternalName>LootType2_OldTristram_Guard_Corpse_01-2760</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188231</SnoId>
+      <InternalName>LootType2_OldTristram_Guard_Corpse_05-3783</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>193022</SnoId>
+      <InternalName>LootType3_GraveGuard_C_Corpse_02-26949</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188367</SnoId>
+      <InternalName>LootType2_caldeumTortured_Male_C_Corpse_05-14542</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>193015</SnoId>
+      <InternalName>LootType3_GraveGuard_B_Corpse_01-14680</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>193025</SnoId>
+      <InternalName>LootType3_GraveGuard_C_Corpse_05-14701</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>174891</SnoId>
+      <InternalName>Adventurer_A_Corpse_01_Chapel-28759</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>464</SnoId>
@@ -511,6 +815,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>ItemRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>58317</SnoId>
@@ -518,6 +823,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>ItemRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>77354</SnoId>
@@ -525,6 +831,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>ItemRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>5671</SnoId>
@@ -532,6 +839,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>ItemRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>5727</SnoId>
@@ -539,6 +847,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>5724</SnoId>
@@ -546,6 +855,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>178151</SnoId>
@@ -553,6 +863,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>5673</SnoId>
@@ -560,6 +871,23 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Chest</GizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>5730</SnoId>
+      <InternalName>trDun_Cath_BookcaseShelves_Wide-2385</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>219334</SnoId>
+      <InternalName>a1dun_Crypts_Jar_of_Souls_02-6412</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Chest</GizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>174754</SnoId>
@@ -567,6 +895,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Switch</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>174753</SnoId>
@@ -574,6 +903,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Switch</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>102079</SnoId>
@@ -581,6 +911,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Switch</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>105754</SnoId>
@@ -588,6 +919,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Switch</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>203608</SnoId>
@@ -595,6 +927,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Switch</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>93713</SnoId>
@@ -602,6 +935,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Switch</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>301177</SnoId>
@@ -609,6 +943,119 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <GizmoType>Switch</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>102927</SnoId>
+      <InternalName>Ghost_Jail_Prisoner</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Switch</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>213490</SnoId>
+      <InternalName>a2dun_Spider_Venom_Pool-4568</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>Switch</GizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>138989</SnoId>
+      <InternalName />
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>HealingWell</GizmoType>
+      <GizmotargetType>Healthwell</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>176075</SnoId>
+      <InternalName />
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>PowerUp</GizmoType>
+      <GizmotargetType>Shrine</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>176077</SnoId>
+      <InternalName />
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>PowerUp</GizmoType>
+      <GizmotargetType>Shrine</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>176074</SnoId>
+      <InternalName />
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>PowerUp</GizmoType>
+      <GizmotargetType>Shrine</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>176076</SnoId>
+      <InternalName />
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>PowerUp</GizmoType>
+      <GizmotargetType>Shrine</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>260331</SnoId>
+      <InternalName />
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>PowerUp</GizmoType>
+      <GizmotargetType>Shrine</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>260330</SnoId>
+      <InternalName />
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>PowerUp</GizmoType>
+      <GizmotargetType>Shrine</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>330697</SnoId>
+      <InternalName />
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>PowerUp</GizmoType>
+      <GizmotargetType>Shrine</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>330699</SnoId>
+      <InternalName />
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>PowerUp</GizmoType>
+      <GizmotargetType>Shrine</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>330698</SnoId>
+      <InternalName />
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>PowerUp</GizmoType>
+      <GizmotargetType>Shrine</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>330695</SnoId>
+      <InternalName />
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>PowerUp</GizmoType>
+      <GizmotargetType>Shrine</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>330696</SnoId>
+      <InternalName />
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <GizmoType>PowerUp</GizmoType>
+      <GizmotargetType>Shrine</GizmotargetType>
     </GizmoEntry>
   </GizmoCache>
   <GizmoStringCache>

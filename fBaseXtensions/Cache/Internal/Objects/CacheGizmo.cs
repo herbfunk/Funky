@@ -109,7 +109,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			//	return false;
 			//}
 
-			if ((ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Interactables))
+			if ((ObjectCache.CheckFlag(targetType.Value, TargetType.Interactables))
 				 && (!this.GizmoHasBeenUsed.HasValue || !this.GizmoHasBeenUsed.Value))
 			{
 				try
@@ -168,7 +168,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			}
 
 			////Update SNOAnim
-			if (ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Destructible | TargetType.Barricade))
+			if (ObjectCache.CheckFlag(targetType.Value, TargetType.Destructible | TargetType.Barricade))
 			{
 				try
 				{
@@ -184,7 +184,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 
 			//DisabledByScript Check
-			if ((!GizmoDisabledByScript.HasValue || GizmoDisabledByScript.Value) && ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Interactables))
+			if ((!GizmoDisabledByScript.HasValue || GizmoDisabledByScript.Value) && ObjectCache.CheckFlag(targetType.Value, TargetType.Interactables))
 			{
 				try
 				{
@@ -210,7 +210,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				}
 			}
 
-			if (ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Destructible | TargetType.Barricade | TargetType.Interactable))
+			if (ObjectCache.CheckFlag(targetType.Value, TargetType.Destructible | TargetType.Barricade | TargetType.Interactable))
 			{
 				if (this.IsBarricade.HasValue && this.IsBarricade.Value && !this.targetType.Value.HasFlag(TargetType.Barricade))
 				{

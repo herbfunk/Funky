@@ -40,20 +40,6 @@ namespace fBaseXtensions.Cache.Internal
 			}
 		}
 
-		public static readonly List<int> riftWorldIds = new List<int>()
-        {
-			288454,
-			288685,
-			288687,
-			288798,
-			288800,
-			288802,
-			288804,
-			288806,
-			288810,
-			288814,
-			288816,
-        };
 
 		internal static Dictionary<int, CacheBalance> dictGameBalanceCache = new Dictionary<int, CacheBalance>
 		  #region GameBalanceIDCache
@@ -638,9 +624,27 @@ namespace fBaseXtensions.Cache.Internal
 			307432, //x1_westm_Int_WeaponRack-6628
 		};
 
-
-
-
+		public static readonly HashSet<int> hashSNORareChests = new HashSet<int>
+		{
+				62873,
+				95011,
+				81424,
+				108230,
+				111808,
+				111809,
+				199583,
+				109264,
+				101500,
+				96993,
+				62866,
+				108230,
+				211861,
+				62860,
+				96993,
+				112182,
+				363725,
+				357509,
+		};
 
 		
 
@@ -655,26 +659,26 @@ namespace fBaseXtensions.Cache.Internal
 
 				};
 
-		public static readonly HashSet<int> hashDHSpikeTraps = new HashSet<int> { 158941, 111330 };
-		// Three special lists used purely for checking for the existance of a player's summoned mystic ally, gargantuan, or zombie dog
-		public static readonly HashSet<int> hashMysticAlly = new HashSet<int> { 169123, 123885, 169890, 168878, 169891, 169077, 169904, 169907, 169906, 169908, 169905, 169909 };
-		public static readonly HashSet<int> hashGargantuan = new HashSet<int> { 179780, 179778, 179772, 179779, 179776, 122305 };
-		public static readonly HashSet<int> hashZombie = new HashSet<int> { 110959, 103235, 103215, 105763, 103217, 51353 };
-		public static readonly HashSet<int> hashDHPets = new HashSet<int> { 178664, 173827, 133741, 159144, 181748, 159098 };
-		public static readonly HashSet<int> hashWizHydras = new HashSet<int> { 80745, 81515, 82111, 82972, 82109, 83959, 325807 }; //IDs taken from d3lexicon
-		public static readonly HashSet<int> hashDHSentries = new HashSet<int> { 150027, 150026, 168815, 150024, 150025, 141402 };
-		public static readonly HashSet<int> hashWDFetish = new HashSet<int> { 87189, 89933, 89934, 90072, }; 
+		//public static readonly HashSet<int> hashDHSpikeTraps = new HashSet<int> { 158941, 111330 };
+		//// Three special lists used purely for checking for the existance of a player's summoned mystic ally, gargantuan, or zombie dog
+		//public static readonly HashSet<int> hashMysticAlly = new HashSet<int> { 169123, 123885, 169890, 168878, 169891, 169077, 169904, 169907, 169906, 169908, 169905, 169909 };
+		//public static readonly HashSet<int> hashGargantuan = new HashSet<int> { 179780, 179778, 179772, 179779, 179776, 122305 };
+		//public static readonly HashSet<int> hashZombie = new HashSet<int> { 110959, 103235, 103215, 105763, 103217, 51353 };
+		//public static readonly HashSet<int> hashDHPets = new HashSet<int> { 178664, 173827, 133741, 159144, 181748, 159098 };
+		//public static readonly HashSet<int> hashWizHydras = new HashSet<int> { 80745, 81515, 82111, 82972, 82109, 83959, 325807 }; //IDs taken from d3lexicon
+		//public static readonly HashSet<int> hashDHSentries = new HashSet<int> { 150027, 150026, 168815, 150024, 150025, 141402 };
+		//public static readonly HashSet<int> hashWDFetish = new HashSet<int> { 87189, 89933, 89934, 90072, }; 
 
-		//Quick reference to all possible pets
-		public static readonly HashSet<int> hashSummonedPets = new HashSet<int>
-				{ 169123, 123885, 169890, 168878, 169891, 169077, 169904, 169907, 169906, 169908, 169905, 169909,
-                                                                                    179780, 179778, 179772, 179779, 179776, 122305,
-                                                                                     110959, 103235, 103215, 105763, 103217, 51353,
-                                                                                      178664, 173827, 133741, 159144, 181748, 159098,
-																					   80745, 81515, 82111, 82972, 82109, 83959, 325807,
-																													 158941, 111330,
-																					   150027, 150026, 168815, 150024, 150025, 141402,
-																					    87189, 89933, 89934, 90072};
+		////Quick reference to all possible pets
+		//public static readonly HashSet<int> hashSummonedPets = new HashSet<int>
+		//		{ 169123, 123885, 169890, 168878, 169891, 169077, 169904, 169907, 169906, 169908, 169905, 169909,
+		//																			179780, 179778, 179772, 179779, 179776, 122305,
+		//																			 110959, 103235, 103215, 105763, 103217, 51353,
+		//																			  178664, 173827, 133741, 159144, 181748, 159098,
+		//																			   80745, 81515, 82111, 82972, 82109, 83959, 325807,
+		//																											 158941, 111330,
+		//																			   150027, 150026, 168815, 150024, 150025, 141402,
+		//																				87189, 89933, 89934, 90072};
 	}
 
 }

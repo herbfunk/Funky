@@ -6,6 +6,7 @@ using fBaseXtensions.Cache.Internal.Blacklist;
 using fBaseXtensions.Cache.Internal.Collections;
 using fBaseXtensions.Cache.Internal.Objects;
 using fBaseXtensions.Game;
+using fBaseXtensions.Game.Hero.Skills.Conditions;
 using fBaseXtensions.Items.Enums;
 using Zeta.Common;
 using Zeta.Game;
@@ -50,10 +51,27 @@ namespace fBaseXtensions.Cache.Internal
 		internal static Dictionary<int, CacheObject> InteractableObjectCache = new Dictionary<int, CacheObject>();
 	
 
-		internal static bool CheckTargetTypeFlag(TargetType property, TargetType flag)
+		internal static bool CheckFlag(TargetType property, TargetType flag)
 		{
 			return (property & flag) != 0;
 		}
+		internal static bool CheckFlag(UnitFlags property, UnitFlags flag)
+		{
+			return (property & flag) != 0;
+		}
+		internal static bool CheckFlag(TargetProperties property, TargetProperties flag)
+		{
+			return (property & flag) != 0;
+		}
+		internal static bool CheckFlag(ObstacleType property, ObstacleType flag)
+		{
+			return (property & flag) != 0;
+		}
+		internal static bool CheckFlag(SkillExecutionFlags property, SkillExecutionFlags flag)
+		{
+			return (property & flag) != 0;
+		}
+		//
 
 		///<summary>
 		///Adds/Updates CacheObjects inside collection by Iteration of RactorList
@@ -106,7 +124,7 @@ namespace fBaseXtensions.Cache.Internal
 
 
 						//check our SNO blacklist (exclude pets?)
-						if (BlacklistCache.IsSNOIDBlacklisted(tmp_SNOID) && !CacheIDLookup.hashSummonedPets.Contains(tmp_SNOID)) continue;
+						if (BlacklistCache.IsSNOIDBlacklisted(tmp_SNOID) && !TheCache.ObjectIDCache.UnitPetEntries.ContainsKey(tmp_SNOID)) continue;
 
 
 						#region Position
@@ -174,35 +192,38 @@ namespace fBaseXtensions.Cache.Internal
 							}
 						}
 
+						
+
 						//See if this summoned unit was summoned by the bot.
 						if (FunkyGame.Hero.iMyDynamicID == tmp_CachedObj.SummonerID.Value)
 						{
-							
+							PetTypes PetType = TheCache.ObjectIDCache.UnitPetEntries[tmp_CachedObj.SNOID];
+
 							//Now modify the player data pets count..
 							if (FunkyGame.CurrentActorClass == ActorClass.Monk)
 								FunkyGame.Targeting.Cache.Environment.HeroPets.MysticAlly++;
 							else if (FunkyGame.CurrentActorClass == ActorClass.DemonHunter)
 							{
-								if (CacheIDLookup.hashDHPets.Contains(tmp_CachedObj.SNOID))
+								if (PetType== PetTypes.DEMONHUNTER_Pet)
 									FunkyGame.Targeting.Cache.Environment.HeroPets.DemonHunterPet++;
-								else if (CacheIDLookup.hashDHSpikeTraps.Contains(tmp_CachedObj.SNOID) && tmp_CachedObj.CentreDistance <= 50f)
+								else if (PetType == PetTypes.DEMONHUNTER_SpikeTrap && tmp_CachedObj.CentreDistance <= 50f)
 									FunkyGame.Targeting.Cache.Environment.HeroPets.DemonHunterSpikeTraps++;
-								else if (CacheIDLookup.hashDHSentries.Contains(tmp_CachedObj.SNOID) && tmp_CachedObj.CentreDistance <= 60f)
+								else if (PetType == PetTypes.DEMONHUNTER_Sentry && tmp_CachedObj.CentreDistance <= 60f)
 									FunkyGame.Targeting.Cache.Environment.HeroPets.DemonHunterSentry++;
 							}
 							else if (FunkyGame.CurrentActorClass == ActorClass.Witchdoctor)
 							{
-								if (CacheIDLookup.hashZombie.Contains(tmp_CachedObj.SNOID))
+								if (PetType == PetTypes.WITCHDOCTOR_ZombieDogs)
 									FunkyGame.Targeting.Cache.Environment.HeroPets.ZombieDogs++;
-								else if (CacheIDLookup.hashGargantuan.Contains(tmp_CachedObj.SNOID))
+								else if (PetType == PetTypes.WITCHDOCTOR_Gargantuan)
 									FunkyGame.Targeting.Cache.Environment.HeroPets.Gargantuan++;
-								else if (CacheIDLookup.hashWDFetish.Contains(tmp_CachedObj.SNOID))
+								else if (PetType == PetTypes.WITCHDOCTOR_Fetish)
 									FunkyGame.Targeting.Cache.Environment.HeroPets.WitchdoctorFetish++;
 							}
 							else if (FunkyGame.CurrentActorClass == ActorClass.Wizard)
 							{
 								//only count when range is within 45f (so we can summon a new one)
-								if (CacheIDLookup.hashWizHydras.Contains(tmp_CachedObj.SNOID) && tmp_CachedObj.CentreDistance <= 50f)
+								if (PetType == PetTypes.WIZARD_Hydra && tmp_CachedObj.CentreDistance <= 50f)
 									FunkyGame.Targeting.Cache.Environment.HeroPets.WizardHydra++;
 							}
 						}
@@ -227,7 +248,7 @@ namespace fBaseXtensions.Cache.Internal
 					#endregion
 
 					//Special Cache for Interactable Server Objects
-					if (CheckTargetTypeFlag(tmp_CachedObj.targetType.Value, TargetType.ServerInteractable))
+					if (CheckFlag(tmp_CachedObj.targetType.Value, TargetType.ServerInteractable))
 					{
 						if (!InteractableObjectCache.ContainsKey(tmp_CachedObj.RAGUID))
 						{
@@ -252,7 +273,7 @@ namespace fBaseXtensions.Cache.Internal
 					if (!tmp_CachedObj.NeedsUpdate) continue;
 
 					//Obstacles -- (Not an actual object we add to targeting.)
-					if (CheckTargetTypeFlag(tmp_CachedObj.targetType.Value, TargetType.Avoidance) || tmp_CachedObj.IsObstacle || tmp_CachedObj.HandleAsAvoidanceObject)
+					if (CheckFlag(tmp_CachedObj.targetType.Value, TargetType.Avoidance) || tmp_CachedObj.IsObstacle || tmp_CachedObj.HandleAsAvoidanceObject)
 					{
 						#region Obstacles
 
@@ -353,7 +374,7 @@ namespace fBaseXtensions.Cache.Internal
 						else if (tmp_CachedObj.Actortype.Value == ActorType.Gizmo)
 						{
 
-							if (CheckTargetTypeFlag(tmp_CachedObj.targetType.Value, TargetType.Interactables))
+							if (CheckFlag(tmp_CachedObj.targetType.Value, TargetType.Interactables))
 								tmp_CachedObj = new CacheInteractable(tmp_CachedObj);
 							else
 								tmp_CachedObj = new CacheDestructable(tmp_CachedObj);
@@ -383,7 +404,7 @@ namespace fBaseXtensions.Cache.Internal
 
 					//Obstacle cache
 					if (tmp_CachedObj.Obstacletype.Value != ObstacleType.None
-						  && (CheckTargetTypeFlag(tmp_CachedObj.targetType.Value, TargetType.ServerObjects)))
+						  && (CheckFlag(tmp_CachedObj.targetType.Value, TargetType.ServerObjects)))
 					{
 						CacheObstacle thisObstacleObj;
 
@@ -437,7 +458,7 @@ namespace fBaseXtensions.Cache.Internal
 				//Now flag any objects not seen for 5 loops. Gold/Globe only 1 loop.
 				foreach (var item in Objects.Values.Where(CO =>
 					(CO.LoopsUnseen >= 5 || //5 loops max.. 
-					(CO.targetType.HasValue && (CheckTargetTypeFlag(CO.targetType.Value, TargetType.Gold | TargetType.Globe)) && CO.LoopsUnseen > 0)))) //gold/globe only 1 loop!
+					(CO.targetType.HasValue && (CheckFlag(CO.targetType.Value, TargetType.Gold | TargetType.Globe)) && CO.LoopsUnseen > 0)))) //gold/globe only 1 loop!
 				{
 					item.NeedsRemoved = true;
 				}

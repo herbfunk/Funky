@@ -261,7 +261,7 @@ namespace fBaseXtensions.Targeting
 				// Update targets at least once every 80 milliseconds
 				if (FunkyGame.Targeting.Cache.bForceTargetUpdate
 					|| FunkyGame.Targeting.Cache.TravellingAvoidance
-					|| ((DateTime.Now.Subtract(FunkyGame.Targeting.Cache.lastRefreshedObjects).TotalMilliseconds >= 80 && !ObjectCache.CheckTargetTypeFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.AvoidanceMovements | TargetType.NoMovement))
+					|| ((DateTime.Now.Subtract(FunkyGame.Targeting.Cache.lastRefreshedObjects).TotalMilliseconds >= 80 && !ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.AvoidanceMovements | TargetType.NoMovement))
 					|| DateTime.Now.Subtract(FunkyGame.Targeting.Cache.lastRefreshedObjects).TotalMilliseconds >= 1200))
 				{
 					bShouldRefreshDiaObjects = true;
@@ -290,7 +290,7 @@ namespace fBaseXtensions.Targeting
 
 					// Been trying to handle the same target for more than 30 seconds without damaging/reaching it? Blacklist it!
 					// Note: The time since target picked updates every time the current target loses health, if it's a monster-target
-					if (!ObjectCache.CheckTargetTypeFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.AvoidanceMovements | TargetType.NoMovement | TargetType.LineOfSight | TargetType.Backtrack)
+					if (!ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.AvoidanceMovements | TargetType.NoMovement | TargetType.LineOfSight | TargetType.Backtrack)
 						  && ((FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value != TargetType.Unit && DateTime.Now.Subtract(FunkyGame.Targeting.Cache.LastChangeOfTarget).TotalSeconds > 12)
 						  || (FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit && !FunkyGame.Targeting.Cache.CurrentTarget.IsBoss && DateTime.Now.Subtract(FunkyGame.Targeting.Cache.LastChangeOfTarget).TotalSeconds > 40)))
 					{
@@ -397,7 +397,7 @@ namespace fBaseXtensions.Targeting
 				}
 
 				//Interactables (for pre and post waits)
-				if (ObjectCache.CheckTargetTypeFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.Item | TargetType.Interactables | TargetType.Interaction))
+				if (ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.Item | TargetType.Interactables | TargetType.Interaction))
 				{
 					Skill.SetupAbilityForUse(ref FunkyGame.Targeting.Cache.InteractionSkill);
 					FunkyGame.Hero.Class.PowerPrime = FunkyGame.Targeting.Cache.InteractionSkill;
@@ -428,7 +428,7 @@ namespace fBaseXtensions.Targeting
 			#endregion
 
 			// See if we can use any special buffs etc. while in avoidance
-			if (ObjectCache.CheckTargetTypeFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.Globe | TargetType.AvoidanceMovements))
+			if (ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.Globe | TargetType.AvoidanceMovements))
 			{
 				Skill buff;
 				if (FunkyGame.Hero.Class.FindBuffPower(out buff))
@@ -444,7 +444,7 @@ namespace fBaseXtensions.Targeting
 
 
 			//Instead of using target position we use the navigator pathing as CurrentTargetLocation
-			if (ObjectCache.CheckTargetTypeFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.LineOfSight | TargetType.Backtrack))
+			if (ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.LineOfSight | TargetType.Backtrack))
 			{
 
 				//Navigation.NP.MoveTo(FunkyGame.Navigation.LOSmovementObject.Position, "02 LOS:" + FunkyGame.Navigation.LOSmovementObject.InternalName, true);
@@ -806,7 +806,7 @@ namespace fBaseXtensions.Targeting
 				// Update targets at least once every 80 milliseconds
 				if (FunkyGame.Targeting.Cache.bForceTargetUpdate
 					|| FunkyGame.Targeting.Cache.TravellingAvoidance
-					|| ((DateTime.Now.Subtract(FunkyGame.Targeting.Cache.lastRefreshedObjects).TotalMilliseconds >= 80 && !ObjectCache.CheckTargetTypeFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.AvoidanceMovements | TargetType.NoMovement))
+					|| ((DateTime.Now.Subtract(FunkyGame.Targeting.Cache.lastRefreshedObjects).TotalMilliseconds >= 80 && !ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.AvoidanceMovements | TargetType.NoMovement))
 					|| DateTime.Now.Subtract(FunkyGame.Targeting.Cache.lastRefreshedObjects).TotalMilliseconds >= 1200))
 				{
 					bShouldRefreshDiaObjects = true;
@@ -836,7 +836,7 @@ namespace fBaseXtensions.Targeting
 
 					// Been trying to handle the same target for more than 30 seconds without damaging/reaching it? Blacklist it!
 					// Note: The time since target picked updates every time the current target loses health, if it's a monster-target
-					if (!ObjectCache.CheckTargetTypeFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.AvoidanceMovements | TargetType.NoMovement | TargetType.LineOfSight | TargetType.Backtrack)
+					if (!ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.AvoidanceMovements | TargetType.NoMovement | TargetType.LineOfSight | TargetType.Backtrack)
 						  && ((FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value != TargetType.Unit && DateTime.Now.Subtract(FunkyGame.Targeting.Cache.LastChangeOfTarget).TotalSeconds > 12)
 						  || (FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit && !FunkyGame.Targeting.Cache.CurrentTarget.IsBoss && DateTime.Now.Subtract(FunkyGame.Targeting.Cache.LastChangeOfTarget).TotalSeconds > 40)))
 					{
@@ -952,7 +952,7 @@ namespace fBaseXtensions.Targeting
 				}
 
 				//Interactables (for pre and post waits)
-				if (ObjectCache.CheckTargetTypeFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.Item|TargetType.Interactables|TargetType.Interaction))
+				if (ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.Item|TargetType.Interactables|TargetType.Interaction))
 				{
 					Skill.SetupAbilityForUse(ref FunkyGame.Targeting.Cache.InteractionSkill);
 					FunkyGame.Hero.Class.PowerPrime = FunkyGame.Targeting.Cache.InteractionSkill;
@@ -985,7 +985,7 @@ namespace fBaseXtensions.Targeting
 			#endregion
 
 			// See if we can use any special buffs etc. while in avoidance
-			if (ObjectCache.CheckTargetTypeFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.Globe | TargetType.AvoidanceMovements))
+			if (ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.Globe | TargetType.AvoidanceMovements))
 			{
 				Skill buff;
 				if (FunkyGame.Hero.Class.FindBuffPower(out buff))
@@ -1006,7 +1006,7 @@ namespace fBaseXtensions.Targeting
 
 
 			//Instead of using target position we use the navigator pathing as CurrentTargetLocation
-			if (ObjectCache.CheckTargetTypeFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.LineOfSight | TargetType.Backtrack))
+			if (ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.LineOfSight | TargetType.Backtrack))
 			{
 
 				//Navigation.NP.MoveTo(FunkyGame.Navigation.LOSmovementObject.Position, "02 LOS:" + FunkyGame.Navigation.LOSmovementObject.InternalName, true);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Cache.Internal.Objects;
 using fBaseXtensions.Game.Hero.Skills;
 using fBaseXtensions.Game.Hero.Skills.Conditions;
@@ -36,6 +37,8 @@ namespace fBaseXtensions.Game.Hero.Class
 			PowerPrime = DefaultAttack;
 
 			Equipment.RefreshEquippedItemsList();
+
+			Hotbar.OnSkillsChanged += HotbarSkillsChangedHandler;
 
 			Logger.DBLog.InfoFormat("[Funky] Finished Creating Player Class");
 		}
@@ -140,10 +143,10 @@ namespace fBaseXtensions.Game.Hero.Class
 					ContainsAnyPrimarySkill = true;
 
 				//combat ability set property
-				if ((SkillExecutionFlags.ClusterLocation | SkillExecutionFlags.ClusterTarget | SkillExecutionFlags.ClusterTargetNearest | SkillExecutionFlags.Location | SkillExecutionFlags.Target).HasFlag(newAbility.ExecutionType))
+				if (ObjectCache.CheckFlag((SkillExecutionFlags.ClusterLocation | SkillExecutionFlags.ClusterTarget | SkillExecutionFlags.ClusterTargetNearest | SkillExecutionFlags.Location | SkillExecutionFlags.Target), newAbility.ExecutionType))
 					newAbility.IsCombat = true;
 
-				if (!ContainsNonRangedCombatSkill && !newAbility.IsRanged && !newAbility.IsProjectile && (SkillExecutionFlags.Target | SkillExecutionFlags.ClusterTarget).HasFlag(newAbility.ExecutionType))
+				if (!ContainsNonRangedCombatSkill && !newAbility.IsRanged && !newAbility.IsProjectile && ObjectCache.CheckFlag((SkillExecutionFlags.Target | SkillExecutionFlags.ClusterTarget), newAbility.ExecutionType))
 					ContainsNonRangedCombatSkill = true;
 
 				uninitalizedSkills.Add(item.Power,newAbility);
@@ -313,7 +316,8 @@ namespace fBaseXtensions.Game.Hero.Class
 						return returnAbility;
 					}
 				}
-				else if (item.ExecutionType.HasFlag(SkillExecutionFlags.Target) || item.ExecutionType.HasFlag(SkillExecutionFlags.Location))
+
+				else if (ObjectCache.CheckFlag(item.ExecutionType, SkillExecutionFlags.Target) || ObjectCache.CheckFlag(item.ExecutionType, SkillExecutionFlags.Location))
 				{
 
 					//Check LOS -- Projectiles
@@ -529,7 +533,7 @@ namespace fBaseXtensions.Game.Hero.Class
 			}
 		}
 
-		internal static void HotbarSkillsChangedHandler()
+		internal void HotbarSkillsChangedHandler()
 		{
 			Logger.DBLog.InfoFormat("Hotbar Skills have changed.");
 			FunkyGame.Hero.Class.RecreateAbilities();

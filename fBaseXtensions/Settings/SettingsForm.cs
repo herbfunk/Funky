@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using fBaseXtensions.Cache;
 using fBaseXtensions.Cache.External.Objects;
 using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Cache.Internal.Avoidance;
@@ -1415,10 +1416,7 @@ namespace fBaseXtensions.Settings
 
 		}
 
-		private void btn_Test_Click(object sender, EventArgs e)
-		{
 
-		}
 
 
 		private void flowLayoutPanel_Avoidances_Click(object sender, EventArgs e)
@@ -1506,6 +1504,20 @@ namespace fBaseXtensions.Settings
 			LBDebug.Controls.Add(new UserControlDebugEntry(output));
 
 			LBDebug.Focus();
+		}
+
+		private void btn_Test_Click(object sender, EventArgs e)
+		{
+			LBDebug.Controls.Clear();
+
+			string OutPut = "";
+			foreach (var entry in TheCache.ObjectIDCache.UnitEntries.Values.OrderBy(unit => unit.InternalName))
+			{
+				OutPut = OutPut + entry.ReturnCacheEntryString() + "\r\n";
+			}
+			Clipboard.SetText(OutPut);
+
+			LBDebug.Controls.Add(new UserControlDebugEntry(OutPut));
 		}
 	}
 }
