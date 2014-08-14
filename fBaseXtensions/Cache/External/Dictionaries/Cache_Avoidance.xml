@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AvoidanceDataCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AvoidanceCache>
+    <AvoidanceEntry>
+      <SnoId>219702</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>ArcaneSentry</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>221225</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>ArcaneSentry</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>84608</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>Dececrator</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>5482</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>TreeSpore</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>6578</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>TreeSpore</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>4803</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>MoltenCore</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>4804</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>MoltenCore</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>95868</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>MoltenTrail</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>108869</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>PlagueCloud</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>402</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>Frozen</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>223675</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>Frozen</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>5212</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>BeeProjectile</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>3865</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>PlagueHand</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>123124</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>AzmodanPool</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>123842</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>AzmodanFireball</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>123839</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>AzmodanBodies</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>161822</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>BelialGround</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>161833</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>BelialGround</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>4103</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>ShamanFireBall</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>432</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>MageFirePool</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>168031</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>DiabloPrison</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>214845</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>DiabloMetor</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>4176</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>PoisonGas</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>4546</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>LacuniBomb</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>164829</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>SuccubusProjectile</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>343539</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>OrbitProjectile</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>343582</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>OrbitFocalPoint</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>349774</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>FrozenPulse</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>341512</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>Thunderstorm</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>185366</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>MeteorImpact</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>332924</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>BloodspringSmall</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>332922</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>BloodspringMedium</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>332923</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>BloodspringLarge</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>337109</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>Teleport</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>335505</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>MalthaelDrainSoul</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>325136</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>MalthaelDeathFog</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>340512</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>MalthaelLightning</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>360738</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>AdriaArcanePool</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>358404</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>AdriaBlood</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>360046</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>RiftBossPoison</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>93837</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>GhomGasCloud</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
+      <SnoId>134831</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>DestroyerDrop</AvoidanceType>
+    </AvoidanceEntry>
+  </AvoidanceCache>
+  <Avoidances>
+    <int>219702</int>
+    <int>221225</int>
+    <int>84608</int>
+    <int>5482</int>
+    <int>6578</int>
+    <int>4803</int>
+    <int>4804</int>
+    <int>95868</int>
+    <int>108869</int>
+    <int>402</int>
+    <int>223675</int>
+    <int>5212</int>
+    <int>3865</int>
+    <int>123124</int>
+    <int>123842</int>
+    <int>123839</int>
+    <int>161822</int>
+    <int>161833</int>
+    <int>4103</int>
+    <int>160154</int>
+    <int>432</int>
+    <int>168031</int>
+    <int>214845</int>
+    <int>260377</int>
+    <int>4176</int>
+    <int>4546</int>
+    <int>164829</int>
+    <int>89578</int>
+    <int>343539</int>
+    <int>343582</int>
+    <int>349774</int>
+    <int>341512</int>
+    <int>185366</int>
+    <int>332924</int>
+    <int>332922</int>
+    <int>332923</int>
+    <int>337109</int>
+    <int>335505</int>
+    <int>325136</int>
+    <int>340512</int>
+    <int>360738</int>
+    <int>358404</int>
+    <int>360046</int>
+    <int>93837</int>
+    <int>134831</int>
+  </Avoidances>
+  <Projectiles>
+    <int>5212</int>
+    <int>4103</int>
+    <int>160154</int>
+    <int>123842</int>
+    <int>164829</int>
+  </Projectiles>
+</AvoidanceDataCollection>

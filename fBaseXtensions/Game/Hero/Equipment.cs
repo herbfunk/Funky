@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using fBaseXtensions.Game.Hero.Class;
 using fBaseXtensions.Helpers;
 using fBaseXtensions.Items;
 using fBaseXtensions.Items.Enums;
@@ -130,11 +131,11 @@ namespace fBaseXtensions.Game.Hero
 
 
 			//Ring of Royal Grandeur
-			RingOfGrandeur = LegendaryEquippedItems.Any(i => i == LegendaryItemTypes.RoyalGrandeur);
+			RingOfGrandeur = LegendaryEquippedItems.Any(i => i == LegendaryItemTypes.RingofRoyalGrandeur);
 
 
 			//Blackthorns Set
-			int BlackThornSetCount = LegendaryEquippedItems.Count(i => i == LegendaryItemTypes.Blackthornes);
+			int BlackThornSetCount = LegendaryEquippedItems.Count(i => i == LegendaryItemTypes.BlackthornesBattlegear);
 			if (BlackThornSetCount == 4 || BlackThornSetCount == 3 && RingOfGrandeur)
 			{
 				ImmuneToDescratorMoltenPlaguedAvoidances = true;
@@ -179,5 +180,12 @@ namespace fBaseXtensions.Game.Hero
 			return returnItems;
 		}
 
+		internal static void EquippmentChangedHandler()
+		{
+			Logger.DBLog.InfoFormat("Equippment has changed!");
+
+			if (!PlayerClass.ShouldRecreatePlayerClass)
+				PlayerClass.ShouldRecreatePlayerClass = true;
+		}
 	}
 }

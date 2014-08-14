@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using Demonbuddy;
 using fBaseXtensions.Cache;
-using fBaseXtensions.Cache.Objects;
+using fBaseXtensions.Cache.Internal;
+using fBaseXtensions.Cache.Internal.Enums;
+using fBaseXtensions.Cache.Internal.Objects;
 using fBaseXtensions.Game;
 using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Monitor;
@@ -14,7 +13,10 @@ using fBaseXtensions.Settings;
 using Zeta.Bot;
 using Zeta.Common;
 using Zeta.Common.Plugins;
+using Zeta.TreeSharp;
 using Logger = fBaseXtensions.Helpers.Logger;
+using Decorator = Zeta.TreeSharp.Decorator;
+using Action = Zeta.TreeSharp.Action;
 
 namespace fBaseXtensions
 {
@@ -22,49 +24,88 @@ namespace fBaseXtensions
     {
 		public static PluginSettings Settings { get; set; }
 
+
 	    public void OnPulse()
 	    {
-			
-			if (FunkyGame.GameIsInvalid) return;
+			if (!HookHandler.CheckCombatHook())
+			{
+				Logger.DBLog.Info("Hooking Combat!");
+				HookHandler.HookCombat();
+			}
+
+			if (FunkyGame.GameIsInvalid) 
+				return;
+
+			//FunkyGame.Hero.Update();
 
 			//in-game monitoring
 			FunkyGame.Profile.CheckCurrentProfileBehavior();
 			GoldInactivity.CheckTimeoutTripped();
 			Hotbar.CheckSkills();
 			Equipment.CheckEquippment();
+			
+
+			if (FunkyGame.AdventureMode)
+				FunkyGame.Bounty.CheckActiveBounty();
 	    }
 
 	    public void OnInitialize()
 	    {
+			SplitButton btnSplit_Funky = UIControl.FindFunkyButton();
+			if (btnSplit_Funky == null)
+			{
+				UIControl.initDebugLabels(out btnSplit_Funky);
+				UIControl.AddButtonToDemonbuddyMainTab(ref btnSplit_Funky);
+
+				Logger.DBLog.DebugFormat("Funky Split Button Click Handler Added");
+				btnSplit_Funky.Click += UIControl.buttonFunkySettingDB_Click;
+			}
+
 		    Settings=new PluginSettings();
 			PluginSettings.LoadSettings();
-
-			TheCache.ObjectIDCache=new IDCache();
-			//ItemSnoDataCollection.SerializeToXML(TheCache.ObjectIDCache.ItemsSno);
-			//ItemStringDataCollection.SerializeToXML(SNOCache.IdCollections.ItemsString);
+			TheCache.LoadCache();
+			BotMain.OnStart += EventHandling.OnBotStart;
+			BotMain.OnStop += EventHandling.OnBotStop;
+			ObjectCache.FakeCacheObject = new CacheObject(Vector3.Zero, TargetType.None, 0d, "Fake Target", 1f);
+			Logger.Write("Init Logger Completed!");
 	    }
 
 	    public void OnShutdown()
 	    {
-		   
+			SplitButton btnSplit_Funky = UIControl.FindFunkyButton();
+			if (btnSplit_Funky != null)
+			{
+				btnSplit_Funky.Click -= UIControl.buttonFunkySettingDB_Click;
+				Grid dbGrid = UIControl.GetDemonbuddyMainGrid();
+				if (dbGrid != null)
+				{
+					Logger.DBLog.DebugFormat("Funky Split Button Removed!");
+					dbGrid.Children.Remove(btnSplit_Funky);
+				}
+			}
 	    }
 
+		private static bool _pluginIsEnabled = false;
+		public static bool PluginIsEnabled
+		{
+			get { return _pluginIsEnabled; }
+		}
 	    public void OnEnabled()
 	    {
-			Logger.DBLog.InfoFormat("fBaseXtensions has been enabled!");
-			BotMain.OnStart += EventHandling.OnBotStart;
-			BotMain.OnStop += EventHandling.OnBotStop;
+			_pluginIsEnabled = true;
+			Logger.DBLog.InfoFormat("fBaseXtensions v{0} has been enabled!", Version.ToString());
 			if (BotMain.IsRunning) EventHandling.OnBotStart(null);
 	    }
 
 	    public void OnDisabled()
 	    {
-			Logger.DBLog.InfoFormat("fBaseXtensions has been disabled!");
+			_pluginIsEnabled = false;
+			Logger.DBLog.InfoFormat("fBaseXtensions v{0} has been disabled!", Version.ToString());
 	    }
 
 		public Version Version
 		{
-			get { return new Version(0, 0, 1); }
+			get { return new Version(1, 0, 0); }
 		}
 		public string Author
 		{
@@ -74,13 +115,13 @@ namespace fBaseXtensions
 		{
 			get { return "Base Extension for Additional Functionality"; }
 		}
-		SettingsWindow settingsWindow;
+		SettingsForm settingsWindow;
 		public Window DisplayWindow
 		{
 			get
 			{
 				PluginSettings.LoadSettings();
-				settingsWindow = new SettingsWindow();
+				settingsWindow = new SettingsForm();
 
 				Window fakeWindow = new Window
 				{
@@ -105,6 +146,18 @@ namespace fBaseXtensions
 		{
 			get { return "fBaseXtensions"; }
 		}
-		public bool Equals(IPlugin other) { return (other.Name == Name) && (other.Version == Version); }
+
+
+
+	    public bool Equals(IPlugin other) { return (other.Name == Name) && (other.Version == Version); }
+
+
+		internal static float Difference(float A, float B)
+		{
+			if (A > B)
+				return A - B;
+
+			return B - A;
+		}
     }
 }

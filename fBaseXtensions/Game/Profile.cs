@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using fBaseXtensions.Helpers;
+using fBaseXtensions.XML;
 using Zeta.Bot;
 using Zeta.Bot.Profile;
 using Zeta.Bot.Profile.Common;
@@ -73,9 +72,9 @@ namespace fBaseXtensions.Game
 		///<summary>
 		///Tracks Current Profile Behavior and sets IsRunningOOCBehavior depending on the current Type of behavior.
 		///</summary>
-		internal void CheckCurrentProfileBehavior()
+		internal void CheckCurrentProfileBehavior(bool forceUpdate=false)
 		{
-			if (DateTime.Now.Subtract(LastProfileBehaviorCheck).TotalMilliseconds > 250)
+			if (forceUpdate || DateTime.Now.Subtract(LastProfileBehaviorCheck).TotalMilliseconds > 250)
 			{
 				LastProfileBehaviorCheck = DateTime.Now;
 
@@ -94,7 +93,7 @@ namespace fBaseXtensions.Game
 
 		private ProfileBehaviorTypes GetProfileBehaviorType(Type behaviorType)
 		{
-			if (typeof(UseWaypointTag)==behaviorType)
+			if (typeof(UseWaypointTag)==behaviorType || typeof(FunkyWaypoint)==behaviorType)
 				return ProfileBehaviorTypes.UseWaypoint;
 			if (typeof(UseObjectTag)==behaviorType)
 				return ProfileBehaviorTypes.UseObject;
@@ -129,7 +128,7 @@ namespace fBaseXtensions.Game
 																	  //typeof (TrinityTownPortal),
 																	  //typeof(QuestTools.ProfileTags.TownPortalTag),
 																	  //typeof(QuestTools.ProfileTags.TownRunTag),
-																	  //typeof (FunkyWaypoint),
+																	  typeof (FunkyWaypoint),
 																	};
 
 		//Common Used Profile Tags that requires backtracking during combat sessions.

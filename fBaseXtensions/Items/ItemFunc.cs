@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Documents;
 using fBaseXtensions.Cache;
-using fBaseXtensions.Cache.Objects;
+using fBaseXtensions.Cache.External.Objects;
 using Zeta.Game.Internals.Actors;
 using fBaseXtensions.Items.Enums;
 
@@ -12,19 +9,16 @@ namespace fBaseXtensions.Items
 {
 	public static class ItemFunc
 	{
-		public static bool DetermineIsItemActorType(string internalName)
+		public static ItemStringEntry DetermineIsItemActorType(string internalName)
 		{
 			internalName = internalName.ToLower();
-
-			string value1 = Array.Find(TheCache.ObjectIDCache.ItemsString.ItemInternalNames,
-						element => internalName.Contains(element));
-
-			return value1 != null;
+			return TheCache.ObjectIDCache.Items.DroppedItemInternalNames.FirstOrDefault(entry => internalName.Contains(entry.ID));
 		}
 		public static PluginDroppedItemTypes DetermineDroppedItemType(int SNO, string internalname="")
 		{
 			bool searchName = internalname != "";
-			var retEntry = TheCache.ObjectIDCache.ItemsSno.DroppedItemCache.FirstOrDefault(e => e.SnoId == SNO || (searchName && e.InternalName != String.Empty && String.Compare(internalname, e.InternalName, StringComparison.InvariantCultureIgnoreCase) > 0));
+			//TheCache.ObjectIDCache.FindDroppedItemEntry(SNO);
+			var retEntry = TheCache.ObjectIDCache.Items.DroppedItemCache.FirstOrDefault(e => e.SnoId == SNO || (searchName && e.InternalName != String.Empty && String.Compare(internalname, e.InternalName, StringComparison.InvariantCultureIgnoreCase) > 0));
 			//var retEntry = SNOCache.IdCollections.ItemsSno.DroppedItems.FirstOrDefault(e => e.Sno == SNO);
 			if (retEntry != null) return (PluginDroppedItemTypes)retEntry.ObjectType;
 			return PluginDroppedItemTypes.Unknown;
@@ -662,7 +656,98 @@ namespace fBaseXtensions.Items
 			}
 			return ItemType.Unknown;
 		}
+		public static PluginItemTypes DBItemTypeToPluginItemType(ItemType type)
+		{
+			switch (type)
+			{
+				case ItemType.Axe:
+					return PluginItemTypes.Axe;
+				case ItemType.Sword:
+					return PluginItemTypes.Sword;
+				case ItemType.Mace:
+					return PluginItemTypes.Mace;
+				case ItemType.Dagger:
+					return PluginItemTypes.Dagger;
+				case ItemType.Flail:
+					return PluginItemTypes.Flail;
+				case ItemType.Bow:
+					return PluginItemTypes.TwoHandBow;
+				case ItemType.Crossbow:
+					return PluginItemTypes.TwoHandCrossbow;
+				case ItemType.Staff:
+					return PluginItemTypes.TwoHandStaff;
+				case ItemType.Spear:
+					return PluginItemTypes.Spear;
+				case ItemType.Shield:
+					return PluginItemTypes.Shield;
+				case ItemType.CrusaderShield:
+					return PluginItemTypes.CrusaderShield;
+				case ItemType.Gloves:
+					return PluginItemTypes.Gloves;
+				case ItemType.Boots:
+					return PluginItemTypes.Boots;
+				case ItemType.Chest:
+					return PluginItemTypes.Chest;
+				case ItemType.Ring:
+					return PluginItemTypes.Ring;
+				case ItemType.Amulet:
+					return PluginItemTypes.Amulet;
+				case ItemType.Quiver:
+					return PluginItemTypes.Quiver;
+				case ItemType.Shoulder:
+					return PluginItemTypes.Shoulders;
+				case ItemType.Legs:
+					return PluginItemTypes.Pants;
+				case ItemType.FistWeapon:
+					return PluginItemTypes.FistWeapon;
+				case ItemType.Mojo:
+					return PluginItemTypes.Mojo;
+				case ItemType.CeremonialDagger:
+					return PluginItemTypes.CeremonialKnife;
+				case ItemType.WizardHat:
+					return PluginItemTypes.WizardHat;
+				case ItemType.Helm:
+					return PluginItemTypes.Helm;
+				case ItemType.Belt:
+					return PluginItemTypes.Belt;
+				case ItemType.Bracer:
+					return PluginItemTypes.Bracers;
+				case ItemType.Orb:
+					return PluginItemTypes.Source;
+				case ItemType.MightyWeapon:
+					return PluginItemTypes.MightyWeapon;
+				case ItemType.MightyBelt:
+					return PluginItemTypes.MightyBelt;
+				case ItemType.Polearm:
+					return PluginItemTypes.TwoHandPolearm;
+				case ItemType.Cloak:
+					return PluginItemTypes.Cloak;
+				case ItemType.Wand:
+					return PluginItemTypes.Wand;
+				case ItemType.SpiritStone:
+					return PluginItemTypes.SpiritStone;
+				case ItemType.Daibo:
+					return PluginItemTypes.TwoHandDaibo;
+				case ItemType.HandCrossbow:
+					return PluginItemTypes.HandCrossbow;
+				case ItemType.VoodooMask:
+					return PluginItemTypes.VoodooMask;
+				case ItemType.Potion:
+					return PluginItemTypes.HealthPotion;
+				case ItemType.CraftingReagent:
+					return PluginItemTypes.CraftingMaterial;
+				case ItemType.CraftingPage:
+					return PluginItemTypes.CraftingMaterial;
+				case ItemType.CraftingPlan:
+					return PluginItemTypes.CraftingPlan;
+				case ItemType.HoradricCache:
+					return PluginItemTypes.HoradricCache;
+				case ItemType.KeystoneFragment:
+					return PluginItemTypes.KeyStone;
+			}
 
+			return PluginItemTypes.Unknown;
+		}
 		public static GemQualityTypes ReturnGemQualityType(int snoid, int itemLevel)
 		{
 			if (ItemSnoCache.GemsSNOIds.Contains(snoid))

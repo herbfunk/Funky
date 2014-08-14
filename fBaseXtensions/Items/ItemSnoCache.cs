@@ -5,34 +5,11 @@ namespace fBaseXtensions.Items
 {
 	public static class ItemSnoCache
 	{
-		/*
-		 * Item ActorSNO: 301283 Name: Console_PowerGlobe-3171 
-		 * Item ActorSNO: 4267 Name: HealthGlobe-3396 
-		 * 
-		 * Item ActorSNO: 4311 Name: GoldLarge-2701 
-		 * Item ActorSNO: 4312 Name: GoldMedium-3188 
-		 * Item ActorSNO: 4313 Name: GoldSmall-2696 
-		 * 
-		 * Item ActorSNO: 323722 Name: LootRunKey-580 (Keyfragment)
-		 * Item ActorSNO: 137958 Name: CraftingMaterials_Flippy_Global-2511 (Arcane Dust)
-		 * 
-		 * 
-		 * Item ActorSNO: 4833 Name: pants_norm_base_flippy-3170 
-		 * Item Name: shoulderPads_norm_base_flippy-2081 ActorSNO: 5288
-		 * Item ActorSNO: 4264 Name: Gloves_norm_base_flippy-3576 
-		 * Item ActorSNO: 367158 Name: x1_bow_norm_base_flippy_02-4565 
-		 * Item ActorSNO: 3358 Name: Belt_norm_base_flippy-4934 
-		 * Item ActorSNO: 4463 Name: Helm_norm_base_flippy-5277 
-		 * Item ActorSNO: 367203 Name: x1_Wand_norm_base_flippy_02-4032 
-		 * Item ActorSNO: 367146 Name: x1_twoHandedAxe_norm_base_flippy_02-4047 
-		 * Item ActorSNO: 3813 Name: chestArmor_norm_base_flippy-4380 
-		 * Item ActorSNO: 367165 Name: x1_Shield_norm_base_flippy_02-4398 
-		 * 
-		 */
+
 
 		public static readonly Dictionary<int, PluginItemTypes> ReaperOfSoulItemTypes = new Dictionary<int, PluginItemTypes>
 		{
-			{325062, PluginItemTypes.Amulet},
+			{325062, PluginItemTypes.Amulet},{325061, PluginItemTypes.Amulet},
 			{5044, PluginItemTypes.Ring},{5043, PluginItemTypes.Ring},
 
 			{253996, PluginItemTypes.Belt},{253987, PluginItemTypes.Belt},
@@ -271,23 +248,23 @@ namespace fBaseXtensions.Items
 		};
 		public static readonly HashSet<int> GEMS_EmeraldSNOIds = new HashSet<int>
 		{
-			56891,56892,56893,56894,56895,283117,361492,361493,361494,361495
+			56888,56889,56890,56891,56892,56893,56894,56895,283117,361492,361493,361494,361495
 		};
 		public static readonly HashSet<int> GEMS_DiamondSNOIds = new HashSet<int>
 		{
-			56877,56878,56879,56880,56881,361559,361560,361561,361562,361563
+			56874,56875,56876,56877,56878,56879,56880,56881,361559,361560,361561,361562,361563
 		};
 		public static readonly HashSet<int> GEMS_TopazSNOIds = new HashSet<int>
 		{
-			56919,56920,56921,56922,56923,283119,361572,361573,361574,361575
+			56916,56917,56918,56919,56920,56921,56922,56923,283119,361572,361573,361574,361575
 		};
 		public static readonly HashSet<int> GEMS_RubySNOIds = new HashSet<int>
 		{
-			56849,56850,56851,56852,56853,283118,361568,361569,361570,361571
+			56846,56847,56848,56849,56850,56851,56852,56853,283118,361568,361569,361570,361571
 		};
 		public static readonly HashSet<int> GEMS_AmethystSNOIds = new HashSet<int>
 		{
-			56863,56864,56865,56866,56867,283116,361564,361565,361566,361567
+			56860,56861,56862,56863,56864,56865,56866,56867,283116,361564,361565,361566,361567
 		};
 		public static readonly HashSet<int> GEMS_FlawlessSNOIds = new HashSet<int>
 		{
@@ -347,8 +324,7 @@ namespace fBaseXtensions.Items
 
 		public static readonly HashSet<int> InfernalKeySNOIds = new HashSet<int>
 		{
-			364695,364697,364694,364696,
-			255880,255881,255882
+			364695,364697,364694,364696,255880,255881,255882
 		};
 
 		/* Hellfire Ring Materials
@@ -366,8 +342,7 @@ namespace fBaseXtensions.Items
 
 		private static readonly HashSet<int> InfernalMachineMaterialSNOIds = new HashSet<int>
 		{
-			364722,364723,364724,364725,
-			257736,257739,257738
+			364722,364723,364724,364725,257736,257739,257738
 		};
 
 		/* Infernal Machines
@@ -417,9 +392,7 @@ namespace fBaseXtensions.Items
 
 		public static readonly HashSet<int> DyesSNOIds = new HashSet<int>
 		{
-			148299,148311,54505,148304,148298,148303,148296,
-			148309,212182,212183,148305,148307,148308,148310,
-			148288
+			148299,148311,54505,148304,148298,148303,148296,148309,212182,212183,148305,148307,148308,148310,148288
 		};
 
 		/* Staff of Herding Crafting Materials
@@ -450,8 +423,8 @@ namespace fBaseXtensions.Items
 		{
 			//Single Items
 			{272084, LegendaryItemTypes.SerpentSparker},
-			{298088, LegendaryItemTypes.TallManFinger},
-			{298094, LegendaryItemTypes.RoyalGrandeur},
+			{298088, LegendaryItemTypes.TheTallMansFinger},
+			{298094, LegendaryItemTypes.RingofRoyalGrandeur},
 			{332342, LegendaryItemTypes.IllusionaryBoots},
 			{299411, LegendaryItemTypes.PiroMarella},
 			{298050, LegendaryItemTypes.CountessJuliasCameo},
@@ -461,27 +434,27 @@ namespace fBaseXtensions.Items
 			{298118, LegendaryItemTypes.ReapersWraps},
 
 			//BLACKTHORNE'S
-			{222477, LegendaryItemTypes.Blackthornes}, //Jousting Mail
-			{224191, LegendaryItemTypes.Blackthornes}, //Notched Belt
-			{222456, LegendaryItemTypes.Blackthornes}, //Surcoat
-			{222463, LegendaryItemTypes.Blackthornes}, //Spurs
-			{224189, LegendaryItemTypes.Blackthornes}, //Duncraig Cross
+			{222477, LegendaryItemTypes.BlackthornesBattlegear}, //Jousting Mail
+			{224191, LegendaryItemTypes.BlackthornesBattlegear}, //Notched Belt
+			{222456, LegendaryItemTypes.BlackthornesBattlegear}, //Surcoat
+			{222463, LegendaryItemTypes.BlackthornesBattlegear}, //Spurs
+			{224189, LegendaryItemTypes.BlackthornesBattlegear}, //Duncraig Cross
 
 			//Zunimassa's
-			{205615, LegendaryItemTypes.Zunimassas}, //Marrow
-			{216525, LegendaryItemTypes.Zunimassas}, //String of Skulls
-			{221202, LegendaryItemTypes.Zunimassas}, //Vision
-			{205627, LegendaryItemTypes.Zunimassas}, //Trail
-			{212579, LegendaryItemTypes.Zunimassas}, //Pox
+			{205615, LegendaryItemTypes.ZunimassasHaunt}, //Marrow
+			{216525, LegendaryItemTypes.ZunimassasHaunt}, //String of Skulls
+			{221202, LegendaryItemTypes.ZunimassasHaunt}, //Vision
+			{205627, LegendaryItemTypes.ZunimassasHaunt}, //Trail
+			{212579, LegendaryItemTypes.ZunimassasHaunt}, //Pox
 			
 
 			//Akkhan's
-			{358799, LegendaryItemTypes.Akkhan},//Helm
-			{358795, LegendaryItemTypes.Akkhan},//Sabatons
-			{358801, LegendaryItemTypes.Akkhan},//Pauldrons
-			{358800, LegendaryItemTypes.Akkhan},//Cuisses
-			{358796, LegendaryItemTypes.Akkhan},//Breastplate
-			{358798, LegendaryItemTypes.Akkhan},//Gauntlets
+			{358799, LegendaryItemTypes.ArmorofAkkhan},//Helm
+			{358795, LegendaryItemTypes.ArmorofAkkhan},//Sabatons
+			{358801, LegendaryItemTypes.ArmorofAkkhan},//Pauldrons
+			{358800, LegendaryItemTypes.ArmorofAkkhan},//Cuisses
+			{358796, LegendaryItemTypes.ArmorofAkkhan},//Breastplate
+			{358798, LegendaryItemTypes.ArmorofAkkhan},//Gauntlets
 
 			//Raiment of a ThousandStorms
 			{338035, LegendaryItemTypes.RaimentofaThousandStorms},//Pants
@@ -492,26 +465,26 @@ namespace fBaseXtensions.Items
 			{338033, LegendaryItemTypes.RaimentofaThousandStorms},//Gloves
 
 			//Inna's Mantra
-			{205646, LegendaryItemTypes.Inna},//Pants
-			{222487, LegendaryItemTypes.Inna},//Belt
-			{222307, LegendaryItemTypes.Inna},//Helm
-			{205614, LegendaryItemTypes.Inna},//Chest
-			{212208, LegendaryItemTypes.Inna},//Daibo
+			{205646, LegendaryItemTypes.InnasMantra},//Pants
+			{222487, LegendaryItemTypes.InnasMantra},//Belt
+			{222307, LegendaryItemTypes.InnasMantra},//Helm
+			{205614, LegendaryItemTypes.InnasMantra},//Chest
+			{212208, LegendaryItemTypes.InnasMantra},//Daibo
 
 
 			//Raiment of the Jade Harvester
-			{338041, LegendaryItemTypes.JadeHarvester},//Pants
-			{338037, LegendaryItemTypes.JadeHarvester},//Boots
-			{338042, LegendaryItemTypes.JadeHarvester},//Shoulders
-			{338040, LegendaryItemTypes.JadeHarvester},//Helm
-			{338038, LegendaryItemTypes.JadeHarvester},//Chest
-			{338039, LegendaryItemTypes.JadeHarvester},//Gloves
+			{338041, LegendaryItemTypes.RaimentoftheJadeHarvester},//Pants
+			{338037, LegendaryItemTypes.RaimentoftheJadeHarvester},//Boots
+			{338042, LegendaryItemTypes.RaimentoftheJadeHarvester},//Shoulders
+			{338040, LegendaryItemTypes.RaimentoftheJadeHarvester},//Helm
+			{338038, LegendaryItemTypes.RaimentoftheJadeHarvester},//Chest
+			{338039, LegendaryItemTypes.RaimentoftheJadeHarvester},//Gloves
 
 			//Vyr's Amazing Arcana
-			{332360, LegendaryItemTypes.Vyrs},//Pants
-			{346210, LegendaryItemTypes.Vyrs},//Gloves
-			{332363, LegendaryItemTypes.Vyrs},//Boots
-			{332357, LegendaryItemTypes.Vyrs},//Chest
+			{332360, LegendaryItemTypes.VyrsAmazingArcana},//Pants
+			{346210, LegendaryItemTypes.VyrsAmazingArcana},//Gloves
+			{332363, LegendaryItemTypes.VyrsAmazingArcana},//Boots
+			{332357, LegendaryItemTypes.VyrsAmazingArcana},//Chest
 			
 			//Might of the Earth
 			{340521, LegendaryItemTypes.MightOfTheEarth},//Pants
@@ -520,13 +493,12 @@ namespace fBaseXtensions.Items
 			{340526, LegendaryItemTypes.MightOfTheEarth},//Shoulders
 
 			//Embodiment of the Marauder
-			{336993, LegendaryItemTypes.Marauder},//Pants
-			{336995, LegendaryItemTypes.Marauder},//Boots
-			{336996, LegendaryItemTypes.Marauder},//Shoulders
-			{336994, LegendaryItemTypes.Marauder},//Helm
-			//{000000, LegendaryItemTypes.Marauder},//Chest
-			{336992, LegendaryItemTypes.Marauder},//Gloves
+			{336993, LegendaryItemTypes.EmbodimentoftheMarauder},//Pants
+			{336995, LegendaryItemTypes.EmbodimentoftheMarauder},//Boots
+			{336996, LegendaryItemTypes.EmbodimentoftheMarauder},//Shoulders
+			{336994, LegendaryItemTypes.EmbodimentoftheMarauder},//Helm
+			{363803, LegendaryItemTypes.EmbodimentoftheMarauder},//Chest
+			{336992, LegendaryItemTypes.EmbodimentoftheMarauder},//Gloves
 		};
-
 	}
 }

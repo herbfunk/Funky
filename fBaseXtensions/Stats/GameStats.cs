@@ -102,7 +102,7 @@ namespace fBaseXtensions.Stats
 		public GameStats()
 		{
 			Profiles = new List<TrackedProfile>();
-			//MonsterPower = Bot.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings ? Bot.Settings.Demonbuddy.MonsterPower : Funky.iDemonbuddyMonsterPowerLevel;
+			//MonsterPower = FunkyBaseExtension.Settings.Demonbuddy.EnableDemonBuddyCharacterSettings ? FunkyBaseExtension.Settings.Demonbuddy.MonsterPower : Funky.iDemonbuddyMonsterPowerLevel;
 			//note: this will change on first ProfileChanged call!
 			string profileName = "none";
 

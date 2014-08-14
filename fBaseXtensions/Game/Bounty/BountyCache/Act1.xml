@@ -356,7 +356,7 @@
       <Name>A1_Boss_SpiderQueen</Name>
       <Type>Boss</Type>
       <StartingLevelAreaID>78572</StartingLevelAreaID>
-      <EndingLevelAreaID>00000</EndingLevelAreaID>
+      <EndingLevelAreaID>62726</EndingLevelAreaID>
       <QuestSNOs>
         <int>345528</int>
       </QuestSNOs>

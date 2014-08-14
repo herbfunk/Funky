@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Demonbuddy;
@@ -7,16 +9,6 @@ using fBaseXtensions;
 using fBaseXtensions.Game;
 using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Helpers;
-using FunkyBot.Cache;
-using FunkyBot.Cache.Dictionaries.Objects;
-using FunkyBot.Cache.Enums;
-using FunkyBot.Cache.Objects;
-using FunkyBot.Config;
-using FunkyBot.Config.Settings;
-using FunkyBot.Config.UI;
-using FunkyBot.DBHandlers;
-using FunkyBot.DBHandlers.Townrun;
-using FunkyBot.Player.Class;
 using Zeta.Bot;
 using Zeta.Bot.Logic;
 using Zeta.Bot.Navigation;
@@ -28,19 +20,19 @@ using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
 using Decorator = Zeta.TreeSharp.Decorator;
 using Action = Zeta.TreeSharp.Action;
-using Character = FunkyBot.Player.Character;
 using Logger = fBaseXtensions.Helpers.Logger;
 
 namespace FunkyBot
 {
 	public partial class Funky : CombatRoutine
 	{
+		public Version Version { get { return new Version(3, 0, 0, 0); } }
 
 		public Funky()
 		{
-			 Instance = this;
+			Instance = this;
 		}
-        public static Funky Instance { get; private set; }
+		public static Funky Instance { get; private set; }
 
 		internal static string RoutinePath
 		{
@@ -69,279 +61,66 @@ namespace FunkyBot
 		// Do we need to reset the debug bar after combat handling?
 		internal static bool bResetStatusText = false;
 
-		
+
 
 		internal static bool initTreeHooks;
 		internal static void HookBehaviorTree()
 		{
 			Logger.DBLog.InfoFormat("[Funky] Treehooks..");
-			#region TreeHooks
-			foreach (var hook in TreeHooks.Instance.Hooks)
-			{
-				#region Combat
 
-				// Replace the combat behavior tree, as that happens first and so gets done quicker!
-				if (hook.Key.Contains("Combat"))
-				{
-					Logger.DBLog.DebugFormat("Combat...");
-
-			
-						// Replace the pause just after identify stuff to ensure we wait before trying to run to vendor etc.
-						CanRunDecoratorDelegate canRunDelegateCombatTargetCheck = CombatHandler.GlobalOverlord;
-						ActionDelegate actionDelegateCoreTarget = CombatHandler.HandleTarget;
-						Sequence sequencecombat = new Sequence(
-								new Action(actionDelegateCoreTarget)
-								);
-						hook.Value[0] = new Decorator(canRunDelegateCombatTargetCheck, sequencecombat);
-						Logger.DBLog.DebugFormat("Combat Tree replaced...");
-					
-
-				}
-
-				#endregion
-
-				#region VendorRun
-
-				// Wipe the vendorrun and loot behavior trees, since we no longer want them
-				if (hook.Key.Contains("VendorRun"))
-				{
-					Logger.DBLog.DebugFormat("VendorRun...");
-
-					Decorator GilesDecorator = hook.Value[0] as Decorator;
-					PrioritySelector CompositeReplacement = GilesDecorator.Children[0] as PrioritySelector;
-					PrioritySelector GilesReplacement=CompositeReplacement;
-
-					bool usingReplacedTownRun = false;
-					if (CompositeReplacement.Children[0] is PrioritySelector)
-					{
-						GilesReplacement = CompositeReplacement.Children[0] as PrioritySelector;
-						usingReplacedTownRun = true;
-					}
-					 
-					
-					#region TownPortal
-
-					//[1] == Return to town
-	
-						CanRunDecoratorDelegate canRunDelegateReturnToTown = TownPortalBehavior.FunkyTPOverlord;
-						ActionDelegate actionDelegateReturnTown = TownPortalBehavior.FunkyTPBehavior;
-						ActionDelegate actionDelegateTownPortalFinish = TownPortalBehavior.FunkyTownPortalTownRun;
-						Sequence sequenceReturnTown = new Sequence(
-							new Action(actionDelegateReturnTown),
-							new Action(actionDelegateTownPortalFinish)
-							);
-						GilesReplacement.Children[1] = new Decorator(canRunDelegateReturnToTown, sequenceReturnTown);
-						Logger.DBLog.DebugFormat("Town Run - Town Portal - hooked...");
-					
+			Logger.DBLog.DebugFormat("Combat...");
 
 
-					#endregion
+			// Replace the pause just after identify stuff to ensure we wait before trying to run to vendor etc.
+			//var OverlordCoRoutine=new ActionRunCoroutine(ctx => fBaseXtensions.Behaviors.CombatHandler.Overlord());
+			CanRunDecoratorDelegate canRunDelegateCombatTargetCheck = fBaseXtensions.Behaviors.CombatHandler.GlobalOverlord;
+			ActionDelegate actionDelegateCoreTarget = fBaseXtensions.Behaviors.CombatHandler.HandleTarget;
+			Sequence sequencecombat = new Sequence
+			(
+				new Action(actionDelegateCoreTarget)
+			);
+			var NewCombatComposite = new Decorator(canRunDelegateCombatTargetCheck, sequencecombat);
+			HookHandler.SetHookValue(HookHandler.HookType.Combat, 0, NewCombatComposite);
 
-					//Normally there are 9 children -- so if there is additional children due to townrun inserts we adjust our index!
-					int insertIndex = 5 + (GilesReplacement.Children.Count-9);
-					
-					#region Interaction Behavior
-					CanRunDecoratorDelegate canRunDelegateInteraction = TownRunManager.InteractionOverlord;
-					ActionDelegate actionDelegateInteractionMovementhBehavior = TownRunManager.InteractionMovement;
-					ActionDelegate actionDelegateInteractionClickBehaviorBehavior = TownRunManager.InteractionClickBehavior;
-					ActionDelegate actionDelegateInteractionLootingBehaviorBehavior = TownRunManager.InteractionLootingBehavior;
-					ActionDelegate actionDelegateInteractionFinishBehaviorBehavior = TownRunManager.InteractionFinishBehavior;
-
-					Sequence sequenceInteraction = new Sequence(
-							new Action(actionDelegateInteractionFinishBehaviorBehavior),
-							new Action(actionDelegateInteractionMovementhBehavior),
-							new Action(actionDelegateInteractionClickBehaviorBehavior),
-							new Action(actionDelegateInteractionLootingBehaviorBehavior),
-							new Action(actionDelegateInteractionFinishBehaviorBehavior)
-						);
-					GilesReplacement.InsertChild(insertIndex, new Decorator(canRunDelegateInteraction, sequenceInteraction));
-					Logger.DBLog.DebugFormat("Town Run - Interaction Behavior - Inserted...");
-
-					#endregion
-
-					CanRunDecoratorDelegate canRunDelegateStats = TownRunManager.StatsOverlord;
-					ActionDelegate actionDelegateStatsBehavior = TownRunManager.StatsBehavior;
-					Sequence sequenceStats = new Sequence(new Action(actionDelegateStatsBehavior));
-					GilesReplacement.InsertChild(insertIndex+2, new Decorator(canRunDelegateStats, sequenceStats));
-
-					#region Finish Behavior
-
-					ActionDelegate actionDelegateFinishBehavior = TownRunManager.FinishBehavior;
-					Sequence actionFinish = GilesReplacement.Children[insertIndex+5] as Sequence;
-					if (actionFinish!=null)
-					{
-						actionFinish.InsertChild(0, new Action(actionDelegateFinishBehavior));
-						Logger.DBLog.DebugFormat("Town Run - Finish Behavior - Inserted...");
-						GilesReplacement.Children[insertIndex + 5] = actionFinish;
-					}
-					#endregion
+			//var Coroutine = new ActionRunCoroutine(ctx => fBaseXtensions.Behaviors.CombatHandler.CombatBehavior());
+			//HookHandler.SetHookValue(HookHandler.HookType.Combat, 0, Coroutine);
+			Logger.DBLog.DebugFormat("Combat Tree replaced...");
 
 
-					//CanRunDecoratorDelegate canRunDelegateGilesTownRunCheck = TownRunManager.GilesTownRunCheckOverlord;
-					//hook.Value[0] = new Decorator(canRunDelegateGilesTownRunCheck, new PrioritySelector(GilesReplacement));
-
-					Logger.DBLog.DebugFormat("Vendor Run tree hooked...");
-				} // Vendor run hook
-
-
-				#endregion
-
-				#region Loot
-
-				if (hook.Key.Contains("Loot"))
-				{
-					Logger.DBLog.DebugFormat("Loot...");
-
-		
-						// Replace the loot behavior tree with a blank one, as we no longer need it
-						CanRunDecoratorDelegate canRunDelegateBlank = BlankDecorator;
-						ActionDelegate actionDelegateBlank = BlankAction;
-						Sequence sequenceblank = new Sequence(
-								new Action(actionDelegateBlank)
-								);
-						hook.Value[0] = new Decorator(canRunDelegateBlank, sequenceblank);
-						Logger.DBLog.DebugFormat("Loot tree replaced...");
-					
-				}
-
-				#endregion
-
-				#region OutOfGame
-
-
-				if (hook.Key.Contains("OutOfGame"))
-				{
-					Logger.DBLog.DebugFormat("OutOfGame...");
-
-					PrioritySelector CompositeReplacement = hook.Value[0] as PrioritySelector;
-
-					foreach (var item in CompositeReplacement.Children)
-					{
-						Logger.DBLog.InfoFormat(item.GetType().ToString());
-					}
-
-					CanRunDecoratorDelegate shouldPreformOutOfGameBehavior = OutOfGame.OutOfGameOverlord;
-					ActionDelegate actionDelgateOOGBehavior = OutOfGame.OutOfGameBehavior;
-					Sequence sequenceOOG = new Sequence(
-							new Action(actionDelgateOOGBehavior)
+			Logger.DBLog.DebugFormat("Loot...");
+			// Replace the loot behavior tree with a blank one, as we no longer need it
+			CanRunDecoratorDelegate canRunDelegateBlank = BlankDecorator;
+			ActionDelegate actionDelegateBlank = BlankAction;
+			Sequence sequenceblank = new Sequence(
+					new Action(actionDelegateBlank)
 					);
-					CompositeReplacement.Children.Insert(0, new Decorator(shouldPreformOutOfGameBehavior, sequenceOOG));
-					hook.Value[0] = CompositeReplacement;
 
-					Logger.DBLog.DebugFormat("Out of game tree hooked");
-				}
-
-				#endregion
-
-				#region Death
+			var NewLootComposite = new Decorator(canRunDelegateBlank, sequenceblank);
+			HookHandler.SetHookValue(HookHandler.HookType.Loot, 0, NewLootComposite);
+			Logger.DBLog.DebugFormat("Loot tree replaced...");
 
 
-				if (hook.Key.Contains("Death"))
-				{
-					Logger.DBLog.DebugFormat("Death...");
-
-
-					Decorator deathDecorator = hook.Value[0] as Decorator;
-
-					PrioritySelector DeathPrioritySelector = deathDecorator.Children[0] as PrioritySelector;
-
-					//Insert Death Tally Counter At Beginning!
-					CanRunDecoratorDelegate deathTallyDecoratorDelegate = EventHandlers.EventHandlers.TallyDeathCanRunDecorator;
-					ActionDelegate actionDelegatedeathTallyAction = EventHandlers.EventHandlers.TallyDeathAction;
-					Action deathTallyAction = new Action(actionDelegatedeathTallyAction);
-					Decorator deathTallyDecorator = new Decorator(deathTallyDecoratorDelegate, deathTallyAction);
-					DeathPrioritySelector.InsertChild(0, deathTallyDecorator);
-
-
-					//Death Wait..
-					CanRunDecoratorDelegate deathWaitDecoratorDelegate = EventHandlers.EventHandlers.DeathShouldWait;
-					ActionDelegate deathWaitActionDelegate = EventHandlers.EventHandlers.DeathWaitAction;
-					Action deathWaitAction = new Action(deathWaitActionDelegate);
-					Decorator deathWaitDecorator = new Decorator(deathWaitDecoratorDelegate, deathWaitAction);
-					DeathPrioritySelector.InsertChild(0, deathWaitDecorator);
-
-					//Insert Death Tally Reset at End!
-					Action deathTallyActionReset = new Action(ret => EventHandlers.EventHandlers.TallyedDeathCounter = false);
-					DeathPrioritySelector.InsertChild(DeathPrioritySelector.Children.Count-1, deathTallyActionReset);
-					Logger.DBLog.DebugFormat("Death tree hooked");
-
-
-
-					//foreach (var item in DeathPrioritySelector.Children)
-					//{
-					//	Logger.DBLog.InfoFormat(item.GetType().ToString());
-					//}
-
-
-					/*
-					 *  Zeta.TreeSharp.Decorator
-						Zeta.TreeSharp.Decorator
-						Zeta.TreeSharp.Decorator
-						Zeta.TreeSharp.Decorator
-						Zeta.TreeSharp.Decorator
-						Zeta.TreeSharp.Decorator
-						Zeta.TreeSharp.Action
-					 * 
-					*/
-
-
-				}
-
-
-				#endregion
-			}
-			#endregion
 			initTreeHooks = true;
-		}
-		internal static void RemoveHandlers()
-		{
-			GameEvents.OnPlayerDied -= EventHandlers.EventHandlers.FunkyOnDeath;
-			GameEvents.OnGameJoined -= EventHandlers.EventHandlers.FunkyOnJoinGame;
-			GameEvents.OnWorldChanged -= EventHandlers.EventHandlers.FunkyOnWorldChange;
-			GameEvents.OnGameLeft -= EventHandlers.EventHandlers.FunkyOnLeaveGame;
-			GameEvents.OnGameChanged -= EventHandlers.EventHandlers.FunkyOnGameChanged;
-			ProfileManager.OnProfileLoaded -= EventHandlers.EventHandlers.FunkyOnProfileChanged;
-			Equipment.OnEquippedItemsChanged -= Character.EquippmentChangedHandler;
-			Hotbar.OnSkillsChanged -= PlayerClass.HotbarSkillsChangedHandler;
-			GameEvents.OnLevelUp -= EventHandlers.EventHandlers.FunkyOnLevelUp;
-			EventHandling.OnGameIDChanged -= Bot.Game.OnGameIDChangedHandler;
-			FunkyGame.Profile.OnProfileBehaviorChange -= Bot.Game.OnProfileBehaviorChanged;
 		}
 		internal static void ResetTreehooks()
 		{
-			Navigator.PlayerMover = new DefaultPlayerMover();
-			Navigator.StuckHandler = new DefaultStuckHandler();
+			initTreeHooks = false;
 			CombatTargeting.Instance.Provider = new DefaultCombatTargetingProvider();
 			LootTargeting.Instance.Provider = new DefaultLootTargetingProvider();
 			ObstacleTargeting.Instance.Provider = new DefaultObstacleTargetingProvider();
-
-			BrainBehavior.CreateCombatLogic();
-			BrainBehavior.CreateLootBehavior();
+			HookHandler.RestoreHook(HookHandler.HookType.Combat);
+			HookHandler.RestoreHook(HookHandler.HookType.Loot);
 		}
 
 		private static bool BlankDecorator(object ret) { return false; }
 		private static RunStatus BlankAction(object ret) { return RunStatus.Success; }
-		public class PluginStuckHandler : IStuckHandler
-		{
-			public Vector3 GetUnstuckPos()
-			{
-				return Vector3.Zero;
-			}
 
-			public bool IsStuck
-			{
-				get
-				{
-					return false;
-				}
-			}
-		}
 		public class PluginCombatTargeting : ITargetingProvider
 		{
 			private static readonly List<DiaObject> listEmptyList = new List<DiaObject>();
 			public List<DiaObject> GetObjectsByWeight()
 			{
-				if (!Bot.Targeting.Cache.DontMove)
+				if (!FunkyGame.Targeting.Cache.DontMove)
 					return listEmptyList;
 				List<DiaObject> listFakeList = new List<DiaObject>();
 				listFakeList.Add(null);
@@ -377,53 +156,30 @@ namespace FunkyBot
 
 		public override void Dispose()
 		{
-			SplitButton btnSplit_Funky = UIControl.FindFunkyButton();
-			if (btnSplit_Funky != null)
-			{
-				btnSplit_Funky.Click -= UIControl.buttonFunkySettingDB_Click;
-				Grid dbGrid = UIControl.GetDemonbuddyMainGrid();
-				if (dbGrid != null)
-				{
-					Logger.DBLog.DebugFormat("Funky Split Button Removed!");
-					dbGrid.Children.Remove(btnSplit_Funky);
-				}
-			}
-
 			if (RoutineManager.Current.Name != "Funky") return;
 
 			BotMain.OnStop -= EventHandlers.EventHandlers.FunkyBotStop;
 			BotMain.OnStart -= EventHandlers.EventHandlers.FunkyBotStart;
-			RemoveHandlers();
 
 			if (initTreeHooks) ResetTreehooks();
-
-			Bot.ResetGame();
 
 			Logger.DBLog.InfoFormat("FunkyBot has been Disposed!");
 		}
 
 		public override void Initialize()
 		{
-			SplitButton btnSplit_Funky = UIControl.FindFunkyButton();
-			if (btnSplit_Funky == null)
+			var basePlugin = PluginManager.Plugins.First(p => p.Plugin.Name == "fBaseXtensions");
+			if (basePlugin != null)
 			{
-				UIControl.initDebugLabels(out btnSplit_Funky);
-				UIControl.AddButtonToDemonbuddyMainTab(ref btnSplit_Funky);
-
-				Logger.DBLog.DebugFormat("Funky Split Button Click Handler Added");
-				btnSplit_Funky.Click += UIControl.buttonFunkySettingDB_Click;
+				if (!basePlugin.Enabled)
+				{
+					Logger.DBLog.Warn("FunkyBot requires fBaseXtensions to be enabled! -- Enabling it automatically.");
+					basePlugin.Enabled = true;
+				}
 			}
 
-			ObjectCache.SNOCache = new SnoIDCache();
-			ObjectCache.FakeCacheObject = new CacheObject(Vector3.Zero, TargetType.None, 0d, "Fake Target", 1f);
-
-			//Update Account Details..
-			Bot.Settings = new Settings_Funky();
 			BotMain.OnStop += EventHandlers.EventHandlers.FunkyBotStop;
 			BotMain.OnStart += EventHandlers.EventHandlers.FunkyBotStart;
-
-			Logger.Write("Init Logger Completed!");
-
 			Logger.DBLog.InfoFormat("FunkyBot has been Initalized!");
 		}
 
@@ -433,21 +189,13 @@ namespace FunkyBot
 		{
 			get
 			{
-				UIControl.FrmSettings = new SettingsForm();
-				Window w = new Window();
-				w.Loaded += (sender, args) =>
-				{
-					UIControl.buttonFunkySettingDB_Click(null, null);
-					w.Close();
-				};
-
-				return w;
-			} 
+				return new Window();
+			}
 		}
 
 		public override ActorClass Class
 		{
-			get 
+			get
 			{
 
 				return FunkyGame.CurrentActorClass;

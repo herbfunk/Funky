@@ -1,8 +1,17 @@
 ﻿using System;
+using System.Linq;
 using fBaseXtensions.Cache;
+using fBaseXtensions.Cache.Internal;
+using fBaseXtensions.Game.Bounty;
+using fBaseXtensions.Game.Hero.Class;
 using fBaseXtensions.Monitor;
+using fBaseXtensions.Navigation;
+using fBaseXtensions.Settings;
+using Zeta.Bot.Logic;
+using Zeta.Bot.Navigation;
 using Zeta.Common;
 using Zeta.Game;
+using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
 using Logger = fBaseXtensions.Helpers.Logger;
 
@@ -12,11 +21,14 @@ namespace fBaseXtensions.Game.Hero
 	{
 		public ActiveHero()
 		{
-
+			OnLevelAreaIDChanged += OnLevelAreaIDChangedHandler;
+			FunkyGame.Bounty.ActiveBountyChanged += ActiveBountyChangedHandler;
+			Class = null;
+			Equipment.OnEquippedItemsChanged += EquippmentChangedHandler;
 		}
 
 		#region Properties
-
+		public PlayerClass Class { get; set; }
 		private DateTime lastUpdatedPlayer { get; set; }
 		internal DateTime lastPreformedNonCombatAction { get; set; }
 		public bool bIsIncapacitated { get; set; }
@@ -193,6 +205,27 @@ namespace fBaseXtensions.Game.Hero
 				return isMoving;
 			}
 		}
+		private MovementState curMoveState = MovementState.None;
+		public MovementState currentMovementState
+		{
+			get
+			{
+				if (ShouldRefreshMovementProperty)
+					RefreshMovementCache();
+				return curMoveState;
+			}
+		}
+		private StuckFlags stuckflags=StuckFlags.WasStuck;
+		public StuckFlags Stuckflags
+		{
+			get
+			{
+				if (ShouldRefreshMovementProperty)
+					RefreshMovementCache();
+				return stuckflags;
+			}
+		}
+
 		private DateTime LastUpdatedMovementData = DateTime.MinValue;
 		private bool ShouldRefreshMovementProperty
 		{
@@ -212,6 +245,8 @@ namespace fBaseXtensions.Game.Hero
 				{
 					ActorMovement botMovement = ZetaDia.Me.Movement;
 					isMoving = botMovement.IsMoving;
+					curMoveState=botMovement.MovementState;
+					stuckflags = botMovement.StuckFlags;
 				}
 				catch
 				{
@@ -224,13 +259,168 @@ namespace fBaseXtensions.Game.Hero
 		#endregion
 		#region Events
 
+		private int LastWorldID = -1;
+		private bool LastLevelIDChangeWasTownRun;
 		public delegate void LevelAreaIDChanged(int ID);
 		public event LevelAreaIDChanged OnLevelAreaIDChanged;
 		private void levelareaIDchanged(int ID)
 		{
 			iCurrentLevelID = ID;
+			Logger.Write(Helpers.LogLevel.Event, "Level Area ID has Changed to {0}", ID);
+			
+
+
+			if (!BrainBehavior.IsVendoring)
+			{
+				//Check for World ID change!
+				if (FunkyGame.Hero.CurrentWorldDynamicID != LastWorldID)
+				{
+					Logger.Write(Helpers.LogLevel.Event, "World ID changed.. clearing Profile Interactable Cache.");
+					LastWorldID = FunkyGame.Hero.CurrentWorldDynamicID;
+					ObjectCache.InteractableObjectCache.Clear();
+					Navigator.SearchGridProvider.Update();
+
+					//Gold Inactivity
+					GoldInactivity.LastCoinageUpdate = DateTime.Now;
+				}
+
+				if (!LastLevelIDChangeWasTownRun)
+				{//Do full clear
+
+					BackTrackCache.cacheMovementGPRs.Clear();
+					FunkyGame.Navigation.LOSBlacklistedRAGUIDs.Clear();
+					FunkyGame.Game.InteractableCachedObject = null;
+				}
+				else
+				{
+					//Gold Inactivity
+					GoldInactivity.LastCoinageUpdate = DateTime.Now;
+				}
+
+				//Clear the object cache!
+				ObjectCache.Objects.Clear();
+				//ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
+				FunkyGame.Targeting.Cache.RemovalCheck = false;
+
+				//Reset Skip Ahead Cache
+				SkipAheadCache.ClearCache();
+
+				FunkyGame.Hero.UpdateCoinage = true;
+
+				//Check active bounty
+				if (FunkyGame.AdventureMode && FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode)
+					CheckActiveBounty();
+
+
+				LastLevelIDChangeWasTownRun = false;
+			}
+			else if (FunkyGame.Hero.bIsInTown)
+			{
+				LastLevelIDChangeWasTownRun = true;
+			}
 			if (OnLevelAreaIDChanged != null)
 				OnLevelAreaIDChanged(ID);
+		}
+		private void ActiveBountyChangedHandler()
+		{
+			CheckActiveBounty();
+		}
+
+		private void CheckActiveBounty()
+		{
+			if (FunkyGame.AdventureMode && FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode)
+			{
+				FunkyGame.Game.ResetCombatModifiers();
+
+				if (!FunkyGame.Bounty.IsInRiftWorld)
+				{
+					//We could check that active bounty has been completed..
+					if (FunkyGame.Bounty.ActiveBounty != null && FunkyGame.Bounty.BountyQuestStates.ContainsKey(FunkyGame.Bounty.ActiveBounty.QuestSNO) && FunkyGame.Bounty.BountyQuestStates[FunkyGame.Bounty.ActiveBounty.QuestSNO] == QuestState.Completed)
+					{
+						Logger.Write(Helpers.LogLevel.Bounty, "ActiveBounty Quest State is Completed!");
+					}
+
+					if (FunkyGame.Bounty.CurrentBountyCacheEntry != null)
+					{
+						var CurrentBountyCacheEntry = FunkyGame.Bounty.CurrentBountyCacheEntry;
+						Logger.Write(Helpers.LogLevel.Bounty, "Checking Bounty Type {0}", CurrentBountyCacheEntry.Type);
+						int curLevelID = FunkyGame.Hero.iCurrentLevelID;
+
+						//Check if We should Modify the Bots Combat Behavior
+						switch (FunkyGame.Bounty.CurrentBountyCacheEntry.Type)
+						{
+							case BountyQuestTypes.Clear:
+								if (CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID)
+								{
+									Logger.Write(Helpers.LogLevel.Bounty, "Bounty Level ID Match (Clear) -- Disabling Cluster Logic!");
+									SettingCluster.ClusterSettingsTag = SettingCluster.DisabledClustering;
+									FunkyGame.Game.AllowAnyUnitForLOSMovement = true;
+								}
+
+								break;
+							case BountyQuestTypes.Kill:
+
+
+								if (CurrentBountyCacheEntry.StartingLevelAreaID == curLevelID || CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID ||
+									CurrentBountyCacheEntry.LevelAreaIDs != null && CurrentBountyCacheEntry.LevelAreaIDs.Any(i => i == curLevelID))
+								{
+									Logger.Write(Helpers.LogLevel.Bounty, "Bounty Level ID Match (Kill) -- Disabling Cluster Logic and Enabling Navigation of Points!");
+									SettingCluster.ClusterSettingsTag = SettingCluster.DisabledClustering;
+
+									//only enable when its the ending level.
+									FunkyGame.Game.ShouldNavigateMinimapPoints = CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID;
+								}
+								break;
+							case BountyQuestTypes.CursedEvent:
+								if (CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID)
+								{
+									Logger.Write(Helpers.LogLevel.Bounty, "Bounty Level ID Match (CursedEvent) -- Enabling Navigation of Points!");
+									FunkyGame.Game.ShouldNavigateMinimapPoints = true;
+									FunkyGame.Game.QuestMode = true;
+								}
+								break;
+							case BountyQuestTypes.Boss:
+								if (CurrentBountyCacheEntry.StartingLevelAreaID == curLevelID)
+								{
+									Logger.Write(Helpers.LogLevel.Bounty, "Bounty Level ID Match (Boss) -- Enabling Navigation of Points!");
+									FunkyGame.Game.ShouldNavigateMinimapPoints = true;
+								}
+								break;
+							case BountyQuestTypes.Event:
+								if (CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID)
+								{
+									Logger.Write(Helpers.LogLevel.Bounty, "Bounty Level ID Match (Event) -- Enabling Navigation of Points!");
+									FunkyGame.Game.ShouldNavigateMinimapPoints = true;
+									FunkyGame.Game.QuestMode = true;
+								}
+								break;
+						}
+					}
+				}
+				else if (FunkyGame.Bounty.ActiveBounty != null)
+				{
+					int curStep = ((BountyCache.QuestInfoCache)FunkyGame.Bounty.ActiveBounty).Step;
+
+					//Killing..
+					if (curStep == 1)
+					{
+						FunkyGame.Bounty.RefreshRiftMapMarkers();
+						FunkyGame.Game.ShouldNavigateMinimapPoints = true;
+						SettingCluster.ClusterSettingsTag = SettingCluster.DisabledClustering;
+					}
+					else if (curStep == 3)//Boss Spawned
+					{
+						FunkyGame.Bounty.RefreshRiftMapMarkers();
+						SettingCluster.ClusterSettingsTag = FunkyBaseExtension.Settings.Cluster;
+						FunkyGame.Game.ShouldNavigateMinimapPoints = false;
+					}
+					else//Boss Killed
+					{
+						SettingCluster.ClusterSettingsTag = FunkyBaseExtension.Settings.Cluster;
+						FunkyGame.Game.ShouldNavigateMinimapPoints = false;
+					}
+				}
+			}
 		}
 
 		public delegate void HealthValueChanged(double oldvalue, double newvalue);
@@ -255,6 +445,24 @@ namespace fBaseXtensions.Game.Hero
 		}
 		#endregion
 
+		internal static void EquippmentChangedHandler()
+		{
+			Logger.DBLog.InfoFormat("Equippment has changed!");
+
+			if (!PlayerClass.ShouldRecreatePlayerClass)
+				PlayerClass.ShouldRecreatePlayerClass = true;
+		}
+		private void OnLevelAreaIDChangedHandler(int ID)
+		{
+			if (FunkyGame.AdventureMode)
+			{
+				FunkyGame.Bounty.UpdateActiveBounty();
+				if (FunkyGame.Bounty.ActiveBounty != null)
+				{//No Longer Null.. Do Full Refresh!
+					FunkyGame.Bounty.RefreshLevelChanged();
+				}
+			}
+		}
 
 		public void Update(bool combat = false, bool force = false)
 		{
@@ -305,7 +513,7 @@ namespace fBaseXtensions.Game.Hero
 					else
 					{
 						var bIsInKnockBack = (me.CommonData.GetAttribute<int>(ActorAttributeType.InKnockback) != 0);
-						bIsIncapacitated = bIsInKnockBack; //|| Bot.Character.Class.KnockbackLandAnims.Contains(CurrentSNOAnim);
+						bIsIncapacitated = bIsInKnockBack; //|| FunkyGame.Hero.Class.KnockbackLandAnims.Contains(CurrentSNOAnim);
 					}
 
 

@@ -1,4 +1,8 @@
-﻿using fBaseXtensions.Items.Enums;
+﻿using fBaseXtensions.Cache;
+using fBaseXtensions.Cache.External.Objects;
+using fBaseXtensions.Cache.Internal;
+using fBaseXtensions.Cache.Internal.Enums;
+using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
 
@@ -49,40 +53,27 @@ namespace fBaseXtensions.Items
 		public PluginItemTypes ItemType { get; set; }
 
 
-
 		public CacheACDItem(ACDItem item)
 		{
+			
 			SNO=item.ActorSNO;
 			ThisBalanceID = item.GameBalanceId;
 			ThisInternalName = item.InternalName;
 			ThisLevel = item.Level;
 
-			bool foundItemTypeUsingCache = false;
-			PluginItemTypes _itemtype;
-			if (!ItemFunc.DetermineItemTypeUsingSNO(SNO, out _itemtype))
+			ItemDataEntry itemEntry;
+			if (TheCache.ItemDataEntries.TryGetValue(SNO, out itemEntry))
 			{
-				if (ItemSnoCache.ReaperOfSoulItemTypes.TryGetValue(SNO, out _itemtype))
-				{
-					ItemType = _itemtype;
-					foundItemTypeUsingCache = true;
-				}
+				ItemType=itemEntry.ItemType;
+				ThisDBItemType = ItemFunc.PluginItemTypeToDBItemType(ItemType);
+				ThisFollowerType = ItemFunc.ReturnFollowerType(ItemType);
+				LegendaryItemType = itemEntry.LegendaryType;
 			}
 			else
-			{
-				ItemType=_itemtype;
-				foundItemTypeUsingCache = true;
-			}
-
-			if (!foundItemTypeUsingCache)
 			{
 				ThisFollowerType = item.FollowerSpecialType;
 				ThisDBItemType = item.ItemType;
 				ItemType = ItemFunc.DetermineItemType(ThisInternalName, ThisDBItemType, ThisFollowerType, SNO);
-			}
-			else
-			{
-				ThisDBItemType = ThisDBItemType = ItemFunc.PluginItemTypeToDBItemType(ItemType);
-				ThisFollowerType = ItemFunc.ReturnFollowerType(ItemType);
 			}
 
 			BaseItemType = ItemFunc.DetermineBaseType(ItemType);
@@ -91,15 +82,6 @@ namespace fBaseXtensions.Items
 
 			if (BaseItemType== PluginBaseItemTypes.Armor || BaseItemType== PluginBaseItemTypes.Jewelry || BaseItemType== PluginBaseItemTypes.Offhand || BaseItemType == PluginBaseItemTypes.WeaponOneHand || BaseItemType == PluginBaseItemTypes.WeaponRange || BaseItemType == PluginBaseItemTypes.WeaponTwoHand)
 			{
-				if (!foundItemTypeUsingCache)
-				{
-					LegendaryItemTypes _legendarytype;
-					if (ItemBalanceCache.LegendaryItems.TryGetValue(ThisBalanceID, out _legendarytype))
-						LegendaryItemType = _legendarytype;
-					else if (ItemSnoCache.LegendaryItems.TryGetValue(SNO, out _legendarytype))
-						LegendaryItemType = _legendarytype;
-				}
-
 				if (BaseItemType == PluginBaseItemTypes.WeaponOneHand)
 					ThisOneHanded = true;
 				else if (BaseItemType == PluginBaseItemTypes.WeaponTwoHand)
@@ -139,6 +121,14 @@ namespace fBaseXtensions.Items
 				ItemStatString = thesestats.ToString();
 				ItemStatProperties = new ItemProperties(thesestats);
 			}
+
+			if (itemEntry==null && !IsUnidentified)
+			{
+				if (FunkyBaseExtension.Settings.Debugging.DebuggingData && FunkyBaseExtension.Settings.Debugging.DebuggingDataTypes.HasFlag(DebugDataTypes.Items))
+				{
+					ObjectCache.DebuggingData.CheckEntry(this);
+				}
+			}
 		}
 
 
@@ -146,7 +136,7 @@ namespace fBaseXtensions.Items
 		{
 			get
 			{
-				return ThisBalanceID == -2142362846;
+				return SNO == 304319;
 			}
 		}
 		public bool IsHoradricCache

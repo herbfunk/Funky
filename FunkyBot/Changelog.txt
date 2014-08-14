@@ -1,13 +1,7 @@
 ﻿// herbfunk revisions
 
-v2.13.0.0
-
-FunkyBot now references fBaseXtensions
-
-Extracted the following:
-	-Logger, FolderPaths, ProfileCache, Equipment, Backpack, ItemFunc, CharacterCache, Hotbar, GoldInactivity, and Stats classes
-	-Enums: GemQualityTypes, PotionTypes, LegendaryItemTypes(was EquippedItemTypes)
-
+v3.0.0.0
+	FunkyBot is now only a combat routine that uses fBaseXtensions behaviors to hook combat/loot.
 
 
 

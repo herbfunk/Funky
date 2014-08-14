@@ -66,8 +66,8 @@ namespace fBaseXtensions.Items
 		{
 			//Single Items
 			{1898798298, LegendaryItemTypes.SerpentSparker},
-			{-1149809185, LegendaryItemTypes.TallManFinger},
-			{-1149593563, LegendaryItemTypes.RoyalGrandeur},
+			{-1149809185, LegendaryItemTypes.TheTallMansFinger},
+			{-1149593563, LegendaryItemTypes.RingofRoyalGrandeur},
 			{1979309080, LegendaryItemTypes.IllusionaryBoots},
 			{820499474, LegendaryItemTypes.PiroMarella},
 			{1566368217, LegendaryItemTypes.CountessJuliasCameo},
@@ -75,27 +75,27 @@ namespace fBaseXtensions.Items
 			{1823578424, LegendaryItemTypes.StarmetalKukri},
 
 			//BLACKTHORNE'S
-			{-773231465, LegendaryItemTypes.Blackthornes}, //Jousting Mail
-			{1772078106, LegendaryItemTypes.Blackthornes}, //Notched Belt
-			{-115330289, LegendaryItemTypes.Blackthornes}, //Surcoat
-			{1941575230, LegendaryItemTypes.Blackthornes}, //Spurs
-			{1528526556, LegendaryItemTypes.Blackthornes}, //Duncraig Cross
+			{-773231465, LegendaryItemTypes.BlackthornesBattlegear}, //Jousting Mail
+			{1772078106, LegendaryItemTypes.BlackthornesBattlegear}, //Notched Belt
+			{-115330289, LegendaryItemTypes.BlackthornesBattlegear}, //Surcoat
+			{1941575230, LegendaryItemTypes.BlackthornesBattlegear}, //Spurs
+			{1528526556, LegendaryItemTypes.BlackthornesBattlegear}, //Duncraig Cross
 
 			//Zunimassa's
-			{1316917835, LegendaryItemTypes.Zunimassas}, //Marrow
-			{-960430780, LegendaryItemTypes.Zunimassas}, //String of Skulls
-			{-840125482, LegendaryItemTypes.Zunimassas}, //Vision
-			{1941359608, LegendaryItemTypes.Zunimassas}, //Trail
-			{-1187722720, LegendaryItemTypes.Zunimassas}, //Pox
+			{1316917835, LegendaryItemTypes.ZunimassasHaunt}, //Marrow
+			{-960430780, LegendaryItemTypes.ZunimassasHaunt}, //String of Skulls
+			{-840125482, LegendaryItemTypes.ZunimassasHaunt}, //Vision
+			{1941359608, LegendaryItemTypes.ZunimassasHaunt}, //Trail
+			{-1187722720, LegendaryItemTypes.ZunimassasHaunt}, //Pox
 			
 
 			//Akkhan's
-			{-1992164625, LegendaryItemTypes.Akkhan},//Helm
-			{-800755056, LegendaryItemTypes.Akkhan},//Sabatons
-			{-1980761457, LegendaryItemTypes.Akkhan},//Pauldrons
-			{827015887, LegendaryItemTypes.Akkhan},//Cuisses
-			{259933632, LegendaryItemTypes.Akkhan},//Breastplate
-			{2059399737, LegendaryItemTypes.Akkhan},//Gauntlets
+			{-1992164625, LegendaryItemTypes.ArmorofAkkhan},//Helm
+			{-800755056, LegendaryItemTypes.ArmorofAkkhan},//Sabatons
+			{-1980761457, LegendaryItemTypes.ArmorofAkkhan},//Pauldrons
+			{827015887, LegendaryItemTypes.ArmorofAkkhan},//Cuisses
+			{259933632, LegendaryItemTypes.ArmorofAkkhan},//Breastplate
+			{2059399737, LegendaryItemTypes.ArmorofAkkhan},//Gauntlets
 
 			//Raiment of a ThousandStorms
 			{826117462, LegendaryItemTypes.RaimentofaThousandStorms},//Pants
@@ -107,16 +107,16 @@ namespace fBaseXtensions.Items
 		
 			
 			//Raiment of the Jade Harvester
-			{826153399, LegendaryItemTypes.JadeHarvester},//Pants
-			{-801617544, LegendaryItemTypes.JadeHarvester},//Boots
+			{826153399, LegendaryItemTypes.RaimentoftheJadeHarvester},//Pants
+			{-801617544, LegendaryItemTypes.RaimentoftheJadeHarvester},//Boots
 			//{000000, LegendaryItemTypes.JadeHarvester},//Shoulders
-			{-1993027113, LegendaryItemTypes.JadeHarvester},//Helm
-			{259071144, LegendaryItemTypes.JadeHarvester},//Chest
-			{2058537249, LegendaryItemTypes.JadeHarvester},//Gloves
+			{-1993027113, LegendaryItemTypes.RaimentoftheJadeHarvester},//Helm
+			{259071144, LegendaryItemTypes.RaimentoftheJadeHarvester},//Chest
+			{2058537249, LegendaryItemTypes.RaimentoftheJadeHarvester},//Gloves
 
 			//Inna's Mantra
-			{-774237701, LegendaryItemTypes.Inna},//Pants
-			{1770964059, LegendaryItemTypes.Inna},//Belt
+			{-774237701, LegendaryItemTypes.InnasMantra},//Pants
+			{1770964059, LegendaryItemTypes.InnasMantra},//Belt
 			//{000000, LegendaryItemTypes.Inna},//Helm
 			//{000000, LegendaryItemTypes.Inna},//Chest
 			//{000000, LegendaryItemTypes.Inna},//Daibo
@@ -129,12 +129,13 @@ namespace fBaseXtensions.Items
 
 
 			//Embodiment of the Marauder
-			//{000000, LegendaryItemTypes.Marauder},//Pants
-			{-801689418, LegendaryItemTypes.Marauder},//Boots
-			//{000000, LegendaryItemTypes.Marauder},//Shoulders
-			//{000000, LegendaryItemTypes.Marauder},//Helm
-			//{000000, LegendaryItemTypes.Marauder},//Chest
-			//{000000, LegendaryItemTypes.Marauder},//Gloves
+			{826081525, LegendaryItemTypes.EmbodimentoftheMarauder},//Pants
+			{-801689418, LegendaryItemTypes.EmbodimentoftheMarauder},//Boots
+			{-1981695819, LegendaryItemTypes.EmbodimentoftheMarauder},//Shoulders
+			{-1993098987, LegendaryItemTypes.EmbodimentoftheMarauder},//Helm
+			{258999270, LegendaryItemTypes.EmbodimentoftheMarauder},//Chest
+			{2058465375, LegendaryItemTypes.EmbodimentoftheMarauder},//Gloves
 		};
+
 	}
 }
