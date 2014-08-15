@@ -1,6 +1,7 @@
 ﻿using System;
 using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
@@ -19,11 +20,11 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 		public override void Initialize()
 		{
 			WaitVars = new WaitLoops(0, 1, true);
-			Cost = FunkyBaseExtension.Settings.Monk.bMonkInnaSet ? 5 : 75;
+			Cost = Equipment.CheckLegendaryItemCount(LegendaryItemTypes.InnasMantra, 3) ? 5 : 75;
 			Priority = SkillPriority.High;
 			
 		
-
+			
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckEnergy));
 
 			ClusterConditions.Add(new SkillClusterConditions(7d, 35f, 2, false));

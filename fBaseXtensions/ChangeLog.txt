@@ -1,14 +1,18 @@
 ﻿v1.0.0.0
 	Added HookHandler Class
+		-Retrieve/Store/Restore methods for Treehooks.
+
 	Added PreCombat Behavior -- which occurs before CombatOverlord.
 		-Added UI Checking for elements that would make in-game actions impossible while open.
 
-	Added External Cache Systems (loaded from files)
+	Added External Cache (loaded from files)
 		-DroppedItemCache (to ID items that dropped using SNO)
 		-ItemDataCache (to ID items in backpack/equipped/stash using SNO -- includes Legendaries)
 		-GizmoCache (to ID gizmos such as Doors/Containers/Switches using SNO -- W.I.P.)
 		-AvoidanceCache (to ID avoidances using SNO)
+		-UnitCache (to ID units using SNO)
 
 	Internal Cache
 		Added CreationTime property to CachedObject
 		Changed CachedObstacle (Avoidance) removal counter into a time based removal. (optional -- if not set, will be removed when no longer valid from DB)
+		Added an additional shaman Fireball and Zult Twister/Bubble to avoidances.

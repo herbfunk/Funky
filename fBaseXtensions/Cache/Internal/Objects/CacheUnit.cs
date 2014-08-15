@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.External.Objects;
 using fBaseXtensions.Cache.Internal.Blacklist;
 using fBaseXtensions.Cache.Internal.Enums;

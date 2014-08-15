@@ -18,25 +18,6 @@ namespace fBaseXtensions.Game.Hero.Class
 		//Base class for each individual class!
 		public Monk()
 		{
-			//Monk Inna Full Set
-			int InnaSetItemCount = Equipment.EquippedItems.Count(i => i.LegendaryItemType==LegendaryItemTypes.InnasMantra);
-			if (InnaSetItemCount > 2 || InnaSetItemCount > 1 && Equipment.RingOfGrandeur)
-			{
-				Logger.DBLog.InfoFormat("Monk has inna set! (reduced sweeping wind cost)");
-				FunkyBaseExtension.Settings.Monk.bMonkInnaSet = true;
-			}
-			else
-				FunkyBaseExtension.Settings.Monk.bMonkInnaSet = false;
-
-			int RotsSetItemCount = Equipment.EquippedItems.Count(i => i.LegendaryItemType == LegendaryItemTypes.RaimentofaThousandStorms);
-			if (RotsSetItemCount>5 || RotsSetItemCount>4 && Equipment.RingOfGrandeur)
-			{
-				Logger.DBLog.InfoFormat("Monk has full Rainments of Thousand Storm Set!");
-				FunkyBaseExtension.Settings.Monk.RainmentsOfThousandStormsFiveBonus = true;
-			}
-			else
-				FunkyBaseExtension.Settings.Monk.RainmentsOfThousandStormsFiveBonus = false;
-
 			//Combo Strike???
 			if (Hotbar.PassivePowers.Contains(SNOPower.Monk_Passive_CombinationStrike))
 			{

@@ -1,5 +1,6 @@
 ﻿using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
@@ -13,15 +14,19 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 
 		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
 
+		private bool HasInnaSetBonus = false;
+
 		public override void Initialize()
 		{
+			HasInnaSetBonus = Equipment.CheckLegendaryItemCount(LegendaryItemTypes.InnasMantra, 3);
+
 			WaitVars = new WaitLoops(0, 1, true);
 			Cost = Hotbar.PassivePowers.Contains(SNOPower.Monk_Passive_ChantOfResonance) ? 25 : 50;
 
 
 			Priority = SkillPriority.High;
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckEnergy | SkillPrecastFlags.CheckRecastTimer));
-		
+
 			FcriteriaBuff = () => !Hotbar.HasBuff(SNOPower.X1_Monk_MantraOfEvasion_v2_Passive);
 
 			FcriteriaCombat = () => !Hotbar.HasBuff(SNOPower.X1_Monk_MantraOfEvasion_v2_Passive)
@@ -29,7 +34,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 								  FunkyBaseExtension.Settings.Monk.bMonkSpamMantra && FunkyGame.Targeting.Cache.CurrentTarget != null &&
 								  (FunkyGame.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25] > 0 ||
 								   FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20] >= 2 ||
-								   (FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20] >= 1 && FunkyBaseExtension.Settings.Monk.bMonkInnaSet) ||
+								   (FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20] >= 1 && HasInnaSetBonus) ||
 								   (FunkyGame.Targeting.Cache.CurrentUnitTarget.IsEliteRareUnique || FunkyGame.Targeting.Cache.CurrentTarget.IsBoss) &&
 								   FunkyGame.Targeting.Cache.CurrentTarget.RadiusDistance <= 25f) &&
 				// Check if either we don't have blinding flash, or we do and it's been cast in the last 6000ms

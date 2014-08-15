@@ -9,8 +9,6 @@
 		public bool bFuryDumpAlways { get; set; }
 		public bool bBarbUseWOTBAlways { get; set; }
 
-		public bool FullEarthSet { get; set; }
-
 		public SettingBarbarian()
 		{
 			bBarbUseWOTBAlways = false;
@@ -19,7 +17,6 @@
 			bGoblinWrath = false;
 			bFuryDumpWrath = false;
 			bFuryDumpAlways = false;
-			FullEarthSet = false;
 		}
 	}
 }

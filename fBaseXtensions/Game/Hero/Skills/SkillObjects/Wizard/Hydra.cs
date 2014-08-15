@@ -1,4 +1,5 @@
 ﻿using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
@@ -17,7 +18,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 		public override void Initialize()
 		{
 			WaitVars = new WaitLoops(1, 2, true);
-			Counter = FunkyBaseExtension.Settings.Wizard.SerpentSparker ? 2 : 1;
+			Counter = Equipment.CheckLegendaryItemCount(LegendaryItemTypes.SerpentSparker) ? 2 : 1;
 			Cost = 15;
 			Range = 50;
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
+using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.SNO;
 
@@ -8,7 +9,7 @@ namespace fBaseXtensions.Cache.External.Objects
 	public abstract class StringEntry
 	{
 		public string ID { get; set; }
-		public virtual ActorType ActorType { get; set; }
+		public virtual PluginActorType ActorType { get; set; }
 		public virtual EntryType EntryType { get; set; }
 
 		[XmlIgnore]
@@ -40,10 +41,10 @@ namespace fBaseXtensions.Cache.External.Objects
 	public class ItemStringEntry : StringEntry
 	{
 		public override EntryType EntryType { get { return EntryType.Item; } }
-		public override ActorType ActorType { get { return ActorType.Item; } }
+		public override PluginActorType ActorType { get { return PluginActorType.Item; } }
 
 		[XmlElement(Type = typeof(PluginDroppedItemTypes)),
-		XmlElement(Type = typeof(GizmoType))]
+		XmlElement(Type = typeof(PluginGizmoType))]
 		public new Object ObjectType
 		{
 			get { return _objectType; }
@@ -63,20 +64,20 @@ namespace fBaseXtensions.Cache.External.Objects
 	public class GizmoStringEntry : StringEntry
 	{
 		public override EntryType EntryType { get { return EntryType.Gizmo; } }
-		public override ActorType ActorType { get { return ActorType.Gizmo; } }
+		public override PluginActorType ActorType { get { return PluginActorType.Gizmo; } }
 
 		[XmlElement(Type = typeof(PluginDroppedItemTypes)),
-		XmlElement(Type = typeof(GizmoType))]
+		XmlElement(Type = typeof(PluginGizmoType))]
 		public new Object ObjectType
 		{
 			get { return _objectType; }
 			set { _objectType = value; }
 		}
-		private Object _objectType = GizmoType.None;
+		private Object _objectType = PluginGizmoType.None;
 
 
 		public GizmoStringEntry() : base() { }
-		public GizmoStringEntry(string name, GizmoType objectType)
+		public GizmoStringEntry(string name, PluginGizmoType objectType)
 			: base(name)
 		{
 			_objectType = objectType;

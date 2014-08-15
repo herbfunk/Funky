@@ -1,5 +1,6 @@
 ﻿using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
@@ -12,9 +13,11 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 
 		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
 
-
+		private bool TallManFinger = false;
 		public override void Initialize()
 		{
+			TallManFinger = Equipment.CheckLegendaryItemCount(LegendaryItemTypes.TheTallMansFinger);
+
 			WaitVars = new WaitLoops(0, 0, true);
 
 			Priority = SkillPriority.High;
@@ -36,7 +39,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 				total++;
 
 			//Tall Man Finger - Only 1
-			if (FunkyBaseExtension.Settings.WitchDoctor.TallManFinger)
+			if (TallManFinger)
 				total = 1;
 
 			return total;

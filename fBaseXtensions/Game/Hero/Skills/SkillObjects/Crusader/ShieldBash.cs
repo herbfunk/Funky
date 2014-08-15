@@ -1,5 +1,6 @@
 ﻿using fBaseXtensions.Game;
 using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Crusader
@@ -22,8 +23,12 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Crusader
 
 		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
+		private bool ReducedShieldBashCost = false;
+
 		public override void Initialize()
 		{
+			ReducedShieldBashCost = Equipment.CheckLegendaryItemCount(LegendaryItemTypes.PiroMarella);
+
 			Range = 25;
 			Cost = 30;
 			Priority = SkillPriority.Medium;
@@ -33,7 +38,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Crusader
 			SingleUnitCondition.Add(new UnitTargetConditions
 			{
 				TrueConditionFlags = TargetProperties.None,
-				Criteria = () => FunkyGame.Hero.dCurrentEnergyPct > (FunkyBaseExtension.Settings.Crusader.ReducedShieldBashCost?0.25:0.90d),
+				Criteria = () => FunkyGame.Hero.dCurrentEnergyPct > (ReducedShieldBashCost ? 0.25 : 0.90d),
 				FalseConditionFlags = TargetProperties.LowHealth,
 			});
 			ClusterConditions.Add(new SkillClusterConditions(5d, 25f, 2, true));

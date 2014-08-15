@@ -105,6 +105,12 @@ namespace fBaseXtensions.Cache.Internal.Blacklist
 			84919, //Shield_Skeleton_SkeletonKing
 			6575, //woodWraith_explosion
 			178657, //TemplarIntro_Stash
+			154103, //g_LightGlow_Red-18216
+			101441, //witchdoctor_Blowgun
+			295051, //powerUpGlobe_swipe
+			105606, //WD_zombieDogRune_poison_swipes_02
+			159631, //barbarian_frenzyRune_blood_swipe
+
         };
 
 

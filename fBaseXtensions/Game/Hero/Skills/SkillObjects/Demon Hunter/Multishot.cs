@@ -1,4 +1,5 @@
 ﻿using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
@@ -14,8 +15,11 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 
 		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.ClusterTarget|SkillExecutionFlags.Target; } }
 
+		private bool FullMarauderSetBonus = false;
 		public override void Initialize()
 		{
+			FullMarauderSetBonus = Equipment.CheckLegendaryItemCount(LegendaryItemTypes.EmbodimentoftheMarauder, 6);
+
 			WaitVars = new WaitLoops(1, 1, true);
 			Cost = 30;
 			Range = 50;
@@ -28,7 +32,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 			SingleUnitCondition.Add(new UnitTargetConditions
 			{
 				TrueConditionFlags = TargetProperties.None,
-				Criteria = () => FunkyGame.Hero.dCurrentEnergyPct > (FunkyBaseExtension.Settings.DemonHunter.FullMarauderSet ? 0.5d : 0.9d),
+				Criteria = () => FunkyGame.Hero.dCurrentEnergyPct > (FullMarauderSetBonus ? 0.5d : 0.9d),
 				MaximumDistance = Range,
 				FalseConditionFlags = TargetProperties.LowHealth,
 			});

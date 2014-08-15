@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using fBaseXtensions.Cache;
+using fBaseXtensions.Cache.External.Debugging;
 using fBaseXtensions.Cache.External.Objects;
 using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Cache.Internal.Avoidance;
@@ -1511,7 +1512,7 @@ namespace fBaseXtensions.Settings
 			LBDebug.Controls.Clear();
 
 			string OutPut = "";
-			foreach (var entry in TheCache.ObjectIDCache.UnitEntries.Values.OrderBy(unit => unit.InternalName))
+			foreach (var entry in TheCache.ObjectIDCache.UnitEntries.Values.OrderBy(unit => unit.SnoId))
 			{
 				OutPut = OutPut + entry.ReturnCacheEntryString() + "\r\n";
 			}

@@ -1,4 +1,5 @@
 ﻿using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Items.Enums;
 using fBaseXtensions.Navigation.Clustering;
 using Zeta.Game.Internals.Actors;
 
@@ -21,7 +22,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 25, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 
 			//Reduced CD Dagger!
-			if (FunkyBaseExtension.Settings.WitchDoctor.StarmetalKukri)
+			if (Equipment.CheckLegendaryItemCount(LegendaryItemTypes.StarmetalKukri))
 			{
 				ClusterConditions.Add(new SkillClusterConditions(9d, 50f, 5, true, clusterflags: ClusterProperties.Strong));
 				ClusterConditions.Add(new SkillClusterConditions(9d, 50f, 10, false));

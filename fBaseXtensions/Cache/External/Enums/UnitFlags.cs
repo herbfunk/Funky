@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace fBaseXtensions.Cache.External.Objects
+namespace fBaseXtensions.Cache.External.Enums
 {
 	[Flags]
 	public enum UnitFlags

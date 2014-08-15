@@ -331,6 +331,13 @@
       <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>181700</SnoId>
+      <InternalName>Axe_norm_unique_flippy_05-6015</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>6326</SnoId>
       <InternalName>twoHandedAxe_norm_base_flippy_03</InternalName>
       <ActorType>Item</ActorType>
@@ -534,6 +541,20 @@
       <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>195370</SnoId>
+      <InternalName>ceremonialDagger_norm_unique_03-3645</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>209290</SnoId>
+      <InternalName>ceremonialDagger_norm_unique_flippy_09-18044</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>6622</SnoId>
       <InternalName>XBow_norm_base_flippy_06-10533</InternalName>
       <ActorType>Item</ActorType>
@@ -702,6 +723,13 @@
       <PluginDroppedItemTypes>Dagger</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>221322</SnoId>
+      <InternalName>Dagger_norm_unique_flippy_06-11329</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Dagger</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>4140</SnoId>
       <InternalName>fistWeapon_norm_base_flippy_03-20926</InternalName>
       <ActorType>Item</ActorType>
@@ -718,6 +746,13 @@
     <DroppedItemEntry>
       <SnoId>335312</SnoId>
       <InternalName>x1_fistWeapon_norm_base_flippy_01-5293</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>4141</SnoId>
+      <InternalName>fistWeapon_norm_base_flippy_04-17653</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
@@ -1486,6 +1521,13 @@
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>271628</SnoId>
+      <InternalName>x1_Sword_norm_unique_flippy_20-617</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>6348</SnoId>
       <InternalName>twoHandedSword_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
@@ -1642,6 +1684,13 @@
     <DroppedItemEntry>
       <SnoId>6428</SnoId>
       <InternalName>Wand_norm_base_flippy_02-5412</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>6427</SnoId>
+      <InternalName>Wand_norm_base_flippy_01-12498</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
@@ -1817,6 +1866,13 @@
     <DroppedItemEntry>
       <SnoId>335259</SnoId>
       <InternalName>x1_Mojo_norm_base_01-15051</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>194988</SnoId>
+      <InternalName>Mojo_norm_unique_03-2903</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
@@ -2062,6 +2118,20 @@
     <DroppedItemEntry>
       <SnoId>366139</SnoId>
       <InternalName>x1_healthGlobe-2662</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>HealthGlobe</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>209120</SnoId>
+      <InternalName>HealthGlobe_04-8236</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>HealthGlobe</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>209093</SnoId>
+      <InternalName>HealthGlobe_03-9202</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>HealthGlobe</PluginDroppedItemTypes>
@@ -3368,6 +3438,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>58892</SnoId>
+      <ItemType>Chest</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>367188</SnoId>
       <ItemType>Cloak</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -3718,6 +3793,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>139093</SnoId>
+      <ItemType>SpiritStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>139114</SnoId>
       <ItemType>VoodooMask</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -3734,6 +3814,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>139115</SnoId>
+      <ItemType>VoodooMask</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139116</SnoId>
       <ItemType>VoodooMask</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -3893,6 +3978,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>4136</SnoId>
+      <ItemType>FistWeapon</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>335369</SnoId>
       <ItemType>HandCrossbow</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -4038,6 +4128,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>5451</SnoId>
+      <ItemType>Spear</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>335133</SnoId>
       <ItemType>Sword</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -4178,6 +4273,16 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>6615</SnoId>
+      <ItemType>TwoHandCrossbow</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>6611</SnoId>
+      <ItemType>TwoHandCrossbow</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>327966</SnoId>
       <ItemType>TwoHandDaibo</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -4213,6 +4318,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>247385</SnoId>
+      <ItemType>TwoHandFlail</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>335169</SnoId>
       <ItemType>TwoHandMace</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -4244,6 +4354,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>6333</SnoId>
+      <ItemType>TwoHandMace</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>6334</SnoId>
       <ItemType>TwoHandMace</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -4319,6 +4434,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>4870</SnoId>
+      <ItemType>TwoHandPolearm</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>4869</SnoId>
       <ItemType>TwoHandPolearm</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -4403,6 +4523,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>6346</SnoId>
+      <ItemType>TwoHandSword</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>367202</SnoId>
       <ItemType>Wand</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -4429,6 +4554,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>6423</SnoId>
+      <ItemType>Wand</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>487</SnoId>
       <ItemType>Wand</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -4484,6 +4614,16 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>139096</SnoId>
+      <ItemType>Mojo</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139098</SnoId>
+      <ItemType>Mojo</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139099</SnoId>
       <ItemType>Mojo</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -4589,6 +4729,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>190641</SnoId>
+      <ItemType>FollowerScoundrel</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>190640</SnoId>
       <ItemType>FollowerScoundrel</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>

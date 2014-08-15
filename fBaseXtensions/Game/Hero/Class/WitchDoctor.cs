@@ -16,29 +16,6 @@ namespace fBaseXtensions.Game.Hero.Class
 	{
 		public WitchDoctor()
 		{
-			int ZunimassaSetItemCount = Equipment.EquippedItems.Count(i => i.LegendaryItemType == LegendaryItemTypes.ZunimassasHaunt);
-			if (ZunimassaSetItemCount > 3 || ZunimassaSetItemCount > 2 && Equipment.RingOfGrandeur)
-			{
-				Logger.DBLog.DebugFormat("[Funky] Zunimassa Five Set Bounus Found!");
-				FunkyBaseExtension.Settings.WitchDoctor.ZunimassaFullSet = true;
-			}
-			else
-				FunkyBaseExtension.Settings.WitchDoctor.ZunimassaFullSet = false;
-
-			int JadeHarvesterSetItemCount = Equipment.EquippedItems.Count(i => i.LegendaryItemType == LegendaryItemTypes.RaimentoftheJadeHarvester);
-			if (JadeHarvesterSetItemCount > 5 || JadeHarvesterSetItemCount > 4 && Equipment.RingOfGrandeur)
-			{
-				Logger.DBLog.DebugFormat("[Funky] Jade Harvester Six Set Bounus Found!");
-				FunkyBaseExtension.Settings.WitchDoctor.JadeHarvesterFullSet = true;
-			}
-			else
-				FunkyBaseExtension.Settings.WitchDoctor.JadeHarvesterFullSet = false;
-
-			//Tall Man Finger Check
-			FunkyBaseExtension.Settings.WitchDoctor.TallManFinger = Equipment.EquippedItems.Any(i => i.LegendaryItemType == LegendaryItemTypes.TheTallMansFinger);
-			//Reduced CD (Big Bad Voodoo / Fetish Army) Dagger
-			FunkyBaseExtension.Settings.WitchDoctor.StarmetalKukri = Equipment.EquippedItems.Any(i => i.LegendaryItemType == LegendaryItemTypes.StarmetalKukri);
-
 			Logger.DBLog.DebugFormat("[Funky] Using WitchDoctor Player Class");
 		}
 		//Base class for each individual class!

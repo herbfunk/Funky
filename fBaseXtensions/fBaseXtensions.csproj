@@ -73,7 +73,46 @@
     <Compile Include="Behaviors\TownPortalOverlord.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Cache\External\Debugging\DebugData_Containers.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Cache\External\Debugging\DebugData_Destructibles.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Cache\External\Debugging\DebugData_Doors.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Cache\External\Debugging\DebugData_DroppedItems.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Cache\External\Debugging\DebugData_Items.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Cache\External\Debugging\DebugData_Units.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Cache\External\Debugging\EntryObjects\DebugEntry.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Cache\External\Debugging\EntryObjects\DebugItemDataEntry.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Cache\External\Debugging\EntryObjects\DebugUnitEntry.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Cache\External\Enums\PluginActorType.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Cache\External\Enums\PluginGizmoType.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Cache\External\Objects\AvoidanceDataCollection.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Cache\External\Enums\EntryType.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Cache\External\Objects\CacheEntry.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Cache\External\Objects\GizmoStringDataCollection.cs">
@@ -100,7 +139,7 @@
     <Compile Include="Cache\External\Objects\UnitDataCollection.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Cache\External\Objects\UnitFlags.cs">
+    <Compile Include="Cache\External\Enums\UnitFlags.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Cache\External\Objects\UnitPriority.cs">
@@ -187,7 +226,7 @@
     <Compile Include="Cache\Internal\Objects\CacheUnit.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Cache\Internal\Objects\DebugData.cs">
+    <Compile Include="Cache\External\Debugging\DebugData.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Cache\Internal\Objects\LOSInfo.cs">
@@ -776,6 +815,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Items\Enums\GemQualityTypes.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Items\Enums\PluginGemType.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Items\Enums\PluginItemQuality.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Items\ItemFunc.cs">

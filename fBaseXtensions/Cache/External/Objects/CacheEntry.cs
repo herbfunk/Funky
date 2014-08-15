@@ -1,35 +1,30 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
+using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.Internal.Enums;
-using fBaseXtensions.Items;
+using fBaseXtensions.Cache.Internal.Objects;
 using fBaseXtensions.Items.Enums;
-using fBaseXtensions.Settings;
 using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.SNO;
 
 namespace fBaseXtensions.Cache.External.Objects
 {
-	/// <summary>
-	/// Holds information to help ID objects
-	/// SNO is the main property, Internal Name is optional.
-	/// ActorType and EntryType declare what type of entry the object is.
-	/// ObjectType holds an important data to help with further idenification of the object. (Such as GizmoType or ItemType)
-	/// </summary>
-	public abstract class SnoEntry
+	public abstract class CacheEntry
 	{
 		public int SnoId { get; set; }
 		public string InternalName { get; set; }
-		public virtual PluginActorType ActorType { get; set; }
+		public virtual ActorType ActorType { get; set; }
 		public virtual EntryType EntryType { get; set; }
 
 		[XmlIgnore]
 		public virtual Object ObjectType { get; set; }
 
-		protected SnoEntry() { SnoId = -1; }
-		protected SnoEntry(int snoID)
+		protected CacheEntry() { SnoId = -1; }
+		protected CacheEntry(int snoID)
 		{
 			SnoId = snoID;
 			InternalName = String.Empty;
@@ -45,7 +40,7 @@ namespace fBaseXtensions.Cache.External.Objects
 			if (obj == null)
 				return false;
 
-			var p = obj as SnoEntry;
+			var p = obj as CacheEntry;
 			if (p == null)
 				return false;
 			return (SnoId == p.SnoId);
@@ -57,13 +52,13 @@ namespace fBaseXtensions.Cache.External.Objects
 		}
 	}
 
-	public class GizmoEntry : SnoEntry
+	public class CacheGizmoEntry : CacheEntry
 	{
 		public override EntryType EntryType { get { return EntryType.Gizmo; } }
-		public override PluginActorType ActorType { get { return PluginActorType.Gizmo; } }
+		public override ActorType ActorType { get { return ActorType.Gizmo; } }
 
 		[XmlElement(Type = typeof(PluginDroppedItemTypes)),
-		XmlElement(Type = typeof(PluginGizmoType)),
+		XmlElement(Type = typeof(GizmoType)),
 		XmlElement(Type = typeof(AvoidanceType)),
 		XmlElement(Type = typeof(UnitFlags)),
 		XmlElement(Type = typeof(PetTypes))]
@@ -72,7 +67,7 @@ namespace fBaseXtensions.Cache.External.Objects
 			get { return _objectType; }
 			set { _objectType = value; }
 		}
-		private Object _objectType = PluginGizmoType.None;
+		private Object _objectType = GizmoType.None;
 
 		public GizmoTargetTypes GizmotargetType
 		{
@@ -85,13 +80,20 @@ namespace fBaseXtensions.Cache.External.Objects
 
 
 
-		public GizmoEntry() : base() { }
-		public GizmoEntry(int snoID, PluginGizmoType objectType, string internalname = "", GizmoTargetTypes targettype = GizmoTargetTypes.None)
+		public CacheGizmoEntry() : base() { }
+		public CacheGizmoEntry(int snoID, GizmoType objectType, string internalname = "", GizmoTargetTypes targettype = GizmoTargetTypes.None)
 			: base(snoID)
 		{
 			InternalName = internalname;
 			_objectType = objectType;
 			GizmotargetType = targettype;
+		}
+		public CacheGizmoEntry(GizmoEntry entry)
+		{
+			InternalName = entry.InternalName;
+			var pluginGizmoType = (PluginGizmoType)entry.ObjectType;
+			_objectType = (GizmoType)Enum.Parse(typeof(GizmoType), pluginGizmoType.ToString());
+			GizmotargetType = entry.GizmotargetType;
 		}
 
 		public override string ToString()
@@ -100,13 +102,13 @@ namespace fBaseXtensions.Cache.External.Objects
 		}
 	}
 
-	public class DroppedItemEntry:SnoEntry
+	public class CacheDroppedItemEntry : CacheEntry
 	{
 		public override EntryType EntryType { get { return EntryType.Item; } }
-		public override PluginActorType ActorType { get { return PluginActorType.Item; } }
+		public override ActorType ActorType { get { return ActorType.Item; } }
 
 		[XmlElement(Type = typeof(PluginDroppedItemTypes)),
-		XmlElement(Type = typeof(PluginGizmoType)),
+		XmlElement(Type = typeof(GizmoType)),
 		XmlElement(Type = typeof(AvoidanceType)),
 		XmlElement(Type = typeof(UnitFlags)),
 		XmlElement(Type = typeof(PetTypes))]
@@ -118,11 +120,11 @@ namespace fBaseXtensions.Cache.External.Objects
 		private Object _objectType = PluginDroppedItemTypes.Unknown;
 
 
-		public DroppedItemEntry() : base() { }
-		public DroppedItemEntry(int snoID, PluginDroppedItemTypes objectType, string internalname="")
-			:base(snoID)
+		public CacheDroppedItemEntry() : base() { }
+		public CacheDroppedItemEntry(int snoID, PluginDroppedItemTypes objectType, string internalname = "")
+			: base(snoID)
 		{
-			InternalName=internalname;
+			InternalName = internalname;
 			_objectType = objectType;
 		}
 
@@ -132,13 +134,13 @@ namespace fBaseXtensions.Cache.External.Objects
 		}
 	}
 
-	public class AvoidanceEntry : SnoEntry
+	public class CacheAvoidanceEntry : CacheEntry
 	{
 		public override EntryType EntryType { get { return EntryType.Avoidance; } }
-		public override PluginActorType ActorType { get { return PluginActorType.ServerProp; } }
+		public override ActorType ActorType { get { return ActorType.ServerProp; } }
 
 		[XmlElement(Type = typeof(PluginDroppedItemTypes)),
-		XmlElement(Type = typeof(PluginGizmoType)),
+		XmlElement(Type = typeof(GizmoType)),
 		XmlElement(Type = typeof(AvoidanceType)),
 		XmlElement(Type = typeof(UnitFlags)),
 		XmlElement(Type = typeof(PetTypes))]
@@ -150,11 +152,11 @@ namespace fBaseXtensions.Cache.External.Objects
 		private Object _objectType = AvoidanceType.None;
 
 
-		public AvoidanceEntry() : base() { }
-		public AvoidanceEntry(int snoID, AvoidanceType objectType, string internalname = "")
-			:base(snoID)
+		public CacheAvoidanceEntry() : base() { }
+		public CacheAvoidanceEntry(int snoID, AvoidanceType objectType, string internalname = "")
+			: base(snoID)
 		{
-			InternalName=internalname;
+			InternalName = internalname;
 			_objectType = objectType;
 		}
 
@@ -164,13 +166,13 @@ namespace fBaseXtensions.Cache.External.Objects
 		}
 	}
 
-	public class UnitEntry : SnoEntry
+	public class CacheUnitEntry : CacheEntry
 	{
 		public override EntryType EntryType { get { return EntryType.Unit; } }
-		public override PluginActorType ActorType { get { return PluginActorType.Monster; } }
+		public override ActorType ActorType { get { return ActorType.Monster; } }
 
 		[XmlElement(Type = typeof(PluginDroppedItemTypes)),
-		XmlElement(Type = typeof(PluginGizmoType)),
+		XmlElement(Type = typeof(GizmoType)),
 		XmlElement(Type = typeof(AvoidanceType)),
 		XmlElement(Type = typeof(UnitFlags)),
 		XmlElement(Type = typeof(PetTypes))]
@@ -182,11 +184,11 @@ namespace fBaseXtensions.Cache.External.Objects
 		private Object _objectType = UnitFlags.None;
 
 
-		public UnitEntry() : base() { }
-		public UnitEntry(int snoID, UnitFlags flags, string internalname = "")
-			:base(snoID)
+		public CacheUnitEntry() : base() { }
+		public CacheUnitEntry(int snoID, UnitFlags flags, string internalname = "")
+			: base(snoID)
 		{
-			InternalName=internalname;
+			InternalName = internalname;
 			_objectType = flags;
 		}
 
@@ -203,13 +205,13 @@ namespace fBaseXtensions.Cache.External.Objects
 		}
 	}
 
-	public class UnitPetEntry : SnoEntry
+	public class CacheUnitPetEntry : CacheEntry
 	{
 		public override EntryType EntryType { get { return EntryType.Unit; } }
-		public override PluginActorType ActorType { get { return PluginActorType.Monster; } }
+		public override ActorType ActorType { get { return ActorType.Monster; } }
 
 		[XmlElement(Type = typeof(PluginDroppedItemTypes)),
-		XmlElement(Type = typeof(PluginGizmoType)),
+		XmlElement(Type = typeof(GizmoType)),
 		XmlElement(Type = typeof(AvoidanceType)),
 		XmlElement(Type = typeof(UnitFlags)),
 		XmlElement(Type = typeof(PetTypes))]
@@ -221,11 +223,11 @@ namespace fBaseXtensions.Cache.External.Objects
 		private Object _objectType = PetTypes.None;
 
 
-		public UnitPetEntry() : base() { }
-		public UnitPetEntry(int snoID, PetTypes type, string internalname = "")
-			:base(snoID)
+		public CacheUnitPetEntry() : base() { }
+		public CacheUnitPetEntry(int snoID, PetTypes type, string internalname = "")
+			: base(snoID)
 		{
-			InternalName=internalname;
+			InternalName = internalname;
 			_objectType = type;
 		}
 
@@ -235,59 +237,30 @@ namespace fBaseXtensions.Cache.External.Objects
 		}
 	}
 
-	public class ItemDataEntry
+	public class CacheItemGemEntry
 	{
 		public int SnoId { get; set; }
-		public PluginItemTypes ItemType { get; set; }
-		public LegendaryItemTypes LegendaryType { get; set; }
-
-		public ItemDataEntry()
-		{
-			SnoId = -1;
-			ItemType = PluginItemTypes.Unknown;
-			LegendaryType = LegendaryItemTypes.None;
-		}
-		public ItemDataEntry(int snoid, PluginItemTypes type, LegendaryItemTypes legendarytype = LegendaryItemTypes.None)
-		{
-			SnoId = snoid;
-			ItemType = type;
-			LegendaryType = legendarytype;
-		}
-
-
-		public override int GetHashCode()
-		{
-			return SnoId;
-		}
-		public override bool Equals(object obj)
-		{
-			if (obj == null)
-				return false;
-
-			var p = obj as ItemDataEntry;
-			if (p == null)
-				return false;
-			return (SnoId == p.SnoId);
-		}
-	}
-
-	public class ItemGemEntry
-	{
-		public int SnoId { get; set; }
-		public PluginGemType Type { get; set; }
+		public GemType Type { get; set; }
 		public GemQualityTypes Quality { get; set; }
 
-		public ItemGemEntry()
+		public CacheItemGemEntry()
 		{
 			SnoId = -1;
-			Type = PluginGemType.Amethyst;
+			Type = GemType.Amethyst;
 			Quality = GemQualityTypes.Unknown;
 		}
-		public ItemGemEntry(int snoid, PluginGemType type, GemQualityTypes quality)
+		public CacheItemGemEntry(int snoid, GemType type, GemQualityTypes quality)
 		{
 			SnoId = snoid;
 			Type = type;
-			Quality=quality;
+			Quality = quality;
+		}
+		public CacheItemGemEntry(ItemGemEntry entry)
+		{
+			SnoId = entry.SnoId;
+			var pluginGemType = (PluginGemType)entry.Type;
+			Type=(GemType)Enum.Parse(typeof(GemType), pluginGemType.ToString());
+			Quality = entry.Quality;
 		}
 
 		public override int GetHashCode()
@@ -305,7 +278,4 @@ namespace fBaseXtensions.Cache.External.Objects
 			return (SnoId == p.SnoId);
 		}
 	}
-
-
-
 }

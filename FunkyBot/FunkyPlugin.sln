@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyTownRun", "..\..\fItem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fBaseXtensions", "..\fBaseXtensions\fBaseXtensions.csproj", "{9B349AF5-9A32-49A9-B815-9D2BA7BCE694}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheBrowser", "..\CacheBrowser\CacheBrowser.csproj", "{3D1DD2FD-15EF-4FCE-A902-E80A43AB750E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,16 @@ Global
 		{9B349AF5-9A32-49A9-B815-9D2BA7BCE694}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{9B349AF5-9A32-49A9-B815-9D2BA7BCE694}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{9B349AF5-9A32-49A9-B815-9D2BA7BCE694}.Release|x86.ActiveCfg = Release|Any CPU
+		{3D1DD2FD-15EF-4FCE-A902-E80A43AB750E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D1DD2FD-15EF-4FCE-A902-E80A43AB750E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D1DD2FD-15EF-4FCE-A902-E80A43AB750E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3D1DD2FD-15EF-4FCE-A902-E80A43AB750E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3D1DD2FD-15EF-4FCE-A902-E80A43AB750E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3D1DD2FD-15EF-4FCE-A902-E80A43AB750E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D1DD2FD-15EF-4FCE-A902-E80A43AB750E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D1DD2FD-15EF-4FCE-A902-E80A43AB750E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3D1DD2FD-15EF-4FCE-A902-E80A43AB750E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3D1DD2FD-15EF-4FCE-A902-E80A43AB750E}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

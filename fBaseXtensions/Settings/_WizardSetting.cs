@@ -7,8 +7,7 @@
 		public bool bCancelArchonRebuff { get; set; }
 		public bool bTeleportIntoGrouping { get; set; }
 		public bool bTeleportFleeWhenLowHP { get; set; }
-		public bool SerpentSparker { get; set; }
-		public bool VyrsFullSet { get; set; }
+
 
 		public SettingWizard()
 		{
@@ -17,8 +16,6 @@
 			bCancelArchonRebuff = false;
 			bWaitForArchon = false;
 			bKiteOnlyArchon = true;
-			SerpentSparker = false;
-			VyrsFullSet = false;
 		}
 	}
 }

@@ -18,15 +18,6 @@ namespace fBaseXtensions.Game.Hero.Class
 	{
 		public Barbarian()
 		{
-			int EarthSetItemCount = Equipment.EquippedItems.Count(i => i.LegendaryItemType == LegendaryItemTypes.MightOfTheEarth);
-			if (EarthSetItemCount > 5 || EarthSetItemCount > 4 && Equipment.RingOfGrandeur)
-			{
-				Logger.DBLog.DebugFormat("[Funky] Earth's Six Set Bounus Found!");
-				FunkyBaseExtension.Settings.Barbarian.FullEarthSet = true;
-			}
-			else
-				FunkyBaseExtension.Settings.Barbarian.FullEarthSet = false;
-
 			Logger.DBLog.DebugFormat("[Funky] Using Barbarian Player Class");
 		}
 		//Base class for each individual class!

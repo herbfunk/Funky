@@ -120,8 +120,8 @@ namespace FunkyDebug
 				try
 				{
 
-					flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(String.Format("Unit ActorSNO: {0} Name: {1} Type: {2} Radius: {7:0.00} Position: {3} ({4}) Animation: {5} has Attributes: {6}\n",
-											o.ActorSNO, o.Name, o.ActorInfo.GizmoType, o.Position, o.Position, o.CommonData.CurrentAnimation, attributesFound, o.CollisionSphere.Radius)));
+					flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(String.Format("Unit ActorSNO: {0} Name: {1} MonsterName: {8} Type: {2} Radius: {7:0.00} Position: {3} ({4}) Animation: {5} has Attributes: {6}\n",
+											o.ActorSNO, o.Name, o.ActorInfo.GizmoType, o.Position, o.Position, o.CommonData.CurrentAnimation, attributesFound, o.CollisionSphere.Radius, o.CommonData.MonsterInfo.Name)));
 				}
 				catch { }
 

@@ -34,6 +34,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new AvoidanceEntry(123839, AvoidanceType.AzmodanBodies),
 				new AvoidanceEntry(161822, AvoidanceType.BelialGround),
 				new AvoidanceEntry(161833, AvoidanceType.BelialGround),
+				new AvoidanceEntry(4102, AvoidanceType.ShamanFireBall),
 				new AvoidanceEntry(4103, AvoidanceType.ShamanFireBall),
 				new AvoidanceEntry(432, AvoidanceType.MageFirePool),
 				new AvoidanceEntry(168031, AvoidanceType.DiabloPrison),
@@ -114,7 +115,7 @@ namespace fBaseXtensions.Cache.External.Objects
 		}
 
 		private static readonly string DefaultFilePath = Path.Combine(FolderPaths.PluginPath, "Cache", "External", "Dictionaries", "Cache_Avoidance.xml");
-		internal static AvoidanceDataCollection DeserializeFromXML()
+		public static AvoidanceDataCollection DeserializeFromXML()
 		{
 			var deserializer = new XmlSerializer(typeof(AvoidanceDataCollection));
 			TextReader textReader = new StreamReader(DefaultFilePath);
@@ -122,10 +123,31 @@ namespace fBaseXtensions.Cache.External.Objects
 			textReader.Close();
 			return settings;
 		}
-		internal static void SerializeToXML(AvoidanceDataCollection settings)
+		public static AvoidanceDataCollection DeserializeFromXML(string FolderPath)
+		{
+			if (!Directory.Exists(FolderPath))
+				return null;
+
+			string FilePath = Path.Combine(FolderPath, "Cache_Avoidance.xml");
+
+			var deserializer = new XmlSerializer(typeof(AvoidanceDataCollection));
+			TextReader textReader = new StreamReader(FilePath);
+			var settings = (AvoidanceDataCollection)deserializer.Deserialize(textReader);
+			textReader.Close();
+			return settings;
+		}
+		public static void SerializeToXML(AvoidanceDataCollection settings)
 		{
 			var serializer = new XmlSerializer(typeof(AvoidanceDataCollection));
 			var textWriter = new StreamWriter(DefaultFilePath);
+			serializer.Serialize(textWriter, settings);
+			textWriter.Close();
+		}
+		public static void SerializeToXML(AvoidanceDataCollection settings, string FolderPath)
+		{
+			string FilePath = Path.Combine(FolderPath, "Cache_Avoidance.xml");
+			var serializer = new XmlSerializer(typeof(AvoidanceDataCollection));
+			var textWriter = new StreamWriter(FilePath);
 			serializer.Serialize(textWriter, settings);
 			textWriter.Close();
 		}

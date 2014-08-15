@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.External.Objects;
 using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Helpers;
+using fBaseXtensions.Items.Enums;
 
 namespace fBaseXtensions.Cache.External
 {
@@ -14,14 +16,14 @@ namespace fBaseXtensions.Cache.External
 		//public UnitData UnitData { get; set; }
 
 
-		public Dictionary<int, UnitEntry> UnitEntries = new Dictionary<int, UnitEntry>();
-		public Dictionary<int, GizmoEntry> GizmoEntries = new Dictionary<int, GizmoEntry>();
+		public Dictionary<int, CacheUnitEntry> UnitEntries = new Dictionary<int, CacheUnitEntry>();
+		public Dictionary<int, CacheGizmoEntry> GizmoEntries = new Dictionary<int, CacheGizmoEntry>();
 		public Dictionary<int, ItemDataEntry> ItemDataEntries = new Dictionary<int, ItemDataEntry>();
 		public List<ItemStringEntry> ItemDroppedInternalNames = new List<ItemStringEntry>();
-		public Dictionary<int, DroppedItemEntry> ItemDroppedEntries = new Dictionary<int, DroppedItemEntry>();
-		public Dictionary<int, ItemGemEntry> ItemGemEntries = new Dictionary<int, ItemGemEntry>();
+		public Dictionary<int, CacheDroppedItemEntry> ItemDroppedEntries = new Dictionary<int, CacheDroppedItemEntry>();
+		public Dictionary<int, CacheItemGemEntry> ItemGemEntries = new Dictionary<int, CacheItemGemEntry>();
 		public Dictionary<int, PetTypes> UnitPetEntries = new Dictionary<int, PetTypes>();
-		public Dictionary<int, AvoidanceEntry> AvoidanceEntries = new Dictionary<int, AvoidanceEntry>(); 
+		public Dictionary<int, CacheAvoidanceEntry> AvoidanceEntries = new Dictionary<int, CacheAvoidanceEntry>(); 
 
 
 		public IDCache()
@@ -32,13 +34,12 @@ namespace fBaseXtensions.Cache.External
 			
 
 			var unitdata = UnitData.DeserializeFromXML();
-			//var unitdata = new UnitData();
-			//UnitData.SerializeToXML(unitdata);
+			//var unitdata = new UnitData(); UnitData.SerializeToXML(unitdata);
 
 			UnitEntries.Clear();
 			foreach (var entry in unitdata.UnitEntries)
 			{
-				UnitEntries.Add(entry.SnoId, entry);
+				UnitEntries.Add(entry.SnoId, new CacheUnitEntry(entry.SnoId, (UnitFlags)entry.ObjectType, entry.InternalName));
 			}
 			UnitPetEntries.Clear();
 			foreach (var entry in unitdata.UnitPetEntries)
@@ -48,13 +49,12 @@ namespace fBaseXtensions.Cache.External
 
 
 			var Items = ItemDataCollection.DeserializeFromXML();
-			//var Items = new ItemDataCollection();
-			//ItemDataCollection.SerializeToXML(Items);
+			//var Items = new ItemDataCollection(); ItemDataCollection.SerializeToXML(Items);
 
 			ItemDroppedEntries.Clear();
 			foreach (var entry in Items.DroppedItemCache)
 			{
-				ItemDroppedEntries.Add(entry.SnoId, entry);
+				ItemDroppedEntries.Add(entry.SnoId, new CacheDroppedItemEntry(entry.SnoId, (PluginDroppedItemTypes)entry.ObjectType, entry.InternalName));
 			}
 			ItemDataEntries.Clear();
 			foreach (var entry in Items.ItemDataCache)
@@ -64,7 +64,7 @@ namespace fBaseXtensions.Cache.External
 			ItemGemEntries.Clear();
 			foreach (var entry in Items.GemCache)
 			{
-				ItemGemEntries.Add(entry.SnoId, entry);
+				ItemGemEntries.Add(entry.SnoId, new CacheItemGemEntry(entry));
 			}
 			ItemDroppedInternalNames.Clear();
 			foreach (var entry in Items.DroppedItemInternalNames)
@@ -74,26 +74,26 @@ namespace fBaseXtensions.Cache.External
 
 
 			var Gizmos = GizmoDataCollection.DeserializeFromXML();
-			//var Gizmos = new GizmoDataCollection();
-			//GizmoDataCollection.SerializeToXML(Gizmos);
+			//var Gizmos = new GizmoDataCollection(); GizmoDataCollection.SerializeToXML(Gizmos);
 
 			GizmoEntries.Clear();
 			foreach (var entry in Gizmos.GizmoCache)
 			{
-				GizmoEntries.Add(entry.SnoId, entry);
+				GizmoEntries.Add(entry.SnoId, new CacheGizmoEntry(entry));
 			}
 
 
 			var Avoidance = AvoidanceDataCollection.DeserializeFromXML();
-			//var Avoidance = new AvoidanceDataCollection();
+			//var Avoidance = new AvoidanceDataCollection(); AvoidanceDataCollection.SerializeToXML(Avoidance);
+
 			AvoidanceEntries.Clear();
 			foreach (var entry in Avoidance.AvoidanceCache)
 			{
-				AvoidanceEntries.Add(entry.SnoId, entry);
+				AvoidanceEntries.Add(entry.SnoId, new CacheAvoidanceEntry(entry.SnoId, (AvoidanceType)entry.ObjectType, entry.InternalName));
 			}
 		}
 
-		internal bool TryGetCacheValue(int snoid, out SnoEntry value)
+		internal bool TryGetCacheValue(int snoid, out CacheEntry value)
 		{
 			value = null;
 

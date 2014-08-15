@@ -17,27 +17,6 @@ namespace fBaseXtensions.Game.Hero.Class
 	{
 		public Wizard()
 		{
-
-			if (Equipment.EquippedItems.Any(i => i.ThisRealName.Contains("Serpent's Sparker")))
-			{
-				FunkyBaseExtension.Settings.Wizard.SerpentSparker = true;
-				Logger.DBLog.DebugFormat("Wizard Can Cast Two Hydras!");
-			}
-			else
-			{
-				FunkyBaseExtension.Settings.Wizard.SerpentSparker = false;
-			}
-
-
-			int VyrsSetItemCount = Equipment.EquippedItems.Count(i => i.LegendaryItemType == LegendaryItemTypes.VyrsAmazingArcana);
-			if (VyrsSetItemCount > 3 || VyrsSetItemCount > 2 && Equipment.RingOfGrandeur)
-			{
-				Logger.DBLog.DebugFormat("[Funky] Vyrs Four Set Bounus Found!");
-				FunkyBaseExtension.Settings.Wizard.VyrsFullSet = true;
-			}
-			else
-				FunkyBaseExtension.Settings.Wizard.VyrsFullSet = false;
-
 			Logger.DBLog.DebugFormat("[Funky] Using Wizard Player Class");
 		}
 

@@ -187,5 +187,12 @@ namespace fBaseXtensions.Game.Hero
 			if (!PlayerClass.ShouldRecreatePlayerClass)
 				PlayerClass.ShouldRecreatePlayerClass = true;
 		}
+
+		public static bool CheckLegendaryItemCount(LegendaryItemTypes legendarytype, int count=1)
+		{
+			var itemCount = EquippedItems.Count(i => i.LegendaryItemType == legendarytype);
+			if (itemCount >= 2 && RingOfGrandeur) itemCount++;
+			return itemCount >= count;
+		}
 	}
 }

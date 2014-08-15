@@ -1,5 +1,6 @@
 ﻿using fBaseXtensions.Game;
 using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Items.Enums;
 using fBaseXtensions.Navigation.Clustering;
 using Zeta.Common;
 using Zeta.Game.Internals.Actors;
@@ -34,7 +35,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 			//);
 
 			//Rainments of Thousand Storms Full Set Bonus (Explosion of lightning)
-			if (FunkyBaseExtension.Settings.Monk.RainmentsOfThousandStormsFiveBonus)
+			if (Equipment.CheckLegendaryItemCount(LegendaryItemTypes.RaimentofaThousandStorms,6))
 			{
 				//Boss!
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, MinimumHealthPercent: 0.95d));

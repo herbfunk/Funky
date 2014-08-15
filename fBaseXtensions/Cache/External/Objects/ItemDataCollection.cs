@@ -160,6 +160,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(335157, PluginDroppedItemTypes.Axe, "x1_Axe_norm_base_flippy_01-15153"),
 				new DroppedItemEntry(190006, PluginDroppedItemTypes.Axe, "Axe_norm_unique_flippy_06-15977"),
 				new DroppedItemEntry(3259, PluginDroppedItemTypes.Axe, "Axe_norm_base_flippy_07-6732"),
+				new DroppedItemEntry(181700, PluginDroppedItemTypes.Axe, "Axe_norm_unique_flippy_05-6015"),
 
 				//
 				new DroppedItemEntry(6326, PluginDroppedItemTypes.AxeTwoHanded, "twoHandedAxe_norm_base_flippy_03"),
@@ -195,6 +196,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(193440, PluginDroppedItemTypes.CeremonialKnife, "ceremonialDagger_norm_unique_flippy_02-115480"),
 				new DroppedItemEntry(223386, PluginDroppedItemTypes.CeremonialKnife, "ceremonialDagger_norm_unique_flippy_06-181600"),
 				new DroppedItemEntry(195443, PluginDroppedItemTypes.CeremonialKnife, "ceremonialDagger_norm_unique_03_bladeEnergy-13546"),
+				new DroppedItemEntry(195370, PluginDroppedItemTypes.CeremonialKnife, "ceremonialDagger_norm_unique_03-3645"),
+				new DroppedItemEntry(209290, PluginDroppedItemTypes.CeremonialKnife, "ceremonialDagger_norm_unique_flippy_09-18044"),
 
 				//
 				new DroppedItemEntry(6622, PluginDroppedItemTypes.Crossbow, "XBow_norm_base_flippy_06-10533"),
@@ -225,11 +228,13 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(3912, PluginDroppedItemTypes.Dagger, "Dagger_norm_base_flippy_03-13694"),
 				new DroppedItemEntry(195400, PluginDroppedItemTypes.Dagger, "Dagger_norm_unique_flippy_03-3435"),
 				new DroppedItemEntry(192638, PluginDroppedItemTypes.Dagger, "Dagger_norm_unique_flippy_02-11188"),
+				new DroppedItemEntry(221322, PluginDroppedItemTypes.Dagger, "Dagger_norm_unique_flippy_06-11329"),
 
 				//
 				new DroppedItemEntry(4140, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_base_flippy_03-20926"),
 				new DroppedItemEntry(367194, PluginDroppedItemTypes.FistWeapon, "x1_fistWeapon_norm_base_flippy_02-2721"),
 				new DroppedItemEntry(335312, PluginDroppedItemTypes.FistWeapon, "x1_fistWeapon_norm_base_flippy_01-5293"),
+				new DroppedItemEntry(4141, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_base_flippy_04-17653"),
 
 				//
 				new DroppedItemEntry(247389, PluginDroppedItemTypes.Flail,"x1_flail1H_norm_base_flippy_02"),
@@ -362,6 +367,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(115145, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_01-7363"),
 				new DroppedItemEntry(220015, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_07-578"),
 				new DroppedItemEntry(271620, PluginDroppedItemTypes.Sword, "x1_Sword_norm_unique_flippy_13-2812"),
+				new DroppedItemEntry(271628, PluginDroppedItemTypes.Sword, "x1_Sword_norm_unique_flippy_20-617"),
 
 				//
 				new DroppedItemEntry(6348, PluginDroppedItemTypes.SwordTwoHanded,"twoHandedSword_norm_base_flippy_02"),
@@ -390,7 +396,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(6433, PluginDroppedItemTypes.Wand, "Wand_norm_base_flippy_07-24809"),
 				new DroppedItemEntry(335375, PluginDroppedItemTypes.Wand, "x1_Wand_norm_base_flippy_01-15541"),
 				new DroppedItemEntry(6428, PluginDroppedItemTypes.Wand, "Wand_norm_base_flippy_02-5412"),
- 
+				new DroppedItemEntry(6427, PluginDroppedItemTypes.Wand, "Wand_norm_base_flippy_01-12498"),
+
 				#endregion
 
 				//============================= JEWELERY =============================
@@ -425,6 +432,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(211673, PluginDroppedItemTypes.Mojo, "Mojo_norm_unique_flippy_07-22764"),
 				new DroppedItemEntry(335259, PluginDroppedItemTypes.Mojo, "x1_Mojo_norm_base_01-15051"),
 				new DroppedItemEntry(367195, PluginDroppedItemTypes.Mojo, "x1_Mojo_norm_base_02-17539"),
+				new DroppedItemEntry(194988, PluginDroppedItemTypes.Mojo, "Mojo_norm_unique_03-2903"),
 
 				//
 				new DroppedItemEntry(218695, PluginDroppedItemTypes.Quiver),
@@ -474,6 +482,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(4267, PluginDroppedItemTypes.HealthGlobe,"HealthGlobe"),
 				new DroppedItemEntry(85798, PluginDroppedItemTypes.HealthGlobe,"HealthGlobe_02"),
 				new DroppedItemEntry(366139, PluginDroppedItemTypes.HealthGlobe, "x1_healthGlobe-2662"),
+				new DroppedItemEntry(209120, PluginDroppedItemTypes.HealthGlobe, "HealthGlobe_04-8236"),
+				new DroppedItemEntry(209093, PluginDroppedItemTypes.HealthGlobe, "HealthGlobe_03-9202"),
 
 				//
 				new DroppedItemEntry(376, PluginDroppedItemTypes.Gold,"GoldCoin"),
@@ -657,6 +667,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(3801, PluginItemTypes.Chest),
 				new ItemDataEntry(3802, PluginItemTypes.Chest),
 				new ItemDataEntry(3803, PluginItemTypes.Chest),
+				new ItemDataEntry(58892, PluginItemTypes.Chest),
 
 				new ItemDataEntry(367188, PluginItemTypes.Cloak),
 				new ItemDataEntry(335376, PluginItemTypes.Cloak),
@@ -734,11 +745,13 @@ namespace fBaseXtensions.Cache.External.Objects
 
 				new ItemDataEntry(335392, PluginItemTypes.SpiritStone),
 				new ItemDataEntry(364156, PluginItemTypes.SpiritStone),
+				new ItemDataEntry(139093, PluginItemTypes.SpiritStone),
 
 				new ItemDataEntry(139114, PluginItemTypes.VoodooMask),
 				new ItemDataEntry(367197, PluginItemTypes.VoodooMask),
 				new ItemDataEntry(335387, PluginItemTypes.VoodooMask),
 				new ItemDataEntry(139115, PluginItemTypes.VoodooMask),
+				new ItemDataEntry(139116, PluginItemTypes.VoodooMask),
 
 				new ItemDataEntry(367201, PluginItemTypes.WizardHat),
 				new ItemDataEntry(335378, PluginItemTypes.WizardHat),
@@ -781,7 +794,8 @@ namespace fBaseXtensions.Cache.External.Objects
 
 				new ItemDataEntry(367193, PluginItemTypes.FistWeapon),
 				new ItemDataEntry(328572, PluginItemTypes.FistWeapon),
-				
+				new ItemDataEntry(4136, PluginItemTypes.FistWeapon),
+
 				new ItemDataEntry(335369, PluginItemTypes.HandCrossbow),
 				new ItemDataEntry(367185, PluginItemTypes.HandCrossbow),
 				new ItemDataEntry(145086, PluginItemTypes.HandCrossbow),
@@ -814,6 +828,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(5452, PluginItemTypes.Spear),
 				new ItemDataEntry(5453, PluginItemTypes.Spear),
 				new ItemDataEntry(5454, PluginItemTypes.Spear),
+				new ItemDataEntry(5451, PluginItemTypes.Spear),
 
 				new ItemDataEntry(335133, PluginItemTypes.Sword),
 				new ItemDataEntry(367139, PluginItemTypes.Sword),
@@ -846,6 +861,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(497, PluginItemTypes.TwoHandCrossbow),
 				new ItemDataEntry(6612, PluginItemTypes.TwoHandCrossbow),
 				new ItemDataEntry(98159, PluginItemTypes.TwoHandCrossbow),
+				new ItemDataEntry(6615, PluginItemTypes.TwoHandCrossbow),
+				new ItemDataEntry(6611, PluginItemTypes.TwoHandCrossbow),
 
 				new ItemDataEntry(327966, PluginItemTypes.TwoHandDaibo),
 				new ItemDataEntry(367191, PluginItemTypes.TwoHandDaibo),
@@ -855,6 +872,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(247387, PluginItemTypes.TwoHandFlail),
 				new ItemDataEntry(247386, PluginItemTypes.TwoHandFlail),
 				new ItemDataEntry(247384, PluginItemTypes.TwoHandFlail),
+				new ItemDataEntry(247385, PluginItemTypes.TwoHandFlail),
 
 				new ItemDataEntry(335169, PluginItemTypes.TwoHandMace),
 				new ItemDataEntry(367151, PluginItemTypes.TwoHandMace),
@@ -863,6 +881,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(6335, PluginItemTypes.TwoHandMace),
 				new ItemDataEntry(6330, PluginItemTypes.TwoHandMace),
 				new ItemDataEntry(6333, PluginItemTypes.TwoHandMace),
+				new ItemDataEntry(6334, PluginItemTypes.TwoHandMace),
 
 				new ItemDataEntry(367170, PluginItemTypes.TwoHandMighty),
 				new ItemDataEntry(221451, PluginItemTypes.TwoHandMighty),
@@ -880,6 +899,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(4867, PluginItemTypes.TwoHandPolearm),
 				new ItemDataEntry(4868, PluginItemTypes.TwoHandPolearm),
 				new ItemDataEntry(4870, PluginItemTypes.TwoHandPolearm),
+				new ItemDataEntry(4869, PluginItemTypes.TwoHandPolearm),
 
 				new ItemDataEntry(367162, PluginItemTypes.TwoHandStaff),
 				new ItemDataEntry(328169, PluginItemTypes.TwoHandStaff),
@@ -898,6 +918,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(6344, PluginItemTypes.TwoHandSword),
 				new ItemDataEntry(6343, PluginItemTypes.TwoHandSword),
 				new ItemDataEntry(483, PluginItemTypes.TwoHandSword),
+				new ItemDataEntry(6346, PluginItemTypes.TwoHandSword),
 
 				new ItemDataEntry(367202, PluginItemTypes.Wand),
 				new ItemDataEntry(335373, PluginItemTypes.Wand),
@@ -905,6 +926,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(6422, PluginItemTypes.Wand),
 				new ItemDataEntry(6426, PluginItemTypes.Wand),
 				new ItemDataEntry(6423, PluginItemTypes.Wand),
+				new ItemDataEntry(487, PluginItemTypes.Wand),
 
 				new ItemDataEntry(367175, PluginItemTypes.CrusaderShield),
 				new ItemDataEntry(335037, PluginItemTypes.CrusaderShield),
@@ -918,6 +940,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(335259, PluginItemTypes.Mojo),
 				new ItemDataEntry(367195, PluginItemTypes.Mojo),
 				new ItemDataEntry(139096, PluginItemTypes.Mojo),
+				new ItemDataEntry(139098, PluginItemTypes.Mojo),
+				new ItemDataEntry(139099, PluginItemTypes.Mojo),
 
 				new ItemDataEntry(367204, PluginItemTypes.Source),
 				new ItemDataEntry(327063, PluginItemTypes.Source),
@@ -946,6 +970,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(190639, PluginItemTypes.FollowerScoundrel),
 				new ItemDataEntry(190638, PluginItemTypes.FollowerScoundrel),
 				new ItemDataEntry(190641, PluginItemTypes.FollowerScoundrel),
+				new ItemDataEntry(190640, PluginItemTypes.FollowerScoundrel),
 
 				new ItemDataEntry(190628, PluginItemTypes.FollowerTemplar),
 				new ItemDataEntry(190629, PluginItemTypes.FollowerTemplar),
@@ -1715,109 +1740,109 @@ namespace fBaseXtensions.Cache.External.Objects
 #region Gem Cache
 			GemCache = new HashSet<ItemGemEntry>
 			{
-				new ItemGemEntry(56860, GemType.Amethyst, GemQualityTypes.Chipped),
-				new ItemGemEntry(56874, GemType.Diamond, GemQualityTypes.Chipped),
-				new ItemGemEntry(56888, GemType.Emerald, GemQualityTypes.Chipped),
-				new ItemGemEntry(56846, GemType.Ruby, GemQualityTypes.Chipped),
-				new ItemGemEntry(56916, GemType.Topaz, GemQualityTypes.Chipped),
+				new ItemGemEntry(56860, PluginGemType.Amethyst, GemQualityTypes.Chipped),
+				new ItemGemEntry(56874, PluginGemType.Diamond, GemQualityTypes.Chipped),
+				new ItemGemEntry(56888, PluginGemType.Emerald, GemQualityTypes.Chipped),
+				new ItemGemEntry(56846, PluginGemType.Ruby, GemQualityTypes.Chipped),
+				new ItemGemEntry(56916, PluginGemType.Topaz, GemQualityTypes.Chipped),
 
-				new ItemGemEntry(56861, GemType.Amethyst, GemQualityTypes.Flawed),
-				new ItemGemEntry(56875, GemType.Diamond, GemQualityTypes.Flawed),
-				new ItemGemEntry(56889, GemType.Emerald, GemQualityTypes.Flawed),
-				new ItemGemEntry(56847, GemType.Ruby, GemQualityTypes.Flawed),
-				new ItemGemEntry(56917, GemType.Topaz, GemQualityTypes.Flawed),
+				new ItemGemEntry(56861, PluginGemType.Amethyst, GemQualityTypes.Flawed),
+				new ItemGemEntry(56875, PluginGemType.Diamond, GemQualityTypes.Flawed),
+				new ItemGemEntry(56889, PluginGemType.Emerald, GemQualityTypes.Flawed),
+				new ItemGemEntry(56847, PluginGemType.Ruby, GemQualityTypes.Flawed),
+				new ItemGemEntry(56917, PluginGemType.Topaz, GemQualityTypes.Flawed),
 
-				new ItemGemEntry(56862, GemType.Amethyst, GemQualityTypes.Normal),
-				new ItemGemEntry(56876, GemType.Diamond, GemQualityTypes.Normal),
-				new ItemGemEntry(56890, GemType.Emerald, GemQualityTypes.Normal),
-				new ItemGemEntry(56848, GemType.Ruby, GemQualityTypes.Normal),
-				new ItemGemEntry(56918, GemType.Topaz, GemQualityTypes.Normal),
+				new ItemGemEntry(56862, PluginGemType.Amethyst, GemQualityTypes.Normal),
+				new ItemGemEntry(56876, PluginGemType.Diamond, GemQualityTypes.Normal),
+				new ItemGemEntry(56890, PluginGemType.Emerald, GemQualityTypes.Normal),
+				new ItemGemEntry(56848, PluginGemType.Ruby, GemQualityTypes.Normal),
+				new ItemGemEntry(56918, PluginGemType.Topaz, GemQualityTypes.Normal),
 
-				new ItemGemEntry(56863, GemType.Amethyst, GemQualityTypes.Flawless),
-				new ItemGemEntry(56877, GemType.Diamond, GemQualityTypes.Flawless),
-				new ItemGemEntry(56891, GemType.Emerald, GemQualityTypes.Flawless),
-				new ItemGemEntry(56849, GemType.Ruby, GemQualityTypes.Flawless),
-				new ItemGemEntry(56919, GemType.Topaz, GemQualityTypes.Flawless),
+				new ItemGemEntry(56863, PluginGemType.Amethyst, GemQualityTypes.Flawless),
+				new ItemGemEntry(56877, PluginGemType.Diamond, GemQualityTypes.Flawless),
+				new ItemGemEntry(56891, PluginGemType.Emerald, GemQualityTypes.Flawless),
+				new ItemGemEntry(56849, PluginGemType.Ruby, GemQualityTypes.Flawless),
+				new ItemGemEntry(56919, PluginGemType.Topaz, GemQualityTypes.Flawless),
 				
-				new ItemGemEntry(56864, GemType.Amethyst, GemQualityTypes.Perfect),
-				new ItemGemEntry(56878, GemType.Diamond, GemQualityTypes.Perfect),
-				new ItemGemEntry(56892, GemType.Emerald, GemQualityTypes.Perfect),
-				new ItemGemEntry(56850, GemType.Ruby, GemQualityTypes.Perfect),
-				new ItemGemEntry(56920, GemType.Topaz, GemQualityTypes.Perfect),
+				new ItemGemEntry(56864, PluginGemType.Amethyst, GemQualityTypes.Perfect),
+				new ItemGemEntry(56878, PluginGemType.Diamond, GemQualityTypes.Perfect),
+				new ItemGemEntry(56892, PluginGemType.Emerald, GemQualityTypes.Perfect),
+				new ItemGemEntry(56850, PluginGemType.Ruby, GemQualityTypes.Perfect),
+				new ItemGemEntry(56920, PluginGemType.Topaz, GemQualityTypes.Perfect),
 
-				new ItemGemEntry(56865, GemType.Amethyst, GemQualityTypes.Radiant),
-				new ItemGemEntry(56879, GemType.Diamond, GemQualityTypes.Radiant),
-				new ItemGemEntry(56893, GemType.Emerald, GemQualityTypes.Radiant),
-				new ItemGemEntry(56851, GemType.Ruby, GemQualityTypes.Radiant),
-				new ItemGemEntry(56921, GemType.Topaz, GemQualityTypes.Radiant),
+				new ItemGemEntry(56865, PluginGemType.Amethyst, GemQualityTypes.Radiant),
+				new ItemGemEntry(56879, PluginGemType.Diamond, GemQualityTypes.Radiant),
+				new ItemGemEntry(56893, PluginGemType.Emerald, GemQualityTypes.Radiant),
+				new ItemGemEntry(56851, PluginGemType.Ruby, GemQualityTypes.Radiant),
+				new ItemGemEntry(56921, PluginGemType.Topaz, GemQualityTypes.Radiant),
 
-				new ItemGemEntry(56866, GemType.Amethyst, GemQualityTypes.Square),
-				new ItemGemEntry(56880, GemType.Diamond, GemQualityTypes.Square),
-				new ItemGemEntry(56894, GemType.Emerald, GemQualityTypes.Square),
-				new ItemGemEntry(56852, GemType.Ruby, GemQualityTypes.Square),
-				new ItemGemEntry(56922, GemType.Topaz, GemQualityTypes.Square),
+				new ItemGemEntry(56866, PluginGemType.Amethyst, GemQualityTypes.Square),
+				new ItemGemEntry(56880, PluginGemType.Diamond, GemQualityTypes.Square),
+				new ItemGemEntry(56894, PluginGemType.Emerald, GemQualityTypes.Square),
+				new ItemGemEntry(56852, PluginGemType.Ruby, GemQualityTypes.Square),
+				new ItemGemEntry(56922, PluginGemType.Topaz, GemQualityTypes.Square),
 
-				new ItemGemEntry(56867, GemType.Amethyst, GemQualityTypes.FlawlessSquare),
-				new ItemGemEntry(56881, GemType.Diamond, GemQualityTypes.FlawlessSquare),
-				new ItemGemEntry(56895, GemType.Emerald, GemQualityTypes.FlawlessSquare),
-				new ItemGemEntry(56853, GemType.Ruby, GemQualityTypes.FlawlessSquare),
-				new ItemGemEntry(56923, GemType.Topaz, GemQualityTypes.FlawlessSquare),
+				new ItemGemEntry(56867, PluginGemType.Amethyst, GemQualityTypes.FlawlessSquare),
+				new ItemGemEntry(56881, PluginGemType.Diamond, GemQualityTypes.FlawlessSquare),
+				new ItemGemEntry(56895, PluginGemType.Emerald, GemQualityTypes.FlawlessSquare),
+				new ItemGemEntry(56853, PluginGemType.Ruby, GemQualityTypes.FlawlessSquare),
+				new ItemGemEntry(56923, PluginGemType.Topaz, GemQualityTypes.FlawlessSquare),
 
-				new ItemGemEntry(56868, GemType.Amethyst, GemQualityTypes.PerfectSquare),
-				new ItemGemEntry(56882, GemType.Diamond, GemQualityTypes.PerfectSquare),
-				new ItemGemEntry(56896, GemType.Emerald, GemQualityTypes.PerfectSquare),
-				new ItemGemEntry(56854, GemType.Ruby, GemQualityTypes.PerfectSquare),
-				new ItemGemEntry(56924, GemType.Topaz, GemQualityTypes.PerfectSquare),
+				new ItemGemEntry(56868, PluginGemType.Amethyst, GemQualityTypes.PerfectSquare),
+				new ItemGemEntry(56882, PluginGemType.Diamond, GemQualityTypes.PerfectSquare),
+				new ItemGemEntry(56896, PluginGemType.Emerald, GemQualityTypes.PerfectSquare),
+				new ItemGemEntry(56854, PluginGemType.Ruby, GemQualityTypes.PerfectSquare),
+				new ItemGemEntry(56924, PluginGemType.Topaz, GemQualityTypes.PerfectSquare),
 
-				new ItemGemEntry(56869, GemType.Amethyst, GemQualityTypes.RadiantSquare),
-				new ItemGemEntry(56883, GemType.Diamond, GemQualityTypes.RadiantSquare),
-				new ItemGemEntry(56897, GemType.Emerald, GemQualityTypes.RadiantSquare),
-				new ItemGemEntry(56855, GemType.Ruby, GemQualityTypes.RadiantSquare),
-				new ItemGemEntry(56925, GemType.Topaz, GemQualityTypes.RadiantSquare),
+				new ItemGemEntry(56869, PluginGemType.Amethyst, GemQualityTypes.RadiantSquare),
+				new ItemGemEntry(56883, PluginGemType.Diamond, GemQualityTypes.RadiantSquare),
+				new ItemGemEntry(56897, PluginGemType.Emerald, GemQualityTypes.RadiantSquare),
+				new ItemGemEntry(56855, PluginGemType.Ruby, GemQualityTypes.RadiantSquare),
+				new ItemGemEntry(56925, PluginGemType.Topaz, GemQualityTypes.RadiantSquare),
 
-				new ItemGemEntry(56870, GemType.Amethyst, GemQualityTypes.Star),
-				new ItemGemEntry(56884, GemType.Diamond, GemQualityTypes.Star),
-				new ItemGemEntry(56898, GemType.Emerald, GemQualityTypes.Star),
-				new ItemGemEntry(56856, GemType.Ruby, GemQualityTypes.Star),
-				new ItemGemEntry(56926, GemType.Topaz, GemQualityTypes.Star),
+				new ItemGemEntry(56870, PluginGemType.Amethyst, GemQualityTypes.Star),
+				new ItemGemEntry(56884, PluginGemType.Diamond, GemQualityTypes.Star),
+				new ItemGemEntry(56898, PluginGemType.Emerald, GemQualityTypes.Star),
+				new ItemGemEntry(56856, PluginGemType.Ruby, GemQualityTypes.Star),
+				new ItemGemEntry(56926, PluginGemType.Topaz, GemQualityTypes.Star),
 
-				new ItemGemEntry(56871, GemType.Amethyst, GemQualityTypes.FlawlessStar),
-				new ItemGemEntry(56885, GemType.Diamond, GemQualityTypes.FlawlessStar),
-				new ItemGemEntry(56899, GemType.Emerald, GemQualityTypes.FlawlessStar),
-				new ItemGemEntry(56857, GemType.Ruby, GemQualityTypes.FlawlessStar),
-				new ItemGemEntry(56927, GemType.Topaz, GemQualityTypes.FlawlessStar),
+				new ItemGemEntry(56871, PluginGemType.Amethyst, GemQualityTypes.FlawlessStar),
+				new ItemGemEntry(56885, PluginGemType.Diamond, GemQualityTypes.FlawlessStar),
+				new ItemGemEntry(56899, PluginGemType.Emerald, GemQualityTypes.FlawlessStar),
+				new ItemGemEntry(56857, PluginGemType.Ruby, GemQualityTypes.FlawlessStar),
+				new ItemGemEntry(56927, PluginGemType.Topaz, GemQualityTypes.FlawlessStar),
 
 				//TODO -- Add Perfect Star
 
-				new ItemGemEntry(283116, GemType.Amethyst, GemQualityTypes.Marquise),
-				new ItemGemEntry(361559, GemType.Diamond, GemQualityTypes.Marquise),
-				new ItemGemEntry(283117, GemType.Emerald, GemQualityTypes.Marquise),
-				new ItemGemEntry(283118, GemType.Ruby, GemQualityTypes.Marquise),
-				new ItemGemEntry(283119, GemType.Topaz, GemQualityTypes.Marquise),
+				new ItemGemEntry(283116, PluginGemType.Amethyst, GemQualityTypes.Marquise),
+				new ItemGemEntry(361559, PluginGemType.Diamond, GemQualityTypes.Marquise),
+				new ItemGemEntry(283117, PluginGemType.Emerald, GemQualityTypes.Marquise),
+				new ItemGemEntry(283118, PluginGemType.Ruby, GemQualityTypes.Marquise),
+				new ItemGemEntry(283119, PluginGemType.Topaz, GemQualityTypes.Marquise),
 
-				new ItemGemEntry(361564, GemType.Amethyst, GemQualityTypes.Imperial),
-				new ItemGemEntry(361560, GemType.Diamond, GemQualityTypes.Imperial),
-				new ItemGemEntry(361492, GemType.Emerald, GemQualityTypes.Imperial),
-				new ItemGemEntry(361568, GemType.Ruby, GemQualityTypes.Imperial),
-				new ItemGemEntry(361572, GemType.Topaz, GemQualityTypes.Imperial),
+				new ItemGemEntry(361564, PluginGemType.Amethyst, GemQualityTypes.Imperial),
+				new ItemGemEntry(361560, PluginGemType.Diamond, GemQualityTypes.Imperial),
+				new ItemGemEntry(361492, PluginGemType.Emerald, GemQualityTypes.Imperial),
+				new ItemGemEntry(361568, PluginGemType.Ruby, GemQualityTypes.Imperial),
+				new ItemGemEntry(361572, PluginGemType.Topaz, GemQualityTypes.Imperial),
 
-				new ItemGemEntry(361565, GemType.Amethyst, GemQualityTypes.FlawlessImperial),
-				new ItemGemEntry(361561, GemType.Diamond, GemQualityTypes.FlawlessImperial),
-				new ItemGemEntry(361493, GemType.Emerald, GemQualityTypes.FlawlessImperial),
-				new ItemGemEntry(361569, GemType.Ruby, GemQualityTypes.FlawlessImperial),
-				new ItemGemEntry(361573, GemType.Topaz, GemQualityTypes.FlawlessImperial),
+				new ItemGemEntry(361565, PluginGemType.Amethyst, GemQualityTypes.FlawlessImperial),
+				new ItemGemEntry(361561, PluginGemType.Diamond, GemQualityTypes.FlawlessImperial),
+				new ItemGemEntry(361493, PluginGemType.Emerald, GemQualityTypes.FlawlessImperial),
+				new ItemGemEntry(361569, PluginGemType.Ruby, GemQualityTypes.FlawlessImperial),
+				new ItemGemEntry(361573, PluginGemType.Topaz, GemQualityTypes.FlawlessImperial),
 
-				new ItemGemEntry(361566, GemType.Amethyst, GemQualityTypes.Royal),
-				new ItemGemEntry(361562, GemType.Diamond, GemQualityTypes.Royal),
-				new ItemGemEntry(361494, GemType.Emerald, GemQualityTypes.Royal),
-				new ItemGemEntry(361570, GemType.Ruby, GemQualityTypes.Royal),
-				new ItemGemEntry(361574, GemType.Topaz, GemQualityTypes.Royal),
+				new ItemGemEntry(361566, PluginGemType.Amethyst, GemQualityTypes.Royal),
+				new ItemGemEntry(361562, PluginGemType.Diamond, GemQualityTypes.Royal),
+				new ItemGemEntry(361494, PluginGemType.Emerald, GemQualityTypes.Royal),
+				new ItemGemEntry(361570, PluginGemType.Ruby, GemQualityTypes.Royal),
+				new ItemGemEntry(361574, PluginGemType.Topaz, GemQualityTypes.Royal),
 
-				new ItemGemEntry(361567, GemType.Amethyst, GemQualityTypes.FlawlessRoyal),
-				new ItemGemEntry(361563, GemType.Diamond, GemQualityTypes.FlawlessRoyal),
-				new ItemGemEntry(361495, GemType.Emerald, GemQualityTypes.FlawlessRoyal),
-				new ItemGemEntry(361571, GemType.Ruby, GemQualityTypes.FlawlessRoyal),
-				new ItemGemEntry(361575, GemType.Topaz, GemQualityTypes.FlawlessRoyal),
+				new ItemGemEntry(361567, PluginGemType.Amethyst, GemQualityTypes.FlawlessRoyal),
+				new ItemGemEntry(361563, PluginGemType.Diamond, GemQualityTypes.FlawlessRoyal),
+				new ItemGemEntry(361495, PluginGemType.Emerald, GemQualityTypes.FlawlessRoyal),
+				new ItemGemEntry(361571, PluginGemType.Ruby, GemQualityTypes.FlawlessRoyal),
+				new ItemGemEntry(361575, PluginGemType.Topaz, GemQualityTypes.FlawlessRoyal),
 			};
 			
 #endregion
@@ -1833,7 +1858,7 @@ namespace fBaseXtensions.Cache.External.Objects
 		}
 
 		private static readonly string DefaultFilePath = Path.Combine(FolderPaths.PluginPath, "Cache", "External", "Dictionaries", "Cache_Items.xml");
-		internal static ItemDataCollection DeserializeFromXML()
+		public static ItemDataCollection DeserializeFromXML()
 		{
 			var deserializer = new XmlSerializer(typeof(ItemDataCollection));
 			TextReader textReader = new StreamReader(DefaultFilePath);
@@ -1841,12 +1866,35 @@ namespace fBaseXtensions.Cache.External.Objects
 			textReader.Close();
 			return settings;
 		}
-		internal static void SerializeToXML(ItemDataCollection settings)
+		public static ItemDataCollection DeserializeFromXML(string FolderPath)
+		{
+			if (!Directory.Exists(FolderPath))
+				return null;
+
+			string FilePath = Path.Combine(FolderPath, "Cache_Items.xml");
+
+			var deserializer = new XmlSerializer(typeof(ItemDataCollection));
+			TextReader textReader = new StreamReader(FilePath);
+			var settings = (ItemDataCollection)deserializer.Deserialize(textReader);
+			textReader.Close();
+			return settings;
+		}
+
+		public static void SerializeToXML(ItemDataCollection settings)
 		{
 			var serializer = new XmlSerializer(typeof(ItemDataCollection));
 			var textWriter = new StreamWriter(DefaultFilePath);
 			serializer.Serialize(textWriter, settings);
 			textWriter.Close();
 		}
+		public static void SerializeToXML(ItemDataCollection settings, string FolderPath)
+		{
+			string FilePath = Path.Combine(FolderPath, "Cache_Items.xml");
+			var serializer = new XmlSerializer(typeof(ItemDataCollection));
+			var textWriter = new StreamWriter(FilePath);
+			serializer.Serialize(textWriter, settings);
+			textWriter.Close();
+		}
+
 	}
 }

@@ -18,17 +18,6 @@ namespace fBaseXtensions.Game.Hero.Class
 		public Crusader()
 		{
 			Logger.DBLog.DebugFormat("[Funky] Using Crusader Player Class");
-
-			FunkyBaseExtension.Settings.Crusader.ReducedShieldBashCost = Equipment.EquippedItems.Any(i => i.LegendaryItemType == LegendaryItemTypes.PiroMarella);
-
-			int AkkhanSetItemCount = Equipment.EquippedItems.Count(i => i.LegendaryItemType == LegendaryItemTypes.ArmorofAkkhan);
-			if (AkkhanSetItemCount > 5 || AkkhanSetItemCount > 4 && Equipment.RingOfGrandeur)
-			{
-				Logger.DBLog.DebugFormat("[Funky] Akkhan's Six Set Bounus Found!");
-				FunkyBaseExtension.Settings.Crusader.FullAkkhanSet = true;
-			}
-			else
-				FunkyBaseExtension.Settings.Crusader.FullAkkhanSet = false;
 		}
 
 		public override ActorClass AC { get { return ActorClass.Crusader; } }

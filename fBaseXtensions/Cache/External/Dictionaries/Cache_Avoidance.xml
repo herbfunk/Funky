@@ -142,6 +142,13 @@
       <AvoidanceType>BelialGround</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
+      <SnoId>4102</SnoId>
+      <InternalName />
+      <ActorType>ServerProp</ActorType>
+      <EntryType>Avoidance</EntryType>
+      <AvoidanceType>ShamanFireBall</AvoidanceType>
+    </AvoidanceEntry>
+    <AvoidanceEntry>
       <SnoId>4103</SnoId>
       <InternalName />
       <ActorType>ServerProp</ActorType>

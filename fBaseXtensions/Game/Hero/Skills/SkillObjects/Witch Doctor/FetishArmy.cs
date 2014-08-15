@@ -1,5 +1,6 @@
 ﻿using System;
 using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
@@ -22,7 +23,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 16, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 
 			//Zunimassa Set we have perma pets!
-			if (FunkyBaseExtension.Settings.WitchDoctor.ZunimassaFullSet)
+			if (Equipment.CheckLegendaryItemCount(LegendaryItemTypes.ZunimassasHaunt, 4))
 			{
 				IsBuff = true;
 				FcriteriaBuff = () => FunkyGame.Targeting.Cache.Environment.HeroPets.WitchdoctorFetish < GetTotalFetishCount();

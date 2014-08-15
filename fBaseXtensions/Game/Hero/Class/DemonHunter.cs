@@ -18,24 +18,6 @@ namespace fBaseXtensions.Game.Hero.Class
 	{
 		public DemonHunter()
 		{
-			bool bombardierrutsack = Equipment.EquippedItems.Any(i => i.ThisRealName.Contains("Bombadier"));
-			if (bombardierrutsack)
-			{
-				Logger.DBLog.DebugFormat("[Funky] Bombardier's Rucksack Found!");
-				FunkyBaseExtension.Settings.DemonHunter.BombadiersRucksack = true;
-			}
-			else
-				FunkyBaseExtension.Settings.DemonHunter.BombadiersRucksack = false;
-
-			int MaurderSetItemCount = Equipment.EquippedItems.Count(i => i.LegendaryItemType == LegendaryItemTypes.EmbodimentoftheMarauder);
-			if (MaurderSetItemCount > 5 || MaurderSetItemCount > 4 && Equipment.RingOfGrandeur)
-			{
-				Logger.DBLog.DebugFormat("[Funky] Marauder Six Set Bounus Found!");
-				FunkyBaseExtension.Settings.DemonHunter.FullMarauderSet = true;
-			}
-			else
-				FunkyBaseExtension.Settings.DemonHunter.FullMarauderSet = false;
-
 			Logger.DBLog.DebugFormat("[Funky] Using DemonHunter Player Class");
 		}
 

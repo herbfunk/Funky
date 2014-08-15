@@ -59,7 +59,7 @@ namespace fBaseXtensions.Cache.External.Objects
 		}
 
 		private static readonly string DefaultFilePath = Path.Combine(FolderPaths.PluginPath, "Cache", "External", "Dictionaries", "Cache_Units.xml");
-		internal static UnitDataCollection DeserializeFromXML()
+		public static UnitDataCollection DeserializeFromXML()
 		{
 			var deserializer = new XmlSerializer(typeof(UnitDataCollection));
 			TextReader textReader = new StreamReader(DefaultFilePath);
@@ -67,7 +67,21 @@ namespace fBaseXtensions.Cache.External.Objects
 			textReader.Close();
 			return settings;
 		}
-		internal static void SerializeToXML(UnitDataCollection settings)
+		public static UnitDataCollection DeserializeFromXML(string FolderPath)
+		{
+			if (!Directory.Exists(FolderPath))
+				return null;
+
+			string FilePath = Path.Combine(FolderPath, "Cache_Units.xml");
+
+			var deserializer = new XmlSerializer(typeof(UnitDataCollection));
+			TextReader textReader = new StreamReader(FilePath);
+			var settings = (UnitDataCollection)deserializer.Deserialize(textReader);
+			textReader.Close();
+			return settings;
+		}
+
+		public static void SerializeToXML(UnitDataCollection settings)
 		{
 			var serializer = new XmlSerializer(typeof(UnitDataCollection));
 			var textWriter = new StreamWriter(DefaultFilePath);

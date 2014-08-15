@@ -1,4 +1,5 @@
 ﻿using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Crusader
@@ -31,7 +32,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Crusader
 			ClusterConditions.Add(new SkillClusterConditions(6d, 30, 10, true));
 
 			//Akkhan Set?
-			if (FunkyBaseExtension.Settings.Crusader.FullAkkhanSet)
+			if (Equipment.CheckLegendaryItemCount(LegendaryItemTypes.ArmorofAkkhan, 6))
 			{
 				//Clusters of 4 units..
 				ClusterConditions.Add(new SkillClusterConditions(10d, 30, 4, false));

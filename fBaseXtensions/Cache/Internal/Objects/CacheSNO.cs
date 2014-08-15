@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.External.Objects;
 using fBaseXtensions.Cache.Internal.Avoidance;
 using fBaseXtensions.Cache.Internal.Blacklist;
@@ -59,7 +60,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				IsFinalized = thisEntry.IsFinalized;
 			}
 		}
-		public SNO(int sno, String internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gimzotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags=null, SnoEntry snoentry=null)
+		public SNO(int sno, String internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gimzotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags = null, CacheEntry snoentry = null)
 		{
 			//Creates the perm data
 			SNOID = sno;
@@ -398,13 +399,13 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			}
 		}
 
-		private readonly SnoEntry _snoentry;
-		public SnoEntry snoentry
+		private readonly CacheEntry _snoentry;
+		public CacheEntry snoentry
 		{
 			get
 			{
 				if (IsFinalized) return _snoentry;
-				SnoEntry outvalue;
+				CacheEntry outvalue;
 				if (TheCache.ObjectIDCache.TryGetCacheValue(SNOID, out outvalue))
 					return outvalue;
 
@@ -637,7 +638,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 	public class CachedSNOEntry : SNO
 	{
 
-		public CachedSNOEntry(int sno, String internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gizmotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags=null, SnoEntry snoentry=null)
+		public CachedSNOEntry(int sno, String internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gizmotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags = null, CacheEntry snoentry = null)
 			: base(sno, internalname, actortype, targettype, monstertype, monstersize, collisionradius, canburrow, grantsnoxp, dropsnoloot, isbarricade, obstacletype, actorsphereradius, gizmotype, baseitemtype, unitflags, snoentry)
 		{
 		}
@@ -708,17 +709,17 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					Actortype = snoentry.ActorType;
 					if (snoentry.EntryType == EntryType.Item)
 					{
-						DroppedItemEntry droppedItemEntry = (DroppedItemEntry)snoentry;
+						CacheDroppedItemEntry droppedItemEntry = (CacheDroppedItemEntry)snoentry;
 						ItemDropType = (PluginDroppedItemTypes)droppedItemEntry.ObjectType;
 					}
 					else if (snoentry.EntryType == EntryType.Gizmo)
 					{
-						GizmoEntry gizmoEntry = (GizmoEntry)snoentry;
+						CacheGizmoEntry gizmoEntry = (CacheGizmoEntry)snoentry;
 						Gizmotype = (GizmoType)gizmoEntry.ObjectType;
 					}
 					else if (snoentry.EntryType == EntryType.Unit)
 					{
-						UnitEntry unitEntry = (UnitEntry)snoentry;
+						CacheUnitEntry unitEntry = (CacheUnitEntry)snoentry;
 						UnitPropertyFlags = (UnitFlags)unitEntry.ObjectType;
 					}
 				}
