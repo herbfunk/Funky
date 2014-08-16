@@ -55,7 +55,7 @@
       <InternalName>Ghost_A-3368</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast Flying</UnitFlags>
+      <UnitFlags>Normal Fast Flying</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>375</SnoId>
@@ -69,7 +69,7 @@
       <InternalName>skeleton_twoHander_B-15280</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>495</SnoId>
@@ -83,21 +83,21 @@
       <InternalName>x1_WestmarchBat_A-13478</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal Flying</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>3337</SnoId>
       <InternalName>Beast_A-4362</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>3338</SnoId>
       <InternalName>Beast_B-19030</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>3361</SnoId>
@@ -307,7 +307,7 @@
       <InternalName>FallenShaman_C-3751</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Ranged</UnitFlags>
+      <UnitFlags>Normal Ranged</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>4104</SnoId>
@@ -356,7 +356,7 @@
       <InternalName>FleshPitFlyer_A-536</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Flying</UnitFlags>
+      <UnitFlags>Normal Flying</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>4157</SnoId>
@@ -482,7 +482,7 @@
       <InternalName>GoatMutant_Shaman_B-1874</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Ranged</UnitFlags>
+      <UnitFlags>Normal Ranged</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>4308</SnoId>
@@ -496,21 +496,21 @@
       <InternalName>graveDigger_B-12093</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast</UnitFlags>
+      <UnitFlags>Normal Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>4372</SnoId>
       <InternalName>graveRobber_A-11397</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>4373</SnoId>
       <InternalName>graveRobber_B-22477</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>4376</SnoId>
@@ -531,14 +531,14 @@
       <InternalName>LacuniFemale_A-5017</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>4542</SnoId>
       <InternalName>LacuniFemale_B-2739</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>4551</SnoId>
@@ -566,7 +566,7 @@
       <InternalName>Monstrosity_Scorpion_A-7909</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>4747</SnoId>
@@ -594,7 +594,7 @@
       <InternalName>QuillDemon_A-8892</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Ranged</UnitFlags>
+      <UnitFlags>Normal Ranged</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>4983</SnoId>
@@ -727,7 +727,7 @@
       <InternalName>Shield_Skeleton_B-4932</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>5278</SnoId>
@@ -762,7 +762,7 @@
       <InternalName>SkeletonArcher_D-2325</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Ranged Fast</UnitFlags>
+      <UnitFlags>Normal Ranged Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>5350</SnoId>
@@ -853,7 +853,7 @@
       <InternalName>snakeMan_Caster_C-10944</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Ranged</UnitFlags>
+      <UnitFlags>Normal Ranged</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>5432</SnoId>
@@ -937,7 +937,7 @@
       <InternalName>ThousandPounder-11457</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>5984</SnoId>
@@ -1112,7 +1112,7 @@
       <InternalName>ZombieFemale_A-2477</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Summoner</UnitFlags>
+      <UnitFlags>Normal Summoner</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>6639</SnoId>
@@ -1385,14 +1385,14 @@
       <InternalName>TriuneCultist_C_TortureLeader-14148</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>106707</SnoId>
       <InternalName>CoreEliteDemon_A-615</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>106708</SnoId>
@@ -1448,7 +1448,7 @@
       <InternalName>Shield_Skeleton_NephChamp-5788</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>113949</SnoId>
@@ -1504,14 +1504,14 @@
       <InternalName>Goatman_Melee_A_Ghost-8170</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast</UnitFlags>
+      <UnitFlags>Normal Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>129012</SnoId>
       <InternalName>Goatman_Melee_B_Ghost-9549</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>129222</SnoId>
@@ -1546,7 +1546,7 @@
       <InternalName>azmodanBodyguard_B-3904</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast</UnitFlags>
+      <UnitFlags>Normal Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>135611</SnoId>
@@ -1581,7 +1581,7 @@
       <InternalName>MastaBlasta_Combined_A-4386</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast</UnitFlags>
+      <UnitFlags>Normal Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>137992</SnoId>
@@ -1710,13 +1710,6 @@
       <UnitFlags>Normal Burrowing ReflectiveMissle</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>166452</SnoId>
-      <InternalName>trOut_Highlands_Goatmen_SummoningMachine_A_Node-10023</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
       <SnoId>166726</SnoId>
       <InternalName>Spider_Poison_A-7111</InternalName>
       <ActorType>Monster</ActorType>
@@ -1742,7 +1735,7 @@
       <InternalName>SoulRipper_B-8135</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast</UnitFlags>
+      <UnitFlags>Normal Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>170324</SnoId>
@@ -1763,7 +1756,7 @@
       <InternalName>Shield_Skeleton_E-10704</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>171193</SnoId>
@@ -1784,14 +1777,14 @@
       <InternalName>graveRobber_C_Nigel-23714</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast</UnitFlags>
+      <UnitFlags>Normal Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>175833</SnoId>
       <InternalName>MastaBlasta_Rider_A_noride-4383</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast</UnitFlags>
+      <UnitFlags>Normal Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>176054</SnoId>
@@ -1833,7 +1826,7 @@
       <InternalName>TownAttack_Berserker-28517</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast</UnitFlags>
+      <UnitFlags>Normal Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>178619</SnoId>
@@ -1875,7 +1868,7 @@
       <InternalName>TriuneVesselActivated_A_Unique_Tower_Of_Power-20073</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>192850</SnoId>
@@ -1889,7 +1882,7 @@
       <InternalName>TentacleHorse_A-8034</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>195747</SnoId>
@@ -1931,7 +1924,7 @@
       <InternalName>LacuniFemale_B_Range-2750</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>204159</SnoId>
@@ -1959,7 +1952,7 @@
       <InternalName>TentacleHorse_Fat_A-8048</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast</UnitFlags>
+      <UnitFlags>Normal Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>207559</SnoId>
@@ -1980,14 +1973,14 @@
       <InternalName>Spider_Elemental_Cold_tesla_A-11840</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>208962</SnoId>
       <InternalName>Spider_Elemental_Fire_tesla_A-7185</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>208963</SnoId>
@@ -2085,7 +2078,7 @@
       <InternalName>Skeleton_A_Unique_03-1788</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>218367</SnoId>
@@ -2134,7 +2127,7 @@
       <InternalName>Spider_Poison_A_Unique_01-8192</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>218462</SnoId>
@@ -2330,7 +2323,7 @@
       <InternalName>x1_BogFamily_ranged_A-651</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>239516</SnoId>
@@ -2351,7 +2344,7 @@
       <InternalName>x1_BogBlight_A-1733</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>254175</SnoId>
@@ -2407,7 +2400,7 @@
       <InternalName>x1_westmarchRanged_A-8984</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Ranged Fast</UnitFlags>
+      <UnitFlags>Normal Ranged Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>271579</SnoId>
@@ -2421,42 +2414,42 @@
       <InternalName>x1_FloaterAngel_A-10420</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast</UnitFlags>
+      <UnitFlags>Normal Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>273417</SnoId>
       <InternalName>x1_DeathMaiden_A-8078</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>276309</SnoId>
       <InternalName>x1_Skeleton_Westmarch_A-3186</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast</UnitFlags>
+      <UnitFlags>Normal Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>276465</SnoId>
       <InternalName>x1_ZombieSkinny_A-15331</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast</UnitFlags>
+      <UnitFlags>Normal Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>276467</SnoId>
       <InternalName>x1_Zombie_A-2543</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>276492</SnoId>
       <InternalName>x1_Ghost_A-48596</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast</UnitFlags>
+      <UnitFlags>Normal Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>278136</SnoId>
@@ -2477,7 +2470,7 @@
       <InternalName>x1_Shield_Skeleton_Westmarch_A-5502</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast</UnitFlags>
+      <UnitFlags>Normal Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>282789</SnoId>
@@ -2519,7 +2512,7 @@
       <InternalName>x1_Squigglet_A-2755</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Ranged</UnitFlags>
+      <UnitFlags>Normal Ranged</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>297708</SnoId>
@@ -2540,7 +2533,7 @@
       <InternalName>x1_westmarchHound_A-11468</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast</UnitFlags>
+      <UnitFlags>Normal Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>304307</SnoId>
@@ -2568,7 +2561,7 @@
       <InternalName>x1_SkeletonArcher_Westmarch_Ghost_A-2536</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Ranged</UnitFlags>
+      <UnitFlags>Normal Ranged</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>310893</SnoId>
@@ -2582,7 +2575,7 @@
       <InternalName>x1_Shield_Skeleton_Westmarch_Ghost_A-10422</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare Fast</UnitFlags>
+      <UnitFlags>Normal Fast</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>312300</SnoId>
@@ -2631,7 +2624,7 @@
       <InternalName>x1_westmarchHound_Leader_A-12516</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>332432</SnoId>
@@ -2645,14 +2638,14 @@
       <InternalName>x1_westmarchBrute_C-9331</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>334435</SnoId>
       <InternalName>X1_CoreEliteDemon_Chronodemon_Fire_A-6969</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>334798</SnoId>
@@ -2876,7 +2869,7 @@
       <InternalName>Unique_CaptainDaltyn_AdventureMode-3477</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>364508</SnoId>
@@ -2981,7 +2974,7 @@
       <InternalName>X1_LR_Boss_SandMonster_Clone-12854</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Rare</UnitFlags>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>365906</SnoId>
@@ -3030,7 +3023,7 @@
       <InternalName>x1_LR_WestmarchBat_A-894</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Flying</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>370696</SnoId>
@@ -3051,7 +3044,7 @@
       <InternalName>x1_WestmarchBat_C-13069</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Flying</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>375188</SnoId>
@@ -3066,6 +3059,111 @@
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218473</SnoId>
+      <InternalName>Goatman_Ranged_A_Unique_01-11838</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Ranged AdventureModeBoss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>222468</SnoId>
+      <InternalName>Scavenger_B_ArmorerEvent-16358</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>104247</SnoId>
+      <InternalName>Scavenger_B_Armorer_Unique-16361</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>225502</SnoId>
+      <InternalName>graveDigger_B_Ghost_Unique_01-21806</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>217308</SnoId>
+      <InternalName>FleshPitFlyer_F-938</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4158</SnoId>
+      <InternalName>FleshPitFlyer_D-1001</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>275108</SnoId>
+      <InternalName>x1_Rockworm_Pand_A-1064</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>106713</SnoId>
+      <InternalName>MastaBlasta_Steed_A-1133</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>60722</SnoId>
+      <InternalName>Brickhouse_A-1225</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>336555</SnoId>
+      <InternalName>X1_CaveRipper_A-1452</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218228</SnoId>
+      <InternalName>a2dun_Cave_SlimeGeyser_C-2033</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>315922</SnoId>
+      <InternalName>x1_electricEel_B-2065</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4985</SnoId>
+      <InternalName>QuillDemon_C-15434</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>334412</SnoId>
+      <InternalName>X1_SkeletonTwoHander_Fire_A-6910</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5367</SnoId>
+      <InternalName>skeletonMage_Cold_A-8757</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged</UnitFlags>
     </UnitEntry>
   </UnitEntries>
   <UnitPetEntries>

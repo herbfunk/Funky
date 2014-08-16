@@ -371,7 +371,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			{
 				removal_ = value;
 				//This helps reduce code by flagging this here instead of after everytime we flag removal of an object!
-				if (value == true) FunkyGame.Targeting.Cache.RemovalCheck = true;
+				if (value == true) ObjectCache.RemovalCheck = true;
 			}
 		}
 		internal bool removal_;
@@ -552,6 +552,9 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			{
 				//Reset Ignore Reason
 				IgnoredType = TargetingIgnoreTypes.None;
+
+				if (NeedsRemoved)
+					return false;
 
 				//Blacklist loop counter checks
 				if (BlacklistLoops_ < 0)

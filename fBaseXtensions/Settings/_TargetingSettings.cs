@@ -8,13 +8,6 @@
 		 public int GoblinPriority { get; set; }
 		 public bool[] UseShrineTypes { get; set; }
 		 public bool UseExtendedRangeRepChest { get; set; }
-
-		 public bool UnitExceptionLowHP { get; set; }
-         public int UnitExceptionLowHPMaximumDistance { get; set; }
-		 public bool UnitExceptionRangedUnits { get; set; }
-		 public bool UnitExceptionSpawnerUnits { get; set; }
-		 public bool UnitExceptionSucideBombers { get; set; }
-
 		 public bool PrioritizeCloseRangeUnits { get; set; }
 		 public int PrioritizeCloseRangeMinimumUnits { get; set; }
 
@@ -28,11 +21,7 @@
 			  IgnoreCorpses=true;
 			  UseExtendedRangeRepChest=false;
 			  MissleDampeningEnforceCloseRange=true;
-			  UnitExceptionLowHP = false;
-              UnitExceptionLowHPMaximumDistance = 20;
-			  UnitExceptionRangedUnits=false;
-			  UnitExceptionSpawnerUnits = false;
-			  UnitExceptionSucideBombers=true;
+
 		 }
 
 	}

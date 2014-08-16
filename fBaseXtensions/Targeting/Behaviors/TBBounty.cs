@@ -6,6 +6,7 @@ using fBaseXtensions.Cache.Internal.Objects;
 using fBaseXtensions.Game;
 using fBaseXtensions.Game.Bounty;
 using fBaseXtensions.Helpers;
+using fBaseXtensions.Settings;
 using Zeta.Game.Internals;
 
 namespace fBaseXtensions.Targeting.Behaviors
@@ -21,7 +22,7 @@ namespace fBaseXtensions.Targeting.Behaviors
 		{
 			get
 			{
-				return FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode && FunkyGame.Bounty.ActiveBounty != null && FunkyGame.Bounty.CurrentBountyCacheEntry != null;
+				return SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode && FunkyGame.Bounty.ActiveBounty != null && FunkyGame.Bounty.CurrentBountyCacheEntry != null;
 			}
 		}
 		public override void Initialize()

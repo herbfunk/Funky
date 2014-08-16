@@ -7,7 +7,7 @@ namespace fBaseXtensions.Cache.External.Enums
 	{
 		None = 0,
 		Normal = 1,
-		Rare = 2,
+		CorruptGrowth = 2,
 		Unique = 4,
 		Boss = 8,
 		TreasureGoblin = 16,

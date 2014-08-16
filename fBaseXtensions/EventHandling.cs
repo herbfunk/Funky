@@ -160,8 +160,8 @@ namespace fBaseXtensions
 		{
 			Logger.Write(LogLevel.OutOfCombat, "New Game Started");
 
-
-			if (FunkyGame.AdventureMode && FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode)
+			SettingAdventureMode.AdventureModeSettingsTag = FunkyBaseExtension.Settings.AdventureMode;
+			if (FunkyGame.AdventureMode && SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode)
 			{
 				FunkyGame.Game.ResetCombatModifiers();
 			}
@@ -187,7 +187,7 @@ namespace fBaseXtensions
 		}
 		private static void OnGameLeft(object obj, EventArgs args)
 		{
-			Logger.Write(LogLevel.Event, "OnLeaveGame CursedEvent");
+			Logger.Write(LogLevel.Event, "OnLeaveGame Event");
 
 			FunkyGame.CurrentGameStats.CurrentProfile.UpdateRangeVariables();
 			FunkyGame.CurrentGameID = new GameId();
@@ -201,6 +201,7 @@ namespace fBaseXtensions
 		}
 		private static void OnProfileChanged(object obj, EventArgs args)
 		{
+			Logger.Write(LogLevel.Event, "OnProfileChanged Event");
 			string sThisProfile = ProfileManager.CurrentProfile.Path;
 			FunkyGame.CurrentGameStats.ProfileChanged(sThisProfile);
 			SettingCluster.ClusterSettingsTag = FunkyBaseExtension.Settings.Cluster;
@@ -210,7 +211,7 @@ namespace fBaseXtensions
 		}
 		private static void OnPlayerDeath(object obj, EventArgs args)
 		{
-			Logger.Write(LogLevel.Event, "OnPlayerDied CursedEvent");
+			Logger.Write(LogLevel.Event, "OnPlayerDied Event");
 			FunkyGame.ResetBot();
 		}
 		private static void HookEvents()

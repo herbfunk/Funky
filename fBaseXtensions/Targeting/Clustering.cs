@@ -86,10 +86,10 @@ namespace fBaseXtensions.Targeting
 		{
 
 			//normal clustering
-			if (FunkyBaseExtension.Settings.Cluster.EnableClusteringTargetLogic &&
-				 (FunkyGame.Hero.dCurrentHealthPct > FunkyBaseExtension.Settings.Cluster.IgnoreClusterLowHPValue))
+			if (SettingCluster.ClusterSettingsTag.EnableClusteringTargetLogic &&
+				 (FunkyGame.Hero.dCurrentHealthPct > SettingCluster.ClusterSettingsTag.IgnoreClusterLowHPValue))
 			{
-				if (FunkyGame.Targeting.Cache.Environment.UnitRAGUIDs.Count >= FunkyBaseExtension.Settings.Cluster.ClusterMinimumUnitCount)
+				if (FunkyGame.Targeting.Cache.Environment.UnitRAGUIDs.Count >= SettingCluster.ClusterSettingsTag.ClusterMinimumUnitCount)
 				{
 					if (TargetClusterCollection.ShouldUpdateClusters)
 						TargetClusterCollection.UpdateClusters();

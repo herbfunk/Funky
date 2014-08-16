@@ -472,8 +472,42 @@ namespace fBaseXtensions.Cache.Internal
 		//Trimming/Update Vars
 		private static int UpdateLoopCounter;
 
+		///<summary>
+		///Used to flag when Init should iterate and remove the objects
+		///</summary>
+		internal static bool RemovalCheck = false;
+		internal static void CheckForCacheRemoval()
+		{
+			//Check Cached Object Removal flag
+			if (RemovalCheck)
+			{
+				//Remove flagged objects
+				var RemovalObjs = (from objs in ObjectCache.Objects.Values
+								   where objs.NeedsRemoved
+								   select objs.RAGUID).ToList();
+
+				foreach (var item in RemovalObjs)
+				{
+					CacheObject thisObj = ObjectCache.Objects[item];
+
+					//remove prioritized raguid
+					if (FunkyGame.Navigation.PrioritizedRAGUIDs.Contains(item))
+						FunkyGame.Navigation.PrioritizedRAGUIDs.Remove(item);
+
+					//Blacklist flag check
+					if (thisObj.BlacklistFlag != BlacklistType.None)
+						BlacklistCache.AddObjectToBlacklist(thisObj.RAGUID, thisObj.BlacklistFlag);
+
+					ObjectCache.Objects.Remove(thisObj.RAGUID);
+				}
+
+				RemovalCheck = false;
+			}
+		}
+
 
 		#region SNO Cache Dictionaries
+		internal static Dictionary<int, GizmoTargetTypes?> dictGizmoTargetTypes = new Dictionary<int, GizmoTargetTypes?>();
 		internal static Dictionary<int, UnitFlags?> dictUnitFlags = new Dictionary<int, UnitFlags?>();
 		internal static Dictionary<int, PluginDroppedItemTypes?> dictBaseItemTypes = new Dictionary<int, PluginDroppedItemTypes?>();
 		internal static Dictionary<int, ActorType?> dictActorType = new Dictionary<int, ActorType?>();

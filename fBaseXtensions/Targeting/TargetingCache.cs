@@ -198,39 +198,39 @@ namespace fBaseXtensions.Targeting
 
 
 
-			//Check if we should trim our SNO cache..
-			if (DateTime.Now.Subtract(ObjectCache.cacheSnoCollection.lastTrimming).TotalMilliseconds > FunkyBaseExtension.Settings.Plugin.UnusedSNORemovalRate)
-				ObjectCache.cacheSnoCollection.TrimOldUnusedEntries();
+			////Check if we should trim our SNO cache..
+			//if (DateTime.Now.Subtract(ObjectCache.cacheSnoCollection.lastTrimming).TotalMilliseconds > FunkyBaseExtension.Settings.Plugin.UnusedSNORemovalRate)
+			//	ObjectCache.cacheSnoCollection.TrimOldUnusedEntries();
 
 
-			//Check Cached Object Removal flag
-			if (RemovalCheck)
-			{
-				//Remove flagged objects
-				var RemovalObjs = (from objs in ObjectCache.Objects.Values
-								   where objs.NeedsRemoved
-								   select objs.RAGUID).ToList();
+			////Check Cached Object Removal flag
+			//if (RemovalCheck)
+			//{
+			//	//Remove flagged objects
+			//	var RemovalObjs = (from objs in ObjectCache.Objects.Values
+			//					   where objs.NeedsRemoved
+			//					   select objs.RAGUID).ToList();
 
-				foreach (var item in RemovalObjs)
-				{
-					CacheObject thisObj = ObjectCache.Objects[item];
+			//	foreach (var item in RemovalObjs)
+			//	{
+			//		CacheObject thisObj = ObjectCache.Objects[item];
 
-					//remove prioritized raguid
-					if (FunkyGame.Navigation.PrioritizedRAGUIDs.Contains(item))
-						FunkyGame.Navigation.PrioritizedRAGUIDs.Remove(item);
+			//		//remove prioritized raguid
+			//		if (FunkyGame.Navigation.PrioritizedRAGUIDs.Contains(item))
+			//			FunkyGame.Navigation.PrioritizedRAGUIDs.Remove(item);
 
-					//Blacklist flag check
-					if (thisObj.BlacklistFlag != BlacklistType.None)
-						BlacklistCache.AddObjectToBlacklist(thisObj.RAGUID, thisObj.BlacklistFlag);
+			//		//Blacklist flag check
+			//		if (thisObj.BlacklistFlag != BlacklistType.None)
+			//			BlacklistCache.AddObjectToBlacklist(thisObj.RAGUID, thisObj.BlacklistFlag);
 
-					ObjectCache.Objects.Remove(thisObj.RAGUID);
-				}
+			//		ObjectCache.Objects.Remove(thisObj.RAGUID);
+			//	}
 
-				RemovalCheck = false;
-			}
+			//	RemovalCheck = false;
+			//}
 
 
-			//Increase counter, clear entries if overdue.
+			////Increase counter, clear entries if overdue.
 			ObjectCache.Obstacles.AttemptToClearEntries();
 
 			//Non-Combat behavior we reset temp blacklist so we don't get killed by "ignored" units..

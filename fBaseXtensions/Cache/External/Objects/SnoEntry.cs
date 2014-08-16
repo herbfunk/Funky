@@ -181,13 +181,48 @@ namespace fBaseXtensions.Cache.External.Objects
 		}
 		private Object _objectType = UnitFlags.None;
 
+		////[XmlIgnore]
+		//internal PluginMonsterSize? Monstersize { get; set; }
 
-		public UnitEntry() : base() { }
+		////[XmlIgnore]
+		//internal PluginMonsterType? Monstertype { get; set; }
+
+		//// And now the helper property that the serializer will use to serialize it.
+		//[XmlElement(IsNullable = false)]
+		//public string XmlMonsterSize
+		//{
+		//	get
+		//	{
+		//		return Monstersize.HasValue ?
+		//			Monstersize.Value.ToString() : null;
+		//	}
+		//	set { Monstersize = (PluginMonsterSize)Enum.Parse(typeof(PluginMonsterSize),value); } // You should do more error checking...
+		//}
+		//[XmlElement(IsNullable = false)]
+		//public string XmlMonsterType
+		//{
+		//	get
+		//	{
+		//		return Monstertype.HasValue ?
+		//			Monstertype.Value.ToString() : null;
+		//	}
+		//	set { Monstertype = (PluginMonsterType)Enum.Parse(typeof(PluginMonsterType), value); } // You should do more error checking...
+		//}
+
+
+		public UnitEntry() : base()
+		{
+			//Monstertype = null;
+			//Monstersize = null;
+		}
+
 		public UnitEntry(int snoID, UnitFlags flags, string internalname = "")
 			:base(snoID)
 		{
 			InternalName=internalname;
 			_objectType = flags;
+			//Monstertype=monstertype;
+			//Monstersize=monstersize;
 		}
 
 		public string ReturnCacheEntryString()

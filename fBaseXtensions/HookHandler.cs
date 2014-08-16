@@ -88,12 +88,10 @@ namespace fBaseXtensions
 					Sequence DeathSequence = new Sequence
 					(
 						deathTallyDecorator,
-						deathWaitDecorator,
-						deathValue,
-						deathTallyActionReset
+						deathWaitDecorator
 					);
-
-					hook.Value[0] = DeathSequence;
+					SetHookValue(HookType.Death, 0, DeathSequence, true);
+					//hook.Value.Add(deathTallyActionReset);
 					Logger.DBLog.DebugFormat("Death tree hooked");
 				}
 

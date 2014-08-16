@@ -368,6 +368,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(220015, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_07-578"),
 				new DroppedItemEntry(271620, PluginDroppedItemTypes.Sword, "x1_Sword_norm_unique_flippy_13-2812"),
 				new DroppedItemEntry(271628, PluginDroppedItemTypes.Sword, "x1_Sword_norm_unique_flippy_20-617"),
+				new DroppedItemEntry(185397, PluginDroppedItemTypes.Sword, "Sword_norm_unique_07-8635"),
 
 				//
 				new DroppedItemEntry(6348, PluginDroppedItemTypes.SwordTwoHanded,"twoHandedSword_norm_base_flippy_02"),
@@ -991,6 +992,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(341333, PluginItemTypes.HealthPotion),
 
 				//Crafting Materials
+				new ItemDataEntry(371083, PluginItemTypes.LegendaryCraftingMaterial),
 				new ItemDataEntry(189860, PluginItemTypes.CraftingMaterial),
 				new ItemDataEntry(361984, PluginItemTypes.CraftingMaterial),
 				new ItemDataEntry(189861, PluginItemTypes.CraftingMaterial),
@@ -1270,6 +1272,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(223577, PluginItemTypes.Helm, LegendaryItemTypes.MempoofTwilight),
 				new ItemDataEntry(298147, PluginItemTypes.Helm, LegendaryItemTypes.PridesFall), //PridesFall
 				new ItemDataEntry(220549, PluginItemTypes.Helm, LegendaryItemTypes.SkullofResonance),
+				new ItemDataEntry(222889, PluginItemTypes.Helm, LegendaryItemTypes.TheHelmofRule),
 
 				new ItemDataEntry(193675, PluginItemTypes.MightyBelt, LegendaryItemTypes.AgelessMight),
 				new ItemDataEntry(298133, PluginItemTypes.MightyBelt, LegendaryItemTypes.ChilaniksChain),
@@ -1723,6 +1726,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				//BornsDefiance
 				new ItemDataEntry(222948, PluginItemTypes.Shoulders, LegendaryItemTypes.BornsDefiance), //BornsPrivilege
 				new ItemDataEntry(197199, PluginItemTypes.Chest, LegendaryItemTypes.BornsDefiance), //BornsFrozenSoul
+				new ItemDataEntry(223408, PluginItemTypes.Sword, LegendaryItemTypes.BornsDefiance), //BornsFuriousWrath
 
 				//AughildsAuthority
 				new ItemDataEntry(222972, PluginItemTypes.Bracers, LegendaryItemTypes.AughildsAuthority), //AughildsSearch

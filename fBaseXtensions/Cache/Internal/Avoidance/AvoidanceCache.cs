@@ -49,7 +49,7 @@ namespace fBaseXtensions.Cache.Internal.Avoidance
 			  new AvoidanceValue(AvoidanceType.MalthaelDeathFog, 1, 20,5),
 			  new AvoidanceValue(AvoidanceType.MalthaelDrainSoul, 0.75, 5,5),
 			  new AvoidanceValue(AvoidanceType.MalthaelLightning, 0.50, 8,5),
-			  new AvoidanceValue(AvoidanceType.MeteorImpact, 1, 14,5, 20),
+			  new AvoidanceValue(AvoidanceType.MeteorImpact, 1, 18, 5, 23),
 			  new AvoidanceValue(AvoidanceType.MoltenCore, 1, 20,5, 5),
 			  new AvoidanceValue(AvoidanceType.MoltenTrail, 0.75, 6,5, 10),
 

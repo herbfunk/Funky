@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System.Windows.Documents;
+using fBaseXtensions.Cache.External.Enums;
+
 namespace fBaseXtensions.Settings
 {
 	public class SettingCluster
@@ -7,6 +11,8 @@ namespace fBaseXtensions.Settings
 		public bool EnableClusteringTargetLogic { get; set; }
 		public double IgnoreClusterLowHPValue { get; set; }
 		public float ClusterMaxDistance { get; set; }
+		public bool UnitException_RareElites { get; set; }
+		public UnitFlags UnitExceptions { get; set; }
 
 		public SettingCluster(bool enabled=true)
 		{
@@ -15,6 +21,8 @@ namespace fBaseXtensions.Settings
 			ClusterMinimumUnitCount=3;
 			IgnoreClusterLowHPValue=0.55d;
 			ClusterMaxDistance = 100;
+			UnitException_RareElites = true;
+			UnitExceptions = UnitFlags.SucideBomber | UnitFlags.Unique | UnitFlags.Boss;
 		}
 		public SettingCluster()
 		{
@@ -23,9 +31,12 @@ namespace fBaseXtensions.Settings
 			ClusterMinimumUnitCount=2;
 			IgnoreClusterLowHPValue=0.55d;
 			ClusterMaxDistance = 100;
+			UnitException_RareElites = true;
+			UnitExceptions = UnitFlags.SucideBomber | UnitFlags.Unique | UnitFlags.Boss;
 		}
 
-
+		internal List<int> ExceptionSNOs = new List<int>();
+ 
 		public static readonly SettingCluster DisabledClustering = new SettingCluster
 		{
 			EnableClusteringTargetLogic = false,

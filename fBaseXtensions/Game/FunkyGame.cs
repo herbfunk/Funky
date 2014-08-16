@@ -394,6 +394,8 @@ namespace fBaseXtensions.Game
 					{
 						return FunkyBaseExtension.Settings.Loot.PickupCraftMaterials;
 					}
+					if (thisPluginItemType == PluginItemTypes.LegendaryCraftingMaterial)
+						return true;
 
 					if (thisPluginItemType == PluginItemTypes.CraftingPlan)
 					{

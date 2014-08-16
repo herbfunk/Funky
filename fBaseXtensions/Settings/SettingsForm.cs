@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using fBaseXtensions.Cache;
 using fBaseXtensions.Cache.External.Debugging;
+using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.External.Objects;
 using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Cache.Internal.Avoidance;
@@ -77,6 +78,33 @@ namespace fBaseXtensions.Settings
 
 				tb_ClusterLogicMinimumUnits.Value = (int)(FunkyBaseExtension.Settings.Cluster.ClusterMinimumUnitCount);
 				tb_ClusterLogicMinimumUnits.ValueChanged += tb_ClusterLogicMinimumUnits_ValueChanged;
+
+				cb_ClusterUnitException_RareElite.Checked=FunkyBaseExtension.Settings.Cluster.UnitException_RareElites;
+				cb_ClusterUnitException_RareElite.CheckedChanged+=cb_ClusterUnitException_RareElite_Checked;
+
+				var unitflagValues = Enum.GetValues(typeof(UnitFlags));
+				Func<object, string> fRetrieveunitflagNames = s => Enum.GetName(typeof(UnitFlags), s);
+				bool noUnitFlags = FunkyBaseExtension.Settings.Cluster.UnitExceptions.Equals(UnitFlags.None);
+				foreach (var logLevel in unitflagValues)
+				{
+					UnitFlags thisloglevel = (UnitFlags)logLevel;
+					if (thisloglevel.Equals(UnitFlags.None)) continue;
+
+					string loglevelName = fRetrieveunitflagNames(logLevel);
+					CheckBox cb = new CheckBox
+					{
+						Name = loglevelName,
+						Text = loglevelName,
+						Font=cb_ClusterUnitException_RareElite.Font,
+						FlatStyle=cb_ClusterUnitException_RareElite.FlatStyle,
+						AutoEllipsis=cb_ClusterUnitException_RareElite.AutoEllipsis,
+						AutoSize=cb_ClusterUnitException_RareElite.AutoSize,
+						Checked = !noUnitFlags && FunkyBaseExtension.Settings.Cluster.UnitExceptions.HasFlag(thisloglevel),
+					};
+					cb.CheckedChanged += ClusterUnitExceptionsChanged;
+
+					flowLayoutPanel_ClusteringUnitExceptions.Controls.Add(cb);
+				}
 
 				cb_GroupingLogic.Checked = FunkyBaseExtension.Settings.Grouping.AttemptGroupingMovements;
 				cb_GroupingLogic.CheckedChanged += GroupingBehaviorChecked;
@@ -248,25 +276,6 @@ namespace fBaseXtensions.Settings
 
 				cb_TargetingPrioritizeCloseRangeUnits.Checked = FunkyBaseExtension.Settings.Targeting.PrioritizeCloseRangeUnits;
 				cb_TargetingPrioritizeCloseRangeUnits.CheckedChanged += cb_TargetingPrioritizeCloseRangeUnits_CheckedChanged;
-
-				cb_TargetingUnitExceptionsRanged.Checked = FunkyBaseExtension.Settings.Targeting.UnitExceptionRangedUnits;
-				cb_TargetingUnitExceptionsRanged.CheckedChanged += cb_TargetingUnitExceptionsRanged_CheckedChanged;
-
-				cb_TargetingUnitExceptionsSpawner.Checked = FunkyBaseExtension.Settings.Targeting.UnitExceptionSpawnerUnits;
-				cb_TargetingUnitExceptionsSpawner.CheckedChanged += cb_TargetingUnitExceptionsSpawner_CheckedChanged;
-
-				cb_TargetingUnitExceptionsSucideBomber.Checked = FunkyBaseExtension.Settings.Targeting.UnitExceptionSucideBombers;
-				cb_TargetingUnitExceptionsSucideBomber.CheckedChanged += cb_TargetingUnitExceptionsSucideBomber_CheckedChanged;
-
-				cb_TargetingUnitExceptionsLowHealth.Checked = FunkyBaseExtension.Settings.Targeting.UnitExceptionLowHP;
-				cb_TargetingUnitExceptionsLowHealth.CheckedChanged += cb_TargetingUnitExceptionsLowHealth_CheckedChanged;
-
-				panel_TargetingUnitExceptionsLowHealthMaxDistance.Enabled = FunkyBaseExtension.Settings.Targeting.UnitExceptionLowHP;
-				tb_TargetingUnitExceptionLowHealthMaxDistance.Value = FunkyBaseExtension.Settings.Targeting.UnitExceptionLowHPMaximumDistance;
-				tb_TargetingUnitExceptionLowHealthMaxDistance.ValueChanged += tb_TargetingUnitExceptionLowHealthMaxDistance_ValueChanged;
-
-				txt_TargetingUnitExceptionLowHealthMaxDistance.Text = FunkyBaseExtension.Settings.Targeting.UnitExceptionLowHPMaximumDistance.ToString();
-
 
 
 				UserControlTargetRange eliteRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.EliteCombatRange, "Rare/Elite/Unique Unit Range")
@@ -694,7 +703,10 @@ namespace fBaseXtensions.Settings
 			FunkyBaseExtension.Settings.Cluster.ClusterMinimumUnitCount = Value;
 			txt_ClusterLogicMinimumUnits.Text = Value.ToString();
 		}
-
+		private void cb_ClusterUnitException_RareElite_Checked(object sender, EventArgs e)
+		{
+			FunkyBaseExtension.Settings.Cluster.UnitException_RareElites = !FunkyBaseExtension.Settings.Cluster.UnitException_RareElites;
+		}
 
 		private void bWaitForArchonChecked(object sender, EventArgs e)
 		{
@@ -974,34 +986,7 @@ namespace fBaseXtensions.Settings
 			txt_TargetingPriorityCloseRangeUnitsCount.Text = Value.ToString();
 		}
 
-		private void cb_TargetingUnitExceptionsRanged_CheckedChanged(object sender, EventArgs e)
-		{
-			FunkyBaseExtension.Settings.Targeting.UnitExceptionRangedUnits = !FunkyBaseExtension.Settings.Targeting.UnitExceptionRangedUnits;
-		}
 
-		private void cb_TargetingUnitExceptionsSpawner_CheckedChanged(object sender, EventArgs e)
-		{
-			FunkyBaseExtension.Settings.Targeting.UnitExceptionSpawnerUnits = !FunkyBaseExtension.Settings.Targeting.UnitExceptionSpawnerUnits;
-		}
-
-		private void cb_TargetingUnitExceptionsSucideBomber_CheckedChanged(object sender, EventArgs e)
-		{
-			FunkyBaseExtension.Settings.Targeting.UnitExceptionSucideBombers = !FunkyBaseExtension.Settings.Targeting.UnitExceptionSucideBombers;
-		}
-
-		private void cb_TargetingUnitExceptionsLowHealth_CheckedChanged(object sender, EventArgs e)
-		{
-			FunkyBaseExtension.Settings.Targeting.UnitExceptionLowHP = !FunkyBaseExtension.Settings.Targeting.UnitExceptionLowHP;
-			panel_TargetingUnitExceptionsLowHealthMaxDistance.Enabled = FunkyBaseExtension.Settings.Targeting.UnitExceptionLowHP;
-		}
-
-		private void tb_TargetingUnitExceptionLowHealthMaxDistance_ValueChanged(object sender, EventArgs e)
-		{
-			TrackBar slider_sender = (TrackBar)sender;
-			int Value = (int)slider_sender.Value;
-			FunkyBaseExtension.Settings.Targeting.UnitExceptionLowHPMaximumDistance = Value;
-			txt_TargetingUnitExceptionLowHealthMaxDistance.Text = Value.ToString();
-		}
 
 		private void button1_Click_1(object sender, EventArgs e)
 		{
@@ -1222,6 +1207,16 @@ namespace fBaseXtensions.Settings
 				FunkyBaseExtension.Settings.Logging.LogFlags &= ~LogLevelValue;
 			else
 				FunkyBaseExtension.Settings.Logging.LogFlags |= LogLevelValue;
+		}
+		private void ClusterUnitExceptionsChanged(object sender, EventArgs e)
+		{
+			CheckBox cbSender = (CheckBox)sender;
+			UnitFlags LogLevelValue = (UnitFlags)Enum.Parse(typeof(UnitFlags), cbSender.Name);
+
+			if (FunkyBaseExtension.Settings.Cluster.UnitExceptions.HasFlag(LogLevelValue))
+				FunkyBaseExtension.Settings.Cluster.UnitExceptions &= ~LogLevelValue;
+			else
+				FunkyBaseExtension.Settings.Cluster.UnitExceptions |= LogLevelValue;
 		}
 		private void DebugDataTypesChanged(object sender, EventArgs e)
 		{

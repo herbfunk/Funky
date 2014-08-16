@@ -121,6 +121,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(261135, PluginGizmoType.Chest, "x1_Catacombs_chest-11622", GizmoTargetTypes.Chest),
 				new GizmoEntry(51300, PluginGizmoType.Chest, "a3dun_Keep_Chest_A-8177", GizmoTargetTypes.Chest),
 				new GizmoEntry(111947, PluginGizmoType.Chest, "A3_Battlefield_Chest_Frosty-1287", GizmoTargetTypes.Chest),
+				new GizmoEntry(106329, PluginGizmoType.Chest, "caOut_Oasis_Well_Lift_Chest-8787", GizmoTargetTypes.Chest),
 
 				//============== Floor Switches ==============//
 				new GizmoEntry(5759, PluginGizmoType.Chest, "trDun_Cath_FloorSpawner_02-670", GizmoTargetTypes.MiscContainer),
@@ -240,6 +241,10 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(200250, PluginGizmoType.Chest, "Clicky_LootType2_DemonFlyer_B_Frosty_Corpse_01-15526", GizmoTargetTypes.Corpse),
 				new GizmoEntry(289783, PluginGizmoType.Chest, "x1_westm_Graveyard_Corpse-14914", GizmoTargetTypes.Corpse),
 				new GizmoEntry(261137, PluginGizmoType.Chest, "x1_Catacombs_Corpse_01-11441", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188388, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_G_Corpse_05-32847", GizmoTargetTypes.Corpse),
+				new GizmoEntry(187972, PluginGizmoType.Chest, "LootType2_caldeumVillager_Male_A_Corpse_03-1449", GizmoTargetTypes.Corpse),
+				new GizmoEntry(187975, PluginGizmoType.Chest, "LootType2_caldeumVillager_Male_A_Corpse_06-1892", GizmoTargetTypes.Corpse),
+				new GizmoEntry(309407, PluginGizmoType.Chest, "x1_Westm_Corpse_E_03-19796", GizmoTargetTypes.Corpse),
 
 				//============== Weapon Rack ==============//
 				new GizmoEntry(464, PluginGizmoType.Chest, "trDun_WeaponRack-791", GizmoTargetTypes.ItemRack),
@@ -281,6 +286,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(461, PluginGizmoType.Switch, "trDun_SkeletonKing_Bridge_Active-3253"),
 				new GizmoEntry(5747, PluginGizmoType.Switch, "trDun_Cath_Chandelier_Trap_Switch2-383"),
 				new GizmoEntry(221574, PluginGizmoType.Switch, "a1dun_Leoric_IronMaiden_Event-14441"),
+				new GizmoEntry(117344, PluginGizmoType.Switch, "a3dun_rmpt_Demon_Elevator_A-3153"),
 
 				new GizmoEntry(138989, PluginGizmoType.HealingWell, "", GizmoTargetTypes.Healthwell),
 				new GizmoEntry(373463, PluginGizmoType.PoolOfReflection, "PoolOfReflection", GizmoTargetTypes.PoolOfReflection),

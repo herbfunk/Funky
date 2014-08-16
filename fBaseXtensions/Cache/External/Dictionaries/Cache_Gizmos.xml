@@ -634,6 +634,14 @@
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
+      <SnoId>106329</SnoId>
+      <InternalName>caOut_Oasis_Well_Lift_Chest-8787</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Chest</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>5759</SnoId>
       <InternalName>trDun_Cath_FloorSpawner_02-670</InternalName>
       <ActorType>Gizmo</ActorType>
@@ -1554,6 +1562,38 @@
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
+      <SnoId>188388</SnoId>
+      <InternalName>LootType2_caldeumTortured_Male_G_Corpse_05-32847</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>187972</SnoId>
+      <InternalName>LootType2_caldeumVillager_Male_A_Corpse_03-1449</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>187975</SnoId>
+      <InternalName>LootType2_caldeumVillager_Male_A_Corpse_06-1892</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>309407</SnoId>
+      <InternalName>x1_Westm_Corpse_E_03-19796</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>464</SnoId>
       <InternalName>trDun_WeaponRack-791</InternalName>
       <ActorType>Gizmo</ActorType>
@@ -1812,6 +1852,14 @@
     <GizmoEntry>
       <SnoId>221574</SnoId>
       <InternalName>a1dun_Leoric_IronMaiden_Event-14441</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Switch</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>117344</SnoId>
+      <InternalName>a3dun_rmpt_Demon_Elevator_A-3153</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Switch</PluginGizmoType>

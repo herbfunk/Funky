@@ -1528,6 +1528,13 @@
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>185397</SnoId>
+      <InternalName>Sword_norm_unique_07-8635</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>6348</SnoId>
       <InternalName>twoHandedSword_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
@@ -4793,6 +4800,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>371083</SnoId>
+      <ItemType>LegendaryCraftingMaterial</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>189860</SnoId>
       <ItemType>CraftingMaterial</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -5971,6 +5983,11 @@
       <SnoId>220549</SnoId>
       <ItemType>Helm</ItemType>
       <LegendaryType>SkullofResonance</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>222889</SnoId>
+      <ItemType>Helm</ItemType>
+      <LegendaryType>TheHelmofRule</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>193675</SnoId>
@@ -7690,6 +7707,11 @@
     <ItemDataEntry>
       <SnoId>197199</SnoId>
       <ItemType>Chest</ItemType>
+      <LegendaryType>BornsDefiance</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>223408</SnoId>
+      <ItemType>Sword</ItemType>
       <LegendaryType>BornsDefiance</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>

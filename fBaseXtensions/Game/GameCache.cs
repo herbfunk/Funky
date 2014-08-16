@@ -146,7 +146,7 @@ namespace fBaseXtensions.Game
 			Logger.Write(LogLevel.OutOfCombat, "New Game Started");
 
 
-			if (FunkyGame.AdventureMode && FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode)
+			if (FunkyGame.AdventureMode && SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode)
 			{
 				ResetCombatModifiers();
 			}

@@ -534,7 +534,7 @@ namespace fBaseXtensions.Items
 			{
 				thisGilesBaseTypes = PluginBaseItemTypes.FollowerItem;
 			}
-			else if (thisPluginItemTypes == PluginItemTypes.CraftingMaterial || thisPluginItemTypes == PluginItemTypes.CraftTome || thisPluginItemTypes == PluginItemTypes.MiscBook ||
+			else if (thisPluginItemTypes == PluginItemTypes.CraftingMaterial || thisPluginItemTypes == PluginItemTypes.LegendaryCraftingMaterial || thisPluginItemTypes == PluginItemTypes.CraftTome || thisPluginItemTypes == PluginItemTypes.MiscBook ||
 				 thisPluginItemTypes == PluginItemTypes.SpecialItem || thisPluginItemTypes == PluginItemTypes.CraftingPlan || thisPluginItemTypes == PluginItemTypes.HealthPotion ||
 				 thisPluginItemTypes == PluginItemTypes.Dye || thisPluginItemTypes == PluginItemTypes.StaffOfHerding || thisPluginItemTypes == PluginItemTypes.InfernalKey ||
 				thisPluginItemTypes == PluginItemTypes.KeyStone || thisPluginItemTypes == PluginItemTypes.HoradricCache || thisPluginItemTypes == PluginItemTypes.BloodShard)
@@ -554,7 +554,7 @@ namespace fBaseXtensions.Items
 		}
 		public static bool DetermineIsStackable(PluginItemTypes thisPluginItemTypes)
 		{
-			bool bIsStackable = thisPluginItemTypes == PluginItemTypes.CraftingMaterial || thisPluginItemTypes == PluginItemTypes.CraftTome || thisPluginItemTypes == PluginItemTypes.Ruby ||
+			bool bIsStackable = thisPluginItemTypes == PluginItemTypes.CraftingMaterial || thisPluginItemTypes == PluginItemTypes.LegendaryCraftingMaterial || thisPluginItemTypes == PluginItemTypes.CraftTome || thisPluginItemTypes == PluginItemTypes.Ruby ||
 									  thisPluginItemTypes == PluginItemTypes.Diamond || thisPluginItemTypes == PluginItemTypes.Emerald || thisPluginItemTypes == PluginItemTypes.Topaz || thisPluginItemTypes == PluginItemTypes.Amethyst ||
 									  thisPluginItemTypes == PluginItemTypes.HealthPotion || thisPluginItemTypes == PluginItemTypes.CraftingPlan || thisPluginItemTypes == PluginItemTypes.Dye ||
 									  thisPluginItemTypes == PluginItemTypes.InfernalKey || thisPluginItemTypes == PluginItemTypes.KeyStone;
@@ -563,7 +563,7 @@ namespace fBaseXtensions.Items
 		public static bool DetermineIsStackable(CacheACDItem item)
 		{
 			PluginItemTypes thisPluginItemTypes = DetermineItemType(item);
-			bool bIsStackable = thisPluginItemTypes == PluginItemTypes.CraftingMaterial || thisPluginItemTypes == PluginItemTypes.CraftTome || thisPluginItemTypes == PluginItemTypes.Ruby ||
+			bool bIsStackable = thisPluginItemTypes == PluginItemTypes.CraftingMaterial || thisPluginItemTypes == PluginItemTypes.LegendaryCraftingMaterial || thisPluginItemTypes == PluginItemTypes.CraftTome || thisPluginItemTypes == PluginItemTypes.Ruby ||
 									  thisPluginItemTypes == PluginItemTypes.Diamond || thisPluginItemTypes == PluginItemTypes.Emerald || thisPluginItemTypes == PluginItemTypes.Topaz || thisPluginItemTypes == PluginItemTypes.Amethyst ||
 									  thisPluginItemTypes == PluginItemTypes.HealthPotion || thisPluginItemTypes == PluginItemTypes.CraftingPlan || thisPluginItemTypes == PluginItemTypes.Dye ||
 									  thisPluginItemTypes == PluginItemTypes.InfernalKey || thisPluginItemTypes == PluginItemTypes.KeyStone;
@@ -639,6 +639,7 @@ namespace fBaseXtensions.Items
 				case PluginItemTypes.FollowerScoundrel: return ItemType.FollowerSpecial;
 				case PluginItemTypes.FollowerTemplar: return ItemType.FollowerSpecial;
 				case PluginItemTypes.CraftingMaterial: return ItemType.CraftingReagent;
+				case PluginItemTypes.LegendaryCraftingMaterial: return ItemType.CraftingReagent;
 				case PluginItemTypes.CraftTome: return ItemType.CraftingPage;
 				case PluginItemTypes.Ruby: return ItemType.Gem;
 				case PluginItemTypes.Emerald: return ItemType.Gem;

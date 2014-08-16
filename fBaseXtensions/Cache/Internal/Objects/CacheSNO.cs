@@ -40,6 +40,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			if (sno > 0)
 			{
 				SNOID = thisEntry.SNOID;
+				_gizmoTargetTypes = thisEntry.GizmoTargetTypes;
 				_unitflags = thisEntry.UnitPropertyFlags;
 				_itemdroptype = thisEntry.ItemDropType;
 				_actortype = thisEntry.Actortype;
@@ -60,7 +61,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				IsFinalized = thisEntry.IsFinalized;
 			}
 		}
-		public SNO(int sno, String internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gimzotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags = null, CacheEntry snoentry = null)
+		public SNO(int sno, string internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gimzotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags = null, GizmoTargetTypes? gizmotargettypes = null, CacheEntry snoentry = null)
 		{
 			//Creates the perm data
 			SNOID = sno;
@@ -79,6 +80,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			_gizmotype = gimzotype;
 			_itemdroptype = baseitemtype;
 			_unitflags = unitflags;
+			_gizmoTargetTypes = gizmotargettypes;
 			_snoentry = snoentry;
 			UpdateLookUpFinalValues();
 			IsFinalized = true;
@@ -101,6 +103,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			_gizmotype = sno.Gizmotype;
 			_itemdroptype = sno.ItemDropType;
 			_unitflags = sno.UnitPropertyFlags;
+			_gizmoTargetTypes = sno.GizmoTargetTypes;
 			_snoentry = sno.snoentry;
 			//this._RunningRate=sno.RunningRate;
 			IsFinalized = sno.IsFinalized;
@@ -399,12 +402,32 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			}
 		}
 
+		private readonly GizmoTargetTypes? _gizmoTargetTypes;
+		public GizmoTargetTypes? GizmoTargetTypes
+		{
+			get
+			{
+				if (IsFinalized) return _gizmoTargetTypes;
+
+				if (ObjectCache.dictGizmoTargetTypes.ContainsKey(SNOID)) return ObjectCache.dictGizmoTargetTypes[SNOID];
+				return null;
+			}
+			set
+			{
+				if (IsFinalized) return;
+
+				ObjectCache.dictGizmoTargetTypes[SNOID] = value;
+
+			}
+		}
+
 		private readonly CacheEntry _snoentry;
 		public CacheEntry snoentry
 		{
 			get
 			{
 				if (IsFinalized) return _snoentry;
+
 				CacheEntry outvalue;
 				if (TheCache.ObjectIDCache.TryGetCacheValue(SNOID, out outvalue))
 					return outvalue;
@@ -477,7 +500,10 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				debugstring += IsBarricade.HasValue ? "IsBarricade: " + IsBarricade.Value.ToString() + " " + "\r\n" : "";
 				debugstring += ItemDropType.HasValue ? "ItemBaseType: " + ItemDropType.Value.ToString() + " " + "\r\n" : "";
 				debugstring += UnitPropertyFlags.HasValue ? "UnitFlags: " + UnitPropertyFlags.Value.ToString() + " " + "\r\n" : "";
+				debugstring += GizmoTargetTypes.HasValue ? "GizmoTargetTypes: " + GizmoTargetTypes.Value.ToString() + " " + "\r\n" : "";
 				debugstring += snoentry != null ? "SnoEntry: " + snoentry.ToString() + " " + "\r\n" : "";
+
+				//
 				return debugstring;
 
 			}
@@ -638,8 +664,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 	public class CachedSNOEntry : SNO
 	{
 
-		public CachedSNOEntry(int sno, String internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gizmotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags = null, CacheEntry snoentry = null)
-			: base(sno, internalname, actortype, targettype, monstertype, monstersize, collisionradius, canburrow, grantsnoxp, dropsnoloot, isbarricade, obstacletype, actorsphereradius, gizmotype, baseitemtype, unitflags, snoentry)
+		public CachedSNOEntry(int sno, string internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gizmotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags = null, GizmoTargetTypes? gizmotargettypes = null, CacheEntry snoentry = null)
+			: base(sno, internalname,  actortype,  targettype,  monstertype,  monstersize,  collisionradius,  canburrow,  grantsnoxp,  dropsnoloot,  isbarricade,  obstacletype,  actorsphereradius,  gizmotype,  baseitemtype,  unitflags, gizmotargettypes, snoentry)
 		{
 		}
 
@@ -716,6 +742,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					{
 						CacheGizmoEntry gizmoEntry = (CacheGizmoEntry)snoentry;
 						Gizmotype = (GizmoType)gizmoEntry.ObjectType;
+						GizmoTargetTypes = gizmoEntry.GizmotargetType; 
 					}
 					else if (snoentry.EntryType == EntryType.Unit)
 					{
@@ -898,6 +925,31 @@ namespace fBaseXtensions.Cache.Internal.Objects
 							if (!Gizmotype.HasValue)
 							{
 								Gizmotype = thisGizmoType;
+
+								if (targetType.Value==TargetType.Container)
+								{
+									if (IsCorpseContainer)
+										GizmoTargetTypes=Enums.GizmoTargetTypes.Corpse;
+									else if(IsResplendantChest)
+										GizmoTargetTypes = Enums.GizmoTargetTypes.Resplendant;
+									else if(IsChestContainer)
+										GizmoTargetTypes = Enums.GizmoTargetTypes.Chest;
+									else
+										GizmoTargetTypes = Enums.GizmoTargetTypes.MiscContainer;
+								}
+								else if(targetType.Value == TargetType.Shrine)
+								{
+									if (Gizmotype.Value== GizmoType.PowerUp)
+										GizmoTargetTypes = Enums.GizmoTargetTypes.Shrine;
+									else if(IsHealthWell)
+										GizmoTargetTypes = Enums.GizmoTargetTypes.Healthwell;
+									else if(Gizmotype.Value==GizmoType.PoolOfReflection)
+										GizmoTargetTypes = Enums.GizmoTargetTypes.PoolOfReflection;
+								}
+								else
+								{
+									GizmoTargetTypes = Enums.GizmoTargetTypes.None;
+								}
 
 								//We could not find ID using our cache.. lets log it!
 								if (FunkyBaseExtension.Settings.Debugging.DebuggingData) //&& ObjectCache.CheckTargetTypeFlag(targetType.Value, TargetType.Container | TargetType.Barricade | TargetType.Destructible | TargetType.Door))

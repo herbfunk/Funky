@@ -300,7 +300,7 @@ namespace fBaseXtensions.Game.Hero
 				//Clear the object cache!
 				ObjectCache.Objects.Clear();
 				//ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
-				FunkyGame.Targeting.Cache.RemovalCheck = false;
+				ObjectCache.RemovalCheck = false;
 
 				//Reset Skip Ahead Cache
 				SkipAheadCache.ClearCache();
@@ -308,7 +308,7 @@ namespace fBaseXtensions.Game.Hero
 				FunkyGame.Hero.UpdateCoinage = true;
 
 				//Check active bounty
-				if (FunkyGame.AdventureMode && FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode)
+				if (FunkyGame.AdventureMode && SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode)
 					CheckActiveBounty();
 
 
@@ -328,7 +328,7 @@ namespace fBaseXtensions.Game.Hero
 
 		private void CheckActiveBounty()
 		{
-			if (FunkyGame.AdventureMode && FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode)
+			if (FunkyGame.AdventureMode && SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode)
 			{
 				FunkyGame.Game.ResetCombatModifiers();
 

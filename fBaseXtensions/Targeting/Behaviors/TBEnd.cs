@@ -49,7 +49,7 @@ namespace fBaseXtensions.Targeting.Behaviors
 
 					if (DateTime.Now.Subtract(FunkyGame.Targeting.Cache.lastSeenCursedShrine).TotalMilliseconds <= (1000))
 					{
-						if (FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode && FunkyGame.AdventureMode && FunkyGame.Bounty.CurrentBountyCacheEntry != null && FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.CursedEvent)
+						if (SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode && FunkyGame.AdventureMode && FunkyGame.Bounty.CurrentBountyCacheEntry != null && FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.CursedEvent)
 						{
 							Logger.DBLog.Info("[Funky] Cursed Object Found During Cursed Bounty -- Enabling LOS movement for all Units!");
 							SettingLOSMovement.LOSSettingsTag.MiniumRangeObjects = 10f;

@@ -16,3 +16,19 @@
 		Added CreationTime property to CachedObject
 		Changed CachedObstacle (Avoidance) removal counter into a time based removal. (optional -- if not set, will be removed when no longer valid from DB)
 		Added an additional shaman Fireball and Zult Twister/Bubble to avoidances.
+
+
+XML Tags
+	Added FunkyWhileActorPresent Tag. This replaces the ActorExistsAt for validating an object is or is not present.
+	EXAMPLE
+		<FunkyWhileActorPresent sno="256040" present="False">
+			..Do Stuff While Object is Not Present..
+		</FunkyWhileActorPresent>
+
+	FunkyClustering Tag now has optional element for SNO ids for clustering exceptions.
+	EXAMPLE (enables clustering of size 10, within 100 yards of bot, with minimum unit count of 10 -- except for the ClusterException SNOs)
+		<FunkyClustering enabled="True" radius="10" range="100" units="10">
+			<ExceptionList>
+				<ClusterException sno="256022" />
+			</ExceptionList>
+		</FunkyClustering>

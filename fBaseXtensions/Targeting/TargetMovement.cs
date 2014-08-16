@@ -405,8 +405,7 @@ namespace fBaseXtensions.Targeting
 				}
 				else if (ObjectCache.CheckFlag(obj.targetType.Value, TargetType.LineOfSight | TargetType.Backtrack))
 				{
-					//if (currentDistance > 30f)
-					UsePowerMovement = false;
+					UsePowerMovement = true;
 				}
 				else if (ObjectCache.CheckFlag(obj.targetType.Value, TargetType.LineOfSight))
 				{

@@ -1,4 +1,6 @@
-﻿using fBaseXtensions.Game;
+﻿using System;
+using fBaseXtensions.Cache.Internal;
+using fBaseXtensions.Game;
 using fBaseXtensions.Game.Hero.Class;
 using Zeta.TreeSharp;
 
@@ -47,6 +49,13 @@ namespace fBaseXtensions.Targeting
 
 			//Seconday Hotbar Check
 			FunkyGame.Hero.Class.SecondaryHotbarBuffPresent();
+
+			//Check if we should trim our SNO cache..
+			if (DateTime.Now.Subtract(ObjectCache.cacheSnoCollection.lastTrimming).TotalMilliseconds > FunkyBaseExtension.Settings.Plugin.UnusedSNORemovalRate)
+				ObjectCache.cacheSnoCollection.TrimOldUnusedEntries();
+
+			ObjectCache.CheckForCacheRemoval();
+
 		}
 		private bool CheckedPrecombat = false;
 		public RunStatus CheckHandleTarget()

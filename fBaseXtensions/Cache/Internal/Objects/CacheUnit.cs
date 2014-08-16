@@ -52,27 +52,26 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		{
 			UnitFlags _flags;
 
-			if (Properties.HasFlag(TargetProperties.Boss))
+			var properties = Properties;
+			if (properties.HasFlag(TargetProperties.Boss))
 				_flags = UnitFlags.Boss;
-			else if (Properties.HasFlag(TargetProperties.RareElite))
-				_flags = UnitFlags.Rare;
-			else if (Properties.HasFlag(TargetProperties.Unique))
+			else if (properties.HasFlag(TargetProperties.Unique))
 				_flags = UnitFlags.Unique;
-			else if (Properties.HasFlag(TargetProperties.TreasureGoblin))
+			else if (properties.HasFlag(TargetProperties.TreasureGoblin))
 				_flags = UnitFlags.TreasureGoblin;
-			else if (Properties.HasFlag(TargetProperties.SucideBomber))
+			else if (properties.HasFlag(TargetProperties.SucideBomber))
 				_flags = UnitFlags.SucideBomber;
 			else
 				_flags = UnitFlags.Normal;
 
 
-			if (Properties.HasFlag(TargetProperties.Stealthable))
+			if (properties.HasFlag(TargetProperties.Stealthable))
 				_flags |= UnitFlags.Stealthable;
-			if (Properties.HasFlag(TargetProperties.Burrowing))
+			if (properties.HasFlag(TargetProperties.Burrowing))
 				_flags |= UnitFlags.Burrowing;
-			if (Properties.HasFlag(TargetProperties.Fast))
+			if (properties.HasFlag(TargetProperties.Fast))
 				_flags |= UnitFlags.Fast;
-			if (Properties.HasFlag(TargetProperties.Ranged))
+			if (properties.HasFlag(TargetProperties.Ranged))
 				_flags |= UnitFlags.Ranged;
 
 			if (IsFlyingHoverUnit)
@@ -309,15 +308,40 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		{
 			get
 			{
-				return
-					 (QuestMonster || IsMinimapActive.HasValue && IsMinimapActive.Value) ||
-					 (IsBoss) ||
-					 (IsSucideBomber && FunkyBaseExtension.Settings.Targeting.UnitExceptionSucideBombers) ||
-					 (IsTreasureGoblin && FunkyBaseExtension.Settings.Ranges.TreasureGoblinRange > 1) ||
-					 (IsRanged && FunkyBaseExtension.Settings.Targeting.UnitExceptionRangedUnits) ||
-					 (IsSpawnerUnit && FunkyBaseExtension.Settings.Targeting.UnitExceptionSpawnerUnits) ||
-					 ((FunkyBaseExtension.Settings.Targeting.UnitExceptionLowHP && ((CurrentHealthPct < 0.25 && UnitMaxHitPointAverageWeight > 0)
-									   && ((!FunkyGame.Hero.Class.IsMeleeClass && CentreDistance < 30f) || (FunkyGame.Hero.Class.IsMeleeClass && RadiusDistance < 12f)))));
+				if ((SettingCluster.ClusterSettingsTag.ExceptionSNOs.Contains(SNOID)) ||(QuestMonster || IsMinimapActive.HasValue && IsMinimapActive.Value))
+					return true;
+
+				if (SettingCluster.ClusterSettingsTag.UnitException_RareElites && (MonsterRare||MonsterElite))
+					return true;
+
+				if (SettingCluster.ClusterSettingsTag.UnitExceptions!=UnitFlags.None && UnitPropertyFlags.HasValue)
+				{
+					foreach (UnitFlags flag in Enum.GetValues(typeof(UnitFlags)))
+					{
+						if (flag == UnitFlags.None) continue;
+
+						//Check if the settings defined this flag
+						if (!ObjectCache.CheckFlag(SettingCluster.ClusterSettingsTag.UnitExceptions, flag)) continue;
+						//Check if the unit has this flag
+						if (!ObjectCache.CheckFlag(UnitPropertyFlags.Value, flag)) continue;
+
+						//Found a match for cluster exception!
+						return true;
+					}
+				}
+				
+				return false;
+					//return
+					// (SettingCluster.ClusterSettingsTag.ExceptionSNOs.Contains(SNOID)) ||
+					// (QuestMonster || IsMinimapActive.HasValue && IsMinimapActive.Value) ||
+
+					// (IsBoss && ObjectCache.CheckFlag(SettingCluster.ClusterSettingsTag.UnitExceptions, UnitFlags.Boss)) ||
+					// (IsSucideBomber && ObjectCache.CheckFlag(SettingCluster.ClusterSettingsTag.UnitExceptions, UnitFlags.SucideBomber)) ||
+					// (IsTreasureGoblin && ObjectCache.CheckFlag(SettingCluster.ClusterSettingsTag.UnitExceptions, UnitFlags.TreasureGoblin)) ||
+					// (IsRanged && ObjectCache.CheckFlag(SettingCluster.ClusterSettingsTag.UnitExceptions, UnitFlags.Ranged)) ||
+					// (IsSpawnerUnit && ObjectCache.CheckFlag(SettingCluster.ClusterSettingsTag.UnitExceptions, UnitFlags.Summoner)) ||
+					 //((FunkyBaseExtension.Settings.Targeting.UnitExceptionLowHP && ((CurrentHealthPct < 0.25 && UnitMaxHitPointAverageWeight > 0)
+					 //				  && ((!FunkyGame.Hero.Class.IsMeleeClass && CentreDistance < 30f) || (FunkyGame.Hero.Class.IsMeleeClass && RadiusDistance < 12f)))));
 			}
 		}
 
@@ -327,7 +351,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			{
 				return
 					//(ProfileCache.LineOfSightSNOIds.Contains(SNOID)) ||
-					 (((FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode && FunkyGame.AdventureMode && FunkyGame.Game.AllowAnyUnitForLOSMovement) ||
+					 (((SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode && FunkyGame.AdventureMode && FunkyGame.Game.AllowAnyUnitForLOSMovement) ||
 						(IsSucideBomber && SettingLOSMovement.LOSSettingsTag.AllowSucideBomber) ||
 						(IsTreasureGoblin && SettingLOSMovement.LOSSettingsTag.AllowTreasureGoblin) ||
 						(IsSpawnerUnit && SettingLOSMovement.LOSSettingsTag.AllowSpawnerUnits) ||
@@ -948,7 +972,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				if (CurrentHealthPct.HasValue && (CurrentHealthPct.Value <= 0d))
 				{
 					//Respawnable Units -- Only when they are not elite/rare/uniques!
-					if (!IsRespawnable || IsEliteRareUnique)
+					if (!ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Revivable) || IsEliteRareUnique)
 					{
 						//Logger.Write(LogLevel.Cache, "Unit Is Dead {0}", DebugStringSimple);
 						BlacklistLoops = -1;
@@ -967,9 +991,9 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					  (IsAttackable.HasValue && IsAttackable.Value == false))
 				{
 					//We skip all but worm bosses in A2 and monsters who can shield.
-					if (!IsWormBoss && !MonsterShielding && (!IsEliteRareUnique || IsGrotesqueActor))
+					if (!ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Worm|UnitFlags.Unique) && !MonsterShielding && (!IsEliteRareUnique || ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Grotesque)))
 					{
-						if (IsGrotesqueActor)
+						if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Grotesque))
 						{
 							//Setup this as an avoidance object now!
 							HandleAsAvoidanceObject = true;
@@ -980,9 +1004,9 @@ namespace fBaseXtensions.Cache.Internal.Objects
 						}
 
 						//Stealthable units -- low blacklist counter
-						if (IsStealthableUnit)
+						if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Stealthable))
 							BlacklistLoops = 2;
-						else if (IsBurrowableUnit)
+						else if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Burrowing))
 							BlacklistLoops = 5;
 						else
 							BlacklistLoops = 10;
@@ -1219,7 +1243,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 
 				//Special Bounty Check for Events only!
-				if (FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode && FunkyGame.AdventureMode && FunkyGame.Bounty.CurrentBountyCacheEntry != null && FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.Event)
+				if (SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode && FunkyGame.AdventureMode && FunkyGame.Bounty.CurrentBountyCacheEntry != null && FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.Event)
 				{
 					if (!IsQuestGiver)
 					{
@@ -1433,10 +1457,21 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			}
 
 
+			//UnitFlags Check!
+			if (!UnitPropertyFlags.HasValue)
+			{
+				UnitPropertyFlags = GenerateUnitFlags();
+
+				if (!DebugDataChecked && FunkyBaseExtension.Settings.Debugging.DebuggingData && FunkyBaseExtension.Settings.Debugging.DebuggingDataTypes.HasFlag(DebugDataTypes.Units))
+				{
+					DebugDataChecked = true;
+					ObjectCache.DebuggingData.CheckEntry(this);
+				}
+			}
 
 			//Burrowing?
 			#region Burrowed?
-			if ((CurrentHealthPct.HasValue && CurrentHealthPct.Value >= 1d || this.IsBurrowableUnit || (!IsBurrowed.HasValue || IsBurrowed.Value)))
+			if ((CurrentHealthPct.HasValue && CurrentHealthPct.Value >= 1d || ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Burrowing) || (!IsBurrowed.HasValue || IsBurrowed.Value)))
 			{
 				try
 				{
@@ -1452,14 +1487,14 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			#endregion
 
 			//Targetable
-			if (!IsTargetable.HasValue || !IsTargetable.Value || IsStealthableUnit || IsBoss)
+			if (!IsTargetable.HasValue || !IsTargetable.Value || ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Stealthable) || IsBoss)
 			{
 				try
 				{
 					//this.IsAttackable=this.ref_DiaUnit.IsAttackable;
 					bool stealthed = false;
 					//Special units who can stealth
-					if (IsStealthableUnit)
+					if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Stealthable))
 						stealthed = (ref_DiaUnit.CommonData.GetAttribute<float>(ActorAttributeType.Stealthed) <= 0);
 
 					if (!stealthed)
@@ -1486,7 +1521,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			}
 
 			//Attackable
-			if (MonsterShielding || (CurrentHealthPct.HasValue && (CurrentHealthPct.Value < 1d || CurrentHealthPct.Value > 1d) && IsGrotesqueActor))
+			if (MonsterShielding || (CurrentHealthPct.HasValue && (CurrentHealthPct.Value < 1d || CurrentHealthPct.Value > 1d) && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Grotesque)))
 			{
 				try
 				{
@@ -1614,7 +1649,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				}
 			}
 
-			if (IsMalletLordUnit && CentreDistance < 25f)
+			if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.MalletLord) && CentreDistance < 25f)
 			{
 				UpdateSNOAnim();
 				if (SnoAnim == SNOAnim.malletDemon_attack_01)
@@ -1658,15 +1693,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				}
 			}
 
-			if (!UnitPropertyFlags.HasValue)
-			{
-				UnitPropertyFlags = GenerateUnitFlags();
-				if (!DebugDataChecked && FunkyBaseExtension.Settings.Debugging.DebuggingData && FunkyBaseExtension.Settings.Debugging.DebuggingDataTypes.HasFlag(DebugDataTypes.Units))
-				{
-					DebugDataChecked = true;
-					ObjectCache.DebuggingData.CheckEntry(this);
-				}
-			}
+
 
 			return true;
 		}
@@ -1757,14 +1784,11 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				if ((IsEliteRareUnique && !FunkyBaseExtension.Settings.Targeting.IgnoreAboveAverageMobs) ||
 						   (PriorityCounter > 0) ||
 						   (IsBoss && !FunkyBaseExtension.Settings.Targeting.IgnoreAboveAverageMobs && CurrentHealthPct.HasValue && CurrentHealthPct <= 0.99d) ||
-						   (((IsSucideBomber && FunkyBaseExtension.Settings.Targeting.UnitExceptionSucideBombers) || IsCorruptantGrowth) && CentreDistance < 45f) ||
-						   (IsSpawnerUnit && FunkyBaseExtension.Settings.Targeting.UnitExceptionSpawnerUnits) ||
+						   (((IsSucideBomber && ObjectCache.CheckFlag(SettingCluster.ClusterSettingsTag.UnitExceptions, UnitFlags.SucideBomber)) || IsCorruptantGrowth) && CentreDistance < 45f) ||
+						   (IsSpawnerUnit && ObjectCache.CheckFlag(SettingCluster.ClusterSettingsTag.UnitExceptions, UnitFlags.Summoner)) ||
 						   ((IsTreasureGoblin && FunkyBaseExtension.Settings.Targeting.GoblinPriority > 1)) ||
-						   (IsRanged && FunkyBaseExtension.Settings.Targeting.UnitExceptionRangedUnits
-								&& (!IsEliteRareUnique || !FunkyBaseExtension.Settings.Targeting.IgnoreAboveAverageMobs)) ||
-					//Low HP (25% or Less) & Is Not Considered Weak
-						   ((FunkyBaseExtension.Settings.Targeting.UnitExceptionLowHP && CurrentHealthPct.HasValue && ((CurrentHealthPct <= 0.25 && UnitMaxHitPointAverageWeight > 0)
-									  && (!IsEliteRareUnique || !FunkyBaseExtension.Settings.Targeting.IgnoreAboveAverageMobs) && (RadiusDistance <= FunkyBaseExtension.Settings.Targeting.UnitExceptionLowHPMaximumDistance)))))
+						   (IsRanged && ObjectCache.CheckFlag(SettingCluster.ClusterSettingsTag.UnitExceptions, UnitFlags.Ranged)) ||
+						   (IsEliteRareUnique && SettingCluster.ClusterSettingsTag.UnitException_RareElites))
 
 
 
