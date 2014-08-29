@@ -1,6 +1,7 @@
 ﻿using System;
 using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
@@ -15,8 +16,14 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 
 		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.ClusterLocation | SkillExecutionFlags.Location; } }
 
+		private int recastTime = 6;
 		public override void Initialize()
 		{
+			if (RuneIndex == 2)
+				recastTime = 15;
+			if (Equipment.CheckLegendaryItemCount(LegendaryItemTypes.Quetzalcoatl))
+				recastTime = recastTime/2;
+
 			bool hotbarContainsDOT = Hotbar.HasPower(SNOPower.Witchdoctor_Haunt) || (Hotbar.HasPower(SNOPower.Witchdoctor_Piranhas));
 
 			Range = 14;

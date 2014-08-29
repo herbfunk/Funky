@@ -540,145 +540,34 @@ namespace fBaseXtensions.Cache.Internal
             4304, 5984, 5985, 5987, 5988,
          };
 
-		//Mobs that "move" into non-walkable locations -- I.E. Teleport
-		public static readonly HashSet<int> hashActorSNOTransforms = new HashSet<int>
-				{
-                     //a3 KeyWarden
-                     256015,
-					 //Succubus
-					 5508,209596,152679,152679,219673,152535,
-					 //Haulking
-					 121353,220806,133669,
-					 //Soul Ripper
-					 5436,220444,169615,222096,
-					 //A1 Ghosts
-					 370,136943,209553,218441,156353,85971,4196,4197,4198,133093,156763,157006,165602,222526,4799,
-				};
+
 		// A list of crappy "summoned mobs" we should always ignore unless they are very close to us, eg "grunts", summoned skeletons etc.
 		public static readonly HashSet<int> hashActorSNOShortRangeOnly = new HashSet<int>
 				{ 
 				4085,4084,4083,4080, 5395, 144315,
          };
 
-		// Special list of "non-unit" SNOs that should be considered a Unit.
-		public static readonly HashSet<int> hashActorSNOForceTargetUnit = new HashSet<int>
-				{ 
-				//a2dun_Cave_SlimeGeyser
-				218228,
-         };
+		
 
 		// A list of SNO's to *FORCE* to type: Item. (BE CAREFUL WITH THIS!).
 		// 166943 = infernal key
-		public static readonly HashSet<int> hashForceSNOToItemList = new HashSet<int>
-				{ 
-            166943, 
-         };
+		
 		// Interactable whitelist - things that need interacting with like special wheels, levers - they will be blacklisted for 30 seconds after one-use
 		public static readonly HashSet<int> hashSNOInteractWhitelist = new HashSet<int>
 				{ 
             54908, 56686, 54850, 454, 211999, 52685, 54882, 89665, 
          };
 
-		public static readonly HashSet<int> hashUnitAvoidanceSpawner = new HashSet<int>
-		{
-			495,496,6572,139454,139456,170324,170325, //a1 WoodWraith
-			5372, //a2 Fire Mage
-			4738, //a3 Pestilence Hands
-
-		};
-
-		public static readonly HashSet<int> hashUnitDebuffingUnit = new HashSet<int>
-		{
-			106714, // (TerrorDemon_A-79246)
-			219673, // (Succubus_C-79292)
-		};
-
-
-		//malletDemon_attack_01
-		public static readonly HashSet<int> hashUnitMalletLord = new HashSet<int>
-		{
-			343767,//X1_LR_Boss_MalletDemon
-			219751,//MalletDemon_A_Unique
-			219736,//MalletDemon_A_Unique_01
-			106709,//MalletDemon_A
-		};
 
 
 
-		public static readonly HashSet<int> hashSNOGroundContainer = new HashSet<int>
- 		{
-			289805,//x1_Pand_HexMaze_Ground_Clicky-6919
-			5758, //trDun_Cath_FloorSpawner_01-594
 
-		};
-
-		public static readonly HashSet<int> hashSNOWeaponRack = new HashSet<int>
-		{
-			58317,//(a1dun_Leor_Tool_Rack_A_01-16144)			464, //trDun_WeaponRack-959
-			198012, //a2dun_zolt_WeaponRack_A-5216
-			192466, //A3_Battlefield_Weaponrack_A-5629
-			167520, //a4dunGarden_Props_Weaponrack_A-8575
-			77354, //Goatman_Weapon_Rack_trOut_Highlands-9618
-			289763, //x1_Abattoir_weaponRack-5023
-			289246, //x1_Westm_weaponRack-6093
-			307432, //x1_westm_Int_WeaponRack-6628
-		};
-
-		public static readonly HashSet<int> hashSNORareChests = new HashSet<int>
-		{
-				62873,
-				95011,
-				81424,
-				108230,
-				111808,
-				111809,
-				199583,
-				109264,
-				101500,
-				96993,
-				62866,
-				108230,
-				211861,
-				62860,
-				96993,
-				112182,
-				363725,
-				357509,
-		};
-
+		
 		
 
 
 
 
-		//Units that are naturally suspended off the ground.
-		public static readonly HashSet<int> hashActorSNOFlying = new HashSet<int>
-				{
-					 //Bloodhawks
-					 3384,3385,222011,222385,5208,5209,5210,370,136943,209553,218441,156353,85971,4196,4197,4198,133093,156763,157006,165602,222526,4799,5508,209596,152679,152679,219673,152535, 5512,5513,5514,5515,4156,218314,218362,4157,81954,368,218566,4158,195747,217308,104424,256015,
-
-				};
-
-		//public static readonly HashSet<int> hashDHSpikeTraps = new HashSet<int> { 158941, 111330 };
-		//// Three special lists used purely for checking for the existance of a player's summoned mystic ally, gargantuan, or zombie dog
-		//public static readonly HashSet<int> hashMysticAlly = new HashSet<int> { 169123, 123885, 169890, 168878, 169891, 169077, 169904, 169907, 169906, 169908, 169905, 169909 };
-		//public static readonly HashSet<int> hashGargantuan = new HashSet<int> { 179780, 179778, 179772, 179779, 179776, 122305 };
-		//public static readonly HashSet<int> hashZombie = new HashSet<int> { 110959, 103235, 103215, 105763, 103217, 51353 };
-		//public static readonly HashSet<int> hashDHPets = new HashSet<int> { 178664, 173827, 133741, 159144, 181748, 159098 };
-		//public static readonly HashSet<int> hashWizHydras = new HashSet<int> { 80745, 81515, 82111, 82972, 82109, 83959, 325807 }; //IDs taken from d3lexicon
-		//public static readonly HashSet<int> hashDHSentries = new HashSet<int> { 150027, 150026, 168815, 150024, 150025, 141402 };
-		//public static readonly HashSet<int> hashWDFetish = new HashSet<int> { 87189, 89933, 89934, 90072, }; 
-
-		////Quick reference to all possible pets
-		//public static readonly HashSet<int> hashSummonedPets = new HashSet<int>
-		//		{ 169123, 123885, 169890, 168878, 169891, 169077, 169904, 169907, 169906, 169908, 169905, 169909,
-		//																			179780, 179778, 179772, 179779, 179776, 122305,
-		//																			 110959, 103235, 103215, 105763, 103217, 51353,
-		//																			  178664, 173827, 133741, 159144, 181748, 159098,
-		//																			   80745, 81515, 82111, 82972, 82109, 83959, 325807,
-		//																											 158941, 111330,
-		//																			   150027, 150026, 168815, 150024, 150025, 141402,
-		//																				87189, 89933, 89934, 90072};
 	}
 
 }

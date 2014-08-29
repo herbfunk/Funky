@@ -6,7 +6,7 @@
 
 		public MonitorSettings()
 		{
-			GoldInactivityTimeoutSeconds = 0; //default disabled
+			GoldInactivityTimeoutSeconds = 180; //3 minutes
 		}
 	}
 }

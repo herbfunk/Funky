@@ -49,6 +49,7 @@
 		InfernalKey,
 		KeyFragment,
 		LoreBook,
+		RamaladnisGift,
 
 		PowerGlobe,
 		HealthGlobe,
@@ -62,6 +63,7 @@
 		Emerald,
 		Ruby,
 		Topaz,
+		LegendaryGem,
 
 	}
 }

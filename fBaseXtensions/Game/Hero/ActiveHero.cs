@@ -402,19 +402,19 @@ namespace fBaseXtensions.Game.Hero
 					int curStep = ((BountyCache.QuestInfoCache)FunkyGame.Bounty.ActiveBounty).Step;
 
 					//Killing..
-					if (curStep == 1)
+					if (curStep == 1 || curStep == 13)
 					{
 						FunkyGame.Bounty.RefreshRiftMapMarkers();
 						FunkyGame.Game.ShouldNavigateMinimapPoints = true;
 						SettingCluster.ClusterSettingsTag = SettingCluster.DisabledClustering;
 					}
-					else if (curStep == 3)//Boss Spawned
+					else if (curStep == 3 || curStep==16)//Boss Spawned
 					{
 						FunkyGame.Bounty.RefreshRiftMapMarkers();
 						SettingCluster.ClusterSettingsTag = FunkyBaseExtension.Settings.Cluster;
 						FunkyGame.Game.ShouldNavigateMinimapPoints = false;
 					}
-					else//Boss Killed
+					else//Boss Killed 10 / 34
 					{
 						SettingCluster.ClusterSettingsTag = FunkyBaseExtension.Settings.Cluster;
 						FunkyGame.Game.ShouldNavigateMinimapPoints = false;

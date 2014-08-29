@@ -33,6 +33,8 @@ namespace fBaseXtensions.Items
 			if (internalName.Contains("topaz_")) return PluginDroppedItemTypes.Topaz;
 			if (internalName.Contains("amethyst")) return PluginDroppedItemTypes.Amethyst;
 			if (internalName.Contains("diamond_")) return PluginDroppedItemTypes.Diamond;
+			if (internalName.Contains("unique_gem")) return PluginDroppedItemTypes.LegendaryGem;
+
 			if (internalName.Contains("horadricrelic")) return PluginDroppedItemTypes.BloodShard;
 			if (IsUberKey(SNOId) || internalName.Contains("demonkey_") || internalName.Contains("demontrebuchetkey"))
 				return PluginDroppedItemTypes.InfernalKey;
@@ -133,6 +135,7 @@ namespace fBaseXtensions.Items
 				case PluginDroppedItemTypes.Potion:
 				case PluginDroppedItemTypes.Gold:
 				case PluginDroppedItemTypes.BloodShard:
+				case PluginDroppedItemTypes.RamaladnisGift:
 					return PluginBaseItemTypes.Misc;
 
 				case PluginDroppedItemTypes.Amethyst:
@@ -140,6 +143,7 @@ namespace fBaseXtensions.Items
 				case PluginDroppedItemTypes.Emerald:
 				case PluginDroppedItemTypes.Ruby:
 				case PluginDroppedItemTypes.Topaz:
+				case PluginDroppedItemTypes.LegendaryGem:
 					return PluginBaseItemTypes.Gem;
 
 				case PluginDroppedItemTypes.Belt:
@@ -204,6 +208,8 @@ namespace fBaseXtensions.Items
 			if (internalName.Contains("topaz_")) return PluginBaseItemTypes.Gem;
 			if (internalName.Contains("amethyst")) return PluginBaseItemTypes.Gem;
 			if (internalName.Contains("diamond_")) return PluginBaseItemTypes.Gem;
+			if (internalName.Contains("unique_gem")) return PluginBaseItemTypes.Gem;
+
 			if (internalName.Contains("horadriccache")) return PluginBaseItemTypes.Misc;
 			if (internalName.Contains("horadricrelic")) return PluginBaseItemTypes.Misc;
 			if (IsUberKey(SNOId) || internalName.Contains("demonkey_") || internalName.Contains("demontrebuchetkey"))
@@ -306,7 +312,7 @@ namespace fBaseXtensions.Items
 			if (sThisInternalName.Contains("topaz_")) return PluginItemTypes.Topaz;
 			if (sThisInternalName.Contains("amethyst")) return PluginItemTypes.Amethyst;
 			if (sThisInternalName.Contains("diamond_")) return PluginItemTypes.Diamond;
-
+			if (sThisInternalName.Contains("unique_gem")) return PluginItemTypes.LegendaryGem;
 
 			if (sThisInternalName.Contains("horadriccache")) return PluginItemTypes.HoradricCache;
 			if (sThisInternalName.Contains("horadricrelic")) return PluginItemTypes.BloodShard;
@@ -537,12 +543,12 @@ namespace fBaseXtensions.Items
 			else if (thisPluginItemTypes == PluginItemTypes.CraftingMaterial || thisPluginItemTypes == PluginItemTypes.LegendaryCraftingMaterial || thisPluginItemTypes == PluginItemTypes.CraftTome || thisPluginItemTypes == PluginItemTypes.MiscBook ||
 				 thisPluginItemTypes == PluginItemTypes.SpecialItem || thisPluginItemTypes == PluginItemTypes.CraftingPlan || thisPluginItemTypes == PluginItemTypes.HealthPotion ||
 				 thisPluginItemTypes == PluginItemTypes.Dye || thisPluginItemTypes == PluginItemTypes.StaffOfHerding || thisPluginItemTypes == PluginItemTypes.InfernalKey ||
-				thisPluginItemTypes == PluginItemTypes.KeyStone || thisPluginItemTypes == PluginItemTypes.HoradricCache || thisPluginItemTypes == PluginItemTypes.BloodShard)
+				thisPluginItemTypes == PluginItemTypes.KeyStone || thisPluginItemTypes == PluginItemTypes.HoradricCache || thisPluginItemTypes == PluginItemTypes.BloodShard || thisPluginItemTypes == PluginItemTypes.RamaladnisGift)
 			{
 				thisGilesBaseTypes = PluginBaseItemTypes.Misc;
 			}
 			else if (thisPluginItemTypes == PluginItemTypes.Ruby || thisPluginItemTypes == PluginItemTypes.Emerald || thisPluginItemTypes == PluginItemTypes.Topaz ||
-				 thisPluginItemTypes == PluginItemTypes.Amethyst || thisPluginItemTypes == PluginItemTypes.Diamond)
+				 thisPluginItemTypes == PluginItemTypes.Amethyst || thisPluginItemTypes == PluginItemTypes.Diamond || thisPluginItemTypes == PluginItemTypes.LegendaryGem)
 			{
 				thisGilesBaseTypes = PluginBaseItemTypes.Gem;
 			}
@@ -564,7 +570,7 @@ namespace fBaseXtensions.Items
 		{
 			PluginItemTypes thisPluginItemTypes = DetermineItemType(item);
 			bool bIsStackable = thisPluginItemTypes == PluginItemTypes.CraftingMaterial || thisPluginItemTypes == PluginItemTypes.LegendaryCraftingMaterial || thisPluginItemTypes == PluginItemTypes.CraftTome || thisPluginItemTypes == PluginItemTypes.Ruby ||
-									  thisPluginItemTypes == PluginItemTypes.Diamond || thisPluginItemTypes == PluginItemTypes.Emerald || thisPluginItemTypes == PluginItemTypes.Topaz || thisPluginItemTypes == PluginItemTypes.Amethyst ||
+									  thisPluginItemTypes == PluginItemTypes.Diamond || thisPluginItemTypes == PluginItemTypes.Emerald || thisPluginItemTypes == PluginItemTypes.Topaz || thisPluginItemTypes == PluginItemTypes.Amethyst || thisPluginItemTypes == PluginItemTypes.LegendaryGem ||
 									  thisPluginItemTypes == PluginItemTypes.HealthPotion || thisPluginItemTypes == PluginItemTypes.CraftingPlan || thisPluginItemTypes == PluginItemTypes.Dye ||
 									  thisPluginItemTypes == PluginItemTypes.InfernalKey || thisPluginItemTypes == PluginItemTypes.KeyStone;
 			return bIsStackable;
@@ -646,6 +652,7 @@ namespace fBaseXtensions.Items
 				case PluginItemTypes.Topaz: return ItemType.Gem;
 				case PluginItemTypes.Amethyst: return ItemType.Gem;
 				case PluginItemTypes.Diamond: return ItemType.Gem;
+				case PluginItemTypes.LegendaryGem: return ItemType.Gem;
 				case PluginItemTypes.SpecialItem: return ItemType.Unknown;
 				case PluginItemTypes.CraftingPlan: return ItemType.CraftingPlan;
 				case PluginItemTypes.HealthPotion: return ItemType.Potion;
@@ -654,6 +661,7 @@ namespace fBaseXtensions.Items
 				case PluginItemTypes.MiscBook: return ItemType.CraftingPage;
 				case PluginItemTypes.KeyStone: return ItemType.KeystoneFragment;
 				case PluginItemTypes.HoradricCache: return ItemType.HoradricCache;
+				case PluginItemTypes.RamaladnisGift: return ItemType.CraftingReagent;
 				
 			}
 			return ItemType.Unknown;

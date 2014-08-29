@@ -1,0 +1,922 @@
+﻿// Keep all legendaries
+//[QUALITY] == "Legendary"
+// Keep all weapons
+//[QUALITY] == "Legendary" && [BASETYPE] == "Weapon"
+// Keep all armor
+//[QUALITY] == "Legendary" && [BASETYPE] == "Armor"
+// Keep all jewelry
+//[QUALITY] == "Legendary" && [BASETYPE] == "Jewelry"
+
+
+//MACROS
+@GOODAMMY := [MAXSTAT].dual+[CRIT%].dual+[CRITDMG%].dual+[CDRED%].dual
+@GOODBRACER := [MAXSTAT].dual+[CRIT%].dual
+@GOODSHOULDER := [VIT].dual+[ALLRES].dual+[LIFE%].dual+[CDRED%].dual
+
+//Keep all Legendary 1h weapons at 2700 or higher
+[QUALITY] == "Legendary" && [ONEHAND] # [DPS] >= 2700 -> [KEEP]
+
+
+// ----------------------------------------------------*********** ----------------------------------------------------
+// --------------------------------------------------- *SET ITEMS* ----------------------------------------------------
+// --------------------------------------------------- ***********-----------------------------------------------------
+
+
+// Armor of Akkhan
+[QUALITY] == "Legendary" && [NAME] == "Breastplate of Akkhan"
+[QUALITY] == "Legendary" && [NAME] == "Cuisses of Akkhan"
+[QUALITY] == "Legendary" && [NAME] == "Gauntlets of Akkhan"
+[QUALITY] == "Legendary" && [NAME] == "Helm of Akkhan"
+[QUALITY] == "Legendary" && [NAME] == "Pauldrons of Akkhan"
+[QUALITY] == "Legendary" && [NAME] == "Sabatons of Akkhan"
+
+// Asheara's Uniform
+[QUALITY] == "Legendary" && [NAME] == "Asheara's Gait"
+[QUALITY] == "Legendary" && [NAME] == "Asheara's Guard"
+[QUALITY] == "Legendary" && [NAME] == "Asheara's Iron Fist"
+[QUALITY] == "Legendary" && [NAME] == "Asheara's Tracks"
+
+// Asheara's Vestments
+[QUALITY] == "Legendary" && [NAME] == "Asheara's Custodian"
+[QUALITY] == "Legendary" && [NAME] == "Asheara's Finders"
+[QUALITY] == "Legendary" && [NAME] == "Asheara's Pace"
+[QUALITY] == "Legendary" && [NAME] == "Asheara's Ward"
+
+// Aughild's Authority
+[QUALITY] == "Legendary" && [NAME] == "Aughild's Power"
+[QUALITY] == "Legendary" && [NAME] == "Aughild's Rule"
+[QUALITY] == "Legendary" && [NAME] == "Aughild's Search"
+[QUALITY] == "Legendary" && [NAME] == "Aughild's Spike"
+
+// Aughild's Victory
+[QUALITY] == "Legendary" && [NAME] == "Aughild's Dominion"
+[QUALITY] == "Legendary" && [NAME] == "Aughild's Peak"
+[QUALITY] == "Legendary" && [NAME] == "Aughild's Reign"
+[QUALITY] == "Legendary" && [NAME] == "Aughild's Ultimatum"
+
+// Bastions of Will
+[QUALITY] == "Legendary" && [NAME] == "Focus"
+[QUALITY] == "Legendary" && [NAME] == "Restraint"
+
+// Blackthorne's Battlegear
+//[QUALITY] == "Legendary" && [NAME] == "Blackthorne's Duncraig Cross" # [MAXSTAT] > 0 && [OFFSTATS] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Blackthorne's Duncraig Cross" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Blackthorne's Jousting Mail" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Blackthorne's Notched Belt" -> [TRASH]
+//[QUALITY] == "Legendary" && [NAME] == "Blackthorne's Spurs" # [MAXSTAT] > 0 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Blackthorne's Spurs" -> [TRASH]
+//[QUALITY] == "Legendary" && [NAME] == "Blackthorne's Surcoat" # [MAXSTAT] > 0 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Blackthorne's Surcoat" -> [TRASH]
+
+// Born's Command
+[QUALITY] == "Legendary" && [NAME] == "Born's Frozen Soul"
+[QUALITY] == "Legendary" && [NAME] == "Born's Furious Wrath"
+[QUALITY] == "Legendary" && [NAME] == "Born's Privilege"
+
+// Born's Defiance
+[QUALITY] == "Legendary" && [NAME] == "Born's Heart of Steel"
+[QUALITY] == "Legendary" && [NAME] == "Born's Impunity"
+[QUALITY] == "Legendary" && [NAME] == "Born's Searing Spite"
+
+// Bul-Kathos's Oath
+[QUALITY] == "Legendary" && [NAME] == "Bul-Kathos's Solemn Vow"
+[QUALITY] == "Legendary" && [NAME] == "Bul-Kathos's Warrior Blood"
+
+// Cain's Destiny
+[QUALITY] == "Legendary" && [NAME] == "Cain's Habit"
+[QUALITY] == "Legendary" && [NAME] == "Cain's Insight"
+[QUALITY] == "Legendary" && [NAME] == "Cain's Scrivener"
+[QUALITY] == "Legendary" && [NAME] == "Cain's Travelers"
+
+// Cain's Fate
+[QUALITY] == "Legendary" && [NAME] == "Cain's Memory"
+[QUALITY] == "Legendary" && [NAME] == "Cain's Robes"
+[QUALITY] == "Legendary" && [NAME] == "Cain's Sandals"
+[QUALITY] == "Legendary" && [NAME] == "Cain's Scribe"
+
+// Captain Crimson's Finery
+[QUALITY] == "Legendary" && [NAME] == "Captain Crimson's Silk Girdle"
+[QUALITY] == "Legendary" && [NAME] == "Captain Crimson's Thrust"
+[QUALITY] == "Legendary" && [NAME] == "Captain Crimson's Waders"
+
+// Chantodo's Resolve
+[QUALITY] == "Legendary" && [NAME] == "Chantodo's Force"
+[QUALITY] == "Legendary" && [NAME] == "Chantodo's Will"
+
+// Danetta's Hatred
+[QUALITY] == "Legendary" && [NAME] == "Danetta's Revenge"
+[QUALITY] == "Legendary" && [NAME] == "Danetta's Spite"
+
+// Demon's Hide
+[QUALITY] == "Legendary" && [NAME] == "Demon's Aileron"
+[QUALITY] == "Legendary" && [NAME] == "Demon's Animus"
+[QUALITY] == "Legendary" && [NAME] == "Demon's Marrow"
+[QUALITY] == "Legendary" && [NAME] == "Demon's Plate"
+[QUALITY] == "Legendary" && [NAME] == "Demon's Restraint"
+
+// Demon's Skin
+[QUALITY] == "Legendary" && [NAME] == "Demon's Flight"
+[QUALITY] == "Legendary" && [NAME] == "Demon's Heart"
+[QUALITY] == "Legendary" && [NAME] == "Demon's Lock"
+[QUALITY] == "Legendary" && [NAME] == "Demon's Revenge"
+[QUALITY] == "Legendary" && [NAME] == "Demon's Scale"
+
+// Embodiment of the Marauder
+[QUALITY] == "Legendary" && [NAME] == "Marauder's Carapace"
+[QUALITY] == "Legendary" && [NAME] == "Marauder's Encasement"
+[QUALITY] == "Legendary" && [NAME] == "Marauder's Gloves"
+[QUALITY] == "Legendary" && [NAME] == "Marauder's Spines"
+[QUALITY] == "Legendary" && [NAME] == "Marauder's Treads"
+[QUALITY] == "Legendary" && [NAME] == "Marauder's Visage"
+
+// Endless Walk
+// [QUALITY] == "Legendary" && [NAME] == "The Compass Rose" # [OFFSTATS] > 0 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Compass Rose" -> [TRASH]
+// [QUALITY] == "Legendary" && [NAME] == "The Traveler's Pledge" # [OFFSTATS] > 0 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Traveler's Pledge" -> [TRASH]
+
+// Firebird's Finery
+[QUALITY] == "Legendary" && [NAME] == "Firebird's Breast"
+[QUALITY] == "Legendary" && [NAME] == "Firebird's Down"
+[QUALITY] == "Legendary" && [NAME] == "Firebird's Eye"
+[QUALITY] == "Legendary" && [NAME] == "Firebird's Pinions"
+[QUALITY] == "Legendary" && [NAME] == "Firebird's Plume"
+[QUALITY] == "Legendary" && [NAME] == "Firebird's Talons"
+[QUALITY] == "Legendary" && [NAME] == "Firebird's Tarsi"
+
+// Guardian's Contingency
+[QUALITY] == "Legendary" && [NAME] == "Guardian's Deflector"
+[QUALITY] == "Legendary" && [NAME] == "Guardian's Foresight"
+[QUALITY] == "Legendary" && [NAME] == "Guardian's Sheath"
+
+// Guardian's Jeopardy
+[QUALITY] == "Legendary" && [NAME] == "Guardian's Aversion"
+[QUALITY] == "Legendary" && [NAME] == "Guardian's Case"
+[QUALITY] == "Legendary" && [NAME] == "Guardian's Gaze"
+
+// Hallowed Defenders
+[QUALITY] == "Legendary" && [NAME] == "Hallowed Defender"
+[QUALITY] == "Legendary" && [NAME] == "Hallowed Hand"
+[QUALITY] == "Legendary" && [NAME] == "Hallowed Judgment"
+[QUALITY] == "Legendary" && [NAME] == "Hallowed Reckoning"
+[QUALITY] == "Legendary" && [NAME] == "Hallowed Salvation"
+[QUALITY] == "Legendary" && [NAME] == "Hallowed Scepter"
+[QUALITY] == "Legendary" && [NAME] == "Hallowed Storm"
+
+// Hallowed Protectors
+[QUALITY] == "Legendary" && [NAME] == "Hallowed Barricade"
+[QUALITY] == "Legendary" && [NAME] == "Hallowed Baton"
+[QUALITY] == "Legendary" && [NAME] == "Hallowed Breach"
+[QUALITY] == "Legendary" && [NAME] == "Hallowed Condemnation"
+[QUALITY] == "Legendary" && [NAME] == "Hallowed Hold"
+[QUALITY] == "Legendary" && [NAME] == "Hallowed Nemesis"
+[QUALITY] == "Legendary" && [NAME] == "Hallowed Sufferance"
+
+// Helltooth Harness
+[QUALITY] == "Legendary" && [NAME] == "Helltooth Gauntlets"
+[QUALITY] == "Legendary" && [NAME] == "Helltooth Greaves"
+[QUALITY] == "Legendary" && [NAME] == "Helltooth Leg Guards"
+[QUALITY] == "Legendary" && [NAME] == "Helltooth Mantle"
+[QUALITY] == "Legendary" && [NAME] == "Helltooth Tunic"
+[QUALITY] == "Legendary" && [NAME] == "Mask of Jeram"
+
+// Immortal King's Call
+[QUALITY] == "Legendary" && [NAME] == "Immortal King's Boulder Breaker"
+[QUALITY] == "Legendary" && [NAME] == "Immortal King's Eternal Reign"
+[QUALITY] == "Legendary" && [NAME] == "Immortal King's Irons"
+[QUALITY] == "Legendary" && [NAME] == "Immortal King's Stride"
+[QUALITY] == "Legendary" && [NAME] == "Immortal King's Tribal Binding"
+[QUALITY] == "Legendary" && [NAME] == "Immortal King's Triumph"
+
+// Inna's Mantra
+[QUALITY] == "Legendary" && [NAME] == "Inna's Favor"
+[QUALITY] == "Legendary" && [NAME] == "Inna's Radiance"
+[QUALITY] == "Legendary" && [NAME] == "Inna's Reach"
+[QUALITY] == "Legendary" && [NAME] == "Inna's Temperance"
+[QUALITY] == "Legendary" && [NAME] == "Inna's Vast Expanse"
+
+// Istvan's Paired Blades
+[QUALITY] == "Legendary" && [NAME] == "Little Rogue"
+[QUALITY] == "Legendary" && [NAME] == "The Slanderer"
+
+// Legacy of Nightmares
+//[QUALITY] == "Legendary" && [NAME] == "Litany of the Undaunted" # [OFFSTATS] > 0 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Litany of the Undaunted" -> [TRASH]
+//[QUALITY] == "Legendary" && [NAME] == "The Wailing Host" # [OFFSTATS] > 0 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Wailing Host" -> [TRASH]
+
+// The Legacy of Raekor
+// Raekor’s Breeches
+[QUALITY] == "Legendary" && [ITEMID] == "826009651"
+// Raekor’s Burden
+[QUALITY] == "Legendary" && [ITEMID] == "-1981767693"
+// Raekor’s Heart
+[QUALITY] == "Legendary" && [ITEMID] == "258927396"
+// Raekor’s Striders
+[QUALITY] == "Legendary" && [ITEMID] == "801761292"
+// Raekor’s Will
+[QUALITY] == "Legendary" && [ITEMID] == "-1993170861"
+// Raekor’s Wraps
+[QUALITY] == "Legendary" && [ITEMID] == "2058393501"
+
+// Manajuma's Way
+[QUALITY] == "Legendary" && [NAME] == "Manajuma's Carving Knife"
+[QUALITY] == "Legendary" && [NAME] == "Manajuma's Gory Fetch"
+
+// Might of the Earth
+[QUALITY] == "Legendary" && [NAME] == "Eyes of the Earth"
+[QUALITY] == "Legendary" && [NAME] == "Pull of the Earth"
+[QUALITY] == "Legendary" && [NAME] == "Spires of the Earth"
+[QUALITY] == "Legendary" && [NAME] == "Weight of the Earth"
+
+// Monkey King's Garb
+[QUALITY] == "Legendary" && [NAME] == "Sunwuko's Balance"
+[QUALITY] == "Legendary" && [NAME] == "Sunwuko's Crown"
+[QUALITY] == "Legendary" && [NAME] == "Sunwuko's Paws"
+[QUALITY] == "Legendary" && [NAME] == "Sunwuko's Shines"
+
+// Natalya's Vengeance
+[QUALITY] == "Legendary" && [NAME] == "Natalya's Bloody Footprints"
+[QUALITY] == "Legendary" && [NAME] == "Natalya's Embrace"
+[QUALITY] == "Legendary" && [NAME] == "Natalya's Reflection"
+[QUALITY] == "Legendary" && [NAME] == "Natalya's Sight"
+[QUALITY] == "Legendary" && [NAME] == "Natalya's Slayer"
+
+// Raiment of a Thousand Storms
+[QUALITY] == "Legendary" && [NAME] == "Eight-Demon Boots"
+[QUALITY] == "Legendary" && [NAME] == "Fists of Thunder"
+[QUALITY] == "Legendary" && [NAME] == "Heart of the Crashing Wave"
+[QUALITY] == "Legendary" && [NAME] == "Mantle of the Upside-Down Sinners"
+[QUALITY] == "Legendary" && [NAME] == "Mask of the Searing Sky"
+[QUALITY] == "Legendary" && [NAME] == "Scales of the Dancing Serpent"
+
+// Raiment of the Jade Harvester
+[QUALITY] == "Legendary" && [NAME] == "Jade Harvester's Courage"
+[QUALITY] == "Legendary" && [NAME] == "Jade Harvester's Joy"
+[QUALITY] == "Legendary" && [NAME] == "Jade Harvester's Mercy"
+[QUALITY] == "Legendary" && [NAME] == "Jade Harvester's Peace"
+[QUALITY] == "Legendary" && [NAME] == "Jade Harvester's Swiftness"
+[QUALITY] == "Legendary" && [NAME] == "Jade Harvester's Wisdom"
+
+// Sage's Journey
+[QUALITY] == "Legendary" && [NAME] == "Sage's Apogee"
+[QUALITY] == "Legendary" && [NAME] == "Sage's Passage"
+[QUALITY] == "Legendary" && [NAME] == "Sage's Purchase"
+
+// Sage's Plight
+[QUALITY] == "Legendary" && [NAME] == "Sage's Gesture"
+[QUALITY] == "Legendary" && [NAME] == "Sage's Journey"
+[QUALITY] == "Legendary" && [NAME] == "Sage's Orbit"
+
+// The Shadow’s Mantle
+// The Shadow’s Bane **
+[QUALITY] == "Legendary" && [ITEMID] == "The Shadow’s Bane"
+[QUALITY] == "Legendary" && [NAME] == "The Shadow’s Coil"
+[QUALITY] == "Legendary" && [NAME] == "The Shadow’s Grasp"
+[QUALITY] == "Legendary" && [NAME] == "The Shadow’s Heels"
+
+// Shenlong's Spirit
+[QUALITY] == "Legendary" && [NAME] == "Shenlong's Fist of Legend"
+[QUALITY] == "Legendary" && [NAME] == "Shenlong's Relentless Assault"
+
+// Tal Rasha's Elements
+[QUALITY] == "Legendary" && [NAME] == "Tal Rasha's Allegiance"
+[QUALITY] == "Legendary" && [NAME] == "Tal Rasha's Brace"
+[QUALITY] == "Legendary" && [NAME] == "Tal Rasha's Guise of Wisdom"
+[QUALITY] == "Legendary" && [NAME] == "Tal Rasha's Relentless Pursuit"
+[QUALITY] == "Legendary" && [NAME] == "Tal Rasha's Unwavering Glare"
+
+// Thorns of the Invoker
+[QUALITY] == "Legendary" && [NAME] == "Burden of the Invoker"
+[QUALITY] == "Legendary" && [NAME] == "Crown of the Invoker"
+[QUALITY] == "Legendary" && [NAME] == "Pride of the Invoker"
+[QUALITY] == "Legendary" && [NAME] == "Shackles of the Invoker"
+
+// Vyr's Amazing Arcana
+// Vyr’s Astonishing Aura
+[QUALITY] == "Legendary" && [ITEMID] == "260041443"
+// Vyr’s Fantastic Finery
+[QUALITY] == "Legendary" && [ITEMID] == "827123698"
+// Vyr’s Grasping Gauntlets
+[QUALITY] == "Legendary" && [ITEMID] == "2059507548"
+// Vyr’s Swaggering Stance
+[QUALITY] == "Legendary" && [ITEMID] == "800647245"
+
+// Zunimassa's Haunt
+[QUALITY] == "Legendary" && [NAME] == "Zunimassa's Marrow"
+[QUALITY] == "Legendary" && [NAME] == "Zunimassa's Pox"
+[QUALITY] == "Legendary" && [NAME] == "Zunimassa's String of Skulls"
+[QUALITY] == "Legendary" && [NAME] == "Zunimassa's Trail"
+[QUALITY] == "Legendary" && [NAME] == "Zunimassa's Vision"
+
+
+
+// ----------------------------------------------------************ ----------------------------------------------------
+// --------------------------------------------------- *1H Weapons* ----------------------------------------------------
+// --------------------------------------------------- ************-----------------------------------------------------
+
+// 1H Axe
+[QUALITY] == "Legendary" && [NAME] == "Flesh Tearer" # [DPS] >= 2300 && ([MAXSTAT] > 0 || [SOCKETS] > 0) -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Flesh Tearer" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Genzaniku" # [DPS] >= 2300 && ([MAXSTAT] > 0 || [SOCKETS] > 0) -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Genzaniku" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Hack" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Sky Splitter" # [DPS] >= 2300 && ([MAXSTAT] > 0 || [SOCKETS] > 0) -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Sky Splitter" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "The Butcher's Sickle" # [DPS] >= 2300 && ([MAXSTAT] > 0 || [SOCKETS] > 0) -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Butcher's Sickle" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "The Burning Axe of Sankis" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Wedge" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Utar's Roar" -> [KEEP]
+
+// 1H Ceremonial Knife
+[QUALITY] == "Legendary" && [NAME] == "Anessazi Edge" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Deadly Rebirth" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Last Breath" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Living Umbral Oath" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Rhen'ho Flayer" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Gidbinn" -> [KEEP]
+// The Spider Queen’s Grasp
+[QUALITY] == "Legendary" && [ITEMID] == "1784550842" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Starmetal Kukri" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Umbral Oath" -> [KEEP]
+
+// 1H Dagger
+[QUALITY] == "Legendary" && [NAME] == "Blood-Magic Blade" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Blood-Magic Edge" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Envious Blade" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Kill" # [DPS] >= 2300 && ([MAXSTAT] > 0 || [SOCKETS] > 0) -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Kill" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Pig Sticker" # [DPS] >= 2300 && ([MAXSTAT] > 0 || [SOCKETS] > 0) -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Pig Sticker" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "The Barber" # [DPS] >= 2300 && ([MAXSTAT] > 0 || [SOCKETS] > 0) -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Barber" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Wizardspike" # [DPS] >= 2000 -> [KEEP]
+
+// 1H Fist
+[QUALITY] == "Legendary" && [NAME] == "Crystal Fist" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Demon Claw" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Demon Hand" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Fleshrake" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Jawbreaker" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Logan's Claw" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Rabid Strike" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Scarbringer" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Sledge Fist" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Fist of Az'Turrasq" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Won Khim Lau" -> [KEEP]
+
+// 1H Flail
+[QUALITY] == "Legendary" && [NAME] == "Darklight" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Golden Scourge" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Gyrfalcon's Foote" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Inviolable Faith" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Justinian's Mercy" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Kassar's Retribution" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Swiftmount" -> [KEEP]
+
+// 1H Hand Crossbow
+[QUALITY] == "Legendary" && [NAME] == "Balefire Caster" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Blitzbolter" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Calamity" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Dawn" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Deadeye" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Helltrapper" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Izzuccob" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "K'mar Tenclip" -> [KEEP]
+
+// 1H Mace
+[QUALITY] == "Legendary" && [NAME] == "Devastator" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Earthshatter" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Echoing Fury" -> [TRASH]
+// Jace’s Hammer of Vigilance
+[QUALITY] == "Legendary" && [ITEMID] == "1856068897" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Nutcracker" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Mad Monarch's Scepter" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Nailbiter" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Neanderthal" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Odyn Son" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Solanium" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Sun Keeper" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Telranden's Hand" -> [TRASH]
+
+// 1H Mighty Weapon
+[QUALITY] == "Legendary" && [NAME] == "Ambo's Pride" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Blade of the Warlord" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Fjord Cutter" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Harvest Moon" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Night's Reaping" -> [KEEP]
+
+// 1H Spear
+[QUALITY] == "Legendary" && [NAME] == "Arreat's Law" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Empyrean Messenger" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Scrimshaw" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "The Three Hundredth Spear" -> [KEEP]
+
+// 1H Sword
+[QUALITY] == "Legendary" && [NAME] == "Azurewrath" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Devil Tongue" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Doombringer" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Exarian" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Fulminator" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Gift of Silaria" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Griswold's Masterpiece" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Griswold's Perfection" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Monster Hunter" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Rimeheart" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Sever" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Shard of Hate" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Skycutter" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Ancient Bonesaber of Zumakalis" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Thunderfury, Blessed Blade of the Windseeker" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Wildwood" -> [TRASH]
+
+// 1H Wand
+[QUALITY] == "Legendary" && [NAME] == "Atrophy" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Blackhand Key" # [DPS] >= 2300 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Blackhand Key" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Fragment of Destiny" # [DPS] >= 2300 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Fragment of Destiny" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Gesture of Orpheus" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Ruinstoke" # [DPS] >= 2000 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Ruinstoke" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Serpent's Sparker" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Slorak's Madness" # [DPS] >= 2200 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Slorak's Madness" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Starfire" # [DPS] >= 2300 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Starfire" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Wand of Woh" -> [KEEP]
+
+
+
+// ----------------------------------------------------************ ----------------------------------------------------
+// --------------------------------------------------- *2H Weapons* ----------------------------------------------------
+// --------------------------------------------------- ************-----------------------------------------------------
+
+// 2H Axe
+[QUALITY] == "Legendary" && [NAME] == "Butcher's Carver" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Burst of Wrath" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Cinder Switch" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Fire Brand" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Messerschmidt's Reaver" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Skorn" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "The Executioner" -> [TRASH]
+
+// 2H Bow
+[QUALITY] == "Legendary" && [NAME] == "Cluckeye" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Etrayu" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Kridershot" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Longshot" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Sydyru Crust" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Raven's Wing" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Unbound Bolt" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Uskang" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Windforce" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Venomhusk" -> [KEEP]
+
+// 2H Crossbow
+[QUALITY] == "Legendary" && [NAME] == "Arcane Barb" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Bakkan Caster" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Buriza-Do Kyanon" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Chanon Bolter" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Demon Machine" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Hellrack" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Manticore" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Pus Spitter" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Starspine" -> [KEEP]
+
+// 2H Daibo
+[QUALITY] == "Legendary" && [NAME] == "Balance" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Flying Dragon" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Incense Torch of the Grand Temple" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Lai Yui's Persuader" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Lai Yui's Taiji" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Rozpedin's Force" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Rozpedin's Staff" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Staff of Kyro" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Flow of Eternity" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Paddle" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Warstaff of General Quang" -> [KEEP]
+
+// 2H Flail
+[QUALITY] == "Legendary" && [NAME] == "Baleful Remnant" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Fate of the Fell" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Golden Flense" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Mortal Drama" -> [KEEP]
+
+// 2H Mace
+// Arthef’s Spark of Life
+[QUALITY] == "Legendary" && [ITEMID] == "59108159" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Crushbane" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Cataclysm" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Schaefer's Hammer" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Skywarden" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Sledge of Athskeleng" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Soulsmasher" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Sunder" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Furnace" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Wrath of the Bone King" -> [TRASH]
+
+// 2H Mighty Weapon
+[QUALITY] == "Legendary" && [NAME] == "Bastion's Revered" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Fury of the Vanished Peak" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Madawc's Sorrow" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Gavel of Judgment" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Unending War" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "War of the Dead" -> [KEEP]
+
+// 2H Polearm
+[QUALITY] == "Legendary" && [NAME] == "Bovine Bardiche" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Heart Slaughter" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Pledge of Caldeum" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Standoff" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Vigilance" -> [TRASH]
+
+// 2H Staff
+[QUALITY] == "Legendary" && [NAME] == "Ahavarion, Spear of Lycander" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Autumn's Call" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Mark of The Magi" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Maloth's Focus" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "The Broken Staff" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "The Grand Vizier" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "The Magi" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "The Smoldering Core" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Tormentor" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Valthek's Rebuke" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Wormwood" -> [TRASH]
+
+// 2H Sword
+[QUALITY] == "Legendary" && [NAME] == "Blade of Prophecy" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Blackguard" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Cam's Rebuttal" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Faithful Memory" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Maximus" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Scourge" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Stalgard's Decimator" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "The Grandfather" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "The Zweihander" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "The Sultan of Blinding Sand" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Warmonger" -> [TRASH]
+
+
+
+// ----------------------------------------------------********* ----------------------------------------------------
+// --------------------------------------------------- *Off-Hand* ----------------------------------------------------
+// --------------------------------------------------- *********-----------------------------------------------------
+
+// Crusader Shield
+[QUALITY] == "Legendary" && [NAME] == "Akarat's Awakening" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Hallowed Bulwark" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Hellskull" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Jekangbord" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Piro Marella" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Salvation" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Sublime Conviction" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Final Witness" -> [KEEP]
+
+// Mojo
+[QUALITY] == "Legendary" && [NAME] == "Bitterness" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Gazing Demise" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Homunculus" -> [KEEP]
+// Shukrani’s Triumph
+[QUALITY] == "Legendary" && [ITEMID] == "922445371" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Spite" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Thing of the Deep" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Uhkapian Serpent" -> [KEEP]
+
+// Quiver
+[QUALITY] == "Legendary" && [NAME] == "Archfiend Arrows" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Black Bone Arrows" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Bombadier's Rucksack" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Dead Man's Legacy" -> [KEEP]
+// Emimei’s Duffel
+[QUALITY] == "Legendary" && [ITEMID] == "361371795" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Fletcher's Pride" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Flint Ripper Arrowheads" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Holy Point Shot" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Silver Star Piercers" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Sin Seekers" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Ninth Cirri Satchel" -> [KEEP]
+
+// Shield
+// Coven’s Criterion
+[QUALITY] == "Legendary" && [ITEMID] == "200555918" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Defender of Westmarch" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Denial" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Eberli Charo" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Freeze of Deflection" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Ivory Tower" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Lidless Wall" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Stormshield" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Vo'Toyias Spiker" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Wall of Bone" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Wall of Man" -> [KEEP]
+
+// Source
+[QUALITY] == "Legendary" && [NAME] == "Cosmic Strand" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Light of Grace" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Mirrorball" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Myken's Ball of Hate" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Singularity" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Oculus" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Triumvirate" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Winter Flurry" -> [KEEP]
+
+
+
+// ----------------------------------------------------******** ----------------------------------------------------
+// --------------------------------------------------- *Armour* ----------------------------------------------------
+// --------------------------------------------------- ********-----------------------------------------------------
+
+
+// Belt
+[QUALITY] == "Legendary" && [NAME] == "Angel Hair Braid" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Cord of the Sherma" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Fleeting Strap" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Goldwrap" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Harrington Waistguard" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Hellcat Waistguard" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Hwoj Wrap" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Insatiable Belt" -> [KEEP]
+// Jang’s Envelopment
+[QUALITY] == "Legendary" && [ITEMID] == "1810063515" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Quick Draw Belt" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Razor Strop" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Saffron Wrap" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Sash of Knives" -> [KEEP]
+// Sebor’s Nightmare
+[QUALITY] == "Legendary" && [ITEMID] == "1810135389" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "String of Ears" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Witching Hour" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Thundergod's Vigor" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Vigilante Belt" -> [TRASH]
+
+// Boots
+[QUALITY] == "Legendary" && [NAME] == "Board Walkers" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Boj Anglers" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Boots of Disregard" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Fire Walkers" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Ice Climbers" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Illusory Boots" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Irontoe Mudsputters" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Lost Boys" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Lut Socks" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Crudest Boots" -> [TRASH]
+
+// Bracers
+[QUALITY] == "Legendary" && [NAME] == "Ancient Parthan Defenders" # [@GOODBRACER] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Ancient Parthan Defenders" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Custerian Wristguards" # [@GOODBRACER] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Custerian Wristguards" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Gungdo Gear" # [@GOODBRACER] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Gungdo Gear" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Kethryes' Splint" # [@GOODBRACER] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Kethryes' Splint" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Lacuni Prowlers" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Nemesis Bracers" # [@GOODBRACER] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Nemesis Bracers" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Promise of Glory" # [@GOODBRACER] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Promise of Glory" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Reaper's Wraps" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Sanguinary Vambraces" # [@GOODBRACER] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Sanguinary Vambraces" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Slave Bonds" # [@GOODBRACER] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Slave Bonds" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Steady Strikers" # [@GOODBRACER] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Steady Strikers" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Strongarm Bracers" # [@GOODBRACER] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Strongarm Bracers" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Trag'Oul Coils" # [@GOODBRACER] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Trag'Oul Coils" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Warzechian Armguards" # [@GOODBRACER] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Warzechian Armguards" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Wondrous Deflectors" # [@GOODBRACER] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Wondrous Deflectors" -> [TRASH]
+
+// Chest
+[QUALITY] == "Legendary" && [NAME] == "Aquila Cuirass" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Armor of the Kind Regent" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Chaingmail" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Cindercoat" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Goldskin" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Heart of Iron" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Mantle of the Rydraelm" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Robes of the Rydraelm" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Shi Mizu's Haori" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Tyrael's Might" -> [KEEP]
+
+// Cloak
+[QUALITY] == "Legendary" && [NAME] == "Beckon Sail" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Blackfeather" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Cape of the Dark Night" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Cloak of Deception" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Cloak of the Garwulf" -> [KEEP]
+
+// Gloves
+[QUALITY] == "Legendary" && [NAME] == "Frostburn" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Gladiator Gauntlets" # [CRIT%] > 0 && [CRITDMG%] > 0 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Gladiator Gauntlets" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Gloves of Worship" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Magefist" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Pendergrasps" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Penders Purchase" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "St. Archew's Gage" # [CRIT%] > 0 && [CRITDMG%] > 0 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "St. Archew's Gage" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Stone Gauntlets" # [CRIT%] > 0 && [CRITDMG%] > 0 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Stone Gauntlets" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Tasker and Theo" -> [KEEP]
+
+// Helm
+[QUALITY] == "Legendary" && [NAME] == "Andariel's Visage" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Blind Faith" # [MAXSTAT] > 0 && [CRIT%] > 5 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Blind Faith" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Broken Crown" # [MAXSTAT] > 0 && [CRIT%] > 5 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Broken Crown" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Deathseer's Cowl" # [MAXSTAT] > 0 && [CRIT%] > 5 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Deathseer's Cowl" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Leoric's Crown" # [MAXSTAT] > 0 && [CRIT%] > 5 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Leoric's Crown" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Mempo of Twilight" # [MAXSTAT] > 0 && [CRIT%] > 5 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Mempo of Twilight" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Pride's Fall" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Skull of Resonance" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Helm of Command" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Helm of Rule" -> [KEEP]
+
+// Mighty Belt
+[QUALITY] == "Legendary" && [NAME] == "Ageless Might" -> [KEEP]
+// Chilanik’s Chain
+[QUALITY] == "Legendary" && [ITEMID] == "963166765" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Dread Iron" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Girdle of Giants" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Kotuur's Brace" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Lamentation" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Pride of Cassius" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Undisputed Champion" -> [KEEP]
+
+// Pants
+[QUALITY] == "Legendary" && [NAME] == "Death's Bargain" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Depth Diggers" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Gehennas" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Hammer Jammers" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Hexing Pants of Mr. Yan" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Pox Faulds" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Skelons Deceit" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Swamp Land Waders" -> [KEEP]
+
+// Pauldrons
+[QUALITY] == "Legendary" && [NAME] == "Corruption" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Death Watch Mantle" # ([MAXSTAT] > 0 && [@GOODSHOULDER] > 1) || [@GOODSHOULDER] > 3 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Death Watch Mantle" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Homing Pads" # ([MAXSTAT] > 0 && [@GOODSHOULDER] > 1) || [@GOODSHOULDER] > 3 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Homing Pads" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Pauldrons of the Skeleton King" # ([MAXSTAT] > 0 && [@GOODSHOULDER] > 1) || [@GOODSHOULDER] > 3 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Pauldrons of the Skeleton King" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Profane Pauldrons" # ([MAXSTAT] > 0 && [@GOODSHOULDER] > 1) || [@GOODSHOULDER] > 3 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Profane Pauldrons" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Seven Sins" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Spaulders of Zakara" # ([MAXSTAT] > 0 && [@GOODSHOULDER] > 1) || [@GOODSHOULDER] > 3 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Spaulders of Zakara" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Vile Ward" # ([MAXSTAT] > 0 && [@GOODSHOULDER] > 1) || [@GOODSHOULDER] > 3 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Vile Ward" -> [TRASH]
+
+// Spirit Stone
+[QUALITY] == "Legendary" && [NAME] == "Bezoar Stone" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Erlang Shen" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Eye of Peshkov" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Gyana Na Kashu" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Kekegi's Unbreakable Spirit" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Madstone" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "See No Evil" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Eye of the Storm" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Laws of Seph" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Mind's Eye" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Tzo Krin's Gaze" -> [KEEP]
+
+// Voodoo Mask
+[QUALITY] == "Legendary" && [NAME] == "Carnevil" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Mask of Jeram" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Quetzalcoatl" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Split Tusk" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "The Grin Reaper" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Tiklandian Visage" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Visage of Giyua" -> [KEEP]
+
+// Wizard Hat
+[QUALITY] == "Legendary" && [NAME] == "Archmage's Vicalyke" # [SOCKETS] = 1 || [CRIT%] > 0 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Archmage's Vicalyke" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Dark Mage's Shade" # [SOCKETS] = 1 || [CRIT%] > 0 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Dark Mage's Shade" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Storm Crow" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Magistrate" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Swami" # [SOCKETS] = 1 || [CRIT%] > 0 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Swami" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Velvet Camaral" -> [KEEP]
+
+
+
+// ----------------------------------------------------*********** ----------------------------------------------------
+// --------------------------------------------------- *Ring/Ammy* ----------------------------------------------------
+// --------------------------------------------------- ***********-----------------------------------------------------
+
+// Amulet
+[QUALITY] == "Legendary" && [NAME] == "Ancestors' Grace" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Countess Julia's Cameo" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Dovu Energy Trap" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Eye of Etlich" # [@GOODAMMY] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Eye of Etlich" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Golden Gorget of Leoric" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Halcyon's Ascent" # [@GOODAMMY] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Halcyon's Ascent" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Haunt of Vaxo" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Holy Beacon" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Kymbo's Gold" # [@GOODAMMY] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Kymbo's Gold" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Mara's Kaleidoscope" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Moonlight Ward" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Ouroboros" # [@GOODAMMY] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Ouroboros" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Overwhelming Desire" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Rakoff's Glass of Life" # [@GOODAMMY] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Rakoff's Glass of Life" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Rondal's Locket" # [@GOODAMMY] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Rondal's Locket" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Squirt's Necklace" #  -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Squirt's Necklace" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Talisman of Aranoch" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Ess of Johan" # [@GOODAMMY] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Ess of Johan" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "The Flavor of Time" # [@GOODAMMY] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Flavor of Time" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "The Star of Azkaranth" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Xephirian Amulet" -> [KEEP]
+
+// Ring
+[QUALITY] == "Legendary" && [NAME] == "Avarice Band" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Band of Hollow Whispers" # [CRIT%] > 4.5 || [CRITDMG%] >= 35 || [OFFSTATS] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Band of Hollow Whispers" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Band of the Rue Chambers" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Band of Untold Secrets" # [CRIT%] > 4.5 || [CRITDMG%] >= 35 || [OFFSTATS] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Band of Untold Secrets" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Broken Promises" # [CRIT%] > 4.5 || [CRITDMG%] >= 35 || [OFFSTATS] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Broken Promises" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Bul-Kathos's Wedding Band" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Eternal Union" # [CRIT%] > 4.5 || [CRITDMG%] >= 35 || [OFFSTATS] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Eternal Union" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Hellfire Ring" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Hellfire Ring of Dexterity" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Hellfire Ring of Intelligence" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Hellfire Ring of Strength" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Hellfire Ring of Vitality" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Justice Lantern" -> [KEEP]
+// Krede’s Flame
+[QUALITY] == "Legendary" && [ITEMID] == "1188872704" # [CRIT%] > 4.5 || [CRITDMG%] >= 35 || [OFFSTATS] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [ITEMID] == "1188872704" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Leoric's Signet" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Manald Heal" # [CRIT%] > 4.5 || [CRITDMG%] >= 35 || [OFFSTATS] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Manald Heal" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Nagelring" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Obsidian Ring of the Zodiac" # [CRIT%] > 4.5 || [CRITDMG%] >= 35 || [OFFSTATS] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Obsidian Ring of the Zodiac" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Oculus Ring" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Pandemonium Loop" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Puzzle Ring" # [CRIT%] > 0 || [CRITDMG%] >= 35 || [OFFSTATS] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Puzzle Ring" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Rechel's Ring of Larceny" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Ring of Royal Grandeur" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Rogar's Huge Stone" # [CRIT%] > 4.5 || [CRITDMG%] >= 35 || [OFFSTATS] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Rogar's Huge Stone" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Skull Grasp" # [CRIT%] > 4.5 || [CRITDMG%] >= 35 || [OFFSTATS] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Skull Grasp" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Stolen Ring" # [CRIT%] > 4.5 || [CRITDMG%] >= 35 || [OFFSTATS] > 1 -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Stolen Ring" -> [TRASH]
+[QUALITY] == "Legendary" && [NAME] == "Stone of Jordan" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "The Tall Man's Finger" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Unity" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Wyrdward" -> [KEEP]
+
+
+
+// ----------------------------------------------------************ ----------------------------------------------------
+// --------------------------------------------------- *Follower Slot* ----------------------------------------------------
+// --------------------------------------------------- ************-----------------------------------------------------
+
+// Enchantress
+[QUALITY] == "Legendary" && [NAME] == "Hand of the Prophet" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Smoking Thurible" -> [KEEP]
+
+// Scoundrel
+[QUALITY] == "Legendary" && [NAME] == "Ribald Etchings" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Skeleton Key" -> [KEEP]
+
+// Templar
+[QUALITY] == "Legendary" && [NAME] == "Enchanting Favor" -> [KEEP]
+[QUALITY] == "Legendary" && [NAME] == "Relic of Akarat" -> [KEEP]
+
+
+
+
+// Cleanup rule
+//[QUALITY] == "Legendary" && [BASETYPE] == "Weapon" -> [TRASH]
+//[QUALITY] == "Legendary" && [BASETYPE] == "Armor" -> [TRASH]
+//[QUALITY] == "Legendary" && [BASETYPE] == "Jewelry" -> [TRASH]

@@ -7,7 +7,7 @@ namespace fBaseXtensions.Cache.External.Enums
 	{
 		None = 0,
 		Normal = 1,
-		CorruptGrowth = 2,
+		Stationary = 2,
 		Unique = 4,
 		Boss = 8,
 		TreasureGoblin = 16,
@@ -26,6 +26,8 @@ namespace fBaseXtensions.Cache.External.Enums
 		Debuffing=131072,
 		Worm=262144,
 		Revivable=524288,
-
+		Transportable=1048576, //Transportable = Units with skills that can move like teleport, leap
+		Quest=2097152,
+		Tough=4194304,
 	}
 }

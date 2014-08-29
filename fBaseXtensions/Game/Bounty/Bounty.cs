@@ -14,6 +14,16 @@ namespace fBaseXtensions.Game.Bounty
 	{
 		public static readonly int ADVENTUREMODE_QUESTID = 312429;
 		public static readonly int ADVENTUREMODE_RIFTID = 337492;
+		public static readonly int ADVENTUREMODE_GREATERRIFT_TRIAL = 405695;
+		
+		/*
+		 Greater Rift Trial
+		GizmoType: Portal Name: X1_OpenWorld_Tiered_Rifts_Challenge_Portal-30347 ActorSNO: 408511
+		Type: Event QuestSNO: 405695
+		Step 13: Count Down
+		Step 1: Killing
+		Step 9: Finished
+		 */
 
 		public delegate void BountyQuestStateChange(int QuestSno, QuestState newState);
 		public event BountyQuestStateChange OnBountyQuestStateChanged;

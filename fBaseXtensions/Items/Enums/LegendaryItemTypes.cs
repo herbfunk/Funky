@@ -181,6 +181,7 @@
 		HalcyonsAscent,
 		OverwhelmingDesire,
 		GoldenGorgetofLeoric,
+		HellfireAmulet,
 
 		//Rings
 		HellfireRing,

@@ -20,8 +20,12 @@ using fBaseXtensions.Items.Enums;
 using fBaseXtensions.Stats;
 using Zeta.Bot;
 using Zeta.Game;
+using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.SNO;
+using Zeta.Common;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 namespace fBaseXtensions.Settings
 {
@@ -1505,15 +1509,41 @@ namespace fBaseXtensions.Settings
 		private void btn_Test_Click(object sender, EventArgs e)
 		{
 			LBDebug.Controls.Clear();
+			ZetaDia.Memory.ClearCache();
+			ZetaDia.Actors.Update();
 
-			string OutPut = "";
-			foreach (var entry in TheCache.ObjectIDCache.UnitEntries.Values.OrderBy(unit => unit.SnoId))
+			UIElement backpackMainDetails = UIElement.FromHash(0x8219CD30B0ABAFE1);
+			LBDebug.Controls.Add(new UserControlDebugEntry("...Backpack Main Details..."));
+			foreach (var b in UI.GetChildren(backpackMainDetails))
 			{
-				OutPut = OutPut + entry.ReturnCacheEntryString() + "\r\n";
+				LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(b)));
 			}
-			Clipboard.SetText(OutPut);
 
-			LBDebug.Controls.Add(new UserControlDebugEntry(OutPut));
+			UIElement backpackbutton = UI.Game.Inventory_ButtonBackpack;
+			LBDebug.Controls.Add(new UserControlDebugEntry("...Backpack Button..."));
+			foreach (var b in UI.GetChildren(backpackbutton))
+			{
+				LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(b)));
+			}
+
+			UIElement backpack = UI.Game.Inventory;
+			LBDebug.Controls.Add(new UserControlDebugEntry("...Backpack Inventory..."));
+			foreach (var b in UI.GetChildren(backpack))
+			{
+				LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(b)));
+			}
+
+			UI.Game.Inventory_ButtonBackpack.Click();
+			
+			//
+			//string OutPut = "";
+			//foreach (var entry in TheCache.ObjectIDCache.UnitEntries.Values.OrderBy(unit => unit.SnoId))
+			//{
+			//	OutPut = OutPut + entry.ReturnCacheEntryString() + "\r\n";
+			//}
+			//Clipboard.SetText(OutPut);
+
+			//
 		}
 	}
 }

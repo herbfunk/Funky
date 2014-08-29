@@ -52,6 +52,7 @@ namespace fBaseXtensions
 			FunkyGame.CurrentGameID = new GameId();
 			FunkyGame.AdventureMode = false;
 			FunkyGame.ShouldRefreshAccountDetails = true;
+			
 
 			if (FunkyBaseExtension.PluginIsEnabled)
 			{

@@ -57,6 +57,7 @@
 		InfernalKey,
 		HoradricCache,
 		KeyStone,
+		RamaladnisGift,
 
 		Amethyst,
 		Diamond,
@@ -64,6 +65,7 @@
 		Ruby,
 		Topaz,
 		
+		LegendaryGem,
 		
 		
 		

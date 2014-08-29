@@ -9,6 +9,7 @@ using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Game.Hero.Class;
 using fBaseXtensions.Items;
 using fBaseXtensions.Items.Enums;
+using fBaseXtensions.Monitor;
 using fBaseXtensions.Navigation;
 using fBaseXtensions.Stats;
 using fBaseXtensions.Targeting;
@@ -334,6 +335,8 @@ namespace fBaseXtensions.Game
 			if (thisPluginItemType == PluginItemTypes.MiscBook)
 				return FunkyBaseExtension.Settings.Loot.ExpBooks;
 
+			if (thisPluginItemType == PluginItemTypes.RamaladnisGift)
+				return true;
 
 			// Error logging for DemonBuddy item mis-reading
 			ItemType gilesDBItemType = ItemFunc.PluginItemTypeToDBItemType(thisPluginItemType);
@@ -375,6 +378,9 @@ namespace fBaseXtensions.Game
 
 					return false;
 				case PluginBaseItemTypes.Gem:
+					if (thisPluginItemType == PluginItemTypes.LegendaryGem)
+						return true;
+
 					GemQualityTypes qualityType = ItemFunc.ReturnGemQualityType(item.SNOID, item.BalanceData.iThisItemLevel);
 					int qualityLevel = (int)qualityType;
 
@@ -487,9 +493,9 @@ namespace fBaseXtensions.Game
 		}
 		public static void ResetBot()
 		{
-
 			Logger.DBLog.InfoFormat("Preforming reset of bot data...");
 			BlacklistCache.ClearBlacklistCollections();
+			GoldInactivity.LastCoinageUpdate = DateTime.Now;
 
 			PlayerMover.iTotalAntiStuckAttempts = 1;
 			PlayerMover.vSafeMovementLocation = Vector3.Zero;

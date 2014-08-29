@@ -83,7 +83,7 @@ namespace fBaseXtensions.Targeting.Behaviors
 
 							if (!Navigation.Navigation.NP.CanFullyClientPathTo(cobj.Position)) continue;
 
-							Logger.Write(LogLevel.LineOfSight, "Line of Sight Started for object {0} -- with {1} vectors", cobj.InternalName, Navigation.Navigation.NP.CurrentPath.Count);
+							Logger.Write(LogLevel.LineOfSight, "Line of Sight Started for object {0} -- with {1} vectors\r\n{2}", cobj.InternalName, Navigation.Navigation.NP.CurrentPath.Count, cobj.DebugString);
 
 
 							FunkyGame.Navigation.LOSBlacklistedRAGUIDs.Add(cobj.RAGUID);

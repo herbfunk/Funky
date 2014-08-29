@@ -932,6 +932,27 @@ namespace FunkyDebug
 			return String.Empty;
 		}
 
+		private void button2_Click(object sender, EventArgs e)
+		{
+			if (textBox_UI_Hash.Text == String.Empty) return;
+			ulong hash;
+			try
+			{
+				//var text_Hash = string.Format("0x{0:X}", textBox_UI_Hash.Text);
+				hash = Convert.ToUInt64(textBox_UI_Hash.Text);
+			}
+			catch (Exception)
+			{
+				return;
+			}
+
+			var uie = UIElement.FromHash(hash);
+			if (uie.IsValid && uie.IsVisible && uie.IsEnabled)
+			{
+				uie.Click();
+			}
+		}
+
 
 	}
 }

@@ -114,6 +114,20 @@
       <PluginDroppedItemTypes>Boots</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>205624</SnoId>
+      <InternalName>Boots_norm_unique_085-3568</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Boots</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>197224</SnoId>
+      <InternalName>Boots_norm_unique_045-12030</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Boots</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>56323</SnoId>
       <InternalName>Bracers_norm_base_01</InternalName>
       <ActorType>Item</ActorType>
@@ -333,6 +347,13 @@
     <DroppedItemEntry>
       <SnoId>181700</SnoId>
       <InternalName>Axe_norm_unique_flippy_05-6015</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>116398</SnoId>
+      <InternalName>Axe_norm_unique_flippy_04-8761</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
@@ -1031,6 +1052,13 @@
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>271665</SnoId>
+      <InternalName>x1_Mace_norm_unique_flippy_12-10103</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>6337</SnoId>
       <InternalName />
       <ActorType>Item</ActorType>
@@ -1535,6 +1563,13 @@
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>194493</SnoId>
+      <InternalName>Sword_norm_unique_flippy_08-45001</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>6348</SnoId>
       <InternalName>twoHandedSword_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
@@ -1635,6 +1670,13 @@
     <DroppedItemEntry>
       <SnoId>271641</SnoId>
       <InternalName>x1_twoHandedSword_norm_unique_flippy_12-3925</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>218393</SnoId>
+      <InternalName>twoHandedSword_norm_unique_flippy_06-2060</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
@@ -1885,6 +1927,13 @@
       <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>192468</SnoId>
+      <InternalName>Mojo_norm_unique_02-6997</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>218695</SnoId>
       <InternalName />
       <ActorType>Item</ActorType>
@@ -2100,6 +2149,20 @@
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>KeyFragment</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>408416</SnoId>
+      <InternalName>TieredLootrunKey_0-44181</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>KeyFragment</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>403611</SnoId>
+      <InternalName />
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>RamaladnisGift</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
       <SnoId>301283</SnoId>
@@ -2675,6 +2738,97 @@
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Topaz</PluginDroppedItemTypes>
     </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>405802</SnoId>
+      <InternalName>Unique_Gem_013_x1</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>405793</SnoId>
+      <InternalName>Unique_Gem_005_x1</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>405775</SnoId>
+      <InternalName />
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>405795</SnoId>
+      <InternalName />
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>405800</SnoId>
+      <InternalName />
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>405803</SnoId>
+      <InternalName />
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>405792</SnoId>
+      <InternalName />
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>405794</SnoId>
+      <InternalName />
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>405801</SnoId>
+      <InternalName />
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>405804</SnoId>
+      <InternalName />
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>405798</SnoId>
+      <InternalName />
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>405796</SnoId>
+      <InternalName />
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>405797</SnoId>
+      <InternalName />
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
+    </DroppedItemEntry>
   </DroppedItemCache>
   <DroppedItemInternalNames>
     <ItemStringEntry>
@@ -3120,6 +3274,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>3176</SnoId>
+      <ItemType>Amulet</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>5044</SnoId>
       <ItemType>Ring</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -3185,6 +3344,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>5025</SnoId>
+      <ItemType>Ring</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>5026</SnoId>
       <ItemType>Ring</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -3201,6 +3365,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>5031</SnoId>
+      <ItemType>Ring</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5029</SnoId>
       <ItemType>Ring</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -3471,6 +3640,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>139088</SnoId>
+      <ItemType>Cloak</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139090</SnoId>
       <ItemType>Cloak</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -3786,6 +3960,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>5283</SnoId>
+      <ItemType>Shoulders</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5284</SnoId>
       <ItemType>Shoulders</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -4185,6 +4364,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>440</SnoId>
+      <ItemType>Sword</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>335159</SnoId>
       <ItemType>TwoHandAxe</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -4241,6 +4425,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>3449</SnoId>
+      <ItemType>TwoHandBow</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>3448</SnoId>
       <ItemType>TwoHandBow</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -4570,6 +4759,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>6425</SnoId>
+      <ItemType>Wand</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>367175</SnoId>
       <ItemType>CrusaderShield</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -4661,6 +4855,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>367183</SnoId>
+      <ItemType>Quiver</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139081</SnoId>
       <ItemType>Quiver</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -4855,6 +5054,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>403611</SnoId>
+      <ItemType>RamaladnisGift</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>214604</SnoId>
       <ItemType>CraftingMaterial</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -4981,6 +5185,16 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>323722</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>408416</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>408151</SnoId>
       <ItemType>KeyStone</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -5310,6 +5524,71 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>405775</SnoId>
+      <ItemType>LegendaryGem</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>405793</SnoId>
+      <ItemType>LegendaryGem</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>405802</SnoId>
+      <ItemType>LegendaryGem</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>405795</SnoId>
+      <ItemType>LegendaryGem</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>405800</SnoId>
+      <ItemType>LegendaryGem</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>405803</SnoId>
+      <ItemType>LegendaryGem</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>405792</SnoId>
+      <ItemType>LegendaryGem</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>405794</SnoId>
+      <ItemType>LegendaryGem</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>405801</SnoId>
+      <ItemType>LegendaryGem</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>405804</SnoId>
+      <ItemType>LegendaryGem</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>405798</SnoId>
+      <ItemType>LegendaryGem</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>405796</SnoId>
+      <ItemType>LegendaryGem</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>405797</SnoId>
+      <ItemType>LegendaryGem</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>148299</SnoId>
       <ItemType>Dye</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -5498,6 +5777,11 @@
       <SnoId>197814</SnoId>
       <ItemType>Amulet</ItemType>
       <LegendaryType>XephirianAmulet</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>298057</SnoId>
+      <ItemType>Amulet</ItemType>
+      <LegendaryType>HellfireAmulet</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>298095</SnoId>
@@ -6090,6 +6374,11 @@
       <LegendaryType>VileWard</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>223619</SnoId>
+      <ItemType>Shoulders</ItemType>
+      <LegendaryType>Corruption</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>299464</SnoId>
       <ItemType>SpiritStone</ItemType>
       <LegendaryType>EyeofPeshkov</LegendaryType>
@@ -6663,6 +6952,11 @@
       <SnoId>175580</SnoId>
       <ItemType>TwoHandBow</ItemType>
       <LegendaryType>Uskang</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>192602</SnoId>
+      <ItemType>TwoHandBow</ItemType>
+      <LegendaryType>Windforce</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>194957</SnoId>

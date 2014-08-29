@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.Internal.Blacklist;
 using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Game;
@@ -236,7 +237,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			{
 				double lastUpdated=DateTime.Now.Subtract(lastUpdatedPosition).TotalMilliseconds;
 
-				if (IsSlimeGeyser && lastUpdated < 100000)
+				if (UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Stationary) && lastUpdated < 100000)
 					return;
 
 				if (lastUpdated < 150)
@@ -259,7 +260,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			}
 
 			//Special Position Adjustment!
-			if (IsSlimeGeyser)
+			if (UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Stationary))
 			{
 				UpdateRotation();
 
@@ -393,7 +394,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		public virtual bool IsStillValid()
 		{
 			//Check DiaObject first
-			if (ref_DiaObject == null || !ref_DiaObject.IsValid || ref_DiaObject.BaseAddress == IntPtr.Zero)
+			if (ref_DiaObject == null || !ref_DiaObject.IsValid || ref_DiaObject.BaseAddress == IntPtr.Zero || ref_DiaObject.CommonData == null || !ref_DiaObject.CommonData.IsValid || ref_DiaObject.CommonData.ACDGuid == -1)
 				return false;
 
 			return true;
@@ -753,15 +754,15 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			get
 			{
 				return String.Format("RAGUID {0}: Created {13} seconds ago" +
-				                     "\r\n{1} Distance (Centre{2} / Radius{3})" +
+				                     "\r\n{1} Position[{14}] Distance (Centre{2} / Radius{3})" +
 				                     "\r\nSnoAnim={9} -- AnimState={10}" +
 				                     "\r\nReqLOS={4} -- {5} -- [LOSV3: {6}]" +
 				                     "\r\nBotFacing={7}" +
-									 "\r\nBlackListLoops[{8}] UnseenLoops[{11}] IgnoreReason: {12}\r\n",
+									 "\r\nBlackListLoops[{8}] UnseenLoops[{11}] IgnoreReason: {12} NeedsRemoved: {15}\r\n",
 					  RAGUID.ToString(CultureInfo.InvariantCulture), base.DebugString, CentreDistance.ToString(CultureInfo.InvariantCulture), RadiusDistance.ToString(CultureInfo.InvariantCulture),
 					  RequiresLOSCheck, LineOfSight != null ? String.Format("-- {0} --", LineOfSight.DebugString) : "", LOSV3,
 					  BotIsFacing(), BlacklistLoops.ToString(CultureInfo.InvariantCulture), SnoAnim, AnimState, LoopsUnseen, IgnoredType,
-					  DateTime.Now.Subtract(CreationTime).TotalSeconds);
+					  DateTime.Now.Subtract(CreationTime).TotalSeconds, Position.ToString(), NeedsRemoved);
 			}
 		}
 

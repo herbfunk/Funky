@@ -9,13 +9,6 @@ namespace fBaseXtensions.Cache.External
 {
 	public class IDCache
 	{
-		//public AvoidanceDataCollection Avoidance { get; set; }
-		public UnitDataCollection Units { get; set; }
-		//public ItemDataCollection Items { get; set; }
-		//public GizmoDataCollection Gizmos { get; set; }
-		//public UnitData UnitData { get; set; }
-
-
 		public Dictionary<int, CacheUnitEntry> UnitEntries = new Dictionary<int, CacheUnitEntry>();
 		public Dictionary<int, CacheGizmoEntry> GizmoEntries = new Dictionary<int, CacheGizmoEntry>();
 		public Dictionary<int, ItemDataEntry> ItemDataEntries = new Dictionary<int, ItemDataEntry>();
@@ -30,11 +23,8 @@ namespace fBaseXtensions.Cache.External
 		{
 			Logger.DBLog.Info("[fBaseXtensions] Loading External Cache..");
 
-			Units = UnitDataCollection.DeserializeFromXML();//new UnitDataCollection(); //
-			
-
-			var unitdata = UnitData.DeserializeFromXML();
-			//var unitdata = new UnitData(); UnitData.SerializeToXML(unitdata);
+			var unitdata = UnitDataCollection.DeserializeFromXML();
+			//var unitdata = new UnitDataCollection(); UnitDataCollection.SerializeToXML(unitdata);
 
 			UnitEntries.Clear();
 			foreach (var entry in unitdata.UnitEntries)

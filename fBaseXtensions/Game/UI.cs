@@ -526,6 +526,66 @@ namespace fBaseXtensions.Game
 
 		public static class Game
 		{
+			//
+			public static UIElement RiftDialog_Item
+			{
+				get
+				{
+					try { return UIElement.FromHash(0x4C2246960A3EC9F6); }
+					catch { return null; }
+				}
+			}
+			//0x18CCECE7D2C0A87B
+			public static UIElement Inventory_ButtonBackpack
+			{
+				get
+				{
+					try { return UIElement.FromHash(0xC261F82ABCC57ABF); }
+					catch { return null; }
+				}
+			}
+
+			public static UIElement SalvageMainPage
+			{
+				get
+				{
+					try { return UIElement.FromHash(0x244BD04C84DF92F1); }
+					catch { return null; }
+				}
+			}
+			public static UIElement SalvageMainPagTab2
+			{
+				get
+				{
+					try { return UIElement.FromHash(0xE062F9B5040F3229); }
+					catch { return null; }
+				}
+			}
+			public static UIElement SalvageAllNormal
+			{
+				get
+				{
+					try { return UIElement.FromHash(0xCE31A05539BE5710); }
+					catch { return null; }
+				}
+			}
+			public static UIElement SalvageAllMagical
+			{
+				get
+				{
+					try { return UIElement.FromHash(0xD58A34C0A51E3A60); }
+					catch { return null; }
+				}
+			}
+			public static UIElement SalvageAllRare
+			{
+				get
+				{
+					try { return UIElement.FromHash(0x9AA6E1AD644CF239); }
+					catch { return null; }
+				}
+			}
+
 			public static UIElement AchievementsContainer
 			{
 				get

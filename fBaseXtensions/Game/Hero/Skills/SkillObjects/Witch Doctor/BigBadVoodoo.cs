@@ -16,7 +16,13 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 			WaitVars = new WaitLoops(0, 0, true);
 			
 			Priority = SkillPriority.Medium;
-			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast));
+			
+			PreCast = new SkillPreCast
+			{
+				Flags = SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast,
+			};
+			PreCast.Criteria += skill => !Hotbar.HasBuff(SNOPower.Witchdoctor_BigBadVoodoo);
+			PreCast.CreatePrecastCriteria();
 
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, MinimumHealthPercent: 0.95d));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 25, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));

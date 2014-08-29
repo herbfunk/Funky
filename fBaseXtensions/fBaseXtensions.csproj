@@ -121,9 +121,6 @@
     <Compile Include="Cache\External\Objects\CacheEntry.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Cache\External\Objects\GizmoStringDataCollection.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Cache\External\Objects\GizmoDataCollection.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -137,9 +134,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Cache\External\Objects\StringEntry.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Cache\External\Objects\UnitData.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Cache\External\Objects\UnitDataCollection.cs">
@@ -1099,6 +1093,9 @@
     <Compile Include="XML\FunkyWaypoint.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="XML\MoveItemTag.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="XML\WhileActorExists.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -1135,16 +1132,12 @@
     <Content Include="Cache\External\Dictionaries\Cache_Items.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Cache\External\Dictionaries\Cache_UnitData.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Cache\External\Dictionaries\Cache_Units.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="ChangeLog.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="Cache\External\Rift.txt" />
     <Content Include="Features.txt" />
     <Content Include="Game\Bounty\BountyCache\Act1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

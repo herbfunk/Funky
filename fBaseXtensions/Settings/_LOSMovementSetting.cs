@@ -20,15 +20,15 @@
         public SettingLOSMovement()
         {
             EnableLOSMovementBehavior = true;
-            AllowTreasureGoblin = true;
-            AllowRareElites = true;
+			AllowTreasureGoblin = false;
+			AllowRareElites = false;
             AllowUniqueBoss = true;
             AllowRanged = false;
-			AllowRareLootContainer = true;
+			AllowRareLootContainer = false;
 			AllowSucideBomber = false;
 			AllowSpawnerUnits = false;
-			AllowCursedChestShrines = true;
-			AllowEventSwitches = true;
+			AllowCursedChestShrines = false;
+			AllowEventSwitches = false;
 			MaximumRange = 500;
 			MiniumRangeObjects = 45;
 			MinimumRangeMarkers = 25;

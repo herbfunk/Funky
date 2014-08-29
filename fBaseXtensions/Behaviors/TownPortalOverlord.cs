@@ -27,7 +27,7 @@ namespace fBaseXtensions.Behaviors
 			if (TPActionIsValid())
 			{
 				//If not already in town, check if we can cast..
-				if (!ZetaDia.Me.IsInTown)
+				if (!ZetaDia.IsInTown)
 				{
 					return CanCastTP();
 				}

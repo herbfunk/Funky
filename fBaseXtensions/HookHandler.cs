@@ -41,7 +41,7 @@ namespace fBaseXtensions
 					var outofgameHookValue = hook.Value[0];
 					Logger.DBLog.InfoFormat(outofgameHookValue.GetType().ToString());
 
-					PrioritySelector CompositeReplacement = hook.Value[0] as PrioritySelector;
+					//ActionRunCoroutine CompositeReplacement = hook.Value[0] as ActionRunCoroutine;
 					//PrintChildrenTypes(CompositeReplacement.Children);
 
 					CanRunDecoratorDelegate shouldPreformOutOfGameBehavior = OutOfGame.OutOfGameOverlord;
@@ -49,9 +49,8 @@ namespace fBaseXtensions
 					Sequence sequenceOOG = new Sequence(
 							new Zeta.TreeSharp.Action(actionDelgateOOGBehavior)
 					);
-					CompositeReplacement.Children.Insert(0, new Decorator(shouldPreformOutOfGameBehavior, sequenceOOG));
-					hook.Value[0] = CompositeReplacement;
-
+					var OutOfGameInsert= new Decorator(shouldPreformOutOfGameBehavior, sequenceOOG);
+					SetHookValue(HookType.OutOfGame, 0, OutOfGameInsert, true);
 					Logger.DBLog.DebugFormat("Out of game tree hooked");
 				}
 

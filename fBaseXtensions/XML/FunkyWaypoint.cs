@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
+using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Game;
 using fBaseXtensions.Helpers;
 using Zeta.Bot.Profile;
 using Zeta.Game;
 using Zeta.Game.Internals;
+using Zeta.Game.Internals.SNO;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
 using Action = Zeta.TreeSharp.Action;
@@ -43,6 +46,14 @@ namespace fBaseXtensions.XML
 				 new Decorator(ret => FunkyGame.Targeting.Cache.CurrentTarget != null,
 					  new Action(ret => Combat())
 				 ),
+				 //Check Interactive Cache for nearby waypoint..
+				 new Decorator(ret => (SNOLevelArea)FunkyGame.Hero.iCurrentLevelID == DestinationLevelArea &&
+					                ObjectCache.InteractableObjectCache.Values.Any(g => g.Gizmotype.Value== GizmoType.Waypoint && g.CentreDistance<=75f),
+					 new Action(ret => m_IsDone=true)),
+				//Check if nearby any waypoint
+				//new Decorator(ret => !FunkyGame.Hero.bIsInTown && ObjectCache.InteractableObjectCache.Values.Any(g => g.Gizmotype.Value == GizmoType.Waypoint && g.CentreDistance<40f),
+					//new Action(ret => m_IsDone=true)),
+
 				//Attempt to Update Actor, Failure == DONE! -- Check if level area has changed already!
 				 new Decorator(ret => LevelAreaChanged(),
 					  new PrioritySelector(
@@ -71,6 +82,7 @@ namespace fBaseXtensions.XML
 
 		private int CurrentLevelID;
 		private int CurrentWorldID;
+		private SNOLevelArea CurrentLevelArea,DestinationLevelArea;
 
 		private bool InitDone = false;
 		private void Init()
@@ -79,6 +91,8 @@ namespace fBaseXtensions.XML
 			{
 				CurrentLevelID = ZetaDia.CurrentLevelAreaId;
 				CurrentWorldID = ZetaDia.CurrentWorldId;
+				CurrentLevelArea = (SNOLevelArea)CurrentLevelID;
+				DestinationLevelArea = GameCache.GetSNOLevelAreaByWaypointID(waypointID);
 				InitDone = true;
 			}
 			catch (Exception)
@@ -123,7 +137,7 @@ namespace fBaseXtensions.XML
 			try
 			{
 				Logger.DBLog.Info("Using Waypoint -- WaypointID: " + waypointID);
-				new DwordDataMessage(Opcode.DWordDataMessage21, waypointID).Send();
+				new DwordDataMessage(Opcode.DWordDataMessage17, waypointID).Send();
 				LastInteraction = DateTime.Now;
 
 			}

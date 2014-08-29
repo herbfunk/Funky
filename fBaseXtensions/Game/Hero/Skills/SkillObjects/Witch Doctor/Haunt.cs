@@ -1,6 +1,7 @@
 ﻿using System;
 using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
@@ -16,19 +17,24 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 
 		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Target; } }
 
+		private int recastTime = 11;
+
 		public override void Initialize()
 		{
+			if (Equipment.CheckLegendaryItemCount(LegendaryItemTypes.Quetzalcoatl))
+				recastTime = 5;
+
 			bool hotbarContainsLoctusSwarm = Hotbar.HasPower(SNOPower.Witchdoctor_Locust_Swarm);
 
 			//since we can only track one DOTDPS, we track locus swarm and cast this 
 			if (hotbarContainsLoctusSwarm)
 			{
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 25));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 45));
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: -1, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 			}
 			else
 			{
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 25, falseConditionalFlags: TargetProperties.DOTDPS));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 45, falseConditionalFlags: TargetProperties.DOTDPS));
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: -1, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal | TargetProperties.DOTDPS));
 			}
 
@@ -54,7 +60,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 					//If we have Creeping Death, then we ignore any units that we already cast upon.
 					if (Hotbar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_CreepingDeath)) return false;
 
-					return DateTime.Now.Subtract(FunkyGame.Targeting.Cache.CurrentTarget.SkillsUsedOnObject[Power]).TotalSeconds > 11;
+					return DateTime.Now.Subtract(FunkyGame.Targeting.Cache.CurrentTarget.SkillsUsedOnObject[Power]).TotalSeconds > recastTime;
 				}
 
 				return true;

@@ -22,7 +22,7 @@ namespace fBaseXtensions.Settings
 			IgnoreClusterLowHPValue=0.55d;
 			ClusterMaxDistance = 100;
 			UnitException_RareElites = true;
-			UnitExceptions = UnitFlags.SucideBomber | UnitFlags.Unique | UnitFlags.Boss;
+			UnitExceptions = UnitFlags.SucideBomber | UnitFlags.Unique | UnitFlags.Boss | UnitFlags.AdventureModeBoss | UnitFlags.TreasureGoblin | UnitFlags.AvoidanceSummoner;
 		}
 		public SettingCluster()
 		{
@@ -32,7 +32,7 @@ namespace fBaseXtensions.Settings
 			IgnoreClusterLowHPValue=0.55d;
 			ClusterMaxDistance = 100;
 			UnitException_RareElites = true;
-			UnitExceptions = UnitFlags.SucideBomber | UnitFlags.Unique | UnitFlags.Boss;
+			UnitExceptions = UnitFlags.SucideBomber | UnitFlags.Unique | UnitFlags.Boss | UnitFlags.AdventureModeBoss | UnitFlags.TreasureGoblin | UnitFlags.AvoidanceSummoner;
 		}
 
 		internal List<int> ExceptionSNOs = new List<int>();

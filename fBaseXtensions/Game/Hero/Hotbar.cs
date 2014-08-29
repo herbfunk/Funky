@@ -114,7 +114,15 @@ namespace fBaseXtensions.Game.Hero
 				}
 			}
 		}
-
+		private static DateTime _lastRefreshedBuffs=DateTime.Today;
+		private const int refreshBuffMilliseconds = 150;
+		private static bool ShouldRefreshBuffs
+		{
+			get
+			{
+				return DateTime.Now.Subtract(_lastRefreshedBuffs).TotalMilliseconds >= refreshBuffMilliseconds;
+			}
+		}
 		public static void RefreshHotbarBuffs()
 		{
 			RefreshCurrentBuffs();
@@ -139,6 +147,7 @@ namespace fBaseXtensions.Game.Hero
 						CurrentBuffs.Add(item.SNOId, 1);
 				}
 			}
+			_lastRefreshedBuffs=DateTime.Now;
 		}
 		internal static readonly HashSet<int> PowerStackImportant = new HashSet<int>
 		{
@@ -158,10 +167,14 @@ namespace fBaseXtensions.Game.Hero
 					CurrentDebuffs.Add(item.SNOId);
 				}
 			}
+
+			_lastRefreshedBuffs = DateTime.Now;
 		}
 
 		public static int GetBuffStacks(SNOPower thispower)
 		{
+			if (ShouldRefreshBuffs) RefreshCurrentBuffs();
+
 			int iStacks;
 			if (CurrentBuffs.TryGetValue((int)thispower, out iStacks))
 			{
@@ -171,11 +184,15 @@ namespace fBaseXtensions.Game.Hero
 		}
 		public static bool HasBuff(SNOPower power)
 		{
+			if (ShouldRefreshBuffs) RefreshCurrentBuffs();
+
 			int id = (int)power;
 			return CurrentBuffs.Keys.Any(u => u == id);
 		}
 		public static bool HasDebuff(SNOPower power)
 		{
+			if (ShouldRefreshBuffs) RefreshCurrentDebuffs();
+
 			int id = (int)power;
 			return CurrentDebuffs.Contains(id);
 		}

@@ -255,14 +255,14 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		{
 			get
 			{
-				return (TheCache.ObjectIDCache.Units.RangedUnits.Contains(SNOID) || (Monstersize.HasValue && Monstersize.Value == MonsterSize.Ranged));
+				return ((UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Ranged)) || (Monstersize.HasValue && Monstersize.Value == MonsterSize.Ranged));
 			}
 		}
 		public bool IsFast
 		{
 			get
 			{
-				return (TheCache.ObjectIDCache.Units.FastUnits.Contains(SNOID) || MonsterFast);
+				return ((UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Fast)) || MonsterFast);
 			}
 		}
 
@@ -547,7 +547,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				if (CacheIDLookup.hashActorSNOShortRangeOnly.Contains(SNOID)) dUseKillRadius = 12;
 
 				// Prevent long-range mobs beign ignored while they may be pounding on us
-				if (dUseKillRadius <= 30 && TheCache.ObjectIDCache.Units.RangedUnits.Contains(SNOID)) dUseKillRadius = 30;
+				if (dUseKillRadius <= 30 && IsRanged) dUseKillRadius = 30;
 				
 
 				// Bosses get extra radius
@@ -1168,11 +1168,6 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 		public override bool UpdateData()
 		{
-			if (!base.IsStillValid())
-			{
-				//Logger.Write(LogLevel.Cache,"ref object not valid for {0}", DebugStringSimple);
-				return false;
-			}
 
 			if (ref_DiaUnit == null)
 			{
@@ -1189,10 +1184,18 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				}
 			}
 
-			ACD CommonData = ref_DiaObject.CommonData;
-			if (CommonData == null)
+			if (!IsStillValid())
 			{
-				Logger.Write(LogLevel.Cache, "Common Data Null!");
+				Logger.Write(LogLevel.Cache, "ref object not valid for {0}", DebugStringSimple);
+				NeedsRemoved = true;
+				return false;
+			}
+
+			ACD CommonData = ref_DiaObject.CommonData;
+			if (CommonData == null || !CommonData.IsValid || CommonData.ACDGuid == -1)
+			{
+				Logger.Write(LogLevel.Cache, "Common Data Null for {0}", DebugStringSimple);
+				NeedsRemoved = true;
 				return false;
 			}
 
@@ -1449,11 +1452,14 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			//update HPs
 			UpdateHitPoints();
 
-			if (CurrentHealthPct.HasValue && CurrentHealthPct.Value <= 0d)
+			if (CurrentHealthPct.HasValue)
 			{
-				//Logger.Write(LogLevel.Cache, "Unit Is Dead {0}", DebugStringSimple);
-				NeedsRemoved = true;
-				return false;
+				if (CurrentHealthPct.Value <= 0d)
+				{
+					//Logger.Write(LogLevel.Cache, "Unit Is Dead {0}", DebugStringSimple);
+					NeedsRemoved = true;
+					return false;
+				}
 			}
 
 

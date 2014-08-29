@@ -73,6 +73,10 @@ namespace fBaseXtensions.Cache.Internal
 		{
 			return (property & flag) != 0;
 		}
+		internal static bool CheckFlag(GizmoTargetTypes property, GizmoTargetTypes flag)
+		{
+			return (property & flag) != 0;
+		}
 		//
 
 		///<summary>

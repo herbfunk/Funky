@@ -88,9 +88,11 @@
 			this.txtbox_Raycast_X = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.txtbox_Raycast_Y = new System.Windows.Forms.TextBox();
-			this.flowLayout_OutPut = new System.Windows.Forms.FlowLayoutPanel();
 			this.tabPage18 = new System.Windows.Forms.TabPage();
 			this.button1 = new System.Windows.Forms.Button();
+			this.flowLayout_OutPut = new System.Windows.Forms.FlowLayoutPanel();
+			this.textBox_UI_Hash = new System.Windows.Forms.TextBox();
+			this.btn_UI_Click = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPageObjects.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -513,6 +515,8 @@
 			// 
 			// tabPage8
 			// 
+			this.tabPage8.Controls.Add(this.btn_UI_Click);
+			this.tabPage8.Controls.Add(this.textBox_UI_Hash);
 			this.tabPage8.Controls.Add(this.panel4);
 			this.tabPage8.Location = new System.Drawing.Point(4, 22);
 			this.tabPage8.Name = "tabPage8";
@@ -755,19 +759,6 @@
 			this.txtbox_Raycast_Y.Tag = "from";
 			this.txtbox_Raycast_Y.TextChanged += new System.EventHandler(this.txtbox_Raycast_X_TextChanged);
 			// 
-			// flowLayout_OutPut
-			// 
-			this.flowLayout_OutPut.AutoScroll = true;
-			this.flowLayout_OutPut.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.flowLayout_OutPut.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.flowLayout_OutPut.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-			this.flowLayout_OutPut.Location = new System.Drawing.Point(0, 134);
-			this.flowLayout_OutPut.Name = "flowLayout_OutPut";
-			this.flowLayout_OutPut.Size = new System.Drawing.Size(758, 459);
-			this.flowLayout_OutPut.TabIndex = 1;
-			this.flowLayout_OutPut.WrapContents = false;
-			this.flowLayout_OutPut.MouseEnter += new System.EventHandler(this.flowLayout_OutPut_MouseEnter);
-			// 
 			// tabPage18
 			// 
 			this.tabPage18.Controls.Add(this.button1);
@@ -788,6 +779,36 @@
 			this.button1.Text = "button1";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
+			// 
+			// flowLayout_OutPut
+			// 
+			this.flowLayout_OutPut.AutoScroll = true;
+			this.flowLayout_OutPut.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.flowLayout_OutPut.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.flowLayout_OutPut.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.flowLayout_OutPut.Location = new System.Drawing.Point(0, 134);
+			this.flowLayout_OutPut.Name = "flowLayout_OutPut";
+			this.flowLayout_OutPut.Size = new System.Drawing.Size(758, 459);
+			this.flowLayout_OutPut.TabIndex = 1;
+			this.flowLayout_OutPut.WrapContents = false;
+			this.flowLayout_OutPut.MouseEnter += new System.EventHandler(this.flowLayout_OutPut_MouseEnter);
+			// 
+			// textBox_UI_Hash
+			// 
+			this.textBox_UI_Hash.Location = new System.Drawing.Point(6, 73);
+			this.textBox_UI_Hash.Name = "textBox_UI_Hash";
+			this.textBox_UI_Hash.Size = new System.Drawing.Size(200, 20);
+			this.textBox_UI_Hash.TabIndex = 1;
+			// 
+			// btn_UI_Click
+			// 
+			this.btn_UI_Click.Location = new System.Drawing.Point(212, 71);
+			this.btn_UI_Click.Name = "btn_UI_Click";
+			this.btn_UI_Click.Size = new System.Drawing.Size(75, 23);
+			this.btn_UI_Click.TabIndex = 2;
+			this.btn_UI_Click.Text = "button2";
+			this.btn_UI_Click.UseVisualStyleBackColor = true;
+			this.btn_UI_Click.Click += new System.EventHandler(this.button2_Click);
 			// 
 			// FormDebug
 			// 
@@ -827,6 +848,7 @@
 			this.tabPage15.ResumeLayout(false);
 			this.tabPage16.ResumeLayout(false);
 			this.tabPage8.ResumeLayout(false);
+			this.tabPage8.PerformLayout();
 			this.panel4.ResumeLayout(false);
 			this.tabPage17.ResumeLayout(false);
 			this.groupBox3.ResumeLayout(false);
@@ -907,5 +929,7 @@
 		private System.Windows.Forms.TextBox txtbox_RaycastTo_Y;
 		private System.Windows.Forms.TabPage tabPage18;
 		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button btn_UI_Click;
+		private System.Windows.Forms.TextBox textBox_UI_Hash;
 	}
 }

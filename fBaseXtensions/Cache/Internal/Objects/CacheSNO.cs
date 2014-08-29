@@ -517,64 +517,64 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		public bool IsObstacle { get { if (IsFinalized) return _IsObstacle; return CacheIDLookup.hashSNONavigationObstacles.Contains(SNOID); } }
 
 		private bool _IsHealthWell;
-		public bool IsHealthWell { get { if (IsFinalized) return _IsHealthWell; return SNOID == 138989; } }
+		public bool IsHealthWell { get { if (IsFinalized) return _IsHealthWell; return GizmoTargetTypes.HasValue && ObjectCache.CheckFlag(GizmoTargetTypes.Value, Enums.GizmoTargetTypes.Healthwell); } }
 
 		private bool _IsTreasureGoblin;
-		public bool IsTreasureGoblin { get { if (IsFinalized) return _IsTreasureGoblin; return TheCache.ObjectIDCache.Units.GoblinUnits.Contains(SNOID); } }
+		public bool IsTreasureGoblin { get { if (IsFinalized) return _IsTreasureGoblin; return UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.TreasureGoblin); } }
 
 		private bool _IsBoss;
-		public bool IsBoss { get { if (IsFinalized) return _IsBoss; return TheCache.ObjectIDCache.Units.BossUnits.Contains(SNOID); } }
+		public bool IsBoss { get { if (IsFinalized) return _IsBoss; return UnitPropertyFlags.HasValue && (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Boss) || ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.AdventureModeBoss)); } }
 
 		private bool _IsWormBoss;
-		public bool IsWormBoss { get { if (IsFinalized) return _IsWormBoss; return (SNOID == 218947 || SNOID == 144400); } }
+		public bool IsWormBoss { get { if (IsFinalized) return _IsWormBoss; return UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Boss|UnitFlags.Worm); } }
 
 		private bool _IsResplendantChest;
-		public bool IsResplendantChest { get { if (IsFinalized) return _IsResplendantChest; return CacheIDLookup.hashSNORareChests.Contains(SNOID); } }
+		public bool IsResplendantChest { get { if (IsFinalized) return _IsResplendantChest; return GizmoTargetTypes.HasValue && ObjectCache.CheckFlag(GizmoTargetTypes.Value, Enums.GizmoTargetTypes.Resplendant); } }
 
 		private bool _IsAvoidance;
-		public bool IsAvoidance { get { if (IsFinalized) return _IsAvoidance; return TheCache.ObjectIDCache.AvoidanceEntries.ContainsKey(SNOID); } }
+		public bool IsAvoidance { get { if (IsFinalized) return _IsAvoidance; return snoentry != null && snoentry.EntryType == EntryType.Avoidance; } }
 
 		private bool _IsSummonedPet;
 		public bool IsSummonedPet { get { if (IsFinalized) return _IsSummonedPet; return TheCache.ObjectIDCache.UnitPetEntries.ContainsKey(SNOID); } }
 
 		private bool _IsRespawnable;
-		public bool IsRespawnable { get { if (IsFinalized) return _IsRespawnable; return TheCache.ObjectIDCache.Units.RevivableUnits.Contains(SNOID); } }
+		public bool IsRespawnable { get { if (IsFinalized) return _IsRespawnable; return UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Revivable); } }
 
 		private bool _IsProjectileAvoidance;
-		public bool IsProjectileAvoidance { get { if (IsFinalized) return _IsProjectileAvoidance; return AvoidanceCache.IsAvoidanceTypeProjectile(SNOID); } }
+		public bool IsProjectileAvoidance { get { if (IsFinalized) return _IsProjectileAvoidance; return IsAvoidance && AvoidanceCache.IsAvoidanceTypeProjectile(SNOID); } }
 		
 		private bool _IsCorpseContainer;
-		public bool IsCorpseContainer { get { if (IsFinalized) return _IsCorpseContainer; return (internalNameLower.Contains("loottype") || internalNameLower.Contains("corpse")); } }
+		public bool IsCorpseContainer { get { if (IsFinalized) return _IsCorpseContainer; return GizmoTargetTypes.HasValue && ObjectCache.CheckFlag(GizmoTargetTypes.Value, Enums.GizmoTargetTypes.Corpse); } }
 
 		private bool _IsChestContainer;
-		public bool IsChestContainer { get { if (IsFinalized) return _IsChestContainer; return (internalNameLower.Contains("chest")); } }
+		public bool IsChestContainer { get { if (IsFinalized) return _IsChestContainer; return GizmoTargetTypes.HasValue && ObjectCache.CheckFlag(GizmoTargetTypes.Value, Enums.GizmoTargetTypes.Chest); } }
 
 		private bool _IsMissileReflecting;
-		public bool IsMissileReflecting { get { if (IsFinalized) return _IsMissileReflecting; return TheCache.ObjectIDCache.Units.ReflectiveMissleUnits.Contains(SNOID); } }
+		public bool IsMissileReflecting { get { if (IsFinalized) return _IsMissileReflecting; return UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.ReflectiveMissle); } }
 
 		private bool _IsStealthableUnit;
-		public bool IsStealthableUnit { get { if (IsFinalized) return _IsStealthableUnit; return TheCache.ObjectIDCache.Units.StealthUnits.Contains(SNOID); } }
+		public bool IsStealthableUnit { get { if (IsFinalized) return _IsStealthableUnit; return UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Stealthable); } }
 
 		private bool _IsBurrowableUnit;
-		public bool IsBurrowableUnit { get { if (IsFinalized) return _IsBurrowableUnit; return TheCache.ObjectIDCache.Units.BurrowableUnits.Contains(SNOID); } }
+		public bool IsBurrowableUnit { get { if (IsFinalized) return _IsBurrowableUnit; return UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Burrowing); } }
 
 		private bool _IsSucideBomber;
-		public bool IsSucideBomber { get { if (IsFinalized) return _IsSucideBomber; return TheCache.ObjectIDCache.Units.SucideBomberUnits.Contains(SNOID); } }
+		public bool IsSucideBomber { get { if (IsFinalized) return _IsSucideBomber; return UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.SucideBomber); } }
 
 		private bool _IsGrotesqueActor;
-		public bool IsGrotesqueActor { get { if (IsFinalized) return _IsGrotesqueActor; return TheCache.ObjectIDCache.Units.GrotesqueUnits.Contains(SNOID); } }
+		public bool IsGrotesqueActor { get { if (IsFinalized) return _IsGrotesqueActor; return UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Grotesque); } }
 
 		private bool _IsCorruptantGrowth;
 		public bool IsCorruptantGrowth { get { if (IsFinalized) return _IsCorruptantGrowth; return SNOID == 210120 || SNOID == 210268; } }
 
 		private bool _IsSpawnerUnit;
-		public bool IsSpawnerUnit { get { if (IsFinalized) return _IsSpawnerUnit; return TheCache.ObjectIDCache.Units.SpawnerUnits.Contains(SNOID); } }
+		public bool IsSpawnerUnit { get { if (IsFinalized) return _IsSpawnerUnit; return UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Summoner); } }
 
 		private bool _IsTransformUnit;
-		public bool IsTransformUnit { get { if (IsFinalized) return _IsTransformUnit; return CacheIDLookup.hashActorSNOTransforms.Contains(SNOID); } }
+		public bool IsTransformUnit { get { if (IsFinalized) return _IsTransformUnit; return UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Transportable); } }
 
 		private bool _IsFlyingHoverUnit;
-		public bool IsFlyingHoverUnit { get { if (IsFinalized) return _IsFlyingHoverUnit; return CacheIDLookup.hashActorSNOFlying.Contains(SNOID); } }
+		public bool IsFlyingHoverUnit { get { if (IsFinalized) return _IsFlyingHoverUnit; return UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Flying); } }
 
 		private bool _IsDemonicForge;
 		public bool IsDemonicForge { get { if (IsFinalized) return _IsDemonicForge; return SNOID == 174900 || SNOID == 185391; } }
@@ -586,44 +586,44 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		public bool IsCursedShrine { get { if (IsFinalized) return _IsCursedShrine; return SNOID == 364601 || SNOID == 368169; } }
 
 		private bool _IsAvoidanceSpawnerUnit;
-		public bool IsAvoidanceSpawnerUnit { get { if (IsFinalized) return _IsAvoidanceSpawnerUnit; return CacheIDLookup.hashUnitAvoidanceSpawner.Contains(SNOID); } }
+		public bool IsAvoidanceSpawnerUnit { get { if (IsFinalized) return _IsAvoidanceSpawnerUnit; return UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.AvoidanceSummoner); } }
 
 		private bool _IsMalletLordUnit;
-		public bool IsMalletLordUnit { get { if (IsFinalized) return _IsMalletLordUnit; return CacheIDLookup.hashUnitMalletLord.Contains(SNOID); } }
-
-		private bool _IsSlimeGeyser;
-		public bool IsSlimeGeyser { get { if (IsFinalized) return _IsSlimeGeyser; return SNOID == 218228; } }
+		public bool IsMalletLordUnit { get { if (IsFinalized) return _IsMalletLordUnit; return UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.MalletLord); } }
 
 
 		private void UpdateLookUpFinalValues()
 		{
+			_IsHealthWell = GizmoTargetTypes.HasValue && ObjectCache.CheckFlag(GizmoTargetTypes.Value, Enums.GizmoTargetTypes.Healthwell);
+			_IsResplendantChest = GizmoTargetTypes.HasValue && ObjectCache.CheckFlag(GizmoTargetTypes.Value, Enums.GizmoTargetTypes.Resplendant);
+			_IsCorpseContainer = GizmoTargetTypes.HasValue && ObjectCache.CheckFlag(GizmoTargetTypes.Value, Enums.GizmoTargetTypes.Corpse);
+			_IsChestContainer = GizmoTargetTypes.HasValue && ObjectCache.CheckFlag(GizmoTargetTypes.Value, Enums.GizmoTargetTypes.Chest);
+
 			_IsObstacle = CacheIDLookup.hashSNONavigationObstacles.Contains(SNOID);
-			_IsHealthWell = SNOID == 138989;
-			_IsTreasureGoblin = TheCache.ObjectIDCache.Units.GoblinUnits.Contains(SNOID);
-			_IsBoss = TheCache.ObjectIDCache.Units.BossUnits.Contains(SNOID);
-			_IsWormBoss = (SNOID == 218947 || SNOID == 144400);
-			_IsResplendantChest = CacheIDLookup.hashSNORareChests.Contains(SNOID);
-			_IsAvoidance = TheCache.ObjectIDCache.AvoidanceEntries.ContainsKey(SNOID);
+			
+			_IsTreasureGoblin = UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.TreasureGoblin);
+			_IsBoss = UnitPropertyFlags.HasValue && (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Boss) || ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.AdventureModeBoss));
+			_IsWormBoss = UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Boss | UnitFlags.Worm);
+
+			_IsAvoidance = snoentry != null && snoentry.EntryType == EntryType.Avoidance;
 			_IsSummonedPet = TheCache.ObjectIDCache.UnitPetEntries.ContainsKey(SNOID);
-			_IsRespawnable = TheCache.ObjectIDCache.Units.RevivableUnits.Contains(SNOID);
-			_IsProjectileAvoidance = AvoidanceCache.IsAvoidanceTypeProjectile(SNOID);
-			_IsCorpseContainer = (internalNameLower.Contains("loottype") || internalNameLower.Contains("corpse"));
-			_IsChestContainer = (internalNameLower.Contains("chest"));
-			_IsMissileReflecting = TheCache.ObjectIDCache.Units.ReflectiveMissleUnits.Contains(SNOID);
-			_IsStealthableUnit = TheCache.ObjectIDCache.Units.StealthUnits.Contains(SNOID);
-			_IsBurrowableUnit = TheCache.ObjectIDCache.Units.BurrowableUnits.Contains(SNOID);
-			_IsSucideBomber = TheCache.ObjectIDCache.Units.SucideBomberUnits.Contains(SNOID);
-			_IsGrotesqueActor = TheCache.ObjectIDCache.Units.GrotesqueUnits.Contains(SNOID);
+			_IsRespawnable = UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Revivable);
+			_IsProjectileAvoidance = _IsAvoidance && AvoidanceCache.IsAvoidanceTypeProjectile(SNOID);
+			
+			_IsMissileReflecting = UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.ReflectiveMissle);
+			_IsStealthableUnit = UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Stealthable);
+			_IsBurrowableUnit = UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Burrowing);
+			_IsSucideBomber = UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.SucideBomber);
+			_IsGrotesqueActor = UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Grotesque);
 			_IsCorruptantGrowth = SNOID == 210120 || SNOID == 210268;
-			_IsSpawnerUnit = TheCache.ObjectIDCache.Units.SpawnerUnits.Contains(SNOID);
-			_IsTransformUnit = CacheIDLookup.hashActorSNOTransforms.Contains(SNOID);
-			_IsFlyingHoverUnit = CacheIDLookup.hashActorSNOFlying.Contains(SNOID);
+			_IsSpawnerUnit = UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Summoner);
+			_IsTransformUnit = UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Transportable);
+			_IsFlyingHoverUnit = UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Flying);
 			_IsDemonicForge = SNOID == 174900 || SNOID == 185391;
 			_IsCursedChest = SNOID == 365097 || SNOID == 364559;
 			_IsCursedShrine = SNOID == 364601;
-			_IsAvoidanceSpawnerUnit = CacheIDLookup.hashUnitAvoidanceSpawner.Contains(SNOID);
-			_IsMalletLordUnit = CacheIDLookup.hashUnitMalletLord.Contains(SNOID);
-			_IsSlimeGeyser = SNOID == 218228;
+			_IsAvoidanceSpawnerUnit = UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.AvoidanceSummoner);
+			_IsMalletLordUnit = UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.MalletLord);
 		}
 
 		#endregion
@@ -812,23 +812,15 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					else
 					{
 						// Calculate the object type of this object
-						if (Actortype.Value == ActorType.Monster ||
-							 CacheIDLookup.hashActorSNOForceTargetUnit.Contains(SNOID))
+						if (Actortype.Value == ActorType.Monster)
 						{
 							targetType = TargetType.Unit;
 
 							//No Monster Collision? (Illusionary Boots)
 							if (!Equipment.NoMonsterCollision)
 								Obstacletype = ObstacleType.Monster;
-
-							if (CacheIDLookup.hashActorSNOForceTargetUnit.Contains(SNOID))
-							{
-								//Fill in monster data?
-								Actortype = ActorType.Monster;
-							}
 						}
-						else if (Actortype.Value == ActorType.Item ||
-							 CacheIDLookup.hashForceSNOToItemList.Contains(SNOID))
+						else if (Actortype.Value == ActorType.Item)
 						{
 							if (!ItemDropType.HasValue)
 							{

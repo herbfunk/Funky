@@ -1,4 +1,11 @@
-﻿v1.0.0.0
+﻿v1.0.1.0
+	IsValid Method on CacheObject now checks if CommonData is valid too.
+	Added new Fetish pet SNOs.
+	Added Ramaladnis Gift, Legendary Gems, and Greater Rift Keys to Cache and Item Func Methods.
+	Witch Doctor Big Bad Voodoo now checks if the buff is already present.
+
+
+v1.0.0.0
 	Added HookHandler Class
 		-Retrieve/Store/Restore methods for Treehooks.
 
@@ -19,15 +26,29 @@
 
 
 XML Tags
-	Added FunkyWhileActorPresent Tag. This replaces the ActorExistsAt for validating an object is or is not present.
+	Added FunkyWhileActorPresent Tag. 
+	This replaces the ActorExistsAt for validating an object is or is not present.
+
 	EXAMPLE
 		<FunkyWhileActorPresent sno="256040" present="False">
-			..Do Stuff While Object is Not Present..
+			..Do Stuff While Object IS NOT Present..
+		</FunkyWhileActorPresent>
+	EXAMPLE
+		<FunkyWhileActorPresent sno="256040" present="True">
+			..Do Stuff While Object IS Present..
 		</FunkyWhileActorPresent>
 
 	FunkyClustering Tag now has optional element for SNO ids for clustering exceptions.
+	These settings are only temporary and reset to default when profile changes.
+
 	EXAMPLE (enables clustering of size 10, within 100 yards of bot, with minimum unit count of 10 -- except for the ClusterException SNOs)
 		<FunkyClustering enabled="True" radius="10" range="100" units="10">
+			<ExceptionList>
+				<ClusterException sno="256022" />
+			</ExceptionList>
+		</FunkyClustering>
+	EXAMPLE (uses exisiting cluster settings but adds an SNO to the exceptions)
+		<FunkyClustering>
 			<ExceptionList>
 				<ClusterException sno="256022" />
 			</ExceptionList>
