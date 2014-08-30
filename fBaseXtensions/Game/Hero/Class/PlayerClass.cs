@@ -63,6 +63,7 @@ namespace fBaseXtensions.Game.Hero.Class
 		// This is used so we don't use certain skills until we "top up" our primary resource by enough
 		internal double iWaitingReservedAmount = 0d;
 		internal bool bWaitingForSpecial = false;
+		internal bool UsesDOTDPSAbility = false;
 
 		///<summary>
 		///Create Ability (Derieved classes override this!)
@@ -185,6 +186,14 @@ namespace fBaseXtensions.Game.Hero.Class
 					Logger.DBLog.Warn("**** Warning ****");
 				}
 			}
+
+			//
+			if (AC == ActorClass.Monk && Hotbar.HasPower(SNOPower.Monk_ExplodingPalm))
+				UsesDOTDPSAbility = true;
+			if (AC == ActorClass.Witchdoctor && (Hotbar.HasPower(SNOPower.Witchdoctor_Haunt) || Hotbar.HasPower(SNOPower.Witchdoctor_Locust_Swarm)))
+				UsesDOTDPSAbility = true;
+			if (AC == ActorClass.Barbarian && Hotbar.HasPower(SNOPower.Barbarian_Rend))
+				UsesDOTDPSAbility = true;
 		}
 
 

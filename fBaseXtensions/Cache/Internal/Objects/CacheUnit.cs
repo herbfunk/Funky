@@ -4,11 +4,9 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using fBaseXtensions.Cache.External.Enums;
-using fBaseXtensions.Cache.External.Objects;
 using fBaseXtensions.Cache.Internal.Blacklist;
 using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Game;
-using fBaseXtensions.Game.Bounty;
 using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Navigation.Gridpoint;
 using fBaseXtensions.Settings;
@@ -1246,7 +1244,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 
 				//Special Bounty Check for Events only!
-				if (SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode && FunkyGame.AdventureMode && FunkyGame.Bounty.CurrentBountyCacheEntry != null && FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.Event)
+				if (SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode && FunkyGame.AdventureMode && FunkyGame.Bounty.CurrentBountyCacheEntry != null && FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyTypes.Event)
 				{
 					if (!IsQuestGiver)
 					{
@@ -1584,7 +1582,6 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				{
 					if (CentreDistance < 30f)
 					{
-						FunkyGame.Targeting.Cache.Environment.UsesDOTDPSAbility = true;
 						try
 						{
 							int dotDPS = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.DOTDPS);
@@ -1607,7 +1604,6 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				//Haunted DotDPS update
 				if (Hotbar.HasPower(SNOPower.Witchdoctor_Haunt) || Hotbar.HasPower(SNOPower.Witchdoctor_Locust_Swarm))
 				{
-					FunkyGame.Targeting.Cache.Environment.UsesDOTDPSAbility = true;
 					try
 					{
 						//Haunted units always have buff visual effect!
@@ -1678,7 +1674,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			}
 
 			//Update Quest Monster?
-			if (FunkyGame.Targeting.Cache.UpdateQuestMonsterProperty || FunkyGame.Game.QuestMode)
+			if (FunkyGame.Game.QuestMode)
 			{
 				try
 				{

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using fBaseXtensions.Game.Hero.Skills;
 using fBaseXtensions.Game.Hero.Skills.SkillObjects;
 using fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor;
 using fBaseXtensions.Helpers;
-using fBaseXtensions.Items.Enums;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 

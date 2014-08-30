@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using fBaseXtensions.Cache;
+using fBaseXtensions.Cache.External.Objects;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals;
 using Logger = fBaseXtensions.Helpers.Logger;
 using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
-namespace fBaseXtensions.Game.Bounty
+namespace fBaseXtensions.Game
 {
 	public class BountyCache
 	{
@@ -38,11 +39,12 @@ namespace fBaseXtensions.Game.Bounty
 		/// <summary>
 		/// Bounty Cache Loaded from File
 		/// </summary>
-		public BountyQuestActCache CurrentActCache = new BountyQuestActCache();
+		//public BountyQuestActCache CurrentActCache = new BountyQuestActCache();
+
 		/// <summary>
 		/// Cache Entry that contains info about the bounty.
 		/// </summary>
-		public BountyQuestCacheEntry CurrentBountyCacheEntry = null;
+		public BountyDataCollection.BountyQuestCacheEntry CurrentBountyCacheEntry = null;
 
 		private int lastCheckedQuestSNO = -1;
 		private Act CurrentAct = Act.Invalid;
@@ -237,11 +239,11 @@ namespace fBaseXtensions.Game.Bounty
 			if (ActiveBounty != null)
 			{
 				//Load Act Bounty Cache
-				if (!ZetaDia.IsInTown && ActiveBounty.Act != CurrentAct)
-				{
-					CurrentAct = ActiveBounty.Act;
-					LoadBountyCache(CurrentAct);
-				}
+				//if (!ZetaDia.IsInTown && ActiveBounty.Act != CurrentAct)
+				//{
+				//	CurrentAct = ActiveBounty.Act;
+				//	LoadBountyCache(CurrentAct);
+				//}
 
 
 				if (CurrentBountyCacheEntry == null)
@@ -251,8 +253,30 @@ namespace fBaseXtensions.Game.Bounty
 					{//Only attempt search once for the SNO..
 
 						lastCheckedQuestSNO = ActiveBounty.QuestSNO;
-						var allCacheBounties = CurrentActCache.AllBounties;
-						foreach (var b in allCacheBounties.Where(c => c.QuestSNOs != null && c.QuestSNOs.Any(i => i == ActiveBounty.QuestSNO)))
+						//var allCacheBounties = CurrentActCache.AllBounties;
+
+						BountyDataCollection.BountyActCollection bountyActCache=null;
+						switch (CurrentAct)
+						{
+							case Act.A1:
+								bountyActCache = TheCache.ObjectIDCache.BountyEntries.ActOne;
+								break;
+							case Act.A2:
+								bountyActCache = TheCache.ObjectIDCache.BountyEntries.ActTwo;
+								break;
+							case Act.A3:
+								bountyActCache = TheCache.ObjectIDCache.BountyEntries.ActThree;
+								break;
+							case Act.A4:
+								bountyActCache = TheCache.ObjectIDCache.BountyEntries.ActFour;
+								break;
+							case Act.A5:
+								bountyActCache = TheCache.ObjectIDCache.BountyEntries.ActFive;
+								break;
+						}
+						if (bountyActCache == null) return;
+
+						foreach (var b in bountyActCache.AllBounties.Where(c => c.QuestSNOs != null && c.QuestSNOs.Any(i => i == ActiveBounty.QuestSNO)))
 						{
 							CurrentBountyCacheEntry = b;
 							break;
@@ -284,27 +308,27 @@ namespace fBaseXtensions.Game.Bounty
 		}
 
 		//Loads the cache from file
-		private void LoadBountyCache(Act act)
-		{
-			switch (act)
-			{
-				case Act.A1:
-					CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act1.xml");
-					break;
-				case Act.A2:
-					CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act2.xml");
-					break;
-				case Act.A3:
-					CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act3.xml");
-					break;
-				case Act.A4:
-					CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act4.xml");
-					break;
-				case Act.A5:
-					CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act5.xml");
-					break;
-			}
-		}
+		//private void LoadBountyCache(Act act)
+		//{
+		//	switch (act)
+		//	{
+		//		case Act.A1:
+		//			CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act1.xml");
+		//			break;
+		//		case Act.A2:
+		//			CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act2.xml");
+		//			break;
+		//		case Act.A3:
+		//			CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act3.xml");
+		//			break;
+		//		case Act.A4:
+		//			CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act4.xml");
+		//			break;
+		//		case Act.A5:
+		//			CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act5.xml");
+		//			break;
+		//	}
+		//}
 
 		
 
@@ -440,7 +464,7 @@ namespace fBaseXtensions.Game.Bounty
 			string sBountyMapMarkers = CurrentBountyMapMarkers.Values.Aggregate("MapMarkers: ", (current, sBountyMapMarker) => current + ("ID: " + sBountyMapMarker.ID + " WorldID: " + sBountyMapMarker.WorldID + " Position: " + sBountyMapMarker.Position + " Distance: " + FunkyGame.Hero.Position.Distance(sBountyMapMarker.Position) + "\r\n"));
 			string sActiveBounty = ActiveBounty != null ? ActiveBounty.ToString() : "NONE!";
 
-			string sBountyActCache = String.Format("Kills: {0} Clear: {1} CursedEvent: {2}", CurrentActCache.KillBounties.Count, CurrentActCache.ClearBounties.Count, CurrentActCache.CursedEventBounties.Count);
+			//string sBountyActCache = String.Format("Kills: {0} Clear: {1} CursedEvent: {2}", CurrentActCache.KillBounties.Count, CurrentActCache.ClearBounties.Count, CurrentActCache.CursedEventBounties.Count);
 
 			string sBountyCurrentCacheEntry = CurrentBountyCacheEntry == null ? "Null" :
 								String.Format("Name {0} Type {1} StartingLevelID {2} EndingLevelID {3}",
@@ -452,8 +476,8 @@ namespace fBaseXtensions.Game.Bounty
 											(String.Format("ID: {4} Step: {0} questMeter: {1} killCount: {2} bonusCount: {3}\r\n",
 															q.Value.Step, q.Value.QuestMeter, q.Value.KillCount, q.Value.BonusCount, q.Key)));
 
-			return String.Format("{0}\r\n{1}\r\n{2}\r\n{3}\r\nBountyActCache: {4}\r\nBountyCacheEntry: {5}\r\n{6}",
-				sActiveBounty, sBountyIDs, sBountyStates, sBountyMapMarkers, sBountyActCache, sBountyCurrentCacheEntry, sActiveQuests);
+			return String.Format("{0}\r\n{1}\r\n{2}\r\n{3}\r\nBountyCacheEntry: {4}\r\n{5}",
+				sActiveBounty, sBountyIDs, sBountyStates, sBountyMapMarkers, sBountyCurrentCacheEntry, sActiveQuests);
 		}
 
 

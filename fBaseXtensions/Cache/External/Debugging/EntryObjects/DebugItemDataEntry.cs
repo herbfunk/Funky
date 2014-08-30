@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using fBaseXtensions.Items;
 using fBaseXtensions.Items.Enums;
-using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Cache.External.Debugging.EntryObjects
 {

@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using fBaseXtensions.Behaviors;
 using fBaseXtensions.Game;
 using fBaseXtensions.Helpers;
 using fBaseXtensions.Items;
 using fBaseXtensions.Items.Enums;
-using fBaseXtensions.Settings;
 using Zeta.Bot;
 using Zeta.Bot.Profile;
 using Zeta.Bot.Settings;
@@ -538,8 +534,10 @@ namespace fBaseXtensions.XML
 				StashPage = 1;
 			else if (iPointY < 30)
 				StashPage = 2;
-			else
+			else if (iPointY < 40)
 				StashPage = 3;
+			else
+				StashPage = 4;
 
 			return true;
 		} // Custom stashing routine

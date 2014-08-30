@@ -4,7 +4,6 @@ using System.Xml.Serialization;
 using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Helpers;
-using Zeta.Game.Internals.SNO;
 
 namespace fBaseXtensions.Cache.External.Objects
 {
@@ -334,7 +333,12 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(289795, PluginGizmoType.Chest, "X1_PandExt_Corpse-94007", GizmoTargetTypes.Corpse),
 				new GizmoEntry(385937, PluginGizmoType.Chest, "x1_Fortress_Corpse_DeadEndReward-109792", GizmoTargetTypes.Corpse),
 				new GizmoEntry(352429, PluginGizmoType.Chest, "x1_Pand_demonFlyer_B_clickable_corpse_01-93948", GizmoTargetTypes.Corpse),
-
+				new GizmoEntry(188390, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_G_Corpse_03-6509", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188365, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_C_Corpse_03-849", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188358, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_B_Corpse_02-10805", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188359, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_B_Corpse_03-36505", GizmoTargetTypes.Corpse),
+				new GizmoEntry(385819, PluginGizmoType.Chest, "LootType3_DeadEndCorpse_TristramGuard_Corpse_01-13295", GizmoTargetTypes.Corpse),
+				new GizmoEntry(193013, PluginGizmoType.Chest, "LootType3_GraveGuard_A_Corpse_05-26450", GizmoTargetTypes.Corpse),
 				#endregion
 
 				//============== Weapon Rack ==============//

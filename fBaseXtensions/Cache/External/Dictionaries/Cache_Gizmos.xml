@@ -2290,6 +2290,54 @@
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
+      <SnoId>188390</SnoId>
+      <InternalName>LootType2_caldeumTortured_Male_G_Corpse_03-6509</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188365</SnoId>
+      <InternalName>LootType2_caldeumTortured_Male_C_Corpse_03-849</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188358</SnoId>
+      <InternalName>LootType2_caldeumTortured_Male_B_Corpse_02-10805</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188359</SnoId>
+      <InternalName>LootType2_caldeumTortured_Male_B_Corpse_03-36505</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>385819</SnoId>
+      <InternalName>LootType3_DeadEndCorpse_TristramGuard_Corpse_01-13295</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>193013</SnoId>
+      <InternalName>LootType3_GraveGuard_A_Corpse_05-26450</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>464</SnoId>
       <InternalName>trDun_WeaponRack-791</InternalName>
       <ActorType>Gizmo</ActorType>

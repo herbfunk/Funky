@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
 using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.External.Objects;
 using fBaseXtensions.Cache.Internal.Avoidance;
@@ -749,6 +748,10 @@ namespace fBaseXtensions.Cache.Internal.Objects
 						CacheUnitEntry unitEntry = (CacheUnitEntry)snoentry;
 						UnitPropertyFlags = (UnitFlags)unitEntry.ObjectType;
 					}
+					else if(snoentry.EntryType == EntryType.Pet)
+					{
+						targetType = TargetType.None;
+					}
 				}
 				else
 				{
@@ -1116,6 +1119,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					}
 					#endregion
 				}
+
 
 				#region GizmoProperties
 				if (ObjectCache.CheckFlag(targetType.Value, TargetType.Destructible | TargetType.Interactable))

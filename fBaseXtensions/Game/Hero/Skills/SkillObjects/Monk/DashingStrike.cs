@@ -1,5 +1,4 @@
-﻿using fBaseXtensions.Game;
-using fBaseXtensions.Game.Hero.Skills.Conditions;
+﻿using fBaseXtensions.Game.Hero.Skills.Conditions;
 using fBaseXtensions.Items.Enums;
 using fBaseXtensions.Navigation.Clustering;
 using Zeta.Common;

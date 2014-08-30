@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace fBaseXtensions.Cache.External.Enums
+﻿namespace fBaseXtensions.Cache.External.Enums
 {
 	public enum PluginMonsterType
 	{

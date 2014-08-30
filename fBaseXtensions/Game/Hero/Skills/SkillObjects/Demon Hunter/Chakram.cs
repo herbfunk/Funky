@@ -1,5 +1,4 @@
-﻿using fBaseXtensions.Game.Hero;
-using fBaseXtensions.Game.Hero.Skills.Conditions;
+﻿using fBaseXtensions.Game.Hero.Skills.Conditions;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter

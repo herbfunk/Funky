@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using fBaseXtensions.Game;
 using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Game.Hero.Skills;

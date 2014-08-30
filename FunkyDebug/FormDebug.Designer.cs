@@ -65,6 +65,8 @@
 			this.tabPage16 = new System.Windows.Forms.TabPage();
 			this.btn_DumpQuests = new System.Windows.Forms.Button();
 			this.tabPage8 = new System.Windows.Forms.TabPage();
+			this.btn_UI_Click = new System.Windows.Forms.Button();
+			this.textBox_UI_Hash = new System.Windows.Forms.TextBox();
 			this.panel4 = new System.Windows.Forms.Panel();
 			this.btn_dumpUIs = new System.Windows.Forms.Button();
 			this.tabPage17 = new System.Windows.Forms.TabPage();
@@ -77,6 +79,7 @@
 			this.label6 = new System.Windows.Forms.Label();
 			this.txtbox_RaycastTo_Y = new System.Windows.Forms.TextBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.btn_navagation = new System.Windows.Forms.Button();
 			this.btn_RayCast = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.radioButton_FromOtherLocation = new System.Windows.Forms.RadioButton();
@@ -91,8 +94,6 @@
 			this.tabPage18 = new System.Windows.Forms.TabPage();
 			this.button1 = new System.Windows.Forms.Button();
 			this.flowLayout_OutPut = new System.Windows.Forms.FlowLayoutPanel();
-			this.textBox_UI_Hash = new System.Windows.Forms.TextBox();
-			this.btn_UI_Click = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPageObjects.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -526,6 +527,23 @@
 			this.tabPage8.Text = "UI";
 			this.tabPage8.UseVisualStyleBackColor = true;
 			// 
+			// btn_UI_Click
+			// 
+			this.btn_UI_Click.Location = new System.Drawing.Point(212, 71);
+			this.btn_UI_Click.Name = "btn_UI_Click";
+			this.btn_UI_Click.Size = new System.Drawing.Size(75, 23);
+			this.btn_UI_Click.TabIndex = 2;
+			this.btn_UI_Click.Text = "button2";
+			this.btn_UI_Click.UseVisualStyleBackColor = true;
+			this.btn_UI_Click.Click += new System.EventHandler(this.button2_Click);
+			// 
+			// textBox_UI_Hash
+			// 
+			this.textBox_UI_Hash.Location = new System.Drawing.Point(6, 73);
+			this.textBox_UI_Hash.Name = "textBox_UI_Hash";
+			this.textBox_UI_Hash.Size = new System.Drawing.Size(200, 20);
+			this.textBox_UI_Hash.TabIndex = 1;
+			// 
 			// panel4
 			// 
 			this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -556,7 +574,7 @@
 			this.tabPage17.Padding = new System.Windows.Forms.Padding(3);
 			this.tabPage17.Size = new System.Drawing.Size(750, 108);
 			this.tabPage17.TabIndex = 4;
-			this.tabPage17.Text = "Raycast";
+			this.tabPage17.Text = "Movement";
 			this.tabPage17.UseVisualStyleBackColor = true;
 			// 
 			// groupBox3
@@ -638,6 +656,7 @@
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.btn_navagation);
 			this.groupBox2.Controls.Add(this.btn_RayCast);
 			this.groupBox2.Location = new System.Drawing.Point(556, 6);
 			this.groupBox2.Name = "groupBox2";
@@ -646,13 +665,23 @@
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "groupBox2";
 			// 
+			// btn_navagation
+			// 
+			this.btn_navagation.Location = new System.Drawing.Point(6, 48);
+			this.btn_navagation.Name = "btn_navagation";
+			this.btn_navagation.Size = new System.Drawing.Size(75, 23);
+			this.btn_navagation.TabIndex = 1;
+			this.btn_navagation.Text = "Navagation";
+			this.btn_navagation.UseVisualStyleBackColor = true;
+			this.btn_navagation.Click += new System.EventHandler(this.btn_navagation_Click);
+			// 
 			// btn_RayCast
 			// 
 			this.btn_RayCast.Location = new System.Drawing.Point(6, 20);
 			this.btn_RayCast.Name = "btn_RayCast";
 			this.btn_RayCast.Size = new System.Drawing.Size(75, 23);
 			this.btn_RayCast.TabIndex = 0;
-			this.btn_RayCast.Text = "Test";
+			this.btn_RayCast.Text = "Raycast";
 			this.btn_RayCast.UseVisualStyleBackColor = true;
 			this.btn_RayCast.Click += new System.EventHandler(this.btn_RayCast_Click);
 			// 
@@ -793,23 +822,6 @@
 			this.flowLayout_OutPut.WrapContents = false;
 			this.flowLayout_OutPut.MouseEnter += new System.EventHandler(this.flowLayout_OutPut_MouseEnter);
 			// 
-			// textBox_UI_Hash
-			// 
-			this.textBox_UI_Hash.Location = new System.Drawing.Point(6, 73);
-			this.textBox_UI_Hash.Name = "textBox_UI_Hash";
-			this.textBox_UI_Hash.Size = new System.Drawing.Size(200, 20);
-			this.textBox_UI_Hash.TabIndex = 1;
-			// 
-			// btn_UI_Click
-			// 
-			this.btn_UI_Click.Location = new System.Drawing.Point(212, 71);
-			this.btn_UI_Click.Name = "btn_UI_Click";
-			this.btn_UI_Click.Size = new System.Drawing.Size(75, 23);
-			this.btn_UI_Click.TabIndex = 2;
-			this.btn_UI_Click.Text = "button2";
-			this.btn_UI_Click.UseVisualStyleBackColor = true;
-			this.btn_UI_Click.Click += new System.EventHandler(this.button2_Click);
-			// 
 			// FormDebug
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -931,5 +943,6 @@
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.Button btn_UI_Click;
 		private System.Windows.Forms.TextBox textBox_UI_Hash;
+		private System.Windows.Forms.Button btn_navagation;
 	}
 }

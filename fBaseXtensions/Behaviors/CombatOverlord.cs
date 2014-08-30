@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using fBaseXtensions.Cache.Internal.Blacklist;
 using fBaseXtensions.Game;
-using fBaseXtensions.Game.Hero.Class;
 using fBaseXtensions.Game.Hero.Skills;
-using FunkyBot.DBHandlers.CharacterMule;
 using Zeta.Bot;
 using Zeta.Common;
-using Zeta.Game;
 using Zeta.Game.Internals.Actors;
-using Zeta.Game.Internals.Actors.Gizmos;
 using Zeta.TreeSharp;
 
 namespace fBaseXtensions.Behaviors

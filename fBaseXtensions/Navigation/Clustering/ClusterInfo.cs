@@ -69,7 +69,7 @@ namespace fBaseXtensions.Navigation.Clustering
 			if (unit.IsFast) FastCounter++;
 			if (unit.IsRanged) RangedCounter++;
 
-			if (FunkyGame.Targeting.Cache.Environment.UsesDOTDPSAbility && unit.HasDOTdps.HasValue && unit.HasDOTdps.Value) DOTDPSCounter++;
+			if (FunkyGame.Hero.Class.UsesDOTDPSAbility && unit.HasDOTdps.HasValue && unit.HasDOTdps.Value) DOTDPSCounter++;
 
 			if (refreshproperties) UpdateProperties();
 		}

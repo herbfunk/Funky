@@ -1,9 +1,9 @@
 ﻿using System;
+using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Cache.Internal.Objects;
 using fBaseXtensions.Game;
-using fBaseXtensions.Game.Bounty;
 using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Navigation;
 using fBaseXtensions.Settings;
@@ -49,7 +49,7 @@ namespace fBaseXtensions.Targeting.Behaviors
 
 					if (DateTime.Now.Subtract(FunkyGame.Targeting.Cache.lastSeenCursedShrine).TotalMilliseconds <= (1000))
 					{
-						if (SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode && FunkyGame.AdventureMode && FunkyGame.Bounty.CurrentBountyCacheEntry != null && FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.CursedEvent)
+						if (SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode && FunkyGame.AdventureMode && FunkyGame.Bounty.CurrentBountyCacheEntry != null && FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyTypes.CursedEvent)
 						{
 							Logger.DBLog.Info("[Funky] Cursed Object Found During Cursed Bounty -- Enabling LOS movement for all Units!");
 							SettingLOSMovement.LOSSettingsTag.MiniumRangeObjects = 10f;
@@ -58,12 +58,9 @@ namespace fBaseXtensions.Targeting.Behaviors
 							SettingCluster.ClusterSettingsTag = SettingCluster.DisabledClustering;
 						}
 
-						FunkyGame.Targeting.Cache.UpdateQuestMonsterProperty = true;
 						obj = new CacheObject(FunkyGame.Hero.Position, TargetType.NoMovement, 20000, "CursedShrineWait", 2f, -1);
 						return true;
 					}
-
-					FunkyGame.Targeting.Cache.UpdateQuestMonsterProperty = false;
 
 					// Finally, a special check for waiting for wrath of the berserker cooldown before engaging Azmodan
 					if (Hotbar.HasPower(SNOPower.Barbarian_WrathOfTheBerserker) && FunkyBaseExtension.Settings.Barbarian.bWaitForWrath && !FunkyGame.Hero.Class.Abilities[SNOPower.Barbarian_WrathOfTheBerserker].AbilityUseTimer() &&

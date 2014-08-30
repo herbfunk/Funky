@@ -1,5 +1,4 @@
 ﻿using System;
-using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Game.Hero.Skills.Conditions;
 using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.Actors;
@@ -51,7 +50,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 
 			PreCast = new SkillPreCast(precastflags);
 
-			PreCast.Criteria += (s) => !Hotbar.HasDebuff(SNOPower.Succubus_BloodStar);
+			//PreCast.Criteria += (s) => !Hotbar.HasDebuff(SNOPower.Succubus_BloodStar);
 
 			FcriteriaCombat = () =>
 			{

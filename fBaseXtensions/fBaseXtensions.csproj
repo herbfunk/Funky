@@ -100,6 +100,9 @@
     <Compile Include="Cache\External\Debugging\EntryObjects\DebugUnitEntry.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Cache\External\Enums\BountyTypes.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Cache\External\Enums\PluginActorType.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -116,6 +119,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Cache\External\Enums\EntryType.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Cache\External\Objects\BountyDataCollection.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Cache\External\Objects\CacheEntry.cs">
@@ -220,6 +226,9 @@
     <Compile Include="Cache\Internal\Objects\CacheObstacle.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Cache\Internal\Objects\CachePet.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Cache\Internal\Objects\CacheSNO.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -232,16 +241,7 @@
     <Compile Include="Cache\Internal\Objects\LOSInfo.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Game\Bounty\Bounty.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Game\Bounty\BountyQuestActCache.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Game\Bounty\BountyQuestCacheEntry.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Game\Bounty\BountyQuestTypes.cs">
+    <Compile Include="Game\Bounty.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Game\GameCache.cs">
@@ -1096,6 +1096,9 @@
     <Compile Include="XML\MoveItemTag.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="XML\FunkyMoveToSnoTag.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="XML\WhileActorExists.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -1118,12 +1121,17 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Game\Bounty\BountyCache\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Behaviors\CharacterMule\NewGame.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Cache\External\Dictionaries\Cache_Avoidance.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cache\External\Dictionaries\Cache_Bounties.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Cache\External\Dictionaries\Cache_Gizmos.xml">
@@ -1139,22 +1147,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="Features.txt" />
-    <Content Include="Game\Bounty\BountyCache\Act1.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Game\Bounty\BountyCache\Act2.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Game\Bounty\BountyCache\Act3.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Game\Bounty\BountyCache\Act4.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Game\Bounty\BountyCache\Act5.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Game\Bounty\BountyCache\Blank.xml" />
     <Content Include="Settings\Defaults\LowLevel.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

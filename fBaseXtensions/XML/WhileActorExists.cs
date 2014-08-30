@@ -26,6 +26,9 @@ namespace fBaseXtensions.XML
 
 		public override bool GetConditionExec()
 		{
+			if (ObjectCache.ShouldUpdateObjectCollection)
+				ObjectCache.UpdateCacheObjectCollection();
+			
 			return !Present ? !ObjectCache.Objects.Values.Any(o => o.SNOID == Sno) : ObjectCache.Objects.Values.Any(o => o.SNOID == Sno);
 			//return !FunkyGame.Hero.bIsInTown;
 		}

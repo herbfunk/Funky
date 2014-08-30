@@ -2,7 +2,7 @@
 using System.Linq;
 using fBaseXtensions.Cache;
 using fBaseXtensions.Cache.Internal;
-using fBaseXtensions.Game.Bounty;
+using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Game.Hero.Class;
 using fBaseXtensions.Monitor;
 using fBaseXtensions.Navigation;
@@ -349,7 +349,7 @@ namespace fBaseXtensions.Game.Hero
 						//Check if We should Modify the Bots Combat Behavior
 						switch (FunkyGame.Bounty.CurrentBountyCacheEntry.Type)
 						{
-							case BountyQuestTypes.Clear:
+							case BountyTypes.Clear:
 								if (CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID)
 								{
 									Logger.Write(Helpers.LogLevel.Bounty, "Bounty Level ID Match (Clear) -- Disabling Cluster Logic!");
@@ -358,7 +358,7 @@ namespace fBaseXtensions.Game.Hero
 								}
 
 								break;
-							case BountyQuestTypes.Kill:
+							case BountyTypes.Kill:
 
 
 								if (CurrentBountyCacheEntry.StartingLevelAreaID == curLevelID || CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID ||
@@ -371,7 +371,7 @@ namespace fBaseXtensions.Game.Hero
 									FunkyGame.Game.ShouldNavigateMinimapPoints = CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID;
 								}
 								break;
-							case BountyQuestTypes.CursedEvent:
+							case BountyTypes.CursedEvent:
 								if (CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID)
 								{
 									Logger.Write(Helpers.LogLevel.Bounty, "Bounty Level ID Match (CursedEvent) -- Enabling Navigation of Points!");
@@ -379,14 +379,14 @@ namespace fBaseXtensions.Game.Hero
 									FunkyGame.Game.QuestMode = true;
 								}
 								break;
-							case BountyQuestTypes.Boss:
+							case BountyTypes.Boss:
 								if (CurrentBountyCacheEntry.StartingLevelAreaID == curLevelID)
 								{
 									Logger.Write(Helpers.LogLevel.Bounty, "Bounty Level ID Match (Boss) -- Enabling Navigation of Points!");
 									FunkyGame.Game.ShouldNavigateMinimapPoints = true;
 								}
 								break;
-							case BountyQuestTypes.Event:
+							case BountyTypes.Event:
 								if (CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID)
 								{
 									Logger.Write(Helpers.LogLevel.Bounty, "Bounty Level ID Match (Event) -- Enabling Navigation of Points!");

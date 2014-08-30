@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Linq;
-using System.Windows.Forms;
 using System.Xml.Serialization;
 using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.Internal.Enums;
-using fBaseXtensions.Items;
 using fBaseXtensions.Items.Enums;
-using fBaseXtensions.Settings;
-using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.SNO;
 
 namespace fBaseXtensions.Cache.External.Objects
@@ -240,7 +235,7 @@ namespace fBaseXtensions.Cache.External.Objects
 
 	public class UnitPetEntry : SnoEntry
 	{
-		public override EntryType EntryType { get { return EntryType.Unit; } }
+		public override EntryType EntryType { get { return EntryType.Pet; } }
 		public override PluginActorType ActorType { get { return PluginActorType.Monster; } }
 
 		[XmlElement(Type = typeof(PluginDroppedItemTypes)),

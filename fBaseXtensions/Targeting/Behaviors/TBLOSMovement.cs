@@ -1,8 +1,8 @@
 ﻿using System.Linq;
+using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Cache.Internal.Objects;
 using fBaseXtensions.Game;
-using fBaseXtensions.Game.Bounty;
 using fBaseXtensions.Helpers;
 using fBaseXtensions.Settings;
 using Zeta.Game.Internals;
@@ -57,7 +57,7 @@ namespace fBaseXtensions.Targeting.Behaviors
 
 
 						if (!FunkyGame.Navigation.LOSmovementObject.IgnoringCacheCheck ||
-								(FunkyGame.Bounty.CurrentBountyCacheEntry == null || FunkyGame.Bounty.CurrentBountyCacheEntry.Type != BountyQuestTypes.Event))
+								(FunkyGame.Bounty.CurrentBountyCacheEntry == null || FunkyGame.Bounty.CurrentBountyCacheEntry.Type != BountyTypes.Event))
 						{
 							FunkyGame.Navigation.LOSBlacklistedRAGUIDs.Add(FunkyGame.Navigation.LOSmovementObject.OrginCacheObjectRAGUID);
 						}
@@ -81,7 +81,8 @@ namespace fBaseXtensions.Targeting.Behaviors
 
 							if (FunkyGame.Navigation.LOSBlacklistedRAGUIDs.Contains(cobj.RAGUID)) continue;
 
-							if (!Navigation.Navigation.NP.CanFullyClientPathTo(cobj.Position)) continue;
+							if (!Navigation.Navigation.NP.CanFullyClientPathTo(cobj.Position) &&
+										!Navigation.Navigation.NP.CanPathWithinDistance(cobj.Position, SettingLOSMovement.LOSSettingsTag.MiniumRangeObjects)) continue;
 
 							Logger.Write(LogLevel.LineOfSight, "Line of Sight Started for object {0} -- with {1} vectors\r\n{2}", cobj.InternalName, Navigation.Navigation.NP.CurrentPath.Count, cobj.DebugString);
 
@@ -109,12 +110,13 @@ namespace fBaseXtensions.Targeting.Behaviors
 									if (FunkyGame.Navigation.LOSBlacklistedRAGUIDs.Contains(mapmarker.GetHashCode())) continue;
 									if (mapmarker.Distance > 750f || mapmarker.Distance < 25f) continue;
 
-									if (!Navigation.Navigation.NP.CanFullyClientPathTo(mapmarker.Position)) continue;
+									if (!Navigation.Navigation.NP.CanFullyClientPathTo(mapmarker.Position) &&
+										!Navigation.Navigation.NP.CanPathWithinDistance(mapmarker.Position, SettingLOSMovement.LOSSettingsTag.MinimumRangeMarkers)) continue;
 
 
 									Logger.Write(LogLevel.LineOfSight, "Line of Sight Started for Map Marker with {0} vectors", Navigation.Navigation.NP.CurrentPath.Count);
 
-									if (FunkyGame.Bounty.CurrentBountyCacheEntry == null || FunkyGame.Bounty.CurrentBountyCacheEntry.Type != BountyQuestTypes.Event)
+									if (FunkyGame.Bounty.CurrentBountyCacheEntry == null || FunkyGame.Bounty.CurrentBountyCacheEntry.Type != BountyTypes.Event)
 										FunkyGame.Navigation.LOSBlacklistedRAGUIDs.Add(mapmarker.GetHashCode());
 
 									//Set the object
@@ -150,8 +152,8 @@ namespace fBaseXtensions.Targeting.Behaviors
 							}
 
 							//Minimap Marker Check
-							if (FunkyGame.Navigation.LOSmovementObject.IgnoringCacheCheck && 
-								FunkyGame.Bounty.CurrentActCache!=null && FunkyGame.Bounty.CurrentBountyCacheEntry!=null && FunkyGame.Bounty.CurrentBountyCacheEntry.Type==BountyQuestTypes.Event)
+							if (FunkyGame.Navigation.LOSmovementObject.IgnoringCacheCheck &&
+								FunkyGame.Bounty.CurrentBountyCacheEntry != null && FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyTypes.Event) //FunkyGame.Bounty.CurrentActCache!=null &&
 							{
 								FunkyGame.Bounty.RefreshActiveQuests();
 							}

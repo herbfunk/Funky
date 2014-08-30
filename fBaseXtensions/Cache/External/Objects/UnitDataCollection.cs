@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.Internal.Enums;
@@ -158,7 +154,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(4300, UnitFlags.Normal | UnitFlags.Ranged, "GoatMutant_Ranged_B-10482"),
 				new UnitEntry(4303, UnitFlags.Normal | UnitFlags.Ranged, "GoatMutant_Shaman_A-3676"),
 				new UnitEntry(4304, UnitFlags.Normal | UnitFlags.Ranged, "GoatMutant_Shaman_B-1874"),
-				new UnitEntry(4308, UnitFlags.Normal, "GoatWarrior_piece_spear-3220"),
+				
 				new UnitEntry(4340, UnitFlags.Normal | UnitFlags.Fast, "graveDigger_B-12093"),
 				new UnitEntry(4372, UnitFlags.Normal, "graveRobber_A-11397"),
 				new UnitEntry(4373, UnitFlags.Normal, "graveRobber_B-22477"),
@@ -735,6 +731,25 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(256094, UnitFlags.Boss, "Uber_SkeletonKingRed"),
 				new UnitEntry(255623, UnitFlags.Boss, "Uber_SiegebreakerDemon"),
 				new UnitEntry(255634, UnitFlags.Boss, "Uber_ZoltunKulle"),
+				new UnitEntry(255638, UnitFlags.Boss, "Uber_Gluttony"),
+				new UnitEntry(256714, UnitFlags.Boss, "Uber_Despair"),
+				new UnitEntry(364580, UnitFlags.Boss, "Uber_TerrorDiablo"),
+				new UnitEntry(367771, UnitFlags.Boss, "Uber_SiegebreakerDemon_Diablo"),
+				new UnitEntry(367770, UnitFlags.Boss, "Uber_Maghda_Diablo"),
+
+
+				new UnitEntry(219916, UnitFlags.Unique, "MastaBlasta_Steed_A_Unique_01-16085"),
+				new UnitEntry(256054, UnitFlags.Unique, "TerrorDemon_A_Unique_Uber-22966"),
+				new UnitEntry(229687, UnitFlags.Normal, "Ghost_C_Event-18804"),
+				new UnitEntry(185440, UnitFlags.Normal, "Unburied_A_UnburiedAlcoveEvent-3908"),
+				new UnitEntry(166452, UnitFlags.Normal, "trOut_Highlands_Goatmen_SummoningMachine_A_Node-22783"),
+				new UnitEntry(218664, UnitFlags.Unique | UnitFlags.Ranged, "TriuneSummoner_A_Unique_02-23786"),
+				new UnitEntry(209553, UnitFlags.Unique, "Ghost_A_Unique_01-8203"),
+				
+				new UnitEntry(197492, UnitFlags.Unique, "a4dun_Aspect_Hatred-7894"),
+				new UnitEntry(367073, UnitFlags.Unique | UnitFlags.Ranged, "snakeMan_Caster_B_Unique_01-23607"),
+				new UnitEntry(367371, UnitFlags.Normal, "FallenHound_E_Unique_01-17367"),
+				new UnitEntry(115132, UnitFlags.Unique | UnitFlags.Fast, "LacuniMale_B_Unique_OasisLacuniAmbush-7669"),
 			};
 			
 			#endregion

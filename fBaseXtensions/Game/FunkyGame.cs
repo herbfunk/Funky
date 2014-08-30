@@ -4,7 +4,6 @@ using fBaseXtensions.Behaviors;
 using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Cache.Internal.Blacklist;
 using fBaseXtensions.Cache.Internal.Objects;
-using fBaseXtensions.Game.Bounty;
 using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Game.Hero.Class;
 using fBaseXtensions.Items;

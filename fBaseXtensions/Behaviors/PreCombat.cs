@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using fBaseXtensions.Game;
-using fBaseXtensions.Game.Hero.Class;
-using fBaseXtensions.Helpers;
 using FunkyBot.DBHandlers.CharacterMule;
 using Zeta.Bot;
 using Zeta.Game;

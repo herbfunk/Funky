@@ -2,7 +2,6 @@
 using System.Xml.Serialization;
 using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Items.Enums;
-using Zeta.Game.Internals.SNO;
 
 namespace fBaseXtensions.Cache.External.Objects
 {

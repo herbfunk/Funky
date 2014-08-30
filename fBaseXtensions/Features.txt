@@ -22,8 +22,7 @@ GoldInactivity
 	To use, hook the event GoldTimeoutTripped, will check during pulse (plugin must be enabled)
 
 Cache
-	An expanding cache dedicated to items, including both DiaItem and ACDItem Idenification.
-	*Future plans to expand into other objects such as gizmos.
+	An expanding cache dedicated to items, units, and gizmos
 
 
 Other Things
@@ -37,3 +36,6 @@ What is the purpose of this plugin?
 	The code that seemed to be redudant in separate plugins was moved into this plugin to make life easier.
 	Developers can reference it and build plugins without having to build a core for common functions.
 
+
+For Users
+	-Gold Inactivity Behavior (Enabling Plugin and Setting Gold Inactivity Setting to desired seconds)

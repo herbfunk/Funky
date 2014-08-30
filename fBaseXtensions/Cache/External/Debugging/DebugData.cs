@@ -8,7 +8,6 @@ using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Cache.Internal.Objects;
 using fBaseXtensions.Items;
 using fBaseXtensions.Items.Enums;
-using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.SNO;
 
 namespace fBaseXtensions.Cache.External.Debugging

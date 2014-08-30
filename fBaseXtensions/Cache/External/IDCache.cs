@@ -15,9 +15,20 @@ namespace fBaseXtensions.Cache.External
 		public List<ItemStringEntry> ItemDroppedInternalNames = new List<ItemStringEntry>();
 		public Dictionary<int, CacheDroppedItemEntry> ItemDroppedEntries = new Dictionary<int, CacheDroppedItemEntry>();
 		public Dictionary<int, CacheItemGemEntry> ItemGemEntries = new Dictionary<int, CacheItemGemEntry>();
-		public Dictionary<int, PetTypes> UnitPetEntries = new Dictionary<int, PetTypes>();
-		public Dictionary<int, CacheAvoidanceEntry> AvoidanceEntries = new Dictionary<int, CacheAvoidanceEntry>(); 
+		public Dictionary<int, CacheUnitPetEntry> UnitPetEntries = new Dictionary<int, CacheUnitPetEntry>();
+		public Dictionary<int, CacheAvoidanceEntry> AvoidanceEntries = new Dictionary<int, CacheAvoidanceEntry>();
 
+		public BountyDataCollection BountyEntries
+		{
+			get
+			{
+				if (_bountycache == null)
+					_bountycache = BountyDataCollection.DeserializeFromXML();
+
+				return _bountycache;
+			}
+		}
+		private BountyDataCollection _bountycache;
 
 		public IDCache()
 		{
@@ -34,7 +45,7 @@ namespace fBaseXtensions.Cache.External
 			UnitPetEntries.Clear();
 			foreach (var entry in unitdata.UnitPetEntries)
 			{
-				UnitPetEntries.Add(entry.SnoId, (PetTypes)entry.ObjectType);
+				UnitPetEntries.Add(entry.SnoId, new CacheUnitPetEntry(entry.SnoId, (PetTypes)entry.ObjectType, entry.InternalName));
 			}
 
 
@@ -81,6 +92,7 @@ namespace fBaseXtensions.Cache.External
 			{
 				AvoidanceEntries.Add(entry.SnoId, new CacheAvoidanceEntry(entry.SnoId, (AvoidanceType)entry.ObjectType, entry.InternalName));
 			}
+
 		}
 
 		internal bool TryGetCacheValue(int snoid, out CacheEntry value)
@@ -105,6 +117,11 @@ namespace fBaseXtensions.Cache.External
 			if (AvoidanceEntries.ContainsKey(snoid))
 			{
 				value = AvoidanceEntries[snoid];
+				return true;
+			}
+			if (UnitPetEntries.ContainsKey(snoid))
+			{
+				value = UnitPetEntries[snoid];
 				return true;
 			}
 

@@ -19,7 +19,6 @@ using LogLevel = fBaseXtensions.Helpers.LogLevel;
 using ObstacleType = fBaseXtensions.Cache.Internal.Enums.ObstacleType;
 using TargetType = fBaseXtensions.Cache.Internal.Enums.TargetType;
 using fBaseXtensions.Cache.Internal.Enums;
-using fBaseXtensions.Cache.External.Objects;
 
 namespace fBaseXtensions.Cache.Internal
 {
@@ -51,6 +50,7 @@ namespace fBaseXtensions.Cache.Internal
 		internal static DebugData DebuggingData;
 
 		internal static Dictionary<int, CacheObject> InteractableObjectCache = new Dictionary<int, CacheObject>();
+		//internal static Dictionary<int, CacheObject> PetObjectCache = new Dictionary<int, CacheObject>(); 
 	
 
 		internal static bool CheckFlag(TargetType property, TargetType flag)
@@ -85,6 +85,11 @@ namespace fBaseXtensions.Cache.Internal
 		///</summary>
 		internal static bool UpdateCacheObjectCollection()
 		{
+			//Update Character (just incase it wasnt called before..)
+			FunkyGame.Hero.Update(false, true);
+
+			Obstacles.AttemptToClearEntries();
+
 			HashSet<int> hashDoneThisRactor = new HashSet<int>();
 			using (ZetaDia.Memory.AcquireFrame(true))
 			{
@@ -181,63 +186,68 @@ namespace fBaseXtensions.Cache.Internal
 
 					//Check if this object is a summoned unit by a player...
 					#region SummonedUnits
-					if (tmp_CachedObj.IsSummonedPet)
-					{
-						// Get the summoned-by info, cached if possible
-						if (!tmp_CachedObj.SummonerID.HasValue)
-						{
-							try
-							{
-								tmp_CachedObj.SummonerID = thisObj.CommonData.GetAttribute<int>(ActorAttributeType.SummonedByACDID);
-							}
-							catch (Exception ex)
-							{
-								//Logger.DBLog.InfoFormat("[Funky] Safely handled exception getting summoned-by info [" + tmp_CachedObj.SNOID.ToString(CultureInfo.InvariantCulture) + "]");
-								//Logger.DBLog.DebugFormat(ex.ToString());
-								continue;
-							}
-						}
+					//if (tmp_CachedObj.IsSummonedPet)
+					//{
+					//	// Get the summoned-by info, cached if possible
+					//	if (!tmp_CachedObj.SummonerID.HasValue)
+					//	{
+					//		try
+					//		{
+					//			tmp_CachedObj.SummonerID = thisObj.CommonData.GetAttribute<int>(ActorAttributeType.SummonedByACDID);
+					//		}
+					//		catch (Exception ex)
+					//		{
+					//			//Logger.DBLog.InfoFormat("[Funky] Safely handled exception getting summoned-by info [" + tmp_CachedObj.SNOID.ToString(CultureInfo.InvariantCulture) + "]");
+					//			//Logger.DBLog.DebugFormat(ex.ToString());
+					//			continue;
+					//		}
+					//	}
 
 						
 
-						//See if this summoned unit was summoned by the bot.
-						if (FunkyGame.Hero.iMyDynamicID == tmp_CachedObj.SummonerID.Value)
-						{
-							PetTypes PetType = TheCache.ObjectIDCache.UnitPetEntries[tmp_CachedObj.SNOID];
+					//	//See if this summoned unit was summoned by the bot.
+					//	if (FunkyGame.Hero.iMyDynamicID == tmp_CachedObj.SummonerID.Value)
+					//	{
+					//		PetTypes PetType = (PetTypes)TheCache.ObjectIDCache.UnitPetEntries[tmp_CachedObj.SNOID].ObjectType;
 
-							//Now modify the player data pets count..
-							if (FunkyGame.CurrentActorClass == ActorClass.Monk)
-								FunkyGame.Targeting.Cache.Environment.HeroPets.MysticAlly++;
-							else if (FunkyGame.CurrentActorClass == ActorClass.DemonHunter)
-							{
-								if (PetType== PetTypes.DEMONHUNTER_Pet)
-									FunkyGame.Targeting.Cache.Environment.HeroPets.DemonHunterPet++;
-								else if (PetType == PetTypes.DEMONHUNTER_SpikeTrap && tmp_CachedObj.CentreDistance <= 50f)
-									FunkyGame.Targeting.Cache.Environment.HeroPets.DemonHunterSpikeTraps++;
-								else if (PetType == PetTypes.DEMONHUNTER_Sentry && tmp_CachedObj.CentreDistance <= 60f)
-									FunkyGame.Targeting.Cache.Environment.HeroPets.DemonHunterSentry++;
-							}
-							else if (FunkyGame.CurrentActorClass == ActorClass.Witchdoctor)
-							{
-								if (PetType == PetTypes.WITCHDOCTOR_ZombieDogs)
-									FunkyGame.Targeting.Cache.Environment.HeroPets.ZombieDogs++;
-								else if (PetType == PetTypes.WITCHDOCTOR_Gargantuan)
-									FunkyGame.Targeting.Cache.Environment.HeroPets.Gargantuan++;
-								else if (PetType == PetTypes.WITCHDOCTOR_Fetish)
-									FunkyGame.Targeting.Cache.Environment.HeroPets.WitchdoctorFetish++;
-							}
-							else if (FunkyGame.CurrentActorClass == ActorClass.Wizard)
-							{
-								//only count when range is within 45f (so we can summon a new one)
-								if (PetType == PetTypes.WIZARD_Hydra && tmp_CachedObj.CentreDistance <= 50f)
-									FunkyGame.Targeting.Cache.Environment.HeroPets.WizardHydra++;
-							}
-						}
+					//		//Now modify the player data pets count..
+					//		if (FunkyGame.CurrentActorClass == ActorClass.Monk)
+					//			FunkyGame.Targeting.Cache.Environment.HeroPets.MysticAlly++;
+					//		else if (FunkyGame.CurrentActorClass == ActorClass.DemonHunter)
+					//		{
+					//			if (PetType== PetTypes.DEMONHUNTER_Pet)
+					//				FunkyGame.Targeting.Cache.Environment.HeroPets.DemonHunterPet++;
+					//			else if (PetType == PetTypes.DEMONHUNTER_SpikeTrap && tmp_CachedObj.CentreDistance <= 50f)
+					//				FunkyGame.Targeting.Cache.Environment.HeroPets.DemonHunterSpikeTraps++;
+					//			else if (PetType == PetTypes.DEMONHUNTER_Sentry && tmp_CachedObj.CentreDistance <= 60f)
+					//				FunkyGame.Targeting.Cache.Environment.HeroPets.DemonHunterSentry++;
+					//		}
+					//		else if (FunkyGame.CurrentActorClass == ActorClass.Witchdoctor)
+					//		{
+					//			if (PetType == PetTypes.WITCHDOCTOR_ZombieDogs)
+					//				FunkyGame.Targeting.Cache.Environment.HeroPets.ZombieDogs++;
+					//			else if (PetType == PetTypes.WITCHDOCTOR_Gargantuan)
+					//				FunkyGame.Targeting.Cache.Environment.HeroPets.Gargantuan++;
+					//			else if (PetType == PetTypes.WITCHDOCTOR_Fetish)
+					//				FunkyGame.Targeting.Cache.Environment.HeroPets.WitchdoctorFetish++;
+					//		}
+					//		else if (FunkyGame.CurrentActorClass == ActorClass.Wizard)
+					//		{
+					//			//only count when range is within 45f (so we can summon a new one)
+					//			if (PetType == PetTypes.WIZARD_Hydra && tmp_CachedObj.CentreDistance <= 50f)
+					//				FunkyGame.Targeting.Cache.Environment.HeroPets.WizardHydra++;
+					//		}
+					//	}
+					//	else
+					//	{
+					//		tmp_CachedObj.NeedsRemoved = true;
+					//		continue;
+					//	}
 
-						//We return regardless if it was summoned by us or not since this object is not anything we want to deal with..
-						tmp_CachedObj.NeedsRemoved = true;
-						continue;
-					}
+					//	//We return regardless if it was summoned by us or not since this object is not anything we want to deal with..
+					//	tmp_CachedObj.NeedsRemoved = true;
+					//	continue;
+					//}
 					#endregion
 
 					//Update any SNO Data.
@@ -375,7 +385,39 @@ namespace fBaseXtensions.Cache.Internal
 						}
 						else if (tmp_CachedObj.Actortype.Value == ActorType.Monster)
 						{
-							tmp_CachedObj = new CacheUnit(tmp_CachedObj);
+							if (!tmp_CachedObj.IsSummonedPet)
+								tmp_CachedObj = new CacheUnit(tmp_CachedObj);
+							else
+							{
+								#region Summoner ID Check
+
+								// Get the summoned-by info, cached if possible
+								if (!tmp_CachedObj.SummonerID.HasValue)
+								{
+									try
+									{
+										tmp_CachedObj.SummonerID = thisObj.CommonData.GetAttribute<int>(ActorAttributeType.SummonedByACDID);
+									}
+									catch (Exception ex)
+									{
+										//Logger.DBLog.InfoFormat("[Funky] Safely handled exception getting summoned-by info [" + tmp_CachedObj.SNOID.ToString(CultureInfo.InvariantCulture) + "]");
+										//Logger.DBLog.DebugFormat(ex.ToString());
+										continue;
+									}
+								}
+
+								if (FunkyGame.Hero.iMyDynamicID != tmp_CachedObj.SummonerID.Value)
+								{
+									BlacklistCache.IgnoreThisObject(tmp_CachedObj, false, false);
+									tmp_CachedObj.NeedsRemoved = true;
+									continue;
+								}
+								
+								#endregion
+
+								PetTypes PetType = (PetTypes)TheCache.ObjectIDCache.UnitPetEntries[tmp_CachedObj.SNOID].ObjectType;
+								tmp_CachedObj = new CachePet(tmp_CachedObj, PetType);
+							}
 						}
 						else if (tmp_CachedObj.Actortype.Value == ActorType.Gizmo)
 						{
@@ -385,6 +427,7 @@ namespace fBaseXtensions.Cache.Internal
 							else
 								tmp_CachedObj = new CacheDestructable(tmp_CachedObj);
 						}
+						
 
 						//Update Properties (currently only for units)
 
@@ -434,6 +477,7 @@ namespace fBaseXtensions.Cache.Internal
 						}
 					}
 
+
 					//cache it
 					if (Objects.ContainsKey(tmp_CachedObj.RAGUID))
 						Objects[tmp_CachedObj.RAGUID] = tmp_CachedObj;
@@ -470,11 +514,19 @@ namespace fBaseXtensions.Cache.Internal
 				}
 			}
 
-
+			_lastUpdatedCacheCollection=DateTime.Now;
 			return true;
 		}
 		//Trimming/Update Vars
 		private static int UpdateLoopCounter;
+		private static DateTime _lastUpdatedCacheCollection=DateTime.Today;
+		internal static bool ShouldUpdateObjectCollection
+		{
+			get
+			{
+				return DateTime.Now.Subtract(_lastUpdatedCacheCollection).TotalMilliseconds > 150;
+			}
+		}
 
 		///<summary>
 		///Used to flag when Init should iterate and remove the objects

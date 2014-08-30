@@ -14,10 +14,7 @@ using fBaseXtensions.Settings;
 using Zeta.Bot;
 using Zeta.Common;
 using Zeta.Common.Plugins;
-using Zeta.TreeSharp;
 using Logger = fBaseXtensions.Helpers.Logger;
-using Decorator = Zeta.TreeSharp.Decorator;
-using Action = Zeta.TreeSharp.Action;
 
 namespace fBaseXtensions
 {
@@ -90,6 +87,7 @@ namespace fBaseXtensions
 		{
 			get { return _pluginIsEnabled; }
 		}
+		
 	    public void OnEnabled()
 	    {
 			_pluginIsEnabled = true;
@@ -105,7 +103,7 @@ namespace fBaseXtensions
 
 		public Version Version
 		{
-			get { return new Version(1, 0, 0); }
+			get { return new Version(1, 0, 1, 1); }
 		}
 		public string Author
 		{

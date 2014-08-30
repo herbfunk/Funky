@@ -1,5 +1,4 @@
 ﻿using System;
-using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Game.Hero.Skills.Conditions;
 using fBaseXtensions.Navigation.Clustering;
 using Zeta.Game.Internals.Actors;

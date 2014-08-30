@@ -105,9 +105,7 @@ namespace fBaseXtensions.Targeting
 		///</summary>
 		public void Refresh()
 		{
-			//Update Character (just incase it wasnt called before..)
-			FunkyGame.Hero.Update(false, true);
-
+		
 			//Reset key targeting vars always!
 			InitObjectRefresh();
 
@@ -231,7 +229,7 @@ namespace fBaseXtensions.Targeting
 
 
 			////Increase counter, clear entries if overdue.
-			ObjectCache.Obstacles.AttemptToClearEntries();
+			//ObjectCache.Obstacles.AttemptToClearEntries();
 
 			//Non-Combat behavior we reset temp blacklist so we don't get killed by "ignored" units..
 			if (FunkyGame.IsInNonCombatBehavior)
@@ -463,7 +461,8 @@ namespace fBaseXtensions.Targeting
 								 "UpdateQuestMonsterProperty: {28} \r\n" +
 								 "lastHadRareChestAsTarget: {29} \r\n" +
 								 "iTotalNumberGoblins: {30} \r\n" +
-								 "lastGoblinTime: {31} \r\n",
+								 "lastGoblinTime: {31} \r\n" +
+			                     "Pets: {35}",
 								 Backtracking, bWholeNewTarget, bPickNewAbilities, bWaitingForPower, bWaitingAfterPower, bWaitingForPotion, bForceTargetUpdate,
 								 bWasRootedLastTick, ShouldCheckItemLooted, recheckCount, reCheckedFinished, CheckItemLootStackCount, lastBehavioralType,
 								 iCurrentMaxKillRadius, iCurrentMaxLootRadius, bPrioritizeCloseRangeUnits, DontMove, RequiresAvoidance, TravellingAvoidance,
@@ -472,7 +471,8 @@ namespace fBaseXtensions.Targeting
 								 iTotalNumberGoblins, lastGoblinTime, 
 								 CurrentTarget!=null?CurrentTarget.InternalName:"NONE!",
 								 LastCachedTarget!=null?LastCachedTarget.InternalName:"NONE!",
-								 CurrentUnitTarget!=null?CurrentUnitTarget.InternalName:"NONE!");
+								 CurrentUnitTarget!=null?CurrentUnitTarget.InternalName:"NONE!",
+								 Environment.HeroPets.DebugString());
 		}
 	}
 }

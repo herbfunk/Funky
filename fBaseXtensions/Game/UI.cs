@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using fBaseXtensions.Helpers;
 using Zeta.Game;
@@ -26,6 +25,24 @@ namespace fBaseXtensions.Game
 			try
 			{
 				foreach (var u in UIElement.GetChildren(uie))
+				{
+					retList.Add(u);
+				}
+			}
+			catch
+			{
+
+			}
+
+			return retList;
+		}
+		public static List<UIElement> GetUIMap()
+		{
+			List<UIElement> retList = new List<UIElement>();
+
+			try
+			{
+				foreach (var u in UIElement.UIMap)
 				{
 					retList.Add(u);
 				}

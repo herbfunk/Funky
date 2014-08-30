@@ -1,5 +1,4 @@
-﻿using fBaseXtensions.Game;
-using fBaseXtensions.Game.Hero.Skills.Conditions;
+﻿using fBaseXtensions.Game.Hero.Skills.Conditions;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 

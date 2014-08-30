@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using fBaseXtensions.Cache.External;
-using fBaseXtensions.Cache.External.Objects;
-using fBaseXtensions.Cache.Internal.Enums;
-using fBaseXtensions.Helpers;
 using Zeta.Game;
 
 namespace fBaseXtensions.Cache

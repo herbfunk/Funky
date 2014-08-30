@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Windows.Documents;
 using fBaseXtensions.Cache.External.Enums;
 
 namespace fBaseXtensions.Settings

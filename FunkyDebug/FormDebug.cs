@@ -816,6 +816,41 @@ namespace FunkyDebug
 
 			return 0;
 		}
+		private static DefaultNavigationProvider NP
+		{
+			get
+			{
+				return Navigator.GetNavigationProviderAs<DefaultNavigationProvider>();
+			}
+		}
+		private void btn_navagation_Click(object sender, EventArgs e)
+		{
+			if (BotMain.IsRunning)
+			{
+				return;
+			}
+
+			ZetaDia.Memory.ClearCache();
+			ZetaDia.Actors.Update();
+			Navigator.SearchGridProvider.Update();
+			NP.Clear();
+
+			flowLayout_OutPut.Controls.Clear();
+
+			Vector3 ToVector3;
+			ToVector3 = ConvertTextToVector3(txtbox_RaycastTo_X.Text, txtbox_RaycastTo_Y.Text, txtbox_RaycastTo_Z.Text);
+			if (ToVector3 == Vector3.Zero) return;
+
+			bool bCanPathWithinDistance = NP.CanPathWithinDistance(ToVector3);
+			var canpathwithinDistance = new UserControlDebugEntry(String.Format("CanPathWithinDistance {0}", bCanPathWithinDistance));
+			flowLayout_OutPut.Controls.Add(canpathwithinDistance);
+
+			bool bCanFullyClientPathTo=NP.CanFullyClientPathTo(ToVector3);
+			var CanFullyClientPathTo = new UserControlDebugEntry(String.Format("CanFullyClientPathTo {0}", bCanFullyClientPathTo));
+			flowLayout_OutPut.Controls.Add(CanFullyClientPathTo);
+
+		}
+
 		private void btn_RayCast_Click(object sender, EventArgs e)
 		{
 			if (BotMain.IsRunning)
@@ -838,20 +873,16 @@ namespace FunkyDebug
 			{
 				if (!Raycast_UsingPlayerLocation)
 				{
-					FromX = Convert.ToSingle(txtbox_Raycast_X.Text);
-					FromY = Convert.ToSingle(txtbox_Raycast_Y.Text);
-					FromZ = Convert.ToSingle(txtbox_Raycast_Z.Text);
-					FromVector3 = new Vector3(FromX, FromY, FromZ);
+					FromVector3 = ConvertTextToVector3(txtbox_Raycast_X.Text, txtbox_Raycast_Y.Text, txtbox_Raycast_Z.Text);
+					if (FromVector3 == Vector3.Zero) return;
 				}
 				else
 				{
 					FromVector3 = ZetaDia.Me.Position;
 				}
 
-				ToX = Convert.ToSingle(txtbox_RaycastTo_X.Text);
-				ToY = Convert.ToSingle(txtbox_RaycastTo_Y.Text);
-				ToZ = Convert.ToSingle(txtbox_RaycastTo_Z.Text);
-				ToVector3 = new Vector3(ToX, ToY, ToZ);
+				ToVector3 = ConvertTextToVector3(txtbox_RaycastTo_X.Text, txtbox_RaycastTo_Y.Text, txtbox_RaycastTo_Z.Text);
+				if (ToVector3 == Vector3.Zero) return;
 			}
 			catch (Exception ex)
 			{
@@ -872,6 +903,27 @@ namespace FunkyDebug
 			raycast=Navigator.SearchGridProvider.Raycast(FromVector3.ToVector2(), ToVector3.ToVector2(), out outHitPoint);
 			entry = new UserControlDebugEntry(String.Format("SearchGridProvider Raycast={0} HitPoint: ({1}) ({2} to {3}", raycast, outHitPoint, FromVector3, ToVector3));
 			flowLayout_OutPut.Controls.Add(entry);
+		}
+
+		private Vector3 ConvertTextToVector3(string x, string y, string z)
+		{
+			float FromX, FromY, FromZ;
+			Vector3 FromVector3 = Vector3.Zero;
+			try
+			{
+				FromX = Convert.ToSingle(x);
+				FromY = Convert.ToSingle(y);
+				FromZ = Convert.ToSingle(z);
+				FromVector3 = new Vector3(FromX, FromY, FromZ);
+			}
+			catch (Exception ex)
+			{
+				var exceptionEntry = new UserControlDebugEntry(String.Format("{0}\r\n{1}", ex.Message, ex.StackTrace));
+				flowLayout_OutPut.Controls.Add(exceptionEntry);
+
+			}
+
+			return FromVector3;
 		}
 
 		private void button1_Click(object sender, EventArgs e)
@@ -952,6 +1004,10 @@ namespace FunkyDebug
 				uie.Click();
 			}
 		}
+
+		
+
+		
 
 
 	}

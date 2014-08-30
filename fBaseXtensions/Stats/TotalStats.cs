@@ -11,6 +11,7 @@ namespace fBaseXtensions.Stats
 	///</summary>
 	public class TotalStats : GameStats
 	{
+
 		public int GameCount { get; set; }
 
 		public void GameChanged(ref GameStats lastGame)
@@ -21,7 +22,7 @@ namespace fBaseXtensions.Stats
 				UpdateTotals(ref lastGame);
 			}
 
-			WriteProfileTrackerOutput(FunkyGame.TrackingStats);
+			WriteProfileTrackerOutput(ref FunkyGame.TrackingStats);
 		}
 		public void GameStopped(ref GameStats lastGame)
 		{
@@ -29,7 +30,7 @@ namespace fBaseXtensions.Stats
 			{
 				UpdateTotals(ref lastGame);
 			}
-			WriteProfileTrackerOutput(FunkyGame.TrackingStats);
+			WriteProfileTrackerOutput(ref FunkyGame.TrackingStats);
 		}
 
 		private void UpdateTotals(ref GameStats lastGame)
@@ -47,6 +48,8 @@ namespace fBaseXtensions.Stats
 				}
 			}
 		}
+
+		internal bool _createdOldFile = false;
 
 		internal string GenerateOutputString()
 		{
@@ -77,9 +80,23 @@ namespace fBaseXtensions.Stats
 							 (totalloottracker.GetTotalLootStatCount(LootStatTypes.Salvaged) / TotalTimeRunning.TotalHours).ToString("#.##"),
 							 TotalHoradricCacheOpened, TotalItemsGambled, TotalTownRuns, TotalBountiesCompleted);
 		}
-		internal static void WriteProfileTrackerOutput(TotalStats stats)
+		internal static void WriteProfileTrackerOutput(ref TotalStats stats)
 		{
 			string outputPath = FolderPaths.LoggingFolderPath + @"\ProfileStats.log";
+
+			//Copy last profile stats file _old_
+			if (!stats._createdOldFile)
+			{
+				if (File.Exists(outputPath))
+				{
+					if (File.Exists(FolderPaths.LoggingFolderPath + @"\old_ProfileStats.log"))
+						File.Delete(FolderPaths.LoggingFolderPath + @"\old_ProfileStats.log");
+
+					File.Copy(outputPath, FolderPaths.LoggingFolderPath + @"\old_ProfileStats.log");
+				}
+
+				stats._createdOldFile = true;
+			}
 
 			try
 			{

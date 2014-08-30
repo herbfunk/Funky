@@ -6,6 +6,7 @@
 		Item,
 		Gizmo,
 		Unit,
-		Avoidance
+		Avoidance,
+		Pet
 	}
 }

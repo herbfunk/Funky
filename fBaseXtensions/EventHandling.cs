@@ -1,12 +1,8 @@
 ﻿using System;
-using fBaseXtensions.Cache;
-using fBaseXtensions.Cache.External;
 using fBaseXtensions.Cache.External.Debugging;
 using fBaseXtensions.Cache.Internal;
-using fBaseXtensions.Cache.Internal.Objects;
 using fBaseXtensions.Game;
 using fBaseXtensions.Game.Hero;
-using fBaseXtensions.Game.Hero.Class;
 using fBaseXtensions.Monitor;
 using fBaseXtensions.Settings;
 using fBaseXtensions.Stats;
@@ -37,9 +33,10 @@ namespace fBaseXtensions
 				FunkyGame.Reset();
 				
 				//Hotbar.OnSkillsChanged += PlayerClass.HotbarSkillsChangedHandler;
+				
 				GoldInactivity.OnGoldTimeoutTripped += GameCache.GoldInactivityTimerTrippedHandler;
 				Equipment.OnEquippedItemsChanged += Equipment.EquippmentChangedHandler;
-
+				
 				if (!HookHandler.initTreeHooks)
 					HookHandler.HookBehaviorTree();
 
@@ -60,7 +57,7 @@ namespace fBaseXtensions
 				Equipment.OnEquippedItemsChanged -= Equipment.EquippmentChangedHandler;
 				// Issue final reports
 				FunkyGame.TrackingStats.GameStopped(ref FunkyGame.CurrentGameStats);
-				TotalStats.WriteProfileTrackerOutput(FunkyGame.TrackingStats);
+				TotalStats.WriteProfileTrackerOutput(ref FunkyGame.TrackingStats);
 			}
 
 			

@@ -198,7 +198,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			}
 			
 			//Update Quest Monster?
-			if (FunkyGame.Targeting.Cache.UpdateQuestMonsterProperty || FunkyGame.Game.QuestMode)
+			if (FunkyGame.Game.QuestMode)
 			{
 				try
 				{

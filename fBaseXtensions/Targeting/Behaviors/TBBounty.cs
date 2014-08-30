@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
+using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Cache.Internal.Objects;
 using fBaseXtensions.Game;
-using fBaseXtensions.Game.Bounty;
 using fBaseXtensions.Helpers;
 using fBaseXtensions.Settings;
 using Zeta.Game.Internals;
@@ -33,7 +33,7 @@ namespace fBaseXtensions.Targeting.Behaviors
 				{
 					//	Cursed Events that have had interaction with a cursed object in the last nth time frame we check for completed bounty.
 					//  Kill/Clear Events that are on the last area level we check for completed bounty.
-					if ((FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.CursedEvent && DateTime.Now.Subtract(FunkyGame.Targeting.Cache.lastSeenCursedShrine).TotalSeconds < 45))
+					if ((FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyTypes.CursedEvent && DateTime.Now.Subtract(FunkyGame.Targeting.Cache.lastSeenCursedShrine).TotalSeconds < 45))
 						//|| ((FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.Kill || FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.Clear)
 																								//&& FunkyGame.Hero.iCurrentLevelID == FunkyGame.Bounty.CurrentBountyCacheEntry.EndingLevelAreaID))
 					{
@@ -53,7 +53,7 @@ namespace fBaseXtensions.Targeting.Behaviors
 							//}
 						}
 					}
-					else if (FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyQuestTypes.Event)
+					else if (FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyTypes.Event)
 					{
 						FunkyGame.Bounty.RefreshBountyQuestStates();
 						FunkyGame.Bounty.RefreshActiveQuests();

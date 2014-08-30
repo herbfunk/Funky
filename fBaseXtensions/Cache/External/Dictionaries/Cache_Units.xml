@@ -492,13 +492,6 @@
       <UnitFlags>Normal Ranged</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>4308</SnoId>
-      <InternalName>GoatWarrior_piece_spear-3220</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
       <SnoId>4340</SnoId>
       <InternalName>graveDigger_B-12093</InternalName>
       <ActorType>Monster</ActorType>
@@ -4501,6 +4494,118 @@
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>Boss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>255638</SnoId>
+      <InternalName>Uber_Gluttony</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Boss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>256714</SnoId>
+      <InternalName>Uber_Despair</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Boss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>364580</SnoId>
+      <InternalName>Uber_TerrorDiablo</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Boss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>367771</SnoId>
+      <InternalName>Uber_SiegebreakerDemon_Diablo</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Boss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>367770</SnoId>
+      <InternalName>Uber_Maghda_Diablo</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Boss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>219916</SnoId>
+      <InternalName>MastaBlasta_Steed_A_Unique_01-16085</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>256054</SnoId>
+      <InternalName>TerrorDemon_A_Unique_Uber-22966</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>229687</SnoId>
+      <InternalName>Ghost_C_Event-18804</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>185440</SnoId>
+      <InternalName>Unburied_A_UnburiedAlcoveEvent-3908</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>166452</SnoId>
+      <InternalName>trOut_Highlands_Goatmen_SummoningMachine_A_Node-22783</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>218664</SnoId>
+      <InternalName>TriuneSummoner_A_Unique_02-23786</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>209553</SnoId>
+      <InternalName>Ghost_A_Unique_01-8203</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>197492</SnoId>
+      <InternalName>a4dun_Aspect_Hatred-7894</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>367073</SnoId>
+      <InternalName>snakeMan_Caster_B_Unique_01-23607</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>367371</SnoId>
+      <InternalName>FallenHound_E_Unique_01-17367</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>115132</SnoId>
+      <InternalName>LacuniMale_B_Unique_OasisLacuniAmbush-7669</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Fast</UnitFlags>
     </UnitEntry>
   </UnitEntries>
   <UnitPetEntries>

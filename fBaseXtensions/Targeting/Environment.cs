@@ -19,7 +19,6 @@ namespace fBaseXtensions.Targeting
 			bAnyTreasureGoblinsPresent = false;
 			bAnyNonWWIgnoreMobsInRange = false;
 			SurroundingUnits = 0;
-			UsesDOTDPSAbility = false;
 		}
 
 		public List<CacheServerObject> NearbyObstacleObjects = new List<CacheServerObject>();
@@ -37,7 +36,7 @@ namespace fBaseXtensions.Targeting
 		public int[] iAnythingWithinRange;
 
 		public int iNonRendedTargets_6 { get; set; }
-		public bool UsesDOTDPSAbility { get; set; }
+	
 		public int SurroundingUnits { get; set; }
 
 		public bool bAnyLootableItemsNearby { get; set; }
@@ -63,7 +62,6 @@ namespace fBaseXtensions.Targeting
 			bAnyNonWWIgnoreMobsInRange = false;
 			bAnyLootableItemsNearby = false;
 
-			UsesDOTDPSAbility = false;
 
 			UnitRAGUIDs.Clear();
 			SurroundingUnits = 0;

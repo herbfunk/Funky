@@ -1,5 +1,4 @@
 ﻿using fBaseXtensions.Game;
-using fBaseXtensions.Game.Bounty;
 using Zeta.Common;
 
 namespace fBaseXtensions.Cache.Internal.Objects
