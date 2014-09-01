@@ -31,6 +31,17 @@ namespace fBaseXtensions.XML
 		}
 		private int _sno = -1;
 
+		public enum KeystoneType
+		{
+			None,
+			Fragment,
+			Trial,
+			Tiered
+		}
+		[XmlAttribute("Keystone")]
+		public KeystoneType KeyType { get; set; }
+
+		[XmlAttribute("All")]
 		[XmlAttribute("all")]
 		public bool All
 		{
@@ -45,6 +56,7 @@ namespace fBaseXtensions.XML
 			Stash
 		}
 
+		[XmlAttribute("Itemsource")]
 		[XmlAttribute("itemsource")]
 		[XmlAttribute("ItemSource")]
 		public ItemSource Itemsource
@@ -106,22 +118,52 @@ namespace fBaseXtensions.XML
 		{
 			Logger.DBLog.DebugFormat("Updating Moving Items!");
 
-			if (Itemsource == ItemSource.Stash)
+			List<ACDItem> Items = 
+				Itemsource == ItemSource.Stash ? ZetaDia.Me.Inventory.StashItems.ToList() : 
+				ZetaDia.Me.Inventory.Backpack.ToList();
+			
+
+			if (KeyType != KeystoneType.None)
+				Items = Items.OrderByDescending(i => i.TieredLootRunKeyLevel).ThenByDescending(i => i.ItemStackQuantity).ToList();
+
+			foreach (ACDItem tempitem in Items)
 			{
-				foreach (ACDItem tempitem in ZetaDia.Me.Inventory.StashItems)
+				if (tempitem.BaseAddress != IntPtr.Zero)
 				{
-					if (tempitem.BaseAddress != IntPtr.Zero && tempitem.ActorSNO == Sno)
+					if (KeyType != KeystoneType.None)
 					{
-						MovingItemList.Add(new CacheACDItem(tempitem));
-						if (!All) break;
+						int tieredLevel = tempitem.TieredLootRunKeyLevel;
+						if (KeyType == KeystoneType.Fragment)
+						{
+							if (tieredLevel == -1)
+							{
+								MovingItemList.Add(new CacheACDItem(tempitem));
+								if (!All) break;
+							}
+
+							continue;
+						}
+
+						if (KeyType == KeystoneType.Trial)
+						{
+							if (tieredLevel == 0)
+							{
+								MovingItemList.Add(new CacheACDItem(tempitem));
+								if (!All) break;
+							}
+							continue;
+						}
+
+						if (KeyType == KeystoneType.Tiered)
+						{
+							if (tieredLevel > 0)
+							{
+								MovingItemList.Add(new CacheACDItem(tempitem));
+								if (!All) break;
+							}
+						}
 					}
-				}
-			}
-			else
-			{
-				foreach (ACDItem tempitem in ZetaDia.Me.Inventory.Backpack)
-				{
-					if (tempitem.BaseAddress != IntPtr.Zero && tempitem.ActorSNO == Sno)
+					else if (tempitem.ActorSNO == Sno)
 					{
 						MovingItemList.Add(new CacheACDItem(tempitem));
 						if (!All) break;
@@ -130,6 +172,7 @@ namespace fBaseXtensions.XML
 			}
 
 			updatedItemList = true;
+			Logger.DBLog.InfoFormat("Found a total of {0} items to be moved!", MovingItemList.Count);
 		}
 
 		private readonly bool[,] StashSlotBlocked = new bool[7, 50];

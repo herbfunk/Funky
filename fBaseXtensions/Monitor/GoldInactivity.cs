@@ -1,5 +1,6 @@
 ﻿using System;
 using fBaseXtensions.Helpers;
+using fBaseXtensions.Settings;
 
 namespace fBaseXtensions.Monitor
 {
@@ -20,12 +21,12 @@ namespace fBaseXtensions.Monitor
 		internal static void CheckTimeoutTripped()
 		{
 			if (OnGoldTimeoutTripped == null) return;
-			if (FunkyBaseExtension.Settings.Monitoring.GoldInactivityTimeoutSeconds == 0) return;
+			if (MonitorSettings.MonitorSettingsTag.GoldInactivityTimeoutSeconds == 0) return;
 
 			double lastCoinageChange = DateTime.Now.Subtract(LastCoinageUpdate).TotalSeconds;
 			if (lastCoinageChange > 5)
 			{
-				TimeoutTripped = lastCoinageChange >= FunkyBaseExtension.Settings.Monitoring.GoldInactivityTimeoutSeconds;
+				TimeoutTripped = lastCoinageChange >= MonitorSettings.MonitorSettingsTag.GoldInactivityTimeoutSeconds;
 				if (TimeoutTripped)
 				{
 					Logger.DBLog.Info("[Funky] Gold Timeout Breached");

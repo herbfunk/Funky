@@ -1184,7 +1184,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 			if (!IsStillValid())
 			{
-				Logger.Write(LogLevel.Cache, "ref object not valid for {0}", DebugStringSimple);
+				//Logger.Write(LogLevel.Cache, "ref object not valid for {0}", DebugStringSimple);
 				NeedsRemoved = true;
 				return false;
 			}
@@ -1441,6 +1441,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				}
 				catch
 				{
+					NeedsRemoved = true;
 					Logger.Write(LogLevel.Cache, "Failure to get maximum health for {0}", DebugStringSimple);
 					return false;
 				}

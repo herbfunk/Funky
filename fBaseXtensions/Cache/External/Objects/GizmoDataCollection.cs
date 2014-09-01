@@ -84,6 +84,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(179866, PluginGizmoType.Chest, "a3dun_Crater_ST_Chest_Rare-15899", GizmoTargetTypes.Resplendant),
 				new GizmoEntry(106165, PluginGizmoType.Chest, "caOut_Boneyards_chest_Rare-16905", GizmoTargetTypes.Resplendant),
 				new GizmoEntry(356805, PluginGizmoType.Chest, "x1_Catacombs_chest_rare_GardenEvent-89365", GizmoTargetTypes.Resplendant),
+				new GizmoEntry(261136, PluginGizmoType.Chest, "x1_Catacombs_chest_rare-11124", GizmoTargetTypes.Resplendant),
 
 				//============== Chests ==============//
 				new GizmoEntry(62865, PluginGizmoType.Chest, "TrOut_Highlands_Chest-18282", GizmoTargetTypes.Chest),
@@ -128,6 +129,12 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(212491, PluginGizmoType.Chest, "a1dun_Random_Cloud-16051", GizmoTargetTypes.Chest),
 				new GizmoEntry(210422, PluginGizmoType.Chest, "a1dun_random_pot_of_gold_A-16933", GizmoTargetTypes.Chest),
 				new GizmoEntry(338905, PluginGizmoType.Chest, "X1_Fortress_Chest-66175", GizmoTargetTypes.Chest),
+				new GizmoEntry(213820, PluginGizmoType.Chest, "a2dun_Zolt_Blood_Container-46882", GizmoTargetTypes.Chest),
+				new GizmoEntry(213859, PluginGizmoType.Chest, "a2dun_Zolt_Blood_Container_02-50993", GizmoTargetTypes.Chest),
+				new GizmoEntry(213447, PluginGizmoType.Chest, "Lore_AzmodanChest3-42024", GizmoTargetTypes.Chest),
+				new GizmoEntry(213446, PluginGizmoType.Chest, "Lore_AzmodanChest2-43183", GizmoTargetTypes.Chest),
+				new GizmoEntry(199584, PluginGizmoType.Chest, "CaOut_BoneYard_WormCave_Chest-45908", GizmoTargetTypes.Chest),
+				new GizmoEntry(108122, PluginGizmoType.Chest, "caOut_StingingWinds_Chest-21069", GizmoTargetTypes.Chest),
 
 				//============== Floor Switches ==============//
 				new GizmoEntry(5759, PluginGizmoType.Chest, "trDun_Cath_FloorSpawner_02-670", GizmoTargetTypes.MiscContainer),
@@ -339,6 +346,37 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(188359, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_B_Corpse_03-36505", GizmoTargetTypes.Corpse),
 				new GizmoEntry(385819, PluginGizmoType.Chest, "LootType3_DeadEndCorpse_TristramGuard_Corpse_01-13295", GizmoTargetTypes.Corpse),
 				new GizmoEntry(193013, PluginGizmoType.Chest, "LootType3_GraveGuard_A_Corpse_05-26450", GizmoTargetTypes.Corpse),
+				new GizmoEntry(193010, PluginGizmoType.Chest, "LootType3_GraveGuard_A_Corpse_02-7132", GizmoTargetTypes.Corpse),
+				new GizmoEntry(123930, PluginGizmoType.Chest, "sunBleachedCorpse_A_01-21203", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188065, PluginGizmoType.Chest, "LootType2_skeleton_A_Corpse_03-44934", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188357, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_B_Corpse_01-45747", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188067, PluginGizmoType.Chest, "LootType2_skeleton_A_Corpse_05-45850", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188387, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_G_Corpse_06-45969", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188368, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_C_Corpse_06-46144", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188389, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_G_Corpse_04-46262", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188376, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_E_Corpse_01-19127", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188371, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_D_Corpse_03-23459", GizmoTargetTypes.Corpse),
+				new GizmoEntry(309383, PluginGizmoType.Chest, "x1_Westm_Corpse_E_01-16388", GizmoTargetTypes.Corpse),
+				new GizmoEntry(192774, PluginGizmoType.Chest, "BastionsKeepGuard_Melee_Corpse_Morgan-29969", GizmoTargetTypes.Corpse),
+				new GizmoEntry(204724, PluginGizmoType.Chest, "BastionsKeepGuard_Corpse_Jonathan_L-30929", GizmoTargetTypes.Corpse),
+				new GizmoEntry(385814, PluginGizmoType.Chest, "LootType3_DeadEndCorpse_BastionsKeepGuard_Melee_Corpse_02-37466", GizmoTargetTypes.Corpse),
+				new GizmoEntry(141420, PluginGizmoType.Chest, "demonTrooper_A_clickable_corpse_01-39140", GizmoTargetTypes.Corpse),
+				new GizmoEntry(200228, PluginGizmoType.Chest, "LootType2_BastionsKeepGuard_Frosty_Ranged_Corpse_01-41821", GizmoTargetTypes.Corpse),
+				new GizmoEntry(200251, PluginGizmoType.Chest, "Clicky_LootType2_DemonTrooper_A_Frosty_Corpse_01-41864", GizmoTargetTypes.Corpse),
+				new GizmoEntry(200233, PluginGizmoType.Chest, "LootType2_BastionsKeepGuard_Frosty_Ranged_Corpse_06-41902", GizmoTargetTypes.Corpse),
+				new GizmoEntry(230768, PluginGizmoType.Chest, "demonTrooper_B_clickable_corpse_01-42003", GizmoTargetTypes.Corpse),
+				new GizmoEntry(200249, PluginGizmoType.Chest, "Clicky_LootType2_DemonFlyer_A_Frosty_Corpse_01-43762", GizmoTargetTypes.Corpse),
+				new GizmoEntry(200231, PluginGizmoType.Chest, "LootType2_BastionsKeepGuard_Frosty_Ranged_Corpse_05-44897", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188364, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_C_Corpse_02-1953", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188361, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_B_Corpse_05-21751", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188356, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_A_Corpse_06-5361", GizmoTargetTypes.Corpse),
+				new GizmoEntry(385813, PluginGizmoType.Chest, "LootType3_DeadEndCorpse_BastionsKeepGuard_Melee_Corpse_01-6345", GizmoTargetTypes.Corpse),
+				new GizmoEntry(385816, PluginGizmoType.Chest, "LootType3_DeadEndCorpse_BastionsKeepGuard_Ranged_Corpse_02-20452", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188010, PluginGizmoType.Chest, "demonFlyer_B_clickable_corpse_01-23271", GizmoTargetTypes.Corpse),
+				new GizmoEntry(385815, PluginGizmoType.Chest, "LootType3_DeadEndCorpse_BastionsKeepGuard_Ranged_Corpse_01-13185", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188351, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_A_Corpse_01-1623", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188353, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_A_Corpse_03-2019", GizmoTargetTypes.Corpse),
+				new GizmoEntry(190276, PluginGizmoType.Chest, "LootType3_CaldeumGuard_Cleaver_A_Corpse_05-6325", GizmoTargetTypes.Corpse),
 				#endregion
 
 				//============== Weapon Rack ==============//
@@ -363,6 +401,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(289756, PluginGizmoType.Chest, "x1_Abattoir_ArmorRack-3055", GizmoTargetTypes.ItemRack),
 				new GizmoEntry(289244, PluginGizmoType.Chest, "x1_Westm_ArmorRack-9628", GizmoTargetTypes.ItemRack),
 				new GizmoEntry(346654, PluginGizmoType.Chest, "X1_Westm_Graveyard_Armor_Rack-13280", GizmoTargetTypes.ItemRack),
+				new GizmoEntry(289777, PluginGizmoType.Chest, "x1_Bog_ArmorRack-5965", GizmoTargetTypes.ItemRack),
+				new GizmoEntry(196509, PluginGizmoType.Chest, "a3dun_Bridge_Armor_Rack-42001", GizmoTargetTypes.ItemRack),
 
 				//============== Misc Containers ==============//
 				new GizmoEntry(5727, PluginGizmoType.Chest, "trDun_Cath_BookcaseShelves_B-394", GizmoTargetTypes.MiscContainer),

@@ -16,7 +16,7 @@ namespace fBaseXtensions.Game
 		public static readonly int ADVENTUREMODE_QUESTID = 312429;
 		public static readonly int ADVENTUREMODE_RIFTID = 337492;
 		public static readonly int ADVENTUREMODE_GREATERRIFT_TRIAL = 405695;
-		
+
 		/*
 		 Greater Rift Trial
 		GizmoType: Portal Name: X1_OpenWorld_Tiered_Rifts_Challenge_Portal-30347 ActorSNO: 408511
@@ -24,6 +24,10 @@ namespace fBaseXtensions.Game
 		Step 13: Count Down
 		Step 1: Killing
 		Step 9: Finished
+		 * 
+		 WorldID: 405684
+		 LevelAreaID: 405915
+		 p1_TieredRift_Challenge
 		 */
 
 		public delegate void BountyQuestStateChange(int QuestSno, QuestState newState);
@@ -167,13 +171,34 @@ namespace fBaseXtensions.Game
 				{//nullify when active bounty is nothing
 					ActiveBounty = null;
 				}
+
+				return;
 			}
-			else if (IsInRiftWorld)
+
+			RefreshActiveQuests();
+
+			if (ActiveQuests.ContainsKey(ADVENTUREMODE_RIFTID) && ActiveQuests[ADVENTUREMODE_RIFTID].State!= QuestState.NotStarted)
 			{
-				RefreshActiveQuests();
-				if (ActiveQuests.ContainsKey(ADVENTUREMODE_RIFTID))
+				if (ActiveBounty!=null && ActiveBounty.QuestSNO == ADVENTUREMODE_RIFTID)
+				{
+					((QuestInfoCache)ActiveBounty).Refresh();
+				}
+				else
 				{
 					ActiveBounty = ActiveQuests[ADVENTUREMODE_RIFTID];
+					Logger.Write(LogLevel.Bounty, "Active Bounty Changed To Rifting");
+				}
+			}
+			else if(ActiveQuests.ContainsKey(ADVENTUREMODE_GREATERRIFT_TRIAL) && ActiveQuests[ADVENTUREMODE_GREATERRIFT_TRIAL].State!= QuestState.NotStarted)
+			{
+				if (ActiveBounty != null && ActiveBounty.QuestSNO == ADVENTUREMODE_GREATERRIFT_TRIAL)
+				{
+					((QuestInfoCache)ActiveBounty).Refresh();
+				}
+				else
+				{
+					ActiveBounty = ActiveQuests[ADVENTUREMODE_GREATERRIFT_TRIAL];
+					Logger.Write(LogLevel.Bounty, "Active Bounty Changed To Rift Trial");
 				}
 			}
 			else
@@ -239,11 +264,10 @@ namespace fBaseXtensions.Game
 			if (ActiveBounty != null)
 			{
 				//Load Act Bounty Cache
-				//if (!ZetaDia.IsInTown && ActiveBounty.Act != CurrentAct)
-				//{
-				//	CurrentAct = ActiveBounty.Act;
-				//	LoadBountyCache(CurrentAct);
-				//}
+				if (!ZetaDia.IsInTown && ActiveBounty.Act != CurrentAct)
+				{
+					CurrentAct = ActiveBounty.Act;
+				}
 
 
 				if (CurrentBountyCacheEntry == null)
@@ -295,42 +319,27 @@ namespace fBaseXtensions.Game
 
 			if (ActiveBounty != null)
 			{
+				int _step = ((QuestInfoCache)ActiveBounty).Step;
 				ActiveBounty.Refresh();
 
 				int curStep = ((QuestInfoCache)ActiveBounty).Step;
+				if (_step!=curStep)
+				{
+					Logger.Write(LogLevel.Bounty, "Active Rift Step Changed From {0} To {1}", _step, curStep);
+
+					//Raise Event
+					if (OnBountyQuestStateChanged != null)
+						OnBountyQuestStateChanged(ActiveBounty.QuestSNO, ActiveBounty.State);
+					
+				}
 
 				//Killing..
-				if (curStep == 1 || curStep==3)
+				if (curStep == 1 || curStep==3 || curStep==13 || curStep == 16)
 				{
 					RefreshRiftMapMarkers();
 				}
 			}
 		}
-
-		//Loads the cache from file
-		//private void LoadBountyCache(Act act)
-		//{
-		//	switch (act)
-		//	{
-		//		case Act.A1:
-		//			CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act1.xml");
-		//			break;
-		//		case Act.A2:
-		//			CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act2.xml");
-		//			break;
-		//		case Act.A3:
-		//			CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act3.xml");
-		//			break;
-		//		case Act.A4:
-		//			CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act4.xml");
-		//			break;
-		//		case Act.A5:
-		//			CurrentActCache = BountyQuestActCache.DeserializeFromXML("Act5.xml");
-		//			break;
-		//	}
-		//}
-
-		
 
 
 		public void RefreshActiveQuests()
@@ -390,7 +399,7 @@ namespace fBaseXtensions.Game
 					}
 				}
 			}
-			else if (ActiveBounty != null && !FunkyGame.Hero.bIsInTown && ActiveBounty.QuestSNO == ADVENTUREMODE_RIFTID)
+			else if (ActiveBounty != null && !FunkyGame.Hero.bIsInTown && (ActiveBounty.QuestSNO == ADVENTUREMODE_RIFTID || ActiveBounty.QuestSNO == ADVENTUREMODE_GREATERRIFT_TRIAL))
 			{
 				if (DateTime.Now.CompareTo(_lastAttemptedUpdateActiveRift) > 0)
 				{

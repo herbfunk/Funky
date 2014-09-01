@@ -630,7 +630,7 @@ namespace fBaseXtensions.Navigation
 
 			if (DateTime.Now.Subtract(LastObstacleIntersectionTest).TotalMilliseconds > 1500)
 			{
-				if (!FunkyGame.Hero.IsMoving || FunkyGame.Hero.currentMovementState.Equals(MovementState.WalkingInPlace) || FunkyGame.Hero.currentMovementState.Equals(MovementState.None) || FunkyGame.Targeting.Movement.BlockedMovementCounter > 0)
+				if (!FunkyGame.Hero.IsMoving || FunkyGame.Hero.currentMovementState.Equals(MovementState.WalkingInPlace) || FunkyGame.Hero.currentMovementState.Equals(MovementState.None) || FunkyGame.Targeting.cMovement.BlockedMovementCounter > 0)
 				{
 					LastObstacleIntersectionTest = DateTime.Now;
 

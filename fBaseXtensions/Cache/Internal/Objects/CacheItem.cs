@@ -267,7 +267,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				LastAvoidanceIgnored = DateTime.Now;
 
 				//Skipped Due To Avoidances -- Gold and Globes, we blacklist them for a bit so we don't rerun the tests over and over!
-				if (targetType.Value != TargetType.Item)
+				if (targetType.Value != TargetType.Item && targetType.Value != TargetType.PowerGlobe)
 				{
 					Weight = 0; //Zero will ignore the object completely! (Target)
 					BlacklistLoops = 10;
@@ -422,6 +422,13 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				}
 			}
 
+			//if (!IsStillValid())
+			//{
+			//	//Logger.Write(LogLevel.Cache, "ref object not valid for {0}", DebugStringSimple);
+			//	NeedsRemoved = true;
+			//	return false;
+			//}
+
 			if (targetType.Value == TargetType.Item)
 			{
 				#region Item
@@ -430,8 +437,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				{
 					try
 					{
-						
-						DynamicID = ref_DiaObject.CommonData.DynamicId;
+
+						DynamicID = ref_DiaItem.CommonData.DynamicId;
 					}
 					catch
 					{
@@ -447,7 +454,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				{
 					try
 					{
-						BalanceID = ref_DiaObject.CommonData.GameBalanceId;
+						BalanceID = ref_DiaItem.CommonData.GameBalanceId;
 					}
 					catch
 					{
@@ -484,6 +491,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					catch
 					{
 						Logger.Write(LogLevel.Cache, "Failure to add/update gamebalance data for item {0}", InternalName);
+						NeedsRemoved = true;
 						return false;
 					}
 
@@ -581,7 +589,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					}
 					catch
 					{
-						Logger.Write(LogLevel.Cache, "Failure to get gold amount for gold pile!");
+						//Logger.Write(LogLevel.Cache, "Failure to get gold amount for gold pile!");
 						return false;
 					}
 				}
@@ -594,9 +602,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 		public override bool IsStillValid()
 		{
-			if (ref_DiaItem == null || !ref_DiaItem.IsValid || ref_DiaItem.BaseAddress == IntPtr.Zero)
+			if (ref_DiaItem == null || !ref_DiaItem.IsValid || ref_DiaItem.BaseAddress == IntPtr.Zero || ref_DiaItem.CommonData == null || !ref_DiaItem.CommonData.IsValid || ref_DiaItem.CommonData.ACDGuid == -1)
 				return false;
-
 			return base.IsStillValid();
 		}
 

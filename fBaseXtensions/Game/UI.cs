@@ -543,7 +543,86 @@ namespace fBaseXtensions.Game
 
 		public static class Game
 		{
+
 			//
+			public static UIElement Conversation_Dialog_Main
+			{
+				get
+				{
+					try { return UIElement.FromHash(0x9738C281AF3C6E2B); }
+					catch { return null; }
+				}
+			}
+
+			//Name Root.NormalLayer.vendor_dialog_mainPage.riftReward_dialog.LayoutRoot.gemUpgradePane.items_list Hash 0xF5010CDEA6F362EE HasText True Text qު�q߮�q߲�qߵ�q߸�q��q���q���q���q���q���q���q���q���q���q���V�V�V�V�V�V �V"�V#�V#�V%�V&�V)�U*�U+�U-�U/�U1�T2�T3�T5�T8�T9�T<�T<�T?�TA�SC�SF�SG�SJ�SM�SO�SS�SV�TZ�T[�U`�Uc�Vg�X k�X!o�X!q�X!u�Y"y�Z#|�Z#��[#��\$��\$��\%��^&��^&��`'��`'��`'��b)��a)��b)��c)��d*��d*��d+��f,��f,��X�X�X�X�X�X!�X#�X#�X$�X&�X'�X)�X+�X+�X-�X/�X1�X3�X5�X6�W8�W:�W<�W>�W@�WC�WD�VG�VH�VK�VM�VO�VS�VV�WZ�V[�X`�Xc�Xg�Z k�Z!o�Z!q�[!u�\"y�\#|�^#��^#��_$�� Visible True Enabled False
+			public static UIElement RiftReward_gemUpgradePane_List
+			{
+				get
+				{
+					try { return UIElement.FromHash(0xF5010CDEA6F362EE); }
+					catch { return null; }
+				}
+			}
+			public static UIElement RiftReward_gemUpgradePane
+			{
+				get
+				{
+					try { return UIElement.FromHash(0x8210044D8CC4C43); }
+					catch { return null; }
+				}
+			}
+			public static UIElement RiftReward_MainDialog
+			{
+				get
+				{
+					try { return UIElement.FromHash(0xE528DB177E3CB4AA); }
+					catch { return null; }
+				}
+			}
+			public static UIElement RiftReward_UpgradeGem
+			{
+				get
+				{
+					try { return UIElement.FromHash(0x826E5716E8D4DD05); }
+					catch { return null; }
+				}
+			}
+			public static UIElement RiftReward_UpgradeKey
+			{
+				get
+				{
+					try { return UIElement.FromHash(0x4BDE2D63B5C36134); }
+					catch { return null; }
+				}
+			}
+			public static UIElement RiftReward_UpgradeContinue
+			{
+				get
+				{
+					try { return UIElement.FromHash(0x1A089FAFF3CB6576); }
+					catch { return null; }
+				}
+			}
+
+			public static UIElement BloodShardVendorMainDialog
+			{
+				get
+				{
+					try { return UIElement.FromHash(0xA83F2BC15AC524D7); }
+					catch { return null; }
+				}
+			}
+
+			//
+			public static UIElement NeaphlemObeliskDialog
+			{
+				get
+				{
+					try { return UIElement.FromHash(0x3182F223039F15F0); }
+					catch { return null; }
+				}
+			}
+
 			public static UIElement RiftDialog_Item
 			{
 				get

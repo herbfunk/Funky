@@ -345,8 +345,8 @@ namespace fBaseXtensions.Cache.Internal
 									}
 									catch
 									{
-										
-											Logger.Write(LogLevel.Cache, "Failed to retrieve TeamID attribute for object {0}", thisObstacle.InternalName);
+
+										Logger.Write(LogLevel.Cache, "Failed to retrieve TeamID attribute for object {0}", tmp_CachedObj.InternalName);
 									}
 
 									//ID of 1 means its non-hostile! (-1?) 2??
@@ -512,7 +512,11 @@ namespace fBaseXtensions.Cache.Internal
 				{
 					item.NeedsRemoved = true;
 				}
+
+				CheckForCacheRemoval();
 			}
+
+			
 
 			_lastUpdatedCacheCollection=DateTime.Now;
 			return true;
@@ -538,13 +542,13 @@ namespace fBaseXtensions.Cache.Internal
 			if (RemovalCheck)
 			{
 				//Remove flagged objects
-				var RemovalObjs = (from objs in ObjectCache.Objects.Values
+				var RemovalObjs = (from objs in Objects.Values
 								   where objs.NeedsRemoved
 								   select objs.RAGUID).ToList();
 
 				foreach (var item in RemovalObjs)
 				{
-					CacheObject thisObj = ObjectCache.Objects[item];
+					CacheObject thisObj = Objects[item];
 
 					//remove prioritized raguid
 					if (FunkyGame.Navigation.PrioritizedRAGUIDs.Contains(item))
@@ -554,7 +558,7 @@ namespace fBaseXtensions.Cache.Internal
 					if (thisObj.BlacklistFlag != BlacklistType.None)
 						BlacklistCache.AddObjectToBlacklist(thisObj.RAGUID, thisObj.BlacklistFlag);
 
-					ObjectCache.Objects.Remove(thisObj.RAGUID);
+					Objects.Remove(thisObj.RAGUID);
 				}
 
 				RemovalCheck = false;
@@ -575,8 +579,6 @@ namespace fBaseXtensions.Cache.Internal
 		internal static Dictionary<int, ObstacleType?> dictObstacleType = new Dictionary<int, ObstacleType?>();
 		internal static Dictionary<int, float?> dictActorSphereRadius = new Dictionary<int, float?>();
 		internal static Dictionary<int, bool?> dictCanBurrow = new Dictionary<int, bool?>();
-		internal static Dictionary<int, bool?> dictGrantsNoXp = new Dictionary<int, bool?>();
-		internal static Dictionary<int, bool?> dictDropsNoLoot = new Dictionary<int, bool?>();
 		internal static Dictionary<int, GizmoType?> dictGizmoType = new Dictionary<int, GizmoType?>();
 		internal static Dictionary<int, bool?> dictIsBarricade = new Dictionary<int, bool?>();
 		internal static Dictionary<int, double> dictProjectileSpeed = new Dictionary<int, double>();

@@ -137,9 +137,9 @@ namespace fBaseXtensions.XML
 			try
 			{
 				Logger.DBLog.Info("Using Waypoint -- WaypointID: " + waypointID);
-				new DwordDataMessage(Opcode.DWordDataMessage17, waypointID).Send();
+				//new DwordDataMessage(Opcode.DWordDataMessage17, waypointID)
 				LastInteraction = DateTime.Now;
-
+				
 			}
 			catch (Exception)
 			{

@@ -83,7 +83,7 @@ namespace fItemPlugin.Townrun
 				Navigator.PlayerMover.MoveTowards(vectorGamblingPosition);
 				return RunStatus.Running;
 			}
-			UIElement uie = BloodShardVendorMainDialog;
+			UIElement uie = UI.Game.BloodShardVendorMainDialog;
 			if (!(uie != null && uie.IsValid && uie.IsVisible))
 			{
 				objGamblingNPC.Interact();
@@ -108,7 +108,7 @@ namespace fItemPlugin.Townrun
 
 			BotMain.StatusText = "Town run: Gambling Interaction";
 
-			UIElement uie = BloodShardVendorMainDialog;
+			UIElement uie = UI.Game.BloodShardVendorMainDialog;
 			if (!(uie != null && uie.IsValid && uie.IsVisible))
 			{
 				FunkyTownRunPlugin.DBLog.DebugFormat("[Funky] Gambling UI Dialog Not Visible!");
@@ -420,14 +420,7 @@ namespace fItemPlugin.Townrun
 			BloodShardGambleItems.Amulet,BloodShardGambleItems.Ring,
 		};
 
-		internal static UIElement BloodShardVendorMainDialog
-		{
-			get
-			{
-				try { return UIElement.FromHash(0xA83F2BC15AC524D7); }
-				catch { return null; }
-			}
-		}
+
 	}
 
 }

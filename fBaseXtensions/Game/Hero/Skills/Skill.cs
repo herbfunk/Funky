@@ -584,9 +584,9 @@ namespace fBaseXtensions.Game.Hero.Skills
 			if (ObjectCache.CheckFlag(ExecutionType, SkillExecutionFlags.ZigZagPathing))
 			{
 				//Reset Blockcounter --
-				FunkyGame.Targeting.Movement.BlockedMovementCounter = 0;
-				FunkyGame.Targeting.Movement.NonMovementCounter = 0;
-				FunkyGame.Targeting.Movement.LastMovementDuringCombat = DateTime.Now;
+				FunkyGame.Targeting.cMovement.BlockedMovementCounter = 0;
+				FunkyGame.Targeting.cMovement.NonMovementCounter = 0;
+				FunkyGame.Targeting.cMovement.LastMovementDuringCombat = DateTime.Now;
 			}
 
 			if (ShouldTrack)

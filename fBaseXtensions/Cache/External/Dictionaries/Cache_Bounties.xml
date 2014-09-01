@@ -519,6 +519,19 @@
           <int>350556</int>
         </QuestSNOs>
       </BountyQuestCacheEntry>
+      <BountyQuestCacheEntry>
+        <Name>Act2_ClearSiroccoCaverns</Name>
+        <Type>Clear</Type>
+        <StartingLevelAreaID>19836</StartingLevelAreaID>
+        <EndingLevelAreaID>220805</EndingLevelAreaID>
+        <LevelAreaIDs>
+          <int>19837</int>
+          <int>159588</int>
+        </LevelAreaIDs>
+        <QuestSNOs>
+          <int>347525</int>
+        </QuestSNOs>
+      </BountyQuestCacheEntry>
     </ClearBounties>
 
     <CursedEventBounties>
@@ -787,7 +800,20 @@
           <int>349208</int>
         </QuestSNOs>
       </BountyQuestCacheEntry>
-
+      <BountyQuestCacheEntry>
+        <Name>A3_Clear_BattlefieldStores</Name>
+        <Type>Clear</Type>
+        <StartingLevelAreaID>154644</StartingLevelAreaID>
+        <EndingLevelAreaID>221754</EndingLevelAreaID>
+        <LevelAreaIDs>
+          <int>112548</int>
+          <int>182274</int>
+        </LevelAreaIDs>
+        <TotalKillCount>-1</TotalKillCount>
+        <QuestSNOs>
+          <int>349204</int>
+        </QuestSNOs>
+      </BountyQuestCacheEntry>
     </ClearBounties>
 
 
@@ -801,6 +827,20 @@
         <TotalKillCount>-1</TotalKillCount>
         <QuestSNOs>
           <int>369868</int>
+        </QuestSNOs>
+      </BountyQuestCacheEntry>
+
+      <BountyQuestCacheEntry>
+        <Name>A3_CursedGlacier</Name>
+        <Type>CursedEvent</Type>
+        <StartingLevelAreaID>155048</StartingLevelAreaID>
+        <EndingLevelAreaID>191078</EndingLevelAreaID>
+        <LevelAreaIDs>
+          <int>112565</int>
+        </LevelAreaIDs>
+        <TotalKillCount>-1</TotalKillCount>
+        <QuestSNOs>
+          <int>369851</int>
         </QuestSNOs>
       </BountyQuestCacheEntry>
 

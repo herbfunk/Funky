@@ -32,8 +32,6 @@ namespace fBaseXtensions.Cache.Internal.Collections
 			if (!ObjectCache.dictCollisionRadius.ContainsKey(key)) ObjectCache.dictCollisionRadius.Add(key, null);
 			if (!ObjectCache.dictInternalName.ContainsKey(key)) ObjectCache.dictInternalName.Add(key, null);
 			if (!ObjectCache.dictCanBurrow.ContainsKey(key)) ObjectCache.dictCanBurrow.Add(key, null);
-			if (!ObjectCache.dictDropsNoLoot.ContainsKey(key)) ObjectCache.dictDropsNoLoot.Add(key, null);
-			if (!ObjectCache.dictGrantsNoXp.ContainsKey(key)) ObjectCache.dictGrantsNoXp.Add(key, null);
 			if (!ObjectCache.dictIsBarricade.ContainsKey(key)) ObjectCache.dictIsBarricade.Add(key, null);
 			if (!ObjectCache.dictObstacleType.ContainsKey(key)) ObjectCache.dictObstacleType.Add(key, null);
 			if (!ObjectCache.dictActorSphereRadius.ContainsKey(key)) ObjectCache.dictActorSphereRadius.Add(key, null);
@@ -53,8 +51,6 @@ namespace fBaseXtensions.Cache.Internal.Collections
 			ObjectCache.dictCollisionRadius.Remove(key);
 			ObjectCache.dictInternalName.Remove(key);
 			ObjectCache.dictCanBurrow.Remove(key);
-			ObjectCache.dictDropsNoLoot.Remove(key);
-			ObjectCache.dictGrantsNoXp.Remove(key);
 			ObjectCache.dictIsBarricade.Remove(key);
 			ObjectCache.dictObstacleType.Remove(key);
 			ObjectCache.dictActorSphereRadius.Remove(key);
@@ -188,7 +184,7 @@ namespace fBaseXtensions.Cache.Internal.Collections
 			CachedSNOEntry thisSNOdata = this[sno];
 
 			//Take the value, recreate it using finalized constructor
-			CachedSNOEntry thisNewData = new CachedSNOEntry(thisSNOdata.SNOID, thisSNOdata.InternalName, thisSNOdata.Actortype, thisSNOdata.targetType, thisSNOdata.Monstertype, thisSNOdata.Monstersize, thisSNOdata.CollisionRadius, thisSNOdata.CanBurrow, thisSNOdata.GrantsNoXP, thisSNOdata.DropsNoLoot, thisSNOdata.IsBarricade, thisSNOdata.Obstacletype, thisSNOdata.ActorSphereRadius, thisSNOdata.Gizmotype, thisSNOdata.ItemDropType, thisSNOdata.UnitPropertyFlags, thisSNOdata.GizmoTargetTypes, thisSNOdata.snoentry);
+			CachedSNOEntry thisNewData = new CachedSNOEntry(thisSNOdata.SNOID, thisSNOdata.InternalName, thisSNOdata.Actortype, thisSNOdata.targetType, thisSNOdata.Monstertype, thisSNOdata.Monstersize, thisSNOdata.CollisionRadius, thisSNOdata.CanBurrow, thisSNOdata.IsBarricade, thisSNOdata.Obstacletype, thisSNOdata.ActorSphereRadius, thisSNOdata.Gizmotype, thisSNOdata.ItemDropType, thisSNOdata.UnitPropertyFlags, thisSNOdata.GizmoTargetTypes, thisSNOdata.snoentry);
 
 			//Now clone the data and set it as the value
 			snoEntries[sno] = (CachedSNOEntry)thisNewData.Clone();

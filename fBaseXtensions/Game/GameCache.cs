@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using fBaseXtensions.Behaviors;
 using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Cache.Internal.Objects;
@@ -6,8 +7,10 @@ using fBaseXtensions.Settings;
 using Zeta.Bot.Profile.Common;
 using Zeta.Common;
 using Zeta.Game;
+using Zeta.Game.Internals;
 using Logger = fBaseXtensions.Helpers.Logger;
 using LogLevel = fBaseXtensions.Helpers.LogLevel;
+
 
 namespace fBaseXtensions.Game
 {
@@ -28,6 +31,7 @@ namespace fBaseXtensions.Game
 		{
 			SettingCluster.ClusterSettingsTag = FunkyBaseExtension.Settings.Cluster;
 			SettingLOSMovement.LOSSettingsTag = FunkyBaseExtension.Settings.LOSMovement;
+			MonitorSettings.MonitorSettingsTag = FunkyBaseExtension.Settings.Monitoring;
 			QuestMode = false;
 			AllowAnyUnitForLOSMovement = false;
 			ShouldNavigateMinimapPoints = false;
@@ -415,7 +419,8 @@ namespace fBaseXtensions.Game
 			Gamble,
 			Interaction,
 			Idenify,
-			NephalemObelisk
+			NephalemObelisk,
+			NephalemNPC//
 		}
 		public static Vector3 ReturnTownRunMovementVector(TownRunBehavior type, Act act)
 		{
@@ -434,8 +439,9 @@ namespace fBaseXtensions.Game
 						case Act.A3:
 						case Act.A4://x="332.819" y="423.1313" z="0.4986931" (new Vector3(332.819f,423.1313f,0.4986931f))
 							return new Vector3(379.6096f, 415.6198f, 0.3321424f);
-						case Act.A5://x="538.4665" y="479.0026" z="2.620764" (new Vector3())
-							return new Vector3(560.1434f, 501.5706f, 2.685907f);
+						case Act.A5://new Vector3(553.9642f,726.5281f,2.685907f
+							return new Vector3(553.9642f, 726.5281f, 2.685907f);
+
 					}
 					break;
 				case TownRunBehavior.Sell:
@@ -452,7 +458,8 @@ namespace fBaseXtensions.Game
 						case Act.A4:
 							return new Vector3(418.9743f, 351.0592f, 0.1000005f);
 						case Act.A5:
-							return new Vector3(560.1434f, 501.5706f, 2.685907f);
+							return new Vector3(553.9642f, 726.5281f, 2.685907f);
+
 					}
 					break;
 				case TownRunBehavior.Stash:
@@ -469,7 +476,8 @@ namespace fBaseXtensions.Game
 						case Act.A4:
 							return new Vector3(389.3798f, 390.7143f, 0.3321428f);
 						case Act.A5:
-							return new Vector3(510.6552f, 502.1889f, 2.620764f);
+							return new Vector3(512.3821f, 742.5602f, 2.620764f);
+
 					}
 					break;
 				case TownRunBehavior.Gamble:
@@ -483,7 +491,7 @@ namespace fBaseXtensions.Game
 						case Act.A4:
 							return new Vector3(458.5429f, 416.3311f, 0.2663189f);
 						case Act.A5:
-							return new Vector3(592.5067f, 535.6719f, 2.74532f);
+							return new Vector3(591.8649f, 775.5791f, 2.745319f);
 					}
 					break;
 				case TownRunBehavior.Interaction:
@@ -500,7 +508,7 @@ namespace fBaseXtensions.Game
 						case Act.A4:
 							return new Vector3(403.7034f, 395.9311f, 0.5069602f);
 						case Act.A5:
-							return new Vector3(532.3179f, 521.8536f, 2.662077f);
+							return new Vector3(530.2519f, 754.901f, 2.660442f);
 					}
 					break;
 				case TownRunBehavior.Idenify:
@@ -517,7 +525,7 @@ namespace fBaseXtensions.Game
 						case Act.A4:
 							return new Vector3(398.9163f, 393.4324f, 0.3577437f);
 						case Act.A5:
-							return new Vector3(523.6658f, 525.9195f, 2.662077f);
+							return new Vector3(507.2594f, 764.2841f, 2.662077f);
 					}
 					break;
 				case TownRunBehavior.NephalemObelisk:
@@ -531,12 +539,79 @@ namespace fBaseXtensions.Game
 						case Act.A4:
 							return new Vector3(459.3317f,391.8568f,0.392121f);
 						case Act.A5:
-							return new Vector3(601.1368f, 754.1678f, 2.703856f);
+							return new Vector3(597.6126f, 751.5252f, 2.691142f);
 					}
+					break;
+				case TownRunBehavior.NephalemNPC:
+					switch (act)
+					{
+						case Act.A1:
+							return new Vector3(393.3318f, 578.995f, 24.04533f);
+						case Act.A2:
+							return new Vector3(352.2672f, 283.4064f, 0.1000038f);
+						case Act.A3:
+						case Act.A4:
+							return new Vector3(449.1268f,405.3228f,0.1000005f);
+						case Act.A5:
+							return new Vector3(584.4866f, 759.4938f, 2.745319f);
+					}
+
 					break;
 			}
 
 			return Vector3.Zero;
+		}
+		public static int ReturnTownRunObjectSNO(TownRunBehavior type, Act act)
+		{
+			switch (type)
+			{
+				case TownRunBehavior.Stash:
+					return 130400;
+				case TownRunBehavior.Sell:
+					switch (act)
+					{
+						case Act.A1:
+							return 178396;
+						case Act.A2:
+							return 180783;
+						case Act.A3:
+						case Act.A4:
+							return 181466;
+						case Act.A5:
+							return 309796;
+					}
+					break;
+				case TownRunBehavior.Salvage:
+					return 195170;
+				case TownRunBehavior.Gamble:
+					return 361241;
+				case TownRunBehavior.Idenify:
+					return 297814;
+				case TownRunBehavior.NephalemObelisk:
+					return 364715;
+				case TownRunBehavior.NephalemNPC:
+					return 363744;
+			}
+
+			return -1;
+		}
+		public static UIElement ReturnTownRunObjectDialogElement(TownRunBehavior type)
+		{
+			switch (type)
+			{
+				case TownRunBehavior.Stash:
+					return UIElements.StashWindow;
+				case TownRunBehavior.Sell:
+					return UIElements.VendorWindow;
+				case TownRunBehavior.Salvage:
+					return UIElements.SalvageWindow;
+				case TownRunBehavior.Gamble:
+					return UI.Game.BloodShardVendorMainDialog;
+				case TownRunBehavior.NephalemObelisk:
+					return UI.Game.NeaphlemObeliskDialog;
+			}
+
+			return null;
 		}
 	}
 }

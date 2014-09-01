@@ -94,6 +94,7 @@
 			this.tabPage18 = new System.Windows.Forms.TabPage();
 			this.button1 = new System.Windows.Forms.Button();
 			this.flowLayout_OutPut = new System.Windows.Forms.FlowLayoutPanel();
+			this.btn_EquippedItems_Attributes = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPageObjects.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -325,6 +326,7 @@
 			// 
 			// panel5
 			// 
+			this.panel5.Controls.Add(this.btn_EquippedItems_Attributes);
 			this.panel5.Controls.Add(this.btnRefreshCharacterEquipped);
 			this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panel5.Location = new System.Drawing.Point(3, 3);
@@ -822,6 +824,16 @@
 			this.flowLayout_OutPut.WrapContents = false;
 			this.flowLayout_OutPut.MouseEnter += new System.EventHandler(this.flowLayout_OutPut_MouseEnter);
 			// 
+			// btn_EquippedItems_Attributes
+			// 
+			this.btn_EquippedItems_Attributes.Location = new System.Drawing.Point(105, 3);
+			this.btn_EquippedItems_Attributes.Name = "btn_EquippedItems_Attributes";
+			this.btn_EquippedItems_Attributes.Size = new System.Drawing.Size(75, 35);
+			this.btn_EquippedItems_Attributes.TabIndex = 1;
+			this.btn_EquippedItems_Attributes.Text = "Dump Attributes";
+			this.btn_EquippedItems_Attributes.UseVisualStyleBackColor = true;
+			this.btn_EquippedItems_Attributes.Click += new System.EventHandler(this.btn_EquippedItems_Attributes_Click);
+			// 
 			// FormDebug
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -944,5 +956,6 @@
 		private System.Windows.Forms.Button btn_UI_Click;
 		private System.Windows.Forms.TextBox textBox_UI_Hash;
 		private System.Windows.Forms.Button btn_navagation;
+		private System.Windows.Forms.Button btn_EquippedItems_Attributes;
 	}
 }

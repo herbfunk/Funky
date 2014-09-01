@@ -93,7 +93,7 @@ namespace fBaseXtensions.Game
 
 		private ProfileBehaviorTypes GetProfileBehaviorType(Type behaviorType)
 		{
-			if (typeof(UseWaypointTag)==behaviorType || typeof(FunkyWaypoint)==behaviorType)
+			if (typeof(UseWaypointTag)==behaviorType) //|| typeof(FunkyWaypoint)==behaviorType)
 				return ProfileBehaviorTypes.UseWaypoint;
 			if (typeof(UseObjectTag)==behaviorType)
 				return ProfileBehaviorTypes.UseObject;
@@ -128,7 +128,7 @@ namespace fBaseXtensions.Game
 																	  //typeof (TrinityTownPortal),
 																	  //typeof(QuestTools.ProfileTags.TownPortalTag),
 																	  //typeof(QuestTools.ProfileTags.TownRunTag),
-																	  typeof (FunkyWaypoint),
+																	 // typeof (FunkyWaypoint),
 																	};
 
 		//Common Used Profile Tags that requires backtracking during combat sessions.

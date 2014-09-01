@@ -328,7 +328,7 @@ namespace fBaseXtensions.Game.Hero
 
 		private void CheckActiveBounty()
 		{
-			if (FunkyGame.AdventureMode && SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode)
+			if (FunkyGame.AdventureMode)
 			{
 				FunkyGame.Game.ResetCombatModifiers();
 
@@ -344,6 +344,9 @@ namespace fBaseXtensions.Game.Hero
 					{
 						var CurrentBountyCacheEntry = FunkyGame.Bounty.CurrentBountyCacheEntry;
 						Logger.Write(Helpers.LogLevel.Bounty, "Checking Bounty Type {0}", CurrentBountyCacheEntry.Type);
+						
+						if (!SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode) return;
+
 						int curLevelID = FunkyGame.Hero.iCurrentLevelID;
 
 						//Check if We should Modify the Bots Combat Behavior
@@ -407,17 +410,20 @@ namespace fBaseXtensions.Game.Hero
 						FunkyGame.Bounty.RefreshRiftMapMarkers();
 						FunkyGame.Game.ShouldNavigateMinimapPoints = true;
 						SettingCluster.ClusterSettingsTag = SettingCluster.DisabledClustering;
+						if (curStep == 13) MonitorSettings.MonitorSettingsTag.GoldInactivityTimeoutSeconds = 0;
 					}
 					else if (curStep == 3 || curStep==16)//Boss Spawned
 					{
 						FunkyGame.Bounty.RefreshRiftMapMarkers();
 						SettingCluster.ClusterSettingsTag = FunkyBaseExtension.Settings.Cluster;
 						FunkyGame.Game.ShouldNavigateMinimapPoints = false;
+						if (curStep == 16) MonitorSettings.MonitorSettingsTag.GoldInactivityTimeoutSeconds = 0;
 					}
 					else//Boss Killed 10 / 34
 					{
 						SettingCluster.ClusterSettingsTag = FunkyBaseExtension.Settings.Cluster;
 						FunkyGame.Game.ShouldNavigateMinimapPoints = false;
+						if (curStep == 10 || curStep == 34) MonitorSettings.MonitorSettingsTag.GoldInactivityTimeoutSeconds = 0;
 					}
 				}
 			}

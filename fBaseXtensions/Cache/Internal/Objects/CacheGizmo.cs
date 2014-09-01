@@ -99,6 +99,13 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				}
 			}
 
+			if (!IsStillValid())
+			{
+				//Logger.Write(LogLevel.Cache, "ref object not valid for {0}", DebugStringSimple);
+				NeedsRemoved = true;
+				return false;
+			}
+
 			//Destructibles are not important unless they are close.. 40f is minimum range!
 			//if ((this.targetType.Value == TargetType.Destructible || this.targetType.Value == TargetType.Barricade) && this.CentreDistance > 40f)
 			//{

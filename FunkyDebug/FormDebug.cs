@@ -503,7 +503,7 @@ namespace FunkyDebug
 									"IsOneHand: {12} IsPotion: {13} IsRare: {14} IsTwoHand: {15}\r\n" +
 									"IsTwoSquareItem: {16} IsUnidentified: {17} IsUnique: {18} IsVendorBought: {19}\r\n" +
 									"Level: {20} RequiredLevel: {21} ItemLevelRequirementReduction: {22} \r\n" +
-									"ItemQuality: {23} GemQuality: {24} \r\n" +
+									"ItemQuality: {23} GemQuality: {24} TierdLootRunKeyLevel {36} \r\n" +
 									"MaxStackCount: {25} MaxDurability: {26} NumSockets: {27} \r\n" +
 									"Stats: {28}\n",
 									o.ActorSNO, o.Name,
@@ -518,7 +518,7 @@ namespace FunkyDebug
 									o.Stats,
 									o.Position, o.ACDGuid, o.DynamicId,
 									o.InventoryRow, o.InventoryColumn,
-									o.GameBalanceId, o.InternalName);
+									o.GameBalanceId, o.InternalName, o.TieredLootRunKeyLevel);
 		}
 
 
@@ -1003,6 +1003,54 @@ namespace FunkyDebug
 			{
 				uie.Click();
 			}
+		}
+
+		private void btn_EquippedItems_Attributes_Click(object sender, EventArgs e)
+		{
+			if (BotMain.IsRunning) return;
+
+
+			flowLayout_OutPut.Controls.Clear();
+
+			try
+			{
+				using (ZetaDia.Memory.SaveCacheState())
+				{
+					ZetaDia.Memory.DisableCache();
+					ZetaDia.Actors.Update();
+
+					#region Character Inventory Items
+					foreach (var o in ZetaDia.Me.Inventory.Equipped)
+					{
+						try
+						{
+							string attributes="";
+							foreach (ActorAttributeType aType in Enum.GetValues(typeof(ActorAttributeType)))
+							{
+								var iType = o.GetAttribute<float>(aType);
+								if (iType > 0)
+								{
+									attributes += aType.ToString() + "=" + iType.ToString() + ", ";
+								}
+							}
+
+							flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(String.Format("{0} \r\n {1}", o.InternalName, attributes)));
+						}
+						catch (Exception)
+						{
+
+						}
+
+					}
+					#endregion
+				}
+			}
+			catch (Exception ex)
+			{
+
+			}
+
+			flowLayout_OutPut.Focus();
 		}
 
 		

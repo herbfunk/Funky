@@ -12,10 +12,12 @@ using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Cache.Internal.Objects;
 using fBaseXtensions.Game;
 using fBaseXtensions.Game.Hero;
+using fBaseXtensions.Items;
 using fBaseXtensions.Items.Enums;
 using fBaseXtensions.Stats;
 using Zeta.Bot;
 using Zeta.Game;
+using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
 using Logger = fBaseXtensions.Helpers.Logger;
 using LogLevel = fBaseXtensions.Helpers.LogLevel;
@@ -1467,10 +1469,10 @@ namespace fBaseXtensions.Settings
 				{
 					try
 					{
-						//CacheACDItem item = new CacheACDItem(o);
+						CacheACDItem item = new CacheACDItem(o);
 						string s=String.Format("Type {0} {1} - SNO: {2} BalanceID: {3}",
-															o.ItemType, o.InternalName, o.ActorSNO, o.GameBalanceId);
-
+															item.ItemType,item.ThisInternalName,item.SNO,item.ThisBalanceID);
+						
 						LBDebug.Controls.Add(new UserControlDebugEntry(s));
 					}
 					catch (Exception)
@@ -1502,51 +1504,26 @@ namespace fBaseXtensions.Settings
 		private void btn_Test_Click(object sender, EventArgs e)
 		{
 			LBDebug.Controls.Clear();
-			//ZetaDia.Memory.ClearCache();
-			//ZetaDia.Actors.Update();
-			
-			//UIElement backpackMainDetails = UIElement.FromHash(0x8219CD30B0ABAFE1);
-			//LBDebug.Controls.Add(new UserControlDebugEntry("...Backpack Main Details..."));
-			int i = 0;
-			foreach (var b in UI.GetUIMap())
+			foreach (var uie in UI.GetChildren(UI.Game.RiftReward_gemUpgradePane))
 			{
-				LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(b)));
-				i++;
-
-				if (i > 100)
-					break;
+				//LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(uie)));
+				foreach (var a in UI.GetChildren(uie))
+				{
+					//LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(a)));
+					foreach (var b in UI.GetChildren(a))
+					{
+						//LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(b)));
+						foreach (var c in UI.GetChildren(b))
+						{
+							foreach (var d in UI.GetChildren(c))
+							{
+								LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(d)));
+							}
+						}
+					}
+				}
 			}
-
-			//UIElement backpackbutton = UI.Game.Inventory_ButtonBackpack;
-			//LBDebug.Controls.Add(new UserControlDebugEntry("...Backpack Button..."));
-			//foreach (var b in UI.GetChildren(backpackbutton))
-			//{
-			//	LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(b)));
-			//}
-
-			//UIElement backpack = UI.Game.Inventory;
-			//LBDebug.Controls.Add(new UserControlDebugEntry("...Backpack Inventory..."));
-			//foreach (var b in UI.GetChildren(backpack))
-			//{
-			//	LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(b)));
-			//}
-
-			//var curProccess = System.Diagnostics.Process.GetCurrentProcess();
-			//LBDebug.Controls.Add(new UserControlDebugEntry(curProccess.Id.ToString()));
-
-			
-			//UI.Game.Inventory_ButtonBackpack.Click();
-
-		
-			//
-			//string OutPut = "";
-			//foreach (var entry in TheCache.ObjectIDCache.UnitEntries.Values.OrderBy(unit => unit.SnoId))
-			//{
-			//	OutPut = OutPut + entry.ReturnCacheEntryString() + "\r\n";
-			//}
-			//Clipboard.SetText(OutPut);
-
-			//
+			LBDebug.Focus();
 		}
 	}
 }

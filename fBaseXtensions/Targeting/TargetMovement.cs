@@ -7,6 +7,7 @@ using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Game.Hero.Skills;
 using fBaseXtensions.Game.Hero.Skills.Conditions;
 using fBaseXtensions.Navigation;
+using Zeta.Bot;
 using Zeta.Bot.Navigation;
 using Zeta.Common;
 using Zeta.Game;
@@ -133,7 +134,17 @@ namespace fBaseXtensions.Targeting
 						Action += "Click] ";
 						break;
 				}
-				FunkyGame.Targeting.Handler.UpdateStatusText(Action);
+				FunkyGame.sStatusText = Action + " ";
+
+				FunkyGame.sStatusText += "Target=" + FunkyGame.Targeting.Cache.CurrentTarget.InternalName + " C-Dist=" + Math.Round(FunkyGame.Targeting.Cache.CurrentTarget.CentreDistance, 2) + ". " +
+					 "R-Dist=" + Math.Round(FunkyGame.Targeting.Cache.CurrentTarget.RadiusDistance, 2) + ". ";
+
+				if (FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit && FunkyGame.Hero.Class.PowerPrime.Power != SNOPower.None)
+					FunkyGame.sStatusText += "Power=" + FunkyGame.Hero.Class.PowerPrime.Power + " (range " + FunkyGame.Hero.Class.PowerPrime.MinimumRange + ") ";
+
+				FunkyGame.sStatusText += "Weight=" + FunkyGame.Targeting.Cache.CurrentTarget.Weight;
+				BotMain.StatusText = FunkyGame.sStatusText;
+				FunkyGame.bResetStatusText = true;
 			}
 			#endregion
 

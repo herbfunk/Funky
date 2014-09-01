@@ -1,4 +1,20 @@
-﻿v1.0.1.1
+﻿v1.1.0.0
+
+Rift Support Added
+	Target Handler will now pickup purple globes and wait while inside avoidances.
+	Gold Inactivity will be disabled during tiered and trial rifts.
+	MoveItem Tag now has Keystone property (Fragment, Trial or Tiered)
+	Added HasKeystone Tag
+	Added MoveToTownObject Tag
+	Added OpenRiftPortal Tag
+
+
+v1.0.1.2
+	Fixed Act 5 Town Run Movement Vectors.
+	Fixed Bounty not updating current act and selecting correct cache collection.
+
+
+v1.0.1.1
 	Added CachePet -- Pets are now added to the cache.
 	Removed all references of Targeting from ObjectCache update method.
 	FunkyWhileActorPresent Tag no longer requires Funky Combat Routine to work.

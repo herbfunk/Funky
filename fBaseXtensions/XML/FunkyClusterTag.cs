@@ -16,7 +16,12 @@ namespace fBaseXtensions.XML
 	public class FunkyClusteringTag : ProfileBehavior
 	{
 		[XmlElement("ExceptionList")]
-		public List<ClusterException> SNOs { get; set; }
+		public List<ClusterException> SNOs
+		{
+			get { return _snos; }
+			set { _snos = value; }
+		}
+		private List<ClusterException> _snos = new List<ClusterException>(); 
 
 		private bool m_IsDone;
 		public override bool IsDone
@@ -96,7 +101,7 @@ namespace fBaseXtensions.XML
 
 		public ClusterException()
 		{
-
+			SNO = -1;
 		}
 
 		public override string ToString()

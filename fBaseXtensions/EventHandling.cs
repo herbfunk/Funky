@@ -1,4 +1,5 @@
 ﻿using System;
+using fBaseXtensions.Behaviors;
 using fBaseXtensions.Cache.External.Debugging;
 using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Game;
@@ -49,7 +50,8 @@ namespace fBaseXtensions
 			FunkyGame.CurrentGameID = new GameId();
 			FunkyGame.AdventureMode = false;
 			FunkyGame.ShouldRefreshAccountDetails = true;
-			
+			ExitGame.ShouldExitGame = false;
+			ExitGame.BehaviorEngaged = false;
 
 			if (FunkyBaseExtension.PluginIsEnabled)
 			{
@@ -205,6 +207,7 @@ namespace fBaseXtensions
 			SettingCluster.ClusterSettingsTag = FunkyBaseExtension.Settings.Cluster;
 			FunkyGame.Game.QuestMode = false;
 			SettingLOSMovement.LOSSettingsTag = FunkyBaseExtension.Settings.LOSMovement;
+			MonitorSettings.MonitorSettingsTag = FunkyBaseExtension.Settings.Monitoring;
 			SettingAdventureMode.AdventureModeSettingsTag = FunkyBaseExtension.Settings.AdventureMode;
 		}
 		private static void OnPlayerDeath(object obj, EventArgs args)

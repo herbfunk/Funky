@@ -122,9 +122,9 @@ namespace fBaseXtensions.Targeting
 			if (RequiresAvoidance)
 			{
 				if (!AvoidanceLastTarget &&
-					 DateTime.Now.Subtract(FunkyGame.Targeting.Movement.LastMovementAttempted).TotalMilliseconds < 300 &&//We are moving..? 
-					 !ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(FunkyGame.Targeting.Movement.CurrentTargetLocation) &&
-					 !ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(FunkyGame.Hero.Position, FunkyGame.Targeting.Movement.CurrentTargetLocation))
+					 DateTime.Now.Subtract(FunkyGame.Targeting.cMovement.LastMovementAttempted).TotalMilliseconds < 300 &&//We are moving..? 
+					 !ObjectCache.Obstacles.IsPositionWithinAvoidanceArea(FunkyGame.Targeting.cMovement.CurrentTargetLocation) &&
+					 !ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(FunkyGame.Hero.Position, FunkyGame.Targeting.cMovement.CurrentTargetLocation))
 				{
 					RequiresAvoidance = false;
 				}

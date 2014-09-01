@@ -49,8 +49,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				_collisionradius = thisEntry.CollisionRadius;
 				_actorsphereradius = thisEntry.ActorSphereRadius;
 				_CanBurrow = thisEntry.CanBurrow;
-				_GrantsNoXP = thisEntry.GrantsNoXP;
-				_DropsNoLoot = thisEntry.DropsNoLoot;
+				//_GrantsNoXP = thisEntry.GrantsNoXP;
+				//_DropsNoLoot = thisEntry.DropsNoLoot;
 				_IsBarricade = thisEntry.IsBarricade;
 				_internalname = thisEntry.InternalName;
 				_obstacletype = thisEntry.Obstacletype;
@@ -60,7 +60,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				IsFinalized = thisEntry.IsFinalized;
 			}
 		}
-		public SNO(int sno, string internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gimzotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags = null, GizmoTargetTypes? gizmotargettypes = null, CacheEntry snoentry = null)
+		public SNO(int sno, string internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gimzotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags = null, GizmoTargetTypes? gizmotargettypes = null, CacheEntry snoentry = null)
 		{
 			//Creates the perm data
 			SNOID = sno;
@@ -71,8 +71,6 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			_monstertype = monstertype;
 			_internalname = internalname;
 			_CanBurrow = canburrow;
-			_DropsNoLoot = dropsnoloot;
-			_GrantsNoXP = grantsnoxp;
 			_IsBarricade = isbarricade;
 			_obstacletype = obstacletype;
 			_actorsphereradius = actorsphereradius;
@@ -94,8 +92,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			_collisionradius = sno.CollisionRadius;
 			_actorsphereradius = sno.ActorSphereRadius;
 			_CanBurrow = sno.CanBurrow;
-			_GrantsNoXP = sno.GrantsNoXP;
-			_DropsNoLoot = sno.DropsNoLoot;
+			//_GrantsNoXP = sno.GrantsNoXP;
+			//_DropsNoLoot = sno.DropsNoLoot;
 			_IsBarricade = sno.IsBarricade;
 			_internalname = sno.InternalName;
 			_obstacletype = sno.Obstacletype;
@@ -159,47 +157,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			}
 		}
 
-		private readonly bool? _DropsNoLoot;
-		public bool? DropsNoLoot
-		{
-			get
-			{
-				if (IsFinalized)
-					return _DropsNoLoot;
+		
 
-				if (ObjectCache.dictDropsNoLoot.ContainsKey(SNOID))
-					return ObjectCache.dictDropsNoLoot[SNOID];
-				return null;
-			}
-			set
-			{
-				if (IsFinalized)
-					return;
-
-				ObjectCache.dictDropsNoLoot[SNOID] = value;
-			}
-		}
-
-		private readonly bool? _GrantsNoXP;
-		public bool? GrantsNoXP
-		{
-			get
-			{
-				if (IsFinalized)
-					return _GrantsNoXP;
-
-				if (ObjectCache.dictGrantsNoXp.ContainsKey(SNOID))
-					return ObjectCache.dictGrantsNoXp[SNOID];
-				return null;
-			}
-			set
-			{
-				if (IsFinalized)
-					return;
-
-				ObjectCache.dictGrantsNoXp[SNOID] = value;
-			}
-		}
 
 		private readonly GizmoType? _gizmotype;
 		public GizmoType? Gizmotype
@@ -494,8 +453,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				debugstring += Monstersize.HasValue ? "Monstersize: " + Monstersize.Value.ToString() + " " + "\r\n" : "";
 				//debugstring+=RunningRate.HasValue?"RunningRate: "+RunningRate.Value.ToString()+" "+"\r\n":"";
 
-				debugstring += GrantsNoXP.HasValue ? "GrantsNoXP: " + GrantsNoXP.Value.ToString() + " " : "";
-				debugstring += DropsNoLoot.HasValue ? "DropsNoLoot: " + DropsNoLoot.Value.ToString() + " " : "";
+				//debugstring += GrantsNoXP.HasValue ? "GrantsNoXP: " + GrantsNoXP.Value.ToString() + " " : "";
+				//debugstring += DropsNoLoot.HasValue ? "DropsNoLoot: " + DropsNoLoot.Value.ToString() + " " : "";
 				debugstring += IsBarricade.HasValue ? "IsBarricade: " + IsBarricade.Value.ToString() + " " + "\r\n" : "";
 				debugstring += ItemDropType.HasValue ? "ItemBaseType: " + ItemDropType.Value.ToString() + " " + "\r\n" : "";
 				debugstring += UnitPropertyFlags.HasValue ? "UnitFlags: " + UnitPropertyFlags.Value.ToString() + " " + "\r\n" : "";
@@ -645,7 +604,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 				if (targetType.Value == TargetType.Destructible || targetType.Value == TargetType.Barricade || targetType.Value == TargetType.Interactable)
 				{
-					if (!DropsNoLoot.HasValue || !GrantsNoXP.HasValue || !IsBarricade.HasValue || !Gizmotype.HasValue) return true;
+					if (!IsBarricade.HasValue || !Gizmotype.HasValue) return true;
 				}
 			}
 			return false;
@@ -663,8 +622,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 	public class CachedSNOEntry : SNO
 	{
 
-		public CachedSNOEntry(int sno, string internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? grantsnoxp = null, bool? dropsnoloot = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gizmotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags = null, GizmoTargetTypes? gizmotargettypes = null, CacheEntry snoentry = null)
-			: base(sno, internalname,  actortype,  targettype,  monstertype,  monstersize,  collisionradius,  canburrow,  grantsnoxp,  dropsnoloot,  isbarricade,  obstacletype,  actorsphereradius,  gizmotype,  baseitemtype,  unitflags, gizmotargettypes, snoentry)
+		public CachedSNOEntry(int sno, string internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gizmotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags = null, GizmoTargetTypes? gizmotargettypes = null, CacheEntry snoentry = null)
+			: base(sno, internalname,  actortype,  targettype,  monstertype,  monstersize,  collisionradius,  canburrow, isbarricade,  obstacletype,  actorsphereradius,  gizmotype,  baseitemtype,  unitflags, gizmotargettypes, snoentry)
 		{
 		}
 
@@ -1124,37 +1083,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				#region GizmoProperties
 				if (ObjectCache.CheckFlag(targetType.Value, TargetType.Destructible | TargetType.Interactable))
 				{
-					//No Loot
-					if (!DropsNoLoot.HasValue)
-					{
-						#region DropsNoLoot
-						try
-						{
-							DropsNoLoot = thisObj.CommonData.GetAttribute<float>(ActorAttributeType.DropsNoLoot) <= 0;
-						}
-						catch
-						{
-							Logger.Write(LogLevel.Cache, "Safely handled reading DropsNoLoot for gizmo {0}", InternalName);
-							failureDuringUpdate = true;
-						}
-						#endregion
-					}
-					//No XP
-					if (!GrantsNoXP.HasValue)
-					{
-						#region GrantsNoXP
-						try
-						{
-
-							GrantsNoXP = thisObj.CommonData.GetAttribute<float>(ActorAttributeType.GrantsNoXP) <= 0;
-						}
-						catch
-						{
-							Logger.Write(LogLevel.Cache, "Safely handled reading GrantsNoXp for gizmo {0}", InternalName);
-							failureDuringUpdate = true;
-						}
-						#endregion
-					}
+					
 					//Barricade flag
 					if (!IsBarricade.HasValue)
 					{

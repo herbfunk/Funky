@@ -41,8 +41,9 @@ namespace fBaseXtensions.Behaviors
 		{
 			try
 			{
-				if (!ZetaDia.IsInGame || ZetaDia.Me.IsDead)
+				if (FunkyGame.GameIsInvalid || ZetaDia.Me.IsDead)
 					return false;
+
 				return true;
 			}
 			catch (Exception)
@@ -125,15 +126,7 @@ namespace fBaseXtensions.Behaviors
 			return false;
 		}
 
-		public static Composite FunkyTownPortal()
-		{
-			CanRunDecoratorDelegate canRunDelegateReturnToTown = FunkyTPOverlord;
-			ActionDelegate actionDelegateReturnTown = FunkyTPBehavior;
-			Sequence sequenceReturnTown = new Sequence(
-				new Action(actionDelegateReturnTown)
-				);
-			return new Decorator(canRunDelegateReturnToTown, sequenceReturnTown);
-		}
+		
 		internal static bool CastAttempted = false;
 		public static RunStatus FunkyTPBehavior(object ret)
 		{
@@ -273,6 +266,21 @@ namespace fBaseXtensions.Behaviors
 			}
 
 			return RunStatus.Running;
+		}
+
+		public static PrioritySelector FunkyTownPortalBehavior(object o)
+		{
+			return new PrioritySelector
+			(
+				new DecoratorContinue(ret => !TPActionIsValid(),
+					new Action(ret => RunStatus.Success)),
+
+				new Decorator(ret => !initizedTPBehavior,
+					new Action(ret => InitTPBehavior())),
+
+				new Decorator(ret => worldtransferStarted,
+					new Action(ret => worldtransferStarted=false)) //replace with method check
+			);
 		}
 
 		public static RunStatus FunkyTownPortalTownRun(object ret)
