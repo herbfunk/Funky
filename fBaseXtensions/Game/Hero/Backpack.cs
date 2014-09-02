@@ -203,11 +203,11 @@ namespace fBaseXtensions.Game.Hero
 
 
 
-		public static bool ShouldRepairItems()
+		public static bool ShouldRepairItems(float minimumPercent)
 		{
 			try
 			{
-				float repairVar = CharacterSettings.Instance.RepairWhenDurabilityBelow;
+				float repairVar = minimumPercent;
 				bool ShouldRepair = false;
 				using (ZetaDia.Memory.AcquireFrame())
 				{

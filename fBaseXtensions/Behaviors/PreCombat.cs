@@ -46,35 +46,6 @@ namespace fBaseXtensions.Behaviors
 			return false;
 		}
 
-		private static DateTime WaitTime = DateTime.Now;
-		public static async Task<bool> _PreCombatOverlord()
-		{
-			if (FunkyGame.GameIsInvalid) return false;
-
-			FunkyGame.Targeting.CheckPrecombat();
-
-			//Check for game prohibiting ui elements (Achievements, Skills, Waypoint Map, etc)
-			if (await UI._CloseGameProhibitingElements())
-				return true;
-
-			if (OutOfGame.MuleBehavior)
-			{
-				if (BotMain.StatusText.Contains("Game Finished"))
-				{
-					if (ZetaDia.Actors.GetActorsOfType<GizmoPlayerSharedStash>(true, true).Any())
-					{
-						return true;
-					}
-				}
-			}
-			else if (ExitGame.ShouldExitGame)
-			{
-				ExitGame.BehaviorEngaged = true;
-				return true;
-			}
-
-			return false;
-		}
 		public static RunStatus HandleTarget(object ret)
 		{
 			if (UI.ClosingUIElements)

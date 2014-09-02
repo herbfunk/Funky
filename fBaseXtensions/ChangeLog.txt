@@ -1,12 +1,11 @@
 ﻿v1.1.0.0
-
-Rift Support Added
 	Target Handler will now pickup purple globes and wait while inside avoidances.
 	Gold Inactivity will be disabled during tiered and trial rifts.
 	MoveItem Tag now has Keystone property (Fragment, Trial or Tiered)
 	Added HasKeystone Tag
 	Added MoveToTownObject Tag
 	Added OpenRiftPortal Tag
+	Rift Step Changes will now trigger Bounty OnBountyQuestStateChanged Event
 
 
 v1.0.1.2

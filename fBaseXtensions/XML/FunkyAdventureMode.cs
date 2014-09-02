@@ -14,11 +14,6 @@ namespace fBaseXtensions.XML
 		[XmlAttribute("enabled")]
 		public bool Enabled { get; set; }
 
-		private bool m_IsDone;
-		public override bool IsDone
-		{
-			get { return m_IsDone; }
-		}
 
 		protected override Composite CreateBehavior()
 		{
@@ -30,7 +25,11 @@ namespace fBaseXtensions.XML
 			});
 		}
 
-
+		private bool m_IsDone;
+		public override bool IsDone
+		{
+			get { return m_IsDone; }
+		}
 		public override void ResetCachedDone()
 		{
 			m_IsDone=false;

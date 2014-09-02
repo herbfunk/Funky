@@ -241,6 +241,9 @@
     <Compile Include="Cache\Internal\Objects\LOSInfo.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="CombatRoutine.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Game\Bounty.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -1087,10 +1090,16 @@
     <Compile Include="XML\BaseWhileComplexNodeTag.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="XML\CheckTownRunTag.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="XML\FunkyAdventureMode.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="XML\FunkyClusterTag.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="XML\FunkyWaypoint.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="XML\HasKeystoneTag.cs">
@@ -1130,9 +1139,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Game\Bounty\BountyCache\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Behaviors\CharacterMule\NewGame.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

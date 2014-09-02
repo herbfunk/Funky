@@ -3,64 +3,129 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using Demonbuddy;
-using fBaseXtensions;
 using fBaseXtensions.Game;
-using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Helpers;
 using Zeta.Bot;
-using Zeta.Bot.Logic;
 using Zeta.Bot.Navigation;
-using Zeta.Bot.Settings;
-using Zeta.Common;
 using Zeta.Common.Plugins;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
-using Decorator = Zeta.TreeSharp.Decorator;
-using Action = Zeta.TreeSharp.Action;
-using Logger = fBaseXtensions.Helpers.Logger;
 
-namespace FunkyBot
+namespace fBaseXtensions
 {
-	public partial class Funky : CombatRoutine
+	public class FunkyCombatRoutine : CombatRoutine
 	{
 		public Version Version { get { return new Version(3, 0, 0, 0); } }
 
-		public Funky()
+		public FunkyCombatRoutine()
 		{
 			Instance = this;
 		}
-		public static Funky Instance { get; private set; }
+		public static FunkyCombatRoutine Instance { get; private set; }
 
-		internal static string RoutinePath
+		#region Combat Routine Implementation
+		public string Author { get { return "Herbfunk"; } }
+		public string Description
 		{
 			get
 			{
-				if (Directory.Exists(FolderPaths.DemonBuddyPath + @"\Plugins\FunkyBot\"))
-					return FolderPaths.DemonBuddyPath + @"\Plugins\FunkyBot\";
-				else if (Directory.Exists(FolderPaths.DemonBuddyPath + @"\Routines\FunkyBot\"))
-					return FolderPaths.DemonBuddyPath + @"\Routines\FunkyBot\";
-
-				return null;
+				return "FunkyBot version " + Version;
 			}
 		}
 
-
-		internal static float Difference(float A, float B)
+		public override void Dispose()
 		{
-			if (A > B)
-				return A - B;
+			if (RoutineManager.Current.Name != "Funky") return;
 
-			return B - A;
+			BotMain.OnStop -= FunkyBotStop;
+			BotMain.OnStart -= FunkyBotStart;
+
+			if (initTreeHooks) ResetTreehooks();
+
+			Logger.DBLog.InfoFormat("Funky Combat Routine has been Disposed!");
 		}
 
-		// Status text for DB main window status
-		internal static string sStatusText = "";
-		// Do we need to reset the debug bar after combat handling?
-		internal static bool bResetStatusText = false;
+		public override void Initialize()
+		{
+			var basePlugin = PluginManager.Plugins.First(p => p.Plugin.Name == "fBaseXtensions");
+			if (basePlugin != null)
+			{
+				if (!basePlugin.Enabled)
+				{
+					Logger.DBLog.Warn("FunkyBot requires fBaseXtensions to be enabled! -- Enabling it automatically.");
+					basePlugin.Enabled = true;
+				}
+			}
 
+			BotMain.OnStop += FunkyBotStop;
+			BotMain.OnStart += FunkyBotStart;
+			Logger.DBLog.InfoFormat("Funky Combat Routine has been Initalized!");
+		}
+
+		public override string Name { get { return "Funky"; } }
+
+		public override Window ConfigWindow
+		{
+			get
+			{
+				return new Window();
+			}
+		}
+
+		public override ActorClass Class
+		{
+			get
+			{
+
+				return FunkyGame.CurrentActorClass;
+			}
+		}
+
+		public override SNOPower DestroyObjectPower
+		{
+			get
+			{
+				if (ZetaDia.IsInGame)
+					return ZetaDia.CPlayer.GetPowerForSlot(HotbarSlot.HotbarMouseLeft);
+
+				return SNOPower.None;
+			}
+		}
+		public override float DestroyObjectDistance { get { return 15; } }
+		public override Composite Combat { get { return new PrioritySelector(); } }
+		public override Composite Buff { get { return new PrioritySelector(); } }
+
+		public bool Equals(IPlugin other) { return (other.Name == Name) && (other.Version == Version); }
+		#endregion
+
+		internal static void FunkyBotStart(IBot bot)
+		{
+			Navigator.PlayerMover = new fBaseXtensions.Navigation.PlayerMover();
+			Navigator.StuckHandler = new fBaseXtensions.Navigation.PluginStuckHandler();
+			ITargetingProvider newCombatTargetingProvider = new PluginCombatTargeting();
+			CombatTargeting.Instance.Provider = newCombatTargetingProvider;
+			ITargetingProvider newLootTargetingProvider = new PluginLootTargeting();
+			LootTargeting.Instance.Provider = newLootTargetingProvider;
+			ITargetingProvider newObstacleTargetingProvider = new PluginObstacleTargeting();
+			ObstacleTargeting.Instance.Provider = newObstacleTargetingProvider;
+
+			if (!initTreeHooks)
+			{
+				HookBehaviorTree();
+			}
+
+			Navigator.SearchGridProvider.Update();
+		}
+		// When the bot stops, output a final item-stats report so it is as up-to-date as can be
+		internal static void FunkyBotStop(IBot bot)
+		{
+			Navigator.PlayerMover = new DefaultPlayerMover();
+			Navigator.StuckHandler = new DefaultStuckHandler();
+			ResetTreehooks();
+			//Bot.Reset();
+
+		}
 
 
 		internal static bool initTreeHooks;
@@ -77,7 +142,7 @@ namespace FunkyBot
 			ActionDelegate actionDelegateCoreTarget = fBaseXtensions.Behaviors.CombatHandler.HandleTarget;
 			Sequence sequencecombat = new Sequence
 			(
-				new Action(actionDelegateCoreTarget)
+				new Zeta.TreeSharp.Action(actionDelegateCoreTarget)
 			);
 			var NewCombatComposite = new Decorator(canRunDelegateCombatTargetCheck, sequencecombat);
 			HookHandler.SetHookValue(HookHandler.HookType.Combat, 0, NewCombatComposite);
@@ -92,7 +157,7 @@ namespace FunkyBot
 			CanRunDecoratorDelegate canRunDelegateBlank = BlankDecorator;
 			ActionDelegate actionDelegateBlank = BlankAction;
 			Sequence sequenceblank = new Sequence(
-					new Action(actionDelegateBlank)
+					new Zeta.TreeSharp.Action(actionDelegateBlank)
 					);
 
 			var NewLootComposite = new Decorator(canRunDelegateBlank, sequenceblank);
@@ -143,81 +208,5 @@ namespace FunkyBot
 				return listEmptyList;
 			}
 		}
-
-		#region Combat Routine Implementation
-		public string Author { get { return "Herbfunk"; } }
-		public string Description
-		{
-			get
-			{
-				return "FunkyBot version " + Version;
-			}
-		}
-
-		public override void Dispose()
-		{
-			if (RoutineManager.Current.Name != "Funky") return;
-
-			BotMain.OnStop -= EventHandlers.EventHandlers.FunkyBotStop;
-			BotMain.OnStart -= EventHandlers.EventHandlers.FunkyBotStart;
-
-			if (initTreeHooks) ResetTreehooks();
-
-			Logger.DBLog.InfoFormat("FunkyBot has been Disposed!");
-		}
-
-		public override void Initialize()
-		{
-			var basePlugin = PluginManager.Plugins.First(p => p.Plugin.Name == "fBaseXtensions");
-			if (basePlugin != null)
-			{
-				if (!basePlugin.Enabled)
-				{
-					Logger.DBLog.Warn("FunkyBot requires fBaseXtensions to be enabled! -- Enabling it automatically.");
-					basePlugin.Enabled = true;
-				}
-			}
-
-			BotMain.OnStop += EventHandlers.EventHandlers.FunkyBotStop;
-			BotMain.OnStart += EventHandlers.EventHandlers.FunkyBotStart;
-			Logger.DBLog.InfoFormat("FunkyBot has been Initalized!");
-		}
-
-		public override string Name { get { return "Funky"; } }
-
-		public override Window ConfigWindow
-		{
-			get
-			{
-				return new Window();
-			}
-		}
-
-		public override ActorClass Class
-		{
-			get
-			{
-
-				return FunkyGame.CurrentActorClass;
-			}
-		}
-
-		public override SNOPower DestroyObjectPower
-		{
-			get
-			{
-				if (ZetaDia.IsInGame)
-					return ZetaDia.CPlayer.GetPowerForSlot(HotbarSlot.HotbarMouseLeft);
-
-				return SNOPower.None;
-			}
-		}
-		public override float DestroyObjectDistance { get { return 15; } }
-		public override Composite Combat { get { return new PrioritySelector(); } }
-		public override Composite Buff { get { return new PrioritySelector(); } }
-
-		public bool Equals(IPlugin other) { return (other.Name == Name) && (other.Version == Version); }
-		#endregion
-
 	}
 }

@@ -33,11 +33,10 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		public int? DynamicID { get; set; }
 		public ItemQuality? Itemquality { get; set; }
 		public bool ItemQualityRechecked { get; set; }
-		public PluginItemTypes GilesItemType { get; set; }
+		
 		public bool? ShouldPickup { get; set; }
 		private DateTime LastAvoidanceIgnored = DateTime.Today;
 
-		[DebuggerNonUserCode]
 		public int? GoldAmount { get; set; }
 
 		public int? BalanceID { get; set; }
@@ -49,7 +48,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				
 				if (targetType.Value == TargetType.Item)
 				{
-					if (BalanceData.thisItemType == ItemType.Potion)
+					if (BalanceData.thisItemType == Zeta.Game.Internals.Actors.ItemType.Potion)
 						return FunkyBaseExtension.Settings.Ranges.PotionRange;
 
 					int maxLootRange = (int)FunkyGame.Targeting.Cache.iCurrentMaxLootRadius;

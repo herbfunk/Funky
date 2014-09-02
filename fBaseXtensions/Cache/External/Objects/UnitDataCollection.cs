@@ -835,6 +835,19 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(260226, UnitFlags.Unique, "creepMob_A_MedicalCamp_Unique-22834"),
 				new UnitEntry(374754, UnitFlags.Unique, "x1_PortalGuardian_A_Severag-31900"),
 				new UnitEntry(353157, UnitFlags.Unique, "X1_Bloodhawk_Event_BallistaBoss-37375"),
+
+				new UnitEntry(334324, UnitFlags.Normal, "X1_Skeleton_Fire_A-26063"),
+				new UnitEntry(362891, UnitFlags.Unique, "X1_armorScavenger_Unique_A-674"),
+				new UnitEntry(362895, UnitFlags.Unique, "X1_armorScavenger_Unique_B-3531"),
+				new UnitEntry(363378, UnitFlags.Unique, "x1_FortressBrute_Unique_A-9580"),
+				new UnitEntry(360881, UnitFlags.Unique | UnitFlags.Ranged, "x1_westmarchRanged_Unique_A-14608"),
+				new UnitEntry(329999, UnitFlags.Unique, "x1_westmarchBrute_B_Unique_Event_BrutelyUnfortunate-17023"),
+				new UnitEntry(312363, UnitFlags.Normal, "x1_Skeleton_Westmarch_CorpseSpawn_07-27195"),
+				new UnitEntry(367335, UnitFlags.Unique, "demonTrooper_B_Unique_03-29180"),
+				new UnitEntry(180734, UnitFlags.Normal, "Siege_wallMonster_A_captainAmbush-30574"),
+				new UnitEntry(260235, UnitFlags.Unique, "Skeleton_D_Fire_BlacksmithEvent_Unique-39252"),
+				new UnitEntry(220868, UnitFlags.Unique | UnitFlags.Fast, "GoatMutant_Shaman_B_Unique_02-51922"),
+				new UnitEntry(354833, UnitFlags.Normal | UnitFlags.Stationary, "x1_Abattoir_furnaceSpinner_fireBeam_clockwise-10236"),
 			};
 			
 			#endregion

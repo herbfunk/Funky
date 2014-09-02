@@ -5181,6 +5181,90 @@
       <EntryType>Unit</EntryType>
       <UnitFlags>Unique</UnitFlags>
     </UnitEntry>
+    <UnitEntry>
+      <SnoId>334324</SnoId>
+      <InternalName>X1_Skeleton_Fire_A-26063</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>362891</SnoId>
+      <InternalName>X1_armorScavenger_Unique_A-674</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>362895</SnoId>
+      <InternalName>X1_armorScavenger_Unique_B-3531</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>363378</SnoId>
+      <InternalName>x1_FortressBrute_Unique_A-9580</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>360881</SnoId>
+      <InternalName>x1_westmarchRanged_Unique_A-14608</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>329999</SnoId>
+      <InternalName>x1_westmarchBrute_B_Unique_Event_BrutelyUnfortunate-17023</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>312363</SnoId>
+      <InternalName>x1_Skeleton_Westmarch_CorpseSpawn_07-27195</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>367335</SnoId>
+      <InternalName>demonTrooper_B_Unique_03-29180</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>180734</SnoId>
+      <InternalName>Siege_wallMonster_A_captainAmbush-30574</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>260235</SnoId>
+      <InternalName>Skeleton_D_Fire_BlacksmithEvent_Unique-39252</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>220868</SnoId>
+      <InternalName>GoatMutant_Shaman_B_Unique_02-51922</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>354833</SnoId>
+      <InternalName>x1_Abattoir_furnaceSpinner_fireBeam_clockwise-10236</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Stationary</UnitFlags>
+    </UnitEntry>
   </UnitEntries>
   <UnitPetEntries>
     <UnitPetEntry>

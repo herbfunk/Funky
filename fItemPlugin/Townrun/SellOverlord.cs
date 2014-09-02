@@ -7,6 +7,7 @@ using fBaseXtensions.Items.Enums;
 using fItemPlugin.ItemRules;
 using Zeta.Bot;
 using Zeta.Bot.Navigation;
+using Zeta.Bot.Settings;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals;
@@ -116,7 +117,7 @@ namespace fItemPlugin.Townrun
 				CheckedVendorActions = true;
 
 				// Check durability percentages
-				bNeedsEquipmentRepairs = Backpack.ShouldRepairItems();
+				bNeedsEquipmentRepairs = Backpack.ShouldRepairItems(CharacterSettings.Instance.RepairWhenDurabilityBelow);
 				if (bNeedsEquipmentRepairs)
 					FunkyTownRunPlugin.DBLog.InfoFormat("[Funky] Town Run Behavior Vendor Started (Repair Items)");
 

@@ -138,6 +138,7 @@ namespace fBaseXtensions.XML
 			{
 				Logger.DBLog.Info("Using Waypoint -- WaypointID: " + waypointID);
 				//new DwordDataMessage(Opcode.DWordDataMessage17, waypointID)
+				ZetaDia.Me.UseWaypoint(waypointID);
 				LastInteraction = DateTime.Now;
 				
 			}
@@ -151,10 +152,10 @@ namespace fBaseXtensions.XML
 		private RunStatus Combat()
 		{
 
-			FunkyGame.Targeting.Movement.RestartTracking();
+			FunkyGame.Targeting.cMovement.RestartTracking();
 
 			//Directly Handle Target..
-			RunStatus targetHandler = FunkyGame.Targeting.Handler.HandleThis();
+			RunStatus targetHandler = FunkyGame.Targeting.HandleThis();
 
 			//Only return failure if handling failed..
 			if (targetHandler == RunStatus.Failure)

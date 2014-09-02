@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\Desktop\db_beta\Plugins\fItemPlugin\</OutputPath>
+    <OutputPath>..\..\..\..\Desktop\db_beta\Plugins\fItemPlugin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -26,7 +26,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\Desktop\db_beta\Plugins\fItemPlugin\</OutputPath>
+    <OutputPath>..\..\..\..\Desktop\db_beta\Plugins\fItemPlugin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -39,6 +39,7 @@
     </Reference>
     <Reference Include="GreyMagic">
       <HintPath>..\..\..\..\Desktop\db_beta\GreyMagic.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

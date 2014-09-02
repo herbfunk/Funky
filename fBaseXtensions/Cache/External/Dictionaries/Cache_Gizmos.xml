@@ -370,6 +370,22 @@
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
+      <SnoId>129476</SnoId>
+      <InternalName>a3dun_Crater_Chest_Rare-17045</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>187107</SnoId>
+      <InternalName>a4dun_Spire_Chest_Rare-58008</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>62865</SnoId>
       <InternalName>TrOut_Highlands_Chest-18282</InternalName>
       <ActorType>Gizmo</ActorType>
@@ -2802,6 +2818,14 @@
       <GizmotargetType>ItemRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
+      <SnoId>307431</SnoId>
+      <InternalName>x1_westm_Int_ArmorRack-26984</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>ItemRack</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>5727</SnoId>
       <InternalName>trDun_Cath_BookcaseShelves_B-394</InternalName>
       <ActorType>Gizmo</ActorType>
@@ -2868,6 +2892,14 @@
     <GizmoEntry>
       <SnoId>230712</SnoId>
       <InternalName>Lore_WaterPuzzle_Satchel-7158</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>313989</SnoId>
+      <InternalName>x1_westm_Book_shelf-27498</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>

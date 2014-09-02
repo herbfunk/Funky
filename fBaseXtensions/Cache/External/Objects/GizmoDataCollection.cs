@@ -85,6 +85,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(106165, PluginGizmoType.Chest, "caOut_Boneyards_chest_Rare-16905", GizmoTargetTypes.Resplendant),
 				new GizmoEntry(356805, PluginGizmoType.Chest, "x1_Catacombs_chest_rare_GardenEvent-89365", GizmoTargetTypes.Resplendant),
 				new GizmoEntry(261136, PluginGizmoType.Chest, "x1_Catacombs_chest_rare-11124", GizmoTargetTypes.Resplendant),
+				new GizmoEntry(129476, PluginGizmoType.Chest, "a3dun_Crater_Chest_Rare-17045", GizmoTargetTypes.Resplendant),
+				new GizmoEntry(187107, PluginGizmoType.Chest, "a4dun_Spire_Chest_Rare-58008", GizmoTargetTypes.Resplendant),
 
 				//============== Chests ==============//
 				new GizmoEntry(62865, PluginGizmoType.Chest, "TrOut_Highlands_Chest-18282", GizmoTargetTypes.Chest),
@@ -403,6 +405,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(346654, PluginGizmoType.Chest, "X1_Westm_Graveyard_Armor_Rack-13280", GizmoTargetTypes.ItemRack),
 				new GizmoEntry(289777, PluginGizmoType.Chest, "x1_Bog_ArmorRack-5965", GizmoTargetTypes.ItemRack),
 				new GizmoEntry(196509, PluginGizmoType.Chest, "a3dun_Bridge_Armor_Rack-42001", GizmoTargetTypes.ItemRack),
+				new GizmoEntry(307431, PluginGizmoType.Chest, "x1_westm_Int_ArmorRack-26984", GizmoTargetTypes.ItemRack),
 
 				//============== Misc Containers ==============//
 				new GizmoEntry(5727, PluginGizmoType.Chest, "trDun_Cath_BookcaseShelves_B-394", GizmoTargetTypes.MiscContainer),
@@ -414,6 +417,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(73396, PluginGizmoType.Chest, "a2dun_Zolt_Books_Full_Wall_A-625", GizmoTargetTypes.MiscContainer),
 				new GizmoEntry(71543, PluginGizmoType.Chest, "a2dun_Zolt_Desk_Scrolls_A-634", GizmoTargetTypes.MiscContainer),
 				new GizmoEntry(230712, PluginGizmoType.Chest, "Lore_WaterPuzzle_Satchel-7158", GizmoTargetTypes.MiscContainer),
+				new GizmoEntry(313989, PluginGizmoType.Chest, "x1_westm_Book_shelf-27498", GizmoTargetTypes.MiscContainer),
 
 				//============== Special Interactables ==============//
 				new GizmoEntry(174754, PluginGizmoType.Switch),

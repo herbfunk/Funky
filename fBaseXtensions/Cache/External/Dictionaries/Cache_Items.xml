@@ -695,6 +695,13 @@
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>335290</SnoId>
+      <InternalName>x1_combatStaff_norm_base_flippy_01-93351</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>3913</SnoId>
       <InternalName>Dagger_norm_base_flippy_04-7545</InternalName>
       <ActorType>Item</ActorType>
@@ -1220,6 +1227,13 @@
       <PluginDroppedItemTypes>MightyWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>335344</SnoId>
+      <InternalName>x1_mightyWeapon_1H_norm_base_flippy_01-67717</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>MightyWeapon</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>367171</SnoId>
       <InternalName>x1_mightyWeapon_2H_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
@@ -1628,6 +1642,13 @@
     <DroppedItemEntry>
       <SnoId>271623</SnoId>
       <InternalName>x1_Sword_norm_unique_flippy_15-8018</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>222798</SnoId>
+      <InternalName>Sword_norm_unique_flippy_11-60528</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
@@ -3394,6 +3415,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>3183</SnoId>
+      <ItemType>Amulet</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>5033</SnoId>
       <ItemType>Ring</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -3574,6 +3600,21 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>139140</SnoId>
+      <ItemType>Belt</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139139</SnoId>
+      <ItemType>Belt</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139141</SnoId>
+      <ItemType>Belt</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>58906</SnoId>
       <ItemType>Boots</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -3655,6 +3696,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>3435</SnoId>
+      <ItemType>Boots</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>58911</SnoId>
       <ItemType>Boots</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -4040,6 +4086,21 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>58923</SnoId>
+      <ItemType>Pants</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>58940</SnoId>
+      <ItemType>Pants</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>58941</SnoId>
+      <ItemType>Pants</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>58939</SnoId>
       <ItemType>Pants</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -5244,6 +5305,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>190631</SnoId>
+      <ItemType>FollowerTemplar</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>192598</SnoId>
       <ItemType>CraftingPlan</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -5619,6 +5685,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>56896</SnoId>
+      <ItemType>Emerald</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>283117</SnoId>
       <ItemType>Emerald</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -5810,6 +5881,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>56853</SnoId>
+      <ItemType>Ruby</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>56854</SnoId>
       <ItemType>Ruby</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>

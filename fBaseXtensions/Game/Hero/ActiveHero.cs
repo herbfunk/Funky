@@ -512,9 +512,12 @@ namespace fBaseXtensions.Game.Hero
 
 					bIsInBossEncounter = me.IsInBossEncounter;
 					bIsInTown = ZetaDia.IsInTown;
-					bIsRooted = me.IsRooted;
+					bIsRooted = me.IsRooted || Hotbar.HasDebuff(SNOPower.MonsterAffix_JailerCast);
 
-					if (me.IsFeared || me.IsStunned || me.IsFrozen || me.IsBlind)
+					var frozen = me.IsFrozen || Hotbar.HasDebuff(SNOPower.CritDebuffCold);
+					var feared = me.IsFeared || Hotbar.HasDebuff(SNOPower.DebuffFeared);
+
+					if (feared || me.IsStunned || frozen || me.IsBlind)
 						bIsIncapacitated = true;
 					else
 					{

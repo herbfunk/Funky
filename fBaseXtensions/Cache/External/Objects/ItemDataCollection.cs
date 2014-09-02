@@ -222,6 +222,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(3844, PluginDroppedItemTypes.Daibo, "combatStaff_norm_base_flippy_04-10439"),
 				new DroppedItemEntry(3841, PluginDroppedItemTypes.Daibo, "combatStaff_norm_base_flippy_01-3451"),
 				new DroppedItemEntry(3842, PluginDroppedItemTypes.Daibo, "combatStaff_norm_base_flippy_02-1653"),
+				new DroppedItemEntry(335290, PluginDroppedItemTypes.Daibo, "x1_combatStaff_norm_base_flippy_01-93351"),
 
 				//
 				new DroppedItemEntry(3913, PluginDroppedItemTypes.Dagger, "Dagger_norm_base_flippy_04-7545"),
@@ -314,6 +315,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(144194, PluginDroppedItemTypes.MightyWeapon, "mightyWeapon_1H_norm_base_flippy_04-1864"),
 				new DroppedItemEntry(144193, PluginDroppedItemTypes.MightyWeapon, "mightyWeapon_1H_norm_base_flippy_03-12964"),
 				new DroppedItemEntry(139060, PluginDroppedItemTypes.MightyWeapon, "mightyWeapon_1H_norm_base_flippy_01-2042"),
+				new DroppedItemEntry(335344, PluginDroppedItemTypes.MightyWeapon, "x1_mightyWeapon_1H_norm_base_flippy_01-67717"),
 
 				//
 				new DroppedItemEntry(367171, PluginDroppedItemTypes.MightyWeaponTwoHanded,"x1_mightyWeapon_2H_norm_base_flippy_02"),
@@ -383,6 +385,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(185397, PluginDroppedItemTypes.Sword, "Sword_norm_unique_07-8635"),
 				new DroppedItemEntry(194493, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_08-45001"),
 				new DroppedItemEntry(271623, PluginDroppedItemTypes.Sword, "x1_Sword_norm_unique_flippy_15-8018"),
+				new DroppedItemEntry(222798, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_11-60528"),
 
 				//
 				new DroppedItemEntry(6348, PluginDroppedItemTypes.SwordTwoHanded,"twoHandedSword_norm_base_flippy_02"),
@@ -636,6 +639,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(3176, PluginItemTypes.Amulet),
 				new ItemDataEntry(3185, PluginItemTypes.Amulet),
 				new ItemDataEntry(3180, PluginItemTypes.Amulet),
+				new ItemDataEntry(3183, PluginItemTypes.Amulet),
 
 				new ItemDataEntry(5033, PluginItemTypes.Ring),
 				new ItemDataEntry(5044, PluginItemTypes.Ring),
@@ -677,6 +681,9 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(3355, PluginItemTypes.Belt),
 				new ItemDataEntry(139131, PluginItemTypes.Belt),
 				new ItemDataEntry(139138, PluginItemTypes.Belt),
+				new ItemDataEntry(139140, PluginItemTypes.Belt),
+				new ItemDataEntry(139139, PluginItemTypes.Belt),
+				new ItemDataEntry(139141, PluginItemTypes.Belt),
 
 				new ItemDataEntry(58906, PluginItemTypes.Boots),
 				new ItemDataEntry(58907, PluginItemTypes.Boots),
@@ -695,6 +702,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(330, PluginItemTypes.Boots),
 				new ItemDataEntry(3436, PluginItemTypes.Boots),
 				new ItemDataEntry(3435, PluginItemTypes.Boots),
+				new ItemDataEntry(58911, PluginItemTypes.Boots),
 
 				new ItemDataEntry(253988, PluginItemTypes.Bracers),
 				new ItemDataEntry(253995, PluginItemTypes.Bracers),
@@ -778,6 +786,9 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(4829, PluginItemTypes.Pants),
 				new ItemDataEntry(4830, PluginItemTypes.Pants),
 				new ItemDataEntry(58923, PluginItemTypes.Pants),
+				new ItemDataEntry(58940, PluginItemTypes.Pants),
+				new ItemDataEntry(58941, PluginItemTypes.Pants),
+				new ItemDataEntry(58939, PluginItemTypes.Pants),
 
 				new ItemDataEntry(367173, PluginItemTypes.MightyBelt),
 				new ItemDataEntry(367172, PluginItemTypes.MightyBelt),
@@ -1059,7 +1070,7 @@ namespace fBaseXtensions.Cache.External.Objects
 
 				new ItemDataEntry(190628, PluginItemTypes.FollowerTemplar),
 				new ItemDataEntry(190629, PluginItemTypes.FollowerTemplar),
-
+				new ItemDataEntry(190631, PluginItemTypes.FollowerTemplar),
 
 				//MISC ITEMS
 				#region Misc Items
@@ -1174,6 +1185,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(56893, PluginItemTypes.Emerald),
 				new ItemDataEntry(56894, PluginItemTypes.Emerald),
 				new ItemDataEntry(56895, PluginItemTypes.Emerald),
+				new ItemDataEntry(56896, PluginItemTypes.Emerald), //flawless square
 				new ItemDataEntry(283117, PluginItemTypes.Emerald),
 				new ItemDataEntry(361492, PluginItemTypes.Emerald),
 				new ItemDataEntry(361493, PluginItemTypes.Emerald),
@@ -1216,6 +1228,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(56851, PluginItemTypes.Ruby),
 				new ItemDataEntry(56852, PluginItemTypes.Ruby),
 				new ItemDataEntry(56853, PluginItemTypes.Ruby),
+				new ItemDataEntry(56854, PluginItemTypes.Ruby),//flawless square
 				new ItemDataEntry(283118, PluginItemTypes.Ruby),
 				new ItemDataEntry(361568, PluginItemTypes.Ruby),
 				new ItemDataEntry(361569, PluginItemTypes.Ruby),

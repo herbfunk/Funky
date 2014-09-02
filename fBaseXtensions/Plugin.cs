@@ -48,6 +48,8 @@ namespace fBaseXtensions
 
 	    public void OnInitialize()
 	    {
+			Logger.DBLog.DebugFormat("fBaseXtensions OnInitialize Started");
+
 			SplitButton btnSplit_Funky = UIControl.FindFunkyButton();
 			if (btnSplit_Funky == null)
 			{
@@ -65,10 +67,12 @@ namespace fBaseXtensions
 			BotMain.OnStop += EventHandling.OnBotStop;
 			ObjectCache.FakeCacheObject = new CacheObject(Vector3.Zero, TargetType.None, 0d, "Fake Target", 1f);
 			Logger.Write("Init Logger Completed!");
+			Logger.DBLog.DebugFormat("fBaseXtensions OnInitialize Finished");
 	    }
 
 	    public void OnShutdown()
 	    {
+			Logger.DBLog.DebugFormat("fBaseXtensions OnShutdown Started");
 			SplitButton btnSplit_Funky = UIControl.FindFunkyButton();
 			if (btnSplit_Funky != null)
 			{
@@ -80,6 +84,8 @@ namespace fBaseXtensions
 					dbGrid.Children.Remove(btnSplit_Funky);
 				}
 			}
+
+			Logger.DBLog.DebugFormat("fBaseXtensions OnShutdown Finished");
 	    }
 
 		private static bool _pluginIsEnabled = false;
@@ -103,7 +109,7 @@ namespace fBaseXtensions
 
 		public Version Version
 		{
-			get { return new Version(1, 1, 0, 0); }
+			get { return new Version(1, 1, 0, 1); }
 		}
 		public string Author
 		{
