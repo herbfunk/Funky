@@ -49,17 +49,6 @@ namespace fBaseXtensions
 	    public void OnInitialize()
 	    {
 			Logger.DBLog.DebugFormat("fBaseXtensions OnInitialize Started");
-
-			SplitButton btnSplit_Funky = UIControl.FindFunkyButton();
-			if (btnSplit_Funky == null)
-			{
-				UIControl.initDebugLabels(out btnSplit_Funky);
-				UIControl.AddButtonToDemonbuddyMainTab(ref btnSplit_Funky);
-
-				Logger.DBLog.DebugFormat("Funky Split Button Click Handler Added");
-				btnSplit_Funky.Click += UIControl.buttonFunkySettingDB_Click;
-			}
-
 		    Settings=new PluginSettings();
 			PluginSettings.LoadSettings();
 			TheCache.ObjectIDCache = new IDCache();
@@ -73,17 +62,7 @@ namespace fBaseXtensions
 	    public void OnShutdown()
 	    {
 			Logger.DBLog.DebugFormat("fBaseXtensions OnShutdown Started");
-			SplitButton btnSplit_Funky = UIControl.FindFunkyButton();
-			if (btnSplit_Funky != null)
-			{
-				btnSplit_Funky.Click -= UIControl.buttonFunkySettingDB_Click;
-				Grid dbGrid = UIControl.GetDemonbuddyMainGrid();
-				if (dbGrid != null)
-				{
-					Logger.DBLog.DebugFormat("Funky Split Button Removed!");
-					dbGrid.Children.Remove(btnSplit_Funky);
-				}
-			}
+			
 
 			Logger.DBLog.DebugFormat("fBaseXtensions OnShutdown Finished");
 	    }
@@ -96,6 +75,7 @@ namespace fBaseXtensions
 		
 	    public void OnEnabled()
 	    {
+			UIControl.InstallSettingsButton();
 			_pluginIsEnabled = true;
 			Logger.DBLog.InfoFormat("fBaseXtensions v{0} has been enabled!", Version.ToString());
 			if (BotMain.IsRunning) EventHandling.OnBotStart(null);
@@ -103,13 +83,14 @@ namespace fBaseXtensions
 
 	    public void OnDisabled()
 	    {
+			UIControl.UninstallSettingsButton();
 			_pluginIsEnabled = false;
 			Logger.DBLog.InfoFormat("fBaseXtensions v{0} has been disabled!", Version.ToString());
 	    }
 
 		public Version Version
 		{
-			get { return new Version(1, 1, 0, 1); }
+			get { return new Version(1, 1, 0, 2); }
 		}
 		public string Author
 		{

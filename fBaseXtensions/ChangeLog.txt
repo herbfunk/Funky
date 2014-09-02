@@ -1,4 +1,8 @@
-﻿v1.1.0.0
+﻿v1.1.0.2
+	Moved Installing of Funky Settings Button and should now work with YAR.
+
+
+v1.1.0.0
 	Target Handler will now pickup purple globes and wait while inside avoidances.
 	Gold Inactivity will be disabled during tiered and trial rifts.
 	MoveItem Tag now has Keystone property (Fragment, Trial or Tiered)

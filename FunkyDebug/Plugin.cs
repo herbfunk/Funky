@@ -55,12 +55,6 @@ namespace FunkyDebug
 
 		public void OnEnabled()
 		{
-			BotMain.OnStart += FunkyBotStart;
-			BotMain.OnStop += FunkyBotStop;
-		}
-
-		public void OnInitialize()
-		{
 			Button FunkyButton;
 			initFunkyButton = FindFunkyButton(out FunkyButton);
 			if (initFunkyButton && FunkyButton != null)
@@ -89,6 +83,14 @@ namespace FunkyDebug
 					dbMainGrid.Children.Add(FunkyButton);
 				}
 			}
+
+			BotMain.OnStart += FunkyBotStart;
+			BotMain.OnStop += FunkyBotStop;
+		}
+
+		public void OnInitialize()
+		{
+
 
 		}
 		static void lblFunky_Click(object sender, EventArgs e)

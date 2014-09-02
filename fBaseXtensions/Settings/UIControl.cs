@@ -21,50 +21,184 @@ namespace fBaseXtensions.Settings
 	internal static class UIControl
 	{
 		internal static SettingsForm FrmSettings;
-
-		internal static SplitButton FindFunkyButton()
+		internal static void InstallSettingsButton()
 		{
-			Window mainWindow = App.Current.MainWindow;
-			var tab = mainWindow.FindName("tabControlMain") as TabControl;
-			if (tab == null) return null;
-			var infoDumpTab = tab.Items[0] as TabItem;
-			if (infoDumpTab == null) return null;
-			var grid = infoDumpTab.Content as Grid;
-			if (grid == null) return null;
-
-			SplitButton FunkyButton = grid.FindName("Funky") as SplitButton;
-			if (FunkyButton != null)
-			{
-				Logger.DBLog.DebugFormat("Funky Button handler added");
-			}
-			else
-			{
-				SplitButton[] splitbuttons = grid.Children.OfType<SplitButton>().ToArray();
-				if (splitbuttons.Any())
-				{
-
-					foreach (var item in splitbuttons)
+			Application.Current.Dispatcher.Invoke(
+				new Action(
+					() =>
 					{
-						if (item.Name.Contains("Funky"))
+						Window mainWindow = Application.Current.MainWindow;
+						var tab = mainWindow.FindName("tabControlMain") as TabControl;
+						if (tab == null) return;
+						var infoDumpTab = tab.Items[0] as TabItem;
+						if (infoDumpTab == null) return;
+						var grid = infoDumpTab.Content as Grid;
+						if (grid == null) return;
+
+						SplitButton FunkyButton = grid.FindName("Funky") as SplitButton;
+						if (FunkyButton != null)
 						{
-							FunkyButton = item;
-							break;
+							Logger.DBLog.DebugFormat("Funky Button handler added");
+						}
+						else
+						{
+							SplitButton[] splitbuttons = grid.Children.OfType<SplitButton>().ToArray();
+							if (splitbuttons.Any())
+							{
+
+								foreach (var item in splitbuttons)
+								{
+									if (item.Name.Contains("Funky"))
+									{
+										FunkyButton = item;
+										break;
+									}
+								}
+							}
+						}
+
+						if (FunkyButton==null)
+						{
+							SplitButton btn = new SplitButton
+							{
+								Width = 125,
+								Height = 20,
+								HorizontalAlignment = HorizontalAlignment.Left,
+								VerticalAlignment = VerticalAlignment.Top,
+								Margin = new Thickness(425, 10, 0, 0),
+								IsEnabled = true,
+								Content = "Funky",
+								Name = "Funky",
+							};
+							btn.Click += lblFunky_Click;
+
+							lblDebug_OpenLog = new Label
+							{
+								Content = "Open DB LogFile",
+								Width = 100,
+								Height = 25,
+								HorizontalAlignment = HorizontalAlignment.Stretch,
+							};
+							lblDebug_OpenLog.MouseDown += lblDebug_OpenDBLog;
+
+							lblDebug_FunkyLog = new Label
+							{
+								Content = "Open Funky LogFile",
+								Width = 100,
+								Height = 25,
+								HorizontalAlignment = HorizontalAlignment.Stretch,
+							};
+							lblDebug_FunkyLog.MouseDown += lblDebug_OpenFunkyLog;
+
+							Label OpenTrinityFolder = new Label
+							{
+								Content = "Open Funky Folder",
+								Width = 100,
+								Height = 25,
+								HorizontalAlignment = HorizontalAlignment.Stretch,
+
+							};
+							OpenTrinityFolder.MouseDown += lblDebug_OpenTrinityFolder;
+
+							Label Recompile = new Label
+							{
+								Content = "Recompile Funky",
+								Width = 100,
+								Height = 25,
+								HorizontalAlignment = HorizontalAlignment.Stretch,
+
+							};
+							Recompile.MouseDown += lblCompile_Click;
+
+
+
+
+							menuItem_Debug = new MenuItem
+							{
+								Header = "Debuging",
+								Width = 125
+							};
+							menuItem_Debug.Items.Add(lblDebug_OpenLog);
+							menuItem_Debug.Items.Add(lblDebug_FunkyLog);
+							menuItem_Debug.Items.Add(OpenTrinityFolder);
+							menuItem_Debug.Items.Add(Recompile);
+							btn.ButtonMenuItemsSource.Add(menuItem_Debug);
+							btn.Click += buttonFunkySettingDB_Click;
+							grid.Children.Add(btn);
 						}
 					}
-				}
-			}
+				)
+			);
+		}
+		internal static void UninstallSettingsButton()
+		{
+			Application.Current.Dispatcher.Invoke(
+				new Action(
+					() =>
+					{
+						Window mainWindow = Application.Current.MainWindow;
+						var tab = mainWindow.FindName("tabControlMain") as TabControl;
+						if (tab == null) return;
+						var infoDumpTab = tab.Items[0] as TabItem;
+						if (infoDumpTab == null) return;
+						var grid = infoDumpTab.Content as Grid;
+						if (grid == null) return;
 
-			return FunkyButton;
+						SplitButton FunkyButton = grid.FindName("Funky") as SplitButton;
+						if (FunkyButton != null)
+						{
+							Logger.DBLog.DebugFormat("Funky Button handler added");
+						}
+						else
+						{
+							SplitButton[] splitbuttons = grid.Children.OfType<SplitButton>().ToArray();
+							if (splitbuttons.Any())
+							{
+
+								foreach (var item in splitbuttons)
+								{
+									if (item.Name.Contains("Funky"))
+									{
+										FunkyButton = item;
+										break;
+									}
+								}
+							}
+						}
+
+						if (FunkyButton!=null)
+						{
+							grid.Children.Remove(FunkyButton);
+						}
+					}
+				)
+			);
+		
+		}
+		internal static SplitButton FindFunkyButton()
+		{
+			try
+			{
+				
+
+				
+			}
+			catch(Exception ex)
+			{
+				Logger.DBLog.Debug("fBaseXtensions: Exception during FindFunkyButton", ex);
+				throw;
+			}
+			return null;
 		}
 
-		internal static void AddButtonToDemonbuddyMainTab(ref SplitButton Button)
+		internal static void AddButtonToDemonbuddyMainTab(SplitButton Button)
 		{
 			var grid = GetDemonbuddyMainGrid();
 			if (grid == null) return;
 
 			grid.Children.Add(Button);
 		}
-		internal static void AddButtonToDemonbuddyMainTab(ref Button Button)
+		internal static void AddButtonToDemonbuddyMainTab(Button Button)
 		{
 			var grid = GetDemonbuddyMainGrid();
 			if (grid == null) return;
@@ -74,24 +208,33 @@ namespace fBaseXtensions.Settings
 
 		internal static Grid GetDemonbuddyMainGrid()
 		{
-			Window mainWindow = App.Current.MainWindow;
-			var tab = mainWindow.FindName("tabControlMain") as TabControl;
-			if (tab == null) return null;
-			var infoDumpTab = tab.Items[0] as TabItem;
-			if (infoDumpTab == null) return null;
-			var grid = infoDumpTab.Content as Grid;
-			if (grid == null) return null;
-			
-			return grid;
+			try
+			{
+				Window mainWindow = App.Current.MainWindow;
+				var tab = mainWindow.FindName("tabControlMain") as TabControl;
+				if (tab == null) return null;
+				var infoDumpTab = tab.Items[0] as TabItem;
+				if (infoDumpTab == null) return null;
+				var grid = infoDumpTab.Content as Grid;
+				if (grid == null) return null;
+
+				return grid;
+			}
+			catch (Exception ex)
+			{
+				Logger.DBLog.Debug("fBaseXtensions: Exception during GetDemonbuddyMainGrid", ex);
+			}
+
+			return null;
 		}
 
 		private static Label lblDebug_OpenLog,  lblDebug_FunkyLog;
 		private static MenuItem menuItem_Debug;
 		private static readonly log4net.ILog DBLog = Zeta.Common.Logger.GetLoggerInstanceForType();
-	
-		public static void initDebugLabels(out SplitButton btn)
+
+		public static SplitButton initDebugLabels()
 		{
-			btn = new SplitButton
+			SplitButton btn = new SplitButton
 			{
 				Width = 125,
 				Height = 20,
@@ -155,6 +298,8 @@ namespace fBaseXtensions.Settings
 			menuItem_Debug.Items.Add(OpenTrinityFolder);
 			menuItem_Debug.Items.Add(Recompile);
 			btn.ButtonMenuItemsSource.Add(menuItem_Debug);
+
+			return btn;
 		}
 
 		static void lblFunky_Click(object sender, EventArgs e)
