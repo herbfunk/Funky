@@ -152,7 +152,7 @@ namespace fBaseXtensions.Game.Hero.Skills
 		public int RuneIndex { get { return Hotbar.ReturnRuneIndex(Power); } }
 
 		#region Properties
-		public SkillPriority Priority
+		public virtual SkillPriority Priority
 		{
 			get { return _priority; }
 			set { _priority = value; }

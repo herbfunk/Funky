@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Cache.Internal.Objects;
@@ -33,8 +35,7 @@ namespace fBaseXtensions.Game.Hero.Class
 			Skill.CreateSkillLogicConditions(ref healthPotionSkill);
 			HealthPotionAbility = (DrinkHealthPotion)healthPotionSkill;
 
-			LastUsedAbility = DefaultAttack;
-			PowerPrime = DefaultAttack;
+			
 
 			Equipment.RefreshEquippedItemsList();
 
@@ -154,6 +155,7 @@ namespace fBaseXtensions.Game.Hero.Class
 				Logger.DBLog.DebugFormat("[Funky] Added Skill {0} using RuneIndex {1}", newAbility.Power, newAbility.RuneIndex);
 			}
 
+			
 			foreach (var item in uninitalizedSkills)
 			{
 				Skill skill = item.Value;
@@ -186,6 +188,13 @@ namespace fBaseXtensions.Game.Hero.Class
 					Logger.DBLog.Warn("**** Warning ****");
 				}
 			}
+			LastUsedAbilities = new Skill[Abilities.Count];
+			int indexCount = 0;
+			foreach (var ability in Abilities.Values)
+			{
+				LastUsedAbilities[indexCount] = ability;
+				indexCount++;
+			}
 
 			//
 			if (AC == ActorClass.Monk && Hotbar.HasPower(SNOPower.Monk_ExplodingPalm))
@@ -194,6 +203,9 @@ namespace fBaseXtensions.Game.Hero.Class
 				UsesDOTDPSAbility = true;
 			if (AC == ActorClass.Barbarian && Hotbar.HasPower(SNOPower.Barbarian_Rend))
 				UsesDOTDPSAbility = true;
+
+			LastUsedAbility = LastUsedAbilities[0];
+			PowerPrime = DefaultAttack;
 		}
 
 
@@ -482,14 +494,48 @@ namespace fBaseXtensions.Game.Hero.Class
 
 		internal string DebugString()
 		{
-			string s = String.Format("Class {0} WaitingForSpecial {1} ReserveAmount {2}", AC.ToString(), bWaitingForSpecial, iWaitingReservedAmount);
+			string Slastusedabilities = LastUsedAbilities.Aggregate("", (current, a) => current + String.Format("Skill: {0} Time: {1}\r\n", a.Power, a.LastUsedMilliseconds));
+			string s = String.Format("Class {0} WaitingForSpecial {1} ReserveAmount {2}\r\n" +
+			                         "LastUsedSkill: {3}\r\n" +
+									 "LastUsedSkills\r\n{4}", AC.ToString(), bWaitingForSpecial, iWaitingReservedAmount, LastUsedAbility.Power.ToString(), Slastusedabilities);
 			return s;
 		}
 
 		///<summary>
 		///Last successful Ability used.
 		///</summary>
-		internal Skill LastUsedAbility { get; set; }
+		internal Skill LastUsedAbility
+		{
+			get { return _lastUsedAbility; }
+			set
+			{
+				if (!LastUsedAbilities[0].Equals(value))
+				{
+					updateLastUsedAbilities(value);
+				}
+				_lastUsedAbility = value;
+			}
+		}
+		private Skill _lastUsedAbility=new Skill();
+
+		internal Skill[] LastUsedAbilities
+		{
+			get { return _lastUsedAbilities; }
+			set { _lastUsedAbilities = value; }
+		}
+		private Skill[] _lastUsedAbilities = new Skill[5];
+		private void updateLastUsedAbilities(Skill lastusedskill)
+		{
+			int lastusedskillINDEX=LastUsedAbilities.IndexOf(lastusedskill);
+			Skill[] clone_lastusedabilities = new Skill[LastUsedAbilities.Length];
+			LastUsedAbilities.CopyTo(clone_lastusedabilities, 0);
+			LastUsedAbilities[0] = lastusedskill;
+			//Increase the index of all skills above the last used skill index.
+			for (int i = 0; i < lastusedskillINDEX; i++)
+			{
+				LastUsedAbilities[i + 1] = clone_lastusedabilities[i];
+			}
+		}
 		internal DateTime LastUsedACombatAbility { get; set; }
 
 		internal void AbilitySuccessfullyUsed(Skill ability, bool reorderAbilities)

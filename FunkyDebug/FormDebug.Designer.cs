@@ -47,6 +47,7 @@
 			this.btnRefreshCharacterInventory = new System.Windows.Forms.Button();
 			this.tabPage7 = new System.Windows.Forms.TabPage();
 			this.panel5 = new System.Windows.Forms.Panel();
+			this.btn_EquippedItems_Attributes = new System.Windows.Forms.Button();
 			this.btnRefreshCharacterEquipped = new System.Windows.Forms.Button();
 			this.tabPage9 = new System.Windows.Forms.TabPage();
 			this.tabControl2 = new System.Windows.Forms.TabControl();
@@ -94,7 +95,7 @@
 			this.tabPage18 = new System.Windows.Forms.TabPage();
 			this.button1 = new System.Windows.Forms.Button();
 			this.flowLayout_OutPut = new System.Windows.Forms.FlowLayoutPanel();
-			this.btn_EquippedItems_Attributes = new System.Windows.Forms.Button();
+			this.btn_dumpMiniMap = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPageObjects.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -141,7 +142,7 @@
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(758, 134);
+			this.tabControl1.Size = new System.Drawing.Size(758, 189);
 			this.tabControl1.TabIndex = 0;
 			// 
 			// tabPageObjects
@@ -334,6 +335,16 @@
 			this.panel5.Size = new System.Drawing.Size(730, 42);
 			this.panel5.TabIndex = 5;
 			// 
+			// btn_EquippedItems_Attributes
+			// 
+			this.btn_EquippedItems_Attributes.Location = new System.Drawing.Point(105, 3);
+			this.btn_EquippedItems_Attributes.Name = "btn_EquippedItems_Attributes";
+			this.btn_EquippedItems_Attributes.Size = new System.Drawing.Size(75, 35);
+			this.btn_EquippedItems_Attributes.TabIndex = 1;
+			this.btn_EquippedItems_Attributes.Text = "Dump Attributes";
+			this.btn_EquippedItems_Attributes.UseVisualStyleBackColor = true;
+			this.btn_EquippedItems_Attributes.Click += new System.EventHandler(this.btn_EquippedItems_Attributes_Click);
+			// 
 			// btnRefreshCharacterEquipped
 			// 
 			this.btnRefreshCharacterEquipped.Location = new System.Drawing.Point(5, 3);
@@ -350,7 +361,7 @@
 			this.tabPage9.Location = new System.Drawing.Point(4, 22);
 			this.tabPage9.Name = "tabPage9";
 			this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage9.Size = new System.Drawing.Size(750, 108);
+			this.tabPage9.Size = new System.Drawing.Size(750, 163);
 			this.tabPage9.TabIndex = 3;
 			this.tabPage9.Text = "Game";
 			this.tabPage9.UseVisualStyleBackColor = true;
@@ -363,16 +374,17 @@
 			this.tabControl2.Location = new System.Drawing.Point(3, 3);
 			this.tabControl2.Name = "tabControl2";
 			this.tabControl2.SelectedIndex = 0;
-			this.tabControl2.Size = new System.Drawing.Size(744, 103);
+			this.tabControl2.Size = new System.Drawing.Size(744, 162);
 			this.tabControl2.TabIndex = 0;
 			// 
 			// tabPage10
 			// 
+			this.tabPage10.Controls.Add(this.btn_dumpMiniMap);
 			this.tabPage10.Controls.Add(this.tabControl4);
 			this.tabPage10.Location = new System.Drawing.Point(4, 22);
 			this.tabPage10.Name = "tabPage10";
 			this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage10.Size = new System.Drawing.Size(736, 77);
+			this.tabPage10.Size = new System.Drawing.Size(736, 136);
 			this.tabPage10.TabIndex = 0;
 			this.tabPage10.Text = "Minimap";
 			this.tabPage10.UseVisualStyleBackColor = true;
@@ -386,7 +398,7 @@
 			this.tabControl4.Location = new System.Drawing.Point(3, 3);
 			this.tabControl4.Name = "tabControl4";
 			this.tabControl4.SelectedIndex = 0;
-			this.tabControl4.Size = new System.Drawing.Size(730, 74);
+			this.tabControl4.Size = new System.Drawing.Size(730, 58);
 			this.tabControl4.TabIndex = 0;
 			// 
 			// tabPage12
@@ -395,7 +407,7 @@
 			this.tabPage12.Location = new System.Drawing.Point(4, 22);
 			this.tabPage12.Name = "tabPage12";
 			this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage12.Size = new System.Drawing.Size(722, 48);
+			this.tabPage12.Size = new System.Drawing.Size(722, 32);
 			this.tabPage12.TabIndex = 0;
 			this.tabPage12.Text = "Open World Markers";
 			this.tabPage12.UseVisualStyleBackColor = true;
@@ -437,7 +449,7 @@
 			this.tabPage14.Location = new System.Drawing.Point(4, 22);
 			this.tabPage14.Name = "tabPage14";
 			this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage14.Size = new System.Drawing.Size(722, 48);
+			this.tabPage14.Size = new System.Drawing.Size(722, 101);
 			this.tabPage14.TabIndex = 2;
 			this.tabPage14.Text = "Normal Markers";
 			this.tabPage14.UseVisualStyleBackColor = true;
@@ -817,22 +829,22 @@
 			this.flowLayout_OutPut.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.flowLayout_OutPut.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.flowLayout_OutPut.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-			this.flowLayout_OutPut.Location = new System.Drawing.Point(0, 134);
+			this.flowLayout_OutPut.Location = new System.Drawing.Point(0, 189);
 			this.flowLayout_OutPut.Name = "flowLayout_OutPut";
-			this.flowLayout_OutPut.Size = new System.Drawing.Size(758, 459);
+			this.flowLayout_OutPut.Size = new System.Drawing.Size(758, 404);
 			this.flowLayout_OutPut.TabIndex = 1;
 			this.flowLayout_OutPut.WrapContents = false;
 			this.flowLayout_OutPut.MouseEnter += new System.EventHandler(this.flowLayout_OutPut_MouseEnter);
 			// 
-			// btn_EquippedItems_Attributes
+			// btn_dumpMiniMap
 			// 
-			this.btn_EquippedItems_Attributes.Location = new System.Drawing.Point(105, 3);
-			this.btn_EquippedItems_Attributes.Name = "btn_EquippedItems_Attributes";
-			this.btn_EquippedItems_Attributes.Size = new System.Drawing.Size(75, 35);
-			this.btn_EquippedItems_Attributes.TabIndex = 1;
-			this.btn_EquippedItems_Attributes.Text = "Dump Attributes";
-			this.btn_EquippedItems_Attributes.UseVisualStyleBackColor = true;
-			this.btn_EquippedItems_Attributes.Click += new System.EventHandler(this.btn_EquippedItems_Attributes_Click);
+			this.btn_dumpMiniMap.Location = new System.Drawing.Point(3, 76);
+			this.btn_dumpMiniMap.Name = "btn_dumpMiniMap";
+			this.btn_dumpMiniMap.Size = new System.Drawing.Size(75, 23);
+			this.btn_dumpMiniMap.TabIndex = 1;
+			this.btn_dumpMiniMap.Text = "Minimap";
+			this.btn_dumpMiniMap.UseVisualStyleBackColor = true;
+			this.btn_dumpMiniMap.Click += new System.EventHandler(this.btn_dumpMiniMap_Click);
 			// 
 			// FormDebug
 			// 
@@ -957,5 +969,6 @@
 		private System.Windows.Forms.TextBox textBox_UI_Hash;
 		private System.Windows.Forms.Button btn_navagation;
 		private System.Windows.Forms.Button btn_EquippedItems_Attributes;
+		private System.Windows.Forms.Button btn_dumpMiniMap;
 	}
 }

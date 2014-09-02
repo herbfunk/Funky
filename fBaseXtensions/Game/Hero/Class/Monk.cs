@@ -35,13 +35,13 @@ namespace fBaseXtensions.Game.Hero.Class
 
 		}
 		public override ActorClass AC { get { return ActorClass.Monk; } }
-		private readonly HashSet<SNOPower> SpiritGeneratingAbilities = new HashSet<SNOPower>
-				{
+		internal static readonly HashSet<SNOPower> SpiritGeneratingAbilities = new HashSet<SNOPower>
+		{
 					 SNOPower.Monk_FistsofThunder,
 					 SNOPower.Monk_WayOfTheHundredFists,
 					 SNOPower.Monk_DeadlyReach,
 					 SNOPower.Monk_CripplingWave,
-				};
+		};
 		private readonly HashSet<SNOAnim> knockbackanims_Male = new HashSet<SNOAnim>
 		{
 					 SNOAnim.Monk_Male_HTH_knockback_land_01,

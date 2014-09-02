@@ -1053,6 +1053,48 @@ namespace FunkyDebug
 			flowLayout_OutPut.Focus();
 		}
 
+		private void btn_dumpMiniMap_Click(object sender, EventArgs e)
+		{
+			if (BotMain.IsRunning) return;
+
+			flowLayout_OutPut.Controls.Clear();
+
+			try
+			{
+				using (ZetaDia.Memory.SaveCacheState())
+				{
+					var mm=ZetaDia.Minimap;
+					flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(String.Format("CurrentLevelArea {0} IsMinimapVisible {1}\r\n", mm.CurrentLevelArea, mm.IsMinimapVisible)));
+
+					foreach (var a in mm.MinimapAreas)
+					{
+						string flags= a.RevealedCellFlags.Aggregate("", (current, flag) => current + flag);
+						flowLayout_OutPut.Controls.Add(
+							new UserControlDebugEntry(
+								String.Format("AreaId {0} SceneId {1} SnoId {2} TextureId {3} WorldId {4}\r\n" +
+								              "IsAutoExplored {5}\r\n" +
+								              "NextAreaPtr {6} PreviousAreaPtr {7}\r\n" +
+								              "PosStart[{8}] ---- PosEnd[{9}]\r\n" +
+								              "SizeX: {10} SizeY: {11}\r\n" +
+								              "RevealedCellFlags\r\n{12}", 
+							a.AreaId,a.SceneId,a.SnoId,a.TextureId,a.WorldId,
+							a.IsAutoExplored,
+							a.NextAreaPtr,a.PreviousAreaPtr,
+							a.PosStart,a.PosEnd,
+							a.SizeX,a.SizeY,
+							flags)));
+					}
+
+				}
+			}
+			catch (Exception ex)
+			{
+
+			}
+
+			flowLayout_OutPut.Focus();
+		}
+
 		
 
 		

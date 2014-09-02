@@ -1,4 +1,6 @@
-﻿using fBaseXtensions.Game.Hero.Skills.Conditions;
+﻿using System.Linq;
+using fBaseXtensions.Game.Hero.Skills.Conditions;
+using Zeta.Common;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
@@ -17,20 +19,35 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 
 		public override void Initialize()
 		{
-			if (FunkyBaseExtension.Settings.Monk.bMonkComboStrike)
-				Cooldown = 250 + (250 * FunkyBaseExtension.Settings.Monk.iMonkComboStrikeAbilities);
-
-
-
-
-			Priority = FunkyBaseExtension.Settings.Monk.bMonkComboStrike ? SkillPriority.Medium : SkillPriority.Low;
+			Priority = SkillPriority.Low;
 			Range = 16;
-			var precastflags = SkillPrecastFlags.CheckPlayerIncapacitated;
-			//Combot Strike? lets enforce recast timer and cast check
-			if (FunkyBaseExtension.Settings.Monk.bMonkComboStrike)
-				precastflags |= SkillPrecastFlags.CheckRecastTimer | SkillPrecastFlags.CheckCanCast;
 
-			PreCast = new SkillPreCast(precastflags);
+			//Combot Strike? lets enforce recast timer and cast check
+			//if (FunkyBaseExtension.Settings.Monk.bMonkComboStrike)
+				//precastflags |= SkillPrecastFlags.CheckRecastTimer | SkillPrecastFlags.CheckCanCast;
+
+			
+			if (FunkyBaseExtension.Settings.Monk.bMonkComboStrike)
+			{
+				PreCast = new SkillPreCast
+				{
+					Flags = SkillPrecastFlags.CheckPlayerIncapacitated
+				};
+				PreCast.Criteria += skill => FunkyGame.Hero.Class.LastUsedAbilities.IndexOf(this) >= FunkyBaseExtension.Settings.Monk.iMonkComboStrikeAbilities-1;
+				PreCast.CreatePrecastCriteria();
+
+				//Use as third hitter!
+				if (RuneIndex==0)
+					Priority=SkillPriority.None;
+			}
+			else
+				PreCast = new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated);
+		}
+
+		public override void OnSuccessfullyUsed(bool reorderAbilities = true)
+		{
+			
+			base.OnSuccessfullyUsed(reorderAbilities);
 		}
 
 

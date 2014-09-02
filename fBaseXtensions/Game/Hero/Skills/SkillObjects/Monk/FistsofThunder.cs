@@ -1,4 +1,5 @@
 ﻿using fBaseXtensions.Game.Hero.Skills.Conditions;
+using Zeta.Common;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
@@ -19,10 +20,22 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 
 			Priority = SkillPriority.Low;
 			Range = RuneIndex == 0 ? 25 : 12;
-			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast));
+			if (FunkyBaseExtension.Settings.Monk.bMonkComboStrike)
+			{
+				PreCast = new SkillPreCast
+				{
+					Flags = SkillPrecastFlags.CheckPlayerIncapacitated
+				};
+				PreCast.Criteria += skill => FunkyGame.Hero.Class.LastUsedAbilities.IndexOf(this) >= FunkyBaseExtension.Settings.Monk.iMonkComboStrikeAbilities-1;
+				PreCast.CreatePrecastCriteria();
+			}
+			else
+				PreCast = new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated);
 
 			ClusterConditions.Add(new SkillClusterConditions(5d, 20f, 1, true));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None));
+
+
 
 		}
 
