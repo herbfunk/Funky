@@ -25,6 +25,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemStringEntry("topaz_", PluginDroppedItemTypes.Topaz),
 				new ItemStringEntry("amethyst", PluginDroppedItemTypes.Amethyst),
 				new ItemStringEntry("diamond_", PluginDroppedItemTypes.Diamond),
+				new ItemStringEntry("unique_gem", PluginDroppedItemTypes.LegendaryGem),
 				new ItemStringEntry("horadric", PluginDroppedItemTypes.BloodShard),
 				new ItemStringEntry("infernalmachine", PluginDroppedItemTypes.CraftingMaterial),
 				new ItemStringEntry("demonkey_", PluginDroppedItemTypes.CraftingMaterial),
@@ -85,6 +86,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemStringEntry("helm_", PluginDroppedItemTypes.Helm),
 				new ItemStringEntry("helmcloth_", PluginDroppedItemTypes.Helm),
 				new ItemStringEntry("belt_", PluginDroppedItemTypes.Belt),
+				new ItemStringEntry("lore", PluginDroppedItemTypes.LoreBook),
 			};
 			
 #endregion
@@ -223,6 +225,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(3841, PluginDroppedItemTypes.Daibo, "combatStaff_norm_base_flippy_01-3451"),
 				new DroppedItemEntry(3842, PluginDroppedItemTypes.Daibo, "combatStaff_norm_base_flippy_02-1653"),
 				new DroppedItemEntry(335290, PluginDroppedItemTypes.Daibo, "x1_combatStaff_norm_base_flippy_01-93351"),
+				new DroppedItemEntry(271762, PluginDroppedItemTypes.Daibo, "x1_combatStaff_norm_unique_flippy_10-1544"),
 
 				//
 				new DroppedItemEntry(3913, PluginDroppedItemTypes.Dagger, "Dagger_norm_base_flippy_04-7545"),
@@ -246,6 +249,12 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(4139, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_base_flippy_02-6302"),
 				new DroppedItemEntry(367, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_base_flippy_01-1878"),
 				new DroppedItemEntry(196497, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_10-13065"),
+				new DroppedItemEntry(175938, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_07-3509"),
+				new DroppedItemEntry(271958, PluginDroppedItemTypes.FistWeapon, "x1_fistWeapon_norm_unique_flippy_14-14402"),
+				new DroppedItemEntry(403775, PluginDroppedItemTypes.FistWeapon, "p1_fistWeapon_norm_unique_02-20634"),
+				new DroppedItemEntry(175944, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_08-30479"),
+				new DroppedItemEntry(145847, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_04-30912"),
+				new DroppedItemEntry(208943, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_11-37057"),
 
 				//
 				new DroppedItemEntry(247389, PluginDroppedItemTypes.Flail,"x1_flail1H_norm_base_flippy_02"),
@@ -295,6 +304,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(271649, PluginDroppedItemTypes.Mace, "x1_Mace_norm_unique_flippy_10-12436"),
 				new DroppedItemEntry(4654, PluginDroppedItemTypes.Mace, "Mace_norm_base_flippy_02-3002"),
 				new DroppedItemEntry(271665, PluginDroppedItemTypes.Mace, "x1_Mace_norm_unique_flippy_12-10103"),
+				new DroppedItemEntry(188207, PluginDroppedItemTypes.Mace, "Mace_norm_unique_flippy_05-4091"),
 
 				//
 				new DroppedItemEntry(6337, PluginDroppedItemTypes.MaceTwoHanded),
@@ -308,6 +318,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(190885, PluginDroppedItemTypes.MaceTwoHanded, "twoHandedMace_norm_unique_flippy_04-656"),
 				new DroppedItemEntry(6336, PluginDroppedItemTypes.MaceTwoHanded, "twoHandedMace_norm_base_flippy_01-6334"),
 				new DroppedItemEntry(59635, PluginDroppedItemTypes.MaceTwoHanded, "twoHandedMace_norm_unique_flippy_01-21986"),
+				new DroppedItemEntry(271667, PluginDroppedItemTypes.MaceTwoHanded, "x1_twoHandedMace_norm_unique_flippy_08-32454"),
 
 				//
 				new DroppedItemEntry(144192, PluginDroppedItemTypes.MightyWeapon, "mightyWeapon_1H_norm_base_flippy_02-1494"),
@@ -338,6 +349,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(4879, PluginDroppedItemTypes.Polearm, "Polearm_norm_base_flippy_08-774"),
 				new DroppedItemEntry(191574, PluginDroppedItemTypes.Polearm, "Polearm_norm_unique_flippy_01-5224"),
 				new DroppedItemEntry(4873, PluginDroppedItemTypes.Polearm, "Polearm_norm_base_flippy_01-14641"),
+				new DroppedItemEntry(192636, PluginDroppedItemTypes.Polearm, "Polearm_norm_unique_flippy_02-53325"),
+				new DroppedItemEntry(272051, PluginDroppedItemTypes.Polearm, "x1_polearm_norm_unique_flippy_05-3091"),
 
 				//
 				new DroppedItemEntry(5457, PluginDroppedItemTypes.Spear,"Spear_norm_base_flippy_01"),
@@ -386,6 +399,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(194493, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_08-45001"),
 				new DroppedItemEntry(271623, PluginDroppedItemTypes.Sword, "x1_Sword_norm_unique_flippy_15-8018"),
 				new DroppedItemEntry(222798, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_11-60528"),
+				new DroppedItemEntry(182382, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_04-49182"),
 
 				//
 				new DroppedItemEntry(6348, PluginDroppedItemTypes.SwordTwoHanded,"twoHandedSword_norm_base_flippy_02"),
@@ -520,11 +534,14 @@ namespace fBaseXtensions.Cache.External.Objects
 
 				new DroppedItemEntry(304319, PluginDroppedItemTypes.Potion,"healthPotion_Console"),
 				new DroppedItemEntry(341333, PluginDroppedItemTypes.Potion, "healthPotion_Legendary_01_x1"),
+				new DroppedItemEntry(344093, PluginDroppedItemTypes.Potion, "healthPotion_Legendary_06_x1-27250"),
 
 				new DroppedItemEntry(192866, PluginDroppedItemTypes.LoreBook),
 				new DroppedItemEntry(218853, PluginDroppedItemTypes.LoreBook, "Lore_Book_Flippy"),
 				new DroppedItemEntry(368824, PluginDroppedItemTypes.LoreBook, "x1_Bog_LoreBook_Adria"),
 				new DroppedItemEntry(368644, PluginDroppedItemTypes.LoreBook, "X1_Catacombs_LoreBook_Rakkis"),
+				new DroppedItemEntry(223954, PluginDroppedItemTypes.LoreBook, "Lore_Cains_Satchel_Book_Open"),
+				new DroppedItemEntry(204827, PluginDroppedItemTypes.LoreBook, "Lore_AzmodansOrders6"),
 				
 				new DroppedItemEntry(359504, PluginDroppedItemTypes.BloodShard),
 				//============================= GEMS =============================
@@ -1141,40 +1158,45 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(408416, PluginItemTypes.KeyStone), //GreaterRiftKeystoneTrial
 
 				new ItemDataEntry(408130, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank1
-				//new ItemDataEntry(408131, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank2
-				//new ItemDataEntry(408132, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank3
-				//new ItemDataEntry(408133, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank4
+				new ItemDataEntry(408131, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank2
+				new ItemDataEntry(408132, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank3
+				new ItemDataEntry(408133, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank4
 				new ItemDataEntry(408134, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank5
-				//new ItemDataEntry(408135, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank6
+				new ItemDataEntry(408135, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank6
 				new ItemDataEntry(408136, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank7
-				//new ItemDataEntry(408137, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank8
+				new ItemDataEntry(408137, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank8
 				new ItemDataEntry(408138, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank9
-				//new ItemDataEntry(408139, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank10
+				new ItemDataEntry(408140, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank10
 
-				//new ItemDataEntry(408140, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank11
-				//new ItemDataEntry(408141, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank12
+				new ItemDataEntry(408141, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank11
+				new ItemDataEntry(408142, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank12
 				new ItemDataEntry(408143, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank13
-				//new ItemDataEntry(408143, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank14
+				new ItemDataEntry(408144, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank14
 				new ItemDataEntry(408145, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank15
 				new ItemDataEntry(408146, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank16
-				//new ItemDataEntry(408146, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank17
-				//new ItemDataEntry(408147, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank18
+				new ItemDataEntry(408147, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank17
+				new ItemDataEntry(408148, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank18
 				new ItemDataEntry(408149, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank19
 				new ItemDataEntry(408150, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank20
 
 				new ItemDataEntry(408151, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank21
 				new ItemDataEntry(408152, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank22
-				//new ItemDataEntry(408149, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank23
-				//new ItemDataEntry(408149, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank24
-				//new ItemDataEntry(408149, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank25
+				new ItemDataEntry(408153, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank23
+				new ItemDataEntry(408154, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank24
+				new ItemDataEntry(408155, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank25
 				new ItemDataEntry(408156, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank26
 				new ItemDataEntry(408157, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank27
 				new ItemDataEntry(408158, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank28
 				new ItemDataEntry(408159, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank29
 				new ItemDataEntry(408160, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank30
-				//new ItemDataEntry(408149, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank31
+				new ItemDataEntry(408161, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank31
 				new ItemDataEntry(408162, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank32
 				new ItemDataEntry(408163, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank33
+				new ItemDataEntry(408164, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank34
+				new ItemDataEntry(408165, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank35
+				new ItemDataEntry(408166, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank36
+				new ItemDataEntry(408167, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank37
+				new ItemDataEntry(408168, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank38
 
 				//Gems
 				new ItemDataEntry(56888, PluginItemTypes.Emerald),
@@ -1508,6 +1530,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(196472, PluginItemTypes.FistWeapon, LegendaryItemTypes.RabidStrike),
 				new ItemDataEntry(175938, PluginItemTypes.FistWeapon, LegendaryItemTypes.SledgeFist), //SledgeFist
 				new ItemDataEntry(175937, PluginItemTypes.FistWeapon, LegendaryItemTypes.TheFistofAzTurrasq),
+				new ItemDataEntry(403775, PluginItemTypes.FistWeapon, LegendaryItemTypes.VengefulWind), //VengefulWind
 
 				new ItemDataEntry(299435, PluginItemTypes.Flail, LegendaryItemTypes.BalefulRemnant),
 				new ItemDataEntry(299428, PluginItemTypes.Flail, LegendaryItemTypes.Darklight),
@@ -1804,6 +1827,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(335030, PluginItemTypes.Bracers, LegendaryItemTypes.ThornsoftheInvoker), //ShacklesoftheInvoker
 				new ItemDataEntry(335027, PluginItemTypes.Gloves, LegendaryItemTypes.ThornsoftheInvoker), //PrideoftheInvoker
 				new ItemDataEntry(335028, PluginItemTypes.Helm, LegendaryItemTypes.ThornsoftheInvoker), //CrownoftheInvoker
+				new ItemDataEntry(335029, PluginItemTypes.Shoulders, LegendaryItemTypes.ThornsoftheInvoker), //BurdenoftheInvoker
 
 				
 				//Tal Rashas
@@ -1891,6 +1915,9 @@ namespace fBaseXtensions.Cache.External.Objects
 				//GuardiansContingency
 				new ItemDataEntry(222976, PluginItemTypes.Belt, LegendaryItemTypes.GuardiansContingency), //GuardiansSheath
  
+				//KrelmsBuffBulwark
+				new ItemDataEntry(336184, PluginItemTypes.Belt, LegendaryItemTypes.KrelmsBuffBulwark),
+
 				#endregion
 			};
 

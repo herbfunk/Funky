@@ -19,6 +19,7 @@ namespace fBaseXtensions.Cache.External.Debugging
 		public DebugData_Doors Doors { get; set; }
 		public DebugData_Containers Containers { get; set; }
 		public DebugData_Destructibles Destructibles { get; set; }
+		public DebugData_Barricades Barricades { get; set; }
 		public DebugData_DroppedItems Items { get; set; }
 		public DebugData_Items ItemsData { get; set; }
 		public DebugData_Units Units { get; set; }
@@ -31,6 +32,7 @@ namespace fBaseXtensions.Cache.External.Debugging
 			Items = DebugData_DroppedItems.DeserializeFromXML();
 			ItemsData = DebugData_Items.DeserializeFromXML();
 			Units = DebugData_Units.DeserializeFromXML();
+			Barricades = DebugData_Barricades.DeserializeFromXML();
 		}
 
 		public void CheckEntry(CachedSNOEntry entry)
@@ -56,7 +58,7 @@ namespace fBaseXtensions.Cache.External.Debugging
 					Containers.Entries.Add(d);
 					DebugData_Containers.SerializeToXML(Containers);
 				}
-				else if (entry.Gizmotype.Value == GizmoType.BreakableChest || entry.Gizmotype.Value == GizmoType.DestroyableObject || entry.Gizmotype.Value == GizmoType.BreakableDoor)
+				else if (entry.Gizmotype.Value == GizmoType.BreakableChest || entry.Gizmotype.Value == GizmoType.DestroyableObject)
 				{
 					if (!FunkyBaseExtension.Settings.Debugging.DebuggingDataTypes.HasFlag(DebugDataTypes.Destructibles))
 						return;
@@ -64,6 +66,15 @@ namespace fBaseXtensions.Cache.External.Debugging
 					if (Destructibles.Entries.Contains(d)) return;
 					Destructibles.Entries.Add(d);
 					DebugData_Destructibles.SerializeToXML(Destructibles);
+				}
+				else if(entry.Gizmotype.Value == GizmoType.BreakableDoor)
+				{
+					if (!FunkyBaseExtension.Settings.Debugging.DebuggingDataTypes.HasFlag(DebugDataTypes.Barricades))
+						return;
+
+					if (Barricades.Entries.Contains(d)) return;
+					Barricades.Entries.Add(d);
+					DebugData_Barricades.SerializeToXML(Barricades);
 				}
 			}
 			else if (d.ActorType == PluginActorType.Item || d.TargetType == TargetType.Item)

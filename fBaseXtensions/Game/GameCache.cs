@@ -22,11 +22,14 @@ namespace fBaseXtensions.Game
 			QuestMode = false;
 			ShouldNavigateMinimapPoints = false;
 			AllowAnyUnitForLOSMovement = false;
+			ForceOutOfCombatBehavior = false;
 		}
 
 		internal bool QuestMode { get; set; }
 		internal bool ShouldNavigateMinimapPoints { get; set; }
 		internal bool AllowAnyUnitForLOSMovement { get; set; }
+		public bool ForceOutOfCombatBehavior { get; set; }
+
 		public void ResetCombatModifiers()
 		{
 			SettingCluster.ClusterSettingsTag = FunkyBaseExtension.Settings.Cluster;
@@ -35,6 +38,7 @@ namespace fBaseXtensions.Game
 			QuestMode = false;
 			AllowAnyUnitForLOSMovement = false;
 			ShouldNavigateMinimapPoints = false;
+			ForceOutOfCombatBehavior = false;
 		}
 		public bool ShouldNavigatePointsOfInterest
 		{

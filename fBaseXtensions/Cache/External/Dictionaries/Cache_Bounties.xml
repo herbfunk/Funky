@@ -532,6 +532,42 @@
           <int>347525</int>
         </QuestSNOs>
       </BountyQuestCacheEntry>
+      <BountyQuestCacheEntry>
+        <Name>Act2_ClearAncientCaves</Name>
+        <Type>Clear</Type>
+        <StartingLevelAreaID>57425</StartingLevelAreaID>
+        <EndingLevelAreaID>194242</EndingLevelAreaID>
+        <LevelAreaIDs>
+          <int>62575</int>
+        </LevelAreaIDs>
+        <QuestSNOs>
+          <int>346069</int>
+        </QuestSNOs>
+      </BountyQuestCacheEntry>
+      <BountyQuestCacheEntry>
+        <Name>Act2_ClearMysteriousCaves</Name>
+        <Type>Clear</Type>
+        <StartingLevelAreaID>57425</StartingLevelAreaID>
+        <EndingLevelAreaID>194239</EndingLevelAreaID>
+        <LevelAreaIDs>
+          <int>169494</int>
+        </LevelAreaIDs>
+        <QuestSNOs>
+          <int>347598</int>
+        </QuestSNOs>
+      </BountyQuestCacheEntry>
+      <BountyQuestCacheEntry>
+        <Name>Act2_ClearVileCavern</Name>
+        <Type>Clear</Type>
+        <StartingLevelAreaID>53834</StartingLevelAreaID>
+        <EndingLevelAreaID>218968</EndingLevelAreaID>
+        <LevelAreaIDs>
+          <int>111671</int>
+        </LevelAreaIDs>
+        <QuestSNOs>
+          <int>346086</int>
+        </QuestSNOs>
+      </BountyQuestCacheEntry>
     </ClearBounties>
 
     <CursedEventBounties>
@@ -560,6 +596,15 @@
         <EndingLevelAreaID>19798</EndingLevelAreaID>
         <QuestSNOs>
           <int>375261</int>
+        </QuestSNOs>
+      </BountyQuestCacheEntry>
+      <BountyQuestCacheEntry>
+        <Name>Act2_HowlingPlateu_CursedBattlement</Name>
+        <Type>CursedEvent</Type>
+        <StartingLevelAreaID>19836</StartingLevelAreaID>
+        <EndingLevelAreaID>19837</EndingLevelAreaID>
+        <QuestSNOs>
+          <int>369797</int>
         </QuestSNOs>
       </BountyQuestCacheEntry>
     </CursedEventBounties>

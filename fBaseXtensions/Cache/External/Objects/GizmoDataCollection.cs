@@ -33,6 +33,12 @@ namespace fBaseXtensions.Cache.External.Objects
 
 			GizmoCache = new HashSet<GizmoEntry>
 			{
+				//============== Barricades ==============//
+				new GizmoEntry(5719, PluginGizmoType.BreakableDoor, "trDun_Cath_Barricade_B"),
+				new GizmoEntry(379048, PluginGizmoType.BreakableDoor, "p1_Cesspools_Door_Breakable"),
+				new GizmoEntry(379037, PluginGizmoType.BreakableDoor, "p1_Cesspools_Barricade_Breakable"),
+				
+
 				//============== DOORS ==============//
 				new GizmoEntry(5854, PluginGizmoType.Door),
 				new GizmoEntry(454, PluginGizmoType.Door),
@@ -87,6 +93,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(261136, PluginGizmoType.Chest, "x1_Catacombs_chest_rare-11124", GizmoTargetTypes.Resplendant),
 				new GizmoEntry(129476, PluginGizmoType.Chest, "a3dun_Crater_Chest_Rare-17045", GizmoTargetTypes.Resplendant),
 				new GizmoEntry(187107, PluginGizmoType.Chest, "a4dun_Spire_Chest_Rare-58008", GizmoTargetTypes.Resplendant),
+				new GizmoEntry(289797, PluginGizmoType.Chest, "X1_PandExt_Chest_Rare-70672", GizmoTargetTypes.Resplendant),
 
 				//============== Chests ==============//
 				new GizmoEntry(62865, PluginGizmoType.Chest, "TrOut_Highlands_Chest-18282", GizmoTargetTypes.Chest),
@@ -379,6 +386,11 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(188351, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_A_Corpse_01-1623", GizmoTargetTypes.Corpse),
 				new GizmoEntry(188353, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_A_Corpse_03-2019", GizmoTargetTypes.Corpse),
 				new GizmoEntry(190276, PluginGizmoType.Chest, "LootType3_CaldeumGuard_Cleaver_A_Corpse_05-6325", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188066, PluginGizmoType.Chest, "LootType2_skeleton_A_Corpse_04-702", GizmoTargetTypes.Corpse),
+				new GizmoEntry(193016, PluginGizmoType.Chest, "LootType3_GraveGuard_B_Corpse_02-29580", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188385, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_F_Corpse_02-45508", GizmoTargetTypes.Corpse),
+				new GizmoEntry(193027, PluginGizmoType.Chest, "LootType3_GraveGuard_D_Corpse_06-45500", GizmoTargetTypes.Corpse),
+				
 				#endregion
 
 				//============== Weapon Rack ==============//

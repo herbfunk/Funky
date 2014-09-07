@@ -26,20 +26,9 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 			Priority = SkillPriority.High;
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckEnergy | SkillPrecastFlags.CheckRecastTimer));
 
-			FcriteriaBuff = () => !Hotbar.HasBuff(SNOPower.X1_Monk_MantraOfEvasion_v2_Passive);
+			FcriteriaBuff = () => FunkyBaseExtension.Settings.Monk.bMonkSpamMantra && FunkyGame.Targeting.Cache.Environment.TriggeringAvoidances.Count > 0;
 
-			FcriteriaCombat = () => !Hotbar.HasBuff(SNOPower.X1_Monk_MantraOfEvasion_v2_Passive)
-								  ||
-								  FunkyBaseExtension.Settings.Monk.bMonkSpamMantra && FunkyGame.Targeting.Cache.CurrentTarget != null &&
-								  (FunkyGame.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25] > 0 ||
-								   FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20] >= 2 ||
-								   (FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20] >= 1 && HasInnaSetBonus) ||
-								   (FunkyGame.Targeting.Cache.CurrentUnitTarget.IsEliteRareUnique || FunkyGame.Targeting.Cache.CurrentTarget.IsBoss) &&
-								   FunkyGame.Targeting.Cache.CurrentTarget.RadiusDistance <= 25f) &&
-				// Check if either we don't have blinding flash, or we do and it's been cast in the last 6000ms
-				//DateTime.Now.Subtract(dictAbilityLastUse[SNOPower.Monk_BlindingFlash]).TotalMilliseconds <= 6000)) &&
-								  (!Hotbar.HasPower(SNOPower.Monk_BlindingFlash) ||
-								   (Hotbar.HasPower(SNOPower.Monk_BlindingFlash) && (Hotbar.HasBuff(SNOPower.Monk_BlindingFlash))));
+			FcriteriaCombat = () => FunkyBaseExtension.Settings.Monk.bMonkSpamMantra && FunkyGame.Targeting.Cache.Environment.TriggeringAvoidances.Count > 0;
 		}
 
 

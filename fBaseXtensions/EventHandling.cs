@@ -7,6 +7,7 @@ using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Monitor;
 using fBaseXtensions.Settings;
 using fBaseXtensions.Stats;
+using fBaseXtensions.XML;
 using Zeta.Bot;
 using Zeta.Bot.Navigation;
 using Zeta.Game;
@@ -52,6 +53,7 @@ namespace fBaseXtensions
 			FunkyGame.ShouldRefreshAccountDetails = true;
 			ExitGame.ShouldExitGame = false;
 			ExitGame.BehaviorEngaged = false;
+			SetVariableTag.VariableDictionary.Clear();
 
 			if (FunkyBaseExtension.PluginIsEnabled)
 			{

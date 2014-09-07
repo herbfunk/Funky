@@ -1,4 +1,28 @@
-﻿v1.1.0.2
+﻿v1.1.0.3
+	Initalize will now also copy routine file into routines folder.
+	MoveItem tag will now select lowest greater rift key first.
+
+	Added new xml tags SetVariable and IsVariableSet
+		*Only resets when bot stops
+		Example:
+		<SetVariable Key="String" Value="StringOne" />
+		<IsVariableSet Key="String" Value="StringOne">
+			...Do Stuff...
+		</IsVariableSet>
+
+	Added new xml tag FunkyMoveToActor
+		*Uses ObjectCache to find valid object with matching SNO and moves towards it.
+		Example:
+		<FunkyMoveToActor questId="1" sno="256054" pathPrecision="20" />
+
+	Added new xml tag MapMarkerExists
+		*Refreshes Open World Map Markers and checks position against given position & distance.
+		Example:
+		<MapMarkerExists x="1234" y="3983" z="110" distance="25">
+			..Do Stuff..
+		</MapMarkerExists>
+
+v1.1.0.2
 	Moved Installing of Funky Settings Button and should now work with YAR.
 
 

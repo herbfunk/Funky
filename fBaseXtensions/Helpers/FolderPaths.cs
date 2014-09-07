@@ -9,6 +9,15 @@ namespace fBaseXtensions.Helpers
 	{
 		public static string DemonBuddyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 		internal static string PluginPath = Path.Combine(DemonBuddyPath, "Plugins", "fBaseXtensions");
+		internal static string RoutinePath
+		{
+			get
+			{
+				string path = Path.Combine(DemonBuddyPath, "Routines", "Funky");
+				CheckFolderExists(path);
+				return path;
+			}
+		}
 
 		public static string LoggingFolderPath
 		{

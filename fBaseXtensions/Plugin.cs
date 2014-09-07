@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using Demonbuddy;
@@ -9,6 +10,7 @@ using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Cache.Internal.Objects;
 using fBaseXtensions.Game;
 using fBaseXtensions.Game.Hero;
+using fBaseXtensions.Helpers;
 using fBaseXtensions.Monitor;
 using fBaseXtensions.Settings;
 using Zeta.Bot;
@@ -49,6 +51,25 @@ namespace fBaseXtensions
 	    public void OnInitialize()
 	    {
 			Logger.DBLog.DebugFormat("fBaseXtensions OnInitialize Started");
+			
+			if (File.Exists(FolderPaths.PluginPath + @"\CombatRoutine.cs"))
+			{
+				try
+				{
+
+					if (File.Exists(FolderPaths.RoutinePath + @"\CombatRoutine.cs"))
+						File.Delete(FolderPaths.RoutinePath + @"\CombatRoutine.cs");
+
+					File.Copy(FolderPaths.PluginPath + @"\CombatRoutine.cs", FolderPaths.RoutinePath + @"\CombatRoutine.cs");
+					Logger.DBLog.DebugFormat("fBaseXtensions Copied Combat Routine");
+
+				}
+				catch (Exception ex)
+				{
+					Logger.DBLog.DebugFormat("fBaseXtensions Copy Combat Routine Threw Exception", ex);
+				}
+			}
+
 		    Settings=new PluginSettings();
 			PluginSettings.LoadSettings();
 			TheCache.ObjectIDCache = new IDCache();
@@ -90,7 +111,7 @@ namespace fBaseXtensions
 
 		public Version Version
 		{
-			get { return new Version(1, 1, 0, 2); }
+			get { return new Version(1, 1, 0, 3); }
 		}
 		public string Author
 		{

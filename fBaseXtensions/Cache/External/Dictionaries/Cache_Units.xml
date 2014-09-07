@@ -1567,7 +1567,7 @@
       <InternalName>HoodedNightmare_A-12862</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Debuffing</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>106711</SnoId>
@@ -5264,6 +5264,160 @@
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>Normal Stationary</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>360111</SnoId>
+      <InternalName>a4dun_Garden_Corruption_Monster_Despair-3582</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>222096</SnoId>
+      <InternalName>SoulRipper_C_Despair-3922</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>197356</SnoId>
+      <InternalName>a4dun_Aspect_Anguish-8974</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>368341</SnoId>
+      <InternalName>demonFlyer_C_Challenge-7624</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>219925</SnoId>
+      <InternalName>morluMelee_A_Unique_01-9186</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>149870</SnoId>
+      <InternalName>Angel_Corrupt_Izual-22929</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>219949</SnoId>
+      <InternalName>HoodedNightmare_A_Unique_01-23519</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Debuffing</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>219936</SnoId>
+      <InternalName>morluMelee_A_Unique_02-20531</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>197491</SnoId>
+      <InternalName>a4dun_Aspect_Pain-15600</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>197493</SnoId>
+      <InternalName>a4dun_Aspect_Lies-19169</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>219893</SnoId>
+      <InternalName>Angel_Corrupt_A_Unique_03-18881</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>370376</SnoId>
+      <InternalName>x1_SpeedKill_Despair-27449</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>219847</SnoId>
+      <InternalName>Succubus_C_Unique_01-10221</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>354830</SnoId>
+      <InternalName>x1_Abattoir_furnaceSpinner_fireBeam_counterClockwise-3735</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>334327</SnoId>
+      <InternalName>X1_SkeletonArcher_Fire_A-18628</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>437</SnoId>
+      <InternalName>Spiderling_C-8048</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>220881</SnoId>
+      <InternalName>ThousandPounder_C_Unique_01</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Tough</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>222335</SnoId>
+      <InternalName>FallenChampion_B_Unique_01-3457</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>221372</SnoId>
+      <InternalName>LacuniFemale_A_Unique_02-5302</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>367366</SnoId>
+      <InternalName>demonFlyer_C_unique_01-20844</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>220795</SnoId>
+      <InternalName>Monstrosity_Scorpion_A_Unique_01-33721</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>219651</SnoId>
+      <InternalName>CoreEliteDemon_A_Unique_01-46853</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
     </UnitEntry>
   </UnitEntries>
   <UnitPetEntries>

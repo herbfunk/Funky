@@ -38,7 +38,7 @@ namespace fItemPlugin.Townrun
 					Navigator.SearchGridProvider.Update();
 					ResetCache = true;
 				}
-
+				FunkyGame.Game.ForceOutOfCombatBehavior = true;
 				if (FunkyGame.Targeting.CheckHandleTarget() == RunStatus.Running) return RunStatus.Running;
 
 				float distanceFromStart=FunkyGame.Hero.Position.Distance(TownPortalBehavior.StartingPosition);
@@ -57,7 +57,7 @@ namespace fItemPlugin.Townrun
 			
 			GoldInactivity.LastCoinageUpdate = DateTime.Now;
 			fBaseXtensions.Navigation.Navigation.MGP.Update();
-
+			FunkyGame.Game.ForceOutOfCombatBehavior = false;
 			ResetCache = false;
 			FunkyGame.Targeting.Cache.bFailedToLootLastItem = false;
 

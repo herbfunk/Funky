@@ -702,6 +702,13 @@
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>271762</SnoId>
+      <InternalName>x1_combatStaff_norm_unique_flippy_10-1544</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>3913</SnoId>
       <InternalName>Dagger_norm_base_flippy_04-7545</InternalName>
       <ActorType>Item</ActorType>
@@ -830,6 +837,48 @@
     <DroppedItemEntry>
       <SnoId>196497</SnoId>
       <InternalName>fistWeapon_norm_unique_flippy_10-13065</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>175938</SnoId>
+      <InternalName>fistWeapon_norm_unique_07-3509</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>271958</SnoId>
+      <InternalName>x1_fistWeapon_norm_unique_flippy_14-14402</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>403775</SnoId>
+      <InternalName>p1_fistWeapon_norm_unique_02-20634</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>175944</SnoId>
+      <InternalName>fistWeapon_norm_unique_flippy_08-30479</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>145847</SnoId>
+      <InternalName>fistWeapon_norm_unique_flippy_04-30912</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>208943</SnoId>
+      <InternalName>fistWeapon_norm_unique_flippy_11-37057</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
@@ -1115,6 +1164,13 @@
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>188207</SnoId>
+      <InternalName>Mace_norm_unique_flippy_05-4091</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>6337</SnoId>
       <InternalName />
       <ActorType>Item</ActorType>
@@ -1187,6 +1243,13 @@
     <DroppedItemEntry>
       <SnoId>59635</SnoId>
       <InternalName>twoHandedMace_norm_unique_flippy_01-21986</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>271667</SnoId>
+      <InternalName>x1_twoHandedMace_norm_unique_flippy_08-32454</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
@@ -1355,6 +1418,20 @@
     <DroppedItemEntry>
       <SnoId>4873</SnoId>
       <InternalName>Polearm_norm_base_flippy_01-14641</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Polearm</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>192636</SnoId>
+      <InternalName>Polearm_norm_unique_flippy_02-53325</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Polearm</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>272051</SnoId>
+      <InternalName>x1_polearm_norm_unique_flippy_05-3091</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Polearm</PluginDroppedItemTypes>
@@ -1649,6 +1726,13 @@
     <DroppedItemEntry>
       <SnoId>222798</SnoId>
       <InternalName>Sword_norm_unique_flippy_11-60528</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>182382</SnoId>
+      <InternalName>Sword_norm_unique_flippy_04-49182</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
@@ -2368,6 +2452,13 @@
       <PluginDroppedItemTypes>Potion</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>344093</SnoId>
+      <InternalName>healthPotion_Legendary_06_x1-27250</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Potion</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>192866</SnoId>
       <InternalName />
       <ActorType>Item</ActorType>
@@ -2391,6 +2482,20 @@
     <DroppedItemEntry>
       <SnoId>368644</SnoId>
       <InternalName>X1_Catacombs_LoreBook_Rakkis</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>223954</SnoId>
+      <InternalName>Lore_Cains_Satchel_Book_Open</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>204827</SnoId>
+      <InternalName>Lore_AzmodansOrders6</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
@@ -2988,6 +3093,12 @@
       <PluginDroppedItemTypes>Diamond</PluginDroppedItemTypes>
     </ItemStringEntry>
     <ItemStringEntry>
+      <ID>unique_gem</ID>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
+    </ItemStringEntry>
+    <ItemStringEntry>
       <ID>horadric</ID>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
@@ -3346,6 +3457,12 @@
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Belt</PluginDroppedItemTypes>
+    </ItemStringEntry>
+    <ItemStringEntry>
+      <ID>lore</ID>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
     </ItemStringEntry>
   </DroppedItemInternalNames>
   <ItemDataCache>
@@ -5560,7 +5677,27 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>408131</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>408132</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>408133</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>408134</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>408135</SnoId>
       <ItemType>KeyStone</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -5570,12 +5707,37 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>408137</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>408138</SnoId>
       <ItemType>KeyStone</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>408140</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>408141</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>408142</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>408143</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>408144</SnoId>
       <ItemType>KeyStone</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -5586,6 +5748,16 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>408146</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>408147</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>408148</SnoId>
       <ItemType>KeyStone</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -5606,6 +5778,21 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>408152</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>408153</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>408154</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>408155</SnoId>
       <ItemType>KeyStone</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -5635,12 +5822,42 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>408161</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>408162</SnoId>
       <ItemType>KeyStone</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>408163</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>408164</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>408165</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>408166</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>408167</SnoId>
+      <ItemType>KeyStone</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>408168</SnoId>
       <ItemType>KeyStone</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -7085,6 +7302,11 @@
       <LegendaryType>TheFistofAzTurrasq</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>403775</SnoId>
+      <ItemType>FistWeapon</ItemType>
+      <LegendaryType>VengefulWind</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>299435</SnoId>
       <ItemType>Flail</ItemType>
       <LegendaryType>BalefulRemnant</LegendaryType>
@@ -8230,6 +8452,11 @@
       <LegendaryType>ThornsoftheInvoker</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>335029</SnoId>
+      <ItemType>Shoulders</ItemType>
+      <LegendaryType>ThornsoftheInvoker</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>222486</SnoId>
       <ItemType>Amulet</ItemType>
       <LegendaryType>TalRashasElements</LegendaryType>
@@ -8488,6 +8715,11 @@
       <SnoId>222976</SnoId>
       <ItemType>Belt</ItemType>
       <LegendaryType>GuardiansContingency</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>336184</SnoId>
+      <ItemType>Belt</ItemType>
+      <LegendaryType>KrelmsBuffBulwark</LegendaryType>
     </ItemDataEntry>
   </ItemDataCache>
   <GemCache>

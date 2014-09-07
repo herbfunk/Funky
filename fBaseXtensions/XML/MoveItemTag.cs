@@ -124,7 +124,7 @@ namespace fBaseXtensions.XML
 			
 
 			if (KeyType != KeystoneType.None)
-				Items = Items.OrderByDescending(i => i.TieredLootRunKeyLevel).ThenByDescending(i => i.ItemStackQuantity).ToList();
+				Items = Items.OrderBy(i => i.TieredLootRunKeyLevel).ThenByDescending(i => i.ItemStackQuantity).ToList();
 
 			foreach (ACDItem tempitem in Items)
 			{

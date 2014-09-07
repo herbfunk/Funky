@@ -312,6 +312,7 @@
 		TheFistofAzTurrasq,
 		DemonClaw,
 		SledgeFist,
+		VengefulWind,
 
 		//Flails
 		Darklight,
@@ -545,5 +546,6 @@
 		ShenlongsSpirit,
 		IstvansPairedBlades,
 		
+		KrelmsBuffBulwark,
 	}
 }

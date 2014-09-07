@@ -1041,7 +1041,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					validUnit = true;
 
 				//Line of sight pre-check
-				if (RequiresLOSCheck)
+				if (RequiresLOSCheck && !FunkyGame.Bounty.ActiveQuests.ContainsKey(BountyCache.ADVENTUREMODE_GREATERRIFT_TRIAL))
 				{
 					//Get the wait time since last used LOSTest
 					double lastLOSCheckMS = LineOfSight.LastLOSCheckMS;

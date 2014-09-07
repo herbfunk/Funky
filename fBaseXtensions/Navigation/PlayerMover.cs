@@ -305,35 +305,35 @@ namespace fBaseXtensions.Navigation
 			}
 
 			//Special cache for skipping locations visited.
-			if (FunkyBaseExtension.Settings.Debugging.SkipAhead)
-			{
-				SkipAheadCache.RecordSkipAheadCachePoint();
+			//if (FunkyBaseExtension.Settings.Debugging.SkipAhead)
+			//{
+			//	SkipAheadCache.RecordSkipAheadCachePoint();
 
-				//Check if our current profile behavior is ExploreDungeon tag.
-				if (FunkyGame.Profile.CurrentProfileBehaviorType == Profile.ProfileBehaviorTypes.ExploreDungeon) //&& !SkipAheadCache.LevelAreaIDsIgnoreSkipping.Contains(FunkyGame.Hero.iCurrentLevelID))
-				{
-					//Check if DungeonExplorer and Current Node are valid. (only when there is more than one node in current route)
-					if (Navigation.CurrentDungeonExplorer != null && Navigation.DungeonExplorerCurrentNode != null && Navigation.CurrentDungeonExplorer.CurrentRoute.Count > 1)
-					{
-						if (Navigation.NP.CurrentPath != null && Navigation.NP.CurrentPath.Count > 0)
-						{
-							var destination = Navigation.NP.CurrentPath.Last();
-							float distance = destination.Distance2D(Navigation.DungeonExplorerCurrentNode.NavigableCenter);
-							//Logger.DBLog.InfoFormat("[Funky] Distance from CurrentNode Center == {0}", distance);
-							if (distance <= 5f)
-							{
-								//Check if our target position is within skip ahead cache.
-								if (SkipAheadCache.CheckPositionForSkipping(destination))
-								{
-									Logger.DBLog.Info("[Funky] Marking Node as Visited! (PlayerMover)");
-									Logger.DBLog.DebugFormat("[Funky] {0}", Navigation.PrintDungeonExplorerNode(Navigation.DungeonExplorerCurrentNode));
-									Navigation.DungeonExplorerCurrentNode.Visited = true;
-								}
-							}
-						}
-					}
-				}
-			}
+			//	//Check if our current profile behavior is ExploreDungeon tag.
+			//	if (FunkyGame.Profile.CurrentProfileBehaviorType == Profile.ProfileBehaviorTypes.ExploreDungeon) //&& !SkipAheadCache.LevelAreaIDsIgnoreSkipping.Contains(FunkyGame.Hero.iCurrentLevelID))
+			//	{
+			//		//Check if DungeonExplorer and Current Node are valid. (only when there is more than one node in current route)
+			//		if (Navigation.CurrentDungeonExplorer != null && Navigation.DungeonExplorerCurrentNode != null && Navigation.CurrentDungeonExplorer.CurrentRoute.Count > 1)
+			//		{
+			//			if (Navigation.NP.CurrentPath != null && Navigation.NP.CurrentPath.Count > 0)
+			//			{
+			//				var destination = Navigation.NP.CurrentPath.Last();
+			//				float distance = destination.Distance2D(Navigation.DungeonExplorerCurrentNode.NavigableCenter);
+			//				//Logger.DBLog.InfoFormat("[Funky] Distance from CurrentNode Center == {0}", distance);
+			//				if (distance <= 5f)
+			//				{
+			//					//Check if our target position is within skip ahead cache.
+			//					if (SkipAheadCache.CheckPositionForSkipping(destination))
+			//					{
+			//						Logger.DBLog.Info("[Funky] Marking Node as Visited! (PlayerMover)");
+			//						Logger.DBLog.DebugFormat("[Funky] {0}", Navigation.PrintDungeonExplorerNode(Navigation.DungeonExplorerCurrentNode));
+			//						Navigation.DungeonExplorerCurrentNode.Visited = true;
+			//					}
+			//				}
+			//			}
+			//		}
+			//	}
+			//}
 
 			// Store distance to current moveto target
 			float fDistanceFromTarget;

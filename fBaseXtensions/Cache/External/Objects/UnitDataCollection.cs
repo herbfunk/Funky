@@ -308,7 +308,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(106707, UnitFlags.Normal, "CoreEliteDemon_A-615"),
 				new UnitEntry(106708, UnitFlags.Normal, "BigRed_A-13055"),
 				new UnitEntry(106709, UnitFlags.Normal | UnitFlags.Unique | UnitFlags.MalletLord, "MalletDemon_A_Unique_01"),
-				new UnitEntry(106710, UnitFlags.Normal, "HoodedNightmare_A-12862"),
+				new UnitEntry(106710, UnitFlags.Normal | UnitFlags.Debuffing, "HoodedNightmare_A-12862"),
 				new UnitEntry(106711, UnitFlags.Normal, "Angel_Corrupt_A-12855"),
 				new UnitEntry(106712, UnitFlags.Normal, "MastaBlasta_Rider_A-832"),
 				new UnitEntry(106713, UnitFlags.Normal | UnitFlags.Fast, "MastaBlasta_Steed_A-1133"),
@@ -848,6 +848,33 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(260235, UnitFlags.Unique, "Skeleton_D_Fire_BlacksmithEvent_Unique-39252"),
 				new UnitEntry(220868, UnitFlags.Unique | UnitFlags.Fast, "GoatMutant_Shaman_B_Unique_02-51922"),
 				new UnitEntry(354833, UnitFlags.Normal | UnitFlags.Stationary, "x1_Abattoir_furnaceSpinner_fireBeam_clockwise-10236"),
+			
+			
+				new UnitEntry(360111, UnitFlags.Normal, "a4dun_Garden_Corruption_Monster_Despair-3582"),
+				new UnitEntry(222096, UnitFlags.Normal, "SoulRipper_C_Despair-3922"),
+				new UnitEntry(197356, UnitFlags.Unique | UnitFlags.Ranged, "a4dun_Aspect_Anguish-8974"),
+				new UnitEntry(368341, UnitFlags.Normal, "demonFlyer_C_Challenge-7624"),
+				new UnitEntry(219925, UnitFlags.Unique, "morluMelee_A_Unique_01-9186"),
+				new UnitEntry(149870, UnitFlags.Normal, "Angel_Corrupt_Izual-22929"),
+				new UnitEntry(219949, UnitFlags.Unique | UnitFlags.Debuffing, "HoodedNightmare_A_Unique_01-23519"),
+				new UnitEntry(219936, UnitFlags.Unique | UnitFlags.Fast, "morluMelee_A_Unique_02-20531"),
+				new UnitEntry(197491, UnitFlags.Unique, "a4dun_Aspect_Pain-15600"),
+				new UnitEntry(197493, UnitFlags.Unique, "a4dun_Aspect_Lies-19169"),
+				new UnitEntry(219893, UnitFlags.Unique, "Angel_Corrupt_A_Unique_03-18881"),
+				new UnitEntry(370376, UnitFlags.Unique, "x1_SpeedKill_Despair-27449"),
+
+				new UnitEntry(219847, UnitFlags.Unique, "Succubus_C_Unique_01-10221"),
+				new UnitEntry(354830, UnitFlags.Normal, "x1_Abattoir_furnaceSpinner_fireBeam_counterClockwise-3735"),
+				new UnitEntry(334327, UnitFlags.Normal | UnitFlags.Ranged, "X1_SkeletonArcher_Fire_A-18628"),
+				new UnitEntry(437, UnitFlags.Normal, "Spiderling_C-8048"),
+				new UnitEntry(220881, UnitFlags.Unique | UnitFlags.Tough, "ThousandPounder_C_Unique_01"),
+
+				new UnitEntry(222335, UnitFlags.Unique, "FallenChampion_B_Unique_01-3457"),
+				new UnitEntry(221372, UnitFlags.Unique | UnitFlags.Fast, "LacuniFemale_A_Unique_02-5302"),
+				new UnitEntry(367366, UnitFlags.Unique, "demonFlyer_C_unique_01-20844"),
+				new UnitEntry(220795, UnitFlags.Unique, "Monstrosity_Scorpion_A_Unique_01-33721"),
+				new UnitEntry(219651, UnitFlags.Unique, "CoreEliteDemon_A_Unique_01-46853"),
+
 			};
 			
 			#endregion

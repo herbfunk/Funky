@@ -2,6 +2,30 @@
 <GizmoDataCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GizmoCache>
     <GizmoEntry>
+      <SnoId>5719</SnoId>
+      <InternalName>trDun_Cath_Barricade_B</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>379048</SnoId>
+      <InternalName>p1_Cesspools_Door_Breakable</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>379037</SnoId>
+      <InternalName>p1_Cesspools_Barricade_Breakable</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>5854</SnoId>
       <InternalName />
       <ActorType>Gizmo</ActorType>
@@ -380,6 +404,14 @@
     <GizmoEntry>
       <SnoId>187107</SnoId>
       <InternalName>a4dun_Spire_Chest_Rare-58008</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>289797</SnoId>
+      <InternalName>X1_PandExt_Chest_Rare-70672</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
@@ -2652,6 +2684,38 @@
     <GizmoEntry>
       <SnoId>190276</SnoId>
       <InternalName>LootType3_CaldeumGuard_Cleaver_A_Corpse_05-6325</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188066</SnoId>
+      <InternalName>LootType2_skeleton_A_Corpse_04-702</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>193016</SnoId>
+      <InternalName>LootType3_GraveGuard_B_Corpse_02-29580</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188385</SnoId>
+      <InternalName>LootType2_caldeumTortured_Male_F_Corpse_02-45508</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>193027</SnoId>
+      <InternalName>LootType3_GraveGuard_D_Corpse_06-45500</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
