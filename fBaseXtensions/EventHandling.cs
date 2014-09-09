@@ -141,6 +141,7 @@ namespace fBaseXtensions
 					Logger.DBLog.InfoFormat("Adventure Mode Active!");
 					FunkyGame.Bounty.Reset();
 					FunkyGame.Bounty.RefreshBountyInfo();
+					FunkyGame.Bounty.RefreshActiveQuests();
 				}
 
 				FunkyGame.CurrentGameID=curgameID;

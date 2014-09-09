@@ -404,6 +404,7 @@
           <int>355278</int>
           <int>369277</int>
           <int>369288</int>
+          <int>369291</int>
         </QuestSNOs>
       </BountyQuestCacheEntry>
       <BountyQuestCacheEntry>
@@ -450,6 +451,15 @@
           <int>346092</int>
           <int>346094</int>
           <int>347607</int>
+        </QuestSNOs>
+      </BountyQuestCacheEntry>
+      <BountyQuestCacheEntry>
+        <Name>Act2_DesolateSands_VaultOfAssassin</Name>
+        <Type>Kill</Type>
+        <StartingLevelAreaID>53834</StartingLevelAreaID>
+        <EndingLevelAreaID>123182</EndingLevelAreaID>
+        <TotalKillCount>100</TotalKillCount>
+        <QuestSNOs>
           <int>354788</int>
         </QuestSNOs>
       </BountyQuestCacheEntry>
@@ -566,6 +576,18 @@
         </LevelAreaIDs>
         <QuestSNOs>
           <int>346086</int>
+        </QuestSNOs>
+      </BountyQuestCacheEntry>
+      <BountyQuestCacheEntry>
+        <Name>Act2_ClearFloodedCaves</Name>
+        <Type>Clear</Type>
+        <StartingLevelAreaID>57425</StartingLevelAreaID>
+        <EndingLevelAreaID>161105</EndingLevelAreaID>
+        <LevelAreaIDs>
+          <int>62574</int>
+        </LevelAreaIDs>
+        <QuestSNOs>
+          <int>346071</int>
         </QuestSNOs>
       </BountyQuestCacheEntry>
     </ClearBounties>

@@ -1,4 +1,16 @@
-﻿v1.1.0.3
+﻿v1.1.1.0
+	Added Goblin Behavior (W.I.P.)
+		-When Goblin Portal is found -- will enter and load custom profile.
+		-After goblin world will reload last profile.
+		-Currently Works with whimysdale
+
+	CacheObject now has World and Level ID properties set according to the heros.
+	Ramaladnis Gift will now be recongized properly and looted.
+
+	Added new xml tag AcceptTieredRiftReward
+		Will upgrade key if possible, else it will upgrade the highest rank gem.
+
+v1.1.0.3
 	Initalize will now also copy routine file into routines folder.
 	MoveItem tag will now select lowest greater rift key first.
 

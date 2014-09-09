@@ -26,6 +26,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		public CacheObject(int sno, int raguid, int acdguid, Vector3 position, string Name = null)
 			: base(sno)
 		{
+			WorldID = FunkyGame.Hero.CurrentWorldID;
+			LevelAreaID = FunkyGame.Hero.iCurrentLevelID;
 			CreationTime=DateTime.Now;
 			RAGUID = raguid;
 			NeedsUpdate = true;
@@ -53,6 +55,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		public CacheObject(Vector3 thisposition, TargetType thisobjecttype = TargetType.None, double thisweight = 0, string name = null, float thisradius = 0f, int thisractorguid = -1, int thissno = 0)
 			: base(thissno)
 		{
+			WorldID = FunkyGame.Hero.CurrentWorldID;
+			LevelAreaID = FunkyGame.Hero.iCurrentLevelID;
 			CreationTime = DateTime.Now;
 			RAGUID = thisractorguid;
 			position_ = thisposition;
@@ -69,6 +73,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		public CacheObject(CacheObject parent)
 			: base(parent)
 		{
+			WorldID = parent.WorldID;
+			LevelAreaID = parent.LevelAreaID;
 			CreationTime=parent.CreationTime;
 			AcdGuid = parent.AcdGuid;
 			BlacklistFlag = parent.BlacklistFlag;
@@ -101,6 +107,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 		public int? AcdGuid { get; set; }
 		public int RAGUID { get; set; }
+		public readonly int WorldID, LevelAreaID;
+
 		public readonly DateTime CreationTime;
 		public double CreationTimeSeconds
 		{

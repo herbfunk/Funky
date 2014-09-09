@@ -24,6 +24,7 @@ namespace fBaseXtensions.Targeting.Behaviors
 
 
 		*/
+		private float MinimumDistance = SettingLOSMovement.LOSSettingsTag.MiniumRangeObjects;
 
 		public TBLOSMovement() : base() { }
 		public override TargetBehavioralTypes TargetBehavioralTypeType { get { return TargetBehavioralTypes.LineOfSight; } }
@@ -91,7 +92,11 @@ namespace fBaseXtensions.Targeting.Behaviors
 
 							//Set the object
 							FunkyGame.Navigation.LOSmovementObject = new CacheLineOfSight(cobj, cobj.Position);
-							
+							if (cobj.IsBurrowableUnit || cobj.IsStealthableUnit || cobj.IsWormBoss)
+								MinimumDistance = 10;
+							else
+								MinimumDistance = FunkyBaseExtension.Settings.LOSMovement.MiniumRangeObjects;
+
 							break;
 						}
 
@@ -121,6 +126,7 @@ namespace fBaseXtensions.Targeting.Behaviors
 
 									//Set the object
 									FunkyGame.Navigation.LOSmovementObject = new CacheLineOfSight(mapmarker);
+									MinimumDistance = FunkyBaseExtension.Settings.LOSMovement.MinimumRangeMarkers;
 									
 								}
 
@@ -134,7 +140,7 @@ namespace fBaseXtensions.Targeting.Behaviors
 						//See if the orgin object is still valid..
 
 						//min Distance for Map Markers is 25f
-						if (FunkyGame.Navigation.LOSmovementObject.CentreDistance < (FunkyGame.Navigation.LOSmovementObject.IgnoringCacheCheck ? SettingLOSMovement.LOSSettingsTag.MinimumRangeMarkers : SettingLOSMovement.LOSSettingsTag.MiniumRangeObjects))
+						if (FunkyGame.Navigation.LOSmovementObject.CentreDistance < (MinimumDistance))
 						{
 
 							if (!FunkyGame.Navigation.LOSmovementObject.CacheContainsOrginObject())

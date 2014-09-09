@@ -1095,6 +1095,54 @@ namespace FunkyDebug
 			flowLayout_OutPut.Focus();
 		}
 
+		private void btn_BackpackItems_Attributes_Click(object sender, EventArgs e)
+		{
+			if (BotMain.IsRunning) return;
+
+
+			flowLayout_OutPut.Controls.Clear();
+
+			try
+			{
+				using (ZetaDia.Memory.SaveCacheState())
+				{
+					ZetaDia.Memory.DisableCache();
+					ZetaDia.Actors.Update();
+
+					#region Character Inventory Items
+					foreach (var o in ZetaDia.Me.Inventory.Backpack)
+					{
+						try
+						{
+							string attributes = "";
+							foreach (ActorAttributeType aType in Enum.GetValues(typeof(ActorAttributeType)))
+							{
+								var iType = o.GetAttribute<float>(aType);
+								if (iType > 0)
+								{
+									attributes += aType.ToString() + "=" + iType.ToString() + ", ";
+								}
+							}
+
+							flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(String.Format("{0} \r\n {1}", o.InternalName, attributes)));
+						}
+						catch (Exception)
+						{
+
+						}
+
+					}
+					#endregion
+				}
+			}
+			catch (Exception ex)
+			{
+
+			}
+
+			flowLayout_OutPut.Focus();
+		}
+
 		
 
 		

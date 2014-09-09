@@ -18,9 +18,8 @@ namespace fItemPlugin.Townrun
 
 	internal static partial class TownRunManager
 	{
-		// **********************************************************************************************
-		// *****         Salvage Overlord determines if we should visit the blacksmith or not       *****
-		// **********************************************************************************************
+		private static bool bSalvageAllMagic, bSalvageAllNormal, bSalvageAllRare;
+
 		internal static bool GilesSalvageOverlord(object ret)
 		{
 			townRunItemCache.SalvageItems.Clear();
@@ -71,16 +70,19 @@ namespace fItemPlugin.Townrun
 							}
 
 							if (StashValidation(thisitem))
+							{
 								continue;
+							}
 
 							bShouldVisitSalvage = SalvageValidation(thisitem);
 						}
-							
-						
+
+
 
 						if (bShouldVisitSalvage)
+						{
 							townRunItemCache.SalvageItems.Add(thisitem);
-
+						}
 					}
 				}
 				else
@@ -185,12 +187,48 @@ namespace fItemPlugin.Townrun
 
 			if (!Delay.Test(1.15)) return RunStatus.Running;
 
+			if (UI.Game.Dialog_Confirmation_OK.IsVisible)
+			{
+				UI.Game.Dialog_Confirmation_OK.Click();
+				return RunStatus.Running;
+			}
+
+			if (UI.Game.SalvageAllNormal.IsEnabled && townRunItemCache.SalvageItems.Any(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Magic1) && !bSalvageAllNormal)
+			{
+				UI.Game.SalvageAllNormal.Click();
+				bSalvageAllNormal = true;
+				return RunStatus.Running;
+			}
+
+			if (UI.Game.SalvageAllMagical.IsEnabled && townRunItemCache.SalvageItems.Any(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Rare4) && !bSalvageAllMagic)
+			{
+				UI.Game.SalvageAllMagical.Click();
+				bSalvageAllMagic = true;
+				return RunStatus.Running;
+			}
+
+			if (UI.Game.SalvageAllRare.IsEnabled && townRunItemCache.SalvageItems.Any(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Legendary) && !bSalvageAllRare)
+			{
+				UI.Game.SalvageAllRare.Click();
+				bSalvageAllRare = true;
+				//var removalList=townRunItemCache.SalvageItems.Where(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Legendary).ToList();
+				return RunStatus.Running;
+			}
+
 
 			if (townRunItemCache.SalvageItems.Count > 0)
 			{
 				CacheACDItem thisitem = townRunItemCache.SalvageItems.FirstOrDefault();
-				if (thisitem != null)
+				if (thisitem != null && thisitem.ACDItem!=null)
 				{
+					if ((thisitem.IsSalvagable && thisitem.ThisQuality < ItemQuality.Magic1 && bSalvageAllNormal)||
+						(thisitem.IsSalvagable && thisitem.ThisQuality < ItemQuality.Rare4 && bSalvageAllMagic)||
+						(thisitem.IsSalvagable && thisitem.ThisQuality < ItemQuality.Legendary && bSalvageAllRare))
+					{
+						townRunItemCache.SalvageItems.Remove(thisitem);
+						return RunStatus.Running;
+					}
+
 					// Item log for cool stuff stashed
 					PluginItemTypes OriginalGilesItemType = ItemFunc.DetermineItemType(thisitem);
 					PluginBaseItemTypes thisGilesBaseType = ItemFunc.DetermineBaseType(OriginalGilesItemType);

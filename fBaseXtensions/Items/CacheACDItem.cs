@@ -1,7 +1,9 @@
-﻿using fBaseXtensions.Cache;
+﻿using System;
+using fBaseXtensions.Cache;
 using fBaseXtensions.Cache.External.Objects;
 using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Cache.Internal.Enums;
+using fBaseXtensions.Helpers;
 using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
@@ -17,6 +19,8 @@ namespace fBaseXtensions.Items
 		public int ThisLevel { get; set; }
 		public ItemQuality ThisQuality { get; set; }
 		public int ThisGoldAmount { get; set; }
+		public int LegendaryGemRank { get; set; }
+		public LegendaryGemTypes LegendaryGemType { get; set; }
 		public int ThisBalanceID { get; set; }
 		public int ThisDynamicID { get; set; }
 		public bool ThisOneHanded { get; set; }
@@ -122,6 +126,28 @@ namespace fBaseXtensions.Items
 				ItemStatProperties = new ItemProperties(thesestats);
 			}
 
+			if (BaseItemType == PluginBaseItemTypes.Gem && ItemType == PluginItemTypes.LegendaryGem)
+			{
+				try
+				{
+					LegendaryGemRank = item.GetAttribute<int>(ActorAttributeType.JewelRank);
+				}
+				catch (Exception)
+				{
+					Logger.DBLog.Debug("Failed to get Jewel Rank for Legendary Gem!");
+				}
+
+				try
+				{
+					LegendaryGemType = (LegendaryGemTypes)Enum.Parse(typeof(LegendaryGemTypes), SNO.ToString());
+				}
+				catch (Exception)
+				{
+					LegendaryGemType= LegendaryGemTypes.None;
+				}
+					
+			}
+
 			if (itemEntry==null && !IsUnidentified)
 			{
 				if (FunkyBaseExtension.Settings.Debugging.DebuggingData && FunkyBaseExtension.Settings.Debugging.DebuggingDataTypes.HasFlag(DebugDataTypes.Items))
@@ -143,7 +169,17 @@ namespace fBaseXtensions.Items
 		{
 			get { return ThisInternalName.StartsWith("HoradricCache"); }
 		}
-
+		public bool IsSalvagable
+		{
+			get
+			{
+				return  (!IsVendorBought && ThisLevel != 1) &&
+						(BaseItemType == PluginBaseItemTypes.Armor || BaseItemType == PluginBaseItemTypes.FollowerItem ||
+				        BaseItemType == PluginBaseItemTypes.Jewelry || BaseItemType == PluginBaseItemTypes.Offhand ||
+				        BaseItemType == PluginBaseItemTypes.WeaponOneHand || BaseItemType == PluginBaseItemTypes.WeaponRange || 
+						BaseItemType == PluginBaseItemTypes.WeaponTwoHand);
+			}
+		}
 
 
 	}

@@ -159,10 +159,10 @@ namespace FunkyDebug
 		}
 		public void OnPulse()
 		{
-			if (!BotMain.IsPaused)
-			{
-				BotMain.PauseWhile(MouseLeft);
-			}
+			//if (!BotMain.IsPaused)
+			//{
+			//	BotMain.PauseWhile(MouseLeft);
+			//}
 		}
 
 		public void OnShutdown()

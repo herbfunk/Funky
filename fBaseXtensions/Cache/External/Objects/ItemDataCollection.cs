@@ -87,6 +87,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemStringEntry("helmcloth_", PluginDroppedItemTypes.Helm),
 				new ItemStringEntry("belt_", PluginDroppedItemTypes.Belt),
 				new ItemStringEntry("lore", PluginDroppedItemTypes.LoreBook),
+				new ItemStringEntry("consumable_add_sockets", PluginDroppedItemTypes.RamaladnisGift),
 			};
 			
 #endregion
@@ -166,6 +167,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(3259, PluginDroppedItemTypes.Axe, "Axe_norm_base_flippy_07-6732"),
 				new DroppedItemEntry(181700, PluginDroppedItemTypes.Axe, "Axe_norm_unique_flippy_05-6015"),
 				new DroppedItemEntry(116398, PluginDroppedItemTypes.Axe, "Axe_norm_unique_flippy_04-8761"),
+				new DroppedItemEntry(116397, PluginDroppedItemTypes.Axe, "Axe_norm_unique_flippy_03-24708"),
 
 				//
 				new DroppedItemEntry(6326, PluginDroppedItemTypes.AxeTwoHanded, "twoHandedAxe_norm_base_flippy_03"),
@@ -217,6 +219,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(6623, PluginDroppedItemTypes.Crossbow, "XBow_norm_base_flippy_07-1603"),
 				new DroppedItemEntry(335191, PluginDroppedItemTypes.Crossbow, "x1_xbow_norm_base_flippy_01-13054"),
 				new DroppedItemEntry(221763, PluginDroppedItemTypes.Crossbow, "XBow_norm_unique_flippy_06-30319"),
+				new DroppedItemEntry(98164, PluginDroppedItemTypes.Crossbow, "XBow_norm_unique_flippy_01-18524"),
 
 				//
 				new DroppedItemEntry(3843, PluginDroppedItemTypes.Daibo, "combatStaff_norm_base_flippy_03-15187"),
@@ -400,6 +403,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(271623, PluginDroppedItemTypes.Sword, "x1_Sword_norm_unique_flippy_15-8018"),
 				new DroppedItemEntry(222798, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_11-60528"),
 				new DroppedItemEntry(182382, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_04-49182"),
+				new DroppedItemEntry(189592, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_05-3732"),
 
 				//
 				new DroppedItemEntry(6348, PluginDroppedItemTypes.SwordTwoHanded,"twoHandedSword_norm_base_flippy_02"),
@@ -513,7 +517,7 @@ namespace fBaseXtensions.Cache.External.Objects
 
 				new DroppedItemEntry(323722, PluginDroppedItemTypes.KeyFragment,"LootRunKey"),
 				new DroppedItemEntry(408416, PluginDroppedItemTypes.KeyFragment, "TieredLootrunKey_0-44181"),
-				new DroppedItemEntry(403611, PluginDroppedItemTypes.RamaladnisGift),
+				new DroppedItemEntry(405649, PluginDroppedItemTypes.RamaladnisGift),
 				//
 				//============================= MISC =============================
 				new DroppedItemEntry(301283, PluginDroppedItemTypes.PowerGlobe,"Console_PowerGlobe"),
@@ -542,7 +546,9 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(368644, PluginDroppedItemTypes.LoreBook, "X1_Catacombs_LoreBook_Rakkis"),
 				new DroppedItemEntry(223954, PluginDroppedItemTypes.LoreBook, "Lore_Cains_Satchel_Book_Open"),
 				new DroppedItemEntry(204827, PluginDroppedItemTypes.LoreBook, "Lore_AzmodansOrders6"),
-				
+				new DroppedItemEntry(156477, PluginDroppedItemTypes.LoreBook, "Lore_BelialOasis-10284"),
+				new DroppedItemEntry(183707, PluginDroppedItemTypes.LoreBook, "Lore_WaterPuzzle-9440"),
+
 				new DroppedItemEntry(359504, PluginDroppedItemTypes.BloodShard),
 				//============================= GEMS =============================
 				new DroppedItemEntry(56860, PluginDroppedItemTypes.Amethyst, "Amethyst_01"),
@@ -657,7 +663,9 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(3185, PluginItemTypes.Amulet),
 				new ItemDataEntry(3180, PluginItemTypes.Amulet),
 				new ItemDataEntry(3183, PluginItemTypes.Amulet),
+				new ItemDataEntry(317, PluginItemTypes.Amulet),
 
+				new ItemDataEntry(5032, PluginItemTypes.Ring),
 				new ItemDataEntry(5033, PluginItemTypes.Ring),
 				new ItemDataEntry(5044, PluginItemTypes.Ring),
 				new ItemDataEntry(5043, PluginItemTypes.Ring),
@@ -747,6 +755,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(3803, PluginItemTypes.Chest),
 				new ItemDataEntry(58892, PluginItemTypes.Chest),
 				new ItemDataEntry(58886, PluginItemTypes.Chest),
+				new ItemDataEntry(58895, PluginItemTypes.Chest),
+				new ItemDataEntry(58897, PluginItemTypes.Chest),
 
 				new ItemDataEntry(367188, PluginItemTypes.Cloak),
 				new ItemDataEntry(335376, PluginItemTypes.Cloak),
@@ -787,6 +797,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(4449, PluginItemTypes.Helm),
 				new ItemDataEntry(4450, PluginItemTypes.Helm),
 				new ItemDataEntry(4451, PluginItemTypes.Helm),
+				new ItemDataEntry(57789, PluginItemTypes.Helm),
 
 				new ItemDataEntry(253984, PluginItemTypes.Pants),
 				new ItemDataEntry(253991, PluginItemTypes.Pants),
@@ -1063,6 +1074,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(139079, PluginItemTypes.Quiver),
 				new ItemDataEntry(139080, PluginItemTypes.Quiver),
 				new ItemDataEntry(139083, PluginItemTypes.Quiver),
+				new ItemDataEntry(139082, PluginItemTypes.Quiver),
 
 				new ItemDataEntry(367164, PluginItemTypes.Shield),
 				new ItemDataEntry(335208, PluginItemTypes.Shield),
@@ -1088,6 +1100,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(190628, PluginItemTypes.FollowerTemplar),
 				new ItemDataEntry(190629, PluginItemTypes.FollowerTemplar),
 				new ItemDataEntry(190631, PluginItemTypes.FollowerTemplar),
+				new ItemDataEntry(190630, PluginItemTypes.FollowerTemplar),
 
 				//MISC ITEMS
 				#region Misc Items
@@ -1531,6 +1544,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(175938, PluginItemTypes.FistWeapon, LegendaryItemTypes.SledgeFist), //SledgeFist
 				new ItemDataEntry(175937, PluginItemTypes.FistWeapon, LegendaryItemTypes.TheFistofAzTurrasq),
 				new ItemDataEntry(403775, PluginItemTypes.FistWeapon, LegendaryItemTypes.VengefulWind), //VengefulWind
+				new ItemDataEntry(145851, PluginItemTypes.FistWeapon, LegendaryItemTypes.WonKhimLau),
 
 				new ItemDataEntry(299435, PluginItemTypes.Flail, LegendaryItemTypes.BalefulRemnant),
 				new ItemDataEntry(299428, PluginItemTypes.Flail, LegendaryItemTypes.Darklight),
@@ -1911,6 +1925,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(222972, PluginItemTypes.Bracers, LegendaryItemTypes.AughildsAuthority), //AughildsSearch
 				new ItemDataEntry(197193, PluginItemTypes.Chest, LegendaryItemTypes.AughildsAuthority), //AughildsRule
 				new ItemDataEntry(224051, PluginItemTypes.Shoulders, LegendaryItemTypes.AughildsAuthority), //AughildsPower
+				
+				new ItemDataEntry(223972, PluginItemTypes.Helm, LegendaryItemTypes.AughildsVictory), //AughildsPeak
 
 				//GuardiansContingency
 				new ItemDataEntry(222976, PluginItemTypes.Belt, LegendaryItemTypes.GuardiansContingency), //GuardiansSheath

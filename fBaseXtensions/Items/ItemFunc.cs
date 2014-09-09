@@ -33,7 +33,8 @@ namespace fBaseXtensions.Items
 			if (internalName.Contains("amethyst")) return PluginDroppedItemTypes.Amethyst;
 			if (internalName.Contains("diamond_")) return PluginDroppedItemTypes.Diamond;
 			if (internalName.Contains("unique_gem")) return PluginDroppedItemTypes.LegendaryGem;
-
+			if (internalName.Contains("consumable_add_sockets")) return PluginDroppedItemTypes.RamaladnisGift;
+			
 			if (internalName.Contains("horadricrelic")) return PluginDroppedItemTypes.BloodShard;
 			if (IsUberKey(SNOId) || internalName.Contains("demonkey_") || internalName.Contains("demontrebuchetkey"))
 				return PluginDroppedItemTypes.InfernalKey;
@@ -208,6 +209,7 @@ namespace fBaseXtensions.Items
 			if (internalName.Contains("amethyst")) return PluginBaseItemTypes.Gem;
 			if (internalName.Contains("diamond_")) return PluginBaseItemTypes.Gem;
 			if (internalName.Contains("unique_gem")) return PluginBaseItemTypes.Gem;
+			if (internalName.Contains("consumable_add_sockets")) return PluginBaseItemTypes.Misc;
 
 			if (internalName.Contains("horadriccache")) return PluginBaseItemTypes.Misc;
 			if (internalName.Contains("horadricrelic")) return PluginBaseItemTypes.Misc;
@@ -312,7 +314,8 @@ namespace fBaseXtensions.Items
 			if (sThisInternalName.Contains("amethyst")) return PluginItemTypes.Amethyst;
 			if (sThisInternalName.Contains("diamond_")) return PluginItemTypes.Diamond;
 			if (sThisInternalName.Contains("unique_gem")) return PluginItemTypes.LegendaryGem;
-
+			if (sThisInternalName.Contains("consumable_add_sockets")) return PluginItemTypes.RamaladnisGift;
+			//
 			if (sThisInternalName.Contains("horadriccache")) return PluginItemTypes.HoradricCache;
 			if (sThisInternalName.Contains("horadricrelic")) return PluginItemTypes.BloodShard;
 			//

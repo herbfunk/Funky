@@ -469,7 +469,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 
 		#region Cache Lookup Properties
-		public bool IgnoresLOSCheck { get { return IsBoss; } }
+		public bool IgnoresLOSCheck { get { return IsBoss || IsWormBoss; } }
 
 		private bool _IsObstacle;
 		public bool IsObstacle { get { if (IsFinalized) return _IsObstacle; return CacheIDLookup.hashSNONavigationObstacles.Contains(SNOID); } }

@@ -110,6 +110,7 @@ namespace fBaseXtensions.Cache.Internal.Blacklist
 			295051, //powerUpGlobe_swipe
 			105606, //WD_zombieDogRune_poison_swipes_02
 			159631, //barbarian_frenzyRune_blood_swipe
+			181195, //a2dun_Cald_Belial_Acid_Attack
 
         };
 

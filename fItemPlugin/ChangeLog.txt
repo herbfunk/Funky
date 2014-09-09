@@ -1,4 +1,8 @@
-﻿v1.2.0
+﻿v1.2.1
+Disabled Returning to Start Position of town portal.
+Added Salvage All Button Check and Usage.
+
+v1.2.0
 Added support for 5th stash tab
 Added Check for Adventure Mode when updating CurrentAct.
 Added Stash Validations for Legendary Gems, Greater Rift Keys, and Ramaladnis Gift.

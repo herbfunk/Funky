@@ -34,11 +34,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Demonbuddy">
-      <HintPath>..\..\..\..\Desktop\db_beta\Demonbuddy.exe</HintPath>
+      <HintPath>..\..\..\..\Desktop\DB_DebugCopy\Demonbuddy.exe</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="GreyMagic">
-      <HintPath>..\..\..\..\Desktop\db_beta\GreyMagic.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\DB_DebugCopy\GreyMagic.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />

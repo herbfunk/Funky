@@ -155,6 +155,10 @@ namespace fItemPlugin.Townrun
 			//Clear our item cache 
 			Backpack.CacheItemList.Clear();
 
+			bSalvageAllMagic = false;
+			bSalvageAllNormal = false;
+			bSalvageAllRare = false;
+
 			FunkyTownRunPlugin.DBLog.DebugFormat("Current Act: {0} VendorName: {1} Requires Repair: {2}", CurrentAct, VendorName, RequiresRepair);
 			ActionsChecked = true;
 			return RunStatus.Success;

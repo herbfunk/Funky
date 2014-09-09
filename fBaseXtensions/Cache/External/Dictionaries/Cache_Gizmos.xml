@@ -26,6 +26,166 @@
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
+      <SnoId>95481</SnoId>
+      <InternalName>a1dun_Leor_Jail_Door_Breakable_A-67620</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>181228</SnoId>
+      <InternalName>caOut_StingingWinds_Barricade_A-713</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>62653</SnoId>
+      <InternalName>a2dun_Aqd_Act_Barricade_A_01-13064</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>118384</SnoId>
+      <InternalName>CaOut_Oasis_Gear_Box-14874</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>113960</SnoId>
+      <InternalName>caOut_Oasis_Rakanishu_SideStone_A-10174</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>5718</SnoId>
+      <InternalName>trDun_Cath_Barricade_A-17018</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>5792</SnoId>
+      <InternalName>trDun_Cath_WoodDoor_A_Barricaded-970</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>5823</SnoId>
+      <InternalName>trDun_Crypt_Door-2084</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>195108</SnoId>
+      <InternalName>Barricade_Doube_Breakable_Snow_A-3269</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>193932</SnoId>
+      <InternalName>a3_Battlefield_Barricade_Double_Breakable_charred-8320</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>193963</SnoId>
+      <InternalName>a3_Battlefield_Barricade_Breakable_charred-8359</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>159066</SnoId>
+      <InternalName>a3dun_Bridge_Barricade_A-8366</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>159117</SnoId>
+      <InternalName>a3dun_Bridge_Barricade_B-8415</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>159561</SnoId>
+      <InternalName>a3dun_Bridge_Barricade_C-9841</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>78935</SnoId>
+      <InternalName>a1dun_Caves_Goat_Barricade_B-24006</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>55325</SnoId>
+      <InternalName>a3dun_Keep_Door_Destructable-13854</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>380987</SnoId>
+      <InternalName>p1_Cesspools_Barricade_Breakable_Scaffolding-30687</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>291776</SnoId>
+      <InternalName>x1_fortress_Barricade_Breakable-110680</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>291382</SnoId>
+      <InternalName>x1_Westm_Barricade_Round-154093</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>108194</SnoId>
+      <InternalName>a2dunSwr_Breakables_Barricade_B-163977</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>5854</SnoId>
       <InternalName />
       <ActorType>Gizmo</ActorType>
@@ -2722,6 +2882,62 @@
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
+      <SnoId>188373</SnoId>
+      <InternalName>LootType2_caldeumTortured_Male_D_Corpse_05-1501</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188354</SnoId>
+      <InternalName>LootType2_caldeumTortured_Male_A_Corpse_04-7762</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188375</SnoId>
+      <InternalName>LootType2_caldeumTortured_Male_E_Corpse_06-13184</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188378</SnoId>
+      <InternalName>LootType2_caldeumTortured_Male_E_Corpse_03-15081</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188380</SnoId>
+      <InternalName>LootType2_caldeumTortured_Male_E_Corpse_05-3925</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188068</SnoId>
+      <InternalName>LootType2_skeleton_A_Corpse_06-33635</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>188064</SnoId>
+      <InternalName>LootType2_skeleton_A_Corpse_02-35332</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>464</SnoId>
       <InternalName>trDun_WeaponRack-791</InternalName>
       <ActorType>Gizmo</ActorType>
@@ -2970,6 +3186,22 @@
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
+      <SnoId>170233</SnoId>
+      <InternalName>LoreChest_GuardCaptainJournal-1949</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>220152</SnoId>
+      <InternalName>Lore_Satchel_Chest_FacePuzzleLarge-42045</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>174754</SnoId>
       <InternalName />
       <ActorType>Gizmo</ActorType>
@@ -3084,6 +3316,14 @@
     <GizmoEntry>
       <SnoId>361364</SnoId>
       <InternalName>X1_PandExt_SiegeRune-95859</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Switch</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>3707</SnoId>
+      <InternalName>caOut_Totem_A</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Switch</PluginGizmoType>

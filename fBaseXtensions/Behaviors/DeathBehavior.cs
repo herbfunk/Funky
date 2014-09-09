@@ -5,6 +5,7 @@ using fBaseXtensions.Game.Hero.Skills;
 using fBaseXtensions.Monitor;
 using Zeta.Bot;
 using Zeta.Game;
+using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
 
@@ -14,6 +15,9 @@ namespace fBaseXtensions.Behaviors
 	{
 		internal static bool DeathShouldWait(object ret)
 		{
+			if (!UIElements.ReviveAtCorpseButton.IsEnabled)
+				return true;
+
 			if (FunkyBaseExtension.Settings.Death.WaitForPotionCooldown)
 			{
 				//Check Potion Cast Flags..
@@ -59,6 +63,10 @@ namespace fBaseXtensions.Behaviors
 
 		internal static RunStatus DeathWaitAction(object ret)
 		{
+			if (!UIElements.ReviveAtCorpseButton.IsEnabled)
+			{
+				UIElements.ReviveAtLastCheckpointButton.Click();
+			}
 
 			if (FunkyBaseExtension.Settings.Death.WaitForPotionCooldown)
 			{

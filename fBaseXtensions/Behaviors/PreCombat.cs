@@ -4,9 +4,11 @@ using System.Threading.Tasks;
 using fBaseXtensions.Game;
 using FunkyBot.DBHandlers.CharacterMule;
 using Zeta.Bot;
+using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors.Gizmos;
 using Zeta.TreeSharp;
+using Logger = fBaseXtensions.Helpers.Logger;
 
 namespace fBaseXtensions.Behaviors
 {
@@ -42,6 +44,11 @@ namespace fBaseXtensions.Behaviors
 				ExitGame.BehaviorEngaged = true;
 				return true;
 			}
+			else if (GoblinBehavior.BehaviorEngaged && GoblinBehavior.ShouldRunBehavior())
+			{
+				Logger.DBLog.Info("Starting Goblin Behavior.");
+				return true;
+			}
 
 			return false;
 		}
@@ -66,6 +73,9 @@ namespace fBaseXtensions.Behaviors
 			{
 				return ExitGame.Behavior();
 			}
+
+			if (GoblinBehavior.BehaviorEngaged)
+				return GoblinBehavior.Behavior();
 
 			return RunStatus.Success;
 		}

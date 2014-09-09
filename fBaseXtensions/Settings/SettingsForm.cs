@@ -1504,25 +1504,62 @@ namespace fBaseXtensions.Settings
 		private void btn_Test_Click(object sender, EventArgs e)
 		{
 			LBDebug.Controls.Clear();
-			foreach (var uie in UI.GetChildren(UI.Game.RiftReward_gemUpgradePane))
-			{
-				//LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(uie)));
-				foreach (var a in UI.GetChildren(uie))
-				{
-					//LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(a)));
-					foreach (var b in UI.GetChildren(a))
-					{
-						//LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(b)));
-						foreach (var c in UI.GetChildren(b))
-						{
-							foreach (var d in UI.GetChildren(c))
-							{
-								LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(d)));
-							}
-						}
-					}
-				}
-			}
+			//foreach (var uie in UI.GetChildren(UI.Game.RiftReward_gemUpgradePane))
+			//{
+			//	//LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(uie)));
+			//	foreach (var a in UI.GetChildren(uie))
+			//	{
+			//		//LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(a)));
+			//		foreach (var b in UI.GetChildren(a))
+			//		{
+			//			//LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(b)));
+			//			foreach (var c in UI.GetChildren(b))
+			//			{
+			//				foreach (var d in UI.GetChildren(c))
+			//				{
+			//					LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(d)));
+			//				}
+			//			}
+			//		}
+			//	}
+			//}
+			//try
+			//{
+
+			//	int totalGemUIElements = 0;
+			//	//Get Total Gems Selectable
+			//	foreach (var uie in UI.GetChildren(UI.Game.RiftReward_gemUpgradePane_List_Content_StackPanel))
+			//	{
+			//		foreach (var b in UI.GetChildren(uie))
+			//		{
+			//			totalGemUIElements++;
+			//			//LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(b)));
+			//		}
+			//	}
+
+			//	List<int> GemACDGUIDs = new List<int>();
+			//	for (int i = 0; i < totalGemUIElements; i++)
+			//	{
+			//		GemACDGUIDs.Add(UI.Game.RiftReward_gemUpgradePane_List.GetItemsListItemACDGuidByIndex(i));
+			//		//LBDebug.Controls.Add(new UserControlDebugEntry(UI.Game.RiftReward_gemUpgradePane_List.GetItemsListItemACDGuidByIndex(i).ToString()));
+			//	}
+
+			//	ZetaDia.Actors.Update();
+			//	foreach (var item in ZetaDia.Actors.GetActorsOfType<ACDItem>().Where(item => GemACDGUIDs.Contains(item.ACDGuid)))
+			//	{
+			//		CacheACDItem cItem = new CacheACDItem(item);
+			//		LBDebug.Controls.Add(new UserControlDebugEntry(String.Format("{0} Rank {1} Type {2}",cItem.ThisRealName, cItem.LegendaryGemRank, cItem.LegendaryGemType)));
+			//	}
+			//}
+			//catch (Exception)
+			//{
+	
+			//}
+
+			//UI.Game.RiftReward_gemUpgradePane_List.ItemsListSetSelectedItemByIndex(0);
+			////
+			LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(UI.Game.RiftReward_GemUpgradePane_ItemButton)));
+			//UI.Game.RiftReward_Choice_UpgradeGem.Click();
 			LBDebug.Focus();
 		}
 	}

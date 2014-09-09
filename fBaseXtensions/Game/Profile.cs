@@ -37,6 +37,7 @@ namespace fBaseXtensions.Game
 			TownPortal=16,
 			TownRun=32,
 			SetQuestMode=64,
+			WaitTimer=128,
 
 			Interactive = UseWaypoint | UseObject | UsePortal,
 			OutOfCombat = Interactive | TownPortal | TownRun,
@@ -82,7 +83,8 @@ namespace fBaseXtensions.Game
 					 || (ProfileManager.CurrentProfileBehavior != null && ProfileManager.CurrentProfileBehavior.Behavior != null && currentProfileBehavior != null && currentProfileBehavior.Behavior.Guid != ProfileManager.CurrentProfileBehavior.Behavior.Guid))
 				{
 					currentProfileBehavior = ProfileManager.CurrentProfileBehavior;
-					Logger.Write(LogLevel.Event, "Profile Behavior Changed To {0}", currentProfileBehavior.GetType().ToString());
+					Logger.Write(LogLevel.Event, "Profile Behavior Changed To {0} [{1}]", currentProfileBehavior.GetType().ToString(), currentProfileBehavior.StatusText);
+					
 					Type profileTagType = currentProfileBehavior.GetType();
 					CurrentProfileBehaviorType = GetProfileBehaviorType(profileTagType);
 					if (OnProfileBehaviorChange != null)
@@ -103,6 +105,8 @@ namespace fBaseXtensions.Game
 				return ProfileBehaviorTypes.UsePortal;
 			if (typeof(ExploreAreaTag) == behaviorType)
 				return ProfileBehaviorTypes.ExploreDungeon;
+			if (typeof(WaitTimerTag) == behaviorType)
+				return ProfileBehaviorTypes.WaitTimer;
 
 			string profileTagTypeString = behaviorType.ToString();
 

@@ -38,26 +38,26 @@ namespace fItemPlugin.Townrun
 					Navigator.SearchGridProvider.Update();
 					ResetCache = true;
 				}
-				FunkyGame.Game.ForceOutOfCombatBehavior = true;
+				//FunkyGame.Game.ForceOutOfCombatBehavior = true;
 				if (FunkyGame.Targeting.CheckHandleTarget() == RunStatus.Running) return RunStatus.Running;
 
 				float distanceFromStart=FunkyGame.Hero.Position.Distance(TownPortalBehavior.StartingPosition);
 
 				//Backtrack to our starting location!
-				if (TownPortalBehavior.StartingPosition != Vector3.Zero && distanceFromStart > 25f)
-				{
-					Logger.DBLog.InfoFormat("Returning to Start Location -- Distance of {0}", distanceFromStart);
-					if (FunkyGame.Hero.IsMoving) return RunStatus.Running;
-					Navigator.MoveTo(TownPortalBehavior.StartingPosition, "TownPortalStart");
-					return RunStatus.Running;
-				}
+				//if (TownPortalBehavior.StartingPosition != Vector3.Zero && distanceFromStart > 25f)
+				//{
+				//	Logger.DBLog.InfoFormat("Returning to Start Location -- Distance of {0}", distanceFromStart);
+				//	if (FunkyGame.Hero.IsMoving) return RunStatus.Running;
+				//	Navigator.MoveTo(TownPortalBehavior.StartingPosition, "TownPortalStart");
+				//	return RunStatus.Running;
+				//}
 
 				TownPortalBehavior.StartingPosition = Vector3.Zero;
 			}
 			
 			GoldInactivity.LastCoinageUpdate = DateTime.Now;
 			fBaseXtensions.Navigation.Navigation.MGP.Update();
-			FunkyGame.Game.ForceOutOfCombatBehavior = false;
+			//FunkyGame.Game.ForceOutOfCombatBehavior = false;
 			ResetCache = false;
 			FunkyGame.Targeting.Cache.bFailedToLootLastItem = false;
 

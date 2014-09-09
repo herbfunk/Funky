@@ -7,6 +7,7 @@ using fBaseXtensions.Game.Hero.Class;
 using fBaseXtensions.Monitor;
 using fBaseXtensions.Navigation;
 using fBaseXtensions.Settings;
+using Zeta.Bot.Dungeons;
 using Zeta.Bot.Logic;
 using Zeta.Bot.Navigation;
 using Zeta.Common;
@@ -278,8 +279,6 @@ namespace fBaseXtensions.Game.Hero
 					Logger.Write(Helpers.LogLevel.Event, "World ID changed.. clearing Profile Interactable Cache.");
 					LastWorldID = FunkyGame.Hero.CurrentWorldDynamicID;
 					ObjectCache.InteractableObjectCache.Clear();
-					Navigator.SearchGridProvider.Update();
-
 					//Gold Inactivity
 					GoldInactivity.LastCoinageUpdate = DateTime.Now;
 				}
@@ -311,6 +310,7 @@ namespace fBaseXtensions.Game.Hero
 				if (FunkyGame.AdventureMode && SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode)
 					CheckActiveBounty();
 
+				Navigator.SearchGridProvider.Update();
 
 				LastLevelIDChangeWasTownRun = false;
 			}

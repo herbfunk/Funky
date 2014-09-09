@@ -359,6 +359,13 @@
       <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>116397</SnoId>
+      <InternalName>Axe_norm_unique_flippy_03-24708</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>6326</SnoId>
       <InternalName>twoHandedAxe_norm_base_flippy_03</InternalName>
       <ActorType>Item</ActorType>
@@ -655,6 +662,13 @@
     <DroppedItemEntry>
       <SnoId>221763</SnoId>
       <InternalName>XBow_norm_unique_flippy_06-30319</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Crossbow</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>98164</SnoId>
+      <InternalName>XBow_norm_unique_flippy_01-18524</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Crossbow</PluginDroppedItemTypes>
@@ -1738,6 +1752,13 @@
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>189592</SnoId>
+      <InternalName>Sword_norm_unique_flippy_05-3732</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>6348</SnoId>
       <InternalName>twoHandedSword_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
@@ -2347,7 +2368,7 @@
       <PluginDroppedItemTypes>KeyFragment</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
-      <SnoId>403611</SnoId>
+      <SnoId>405649</SnoId>
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
@@ -2496,6 +2517,20 @@
     <DroppedItemEntry>
       <SnoId>204827</SnoId>
       <InternalName>Lore_AzmodansOrders6</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>156477</SnoId>
+      <InternalName>Lore_BelialOasis-10284</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>183707</SnoId>
+      <InternalName>Lore_WaterPuzzle-9440</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
@@ -3464,6 +3499,12 @@
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
     </ItemStringEntry>
+    <ItemStringEntry>
+      <ID>consumable_add_sockets</ID>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>RamaladnisGift</PluginDroppedItemTypes>
+    </ItemStringEntry>
   </DroppedItemInternalNames>
   <ItemDataCache>
     <ItemDataEntry>
@@ -3534,6 +3575,16 @@
     <ItemDataEntry>
       <SnoId>3183</SnoId>
       <ItemType>Amulet</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>317</SnoId>
+      <ItemType>Amulet</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>5032</SnoId>
+      <ItemType>Ring</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
@@ -3947,6 +3998,16 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>58895</SnoId>
+      <ItemType>Chest</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>58897</SnoId>
+      <ItemType>Chest</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>367188</SnoId>
       <ItemType>Cloak</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -4128,6 +4189,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>4451</SnoId>
+      <ItemType>Helm</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>57789</SnoId>
       <ItemType>Helm</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -5332,6 +5398,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>139082</SnoId>
+      <ItemType>Quiver</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>367164</SnoId>
       <ItemType>Shield</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -5423,6 +5494,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>190631</SnoId>
+      <ItemType>FollowerTemplar</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>190630</SnoId>
       <ItemType>FollowerTemplar</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -7307,6 +7383,11 @@
       <LegendaryType>VengefulWind</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>145851</SnoId>
+      <ItemType>FistWeapon</ItemType>
+      <LegendaryType>WonKhimLau</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>299435</SnoId>
       <ItemType>Flail</ItemType>
       <LegendaryType>BalefulRemnant</LegendaryType>
@@ -8710,6 +8791,11 @@
       <SnoId>224051</SnoId>
       <ItemType>Shoulders</ItemType>
       <LegendaryType>AughildsAuthority</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>223972</SnoId>
+      <ItemType>Helm</ItemType>
+      <LegendaryType>AughildsVictory</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>222976</SnoId>

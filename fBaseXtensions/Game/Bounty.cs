@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using fBaseXtensions.Cache;
+using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.External.Objects;
 using Zeta.Common;
 using Zeta.Game;
@@ -105,6 +106,39 @@ namespace fBaseXtensions.Game
 			}
 		}
 
+		public void RefreshActiveQuests()
+		{
+			try
+			{
+				//Refresh any current quests..
+				foreach (var q in ActiveQuests.Values)
+				{
+					q.Refresh();
+				}
+				using (ZetaDia.Memory.AcquireFrame())
+				{
+					foreach (var aq in ZetaDia.ActInfo.ActiveQuests)
+					{
+						int sno = aq.QuestSNO;
+
+						//Filter Adventure Mode and Bounty IDs
+						if (sno == ADVENTUREMODE_QUESTID) continue;
+						if (BountyQuestStates.ContainsKey(sno)) continue;
+						//Ignore entries we already added
+						if (ActiveQuests.ContainsKey(sno)) continue;
+
+						var newEntry = new QuestInfoCache(aq);
+						ActiveQuests.Add(sno, newEntry);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+
+			}
+
+		}
+
 		///<summary>
 		///Refreshes Current Bounty Minimap Markers
 		///</summary>
@@ -165,7 +199,6 @@ namespace fBaseXtensions.Game
 					Logger.Write(LogLevel.Bounty, "Active Bounty Changed To {0}", ActiveBounty.QuestSNO);
 					//nullify Cache Entry then set it if Cache contains it.
 					CurrentBountyCacheEntry = null;
-					ActiveQuests.Clear();
 				}
 				else if (activeBounty.QuestSNO == 0)
 				{//nullify when active bounty is nothing
@@ -342,39 +375,7 @@ namespace fBaseXtensions.Game
 		}
 
 
-		public void RefreshActiveQuests()
-		{
-			var currentBountySnos = BountyQuestStates.Keys.ToList();
-			try
-			{
-				//Refresh any current quests..
-				foreach (var q in ActiveQuests.Values)
-				{
-					q.Refresh();
-				}
-				using (ZetaDia.Memory.AcquireFrame())
-				{
-					foreach (var aq in ZetaDia.ActInfo.ActiveQuests)
-					{
-						int sno = aq.QuestSNO;
-
-						//Filter Adventure Mode and Bounty IDs
-						if (sno == ADVENTUREMODE_QUESTID) continue;
-						if (BountyQuestStates.ContainsKey(sno)) continue;
-						//Ignore entries we already added
-						if (ActiveQuests.ContainsKey(sno)) continue;
-
-						var newEntry = new QuestInfoCache(aq);
-						ActiveQuests.Add(sno, newEntry);
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-
-			}
-
-		}
+		
 		
 		public delegate void OnActiveBountyChanged();
 		public event OnActiveBountyChanged ActiveBountyChanged;
@@ -399,15 +400,29 @@ namespace fBaseXtensions.Game
 					}
 				}
 			}
-			else if (ActiveBounty != null && !FunkyGame.Hero.bIsInTown && (ActiveBounty.QuestSNO == ADVENTUREMODE_RIFTID || ActiveBounty.QuestSNO == ADVENTUREMODE_GREATERRIFT_TRIAL))
+			else if (ActiveBounty != null && !FunkyGame.Hero.bIsInTown)
 			{
-				if (DateTime.Now.CompareTo(_lastAttemptedUpdateActiveRift) > 0)
+				if (ActiveBounty.QuestSNO == ADVENTUREMODE_RIFTID || ActiveBounty.QuestSNO == ADVENTUREMODE_GREATERRIFT_TRIAL)
 				{
-					//Refresh every 10 seconds!
-					_lastAttemptedUpdateActiveRift = DateTime.Now.AddSeconds(10);
-					RefreshRiftLevelChange();
-					if (ActiveBountyChanged != null)
-						ActiveBountyChanged();
+					if (DateTime.Now.CompareTo(_lastAttemptedUpdateActiveRift) > 0)
+					{
+						//Refresh every 10 seconds!
+						_lastAttemptedUpdateActiveRift = DateTime.Now.AddSeconds(10);
+						RefreshRiftLevelChange();
+						if (ActiveBountyChanged != null)
+							ActiveBountyChanged();
+					}
+				}
+				else if(CurrentBountyCacheEntry!=null && CurrentBountyCacheEntry.Type== BountyTypes.CursedEvent && DateTime.Now.Subtract(FunkyGame.Targeting.Cache.lastSeenCursedShrine).TotalMilliseconds <= (10000))
+				{
+					if (DateTime.Now.CompareTo(_lastAttemptedUpdateActiveBounty) > 0)
+					{
+						_lastAttemptedUpdateActiveBounty = DateTime.Now.AddSeconds(2.5);
+						int activebountysno = ActiveBounty.QuestSNO;
+						RefreshLevelChanged();
+						if ((ActiveBounty == null || ActiveBounty.QuestSNO != activebountysno) && ActiveBountyChanged != null)
+							ActiveBountyChanged();
+					}
 				}
 			}
 		}

@@ -1,0 +1,38 @@
+<Profile>
+  <Name>Funky Goblin Whimsydale</Name>
+  <KillMonsters>True</KillMonsters>
+  <PickupLoot>True</PickupLoot>
+  <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+
+  <Order>
+    <ToggleTargeting questId="312429" stepId="2" combat="True" looting="True" lootRadius="150" killRadius="250" />
+    <FunkyClustering enabled="false" />
+
+    <While condition="ActorExistsAt(208659, Me.Position.X, Me.Position.Y, Me.Position.Z, 200) and
+                      ActorExistsAt(5502, Me.Position.X, Me.Position.Y, Me.Position.Z, 200)">
+      <TrinityExploreDungeon questId="312429" stepId="2" until="FullyExplored" actorId="208659" boxSize="15" boxTolerance="0.65" ignoreMarkers="True">
+        <IgnoreScenes>
+          <IgnoreScene scenename="_N_" />
+          <IgnoreScene scenename="_S_" />
+          <IgnoreScene scenename="_E_" />
+          <IgnoreScene scenename="_W_" />
+        </IgnoreScenes>
+      </TrinityExploreDungeon>
+    </While>
+
+
+    <TrinityExploreDungeon questId="312429" stepId="2" until="ObjectFound" objectDistance="50" actorId="208659" boxSize="15" boxTolerance="0.65" ignoreMarkers="True">
+      <IgnoreScenes>
+        <IgnoreScene scenename="_N_" />
+        <IgnoreScene scenename="_S_" />
+        <IgnoreScene scenename="_E_" />
+        <IgnoreScene scenename="_W_" />
+      </IgnoreScenes>
+    </TrinityExploreDungeon>
+    
+
+    <MoveToActor questId="312429" stepId="2" actorId="208659" interactRange="8" pathPrecision="5" pathPointLimit="250" statusText="" />
+
+    <WaitTimer questId="1" stepId="1" waitTime="20000" />
+  </Order>
+</Profile>

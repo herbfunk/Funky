@@ -33,11 +33,32 @@ namespace fBaseXtensions.Cache.External.Objects
 
 			GizmoCache = new HashSet<GizmoEntry>
 			{
+	
+
 				//============== Barricades ==============//
 				new GizmoEntry(5719, PluginGizmoType.BreakableDoor, "trDun_Cath_Barricade_B"),
 				new GizmoEntry(379048, PluginGizmoType.BreakableDoor, "p1_Cesspools_Door_Breakable"),
 				new GizmoEntry(379037, PluginGizmoType.BreakableDoor, "p1_Cesspools_Barricade_Breakable"),
-				
+				new GizmoEntry(95481, PluginGizmoType.BreakableDoor, "a1dun_Leor_Jail_Door_Breakable_A-67620"),
+				new GizmoEntry(181228, PluginGizmoType.BreakableDoor, "caOut_StingingWinds_Barricade_A-713"),
+				new GizmoEntry(62653, PluginGizmoType.BreakableDoor, "a2dun_Aqd_Act_Barricade_A_01-13064"),
+				new GizmoEntry(118384, PluginGizmoType.BreakableDoor, "CaOut_Oasis_Gear_Box-14874"),
+				new GizmoEntry(113960, PluginGizmoType.BreakableDoor, "caOut_Oasis_Rakanishu_SideStone_A-10174"),
+				new GizmoEntry(5718, PluginGizmoType.BreakableDoor, "trDun_Cath_Barricade_A-17018"),
+				new GizmoEntry(5792, PluginGizmoType.BreakableDoor, "trDun_Cath_WoodDoor_A_Barricaded-970"),
+				new GizmoEntry(5823, PluginGizmoType.BreakableDoor, "trDun_Crypt_Door-2084"),
+				new GizmoEntry(195108, PluginGizmoType.BreakableDoor, "Barricade_Doube_Breakable_Snow_A-3269"),
+				new GizmoEntry(193932, PluginGizmoType.BreakableDoor, "a3_Battlefield_Barricade_Double_Breakable_charred-8320"),
+				new GizmoEntry(193963, PluginGizmoType.BreakableDoor, "a3_Battlefield_Barricade_Breakable_charred-8359"),
+				new GizmoEntry(159066, PluginGizmoType.BreakableDoor, "a3dun_Bridge_Barricade_A-8366"),
+				new GizmoEntry(159117, PluginGizmoType.BreakableDoor, "a3dun_Bridge_Barricade_B-8415"),
+				new GizmoEntry(159561, PluginGizmoType.BreakableDoor, "a3dun_Bridge_Barricade_C-9841"),
+				new GizmoEntry(78935, PluginGizmoType.BreakableDoor, "a1dun_Caves_Goat_Barricade_B-24006"),
+				new GizmoEntry(55325, PluginGizmoType.BreakableDoor, "a3dun_Keep_Door_Destructable-13854"),
+				new GizmoEntry(380987, PluginGizmoType.BreakableDoor, "p1_Cesspools_Barricade_Breakable_Scaffolding-30687"),
+				new GizmoEntry(291776, PluginGizmoType.BreakableDoor, "x1_fortress_Barricade_Breakable-110680"),
+				new GizmoEntry(291382, PluginGizmoType.BreakableDoor, "x1_Westm_Barricade_Round-154093"),
+				new GizmoEntry(108194, PluginGizmoType.BreakableDoor, "a2dunSwr_Breakables_Barricade_B-163977"),
 
 				//============== DOORS ==============//
 				new GizmoEntry(5854, PluginGizmoType.Door),
@@ -390,7 +411,13 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(193016, PluginGizmoType.Chest, "LootType3_GraveGuard_B_Corpse_02-29580", GizmoTargetTypes.Corpse),
 				new GizmoEntry(188385, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_F_Corpse_02-45508", GizmoTargetTypes.Corpse),
 				new GizmoEntry(193027, PluginGizmoType.Chest, "LootType3_GraveGuard_D_Corpse_06-45500", GizmoTargetTypes.Corpse),
-				
+				new GizmoEntry(188373, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_D_Corpse_05-1501", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188354, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_A_Corpse_04-7762", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188375, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_E_Corpse_06-13184", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188378, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_E_Corpse_03-15081", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188380, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_E_Corpse_05-3925", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188068, PluginGizmoType.Chest, "LootType2_skeleton_A_Corpse_06-33635", GizmoTargetTypes.Corpse),
+				new GizmoEntry(188064, PluginGizmoType.Chest, "LootType2_skeleton_A_Corpse_02-35332", GizmoTargetTypes.Corpse),
 				#endregion
 
 				//============== Weapon Rack ==============//
@@ -430,6 +457,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(71543, PluginGizmoType.Chest, "a2dun_Zolt_Desk_Scrolls_A-634", GizmoTargetTypes.MiscContainer),
 				new GizmoEntry(230712, PluginGizmoType.Chest, "Lore_WaterPuzzle_Satchel-7158", GizmoTargetTypes.MiscContainer),
 				new GizmoEntry(313989, PluginGizmoType.Chest, "x1_westm_Book_shelf-27498", GizmoTargetTypes.MiscContainer),
+				new GizmoEntry(170233, PluginGizmoType.Chest, "LoreChest_GuardCaptainJournal-1949", GizmoTargetTypes.MiscContainer),
+				new GizmoEntry(220152, PluginGizmoType.Chest, "Lore_Satchel_Chest_FacePuzzleLarge-42045", GizmoTargetTypes.MiscContainer),
 
 				//============== Special Interactables ==============//
 				new GizmoEntry(174754, PluginGizmoType.Switch),
@@ -447,6 +476,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(117344, PluginGizmoType.Switch, "a3dun_rmpt_Demon_Elevator_A-3153"),
 				new GizmoEntry(341214, PluginGizmoType.Switch, "x1_Bog_CatacombsPortal_BeaconLoc-46725"),
 				new GizmoEntry(361364, PluginGizmoType.Switch, "X1_PandExt_SiegeRune-95859"),
+				new GizmoEntry(3707, PluginGizmoType.Switch, "caOut_Totem_A"), //Act 2 Restless Sands Totem Switches
+				 
 				//
 				new GizmoEntry(138989, PluginGizmoType.HealingWell, "", GizmoTargetTypes.Healthwell),
 				new GizmoEntry(373463, PluginGizmoType.PoolOfReflection, "PoolOfReflection", GizmoTargetTypes.PoolOfReflection),

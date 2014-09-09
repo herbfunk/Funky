@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using fBaseXtensions.Behaviors;
 using fBaseXtensions.Cache.External.Debugging;
 using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.Internal.Avoidance;
@@ -279,6 +280,12 @@ namespace fBaseXtensions.Cache.Internal
 							//		FunkyGame.Bounty.CurrentBountyMapMarkers.Add(index, new BountyCache.BountyMapMarker(tmp_CachedObj.Position, FunkyGame.Hero.CurrentWorldDynamicID, index));
 							//	}
 							//}
+						}
+
+						//Whymsdal Portal!
+						if (tmp_CachedObj.SNOID == 405590)
+						{
+							GoblinBehavior.Portal = tmp_CachedObj;
 						}
 
 						//Do not add to main cache!

@@ -46,7 +46,7 @@ namespace fBaseXtensions.XML
 		{
 			var items = ZetaDia.Me.Inventory.Backpack;
 			if (KeyType == KeystoneType.Tiered)
-				items = items.OrderByDescending(i => i.TieredLootRunKeyLevel);
+				items = items.OrderBy(i => i.TieredLootRunKeyLevel);
 
 			foreach (var tempitem in items)
 			{

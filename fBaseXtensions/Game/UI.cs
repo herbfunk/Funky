@@ -545,11 +545,61 @@ namespace fBaseXtensions.Game
 		{
 
 			//
+			public static UIElement Dialog_Confirmation_OK
+			{
+				get
+				{
+					try { return UIElement.FromHash(0x891D21408238D18E); }
+					catch { return null; }
+				}
+			}
+
 			public static UIElement Conversation_Dialog_Main
 			{
 				get
 				{
 					try { return UIElement.FromHash(0x9738C281AF3C6E2B); }
+					catch { return null; }
+				}
+			}
+
+			//Mouseover: 0x19BB8F7015E91BA9, Name: Root.NormalLayer.vendor_dialog_mainPage.riftReward_dialog.LayoutRoot.gemUpgradePane.item_button
+			public static UIElement RiftReward_GemUpgradePane_ItemButton
+			{
+				get
+				{
+					try { return UIElement.FromHash(0x19BB8F7015E91BA9); }
+					catch { return null; }
+				}
+			}
+
+			//0xE9F673BF3A02ECD5, Name: Root.NormalLayer.TieredRiftReward_main.LayoutRoot.button_exit
+			public static UIElement RiftReward_UpgradeKey_ContinueButton
+			{
+				get
+				{
+					try { return UIElement.FromHash(0xE9F673BF3A02ECD5); }
+					catch { return null; }
+				}
+			}
+
+			//Mouseover: 0xD365EA84F587D2FE, Name: Root.NormalLayer.vendor_dialog_mainPage.riftReward_dialog.LayoutRoot.gemUpgradePane.upgrade_button
+			public static UIElement RiftReward_gemUpgradePane_UpgradeButton
+			{
+				get
+				{
+					try { return UIElement.FromHash(0xD365EA84F587D2FE); }
+					catch { return null; }
+				}
+			}
+
+
+			//Name Root.NormalLayer.vendor_dialog_mainPage.riftReward_dialog.LayoutRoot.gemUpgradePane.items_list._content._stackpanel Hash 0xABA8ED7CFCBA258B HasText False Text  Visible True Enabled False
+			public static UIElement RiftReward_gemUpgradePane_List_Content_StackPanel
+			{
+				get
+				{
+					try { return UIElement.FromHash(0xABA8ED7CFCBA258B); }
 					catch { return null; }
 				}
 			}
@@ -579,7 +629,7 @@ namespace fBaseXtensions.Game
 					catch { return null; }
 				}
 			}
-			public static UIElement RiftReward_UpgradeGem
+			public static UIElement RiftReward_Choice_UpgradeGem
 			{
 				get
 				{
@@ -587,7 +637,7 @@ namespace fBaseXtensions.Game
 					catch { return null; }
 				}
 			}
-			public static UIElement RiftReward_UpgradeKey
+			public static UIElement RiftReward_Choice_UpgradeKey
 			{
 				get
 				{
