@@ -24,6 +24,11 @@ namespace fItemPlugin.Townrun
 		{
 			townRunItemCache.SalvageItems.Clear();
 
+			//Doing Greater Rift? (But not completed yet..) then skip salvaging.
+			if (ZetaDia.Me.IsParticipatingInTieredLootRun &&
+				(FunkyGame.Bounty.ActiveQuests.ContainsKey(BountyCache.ADVENTUREMODE_RIFTID) &&
+				(FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step == 34 || FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step == 10)))
+				return false;
 
 			//Get new list of current backpack
 			Backpack.UpdateItemList();
@@ -195,21 +200,24 @@ namespace fItemPlugin.Townrun
 
 			if (UI.Game.SalvageAllNormal.IsEnabled && townRunItemCache.SalvageItems.Any(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Magic1) && !bSalvageAllNormal)
 			{
-				UI.Game.SalvageAllNormal.Click();
+				//UI.Game.SalvageAllNormal.Click();
+				ZetaDia.Me.Inventory.SalvageItemsOfRarity(SalvageRarity.Normal);
 				bSalvageAllNormal = true;
 				return RunStatus.Running;
 			}
 
 			if (UI.Game.SalvageAllMagical.IsEnabled && townRunItemCache.SalvageItems.Any(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Rare4) && !bSalvageAllMagic)
 			{
-				UI.Game.SalvageAllMagical.Click();
+				//UI.Game.SalvageAllMagical.Click();
+				ZetaDia.Me.Inventory.SalvageItemsOfRarity(SalvageRarity.Magic);
 				bSalvageAllMagic = true;
 				return RunStatus.Running;
 			}
 
 			if (UI.Game.SalvageAllRare.IsEnabled && townRunItemCache.SalvageItems.Any(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Legendary) && !bSalvageAllRare)
 			{
-				UI.Game.SalvageAllRare.Click();
+				//UI.Game.SalvageAllRare.Click();
+				ZetaDia.Me.Inventory.SalvageItemsOfRarity(SalvageRarity.Rare);
 				bSalvageAllRare = true;
 				//var removalList=townRunItemCache.SalvageItems.Where(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Legendary).ToList();
 				return RunStatus.Running;

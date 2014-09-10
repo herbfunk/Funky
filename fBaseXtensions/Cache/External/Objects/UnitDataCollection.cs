@@ -912,6 +912,11 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(405186, UnitFlags.TreasureGoblin, "p1_treasureGoblin_tentacle_A-14727"),
 				new UnitEntry(218638, UnitFlags.Normal, "TentacleBear_B-17511"),
 				new UnitEntry(218639, UnitFlags.Normal, "TentacleBear_C-17512"),
+
+				new UnitEntry(260234, UnitFlags.Unique, "Scavenger_B_MinerEvent_Unique-18444"),
+				new UnitEntry(111580, UnitFlags.Unique | UnitFlags.Ranged, "TriuneSummoner_B_RabbitHoleEvent-20787"),
+				new UnitEntry(468, UnitFlags.Normal, "Triune_Summonable_B-21226"),
+				new UnitEntry(81533, UnitFlags.Unique, "Goatman_Shaman_A_Event_Graveyard_Unique-28733"),
 			};
 			
 			#endregion

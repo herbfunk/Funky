@@ -5664,6 +5664,34 @@
       <EntryType>Unit</EntryType>
       <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
+    <UnitEntry>
+      <SnoId>260234</SnoId>
+      <InternalName>Scavenger_B_MinerEvent_Unique-18444</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>111580</SnoId>
+      <InternalName>TriuneSummoner_B_RabbitHoleEvent-20787</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>468</SnoId>
+      <InternalName>Triune_Summonable_B-21226</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>81533</SnoId>
+      <InternalName>Goatman_Shaman_A_Event_Graveyard_Unique-28733</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
   </UnitEntries>
   <UnitPetEntries>
     <UnitPetEntry>

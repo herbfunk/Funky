@@ -1,4 +1,8 @@
-﻿v1.2.1
+﻿v1.2.2
+Salvage all now uses Demonbuddy API instead of UIElements.
+Added checks for greater rift to ignore salvaging, stashing, selling, IDing, and Opening Hoardric Caches.
+
+v1.2.1
 Disabled Returning to Start Position of town portal.
 Added Salvage All Button Check and Usage.
 

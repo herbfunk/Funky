@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace fBaseXtensions.Items.Enums
+﻿namespace fBaseXtensions.Items.Enums
 {
 	public enum LegendaryGemTypes
 	{
@@ -21,5 +15,6 @@ namespace fBaseXtensions.Items.Enums
 		SimplicitysStrength=405802,
 		InvigoratingGemstone = 405797,
 		BaneOfThePowerful=405775,
+		GogokOfSwiftness = 405796
 	}
 }

@@ -1,4 +1,11 @@
-﻿v1.1.1.0
+﻿v1.1.1.1
+	Fixed Line of Sight issue for units. (Was ignoring them randomly due to Rift Trial Quest)
+	AcceptTieredRiftReward
+		-Gems of level 50 are ignored now (was 25?)
+		-Added Reward Attribute (Gem or Key)
+
+
+v1.1.1.0
 	Added Goblin Behavior (W.I.P.)
 		-When Goblin Portal is found -- will enter and load custom profile.
 		-After goblin world will reload last profile.

@@ -186,6 +186,38 @@
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
+      <SnoId>291744</SnoId>
+      <InternalName>x1_Catacombs_Barricade_Round-38867</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>291743</SnoId>
+      <InternalName>x1_Catacombs_Barricade_Breakable-55384</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>199412</SnoId>
+      <InternalName>trDun_TinkerDoor_Breakable-8333</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>103316</SnoId>
+      <InternalName>TrOut_Highlands_Manor_Front_Gate-18784</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>5854</SnoId>
       <InternalName />
       <ActorType>Gizmo</ActorType>
@@ -572,6 +604,14 @@
     <GizmoEntry>
       <SnoId>289797</SnoId>
       <InternalName>X1_PandExt_Chest_Rare-70672</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>190708</SnoId>
+      <InternalName>a2dun_Aqd_Chest_Rare_FacePuzzleSmall-14922</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
@@ -3196,6 +3236,14 @@
     <GizmoEntry>
       <SnoId>220152</SnoId>
       <InternalName>Lore_Satchel_Chest_FacePuzzleLarge-42045</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>220153</SnoId>
+      <InternalName>Lore_Satchel_Chest_FacePuzzleSmall-14914</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>

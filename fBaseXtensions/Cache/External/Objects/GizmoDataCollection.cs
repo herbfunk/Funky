@@ -59,6 +59,10 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(291776, PluginGizmoType.BreakableDoor, "x1_fortress_Barricade_Breakable-110680"),
 				new GizmoEntry(291382, PluginGizmoType.BreakableDoor, "x1_Westm_Barricade_Round-154093"),
 				new GizmoEntry(108194, PluginGizmoType.BreakableDoor, "a2dunSwr_Breakables_Barricade_B-163977"),
+				new GizmoEntry(291744, PluginGizmoType.BreakableDoor, "x1_Catacombs_Barricade_Round-38867"),
+				new GizmoEntry(291743, PluginGizmoType.BreakableDoor, "x1_Catacombs_Barricade_Breakable-55384"),
+				new GizmoEntry(199412, PluginGizmoType.BreakableDoor, "trDun_TinkerDoor_Breakable-8333"),
+				new GizmoEntry(103316, PluginGizmoType.BreakableDoor, "TrOut_Highlands_Manor_Front_Gate-18784"),
 
 				//============== DOORS ==============//
 				new GizmoEntry(5854, PluginGizmoType.Door),
@@ -115,6 +119,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(129476, PluginGizmoType.Chest, "a3dun_Crater_Chest_Rare-17045", GizmoTargetTypes.Resplendant),
 				new GizmoEntry(187107, PluginGizmoType.Chest, "a4dun_Spire_Chest_Rare-58008", GizmoTargetTypes.Resplendant),
 				new GizmoEntry(289797, PluginGizmoType.Chest, "X1_PandExt_Chest_Rare-70672", GizmoTargetTypes.Resplendant),
+				new GizmoEntry(190708, PluginGizmoType.Chest, "a2dun_Aqd_Chest_Rare_FacePuzzleSmall-14922", GizmoTargetTypes.Resplendant),
 
 				//============== Chests ==============//
 				new GizmoEntry(62865, PluginGizmoType.Chest, "TrOut_Highlands_Chest-18282", GizmoTargetTypes.Chest),
@@ -459,6 +464,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(313989, PluginGizmoType.Chest, "x1_westm_Book_shelf-27498", GizmoTargetTypes.MiscContainer),
 				new GizmoEntry(170233, PluginGizmoType.Chest, "LoreChest_GuardCaptainJournal-1949", GizmoTargetTypes.MiscContainer),
 				new GizmoEntry(220152, PluginGizmoType.Chest, "Lore_Satchel_Chest_FacePuzzleLarge-42045", GizmoTargetTypes.MiscContainer),
+				new GizmoEntry(220153, PluginGizmoType.Chest, "Lore_Satchel_Chest_FacePuzzleSmall-14914", GizmoTargetTypes.MiscContainer),
 
 				//============== Special Interactables ==============//
 				new GizmoEntry(174754, PluginGizmoType.Switch),

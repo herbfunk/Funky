@@ -32,11 +32,14 @@ namespace fItemPlugin.Townrun
 
 		internal static bool StashOverlord(object ret)
 		{
-
-			//Clear Cache Item List -- (This is the first to be ran so we want fresh data!)
-			//Bot.Character_.Data.BackPack.CacheItemList.Clear();
-
 			townRunItemCache.KeepItems.Clear();
+
+			//Doing Greater Rift? (But not completed yet..) then skip stashing.
+			if (ZetaDia.Me.IsParticipatingInTieredLootRun &&
+				(FunkyGame.Bounty.ActiveQuests.ContainsKey(BountyCache.ADVENTUREMODE_RIFTID) &&
+				(FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step == 34 || FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step == 10)))
+				return false;
+
 
 			//Get new list of current backpack
 			Backpack.UpdateItemList();

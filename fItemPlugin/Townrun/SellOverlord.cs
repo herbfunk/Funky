@@ -34,70 +34,72 @@ namespace fItemPlugin.Townrun
 			townRunItemCache.SellItems.Clear();
 
 
-
-
-			//Get new list of current backpack
-			var potions=Backpack.ReturnRegularPotions();
-			if (potions.Count>0)
-				Backpack.CurrentPotionACDGUID=potions.First().ACDGUID;
-
-			foreach (var thisitem in Backpack.CacheItemList.Values)
+			//Not doing Greater Rift?
+			if (!ZetaDia.Me.IsParticipatingInTieredLootRun || (!FunkyGame.Bounty.ActiveQuests.ContainsKey(BountyCache.ADVENTUREMODE_RIFTID) || FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step == 34 || FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step == 10))
 			{
-				if (thisitem.ACDItem.BaseAddress != IntPtr.Zero)
+				//Get new list of current backpack
+				var potions = Backpack.ReturnRegularPotions();
+				if (potions.Count > 0)
+					Backpack.CurrentPotionACDGUID = potions.First().ACDGUID;
+
+				foreach (var thisitem in Backpack.CacheItemList.Values)
 				{
-					// Find out if this item's in a protected bag slot
-					if (!ItemManager.Current.ItemIsProtected(thisitem.ACDItem))
+					if (thisitem.ACDItem.BaseAddress != IntPtr.Zero)
 					{
-						if (thisitem.ItemType == PluginItemTypes.HealthPotion || thisitem.ItemType == PluginItemTypes.HoradricCache)
+						// Find out if this item's in a protected bag slot
+						if (!ItemManager.Current.ItemIsProtected(thisitem.ACDItem))
 						{
-							if (thisitem.IsRegularPotion)
+							if (thisitem.ItemType == PluginItemTypes.HealthPotion || thisitem.ItemType == PluginItemTypes.HoradricCache)
 							{
-								if (thisitem.ACDGUID != Backpack.CurrentPotionACDGUID && Backpack.CurrentPotionACDGUID != -1)
+								if (thisitem.IsRegularPotion)
 								{
-									townRunItemCache.SellItems.Add(thisitem);
-									FunkyTownRunPlugin.DBLog.InfoFormat("Selling Potion -- Current PotionACDGUID=={0}", Backpack.CurrentPotionACDGUID);
+									if (thisitem.ACDGUID != Backpack.CurrentPotionACDGUID && Backpack.CurrentPotionACDGUID != -1)
+									{
+										townRunItemCache.SellItems.Add(thisitem);
+										FunkyTownRunPlugin.DBLog.InfoFormat("Selling Potion -- Current PotionACDGUID=={0}", Backpack.CurrentPotionACDGUID);
+									}
+								}
+
+								continue;
+							}
+
+							if (FunkyTownRunPlugin.PluginSettings.UseItemRules)
+							{
+								Interpreter.InterpreterAction action = FunkyTownRunPlugin.ItemRulesEval.checkItem(thisitem.ACDItem, ItemEvaluationType.Keep);
+								switch (action)
+								{
+									case Interpreter.InterpreterAction.SELL:
+										townRunItemCache.SellItems.Add(thisitem);
+										continue;
+									case Interpreter.InterpreterAction.TRASH:
+										if (SalvageValidation(thisitem)) continue;
+										townRunItemCache.SellItems.Add(thisitem);
+										continue;
 								}
 							}
 
-							continue;
-						}
-
-						if (FunkyTownRunPlugin.PluginSettings.UseItemRules)
-						{
-							Interpreter.InterpreterAction action = FunkyTownRunPlugin.ItemRulesEval.checkItem(thisitem.ACDItem, ItemEvaluationType.Keep);
-							switch (action)
+							bool bShouldSellThis = false;
+							if (FunkyTownRunPlugin.PluginSettings.UseItemManagerEvaluation)
 							{
-								case Interpreter.InterpreterAction.SELL:
-									townRunItemCache.SellItems.Add(thisitem);
-									continue;
-								case Interpreter.InterpreterAction.TRASH:
-									if (SalvageValidation(thisitem)) continue;
-									townRunItemCache.SellItems.Add(thisitem);
-									continue;
+								bShouldSellThis = ItemManager.Current.ShouldSellItem(thisitem.ACDItem);
 							}
-						}
+							else
+							{
+								if (SalvageValidation(thisitem)) continue;
+								if (thisitem.IsUnidentified) continue;
 
-						bool bShouldSellThis = false;
-						if (FunkyTownRunPlugin.PluginSettings.UseItemManagerEvaluation)
-						{
-							bShouldSellThis = ItemManager.Current.ShouldSellItem(thisitem.ACDItem);
-						}
-						else
-						{
-							if (SalvageValidation(thisitem)) continue;
-							if (thisitem.IsUnidentified) continue;
-							
 
-							bShouldSellThis = SellValidation(thisitem.ThisInternalName, thisitem.ThisLevel, thisitem.ThisQuality, thisitem.ThisDBItemType, thisitem.ThisFollowerType);
-						}
+								bShouldSellThis = SellValidation(thisitem.ThisInternalName, thisitem.ThisLevel, thisitem.ThisQuality, thisitem.ThisDBItemType, thisitem.ThisFollowerType);
+							}
 
-						if (bShouldSellThis)
-							townRunItemCache.SellItems.Add(thisitem);
+							if (bShouldSellThis)
+								townRunItemCache.SellItems.Add(thisitem);
+						}
 					}
-				}
-				else
-				{
-					FunkyTownRunPlugin.DBLog.DebugFormat("GSError: Diablo 3 memory read error, or item became invalid [StashOver-1]");
+					else
+					{
+						FunkyTownRunPlugin.DBLog.DebugFormat("GSError: Diablo 3 memory read error, or item became invalid [StashOver-1]");
+					}
 				}
 			}
 
@@ -108,9 +110,10 @@ namespace fItemPlugin.Townrun
 				townRunItemCache.sortSellList();
 				foreach (var item in townRunItemCache.SellItems)
 				{
-					FunkyTownRunPlugin.DBLog.DebugFormat("Selling Item: {0}({1}) Sno {2}", item.ThisRealName,item.ThisInternalName,item.SNO);
+					FunkyTownRunPlugin.DBLog.DebugFormat("Selling Item: {0}({1}) Sno {2}", item.ThisRealName, item.ThisInternalName, item.SNO);
 				}
 			}
+
 
 			if (!CheckedVendorActions)
 			{
@@ -165,7 +168,7 @@ namespace fItemPlugin.Townrun
 				vectorSellLocation = objSellNavigation.Position;
 
 
-			
+
 
 			//Out-Of-Range...
 			if (objSellNavigation == null)
@@ -243,7 +246,7 @@ namespace fItemPlugin.Townrun
 					{
 						FunkyTownRunPlugin.LogJunkItems(thisitem, thisGilesBaseType, OriginalPluginItemType);
 					}
-					
+
 					//FunkyTownRunPlugin.TownRunStats.VendoredItemLog(thisitem);
 					if (FunkyGame.CurrentGameStats != null)
 						FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.VendoredItemLog(thisitem);
@@ -339,8 +342,8 @@ namespace fItemPlugin.Townrun
 			}
 
 
-			
-			
+
+
 			return RunStatus.Success;
 		}
 
@@ -408,7 +411,7 @@ namespace fItemPlugin.Townrun
 
 
 			Delay.Reset();
-			
+
 
 			PotionDynamicID = 0;
 			PotionMerchantACDItem = null;

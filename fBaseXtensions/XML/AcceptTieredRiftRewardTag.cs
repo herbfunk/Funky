@@ -23,6 +23,14 @@ namespace fBaseXtensions.XML
 	[XmlElement("AcceptTieredRiftReward")]
 	public class AcceptTieredRiftRewardTag : ProfileBehavior
 	{
+		public enum RewardType
+		{
+			Key,
+			Gem
+		}
+
+		[XmlAttribute("Reward")]
+		public RewardType Reward { get; set; }
 
 		protected override Composite CreateBehavior()
 		{
@@ -129,7 +137,7 @@ namespace fBaseXtensions.XML
 				}
 
 				//Validate that upgrade key is enabled.. then attempt to upgrade!
-				if (UI.Game.RiftReward_Choice_UpgradeKey.IsEnabled && ZetaDia.Me.AttemptUpgradeKeystone())
+				if (Reward == RewardType.Key && UI.Game.RiftReward_Choice_UpgradeKey.IsEnabled && ZetaDia.Me.AttemptUpgradeKeystone())
 				{
 					Logger.DBLog.Info("Keystone Upgraded");
 					UIManager.CloseAllOpenFrames();
@@ -145,6 +153,12 @@ namespace fBaseXtensions.XML
 					{
 						Logger.DBLog.InfoFormat("Upgrading Gem {0}", Gems[0].ThisRealName);
 						await CommonCoroutines.AttemptUpgradeGem(Gems[0].ACDItem);
+						await Coroutine.Sleep(250);
+						await Coroutine.Yield();
+					}
+					else
+					{
+						Reward= RewardType.Key;
 						await Coroutine.Sleep(250);
 						await Coroutine.Yield();
 					}
@@ -204,7 +218,7 @@ namespace fBaseXtensions.XML
 			foreach (var item in ZetaDia.Actors.GetActorsOfType<ACDItem>().Where(item => Acdguids.Contains(item.ACDGuid)))
 			{
 				CacheACDItem cItem = new CacheACDItem(item);
-				if (cItem.LegendaryGemRank == 25) continue;
+				if (cItem.LegendaryGemRank == 50) continue;
 				if (GRiftLevel - cItem.LegendaryGemRank == -7) continue;
 				GemList.Add(cItem);
 			}
@@ -218,7 +232,7 @@ namespace fBaseXtensions.XML
 			foreach (var gem in ZetaDia.Actors.GetActorsOfType<ACDItem>().Where(item => item.ItemType == ItemType.LegendaryGem))
 			{
 				var cItem = new CacheACDItem(gem);
-				if (cItem.LegendaryGemRank == 25) continue;
+				if (cItem.LegendaryGemRank == 50) continue;
 				if (GRiftLevel - cItem.LegendaryGemRank == -7) continue;
 				Gems.Add(new CacheACDItem(gem));
 			}
@@ -228,13 +242,7 @@ namespace fBaseXtensions.XML
 
 		private int GetTieredLootLevel()
 		{
-			var NPC = ZetaDia.Actors.GetActorsOfType<DiaUnit>().FirstOrDefault(unit => unit.ActorSNO == 398682);
-			if (NPC != null)
-			{
-				return NPC.CommonData.GetAttribute<int>(ActorAttributeType.InTieredLootRunLevel);
-			}
-
-			return 0;
+			return ZetaDia.Me.CommonData.GetAttribute<int>(ActorAttributeType.InTieredLootRunLevel);
 		}
 
 		public override void ResetCachedDone()

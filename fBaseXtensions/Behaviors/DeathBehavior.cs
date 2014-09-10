@@ -15,8 +15,8 @@ namespace fBaseXtensions.Behaviors
 	{
 		internal static bool DeathShouldWait(object ret)
 		{
-			if (!UIElements.ReviveAtCorpseButton.IsEnabled)
-				return true;
+			//if (!UIElements.ReviveAtCorpseButton.IsEnabled)
+			//	return true;
 
 			if (FunkyBaseExtension.Settings.Death.WaitForPotionCooldown)
 			{
@@ -63,10 +63,10 @@ namespace fBaseXtensions.Behaviors
 
 		internal static RunStatus DeathWaitAction(object ret)
 		{
-			if (!UIElements.ReviveAtCorpseButton.IsEnabled)
-			{
-				UIElements.ReviveAtLastCheckpointButton.Click();
-			}
+			//if (!UIElements.ReviveAtCorpseButton.IsEnabled)
+			//{
+			//	UIElements.ReviveAtLastCheckpointButton.Click();
+			//}
 
 			if (FunkyBaseExtension.Settings.Death.WaitForPotionCooldown)
 			{

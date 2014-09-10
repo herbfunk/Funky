@@ -28,6 +28,11 @@ namespace fItemPlugin.Townrun
 		{//Should we preform town run finishing behavior?
 
 			InteractItems.Clear();
+
+			//Doing greater rift?
+			if (ZetaDia.Me.IsParticipatingInTieredLootRun)
+				return false;
+
 			//Get new list of current backpack
 			Backpack.UpdateItemList();
 

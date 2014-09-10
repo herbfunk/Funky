@@ -229,6 +229,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(3842, PluginDroppedItemTypes.Daibo, "combatStaff_norm_base_flippy_02-1653"),
 				new DroppedItemEntry(335290, PluginDroppedItemTypes.Daibo, "x1_combatStaff_norm_base_flippy_01-93351"),
 				new DroppedItemEntry(271762, PluginDroppedItemTypes.Daibo, "x1_combatStaff_norm_unique_flippy_10-1544"),
+				new DroppedItemEntry(197130, PluginDroppedItemTypes.Daibo, "combatStaff_norm_unique_flippy_02-7244"),
 
 				//
 				new DroppedItemEntry(3913, PluginDroppedItemTypes.Dagger, "Dagger_norm_base_flippy_04-7545"),
@@ -258,6 +259,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(175944, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_08-30479"),
 				new DroppedItemEntry(145847, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_04-30912"),
 				new DroppedItemEntry(208943, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_11-37057"),
+				new DroppedItemEntry(145846, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_03-34820"),
+				new DroppedItemEntry(145851, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_04-9255"),
 
 				//
 				new DroppedItemEntry(247389, PluginDroppedItemTypes.Flail,"x1_flail1H_norm_base_flippy_02"),
@@ -517,7 +520,7 @@ namespace fBaseXtensions.Cache.External.Objects
 
 				new DroppedItemEntry(323722, PluginDroppedItemTypes.KeyFragment,"LootRunKey"),
 				new DroppedItemEntry(408416, PluginDroppedItemTypes.KeyFragment, "TieredLootrunKey_0-44181"),
-				new DroppedItemEntry(405649, PluginDroppedItemTypes.RamaladnisGift),
+				new DroppedItemEntry(405649, PluginDroppedItemTypes.RamaladnisGift, "Consumable_Add_Sockets_flippy-20806"),
 				//
 				//============================= MISC =============================
 				new DroppedItemEntry(301283, PluginDroppedItemTypes.PowerGlobe,"Console_PowerGlobe"),
@@ -548,6 +551,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(204827, PluginDroppedItemTypes.LoreBook, "Lore_AzmodansOrders6"),
 				new DroppedItemEntry(156477, PluginDroppedItemTypes.LoreBook, "Lore_BelialOasis-10284"),
 				new DroppedItemEntry(183707, PluginDroppedItemTypes.LoreBook, "Lore_WaterPuzzle-9440"),
+				new DroppedItemEntry(119731, PluginDroppedItemTypes.LoreBook, "Lore_NephalemLastStand-15170"),
 
 				new DroppedItemEntry(359504, PluginDroppedItemTypes.BloodShard),
 				//============================= GEMS =============================
@@ -1678,6 +1682,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(181495, PluginItemTypes.TwoHandSword, LegendaryItemTypes.Warmonger),
 				new ItemDataEntry(184184, PluginItemTypes.TwoHandSword, LegendaryItemTypes.BladeofProphecy),
 				new ItemDataEntry(271644, PluginItemTypes.TwoHandSword, LegendaryItemTypes.CamsRebuttal),
+				new ItemDataEntry(270979, PluginItemTypes.TwoHandSword, LegendaryItemTypes.Blackguard),
 
 				
 
