@@ -13,6 +13,7 @@ using fBaseXtensions.Settings;
 using Zeta.Bot;
 using Zeta.Common;
 using Zeta.Game;
+using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
 using Zeta.Game.Internals.SNO;
 using Zeta.TreeSharp;
@@ -1041,7 +1042,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					validUnit = true;
 
 				//Line of sight pre-check
-				if (RequiresLOSCheck && !FunkyGame.Bounty.ActiveQuests.ContainsKey(BountyCache.ADVENTUREMODE_GREATERRIFT_TRIAL))
+				if (RequiresLOSCheck && (!FunkyGame.Bounty.ActiveQuests.ContainsKey(BountyCache.ADVENTUREMODE_GREATERRIFT_TRIAL) || FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_GREATERRIFT_TRIAL].State!= QuestState.Completed))
 				{
 					//Get the wait time since last used LOSTest
 					double lastLOSCheckMS = LineOfSight.LastLOSCheckMS;
