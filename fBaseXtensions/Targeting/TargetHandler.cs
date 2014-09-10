@@ -157,7 +157,9 @@ namespace fBaseXtensions.Targeting
 					//Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.LootedItemLog(thisCacheItem);
 					PluginItemTypes itemType=ItemFunc.DetermineItemType(thisCacheItem.InternalName, thisCacheItem.BalanceData.thisItemType, thisCacheItem.BalanceData.thisFollowerType);
 					PluginBaseItemTypes itembaseType = ItemFunc.DetermineBaseType(itemType);
-					FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.LootedItemLog(itemType, itembaseType, thisCacheItem.Itemquality.Value);
+				
+					if (FunkyGame.CurrentGameStats != null)
+						FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.LootedItemLog(itemType, itembaseType, thisCacheItem.Itemquality.Value);
 
 					//Remove item from cache..
 					FunkyGame.Targeting.Cache.CurrentTarget.NeedsRemoved = true;

@@ -37,7 +37,7 @@ namespace fItemPlugin.Townrun
 			//Doing Greater Rift? (But not completed yet..) then skip stashing.
 			if (ZetaDia.Me.IsParticipatingInTieredLootRun &&
 				(FunkyGame.Bounty.ActiveQuests.ContainsKey(BountyCache.ADVENTUREMODE_RIFTID) &&
-				(FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step == 34 || FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step == 10)))
+				(FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step != 34 && FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step != 10)))
 				return false;
 
 

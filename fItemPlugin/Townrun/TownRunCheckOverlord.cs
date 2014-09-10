@@ -159,6 +159,8 @@ namespace fItemPlugin.Townrun
 			bSalvageAllNormal = false;
 			bSalvageAllRare = false;
 
+			FunkyGame.Bounty.RefreshActiveQuests();
+
 			FunkyTownRunPlugin.DBLog.DebugFormat("Current Act: {0} VendorName: {1} Requires Repair: {2}", CurrentAct, VendorName, RequiresRepair);
 			ActionsChecked = true;
 			return RunStatus.Success;

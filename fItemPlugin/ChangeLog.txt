@@ -1,4 +1,7 @@
-﻿v1.2.2
+﻿v1.2.3
+Fixed checks for greater rift, added check to gambling.
+
+v1.2.2
 Salvage all now uses Demonbuddy API instead of UIElements.
 Added checks for greater rift to ignore salvaging, stashing, selling, IDing, and Opening Hoardric Caches.
 

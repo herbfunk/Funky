@@ -302,8 +302,6 @@ namespace fBaseXtensions.XML
 						if (ZetaDia.Me.Inventory.CurrentStashPage == LastStashPage)
 						{
 							//FunkyTownRunPlugin.TownRunStats.StashedItemLog(thisitem);
-							if (FunkyGame.CurrentGameStats != null)
-								FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.StashedItemLog(thisitem);
 							ZetaDia.Me.Inventory.MoveItem(thisitem.ThisDynamicID, ZetaDia.Me.CommonData.DynamicId, InventorySlot.SharedStash, LastStashPoint[0], LastStashPoint[1]);
 							LastStashPoint = new[] { -1, -1 };
 							LastStashPage = -1;
@@ -334,8 +332,6 @@ namespace fBaseXtensions.XML
 					}
 					else
 					{
-						if (FunkyGame.CurrentGameStats != null)
-							FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.StashedItemLog(thisitem);
 						ZetaDia.Me.Inventory.MoveItem(thisitem.ThisDynamicID, ZetaDia.Me.CommonData.DynamicId, InventorySlot.BackpackItems, LastStashPoint[0], LastStashPoint[1]);
 						LastStashPoint = new[] { -1, -1 };
 						

@@ -540,7 +540,9 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					if (BalanceData!=null)
 					{
 						PluginItemTypes itemType=ItemFunc.DetermineItemType(InternalName, BalanceData.thisItemType, BalanceData.thisFollowerType);
-						FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.DroppedItemLog(itemType, Itemquality.Value);
+						
+						if (FunkyGame.CurrentGameStats != null)
+							FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.DroppedItemLog(itemType, Itemquality.Value);
 					}
 
 					//Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.DroppedItemLog(this);

@@ -3,7 +3,7 @@
 	AcceptTieredRiftReward
 		-Gems of level 50 are ignored now (was 25?)
 		-Added Reward Attribute (Gem or Key)
-
+	Added null checks for FunkyStats.
 
 v1.1.1.0
 	Added Goblin Behavior (W.I.P.)

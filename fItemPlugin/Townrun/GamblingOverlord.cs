@@ -26,6 +26,11 @@ namespace fItemPlugin.Townrun
 		internal static bool GamblingRunOverlord(object ret)
 		{//Should we gamble?
 
+			if (ZetaDia.Me.IsParticipatingInTieredLootRun &&
+				(FunkyGame.Bounty.ActiveQuests.ContainsKey(BountyCache.ADVENTUREMODE_RIFTID) &&
+				(FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step != 34 && FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step != 10)))
+				return false;
+
 			if (FunkyTownRunPlugin.PluginSettings.EnableBloodShardGambling && FunkyGame.AdventureMode && 
 				!FunkyTownRunPlugin.PluginSettings.BloodShardGambleItems.Equals(BloodShardGambleItems.None) &&
 				ValidGambleItems.Any(i => FunkyTownRunPlugin.PluginSettings.BloodShardGambleItems.HasFlag(i)))
