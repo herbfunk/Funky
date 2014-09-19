@@ -8,25 +8,26 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 {
 	public class DashingStrike : Skill
 	{
-		public override double Cooldown { get { return 1000; } }
+		public override double Cooldown { get { return 750; } }
 
 		public override bool IsMovementSkill { get { return true; } }
 
 		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
-		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Location; } }
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Location | SkillExecutionFlags.ClusterLocation; } }
 
 		public override void Initialize()
 		{
 			Range = 40;
 			Priority = SkillPriority.Medium;
-			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckPlayerIncapacitated);
+			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckRecastTimer);
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Ranged, mindistance: 30));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, mindistance: 30, falseConditionalFlags: TargetProperties.Normal));
 			
 			if (Equipment.CheckLegendaryItemCount(LegendaryItemTypes.Jawbreaker))
 			{
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, mindistance: 35));
+				ClusterConditions.Add(new SkillClusterConditions(7d, 50f, 1, true, 0, ClusterProperties.None, 35f, false));
 			}
 			//SingleUnitCondition.Add(
 			//	new UnitTargetConditions
@@ -43,7 +44,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 				//Boss!
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, MinimumHealthPercent: 0.95d));
 				//Clusters that are at least 15 yards away
-				ClusterConditions.Add(new SkillClusterConditions(6d, 40f, 5, true, minDistance: 15));
+				ClusterConditions.Add(new SkillClusterConditions(6d, 40f, 7, true));
 				//Clusters of Non-Normal Units
 				ClusterConditions.Add(new SkillClusterConditions(6d, 40f, 2, true, clusterflags: ClusterProperties.Elites));
 			}

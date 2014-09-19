@@ -1544,25 +1544,26 @@ namespace fBaseXtensions.Settings
 		private void btn_Test_Click(object sender, EventArgs e)
 		{
 			LBDebug.Controls.Clear();
-			//foreach (var uie in UI.GetChildren(UI.Game.RiftReward_gemUpgradePane))
-			//{
-			//	//LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(uie)));
-			//	foreach (var a in UI.GetChildren(uie))
-			//	{
-			//		//LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(a)));
-			//		foreach (var b in UI.GetChildren(a))
-			//		{
-			//			//LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(b)));
-			//			foreach (var c in UI.GetChildren(b))
-			//			{
-			//				foreach (var d in UI.GetChildren(c))
-			//				{
-			//					LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(d)));
-			//				}
-			//			}
-			//		}
-			//	}
-			//}
+			foreach (var uie in UI.GetChildren(UI.Game.Dialog_Crafting_Armor))
+			{
+				LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(uie)));
+				foreach (var a in UI.GetChildren(uie))
+				{
+					LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(a)));
+					foreach (var b in UI.GetChildren(a))
+					{
+						LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(b)));
+						foreach (var c in UI.GetChildren(b))
+						{
+							foreach (var d in UI.GetChildren(c))
+							{
+								LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(d)));
+							}
+						}
+					}
+				}
+			}
+
 			//try
 			//{
 
@@ -1598,7 +1599,7 @@ namespace fBaseXtensions.Settings
 
 			//UI.Game.RiftReward_gemUpgradePane_List.ItemsListSetSelectedItemByIndex(0);
 			////
-			LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(UI.Game.RiftReward_GemUpgradePane_ItemButton)));
+			//LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(UI.Game.RiftReward_GemUpgradePane_ItemButton)));
 			//UI.Game.RiftReward_Choice_UpgradeGem.Click();
 			LBDebug.Focus();
 		}

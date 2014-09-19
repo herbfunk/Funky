@@ -424,7 +424,8 @@ namespace fBaseXtensions.Game
 			Interaction,
 			Idenify,
 			NephalemObelisk,
-			NephalemNPC//
+			NephalemNPC,
+			Tyrael
 		}
 		public static Vector3 ReturnTownRunMovementVector(TownRunBehavior type, Act act)
 		{
@@ -561,6 +562,21 @@ namespace fBaseXtensions.Game
 					}
 
 					break;
+				case TownRunBehavior.Tyrael:
+					switch (act)
+					{
+						case Act.A1:
+							return new Vector3(413.7766f, 535.4052f, 24.04533f);
+						case Act.A2:
+							return new Vector3(310.9261f, 258.8002f, 0.1000038f);
+						case Act.A3:
+						case Act.A4:
+							return new Vector3(384.0193f, 426.917f, 0.3321455f);
+						case Act.A5:
+							return new Vector3(567.4546f, 742.364f, 2.685909f);
+					}
+
+					break;
 			}
 
 			return Vector3.Zero;
@@ -595,6 +611,8 @@ namespace fBaseXtensions.Game
 					return 364715;
 				case TownRunBehavior.NephalemNPC:
 					return 363744;
+				case TownRunBehavior.Tyrael:
+					return 114622;
 			}
 
 			return -1;
@@ -613,6 +631,8 @@ namespace fBaseXtensions.Game
 					return UI.Game.BloodShardVendorMainDialog;
 				case TownRunBehavior.NephalemObelisk:
 					return UI.Game.NeaphlemObeliskDialog;
+				case TownRunBehavior.Tyrael:
+					return UI.Game.Conversation_Selection_Dialog;
 			}
 
 			return null;

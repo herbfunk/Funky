@@ -103,14 +103,14 @@ namespace fBaseXtensions.XML
 					//Set our default upgrade to our highest ranked (thats not 0%)
 					var upgradingGem = SelectableGems.FirstOrDefault();
 					int selectIndex = SelectableUIGemElementIndexs.IndexOf(upgradingGem.ACDGUID);
-					string GemName = upgradingGem.ThisRealName;
+					string GemName = upgradingGem.ThisRealName + " Rank " + upgradingGem.LegendaryGemRank;
 
 					//Check if any of the gems are ranked and are greater than 8% chance..
 					var rankedGems = SelectableGems.Where(g => g.LegendaryGemRank > 0 && GRiftLevel-g.LegendaryGemRank>-3).ToList();
 					if (rankedGems.Count>0)
 					{
 						selectIndex = SelectableUIGemElementIndexs.IndexOf(rankedGems[0].ACDGUID);
-						GemName = rankedGems[0].ThisRealName;
+						GemName = rankedGems[0].ThisRealName + " Rank " + rankedGems[0].LegendaryGemRank;
 					}
 
 					Logger.DBLog.InfoFormat("Upgrading Gem {0}", GemName);

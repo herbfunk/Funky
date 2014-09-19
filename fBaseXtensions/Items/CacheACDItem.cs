@@ -130,7 +130,7 @@ namespace fBaseXtensions.Items
 			{
 				try
 				{
-					LegendaryGemRank = item.GetAttribute<int>(ActorAttributeType.JewelRank);
+					LegendaryGemRank = item.JewelRank;
 				}
 				catch (Exception)
 				{

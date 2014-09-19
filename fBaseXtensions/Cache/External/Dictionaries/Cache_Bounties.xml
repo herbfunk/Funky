@@ -451,6 +451,7 @@
           <int>346092</int>
           <int>346094</int>
           <int>347607</int>
+          <int>347638</int>
         </QuestSNOs>
       </BountyQuestCacheEntry>
       <BountyQuestCacheEntry>
@@ -627,6 +628,15 @@
         <EndingLevelAreaID>19837</EndingLevelAreaID>
         <QuestSNOs>
           <int>369797</int>
+        </QuestSNOs>
+      </BountyQuestCacheEntry>
+      <BountyQuestCacheEntry>
+        <Name>Act2_FloodedCave_CursedShallows</Name>
+        <Type>CursedEvent</Type>
+        <StartingLevelAreaID>57425</StartingLevelAreaID>
+        <EndingLevelAreaID>62574</EndingLevelAreaID>
+        <QuestSNOs>
+          <int>369813</int>
         </QuestSNOs>
       </BountyQuestCacheEntry>
     </CursedEventBounties>

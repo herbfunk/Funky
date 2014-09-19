@@ -34,6 +34,9 @@ namespace fBaseXtensions.Cache.External.Objects
 			GizmoCache = new HashSet<GizmoEntry>
 			{
 	
+				// 
+				new GizmoEntry(113960, PluginGizmoType.BreakableDoor, "caOut_Oasis_Rakanishu_SideStone_A-10174", GizmoTargetTypes.SpecialDestructible),
+				new GizmoEntry(113845, PluginGizmoType.BreakableDoor, "caOut_Oasis_Rakanishu_CenterStone_A-7493", GizmoTargetTypes.SpecialDestructible),
 
 				//============== Barricades ==============//
 				new GizmoEntry(5719, PluginGizmoType.BreakableDoor, "trDun_Cath_Barricade_B"),
@@ -43,7 +46,6 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(181228, PluginGizmoType.BreakableDoor, "caOut_StingingWinds_Barricade_A-713"),
 				new GizmoEntry(62653, PluginGizmoType.BreakableDoor, "a2dun_Aqd_Act_Barricade_A_01-13064"),
 				new GizmoEntry(118384, PluginGizmoType.BreakableDoor, "CaOut_Oasis_Gear_Box-14874"),
-				new GizmoEntry(113960, PluginGizmoType.BreakableDoor, "caOut_Oasis_Rakanishu_SideStone_A-10174"),
 				new GizmoEntry(5718, PluginGizmoType.BreakableDoor, "trDun_Cath_Barricade_A-17018"),
 				new GizmoEntry(5792, PluginGizmoType.BreakableDoor, "trDun_Cath_WoodDoor_A_Barricaded-970"),
 				new GizmoEntry(5823, PluginGizmoType.BreakableDoor, "trDun_Crypt_Door-2084"),

@@ -43,7 +43,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				float radiusDistance = RadiusDistance;
 
 				//Ignore Destructibles that are not nearby..
-				if (CentreDistance>40f && radiusDistance>InteractionRange)
+				if (CentreDistance>40f && radiusDistance>InteractionRange && (!GizmoTargetTypes.HasValue || GizmoTargetTypes.Value!= Enums.GizmoTargetTypes.SpecialDestructible))
 				{
 					IgnoredType = TargetingIgnoreTypes.DistanceFailure;
 					BlacklistLoops = 10;
@@ -124,7 +124,9 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				}
 
 
-				if (radiusDistance > InteractionRange && (!QuestMonster || radiusDistance > 100f))
+				if (radiusDistance > InteractionRange && 
+					(!GizmoTargetTypes.HasValue || GizmoTargetTypes.Value!=Enums.GizmoTargetTypes.SpecialDestructible) && 
+					(!QuestMonster || radiusDistance > 100f))
 				{
 					IgnoredType = TargetingIgnoreTypes.DistanceFailure;
 					return false;

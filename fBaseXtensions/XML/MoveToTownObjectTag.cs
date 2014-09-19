@@ -29,13 +29,21 @@ namespace fBaseXtensions.XML
 			Gamble,
 			Idenify,
 			NephalemObelisk,
-			NephalemNPC
+			NephalemNPC,
+			Tyrael
 		}
 
 		[XmlAttribute("Type")]
 		public TownObjects TownObject { get { return _townobject; } set { _townobject = value; } }
 		private TownObjects _townobject= TownObjects.None;
 
+		[XmlAttribute("Interact")]
+		public bool Interact
+		{
+			get { return _interact; }
+			set { _interact = value; }
+		}
+		private bool _interact = true;
 
 		public override void OnStart()
 		{
@@ -67,6 +75,9 @@ namespace fBaseXtensions.XML
 				//Movement
 				new Decorator(ret => !UpdateObject() || ZetaDia.Me.Position.Distance(MovementVector)>10f || !Object.InLineOfSight,
 					new Action(ret => Navigator.MoveTo(MovementVector))),
+
+				new Decorator(ret => !Interact,
+					new Action(ret => m_IsDone = true)),
 
 				//Interaction
 				new Decorator(ret => !DialogIsVisible(),
@@ -118,6 +129,10 @@ namespace fBaseXtensions.XML
 					MovementVector = GameCache.ReturnTownRunMovementVector(GameCache.TownRunBehavior.NephalemNPC, CurrentAct);
 					ObjectSNO = GameCache.ReturnTownRunObjectSNO(GameCache.TownRunBehavior.NephalemNPC, CurrentAct);
 					break;
+				case TownObjects.Tyrael:
+					MovementVector = GameCache.ReturnTownRunMovementVector(GameCache.TownRunBehavior.Tyrael, CurrentAct);
+					ObjectSNO = GameCache.ReturnTownRunObjectSNO(GameCache.TownRunBehavior.Tyrael, CurrentAct);
+					break;
 			}
 
 			//Navigator.Clear();
@@ -151,6 +166,9 @@ namespace fBaseXtensions.XML
 					break;
 				case TownObjects.NephalemNPC:
 					uie = UI.Game.Conversation_Dialog_Main;
+					break;
+				case TownObjects.Tyrael:
+					uie = UI.Game.Conversation_Selection_Dialog;
 					break;
 			}
 
@@ -189,5 +207,7 @@ namespace fBaseXtensions.XML
 		{
 			get { return m_IsDone; }
 		}
+
+		
 	}
 }

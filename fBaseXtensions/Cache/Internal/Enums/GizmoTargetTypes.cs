@@ -10,7 +10,7 @@ namespace fBaseXtensions.Cache.Internal.Enums
 		Chest=1,
 		Corpse=2,
 		Resplendant=4,
-		ItemRack=8,
+		SpecialDestructible=8,
 		MiscContainer=16,
 
 		Shrine=32,

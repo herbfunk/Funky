@@ -2,6 +2,22 @@
 <GizmoDataCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GizmoCache>
     <GizmoEntry>
+      <SnoId>113960</SnoId>
+      <InternalName>caOut_Oasis_Rakanishu_SideStone_A-10174</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>SpecialDestructible</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>113845</SnoId>
+      <InternalName>caOut_Oasis_Rakanishu_CenterStone_A-7493</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>BreakableDoor</PluginGizmoType>
+      <GizmotargetType>SpecialDestructible</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>5719</SnoId>
       <InternalName>trDun_Cath_Barricade_B</InternalName>
       <ActorType>Gizmo</ActorType>
@@ -52,14 +68,6 @@
     <GizmoEntry>
       <SnoId>118384</SnoId>
       <InternalName>CaOut_Oasis_Gear_Box-14874</InternalName>
-      <ActorType>Gizmo</ActorType>
-      <EntryType>Gizmo</EntryType>
-      <PluginGizmoType>BreakableDoor</PluginGizmoType>
-      <GizmotargetType>None</GizmotargetType>
-    </GizmoEntry>
-    <GizmoEntry>
-      <SnoId>113960</SnoId>
-      <InternalName>caOut_Oasis_Rakanishu_SideStone_A-10174</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>

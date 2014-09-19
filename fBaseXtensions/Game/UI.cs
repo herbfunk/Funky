@@ -543,6 +543,15 @@ namespace fBaseXtensions.Game
 
 		public static class Game
 		{
+			//
+			public static UIElement Dialog_Crafting_Armor
+			{
+				get
+				{
+					try { return UIElement.FromHash(0xF5888ED474488A21); }
+					catch { return null; }
+				}
+			}
 
 			//
 			public static UIElement Dialog_Confirmation_OK
@@ -550,6 +559,16 @@ namespace fBaseXtensions.Game
 				get
 				{
 					try { return UIElement.FromHash(0x891D21408238D18E); }
+					catch { return null; }
+				}
+			}
+
+			//
+			public static UIElement Conversation_Selection_Dialog
+			{
+				get
+				{
+					try { return UIElement.FromHash(0xC294496C30C874CB); }
 					catch { return null; }
 				}
 			}
