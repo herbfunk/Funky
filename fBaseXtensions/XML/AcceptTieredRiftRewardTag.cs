@@ -103,13 +103,17 @@ namespace fBaseXtensions.XML
 					//Set our default upgrade to our highest ranked (thats not 0%)
 					var upgradingGem = SelectableGems.FirstOrDefault();
 					int selectIndex = SelectableUIGemElementIndexs.IndexOf(upgradingGem.ACDGUID);
+					string GemName = upgradingGem.ThisRealName;
 
 					//Check if any of the gems are ranked and are greater than 8% chance..
 					var rankedGems = SelectableGems.Where(g => g.LegendaryGemRank > 0 && GRiftLevel-g.LegendaryGemRank>-3).ToList();
 					if (rankedGems.Count>0)
 					{
 						selectIndex = SelectableUIGemElementIndexs.IndexOf(rankedGems[0].ACDGUID);
+						GemName = rankedGems[0].ThisRealName;
 					}
+
+					Logger.DBLog.InfoFormat("Upgrading Gem {0}", GemName);
 					
 					//Select the Gem UIElement
 					UI.Game.RiftReward_gemUpgradePane_List.ItemsListSetSelectedItemByIndex(selectIndex);
@@ -151,7 +155,7 @@ namespace fBaseXtensions.XML
 					var Gems = GetGemCacheACDItems().OrderByDescending(i => i.LegendaryGemRank).ToList();
 					if (Gems.Count>0)
 					{
-						Logger.DBLog.InfoFormat("Upgrading Gem {0}", Gems[0].ThisRealName);
+						//Logger.DBLog.InfoFormat("Upgrading Gem {0}", Gems[0].ThisRealName);
 						await CommonCoroutines.AttemptUpgradeGem(Gems[0].ACDItem);
 						await Coroutine.Sleep(250);
 						await Coroutine.Yield();

@@ -35,7 +35,7 @@ namespace fItemPlugin.Townrun
 					//our result of checking various things for town run.
 					bool _checkResult = false;
 
-					if (ZetaDia.Me.Inventory.NumFreeBackpackSlots <= 2)
+					if (!IsParticipatingInTieredLootRun && ZetaDia.Me.Inventory.NumFreeBackpackSlots <= 2)
 					{
 						_checkResult = true;
 						FunkyTownRunPlugin.DBLog.Info("[Funky] Starting Town Run (No Space Left In Backpack)");
@@ -47,7 +47,7 @@ namespace fItemPlugin.Townrun
 							_checkResult = true;
 							FunkyTownRunPlugin.DBLog.Info("[Funky] Starting Town Run (Items Need Repaired)");
 						}
-						else if (FunkyTownRunPlugin.PluginSettings.EnableBloodShardGambling && FunkyTownRunPlugin.PluginSettings.MinimumBloodShards > 5)
+						else if (!IsParticipatingInTieredLootRun && FunkyTownRunPlugin.PluginSettings.EnableBloodShardGambling && FunkyTownRunPlugin.PluginSettings.MinimumBloodShards > 5)
 						{
 							int curBloodShardCount = Backpack.GetBloodShardCount();
 							if (curBloodShardCount != -1 && curBloodShardCount >= FunkyTownRunPlugin.PluginSettings.MinimumBloodShards)
@@ -365,6 +365,17 @@ namespace fItemPlugin.Townrun
 			return false;
 		}
 
+		internal static bool IsParticipatingInTieredLootRun
+		{
+			get
+			{
+				return (ZetaDia.Me.IsParticipatingInTieredLootRun &&
+				(FunkyGame.Bounty.ActiveQuests.ContainsKey(BountyCache.ADVENTUREMODE_RIFTID) &&
+				(FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step != 34 && FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step != 10))||
+				(FunkyGame.Bounty.ActiveQuests.ContainsKey(BountyCache.ADVENTUREMODE_GREATERRIFT_TRIAL)));
+
+			}
+		}
 
 	}
 

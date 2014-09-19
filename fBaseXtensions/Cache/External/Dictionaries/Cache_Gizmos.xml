@@ -1007,7 +1007,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>MiscContainer</GizmotargetType>
+      <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>116063</SnoId>
@@ -1015,7 +1015,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>MiscContainer</GizmotargetType>
+      <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>5758</SnoId>
@@ -1023,7 +1023,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>MiscContainer</GizmotargetType>
+      <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>261139</SnoId>
@@ -1031,7 +1031,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>MiscContainer</GizmotargetType>
+      <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>289762</SnoId>
@@ -1039,7 +1039,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>MiscContainer</GizmotargetType>
+      <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>251867</SnoId>
@@ -1047,7 +1047,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>MiscContainer</GizmotargetType>
+      <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>289784</SnoId>
@@ -1055,7 +1055,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>MiscContainer</GizmotargetType>
+      <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>285382</SnoId>
@@ -1063,7 +1063,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>MiscContainer</GizmotargetType>
+      <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>289805</SnoId>
@@ -1071,7 +1071,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>MiscContainer</GizmotargetType>
+      <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>289250</SnoId>
@@ -1079,7 +1079,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>MiscContainer</GizmotargetType>
+      <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>249365</SnoId>
@@ -1087,7 +1087,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>MiscContainer</GizmotargetType>
+      <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>379074</SnoId>
@@ -1095,7 +1095,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>MiscContainer</GizmotargetType>
+      <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>289859</SnoId>
@@ -1103,7 +1103,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>MiscContainer</GizmotargetType>
+      <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>187374</SnoId>
@@ -2983,7 +2983,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>58317</SnoId>
@@ -2991,7 +2991,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>77354</SnoId>
@@ -2999,7 +2999,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>192466</SnoId>
@@ -3007,7 +3007,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>198012</SnoId>
@@ -3015,7 +3015,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>289246</SnoId>
@@ -3023,7 +3023,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>289763</SnoId>
@@ -3031,7 +3031,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>167520</SnoId>
@@ -3039,7 +3039,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>307432</SnoId>
@@ -3047,7 +3047,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>301981</SnoId>
@@ -3055,7 +3055,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>289858</SnoId>
@@ -3063,7 +3063,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>379076</SnoId>
@@ -3071,7 +3071,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>5671</SnoId>
@@ -3079,7 +3079,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>289794</SnoId>
@@ -3087,7 +3087,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>340114</SnoId>
@@ -3095,7 +3095,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>289756</SnoId>
@@ -3103,7 +3103,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>289244</SnoId>
@@ -3111,7 +3111,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>346654</SnoId>
@@ -3119,7 +3119,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>289777</SnoId>
@@ -3127,7 +3127,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>196509</SnoId>
@@ -3135,7 +3135,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>307431</SnoId>
@@ -3143,7 +3143,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
-      <GizmotargetType>ItemRack</GizmotargetType>
+      <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>5727</SnoId>

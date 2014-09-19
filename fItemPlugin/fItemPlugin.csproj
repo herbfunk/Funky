@@ -37,6 +37,10 @@
       <HintPath>..\..\..\..\Desktop\db_beta\Demonbuddy.exe</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="fBaseXtensions">
+      <HintPath>..\..\..\..\Desktop\db_beta\Plugins\fBaseXtensions\fBaseXtensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="GreyMagic">
       <HintPath>..\..\..\..\Desktop\db_beta\GreyMagic.dll</HintPath>
       <Private>False</Private>
@@ -194,13 +198,6 @@
       <DependentUpon>formSettings.cs</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\fBaseXtensions\fBaseXtensions.csproj">
-      <Project>{9b349af5-9a32-49a9-b815-9d2ba7bce694}</Project>
-      <Name>fBaseXtensions</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

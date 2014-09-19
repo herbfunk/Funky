@@ -181,7 +181,24 @@ namespace fBaseXtensions.Items
 			}
 		}
 
+		public override int GetHashCode()
+		{
+			return ThisDynamicID;
+		}
 
+		public override bool Equals(object obj)
+		{
+			//Check for null and compare run-time types. 
+			if (obj == null || GetType() != obj.GetType())
+			{
+				return false;
+			}
+			else
+			{
+				CacheACDItem p = (CacheACDItem)obj;
+				return (ThisDynamicID == p.ThisDynamicID);
+			}
+		}
 	}
 
 

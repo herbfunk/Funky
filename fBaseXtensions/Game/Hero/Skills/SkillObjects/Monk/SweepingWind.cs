@@ -36,7 +36,8 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 
 				if (FunkyBaseExtension.Settings.Monk.bMonkMaintainSweepingWind &&  //Maintaining Sweeping Wind (Must already have buff.. and has not used combat ability within 2000ms!)
 					DateTime.Now.Subtract(FunkyGame.Hero.Class.LastUsedACombatAbility).TotalMilliseconds > 2000 &&
-					LastUsedMilliseconds > buffDuration)
+					LastUsedMilliseconds > buffDuration &&
+					Hotbar.HasBuff(SNOPower.Monk_SweepingWind) && Hotbar.CurrentBuffs[(int)SNOPower.Monk_SweepingWind].StackCount>1)
 				{
 					return true;
 				}

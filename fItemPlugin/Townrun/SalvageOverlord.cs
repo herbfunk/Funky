@@ -25,14 +25,36 @@ namespace fItemPlugin.Townrun
 			townRunItemCache.SalvageItems.Clear();
 
 			//Doing Greater Rift? (But not completed yet..) then skip salvaging.
-			if (ZetaDia.Me.IsParticipatingInTieredLootRun &&
-				(FunkyGame.Bounty.ActiveQuests.ContainsKey(BountyCache.ADVENTUREMODE_RIFTID) &&
-				(FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step != 34 && FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step != 10)))
+			if (IsParticipatingInTieredLootRun)
 				return false;
 
+
+			UpdateSalvageItemList();
+
+
+			if (townRunItemCache.SalvageItems.Count > 0)
+			{
+				bSalvageAllMagic = false;
+				bSalvageAllNormal = false;
+				bSalvageAllRare = false;
+
+				townRunItemCache.sortSalvagelist();
+				return true;
+			}
+
+			return false;
+		}
+
+		private static bool bShouldSalvageAllNormal, bShouldSalvageAllMagical, bShouldSalvageAllRare;
+
+		private static void UpdateSalvageItemList()
+		{
 			//Get new list of current backpack
 			Backpack.UpdateItemList();
 
+			bShouldSalvageAllNormal = true;
+			bShouldSalvageAllMagical = true;
+			bShouldSalvageAllRare = true;
 
 			foreach (var thisitem in Backpack.CacheItemList.Values)
 			{
@@ -41,9 +63,7 @@ namespace fItemPlugin.Townrun
 					// Find out if this item's in a protected bag slot
 					if (!ItemManager.Current.ItemIsProtected(thisitem.ACDItem))
 					{
-						if (thisitem.IsUnidentified || thisitem.ItemType == PluginItemTypes.HealthPotion || thisitem.IsVendorBought || thisitem.IsHoradricCache || thisitem.ThisLevel==1) continue;
-
-						bool bShouldVisitSalvage = false;
+						if (!thisitem.IsSalvagable) continue;
 
 						if (FunkyTownRunPlugin.PluginSettings.UseItemManagerEvaluation)
 						{
@@ -51,7 +71,21 @@ namespace fItemPlugin.Townrun
 							if (ItemManager.Current.ShouldStashItem(thisitem.ACDItem))
 								continue;
 
-							bShouldVisitSalvage = ItemManager.Current.ShouldSalvageItem(thisitem.ACDItem);
+							if (ItemManager.Current.ShouldSalvageItem(thisitem.ACDItem))
+							{
+								townRunItemCache.SalvageItems.Add(thisitem);
+								continue;
+							}
+
+							if (thisitem.ThisQuality < ItemQuality.Magic1)
+								bShouldSalvageAllNormal = false;
+							else if (thisitem.ThisQuality < ItemQuality.Rare4)
+								bShouldSalvageAllMagical = false;
+							else if (thisitem.ThisQuality < ItemQuality.Legendary)
+								bShouldSalvageAllRare = false;
+
+							continue;
+
 						}
 						else
 						{
@@ -78,15 +112,22 @@ namespace fItemPlugin.Townrun
 							{
 								continue;
 							}
-
-							bShouldVisitSalvage = SalvageValidation(thisitem);
 						}
 
 
 
-						if (bShouldVisitSalvage)
+						if (SalvageValidation(thisitem))
 						{
 							townRunItemCache.SalvageItems.Add(thisitem);
+						}
+						else
+						{
+							if (thisitem.ThisQuality < ItemQuality.Magic1)
+								bShouldSalvageAllNormal = false;
+							else if (thisitem.ThisQuality < ItemQuality.Rare4)
+								bShouldSalvageAllMagical = false;
+							else if (thisitem.ThisQuality < ItemQuality.Legendary)
+								bShouldSalvageAllRare = false;
 						}
 					}
 				}
@@ -95,14 +136,6 @@ namespace fItemPlugin.Townrun
 					FunkyTownRunPlugin.DBLog.DebugFormat("GSError: Diablo 3 memory read error, or item became invalid [StashOver-1]");
 				}
 			}
-
-			if (townRunItemCache.SalvageItems.Count > 0)
-			{
-				townRunItemCache.sortSalvagelist();
-				return true;
-			}
-
-			return false;
 		}
 
 		// **********************************************************************************************
@@ -146,7 +179,7 @@ namespace fItemPlugin.Townrun
 
 
 			//Normal distance we use to move to specific location before moving to NPC
-			float _distanceRequired=CurrentAct!=Act.A5?50f:14f; //Act 5 we want short range only!
+			float _distanceRequired = CurrentAct != Act.A5 ? 50f : 14f; //Act 5 we want short range only!
 
 			if (Vector3.Distance(vectorPlayerPosition, SafetySalvageLocation) <= 2.5f)
 				MovedToSafetyLocation = true;
@@ -198,28 +231,33 @@ namespace fItemPlugin.Townrun
 				return RunStatus.Running;
 			}
 
-			if (UI.Game.SalvageAllNormal.IsEnabled && townRunItemCache.SalvageItems.Any(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Magic1) && !bSalvageAllNormal)
+			if (UI.Game.SalvageAllNormal.IsEnabled && bShouldSalvageAllNormal && townRunItemCache.SalvageItems.Any(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Magic1) && !bSalvageAllNormal)
 			{
 				//UI.Game.SalvageAllNormal.Click();
 				ZetaDia.Me.Inventory.SalvageItemsOfRarity(SalvageRarity.Normal);
 				bSalvageAllNormal = true;
+				var removalList = townRunItemCache.SalvageItems.Where(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Magic1).ToList();
+				townRunItemCache.SalvageItems = townRunItemCache.SalvageItems.Except(removalList).ToList();
 				return RunStatus.Running;
 			}
 
-			if (UI.Game.SalvageAllMagical.IsEnabled && townRunItemCache.SalvageItems.Any(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Rare4) && !bSalvageAllMagic)
+			if (UI.Game.SalvageAllMagical.IsEnabled && bShouldSalvageAllMagical && townRunItemCache.SalvageItems.Any(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Rare4) && !bSalvageAllMagic)
 			{
 				//UI.Game.SalvageAllMagical.Click();
 				ZetaDia.Me.Inventory.SalvageItemsOfRarity(SalvageRarity.Magic);
 				bSalvageAllMagic = true;
+				var removalList = townRunItemCache.SalvageItems.Where(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Rare4).ToList();
+				townRunItemCache.SalvageItems = townRunItemCache.SalvageItems.Except(removalList).ToList();
 				return RunStatus.Running;
 			}
 
-			if (UI.Game.SalvageAllRare.IsEnabled && townRunItemCache.SalvageItems.Any(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Legendary) && !bSalvageAllRare)
+			if (UI.Game.SalvageAllRare.IsEnabled && bShouldSalvageAllRare && townRunItemCache.SalvageItems.Any(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Legendary) && !bSalvageAllRare)
 			{
 				//UI.Game.SalvageAllRare.Click();
 				ZetaDia.Me.Inventory.SalvageItemsOfRarity(SalvageRarity.Rare);
 				bSalvageAllRare = true;
-				//var removalList=townRunItemCache.SalvageItems.Where(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Legendary).ToList();
+				var removalList = townRunItemCache.SalvageItems.Where(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Legendary).ToList();
+				townRunItemCache.SalvageItems=townRunItemCache.SalvageItems.Except(removalList).ToList();
 				return RunStatus.Running;
 			}
 
@@ -227,10 +265,10 @@ namespace fItemPlugin.Townrun
 			if (townRunItemCache.SalvageItems.Count > 0)
 			{
 				CacheACDItem thisitem = townRunItemCache.SalvageItems.FirstOrDefault();
-				if (thisitem != null && thisitem.ACDItem!=null)
+				if (thisitem != null && thisitem.ACDItem != null)
 				{
-					if ((thisitem.IsSalvagable && thisitem.ThisQuality < ItemQuality.Magic1 && bSalvageAllNormal)||
-						(thisitem.IsSalvagable && thisitem.ThisQuality < ItemQuality.Rare4 && bSalvageAllMagic)||
+					if ((thisitem.IsSalvagable && thisitem.ThisQuality < ItemQuality.Magic1 && bSalvageAllNormal) ||
+						(thisitem.IsSalvagable && thisitem.ThisQuality < ItemQuality.Rare4 && bSalvageAllMagic) ||
 						(thisitem.IsSalvagable && thisitem.ThisQuality < ItemQuality.Legendary && bSalvageAllRare))
 					{
 						townRunItemCache.SalvageItems.Remove(thisitem);
@@ -246,7 +284,7 @@ namespace fItemPlugin.Townrun
 					{
 						FunkyTownRunPlugin.LogJunkItems(thisitem, thisGilesBaseType, OriginalGilesItemType);
 					}
-					if (FunkyGame.CurrentGameStats!=null)
+					if (FunkyGame.CurrentGameStats != null)
 						FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.SalvagedItemLog(thisitem);
 					//FunkyTownRunPlugin.TownRunStats.SalvagedItemLog(thisitem);
 					ZetaDia.Me.Inventory.SalvageItem(thisitem.ThisDynamicID);
@@ -283,8 +321,8 @@ namespace fItemPlugin.Townrun
 			//	ZetaDia.Me.Inventory.RepairEquippedItems();
 			//	RequiresRepair = false;
 			//}
-			
-			
+
+
 			return RunStatus.Success;
 		}
 

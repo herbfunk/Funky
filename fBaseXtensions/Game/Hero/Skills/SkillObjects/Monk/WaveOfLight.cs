@@ -1,4 +1,5 @@
 ﻿using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
@@ -6,8 +7,6 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 	public class WaveOfLight : Skill
 	{
 		public override double Cooldown { get { return 250; } }
-
-		public override bool IsBuff { get { return true; } }
 
 		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
@@ -17,22 +16,26 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 		public override void Initialize()
 		{
 
-			if (RuneIndex == 1)
-				ExecutionType = SkillExecutionFlags.Self;
+			//if (RuneIndex == 1)
+			//	ExecutionType = SkillExecutionFlags.Self;
 
 			WaitVars = new WaitLoops(2, 4, true);
 			Cost = RuneIndex == 3 ? 40 : 75;
 			Range = 16;
 			Priority = SkillPriority.Medium;
 
+			if (Equipment.CheckLegendaryItemCount(LegendaryItemTypes.TzoKrinsGaze))
+			{
+				_executiontype = SkillExecutionFlags.ClusterTarget | SkillExecutionFlags.Target;
+				Range = 49;
+			}
+
 
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckEnergy | SkillPrecastFlags.CheckCanCast |
 									  SkillPrecastFlags.CheckRecastTimer | SkillPrecastFlags.CheckPlayerIncapacitated));
-			ClusterConditions.Add(new SkillClusterConditions(6d, 35f, 3, true));
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 30, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal | TargetProperties.MissileReflecting));
+			ClusterConditions.Add(new SkillClusterConditions(6d, Range, 3, true));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal | TargetProperties.MissileReflecting));
 			FcriteriaCombat = () => !FunkyGame.Hero.Class.bWaitingForSpecial;
-
-			FcriteriaBuff = () => FunkyGame.Hero.dCurrentHealthPct < 0.25d;
 
 
 		}

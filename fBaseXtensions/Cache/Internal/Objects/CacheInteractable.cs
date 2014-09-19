@@ -77,8 +77,67 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				if (!base.ObjectIsValidForTargeting) return false;
 				if (!targetType.HasValue) return false;
 
-				
 
+				//Ignore Settings Corpses
+				if (FunkyBaseExtension.Settings.Targeting.IgnoreCorpses && IsCorpseContainer)
+				{
+					IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;
+					NeedsRemoved = true;
+					BlacklistFlag = BlacklistType.Permanent;
+					return false;
+				}
+				//Ignore Settings Armor Rack
+				if (FunkyBaseExtension.Settings.Targeting.IgnoreArmorRacks && GizmoTargetTypes.HasValue && GizmoTargetTypes.Value == Enums.GizmoTargetTypes.ArmorRack)
+				{
+					IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;
+					NeedsRemoved = true;
+					BlacklistFlag = BlacklistType.Permanent;
+					return false;
+				}
+				//Ignore Settings Weapon Rack
+				if (FunkyBaseExtension.Settings.Targeting.IgnoreWeaponRacks && GizmoTargetTypes.HasValue && GizmoTargetTypes.Value == Enums.GizmoTargetTypes.WeaponRack)
+				{
+					IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;
+					NeedsRemoved = true;
+					BlacklistFlag = BlacklistType.Permanent;
+					return false;
+				}
+				//Ignore Settings Floor Container
+				if (FunkyBaseExtension.Settings.Targeting.IgnoreFloorContainers && GizmoTargetTypes.HasValue && GizmoTargetTypes.Value == Enums.GizmoTargetTypes.FloorContainer)
+				{
+					IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;
+					NeedsRemoved = true;
+					BlacklistFlag = BlacklistType.Permanent;
+					return false;
+				}
+				//Ignore Settings Normal Chest
+				if (FunkyBaseExtension.Settings.Targeting.IgnoreNormalChests && GizmoTargetTypes.HasValue && GizmoTargetTypes.Value == Enums.GizmoTargetTypes.Chest)
+				{
+					IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;
+					NeedsRemoved = true;
+					BlacklistFlag = BlacklistType.Permanent;
+					return false;
+				}
+				//Ignore Settings Rare Chest
+				if (FunkyBaseExtension.Settings.Targeting.IgnoreRareChests && GizmoTargetTypes.HasValue && GizmoTargetTypes.Value == Enums.GizmoTargetTypes.Resplendant)
+				{
+					IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;
+					NeedsRemoved = true;
+					BlacklistFlag = BlacklistType.Permanent;
+					return false;
+				}
+				//Ignore Settings Normal Shrines
+				if (GizmoTargetTypes.HasValue && GizmoTargetTypes.Value == Enums.GizmoTargetTypes.Shrine)
+				{
+					ShrineTypes shrinetype = CacheIDLookup.FindShrineType(SNOID);
+					if (shrinetype.HasFlag(ShrineTypes.Normal) && !FunkyBaseExtension.Settings.Targeting.UseShrineTypes[(int)shrinetype])
+					{
+						IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;
+						NeedsRemoved = true;
+						BlacklistFlag = BlacklistType.Permanent;
+						return false;
+					}
+				}
 
 				float centreDistance = CentreDistance;
 				float radiusDistance = RadiusDistance;
@@ -219,8 +278,6 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					#region Shrine
 					case TargetType.Shrine:
 
-
-						bool IgnoreThis = false;
 						if (IsHealthWell)
 						{
 							//Health wells..
@@ -230,25 +287,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 								return false;
 							}
 						}
-						else if(Gizmotype== GizmoType.PoolOfReflection)
-						{
 
-						}
-						else
-						{
-							ShrineTypes shrinetype = CacheIDLookup.FindShrineType(SNOID);
-							if (shrinetype.HasFlag(ShrineTypes.Normal))
-								IgnoreThis = !FunkyBaseExtension.Settings.Targeting.UseShrineTypes[(int)shrinetype];
-						}
-
-						//Ignoring..?
-						if (IgnoreThis)
-						{
-							IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;
-							NeedsRemoved = true;
-							BlacklistFlag = BlacklistType.Permanent;
-							return false;
-						}
 
 						// Bag it!
 						Radius = 5.1f;
@@ -267,13 +306,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 							return false;
 						}
 
-						if (IsCorpseContainer && FunkyBaseExtension.Settings.Targeting.IgnoreCorpses)
-						{
-							IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;
-							NeedsRemoved = true;
-							BlacklistFlag = BlacklistType.Permanent;
-							return false;
-						}
+						
 
 						// Superlist for rare chests etc.
 						if (IsResplendantChest)

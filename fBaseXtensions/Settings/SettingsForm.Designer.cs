@@ -57,6 +57,9 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.tabPage8 = new System.Windows.Forms.TabPage();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.label29 = new System.Windows.Forms.Label();
+			this.flowLayoutPanel_ClusteringUnitExceptions = new System.Windows.Forms.FlowLayoutPanel();
+			this.cb_ClusterUnitException_RareElite = new System.Windows.Forms.CheckBox();
 			this.gb_ClusteringOptions = new System.Windows.Forms.GroupBox();
 			this.panel6 = new System.Windows.Forms.Panel();
 			this.tb_ClusterLogicDisableHealth = new System.Windows.Forms.TrackBar();
@@ -144,6 +147,13 @@
 			this.tabControl3 = new System.Windows.Forms.TabControl();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.groupBox8 = new System.Windows.Forms.GroupBox();
+			this.groupBox10 = new System.Windows.Forms.GroupBox();
+			this.cb_TargetingIgnoreRareChests = new System.Windows.Forms.CheckBox();
+			this.cb_TargetingIgnoreNormalChests = new System.Windows.Forms.CheckBox();
+			this.cb_TargetingIgnoreFloorContainers = new System.Windows.Forms.CheckBox();
+			this.cb_TargetingIgnoreWeaponRacks = new System.Windows.Forms.CheckBox();
+			this.cb_TargetingIgnoreArmorRacks = new System.Windows.Forms.CheckBox();
+			this.cb_TargetingIgnoreCorpses = new System.Windows.Forms.CheckBox();
 			this.groupBox12 = new System.Windows.Forms.GroupBox();
 			this.cb_TargetingShrineEmpowered = new System.Windows.Forms.CheckBox();
 			this.cb_TargetingShrineProtection = new System.Windows.Forms.CheckBox();
@@ -160,7 +170,6 @@
 			this.comboBox_TargetingGoblinPriority = new System.Windows.Forms.ComboBox();
 			this.label17 = new System.Windows.Forms.Label();
 			this.cb_TargetingIncreaseRangeRareChests = new System.Windows.Forms.CheckBox();
-			this.cb_TargetingIgnoreCorpses = new System.Windows.Forms.CheckBox();
 			this.cb_TargetingIgnoreRareElites = new System.Windows.Forms.CheckBox();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
 			this.flowLayout_TargetRanges = new System.Windows.Forms.FlowLayoutPanel();
@@ -256,12 +265,10 @@
 			this.btn_DumpSkillsCache = new System.Windows.Forms.Button();
 			this.btn_DumpTargetingCache = new System.Windows.Forms.Button();
 			this.btn_DumpBountyCache = new System.Windows.Forms.Button();
+			this.btn_DumpProfileBehavior = new System.Windows.Forms.Button();
 			this.btn_DumpInventory = new System.Windows.Forms.Button();
 			this.btn_Test = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.flowLayoutPanel_ClusteringUnitExceptions = new System.Windows.Forms.FlowLayoutPanel();
-			this.cb_ClusterUnitException_RareElite = new System.Windows.Forms.CheckBox();
-			this.label29 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabControl_Combat.SuspendLayout();
@@ -278,6 +285,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.tb_GlobeHealth)).BeginInit();
 			this.tabPage8.SuspendLayout();
 			this.groupBox3.SuspendLayout();
+			this.flowLayoutPanel_ClusteringUnitExceptions.SuspendLayout();
 			this.gb_ClusteringOptions.SuspendLayout();
 			this.panel6.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tb_ClusterLogicDisableHealth)).BeginInit();
@@ -316,6 +324,7 @@
 			this.tabControl3.SuspendLayout();
 			this.tabPage4.SuspendLayout();
 			this.groupBox8.SuspendLayout();
+			this.groupBox10.SuspendLayout();
 			this.groupBox12.SuspendLayout();
 			this.groupBox9.SuspendLayout();
 			this.panel_TargetingPriorityCloseRangeMinUnits.SuspendLayout();
@@ -351,7 +360,6 @@
 			this.tabPage15.SuspendLayout();
 			this.tabPage16.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
-			this.flowLayoutPanel_ClusteringUnitExceptions.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -656,6 +664,37 @@
 			this.groupBox3.TabIndex = 0;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Clustering";
+			// 
+			// label29
+			// 
+			this.label29.AutoSize = true;
+			this.label29.Location = new System.Drawing.Point(267, 22);
+			this.label29.Name = "label29";
+			this.label29.Size = new System.Drawing.Size(116, 13);
+			this.label29.TabIndex = 9;
+			this.label29.Text = "Cluster Unit Exceptions";
+			// 
+			// flowLayoutPanel_ClusteringUnitExceptions
+			// 
+			this.flowLayoutPanel_ClusteringUnitExceptions.Controls.Add(this.cb_ClusterUnitException_RareElite);
+			this.flowLayoutPanel_ClusteringUnitExceptions.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.flowLayoutPanel_ClusteringUnitExceptions.Location = new System.Drawing.Point(270, 38);
+			this.flowLayoutPanel_ClusteringUnitExceptions.Name = "flowLayoutPanel_ClusteringUnitExceptions";
+			this.flowLayoutPanel_ClusteringUnitExceptions.Size = new System.Drawing.Size(375, 479);
+			this.flowLayoutPanel_ClusteringUnitExceptions.TabIndex = 8;
+			// 
+			// cb_ClusterUnitException_RareElite
+			// 
+			this.cb_ClusterUnitException_RareElite.AutoSize = true;
+			this.cb_ClusterUnitException_RareElite.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.cb_ClusterUnitException_RareElite.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_ClusterUnitException_RareElite.Location = new System.Drawing.Point(3, 3);
+			this.cb_ClusterUnitException_RareElite.Name = "cb_ClusterUnitException_RareElite";
+			this.cb_ClusterUnitException_RareElite.Size = new System.Drawing.Size(93, 21);
+			this.cb_ClusterUnitException_RareElite.TabIndex = 0;
+			this.cb_ClusterUnitException_RareElite.Text = "Rare/Elites";
+			this.cb_ClusterUnitException_RareElite.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.cb_ClusterUnitException_RareElite.UseVisualStyleBackColor = true;
 			// 
 			// gb_ClusteringOptions
 			// 
@@ -1380,7 +1419,6 @@
 			this.cb_MonkMaintainSweepingWinds.TabIndex = 1;
 			this.cb_MonkMaintainSweepingWinds.Text = "Maintain Sweeping Winds";
 			this.cb_MonkMaintainSweepingWinds.UseVisualStyleBackColor = true;
-			this.cb_MonkMaintainSweepingWinds.CheckedChanged += new System.EventHandler(this.cb_MonkMaintainSweepingWinds_CheckedChanged);
 			// 
 			// cb_MonkSpamMantra
 			// 
@@ -1391,7 +1429,6 @@
 			this.cb_MonkSpamMantra.TabIndex = 0;
 			this.cb_MonkSpamMantra.Text = "Spam Mantra";
 			this.cb_MonkSpamMantra.UseVisualStyleBackColor = true;
-			this.cb_MonkSpamMantra.CheckedChanged += new System.EventHandler(this.cb_MonkSpamMantra_CheckedChanged);
 			// 
 			// tabPage_WitchDoctor
 			// 
@@ -1556,12 +1593,12 @@
 			// 
 			// groupBox8
 			// 
+			this.groupBox8.Controls.Add(this.groupBox10);
 			this.groupBox8.Controls.Add(this.groupBox12);
 			this.groupBox8.Controls.Add(this.groupBox9);
 			this.groupBox8.Controls.Add(this.comboBox_TargetingGoblinPriority);
 			this.groupBox8.Controls.Add(this.label17);
 			this.groupBox8.Controls.Add(this.cb_TargetingIncreaseRangeRareChests);
-			this.groupBox8.Controls.Add(this.cb_TargetingIgnoreCorpses);
 			this.groupBox8.Controls.Add(this.cb_TargetingIgnoreRareElites);
 			this.groupBox8.Dock = System.Windows.Forms.DockStyle.Top;
 			this.groupBox8.Location = new System.Drawing.Point(3, 3);
@@ -1570,6 +1607,87 @@
 			this.groupBox8.TabIndex = 0;
 			this.groupBox8.TabStop = false;
 			this.groupBox8.Text = "Targeting Options";
+			// 
+			// groupBox10
+			// 
+			this.groupBox10.Controls.Add(this.cb_TargetingIgnoreRareChests);
+			this.groupBox10.Controls.Add(this.cb_TargetingIgnoreNormalChests);
+			this.groupBox10.Controls.Add(this.cb_TargetingIgnoreFloorContainers);
+			this.groupBox10.Controls.Add(this.cb_TargetingIgnoreWeaponRacks);
+			this.groupBox10.Controls.Add(this.cb_TargetingIgnoreArmorRacks);
+			this.groupBox10.Controls.Add(this.cb_TargetingIgnoreCorpses);
+			this.groupBox10.Location = new System.Drawing.Point(6, 317);
+			this.groupBox10.Name = "groupBox10";
+			this.groupBox10.Size = new System.Drawing.Size(244, 182);
+			this.groupBox10.TabIndex = 8;
+			this.groupBox10.TabStop = false;
+			this.groupBox10.Text = "Containers";
+			// 
+			// cb_TargetingIgnoreRareChests
+			// 
+			this.cb_TargetingIgnoreRareChests.AutoSize = true;
+			this.cb_TargetingIgnoreRareChests.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_TargetingIgnoreRareChests.Location = new System.Drawing.Point(6, 154);
+			this.cb_TargetingIgnoreRareChests.Name = "cb_TargetingIgnoreRareChests";
+			this.cb_TargetingIgnoreRareChests.Size = new System.Drawing.Size(200, 21);
+			this.cb_TargetingIgnoreRareChests.TabIndex = 6;
+			this.cb_TargetingIgnoreRareChests.Text = "Ignore Looting Rare Chests";
+			this.cb_TargetingIgnoreRareChests.UseVisualStyleBackColor = true;
+			// 
+			// cb_TargetingIgnoreNormalChests
+			// 
+			this.cb_TargetingIgnoreNormalChests.AutoSize = true;
+			this.cb_TargetingIgnoreNormalChests.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_TargetingIgnoreNormalChests.Location = new System.Drawing.Point(6, 127);
+			this.cb_TargetingIgnoreNormalChests.Name = "cb_TargetingIgnoreNormalChests";
+			this.cb_TargetingIgnoreNormalChests.Size = new System.Drawing.Size(214, 21);
+			this.cb_TargetingIgnoreNormalChests.TabIndex = 5;
+			this.cb_TargetingIgnoreNormalChests.Text = "Ignore Looting Normal Chests";
+			this.cb_TargetingIgnoreNormalChests.UseVisualStyleBackColor = true;
+			// 
+			// cb_TargetingIgnoreFloorContainers
+			// 
+			this.cb_TargetingIgnoreFloorContainers.AutoSize = true;
+			this.cb_TargetingIgnoreFloorContainers.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_TargetingIgnoreFloorContainers.Location = new System.Drawing.Point(6, 100);
+			this.cb_TargetingIgnoreFloorContainers.Name = "cb_TargetingIgnoreFloorContainers";
+			this.cb_TargetingIgnoreFloorContainers.Size = new System.Drawing.Size(226, 21);
+			this.cb_TargetingIgnoreFloorContainers.TabIndex = 4;
+			this.cb_TargetingIgnoreFloorContainers.Text = "Ignore Looting Floor Containers";
+			this.cb_TargetingIgnoreFloorContainers.UseVisualStyleBackColor = true;
+			// 
+			// cb_TargetingIgnoreWeaponRacks
+			// 
+			this.cb_TargetingIgnoreWeaponRacks.AutoSize = true;
+			this.cb_TargetingIgnoreWeaponRacks.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_TargetingIgnoreWeaponRacks.Location = new System.Drawing.Point(6, 73);
+			this.cb_TargetingIgnoreWeaponRacks.Name = "cb_TargetingIgnoreWeaponRacks";
+			this.cb_TargetingIgnoreWeaponRacks.Size = new System.Drawing.Size(218, 21);
+			this.cb_TargetingIgnoreWeaponRacks.TabIndex = 3;
+			this.cb_TargetingIgnoreWeaponRacks.Text = "Ignore Looting Weapon Racks";
+			this.cb_TargetingIgnoreWeaponRacks.UseVisualStyleBackColor = true;
+			// 
+			// cb_TargetingIgnoreArmorRacks
+			// 
+			this.cb_TargetingIgnoreArmorRacks.AutoSize = true;
+			this.cb_TargetingIgnoreArmorRacks.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_TargetingIgnoreArmorRacks.Location = new System.Drawing.Point(6, 46);
+			this.cb_TargetingIgnoreArmorRacks.Name = "cb_TargetingIgnoreArmorRacks";
+			this.cb_TargetingIgnoreArmorRacks.Size = new System.Drawing.Size(203, 21);
+			this.cb_TargetingIgnoreArmorRacks.TabIndex = 2;
+			this.cb_TargetingIgnoreArmorRacks.Text = "Ignore Looting Armor Racks";
+			this.cb_TargetingIgnoreArmorRacks.UseVisualStyleBackColor = true;
+			// 
+			// cb_TargetingIgnoreCorpses
+			// 
+			this.cb_TargetingIgnoreCorpses.AutoSize = true;
+			this.cb_TargetingIgnoreCorpses.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cb_TargetingIgnoreCorpses.Location = new System.Drawing.Point(6, 19);
+			this.cb_TargetingIgnoreCorpses.Name = "cb_TargetingIgnoreCorpses";
+			this.cb_TargetingIgnoreCorpses.Size = new System.Drawing.Size(174, 21);
+			this.cb_TargetingIgnoreCorpses.TabIndex = 1;
+			this.cb_TargetingIgnoreCorpses.Text = "Ignore Looting Corpses";
+			this.cb_TargetingIgnoreCorpses.UseVisualStyleBackColor = true;
 			// 
 			// groupBox12
 			// 
@@ -1737,17 +1855,6 @@
 			this.cb_TargetingIncreaseRangeRareChests.TabIndex = 2;
 			this.cb_TargetingIncreaseRangeRareChests.Text = "Increase Range for Rare Chests";
 			this.cb_TargetingIncreaseRangeRareChests.UseVisualStyleBackColor = true;
-			// 
-			// cb_TargetingIgnoreCorpses
-			// 
-			this.cb_TargetingIgnoreCorpses.AutoSize = true;
-			this.cb_TargetingIgnoreCorpses.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cb_TargetingIgnoreCorpses.Location = new System.Drawing.Point(6, 42);
-			this.cb_TargetingIgnoreCorpses.Name = "cb_TargetingIgnoreCorpses";
-			this.cb_TargetingIgnoreCorpses.Size = new System.Drawing.Size(174, 21);
-			this.cb_TargetingIgnoreCorpses.TabIndex = 1;
-			this.cb_TargetingIgnoreCorpses.Text = "Ignore Looting Corpses";
-			this.cb_TargetingIgnoreCorpses.UseVisualStyleBackColor = true;
 			// 
 			// cb_TargetingIgnoreRareElites
 			// 
@@ -2738,6 +2845,7 @@
 			this.flowLayoutPanel1.Controls.Add(this.btn_DumpSkillsCache);
 			this.flowLayoutPanel1.Controls.Add(this.btn_DumpTargetingCache);
 			this.flowLayoutPanel1.Controls.Add(this.btn_DumpBountyCache);
+			this.flowLayoutPanel1.Controls.Add(this.btn_DumpProfileBehavior);
 			this.flowLayoutPanel1.Controls.Add(this.btn_DumpInventory);
 			this.flowLayoutPanel1.Controls.Add(this.btn_Test);
 			this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -2828,9 +2936,19 @@
 			this.btn_DumpBountyCache.UseVisualStyleBackColor = true;
 			this.btn_DumpBountyCache.Click += new System.EventHandler(this.btn_DumpBountyCache_Click);
 			// 
+			// btn_DumpProfileBehavior
+			// 
+			this.btn_DumpProfileBehavior.Location = new System.Drawing.Point(3, 61);
+			this.btn_DumpProfileBehavior.Name = "btn_DumpProfileBehavior";
+			this.btn_DumpProfileBehavior.Size = new System.Drawing.Size(137, 23);
+			this.btn_DumpProfileBehavior.TabIndex = 11;
+			this.btn_DumpProfileBehavior.Text = "ProfileBehavior";
+			this.btn_DumpProfileBehavior.UseVisualStyleBackColor = true;
+			this.btn_DumpProfileBehavior.Click += new System.EventHandler(this.btn_DumpProfileBehavior_Click);
+			// 
 			// btn_DumpInventory
 			// 
-			this.btn_DumpInventory.Location = new System.Drawing.Point(3, 61);
+			this.btn_DumpInventory.Location = new System.Drawing.Point(146, 61);
 			this.btn_DumpInventory.Name = "btn_DumpInventory";
 			this.btn_DumpInventory.Size = new System.Drawing.Size(137, 23);
 			this.btn_DumpInventory.TabIndex = 9;
@@ -2840,7 +2958,7 @@
 			// 
 			// btn_Test
 			// 
-			this.btn_Test.Location = new System.Drawing.Point(146, 61);
+			this.btn_Test.Location = new System.Drawing.Point(289, 61);
 			this.btn_Test.Name = "btn_Test";
 			this.btn_Test.Size = new System.Drawing.Size(137, 23);
 			this.btn_Test.TabIndex = 10;
@@ -2853,38 +2971,6 @@
 			this.toolTip1.AutoPopDelay = 5000;
 			this.toolTip1.InitialDelay = 1000;
 			this.toolTip1.ReshowDelay = 500;
-			// 
-			// flowLayoutPanel_ClusteringUnitExceptions
-			// 
-			this.flowLayoutPanel_ClusteringUnitExceptions.Controls.Add(this.cb_ClusterUnitException_RareElite);
-			this.flowLayoutPanel_ClusteringUnitExceptions.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-			this.flowLayoutPanel_ClusteringUnitExceptions.Location = new System.Drawing.Point(270, 38);
-			this.flowLayoutPanel_ClusteringUnitExceptions.Name = "flowLayoutPanel_ClusteringUnitExceptions";
-			this.flowLayoutPanel_ClusteringUnitExceptions.Size = new System.Drawing.Size(375, 479);
-			this.flowLayoutPanel_ClusteringUnitExceptions.TabIndex = 8;
-			// 
-			// cb_ClusterUnitException_RareElite
-			// 
-			this.cb_ClusterUnitException_RareElite.AutoEllipsis = true;
-			this.cb_ClusterUnitException_RareElite.AutoSize = true;
-			this.cb_ClusterUnitException_RareElite.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.cb_ClusterUnitException_RareElite.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cb_ClusterUnitException_RareElite.Location = new System.Drawing.Point(3, 3);
-			this.cb_ClusterUnitException_RareElite.Name = "cb_ClusterUnitException_RareElite";
-			this.cb_ClusterUnitException_RareElite.Size = new System.Drawing.Size(93, 21);
-			this.cb_ClusterUnitException_RareElite.TabIndex = 0;
-			this.cb_ClusterUnitException_RareElite.Text = "Rare/Elites";
-			this.cb_ClusterUnitException_RareElite.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.cb_ClusterUnitException_RareElite.UseVisualStyleBackColor = true;
-			// 
-			// label29
-			// 
-			this.label29.AutoSize = true;
-			this.label29.Location = new System.Drawing.Point(267, 22);
-			this.label29.Name = "label29";
-			this.label29.Size = new System.Drawing.Size(116, 13);
-			this.label29.TabIndex = 9;
-			this.label29.Text = "Cluster Unit Exceptions";
 			// 
 			// SettingsForm
 			// 
@@ -2925,6 +3011,8 @@
 			this.tabPage8.ResumeLayout(false);
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
+			this.flowLayoutPanel_ClusteringUnitExceptions.ResumeLayout(false);
+			this.flowLayoutPanel_ClusteringUnitExceptions.PerformLayout();
 			this.gb_ClusteringOptions.ResumeLayout(false);
 			this.panel6.ResumeLayout(false);
 			this.panel6.PerformLayout();
@@ -2982,6 +3070,8 @@
 			this.tabPage4.ResumeLayout(false);
 			this.groupBox8.ResumeLayout(false);
 			this.groupBox8.PerformLayout();
+			this.groupBox10.ResumeLayout(false);
+			this.groupBox10.PerformLayout();
 			this.groupBox12.ResumeLayout(false);
 			this.groupBox12.PerformLayout();
 			this.groupBox9.ResumeLayout(false);
@@ -3036,8 +3126,6 @@
 			this.tabPage16.ResumeLayout(false);
 			this.tabPage16.PerformLayout();
 			this.flowLayoutPanel1.ResumeLayout(false);
-			this.flowLayoutPanel_ClusteringUnitExceptions.ResumeLayout(false);
-			this.flowLayoutPanel_ClusteringUnitExceptions.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -3280,6 +3368,13 @@
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_ClusteringUnitExceptions;
 		private System.Windows.Forms.CheckBox cb_ClusterUnitException_RareElite;
 		private System.Windows.Forms.Label label29;
+		private System.Windows.Forms.Button btn_DumpProfileBehavior;
+		private System.Windows.Forms.GroupBox groupBox10;
+		private System.Windows.Forms.CheckBox cb_TargetingIgnoreFloorContainers;
+		private System.Windows.Forms.CheckBox cb_TargetingIgnoreWeaponRacks;
+		private System.Windows.Forms.CheckBox cb_TargetingIgnoreArmorRacks;
+		private System.Windows.Forms.CheckBox cb_TargetingIgnoreRareChests;
+		private System.Windows.Forms.CheckBox cb_TargetingIgnoreNormalChests;
 		//
 	}
 }

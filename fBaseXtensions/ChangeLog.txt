@@ -1,4 +1,16 @@
-﻿v1.1.1.1
+﻿v1.1.1.2
+	Unit target testing will now ignore range and line of sight during Rift Trials.
+	Destructibles will now be ignored when 45+ yards away (no updating animation)
+	Added Targeting Option for Containers
+		-Ignore Armor Racks, Item Racks, Floor Containers, Normal Chests, and Rare Chests.
+	Fixed Monk Settings not saving correctly.
+	Monk
+		Dashing Strike Added any unit 35+ yards away condition with Jawbreaker equipped
+		Wave of Light now usable as ranged when Tzo Krin is equipped
+		Mantras will be spammed when setting is enabled.
+
+
+v1.1.1.1
 	Fixed Line of Sight issue for units. (Was ignoring them randomly due to Rift Trial Quest)
 	AcceptTieredRiftReward
 		-Gems of level 50 are ignored now (was 25?)

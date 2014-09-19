@@ -40,6 +40,15 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			{
 				if (!base.ObjectIsValidForTargeting) return false;
 
+				float radiusDistance = RadiusDistance;
+
+				//Ignore Destructibles that are not nearby..
+				if (CentreDistance>40f && radiusDistance>InteractionRange)
+				{
+					IgnoredType = TargetingIgnoreTypes.DistanceFailure;
+					BlacklistLoops = 10;
+					return false;
+				}
 
 				////Get current animation state! (Idle = Untouched, Dead = Destroyed)
 				UpdateAnimationState();
@@ -87,7 +96,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 
 
-				float radiusDistance = RadiusDistance;
+				
 				//Barricade and path intersects the actorsphere radius..
 				//Some barricades may be lower than ourself, or our destination is high enough to raycast past the object. So we add a little to the Z of the obstacle.
 				//The best method would be to get the hight of the object and compare it to our current Z-height if we are nearly within radius distance of the object.

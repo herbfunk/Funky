@@ -19,5 +19,10 @@ namespace fBaseXtensions.Cache.Internal.Enums
 
 		Cursed=256,
 
+		FloorContainer=512,
+
+		ArmorRack=1024,
+		WeaponRack=2048,
+
 	}
 }

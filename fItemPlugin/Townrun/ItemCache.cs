@@ -9,14 +9,14 @@ namespace fItemPlugin.Townrun
 	{
 		public ItemCache()
 		{
-			KeepItems = new HashSet<CacheACDItem>();
-			SalvageItems = new HashSet<CacheACDItem>();
-			SellItems = new HashSet<CacheACDItem>();
+			KeepItems = new List<CacheACDItem>();
+			SalvageItems = new List<CacheACDItem>();
+			SellItems = new List<CacheACDItem>();
 		}
-		
-		public HashSet<CacheACDItem> KeepItems { get; set; }
-		public HashSet<CacheACDItem> SalvageItems { get; set; }
-		public HashSet<CacheACDItem> SellItems { get; set; }
+
+		public List<CacheACDItem> KeepItems { get; set; }
+		public List<CacheACDItem> SalvageItems { get; set; }
+		public List<CacheACDItem> SellItems { get; set; }
 
 		private int InventoryRowCombine(int i)
 		{
@@ -28,7 +28,7 @@ namespace fItemPlugin.Townrun
 		public void sortSellList()
 		{
 			List<CacheACDItem> sortedList = SellItems.OrderBy(o => InventoryRowCombine(o.invRow)).ThenBy(o => o.invCol).ToList();
-			var newSortedHashSet = new HashSet<CacheACDItem>();
+			var newSortedHashSet = new List<CacheACDItem>();
 			foreach (var item in sortedList)
 			{
 				newSortedHashSet.Add(item);
@@ -40,7 +40,7 @@ namespace fItemPlugin.Townrun
 		public void sortSalvagelist()
 		{
 			List<CacheACDItem> sortedList = SalvageItems.OrderBy(o => InventoryRowCombine(o.invRow)).ThenBy(o => o.invCol).ToList();
-			var newSortedHashSet = new HashSet<CacheACDItem>();
+			var newSortedHashSet = new List<CacheACDItem>();
 			foreach (var item in sortedList)
 			{
 				newSortedHashSet.Add(item);

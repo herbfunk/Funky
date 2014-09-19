@@ -5692,6 +5692,27 @@
       <EntryType>Unit</EntryType>
       <UnitFlags>Unique</UnitFlags>
     </UnitEntry>
+    <UnitEntry>
+      <SnoId>4291</SnoId>
+      <InternalName>Goatman_Shaman_C-195150</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4284</SnoId>
+      <InternalName>Goatman_Melee_C-195149</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>4288</SnoId>
+      <InternalName>Goatman_Ranged_C-195199</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Ranged</UnitFlags>
+    </UnitEntry>
   </UnitEntries>
   <UnitPetEntries>
     <UnitPetEntry>

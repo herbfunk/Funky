@@ -9,7 +9,7 @@ namespace fBaseXtensions.Game.Hero
 	public static class Hotbar
 	{
 		public static HashSet<SNOPower> PassivePowers = new HashSet<SNOPower>();
-		public static Dictionary<int, int> CurrentBuffs = new Dictionary<int, int>();
+		public static Dictionary<int, HotbarBuff> CurrentBuffs = new Dictionary<int, HotbarBuff>();
 		public static List<int> CurrentDebuffs = new List<int>();
 		public static List<HotbarSkill> HotbarSkills = new List<HotbarSkill>();
 
@@ -133,18 +133,24 @@ namespace fBaseXtensions.Game.Hero
 		///</summary>
 		private static void RefreshCurrentBuffs()
 		{
-			CurrentBuffs = new Dictionary<int, int>();
+			CurrentBuffs = new Dictionary<int, HotbarBuff>();
 			using (ZetaDia.Memory.AcquireFrame())
 			{
 				foreach (var item in ZetaDia.Me.GetAllBuffs())
 				{
-					if (CurrentBuffs.ContainsKey(item.SNOId))
-						continue;
+					int snoid = item.SNOId;
+					HotbarBuff b = new HotbarBuff(item);
 
-					if (PowerStackImportant.Contains(item.SNOId))
-						CurrentBuffs.Add(item.SNOId, item.StackCount);
-					else
-						CurrentBuffs.Add(item.SNOId, 1);
+					if (CurrentBuffs.ContainsKey(snoid))
+					{
+						if (!CurrentBuffs[snoid].Equals(b))
+						{
+							CurrentBuffs[snoid] = b;
+						}
+						continue;
+					}
+
+					CurrentBuffs.Add(snoid, b);
 				}
 			}
 			_lastRefreshedBuffs=DateTime.Now;
@@ -152,7 +158,8 @@ namespace fBaseXtensions.Game.Hero
 		internal static readonly HashSet<int> PowerStackImportant = new HashSet<int>
 		{
 			(int)SNOPower.Witchdoctor_SoulHarvest,
-			(int)SNOPower.Wizard_EnergyTwister
+			(int)SNOPower.Wizard_EnergyTwister,
+			(int)SNOPower.Monk_SweepingWind,
 		};
 		///<summary>
 		///
@@ -175,10 +182,10 @@ namespace fBaseXtensions.Game.Hero
 		{
 			if (ShouldRefreshBuffs) RefreshCurrentBuffs();
 
-			int iStacks;
-			if (CurrentBuffs.TryGetValue((int)thispower, out iStacks))
+			HotbarBuff buff;
+			if (CurrentBuffs.TryGetValue((int)thispower, out buff))
 			{
-				return iStacks;
+				return buff.StackCount;
 			}
 			return 0;
 		}
@@ -229,6 +236,52 @@ namespace fBaseXtensions.Game.Hero
 				}
 				HotbarSkill p = (HotbarSkill)obj;
 				return Power == p.Power && RuneIndex == p.RuneIndex;
+			}
+		}
+
+		public class HotbarBuff
+		{
+			public int SNOId { get; set; }
+			public int StackCount { get; set; }
+			public bool IsCancelable { get; set; }
+
+			public HotbarBuff()
+			{
+				SNOId = -1;
+				StackCount = 0;
+				IsCancelable = false;
+			}
+			public HotbarBuff(Buff buff)
+			{
+				SNOId = buff.SNOId;
+				StackCount = buff.StackCount;
+				IsCancelable = buff.IsCancelable;
+			}
+
+			public override string ToString()
+			{
+				string Power = Enum.GetName(typeof(SNOPower), SNOId);
+				return String.Format("{0}  Stack Count {1}  IsCancelable {2}",
+										Power, StackCount, IsCancelable);
+			}
+
+			public override int GetHashCode()
+			{
+				return SNOId;
+			}
+
+			public override bool Equals(object obj)
+			{
+				//Check for null and compare run-time types. 
+				if (obj == null || GetType() != obj.GetType())
+				{
+					return false;
+				}
+				else
+				{
+					HotbarBuff p = (HotbarBuff)obj;
+					return (SNOId == p.SNOId) && (StackCount==p.StackCount) && (IsCancelable==p.IsCancelable);
+				}
 			}
 		}
 	}

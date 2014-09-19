@@ -277,7 +277,7 @@ namespace fBaseXtensions.XML
 		{
 			if (MovingItemList.Count > 0)
 			{
-				Logger.DBLog.DebugFormat("Moving Items!");
+				//Logger.DBLog.DebugFormat("Moving Items!");
 
 				if (!Delay.Test()) return true;
 

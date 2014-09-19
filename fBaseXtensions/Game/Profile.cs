@@ -43,6 +43,21 @@ namespace fBaseXtensions.Game
 			OutOfCombat = Interactive | TownPortal | TownRun,
 		}
 
+		public string DebugString
+		{
+			get
+			{
+				return String.Format("Current Profile Behavior {0}\r\n" +
+				                     "Behavior Type {1}\r\n" +
+									 "IsInteractive {2}\r\n" +
+									 "IsOutOfCombat {3}\r\n",
+									 CurrentProfileBehavior.GetType().ToString(),
+									 CurrentProfileBehaviorType,
+									 ProfileBehaviorIsInteractive,
+									 ProfileBehaviorIsOutOfCombat);
+			}
+		}
+
 		private ProfileBehaviorTypes _currentProfileBehaviorType=ProfileBehaviorTypes.Unknown;
 		public ProfileBehaviorTypes CurrentProfileBehaviorType
 		{

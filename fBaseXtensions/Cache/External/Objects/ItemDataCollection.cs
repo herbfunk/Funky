@@ -117,7 +117,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(3432, PluginDroppedItemTypes.Boots, "Boots_norm_base_01-3932"),
 				new DroppedItemEntry(205624, PluginDroppedItemTypes.Boots, "Boots_norm_unique_085-3568"),
 				new DroppedItemEntry(197224, PluginDroppedItemTypes.Boots, "Boots_norm_unique_045-12030"),
-
+				new DroppedItemEntry(338031, PluginDroppedItemTypes.Boots, "x1_Boots_norm_set_08-524848"),
 
 				//
 				new DroppedItemEntry(56323, PluginDroppedItemTypes.Bracers,"Bracers_norm_base_01"),
@@ -168,6 +168,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(181700, PluginDroppedItemTypes.Axe, "Axe_norm_unique_flippy_05-6015"),
 				new DroppedItemEntry(116398, PluginDroppedItemTypes.Axe, "Axe_norm_unique_flippy_04-8761"),
 				new DroppedItemEntry(116397, PluginDroppedItemTypes.Axe, "Axe_norm_unique_flippy_03-24708"),
+				new DroppedItemEntry(116390, PluginDroppedItemTypes.Axe, "Axe_norm_unique_flippy_01-681283"),
 
 				//
 				new DroppedItemEntry(6326, PluginDroppedItemTypes.AxeTwoHanded, "twoHandedAxe_norm_base_flippy_03"),
@@ -190,6 +191,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(335188, PluginDroppedItemTypes.Bow, "x1_bow_norm_base_flippy_01-5473"),
 				new DroppedItemEntry(3455, PluginDroppedItemTypes.Bow, "Bow_norm_base_flippy_03-1103"),
 				new DroppedItemEntry(3458, PluginDroppedItemTypes.Bow, "Bow_norm_base_flippy_06-13162"),
+				new DroppedItemEntry(221942, PluginDroppedItemTypes.Bow, "Bow_norm_unique_flippy_07-25191"),
+
 
 				//
 				new DroppedItemEntry(145927, PluginDroppedItemTypes.CeremonialKnife, "ceremonialDagger_norm_base_flippy_03-7239"),
@@ -220,6 +223,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(335191, PluginDroppedItemTypes.Crossbow, "x1_xbow_norm_base_flippy_01-13054"),
 				new DroppedItemEntry(221763, PluginDroppedItemTypes.Crossbow, "XBow_norm_unique_flippy_06-30319"),
 				new DroppedItemEntry(98164, PluginDroppedItemTypes.Crossbow, "XBow_norm_unique_flippy_01-18524"),
+				new DroppedItemEntry(204904, PluginDroppedItemTypes.Crossbow, "XBow_norm_unique_flippy_05-5224"),
 
 				//
 				new DroppedItemEntry(3843, PluginDroppedItemTypes.Daibo, "combatStaff_norm_base_flippy_03-15187"),
@@ -230,6 +234,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(335290, PluginDroppedItemTypes.Daibo, "x1_combatStaff_norm_base_flippy_01-93351"),
 				new DroppedItemEntry(271762, PluginDroppedItemTypes.Daibo, "x1_combatStaff_norm_unique_flippy_10-1544"),
 				new DroppedItemEntry(197130, PluginDroppedItemTypes.Daibo, "combatStaff_norm_unique_flippy_02-7244"),
+				new DroppedItemEntry(212211, PluginDroppedItemTypes.Daibo, "combatStaff_norm_unique_flippy_08-478393"),
 
 				//
 				new DroppedItemEntry(3913, PluginDroppedItemTypes.Dagger, "Dagger_norm_base_flippy_04-7545"),
@@ -261,6 +266,10 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(208943, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_11-37057"),
 				new DroppedItemEntry(145846, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_03-34820"),
 				new DroppedItemEntry(145851, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_04-9255"),
+				new DroppedItemEntry(403776, PluginDroppedItemTypes.FistWeapon, "p1_fistWeapon_norm_unique_flippy_02-491971"),
+				new DroppedItemEntry(130561, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_01-581265"),
+				new DroppedItemEntry(175943, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_07-673823"),
+				new DroppedItemEntry(145845, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_02-229938"),
 
 				//
 				new DroppedItemEntry(247389, PluginDroppedItemTypes.Flail,"x1_flail1H_norm_base_flippy_02"),
@@ -311,6 +320,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(4654, PluginDroppedItemTypes.Mace, "Mace_norm_base_flippy_02-3002"),
 				new DroppedItemEntry(271665, PluginDroppedItemTypes.Mace, "x1_Mace_norm_unique_flippy_12-10103"),
 				new DroppedItemEntry(188207, PluginDroppedItemTypes.Mace, "Mace_norm_unique_flippy_05-4091"),
+				new DroppedItemEntry(188215, PluginDroppedItemTypes.Mace, "Mace_norm_unique_flippy_08-215343"),
 
 				//
 				new DroppedItemEntry(6337, PluginDroppedItemTypes.MaceTwoHanded),
@@ -333,6 +343,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(144193, PluginDroppedItemTypes.MightyWeapon, "mightyWeapon_1H_norm_base_flippy_03-12964"),
 				new DroppedItemEntry(139060, PluginDroppedItemTypes.MightyWeapon, "mightyWeapon_1H_norm_base_flippy_01-2042"),
 				new DroppedItemEntry(335344, PluginDroppedItemTypes.MightyWeapon, "x1_mightyWeapon_1H_norm_base_flippy_01-67717"),
+				new DroppedItemEntry(192187, PluginDroppedItemTypes.MightyWeapon, "mightyWeapon_1H_norm_unique_flippy_01-206685"),
 
 				//
 				new DroppedItemEntry(367171, PluginDroppedItemTypes.MightyWeaponTwoHanded,"x1_mightyWeapon_2H_norm_base_flippy_02"),
@@ -357,6 +368,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(4873, PluginDroppedItemTypes.Polearm, "Polearm_norm_base_flippy_01-14641"),
 				new DroppedItemEntry(192636, PluginDroppedItemTypes.Polearm, "Polearm_norm_unique_flippy_02-53325"),
 				new DroppedItemEntry(272051, PluginDroppedItemTypes.Polearm, "x1_polearm_norm_unique_flippy_05-3091"),
+				new DroppedItemEntry(195841, PluginDroppedItemTypes.Polearm, "Polearm_norm_unique_flippy_03-44247"),
 
 				//
 				new DroppedItemEntry(5457, PluginDroppedItemTypes.Spear,"Spear_norm_base_flippy_01"),
@@ -368,6 +380,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(5461, PluginDroppedItemTypes.Spear, "Spear_norm_base_flippy_05-19801"),
 				new DroppedItemEntry(335181, PluginDroppedItemTypes.Spear, "x1_spear_norm_base_flippy_01-13786"),
 				new DroppedItemEntry(191452, PluginDroppedItemTypes.Spear, "Spear_norm_unique_flippy_01-26405"),
+				new DroppedItemEntry(194313, PluginDroppedItemTypes.Spear, "Spear_norm_unique_flippy_02-18808"),
 
 				//
 				new DroppedItemEntry(5491, PluginDroppedItemTypes.Staff, "Staff_norm_base_flippy_02"),
@@ -407,6 +420,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(222798, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_11-60528"),
 				new DroppedItemEntry(182382, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_04-49182"),
 				new DroppedItemEntry(189592, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_05-3732"),
+				new DroppedItemEntry(376464, PluginDroppedItemTypes.Sword, "x1_Sword_norm_promo_flippy_02-215914"),
 
 				//
 				new DroppedItemEntry(6348, PluginDroppedItemTypes.SwordTwoHanded,"twoHandedSword_norm_base_flippy_02"),
@@ -455,6 +469,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(335041, PluginDroppedItemTypes.CrusaderShield, "x1_CruShield_norm_base_flippy_07-14146"),
 				new DroppedItemEntry(316612, PluginDroppedItemTypes.CrusaderShield, "x1_CruShield_norm_base_flippy_02-3319"),
 				new DroppedItemEntry(335037, PluginDroppedItemTypes.CrusaderShield, "x1_CruShield_norm_base_07-17026"),
+				new DroppedItemEntry(299416, PluginDroppedItemTypes.CrusaderShield, "x1_CruShield_norm_unique_06-460369"),
 
 				//
 				new DroppedItemEntry(139096, PluginDroppedItemTypes.Mojo, "Mojo_norm_base_02-10188"),
@@ -493,6 +508,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(195391, PluginDroppedItemTypes.Shield, "Shield_norm_unique_flippy_07-1304"),
 				new DroppedItemEntry(335210, PluginDroppedItemTypes.Shield, "x1_Shield_norm_base_flippy_01-14924"),
 				new DroppedItemEntry(197715, PluginDroppedItemTypes.Shield, "Shield_norm_unique_flippy_08-10861"),
+				new DroppedItemEntry(61556, PluginDroppedItemTypes.Shield, "Shield_norm_unique_flippy_01-150932"),
 
 				//
 				new DroppedItemEntry(4817, PluginDroppedItemTypes.Source, "orb_norm_base_flippy_03-9464"),
@@ -542,6 +558,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(304319, PluginDroppedItemTypes.Potion,"healthPotion_Console"),
 				new DroppedItemEntry(341333, PluginDroppedItemTypes.Potion, "healthPotion_Legendary_01_x1"),
 				new DroppedItemEntry(344093, PluginDroppedItemTypes.Potion, "healthPotion_Legendary_06_x1-27250"),
+				new DroppedItemEntry(341343, PluginDroppedItemTypes.Potion, "healthPotion_Legendary_03_x1-16986"),
 
 				new DroppedItemEntry(192866, PluginDroppedItemTypes.LoreBook),
 				new DroppedItemEntry(218853, PluginDroppedItemTypes.LoreBook, "Lore_Book_Flippy"),
@@ -1498,6 +1515,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(299454, PluginItemTypes.SpiritStone, LegendaryItemTypes.TheLawsofSeph),
 				new ItemDataEntry(222172, PluginItemTypes.SpiritStone, LegendaryItemTypes.TheMindsEye),
 				new ItemDataEntry(222305, PluginItemTypes.SpiritStone, LegendaryItemTypes.TzoKrinsGaze),
+				new ItemDataEntry(222173, PluginItemTypes.SpiritStone, LegendaryItemTypes.ErlangShen),
 
 				new ItemDataEntry(299442, PluginItemTypes.VoodooMask, LegendaryItemTypes.Carnevil),
 				new ItemDataEntry(299443, PluginItemTypes.VoodooMask, LegendaryItemTypes.MaskofJeram),
@@ -1549,6 +1567,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(175937, PluginItemTypes.FistWeapon, LegendaryItemTypes.TheFistofAzTurrasq),
 				new ItemDataEntry(403775, PluginItemTypes.FistWeapon, LegendaryItemTypes.VengefulWind), //VengefulWind
 				new ItemDataEntry(145851, PluginItemTypes.FistWeapon, LegendaryItemTypes.WonKhimLau),
+				new ItemDataEntry(271957, PluginItemTypes.FistWeapon, LegendaryItemTypes.Jawbreaker),
 
 				new ItemDataEntry(299435, PluginItemTypes.Flail, LegendaryItemTypes.BalefulRemnant),
 				new ItemDataEntry(299428, PluginItemTypes.Flail, LegendaryItemTypes.Darklight),
@@ -1567,6 +1586,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(196409, PluginItemTypes.HandCrossbow, LegendaryItemTypes.Dawn),
 				new ItemDataEntry(271914, PluginItemTypes.HandCrossbow, LegendaryItemTypes.Helltrapper), //Helltrapper
 				new ItemDataEntry(192467, PluginItemTypes.HandCrossbow, LegendaryItemTypes.Izzuccob),
+				new ItemDataEntry(271892, PluginItemTypes.HandCrossbow, LegendaryItemTypes.KmarTenclip),
+
 
 				new ItemDataEntry(188177, PluginItemTypes.Mace, LegendaryItemTypes.Devastator),
 				new ItemDataEntry(188181, PluginItemTypes.Mace, LegendaryItemTypes.EchoingFury),

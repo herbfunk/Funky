@@ -54,6 +54,27 @@ namespace fBaseXtensions.Game
 		private int lastCheckedQuestSNO = -1;
 		private Act CurrentAct = Act.Invalid;
 
+		public static bool GreaterRiftIsActiveQuest
+		{
+			get
+			{
+				return FunkyGame.Bounty.ActiveQuests.ContainsKey(ADVENTUREMODE_RIFTID) &&
+					FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_RIFTID].State == QuestState.InProgress &&
+					(FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_RIFTID].Step==13||
+					FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_RIFTID].Step == 16||
+					FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_RIFTID].Step == 34);
+			}
+		}
+		public static bool RiftTrialIsActiveQuest
+		{
+			get
+			{
+				return FunkyGame.Bounty.ActiveQuests.ContainsKey(ADVENTUREMODE_GREATERRIFT_TRIAL) &&
+					FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_GREATERRIFT_TRIAL].State == QuestState.InProgress;
+			}
+		}
+
+
 		///<summary>
 		///Refreshes Bounty Info Cache
 		///</summary>

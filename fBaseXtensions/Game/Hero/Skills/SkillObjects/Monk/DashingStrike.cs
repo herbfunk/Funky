@@ -23,7 +23,11 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckPlayerIncapacitated);
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Ranged, mindistance: 30));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, mindistance: 30, falseConditionalFlags: TargetProperties.Normal));
-
+			
+			if (Equipment.CheckLegendaryItemCount(LegendaryItemTypes.Jawbreaker))
+			{
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, mindistance: 35));
+			}
 			//SingleUnitCondition.Add(
 			//	new UnitTargetConditions
 			//	{

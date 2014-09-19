@@ -6,19 +6,15 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 {
 	public class MantraOfEvasion : Skill
 	{
-		public override double Cooldown { get { return 3300; } }
+		public override double Cooldown { get { return 3000; } }
 
 		public override bool IsBuff { get { return true; } }
 		public override bool IsSpecialAbility { get { return true; } }
 
 		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
 
-		private bool HasInnaSetBonus = false;
-
 		public override void Initialize()
 		{
-			HasInnaSetBonus = Equipment.CheckLegendaryItemCount(LegendaryItemTypes.InnasMantra, 3);
-
 			WaitVars = new WaitLoops(0, 1, true);
 			Cost = Hotbar.PassivePowers.Contains(SNOPower.Monk_Passive_ChantOfResonance) ? 25 : 50;
 

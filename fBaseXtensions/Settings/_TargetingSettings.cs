@@ -4,6 +4,12 @@
 	{
 		 public bool IgnoreAboveAverageMobs { get; set; }
 		 public bool IgnoreCorpses { get; set; }
+		 public bool IgnoreWeaponRacks { get; set; }
+		 public bool IgnoreArmorRacks { get; set; }
+		 public bool IgnoreFloorContainers { get; set; }
+		 public bool IgnoreNormalChests { get; set; }
+		 public bool IgnoreRareChests { get; set; }
+
 		 public bool MissleDampeningEnforceCloseRange { get; set; }
 		 public int GoblinPriority { get; set; }
 		 public bool[] UseShrineTypes { get; set; }
@@ -21,7 +27,11 @@
 			  IgnoreCorpses=true;
 			  UseExtendedRangeRepChest=false;
 			  MissleDampeningEnforceCloseRange=true;
-
+			  IgnoreWeaponRacks = false;
+			  IgnoreArmorRacks = false;
+			  IgnoreFloorContainers = false;
+			  IgnoreNormalChests = false;
+			  IgnoreRareChests = false;
 		 }
 
 	}

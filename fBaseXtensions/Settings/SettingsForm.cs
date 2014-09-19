@@ -240,7 +240,7 @@ namespace fBaseXtensions.Settings
 						cb_MonkMaintainSweepingWinds.CheckedChanged += bMonkMaintainSweepingWindChecked;
 
 						cb_MonkSpamMantra.Checked = FunkyBaseExtension.Settings.Monk.bMonkSpamMantra;
-						cb_MonkSpamMantra.CheckedChanged += cb_MonkSpamMantra_CheckedChanged;
+						cb_MonkSpamMantra.CheckedChanged += bMonkSpamMantraChecked;
 
 						RemovalTabPages.Remove(tabPage_Monk);
 						break;
@@ -257,6 +257,21 @@ namespace fBaseXtensions.Settings
 
 				cb_TargetingIgnoreCorpses.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreCorpses;
 				cb_TargetingIgnoreCorpses.CheckedChanged += cb_TargetingIgnoreCorpses_CheckedChanged;
+
+				cb_TargetingIgnoreArmorRacks.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreArmorRacks;
+				cb_TargetingIgnoreArmorRacks.CheckedChanged += cb_TargetingIgnoreArmorRacks_CheckedChanged;
+
+				cb_TargetingIgnoreWeaponRacks.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreWeaponRacks;
+				cb_TargetingIgnoreWeaponRacks.CheckedChanged += cb_TargetingIgnoreWeaponRacks_CheckedChanged;
+
+				cb_TargetingIgnoreFloorContainers.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreFloorContainers;
+				cb_TargetingIgnoreFloorContainers.CheckedChanged += cb_TargetingIgnoreFloorContainers_CheckedChanged;
+
+				cb_TargetingIgnoreNormalChests.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreNormalChests;
+				cb_TargetingIgnoreNormalChests.CheckedChanged += cb_TargetingIgnoreNormalChests_CheckedChanged;
+
+				cb_TargetingIgnoreRareChests.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreRareChests;
+				cb_TargetingIgnoreRareChests.CheckedChanged += cb_TargetingIgnoreRareChests_CheckedChanged;
 
 				cb_TargetingIgnoreRareElites.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreAboveAverageMobs;
 				cb_TargetingIgnoreRareElites.CheckedChanged += cb_TargetingIgnoreRareElites_CheckedChanged;
@@ -913,15 +928,6 @@ namespace fBaseXtensions.Settings
 			txt_DemonHunterVaultDelay.Text = Value.ToString();
 		}
 
-		private void cb_MonkSpamMantra_CheckedChanged(object sender, EventArgs e)
-		{
-			FunkyBaseExtension.Settings.Monk.bMonkSpamMantra = !FunkyBaseExtension.Settings.Monk.bMonkSpamMantra;
-		}
-
-		private void cb_MonkMaintainSweepingWinds_CheckedChanged(object sender, EventArgs e)
-		{
-			FunkyBaseExtension.Settings.Monk.bMonkMaintainSweepingWind = !FunkyBaseExtension.Settings.Monk.bMonkMaintainSweepingWind;
-		}
 
 		private void cb_WizardWaitForArchon_CheckedChanged(object sender, EventArgs e)
 		{
@@ -956,6 +962,26 @@ namespace fBaseXtensions.Settings
 		private void cb_TargetingIgnoreCorpses_CheckedChanged(object sender, EventArgs e)
 		{
 			FunkyBaseExtension.Settings.Targeting.IgnoreCorpses = !FunkyBaseExtension.Settings.Targeting.IgnoreCorpses;
+		}
+		private void cb_TargetingIgnoreArmorRacks_CheckedChanged(object sender, EventArgs e)
+		{
+			FunkyBaseExtension.Settings.Targeting.IgnoreArmorRacks = !FunkyBaseExtension.Settings.Targeting.IgnoreArmorRacks;
+		}
+		private void cb_TargetingIgnoreWeaponRacks_CheckedChanged(object sender, EventArgs e)
+		{
+			FunkyBaseExtension.Settings.Targeting.IgnoreWeaponRacks = !FunkyBaseExtension.Settings.Targeting.IgnoreWeaponRacks;
+		}
+		private void cb_TargetingIgnoreFloorContainers_CheckedChanged(object sender, EventArgs e)
+		{
+			FunkyBaseExtension.Settings.Targeting.IgnoreFloorContainers = !FunkyBaseExtension.Settings.Targeting.IgnoreFloorContainers;
+		}
+		private void cb_TargetingIgnoreNormalChests_CheckedChanged(object sender, EventArgs e)
+		{
+			FunkyBaseExtension.Settings.Targeting.IgnoreNormalChests = !FunkyBaseExtension.Settings.Targeting.IgnoreNormalChests;
+		}
+		private void cb_TargetingIgnoreRareChests_CheckedChanged(object sender, EventArgs e)
+		{
+			FunkyBaseExtension.Settings.Targeting.IgnoreRareChests = !FunkyBaseExtension.Settings.Targeting.IgnoreRareChests;
 		}
 
 		private void cb_TargetingIncreaseRangeRareChests_CheckedChanged(object sender, EventArgs e)
@@ -1340,13 +1366,11 @@ namespace fBaseXtensions.Settings
 
 
 				LBDebug.Controls.Add(new UserControlDebugEntry("==Buffs=="));
-				foreach (var item in Hotbar.CurrentBuffs.Keys)
+				foreach (var item in Hotbar.CurrentBuffs.Values)
 				{
-
-					string Power = Enum.GetName(typeof(SNOPower), item);
 					try
 					{
-						LBDebug.Controls.Add(new UserControlDebugEntry(Power));
+						LBDebug.Controls.Add(new UserControlDebugEntry(item.ToString()));
 					}
 					catch (Exception ex)
 					{
@@ -1444,6 +1468,22 @@ namespace fBaseXtensions.Settings
 				{
 					LBDebug.Controls.Add(new UserControlDebugEntry(cacheObject.Value.DebugString));
 				}
+			}
+			catch
+			{
+				LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Exception"));
+			}
+
+			LBDebug.Focus();
+		}
+
+		private void btn_DumpProfileBehavior_Click(object sender, EventArgs e)
+		{
+			LBDebug.Controls.Clear();
+
+			try
+			{
+				LBDebug.Controls.Add(new UserControlDebugEntry(FunkyGame.Profile.DebugString));
 			}
 			catch
 			{
@@ -1562,5 +1602,7 @@ namespace fBaseXtensions.Settings
 			//UI.Game.RiftReward_Choice_UpgradeGem.Click();
 			LBDebug.Focus();
 		}
+
+
 	}
 }

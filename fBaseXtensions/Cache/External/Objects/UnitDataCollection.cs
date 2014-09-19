@@ -917,6 +917,10 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(111580, UnitFlags.Unique | UnitFlags.Ranged, "TriuneSummoner_B_RabbitHoleEvent-20787"),
 				new UnitEntry(468, UnitFlags.Normal, "Triune_Summonable_B-21226"),
 				new UnitEntry(81533, UnitFlags.Unique, "Goatman_Shaman_A_Event_Graveyard_Unique-28733"),
+
+				new UnitEntry(4291, UnitFlags.Normal, "Goatman_Shaman_C-195150"),
+				new UnitEntry(4284, UnitFlags.Normal, "Goatman_Melee_C-195149"),
+				new UnitEntry(4288, UnitFlags.Normal | UnitFlags.Ranged, "Goatman_Ranged_C-195199"),
 			};
 			
 			#endregion

@@ -122,6 +122,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				MonsterFast = theseaffixes.HasFlag(MonsterAffixes.Fast);
 				MonsterFireChains = theseaffixes.HasFlag(MonsterAffixes.FireChains);
 				MonsterAvenger = theseaffixes.HasFlag(MonsterAffixes.Avenger);
+				MonsterFrozen = theseaffixes.HasFlag(MonsterAffixes.Frozen);
 				MonsterNormal = false;
 
 			}
@@ -138,6 +139,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				MonsterElectrified = false;
 				MonsterFireChains = false;
 				MonsterAvenger = false;
+				MonsterFrozen = false;
 				MonsterNormal = !IsBoss && !IsTreasureGoblin;
 			}
 
@@ -161,6 +163,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		public bool MonsterElectrified { get; set; }
 		public bool MonsterTeleport { get; set; }
 		public bool MonsterFast { get; set; }
+		public bool MonsterFrozen { get; set; }
 
 		public bool IsEliteRareUnique
 		{
@@ -814,16 +817,39 @@ namespace fBaseXtensions.Cache.Internal.Objects
 									else if (CurrentHealthPct.Value > 0.25d)
 										Weight += 2000;
 								}
+
+								//Frozen Affix
+								if (MonsterFrozen && !Equipment.ImmuneToFrozen)
+								{
+									Weight += 2000;
+								}
 							}
 						}
-						else
+						else if (UnitPropertyFlags.HasValue)
 						{//Normal Units
 
 							if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.AvoidanceSummoner) || ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Debuffing))
 								Weight += 2000;
 
 							if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Summoner))
+							{
 								Weight += 500;
+								if (BountyCache.RiftTrialIsActiveQuest)
+									Weight += 5000;
+							}
+
+							//Rift Trial
+							if (BountyCache.RiftTrialIsActiveQuest)
+							{
+								//Ranged
+								if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Ranged))
+									Weight += 5000;
+
+								//Tough
+								if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Tough))
+									Weight += 2500;
+							}
+
 						}
 
 						// Give more weight to bosses
@@ -1029,7 +1055,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					distantUnit = true;
 				}
 
-				if (centreDistance > InteractionRange && !distantUnit)
+				if (centreDistance > InteractionRange && !BountyCache.RiftTrialIsActiveQuest && !distantUnit)
 				{
 					//Since special objects are subject to LOS movement, we do not ignore just yet.
 					if (!AllowLOSMovement)
@@ -1042,7 +1068,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					validUnit = true;
 
 				//Line of sight pre-check
-				if (RequiresLOSCheck && (!FunkyGame.Bounty.ActiveQuests.ContainsKey(BountyCache.ADVENTUREMODE_GREATERRIFT_TRIAL) || FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_GREATERRIFT_TRIAL].State!= QuestState.Completed))
+				if (RequiresLOSCheck && !BountyCache.RiftTrialIsActiveQuest)
 				{
 					//Get the wait time since last used LOSTest
 					double lastLOSCheckMS = LineOfSight.LastLOSCheckMS;

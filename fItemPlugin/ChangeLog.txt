@@ -1,4 +1,8 @@
-﻿v1.2.3
+﻿v1.2.4
+Will use salvage all options multiple times now
+
+
+v1.2.3
 Fixed checks for greater rift, added check to gambling.
 
 v1.2.2
