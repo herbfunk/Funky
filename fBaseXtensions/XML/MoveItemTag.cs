@@ -41,6 +41,14 @@ namespace fBaseXtensions.XML
 		[XmlAttribute("Keystone")]
 		public KeystoneType KeyType { get; set; }
 
+		[XmlAttribute("KeystoneHighest")]
+		public bool KeyStoneHighest
+		{
+			get { return _keyStoneHighest; }
+			set { _keyStoneHighest = value; }
+		}
+		private bool _keyStoneHighest=false;
+
 		[XmlAttribute("All")]
 		[XmlAttribute("all")]
 		public bool All
@@ -121,10 +129,15 @@ namespace fBaseXtensions.XML
 			List<ACDItem> Items = 
 				Itemsource == ItemSource.Stash ? ZetaDia.Me.Inventory.StashItems.ToList() : 
 				ZetaDia.Me.Inventory.Backpack.ToList();
-			
+
 
 			if (KeyType != KeystoneType.None)
-				Items = Items.OrderBy(i => i.TieredLootRunKeyLevel).ThenByDescending(i => i.ItemStackQuantity).ToList();
+			{
+				if (!_keyStoneHighest)
+					Items = Items.OrderBy(i => i.TieredLootRunKeyLevel).ThenByDescending(i => i.ItemStackQuantity).ToList();
+				else
+					Items = Items.OrderByDescending(i => i.TieredLootRunKeyLevel).ThenByDescending(i => i.ItemStackQuantity).ToList();
+			}
 
 			foreach (ACDItem tempitem in Items)
 			{
@@ -805,6 +818,9 @@ namespace fBaseXtensions.XML
 		{
 			get { return m_IsDone; }
 		}
+
+		
+
 		public override void ResetCachedDone()
 		{
 			m_IsDone = false;

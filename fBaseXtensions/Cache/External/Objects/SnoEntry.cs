@@ -235,8 +235,11 @@ namespace fBaseXtensions.Cache.External.Objects
 
 	public class UnitPetEntry : SnoEntry
 	{
-		public override EntryType EntryType { get { return EntryType.Pet; } }
-		public override PluginActorType ActorType { get { return PluginActorType.Monster; } }
+		public override EntryType EntryType { get { return _entryType; } }
+		private EntryType _entryType = EntryType.Pet;
+
+		public override PluginActorType ActorType { get { return _actorType; } }
+		private PluginActorType _actorType = PluginActorType.Monster;
 
 		[XmlElement(Type = typeof(PluginDroppedItemTypes)),
 		XmlElement(Type = typeof(PluginGizmoType)),
@@ -252,11 +255,12 @@ namespace fBaseXtensions.Cache.External.Objects
 
 
 		public UnitPetEntry() : base() { }
-		public UnitPetEntry(int snoID, PetTypes type, string internalname = "")
+		public UnitPetEntry(int snoID, PetTypes type, string internalname = "", PluginActorType actortype=PluginActorType.Monster)
 			:base(snoID)
 		{
 			InternalName=internalname;
 			_objectType = type;
+			_actorType = actortype;
 		}
 
 		public override string ToString()

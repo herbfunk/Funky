@@ -237,6 +237,10 @@ namespace fItemPlugin.Townrun
 				ZetaDia.Me.Inventory.SalvageItemsOfRarity(SalvageRarity.Normal);
 				bSalvageAllNormal = true;
 				var removalList = townRunItemCache.SalvageItems.Where(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Magic1).ToList();
+				foreach (var cacheAcdItem in removalList)
+				{
+					LogSalvagedItem(cacheAcdItem);
+				}
 				townRunItemCache.SalvageItems = townRunItemCache.SalvageItems.Except(removalList).ToList();
 				return RunStatus.Running;
 			}
@@ -247,6 +251,10 @@ namespace fItemPlugin.Townrun
 				ZetaDia.Me.Inventory.SalvageItemsOfRarity(SalvageRarity.Magic);
 				bSalvageAllMagic = true;
 				var removalList = townRunItemCache.SalvageItems.Where(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Rare4).ToList();
+				foreach (var cacheAcdItem in removalList)
+				{
+					LogSalvagedItem(cacheAcdItem);
+				}
 				townRunItemCache.SalvageItems = townRunItemCache.SalvageItems.Except(removalList).ToList();
 				return RunStatus.Running;
 			}
@@ -257,6 +265,10 @@ namespace fItemPlugin.Townrun
 				ZetaDia.Me.Inventory.SalvageItemsOfRarity(SalvageRarity.Rare);
 				bSalvageAllRare = true;
 				var removalList = townRunItemCache.SalvageItems.Where(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Legendary).ToList();
+				foreach (var cacheAcdItem in removalList)
+				{
+					LogSalvagedItem(cacheAcdItem);
+				}
 				townRunItemCache.SalvageItems=townRunItemCache.SalvageItems.Except(removalList).ToList();
 				return RunStatus.Running;
 			}
@@ -275,18 +287,8 @@ namespace fItemPlugin.Townrun
 						return RunStatus.Running;
 					}
 
-					// Item log for cool stuff stashed
-					PluginItemTypes OriginalGilesItemType = ItemFunc.DetermineItemType(thisitem);
-					PluginBaseItemTypes thisGilesBaseType = ItemFunc.DetermineBaseType(OriginalGilesItemType);
-					if (thisGilesBaseType == PluginBaseItemTypes.WeaponTwoHand || thisGilesBaseType == PluginBaseItemTypes.WeaponOneHand || thisGilesBaseType == PluginBaseItemTypes.WeaponRange ||
-						 thisGilesBaseType == PluginBaseItemTypes.Armor || thisGilesBaseType == PluginBaseItemTypes.Jewelry || thisGilesBaseType == PluginBaseItemTypes.Offhand ||
-						 thisGilesBaseType == PluginBaseItemTypes.FollowerItem)
-					{
-						FunkyTownRunPlugin.LogJunkItems(thisitem, thisGilesBaseType, OriginalGilesItemType);
-					}
-					if (FunkyGame.CurrentGameStats != null)
-						FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.SalvagedItemLog(thisitem);
-					//FunkyTownRunPlugin.TownRunStats.SalvagedItemLog(thisitem);
+					LogSalvagedItem(thisitem);
+
 					ZetaDia.Me.Inventory.SalvageItem(thisitem.ThisDynamicID);
 
 				}
@@ -324,6 +326,21 @@ namespace fItemPlugin.Townrun
 
 
 			return RunStatus.Success;
+		}
+
+		private static void LogSalvagedItem(CacheACDItem item)
+		{
+			// Item log for cool stuff stashed
+			PluginItemTypes OriginalGilesItemType = ItemFunc.DetermineItemType(item);
+			PluginBaseItemTypes thisGilesBaseType = ItemFunc.DetermineBaseType(OriginalGilesItemType);
+			if (thisGilesBaseType == PluginBaseItemTypes.WeaponTwoHand || thisGilesBaseType == PluginBaseItemTypes.WeaponOneHand || thisGilesBaseType == PluginBaseItemTypes.WeaponRange ||
+				 thisGilesBaseType == PluginBaseItemTypes.Armor || thisGilesBaseType == PluginBaseItemTypes.Jewelry || thisGilesBaseType == PluginBaseItemTypes.Offhand ||
+				 thisGilesBaseType == PluginBaseItemTypes.FollowerItem)
+			{
+				FunkyTownRunPlugin.LogJunkItems(item, thisGilesBaseType, OriginalGilesItemType);
+			}
+			if (FunkyGame.CurrentGameStats != null)
+				FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.SalvagedItemLog(item);
 		}
 
 		// **********************************************************************************************

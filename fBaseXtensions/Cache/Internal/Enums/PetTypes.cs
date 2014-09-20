@@ -11,5 +11,6 @@
 		DEMONHUNTER_SpikeTrap = 32,
 		DEMONHUNTER_Sentry = 64,
 		WITCHDOCTOR_Fetish = 128,
+		WIZARD_ArcaneOrbs = 256,
 	}
 }

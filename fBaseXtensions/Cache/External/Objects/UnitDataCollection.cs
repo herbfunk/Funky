@@ -61,6 +61,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitPetEntry(82109, PetTypes.WIZARD_Hydra),
 				new UnitPetEntry(83959, PetTypes.WIZARD_Hydra),
 				new UnitPetEntry(325807, PetTypes.WIZARD_Hydra),
+				new UnitPetEntry(75726, PetTypes.WIZARD_ArcaneOrbs, "", PluginActorType.Projectile),
 
 				new UnitPetEntry(150027, PetTypes.DEMONHUNTER_Sentry),
 				new UnitPetEntry(150026, PetTypes.DEMONHUNTER_Sentry),

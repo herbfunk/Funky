@@ -243,17 +243,17 @@ namespace fBaseXtensions.Game.Hero.Class
 			Wizard_Archon_ArcaneBlast = 167355,
 			Wizard_Archon_Teleport = 167648,
 
-			Wizard_Archon_ArcaneBlast_Fire = 392691,
-			Wizard_Archon_ArcaneBlast_Cold = 392692,
-			Wizard_Archon_ArcaneBlast_Lightning = 392693,
+			Wizard_Archon_ArcaneBlast_Fire = 392884,
+			Wizard_Archon_ArcaneBlast_Cold = 392883,
+			Wizard_Archon_ArcaneBlast_Lightning = 392885,
 
-			Wizard_Archon_ArcaneStrike_Cold = 392694,
-			Wizard_Archon_ArcaneStrike_Fire = 392695,
-			Wizard_Archon_ArcaneStrike_Lightning = 392696,
+			Wizard_Archon_ArcaneStrike_Cold = 392886,
+			Wizard_Archon_ArcaneStrike_Fire = 392887,
+			Wizard_Archon_ArcaneStrike_Lightning = 392888,
 
-			Wizard_Archon_DisintegrationWave_Cold = 392697,
-			Wizard_Archon_DisintegrationWave_Fire = 392698,
-			Wizard_Archon_DisintegrationWave_Lightning = 392699,
+			Wizard_Archon_DisintegrationWave_Cold = 392889,
+			Wizard_Archon_DisintegrationWave_Fire = 392890,
+			Wizard_Archon_DisintegrationWave_Lightning = 392891,
 
 		}
 		/*

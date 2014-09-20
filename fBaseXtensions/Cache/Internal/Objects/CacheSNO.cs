@@ -728,7 +728,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 			#endregion
 			//Ignored actor types..
-			if (BlacklistCache.IgnoredActorTypes.Contains(Actortype.Value))//||!LootBehaviorEnabled&&this.Actortype.Value==ActorType.Item)
+			if (BlacklistCache.IgnoredActorTypes.Contains(Actortype.Value) && !IsSummonedPet && !IsAvoidance && !IsObstacle)
 			{
 				BlacklistCache.IgnoreThisObject(this, raguid);
 				return false;

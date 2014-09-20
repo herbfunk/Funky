@@ -26,6 +26,14 @@ namespace fBaseXtensions.XML
 		[XmlAttribute("Keystone")]
 		public KeystoneType KeyType { get; set; }
 
+		[XmlAttribute("KeystoneHighest")]
+		public bool KeyStoneHighest
+		{
+			get { return _keyStoneHighest; }
+			set { _keyStoneHighest = value; }
+		}
+		private bool _keyStoneHighest = false;
+
 		protected override Composite CreateBehavior()
 		{
 			return new PrioritySelector
@@ -46,7 +54,12 @@ namespace fBaseXtensions.XML
 		{
 			var items = ZetaDia.Me.Inventory.Backpack;
 			if (KeyType == KeystoneType.Tiered)
-				items = items.OrderBy(i => i.TieredLootRunKeyLevel);
+			{
+				if (!KeyStoneHighest)
+					items = items.OrderBy(i => i.TieredLootRunKeyLevel);
+				else
+					items = items.OrderByDescending(i => i.TieredLootRunKeyLevel);
+			}
 
 			foreach (var tempitem in items)
 			{

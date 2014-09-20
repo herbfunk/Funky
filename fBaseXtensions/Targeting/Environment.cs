@@ -225,6 +225,24 @@ namespace fBaseXtensions.Targeting
 				}
 			}
 
+			public int WizardArcaneOrbs
+			{
+				get
+				{
+					if (!dictPetCounter.ContainsKey(PetTypes.WIZARD_ArcaneOrbs))
+						dictPetCounter.Add(PetTypes.WIZARD_ArcaneOrbs, 0);
+
+					return dictPetCounter[PetTypes.WIZARD_ArcaneOrbs];
+				}
+				set
+				{
+					if (!dictPetCounter.ContainsKey(PetTypes.WIZARD_ArcaneOrbs))
+						dictPetCounter.Add(PetTypes.WIZARD_ArcaneOrbs, value);
+					else
+						dictPetCounter[PetTypes.WIZARD_ArcaneOrbs] = value;
+				}
+			}
+
 			public void Reset()
 			{
 				MysticAlly = 0;
@@ -235,6 +253,7 @@ namespace fBaseXtensions.Targeting
 				DemonHunterSpikeTraps = 0;
 				DemonHunterSentry = 0;
 				WitchdoctorFetish = 0;
+				WizardArcaneOrbs = 0;
 			}
 
 			public string DebugString()
@@ -248,6 +267,7 @@ namespace fBaseXtensions.Targeting
 				if (DemonHunterSpikeTraps > 0) PetString += "DemonHunterSpikeTraps: " + DemonHunterSpikeTraps + "\r\n";
 				if (DemonHunterSentry > 0) PetString += "DemonHunterSentry: " + DemonHunterSentry + "\r\n";
 				if (WitchdoctorFetish > 0) PetString += "WitchdoctorFetish: " + WitchdoctorFetish + "\r\n";
+				if (WizardArcaneOrbs > 0) PetString += "WizardArcaneOrbs: " + WizardArcaneOrbs + "\r\n";
 
 				return PetString;
 			}

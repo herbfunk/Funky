@@ -588,12 +588,13 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				//Check if we are doing something important.. if so we only want to check units!
 				if (FunkyGame.IsInNonCombatBehavior)
 				{
-					TargetType typesValid = TargetType.Unit | TargetType.Item | TargetType.Gold | TargetType.Globe;
+					TargetType typesValid = TargetType.Unit | TargetType.Item | TargetType.Gold | TargetType.Globe | TargetType.PowerGlobe;
 
 					if (FunkyGame.Profile.ProfileBehaviorIsInteractive && !FunkyGame.Hero.bIsInTown)
 					{
 						typesValid |= TargetType.Door | TargetType.Barricade;
 					}
+
 					if (!ObjectCache.CheckFlag(targetType.Value, typesValid))
 					{
 						IgnoredType = TargetingIgnoreTypes.IgnoredTargetType;

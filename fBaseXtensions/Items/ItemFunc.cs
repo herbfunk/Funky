@@ -14,7 +14,7 @@ namespace fBaseXtensions.Items
 			internalName = internalName.ToLower();
 			return TheCache.ObjectIDCache.ItemDroppedInternalNames.FirstOrDefault(entry => internalName.Contains(entry.ID));
 		}
-		public static PluginDroppedItemTypes DetermineDroppedItemType(int SNO, string internalname="")
+		public static PluginDroppedItemTypes DetermineDroppedItemType(int SNO, string internalname = "")
 		{
 			bool searchName = internalname != "";
 			//TheCache.ObjectIDCache.FindDroppedItemEntry(SNO);
@@ -23,7 +23,7 @@ namespace fBaseXtensions.Items
 			if (retEntry != null) return (PluginDroppedItemTypes)retEntry.ObjectType;
 			return PluginDroppedItemTypes.Unknown;
 		}
-		public static PluginDroppedItemTypes DetermineDroppedItemType(string internalName, int SNOId=-1)
+		public static PluginDroppedItemTypes DetermineDroppedItemType(string internalName, int SNOId = -1)
 		{
 			internalName = internalName.ToLower();
 
@@ -34,7 +34,7 @@ namespace fBaseXtensions.Items
 			if (internalName.Contains("diamond_")) return PluginDroppedItemTypes.Diamond;
 			if (internalName.Contains("unique_gem")) return PluginDroppedItemTypes.LegendaryGem;
 			if (internalName.Contains("consumable_add_sockets")) return PluginDroppedItemTypes.RamaladnisGift;
-			
+
 			if (internalName.Contains("horadricrelic")) return PluginDroppedItemTypes.BloodShard;
 			if (IsUberKey(SNOId) || internalName.Contains("demonkey_") || internalName.Contains("demontrebuchetkey"))
 				return PluginDroppedItemTypes.InfernalKey;
@@ -106,7 +106,7 @@ namespace fBaseXtensions.Items
 			if (internalName.Contains("jewelbox_")) return PluginDroppedItemTypes.FollowerTrinket;
 			if (internalName.Contains("craftingplan_")) return PluginDroppedItemTypes.CraftingMaterial;
 
-	
+
 			if (internalName.Contains("healthglobe")) return PluginDroppedItemTypes.HealthGlobe;
 			if (internalName.Contains("chestarmor_")) return PluginDroppedItemTypes.Chest;
 			if (internalName.Contains("helm_")) return PluginDroppedItemTypes.Helm;
@@ -199,7 +199,7 @@ namespace fBaseXtensions.Items
 			}
 			return PluginBaseItemTypes.Unknown;
 		}
-		public static PluginBaseItemTypes DetermineBaseItemType(string internalName, int SNOId=-1)
+		public static PluginBaseItemTypes DetermineBaseItemType(string internalName, int SNOId = -1)
 		{
 			internalName = internalName.ToLower();
 
@@ -664,7 +664,7 @@ namespace fBaseXtensions.Items
 				case PluginItemTypes.KeyStone: return ItemType.KeystoneFragment;
 				case PluginItemTypes.HoradricCache: return ItemType.HoradricCache;
 				case PluginItemTypes.RamaladnisGift: return ItemType.CraftingReagent;
-				
+
 			}
 			return ItemType.Unknown;
 		}
@@ -782,7 +782,7 @@ namespace fBaseXtensions.Items
 		}
 		public static PotionTypes ReturnPotionType(int snoid)
 		{
-			if (snoid==304319) return PotionTypes.Regular;
+			if (snoid == 304319) return PotionTypes.Regular;
 			if (snoid == 344093) return PotionTypes.KulleAid;
 			if (snoid == 342824) return PotionTypes.Mutilation;
 			if (snoid == 341343) return PotionTypes.Regeneration;
@@ -793,7 +793,7 @@ namespace fBaseXtensions.Items
 		}
 		public static FollowerType ReturnFollowerType(PluginItemTypes types)
 		{
-			if (types==PluginItemTypes.FollowerEnchantress)
+			if (types == PluginItemTypes.FollowerEnchantress)
 				return FollowerType.Enchantress;
 			if (types == PluginItemTypes.FollowerTemplar)
 				return FollowerType.Templar;
@@ -806,6 +806,38 @@ namespace fBaseXtensions.Items
 		public static bool IsUberKey(int SNOID)
 		{
 			return SNOID == 364694 || SNOID == 364697 || SNOID == 364695 || SNOID == 364696;
+		}
+
+		/// <summary>
+		/// Returns a value between 0 and 1 of upgrading success chance 
+		/// </summary>
+		public static double GetLegendaryGemUpgradeChance(int RiftLevel, int GemLevel)
+		{
+			int diff = RiftLevel - GemLevel;
+
+			if (diff >= 10) return 1;
+			if (diff > -1)
+			{
+				if (diff >= 6)
+					return 6 / 10;
+
+				return 0.60;
+			}
+			if (diff > -7)
+			{
+				switch (diff)
+				{
+					case -1: return 0.30;
+					case -2: return 0.15;
+					case -3: return 0.08;
+					case -4: return 0.04;
+					case -5: return 0.02;
+					case -6: return 0.01;
+				}
+			}
+
+			return 0;
+
 		}
 	}
 }

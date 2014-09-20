@@ -48,6 +48,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					//only count when range is within 45f (so we can summon a new one)
 					if (PetType == PetTypes.WIZARD_Hydra && CentreDistance <= 50f)
 						FunkyGame.Targeting.Cache.Environment.HeroPets.WizardHydra++;
+					else if (PetType == PetTypes.WIZARD_ArcaneOrbs)
+						FunkyGame.Targeting.Cache.Environment.HeroPets.WizardArcaneOrbs++;
 				}
 
 				return false; 

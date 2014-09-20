@@ -31,6 +31,10 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 				};
 				PreCast.Criteria += skill => FunkyGame.Hero.Class.LastUsedAbilities.IndexOf(this) >= FunkyBaseExtension.Settings.Monk.iMonkComboStrikeAbilities-1;
 				PreCast.CreatePrecastCriteria();
+
+				//Use as third hitter!
+				if (RuneIndex == 3)
+					Priority = SkillPriority.None;
 			}
 			else
 				PreCast = new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated);

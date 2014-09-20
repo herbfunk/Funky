@@ -5989,6 +5989,13 @@
       <PetTypes>WIZARD_Hydra</PetTypes>
     </UnitPetEntry>
     <UnitPetEntry>
+      <SnoId>75726</SnoId>
+      <InternalName />
+      <ActorType>Projectile</ActorType>
+      <EntryType>Pet</EntryType>
+      <PetTypes>WIZARD_ArcaneOrbs</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
       <SnoId>150027</SnoId>
       <InternalName />
       <ActorType>Monster</ActorType>

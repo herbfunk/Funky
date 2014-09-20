@@ -56,7 +56,13 @@ namespace fBaseXtensions.XML
 			return new PrioritySelector
 			(
 				new Decorator(ret => FunkyGame.GameIsInvalid,
-					new Action(ret => m_IsDone=true)),
+					new Action(ret =>
+					{
+						if (TownPortalBehavior.FunkyTPBehaviorFlag)
+							TownPortalBehavior.ResetTPBehavior();
+						m_IsDone = true;
+					})),
+
 
 				
 				//Return To Town
@@ -70,21 +76,35 @@ namespace fBaseXtensions.XML
 				
 
 				new Decorator(ret => MovementVector==Vector3.Zero || ObjectSNO==-1,
-					new Action(ret => m_IsDone=true)),
+					new Action(ret =>
+					{
+						if (TownPortalBehavior.FunkyTPBehaviorFlag)
+							TownPortalBehavior.ResetTPBehavior();
+						m_IsDone = true;
+					})),
 
 				//Movement
 				new Decorator(ret => !UpdateObject() || ZetaDia.Me.Position.Distance(MovementVector)>10f || !Object.InLineOfSight,
 					new Action(ret => Navigator.MoveTo(MovementVector))),
 
 				new Decorator(ret => !Interact,
-					new Action(ret => m_IsDone = true)),
+					new Action(ret => 
+					{
+						if (TownPortalBehavior.FunkyTPBehaviorFlag)
+							TownPortalBehavior.ResetTPBehavior(); 
+						m_IsDone = true; 
+					})),
 
 				//Interaction
 				new Decorator(ret => !DialogIsVisible(),
 					new Action(ret => Object.Interact())),
 
 				new Decorator(ret => DialogIsVisible(),
-					new Action(ret => m_IsDone=true))
+					new Action(ret => {
+						if (TownPortalBehavior.FunkyTPBehaviorFlag)
+							TownPortalBehavior.ResetTPBehavior(); 
+						m_IsDone = true; 
+					}))
 			);
 		}
 

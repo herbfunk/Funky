@@ -31,6 +31,8 @@ namespace fBaseXtensions.Game.Hero.Class
 				FunkyBaseExtension.Settings.Monk.iMonkComboStrikeAbilities = 0;
 			}
 
+			Settings.PluginSettings.SerializeToXML(FunkyBaseExtension.Settings);
+
 			Logger.DBLog.DebugFormat("[Funky] Using Monk Player Class");
 
 		}

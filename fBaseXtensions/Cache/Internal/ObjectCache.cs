@@ -396,10 +396,12 @@ namespace fBaseXtensions.Cache.Internal
 								tmp_CachedObj = new CacheUnit(tmp_CachedObj);
 							else
 							{
+								PetTypes PetType = (PetTypes)TheCache.ObjectIDCache.UnitPetEntries[tmp_CachedObj.SNOID].ObjectType;
+
 								#region Summoner ID Check
 
 								// Get the summoned-by info, cached if possible
-								if (!tmp_CachedObj.SummonerID.HasValue)
+								if (!tmp_CachedObj.SummonerID.HasValue && PetType != PetTypes.WIZARD_ArcaneOrbs)
 								{
 									try
 									{
@@ -413,7 +415,7 @@ namespace fBaseXtensions.Cache.Internal
 									}
 								}
 
-								if (FunkyGame.Hero.iMyDynamicID != tmp_CachedObj.SummonerID.Value)
+								if (FunkyGame.Hero.iMyDynamicID != tmp_CachedObj.SummonerID.Value && PetType != PetTypes.WIZARD_ArcaneOrbs)
 								{
 									BlacklistCache.IgnoreThisObject(tmp_CachedObj, false, false);
 									tmp_CachedObj.NeedsRemoved = true;
@@ -422,7 +424,6 @@ namespace fBaseXtensions.Cache.Internal
 								
 								#endregion
 
-								PetTypes PetType = (PetTypes)TheCache.ObjectIDCache.UnitPetEntries[tmp_CachedObj.SNOID].ObjectType;
 								tmp_CachedObj = new CachePet(tmp_CachedObj, PetType);
 							}
 						}

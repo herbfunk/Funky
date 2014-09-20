@@ -6,7 +6,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 	 public class ArchonArcaneStrike : Skill
 	 {
 		 public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
-
+		 public override bool IsPrimarySkill { get { return true; } }
 		 public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Target | SkillExecutionFlags.ClusterTargetNearest; } }
 
 		 public override void Initialize()
