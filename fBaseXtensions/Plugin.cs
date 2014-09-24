@@ -111,7 +111,7 @@ namespace fBaseXtensions
 
 		public Version Version
 		{
-			get { return new Version(1, 1, 1, 3); }
+			get { return new Version(1, 1, 1, 4); }
 		}
 		public string Author
 		{

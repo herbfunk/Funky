@@ -33,7 +33,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 				{
 					Flags = SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast,
 				};
-				PreCast.Criteria += skill => FunkyGame.Targeting.Cache.Environment.HeroPets.WizardArcaneOrbs < 4;
+				PreCast.Criteria += skill => FunkyGame.Targeting.Cache.Environment.HeroPets.WizardArcaneOrbs == 0;
 				PreCast.CreatePrecastCriteria();
 			}
 			else

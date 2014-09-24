@@ -1,5 +1,6 @@
 ﻿v1.1.1.3
 	MoveToTownObject will now reset town portal flag. (Was Causing IsInNonCombatBehavior to be true)
+	Removed TownPortalBehaviorFlag from IsInNonCombatBehavior Check.
 	Added method Legendary Gem Upgrade Chance into ItemFunc.
 	MoveItem and OpenRiftPortal tags now have KeystoneHighest attribute, when set to True will use highest tiered key first.
 	

@@ -235,6 +235,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(271762, PluginDroppedItemTypes.Daibo, "x1_combatStaff_norm_unique_flippy_10-1544"),
 				new DroppedItemEntry(197130, PluginDroppedItemTypes.Daibo, "combatStaff_norm_unique_flippy_02-7244"),
 				new DroppedItemEntry(212211, PluginDroppedItemTypes.Daibo, "combatStaff_norm_unique_flippy_08-478393"),
+				new DroppedItemEntry(197131, PluginDroppedItemTypes.Daibo, "combatStaff_norm_unique_flippy_03-48215"),
 
 				//
 				new DroppedItemEntry(3913, PluginDroppedItemTypes.Dagger, "Dagger_norm_base_flippy_04-7545"),
@@ -381,6 +382,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(335181, PluginDroppedItemTypes.Spear, "x1_spear_norm_base_flippy_01-13786"),
 				new DroppedItemEntry(191452, PluginDroppedItemTypes.Spear, "Spear_norm_unique_flippy_01-26405"),
 				new DroppedItemEntry(194313, PluginDroppedItemTypes.Spear, "Spear_norm_unique_flippy_02-18808"),
+				new DroppedItemEntry(272042, PluginDroppedItemTypes.Spear, "x1_spear_norm_unique_flippy_05-48154"),
 
 				//
 				new DroppedItemEntry(5491, PluginDroppedItemTypes.Staff, "Staff_norm_base_flippy_02"),
@@ -397,6 +399,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(5492, PluginDroppedItemTypes.Staff, "Staff_norm_base_flippy_03-6947"),
 				new DroppedItemEntry(5490, PluginDroppedItemTypes.Staff, "Staff_norm_base_flippy_01-14597"),
 				new DroppedItemEntry(5495, PluginDroppedItemTypes.Staff, "Staff_norm_base_flippy_06-14562"),
+				new DroppedItemEntry(271771, PluginDroppedItemTypes.Staff, "x1_staff_norm_unique_flippy_10-1861"),
 
 				//
 				new DroppedItemEntry(5530, PluginDroppedItemTypes.Sword, "Sword_norm_base_flippy_04-7841"),
@@ -451,6 +454,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(335375, PluginDroppedItemTypes.Wand, "x1_Wand_norm_base_flippy_01-15541"),
 				new DroppedItemEntry(6428, PluginDroppedItemTypes.Wand, "Wand_norm_base_flippy_02-5412"),
 				new DroppedItemEntry(6427, PluginDroppedItemTypes.Wand, "Wand_norm_base_flippy_01-12498"),
+				new DroppedItemEntry(403782, PluginDroppedItemTypes.Wand, "p1_Wand_norm_unique_flippy_01-14004"),
+				new DroppedItemEntry(210481, PluginDroppedItemTypes.Wand, "Wand_norm_unique_flippy_07-48205"),
 
 				#endregion
 
@@ -1088,6 +1093,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(4812, PluginItemTypes.Source),
 				new ItemDataEntry(4813, PluginItemTypes.Source),
 				new ItemDataEntry(4810, PluginItemTypes.Source),
+				new ItemDataEntry(4811, PluginItemTypes.Source),
 
 				new ItemDataEntry(367184, PluginItemTypes.Quiver),
 				new ItemDataEntry(367183, PluginItemTypes.Quiver),
@@ -1112,6 +1118,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(190635, PluginItemTypes.FollowerEnchantress),
 				new ItemDataEntry(190632, PluginItemTypes.FollowerEnchantress),
 				new ItemDataEntry(190636, PluginItemTypes.FollowerEnchantress),
+				new ItemDataEntry(190637, PluginItemTypes.FollowerEnchantress),
 
 				new ItemDataEntry(190639, PluginItemTypes.FollowerScoundrel),
 				new ItemDataEntry(190638, PluginItemTypes.FollowerScoundrel),
@@ -1516,6 +1523,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(222172, PluginItemTypes.SpiritStone, LegendaryItemTypes.TheMindsEye),
 				new ItemDataEntry(222305, PluginItemTypes.SpiritStone, LegendaryItemTypes.TzoKrinsGaze),
 				new ItemDataEntry(222173, PluginItemTypes.SpiritStone, LegendaryItemTypes.ErlangShen),
+				new ItemDataEntry(222306, PluginItemTypes.SpiritStone, LegendaryItemTypes.BezoarStone),
 
 				new ItemDataEntry(299442, PluginItemTypes.VoodooMask, LegendaryItemTypes.Carnevil),
 				new ItemDataEntry(299443, PluginItemTypes.VoodooMask, LegendaryItemTypes.MaskofJeram),
@@ -1611,6 +1619,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(194241, PluginItemTypes.Spear, LegendaryItemTypes.EmpyreanMessenger),
 				new ItemDataEntry(197095, PluginItemTypes.Spear, LegendaryItemTypes.Scrimshaw),
 				new ItemDataEntry(196638, PluginItemTypes.Spear, LegendaryItemTypes.TheThreeHundredthSpear),
+				new ItemDataEntry(272043, PluginItemTypes.Spear, LegendaryItemTypes.None), //AkaneshtheHeraldofRighteousness
+				
 				new ItemDataEntry(192511, PluginItemTypes.Sword, LegendaryItemTypes.Azurewrath),
 				new ItemDataEntry(189552, PluginItemTypes.Sword, LegendaryItemTypes.DevilTongue),
 				new ItemDataEntry(185397, PluginItemTypes.Sword, LegendaryItemTypes.Doombringer),
@@ -1692,6 +1702,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(193066, PluginItemTypes.TwoHandStaff, LegendaryItemTypes.TheTormentor),
 				new ItemDataEntry(271773, PluginItemTypes.TwoHandStaff, LegendaryItemTypes.ValtheksRebuke),
 				new ItemDataEntry(195407, PluginItemTypes.TwoHandStaff, LegendaryItemTypes.Wormwood),
+				new ItemDataEntry(271774, PluginItemTypes.TwoHandStaff, LegendaryItemTypes.TheSmolderingCore),
 
 				new ItemDataEntry(198960, PluginItemTypes.TwoHandSword, LegendaryItemTypes.FaithfulMemory),
 				new ItemDataEntry(184187, PluginItemTypes.TwoHandSword, LegendaryItemTypes.Maximus),
@@ -1749,6 +1760,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(195325, PluginItemTypes.Source, LegendaryItemTypes.Triumvirate),
 				new ItemDataEntry(184199, PluginItemTypes.Source, LegendaryItemTypes.WinterFlurry),
 				 
+
+				new ItemDataEntry(366971, PluginItemTypes.FollowerScoundrel, LegendaryItemTypes.None), //SlipkasLetterOpener
 				#endregion
 				
 				#region Legendary Set Items

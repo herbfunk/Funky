@@ -257,7 +257,7 @@ namespace fItemPlugin.Townrun
 			{
 				case BloodShardGambleItems.OneHandItem:
 				case BloodShardGambleItems.TwoHandItem:
-					return 15;
+					return 75;
 				case BloodShardGambleItems.Quiver:
 				case BloodShardGambleItems.Orb:
 				case BloodShardGambleItems.Mojo:
@@ -270,11 +270,11 @@ namespace fItemPlugin.Townrun
 				case BloodShardGambleItems.Pants:
 				case BloodShardGambleItems.Bracers:
 				case BloodShardGambleItems.Shield:
-					return 5;
+					return 25;
 				case BloodShardGambleItems.Ring:
-					return 10;
+					return 50;
 				case BloodShardGambleItems.Amulet:
-					return 20;
+					return 100;
 			}
 
 			return -1;

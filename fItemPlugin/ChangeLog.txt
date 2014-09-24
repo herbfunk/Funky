@@ -1,4 +1,7 @@
-﻿v1.2.4
+﻿v1.2.5
+Fixed Idenify getting stuck.
+
+v1.2.4
 Will use salvage all options multiple times now
 
 

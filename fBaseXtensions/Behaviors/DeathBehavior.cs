@@ -24,7 +24,7 @@ namespace fBaseXtensions.Behaviors
 				PowerManager.CanCastFlags potionCastFlags;
 				if (!PowerManager.CanCast(SNOPower.DrinkHealthPotion, out potionCastFlags))
 				{
-					if (potionCastFlags.HasFlag(PowerManager.CanCastFlags.Flag8))
+					if (potionCastFlags.HasFlag(PowerManager.CanCastFlags.PowerUnusableOnCooldown))
 					{
 						BotMain.StatusText = "[Funky] Death: Waiting For Cooldowns!";
 						return true;
@@ -49,7 +49,7 @@ namespace fBaseXtensions.Behaviors
 					PowerManager.CanCastFlags skillCastFlags;
 					if (!PowerManager.CanCast(skill.Power, out skillCastFlags))
 					{
-						if (skillCastFlags.HasFlag(PowerManager.CanCastFlags.Flag8))
+						if (skillCastFlags.HasFlag(PowerManager.CanCastFlags.PowerUnusableOnCooldown))
 						{
 							BotMain.StatusText = "[Funky] Death: Waiting For Cooldowns!";
 							return true;
@@ -74,7 +74,7 @@ namespace fBaseXtensions.Behaviors
 				PowerManager.CanCastFlags potionCastFlags;
 				if (!PowerManager.CanCast(SNOPower.DrinkHealthPotion, out potionCastFlags))
 				{
-					if (potionCastFlags.HasFlag(PowerManager.CanCastFlags.Flag8))
+					if (potionCastFlags.HasFlag(PowerManager.CanCastFlags.PowerUnusableOnCooldown))
 					{
 						InactivityDetector.Reset();
 						return RunStatus.Running;
@@ -96,7 +96,7 @@ namespace fBaseXtensions.Behaviors
 					PowerManager.CanCastFlags skillCastFlags;
 					if (!PowerManager.CanCast(skill.Power, out skillCastFlags))
 					{
-						if (skillCastFlags.HasFlag(PowerManager.CanCastFlags.Flag8))
+						if (skillCastFlags.HasFlag(PowerManager.CanCastFlags.PowerUnusableOnCooldown))
 						{
 							InactivityDetector.Reset();
 							return RunStatus.Running;

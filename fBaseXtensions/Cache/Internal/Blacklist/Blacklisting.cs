@@ -144,6 +144,7 @@ namespace fBaseXtensions.Cache.Internal.Blacklist
 				  ActorType.AxeSymbol,
 				  ActorType.ClientEffect,
 				  ActorType.Critter,
+				  ActorType.Environment,
 				 // ActorType.CustomBrain,
 				  ActorType.Invalid
 			  };
@@ -202,6 +203,13 @@ namespace fBaseXtensions.Cache.Internal.Blacklist
 				return true;
 
 			return false;
+		}
+		internal static void IgnoreThisObject(int RAGUID, int SNOID)
+		{
+			//Add to our blacklist so we don't create it again..
+			hashRGUIDIgnoreBlacklist.Add(RAGUID);
+			//Blacklist SNO so we don't create it ever again!
+			BlacklistSnoIDs.Add(SNOID);
 		}
 
 		internal static void IgnoreThisObject(CachedSNOEntry snoObj, int RAGUID, bool removal = true, bool blacklistSNOID = true)

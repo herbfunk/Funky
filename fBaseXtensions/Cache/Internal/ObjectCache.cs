@@ -116,9 +116,13 @@ namespace fBaseXtensions.Cache.Internal
 
 					if (!Objects.TryGetValue(tmp_raGUID, out tmp_CachedObj))
 					{
+
+						ActorType Actortype;
 						Vector3 tmp_position;
 						int tmp_acdguid;
 						int tmp_SNOID;
+
+						
 
 						#region SNO
 						//Lookup SNO
@@ -134,11 +138,10 @@ namespace fBaseXtensions.Cache.Internal
 						}
 						#endregion
 
-
 						//check our SNO blacklist (exclude pets?)
-						if (BlacklistCache.IsSNOIDBlacklisted(tmp_SNOID) && !TheCache.ObjectIDCache.UnitPetEntries.ContainsKey(tmp_SNOID)) continue;
+						if (BlacklistCache.IsSNOIDBlacklisted(tmp_SNOID)) continue;
 
-
+						
 						#region Position
 						try
 						{
@@ -146,7 +149,7 @@ namespace fBaseXtensions.Cache.Internal
 						}
 						catch (Exception ex) 
 						{
-							Logger.Write(LogLevel.Cache, "Safely handled getting Position for {0}", tmp_raGUID);
+							Logger.Write(LogLevel.Cache, "Safely handled getting Position for {0}", tmp_SNOID);
 							continue;
 						}
 
@@ -159,7 +162,7 @@ namespace fBaseXtensions.Cache.Internal
 						}
 						catch (Exception ex) 
 						{
-							Logger.Write(LogLevel.Cache, "Safely handled getting ACDGuid for {0}", tmp_raGUID);
+							Logger.Write(LogLevel.Cache, "Safely handled getting ACDGuid for {0}", tmp_SNOID);
 							continue;
 						}
 
@@ -173,83 +176,31 @@ namespace fBaseXtensions.Cache.Internal
 						tmp_CachedObj.LoopsUnseen = 0;
 
 
-					//Validate
-					try
+					//Validate (ignore special object SNO Ids)
+					if (tmp_CachedObj.SNOID != 75726)
 					{
-						if (thisObj.CommonData == null || thisObj.CommonData.ACDGuid != thisObj.ACDGuid) continue;
+						try
+						{
+							if (thisObj.CommonData == null)
+							{
+								//Logger.Write(LogLevel.Cache, "CommonData is no longer valid! SNOID {0}", tmp_CachedObj.DebugStringSimple);
+								//BlacklistCache.AddObjectToBlacklist(tmp_CachedObj.RAGUID, BlacklistType.Temporary);
+								continue;
+							}
+							else if (thisObj.CommonData.ACDGuid != thisObj.ACDGuid)
+							{
+								//Logger.Write(LogLevel.Cache, "ACDGuid Mismatched! SNOID {0}", tmp_CachedObj.DebugStringSimple);
+								//BlacklistCache.AddObjectToBlacklist(tmp_CachedObj.RAGUID, BlacklistType.Temporary);
+								continue;
+							}
+						}
+						catch (Exception ex)
+						{
+							//Logger.Write(LogLevel.Cache, "Object is no longer valid! (Exception) SNOID {0}", tmp_CachedObj.DebugStringSimple);
+							//BlacklistCache.AddObjectToBlacklist(tmp_CachedObj.RAGUID, BlacklistType.Temporary);
+							continue;
+						}
 					}
-					catch (Exception ex)
-					{
-						continue;
-					}
-
-
-
-					//Check if this object is a summoned unit by a player...
-					#region SummonedUnits
-					//if (tmp_CachedObj.IsSummonedPet)
-					//{
-					//	// Get the summoned-by info, cached if possible
-					//	if (!tmp_CachedObj.SummonerID.HasValue)
-					//	{
-					//		try
-					//		{
-					//			tmp_CachedObj.SummonerID = thisObj.CommonData.GetAttribute<int>(ActorAttributeType.SummonedByACDID);
-					//		}
-					//		catch (Exception ex)
-					//		{
-					//			//Logger.DBLog.InfoFormat("[Funky] Safely handled exception getting summoned-by info [" + tmp_CachedObj.SNOID.ToString(CultureInfo.InvariantCulture) + "]");
-					//			//Logger.DBLog.DebugFormat(ex.ToString());
-					//			continue;
-					//		}
-					//	}
-
-						
-
-					//	//See if this summoned unit was summoned by the bot.
-					//	if (FunkyGame.Hero.iMyDynamicID == tmp_CachedObj.SummonerID.Value)
-					//	{
-					//		PetTypes PetType = (PetTypes)TheCache.ObjectIDCache.UnitPetEntries[tmp_CachedObj.SNOID].ObjectType;
-
-					//		//Now modify the player data pets count..
-					//		if (FunkyGame.CurrentActorClass == ActorClass.Monk)
-					//			FunkyGame.Targeting.Cache.Environment.HeroPets.MysticAlly++;
-					//		else if (FunkyGame.CurrentActorClass == ActorClass.DemonHunter)
-					//		{
-					//			if (PetType== PetTypes.DEMONHUNTER_Pet)
-					//				FunkyGame.Targeting.Cache.Environment.HeroPets.DemonHunterPet++;
-					//			else if (PetType == PetTypes.DEMONHUNTER_SpikeTrap && tmp_CachedObj.CentreDistance <= 50f)
-					//				FunkyGame.Targeting.Cache.Environment.HeroPets.DemonHunterSpikeTraps++;
-					//			else if (PetType == PetTypes.DEMONHUNTER_Sentry && tmp_CachedObj.CentreDistance <= 60f)
-					//				FunkyGame.Targeting.Cache.Environment.HeroPets.DemonHunterSentry++;
-					//		}
-					//		else if (FunkyGame.CurrentActorClass == ActorClass.Witchdoctor)
-					//		{
-					//			if (PetType == PetTypes.WITCHDOCTOR_ZombieDogs)
-					//				FunkyGame.Targeting.Cache.Environment.HeroPets.ZombieDogs++;
-					//			else if (PetType == PetTypes.WITCHDOCTOR_Gargantuan)
-					//				FunkyGame.Targeting.Cache.Environment.HeroPets.Gargantuan++;
-					//			else if (PetType == PetTypes.WITCHDOCTOR_Fetish)
-					//				FunkyGame.Targeting.Cache.Environment.HeroPets.WitchdoctorFetish++;
-					//		}
-					//		else if (FunkyGame.CurrentActorClass == ActorClass.Wizard)
-					//		{
-					//			//only count when range is within 45f (so we can summon a new one)
-					//			if (PetType == PetTypes.WIZARD_Hydra && tmp_CachedObj.CentreDistance <= 50f)
-					//				FunkyGame.Targeting.Cache.Environment.HeroPets.WizardHydra++;
-					//		}
-					//	}
-					//	else
-					//	{
-					//		tmp_CachedObj.NeedsRemoved = true;
-					//		continue;
-					//	}
-
-					//	//We return regardless if it was summoned by us or not since this object is not anything we want to deal with..
-					//	tmp_CachedObj.NeedsRemoved = true;
-					//	continue;
-					//}
-					#endregion
 
 					//Update any SNO Data.
 					#region SNO_Cache_Update
@@ -261,6 +212,17 @@ namespace fBaseXtensions.Cache.Internal
 					else if (!tmp_CachedObj.IsFinalized)
 					{//Finalize this data by recreating it and updating the Sno cache with a new finalized entry, this also clears our all Sno cache dictionaries since we no longer need them!
 						cacheSnoCollection.FinalizeEntry(tmp_CachedObj.SNOID);
+					}
+					#endregion
+
+					//Check if this object is a summoned unit by a player...
+					#region SummonedUnits
+					if (tmp_CachedObj.IsSummonedPet && tmp_CachedObj.SNOID == 75726)
+					{
+						//Logger.DBLog.Debug("Found Arcane Orbit Pet!");
+						FunkyGame.Targeting.Cache.Environment.HeroPets.WizardArcaneOrbs++;
+						tmp_CachedObj.NeedsRemoved = true;
+						continue;
 					}
 					#endregion
 
@@ -396,12 +358,13 @@ namespace fBaseXtensions.Cache.Internal
 								tmp_CachedObj = new CacheUnit(tmp_CachedObj);
 							else
 							{
+								
 								PetTypes PetType = (PetTypes)TheCache.ObjectIDCache.UnitPetEntries[tmp_CachedObj.SNOID].ObjectType;
 
 								#region Summoner ID Check
 
 								// Get the summoned-by info, cached if possible
-								if (!tmp_CachedObj.SummonerID.HasValue && PetType != PetTypes.WIZARD_ArcaneOrbs)
+								if (!tmp_CachedObj.SummonerID.HasValue)
 								{
 									try
 									{
@@ -415,7 +378,7 @@ namespace fBaseXtensions.Cache.Internal
 									}
 								}
 
-								if (FunkyGame.Hero.iMyDynamicID != tmp_CachedObj.SummonerID.Value && PetType != PetTypes.WIZARD_ArcaneOrbs)
+								if (FunkyGame.Hero.iMyDynamicID != tmp_CachedObj.SummonerID.Value)
 								{
 									BlacklistCache.IgnoreThisObject(tmp_CachedObj, false, false);
 									tmp_CachedObj.NeedsRemoved = true;

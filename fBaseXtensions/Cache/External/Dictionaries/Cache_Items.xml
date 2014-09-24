@@ -765,6 +765,13 @@
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>197131</SnoId>
+      <InternalName>combatStaff_norm_unique_flippy_03-48215</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>3913</SnoId>
       <InternalName>Dagger_norm_base_flippy_04-7545</InternalName>
       <ActorType>Item</ActorType>
@@ -1626,6 +1633,13 @@
       <PluginDroppedItemTypes>Spear</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>272042</SnoId>
+      <InternalName>x1_spear_norm_unique_flippy_05-48154</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Spear</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>5491</SnoId>
       <InternalName>Staff_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
@@ -1719,6 +1733,13 @@
     <DroppedItemEntry>
       <SnoId>5495</SnoId>
       <InternalName>Staff_norm_base_flippy_06-14562</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>271771</SnoId>
+      <InternalName>x1_staff_norm_unique_flippy_10-1861</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
@@ -2055,6 +2076,20 @@
     <DroppedItemEntry>
       <SnoId>6427</SnoId>
       <InternalName>Wand_norm_base_flippy_01-12498</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>403782</SnoId>
+      <InternalName>p1_Wand_norm_unique_flippy_01-14004</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>210481</SnoId>
+      <InternalName>Wand_norm_unique_flippy_07-48205</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
@@ -5515,6 +5550,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>4811</SnoId>
+      <ItemType>Source</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>367184</SnoId>
       <ItemType>Quiver</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -5606,6 +5646,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>190636</SnoId>
+      <ItemType>FollowerEnchantress</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>190637</SnoId>
       <ItemType>FollowerEnchantress</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -7325,6 +7370,11 @@
       <LegendaryType>ErlangShen</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>222306</SnoId>
+      <ItemType>SpiritStone</ItemType>
+      <LegendaryType>BezoarStone</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>299442</SnoId>
       <ItemType>VoodooMask</ItemType>
       <LegendaryType>Carnevil</LegendaryType>
@@ -7725,6 +7775,11 @@
       <LegendaryType>TheThreeHundredthSpear</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>272043</SnoId>
+      <ItemType>Spear</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>192511</SnoId>
       <ItemType>Sword</ItemType>
       <LegendaryType>Azurewrath</LegendaryType>
@@ -8080,6 +8135,11 @@
       <LegendaryType>Wormwood</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>271774</SnoId>
+      <ItemType>TwoHandStaff</ItemType>
+      <LegendaryType>TheSmolderingCore</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>198960</SnoId>
       <ItemType>TwoHandSword</ItemType>
       <LegendaryType>FaithfulMemory</LegendaryType>
@@ -8318,6 +8378,11 @@
       <SnoId>184199</SnoId>
       <ItemType>Source</ItemType>
       <LegendaryType>WinterFlurry</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>366971</SnoId>
+      <ItemType>FollowerScoundrel</ItemType>
+      <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>222477</SnoId>

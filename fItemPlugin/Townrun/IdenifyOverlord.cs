@@ -333,7 +333,7 @@ namespace fItemPlugin.Townrun
 
 			float iDistanceFromSell = Vector3.Distance(vectorPlayerPosition, vectorBookOfCainLocation);
 			//Out-Of-Range...
-			if (objBookOfCain == null || iDistanceFromSell > 4.3f)
+			if (objBookOfCain == null || iDistanceFromSell > 10f)
 			{
 				Navigator.PlayerMover.MoveTowards(vectorBookOfCainLocation);
 				return RunStatus.Running;

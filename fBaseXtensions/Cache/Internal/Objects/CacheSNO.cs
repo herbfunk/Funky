@@ -5,6 +5,7 @@ using fBaseXtensions.Cache.External.Objects;
 using fBaseXtensions.Cache.Internal.Avoidance;
 using fBaseXtensions.Cache.Internal.Blacklist;
 using fBaseXtensions.Cache.Internal.Enums;
+using fBaseXtensions.Game;
 using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Items;
 using fBaseXtensions.Items.Enums;
@@ -469,7 +470,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 
 		#region Cache Lookup Properties
-		public bool IgnoresLOSCheck { get { return IsBoss || IsWormBoss; } }
+		public bool IgnoresLOSCheck { get { return IsBoss || IsWormBoss || BountyCache.RiftTrialIsActiveQuest; } }
 
 		private bool _IsObstacle;
 		public bool IsObstacle { get { if (IsFinalized) return _IsObstacle; return CacheIDLookup.hashSNONavigationObstacles.Contains(SNOID); } }
@@ -493,7 +494,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		public bool IsAvoidance { get { if (IsFinalized) return _IsAvoidance; return snoentry != null && snoentry.EntryType == EntryType.Avoidance; } }
 
 		private bool _IsSummonedPet;
-		public bool IsSummonedPet { get { if (IsFinalized) return _IsSummonedPet; return TheCache.ObjectIDCache.UnitPetEntries.ContainsKey(SNOID); } }
+		public bool IsSummonedPet { get { if (IsFinalized) return _IsSummonedPet; return snoentry != null && snoentry.EntryType == EntryType.Pet; } }
 
 		private bool _IsRespawnable;
 		public bool IsRespawnable { get { if (IsFinalized) return _IsRespawnable; return UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Revivable); } }
@@ -564,7 +565,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			_IsWormBoss = UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Boss | UnitFlags.Worm);
 
 			_IsAvoidance = snoentry != null && snoentry.EntryType == EntryType.Avoidance;
-			_IsSummonedPet = TheCache.ObjectIDCache.UnitPetEntries.ContainsKey(SNOID);
+			_IsSummonedPet = snoentry != null && snoentry.EntryType == EntryType.Pet;
 			_IsRespawnable = UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Revivable);
 			_IsProjectileAvoidance = _IsAvoidance && AvoidanceCache.IsAvoidanceTypeProjectile(SNOID);
 			
@@ -710,6 +711,14 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					else if(snoentry.EntryType == EntryType.Pet)
 					{
 						targetType = TargetType.None;
+
+						CacheUnitPetEntry petEntry = (CacheUnitPetEntry)snoentry;
+						if ((PetTypes)petEntry.ObjectType==PetTypes.WIZARD_ArcaneOrbs)
+						{
+							//Logger.DBLog.Debug("Arcane Orbs CacheSNO update!");
+							Obstacletype = ObstacleType.None;
+							return true;
+						}
 					}
 				}
 				else
@@ -723,16 +732,29 @@ namespace fBaseXtensions.Cache.Internal.Objects
 						Logger.Write(LogLevel.Cache, "Failure to get actorType for object {0}", DebugStringSimple);
 						return false;
 					}
+
+					//if (Actortype.Value == ActorType.Item)
+					//{
+					//	if (thisObj.IsEnvironmentRActor)
+					//	{
+					//		Logger.DBLog.DebugFormat("Ignoring Enviroment Item {0}", this.DebugStringSimple);
+					//		BlacklistCache.IgnoreThisObject(this, raguid);
+					//		return false;
+					//	}
+					//}
+
+					//Ignored actor types..
+					if (BlacklistCache.IgnoredActorTypes.Contains(Actortype.Value))
+					{
+						BlacklistCache.IgnoreThisObject(this,raguid);
+						return false;
+					}
+
 				}
 			}
 
 			#endregion
-			//Ignored actor types..
-			if (BlacklistCache.IgnoredActorTypes.Contains(Actortype.Value) && !IsSummonedPet && !IsAvoidance && !IsObstacle)
-			{
-				BlacklistCache.IgnoreThisObject(this, raguid);
-				return false;
-			}
+			
 
 			if (!targetType.HasValue)
 			{
