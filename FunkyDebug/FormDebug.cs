@@ -1027,7 +1027,7 @@ namespace FunkyDebug
 							string attributes="";
 							foreach (ActorAttributeType aType in Enum.GetValues(typeof(ActorAttributeType)))
 							{
-								var iType = o.GetAttribute<float>(aType);
+								var iType = o.GetAttribute<int>(aType);
 								if (iType > 0)
 								{
 									attributes += aType.ToString() + "=" + iType.ToString() + ", ";

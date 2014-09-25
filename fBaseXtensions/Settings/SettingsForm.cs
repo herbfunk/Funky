@@ -1754,7 +1754,7 @@ namespace fBaseXtensions.Settings
 
 				listBox_GemUpgrading_PriorityList.Items[selectedIndex-1] = SelectedItemString;
 				listBox_GemUpgrading_PriorityList.Items[selectedIndex] = moveDownItem;
-
+				listBox_GemUpgrading_PriorityList.SelectedIndex = selectedIndex - 1;
 
 				FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList[selectedIndex - 1] = enumSelectedValue;
 				FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList[selectedIndex] = enummoveDownItemValue;
@@ -1775,7 +1775,7 @@ namespace fBaseXtensions.Settings
 
 				listBox_GemUpgrading_PriorityList.Items[selectedIndex + 1] = SelectedItemString;
 				listBox_GemUpgrading_PriorityList.Items[selectedIndex] = moveUpItem;
-
+				listBox_GemUpgrading_PriorityList.SelectedIndex = selectedIndex + 1;
 
 				FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList[selectedIndex + 1] = enumSelectedValue;
 				FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList[selectedIndex] = enummoveUpItemValue;

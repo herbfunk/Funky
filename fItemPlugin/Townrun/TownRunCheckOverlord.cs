@@ -42,7 +42,7 @@ namespace fItemPlugin.Townrun
 					}
 					else
 					{
-						if (Backpack.ShouldRepairItems(CharacterSettings.Instance.RepairWhenDurabilityBelow))
+						if (Equipment.ShouldRepairItems(CharacterSettings.Instance.RepairWhenDurabilityBelow))
 						{
 							_checkResult = true;
 							FunkyTownRunPlugin.DBLog.Info("[Funky] Starting Town Run (Items Need Repaired)");

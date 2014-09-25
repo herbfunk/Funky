@@ -54,13 +54,7 @@ namespace fBaseXtensions.Items
 
 		public int DurabilityCurrent { get; set; }
 		public int DurabilityMax { get; set; }
-		public float DurabilityPercent
-		{
-			get
-			{
-				return DurabilityCurrent/DurabilityMax;
-			}
-		}
+		public float DurabilityPercent { get; set; }
 
 		//Plugin Item Properties
 		public PluginBaseItemTypes BaseItemType { get; set; }
@@ -136,8 +130,9 @@ namespace fBaseXtensions.Items
 				ItemStatProperties = new ItemProperties(thesestats);
 
 				//Durability
-				DurabilityCurrent = item.DurabilityCurrent;
-				DurabilityMax = item.DurabilityMax;
+				DurabilityCurrent = item.CurrentDurability;
+				DurabilityMax = item.MaxDurability;
+				DurabilityPercent=item.DurabilityPercent;
 			}
 
 			if (BaseItemType == PluginBaseItemTypes.Gem && ItemType == PluginItemTypes.LegendaryGem)

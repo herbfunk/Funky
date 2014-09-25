@@ -209,6 +209,9 @@
 			this.cb_DeathWaitForPotion = new System.Windows.Forms.CheckBox();
 			this.tabPage17 = new System.Windows.Forms.TabPage();
 			this.groupBox16 = new System.Windows.Forms.GroupBox();
+			this.label32 = new System.Windows.Forms.Label();
+			this.textBox_MaxTieredRiftKey = new System.Windows.Forms.TextBox();
+			this.trackBar_TieredRiftKey = new System.Windows.Forms.TrackBar();
 			this.label19 = new System.Windows.Forms.Label();
 			this.comboBox_GemUpgrading_SuccessRate = new System.Windows.Forms.ComboBox();
 			this.groupBox_PriorityGemUpgrading = new System.Windows.Forms.GroupBox();
@@ -288,9 +291,10 @@
 			this.btn_DumpInventory = new System.Windows.Forms.Button();
 			this.btn_Test = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.trackBar_TieredRiftKey = new System.Windows.Forms.TrackBar();
-			this.textBox_MaxTieredRiftKey = new System.Windows.Forms.TextBox();
-			this.label32 = new System.Windows.Forms.Label();
+			this.btn_gemUpgrading_MoveItemUp = new System.Windows.Forms.Button();
+			this.btn_gemUpgrading_MoveItemDown = new System.Windows.Forms.Button();
+			this.btn_gemUpgrading_RemoveItem = new System.Windows.Forms.Button();
+			this.btn_gemUpgrading_AddItem = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabControl_Combat.SuspendLayout();
@@ -366,6 +370,7 @@
 			this.panel18.SuspendLayout();
 			this.tabPage17.SuspendLayout();
 			this.groupBox16.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.trackBar_TieredRiftKey)).BeginInit();
 			this.groupBox_PriorityGemUpgrading.SuspendLayout();
 			this.contextMenuStrip_GemUpgrading_UnusedGems.SuspendLayout();
 			this.contextMenuStrip_GemUpgrading_PriorityList.SuspendLayout();
@@ -387,7 +392,6 @@
 			this.tabPage15.SuspendLayout();
 			this.tabPage16.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.trackBar_TieredRiftKey)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -2318,6 +2322,34 @@
 			this.groupBox16.TabStop = false;
 			this.groupBox16.Text = "Gem Upgrading";
 			// 
+			// label32
+			// 
+			this.label32.AutoSize = true;
+			this.label32.Location = new System.Drawing.Point(212, 91);
+			this.label32.Name = "label32";
+			this.label32.Size = new System.Drawing.Size(145, 13);
+			this.label32.TabIndex = 6;
+			this.label32.Text = "Maximum Tiered Key Allowed";
+			// 
+			// textBox_MaxTieredRiftKey
+			// 
+			this.textBox_MaxTieredRiftKey.Location = new System.Drawing.Point(393, 107);
+			this.textBox_MaxTieredRiftKey.Name = "textBox_MaxTieredRiftKey";
+			this.textBox_MaxTieredRiftKey.ReadOnly = true;
+			this.textBox_MaxTieredRiftKey.Size = new System.Drawing.Size(100, 20);
+			this.textBox_MaxTieredRiftKey.TabIndex = 5;
+			// 
+			// trackBar_TieredRiftKey
+			// 
+			this.trackBar_TieredRiftKey.Location = new System.Drawing.Point(215, 107);
+			this.trackBar_TieredRiftKey.Maximum = 100;
+			this.trackBar_TieredRiftKey.Minimum = 1;
+			this.trackBar_TieredRiftKey.Name = "trackBar_TieredRiftKey";
+			this.trackBar_TieredRiftKey.Size = new System.Drawing.Size(181, 42);
+			this.trackBar_TieredRiftKey.TabIndex = 4;
+			this.trackBar_TieredRiftKey.TickFrequency = 5;
+			this.trackBar_TieredRiftKey.Value = 1;
+			// 
 			// label19
 			// 
 			this.label19.AutoSize = true;
@@ -2349,13 +2381,17 @@
 			// 
 			// groupBox_PriorityGemUpgrading
 			// 
+			this.groupBox_PriorityGemUpgrading.Controls.Add(this.btn_gemUpgrading_AddItem);
+			this.groupBox_PriorityGemUpgrading.Controls.Add(this.btn_gemUpgrading_RemoveItem);
+			this.groupBox_PriorityGemUpgrading.Controls.Add(this.btn_gemUpgrading_MoveItemDown);
+			this.groupBox_PriorityGemUpgrading.Controls.Add(this.btn_gemUpgrading_MoveItemUp);
 			this.groupBox_PriorityGemUpgrading.Controls.Add(this.label31);
 			this.groupBox_PriorityGemUpgrading.Controls.Add(this.label30);
 			this.groupBox_PriorityGemUpgrading.Controls.Add(this.listBox_GemUpgrading_UnusedGems);
 			this.groupBox_PriorityGemUpgrading.Controls.Add(this.listBox_GemUpgrading_PriorityList);
 			this.groupBox_PriorityGemUpgrading.Location = new System.Drawing.Point(6, 150);
 			this.groupBox_PriorityGemUpgrading.Name = "groupBox_PriorityGemUpgrading";
-			this.groupBox_PriorityGemUpgrading.Size = new System.Drawing.Size(487, 351);
+			this.groupBox_PriorityGemUpgrading.Size = new System.Drawing.Size(536, 351);
 			this.groupBox_PriorityGemUpgrading.TabIndex = 1;
 			this.groupBox_PriorityGemUpgrading.TabStop = false;
 			this.groupBox_PriorityGemUpgrading.Text = "Prioritizing";
@@ -3198,33 +3234,45 @@
 			this.toolTip1.InitialDelay = 1000;
 			this.toolTip1.ReshowDelay = 500;
 			// 
-			// trackBar_TieredRiftKey
+			// btn_gemUpgrading_MoveItemUp
 			// 
-			this.trackBar_TieredRiftKey.Location = new System.Drawing.Point(215, 107);
-			this.trackBar_TieredRiftKey.Maximum = 100;
-			this.trackBar_TieredRiftKey.Minimum = 1;
-			this.trackBar_TieredRiftKey.Name = "trackBar_TieredRiftKey";
-			this.trackBar_TieredRiftKey.Size = new System.Drawing.Size(181, 42);
-			this.trackBar_TieredRiftKey.TabIndex = 4;
-			this.trackBar_TieredRiftKey.TickFrequency = 5;
-			this.trackBar_TieredRiftKey.Value = 1;
+			this.btn_gemUpgrading_MoveItemUp.Location = new System.Drawing.Point(433, 147);
+			this.btn_gemUpgrading_MoveItemUp.Name = "btn_gemUpgrading_MoveItemUp";
+			this.btn_gemUpgrading_MoveItemUp.Size = new System.Drawing.Size(75, 23);
+			this.btn_gemUpgrading_MoveItemUp.TabIndex = 4;
+			this.btn_gemUpgrading_MoveItemUp.Text = "Up";
+			this.btn_gemUpgrading_MoveItemUp.UseVisualStyleBackColor = true;
+			this.btn_gemUpgrading_MoveItemUp.Click += new System.EventHandler(this.moveUpToolStripMenuItem_Click);
 			// 
-			// textBox_MaxTieredRiftKey
+			// btn_gemUpgrading_MoveItemDown
 			// 
-			this.textBox_MaxTieredRiftKey.Location = new System.Drawing.Point(393, 107);
-			this.textBox_MaxTieredRiftKey.Name = "textBox_MaxTieredRiftKey";
-			this.textBox_MaxTieredRiftKey.ReadOnly = true;
-			this.textBox_MaxTieredRiftKey.Size = new System.Drawing.Size(100, 20);
-			this.textBox_MaxTieredRiftKey.TabIndex = 5;
+			this.btn_gemUpgrading_MoveItemDown.Location = new System.Drawing.Point(433, 176);
+			this.btn_gemUpgrading_MoveItemDown.Name = "btn_gemUpgrading_MoveItemDown";
+			this.btn_gemUpgrading_MoveItemDown.Size = new System.Drawing.Size(75, 23);
+			this.btn_gemUpgrading_MoveItemDown.TabIndex = 5;
+			this.btn_gemUpgrading_MoveItemDown.Text = "Down";
+			this.btn_gemUpgrading_MoveItemDown.UseVisualStyleBackColor = true;
+			this.btn_gemUpgrading_MoveItemDown.Click += new System.EventHandler(this.moveDownToolStripMenuItem_Click);
 			// 
-			// label32
+			// btn_gemUpgrading_RemoveItem
 			// 
-			this.label32.AutoSize = true;
-			this.label32.Location = new System.Drawing.Point(212, 91);
-			this.label32.Name = "label32";
-			this.label32.Size = new System.Drawing.Size(145, 13);
-			this.label32.TabIndex = 6;
-			this.label32.Text = "Maximum Tiered Key Allowed";
+			this.btn_gemUpgrading_RemoveItem.Location = new System.Drawing.Point(200, 147);
+			this.btn_gemUpgrading_RemoveItem.Name = "btn_gemUpgrading_RemoveItem";
+			this.btn_gemUpgrading_RemoveItem.Size = new System.Drawing.Size(33, 23);
+			this.btn_gemUpgrading_RemoveItem.TabIndex = 6;
+			this.btn_gemUpgrading_RemoveItem.Text = "<--";
+			this.btn_gemUpgrading_RemoveItem.UseVisualStyleBackColor = true;
+			this.btn_gemUpgrading_RemoveItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+			// 
+			// btn_gemUpgrading_AddItem
+			// 
+			this.btn_gemUpgrading_AddItem.Location = new System.Drawing.Point(200, 176);
+			this.btn_gemUpgrading_AddItem.Name = "btn_gemUpgrading_AddItem";
+			this.btn_gemUpgrading_AddItem.Size = new System.Drawing.Size(33, 23);
+			this.btn_gemUpgrading_AddItem.TabIndex = 7;
+			this.btn_gemUpgrading_AddItem.Text = "-->";
+			this.btn_gemUpgrading_AddItem.UseVisualStyleBackColor = true;
+			this.btn_gemUpgrading_AddItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
 			// 
 			// SettingsForm
 			// 
@@ -3356,6 +3404,7 @@
 			this.tabPage17.PerformLayout();
 			this.groupBox16.ResumeLayout(false);
 			this.groupBox16.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.trackBar_TieredRiftKey)).EndInit();
 			this.groupBox_PriorityGemUpgrading.ResumeLayout(false);
 			this.groupBox_PriorityGemUpgrading.PerformLayout();
 			this.contextMenuStrip_GemUpgrading_UnusedGems.ResumeLayout(false);
@@ -3388,7 +3437,6 @@
 			this.tabPage16.ResumeLayout(false);
 			this.tabPage16.PerformLayout();
 			this.flowLayoutPanel1.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.trackBar_TieredRiftKey)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -3660,6 +3708,10 @@
 		private System.Windows.Forms.Label label32;
 		private System.Windows.Forms.TextBox textBox_MaxTieredRiftKey;
 		private System.Windows.Forms.TrackBar trackBar_TieredRiftKey;
+		private System.Windows.Forms.Button btn_gemUpgrading_AddItem;
+		private System.Windows.Forms.Button btn_gemUpgrading_RemoveItem;
+		private System.Windows.Forms.Button btn_gemUpgrading_MoveItemDown;
+		private System.Windows.Forms.Button btn_gemUpgrading_MoveItemUp;
 		//
 	}
 }
